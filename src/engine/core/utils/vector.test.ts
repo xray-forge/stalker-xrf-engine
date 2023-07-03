@@ -8,7 +8,9 @@ import {
   copyVector,
   createEmptyVector,
   createVector,
+  degreeToRadian,
   distanceBetween2d,
+  radianToDegree,
   subVectors,
   vectorCross,
   vectorRotateY,
@@ -150,5 +152,19 @@ describe("'vector' utils", () => {
     expect(vectorRotateY(MockVector.mock(-0.25, 0.3, 0.45), 10)).toEqual(
       MockVector.create(-0.32434361820317065, 0.3, 0.39975144443876104)
     );
+  });
+
+  it("radianToDegree should correctly convert", () => {
+    expect(radianToDegree(1)).toBe(57.29577951308232);
+    expect(radianToDegree(1000)).toBe(57295.77951308232);
+    expect(radianToDegree(math.pi)).toBe(180);
+    expect(radianToDegree(math.pi * 5)).toBe(900);
+  });
+
+  it("degreeToRadian should correctly convert", () => {
+    expect(degreeToRadian(57.29577951308232)).toBe(1);
+    expect(degreeToRadian(57295.77951308232)).toBe(1000);
+    expect(degreeToRadian(180)).toBe(math.pi);
+    expect(degreeToRadian(900)).toBe(math.pi * 5);
   });
 });

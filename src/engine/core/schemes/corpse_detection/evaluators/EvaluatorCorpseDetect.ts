@@ -3,8 +3,7 @@ import { level, LuabindClass, property_evaluator } from "xray16";
 import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { IReleaseDescriptor, ReleaseBodyManager } from "@/engine/core/managers/world/ReleaseBodyManager";
 import { ISchemeCorpseDetectionState } from "@/engine/core/schemes/corpse_detection";
-import { isObjectWounded } from "@/engine/core/utils/check/check";
-import { isLootableItem } from "@/engine/core/utils/check/is";
+import { isLootableItem, isObjectWounded } from "@/engine/core/utils/object";
 import { communities } from "@/engine/lib/constants/communities";
 import { ClientObject, Optional, TDistance, TNumberId, Vector } from "@/engine/lib/types";
 
@@ -32,7 +31,7 @@ export class EvaluatorCorpseDetect extends property_evaluator {
       return false;
     } else if (this.state.corpse_detection_enabled === false) {
       return false;
-    } else if (isObjectWounded(this.object)) {
+    } else if (isObjectWounded(this.object.id())) {
       return false;
     } else if (this.object.section() === "actor_visual_stalker") {
       return false;

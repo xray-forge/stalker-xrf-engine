@@ -1,7 +1,6 @@
 import { describe, expect, it } from "@jest/globals";
 
 import { LuaArray } from "@/engine/lib/types";
-import { luaTableToArray } from "@/fixtures/lua/mocks/lua_utils";
 import { MockLuaTable } from "@/fixtures/lua/mocks/LuaTable.mock";
 
 describe("'lua' VM mocks to test libraries", () => {
@@ -69,7 +68,7 @@ describe("'lua' VM mocks to test libraries", () => {
 
     expect(example.get(1)).toBe("a");
     expect(example.get(2)).toBe("b");
-    expect(luaTableToArray(example)).toEqual(["a", "b"]);
+    expect(example).toEqualLuaArrays(["a", "b"]);
   });
 
   it("math should be mocked", () => {

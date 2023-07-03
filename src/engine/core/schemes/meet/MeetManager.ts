@@ -6,10 +6,10 @@ import { EStalkerState } from "@/engine/core/objects/state";
 import { AbstractSchemeManager } from "@/engine/core/schemes";
 import { SchemeAbuse } from "@/engine/core/schemes/abuse";
 import { ISchemeMeetState } from "@/engine/core/schemes/meet/ISchemeMeetState";
-import { isBlackScreen, isObjectWounded } from "@/engine/core/utils/check/check";
-import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
+import { isBlackScreen } from "@/engine/core/utils/game";
+import { pickSectionFromCondList } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { isObjectInCombat } from "@/engine/core/utils/object/object_general";
+import { isObjectInCombat, isObjectWounded } from "@/engine/core/utils/object";
 import { captions } from "@/engine/lib/constants/captions";
 import { FALSE, NIL, TRUE } from "@/engine/lib/constants/words";
 import { ClientObject, Optional, StringOptional, TDistance, TName, TSection, TStringId } from "@/engine/lib/types";
@@ -252,7 +252,7 @@ export class MeetManager extends AbstractSchemeManager<ISchemeMeetState> {
     }
 
     // Handle possibility of trading
-    if (isObjectWounded(this.object)) {
+    if (isObjectWounded(this.object.id())) {
       this.isTradingEnabled = false;
     } else {
       const isTradingEnabled: boolean = pickSectionFromCondList(actor, this.object, this.state.trade_enable) === TRUE;

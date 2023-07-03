@@ -1,7 +1,13 @@
 import { alife, game, hit, level } from "xray16";
 
-import { closeLoadMarker, closeSaveMarker, openSaveMarker, registry, SURGE_MANAGER_LTX } from "@/engine/core/database";
-import { openLoadMarker } from "@/engine/core/database/save_markers";
+import {
+  closeLoadMarker,
+  closeSaveMarker,
+  openLoadMarker,
+  openSaveMarker,
+  registry,
+  SURGE_MANAGER_LTX,
+} from "@/engine/core/database";
 import { AbstractCoreManager } from "@/engine/core/managers/base/AbstractCoreManager";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { SimulationBoardManager } from "@/engine/core/managers/interaction/SimulationBoardManager";
@@ -13,21 +19,20 @@ import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundMan
 import { WeatherManager } from "@/engine/core/managers/world/WeatherManager";
 import { AnomalyZoneBinder, SmartTerrain } from "@/engine/core/objects";
 import { Squad } from "@/engine/core/objects/server/squad/Squad";
+import { isBlackScreen } from "@/engine/core/utils/game";
+import { executeConsoleCommand, getConsoleFloatCommand } from "@/engine/core/utils/game/game_console";
+import { createAutoSave } from "@/engine/core/utils/game/game_save";
+import { readTimeFromPacket, writeTimeToPacket } from "@/engine/core/utils/game/game_time";
+import { parseConditionsList, pickSectionFromCondList, TConditionList } from "@/engine/core/utils/ini";
+import { LuaLogger } from "@/engine/core/utils/logging";
 import {
-  isBlackScreen,
+  isArtefact,
   isImmuneToSurge,
   isObjectOnLevel,
+  isStoryObject,
   isSurgeEnabledOnLevel,
-} from "@/engine/core/utils/check/check";
-import { isArtefact, isStoryObject } from "@/engine/core/utils/check/is";
-import { executeConsoleCommand, getConsoleFloatCommand } from "@/engine/core/utils/console";
-import { createAutoSave } from "@/engine/core/utils/game_save";
-import { disableInfo, giveInfo, hasAlifeInfo } from "@/engine/core/utils/info_portion";
-import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
-import { parseConditionsList } from "@/engine/core/utils/ini/parse";
-import { TConditionList } from "@/engine/core/utils/ini/types";
-import { LuaLogger } from "@/engine/core/utils/logging";
-import { readTimeFromPacket, writeTimeToPacket } from "@/engine/core/utils/time";
+} from "@/engine/core/utils/object";
+import { disableInfo, giveInfo, hasAlifeInfo } from "@/engine/core/utils/object/object_info_portion";
 import { createVector } from "@/engine/core/utils/vector";
 import { surgeConfig } from "@/engine/lib/configs/SurgeConfig";
 import { animations } from "@/engine/lib/constants/animation/animations";

@@ -2,8 +2,8 @@ import { AbstractScheme } from "@/engine/core/schemes/base";
 import { ISchemeParticleState } from "@/engine/core/schemes/sr_particle/ISchemeParticleState";
 import { ParticleManager } from "@/engine/core/schemes/sr_particle/ParticleManager";
 import { abort } from "@/engine/core/utils/assertion";
-import { getConfigSwitchConditions } from "@/engine/core/utils/ini/config";
-import { readIniBoolean, readIniNumber, readIniString } from "@/engine/core/utils/ini/read";
+import { getConfigSwitchConditions } from "@/engine/core/utils/ini/ini_config";
+import { readIniBoolean, readIniNumber, readIniString } from "@/engine/core/utils/ini/ini_read";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { ClientObject, EScheme, ESchemeType, IniFile, TName, TSection } from "@/engine/lib/types";
 

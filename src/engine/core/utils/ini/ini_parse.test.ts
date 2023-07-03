@@ -1,0 +1,587 @@
+import { describe, expect, it, jest } from "@jest/globals";
+
+import { registerActor } from "@/engine/core/database";
+import { extern } from "@/engine/core/utils/binding";
+import { pickSectionFromCondList } from "@/engine/core/utils/ini/ini_config";
+import {
+  getSchemeFromSection,
+  parseAllSectionToTable,
+  parseBoneStateDescriptors,
+  parseConditionsList,
+  parseFunctionParams,
+  parseInfoPortions,
+  parseNumbersList,
+  parseParameters,
+  parseSpawnDetails,
+  parseStringOptional,
+  parseStringsList,
+  parseWaypointData,
+  parseWaypointsData,
+  parseWaypointsDataFromList,
+} from "@/engine/core/utils/ini/ini_parse";
+import { IConfigCondition } from "@/engine/core/utils/ini/ini_types";
+import { disableInfo, giveInfo, hasAlifeInfo } from "@/engine/core/utils/object/object_info_portion";
+import { NIL } from "@/engine/lib/constants/words";
+import { ClientObject, Flags32, IniFile, LuaArray } from "@/engine/lib/types";
+import { mockActorClientGameObject, mockClientGameObject, MockFlags32, mockIniFile } from "@/fixtures/xray";
+
+describe("'ini_data' parsing utils", () => {
+  it("'parseStringsList' should correctly parse names array", () => {
+    expect(parseStringsList("a, b, c")).toEqualLuaArrays(["a", "b", "c"]);
+    expect(parseStringsList("a b c")).toEqualLuaArrays(["a", "b", "c"]);
+    expect(parseStringsList("name_1, example_b, name_complex_here")).toEqualLuaArrays([
+      "name_1",
+      "example_b",
+      "name_complex_here",
+    ]);
+    expect(parseStringsList("-1, 2, -3")).toEqualLuaArrays(["-1", "2", "-3"]);
+    expect(parseStringsList("-1 2 -3")).toEqualLuaArrays(["-1", "2", "-3"]);
+    expect(parseStringsList("-1.5 2.255")).toEqualLuaArrays(["-1.5", "2.255"]);
+    expect(parseStringsList("a_b, c_d")).toEqualLuaArrays(["a_b", "c_d"]);
+  });
+
+  it("'parseNumbersList' should correctly parse numbers array", () => {
+    expect(parseNumbersList("1, 2, 3, 4")).toEqualLuaArrays([1, 2, 3, 4]);
+    expect(parseNumbersList("1.5, 2.33, 3.0")).toEqualLuaArrays([1.5, 2.33, 3.0]);
+    expect(parseNumbersList("1.5 2.33 3.0")).toEqualLuaArrays([1.5, 2.33, 3.0]);
+    expect(parseNumbersList("1.5 2.33, 3.0")).toEqualLuaArrays([1.5, 2.33, 3.0]);
+    expect(parseNumbersList("15, 0, -43, 9999")).toEqualLuaArrays([15, 0, -43, 9999]);
+    expect(parseNumbersList("15 0 -43 9999")).toEqualLuaArrays([15, 0, -43, 9999]);
+  });
+
+  it("'parseSpawnDetails' should correctly parse spawn details", () => {
+    expect(parseSpawnDetails("")).toEqualLuaArrays([]);
+    expect(parseSpawnDetails("1,1")).toEqualLuaArrays([
+      {
+        count: 1,
+        probability: 1,
+      },
+    ]);
+    expect(parseSpawnDetails("2, 0.2")).toEqualLuaArrays([
+      {
+        count: 2,
+        probability: 0.2,
+      },
+    ]);
+    expect(parseSpawnDetails("5,0.5,4,0.3")).toEqualLuaArrays([
+      {
+        count: 5,
+        probability: 0.5,
+      },
+      {
+        count: 4,
+        probability: 0.3,
+      },
+    ]);
+  });
+
+  it("'parseParameters' should correctly parse call parameters", () => {
+    expect(parseParameters(NIL)).toEqualLuaArrays([NIL]);
+    expect(parseParameters("abcd")).toEqualLuaArrays(["abcd"]);
+    expect(parseParameters("a|b|c|d")).toEqualLuaArrays(["a", "b", "c", "d"]);
+    expect(parseParameters("a|{+ex_info =some_cb(true:d:1) !is_rainy} abc")).toEqualLuaArrays([
+      "a",
+      "{+ex_info =some_cb(true:d:1) !is_rainy} abc",
+    ]);
+  });
+
+  it("'parseConditionsList' should correctly parse condition lists", () => {
+    // Memo check.
+    expect(parseConditionsList("{+zat_b104_task_end}4,0")).toBe(parseConditionsList("{+zat_b104_task_end}4,0"));
+    expect(parseConditionsList("{+zat_b104_task_end}4,0")).toStrictEqualLuaArrays([
+      { infop_check: { 1: { name: "zat_b104_task_end", required: true } }, infop_set: {}, section: "4" },
+      { infop_check: {}, section: "0", infop_set: {} },
+    ]);
+
+    // Check with spacings etc.
+    expect(parseConditionsList("  {   +zat_b104_task_end  +another }   4 ,  0   ")).toStrictEqualLuaArrays([
+      {
+        infop_check: { 1: { name: "zat_b104_task_end", required: true }, 2: { name: "another", required: true } },
+        infop_set: {},
+        section: "4",
+      },
+      { infop_check: {}, section: "0", infop_set: {} },
+    ]);
+
+    expect(parseConditionsList("zat_b28_heli_3_crash_name")).toStrictEqualLuaArrays([
+      { infop_check: {}, section: "zat_b28_heli_3_crash_name", infop_set: {} },
+    ]);
+
+    expect(
+      parseConditionsList(
+        "{+jup_b218_pripyat_group_gathering}0,{+zat_b28_heli_3_searched}4," +
+          "{+zat_b100_heli_2_searched}4,{+zat_b101_heli_5_searched}4,0"
+      )
+    ).toStrictEqualLuaArrays([
+      {
+        infop_check: { 1: { name: "jup_b218_pripyat_group_gathering", required: true } },
+        section: "0",
+        infop_set: {},
+      },
+      { infop_check: { 1: { name: "zat_b28_heli_3_searched", required: true } }, section: "4", infop_set: {} },
+      { infop_check: { 1: { name: "zat_b100_heli_2_searched", required: true } }, section: "4", infop_set: {} },
+      { infop_check: { 1: { name: "zat_b101_heli_5_searched", required: true } }, section: "4", infop_set: {} },
+      { infop_check: {}, section: "0", infop_set: {} },
+    ]);
+
+    expect(
+      parseConditionsList(
+        "{+zat_b57_bloodsucker_lair_clear}0,{+zat_b38_disappearance_stalkers_meet_cop_later_give}1," +
+          "{+zat_b38_failed}3,0"
+      )
+    ).toStrictEqualLuaArrays([
+      { infop_check: { 1: { name: "zat_b57_bloodsucker_lair_clear", required: true } }, section: "0", infop_set: {} },
+      {
+        infop_check: { 1: { name: "zat_b38_disappearance_stalkers_meet_cop_later_give", required: true } },
+        section: "1",
+        infop_set: {},
+      },
+      { infop_check: { 1: { name: "zat_b38_failed", required: true } }, section: "3", infop_set: {} },
+      { infop_check: {}, section: "0", infop_set: {} },
+    ]);
+
+    expect(parseConditionsList("sr_idle@end%=create_squad(zat_b56_polter_squad:zat_b56)%")).toStrictEqualLuaArrays([
+      {
+        infop_check: {},
+        section: "sr_idle@end",
+        infop_set: {
+          1: { func: "create_squad", expected: true, params: { 1: "zat_b56_polter_squad", 2: "zat_b56" } },
+        },
+      },
+    ]);
+
+    expect(
+      parseConditionsList(
+        "{-zat_b42_mayron_spawn}sr_idle%=spawn_corpse(zat_b42_mayron:zat_b42_mayron_walk)+zat_b42_mayron_spawn%"
+      )
+    ).toStrictEqualLuaArrays([
+      {
+        infop_check: { "1": { name: "zat_b42_mayron_spawn", required: false } },
+        section: "sr_idle",
+        infop_set: {
+          "1": { func: "spawn_corpse", expected: true, params: { "1": "zat_b42_mayron", "2": "zat_b42_mayron_walk" } },
+          "2": { name: "zat_b42_mayron_spawn", required: true },
+        },
+      },
+    ]);
+  });
+
+  it("'parseInfoPortions' should correctly parse info", () => {
+    const first: LuaArray<IConfigCondition> = parseInfoPortions(
+      new LuaTable(),
+      "=spawn_corpse(zat_b42_mayron:zat_b42_mayron_walk)+zat_b42_mayron_spawn"
+    );
+
+    expect(first).toEqualLuaTables({
+      "1": {
+        expected: true,
+        func: "spawn_corpse",
+        params: {
+          "1": "zat_b42_mayron",
+          "2": "zat_b42_mayron_walk",
+        },
+      },
+      "2": {
+        name: "zat_b42_mayron_spawn",
+        required: true,
+      },
+    });
+
+    const second: LuaArray<IConfigCondition> = parseInfoPortions(
+      new LuaTable(),
+      "+save_zat_b42_arrived_to_controler_lair =scenario_autosave(st_save_zat_b42_arrived_to_controler_lair)" +
+        " ~50 !another"
+    );
+
+    expect(second).toEqualLuaTables({
+      "1": {
+        name: "save_zat_b42_arrived_to_controler_lair",
+        required: true,
+      },
+      "2": {
+        expected: true,
+        func: "scenario_autosave",
+        params: {
+          "1": "st_save_zat_b42_arrived_to_controler_lair",
+        },
+      },
+      "3": {
+        prob: 50,
+      },
+      "4": {
+        expected: false,
+        func: "another",
+        params: null,
+      },
+    });
+
+    const third: LuaArray<IConfigCondition> = new LuaTable();
+
+    expect(parseInfoPortions(third, null)).toBe(third);
+    expect(parseInfoPortions(third, null)).toEqualLuaTables({});
+  });
+
+  it("'parseFunctionParams' should correctly parse list of parameters for condlists", () => {
+    expect(parseFunctionParams("zat_b42_mayron:zat_b42_mayron_walk")).toEqualLuaArrays([
+      "zat_b42_mayron",
+      "zat_b42_mayron_walk",
+    ]);
+    expect(parseFunctionParams("1:zat_b42_mayron_walk:2")).toEqualLuaArrays([1, "zat_b42_mayron_walk", 2]);
+    expect(parseFunctionParams("1:-2:3.5:-5.5:-2.3a:c")).toEqualLuaArrays([1, -2, 3.5, -5.5, "-2.3a", "c"]);
+  });
+
+  it("'parseWaypointData' should correctly parse generic paths to waypoint data", () => {
+    const flags: Flags32 = MockFlags32.mock();
+
+    expect(parseWaypointData("zat_b53_particle_play_point_5", flags, "wp00")).toEqualLuaTables({ flags });
+    expect(parseWaypointData("zat_b53_particle_play_point_5", flags, "wp02|a=patrol")).toEqualLuaTables({
+      flags,
+      a: {
+        "1": {
+          infop_check: {},
+          infop_set: {},
+          section: "patrol",
+        },
+      },
+    });
+    expect(parseWaypointData("zat_b53_particle_play_point_5", flags, "wp00|p=30|t=10000")).toEqualLuaTables({
+      flags,
+      p: "30",
+      t: "10000",
+    });
+    expect(parseWaypointData("zat_b53_particle_play_point_5", flags, "wp09|p=70|t=10000")).toEqualLuaTables({
+      flags,
+      p: "70",
+      t: "10000",
+    });
+    expect(parseWaypointData("zat_b53_particle_play_point_5", flags, "wp10|t=10000|a=search")).toEqualLuaTables({
+      flags,
+      a: {
+        "1": {
+          infop_check: {},
+          infop_set: {},
+          section: "search",
+        },
+      },
+      t: "10000",
+    });
+  });
+
+  it("'parseWaypointData' should correctly parse generic paths to waypoint data", () => {
+    const flags: Flags32 = MockFlags32.mock();
+
+    expect(parseWaypointsData(null)).toBeNull();
+    expect(parseWaypointsData("zat_b40_smart_terrain_zat_b40_merc_01_walk")).toEqualLuaTables({
+      "0": {
+        a: {
+          "1": {
+            infop_check: {},
+            infop_set: {},
+            section: "patrol",
+          },
+        },
+        flags,
+      },
+      "1": {
+        a: {
+          "1": {
+            infop_check: {},
+            infop_set: {},
+            section: "patrol",
+          },
+        },
+        flags,
+      },
+      "2": {
+        a: {
+          "1": {
+            infop_check: {},
+            infop_set: {},
+            section: "patrol",
+          },
+        },
+        flags,
+      },
+    });
+
+    expect(parseWaypointsData("zat_b40_smart_terrain_zat_b40_merc_02_look")).toEqualLuaTables({
+      "0": {
+        flags: {},
+        p: "30",
+        t: "10000",
+      },
+      "1": {
+        flags: {},
+        p: "70",
+        t: "10000",
+      },
+      "2": {
+        flags: {},
+        p: "30",
+        t: "10000",
+      },
+      "3": {
+        flags: {},
+        p: "50",
+        t: "10000",
+      },
+      "4": {
+        a: {
+          "1": {
+            infop_check: {},
+            infop_set: {},
+            section: "search",
+          },
+        },
+        flags: {},
+        t: "10000",
+      },
+    });
+  });
+
+  it("'parseWaypointsDataFromList' should correctly parse generic paths to waypoint data", () => {
+    const flags: Flags32 = MockFlags32.mock();
+
+    expect(
+      parseWaypointsDataFromList(
+        "zat_b40_smart_terrain_zat_b40_merc_01_walk",
+        3,
+        [0, "wp55|a=patrol"],
+        [1, "wp66|a=patrol"],
+        [2, "wp77|a=patrol"]
+      )
+    ).toEqualLuaArrays([
+      {
+        a: {
+          "1": {
+            infop_check: {},
+            infop_set: {},
+            section: "patrol",
+          },
+        },
+        flags,
+      },
+      {
+        a: {
+          "1": {
+            infop_check: {},
+            infop_set: {},
+            section: "patrol",
+          },
+        },
+        flags,
+      },
+      {
+        a: {
+          "1": {
+            infop_check: {},
+            infop_set: {},
+            section: "patrol",
+          },
+        },
+        flags,
+      },
+    ]);
+  });
+
+  it("'parseBoneStateDescriptors' should correctly parse bones data", () => {
+    expect(
+      parseBoneStateDescriptors(
+        "4|ph_door@open_2 %+lx8_toilet_door_open_again%|2|ph_door@open_2 %+lx8_toilet_door_open_again%"
+      )
+    ).toEqualLuaArrays([
+      { index: 4, state: parseConditionsList("ph_door@open_2 %+lx8_toilet_door_open_again%") },
+      { index: 2, state: parseConditionsList("ph_door@open_2 %+lx8_toilet_door_open_again%") },
+    ]);
+    expect(parseBoneStateDescriptors("1|ph_door@free|2|ph_door@free")).toEqualLuaArrays([
+      { index: 1, state: parseConditionsList("ph_door@free") },
+      { index: 2, state: parseConditionsList("ph_door@free") },
+    ]);
+  });
+
+  it("'pickSectionFromCondList' should correctly throw on unexpected callbacks", () => {
+    const actor: ClientObject = mockActorClientGameObject();
+    const target: ClientObject = mockClientGameObject();
+
+    registerActor(actor);
+
+    expect(() => pickSectionFromCondList(actor, target, parseConditionsList("{=not_existing_cb}simple"))).toThrow();
+    expect(() => {
+      pickSectionFromCondList(actor, target, parseConditionsList("simple%=not_existing_cb(a|b)%"));
+    }).toThrow();
+  });
+
+  it("pickSectionFromCondList should correctly check probability", () => {
+    const actor: ClientObject = mockActorClientGameObject();
+    const target: ClientObject = mockClientGameObject();
+
+    registerActor(actor);
+
+    jest.spyOn(math, "random").mockImplementation(() => 50);
+
+    expect(pickSectionFromCondList(actor, target, parseConditionsList("{~10}a,{~100}b, c"))).toBe("b");
+    expect(pickSectionFromCondList(actor, target, parseConditionsList("{~10}a,{~10}b, c"))).toBe("c");
+    expect(pickSectionFromCondList(actor, target, parseConditionsList("{~10}a,{~1000}b, c"))).toBe("b");
+    expect(pickSectionFromCondList(actor, target, parseConditionsList("{~100}a,{~1000}b, c"))).toBe("a");
+    expect(pickSectionFromCondList(actor, target, parseConditionsList("{~40}a,{~50}b, c"))).toBe("b");
+
+    jest.spyOn(math, "random").mockImplementation(() => 70);
+
+    expect(pickSectionFromCondList(actor, target, parseConditionsList("{~60}a,{~50}b, {~75}c, d"))).toBe("c");
+  });
+
+  it("'pickSectionFromCondList' should correctly check condition callbacks and call effects", () => {
+    const actor: ClientObject = mockActorClientGameObject();
+    const target: ClientObject = mockClientGameObject();
+
+    registerActor(actor);
+
+    const firstEffect = jest.fn();
+    const secondEffect = jest.fn();
+    const thirdEffect = jest.fn();
+
+    extern("xr_effects.first", firstEffect);
+    extern("xr_effects.second", secondEffect);
+    extern("xr_effects.third", secondEffect);
+
+    const firstCondition = jest.fn(() => true);
+    const secondCondition = jest.fn(() => false);
+
+    extern("xr_conditions.first", firstCondition);
+    extern("xr_conditions.second", secondCondition);
+
+    expect(pickSectionFromCondList(actor, target, parseConditionsList("{=first !second}a,b"))).toBe("a");
+    expect(pickSectionFromCondList(actor, target, parseConditionsList("{!first !second}a,b"))).toBe("b");
+    expect(pickSectionFromCondList(actor, target, parseConditionsList("{!first =second}a,b"))).toBe("b");
+    expect(pickSectionFromCondList(actor, target, parseConditionsList("{=first =second}a,b"))).toBe("b");
+
+    expect(pickSectionFromCondList(actor, target, parseConditionsList("{=first !second}a%=first(a:1)%,b"))).toBe("a");
+    expect(pickSectionFromCondList(actor, target, parseConditionsList("{!first !second}a,b%=second%"))).toBe("b");
+    expect(pickSectionFromCondList(actor, target, parseConditionsList("{!first =second}a%=third%,b"))).toBe("b");
+
+    expect(firstEffect.mock.calls[0]).toEqualLuaArrays([actor, target, { "1": "a", "2": 1 }]);
+    expect(secondEffect).toHaveBeenCalledWith(actor, target, null);
+    expect(thirdEffect).not.toHaveBeenCalled();
+  });
+
+  it("'pickSectionFromCondList' should correctly pick and process info from list", () => {
+    const actor: ClientObject = mockActorClientGameObject();
+    const target: ClientObject = mockClientGameObject();
+
+    registerActor(actor);
+
+    expect(pickSectionFromCondList(actor, target, parseConditionsList("simple"))).toBe("simple");
+    expect(
+      pickSectionFromCondList(
+        actor,
+        target,
+        parseConditionsList("{+test_info -unexpected_info} simple %+another_info -available_info%, fallback")
+      )
+    ).toBe("fallback");
+
+    giveInfo("available_info");
+    giveInfo("test_info");
+    giveInfo("unexpected_info");
+
+    expect(
+      pickSectionFromCondList(
+        actor,
+        target,
+        parseConditionsList("{+test_info -unexpected_info} simple %+another_info -available_info%, fallback")
+      )
+    ).toBe("fallback");
+
+    disableInfo("unexpected_info");
+
+    expect(hasAlifeInfo("test_info")).toBe(true);
+    expect(hasAlifeInfo("unexpected_info")).toBe(false);
+    expect(hasAlifeInfo("available_info")).toBe(true);
+    expect(
+      pickSectionFromCondList(
+        actor,
+        target,
+        parseConditionsList("{+test_info -unexpected_info} simple %+another_info -available_info%, fallback")
+      )
+    ).toBe("simple ");
+
+    expect(hasAlifeInfo("another_info")).toBe(true);
+    expect(hasAlifeInfo("available_info")).toBe(false);
+  });
+
+  it("'pickSectionFromCondList' should correctly handle combination of all factors", () => {
+    const actor: ClientObject = mockActorClientGameObject();
+    const target: ClientObject = mockClientGameObject();
+
+    registerActor(actor);
+    giveInfo("test_info");
+
+    jest.spyOn(math, "random").mockImplementation(() => 50);
+
+    const firstEffect = jest.fn();
+    const firstCondition = jest.fn(() => true);
+    const secondCondition = jest.fn(() => false);
+
+    extern("xr_effects.first", firstEffect);
+    extern("xr_conditions.first", firstCondition);
+    extern("xr_conditions.second", secondCondition);
+
+    expect(
+      pickSectionFromCondList(
+        actor,
+        target,
+        parseConditionsList(
+          "{+test_info -unexpected_info =first !second ~45}a,{+test_info +unexpected_info ~60}b," +
+            "{+test_info -unexpected_info =first =second}c,{+test_info -unexpected_info =first !second ~51}d,e"
+        )
+      )
+    ).toBe("d");
+  });
+
+  it("'parseAllSectionToTable' should correctly parse ini section to matching lua table", () => {
+    const ini: IniFile = mockIniFile("example.ltx", {
+      section1: {
+        a: "a1",
+        b: "b2",
+        "": "",
+        " ": "",
+        c: "c",
+        d: "10",
+      },
+      section2: {
+        a: "a1",
+        " ": "",
+        d: "10",
+      },
+    });
+
+    expect(parseAllSectionToTable(ini, "section1")).toEqualLuaTables({
+      a: "a1",
+      b: "b2",
+      c: "c",
+      d: 10,
+    });
+    expect(parseAllSectionToTable(ini, "section2")).toEqualLuaTables({
+      a: "a1",
+      d: 10,
+    });
+    expect(parseAllSectionToTable(ini, "section3")).toBeNull();
+    expect(parseAllSectionToTable(ini, "section4")).toBeNull();
+  });
+
+  it("'parseStringOptional' should correctly handle values", () => {
+    expect(parseStringOptional(NIL)).toBeNull();
+    expect(parseStringOptional("nil")).toBeNull();
+    expect(parseStringOptional("null")).toBe("null");
+    expect(parseStringOptional("test")).toBe("test");
+    expect(parseStringOptional("12345")).toBe("12345");
+  });
+
+  it("'getSchemeFromSection' should correctly return scheme", () => {
+    expect(getSchemeFromSection("test")).toBe("test");
+    expect(getSchemeFromSection("test@example")).toBe("test");
+    expect(getSchemeFromSection("combat@first")).toBe("combat");
+    expect(getSchemeFromSection("")).toBeNull();
+    expect(getSchemeFromSection("@")).toBeNull();
+    expect(getSchemeFromSection("@abc")).toBeNull();
+  });
+});

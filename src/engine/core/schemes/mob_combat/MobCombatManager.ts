@@ -1,7 +1,7 @@
 import { registry } from "@/engine/core/database";
 import { AbstractSchemeManager } from "@/engine/core/schemes";
 import { ISchemeMobCombatState } from "@/engine/core/schemes/mob_combat/ISchemeMobCombatState";
-import { trySwitchToAnotherSection } from "@/engine/core/utils/scheme/switch";
+import { trySwitchToAnotherSection } from "@/engine/core/utils/scheme/scheme_switch";
 
 /**
  * todo;

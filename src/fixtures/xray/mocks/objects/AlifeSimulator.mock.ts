@@ -17,6 +17,10 @@ export class MockAlifeSimulator {
     delete MockAlifeSimulator.registry[id];
   }
 
+  public static getFromRegistry<T extends ServerObject = ServerObject>(id: number): Optional<T> {
+    return (MockAlifeSimulator.registry[id] as T) || null;
+  }
+
   public static getInstance(): MockAlifeSimulator {
     if (!MockAlifeSimulator.simulator) {
       MockAlifeSimulator.simulator = new MockAlifeSimulator();
@@ -32,6 +36,8 @@ export class MockAlifeSimulator {
   public create = jest.fn(() => {});
 
   public create_ammo = jest.fn(() => {});
+
+  public level_name = jest.fn(() => "pripyat");
 
   public release = jest.fn((object: ServerObject) => {
     MockAlifeSimulator.removeFromRegistry(object.id);

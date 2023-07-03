@@ -15,7 +15,6 @@ export interface ISchemeWoundedState extends IBaseSchemeState {
   hp_victim: LuaArray<any>;
   hp_cover: LuaArray<any>;
   hp_fight: LuaArray<any>;
-  syndata: LuaArray<any>;
   help_start_dialog: Optional<string>;
   use_medkit: Optional<boolean>;
   help_dialog: TNumberId;

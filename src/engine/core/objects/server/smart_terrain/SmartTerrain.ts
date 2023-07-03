@@ -55,7 +55,7 @@ import {
   TSimulationObject,
 } from "@/engine/core/objects/server/types";
 import { abort, assert, assertDefined } from "@/engine/core/utils/assertion";
-import { isMonster, isStalker } from "@/engine/core/utils/check/is";
+import { readTimeFromPacket, writeTimeToPacket } from "@/engine/core/utils/game/game_time";
 import {
   getSchemeFromSection,
   IConfigSwitchCondition,
@@ -68,7 +68,7 @@ import {
   TConditionList,
 } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { areObjectsOnSameLevel } from "@/engine/core/utils/object/object_general";
+import { areObjectsOnSameLevel, isMonster, isStalker } from "@/engine/core/utils/object";
 import { ERelation } from "@/engine/core/utils/relation";
 import {
   activateSchemeBySection,
@@ -78,7 +78,6 @@ import {
   switchObjectSchemeToSection,
 } from "@/engine/core/utils/scheme";
 import { getTableSize, isEmpty } from "@/engine/core/utils/table";
-import { readTimeFromPacket, writeTimeToPacket } from "@/engine/core/utils/time";
 import { toJSON } from "@/engine/core/utils/transform/json";
 import { gameConfig } from "@/engine/lib/configs/GameConfig";
 import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";

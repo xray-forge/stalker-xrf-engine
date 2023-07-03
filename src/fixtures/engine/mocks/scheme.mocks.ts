@@ -1,5 +1,5 @@
 import { AbstractSchemeManager, IBaseSchemeLogic, IBaseSchemeState } from "@/engine/core/schemes";
-import { IConfigSwitchCondition, TConditionList } from "@/engine/core/utils/ini/types";
+import { IConfigSwitchCondition, TConditionList } from "@/engine/core/utils/ini/ini_types";
 import { ClientObject, EScheme } from "@/engine/lib/types";
 import { MockLuaTable } from "@/fixtures/lua";
 import { mockIniFile } from "@/fixtures/xray/mocks/ini";
@@ -43,6 +43,17 @@ export function mockCondition(base: Partial<IConfigSwitchCondition> = {}): IConf
     infop_check: base.infop_check || new LuaTable(),
     infop_set: base.infop_check || new LuaTable(),
   };
+}
+
+/**
+ * Mock generic switch condition.
+ */
+export function mockSwitchCondition({
+  section = "test-section",
+  infop_check = new LuaTable(),
+  infop_set = new LuaTable(),
+}: Partial<IConfigSwitchCondition>): IConfigSwitchCondition {
+  return { infop_check, infop_set, section };
 }
 
 /**

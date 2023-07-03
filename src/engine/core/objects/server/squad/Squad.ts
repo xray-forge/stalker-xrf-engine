@@ -12,6 +12,7 @@ import {
 import {
   closeLoadMarker,
   closeSaveMarker,
+  openLoadMarker,
   openSaveMarker,
   registerObjectStoryLinks,
   registry,
@@ -21,7 +22,6 @@ import {
   SQUAD_BEHAVIOURS_LTX,
   SYSTEM_INI,
 } from "@/engine/core/database";
-import { openLoadMarker } from "@/engine/core/database/save_markers";
 import {
   registerSimulationObject,
   unregisterSimulationObject,
@@ -42,8 +42,6 @@ import {
 } from "@/engine/core/objects/server/types";
 import { StoryManager } from "@/engine/core/objects/sounds/stories";
 import { abort, assertDefined } from "@/engine/core/utils/assertion";
-import { isSquadMonsterCommunity } from "@/engine/core/utils/check/is";
-import { hasAlifeInfo } from "@/engine/core/utils/info_portion";
 import {
   parseConditionsList,
   parseStringsList,
@@ -55,15 +53,13 @@ import {
   TConditionList,
 } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { areObjectsOnSameLevel } from "@/engine/core/utils/object/object_general";
+import { areObjectsOnSameLevel, hasAlifeInfo, isSquadMonsterCommunity } from "@/engine/core/utils/object";
 import {
   areCommunitiesEnemies,
   ERelation,
   getSquadMembersRelationToActor,
   getSquadMembersRelationToActorSafe,
-  setClientObjectRelation,
   setObjectSympathy,
-  setServerObjectRelation,
 } from "@/engine/core/utils/relation";
 import { isEmpty } from "@/engine/core/utils/table";
 import { gameConfig } from "@/engine/lib/configs/GameConfig";
@@ -730,7 +726,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
       areObjectsOnSameLevel(serverObject, alife().actor()) &&
       spawnPosition.distance_to_sqr(alife().actor().position) <= alife().switch_distance() * alife().switch_distance()
     ) {
-      // todo: Delete also, same as with stalkers and monsters??? Memory leak probable
+      // todo: Delete also, same as with stalkers and monsters?
       registry.spawnedVertexes.set(serverObject.id, lvi);
     }
 

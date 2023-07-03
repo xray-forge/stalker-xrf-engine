@@ -9,7 +9,7 @@ import { IAnimpointAction } from "@/engine/core/schemes/animpoint/types";
 import { ISchemeEventHandler } from "@/engine/core/schemes/base";
 import { CampStoryManager } from "@/engine/core/schemes/camper/CampStoryManager";
 import { ISchemeWalkerState } from "@/engine/core/schemes/walker";
-import { parseWaypointsData } from "@/engine/core/utils/ini/parse";
+import { parseWaypointsData } from "@/engine/core/utils/ini/ini_parse";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { ClientObject, Optional } from "@/engine/lib/types";
 

@@ -20,6 +20,7 @@ export class MockActionPlanner extends MockLuabindClass {
   public evaluators: Record<TNumberId, PropertyEvaluator> = {};
   public actions: Record<TNumberId, ActionBase> = {};
   public goalWorldState: Optional<WorldState> = null;
+  public currentActionId: Optional<TNumberId> = null;
 
   public isInitialized: boolean = false;
 
@@ -47,6 +48,10 @@ export class MockActionPlanner extends MockLuabindClass {
     }
 
     this.actions[id] = actionBase;
+  }
+
+  public current_action_id(): Optional<TNumberId> {
+    return this.currentActionId;
   }
 
   public set_goal_world_state(state: WorldState): void {

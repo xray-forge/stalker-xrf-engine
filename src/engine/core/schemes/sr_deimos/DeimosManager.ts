@@ -6,7 +6,7 @@ import { ActorBinder } from "@/engine/core/objects/binders/creature/ActorBinder"
 import { AbstractSchemeManager } from "@/engine/core/schemes";
 import { ISchemeDeimosState } from "@/engine/core/schemes/sr_deimos/ISchemeDeimosState";
 import { clampNumber } from "@/engine/core/utils/number";
-import { trySwitchToAnotherSection } from "@/engine/core/utils/scheme/switch";
+import { trySwitchToAnotherSection } from "@/engine/core/utils/scheme/scheme_switch";
 import { AnyObject, ClientObject, Optional, TIndex, TNumberId, TRate, TTimestamp, Vector } from "@/engine/lib/types";
 
 /**

@@ -1,13 +1,22 @@
 import { callback, ini_file, LuabindClass, object_binder, sound_object } from "xray16";
 
-import { closeLoadMarker, closeSaveMarker, openSaveMarker, registry, resetObject } from "@/engine/core/database";
+import {
+  closeLoadMarker,
+  closeSaveMarker,
+  openLoadMarker,
+  openSaveMarker,
+  registry,
+  resetObject,
+} from "@/engine/core/database";
 import { registerDoor, unregisterDoor } from "@/engine/core/database/doors";
 import { loadObjectLogic, saveObjectLogic } from "@/engine/core/database/logic";
-import { openLoadMarker } from "@/engine/core/database/save_markers";
-import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
-import { parseConditionsList } from "@/engine/core/utils/ini/parse";
-import { readIniNumber, readIniString } from "@/engine/core/utils/ini/read";
-import { TConditionList } from "@/engine/core/utils/ini/types";
+import {
+  parseConditionsList,
+  pickSectionFromCondList,
+  readIniNumber,
+  readIniString,
+  TConditionList,
+} from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { NIL, TRUE } from "@/engine/lib/constants/words";
 import {

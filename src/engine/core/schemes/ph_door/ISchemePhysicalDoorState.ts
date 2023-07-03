@@ -1,6 +1,6 @@
 import type { IBaseSchemeState } from "@/engine/core/schemes/base";
-import type { IConfigSwitchConditionsDescriptor, TConditionList } from "@/engine/core/utils/ini/types";
-import type { LuaArray, Optional, TDistance, TLabel } from "@/engine/lib/types";
+import type { IBoneStateDescriptor, IConfigSwitchConditionsDescriptor } from "@/engine/core/utils/ini/ini_types";
+import type { LuaArray, Optional, TLabel } from "@/engine/lib/types";
 
 /**
  * todo;
@@ -20,8 +20,5 @@ export interface ISchemePhysicalDoorState extends IBaseSchemeState {
   snd_close_stop: string;
   script_used_more_than_once: Optional<boolean>;
   on_use: Optional<IConfigSwitchConditionsDescriptor>;
-  hit_on_bone: LuaArray<{
-    dist: Optional<TDistance>;
-    state: Optional<TConditionList>;
-  }>;
+  hit_on_bone: LuaArray<IBoneStateDescriptor>;
 }

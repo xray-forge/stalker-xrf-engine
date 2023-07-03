@@ -1,5 +1,5 @@
 import { IBaseSchemeState } from "@/engine/core/schemes/base";
-import { IConfigSwitchConditionsDescriptor } from "@/engine/core/utils/ini/types";
+import { IConfigSwitchConditionsDescriptor } from "@/engine/core/utils/ini/ini_types";
 import { Optional, TLabel } from "@/engine/lib/types";
 
 /**

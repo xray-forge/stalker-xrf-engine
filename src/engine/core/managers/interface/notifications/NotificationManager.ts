@@ -28,10 +28,9 @@ import {
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import { Stalker } from "@/engine/core/objects";
 import { abort, assert } from "@/engine/core/utils/assertion";
-import { isHeavilyWounded } from "@/engine/core/utils/check/check";
-import { isStalkerClassId } from "@/engine/core/utils/check/is";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { getInventoryNameForItemSection } from "@/engine/core/utils/spawn";
+import { isObjectWounded, isStalkerClassId } from "@/engine/core/utils/object";
+import { getInventoryNameForItemSection } from "@/engine/core/utils/object/object_spawn";
 import { captions, TCaption } from "@/engine/lib/constants/captions/captions";
 import { scriptSounds } from "@/engine/lib/constants/sound/script_sounds";
 import { textures, TTexture } from "@/engine/lib/constants/textures";
@@ -262,7 +261,7 @@ export class NotificationManager extends AbstractCoreManager {
 
         if (serverObject !== null) {
           // Check if sender is not wounded.
-          if (serverObject.online && isHeavilyWounded(serverObject.id)) {
+          if (serverObject.online && isObjectWounded(serverObject.id)) {
             return logger.info("Cannot send tip, npc is wounded");
           }
 

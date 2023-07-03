@@ -3,8 +3,8 @@ import { level, LuabindClass, property_evaluator } from "xray16";
 import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { ISchemeHelpWoundedState } from "@/engine/core/schemes/help_wounded";
 import { ISchemeWoundedState } from "@/engine/core/schemes/wounded";
-import { isObjectWounded } from "@/engine/core/utils/check/check";
 import { LuaLogger } from "@/engine/core/utils/logging";
+import { isObjectWounded } from "@/engine/core/utils/object";
 import { communities } from "@/engine/lib/constants/communities";
 import { ClientObject, EScheme, TDistance, TNumberId, Vector } from "@/engine/lib/types";
 
@@ -43,7 +43,7 @@ export class EvaluatorWoundedExist extends property_evaluator {
       return false;
     }
 
-    if (isObjectWounded(object)) {
+    if (isObjectWounded(object.id())) {
       return false;
     } else if (object.section() === "actor_visual_stalker") {
       return false;
@@ -61,7 +61,7 @@ export class EvaluatorWoundedExist extends property_evaluator {
 
       if (
         object.see(visibleObject) &&
-        isObjectWounded(visibleObject) &&
+        isObjectWounded(visibleObject.id()) &&
         (visibleObjectState.wounded_already_selected === null ||
           visibleObjectState.wounded_already_selected === objectId) &&
         visibleObject.alive()

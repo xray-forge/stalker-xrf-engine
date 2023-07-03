@@ -2,7 +2,7 @@ import { hit, patrol } from "xray16";
 
 import { AbstractSchemeManager } from "@/engine/core/schemes";
 import { ISchemePhysicalHitState } from "@/engine/core/schemes/ph_hit/ISchemePhysicalHitState";
-import { trySwitchToAnotherSection } from "@/engine/core/utils/scheme/switch";
+import { trySwitchToAnotherSection } from "@/engine/core/utils/scheme/scheme_switch";
 import { copyVector } from "@/engine/core/utils/vector";
 import { Hit, Vector } from "@/engine/lib/types";
 

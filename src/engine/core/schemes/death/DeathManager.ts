@@ -1,7 +1,7 @@
 import { registry } from "@/engine/core/database";
 import { AbstractSchemeManager } from "@/engine/core/schemes";
 import { ISchemeDeathState } from "@/engine/core/schemes/death/ISchemeDeathState";
-import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
+import { pickSectionFromCondList } from "@/engine/core/utils/ini/ini_config";
 import { ClientObject, EScheme, Optional } from "@/engine/lib/types";
 
 /**

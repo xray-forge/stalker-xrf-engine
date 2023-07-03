@@ -3,20 +3,25 @@ import { alife, ini_file, LuabindClass, object_binder, patrol } from "xray16";
 import {
   closeLoadMarker,
   closeSaveMarker,
+  openLoadMarker,
   openSaveMarker,
   registerAnomalyZone,
   registry,
   resetObject,
   unregisterAnomalyZone,
 } from "@/engine/core/database";
-import { openLoadMarker } from "@/engine/core/database/save_markers";
 import { MapDisplayManager } from "@/engine/core/managers/interface/MapDisplayManager";
 import { AnomalyFieldBinder } from "@/engine/core/objects/binders/zones/AnomalyFieldBinder";
 import { abort, assertDefined } from "@/engine/core/utils/assertion";
-import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
-import { parseConditionsList, parseNumbersList, parseStringsList } from "@/engine/core/utils/ini/parse";
-import { readIniNumber, readIniString } from "@/engine/core/utils/ini/read";
-import { TConditionList } from "@/engine/core/utils/ini/types";
+import {
+  parseConditionsList,
+  parseNumbersList,
+  parseStringsList,
+  pickSectionFromCondList,
+  readIniNumber,
+  readIniString,
+  TConditionList,
+} from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { MAX_U8 } from "@/engine/lib/constants/memory";
 import {

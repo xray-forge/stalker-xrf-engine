@@ -4,11 +4,14 @@ import { getObjectByStoryId, registry } from "@/engine/core/database";
 import { AbstractSchemeManager } from "@/engine/core/schemes/base";
 import { ISchemeMinigunState } from "@/engine/core/schemes/ph_minigun/ISchemeMinigunState";
 import { abort } from "@/engine/core/utils/assertion";
-import { isHeavilyWounded } from "@/engine/core/utils/check/check";
-import { isActiveSection } from "@/engine/core/utils/check/is";
 import { pickSectionFromCondList, TConditionList } from "@/engine/core/utils/ini";
-import { isMonsterScriptCaptured, scriptReleaseMonster } from "@/engine/core/utils/scheme";
-import { switchObjectSchemeToSection, trySwitchToAnotherSection } from "@/engine/core/utils/scheme/switch";
+import { isActiveSection, isObjectWounded } from "@/engine/core/utils/object";
+import {
+  isMonsterScriptCaptured,
+  scriptReleaseMonster,
+  switchObjectSchemeToSection,
+  trySwitchToAnotherSection,
+} from "@/engine/core/utils/scheme";
 import { createEmptyVector, createVector, yaw } from "@/engine/core/utils/vector";
 import { ACTOR, NIL } from "@/engine/lib/constants/words";
 import { Car, ClientObject, Optional, TName, TSection, TStringId, TTimestamp, Vector } from "@/engine/lib/types";
@@ -383,7 +386,7 @@ export class MinigunManager extends AbstractSchemeManager<ISchemeMinigunState> {
             if (this.targetObject!.id() !== registry.actor.id()) {
               if (this.targetObject!.target_body_state() === move.crouch) {
                 this.targetFirePt.y = this.targetFirePt.y + 0.5;
-              } else if (!isHeavilyWounded(this.targetObject!.id())) {
+              } else if (!isObjectWounded(this.targetObject!.id())) {
                 this.targetFirePt.y = this.targetFirePt.y + 1.2;
               } else {
                 this.targetFirePt.y = this.targetFirePt.y + 0.1;

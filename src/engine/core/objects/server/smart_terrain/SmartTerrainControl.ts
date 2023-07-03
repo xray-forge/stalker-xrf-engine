@@ -1,16 +1,15 @@
 import { game } from "xray16";
 
-import { closeLoadMarker, closeSaveMarker, openSaveMarker, registry } from "@/engine/core/database";
-import { openLoadMarker } from "@/engine/core/database/save_markers";
+import { closeLoadMarker, closeSaveMarker, openLoadMarker, openSaveMarker, registry } from "@/engine/core/database";
 import { SimulationBoardManager } from "@/engine/core/managers/interaction/SimulationBoardManager";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain/SmartTerrain";
 import { ESmartTerrainStatus } from "@/engine/core/objects/server/smart_terrain/types";
-import { isWeapon } from "@/engine/core/utils/check/is";
+import { readTimeFromPacket, writeTimeToPacket } from "@/engine/core/utils/game/game_time";
 import { parseConditionsList, pickSectionFromCondList, readIniString, TConditionList } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
+import { isWeapon } from "@/engine/core/utils/object";
 import { ERelation, updateSquadIdRelationToActor } from "@/engine/core/utils/relation";
-import { readTimeFromPacket, writeTimeToPacket } from "@/engine/core/utils/time";
 import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
 import {
   ClientObject,

@@ -1,14 +1,16 @@
-import { AnyObject, Optional } from "@/engine/lib/types";
+import type { AnyObject, LuaArray, Optional } from "@/engine/lib/types";
 import { MockLuaTable } from "@/fixtures/lua/mocks/LuaTable.mock";
 
 /**
- * todo;
+ * Transform lua table to array for easier testing with equals checks.
  */
-export function luaTableToArray<T>(value: LuaTable<number, T>): Array<T> {
+export function luaTableToArray<T = unknown>(value: Optional<LuaArray<T>>): Array<T> {
   if (value instanceof MockLuaTable) {
     return [...(value as unknown as Map<number, T>).values()].map((it) => {
       return mapFromLua<any>(it);
     });
+  } else if (Array.isArray(value)) {
+    return value.map((it) => mapFromLua(it));
   } else {
     throw new Error(`Unexpected type instance provided for casting utility: '${typeof value}'.`);
   }
@@ -29,7 +31,7 @@ export function luaTableToObject(value: Optional<LuaTable | AnyObject | Array<un
       return acc;
     }, {} as AnyObject);
   } else if (Array.isArray(value)) {
-    return value.map((it) => luaTableToObject(value));
+    return value.map((it) => luaTableToObject(it));
   } else if (typeof value === "object") {
     return Object.entries(value).reduce((acc, [key, value]) => {
       acc[key as unknown as string] = luaTableToObject(value);

@@ -113,21 +113,37 @@ export function distanceBetween(first: ClientObject, second: ClientObject): numb
 }
 
 /**
- *
+ * Get graph distance between two vertexes.
  */
-export function graphDistance(vertexId1: TNumberId, vertexId2: TNumberId): TDistance {
-  return game_graph().vertex(vertexId1).game_point().distance_to(game_graph().vertex(vertexId2).game_point());
+export function graphDistance(firstVertexId: TNumberId, secondVertexId: TNumberId): TDistance {
+  return game_graph().vertex(firstVertexId).game_point().distance_to(game_graph().vertex(secondVertexId).game_point());
 }
 
 /**
+ * Get graph distance between two vertexes in sqr.
+ */
+export function graphDistanceSqr(firstVertexId: TNumberId, secondVertexId: TNumberId): TDistance {
+  return game_graph()
+    .vertex(firstVertexId)
+    .game_point()
+    .distance_to_sqr(game_graph().vertex(secondVertexId).game_point());
+}
+
+/**
+ * Covert radians to degrees.
  *
+ * @param radian - value in radians
+ * @returns value in degrees
  */
 export function radianToDegree(radian: number): number {
   return (radian * 180) / math.pi;
 }
 
 /**
+ * Covert degrees to radians.
  *
+ * @param degree - value in degrees
+ * @returns value in radians
  */
 export function degreeToRadian(degree: number): number {
   return (degree * math.pi) / 180;
@@ -222,4 +238,11 @@ export function areSameVectorsByPrecision(first: Vector, second: Vector, eps: TR
   return (
     math.abs(first.x - second.x) <= eps && math.abs(first.y - second.y) <= eps && math.abs(first.z - second.z) <= eps
   );
+}
+
+/**
+ * todo:
+ */
+export function vectorToString(target: Optional<Vector>): Optional<string> {
+  return target === null ? null : string.format("[%s:%s:%s]", target.x, target.y, target.z);
 }

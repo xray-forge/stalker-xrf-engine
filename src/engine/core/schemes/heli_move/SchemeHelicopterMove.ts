@@ -2,8 +2,8 @@ import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { AbstractScheme } from "@/engine/core/schemes/base/AbstractScheme";
 import { HelicopterMoveManager } from "@/engine/core/schemes/heli_move/HelicopterMoveManager";
 import { ISchemeHelicopterMoveState } from "@/engine/core/schemes/heli_move/ISchemeHelicopterMoveState";
-import { getConfigSwitchConditions } from "@/engine/core/utils/ini/config";
-import { readIniBoolean, readIniNumber, readIniString } from "@/engine/core/utils/ini/read";
+import { getConfigSwitchConditions } from "@/engine/core/utils/ini/ini_config";
+import { readIniBoolean, readIniNumber, readIniString } from "@/engine/core/utils/ini/ini_read";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { ClientObject, EScheme, ESchemeType, IniFile, TSection } from "@/engine/lib/types";
 

@@ -8,11 +8,11 @@ import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain/SmartTe
 import { SquadReachTargetAction } from "@/engine/core/objects/server/squad/action";
 import { Squad } from "@/engine/core/objects/server/squad/Squad";
 import { TSimulationObject } from "@/engine/core/objects/server/types";
-import { evaluateSimulationPriority } from "@/engine/core/utils/alife";
 import { abort } from "@/engine/core/utils/assertion";
-import { parseStringsList } from "@/engine/core/utils/ini/parse";
+import { parseStringsList } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { changeTeamSquadGroup } from "@/engine/core/utils/object/object_general";
+import { evaluateSimulationPriority } from "@/engine/core/utils/object/object_alife";
+import { changeTeamSquadGroup } from "@/engine/core/utils/object/object_set";
 import { setSquadRelationToActor } from "@/engine/core/utils/relation";
 import { TCommunity } from "@/engine/lib/constants/communities";
 import { levels, TLevel } from "@/engine/lib/constants/levels";

@@ -6,10 +6,10 @@ import { AbstractSchemeManager } from "@/engine/core/schemes";
 import { ISchemeMobRemarkState } from "@/engine/core/schemes/mob_remark/ISchemeMobRemarkState";
 import { abort } from "@/engine/core/utils/assertion";
 import { getExtern } from "@/engine/core/utils/binding";
-import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
-import { parseStringsList } from "@/engine/core/utils/ini/parse";
-import { action } from "@/engine/core/utils/object/object_general";
-import { scriptCaptureMonster } from "@/engine/core/utils/scheme/monster";
+import { pickSectionFromCondList } from "@/engine/core/utils/ini/ini_config";
+import { parseStringsList } from "@/engine/core/utils/ini/ini_parse";
+import { action } from "@/engine/core/utils/object/object_action";
+import { scriptCaptureMonster } from "@/engine/core/utils/scheme/scheme_monster";
 import { AnyCallablesModule, LuaArray, MonsterBodyStateKey, Optional, TName } from "@/engine/lib/types";
 
 /**

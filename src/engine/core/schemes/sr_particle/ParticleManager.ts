@@ -2,9 +2,9 @@ import { particles_object, patrol, time_global } from "xray16";
 
 import { AbstractSchemeManager } from "@/engine/core/schemes/base";
 import { ISchemeParticleState } from "@/engine/core/schemes/sr_particle/ISchemeParticleState";
-import { parseWaypointsData } from "@/engine/core/utils/ini/parse";
-import { IWaypointData } from "@/engine/core/utils/ini/types";
-import { trySwitchToAnotherSection } from "@/engine/core/utils/scheme/switch";
+import { parseWaypointsData } from "@/engine/core/utils/ini/ini_parse";
+import { IWaypointData } from "@/engine/core/utils/ini/ini_types";
+import { trySwitchToAnotherSection } from "@/engine/core/utils/scheme/scheme_switch";
 import { LuaArray, Optional, Patrol, TCount, TDuration, TTimestamp } from "@/engine/lib/types";
 
 /**

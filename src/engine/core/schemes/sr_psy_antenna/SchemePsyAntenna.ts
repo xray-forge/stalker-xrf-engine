@@ -1,8 +1,8 @@
 import { AbstractScheme } from "@/engine/core/schemes/base/AbstractScheme";
 import { ISchemePsyAntennaState } from "@/engine/core/schemes/sr_psy_antenna/ISchemePsyAntennaState";
 import { PsyAntennaSchemaManager } from "@/engine/core/schemes/sr_psy_antenna/PsyAntennaSchemaManager";
-import { getConfigSwitchConditions } from "@/engine/core/utils/ini/config";
-import { readIniBoolean, readIniNumber, readIniString } from "@/engine/core/utils/ini/read";
+import { getConfigSwitchConditions } from "@/engine/core/utils/ini/ini_config";
+import { readIniBoolean, readIniNumber, readIniString } from "@/engine/core/utils/ini/ini_read";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { postProcessors } from "@/engine/lib/constants/animation/post_processors";
 import { ClientObject, EScheme, ESchemeType, IniFile, TSection } from "@/engine/lib/types";

@@ -2,7 +2,7 @@ import { bit_and, snd_type } from "xray16";
 
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { ESoundType } from "@/engine/lib/constants/sound/sound_type";
-import { TSoundType } from "@/engine/lib/types";
+import { ClientObject, TSoundType } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -62,4 +62,14 @@ export function mapSoundMaskToSoundType(soundMask: TSoundType): ESoundType {
  */
 export function isSoundType(heard: TSoundType, expected: TSoundType): boolean {
   return bit_and(heard, expected) === expected;
+}
+
+/**
+ * todo;
+ */
+export function stopPlayingObjectSound(object: ClientObject): void {
+  if (object.alive()) {
+    object.set_sound_mask(-1);
+    object.set_sound_mask(0);
+  }
 }

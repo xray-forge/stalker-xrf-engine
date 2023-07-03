@@ -2,8 +2,8 @@ import { LuabindClass, property_evaluator, stalker_ids } from "xray16";
 
 import { registry } from "@/engine/core/database";
 import { ISchemeMeetState } from "@/engine/core/schemes/meet";
-import { isObjectWounded } from "@/engine/core/utils/check/check";
 import { LuaLogger } from "@/engine/core/utils/logging";
+import { isObjectWounded } from "@/engine/core/utils/object";
 import { FALSE } from "@/engine/lib/constants/words";
 import { ActionPlanner, ClientObject, Optional } from "@/engine/lib/types";
 
@@ -33,7 +33,7 @@ export class EvaluatorContact extends property_evaluator {
     } else {
       this.state.meetManager.update();
 
-      if (isObjectWounded(this.object)) {
+      if (isObjectWounded(this.object.id())) {
         return false;
       } else if (this.object.best_enemy() !== null) {
         return false;

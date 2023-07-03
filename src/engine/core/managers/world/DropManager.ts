@@ -4,12 +4,19 @@ import { DEATH_GENERIC_LTX, IRegistryObjectState, registry } from "@/engine/core
 import { AbstractCoreManager } from "@/engine/core/managers/base/AbstractCoreManager";
 import { Stalker } from "@/engine/core/objects/server/creature/Stalker";
 import { abort } from "@/engine/core/utils/assertion";
-import { isExcludedFromLootDropItem } from "@/engine/core/utils/check/check";
-import { isAmmoItem, isArtefact, isGrenade, isLootableItem, isWeapon } from "@/engine/core/utils/check/is";
-import { parseNumbersList, parseStringsList } from "@/engine/core/utils/ini/parse";
+import { parseNumbersList, parseStringsList } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { getCharacterCommunity, setItemCondition } from "@/engine/core/utils/object/object_general";
-import { spawnItemsForObject } from "@/engine/core/utils/spawn";
+import {
+  getCharacterCommunity,
+  isAmmoItem,
+  isArtefact,
+  isExcludedFromLootDropItem,
+  isGrenade,
+  isLootableItem,
+  isWeapon,
+  setItemCondition,
+  spawnItemsForObject,
+} from "@/engine/core/utils/object";
 import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
 import { communities, TCommunity } from "@/engine/lib/constants/communities";
 import { TInventoryItem } from "@/engine/lib/constants/items";
@@ -129,24 +136,24 @@ export class DropManager extends AbstractCoreManager {
     const itemsDropCountByDifficulty: TCount = DEATH_GENERIC_LTX.line_count(itemsDropSectionByDifficulty);
 
     for (const it of $range(0, itemsDropCountByDifficulty - 1)) {
-      const [result, id, value] = DEATH_GENERIC_LTX.r_line(itemsDropSectionByDifficulty, it, "", "");
-      const sectionDropCount: [Optional<TProbability>, Optional<TProbability>] = parseNumbersList(value);
+      const [, key, value] = DEATH_GENERIC_LTX.r_line(itemsDropSectionByDifficulty, it, "", "");
+      const sectionDropCount: LuaArray<TProbability> = parseNumbersList(value);
 
-      if (sectionDropCount[0] === null) {
-        abort("Error on [death_ini] declaration. Section [%s], line [%s]", itemsDropSectionByDifficulty, tostring(id));
+      if (!sectionDropCount.has(1)) {
+        abort("Error on [death_ini] declaration. Section [%s], line [%s]", itemsDropSectionByDifficulty, tostring(key));
       }
 
       // Do not drop in level if not registered, declare as 0.
-      if (!this.itemsLevelDropMultiplayer.has(id)) {
-        this.itemsLevelDropMultiplayer.set(id, 0);
+      if (!this.itemsLevelDropMultiplayer.has(key)) {
+        this.itemsLevelDropMultiplayer.set(key, 0);
       }
 
-      const min: TCount = sectionDropCount[0];
-      const max: TCount = sectionDropCount[1] === null ? min : sectionDropCount[1];
+      const min: TCount = sectionDropCount.get(1);
+      const max: TCount = sectionDropCount.has(2) ? sectionDropCount.get(2) : min;
 
-      this.itemsDropCountByLevel.set(id, {
-        min: tonumber(min)! * this.itemsLevelDropMultiplayer.get(id),
-        max: tonumber(max)! * this.itemsLevelDropMultiplayer.get(id),
+      this.itemsDropCountByLevel.set(key, {
+        min: tonumber(min)! * this.itemsLevelDropMultiplayer.get(key),
+        max: tonumber(max)! * this.itemsLevelDropMultiplayer.get(key),
       });
     }
 

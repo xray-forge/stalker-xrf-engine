@@ -4,6 +4,7 @@ import {
   closeLoadMarker,
   closeSaveMarker,
   IRegistryObjectState,
+  openLoadMarker,
   openSaveMarker,
   registerZone,
   registry,
@@ -11,7 +12,6 @@ import {
   unregisterZone,
 } from "@/engine/core/database";
 import { loadObjectLogic, saveObjectLogic } from "@/engine/core/database/logic";
-import { openLoadMarker } from "@/engine/core/database/save_markers";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import { ESchemeEvent } from "@/engine/core/schemes";
 import { LuaLogger } from "@/engine/core/utils/logging";

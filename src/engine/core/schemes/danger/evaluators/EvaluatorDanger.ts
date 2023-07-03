@@ -1,8 +1,8 @@
 import { alife, danger_object, LuabindClass, property_evaluator, stalker_ids, time_global } from "xray16";
 
-import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain/SmartTerrain";
+import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain";
 import { ISchemeDangerState } from "@/engine/core/schemes/danger";
-import { isObjectFacingDanger } from "@/engine/core/utils/check/check";
+import { isObjectFacingDanger } from "@/engine/core/utils/object";
 import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
 import { MAX_U16 } from "@/engine/lib/constants/memory";
 import { ActionPlanner, DangerObject, Optional, ServerCreatureObject, TTimestamp } from "@/engine/lib/types";

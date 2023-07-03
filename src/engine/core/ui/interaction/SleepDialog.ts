@@ -15,8 +15,8 @@ import {
 
 import { registry } from "@/engine/core/database";
 import { SleepManager } from "@/engine/core/managers/interaction/SleepManager";
-import { disableInfo, giveInfo } from "@/engine/core/utils/info_portion";
 import { LuaLogger } from "@/engine/core/utils/logging";
+import { disableInfo, giveInfo } from "@/engine/core/utils/object/object_info_portion";
 import { isWideScreen, resolveXmlFormPath } from "@/engine/core/utils/ui";
 import { gameConfig } from "@/engine/lib/configs/GameConfig";
 import { captions } from "@/engine/lib/constants/captions/captions";

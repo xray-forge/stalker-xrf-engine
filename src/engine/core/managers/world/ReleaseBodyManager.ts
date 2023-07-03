@@ -7,15 +7,15 @@ import {
   DUMMY_LTX,
   getStoryIdByObjectId,
   IRegistryObjectState,
+  openLoadMarker,
   openSaveMarker,
   registry,
 } from "@/engine/core/database";
-import { openLoadMarker } from "@/engine/core/database/save_markers";
 import { AbstractCoreManager } from "@/engine/core/managers/base/AbstractCoreManager";
 import { abort } from "@/engine/core/utils/assertion";
-import { isMonster, isStalker } from "@/engine/core/utils/check/is";
-import { readIniString } from "@/engine/core/utils/ini/read";
+import { readIniString } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
+import { isMonster, isStalker } from "@/engine/core/utils/object";
 import { roots } from "@/engine/lib/constants/roots";
 import {
   ClientObject,

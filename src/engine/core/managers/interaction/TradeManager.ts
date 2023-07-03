@@ -1,12 +1,9 @@
 import { ini_file, time_global } from "xray16";
 
-import { closeLoadMarker, closeSaveMarker, openSaveMarker, registry } from "@/engine/core/database";
-import { openLoadMarker } from "@/engine/core/database/save_markers";
+import { closeLoadMarker, closeSaveMarker, openLoadMarker, openSaveMarker, registry } from "@/engine/core/database";
 import { AbstractCoreManager } from "@/engine/core/managers/base/AbstractCoreManager";
 import { abort, assert } from "@/engine/core/utils/assertion";
-import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
-import { parseConditionsList } from "@/engine/core/utils/ini/parse";
-import { readIniNumber, readIniString } from "@/engine/core/utils/ini/read";
+import { parseConditionsList, pickSectionFromCondList, readIniNumber, readIniString } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import {
   ClientObject,

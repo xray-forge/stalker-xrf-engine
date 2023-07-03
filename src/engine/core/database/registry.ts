@@ -20,6 +20,7 @@ import type { CampStoryManager } from "@/engine/core/schemes/camper";
 import type { PatrolManager } from "@/engine/core/schemes/patrol";
 import type { ReachTaskPatrolManager } from "@/engine/core/schemes/reach_task";
 import type { LightManager } from "@/engine/core/schemes/sr_light";
+import type { TConditionList } from "@/engine/core/utils/ini/ini_types";
 import type { ERelation } from "@/engine/core/utils/relation";
 import { storyNames, TStoryName } from "@/engine/lib/constants/story_names";
 import type {
@@ -59,6 +60,10 @@ export const registry = {
    * List of activated schemes in game.
    */
   schemes: new LuaTable<EScheme, TAbstractSchemeConstructor>(),
+  /**
+   * Memoized condlist for parsing simplification, where key is string data and value is parsed descriptor.
+   */
+  conditionLists: new LuaTable<string, TConditionList>(),
   /**
    * Set of objects in combat with actor.
    */

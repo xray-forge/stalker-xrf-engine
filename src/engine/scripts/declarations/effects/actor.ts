@@ -19,9 +19,9 @@ import { TreasureManager } from "@/engine/core/managers/world/TreasureManager";
 import { Squad } from "@/engine/core/objects";
 import { abort, assert, assertDefined } from "@/engine/core/utils/assertion";
 import { extern } from "@/engine/core/utils/binding";
-import { isActorInZoneWithName } from "@/engine/core/utils/check/check";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { giveItemsToActor } from "@/engine/core/utils/task_reward";
+import { isObjectInZone } from "@/engine/core/utils/object";
+import { giveItemsToActor } from "@/engine/core/utils/object/object_task_reward";
 import { animations } from "@/engine/lib/constants/animation/animations";
 import { detectors, TDetector } from "@/engine/lib/constants/items/detectors";
 import { helmets } from "@/engine/lib/constants/items/helmets";
@@ -416,8 +416,8 @@ extern("xr_effects.sleep", (actor: ClientObject): void => {
     zones.actor_surge_hide_2,
   ]);
 
-  for (const [index, zone] of sleepZones) {
-    if (isActorInZoneWithName(zone, actor)) {
+  for (const [, zone] of sleepZones) {
+    if (isObjectInZone(actor, registry.zones.get(zone))) {
       SleepManager.getInstance().showSleepDialog();
       break;
     }

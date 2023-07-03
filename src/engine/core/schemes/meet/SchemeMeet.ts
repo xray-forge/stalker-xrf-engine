@@ -11,12 +11,10 @@ import { EvaluatorContact } from "@/engine/core/schemes/meet/evaluators";
 import { ISchemeMeetState } from "@/engine/core/schemes/meet/ISchemeMeetState";
 import { MeetManager } from "@/engine/core/schemes/meet/MeetManager";
 import { ISchemeWoundedState } from "@/engine/core/schemes/wounded";
-import { isObjectWounded } from "@/engine/core/utils/check/check";
-import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
-import { parseConditionsList } from "@/engine/core/utils/ini/parse";
-import { readIniString } from "@/engine/core/utils/ini/read";
+import { parseConditionsList, pickSectionFromCondList, readIniString } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { getObjectsRelationSafe } from "@/engine/core/utils/relation/get";
+import { isObjectWounded } from "@/engine/core/utils/object";
+import { getObjectsRelationSafe } from "@/engine/core/utils/relation";
 import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
 import { FALSE, NIL, TRUE } from "@/engine/lib/constants/words";
 import {
@@ -264,7 +262,7 @@ export class SchemeMeet extends AbstractScheme {
    * todo: Description.
    */
   public static updateObjectInteractionAvailability(object: ClientObject): void {
-    if (isObjectWounded(object)) {
+    if (isObjectWounded(object.id())) {
       if (object.relation(registry.actor) === EClientObjectRelation.ENEMY) {
         object.disable_talk();
       } else {

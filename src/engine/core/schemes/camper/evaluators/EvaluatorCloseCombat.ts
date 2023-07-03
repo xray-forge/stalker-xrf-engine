@@ -1,9 +1,9 @@
 import { LuabindClass, property_evaluator, stalker_ids, time_global } from "xray16";
 
-import { EEvaluatorId } from "@/engine/core/schemes";
+import { EEvaluatorId } from "@/engine/core/schemes/base";
 import { ISchemeCamperState } from "@/engine/core/schemes/camper/ISchemeCamperState";
-import { isActiveSection } from "@/engine/core/utils/check/is";
 import { LuaLogger } from "@/engine/core/utils/logging";
+import { isActiveSection } from "@/engine/core/utils/object";
 import { ActionPlanner, Optional } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -17,9 +17,6 @@ export class EvaluatorCloseCombat extends property_evaluator {
   public actionPlanner: Optional<ActionPlanner> = null;
   public isCloseCombat: boolean = false;
 
-  /**
-   * todo: Description.
-   */
   public constructor(state: ISchemeCamperState) {
     super(null, EvaluatorCloseCombat.__name);
     this.state = state;

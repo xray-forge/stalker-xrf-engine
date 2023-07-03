@@ -1,5 +1,5 @@
 import type { IBaseSchemeState } from "@/engine/core/schemes/base";
-import type { IWaypointData } from "@/engine/core/utils/ini/types";
+import type { IWaypointData } from "@/engine/core/utils/ini/ini_types";
 import type { LuaArray, Optional } from "@/engine/lib/types";
 
 /**

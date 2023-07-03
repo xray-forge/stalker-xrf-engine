@@ -3,13 +3,13 @@ import { alife, command_line, LuabindClass, object_binder } from "xray16";
 import {
   closeLoadMarker,
   closeSaveMarker,
+  openLoadMarker,
   openSaveMarker,
   registerObject,
   resetObject,
   unregisterObject,
 } from "@/engine/core/database";
 import { loadObjectLogic, saveObjectLogic } from "@/engine/core/database/logic";
-import { openLoadMarker } from "@/engine/core/database/save_markers";
 import { LevelChanger } from "@/engine/core/objects/server/LevelChanger";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { NetPacket, Reader, ServerObject } from "@/engine/lib/types";

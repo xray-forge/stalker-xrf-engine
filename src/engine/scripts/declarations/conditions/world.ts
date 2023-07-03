@@ -7,7 +7,7 @@ import { SmartTerrain, SmartTerrainControl } from "@/engine/core/objects";
 import { ESmartTerrainStatus } from "@/engine/core/objects/server/smart_terrain/types";
 import { abort } from "@/engine/core/utils/assertion";
 import { extern } from "@/engine/core/utils/binding";
-import { anomalyHasArtefact } from "@/engine/core/utils/object/object_general";
+import { anomalyHasArtefact } from "@/engine/core/utils/object/object_anomaly";
 import { ClientObject, LuaArray, Optional, TName } from "@/engine/lib/types";
 
 /**
@@ -45,12 +45,12 @@ extern(
   "xr_conditions.anomaly_has_artefact",
   (
     actor: ClientObject,
-    npc: ClientObject,
-    p: [string, string]
+    object: ClientObject,
+    [anomalyName, artefactName]: [TName, TName]
   ): LuaMultiReturn<[boolean, Optional<LuaArray<string>>]> => {
-    const [artefact, details] = anomalyHasArtefact(actor, npc, p);
+    const [hasArtefact, details] = anomalyHasArtefact(actor, object, anomalyName, artefactName);
 
-    return $multi(artefact, details);
+    return $multi(hasArtefact, details);
   }
 );
 

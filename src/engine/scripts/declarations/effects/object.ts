@@ -19,20 +19,22 @@ import { ISchemeMobCombatState } from "@/engine/core/schemes/mob_combat";
 import { initTarget } from "@/engine/core/schemes/remark/actions";
 import { abort, assert, assertDefined } from "@/engine/core/utils/assertion";
 import { extern } from "@/engine/core/utils/binding";
-import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
-import { parseConditionsList } from "@/engine/core/utils/ini/parse";
-import { readIniString } from "@/engine/core/utils/ini/read";
-import { IConfigSwitchCondition } from "@/engine/core/utils/ini/types";
+import {
+  IConfigSwitchCondition,
+  parseConditionsList,
+  pickSectionFromCondList,
+  readIniString,
+} from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { getObjectSmartTerrain } from "@/engine/core/utils/object/object_general";
-import { trySwitchToAnotherSection } from "@/engine/core/utils/scheme/switch";
+import { getObjectSmartTerrain } from "@/engine/core/utils/object";
 import {
   releaseObject,
   spawnItemsForObject,
   spawnObject,
   spawnObjectInObject,
   spawnSquadInSmart,
-} from "@/engine/core/utils/spawn";
+} from "@/engine/core/utils/object/object_spawn";
+import { trySwitchToAnotherSection } from "@/engine/core/utils/scheme/scheme_switch";
 import { createVector, subVectors } from "@/engine/core/utils/vector";
 import { FALSE, TRUE } from "@/engine/lib/constants/words";
 import {

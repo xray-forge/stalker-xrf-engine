@@ -1,8 +1,8 @@
 import { system_ini } from "xray16";
 
 import { AbstractCoreManager } from "@/engine/core/managers/base/AbstractCoreManager";
-import { executeConsoleCommand } from "@/engine/core/utils/console";
-import { readIniString } from "@/engine/core/utils/ini/read";
+import { executeConsoleCommand } from "@/engine/core/utils/game/game_console";
+import { readIniString } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { consoleCommands } from "@/engine/lib/constants/console_commands";
 import { ACTOR } from "@/engine/lib/constants/words";

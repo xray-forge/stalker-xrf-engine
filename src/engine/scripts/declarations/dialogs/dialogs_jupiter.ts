@@ -7,10 +7,8 @@ import { getPortableStoreValue } from "@/engine/core/database/portable_store";
 import { TreasureManager } from "@/engine/core/managers/world/TreasureManager";
 import { AnomalyZoneBinder } from "@/engine/core/objects/binders/zones/AnomalyZoneBinder";
 import { extern, getExtern } from "@/engine/core/utils/binding";
-import { isActorEnemyWithFaction } from "@/engine/core/utils/check/check";
-import { disableInfo, giveInfo, hasAlifeInfo } from "@/engine/core/utils/info_portion";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { getObjectsRelationSafe } from "@/engine/core/utils/relation/get";
+import { disableInfo, giveInfo, hasAlifeInfo } from "@/engine/core/utils/object/object_info_portion";
 import {
   getNpcSpeaker,
   giveItemsToActor,
@@ -19,7 +17,8 @@ import {
   transferItemsFromActor,
   transferItemsToActor,
   transferMoneyFromActor,
-} from "@/engine/core/utils/task_reward";
+} from "@/engine/core/utils/object/object_task_reward";
+import { getObjectsRelationSafe, isActorEnemyWithFaction } from "@/engine/core/utils/relation";
 import { communities } from "@/engine/lib/constants/communities";
 import { infoPortions, TInfoPortion } from "@/engine/lib/constants/info_portions/info_portions";
 import { ammo } from "@/engine/lib/constants/items/ammo";

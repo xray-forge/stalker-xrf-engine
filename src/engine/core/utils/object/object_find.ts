@@ -2,7 +2,7 @@ import { alife, level } from "xray16";
 
 import { registry } from "@/engine/core/database";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { areObjectsOnSameLevel } from "@/engine/core/utils/object/object_general";
+import { areObjectsOnSameLevel } from "@/engine/core/utils/object/object_location";
 import {
   AlifeSimulator,
   AnyCallable,

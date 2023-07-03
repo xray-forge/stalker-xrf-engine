@@ -3,7 +3,7 @@ import { cond, look, patrol } from "xray16";
 import { AbstractSchemeManager } from "@/engine/core/schemes";
 import { ISchemeMobJumpState } from "@/engine/core/schemes/mob_jump/ISchemeMobJumpState";
 import { abort } from "@/engine/core/utils/assertion";
-import { action } from "@/engine/core/utils/object/object_general";
+import { action } from "@/engine/core/utils/object/object_action";
 import { scriptCaptureMonster, scriptReleaseMonster } from "@/engine/core/utils/scheme";
 import { addVectors } from "@/engine/core/utils/vector";
 import { Optional, Patrol, Vector } from "@/engine/lib/types";

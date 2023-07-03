@@ -5,9 +5,9 @@ import { ActionCover } from "@/engine/core/schemes/cover/actions";
 import { EvaluatorNeedCover } from "@/engine/core/schemes/cover/evaluators";
 import { ISchemeCoverState } from "@/engine/core/schemes/cover/ISchemeCoverState";
 import { assertDefined } from "@/engine/core/utils/assertion";
-import { getConfigSwitchConditions } from "@/engine/core/utils/ini/config";
-import { parseConditionsList } from "@/engine/core/utils/ini/parse";
-import { readIniBoolean, readIniNumber, readIniString } from "@/engine/core/utils/ini/read";
+import { getConfigSwitchConditions } from "@/engine/core/utils/ini/ini_config";
+import { parseConditionsList } from "@/engine/core/utils/ini/ini_parse";
+import { readIniBoolean, readIniNumber, readIniString } from "@/engine/core/utils/ini/ini_read";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { ActionPlanner, ClientObject, EScheme, ESchemeType, IniFile, TSection } from "@/engine/lib/types";
 

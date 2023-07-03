@@ -1,7 +1,8 @@
 import { jest } from "@jest/globals";
 import { IXR_relation_registry } from "xray16";
 
-import { TName, TNumberId } from "@/engine/lib/types";
+import { Optional, ServerHumanObject, TName, TNumberId } from "@/engine/lib/types";
+import { MockAlifeSimulator } from "@/fixtures/xray/mocks/objects/AlifeSimulator.mock";
 import { charactersGoodwill, communityGoodwill } from "@/fixtures/xray/mocks/relations";
 
 /**
@@ -9,8 +10,14 @@ import { charactersGoodwill, communityGoodwill } from "@/fixtures/xray/mocks/rel
  */
 export const mockRelationRegistryInterface: IXR_relation_registry = {
   change_community_goodwill: jest.fn((community_a: string, value2: number, value3: number): void => {}),
-  community_goodwill: jest.fn((community: string, object_id: number): number => {
-    return -1;
+  community_goodwill: jest.fn((community: string, objectId: TNumberId): number => {
+    const object: Optional<ServerHumanObject> = MockAlifeSimulator.getFromRegistry(objectId);
+
+    if (!object) {
+      throw new Error(`Object is not registered: '${objectId}'.`);
+    }
+
+    return mockRelationRegistryInterface.community_relation(community, object.community());
   }),
   community_relation: jest.fn((from: TName, to: TName): number => {
     const descriptor = communityGoodwill[from];

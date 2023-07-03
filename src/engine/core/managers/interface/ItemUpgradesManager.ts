@@ -2,9 +2,12 @@ import { game } from "xray16";
 
 import { ITEM_UPGRADES, registry, STALKER_UPGRADE_INFO, SYSTEM_INI } from "@/engine/core/database";
 import { AbstractCoreManager } from "@/engine/core/managers/base/AbstractCoreManager";
-import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
-import { parseConditionsList, parseStringsList } from "@/engine/core/utils/ini/parse";
-import { TConditionList } from "@/engine/core/utils/ini/types";
+import {
+  parseConditionsList,
+  parseStringsList,
+  pickSectionFromCondList,
+  TConditionList,
+} from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { gameSettingConfig } from "@/engine/lib/configs/GameSettingConfig";
 import { captions, TCaption } from "@/engine/lib/constants/captions/captions";

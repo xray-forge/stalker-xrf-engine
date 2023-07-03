@@ -23,10 +23,9 @@ import { Squad } from "@/engine/core/objects/server/squad/Squad";
 import { TSimulationObject } from "@/engine/core/objects/server/types";
 import { ESchemeEvent, IBaseSchemeState } from "@/engine/core/schemes";
 import { SchemeHear } from "@/engine/core/schemes/hear/SchemeHear";
-import { pickSectionFromCondList } from "@/engine/core/utils/ini";
-import { TConditionList } from "@/engine/core/utils/ini/types";
+import { pickSectionFromCondList, TConditionList } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { action, getObjectSquad } from "@/engine/core/utils/object/object_general";
+import { action, getObjectSquad } from "@/engine/core/utils/object";
 import {
   emitSchemeEvent,
   isMonsterScriptCaptured,

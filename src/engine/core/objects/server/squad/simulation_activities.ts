@@ -1,11 +1,11 @@
 import { SurgeManager } from "@/engine/core/managers/world/SurgeManager";
 import { ISimulationActivityDescriptor, SmartTerrain } from "@/engine/core/objects";
 import { Squad } from "@/engine/core/objects/server/squad/Squad";
-import { hasAlifeInfo } from "@/engine/core/utils/info_portion";
+import { isInTimeInterval } from "@/engine/core/utils/game/game_time";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { getServerDistanceBetween } from "@/engine/core/utils/object/object_general";
+import { getServerDistanceBetween } from "@/engine/core/utils/object";
+import { hasAlifeInfo } from "@/engine/core/utils/object/object_info_portion";
 import { isAnySquadMemberEnemyToActor } from "@/engine/core/utils/relation";
-import { isInTimeInterval } from "@/engine/core/utils/time";
 import { communities, TCommunity } from "@/engine/lib/constants/communities";
 import { infoPortions } from "@/engine/lib/constants/info_portions";
 import { storyNames } from "@/engine/lib/constants/story_names";

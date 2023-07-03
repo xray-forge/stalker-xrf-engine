@@ -8,11 +8,10 @@ import { EvaluatorPatrolComm, EvaluatorPatrolEnd } from "@/engine/core/schemes/p
 import { ISchemePatrolState } from "@/engine/core/schemes/patrol/ISchemePatrolState";
 import { PatrolManager } from "@/engine/core/schemes/patrol/PatrolManager";
 import { abort } from "@/engine/core/utils/assertion";
-import { getConfigSwitchConditions } from "@/engine/core/utils/ini/config";
-import { readIniBoolean, readIniString } from "@/engine/core/utils/ini/read";
+import { getConfigSwitchConditions, readIniBoolean, readIniString } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { getObjectSquad } from "@/engine/core/utils/object/object_general";
-import { addCommonActionPreconditions } from "@/engine/core/utils/scheme/setup";
+import { getObjectSquad } from "@/engine/core/utils/object";
+import { addCommonActionPreconditions } from "@/engine/core/utils/scheme/scheme_setup";
 import { ActionPlanner, ClientObject, IniFile, Optional, TName } from "@/engine/lib/types";
 import { EScheme, ESchemeType, TSection } from "@/engine/lib/types/scheme";
 

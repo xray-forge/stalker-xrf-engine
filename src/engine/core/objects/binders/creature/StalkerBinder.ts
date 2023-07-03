@@ -20,6 +20,7 @@ import {
   DUMMY_LTX,
   getStoryIdByObjectId,
   IRegistryObjectState,
+  openLoadMarker,
   openSaveMarker,
   registerHelicopterEnemy,
   registry,
@@ -27,7 +28,6 @@ import {
   unregisterHelicopterEnemy,
 } from "@/engine/core/database";
 import { loadObjectLogic, saveObjectLogic } from "@/engine/core/database/logic";
-import { openLoadMarker } from "@/engine/core/database/save_markers";
 import { registerStalker, unregisterStalker } from "@/engine/core/database/stalker";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { DialogManager } from "@/engine/core/managers/interaction/dialog/DialogManager";
@@ -50,15 +50,10 @@ import { SchemeMeet } from "@/engine/core/schemes/meet/SchemeMeet";
 import { SchemeReachTask } from "@/engine/core/schemes/reach_task/SchemeReachTask";
 import { SchemeLight } from "@/engine/core/schemes/sr_light/SchemeLight";
 import { SchemeWounded } from "@/engine/core/schemes/wounded/SchemeWounded";
-import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
-import { readIniString } from "@/engine/core/utils/ini/read";
-import { TConditionList } from "@/engine/core/utils/ini/types";
+import { pickSectionFromCondList, readIniString, TConditionList } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import {
-  getCharacterCommunity,
-  getObjectSquad,
-  updateObjectInvulnerability,
-} from "@/engine/core/utils/object/object_general";
+import { getCharacterCommunity, getObjectSquad } from "@/engine/core/utils/object/object_get";
+import { updateObjectInvulnerability } from "@/engine/core/utils/object/object_set";
 import { ERelation, setClientObjectRelation, setObjectSympathy } from "@/engine/core/utils/relation";
 import { emitSchemeEvent, trySwitchToAnotherSection } from "@/engine/core/utils/scheme";
 import { createEmptyVector } from "@/engine/core/utils/vector";

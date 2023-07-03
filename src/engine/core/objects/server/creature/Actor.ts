@@ -19,9 +19,9 @@ import { ESmartTerrainStatus } from "@/engine/core/objects/server/smart_terrain/
 import { simulationActivities } from "@/engine/core/objects/server/squad/simulation_activities";
 import { Squad } from "@/engine/core/objects/server/squad/Squad";
 import { ISimulationTarget } from "@/engine/core/objects/server/types";
-import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
-import { parseConditionsList } from "@/engine/core/utils/ini/parse";
-import { TConditionList } from "@/engine/core/utils/ini/types";
+import { pickSectionFromCondList } from "@/engine/core/utils/ini/ini_config";
+import { parseConditionsList } from "@/engine/core/utils/ini/ini_parse";
+import { TConditionList } from "@/engine/core/utils/ini/ini_types";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { ACTOR, TRUE } from "@/engine/lib/constants/words";
 import {

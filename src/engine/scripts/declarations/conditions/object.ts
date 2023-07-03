@@ -18,19 +18,20 @@ import { ISchemeHitState } from "@/engine/core/schemes/hit";
 import { SchemeDeimos } from "@/engine/core/schemes/sr_deimos";
 import { abort } from "@/engine/core/utils/assertion";
 import { extern } from "@/engine/core/utils/binding";
+import { LuaLogger } from "@/engine/core/utils/logging";
 import {
+  getObjectSmartTerrain,
+  getObjectSquad,
+  hasAlifeInfo,
   isDistanceBetweenObjectsGreaterOrEqual,
   isDistanceBetweenObjectsLessOrEqual,
-  isHeavilyWounded,
+  isMonster,
   isObjectInZone,
   isObjectWounded,
   isPlayingSound,
-  isSquadExisting,
-} from "@/engine/core/utils/check/check";
-import { isMonster, isStalker } from "@/engine/core/utils/check/is";
-import { hasAlifeInfo } from "@/engine/core/utils/info_portion";
-import { LuaLogger } from "@/engine/core/utils/logging";
-import { getObjectSmartTerrain, getObjectSquad } from "@/engine/core/utils/object/object_general";
+  isStalker,
+  isStoryObjectExisting,
+} from "@/engine/core/utils/object";
 import { captions, TCaption } from "@/engine/lib/constants/captions";
 import { infoPortions } from "@/engine/lib/constants/info_portions";
 import { FALSE } from "@/engine/lib/constants/words";
@@ -190,21 +191,19 @@ extern(
 /**
  * todo;
  */
-extern("xr_conditions.see_npc", (actor: ClientObject, npc: ClientObject, params: AnyArgs): boolean => {
-  const targetNpc: Optional<ClientObject> = getObjectByStoryId(params[0]);
+extern("xr_conditions.see_npc", (actor: ClientObject, object: ClientObject, [storyId]: [TStringId]): boolean => {
+  const targetObject: Optional<ClientObject> = getObjectByStoryId(storyId);
 
-  if (npc && targetNpc) {
-    return npc.see(targetNpc);
-  } else {
-    return false;
-  }
+  return object && targetObject ? object.see(targetObject) : false;
 });
 
 /**
- * todo;
+ * Check whether object is wounded.
+ *
+ * @returns whether object is currently wounded and using wounded scheme
  */
-extern("xr_conditions.is_wounded", (actor: ClientObject, npc: ClientObject): boolean => {
-  return isObjectWounded(npc);
+extern("xr_conditions.is_wounded", (actor: ClientObject, object: ClientObject): boolean => {
+  return isObjectWounded(object.id());
 });
 
 /**
@@ -595,8 +594,8 @@ extern("xr_conditions.see_enemy", (actor: ClientObject, npc: ClientObject): bool
 /**
  * todo;
  */
-extern("xr_conditions.heavy_wounded", (actor: ClientObject, npc: ClientObject): boolean => {
-  return isHeavilyWounded(npc.id());
+extern("xr_conditions.heavy_wounded", (actor: ClientObject, object: ClientObject): boolean => {
+  return isObjectWounded(object.id());
 });
 
 /**
@@ -804,7 +803,7 @@ extern("xr_conditions.squad_exist", (actor: ClientObject, npc: ClientObject, p: 
   if (storyId === null) {
     abort("Wrong parameter story_id[%s] in squad_exist function", tostring(storyId));
   } else {
-    return isSquadExisting(storyId);
+    return isStoryObjectExisting(storyId);
   }
 });
 

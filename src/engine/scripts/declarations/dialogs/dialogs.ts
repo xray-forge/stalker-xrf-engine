@@ -11,21 +11,24 @@ import { SchemeMeet } from "@/engine/core/schemes/meet/SchemeMeet";
 import { ISchemeWoundedState } from "@/engine/core/schemes/wounded";
 import { SchemeWounded } from "@/engine/core/schemes/wounded/SchemeWounded";
 import { extern } from "@/engine/core/utils/binding";
-import { isActorAbsolutelyHealthy } from "@/engine/core/utils/check";
-import { isObjectWounded, isStalkerAlive } from "@/engine/core/utils/check/check";
-import { createAutoSave } from "@/engine/core/utils/game_save";
-import { giveInfo, hasAlifeInfo } from "@/engine/core/utils/info_portion";
+import { createAutoSave } from "@/engine/core/utils/game";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { getCharacterCommunity, isObjectInSmartTerrain } from "@/engine/core/utils/object/object_general";
 import {
   actorHasMedKit,
   getActorAvailableMedKit,
+  getCharacterCommunity,
   getNpcSpeaker,
+  giveInfo,
+  hasAlifeInfo,
+  isObjectInjured,
+  isObjectInSmartTerrain,
+  isObjectWounded,
+  isStalkerAlive,
   transferItemsFromActor,
-} from "@/engine/core/utils/task_reward";
+} from "@/engine/core/utils/object";
 import { captions } from "@/engine/lib/constants/captions/captions";
 import { communities } from "@/engine/lib/constants/communities";
-import { infoPortions } from "@/engine/lib/constants/info_portions/info_portions";
+import { infoPortions } from "@/engine/lib/constants/info_portions";
 import { drugs, TMedkit } from "@/engine/lib/constants/items/drugs";
 import { pistols, TPistol } from "@/engine/lib/constants/items/weapons";
 import { levels } from "@/engine/lib/constants/levels";
@@ -58,14 +61,14 @@ extern("dialogs.update_npc_dialog", (firstSpeaker: ClientObject, secondSpeaker: 
  * todo;
  */
 extern("dialogs.is_wounded", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
-  return isObjectWounded(getNpcSpeaker(firstSpeaker, secondSpeaker));
+  return isObjectWounded(getNpcSpeaker(firstSpeaker, secondSpeaker).id());
 });
 
 /**
  * todo;
  */
 extern("dialogs.is_not_wounded", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
-  return !isObjectWounded(getNpcSpeaker(firstSpeaker, secondSpeaker));
+  return !isObjectWounded(getNpcSpeaker(firstSpeaker, secondSpeaker).id());
 });
 
 /**
@@ -752,14 +755,14 @@ extern("dialogs.medic_magic_potion", (firstSpeaker: ClientObject, secondSpeaker:
  * Check whether actor needs healing, radiation or bleeding help.
  */
 extern("dialogs.actor_needs_bless", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
-  return isActorAbsolutelyHealthy();
+  return isObjectInjured(registry.actor);
 });
 
 /**
  * Check whether actor is absolutely healthy, without bleeding and radiation contamination.
  */
 extern("dialogs.actor_is_damn_healthy", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
-  return !isActorAbsolutelyHealthy();
+  return !isObjectInjured(registry.actor);
 });
 
 /**

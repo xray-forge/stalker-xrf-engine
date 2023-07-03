@@ -12,7 +12,7 @@ import { SquadStayOnTargetAction } from "@/engine/core/objects/server/squad/acti
 import { Squad } from "@/engine/core/objects/server/squad/Squad";
 import { TSimulationObject } from "@/engine/core/objects/server/types";
 import { abort } from "@/engine/core/utils/assertion";
-import { createAutoSave } from "@/engine/core/utils/game_save";
+import { createAutoSave } from "@/engine/core/utils/game/game_save";
 import { parseConditionsList, pickSectionFromCondList, TConditionList } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import {
@@ -20,7 +20,7 @@ import {
   getObjectSmartTerrain,
   getObjectSquad,
   getServerDistanceBetween,
-} from "@/engine/core/utils/object/object_general";
+} from "@/engine/core/utils/object";
 import { isAnySquadMemberEnemyToActor } from "@/engine/core/utils/relation";
 import { postProcessors } from "@/engine/lib/constants/animation/post_processors";
 import { captions } from "@/engine/lib/constants/captions/captions";

@@ -1,6 +1,6 @@
 import { jest } from "@jest/globals";
 
-import { AnyObject, LuaArray } from "@/engine/lib/types";
+import type { AnyObject, LuaArray } from "@/engine/lib/types";
 
 /**
  * todo;

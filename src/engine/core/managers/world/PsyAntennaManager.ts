@@ -7,7 +7,7 @@ import { AbstractCoreManager } from "@/engine/core/managers/base/AbstractCoreMan
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { PhantomManager } from "@/engine/core/managers/world/PhantomManager";
 import { abort } from "@/engine/core/utils/assertion";
-import { isLevelChanging } from "@/engine/core/utils/check/check";
+import { isGameLevelChanging } from "@/engine/core/utils/game";
 import { clampNumber } from "@/engine/core/utils/number";
 import { createEmptyVector, createVector, vectorRotateY } from "@/engine/core/utils/vector";
 import { sounds } from "@/engine/lib/constants/sound/sounds";
@@ -67,7 +67,7 @@ export class PsyAntennaManager extends AbstractCoreManager {
 
     const manager: Optional<PsyAntennaManager> = getWeakManagerInstance(PsyAntennaManager);
 
-    if (manager && !isLevelChanging()) {
+    if (manager && !isGameLevelChanging()) {
       packet.w_bool(true);
 
       manager.save(packet);

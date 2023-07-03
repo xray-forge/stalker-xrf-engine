@@ -1,7 +1,7 @@
 import { AbstractScheme } from "@/engine/core/schemes/base";
 import { ISchemeMobDeathState } from "@/engine/core/schemes/mob_death/ISchemeMobDeathState";
 import { MobDeathManager } from "@/engine/core/schemes/mob_death/MobDeathManager";
-import { getConfigSwitchConditions } from "@/engine/core/utils/ini/config";
+import { getConfigSwitchConditions } from "@/engine/core/utils/ini/ini_config";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { ClientObject, EScheme, ESchemeType, IniFile, TSection } from "@/engine/lib/types";
 

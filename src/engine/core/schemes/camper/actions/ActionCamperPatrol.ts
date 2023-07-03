@@ -6,9 +6,8 @@ import { EStalkerState, ILookTargetDescriptor } from "@/engine/core/objects/stat
 import { StalkerMoveManager } from "@/engine/core/objects/state/StalkerMoveManager";
 import { ICampPoint, ISchemeCamperState } from "@/engine/core/schemes/camper/ISchemeCamperState";
 import { abort } from "@/engine/core/utils/assertion";
-import { isObjectFacingDanger } from "@/engine/core/utils/check/check";
-import { parseWaypointsData } from "@/engine/core/utils/ini/parse";
-import { isStalkerAtWaypoint } from "@/engine/core/utils/position";
+import { parseWaypointsData } from "@/engine/core/utils/ini";
+import { isObjectFacingDanger, isStalkerAtWaypoint } from "@/engine/core/utils/object";
 import { createVector } from "@/engine/core/utils/vector";
 import { ClientObject, DangerObject, Optional, Vector } from "@/engine/lib/types";
 

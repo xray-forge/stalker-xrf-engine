@@ -19,6 +19,7 @@ module.exports = {
   testEnvironment: "node",
   rootDir: ROOT_DIR,
   setupFiles: [path.resolve(__dirname, "./jest_global.ts")],
+  setupFilesAfterEnv: [path.resolve(__dirname, "./jest_after_env.ts")],
   roots: ["<rootDir>"],
   collectCoverage: true,
   coverageReporters: ["json", "html"],

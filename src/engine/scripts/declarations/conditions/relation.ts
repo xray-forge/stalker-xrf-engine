@@ -3,16 +3,14 @@ import { Squad } from "@/engine/core/objects";
 import { ISchemeDeathState } from "@/engine/core/schemes/death";
 import { abort, assert } from "@/engine/core/utils/assertion";
 import { extern, getExtern } from "@/engine/core/utils/binding";
-import {
-  isActorEnemyWithFaction,
-  isActorFriendWithFaction,
-  isActorNeutralWithFaction,
-} from "@/engine/core/utils/check/check";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { getCharacterCommunity } from "@/engine/core/utils/object/object_general";
+import { getCharacterCommunity } from "@/engine/core/utils/object";
 import {
   areCommunitiesEnemies,
   areCommunitiesFriendly,
+  isActorEnemyWithFaction,
+  isActorFriendWithFaction,
+  isActorNeutralWithFaction,
   isAnySquadMemberEnemyToActor,
   isAnySquadMemberFriendToActor,
 } from "@/engine/core/utils/relation";

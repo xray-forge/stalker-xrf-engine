@@ -4,8 +4,8 @@ import { getObjectIdByStoryId, getServerObjectByStoryId, registry, resetStalkerS
 import { Squad } from "@/engine/core/objects";
 import { abort, assertDefined } from "@/engine/core/utils/assertion";
 import { extern } from "@/engine/core/utils/binding";
-import { isActorInZoneWithName } from "@/engine/core/utils/check/check";
 import { LuaLogger } from "@/engine/core/utils/logging";
+import { isObjectInZone } from "@/engine/core/utils/object";
 import {
   ClientObject,
   Optional,
@@ -16,6 +16,7 @@ import {
   TName,
   TNumberId,
   TProbability,
+  TRate,
   TStringId,
   Vector,
 } from "@/engine/lib/types";
@@ -101,13 +102,13 @@ extern("xr_effects.teleport_actor", (actor: ClientObject, object: ClientObject, 
 
   if (params[1] !== null) {
     const look: Patrol = new patrol(params[1]);
-    const dir: number = -look.point(0).sub(point.point(0)).getH();
+    const dir: TRate = -look.point(0).sub(point.point(0)).getH();
 
     actor.set_actor_direction(dir);
   }
 
   for (const [k, v] of registry.noWeaponZones) {
-    if (isActorInZoneWithName(k, actor)) {
+    if (isObjectInZone(actor, registry.zones.get(k))) {
       registry.noWeaponZones.set(k, true);
     }
   }

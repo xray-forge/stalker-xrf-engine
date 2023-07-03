@@ -3,7 +3,7 @@ import { action_base, LuabindClass } from "xray16";
 import { EStalkerState } from "@/engine/core/objects/state";
 import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateManager";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { sendToNearestAccessibleVertex } from "@/engine/core/utils/object/object_general";
+import { sendToNearestAccessibleVertex } from "@/engine/core/utils/object/object_location";
 import { EClientObjectPath, TName } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -15,9 +15,6 @@ const logger: LuaLogger = new LuaLogger($filename);
 export class ActionStateToIdle extends action_base {
   private readonly stateManager: StalkerStateManager;
 
-  /**
-   * todo: Description.
-   */
   public constructor(stateManager: StalkerStateManager, name?: TName) {
     super(null, name || ActionStateToIdle.__name);
     this.stateManager = stateManager;

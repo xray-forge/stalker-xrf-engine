@@ -2,7 +2,7 @@ import { AbstractScheme, ESchemeEvent } from "@/engine/core/schemes";
 import { CutsceneManager } from "@/engine/core/schemes/sr_cutscene/CutsceneManager";
 import { ISchemeCutsceneState } from "@/engine/core/schemes/sr_cutscene/ISchemeCutsceneState";
 import { getConfigSwitchConditions, parseStringsList } from "@/engine/core/utils/ini";
-import { readIniBoolean, readIniNumber, readIniString } from "@/engine/core/utils/ini/read";
+import { readIniBoolean, readIniNumber, readIniString } from "@/engine/core/utils/ini/ini_read";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { emitSchemeEvent } from "@/engine/core/utils/scheme";
 import { NIL } from "@/engine/lib/constants/words";

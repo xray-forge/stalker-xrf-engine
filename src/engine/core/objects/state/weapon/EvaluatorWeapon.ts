@@ -3,8 +3,8 @@ import { LuabindClass, property_evaluator } from "xray16";
 import { EWeaponAnimation } from "@/engine/core/objects/state";
 import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateManager";
 import { states } from "@/engine/core/objects/state_lib/state_lib";
-import { isStrappableWeapon, isWeapon } from "@/engine/core/utils/check/is";
 import { LuaLogger } from "@/engine/core/utils/logging";
+import { isStrappableWeapon, isWeapon } from "@/engine/core/utils/object";
 import { ClientObject, Optional } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);

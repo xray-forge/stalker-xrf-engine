@@ -4,6 +4,11 @@
 export const NIL = "nil" as const;
 
 /**
+ * Null stringified by lua.
+ */
+export const NEVER = "never" as const;
+
+/**
  * True stringified by lua.
  */
 export const TRUE = "true" as const;

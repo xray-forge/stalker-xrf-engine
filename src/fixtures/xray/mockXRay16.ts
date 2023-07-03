@@ -75,7 +75,7 @@ import { MockPropertyEvaluator } from "@/fixtures/xray/mocks/PropertyEvaluator.m
 import { MockVector } from "@/fixtures/xray/mocks/vector.mock";
 
 /**
- * todo;
+ * Mock whole xray16 game libraries for testing environment and replace with testable mocks.
  */
 export function mockXRay16({
   CGameTask = MockCGameTask,
@@ -89,7 +89,7 @@ export function mockXRay16({
   IsImportantSave = jest.fn(() => mocksConfig.isAutoSavingEnabled),
   action_base = MockActionBase,
   action_planner = MockActionPlanner,
-  alife = () => mockAlifeSimulator(),
+  alife = jest.fn(() => mockAlifeSimulator()),
   anim = MockAnim,
   callback = mockCallbacks,
   clsid = mockClsid,

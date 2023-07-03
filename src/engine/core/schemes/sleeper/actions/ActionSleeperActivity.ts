@@ -5,8 +5,8 @@ import { EStalkerState } from "@/engine/core/objects/state";
 import { StalkerMoveManager } from "@/engine/core/objects/state/StalkerMoveManager";
 import { ISchemeSleeperState } from "@/engine/core/schemes/sleeper";
 import { abort } from "@/engine/core/utils/assertion";
-import { parseWaypointsDataFromList } from "@/engine/core/utils/ini/parse";
-import { IWaypointData } from "@/engine/core/utils/ini/types";
+import { parseWaypointsDataFromList } from "@/engine/core/utils/ini/ini_parse";
+import { IWaypointData } from "@/engine/core/utils/ini/ini_types";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { AnyCallable, ClientObject, LuaArray, Optional, Patrol, TCount, Vector } from "@/engine/lib/types";
 
