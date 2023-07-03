@@ -1,4 +1,4 @@
-import { alife, clsid, system_ini } from "xray16";
+import { alife, clsid, IsGameTypeSingle, system_ini } from "xray16";
 
 import { getStoryIdByObjectId, registry } from "@/engine/core/database";
 import { assertDefined } from "@/engine/core/utils/assertion";
@@ -29,6 +29,19 @@ import {
  */
 export function isGameStarted(): boolean {
   return alife() !== null;
+}
+
+/**
+ * todo
+ */
+export function isSinglePlayerGame(): boolean {
+  if (alife === null || alife() !== null) {
+    return true;
+  } else if (IsGameTypeSingle === null || IsGameTypeSingle()) {
+    return true;
+  }
+
+  return false;
 }
 
 /**

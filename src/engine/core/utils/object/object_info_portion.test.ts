@@ -8,7 +8,7 @@ import {
   hasAlifeInfos,
   hasAtLeastOneAlifeInfo,
   hasFewAlifeInfos,
-} from "@/engine/core/utils/info_portion";
+} from "@/engine/core/utils/object/object_info_portion";
 import { infoPortions, TInfoPortion } from "@/engine/lib/constants/info_portions/info_portions";
 import { ClientObject } from "@/engine/lib/types";
 import { mockClientGameObject } from "@/fixtures/xray";

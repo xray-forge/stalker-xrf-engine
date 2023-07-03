@@ -9,10 +9,10 @@ import {
   primaryMapSpotObjects,
   sleepZones,
 } from "@/engine/core/managers/interface/MapDisplayManagerObjects";
-import { hasAlifeInfo } from "@/engine/core/utils/info_portion";
 import { parseConditionsList, pickSectionFromCondList, readIniString, TConditionList } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { anomalyHasArtefact } from "@/engine/core/utils/object/object_anomaly";
+import { hasAlifeInfo } from "@/engine/core/utils/object/object_info_portion";
 import { captions } from "@/engine/lib/constants/captions/captions";
 import { infoPortions } from "@/engine/lib/constants/info_portions/info_portions";
 import { levels } from "@/engine/lib/constants/levels";

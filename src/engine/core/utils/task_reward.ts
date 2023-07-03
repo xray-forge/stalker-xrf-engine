@@ -10,7 +10,7 @@ import {
 } from "@/engine/core/managers/interface/notifications/types";
 import { abort, assert, assertDefined } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { spawnItemsForObject } from "@/engine/core/utils/spawn";
+import { spawnItemsForObject } from "@/engine/core/utils/object/object_spawn";
 import { ammo, TAmmoItem } from "@/engine/lib/constants/items/ammo";
 import { medkits, TMedkit } from "@/engine/lib/constants/items/drugs";
 import { ClientObject, LuaArray, Optional, TCount, TName, TNumberId, TSection } from "@/engine/lib/types";

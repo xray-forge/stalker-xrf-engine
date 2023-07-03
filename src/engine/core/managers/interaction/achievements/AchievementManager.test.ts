@@ -9,7 +9,7 @@ import { EAchievement } from "@/engine/core/managers/interaction/achievements/ty
 import { ENotificationType, ITipNotification } from "@/engine/core/managers/interface";
 import { StatisticsManager } from "@/engine/core/managers/interface/StatisticsManager";
 import { WeatherManager } from "@/engine/core/managers/world/WeatherManager";
-import { disableInfo, giveInfo, hasAlifeInfo } from "@/engine/core/utils/info_portion";
+import { disableInfo, giveInfo, hasAlifeInfo } from "@/engine/core/utils/object/object_info_portion";
 import { captions } from "@/engine/lib/constants/captions";
 import { communities } from "@/engine/lib/constants/communities";
 import { infoPortions, TInfoPortion } from "@/engine/lib/constants/info_portions";

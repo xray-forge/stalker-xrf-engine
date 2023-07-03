@@ -31,7 +31,7 @@ import { abort, assert } from "@/engine/core/utils/assertion";
 import { isStalkerClassId } from "@/engine/core/utils/check/is";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { isObjectWounded } from "@/engine/core/utils/object";
-import { getInventoryNameForItemSection } from "@/engine/core/utils/spawn";
+import { getInventoryNameForItemSection } from "@/engine/core/utils/object/object_spawn";
 import { captions, TCaption } from "@/engine/lib/constants/captions/captions";
 import { scriptSounds } from "@/engine/lib/constants/sound/script_sounds";
 import { textures, TTexture } from "@/engine/lib/constants/textures";

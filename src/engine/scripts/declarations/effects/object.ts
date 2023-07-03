@@ -27,14 +27,14 @@ import {
 } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getObjectSmartTerrain } from "@/engine/core/utils/object";
-import { trySwitchToAnotherSection } from "@/engine/core/utils/scheme/scheme_switch";
 import {
   releaseObject,
   spawnItemsForObject,
   spawnObject,
   spawnObjectInObject,
   spawnSquadInSmart,
-} from "@/engine/core/utils/spawn";
+} from "@/engine/core/utils/object/object_spawn";
+import { trySwitchToAnotherSection } from "@/engine/core/utils/scheme/scheme_switch";
 import { createVector, subVectors } from "@/engine/core/utils/vector";
 import { FALSE, TRUE } from "@/engine/lib/constants/words";
 import {

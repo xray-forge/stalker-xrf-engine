@@ -56,6 +56,7 @@ import {
 } from "@/engine/core/objects/server/types";
 import { abort, assert, assertDefined } from "@/engine/core/utils/assertion";
 import { isMonster, isStalker } from "@/engine/core/utils/check/is";
+import { readTimeFromPacket, writeTimeToPacket } from "@/engine/core/utils/game/game_time";
 import {
   getSchemeFromSection,
   IConfigSwitchCondition,
@@ -78,7 +79,6 @@ import {
   switchObjectSchemeToSection,
 } from "@/engine/core/utils/scheme";
 import { getTableSize, isEmpty } from "@/engine/core/utils/table";
-import { readTimeFromPacket, writeTimeToPacket } from "@/engine/core/utils/time";
 import { toJSON } from "@/engine/core/utils/transform/json";
 import { gameConfig } from "@/engine/lib/configs/GameConfig";
 import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";

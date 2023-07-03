@@ -20,9 +20,9 @@ import { abort } from "@/engine/core/utils/assertion";
 import { extern } from "@/engine/core/utils/binding";
 import { isPlayingSound, isStoryObjectExisting } from "@/engine/core/utils/check/check";
 import { isMonster, isStalker } from "@/engine/core/utils/check/is";
-import { hasAlifeInfo } from "@/engine/core/utils/info_portion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getObjectSmartTerrain, getObjectSquad, isObjectWounded } from "@/engine/core/utils/object";
+import { hasAlifeInfo } from "@/engine/core/utils/object/object_info_portion";
 import {
   isDistanceBetweenObjectsGreaterOrEqual,
   isDistanceBetweenObjectsLessOrEqual,

@@ -43,7 +43,6 @@ import {
 import { StoryManager } from "@/engine/core/objects/sounds/stories";
 import { abort, assertDefined } from "@/engine/core/utils/assertion";
 import { isSquadMonsterCommunity } from "@/engine/core/utils/check/is";
-import { hasAlifeInfo } from "@/engine/core/utils/info_portion";
 import {
   parseConditionsList,
   parseStringsList,
@@ -56,6 +55,7 @@ import {
 } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { areObjectsOnSameLevel } from "@/engine/core/utils/object";
+import { hasAlifeInfo } from "@/engine/core/utils/object/object_info_portion";
 import {
   areCommunitiesEnemies,
   ERelation,

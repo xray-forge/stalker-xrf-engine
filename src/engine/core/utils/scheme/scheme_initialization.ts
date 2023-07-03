@@ -9,6 +9,7 @@ import { assert } from "@/engine/core/utils/assertion";
 import { readIniNumber, readIniString } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getObjectSmartTerrain } from "@/engine/core/utils/object/object_get";
+import { spawnItemsForObject } from "@/engine/core/utils/object/object_spawn";
 import { ERelation } from "@/engine/core/utils/relation";
 import { emitSchemeEvent } from "@/engine/core/utils/scheme/scheme_event";
 import {
@@ -17,7 +18,6 @@ import {
   getSectionToActivate,
 } from "@/engine/core/utils/scheme/scheme_logic";
 import { disableObjectBaseSchemes } from "@/engine/core/utils/scheme/scheme_setup";
-import { spawnItemsForObject } from "@/engine/core/utils/spawn";
 import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
 import { TInventoryItem } from "@/engine/lib/constants/items";
 import {

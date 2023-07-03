@@ -11,18 +11,18 @@ import {
 } from "xray16";
 
 import { getIdBySid, registry } from "@/engine/core/database";
-import { randomChoice } from "@/engine/core/utils/general";
 import { LuaLogger } from "@/engine/core/utils/logging";
+import { pickRandom } from "@/engine/core/utils/number";
 import { distanceBetween2d } from "@/engine/core/utils/vector";
 import { MAX_U16 } from "@/engine/lib/constants/memory";
 import { ACTOR, NIL } from "@/engine/lib/constants/words";
-import { ClientObject, Optional, TDistance, TIndex, TRate, Vector, XmlInit } from "@/engine/lib/types";
+import { ClientObject, Optional, TDistance, TIndex, TPath, TRate, Vector, XmlInit } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 const heliFirer: LuaTable<number, HeliFire> = new LuaTable();
 
 export class HeliFire {
-  public static readonly HELI_STATIC_UI_XML_PATH: string = "game\\heli\\heli_progress.xml";
+  public static readonly HELI_STATIC_UI_XML_PATH: TPath = "game\\heli\\heli_progress.xml";
 
   public object: ClientObject;
   public enemy_: Optional<string>;
@@ -233,7 +233,7 @@ export class HeliFire {
 
     const actor: ClientObject = registry.actor;
 
-    if ((heli.isVisible(actor) && randomChoice(false, true)) || registry.helicopter.enemyIndex === 0) {
+    if ((heli.isVisible(actor) && pickRandom(false, true)) || registry.helicopter.enemyIndex === 0) {
       if (distanceBetween2d(this.object.position(), actor.position()) <= minDist2D * 2) {
         this.enemy = actor;
       }

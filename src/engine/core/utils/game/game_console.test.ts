@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 
-import { executeConsoleCommand, getConsoleFloatCommand } from "@/engine/core/utils/console";
+import { executeConsoleCommand, getConsoleFloatCommand } from "@/engine/core/utils/game/game_console";
 import { consoleCommands } from "@/engine/lib/constants/console_commands";
 import { gameDifficulties } from "@/engine/lib/constants/game_difficulties";
 import { resetFunctionMock } from "@/fixtures/utils/function_mock";

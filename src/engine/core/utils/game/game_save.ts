@@ -1,9 +1,9 @@
 import { bit_or, CSavedGameWrapper, FS, game, getFS, IsImportantSave, user_name } from "xray16";
 
 import { assert } from "@/engine/core/utils/assertion";
-import { executeConsoleCommand } from "@/engine/core/utils/console";
+import { executeConsoleCommand } from "@/engine/core/utils/game/game_console";
+import { gameTimeToString } from "@/engine/core/utils/game/game_time";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { gameTimeToString } from "@/engine/core/utils/time";
 import { gameConfig } from "@/engine/lib/configs/GameConfig";
 import { captions } from "@/engine/lib/constants/captions";
 import { consoleCommands } from "@/engine/lib/constants/console_commands";

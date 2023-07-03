@@ -239,3 +239,10 @@ export function areSameVectorsByPrecision(first: Vector, second: Vector, eps: TR
     math.abs(first.x - second.x) <= eps && math.abs(first.y - second.y) <= eps && math.abs(first.z - second.z) <= eps
   );
 }
+
+/**
+ * todo:
+ */
+export function vectorToString(target: Optional<Vector>): Optional<string> {
+  return target === null ? null : string.format("[%s:%s:%s]", target.x, target.y, target.z);
+}

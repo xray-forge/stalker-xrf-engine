@@ -3,7 +3,6 @@ import { alife } from "xray16";
 import { getObjectIdByStoryId, IRegistryObjectState, registry } from "@/engine/core/database";
 import { IBaseSchemeLogic } from "@/engine/core/schemes";
 import { abort } from "@/engine/core/utils/assertion";
-import { disableInfo, giveInfo, hasAlifeInfo } from "@/engine/core/utils/info_portion";
 import { parseConditionsList } from "@/engine/core/utils/ini/ini_parse";
 import {
   readIniBoolean,
@@ -16,6 +15,7 @@ import {
 } from "@/engine/core/utils/ini/ini_read";
 import { TConditionList } from "@/engine/core/utils/ini/ini_types";
 import { LuaLogger } from "@/engine/core/utils/logging";
+import { disableInfo, giveInfo, hasAlifeInfo } from "@/engine/core/utils/object/object_info_portion";
 import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
 import { TInfoPortion } from "@/engine/lib/constants/info_portions";
 import { NEVER, NIL } from "@/engine/lib/constants/words";

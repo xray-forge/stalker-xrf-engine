@@ -9,7 +9,7 @@ import { isAmmoItem, isArtefact, isGrenade, isLootableItem, isWeapon } from "@/e
 import { parseNumbersList, parseStringsList } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getCharacterCommunity, setItemCondition } from "@/engine/core/utils/object";
-import { spawnItemsForObject } from "@/engine/core/utils/spawn";
+import { spawnItemsForObject } from "@/engine/core/utils/object/object_spawn";
 import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
 import { communities, TCommunity } from "@/engine/lib/constants/communities";
 import { TInventoryItem } from "@/engine/lib/constants/items";

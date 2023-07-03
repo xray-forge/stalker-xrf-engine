@@ -33,7 +33,7 @@ import { SchemeReachTask } from "@/engine/core/schemes/reach_task";
 import { SchemeIdle } from "@/engine/core/schemes/sr_idle";
 import { IdleManager } from "@/engine/core/schemes/sr_idle/IdleManager";
 import { SchemeWounded } from "@/engine/core/schemes/wounded";
-import { disableInfo, giveInfo } from "@/engine/core/utils/info_portion";
+import { disableInfo, giveInfo } from "@/engine/core/utils/object/object_info_portion";
 import {
   activateSchemeBySection,
   enableObjectBaseSchemes,

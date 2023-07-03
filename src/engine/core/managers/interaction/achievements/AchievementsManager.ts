@@ -12,11 +12,16 @@ import {
   notificationManagerIcons,
 } from "@/engine/core/managers/interface/notifications";
 import { StatisticsManager } from "@/engine/core/managers/interface/StatisticsManager";
-import { giveInfo, hasAlifeInfo, hasAlifeInfos, hasFewAlifeInfos } from "@/engine/core/utils/info_portion";
+import { readTimeFromPacket, writeTimeToPacket } from "@/engine/core/utils/game/game_time";
 import { LuaLogger } from "@/engine/core/utils/logging";
+import {
+  giveInfo,
+  hasAlifeInfo,
+  hasAlifeInfos,
+  hasFewAlifeInfos,
+} from "@/engine/core/utils/object/object_info_portion";
+import { spawnItemsForObjectFromList } from "@/engine/core/utils/object/object_spawn";
 import { increaseCommunityGoodwillToId } from "@/engine/core/utils/relation";
-import { spawnItemsForObjectFromList } from "@/engine/core/utils/spawn";
-import { readTimeFromPacket, writeTimeToPacket } from "@/engine/core/utils/time";
 import { captions } from "@/engine/lib/constants/captions/captions";
 import { communities } from "@/engine/lib/constants/communities";
 import { infoPortions } from "@/engine/lib/constants/info_portions/info_portions";

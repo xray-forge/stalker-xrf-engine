@@ -2,7 +2,7 @@ import { profile_timer } from "xray16";
 
 import { AbstractCoreManager } from "@/engine/core/managers/base/AbstractCoreManager";
 import { abort } from "@/engine/core/utils/assertion";
-import { executeConsoleCommand } from "@/engine/core/utils/console";
+import { executeConsoleCommand } from "@/engine/core/utils/game/game_console";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { gameConfig } from "@/engine/lib/configs/GameConfig";
 import { consoleCommands } from "@/engine/lib/constants/console_commands";

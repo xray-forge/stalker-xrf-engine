@@ -8,7 +8,7 @@ import { dynamicMusicThemes } from "@/engine/core/managers/sounds/dynamic_music"
 import { SurgeManager } from "@/engine/core/managers/world/SurgeManager";
 import { StereoSound } from "@/engine/core/objects/sounds/StereoSound";
 import { abort } from "@/engine/core/utils/assertion";
-import { executeConsoleCommand, getConsoleFloatCommand } from "@/engine/core/utils/console";
+import { executeConsoleCommand, getConsoleFloatCommand } from "@/engine/core/utils/game/game_console";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { clampNumber } from "@/engine/core/utils/number";
 import { consoleCommands } from "@/engine/lib/constants/console_commands";

@@ -2,7 +2,6 @@ import { describe, expect, it } from "@jest/globals";
 
 import { registerActor, registerObject, registerStoryLink } from "@/engine/core/database";
 import { IBaseSchemeLogic } from "@/engine/core/schemes";
-import { giveInfo } from "@/engine/core/utils/info_portion";
 import {
   addConditionToList,
   getConfigObjectAndZone,
@@ -11,6 +10,7 @@ import {
   getSectionsFromConditionLists,
   parseConditionsList,
 } from "@/engine/core/utils/ini";
+import { giveInfo } from "@/engine/core/utils/object/object_info_portion";
 import { NIL } from "@/engine/lib/constants/words";
 import { ClientObject, LuaArray, ServerObject, TIndex } from "@/engine/lib/types";
 import { mockBaseSchemeLogic } from "@/fixtures/engine";

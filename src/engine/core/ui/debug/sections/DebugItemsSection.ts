@@ -5,6 +5,7 @@ import { AbstractDebugSection } from "@/engine/core/ui/debug/sections/AbstractDe
 import { DebugItemListEntry } from "@/engine/core/ui/debug/sections/DebugItemListEntry";
 import { isAmmoSection, isGameStarted } from "@/engine/core/utils/check/is";
 import { LuaLogger } from "@/engine/core/utils/logging";
+import { getInventoryNameForItemSection, spawnItemsForObject } from "@/engine/core/utils/object/object_spawn";
 import {
   getAmmoSections,
   getArtefactsSections,
@@ -12,7 +13,6 @@ import {
   getOutfitSections,
   getWeaponSections,
 } from "@/engine/core/utils/sections";
-import { getInventoryNameForItemSection, spawnItemsForObject } from "@/engine/core/utils/spawn";
 import { resolveXmlFile } from "@/engine/core/utils/ui";
 import { TInventoryItem } from "@/engine/lib/constants/items";
 import { drugs } from "@/engine/lib/constants/items/drugs";

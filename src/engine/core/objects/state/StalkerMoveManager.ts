@@ -7,7 +7,7 @@ import { pickSectionFromCondList } from "@/engine/core/utils/ini/ini_config";
 import { parseConditionsList } from "@/engine/core/utils/ini/ini_parse";
 import { IWaypointData, TConditionList } from "@/engine/core/utils/ini/ini_types";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { isStalkerAtWaypoint } from "@/engine/core/utils/position";
+import { isStalkerAtWaypoint } from "@/engine/core/utils/object";
 import { TRUE } from "@/engine/lib/constants/words";
 import {
   AnyCallable,

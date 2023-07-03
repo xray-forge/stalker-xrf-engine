@@ -11,12 +11,16 @@ import {
 import { openLoadMarker } from "@/engine/core/database/save_markers";
 import { getHeliHealth } from "@/engine/core/schemes/heli_move/heli_utils";
 import { isLevelChanging } from "@/engine/core/utils/check/check";
-import { randomChoice } from "@/engine/core/utils/general";
-import { pickSectionFromCondList } from "@/engine/core/utils/ini/ini_config";
-import { parseConditionsList } from "@/engine/core/utils/ini/ini_parse";
-import { readIniBoolean, readIniNumber, readIniString } from "@/engine/core/utils/ini/ini_read";
-import { TConditionList } from "@/engine/core/utils/ini/ini_types";
+import {
+  parseConditionsList,
+  pickSectionFromCondList,
+  readIniBoolean,
+  readIniNumber,
+  readIniString,
+  TConditionList,
+} from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
+import { pickRandom } from "@/engine/core/utils/number";
 import { copyVector, createEmptyVector, createVector, distanceBetween2d } from "@/engine/core/utils/vector";
 import { ACTOR, NIL } from "@/engine/lib/constants/words";
 import { ClientObject, IniFile, NetPacket, Optional, Reader, TNumberId, TRate, Vector } from "@/engine/lib/types";
@@ -484,7 +488,7 @@ export class HeliCombat {
     this.changeDirTime = 0;
     this.changePosTime = 0;
     this.centerPos = this.enemyLastSeenPos!;
-    this.flightDirection = randomChoice(true, false);
+    this.flightDirection = pickRandom(true, false);
     this.changeCombatTypeAllowed = true;
     this.roundBeginShootTime = 0;
 
@@ -577,7 +581,7 @@ export class HeliCombat {
     this.changePosTime = 0;
     this.centerPos = this.enemyLastSeenPos!;
 
-    this.flightDirection = randomChoice(true, false);
+    this.flightDirection = pickRandom(true, false);
     this.changeCombatTypeAllowed = true;
     this.searchBeginShootTime = 0;
 

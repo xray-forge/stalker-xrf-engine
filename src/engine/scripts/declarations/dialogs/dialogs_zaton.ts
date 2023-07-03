@@ -8,8 +8,8 @@ import { ENotificationDirection, NotificationManager } from "@/engine/core/manag
 import { TreasureManager } from "@/engine/core/managers/world/TreasureManager";
 import { extern, getExtern } from "@/engine/core/utils/binding";
 import { isStoryObjectExisting } from "@/engine/core/utils/check/check";
-import { disableInfo, giveInfo, hasAlifeInfo } from "@/engine/core/utils/info_portion";
 import { LuaLogger } from "@/engine/core/utils/logging";
+import { disableInfo, giveInfo, hasAlifeInfo } from "@/engine/core/utils/object/object_info_portion";
 import {
   actorHasAtLeastOneItem,
   actorHasItem,

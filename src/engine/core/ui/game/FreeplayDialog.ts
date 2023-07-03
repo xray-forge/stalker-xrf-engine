@@ -1,7 +1,7 @@
 import { CUIMessageBoxEx, CUIScriptWnd, Frect, LuabindClass, ui_events } from "xray16";
 
-import { giveInfo } from "@/engine/core/utils/info_portion";
 import { LuaLogger } from "@/engine/core/utils/logging";
+import { giveInfo } from "@/engine/core/utils/object/object_info_portion";
 import { infoPortions } from "@/engine/lib/constants/info_portions";
 import { Optional } from "@/engine/lib/types";
 

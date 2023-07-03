@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it } from "@jest/globals";
 
-import { createAutoSave, createSave } from "@/engine/core/utils/game_save";
+import { createAutoSave, createSave } from "@/engine/core/utils/game/game_save";
 import { resetFunctionMock } from "@/fixtures/utils/function_mock";
 import { gameConsole } from "@/fixtures/xray/mocks/console.mock";
 import { mocksConfig } from "@/fixtures/xray/mocks/MocksConfig";

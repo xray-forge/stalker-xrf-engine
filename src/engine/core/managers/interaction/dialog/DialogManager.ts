@@ -17,10 +17,10 @@ import {
   TPRTTable,
 } from "@/engine/core/managers/interaction/dialog/types";
 import { assert } from "@/engine/core/utils/assertion";
-import { hasAlifeInfo } from "@/engine/core/utils/info_portion";
 import { parseInfoPortions, parseStringsList } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getCharacterCommunity, isObjectWounded } from "@/engine/core/utils/object";
+import { hasAlifeInfo } from "@/engine/core/utils/object/object_info_portion";
 import { FALSE, TRUE } from "@/engine/lib/constants/words";
 import {
   ClientObject,
