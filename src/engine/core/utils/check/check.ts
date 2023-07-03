@@ -1,41 +1,12 @@
-import { alife, danger_object, device, game_graph } from "xray16";
+import { alife, device, game_graph } from "xray16";
 
-import { getObjectIdByStoryId, getServerObjectByStoryId, IRegistryObjectState, registry } from "@/engine/core/database";
-import { SimulationBoardManager } from "@/engine/core/managers/interaction/SimulationBoardManager";
-import type { SmartTerrain } from "@/engine/core/objects";
-import { ESmartTerrainStatus } from "@/engine/core/objects/server/smart_terrain/types";
+import { getObjectIdByStoryId, getServerObjectByStoryId, registry } from "@/engine/core/database";
 import type { Squad } from "@/engine/core/objects/server/squad/Squad";
-import { EActionId } from "@/engine/core/schemes/base";
-import { ISchemeCombatIgnoreState } from "@/engine/core/schemes/combat_ignore";
-import { ISchemeWoundedState } from "@/engine/core/schemes/wounded";
 import { isStalker } from "@/engine/core/utils/check/is";
-import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
-import { getCharacterCommunity } from "@/engine/core/utils/object/object_general";
-import { isObjectInZone } from "@/engine/core/utils/object/object_location";
-import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
 import { surgeConfig } from "@/engine/lib/configs/SurgeConfig";
-import { communities } from "@/engine/lib/constants/communities";
-import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import { lootableTableExclude, TLootableExcludeItem } from "@/engine/lib/constants/items/lootable_table";
 import { TLevel } from "@/engine/lib/constants/levels";
-import { MAX_U16 } from "@/engine/lib/constants/memory";
-import { NIL, TRUE } from "@/engine/lib/constants/words";
-import {
-  ActionPlanner,
-  AlifeSimulator,
-  AnyObject,
-  ClientObject,
-  DangerObject,
-  EClientObjectRelation,
-  EScheme,
-  Optional,
-  ServerCreatureObject,
-  ServerHumanObject,
-  TDangerType,
-  TDistance,
-  TNumberId,
-  TStringId,
-} from "@/engine/lib/types";
+import { AlifeSimulator, ClientObject, Optional, ServerHumanObject, TNumberId, TStringId } from "@/engine/lib/types";
 
 /**
  * Check whether story object exists.

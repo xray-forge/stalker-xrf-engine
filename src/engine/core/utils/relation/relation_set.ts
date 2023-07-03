@@ -5,7 +5,7 @@ import type { Squad } from "@/engine/core/objects/server/squad/Squad";
 import { assert } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { clampNumber } from "@/engine/core/utils/number";
-import { EGoodwill, ERelation, mapRelationToGoodwill } from "@/engine/core/utils/relation/types";
+import { EGoodwill, ERelation, mapRelationToGoodwill } from "@/engine/core/utils/relation/relation_types";
 import { communities, TCommunity } from "@/engine/lib/constants/communities";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import {

@@ -1,7 +1,7 @@
 import { AbstractScheme } from "@/engine/core/schemes/base";
 import { ISchemeNoWeaponState } from "@/engine/core/schemes/sr_no_weapon/ISchemeNoWeaponState";
 import { NoWeaponManager } from "@/engine/core/schemes/sr_no_weapon/NoWeaponManager";
-import { getConfigSwitchConditions } from "@/engine/core/utils/ini/config";
+import { getConfigSwitchConditions } from "@/engine/core/utils/ini/ini_config";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { ClientObject, EScheme, ESchemeType, IniFile, TNumberId, TSection } from "@/engine/lib/types";
 

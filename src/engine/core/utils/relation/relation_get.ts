@@ -4,7 +4,7 @@ import { getServerObjectByStoryId, registry } from "@/engine/core/database";
 import type { Squad } from "@/engine/core/objects/server/squad/Squad";
 import { assert } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { EGoodwill, ERelation } from "@/engine/core/utils/relation/types";
+import { EGoodwill, ERelation } from "@/engine/core/utils/relation/relation_types";
 import { communities, TCommunity } from "@/engine/lib/constants/communities";
 import { ClientObject, Optional, TCount, TNumberId, TRelationType, TStringId } from "@/engine/lib/types";
 

@@ -3,7 +3,7 @@ import { AbstractScheme } from "@/engine/core/schemes/base/AbstractScheme";
 import { SchemePhysicalHit } from "@/engine/core/schemes/ph_hit";
 import { ISchemePhysicalOnHitState } from "@/engine/core/schemes/ph_on_hit/ISchemePhysicalOnHitState";
 import { PhysicalOnHitManager } from "@/engine/core/schemes/ph_on_hit/PhysicalOnHitManager";
-import { getConfigSwitchConditions } from "@/engine/core/utils/ini/config";
+import { getConfigSwitchConditions } from "@/engine/core/utils/ini/ini_config";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { ClientObject, EScheme, ESchemeType, IniFile, Optional, TSection } from "@/engine/lib/types";
 

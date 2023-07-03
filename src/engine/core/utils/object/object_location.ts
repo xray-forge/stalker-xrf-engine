@@ -1,9 +1,9 @@
-import { alife, game_graph } from "xray16";
+import { alife, game_graph, level } from "xray16";
 
 import { SmartTerrain } from "@/engine/core/objects";
-import { getObjectSmartTerrain } from "@/engine/core/utils/object/object_general";
-import { graphDistance } from "@/engine/core/utils/vector";
-import { ClientObject, Optional, ServerObject, TDistance, TName } from "@/engine/lib/types";
+import { getObjectSmartTerrain } from "@/engine/core/utils/object/object_get";
+import { createEmptyVector, graphDistance } from "@/engine/core/utils/vector";
+import { ClientObject, Optional, ServerObject, TDistance, TName, TNumberId } from "@/engine/lib/types";
 
 /**
  * Check whether object is in provided smart terrain (name).
@@ -97,4 +97,17 @@ export function areObjectsOnSameLevel(first: ServerObject, second: ServerObject)
  */
 export function getServerDistanceBetween(first: ServerObject, second: ServerObject): TDistance {
   return graphDistance(first.m_game_vertex_id, second.m_game_vertex_id);
+}
+
+/**
+ * todo: description
+ */
+export function sendToNearestAccessibleVertex(object: ClientObject, vertexId: TNumberId): TNumberId {
+  if (!object.accessible(vertexId)) {
+    vertexId = object.accessible_nearest(level.vertex_position(vertexId), createEmptyVector());
+  }
+
+  object.set_dest_level_vertex_id(vertexId);
+
+  return vertexId;
 }

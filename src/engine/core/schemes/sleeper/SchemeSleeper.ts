@@ -4,10 +4,10 @@ import { AbstractScheme, EActionId, EEvaluatorId } from "@/engine/core/schemes";
 import { ActionSleeperActivity } from "@/engine/core/schemes/sleeper/actions/ActionSleeperActivity";
 import { EvaluatorNeedSleep } from "@/engine/core/schemes/sleeper/evaluators/EvaluatorNeedSleep";
 import { ISchemeSleeperState } from "@/engine/core/schemes/sleeper/ISchemeSleeperState";
-import { getConfigSwitchConditions } from "@/engine/core/utils/ini/config";
-import { readIniBoolean, readIniString } from "@/engine/core/utils/ini/read";
+import { getConfigSwitchConditions } from "@/engine/core/utils/ini/ini_config";
+import { readIniBoolean, readIniString } from "@/engine/core/utils/ini/ini_read";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { addCommonActionPreconditions } from "@/engine/core/utils/scheme/setup";
+import { addCommonActionPreconditions } from "@/engine/core/utils/scheme/scheme_setup";
 import { ActionPlanner, ClientObject, IniFile } from "@/engine/lib/types";
 import { EScheme, ESchemeType, TSection } from "@/engine/lib/types/scheme";
 

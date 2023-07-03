@@ -2,7 +2,7 @@ import { game, level, time_global, verify_if_thread_is_running } from "xray16";
 
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { MAX_U8 } from "@/engine/lib/constants/memory";
-import { NetPacket, NetProcessor, Optional, TDuration, Time, TLabel, TTimestamp } from "@/engine/lib/types";
+import { NetPacket, NetProcessor, Optional, TDuration, Time, TLabel, TRate, TTimestamp } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -139,4 +139,32 @@ export function readTimeFromPacket(reader: NetProcessor): Optional<Time> {
   time.set(Y + 2000, M, D, h, m, s, ms);
 
   return time;
+}
+
+/**
+ * Set current time in level.
+ * Creates idle state with multiplied time factor.
+ */
+export function setCurrentTime(hour: number, min: number, sec: number): void {
+  const currentTimeFactor: TRate = level.get_time_factor();
+  const currentGameTime: TTimestamp = game.time();
+
+  // todo: Magic constants.
+  let currentDay: number = math.floor(currentGameTime / 86_400_000);
+  const currentTime: number = currentGameTime - currentDay * 86_400_000;
+  let newTime: number = (sec + min * 60 + hour * 3_600) * 1000;
+
+  if (currentTime > newTime) {
+    currentDay = currentDay + 1;
+  }
+
+  newTime = newTime + currentDay * 86_400_000;
+
+  level.set_time_factor(10_000);
+
+  while (game.time() < newTime) {
+    wait();
+  }
+
+  level.set_time_factor(currentTimeFactor);
 }

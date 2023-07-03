@@ -9,7 +9,7 @@ import {
   readIniString,
   readIniStringAndCondList,
   readIniTwoNumbers,
-} from "@/engine/core/utils/ini/read";
+} from "@/engine/core/utils/ini/ini_read";
 import { IniFile, Optional } from "@/engine/lib/types";
 import { mockIniFile } from "@/fixtures/xray/mocks/ini";
 

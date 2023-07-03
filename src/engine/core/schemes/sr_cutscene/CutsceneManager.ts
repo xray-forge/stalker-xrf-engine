@@ -15,7 +15,7 @@ import {
 } from "@/engine/core/schemes/sr_cutscene/ISchemeCutsceneState";
 import { getExtern } from "@/engine/core/utils/binding";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { trySwitchToAnotherSection } from "@/engine/core/utils/scheme/switch";
+import { trySwitchToAnotherSection } from "@/engine/core/utils/scheme/scheme_switch";
 import { postProcessors } from "@/engine/lib/constants/animation/post_processors";
 import { AnyCallablesModule, ClientObject, Optional, TName, TNumberId } from "@/engine/lib/types";
 

@@ -8,15 +8,15 @@ import { ESchemeEvent, IBaseSchemeState } from "@/engine/core/schemes";
 import { assert } from "@/engine/core/utils/assertion";
 import { readIniNumber, readIniString } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { getObjectSmartTerrain } from "@/engine/core/utils/object/object_general";
+import { getObjectSmartTerrain } from "@/engine/core/utils/object/object_get";
 import { ERelation } from "@/engine/core/utils/relation";
-import { emitSchemeEvent } from "@/engine/core/utils/scheme/event";
+import { emitSchemeEvent } from "@/engine/core/utils/scheme/scheme_event";
 import {
   activateSchemeBySection,
   enableObjectBaseSchemes,
   getSectionToActivate,
-} from "@/engine/core/utils/scheme/logic";
-import { disableObjectBaseSchemes } from "@/engine/core/utils/scheme/setup";
+} from "@/engine/core/utils/scheme/scheme_logic";
+import { disableObjectBaseSchemes } from "@/engine/core/utils/scheme/scheme_setup";
 import { spawnItemsForObject } from "@/engine/core/utils/spawn";
 import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
 import { TInventoryItem } from "@/engine/lib/constants/items";

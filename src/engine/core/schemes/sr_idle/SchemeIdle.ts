@@ -1,7 +1,7 @@
 import { AbstractScheme } from "@/engine/core/schemes/base/AbstractScheme";
 import { IdleManager } from "@/engine/core/schemes/sr_idle/IdleManager";
 import { ISchemeIdleState } from "@/engine/core/schemes/sr_idle/ISchemeIdleState";
-import { getConfigSwitchConditions } from "@/engine/core/utils/ini/config";
+import { getConfigSwitchConditions } from "@/engine/core/utils/ini/ini_config";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { ClientObject, IniFile } from "@/engine/lib/types";
 import { EScheme, ESchemeType, TSection } from "@/engine/lib/types/scheme";

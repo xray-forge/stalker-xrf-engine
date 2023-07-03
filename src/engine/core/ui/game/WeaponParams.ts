@@ -1,5 +1,5 @@
 import { SYSTEM_INI } from "@/engine/core/database";
-import { parseStringsList } from "@/engine/core/utils/ini/parse";
+import { parseStringsList } from "@/engine/core/utils/ini/ini_parse";
 import { TRate, TSection } from "@/engine/lib/types";
 
 /**

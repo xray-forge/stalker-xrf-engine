@@ -7,7 +7,7 @@ import { ActionHelpWounded } from "@/engine/core/schemes/help_wounded/actions";
 import { EvaluatorWoundedExist } from "@/engine/core/schemes/help_wounded/evaluators";
 import { ISchemeHelpWoundedState } from "@/engine/core/schemes/help_wounded/ISchemeHelpWoundedState";
 import { SchemeWounded } from "@/engine/core/schemes/wounded/SchemeWounded";
-import { readIniBoolean } from "@/engine/core/utils/ini/read";
+import { readIniBoolean } from "@/engine/core/utils/ini/ini_read";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { scriptSounds } from "@/engine/lib/constants/sound/script_sounds";
 import { ActionPlanner, ClientObject, IniFile, Optional, TNumberId } from "@/engine/lib/types";

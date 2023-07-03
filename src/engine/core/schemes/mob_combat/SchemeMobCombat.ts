@@ -2,7 +2,7 @@ import { registry } from "@/engine/core/database";
 import { AbstractScheme } from "@/engine/core/schemes/base";
 import { ISchemeMobCombatState } from "@/engine/core/schemes/mob_combat/ISchemeMobCombatState";
 import { MobCombatManager } from "@/engine/core/schemes/mob_combat/MobCombatManager";
-import { getConfigSwitchConditions } from "@/engine/core/utils/ini/config";
+import { getConfigSwitchConditions } from "@/engine/core/utils/ini/ini_config";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { ClientObject, EScheme, ESchemeType, IniFile, Optional, TSection } from "@/engine/lib/types";
 

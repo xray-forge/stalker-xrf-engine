@@ -2,7 +2,7 @@ import { registry } from "@/engine/core/database";
 import { AbstractSchemeManager } from "@/engine/core/schemes/base";
 import { ISchemeDeathState } from "@/engine/core/schemes/death";
 import { ISchemeMobDeathState } from "@/engine/core/schemes/mob_death/ISchemeMobDeathState";
-import { trySwitchToAnotherSection } from "@/engine/core/utils/scheme/switch";
+import { trySwitchToAnotherSection } from "@/engine/core/utils/scheme/scheme_switch";
 import { ClientObject, EScheme, Optional } from "@/engine/lib/types";
 
 /**

@@ -1,4 +1,4 @@
-import { IConfigCondition } from "@/engine/core/utils/ini/types";
+import type { IConfigCondition } from "@/engine/core/utils/ini";
 import { LuaArray, Optional, TName, TStringId } from "@/engine/lib/types";
 
 /**

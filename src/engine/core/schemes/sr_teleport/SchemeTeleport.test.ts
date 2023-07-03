@@ -3,7 +3,7 @@ import { describe, expect, it } from "@jest/globals";
 import { IRegistryObjectState, registerObject, registry } from "@/engine/core/database";
 import { ISchemeTeleportState } from "@/engine/core/schemes/sr_teleport/ISchemeTeleportState";
 import { SchemeTeleport } from "@/engine/core/schemes/sr_teleport/SchemeTeleport";
-import { loadSchemeImplementation } from "@/engine/core/utils/scheme/setup";
+import { loadSchemeImplementation } from "@/engine/core/utils/scheme/scheme_setup";
 import { ClientObject, EScheme, ESchemeType, IniFile } from "@/engine/lib/types";
 import { mockClientGameObject, mockIniFile } from "@/fixtures/xray";
 

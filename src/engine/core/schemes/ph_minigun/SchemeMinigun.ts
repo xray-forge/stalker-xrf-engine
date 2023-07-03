@@ -1,8 +1,13 @@
 import { AbstractScheme } from "@/engine/core/schemes/base";
 import { ISchemeMinigunState } from "@/engine/core/schemes/ph_minigun/ISchemeMinigunState";
 import { MinigunManager } from "@/engine/core/schemes/ph_minigun/MinigunManager";
-import { getConfigSwitchConditions } from "@/engine/core/utils/ini/config";
-import { readIniBoolean, readIniNumber, readIniString, readIniStringAndCondList } from "@/engine/core/utils/ini/read";
+import { getConfigSwitchConditions } from "@/engine/core/utils/ini/ini_config";
+import {
+  readIniBoolean,
+  readIniNumber,
+  readIniString,
+  readIniStringAndCondList,
+} from "@/engine/core/utils/ini/ini_read";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { ClientObject, EScheme, ESchemeType, IniFile, TSection } from "@/engine/lib/types";
 

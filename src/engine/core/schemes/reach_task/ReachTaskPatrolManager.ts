@@ -4,7 +4,7 @@ import { Squad } from "@/engine/core/objects";
 import { EStalkerState } from "@/engine/core/objects/state";
 import { abort, assertDefined } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { getObjectSquad } from "@/engine/core/utils/object/object_general";
+import { getObjectSquad } from "@/engine/core/utils/object";
 import { createEmptyVector, createVector, vectorCross, vectorRotateY, yawDegree } from "@/engine/core/utils/vector";
 import {
   ClientObject,

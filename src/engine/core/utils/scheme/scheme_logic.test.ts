@@ -40,8 +40,8 @@ import {
   getSectionToActivate,
   isSectionActive,
   resetObjectGenericSchemesOnSectionSwitch,
-} from "@/engine/core/utils/scheme/logic";
-import { loadSchemeImplementation, loadSchemeImplementations } from "@/engine/core/utils/scheme/setup";
+} from "@/engine/core/utils/scheme/scheme_logic";
+import { loadSchemeImplementation, loadSchemeImplementations } from "@/engine/core/utils/scheme/scheme_setup";
 import { NIL } from "@/engine/lib/constants/words";
 import { ClientObject, EScheme, ESchemeType, IniFile, ServerHumanObject } from "@/engine/lib/types";
 import { getSchemeAction, mockSchemeState } from "@/fixtures/engine/mocks";

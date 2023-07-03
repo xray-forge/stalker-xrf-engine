@@ -5,7 +5,7 @@ import { SimulationBoardManager } from "@/engine/core/managers/interaction/Simul
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import { EStalkerState } from "@/engine/core/objects/state";
 import { ISchemeCoverState } from "@/engine/core/schemes/cover";
-import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
+import { pickSectionFromCondList } from "@/engine/core/utils/ini/ini_config";
 import { areSameVectors, createEmptyVector, createVector, subVectors } from "@/engine/core/utils/vector";
 import { CoverPoint, EClientObjectPath, Optional, TDistance, TNumberId, Vector } from "@/engine/lib/types";
 

@@ -6,8 +6,8 @@ import { Squad } from "@/engine/core/objects";
 import { AbstractDebugSection } from "@/engine/core/ui/debug/sections/AbstractDebugSection";
 import { isGameStarted } from "@/engine/core/utils/check";
 import { LuaLogger } from "@/engine/core/utils/logging";
+import { getObjectSquad } from "@/engine/core/utils/object";
 import { getNearestClientObject } from "@/engine/core/utils/object/object_find";
-import { getObjectSquad } from "@/engine/core/utils/object/object_general";
 import {
   ERelation,
   getObjectsRelationSafe,

@@ -1,6 +1,16 @@
-import { resetMonsterAction } from "@/engine/core/utils/object/object_general";
 import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
 import { ClientObject, TName } from "@/engine/lib/types";
+
+/**
+ * todo;
+ */
+export function resetMonsterAction(object: ClientObject, scriptName: TName): void {
+  if (object.get_script()) {
+    object.script(false, object.get_script_name());
+  }
+
+  object.script(true, scriptName);
+}
 
 /**
  * Check whether monster is currently captured by script logic.

@@ -4,9 +4,9 @@ import { registry } from "@/engine/core/database";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import { AbstractSchemeManager } from "@/engine/core/schemes";
 import { ISchemeMonsterState } from "@/engine/core/schemes/sr_monster/ISchemeMonsterState";
-import { action } from "@/engine/core/utils/object/object_general";
+import { action } from "@/engine/core/utils/object/object_action";
 import { scriptCaptureMonster, scriptReleaseMonster } from "@/engine/core/utils/scheme";
-import { trySwitchToAnotherSection } from "@/engine/core/utils/scheme/switch";
+import { trySwitchToAnotherSection } from "@/engine/core/utils/scheme/scheme_switch";
 import { copyVector, subVectors } from "@/engine/core/utils/vector";
 import { sounds } from "@/engine/lib/constants/sound/sounds";
 import {

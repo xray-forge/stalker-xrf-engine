@@ -1,10 +1,10 @@
 import { registry } from "@/engine/core/database";
 import { AbstractSchemeManager } from "@/engine/core/schemes/base";
 import { ISchemePhysicalIdleState } from "@/engine/core/schemes/ph_idle/ISchemePhysicalIdleState";
-import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
-import { TConditionList } from "@/engine/core/utils/ini/types";
+import { pickSectionFromCondList } from "@/engine/core/utils/ini/ini_config";
+import { TConditionList } from "@/engine/core/utils/ini/ini_types";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { switchObjectSchemeToSection, trySwitchToAnotherSection } from "@/engine/core/utils/scheme/switch";
+import { switchObjectSchemeToSection, trySwitchToAnotherSection } from "@/engine/core/utils/scheme/scheme_switch";
 import { ClientObject, Optional, TCount, TIndex, TSection, Vector } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);

@@ -5,7 +5,7 @@ import { disposeManager, registerActor, registry, TASK_MANAGER_LTX } from "@/eng
 import { TaskManager } from "@/engine/core/managers/interaction/tasks/TaskManager";
 import { TaskObject } from "@/engine/core/managers/interaction/tasks/TaskObject";
 import { ETaskStatus } from "@/engine/core/managers/interaction/tasks/types";
-import { parseConditionsList } from "@/engine/core/utils/ini/parse";
+import { parseConditionsList } from "@/engine/core/utils/ini/ini_parse";
 import { NIL } from "@/engine/lib/constants/words";
 import { MockLuaTable } from "@/fixtures/lua/mocks/LuaTable.mock";
 import { mockClientGameObject } from "@/fixtures/xray";

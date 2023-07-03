@@ -8,7 +8,7 @@ import { ISchemeWoundedState } from "@/engine/core/schemes/wounded/ISchemeWounde
 import { WoundManager } from "@/engine/core/schemes/wounded/WoundManager";
 import { IConfigSwitchCondition, parseConditionsList, readIniBoolean, readIniString } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { getCharacterCommunity } from "@/engine/core/utils/object/object_general";
+import { getCharacterCommunity } from "@/engine/core/utils/object/object_get";
 import { communities, TCommunity } from "@/engine/lib/constants/communities";
 import { NIL } from "@/engine/lib/constants/words";
 import {

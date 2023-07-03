@@ -3,12 +3,12 @@ import { LuabindClass, object_binder, time_global } from "xray16";
 import {
   closeLoadMarker,
   closeSaveMarker,
+  openLoadMarker,
   openSaveMarker,
   registry,
   resetObject,
   unregisterObject,
 } from "@/engine/core/database";
-import { openLoadMarker } from "@/engine/core/database/save_markers";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { createVector } from "@/engine/core/utils/vector";
 import { MAX_U32 } from "@/engine/lib/constants/memory";

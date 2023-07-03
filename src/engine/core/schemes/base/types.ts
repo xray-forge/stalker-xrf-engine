@@ -1,5 +1,5 @@
 import type { AbstractScheme } from "@/engine/core/schemes";
-import type { TConditionList } from "@/engine/core/utils/ini/types";
+import type { TConditionList } from "@/engine/core/utils/ini/ini_types";
 import type {
   AnyObject,
   ClientObject,

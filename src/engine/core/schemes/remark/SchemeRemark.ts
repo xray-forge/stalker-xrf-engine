@@ -4,11 +4,11 @@ import { AbstractScheme, EActionId, EEvaluatorId } from "@/engine/core/schemes";
 import { ActionRemarkActivity } from "@/engine/core/schemes/remark/actions/ActionRemarkActivity";
 import { EvaluatorNeedRemark } from "@/engine/core/schemes/remark/evaluators/EvaluatorNeedRemark";
 import { ISchemeRemarkState } from "@/engine/core/schemes/remark/ISchemeRemarkState";
-import { getConfigSwitchConditions } from "@/engine/core/utils/ini/config";
-import { parseConditionsList } from "@/engine/core/utils/ini/parse";
-import { readIniBoolean, readIniString } from "@/engine/core/utils/ini/read";
+import { getConfigSwitchConditions } from "@/engine/core/utils/ini/ini_config";
+import { parseConditionsList } from "@/engine/core/utils/ini/ini_parse";
+import { readIniBoolean, readIniString } from "@/engine/core/utils/ini/ini_read";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { addCommonActionPreconditions } from "@/engine/core/utils/scheme/setup";
+import { addCommonActionPreconditions } from "@/engine/core/utils/scheme/scheme_setup";
 import { NIL } from "@/engine/lib/constants/words";
 import { ActionPlanner, ClientObject, EScheme, ESchemeType, IniFile, TSection } from "@/engine/lib/types";
 

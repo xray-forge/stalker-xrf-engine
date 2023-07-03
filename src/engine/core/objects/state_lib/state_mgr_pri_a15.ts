@@ -3,7 +3,7 @@ import { anim, CSightParams, move } from "xray16";
 import { registry } from "@/engine/core/database";
 import { IStateDescriptor } from "@/engine/core/objects/state/types";
 import { abort } from "@/engine/core/utils/assertion";
-import { parseStringsList } from "@/engine/core/utils/ini/parse";
+import { parseStringsList } from "@/engine/core/utils/ini/ini_parse";
 import { getTableSize } from "@/engine/core/utils/table";
 import { infoPortions } from "@/engine/lib/constants/info_portions";
 import { storyNames } from "@/engine/lib/constants/story_names";

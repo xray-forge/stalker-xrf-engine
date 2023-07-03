@@ -8,7 +8,7 @@ import { EStalkerState, ILookTargetDescriptor } from "@/engine/core/objects/stat
 import { IStateManagerCallbackDescriptor } from "@/engine/core/objects/state/StalkerStateManager";
 import { ISchemeRemarkState } from "@/engine/core/schemes/remark";
 import { abort } from "@/engine/core/utils/assertion";
-import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
+import { pickSectionFromCondList } from "@/engine/core/utils/ini/ini_config";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { NIL } from "@/engine/lib/constants/words";
 import { ClientObject, Optional, SoundObject, TNumberId, Vector } from "@/engine/lib/types";

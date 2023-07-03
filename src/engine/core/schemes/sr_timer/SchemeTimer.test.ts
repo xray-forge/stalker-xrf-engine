@@ -3,7 +3,7 @@ import { describe, expect, it } from "@jest/globals";
 import { IRegistryObjectState, registerObject, registry } from "@/engine/core/database";
 import { ETimerType, ISchemeTimerState } from "@/engine/core/schemes/sr_timer/ISchemeTimerState";
 import { SchemeTimer } from "@/engine/core/schemes/sr_timer/SchemeTimer";
-import { loadSchemeImplementation } from "@/engine/core/utils/scheme/setup";
+import { loadSchemeImplementation } from "@/engine/core/utils/scheme/scheme_setup";
 import { ClientObject, EScheme, ESchemeType, IniFile } from "@/engine/lib/types";
 import { mockClientGameObject, mockIniFile } from "@/fixtures/xray";
 

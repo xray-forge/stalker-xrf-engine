@@ -7,7 +7,7 @@ import { ActionSearchCorpse } from "@/engine/core/schemes/corpse_detection/actio
 import { EvaluatorCorpseDetect } from "@/engine/core/schemes/corpse_detection/evaluators";
 import { ISchemeCorpseDetectionState } from "@/engine/core/schemes/corpse_detection/ISchemeCorpseDetectionState";
 import { isLootableItem } from "@/engine/core/utils/check/is";
-import { readIniBoolean } from "@/engine/core/utils/ini/read";
+import { readIniBoolean } from "@/engine/core/utils/ini/ini_read";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { ActionPlanner, ClientObject, IniFile, Optional, TNumberId } from "@/engine/lib/types";
 import { EScheme, ESchemeType, TSection } from "@/engine/lib/types/scheme";

@@ -5,7 +5,7 @@ import { getPortableStoreValue, setPortableStoreValue } from "@/engine/core/data
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import { AbstractSchemeManager } from "@/engine/core/schemes";
 import { ISchemeWoundedState } from "@/engine/core/schemes/wounded/ISchemeWoundedState";
-import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
+import { pickSectionFromCondList } from "@/engine/core/utils/ini/ini_config";
 import { drugs } from "@/engine/lib/constants/items/drugs";
 import { FALSE, NIL, TRUE } from "@/engine/lib/constants/words";
 import { AlifeSimulator, LuaArray, Optional, TCount, TIndex, TRate, TTimestamp } from "@/engine/lib/types";

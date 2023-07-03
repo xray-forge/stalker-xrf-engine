@@ -7,8 +7,8 @@ import { getHeliFlyer, HeliFly } from "@/engine/core/schemes/heli_move/HeliFly";
 import { getHeliLooker, HeliLook } from "@/engine/core/schemes/heli_move/HeliLook";
 import { ISchemeHelicopterMoveState } from "@/engine/core/schemes/heli_move/ISchemeHelicopterMoveState";
 import { abort } from "@/engine/core/utils/assertion";
-import { parseWaypointsData } from "@/engine/core/utils/ini/parse";
-import { trySwitchToAnotherSection } from "@/engine/core/utils/scheme/switch";
+import { parseWaypointsData } from "@/engine/core/utils/ini/ini_parse";
+import { trySwitchToAnotherSection } from "@/engine/core/utils/scheme/scheme_switch";
 import { ACTOR } from "@/engine/lib/constants/words";
 import { ClientObject, Optional, Patrol, TIndex, TName, TRate, Vector } from "@/engine/lib/types";
 

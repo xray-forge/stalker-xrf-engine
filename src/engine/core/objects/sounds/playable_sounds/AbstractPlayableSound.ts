@@ -1,5 +1,5 @@
 import { EPlayableSound } from "@/engine/core/objects/sounds/types";
-import { readIniString } from "@/engine/core/utils/ini/read";
+import { readIniString } from "@/engine/core/utils/ini/ini_read";
 import {
   AnyArgs,
   ClientObject,

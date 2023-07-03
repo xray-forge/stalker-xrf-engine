@@ -4,7 +4,7 @@ import {
   isMonsterScriptCaptured,
   scriptCaptureMonster,
   scriptReleaseMonster,
-} from "@/engine/core/utils/scheme/monster";
+} from "@/engine/core/utils/scheme/scheme_monster";
 import { ClientObject } from "@/engine/lib/types";
 import { replaceFunctionMock, resetFunctionMock } from "@/fixtures/utils";
 import { mockClientGameObject } from "@/fixtures/xray";

@@ -4,9 +4,9 @@ import { AbstractScheme, EActionId, EEvaluatorId } from "@/engine/core/schemes";
 import { ActionCompanionActivity } from "@/engine/core/schemes/companion/actions";
 import { EvaluatorNeedCompanion } from "@/engine/core/schemes/companion/evaluators";
 import { ISchemeCompanionState } from "@/engine/core/schemes/companion/ISchemeCompanionState";
-import { getConfigSwitchConditions } from "@/engine/core/utils/ini/config";
+import { getConfigSwitchConditions } from "@/engine/core/utils/ini/ini_config";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { addCommonActionPreconditions } from "@/engine/core/utils/scheme/setup";
+import { addCommonActionPreconditions } from "@/engine/core/utils/scheme/scheme_setup";
 import { ActionPlanner, ClientObject, EScheme, ESchemeType, IniFile, TSection } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);

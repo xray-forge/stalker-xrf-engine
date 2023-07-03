@@ -2,8 +2,8 @@ import { relation_registry } from "xray16";
 
 import { registry } from "@/engine/core/database/registry";
 import { Squad } from "@/engine/core/objects";
-import { getSquadCommunityRelationToActor } from "@/engine/core/utils/relation/get";
-import { EGoodwill, ERelation } from "@/engine/core/utils/relation/types";
+import { getSquadCommunityRelationToActor } from "@/engine/core/utils/relation/relation_get";
+import { EGoodwill, ERelation } from "@/engine/core/utils/relation/relation_types";
 import { communities, TCommunity } from "@/engine/lib/constants/communities";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import { ClientObject, Optional, TCount, TStringId } from "@/engine/lib/types";

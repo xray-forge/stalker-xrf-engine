@@ -9,8 +9,8 @@ import {
   getSquadMembersRelationToActor,
   getSquadMembersRelationToActorSafe,
   getSquadRelationToActorById,
-} from "@/engine/core/utils/relation/get";
-import { ERelation } from "@/engine/core/utils/relation/types";
+} from "@/engine/core/utils/relation/relation_get";
+import { ERelation } from "@/engine/core/utils/relation/relation_types";
 import { communities } from "@/engine/lib/constants/communities";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import { ClientObject, ServerGroupObject } from "@/engine/lib/types";

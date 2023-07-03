@@ -4,7 +4,7 @@ import { getPortableStoreValue, registry, setPortableStoreValue } from "@/engine
 import { PsyAntennaManager } from "@/engine/core/managers/world/PsyAntennaManager";
 import { AbstractSchemeManager } from "@/engine/core/schemes";
 import { EAntennaState, ISchemePsyAntennaState } from "@/engine/core/schemes/sr_psy_antenna/ISchemePsyAntennaState";
-import { trySwitchToAnotherSection } from "@/engine/core/utils/scheme/switch";
+import { trySwitchToAnotherSection } from "@/engine/core/utils/scheme/scheme_switch";
 import { NIL } from "@/engine/lib/constants/words";
 import { ClientObject } from "@/engine/lib/types";
 

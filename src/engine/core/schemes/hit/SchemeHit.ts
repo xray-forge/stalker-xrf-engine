@@ -3,7 +3,7 @@ import { AbstractScheme } from "@/engine/core/schemes/base/AbstractScheme";
 import { HitManager } from "@/engine/core/schemes/hit/HitManager";
 import { ISchemeHitState } from "@/engine/core/schemes/hit/ISchemeHitState";
 import { abort } from "@/engine/core/utils/assertion";
-import { getConfigSwitchConditions } from "@/engine/core/utils/ini/config";
+import { getConfigSwitchConditions } from "@/engine/core/utils/ini/ini_config";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { ClientObject, EScheme, ESchemeType, IniFile, Optional, TSection } from "@/engine/lib/types";
 

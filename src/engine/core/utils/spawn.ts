@@ -6,7 +6,7 @@ import { SmartTerrain, Squad } from "@/engine/core/objects";
 import { assertDefined } from "@/engine/core/utils/assertion";
 import { isAmmoSection, isStalker } from "@/engine/core/utils/check/is";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { getObjectPositioning } from "@/engine/core/utils/object/object_general";
+import { getObjectPositioning } from "@/engine/core/utils/object/object_get";
 import { createEmptyVector } from "@/engine/core/utils/vector";
 import { TCaption } from "@/engine/lib/constants/captions";
 import { TInventoryItem } from "@/engine/lib/constants/items";

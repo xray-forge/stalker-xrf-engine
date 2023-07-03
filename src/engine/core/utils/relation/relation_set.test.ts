@@ -13,8 +13,8 @@ import {
   setSquadRelationToCommunity,
   setSquadRelationWithObject,
   updateSquadIdRelationToActor,
-} from "@/engine/core/utils/relation/set";
-import { ERelation } from "@/engine/core/utils/relation/types";
+} from "@/engine/core/utils/relation/relation_set";
+import { ERelation } from "@/engine/core/utils/relation/relation_types";
 import { communities } from "@/engine/lib/constants/communities";
 import { ClientObject, ServerActorObject, ServerCreatureObject, ServerHumanObject, TIndex } from "@/engine/lib/types";
 import { mockRelationsSquads } from "@/fixtures/engine";

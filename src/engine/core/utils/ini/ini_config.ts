@@ -4,7 +4,7 @@ import { getObjectIdByStoryId, IRegistryObjectState, registry } from "@/engine/c
 import { IBaseSchemeLogic } from "@/engine/core/schemes";
 import { abort } from "@/engine/core/utils/assertion";
 import { disableInfo, giveInfo, hasAlifeInfo } from "@/engine/core/utils/info_portion";
-import { parseConditionsList } from "@/engine/core/utils/ini/parse";
+import { parseConditionsList } from "@/engine/core/utils/ini/ini_parse";
 import {
   readIniBoolean,
   readIniConditionList,
@@ -13,8 +13,8 @@ import {
   readIniStringAndCondList,
   readIniTwoNumbers,
   readIniTwoStringsAndConditionsList,
-} from "@/engine/core/utils/ini/read";
-import { TConditionList } from "@/engine/core/utils/ini/types";
+} from "@/engine/core/utils/ini/ini_read";
+import { TConditionList } from "@/engine/core/utils/ini/ini_types";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
 import { TInfoPortion } from "@/engine/lib/constants/info_portions";

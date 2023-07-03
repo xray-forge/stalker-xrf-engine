@@ -14,7 +14,7 @@ import {
   disableObjectBaseSchemes,
   loadSchemeImplementation,
   loadSchemeImplementations,
-} from "@/engine/core/utils/scheme/setup";
+} from "@/engine/core/utils/scheme/scheme_setup";
 import { ActionBase, EScheme, ESchemeType } from "@/engine/lib/types";
 import { MockActionBase, mockClientGameObject } from "@/fixtures/xray";
 

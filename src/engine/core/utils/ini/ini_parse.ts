@@ -9,7 +9,7 @@ import {
   ISpawnDescriptor,
   IWaypointData,
   TConditionList,
-} from "@/engine/core/utils/ini/types";
+} from "@/engine/core/utils/ini/ini_types";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { trimString } from "@/engine/core/utils/string";
 import { TInfoPortion } from "@/engine/lib/constants/info_portions";

@@ -7,7 +7,7 @@ import { TSimulationObject } from "@/engine/core/objects/server/types";
 import { EStalkerState } from "@/engine/core/objects/state";
 import { ReachTaskPatrolManager } from "@/engine/core/schemes/reach_task/ReachTaskPatrolManager";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { getObjectSquad, sendToNearestAccessibleVertex } from "@/engine/core/utils/object/object_general";
+import { getObjectSquad, sendToNearestAccessibleVertex } from "@/engine/core/utils/object";
 import { areSameVectors, createEmptyVector, createVector } from "@/engine/core/utils/vector";
 import {
   ClientObject,

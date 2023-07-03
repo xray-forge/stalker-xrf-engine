@@ -4,8 +4,8 @@ import { registry } from "@/engine/core/database";
 import { EEvaluatorId, TAbstractSchemeConstructor } from "@/engine/core/schemes";
 import { assert } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { disableObjectInvulnerability } from "@/engine/core/utils/object/object_general";
-import { ActionBase, ClientObject, EScheme, ESchemeType, LuaArray, Optional, TSection } from "@/engine/lib/types";
+import { disableObjectInvulnerability } from "@/engine/core/utils/object/object_set";
+import { ActionBase, ClientObject, EScheme, ESchemeType, LuaArray } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

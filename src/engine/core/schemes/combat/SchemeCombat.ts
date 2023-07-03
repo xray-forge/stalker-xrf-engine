@@ -6,11 +6,11 @@ import { EvaluatorCheckCombat } from "@/engine/core/schemes/combat/evaluators/Ev
 import { ISchemeCombatState } from "@/engine/core/schemes/combat/ISchemeCombatState";
 import { SchemeCombatCamper } from "@/engine/core/schemes/combat_camper/SchemeCombatCamper";
 import { SchemeCombatZombied } from "@/engine/core/schemes/combat_zombied/SchemeCombatZombied";
-import { getConfigSwitchConditions, pickSectionFromCondList } from "@/engine/core/utils/ini/config";
-import { parseConditionsList } from "@/engine/core/utils/ini/parse";
-import { readIniConditionList } from "@/engine/core/utils/ini/read";
+import { getConfigSwitchConditions, pickSectionFromCondList } from "@/engine/core/utils/ini/ini_config";
+import { parseConditionsList } from "@/engine/core/utils/ini/ini_parse";
+import { readIniConditionList } from "@/engine/core/utils/ini/ini_read";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { getCharacterCommunity } from "@/engine/core/utils/object/object_general";
+import { getCharacterCommunity } from "@/engine/core/utils/object";
 import { communities } from "@/engine/lib/constants/communities";
 import { NIL } from "@/engine/lib/constants/words";
 import { ActionBase, ActionPlanner, AnyObject, ClientObject, IniFile, Optional, TName } from "@/engine/lib/types";

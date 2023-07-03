@@ -1,6 +1,6 @@
 import { IBaseSchemeLogic } from "@/engine/core/schemes/base";
 import { abort, assert, assertDefined } from "@/engine/core/utils/assertion";
-import { parseConditionsList, parseNumbersList, parseParameters } from "@/engine/core/utils/ini/parse";
+import { parseConditionsList, parseNumbersList, parseParameters } from "@/engine/core/utils/ini/ini_parse";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { IniFile, LuaArray, Optional, TName, TSection } from "@/engine/lib/types";
 

@@ -5,11 +5,10 @@ import { StalkerMoveManager } from "@/engine/core/objects/state/StalkerMoveManag
 import { AbstractSchemeManager } from "@/engine/core/schemes/base";
 import { ISchemeMobWalkerState } from "@/engine/core/schemes/mob_walker/ISchemeMobWalkerState";
 import { abort } from "@/engine/core/utils/assertion";
-import { parseWaypointsData, pickSectionFromCondList } from "@/engine/core/utils/ini";
-import { IWaypointData } from "@/engine/core/utils/ini/types";
-import { action } from "@/engine/core/utils/object/object_general";
+import { IWaypointData, parseWaypointsData, pickSectionFromCondList } from "@/engine/core/utils/ini";
+import { action } from "@/engine/core/utils/object/object_action";
 import { isStalkerAtWaypoint } from "@/engine/core/utils/position";
-import { isMonsterScriptCaptured, scriptCaptureMonster } from "@/engine/core/utils/scheme/monster";
+import { isMonsterScriptCaptured, scriptCaptureMonster } from "@/engine/core/utils/scheme/scheme_monster";
 import { copyVector } from "@/engine/core/utils/vector";
 import { EMonsterState } from "@/engine/lib/constants/monsters";
 import { NIL, TRUE } from "@/engine/lib/constants/words";

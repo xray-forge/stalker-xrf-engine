@@ -5,7 +5,7 @@ import { AbstractSchemeManager } from "@/engine/core/schemes";
 import { ISchemePostProcessState } from "@/engine/core/schemes/sr_postprocess/ISchemePostProcessState";
 import { PPEffector } from "@/engine/core/schemes/sr_postprocess/PPEffector";
 import { abort } from "@/engine/core/utils/assertion";
-import { trySwitchToAnotherSection } from "@/engine/core/utils/scheme/switch";
+import { trySwitchToAnotherSection } from "@/engine/core/utils/scheme/scheme_switch";
 import { createEmptyVector } from "@/engine/core/utils/vector";
 import { ClientObject, Color, Hit, Noise, TDuration } from "@/engine/lib/types";
 

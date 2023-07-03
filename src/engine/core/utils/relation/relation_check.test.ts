@@ -10,9 +10,9 @@ import {
   isActorNeutralWithFaction,
   isAnySquadMemberEnemyToActor,
   isAnySquadMemberFriendToActor,
-} from "@/engine/core/utils/relation/check";
-import { getSquadCommunityRelationToActor } from "@/engine/core/utils/relation/get";
-import { ERelation } from "@/engine/core/utils/relation/types";
+} from "@/engine/core/utils/relation/relation_check";
+import { getSquadCommunityRelationToActor } from "@/engine/core/utils/relation/relation_get";
+import { ERelation } from "@/engine/core/utils/relation/relation_types";
 import { communities } from "@/engine/lib/constants/communities";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import { ServerGroupObject } from "@/engine/lib/types";

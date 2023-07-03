@@ -15,8 +15,7 @@ import { loadObjectLogic, saveObjectLogic } from "@/engine/core/database/logic";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import { PhysicObjectItemBox } from "@/engine/core/objects/binders/physic/PhysicObjectItemBox";
 import { ESchemeEvent } from "@/engine/core/schemes";
-import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
-import { TConditionList } from "@/engine/core/utils/ini/types";
+import { pickSectionFromCondList, TConditionList } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { emitSchemeEvent, initializeObjectSchemeLogic } from "@/engine/core/utils/scheme";
 import {

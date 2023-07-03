@@ -1,15 +1,25 @@
 import { alife, level, time_global } from "xray16";
 
-import { closeLoadMarker, closeSaveMarker, openSaveMarker, registry, SECRETS_LTX } from "@/engine/core/database";
-import { openLoadMarker } from "@/engine/core/database/save_markers";
+import {
+  closeLoadMarker,
+  closeSaveMarker,
+  openLoadMarker,
+  openSaveMarker,
+  registry,
+  SECRETS_LTX,
+} from "@/engine/core/database";
 import { AbstractCoreManager } from "@/engine/core/managers/base/AbstractCoreManager";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { ETreasureState, NotificationManager } from "@/engine/core/managers/interface/notifications";
 import { StatisticsManager } from "@/engine/core/managers/interface/StatisticsManager";
 import { assert, assertDefined } from "@/engine/core/utils/assertion";
-import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
-import { parseConditionsList, parseSpawnDetails } from "@/engine/core/utils/ini/parse";
-import { ISpawnDescriptor, TConditionList } from "@/engine/core/utils/ini/types";
+import {
+  ISpawnDescriptor,
+  parseConditionsList,
+  parseSpawnDetails,
+  pickSectionFromCondList,
+  TConditionList,
+} from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getTableSize } from "@/engine/core/utils/table";
 import { MAX_U16 } from "@/engine/lib/constants/memory";
