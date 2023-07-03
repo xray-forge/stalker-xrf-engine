@@ -1,11 +1,10 @@
 import { alife, clsid, game, level, patrol, system_ini } from "xray16";
 
-import { IRegistryObjectState, registry, SYSTEM_INI } from "@/engine/core/database";
+import { registry, SYSTEM_INI } from "@/engine/core/database";
 import { SimulationBoardManager } from "@/engine/core/managers/interaction/SimulationBoardManager";
 import { SmartTerrain, Squad } from "@/engine/core/objects";
 import { assertDefined } from "@/engine/core/utils/assertion";
 import { isAmmoSection, isStalker } from "@/engine/core/utils/check/is";
-import { readIniString } from "@/engine/core/utils/ini/read";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getObjectPositioning } from "@/engine/core/utils/object/object_general";
 import { createEmptyVector } from "@/engine/core/utils/vector";
@@ -15,7 +14,6 @@ import { TAmmoItem } from "@/engine/lib/constants/items/ammo";
 import {
   AlifeSimulator,
   AnyGameObject,
-  ClientObject,
   IniFile,
   LuaArray,
   Optional,

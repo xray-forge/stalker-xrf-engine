@@ -6,7 +6,7 @@ import { ISchemeMinigunState } from "@/engine/core/schemes/ph_minigun/ISchemeMin
 import { abort } from "@/engine/core/utils/assertion";
 import { isActiveSection } from "@/engine/core/utils/check/is";
 import { pickSectionFromCondList, TConditionList } from "@/engine/core/utils/ini";
-import { isHeavilyWounded } from "@/engine/core/utils/object";
+import { isObjectWounded } from "@/engine/core/utils/object";
 import {
   isMonsterScriptCaptured,
   scriptReleaseMonster,
@@ -387,7 +387,7 @@ export class MinigunManager extends AbstractSchemeManager<ISchemeMinigunState> {
             if (this.targetObject!.id() !== registry.actor.id()) {
               if (this.targetObject!.target_body_state() === move.crouch) {
                 this.targetFirePt.y = this.targetFirePt.y + 0.5;
-              } else if (!isHeavilyWounded(this.targetObject!.id())) {
+              } else if (!isObjectWounded(this.targetObject!.id())) {
                 this.targetFirePt.y = this.targetFirePt.y + 1.2;
               } else {
                 this.targetFirePt.y = this.targetFirePt.y + 0.1;

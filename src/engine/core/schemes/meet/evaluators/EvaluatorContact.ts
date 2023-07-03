@@ -33,7 +33,7 @@ export class EvaluatorContact extends property_evaluator {
     } else {
       this.state.meetManager.update();
 
-      if (isObjectWounded(this.object)) {
+      if (isObjectWounded(this.object.id())) {
         return false;
       } else if (this.object.best_enemy() !== null) {
         return false;

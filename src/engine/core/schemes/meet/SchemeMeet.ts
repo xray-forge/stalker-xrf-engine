@@ -262,7 +262,7 @@ export class SchemeMeet extends AbstractScheme {
    * todo: Description.
    */
   public static updateObjectInteractionAvailability(object: ClientObject): void {
-    if (isObjectWounded(object)) {
+    if (isObjectWounded(object.id())) {
       if (object.relation(registry.actor) === EClientObjectRelation.ENEMY) {
         object.disable_talk();
       } else {

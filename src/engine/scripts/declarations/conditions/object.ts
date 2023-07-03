@@ -22,7 +22,7 @@ import { isPlayingSound, isStoryObjectExisting } from "@/engine/core/utils/check
 import { isMonster, isStalker } from "@/engine/core/utils/check/is";
 import { hasAlifeInfo } from "@/engine/core/utils/info_portion";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { getObjectSmartTerrain, getObjectSquad, isHeavilyWounded, isObjectWounded } from "@/engine/core/utils/object";
+import { getObjectSmartTerrain, getObjectSquad, isObjectWounded } from "@/engine/core/utils/object";
 import {
   isDistanceBetweenObjectsGreaterOrEqual,
   isDistanceBetweenObjectsLessOrEqual,
@@ -199,7 +199,7 @@ extern("xr_conditions.see_npc", (actor: ClientObject, object: ClientObject, [sto
  * @returns whether object is currently wounded and using wounded scheme
  */
 extern("xr_conditions.is_wounded", (actor: ClientObject, object: ClientObject): boolean => {
-  return isObjectWounded(object);
+  return isObjectWounded(object.id());
 });
 
 /**
@@ -591,7 +591,7 @@ extern("xr_conditions.see_enemy", (actor: ClientObject, npc: ClientObject): bool
  * todo;
  */
 extern("xr_conditions.heavy_wounded", (actor: ClientObject, object: ClientObject): boolean => {
-  return isHeavilyWounded(object.id());
+  return isObjectWounded(object.id());
 });
 
 /**

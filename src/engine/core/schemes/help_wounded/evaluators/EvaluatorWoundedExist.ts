@@ -43,7 +43,7 @@ export class EvaluatorWoundedExist extends property_evaluator {
       return false;
     }
 
-    if (isObjectWounded(object)) {
+    if (isObjectWounded(object.id())) {
       return false;
     } else if (object.section() === "actor_visual_stalker") {
       return false;
@@ -61,7 +61,7 @@ export class EvaluatorWoundedExist extends property_evaluator {
 
       if (
         object.see(visibleObject) &&
-        isObjectWounded(visibleObject) &&
+        isObjectWounded(visibleObject.id()) &&
         (visibleObjectState.wounded_already_selected === null ||
           visibleObjectState.wounded_already_selected === objectId) &&
         visibleObject.alive()

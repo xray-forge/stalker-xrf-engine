@@ -6,9 +6,7 @@ import { SmartTerrain } from "@/engine/core/objects";
 import { ESmartTerrainStatus } from "@/engine/core/objects/server/smart_terrain/types";
 import { ISchemeCombatIgnoreState } from "@/engine/core/schemes/combat_ignore";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini";
-import { getCharacterCommunity } from "@/engine/core/utils/object/object_general";
-import { isObjectInZone } from "@/engine/core/utils/object/object_location";
-import { isHeavilyWounded } from "@/engine/core/utils/object/object_state";
+import { getCharacterCommunity, isObjectInZone, isObjectWounded } from "@/engine/core/utils/object";
 import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
 import { communities } from "@/engine/lib/constants/communities";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
@@ -97,7 +95,7 @@ export function isObjectFacingDanger(object: ClientObject): boolean {
     return false;
   }
 
-  if (isHeavilyWounded(object.id())) {
+  if (isObjectWounded(object.id())) {
     return false;
   }
 

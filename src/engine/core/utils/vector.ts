@@ -130,14 +130,20 @@ export function graphDistanceSqr(firstVertexId: TNumberId, secondVertexId: TNumb
 }
 
 /**
+ * Covert radians to degrees.
  *
+ * @param radian - value in radians
+ * @returns value in degrees
  */
 export function radianToDegree(radian: number): number {
   return (radian * 180) / math.pi;
 }
 
 /**
+ * Covert degrees to radians.
  *
+ * @param degree - value in degrees
+ * @returns value in radians
  */
 export function degreeToRadian(degree: number): number {
   return (degree * math.pi) / 180;

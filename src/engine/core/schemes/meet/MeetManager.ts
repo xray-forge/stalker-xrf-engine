@@ -252,7 +252,7 @@ export class MeetManager extends AbstractSchemeManager<ISchemeMeetState> {
     }
 
     // Handle possibility of trading
-    if (isObjectWounded(this.object)) {
+    if (isObjectWounded(this.object.id())) {
       this.isTradingEnabled = false;
     } else {
       const isTradingEnabled: boolean = pickSectionFromCondList(actor, this.object, this.state.trade_enable) === TRUE;

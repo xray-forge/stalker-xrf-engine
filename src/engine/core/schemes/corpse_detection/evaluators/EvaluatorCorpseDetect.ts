@@ -32,7 +32,7 @@ export class EvaluatorCorpseDetect extends property_evaluator {
       return false;
     } else if (this.state.corpse_detection_enabled === false) {
       return false;
-    } else if (isObjectWounded(this.object)) {
+    } else if (isObjectWounded(this.object.id())) {
       return false;
     } else if (this.object.section() === "actor_visual_stalker") {
       return false;

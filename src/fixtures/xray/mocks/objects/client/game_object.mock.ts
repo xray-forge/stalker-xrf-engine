@@ -35,6 +35,7 @@ let ID_COUNTER: TNumberId = 1000;
 export function mockClientGameObject({
   active_item = jest.fn(() => null),
   animation_count = jest.fn(() => 0),
+  bleeding = 0,
   character_icon = jest.fn(() => "test_character_icon") as <T>() => T,
   clsid = jest.fn(() => -1 as TClassId),
   disable_info_portion,
@@ -45,6 +46,7 @@ export function mockClientGameObject({
   give_talk_message2 = jest.fn(),
   give_task = jest.fn((task: GameTask, time: number, shouldCheck: boolean, duration: number) => {}),
   has_info,
+  health = 1,
   id,
   idOverride = ID_COUNTER++,
   infoPortions = [],
@@ -54,6 +56,7 @@ export function mockClientGameObject({
   motivation_action_manager,
   name,
   object,
+  radiation = 0,
   section,
   sectionOverride = "section",
   special_danger_move = jest.fn(() => true),
@@ -105,6 +108,7 @@ export function mockClientGameObject({
           .filter(Boolean)
           .forEach((it) => inRestrictions.push(it));
       }),
+    bleeding,
     can_select_weapon: rest.can_select_weapon || jest.fn(),
     change_team: rest.change_team || jest.fn(),
     character_icon,
@@ -145,6 +149,7 @@ export function mockClientGameObject({
     give_talk_message2,
     give_task,
     has_info: has_info || jest.fn((it: string) => internalInfos.includes(it)),
+    health,
     id: id || jest.fn(() => idOverride),
     ignore_monster_threshold: rest.ignore_monster_threshold || jest.fn(),
     infoPortions,
@@ -184,6 +189,7 @@ export function mockClientGameObject({
       }
     }),
     position: rest.position || jest.fn(() => objectPosition),
+    radiation,
     relation:
       rest.relation ||
       jest.fn(() => {

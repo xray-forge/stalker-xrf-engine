@@ -23,24 +23,22 @@ import {
 } from "@/engine/lib/types";
 
 /**
- * todo;
+ * Check whether game started.
+ *
+ * @returns whether game is started and simulator is initialized
  */
 export function isGameStarted(): boolean {
   return alife() !== null;
 }
 
 /**
- * Check whether actor is absolutely healthy - without radiation/bleeding/damaged health.
+ * Check whether object is injured.
+ *
+ * @param object - target client object to check
+ * @returns whether object is injured/bleeding/contaminated
  */
-export function isActorAbsolutelyHealthy(actor: ClientObject = registry.actor): boolean {
-  return actor.health < 1 || actor.radiation > 0 || actor.bleeding > 0;
-}
-
-/**
- * todo;
- */
-export function isCseAlifeObject(object: AnyGameObject): object is ServerObject {
-  return type(object.id) === "number";
+export function isObjectInjured(object: ClientObject): boolean {
+  return object.health < 1 || object.radiation > 0 || object.bleeding > 0;
 }
 
 /**

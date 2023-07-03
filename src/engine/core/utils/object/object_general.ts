@@ -1,18 +1,17 @@
-import { alife, entity_action, game, game_graph, level, stalker_ids } from "xray16";
+import { alife, entity_action, game, level, stalker_ids } from "xray16";
 
 import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { AnomalyZoneBinder, SmartTerrain } from "@/engine/core/objects";
 import { Squad } from "@/engine/core/objects/server/squad/Squad";
-import { EStalkerState } from "@/engine/core/objects/state";
 import { assertDefined } from "@/engine/core/utils/assertion";
-import { isCseAlifeObject, isStalker } from "@/engine/core/utils/check/is";
+import { isStalker } from "@/engine/core/utils/check/is";
 import { getSectionsFromConditionLists, pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { parseConditionsList } from "@/engine/core/utils/ini/parse";
 import { readIniBoolean, readIniNumber, readIniString } from "@/engine/core/utils/ini/read";
 import { TConditionList } from "@/engine/core/utils/ini/types";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { wait } from "@/engine/core/utils/time";
-import { createEmptyVector, graphDistance } from "@/engine/core/utils/vector";
+import { createEmptyVector } from "@/engine/core/utils/vector";
 import { communities, TCommunity } from "@/engine/lib/constants/communities";
 import { TInfoPortion } from "@/engine/lib/constants/info_portions";
 import { MAX_U16 } from "@/engine/lib/constants/memory";
@@ -49,10 +48,20 @@ const logger: LuaLogger = new LuaLogger($filename);
  * @returns tuple of object position details: id, gvi, lvi, position.
  */
 export function getObjectPositioning(object: AnyGameObject): LuaMultiReturn<[TNumberId, TNumberId, TNumberId, Vector]> {
-  if (isCseAlifeObject(object)) {
-    return $multi(object.id, object.m_game_vertex_id, object.m_level_vertex_id, object.position);
+  if (type(object.id) === "number") {
+    return $multi(
+      (object as ServerObject).id,
+      (object as ServerObject).m_game_vertex_id,
+      (object as ServerObject).m_level_vertex_id,
+      (object as ServerObject).position
+    );
   } else {
-    return $multi(object.id(), object.game_vertex_id(), object.level_vertex_id(), object.position());
+    return $multi(
+      (object as ClientObject).id(),
+      (object as ClientObject).game_vertex_id(),
+      (object as ClientObject).level_vertex_id(),
+      (object as ClientObject).position()
+    );
   }
 }
 

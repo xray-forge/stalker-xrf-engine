@@ -348,10 +348,10 @@ export class DialogManager extends AbstractCoreManager {
 
     if (PTIDSubtable.wounded === TRUE) {
       // --if (!(ActionWoundManager.is_heavy_wounded_by_id(npc.id())) {
-      priority = isObjectWounded(object) ? priority + 1 : -1;
+      priority = isObjectWounded(object.id()) ? priority + 1 : -1;
     } else {
       // --if(ActionWoundManager.is_heavy_wounded_by_id(npc.id())) {
-      priority = isObjectWounded(object) ? -1 : priority + 1;
+      priority = isObjectWounded(object.id()) ? -1 : priority + 1;
     }
 
     if (fComm === false || fLevel === false) {
