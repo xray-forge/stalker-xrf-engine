@@ -14,6 +14,7 @@ import {
   subVectors,
   vectorCross,
   vectorRotateY,
+  vectorToString,
   yaw,
   yawDegree,
   yawDegree3d,
@@ -166,5 +167,12 @@ describe("'vector' utils", () => {
     expect(degreeToRadian(57295.77951308232)).toBe(1000);
     expect(degreeToRadian(180)).toBe(math.pi);
     expect(degreeToRadian(900)).toBe(math.pi * 5);
+  });
+
+  it("vectorToString should correctly transform to string", () => {
+    expect(vectorToString(null)).toBe("nil");
+    expect(vectorToString(createEmptyVector())).toBe("[0:0:0]");
+    expect(vectorToString(createVector(1, 2, 3))).toBe("[1:2:3]");
+    expect(vectorToString(createVector(-55, 0.125, -3.6))).toBe("[-55:0.125:-3.6]");
   });
 });

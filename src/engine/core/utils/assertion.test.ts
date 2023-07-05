@@ -1,7 +1,8 @@
 import { describe, expect, it } from "@jest/globals";
-import { print_stack } from "xray16";
+import { log, print_stack } from "xray16";
 
-import { abort, assert, assertBoolean, assertDefined } from "@/engine/core/utils/assertion";
+import { abort, assert, assertBoolean, assertDefined, callstack } from "@/engine/core/utils/assertion";
+import { mockDebug } from "@/fixtures/lua/mocks/lua_debug.mock";
 
 describe("'debug' utils", () => {
   it("'abort' should correctly throw exceptions", () => {
@@ -44,5 +45,15 @@ describe("'debug' utils", () => {
     expect(() => assertBoolean([])).toThrow();
     expect(() => assertDefined(true)).not.toThrow();
     expect(() => assertDefined(false)).not.toThrow();
+  });
+
+  it("'callstack' should correctly print debug stack", () => {
+    callstack();
+    callstack(6);
+    callstack(4);
+
+    expect(mockDebug.traceback).toHaveBeenNthCalledWith(1, 5);
+    expect(mockDebug.traceback).toHaveBeenNthCalledWith(2, 6);
+    expect(mockDebug.traceback).toHaveBeenNthCalledWith(3, 4);
   });
 });

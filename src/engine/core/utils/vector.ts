@@ -5,12 +5,15 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
 import { PI_DEGREE, RADIAN } from "@/engine/lib/constants/math";
 import { MAX_I32 } from "@/engine/lib/constants/memory";
+import { NIL } from "@/engine/lib/constants/words";
 import { ClientObject, Optional, TDistance, TNumberId, TRate, Vector } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * Create empty vector filled with 0 values.
+ *
+ * @returns new empty vector filled with zeroes
  */
 export function createEmptyVector(): Vector {
   return new vector().set(0, 0, 0);
@@ -18,6 +21,11 @@ export function createEmptyVector(): Vector {
 
 /**
  * Create vector filled with provided values.
+ *
+ * @param x - initial x value
+ * @param y - initial y value
+ * @param z - initial z value
+ * @returns new vector with desired values
  */
 export function createVector(x: number, y: number, z: number): Vector {
   return new vector().set(x, y, z);
@@ -25,6 +33,10 @@ export function createVector(x: number, y: number, z: number): Vector {
 
 /**
  * Add vectors and return resulting one.
+ *
+ * @param first - vector to add
+ * @param second - vector to add
+ * @returns new vector with values matching vectors addition
  */
 export function addVectors(first: Vector, second: Vector): Vector {
   return new vector().add(first, second);
@@ -225,6 +237,10 @@ export function distanceBetweenSafe(first: Optional<ClientObject>, second: Optio
 /**
  * Check if vectors are same by value.
  * Matches all dimensions with '==='.
+ *
+ * @param first - vector to compare
+ * @param second - vector to compare
+ * @returns whether vector coordinates are equal
  */
 export function areSameVectors(first: Vector, second: Vector): boolean {
   return first.x === second.x && first.y === second.y && first.z === second.z;
@@ -233,6 +249,11 @@ export function areSameVectors(first: Vector, second: Vector): boolean {
 /**
  * Check if vectors are same by value with precision.
  * Matches all dimensions with eps diff.
+ *
+ * @param first - vector to compare
+ * @param second - vector to compare
+ * @param eps - precision of vector values equity check
+ * @returns whether vector coordinates are equal based on some precision
  */
 export function areSameVectorsByPrecision(first: Vector, second: Vector, eps: TRate): boolean {
   return (
@@ -241,8 +262,11 @@ export function areSameVectorsByPrecision(first: Vector, second: Vector, eps: TR
 }
 
 /**
- * todo:
+ * Transform provided vector to string value.
+ *
+ * @param target - target vector to transform to string
+ * @returns stringified vector
  */
-export function vectorToString(target: Optional<Vector>): Optional<string> {
-  return target === null ? null : string.format("[%s:%s:%s]", target.x, target.y, target.z);
+export function vectorToString(target: Optional<Vector>): string {
+  return target === null ? NIL : string.format("[%s:%s:%s]", target.x, target.y, target.z);
 }

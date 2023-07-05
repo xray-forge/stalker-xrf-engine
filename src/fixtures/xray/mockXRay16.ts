@@ -1,4 +1,5 @@
 import { jest } from "@jest/globals";
+import { bit_and } from "xray16";
 
 import {
   MockActionBase,
@@ -13,7 +14,7 @@ import {
 } from "@/fixtures/xray/mocks/actions";
 import { MockCGameGraph } from "@/fixtures/xray/mocks/CGameGraph.mock";
 import { mockGetConsole } from "@/fixtures/xray/mocks/console.mock";
-import { mockCallbacks, mockClsid, mockStalkerIds } from "@/fixtures/xray/mocks/constants";
+import { mockCallbacks, mockClsid, mockSndType, mockStalkerIds } from "@/fixtures/xray/mocks/constants";
 import { MockCSightParams } from "@/fixtures/xray/mocks/CSightParams.mock";
 import { MockCTime } from "@/fixtures/xray/mocks/CTime.mock";
 import { mockRenderDevice } from "@/fixtures/xray/mocks/device.mock";
@@ -91,6 +92,7 @@ export function mockXRay16({
   action_planner = MockActionPlanner,
   alife = jest.fn(() => mockAlifeSimulator()),
   anim = MockAnim,
+  bit_and = jest.fn((first: number, second: number) => first & second),
   callback = mockCallbacks,
   clsid = mockClsid,
   create_ini_file = mockCreateIniFile,
@@ -138,16 +140,18 @@ export function mockXRay16({
   get_hud = mockGetGameHud,
   ini_file = MockIniFile,
   level = mockLevelInterface,
+  log = jest.fn(),
   look = MockLook,
   move = MockMove,
   object_binder = MockObjectBinder,
   patrol = MockPatrol,
+  print_stack = jest.fn(),
   property_evaluator = MockPropertyEvaluator,
   property_storage = MockPropertyStorage,
-  print_stack = jest.fn(),
   relation_registry = mockRelationRegistryInterface,
   sound_object = MockSoundObject,
   sight_params = MockSightParameters,
+  snd_type = mockSndType,
   stalker_ids = mockStalkerIds,
   system_ini = () => mockIniFile("system.ini"),
   task = MockTask,
@@ -172,13 +176,14 @@ export function mockXRay16({
     action_planner,
     alife,
     anim,
+    bit_and,
     callback,
     clsid,
     create_ini_file,
     cse_alife_creature_actor,
-    cse_alife_helicopter,
     cse_alife_dynamic_object,
     cse_alife_dynamic_object_visual,
+    cse_alife_helicopter,
     cse_alife_human_stalker,
     cse_alife_inventory_box,
     cse_alife_item,
@@ -219,16 +224,18 @@ export function mockXRay16({
     get_hud,
     ini_file,
     level,
+    log,
     look,
     move,
     object_binder,
     patrol,
+    print_stack,
     property_evaluator,
     property_storage,
-    print_stack,
     relation_registry,
-    sound_object,
     sight_params,
+    snd_type,
+    sound_object,
     stalker_ids,
     system_ini,
     task,

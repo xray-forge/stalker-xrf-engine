@@ -4,7 +4,7 @@ import { MockLuaTable } from "@/fixtures/lua/mocks/LuaTable.mock";
 /**
  * todo;
  */
-export const table = {
+export const mockTable = {
   insert: (target: LuaTable, element: unknown) => {
     if (target instanceof Map) {
       target.set(target.size + 1, element);

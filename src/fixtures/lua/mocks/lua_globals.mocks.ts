@@ -1,10 +1,11 @@
 import { ILuaState, lauxlib, lua, lualib, to_jsstring, to_luastring } from "fengari";
 
 import { AnyArgs } from "@/engine/lib/types";
-import { math } from "@/fixtures/lua/mocks/lua_math.mocks";
+import { mockDebug } from "@/fixtures/lua/mocks/lua_debug.mock";
+import { mockMath } from "@/fixtures/lua/mocks/lua_math.mocks";
 import { mockPairs } from "@/fixtures/lua/mocks/lua_pairs.mock";
-import { string } from "@/fixtures/lua/mocks/lua_string.mock";
-import { table } from "@/fixtures/lua/mocks/lua_table.mock";
+import { mockString } from "@/fixtures/lua/mocks/lua_string.mock";
+import { mockTable } from "@/fixtures/lua/mocks/lua_table.mock";
 import { mockToString } from "@/fixtures/lua/mocks/lua_tostring.mock";
 import { mockType } from "@/fixtures/lua/mocks/lua_type.mock";
 import { MockLuaTable } from "@/fixtures/lua/mocks/LuaTable.mock";
@@ -16,11 +17,13 @@ export function mockLuaGlobals(): void {
   // @ts-ignore
   global.LuaTable = MockLuaTable;
   // @ts-ignore
-  global.string = string;
+  global.string = mockString;
   // @ts-ignore
-  global.table = table;
+  global.table = mockTable;
   // @ts-ignore
-  global.math = math;
+  global.math = mockMath;
+  // @ts-ignore
+  global.debug = mockDebug;
 
   // @ts-ignore
   global.$range = (start: number, end: number) => {

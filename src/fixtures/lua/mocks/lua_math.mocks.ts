@@ -1,7 +1,7 @@
 /**
  * Mock default lua library.
  */
-export const math = {
+export const mockMath = {
   pi: Math.PI,
   max: (...args: Array<number>) => Math.max(...args),
   abs: (value: number) => Math.abs(value),
