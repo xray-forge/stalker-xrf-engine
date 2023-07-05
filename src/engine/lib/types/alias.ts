@@ -64,3 +64,8 @@ export type TCount = number;
  * Number based rate.
  */
 export type TRate = number;
+
+/**
+ * Number based size.
+ */
+export type TSize = number;

@@ -15,6 +15,8 @@ export const mockLevelInterface = {
   get_snd_volume: jest.fn(() => 1),
   get_time_hours: jest.fn(() => 12),
   map_add_object_spot: jest.fn(),
+  show_indicators: jest.fn(),
+  hide_indicators_safe: jest.fn(),
   name: jest.fn(() => null),
   object_by_id: jest.fn((id: TNumberId) => CLIENT_SIDE_REGISTRY.get(id)),
   set_snd_volume: jest.fn((volume: number) => {}),

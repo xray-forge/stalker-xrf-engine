@@ -1,8 +1,10 @@
-import { describe, expect, it } from "@jest/globals";
-import { vector } from "xray16";
+import { describe, expect, it, jest } from "@jest/globals";
+import { game_graph, vector } from "xray16";
 
 import {
   addVectors,
+  angleDiff,
+  angleToDirection,
   areSameVectors,
   areSameVectorsByPrecision,
   copyVector,
@@ -10,6 +12,8 @@ import {
   createVector,
   degreeToRadian,
   distanceBetween2d,
+  graphDistance,
+  graphDistanceSqr,
   radianToDegree,
   subVectors,
   vectorCross,
@@ -19,7 +23,7 @@ import {
   yawDegree,
   yawDegree3d,
 } from "@/engine/core/utils/vector";
-import { Vector } from "@/engine/lib/types";
+import { Vector, Vertex } from "@/engine/lib/types";
 import { MockVector } from "@/fixtures/xray/mocks/vector.mock";
 
 describe("'vector' utils", () => {
@@ -155,11 +159,57 @@ describe("'vector' utils", () => {
     );
   });
 
+  it("'angleDiff' should correctly get angle diff", () => {
+    expect(angleDiff(MockVector.mock(1, 0.5, 0.25), MockVector.mock(1, 0.5, 0.25))).toBe(0.0000012074182697257333);
+    expect(angleDiff(MockVector.mock(0, 0, 0.5), MockVector.mock(1, 1, 0.5))).toBe(70.52877936550931);
+    expect(angleDiff(MockVector.mock(0, 1.5, 0), MockVector.mock(1, 1, 0.5))).toBe(48.189685104221404);
+  });
+
+  it("'angleToDirection' should correctly create new vector based on provided values", () => {
+    expect(angleToDirection(MockVector.mock(1, 0.5, 0.25))).toEqual(
+      MockVector.mock(-0.2590347239999257, 0.8414709848078965, 0.4741598817790379)
+    );
+    expect(angleToDirection(MockVector.mock(50, -20, 30))).toEqual(
+      MockVector.mock(0.8809611528253755, -0.26237485370392877, 0.3937853264869419)
+    );
+  });
+
+  it("'graphDistance' should correctly get graph distance", () => {
+    expect(graphDistance(1, 2)).toBe(20);
+
+    const vertex: Vertex = game_graph().vertex(500);
+
+    jest.spyOn(vertex.game_point(), "distance_to").mockImplementation(() => 1050);
+    expect(graphDistance(500, 255)).toBe(1050);
+
+    jest.spyOn(vertex.game_point(), "distance_to").mockImplementation(() => 888);
+    expect(graphDistance(500, 256)).toBe(888);
+  });
+
+  it("'graphDistanceSqr' should correctly get graph distance sqr", () => {
+    expect(graphDistanceSqr(1, 2)).toBe(400);
+
+    const vertex: Vertex = game_graph().vertex(500);
+
+    jest.spyOn(vertex.game_point(), "distance_to").mockImplementation(() => 1050);
+    expect(graphDistanceSqr(500, 255)).toBe(1_102_500);
+
+    jest.spyOn(vertex.game_point(), "distance_to").mockImplementation(() => 888);
+    expect(graphDistanceSqr(500, 256)).toBe(788_544);
+  });
+
   it("'radianToDegree' should correctly convert", () => {
     expect(radianToDegree(1)).toBe(57.29577951308232);
     expect(radianToDegree(1000)).toBe(57295.77951308232);
     expect(radianToDegree(math.pi)).toBe(180);
     expect(radianToDegree(math.pi * 5)).toBe(900);
+  });
+
+  it("'distanceBetween2d' should correctly get distance", () => {
+    expect(distanceBetween2d(MockVector.mock(0, 0, 0), MockVector.mock(1, 1, 1))).toBe(1.4142135623730951);
+    expect(distanceBetween2d(MockVector.mock(0, 0, 0), MockVector.mock(1, 500, 1))).toBe(1.4142135623730951);
+    expect(distanceBetween2d(MockVector.mock(0, 0, 0), MockVector.mock(55, 500, 0))).toBe(55);
+    expect(distanceBetween2d(MockVector.mock(0, 0, 0), MockVector.mock(-55, 0, 0))).toBe(55);
   });
 
   it("'degreeToRadian' should correctly convert", () => {

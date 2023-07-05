@@ -115,6 +115,7 @@ export function mockClientGameObject({
     clsid,
     clear_animations: rest.clear_animations || jest.fn(),
     direction: rest.direction || jest.fn(() => objectDirection),
+    disable_hit_marks: rest.disable_hit_marks || jest.fn(),
     disable_info_portion:
       disable_info_portion ||
       jest.fn((it: string) => {
@@ -265,6 +266,7 @@ export function mockClientGameObject({
       }),
     set_community_goodwill: rest.set_community_goodwill || jest.fn(),
     spawn_ini: rest.spawn_ini || jest.fn(() => spawnIni),
+    stop_talk: rest.stop_talk || jest.fn(),
     squad: rest.squad || jest.fn(() => 150),
     special_danger_move,
     take_items_enabled: rest.take_items_enabled || jest.fn(),

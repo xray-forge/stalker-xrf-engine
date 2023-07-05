@@ -1,5 +1,4 @@
 import { jest } from "@jest/globals";
-import { bit_and } from "xray16";
 
 import {
   MockActionBase,
@@ -17,7 +16,7 @@ import { mockGetConsole } from "@/fixtures/xray/mocks/console.mock";
 import { mockCallbacks, mockClsid, mockSndType, mockStalkerIds } from "@/fixtures/xray/mocks/constants";
 import { MockCSightParams } from "@/fixtures/xray/mocks/CSightParams.mock";
 import { MockCTime } from "@/fixtures/xray/mocks/CTime.mock";
-import { mockRenderDevice } from "@/fixtures/xray/mocks/device.mock";
+import { MockDevice } from "@/fixtures/xray/mocks/device.mock";
 import { MockEffector } from "@/fixtures/xray/mocks/effector.mock";
 import { MockFileSystem } from "@/fixtures/xray/mocks/fs/FileSystem.mock";
 import { mockCreateIniFile, MockIniFile, mockIniFile } from "@/fixtures/xray/mocks/ini";
@@ -129,12 +128,12 @@ export function mockXRay16({
   cse_torrid_zone = MockTorridZone,
   cse_zone_visual = MockZoneVisual,
   danger_object = MockDangerObject,
-  device = jest.fn(() => mockRenderDevice()),
+  device = jest.fn(() => MockDevice.getInstance()),
   editor = jest.fn(() => false),
   effector = MockEffector,
   flags32 = MockFlags32,
   game = mockGameInterface,
-  game_graph = () => new MockCGameGraph(),
+  game_graph = () => MockCGameGraph.getInstance(),
   getFS = () => MockFileSystem.getInstance(),
   get_console = mockGetConsole,
   get_hud = mockGetGameHud,

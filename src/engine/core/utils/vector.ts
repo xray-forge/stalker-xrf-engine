@@ -1,12 +1,9 @@
-import { device, game_graph, vector } from "xray16";
+import { game_graph, vector } from "xray16";
 
-import { registry } from "@/engine/core/database";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
 import { PI_DEGREE, RADIAN } from "@/engine/lib/constants/math";
-import { MAX_I32 } from "@/engine/lib/constants/memory";
 import { NIL } from "@/engine/lib/constants/words";
-import { ClientObject, Optional, TDistance, TNumberId, TRate, Vector } from "@/engine/lib/types";
+import { Optional, TDistance, TNumberId, TRate, Vector } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -44,59 +41,83 @@ export function addVectors(first: Vector, second: Vector): Vector {
 
 /**
  * Sub vectors and return resulting one.
+ *
+ * @param first - vector to subtract from
+ * @param second - vector to subtract
+ * @returns result of vectors subtraction
  */
 export function subVectors(first: Vector, second: Vector): Vector {
   return new vector().sub(first, second);
 }
 
 /**
+ * @param first - vector to cross
+ * @param second - vector to cross
+ * @returns vectors cross multiplication result
+ */
+export function vectorCross(first: Vector, second: Vector): Vector {
+  return new vector().set(
+    first.y * second.z - first.z * second.y,
+    first.z * second.x - first.x * second.z,
+    first.x * second.y - first.y * second.x
+  );
+}
+
+/**
  * Create new vector based on provided one.
+ *
+ * @param source - target vector to copy
+ * @returns new vector with same coordinates
  */
 export function copyVector(source: Vector): Vector {
   return new vector().set(source);
 }
 
 /**
- * todo: Description
+ * @param first - vector to compute
+ * @param second - vector to compute
+ * @returns vectors yaw
  */
-export function yaw(v1: Vector, v2: Vector): TRate {
+export function yaw(first: Vector, second: Vector): TRate {
   return math.acos(
-    (v1.x * v2.x + v1.z * v2.z) / (math.sqrt(v1.x * v1.x + v1.z * v1.z) * math.sqrt(v2.x * v2.x + v2.z * v2.z))
+    (first.x * second.x + first.z * second.z) /
+      (math.sqrt(first.x * first.x + first.z * first.z) * math.sqrt(second.x * second.x + second.z * second.z))
   );
 }
 
 /**
- * todo: Description
+ * @param first - vector to compute
+ * @param second - vector to compute
+ * @returns vectors yaw degree
  */
-export function yawDegree(v1: Vector, v2: Vector): TRate {
+export function yawDegree(first: Vector, second: Vector): TRate {
   return (
     math.acos(
-      (v1.x * v2.x + v1.z * v2.z) / (math.sqrt(v1.x * v1.x + v1.z * v1.z) * math.sqrt(v2.x * v2.x + v2.z * v2.z))
+      (first.x * second.x + first.z * second.z) /
+        (math.sqrt(first.x * first.x + first.z * first.z) * math.sqrt(second.x * second.x + second.z * second.z))
     ) * RADIAN
   );
 }
 
 /**
- * todo: Description
+ * @param first - vector to compute
+ * @param second - vector to compute
+ * @returns vectors yaw degree in 3 dimensions
  */
-export function yawDegree3d(v1: Vector, v2: Vector): TRate {
+export function yawDegree3d(first: Vector, second: Vector): TRate {
   return (
     math.acos(
-      (v1.x * v2.x + v1.y * v2.y + v1.z * v2.z) /
-        (math.sqrt(v1.x * v1.x + v1.y * v1.y + v1.z * v1.z) * math.sqrt(v2.x * v2.x + v2.y * v2.y + v2.z * v2.z))
+      (first.x * second.x + first.y * second.y + first.z * second.z) /
+        (math.sqrt(first.x * first.x + first.y * first.y + first.z * first.z) *
+          math.sqrt(second.x * second.x + second.y * second.y + second.z * second.z))
     ) * RADIAN
   );
 }
 
 /**
- * todo: Description
- */
-export function vectorCross(v1: Vector, v2: Vector): Vector {
-  return new vector().set(v1.y * v2.z - v1.z * v2.y, v1.z * v2.x - v1.x * v2.z, v1.x * v2.y - v1.y * v2.x);
-}
-
-/**
- * todo: Description
+ * @param target - vector to rotate
+ * @param angleBase - angle to rotate vector
+ * @returns new rotated vector
  */
 export function vectorRotateY(target: Vector, angleBase: TRate): Vector {
   const angle: TRate = angleBase * PI_DEGREE;
@@ -104,41 +125,6 @@ export function vectorRotateY(target: Vector, angleBase: TRate): Vector {
   const sin: number = math.sin(angle);
 
   return new vector().set(target.x * cos - target.z * sin, target.y, target.x * sin + target.z * cos);
-}
-
-/**
- todo: Description
- todo: Be more generic to object, do not rely on 'npc' part.
- */
-export function npcInActorFrustum(object: ClientObject): boolean {
-  const actorDirection: Vector = device().cam_dir;
-  const npcDirection: Vector = object.position().sub(registry.actor.position());
-
-  return yawDegree3d(actorDirection, npcDirection) < logicsConfig.ACTOR_VISIBILITY_FRUSTUM;
-}
-
-/**
- * todo: Description
- */
-export function distanceBetween(first: ClientObject, second: ClientObject): number {
-  return first.position().distance_to(second.position());
-}
-
-/**
- * Get graph distance between two vertexes.
- */
-export function graphDistance(firstVertexId: TNumberId, secondVertexId: TNumberId): TDistance {
-  return game_graph().vertex(firstVertexId).game_point().distance_to(game_graph().vertex(secondVertexId).game_point());
-}
-
-/**
- * Get graph distance between two vertexes in sqr.
- */
-export function graphDistanceSqr(firstVertexId: TNumberId, secondVertexId: TNumberId): TDistance {
-  return game_graph()
-    .vertex(firstVertexId)
-    .game_point()
-    .distance_to_sqr(game_graph().vertex(secondVertexId).game_point());
 }
 
 /**
@@ -162,76 +148,61 @@ export function degreeToRadian(degree: number): number {
 }
 
 /**
+ * Get angle difference between two vectors.
  *
+ * @param first - vector to compute
+ * @param second - vector to compute
+ * @returns angle difference between vectors
  */
-export function angleDiff(a1: Vector, a2: Vector): number {
-  const b1: Vector = a1.normalize();
-  const b2: Vector = a2.normalize();
-
-  return radianToDegree(math.acos(math.abs(b1.dotproduct(b2))));
+export function angleDiff(first: Vector, second: Vector): number {
+  return radianToDegree(math.acos(math.abs(first.normalize().dotproduct(second.normalize()))));
 }
 
 /**
- *
- */
-export function angleLeft(dir1: Vector, dir2: Vector): boolean {
-  const direction: Vector = new vector();
-
-  direction.crossproduct(dir1, dir2);
-
-  return direction.y <= 0;
-}
-
-/**
- * todo;
- */
-export function angleLeftXZ(dir1: Vector, dir2: Vector): boolean {
-  const dir1XZ: Vector = new vector().set(dir1);
-  const dir2XZ: Vector = new vector().set(dir2);
-  const dir: Vector = new vector();
-
-  dir1XZ.y = 0;
-  dir2XZ.y = 0;
-
-  dir.crossproduct(dir1XZ, dir2XZ);
-
-  return dir.y <= 0;
-}
-
-/**
- * todo;
+ * @param angle - angle vector
+ * @returns direction vector based on angle vector
  */
 export function angleToDirection(angle: Vector): Vector {
-  const yaw: number = angle.y;
-  const pitch: number = angle.x;
+  const yaw: TRate = angle.y;
+  const pitch: TRate = angle.x;
 
   return new vector().setHP(yaw, pitch).normalize();
 }
 
 /**
- * todo
- * todo
+ * Get graph distance between two vertexes.
+ *
+ * @param firstVertexId - from vertex id
+ * @param secondVertexId - to vertex id
+ * @returns distance between vertexes
  */
-export function getDistanceBetween(first: ClientObject, second: ClientObject): number {
-  return first.position().distance_to(second.position());
+export function graphDistance(firstVertexId: TNumberId, secondVertexId: TNumberId): TDistance {
+  return game_graph().vertex(firstVertexId).game_point().distance_to(game_graph().vertex(secondVertexId).game_point());
 }
 
 /**
- * todo: Description
+ * Get squared graph distance between two vertexes.
+ *
+ * @param firstVertexId - from vertex id
+ * @param secondVertexId - to vertex id
+ * @returns squared distance between vertexes
  */
-export function distanceBetween2d(first: Vector, second: Vector): number {
+export function graphDistanceSqr(firstVertexId: TNumberId, secondVertexId: TNumberId): TDistance {
+  return game_graph()
+    .vertex(firstVertexId)
+    .game_point()
+    .distance_to_sqr(game_graph().vertex(secondVertexId).game_point());
+}
+
+/**
+ * Get distance between vectors based on `x` and `z` axis.
+ *
+ * @param first - vector to compute
+ * @param second - vector to compute
+ * @returns distance between vectors in 2 dimensions
+ */
+export function distanceBetween2d(first: Vector, second: Vector): TDistance {
   return math.sqrt((second.x - first.x) ** 2 + (second.z - first.z) ** 2);
-}
-
-/**
- * todo: Description
- */
-export function distanceBetweenSafe(first: Optional<ClientObject>, second: Optional<ClientObject>): number {
-  if (first !== null && second !== null) {
-    return first.position().distance_to(second.position());
-  }
-
-  return MAX_I32;
 }
 
 /**

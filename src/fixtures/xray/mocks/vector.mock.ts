@@ -73,7 +73,23 @@ export class MockVector {
     return this.distance_to() * this.distance_to();
   }
 
-  public normalize(): void {}
+  public dotproduct(target: MockVector): number {
+    return this.x * target.x + this.y * target.y + this.z * target.z;
+  }
+
+  public normalize(): MockVector {
+    if (this.x === 0 && this.y === 0 && this.z === 0) {
+      return this;
+    }
+
+    const magnitude: number = Math.sqrt(1 / (this.x * this.x + this.y * this.y + this.z * this.z));
+
+    this.x *= magnitude;
+    this.y *= magnitude;
+    this.z *= magnitude;
+
+    return this;
+  }
 
   public getH(): number {
     if (this.x === 0 && this.z === 0) {
@@ -87,5 +103,18 @@ export class MockVector {
         return -Math.atan(this.x / this.z);
       }
     }
+  }
+
+  public setHP(h: number, p: number): MockVector {
+    const ch = Math.cos(h);
+    const cp = Math.cos(p);
+    const sh = Math.sin(h);
+    const sp = Math.sin(p);
+
+    this.x = -cp * sh;
+    this.y = sp;
+    this.z = cp * ch;
+
+    return this;
   }
 }

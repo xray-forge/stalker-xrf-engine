@@ -6,8 +6,7 @@ import { abort } from "@/engine/core/utils/assertion";
 import { extern, getExtern } from "@/engine/core/utils/binding";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { hasAlifeInfo } from "@/engine/core/utils/object/object_info_portion";
-import { isObjectInZone } from "@/engine/core/utils/object/object_location";
-import { distanceBetween } from "@/engine/core/utils/vector";
+import { getDistanceBetweenObjects, isObjectInZone } from "@/engine/core/utils/object/object_location";
 import { infoPortions, TInfoPortion } from "@/engine/lib/constants/info_portions";
 import { zones } from "@/engine/lib/constants/zones";
 import {
@@ -123,7 +122,7 @@ extern("xr_conditions.pas_b400_actor_far_forward", (actor: ClientObject, npc: Cl
   const forwardObject: Optional<ClientObject> = getObjectByStoryId("pas_b400_fwd");
 
   if (forwardObject) {
-    if (distanceBetween(forwardObject, registry.actor) > distanceBetween(forwardObject, npc)) {
+    if (getDistanceBetweenObjects(forwardObject, registry.actor) > getDistanceBetweenObjects(forwardObject, npc)) {
       return false;
     }
   } else {
@@ -157,7 +156,7 @@ extern("xr_conditions.pas_b400_actor_far_backward", (actor: ClientObject, npc: C
   const backwardObject: Optional<ClientObject> = getObjectByStoryId("pas_b400_bwd");
 
   if (backwardObject !== null) {
-    if (distanceBetween(backwardObject, registry.actor) > distanceBetween(backwardObject, npc)) {
+    if (getDistanceBetweenObjects(backwardObject, registry.actor) > getDistanceBetweenObjects(backwardObject, npc)) {
       return false;
     }
   } else {

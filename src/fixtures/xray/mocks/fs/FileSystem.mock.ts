@@ -23,6 +23,14 @@ export class MockFileSystem {
     this.mocks = mocks;
   }
 
+  public setMock(root: string, path: string, isExisting: boolean = true): void {
+    if (!this.mocks[root]) {
+      this.mocks[root] = {};
+    }
+
+    this.mocks[root][path] = isExisting;
+  }
+
   public exist = jest.fn((root: string, path: string) => {
     return Boolean(this.mocks[root] && this.mocks[root][path]);
   });
