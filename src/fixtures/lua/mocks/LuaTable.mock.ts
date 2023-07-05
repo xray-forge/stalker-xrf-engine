@@ -1,6 +1,6 @@
 import { jest } from "@jest/globals";
 
-import type { AnyObject, LuaArray } from "@/engine/lib/types";
+import type { AnyObject, LuaArray, TIndex } from "@/engine/lib/types";
 
 /**
  * todo;
@@ -8,6 +8,10 @@ import type { AnyObject, LuaArray } from "@/engine/lib/types";
 export class MockLuaTable<K, V> extends Map<K, V> {
   public static mock<K extends AnyNotNil, V>(): LuaTable<K, V> {
     return new MockLuaTable() as unknown as LuaTable<K, V>;
+  }
+
+  public static create<K extends AnyNotNil, V>(): MockLuaTable<K, V> {
+    return new MockLuaTable();
   }
 
   /**
@@ -75,6 +79,18 @@ export class MockLuaTable<K, V> extends Map<K, V> {
 
   public getKeysArray(): Array<K> {
     return [...this.keys()];
+  }
+
+  public getValuesArray(): Array<V> {
+    return [...this.values()];
+  }
+
+  public reset(): void {
+    this.getKeysArray().forEach((it) => this.delete(it));
+  }
+
+  public map<U>(cb: (value: V, index: TIndex, array: Array<V>) => U): Array<U> {
+    return this.getValuesArray().map((it, index, collection) => cb(it, index, collection));
   }
 }
 

@@ -2,7 +2,7 @@ import { alife } from "xray16";
 
 import { SmartTerrain, Squad } from "@/engine/core/objects";
 import { assertDefined } from "@/engine/core/utils/assertion";
-import { isStalker } from "@/engine/core/utils/object/object_check";
+import { isStalker } from "@/engine/core/utils/object/object_class";
 import { communities, TCommunity } from "@/engine/lib/constants/communities";
 import { MAX_U16 } from "@/engine/lib/constants/memory";
 import {
@@ -44,9 +44,9 @@ export function getObjectPositioning(object: AnyGameObject): LuaMultiReturn<[TNu
  * Get squad of provided object.
  *
  * @param object - server or client object
- * @return object squad or null
+ * @return object squad server object or null
  */
-export function getObjectSquad(object: Optional<ClientObject | ServerCreatureObject>): Optional<Squad> {
+export function getObjectSquad(object: ClientObject | ServerCreatureObject): Optional<Squad> {
   assertDefined(object, "Attempt to get squad object from null value.");
 
   // Get for client object.
@@ -65,48 +65,36 @@ export function getObjectSquad(object: Optional<ClientObject | ServerCreatureObj
 /**
  * Get smart terrain linked to object.
  *
- * @param object - client object to check
- * @returns server representation of smart terrain or null
+ * @param object - server or client object
+ * @returns object smart terrain server object or null
  */
-export function getObjectSmartTerrain(object: ClientObject): Optional<SmartTerrain> {
+export function getObjectSmartTerrain(object: ClientObject | ServerCreatureObject): Optional<SmartTerrain> {
   const simulator: AlifeSimulator = alife();
-  const serverObject: Optional<ServerCreatureObject> = simulator.object(object.id());
 
-  if (serverObject === null) {
-    return null;
-  } else {
-    return serverObject.m_smart_terrain_id === MAX_U16 ? null : simulator.object(serverObject.m_smart_terrain_id);
-  }
-}
-
-/**
- * todo;
- */
-export function getObjectCommunity(object: AnyGameObject): TCommunity {
   if (type(object.id) === "function") {
-    return getCharacterCommunity(object as ClientObject);
+    const serverObject: Optional<ServerCreatureObject> = simulator.object((object as ClientObject).id());
+
+    return serverObject === null || serverObject.m_smart_terrain_id === MAX_U16
+      ? null
+      : simulator.object(serverObject.m_smart_terrain_id);
   } else {
-    return getAlifeCharacterCommunity(object as ServerHumanObject);
+    return (object as ServerCreatureObject).m_smart_terrain_id === MAX_U16
+      ? null
+      : simulator.object((object as ServerCreatureObject).m_smart_terrain_id);
   }
 }
 
 /**
- * todo;
+ * Returns community of provided object.
+ *
+ * @param object - client object or server stalker/group
+ * @returns object community
  */
-export function getCharacterCommunity(object: ClientObject): TCommunity {
+export function getObjectCommunity(object: ClientObject | ServerHumanObject | ServerGroupObject): TCommunity {
   if (isStalker(object)) {
-    return object.character_community() as TCommunity;
-  }
-
-  return communities.monster;
-}
-
-/**
- * todo;
- */
-export function getAlifeCharacterCommunity(object: ServerHumanObject | ServerGroupObject): TCommunity {
-  if (isStalker(object)) {
-    return object.community() as TCommunity;
+    return type(object.id) === "function"
+      ? (object as unknown as ClientObject).character_community()
+      : (object as ServerHumanObject).community();
   }
 
   return communities.monster;

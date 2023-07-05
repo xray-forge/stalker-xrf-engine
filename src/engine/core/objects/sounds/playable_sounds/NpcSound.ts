@@ -8,7 +8,7 @@ import { EPlayableSound, ESoundPlaylistType } from "@/engine/core/objects/sounds
 import { abort } from "@/engine/core/utils/assertion";
 import { parseStringsList, readIniBoolean, readIniNumber, readIniString } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { getCharacterCommunity } from "@/engine/core/utils/object/object_get";
+import { getObjectCommunity } from "@/engine/core/utils/object/object_get";
 import { createEmptyVector } from "@/engine/core/utils/vector";
 import { communities, TCommunity } from "@/engine/lib/constants/communities";
 import { roots } from "@/engine/lib/constants/roots";
@@ -301,7 +301,7 @@ export class NpcSound extends AbstractPlayableSound {
 
     if (game.translate_string(soundCaption) !== soundCaption) {
       if (!faction) {
-        faction = getCharacterCommunity(object);
+        faction = getObjectCommunity(object);
       }
 
       // Attempt to auto-translate npc goal.

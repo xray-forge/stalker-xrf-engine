@@ -1,5 +1,6 @@
 import { ammo } from "@/engine/lib/constants/items/ammo";
 import { detectors } from "@/engine/lib/constants/items/detectors";
+import { weapons } from "@/engine/lib/constants/items/weapons";
 import { iconTextures } from "@/engine/lib/constants/textures/icon_textures";
 
 /**
@@ -22,6 +23,36 @@ export const FILES_MOCKS = {
     [ammo["ammo_5.45x39_ap"]]: {
       box_size: 30,
     },
+    sim_default_first: {},
+    sim_default_second: {},
+    simulation_first: {},
+    first_sim_squad_example: {},
+    without_outfit: {},
+    outfit_base: {},
+    first_outfit: {},
+    first_outfit_immunities: {},
+    second_outfit: {},
+    second_outfit_bones: {},
+    up_outfit: {},
+    sect_outfit: {},
+    prop_outfit: {},
+    af_base: {},
+    af_first: {},
+    af_second: {},
+    af_second_absorbation: {},
+    af_activation_first: {},
+    ammo_base: {},
+    helm_first: {},
+    helm_second: {},
+    [weapons.wpn_ak74]: {
+      inv_name: "AK-74",
+      strap_bone0: "some_bone",
+    },
+    [weapons.wpn_svu]: {
+      strap_bone0: "some_bone",
+    },
+    [weapons.grenade_f1]: {},
+    squad: {},
   },
   "spawn.ini": {
     story_object: {

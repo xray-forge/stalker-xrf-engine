@@ -54,6 +54,10 @@ export class MockIniFile<T extends AnyObject> {
     return this.path;
   });
 
+  public section_for_each = jest.fn((cb: (section: TSection) => void) => {
+    Object.keys(this.data).forEach((it) => cb(it));
+  });
+
   public asMock(): IniFile {
     return this as unknown as IniFile;
   }

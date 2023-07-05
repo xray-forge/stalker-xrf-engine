@@ -6,11 +6,9 @@ import { Optional, TCount, TName } from "@/engine/lib/types";
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo: Add utility to check object of 'active' + object 'inactive' properties to check complex lists.
- */
-
-/**
- * todo;
+ * Give info portion to actor.
+ *
+ * @param infoId - info portion to give to actor
  */
 export function giveInfo(infoId?: Optional<TName>): void {
   logger.info("Give alife info:", infoId);
@@ -21,7 +19,9 @@ export function giveInfo(infoId?: Optional<TName>): void {
 }
 
 /**
- * todo;
+ * Disable actor info portion.
+ *
+ * @param infoId - info portion to disable
  */
 export function disableInfo(infoId?: Optional<TName>): void {
   logger.info("Disable alife info:", infoId);
@@ -32,7 +32,10 @@ export function disableInfo(infoId?: Optional<TName>): void {
 }
 
 /**
- * Whether actor has alife info active.
+ * Whether actor has info portion set.
+ * Fallbacks to false if actor is not registered.
+ *
+ * @returns whether actor has info portion set already
  */
 export function hasAlifeInfo(infoId?: Optional<TName>): infoId is TInfoPortion {
   if (!infoId || !registry.actor) {
@@ -44,7 +47,9 @@ export function hasAlifeInfo(infoId?: Optional<TName>): infoId is TInfoPortion {
 
 /**
  * Whether actor has all alife info from the list.
- * @param infoIds - array of infos to check.
+ *
+ * @param infoIds - array of infos to check
+ * @returns whether actor has info portions active
  */
 export function hasAlifeInfos(infoIds: Array<TName>): boolean {
   return hasFewAlifeInfos(infoIds, infoIds.length);
@@ -52,7 +57,9 @@ export function hasAlifeInfos(infoIds: Array<TName>): boolean {
 
 /**
  * Whether actor has at least one alife info from the list.
- * @param infoIds - array of infos to check.
+ *
+ * @param infoIds - array of infos to check
+ * @returns whether actor has at least one info portion from list
  */
 export function hasAtLeastOneAlifeInfo(infoIds: Array<TName>): boolean {
   return hasFewAlifeInfos(infoIds, 1);
@@ -60,8 +67,10 @@ export function hasAtLeastOneAlifeInfo(infoIds: Array<TName>): boolean {
 
 /**
  * Whether actor has alife infos from the list.
- * @param infoIds - array of infos to check.
- * @param count - count of infos required to satisfy conditions.
+ *
+ * @param infoIds - array of infos to check
+ * @param count - count of infos required to satisfy conditions
+ * @returns whether actor has few of required info portions
  */
 export function hasFewAlifeInfos(infoIds: Array<TName>, count: TCount): boolean {
   let activeInfos: TCount = 0;

@@ -24,7 +24,7 @@ import {
 
 import { registry } from "@/engine/core/database";
 import { LoadItem } from "@/engine/core/ui/menu/load/LoadItem";
-import { deleteGameSave, gatFileDataForGameSave, isGameSaveFileExist } from "@/engine/core/utils/game/game_save";
+import { deleteGameSave, getFileDataForGameSave, isGameSaveFileExist } from "@/engine/core/utils/game/game_save";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { resolveXmlFormPath } from "@/engine/core/utils/ui";
 import { gameConfig } from "@/engine/lib/configs/GameConfig";
@@ -179,7 +179,7 @@ export class LoadDialog extends CUIScriptWnd {
 
     this.uiFileCaption.SetText(itemText);
     this.uiFileCaption.SetEllipsis(true);
-    this.uiFileData.SetText(gatFileDataForGameSave(itemText));
+    this.uiFileData.SetText(getFileDataForGameSave(itemText));
 
     if (!isGameSaveFileExist(itemText + gameConfig.GAME_SAVE_EXTENSION)) {
       this.uiListBox.RemoveItem(item);

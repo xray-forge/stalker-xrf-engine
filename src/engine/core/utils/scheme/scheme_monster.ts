@@ -1,5 +1,17 @@
+import { entity_action } from "xray16";
+
 import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
-import { ClientObject, TName } from "@/engine/lib/types";
+import { ClientObject, EntityAction, TEntityActionType, TIndex, TName } from "@/engine/lib/types";
+
+/**
+ * Check whether monster is currently captured by script logic.
+ *
+ * @param object - target client monster object
+ * @returns whether monster currently has active script
+ */
+export function isMonsterScriptCaptured(object: ClientObject): boolean {
+  return object.get_script();
+}
 
 /**
  * todo;
@@ -10,16 +22,6 @@ export function resetMonsterAction(object: ClientObject, scriptName: TName): voi
   }
 
   object.script(true, scriptName);
-}
-
-/**
- * Check whether monster is currently captured by script logic.
- *
- * @param object - target client monster object
- * @returns whether monster currently has active script
- */
-export function isMonsterScriptCaptured(object: ClientObject): boolean {
-  return object.get_script();
 }
 
 /**
@@ -52,4 +54,20 @@ export function scriptReleaseMonster(object: ClientObject): void {
   if (object.get_script()) {
     object.script(false, object.get_script_name());
   }
+}
+
+/**
+ * Command object to do some actions.
+ *
+ * @param object - target object to command
+ * @param actions - list of actions to perform
+ */
+export function scriptCommandMonster(object: ClientObject, ...actions: Array<TEntityActionType>): void {
+  const entityAction: EntityAction = new entity_action();
+
+  for (const type of actions) {
+    entityAction.set_action(type);
+  }
+
+  object.command(entityAction, false);
 }

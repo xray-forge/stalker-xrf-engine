@@ -13,7 +13,10 @@ import { FSFileListEX, Optional, SavedGameWrapper, TCount, TLabel, TName } from 
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo
+ * Check whether save file exists with provided name.
+ *
+ * @param filename - target name to search in saves folder
+ * @returns whether file exists
  */
 export function isGameSaveFileExist(filename: TName): boolean {
   const filesList: FSFileListEX = getFS().file_list_open_ex(
@@ -26,7 +29,9 @@ export function isGameSaveFileExist(filename: TName): boolean {
 }
 
 /**
- * todo
+ * Delete game save file and dds file.
+ *
+ * @param filename - target name to delete from saves folder
  */
 export function deleteGameSave(filename: TName): void {
   const saveFileName: TName = filename + gameConfig.GAME_SAVE_EXTENSION;
@@ -42,9 +47,12 @@ export function deleteGameSave(filename: TName): void {
 }
 
 /**
- * todo
+ * Get label with description for file name.
+ *
+ * @param filename - name of save file to check
+ * @returns label with save file description
  */
-export function gatFileDataForGameSave(filename: TName): TLabel {
+export function getFileDataForGameSave(filename: TName): TLabel {
   const fileList: FSFileListEX = getFS().file_list_open_ex(
     roots.gameSaves,
     bit_or(FS.FS_ListFiles, FS.FS_RootOnly),

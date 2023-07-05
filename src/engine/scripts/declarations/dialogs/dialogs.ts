@@ -16,8 +16,8 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 import {
   actorHasMedKit,
   getActorAvailableMedKit,
-  getCharacterCommunity,
   getNpcSpeaker,
+  getObjectCommunity,
   giveInfo,
   hasAlifeInfo,
   isObjectInjured,
@@ -208,35 +208,35 @@ extern("dialogs.become_friend", (firstSpeaker: ClientObject, secondSpeaker: Clie
  * todo;
  */
 extern("dialogs.npc_stalker", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
-  return getCharacterCommunity(getNpcSpeaker(firstSpeaker, secondSpeaker)) === communities.stalker;
+  return getObjectCommunity(getNpcSpeaker(firstSpeaker, secondSpeaker)) === communities.stalker;
 });
 
 /**
  * todo;
  */
 extern("dialogs.npc_bandit", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
-  return getCharacterCommunity(getNpcSpeaker(firstSpeaker, secondSpeaker)) === communities.bandit;
+  return getObjectCommunity(getNpcSpeaker(firstSpeaker, secondSpeaker)) === communities.bandit;
 });
 
 /**
  * todo;
  */
 extern("dialogs.npc_freedom", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
-  return getCharacterCommunity(getNpcSpeaker(firstSpeaker, secondSpeaker)) === communities.freedom;
+  return getObjectCommunity(getNpcSpeaker(firstSpeaker, secondSpeaker)) === communities.freedom;
 });
 
 /**
  * todo;
  */
 extern("dialogs.npc_dolg", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
-  return getCharacterCommunity(getNpcSpeaker(firstSpeaker, secondSpeaker)) === communities.dolg;
+  return getObjectCommunity(getNpcSpeaker(firstSpeaker, secondSpeaker)) === communities.dolg;
 });
 
 /**
  * todo;
  */
 extern("dialogs.npc_army", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
-  return getCharacterCommunity(getNpcSpeaker(firstSpeaker, secondSpeaker)) === communities.army;
+  return getObjectCommunity(getNpcSpeaker(firstSpeaker, secondSpeaker)) === communities.army;
 });
 
 /**

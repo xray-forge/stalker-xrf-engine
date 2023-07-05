@@ -1,4 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, jest } from "@jest/globals";
+import { alife } from "xray16";
 
 import { disposeManager, registerActor, registry } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers";
@@ -18,7 +19,7 @@ import {
   giveItemsToActor,
   giveMoneyToActor,
   isObjectName,
-  npcHasItem,
+  objectHasItem,
   takeItemFromActor,
   transferItemsFromActor,
   transferItemsToActor,
@@ -29,8 +30,12 @@ import { medkits } from "@/engine/lib/constants/items/drugs";
 import { weapons } from "@/engine/lib/constants/items/weapons";
 import { AnyObject, ClientObject, TSection } from "@/engine/lib/types";
 import { MockLuaTable } from "@/fixtures/lua/mocks/LuaTable.mock";
-import { MockAlifeSimulator, mockClientGameObject, mockServerAlifeItem, mockServerAlifeObject } from "@/fixtures/xray";
-import { alife } from "@/typedefs/xray16";
+import {
+  mockActorClientGameObject,
+  MockAlifeSimulator,
+  mockClientGameObject,
+  mockServerAlifeObject,
+} from "@/fixtures/xray";
 
 describe("'task_reward' utils", () => {
   const createObjectWithItems = () =>
@@ -59,7 +64,7 @@ describe("'task_reward' utils", () => {
   };
 
   beforeEach(() => {
-    registerActor(mockClientGameObject());
+    registerActor(mockActorClientGameObject());
   });
 
   afterEach(() => {
@@ -268,23 +273,23 @@ describe("'task_reward' utils", () => {
     expect(isObjectName(object, "name")).toBeTruthy();
   });
 
-  it("'npcHasItem' should correctly check if object has item", () => {
+  it("'objectHasItem' should correctly check if object has item", () => {
     const object: ClientObject = createObjectWithItems();
 
-    expect(npcHasItem(object, weapons.wpn_svd)).toBeTruthy();
-    expect(npcHasItem(object, medkits.medkit)).toBeTruthy();
-    expect(npcHasItem(object, medkits.medkit_army)).toBeTruthy();
-    expect(npcHasItem(object, medkits.medkit_scientic)).toBeFalsy();
-    expect(npcHasItem(object, weapons.wpn_val)).toBeFalsy();
-    expect(npcHasItem(object, weapons.wpn_ak74)).toBeFalsy();
+    expect(objectHasItem(object, weapons.wpn_svd)).toBeTruthy();
+    expect(objectHasItem(object, medkits.medkit)).toBeTruthy();
+    expect(objectHasItem(object, medkits.medkit_army)).toBeTruthy();
+    expect(objectHasItem(object, medkits.medkit_scientic)).toBeFalsy();
+    expect(objectHasItem(object, weapons.wpn_val)).toBeFalsy();
+    expect(objectHasItem(object, weapons.wpn_ak74)).toBeFalsy();
 
-    expect(npcHasItem(object, 1)).toBeTruthy();
-    expect(npcHasItem(object, 2)).toBeTruthy();
-    expect(npcHasItem(object, 40)).toBeTruthy();
-    expect(npcHasItem(object, 50)).toBeTruthy();
-    expect(npcHasItem(object, 60)).toBeFalsy();
-    expect(npcHasItem(object, 70)).toBeFalsy();
-    expect(npcHasItem(object, 100)).toBeFalsy();
+    expect(objectHasItem(object, 1)).toBeTruthy();
+    expect(objectHasItem(object, 2)).toBeTruthy();
+    expect(objectHasItem(object, 40)).toBeTruthy();
+    expect(objectHasItem(object, 50)).toBeTruthy();
+    expect(objectHasItem(object, 60)).toBeFalsy();
+    expect(objectHasItem(object, 70)).toBeFalsy();
+    expect(objectHasItem(object, 100)).toBeFalsy();
   });
 
   it("'actorHasAtLeastOneItem' should correctly check if object has item", () => {

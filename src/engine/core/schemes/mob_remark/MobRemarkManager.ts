@@ -2,14 +2,12 @@ import { anim, cond, MonsterSpace, sound } from "xray16";
 
 import { registry, setMonsterState } from "@/engine/core/database";
 import { NotificationManager } from "@/engine/core/managers/interface/notifications";
-import { AbstractSchemeManager } from "@/engine/core/schemes";
+import { AbstractSchemeManager } from "@/engine/core/schemes/base";
 import { ISchemeMobRemarkState } from "@/engine/core/schemes/mob_remark/ISchemeMobRemarkState";
 import { abort } from "@/engine/core/utils/assertion";
 import { getExtern } from "@/engine/core/utils/binding";
-import { pickSectionFromCondList } from "@/engine/core/utils/ini/ini_config";
-import { parseStringsList } from "@/engine/core/utils/ini/ini_parse";
-import { action } from "@/engine/core/utils/object/object_action";
-import { scriptCaptureMonster } from "@/engine/core/utils/scheme/scheme_monster";
+import { parseStringsList, pickSectionFromCondList } from "@/engine/core/utils/ini";
+import { scriptCaptureMonster, scriptCommandMonster } from "@/engine/core/utils/scheme";
 import { AnyCallablesModule, LuaArray, MonsterBodyStateKey, Optional, TName } from "@/engine/lib/types";
 
 /**
@@ -79,7 +77,7 @@ export class MobRemarkManager extends AbstractSchemeManager<ISchemeMobRemarkStat
         }
 
         if (this.state.anim_head) {
-          action(
+          scriptCommandMonster(
             this.object,
             new anim(an),
             new sound(snd, "bip01_head", MonsterSpace[this.state.anim_head as MonsterBodyStateKey]),
@@ -87,9 +85,9 @@ export class MobRemarkManager extends AbstractSchemeManager<ISchemeMobRemarkStat
           );
         } else {
           if (this.state.anim_movement === true) {
-            action(this.object, new anim(an, true), new sound(snd, "bip01_head"), cnd);
+            scriptCommandMonster(this.object, new anim(an, true), new sound(snd, "bip01_head"), cnd);
           } else {
-            action(this.object, new anim(an), new sound(snd, "bip01_head"), cnd);
+            scriptCommandMonster(this.object, new anim(an), new sound(snd, "bip01_head"), cnd);
           }
         }
       } else if (an !== null) {
@@ -100,9 +98,9 @@ export class MobRemarkManager extends AbstractSchemeManager<ISchemeMobRemarkStat
         }
 
         if (this.state.anim_movement === true) {
-          action(this.object, new anim(an, true), cnd);
+          scriptCommandMonster(this.object, new anim(an, true), cnd);
         } else {
-          action(this.object, new anim(an), cnd);
+          scriptCommandMonster(this.object, new anim(an), cnd);
         }
       }
     }

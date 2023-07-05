@@ -11,6 +11,7 @@ import {
 import { abort, assert, assertDefined } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { spawnItemsForObject } from "@/engine/core/utils/object/object_spawn";
+import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import { ammo, TAmmoItem } from "@/engine/lib/constants/items/ammo";
 import { medkits, TMedkit } from "@/engine/lib/constants/items/drugs";
 import { ClientObject, LuaArray, Optional, TCount, TName, TNumberId, TSection } from "@/engine/lib/types";
@@ -19,6 +20,8 @@ const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * Give provided amount of money to actor.
+ *
+ * @param amount - money to give to actor
  */
 export function giveMoneyToActor(amount: TCount): void {
   logger.info("Award actor with money:", amount);
@@ -34,6 +37,9 @@ export function giveMoneyToActor(amount: TCount): void {
 
 /**
  * Transfer provided amount of money from actor to object.
+ *
+ * @param to - target object to transfer money from actor
+ * @param amount - money to transfer
  */
 export function transferMoneyFromActor(to: ClientObject, amount: TCount): void {
   assertDefined(to, "Couldn't relocate money to 'nil'.");
@@ -49,13 +55,21 @@ export function transferMoneyFromActor(to: ClientObject, amount: TCount): void {
 
 /**
  * From two possible speakers pick NPC one, omit actor.
+ *
+ * @param first - possible npc speaker
+ * @param second - possible npc speaker
+ * @returns non-actor game object picked from parameters
  */
 export function getNpcSpeaker(first: ClientObject, second: ClientObject): ClientObject {
-  return registry.actor.id() === second.id() ? first : second;
+  return second.id() === ACTOR_ID ? first : second;
 }
 
 /**
  * Transfer item section with desired count from actor to provided object.
+ *
+ * @param to - target to transfer items from actor
+ * @param itemSection - section of transferred items
+ * @param count - count of items to transfer
  */
 export function transferItemsFromActor(to: ClientObject, itemSection: TSection, count: TCount | "all" = 1): void {
   logger.info("Transfer items from actor:", to.name(), itemSection, count);
@@ -112,6 +126,10 @@ export function transferItemsFromActor(to: ClientObject, itemSection: TSection, 
 /**
  * Transfer items by section/count from object to actor.
  * If object is missing some of them, create new ones with server object utils.
+ *
+ * @param from - object to transfer items from
+ * @param itemSection - section of items to transfer
+ * @param count - count of items to transfer
  */
 export function transferItemsToActor(from: ClientObject, itemSection: TSection, count: TCount = 1): void {
   const actor: ClientObject = registry.actor;
@@ -153,6 +171,9 @@ export function transferItemsToActor(from: ClientObject, itemSection: TSection, 
 
 /**
  * Create items by section/count for actor.
+ *
+ * @param itemSection - section of item to give to actor
+ * @param count - count of items to give
  */
 export function giveItemsToActor(itemSection: TSection, count: TCount = 1): void {
   const itemsSpawned: TCount = spawnItemsForObject(registry.actor, itemSection, count);
@@ -167,6 +188,8 @@ export function giveItemsToActor(itemSection: TSection, count: TCount = 1): void
 
 /**
  * Delete items by section for actor.
+ *
+ * @param itemSection - section to take from actor
  */
 export function takeItemFromActor(itemSection: TSection): void {
   const inventoryItem: Optional<ClientObject> = registry.actor.object(itemSection);
@@ -186,7 +209,7 @@ export function takeItemFromActor(itemSection: TSection): void {
 /**
  * Get available medkit or null.
  *
- * @param list - list of medkits to check in inventory
+ * @param list - list of medical kits to check in inventory
  * @param actor - target object to get medkit, gets actor from registry by default
  * @returns get medkit or null
  */
@@ -206,7 +229,7 @@ export function getActorAvailableMedKit(
 /**
  * Check whether actor has at least one med kit.
  *
- * @param list - list of medkits to check in inventory
+ * @param list - list of medical kits to check in inventory
  * @param actor - target object to check, gets actor from registry by default
  * @returns whether actor has at least one med kit
  */
@@ -269,13 +292,13 @@ export function actorHasAtLeastOneItem(
 }
 
 /**
- * Check whether npc has item in inventory.
+ * Check whether object has item in inventory.
  *
  * @param object - target object to check inventory
  * @param itemSectionOrId - item section or ID to check in inventory
  * @returns whether npc has item in inventory
  */
-export function npcHasItem(object: ClientObject, itemSectionOrId: TSection | TNumberId): boolean {
+export function objectHasItem(object: ClientObject, itemSectionOrId: TSection | TNumberId): boolean {
   return object.object(itemSectionOrId) !== null;
 }
 

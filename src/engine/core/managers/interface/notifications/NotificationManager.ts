@@ -1,4 +1,4 @@
-import { alife, game } from "xray16";
+import { alife, clsid, game } from "xray16";
 
 import { getObjectIdByStoryId, registry } from "@/engine/core/database";
 import { AbstractCoreManager } from "@/engine/core/managers/base/AbstractCoreManager";
@@ -29,7 +29,7 @@ import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundMan
 import { Stalker } from "@/engine/core/objects";
 import { abort, assert } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { isObjectWounded, isStalkerClassId } from "@/engine/core/utils/object";
+import { isObjectWounded } from "@/engine/core/utils/object";
 import { getInventoryNameForItemSection } from "@/engine/core/utils/object/object_spawn";
 import { captions, TCaption } from "@/engine/lib/constants/captions/captions";
 import { scriptSounds } from "@/engine/lib/constants/sound/script_sounds";
@@ -338,7 +338,7 @@ export class NotificationManager extends AbstractCoreManager {
 
     let textureName: TTexture = textures.ui_iconsTotal_grouping;
 
-    if (object !== null && isStalkerClassId(object.clsid())) {
+    if (object !== null && (object.clsid() === clsid.script_stalker || object.clsid() === clsid.stalker)) {
       textureName = object.character_icon();
     } else if (notificationManagerIcons[faction as TNotificationIconKey]) {
       textureName = notificationManagerIcons[faction as TNotificationIconKey];

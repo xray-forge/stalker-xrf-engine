@@ -25,11 +25,12 @@ import { ESchemeEvent, IBaseSchemeState } from "@/engine/core/schemes";
 import { SchemeHear } from "@/engine/core/schemes/hear/SchemeHear";
 import { pickSectionFromCondList, TConditionList } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { action, getObjectSquad } from "@/engine/core/utils/object";
+import { getObjectSquad } from "@/engine/core/utils/object";
 import {
   emitSchemeEvent,
   isMonsterScriptCaptured,
   scriptCaptureMonster,
+  scriptCommandMonster,
   scriptReleaseMonster,
   trySwitchToAnotherSection,
 } from "@/engine/core/utils/scheme";
@@ -124,14 +125,14 @@ export class MonsterBinder extends object_binder {
       scriptCaptureMonster(this.object, true);
 
       if (squad.commander_id() === this.object.id()) {
-        action(this.object, new move(move.walk_with_leader, targetPosition), new cond(cond.move_end));
+        scriptCommandMonster(this.object, new move(move.walk_with_leader, targetPosition), new cond(cond.move_end));
       } else {
         const commanderPosition: Vector = alife().object(squad.commander_id())!.position;
 
         if (commanderPosition.distance_to_sqr(this.object.position()) > 100) {
-          action(this.object, new move(move.run_with_leader, targetPosition), new cond(cond.move_end));
+          scriptCommandMonster(this.object, new move(move.run_with_leader, targetPosition), new cond(cond.move_end));
         } else {
-          action(this.object, new move(move.walk_with_leader, targetPosition), new cond(cond.move_end));
+          scriptCommandMonster(this.object, new move(move.walk_with_leader, targetPosition), new cond(cond.move_end));
         }
       }
 

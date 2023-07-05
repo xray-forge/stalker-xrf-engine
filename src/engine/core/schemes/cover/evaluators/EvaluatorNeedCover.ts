@@ -2,7 +2,7 @@ import { LuabindClass, property_evaluator } from "xray16";
 
 import { ISchemeCoverState } from "@/engine/core/schemes/cover";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { isSectionActive } from "@/engine/core/utils/scheme/scheme_logic";
+import { isActiveSectionState } from "@/engine/core/utils/scheme/scheme_logic";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -22,6 +22,6 @@ export class EvaluatorNeedCover extends property_evaluator {
    * Check whether cover scheme is active.
    */
   public override evaluate(): boolean {
-    return isSectionActive(this.object, this.state);
+    return isActiveSectionState(this.object, this.state);
   }
 }

@@ -5,8 +5,9 @@ import { AbstractSchemeManager } from "@/engine/core/schemes/base";
 import { ISchemeMinigunState } from "@/engine/core/schemes/ph_minigun/ISchemeMinigunState";
 import { abort } from "@/engine/core/utils/assertion";
 import { pickSectionFromCondList, TConditionList } from "@/engine/core/utils/ini";
-import { isActiveSection, isObjectWounded } from "@/engine/core/utils/object";
+import { isObjectWounded } from "@/engine/core/utils/object";
 import {
+  isActiveSection,
   isMonsterScriptCaptured,
   scriptReleaseMonster,
   switchObjectSchemeToSection,

@@ -74,6 +74,7 @@ export function mockClientGameObject({
   const internalInfos: Array<string> = [...infoPortions];
   const inventoryMap: Map<string | number, ClientObject> = new Map(inventory);
 
+  let isInvulnerable: boolean = false;
   let objectPosition: Vector = MockVector.mock(0.25, 0.25, 0.25);
   let objectDirection: Vector = MockVector.mock(1, 1, 1);
   let objectMoney: number = 0;
@@ -93,6 +94,7 @@ export function mockClientGameObject({
     active_item,
     animation_count,
     alive: rest.alive || jest.fn(() => true),
+    accessible_nearest: rest.accessible_nearest || jest.fn(() => 15326),
     active_slot: rest.active_slot || jest.fn(() => 3),
     add_restrictions:
       rest.add_restrictions ||
@@ -111,9 +113,11 @@ export function mockClientGameObject({
     bleeding,
     can_select_weapon: rest.can_select_weapon || jest.fn(),
     change_team: rest.change_team || jest.fn(),
+    character_community: rest.character_community || jest.fn(() => "stalker"),
     character_icon,
     clsid,
     clear_animations: rest.clear_animations || jest.fn(),
+    command: rest.command || jest.fn(),
     direction: rest.direction || jest.fn(() => objectDirection),
     disable_hit_marks: rest.disable_hit_marks || jest.fn(),
     disable_info_portion:
@@ -149,6 +153,7 @@ export function mockClientGameObject({
     give_money: give_money || jest.fn((value: number) => (objectMoney += value)),
     give_talk_message2,
     give_task,
+    group: rest.group || jest.fn(),
     has_info: has_info || jest.fn((it: string) => internalInfos.includes(it)),
     health,
     id: id || jest.fn(() => idOverride),
@@ -183,12 +188,21 @@ export function mockClientGameObject({
       }),
     out_restrictions: rest.out_restrictions || jest.fn(() => outRestrictions.join(",")),
     in_restrictions: rest.in_restrictions || jest.fn(() => inRestrictions.join(",")),
-    invulnerable: rest.invulnerable || jest.fn(),
+    invulnerable:
+      rest.invulnerable ||
+      jest.fn((nextInvulnerable?: boolean) => {
+        if (typeof nextInvulnerable === "boolean") {
+          isInvulnerable = nextInvulnerable;
+        } else {
+          return isInvulnerable;
+        }
+      }),
     iterate_inventory: jest.fn((cb: (owner: ClientObject, item: ClientObject) => void, owner: ClientObject) => {
       for (const [, item] of inventoryMap) {
         cb(owner, item);
       }
     }),
+    parent: rest.parent || jest.fn(() => null),
     position: rest.position || jest.fn(() => objectPosition),
     radiation,
     relation:
@@ -221,6 +235,8 @@ export function mockClientGameObject({
             }
           });
       }),
+    restore_ignore_monster_threshold: rest.restore_max_ignore_monster_distance || jest.fn(),
+    restore_max_ignore_monster_distance: rest.restore_max_ignore_monster_distance || jest.fn(),
     script: rest.script || jest.fn(),
     section: section || jest.fn(() => sectionOverride),
     see: rest.see || jest.fn(() => false),
@@ -234,12 +250,14 @@ export function mockClientGameObject({
           delete callbacks[id];
         }
       }),
+    set_condition: rest.set_condition || jest.fn(),
     set_manual_invisibility: rest.set_manual_invisibility || jest.fn(),
     set_mental_state: rest.set_mental_state || jest.fn(),
     set_nonscript_usable: rest.set_nonscript_usable || jest.fn(),
     set_home: rest.set_home || jest.fn(),
     set_invisible: rest.set_invisible || jest.fn(),
     set_relation: rest.set_relation || jest.fn(),
+    set_sound_mask: rest.set_sound_mask || jest.fn(),
     set_sympathy: rest.set_sympathy || jest.fn(),
     sight_params:
       rest.sight_params ||

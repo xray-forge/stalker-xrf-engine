@@ -1,37 +1,37 @@
-import { game, level, time_global, verify_if_thread_is_running } from "xray16";
+import { game, level } from "xray16";
 
+import { wait } from "@/engine/core/utils/game/game_wait";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { MAX_U8 } from "@/engine/lib/constants/memory";
-import { NetPacket, NetProcessor, Optional, TDuration, Time, TLabel, TRate, TTimestamp } from "@/engine/lib/types";
+import { NetPacket, NetProcessor, Optional, Time, TRate, TTimestamp } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo
+ * Add part of time digit to a data string.
+ *
+ * @param digit - number convert
+ * @returns concatenated string
  */
-function addTimeDigit(data: string, digit: number): string {
-  return digit > 9 ? data + digit : data + "0" + digit;
+export function toTimeDigit(digit: number): string {
+  return digit > 9 ? tostring(digit) : "0" + digit;
 }
 
 /**
- * todo;
+ * @param time - time to stringify
+ * @returns stringified time string
  */
 export function gameTimeToString(time: Time): string {
   const [y, m, d, h, min] = time.get(0, 0, 0, 0, 0, 0, 0);
 
-  let dateTime: TLabel = "";
-
-  dateTime = addTimeDigit(dateTime, h);
-  dateTime = dateTime + ":";
-  dateTime = addTimeDigit(dateTime, min);
-  dateTime = dateTime + " ";
-  dateTime = addTimeDigit(dateTime, m);
-  dateTime = dateTime + "/";
-  dateTime = addTimeDigit(dateTime, d);
-  dateTime = dateTime + "/";
-  dateTime = dateTime + y;
-
-  return dateTime;
+  return string.format(
+    "%s:%s %s/%s/%s",
+    toTimeDigit(h),
+    toTimeDigit(min),
+    toTimeDigit(m),
+    toTimeDigit(d),
+    toTimeDigit(y)
+  );
 }
 
 /**
@@ -39,67 +39,67 @@ export function gameTimeToString(time: Time): string {
  * @returns hh:mm:ss formatted time
  */
 export function globalTimeToString(time: number): string {
-  const hours: number = math.floor(time / 3600000);
-  const minutes: number = math.floor(time / 60000 - hours * 60);
-  const seconds: number = math.floor(time / 1000 - hours * 3600 - minutes * 60);
+  const hours: number = math.floor(time / 3_600_000);
+  const minutes: number = math.floor(time / 60_000 - hours * 60);
+  const seconds: number = math.floor(time / 1_000 - hours * 3_600 - minutes * 60);
 
-  return string.format(
-    "%s:%s:%s",
-    tostring(hours),
-    (minutes >= 10 ? "" : "0") + tostring(minutes),
-    (seconds >= 10 ? "" : "0") + tostring(seconds)
-  );
+  return string.format("%s:%s:%s", tostring(hours), toTimeDigit(minutes), toTimeDigit(seconds));
 }
 
 /**
  * Check whether current time interval is between desired values.
+ *
+ * @param fromHours - lower time bound
+ * @param toHours - upper time bound
+ * @returns whether current game time is in provided time bounds
  */
-export function isInTimeInterval(fromHours: TTimestamp, toHouds: TTimestamp): boolean {
+export function isInTimeInterval(fromHours: TTimestamp, toHours: TTimestamp): boolean {
   const gameHours: TTimestamp = level.get_time_hours();
 
-  if (fromHours >= toHouds) {
-    return gameHours < toHouds || gameHours >= fromHours;
+  if (fromHours >= toHours) {
+    return gameHours < toHours || gameHours >= fromHours;
   } else {
-    return gameHours < toHouds && gameHours >= fromHours;
+    return gameHours < toHours && gameHours >= fromHours;
   }
 }
 
 /**
- * Lock scripts execution based on game time.
+ * Set current time in level.
+ * Creates idle state with multiplied time factor.
+ *
+ * @param hour - desired day hour
+ * @param min - desired day min
+ * @param sec - desired day sec
  */
-export function waitGame(timeToWait: Optional<TDuration> = null): void {
-  verify_if_thread_is_running();
+export function setCurrentTime(hour: number, min: number, sec: number): void {
+  const currentTimeFactor: TRate = level.get_time_factor();
+  const currentGameTime: TTimestamp = game.time();
 
-  if (timeToWait === null) {
-    coroutine.yield();
-  } else {
-    const timeToStop: TTimestamp = game.time() + timeToWait;
+  let currentDay: number = math.floor(currentGameTime / 86_400_000);
+  const currentTime: number = currentGameTime - currentDay * 86_400_000;
+  let newTime: number = (sec + min * 60 + hour * 3_600) * 1000;
 
-    while (game.time() <= timeToStop) {
-      coroutine.yield();
-    }
+  // Wait for next day to match expected time.
+  if (currentTime > newTime) {
+    currentDay += 1;
   }
+
+  newTime = newTime + currentDay * 86_400_000;
+
+  level.set_time_factor(10_000);
+
+  while (game.time() < newTime) {
+    wait();
+  }
+
+  level.set_time_factor(currentTimeFactor);
 }
 
 /**
- * Lock scripts execution based on real time.
- */
-export function wait(timeToWait: Optional<TDuration> = null): void {
-  verify_if_thread_is_running();
-
-  if (timeToWait === null) {
-    coroutine.yield();
-  } else {
-    const timeToStop: TTimestamp = time_global() + timeToWait;
-
-    while (time_global() <= timeToStop) {
-      coroutine.yield();
-    }
-  }
-}
-
-/**
- * todo;
+ * Save time object into net packet.
+ *
+ * @param packet - target packet to write data
+ * @param time - time object to write
  */
 export function writeTimeToPacket(packet: NetPacket, time: Optional<Time>): void {
   if (time === null) {
@@ -118,7 +118,10 @@ export function writeTimeToPacket(packet: NetPacket, time: Optional<Time>): void
 }
 
 /**
- * todo;
+ * Read time object from net packet.
+ *
+ * @param reader - target packet to read data
+ * @returns time object or null
  */
 export function readTimeFromPacket(reader: NetProcessor): Optional<Time> {
   const Y: number = reader.r_u8();
@@ -139,32 +142,4 @@ export function readTimeFromPacket(reader: NetProcessor): Optional<Time> {
   time.set(Y + 2000, M, D, h, m, s, ms);
 
   return time;
-}
-
-/**
- * Set current time in level.
- * Creates idle state with multiplied time factor.
- */
-export function setCurrentTime(hour: number, min: number, sec: number): void {
-  const currentTimeFactor: TRate = level.get_time_factor();
-  const currentGameTime: TTimestamp = game.time();
-
-  // todo: Magic constants.
-  let currentDay: number = math.floor(currentGameTime / 86_400_000);
-  const currentTime: number = currentGameTime - currentDay * 86_400_000;
-  let newTime: number = (sec + min * 60 + hour * 3_600) * 1000;
-
-  if (currentTime > newTime) {
-    currentDay = currentDay + 1;
-  }
-
-  newTime = newTime + currentDay * 86_400_000;
-
-  level.set_time_factor(10_000);
-
-  while (game.time() < newTime) {
-    wait();
-  }
-
-  level.set_time_factor(currentTimeFactor);
 }

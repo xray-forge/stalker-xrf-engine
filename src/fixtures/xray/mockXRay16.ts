@@ -4,6 +4,7 @@ import {
   MockActionBase,
   MockActionPlanner,
   MockAnim,
+  MockCond,
   MockLook,
   MockMove,
   MockPropertyStorage,
@@ -11,6 +12,7 @@ import {
   MockWorldProperty,
   MockWorldState,
 } from "@/fixtures/xray/mocks/actions";
+import { MockEntityAction } from "@/fixtures/xray/mocks/actions/entity_action.mock";
 import { MockCGameGraph } from "@/fixtures/xray/mocks/CGameGraph.mock";
 import { mockGetConsole } from "@/fixtures/xray/mocks/console.mock";
 import { mockCallbacks, mockClsid, mockSndType, mockStalkerIds } from "@/fixtures/xray/mocks/constants";
@@ -18,7 +20,7 @@ import { MockCSightParams } from "@/fixtures/xray/mocks/CSightParams.mock";
 import { MockCTime } from "@/fixtures/xray/mocks/CTime.mock";
 import { MockDevice } from "@/fixtures/xray/mocks/device.mock";
 import { MockEffector } from "@/fixtures/xray/mocks/effector.mock";
-import { MockFileSystem } from "@/fixtures/xray/mocks/fs/FileSystem.mock";
+import { MockCSavedGameWrapper, MockFileSystem } from "@/fixtures/xray/mocks/fs";
 import { mockCreateIniFile, MockIniFile, mockIniFile } from "@/fixtures/xray/mocks/ini";
 import { mockGameInterface } from "@/fixtures/xray/mocks/interface/gameInterface.mock";
 import { mockGetGameHud } from "@/fixtures/xray/mocks/interface/globalInteraface.mock";
@@ -27,6 +29,8 @@ import { mockRelationRegistryInterface } from "@/fixtures/xray/mocks/interface/r
 import { mocksConfig } from "@/fixtures/xray/mocks/MocksConfig";
 import {
   MockAlifeCreatureActor,
+  MockAlifeDynamicObject,
+  MockAlifeDynamicObjectVisual,
   MockAlifeHangingLamp,
   MockAlifeHelicopter,
   MockAlifeHumanStalker,
@@ -50,27 +54,26 @@ import {
   MockAlifeMonsterBase,
   MockAlifeObjectPhysic,
   MockAlifeOnlineOfflineGroup,
+  MockAlifeSimulator,
   MockAlifeSmartCover,
   MockAlifeSmartZone,
   MockAnomalousZone,
+  MockCGameTask,
   MockCScriptXmlInit,
   MockCUIListBoxItem,
   MockCUIListBoxItemMsgChain,
   MockCUIScriptWnd,
   MockCUIWindow,
+  MockDangerObject,
+  MockFlags32,
+  MockObjectBinder,
   MockPatrol,
+  MockSoundObject,
   MockSpaceRestrictor,
+  MockTask,
   MockTorridZone,
   MockZoneVisual,
 } from "@/fixtures/xray/mocks/objects";
-import { mockAlifeSimulator } from "@/fixtures/xray/mocks/objects/AlifeSimulator.mock";
-import { MockDangerObject } from "@/fixtures/xray/mocks/objects/client/danger_object.mock";
-import { MockObjectBinder } from "@/fixtures/xray/mocks/objects/client/object_binder.mock";
-import { MockFlags32 } from "@/fixtures/xray/mocks/objects/Flags32.mock";
-import { MockAlifeDynamicObject } from "@/fixtures/xray/mocks/objects/server/cse_alife_dynamic_object.mock";
-import { MockAlifeDynamicObjectVisual } from "@/fixtures/xray/mocks/objects/server/cse_alife_dynamic_object_visual.mock";
-import { MockSoundObject } from "@/fixtures/xray/mocks/objects/sound";
-import { MockCGameTask, MockTask } from "@/fixtures/xray/mocks/objects/task";
 import { MockPropertyEvaluator } from "@/fixtures/xray/mocks/PropertyEvaluator.mock";
 import { MockVector } from "@/fixtures/xray/mocks/vector.mock";
 
@@ -89,12 +92,15 @@ export function mockXRay16({
   IsImportantSave = jest.fn(() => mocksConfig.isAutoSavingEnabled),
   action_base = MockActionBase,
   action_planner = MockActionPlanner,
-  alife = jest.fn(() => mockAlifeSimulator()),
+  alife = jest.fn(() => MockAlifeSimulator.mock()),
   anim = MockAnim,
   bit_and = jest.fn((first: number, second: number) => first & second),
+  bit_or = jest.fn((first: number, second: number) => first | second),
   callback = mockCallbacks,
   clsid = mockClsid,
+  cond = MockCond,
   create_ini_file = mockCreateIniFile,
+  CSavedGameWrapper = MockCSavedGameWrapper,
   cse_alife_creature_actor = MockAlifeCreatureActor,
   cse_alife_helicopter = MockAlifeHelicopter,
   cse_alife_dynamic_object = MockAlifeDynamicObject,
@@ -131,7 +137,9 @@ export function mockXRay16({
   device = jest.fn(() => MockDevice.getInstance()),
   editor = jest.fn(() => false),
   effector = MockEffector,
+  entity_action = MockEntityAction,
   flags32 = MockFlags32,
+  FS = MockFileSystem,
   game = mockGameInterface,
   game_graph = () => MockCGameGraph.getInstance(),
   getFS = () => MockFileSystem.getInstance(),
@@ -176,9 +184,12 @@ export function mockXRay16({
     alife,
     anim,
     bit_and,
+    bit_or,
     callback,
     clsid,
+    cond,
     create_ini_file,
+    CSavedGameWrapper,
     cse_alife_creature_actor,
     cse_alife_dynamic_object,
     cse_alife_dynamic_object_visual,
@@ -215,7 +226,9 @@ export function mockXRay16({
     device,
     editor,
     effector,
+    entity_action,
     flags32,
+    FS,
     game,
     game_graph,
     getFS,

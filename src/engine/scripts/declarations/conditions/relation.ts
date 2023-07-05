@@ -4,7 +4,7 @@ import { ISchemeDeathState } from "@/engine/core/schemes/death";
 import { abort, assert } from "@/engine/core/utils/assertion";
 import { extern, getExtern } from "@/engine/core/utils/binding";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { getCharacterCommunity } from "@/engine/core/utils/object";
+import { getObjectCommunity } from "@/engine/core/utils/object";
 import {
   areCommunitiesEnemies,
   areCommunitiesFriendly,
@@ -37,7 +37,7 @@ extern(
     if (community === null) {
       return false;
     } else {
-      return areCommunitiesEnemies(getCharacterCommunity(actor), community);
+      return areCommunitiesEnemies(getObjectCommunity(actor), community);
     }
   }
 );
@@ -53,8 +53,8 @@ extern(
     }
 
     return !(
-      areCommunitiesEnemies(getCharacterCommunity(actor), community) ||
-      areCommunitiesFriendly(getCharacterCommunity(actor), community)
+      areCommunitiesEnemies(getObjectCommunity(actor), community) ||
+      areCommunitiesFriendly(getObjectCommunity(actor), community)
     );
   }
 );
@@ -64,7 +64,7 @@ extern(
  */
 extern("xr_conditions.is_factions_friends", (actor: ClientObject, npc: ClientObject, p: [TCommunity]): boolean => {
   if (p[0] !== null) {
-    return areCommunitiesFriendly(getCharacterCommunity(actor), p[0]);
+    return areCommunitiesFriendly(getObjectCommunity(actor), p[0]);
   } else {
     return false;
   }
@@ -205,6 +205,6 @@ extern(
       object = npc as ClientObject;
     }
 
-    return getCharacterCommunity(object) === params[0];
+    return getObjectCommunity(object) === params[0];
   }
 );

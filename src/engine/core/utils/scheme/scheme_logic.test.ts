@@ -38,7 +38,8 @@ import {
   activateSchemeBySection,
   enableObjectBaseSchemes,
   getSectionToActivate,
-  isSectionActive,
+  isActiveSection,
+  isActiveSectionState,
   resetObjectGenericSchemesOnSectionSwitch,
 } from "@/engine/core/utils/scheme/scheme_logic";
 import { loadSchemeImplementation, loadSchemeImplementations } from "@/engine/core/utils/scheme/scheme_setup";
@@ -75,27 +76,44 @@ describe("'scheme logic' utils", () => {
     registry.actor = null as unknown as ClientObject;
   });
 
-  it("'isSectionActive' should correctly check scheme activity", () => {
+  it("'isActiveSection' should correctly check active scheme state", () => {
+    const object: ClientObject = mockClientGameObject();
+    const state: IRegistryObjectState = registerObject(object);
+
+    state.activeSection = null;
+
+    expect(() => isActiveSection(object, null)).toThrow();
+    expect(() => isActiveSection(object, undefined)).toThrow();
+
+    expect(isActiveSection(object, "test@test")).toBe(false);
+
+    state.activeSection = "another@test";
+
+    expect(isActiveSection(object, "test@test")).toBe(false);
+    expect(isActiveSection(object, "another@test")).toBe(true);
+  });
+
+  it("'isActiveSectionState' should correctly check scheme activity", () => {
     const object: ClientObject = mockClientGameObject();
     const state: IRegistryObjectState = registerObject(object);
 
     state.activeSection = "sr_idle@test";
 
-    expect(isSectionActive(object, mockSchemeState(object, EScheme.SR_TELEPORT, { section: "sr_teleport@test" }))).toBe(
-      false
-    );
-    expect(isSectionActive(object, mockSchemeState(object, EScheme.SR_TELEPORT, { section: "sr_idle@test" }))).toBe(
-      true
-    );
+    expect(
+      isActiveSectionState(object, mockSchemeState(object, EScheme.SR_TELEPORT, { section: "sr_teleport@test" }))
+    ).toBe(false);
+    expect(
+      isActiveSectionState(object, mockSchemeState(object, EScheme.SR_TELEPORT, { section: "sr_idle@test" }))
+    ).toBe(true);
 
     state.activeSection = "sr_teleport@test";
 
-    expect(isSectionActive(object, mockSchemeState(object, EScheme.SR_TELEPORT, { section: "sr_teleport@test" }))).toBe(
-      true
-    );
-    expect(isSectionActive(object, mockSchemeState(object, EScheme.SR_TELEPORT, { section: "sr_idle@test" }))).toBe(
-      false
-    );
+    expect(
+      isActiveSectionState(object, mockSchemeState(object, EScheme.SR_TELEPORT, { section: "sr_teleport@test" }))
+    ).toBe(true);
+    expect(
+      isActiveSectionState(object, mockSchemeState(object, EScheme.SR_TELEPORT, { section: "sr_idle@test" }))
+    ).toBe(false);
   });
 
   it("'getSectionToActivate' should correctly determine active section", () => {
@@ -348,19 +366,22 @@ describe("'scheme logic' utils", () => {
       $fromArray<TAbstractSchemeConstructor>([SchemeMobCombat, SchemeMobDeath, SchemeHit, SchemeCombatIgnore])
     );
 
+    state.activeSection = "sr_idle@first";
     enableObjectBaseSchemes(object, ini, ESchemeType.MONSTER, "sr_idle@first");
     expect(SchemeHit.activate).not.toHaveBeenCalled();
     expect(SchemeMobCombat.activate).not.toHaveBeenCalled();
     expect(SchemeMobDeath.activate).not.toHaveBeenCalled();
     expect(SchemeCombatIgnore.activate).toHaveBeenCalledWith(object, ini, EScheme.COMBAT_IGNORE, null);
-    expect(object.invulnerable).toHaveBeenCalledTimes(2);
+    expect(object.invulnerable).toHaveBeenCalledTimes(1);
 
+    state.activeSection = "sr_idle@second";
     enableObjectBaseSchemes(object, ini, ESchemeType.MONSTER, "sr_idle@second");
     expect(SchemeHit.activate).toHaveBeenCalledWith(object, ini, EScheme.HIT, "hit@another");
     expect(SchemeMobCombat.activate).toHaveBeenCalledWith(object, ini, EScheme.MOB_COMBAT, "mob_combat@another");
     expect(SchemeMobDeath.activate).toHaveBeenCalledWith(object, ini, EScheme.MOB_DEATH, "mob_death@another");
     expect(SchemeCombatIgnore.activate).toHaveBeenNthCalledWith(2, object, ini, EScheme.COMBAT_IGNORE, null);
-    expect(object.invulnerable).toHaveBeenCalledTimes(4);
+    expect(object.invulnerable).toHaveBeenCalledTimes(3);
+    expect(object.invulnerable).toHaveBeenNthCalledWith(3, true);
   });
 
   it("'enableObjectBaseSchemes' should correctly enables schemes for stalkers", () => {

@@ -2,7 +2,7 @@ import type { TInfoPortion } from "@/engine/lib/constants/info_portions";
 import type { Flags32, LuaArray, Optional, TCount, TIndex, TName, TProbability, TSection } from "@/engine/lib/types";
 
 /**
- * todo;
+ * Data descriptor describing waypoint.
  */
 export interface IWaypointData {
   a?: any;
@@ -34,7 +34,7 @@ export interface ISpawnDescriptor {
 }
 
 /**
- * todo;
+ * Descriptor describing parsed condition in one conditions list.
  */
 export interface IConfigCondition {
   name?: TInfoPortion;
@@ -54,21 +54,22 @@ export interface IConfigSwitchCondition {
   readonly infop_set: LuaArray<IConfigCondition>;
 }
 
-/**
- * todo;
- */
-export interface IConfigSwitchConditionsDescriptor {
-  name: TName;
-  condlist: LuaArray<IConfigSwitchCondition>;
-}
-
-/**
- * todo;
- */
 export type TConditionList = LuaArray<IConfigSwitchCondition>;
 
 /**
- * todo;
+ * todo; probably remove?
+ */
+export interface IConfigSwitchConditionsDescriptor {
+  name: TName;
+  condlist: TConditionList;
+}
+
+/**
+ * Complex condition list containing multiple switch/effects conditions.
+ */
+
+/**
+ * State descriptor describing bone state.
  */
 export interface IBoneStateDescriptor {
   index: Optional<TIndex>; // Bone index.

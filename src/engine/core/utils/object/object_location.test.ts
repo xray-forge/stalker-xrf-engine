@@ -1,18 +1,32 @@
 import { describe, expect, it, jest } from "@jest/globals";
-import { alife, game_graph } from "xray16";
+import { alife, game_graph, patrol } from "xray16";
 
 import {
   areObjectsOnSameLevel,
+  getDistanceBetween,
+  getDistanceBetweenSqr,
   getServerDistanceBetween,
   isDistanceBetweenObjectsGreaterOrEqual,
   isDistanceBetweenObjectsLessOrEqual,
+  isGameVertexFromLevel,
+  isObjectAtWaypoint,
+  isObjectInActorFrustum,
   isObjectInSmartTerrain,
   isObjectInZone,
   isObjectOnLevel,
+  sendToNearestAccessibleVertex,
+  teleportActorWithEffects,
 } from "@/engine/core/utils/object/object_location";
-import { ClientObject, ServerObject } from "@/engine/lib/types";
+import { ClientObject, ServerObject, Vector } from "@/engine/lib/types";
 import { mockRegisteredActor } from "@/fixtures/engine";
-import { mockClientGameObject, mockServerAlifeObject, mockServerAlifeSmartZone } from "@/fixtures/xray";
+import {
+  mockActorClientGameObject,
+  mockClientGameObject,
+  mockServerAlifeObject,
+  mockServerAlifeSmartZone,
+  patrols,
+} from "@/fixtures/xray";
+import { MockVector } from "@/fixtures/xray/mocks/vector.mock";
 
 describe("object location utils", () => {
   it("'isObjectInSmartTerrain' check object inside smart terrain", () => {
@@ -41,8 +55,8 @@ describe("object location utils", () => {
     expect(isObjectOnLevel(null, "zaton")).toBe(false);
     expect(isObjectOnLevel(object, "pripyat")).toBe(true);
 
-    expect(game_graph().vertex(object.m_game_vertex_id).level_id()).toBe(10);
-    expect(alife().level_name).toHaveBeenCalledWith(10);
+    expect(game_graph().vertex(object.m_game_vertex_id).level_id()).toBe(5120);
+    expect(alife().level_name).toHaveBeenCalledWith(5120);
   });
 
   it("'areObjectsOnSameLevel' check objects on level", () => {
@@ -96,5 +110,95 @@ describe("object location utils", () => {
 
     jest.spyOn(game_graph().vertex(501).game_point(), "distance_to").mockImplementation(() => 255);
     expect(getServerDistanceBetween(second, mockServerAlifeObject())).toBe(255);
+  });
+
+  it("'getDistanceBetween' should correctly get distance for offline objects", () => {
+    const first: ClientObject = mockClientGameObject();
+    const second: ClientObject = mockClientGameObject();
+
+    expect(getDistanceBetween(first, second)).toBe(20);
+
+    jest.spyOn(first.position(), "distance_to").mockImplementation(() => 600);
+    expect(getDistanceBetween(first, second)).toBe(600);
+  });
+
+  it("'getDistanceBetweenSqr' should correctly get distance for offline objects", () => {
+    const first: ClientObject = mockClientGameObject();
+    const second: ClientObject = mockClientGameObject();
+
+    expect(getDistanceBetweenSqr(first, second)).toBe(400);
+
+    jest.spyOn(first.position(), "distance_to_sqr").mockImplementation(() => 1600);
+    expect(getDistanceBetweenSqr(first, second)).toBe(1600);
+  });
+
+  it("'sendToNearestAccessibleVertex' should correctly send object to nearest accesible vertex", () => {
+    const first: ClientObject = mockClientGameObject();
+
+    expect(sendToNearestAccessibleVertex(first, 150)).toBe(150);
+    expect(first.accessible).toHaveBeenCalled();
+    expect(first.set_dest_level_vertex_id).toHaveBeenCalledWith(150);
+
+    const second: ClientObject = mockClientGameObject({
+      accessible: jest.fn(() => false),
+      accessible_nearest: jest.fn(() => 14325),
+    });
+
+    expect(sendToNearestAccessibleVertex(second, 150)).toBe(14325);
+    expect(second.accessible).toHaveBeenCalled();
+    expect(second.accessible_nearest).toHaveBeenCalledWith({ x: 15, y: 14, z: 16 }, { x: 0, y: 0, z: 0 });
+    expect(second.set_dest_level_vertex_id).toHaveBeenCalledWith(14325);
+  });
+
+  it("'teleportActorWithEffects' should correctly teleport actor", () => {
+    const actor: ClientObject = mockActorClientGameObject();
+    const destination: Vector = MockVector.mock(15, 14, 16);
+    const direction: Vector = MockVector.mock(3, 5, 4);
+
+    teleportActorWithEffects(actor, destination, direction);
+
+    expect(actor.set_actor_position).toHaveBeenCalledWith(destination);
+    expect(actor.set_actor_direction).toHaveBeenCalledWith(-direction.getH());
+  });
+
+  it("'isGameVertexFromLevel' should correctly check level name", () => {
+    expect(isGameVertexFromLevel("pripyat", 50)).toBe(true);
+    expect(isGameVertexFromLevel("zaton", 51)).toBe(false);
+  });
+
+  it("'isObjectAtWaypoint' should correctly check whether object is at waypoint", () => {
+    const object: ClientObject = mockClientGameObject();
+
+    jest.spyOn(object.position(), "distance_to_sqr").mockImplementation(() => 0.131);
+
+    expect(isObjectAtWaypoint(object, new patrol("test-wp"), 1)).toBe(false);
+    expect(object.position().distance_to_sqr).toHaveBeenCalledWith(patrols["test-wp"].points[1].position);
+
+    jest.spyOn(object.position(), "distance_to_sqr").mockImplementation(() => 0.13);
+
+    expect(isObjectAtWaypoint(object, new patrol("test-wp"), 2)).toBe(true);
+    expect(object.position().distance_to_sqr).toHaveBeenCalledWith(patrols["test-wp"].points[2].position);
+  });
+
+  it("'isObjectInActorFrustum' should correctly check whether object is in actor frustum", () => {
+    const object: ClientObject = mockClientGameObject();
+
+    jest.spyOn(object, "position").mockImplementation(() => MockVector.mock(0.6, 0, 0.6));
+    expect(isObjectInActorFrustum(object)).toBe(true);
+
+    jest.spyOn(object, "position").mockImplementation(() => MockVector.mock(0.5, 0, 0.9));
+    expect(isObjectInActorFrustum(object)).toBe(true);
+
+    jest.spyOn(object, "position").mockImplementation(() => MockVector.mock(0.5, 1, 0.9));
+    expect(isObjectInActorFrustum(object)).toBe(false);
+
+    jest.spyOn(object, "position").mockImplementation(() => MockVector.mock(0.4, 0, 0.9));
+    expect(isObjectInActorFrustum(object)).toBe(false);
+
+    jest.spyOn(object, "position").mockImplementation(() => MockVector.mock(-0.6, 0, -0.6));
+    expect(isObjectInActorFrustum(object)).toBe(false);
+
+    jest.spyOn(object, "position").mockImplementation(() => MockVector.mock(0, 0, 0));
+    expect(isObjectInActorFrustum(object)).toBe(false);
   });
 });

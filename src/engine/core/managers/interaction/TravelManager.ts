@@ -16,7 +16,7 @@ import { createAutoSave } from "@/engine/core/utils/game/game_save";
 import { parseConditionsList, pickSectionFromCondList, TConditionList } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import {
-  getAlifeCharacterCommunity,
+  getObjectCommunity,
   getObjectSmartTerrain,
   getObjectSquad,
   getServerDistanceBetween,
@@ -240,7 +240,7 @@ export class TravelManager extends AbstractCoreManager {
     if (targetClsId === clsid.script_actor) {
       abort("Actor talking with squad, which chasing actor.");
     } else if (targetClsId === clsid.online_offline_group_s) {
-      return "dm_" + communities.stalker + "_chasing_squad_" + getAlifeCharacterCommunity(targetSquadObject as Squad);
+      return "dm_" + communities.stalker + "_chasing_squad_" + getObjectCommunity(targetSquadObject as Squad);
     } else if (targetClsId === clsid.smart_terrain) {
       const smartName: TName = targetSquadObject.name();
       const smartDescription: TLabel = this.smartDescriptionsByName.get(smartName);

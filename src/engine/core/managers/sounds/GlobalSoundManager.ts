@@ -17,7 +17,7 @@ import { EPlayableSound } from "@/engine/core/objects/sounds/types";
 import { abort, assert, assertDefined } from "@/engine/core/utils/assertion";
 import { readIniString } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { getCharacterCommunity } from "@/engine/core/utils/object/object_get";
+import { getObjectCommunity } from "@/engine/core/utils/object/object_get";
 import { getTableSize, resetTable } from "@/engine/core/utils/table";
 import {
   ClientObject,
@@ -44,7 +44,7 @@ export class GlobalSoundManager extends AbstractCoreManager {
   public static initializeObjectSounds(object: ClientObject): void {
     for (const [key, sound] of registry.sounds.themes) {
       if (sound.type === NpcSound.type) {
-        if ((sound as NpcSound).availableCommunities.has(getCharacterCommunity(object))) {
+        if ((sound as NpcSound).availableCommunities.has(getObjectCommunity(object))) {
           (sound as NpcSound).initializeObject(object);
         }
       }

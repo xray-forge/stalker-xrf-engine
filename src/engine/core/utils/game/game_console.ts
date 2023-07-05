@@ -5,6 +5,9 @@ import { AnyArgs } from "@/engine/lib/types";
 
 /**
  * Execute console command and concatenate provided parameters for propagation.
+ *
+ * @param command - console command
+ * @param args - list of arguments to provide for command
  */
 export function executeConsoleCommand(command: TConsoleCommand, ...args: AnyArgs): void {
   if (args.length > 0) {
@@ -16,6 +19,10 @@ export function executeConsoleCommand(command: TConsoleCommand, ...args: AnyArgs
 
 /**
  * Execute command to get floating point number value.
+ *
+ * @param command - console command
+ * @param args - list of arguments to provide for command
+ * @returns float value from console
  */
 export function getConsoleFloatCommand<T extends number = number>(command: TConsoleCommand, ...args: AnyArgs): T {
   if (args.length > 0) {

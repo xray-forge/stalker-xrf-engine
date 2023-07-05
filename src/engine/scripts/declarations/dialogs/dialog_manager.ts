@@ -10,7 +10,7 @@ import {
 import { SmartTerrain } from "@/engine/core/objects";
 import { extern } from "@/engine/core/utils/binding";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { getCharacterCommunity, getObjectSmartTerrain } from "@/engine/core/utils/object";
+import { getObjectCommunity, getObjectSmartTerrain } from "@/engine/core/utils/object";
 import { getNpcSpeaker } from "@/engine/core/utils/object/object_task_reward";
 import { captions } from "@/engine/lib/constants/captions/captions";
 import { communities, TCommunity } from "@/engine/lib/constants/communities";
@@ -591,7 +591,7 @@ extern("dialog_manager.create_bye_phrase", (): string => {
  */
 extern("dialog_manager.uni_dialog_precond", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
   const object: ClientObject = getNpcSpeaker(firstSpeaker, secondSpeaker);
-  const community: TCommunity = getCharacterCommunity(object);
+  const community: TCommunity = getObjectCommunity(object);
 
   return (
     community === communities.stalker ||

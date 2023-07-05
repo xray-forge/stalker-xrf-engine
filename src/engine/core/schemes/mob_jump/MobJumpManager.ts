@@ -3,8 +3,7 @@ import { cond, look, patrol } from "xray16";
 import { AbstractSchemeManager } from "@/engine/core/schemes";
 import { ISchemeMobJumpState } from "@/engine/core/schemes/mob_jump/ISchemeMobJumpState";
 import { abort } from "@/engine/core/utils/assertion";
-import { action } from "@/engine/core/utils/object/object_action";
-import { scriptCaptureMonster, scriptReleaseMonster } from "@/engine/core/utils/scheme";
+import { scriptCaptureMonster, scriptCommandMonster, scriptReleaseMonster } from "@/engine/core/utils/scheme";
 import { addVectors } from "@/engine/core/utils/vector";
 import { Optional, Patrol, Vector } from "@/engine/lib/types";
 
@@ -52,7 +51,7 @@ export class MobJumpManager extends AbstractSchemeManager<ISchemeMobJumpState> {
   public update(delta: number): void {
     if (this.stateCurrent === STATE_START_LOOK) {
       if (!this.object.action()) {
-        action(this.object, new look(look.point, this.point!), new cond(cond.look_end));
+        scriptCommandMonster(this.object, new look(look.point, this.point!), new cond(cond.look_end));
 
         this.stateCurrent = STATE_WAIT_LOOK_END;
       }

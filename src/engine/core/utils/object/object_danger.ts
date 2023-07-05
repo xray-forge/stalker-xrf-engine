@@ -6,7 +6,7 @@ import { SmartTerrain } from "@/engine/core/objects";
 import { ESmartTerrainStatus } from "@/engine/core/objects/server/smart_terrain/types";
 import { ISchemeCombatIgnoreState } from "@/engine/core/schemes/combat_ignore";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini";
-import { getCharacterCommunity } from "@/engine/core/utils/object/object_get";
+import { getObjectCommunity } from "@/engine/core/utils/object/object_get";
 import { isObjectInZone } from "@/engine/core/utils/object/object_location";
 import { isObjectWounded } from "@/engine/core/utils/object/object_state";
 import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
@@ -57,7 +57,7 @@ export function isObjectFacingDanger(object: ClientObject): boolean {
 
   if (bestDangerType === danger_object.grenade) {
     // Zombied ignore grenades.
-    if (getCharacterCommunity(object) === communities.zombied) {
+    if (getObjectCommunity(object) === communities.zombied) {
       return false;
     }
   }

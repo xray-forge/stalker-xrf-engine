@@ -1,7 +1,7 @@
 /* eslint sort-keys-fix/sort-keys-fix: "error" */
 
 /**
- * todo;
+ * Class IDs list describing game objects linking.
  */
 export const classIds = {
   actor: 90,

@@ -3,7 +3,7 @@ import { LuabindClass, property_evaluator, stalker_ids, time_global } from "xray
 import { EEvaluatorId } from "@/engine/core/schemes/base";
 import { ISchemeCamperState } from "@/engine/core/schemes/camper/ISchemeCamperState";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { isActiveSection } from "@/engine/core/utils/object";
+import { isActiveSection } from "@/engine/core/utils/scheme";
 import { ActionPlanner, Optional } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);

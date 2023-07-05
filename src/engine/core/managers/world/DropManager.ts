@@ -7,12 +7,12 @@ import { abort } from "@/engine/core/utils/assertion";
 import { parseNumbersList, parseStringsList } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import {
-  getCharacterCommunity,
-  isAmmoItem,
+  getObjectCommunity,
+  isAmmoSection,
   isArtefact,
-  isExcludedFromLootDropItem,
+  isExcludedFromLootDropItemSection,
   isGrenade,
-  isLootableItem,
+  isLootableItemSection,
   isWeapon,
   setItemCondition,
   spawnItemsForObject,
@@ -196,7 +196,7 @@ export class DropManager extends AbstractCoreManager {
     }
 
     const spawnItems: Optional<LuaTable<TInventoryItem, TProbability>> = this.itemsByCommunity.get(
-      getCharacterCommunity(object)
+      getObjectCommunity(object)
     );
 
     if (spawnItems === null) {
@@ -233,7 +233,7 @@ export class DropManager extends AbstractCoreManager {
       return;
     }
 
-    if (isExcludedFromLootDropItem(item)) {
+    if (isExcludedFromLootDropItemSection(section)) {
       alife().release(alife().object(item.id()), true);
 
       return;
@@ -269,7 +269,7 @@ export class DropManager extends AbstractCoreManager {
       return;
     }
 
-    if (isLootableItem(item) && !isAmmoItem(item)) {
+    if (isLootableItemSection(item.section()) && !isAmmoSection(item.section())) {
       logger.info("Keep item, misc lootable:", object.name(), item.name(), section);
 
       return;

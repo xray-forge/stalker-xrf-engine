@@ -1,4 +1,4 @@
-import { Optional, TSize } from "@/engine/lib/types";
+import { Optional, TCount, TSize } from "@/engine/lib/types";
 import { MockVector } from "@/fixtures/xray/mocks/vector.mock";
 
 /**
@@ -17,5 +17,6 @@ export class MockDevice {
 
   public width: TSize = 1920;
   public height: TSize = 1080;
-  public cam_dir: MockVector = MockVector.create(0, 0, 0);
+  public precache_frame: TCount = 0;
+  public cam_dir: MockVector = MockVector.create(0.5, 0, 0.5);
 }

@@ -7,7 +7,7 @@ import { StalkerMoveManager } from "@/engine/core/objects/state/StalkerMoveManag
 import { ICampPoint, ISchemeCamperState } from "@/engine/core/schemes/camper/ISchemeCamperState";
 import { abort } from "@/engine/core/utils/assertion";
 import { parseWaypointsData } from "@/engine/core/utils/ini";
-import { isObjectFacingDanger, isStalkerAtWaypoint } from "@/engine/core/utils/object";
+import { isObjectAtWaypoint, isObjectFacingDanger } from "@/engine/core/utils/object";
 import { createVector } from "@/engine/core/utils/vector";
 import { ClientObject, DangerObject, Optional, Vector } from "@/engine/lib/types";
 
@@ -523,7 +523,7 @@ export class ActionCamperPatrol extends action_base {
 
     if (path !== null) {
       for (const k of $range(0, path.count() - 1)) {
-        if (isStalkerAtWaypoint(this.object, new patrol(this.state.path_walk), k)) {
+        if (isObjectAtWaypoint(this.object, new patrol(this.state.path_walk), k)) {
           for (const i of $range(0, 31)) {
             if (path.flag(k, i)) {
               this.state.wp_flag = i;
