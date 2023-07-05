@@ -2,12 +2,15 @@ import { bit_and, snd_type } from "xray16";
 
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { ESoundType } from "@/engine/lib/constants/sound/sound_type";
-import { ClientObject, TSoundType } from "@/engine/lib/types";
+import { TSoundType } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Transforms heard sound type from mask value to specific enum.
+ *
+ * @param soundMask - heard sound mask
+ * @returns transformed mask to enum value
  */
 export function mapSoundMaskToSoundType(soundMask: TSoundType): ESoundType {
   if (bit_and(soundMask, snd_type.weapon) === snd_type.weapon) {
@@ -58,18 +61,12 @@ export function mapSoundMaskToSoundType(soundMask: TSoundType): ESoundType {
 }
 
 /**
- * Check whether sound is included when heard.
+ * Check whether sound is included in actual sound bit mask.
+ *
+ * @param heard - actual heard sound bit mask
+ * @param expected - sound to check containing in the mask
+ * @returns whether expected sound type is heard
  */
 export function isSoundType(heard: TSoundType, expected: TSoundType): boolean {
   return bit_and(heard, expected) === expected;
-}
-
-/**
- * todo;
- */
-export function stopPlayingObjectSound(object: ClientObject): void {
-  if (object.alive()) {
-    object.set_sound_mask(-1);
-    object.set_sound_mask(0);
-  }
 }

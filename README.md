@@ -1,4 +1,4 @@
-# 🎮 [Stalker XRF template](README.md)
+# 🎮 [Stalker XRF](README.md)
 
 ![status](https://github.com/xray-forge/stalker-xrf-template/actions/workflows/build_and_test.yml/badge.svg)
 [![language-ts](https://img.shields.io/badge/language-typescript-blue.svg?style=flat)](https://github.com/xray-forge/stalker-xrf-template/search?l=typescript)
@@ -6,7 +6,8 @@
 [![license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)](https://github.com/Neloreck/dreamstate/blob/master/LICENSE)
 
 <p>
-XRF template for stalker mods and modded game packages. <br/>
+Fully rewritten stalker script engine with typescript. <br/>
+Template for stalker mods and modded game packages. <br/>
 </p>
 
 ## 📦 In short
@@ -18,6 +19,7 @@ XRF template for stalker mods and modded game packages. <br/>
 - Simple translations generation
 - Game profiling / debugging tools
 - Creation of custom modded game package
+- Unit tests coverage
 
 ## 📍 Purpose
 
@@ -103,6 +105,6 @@ Optimizations, quality and logics updates are welcome.
 ## 🏗️ Assets
 
 - Extended assets: [https://gitlab.com/xray-forge/stalker-xrf-resources-extended](https://gitlab.com/xray-forge/stalker-xrf-resources-extended)
-- EN locale assets: [https://gitlab.com/xray-forge/stalker-xrf-resources-locale-en](https://gitlab.com/xray-forge/stalker-xrf-resources-locale-en)
+- EN locale assets: [https://gitlab.com/xray-forge/stalker-xrf-resources-locale-eng](https://gitlab.com/xray-forge/stalker-xrf-resources-locale-eng)
 - UA locale assets: [https://gitlab.com/xray-forge/stalker-xrf-resources-locale-ukr](https://gitlab.com/xray-forge/stalker-xrf-resources-locale-ukr)
-- RU locale assets: [https://gitlab.com/xray-forge/stalker-xrf-resources-locale-ru](https://gitlab.com/xray-forge/stalker-xrf-resources-locale-ru)
+- RU locale assets: [https://gitlab.com/xray-forge/stalker-xrf-resources-locale-rus](https://gitlab.com/xray-forge/stalker-xrf-resources-locale-rus)

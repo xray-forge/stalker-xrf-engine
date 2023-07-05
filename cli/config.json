@@ -7,9 +7,9 @@
       "..\\..\\stalker-xrf-resources-extended"
     ],
     "mod_assets_locales": {
-      "eng": ["..\\..\\stalker-xrf-resources-locale-en"],
+      "eng": ["..\\..\\stalker-xrf-resources-locale-eng"],
       "ukr": ["..\\..\\stalker-xrf-resources-locale-ukr"],
-      "rus": ["..\\..\\stalker-xrf-resources-locale-ru"],
+      "rus": ["..\\..\\stalker-xrf-resources-locale-rus"],
       "pol": []
     }
   },

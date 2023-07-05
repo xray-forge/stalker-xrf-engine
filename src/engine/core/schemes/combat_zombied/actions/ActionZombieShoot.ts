@@ -5,7 +5,7 @@ import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundMan
 import { EStalkerState, ILookTargetDescriptor } from "@/engine/core/objects/state";
 import { EZombieCombatAction, ISchemeCombatState } from "@/engine/core/schemes/combat/ISchemeCombatState";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { chance } from "@/engine/core/utils/number";
+import { chance } from "@/engine/core/utils/random";
 import { copyVector, createEmptyVector } from "@/engine/core/utils/vector";
 import { scriptSounds } from "@/engine/lib/constants/sound/script_sounds";
 import {

@@ -1,5 +1,12 @@
 /**
  * JSON.stringify alternative for lua data types.
+ *
+ * @param target - value to stringify as json
+ * @param separator - separator of each key-value pair after comma
+ * @param depth - current depth of json transformation
+ * @param maxDepth - maximal depth to transform, replace with `<depth_limit>` otherwise
+ * @param circular - registry of circular items references, return `<depth_limit>``` in case of circular references
+ * @returns stringified to json value
  */
 export function toJSON(
   target: unknown,

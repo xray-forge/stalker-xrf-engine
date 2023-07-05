@@ -216,6 +216,7 @@ export type TUIEvent = TXR_ui_event;
 export type Time = CTime;
 export type Vector = vector;
 export type Vector2D = vector2;
+export type Vertex = GameGraph__CVertex;
 export type WorldProperty = world_property;
 export type WorldState = world_state;
 export type XmlInit = CScriptXmlInit;

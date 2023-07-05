@@ -13,7 +13,7 @@ describe("registry storage", () => {
     expect(registry.activeSmartTerrainId).toBeNull();
     expect(registry.managers instanceof LuaTable).toBeTruthy();
     expect(registry.schemes instanceof LuaTable).toBeTruthy();
-    expect(registry.conditionLists instanceof LuaTable).toBeTruthy();
+    expect(registry.cache.conditionLists instanceof LuaTable).toBeTruthy();
     expect(registry.actorCombat instanceof LuaTable).toBeTruthy();
     expect(registry.objects instanceof LuaTable).toBeTruthy();
     expect(registry.offlineObjects instanceof LuaTable).toBeTruthy();

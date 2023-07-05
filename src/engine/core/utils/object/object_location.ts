@@ -1,9 +1,11 @@
-import { alife, CSightParams, game_graph, level, move, sound_object } from "xray16";
+import { alife, CSightParams, device, game_graph, level, move, sound_object } from "xray16";
 
+import { registry } from "@/engine/core/database";
 import { SmartTerrain } from "@/engine/core/objects";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getObjectSmartTerrain } from "@/engine/core/utils/object/object_get";
-import { copyVector, createEmptyVector, graphDistance, vectorToString } from "@/engine/core/utils/vector";
+import { copyVector, createEmptyVector, graphDistance, vectorToString, yawDegree3d } from "@/engine/core/utils/vector";
+import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
 import { sounds } from "@/engine/lib/constants/sound/sounds";
 import {
   ClientObject,
@@ -128,6 +130,17 @@ export function sendToNearestAccessibleVertex(object: ClientObject, vertexId: TN
 }
 
 /**
+ todo: Description
+ todo: Be more generic to object, do not rely on 'npc' part.
+ */
+export function isObjectInActorFrustum(object: ClientObject): boolean {
+  const actorDirection: Vector = device().cam_dir;
+  const objectDirection: Vector = object.position().sub(registry.actor.position());
+
+  return yawDegree3d(actorDirection, objectDirection) < logicsConfig.ACTOR_VISIBILITY_FRUSTUM;
+}
+
+/**
  * todo;
  */
 export function isStalkerAtWaypoint(object: ClientObject, patrolPath: Patrol, pathPointIndex: TIndex): boolean {
@@ -158,6 +171,14 @@ export function stalkerLookAtStalker(object: ClientObject, objectToLook: ClientO
  */
 export function isGameVertexFromLevel(targetLevelName: TName, gameVertexId: TNumberId): boolean {
   return targetLevelName === alife().level_name(game_graph().vertex(gameVertexId).level_id());
+}
+
+/**
+ * todo
+ * todo
+ */
+export function getDistanceBetweenObjects(first: ClientObject, second: ClientObject): TDistance {
+  return first.position().distance_to(second.position());
 }
 
 /**

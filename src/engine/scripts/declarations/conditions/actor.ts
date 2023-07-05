@@ -8,8 +8,7 @@ import { ISchemeHitState } from "@/engine/core/schemes/hit";
 import { abort, assertDefined } from "@/engine/core/utils/assertion";
 import { extern } from "@/engine/core/utils/binding";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { isObjectInZone, isWeapon } from "@/engine/core/utils/object";
-import { npcInActorFrustum } from "@/engine/core/utils/vector";
+import { isObjectInActorFrustum, isObjectInZone, isWeapon } from "@/engine/core/utils/object";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import { AnyArgs, ClientObject, EScheme, LuaArray, Optional, TCount, TDistance, TSection } from "@/engine/lib/types";
 
@@ -62,7 +61,7 @@ extern("xr_conditions.actor_see_npc", (actor: ClientObject, npc: ClientObject): 
  * todo;
  */
 extern("xr_conditions.npc_in_actor_frustum", (actor: ClientObject, npc: ClientObject): boolean => {
-  return npcInActorFrustum(npc);
+  return isObjectInActorFrustum(npc);
 });
 
 /**

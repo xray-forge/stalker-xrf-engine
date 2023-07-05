@@ -60,10 +60,12 @@ export const registry = {
    * List of activated schemes in game.
    */
   schemes: new LuaTable<EScheme, TAbstractSchemeConstructor>(),
-  /**
-   * Memoized condlist for parsing simplification, where key is string data and value is parsed descriptor.
-   */
-  conditionLists: new LuaTable<string, TConditionList>(),
+  cache: {
+    /**
+     * Memoized condlist for parsing simplification, where key is string data and value is parsed descriptor.
+     */
+    conditionLists: new LuaTable<string, TConditionList>(),
+  },
   /**
    * Set of objects in combat with actor.
    */

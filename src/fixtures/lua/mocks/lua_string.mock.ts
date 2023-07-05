@@ -5,7 +5,7 @@ import { Optional } from "@/engine/lib/types";
 /**
  * todo;
  */
-export const string = {
+export const mockString = {
   format: (base: string, ...replacements: Array<unknown>) => {
     let result: string = base;
 
@@ -112,8 +112,8 @@ export const string = {
 
     return result;
   },
-  gfind: (target: string, pattern: string) => string.gmatch(target, pattern),
-  match: (target: string, pattern: string) => string.gmatch(target, pattern),
+  gfind: (target: string, pattern: string) => mockString.gmatch(target, pattern),
+  match: (target: string, pattern: string) => mockString.gmatch(target, pattern),
   gmatch: (target: string, pattern: string): Array<string> => {
     const L: ILuaState = lauxlib.luaL_newstate();
 

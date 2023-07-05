@@ -149,8 +149,8 @@ export function parseParameters<T extends string>(data: T): LuaArray<T> {
  */
 export function parseConditionsList(data: string): TConditionList {
   // All condition lists are just readonly descriptors. Cache them.
-  if (registry.conditionLists.has(data)) {
-    return registry.conditionLists.get(data);
+  if (registry.cache.conditionLists.has(data)) {
+    return registry.cache.conditionLists.get(data);
   }
 
   const result: LuaArray<IConfigSwitchCondition> = new LuaTable();
@@ -189,7 +189,7 @@ export function parseConditionsList(data: string): TConditionList {
   }
 
   // Memoize condlist.
-  registry.conditionLists.set(data, result);
+  registry.cache.conditionLists.set(data, result);
 
   return result;
 }

@@ -10,7 +10,9 @@ import { ClientObject, GameHud, TPath, XmlInit } from "@/engine/lib/types";
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Check whether game is in wide screen mode right now.
+ *
+ * @returns whether game resolution is wide screen
  */
 export function isWideScreen(): boolean {
   return device().width / device().height > 1024 / 768 + 0.01;
@@ -18,14 +20,17 @@ export function isWideScreen(): boolean {
 
 /**
  * Util to get XML file for current screen resolution.
- * Default util in XRay is problematic and needs update.
  *
  * todo: Respect dot-separated files in XRAY.
  * todo: Respect folders in XRAY.
+ *
+ * @param path - target path to parse xml from
+ * @param hasWideScreenSupport - whether should check existence of `.16.xml` alternative and use it in wide screen
+ * @returns normalized xml form file path
  */
 export function resolveXmlFormPath(path: TPath, hasWideScreenSupport: boolean = false): TPath {
   const base: string = path.endsWith(".xml") ? path.slice(0, path.length - 4) : path;
-  const wideBase: string = base + ".16" + ".xml";
+  const wideBase: string = base + ".16.xml";
   const canBeWide: boolean = hasWideScreenSupport && isWideScreen();
 
   /**
@@ -47,7 +52,9 @@ export function resolveXmlFormPath(path: TPath, hasWideScreenSupport: boolean = 
 }
 
 /**
- * todo;
+ * Set game UI visibility of player.
+ *
+ * @param isVisible - whether UI should be visible
  */
 export function setUiVisibility(isVisible: boolean): void {
   const hud: GameHud = get_hud();
@@ -80,7 +87,11 @@ export function setUiVisibility(isVisible: boolean): void {
 }
 
 /**
- * todo;
+ * Resolve xml file by path and try parsing it.
+ *
+ * @param path - xml form file path
+ * @param xml - target xml form initializer, or it will be created from empty
+ * @returns xml initialized based on provided path
  */
 export function resolveXmlFile(path: TPath, xml: XmlInit = new CScriptXmlInit()): XmlInit {
   xml.ParseFile(resolveXmlFormPath(path));

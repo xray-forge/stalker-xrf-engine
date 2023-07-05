@@ -1,4 +1,8 @@
+import { jest } from "@jest/globals";
+
 /**
  * todo;
  */
-export class MockCScriptXmlInit {}
+export class MockCScriptXmlInit {
+  public ParseFile = jest.fn();
+}

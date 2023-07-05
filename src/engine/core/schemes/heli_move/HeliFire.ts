@@ -12,7 +12,7 @@ import {
 
 import { getIdBySid, registry } from "@/engine/core/database";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { pickRandom } from "@/engine/core/utils/number";
+import { pickRandom } from "@/engine/core/utils/random";
 import { distanceBetween2d } from "@/engine/core/utils/vector";
 import { MAX_U16 } from "@/engine/lib/constants/memory";
 import { ACTOR, NIL } from "@/engine/lib/constants/words";

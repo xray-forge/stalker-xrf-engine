@@ -3,17 +3,15 @@ import { log, print_stack, time_global } from "xray16";
 import { toJSON } from "@/engine/core/utils/transform/json";
 import { gameConfig } from "@/engine/lib/configs/GameConfig";
 import { FALSE, NIL, TRUE } from "@/engine/lib/constants/words";
-import { AnyArgs, AnyObject, TLabel, TName } from "@/engine/lib/types";
+import { AnyArgs, AnyObject, TLabel } from "@/engine/lib/types";
 
 /**
  * Lua logger class.
  * Stores prefix, enabled-disabled flags and uses shared statics to print data.
- *
- * todo: This model does not work with lua and JIT optimisation. Probably should use singleton logger and share logic.
  */
 export class LuaLogger {
   public readonly prefix: TLabel;
-  protected isEnabled: boolean;
+  public isEnabled: boolean;
 
   public constructor(prefix: TLabel, isEnabled: boolean = true) {
     this.isEnabled = isEnabled;
@@ -29,7 +27,7 @@ export class LuaLogger {
    */
   public warn(...args: AnyArgs): void {
     if (gameConfig.DEBUG.IS_LOG_ENABLED && this.isEnabled) {
-      this.logAs("[WARN]", this.prefix, $fromArray(args));
+      this.logAs("[warn]", this.prefix, $fromArray(args));
     }
   }
 
@@ -38,7 +36,7 @@ export class LuaLogger {
    */
   public info(...args: AnyArgs): void {
     if (gameConfig.DEBUG.IS_LOG_ENABLED && this.isEnabled) {
-      this.logAs("[INFO]", this.prefix, $fromArray(args));
+      this.logAs("[info]", this.prefix, $fromArray(args));
     }
   }
 
@@ -47,7 +45,7 @@ export class LuaLogger {
    */
   public error(...args: AnyArgs): void {
     if (gameConfig.DEBUG.IS_LOG_ENABLED && this.isEnabled) {
-      this.logAs("[ERROR]", this.prefix, $fromArray(args));
+      this.logAs("[error]", this.prefix, $fromArray(args));
     }
   }
 
@@ -57,7 +55,7 @@ export class LuaLogger {
   public table(table: AnyObject): void;
   public table(table: LuaTable): void {
     if (gameConfig.DEBUG.IS_LOG_ENABLED && this.isEnabled) {
-      this.logAs("[TABLE]", this.prefix, $fromArray([toJSON(table)]));
+      this.logAs("[table]", this.prefix, $fromArray([toJSON(table)]));
     }
   }
 
@@ -85,14 +83,14 @@ export class LuaLogger {
   /**
    * Get full string prefix for current logger instance.
    */
-  public getFullPrefix(method: TName = "info"): TLabel {
-    return string.format("[%s]%s%s", time_global(), this.prefix, method);
+  public getFullPrefix(): TLabel {
+    return string.format("[%s]%s", time_global(), this.prefix);
   }
 
   /**
    * Print generic message with provided level of logging and configured prefix.
    */
-  protected logAs(level: string, prefix: string, args: LuaTable<number>): void {
+  public logAs(level: string, prefix: string, args: LuaTable<number>): void {
     // Map some values to successfully print in composed string.
     for (const idx of $range(1, args.length())) {
       const it = args.get(idx);

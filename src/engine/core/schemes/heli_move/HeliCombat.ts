@@ -20,7 +20,7 @@ import {
   TConditionList,
 } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { pickRandom } from "@/engine/core/utils/number";
+import { pickRandom } from "@/engine/core/utils/random";
 import { copyVector, createEmptyVector, createVector, distanceBetween2d } from "@/engine/core/utils/vector";
 import { ACTOR, NIL } from "@/engine/lib/constants/words";
 import { ClientObject, IniFile, NetPacket, Optional, Reader, TNumberId, TRate, Vector } from "@/engine/lib/types";

@@ -1,13 +1,22 @@
 import { jest } from "@jest/globals";
 
-import { TNumberId } from "@/engine/lib/types";
+import { Optional, TNumberId } from "@/engine/lib/types";
 import { MockCVertex } from "@/fixtures/xray/mocks/CVertex.mock";
 
 /**
- * todo;
+ * Mock game graph singleton.
  */
 export class MockCGameGraph {
+  public static instance: Optional<MockCGameGraph> = null;
   public static registry: Record<TNumberId, MockCVertex> = {};
+
+  public static getInstance(): MockCGameGraph {
+    if (!MockCGameGraph.instance) {
+      MockCGameGraph.instance = new MockCGameGraph();
+    }
+
+    return MockCGameGraph.instance;
+  }
 
   public vertex = jest.fn((vertexId: TNumberId = 1) => {
     if (!MockCGameGraph.registry[vertexId]) {
