@@ -1,6 +1,10 @@
 import { JSXNode, JSXXML } from "jsx-xml";
 
 // todo: Use enum with defined colors.
+
+/**
+ * todo;
+ */
 export function create(): JSXNode {
   // <!-- For applying specified color insert "%cColorName" into the text -->
   // <!-- Use "%cDEFAULT" color when need to switch to default color of UI element -->

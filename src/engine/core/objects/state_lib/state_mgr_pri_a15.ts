@@ -23,6 +23,9 @@ const WEAP_TABLE_UNSTRAPPED: LuaArray<TName> = [
   "pri_a15_wpn_ak74_unstrapped",
 ] as any;
 
+/**
+ * todo;
+ */
 function unstrapWeapon(object: ClientObject): void {
   let item: Optional<ClientObject> = null;
   let index: TIndex = 0;
@@ -42,6 +45,9 @@ function unstrapWeapon(object: ClientObject): void {
   item.attachable_item_load_attach(WEAP_TABLE_UNSTRAPPED.get(index as number));
 }
 
+/**
+ * todo;
+ */
 function strapWeapon(object: ClientObject): void {
   let item: Optional<ClientObject> = null;
   let index: TIndex = 0;
@@ -61,18 +67,30 @@ function strapWeapon(object: ClientObject): void {
   item.attachable_item_load_attach(WEAP_TABLE.get(index));
 }
 
+/**
+ * todo;
+ */
 function breakFence(): void {
   registry.doors.get(storyNames.pri_a15_door).forwardAnimation();
 }
 
+/**
+ * todo;
+ */
 function lightsOff(): void {
   registry.actor.give_info_portion(infoPortions.pri_a15_lights_off);
 }
 
+/**
+ * todo;
+ */
 function lightsOn(): void {
   registry.actor.disable_info_portion(infoPortions.pri_a15_lights_off);
 }
 
+/**
+ * todo;
+ */
 function endScene(): void {
   registry.actor.give_info_portion(infoPortions.pri_a15_cutscene_end);
 }
@@ -616,6 +634,9 @@ const cutscene: Record<
   },
 };
 
+/**
+ *
+ */
 function check_availability(precondition: LuaArray<string>, existing_npc: string): boolean {
   const check_names = parseStringsList(existing_npc);
 
@@ -703,6 +724,9 @@ function get_sequence_for_npc(objectName: TName, existing_npc: string): TNpcSequ
   return result;
 }
 
+/**
+ *
+ */
 export function addStateLibPriA15(): LuaTable<string, IStateDescriptor> {
   return {
     pri_a15_idle_none: {
@@ -1850,6 +1874,9 @@ export function addStateLibPriA15(): LuaTable<string, IStateDescriptor> {
   } as any;
 }
 
+/**
+ * todo;
+ */
 export function addAnimationListPriA15(): LuaTable<number, LuaTable<number, string>> {
   return {
     pri_a15_idle_none: {

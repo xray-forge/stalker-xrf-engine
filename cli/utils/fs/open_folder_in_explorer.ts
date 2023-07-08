@@ -1,6 +1,9 @@
 import * as cp from "child_process";
 import * as os from "os";
 
+/**
+ * todo;
+ */
 export function openFolderInExplorer(path: string): Promise<void> {
   return new Promise((resolve, reject) => {
     const osType: string = os.type();

@@ -51,6 +51,9 @@ export async function buildStaticUi(parameters: IBuildCommandParameters): Promis
  * Get UI configuration files list.
  */
 async function getUiConfigs(filters: Array<string> = []): Promise<Array<TFolderReplicationDescriptor>> {
+  /**
+   * todo;
+   */
   function collectXmlConfigs(
     acc: Array<TFolderReplicationDescriptor>,
     it: Array<string> | string

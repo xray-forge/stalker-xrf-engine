@@ -171,6 +171,7 @@ export class DropManager extends AbstractCoreManager {
 
   /**
    * todo;
+   *
    * @param object - target object to create release items.
    */
   public createCorpseReleaseItems(object: ClientObject): void {

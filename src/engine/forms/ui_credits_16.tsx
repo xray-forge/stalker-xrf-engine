@@ -2,6 +2,9 @@ import { JSXNode, JSXXML } from "jsx-xml";
 
 import { MenuCredits } from "@/engine/forms/menu/MenuCredits";
 
+/**
+ * todo;
+ */
 export function create(): JSXNode {
   return (
     <credits_seq>

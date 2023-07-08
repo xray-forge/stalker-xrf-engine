@@ -2,6 +2,9 @@ import { default as jsdom } from "jsdom";
 
 const { style, STATIC_ASSET, GRADIENT_BG_, GENERIC } = generateDomClasses();
 
+/**
+ *
+ */
 export function generateHTMLPreviewFromXMLString(content: string): string {
   const dom = new jsdom.JSDOM(content);
 
@@ -58,10 +61,16 @@ export function generateHTMLPreviewFromXMLString(content: string): string {
   return dom.serialize();
 }
 
+/**
+ *
+ */
 function prepareOther(node: HTMLElement): void {
   node.style.border = "solid black 1px";
 }
 
+/**
+ *
+ */
 function prepareText(node: HTMLElement): void {
   node.style.overflow = "hidden";
   node.style.width = "100%";
@@ -74,6 +83,9 @@ function prepareText(node: HTMLElement): void {
   }
 }
 
+/**
+ *
+ */
 function prepareTexture(node: HTMLElement): void {
   node.setAttribute("texture_resource", node.textContent);
 
@@ -84,15 +96,24 @@ function prepareTexture(node: HTMLElement): void {
   node.style.height = "100%";
 }
 
+/**
+ *
+ */
 function prepareWindow(node: HTMLElement): void {
   node.style.position = "absolute";
   node.style.background = "rgba(50, 50, 50, 0.05)";
 }
 
+/**
+ *
+ */
 function prepareStaticAsset(node: HTMLElement): void {
   node.className = STATIC_ASSET + " " + GRADIENT_BG_ + Math.floor(Math.random() * 10);
 }
 
+/**
+ *
+ */
 function generateDomClasses() {
   const GENERIC: string = "generic";
   const STATIC_ASSET: string = "static-asset";
@@ -144,6 +165,9 @@ function generateDomClasses() {
   };
 }
 
+/**
+ * todo;
+ */
 function getRandomColor(): string {
   return "#" + (((1 << 24) * Math.random()) | 0).toString(16).padStart(6, "0");
 }

@@ -2,6 +2,9 @@ import { JSXNode, JSXXML } from "jsx-xml";
 
 import { captions } from "@/engine/lib/constants/captions";
 
+/**
+ * todo;
+ */
 export function GameUi(): JSXNode {
   return (
     <w>

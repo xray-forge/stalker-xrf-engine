@@ -241,6 +241,9 @@ export class HeliFire {
   }
 }
 
+/**
+ * todo;
+ */
 export function getHeliFirer(object: ClientObject): HeliFire {
   if (heliFirer.get(object.id()) === null) {
     heliFirer.set(object.id(), new HeliFire(object));

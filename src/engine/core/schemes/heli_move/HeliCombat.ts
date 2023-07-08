@@ -769,6 +769,9 @@ export class HeliCombat {
   }
 }
 
+/**
+ * todo;
+ */
 export function crossRayCircle(p: Vector, v: Vector, o: Vector, r: number): Vector {
   const po: Vector = copyVector(o).sub(p);
   const vperp: Vector = createVector(-v.z, 0, v.x);

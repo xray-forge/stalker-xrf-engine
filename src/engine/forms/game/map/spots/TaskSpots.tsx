@@ -1,5 +1,8 @@
 import { Fragment, JSXNode, JSXXML } from "jsx-xml";
 
+/**
+ *
+ */
 export function TaskSpots(): JSXNode {
   return (
     <Fragment>
@@ -133,7 +136,7 @@ export function TaskSpots(): JSXNode {
         <texture>ui_pda2_stask_last_01a</texture>
       </ui_secondary_task_blink_spot>
 
-      {/** <!-- <secondary_na_border x="0" y="0" width="37" height="37" alignment="c" stretch="1" scale_min="2.5"
+      {/* <!-- <secondary_na_border x="0" y="0" width="37" height="37" alignment="c" stretch="1" scale_min="2.5"
    scale_max="4.1" scale="1" location_level="5">
    <texture r="0" g="154" b="218">ui_pda2_hl_quest_base</texture>
    </secondary_na_border>
@@ -365,7 +368,7 @@ export function TaskSpots(): JSXNode {
          xform_anim="map_spot_border_xform" xform_anim_cyclic="1">
          <texture r="242" g="31" b="11">ui_pda2_stask_last_02</texture>
          </focused_border-->
-         */}
+          */}
       </secondary_task_eliminate_smart_complex_spot>
 
       <secondary_task_location_complex_capture_smart>
@@ -461,13 +464,16 @@ export function TaskSpots(): JSXNode {
       <secondary_task_location_complex_defend_smart_delay>
         <complex_spot spot="secondary_task_complex_spot_timer" pointer="quest_pointer2" />
         <mini_map spot="secondary_task_complex_spot_mini_timer" pointer="quest_pointer2" />
-        {/** <!--
+        {/**
+          <!--
          <complex_spot spot="secondary_task_defend_smart_delay_complex_spot" pointer="quest_pointer2"/>
          <mini_map     spot="secondary_task_spot_mini" pointer="quest_pointer2"/>
-         --> */}
+         -->
+          */}
       </secondary_task_location_complex_defend_smart_delay>
 
-      {/** <!--
+      {/**
+        <!--
        <secondary_task_defend_smart_delay_complex_spot
        x="0"  y="0"  width="30" height="27" stretch="0" alignment="c"
        location_level="5" scale="0" scale_min="2.5" scale_max="5.1">
@@ -481,7 +487,8 @@ export function TaskSpots(): JSXNode {
        <texture></texture>
        </timer>
        </secondary_task_defend_smart_delay_complex_spot>
-       --> */}
+       -->
+        */}
 
       <secondary_task_location_complex_bring_item>
         <complex_spot spot="secondary_task_bring_item_complex_spot" pointer="quest_pointer2" />
@@ -708,7 +715,8 @@ export function TaskSpots(): JSXNode {
         </static_border>
       </secondary_task_take_reward_complex_spot>
 
-      {/** <!-- <texture id="ui_mmap_bring_item"	x="846" y="841" width="11" height="11" />
+      {/*
+        <!-- <texture id="ui_mmap_bring_item"	x="846" y="841" width="11" height="11" />
        <texture id="ui_pda2_bring_item"	x="830" y="841" width="15" height="15" />
 
        <texture id="ui_mmap_upgrades"	x="846" y="856" width="11" height="11" />
@@ -731,7 +739,8 @@ export function TaskSpots(): JSXNode {
 
        <texture id="ui_mmap_info"		x="846" y="946" width="11" height="11" />
        <texture id="ui_pda2_info"		x="830" y="946" width="15" height="15" />
-       -->*/}
+       -->
+        */}
     </Fragment>
   );
 }

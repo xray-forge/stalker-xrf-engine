@@ -4,6 +4,9 @@ import { Xr3tButton, XrCheckBox, XrRoot, XrStatic, XrText } from "@/engine/forms
 import { WHITE } from "@/engine/lib/constants/colors";
 import { fonts } from "@/engine/lib/constants/fonts";
 
+/**
+ * todo;
+ */
 export function create(): JSXNode {
   return (
     <XrRoot>
@@ -24,6 +27,9 @@ export function create(): JSXNode {
   );
 }
 
+/**
+ * todo;
+ */
 function renderLoggingButtons(): JSXNode {
   return (
     <Fragment>
@@ -85,6 +91,9 @@ function renderLoggingButtons(): JSXNode {
   );
 }
 
+/**
+ * todo;
+ */
 function renderRelationButtons(): JSXNode {
   return (
     <Fragment>

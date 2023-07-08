@@ -113,6 +113,7 @@ export function isObjectFacingDanger(object: ClientObject): boolean {
 
 /**
  * todo;
+ *
  * @returns whether object os enemy of provided client entity
  */
 export function isObjectEnemy(object: ClientObject, enemy: ClientObject, state: ISchemeCombatIgnoreState): boolean {

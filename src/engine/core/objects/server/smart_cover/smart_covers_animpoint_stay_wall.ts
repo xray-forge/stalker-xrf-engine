@@ -4,6 +4,9 @@ import { ISmartCoverDescriptor } from "@/engine/core/objects/server/smart_cover/
 import { getAnimpointStayWallLoophole } from "@/engine/core/objects/server/smart_cover/smart_covers_loophole_animpoint_stay_wall";
 import { createVector } from "@/engine/core/utils/vector";
 
+/**
+ * todo;
+ */
 export function getSmartCoverAnimpointStayWall(): ISmartCoverDescriptor {
   return {
     need_weapon: false,

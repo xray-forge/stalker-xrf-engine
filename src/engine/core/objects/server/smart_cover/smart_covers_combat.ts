@@ -13,6 +13,9 @@ import { getStandLeftLoophole } from "@/engine/core/objects/server/smart_cover/s
 import { getStandRightLoophole } from "@/engine/core/objects/server/smart_cover/smart_covers_loophole_stand_right";
 import { createVector } from "@/engine/core/utils/vector";
 
+/**
+ * todo;
+ */
 function getSmartCoverCombat(): ISmartCoverDescriptor {
   return {
     need_weapon: true,

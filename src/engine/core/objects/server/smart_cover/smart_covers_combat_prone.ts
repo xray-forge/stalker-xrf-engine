@@ -5,6 +5,9 @@ import { createVector } from "@/engine/core/utils/vector";
 
 import { getProneLoophole } from "./smart_covers_loophole_prone";
 
+/**
+ * todo;
+ */
 export function getSmartCoverCombatProne(): ISmartCoverDescriptor {
   return {
     loopholes: [getProneLoophole("prone", createVector(-1, 0, 0))] as any,

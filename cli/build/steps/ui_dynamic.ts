@@ -63,6 +63,9 @@ export async function buildDynamicUi(parameters: IBuildCommandParameters): Promi
  * Get list of UI config files in engine source files.
  */
 async function getUiConfigs(filters: Array<string> = []): Promise<Array<TFolderReplicationDescriptor>> {
+  /**
+   * todo;
+   */
   function collectXmlConfigs(
     acc: Array<TFolderReplicationDescriptor>,
     it: TFolderFiles

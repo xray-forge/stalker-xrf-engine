@@ -10,6 +10,9 @@ import { mockToString } from "@/fixtures/lua/mocks/lua_tostring.mock";
 import { mockType } from "@/fixtures/lua/mocks/lua_type.mock";
 import { MockLuaTable } from "@/fixtures/lua/mocks/LuaTable.mock";
 
+/**
+ * Mock lua globals in node testing environment.
+ */
 export function mockLuaGlobals(): void {
   // @ts-ignore
   global._G = global;

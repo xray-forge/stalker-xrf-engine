@@ -30,10 +30,6 @@ export function registerOfflineObject(
 /**
  * Hard reset offline object state.
  * Create new representation entry if it was not initialize before.
- *
- * @param objectId - game object ID to register offline representation
- * @param state - base offline state to register
- * @returns stored offline object state representation
  */
 export function hardResetOfflineObject(
   objectId: TNumberId,
@@ -48,10 +44,6 @@ export function hardResetOfflineObject(
 /**
  * Soft reset offline object state.
  * Do not create new representation entry if it was not initialize before.
- *
- * @param objectId - game object ID to register offline representation
- * @param state - base offline state to register
- * @returns stored offline object state representation
  */
 export function softResetOfflineObject(
   objectId: TNumberId,

@@ -47,6 +47,9 @@ export class FreeplayDialog extends CUIScriptWnd {
 
 let freeplayControl: Optional<FreeplayDialog> = null;
 
+/**
+ * todo;
+ */
 export function showFreeplayDialog(selector: string, text: string): void {
   if (freeplayControl === null) {
     freeplayControl = new FreeplayDialog();

@@ -798,6 +798,9 @@ export function getStateLibScenarios(): LuaTable<TName, IStateDescriptor> {
   } as any;
 }
 
+/**
+ * todo;
+ */
 export function getAnimationListScenario(): LuaTable<string, IAnimationDescriptor> {
   return {
     zat_b14_give_artefact_idle: {

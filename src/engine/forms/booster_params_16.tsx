@@ -4,10 +4,16 @@ import { XrComponent, XrText } from "@/engine/forms/components/base";
 import { XrTexture } from "@/engine/forms/components/base/XrTexture.component";
 import { fonts } from "@/engine/lib/constants/fonts";
 
+/**
+ * todo;
+ */
 export function create(): JSXNode {
   return <BoosterParams />;
 }
 
+/**
+ * todo;
+ */
 export function BoosterParams(): JSXNode {
   return (
     <XrComponent tag={"booster_params"} x={0} y={0} width={217} height={20}>
@@ -41,6 +47,9 @@ export function BoosterParams(): JSXNode {
   );
 }
 
+/**
+ *
+ */
 function BoosterParam({
   name,
   texture,

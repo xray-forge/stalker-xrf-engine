@@ -19,6 +19,9 @@ export const SECTION_HEIGHT: number = BASE_HEIGHT - 16;
 
 const TEXT_COLOR_DARKER: IRgbColor = { r: 170, g: 170, b: 170 };
 
+/**
+ * todo;
+ */
 export function create(): JSXNode {
   return (
     <XrRoot>

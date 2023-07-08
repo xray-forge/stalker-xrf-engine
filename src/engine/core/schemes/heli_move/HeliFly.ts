@@ -190,7 +190,9 @@ export class HeliFly {
     this.pointByLook = lPoint;
   }
 }
-
+/**
+ * todo;
+ */
 export function getHeliFlyer(object: ClientObject): HeliFly {
   if (heliFlyer.get(object.id()) === null) {
     heliFlyer.set(object.id(), new HeliFly(object));

@@ -1,5 +1,8 @@
 import { JSXNode, JSXXML } from "jsx-xml";
 
+/**
+ * todo;
+ */
 export function GameUi(): JSXNode {
   return (
     <w>

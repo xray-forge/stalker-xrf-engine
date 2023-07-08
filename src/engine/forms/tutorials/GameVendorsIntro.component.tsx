@@ -2,6 +2,9 @@ import { JSXNode, JSXXML } from "jsx-xml";
 
 import { gameConfig } from "@/engine/lib/configs/GameConfig";
 
+/**
+ * todo;
+ */
 export function GameVendorsIntro(): JSXNode {
   if (gameConfig.UI.ARE_INTRO_VIDEOS_ENABLED) {
     return (

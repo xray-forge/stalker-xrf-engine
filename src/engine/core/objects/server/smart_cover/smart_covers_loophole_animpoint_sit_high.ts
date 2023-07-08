@@ -2,6 +2,9 @@ import { ISmartCoverLoopholeDescriptor } from "@/engine/core/objects/server/smar
 import { createVector } from "@/engine/core/utils/vector";
 import { Vector } from "@/engine/lib/types";
 
+/**
+ * todo;
+ */
 export function getAnimpointSitHighLoophole(
   id: string,
   position: Vector,
