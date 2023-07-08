@@ -26,9 +26,12 @@ describe("'console' utils", () => {
   });
 
   it("'getConsoleFloatCommand' should correctly generate commands", () => {
-    gameConsole.get_float = jest.fn((cmd: string) => (cmd === "snd_volume_eff" ? 50.4 : -1));
+    gameConsole.get_float = jest.fn((cmd: string) => (cmd.startsWith("snd_volume_eff") ? 50.4 : -1));
 
     expect(getConsoleFloatCommand(consoleCommands.snd_volume_eff)).toBe(50.4);
     expect(gameConsole.get_float).toHaveBeenCalledWith("snd_volume_eff");
+
+    expect(getConsoleFloatCommand(consoleCommands.snd_volume_eff, 1, 2)).toBe(50.4);
+    expect(gameConsole.get_float).toHaveBeenNthCalledWith(2, "snd_volume_eff 1 2");
   });
 });

@@ -8,68 +8,70 @@ import { ESmartTerrainStatus } from "@/engine/core/objects/server/smart_terrain/
 import { abort } from "@/engine/core/utils/assertion";
 import { extern } from "@/engine/core/utils/binding";
 import { anomalyHasArtefact } from "@/engine/core/utils/object/object_anomaly";
-import { ClientObject, LuaArray, Optional, TName } from "@/engine/lib/types";
+import { ClientObject, Optional, TName, TSection, TTimestamp } from "@/engine/lib/types";
 
 /**
- * todo;
+ * @returns whether it is rainy in the game right now
  */
 extern("xr_conditions.is_rain", (): boolean => {
   return registry.actor !== null && level.rain_factor() > 0;
 });
 
 /**
- * todo;
+ * @returns whether it is heavy rain weather in the game right now
  */
 extern("xr_conditions.is_heavy_rain", (): boolean => {
   return registry.actor !== null && level.rain_factor() >= 0.5;
 });
 
 /**
- * todo;
+ * @returns whether it is dark daytime in the game
  */
 extern("xr_conditions.is_day", (): boolean => {
-  return registry.actor !== null && level.get_time_hours() >= 6 && level.get_time_hours() < 21;
+  const timeHours: TTimestamp = level.get_time_hours();
+
+  return registry.actor !== null && timeHours >= 6 && timeHours < 21;
 });
 
 /**
- * todo;
+ * @returns whether it is dark nighttime in the game
  */
 extern("xr_conditions.is_dark_night", (): boolean => {
-  return registry.actor !== null && (level.get_time_hours() < 3 || level.get_time_hours() > 22);
+  const timeHours: TTimestamp = level.get_time_hours();
+
+  return registry.actor !== null && (timeHours < 3 || timeHours > 22);
 });
 
 /**
- * todo;
+ * Check whether anomaly with name has artefact.
+ *
+ * @param anomalyName - name of the anomaly to check
+ * @param artefactSection - section of the artefact to check
+ * @returns whether anomaly has artefact
  */
 extern(
   "xr_conditions.anomaly_has_artefact",
-  (
-    actor: ClientObject,
-    object: ClientObject,
-    [anomalyName, artefactName]: [TName, TName]
-  ): LuaMultiReturn<[boolean, Optional<LuaArray<string>>]> => {
-    const [hasArtefact, details] = anomalyHasArtefact(actor, object, anomalyName, artefactName);
-
-    return $multi(hasArtefact, details);
+  (actor: ClientObject, object: ClientObject, [anomalyName, artefactSection]: [TName, TSection]): boolean => {
+    return anomalyHasArtefact(anomalyName, artefactSection);
   }
 );
 
 /**
- * todo;
+ * @returns whether surge is completed
  */
 extern("xr_conditions.surge_complete", (): boolean => {
   return SurgeManager.getInstance().isFinished;
 });
 
 /**
- * todo;
+ * @returns whether surge is started
  */
 extern("xr_conditions.surge_started", (): boolean => {
   return SurgeManager.getInstance().isStarted;
 });
 
 /**
- * todo;
+ * @returns whether surge is killing all not hided objects
  */
 extern("xr_conditions.surge_kill_all", (): boolean => {
   return SurgeManager.getInstance().isKillingAll();
@@ -119,19 +121,22 @@ const ALARM_STATUSES = {
  */
 extern(
   "xr_conditions.check_smart_alarm_status",
-  (actor: ClientObject, npc: ClientObject, params: [TName, string]): boolean => {
-    const smartName: TName = params[0];
-    const status: ESmartTerrainStatus = ALARM_STATUSES[params[1] as keyof typeof ALARM_STATUSES];
+  (
+    actor: ClientObject,
+    object: ClientObject,
+    [smartName, smartStatus]: [TName, keyof typeof ALARM_STATUSES]
+  ): boolean => {
+    const status: Optional<ESmartTerrainStatus> = ALARM_STATUSES[smartStatus];
 
-    if (status === null) {
-      abort("Wrong status[%s] in 'check_smart_alarm_status'", tostring(params[1]));
+    if (!status) {
+      abort("Wrong status[%s] in 'check_smart_alarm_status'", status);
     }
 
     const smart: SmartTerrain = SimulationBoardManager.getInstance().getSmartTerrainByName(smartName)!;
     const smartControl: Optional<SmartTerrainControl> = smart.smartTerrainActorControl;
 
     if (smartControl === null) {
-      abort("Cannot calculate 'check_smart_alarm_status' for smart %s", tostring(smartName));
+      abort("Cannot calculate 'check_smart_alarm_status' for smart '%s'.", tostring(smartName));
     }
 
     return smartControl.getSmartTerrainStatus() === status;

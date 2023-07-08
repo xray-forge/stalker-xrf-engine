@@ -4,7 +4,7 @@ import { registry } from "@/engine/core/database";
 import { ISchemePostCombatIdleState } from "@/engine/core/schemes/combat_idle/ISchemePostCombatIdleState";
 import { ISchemeCombatIgnoreState } from "@/engine/core/schemes/combat_ignore";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { isObjectEnemy } from "@/engine/core/utils/object";
+import { canObjectSelectAsEnemy } from "@/engine/core/utils/object";
 import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
 import { ClientObject, EScheme, Optional, TDistance, TTimestamp } from "@/engine/lib/types";
 
@@ -31,7 +31,7 @@ export class EvaluatorPostCombatIdleEnemy extends property_evaluator {
 
     if (
       bestEnemy !== null &&
-      !isObjectEnemy(
+      !canObjectSelectAsEnemy(
         this.object,
         bestEnemy,
         registry.objects.get(this.object.id())[EScheme.COMBAT_IGNORE] as ISchemeCombatIgnoreState

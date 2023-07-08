@@ -2,49 +2,50 @@ import { alife } from "xray16";
 
 import { registry } from "@/engine/core/database";
 import { AnomalyZoneBinder } from "@/engine/core/objects";
-import { ClientObject, LuaArray, Optional, ServerObject, TName } from "@/engine/lib/types";
+import { LuaArray, Optional, ServerObject, TName, TSection } from "@/engine/lib/types";
 
 /**
- * todo;
+ * @param anomalyZoneName - name of anomaly zone to check
+ * @param artefactSection - name of artefact to search in the anomaly
+ * @returns whether anomaly has artefact
  */
-export function anomalyHasArtefact(
-  actor: ClientObject,
-  object: Optional<ClientObject>,
-  anomalyZoneName: TName,
-  artefactName: Optional<TName>
-): LuaMultiReturn<[boolean, Optional<LuaArray<TName>>]> {
-  const anomalyZone: AnomalyZoneBinder = registry.anomalyZones.get(anomalyZoneName);
+export function anomalyHasArtefact(anomalyZoneName: TName, artefactSection: TSection): boolean {
+  const anomalyZone: Optional<AnomalyZoneBinder> = registry.anomalyZones.get(anomalyZoneName);
 
-  if (anomalyZone === null) {
-    return $multi(false, null);
+  if (!anomalyZone || anomalyZone.spawnedArtefactsCount < 1) {
+    return false;
   }
 
-  if (anomalyZone.spawnedArtefactsCount < 1) {
-    return $multi(false, null);
-  }
+  for (const [artefactId] of anomalyZone.artefactWaysByArtefactId) {
+    const object: Optional<ServerObject> = alife().object(artefactId);
 
-  if (artefactName === null) {
-    const artefactsList: LuaArray<TName> = new LuaTable();
-
-    for (const [k, v] of registry.artefacts.ways) {
-      const artefactObject: Optional<ServerObject> = alife().object(tonumber(k)!);
-
-      if (artefactObject) {
-        table.insert(artefactsList, artefactObject.section_name());
-      }
-    }
-
-    return $multi(true, artefactsList);
-  }
-
-  for (const [artefactId] of registry.artefacts.ways) {
-    if (
-      alife().object(tonumber(artefactId)!) &&
-      artefactName === alife().object(tonumber(artefactId)!)!.section_name()
-    ) {
-      return $multi(true, null);
+    if (object && object.section_name() === artefactSection) {
+      return true;
     }
   }
 
-  return $multi(false, null);
+  return false;
+}
+
+/**
+ * @param anomalyZoneName - name of anomaly zone to check
+ * @returns list of artefacts in the anomaly
+ */
+export function getAnomalyArtefacts(anomalyZoneName: TName): LuaArray<TSection> {
+  const anomalyZone: Optional<AnomalyZoneBinder> = registry.anomalyZones.get(anomalyZoneName);
+  const artefactsList: LuaArray<TName> = new LuaTable();
+
+  if (!anomalyZone || anomalyZone.spawnedArtefactsCount < 1) {
+    return artefactsList;
+  }
+
+  for (const [artefactId] of anomalyZone.artefactWaysByArtefactId) {
+    const artefactObject: Optional<ServerObject> = alife().object(artefactId);
+
+    if (artefactObject) {
+      table.insert(artefactsList, artefactObject.section_name());
+    }
+  }
+
+  return artefactsList;
 }

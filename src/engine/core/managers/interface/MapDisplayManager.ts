@@ -11,7 +11,7 @@ import {
 } from "@/engine/core/managers/interface/MapDisplayManagerObjects";
 import { parseConditionsList, pickSectionFromCondList, readIniString, TConditionList } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { anomalyHasArtefact } from "@/engine/core/utils/object/object_anomaly";
+import { getAnomalyArtefacts } from "@/engine/core/utils/object/object_anomaly";
 import { hasAlifeInfo } from "@/engine/core/utils/object/object_info_portion";
 import { captions } from "@/engine/lib/constants/captions/captions";
 import { infoPortions } from "@/engine/lib/constants/info_portions/info_portions";
@@ -22,6 +22,7 @@ import {
   AlifeSimulator,
   ClientObject,
   EScheme,
+  LuaArray,
   Maybe,
   Optional,
   ServerObject,
@@ -234,11 +235,9 @@ export class MapDisplayManager extends AbstractCoreManager {
           const objectId: Optional<number> = getObjectIdByStoryId(scanner.target);
 
           let hint: TLabel = game.translate_string(scanner.hint) + "\\n" + " \\n";
-          const actor: ClientObject = registry.actor;
+          const artefactTable: LuaArray<TSection> = getAnomalyArtefacts(scanner.zone);
 
-          const [hasArtefact, artefactTable] = anomalyHasArtefact(actor, null, scanner.zone, null);
-
-          if (hasArtefact) {
+          if (artefactTable.length() > 0) {
             hint = hint + game.translate_string(captions.st_jup_b32_has_af);
             for (const [k, v] of artefactTable!) {
               hint = hint + "\\n" + game.translate_string("st_" + v + "_name");

@@ -110,6 +110,7 @@ export function mockClientGameObject({
           .filter(Boolean)
           .forEach((it) => inRestrictions.push(it));
       }),
+    best_danger: rest.best_danger || jest.fn(() => null),
     bleeding,
     can_select_weapon: rest.can_select_weapon || jest.fn(),
     change_team: rest.change_team || jest.fn(),
@@ -118,6 +119,7 @@ export function mockClientGameObject({
     clsid,
     clear_animations: rest.clear_animations || jest.fn(),
     command: rest.command || jest.fn(),
+    critically_wounded: rest.critically_wounded || jest.fn(() => false),
     direction: rest.direction || jest.fn(() => objectDirection),
     disable_hit_marks: rest.disable_hit_marks || jest.fn(),
     disable_info_portion:
