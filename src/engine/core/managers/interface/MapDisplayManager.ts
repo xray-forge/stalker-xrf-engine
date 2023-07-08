@@ -9,7 +9,7 @@ import {
   primaryMapSpotObjects,
   sleepZones,
 } from "@/engine/core/managers/interface/MapDisplayManagerObjects";
-import { Squad } from "@/engine/core/objects";
+import { SmartTerrain, Squad } from "@/engine/core/objects";
 import { parseConditionsList, pickSectionFromCondList, readIniString, TConditionList } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { isSquadMonsterCommunity } from "@/engine/core/utils/object";
@@ -37,6 +37,7 @@ import {
   TDistance,
   TDuration,
   TLabel,
+  TName,
   TNumberId,
   TSection,
   TTimestamp,
@@ -152,7 +153,7 @@ export class MapDisplayManager extends AbstractCoreManager {
    * Remove object map spot display.
    *
    * @param object - target client object
-   * @param state - target object registry staste
+   * @param state - target object registry state
    */
   public removeObjectMapSpot(object: ClientObject, state: IRegistryObjectState): void {
     logger.info("Remove object spot:", object.name());
@@ -307,6 +308,72 @@ export class MapDisplayManager extends AbstractCoreManager {
   /**
    * todo: Description.
    */
+  public updateSmartTerrainMapSpot(smartTerrain: SmartTerrain): void {
+    /**
+     * If debug enabled, render map spots.
+     */
+    if (gameConfig.DEBUG.IS_SIMULATION_DEBUG_ENABLED) {
+      let spot: ERelation = ERelation.NEUTRAL;
+
+      if (
+        smartTerrain.isSimulationAvailableConditionList === null ||
+        pickSectionFromCondList(registry.actor, smartTerrain, smartTerrain.isSimulationAvailableConditionList) === TRUE
+      ) {
+        spot = ERelation.FRIEND;
+      } else {
+        spot = ERelation.ENEMY;
+      }
+
+      const previousSelector: TName = string.format(
+        "alife_presentation_smart_%s_%s",
+        smartTerrain.simulationRole,
+        smartTerrain.smartTerrainDisplayedMapSpot
+      );
+
+      if (smartTerrain.smartTerrainDisplayedMapSpot === spot) {
+        level.map_change_spot_hint(smartTerrain.id, previousSelector, smartTerrain.getMapDisplayHint());
+
+        return;
+      }
+
+      // If previous mark is defined.
+      if (smartTerrain.smartTerrainDisplayedMapSpot !== null) {
+        level.map_remove_object_spot(smartTerrain.id, previousSelector);
+      }
+
+      // If next mark is defined.
+      if (spot !== null) {
+        const nextSelector: TName = string.format("alife_presentation_smart_%s_%s", smartTerrain.simulationRole, spot);
+
+        level.map_add_object_spot(smartTerrain.id, nextSelector, smartTerrain.getMapDisplayHint());
+      }
+
+      smartTerrain.smartTerrainDisplayedMapSpot = spot;
+
+      return;
+    }
+
+    /**
+     * If not enabled rendering, just remove map spot if needed.
+     */
+    if (
+      smartTerrain.smartTerrainDisplayedMapSpot !== null &&
+      level.map_has_object_spot(
+        smartTerrain.id,
+        "alife_presentation_smart_" + smartTerrain.simulationRole + "_" + smartTerrain.smartTerrainDisplayedMapSpot
+      )
+    ) {
+      level.map_remove_object_spot(
+        smartTerrain.id,
+        "alife_presentation_smart_" + smartTerrain.simulationRole + "_" + smartTerrain.smartTerrainDisplayedMapSpot
+      );
+      smartTerrain.smartTerrainDisplayedMapSpot = null;
+    }
+  }
+
+  /**
+   * todo: Description.
+   */
   public updatePrimaryObjectsDisplay(): void {
     primaryMapSpotObjects.forEach((it) => {
       const objectId: Optional<TNumberId> = getObjectIdByStoryId(it.target);
@@ -318,6 +385,20 @@ export class MapDisplayManager extends AbstractCoreManager {
 
     this.updateAnomalyZonesDisplay();
     this.updateSleepZonesDisplay();
+  }
+
+  /**
+   * todo: Description.
+   */
+  public removeSmartTerrainMapSpot(smartTerrain: SmartTerrain): void {
+    if (smartTerrain.smartTerrainDisplayedMapSpot === null) {
+      return;
+    }
+
+    level.map_remove_object_spot(
+      smartTerrain.id,
+      "alife_presentation_smart_" + smartTerrain.simulationRole + "_" + smartTerrain.smartTerrainDisplayedMapSpot
+    );
   }
 
   /**

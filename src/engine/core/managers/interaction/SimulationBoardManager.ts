@@ -303,8 +303,10 @@ export class SimulationBoardManager extends AbstractCoreManager {
     }
 
     if (oldSmartTerrainId !== null && this.smartTerrains.has(oldSmartTerrainId)) {
+      const smartTerrain: SmartTerrain = this.smartTerrains.get(oldSmartTerrainId).smartTerrain;
+
       this.smartTerrains.get(oldSmartTerrainId).assignedSquads.delete(squad.id);
-      this.smartTerrains.get(oldSmartTerrainId).smartTerrain.updateMapDisplay();
+      smartTerrain.mapDisplayManager.updateSmartTerrainMapSpot(smartTerrain);
     }
 
     if (smartTerrainId === null) {
@@ -317,7 +319,7 @@ export class SimulationBoardManager extends AbstractCoreManager {
 
     squad.assignSmartTerrain(target.smartTerrain);
     target.assignedSquads.set(squad.id, squad);
-    target.smartTerrain.updateMapDisplay();
+    target.smartTerrain.mapDisplayManager.updateSmartTerrainMapSpot(target.smartTerrain);
   }
 
   /**

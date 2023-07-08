@@ -32,6 +32,7 @@ import {
   updateSimulationObjectAvailability,
 } from "@/engine/core/database/simulation";
 import { SimulationBoardManager } from "@/engine/core/managers/interaction/SimulationBoardManager";
+import { MapDisplayManager } from "@/engine/core/managers/interface";
 import {
   areOnlyMonstersOnJobs,
   jobIterator,
@@ -115,17 +116,17 @@ import {
 
 const logger: LuaLogger = new LuaLogger($filename);
 
-export const path_fields: LuaArray<string> = $fromArray(["path_walk", "path_main", "path_home", "center_point"]);
+export const PATH_FIELDS: LuaArray<string> = $fromArray(["path_walk", "path_main", "path_home", "center_point"]);
 
 /**
  * todo;
  */
-export const valid_territory: LuaTable<string, boolean> = {
+export const VALID_SMART_TERRAINS_SIMULATION_ROLES: LuaTable<TName, boolean> = $fromObject<TName, boolean>({
   default: true,
   base: true,
   resource: true,
   territory: true,
-} as any;
+});
 
 /**
  * todo;
@@ -201,7 +202,8 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
   public jobDeadTimeById: LuaTable<TNumberId, Time> = new LuaTable(); // job id -> time
 
   public simulationProperties!: AnyObject;
-  public simulationBoardManager!: SimulationBoardManager;
+  public simulationBoardManager: SimulationBoardManager = SimulationBoardManager.getInstance();
+  public mapDisplayManager: MapDisplayManager = MapDisplayManager.getInstance();
 
   public respawnConfiguration!: LuaTable<TSection, { squads: LuaArray<TSection>; num: TConditionList }>;
   public alreadySpawned!: LuaTable<TSection, { num: TCount }>;
@@ -209,7 +211,6 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
   public override on_before_register(): void {
     super.on_before_register();
 
-    this.simulationBoardManager = SimulationBoardManager.getInstance();
     this.simulationBoardManager.registerSmartTerrain(this);
     this.level = alife().level_name(game_graph().vertex(this.m_game_vertex_id).level_id());
   }
@@ -221,7 +222,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
     registerSimulationObject(this);
 
     if (gameConfig.DEBUG.IS_SIMULATION_DEBUG_ENABLED) {
-      this.updateMapDisplay();
+      this.mapDisplayManager.updateSmartTerrainMapSpot(this);
     }
 
     this.smartTerrainAlifeTask = new CALifeSmartTerrainTask(this.m_game_vertex_id, this.m_level_vertex_id);
@@ -492,8 +493,8 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
   public override update(): void {
     super.update();
 
-    if (gameConfig.DEBUG.IS_SIMULATION_DEBUG_ENABLED || this.smartTerrainDisplayedMapSpot !== null) {
-      this.updateMapDisplay();
+    if (this.smartTerrainDisplayedMapSpot !== null || gameConfig.DEBUG.IS_SIMULATION_DEBUG_ENABLED) {
+      this.mapDisplayManager.updateSmartTerrainMapSpot(this);
     }
 
     const now: TTimestamp = time_global();
@@ -586,7 +587,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
       ESimulationTerrainRole.DEFAULT
     ) as ESimulationTerrainRole;
 
-    if (valid_territory.get(this.simulationRole) === null) {
+    if (VALID_SMART_TERRAINS_SIMULATION_ROLES.get(this.simulationRole) === null) {
       abort("Wrong sim_type value [%s] in smart [%s]", this.simulationRole, this.name());
     }
 
@@ -792,7 +793,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
       if (job.job_type === "path_job") {
         let path_field: string = "";
 
-        for (const [i, vv] of path_fields) {
+        for (const [i, vv] of PATH_FIELDS) {
           if (ltx.line_exist(active_section, vv)) {
             path_field = vv;
             break;
@@ -1128,90 +1129,6 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
     } else {
       return this.getNameCaption();
     }
-  }
-
-  /**
-   * todo: Description.
-   */
-  public updateMapDisplay(): void {
-    /**
-     * If debug enabled, render map spots.
-     */
-    if (gameConfig.DEBUG.IS_SIMULATION_DEBUG_ENABLED) {
-      let spot: ERelation = ERelation.NEUTRAL;
-
-      if (
-        this.isSimulationAvailableConditionList === null ||
-        pickSectionFromCondList(registry.actor, this, this.isSimulationAvailableConditionList) === TRUE
-      ) {
-        spot = ERelation.FRIEND;
-      } else {
-        spot = ERelation.ENEMY;
-      }
-
-      const previousSelector: TName = string.format(
-        "alife_presentation_smart_%s_%s",
-        tostring(this.simulationRole),
-        tostring(this.smartTerrainDisplayedMapSpot)
-      );
-
-      if (this.smartTerrainDisplayedMapSpot === spot) {
-        level.map_change_spot_hint(this.id, previousSelector, this.getMapDisplayHint());
-
-        return;
-      }
-
-      // If previous mark is defined.
-      if (this.smartTerrainDisplayedMapSpot !== null) {
-        level.map_remove_object_spot(this.id, previousSelector);
-      }
-
-      // If next mark is defined.
-      if (spot !== null) {
-        const nextSelector: TName = string.format(
-          "alife_presentation_smart_%s_%s",
-          tostring(this.simulationRole),
-          tostring(spot)
-        );
-
-        level.map_add_object_spot(this.id, nextSelector, this.getMapDisplayHint());
-      }
-
-      this.smartTerrainDisplayedMapSpot = spot;
-
-      return;
-    }
-
-    /**
-     * If not enabled rendering, just remove map spot if needed.
-     */
-    if (
-      this.smartTerrainDisplayedMapSpot !== null &&
-      level.map_has_object_spot(
-        this.id,
-        "alife_presentation_smart_" + this.simulationRole + "_" + this.smartTerrainDisplayedMapSpot
-      )
-    ) {
-      level.map_remove_object_spot(
-        this.id,
-        "alife_presentation_smart_" + this.simulationRole + "_" + this.smartTerrainDisplayedMapSpot
-      );
-      this.smartTerrainDisplayedMapSpot = null;
-    }
-  }
-
-  /**
-   * todo: Description.
-   */
-  public hide(): void {
-    if (this.smartTerrainDisplayedMapSpot === null) {
-      return;
-    }
-
-    level.map_remove_object_spot(
-      this.id,
-      "alife_presentation_smart_" + this.simulationRole + "_" + this.smartTerrainDisplayedMapSpot
-    );
   }
 
   /**
