@@ -5,6 +5,7 @@ import {
   getObjectIdByStoryId,
   getServerObjectByStoryId,
   IRegistryObjectState,
+  isStoryObjectExisting,
   registry,
 } from "@/engine/core/database";
 import { SimulationBoardManager } from "@/engine/core/managers/interaction/SimulationBoardManager";
@@ -16,7 +17,7 @@ import { ISchemeAnimpointState, SchemeAnimpoint } from "@/engine/core/schemes/an
 import { ISchemeDeathState } from "@/engine/core/schemes/death";
 import { ISchemeHitState } from "@/engine/core/schemes/hit";
 import { SchemeDeimos } from "@/engine/core/schemes/sr_deimos";
-import { abort } from "@/engine/core/utils/assertion";
+import { abort, assertDefined } from "@/engine/core/utils/assertion";
 import { extern } from "@/engine/core/utils/binding";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import {
@@ -30,7 +31,6 @@ import {
   isObjectWounded,
   isPlayingSound,
   isStalker,
-  isStoryObjectExisting,
 } from "@/engine/core/utils/object";
 import { captions, TCaption } from "@/engine/lib/constants/captions";
 import { infoPortions } from "@/engine/lib/constants/info_portions";
@@ -797,15 +797,14 @@ extern("xr_conditions.target_smart_name", (actor: ClientObject, smart: ClientObj
 /**
  * todo;
  */
-extern("xr_conditions.squad_exist", (actor: ClientObject, npc: ClientObject, p: [Optional<string>]): boolean => {
-  const storyId: Optional<string> = p[0];
+extern(
+  "xr_conditions.squad_exist",
+  (actor: ClientObject, npc: ClientObject, [squadStoryId]: [Optional<TStringId>]): boolean => {
+    assertDefined(squadStoryId, "Wrong parameter story_id[%s] in squad_exist function.", squadStoryId);
 
-  if (storyId === null) {
-    abort("Wrong parameter story_id[%s] in squad_exist function", tostring(storyId));
-  } else {
-    return isStoryObjectExisting(storyId);
+    return isStoryObjectExisting(squadStoryId);
   }
-});
+);
 
 /**
  * todo;

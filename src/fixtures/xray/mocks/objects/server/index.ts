@@ -2,6 +2,8 @@ export * from "@/fixtures/xray/mocks/objects/server/Squad.mock";
 export * from "@/fixtures/xray/mocks/objects/server/cse_alife_creature_abstract.mock";
 export * from "@/fixtures/xray/mocks/objects/server/cse_alife_creature_actor.mock";
 export * from "@/fixtures/xray/mocks/objects/server/cse_alife_creature_monster_base.mock";
+export * from "@/fixtures/xray/mocks/objects/server/cse_alife_dynamic_object.mock";
+export * from "@/fixtures/xray/mocks/objects/server/cse_alife_dynamic_object_visual.mock";
 export * from "@/fixtures/xray/mocks/objects/server/cse_alife_hanging_lamp.mock";
 export * from "@/fixtures/xray/mocks/objects/server/cse_alife_helicopter.mock";
 export * from "@/fixtures/xray/mocks/objects/server/cse_alife_human_stalker.mock";

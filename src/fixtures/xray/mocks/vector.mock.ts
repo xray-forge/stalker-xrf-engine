@@ -41,12 +41,22 @@ export class MockVector {
   }
 
   /**
-   * todo: Description.
+   * Mock vector add method implementation.
    */
-  public add(first: MockVector, second: MockVector): MockVector {
-    this.x = first.x + second.x;
-    this.y = first.y + second.y;
-    this.z = first.z + second.z;
+  public add(first: MockVector | number, second?: MockVector): MockVector {
+    if (typeof first === "number") {
+      this.x += first;
+      this.y += first;
+      this.z += first;
+    } else if (second === undefined) {
+      this.x += first.x;
+      this.y += first.y;
+      this.z += first.z;
+    } else {
+      this.x = first.x + second.x;
+      this.y = first.y + second.y;
+      this.z = first.z + second.z;
+    }
 
     return this;
   }
@@ -63,6 +73,18 @@ export class MockVector {
     }
 
     return this;
+  }
+
+  public mul(by: number | MockVector): MockVector {
+    if (typeof by === "number") {
+      this.x *= by;
+      this.y *= by;
+      this.z *= by;
+
+      return this;
+    } else {
+      throw new Error("Not mocked overload used.");
+    }
   }
 
   public distance_to(): number {

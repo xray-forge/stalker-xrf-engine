@@ -27,26 +27,35 @@ export function setStableAlifeObjectsUpdate(): void {
 }
 
 /**
- * todo;
+ * Evaluates simulation priority by distance.
+ * Used as normalizer to pick better tasks based on distance from object.
+ *
+ * @param first - one of objects to measure priority by distance
+ * @param second - one of objects to measure priority by distance
+ * @returns priority evaluated by distance
  */
-export function evaluateSimulationPriorityByDistance(target: ServerObject, squad: ServerObject): TRate {
-  const distance: TDistance = math.max(getServerDistanceBetween(target, squad), 1);
+export function evaluateSimulationPriorityByDistance(first: ServerObject, second: ServerObject): TRate {
+  const distance: TDistance = math.max(getServerDistanceBetween(first, second), 1);
 
   return 1 + 1 / distance;
 }
 
 /**
- * todo;
+ * Evaluate objects selection priority for alife simulation.
+ *
+ * @param object - simulation participating game object
+ * @param squad - squad participating in simulation
+ * @returns alife simulation priority for target selection
  */
-export function evaluateSimulationPriority(object: TSimulationObject, target: Squad): TRate {
+export function evaluateSimulationPriority(object: TSimulationObject, squad: Squad): TRate {
   let priority: TRate = 3;
 
   // Blocking level traveling and specific preconditions.
-  if (!object.isValidSquadTarget(target) || !areObjectsOnSameLevel(object, target)) {
+  if (!object.isValidSquadTarget(squad) || !areObjectsOnSameLevel(object, squad)) {
     return 0;
   }
 
-  for (const [property, rate] of target.behaviour) {
+  for (const [property, rate] of squad.behaviour) {
     const squadCoefficient: TRate = tonumber(rate) as TRate;
     let targetCoefficient: TRate = 0;
 
@@ -57,5 +66,5 @@ export function evaluateSimulationPriority(object: TSimulationObject, target: Sq
     priority = priority + squadCoefficient * targetCoefficient;
   }
 
-  return priority * evaluateSimulationPriorityByDistance(object, target);
+  return priority * evaluateSimulationPriorityByDistance(object, squad);
 }

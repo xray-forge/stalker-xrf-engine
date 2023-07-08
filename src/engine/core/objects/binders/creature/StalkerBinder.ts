@@ -20,15 +20,17 @@ import {
   DUMMY_LTX,
   getStoryIdByObjectId,
   IRegistryObjectState,
+  loadObjectLogic,
   openLoadMarker,
   openSaveMarker,
   registerHelicopterEnemy,
+  registerStalker,
   registry,
   resetObject,
+  saveObjectLogic,
   unregisterHelicopterEnemy,
+  unregisterStalker,
 } from "@/engine/core/database";
-import { loadObjectLogic, saveObjectLogic } from "@/engine/core/database/logic";
-import { registerStalker, unregisterStalker } from "@/engine/core/database/stalker";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { DialogManager } from "@/engine/core/managers/interaction/dialog/DialogManager";
 import { SimulationBoardManager } from "@/engine/core/managers/interaction/SimulationBoardManager";
@@ -42,7 +44,7 @@ import { setupSmartJobsAndLogicOnSpawn } from "@/engine/core/objects/server/smar
 import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain/SmartTerrain";
 import { addStateManager } from "@/engine/core/objects/state/add_state_manager";
 import { StalkerMoveManager } from "@/engine/core/objects/state/StalkerMoveManager";
-import { ESchemeEvent, IBaseSchemeState } from "@/engine/core/schemes";
+import { ESchemeEvent, IBaseSchemeState } from "@/engine/core/schemes/base";
 import { SchemeCombat } from "@/engine/core/schemes/combat/SchemeCombat";
 import { PostCombatIdle } from "@/engine/core/schemes/combat_idle/PostCombatIdle";
 import { SchemeHear } from "@/engine/core/schemes/hear/SchemeHear";
@@ -52,10 +54,13 @@ import { SchemeLight } from "@/engine/core/schemes/sr_light/SchemeLight";
 import { SchemeWounded } from "@/engine/core/schemes/wounded/SchemeWounded";
 import { pickSectionFromCondList, readIniString, TConditionList } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { getCharacterCommunity, getObjectSquad } from "@/engine/core/utils/object/object_get";
-import { updateObjectInvulnerability } from "@/engine/core/utils/object/object_set";
+import { getObjectCommunity, getObjectSquad } from "@/engine/core/utils/object";
 import { ERelation, setClientObjectRelation, setObjectSympathy } from "@/engine/core/utils/relation";
-import { emitSchemeEvent, trySwitchToAnotherSection } from "@/engine/core/utils/scheme";
+import {
+  emitSchemeEvent,
+  initializeObjectInvulnerability,
+  trySwitchToAnotherSection,
+} from "@/engine/core/utils/scheme";
 import { createEmptyVector } from "@/engine/core/utils/vector";
 import { communities, TCommunity } from "@/engine/lib/constants/communities";
 import { MAX_U16 } from "@/engine/lib/constants/memory";
@@ -207,7 +212,7 @@ export class StalkerBinder extends object_binder {
 
     setupSmartJobsAndLogicOnSpawn(this.object, this.state, object, ESchemeType.STALKER, this.isLoaded);
 
-    if (getCharacterCommunity(this.object) !== communities.zombied) {
+    if (getObjectCommunity(this.object) !== communities.zombied) {
       PostCombatIdle.addPostCombatIdleWait(this.object);
     }
 
@@ -298,7 +303,7 @@ export class StalkerBinder extends object_binder {
     if (isObjectAlive) {
       GlobalSoundManager.getInstance().update(object.id());
       SchemeMeet.updateObjectInteractionAvailability(object);
-      updateObjectInvulnerability(this.object);
+      initializeObjectInvulnerability(this.object);
     }
 
     const squad = getObjectSquad(this.object);
@@ -449,7 +454,7 @@ export class StalkerBinder extends object_binder {
     this.resetCallbacks();
 
     if (actor_stats.remove_from_ranking !== null) {
-      const community: TCommunity = getCharacterCommunity(this.object);
+      const community: TCommunity = getObjectCommunity(this.object);
 
       if (community === communities.zombied || community === communities.monolith) {
         // placeholder

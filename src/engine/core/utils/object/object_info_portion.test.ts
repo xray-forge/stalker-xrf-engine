@@ -9,9 +9,9 @@ import {
   hasAtLeastOneAlifeInfo,
   hasFewAlifeInfos,
 } from "@/engine/core/utils/object/object_info_portion";
-import { infoPortions, TInfoPortion } from "@/engine/lib/constants/info_portions/info_portions";
+import { infoPortions, TInfoPortion } from "@/engine/lib/constants/info_portions";
 import { ClientObject } from "@/engine/lib/types";
-import { mockClientGameObject } from "@/fixtures/xray";
+import { mockActorClientGameObject, mockClientGameObject } from "@/fixtures/xray";
 
 describe("'info_portion' utils", () => {
   beforeEach(() => {
@@ -41,7 +41,7 @@ describe("'info_portion' utils", () => {
   });
 
   it("'giveInfo' should correctly give info portion for actor", () => {
-    registry.actor = mockClientGameObject();
+    registry.actor = mockActorClientGameObject();
 
     giveInfo(infoPortions.info_up_ac_mp5);
 
@@ -50,7 +50,7 @@ describe("'info_portion' utils", () => {
   });
 
   it("'giveInfo' should correctly ignore invalid info portions", () => {
-    registry.actor = mockClientGameObject();
+    registry.actor = mockActorClientGameObject();
 
     giveInfo(null);
     giveInfo(undefined);

@@ -8,7 +8,7 @@ import { ISchemeWoundedState } from "@/engine/core/schemes/wounded/ISchemeWounde
 import { WoundManager } from "@/engine/core/schemes/wounded/WoundManager";
 import { IConfigSwitchCondition, parseConditionsList, readIniBoolean, readIniString } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { getCharacterCommunity } from "@/engine/core/utils/object/object_get";
+import { getObjectCommunity } from "@/engine/core/utils/object/object_get";
 import { communities, TCommunity } from "@/engine/lib/constants/communities";
 import { NIL } from "@/engine/lib/constants/words";
 import {
@@ -116,7 +116,7 @@ export class SchemeWounded extends AbstractScheme {
 
     state.wounded_section = tostring(section);
 
-    const objectCommunity: TCommunity = getCharacterCommunity(object);
+    const objectCommunity: TCommunity = getObjectCommunity(object);
     const defaults: AnyObject = {};
 
     // Initialize defaults:

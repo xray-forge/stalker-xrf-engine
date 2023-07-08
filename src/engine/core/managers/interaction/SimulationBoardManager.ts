@@ -12,7 +12,7 @@ import { abort } from "@/engine/core/utils/assertion";
 import { parseStringsList } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { evaluateSimulationPriority } from "@/engine/core/utils/object/object_alife";
-import { changeTeamSquadGroup } from "@/engine/core/utils/object/object_set";
+import { setObjectTeamSquadGroup } from "@/engine/core/utils/object/object_set";
 import { setSquadRelationToActor } from "@/engine/core/utils/relation";
 import { TCommunity } from "@/engine/lib/constants/communities";
 import { levels, TLevel } from "@/engine/lib/constants/levels";
@@ -360,7 +360,7 @@ export class SimulationBoardManager extends AbstractCoreManager {
 
     const smartTerrainDescriptor: ISmartTerrainDescriptor = this.smartTerrains.get(smartTerrainId);
 
-    if (squad.enteredSmartTerrainId !== null) {
+    if (squad.enteredSmartTerrainId) {
       abort("Couldn't enter smart, still in old one. Squad: [%s]", squad.name());
     }
 
@@ -382,12 +382,12 @@ export class SimulationBoardManager extends AbstractCoreManager {
     object = alife().object(object.id)!;
 
     // todo: Check, probably magic or unused code with duplicated changeTeam calls.
-    changeTeamSquadGroup(object, object.team, object.squad, groupId);
+    setObjectTeamSquadGroup(object, object.team, object.squad, groupId);
 
     const squad: Optional<Squad> = alife().object<Squad>(object.group_id);
 
     if (squad === null) {
-      return changeTeamSquadGroup(object, object.team, 0, object.group);
+      return setObjectTeamSquadGroup(object, object.team, 0, object.group);
     }
 
     let smartTerrain: Optional<SmartTerrain> = null;
@@ -399,7 +399,7 @@ export class SimulationBoardManager extends AbstractCoreManager {
     }
 
     if (smartTerrain === null) {
-      return changeTeamSquadGroup(object, object.team, 0, object.group);
+      return setObjectTeamSquadGroup(object, object.team, 0, object.group);
     }
 
     let objectSquadId: TNumberId = 0;
@@ -408,7 +408,7 @@ export class SimulationBoardManager extends AbstractCoreManager {
       objectSquadId = smartTerrain.squadId;
     }
 
-    changeTeamSquadGroup(object, object.team, objectSquadId, object.group);
+    setObjectTeamSquadGroup(object, object.team, objectSquadId, object.group);
   }
 
   /**

@@ -10,7 +10,7 @@ import { getConfigSwitchConditions, pickSectionFromCondList } from "@/engine/cor
 import { parseConditionsList } from "@/engine/core/utils/ini/ini_parse";
 import { readIniConditionList } from "@/engine/core/utils/ini/ini_read";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { getCharacterCommunity } from "@/engine/core/utils/object";
+import { getObjectCommunity } from "@/engine/core/utils/object";
 import { communities } from "@/engine/lib/constants/communities";
 import { NIL } from "@/engine/lib/constants/words";
 import { ActionBase, ActionPlanner, AnyObject, ClientObject, IniFile, Optional, TName } from "@/engine/lib/types";
@@ -34,7 +34,7 @@ export class SchemeCombat extends AbstractScheme {
   }
 
   public static override activate(object: ClientObject, ini: IniFile, scheme: EScheme, section: TSection): void {
-    const isZombied: boolean = getCharacterCommunity(object) === communities.zombied;
+    const isZombied: boolean = getObjectCommunity(object) === communities.zombied;
 
     if (section || isZombied) {
       logger.info("Activate scheme:", object.name());

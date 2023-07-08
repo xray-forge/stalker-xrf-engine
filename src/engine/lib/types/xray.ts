@@ -8,6 +8,7 @@ import {
   CConsole,
   CGameTask,
   color,
+  cond,
   cover_point,
   CPhrase,
   CPhraseDialog,
@@ -66,6 +67,7 @@ import {
   ini_file,
   IXR_squad_member,
   login_manager,
+  move,
   net_packet,
   noise,
   object_factory,
@@ -118,6 +120,7 @@ export type AnyGameObject = game_object | cse_alife_object;
 export type Car = CCar;
 export type ClientObject = game_object;
 export type Color = color;
+export type Cond = cond;
 export type Console = CConsole;
 export type CoverPoint = cover_point;
 export type DangerObject = danger_object;
@@ -134,6 +137,7 @@ export type Hit = hit;
 export type IniFile = ini_file;
 export type LoginManager = login_manager;
 export type MonsterBodyStateKey = TXR_MonsterBodyStateKey;
+export type Move = move;
 export type NetPacket = net_packet;
 export type NetProcessor = TXR_net_processor;
 export type Noise = noise;

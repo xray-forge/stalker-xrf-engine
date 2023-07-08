@@ -7,7 +7,7 @@ import { pickSectionFromCondList } from "@/engine/core/utils/ini/ini_config";
 import { parseConditionsList } from "@/engine/core/utils/ini/ini_parse";
 import { IWaypointData, TConditionList } from "@/engine/core/utils/ini/ini_types";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { isStalkerAtWaypoint } from "@/engine/core/utils/object";
+import { isObjectAtWaypoint } from "@/engine/core/utils/object";
 import { TRUE } from "@/engine/lib/constants/words";
 import {
   AnyCallable,
@@ -385,7 +385,7 @@ export class StalkerMoveManager {
    */
   public isStandingOnTerminalWaypoint(): LuaMultiReturn<[boolean, Optional<TIndex>]> {
     for (const idx of $range(0, this.patrolWalk!.count() - 1)) {
-      if (isStalkerAtWaypoint(this.object, this.patrolWalk!, idx) && this.patrolWalk!.terminal(idx)) {
+      if (isObjectAtWaypoint(this.object, this.patrolWalk!, idx) && this.patrolWalk!.terminal(idx)) {
         return $multi(true, idx);
       }
     }
@@ -446,7 +446,7 @@ export class StalkerMoveManager {
     }
 
     if (this.lastIndex && this.patrolWalk!.terminal(this.lastIndex)) {
-      if (isStalkerAtWaypoint(this.object, this.patrolWalk!, this.lastIndex)) {
+      if (isObjectAtWaypoint(this.object, this.patrolWalk!, this.lastIndex)) {
         this.onWaypoint(this.object, null, this.lastIndex);
 
         return;

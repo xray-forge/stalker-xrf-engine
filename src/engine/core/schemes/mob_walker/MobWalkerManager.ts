@@ -6,9 +6,8 @@ import { AbstractSchemeManager } from "@/engine/core/schemes/base";
 import { ISchemeMobWalkerState } from "@/engine/core/schemes/mob_walker/ISchemeMobWalkerState";
 import { abort } from "@/engine/core/utils/assertion";
 import { IWaypointData, parseWaypointsData, pickSectionFromCondList } from "@/engine/core/utils/ini";
-import { isStalkerAtWaypoint } from "@/engine/core/utils/object";
-import { action } from "@/engine/core/utils/object/object_action";
-import { isMonsterScriptCaptured, scriptCaptureMonster } from "@/engine/core/utils/scheme/scheme_monster";
+import { isObjectAtWaypoint } from "@/engine/core/utils/object";
+import { isMonsterScriptCaptured, scriptCaptureMonster, scriptCommandMonster } from "@/engine/core/utils/scheme";
 import { copyVector } from "@/engine/core/utils/vector";
 import { EMonsterState } from "@/engine/lib/constants/monsters";
 import { NIL, TRUE } from "@/engine/lib/constants/words";
@@ -97,7 +96,7 @@ export class MobWalkerManager extends AbstractSchemeManager<ISchemeMobWalkerStat
     this.lastIndex = null;
     this.lastLookIndex = null;
 
-    action(
+    scriptCommandMonster(
       this.object,
       new move(move.walk_fwd, new patrol(this.state.path_walk, patrol.next, patrol.continue)),
       new cond(cond.move_end)
@@ -118,7 +117,7 @@ export class MobWalkerManager extends AbstractSchemeManager<ISchemeMobWalkerStat
       if (!this.object.action()) {
         const patrolWalkCount = this.patrolWalk!.count();
 
-        if (patrolWalkCount === 1 && isStalkerAtWaypoint(this.object, this.patrolWalk!, 0)) {
+        if (patrolWalkCount === 1 && isObjectAtWaypoint(this.object, this.patrolWalk!, 0)) {
           this.mobState = STATE_MOVING;
           this.onWaypoint(this.object, null, this.lastIndex);
         } else {
@@ -194,7 +193,7 @@ export class MobWalkerManager extends AbstractSchemeManager<ISchemeMobWalkerStat
       } else {
         const patrolWalkCount = this.patrolWalk!.count();
 
-        if (patrolWalkCount === 1 && isStalkerAtWaypoint(this.object, this.patrolWalk!, 0)) {
+        if (patrolWalkCount === 1 && isObjectAtWaypoint(this.object, this.patrolWalk!, 0)) {
           this.ptWaitTime = 100_000_000;
         } else {
           this.ptWaitTime = DEFAULT_WAIT_TIME;
@@ -247,7 +246,7 @@ export class MobWalkerManager extends AbstractSchemeManager<ISchemeMobWalkerStat
     }
 
     if (this.scheduledSound) {
-      action(
+      scriptCommandMonster(
         this.object,
         new move(m, new patrol(this.state.path_walk, patrol.next, patrol.continue)),
         new sound(sound[this.scheduledSound]),
@@ -255,7 +254,7 @@ export class MobWalkerManager extends AbstractSchemeManager<ISchemeMobWalkerStat
       );
       this.scheduledSound = null;
     } else {
-      action(
+      scriptCommandMonster(
         this.object,
         new move(m, new patrol(this.state.path_walk, patrol.next, patrol.continue)),
         new cond(cond.move_end)
@@ -270,7 +269,7 @@ export class MobWalkerManager extends AbstractSchemeManager<ISchemeMobWalkerStat
     scriptCaptureMonster(this.object, true);
 
     if (this.scheduledSound) {
-      action(
+      scriptCommandMonster(
         this.object,
         new anim(this.curAnimSet!, 0),
         new sound(sound[this.scheduledSound]),
@@ -278,7 +277,7 @@ export class MobWalkerManager extends AbstractSchemeManager<ISchemeMobWalkerStat
       );
       this.scheduledSound = null;
     } else {
-      action(this.object, new anim(this.curAnimSet!, 0), new cond(cond.time_end, this.ptWaitTime!));
+      scriptCommandMonster(this.object, new anim(this.curAnimSet!, 0), new cond(cond.time_end, this.ptWaitTime!));
     }
   }
 
@@ -287,7 +286,7 @@ export class MobWalkerManager extends AbstractSchemeManager<ISchemeMobWalkerStat
    */
   public override deactivate(): void {
     scriptCaptureMonster(this.object, true);
-    action(this.object, new move(move.steal, this.patrolWalk!.point(0)), new cond(cond.move_end));
+    scriptCommandMonster(this.object, new move(move.steal, this.patrolWalk!.point(0)), new cond(cond.move_end));
   }
 
   /**
@@ -304,7 +303,7 @@ export class MobWalkerManager extends AbstractSchemeManager<ISchemeMobWalkerStat
     // --this.object:set_sight(look.direction, look_pt, 0)
 
     scriptCaptureMonster(this.object, true);
-    action(this.object, new look(look.direction, lookPoint), new cond(cond.look_end));
+    scriptCommandMonster(this.object, new look(look.direction, lookPoint), new cond(cond.look_end));
 
     this.lastLookIndex = pt;
   }

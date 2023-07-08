@@ -2,7 +2,7 @@ import { LuabindClass, property_evaluator } from "xray16";
 
 import { IBaseSchemeState } from "@/engine/core/schemes/base";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { isActiveSection } from "@/engine/core/utils/object";
+import { isActiveSection } from "@/engine/core/utils/scheme";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -19,7 +19,7 @@ export class EvaluatorEnd extends property_evaluator {
   }
 
   /**
-   * Check whether evaluator scheme state is still active or ended.
+   * Check whether scheme is still active or ended.
    */
   public override evaluate(): boolean {
     return !isActiveSection(this.object, this.state.section);

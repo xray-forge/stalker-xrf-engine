@@ -4,7 +4,16 @@ import { SYSTEM_INI } from "@/engine/core/database/ini_registry";
 import { registry } from "@/engine/core/database/registry";
 import { abort, assert } from "@/engine/core/utils/assertion";
 import { readIniString } from "@/engine/core/utils/ini/ini_read";
-import { ClientObject, IniFile, Optional, ServerObject, TName, TNumberId, TStringId } from "@/engine/lib/types";
+import {
+  AnyGameObject,
+  ClientObject,
+  IniFile,
+  Optional,
+  ServerObject,
+  TName,
+  TNumberId,
+  TStringId,
+} from "@/engine/lib/types";
 
 /**
  * Register story object link based on ini configuration.
@@ -84,6 +93,32 @@ export function unregisterStoryLinkByStoryId(storyId: TStringId): void {
     registry.storyLink.sidById.delete(registry.storyLink.idBySid.get(storyId));
     registry.storyLink.idBySid.delete(storyId);
   }
+}
+
+/**
+ * Check whether object has story link.
+ *
+ * @param object - object to check
+ * @returns whether provided object has linked story id.
+ */
+export function isStoryObject(object: AnyGameObject): boolean {
+  if (type(object.id) === "function") {
+    return registry.storyLink.sidById.has((object as ClientObject).id());
+  } else {
+    return registry.storyLink.sidById.has((object as ServerObject).id);
+  }
+}
+
+/**
+ * Check whether story object exists.
+ *
+ * @param storyId - story ID to check existing
+ * @returns whether story object exists
+ */
+export function isStoryObjectExisting(storyId: TStringId): boolean {
+  const objectId: Optional<TNumberId> = registry.storyLink.idBySid.get(storyId);
+
+  return objectId === null ? false : alife().object(objectId) !== null;
 }
 
 /**

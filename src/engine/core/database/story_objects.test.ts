@@ -7,6 +7,8 @@ import {
   getObjectIdByStoryId,
   getServerObjectByStoryId,
   getStoryIdByObjectId,
+  isStoryObject,
+  isStoryObjectExisting,
   registerObjectStoryLinks,
   registerStoryLink,
   unregisterStoryLinkByObjectId,
@@ -67,5 +69,28 @@ describe("'story_objects' module of the database", () => {
 
     unregisterObject(clientObject);
     unregisterStoryLinkByStoryId("test-sid");
+  });
+
+  it("'isStoryObjectExisting' should correctly check if object is existing", () => {
+    expect(isStoryObjectExisting("test-sid")).toBe(false);
+
+    const serverObject: ServerObject = mockServerAlifeObject();
+
+    registerStoryLink(serverObject.id, "test-sid");
+
+    expect(isStoryObjectExisting("test-sid")).toBe(true);
+  });
+
+  it("'isStoryObject' should correctly check if object is existing", () => {
+    const serverObject: ServerObject = mockServerAlifeObject();
+    const clientObject: ClientObject = mockClientGameObject({ id: () => serverObject.id });
+
+    expect(isStoryObject(serverObject)).toBe(false);
+    expect(isStoryObject(clientObject)).toBe(false);
+
+    registerStoryLink(serverObject.id, "is-story-object-example");
+
+    expect(isStoryObject(serverObject)).toBe(true);
+    expect(isStoryObject(clientObject)).toBe(true);
   });
 });

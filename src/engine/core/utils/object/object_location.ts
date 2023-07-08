@@ -1,10 +1,10 @@
-import { alife, CSightParams, device, game_graph, level, move, sound_object } from "xray16";
+import { alife, device, game_graph, level, sound_object } from "xray16";
 
 import { registry } from "@/engine/core/database";
 import { SmartTerrain } from "@/engine/core/objects";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getObjectSmartTerrain } from "@/engine/core/utils/object/object_get";
-import { copyVector, createEmptyVector, graphDistance, vectorToString, yawDegree3d } from "@/engine/core/utils/vector";
+import { createEmptyVector, graphDistance, vectorToString, yawDegree3d } from "@/engine/core/utils/vector";
 import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
 import { sounds } from "@/engine/lib/constants/sound/sounds";
 import {
@@ -103,21 +103,47 @@ export function areObjectsOnSameLevel(first: ServerObject, second: ServerObject)
 }
 
 /**
- * Get absolute distance for objects based on game graphs.
+ * Get distance for objects based on game graphs.
  * Approximately calculates distance for servers that are offline and may be on different levels.
  *
  * todo: Use table memo for storing distance between different static vertexes.
  *
  * @param first - object to check
  * @param second - object to check
- * @returns game distance between two objects
+ * @returns graph distance between two objects
  */
 export function getServerDistanceBetween(first: ServerObject, second: ServerObject): TDistance {
   return graphDistance(first.m_game_vertex_id, second.m_game_vertex_id);
 }
 
 /**
- * todo: description
+ * Get distance for objects based on game vectors.
+ *
+ * @param first - object to check
+ * @param second - object to check
+ * @returns vector distance between two objects
+ */
+export function getDistanceBetween(first: ClientObject, second: ClientObject): TDistance {
+  return first.position().distance_to(second.position());
+}
+
+/**
+ * Get squared distance for objects based on game vectors.
+ *
+ * @param first - object to check
+ * @param second - object to check
+ * @returns squared vector distance between two objects
+ */
+export function getDistanceBetweenSqr(first: ClientObject, second: ClientObject): TDistance {
+  return first.position().distance_to_sqr(second.position());
+}
+
+/**
+ * Send object to desired vertex or nearest accessible one.
+ *
+ * @param object - target object to send
+ * @param vertexId - destination vertex id
+ * @returns actual vertex id to send object
  */
 export function sendToNearestAccessibleVertex(object: ClientObject, vertexId: TNumberId): TNumberId {
   if (!object.accessible(vertexId)) {
@@ -130,8 +156,10 @@ export function sendToNearestAccessibleVertex(object: ClientObject, vertexId: TN
 }
 
 /**
- todo: Description
- todo: Be more generic to object, do not rely on 'npc' part.
+ * Check whether object is actor frustum.
+ *
+ * @param object - target object to check
+ * @returns whether object is in visibility frustum
  */
 export function isObjectInActorFrustum(object: ClientObject): boolean {
   const actorDirection: Vector = device().cam_dir;
@@ -141,49 +169,37 @@ export function isObjectInActorFrustum(object: ClientObject): boolean {
 }
 
 /**
- * todo;
+ * Check whether object reached patrol point with specific index.
+ *
+ * @param object - target object to check
+ * @param patrolPath - target patrol to check
+ * @param patrolPointIndex - index of patrol to check
+ * @returns whether object reached patrol point
  */
-export function isStalkerAtWaypoint(object: ClientObject, patrolPath: Patrol, pathPointIndex: TIndex): boolean {
+export function isObjectAtWaypoint(object: ClientObject, patrolPath: Patrol, patrolPointIndex: TIndex): boolean {
   const objectPosition: Vector = object.position();
-  const distance: TDistance = objectPosition.distance_to_sqr(patrolPath.point(pathPointIndex));
+  const distance: TDistance = objectPosition.distance_to_sqr(patrolPath.point(patrolPointIndex));
 
   return distance <= 0.13;
 }
 
 /**
- * todo;
+ * Check whether provided vertex ID is from level.
+ *
+ * @param levelName - target level to expect
+ * @param gameVertexId - game vertex id to check level
+ * @returns whether gameVertexId is part of level with name `levelName`
  */
-export function stalkerStopMovement(object: ClientObject): void {
-  object.set_movement_type(move.stand);
-}
-
-/**
- * todo;
- */
-export function stalkerLookAtStalker(object: ClientObject, objectToLook: ClientObject): void {
-  const lookPoint: Vector = copyVector(objectToLook.position().sub(object.position()));
-
-  object.set_sight(CSightParams.eSightTypeDirection, lookPoint, 0);
-}
-
-/**
- * todo;
- */
-export function isGameVertexFromLevel(targetLevelName: TName, gameVertexId: TNumberId): boolean {
-  return targetLevelName === alife().level_name(game_graph().vertex(gameVertexId).level_id());
-}
-
-/**
- * todo
- * todo
- */
-export function getDistanceBetweenObjects(first: ClientObject, second: ClientObject): TDistance {
-  return first.position().distance_to(second.position());
+export function isGameVertexFromLevel(levelName: TName, gameVertexId: TNumberId): boolean {
+  return levelName === alife().level_name(game_graph().vertex(gameVertexId).level_id());
 }
 
 /**
  * Teleport actor to a specified point/direction with corresponding teleportation sound.
- * todo;
+ *
+ * @param actor - client actor object to teleport
+ * @param position - vector destination
+ * @param direction - vector direction
  */
 export function teleportActorWithEffects(actor: ClientObject, position: Vector, direction: Vector): void {
   logger.info("Teleporting actor:", vectorToString(position));

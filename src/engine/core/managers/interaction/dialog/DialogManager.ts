@@ -19,7 +19,7 @@ import {
 import { assert } from "@/engine/core/utils/assertion";
 import { parseInfoPortions, parseStringsList } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { getCharacterCommunity, isObjectWounded } from "@/engine/core/utils/object";
+import { getObjectCommunity, isObjectWounded } from "@/engine/core/utils/object";
 import { hasAlifeInfo } from "@/engine/core/utils/object/object_info_portion";
 import { FALSE, TRUE } from "@/engine/lib/constants/words";
 import {
@@ -308,7 +308,7 @@ export class DialogManager extends AbstractCoreManager {
       fComm = true;
     } else {
       for (const i of $range(1, PTIDSubtable.npc_community.length())) {
-        if (PTIDSubtable.npc_community.get(i) === getCharacterCommunity(object)) {
+        if (PTIDSubtable.npc_community.get(i) === getObjectCommunity(object)) {
           priority = priority + 2;
           fComm = true;
           break;
@@ -339,7 +339,7 @@ export class DialogManager extends AbstractCoreManager {
       priority = priority + 1;
     } else {
       for (const i of $range(1, PTIDSubtable.actor_community.length())) {
-        if (PTIDSubtable.actor_community.get(i) === getCharacterCommunity(registry.actor)) {
+        if (PTIDSubtable.actor_community.get(i) === getObjectCommunity(registry.actor)) {
           priority = priority + 2;
           break;
         }

@@ -3,6 +3,8 @@ import { LuaArray, TSection } from "@/engine/lib/types";
 
 /**
  * Get all weapons sections.
+ *
+ * @returns list of weapons / grenades sections
  */
 export function getWeaponSections(): LuaArray<TSection> {
   const list: LuaArray<TSection> = new LuaTable();
@@ -18,6 +20,8 @@ export function getWeaponSections(): LuaArray<TSection> {
 
 /**
  * Get all helmets sections.
+ *
+ * @returns list of helmets sections
  */
 export function getHelmetsSections(): LuaArray<TSection> {
   const list: LuaArray<TSection> = new LuaTable();
@@ -33,6 +37,8 @@ export function getHelmetsSections(): LuaArray<TSection> {
 
 /**
  * Get all ammo sections.
+ *
+ * @returns list of ammo sections
  */
 export function getAmmoSections(): LuaArray<TSection> {
   const list: LuaArray<TSection> = new LuaTable();
@@ -48,6 +54,8 @@ export function getAmmoSections(): LuaArray<TSection> {
 
 /**
  * Get all artefacts sections.
+ *
+ * @returns list of artefacts sections
  */
 export function getArtefactsSections(): LuaArray<TSection> {
   const list: LuaArray<TSection> = new LuaTable();
@@ -63,6 +71,8 @@ export function getArtefactsSections(): LuaArray<TSection> {
 
 /**
  * Get all outfit sections.
+ *
+ * @returns list of outfits sections
  */
 export function getOutfitSections(): LuaArray<TSection> {
   const list: LuaArray<TSection> = new LuaTable();
@@ -87,6 +97,8 @@ export function getOutfitSections(): LuaArray<TSection> {
 
 /**
  * Get all stalker sections.
+ *
+ * @returns list of simulation groups sections
  */
 export function getSimulationGroupSections(): LuaArray<TSection> {
   const list: LuaArray<TSection> = new LuaTable();
@@ -102,6 +114,8 @@ export function getSimulationGroupSections(): LuaArray<TSection> {
 
 /**
  * Get all stalker group sections.
+ *
+ * @returns list of stalker sections
  */
 export function getStalkerSections(): LuaArray<TSection> {
   const list: LuaArray<TSection> = new LuaTable();

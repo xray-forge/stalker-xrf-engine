@@ -63,7 +63,8 @@ export class MockAlifeObject extends AbstractLuabindClass {
 export function mockServerAlifeObject({
   sectionOverride = "section",
   id = ID_COUNTER++,
-  m_game_vertex_id = 1,
+  m_level_vertex_id = 255,
+  m_game_vertex_id = 512,
   name,
   clsid = jest.fn(() => -1 as TClassId),
   section_name,
@@ -74,9 +75,11 @@ export function mockServerAlifeObject({
     ...rest,
     id,
     clsid,
+    m_level_vertex_id,
     m_game_vertex_id,
     name: name || jest.fn(() => `${sectionOverride}_${id}`),
     section_name: section_name || jest.fn(() => sectionOverride),
+    position: rest.position || MockVector.mock(0.25, 0.25, 0.25),
     spawn_ini,
   } as unknown as ServerObject;
 

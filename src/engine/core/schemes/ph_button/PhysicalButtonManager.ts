@@ -5,7 +5,7 @@ import { AbstractSchemeManager } from "@/engine/core/schemes";
 import { ISchemePhysicalButtonState } from "@/engine/core/schemes/ph_button/ISchemePhysicalButtonState";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { isActiveSection } from "@/engine/core/utils/object";
+import { isActiveSection } from "@/engine/core/utils/scheme";
 import { switchObjectSchemeToSection, trySwitchToAnotherSection } from "@/engine/core/utils/scheme/scheme_switch";
 import { ClientObject, Optional, TIndex, TRate, TTimestamp, Vector } from "@/engine/lib/types";
 

@@ -8,7 +8,7 @@ import { EvaluatorCorpseDetect } from "@/engine/core/schemes/corpse_detection/ev
 import { ISchemeCorpseDetectionState } from "@/engine/core/schemes/corpse_detection/ISchemeCorpseDetectionState";
 import { readIniBoolean } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { isLootableItem } from "@/engine/core/utils/object";
+import { isLootableItemSection } from "@/engine/core/utils/object";
 import { ActionPlanner, ClientObject, IniFile, Optional, TNumberId } from "@/engine/lib/types";
 import { EScheme, ESchemeType, TSection } from "@/engine/lib/types/scheme";
 
@@ -116,7 +116,7 @@ export class SchemeCorpseDetection extends AbstractScheme {
     }
 
     corpseObject.iterate_inventory((object, item) => {
-      if (isLootableItem(item)) {
+      if (isLootableItemSection(item.section())) {
         object.transfer_item(item, object);
       }
     }, corpseObject);

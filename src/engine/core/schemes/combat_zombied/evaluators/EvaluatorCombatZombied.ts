@@ -2,7 +2,7 @@ import { LuabindClass, property_evaluator } from "xray16";
 
 import { ISchemeCombatState } from "@/engine/core/schemes/combat";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { getCharacterCommunity } from "@/engine/core/utils/object";
+import { getObjectCommunity } from "@/engine/core/utils/object";
 import { communities } from "@/engine/lib/constants/communities";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -23,6 +23,6 @@ export class EvaluatorCombatZombied extends property_evaluator {
    * Check whether zombied combat should be applied.
    */
   public override evaluate(): boolean {
-    return getCharacterCommunity(this.object) === communities.zombied;
+    return getObjectCommunity(this.object) === communities.zombied;
   }
 }

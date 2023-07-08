@@ -2,7 +2,7 @@
 
 import { alife, game, level } from "xray16";
 
-import { registry } from "@/engine/core/database";
+import { isStoryObjectExisting, registry } from "@/engine/core/database";
 import { getPortableStoreValue, setPortableStoreValue } from "@/engine/core/database/portable_store";
 import { ENotificationDirection, NotificationManager } from "@/engine/core/managers/interface/notifications";
 import { TreasureManager } from "@/engine/core/managers/world/TreasureManager";
@@ -18,8 +18,7 @@ import {
   giveMoneyToActor,
   hasAlifeInfo,
   isObjectName,
-  isStoryObjectExisting,
-  npcHasItem,
+  objectHasItem,
   transferItemsFromActor,
   transferItemsToActor,
   transferMoneyFromActor,
@@ -1104,7 +1103,7 @@ extern("dialogs_zaton.zat_b30_transfer_percent", (firstSpeaker: ClientObject, se
  * todo;
  */
 extern("dialogs_zaton.zat_b30_npc_has_detector", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
-  return npcHasItem(getNpcSpeaker(firstSpeaker, secondSpeaker), detectors.detector_scientific);
+  return objectHasItem(getNpcSpeaker(firstSpeaker, secondSpeaker), detectors.detector_scientific);
 });
 
 /**

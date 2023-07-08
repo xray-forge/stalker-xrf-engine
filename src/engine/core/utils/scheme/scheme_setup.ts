@@ -4,7 +4,6 @@ import { registry } from "@/engine/core/database";
 import { EEvaluatorId, TAbstractSchemeConstructor } from "@/engine/core/schemes";
 import { assert } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { disableObjectInvulnerability } from "@/engine/core/utils/object/object_set";
 import { ActionBase, ClientObject, EScheme, ESchemeType, LuaArray } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -73,14 +72,15 @@ export function disableObjectBaseSchemes(object: ClientObject, schemeType: ESche
       registry.schemes.get(EScheme.ACTOR_DIALOGS).disable(object, EScheme.ACTOR_DIALOGS);
       registry.schemes.get(EScheme.COMBAT_IGNORE).disable(object, EScheme.COMBAT_IGNORE);
 
-      disableObjectInvulnerability(object);
+      object.invulnerable(false);
 
       return;
 
     case ESchemeType.MONSTER:
       registry.schemes.get(EScheme.MOB_COMBAT).disable(object, EScheme.MOB_COMBAT);
       registry.schemes.get(EScheme.COMBAT_IGNORE).disable(object, EScheme.COMBAT_IGNORE);
-      disableObjectInvulnerability(object);
+
+      object.invulnerable(false);
 
       return;
 

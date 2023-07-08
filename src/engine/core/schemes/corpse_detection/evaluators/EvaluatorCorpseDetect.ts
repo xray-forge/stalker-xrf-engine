@@ -3,7 +3,7 @@ import { level, LuabindClass, property_evaluator } from "xray16";
 import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { IReleaseDescriptor, ReleaseBodyManager } from "@/engine/core/managers/world/ReleaseBodyManager";
 import { ISchemeCorpseDetectionState } from "@/engine/core/schemes/corpse_detection";
-import { isLootableItem, isObjectWounded } from "@/engine/core/utils/object";
+import { isLootableItemSection, isObjectWounded } from "@/engine/core/utils/object";
 import { communities } from "@/engine/lib/constants/communities";
 import { ClientObject, Optional, TDistance, TNumberId, Vector } from "@/engine/lib/types";
 
@@ -46,7 +46,7 @@ export class EvaluatorCorpseDetect extends property_evaluator {
 
     let hasValuableLoot: boolean = false;
     const checkLoot = (npc: ClientObject, item: ClientObject) => {
-      if (isLootableItem(item)) {
+      if (isLootableItemSection(item.section())) {
         hasValuableLoot = true;
       }
     };

@@ -26,4 +26,8 @@ export const surgeConfig = {
     [levels.labx8]: true,
     [levels.jupiter_underground]: true,
   } as PartialRecord<TLevel, boolean>,
+  UNDERGROUND_LEVELS: {
+    [levels.labx8]: true,
+    [levels.jupiter_underground]: true,
+  } as PartialRecord<TLevel, boolean>,
 };

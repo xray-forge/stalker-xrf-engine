@@ -1,4 +1,5 @@
 import { jest } from "@jest/globals";
+import { rotation } from "xray16";
 
 import { ServerHumanObject } from "@/engine/lib/types";
 import { AbstractLuabindClass } from "@/fixtures/xray/mocks/objects/AbstractLuabindClass";
@@ -14,10 +15,11 @@ export class MockAlifeHumanStalker extends AbstractLuabindClass {
 /**
  * todo;
  */
-export function mockServerAlifeHumanStalker(
-  base: Partial<ServerHumanObject> = {
-    force_set_goodwill: jest.fn(),
-  }
-): ServerHumanObject {
-  return mockServerAlifeDynamicObjectVisual(base) as unknown as ServerHumanObject;
+export function mockServerAlifeHumanStalker(base: Partial<ServerHumanObject> = {}): ServerHumanObject {
+  return mockServerAlifeDynamicObjectVisual({
+    ...base,
+    community: base.community || jest.fn(() => "stalker"),
+    force_set_goodwill: base.force_set_goodwill || jest.fn(),
+    o_torso: base.o_torso || jest.fn(() => ({} as unknown as rotation)),
+  } as unknown as ServerHumanObject) as unknown as ServerHumanObject;
 }

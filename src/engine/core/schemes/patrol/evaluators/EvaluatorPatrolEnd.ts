@@ -2,7 +2,7 @@ import { LuabindClass, property_evaluator } from "xray16";
 
 import { ISchemePatrolState } from "@/engine/core/schemes/patrol";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { isActiveSection } from "@/engine/core/utils/object";
+import { isActiveSection } from "@/engine/core/utils/scheme";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

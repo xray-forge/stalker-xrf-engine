@@ -3,14 +3,13 @@ import { alife, clsid, game, level, patrol, system_ini } from "xray16";
 import { registry, SYSTEM_INI } from "@/engine/core/database";
 import { SimulationBoardManager } from "@/engine/core/managers/interaction/SimulationBoardManager";
 import { SmartTerrain, Squad } from "@/engine/core/objects";
-import { assertDefined } from "@/engine/core/utils/assertion";
+import { assert, assertDefined } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { isAmmoSection, isStalker } from "@/engine/core/utils/object/object_check";
+import { isStalker } from "@/engine/core/utils/object/object_class";
 import { getObjectPositioning } from "@/engine/core/utils/object/object_get";
+import { isAmmoSection } from "@/engine/core/utils/object/object_section";
 import { createEmptyVector } from "@/engine/core/utils/vector";
 import { TCaption } from "@/engine/lib/constants/captions";
-import { TInventoryItem } from "@/engine/lib/constants/items";
-import { TAmmoItem } from "@/engine/lib/constants/items/ammo";
 import {
   AlifeSimulator,
   AnyGameObject,
@@ -58,12 +57,12 @@ export function spawnItemsForObject(
 
   let itemsSpawned: TCount = 0;
 
+  const simulator: AlifeSimulator = alife();
   const [id, gvid, lvid, position] = getObjectPositioning(object);
 
   for (const it of $range(1, count)) {
     if (math.random(100) <= probability) {
-      // todo: Get simulator only once?
-      alife().create(itemSection, position, lvid, gvid, id);
+      simulator.create(itemSection, position, lvid, gvid, id);
       itemsSpawned += 1;
     }
   }
@@ -82,9 +81,9 @@ export function spawnItemsForObject(
  */
 export function spawnAmmoForObject(
   object: AnyGameObject,
-  ammoSection: TAmmoItem,
+  ammoSection: TSection,
   count: TCount,
-  probability: TProbability = 1
+  probability: TProbability = 100
 ): TCount {
   if (count < 1 || probability < 0) {
     return 0;
@@ -104,7 +103,7 @@ export function spawnAmmoForObject(
     while (count > countInBox) {
       alife().create_ammo(ammoSection, position, lvid, gvid, id, countInBox);
 
-      count = count - countInBox;
+      count -= countInBox;
       ammoSpawned += countInBox;
     }
 
@@ -116,31 +115,30 @@ export function spawnAmmoForObject(
 }
 
 /**
- * todo: description
+ * Spawn random items from provided lists for an object.
+ *
+ * @param object - target object to spawn items for
+ * @param itemSections - list of possible sections
+ * @param count - count of items to spawn
  */
-export function spawnItemsForObjectFromList(
+export function spawnItemsForObjectFromList<T extends TSection>(
   object: AnyGameObject,
-  itemSections: LuaArray<TInventoryItem>,
+  itemSections: LuaArray<T>,
   count: TCount = 1
 ): void {
-  if (count < 1) {
+  if (count < 1 || itemSections.length() < 1) {
     return;
   }
 
   for (const it of $range(1, count)) {
-    const section: TInventoryItem = itemSections.get(math.random(itemSections.length()));
-
-    if (isAmmoSection(section)) {
-      spawnAmmoForObject(object, section, 1);
-    } else {
-      spawnItemsForObject(object, section, 1);
-    }
+    spawnItemsForObject(object, itemSections.get(math.random(itemSections.length())), 1);
   }
 }
 
 /**
  * Get matching translation for section if it exists.
  *
+ * @param section - section name to check for translated name
  * @returns translated item name if translation is declared
  */
 export function getInventoryNameForItemSection(section: TSection): TLabel {
@@ -160,11 +158,7 @@ export function spawnSquadInSmart(section: Optional<TStringId>, smartTerrainName
   assertDefined(section, "Wrong squad identifier in spawnSquad function.");
   assertDefined(smartTerrainName, "Wrong squad name in spawnSquad function.");
 
-  assert(
-    SYSTEM_INI.section_exist(section),
-    "Wrong squad identifier '%s'. Squad doesnt exist in ini.",
-    tostring(section)
-  );
+  assert(SYSTEM_INI.section_exist(section), "Wrong squad identifier '%s'. Squad doesnt exist in ini.", section);
 
   const simulationBoardManager: SimulationBoardManager = SimulationBoardManager.getInstance();
   const smartTerrain: Optional<SmartTerrain> = simulationBoardManager.getSmartTerrainByName(smartTerrainName);
@@ -186,6 +180,11 @@ export function spawnSquadInSmart(section: Optional<TStringId>, smartTerrainName
 
 /**
  * Spawn new object.
+ *
+ * @param section - object section to spawn
+ * @param pathName - target pathname to spawn
+ * @param index - patrol path index
+ * @param yaw - spawned object yaw
  */
 export function spawnObject<T extends ServerObject>(
   section: Optional<TSection>,
@@ -195,9 +194,9 @@ export function spawnObject<T extends ServerObject>(
 ): T {
   logger.info("Spawn object:", section, pathName);
 
-  assertDefined(section, "Wrong spawn section for 'spawnObject' function '%s'.", tostring(section));
-  assertDefined(pathName, "Wrong spawn pathName for 'spawnObject' function '%s'.", tostring(pathName));
-  assert(level.patrol_path_exists(pathName), "Path %s doesnt exist. Function 'spawnObject'.", tostring(pathName));
+  assertDefined(section, "Wrong spawn section for 'spawnObject' function '%s'.", section);
+  assertDefined(pathName, "Wrong spawn pathName for 'spawnObject' function '%s'.", pathName);
+  assert(level.patrol_path_exists(pathName), "Path %s doesnt exist. Function 'spawnObject'.", pathName);
 
   const objectPatrol: Patrol = new patrol(pathName);
 
@@ -219,6 +218,10 @@ export function spawnObject<T extends ServerObject>(
 
 /**
  * Spawn new object in object (chest, stalker etc).
+ *
+ * @param section - item section to spawn
+ * @param targetId - id of object to spawn in
+ * @returns newly create server object
  */
 export function spawnObjectInObject<T extends ServerObject>(
   section: Optional<TSection>,
@@ -260,6 +263,7 @@ export function releaseObject(objectId: TNumberId): void {
  *
  * @param section - section to spawn
  * @param distance - distance to spawn from actor
+ * @returns newly created server object
  */
 export function spawnCreatureNearActor<T extends ServerObject>(section: TSection, distance: TDistance): T {
   const simulator: AlifeSimulator = alife();

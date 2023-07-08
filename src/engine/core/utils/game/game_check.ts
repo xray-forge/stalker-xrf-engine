@@ -1,4 +1,4 @@
-import { alife, device, game_graph, IsGameTypeSingle } from "xray16";
+import { alife, device, game_graph } from "xray16";
 
 import { AlifeSimulator, Optional } from "@/engine/lib/types";
 
@@ -9,19 +9,6 @@ import { AlifeSimulator, Optional } from "@/engine/lib/types";
  */
 export function isGameStarted(): boolean {
   return alife() !== null;
-}
-
-/**
- * todo
- */
-export function isSinglePlayerGame(): boolean {
-  if (alife === null || alife() !== null) {
-    return true;
-  } else if (IsGameTypeSingle === null || IsGameTypeSingle()) {
-    return true;
-  }
-
-  return false;
 }
 
 /**

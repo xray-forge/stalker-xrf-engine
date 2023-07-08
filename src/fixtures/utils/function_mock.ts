@@ -1,6 +1,7 @@
 import { expect, jest } from "@jest/globals";
+import { Mock } from "jest-mock";
 
-import { AnyCallable, AnyObject } from "@/engine/lib/types";
+import { AnyCallable } from "@/engine/lib/types";
 
 /**
  * Reset hidden mock functions.
@@ -8,6 +9,17 @@ import { AnyCallable, AnyObject } from "@/engine/lib/types";
 export function resetFunctionMock(callable: AnyCallable): void {
   if (jest.isMockFunction(callable)) {
     callable.mockReset();
+  } else {
+    throw new Error("Possibly not mocked function provided for mock reset.");
+  }
+}
+
+/**
+ * Reset hidden mock functions.
+ */
+export function getFunctionMock(callable: AnyCallable): Mock {
+  if (jest.isMockFunction(callable)) {
+    return callable;
   } else {
     throw new Error("Possibly not mocked function provided for mock reset.");
   }

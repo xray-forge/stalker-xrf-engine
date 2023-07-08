@@ -18,24 +18,45 @@ import { readIniConditionList, readIniString } from "@/engine/core/utils/ini/ini
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getObjectSmartTerrain } from "@/engine/core/utils/object/object_get";
 import { sendToNearestAccessibleVertex } from "@/engine/core/utils/object/object_location";
-import { resetObjectGroup, resetObjectInvulnerability, setObjectInfo } from "@/engine/core/utils/object/object_set";
-import {
-  initializeObjectCanSelectWeaponState,
-  initializeObjectTakeItemsEnabledState,
-  resetObjectIgnoreThreshold,
-} from "@/engine/core/utils/object/object_state";
 import { emitSchemeEvent } from "@/engine/core/utils/scheme/scheme_event";
 import { scriptReleaseMonster } from "@/engine/core/utils/scheme/scheme_monster";
+import {
+  initializeObjectCanSelectWeaponState,
+  initializeObjectGroup,
+  initializeObjectIgnoreThreshold,
+  initializeObjectInfo,
+  initializeObjectInvulnerability,
+  initializeObjectTakeItemsEnabledState,
+} from "@/engine/core/utils/scheme/scheme_object_initialization";
 import { NIL } from "@/engine/lib/constants/words";
 import { ClientObject, EScheme, ESchemeType, IniFile, Optional, TSection } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
+ * Check whether section is active in logics for an object.
+ *
+ * @param object - object to check
+ * @param section - logic section to check
+ * @returns whether object logics active section is same as provided
+ */
+export function isActiveSection(object: ClientObject, section?: Optional<TSection>): boolean {
+  assert(section, "'isActiveSection' error for '%s', no section defined: '%s'.", object.name(), section);
+
+  return section === registry.objects.get(object.id()).activeSection;
+}
+
+/**
  * Check if provided scheme state is active.
  * todo: Get only section, not whole state.
+ *
+ * @deprecated in favor of `isActiveSection`
+ *
+ * @param object - target client object
+ * @param state - target scheme state to check
+ * @returns whether provided base scheme state is active for an object
  */
-export function isSectionActive(object: ClientObject, state: IBaseSchemeState): boolean {
+export function isActiveSectionState(object: ClientObject, state: IBaseSchemeState): boolean {
   assertDefined(state.section, "Object %s '%s': state.section is null.", object.name(), state.section);
 
   return state.section === registry.objects.get(object.id()).activeSection;
@@ -189,12 +210,12 @@ export function enableObjectBaseSchemes(
 
       registry.schemes.get(EScheme.COMBAT).activate(object, ini, EScheme.COMBAT, combatSection);
 
-      resetObjectInvulnerability(object);
+      initializeObjectInvulnerability(object);
 
       const infoSection: Optional<TSection> = readIniString(ini, logicsSection, "info", false, "");
 
       if (infoSection !== null) {
-        setObjectInfo(object, ini, infoSection);
+        initializeObjectInfo(object, ini, infoSection);
       }
 
       const hitSection: Optional<string> = readIniString(ini, logicsSection, "on_hit", false, "");
@@ -255,7 +276,7 @@ export function enableObjectBaseSchemes(
         registry.schemes.get(EScheme.MOB_DEATH).activate(object, ini, EScheme.MOB_DEATH, deathSection);
       }
 
-      resetObjectInvulnerability(object);
+      initializeObjectInvulnerability(object);
 
       const hitSection: Optional<TSection> = readIniString(ini, logicsSection, "on_hit", false, "");
 
@@ -326,9 +347,9 @@ export function resetObjectGenericSchemesOnSectionSwitch(
 
       MapDisplayManager.getInstance().updateObjectMapSpot(object, scheme, state, section);
 
-      resetObjectIgnoreThreshold(object, scheme, state, section);
-      resetObjectInvulnerability(object);
-      resetObjectGroup(object, state.ini, section);
+      initializeObjectIgnoreThreshold(object, scheme, state, section);
+      initializeObjectInvulnerability(object);
+      initializeObjectGroup(object, state.ini, section);
       initializeObjectTakeItemsEnabledState(object, scheme, state, section);
       initializeObjectCanSelectWeaponState(object, scheme, state, section);
       ObjectRestrictionsManager.activateForObject(object, section);
@@ -345,7 +366,7 @@ export function resetObjectGenericSchemesOnSectionSwitch(
 
       registry.schemes.get(EScheme.COMBAT_IGNORE).reset(object, scheme, state, section);
       registry.schemes.get(EScheme.HEAR).reset(object, scheme, state, section);
-      resetObjectInvulnerability(object);
+      initializeObjectInvulnerability(object);
       ObjectRestrictionsManager.activateForObject(object, section);
 
       return;

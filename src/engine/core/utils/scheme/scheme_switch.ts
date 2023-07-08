@@ -6,7 +6,7 @@ import { abort, assert } from "@/engine/core/utils/assertion";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/ini_config";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { isActorSeenByObject } from "@/engine/core/utils/object/object_check";
-import { getDistanceBetweenObjects, isObjectInZone } from "@/engine/core/utils/object/object_location";
+import { getDistanceBetween, isObjectInZone } from "@/engine/core/utils/object/object_location";
 import { emitSchemeEvent } from "@/engine/core/utils/scheme/scheme_event";
 import { activateSchemeBySection } from "@/engine/core/utils/scheme/scheme_logic";
 import { NIL } from "@/engine/lib/constants/words";
@@ -42,17 +42,17 @@ const SCHEME_LOGIC_SWITCH: Record<
   [NIL]: () => abort("Error: 'scheme/switch': unknown condition encountered."),
   [ESchemeCondition.ON_ACTOR_DISTANCE_LESS_THAN]: (actor, object, state, logic) =>
     isActorSeenByObject(object) &&
-    getDistanceBetweenObjects(actor, object) <= (logic.v1 as TDistance) &&
+    getDistanceBetween(actor, object) <= (logic.v1 as TDistance) &&
     switchObjectSchemeToSection(object, state.ini, pickSectionFromCondList(actor, object, logic.condlist)),
   [ESchemeCondition.ON_ACTOR_DISTANCE_LESS_THAN_NOT_VISIBLE]: (actor, object, state, logic) =>
-    getDistanceBetweenObjects(actor, object) <= (logic.v1 as TDistance) &&
+    getDistanceBetween(actor, object) <= (logic.v1 as TDistance) &&
     switchObjectSchemeToSection(object, state.ini, pickSectionFromCondList(actor, object, logic.condlist)),
   [ESchemeCondition.ON_ACTOR_DISTANCE_GREATER_THAN]: (actor, object, state, logic) =>
     isActorSeenByObject(object) &&
-    getDistanceBetweenObjects(actor, object) > (logic.v1 as TDistance) &&
+    getDistanceBetween(actor, object) > (logic.v1 as TDistance) &&
     switchObjectSchemeToSection(object, state.ini, pickSectionFromCondList(actor, object, logic.condlist)),
   [ESchemeCondition.ON_ACTOR_DISTANCE_GREATER_THAN_NOT_VISIBLE]: (actor, object, state, logic) =>
-    getDistanceBetweenObjects(actor, object) > (logic.v1 as TDistance) &&
+    getDistanceBetween(actor, object) > (logic.v1 as TDistance) &&
     switchObjectSchemeToSection(object, state.ini, pickSectionFromCondList(actor, object, logic.condlist)),
   [ESchemeCondition.ON_SIGNAL]: (actor, object, state, logic) =>
     (state.signals?.get(logic.v1 as TName) &&

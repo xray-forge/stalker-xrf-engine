@@ -3,6 +3,7 @@ import { alife, game, hit, level } from "xray16";
 import {
   closeLoadMarker,
   closeSaveMarker,
+  isStoryObject,
   openLoadMarker,
   openSaveMarker,
   registry,
@@ -25,13 +26,7 @@ import { createAutoSave } from "@/engine/core/utils/game/game_save";
 import { readTimeFromPacket, writeTimeToPacket } from "@/engine/core/utils/game/game_time";
 import { parseConditionsList, pickSectionFromCondList, TConditionList } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import {
-  isArtefact,
-  isImmuneToSurge,
-  isObjectOnLevel,
-  isStoryObject,
-  isSurgeEnabledOnLevel,
-} from "@/engine/core/utils/object";
+import { isArtefact, isImmuneToSurgeObject, isObjectOnLevel, isSurgeEnabledOnLevel } from "@/engine/core/utils/object";
 import { disableInfo, giveInfo, hasAlifeInfo } from "@/engine/core/utils/object/object_info_portion";
 import { createVector } from "@/engine/core/utils/vector";
 import { surgeConfig } from "@/engine/lib/configs/SurgeConfig";
@@ -490,7 +485,7 @@ export class SurgeManager extends AbstractCoreManager {
     logger.info("Releasing squads:", simulationBoardManager.getSquads().length());
 
     for (const [squadId, squad] of simulationBoardManager.getSquads()) {
-      if (isObjectOnLevel(squad, levelName) && !isImmuneToSurge(squad) && !isStoryObject(squad)) {
+      if (isObjectOnLevel(squad, levelName) && !isImmuneToSurgeObject(squad) && !isStoryObject(squad)) {
         for (const member of squad.squad_members()) {
           if (!isStoryObject(member.object)) {
             if (this.canReleaseSquad(squad)) {
@@ -571,7 +566,7 @@ export class SurgeManager extends AbstractCoreManager {
     const activeCovers: LuaArray<ClientObject> = this.getCoverObjects();
 
     for (const [squadId, squad] of simulationBoardManager.getSquads()) {
-      if (isObjectOnLevel(squad, levelName) && !isImmuneToSurge(squad)) {
+      if (isObjectOnLevel(squad, levelName) && !isImmuneToSurgeObject(squad)) {
         for (const member of squad.squad_members()) {
           let isInCover: boolean = false;
 

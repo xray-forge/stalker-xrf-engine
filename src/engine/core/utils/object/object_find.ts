@@ -19,7 +19,11 @@ import {
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * Get nearest to actor server object by pattern or just anything near.
+ * Get nearest to actor server object.
+ *
+ * @param pattern - callback checker, name checker or class id checker
+ * @param searchOffline - should search for offline object or include only online objects
+ * @returns list of matching client objects
  */
 export function getNearestServerObject(
   pattern: Optional<TName | TClassId | ((object: ServerObject) => boolean)> = null,
@@ -36,13 +40,15 @@ export function getNearestServerObject(
     return null;
   }
 
+  const alifeSwitchDistanceSqr: TDistance = simulator.switch_distance() * simulator.switch_distance();
+
   simulator.iterate_objects((serverObject: ServerObject): void => {
     if (serverObject.parent_id !== 0) {
       let isMatch: boolean = false;
 
       // Filter objects if pattern is provided.
       if (hasFilter) {
-        if (type(pattern) === "string" && string.find(serverObject.name(), pattern as string)) {
+        if (type(pattern) === "string" && string.find(serverObject.name(), pattern as string)[0]) {
           isMatch = true;
         } else if (type(pattern) === "number" && pattern === serverObject.clsid()) {
           isMatch = true;
@@ -53,51 +59,33 @@ export function getNearestServerObject(
         isMatch = true;
       }
 
-      if (isMatch) {
+      // Verify objects are matching and on same level.
+      if (isMatch && areObjectsOnSameLevel(serverObject, simulator.object(0) as ServerObject)) {
         const distanceToSqr: TDistance = serverObject.position.distance_to_sqr(actorPosition);
 
-        if (!nearestDistance) {
-          nearestDistance = distanceToSqr;
-          nearest = serverObject;
-        } else if (distanceToSqr < nearestDistance) {
-          nearestDistance = distanceToSqr;
-          nearest = serverObject;
+        // Validate offline check when searching objects.
+        if (searchOffline || (distanceToSqr as unknown as TDistance) <= alifeSwitchDistanceSqr) {
+          if (nearestDistance === null) {
+            nearestDistance = distanceToSqr;
+            nearest = serverObject;
+          } else if (distanceToSqr < nearestDistance) {
+            nearestDistance = distanceToSqr;
+            nearest = serverObject;
+          }
         }
       }
     }
   });
 
-  if (nearest) {
-    if (areObjectsOnSameLevel(nearest, simulator.object(0) as ServerObject)) {
-      if (
-        searchOffline ||
-        (nearestDistance as unknown as TDistance) <= simulator.switch_distance() * simulator.switch_distance()
-      ) {
-        return nearest;
-      }
-    }
-  }
-
-  return null;
-}
-
-/**
- * Get nearest to actor object by pattern or just anything near.
- */
-export function getNearestClientObject(
-  pattern: Optional<TName | TClassId | ((object: ServerObject) => boolean)> = null
-): Optional<ClientObject> {
-  const nearestServerObject: Optional<ServerObject> = getNearestServerObject(pattern, false);
-
-  if (nearestServerObject) {
-    return level.object_by_id(nearestServerObject.id);
-  } else {
-    return null;
-  }
+  return nearest;
 }
 
 /**
  * Get list of server objects by pattern/predicate.
+ *
+ * @param pattern - callback checker, name checker or class id checker
+ * @param searchOffline - should search for offline objects or online state is required
+ * @returns list of matching server objects
  */
 export function getServerObjects<T extends ServerObject>(
   pattern: Optional<TName | TClassId | ((object: ServerObject) => boolean)> = null,
@@ -116,7 +104,7 @@ export function getServerObjects<T extends ServerObject>(
 
       // Filter objects if pattern is provided.
       if (pattern !== null) {
-        if (type(pattern) === "string" && string.find(serverObject.name(), pattern as string)) {
+        if (type(pattern) === "string" && string.find(serverObject.name(), pattern as string)[0]) {
           isMatch = true;
         } else if (type(pattern) === "number" && pattern === serverObject.clsid()) {
           isMatch = true;
@@ -138,7 +126,61 @@ export function getServerObjects<T extends ServerObject>(
 }
 
 /**
+ * Get nearest to actor client object.
+ *
+ * @param pattern - callback checker, name checker or class id checker
+ * @returns list of matching client objects
+ */
+export function getNearestClientObject(
+  pattern: Optional<TName | TClassId | ((object: ClientObject) => boolean)> = null
+): Optional<ClientObject> {
+  const actorPosition: Vector = registry.actor.position();
+  const hasFilter: boolean = pattern !== null;
+
+  let nearestDistance: Optional<TDistance> = null;
+  let nearest: Optional<ClientObject> = null;
+
+  level.iterate_online_objects((object: ClientObject): void => {
+    if (object.parent() !== registry.actor) {
+      let isMatch: boolean = false;
+
+      // Filter objects if pattern is provided.
+      if (hasFilter) {
+        if (type(pattern) === "string" && string.find(object.name(), pattern as string)[0]) {
+          isMatch = true;
+        } else if (type(pattern) === "number" && pattern === object.clsid()) {
+          isMatch = true;
+        } else if (type(pattern) === "function" && (pattern as AnyCallable)(object)) {
+          isMatch = true;
+        }
+      } else {
+        isMatch = true;
+      }
+
+      // Verify objects are matching and on same level.
+      if (isMatch) {
+        const distanceToSqr: TDistance = object.position().distance_to_sqr(actorPosition);
+
+        // Validate offline check when searching objects.
+        if (nearestDistance === null) {
+          nearestDistance = distanceToSqr;
+          nearest = object;
+        } else if (distanceToSqr < nearestDistance) {
+          nearestDistance = distanceToSqr;
+          nearest = object;
+        }
+      }
+    }
+  });
+
+  return nearest;
+}
+
+/**
  * Get list of client objects by pattern/predicate.
+ *
+ * @param pattern - callback checker, name checker or class id checker
+ * @returns list of matching client objects
  */
 export function getClientObjects(
   pattern: Optional<TName | TClassId | ((object: ClientObject) => boolean)> = null
@@ -151,7 +193,7 @@ export function getClientObjects(
 
       // Filter objects if pattern is provided.
       if (pattern !== null) {
-        if (type(pattern) === "string" && string.find(clientObject.name(), pattern as string)) {
+        if (type(pattern) === "string" && string.find(clientObject.name(), pattern as string)[0]) {
           isMatch = true;
         } else if (type(pattern) === "number" && pattern === clientObject.clsid()) {
           isMatch = true;
