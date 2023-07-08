@@ -9,10 +9,18 @@ import {
   primaryMapSpotObjects,
   sleepZones,
 } from "@/engine/core/managers/interface/MapDisplayManagerObjects";
+import { Squad } from "@/engine/core/objects";
 import { parseConditionsList, pickSectionFromCondList, readIniString, TConditionList } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
+import { isSquadMonsterCommunity } from "@/engine/core/utils/object";
 import { getAnomalyArtefacts } from "@/engine/core/utils/object/object_anomaly";
 import { hasAlifeInfo } from "@/engine/core/utils/object/object_info_portion";
+import {
+  ERelation,
+  getSquadMembersRelationToActor,
+  getSquadMembersRelationToActorSafe,
+} from "@/engine/core/utils/relation";
+import { gameConfig } from "@/engine/lib/configs/GameConfig";
 import { captions } from "@/engine/lib/constants/captions/captions";
 import { infoPortions } from "@/engine/lib/constants/info_portions/info_portions";
 import { levels } from "@/engine/lib/constants/levels";
@@ -38,11 +46,11 @@ import {
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Manager handling display of objects on game map in PDA.
  */
 export class MapDisplayManager extends AbstractCoreManager {
   public static readonly DISTANCE_TO_SHOW_MAP_MARKS: TDistance = 75;
-  public static readonly UPDATES_THROTTLE: TDuration = 10_000;
+  public static readonly UPDATES_THROTTLE: TDuration = 5_000;
 
   public isInitialized: boolean = false;
   public lastUpdateAt: TTimestamp = 0;
@@ -60,7 +68,12 @@ export class MapDisplayManager extends AbstractCoreManager {
   }
 
   /**
-   * todo: Description.
+   * Update map display for game object.
+   *
+   * @param object - target client object
+   * @param scheme - active logic scheme
+   * @param state - target object registry state
+   * @param section - active logic section
    */
   public updateObjectMapSpot(
     object: ClientObject,
@@ -136,7 +149,10 @@ export class MapDisplayManager extends AbstractCoreManager {
   }
 
   /**
-   * todo: Description.
+   * Remove object map spot display.
+   *
+   * @param object - target client object
+   * @param state - target object registry staste
    */
   public removeObjectMapSpot(object: ClientObject, state: IRegistryObjectState): void {
     logger.info("Remove object spot:", object.name());
@@ -175,6 +191,117 @@ export class MapDisplayManager extends AbstractCoreManager {
         level.map_remove_object_spot(objectId, descriptor.map_location);
       }
     }
+  }
+
+  /**
+   * Update map spot for squad.
+   *
+   * @param squad - target squad server object
+   */
+  public updateSquadMapSpot(squad: Squad): void {
+    const squadCommanderId: TNumberId = squad.commander_id();
+
+    if (squad.isMapDisplayHidden || squadCommanderId === null) {
+      return this.removeSquadMapSpot(squad);
+    }
+
+    if (squad.currentMapSpotId !== squadCommanderId) {
+      this.removeSquadMapSpot(squad);
+      squad.currentMapSpotId = squadCommanderId;
+      this.updateSquadMapSpot(squad);
+
+      return;
+    }
+
+    if (
+      level.map_has_object_spot(squadCommanderId, mapMarks.ui_pda2_trader_location) !== 0 ||
+      level.map_has_object_spot(squadCommanderId, mapMarks.ui_pda2_mechanic_location) !== 0 ||
+      level.map_has_object_spot(squadCommanderId, mapMarks.ui_pda2_scout_location) !== 0 ||
+      level.map_has_object_spot(squadCommanderId, mapMarks.ui_pda2_quest_npc_location) !== 0 ||
+      level.map_has_object_spot(squadCommanderId, mapMarks.ui_pda2_medic_location) !== 0
+    ) {
+      squad.isMapDisplayHidden = true;
+
+      return;
+    }
+
+    let spot: Optional<TLabel> = null;
+
+    /**
+     * In case of debug use map display like in clear sky.
+     */
+    if (gameConfig.DEBUG.IS_SIMULATION_DEBUG_ENABLED) {
+      if (isSquadMonsterCommunity(squad.faction)) {
+        spot = mapMarks.alife_presentation_squad_monster_debug;
+      } else {
+        const relation: ERelation = getSquadMembersRelationToActorSafe(squad);
+
+        switch (relation) {
+          case ERelation.FRIEND:
+            spot = mapMarks.alife_presentation_squad_friend_debug;
+            break;
+          case ERelation.NEUTRAL:
+            spot = mapMarks.alife_presentation_squad_neutral_debug;
+            break;
+          case ERelation.ENEMY:
+            spot = mapMarks.alife_presentation_squad_enemy_debug;
+            break;
+        }
+      }
+      /**
+       * Display only minimap marks.
+       * Do not display for offline objects.
+       */
+    } else if (!isSquadMonsterCommunity(squad.faction)) {
+      const relation: Optional<ERelation> = getSquadMembersRelationToActor(squad);
+
+      switch (relation) {
+        case ERelation.FRIEND:
+          spot = mapMarks.alife_presentation_squad_friend;
+          break;
+
+        case ERelation.NEUTRAL:
+          spot = mapMarks.alife_presentation_squad_neutral;
+          break;
+      }
+    }
+
+    if (spot) {
+      const hint: TLabel = squad.getMapDisplayHint();
+      const hasMapSpot: boolean = level.map_has_object_spot(squad.currentMapSpotId, spot) === 1;
+
+      if (spot === squad.currentMapSpotSection && hasMapSpot) {
+        return level.map_change_spot_hint(squad.currentMapSpotId, spot, hint);
+      }
+
+      if (squad.currentMapSpotSection === null || !hasMapSpot) {
+        level.map_add_object_spot(squad.currentMapSpotId, spot, hint);
+      } else {
+        level.map_remove_object_spot(squad.currentMapSpotId, squad.currentMapSpotSection);
+        level.map_add_object_spot(squad.currentMapSpotId, spot, hint);
+      }
+
+      squad.currentMapSpotSection = spot;
+    } else if (squad.currentMapSpotSection) {
+      level.map_remove_object_spot(squad.currentMapSpotId, squad.currentMapSpotSection);
+      squad.currentMapSpotSection = null;
+    }
+  }
+
+  /**
+   * Remove map spot for squad.
+   *
+   * @param squad - target squad server object
+   */
+  public removeSquadMapSpot(squad: Squad): void {
+    if (squad.currentMapSpotId === null || squad.currentMapSpotSection === null) {
+      return;
+    }
+
+    level.map_remove_object_spot(squad.currentMapSpotId, squad.currentMapSpotSection);
+
+    squad.currentMapSpotId = null;
+    squad.currentMapSpotSection = null;
   }
 
   /**
@@ -259,7 +386,7 @@ export class MapDisplayManager extends AbstractCoreManager {
   }
 
   /**
-   * todo: Description.
+   * Handle update tick for map display.
    */
   public override update(): void {
     const now: TTimestamp = time_global();
