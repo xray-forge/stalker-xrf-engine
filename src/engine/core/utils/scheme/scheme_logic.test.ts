@@ -215,7 +215,7 @@ describe("'scheme logic' utils", () => {
       () =>
         ({
           section: "patrol@test",
-        } as ISmartTerrainJob)
+        }) as ISmartTerrainJob
     );
 
     const ini: IniFile = mockIniFile("test.ltx", {

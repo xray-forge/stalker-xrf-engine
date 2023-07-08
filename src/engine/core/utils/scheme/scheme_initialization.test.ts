@@ -138,7 +138,7 @@ describe("'scheme initialization' utils", () => {
       jest.spyOn(it, "reset").mockImplementation(() => {});
     });
 
-    jest.spyOn(smartTerrain, "getJob").mockImplementation(() => ({ ini_path: "job_test.ltx" } as ISmartTerrainJob));
+    jest.spyOn(smartTerrain, "getJob").mockImplementation(() => ({ ini_path: "job_test.ltx" }) as ISmartTerrainJob);
 
     resetFunctionMock(alife().create);
 

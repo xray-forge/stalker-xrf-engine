@@ -21,8 +21,11 @@ export enum ETaskStatus {
 /**
  * Set of possible task states, where key is state and value is true / null.
  */
-export const POSSIBLE_STATES: Record<ETaskState, boolean> = Object.values(ETaskState).reduce((acc, it) => {
-  acc[it] = true;
+export const POSSIBLE_STATES: Record<ETaskState, boolean> = Object.values(ETaskState).reduce(
+  (acc, it) => {
+    acc[it] = true;
 
-  return acc;
-}, {} as Record<ETaskState, boolean>);
+    return acc;
+  },
+  {} as Record<ETaskState, boolean>
+);
