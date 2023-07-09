@@ -12,17 +12,27 @@ export function mockLuaExtensions(): void {
    * For jest env mock casting.
    */
   global.$fromArray = <T>(array: Array<T>): LuaArray<T> => {
-    const result: MockLuaTable<number, T> = new MockLuaTable();
-
-    array.forEach((it, index) => result.set(index + 1, it));
-
-    return result as unknown as LuaArray<T>;
+    return MockLuaTable.fromArray(array) as unknown as LuaArray<T>;
   };
 
   /*
    * For jest env mock casting.
    */
   global.$fromObject = <K extends string | number, T>(record: Record<K, T>): LuaTable<K, T> => {
-    return new MockLuaTable(Object.entries(record)) as unknown as LuaTable<K, T>;
+    return MockLuaTable.fromObject(record) as unknown as LuaTable<K, T>;
+  };
+
+  /*
+   * For jest env mock casting.
+   */
+  global.$fromLuaTable = <K extends string | number, T>(record: LuaTable<K, T>): Record<K, T> => {
+    return MockLuaTable.mockToObject(record);
+  };
+
+  /*
+   * For jest env mock casting.
+   */
+  global.$fromLuaArray = <T>(array: LuaTable<number, T>): Array<T> => {
+    return MockLuaTable.mockToArray(array);
   };
 }

@@ -11,9 +11,9 @@ declare namespace lfs {
   function symlinkattributes(): void;
   function chdir(path: string): void;
   function unlock(path: string): void;
-  function dir(path: string): LuaIterator<unknown, unknown>;
+  function dir(path: string): LuaMultiReturn<[LuaIterable<string, unknown>, { next: () => string | null }]>;
   function rmdir(path: string): void;
   function link(old: string, next: string): void;
-  function attributes(filepath: string): LuaTable;
+  function attributes(filepath: string): LuaTable | null;
   function setmode(): void;
 }

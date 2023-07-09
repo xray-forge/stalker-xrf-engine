@@ -1,6 +1,8 @@
 /**
  * Global-level configuration for configs/scripts/forms.
  * Used to define some dev flags/features.
+ *
+ * todo: Move some fields to ltx file?
  */
 export const gameConfig = {
   /**
@@ -54,4 +56,8 @@ export const gameConfig = {
    * Game save preview file extension by default.
    */
   GAME_SAVE_PREVIEW_EXTENSION: ".dds",
+  /**
+   * Game save extensions order file name.
+   */
+  GAME_SAVE_EXTENSIONS_ORDER_FILE: "extensions_order.scop",
 };

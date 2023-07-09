@@ -27,8 +27,6 @@ export class AnomalyFieldBinder extends object_binder {
   }
 
   public override net_destroy(): void {
-    logger.info("Net destroy:", this.object.name());
-
     unregisterAnomalyField(this);
 
     super.net_destroy();

@@ -582,7 +582,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
     const object: Optional<ServerCreatureObject> = alife().object(memberId);
 
     if (object !== null) {
-      logger.info("Assign squad member to squad:", this.name(), smartTerrain?.name(), object.name());
+      // logger.info("Assign squad member to squad:", this.name(), smartTerrain?.name(), object.name());
 
       if (object.m_smart_terrain_id === this.assignedSmartTerrainId) {
         return;
@@ -610,9 +610,9 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
    */
   public assignSmartTerrain(smartTerrain: Optional<SmartTerrain>): void {
     if (smartTerrain) {
-      logger.info("Assign squad to smart terrain:", this.name(), smartTerrain.name());
+      // logger.info("Assign squad to smart terrain:", this.name(), smartTerrain.name());
     } else {
-      logger.info("Unassign squad from smart:", this.name());
+      // logger.info("Unassign squad from smart:", this.name());
     }
 
     const oldSmartId: TNumberId = this.assignedSmartTerrainId!;

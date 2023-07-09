@@ -12,6 +12,7 @@ export const CLI_CONFIG: string = path.resolve(CLI_DIR, "config.json");
 
 export const GAME_DATA_LTX_CONFIGS_DIR: string = path.resolve(CLI_DIR, config.build.configs);
 export const GAME_DATA_SCRIPTS_DIR: string = path.resolve(CLI_DIR, config.build.scripts);
+export const GAME_DATA_EXTENSIONS_DIR: string = path.resolve(CLI_DIR, config.build.extensions);
 export const GAME_DATA_TRANSLATIONS_DIR: string = path.resolve(CLI_DIR, config.build.translations);
 export const GAME_DATA_UI_DIR: string = path.resolve(CLI_DIR, config.build.ui);
 

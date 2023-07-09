@@ -281,7 +281,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
    * Unregister provided object from current smart.
    */
   public override unregister_npc(object: ServerCreatureObject): void {
-    logger.info("Unregister object:", this.name(), object.name(), this.population);
+    // logger.info("Unregister object:", this.name(), object.name(), this.population);
 
     this.population -= 1;
 

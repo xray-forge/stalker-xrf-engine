@@ -1,6 +1,7 @@
 import { bit_or, CSavedGameWrapper, FS, game, getFS, IsImportantSave, user_name } from "xray16";
 
 import { assert } from "@/engine/core/utils/assertion";
+import { loadObjectFromFile, saveObjectToFile } from "@/engine/core/utils/fs";
 import { executeConsoleCommand } from "@/engine/core/utils/game/game_console";
 import { gameTimeToString } from "@/engine/core/utils/game/game_time";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -66,17 +67,7 @@ export function saveDynamicGameSave(filename: TName, data: AnyObject): void {
   const saveFile: TPath =
     savesFolder + string.lower(string.sub(filename, 0, -6)) + gameConfig.GAME_SAVE_DYNAMIC_EXTENSION;
 
-  // Make sure saves directory exists.
-  lfs.mkdir(savesFolder);
-
-  const [existingSave] = io.open(saveFile, "wb");
-
-  if (!existingSave || io.type(existingSave) !== "file") {
-    return logger.error("Cannot write to save path:", saveFile);
-  }
-
-  existingSave.write(marshal.encode(data));
-  existingSave.close();
+  saveObjectToFile(savesFolder, saveFile, data);
 }
 
 /**
@@ -88,23 +79,7 @@ export function saveDynamicGameSave(filename: TName, data: AnyObject): void {
 export function loadDynamicGameSave<T extends AnyObject>(filename: TName): Optional<T> {
   const saveFile: TPath = string.sub(filename, 0, -6) + gameConfig.GAME_SAVE_DYNAMIC_EXTENSION;
 
-  const [existingSave] = io.open(saveFile, "rb");
-
-  if (!existingSave || io.type(existingSave) !== "file") {
-    return null;
-  }
-
-  const data: Optional<string> = existingSave.read("*all" as unknown as "*a") as Optional<string>;
-
-  existingSave.close();
-
-  if (data && data !== "") {
-    return marshal.decode<T>(data);
-  } else {
-    logger.warn("Was not able to read dynamic game save:", filename);
-
-    return null;
-  }
+  return loadObjectFromFile(saveFile);
 }
 
 /**

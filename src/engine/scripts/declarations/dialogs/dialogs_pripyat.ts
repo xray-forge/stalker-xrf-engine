@@ -21,7 +21,7 @@ import { questItems } from "@/engine/lib/constants/items/quest_items";
 import { weapons } from "@/engine/lib/constants/items/weapons";
 import { AnyCallable, ClientObject, LuaArray, TCount } from "@/engine/lib/types";
 
-const log: LuaLogger = new LuaLogger($filename);
+const logger: LuaLogger = new LuaLogger($filename);
 
 extern("dialogs_pripyat", {});
 

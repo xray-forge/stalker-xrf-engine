@@ -8,6 +8,8 @@ import { AnyArgs, AnyObject, TLabel } from "@/engine/lib/types";
 /**
  * Lua logger class.
  * Stores prefix, enabled-disabled flags and uses shared statics to print data.
+ *
+ * Note: if building in optimized mode, game logging is stripped from lua scripts and does not make it to the code.
  */
 export class LuaLogger {
   public readonly prefix: TLabel;

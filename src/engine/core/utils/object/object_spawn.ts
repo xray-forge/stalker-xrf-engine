@@ -229,12 +229,12 @@ export function spawnObjectInObject<T extends ServerObject>(
 ): T {
   logger.info("Spawn in object:", section, targetId);
 
-  assertDefined(section, "Wrong spawn section for 'spawnObjectInObject' function '%s'.", tostring(section));
-  assertDefined(targetId, "Wrong spawn targetId for 'spawnObjectInObject' function '%s'.", tostring(section));
+  assertDefined(section, "Wrong spawn section for 'spawnObjectInObject' function '%s'.", section);
+  assertDefined(targetId, "Wrong spawn targetId for 'spawnObjectInObject' function '%s'.", section);
 
   const box: Optional<ServerObject> = alife().object(targetId);
 
-  assertDefined(box, "Wrong spawn target object for 'spawnObjectInObject' function '%s'.", tostring(section));
+  assertDefined(box, "Wrong spawn target object for 'spawnObjectInObject' function '%s'.", section);
 
   return alife().create(section, createEmptyVector(), 0, 0, targetId);
 }
