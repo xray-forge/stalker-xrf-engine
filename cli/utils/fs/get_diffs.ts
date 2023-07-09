@@ -31,10 +31,16 @@ export interface IDiffs {
   deletions: IDiff;
 }
 
+/**
+ * todo;
+ */
 function getTime(dateOrDateStr: Date | string): number {
   return typeof dateOrDateStr === "string" ? Date.parse(dateOrDateStr) : dateOrDateStr.getTime();
 }
 
+/**
+ * todo;
+ */
 async function ensureDirAccess(directory: string): Promise<void> {
   try {
     await fsp.access(directory);
@@ -43,6 +49,11 @@ async function ensureDirAccess(directory: string): Promise<void> {
   }
 }
 
+/**
+ * todo;
+ *
+ * @yields - files from directory in a recursive way
+ */
 async function* getFiles(directory: string): AsyncGenerator<string> {
   const dirents = await fsp.readdir(directory, { withFileTypes: true });
 
@@ -54,6 +65,9 @@ async function* getFiles(directory: string): AsyncGenerator<string> {
   }
 }
 
+/**
+ * todo;
+ */
 async function getFileStats(directory: string, options): Promise<FileStats> {
   const dir = path.resolve(directory);
 
@@ -85,6 +99,9 @@ async function getFileStats(directory: string, options): Promise<FileStats> {
   return fileStats;
 }
 
+/**
+ * todo;
+ */
 export async function getDiffs(base: FilePathMap, target: FilePathMap, options?: DiffOptions): Promise<IDiffs> {
   const { exclusions = [], compareSizes = true } = options || {};
   const statsOptions = { exclusions };

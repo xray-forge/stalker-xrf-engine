@@ -6,9 +6,7 @@ import * as path from "path";
  */
 export async function readDirContentFlat(dirPath: string, container: Array<string> = []): Promise<Array<string>> {
   await Promise.all(
-    (
-      await fs.readdir(dirPath, { withFileTypes: true })
-    ).map(async (dirent) => {
+    (await fs.readdir(dirPath, { withFileTypes: true })).map(async (dirent) => {
       const it = path.join(dirPath, dirent.name);
 
       if (dirent.isDirectory()) {

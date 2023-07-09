@@ -17,9 +17,6 @@ interface IBuildMetaParams {
 
 /**
  * Step to collect metadata in a single file with timing metrics.
- *
- * @param meta - build meta information to save
- * @param timeTracker - build time tracker with performance metrics
  */
 export async function buildMeta({ meta, timeTracker }: IBuildMetaParams): Promise<void> {
   log.info(blueBright("Build metadata"));

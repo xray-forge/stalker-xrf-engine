@@ -5,12 +5,14 @@ import {
   closeSaveMarker,
   destroyPortableStore,
   initializePortableStore,
+  loadPortableStore,
+  openLoadMarker,
   openSaveMarker,
+  registerActor,
   registry,
+  savePortableStore,
+  unregisterActor,
 } from "@/engine/core/database";
-import { registerActor, unregisterActor } from "@/engine/core/database/actor";
-import { loadPortableStore, savePortableStore } from "@/engine/core/database/portable_store";
-import { openLoadMarker } from "@/engine/core/database/save_markers";
 import { updateSimulationObjectAvailability } from "@/engine/core/database/simulation";
 import { SaveManager } from "@/engine/core/managers/base/SaveManager";
 import { EventsManager } from "@/engine/core/managers/events/EventsManager";
@@ -144,16 +146,14 @@ export class ActorBinder extends object_binder {
   }
 
   public override save(packet: NetPacket): void {
-    logger.info("Save");
-
     openSaveMarker(packet, ActorBinder.__name);
 
     super.save(packet);
 
     savePortableStore(this.object, packet);
-    SaveManager.getInstance().save(packet);
+    SaveManager.getInstance().clientSave(packet);
 
-    // todo: Move out deimos logic.
+    // todo: Move out deimos logic. Probably store in pstore?
     let isDeimosExisting: boolean = false;
 
     for (const [id, zone] of registry.zones) {
@@ -175,8 +175,6 @@ export class ActorBinder extends object_binder {
   }
 
   public override load(reader: Reader): void {
-    logger.info("Load");
-
     this.isFirstUpdatePerformed = false;
 
     openLoadMarker(reader, ActorBinder.__name);
@@ -184,7 +182,7 @@ export class ActorBinder extends object_binder {
     super.load(reader);
 
     loadPortableStore(this.object, reader);
-    SaveManager.getInstance().load(reader);
+    SaveManager.getInstance().clientLoad(reader);
 
     // todo: Move out deimos logic.
     const hasDeimos: boolean = reader.r_bool();

@@ -47,6 +47,9 @@ export async function parseExternals(): Promise<void> {
  * Get list of LTX transformable descriptors.
  */
 async function getSourcesList(source: string): Promise<Array<string>> {
+  /**
+   * todo;
+   */
   function collectList(acc: Array<string>, it: TFolderFiles): Array<string> {
     if (Array.isArray(it)) {
       it.forEach((nested) => collectList(acc, nested));

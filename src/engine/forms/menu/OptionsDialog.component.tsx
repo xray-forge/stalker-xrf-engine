@@ -6,6 +6,9 @@ import { OptionsSounds } from "@/engine/forms/menu/options/OptionsSounds.part";
 import { OptionsVideo } from "@/engine/forms/menu/options/OptionsVideo.part";
 import { OptionsVideoAdvanced } from "@/engine/forms/menu/options/OptionsVideoAdvanced.part";
 
+/**
+ * todo;
+ */
 export function create(): JSXNode {
   return (
     <w>
@@ -30,6 +33,9 @@ export function create(): JSXNode {
   );
 }
 
+/**
+ * todo;
+ */
 function OptionsBody(): JSXNode {
   return (
     <main_dialog>
@@ -105,6 +111,9 @@ function OptionsBody(): JSXNode {
   );
 }
 
+/**
+ * todo;
+ */
 function OptionsBackground(): JSXNode {
   return (
     <background x="0" y="0" width="1024" height="768">
@@ -126,6 +135,9 @@ function OptionsBackground(): JSXNode {
   );
 }
 
+/**
+ *
+ */
 function OptionsPatchDownload(): JSXNode {
   return (
     <Fragment>

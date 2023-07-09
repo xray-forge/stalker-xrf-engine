@@ -10,7 +10,7 @@ and bundled together with custom engine.
 
 Comparing to normal gamedata builds the only needed thing is full assets list. <br/>
 To build package you will need [extended](https://gitlab.com/xray-forge/stalker-xrf-resources-extended) assets
-and one of locales packs, for example [en](https://gitlab.com/xray-forge/stalker-xrf-resources-locale-en). <br/>
+and one of locales packs, for example [eng](https://gitlab.com/xray-forge/stalker-xrf-resources-locale-eng). <br/>
 
 After cloning suggested repositories or providing custom assets, you should list them in 'config.json' if paths are different from already suggested.
 
@@ -19,10 +19,10 @@ After cloning suggested repositories or providing custom assets, you should list
 If assets are downloaded and configured correctly, the only needed thing is:
 
 ```
-npm run cli pack game -- --clean --build --optimize
+npm run cli pack game -- --clean --optimize
 
 # or
-npm run cli pack game -- -c -b -o
+npm run cli pack game -- -c -o
 
 # or
 npm run pack:game

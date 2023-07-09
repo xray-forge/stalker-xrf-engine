@@ -98,7 +98,13 @@ function createFoldersForConfigs(xmlConfigs: Array<TFolderReplicationDescriptor>
   });
 }
 
+/**
+ * todo;
+ */
 async function getUiConfigs(filters: Array<string> = []): Promise<Array<TFolderReplicationDescriptor>> {
+  /**
+   * todo;
+   */
   function collectXmlConfigs(
     acc: Array<TFolderReplicationDescriptor>,
     it: TFolderFiles

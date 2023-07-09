@@ -8,6 +8,9 @@ export interface IXrBackgroundProps extends IBaseXmlNode {
   stretch?: boolean;
 }
 
+/**
+ * todo;
+ */
 export function XrBackground(props: IXrBackgroundProps): JSXNode {
   const { x, y, width, height, stretch } = normalizeBaseNodeProps(props);
 

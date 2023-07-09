@@ -17,6 +17,9 @@ export interface IXrEditBoxProps extends IBaseXmlNode {
   maxSymbolsCount?: number;
 }
 
+/**
+ * todo;
+ */
 export function XrEditBox(props: IXrEditBoxProps): JSXNode {
   const {
     tag = "edit_box",

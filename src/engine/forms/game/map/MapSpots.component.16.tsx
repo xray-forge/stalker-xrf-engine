@@ -6,6 +6,9 @@ import { SmartTerrainSpots } from "@/engine/forms/game/map/spots/SmartTerrainSpo
 import { SquadSpots } from "@/engine/forms/game/map/spots/SquadSpots";
 import { TaskSpots } from "@/engine/forms/game/map/spots/TaskSpots";
 
+/**
+ * todo;
+ */
 export function MapSpots(): JSXNode {
   return (
     <map_spots>
@@ -349,8 +352,10 @@ export function MapSpots(): JSXNode {
         <mini_map spot="treasure_spot_mini" />
       </treasure>
       <treasure_spot width="20" height="20" alignment="c" stretch="1">
-        {/** <!-- scale="1" scale_min="1.1" scale_max="3.1" light_anim="map_spot_secrets" la_cyclic="0"
-         la_texture="1" la_text="0" la_alpha="1"--> */}
+        {/**
+          <!-- scale="1" scale_min="1.1" scale_max="3.1" light_anim="map_spot_secrets" la_cyclic="0"
+         la_texture="1" la_text="0" la_alpha="1"-->
+          */}
         <texture>ui_inGame2_PDA_icon_secret</texture>
       </treasure_spot>
       <treasure_spot_mini width="17" height="17" alignment="c" stretch="1">
@@ -848,7 +853,7 @@ export function MapSpots(): JSXNode {
       >
         <texture>ui_inGame2_PDA_icon_location</texture>
       </primary_object_spot>
-      {/** <!--
+      {/* <!--
      <primary_object_spot_mini  x="0" y="0" width="15" height="15" stretch="1" alignment="c" location_level="5">
      <texture r="242" g="15" b="11">ui_mmap_quest</texture>
      </primary_object_spot_mini>

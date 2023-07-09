@@ -2,6 +2,9 @@ import { ISmartCoverLoopholeDescriptor } from "@/engine/core/objects/server/smar
 import { createVector } from "@/engine/core/utils/vector";
 import { Optional, TStringId, Vector } from "@/engine/lib/types";
 
+/**
+ * todo;
+ */
 export function getCrouchFrontLeftLoophole(
   id: TStringId,
   fovDirection: Vector,

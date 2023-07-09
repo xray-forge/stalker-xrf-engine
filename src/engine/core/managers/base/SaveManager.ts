@@ -1,3 +1,4 @@
+import { EGameEvent, EventsManager } from "@/engine/core/managers";
 import { AbstractCoreManager } from "@/engine/core/managers/base/AbstractCoreManager";
 import { AchievementsManager } from "@/engine/core/managers/interaction/achievements";
 import { SimulationBoardManager } from "@/engine/core/managers/interaction/SimulationBoardManager";
@@ -11,20 +12,28 @@ import { ReleaseBodyManager } from "@/engine/core/managers/world/ReleaseBodyMana
 import { SurgeManager } from "@/engine/core/managers/world/SurgeManager";
 import { TreasureManager } from "@/engine/core/managers/world/TreasureManager";
 import { WeatherManager } from "@/engine/core/managers/world/WeatherManager";
+import { loadDynamicGameSave, saveDynamicGameSave } from "@/engine/core/utils/game";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { NetPacket, NetProcessor } from "@/engine/lib/types";
+import { AnyObject, NetPacket, NetProcessor, Optional, TName } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
+
+export interface IDynamicSaveData {
+  generic: AnyObject;
+  store: AnyObject;
+}
 
 /**
  * Manage game saves for other managers / parts.
  */
 export class SaveManager extends AbstractCoreManager {
+  public dynamicData: IDynamicSaveData = { generic: {}, store: {} };
+
   /**
    * Save core managers data.
    */
-  public override save(packet: NetPacket): void {
-    logger.info("Saving");
+  public clientSave(packet: NetPacket): void {
+    logger.info("Saving client");
 
     WeatherManager.getInstance().save(packet);
     ReleaseBodyManager.getInstance().save(packet);
@@ -42,8 +51,8 @@ export class SaveManager extends AbstractCoreManager {
   /**
    * Load core managers data.
    */
-  public override load(reader: NetProcessor): void {
-    logger.info("Loading");
+  public clientLoad(reader: NetProcessor): void {
+    logger.info("Loading client");
 
     WeatherManager.getInstance().load(reader);
     ReleaseBodyManager.getInstance().load(reader);
@@ -61,14 +70,64 @@ export class SaveManager extends AbstractCoreManager {
   /**
    * Write state for core managers.
    */
-  public writeState(packet: NetPacket): void {
+  public serverSave(packet: NetPacket): void {
+    logger.info("Saving server");
+
     SimulationBoardManager.getInstance().save(packet);
   }
 
   /**
    * Read state for core managers.
    */
-  public readState(reader: NetProcessor): void {
+  public serverLoad(reader: NetProcessor): void {
+    logger.info("Loading server");
+
     SimulationBoardManager.getInstance().load(reader);
+  }
+
+  /**
+   * When game save creation starting.
+   *
+   * @param saveName - name of save file, just base name with extension like `example.scop`
+   */
+  public onBeforeGameSave(saveName: TName): void {
+    logger.info("Before game save:", saveName);
+
+    EventsManager.getInstance().emitEvent(EGameEvent.GAME_SAVE, this.dynamicData.generic);
+
+    saveDynamicGameSave(saveName, this.dynamicData);
+  }
+
+  /**
+   * When game saved successfully.
+   *
+   * @param saveName - name of save file, just base name with extension like `example.scop`
+   */
+  public onGameSave(saveName: TName): void {
+    logger.info("On game save:", saveName);
+  }
+
+  /**
+   * When game save loading starts.
+   *
+   * @param saveName - name of save file, full path with disk/system folders structure
+   */
+  public onBeforeGameLoad(saveName: TName): void {
+    logger.info("Before game load:", saveName);
+
+    const data: Optional<IDynamicSaveData> = loadDynamicGameSave(saveName);
+
+    this.dynamicData = data ? data : this.dynamicData;
+
+    EventsManager.getInstance().emitEvent(EGameEvent.GAME_LOAD, this.dynamicData.generic);
+  }
+
+  /**
+   * When game save loaded successfully.
+   *
+   * @param saveName - name of save file, full path with disk/system folders structure
+   */
+  public onGameLoad(saveName: TName): void {
+    logger.info("On game load:", saveName);
   }
 }

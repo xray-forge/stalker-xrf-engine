@@ -49,6 +49,9 @@ async function formatLtxFile(file: string): Promise<void> {
  * Get list of static configs.
  */
 async function getLtxConfigs(filters: Array<string> = []): Promise<Array<string>> {
+  /**
+   * todo;
+   */
   function collectConfigs(acc: Array<string>, it: TFolderFiles): Array<string> {
     if (Array.isArray(it)) {
       it.forEach((nested) => collectConfigs(acc, nested));

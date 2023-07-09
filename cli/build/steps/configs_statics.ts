@@ -53,6 +53,9 @@ export async function buildStaticConfigs(parameters: IBuildCommandParameters): P
  * Get list of static configs.
  */
 async function getStaticConfigs(filters: Array<string> = []): Promise<Array<TFolderReplicationDescriptor>> {
+  /**
+   * todo;
+   */
   function collectConfigs(
     acc: Array<TFolderReplicationDescriptor>,
     it: TFolderFiles

@@ -51,6 +51,8 @@ export function subVectors(first: Vector, second: Vector): Vector {
 }
 
 /**
+ * Cross-multiply vectors.
+ *
  * @param first - vector to cross
  * @param second - vector to cross
  * @returns vectors cross multiplication result
@@ -74,6 +76,8 @@ export function copyVector(source: Vector): Vector {
 }
 
 /**
+ * Get vectors yaw.
+ *
  * @param first - vector to compute
  * @param second - vector to compute
  * @returns vectors yaw
@@ -86,6 +90,8 @@ export function yaw(first: Vector, second: Vector): TRate {
 }
 
 /**
+ * Get vectors yaw degree.
+ *
  * @param first - vector to compute
  * @param second - vector to compute
  * @returns vectors yaw degree
@@ -100,6 +106,8 @@ export function yawDegree(first: Vector, second: Vector): TRate {
 }
 
 /**
+ * Get vectors yaw degree in 3 dimensions.
+ *
  * @param first - vector to compute
  * @param second - vector to compute
  * @returns vectors yaw degree in 3 dimensions
@@ -115,6 +123,8 @@ export function yawDegree3d(first: Vector, second: Vector): TRate {
 }
 
 /**
+ * Rotate vector by Y axis.
+ *
  * @param target - vector to rotate
  * @param angleBase - angle to rotate vector
  * @returns new rotated vector
@@ -159,6 +169,8 @@ export function angleDiff(first: Vector, second: Vector): number {
 }
 
 /**
+ * Transform angle vector to direction vector.
+ *
  * @param angle - angle vector
  * @returns direction vector based on angle vector
  */

@@ -50,6 +50,9 @@ import { MockAlifeSimulator, mockClientGameObject, mockIniFile, mockServerAlifeH
 import { MockCTime } from "@/fixtures/xray/mocks/CTime.mock";
 
 describe("'scheme logic' utils", () => {
+  /**
+   * todo;
+   */
   function loadGenericSchemes(): Array<TAbstractSchemeConstructor> {
     const schemes: Array<TAbstractSchemeConstructor> = [
       SchemeMeet,
@@ -212,7 +215,7 @@ describe("'scheme logic' utils", () => {
       () =>
         ({
           section: "patrol@test",
-        } as ISmartTerrainJob)
+        }) as ISmartTerrainJob
     );
 
     const ini: IniFile = mockIniFile("test.ltx", {

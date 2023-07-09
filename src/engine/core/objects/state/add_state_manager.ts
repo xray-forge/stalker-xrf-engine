@@ -27,6 +27,7 @@ const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * Add state manager instance to Stalker object.
+ *
  * @param object
  */
 export function addStateManager(object: ClientObject): StalkerStateManager {

@@ -14,7 +14,7 @@ const logger: LuaLogger = new LuaLogger($filename);
 export function openSaveMarker(packet: NetPacket, markerName: TName): void {
   const packetSize: TCount = packet.w_tell();
 
-  assert(packetSize < 20_480, "You are saving too much in '%s' - '%s'.", markerName, packetSize);
+  assert(packetSize < 16_384, "You are saving too much in '%s' - '%s'.", markerName, packetSize);
   registry.saveMarkers.set(markerName, packet.w_tell());
 }
 

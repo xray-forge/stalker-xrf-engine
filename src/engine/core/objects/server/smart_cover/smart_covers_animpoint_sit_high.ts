@@ -4,6 +4,9 @@ import { ISmartCoverDescriptor } from "@/engine/core/objects/server/smart_cover/
 import { getAnimpointSitHighLoophole } from "@/engine/core/objects/server/smart_cover/smart_covers_loophole_animpoint_sit_high";
 import { createVector } from "@/engine/core/utils/vector";
 
+/**
+ * todo;
+ */
 export function getSmartCoverAnimpointSitHigh(): ISmartCoverDescriptor {
   return {
     need_weapon: false,

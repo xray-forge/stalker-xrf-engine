@@ -1,5 +1,8 @@
 import { Fragment, JSXNode, JSXXML } from "jsx-xml";
 
+/**
+ *
+ */
 export function SquadSpots(): JSXNode {
   return (
     <Fragment>
@@ -171,7 +174,7 @@ export function SquadSpots(): JSXNode {
         </texture>
       </alife_presentation_squad_monster_spot_mini>
 
-      {/** <!--
+      {/* <!--
      <alife_presentation_squad_attack_point>
      <level_map spot="alife_presentation_squad_attack_point_spot"/>
      <mini_map spot="alife_presentation_squad_attack_point_spot_mini"/>

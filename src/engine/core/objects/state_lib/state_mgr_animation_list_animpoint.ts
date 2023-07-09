@@ -1,6 +1,9 @@
 import { IAnimationDescriptor } from "@/engine/core/objects/state/types";
 import { ClientObject } from "@/engine/lib/types";
 
+/**
+ * todo;
+ */
 export function getAnimpointAnimationList(): LuaTable<string, IAnimationDescriptor> {
   return {
     animpoint_stay_wall: {

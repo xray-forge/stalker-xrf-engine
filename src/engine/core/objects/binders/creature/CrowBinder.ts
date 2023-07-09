@@ -3,14 +3,15 @@ import { alife, callback, LuabindClass, object_binder, time_global } from "xray1
 import {
   closeLoadMarker,
   closeSaveMarker,
+  loadObjectLogic,
+  openLoadMarker,
   openSaveMarker,
   registerObject,
   registry,
   resetObject,
+  saveObjectLogic,
   unregisterObject,
 } from "@/engine/core/database";
-import { loadObjectLogic, saveObjectLogic } from "@/engine/core/database/logic";
-import { openLoadMarker } from "@/engine/core/database/save_markers";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
 import {

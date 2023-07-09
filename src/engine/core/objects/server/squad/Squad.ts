@@ -29,6 +29,7 @@ import {
 } from "@/engine/core/database/simulation";
 import { unregisterStoryLinkByObjectId } from "@/engine/core/database/story_objects";
 import { SimulationBoardManager } from "@/engine/core/managers/interaction/SimulationBoardManager";
+import { MapDisplayManager } from "@/engine/core/managers/interface/MapDisplayManager";
 import type { SmartTerrain } from "@/engine/core/objects/server/smart_terrain/SmartTerrain";
 import { ESmartTerrainStatus } from "@/engine/core/objects/server/smart_terrain/types";
 import { SquadReachTargetAction, SquadStayOnTargetAction } from "@/engine/core/objects/server/squad/action";
@@ -53,25 +54,17 @@ import {
   TConditionList,
 } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { areObjectsOnSameLevel, hasAlifeInfo, isSquadMonsterCommunity } from "@/engine/core/utils/object";
-import {
-  areCommunitiesEnemies,
-  ERelation,
-  getSquadMembersRelationToActor,
-  getSquadMembersRelationToActorSafe,
-  setObjectSympathy,
-} from "@/engine/core/utils/relation";
+import { areObjectsOnSameLevel, hasAlifeInfo } from "@/engine/core/utils/object";
+import { areCommunitiesEnemies, ERelation, setObjectSympathy } from "@/engine/core/utils/relation";
 import { isEmpty } from "@/engine/core/utils/table";
 import { gameConfig } from "@/engine/lib/configs/GameConfig";
 import { squadCommunityByBehaviour } from "@/engine/lib/constants/behaviours";
 import { communities, TCommunity } from "@/engine/lib/constants/communities";
 import { infoPortions } from "@/engine/lib/constants/info_portions";
-import { mapMarks } from "@/engine/lib/constants/map_marks";
 import { MAX_U16 } from "@/engine/lib/constants/memory";
 import { SMART_TERRAIN_SECTION } from "@/engine/lib/constants/sections";
 import { FALSE, NIL, TRUE } from "@/engine/lib/constants/words";
 import {
-  AlifeSimulator,
   ALifeSmartTerrainTask,
   AnyObject,
   ClientObject,
@@ -93,7 +86,7 @@ import { TSection } from "@/engine/lib/types/scheme";
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Server object implementation for squad groups.
  */
 @LuabindClass()
 export class Squad extends cse_alife_online_offline_group implements ISimulationTarget {
@@ -110,6 +103,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
   public assignedSmartTerrainId: Optional<TNumberId> = null;
   public enteredSmartTerrainId: Optional<TNumberId> = null;
 
+  public mapDisplayManager: MapDisplayManager = MapDisplayManager.getInstance();
   public simulationBoardManager: SimulationBoardManager = SimulationBoardManager.getInstance();
   public simulationProperties!: AnyObject;
 
@@ -150,7 +144,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
 
   public override update(): void {
     super.update();
-    this.refreshMapDisplay();
+    this.mapDisplayManager.updateSquadMapSpot(this);
 
     updateSimulationObjectAvailability(this);
 
@@ -545,7 +539,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
       }
     }
 
-    this.hideMapDisplay();
+    this.mapDisplayManager.removeSquadMapSpot(this);
   }
 
   /**
@@ -574,7 +568,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
       return;
     }
 
-    this.refreshMapDisplay();
+    this.mapDisplayManager.updateSquadMapSpot(this);
   }
 
   /**
@@ -803,7 +797,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
     }
 
     this.assignedSmartTerrainId = spawnSmartTerrain.id;
-    this.refreshMapDisplay();
+    this.mapDisplayManager.updateSquadMapSpot(this);
   }
 
   /**
@@ -872,124 +866,6 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
     assert(squadCommunity, "Squad community is 'null' for [%s].", this.faction);
 
     return squadCommunity;
-  }
-
-  /**
-   * todo: Description.
-   */
-  public refreshMapDisplay(): void {
-    if (this.commander_id() === null) {
-      return this.hideMapDisplay();
-    }
-
-    this.updateMapDisplay();
-  }
-
-  /**
-   * todo: Description.
-   */
-  public hideMapDisplay(): void {
-    if (this.currentMapSpotId === null || this.currentMapSpotSection === null) {
-      return;
-    }
-
-    level.map_remove_object_spot(this.currentMapSpotId, this.currentMapSpotSection);
-
-    this.currentMapSpotId = null;
-    this.currentMapSpotSection = null;
-  }
-
-  /**
-   * todo: Description.
-   */
-  public updateMapDisplay(): void {
-    if (this.isMapDisplayHidden) {
-      return this.hideMapDisplay();
-    }
-
-    const squadCommanderId: TNumberId = this.commander_id();
-
-    if (this.currentMapSpotId !== squadCommanderId) {
-      this.hideMapDisplay();
-      this.currentMapSpotId = squadCommanderId;
-      this.updateMapDisplay();
-
-      return;
-    }
-
-    if (
-      level.map_has_object_spot(squadCommanderId, mapMarks.ui_pda2_trader_location) !== 0 ||
-      level.map_has_object_spot(squadCommanderId, mapMarks.ui_pda2_mechanic_location) !== 0 ||
-      level.map_has_object_spot(squadCommanderId, mapMarks.ui_pda2_scout_location) !== 0 ||
-      level.map_has_object_spot(squadCommanderId, mapMarks.ui_pda2_quest_npc_location) !== 0 ||
-      level.map_has_object_spot(squadCommanderId, mapMarks.ui_pda2_medic_location) !== 0
-    ) {
-      this.isMapDisplayHidden = true;
-
-      return;
-    }
-
-    let spot: Optional<TLabel> = null;
-
-    /**
-     * In case of debug use map display like in clear sky.
-     */
-    if (gameConfig.DEBUG.IS_SIMULATION_DEBUG_ENABLED) {
-      if (isSquadMonsterCommunity(this.faction)) {
-        spot = mapMarks.alife_presentation_squad_monster_debug;
-      } else {
-        const relation: ERelation = getSquadMembersRelationToActorSafe(this);
-
-        switch (relation) {
-          case ERelation.FRIEND:
-            spot = mapMarks.alife_presentation_squad_friend_debug;
-            break;
-          case ERelation.NEUTRAL:
-            spot = mapMarks.alife_presentation_squad_neutral_debug;
-            break;
-          case ERelation.ENEMY:
-            spot = mapMarks.alife_presentation_squad_enemy_debug;
-            break;
-        }
-      }
-      /**
-       * Display only minimap marks.
-       * Do not display for offline objects.
-       */
-    } else if (!isSquadMonsterCommunity(this.faction)) {
-      const relation: Optional<ERelation> = getSquadMembersRelationToActor(this);
-
-      switch (relation) {
-        case ERelation.FRIEND:
-          spot = mapMarks.alife_presentation_squad_friend;
-          break;
-
-        case ERelation.NEUTRAL:
-          spot = mapMarks.alife_presentation_squad_neutral;
-          break;
-      }
-    }
-
-    if (spot) {
-      const hint: TLabel = this.getMapDisplayHint();
-      const hasMapSpot: boolean = level.map_has_object_spot(this.currentMapSpotId, spot) === 1;
-
-      if (spot === this.currentMapSpotSection && hasMapSpot) {
-        return level.map_change_spot_hint(this.currentMapSpotId, spot, hint);
-      }
-
-      if (this.currentMapSpotSection === null || !hasMapSpot) {
-        level.map_add_object_spot(this.currentMapSpotId, spot, hint);
-      } else {
-        level.map_remove_object_spot(this.currentMapSpotId, this.currentMapSpotSection);
-        level.map_add_object_spot(this.currentMapSpotId, spot, hint);
-      }
-
-      this.currentMapSpotSection = spot;
-    } else if (this.currentMapSpotSection) {
-      level.map_remove_object_spot(this.currentMapSpotId, this.currentMapSpotSection);
-      this.currentMapSpotSection = null;
-    }
   }
 
   /**

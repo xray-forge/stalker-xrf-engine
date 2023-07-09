@@ -5,7 +5,7 @@ import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain/SmartTe
 import { AbstractSchemeManager } from "@/engine/core/schemes";
 import { ISchemeCombatIgnoreState } from "@/engine/core/schemes/combat_ignore/index";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { isObjectEnemy } from "@/engine/core/utils/object";
+import { canObjectSelectAsEnemy } from "@/engine/core/utils/object";
 import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import { MAX_U16 } from "@/engine/lib/constants/memory";
@@ -25,7 +25,7 @@ export class CombatProcessEnemyManager extends AbstractSchemeManager<ISchemeComb
       registry.actorCombat.set(object.id(), true);
     }
 
-    const isEnemy: boolean = isObjectEnemy(object, enemy, this.state);
+    const isEnemy: boolean = canObjectSelectAsEnemy(object, enemy, this.state);
 
     if (isEnemy) {
       const serverObject: Optional<ServerCreatureObject> = alife().object(object.id());

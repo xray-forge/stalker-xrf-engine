@@ -10,8 +10,14 @@ interface IAbstractInterface {
   b: string;
 }
 
+/**
+ * todo;
+ */
 function extern(name: string, cb: (...args: Array<unknown>) => void): void {}
 
+/**
+ * todo;
+ */
 function another(name: string, cb: (...args: Array<unknown>) => void): void {}
 
 extern("module.callback_name_one", (a: number, b: string, c: boolean, d: SomeAlias): boolean => true);

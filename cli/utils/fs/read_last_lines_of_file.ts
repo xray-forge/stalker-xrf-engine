@@ -6,6 +6,9 @@ import { Optional } from "#/utils/types";
 
 const NEW_LINE_CHARACTERS: Array<string> = ["\n"];
 
+/**
+ * todo;
+ */
 export async function readLastLinesOfFile(
   filePath: string,
   maxLineCount: number,

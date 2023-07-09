@@ -1,3 +1,7 @@
+import { ClientObject, Optional, TDangerType } from "@/engine/lib/types";
+import { mockClientGameObject } from "@/fixtures/xray";
+import { MockVector } from "@/fixtures/xray/mocks/vector.mock";
+
 /**
  * todo;
  */
@@ -13,4 +17,25 @@ export class MockDangerObject {
   public static hit: number = 2;
   public static sound: number = 1;
   public static visual: number = 0;
+
+  public dangerType: TDangerType = 6;
+  public dangerObject: ClientObject = mockClientGameObject();
+  public dangerDependentObject: Optional<ClientObject> = null;
+  public dangerPosition: MockVector = MockVector.create(1.5, -0.5, 1);
+
+  public position(): MockVector {
+    return this.dangerPosition;
+  }
+
+  public object(): ClientObject {
+    return this.dangerObject;
+  }
+
+  public dependent_object(): Optional<ClientObject> {
+    return this.dangerDependentObject;
+  }
+
+  public type(): TDangerType {
+    return this.dangerType;
+  }
 }

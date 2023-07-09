@@ -5,6 +5,9 @@ import { MultiplayerTabDemo } from "@/engine/forms/menu/multiplayer/tabs/Multipl
 import { MultiplayerTabOptions } from "@/engine/forms/menu/multiplayer/tabs/MultiplayerTabOptions.part";
 import { MultiplayerTabServer } from "@/engine/forms/menu/multiplayer/tabs/MultiplayerTabServer.part";
 
+/**
+ *
+ */
 export function create(): JSXNode {
   return (
     <w>
@@ -138,7 +141,7 @@ export function create(): JSXNode {
       <static_version x="15" y="740" width="100" height="30">
         <text align="l" font="graffiti19" complex_mode="0" />
       </static_version>
-      {/**
+      {/*
        * <!--
        *                 <static_gs_logo x="850" y="717" width="128" height="35" stretch="1">
        *                     <texture x="0" y="0" width="256" height="70">ui\ui_gs_logo</texture>

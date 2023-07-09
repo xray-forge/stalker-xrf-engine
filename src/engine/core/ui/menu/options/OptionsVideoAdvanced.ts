@@ -86,8 +86,7 @@ export class OptionsVideoAdvanced extends CUIWindow {
 
     owner.preconditions.set(particlesDistanceTrackBar, only2aAndMoreMode);
 
-    /**
-     *
+    /*
      *  _st = xml:InitStatic("video_adv:templ_item", nil)
      *  xml:InitStatic("video_adv:cap_r2_smap_size", _st)
      *  ctl = xml:InitComboBox("video_adv:list_r2_smap_size", _st)
@@ -200,7 +199,7 @@ export class OptionsVideoAdvanced extends CUIWindow {
 
     owner.preconditions.set(wetSurfacesCheck, only3andMoreMode);
 
-    /**
+    /*
      *
      *  _st = xml:InitStatic("video_adv:templ_item", nil)
      *  xml:InitStatic("video_adv:cap_r3_dynamic_wet_surfaces_opt", _st)
@@ -224,14 +223,14 @@ export class OptionsVideoAdvanced extends CUIWindow {
 
     owner.preconditions.set(volumetricSmokeCheck, only3andMoreMode);
 
-    /**
+    /*
      *  _st = xml:InitStatic("video_adv:templ_item", nil)
      *  xml:InitStatic("video_adv:cap_r3_msaa_opt", _st)
      *  ctl = xml:InitCheck("video_adv:check_r3_msaa_opt", _st)
      *  table.insert(handler.m_preconditions, {func=mode_ge_3, control=_st})
      */
 
-    /**
+    /*
      * -- r4_enable_tessellation    only r4
      *  _st = xml:InitStatic("video_adv:templ_item", nil)
      *  xml:InitStatic("video_adv:cap_r4_tessellation", _st)
@@ -250,7 +249,7 @@ export class OptionsVideoAdvanced extends CUIWindow {
     xml.InitStatic("video_adv:cap_60hz", only60HZSetting);
     xml.InitCheck("video_adv:check_60hz", only60HZSetting);
 
-    /**
+    /*
      *  _st = xml:InitStatic("video_adv:templ_item", nil)
      *  xml:InitStatic("video_adv:cap_always_active", _st)
      *  xml:InitCheck("video_adv:check_always_active", _st)
@@ -261,30 +260,48 @@ export class OptionsVideoAdvanced extends CUIWindow {
   }
 }
 
+/**
+ * todo;
+ */
 function only1mode(control: CUIWindow, id: EGameRenderer): void {
   control.Enable(id === EGameRenderer.R1);
 }
 
 // -- >=R2a
+/**
+ * todo;
+ */
 function only2aAndMoreMode(control: CUIWindow, id: EGameRenderer): void {
   control.Enable(id >= EGameRenderer.R2A);
 }
 
 // -- >=R2
+/**
+ * todo;
+ */
 function only2andMoreMode(control: CUIWindow, id: EGameRenderer): void {
   control.Enable(id >= EGameRenderer.R2);
 }
 
 // -- >=R2.5
+/**
+ * todo;
+ */
 function only25andMoreMode(control: CUIWindow, id: EGameRenderer): void {
   control.Enable(id >= EGameRenderer.R25);
 }
 
 // -- >=R3
+/**
+ * todo;
+ */
 function only3andMoreMode(control: CUIWindow, id: EGameRenderer): void {
   control.Enable(id >= EGameRenderer.R3);
 }
 
+/**
+ * todo;
+ */
 function only3andMoreModeVisible(control: CUIWindow, id: EGameRenderer): void {
   const isEnabled: boolean = id >= EGameRenderer.R3;
 
@@ -292,6 +309,9 @@ function only3andMoreModeVisible(control: CUIWindow, id: EGameRenderer): void {
   control.Show(isEnabled);
 }
 
+/**
+ * todo;
+ */
 function only3andMoreModeInvisible(control: CUIWindow, id: EGameRenderer): void {
   const isEnabled: boolean = id < EGameRenderer.R3;
 
@@ -299,10 +319,16 @@ function only3andMoreModeInvisible(control: CUIWindow, id: EGameRenderer): void 
   control.Show(isEnabled);
 }
 
+/**
+ * todo;
+ */
 function only4(control: CUIWindow, id: EGameRenderer) {
   return id === EGameRenderer.R4;
 }
 
+/**
+ * todo;
+ */
 function only4andMore(control: CUIWindow, id: EGameRenderer) {
   return id >= EGameRenderer.R4;
 }

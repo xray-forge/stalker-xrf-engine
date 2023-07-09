@@ -285,6 +285,9 @@ export function getConfigSwitchConditions(ini: IniFile, section: TSection): Opti
   const linesCount: TCount = ini.line_count(section);
   let index: TIndex = 1;
 
+  /**
+   * todo;
+   */
   function addConditions(
     func: (ini: IniFile, section: TSection, id: TStringId) => Optional<IBaseSchemeLogic>,
     cond: ESchemeCondition

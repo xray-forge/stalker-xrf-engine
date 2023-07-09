@@ -4,6 +4,9 @@ import { ISmartCoverDescriptor } from "@/engine/core/objects/server/smart_cover/
 import { getAnimpointPriA15Loophole } from "@/engine/core/objects/server/smart_cover/smart_covers_loophole_animpoint_pri_a15";
 import { createVector } from "@/engine/core/utils/vector";
 
+/**
+ * todo;
+ */
 export function getSmartCoverAnimpointPriA15(): ISmartCoverDescriptor {
   return {
     need_weapon: false,

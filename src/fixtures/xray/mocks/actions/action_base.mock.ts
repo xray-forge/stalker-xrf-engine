@@ -44,6 +44,9 @@ export class MockActionBase extends MockLuabindClass {
   }
 }
 
+/**
+ * Mock action base method.
+ */
 export function mockActionBase(object: Optional<ClientObject> = null, name: string = "generic"): ActionBase {
   return new MockActionBase(object, name) as unknown as ActionBase;
 }

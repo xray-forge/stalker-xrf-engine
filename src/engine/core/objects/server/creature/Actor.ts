@@ -32,6 +32,7 @@ import {
   Optional,
   ServerCreatureObject,
   TNumberId,
+  TSize,
   Vector,
 } from "@/engine/lib/types";
 
@@ -70,15 +71,15 @@ export class Actor extends cse_alife_creature_actor implements ISimulationTarget
     super.STATE_Write(packet);
 
     openSaveMarker(packet, Actor.__name);
-    SaveManager.getInstance().writeState(packet);
+    SaveManager.getInstance().serverSave(packet);
     closeSaveMarker(packet, Actor.__name);
   }
 
-  public override STATE_Read(packet: NetPacket, size: number): void {
+  public override STATE_Read(packet: NetPacket, size: TSize): void {
     super.STATE_Read(packet, size);
 
     openLoadMarker(packet, Actor.__name);
-    SaveManager.getInstance().readState(packet);
+    SaveManager.getInstance().serverLoad(packet);
     closeLoadMarker(packet, Actor.__name);
   }
 

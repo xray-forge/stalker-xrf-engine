@@ -4,6 +4,9 @@ import { captions } from "@/engine/lib/constants/captions/captions";
 import { fonts } from "@/engine/lib/constants/fonts";
 import { textures } from "@/engine/lib/constants/textures";
 
+/**
+ * todo;
+ */
 export function create(): JSXNode {
   return (
     <w>
@@ -105,6 +108,9 @@ export function create(): JSXNode {
   );
 }
 
+/**
+ * todo;
+ */
 function MainMenuBackground(): JSXNode {
   return (
     <background x={0} y={0} width={1024} height={768}>

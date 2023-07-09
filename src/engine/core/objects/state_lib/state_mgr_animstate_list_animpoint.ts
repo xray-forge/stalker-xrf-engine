@@ -2,6 +2,9 @@ import { IAnimationStateDescriptor } from "@/engine/core/objects/state/types";
 import { getExtern } from "@/engine/core/utils/binding";
 import { AnyArgs, AnyCallablesModule } from "@/engine/lib/types";
 
+/**
+ * todo;
+ */
 export function addAnimstateAnimationList(): LuaTable<string, IAnimationStateDescriptor> {
   return {
     animpoint_stay_wall: {

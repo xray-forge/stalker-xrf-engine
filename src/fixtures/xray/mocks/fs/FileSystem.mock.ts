@@ -1,6 +1,8 @@
+import * as path from "path";
+
 import { jest } from "@jest/globals";
 
-import { AnyObject, Optional } from "@/engine/lib/types";
+import { AnyObject, Optional, TPath } from "@/engine/lib/types";
 import { MockFileSystemList } from "@/fixtures/xray/mocks/fs/FileSystemList.mock";
 import { FS_MOCKS } from "@/fixtures/xray/mocks/fs/fs.mock";
 
@@ -46,6 +48,8 @@ export class MockFileSystem {
   public file_list_open_ex = jest.fn(() => new MockFileSystemList());
 
   public file_delete = jest.fn(() => {});
+
+  public update_path = jest.fn((base: TPath, part: TPath) => path.join(base, part));
 
   public exist = jest.fn((root: string, path: string) => {
     return Boolean(this.mocks[root] && this.mocks[root][path]);

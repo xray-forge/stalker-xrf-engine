@@ -5,6 +5,9 @@ import { ISmartCoverDescriptor } from "@/engine/core/objects/server/smart_cover/
 import { getAnimpointStayTableLoophole } from "@/engine/core/objects/server/smart_cover/smart_covers_loophole_animpoint_stay_table";
 import { createVector } from "@/engine/core/utils/vector";
 
+/**
+ * todo;
+ */
 export function getSmartCoverAnimpointStayTable(): ISmartCoverDescriptor {
   return {
     need_weapon: false,

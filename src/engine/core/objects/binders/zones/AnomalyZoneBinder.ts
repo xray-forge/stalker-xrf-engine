@@ -457,7 +457,7 @@ export class AnomalyZoneBinder extends object_binder {
 
     this.artefactWaysByArtefactId.set(artefactObject.id, randomPathName);
     this.artefactPointsByArtefactId.set(artefactObject.id, randomPathPoint);
-    this.spawnedArtefactsCount = this.spawnedArtefactsCount + 1;
+    this.spawnedArtefactsCount += 1;
 
     logger.info("Spawned random artefact:", randomArtefact, artefactObject.id);
   }

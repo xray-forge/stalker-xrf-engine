@@ -8,6 +8,9 @@ import { getStandFrontLeftLoophole } from "@/engine/core/objects/server/smart_co
 import { getStandFrontRightLoophole } from "@/engine/core/objects/server/smart_cover/smart_covers_loophole_stand_front_right";
 import { createVector } from "@/engine/core/utils/vector";
 
+/**
+ *
+ */
 export function getSmartCoverCombatFront(): ISmartCoverDescriptor {
   return {
     need_weapon: true,
@@ -500,7 +503,7 @@ export function getSmartCoverCombatFront(): ISmartCoverDescriptor {
         vertex1: "",
         weight: 1.1,
         actions: [
-          /** ### {
+          /* ### {
 
             precondition_functor: "xr_conditions.always",
             precondition_params: "",
@@ -531,7 +534,8 @@ export function getSmartCoverCombatFront(): ISmartCoverDescriptor {
         vertex1: "",
         weight: 1.1,
         actions: [
-          /** ### {
+          /**
+             ### {
             precondition_functor: "xr_conditions.always",
             precondition_params: "",
             actions =	{
@@ -541,7 +545,8 @@ export function getSmartCoverCombatFront(): ISmartCoverDescriptor {
                     body_state: move.crouch, movement_type: move.run,
                   },
                   },
-          },*/
+          },
+           */
           {
             precondition_functor: "xr_conditions.always",
             precondition_params: "",
@@ -561,7 +566,8 @@ export function getSmartCoverCombatFront(): ISmartCoverDescriptor {
         vertex1: "",
         weight: 1.1,
         actions: [
-          /** ### {
+          /*
+             ### {
             precondition_functor: "xr_conditions.always",
             precondition_params: "",
             actions =	{
@@ -571,7 +577,8 @@ export function getSmartCoverCombatFront(): ISmartCoverDescriptor {
                     body_state: move.crouch, movement_type: move.run,
                   },
                   },
-          },*/
+          },
+           */
           {
             precondition_functor: "xr_conditions.always",
             precondition_params: "",

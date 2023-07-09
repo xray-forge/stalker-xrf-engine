@@ -1,8 +1,12 @@
 import { JSXNode, JSXXML } from "jsx-xml";
 
 // <!-- REMOVE THIS FILE -->-->
+
+/**
+ * todo;
+ */
 export function create(): JSXNode {
-  /**
+  /*
    *
    *        <_rank_caption x="23" y="150" width="153" height="15">
    *            <text align="l" font="letterica16" r="216" g="186" b="140">

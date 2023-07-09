@@ -3,6 +3,7 @@ import { alife, level } from "xray16";
 import { registry } from "@/engine/core/database";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { areObjectsOnSameLevel } from "@/engine/core/utils/object/object_location";
+import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import {
   AlifeSimulator,
   AnyCallable,
@@ -141,7 +142,7 @@ export function getNearestClientObject(
   let nearest: Optional<ClientObject> = null;
 
   level.iterate_online_objects((object: ClientObject): void => {
-    if (object.parent() !== registry.actor) {
+    if (object.id() !== ACTOR_ID && object.parent()?.id() !== ACTOR_ID) {
       let isMatch: boolean = false;
 
       // Filter objects if pattern is provided.
@@ -187,17 +188,17 @@ export function getClientObjects(
 ): LuaArray<ClientObject> {
   const list: LuaArray<ClientObject> = new LuaTable();
 
-  level.iterate_online_objects((clientObject: ClientObject) => {
-    if (clientObject.parent() !== registry.actor) {
+  level.iterate_online_objects((object: ClientObject) => {
+    if (object.id() !== ACTOR_ID && object.parent()?.id() !== ACTOR_ID) {
       let isMatch: boolean = false;
 
       // Filter objects if pattern is provided.
       if (pattern !== null) {
-        if (type(pattern) === "string" && string.find(clientObject.name(), pattern as string)[0]) {
+        if (type(pattern) === "string" && string.find(object.name(), pattern as string)[0]) {
           isMatch = true;
-        } else if (type(pattern) === "number" && pattern === clientObject.clsid()) {
+        } else if (type(pattern) === "number" && pattern === object.clsid()) {
           isMatch = true;
-        } else if (type(pattern) === "function" && (pattern as AnyCallable)(clientObject)) {
+        } else if (type(pattern) === "function" && (pattern as AnyCallable)(object)) {
           isMatch = true;
         }
       } else {
@@ -206,7 +207,7 @@ export function getClientObjects(
 
       // Validate match and online-offline check.
       if (isMatch) {
-        table.insert(list, clientObject);
+        table.insert(list, object);
       }
     }
   });

@@ -35,6 +35,9 @@ export async function buildDynamicTranslations(): Promise<void> {
     return log.warn("No languages to translate found in config.json file, skip");
   }
 
+  /**
+   * todo;
+   */
   function collectTranslations(
     acc: Array<TFolderReplicationDescriptor>,
     it: TFolderFiles

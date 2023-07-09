@@ -16,10 +16,6 @@ function handlePreserveConsecutiveUppercase(decamelized: string, separator: stri
 /**
  * Fork of NPM 'decamelize' package utility.
  * Decamelize provided string.
- *
- * @param text - string value to decamelize
- * @param config - decamelize process parameters
- * @returns decamelized string
  */
 export function decamelize(text: string, { separator = "_", preserveConsecutiveUppercase = false } = {}) {
   if (text.length < 2) {

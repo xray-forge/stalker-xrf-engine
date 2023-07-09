@@ -189,6 +189,10 @@ export function initTarget(
   targetString: string
 ): LuaMultiReturn<[Optional<Vector>, Optional<number>, Optional<boolean>]> {
   // todo: Simplify.
+
+  /**
+   * todo;
+   */
   function parseTarget(targetStr: string): LuaMultiReturn<[Optional<string>, Optional<string>]> {
     const [pos] = string.find(targetStr, ",");
 
@@ -200,6 +204,10 @@ export function initTarget(
   }
 
   // todo: Simplify.
+
+  /**
+   * todo;
+   */
   function parseType(targetStr: string): LuaMultiReturn<[string, string]> {
     const [pos] = string.find(targetStr, "|");
 

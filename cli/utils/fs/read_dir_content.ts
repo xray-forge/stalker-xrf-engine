@@ -8,9 +8,7 @@ import { TDirectoryFilesTree } from "#/utils/fs/types";
  */
 export async function readDirContent(dirPath: string): Promise<TDirectoryFilesTree> {
   return (await Promise.all(
-    (
-      await fs.readdir(dirPath, { withFileTypes: true })
-    ).map(async (dirent) => {
+    (await fs.readdir(dirPath, { withFileTypes: true })).map(async (dirent) => {
       const it = path.join(dirPath, dirent.name);
 
       return dirent.isDirectory() ? await readDirContent(it) : it;

@@ -120,6 +120,14 @@ export enum EGameEvent {
    * Game started.
    */
   GAME_STARTED,
+  /**
+   * Game state save.
+   */
+  GAME_SAVE,
+  /**
+   * Game state load.
+   */
+  GAME_LOAD,
 }
 
 /**

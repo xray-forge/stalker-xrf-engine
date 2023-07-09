@@ -1,5 +1,8 @@
 import { Fragment, JSXNode, JSXXML } from "jsx-xml";
 
+/**
+ * todo;
+ */
 export function MapMultiplayerSpots(): JSXNode {
   return (
     <Fragment>

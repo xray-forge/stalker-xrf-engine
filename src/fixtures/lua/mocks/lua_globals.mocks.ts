@@ -2,6 +2,7 @@ import { ILuaState, lauxlib, lua, lualib, to_jsstring, to_luastring } from "feng
 
 import { AnyArgs } from "@/engine/lib/types";
 import { mockDebug } from "@/fixtures/lua/mocks/lua_debug.mock";
+import { mockIo } from "@/fixtures/lua/mocks/lua_io.mock";
 import { mockMath } from "@/fixtures/lua/mocks/lua_math.mocks";
 import { mockPairs } from "@/fixtures/lua/mocks/lua_pairs.mock";
 import { mockString } from "@/fixtures/lua/mocks/lua_string.mock";
@@ -10,6 +11,9 @@ import { mockToString } from "@/fixtures/lua/mocks/lua_tostring.mock";
 import { mockType } from "@/fixtures/lua/mocks/lua_type.mock";
 import { MockLuaTable } from "@/fixtures/lua/mocks/LuaTable.mock";
 
+/**
+ * Mock lua globals in node testing environment.
+ */
 export function mockLuaGlobals(): void {
   // @ts-ignore
   global._G = global;
@@ -24,6 +28,8 @@ export function mockLuaGlobals(): void {
   global.math = mockMath;
   // @ts-ignore
   global.debug = mockDebug;
+  // @ts-ignore
+  global.io = mockIo;
 
   // @ts-ignore
   global.$range = (start: number, end: number) => {

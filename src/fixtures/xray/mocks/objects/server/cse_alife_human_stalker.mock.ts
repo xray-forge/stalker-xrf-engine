@@ -20,6 +20,6 @@ export function mockServerAlifeHumanStalker(base: Partial<ServerHumanObject> = {
     ...base,
     community: base.community || jest.fn(() => "stalker"),
     force_set_goodwill: base.force_set_goodwill || jest.fn(),
-    o_torso: base.o_torso || jest.fn(() => ({} as unknown as rotation)),
+    o_torso: base.o_torso || jest.fn(() => ({}) as unknown as rotation),
   } as unknown as ServerHumanObject) as unknown as ServerHumanObject;
 }

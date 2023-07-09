@@ -1,9 +1,15 @@
 import { JSXNode, JSXXML } from "jsx-xml";
 
+/**
+ * todo;
+ */
 export function create(): JSXNode {
   return <ArtefactParams />;
 }
 
+/**
+ * todo;
+ */
 export function ArtefactParams(): JSXNode {
   return (
     <af_params x="0" y="0" width="260" height="20">

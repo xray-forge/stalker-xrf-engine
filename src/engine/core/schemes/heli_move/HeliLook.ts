@@ -55,6 +55,9 @@ export class HeliLook {
   }
 }
 
+/**
+ * todo;
+ */
 export function getHeliLooker(object: ClientObject): HeliLook {
   if (heliLooker.get(object.id()) === null) {
     heliLooker.set(object.id(), new HeliLook(object));

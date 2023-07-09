@@ -244,6 +244,7 @@ export class WeatherManager extends AbstractCoreManager {
 
   /**
    * Transform current state into string.
+   *
    * @returns string containing level states, example: `dynamic_default=clear,cloudy;another=cloudy,rainy`
    */
   public getStateAsString(): string {

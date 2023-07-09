@@ -67,6 +67,9 @@ export async function buildDynamicConfigs(parameters: IBuildCommandParameters): 
  * Get list of LTX transformable descriptors.
  */
 async function getLtxConfigs(filters: Array<string> = []): Promise<Array<TFolderReplicationDescriptor>> {
+  /**
+   * todo;
+   */
   function collectLtxConfigs(
     acc: Array<TFolderReplicationDescriptor>,
     it: TFolderFiles

@@ -28,11 +28,15 @@ import {
 } from "@/engine/lib/types";
 
 /**
+ * Check whether object is facing any danger.
+ *
+ * @param object - target client object to check
  * @returns whether object is facing any danger right now
  */
 export function isObjectFacingDanger(object: ClientObject): boolean {
   const bestDanger: Optional<DangerObject> = object.best_danger();
 
+  // No danger at all.
   if (bestDanger === null) {
     return false;
   }
@@ -43,28 +47,16 @@ export function isObjectFacingDanger(object: ClientObject): boolean {
       ? bestDanger.dependent_object()
       : bestDanger.object();
 
+  // No danger source object.
   if (bestDangerObject === null) {
     return false;
   }
 
-  if (
-    bestDangerType !== danger_object.entity_corpse &&
-    bestDangerType !== danger_object.grenade &&
-    object.relation(bestDangerObject) !== EClientObjectRelation.ENEMY
-  ) {
-    return false;
-  }
-
-  if (bestDangerType === danger_object.grenade) {
-    // Zombied ignore grenades.
-    if (getObjectCommunity(object) === communities.zombied) {
-      return false;
-    }
-  }
-
-  // todo: Implement?
+  // Ignore corpses.
   if (bestDangerType === danger_object.entity_corpse) {
     return false;
+    // todo: Implement?
+
     /**
      *  --const corpse_object = best_danger:object()
      *  --if time_global() - corpse_object:death_time() >= DANGER_INERTION_TIME then
@@ -73,8 +65,23 @@ export function isObjectFacingDanger(object: ClientObject): boolean {
      */
   }
 
+  // Zombied ignore grenades.
+  if (bestDangerType === danger_object.grenade && getObjectCommunity(object) === communities.zombied) {
+    return false;
+  }
+
+  // Verify relation of enemy object. Handle friendly grenades and death.
   if (
-    !isObjectEnemy(
+    bestDangerType !== danger_object.grenade &&
+    bestDangerType !== danger_object.entity_death &&
+    object.relation(bestDangerObject) !== EClientObjectRelation.ENEMY
+  ) {
+    return false;
+  }
+
+  // Verify if object is not enemy at all.
+  if (
+    !canObjectSelectAsEnemy(
       object,
       bestDangerObject,
       registry.objects.get(object.id())[EScheme.COMBAT_IGNORE] as ISchemeCombatIgnoreState
@@ -85,18 +92,17 @@ export function isObjectFacingDanger(object: ClientObject): boolean {
 
   const dangerDistanceSqrt: TDistance = bestDanger.position().distance_to_sqr(object.position());
   const ignoreDistanceByType: Optional<TDistance> = logicsConfig.DANGER_IGNORE_DISTANCE_BY_TYPE[bestDangerType];
+  const ignoreDistance: TDistance =
+    ignoreDistanceByType === null
+      ? logicsConfig.DANGER_IGNORE_DISTANCE_GENERAL * logicsConfig.DANGER_IGNORE_DISTANCE_GENERAL
+      : ignoreDistanceByType * ignoreDistanceByType;
 
-  if (ignoreDistanceByType !== null) {
-    if (dangerDistanceSqrt >= ignoreDistanceByType * ignoreDistanceByType) {
-      return false;
-    }
-  } else if (
-    dangerDistanceSqrt >=
-    logicsConfig.DANGER_IGNORE_DISTANCE_GENERAL * logicsConfig.DANGER_IGNORE_DISTANCE_GENERAL
-  ) {
+  // Verify danger distance.
+  if (dangerDistanceSqrt > ignoreDistance) {
     return false;
   }
 
+  // Verify if object is wounded and cannot react to danger.
   if (isObjectWounded(object.id())) {
     return false;
   }
@@ -112,43 +118,56 @@ export function isObjectFacingDanger(object: ClientObject): boolean {
 }
 
 /**
- * todo;
+ * Check whether object is valid enemy of another object.
+ *
+ * @param object - target object to check
+ * @param enemy - possible enemy to check
+ * @param combatIgnoreState - state of combat ignore state scheme
  * @returns whether object os enemy of provided client entity
  */
-export function isObjectEnemy(object: ClientObject, enemy: ClientObject, state: ISchemeCombatIgnoreState): boolean {
+export function canObjectSelectAsEnemy(
+  object: ClientObject,
+  enemy: ClientObject,
+  combatIgnoreState: ISchemeCombatIgnoreState
+): boolean {
+  // Dead, cannot select enemies.
   if (!object.alive()) {
     return false;
   }
 
-  if (object.critically_wounded()) {
-    return true;
-  }
-
-  if (state.enabled === false) {
-    return true;
-  }
-
-  const overrides: Optional<AnyObject> = state.overrides;
-  const objectId: TNumberId = object.id();
-  const objectState: IRegistryObjectState = registry.objects.get(objectId);
+  const objectState: Optional<IRegistryObjectState> = registry.objects.get(object.id());
 
   if (objectState === null) {
     return true;
   }
 
+  // todo: Probably also clean it up? And set only when 'true'
   objectState.enemy_id = enemy.id();
 
+  // When object is critically wounded, it should fight back.
+  if (object.critically_wounded()) {
+    return true;
+  }
+
+  // Combat ignoring is explicitly disabled.
+  if (combatIgnoreState.enabled === false) {
+    return true;
+  }
+
   if (enemy.id() !== ACTOR_ID) {
-    for (const [k, v] of registry.noCombatZones) {
-      const zone = registry.zones.get(k);
+    // If enemy of object is in no-combat zone.
+    for (const [name, storyId] of registry.noCombatZones) {
+      const zone: Optional<ClientObject> = registry.zones.get(name);
 
       if (zone && (isObjectInZone(object, zone) || isObjectInZone(enemy, zone))) {
-        const smart: Optional<SmartTerrain> = SimulationBoardManager.getInstance().getSmartTerrainByName(v);
+        const smartTerrain: Optional<SmartTerrain> =
+          SimulationBoardManager.getInstance().getSmartTerrainByName(storyId);
 
+        // Still allow combat if zone is set to alarm.
         if (
-          smart &&
-          smart.smartTerrainActorControl !== null &&
-          smart.smartTerrainActorControl.status !== ESmartTerrainStatus.ALARM
+          smartTerrain &&
+          smartTerrain.smartTerrainActorControl !== null &&
+          smartTerrain.smartTerrainActorControl.status !== ESmartTerrainStatus.ALARM
         ) {
           return false;
         }
@@ -158,6 +177,7 @@ export function isObjectEnemy(object: ClientObject, enemy: ClientObject, state: 
 
   const serverObject: Optional<ServerCreatureObject> = alife().object(enemy.id());
 
+  // Check if server object is in no-combat zone.
   if (
     serverObject !== null &&
     serverObject.m_smart_terrain_id !== null &&
@@ -172,8 +192,11 @@ export function isObjectEnemy(object: ClientObject, enemy: ClientObject, state: 
     }
   }
 
-  if (overrides && overrides.combat_ignore) {
-    return pickSectionFromCondList(enemy, object, overrides.combat_ignore.condlist) !== TRUE;
+  // Check if object have any state overrides that cause object to explicitly ignore combat.
+  const stateOverrides: Optional<AnyObject> = combatIgnoreState.overrides;
+
+  if (stateOverrides && stateOverrides.combat_ignore) {
+    return pickSectionFromCondList(enemy, object, stateOverrides.combat_ignore.condlist) !== TRUE;
   }
 
   return true;
