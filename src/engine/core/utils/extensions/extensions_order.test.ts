@@ -21,7 +21,7 @@ describe("'extensions_order' utils", () => {
 
     saveExtensionsOrder($fromArray(["a", "b", "c"]));
 
-    expect(lfs.mkdir).toHaveBeenCalledWith("$game_saves$");
+    expect(lfs.mkdir).toHaveBeenCalledWith("$game_saves$\\");
     expect(io.open).toHaveBeenCalledWith("$game_saves$\\extensions_order.scop", "wb");
     expect(file.write).toHaveBeenCalledWith(JSON.stringify({ 1: "a", 2: "b", 3: "c" }));
 

@@ -106,7 +106,7 @@ describe("'game_save' utils", () => {
     saveDynamicGameSave("example.scop", { a: 1, b: 2, c: 3 });
 
     expect(lfs.mkdir).toHaveBeenCalledTimes(1);
-    expect(io.open).toHaveBeenCalledWith("$game_saves$example.scopx", "wb");
+    expect(io.open).toHaveBeenCalledWith("$game_saves$\\example.scopx", "wb");
     expect(file.write).toHaveBeenCalledWith(JSON.stringify({ a: 1, b: 2, c: 3 }));
     expect(file.close).toHaveBeenCalledTimes(1);
 

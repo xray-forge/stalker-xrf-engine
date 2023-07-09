@@ -123,7 +123,7 @@ describe("SaveManager class", () => {
     saveManager.onBeforeGameSave("test.scop");
 
     expect(onSave).toHaveBeenCalledTimes(1);
-    expect(io.open).toHaveBeenCalledWith("$game_saves$test.scopx", "wb");
+    expect(io.open).toHaveBeenCalledWith("$game_saves$\\test.scopx", "wb");
     expect(file.write).toHaveBeenCalledWith(JSON.stringify({ generic: { example: 123 }, store: {} }));
     expect(file.close).toHaveBeenCalledTimes(1);
   });
