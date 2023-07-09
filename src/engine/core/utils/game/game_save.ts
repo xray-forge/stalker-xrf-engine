@@ -8,7 +8,7 @@ import { gameConfig } from "@/engine/lib/configs/GameConfig";
 import { captions } from "@/engine/lib/constants/captions";
 import { consoleCommands } from "@/engine/lib/constants/console_commands";
 import { roots } from "@/engine/lib/constants/roots";
-import { FSFileListEX, Optional, SavedGameWrapper, TCount, TLabel, TName } from "@/engine/lib/types";
+import { AnyObject, FSFileListEX, Optional, SavedGameWrapper, TCount, TLabel, TName, TPath } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -34,15 +34,76 @@ export function isGameSaveFileExist(filename: TName): boolean {
  * @param filename - target name to delete from saves folder
  */
 export function deleteGameSave(filename: TName): void {
-  const saveFileName: TName = filename + gameConfig.GAME_SAVE_EXTENSION;
-  const ddsFile: TName = filename + gameConfig.GAME_SAVE_PREVIEW_EXTENSION;
+  const saveBaseFile: TName = filename + gameConfig.GAME_SAVE_EXTENSION;
+  const saveDynamicFile: TName = filename + gameConfig.GAME_SAVE_DYNAMIC_EXTENSION;
+  const savePreviewFile: TName = filename + gameConfig.GAME_SAVE_PREVIEW_EXTENSION;
 
   const fs: FS = getFS();
 
-  fs.file_delete(roots.gameSaves, saveFileName);
+  logger.info("Delete game save:", filename);
 
-  if (isGameSaveFileExist(ddsFile)) {
-    fs.file_delete(roots.gameSaves, ddsFile);
+  fs.file_delete(roots.gameSaves, saveBaseFile);
+
+  // Delete dynamic base.
+  if (isGameSaveFileExist(saveDynamicFile)) {
+    fs.file_delete(roots.gameSaves, saveDynamicFile);
+  }
+
+  // Delete preview.
+  if (isGameSaveFileExist(savePreviewFile)) {
+    fs.file_delete(roots.gameSaves, savePreviewFile);
+  }
+}
+
+/**
+ * Create dynamic game save based on stringified binary data.
+ *
+ * @param filename - target save filename base to create or overwrite it
+ * @param data - data to save
+ */
+export function saveDynamicGameSave(filename: TName, data: AnyObject): void {
+  const savesFolder: TPath = getFS().update_path(roots.gameSaves, "");
+  const saveFile: TPath =
+    savesFolder + string.lower(string.sub(filename, 0, -6)) + gameConfig.GAME_SAVE_DYNAMIC_EXTENSION;
+
+  // Make sure saves directory exists.
+  lfs.mkdir(savesFolder);
+
+  const [existingSave] = io.open(saveFile, "wb");
+
+  if (!existingSave || io.type(existingSave) !== "file") {
+    return logger.error("Cannot write to save path:", saveFile);
+  }
+
+  existingSave.write(marshal.encode(data));
+  existingSave.close();
+}
+
+/**
+ * Read dynamic game save with stringified binary data.
+ *
+ * @param filename - target save filename full path
+ * @returns stringified binary data or null
+ */
+export function loadDynamicGameSave<T extends AnyObject>(filename: TName): Optional<T> {
+  const saveFile: TPath = string.sub(filename, 0, -6) + gameConfig.GAME_SAVE_DYNAMIC_EXTENSION;
+
+  const [existingSave] = io.open(saveFile, "rb");
+
+  if (!existingSave || io.type(existingSave) !== "file") {
+    return null;
+  }
+
+  const data: Optional<string> = existingSave.read("*all" as unknown as "*a") as Optional<string>;
+
+  existingSave.close();
+
+  if (data && data !== "") {
+    return marshal.decode<T>(data);
+  } else {
+    logger.warn("Was not able to read dynamic game save:", filename);
+
+    return null;
   }
 }
 

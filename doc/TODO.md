@@ -13,6 +13,7 @@
 
 ## 🧰 Requests to open x-ray
 
+- Add callback notifying about game save to get filename
 - With lua bindings generation include all call overrides when output TXT
 - Export actor menu and actor menu item classes for overriding with lua
 - Fix numerous calls to disk with menu, implement caching for character menu and fix lags when opening inventory

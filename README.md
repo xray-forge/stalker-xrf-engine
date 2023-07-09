@@ -95,6 +95,11 @@ Optimizations, quality and logics updates are welcome.
 - [parse](cli/parse/README.md) - parsing utils to collect documentation or JSON summaries
 - `help` - print list of commands and information about them
 
+## 💿 Build
+
+Script engine can be packaged and built into custom game package.<br/>
+Detailed description: [link](doc/BUILDING_CUSTOM_GAME_PACKAGE.md)
+
 ---
 
 ## 🧰 Docs
@@ -104,7 +109,11 @@ Optimizations, quality and logics updates are welcome.
 
 ## 🏗️ Assets
 
+Additional assets repository can be cloned manually or with shortcut command: <br/>
+`npm run cli clone *name*` (`extended`, `locale-eng`, `locale-ukr`, `locale-rus`)
+
 - Extended assets: [https://gitlab.com/xray-forge/stalker-xrf-resources-extended](https://gitlab.com/xray-forge/stalker-xrf-resources-extended)
 - EN locale assets: [https://gitlab.com/xray-forge/stalker-xrf-resources-locale-eng](https://gitlab.com/xray-forge/stalker-xrf-resources-locale-eng)
 - UA locale assets: [https://gitlab.com/xray-forge/stalker-xrf-resources-locale-ukr](https://gitlab.com/xray-forge/stalker-xrf-resources-locale-ukr)
 - RU locale assets: [https://gitlab.com/xray-forge/stalker-xrf-resources-locale-rus](https://gitlab.com/xray-forge/stalker-xrf-resources-locale-rus)
+

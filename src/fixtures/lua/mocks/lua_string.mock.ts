@@ -174,4 +174,5 @@ export const mockString = {
 
     return Number.parseInt(to_jsstring(lauxlib.luaL_tolstring(L, -1)));
   },
+  lower: (target: string) => target.toLowerCase(),
 };

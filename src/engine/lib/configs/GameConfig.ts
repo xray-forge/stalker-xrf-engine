@@ -47,6 +47,10 @@ export const gameConfig = {
    */
   GAME_SAVE_EXTENSION: ".scop",
   /**
+   * Game save file extension for dynamic data.
+   */
+  GAME_SAVE_DYNAMIC_EXTENSION: ".scopx",
+  /**
    * Game save preview file extension by default.
    */
   GAME_SAVE_PREVIEW_EXTENSION: ".dds",
