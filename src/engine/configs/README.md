@@ -4,7 +4,6 @@
 
 - Used to configure game parameters and overwrite existing ones
 
-
 ## LTX vs TS
 
 There is no major differences what to use for configuration files, both sides have pros/cons. <br/>

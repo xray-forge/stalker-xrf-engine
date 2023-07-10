@@ -3,8 +3,7 @@ import { JSXNode, JSXXML } from "jsx-xml";
 import { normalizeBaseNodeProps } from "#/utils";
 
 import { XrTexture } from "@/engine/forms/components/base/XrTexture.component";
-import { TTexture } from "@/engine/lib/constants/textures";
-import { IBaseXmlNode } from "@/engine/lib/types";
+import { IBaseXmlNode, TName } from "@/engine/lib/types";
 
 export interface IXrStaticProps extends IBaseXmlNode {
   id?: string;
@@ -15,7 +14,7 @@ export interface IXrStaticProps extends IBaseXmlNode {
   tag?: string;
   stretch?: boolean;
 
-  texture?: TTexture;
+  texture?: TName;
   textureX?: number;
   textureY?: number;
   textureWidth?: number;

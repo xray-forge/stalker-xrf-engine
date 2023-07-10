@@ -32,6 +32,10 @@ export function saveTextToFile(folderPath: TPath, filePath: TPath, data: string)
  * @param data - target table data to save
  */
 export function saveObjectToFile(folderPath: TPath, filePath: TPath, data: AnyObject): void {
+  if (marshal === null) {
+    return logger.warn("Cannot save object to file,`marshal` lib is not available:", filePath);
+  }
+
   return saveTextToFile(folderPath, filePath, marshal.encode(data));
 }
 
@@ -64,7 +68,7 @@ export function loadTextFromFile(filePath: TPath): Optional<string> {
 export function loadObjectFromFile<T extends AnyObject>(filePath: TPath): Optional<T> {
   const data: Optional<string> = loadTextFromFile(filePath);
 
-  if (data !== null && data !== "") {
+  if (marshal !== null && data !== null && data !== "") {
     return marshal.decode(data) as T;
   } else {
     return null;

@@ -13,7 +13,7 @@ import { AnyObject, LuaArray, Optional, TName, TPath } from "@/engine/lib/types"
 export function getAvailableExtensions(): LuaArray<IExtensionsDescriptor> {
   const fs: FS = getFS();
 
-  if (fs.exist(roots.gameData, "extensions", FS.FS_ListFolders)) {
+  if (lfs !== null && fs.exist(roots.gameData, "extensions", FS.FS_ListFolders)) {
     const list: LuaArray<IExtensionsDescriptor> = new LuaTable();
     const extensionsFolder: TPath = fs.update_path(roots.gameData, "extensions");
 

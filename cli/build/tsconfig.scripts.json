@@ -10,7 +10,6 @@
     "../../src/engine/lib",
     "../../src/engine/scripts",
     "../../src/engine/extensions",
-    "../../src/extensions",
   ],
   "exclude": [
     "../../**/*.test.ts"
@@ -22,9 +21,7 @@
     "luaTarget": "JIT",
     "noImplicitGlobalVariables": true,
     "noImplicitSelf": true,
-    "noResolvePaths": [
-      "xray16"
-    ],
+    "noResolvePaths": ["xray16"],
     "luaPlugins": [
       { "name": "./plugins/transform_luabind_class/plugin.ts" },
       { "name": "./plugins/global_declarations_transform.ts" },

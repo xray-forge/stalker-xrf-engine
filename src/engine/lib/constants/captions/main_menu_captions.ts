@@ -211,6 +211,7 @@ export const mainMenuCaptions = {
   ui_mm_dyn_crosshair: "ui_mm_dyn_crosshair",
   ui_mm_dynamic_music: "ui_mm_dynamic_music",
   ui_mm_eax: "ui_mm_eax",
+  ui_mm_extensions: "ui_mm_extensions",
   ui_mm_fullscreen: "ui_mm_fullscreen",
   ui_mm_gameplay: "ui_mm_gameplay",
   ui_mm_gamma: "ui_mm_gamma",

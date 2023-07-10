@@ -6,10 +6,13 @@ import {
   syncExtensionsOrder,
 } from "@/engine/core/utils/extensions/extensions_order";
 import { IExtensionsDescriptor } from "@/engine/core/utils/extensions/extensions_types";
+import { TName } from "@/engine/lib/types";
 import { MockIoFile } from "@/fixtures/lua";
 import { resetFunctionMock } from "@/fixtures/utils";
 
 describe("'extensions_order' utils", () => {
+  const mockExtension = (name: TName) => ({ name }) as IExtensionsDescriptor;
+
   beforeEach(() => {
     resetFunctionMock(io.open);
   });
@@ -19,7 +22,7 @@ describe("'extensions_order' utils", () => {
 
     jest.spyOn(io, "open").mockImplementation(() => $multi(file.asMock()));
 
-    saveExtensionsOrder($fromArray(["a", "b", "c"]));
+    saveExtensionsOrder($fromArray([mockExtension("a"), mockExtension("b"), mockExtension("c")]));
 
     expect(lfs.mkdir).toHaveBeenCalledWith("$game_saves$\\");
     expect(io.open).toHaveBeenCalledWith("$game_saves$\\extensions_order.scop", "wb");
@@ -28,7 +31,7 @@ describe("'extensions_order' utils", () => {
     expect(file.content).toBe(JSON.stringify({ 1: "a", 2: "b", 3: "c" }));
 
     file.isOpen = false;
-    saveExtensionsOrder($fromArray(["b", "c"]));
+    saveExtensionsOrder($fromArray([mockExtension("b"), mockExtension("c")]));
 
     expect(file.write).toHaveBeenCalledTimes(1);
     expect(file.content).toBe(JSON.stringify({ 1: "a", 2: "b", 3: "c" }));

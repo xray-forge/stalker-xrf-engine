@@ -12,14 +12,14 @@ const logger: LuaLogger = new LuaLogger($filename);
 /**
  * Create dynamic save of extensions order preference.
  *
- * @param order - ordering preference to sort
+ * @param extensions - list of extensions to save order
  */
-export function saveExtensionsOrder(order: LuaArray<TName>): void {
+export function saveExtensionsOrder(extensions: LuaArray<IExtensionsDescriptor>): void {
   const fs: FS = getFS();
   const savesFolder: TPath = fs.update_path(roots.gameSaves, "");
   const orderFile: TPath = fs.update_path(roots.gameSaves, gameConfig.GAME_SAVE_EXTENSIONS_ORDER_FILE);
 
-  saveObjectToFile(savesFolder, orderFile, order);
+  saveObjectToFile(savesFolder, orderFile, $fromArray($fromLuaArray(extensions).map((it) => it.name)));
 }
 
 /**

@@ -10,6 +10,10 @@ export const gameConfig = {
    */
   VERSION: "ver %s XRF 0.2",
   /**
+   * Whether extensions are enabled.
+   */
+  EXTENSIONS_ENABLED: true,
+  /**
    * Debug settings.
    */
   DEBUG: {

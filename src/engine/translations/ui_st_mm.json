@@ -905,6 +905,24 @@
     "rus": "Титры",
     "ukr": "Титри"
   },
+  "ui_mm_extensions": {
+    "eng": "Credits",
+    "pol": "Rozszerzenia",
+    "rus": "Расширения",
+    "ukr": "Розширення"
+  },
+  "ui_mm_up": {
+    "eng": "Up",
+    "pol": "W górę",
+    "rus": "Вверх",
+    "ukr": "Вгору"
+  },
+  "ui_mm_down": {
+    "eng": "Down",
+    "pol": "W dół",
+    "rus": "Вниз",
+    "ukr": "Вниз"
+  },
   "ui_mm_crosshair_distance": {
     "eng": "Crosshair target distance",
     "pol": "Poka� odleg�o�� do celu",

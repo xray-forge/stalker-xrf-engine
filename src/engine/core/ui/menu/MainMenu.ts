@@ -21,6 +21,7 @@ import { registry } from "@/engine/core/database";
 import { EventsManager } from "@/engine/core/managers/events/EventsManager";
 import { EGameEvent } from "@/engine/core/managers/events/types";
 import { DebugDialog } from "@/engine/core/ui/debug/DebugDialog";
+import { ExtensionsDialog } from "@/engine/core/ui/menu/extensions/ExtensionsDialog";
 import { LoadDialog } from "@/engine/core/ui/menu/load/LoadDialog";
 import { MultiplayerMenu } from "@/engine/core/ui/menu/multiplayer/MultiplayerMenu";
 import { MultiplayerGameSpy } from "@/engine/core/ui/menu/multiplayer_login/MultiplayerGamespy";
@@ -82,10 +83,8 @@ export class MainMenu extends CUIScriptWnd {
   public uiLocalnetDialog: Optional<MultiplayerLocalnet> = null;
   public uiGamespyDialog: Optional<MultiplayerGameSpy> = null;
   public uiGameDebugDialog: Optional<DebugDialog> = null;
+  public uiGameExtensionsDialog: Optional<ExtensionsDialog> = null;
 
-  /**
-   * todo: Description.
-   */
   public constructor() {
     super();
 
@@ -168,6 +167,7 @@ export class MainMenu extends CUIScriptWnd {
     this.AddCallback("btn_quit_to_mm", ui_events.BUTTON_CLICKED, () => this.onButtonClickDisconnect(), this);
     this.AddCallback("btn_ret", ui_events.BUTTON_CLICKED, () => this.onButtonClickReturnToGame(), this);
     this.AddCallback("btn_lastsave", ui_events.BUTTON_CLICKED, () => this.onButtonClickLastSave(), this);
+    this.AddCallback("btn_extensions", ui_events.BUTTON_CLICKED, () => this.onButtonClickExtensions(), this);
     this.AddCallback("btn_credits", ui_events.BUTTON_CLICKED, () => this.onButtonClickGameCredits(), this);
 
     this.AddCallback("msg_box", ui_events.MESSAGE_BOX_OK_CLICKED, () => this.onMessageBoxOk(), this);
@@ -252,6 +252,20 @@ export class MainMenu extends CUIScriptWnd {
    */
   public onButtonClickGameCredits(): void {
     game.start_tutorial(gameTutorials.credits_seq);
+  }
+
+  /**
+   * On click extensions menu item button.
+   */
+  public onButtonClickExtensions(): void {
+    if (this.uiGameExtensionsDialog === null) {
+      this.uiGameExtensionsDialog = new ExtensionsDialog(this);
+    }
+
+    this.uiGameExtensionsDialog.ShowDialog(true);
+
+    this.HideDialog();
+    this.Show(false);
   }
 
   /**

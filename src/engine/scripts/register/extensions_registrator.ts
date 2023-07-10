@@ -37,5 +37,5 @@ export function registerExtensions(): void {
   }
 
   logger.info("Saving extensions order");
-  saveExtensionsOrder($fromArray($fromLuaArray(sortedExtensions).map((it) => it.name)));
+  saveExtensionsOrder(sortedExtensions);
 }
