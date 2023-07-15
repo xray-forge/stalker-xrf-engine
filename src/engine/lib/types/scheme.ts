@@ -1,7 +1,7 @@
 import type { PartialRecord } from "@/engine/lib/types/general";
 
 /**
- * todo;
+ * Section name string, representing string256 in c++.
  */
 export type TSection = string;
 

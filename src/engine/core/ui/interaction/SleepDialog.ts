@@ -21,13 +21,13 @@ import { isWideScreen, resolveXmlFormPath } from "@/engine/core/utils/ui";
 import { gameConfig } from "@/engine/lib/configs/GameConfig";
 import { captions } from "@/engine/lib/constants/captions/captions";
 import { infoPortions } from "@/engine/lib/constants/info_portions/info_portions";
-import { ClientObject, TPath, Vector2D } from "@/engine/lib/types";
+import { ClientObject, TPath, TTimestamp, Vector2D } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 const base: TPath = "interaction\\SleepDialog.component";
 
 /**
- * todo;
+ * In-game sleep dialog, shown when interacting with sleeping beds.
  */
 @LuabindClass()
 export class SleepDialog extends CUIScriptWnd {
@@ -56,7 +56,7 @@ export class SleepDialog extends CUIScriptWnd {
   }
 
   /**
-   * todo;
+   * Initialize UI control elements.
    */
   public initControls(): void {
     this.SetWndRect(new Frect().set(0, 0, gameConfig.UI.BASE_WIDTH, gameConfig.UI.BASE_HEIGHT));
@@ -92,19 +92,19 @@ export class SleepDialog extends CUIScriptWnd {
   }
 
   /**
-   * todo;
+   * Initialize UI handlers.
    */
   public initCallbacks(): void {
-    this.AddCallback("btn_sleep", ui_events.BUTTON_CLICKED, () => this.onButtonSleep(), this);
+    this.AddCallback("btn_sleep", ui_events.BUTTON_CLICKED, () => this.onButtonSleepClicked(), this);
     this.AddCallback("btn_cancel", ui_events.BUTTON_CLICKED, () => this.onButtonCancel(), this);
-    this.AddCallback("sleep_mb", ui_events.MESSAGE_BOX_OK_CLICKED, () => this.onMessageBoxOk(), this);
+    this.AddCallback("sleep_mb", ui_events.MESSAGE_BOX_OK_CLICKED, () => this.onMessageBoxOkClicked(), this);
   }
 
   /**
    * todo;
    */
   public initialize(): void {
-    const currentHours: number = level.get_time_hours();
+    const currentHours: TTimestamp = level.get_time_hours();
 
     for (let it = 1; it <= 24; it += 1) {
       let hours: number = currentHours + it;
@@ -203,14 +203,14 @@ export class SleepDialog extends CUIScriptWnd {
     disableInfo(infoPortions.sleep_active);
   }
 
-  public onButtonSleep(): void {
+  public onButtonSleepClicked(): void {
     logger.info("On button sleep");
 
     this.HideDialog();
     this.owner.startSleep(this.uiTimeTrack.GetIValue());
   }
 
-  public onMessageBoxOk(): void {
+  public onMessageBoxOkClicked(): void {
     logger.info("On message box OK");
 
     giveInfo(infoPortions.tutorial_sleep);
