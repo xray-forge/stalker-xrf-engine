@@ -86,19 +86,19 @@ export function loadDynamicGameSave<T extends AnyObject>(filename: TName): Optio
 /**
  * Get label with description for file name.
  *
- * @param filename - name of save file to check
+ * @param name - name of save file to check
  * @returns label with save file description
  */
-export function getFileDataForGameSave(filename: TName): TLabel {
+export function getFileDataForGameSave(name: TName): TLabel {
   const fileList: FSFileListEX = getFS().file_list_open_ex(
     roots.gameSaves,
     bit_or(FS.FS_ListFiles, FS.FS_RootOnly),
-    filename + gameConfig.GAME_SAVE_EXTENSION
+    name + gameConfig.GAME_SAVE_EXTENSION
   );
   const filesCount: TCount = fileList.Size();
 
   if (filesCount > 0) {
-    const savedGame: SavedGameWrapper = new CSavedGameWrapper(filename);
+    const savedGame: SavedGameWrapper = new CSavedGameWrapper(name);
     const dateTime: TLabel = gameTimeToString(savedGame.game_time());
 
     const health: TLabel = string.format(
@@ -127,9 +127,13 @@ export function getFileDataForGameSave(filename: TName): TLabel {
  * @param saveName - name of the file / record to save
  * @param translate - whether name should be translated
  */
-export function createAutoSave(saveName: Optional<TName>, translate: boolean = true): void {
+export function createGameAutoSave(saveName: Optional<TName>, translate: boolean = true): void {
+  assert(saveName, "You are trying to use scenario save without name.");
+
   if (IsImportantSave()) {
-    createSave(saveName, translate);
+    const autoSaveName: TName = user_name() + " - " + (translate ? game.translate_string(saveName) : saveName);
+
+    createGameSave(autoSaveName);
   } else {
     logger.info("Skip save, auto-saving is not turned on:", saveName);
   }
@@ -138,16 +142,13 @@ export function createAutoSave(saveName: Optional<TName>, translate: boolean = t
 /**
  * Save game with provided parameters.
  *
- * @param saveName - name of the file / record to save
- * @param translate - whether name should be translated
+ * @param name - name of the file / record to save
  */
-export function createSave(saveName: Optional<TName>, translate: boolean = true): void {
-  assert(saveName, "You are trying to use scenario save without name.");
+export function createGameSave(name: Optional<TName>): void {
+  assert(name, "You are trying to save without name.");
 
-  const saveParameter: string = user_name() + " - " + (translate ? game.translate_string(saveName) : saveName);
-
-  logger.info("Performing save:", saveParameter);
-  executeConsoleCommand(consoleCommands.save, saveParameter);
+  logger.info("Performing save:", name);
+  executeConsoleCommand(consoleCommands.save, name);
 }
 
 /**
@@ -157,6 +158,23 @@ export function createSave(saveName: Optional<TName>, translate: boolean = true)
 export function loadLastGameSave(): void {
   executeConsoleCommand(consoleCommands.main_menu, "off");
   executeConsoleCommand(consoleCommands.load_last_save);
+}
+
+/**
+ * Loads game save by name.
+ * If game is not started, initializes new world.
+ *
+ * @param name - name of game save to load
+ */
+export function loadGameSave(name: Optional<TName>): void {
+  assert(name, "You are trying to load without name.");
+
+  if (alife() === null) {
+    executeConsoleCommand(consoleCommands.disconnect);
+    executeConsoleCommand(consoleCommands.start, string.format("server(%s/single/alife/load) client(localhost)", name));
+  } else {
+    executeConsoleCommand(consoleCommands.load, name);
+  }
 }
 
 /**

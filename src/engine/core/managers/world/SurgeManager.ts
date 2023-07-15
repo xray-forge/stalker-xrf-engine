@@ -22,7 +22,7 @@ import { AnomalyZoneBinder, SmartTerrain } from "@/engine/core/objects";
 import { Squad } from "@/engine/core/objects/server/squad/Squad";
 import { isBlackScreen } from "@/engine/core/utils/game";
 import { executeConsoleCommand, getConsoleFloatCommand } from "@/engine/core/utils/game/game_console";
-import { createAutoSave } from "@/engine/core/utils/game/game_save";
+import { createGameAutoSave } from "@/engine/core/utils/game/game_save";
 import { readTimeFromPacket, writeTimeToPacket } from "@/engine/core/utils/game/game_time";
 import { parseConditionsList, pickSectionFromCondList, TConditionList } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -356,7 +356,7 @@ export class SurgeManager extends AbstractCoreManager {
       this.isFinished = false;
 
       if (!hasAlifeInfo(infoPortions.pri_b305_fifth_cam_end) || hasAlifeInfo(infoPortions.pri_a28_actor_in_zone_stay)) {
-        createAutoSave(captions.st_save_uni_surge_start);
+        createGameAutoSave(captions.st_save_uni_surge_start);
       }
     }
   }

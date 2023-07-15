@@ -7,15 +7,17 @@ import {
   LuabindClass,
 } from "xray16";
 
+import { TLabel, TSize } from "@/engine/lib/types";
+
 /**
- * todo;
+ * Save dialog list item entry.
  */
 @LuabindClass()
 export class SaveItem extends CUIListBoxItem {
   public uiInnerNameText: CUITextWnd;
   public uiInnerAgeText: CUITextWnd;
 
-  public constructor(height: number, ageFieldWidth: number, dataTime: string) {
+  public constructor(height: TSize, ageFieldWidth: TSize, dataTime: TLabel) {
     super(height);
 
     this.SetTextColor(GetARGB(255, 170, 170, 170));

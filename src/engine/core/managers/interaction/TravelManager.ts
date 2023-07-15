@@ -12,7 +12,7 @@ import { SquadStayOnTargetAction } from "@/engine/core/objects/server/squad/acti
 import { Squad } from "@/engine/core/objects/server/squad/Squad";
 import { TSimulationObject } from "@/engine/core/objects/server/types";
 import { abort } from "@/engine/core/utils/assertion";
-import { createAutoSave } from "@/engine/core/utils/game/game_save";
+import { createGameAutoSave } from "@/engine/core/utils/game/game_save";
 import { parseConditionsList, pickSectionFromCondList, TConditionList } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import {
@@ -440,7 +440,7 @@ export class TravelManager extends AbstractCoreManager {
 
     logger.info("Actor travel with squad:", npc.name(), smartName);
 
-    createAutoSave(captions.st_save_uni_travel_generic);
+    createGameAutoSave(captions.st_save_uni_travel_generic);
 
     npc.stop_talk();
 
@@ -476,7 +476,7 @@ export class TravelManager extends AbstractCoreManager {
     dialogId: TStringId,
     phraseId: TStringId
   ): void {
-    createAutoSave(captions.st_save_uni_travel_generic);
+    createGameAutoSave(captions.st_save_uni_travel_generic);
 
     const squad: Squad = getObjectSquad(npc)!;
     const squadTargetId: Optional<TNumberId> = squad.assignedTargetId;

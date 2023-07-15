@@ -4,7 +4,7 @@ import { getPortableStoreValue, setPortableStoreValue } from "@/engine/core/data
 import { ItemUpgradesManager } from "@/engine/core/managers/interface/ItemUpgradesManager";
 import { extern } from "@/engine/core/utils/binding";
 import { executeConsoleCommand } from "@/engine/core/utils/game/game_console";
-import { createAutoSave } from "@/engine/core/utils/game/game_save";
+import { createGameAutoSave } from "@/engine/core/utils/game/game_save";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { TCaption } from "@/engine/lib/constants/captions";
 import { consoleCommands } from "@/engine/lib/constants/console_commands";
@@ -125,7 +125,7 @@ extern("xr_effects.stop_tutorial", (): void => {
  * todo;
  */
 extern("xr_effects.scenario_autosave", (actor: ClientObject, object: ClientObject, [name]: [TName]): void => {
-  createAutoSave(name);
+  createGameAutoSave(name);
 });
 
 /**
