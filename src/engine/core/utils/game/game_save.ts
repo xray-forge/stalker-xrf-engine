@@ -1,4 +1,4 @@
-import { bit_or, CSavedGameWrapper, FS, game, getFS, IsImportantSave, user_name } from "xray16";
+import { alife, bit_or, CSavedGameWrapper, device, FS, game, getFS, IsImportantSave, user_name } from "xray16";
 
 import { assert } from "@/engine/core/utils/assertion";
 import { loadObjectFromFile, saveObjectToFile } from "@/engine/core/utils/fs";
@@ -8,6 +8,7 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 import { gameConfig } from "@/engine/lib/configs/GameConfig";
 import { captions } from "@/engine/lib/constants/captions";
 import { consoleCommands } from "@/engine/lib/constants/console_commands";
+import { TGameDifficulty } from "@/engine/lib/constants/game_difficulties";
 import { roots } from "@/engine/lib/constants/roots";
 import { AnyObject, FSFileListEX, Optional, SavedGameWrapper, TCount, TLabel, TName, TPath } from "@/engine/lib/types";
 
@@ -147,4 +148,33 @@ export function createSave(saveName: Optional<TName>, translate: boolean = true)
 
   logger.info("Performing save:", saveParameter);
   executeConsoleCommand(consoleCommands.save, saveParameter);
+}
+
+/**
+ * Loads last game save.
+ * Closes menu if it is open.
+ */
+export function loadLastGameSave(): void {
+  executeConsoleCommand(consoleCommands.main_menu, "off");
+  executeConsoleCommand(consoleCommands.load_last_save);
+}
+
+/**
+ * Starts new single game server/save.
+ *
+ * @param difficulty - level of difficulty for new game, optional
+ */
+export function startNewGame(difficulty: Optional<TGameDifficulty> = null): void {
+  if (difficulty) {
+    executeConsoleCommand(consoleCommands.g_game_difficulty, difficulty);
+  }
+
+  if (alife() !== null) {
+    executeConsoleCommand(consoleCommands.disconnect);
+  }
+
+  device().pause(false);
+
+  executeConsoleCommand(consoleCommands.start, "server(all/single/alife/new)", "client(localhost)");
+  executeConsoleCommand(consoleCommands.main_menu, "off");
 }

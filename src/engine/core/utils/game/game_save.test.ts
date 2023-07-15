@@ -1,4 +1,5 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
+import { alife, device } from "xray16";
 
 import {
   createAutoSave,
@@ -7,10 +8,13 @@ import {
   getFileDataForGameSave,
   isGameSaveFileExist,
   loadDynamicGameSave,
+  loadLastGameSave,
   saveDynamicGameSave,
+  startNewGame,
 } from "@/engine/core/utils/game/game_save";
+import { gameDifficulties } from "@/engine/lib/constants/game_difficulties";
 import { MockIoFile } from "@/fixtures/lua";
-import { resetFunctionMock } from "@/fixtures/utils";
+import { replaceFunctionMock, replaceFunctionMockOnce, resetFunctionMock } from "@/fixtures/utils";
 import { gameConsole, MockFileSystem, MockFileSystemList, mocksConfig } from "@/fixtures/xray";
 
 describe("'game_save' utils", () => {
@@ -143,5 +147,35 @@ describe("'game_save' utils", () => {
     file.content = "{}";
     file.isOpen = false;
     expect(loadDynamicGameSave("F:\\\\parent\\\\example.scop")).toBeNull();
+  });
+
+  it("'loadLastGameSave' should correctly save last game and turn off menu", () => {
+    loadLastGameSave();
+
+    expect(gameConsole.execute).toHaveBeenCalledTimes(2);
+    expect(gameConsole.execute).toHaveBeenNthCalledWith(1, "main_menu off");
+    expect(gameConsole.execute).toHaveBeenNthCalledWith(2, "load_last_save");
+  });
+
+  it("'startNewGame' should correctly create new server, set difficulty and disconnect from previous one", () => {
+    startNewGame(gameDifficulties.gd_master);
+
+    expect(gameConsole.execute).toHaveBeenCalledTimes(4);
+    expect(gameConsole.execute).toHaveBeenNthCalledWith(1, "g_game_difficulty gd_master");
+    expect(gameConsole.execute).toHaveBeenNthCalledWith(2, "disconnect");
+    expect(gameConsole.execute).toHaveBeenNthCalledWith(3, "start server(all/single/alife/new) client(localhost)");
+    expect(gameConsole.execute).toHaveBeenNthCalledWith(4, "main_menu off");
+    expect(device().pause).toHaveBeenCalledWith(false);
+  });
+
+  it("'startNewGame' should correctly be called when not started", () => {
+    replaceFunctionMockOnce(alife, () => null);
+
+    startNewGame();
+
+    expect(gameConsole.execute).toHaveBeenCalledTimes(2);
+    expect(gameConsole.execute).toHaveBeenNthCalledWith(1, "start server(all/single/alife/new) client(localhost)");
+    expect(gameConsole.execute).toHaveBeenNthCalledWith(2, "main_menu off");
+    expect(device().pause).toHaveBeenCalledWith(false);
   });
 });

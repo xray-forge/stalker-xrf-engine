@@ -36,6 +36,6 @@ export function registerExtensions(): void {
     extension.module.register();
   }
 
-  logger.info("Saving extensions order");
+  logger.info("Saving current extensions order");
   saveExtensionsOrder(sortedExtensions);
 }

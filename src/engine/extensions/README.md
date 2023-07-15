@@ -19,3 +19,4 @@ Extensions can load with root register method, use shared game utils and service
 - Custom configs / build steps to transpile extension configs
 - Automated way to load system ini overrides and apply to existing system ini file
 - Save data about active extensions and warn when loading game with invalid extensions list
+- Add `requires` fields when extensions depend on each other
