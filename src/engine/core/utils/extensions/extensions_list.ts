@@ -1,8 +1,11 @@
 import { FS, getFS } from "xray16";
 
 import { IExtensionsDescriptor } from "@/engine/core/utils/extensions/extensions_types";
+import { LuaLogger } from "@/engine/core/utils/logging";
 import { roots } from "@/engine/lib/constants/roots";
 import { AnyObject, LuaArray, Optional, TName, TPath } from "@/engine/lib/types";
+
+const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * Get list of possible extension modules.
@@ -21,13 +24,11 @@ export function getAvailableExtensions(): LuaArray<IExtensionsDescriptor> {
     let directoryItem: Optional<TName> = directory.next();
 
     while (directoryItem) {
-      const extensionPath: TPath = fs.update_path(
-        roots.gameData,
-        string.format("extensions/%s/main.script", directoryItem)
-      );
+      const extensionPath: TPath = fs.update_path(roots.gameData, string.format("extensions\\%s", directoryItem));
+      const extensionEntryPath: TPath = string.format("%s\\main.script", extensionPath);
 
       // If entry exists and has register callback, collect descriptor.
-      if (lfs.attributes(extensionPath)) {
+      if (lfs.attributes(extensionEntryPath)) {
         // eslint-disable-next-line @typescript-eslint/no-var-requires
         const module: Optional<AnyObject> = require(string.format("extensions.%s.main", directoryItem));
 
@@ -36,6 +37,7 @@ export function getAvailableExtensions(): LuaArray<IExtensionsDescriptor> {
             isEnabled: true,
             name: directoryItem,
             path: extensionPath,
+            entry: extensionEntryPath,
             module: module,
           });
         }

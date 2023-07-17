@@ -6,7 +6,7 @@ import {
   syncExtensionsOrder,
 } from "@/engine/core/utils/extensions/extensions_order";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { LuaArray } from "@/engine/lib/types";
+import { AnyCallablesModule, LuaArray } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -33,7 +33,7 @@ export function registerExtensions(): void {
 
   for (const [, extension] of sortedExtensions) {
     registerExtension(extension);
-    extension.module.register();
+    (extension.module as AnyCallablesModule).register(extension);
   }
 
   logger.info("Saving current extensions order");

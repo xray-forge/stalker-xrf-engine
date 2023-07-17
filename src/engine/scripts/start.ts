@@ -2,6 +2,7 @@ import { time_global } from "xray16";
 
 import { EGameEvent, EventsManager } from "@/engine/core/managers";
 import { extern } from "@/engine/core/utils/binding";
+import { unlockSystemIniOverriding } from "@/engine/core/utils/ini/ini_system";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { registerExtensions } from "@/engine/scripts/register/extensions_registrator";
 import { registerManagers } from "@/engine/scripts/register/managers_registrator";
@@ -21,6 +22,8 @@ extern("start", {
     logger.info("Start new game");
 
     math.randomseed(time_global());
+
+    unlockSystemIniOverriding();
 
     registerManagers();
     registerSchemes();
