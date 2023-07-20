@@ -1,7 +1,8 @@
 import { newFloatField, newIntegerField, newStringField } from "#/utils";
 
 /**
- * todo;
+ * Configuration of game alife processing.
+ * Includes settings with frequency/quantity of server objects updates when they are not in client radius.
  */
 export const config = {
   alife: {
