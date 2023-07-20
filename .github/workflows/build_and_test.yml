@@ -2,9 +2,9 @@ name: build-and-test
 
 on:
   push:
-    branches: [ "main", "dev" ]
+    branches: ["main", "dev"]
   pull_request:
-    branches: [ "main", "dev" ]
+    branches: ["main", "dev"]
 
 jobs:
   test:
@@ -24,7 +24,7 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
-          cache: 'npm'
+          cache: "npm"
 
       - run: npm ci
       - run: npm run setup
@@ -45,20 +45,20 @@ jobs:
         node-version: [19.x]
 
     steps:
-    - uses: actions/checkout@v3
-      with:
-        submodules: recursive
+      - uses: actions/checkout@v3
+        with:
+          submodules: recursive
 
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
-      with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'npm'
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: "npm"
 
-    - run: npm ci
-    - run: npm run setup
-    - run: npm run typecheck
-    - run: npm run lint
+      - run: npm ci
+      - run: npm run setup
+      - run: npm run typecheck
+      - run: npm run lint
 
   build:
     runs-on: ubuntu-latest
@@ -68,39 +68,39 @@ jobs:
         node-version: [19.x]
 
     steps:
-    - uses: actions/checkout@v3
-      with:
-        submodules: recursive
+      - uses: actions/checkout@v3
+        with:
+          submodules: recursive
 
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
-      with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'npm'
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: "npm"
 
-    - run: npm ci
-    - run: npm run setup
-    - run: npm run pack:mod
+      - run: npm ci
+      - run: npm run setup
+      - run: npm run pack:mod
 
-    - name: Install zip
-      uses: montudor/action-zip@v1
+      - name: Install zip
+        uses: montudor/action-zip@v1
 
-    - name: Move build statics
-      run: |
-        mv target/xrf_build.log target/mod_package/xrf_build.log
-        mv target/README.md target/mod_package/README.md
+      - name: Move build statics
+        run: |
+          mv target/xrf_build.log target/mod_package/xrf_build.log
+          mv target/README.md target/mod_package/README.md
 
-    - name: Archive build artifacts
-      working-directory: target/mod_package
-      run: zip -qq -r gamedata.release.zip gamedata/ bin/ xrf_build.log README.md
+      - name: Archive build artifacts
+        working-directory: target/mod_package
+        run: zip -qq -r gamedata.release.zip gamedata/ bin/ xrf_build.log README.md
 
-    - name: Upload build artifacts
-      uses: actions/upload-artifact@v3
-      with:
-        if-no-files-found: error
-        name: gamedata-release
-        path: target/mod_package/gamedata.release.zip
-        retention-days: 1
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          if-no-files-found: error
+          name: gamedata-release
+          path: target/mod_package/gamedata.release.zip
+          retention-days: 1
 
   upload-nightly:
     if: ${{ github.ref_name == 'dev' && github.event_name != 'pull_request' }}
@@ -108,21 +108,21 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
-    - uses: actions/download-artifact@master
-      with:
-        name: gamedata-release
+      - uses: actions/download-artifact@master
+        with:
+          name: gamedata-release
 
-    - name: Update nightly tag
-      uses: EndBug/latest-tag@latest
-      if: github.ref_name == 'dev'
-      id: update-nightly-tag
-      with:
-        ref: nightly
+      - name: Update nightly tag
+        uses: EndBug/latest-tag@latest
+        if: github.ref_name == 'dev'
+        id: update-nightly-tag
+        with:
+          ref: nightly
 
-    - name: Publish nightly gamedata build
-      if: ${{ steps.update-nightly-tag.outcome == 'success' }}
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      run: gh release upload --clobber nightly gamedata.release.zip
+      - name: Publish nightly gamedata build
+        if: ${{ steps.update-nightly-tag.outcome == 'success' }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh release upload --clobber nightly gamedata.release.zip

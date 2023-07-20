@@ -20,6 +20,7 @@ import type { CampStoryManager } from "@/engine/core/schemes/camper";
 import type { PatrolManager } from "@/engine/core/schemes/patrol";
 import type { ReachTaskPatrolManager } from "@/engine/core/schemes/reach_task";
 import type { LightManager } from "@/engine/core/schemes/sr_light";
+import type { IExtensionsDescriptor } from "@/engine/core/utils/extensions";
 import type { TConditionList } from "@/engine/core/utils/ini/ini_types";
 import type { ERelation } from "@/engine/core/utils/relation";
 import { storyNames, TStoryName } from "@/engine/lib/constants/story_names";
@@ -162,12 +163,12 @@ export const registry = {
   ini: new LuaTable<TName, IniFile>(),
   /**
    * List of active smart terrains.
-   */ smartTerrains: new LuaTable<TNumberId, SmartTerrain>(),
+   */
+  smartTerrains: new LuaTable<TNumberId, SmartTerrain>(),
   /**
    * List of campfires by smart terrain name.
    */
   smartTerrainsCampfires: new LuaTable<TName, LuaTable<TNumberId, ZoneCampfire>>(),
-
   /**
    * Nearest to actor smart terrain.
    */
@@ -233,4 +234,8 @@ export const registry = {
     [storyNames.jup_a6]: true,
     [storyNames.pri_a16]: true,
   }),
+  /**
+   * List of extensions details loaded additionally to the game engine.
+   */
+  extensions: new LuaTable<TName, IExtensionsDescriptor>(),
 };

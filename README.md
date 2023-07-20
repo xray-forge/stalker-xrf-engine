@@ -20,6 +20,7 @@ Template for stalker mods and modded game packages. <br/>
 - Game profiling / debugging tools
 - Creation of custom modded game package
 - Unit tests coverage
+- [WIP] [Modular extensions](./src/engine/extensions/README.md)
 
 ## 📍 Purpose
 
@@ -117,3 +118,8 @@ Additional assets repository can be cloned manually or with shortcut command: <b
 - UA locale assets: [https://gitlab.com/xray-forge/stalker-xrf-resources-locale-ukr](https://gitlab.com/xray-forge/stalker-xrf-resources-locale-ukr)
 - RU locale assets: [https://gitlab.com/xray-forge/stalker-xrf-resources-locale-rus](https://gitlab.com/xray-forge/stalker-xrf-resources-locale-rus)
 
+## 🧰 Bugs
+
+It took 3 months just to rewrite all the 20 years LUA codebase to typescript and create custom transformers to support luabind. <br/>
+Further game testing and re-architecture produces new bugs and issues which are easier to prevent with unit tests. <br/>
+As for now, main focus is separation and clarification of logics and unit testing coverage.

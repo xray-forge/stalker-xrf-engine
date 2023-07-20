@@ -1,7 +1,6 @@
 import {
   alife,
   bit_or,
-  CConsole,
   CScriptXmlInit,
   CUIListBox,
   CUIMessageBoxEx,
@@ -13,7 +12,6 @@ import {
   dik_to_bind,
   Frect,
   FS,
-  get_console,
   getFS,
   key_bindings,
   LuabindClass,
@@ -24,7 +22,12 @@ import {
 
 import { registry } from "@/engine/core/database";
 import { LoadItem } from "@/engine/core/ui/menu/load/LoadItem";
-import { deleteGameSave, getFileDataForGameSave, isGameSaveFileExist } from "@/engine/core/utils/game/game_save";
+import {
+  deleteGameSave,
+  getFileDataForGameSave,
+  isGameSaveFileExist,
+  loadGameSave,
+} from "@/engine/core/utils/game/game_save";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { resolveXmlFormPath } from "@/engine/core/utils/ui";
 import { gameConfig } from "@/engine/lib/configs/GameConfig";
@@ -48,7 +51,7 @@ const logger: LuaLogger = new LuaLogger($filename);
 const base: TPath = "menu\\LoadDialog.component";
 
 /**
- * todo;
+ * Main menu window to load game saves.
  */
 @LuabindClass()
 export class LoadDialog extends CUIScriptWnd {
@@ -122,8 +125,8 @@ export class LoadDialog extends CUIScriptWnd {
     this.AddCallback("button_load", ui_events.BUTTON_CLICKED, () => this.onLoadButtonClicked(), this);
     this.AddCallback("button_back", ui_events.BUTTON_CLICKED, () => this.onBackButtonClicked(), this);
     this.AddCallback("button_del", ui_events.BUTTON_CLICKED, () => this.onDeleteButtonClicked(), this);
-    this.AddCallback("message_box", ui_events.MESSAGE_BOX_YES_CLICKED, () => this.onConfirmedLoad(), this);
-    this.AddCallback("message_box", ui_events.MESSAGE_BOX_OK_CLICKED, () => this.onConfirmedLoad(), this);
+    this.AddCallback("message_box", ui_events.MESSAGE_BOX_YES_CLICKED, () => this.onConfirmedLoadClicked(), this);
+    this.AddCallback("message_box", ui_events.MESSAGE_BOX_OK_CLICKED, () => this.onConfirmedLoadClicked(), this);
 
     this.AddCallback("list_window", ui_events.LIST_ITEM_CLICKED, () => this.onListItemClicked(), this);
     this.AddCallback("list_window", ui_events.WINDOW_LBUTTON_DB_CLICK, () => this.onListItemDoubleClicked(), this);
@@ -203,7 +206,7 @@ export class LoadDialog extends CUIScriptWnd {
     this.onLoadButtonClicked();
   }
 
-  public onConfirmedLoad(): void {
+  public onConfirmedLoadClicked(): void {
     logger.info("Message yes confirmed");
 
     const index: TIndex = this.uiListBox.GetSelectedIndex();
@@ -231,8 +234,6 @@ export class LoadDialog extends CUIScriptWnd {
   public loadGameInternal(): void {
     logger.info("Load game internal");
 
-    const console: CConsole = get_console();
-
     if (this.uiListBox.GetSize() === 0) {
       return;
     }
@@ -246,12 +247,7 @@ export class LoadDialog extends CUIScriptWnd {
     const item: LoadItem = this.uiListBox.GetItemByIndex(index);
     const innerNameTextName: TName = item.uiInnerNameText.GetText();
 
-    if (alife() === null) {
-      console.execute("disconnect");
-      console.execute("start server(" + innerNameTextName + "/single/alife/load) client(consthost)");
-    } else {
-      console.execute("load " + innerNameTextName);
-    }
+    loadGameSave(innerNameTextName);
   }
 
   public onLoadButtonClicked(): void {
@@ -267,9 +263,9 @@ export class LoadDialog extends CUIScriptWnd {
       return;
     }
 
-    const innerNameTextame: string = item.uiInnerNameText.GetText();
+    const innerNameTextName: TName = item.uiInnerNameText.GetText();
 
-    if (!valid_saved_game(innerNameTextame)) {
+    if (!valid_saved_game(innerNameTextName)) {
       this.messageBoxMode = 0;
       this.uiMessageBox.InitMessageBox("message_box_invalid_saved_game");
       this.uiMessageBox.ShowDialog(true);
@@ -304,6 +300,9 @@ export class LoadDialog extends CUIScriptWnd {
     this.owner.Show(true);
   }
 
+  /**
+   * Delete game save button clicked.
+   */
   public onDeleteButtonClicked(): void {
     logger.info("Delete clicked");
 
@@ -323,6 +322,9 @@ export class LoadDialog extends CUIScriptWnd {
     this.uiMessageBox.ShowDialog(true);
   }
 
+  /**
+   * Handle keyboard button press.
+   */
   public override OnKeyboard(key: TKeyCode, event: TUIEvent): boolean {
     super.OnKeyboard(key, event);
 

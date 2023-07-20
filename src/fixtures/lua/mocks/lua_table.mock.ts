@@ -2,7 +2,7 @@ import { AnyObject } from "@/engine/lib/types";
 import { MockLuaTable } from "@/fixtures/lua/mocks/LuaTable.mock";
 
 /**
- * todo;
+ * Mock default lua lib table methods.
  */
 export const mockTable = {
   insert: (target: LuaTable, element: unknown) => {
@@ -20,5 +20,12 @@ export const mockTable = {
     } else {
       return Object.values(target).join(char);
     }
+  },
+  sort: <K, V>(target: MockLuaTable<K, V>, comparator: (a: V, b: V) => number): void => {
+    const sortedValues = target.getValuesArray().sort(comparator);
+
+    target.reset();
+
+    sortedValues.forEach((it, index) => target.set((index + 1) as unknown as K, it));
   },
 };

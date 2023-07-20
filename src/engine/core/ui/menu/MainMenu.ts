@@ -6,7 +6,6 @@ import {
   CUIMMShniaga,
   CUIScriptWnd,
   CUIStatic,
-  device,
   DIK_keys,
   Frect,
   game,
@@ -21,19 +20,21 @@ import { registry } from "@/engine/core/database";
 import { EventsManager } from "@/engine/core/managers/events/EventsManager";
 import { EGameEvent } from "@/engine/core/managers/events/types";
 import { DebugDialog } from "@/engine/core/ui/debug/DebugDialog";
+import { ExtensionsDialog } from "@/engine/core/ui/menu/extensions/ExtensionsDialog";
 import { LoadDialog } from "@/engine/core/ui/menu/load/LoadDialog";
 import { MultiplayerMenu } from "@/engine/core/ui/menu/multiplayer/MultiplayerMenu";
 import { MultiplayerGameSpy } from "@/engine/core/ui/menu/multiplayer_login/MultiplayerGamespy";
 import { MultiplayerLocalnet } from "@/engine/core/ui/menu/multiplayer_login/MultiplayerLocalnet";
 import { OptionsDialog } from "@/engine/core/ui/menu/options/OptionsDialog";
 import { SaveDialog } from "@/engine/core/ui/menu/save/SaveDialog";
+import { loadLastGameSave, startNewGame } from "@/engine/core/utils/game";
 import { executeConsoleCommand } from "@/engine/core/utils/game/game_console";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { resolveXmlFile, resolveXmlFormPath } from "@/engine/core/utils/ui";
 import { gameConfig } from "@/engine/lib/configs/GameConfig";
 import { captions } from "@/engine/lib/constants/captions/captions";
 import { consoleCommands } from "@/engine/lib/constants/console_commands";
-import { gameDifficulties, TGameDifficulty } from "@/engine/lib/constants/game_difficulties";
+import { gameDifficulties } from "@/engine/lib/constants/game_difficulties";
 import { gameTutorials } from "@/engine/lib/constants/game_tutorials";
 import { gameTypes } from "@/engine/lib/constants/game_types";
 import {
@@ -60,17 +61,17 @@ enum EMainMenuModalMode {
 }
 
 /**
- * todo;
+ * Main game menu component implementation.
  */
 @LuabindClass()
 export class MainMenu extends CUIScriptWnd {
+  public readonly xrMenuController: CMainMenu = main_menu.get_main_menu();
+  public xrMenuPageController!: CUIMMShniaga;
+
   public readonly xrAccountManager: AccountManager;
   public readonly xrProfileStore: ProfileStore;
   public readonly xrLoginManager: LoginManager;
   public xrGameSpyProfile: Optional<Profile>;
-
-  public readonly xrMenuController: CMainMenu = main_menu.get_main_menu();
-  public xrMenuPageController!: CUIMMShniaga;
 
   public uiModalBox!: CUIMessageBoxEx;
   public modalBoxMode: EMainMenuModalMode = EMainMenuModalMode.OFF;
@@ -82,10 +83,8 @@ export class MainMenu extends CUIScriptWnd {
   public uiLocalnetDialog: Optional<MultiplayerLocalnet> = null;
   public uiGamespyDialog: Optional<MultiplayerGameSpy> = null;
   public uiGameDebugDialog: Optional<DebugDialog> = null;
+  public uiGameExtensionsDialog: Optional<ExtensionsDialog> = null;
 
-  /**
-   * todo: Description.
-   */
   public constructor() {
     super();
 
@@ -101,7 +100,7 @@ export class MainMenu extends CUIScriptWnd {
   }
 
   /**
-   * todo: Description.
+   * Initialize UI controls.
    */
   public initControls(): void {
     this.SetWndRect(new Frect().set(0, 0, gameConfig.UI.BASE_WIDTH, gameConfig.UI.BASE_HEIGHT));
@@ -115,10 +114,11 @@ export class MainMenu extends CUIScriptWnd {
 
     this.Register(this.uiModalBox, "msg_box");
 
-    const version: CUIStatic = xml.InitStatic("static_version", this);
+    const versionLabel: CUIStatic = xml.InitStatic("static_version", this);
 
-    version.TextControl().SetText(string.format(gameConfig.VERSION, this.xrMenuController.GetGSVer()));
+    versionLabel.TextControl().SetText(string.format(gameConfig.VERSION, this.xrMenuController.GetGSVer()));
 
+    // Reset magnifier mode.
     if (this.xrGameSpyProfile && !level.present()) {
       this.xrMenuPageController.ShowPage(CUIMMShniaga.epi_new_network_game); // --fake
       this.xrMenuPageController.SetPage(CUIMMShniaga.epi_main, resolveXmlFormPath(base), "menu_main_logout");
@@ -127,64 +127,45 @@ export class MainMenu extends CUIScriptWnd {
   }
 
   /**
-   * todo: Description.
+   * Initialize callback handlers of main menu buttons.
    */
   public initCallBacks(): void {
-    this.AddCallback(
-      "btn_novice",
-      ui_events.BUTTON_CLICKED,
-      () => this.onStartNewGame(gameDifficulties.gd_novice),
-      this
-    );
-    this.AddCallback(
-      "btn_stalker",
-      ui_events.BUTTON_CLICKED,
-      () => this.onStartNewGame(gameDifficulties.gd_stalker),
-      this
-    );
-    this.AddCallback(
-      "btn_veteran",
-      ui_events.BUTTON_CLICKED,
-      () => this.onStartNewGame(gameDifficulties.gd_veteran),
-      this
-    );
-    this.AddCallback(
-      "btn_master",
-      ui_events.BUTTON_CLICKED,
-      () => this.onStartNewGame(gameDifficulties.gd_master),
-      this
-    );
-    this.AddCallback("btn_options", ui_events.BUTTON_CLICKED, () => this.onButtonClickOptions(), this);
-    this.AddCallback("btn_load", ui_events.BUTTON_CLICKED, () => this.onButtonClickLoadGame(), this);
-    this.AddCallback("btn_save", ui_events.BUTTON_CLICKED, () => this.onButtonClickSaveGame(), this);
+    this.AddCallback("btn_novice", ui_events.BUTTON_CLICKED, () => startNewGame(gameDifficulties.gd_novice), this);
+    this.AddCallback("btn_stalker", ui_events.BUTTON_CLICKED, () => startNewGame(gameDifficulties.gd_stalker), this);
+    this.AddCallback("btn_veteran", ui_events.BUTTON_CLICKED, () => startNewGame(gameDifficulties.gd_veteran), this);
+    this.AddCallback("btn_master", ui_events.BUTTON_CLICKED, () => startNewGame(gameDifficulties.gd_master), this);
+    this.AddCallback("btn_options", ui_events.BUTTON_CLICKED, () => this.onOptionsButtonClick(), this);
+    this.AddCallback("btn_load", ui_events.BUTTON_CLICKED, () => this.onLoadGameButtonClick(), this);
+    this.AddCallback("btn_save", ui_events.BUTTON_CLICKED, () => this.onSaveGameButtonClick(), this);
 
-    this.AddCallback("btn_net_game", ui_events.BUTTON_CLICKED, () => this.onButtonClickNetworkGame(), this);
-    this.AddCallback("btn_internet", ui_events.BUTTON_CLICKED, () => this.onButtonClickInternet(), this);
-    this.AddCallback("btn_localnet", ui_events.BUTTON_CLICKED, () => this.onButtonClickLocalnet(), this);
-    this.AddCallback("btn_multiplayer", ui_events.BUTTON_CLICKED, () => this.onButtonClickMultiplayer(), this);
-    this.AddCallback("btn_logout", ui_events.BUTTON_CLICKED, () => this.onButtonClickLogout(), this);
+    this.AddCallback("btn_net_game", ui_events.BUTTON_CLICKED, () => this.onNetworkGameButtonClick(), this);
+    this.AddCallback("btn_internet", ui_events.BUTTON_CLICKED, () => this.onInternetButtonClick(), this);
+    this.AddCallback("btn_localnet", ui_events.BUTTON_CLICKED, () => this.onLocalnetButtonClick(), this);
+    this.AddCallback("btn_multiplayer", ui_events.BUTTON_CLICKED, () => this.onMultiplayerButtonClick(), this);
+    this.AddCallback("btn_logout", ui_events.BUTTON_CLICKED, () => this.onLogoutButtonClick(), this);
 
-    this.AddCallback("btn_quit", ui_events.BUTTON_CLICKED, () => this.onButtonClickQuiteGameToWindows(), this);
-    this.AddCallback("btn_quit_to_mm", ui_events.BUTTON_CLICKED, () => this.onButtonClickDisconnect(), this);
-    this.AddCallback("btn_ret", ui_events.BUTTON_CLICKED, () => this.onButtonClickReturnToGame(), this);
-    this.AddCallback("btn_lastsave", ui_events.BUTTON_CLICKED, () => this.onButtonClickLastSave(), this);
-    this.AddCallback("btn_credits", ui_events.BUTTON_CLICKED, () => this.onButtonClickGameCredits(), this);
+    this.AddCallback("btn_quit", ui_events.BUTTON_CLICKED, () => this.onQuitToWindowsButtonClick(), this);
+    this.AddCallback("btn_quit_to_mm", ui_events.BUTTON_CLICKED, () => this.onDisconnectButtonClick(), this);
+    this.AddCallback("btn_ret", ui_events.BUTTON_CLICKED, () => this.onReturnToGameButtonClick(), this);
+    this.AddCallback("btn_lastsave", ui_events.BUTTON_CLICKED, () => this.onLoadLastSaveButtonClick(), this);
+    this.AddCallback("btn_extensions", ui_events.BUTTON_CLICKED, () => this.onExtensionsButtonClick(), this);
+    this.AddCallback("btn_credits", ui_events.BUTTON_CLICKED, () => this.onGameCreditsButtonClick(), this);
 
-    this.AddCallback("msg_box", ui_events.MESSAGE_BOX_OK_CLICKED, () => this.onMessageBoxOk(), this);
-    this.AddCallback("msg_box", ui_events.MESSAGE_BOX_CANCEL_CLICKED, () => this.onMessageBoxCancel(), this);
-    this.AddCallback("msg_box", ui_events.MESSAGE_BOX_YES_CLICKED, () => this.onMessageBoxConfirm(), this);
-    this.AddCallback("msg_box", ui_events.MESSAGE_BOX_NO_CLICKED, () => this.onMessageBoxDecline(), this);
+    this.AddCallback("msg_box", ui_events.MESSAGE_BOX_OK_CLICKED, () => this.onMessageBoxOkClick(), this);
+    this.AddCallback("msg_box", ui_events.MESSAGE_BOX_CANCEL_CLICKED, () => this.onMessageBoxCancelClick(), this);
+    this.AddCallback("msg_box", ui_events.MESSAGE_BOX_YES_CLICKED, () => this.onMessageBoxConfirmClick(), this);
+    this.AddCallback("msg_box", ui_events.MESSAGE_BOX_NO_CLICKED, () => this.onMessageBoxDeclineClick(), this);
     this.AddCallback(
       "msg_box",
       ui_events.MESSAGE_BOX_QUIT_GAME_CLICKED,
-      () => this.onButtonClickQuitGameConfirm(),
+      () => this.onQuitGameConfirmButtonClick(),
       this
     );
-    this.AddCallback("msg_box", ui_events.MESSAGE_BOX_QUIT_WIN_CLICKED, () => this.onButtonClickQuiteGame(), this);
+    this.AddCallback("msg_box", ui_events.MESSAGE_BOX_QUIT_WIN_CLICKED, () => this.onQuitGameButtonClick(), this);
   }
 
   /**
-   * todo: Description.
+   * Close main menu.
    */
   public close(): void {
     executeConsoleCommand(consoleCommands.main_menu, "off");
@@ -192,53 +173,29 @@ export class MainMenu extends CUIScriptWnd {
   }
 
   /**
-   * todo: Description.
+   * Clicked message box confirmation.
    */
-  public onStartNewGame(difficulty: TGameDifficulty): void {
-    executeConsoleCommand(consoleCommands.g_game_difficulty, difficulty);
-
-    if (alife() !== null) {
-      executeConsoleCommand(consoleCommands.disconnect);
-    }
-
-    device().pause(false);
-
-    executeConsoleCommand(consoleCommands.start, "server(all/single/alife/new)", "client(localhost)");
-    executeConsoleCommand(consoleCommands.main_menu, "off");
-  }
-
-  /**
-   * todo: Description.
-   */
-  public onMessageBoxOk(): void {
+  public onMessageBoxOkClick(): void {
     this.modalBoxMode = EMainMenuModalMode.OFF;
   }
 
   /**
-   * todo: Description.
+   * Declined message box.
    */
-  public onMessageBoxCancel(): void {
+  public onMessageBoxCancelClick(): void {
     this.modalBoxMode = EMainMenuModalMode.OFF;
   }
 
   /**
-   * todo: Description.
+   * Clicked load last save.
    */
-  public onLoadLastSavedGame(): void {
-    executeConsoleCommand(consoleCommands.main_menu, "off");
-    executeConsoleCommand(consoleCommands.load_last_save);
-  }
-
-  /**
-   * todo: Description.
-   */
-  public onButtonClickLastSave(): void {
+  public onLoadLastSaveButtonClick(): void {
     if (alife() === null) {
-      return this.onLoadLastSavedGame();
+      return loadLastGameSave();
     }
 
     if (!registry.actor?.alive()) {
-      return this.onLoadLastSavedGame();
+      return loadLastGameSave();
     }
 
     // If currently playing game and actor is alive, ask confirmation.
@@ -248,24 +205,38 @@ export class MainMenu extends CUIScriptWnd {
   }
 
   /**
-   * todo: Description.
+   * Clicked credits menu button.
    */
-  public onButtonClickGameCredits(): void {
+  public onGameCreditsButtonClick(): void {
     game.start_tutorial(gameTutorials.credits_seq);
   }
 
   /**
-   * todo: Description.
+   * On click extensions menu item button.
    */
-  public onButtonClickQuiteGameToWindows(): void {
+  public onExtensionsButtonClick(): void {
+    if (this.uiGameExtensionsDialog === null) {
+      this.uiGameExtensionsDialog = new ExtensionsDialog(this);
+    }
+
+    this.uiGameExtensionsDialog.ShowDialog(true);
+
+    this.HideDialog();
+    this.Show(false);
+  }
+
+  /**
+   * Clicked close game button.
+   */
+  public onQuitToWindowsButtonClick(): void {
     this.uiModalBox.InitMessageBox("message_box_quit_windows");
     this.uiModalBox.ShowDialog(true);
   }
 
   /**
-   * todo: Description.
+   * Clicked disconnect from game.
    */
-  public onButtonClickDisconnect(): void {
+  public onDisconnectButtonClick(): void {
     this.uiModalBox.InitMessageBox("message_box_quit_game");
 
     this.uiModalBox.SetText(
@@ -275,30 +246,30 @@ export class MainMenu extends CUIScriptWnd {
   }
 
   /**
-   * todo: Description.
+   * Clicked confirmation of game quit.
    */
-  public onButtonClickQuitGameConfirm(): void {
+  public onQuitGameConfirmButtonClick(): void {
     executeConsoleCommand(consoleCommands.disconnect);
   }
 
   /**
-   * todo: Description.
+   * Clicked quit game button.
    */
-  public onButtonClickQuiteGame(): void {
+  public onQuitGameButtonClick(): void {
     executeConsoleCommand(consoleCommands.quit);
   }
 
   /**
-   * todo: Description.
+   * Clicked return to game.
    */
-  public onButtonClickReturnToGame(): void {
+  public onReturnToGameButtonClick(): void {
     this.close();
   }
 
   /**
-   * todo: Description.
+   * Clicked save game button.
    */
-  public onButtonClickSaveGame(): void {
+  public onSaveGameButtonClick(): void {
     if (this.uiGameSavesSaveDialog === null) {
       this.uiGameSavesSaveDialog = new SaveDialog(this);
     }
@@ -310,9 +281,9 @@ export class MainMenu extends CUIScriptWnd {
   }
 
   /**
-   * todo: Description.
+   * Clicked options button.
    */
-  public onButtonClickOptions(): void {
+  public onOptionsButtonClick(): void {
     if (this.uiGameOptionsDialog === null) {
       this.uiGameOptionsDialog = new OptionsDialog(this);
     }
@@ -325,9 +296,9 @@ export class MainMenu extends CUIScriptWnd {
   }
 
   /**
-   * todo: Description.
+   * Clicked debug button.
    */
-  public onButtonClickDevelopmentDebug(): void {
+  public onDevelopmentDebugButtonClick(): void {
     if (gameConfig.DEBUG.IS_ENABLED) {
       logger.info("Activating debug settings view");
     } else {
@@ -347,9 +318,9 @@ export class MainMenu extends CUIScriptWnd {
   }
 
   /**
-   * todo: Description.
+   * On open load games menu click.
    */
-  public onButtonClickLoadGame(): void {
+  public onLoadGameButtonClick(): void {
     if (this.uiGameSavesLoadDialog === null) {
       this.uiGameSavesLoadDialog = new LoadDialog(this);
     }
@@ -361,18 +332,16 @@ export class MainMenu extends CUIScriptWnd {
   }
 
   /**
-   * todo: Description.
+   * On network game play clicked.
    */
-  public onButtonClickNetworkGame(): void {
+  public onNetworkGameButtonClick(): void {
     this.xrMenuPageController.ShowPage(CUIMMShniaga.epi_new_network_game);
   }
 
   /**
-   * todo: Description.
+   * On multiplayer button click.
    */
-  public onButtonClickMultiplayer(): void {
-    logger.info("Button multiplayer clicked, profile");
-
+  public onMultiplayerButtonClick(): void {
     if (!this.uiMultiplayerMenuDialog) {
       this.uiMultiplayerMenuDialog = new MultiplayerMenu(this, this.xrGameSpyProfile?.online() === true);
       this.uiMultiplayerMenuDialog.onRadioNetChanged();
@@ -382,8 +351,6 @@ export class MainMenu extends CUIScriptWnd {
         this.uiMultiplayerMenuDialog.dialogMultiplayerProfile.fillRewardsTable();
       }
     }
-
-    logger.info("Updating multiplayer menu");
 
     this.uiMultiplayerMenuDialog.updateControls();
     this.uiMultiplayerMenuDialog.ShowDialog(true);
@@ -395,9 +362,9 @@ export class MainMenu extends CUIScriptWnd {
   }
 
   /**
-   * todo: Description.
+   * On network logout button clicked.
    */
-  public onButtonClickLogout(): void {
+  public onLogoutButtonClick(): void {
     // -- assert(this.gs_profile)
 
     this.xrMenuPageController.ShowPage(CUIMMShniaga.epi_new_network_game); // --fake
@@ -411,9 +378,9 @@ export class MainMenu extends CUIScriptWnd {
   }
 
   /**
-   * todo: Description.
+   * On clicked network play button.
    */
-  public onButtonClickInternet(): void {
+  public onInternetButtonClick(): void {
     logger.info("Button internet clicked");
 
     if (!this.uiGamespyDialog) {
@@ -430,9 +397,9 @@ export class MainMenu extends CUIScriptWnd {
   }
 
   /**
-   * todo: Description.
+   * On clicked local network play button.
    */
-  public onButtonClickLocalnet(): void {
+  public onLocalnetButtonClick(): void {
     if (!this.uiLocalnetDialog) {
       this.uiLocalnetDialog = new MultiplayerLocalnet(this);
       this.uiLocalnetDialog.uiLpNickname.SetText(this.xrLoginManager.get_nick_from_registry());
@@ -448,43 +415,43 @@ export class MainMenu extends CUIScriptWnd {
   }
 
   /**
-   * todo: Description.
+   * Confirm message box confirmation.
    */
-  public onMessageBoxConfirm(): void {
+  public onMessageBoxConfirmClick(): void {
     if (this.modalBoxMode === EMainMenuModalMode.CONFIRM_LOAD_SAVE) {
-      this.onLoadLastSavedGame();
+      loadLastGameSave();
     }
 
     this.modalBoxMode = EMainMenuModalMode.OFF;
   }
 
   /**
-   * todo: Description.
+   * Decline message box confirmation.
    */
-  public onMessageBoxDecline(): void {
+  public onMessageBoxDeclineClick(): void {
     this.modalBoxMode = EMainMenuModalMode.OFF;
   }
 
   /**
-   * todo: Description.
+   * Show menu magnifier on main menu show.
    */
   public override Show(isVisible: boolean): void {
     this.xrMenuPageController.SetVisibleMagnifier(isVisible);
   }
 
   /**
-   * todo: Description.
+   * Handle command dispatch to the component.
    */
   public override Dispatch(command: TNumberId): boolean {
     if (command === 2) {
-      this.onButtonClickMultiplayer();
+      this.onMultiplayerButtonClick();
     }
 
     return true;
   }
 
   /**
-   * todo: Description.
+   * Handle keyboard buttons press events.
    */
   public override OnKeyboard(key: TKeyCode, event: TUIEvent): boolean {
     super.OnKeyboard(key, event);
@@ -495,19 +462,19 @@ export class MainMenu extends CUIScriptWnd {
           const actor: Optional<ClientObject> = registry.actor;
 
           if (level.present() && ((actor !== null && actor.alive()) || !IsGameTypeSingle())) {
-            this.onButtonClickReturnToGame();
+            this.onReturnToGameButtonClick();
           }
 
           break;
         }
 
         case DIK_keys.DIK_F11: {
-          this.onButtonClickDevelopmentDebug();
+          this.onDevelopmentDebugButtonClick();
           break;
         }
 
         case DIK_keys.DIK_Q:
-          this.onButtonClickQuiteGame();
+          this.onQuitGameButtonClick();
           break;
       }
     }

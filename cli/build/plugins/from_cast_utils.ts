@@ -2,8 +2,7 @@ import { isIdentifier, SyntaxKind } from "typescript";
 import { Plugin } from "typescript-to-lua";
 import { createErrorDiagnosticFactory } from "./utils/diagnostics";
 
-const FROM_ARRAY_IDENTIFIER: string = "$fromArray";
-const FROM_OBJECT_IDENTIFIER: string = "$fromObject";
+const FROM_CAST_METHODS: Array<string> = ["$fromObject", "$fromArray", "$fromLuaArray", "$fromLuaTable"];
 
 /**
  * Push generic error to notify about usage issue.
@@ -13,16 +12,13 @@ const createInvalidFunctionCallError = createErrorDiagnosticFactory((name?: stri
 });
 
 /**
- * Plugin for transformation of $fromObject and $fromArray calls.
+ * Plugin for transformation of casting methods.
  * Simplifies TS/Lua testing and interoperation.
  */
 const plugin: Plugin = {
   visitors: {
     [SyntaxKind.CallExpression]: (node, context) => {
-      if (
-        isIdentifier(node.expression) &&
-        (node.expression.text === FROM_ARRAY_IDENTIFIER || node.expression.text === FROM_OBJECT_IDENTIFIER)
-      ) {
+      if (isIdentifier(node.expression) && FROM_CAST_METHODS.includes(node.expression.text)) {
         if (node.arguments.length !== 1) {
           context.diagnostics.push(createInvalidFunctionCallError(node));
         }

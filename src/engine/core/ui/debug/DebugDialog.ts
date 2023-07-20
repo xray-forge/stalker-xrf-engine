@@ -12,7 +12,7 @@ import {
 
 import { EDebugSection, sectionsMap } from "@/engine/core/ui/debug/types";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { resolveXmlFormPath } from "@/engine/core/utils/ui";
+import { resolveXmlFile, resolveXmlFormPath } from "@/engine/core/utils/ui";
 import { gameConfig } from "@/engine/lib/configs/GameConfig";
 import { TKeyCode, TPath, TUIEvent } from "@/engine/lib/types";
 
@@ -48,10 +48,10 @@ export class DebugDialog extends CUIScriptWnd {
    */
   public initControls(): void {
     this.SetWndRect(new Frect().set(0, 0, gameConfig.UI.BASE_WIDTH, gameConfig.UI.BASE_HEIGHT));
+    this.Enable(true);
 
-    this.xml = new CScriptXmlInit();
+    this.xml = resolveXmlFile(base);
 
-    this.xml.ParseFile(resolveXmlFormPath(base));
     this.xml.InitStatic("background", this);
     this.xml.InitStatic("section_background", this);
     this.xml.InitStatic("frame_menu_background", this);

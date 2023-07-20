@@ -6,8 +6,8 @@ import { XrTextColor } from "@/engine/forms/components/base/XrTextColor.componen
 import { XrTexture } from "@/engine/forms/components/base/XrTexture.component";
 import { BLACK } from "@/engine/lib/constants/colors";
 import { fonts, TFontId } from "@/engine/lib/constants/fonts";
-import { textures, TTexture } from "@/engine/lib/constants/textures";
-import { IBaseXmlNode, IRgbColor, TTextAlign } from "@/engine/lib/types";
+import { textures } from "@/engine/lib/constants/textures";
+import { IBaseXmlNode, IRgbColor, TName, TTextAlign } from "@/engine/lib/types";
 
 export interface IXrButtonProps extends IBaseXmlNode {
   id?: string;
@@ -15,10 +15,10 @@ export interface IXrButtonProps extends IBaseXmlNode {
    * Enable custom tag name for button elements.
    */
   tag?: string;
-  label: string;
+  label?: string;
   font?: TFontId;
   textColor?: IRgbColor;
-  texture?: TTexture;
+  texture?: TName;
   align?: TTextAlign;
   stretch?: boolean;
 }

@@ -1,4 +1,5 @@
 export * from "@/engine/core/database/actor";
+export * from "@/engine/core/database/extensions";
 export * from "@/engine/core/database/anomalies";
 export * from "@/engine/core/database/doors";
 export * from "@/engine/core/database/helicopters";

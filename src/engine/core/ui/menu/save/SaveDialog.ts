@@ -21,9 +21,9 @@ import {
 
 import { SaveItem } from "@/engine/core/ui/menu/save/SaveItem";
 import { executeConsoleCommand } from "@/engine/core/utils/game/game_console";
-import { deleteGameSave } from "@/engine/core/utils/game/game_save";
+import { createGameSave, deleteGameSave } from "@/engine/core/utils/game/game_save";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { resolveXmlFormPath } from "@/engine/core/utils/ui";
+import { resolveXmlFile, resolveXmlFormPath } from "@/engine/core/utils/ui";
 import { gameConfig } from "@/engine/lib/configs/GameConfig";
 import { consoleCommands } from "@/engine/lib/constants/console_commands";
 import { roots } from "@/engine/lib/constants/roots";
@@ -33,6 +33,7 @@ import {
   FSItem,
   Optional,
   TKeyCode,
+  TLabel,
   TName,
   TPath,
   TUIEvent,
@@ -43,14 +44,11 @@ const logger: LuaLogger = new LuaLogger($filename);
 const base: TPath = "menu\\SaveDialog.component";
 
 /**
- * todo;
+ * Game saving menu.
  */
 @LuabindClass()
 export class SaveDialog extends CUIScriptWnd {
   public owner: CUIScriptWnd;
-
-  public readonly listFileFont: CGameFont = GetFontMedium();
-  public readonly listDateFont: CGameFont = GetFontMedium();
 
   public fileItemMainSize!: Vector2D;
   public fileItemFnSize!: Vector2D;
@@ -61,7 +59,7 @@ export class SaveDialog extends CUIScriptWnd {
   public uiListBox!: CUIListBox<SaveItem>;
   public uiMessageBox!: CUIMessageBoxEx;
 
-  public newSave: string = "";
+  public newSave: TName = "";
   public modalBoxMode: number = 0;
 
   public constructor(owner: CUIScriptWnd) {
@@ -77,9 +75,7 @@ export class SaveDialog extends CUIScriptWnd {
   public initControls(): void {
     this.SetWndRect(new Frect().set(0, 0, 1024, 768));
 
-    const xml: CScriptXmlInit = new CScriptXmlInit();
-
-    xml.ParseFile(resolveXmlFormPath(base));
+    const xml: CScriptXmlInit = resolveXmlFile(base);
 
     xml.InitWindow("background", 0, this);
 
@@ -123,9 +119,10 @@ export class SaveDialog extends CUIScriptWnd {
     this.AddCallback("list_window", ui_events.LIST_ITEM_CLICKED, () => this.onListItemClicked(), this);
   }
 
+  /**
+   * Fill list of available game saves.
+   */
   public fillList(): void {
-    logger.info("Fill list");
-
     this.uiListBox.RemoveAll();
 
     const fileList: FSFileListEX = getFS().file_list_open_ex(
@@ -172,7 +169,9 @@ export class SaveDialog extends CUIScriptWnd {
     logger.info("Message yes clicked:", this.modalBoxMode);
 
     if (this.modalBoxMode === 1) {
-      this.saveFile(this.newSave);
+      if (this.newSave !== null) {
+        createGameSave(this.newSave);
+      }
 
       this.owner.ShowDialog(true);
       this.HideDialog();
@@ -254,7 +253,10 @@ export class SaveDialog extends CUIScriptWnd {
     }
 
     fileList.Free();
-    this.saveFile(this.newSave);
+
+    if (this.newSave !== null) {
+      createGameSave(this.newSave);
+    }
 
     this.owner.ShowDialog(true);
     this.HideDialog();
@@ -270,6 +272,9 @@ export class SaveDialog extends CUIScriptWnd {
     this.owner.Show(true);
   }
 
+  /**
+   * On keyboard button press.
+   */
   public override OnKeyboard(key: TKeyCode, event: TUIEvent): boolean {
     super.OnKeyboard(key, event);
 
@@ -282,7 +287,7 @@ export class SaveDialog extends CUIScriptWnd {
     return true;
   }
 
-  public addItemToList(filename: string, datetime: string): void {
+  public addItemToList(filename: TName, datetime: TLabel): void {
     const saveItem: SaveItem = new SaveItem(this.fileItemMainSize.y, this.fileItemFdSize.x, datetime);
 
     saveItem.SetWndSize(this.fileItemMainSize);
@@ -293,13 +298,5 @@ export class SaveDialog extends CUIScriptWnd {
     saveItem.uiInnerAgeText.SetWndPos(new vector2().set(this.fileItemFnSize.x + 4, 0));
 
     this.uiListBox.AddExistingItem(saveItem);
-  }
-
-  public saveFile(filename: string): void {
-    logger.info("Save file:", filename);
-
-    if (filename !== null) {
-      executeConsoleCommand(consoleCommands.save, filename);
-    }
   }
 }

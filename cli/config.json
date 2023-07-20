@@ -3,9 +3,7 @@
   "available_locales": ["ukr", "eng", "pol", "rus"],
   "resources": {
     "mod_assets_base_folder": "..\\src\\resources\\",
-    "mod_assets_override_folders": [
-      "..\\..\\stalker-xrf-resources-extended"
-    ],
+    "mod_assets_override_folders": ["..\\..\\stalker-xrf-resources-extended"],
     "mod_assets_locales": {
       "eng": ["..\\..\\stalker-xrf-resources-locale-eng"],
       "ukr": ["..\\..\\stalker-xrf-resources-locale-ukr"],
@@ -18,6 +16,7 @@
     "configs": "../src/engine/configs",
     "scripts": "../src/engine/scripts",
     "translations": "../src/engine/translations",
+    "extensions": "../src/engine/extensions",
     "ui": "../src/engine/forms"
   },
   "compression": {
@@ -30,7 +29,7 @@
       ".\\bin\\package\\fsgame.ltx",
       ".\\bin\\package\\user.ltx"
     ],
-    "gamedata": ["lualib_bundle.script", "scripts", "core", "lib"]
+    "gamedata": ["lualib_bundle.script", "scripts", "core", "extensions", "lib"]
   },
   "targets": {
     "stalker_game_steam_id": 41700,
@@ -42,7 +41,7 @@
       "url": "https://gitlab.com/xray-forge/stalker-xrf-resources-extended.git",
       "description": "Full base gamedata assets for custom game repacks"
     },
-    "locale-eng":{
+    "locale-eng": {
       "url": "https://gitlab.com/xray-forge/stalker-xrf-resources-locale-en.git",
       "description": "English locale files, mainly game character voices"
     },

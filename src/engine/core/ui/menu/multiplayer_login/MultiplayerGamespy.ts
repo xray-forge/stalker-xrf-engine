@@ -532,7 +532,7 @@ export class MultiplayerGameSpy extends CUIScriptWnd {
       this.HideDialog();
       this.owner.ShowDialog(true);
       this.owner.Show(true);
-      this.owner.onButtonClickMultiplayer();
+      this.owner.onMultiplayerButtonClick();
     }
   }
 

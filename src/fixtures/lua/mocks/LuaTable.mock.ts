@@ -48,11 +48,52 @@ export class MockLuaTable<K, V> extends Map<K, V> {
   }
 
   /**
+   * Create new object from lua mock.
+   */
+  public static toObject<K extends keyof any, T>(from: MockLuaTable<K, T>): Record<K, T> {
+    const record: Record<K, T> = {} as Record<K, T>;
+
+    for (const [k, v] of from.entries()) {
+      record[k] = v;
+    }
+
+    return record;
+  }
+
+  /**
+   * Create new array from lua mock.
+   */
+  public static toArray<T>(from: MockLuaTable<number, T>): Array<T> {
+    const array: Array<T> = [];
+
+    for (const [k, v] of from.entries()) {
+      array[k - 1] = v;
+    }
+
+    return array;
+  }
+
+  /**
    * Create new map from JS array.
    */
   public static mockFromArray<T>(from: Array<unknown>): LuaArray<T> {
     return MockLuaTable.fromArray(from) as unknown as LuaArray<T>;
   }
+
+  /**
+   * Create new array from LUA array.
+   */
+  public static mockToArray<T>(from: LuaArray<T>): Array<T> {
+    return MockLuaTable.toArray(from as unknown as MockLuaTable<number, T>);
+  }
+
+  /**
+   * Create new object from LUA table
+   */
+  public static mockToObject<K extends keyof any, T>(from: LuaTable<K, T>): Record<K, T> {
+    return MockLuaTable.toObject(from as unknown as MockLuaTable<K, T>);
+  }
+
   /**
    * Create new map from JS array.
    */

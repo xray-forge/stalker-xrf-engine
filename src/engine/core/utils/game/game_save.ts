@@ -1,12 +1,14 @@
-import { bit_or, CSavedGameWrapper, FS, game, getFS, IsImportantSave, user_name } from "xray16";
+import { alife, bit_or, CSavedGameWrapper, device, FS, game, getFS, IsImportantSave, user_name } from "xray16";
 
 import { assert } from "@/engine/core/utils/assertion";
+import { loadObjectFromFile, saveObjectToFile } from "@/engine/core/utils/fs";
 import { executeConsoleCommand } from "@/engine/core/utils/game/game_console";
 import { gameTimeToString } from "@/engine/core/utils/game/game_time";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { gameConfig } from "@/engine/lib/configs/GameConfig";
 import { captions } from "@/engine/lib/constants/captions";
 import { consoleCommands } from "@/engine/lib/constants/console_commands";
+import { TGameDifficulty } from "@/engine/lib/constants/game_difficulties";
 import { roots } from "@/engine/lib/constants/roots";
 import { AnyObject, FSFileListEX, Optional, SavedGameWrapper, TCount, TLabel, TName, TPath } from "@/engine/lib/types";
 
@@ -66,17 +68,7 @@ export function saveDynamicGameSave(filename: TName, data: AnyObject): void {
   const saveFile: TPath =
     savesFolder + string.lower(string.sub(filename, 0, -6)) + gameConfig.GAME_SAVE_DYNAMIC_EXTENSION;
 
-  // Make sure saves directory exists.
-  lfs.mkdir(savesFolder);
-
-  const [existingSave] = io.open(saveFile, "wb");
-
-  if (!existingSave || io.type(existingSave) !== "file") {
-    return logger.error("Cannot write to save path:", saveFile);
-  }
-
-  existingSave.write(marshal.encode(data));
-  existingSave.close();
+  saveObjectToFile(savesFolder, saveFile, data);
 }
 
 /**
@@ -88,41 +80,25 @@ export function saveDynamicGameSave(filename: TName, data: AnyObject): void {
 export function loadDynamicGameSave<T extends AnyObject>(filename: TName): Optional<T> {
   const saveFile: TPath = string.sub(filename, 0, -6) + gameConfig.GAME_SAVE_DYNAMIC_EXTENSION;
 
-  const [existingSave] = io.open(saveFile, "rb");
-
-  if (!existingSave || io.type(existingSave) !== "file") {
-    return null;
-  }
-
-  const data: Optional<string> = existingSave.read("*all" as unknown as "*a") as Optional<string>;
-
-  existingSave.close();
-
-  if (data && data !== "") {
-    return marshal.decode<T>(data);
-  } else {
-    logger.warn("Was not able to read dynamic game save:", filename);
-
-    return null;
-  }
+  return loadObjectFromFile(saveFile);
 }
 
 /**
  * Get label with description for file name.
  *
- * @param filename - name of save file to check
+ * @param name - name of save file to check
  * @returns label with save file description
  */
-export function getFileDataForGameSave(filename: TName): TLabel {
+export function getFileDataForGameSave(name: TName): TLabel {
   const fileList: FSFileListEX = getFS().file_list_open_ex(
     roots.gameSaves,
     bit_or(FS.FS_ListFiles, FS.FS_RootOnly),
-    filename + gameConfig.GAME_SAVE_EXTENSION
+    name + gameConfig.GAME_SAVE_EXTENSION
   );
   const filesCount: TCount = fileList.Size();
 
   if (filesCount > 0) {
-    const savedGame: SavedGameWrapper = new CSavedGameWrapper(filename);
+    const savedGame: SavedGameWrapper = new CSavedGameWrapper(name);
     const dateTime: TLabel = gameTimeToString(savedGame.game_time());
 
     const health: TLabel = string.format(
@@ -151,9 +127,13 @@ export function getFileDataForGameSave(filename: TName): TLabel {
  * @param saveName - name of the file / record to save
  * @param translate - whether name should be translated
  */
-export function createAutoSave(saveName: Optional<TName>, translate: boolean = true): void {
+export function createGameAutoSave(saveName: Optional<TName>, translate: boolean = true): void {
+  assert(saveName, "You are trying to use scenario save without name.");
+
   if (IsImportantSave()) {
-    createSave(saveName, translate);
+    const autoSaveName: TName = user_name() + " - " + (translate ? game.translate_string(saveName) : saveName);
+
+    createGameSave(autoSaveName);
   } else {
     logger.info("Skip save, auto-saving is not turned on:", saveName);
   }
@@ -162,14 +142,57 @@ export function createAutoSave(saveName: Optional<TName>, translate: boolean = t
 /**
  * Save game with provided parameters.
  *
- * @param saveName - name of the file / record to save
- * @param translate - whether name should be translated
+ * @param name - name of the file / record to save
  */
-export function createSave(saveName: Optional<TName>, translate: boolean = true): void {
-  assert(saveName, "You are trying to use scenario save without name.");
+export function createGameSave(name: Optional<TName>): void {
+  assert(name, "You are trying to save without name.");
 
-  const saveParameter: string = user_name() + " - " + (translate ? game.translate_string(saveName) : saveName);
+  logger.info("Performing save:", name);
+  executeConsoleCommand(consoleCommands.save, name);
+}
 
-  logger.info("Performing save:", saveParameter);
-  executeConsoleCommand(consoleCommands.save, saveParameter);
+/**
+ * Loads last game save.
+ * Closes menu if it is open.
+ */
+export function loadLastGameSave(): void {
+  executeConsoleCommand(consoleCommands.main_menu, "off");
+  executeConsoleCommand(consoleCommands.load_last_save);
+}
+
+/**
+ * Loads game save by name.
+ * If game is not started, initializes new world.
+ *
+ * @param name - name of game save to load
+ */
+export function loadGameSave(name: Optional<TName>): void {
+  assert(name, "You are trying to load without name.");
+
+  if (alife() === null) {
+    executeConsoleCommand(consoleCommands.disconnect);
+    executeConsoleCommand(consoleCommands.start, string.format("server(%s/single/alife/load) client(localhost)", name));
+  } else {
+    executeConsoleCommand(consoleCommands.load, name);
+  }
+}
+
+/**
+ * Starts new single game server/save.
+ *
+ * @param difficulty - level of difficulty for new game, optional
+ */
+export function startNewGame(difficulty: Optional<TGameDifficulty> = null): void {
+  if (difficulty) {
+    executeConsoleCommand(consoleCommands.g_game_difficulty, difficulty);
+  }
+
+  if (alife() !== null) {
+    executeConsoleCommand(consoleCommands.disconnect);
+  }
+
+  device().pause(false);
+
+  executeConsoleCommand(consoleCommands.start, "server(all/single/alife/new)", "client(localhost)");
+  executeConsoleCommand(consoleCommands.main_menu, "off");
 }

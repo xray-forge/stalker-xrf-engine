@@ -27,10 +27,29 @@ export function getFunctionMock(callable: AnyCallable): Mock {
 
 /**
  * Replace mock function.
+ * Assuming provided mock is jest mock.
+ *
+ * @param callable - any callable to replace
+ * @param newImplementation - new variant of implementation
  */
 export function replaceFunctionMock(callable: AnyCallable, newImplementation: AnyCallable): void {
   if (jest.isMockFunction(callable)) {
     callable.mockImplementation(newImplementation);
+  } else {
+    throw new Error("Possibly not mocked function provided for mock reset.");
+  }
+}
+
+/**
+ * Replace mock function once.
+ * Assuming provided mock is jest mock.
+ *
+ * @param callable - any callable to replace
+ * @param newImplementation - new variant of implementation
+ */
+export function replaceFunctionMockOnce(callable: AnyCallable, newImplementation: AnyCallable): void {
+  if (jest.isMockFunction(callable)) {
+    callable.mockImplementationOnce(newImplementation);
   } else {
     throw new Error("Possibly not mocked function provided for mock reset.");
   }

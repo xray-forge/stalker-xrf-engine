@@ -1,16 +1,21 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
+import { alife, device } from "xray16";
 
 import {
-  createAutoSave,
-  createSave,
+  createGameAutoSave,
+  createGameSave,
   deleteGameSave,
   getFileDataForGameSave,
   isGameSaveFileExist,
   loadDynamicGameSave,
+  loadGameSave,
+  loadLastGameSave,
   saveDynamicGameSave,
+  startNewGame,
 } from "@/engine/core/utils/game/game_save";
+import { gameDifficulties } from "@/engine/lib/constants/game_difficulties";
 import { MockIoFile } from "@/fixtures/lua";
-import { resetFunctionMock } from "@/fixtures/utils";
+import { replaceFunctionMock, replaceFunctionMockOnce, resetFunctionMock } from "@/fixtures/utils";
 import { gameConsole, MockFileSystem, MockFileSystemList, mocksConfig } from "@/fixtures/xray";
 
 describe("'game_save' utils", () => {
@@ -57,45 +62,45 @@ describe("'game_save' utils", () => {
   });
 
   it("'createSave' should correctly generate commands", () => {
-    createSave("test");
-    expect(gameConsole.execute).toHaveBeenCalledWith("save os_user_name - translated_test");
+    createGameSave("test");
+    expect(gameConsole.execute).toHaveBeenCalledWith("save test");
 
     resetFunctionMock(gameConsole.execute);
-    createSave("st_another_test");
-    expect(gameConsole.execute).toHaveBeenCalledWith("save os_user_name - translated_st_another_test");
+    createGameSave("st_another_test");
+    expect(gameConsole.execute).toHaveBeenCalledWith("save st_another_test");
 
     resetFunctionMock(gameConsole.execute);
-    createSave("st_another_test", false);
-    expect(gameConsole.execute).toHaveBeenCalledWith("save os_user_name - st_another_test");
+    createGameSave("st_another_test");
+    expect(gameConsole.execute).toHaveBeenCalledWith("save st_another_test");
 
-    expect(() => createSave(null)).toThrow();
+    expect(() => createGameSave(null)).toThrow();
   });
 
   it("'createAutoSave' should correctly generate commands", () => {
     // When auto-save disabled.
     mocksConfig.isAutoSavingEnabled = false;
 
-    createAutoSave("test");
-    createAutoSave("st_test");
-    createAutoSave("st_test", false);
+    createGameAutoSave("test");
+    createGameAutoSave("st_test");
+    createGameAutoSave("st_test", false);
 
     expect(gameConsole.execute).not.toHaveBeenCalled();
 
     // When auto-save enabled.
     mocksConfig.isAutoSavingEnabled = true;
 
-    createAutoSave("test");
+    createGameAutoSave("test");
     expect(gameConsole.execute).toHaveBeenCalledWith("save os_user_name - translated_test");
 
     resetFunctionMock(gameConsole.execute);
-    createAutoSave("st_another_test");
+    createGameAutoSave("st_another_test");
     expect(gameConsole.execute).toHaveBeenCalledWith("save os_user_name - translated_st_another_test");
 
     resetFunctionMock(gameConsole.execute);
-    createAutoSave("st_another_test", false);
+    createGameAutoSave("st_another_test", false);
     expect(gameConsole.execute).toHaveBeenCalledWith("save os_user_name - st_another_test");
 
-    expect(() => createSave(null)).toThrow();
+    expect(() => createGameSave(null)).toThrow();
   });
 
   it("'saveDynamicGameSave' should correctly create dynamic file saves", () => {
@@ -106,7 +111,7 @@ describe("'game_save' utils", () => {
     saveDynamicGameSave("example.scop", { a: 1, b: 2, c: 3 });
 
     expect(lfs.mkdir).toHaveBeenCalledTimes(1);
-    expect(io.open).toHaveBeenCalledWith("$game_saves$example.scopx", "wb");
+    expect(io.open).toHaveBeenCalledWith("$game_saves$\\example.scopx", "wb");
     expect(file.write).toHaveBeenCalledWith(JSON.stringify({ a: 1, b: 2, c: 3 }));
     expect(file.close).toHaveBeenCalledTimes(1);
 
@@ -143,5 +148,57 @@ describe("'game_save' utils", () => {
     file.content = "{}";
     file.isOpen = false;
     expect(loadDynamicGameSave("F:\\\\parent\\\\example.scop")).toBeNull();
+  });
+
+  it("'loadLastGameSave' should correctly save last game and turn off menu", () => {
+    loadLastGameSave();
+
+    expect(gameConsole.execute).toHaveBeenCalledTimes(2);
+    expect(gameConsole.execute).toHaveBeenNthCalledWith(1, "main_menu off");
+    expect(gameConsole.execute).toHaveBeenNthCalledWith(2, "load_last_save");
+  });
+
+  it("'startNewGame' should correctly create new server, set difficulty and disconnect from previous one", () => {
+    startNewGame(gameDifficulties.gd_master);
+
+    expect(gameConsole.execute).toHaveBeenCalledTimes(4);
+    expect(gameConsole.execute).toHaveBeenNthCalledWith(1, "g_game_difficulty gd_master");
+    expect(gameConsole.execute).toHaveBeenNthCalledWith(2, "disconnect");
+    expect(gameConsole.execute).toHaveBeenNthCalledWith(3, "start server(all/single/alife/new) client(localhost)");
+    expect(gameConsole.execute).toHaveBeenNthCalledWith(4, "main_menu off");
+    expect(device().pause).toHaveBeenCalledWith(false);
+  });
+
+  it("'startNewGame' should correctly be called when not started", () => {
+    replaceFunctionMockOnce(alife, () => null);
+
+    startNewGame();
+
+    expect(gameConsole.execute).toHaveBeenCalledTimes(2);
+    expect(gameConsole.execute).toHaveBeenNthCalledWith(1, "start server(all/single/alife/new) client(localhost)");
+    expect(gameConsole.execute).toHaveBeenNthCalledWith(2, "main_menu off");
+    expect(device().pause).toHaveBeenCalledWith(false);
+  });
+
+  it("'loadGameSave' should correctly be called when started", () => {
+    expect(() => loadGameSave(null)).toThrow();
+
+    loadGameSave("text_example");
+
+    expect(gameConsole.execute).toHaveBeenCalledTimes(1);
+    expect(gameConsole.execute).toHaveBeenNthCalledWith(1, "load text_example");
+  });
+
+  it("'loadGameSave' should correctly be called when not started", () => {
+    replaceFunctionMockOnce(alife, () => null);
+
+    loadGameSave("text_example");
+
+    expect(gameConsole.execute).toHaveBeenCalledTimes(2);
+    expect(gameConsole.execute).toHaveBeenNthCalledWith(1, "disconnect");
+    expect(gameConsole.execute).toHaveBeenNthCalledWith(
+      2,
+      "start server(text_example/single/alife/load) client(localhost)"
+    );
   });
 });

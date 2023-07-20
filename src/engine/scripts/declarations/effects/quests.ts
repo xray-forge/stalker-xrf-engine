@@ -12,7 +12,7 @@ import { EStalkerState } from "@/engine/core/objects/state";
 import { showFreeplayDialog } from "@/engine/core/ui/game/FreeplayDialog";
 import { abort } from "@/engine/core/utils/assertion";
 import { extern, getExtern } from "@/engine/core/utils/binding";
-import { createAutoSave } from "@/engine/core/utils/game/game_save";
+import { createGameAutoSave } from "@/engine/core/utils/game/game_save";
 import { isObjectInZone } from "@/engine/core/utils/object";
 import { disableInfo, giveInfo, hasAlifeInfo } from "@/engine/core/utils/object/object_info_portion";
 import { spawnObject, spawnObjectInObject, spawnSquadInSmart } from "@/engine/core/utils/object/object_spawn";
@@ -128,7 +128,7 @@ extern("xr_effects.pas_b400_switcher", (actor: ClientObject, npc: ClientObject):
  */
 extern("xr_effects.jup_b209_place_scanner", (actor: ClientObject, npc: ClientObject): void => {
   if (isObjectInZone(actor, registry.zones.get(zones.jup_b209_hypotheses))) {
-    createAutoSave(captions.st_save_jup_b209_placed_mutant_scanner);
+    createGameAutoSave(captions.st_save_jup_b209_placed_mutant_scanner);
     giveInfo(infoPortions.jup_b209_scanner_placed);
     takeItemFromActor(questItems.jup_b209_monster_scanner);
     spawnObject("jup_b209_ph_scanner", "jup_b209_scanner_place_point");

@@ -32,6 +32,7 @@ export function create(): JSXNode {
         <btn name={"btn_net_game"} caption={captions.ui_mm_network_game} />
         <btn name={"btn_options"} caption={captions.ui_mm_options_n} />
         <btn name={"btn_credits"} caption={captions.ui_mm_credits} />
+        <btn name={"btn_extensions"} caption={captions.ui_mm_extensions} />
         <btn name={"btn_quit"} caption={captions.ui_mm_quit2windows} />
       </menu_main>
 
@@ -48,6 +49,7 @@ export function create(): JSXNode {
         <btn name={"btn_logout"} caption={captions.ui_mm_logout} />
         <btn name={"btn_options"} caption={captions.ui_mm_options_n} />
         <btn name={"btn_credits"} caption={captions.ui_mm_credits} />
+        <btn name={"btn_extensions"} caption={captions.ui_mm_extensions} />
         <btn name={"btn_quit"} caption={captions.ui_mm_quit2windows} />
       </menu_main_logout>
 
