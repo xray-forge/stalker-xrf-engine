@@ -124,7 +124,7 @@ export class ActorSound extends AbstractPlayableSound {
     this.soundObject.volume = 0.8;
     this.canPlaySound = false;
 
-    EventsManager.getInstance().emitEvent<ISoundNotification>(EGameEvent.NOTIFICATION, {
+    EventsManager.emitEvent<ISoundNotification>(EGameEvent.NOTIFICATION, {
       type: ENotificationType.SOUND,
       faction,
       point,

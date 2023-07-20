@@ -552,11 +552,11 @@ describe("AchievementManager class", () => {
     disableInfo(infoPortions.actor_marked_by_zone_3_times);
     expect(achievementsManager.checkAchievedMarkedByZone()).toBeFalsy();
 
-    statisticsManager.onAnabioticUsed();
-    statisticsManager.onAnabioticUsed();
+    statisticsManager.onSurvivedSurgeWithAnabiotic();
+    statisticsManager.onSurvivedSurgeWithAnabiotic();
     expect(achievementsManager.checkAchievedMarkedByZone()).toBeFalsy();
 
-    statisticsManager.onAnabioticUsed();
+    statisticsManager.onSurvivedSurgeWithAnabiotic();
     expect(achievementsManager.checkAchievedMarkedByZone()).toBeTruthy();
     expect(onNotification).toHaveBeenCalledTimes(1);
     expect(hasAlifeInfo(infoPortions.actor_marked_by_zone_3_times)).toBeTruthy();

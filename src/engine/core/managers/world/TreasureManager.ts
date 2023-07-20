@@ -11,7 +11,6 @@ import {
 import { AbstractCoreManager } from "@/engine/core/managers/base/AbstractCoreManager";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { ETreasureState, NotificationManager } from "@/engine/core/managers/interface/notifications";
-import { StatisticsManager } from "@/engine/core/managers/interface/statistics/StatisticsManager";
 import { assert, assertDefined } from "@/engine/core/utils/assertion";
 import {
   ISpawnDescriptor,
@@ -366,7 +365,7 @@ export class TreasureManager extends AbstractCoreManager {
           if (section === TRUE && !treasureDescriptor.checked) {
             level.map_remove_object_spot(this.secretsRestrictorByName.get(treasureId), "treasure");
 
-            StatisticsManager.getInstance().onTreasureFound(treasureDescriptor);
+            EventsManager.emitEvent(EGameEvent.TREASURE_FOUND, treasureDescriptor);
             treasureDescriptor.empty = null;
             treasureDescriptor.checked = true;
 
@@ -409,13 +408,13 @@ export class TreasureManager extends AbstractCoreManager {
     if (treasureId) {
       logger.info("Treasure item taken:", objectId);
 
-      const secret: ITreasureDescriptor = this.secrets.get(treasureId);
+      const treasureDescriptor: ITreasureDescriptor = this.secrets.get(treasureId);
 
-      secret.itemsToFindRemain -= 1;
+      treasureDescriptor.itemsToFindRemain -= 1;
 
       if (this.secrets.get(treasureId).itemsToFindRemain === 0) {
         level.map_remove_object_spot(this.secretsRestrictorByName.get(treasureId), "treasure");
-        StatisticsManager.getInstance().onTreasureFound(secret);
+        EventsManager.emitEvent(EGameEvent.TREASURE_FOUND, treasureDescriptor);
         this.secrets.get(treasureId).checked = true;
         NotificationManager.getInstance().sendTreasureNotification(ETreasureState.FOUND_TREASURE);
 

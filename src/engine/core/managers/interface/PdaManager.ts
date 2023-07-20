@@ -56,7 +56,7 @@ export class PdaManager extends AbstractCoreManager {
       case EStatSection.SURGES:
         return tostring(statisticsManager.actorStatistics.surgesCount);
       case EStatSection.COMPLETED_QUESTS:
-        return tostring(statisticsManager.actorStatistics.completedQuestsCount);
+        return tostring(statisticsManager.actorStatistics.completedTasksCount);
       case EStatSection.KILLED_MONSTERS:
         return tostring(statisticsManager.actorStatistics.killedMonstersCount);
       case EStatSection.KILLED_STALKERS:

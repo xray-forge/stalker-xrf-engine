@@ -91,7 +91,7 @@ export class SleepManager extends AbstractCoreManager {
 
     registry.actor.power = 1;
 
-    EventsManager.getInstance().emitEvent(EGameEvent.ACTOR_START_SLEEP);
+    EventsManager.emitEvent(EGameEvent.ACTOR_START_SLEEP);
   }
 
   /**
@@ -112,6 +112,6 @@ export class SleepManager extends AbstractCoreManager {
     disableInfo(infoPortions.actor_is_sleeping);
     disableInfo(infoPortions.sleep_active);
 
-    EventsManager.getInstance().emitEvent(EGameEvent.ACTOR_FINISH_SLEEP);
+    EventsManager.emitEvent(EGameEvent.ACTOR_FINISH_SLEEP);
   }
 }

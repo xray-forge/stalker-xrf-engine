@@ -79,7 +79,7 @@ export class DialogManager extends AbstractCoreManager {
 
     const eventsManager: EventsManager = EventsManager.getInstance();
 
-    eventsManager.registerCallback(EGameEvent.NPC_INTERACTION, this.onInteractWithObject, this);
+    eventsManager.registerCallback(EGameEvent.STALKER_INTERACTION, this.onInteractWithObject, this);
 
     for (const it of $range(0, DIALOG_MANAGER_LTX.line_count("list") - 1)) {
       const [, id] = DIALOG_MANAGER_LTX.r_line("list", it, "", "");
@@ -139,7 +139,7 @@ export class DialogManager extends AbstractCoreManager {
 
     const eventsManager: EventsManager = EventsManager.getInstance();
 
-    eventsManager.unregisterCallback(EGameEvent.NPC_INTERACTION, this.onInteractWithObject);
+    eventsManager.unregisterCallback(EGameEvent.STALKER_INTERACTION, this.onInteractWithObject);
 
     const actorTable: LuaArray<EGenericDialogCategory> = $fromArray<EGenericDialogCategory>([
       EGenericDialogCategory.JOB,

@@ -7,7 +7,7 @@ import { Optional, TCount, TName } from "@/engine/lib/types";
  */
 export interface IActorStatistics {
   surgesCount: TCount;
-  completedQuestsCount: TCount;
+  completedTasksCount: TCount;
   killedMonstersCount: TCount;
   killedStalkersCount: TCount;
   favoriteWeapon: Optional<TWeapon>;

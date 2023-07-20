@@ -96,7 +96,7 @@ export class MainMenu extends CUIScriptWnd {
     this.initControls();
     this.initCallBacks();
 
-    EventsManager.getInstance().emitEvent(EGameEvent.MAIN_MENU_ON);
+    EventsManager.emitEvent(EGameEvent.MAIN_MENU_ON);
   }
 
   /**
@@ -169,7 +169,7 @@ export class MainMenu extends CUIScriptWnd {
    */
   public close(): void {
     executeConsoleCommand(consoleCommands.main_menu, "off");
-    EventsManager.getInstance().emitEvent(EGameEvent.MAIN_MENU_OFF);
+    EventsManager.emitEvent(EGameEvent.MAIN_MENU_OFF);
   }
 
   /**

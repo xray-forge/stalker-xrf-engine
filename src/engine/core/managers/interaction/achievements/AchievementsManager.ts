@@ -118,7 +118,7 @@ export class AchievementsManager extends AbstractCoreManager {
       ) {
         giveInfo(infoPortions.pioneer_achievement_gained);
 
-        EventsManager.getInstance().emitEvent<ITipNotification>(EGameEvent.NOTIFICATION, {
+        EventsManager.emitEvent<ITipNotification>(EGameEvent.NOTIFICATION, {
           type: ENotificationType.TIP,
           caption: captions.st_ach_pioneer,
           senderId: achievementIcons[EAchievement.PIONEER],
@@ -143,7 +143,7 @@ export class AchievementsManager extends AbstractCoreManager {
       ) {
         giveInfo(infoPortions.mutant_hunter_achievement_gained);
 
-        EventsManager.getInstance().emitEvent<ITipNotification>(EGameEvent.NOTIFICATION, {
+        EventsManager.emitEvent<ITipNotification>(EGameEvent.NOTIFICATION, {
           type: ENotificationType.TIP,
           caption: captions.st_ach_mutant_hunter,
           senderId: achievementIcons[EAchievement.MUTANT_HUNTER],
@@ -162,7 +162,7 @@ export class AchievementsManager extends AbstractCoreManager {
       if (hasAlifeInfo(infoPortions.zat_b22_barmen_gave_reward)) {
         giveInfo(infoPortions.detective_achievement_gained);
 
-        EventsManager.getInstance().emitEvent<ITipNotification>(EGameEvent.NOTIFICATION, {
+        EventsManager.emitEvent<ITipNotification>(EGameEvent.NOTIFICATION, {
           type: ENotificationType.TIP,
           caption: captions.st_ach_detective,
           senderId: achievementIcons[EAchievement.DETECTIVE],
@@ -181,7 +181,7 @@ export class AchievementsManager extends AbstractCoreManager {
       if (hasAlifeInfos([infoPortions.zat_b30_sultan_loose, infoPortions.zat_b7_actor_help_stalkers])) {
         giveInfo(infoPortions.one_of_the_lads_gained);
 
-        EventsManager.getInstance().emitEvent<ITipNotification>(EGameEvent.NOTIFICATION, {
+        EventsManager.emitEvent<ITipNotification>(EGameEvent.NOTIFICATION, {
           type: ENotificationType.TIP,
           caption: captions.st_ach_one_of_the_lads,
           senderId: achievementIcons[EAchievement.ONE_OF_THE_LADS],
@@ -200,7 +200,7 @@ export class AchievementsManager extends AbstractCoreManager {
       if (hasAlifeInfos([infoPortions.zat_b30_barmen_under_sultan, infoPortions.zat_b7_actor_help_bandits])) {
         giveInfo(infoPortions.kingpin_gained);
 
-        EventsManager.getInstance().emitEvent<ITipNotification>(EGameEvent.NOTIFICATION, {
+        EventsManager.emitEvent<ITipNotification>(EGameEvent.NOTIFICATION, {
           type: ENotificationType.TIP,
           caption: captions.st_ach_kingpin,
           senderId: achievementIcons[EAchievement.KINGPIN],
@@ -225,7 +225,7 @@ export class AchievementsManager extends AbstractCoreManager {
       ) {
         giveInfo(infoPortions.herald_of_justice_achievement_gained);
 
-        EventsManager.getInstance().emitEvent<ITipNotification>(EGameEvent.NOTIFICATION, {
+        EventsManager.emitEvent<ITipNotification>(EGameEvent.NOTIFICATION, {
           type: ENotificationType.TIP,
           caption: captions.st_ach_herald_of_justice,
           senderId: achievementIcons[EAchievement.HERALD_OF_JUSTICE],
@@ -257,7 +257,7 @@ export class AchievementsManager extends AbstractCoreManager {
     giveInfo(infoPortions.sim_bandit_attack_harder);
     increaseCommunityGoodwillToId(communities.stalker, registry.actor.id(), 200);
 
-    EventsManager.getInstance().emitEvent<ITipNotification>(EGameEvent.NOTIFICATION, {
+    EventsManager.emitEvent<ITipNotification>(EGameEvent.NOTIFICATION, {
       type: ENotificationType.TIP,
       caption: captions.st_ach_seeker,
       senderId: achievementIcons[EAchievement.SEEKER],
@@ -274,7 +274,7 @@ export class AchievementsManager extends AbstractCoreManager {
       if (hasAlifeInfo(infoPortions.zat_b3_all_instruments_brought)) {
         giveInfo(infoPortions.battle_systems_master_achievement_gained);
 
-        EventsManager.getInstance().emitEvent<ITipNotification>(EGameEvent.NOTIFICATION, {
+        EventsManager.emitEvent<ITipNotification>(EGameEvent.NOTIFICATION, {
           type: ENotificationType.TIP,
           caption: captions.st_ach_battle_systems_master,
           senderId: achievementIcons[EAchievement.BATTLE_SYSTEMS_MASTER],
@@ -299,7 +299,7 @@ export class AchievementsManager extends AbstractCoreManager {
       ) {
         giveInfo(infoPortions.high_tech_master_achievement_gained);
 
-        EventsManager.getInstance().emitEvent<ITipNotification>(EGameEvent.NOTIFICATION, {
+        EventsManager.emitEvent<ITipNotification>(EGameEvent.NOTIFICATION, {
           type: ENotificationType.TIP,
           caption: captions.st_ach_high_tech_master,
           senderId: achievementIcons[EAchievement.HIGH_TECH_MASTER],
@@ -318,7 +318,7 @@ export class AchievementsManager extends AbstractCoreManager {
       if (hasAlifeInfo(infoPortions.actor_was_in_many_bad_places)) {
         giveInfo(infoPortions.skilled_stalker_achievement_gained);
 
-        EventsManager.getInstance().emitEvent<ITipNotification>(EGameEvent.NOTIFICATION, {
+        EventsManager.emitEvent<ITipNotification>(EGameEvent.NOTIFICATION, {
           type: ENotificationType.TIP,
           caption: captions.st_ach_skilled_stalker,
           senderId: achievementIcons[EAchievement.SKILLED_STALKER],
@@ -343,7 +343,7 @@ export class AchievementsManager extends AbstractCoreManager {
       ) {
         giveInfo(infoPortions.leader_achievement_gained);
 
-        EventsManager.getInstance().emitEvent<ITipNotification>(EGameEvent.NOTIFICATION, {
+        EventsManager.emitEvent<ITipNotification>(EGameEvent.NOTIFICATION, {
           type: ENotificationType.TIP,
           caption: captions.st_ach_leader,
           senderId: achievementIcons[EAchievement.LEADER],
@@ -378,7 +378,7 @@ export class AchievementsManager extends AbstractCoreManager {
         increaseCommunityGoodwillToId(communities.dolg, actorId, 200);
         increaseCommunityGoodwillToId(communities.bandit, actorId, 200);
 
-        EventsManager.getInstance().emitEvent<ITipNotification>(EGameEvent.NOTIFICATION, {
+        EventsManager.emitEvent<ITipNotification>(EGameEvent.NOTIFICATION, {
           type: ENotificationType.TIP,
           caption: captions.st_ach_diplomat,
           senderId: achievementIcons[EAchievement.DIPLOMAT],
@@ -411,7 +411,7 @@ export class AchievementsManager extends AbstractCoreManager {
       ) {
         giveInfo(infoPortions.research_man_gained);
 
-        EventsManager.getInstance().emitEvent<ITipNotification>(EGameEvent.NOTIFICATION, {
+        EventsManager.emitEvent<ITipNotification>(EGameEvent.NOTIFICATION, {
           type: ENotificationType.TIP,
           caption: captions.st_ach_research_man,
           senderId: achievementIcons[EAchievement.RESEARCH_MAN],
@@ -437,7 +437,7 @@ export class AchievementsManager extends AbstractCoreManager {
       ) {
         giveInfo(infoPortions.sim_duty_help_harder);
 
-        EventsManager.getInstance().emitEvent<ITipNotification>(EGameEvent.NOTIFICATION, {
+        EventsManager.emitEvent<ITipNotification>(EGameEvent.NOTIFICATION, {
           type: ENotificationType.TIP,
           caption: captions.st_ach_friend_of_duty,
           senderId: achievementIcons[EAchievement.FRIEND_OF_DUTY],
@@ -463,7 +463,7 @@ export class AchievementsManager extends AbstractCoreManager {
       ) {
         giveInfo(infoPortions.sim_freedom_help_harder);
 
-        EventsManager.getInstance().emitEvent<ITipNotification>(EGameEvent.NOTIFICATION, {
+        EventsManager.emitEvent<ITipNotification>(EGameEvent.NOTIFICATION, {
           type: ENotificationType.TIP,
           caption: captions.st_ach_friend_of_freedom,
           senderId: achievementIcons[EAchievement.FRIEND_OF_FREEDOM],
@@ -488,7 +488,7 @@ export class AchievementsManager extends AbstractCoreManager {
       ) {
         giveInfo(infoPortions.balance_advocate_gained);
 
-        EventsManager.getInstance().emitEvent<ITipNotification>(EGameEvent.NOTIFICATION, {
+        EventsManager.emitEvent<ITipNotification>(EGameEvent.NOTIFICATION, {
           type: ENotificationType.TIP,
           caption: captions.st_ach_balance_advocate,
           senderId: achievementIcons[EAchievement.BALANCE_ADVOCATE],
@@ -506,7 +506,7 @@ export class AchievementsManager extends AbstractCoreManager {
     if (!hasAlifeInfo(infoPortions.actor_wealthy) && registry.actor.money() >= 100_000) {
       giveInfo(infoPortions.actor_wealthy);
 
-      EventsManager.getInstance().emitEvent<ITipNotification>(EGameEvent.NOTIFICATION, {
+      EventsManager.emitEvent<ITipNotification>(EGameEvent.NOTIFICATION, {
         type: ENotificationType.TIP,
         caption: captions.st_ach_wealthy,
         senderId: achievementIcons[EAchievement.WEALTHY],
@@ -524,7 +524,7 @@ export class AchievementsManager extends AbstractCoreManager {
       if (hasAlifeInfo(infoPortions.pri_b305_all_strelok_notes_given)) {
         giveInfo(infoPortions.keeper_of_secrets_achievement_gained);
 
-        EventsManager.getInstance().emitEvent<ITipNotification>(EGameEvent.NOTIFICATION, {
+        EventsManager.emitEvent<ITipNotification>(EGameEvent.NOTIFICATION, {
           type: ENotificationType.TIP,
           caption: captions.st_ach_keeper_of_secrets,
           senderId: achievementIcons[EAchievement.KEEPER_OF_SECRETS],
@@ -546,7 +546,7 @@ export class AchievementsManager extends AbstractCoreManager {
     if (StatisticsManager.getInstance().getUsedAnabioticsCount() >= 3) {
       giveInfo(infoPortions.actor_marked_by_zone_3_times);
 
-      EventsManager.getInstance().emitEvent<ITipNotification>(EGameEvent.NOTIFICATION, {
+      EventsManager.emitEvent<ITipNotification>(EGameEvent.NOTIFICATION, {
         type: ENotificationType.TIP,
         caption: captions.st_ach_marked_by_zone,
         senderId: achievementIcons[EAchievement.MARKED_BY_ZONE],
@@ -588,7 +588,7 @@ export class AchievementsManager extends AbstractCoreManager {
       ) {
         giveInfo(infoPortions.actor_information_dealer);
 
-        EventsManager.getInstance().emitEvent<ITipNotification>(EGameEvent.NOTIFICATION, {
+        EventsManager.emitEvent<ITipNotification>(EGameEvent.NOTIFICATION, {
           type: ENotificationType.TIP,
           caption: captions.st_ach_information_dealer,
           senderId: achievementIcons[EAchievement.INFORMATION_DEALER],
@@ -616,7 +616,7 @@ export class AchievementsManager extends AbstractCoreManager {
         giveInfo(infoPortions.sim_stalker_help_harder);
         increaseCommunityGoodwillToId(communities.stalker, registry.actor.id(), 100);
 
-        EventsManager.getInstance().emitEvent<ITipNotification>(EGameEvent.NOTIFICATION, {
+        EventsManager.emitEvent<ITipNotification>(EGameEvent.NOTIFICATION, {
           type: ENotificationType.TIP,
           caption: captions.st_ach_friend_of_stalkers,
           senderId: achievementIcons[EAchievement.FRIEND_OF_STALKERS],
@@ -655,7 +655,7 @@ export class AchievementsManager extends AbstractCoreManager {
         4
       );
 
-      EventsManager.getInstance().emitEvent<ITipNotification>(EGameEvent.NOTIFICATION, {
+      EventsManager.emitEvent<ITipNotification>(EGameEvent.NOTIFICATION, {
         type: ENotificationType.TIP,
         caption: captions.st_detective_news,
         senderId: notificationManagerIcons.got_medicine,
@@ -685,7 +685,7 @@ export class AchievementsManager extends AbstractCoreManager {
         5
       );
 
-      EventsManager.getInstance().emitEvent<ITipNotification>(EGameEvent.NOTIFICATION, {
+      EventsManager.emitEvent<ITipNotification>(EGameEvent.NOTIFICATION, {
         type: ENotificationType.TIP,
         caption: captions.st_mutant_hunter_news,
         senderId: notificationManagerIcons.got_ammo,

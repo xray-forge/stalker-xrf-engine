@@ -36,7 +36,6 @@ import { DialogManager } from "@/engine/core/managers/interaction/dialog/DialogM
 import { SimulationBoardManager } from "@/engine/core/managers/interaction/SimulationBoardManager";
 import { TradeManager } from "@/engine/core/managers/interaction/TradeManager";
 import { MapDisplayManager } from "@/engine/core/managers/interface/MapDisplayManager";
-import { StatisticsManager } from "@/engine/core/managers/interface/statistics/StatisticsManager";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import { DropManager } from "@/engine/core/managers/world/DropManager";
 import { ReleaseBodyManager } from "@/engine/core/managers/world/ReleaseBodyManager";
@@ -417,10 +416,6 @@ export class StalkerBinder extends object_binder {
 
     MapDisplayManager.getInstance().removeObjectMapSpot(npc, state);
 
-    if (who?.id() === ACTOR_ID) {
-      StatisticsManager.getInstance().onStalkerKilledByActor(this.object);
-    }
-
     const knownInfo: Optional<TName> = readIniString(state.ini!, state.sectionLogic, "known_info", false, "", null);
 
     this.initializeInfoPortions(state.ini!, knownInfo);
@@ -459,6 +454,7 @@ export class StalkerBinder extends object_binder {
       }
     }
 
+    EventsManager.emitEvent(EGameEvent.STALKER_KILLED, this.object, who);
     ReleaseBodyManager.getInstance().addDeadBody(this.object);
   }
 
@@ -469,7 +465,7 @@ export class StalkerBinder extends object_binder {
     logger.info("Stalker use:", this.object.name(), "by", who.name());
 
     if (this.object.alive()) {
-      EventsManager.getInstance().emitEvent(EGameEvent.NPC_INTERACTION, object, who);
+      EventsManager.emitEvent(EGameEvent.STALKER_INTERACTION, object, who);
       DialogManager.getInstance().resetForObject(this.object);
       SchemeMeet.onMeetWithObject(object);
 
@@ -497,7 +493,7 @@ export class StalkerBinder extends object_binder {
   public onHit(
     object: ClientObject,
     amount: TRate,
-    localDirection: Vector,
+    direction: Vector,
     who: Optional<ClientObject>,
     boneIndex: string | number
   ): void {
@@ -505,7 +501,6 @@ export class StalkerBinder extends object_binder {
 
     // -- FIXME: �������� ������� ���� �� �������������� � ����� storage, � �� ��������...
     if (who?.id() === ACTOR_ID) {
-      StatisticsManager.getInstance().onObjectHitByActor(amount, this.object);
       if (amount > 0) {
         for (const [, descriptor] of SimulationBoardManager.getInstance().getSmartTerrainDescriptors()) {
           const smartTerrain: SmartTerrain = descriptor.smartTerrain;
@@ -531,7 +526,7 @@ export class StalkerBinder extends object_binder {
         ESchemeEvent.HIT,
         object,
         amount,
-        localDirection,
+        direction,
         who,
         boneIndex
       );
@@ -545,18 +540,18 @@ export class StalkerBinder extends object_binder {
         ESchemeEvent.HIT,
         object,
         amount,
-        localDirection,
+        direction,
         who,
         boneIndex
       );
     }
 
     if (this.state.combat) {
-      emitSchemeEvent(this.object, this.state.combat, ESchemeEvent.HIT, object, amount, localDirection, who, boneIndex);
+      emitSchemeEvent(this.object, this.state.combat, ESchemeEvent.HIT, object, amount, direction, who, boneIndex);
     }
 
     if (this.state.hit) {
-      emitSchemeEvent(this.object, this.state.hit, ESchemeEvent.HIT, object, amount, localDirection, who, boneIndex);
+      emitSchemeEvent(this.object, this.state.hit, ESchemeEvent.HIT, object, amount, direction, who, boneIndex);
     }
 
     if (boneIndex !== 15 && amount > this.object.health * 100) {
@@ -566,6 +561,8 @@ export class StalkerBinder extends object_binder {
     if (amount > 0) {
       SchemeWounded.onHit(object.id());
     }
+
+    EventsManager.emitEvent(EGameEvent.STALKER_HIT, this.object, amount, direction, who, boneIndex);
   }
 }
 

@@ -1,13 +1,16 @@
 import { alife, clsid } from "xray16";
 
 import { getPortableStoreValue, registry, setPortableStoreValue } from "@/engine/core/database";
+import { EGameEvent, EventsManager } from "@/engine/core/managers";
 import { AbstractCoreManager } from "@/engine/core/managers/base/AbstractCoreManager";
 import type { TaskObject } from "@/engine/core/managers/interaction/tasks";
 import type { IActorStatistics } from "@/engine/core/managers/interface/statistics/statistics_types";
 import type { ITreasureDescriptor } from "@/engine/core/managers/world/TreasureManager";
 import { assert } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
+import { isArtefact } from "@/engine/core/utils/object";
 import { getTableSize } from "@/engine/core/utils/table";
+import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import { TInventoryItem } from "@/engine/lib/constants/items";
 import { TArtefact } from "@/engine/lib/constants/items/artefacts";
 import { TWeapon, weapons } from "@/engine/lib/constants/items/weapons";
@@ -27,6 +30,7 @@ import {
   TName,
   TNumberId,
   TRate,
+  Vector,
 } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -39,7 +43,7 @@ export class StatisticsManager extends AbstractCoreManager {
 
   public actorStatistics: IActorStatistics = {
     surgesCount: 0,
-    completedQuestsCount: 0,
+    completedTasksCount: 0,
     killedMonstersCount: 0,
     killedStalkersCount: 0,
     collectedTreasuresCount: 0,
@@ -107,6 +111,36 @@ export class StatisticsManager extends AbstractCoreManager {
     [clsid.tushkano_s]: "tushkano",
   };
 
+  public override initialize(): void {
+    const eventsManager: EventsManager = EventsManager.getInstance();
+
+    eventsManager.registerCallback(EGameEvent.TASK_COMPLETED, this.onTaskCompleted, this);
+    eventsManager.registerCallback(EGameEvent.SURGE_SURVIVED_WITH_ANABIOTIC, this.onSurvivedSurgeWithAnabiotic, this);
+    eventsManager.registerCallback(EGameEvent.ACTOR_ITEM_TAKE, this.onActorCollectedItem, this);
+    eventsManager.registerCallback(EGameEvent.SURGE_SKIPPED, this.onSurgePassed, this);
+    eventsManager.registerCallback(EGameEvent.SURGE_ENDED, this.onSurgePassed, this);
+    eventsManager.registerCallback(EGameEvent.TREASURE_FOUND, this.onTreasureFound, this);
+    eventsManager.registerCallback(EGameEvent.STALKER_HIT, this.onObjectHit, this);
+    eventsManager.registerCallback(EGameEvent.STALKER_KILLED, this.onStalkerKilled, this);
+    eventsManager.registerCallback(EGameEvent.MONSTER_HIT, this.onObjectHit, this);
+    eventsManager.registerCallback(EGameEvent.MONSTER_KILLED, this.onMonsterKilled, this);
+  }
+
+  public override destroy(): void {
+    const eventsManager: EventsManager = EventsManager.getInstance();
+
+    eventsManager.unregisterCallback(EGameEvent.TASK_COMPLETED, this.onTaskCompleted);
+    eventsManager.unregisterCallback(EGameEvent.SURGE_SURVIVED_WITH_ANABIOTIC, this.onSurvivedSurgeWithAnabiotic);
+    eventsManager.unregisterCallback(EGameEvent.ACTOR_ITEM_TAKE, this.onActorCollectedItem);
+    eventsManager.unregisterCallback(EGameEvent.SURGE_SKIPPED, this.onSurgePassed);
+    eventsManager.unregisterCallback(EGameEvent.SURGE_ENDED, this.onSurgePassed);
+    eventsManager.unregisterCallback(EGameEvent.TREASURE_FOUND, this.onTreasureFound);
+    eventsManager.unregisterCallback(EGameEvent.STALKER_HIT, this.onObjectHit);
+    eventsManager.unregisterCallback(EGameEvent.STALKER_KILLED, this.onStalkerKilled);
+    eventsManager.unregisterCallback(EGameEvent.MONSTER_HIT, this.onObjectHit);
+    eventsManager.unregisterCallback(EGameEvent.MONSTER_KILLED, this.onMonsterKilled);
+  }
+
   /**
    * Get count of used anabiotics from pstore.
    *
@@ -119,7 +153,7 @@ export class StatisticsManager extends AbstractCoreManager {
   /**
    * Handle usage of anabiotic during emission.
    */
-  public onAnabioticUsed(): void {
+  public onSurvivedSurgeWithAnabiotic(): void {
     logger.info("Increment used anabiotics count");
 
     setPortableStoreValue(
@@ -136,18 +170,22 @@ export class StatisticsManager extends AbstractCoreManager {
    */
   public onTaskCompleted(task: TaskObject): void {
     logger.info("Increment completed quests count");
-    this.actorStatistics.completedQuestsCount += 1;
+    this.actorStatistics.completedTasksCount += 1;
   }
 
   /**
-   * Handle artefact pick up event.
+   * Handle item pick up event.
    *
-   * @param artefact - target client object picked up
+   * @param item - target client object picked up
    */
-  public onArtefactCollected(artefact: ClientObject): void {
+  public onActorCollectedItem(item: ClientObject): void {
+    if (!isArtefact(item)) {
+      return;
+    }
+
     logger.info("Increment collected artefacts count");
 
-    const artefactId: TNumberId = artefact.id();
+    const artefactId: TNumberId = item.id();
 
     if (!this.takenArtefacts.has(artefactId)) {
       this.actorStatistics.collectedArtefactsCount += 1;
@@ -184,19 +222,28 @@ export class StatisticsManager extends AbstractCoreManager {
   /**
    * Handle stalker kill event and update stats.
    *
-   * @param object - object killed by an actor
+   * @param object - object killed
+   * @param killer - object killer
    */
-  public onStalkerKilledByActor(object: ClientObject): void {
-    this.actorStatistics.killedStalkersCount += 1;
+  public onStalkerKilled(object: ClientObject, killer: Optional<ClientObject>): void {
+    if (killer?.id() === ACTOR_ID) {
+      this.actorStatistics.killedStalkersCount += 1;
+    }
   }
 
   /**
    * Handle object hit by an actor and collect statistics.
    *
-   * @param amount - amount of damage done
    * @param object - client object
+   * @param amount - amount of damage done
+   * @param direction - direction of object hit
+   * @param who - source object of hit
    */
-  public onObjectHitByActor(amount: TCount, object: ClientObject): void {
+  public onObjectHit(object: ClientObject, amount: TRate, direction: Vector, who: Optional<ClientObject>): void {
+    if (who?.id() !== ACTOR_ID) {
+      return;
+    }
+
     const activeActorItem: Optional<ClientObject> = registry.actor.active_item();
 
     if (activeActorItem) {
@@ -239,9 +286,14 @@ export class StatisticsManager extends AbstractCoreManager {
   /**
    * Handle monster kill event and update stats.
    *
-   * @param object - object killed by an actor
+   * @param object - object killed
+   * @param who - object killer
    */
-  public onMonsterKilledByActor(object: ClientObject): void {
+  public onMonsterKilled(object: ClientObject, who: Optional<ClientObject>): void {
+    if (who?.id() !== ACTOR_ID) {
+      return;
+    }
+
     let community: Optional<TName> = this.monsterClassesMap[object.clsid()] as Optional<TName>;
 
     assert(
@@ -305,7 +357,7 @@ export class StatisticsManager extends AbstractCoreManager {
   public override load(reader: NetProcessor): void {
     this.actorStatistics = {} as IActorStatistics;
     this.actorStatistics.surgesCount = reader.r_u16();
-    this.actorStatistics.completedQuestsCount = reader.r_u16();
+    this.actorStatistics.completedTasksCount = reader.r_u16();
     this.actorStatistics.killedMonstersCount = reader.r_u32();
     this.actorStatistics.killedStalkersCount = reader.r_u32();
     this.actorStatistics.collectedTreasuresCount = reader.r_u16();
@@ -355,7 +407,7 @@ export class StatisticsManager extends AbstractCoreManager {
 
   public override save(packet: NetPacket): void {
     packet.w_u16(this.actorStatistics.surgesCount);
-    packet.w_u16(this.actorStatistics.completedQuestsCount);
+    packet.w_u16(this.actorStatistics.completedTasksCount);
     packet.w_u32(this.actorStatistics.killedMonstersCount);
     packet.w_u32(this.actorStatistics.killedStalkersCount);
     packet.w_u16(this.actorStatistics.collectedTreasuresCount);
@@ -368,18 +420,18 @@ export class StatisticsManager extends AbstractCoreManager {
 
     packet.w_u8(weaponsCount);
 
-    for (const [k, v] of this.weaponsStatistics) {
-      packet.w_stringZ(tostring(k));
-      packet.w_float(v);
+    for (const [section, damageDone] of this.weaponsStatistics) {
+      packet.w_stringZ(tostring(section));
+      packet.w_float(damageDone);
     }
 
     const artefactsCount: TCount = getTableSize(this.actorStatistics.collectedArtefacts);
 
     packet.w_u8(artefactsCount);
 
-    for (const [k, v] of this.actorStatistics.collectedArtefacts) {
-      packet.w_stringZ(tostring(k));
-      packet.w_bool(v === true);
+    for (const [section, isCollected] of this.actorStatistics.collectedArtefacts) {
+      packet.w_stringZ(tostring(section));
+      packet.w_bool(isCollected);
     }
 
     const takenArtefactsCount: TCount = getTableSize(this.takenArtefacts);

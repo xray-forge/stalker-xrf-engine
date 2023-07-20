@@ -93,7 +93,7 @@ export class SaveManager extends AbstractCoreManager {
   public onBeforeGameSave(saveName: TName): void {
     logger.info("Before game save:", saveName);
 
-    EventsManager.getInstance().emitEvent(EGameEvent.GAME_SAVE, this.dynamicData.generic);
+    EventsManager.emitEvent(EGameEvent.GAME_SAVE, this.dynamicData.generic);
 
     saveDynamicGameSave(saveName, this.dynamicData);
   }
@@ -119,7 +119,7 @@ export class SaveManager extends AbstractCoreManager {
 
     this.dynamicData = data ? data : this.dynamicData;
 
-    EventsManager.getInstance().emitEvent(EGameEvent.GAME_LOAD, this.dynamicData.generic);
+    EventsManager.emitEvent(EGameEvent.GAME_LOAD, this.dynamicData.generic);
   }
 
   /**

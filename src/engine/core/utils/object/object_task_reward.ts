@@ -28,7 +28,7 @@ export function giveMoneyToActor(amount: TCount): void {
 
   registry.actor.give_money(amount);
 
-  EventsManager.getInstance().emitEvent<IMoneyRelocatedNotification>(EGameEvent.NOTIFICATION, {
+  EventsManager.emitEvent<IMoneyRelocatedNotification>(EGameEvent.NOTIFICATION, {
     type: ENotificationType.MONEY,
     direction: ENotificationDirection.IN,
     amount,
@@ -46,7 +46,7 @@ export function transferMoneyFromActor(to: ClientObject, amount: TCount): void {
 
   registry.actor.transfer_money(amount, to);
 
-  EventsManager.getInstance().emitEvent<IMoneyRelocatedNotification>(EGameEvent.NOTIFICATION, {
+  EventsManager.emitEvent<IMoneyRelocatedNotification>(EGameEvent.NOTIFICATION, {
     type: ENotificationType.MONEY,
     direction: ENotificationDirection.OUT,
     amount,
@@ -115,7 +115,7 @@ export function transferItemsFromActor(to: ClientObject, itemSection: TSection, 
     count = count * boxSize;
   }
 
-  EventsManager.getInstance().emitEvent<IItemRelocatedNotification>(EGameEvent.NOTIFICATION, {
+  EventsManager.emitEvent<IItemRelocatedNotification>(EGameEvent.NOTIFICATION, {
     type: ENotificationType.ITEM,
     direction: ENotificationDirection.OUT,
     itemSection,
@@ -161,7 +161,7 @@ export function transferItemsToActor(from: ClientObject, itemSection: TSection, 
     count = count * SYSTEM_INI.r_s32(itemSection, "box_size");
   }
 
-  EventsManager.getInstance().emitEvent<IItemRelocatedNotification>(EGameEvent.NOTIFICATION, {
+  EventsManager.emitEvent<IItemRelocatedNotification>(EGameEvent.NOTIFICATION, {
     type: ENotificationType.ITEM,
     direction: ENotificationDirection.IN,
     itemSection,
@@ -178,7 +178,7 @@ export function transferItemsToActor(from: ClientObject, itemSection: TSection, 
 export function giveItemsToActor(itemSection: TSection, count: TCount = 1): void {
   const itemsSpawned: TCount = spawnItemsForObject(registry.actor, itemSection, count);
 
-  EventsManager.getInstance().emitEvent<IItemRelocatedNotification>(EGameEvent.NOTIFICATION, {
+  EventsManager.emitEvent<IItemRelocatedNotification>(EGameEvent.NOTIFICATION, {
     type: ENotificationType.ITEM,
     direction: ENotificationDirection.IN,
     itemSection,
@@ -198,7 +198,7 @@ export function takeItemFromActor(itemSection: TSection): void {
 
   alife().release(alife().object(inventoryItem.id()), true);
 
-  EventsManager.getInstance().emitEvent<IItemRelocatedNotification>(EGameEvent.NOTIFICATION, {
+  EventsManager.emitEvent<IItemRelocatedNotification>(EGameEvent.NOTIFICATION, {
     type: ENotificationType.ITEM,
     direction: ENotificationDirection.OUT,
     itemSection,

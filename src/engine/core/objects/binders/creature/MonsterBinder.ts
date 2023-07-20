@@ -14,7 +14,7 @@ import {
   saveObjectLogic,
   unregisterObject,
 } from "@/engine/core/database";
-import { StatisticsManager } from "@/engine/core/managers/interface/statistics/StatisticsManager";
+import { EGameEvent, EventsManager } from "@/engine/core/managers";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import { setupSmartJobsAndLogicOnSpawn } from "@/engine/core/objects/server/smart_terrain/jobs_general";
 import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain/SmartTerrain";
@@ -272,10 +272,6 @@ export class MonsterBinder extends object_binder {
 
     this.onHit(victim, 1, createEmptyVector(), killer, "from_death_callback");
 
-    if (killer.id() === ACTOR_ID) {
-      StatisticsManager.getInstance().onMonsterKilledByActor(this.object);
-    }
-
     if (this.state[EScheme.MOB_DEATH]) {
       emitSchemeEvent(this.object, this.state[EScheme.MOB_DEATH], ESchemeEvent.DEATH, victim, killer);
     }
@@ -306,6 +302,8 @@ export class MonsterBinder extends object_binder {
         alife().release(targetServerObject, true);
       }
     }
+
+    EventsManager.emitEvent(EGameEvent.MONSTER_KILLED, this.object, killer);
   }
 
   /**
@@ -318,13 +316,21 @@ export class MonsterBinder extends object_binder {
     who: ClientObject,
     boneIndex: TLabel | TIndex
   ): void {
-    if (who.id() === ACTOR_ID) {
-      StatisticsManager.getInstance().onObjectHitByActor(amount, this.object);
-    }
-
     if (this.state[EScheme.HIT]) {
       emitSchemeEvent(this.object, this.state.hit, ESchemeEvent.HIT, object, amount, direction, who, boneIndex);
     }
+
+    EventsManager.emitEvent(
+      EGameEvent.MONSTER_HIT,
+      this.object,
+      this.state.hit,
+      ESchemeEvent.HIT,
+      object,
+      amount,
+      direction,
+      who,
+      boneIndex
+    );
   }
 
   /**
