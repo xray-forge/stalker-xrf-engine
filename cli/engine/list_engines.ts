@@ -1,6 +1,6 @@
 import * as fs from "fs";
 
-import { yellow } from "chalk";
+import { yellowBright } from "chalk";
 
 import { OPEN_XRAY_ENGINES_DIR } from "#/globals";
 import { NodeLogger } from "#/utils";
@@ -15,7 +15,7 @@ export async function printEnginesList(): Promise<void> {
 
   const engines: Array<string> = getEnginesList();
 
-  engines.forEach((it) => log.info("->", yellow(it)));
+  engines.forEach((it) => log.info("->", yellowBright(it)));
 }
 
 /**
