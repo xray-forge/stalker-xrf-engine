@@ -11,7 +11,7 @@ import {
   ITipNotification,
   notificationManagerIcons,
 } from "@/engine/core/managers/interface/notifications";
-import { StatisticsManager } from "@/engine/core/managers/interface/StatisticsManager";
+import { StatisticsManager } from "@/engine/core/managers/interface/statistics/StatisticsManager";
 import { readTimeFromPacket, writeTimeToPacket } from "@/engine/core/utils/game/game_time";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import {
@@ -237,17 +237,21 @@ export class AchievementsManager extends AbstractCoreManager {
   }
 
   /**
-   * todo: Description.
+   * Check whether actor achieved seeker achievement.
+   * It is given as reward for collecting all unique game artefacts.
+   * By default, in COP there are 22 unique artefact sections.
    */
   public checkAchievedSeeker(): boolean {
     if (hasAlifeInfo(infoPortions.sim_bandit_attack_harder)) {
       return true;
     }
 
-    for (const [artefactId, isArtefactFound] of StatisticsManager.getInstance().artefacts_table) {
-      if (!isArtefactFound) {
-        return false;
-      }
+    // Require unique artefacts count to be found for seeker achievement.
+    if (
+      StatisticsManager.getInstance().actorStatistics.collectedArtefacts.length() <
+      achievementRewards.ARTEFACTS_SEEKER_UNIQUES_REQUIRED
+    ) {
+      return false;
     }
 
     giveInfo(infoPortions.sim_bandit_attack_harder);

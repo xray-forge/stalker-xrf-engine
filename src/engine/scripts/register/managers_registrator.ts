@@ -15,7 +15,7 @@ import { GameSettingsManager } from "@/engine/core/managers/interface/GameSettin
 import { ItemUpgradesManager } from "@/engine/core/managers/interface/ItemUpgradesManager";
 import { LoadScreenManager } from "@/engine/core/managers/interface/LoadScreenManager";
 import { PdaManager } from "@/engine/core/managers/interface/PdaManager";
-import { StatisticsManager } from "@/engine/core/managers/interface/StatisticsManager";
+import { StatisticsManager } from "@/engine/core/managers/interface/statistics/StatisticsManager";
 import { DynamicMusicManager } from "@/engine/core/managers/sounds/DynamicMusicManager";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import { PhantomManager } from "@/engine/core/managers/world/PhantomManager";

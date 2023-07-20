@@ -9,7 +9,7 @@ import { SimulationBoardManager } from "@/engine/core/managers/interaction/Simul
 import { TaskManager } from "@/engine/core/managers/interaction/tasks";
 import { ActorInputManager } from "@/engine/core/managers/interface";
 import { GameSettingsManager } from "@/engine/core/managers/interface/GameSettingsManager";
-import { StatisticsManager } from "@/engine/core/managers/interface/StatisticsManager";
+import { StatisticsManager } from "@/engine/core/managers/interface/statistics/StatisticsManager";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import { PsyAntennaManager } from "@/engine/core/managers/world/PsyAntennaManager";
 import { ReleaseBodyManager } from "@/engine/core/managers/world/ReleaseBodyManager";

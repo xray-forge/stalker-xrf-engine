@@ -33,7 +33,6 @@ let ID_COUNTER: TNumberId = 1000;
  * todo;
  */
 export function mockClientGameObject({
-  active_item = jest.fn(() => null),
   animation_count = jest.fn(() => 0),
   bleeding = 0,
   character_icon = jest.fn(() => "test_character_icon") as <T>() => T,
@@ -91,7 +90,7 @@ export function mockClientGameObject({
   const gameObject = {
     ...rest,
     accessible: rest.accessible || jest.fn(() => true),
-    active_item,
+    active_item: rest.active_item || jest.fn(() => null),
     animation_count,
     alive: rest.alive || jest.fn(() => true),
     accessible_nearest: rest.accessible_nearest || jest.fn(() => 15326),

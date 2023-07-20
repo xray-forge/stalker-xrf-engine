@@ -1,0 +1,435 @@
+import { beforeEach, describe, expect, it } from "@jest/globals";
+import { clsid } from "xray16";
+
+import { disposeManager, getManagerInstance, registerActor, registry } from "@/engine/core/database";
+import { TaskObject } from "@/engine/core/managers/interaction/tasks";
+import { StatisticsManager } from "@/engine/core/managers/interface/statistics/StatisticsManager";
+import { ITreasureDescriptor } from "@/engine/core/managers/world/TreasureManager";
+import { weapons } from "@/engine/lib/constants/items/weapons";
+import { ClientObject, TName } from "@/engine/lib/types";
+import { MockLuaTable } from "@/fixtures/lua";
+import { replaceFunctionMock } from "@/fixtures/utils";
+import {
+  EPacketDataType,
+  mockActorClientGameObject,
+  mockClientGameObject,
+  MockNetProcessor,
+  mockServerAlifeMonsterBase,
+  mockServerAlifeObject,
+} from "@/fixtures/xray";
+
+describe("StatisticsManager class", () => {
+  beforeEach(() => {
+    registry.managers = new LuaTable();
+  });
+
+  it("should correctly handle surges", () => {
+    const manager: StatisticsManager = StatisticsManager.getInstance();
+
+    expect(manager.actorStatistics.surgesCount).toBe(0);
+
+    manager.onSurgePassed();
+    manager.onSurgePassed();
+
+    expect(manager.actorStatistics.surgesCount).toBe(2);
+  });
+
+  it("should correctly handle treasures finding", () => {
+    const manager: StatisticsManager = StatisticsManager.getInstance();
+
+    expect(manager.actorStatistics.collectedTreasuresCount).toBe(0);
+
+    manager.onTreasureFound({} as ITreasureDescriptor);
+    manager.onTreasureFound({} as ITreasureDescriptor);
+
+    expect(manager.actorStatistics.collectedTreasuresCount).toBe(2);
+  });
+
+  it("should correctly handle stalkers killing", () => {
+    const manager: StatisticsManager = StatisticsManager.getInstance();
+
+    expect(manager.actorStatistics.killedStalkersCount).toBe(0);
+
+    manager.onStalkerKilledByActor(mockClientGameObject());
+    manager.onStalkerKilledByActor(mockClientGameObject());
+
+    expect(manager.actorStatistics.killedStalkersCount).toBe(2);
+  });
+
+  it("should correctly handle tasks", () => {
+    const manager: StatisticsManager = StatisticsManager.getInstance();
+
+    expect(manager.actorStatistics.completedQuestsCount).toBe(0);
+
+    manager.onTaskCompleted({} as TaskObject);
+    manager.onTaskCompleted({} as TaskObject);
+
+    expect(manager.actorStatistics.completedQuestsCount).toBe(2);
+  });
+
+  it("should correctly handle completed quests", () => {
+    const manager: StatisticsManager = StatisticsManager.getInstance();
+
+    expect(manager.actorStatistics.completedQuestsCount).toBe(0);
+
+    manager.onTaskCompleted({} as TaskObject);
+    manager.onTaskCompleted({} as TaskObject);
+
+    expect(manager.actorStatistics.completedQuestsCount).toBe(2);
+  });
+
+  it("should correctly handle anabiotics", () => {
+    registerActor(mockActorClientGameObject());
+
+    const manager: StatisticsManager = StatisticsManager.getInstance();
+
+    expect(manager.getUsedAnabioticsCount()).toBe(0);
+
+    manager.onAnabioticUsed();
+    manager.onAnabioticUsed();
+
+    expect(manager.getUsedAnabioticsCount()).toBe(2);
+  });
+
+  it("should correctly handle taking artefacts", () => {
+    const manager: StatisticsManager = StatisticsManager.getInstance();
+    const firstClient: ClientObject = mockClientGameObject();
+    const secondClient: ClientObject = mockClientGameObject();
+    const thirdClient: ClientObject = mockClientGameObject();
+
+    mockServerAlifeObject({ id: firstClient.id(), sectionOverride: "af_first" });
+    mockServerAlifeObject({ id: secondClient.id(), sectionOverride: "af_first" });
+    mockServerAlifeObject({ id: thirdClient.id(), sectionOverride: "af_second" });
+
+    expect(manager.actorStatistics.collectedArtefactsCount).toBe(0);
+
+    manager.onArtefactCollected(firstClient);
+    manager.onArtefactCollected(firstClient);
+    manager.onArtefactCollected(firstClient);
+    manager.onArtefactCollected(firstClient);
+    manager.onArtefactCollected(secondClient);
+    manager.onArtefactCollected(secondClient);
+    manager.onArtefactCollected(secondClient);
+    manager.onArtefactCollected(thirdClient);
+    manager.onArtefactCollected(thirdClient);
+
+    expect(manager.actorStatistics.collectedArtefactsCount).toBe(3);
+    expect(manager.actorStatistics.collectedArtefacts.length()).toBe(2);
+    expect(manager.actorStatistics.collectedArtefacts.has("af_first")).toBe(true);
+    expect(manager.actorStatistics.collectedArtefacts.has("af_second")).toBe(true);
+  });
+
+  it("should correctly handle dealing damage to an object", () => {
+    const manager: StatisticsManager = StatisticsManager.getInstance();
+    const ak74: ClientObject = mockClientGameObject();
+    const desertEagle: ClientObject = mockClientGameObject();
+    const desertEagleNimble: ClientObject = mockClientGameObject();
+    const actor: ClientObject = mockActorClientGameObject();
+    const target: ClientObject = mockClientGameObject();
+
+    registerActor(actor);
+
+    mockServerAlifeObject({ id: ak74.id(), sectionOverride: weapons.wpn_ak74 });
+    mockServerAlifeObject({ id: desertEagle.id(), sectionOverride: weapons.wpn_desert_eagle });
+    mockServerAlifeObject({ id: desertEagleNimble.id(), sectionOverride: weapons.wpn_desert_eagle_nimble });
+
+    manager.onObjectHitByActor(100, target);
+
+    expect(manager.weaponsStatistics.length()).toBe(36);
+    (manager.weaponsStatistics as unknown as MockLuaTable<unknown, unknown>).forEach((value, key) => {
+      expect(value).toBe(0);
+    });
+    expect(manager.actorStatistics.favoriteWeapon).toBeNull();
+
+    replaceFunctionMock(actor.active_item, () => ak74);
+
+    manager.onObjectHitByActor(100, target);
+    manager.onObjectHitByActor(150, target);
+
+    expect(manager.weaponsStatistics.get("ak74")).toBe(250);
+    expect(manager.weaponsStatistics.get("desert")).toBe(0);
+    expect(manager.actorStatistics.favoriteWeapon).toBe("wpn_ak74");
+
+    replaceFunctionMock(actor.active_item, () => desertEagle);
+
+    manager.onObjectHitByActor(100, target);
+    expect(manager.actorStatistics.favoriteWeapon).toBe("wpn_ak74");
+    manager.onObjectHitByActor(300, target);
+
+    expect(manager.weaponsStatistics.get("ak74")).toBe(250);
+    expect(manager.weaponsStatistics.get("desert")).toBe(400);
+    expect(manager.actorStatistics.favoriteWeapon).toBe("wpn_desert_eagle");
+
+    replaceFunctionMock(actor.active_item, () => desertEagleNimble);
+
+    manager.onObjectHitByActor(100, target);
+
+    expect(manager.weaponsStatistics.get("ak74")).toBe(250);
+    expect(manager.weaponsStatistics.get("desert")).toBe(500);
+    expect(manager.actorStatistics.favoriteWeapon).toBe("wpn_desert_eagle");
+    expect(manager.weaponsStatistics.length()).toBe(36);
+  });
+
+  it("should correctly handle monster kills", () => {
+    const manager: StatisticsManager = StatisticsManager.getInstance();
+    const firstMonster: ClientObject = mockClientGameObject({ clsid: () => clsid.flesh_s, rank: () => 3 });
+    const secondMonster: ClientObject = mockClientGameObject({ clsid: () => clsid.bloodsucker_s, rank: () => 15 });
+    const thirdMonster: ClientObject = mockClientGameObject({ clsid: () => clsid.bloodsucker_s, rank: () => 16 });
+
+    mockServerAlifeMonsterBase({ id: firstMonster.id(), rank: () => 3 });
+    mockServerAlifeMonsterBase({ id: secondMonster.id(), rank: () => 15 });
+    mockServerAlifeMonsterBase({ id: thirdMonster.id(), rank: () => 16 });
+
+    expect(manager.actorStatistics.killedMonstersCount).toBe(0);
+    expect(manager.actorStatistics.bestKilledMonster).toBeNull();
+    expect(manager.actorStatistics.bestKilledMonsterRank).toBe(0);
+
+    expect(() => manager.onMonsterKilledByActor(mockClientGameObject())).toThrow();
+
+    expect(manager.actorStatistics.killedMonstersCount).toBe(0);
+    expect(manager.actorStatistics.bestKilledMonster).toBeNull();
+    expect(manager.actorStatistics.bestKilledMonsterRank).toBe(0);
+
+    manager.onMonsterKilledByActor(firstMonster);
+
+    expect(manager.actorStatistics.killedMonstersCount).toBe(1);
+    expect(manager.actorStatistics.bestKilledMonster).toBe("flesh_strong");
+    expect(manager.actorStatistics.bestKilledMonsterRank).toBe(3);
+
+    manager.onMonsterKilledByActor(secondMonster);
+
+    expect(manager.actorStatistics.killedMonstersCount).toBe(2);
+    expect(manager.actorStatistics.bestKilledMonster).toBe("bloodsucker_normal");
+    expect(manager.actorStatistics.bestKilledMonsterRank).toBe(15);
+
+    manager.onMonsterKilledByActor(thirdMonster);
+
+    expect(manager.actorStatistics.killedMonstersCount).toBe(3);
+    expect(manager.actorStatistics.bestKilledMonster).toBe("bloodsucker_strong");
+    expect(manager.actorStatistics.bestKilledMonsterRank).toBe(16);
+  });
+
+  it("should correctly save and load data", () => {
+    const oldManager: StatisticsManager = getManagerInstance(StatisticsManager);
+    const netProcessor: MockNetProcessor = new MockNetProcessor();
+
+    oldManager.actorStatistics = {
+      collectedArtefacts: $fromObject<TName, boolean>({ af_1: true, af_2: true }),
+      collectedArtefactsCount: 10,
+      collectedTreasuresCount: 24,
+      killedMonstersCount: 30,
+      killedStalkersCount: 4,
+      bestKilledMonsterRank: 16,
+      surgesCount: 1,
+      completedQuestsCount: 40,
+      favoriteWeapon: "wpn_ak74",
+      bestKilledMonster: "bloodsucker_strong",
+    };
+
+    oldManager.save(netProcessor.asMockNetPacket());
+
+    expect(netProcessor.dataList).toEqual([
+      1,
+      40,
+      30,
+      4,
+      24,
+      10,
+      16,
+      "bloodsucker_strong",
+      "wpn_ak74",
+      36,
+      "abakan",
+      0,
+      "ak74",
+      0,
+      "ak74u",
+      0,
+      "beretta",
+      0,
+      "bm16",
+      0,
+      "colt1911",
+      0,
+      "desert",
+      0,
+      "f1",
+      0,
+      "fn2000",
+      0,
+      "fort",
+      0,
+      "g36",
+      0,
+      "gauss",
+      0,
+      "groza",
+      0,
+      "hpsa",
+      0,
+      "knife",
+      0,
+      "l85",
+      0,
+      "lr300",
+      0,
+      "mp5",
+      0,
+      "pb",
+      0,
+      "pkm",
+      0,
+      "pm",
+      0,
+      "protecta",
+      0,
+      "rg",
+      0,
+      "rgd5",
+      0,
+      "rpg7",
+      0,
+      "sig220",
+      0,
+      "sig550",
+      0,
+      "spas12",
+      0,
+      "svd",
+      0,
+      "svu",
+      0,
+      "toz34",
+      0,
+      "usp45",
+      0,
+      "val",
+      0,
+      "vintorez",
+      0,
+      "walther",
+      0,
+      "wincheaster1300",
+      0,
+      2,
+      "af_1",
+      true,
+      "af_2",
+      true,
+      0,
+    ]);
+    expect(netProcessor.writeDataOrder).toEqual([
+      EPacketDataType.U16,
+      EPacketDataType.U16,
+      EPacketDataType.U32,
+      EPacketDataType.U32,
+      EPacketDataType.U16,
+      EPacketDataType.U16,
+      EPacketDataType.U32,
+      EPacketDataType.STRING,
+      EPacketDataType.STRING,
+      EPacketDataType.U8,
+      EPacketDataType.STRING,
+      EPacketDataType.F32,
+      EPacketDataType.STRING,
+      EPacketDataType.F32,
+      EPacketDataType.STRING,
+      EPacketDataType.F32,
+      EPacketDataType.STRING,
+      EPacketDataType.F32,
+      EPacketDataType.STRING,
+      EPacketDataType.F32,
+      EPacketDataType.STRING,
+      EPacketDataType.F32,
+      EPacketDataType.STRING,
+      EPacketDataType.F32,
+      EPacketDataType.STRING,
+      EPacketDataType.F32,
+      EPacketDataType.STRING,
+      EPacketDataType.F32,
+      EPacketDataType.STRING,
+      EPacketDataType.F32,
+      EPacketDataType.STRING,
+      EPacketDataType.F32,
+      EPacketDataType.STRING,
+      EPacketDataType.F32,
+      EPacketDataType.STRING,
+      EPacketDataType.F32,
+      EPacketDataType.STRING,
+      EPacketDataType.F32,
+      EPacketDataType.STRING,
+      EPacketDataType.F32,
+      EPacketDataType.STRING,
+      EPacketDataType.F32,
+      EPacketDataType.STRING,
+      EPacketDataType.F32,
+      EPacketDataType.STRING,
+      EPacketDataType.F32,
+      EPacketDataType.STRING,
+      EPacketDataType.F32,
+      EPacketDataType.STRING,
+      EPacketDataType.F32,
+      EPacketDataType.STRING,
+      EPacketDataType.F32,
+      EPacketDataType.STRING,
+      EPacketDataType.F32,
+      EPacketDataType.STRING,
+      EPacketDataType.F32,
+      EPacketDataType.STRING,
+      EPacketDataType.F32,
+      EPacketDataType.STRING,
+      EPacketDataType.F32,
+      EPacketDataType.STRING,
+      EPacketDataType.F32,
+      EPacketDataType.STRING,
+      EPacketDataType.F32,
+      EPacketDataType.STRING,
+      EPacketDataType.F32,
+      EPacketDataType.STRING,
+      EPacketDataType.F32,
+      EPacketDataType.STRING,
+      EPacketDataType.F32,
+      EPacketDataType.STRING,
+      EPacketDataType.F32,
+      EPacketDataType.STRING,
+      EPacketDataType.F32,
+      EPacketDataType.STRING,
+      EPacketDataType.F32,
+      EPacketDataType.STRING,
+      EPacketDataType.F32,
+      EPacketDataType.STRING,
+      EPacketDataType.F32,
+      EPacketDataType.STRING,
+      EPacketDataType.F32,
+      EPacketDataType.U8,
+      EPacketDataType.STRING,
+      EPacketDataType.BOOLEAN,
+      EPacketDataType.STRING,
+      EPacketDataType.BOOLEAN,
+      EPacketDataType.U8,
+    ]);
+
+    disposeManager(StatisticsManager);
+
+    const newManager: StatisticsManager = getManagerInstance(StatisticsManager);
+
+    newManager.load(netProcessor.asMockNetProcessor());
+
+    expect(netProcessor.readDataOrder).toEqual(netProcessor.writeDataOrder);
+    expect(netProcessor.dataList).toHaveLength(0);
+    expect(newManager).not.toBe(oldManager);
+
+    expect(newManager.actorStatistics).toEqual({
+      collectedArtefacts: $fromObject<TName, boolean>({ af_1: true, af_2: true }),
+      collectedArtefactsCount: 10,
+      collectedTreasuresCount: 24,
+      killedMonstersCount: 30,
+      killedStalkersCount: 4,
+      bestKilledMonsterRank: 16,
+      surgesCount: 1,
+      completedQuestsCount: 40,
+      favoriteWeapon: "wpn_ak74",
+      bestKilledMonster: "bloodsucker_strong",
+    });
+  });
+});

@@ -15,7 +15,7 @@ import { SimulationBoardManager } from "@/engine/core/managers/interaction/Simul
 import { TaskManager } from "@/engine/core/managers/interaction/tasks";
 import { ActorInputManager } from "@/engine/core/managers/interface";
 import { MapDisplayManager } from "@/engine/core/managers/interface/MapDisplayManager";
-import { StatisticsManager } from "@/engine/core/managers/interface/StatisticsManager";
+import { StatisticsManager } from "@/engine/core/managers/interface/statistics/StatisticsManager";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import { WeatherManager } from "@/engine/core/managers/world/WeatherManager";
 import { AnomalyZoneBinder, SmartTerrain } from "@/engine/core/objects";
@@ -390,7 +390,7 @@ export class SurgeManager extends AbstractCoreManager {
 
     this.respawnArtefactsAndReplaceAnomalyZones();
 
-    StatisticsManager.getInstance().incrementSurgesCount();
+    StatisticsManager.getInstance().onSurgePassed();
     EventsManager.getInstance().emitEvent(EGameEvent.SURGE_SKIPPED, !this.isSkipMessageToggled);
 
     this.isSkipMessageToggled = true;
@@ -450,7 +450,7 @@ export class SurgeManager extends AbstractCoreManager {
 
     this.respawnArtefactsAndReplaceAnomalyZones();
 
-    StatisticsManager.getInstance().incrementSurgesCount();
+    StatisticsManager.getInstance().onSurgePassed();
     EventsManager.getInstance().emitEvent(EGameEvent.SURGE_ENDED);
   }
 
@@ -531,7 +531,7 @@ export class SurgeManager extends AbstractCoreManager {
     if (registry.actor.alive()) {
       if (!coverObject?.inside(registry.actor.position())) {
         if (hasAlifeInfo(infoPortions.anabiotic_in_process)) {
-          StatisticsManager.getInstance().incrementAnabioticsUsageCount();
+          StatisticsManager.getInstance().onAnabioticUsed();
         }
 
         ActorInputManager.getInstance().disableGameUiOnly(registry.actor);
@@ -875,7 +875,7 @@ export class SurgeManager extends AbstractCoreManager {
 
       object.get_artefact().FollowByPath("NULL", 0, createVector(500, 500, 500));
 
-      StatisticsManager.getInstance().incrementCollectedArtefactsCount(object);
+      StatisticsManager.getInstance().onArtefactCollected(object);
     }
   }
 

@@ -11,7 +11,7 @@ import {
 import { AbstractCoreManager } from "@/engine/core/managers/base/AbstractCoreManager";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { ETreasureState, NotificationManager } from "@/engine/core/managers/interface/notifications";
-import { StatisticsManager } from "@/engine/core/managers/interface/StatisticsManager";
+import { StatisticsManager } from "@/engine/core/managers/interface/statistics/StatisticsManager";
 import { assert, assertDefined } from "@/engine/core/utils/assertion";
 import {
   ISpawnDescriptor,
@@ -54,7 +54,7 @@ export interface ITreasureItemsDescriptor {
 /**
  * todo;
  */
-export interface ITreasureSecret {
+export interface ITreasureDescriptor {
   given: boolean;
   checked: boolean;
   refreshing: Optional<TConditionList>;
@@ -92,7 +92,7 @@ export class TreasureManager extends AbstractCoreManager {
 
   public areItemsSpawned: boolean = false;
 
-  public secrets: LuaTable<TTreasure, ITreasureSecret> = new LuaTable();
+  public secrets: LuaTable<TTreasure, ITreasureDescriptor> = new LuaTable();
   public secretsRestrictorByName: LuaTable<TName, TNumberId> = new LuaTable(); // Restrictor ID by name.
   public secretsRestrictorByItem: LuaTable<TNumberId, TNumberId> = new LuaTable(); // Restrictor ID by item ID.
 
@@ -253,7 +253,7 @@ export class TreasureManager extends AbstractCoreManager {
     }
 
     const simulator: AlifeSimulator = alife();
-    const secret: ITreasureSecret = this.secrets.get(treasureId);
+    const secret: ITreasureDescriptor = this.secrets.get(treasureId);
 
     for (const [itemSection, itemParameters] of secret.items) {
       for (const it of $range(1, itemParameters.length())) {
@@ -366,7 +366,7 @@ export class TreasureManager extends AbstractCoreManager {
           if (section === TRUE && !treasureDescriptor.checked) {
             level.map_remove_object_spot(this.secretsRestrictorByName.get(treasureId), "treasure");
 
-            StatisticsManager.getInstance().incrementCollectedSecretsCount();
+            StatisticsManager.getInstance().onTreasureFound(treasureDescriptor);
             treasureDescriptor.empty = null;
             treasureDescriptor.checked = true;
 
@@ -409,13 +409,13 @@ export class TreasureManager extends AbstractCoreManager {
     if (treasureId) {
       logger.info("Treasure item taken:", objectId);
 
-      const secret: ITreasureSecret = this.secrets.get(treasureId);
+      const secret: ITreasureDescriptor = this.secrets.get(treasureId);
 
       secret.itemsToFindRemain -= 1;
 
       if (this.secrets.get(treasureId).itemsToFindRemain === 0) {
         level.map_remove_object_spot(this.secretsRestrictorByName.get(treasureId), "treasure");
-        StatisticsManager.getInstance().incrementCollectedSecretsCount();
+        StatisticsManager.getInstance().onTreasureFound(secret);
         this.secrets.get(treasureId).checked = true;
         NotificationManager.getInstance().sendTreasureNotification(ETreasureState.FOUND_TREASURE);
 
