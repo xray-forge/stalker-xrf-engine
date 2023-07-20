@@ -1,17 +1,16 @@
-import { describe, it } from "@jest/globals";
+import { beforeAll, describe, it } from "@jest/globals";
 
 import { AnyObject, TName } from "@/engine/lib/types";
+import { checkNestedBinding } from "@/fixtures/engine";
 
 describe("'dialogs_jupiter' external callbacks", () => {
-  const checkBinding = (name: TName, container: AnyObject = global) => {
-    if (!container["dialogs_jupiter"][name]) {
-      throw new Error(`Expected '${name}' callback to be declared.`);
-    }
-  };
+  const checkBinding = (name: TName) => checkNestedBinding("dialogs_jupiter", name);
+
+  beforeAll(() => {
+    require("@/engine/scripts/declarations/dialogs/dialogs_jupiter");
+  });
 
   it("should correctly inject dialog functors", () => {
-    require("@/engine/scripts/declarations/dialogs/dialogs_jupiter");
-
     checkBinding("jup_b208_give_reward");
     checkBinding("jupiter_a9_actor_hasnt_all_mail_items");
     checkBinding("jupiter_a9_actor_has_all_mail_items");

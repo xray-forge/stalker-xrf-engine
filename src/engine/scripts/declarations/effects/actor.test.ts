@@ -1,48 +1,46 @@
-import { describe, expect, it } from "@jest/globals";
+import { beforeAll, describe, it } from "@jest/globals";
 
-import { AnyObject, TName } from "@/engine/lib/types";
+import { checkXrEffect } from "@/fixtures/engine";
 
 describe("'actor' effects declaration", () => {
-  const checkBinding = (name: TName, container: AnyObject = global) => {
-    expect(container["xr_effects"][name]).toBeDefined();
-  };
+  beforeAll(() => {
+    require("@/engine/scripts/declarations/effects/actor");
+  });
 
   it("should correctly inject external methods for game", () => {
-    require("@/engine/scripts/declarations/effects/actor");
-
-    checkBinding("disable_ui");
-    checkBinding("disable_ui_only");
-    checkBinding("enable_ui");
-    checkBinding("run_cam_effector");
-    checkBinding("stop_cam_effector");
-    checkBinding("disable_actor_nightvision");
-    checkBinding("enable_actor_nightvision");
-    checkBinding("disable_actor_torch");
-    checkBinding("enable_actor_torch");
-    checkBinding("run_cam_effector_global");
-    checkBinding("cam_effector_callback");
-    checkBinding("run_postprocess");
-    checkBinding("stop_postprocess");
-    checkBinding("run_tutorial");
-    checkBinding("give_actor");
-    checkBinding("remove_item");
-    checkBinding("drop_object_item_on_point");
-    checkBinding("relocate_item");
-    checkBinding("activate_weapon_slot");
-    checkBinding("save_actor_position");
-    checkBinding("restore_actor_position");
-    checkBinding("actor_punch");
-    checkBinding("send_tip");
-    checkBinding("give_task");
-    checkBinding("set_active_task");
-    checkBinding("kill_actor");
-    checkBinding("make_actor_visible_to_squad");
-    checkBinding("sleep");
-    checkBinding("damage_actor_items_on_start");
-    checkBinding("activate_weapon");
-    checkBinding("give_treasure");
-    checkBinding("get_best_detector");
-    checkBinding("hide_best_detector");
-    checkBinding("set_torch_state");
+    checkXrEffect("disable_ui");
+    checkXrEffect("disable_ui_only");
+    checkXrEffect("enable_ui");
+    checkXrEffect("run_cam_effector");
+    checkXrEffect("stop_cam_effector");
+    checkXrEffect("disable_actor_nightvision");
+    checkXrEffect("enable_actor_nightvision");
+    checkXrEffect("disable_actor_torch");
+    checkXrEffect("enable_actor_torch");
+    checkXrEffect("run_cam_effector_global");
+    checkXrEffect("cam_effector_callback");
+    checkXrEffect("run_postprocess");
+    checkXrEffect("stop_postprocess");
+    checkXrEffect("run_tutorial");
+    checkXrEffect("give_actor");
+    checkXrEffect("remove_item");
+    checkXrEffect("drop_object_item_on_point");
+    checkXrEffect("relocate_item");
+    checkXrEffect("activate_weapon_slot");
+    checkXrEffect("save_actor_position");
+    checkXrEffect("restore_actor_position");
+    checkXrEffect("actor_punch");
+    checkXrEffect("send_tip");
+    checkXrEffect("give_task");
+    checkXrEffect("set_active_task");
+    checkXrEffect("kill_actor");
+    checkXrEffect("make_actor_visible_to_squad");
+    checkXrEffect("sleep");
+    checkXrEffect("damage_actor_items_on_start");
+    checkXrEffect("activate_weapon");
+    checkXrEffect("give_treasure");
+    checkXrEffect("get_best_detector");
+    checkXrEffect("hide_best_detector");
+    checkXrEffect("set_torch_state");
   });
 });

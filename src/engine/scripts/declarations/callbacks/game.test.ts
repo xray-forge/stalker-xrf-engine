@@ -1,15 +1,13 @@
-import { describe, expect, it } from "@jest/globals";
+import { beforeAll, describe, it } from "@jest/globals";
 
-import { AnyObject } from "@/engine/lib/types";
+import { checkBinding } from "@/fixtures/engine";
 
 describe("'game' external callbacks", () => {
-  const checkBinding = (name: string, container: AnyObject = global) => {
-    expect(container[name]).toBeDefined();
-  };
+  beforeAll(() => {
+    require("@/engine/scripts/declarations/callbacks/game");
+  });
 
   it("should correctly inject external methods for game", () => {
-    require("@/engine/scripts/declarations/callbacks/game");
-
     checkBinding("smart_covers");
     checkBinding("outro");
     checkBinding("trade_manager");

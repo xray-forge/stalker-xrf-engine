@@ -1,28 +1,26 @@
-import { describe, expect, it } from "@jest/globals";
+import { beforeAll, describe, it } from "@jest/globals";
 
-import { AnyObject } from "@/engine/lib/types";
+import { checkXrCondition } from "@/fixtures/engine";
 
 describe("'relation' conditions declaration", () => {
-  const checkBinding = (name: string, container: AnyObject = global) => {
-    expect(container["xr_conditions"][name]).toBeDefined();
-  };
+  beforeAll(() => {
+    require("@/engine/scripts/declarations/conditions/relation");
+  });
 
   it("should correctly inject external methods for game", () => {
-    require("@/engine/scripts/declarations/conditions/relation");
-
-    checkBinding("is_factions_enemies");
-    checkBinding("is_factions_neutrals");
-    checkBinding("is_factions_friends");
-    checkBinding("is_faction_enemy_to_actor");
-    checkBinding("is_faction_friend_to_actor");
-    checkBinding("is_faction_neutral_to_actor");
-    checkBinding("is_squad_friend_to_actor");
-    checkBinding("is_squad_enemy_to_actor");
-    checkBinding("is_squad_neutral_to_actor");
-    checkBinding("fighting_actor");
-    checkBinding("actor_enemy");
-    checkBinding("actor_friend");
-    checkBinding("actor_neutral");
-    checkBinding("npc_community");
+    checkXrCondition("is_factions_enemies");
+    checkXrCondition("is_factions_neutrals");
+    checkXrCondition("is_factions_friends");
+    checkXrCondition("is_faction_enemy_to_actor");
+    checkXrCondition("is_faction_friend_to_actor");
+    checkXrCondition("is_faction_neutral_to_actor");
+    checkXrCondition("is_squad_friend_to_actor");
+    checkXrCondition("is_squad_enemy_to_actor");
+    checkXrCondition("is_squad_neutral_to_actor");
+    checkXrCondition("fighting_actor");
+    checkXrCondition("actor_enemy");
+    checkXrCondition("actor_friend");
+    checkXrCondition("actor_neutral");
+    checkXrCondition("npc_community");
   });
 });
