@@ -1,4 +1,0 @@
-/**
- * todo;
- */
-export const config = {};

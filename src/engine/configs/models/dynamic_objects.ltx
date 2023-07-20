@@ -8,7 +8,7 @@ $spawn = "physics\object"
 $prefetch = 8
 class = O_PHYS_S
 remove_time = 60; after this time unbreaked removable bone will be removed
-script_binding = bind.physicObject
+script_binding = bind.physicObject ; xrf change
 
 [physic_destroyable_object]
 GroupControlSection = spawn_group
@@ -16,7 +16,7 @@ $spawn = "physics\destroyable_object"
 ;$prefetch = 8
 class = O_DSTR_S
 remove_time = 60; after this time unbreaked removable bone will be removed
-script_binding = bind.physicObject
+script_binding = bind.physicObject ; xrf change
 
 [physic_door]
 GroupControlSection = spawn_group
@@ -24,7 +24,7 @@ $spawn = "physics\door"
 ;$prefetch = 8
 class = O_DSTR_S
 remove_time = 60; after this time unbreaked removable bone will be removed
-script_binding = bind.physicObject
+script_binding = bind.physicObject ; xrf change
 is_ai_obstacle = false
 
 ;*******************************************************************************
@@ -133,7 +133,7 @@ custom_data = models\objects\ignore_static.ltx
 
 [door_lab_x8]:physic_object
 $spawn = "physics\door_lab_x8"
-script_binding = bind.labX8Door
+script_binding = bind.labX8Door ; xrf change
 
 [jup_b206_plant_ph]:physic_destroyable_object
 $spawn = "dynamic_objects\scene_objects\jup_b206_plant_ph"
