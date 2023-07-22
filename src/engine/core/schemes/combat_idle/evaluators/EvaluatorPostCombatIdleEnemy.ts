@@ -2,11 +2,10 @@ import { LuabindClass, property_evaluator, time_global } from "xray16";
 
 import { registry } from "@/engine/core/database";
 import { ISchemePostCombatIdleState } from "@/engine/core/schemes/combat_idle/ISchemePostCombatIdleState";
-import { ISchemeCombatIgnoreState } from "@/engine/core/schemes/combat_ignore";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { canObjectSelectAsEnemy } from "@/engine/core/utils/object";
 import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
-import { ClientObject, EScheme, Optional, TDistance, TTimestamp } from "@/engine/lib/types";
+import { ClientObject, Optional, TDistance, TTimestamp } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -24,19 +23,12 @@ export class EvaluatorPostCombatIdleEnemy extends property_evaluator {
   }
 
   /**
-   * todo: Description.
+   * Evaluate whether object can enter post-combat idle state.
    */
   public override evaluate(): boolean {
     const bestEnemy: Optional<ClientObject> = this.object.best_enemy();
 
-    if (
-      bestEnemy !== null &&
-      !canObjectSelectAsEnemy(
-        this.object,
-        bestEnemy,
-        registry.objects.get(this.object.id())[EScheme.COMBAT_IGNORE] as ISchemeCombatIgnoreState
-      )
-    ) {
+    if (bestEnemy !== null && !canObjectSelectAsEnemy(this.object, bestEnemy)) {
       return false;
     }
 

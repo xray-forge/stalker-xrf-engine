@@ -24,7 +24,6 @@ import {
   ServerCreatureObject,
   TDangerType,
   TDistance,
-  TNumberId,
 } from "@/engine/lib/types";
 
 /**
@@ -80,13 +79,7 @@ export function isObjectFacingDanger(object: ClientObject): boolean {
   }
 
   // Verify if object is not enemy at all.
-  if (
-    !canObjectSelectAsEnemy(
-      object,
-      bestDangerObject,
-      registry.objects.get(object.id())[EScheme.COMBAT_IGNORE] as ISchemeCombatIgnoreState
-    )
-  ) {
+  if (!canObjectSelectAsEnemy(object, bestDangerObject)) {
     return false;
   }
 
@@ -122,14 +115,9 @@ export function isObjectFacingDanger(object: ClientObject): boolean {
  *
  * @param object - target object to check
  * @param enemy - possible enemy to check
- * @param combatIgnoreState - state of combat ignore state scheme
  * @returns whether object os enemy of provided client entity
  */
-export function canObjectSelectAsEnemy(
-  object: ClientObject,
-  enemy: ClientObject,
-  combatIgnoreState: ISchemeCombatIgnoreState
-): boolean {
+export function canObjectSelectAsEnemy(object: ClientObject, enemy: ClientObject): boolean {
   // Dead, cannot select enemies.
   if (!object.alive()) {
     return false;
@@ -137,20 +125,32 @@ export function canObjectSelectAsEnemy(
 
   const objectState: Optional<IRegistryObjectState> = registry.objects.get(object.id());
 
+  // No state configurations, can select.
   if (objectState === null) {
     return true;
   }
 
+  const combatIgnoreState: Optional<ISchemeCombatIgnoreState> = objectState[
+    EScheme.COMBAT_IGNORE
+  ] as Optional<ISchemeCombatIgnoreState>;
+
   // todo: Probably also clean it up? And set only when 'true'
   objectState.enemy_id = enemy.id();
 
-  // When object is critically wounded, it should fight back.
-  if (object.critically_wounded()) {
+  // Combat ignoring is explicitly disabled.
+  if (combatIgnoreState?.enabled === false) {
     return true;
   }
 
-  // Combat ignoring is explicitly disabled.
-  if (combatIgnoreState.enabled === false) {
+  // Check if object have any state overrides that cause object to explicitly ignore combat.
+  const stateOverrides: Optional<AnyObject> = combatIgnoreState?.overrides as Optional<AnyObject>;
+
+  if (stateOverrides && stateOverrides.combat_ignore) {
+    return pickSectionFromCondList(enemy, object, stateOverrides.combat_ignore.condlist) !== TRUE;
+  }
+
+  // When object is critically wounded, it should fight back.
+  if (object.critically_wounded()) {
     return true;
   }
 
@@ -190,13 +190,6 @@ export function canObjectSelectAsEnemy(
     if (registry.noCombatSmartTerrains.get(enemySmartTerrain.name())) {
       return false;
     }
-  }
-
-  // Check if object have any state overrides that cause object to explicitly ignore combat.
-  const stateOverrides: Optional<AnyObject> = combatIgnoreState.overrides;
-
-  if (stateOverrides && stateOverrides.combat_ignore) {
-    return pickSectionFromCondList(enemy, object, stateOverrides.combat_ignore.condlist) !== TRUE;
   }
 
   return true;
