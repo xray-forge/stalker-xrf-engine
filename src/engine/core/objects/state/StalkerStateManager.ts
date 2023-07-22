@@ -1,5 +1,6 @@
 import { action_planner, level, look, object, time_global } from "xray16";
 
+import { states } from "@/engine/core/objects/animation/states";
 import { StalkerAnimationManager } from "@/engine/core/objects/state/StalkerAnimationManager";
 import {
   EStalkerState,
@@ -7,9 +8,8 @@ import {
   EStateEvaluatorId,
   EWeaponAnimation,
   ILookTargetDescriptor,
-} from "@/engine/core/objects/state/types";
+} from "@/engine/core/objects/state/state_types";
 import { getObjectAnimationWeapon } from "@/engine/core/objects/state/weapon/StateManagerWeapon";
-import { states } from "@/engine/core/objects/state_lib/state_lib";
 import { assert } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { areSameVectors, createEmptyVector, createVector, subVectors } from "@/engine/core/utils/vector";

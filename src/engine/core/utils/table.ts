@@ -66,16 +66,34 @@ export function copyTable(
   target: LuaTable<string | number>,
   source: LuaTable<string | number>
 ): LuaTable<string | number> {
-  for (const [k, v] of source) {
-    if (type(v) === "table") {
-      target.set(k, new LuaTable());
-      copyTable(target.get(k), v);
+  for (const [key, value] of source) {
+    if (type(value) === "table") {
+      target.set(key, new LuaTable());
+      copyTable(target.get(key), value);
     } else {
-      target.set(k, v);
+      target.set(key, value);
     }
   }
 
   return target;
+}
+
+/**
+ * Merge tables into single destination.
+ *
+ * @param destination - target to merge all the lua tables
+ * @param rest - list of tables to merge
+ * @returns resulting merged table
+ */
+export function mergeTables<K extends AnyNotNil, V>(
+  destination: LuaTable<K, V>,
+  ...rest: Array<LuaTable<K, V>>
+): LuaTable<K, V> {
+  for (const it of rest) {
+    copyTable(destination, it);
+  }
+
+  return destination;
 }
 
 /**

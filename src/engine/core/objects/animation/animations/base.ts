@@ -1,21 +1,11 @@
+import { IAnimationDescriptor } from "@/engine/core/objects/state";
 import { CampManager } from "@/engine/core/objects/state/camp";
-import { EStalkerState, IAnimationDescriptor } from "@/engine/core/objects/state/types";
-import { getAnimationListScenario } from "@/engine/core/objects/state_lib/state_manager_scenario";
-import { getAnimpointAnimationList } from "@/engine/core/objects/state_lib/state_mgr_animation_list_animpoint";
-import { addAnimationListPriA15 } from "@/engine/core/objects/state_lib/state_mgr_pri_a15";
 import { SchemeCorpseDetection } from "@/engine/core/schemes/corpse_detection";
 import { SchemeHelpWounded } from "@/engine/core/schemes/help_wounded";
 import { getExtern } from "@/engine/core/utils/binding";
-import { copyTable } from "@/engine/core/utils/table";
-import { AnyCallablesModule, ClientObject } from "@/engine/lib/types";
+import { AnyCallablesModule, ClientObject, TName } from "@/engine/lib/types";
 
-/**
- * todo;
- */
-export const animations: LuaTable<EStalkerState, IAnimationDescriptor> = $fromObject<
-  EStalkerState,
-  IAnimationDescriptor
->({
+export const baseAnimations: LuaTable<TName, IAnimationDescriptor> = {
   idle: {
     prop: {
       maxidle: 5,
@@ -973,8 +963,4 @@ export const animations: LuaTable<EStalkerState, IAnimationDescriptor> = $fromOb
     rnd: null,
     idle: null,
   },
-} as unknown as Record<EStalkerState, IAnimationDescriptor>);
-
-copyTable(animations, getAnimpointAnimationList());
-copyTable(animations, getAnimationListScenario());
-copyTable(animations, addAnimationListPriA15());
+} as any;

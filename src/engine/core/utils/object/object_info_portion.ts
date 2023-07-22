@@ -1,4 +1,4 @@
-import { registry } from "@/engine/core/database";
+import { registry } from "@/engine/core/database/registry";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { TInfoPortion } from "@/engine/lib/constants/info_portions/info_portions";
 import { Optional, TCount, TName } from "@/engine/lib/types";

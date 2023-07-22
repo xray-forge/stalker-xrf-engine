@@ -1,9 +1,8 @@
 import { action_base, anim, look, LuabindClass, move, object } from "xray16";
 
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
-import { EStalkerState } from "@/engine/core/objects/state";
+import { EAnimationType, EStalkerState } from "@/engine/core/objects/state";
 import { StalkerAnimationManager } from "@/engine/core/objects/state/StalkerAnimationManager";
-import { animations } from "@/engine/core/objects/state_lib/state_mgr_animation_list";
 import { ISchemePostCombatIdleState } from "@/engine/core/schemes/combat_idle/ISchemePostCombatIdleState";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { ClientObject, Optional } from "@/engine/lib/types";
@@ -41,8 +40,7 @@ export class ActionPostCombatIdleWait extends action_base {
     this.state.animation = new StalkerAnimationManager(
       this.object,
       this.animationState as any, // todo: Correct.
-      StalkerAnimationManager.ANIMATION_MANAGER,
-      animations
+      EAnimationType.ANIMATION
     );
 
     this.isAnimationStarted = false;

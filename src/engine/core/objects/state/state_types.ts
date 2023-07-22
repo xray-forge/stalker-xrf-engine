@@ -7,7 +7,9 @@ import {
   TIndex,
   TLookType,
   TMoveType,
+  TNumberId,
   TSightType,
+  TTimestamp,
   Vector,
 } from "@/engine/lib/types";
 
@@ -346,7 +348,7 @@ export enum EStalkerState {
  */
 export interface IStateDescriptor {
   weapon: Optional<EWeaponAnimation>;
-  movement?: Optional<TMoveType>;
+  movement: Optional<TMoveType>;
   mental: Optional<TAnimationType>;
   bodystate: Optional<TMoveType>;
   animstate: Optional<EStalkerState>;
@@ -363,4 +365,42 @@ export interface IStateDescriptor {
 export interface ILookTargetDescriptor {
   lookObject: Optional<ClientObject>;
   lookPosition: Optional<Vector>;
+}
+
+/**
+ * Animation lifecycle marker state.
+ */
+export enum EAnimationMarker {
+  IN = 1,
+  OUT = 2,
+  IDLE = 3,
+}
+
+/**
+ * State of stalker movement.
+ */
+export enum ECurrentMovementState {
+  NONE = 0,
+  MOVING = 1,
+  STANDING = 2,
+}
+
+/**
+ * todo;
+ */
+export interface IAnimationManagerStates {
+  lastIndex: Optional<TIndex>;
+  currentState: Optional<EStalkerState>;
+  targetState: Optional<EStalkerState>;
+  animationMarker: Optional<EAnimationMarker>;
+  nextRandomAt: Optional<TTimestamp>;
+  sequenceId: TNumberId;
+}
+
+/**
+ * Type of animation used in manager.
+ */
+export enum EAnimationType {
+  ANIMATION = "animation",
+  ANIMSTATE = "animstate",
 }

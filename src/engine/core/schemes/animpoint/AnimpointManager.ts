@@ -2,9 +2,9 @@ import { level } from "xray16";
 
 import { registry } from "@/engine/core/database";
 import { SmartCover } from "@/engine/core/objects";
+import { states } from "@/engine/core/objects/animation/states";
 import { EStalkerState } from "@/engine/core/objects/state";
 import { CampManager } from "@/engine/core/objects/state/camp/CampManager";
-import { states } from "@/engine/core/objects/state_lib/state_lib";
 import { AbstractSchemeManager } from "@/engine/core/schemes";
 import {
   animpointPredicateAlways,

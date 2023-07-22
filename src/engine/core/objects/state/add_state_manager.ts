@@ -15,10 +15,8 @@ import { EvaluatorStateIdle } from "@/engine/core/objects/state/state/EvaluatorS
 import { EvaluatorStateIdleAlife } from "@/engine/core/objects/state/state/EvaluatorStateIdleAlife";
 import { EvaluatorStateIdleItems } from "@/engine/core/objects/state/state/EvaluatorStateIdleItems";
 import { EvaluatorStateLogicActive } from "@/engine/core/objects/state/state/EvaluatorStateLogicActive";
-import { EStateActionId, EStateEvaluatorId } from "@/engine/core/objects/state/types";
+import { EAnimationType, EStateActionId, EStateEvaluatorId } from "@/engine/core/objects/state/state_types";
 import * as weaponManagement from "@/engine/core/objects/state/weapon";
-import { animations } from "@/engine/core/objects/state_lib/state_mgr_animation_list";
-import { animstates } from "@/engine/core/objects/state_lib/state_mgr_animstate_list";
 import { EActionId, EEvaluatorId } from "@/engine/core/schemes";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { ActionPlanner, ClientObject, WorldState } from "@/engine/lib/types";
@@ -212,12 +210,7 @@ function addBasicManagerGraph(stateManager: StalkerStateManager, object: ClientO
     new directionManagement.EvaluatorDirectionSearch(stateManager)
   );
 
-  stateManager.animstate = new StalkerAnimationManager(
-    object,
-    stateManager,
-    StalkerAnimationManager.ANIMSTATE_MANAGER,
-    animstates
-  );
+  stateManager.animstate = new StalkerAnimationManager(object, stateManager, EAnimationType.ANIMSTATE);
 
   stateManager.planner.add_evaluator(
     EStateEvaluatorId.ANIMSTATE,
@@ -236,12 +229,7 @@ function addBasicManagerGraph(stateManager: StalkerStateManager, object: ClientO
     new animationStateManagement.EvaluatorAnimationStateLocked(stateManager)
   );
 
-  stateManager.animation = new StalkerAnimationManager(
-    object,
-    stateManager,
-    StalkerAnimationManager.ANIMATION_MANAGER,
-    animations
-  );
+  stateManager.animation = new StalkerAnimationManager(object, stateManager, EAnimationType.ANIMATION);
 
   stateManager.planner.add_evaluator(
     EStateEvaluatorId.ANIMATION,

@@ -1,10 +1,10 @@
 import { describe, expect, it, jest } from "@jest/globals";
+import { EAnimationType } from "core/objects/state/lib";
 
 import { IRegistryObjectState, registerObject } from "@/engine/core/database";
 import { EStalkerState } from "@/engine/core/objects/state";
 import { StalkerAnimationManager } from "@/engine/core/objects/state/StalkerAnimationManager";
 import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateManager";
-import { animstates } from "@/engine/core/objects/state_lib/state_mgr_animstate_list";
 import { EActionId } from "@/engine/core/schemes";
 import { ISchemeWoundedState } from "@/engine/core/schemes/wounded";
 import { WoundManager } from "@/engine/core/schemes/wounded/WoundManager";
@@ -26,12 +26,7 @@ describe("object state utils", () => {
 
     state.stateManager = new StalkerStateManager(object);
 
-    state.stateManager.animstate = new StalkerAnimationManager(
-      object,
-      state.stateManager,
-      StalkerAnimationManager.ANIMSTATE_MANAGER,
-      animstates
-    );
+    state.stateManager.animstate = new StalkerAnimationManager(object, state.stateManager, EAnimationType.ANIMSTATE);
 
     expect(isObjectAsleep(object.id())).toBe(false);
 

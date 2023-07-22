@@ -1,16 +1,13 @@
 import { anim, CSightParams, look, move } from "xray16";
 
-import { EStalkerState, EWeaponAnimation, IStateDescriptor } from "@/engine/core/objects/state/types";
-import { getStateLibAnimationPoints } from "@/engine/core/objects/state_lib/state_lib_animpoint";
-import { getStateLibScenarios } from "@/engine/core/objects/state_lib/state_manager_scenario";
-import { addStateLibPriA15 } from "@/engine/core/objects/state_lib/state_mgr_pri_a15";
-import { copyTable } from "@/engine/core/utils/table";
+import { EStalkerState, EWeaponAnimation, IStateDescriptor } from "@/engine/core/objects/state/state_types";
+import { TName } from "@/engine/lib/types";
 
 /**
  * List of default state descriptors to use in scripts.
  * todo: Enum values as keys?
  */
-export const states: LuaTable<EStalkerState, IStateDescriptor> = $fromObject<EStalkerState, IStateDescriptor>({
+export const baseStates: LuaTable<TName, IStateDescriptor> = $fromObject<TName, IStateDescriptor>({
   idle: {
     weapon: null,
     movement: null,
@@ -936,7 +933,3 @@ export const states: LuaTable<EStalkerState, IStateDescriptor> = $fromObject<ESt
     isForced: null,
   },
 } as Record<EStalkerState, IStateDescriptor>);
-
-copyTable(states, getStateLibAnimationPoints());
-copyTable(states, getStateLibScenarios());
-copyTable(states, addStateLibPriA15());
