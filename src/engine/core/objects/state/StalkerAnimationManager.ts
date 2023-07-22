@@ -45,6 +45,9 @@ export interface IAnimationManagerStates {
  * todo;
  */
 export class StalkerAnimationManager {
+  public static readonly ANIMATION_MANAGER: TName = "AnimationManager";
+  public static readonly ANIMSTATE_MANAGER: TName = "AnimstateManager";
+
   public name: TName;
   public object: ClientObject;
   public stateManager: StalkerStateManager;
@@ -81,7 +84,7 @@ export class StalkerAnimationManager {
   public setControl(): void {
     this.object.set_callback(callback.script_animation, this.onAnimationCallback, this);
 
-    if (this.name === "state_mgr_animation_list") {
+    if (this.name === StalkerAnimationManager.ANIMATION_MANAGER) {
       this.stateManager.animstate.states.animationMarker = null;
     }
 
@@ -476,7 +479,7 @@ export class StalkerAnimationManager {
       states.sequenceId = 1;
       states.currentState = null;
 
-      if (this.name === "state_mgr_animation_list") {
+      if (this.name === StalkerAnimationManager.ANIMATION_MANAGER) {
         if (this.stateManager.animstate !== null && this.stateManager.animstate.setControl !== null) {
           this.stateManager.animstate.setControl();
           // --this.mgr.animstate:update_anim()

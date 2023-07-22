@@ -100,6 +100,7 @@ import {
   EvaluatorWeaponUnstrappedNow,
 } from "@/engine/core/objects/state/weapon";
 import { EActionId, EEvaluatorId } from "@/engine/core/schemes";
+import { AnimpointManager } from "@/engine/core/schemes/animpoint/AnimpointManager";
 import { ActionBase, AnyArgs, ClientObject, Optional } from "@/engine/lib/types";
 import { MockActionBase, MockActionPlanner, mockClientGameObject, MockWorldState } from "@/fixtures/xray";
 import { mockStalkerIds } from "@/fixtures/xray/mocks/constants";
@@ -151,8 +152,8 @@ describe("add_state_manager util", () => {
 
     expect(stateManager.animstate instanceof StalkerAnimationManager).toBeTruthy();
     expect(stateManager.animation instanceof StalkerAnimationManager).toBeTruthy();
-    expect(stateManager.animstate.name).toBe("StalkerStateManagerAnimationState");
-    expect(stateManager.animation.name).toBe("StalkerStateManagerAnimation");
+    expect(stateManager.animstate.name).toBe(StalkerAnimationManager.ANIMSTATE_MANAGER);
+    expect(stateManager.animation.name).toBe(StalkerAnimationManager.ANIMATION_MANAGER);
 
     expect(planner.evaluator(EEvaluatorId.IS_STATE_IDLE_COMBAT) instanceof EvaluatorStateIdle).toBeTruthy();
     expect(planner.evaluator(EEvaluatorId.IS_STATE_IDLE_ALIFE) instanceof EvaluatorStateIdleAlife).toBeTruthy();
@@ -234,8 +235,8 @@ describe("add_state_manager util", () => {
 
     expect(stateManager.animstate instanceof StalkerAnimationManager).toBeTruthy();
     expect(stateManager.animation instanceof StalkerAnimationManager).toBeTruthy();
-    expect(stateManager.animstate.name).toBe("StalkerStateManagerAnimationState");
-    expect(stateManager.animation.name).toBe("StalkerStateManagerAnimation");
+    expect(stateManager.animstate.name).toBe(StalkerAnimationManager.ANIMSTATE_MANAGER);
+    expect(stateManager.animation.name).toBe(StalkerAnimationManager.ANIMATION_MANAGER);
 
     const targetWorldState: MockWorldState = planner.goalWorldState as unknown as MockWorldState;
 

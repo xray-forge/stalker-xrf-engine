@@ -29,7 +29,7 @@ describe("object state utils", () => {
     state.stateManager.animstate = new StalkerAnimationManager(
       object,
       state.stateManager,
-      StalkerStateManager.name + "AnimationState",
+      StalkerAnimationManager.ANIMSTATE_MANAGER,
       animstates
     );
 

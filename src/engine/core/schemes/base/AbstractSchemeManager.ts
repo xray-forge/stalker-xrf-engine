@@ -43,7 +43,7 @@ export abstract class AbstractSchemeManager<T extends IBaseSchemeState> implemen
     who: Optional<ClientObject>,
     boneIndex: TIndex
   ): void {
-    logger.info("Hit:", this.state?.scheme, this.object.name());
+    // logger.info("Hit:", this.state?.scheme, this.object.name());
   }
 
   public onUse(object: ClientObject, who: Optional<ClientObject>): void {

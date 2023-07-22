@@ -1,4 +1,4 @@
-import { action_planner, stalker_ids, world_property, world_state } from "xray16";
+import { stalker_ids, world_property, world_state } from "xray16";
 
 import * as animationManagement from "@/engine/core/objects/state/animation";
 import * as animationStateManagement from "@/engine/core/objects/state/animation_state";
@@ -215,7 +215,7 @@ function addBasicManagerGraph(stateManager: StalkerStateManager, object: ClientO
   stateManager.animstate = new StalkerAnimationManager(
     object,
     stateManager,
-    StalkerStateManager.name + "AnimationState",
+    StalkerAnimationManager.ANIMSTATE_MANAGER,
     animstates
   );
 
@@ -239,7 +239,7 @@ function addBasicManagerGraph(stateManager: StalkerStateManager, object: ClientO
   stateManager.animation = new StalkerAnimationManager(
     object,
     stateManager,
-    StalkerStateManager.name + "Animation",
+    StalkerAnimationManager.ANIMATION_MANAGER,
     animations
   );
 

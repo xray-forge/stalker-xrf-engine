@@ -120,6 +120,50 @@ export function addAnimstateAnimationList(): LuaTable<string, IAnimationStateDes
       rnd: null,
     },
 
+    animpoint_sit_ass: {
+      prop: {
+        maxidle: 5,
+        sumidle: 3,
+        rnd: 80,
+        moving: true,
+      },
+      into: {
+        [0]: ["idle_0_to_sit_2"],
+        [1]: ["idle_0_to_sit_2"],
+      },
+      out: {
+        [0]: ["sit_2_to_idle_0"],
+        [1]: ["sit_2_to_idle_0"],
+      },
+      idle: {
+        [0]: "sit_2_idle_0",
+        [1]: "sit_2_idle_0",
+      },
+      rnd: null,
+    },
+
+    animpoint_sit_knee: {
+      prop: {
+        maxidle: 5,
+        sumidle: 3,
+        rnd: 80,
+        moving: true,
+      },
+      into: {
+        [0]: ["idle_0_to_sit_1"],
+        [1]: ["idle_0_to_sit_1"],
+      },
+      out: {
+        [0]: ["sit_1_to_idle_0"],
+        [1]: ["sit_1_to_idle_0"],
+      },
+      idle: {
+        [0]: "sit_1_idle_0",
+        [1]: "sit_1_idle_0",
+      },
+      rnd: null,
+    },
+
     animpoint_stay_wall_weapon: {
       prop: {
         maxidle: 5,

@@ -3,11 +3,11 @@ import { action_base, LuabindClass } from "xray16";
 import { registry, setStalkerState } from "@/engine/core/database";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import { EStalkerState } from "@/engine/core/objects/state";
+import { CampManager } from "@/engine/core/objects/state/camp/CampManager";
 import { StalkerMoveManager } from "@/engine/core/objects/state/StalkerMoveManager";
 import { associations } from "@/engine/core/schemes/animpoint/animpoint_predicates";
 import { IAnimpointAction } from "@/engine/core/schemes/animpoint/types";
 import { ISchemeEventHandler } from "@/engine/core/schemes/base";
-import { CampStoryManager } from "@/engine/core/schemes/camper/CampStoryManager";
 import { ISchemeWalkerState } from "@/engine/core/schemes/walker";
 import { parseWaypointsData } from "@/engine/core/utils/ini/ini_parse";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -33,7 +33,7 @@ export class ActionWalkerActivity extends action_base implements ISchemeEventHan
   public availableActions: LuaTable<number, IAnimpointAction>;
 
   public isInCamp: Optional<boolean> = null;
-  public campStoryManager: Optional<CampStoryManager> = null;
+  public campStoryManager: Optional<CampManager> = null;
 
   public constructor(state: ISchemeWalkerState, object: ClientObject) {
     super(null, ActionWalkerActivity.__name);
@@ -74,7 +74,7 @@ export class ActionWalkerActivity extends action_base implements ISchemeEventHan
     this.moveManager.finalize();
 
     if (this.isInCamp === true) {
-      this.campStoryManager!.unregisterNpc(this.object.id());
+      this.campStoryManager!.unregisterObject(this.object.id());
       this.isInCamp = null;
     }
 
@@ -89,15 +89,15 @@ export class ActionWalkerActivity extends action_base implements ISchemeEventHan
 
     this.moveManager.update();
 
-    const camp = CampStoryManager.getCurrentCamp(this.object.position());
+    const camp = CampManager.getInstanceForPosition(this.object.position());
 
     if (camp !== null && this.state.use_camp === true) {
       this.campStoryManager = camp;
-      this.campStoryManager.registerNpc(this.object.id());
+      this.campStoryManager.registerObject(this.object.id());
       this.isInCamp = true;
     } else {
       if (this.isInCamp === true) {
-        this.campStoryManager!.unregisterNpc(this.object.id());
+        this.campStoryManager!.unregisterObject(this.object.id());
         this.isInCamp = null;
       }
     }
@@ -139,7 +139,7 @@ export class ActionWalkerActivity extends action_base implements ISchemeEventHan
    */
   public net_destroy(object: ClientObject): void {
     if (this.isInCamp === true) {
-      this.campStoryManager!.unregisterNpc(object.id());
+      this.campStoryManager!.unregisterObject(object.id());
       this.isInCamp = null;
     }
   }

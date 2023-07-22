@@ -3,6 +3,7 @@ import { level } from "xray16";
 import { registry } from "@/engine/core/database";
 import { SmartCover } from "@/engine/core/objects";
 import { EStalkerState } from "@/engine/core/objects/state";
+import { CampManager } from "@/engine/core/objects/state/camp/CampManager";
 import { states } from "@/engine/core/objects/state_lib/state_lib";
 import { AbstractSchemeManager } from "@/engine/core/schemes";
 import {
@@ -12,7 +13,6 @@ import {
 } from "@/engine/core/schemes/animpoint/animpoint_predicates";
 import { ISchemeAnimpointState } from "@/engine/core/schemes/animpoint/ISchemeAnimpointState";
 import { IAnimpointAction } from "@/engine/core/schemes/animpoint/types";
-import { CampStoryManager } from "@/engine/core/schemes/camper/CampStoryManager";
 import { abort, assertDefined } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { angleToDirection, createVector } from "@/engine/core/utils/vector";
@@ -29,7 +29,7 @@ export class AnimpointManager extends AbstractSchemeManager<ISchemeAnimpointStat
   public currentAction: Optional<EStalkerState> = null;
   public availableActions: Optional<LuaArray<IAnimpointAction>> = null;
 
-  public camp: Optional<CampStoryManager> = null;
+  public camp: Optional<CampManager> = null;
   public coverName: Optional<TName> = null;
 
   public position: Optional<Vector> = null;
@@ -248,13 +248,14 @@ export class AnimpointManager extends AbstractSchemeManager<ISchemeAnimpointStat
     logger.info("Start:", this.object.name());
 
     if (this.state.useCamp) {
-      this.camp = CampStoryManager.getCurrentCamp(this.position);
+      this.camp = CampManager.getInstanceForPosition(this.position);
     }
 
     this.fillApprovedActions();
 
-    if (this.camp !== null) {
-      this.camp.registerNpc(this.object.id());
+    // Capture object in camp if it exists. Handle separate animation otherwise.
+    if (this.camp) {
+      this.camp.registerObject(this.object.id());
     } else {
       this.currentAction = this.state.approvedActions!.get(math.random(this.state.approvedActions!.length())).name;
     }
@@ -272,7 +273,7 @@ export class AnimpointManager extends AbstractSchemeManager<ISchemeAnimpointStat
     logger.info("Stop:", this.object.name());
 
     if (this.camp !== null) {
-      this.camp.unregisterNpc(this.object.id());
+      this.camp.unregisterObject(this.object.id());
     }
 
     this.isStarted = false;

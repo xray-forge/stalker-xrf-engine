@@ -26,6 +26,7 @@ export class DangerManager extends AbstractSchemeManager<ISchemeDangerState> {
    * Based on hearing enemies or different events turn on danger state.
    * todo: Warn squad?
    * todo: If hear sound and already in danger just extend it?
+   * todo: Adjust sound power to ignore silencers or weak sounds
    * todo: Description.
    */
   public onHear(
@@ -47,33 +48,27 @@ export class DangerManager extends AbstractSchemeManager<ISchemeDangerState> {
       return;
     }
 
+    const isEnemySound: boolean = object.relation(who) === EClientObjectRelation.ENEMY;
+
     // Set danger state by hearing weapon bullets.
-    if (isSoundType(soundType, snd_type.weapon_bullet_hit)) {
+    if (isEnemySound && isSoundType(soundType, snd_type.weapon_bullet_hit)) {
       const isSoundNear: boolean =
         object.position().distance_to_sqr(soundPosition) <= logicsConfig.COMBAT.BULLET_REACT_DISTANCE_SQR;
-      const isEnemySound: boolean = object.relation(who) === EClientObjectRelation.ENEMY;
 
       /**
        * If sound is near:
        *  - If source object is enemy, start warning state
-       *  - If source object is far and cannot tell, start warning state
        */
-      if (
-        isSoundNear &&
-        (isEnemySound ||
-          object.position().distance_to_sqr(who.position()) >= logicsConfig.COMBAT.BULLET_CONFUSED_DISTANCE_SQR ||
-          !object.see(who))
-      ) {
+      if (isSoundNear) {
         this.state.dangerTime = time_global();
         object.set_dest_level_vertex_id(who.level_vertex_id());
       }
-      // If hear others shooting at shared enemies, start danger.
     } else if (isSoundType(soundType, snd_type.weapon)) {
       const shootingAt: Optional<ClientObject> = who.best_enemy();
 
+      // If hear others shooting at enemy OR enemy shooting in range, try to help
       if (
-        shootingAt &&
-        object.relation(shootingAt) === EClientObjectRelation.ENEMY &&
+        ((shootingAt && object.relation(shootingAt) === EClientObjectRelation.ENEMY) || isEnemySound) &&
         object.position().distance_to_sqr(soundPosition) <= logicsConfig.COMBAT.ALLIES_SHOOTING_ASSIST_DISTANCE_SQR
       ) {
         this.state.dangerTime = time_global();

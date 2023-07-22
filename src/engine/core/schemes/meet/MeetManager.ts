@@ -38,6 +38,10 @@ export class MeetManager extends AbstractSchemeManager<ISchemeMeetState> {
   public use: Optional<TSection> = null;
 
   public isTradingEnabled: Optional<boolean> = null;
+
+  /**
+   * If object is telling story, do not interact with actor until it is finished.
+   */
   public isCampStoryDirector: boolean = false;
   public isDialogBreakEnabled: Optional<boolean> = null;
   public isHelloPassed: boolean = false;

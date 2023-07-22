@@ -454,7 +454,7 @@ export const states: LuaTable<EStalkerState, IStateDescriptor> = $fromObject<ESt
     animation: EStalkerState.HIDE,
     isForced: null,
   },
-  // -- ������� ���������
+  // -- sit
   sit: {
     weapon: EWeaponAnimation.STRAPPED,
     movement: move.stand,
@@ -481,6 +481,46 @@ export const states: LuaTable<EStalkerState, IStateDescriptor> = $fromObject<ESt
     animstate: EStalkerState.SIT_ASS,
     animation: null,
     isForced: null,
+  },
+  sleep_sit: {
+    weapon: "strapped",
+    movement: move.stand,
+    mental: anim.free,
+    bodystate: move.standing,
+    animstate: EStalkerState.SIT_ASS,
+    animation: EStalkerState.SLEEP_SIT,
+  },
+  eat_bread: {
+    weapon: "strapped",
+    movement: move.stand,
+    mental: anim.free,
+    bodystate: move.standing,
+    animstate: EStalkerState.SIT_KNEE,
+    animation: EStalkerState.EAT_BREAD,
+  },
+  eat_vodka: {
+    weapon: "strapped",
+    movement: move.stand,
+    mental: anim.free,
+    bodystate: move.standing,
+    animstate: EStalkerState.SIT_ASS,
+    animation: EStalkerState.EAT_VODKA,
+  },
+  eat_energy: {
+    weapon: "strapped",
+    movement: move.stand,
+    mental: anim.free,
+    bodystate: move.standing,
+    animstate: EStalkerState.SIT_ASS,
+    animation: EStalkerState.EAT_ENERGY,
+  },
+  eat_kolbasa: {
+    weapon: "strapped",
+    movement: move.stand,
+    mental: anim.free,
+    bodystate: move.standing,
+    animstate: EStalkerState.SIT_ASS,
+    animation: EStalkerState.EAT_KOLBASA,
   },
   play_guitar: {
     weapon: EWeaponAnimation.STRAPPED,

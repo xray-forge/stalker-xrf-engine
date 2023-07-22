@@ -6,6 +6,7 @@
 - `suitable` - [string] whether described script job is suitable
 - `prior` - [number] priority ???
 - `on_death` [condlist] - section activation on object death
+- `camp` [?] - 
 
 ## Base section fields
 
@@ -16,3 +17,4 @@
 - `gather_items_enabled` - ???
 - `help_wounded_enabled` - ???
 - `corpse_detection_enabled` - ???
+- `use_camp` - [boolean] whether object can use camp logic (stories, guitar, harmonica), true by default

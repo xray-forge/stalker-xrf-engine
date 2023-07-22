@@ -1,7 +1,10 @@
+import { CampManager } from "@/engine/core/objects/state/camp";
 import { EStalkerState, IAnimationDescriptor } from "@/engine/core/objects/state/types";
 import { getAnimationListScenario } from "@/engine/core/objects/state_lib/state_manager_scenario";
 import { getAnimpointAnimationList } from "@/engine/core/objects/state_lib/state_mgr_animation_list_animpoint";
 import { addAnimationListPriA15 } from "@/engine/core/objects/state_lib/state_mgr_pri_a15";
+import { SchemeCorpseDetection } from "@/engine/core/schemes/corpse_detection";
+import { SchemeHelpWounded } from "@/engine/core/schemes/help_wounded";
 import { getExtern } from "@/engine/core/utils/binding";
 import { copyTable } from "@/engine/core/utils/table";
 import { AnyCallablesModule, ClientObject } from "@/engine/lib/types";
@@ -218,10 +221,7 @@ export const animations: LuaTable<EStalkerState, IAnimationDescriptor> = $fromOb
         { a: "guitar_a" },
         {
           f: (object: ClientObject) => {
-            // eslint-disable-next-line @typescript-eslint/no-var-requires
-            const { CampStoryManager } = require("@/engine/core/schemes/camper/CampStoryManager");
-
-            CampStoryManager.startPlayingGuitar(object);
+            CampManager.startPlayingGuitar(object);
           },
         },
         "sit_1_guitar_0_1",
@@ -243,10 +243,7 @@ export const animations: LuaTable<EStalkerState, IAnimationDescriptor> = $fromOb
         { a: "harmonica_a" },
         {
           f: (object: ClientObject) => {
-            // eslint-disable-next-line @typescript-eslint/no-var-requires
-            const { CampStoryManager } = require("@/engine/core/schemes/camper/CampStoryManager");
-
-            CampStoryManager.start_harmonica(object);
+            CampManager.startPlayingHarmonica(object);
           },
         },
         "sit_2_harmonica_1_1",
@@ -946,11 +943,6 @@ export const animations: LuaTable<EStalkerState, IAnimationDescriptor> = $fromOb
         "dinamit_1",
         {
           f: (object: ClientObject) => {
-            const {
-              SchemeCorpseDetection,
-              // eslint-disable-next-line @typescript-eslint/no-var-requires
-            } = require("@/engine/core/schemes/corpse_detection/SchemeCorpseDetection");
-
             SchemeCorpseDetection.getAllFromCorpse(object);
           },
         },
@@ -972,9 +964,6 @@ export const animations: LuaTable<EStalkerState, IAnimationDescriptor> = $fromOb
         "dinamit_1",
         {
           f: (object: ClientObject) => {
-            // eslint-disable-next-line @typescript-eslint/no-var-requires
-            const { SchemeHelpWounded } = require("@/engine/core/schemes/help_wounded/SchemeHelpWounded");
-
             SchemeHelpWounded.helpWounded(object);
           },
         },

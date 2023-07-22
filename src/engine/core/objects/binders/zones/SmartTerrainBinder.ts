@@ -9,7 +9,7 @@ import { ServerObject, TDuration } from "@/engine/lib/types";
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Client side object binder for smart terrains.
  */
 @LuabindClass()
 export class SmartTerrainBinder extends object_binder {
@@ -42,7 +42,9 @@ export class SmartTerrainBinder extends object_binder {
   }
 
   /**
-   * todo: Description.
+   * Handle client side updates and propagate event to server object.
+   *
+   * @param delta - time delta since latest update
    */
   public override update(delta: TDuration): void {
     super.update(delta);

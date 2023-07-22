@@ -8,7 +8,8 @@ import { NIL } from "@/engine/lib/constants/words";
 import { LuaArray, Optional, TCount, TDuration, TNumberId, TStringId, TTimestamp } from "@/engine/lib/types";
 
 /**
- * todo;
+ * Manager of object stories telling.
+ * Used by objects when they are sitting or walking together.
  */
 export class StoryManager {
   /**
@@ -58,7 +59,7 @@ export class StoryManager {
   }
 
   /**
-   * todo: Description.
+   * @returns whether sound story is finished
    */
   public isFinished(): boolean {
     if (this.story === null) {
@@ -69,9 +70,11 @@ export class StoryManager {
   }
 
   /**
-   * todo: Description.
+   * Set active story sound to play.
+   *
+   * @param storyId - id of sound story to play
    */
-  public setStory(storyId: TStringId): void {
+  public setActiveId(storyId: TStringId): void {
     this.story = new SoundStory(storyId);
   }
 

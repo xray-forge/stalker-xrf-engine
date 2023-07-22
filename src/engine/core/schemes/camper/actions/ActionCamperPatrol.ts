@@ -133,7 +133,7 @@ export class ActionCamperPatrol extends action_base {
   /**
    * todo: Description.
    */
-  public can_shoot(): boolean {
+  public canShoot(): boolean {
     if (this.state.shoot === "always") {
       return true;
     }
@@ -176,7 +176,7 @@ export class ActionCamperPatrol extends action_base {
     }
 
     if (this.enemy !== null) {
-      if (this.object.see(this.enemy) === true && this.can_shoot()) {
+      if (this.object.see(this.enemy) === true && this.canShoot()) {
         if (this.state.sniper === true) {
           if (this.state.suggested_state.campering_fire) {
             setStalkerState(

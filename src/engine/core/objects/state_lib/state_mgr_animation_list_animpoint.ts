@@ -1,3 +1,4 @@
+import { CampManager } from "@/engine/core/objects/state/camp";
 import { IAnimationDescriptor } from "@/engine/core/objects/state/types";
 import { ClientObject } from "@/engine/lib/types";
 
@@ -151,7 +152,42 @@ export function getAnimpointAnimationList(): LuaTable<string, IAnimationDescript
         ],
       },
     },
-
+    animpoint_sit_ass: {
+      prop: {
+        maxidle: 5,
+        sumidle: 3,
+        rnd: 80,
+        moving: true,
+      },
+      into: null,
+      out: null,
+      idle: {
+        [0]: "sit_2_idle_0",
+        [1]: "sit_2_idle_0",
+      },
+      rnd: {
+        [0]: ["sit_2_idle_1", "sit_2_idle_2", "sit_2_idle_3"],
+        [1]: ["sit_2_idle_1", "sit_2_idle_2", "sit_2_idle_3"],
+      },
+    },
+    animpoint_sit_knee: {
+      prop: {
+        maxidle: 5,
+        sumidle: 3,
+        rnd: 80,
+        moving: true,
+      },
+      into: null,
+      out: null,
+      idle: {
+        [0]: "sit_1_idle_0",
+        [1]: "sit_1_idle_0",
+      },
+      rnd: {
+        [0]: ["sit_1_idle_1", "sit_1_idle_2", "sit_1_idle_3"],
+        [1]: ["sit_1_idle_1", "sit_1_idle_2", "sit_1_idle_3"],
+      },
+    },
     animpoint_stay_wall_eat_bread: {
       prop: {
         maxidle: 5,
@@ -691,10 +727,7 @@ export function getAnimpointAnimationList(): LuaTable<string, IAnimationDescript
           { a: "guitar_a" },
           {
             f: (object: ClientObject) => {
-              // eslint-disable-next-line @typescript-eslint/no-var-requires
-              const { CampStoryManager } = require("@/engine/core/schemes/camper/CampStoryManager");
-
-              CampStoryManager.startPlayingGuitar(object);
+              CampManager.startPlayingGuitar(object);
             },
           },
           "animpoint_sit_normal_guitar_in_2",
@@ -704,10 +737,7 @@ export function getAnimpointAnimationList(): LuaTable<string, IAnimationDescript
           { a: "guitar_a" },
           {
             f: (object: ClientObject) => {
-              // eslint-disable-next-line @typescript-eslint/no-var-requires
-              const { CampStoryManager } = require("@/engine/core/schemes/camper/CampStoryManager");
-
-              CampStoryManager.startPlayingGuitar(object);
+              CampManager.startPlayingGuitar(object);
             },
           },
           "animpoint_sit_normal_guitar_in_2",
@@ -740,10 +770,7 @@ export function getAnimpointAnimationList(): LuaTable<string, IAnimationDescript
           { a: "guitar_a" },
           {
             f: (object: ClientObject) => {
-              // eslint-disable-next-line @typescript-eslint/no-var-requires
-              const { CampStoryManager } = require("@/engine/core/schemes/camper/CampStoryManager");
-
-              CampStoryManager.startPlayingGuitar(object);
+              CampManager.startPlayingGuitar(object);
             },
           },
           "animpoint_sit_low_guitar_in_2",
@@ -753,10 +780,7 @@ export function getAnimpointAnimationList(): LuaTable<string, IAnimationDescript
           { a: "guitar_a" },
           {
             f: (object: ClientObject) => {
-              // eslint-disable-next-line @typescript-eslint/no-var-requires
-              const { CampStoryManager } = require("@/engine/core/schemes/camper/CampStoryManager");
-
-              CampStoryManager.startPlayingGuitar(object);
+              CampManager.startPlayingGuitar(object);
             },
           },
           "animpoint_sit_low_guitar_in_2",
@@ -774,6 +798,45 @@ export function getAnimpointAnimationList(): LuaTable<string, IAnimationDescript
         [0]: ["animpoint_sit_low_guitar_idle_rnd_2"],
         [1]: ["animpoint_sit_low_guitar_idle_rnd_2"],
       },
+    },
+
+    animpoint_sit_ass_guitar: {
+      prop: {
+        maxidle: 3,
+        sumidle: 3,
+        rnd: 80,
+      },
+      into: {
+        [0]: [
+          "sit_1_guitar_0_0",
+          { a: "guitar_a" },
+          {
+            f: (object: ClientObject) => {
+              CampManager.startPlayingGuitar(object);
+            },
+          },
+          "sit_1_guitar_0_1",
+        ],
+        [1]: [
+          "sit_1_guitar_0_0",
+          { a: "guitar_a" },
+          {
+            f: (object: ClientObject) => {
+              CampManager.startPlayingGuitar(object);
+            },
+          },
+          "sit_1_guitar_0_1",
+        ],
+      },
+      out: {
+        [0]: ["guitar_0_sit_1_0", { d: "guitar_a" }, "guitar_0_sit_1_1"],
+        [1]: ["guitar_0_sit_1_0", { d: "guitar_a" }, "guitar_0_sit_1_1"],
+      },
+      idle: {
+        [0]: "guitar_0",
+        [1]: "guitar_0",
+      },
+      rnd: null,
     },
 
     animpoint_stay_wall_harmonica: {
@@ -827,10 +890,7 @@ export function getAnimpointAnimationList(): LuaTable<string, IAnimationDescript
           { a: "harmonica_a" },
           {
             f: (object: ClientObject) => {
-              // eslint-disable-next-line @typescript-eslint/no-var-requires
-              const { CampStoryManager } = require("@/engine/core/schemes/camper/CampStoryManager");
-
-              CampStoryManager.start_harmonica(object);
+              CampManager.startPlayingHarmonica(object);
             },
           },
           "animpoint_sit_high_harmonica_in_2",
@@ -840,10 +900,7 @@ export function getAnimpointAnimationList(): LuaTable<string, IAnimationDescript
           { a: "harmonica_a" },
           {
             f: (object: ClientObject) => {
-              // eslint-disable-next-line @typescript-eslint/no-var-requires
-              const { CampStoryManager } = require("@/engine/core/schemes/camper/CampStoryManager");
-
-              CampStoryManager.start_harmonica(object);
+              CampManager.startPlayingHarmonica(object);
             },
           },
           "animpoint_sit_high_harmonica_in_2",
@@ -892,10 +949,7 @@ export function getAnimpointAnimationList(): LuaTable<string, IAnimationDescript
           { a: "harmonica_a" },
           {
             f: (object: ClientObject) => {
-              // eslint-disable-next-line @typescript-eslint/no-var-requires
-              const { CampStoryManager } = require("@/engine/core/schemes/camper/CampStoryManager");
-
-              CampStoryManager.start_harmonica(object);
+              CampManager.startPlayingHarmonica(object);
             },
           },
           "animpoint_sit_low_harmonica_in_2",
@@ -905,10 +959,7 @@ export function getAnimpointAnimationList(): LuaTable<string, IAnimationDescript
           { a: "harmonica_a" },
           {
             f: (object: ClientObject) => {
-              // eslint-disable-next-line @typescript-eslint/no-var-requires
-              const { CampStoryManager } = require("@/engine/core/schemes/camper/CampStoryManager");
-
-              CampStoryManager.start_harmonica(object);
+              CampManager.startPlayingHarmonica(object);
             },
           },
           "animpoint_sit_low_harmonica_in_2",

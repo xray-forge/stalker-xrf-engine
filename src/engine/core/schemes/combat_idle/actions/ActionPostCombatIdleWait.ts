@@ -40,8 +40,8 @@ export class ActionPostCombatIdleWait extends action_base {
 
     this.state.animation = new StalkerAnimationManager(
       this.object,
-      this.animationState as any,
-      "state_mgr_animation_list",
+      this.animationState as any, // todo: Correct.
+      StalkerAnimationManager.ANIMATION_MANAGER,
       animations
     );
 
