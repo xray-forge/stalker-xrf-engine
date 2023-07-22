@@ -129,7 +129,7 @@ export class ObjectSound extends AbstractPlayableSound {
     this.soundObject = new sound_object(soundPath);
     this.soundObject.play_at_pos(object, object.position(), 0, sound_object.s3d);
 
-    EventsManager.getInstance().emitEvent<ISoundNotification>(EGameEvent.NOTIFICATION, {
+    EventsManager.emitEvent<ISoundNotification>(EGameEvent.NOTIFICATION, {
       type: ENotificationType.SOUND,
       faction,
       point,

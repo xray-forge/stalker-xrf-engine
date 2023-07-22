@@ -159,6 +159,6 @@ export class DebugTeleportSection extends AbstractDebugSection {
 
   public closeMenu(): void {
     executeConsoleCommand(consoleCommands.main_menu, "off");
-    EventsManager.getInstance().emitEvent(EGameEvent.MAIN_MENU_OFF);
+    EventsManager.emitEvent(EGameEvent.MAIN_MENU_OFF);
   }
 }

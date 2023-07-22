@@ -1,37 +1,35 @@
-import { describe, expect, it } from "@jest/globals";
+import { beforeAll, describe, it } from "@jest/globals";
 
-import { AnyObject } from "@/engine/lib/types";
+import { checkXrCondition } from "@/fixtures/engine";
 
 describe("'actor' conditions declaration", () => {
-  const checkBinding = (name: string, container: AnyObject = global) => {
-    expect(container["xr_conditions"][name]).toBeDefined();
-  };
+  beforeAll(() => {
+    require("@/engine/scripts/declarations/conditions/actor");
+  });
 
   it("should correctly inject external methods for game", () => {
-    require("@/engine/scripts/declarations/conditions/actor");
-
-    checkBinding("wealthy_functor");
-    checkBinding("information_dealer_functor");
-    checkBinding("actor_in_surge_cover");
-    checkBinding("is_enemy_actor");
-    checkBinding("actor_alive");
-    checkBinding("actor_see_npc");
-    checkBinding("npc_in_actor_frustum");
-    checkBinding("dist_to_actor_le");
-    checkBinding("dist_to_actor_ge");
-    checkBinding("actor_health_le");
-    checkBinding("actor_in_zone");
-    checkBinding("heli_see_actor");
-    checkBinding("actor_has_item");
-    checkBinding("actor_has_item_count");
-    checkBinding("hit_by_actor");
-    checkBinding("killed_by_actor");
-    checkBinding("actor_has_weapon");
-    checkBinding("actor_active_detector");
-    checkBinding("actor_on_level");
-    checkBinding("talking");
-    checkBinding("actor_nomove_nowpn");
-    checkBinding("actor_has_nimble_weapon");
-    checkBinding("actor_has_active_nimble_weapon");
+    checkXrCondition("wealthy_functor");
+    checkXrCondition("information_dealer_functor");
+    checkXrCondition("actor_in_surge_cover");
+    checkXrCondition("is_enemy_actor");
+    checkXrCondition("actor_alive");
+    checkXrCondition("actor_see_npc");
+    checkXrCondition("npc_in_actor_frustum");
+    checkXrCondition("dist_to_actor_le");
+    checkXrCondition("dist_to_actor_ge");
+    checkXrCondition("actor_health_le");
+    checkXrCondition("actor_in_zone");
+    checkXrCondition("heli_see_actor");
+    checkXrCondition("actor_has_item");
+    checkXrCondition("actor_has_item_count");
+    checkXrCondition("hit_by_actor");
+    checkXrCondition("killed_by_actor");
+    checkXrCondition("actor_has_weapon");
+    checkXrCondition("actor_active_detector");
+    checkXrCondition("actor_on_level");
+    checkXrCondition("talking");
+    checkXrCondition("actor_nomove_nowpn");
+    checkXrCondition("actor_has_nimble_weapon");
+    checkXrCondition("actor_has_active_nimble_weapon");
   });
 });

@@ -4,16 +4,18 @@ import { relation_registry } from "xray16";
 import { disposeManager, getManagerInstance, registerActor, registry } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers";
 import { achievementIcons } from "@/engine/core/managers/interaction/achievements/AchievementIcons";
+import { achievementRewards } from "@/engine/core/managers/interaction/achievements/AchievementRewards";
 import { AchievementsManager } from "@/engine/core/managers/interaction/achievements/AchievementsManager";
 import { EAchievement } from "@/engine/core/managers/interaction/achievements/types";
 import { ENotificationType, ITipNotification } from "@/engine/core/managers/interface";
-import { StatisticsManager } from "@/engine/core/managers/interface/StatisticsManager";
+import { StatisticsManager } from "@/engine/core/managers/interface/statistics/StatisticsManager";
 import { WeatherManager } from "@/engine/core/managers/world/WeatherManager";
 import { disableInfo, giveInfo, hasAlifeInfo } from "@/engine/core/utils/object/object_info_portion";
 import { captions } from "@/engine/lib/constants/captions";
 import { communities } from "@/engine/lib/constants/communities";
 import { infoPortions, TInfoPortion } from "@/engine/lib/constants/info_portions";
-import { artefacts, TArtefact } from "@/engine/lib/constants/items/artefacts";
+import { artefacts } from "@/engine/lib/constants/items/artefacts";
+import { TName } from "@/engine/lib/types";
 import { MockLuaTable } from "@/fixtures/lua/mocks/LuaTable.mock";
 import { mockClientGameObject } from "@/fixtures/xray";
 import { MockCTime } from "@/fixtures/xray/mocks/CTime.mock";
@@ -504,6 +506,7 @@ describe("AchievementManager class", () => {
 
   it("should correctly check seeker achievement", () => {
     const achievementsManager: AchievementsManager = AchievementsManager.getInstance();
+    const statisticsManager: StatisticsManager = StatisticsManager.getInstance();
     const onNotification = mockNotificationListener(captions.st_ach_seeker, achievementIcons[EAchievement.SEEKER]);
 
     giveInfo(infoPortions.sim_bandit_attack_harder);
@@ -511,17 +514,18 @@ describe("AchievementManager class", () => {
 
     disableInfo(infoPortions.sim_bandit_attack_harder);
 
-    StatisticsManager.getInstance().artefacts_table = MockLuaTable.mockFromObject({
+    StatisticsManager.getInstance().actorStatistics.collectedArtefacts = MockLuaTable.mockFromObject({
       [artefacts.af_baloon]: true,
       [artefacts.af_blood]: false,
-    } as Record<TArtefact, boolean>);
+    } as Record<TName, boolean>);
 
     expect(achievementsManager.checkAchievedSeeker()).toBeFalsy();
 
-    StatisticsManager.getInstance().artefacts_table = MockLuaTable.mockFromObject({
-      [artefacts.af_baloon]: true,
-      [artefacts.af_blood]: true,
-    } as Record<TArtefact, boolean>);
+    statisticsManager.actorStatistics.collectedArtefacts = new LuaTable();
+
+    for (const it of $range(1, achievementRewards.ARTEFACTS_SEEKER_UNIQUES_REQUIRED)) {
+      statisticsManager.actorStatistics.collectedArtefacts.set("af_" + it, true);
+    }
 
     expect(achievementsManager.checkAchievedSeeker()).toBeTruthy();
     expect(onNotification).toHaveBeenCalledTimes(1);
@@ -548,11 +552,11 @@ describe("AchievementManager class", () => {
     disableInfo(infoPortions.actor_marked_by_zone_3_times);
     expect(achievementsManager.checkAchievedMarkedByZone()).toBeFalsy();
 
-    statisticsManager.incrementAnabioticsUsageCount();
-    statisticsManager.incrementAnabioticsUsageCount();
+    statisticsManager.onSurvivedSurgeWithAnabiotic();
+    statisticsManager.onSurvivedSurgeWithAnabiotic();
     expect(achievementsManager.checkAchievedMarkedByZone()).toBeFalsy();
 
-    statisticsManager.incrementAnabioticsUsageCount();
+    statisticsManager.onSurvivedSurgeWithAnabiotic();
     expect(achievementsManager.checkAchievedMarkedByZone()).toBeTruthy();
     expect(onNotification).toHaveBeenCalledTimes(1);
     expect(hasAlifeInfo(infoPortions.actor_marked_by_zone_3_times)).toBeTruthy();

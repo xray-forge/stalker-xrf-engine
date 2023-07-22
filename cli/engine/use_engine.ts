@@ -1,9 +1,9 @@
-import * as fsPromises from "fs/promises";
+import * as fsp from "fs/promises";
 import * as path from "path";
 
-import { blue, green, yellow } from "chalk";
+import { blue, green, yellow, yellowBright } from "chalk";
 
-import { isValidEngine } from "#/engine/list_engines";
+import { getEnginesList, isValidEngine } from "#/engine/list_engines";
 import { OPEN_XRAY_ENGINES_DIR } from "#/globals";
 import { exists, getGamePaths, NodeLogger, Optional } from "#/utils";
 
@@ -27,20 +27,21 @@ export async function useEngine(target: string): Promise<void> {
 
     if (isLinkedEngine) {
       log.info("Removing old link");
-      await fsPromises.unlink(bin);
+      await fsp.unlink(bin);
     } else if (isBinFolderExist) {
       log.info("Unlinked engine detected");
-      await fsPromises.rename(bin, binXrfBackup);
+      await fsp.rename(bin, binXrfBackup);
       log.info("Created backup at:", yellow(binXrfBackup));
     }
 
     log.info("Linking:", yellow(engineBinDir), "->", yellow(bin));
-    await fsPromises.symlink(engineBinDir, bin, "junction");
+    await fsp.symlink(engineBinDir, bin, "junction");
 
     log.info("Link result:", green("OK"), "\n");
   } else {
-    log.error("Supplied unknown engine version:", yellow(desiredVersion));
+    log.error("Supplied unknown engine variant:", yellow(desiredVersion));
     log.error("Only following are available:");
-    // todo: Print list.
+
+    getEnginesList().forEach((it) => log.error("->", yellowBright(it)));
   }
 }

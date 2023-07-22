@@ -1,19 +1,17 @@
-import { describe, expect, it } from "@jest/globals";
+import { beforeAll, describe, it } from "@jest/globals";
 
-import { AnyObject } from "@/engine/lib/types";
+import { checkXrCondition } from "@/fixtures/engine";
 
 describe("'game' conditions declaration", () => {
-  const checkBinding = (name: string, container: AnyObject = global) => {
-    expect(container["xr_conditions"][name]).toBeDefined();
-  };
+  beforeAll(() => {
+    require("@/engine/scripts/declarations/conditions/game");
+  });
 
   it("should correctly inject external methods for game", () => {
-    require("@/engine/scripts/declarations/conditions/game");
-
-    checkBinding("signal");
-    checkBinding("counter_greater");
-    checkBinding("counter_equal");
-    checkBinding("has_active_tutorial");
-    checkBinding("black_screen");
+    checkXrCondition("signal");
+    checkXrCondition("counter_greater");
+    checkXrCondition("counter_equal");
+    checkXrCondition("has_active_tutorial");
+    checkXrCondition("black_screen");
   });
 });

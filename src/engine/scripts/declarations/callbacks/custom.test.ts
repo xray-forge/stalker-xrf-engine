@@ -1,26 +1,22 @@
-import { describe, it } from "@jest/globals";
+import { beforeAll, describe, it } from "@jest/globals";
 
-import { AnyObject } from "@/engine/lib/types";
+import { checkNestedBinding } from "@/fixtures/engine";
 
 describe("'custom' external callbacks", () => {
-  const checkBinding = (name: string, container: AnyObject = global) => {
-    if (!container["engine"][name]) {
-      throw new Error(`Expected '${name}' callback to be declared.`);
-    }
-  };
+  beforeAll(() => {
+    require("@/engine/scripts/declarations/callbacks/custom");
+  });
 
   it("should correctly inject external methods for game", () => {
-    require("@/engine/scripts/declarations/callbacks/custom");
-
-    checkBinding("on_anabiotic_sleep");
-    checkBinding("on_anabiotic_wake_up");
-    checkBinding("surge_survive_start");
-    checkBinding("surge_survive_end");
-    checkBinding("on_start_sleeping");
-    checkBinding("on_finish_sleeping");
-    checkBinding("is_task_completed");
-    checkBinding("is_task_failed");
-    checkBinding("effector_callback");
-    checkBinding("check_achievement");
+    checkNestedBinding("engine", "on_anabiotic_sleep");
+    checkNestedBinding("engine", "on_anabiotic_wake_up");
+    checkNestedBinding("engine", "surge_survive_start");
+    checkNestedBinding("engine", "surge_survive_end");
+    checkNestedBinding("engine", "on_start_sleeping");
+    checkNestedBinding("engine", "on_finish_sleeping");
+    checkNestedBinding("engine", "is_task_completed");
+    checkNestedBinding("engine", "is_task_failed");
+    checkNestedBinding("engine", "effector_callback");
+    checkNestedBinding("engine", "check_achievement");
   });
 });

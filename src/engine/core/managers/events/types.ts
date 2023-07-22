@@ -65,9 +65,21 @@ export enum EGameEvent {
    */
   SURGE_SKIPPED,
   /**
+   * Surge survived with usage of anabiotic.
+   */
+  SURGE_SURVIVED_WITH_ANABIOTIC,
+  /**
    * Task state updated.
    */
   TASK_STATE_UPDATE,
+  /**
+   * Task completed.
+   */
+  TASK_COMPLETED,
+  /**
+   * Actor found treasure.
+   */
+  TREASURE_FOUND,
   /**
    * Generic notification event.
    */
@@ -79,27 +91,35 @@ export enum EGameEvent {
   /**
    * On interaction with NPC, when player 'uses' game object.
    */
-  NPC_INTERACTION,
+  STALKER_INTERACTION,
   /**
-   * todo;
+   * On stalker hit.
+   */
+  STALKER_HIT,
+  /**
+   * On stalker killed.
+   * Client side death event.
+   */
+  STALKER_KILLED,
+  /**
+   * Stalker death.
+   * Server side death event.
+   */
+  STALKER_DEATH,
+  /**
+   * On monster hit.
    */
   MONSTER_HIT,
   /**
-   * todo;
+   * On monster killed.
+   * Client side death event.
    */
-  NPC_HIT,
+  MONSTER_KILLED,
   /**
-   * todo;
+   * Monster death.
+   * Server side death event.
    */
-  ENEMY_SEE_ACTOR,
-  /**
-   * todo;
-   */
-  ACTOR_SEE_ENEMY,
-  /**
-   * todo;
-   */
-  NPC_SHOT_ACTOR,
+  MONSTER_DEATH,
   /**
    * Main menu turned on.
    */
@@ -108,14 +128,6 @@ export enum EGameEvent {
    * Main menu turned off.
    */
   MAIN_MENU_OFF,
-  /**
-   * Monster death.
-   */
-  MONSTER_DEATH,
-  /**
-   * Stalker death.
-   */
-  STALKER_DEATH,
   /**
    * Game started.
    */

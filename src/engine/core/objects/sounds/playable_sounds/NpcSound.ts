@@ -312,7 +312,7 @@ export class NpcSound extends AbstractPlayableSound {
         }
       }
 
-      EventsManager.getInstance().emitEvent<ISoundNotification>(EGameEvent.NOTIFICATION, {
+      EventsManager.emitEvent<ISoundNotification>(EGameEvent.NOTIFICATION, {
         type: ENotificationType.SOUND,
         object,
         faction,
@@ -322,7 +322,7 @@ export class NpcSound extends AbstractPlayableSound {
         delay: this.delay,
       });
     } else {
-      EventsManager.getInstance().emitEvent<ISoundNotification>(EGameEvent.NOTIFICATION, {
+      EventsManager.emitEvent<ISoundNotification>(EGameEvent.NOTIFICATION, {
         type: ENotificationType.SOUND,
         object,
         faction,

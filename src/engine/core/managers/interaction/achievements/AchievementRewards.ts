@@ -5,10 +5,15 @@ import { drugs } from "@/engine/lib/constants/items/drugs";
 import { storyNames } from "@/engine/lib/constants/story_names";
 
 /**
- * todo;
+ * Configuration of achievements rewards.
+ * todo: Configure with LTX file.
  */
 export const achievementRewards = {
   ACHIEVEMENT_REWARD_SPAWN_PERIOD: 43_200,
+  /**
+   * For seeker require at least 22 unique artefacts to be found.
+   */
+  ARTEFACTS_SEEKER_UNIQUES_REQUIRED: 22,
   REWARD_BOXES: {
     JUPITER: storyNames.jup_b202_actor_treasure,
     ZATON: storyNames.zat_a2_actor_treasure,

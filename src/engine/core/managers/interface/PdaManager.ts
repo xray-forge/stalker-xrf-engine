@@ -1,7 +1,7 @@
 import { game } from "xray16";
 
 import { AbstractCoreManager } from "@/engine/core/managers/base/AbstractCoreManager";
-import { StatisticsManager } from "@/engine/core/managers/interface/StatisticsManager";
+import { StatisticsManager } from "@/engine/core/managers/interface/statistics";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { TWeapon, weapons } from "@/engine/lib/constants/items/weapons";
 import { monsters, TMonster } from "@/engine/lib/constants/monsters";
@@ -54,17 +54,17 @@ export class PdaManager extends AbstractCoreManager {
       case EStatSection.UNKNOWN:
         return "00:00:00";
       case EStatSection.SURGES:
-        return tostring(statisticsManager.actor_statistic.surges);
+        return tostring(statisticsManager.actorStatistics.surgesCount);
       case EStatSection.COMPLETED_QUESTS:
-        return tostring(statisticsManager.actor_statistic.completed_quests);
+        return tostring(statisticsManager.actorStatistics.completedTasksCount);
       case EStatSection.KILLED_MONSTERS:
-        return tostring(statisticsManager.actor_statistic.killed_monsters);
+        return tostring(statisticsManager.actorStatistics.killedMonstersCount);
       case EStatSection.KILLED_STALKERS:
-        return tostring(statisticsManager.actor_statistic.killed_stalkers);
+        return tostring(statisticsManager.actorStatistics.killedStalkersCount);
       case EStatSection.ARTEFACTS_FOUND:
-        return tostring(statisticsManager.actor_statistic.artefacts_founded);
+        return tostring(statisticsManager.actorStatistics.collectedArtefactsCount);
       case EStatSection.SECRETS_FOUND:
-        return tostring(statisticsManager.actor_statistic.founded_secrets);
+        return tostring(statisticsManager.actorStatistics.collectedTreasuresCount);
       default:
         return "";
     }
@@ -74,7 +74,7 @@ export class PdaManager extends AbstractCoreManager {
    * todo: Description.
    */
   public getBestKilledMonster() {
-    const bestKilledMonster: Optional<TMonster> = StatisticsManager.getInstance().actor_statistic.best_monster;
+    const bestKilledMonster: Optional<TMonster> = StatisticsManager.getInstance().actorStatistics.bestKilledMonster;
 
     return bestKilledMonster && killedMonsters[bestKilledMonster] ? killedMonsters[bestKilledMonster] : null;
   }
@@ -97,7 +97,7 @@ export class PdaManager extends AbstractCoreManager {
    * todo: Description.
    */
   public getFavoriteWeapon(): TWeapon {
-    return StatisticsManager.getInstance().actor_statistic.favorite_weapon_sect || weapons.wpn_knife;
+    return StatisticsManager.getInstance().actorStatistics.favoriteWeapon || weapons.wpn_knife;
   }
 
   /**

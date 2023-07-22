@@ -13,7 +13,7 @@ const logger: LuaLogger = new LuaLogger($filename);
 logger.info("Resolve and bind interface externals");
 
 /**
- * todo;
+ * Callbacks related to loading screen tips generation.
  */
 extern("loadscreen", {
   get_tip_number: (levelName: TName) => LoadScreenManager.getInstance().getRandomTipIndex(levelName),

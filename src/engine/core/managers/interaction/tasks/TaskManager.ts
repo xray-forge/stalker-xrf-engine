@@ -7,7 +7,6 @@ import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { TaskObject } from "@/engine/core/managers/interaction/tasks/TaskObject";
 import { ETaskState } from "@/engine/core/managers/interaction/tasks/types";
 import { NotificationManager } from "@/engine/core/managers/interface/notifications";
-import { StatisticsManager } from "@/engine/core/managers/interface/StatisticsManager";
 import { assert } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getTableSize } from "@/engine/core/utils/table";
@@ -63,7 +62,7 @@ export class TaskManager extends AbstractCoreManager {
     } else {
       if (task.checkTaskState() === ETaskState.COMPLETED) {
         task.giveTaskReward();
-        StatisticsManager.getInstance().incrementCompletedQuestsCount();
+        EventsManager.emitEvent(EGameEvent.TASK_COMPLETED, task);
 
         return true;
       } else {

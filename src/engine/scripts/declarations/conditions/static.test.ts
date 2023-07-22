@@ -1,16 +1,24 @@
-import { describe, expect, it } from "@jest/globals";
+import { beforeAll, describe, expect, it } from "@jest/globals";
 
-import { AnyObject } from "@/engine/lib/types";
+import { getExtern } from "@/engine/core/utils/binding";
+import { AnyCallablesModule } from "@/engine/lib/types";
+import { checkXrCondition } from "@/fixtures/engine";
 
 describe("'static' conditions declaration", () => {
-  const checkBinding = (name: string, container: AnyObject = global) => {
-    expect(container["xr_conditions"][name]).toBeDefined();
-  };
+  beforeAll(() => {
+    require("@/engine/scripts/declarations/conditions/static");
+  });
 
   it("should correctly inject external methods for game", () => {
-    require("@/engine/scripts/declarations/conditions/static");
+    checkXrCondition("always");
+    checkXrCondition("never");
+  });
 
-    checkBinding("always");
-    checkBinding("never");
+  it("should always return true", () => {
+    expect(getExtern<AnyCallablesModule>("xr_conditions").always()).toBe(true);
+  });
+
+  it("should never return false", () => {
+    expect(getExtern<AnyCallablesModule>("xr_conditions").never()).toBe(false);
   });
 });

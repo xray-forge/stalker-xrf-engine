@@ -2,7 +2,7 @@ import { NetPacket, NetProcessor } from "@/engine/lib/types";
 import { EPacketDataType } from "@/fixtures/xray/mocks/save/types";
 
 /**
- * todo;
+ * XRay net processor mock used for testing of saving/loading data.
  */
 export class MockNetProcessor {
   public readDataOrder: Array<EPacketDataType> = [];
@@ -129,17 +129,25 @@ export class MockNetProcessor {
   public hasData(): boolean {
     return this.dataList.length > 0;
   }
+
+  public asMockNetPacket(): NetPacket {
+    return this as unknown as NetPacket;
+  }
+
+  public asMockNetProcessor(): NetProcessor {
+    return this as unknown as NetProcessor;
+  }
 }
 
 /**
- * todo;
+ * Mock net processor instance.
  */
 export function mockNetProcessor(packet: MockNetProcessor = new MockNetProcessor()): NetProcessor {
   return packet as unknown as NetPacket;
 }
 
 /**
- * todo;
+ * Mock net packet instance.
  */
 export function mockNetPacket(packet: MockNetProcessor = new MockNetProcessor()): NetPacket {
   return packet as unknown as NetPacket;
