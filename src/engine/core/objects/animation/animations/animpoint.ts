@@ -137,7 +137,7 @@ export const animpointAnimations: LuaTable<TName, IAnimationDescriptor> = $fromO
       ]
     ),
   },
-  [EStalkerState.SIT_ASS]: {
+  [EStalkerState.ANIMPOINT_SIT_ASS]: {
     prop: {
       maxidle: 5,
       sumidle: 3,
@@ -152,7 +152,7 @@ export const animpointAnimations: LuaTable<TName, IAnimationDescriptor> = $fromO
       ["sit_2_idle_1", "sit_2_idle_2", "sit_2_idle_3"]
     ),
   },
-  [EStalkerState.SIT_KNEE]: {
+  [EStalkerState.ANIMPOINT_SIT_KNEE]: {
     prop: {
       maxidle: 5,
       sumidle: 3,
