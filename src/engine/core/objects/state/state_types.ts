@@ -1,15 +1,12 @@
-import {
-  AnyCallable,
+import type { EWeaponAnimation } from "@/engine/core/objects/state/animation_types";
+import type {
   ClientObject,
-  LuaArray,
   Optional,
   TAnimationType,
   TIndex,
   TLookType,
   TMoveType,
-  TNumberId,
   TSightType,
-  TTimestamp,
   Vector,
 } from "@/engine/lib/types";
 
@@ -137,49 +134,6 @@ export enum EStateActionId {
 /**
  * todo;
  */
-export interface IAnimationDescriptor {
-  prop: {
-    maxidle: number;
-    sumidle: number;
-    rnd: number;
-    moving: Optional<boolean>;
-  };
-  into: Optional<LuaArray<string | { a: string } | { f: AnyCallable }>>;
-  out: Optional<LuaArray<string | { a: string } | { f: AnyCallable }>>;
-  idle: Optional<LuaArray<string | { a: string } | { f: AnyCallable }>>;
-  rnd: Optional<LuaArray<LuaTable<number, string>>>;
-}
-
-/**
- * todo;
- */
-export interface IAnimationStateDescriptor {
-  prop: {
-    maxidle: number;
-    sumidle: number;
-    rnd: number;
-  };
-  into: LuaTable<number, string>;
-  out: LuaTable<number, string>;
-  idle: LuaTable<number, string>;
-  rnd: LuaTable<number, LuaTable<number, string>>;
-}
-
-/**
- * todo;
- */
-export enum EWeaponAnimation {
-  NONE = "none",
-  DROP = "drop",
-  FIRE = "fire",
-  STRAPPED = "strapped",
-  UNSTRAPPED = "unstrapped",
-  SNIPER_FIRE = "sniper_fire",
-}
-
-/**
- * todo;
- */
 export enum EStalkerState {
   ANIMPOINT_SIT_HIGH = "animpoint_sit_high",
   ANIMPOINT_SIT_HIGH_DRINK_ENERGY = "animpoint_sit_high_drink_energy",
@@ -187,6 +141,7 @@ export enum EStalkerState {
   ANIMPOINT_SIT_HIGH_EAT_BREAD = "animpoint_sit_high_eat_bread",
   ANIMPOINT_SIT_HIGH_EAT_KOLBASA = "animpoint_sit_high_eat_kolbasa",
   ANIMPOINT_SIT_HIGH_HARMONICA = "animpoint_sit_high_harmonica",
+  ANIMPOINT_SIT_HIGH_GUITAR = "animpoint_sit_high_guitar",
   ANIMPOINT_SIT_LOW = "animpoint_sit_low",
   ANIMPOINT_SIT_LOW_DRINK_ENERGY = "animpoint_sit_low_drink_energy",
   ANIMPOINT_SIT_LOW_DRINK_VODKA = "animpoint_sit_low_drink_vodka",
@@ -214,18 +169,23 @@ export enum EStalkerState {
   ANIMPOINT_SIT_NORMAL_EAT_BREAD = "animpoint_sit_normal_eat_bread",
   ANIMPOINT_SIT_NORMAL_EAT_KOLBASA = "animpoint_sit_normal_eat_kolbasa",
   ANIMPOINT_SIT_NORMAL_GUITAR = "animpoint_sit_normal_guitar",
+  ANIMPOINT_SIT_NORMAL_HARMONICA = "animpoint_sit_normal_harmonica",
   ANIMPOINT_STAY_TABLE = "animpoint_stay_table",
   ANIMPOINT_STAY_TABLE_DRINK_ENERGY = "animpoint_stay_table_drink_energy",
   ANIMPOINT_STAY_TABLE_DRINK_VODKA = "animpoint_stay_table_drink_vodka",
   ANIMPOINT_STAY_TABLE_EAT_BREAD = "animpoint_stay_table_eat_bread",
   ANIMPOINT_STAY_TABLE_EAT_KOLBASA = "animpoint_stay_table_eat_kolbasa",
   ANIMPOINT_STAY_TABLE_WEAPON = "animpoint_stay_table_weapon",
+  ANIMPOINT_STAY_TABLE_GUITAR = "animpoint_stay_table_guitar",
+  ANIMPOINT_STAY_TABLE_HARMONICA = "animpoint_stay_table_harmonica",
   ANIMPOINT_STAY_WALL = "animpoint_stay_wall",
   ANIMPOINT_STAY_WALL_DRINK_ENERGY = "animpoint_stay_wall_drink_energy",
   ANIMPOINT_STAY_WALL_DRINK_VODKA = "animpoint_stay_wall_drink_vodka",
   ANIMPOINT_STAY_WALL_EAT_BREAD = "animpoint_stay_wall_eat_bread",
   ANIMPOINT_STAY_WALL_EAT_KOLBASA = "animpoint_stay_wall_eat_kolbasa",
   ANIMPOINT_STAY_WALL_WEAPON = "animpoint_stay_wall_weapon",
+  ANIMPOINT_STAY_WALL_GUITAR = "animpoint_stay_wall_guitar",
+  ANIMPOINT_STAY_WALL_HARMONICA = "animpoint_stay_wall_harmonica",
   ASSAULT = "assault",
   ASSAULT_FIRE = "assault_fire",
   BACKOFF = "backoff",
@@ -368,39 +328,10 @@ export interface ILookTargetDescriptor {
 }
 
 /**
- * Animation lifecycle marker state.
- */
-export enum EAnimationMarker {
-  IN = 1,
-  OUT = 2,
-  IDLE = 3,
-}
-
-/**
  * State of stalker movement.
  */
 export enum ECurrentMovementState {
   NONE = 0,
   MOVING = 1,
   STANDING = 2,
-}
-
-/**
- * todo;
- */
-export interface IAnimationManagerStates {
-  lastIndex: Optional<TIndex>;
-  currentState: Optional<EStalkerState>;
-  targetState: Optional<EStalkerState>;
-  animationMarker: Optional<EAnimationMarker>;
-  nextRandomAt: Optional<TTimestamp>;
-  sequenceId: TNumberId;
-}
-
-/**
- * Type of animation used in manager.
- */
-export enum EAnimationType {
-  ANIMATION = "animation",
-  ANIMSTATE = "animstate",
 }

@@ -1,4 +1,4 @@
-import { IAnimationStateDescriptor } from "@/engine/core/objects/state/state_types";
+import { IAnimationStateDescriptor } from "@/engine/core/objects/state/animation_types";
 import { getExtern } from "@/engine/core/utils/binding";
 import { AnyArgs, AnyCallablesModule, TName } from "@/engine/lib/types";
 

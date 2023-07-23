@@ -1,12 +1,12 @@
 import { action_planner, level, look, object, time_global } from "xray16";
 
 import { states } from "@/engine/core/objects/animation/states";
+import { EWeaponAnimation } from "@/engine/core/objects/state/animation_types";
 import { StalkerAnimationManager } from "@/engine/core/objects/state/StalkerAnimationManager";
 import {
   EStalkerState,
   EStateActionId,
   EStateEvaluatorId,
-  EWeaponAnimation,
   ILookTargetDescriptor,
 } from "@/engine/core/objects/state/state_types";
 import { getObjectAnimationWeapon } from "@/engine/core/objects/state/weapon/StateManagerWeapon";

@@ -3,15 +3,15 @@ import { callback, hit, time_global } from "xray16";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import { animations } from "@/engine/core/objects/animation/animations";
 import { animstates } from "@/engine/core/objects/animation/animstates";
-import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateManager";
 import {
   EAnimationMarker,
   EAnimationType,
-  EStalkerState,
   IAnimationDescriptor,
   IAnimationManagerStates,
   IAnimationStateDescriptor,
-} from "@/engine/core/objects/state/state_types";
+} from "@/engine/core/objects/state/animation_types";
+import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateManager";
+import { EStalkerState } from "@/engine/core/objects/state/state_types";
 import { abort } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { createVector, vectorRotateY } from "@/engine/core/utils/vector";
