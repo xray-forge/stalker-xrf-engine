@@ -4,7 +4,7 @@ import { states } from "@/engine/core/objects/animation/states";
 import { EStalkerState } from "@/engine/core/objects/state";
 import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateManager";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { Optional } from "@/engine/lib/types";
+import { Optional, TName } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -27,11 +27,11 @@ export class ActionAnimationStart extends action_base {
   public override initialize(): void {
     super.initialize();
 
-    const targetAnimation: Optional<EStalkerState> = states.get(this.stateManager.targetState).animation;
+    const targetAnimation: Optional<TName> = states.get(this.stateManager.targetState).animation;
 
     logger.info("Start animation for:", this.object.name(), targetAnimation);
 
-    this.stateManager.animation.setState(states.get(this.stateManager.targetState).animation);
+    this.stateManager.animation.setState(states.get(this.stateManager.targetState).animation as EStalkerState);
     this.stateManager.animation.setControl();
   }
 }

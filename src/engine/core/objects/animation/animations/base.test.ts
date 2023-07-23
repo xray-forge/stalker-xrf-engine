@@ -3,7 +3,7 @@ import { describe, expect, it } from "@jest/globals";
 import { baseAnimations } from "@/engine/core/objects/animation/animations/base";
 import { EStalkerState } from "@/engine/core/objects/state";
 
-describe("animpoint animations list", () => {
+describe("base animations list", () => {
   it("should list all needed animations", () => {
     expect(baseAnimations.length()).toBe(46);
 

@@ -3,6 +3,7 @@ import {
   AnyCallable,
   LuaArray,
   Optional,
+  TDuration,
   TIndex,
   TName,
   TNumberId,
@@ -58,13 +59,13 @@ export type TAnimationSequenceElement =
 export type TAnimationSequenceElements = TAnimationSequenceElement | LuaArray<TAnimationSequenceElement>;
 
 /**
- * todo;
+ * Descriptor of in-game animation.
  */
 export interface IAnimationDescriptor {
   prop: {
-    maxidle: number;
-    sumidle: number;
-    rnd: number;
+    maxidle: TDuration;
+    sumidle: TDuration;
+    rnd: Optional<TRate>;
     moving: Optional<boolean>;
   };
   into: Optional<LuaArray<TAnimationSequenceElements>>;
@@ -74,22 +75,23 @@ export interface IAnimationDescriptor {
 }
 
 /**
- * todo;
+ * Descriptor of in-game animation state.
  */
-export interface IAnimationStateDescriptor {
+export interface IAnimstateDescriptor {
   prop: {
-    maxidle: number;
-    sumidle: number;
-    rnd: number;
+    maxidle: TDuration;
+    sumidle: TDuration;
+    rnd: TRate;
+    moving: Optional<boolean>;
   };
-  into: LuaArray<TAnimationSequenceElement>;
-  out: LuaArray<TAnimationSequenceElement>;
-  idle: LuaArray<TAnimationSequenceElement>;
-  rnd: LuaArray<LuaTable<number, string>>;
+  into: Optional<LuaArray<TAnimationSequenceElements>>;
+  out: Optional<LuaArray<TAnimationSequenceElements>>;
+  idle: Optional<LuaArray<TAnimationSequenceElements>>;
+  rnd: Optional<LuaArray<TAnimationSequenceElements>>;
 }
 
 /**
- * todo;
+ * Type of possible weapon animation.
  */
 export enum EWeaponAnimation {
   NONE = "none",

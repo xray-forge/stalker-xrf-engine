@@ -7,7 +7,7 @@ import { TName } from "@/engine/lib/types";
 /**
  * todo;
  */
-export const scenarioStates: LuaTable<TName, IStateDescriptor> = {
+export const scenarioStates: LuaTable<TName, IStateDescriptor> = $fromObject<TName, IStateDescriptor>({
   zat_b14_give_artefact_idle: {
     weapon: EWeaponAnimation.STRAPPED,
     movement: move.stand,
@@ -15,6 +15,7 @@ export const scenarioStates: LuaTable<TName, IStateDescriptor> = {
     bodystate: move.standing,
     animstate: null,
     animation: "zat_b14_give_artefact_idle",
+    isForced: null,
   },
   zat_b14_give_artefact_act: {
     weapon: EWeaponAnimation.STRAPPED,
@@ -23,15 +24,17 @@ export const scenarioStates: LuaTable<TName, IStateDescriptor> = {
     bodystate: move.standing,
     animstate: null,
     animation: "zat_b14_give_artefact_act",
+    isForced: null,
   },
   zat_b14_stay_wall: {
-    weapon: "none",
+    weapon: EWeaponAnimation.NONE,
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
     animstate: null,
     animation: "zat_b14_stay_wall",
     direction: CSightParams.eSightTypeAnimationDirection,
+    isForced: null,
   },
   zat_b38_stalker_break_lock: {
     weapon: EWeaponAnimation.STRAPPED,
@@ -41,6 +44,7 @@ export const scenarioStates: LuaTable<TName, IStateDescriptor> = {
     animstate: null,
     animation: "zat_b38_stalker_break_lock",
     direction: CSightParams.eSightTypeAnimationDirection,
+    isForced: null,
   },
   zat_b38_stalker_turn_on_lift: {
     weapon: EWeaponAnimation.STRAPPED,
@@ -50,6 +54,7 @@ export const scenarioStates: LuaTable<TName, IStateDescriptor> = {
     animstate: null,
     animation: "zat_b38_stalker_turn_on_lift",
     direction: CSightParams.eSightTypeAnimationDirection,
+    isForced: null,
   },
   zat_b38_stalker_jump_tonnel: {
     weapon: EWeaponAnimation.UNSTRAPPED,
@@ -59,6 +64,7 @@ export const scenarioStates: LuaTable<TName, IStateDescriptor> = {
     animstate: null,
     animation: "zat_b38_stalker_jump_tonnel",
     direction: CSightParams.eSightTypeAnimationDirection,
+    isForced: null,
   },
   zat_b38_stalker_alert: {
     weapon: EWeaponAnimation.UNSTRAPPED,
@@ -68,6 +74,7 @@ export const scenarioStates: LuaTable<TName, IStateDescriptor> = {
     animstate: null,
     animation: "zat_b38_stalker_alert",
     direction: CSightParams.eSightTypeAnimationDirection,
+    isForced: null,
   },
   zat_b20_noah_jump: {
     weapon: EWeaponAnimation.UNSTRAPPED,
@@ -77,6 +84,7 @@ export const scenarioStates: LuaTable<TName, IStateDescriptor> = {
     animstate: null,
     animation: "zat_b20_noah_jump",
     direction: CSightParams.eSightTypeAnimationDirection,
+    isForced: null,
   },
   pri_a17_ice_climb: {
     weapon: EWeaponAnimation.STRAPPED,
@@ -86,6 +94,7 @@ export const scenarioStates: LuaTable<TName, IStateDescriptor> = {
     animstate: null,
     animation: "pri_a17_ice_climb",
     direction: CSightParams.eSightTypeAnimationDirection,
+    isForced: null,
   },
   pri_a17_fall_down: {
     weapon: EWeaponAnimation.UNSTRAPPED,
@@ -95,6 +104,7 @@ export const scenarioStates: LuaTable<TName, IStateDescriptor> = {
     animstate: null,
     animation: "pri_a17_fall_down",
     direction: CSightParams.eSightTypeAnimationDirection,
+    isForced: null,
   },
   pri_a17_pray_in: {
     weapon: EWeaponAnimation.UNSTRAPPED,
@@ -104,6 +114,7 @@ export const scenarioStates: LuaTable<TName, IStateDescriptor> = {
     animstate: null,
     animation: "pri_a17_pray_in",
     direction: CSightParams.eSightTypeAnimationDirection,
+    isForced: null,
   },
   pri_a17_pray: {
     weapon: EWeaponAnimation.UNSTRAPPED,
@@ -113,18 +124,20 @@ export const scenarioStates: LuaTable<TName, IStateDescriptor> = {
     animstate: null,
     animation: "pri_a17_pray",
     direction: CSightParams.eSightTypeAnimationDirection,
+    isForced: null,
   },
   zat_b22_medic_turn_idle: {
-    weapon: "none",
+    weapon: EWeaponAnimation.NONE,
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
     animstate: "zat_b22_medic_turn_idle",
     animation: null,
     direction: CSightParams.eSightTypeAnimationDirection,
+    isForced: null,
   },
   zat_b22_medic_turn_out: {
-    weapon: "none",
+    weapon: EWeaponAnimation.NONE,
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
@@ -133,52 +146,57 @@ export const scenarioStates: LuaTable<TName, IStateDescriptor> = {
     direction: CSightParams.eSightTypeAnimationDirection,
   },
   zat_b22_medic_suicide: {
-    weapon: "fire",
+    weapon: EWeaponAnimation.FIRE,
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
     animstate: null,
     animation: "zat_b22_medic_suicide",
     direction: CSightParams.eSightTypeAnimationDirection,
+    isForced: null,
   },
   zat_b3_tech_drunk: {
-    weapon: "none",
+    weapon: EWeaponAnimation.NONE,
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
     animstate: "zat_b3_tech_idle",
     animation: "zat_b3_tech_drunk",
     direction: CSightParams.eSightTypeAnimationDirection,
+    isForced: null,
   },
   zat_b3_tech_drink: {
-    weapon: "none",
+    weapon: EWeaponAnimation.NONE,
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
     animstate: "zat_b3_tech_idle",
     animation: "zat_b3_tech_drink",
     direction: CSightParams.eSightTypeAnimationDirection,
+    isForced: null,
   },
   zat_b3_tech_idle: {
-    weapon: "none",
+    weapon: EWeaponAnimation.NONE,
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
     animstate: "zat_b3_tech_idle",
     animation: "zat_b3_tech_idle_1",
     direction: CSightParams.eSightTypeAnimationDirection,
+    isForced: null,
   },
   zat_b3_tech_idle_short: {
-    weapon: "none",
+    weapon: EWeaponAnimation.NONE,
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
     animstate: "zat_b3_tech_idle",
     animation: null,
+    isForced: null,
     direction: CSightParams.eSightTypeAnimationDirection,
   },
   zat_b3_tech_surprise: {
-    weapon: "none",
+    weapon: EWeaponAnimation.NONE,
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
@@ -203,7 +221,7 @@ export const scenarioStates: LuaTable<TName, IStateDescriptor> = {
     animation: "bloodsucker_search",
   },
   bloodsucker_panic: {
-    weapon: "fire",
+    weapon: EWeaponAnimation.FIRE,
     movement: move.stand,
     mental: anim.danger,
     bodystate: move.standing,
@@ -211,7 +229,7 @@ export const scenarioStates: LuaTable<TName, IStateDescriptor> = {
     animation: "bloodsucker_panic",
   },
   suicide_animation: {
-    weapon: "fire",
+    weapon: EWeaponAnimation.FIRE,
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
@@ -220,7 +238,7 @@ export const scenarioStates: LuaTable<TName, IStateDescriptor> = {
     direction: CSightParams.eSightTypeAnimationDirection,
   },
   jup_b10_drunk_ravings: {
-    weapon: "none",
+    weapon: EWeaponAnimation.NONE,
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
@@ -246,7 +264,7 @@ export const scenarioStates: LuaTable<TName, IStateDescriptor> = {
     direction: CSightParams.eSightTypeAnimationDirection,
   },
   pri_a18_inspert_monolit_actor: {
-    weapon: "none",
+    weapon: EWeaponAnimation.NONE,
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
@@ -264,7 +282,7 @@ export const scenarioStates: LuaTable<TName, IStateDescriptor> = {
     direction: CSightParams.eSightTypeAnimationDirection,
   },
   pri_a21_sentry_madness: {
-    weapon: "fire",
+    weapon: EWeaponAnimation.FIRE,
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
@@ -273,7 +291,7 @@ export const scenarioStates: LuaTable<TName, IStateDescriptor> = {
     direction: CSightParams.eSightTypeAnimationDirection,
   },
   pri_a21_sentry_madness_suicide: {
-    weapon: "fire",
+    weapon: EWeaponAnimation.FIRE,
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
@@ -282,7 +300,7 @@ export const scenarioStates: LuaTable<TName, IStateDescriptor> = {
     direction: CSightParams.eSightTypeAnimationDirection,
   },
   pri_a22_colonel_lean_on_table: {
-    weapon: "none",
+    weapon: EWeaponAnimation.NONE,
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
@@ -291,7 +309,7 @@ export const scenarioStates: LuaTable<TName, IStateDescriptor> = {
     direction: CSightParams.eSightTypeAnimationDirection,
   },
   pri_a28_army_trance_out: {
-    weapon: "none",
+    weapon: EWeaponAnimation.NONE,
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
@@ -300,7 +318,7 @@ export const scenarioStates: LuaTable<TName, IStateDescriptor> = {
     direction: CSightParams.eSightTypeAnimationDirection,
   },
   zat_b106_wounded_idle: {
-    weapon: "none",
+    weapon: EWeaponAnimation.NONE,
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
@@ -309,7 +327,7 @@ export const scenarioStates: LuaTable<TName, IStateDescriptor> = {
     direction: CSightParams.eSightTypeAnimationDirection,
   },
   zat_b38_cop_dead: {
-    weapon: "none",
+    weapon: EWeaponAnimation.NONE,
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
@@ -318,7 +336,7 @@ export const scenarioStates: LuaTable<TName, IStateDescriptor> = {
     direction: CSightParams.eSightTypeAnimationDirection,
   },
   jup_b15_zulus_sit_drink: {
-    weapon: "none",
+    weapon: EWeaponAnimation.NONE,
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
@@ -327,7 +345,7 @@ export const scenarioStates: LuaTable<TName, IStateDescriptor> = {
     direction: CSightParams.eSightTypeAnimationDirection,
   },
   jup_b15_zulus_sit_idle: {
-    weapon: "none",
+    weapon: EWeaponAnimation.NONE,
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
@@ -336,7 +354,7 @@ export const scenarioStates: LuaTable<TName, IStateDescriptor> = {
     direction: CSightParams.eSightTypeAnimationDirection,
   },
   jup_b15_zulus_sit_idle_short: {
-    weapon: "none",
+    weapon: EWeaponAnimation.NONE,
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
@@ -345,7 +363,7 @@ export const scenarioStates: LuaTable<TName, IStateDescriptor> = {
     direction: CSightParams.eSightTypeAnimationDirection,
   },
   jup_b15_zulus_sit_out: {
-    weapon: "none",
+    weapon: EWeaponAnimation.NONE,
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
@@ -678,7 +696,7 @@ export const scenarioStates: LuaTable<TName, IStateDescriptor> = {
     direction: CSightParams.eSightTypeAnimationDirection,
   },
   zat_b100_heli_2_serch: {
-    weapon: "none",
+    weapon: EWeaponAnimation.NONE,
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
@@ -687,7 +705,7 @@ export const scenarioStates: LuaTable<TName, IStateDescriptor> = {
     direction: CSightParams.eSightTypeAnimationDirection,
   },
   zat_b101_heli_5_serch: {
-    weapon: "none",
+    weapon: EWeaponAnimation.NONE,
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
@@ -696,7 +714,7 @@ export const scenarioStates: LuaTable<TName, IStateDescriptor> = {
     direction: CSightParams.eSightTypeAnimationDirection,
   },
   zat_b28_heli3_serch: {
-    weapon: "none",
+    weapon: EWeaponAnimation.NONE,
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
@@ -714,7 +732,7 @@ export const scenarioStates: LuaTable<TName, IStateDescriptor> = {
     direction: CSightParams.eSightTypeAnimationDirection,
   },
   jup_b217_nitro_stand: {
-    weapon: "none",
+    weapon: EWeaponAnimation.NONE,
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
@@ -723,7 +741,7 @@ export const scenarioStates: LuaTable<TName, IStateDescriptor> = {
     direction: CSightParams.eSightTypeAnimationDirection,
   },
   jup_b41_novikov_stand: {
-    weapon: "none",
+    weapon: EWeaponAnimation.NONE,
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
@@ -794,4 +812,4 @@ export const scenarioStates: LuaTable<TName, IStateDescriptor> = {
     animation: "pri_a25_psy_medic_out",
     direction: CSightParams.eSightTypeAnimationDirection,
   },
-} as any;
+});

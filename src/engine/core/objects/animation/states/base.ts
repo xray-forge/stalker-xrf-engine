@@ -9,7 +9,7 @@ import { TName } from "@/engine/lib/types";
  * todo: Enum values as keys?
  */
 export const baseStates: LuaTable<TName, IStateDescriptor> = $fromObject<TName, IStateDescriptor>({
-  idle: {
+  [EStalkerState.IDLE]: {
     weapon: null,
     movement: null,
     mental: null,
@@ -18,7 +18,7 @@ export const baseStates: LuaTable<TName, IStateDescriptor> = $fromObject<TName, 
     animation: null,
     isForced: null,
   },
-  smartcover: {
+  [EStalkerState.SMART_COVER]: {
     weapon: EWeaponAnimation.UNSTRAPPED,
     movement: null,
     mental: null,
@@ -28,7 +28,7 @@ export const baseStates: LuaTable<TName, IStateDescriptor> = $fromObject<TName, 
     direction: CSightParams.eSightTypeAnimationDirection,
     isForced: null,
   },
-  walk: {
+  [EStalkerState.WALK]: {
     weapon: EWeaponAnimation.STRAPPED,
     movement: move.walk,
     mental: anim.free,
@@ -481,44 +481,49 @@ export const baseStates: LuaTable<TName, IStateDescriptor> = $fromObject<TName, 
     isForced: null,
   },
   sleep_sit: {
-    weapon: "strapped",
+    weapon: EWeaponAnimation.STRAPPED,
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
     animstate: EStalkerState.SIT_ASS,
     animation: EStalkerState.SLEEP_SIT,
+    isForced: null,
   },
   eat_bread: {
-    weapon: "strapped",
+    weapon: EWeaponAnimation.STRAPPED,
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
     animstate: EStalkerState.SIT_KNEE,
     animation: EStalkerState.EAT_BREAD,
+    isForced: null,
   },
   eat_vodka: {
-    weapon: "strapped",
+    weapon: EWeaponAnimation.STRAPPED,
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
     animstate: EStalkerState.SIT_ASS,
     animation: EStalkerState.EAT_VODKA,
+    isForced: null,
   },
   eat_energy: {
-    weapon: "strapped",
+    weapon: EWeaponAnimation.STRAPPED,
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
     animstate: EStalkerState.SIT_ASS,
     animation: EStalkerState.EAT_ENERGY,
+    isForced: null,
   },
   eat_kolbasa: {
-    weapon: "strapped",
+    weapon: EWeaponAnimation.STRAPPED,
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
     animstate: EStalkerState.SIT_ASS,
     animation: EStalkerState.EAT_KOLBASA,
+    isForced: null,
   },
   play_guitar: {
     weapon: EWeaponAnimation.STRAPPED,
@@ -808,7 +813,7 @@ export const baseStates: LuaTable<TName, IStateDescriptor> = $fromObject<TName, 
     animation: EStalkerState.HANDS_UP,
     isForced: null,
   },
-  // -- �������
+  // -- Wounded
   wounded: {
     weapon: EWeaponAnimation.STRAPPED,
     movement: move.stand,
@@ -933,4 +938,4 @@ export const baseStates: LuaTable<TName, IStateDescriptor> = $fromObject<TName, 
     animation: EStalkerState.WOUNDED_HEAVY_1,
     isForced: null,
   },
-} as Record<EStalkerState, IStateDescriptor>);
+});

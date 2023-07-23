@@ -51,8 +51,8 @@ export class AnimpointManager extends AbstractSchemeManager<ISchemeAnimpointStat
           math.random(this.state.approvedActions.length())
         ).name;
 
-        const currentStateAnimstate: Optional<EStalkerState> = states.get(targetAction).animstate;
-        const targetStateAnimstate: Optional<EStalkerState> = states.get(this.currentAction as EStalkerState).animstate;
+        const currentStateAnimstate: Optional<TName> = states.get(targetAction).animstate;
+        const targetStateAnimstate: Optional<TName> = states.get(this.currentAction as EStalkerState).animstate;
 
         if (currentStateAnimstate === targetStateAnimstate) {
           if (targetAction !== this.currentAction) {

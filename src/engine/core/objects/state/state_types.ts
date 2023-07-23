@@ -6,6 +6,7 @@ import type {
   TIndex,
   TLookType,
   TMoveType,
+  TName,
   TSightType,
   Vector,
 } from "@/engine/lib/types";
@@ -136,6 +137,7 @@ export enum EStateActionId {
  */
 export enum EStalkerState {
   ANIMPOINT_SIT_HIGH = "animpoint_sit_high",
+  ANIMPOINT_SIT_HIGH_WEAPON = "animpoint_sit_high_weapon",
   ANIMPOINT_SIT_HIGH_DRINK_ENERGY = "animpoint_sit_high_drink_energy",
   ANIMPOINT_SIT_HIGH_DRINK_VODKA = "animpoint_sit_high_drink_vodka",
   ANIMPOINT_SIT_HIGH_EAT_BREAD = "animpoint_sit_high_eat_bread",
@@ -143,6 +145,7 @@ export enum EStalkerState {
   ANIMPOINT_SIT_HIGH_HARMONICA = "animpoint_sit_high_harmonica",
   ANIMPOINT_SIT_HIGH_GUITAR = "animpoint_sit_high_guitar",
   ANIMPOINT_SIT_LOW = "animpoint_sit_low",
+  ANIMPOINT_SIT_LOW_WEAPON = "animpoint_sit_low_weapon",
   ANIMPOINT_SIT_LOW_DRINK_ENERGY = "animpoint_sit_low_drink_energy",
   ANIMPOINT_SIT_LOW_DRINK_VODKA = "animpoint_sit_low_drink_vodka",
   ANIMPOINT_SIT_LOW_EAT_BREAD = "animpoint_sit_low_eat_bread",
@@ -164,6 +167,7 @@ export enum EStalkerState {
   ANIMPOINT_SIT_KNEE_GUITAR = "animpoint_sit_knee_guitar",
   ANIMPOINT_SIT_KNEE_HARMONICA = "animpoint_sit_knee_harmonica",
   ANIMPOINT_SIT_NORMAL = "animpoint_sit_normal",
+  ANIMPOINT_SIT_NORMAL_WEAPON = "animpoint_sit_normal_weapon",
   ANIMPOINT_SIT_NORMAL_DRINK_ENERGY = "animpoint_sit_normal_drink_energy",
   ANIMPOINT_SIT_NORMAL_DRINK_VODKA = "animpoint_sit_normal_drink_vodka",
   ANIMPOINT_SIT_NORMAL_EAT_BREAD = "animpoint_sit_normal_eat_bread",
@@ -311,12 +315,12 @@ export interface IStateDescriptor {
   movement: Optional<TMoveType>;
   mental: Optional<TAnimationType>;
   bodystate: Optional<TMoveType>;
-  animstate: Optional<EStalkerState>;
-  animation: Optional<EStalkerState>;
+  animstate: Optional<TName>;
+  animation: Optional<TName>;
   weapon_slot?: Optional<TIndex>;
   direction?: TLookType | TSightType;
   special_danger_move?: Optional<boolean>;
-  isForced: Optional<boolean>;
+  isForced?: Optional<boolean>;
 }
 
 /**

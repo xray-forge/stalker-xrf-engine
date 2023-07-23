@@ -1,21 +1,22 @@
 import { anim, CSightParams, move } from "xray16";
 
 import { EWeaponAnimation } from "@/engine/core/objects/state/animation_types";
-import { IStateDescriptor } from "@/engine/core/objects/state/state_types";
+import { EStalkerState, IStateDescriptor } from "@/engine/core/objects/state/state_types";
 import { TName } from "@/engine/lib/types";
 
 /**
  * todo;
  */
-export const animpointStates: LuaTable<TName, IStateDescriptor> = {
+export const animpointStates: LuaTable<TName, IStateDescriptor> = $fromObject<TName, IStateDescriptor>({
   animpoint_stay_wall: {
     weapon: EWeaponAnimation.STRAPPED,
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
-    animstate: "animpoint_stay_wall",
-    animation: "animpoint_stay_wall",
+    animstate: EStalkerState.ANIMPOINT_STAY_WALL,
+    animation: EStalkerState.ANIMPOINT_STAY_WALL,
     direction: CSightParams.eSightTypeAnimationDirection,
+    isForced: null,
   },
   animpoint_stay_table: {
     weapon: EWeaponAnimation.STRAPPED,
@@ -25,6 +26,7 @@ export const animpointStates: LuaTable<TName, IStateDescriptor> = {
     animstate: "animpoint_stay_table",
     animation: "animpoint_stay_table",
     direction: CSightParams.eSightTypeAnimationDirection,
+    isForced: null,
   },
   animpoint_sit_high: {
     weapon: EWeaponAnimation.STRAPPED,
@@ -34,6 +36,7 @@ export const animpointStates: LuaTable<TName, IStateDescriptor> = {
     animstate: "animpoint_sit_high",
     animation: "animpoint_sit_high",
     direction: CSightParams.eSightTypeAnimationDirection,
+    isForced: null,
   },
   animpoint_sit_normal: {
     weapon: EWeaponAnimation.STRAPPED,
@@ -54,7 +57,7 @@ export const animpointStates: LuaTable<TName, IStateDescriptor> = {
     direction: CSightParams.eSightTypeAnimationDirection,
   },
   animpoint_sit_ass: {
-    weapon: "strapped",
+    weapon: EWeaponAnimation.STRAPPED,
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
@@ -63,7 +66,7 @@ export const animpointStates: LuaTable<TName, IStateDescriptor> = {
     direction: CSightParams.eSightTypeAnimationDirection,
   },
   animpoint_sit_knee: {
-    weapon: "strapped",
+    weapon: EWeaponAnimation.STRAPPED,
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
@@ -76,7 +79,7 @@ export const animpointStates: LuaTable<TName, IStateDescriptor> = {
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
-    animstate: "animpoint_stay_wall",
+    animstate: EStalkerState.ANIMPOINT_STAY_WALL,
     animation: "animpoint_stay_wall_eat_bread",
     direction: CSightParams.eSightTypeAnimationDirection,
   },
@@ -85,7 +88,7 @@ export const animpointStates: LuaTable<TName, IStateDescriptor> = {
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
-    animstate: "animpoint_stay_wall",
+    animstate: EStalkerState.ANIMPOINT_STAY_WALL,
     animation: "animpoint_stay_wall_eat_kolbasa",
     direction: CSightParams.eSightTypeAnimationDirection,
   },
@@ -162,7 +165,7 @@ export const animpointStates: LuaTable<TName, IStateDescriptor> = {
     direction: CSightParams.eSightTypeAnimationDirection,
   },
   animpoint_sit_ass_eat_bread: {
-    weapon: "strapped",
+    weapon: EWeaponAnimation.STRAPPED,
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
@@ -171,7 +174,7 @@ export const animpointStates: LuaTable<TName, IStateDescriptor> = {
     direction: CSightParams.eSightTypeAnimationDirection,
   },
   animpoint_sit_ass_eat_kolbasa: {
-    weapon: "strapped",
+    weapon: EWeaponAnimation.STRAPPED,
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
@@ -180,7 +183,7 @@ export const animpointStates: LuaTable<TName, IStateDescriptor> = {
     direction: CSightParams.eSightTypeAnimationDirection,
   },
   animpoint_sit_knee_eat_bread: {
-    weapon: "strapped",
+    weapon: EWeaponAnimation.STRAPPED,
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
@@ -189,7 +192,7 @@ export const animpointStates: LuaTable<TName, IStateDescriptor> = {
     direction: CSightParams.eSightTypeAnimationDirection,
   },
   animpoint_sit_knee_eat_kolbasa: {
-    weapon: "strapped",
+    weapon: EWeaponAnimation.STRAPPED,
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
@@ -202,7 +205,7 @@ export const animpointStates: LuaTable<TName, IStateDescriptor> = {
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
-    animstate: "animpoint_stay_wall",
+    animstate: EStalkerState.ANIMPOINT_STAY_WALL,
     animation: "animpoint_stay_wall_drink_vodka",
     direction: CSightParams.eSightTypeAnimationDirection,
   },
@@ -211,7 +214,7 @@ export const animpointStates: LuaTable<TName, IStateDescriptor> = {
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
-    animstate: "animpoint_stay_wall",
+    animstate: EStalkerState.ANIMPOINT_STAY_WALL,
     animation: "animpoint_stay_wall_drink_energy",
     direction: CSightParams.eSightTypeAnimationDirection,
   },
@@ -288,7 +291,7 @@ export const animpointStates: LuaTable<TName, IStateDescriptor> = {
     direction: CSightParams.eSightTypeAnimationDirection,
   },
   animpoint_sit_ass_drink_vodka: {
-    weapon: "strapped",
+    weapon: EWeaponAnimation.STRAPPED,
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
@@ -297,7 +300,7 @@ export const animpointStates: LuaTable<TName, IStateDescriptor> = {
     direction: CSightParams.eSightTypeAnimationDirection,
   },
   animpoint_sit_ass_drink_energy: {
-    weapon: "strapped",
+    weapon: EWeaponAnimation.STRAPPED,
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
@@ -306,7 +309,7 @@ export const animpointStates: LuaTable<TName, IStateDescriptor> = {
     direction: CSightParams.eSightTypeAnimationDirection,
   },
   animpoint_sit_knee_drink_vodka: {
-    weapon: "strapped",
+    weapon: EWeaponAnimation.STRAPPED,
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
@@ -315,7 +318,7 @@ export const animpointStates: LuaTable<TName, IStateDescriptor> = {
     direction: CSightParams.eSightTypeAnimationDirection,
   },
   animpoint_sit_knee_drink_energy: {
-    weapon: "strapped",
+    weapon: EWeaponAnimation.STRAPPED,
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
@@ -328,7 +331,7 @@ export const animpointStates: LuaTable<TName, IStateDescriptor> = {
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
-    animstate: "animpoint_stay_wall",
+    animstate: EStalkerState.ANIMPOINT_STAY_WALL,
     animation: "animpoint_stay_wall_guitar",
     direction: CSightParams.eSightTypeAnimationDirection,
   },
@@ -369,7 +372,7 @@ export const animpointStates: LuaTable<TName, IStateDescriptor> = {
     direction: CSightParams.eSightTypeAnimationDirection,
   },
   animpoint_sit_ass_guitar: {
-    weapon: "strapped",
+    weapon: EWeaponAnimation.STRAPPED,
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
@@ -378,7 +381,7 @@ export const animpointStates: LuaTable<TName, IStateDescriptor> = {
     direction: CSightParams.eSightTypeAnimationDirection,
   },
   animpoint_sit_knee_guitar: {
-    weapon: "strapped",
+    weapon: EWeaponAnimation.STRAPPED,
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
@@ -391,7 +394,7 @@ export const animpointStates: LuaTable<TName, IStateDescriptor> = {
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
-    animstate: "animpoint_stay_wall",
+    animstate: EStalkerState.ANIMPOINT_STAY_WALL,
     animation: "animpoint_stay_wall_harmonica",
     direction: CSightParams.eSightTypeAnimationDirection,
   },
@@ -432,7 +435,7 @@ export const animpointStates: LuaTable<TName, IStateDescriptor> = {
     direction: CSightParams.eSightTypeAnimationDirection,
   },
   animpoint_sit_ass_harmonica: {
-    weapon: "strapped",
+    weapon: EWeaponAnimation.STRAPPED,
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
@@ -441,7 +444,7 @@ export const animpointStates: LuaTable<TName, IStateDescriptor> = {
     direction: CSightParams.eSightTypeAnimationDirection,
   },
   animpoint_sit_knee_harmonica: {
-    weapon: "strapped",
+    weapon: EWeaponAnimation.STRAPPED,
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
@@ -463,7 +466,7 @@ export const animpointStates: LuaTable<TName, IStateDescriptor> = {
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
-    animstate: "animpoint_stay_table_weapon",
+    animstate: EStalkerState.ANIMPOINT_STAY_TABLE_WEAPON,
     animation: null,
     direction: CSightParams.eSightTypeAnimationDirection,
   },
@@ -472,7 +475,7 @@ export const animpointStates: LuaTable<TName, IStateDescriptor> = {
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
-    animstate: "animpoint_sit_high_weapon",
+    animstate: EStalkerState.ANIMPOINT_SIT_HIGH_WEAPON,
     animation: null,
     direction: CSightParams.eSightTypeAnimationDirection,
   },
@@ -481,27 +484,30 @@ export const animpointStates: LuaTable<TName, IStateDescriptor> = {
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
-    animstate: "animpoint_sit_normal_weapon",
+    animstate: EStalkerState.ANIMPOINT_SIT_NORMAL_WEAPON,
     animation: null,
     direction: CSightParams.eSightTypeAnimationDirection,
+    isForced: null,
   },
   animpoint_sit_low_weapon: {
     weapon: EWeaponAnimation.UNSTRAPPED,
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
-    animstate: "animpoint_sit_low_weapon",
+    animstate: EStalkerState.ANIMPOINT_SIT_LOW_WEAPON,
     animation: null,
     direction: CSightParams.eSightTypeAnimationDirection,
+    isForced: null,
   },
   animpoint_stay_wall_no_rnd: {
     weapon: EWeaponAnimation.STRAPPED,
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
-    animstate: "animpoint_stay_wall",
+    animstate: EStalkerState.ANIMPOINT_STAY_WALL,
     animation: null,
     direction: CSightParams.eSightTypeAnimationDirection,
+    isForced: null,
   },
   animpoint_stay_table_no_rnd: {
     weapon: EWeaponAnimation.STRAPPED,
@@ -539,4 +545,4 @@ export const animpointStates: LuaTable<TName, IStateDescriptor> = {
     animation: null,
     direction: CSightParams.eSightTypeAnimationDirection,
   },
-} as any;
+});

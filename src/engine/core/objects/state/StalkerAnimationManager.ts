@@ -8,7 +8,7 @@ import {
   EAnimationType,
   IAnimationDescriptor,
   IAnimationManagerStates,
-  IAnimationStateDescriptor,
+  IAnimstateDescriptor,
   TAnimationSequenceElements,
 } from "@/engine/core/objects/state/animation_types";
 import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateManager";
@@ -40,7 +40,7 @@ export class StalkerAnimationManager {
   public object: ClientObject;
   public stateManager: StalkerStateManager;
 
-  public animations: LuaTable<TName, IAnimationDescriptor> | LuaTable<TName, IAnimationStateDescriptor>;
+  public animations: LuaTable<TName, IAnimationDescriptor> | LuaTable<TName, IAnimstateDescriptor>;
   public states: IAnimationManagerStates;
 
   public constructor(object: ClientObject, stateManager: StalkerStateManager, type: EAnimationType) {
@@ -210,12 +210,12 @@ export class StalkerAnimationManager {
     // Same non-null animation:
     if (states.targetState === states.currentState && states.currentState !== null) {
       const activeWeaponSlot: TIndex = this.getActiveWeaponSlot();
-      const state: IAnimationDescriptor | IAnimationStateDescriptor = this.animations.get(states.currentState);
+      const state: IAnimationDescriptor | IAnimstateDescriptor = this.animations.get(states.currentState);
       let animation;
 
       if (state.rnd !== null) {
         animation = this.selectRandom(
-          state as IAnimationStateDescriptor,
+          state as IAnimstateDescriptor,
           activeWeaponSlot,
           time_global() >= states.nextRandomAt!
         );
@@ -266,11 +266,11 @@ export class StalkerAnimationManager {
    * todo;
    */
   public selectRandom(
-    animationStateDescriptor: IAnimationStateDescriptor,
+    animationStateDescriptor: IAnimstateDescriptor,
     weaponSlot: TIndex,
     mustPlay: boolean
   ): Optional<string | LuaTable> {
-    if (!mustPlay && math.random(100) > this.animations.get(this.states.currentState!).prop.rnd) {
+    if (!mustPlay && math.random(100) > (this.animations.get(this.states.currentState!).prop.rnd as TRate)) {
       return null;
     }
 

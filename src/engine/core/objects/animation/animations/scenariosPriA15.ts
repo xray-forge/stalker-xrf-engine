@@ -1,5 +1,6 @@
 import { registry } from "@/engine/core/database";
-import { IAnimationDescriptor } from "@/engine/core/objects/state";
+import { IAnimationDescriptor, TAnimationSequenceElements } from "@/engine/core/objects/state";
+import { createSequence } from "@/engine/core/utils/animation";
 import { abort } from "@/engine/core/utils/assertion";
 import { parseStringsList } from "@/engine/core/utils/ini";
 import { getTableSize } from "@/engine/core/utils/table";
@@ -642,15 +643,11 @@ function check_availability(precondition: LuaArray<string>, existing_npc: string
 // --get_sequence_for_npc("zulus", "zulus,vano")
 // --get_sequence_for_npc("vano", "vano")
 
-type TNpcSequence = LuaArray<
-  string | { f: (object: ClientObject) => void } | { s: string } | { d: string } | { a: string }
->;
-
 /**
  * todo; Needs fix
  */
-function get_sequence_for_npc(objectName: TName, existingObject: string): TNpcSequence {
-  const result: TNpcSequence = new LuaTable();
+function createSequenceForNpc(objectName: TName, existingObject: string): LuaArray<TAnimationSequenceElements> {
+  const result: TAnimationSequenceElements = new LuaTable();
 
   for (const it of $range(1, getTableSize(cutscene as unknown as LuaTable))) {
     if (check_availability(cutscene[it].precondition as unknown as LuaArray<string>, existingObject)) {
@@ -709,13 +706,16 @@ function get_sequence_for_npc(objectName: TName, existingObject: string): TNpcSe
     }
   }
 
-  return result;
+  return createSequence(result);
 }
 
 /**
  * todo;
  */
-export const scenariosPriA15Animations: LuaTable<TName, IAnimationDescriptor> = {
+export const scenariosPriA15Animations: LuaTable<TName, IAnimationDescriptor> = $fromObject<
+  TName,
+  IAnimationDescriptor
+>({
   pri_a15_idle_none: {
     prop: {
       maxidle: 1,
@@ -723,13 +723,9 @@ export const scenariosPriA15Animations: LuaTable<TName, IAnimationDescriptor> = 
       rnd: 100,
       moving: true,
     },
-    into: {
-      [0]: ["chest_0_idle_0"],
-    },
+    into: createSequence(["chest_0_idle_0"]),
     out: null,
-    idle: {
-      [0]: "chest_0_idle_0",
-    },
+    idle: createSequence("chest_0_idle_0"),
     rnd: null,
   },
   pri_a15_idle_unstrap: {
@@ -739,13 +735,9 @@ export const scenariosPriA15Animations: LuaTable<TName, IAnimationDescriptor> = 
       rnd: 100,
       moving: true,
     },
-    into: {
-      [0]: ["chest_0_idle_0"],
-    },
+    into: createSequence(["chest_0_idle_0"]),
     out: null,
-    idle: {
-      [0]: "chest_0_idle_0",
-    },
+    idle: createSequence("chest_0_idle_0"),
     rnd: null,
   },
   // -- Vano
@@ -756,9 +748,7 @@ export const scenariosPriA15Animations: LuaTable<TName, IAnimationDescriptor> = 
       rnd: 100,
       moving: true,
     },
-    into: {
-      [0]: get_sequence_for_npc("vano", "vano, sokolov, zulus, wanderer"),
-    },
+    into: createSequenceForNpc("vano", "vano, sokolov, zulus, wanderer"),
     out: null,
     idle: null,
     rnd: null,
@@ -770,9 +760,7 @@ export const scenariosPriA15Animations: LuaTable<TName, IAnimationDescriptor> = 
       rnd: 100,
       moving: true,
     },
-    into: {
-      [0]: get_sequence_for_npc("vano", "vano, zulus, wanderer"),
-    },
+    into: createSequenceForNpc("vano", "vano, zulus, wanderer"),
     out: null,
     idle: null,
     rnd: null,
@@ -784,9 +772,7 @@ export const scenariosPriA15Animations: LuaTable<TName, IAnimationDescriptor> = 
       rnd: 100,
       moving: true,
     },
-    into: {
-      [0]: get_sequence_for_npc("vano", "vano, sokolov, wanderer"),
-    },
+    into: createSequenceForNpc("vano", "vano, sokolov, wanderer"),
     out: null,
     idle: null,
     rnd: null,
@@ -798,9 +784,7 @@ export const scenariosPriA15Animations: LuaTable<TName, IAnimationDescriptor> = 
       rnd: 100,
       moving: true,
     },
-    into: {
-      [0]: get_sequence_for_npc("vano", "vano, sokolov, zulus"),
-    },
+    into: createSequenceForNpc("vano", "vano, sokolov, zulus"),
     out: null,
     idle: null,
     rnd: null,
@@ -812,9 +796,7 @@ export const scenariosPriA15Animations: LuaTable<TName, IAnimationDescriptor> = 
       rnd: 100,
       moving: true,
     },
-    into: {
-      [0]: get_sequence_for_npc("vano", "vano, wanderer"),
-    },
+    into: createSequenceForNpc("vano", "vano, wanderer"),
     out: null,
     idle: null,
     rnd: null,
@@ -826,9 +808,7 @@ export const scenariosPriA15Animations: LuaTable<TName, IAnimationDescriptor> = 
       rnd: 100,
       moving: true,
     },
-    into: {
-      [0]: get_sequence_for_npc("vano", "vano, zulus"),
-    },
+    into: createSequenceForNpc("vano", "vano, zulus"),
     out: null,
     idle: null,
     rnd: null,
@@ -840,9 +820,7 @@ export const scenariosPriA15Animations: LuaTable<TName, IAnimationDescriptor> = 
       rnd: 100,
       moving: true,
     },
-    into: {
-      [0]: get_sequence_for_npc("vano", "vano, sokolov"),
-    },
+    into: createSequenceForNpc("vano", "vano, sokolov"),
     out: null,
     idle: null,
     rnd: null,
@@ -854,9 +832,7 @@ export const scenariosPriA15Animations: LuaTable<TName, IAnimationDescriptor> = 
       rnd: 100,
       moving: true,
     },
-    into: {
-      [0]: get_sequence_for_npc("vano", "vano"),
-    },
+    into: createSequenceForNpc("vano", "vano"),
     out: null,
     idle: null,
     rnd: null,
@@ -869,9 +845,7 @@ export const scenariosPriA15Animations: LuaTable<TName, IAnimationDescriptor> = 
       rnd: 100,
       moving: true,
     },
-    into: {
-      [0]: get_sequence_for_npc("sokolov", "vano, sokolov, zulus, wanderer"),
-    },
+    into: createSequenceForNpc("sokolov", "vano, sokolov, zulus, wanderer"),
     out: null,
     idle: null,
     rnd: null,
@@ -883,9 +857,7 @@ export const scenariosPriA15Animations: LuaTable<TName, IAnimationDescriptor> = 
       rnd: 100,
       moving: true,
     },
-    into: {
-      [0]: get_sequence_for_npc("sokolov", "sokolov, zulus, wanderer"),
-    },
+    into: createSequenceForNpc("sokolov", "sokolov, zulus, wanderer"),
     out: null,
     idle: null,
     rnd: null,
@@ -897,9 +869,7 @@ export const scenariosPriA15Animations: LuaTable<TName, IAnimationDescriptor> = 
       rnd: 100,
       moving: true,
     },
-    into: {
-      [0]: get_sequence_for_npc("sokolov", "vano, sokolov, wanderer"),
-    },
+    into: createSequenceForNpc("sokolov", "vano, sokolov, wanderer"),
     out: null,
     idle: null,
     rnd: null,
@@ -911,9 +881,7 @@ export const scenariosPriA15Animations: LuaTable<TName, IAnimationDescriptor> = 
       rnd: 100,
       moving: true,
     },
-    into: {
-      [0]: get_sequence_for_npc("sokolov", "vano, sokolov, zulus"),
-    },
+    into: createSequenceForNpc("sokolov", "vano, sokolov, zulus"),
     out: null,
     idle: null,
     rnd: null,
@@ -925,9 +893,7 @@ export const scenariosPriA15Animations: LuaTable<TName, IAnimationDescriptor> = 
       rnd: 100,
       moving: true,
     },
-    into: {
-      [0]: get_sequence_for_npc("sokolov", "sokolov, wanderer"),
-    },
+    into: createSequenceForNpc("sokolov", "sokolov, wanderer"),
     out: null,
     idle: null,
     rnd: null,
@@ -939,9 +905,7 @@ export const scenariosPriA15Animations: LuaTable<TName, IAnimationDescriptor> = 
       rnd: 100,
       moving: true,
     },
-    into: {
-      [0]: get_sequence_for_npc("sokolov", "sokolov, zulus"),
-    },
+    into: createSequenceForNpc("sokolov", "sokolov, zulus"),
     out: null,
     idle: null,
     rnd: null,
@@ -953,9 +917,7 @@ export const scenariosPriA15Animations: LuaTable<TName, IAnimationDescriptor> = 
       rnd: 100,
       moving: true,
     },
-    into: {
-      [0]: get_sequence_for_npc("sokolov", "vano, sokolov"),
-    },
+    into: createSequenceForNpc("sokolov", "vano, sokolov"),
     out: null,
     idle: null,
     rnd: null,
@@ -967,9 +929,7 @@ export const scenariosPriA15Animations: LuaTable<TName, IAnimationDescriptor> = 
       rnd: 100,
       moving: true,
     },
-    into: {
-      [0]: get_sequence_for_npc("sokolov", "sokolov"),
-    },
+    into: createSequenceForNpc("sokolov", "sokolov"),
     out: null,
     idle: null,
     rnd: null,
@@ -982,9 +942,7 @@ export const scenariosPriA15Animations: LuaTable<TName, IAnimationDescriptor> = 
       rnd: 100,
       moving: true,
     },
-    into: {
-      [0]: get_sequence_for_npc("zulus", "vano, sokolov, zulus, wanderer"),
-    },
+    into: createSequenceForNpc("zulus", "vano, sokolov, zulus, wanderer"),
     out: null,
     idle: null,
     rnd: null,
@@ -996,9 +954,7 @@ export const scenariosPriA15Animations: LuaTable<TName, IAnimationDescriptor> = 
       rnd: 100,
       moving: true,
     },
-    into: {
-      [0]: get_sequence_for_npc("zulus", "sokolov, zulus, wanderer"),
-    },
+    into: createSequenceForNpc("zulus", "sokolov, zulus, wanderer"),
     out: null,
     idle: null,
     rnd: null,
@@ -1010,9 +966,7 @@ export const scenariosPriA15Animations: LuaTable<TName, IAnimationDescriptor> = 
       rnd: 100,
       moving: true,
     },
-    into: {
-      [0]: get_sequence_for_npc("zulus", "vano, zulus, wanderer"),
-    },
+    into: createSequenceForNpc("zulus", "vano, zulus, wanderer"),
     out: null,
     idle: null,
     rnd: null,
@@ -1024,9 +978,7 @@ export const scenariosPriA15Animations: LuaTable<TName, IAnimationDescriptor> = 
       rnd: 100,
       moving: true,
     },
-    into: {
-      [0]: get_sequence_for_npc("zulus", "vano, sokolov, zulus"),
-    },
+    into: createSequenceForNpc("zulus", "vano, sokolov, zulus"),
     out: null,
     idle: null,
     rnd: null,
@@ -1038,9 +990,7 @@ export const scenariosPriA15Animations: LuaTable<TName, IAnimationDescriptor> = 
       rnd: 100,
       moving: true,
     },
-    into: {
-      [0]: get_sequence_for_npc("zulus", "zulus, wanderer"),
-    },
+    into: createSequenceForNpc("zulus", "zulus, wanderer"),
     out: null,
     idle: null,
     rnd: null,
@@ -1052,9 +1002,7 @@ export const scenariosPriA15Animations: LuaTable<TName, IAnimationDescriptor> = 
       rnd: 100,
       moving: true,
     },
-    into: {
-      [0]: get_sequence_for_npc("zulus", "sokolov, zulus"),
-    },
+    into: createSequenceForNpc("zulus", "sokolov, zulus"),
     out: null,
     idle: null,
     rnd: null,
@@ -1066,9 +1014,7 @@ export const scenariosPriA15Animations: LuaTable<TName, IAnimationDescriptor> = 
       rnd: 100,
       moving: true,
     },
-    into: {
-      [0]: get_sequence_for_npc("zulus", "vano, zulus"),
-    },
+    into: createSequenceForNpc("zulus", "vano, zulus"),
     out: null,
     idle: null,
     rnd: null,
@@ -1080,9 +1026,7 @@ export const scenariosPriA15Animations: LuaTable<TName, IAnimationDescriptor> = 
       rnd: 100,
       moving: true,
     },
-    into: {
-      [0]: get_sequence_for_npc("zulus", "zulus"),
-    },
+    into: createSequenceForNpc("zulus", "zulus"),
     out: null,
     idle: null,
     rnd: null,
@@ -1094,9 +1038,7 @@ export const scenariosPriA15Animations: LuaTable<TName, IAnimationDescriptor> = 
       rnd: 100,
       moving: true,
     },
-    into: {
-      [0]: get_sequence_for_npc("wanderer", "vano, sokolov, zulus, wanderer"),
-    },
+    into: createSequenceForNpc("wanderer", "vano, sokolov, zulus, wanderer"),
     out: null,
     idle: null,
     rnd: null,
@@ -1108,9 +1050,7 @@ export const scenariosPriA15Animations: LuaTable<TName, IAnimationDescriptor> = 
       rnd: 100,
       moving: true,
     },
-    into: {
-      [0]: get_sequence_for_npc("wanderer", "sokolov, zulus, wanderer"),
-    },
+    into: createSequenceForNpc("wanderer", "sokolov, zulus, wanderer"),
     out: null,
     idle: null,
     rnd: null,
@@ -1122,9 +1062,7 @@ export const scenariosPriA15Animations: LuaTable<TName, IAnimationDescriptor> = 
       rnd: 100,
       moving: true,
     },
-    into: {
-      [0]: get_sequence_for_npc("wanderer", "vano, zulus, wanderer"),
-    },
+    into: createSequenceForNpc("wanderer", "vano, zulus, wanderer"),
     out: null,
     idle: null,
     rnd: null,
@@ -1136,9 +1074,7 @@ export const scenariosPriA15Animations: LuaTable<TName, IAnimationDescriptor> = 
       rnd: 100,
       moving: true,
     },
-    into: {
-      [0]: get_sequence_for_npc("wanderer", "vano, sokolov, wanderer"),
-    },
+    into: createSequenceForNpc("wanderer", "vano, sokolov, wanderer"),
     out: null,
     idle: null,
     rnd: null,
@@ -1150,9 +1086,7 @@ export const scenariosPriA15Animations: LuaTable<TName, IAnimationDescriptor> = 
       rnd: 100,
       moving: true,
     },
-    into: {
-      [0]: get_sequence_for_npc("wanderer", "zulus, wanderer"),
-    },
+    into: createSequenceForNpc("wanderer", "zulus, wanderer"),
     out: null,
     idle: null,
     rnd: null,
@@ -1164,9 +1098,7 @@ export const scenariosPriA15Animations: LuaTable<TName, IAnimationDescriptor> = 
       rnd: 100,
       moving: true,
     },
-    into: {
-      [0]: get_sequence_for_npc("wanderer", "sokolov, wanderer"),
-    },
+    into: createSequenceForNpc("wanderer", "sokolov, wanderer"),
     out: null,
     idle: null,
     rnd: null,
@@ -1178,9 +1110,7 @@ export const scenariosPriA15Animations: LuaTable<TName, IAnimationDescriptor> = 
       rnd: 100,
       moving: true,
     },
-    into: {
-      [0]: get_sequence_for_npc("wanderer", "vano, wanderer"),
-    },
+    into: createSequenceForNpc("wanderer", "vano, wanderer"),
     out: null,
     idle: null,
     rnd: null,
@@ -1192,9 +1122,7 @@ export const scenariosPriA15Animations: LuaTable<TName, IAnimationDescriptor> = 
       rnd: 100,
       moving: true,
     },
-    into: {
-      [0]: get_sequence_for_npc("wanderer", "wanderer"),
-    },
+    into: createSequenceForNpc("wanderer", "wanderer"),
     out: null,
     idle: null,
     rnd: null,
@@ -1207,9 +1135,7 @@ export const scenariosPriA15Animations: LuaTable<TName, IAnimationDescriptor> = 
       rnd: 100,
       moving: true,
     },
-    into: {
-      [0]: get_sequence_for_npc("actor", "vano, sokolov, zulus, wanderer"),
-    },
+    into: createSequenceForNpc("actor", "vano, sokolov, zulus, wanderer"),
     out: null,
     idle: null,
     rnd: null,
@@ -1221,9 +1147,7 @@ export const scenariosPriA15Animations: LuaTable<TName, IAnimationDescriptor> = 
       rnd: 100,
       moving: true,
     },
-    into: {
-      [0]: get_sequence_for_npc("actor", "sokolov, zulus, wanderer"),
-    },
+    into: createSequenceForNpc("actor", "sokolov, zulus, wanderer"),
     out: null,
     idle: null,
     rnd: null,
@@ -1235,9 +1159,7 @@ export const scenariosPriA15Animations: LuaTable<TName, IAnimationDescriptor> = 
       rnd: 100,
       moving: true,
     },
-    into: {
-      [0]: get_sequence_for_npc("actor", "vano, zulus, wanderer"),
-    },
+    into: createSequenceForNpc("actor", "vano, zulus, wanderer"),
     out: null,
     idle: null,
     rnd: null,
@@ -1249,9 +1171,7 @@ export const scenariosPriA15Animations: LuaTable<TName, IAnimationDescriptor> = 
       rnd: 100,
       moving: true,
     },
-    into: {
-      [0]: get_sequence_for_npc("actor", "vano, sokolov, wanderer"),
-    },
+    into: createSequenceForNpc("actor", "vano, sokolov, wanderer"),
     out: null,
     idle: null,
     rnd: null,
@@ -1263,9 +1183,7 @@ export const scenariosPriA15Animations: LuaTable<TName, IAnimationDescriptor> = 
       rnd: 100,
       moving: true,
     },
-    into: {
-      [0]: get_sequence_for_npc("actor", "vano, sokolov, zulus"),
-    },
+    into: createSequenceForNpc("actor", "vano, sokolov, zulus"),
     out: null,
     idle: null,
     rnd: null,
@@ -1277,9 +1195,7 @@ export const scenariosPriA15Animations: LuaTable<TName, IAnimationDescriptor> = 
       rnd: 100,
       moving: true,
     },
-    into: {
-      [0]: get_sequence_for_npc("actor", "zulus, wanderer"),
-    },
+    into: createSequenceForNpc("actor", "zulus, wanderer"),
     out: null,
     idle: null,
     rnd: null,
@@ -1291,9 +1207,7 @@ export const scenariosPriA15Animations: LuaTable<TName, IAnimationDescriptor> = 
       rnd: 100,
       moving: true,
     },
-    into: {
-      [0]: get_sequence_for_npc("actor", "sokolov, wanderer"),
-    },
+    into: createSequenceForNpc("actor", "sokolov, wanderer"),
     out: null,
     idle: null,
     rnd: null,
@@ -1305,9 +1219,7 @@ export const scenariosPriA15Animations: LuaTable<TName, IAnimationDescriptor> = 
       rnd: 100,
       moving: true,
     },
-    into: {
-      [0]: get_sequence_for_npc("actor", "sokolov, zulus"),
-    },
+    into: createSequenceForNpc("actor", "sokolov, zulus"),
     out: null,
     idle: null,
     rnd: null,
@@ -1319,9 +1231,7 @@ export const scenariosPriA15Animations: LuaTable<TName, IAnimationDescriptor> = 
       rnd: 100,
       moving: true,
     },
-    into: {
-      [0]: get_sequence_for_npc("actor", "vano, wanderer"),
-    },
+    into: createSequenceForNpc("actor", "vano, wanderer"),
     out: null,
     idle: null,
     rnd: null,
@@ -1333,9 +1243,7 @@ export const scenariosPriA15Animations: LuaTable<TName, IAnimationDescriptor> = 
       rnd: 100,
       moving: true,
     },
-    into: {
-      [0]: get_sequence_for_npc("actor", "vano, zulus"),
-    },
+    into: createSequenceForNpc("actor", "vano, zulus"),
     out: null,
     idle: null,
     rnd: null,
@@ -1347,9 +1255,7 @@ export const scenariosPriA15Animations: LuaTable<TName, IAnimationDescriptor> = 
       rnd: 100,
       moving: true,
     },
-    into: {
-      [0]: get_sequence_for_npc("actor", "vano, sokolov"),
-    },
+    into: createSequenceForNpc("actor", "vano, sokolov"),
     out: null,
     idle: null,
     rnd: null,
@@ -1361,9 +1267,7 @@ export const scenariosPriA15Animations: LuaTable<TName, IAnimationDescriptor> = 
       rnd: 100,
       moving: true,
     },
-    into: {
-      [0]: get_sequence_for_npc("actor", "vano"),
-    },
+    into: createSequenceForNpc("actor", "vano"),
     out: null,
     idle: null,
     rnd: null,
@@ -1375,9 +1279,7 @@ export const scenariosPriA15Animations: LuaTable<TName, IAnimationDescriptor> = 
       rnd: 100,
       moving: true,
     },
-    into: {
-      [0]: get_sequence_for_npc("actor", "sokolov"),
-    },
+    into: createSequenceForNpc("actor", "sokolov"),
     out: null,
     idle: null,
     rnd: null,
@@ -1389,9 +1291,7 @@ export const scenariosPriA15Animations: LuaTable<TName, IAnimationDescriptor> = 
       rnd: 100,
       moving: true,
     },
-    into: {
-      [0]: get_sequence_for_npc("actor", "zulus"),
-    },
+    into: createSequenceForNpc("actor", "zulus"),
     out: null,
     idle: null,
     rnd: null,
@@ -1403,9 +1303,7 @@ export const scenariosPriA15Animations: LuaTable<TName, IAnimationDescriptor> = 
       rnd: 100,
       moving: true,
     },
-    into: {
-      [0]: get_sequence_for_npc("actor", "wanderer"),
-    },
+    into: createSequenceForNpc("actor", "wanderer"),
     out: null,
     idle: null,
     rnd: null,
@@ -1417,9 +1315,7 @@ export const scenariosPriA15Animations: LuaTable<TName, IAnimationDescriptor> = 
       rnd: 100,
       moving: true,
     },
-    into: {
-      [0]: get_sequence_for_npc("actor", "actor"),
-    },
+    into: createSequenceForNpc("actor", "actor"),
     out: null,
     idle: null,
     rnd: null,
@@ -1432,9 +1328,7 @@ export const scenariosPriA15Animations: LuaTable<TName, IAnimationDescriptor> = 
       rnd: 100,
       moving: true,
     },
-    into: {
-      [0]: get_sequence_for_npc("military_tarasov", "vano, sokolov, zulus, wanderer"),
-    },
+    into: createSequenceForNpc("military_tarasov", "vano, sokolov, zulus, wanderer"),
     out: null,
     idle: null,
     rnd: null,
@@ -1446,9 +1340,7 @@ export const scenariosPriA15Animations: LuaTable<TName, IAnimationDescriptor> = 
       rnd: 100,
       moving: true,
     },
-    into: {
-      [0]: get_sequence_for_npc("military_tarasov", "sokolov, zulus, wanderer"),
-    },
+    into: createSequenceForNpc("military_tarasov", "sokolov, zulus, wanderer"),
     out: null,
     idle: null,
     rnd: null,
@@ -1460,9 +1352,7 @@ export const scenariosPriA15Animations: LuaTable<TName, IAnimationDescriptor> = 
       rnd: 100,
       moving: true,
     },
-    into: {
-      [0]: get_sequence_for_npc("military_tarasov", "vano, zulus, wanderer"),
-    },
+    into: createSequenceForNpc("military_tarasov", "vano, zulus, wanderer"),
     out: null,
     idle: null,
     rnd: null,
@@ -1474,9 +1364,7 @@ export const scenariosPriA15Animations: LuaTable<TName, IAnimationDescriptor> = 
       rnd: 100,
       moving: true,
     },
-    into: {
-      [0]: get_sequence_for_npc("military_tarasov", "vano, sokolov, wanderer"),
-    },
+    into: createSequenceForNpc("military_tarasov", "vano, sokolov, wanderer"),
     out: null,
     idle: null,
     rnd: null,
@@ -1488,9 +1376,7 @@ export const scenariosPriA15Animations: LuaTable<TName, IAnimationDescriptor> = 
       rnd: 100,
       moving: true,
     },
-    into: {
-      [0]: get_sequence_for_npc("military_tarasov", "vano, sokolov, zulus"),
-    },
+    into: createSequenceForNpc("military_tarasov", "vano, sokolov, zulus"),
     out: null,
     idle: null,
     rnd: null,
@@ -1502,9 +1388,7 @@ export const scenariosPriA15Animations: LuaTable<TName, IAnimationDescriptor> = 
       rnd: 100,
       moving: true,
     },
-    into: {
-      [0]: get_sequence_for_npc("military_tarasov", "zulus, wanderer"),
-    },
+    into: createSequenceForNpc("military_tarasov", "zulus, wanderer"),
     out: null,
     idle: null,
     rnd: null,
@@ -1516,9 +1400,7 @@ export const scenariosPriA15Animations: LuaTable<TName, IAnimationDescriptor> = 
       rnd: 100,
       moving: true,
     },
-    into: {
-      [0]: get_sequence_for_npc("military_tarasov", "sokolov, wanderer"),
-    },
+    into: createSequenceForNpc("military_tarasov", "sokolov, wanderer"),
     out: null,
     idle: null,
     rnd: null,
@@ -1530,9 +1412,7 @@ export const scenariosPriA15Animations: LuaTable<TName, IAnimationDescriptor> = 
       rnd: 100,
       moving: true,
     },
-    into: {
-      [0]: get_sequence_for_npc("military_tarasov", "sokolov, zulus"),
-    },
+    into: createSequenceForNpc("military_tarasov", "sokolov, zulus"),
     out: null,
     idle: null,
     rnd: null,
@@ -1544,9 +1424,7 @@ export const scenariosPriA15Animations: LuaTable<TName, IAnimationDescriptor> = 
       rnd: 100,
       moving: true,
     },
-    into: {
-      [0]: get_sequence_for_npc("military_tarasov", "vano, wanderer"),
-    },
+    into: createSequenceForNpc("military_tarasov", "vano, wanderer"),
     out: null,
     idle: null,
     rnd: null,
@@ -1558,9 +1436,7 @@ export const scenariosPriA15Animations: LuaTable<TName, IAnimationDescriptor> = 
       rnd: 100,
       moving: true,
     },
-    into: {
-      [0]: get_sequence_for_npc("military_tarasov", "vano, zulus"),
-    },
+    into: createSequenceForNpc("military_tarasov", "vano, zulus"),
     out: null,
     idle: null,
     rnd: null,
@@ -1572,9 +1448,7 @@ export const scenariosPriA15Animations: LuaTable<TName, IAnimationDescriptor> = 
       rnd: 100,
       moving: true,
     },
-    into: {
-      [0]: get_sequence_for_npc("military_tarasov", "vano, sokolov"),
-    },
+    into: createSequenceForNpc("military_tarasov", "vano, sokolov"),
     out: null,
     idle: null,
     rnd: null,
@@ -1586,9 +1460,7 @@ export const scenariosPriA15Animations: LuaTable<TName, IAnimationDescriptor> = 
       rnd: 100,
       moving: true,
     },
-    into: {
-      [0]: get_sequence_for_npc("military_tarasov", "vano"),
-    },
+    into: createSequenceForNpc("military_tarasov", "vano"),
     out: null,
     idle: null,
     rnd: null,
@@ -1600,9 +1472,7 @@ export const scenariosPriA15Animations: LuaTable<TName, IAnimationDescriptor> = 
       rnd: 100,
       moving: true,
     },
-    into: {
-      [0]: get_sequence_for_npc("military_tarasov", "sokolov"),
-    },
+    into: createSequenceForNpc("military_tarasov", "sokolov"),
     out: null,
     idle: null,
     rnd: null,
@@ -1614,9 +1484,7 @@ export const scenariosPriA15Animations: LuaTable<TName, IAnimationDescriptor> = 
       rnd: 100,
       moving: true,
     },
-    into: {
-      [0]: get_sequence_for_npc("military_tarasov", "zulus"),
-    },
+    into: createSequenceForNpc("military_tarasov", "zulus"),
     out: null,
     idle: null,
     rnd: null,
@@ -1628,9 +1496,7 @@ export const scenariosPriA15Animations: LuaTable<TName, IAnimationDescriptor> = 
       rnd: 100,
       moving: true,
     },
-    into: {
-      [0]: get_sequence_for_npc("military_tarasov", "wanderer"),
-    },
+    into: createSequenceForNpc("military_tarasov", "wanderer"),
     out: null,
     idle: null,
     rnd: null,
@@ -1642,9 +1508,7 @@ export const scenariosPriA15Animations: LuaTable<TName, IAnimationDescriptor> = 
       rnd: 100,
       moving: true,
     },
-    into: {
-      [0]: get_sequence_for_npc("military_tarasov", "actor"),
-    },
+    into: createSequenceForNpc("military_tarasov", "actor"),
     out: null,
     idle: null,
     rnd: null,
@@ -1657,9 +1521,7 @@ export const scenariosPriA15Animations: LuaTable<TName, IAnimationDescriptor> = 
       rnd: 100,
       moving: true,
     },
-    into: {
-      [0]: get_sequence_for_npc("military_2", "vano, sokolov, zulus, wanderer"),
-    },
+    into: createSequenceForNpc("military_2", "vano, sokolov, zulus, wanderer"),
     out: null,
     idle: null,
     rnd: null,
@@ -1671,9 +1533,7 @@ export const scenariosPriA15Animations: LuaTable<TName, IAnimationDescriptor> = 
       rnd: 100,
       moving: true,
     },
-    into: {
-      [0]: get_sequence_for_npc("military_2", "sokolov, zulus, wanderer"),
-    },
+    into: createSequenceForNpc("military_2", "sokolov, zulus, wanderer"),
     out: null,
     idle: null,
     rnd: null,
@@ -1685,9 +1545,7 @@ export const scenariosPriA15Animations: LuaTable<TName, IAnimationDescriptor> = 
       rnd: 100,
       moving: true,
     },
-    into: {
-      [0]: get_sequence_for_npc("military_2", "vano, zulus, wanderer"),
-    },
+    into: createSequenceForNpc("military_2", "vano, zulus, wanderer"),
     out: null,
     idle: null,
     rnd: null,
@@ -1699,9 +1557,7 @@ export const scenariosPriA15Animations: LuaTable<TName, IAnimationDescriptor> = 
       rnd: 100,
       moving: true,
     },
-    into: {
-      [0]: get_sequence_for_npc("military_2", "vano, sokolov, wanderer"),
-    },
+    into: createSequenceForNpc("military_2", "vano, sokolov, wanderer"),
     out: null,
     idle: null,
     rnd: null,
@@ -1713,9 +1569,7 @@ export const scenariosPriA15Animations: LuaTable<TName, IAnimationDescriptor> = 
       rnd: 100,
       moving: true,
     },
-    into: {
-      [0]: get_sequence_for_npc("military_2", "vano, sokolov, zulus"),
-    },
+    into: createSequenceForNpc("military_2", "vano, sokolov, zulus"),
     out: null,
     idle: null,
     rnd: null,
@@ -1727,9 +1581,7 @@ export const scenariosPriA15Animations: LuaTable<TName, IAnimationDescriptor> = 
       rnd: 100,
       moving: true,
     },
-    into: {
-      [0]: get_sequence_for_npc("military_2", "zulus, wanderer"),
-    },
+    into: createSequenceForNpc("military_2", "zulus, wanderer"),
     out: null,
     idle: null,
     rnd: null,
@@ -1741,9 +1593,7 @@ export const scenariosPriA15Animations: LuaTable<TName, IAnimationDescriptor> = 
       rnd: 100,
       moving: true,
     },
-    into: {
-      [0]: get_sequence_for_npc("military_2", "sokolov, wanderer"),
-    },
+    into: createSequenceForNpc("military_2", "sokolov, wanderer"),
     out: null,
     idle: null,
     rnd: null,
@@ -1755,9 +1605,7 @@ export const scenariosPriA15Animations: LuaTable<TName, IAnimationDescriptor> = 
       rnd: 100,
       moving: true,
     },
-    into: {
-      [0]: get_sequence_for_npc("military_2", "sokolov, zulus"),
-    },
+    into: createSequenceForNpc("military_2", "sokolov, zulus"),
     out: null,
     idle: null,
     rnd: null,
@@ -1769,9 +1617,7 @@ export const scenariosPriA15Animations: LuaTable<TName, IAnimationDescriptor> = 
       rnd: 100,
       moving: true,
     },
-    into: {
-      [0]: get_sequence_for_npc("military_2", "vano, wanderer"),
-    },
+    into: createSequenceForNpc("military_2", "vano, wanderer"),
     out: null,
     idle: null,
     rnd: null,
@@ -1783,9 +1629,7 @@ export const scenariosPriA15Animations: LuaTable<TName, IAnimationDescriptor> = 
       rnd: 100,
       moving: true,
     },
-    into: {
-      [0]: get_sequence_for_npc("military_2", "vano, zulus"),
-    },
+    into: createSequenceForNpc("military_2", "vano, zulus"),
     out: null,
     idle: null,
     rnd: null,
@@ -1797,9 +1641,7 @@ export const scenariosPriA15Animations: LuaTable<TName, IAnimationDescriptor> = 
       rnd: 100,
       moving: true,
     },
-    into: {
-      [0]: get_sequence_for_npc("military_2", "vano, sokolov"),
-    },
+    into: createSequenceForNpc("military_2", "vano, sokolov"),
     out: null,
     idle: null,
     rnd: null,
@@ -1811,9 +1653,7 @@ export const scenariosPriA15Animations: LuaTable<TName, IAnimationDescriptor> = 
       rnd: 100,
       moving: true,
     },
-    into: {
-      [0]: get_sequence_for_npc("military_2", "vano"),
-    },
+    into: createSequenceForNpc("military_2", "vano"),
     out: null,
     idle: null,
     rnd: null,
@@ -1825,9 +1665,7 @@ export const scenariosPriA15Animations: LuaTable<TName, IAnimationDescriptor> = 
       rnd: 100,
       moving: true,
     },
-    into: {
-      [0]: get_sequence_for_npc("military_2", "sokolov"),
-    },
+    into: createSequenceForNpc("military_2", "sokolov"),
     out: null,
     idle: null,
     rnd: null,
@@ -1839,9 +1677,7 @@ export const scenariosPriA15Animations: LuaTable<TName, IAnimationDescriptor> = 
       rnd: 100,
       moving: true,
     },
-    into: {
-      [0]: get_sequence_for_npc("military_2", "zulus"),
-    },
+    into: createSequenceForNpc("military_2", "zulus"),
     out: null,
     idle: null,
     rnd: null,
@@ -1853,9 +1689,7 @@ export const scenariosPriA15Animations: LuaTable<TName, IAnimationDescriptor> = 
       rnd: 100,
       moving: true,
     },
-    into: {
-      [0]: get_sequence_for_npc("military_2", "wanderer"),
-    },
+    into: createSequenceForNpc("military_2", "wanderer"),
     out: null,
     idle: null,
     rnd: null,
@@ -1867,9 +1701,7 @@ export const scenariosPriA15Animations: LuaTable<TName, IAnimationDescriptor> = 
       rnd: 100,
       moving: true,
     },
-    into: {
-      [0]: get_sequence_for_npc("military_2", "actor"),
-    },
+    into: createSequenceForNpc("military_2", "actor"),
     out: null,
     idle: null,
     rnd: null,
@@ -1882,9 +1714,7 @@ export const scenariosPriA15Animations: LuaTable<TName, IAnimationDescriptor> = 
       rnd: 100,
       moving: true,
     },
-    into: {
-      [0]: get_sequence_for_npc("military_3", "vano, sokolov, zulus, wanderer"),
-    },
+    into: createSequenceForNpc("military_3", "vano, sokolov, zulus, wanderer"),
     out: null,
     idle: null,
     rnd: null,
@@ -1896,9 +1726,7 @@ export const scenariosPriA15Animations: LuaTable<TName, IAnimationDescriptor> = 
       rnd: 100,
       moving: true,
     },
-    into: {
-      [0]: get_sequence_for_npc("military_3", "sokolov, zulus, wanderer"),
-    },
+    into: createSequenceForNpc("military_3", "sokolov, zulus, wanderer"),
     out: null,
     idle: null,
     rnd: null,
@@ -1910,9 +1738,7 @@ export const scenariosPriA15Animations: LuaTable<TName, IAnimationDescriptor> = 
       rnd: 100,
       moving: true,
     },
-    into: {
-      [0]: get_sequence_for_npc("military_3", "vano, zulus, wanderer"),
-    },
+    into: createSequenceForNpc("military_3", "vano, zulus, wanderer"),
     out: null,
     idle: null,
     rnd: null,
@@ -1924,9 +1750,7 @@ export const scenariosPriA15Animations: LuaTable<TName, IAnimationDescriptor> = 
       rnd: 100,
       moving: true,
     },
-    into: {
-      [0]: get_sequence_for_npc("military_3", "vano, sokolov, wanderer"),
-    },
+    into: createSequenceForNpc("military_3", "vano, sokolov, wanderer"),
     out: null,
     idle: null,
     rnd: null,
@@ -1938,9 +1762,7 @@ export const scenariosPriA15Animations: LuaTable<TName, IAnimationDescriptor> = 
       rnd: 100,
       moving: true,
     },
-    into: {
-      [0]: get_sequence_for_npc("military_3", "vano, sokolov, zulus"),
-    },
+    into: createSequenceForNpc("military_3", "vano, sokolov, zulus"),
     out: null,
     idle: null,
     rnd: null,
@@ -1952,9 +1774,7 @@ export const scenariosPriA15Animations: LuaTable<TName, IAnimationDescriptor> = 
       rnd: 100,
       moving: true,
     },
-    into: {
-      [0]: get_sequence_for_npc("military_3", "zulus, wanderer"),
-    },
+    into: createSequenceForNpc("military_3", "zulus, wanderer"),
     out: null,
     idle: null,
     rnd: null,
@@ -1966,9 +1786,7 @@ export const scenariosPriA15Animations: LuaTable<TName, IAnimationDescriptor> = 
       rnd: 100,
       moving: true,
     },
-    into: {
-      [0]: get_sequence_for_npc("military_3", "sokolov, wanderer"),
-    },
+    into: createSequenceForNpc("military_3", "sokolov, wanderer"),
     out: null,
     idle: null,
     rnd: null,
@@ -1980,9 +1798,7 @@ export const scenariosPriA15Animations: LuaTable<TName, IAnimationDescriptor> = 
       rnd: 100,
       moving: true,
     },
-    into: {
-      [0]: get_sequence_for_npc("military_3", "sokolov, zulus"),
-    },
+    into: createSequenceForNpc("military_3", "sokolov, zulus"),
     out: null,
     idle: null,
     rnd: null,
@@ -1994,9 +1810,7 @@ export const scenariosPriA15Animations: LuaTable<TName, IAnimationDescriptor> = 
       rnd: 100,
       moving: true,
     },
-    into: {
-      [0]: get_sequence_for_npc("military_3", "vano, wanderer"),
-    },
+    into: createSequenceForNpc("military_3", "vano, wanderer"),
     out: null,
     idle: null,
     rnd: null,
@@ -2008,9 +1822,7 @@ export const scenariosPriA15Animations: LuaTable<TName, IAnimationDescriptor> = 
       rnd: 100,
       moving: true,
     },
-    into: {
-      [0]: get_sequence_for_npc("military_3", "vano, zulus"),
-    },
+    into: createSequenceForNpc("military_3", "vano, zulus"),
     out: null,
     idle: null,
     rnd: null,
@@ -2022,9 +1834,7 @@ export const scenariosPriA15Animations: LuaTable<TName, IAnimationDescriptor> = 
       rnd: 100,
       moving: true,
     },
-    into: {
-      [0]: get_sequence_for_npc("military_3", "vano, sokolov"),
-    },
+    into: createSequenceForNpc("military_3", "vano, sokolov"),
     out: null,
     idle: null,
     rnd: null,
@@ -2036,9 +1846,7 @@ export const scenariosPriA15Animations: LuaTable<TName, IAnimationDescriptor> = 
       rnd: 100,
       moving: true,
     },
-    into: {
-      [0]: get_sequence_for_npc("military_3", "vano"),
-    },
+    into: createSequenceForNpc("military_3", "vano"),
     out: null,
     idle: null,
     rnd: null,
@@ -2050,9 +1858,7 @@ export const scenariosPriA15Animations: LuaTable<TName, IAnimationDescriptor> = 
       rnd: 100,
       moving: true,
     },
-    into: {
-      [0]: get_sequence_for_npc("military_3", "sokolov"),
-    },
+    into: createSequenceForNpc("military_3", "sokolov"),
     out: null,
     idle: null,
     rnd: null,
@@ -2064,9 +1870,7 @@ export const scenariosPriA15Animations: LuaTable<TName, IAnimationDescriptor> = 
       rnd: 100,
       moving: true,
     },
-    into: {
-      [0]: get_sequence_for_npc("military_3", "zulus"),
-    },
+    into: createSequenceForNpc("military_3", "zulus"),
     out: null,
     idle: null,
     rnd: null,
@@ -2078,9 +1882,7 @@ export const scenariosPriA15Animations: LuaTable<TName, IAnimationDescriptor> = 
       rnd: 100,
       moving: true,
     },
-    into: {
-      [0]: get_sequence_for_npc("military_3", "wanderer"),
-    },
+    into: createSequenceForNpc("military_3", "wanderer"),
     out: null,
     idle: null,
     rnd: null,
@@ -2092,9 +1894,7 @@ export const scenariosPriA15Animations: LuaTable<TName, IAnimationDescriptor> = 
       rnd: 100,
       moving: true,
     },
-    into: {
-      [0]: get_sequence_for_npc("military_3", "actor"),
-    },
+    into: createSequenceForNpc("military_3", "actor"),
     out: null,
     idle: null,
     rnd: null,
@@ -2107,9 +1907,7 @@ export const scenariosPriA15Animations: LuaTable<TName, IAnimationDescriptor> = 
       rnd: 100,
       moving: true,
     },
-    into: {
-      [0]: get_sequence_for_npc("military_4", "vano, sokolov, zulus, wanderer"),
-    },
+    into: createSequenceForNpc("military_4", "vano, sokolov, zulus, wanderer"),
     out: null,
     idle: null,
     rnd: null,
@@ -2121,9 +1919,7 @@ export const scenariosPriA15Animations: LuaTable<TName, IAnimationDescriptor> = 
       rnd: 100,
       moving: true,
     },
-    into: {
-      [0]: get_sequence_for_npc("military_4", "sokolov, zulus, wanderer"),
-    },
+    into: createSequenceForNpc("military_4", "sokolov, zulus, wanderer"),
     out: null,
     idle: null,
     rnd: null,
@@ -2135,9 +1931,7 @@ export const scenariosPriA15Animations: LuaTable<TName, IAnimationDescriptor> = 
       rnd: 100,
       moving: true,
     },
-    into: {
-      [0]: get_sequence_for_npc("military_4", "vano, zulus, wanderer"),
-    },
+    into: createSequenceForNpc("military_4", "vano, zulus, wanderer"),
     out: null,
     idle: null,
     rnd: null,
@@ -2149,9 +1943,7 @@ export const scenariosPriA15Animations: LuaTable<TName, IAnimationDescriptor> = 
       rnd: 100,
       moving: true,
     },
-    into: {
-      [0]: get_sequence_for_npc("military_4", "vano, sokolov, wanderer"),
-    },
+    into: createSequenceForNpc("military_4", "vano, sokolov, wanderer"),
     out: null,
     idle: null,
     rnd: null,
@@ -2163,9 +1955,7 @@ export const scenariosPriA15Animations: LuaTable<TName, IAnimationDescriptor> = 
       rnd: 100,
       moving: true,
     },
-    into: {
-      [0]: get_sequence_for_npc("military_4", "vano, sokolov, zulus"),
-    },
+    into: createSequenceForNpc("military_4", "vano, sokolov, zulus"),
     out: null,
     idle: null,
     rnd: null,
@@ -2177,9 +1967,7 @@ export const scenariosPriA15Animations: LuaTable<TName, IAnimationDescriptor> = 
       rnd: 100,
       moving: true,
     },
-    into: {
-      [0]: get_sequence_for_npc("military_4", "zulus, wanderer"),
-    },
+    into: createSequenceForNpc("military_4", "zulus, wanderer"),
     out: null,
     idle: null,
     rnd: null,
@@ -2191,9 +1979,7 @@ export const scenariosPriA15Animations: LuaTable<TName, IAnimationDescriptor> = 
       rnd: 100,
       moving: true,
     },
-    into: {
-      [0]: get_sequence_for_npc("military_4", "sokolov, wanderer"),
-    },
+    into: createSequenceForNpc("military_4", "sokolov, wanderer"),
     out: null,
     idle: null,
     rnd: null,
@@ -2205,9 +1991,7 @@ export const scenariosPriA15Animations: LuaTable<TName, IAnimationDescriptor> = 
       rnd: 100,
       moving: true,
     },
-    into: {
-      [0]: get_sequence_for_npc("military_4", "sokolov, zulus"),
-    },
+    into: createSequenceForNpc("military_4", "sokolov, zulus"),
     out: null,
     idle: null,
     rnd: null,
@@ -2219,9 +2003,7 @@ export const scenariosPriA15Animations: LuaTable<TName, IAnimationDescriptor> = 
       rnd: 100,
       moving: true,
     },
-    into: {
-      [0]: get_sequence_for_npc("military_4", "vano, wanderer"),
-    },
+    into: createSequenceForNpc("military_4", "vano, wanderer"),
     out: null,
     idle: null,
     rnd: null,
@@ -2233,9 +2015,7 @@ export const scenariosPriA15Animations: LuaTable<TName, IAnimationDescriptor> = 
       rnd: 100,
       moving: true,
     },
-    into: {
-      [0]: get_sequence_for_npc("military_4", "vano, zulus"),
-    },
+    into: createSequenceForNpc("military_4", "vano, zulus"),
     out: null,
     idle: null,
     rnd: null,
@@ -2247,9 +2027,7 @@ export const scenariosPriA15Animations: LuaTable<TName, IAnimationDescriptor> = 
       rnd: 100,
       moving: true,
     },
-    into: {
-      [0]: get_sequence_for_npc("military_4", "vano, sokolov"),
-    },
+    into: createSequenceForNpc("military_4", "vano, sokolov"),
     out: null,
     idle: null,
     rnd: null,
@@ -2261,9 +2039,7 @@ export const scenariosPriA15Animations: LuaTable<TName, IAnimationDescriptor> = 
       rnd: 100,
       moving: true,
     },
-    into: {
-      [0]: get_sequence_for_npc("military_4", "vano"),
-    },
+    into: createSequenceForNpc("military_4", "vano"),
     out: null,
     idle: null,
     rnd: null,
@@ -2275,9 +2051,7 @@ export const scenariosPriA15Animations: LuaTable<TName, IAnimationDescriptor> = 
       rnd: 100,
       moving: true,
     },
-    into: {
-      [0]: get_sequence_for_npc("military_4", "sokolov"),
-    },
+    into: createSequenceForNpc("military_4", "sokolov"),
     out: null,
     idle: null,
     rnd: null,
@@ -2289,9 +2063,7 @@ export const scenariosPriA15Animations: LuaTable<TName, IAnimationDescriptor> = 
       rnd: 100,
       moving: true,
     },
-    into: {
-      [0]: get_sequence_for_npc("military_4", "zulus"),
-    },
+    into: createSequenceForNpc("military_4", "zulus"),
     out: null,
     idle: null,
     rnd: null,
@@ -2303,9 +2075,7 @@ export const scenariosPriA15Animations: LuaTable<TName, IAnimationDescriptor> = 
       rnd: 100,
       moving: true,
     },
-    into: {
-      [0]: get_sequence_for_npc("military_4", "wanderer"),
-    },
+    into: createSequenceForNpc("military_4", "wanderer"),
     out: null,
     idle: null,
     rnd: null,
@@ -2317,11 +2087,9 @@ export const scenariosPriA15Animations: LuaTable<TName, IAnimationDescriptor> = 
       rnd: 100,
       moving: true,
     },
-    into: {
-      [0]: get_sequence_for_npc("military_4", "actor"),
-    },
+    into: createSequenceForNpc("military_4", "actor"),
     out: null,
     idle: null,
     rnd: null,
   },
-} as any;
+});
