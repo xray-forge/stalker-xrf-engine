@@ -6,10 +6,7 @@ import {
   unregisterSmartCover,
   unregisterStoryLinkByObjectId,
 } from "@/engine/core/database";
-import {
-  ISmartCoverLoopholeDescriptor,
-  smartCoversList,
-} from "@/engine/core/objects/server/smart_cover/smart_covers_list";
+import { ISmartCoverLoopholeDescriptor, smartCoversList } from "@/engine/core/objects/animation/smart_covers";
 import { assert } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getTableSize } from "@/engine/core/utils/table";

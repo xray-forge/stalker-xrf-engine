@@ -3,7 +3,7 @@
  */
 import { SaveManager } from "@/engine/core/managers/base/SaveManager";
 import { TradeManager } from "@/engine/core/managers/interaction/TradeManager";
-import { smartCoversList } from "@/engine/core/objects/server/smart_cover/smart_covers_list";
+import { smartCoversList } from "@/engine/core/objects/animation/smart_covers";
 import { GameOutroManager } from "@/engine/core/ui/game/GameOutroManager";
 import { extern } from "@/engine/core/utils/binding";
 import { LuaLogger } from "@/engine/core/utils/logging";

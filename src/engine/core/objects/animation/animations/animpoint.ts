@@ -779,4 +779,40 @@ export const animpointAnimations: LuaTable<TName, IAnimationDescriptor> = $fromO
     idle: createSequence("animpoint_sit_low_harmonica_idle_1", "animpoint_sit_low_harmonica_idle_1"),
     rnd: null,
   },
+  [EStalkerState.ANIMPOINT_SIT_ASS_HARMONICA]: {
+    prop: {
+      maxidle: 3,
+      sumidle: 3,
+      rnd: 80,
+      moving: null,
+    },
+    into: createSequence(
+      [
+        "sit_2_harmonica_1_0",
+        { a: misc.harmonica_a },
+        {
+          f: (object: ClientObject) => {
+            CampManager.startPlayingHarmonica(object);
+          },
+        },
+        "sit_2_harmonica_1_1",
+      ],
+      [
+        "sit_2_harmonica_1_0",
+        { a: misc.harmonica_a },
+        {
+          f: (object: ClientObject) => {
+            CampManager.startPlayingHarmonica(object);
+          },
+        },
+        "sit_2_harmonica_1_1",
+      ]
+    ),
+    out: createSequence(
+      ["harmonica_1_sit_2_0", { d: misc.harmonica_a }, "harmonica_1_sit_2_1"],
+      ["harmonica_1_sit_2_0", { d: misc.harmonica_a }, "harmonica_1_sit_2_1"]
+    ),
+    idle: createSequence("harmonica_0", "harmonica_0"),
+    rnd: null,
+  },
 });
