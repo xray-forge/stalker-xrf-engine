@@ -3,7 +3,7 @@
 ## 🧰 Main todos
 
 - Create xrf.ltx config and place extended game configs in it
-- Update statistics measurements to be more generic and less hardcoded
+- Move animations/animstates etc to LTX files
 
 ## 🧰 Tech
 

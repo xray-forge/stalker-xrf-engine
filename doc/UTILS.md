@@ -9,6 +9,7 @@
 - https://igigog.github.io/anomaly-modding-book/ - anomaly based modding docs
 - https://github.com/exdingbat/xrCompress-helper - docs about xrCompress
 - https://github.com/themrdemonized/STALKER-Anomaly-modded-exes - dltx as source of ideas / openxray updates
+- https://github.com/vika-sonne/xray-skls-file-browser - animations converter
 
 ## Command line flags for xr-engine
 

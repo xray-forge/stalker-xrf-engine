@@ -1,11 +1,9 @@
 import { callback, level, move, patrol, time_global } from "xray16";
 
 import { IRegistryObjectState, registry, setStalkerState } from "@/engine/core/database";
-import { EStalkerState } from "@/engine/core/objects/state/types";
+import { ECurrentMovementState, EStalkerState } from "@/engine/core/objects/state/state_types";
 import { abort } from "@/engine/core/utils/assertion";
-import { pickSectionFromCondList } from "@/engine/core/utils/ini/ini_config";
-import { parseConditionsList } from "@/engine/core/utils/ini/ini_parse";
-import { IWaypointData, TConditionList } from "@/engine/core/utils/ini/ini_types";
+import { IWaypointData, parseConditionsList, pickSectionFromCondList, TConditionList } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { isObjectAtWaypoint } from "@/engine/core/utils/object";
 import { TRUE } from "@/engine/lib/constants/words";
@@ -42,12 +40,6 @@ const DEFAULT_STATE_MOVING3: EStalkerState = EStalkerState.PATROL;
 
 const ARRIVAL_BEFORE_ROTATION: number = 0;
 const ARRIVAL_AFTER_ROTATION: number = 1;
-
-enum ECurrentState {
-  NONE = 0,
-  MOVING = 1,
-  STANDING = 2,
-}
 
 const sync: LuaTable<string, LuaTable<number, boolean>> = new LuaTable();
 
@@ -92,7 +84,7 @@ export class StalkerMoveManager {
 
   public readonly object: ClientObject;
 
-  public state: Optional<ECurrentState> = null;
+  public state: Optional<ECurrentMovementState> = null;
   public currentStateMoving!: EStalkerState;
   public currentStateStanding!: EStalkerState;
 
@@ -369,7 +361,7 @@ export class StalkerMoveManager {
       this.object.set_patrol_path(this.pathWalk!, patrol.nearest, patrol.continue, true);
     }
 
-    this.state = ECurrentState.MOVING;
+    this.state = ECurrentMovementState.MOVING;
 
     const [isTerminalPoint, index] = this.isStandingOnTerminalWaypoint();
 
@@ -655,7 +647,7 @@ export class StalkerMoveManager {
       this.lastLookIndex = ptChosenIdx;
       this.updateStandingState(this.patrolLook.point(ptChosenIdx));
 
-      this.state = ECurrentState.STANDING;
+      this.state = ECurrentMovementState.STANDING;
 
       this.update();
     } else {

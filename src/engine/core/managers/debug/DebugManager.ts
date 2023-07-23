@@ -168,7 +168,7 @@ export class DebugManager extends AbstractCoreManager {
    */
   public logObjectState(object: ClientObject): void {
     logger.pushSeparator();
-    logger.info("Print object scheme state report:", object.name(), object.id(), object.section());
+    logger.info("Print object state report:", object.name(), object.id(), object.section());
 
     const state: IRegistryObjectState = registry.objects.get(object.id());
 
@@ -186,7 +186,7 @@ export class DebugManager extends AbstractCoreManager {
     logger.info("Enemy id:", state.enemy_id);
     logger.info("Enemy name:", state.enemy_id ? alife().object(state.enemy_id)?.name() : NIL);
     logger.info("Script combat type:", state.script_combat_type);
-    logger.info("Registered camp:", state.registred_camp);
+    logger.info("Registered camp:", state.camp || "none");
 
     logger.pushSeparator();
 

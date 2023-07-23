@@ -3,8 +3,8 @@ import { describe, expect, it } from "@jest/globals";
 import { registry } from "@/engine/core/database/registry";
 import { registerStalker, unregisterStalker } from "@/engine/core/database/stalker";
 import { StalkerBinder } from "@/engine/core/objects";
+import { EAnimationMarker } from "@/engine/core/objects/state";
 import { EvaluatorAnimationStateLocked } from "@/engine/core/objects/state/animation_state/EvaluatorAnimationStateLocked";
-import { EAnimationMarker } from "@/engine/core/objects/state/StalkerAnimationManager";
 import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateManager";
 import { mockClientGameObject } from "@/fixtures/xray";
 

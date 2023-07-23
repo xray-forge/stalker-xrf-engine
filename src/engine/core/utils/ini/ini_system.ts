@@ -1,4 +1,4 @@
-import { SYSTEM_INI } from "@/engine/core/database";
+import { SYSTEM_INI } from "@/engine/core/database/ini_registry";
 import { IniFile } from "@/engine/lib/types";
 
 /**

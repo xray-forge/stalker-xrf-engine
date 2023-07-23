@@ -22,7 +22,7 @@ describe("registry storage", () => {
     expect(registry.storyLink.idBySid instanceof LuaTable).toBeTruthy();
     expect(registry.stalkers instanceof LuaTable).toBeTruthy();
     expect(registry.trade instanceof LuaTable).toBeTruthy();
-    expect(registry.campsStories instanceof LuaTable).toBeTruthy();
+    expect(registry.camps instanceof LuaTable).toBeTruthy();
     expect(registry.crows.storage instanceof LuaTable).toBeTruthy();
     expect(registry.crows.count).toBe(0);
     expect(registry.helicopter.storage instanceof LuaTable).toBeTruthy();

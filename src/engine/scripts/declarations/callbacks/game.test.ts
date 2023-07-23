@@ -1,6 +1,6 @@
 import { beforeAll, describe, it } from "@jest/globals";
 
-import { checkBinding } from "@/fixtures/engine";
+import { checkBinding, checkNestedBinding } from "@/fixtures/engine";
 
 describe("'game' external callbacks", () => {
   beforeAll(() => {
@@ -9,6 +9,7 @@ describe("'game' external callbacks", () => {
 
   it("should correctly inject external methods for game", () => {
     checkBinding("smart_covers");
+    checkNestedBinding("smart_covers", "descriptions");
     checkBinding("outro");
     checkBinding("trade_manager");
   });

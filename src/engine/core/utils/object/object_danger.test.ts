@@ -19,7 +19,6 @@ import {
   mockClientGameObject,
   MockDangerObject,
   mockServerAlifeHumanStalker,
-  mockServerAlifeObject,
   mockServerAlifeSmartZone,
 } from "@/fixtures/xray";
 
@@ -137,17 +136,15 @@ describe("'object_danger' utils", () => {
     const combatIgnoreState: ISchemeCombatIgnoreState = mockSchemeState(object, EScheme.COMBAT_IGNORE);
 
     state[EScheme.COMBAT_IGNORE] = combatIgnoreState;
-    expect(canObjectSelectAsEnemy(object, enemy, combatIgnoreState)).toBe(true);
+    expect(canObjectSelectAsEnemy(object, enemy)).toBe(true);
     expect(state.enemy_id).toBe(enemy.id());
 
     state.enemy_id = null;
     jest.spyOn(object, "alive").mockImplementationOnce(() => false);
-    expect(canObjectSelectAsEnemy(object, enemy, combatIgnoreState)).toBe(false);
+    expect(canObjectSelectAsEnemy(object, enemy)).toBe(false);
     expect(state.enemy_id).toBeNull();
 
-    expect(canObjectSelectAsEnemy(mockClientGameObject(), enemy, null as unknown as ISchemeCombatIgnoreState)).toBe(
-      true
-    );
+    expect(canObjectSelectAsEnemy(mockClientGameObject(), enemy)).toBe(true);
 
     state.enemy_id = null;
     combatIgnoreState.overrides = {
@@ -155,7 +152,7 @@ describe("'object_danger' utils", () => {
         condlist: parseConditionsList(TRUE),
       },
     };
-    expect(canObjectSelectAsEnemy(object, enemy, combatIgnoreState)).toBe(false);
+    expect(canObjectSelectAsEnemy(object, enemy)).toBe(false);
     expect(state.enemy_id).toBe(enemy.id());
 
     state.enemy_id = null;
@@ -164,7 +161,7 @@ describe("'object_danger' utils", () => {
         condlist: parseConditionsList(FALSE),
       },
     };
-    expect(canObjectSelectAsEnemy(object, enemy, combatIgnoreState)).toBe(true);
+    expect(canObjectSelectAsEnemy(object, enemy)).toBe(true);
     expect(state.enemy_id).toBe(enemy.id());
   });
 
@@ -189,7 +186,7 @@ describe("'object_danger' utils", () => {
       status: ESmartTerrainStatus.NORMAL,
     } as SmartTerrainControl;
 
-    expect(canObjectSelectAsEnemy(object, enemy, combatIgnoreState)).toBe(false);
+    expect(canObjectSelectAsEnemy(object, enemy)).toBe(false);
     expect(state.enemy_id).toBe(enemy.id());
   });
 
@@ -206,7 +203,7 @@ describe("'object_danger' utils", () => {
     mockServerAlifeHumanStalker({ id: enemy.id(), m_smart_terrain_id: noCombatSmart.id });
 
     state[EScheme.COMBAT_IGNORE] = combatIgnoreState;
-    expect(canObjectSelectAsEnemy(object, enemy, combatIgnoreState)).toBe(false);
+    expect(canObjectSelectAsEnemy(object, enemy)).toBe(false);
     expect(state.enemy_id).toBe(enemy.id());
   });
 });

@@ -22,4 +22,23 @@ export const mockTableUtils = {
       table.delete(k);
     }
   },
+  mergeTables: (destination: LuaTable | AnyObject, ...rest: Array<AnyObject | LuaTable>) => {
+    if (destination instanceof MockLuaTable) {
+      for (const it of rest) {
+        if (it instanceof MockLuaTable) {
+          for (const [k, v] of it.entries()) {
+            destination.set(k, v);
+          }
+        } else {
+          Object.entries(it).forEach(([k, v]) => destination.set(k, v));
+        }
+      }
+    } else {
+      for (const it of rest) {
+        Object.assign(destination, it instanceof MockLuaTable ? it.values() : it);
+      }
+    }
+
+    return destination;
+  },
 };

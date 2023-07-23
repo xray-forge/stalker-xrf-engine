@@ -25,9 +25,9 @@ export class CombatProcessEnemyManager extends AbstractSchemeManager<ISchemeComb
       registry.actorCombat.set(object.id(), true);
     }
 
-    const isEnemy: boolean = canObjectSelectAsEnemy(object, enemy, this.state);
+    const canSelectEnemy: boolean = canObjectSelectAsEnemy(object, enemy);
 
-    if (isEnemy) {
+    if (canSelectEnemy) {
       const serverObject: Optional<ServerCreatureObject> = alife().object(object.id());
 
       /**
@@ -55,7 +55,7 @@ export class CombatProcessEnemyManager extends AbstractSchemeManager<ISchemeComb
       }
     }
 
-    return isEnemy;
+    return canSelectEnemy;
   }
 
   /**

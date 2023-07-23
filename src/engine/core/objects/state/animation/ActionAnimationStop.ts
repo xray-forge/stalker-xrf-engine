@@ -1,7 +1,7 @@
 import { action_base, LuabindClass } from "xray16";
 
+import { states } from "@/engine/core/objects/animation/states";
 import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateManager";
-import { states } from "@/engine/core/objects/state_lib/state_lib";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { Optional } from "@/engine/lib/types";
 
@@ -29,7 +29,7 @@ export class ActionAnimationStop extends action_base {
 
     this.stateManager.animation.setState(
       null,
-      (this.stateManager.isForced || states.get(this.stateManager.targetState).isForced) as Optional<boolean>
+      (this.stateManager.isForced || states.get(this.stateManager.targetState).isForced) === true
     );
     this.stateManager.animation.setControl();
   }

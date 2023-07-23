@@ -16,7 +16,7 @@ import type {
 import type { AbstractPlayableSound } from "@/engine/core/objects/sounds/playable_sounds";
 import type { StoryManager } from "@/engine/core/objects/sounds/stories";
 import type { TAbstractSchemeConstructor } from "@/engine/core/schemes/base";
-import type { CampStoryManager } from "@/engine/core/schemes/camper";
+import type { CampManager } from "@/engine/core/schemes/camper";
 import type { PatrolManager } from "@/engine/core/schemes/patrol";
 import type { ReachTaskPatrolManager } from "@/engine/core/schemes/reach_task";
 import type { LightManager } from "@/engine/core/schemes/sr_light";
@@ -99,9 +99,9 @@ export const registry = {
    */
   trade: new LuaTable<TNumberId, ITradeManagerDescriptor>(),
   /**
-   * Camp stories related states.
+   * Camp managers with logic.
    */
-  campsStories: new LuaTable<TNumberId, CampStoryManager>(),
+  camps: new LuaTable<TNumberId, CampManager>(),
   /**
    * List of current zone crows spawned.
    */

@@ -1,19 +1,29 @@
 import { callback, hit, time_global } from "xray16";
 
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
+import { animations } from "@/engine/core/objects/animation/animations";
+import { animstates } from "@/engine/core/objects/animation/animstates";
+import {
+  EAnimationMarker,
+  EAnimationType,
+  IAnimationDescriptor,
+  IAnimationManagerStates,
+  IAnimstateDescriptor,
+  TAnimationSequenceElements,
+} from "@/engine/core/objects/state/animation_types";
 import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateManager";
-import { EStalkerState, IAnimationDescriptor, IAnimationStateDescriptor } from "@/engine/core/objects/state/types";
-import { abort, assert } from "@/engine/core/utils/assertion";
+import { EStalkerState } from "@/engine/core/objects/state/state_types";
+import { abort } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { createVector, vectorRotateY } from "@/engine/core/utils/vector";
 import {
   AnyCallable,
   ClientObject,
   Hit,
+  LuaArray,
   Optional,
   TIndex,
   TName,
-  TNumberId,
   TRate,
   TTimestamp,
 } from "@/engine/lib/types";
@@ -21,47 +31,23 @@ import {
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * Animation lifecycle marker state.
- */
-export enum EAnimationMarker {
-  IN = 1,
-  OUT = 2,
-  IDLE = 3,
-}
-
-/**
- * todo;
- */
-export interface IAnimationManagerStates {
-  lastIndex: Optional<TIndex>;
-  currentState: Optional<EStalkerState>;
-  targetState: Optional<EStalkerState>;
-  animationMarker: Optional<EAnimationMarker>;
-  nextRandomAt: Optional<TTimestamp>;
-  sequenceId: TNumberId;
-}
-
-/**
- * todo;
+ * Manager of stalker object animations.
+ * Handles transitions / active state / animation switching.
+ * Ties engine animation callbacks and game logic.
  */
 export class StalkerAnimationManager {
-  public name: TName;
+  public type: EAnimationType;
   public object: ClientObject;
   public stateManager: StalkerStateManager;
 
-  public animations: LuaTable<EStalkerState, IAnimationDescriptor> | LuaTable<EStalkerState, IAnimationStateDescriptor>;
+  public animations: LuaTable<TName, IAnimationDescriptor> | LuaTable<TName, IAnimstateDescriptor>;
   public states: IAnimationManagerStates;
 
-  public constructor(
-    object: ClientObject,
-    stateManager: StalkerStateManager,
-    name: TName,
-    collection: LuaTable<EStalkerState, IAnimationDescriptor> | LuaTable<EStalkerState, IAnimationStateDescriptor>
-  ) {
-    this.name = name;
+  public constructor(object: ClientObject, stateManager: StalkerStateManager, type: EAnimationType) {
+    this.type = type;
     this.object = object;
     this.stateManager = stateManager;
-    this.animations = collection;
+    this.animations = type === EAnimationType.ANIMATION ? animations : animstates;
 
     this.states = {
       lastIndex: null,
@@ -71,17 +57,15 @@ export class StalkerAnimationManager {
       nextRandomAt: null,
       sequenceId: 1,
     };
-
-    assert(collection, "Provided null object for animation instance.");
   }
 
   /**
-   * todo;
+   * Allow animation control based on animation manager.
    */
   public setControl(): void {
     this.object.set_callback(callback.script_animation, this.onAnimationCallback, this);
 
-    if (this.name === "state_mgr_animation_list") {
+    if (this.type === EAnimationType.ANIMATION) {
       this.stateManager.animstate.states.animationMarker = null;
     }
 
@@ -91,7 +75,7 @@ export class StalkerAnimationManager {
   }
 
   /**
-   * todo;
+   * Update state of current animation.
    */
   public updateAnimation(): void {
     const [animation, state] = this.selectAnimation();
@@ -226,12 +210,12 @@ export class StalkerAnimationManager {
     // Same non-null animation:
     if (states.targetState === states.currentState && states.currentState !== null) {
       const activeWeaponSlot: TIndex = this.getActiveWeaponSlot();
-      const state: IAnimationDescriptor | IAnimationStateDescriptor = this.animations.get(states.currentState);
+      const state: IAnimationDescriptor | IAnimstateDescriptor = this.animations.get(states.currentState);
       let animation;
 
       if (state.rnd !== null) {
         animation = this.selectRandom(
-          state as IAnimationStateDescriptor,
+          state as IAnimstateDescriptor,
           activeWeaponSlot,
           time_global() >= states.nextRandomAt!
         );
@@ -269,24 +253,24 @@ export class StalkerAnimationManager {
    */
   public getAnimationForSlot(
     slot: TIndex,
-    animationsList: LuaTable<TIndex, LuaTable<number, string | LuaTable>>
-  ): LuaTable<number, string | LuaTable> {
+    animationsList: LuaTable<TIndex, LuaArray<TAnimationSequenceElements>>
+  ): Optional<LuaArray<TAnimationSequenceElements>> {
     if (animationsList.get(slot) === null) {
       slot = 0;
     }
 
-    return animationsList.get(slot);
+    return $fromArray(animationsList.get(slot) as any);
   }
 
   /**
    * todo;
    */
   public selectRandom(
-    animationStateDescriptor: IAnimationStateDescriptor,
+    animationStateDescriptor: IAnimstateDescriptor,
     weaponSlot: TIndex,
     mustPlay: boolean
   ): Optional<string | LuaTable> {
-    if (!mustPlay && math.random(100) > this.animations.get(this.states.currentState!).prop.rnd) {
+    if (!mustPlay && math.random(100) > (this.animations.get(this.states.currentState!).prop.rnd as TRate)) {
       return null;
     }
 
@@ -414,7 +398,7 @@ export class StalkerAnimationManager {
       states.animationMarker = null;
 
       if (skipMultiAnimationCheck !== true) {
-        let intoList: LuaTable<number, string | LuaTable> = new LuaTable();
+        let intoList: Optional<LuaArray<TAnimationSequenceElements>> = new LuaTable();
         const targetAnimations = this.animations.get(states.targetState!);
 
         if (targetAnimations !== null && targetAnimations.into !== null) {
@@ -476,7 +460,7 @@ export class StalkerAnimationManager {
       states.sequenceId = 1;
       states.currentState = null;
 
-      if (this.name === "state_mgr_animation_list") {
+      if (this.type === EAnimationType.ANIMATION) {
         if (this.stateManager.animstate !== null && this.stateManager.animstate.setControl !== null) {
           this.stateManager.animstate.setControl();
           // --this.mgr.animstate:update_anim()

@@ -155,9 +155,9 @@ export interface IRegistryObjectState extends Record<EScheme, Optional<IBaseSche
    */
   script_combat_type: Optional<TName>;
   /**
-   * todo;
+   * Optional ID of linked camp game object, if registered object is in it.
    */
-  registred_camp: Optional<TNumberId>;
+  camp: Optional<TNumberId>;
 }
 
 /**

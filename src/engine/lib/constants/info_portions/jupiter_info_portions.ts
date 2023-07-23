@@ -116,11 +116,10 @@ export const jupiterInfoPortions = {
   jup_b15_zulus_b301_after_fight_done: "jup_b15_zulus_b301_after_fight_done",
   jup_b15_zulus_b301_reward_dialog_done: "jup_b15_zulus_b301_reward_dialog_done",
   jup_b15_zulus_drink_anim_info: "jup_b15_zulus_drink_anim_info",
-
-  jup_b16_oasis_artefact_to_scientist: "jup_b16_oasis_artefact_to_scientist",
   /**
    * Jupiter b16.
    */
+  jup_b16_oasis_artefact_to_scientist: "jup_b16_oasis_artefact_to_scientist",
   jup_b16_oasis_found: "jup_b16_oasis_found",
   jup_b16_oasis_talked: "jup_b16_oasis_talked",
   jup_b16_task_done: "jup_b16_task_done",

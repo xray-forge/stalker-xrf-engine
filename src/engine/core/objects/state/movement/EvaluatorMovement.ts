@@ -1,8 +1,9 @@
 import { LuabindClass, property_evaluator } from "xray16";
 
+import { states } from "@/engine/core/objects/animation/states";
 import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateManager";
-import { states } from "@/engine/core/objects/state_lib/state_lib";
 import { LuaLogger } from "@/engine/core/utils/logging";
+import { Optional, TMoveType } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -19,12 +20,11 @@ export class EvaluatorMovement extends property_evaluator {
   }
 
   /**
-   * todo: Description.
+   * Evaluate whether stalker is moving in animation state.
    */
   public override evaluate(): boolean {
-    return (
-      states.get(this.stateManager.targetState).movement === null ||
-      states.get(this.stateManager.targetState).movement === this.object.target_movement_type()
-    );
+    const targetStateMovement: Optional<TMoveType> = states.get(this.stateManager.targetState).movement;
+
+    return targetStateMovement === null || targetStateMovement === this.object.target_movement_type();
   }
 }

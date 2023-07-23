@@ -22,7 +22,7 @@ describe("ActionAnimationStart class", () => {
     jest.spyOn(manager.animation, "setControl");
     jest.spyOn(manager.animation, "setState");
 
-    setStalkerState(stalker.object, EStalkerState.BACKOFF, null, null, {
+    setStalkerState(stalker.object, EStalkerState.CAUTION, null, null, {
       lookPosition: createEmptyVector(),
       lookObject: null,
     });
@@ -33,7 +33,7 @@ describe("ActionAnimationStart class", () => {
     action.initialize();
 
     expect(manager.animation.setControl).toHaveBeenCalled();
-    expect(manager.animation.setState).toHaveBeenCalledWith(EStalkerState.BACKOFF);
+    expect(manager.animation.setState).toHaveBeenCalledWith(EStalkerState.CAUTION);
 
     unregisterStalker(stalker);
   });
