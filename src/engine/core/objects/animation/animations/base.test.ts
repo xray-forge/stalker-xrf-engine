@@ -2,12 +2,14 @@ import { describe, expect, it } from "@jest/globals";
 
 import { baseAnimations } from "@/engine/core/objects/animation/animations/base";
 import { EStalkerState } from "@/engine/core/objects/state";
+import { assertArraysIntersecting } from "@/fixtures/engine";
+import { mockFromLuaTable } from "@/fixtures/lua";
 
 describe("base animations list", () => {
   it("should list all needed animations", () => {
     expect(baseAnimations.length()).toBe(46);
 
-    [
+    assertArraysIntersecting(mockFromLuaTable(baseAnimations).getKeysArray(), [
       EStalkerState.IDLE,
       EStalkerState.IDLE_CHASOVOY,
       EStalkerState.CAUTION,
@@ -54,10 +56,6 @@ describe("base animations list", () => {
       EStalkerState.LAY_ON_BED,
       EStalkerState.SEARCH_CORPSE,
       EStalkerState.HELP_WOUNDED,
-    ].forEach((it) => {
-      if (!baseAnimations.has(it)) {
-        throw new Error(`Expected animation '${it}' to be present in the list.`);
-      }
-    });
+    ]);
   });
 });

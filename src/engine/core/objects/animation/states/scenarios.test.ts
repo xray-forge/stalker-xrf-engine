@@ -1,46 +1,46 @@
 import { describe, expect, it } from "@jest/globals";
 
-import { scenarioAnimations } from "@/engine/core/objects/animation/animations/scenarios";
+import { scenarioStates } from "@/engine/core/objects/animation/states/scenarios";
 import { assertArraysIntersecting } from "@/fixtures/engine";
 import { mockFromLuaTable } from "@/fixtures/lua";
 
-describe("scenario animations list", () => {
+describe("priA15 states list", () => {
   it("should list all needed animations", () => {
-    expect(scenarioAnimations.length()).toBe(88);
+    expect(scenarioStates.length()).toBe(88);
 
-    assertArraysIntersecting(mockFromLuaTable(scenarioAnimations).getKeysArray(), [
+    assertArraysIntersecting(mockFromLuaTable(scenarioStates).getKeysArray(), [
       "zat_b14_give_artefact_idle",
       "zat_b14_give_artefact_act",
       "zat_b14_stay_wall",
       "zat_b38_stalker_break_lock",
       "zat_b38_stalker_turn_on_lift",
       "zat_b38_stalker_jump_tonnel",
-      "zat_b20_noah_jump",
       "zat_b38_stalker_alert",
+      "zat_b20_noah_jump",
       "pri_a17_ice_climb",
       "pri_a17_fall_down",
       "pri_a17_pray_in",
       "pri_a17_pray",
-      "dynamite",
-      "bloodsucker_panic",
-      "bloodsucker_search",
-      "give_orders",
       "zat_b22_medic_turn_idle",
       "zat_b22_medic_turn_out",
       "zat_b22_medic_suicide",
       "zat_b3_tech_drunk",
-      "zat_b3_tech_idle_1",
-      "zat_b3_tech_surprise",
       "zat_b3_tech_drink",
+      "zat_b3_tech_idle",
+      "zat_b3_tech_idle_short",
+      "zat_b3_tech_surprise",
+      "give_orders",
+      "bloodsucker_search",
+      "bloodsucker_panic",
+      "suicide_animation",
       "jup_b10_drunk_ravings",
       "pas_b400_vano_probe",
       "pri_a28_kirillov_sit_high_radio",
       "pri_a18_inspert_monolit_actor",
+      "pri_a20_colonel_radio",
       "pri_a21_sentry_madness",
       "pri_a21_sentry_madness_suicide",
-      "pri_a22_colonel_lean_on_table_in",
-      "pri_a22_colonel_lean_on_table_idle",
-      "pri_a22_colonel_stand_from_table",
+      "pri_a22_colonel_lean_on_table",
       "pri_a28_army_trance_out",
       "zat_b106_wounded_idle",
       "zat_b38_cop_dead",

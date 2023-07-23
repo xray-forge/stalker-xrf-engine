@@ -33,7 +33,7 @@ describe("ActionAnimationStateStop class", () => {
     action.initialize();
 
     expect(manager.animstate.setControl).toHaveBeenCalled();
-    expect(manager.animstate.setState).toHaveBeenCalledWith(null, null);
+    expect(manager.animstate.setState).toHaveBeenCalledWith(null, false);
 
     unregisterStalker(stalker);
   });

@@ -2,12 +2,14 @@ import { describe, expect, it } from "@jest/globals";
 
 import { animationAnimstates } from "@/engine/core/objects/animation/animstates/animstates";
 import { EStalkerState } from "@/engine/core/objects/state";
+import { assertArraysIntersecting } from "@/fixtures/engine";
+import { mockFromLuaTable } from "@/fixtures/lua";
 
 describe("base animstates list", () => {
   it("should list all needed animations", () => {
     expect(animationAnimstates.length()).toBe(21);
 
-    [
+    assertArraysIntersecting(mockFromLuaTable(animationAnimstates).getKeysArray(), [
       EStalkerState.ANIMPOINT_STAY_WALL,
       EStalkerState.ANIMPOINT_STAY_TABLE,
       EStalkerState.ANIMPOINT_SIT_HIGH,
@@ -29,10 +31,6 @@ describe("base animstates list", () => {
       "pri_a21_sentry_madness_idle",
       "pri_a20_colonel_radio",
       "pri_a22_colonel_lean_on_table",
-    ].forEach((it) => {
-      if (!animationAnimstates.has(it)) {
-        throw new Error(`Expected animation '${it}' to be present in the list.`);
-      }
-    });
+    ]);
   });
 });

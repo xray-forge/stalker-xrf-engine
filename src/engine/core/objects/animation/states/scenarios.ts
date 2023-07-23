@@ -5,7 +5,7 @@ import { IStateDescriptor } from "@/engine/core/objects/state/state_types";
 import { TName } from "@/engine/lib/types";
 
 /**
- * todo;
+ * List of generic scenario tests.
  */
 export const scenarioStates: LuaTable<TName, IStateDescriptor> = $fromObject<TName, IStateDescriptor>({
   zat_b14_give_artefact_idle: {
@@ -15,7 +15,6 @@ export const scenarioStates: LuaTable<TName, IStateDescriptor> = $fromObject<TNa
     bodystate: move.standing,
     animstate: null,
     animation: "zat_b14_give_artefact_idle",
-    isForced: null,
   },
   zat_b14_give_artefact_act: {
     weapon: EWeaponAnimation.STRAPPED,
@@ -24,7 +23,6 @@ export const scenarioStates: LuaTable<TName, IStateDescriptor> = $fromObject<TNa
     bodystate: move.standing,
     animstate: null,
     animation: "zat_b14_give_artefact_act",
-    isForced: null,
   },
   zat_b14_stay_wall: {
     weapon: EWeaponAnimation.NONE,
@@ -34,7 +32,6 @@ export const scenarioStates: LuaTable<TName, IStateDescriptor> = $fromObject<TNa
     animstate: null,
     animation: "zat_b14_stay_wall",
     direction: CSightParams.eSightTypeAnimationDirection,
-    isForced: null,
   },
   zat_b38_stalker_break_lock: {
     weapon: EWeaponAnimation.STRAPPED,
@@ -44,7 +41,6 @@ export const scenarioStates: LuaTable<TName, IStateDescriptor> = $fromObject<TNa
     animstate: null,
     animation: "zat_b38_stalker_break_lock",
     direction: CSightParams.eSightTypeAnimationDirection,
-    isForced: null,
   },
   zat_b38_stalker_turn_on_lift: {
     weapon: EWeaponAnimation.STRAPPED,
@@ -54,7 +50,6 @@ export const scenarioStates: LuaTable<TName, IStateDescriptor> = $fromObject<TNa
     animstate: null,
     animation: "zat_b38_stalker_turn_on_lift",
     direction: CSightParams.eSightTypeAnimationDirection,
-    isForced: null,
   },
   zat_b38_stalker_jump_tonnel: {
     weapon: EWeaponAnimation.UNSTRAPPED,
@@ -64,7 +59,6 @@ export const scenarioStates: LuaTable<TName, IStateDescriptor> = $fromObject<TNa
     animstate: null,
     animation: "zat_b38_stalker_jump_tonnel",
     direction: CSightParams.eSightTypeAnimationDirection,
-    isForced: null,
   },
   zat_b38_stalker_alert: {
     weapon: EWeaponAnimation.UNSTRAPPED,
@@ -74,7 +68,6 @@ export const scenarioStates: LuaTable<TName, IStateDescriptor> = $fromObject<TNa
     animstate: null,
     animation: "zat_b38_stalker_alert",
     direction: CSightParams.eSightTypeAnimationDirection,
-    isForced: null,
   },
   zat_b20_noah_jump: {
     weapon: EWeaponAnimation.UNSTRAPPED,
@@ -84,7 +77,6 @@ export const scenarioStates: LuaTable<TName, IStateDescriptor> = $fromObject<TNa
     animstate: null,
     animation: "zat_b20_noah_jump",
     direction: CSightParams.eSightTypeAnimationDirection,
-    isForced: null,
   },
   pri_a17_ice_climb: {
     weapon: EWeaponAnimation.STRAPPED,
@@ -94,7 +86,6 @@ export const scenarioStates: LuaTable<TName, IStateDescriptor> = $fromObject<TNa
     animstate: null,
     animation: "pri_a17_ice_climb",
     direction: CSightParams.eSightTypeAnimationDirection,
-    isForced: null,
   },
   pri_a17_fall_down: {
     weapon: EWeaponAnimation.UNSTRAPPED,
@@ -104,7 +95,6 @@ export const scenarioStates: LuaTable<TName, IStateDescriptor> = $fromObject<TNa
     animstate: null,
     animation: "pri_a17_fall_down",
     direction: CSightParams.eSightTypeAnimationDirection,
-    isForced: null,
   },
   pri_a17_pray_in: {
     weapon: EWeaponAnimation.UNSTRAPPED,
@@ -114,7 +104,6 @@ export const scenarioStates: LuaTable<TName, IStateDescriptor> = $fromObject<TNa
     animstate: null,
     animation: "pri_a17_pray_in",
     direction: CSightParams.eSightTypeAnimationDirection,
-    isForced: null,
   },
   pri_a17_pray: {
     weapon: EWeaponAnimation.UNSTRAPPED,
@@ -124,7 +113,6 @@ export const scenarioStates: LuaTable<TName, IStateDescriptor> = $fromObject<TNa
     animstate: null,
     animation: "pri_a17_pray",
     direction: CSightParams.eSightTypeAnimationDirection,
-    isForced: null,
   },
   zat_b22_medic_turn_idle: {
     weapon: EWeaponAnimation.NONE,
@@ -134,7 +122,6 @@ export const scenarioStates: LuaTable<TName, IStateDescriptor> = $fromObject<TNa
     animstate: "zat_b22_medic_turn_idle",
     animation: null,
     direction: CSightParams.eSightTypeAnimationDirection,
-    isForced: null,
   },
   zat_b22_medic_turn_out: {
     weapon: EWeaponAnimation.NONE,
@@ -153,7 +140,6 @@ export const scenarioStates: LuaTable<TName, IStateDescriptor> = $fromObject<TNa
     animstate: null,
     animation: "zat_b22_medic_suicide",
     direction: CSightParams.eSightTypeAnimationDirection,
-    isForced: null,
   },
   zat_b3_tech_drunk: {
     weapon: EWeaponAnimation.NONE,
@@ -163,7 +149,6 @@ export const scenarioStates: LuaTable<TName, IStateDescriptor> = $fromObject<TNa
     animstate: "zat_b3_tech_idle",
     animation: "zat_b3_tech_drunk",
     direction: CSightParams.eSightTypeAnimationDirection,
-    isForced: null,
   },
   zat_b3_tech_drink: {
     weapon: EWeaponAnimation.NONE,
@@ -173,7 +158,6 @@ export const scenarioStates: LuaTable<TName, IStateDescriptor> = $fromObject<TNa
     animstate: "zat_b3_tech_idle",
     animation: "zat_b3_tech_drink",
     direction: CSightParams.eSightTypeAnimationDirection,
-    isForced: null,
   },
   zat_b3_tech_idle: {
     weapon: EWeaponAnimation.NONE,
@@ -183,7 +167,6 @@ export const scenarioStates: LuaTable<TName, IStateDescriptor> = $fromObject<TNa
     animstate: "zat_b3_tech_idle",
     animation: "zat_b3_tech_idle_1",
     direction: CSightParams.eSightTypeAnimationDirection,
-    isForced: null,
   },
   zat_b3_tech_idle_short: {
     weapon: EWeaponAnimation.NONE,
@@ -192,7 +175,7 @@ export const scenarioStates: LuaTable<TName, IStateDescriptor> = $fromObject<TNa
     bodystate: move.standing,
     animstate: "zat_b3_tech_idle",
     animation: null,
-    isForced: null,
+
     direction: CSightParams.eSightTypeAnimationDirection,
   },
   zat_b3_tech_surprise: {

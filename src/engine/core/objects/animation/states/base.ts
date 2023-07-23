@@ -6,7 +6,6 @@ import { TName } from "@/engine/lib/types";
 
 /**
  * List of default state descriptors to use in scripts.
- * todo: Enum values as keys?
  */
 export const baseStates: LuaTable<TName, IStateDescriptor> = $fromObject<TName, IStateDescriptor>({
   [EStalkerState.IDLE]: {
@@ -16,7 +15,6 @@ export const baseStates: LuaTable<TName, IStateDescriptor> = $fromObject<TName, 
     bodystate: null,
     animstate: null,
     animation: null,
-    isForced: null,
   },
   [EStalkerState.SMART_COVER]: {
     weapon: EWeaponAnimation.UNSTRAPPED,
@@ -26,7 +24,6 @@ export const baseStates: LuaTable<TName, IStateDescriptor> = $fromObject<TName, 
     animstate: null,
     animation: null,
     direction: CSightParams.eSightTypeAnimationDirection,
-    isForced: null,
   },
   [EStalkerState.WALK]: {
     weapon: EWeaponAnimation.STRAPPED,
@@ -35,54 +32,48 @@ export const baseStates: LuaTable<TName, IStateDescriptor> = $fromObject<TName, 
     bodystate: move.standing,
     animstate: null,
     animation: null,
-    isForced: null,
   },
-  walk_noweap: {
+  [EStalkerState.WALK_NOWEAP]: {
     weapon: EWeaponAnimation.NONE,
     movement: move.walk,
     mental: anim.free,
     bodystate: move.standing,
     animstate: null,
     animation: null,
-    isForced: null,
   },
-  run: {
+  [EStalkerState.RUN]: {
     weapon: EWeaponAnimation.STRAPPED,
     movement: move.run,
     mental: anim.free,
     bodystate: move.standing,
     animstate: null,
     animation: null,
-    isForced: null,
   },
-  sprint: {
+  [EStalkerState.SPRINT]: {
     weapon: EWeaponAnimation.STRAPPED,
     movement: move.run,
     mental: anim.panic,
     bodystate: move.standing,
     animstate: null,
     animation: null,
-    isForced: null,
   },
-  patrol: {
+  [EStalkerState.PATROL]: {
     weapon: EWeaponAnimation.UNSTRAPPED,
     movement: move.walk,
     mental: anim.free,
     bodystate: move.standing,
     animstate: null,
     animation: null,
-    isForced: null,
   },
-  patrol_fire: {
+  [EStalkerState.PATROL_FIRE]: {
     weapon: EWeaponAnimation.FIRE,
     movement: move.walk,
     mental: anim.free,
     bodystate: move.standing,
     animstate: null,
     animation: null,
-    isForced: null,
   },
-  raid: {
+  [EStalkerState.RAID]: {
     weapon: EWeaponAnimation.UNSTRAPPED,
     movement: move.walk,
     mental: anim.danger,
@@ -90,144 +81,128 @@ export const baseStates: LuaTable<TName, IStateDescriptor> = $fromObject<TName, 
     bodystate: move.standing,
     animstate: null,
     animation: null,
-    isForced: null,
   },
-  raid_fire: {
+  [EStalkerState.RAID_FIRE]: {
     weapon: EWeaponAnimation.FIRE,
     movement: move.walk,
     mental: anim.danger,
     bodystate: move.standing,
     animstate: null,
     animation: null,
-    isForced: null,
   },
-  sneak: {
+  [EStalkerState.SNEAK]: {
     weapon: EWeaponAnimation.UNSTRAPPED,
     movement: move.walk,
     mental: anim.danger,
     bodystate: move.crouch,
     animstate: null,
     animation: null,
-    isForced: null,
   },
-  sneak_run: {
+  [EStalkerState.SNEAK_RUN]: {
     weapon: EWeaponAnimation.UNSTRAPPED,
     movement: move.run,
     mental: anim.danger,
     bodystate: move.crouch,
     animstate: null,
     animation: null,
-    isForced: null,
   },
-  sneak_no_wpn: {
+  [EStalkerState.SNEAK_NO_WPN]: {
     weapon: EWeaponAnimation.STRAPPED,
     movement: move.walk,
     mental: anim.danger,
     bodystate: move.crouch,
     animstate: null,
     animation: null,
-    isForced: null,
   },
-  sneak_fire: {
+  [EStalkerState.SNEAK_FIRE]: {
     weapon: EWeaponAnimation.FIRE,
     movement: move.walk,
     mental: anim.danger,
     bodystate: move.crouch,
     animstate: null,
     animation: null,
-    isForced: null,
   },
-  assault: {
+  [EStalkerState.ASSAULT]: {
     weapon: EWeaponAnimation.UNSTRAPPED,
     movement: move.run,
     mental: anim.danger,
     bodystate: move.standing,
     animstate: null,
     animation: null,
-    isForced: null,
   },
-  assault_fire: {
+  [EStalkerState.ASSAULT_FIRE]: {
     weapon: EWeaponAnimation.FIRE,
     movement: move.run,
     mental: anim.danger,
     bodystate: move.standing,
     animstate: null,
     animation: null,
-    isForced: null,
   },
-  rush: {
+  [EStalkerState.RUSH]: {
     weapon: EWeaponAnimation.UNSTRAPPED,
     movement: move.run,
     mental: anim.free,
     bodystate: move.standing,
     animstate: null,
     animation: null,
-    isForced: null,
   },
-  wait: {
+  [EStalkerState.WAIT]: {
     weapon: EWeaponAnimation.STRAPPED,
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
     animstate: null,
     animation: EStalkerState.IDLE,
-    isForced: null,
   },
-  wait_trade: {
+  [EStalkerState.WAIT_TRADE]: {
     weapon: EWeaponAnimation.NONE,
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
     animstate: null,
     animation: EStalkerState.IDLE,
-    isForced: null,
   },
-  wait_na: {
+  [EStalkerState.WAIT_NA]: {
     weapon: EWeaponAnimation.STRAPPED,
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
     animstate: null,
     animation: null,
-    isForced: null,
   },
-  guard: {
+  [EStalkerState.GUARD]: {
     weapon: EWeaponAnimation.UNSTRAPPED,
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
     animstate: null,
     animation: EStalkerState.IDLE,
-    isForced: null,
   },
-  guard_chasovoy: {
+  [EStalkerState.GUARD_CHASOVOY]: {
     weapon: EWeaponAnimation.UNSTRAPPED,
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
     animstate: null,
     animation: EStalkerState.IDLE_CHASOVOY,
-    isForced: null,
   },
-  guard_na: {
+  [EStalkerState.GUARD_NA]: {
     weapon: EWeaponAnimation.UNSTRAPPED,
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
     animstate: null,
     animation: null,
-    isForced: null,
   },
-  guard_fire: {
+  [EStalkerState.GUARD_FIRE]: {
     weapon: EWeaponAnimation.FIRE,
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
     animstate: null,
     animation: null,
-    isForced: null,
   },
-  threat: {
+  [EStalkerState.THREAT]: {
     weapon: EWeaponAnimation.UNSTRAPPED,
     movement: move.stand,
     mental: anim.danger,
@@ -236,34 +211,31 @@ export const baseStates: LuaTable<TName, IStateDescriptor> = $fromObject<TName, 
     animation: null,
     isForced: true,
   },
-  threat_danger: {
+  [EStalkerState.THREAT_DANGER]: {
     weapon: EWeaponAnimation.UNSTRAPPED,
     movement: move.stand,
     mental: anim.danger,
     bodystate: move.standing,
     animstate: null,
     animation: EStalkerState.BLOODSUCKER_SEARCH,
-    isForced: null,
   },
-  give_orders: {
+  [EStalkerState.GIVE_ORDERS]: {
     weapon: EWeaponAnimation.UNSTRAPPED,
     movement: move.stand,
     mental: anim.danger,
     bodystate: move.standing,
     animstate: null,
     animation: EStalkerState.GIVE_ORDERS,
-    isForced: null,
   },
-  threat_heli: {
+  [EStalkerState.THREAT_HELI]: {
     weapon: EWeaponAnimation.UNSTRAPPED,
     movement: move.stand,
     mental: anim.danger,
     bodystate: move.standing,
     animstate: null,
     animation: null,
-    isForced: null,
   },
-  threat_na: {
+  [EStalkerState.THREAT_NA]: {
     weapon: EWeaponAnimation.UNSTRAPPED,
     movement: move.stand,
     mental: anim.danger,
@@ -272,549 +244,489 @@ export const baseStates: LuaTable<TName, IStateDescriptor> = $fromObject<TName, 
     animation: null,
     isForced: true,
   },
-  threat_fire: {
+  [EStalkerState.THREAT_FIRE]: {
     weapon: EWeaponAnimation.FIRE,
     movement: move.stand,
     mental: anim.danger,
     bodystate: move.standing,
     animstate: null,
     animation: null,
-    isForced: null,
   },
-  threat_sniper_fire: {
+  [EStalkerState.THREAT_SNIPER_FIRE]: {
     weapon: EWeaponAnimation.SNIPER_FIRE,
     movement: move.stand,
     mental: anim.danger,
     bodystate: move.standing,
     animstate: null,
     animation: null,
-    isForced: null,
   },
-  hide: {
+  [EStalkerState.HIDE]: {
     weapon: EWeaponAnimation.UNSTRAPPED,
     movement: move.stand,
     mental: anim.danger,
     bodystate: move.crouch,
     animstate: null,
     animation: EStalkerState.HIDE,
-    isForced: null,
   },
-  hide_na: {
+  [EStalkerState.HIDE_NA]: {
     weapon: EWeaponAnimation.UNSTRAPPED,
     movement: move.stand,
     mental: anim.danger,
     bodystate: move.crouch,
     animstate: null,
     animation: null,
-    isForced: null,
   },
-  hide_fire: {
+  [EStalkerState.HIDE_FIRE]: {
     weapon: EWeaponAnimation.FIRE,
     movement: move.stand,
     mental: anim.danger,
     bodystate: move.crouch,
     animstate: null,
     animation: null,
-    isForced: null,
   },
-  hide_sniper_fire: {
+  [EStalkerState.HIDE_SNIPER_FIRE]: {
     weapon: EWeaponAnimation.SNIPER_FIRE,
     movement: move.stand,
     mental: anim.danger,
     bodystate: move.crouch,
     animstate: null,
     animation: null,
-    isForced: null,
   },
-  caution: {
+  [EStalkerState.CAUTION]: {
     weapon: null,
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
     animstate: null,
     animation: EStalkerState.CAUTION,
-    isForced: null,
   },
-  choose: {
+  [EStalkerState.CHOOSE]: {
     weapon: EWeaponAnimation.STRAPPED,
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
     animstate: null,
     animation: EStalkerState.CHOOSING,
-    isForced: null,
   },
-  press: {
+  [EStalkerState.PRESS]: {
     weapon: EWeaponAnimation.STRAPPED,
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
     animstate: null,
     animation: EStalkerState.PRESS,
-    isForced: null,
   },
-  ward: {
+  [EStalkerState.WARD]: {
     weapon: EWeaponAnimation.STRAPPED,
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
     animstate: null,
     animation: EStalkerState.WARDING,
-    isForced: null,
   },
-  ward_short: {
+  [EStalkerState.WARDING_SHORT]: {
     weapon: EWeaponAnimation.STRAPPED,
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
     animstate: null,
     animation: EStalkerState.WARDING_SHORT,
-    isForced: null,
   },
-  ward_noweap: {
+  [EStalkerState.WARD_NOWEAP]: {
     weapon: EWeaponAnimation.NONE,
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
     animstate: null,
     animation: EStalkerState.WARDING,
-    isForced: null,
   },
-  ward_noweap_short: {
+  [EStalkerState.WARD_NOWEAP_SHORT]: {
     weapon: EWeaponAnimation.NONE,
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
     animstate: null,
     animation: EStalkerState.WARDING_SHORT,
-    isForced: null,
   },
-  fold_arms: {
+  [EStalkerState.FOLD_ARMS]: {
     weapon: EWeaponAnimation.NONE,
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
     animstate: null,
     animation: EStalkerState.FOLD_ARMS,
-    isForced: null,
   },
-  search: {
+  [EStalkerState.SEARCH]: {
     weapon: null,
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
     animstate: null,
     animation: EStalkerState.POISK,
-    isForced: null,
   },
-  stoop_no_weap: {
+  [EStalkerState.STOOP_NO_WEAP]: {
     weapon: EWeaponAnimation.STRAPPED,
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
     animstate: null,
     animation: EStalkerState.STOOP_NO_WEAP,
-    isForced: null,
   },
-  salut: {
+  [EStalkerState.SALUT]: {
     weapon: EWeaponAnimation.STRAPPED,
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
     animstate: null,
     animation: EStalkerState.SALUT,
-    isForced: null,
   },
-  salut_free: {
+  [EStalkerState.SALUT_FREE]: {
     weapon: EWeaponAnimation.STRAPPED,
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
     animstate: null,
     animation: EStalkerState.SALUT_FREE,
-    isForced: null,
   },
-  prisoner: {
+  [EStalkerState.PRISONER]: {
     weapon: EWeaponAnimation.STRAPPED,
     movement: null,
     mental: anim.danger,
     bodystate: move.standing,
     animstate: null,
     animation: EStalkerState.PRISONER,
-    isForced: null,
   },
-  hide_no_wpn: {
+  [EStalkerState.HIDE_NO_WPN]: {
     weapon: EWeaponAnimation.STRAPPED,
     movement: move.stand,
     mental: anim.danger,
     bodystate: move.crouch,
     animstate: null,
     animation: EStalkerState.HIDE,
-    isForced: null,
   },
   // -- sit
-  sit: {
+  [EStalkerState.SIT]: {
     weapon: EWeaponAnimation.STRAPPED,
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
     animstate: EStalkerState.SIT,
     animation: null,
-    isForced: null,
   },
-  sit_knee: {
+  [EStalkerState.SIT_KNEE]: {
     weapon: EWeaponAnimation.STRAPPED,
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
     animstate: EStalkerState.SIT_KNEE,
     animation: null,
-    isForced: null,
   },
-  sit_ass: {
+  [EStalkerState.SIT_ASS]: {
     weapon: EWeaponAnimation.STRAPPED,
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
     animstate: EStalkerState.SIT_ASS,
     animation: null,
-    isForced: null,
   },
-  sleep_sit: {
+  [EStalkerState.SLEEP_SIT]: {
     weapon: EWeaponAnimation.STRAPPED,
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
     animstate: EStalkerState.SIT_ASS,
     animation: EStalkerState.SLEEP_SIT,
-    isForced: null,
   },
-  eat_bread: {
+  [EStalkerState.EAT_BREAD]: {
     weapon: EWeaponAnimation.STRAPPED,
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
     animstate: EStalkerState.SIT_KNEE,
     animation: EStalkerState.EAT_BREAD,
-    isForced: null,
   },
-  eat_vodka: {
+  [EStalkerState.EAT_VODKA]: {
     weapon: EWeaponAnimation.STRAPPED,
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
     animstate: EStalkerState.SIT_ASS,
     animation: EStalkerState.EAT_VODKA,
-    isForced: null,
   },
-  eat_energy: {
+  [EStalkerState.EAT_ENERGY]: {
     weapon: EWeaponAnimation.STRAPPED,
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
     animstate: EStalkerState.SIT_ASS,
     animation: EStalkerState.EAT_ENERGY,
-    isForced: null,
   },
-  eat_kolbasa: {
+  [EStalkerState.EAT_KOLBASA]: {
     weapon: EWeaponAnimation.STRAPPED,
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
     animstate: EStalkerState.SIT_ASS,
     animation: EStalkerState.EAT_KOLBASA,
-    isForced: null,
   },
-  play_guitar: {
+  [EStalkerState.PLAY_GUITAR]: {
     weapon: EWeaponAnimation.STRAPPED,
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
     animstate: EStalkerState.SIT_KNEE,
     animation: EStalkerState.PLAY_GUITAR,
-    isForced: null,
   },
-  play_harmonica: {
+  [EStalkerState.PLAY_HARMONICA]: {
     weapon: EWeaponAnimation.STRAPPED,
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
     animstate: EStalkerState.SIT_ASS,
     animation: EStalkerState.PLAY_HARMONICA,
-    isForced: null,
   },
-  sleep: {
+  [EStalkerState.SLEEP]: {
     weapon: EWeaponAnimation.STRAPPED,
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
     animstate: null,
     animation: EStalkerState.SLEEPING,
-    isForced: null,
   },
-  hello: {
+  [EStalkerState.HELLO]: {
     weapon: EWeaponAnimation.STRAPPED,
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
     animstate: null,
     animation: EStalkerState.HELLO,
-    isForced: null,
   },
-  hello_wpn: {
+  [EStalkerState.HELLO_WPN]: {
     weapon: EWeaponAnimation.UNSTRAPPED,
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
     animstate: null,
     animation: EStalkerState.HELLO,
-    isForced: null,
   },
-  refuse: {
+  [EStalkerState.REFUSE]: {
     weapon: EWeaponAnimation.STRAPPED,
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
     animstate: null,
     animation: EStalkerState.REFUSE,
-    isForced: null,
   },
-  claim: {
+  [EStalkerState.CLAIM]: {
     weapon: EWeaponAnimation.UNSTRAPPED,
     movement: move.stand,
     mental: anim.danger,
     bodystate: move.standing,
     animstate: null,
     animation: EStalkerState.CLAIM,
-    isForced: null,
   },
-  backoff: {
+  [EStalkerState.BACKOFF]: {
     weapon: EWeaponAnimation.UNSTRAPPED,
     movement: move.stand,
     mental: anim.danger,
     bodystate: move.standing,
     animstate: null,
     animation: EStalkerState.BACKOFF,
-    isForced: null,
   },
-  backoff2: {
+  [EStalkerState.BACKOFF2]: {
     weapon: EWeaponAnimation.UNSTRAPPED,
     movement: move.stand,
     mental: anim.danger,
     bodystate: move.standing,
     animstate: null,
     animation: EStalkerState.BACKOFF,
-    isForced: null,
   },
-  punch: {
+  [EStalkerState.PUNCH]: {
     weapon: null,
     movement: move.stand,
     mental: anim.danger,
     bodystate: move.standing,
     animstate: null,
     animation: EStalkerState.PUNCH,
-    isForced: null,
   },
-  search_corpse: {
+  [EStalkerState.SEARCH_CORPSE]: {
     weapon: EWeaponAnimation.STRAPPED,
     movement: move.stand,
     mental: anim.danger,
     bodystate: move.crouch,
     animstate: null,
     animation: EStalkerState.SEARCH_CORPSE,
-    isForced: null,
   },
-  help_wounded: {
+  [EStalkerState.HELP_WOUNDED]: {
     weapon: EWeaponAnimation.STRAPPED,
     movement: move.stand,
     mental: anim.danger,
     bodystate: move.crouch,
     animstate: null,
     animation: EStalkerState.HELP_WOUNDED,
-    isForced: null,
   },
-  dynamite: {
+  [EStalkerState.DYNAMITE]: {
     weapon: EWeaponAnimation.STRAPPED,
     movement: move.stand,
     mental: anim.danger,
     bodystate: move.crouch,
     animstate: null,
     animation: EStalkerState.DYNAMITE,
-    isForced: null,
   },
-  binocular: {
+  [EStalkerState.BINOCULAR]: {
     weapon: EWeaponAnimation.STRAPPED,
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
     animstate: null,
     animation: EStalkerState.BINOCULAR,
-    isForced: null,
   },
-  hide_rac: {
+  [EStalkerState.HIDE_RAC]: {
     weapon: EWeaponAnimation.UNSTRAPPED,
     movement: move.stand,
     mental: anim.danger,
     bodystate: move.crouch,
     animstate: null,
     animation: EStalkerState.CR_RACIYA,
-    isForced: null,
   },
-  wait_rac: {
+  [EStalkerState.WAIT_RAC]: {
     weapon: EWeaponAnimation.STRAPPED,
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
     animstate: null,
     animation: EStalkerState.RACIYA,
-    isForced: null,
   },
-  wait_rac_noweap: {
+  [EStalkerState.WAIT_RAC_NOWEAP]: {
     weapon: EWeaponAnimation.NONE,
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
     animstate: null,
     animation: EStalkerState.RACIYA,
-    isForced: null,
   },
-  wait_rac_stc: {
+  [EStalkerState.WAIT_RAC_STC]: {
     weapon: EWeaponAnimation.UNSTRAPPED,
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
     animstate: null,
     animation: EStalkerState.RACIYA_STC,
-    isForced: null,
   },
-  guard_rac: {
+  [EStalkerState.GUARD_RAC]: {
     weapon: EWeaponAnimation.UNSTRAPPED,
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
     animstate: null,
     animation: EStalkerState.RACIYA,
-    isForced: null,
   },
-  probe_stand: {
+  [EStalkerState.PROBE_STAND]: {
     weapon: EWeaponAnimation.STRAPPED,
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
     animstate: null,
     animation: EStalkerState.PROBE_STAND,
-    isForced: null,
   },
-  probe_stand_detector_advanced: {
+  [EStalkerState.PROBE_STAND_DETECTOR_ADVANCED]: {
     weapon: EWeaponAnimation.STRAPPED,
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
     animstate: null,
     animation: EStalkerState.PROBE_STAND_DETECTOR_ADVANCED,
-    isForced: null,
   },
-  probe_stand_detector_elite: {
+  [EStalkerState.PROBE_STAND_DETECTOR_ELITE]: {
     weapon: EWeaponAnimation.STRAPPED,
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
     animstate: null,
     animation: EStalkerState.PROBE_STAND_DETECTOR_ELITE,
-    isForced: null,
   },
-  probe_way: {
+  [EStalkerState.PROBE_WAY]: {
     weapon: EWeaponAnimation.STRAPPED,
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
     animstate: null,
     animation: EStalkerState.PROBE_WAY,
-    isForced: null,
   },
-  probe_way_detector_advanced: {
+  [EStalkerState.PROBE_WAY_DETECTOR_ADVANCED]: {
     weapon: EWeaponAnimation.STRAPPED,
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
     animstate: null,
     animation: EStalkerState.PROBE_WAY_DETECTOR_ADVANCED,
-    isForced: null,
   },
-  probe_way_detector_elite: {
+  [EStalkerState.PROBE_WAY_DETECTOR_ELITE]: {
     weapon: EWeaponAnimation.STRAPPED,
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
     animstate: null,
     animation: EStalkerState.PROBE_WAY_DETECTOR_ELITE,
-    isForced: null,
   },
-  probe_crouch: {
+  [EStalkerState.PROBE_CROUCH]: {
     weapon: EWeaponAnimation.STRAPPED,
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
     animstate: null,
     animation: EStalkerState.PROBE_CROUCH,
-    isForced: null,
   },
-  probe_crouch_detector_advanced: {
+  [EStalkerState.PROBE_CROUCH_DETECTOR_ADVANCED]: {
     weapon: EWeaponAnimation.STRAPPED,
     movement: move.stand,
     mental: anim.danger,
     bodystate: move.standing,
     animstate: null,
     animation: EStalkerState.PROBE_CROUCH_DETECTOR_ADVANCED,
-    isForced: null,
   },
-  probe_crouch_detector_elite: {
+  [EStalkerState.PROBE_CROUCH_DETECTOR_ELITE]: {
     weapon: EWeaponAnimation.STRAPPED,
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
     animstate: null,
     animation: EStalkerState.PROBE_CROUCH_DETECTOR_ELITE,
-    isForced: null,
   },
-  scaner_stand: {
+  [EStalkerState.SCANER_STAND]: {
     weapon: EWeaponAnimation.STRAPPED,
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
     animstate: null,
     animation: EStalkerState.SCANER_STAND,
-    isForced: null,
   },
-  scaner_way: {
+  [EStalkerState.SCANER_WAY]: {
     weapon: EWeaponAnimation.STRAPPED,
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
     animstate: null,
     animation: EStalkerState.SCANER_WAY,
-    isForced: null,
   },
-  scaner_crouch: {
+  [EStalkerState.SCANER_CROUCH]: {
     weapon: EWeaponAnimation.STRAPPED,
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
     animstate: null,
     animation: EStalkerState.SCANER_CROUCH,
-    isForced: null,
   },
-  hands_up: {
+  [EStalkerState.HANDS_UP]: {
     weapon: EWeaponAnimation.STRAPPED,
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
     animstate: null,
     animation: EStalkerState.HANDS_UP,
-    isForced: null,
   },
   // -- Wounded
-  wounded: {
+  [EStalkerState.WOUNDED]: {
     weapon: EWeaponAnimation.STRAPPED,
     movement: move.stand,
     mental: anim.danger,
@@ -822,9 +734,8 @@ export const baseStates: LuaTable<TName, IStateDescriptor> = $fromObject<TName, 
     direction: look.cur_dir,
     animstate: null,
     animation: EStalkerState.WOUNDED,
-    isForced: null,
   },
-  wounded_heavy: {
+  [EStalkerState.WOUNDED_HEAVY]: {
     weapon: EWeaponAnimation.DROP,
     movement: move.stand,
     mental: anim.danger,
@@ -832,9 +743,8 @@ export const baseStates: LuaTable<TName, IStateDescriptor> = $fromObject<TName, 
     direction: look.cur_dir, // --CSightParams.eSightTypeAnimationDirection
     animstate: null,
     animation: EStalkerState.WOUNDED_HEAVY_1,
-    isForced: null,
   },
-  wounded_heavy_2: {
+  [EStalkerState.WOUNDED_HEAVY_2]: {
     weapon: EWeaponAnimation.DROP,
     movement: move.stand,
     mental: anim.danger,
@@ -842,9 +752,8 @@ export const baseStates: LuaTable<TName, IStateDescriptor> = $fromObject<TName, 
     direction: look.cur_dir,
     animstate: null,
     animation: EStalkerState.WOUNDED_HEAVY_2,
-    isForced: null,
   },
-  wounded_heavy_3: {
+  [EStalkerState.WOUNDED_HEAVY_3]: {
     weapon: EWeaponAnimation.DROP,
     movement: move.stand,
     mental: anim.danger,
@@ -852,9 +761,8 @@ export const baseStates: LuaTable<TName, IStateDescriptor> = $fromObject<TName, 
     direction: look.cur_dir,
     animstate: null,
     animation: EStalkerState.WOUNDED_HEAVY_3,
-    isForced: null,
   },
-  wounded_zombie: {
+  [EStalkerState.WOUNDED_ZOMBIE]: {
     weapon: EWeaponAnimation.DROP,
     movement: move.stand,
     mental: anim.danger,
@@ -862,63 +770,56 @@ export const baseStates: LuaTable<TName, IStateDescriptor> = $fromObject<TName, 
     direction: look.cur_dir,
     animstate: null,
     animation: EStalkerState.WOUNDED_ZOMBIE,
-    isForced: null,
   },
-  trans_0: {
+  [EStalkerState.TRANS_0]: {
     weapon: EWeaponAnimation.STRAPPED,
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
     animstate: null,
     animation: EStalkerState.TRANS_0,
-    isForced: null,
   },
-  trans_1: {
+  [EStalkerState.TRANS_1]: {
     weapon: EWeaponAnimation.STRAPPED,
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
     animstate: null,
     animation: EStalkerState.TRANS_1,
-    isForced: null,
   },
-  trans_zombied: {
+  [EStalkerState.TRANS_ZOMBIED]: {
     weapon: EWeaponAnimation.STRAPPED,
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
     animstate: null,
     animation: EStalkerState.TRANS_ZOMBIED,
-    isForced: null,
   },
-  talk_default: {
+  [EStalkerState.TALK_DEFAULT]: {
     weapon: EWeaponAnimation.STRAPPED,
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
     animstate: null,
     animation: EStalkerState.TALK_DEFAULT,
-    isForced: null,
   },
-  psy_pain: {
+  [EStalkerState.PSY_PAIN]: {
     weapon: EWeaponAnimation.DROP,
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
     animstate: null,
     animation: EStalkerState.PSY_ARMED,
-    isForced: null,
   },
-  psy_armed: {
+  [EStalkerState.PSY_ARMED]: {
     weapon: EWeaponAnimation.UNSTRAPPED,
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
     animstate: null,
     animation: EStalkerState.PSY_ARMED,
-    isForced: null,
   },
-  psy_shoot: {
+  [EStalkerState.PSY_SHOOT]: {
     weapon: EWeaponAnimation.FIRE,
     weapon_slot: 1,
     movement: move.stand,
@@ -926,9 +827,8 @@ export const baseStates: LuaTable<TName, IStateDescriptor> = $fromObject<TName, 
     bodystate: move.standing,
     animstate: null,
     animation: EStalkerState.PSY_SHOOT,
-    isForced: null,
   },
-  lay_on_bed: {
+  [EStalkerState.LAY_ON_BED]: {
     weapon: EWeaponAnimation.DROP,
     movement: move.stand,
     mental: anim.danger,
@@ -936,6 +836,5 @@ export const baseStates: LuaTable<TName, IStateDescriptor> = $fromObject<TName, 
     direction: look.cur_dir,
     animstate: null,
     animation: EStalkerState.WOUNDED_HEAVY_1,
-    isForced: null,
   },
 });

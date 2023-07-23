@@ -149,3 +149,10 @@ export function mockLuaTable<K extends AnyNotNil, V>(initial: Array<[K, V]> = []
 
   return table as unknown as LuaTable<K, V>;
 }
+
+/**
+ * Just transform types of LuaTable to mockLuaTable.
+ */
+export function mockFromLuaTable<K extends AnyNotNil, V>(original: LuaTable<K, V>): MockLuaTable<K, V> {
+  return original as unknown as MockLuaTable<K, V>;
+}

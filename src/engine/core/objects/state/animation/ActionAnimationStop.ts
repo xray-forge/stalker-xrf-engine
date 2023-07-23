@@ -29,7 +29,7 @@ export class ActionAnimationStop extends action_base {
 
     this.stateManager.animation.setState(
       null,
-      (this.stateManager.isForced || states.get(this.stateManager.targetState).isForced) as Optional<boolean>
+      (this.stateManager.isForced || states.get(this.stateManager.targetState).isForced) === true
     );
     this.stateManager.animation.setControl();
   }
