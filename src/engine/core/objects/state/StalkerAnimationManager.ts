@@ -9,13 +9,24 @@ import {
   IAnimationDescriptor,
   IAnimationManagerStates,
   IAnimationStateDescriptor,
+  TAnimationSequenceElements,
 } from "@/engine/core/objects/state/animation_types";
 import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateManager";
 import { EStalkerState } from "@/engine/core/objects/state/state_types";
 import { abort } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { createVector, vectorRotateY } from "@/engine/core/utils/vector";
-import { AnyCallable, ClientObject, Hit, Optional, TIndex, TName, TRate, TTimestamp } from "@/engine/lib/types";
+import {
+  AnyCallable,
+  ClientObject,
+  Hit,
+  LuaArray,
+  Optional,
+  TIndex,
+  TName,
+  TRate,
+  TTimestamp,
+} from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -242,13 +253,13 @@ export class StalkerAnimationManager {
    */
   public getAnimationForSlot(
     slot: TIndex,
-    animationsList: LuaTable<TIndex, LuaTable<number, string | LuaTable>>
-  ): LuaTable<number, string | LuaTable> {
+    animationsList: LuaTable<TIndex, LuaArray<TAnimationSequenceElements>>
+  ): Optional<LuaArray<TAnimationSequenceElements>> {
     if (animationsList.get(slot) === null) {
       slot = 0;
     }
 
-    return animationsList.get(slot);
+    return $fromArray(animationsList.get(slot) as any);
   }
 
   /**
@@ -387,7 +398,7 @@ export class StalkerAnimationManager {
       states.animationMarker = null;
 
       if (skipMultiAnimationCheck !== true) {
-        let intoList: LuaTable<number, string | LuaTable> = new LuaTable();
+        let intoList: Optional<LuaArray<TAnimationSequenceElements>> = new LuaTable();
         const targetAnimations = this.animations.get(states.targetState!);
 
         if (targetAnimations !== null && targetAnimations.into !== null) {

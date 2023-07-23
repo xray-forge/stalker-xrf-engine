@@ -1,5 +1,15 @@
 import { EStalkerState } from "@/engine/core/objects/state/state_types";
-import { AnyCallable, LuaArray, Optional, TIndex, TName, TNumberId, TTimestamp } from "@/engine/lib/types";
+import {
+  AnyCallable,
+  LuaArray,
+  Optional,
+  TIndex,
+  TName,
+  TNumberId,
+  TRate,
+  TStringId,
+  TTimestamp,
+} from "@/engine/lib/types";
 
 /**
  * Attach item as element of sequence.
@@ -20,13 +30,27 @@ export type TAnimationDetachSequence = { d: TName };
 export type TAnimationCallbackSequence = { f: AnyCallable };
 
 /**
+ * Call sound as element of sequence.
+ * Where 's' is sound to play.
+ */
+export type TAnimationSoundSequence = { s: TStringId };
+
+/**
+ * Do object hit as element of sequence.
+ * Where 'sh' is hit power.
+ */
+export type TAnimationHitSequence = { sh: TRate };
+
+/**
  * Element of animation sequence.
  */
 export type TAnimationSequenceElement =
   | TName
   | TAnimationAttachSequence
   | TAnimationDetachSequence
-  | TAnimationCallbackSequence;
+  | TAnimationCallbackSequence
+  | TAnimationSoundSequence
+  | TAnimationHitSequence;
 
 /**
  * Element of animation sequence.

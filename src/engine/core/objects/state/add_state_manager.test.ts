@@ -1,5 +1,4 @@
 import { describe, expect, it } from "@jest/globals";
-import { EAnimationType } from "core/objects/state/lib";
 
 import { addStateManager } from "@/engine/core/objects/state/add_state_manager";
 import {
@@ -18,6 +17,7 @@ import {
   EvaluatorAnimationStateLocked,
   EvaluatorAnimationStatePlayNow,
 } from "@/engine/core/objects/state/animation_state";
+import { EAnimationType } from "@/engine/core/objects/state/animation_types";
 import {
   ActionBodyStateCrouch,
   ActionBodyStateCrouchDanger,

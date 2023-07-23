@@ -1,966 +1,1028 @@
-import { IAnimationDescriptor } from "@/engine/core/objects/state";
+import { IAnimationDescriptor } from "@/engine/core/objects/state/animation_types";
 import { CampManager } from "@/engine/core/objects/state/camp";
+import { EStalkerState } from "@/engine/core/objects/state/state_types";
 import { SchemeCorpseDetection } from "@/engine/core/schemes/corpse_detection";
 import { SchemeHelpWounded } from "@/engine/core/schemes/help_wounded";
+import { createSequence } from "@/engine/core/utils/animation";
 import { getExtern } from "@/engine/core/utils/binding";
 import { AnyCallablesModule, ClientObject, TName } from "@/engine/lib/types";
 
-export const baseAnimations: LuaTable<TName, IAnimationDescriptor> = {
-  idle: {
+/**
+ * List of base animations for usage in stalkers logic.
+ */
+export const baseAnimations: LuaTable<TName, IAnimationDescriptor> = $fromObject<TName, IAnimationDescriptor>({
+  [EStalkerState.IDLE]: {
     prop: {
       maxidle: 5,
       sumidle: 3,
       rnd: 80,
+      moving: null,
     },
     into: null,
     out: null,
-    idle: {
-      [0]: "idle_0_idle_1",
-      [1]: "idle_1_idle_1",
-      [2]: "idle_2_idle_1",
-      [3]: "idle_3_idle_1",
-      [4]: "idle_4_idle_1",
-      [8]: "idle_8_idle_1",
-      [9]: "idle_2_idle_1",
-      [10]: "idle_10_idle_1",
-    },
-    rnd: {
-      [0]: ["idle_0_idle_0", "idle_0_idle_2", "idle_0_idle_3", "idle_0_idle_4"],
-      [1]: ["idle_1_idle_0", "idle_1_idle_2", "idle_1_idle_3", "idle_1_idle_4"],
-      [2]: ["idle_2_idle_0", "idle_2_idle_2", "idle_2_idle_3", "idle_2_idle_4"],
-      [3]: ["idle_3_idle_0", "idle_3_idle_2", "idle_3_idle_3", "idle_3_idle_4"],
-      [4]: ["idle_4_idle_0", "idle_4_idle_2", "idle_4_idle_3", "idle_4_idle_4"],
-      [8]: ["idle_8_idle_0", "idle_8_idle_2", "idle_8_idle_3", "idle_8_idle_4"],
-      [9]: ["idle_2_idle_0", "idle_2_idle_2", "idle_2_idle_3", "idle_2_idle_4"],
-      [10]: ["idle_10_idle_0", "idle_10_idle_2", "idle_10_idle_3", "idle_10_idle_4"],
-    },
+    idle: createSequence(
+      "idle_0_idle_1",
+      "idle_1_idle_1",
+      "idle_2_idle_1",
+      "idle_3_idle_1",
+      "idle_4_idle_1",
+      null,
+      null,
+      null,
+      "idle_8_idle_1",
+      "idle_2_idle_1",
+      "idle_10_idle_1"
+    ),
+    rnd: createSequence(
+      ["idle_0_idle_0", "idle_0_idle_2", "idle_0_idle_3", "idle_0_idle_4"],
+      ["idle_1_idle_0", "idle_1_idle_2", "idle_1_idle_3", "idle_1_idle_4"],
+      ["idle_2_idle_0", "idle_2_idle_2", "idle_2_idle_3", "idle_2_idle_4"],
+      ["idle_3_idle_0", "idle_3_idle_2", "idle_3_idle_3", "idle_3_idle_4"],
+      ["idle_4_idle_0", "idle_4_idle_2", "idle_4_idle_3", "idle_4_idle_4"],
+      null,
+      null,
+      null,
+      ["idle_8_idle_0", "idle_8_idle_2", "idle_8_idle_3", "idle_8_idle_4"],
+      ["idle_2_idle_0", "idle_2_idle_2", "idle_2_idle_3", "idle_2_idle_4"],
+      ["idle_10_idle_0", "idle_10_idle_2", "idle_10_idle_3", "idle_10_idle_4"]
+    ),
   },
-  idle_chasovoy: {
+  [EStalkerState.IDLE_CHASOVOY]: {
     prop: {
       maxidle: 5,
       sumidle: 3,
       rnd: 80,
+      moving: null,
     },
     into: null,
     out: null,
-    idle: {
-      [0]: "idle_0_idle_1",
-      [1]: "idle_1_idle_1",
-      [2]: "idle_2_idle_1",
-      [3]: "idle_3_idle_1",
-      [4]: "idle_4_idle_1",
-      [8]: "idle_8_idle_1",
-      [9]: "idle_2_idle_1",
-      [10]: "idle_10_idle_1",
-    },
-    rnd: {
-      [0]: ["chasovoy_0", "chasovoy_1", "chasovoy_2", "chasovoy_3", "chasovoy_4"],
-      [1]: ["chasovoy_0", "chasovoy_1", "chasovoy_2", "chasovoy_3", "chasovoy_4"],
-      [2]: ["chasovoy_0", "chasovoy_1", "chasovoy_2", "chasovoy_3", "chasovoy_4"],
-      [3]: ["chasovoy_0", "chasovoy_1", "chasovoy_2", "chasovoy_3", "chasovoy_4"],
-      [4]: ["chasovoy_0", "chasovoy_1", "chasovoy_2", "chasovoy_3", "chasovoy_4"],
-      [8]: ["chasovoy_0", "chasovoy_1", "chasovoy_2", "chasovoy_3", "chasovoy_4"],
-      [9]: ["chasovoy_0", "chasovoy_1", "chasovoy_2", "chasovoy_3", "chasovoy_4"],
-      [10]: ["chasovoy_0", "chasovoy_1", "chasovoy_2", "chasovoy_3", "chasovoy_4"],
-    },
+    idle: createSequence(
+      "idle_0_idle_1",
+      "idle_1_idle_1",
+      "idle_2_idle_1",
+      "idle_3_idle_1",
+      "idle_4_idle_1",
+      null,
+      null,
+      null,
+      "idle_8_idle_1",
+      "idle_2_idle_1",
+      "idle_10_idle_1"
+    ),
+    rnd: createSequence(
+      ["chasovoy_0", "chasovoy_1", "chasovoy_2", "chasovoy_3", "chasovoy_4"],
+      ["chasovoy_0", "chasovoy_1", "chasovoy_2", "chasovoy_3", "chasovoy_4"],
+      ["chasovoy_0", "chasovoy_1", "chasovoy_2", "chasovoy_3", "chasovoy_4"],
+      ["chasovoy_0", "chasovoy_1", "chasovoy_2", "chasovoy_3", "chasovoy_4"],
+      ["chasovoy_0", "chasovoy_1", "chasovoy_2", "chasovoy_3", "chasovoy_4"],
+      null,
+      null,
+      null,
+      ["chasovoy_0", "chasovoy_1", "chasovoy_2", "chasovoy_3", "chasovoy_4"],
+      ["chasovoy_0", "chasovoy_1", "chasovoy_2", "chasovoy_3", "chasovoy_4"],
+      ["chasovoy_0", "chasovoy_1", "chasovoy_2", "chasovoy_3", "chasovoy_4"]
+    ),
   },
-  caution: {
+  [EStalkerState.CAUTION]: {
     prop: {
       maxidle: 5,
       sumidle: 3,
       rnd: 80,
+      moving: null,
     },
-    into: {
-      [0]: ["prisluh_0_in"],
-      [1]: ["prisluh_1_in"],
-      [2]: ["prisluh_2_in"],
-      [3]: ["prisluh_3_in"],
-      [4]: ["prisluh_4_in"],
-      [8]: ["prisluh_8_in"],
-      [9]: ["prisluh_9_in"],
-      [10]: ["prisluh_10_in"],
-    },
-    out: {
-      [0]: ["prisluh_0_out"],
-      [1]: ["prisluh_1_out"],
-      [2]: ["prisluh_2_out"],
-      [3]: ["prisluh_3_out"],
-      [4]: ["prisluh_4_out"],
-      [8]: ["prisluh_8_out"],
-      [9]: ["prisluh_9_out"],
-      [10]: ["prisluh_10_out"],
-    },
-    idle: {
-      [0]: "prisluh_0_1",
-      [1]: "prisluh_1_1",
-      [2]: "prisluh_2_1",
-      [3]: "prisluh_3_1",
-      [4]: "prisluh_4_1",
-      [8]: "prisluh_8_1",
-      [9]: "prisluh_9_1",
-      [10]: "prisluh_10_1",
-    },
-    rnd: {
-      [0]: ["prisluh_0_0", "prisluh_0_2"],
-      [1]: ["prisluh_1_0", "prisluh_1_2"],
-      [2]: ["prisluh_2_0", "prisluh_2_2"],
-      [3]: ["prisluh_3_0", "prisluh_3_2"],
-      [4]: ["prisluh_4_0", "prisluh_4_2"],
-      [8]: ["prisluh_8_0", "prisluh_8_2"],
-      [9]: ["prisluh_9_0", "prisluh_9_2"],
-      [10]: ["prisluh_10_0", "prisluh_10_2"],
-    },
+    into: createSequence(
+      ["prisluh_0_in"],
+      ["prisluh_1_in"],
+      ["prisluh_2_in"],
+      ["prisluh_3_in"],
+      ["prisluh_4_in"],
+      null,
+      null,
+      null,
+      ["prisluh_8_in"],
+      ["prisluh_9_in"],
+      ["prisluh_10_in"]
+    ),
+    out: createSequence(
+      ["prisluh_0_out"],
+      ["prisluh_1_out"],
+      ["prisluh_2_out"],
+      ["prisluh_3_out"],
+      ["prisluh_4_out"],
+      null,
+      null,
+      null,
+      ["prisluh_8_out"],
+      ["prisluh_9_out"],
+      ["prisluh_10_out"]
+    ),
+    idle: createSequence(
+      "prisluh_0_1",
+      "prisluh_1_1",
+      "prisluh_2_1",
+      "prisluh_3_1",
+      "prisluh_4_1",
+      null,
+      null,
+      null,
+      "prisluh_8_1",
+      "prisluh_9_1",
+      "prisluh_10_1"
+    ),
+    rnd: createSequence(
+      ["prisluh_0_0", "prisluh_0_2"],
+      ["prisluh_1_0", "prisluh_1_2"],
+      ["prisluh_2_0", "prisluh_2_2"],
+      ["prisluh_3_0", "prisluh_3_2"],
+      ["prisluh_4_0", "prisluh_4_2"],
+      null,
+      null,
+      null,
+      ["prisluh_8_0", "prisluh_8_2"],
+      ["prisluh_9_0", "prisluh_9_2"],
+      ["prisluh_10_0", "prisluh_10_2"]
+    ),
   },
-  poisk: {
+  [EStalkerState.POISK]: {
     prop: {
       maxidle: 5,
       sumidle: 3,
       rnd: 80,
+      moving: null,
     },
     into: null,
     out: null,
-    idle: {
-      [0]: "poisk_0_idle_1",
-      [1]: "poisk_1_idle_1",
-      [2]: "poisk_2_idle_1",
-      [3]: "poisk_3_idle_1",
-      [4]: "poisk_4_idle_1",
-      [8]: "poisk_8_idle_1",
-      [9]: "poisk_9_idle_1",
-      [10]: "poisk_10_idle_1",
-    },
-    rnd: {
-      [0]: ["poisk_0_idle_0", "poisk_0_idle_2"],
-      [1]: ["poisk_1_idle_0", "poisk_1_idle_2"],
-      [2]: ["poisk_2_idle_0", "poisk_2_idle_2"],
-      [3]: ["poisk_3_idle_0", "poisk_3_idle_2"],
-      [4]: ["poisk_4_idle_0", "poisk_4_idle_2"],
-      [8]: ["poisk_8_idle_0", "poisk_8_idle_2"],
-      [9]: ["poisk_9_idle_0", "poisk_9_idle_2"],
-      [10]: ["poisk_10_idle_0", "poisk_10_idle_2"],
-    },
+    idle: createSequence(
+      "poisk_0_idle_1",
+      "poisk_1_idle_1",
+      "poisk_2_idle_1",
+      "poisk_3_idle_1",
+      "poisk_4_idle_1",
+      null,
+      null,
+      null,
+      "poisk_8_idle_1",
+      "poisk_9_idle_1",
+      "poisk_10_idle_1"
+    ),
+    rnd: createSequence(
+      ["poisk_0_idle_0", "poisk_0_idle_2"],
+      ["poisk_1_idle_0", "poisk_1_idle_2"],
+      ["poisk_2_idle_0", "poisk_2_idle_2"],
+      ["poisk_3_idle_0", "poisk_3_idle_2"],
+      ["poisk_4_idle_0", "poisk_4_idle_2"],
+      null,
+      null,
+      null,
+      ["poisk_8_idle_0", "poisk_8_idle_2"],
+      ["poisk_9_idle_0", "poisk_9_idle_2"],
+      ["poisk_10_idle_0", "poisk_10_idle_2"]
+    ),
   },
-  stoop_no_weap: {
+  [EStalkerState.STOOP_NO_WEAP]: {
     prop: {
       maxidle: 2,
       sumidle: 1,
       rnd: 80,
+      moving: null,
     },
     into: null,
     out: null,
-    idle: { [0]: "poisk_0_idle_0" },
+    idle: createSequence("poisk_0_idle_0"),
     rnd: null,
   },
-  hide: {
+  [EStalkerState.HIDE]: {
     prop: {
       maxidle: 5,
       sumidle: 3,
       rnd: 80,
+      moving: null,
     },
-    into: {
-      [0]: ["cr_idle_0_in"],
-      [1]: ["cr_idle_1_in"],
-      [2]: ["cr_idle_2_in"],
-      [3]: ["cr_idle_3_in"],
-      [4]: ["cr_idle_4_in"],
-      [8]: ["cr_idle_8_in"],
-      [9]: ["cr_idle_9_in"],
-      [10]: ["cr_idle_10_in"],
-    },
-    out: {
-      [0]: ["cr_idle_0_out"],
-      [1]: ["cr_idle_1_out"],
-      [2]: ["cr_idle_2_out"],
-      [3]: ["cr_idle_3_out"],
-      [4]: ["cr_idle_4_out"],
-      [8]: ["cr_idle_8_out"],
-      [9]: ["cr_idle_9_out"],
-      [10]: ["cr_idle_10_out"],
-    },
-    idle: {
-      [0]: "cr_idle_0_1",
-      [1]: "cr_idle_1_1",
-      [2]: "cr_idle_2_1",
-      [3]: "cr_idle_3_1",
-      [4]: "cr_idle_4_1",
-      [8]: "cr_idle_8_1",
-      [9]: "cr_idle_9_1",
-      [10]: "cr_idle_10_1",
-    },
-    rnd: {
-      [0]: ["cr_idle_0_0", "cr_idle_0_2"],
-      [1]: ["cr_idle_1_0", "cr_idle_1_2"],
-      [2]: ["cr_idle_2_0", "cr_idle_2_2"],
-      [3]: ["cr_idle_3_0", "cr_idle_3_2"],
-      [4]: ["cr_idle_4_0", "cr_idle_4_2"],
-      [8]: ["cr_idle_8_0", "cr_idle_8_2"],
-      [9]: ["cr_idle_9_0", "cr_idle_9_2"],
-      [10]: ["cr_idle_10_0", "cr_idle_10_2"],
-    },
+    into: createSequence(
+      ["cr_idle_0_in"],
+      ["cr_idle_1_in"],
+      ["cr_idle_2_in"],
+      ["cr_idle_3_in"],
+      ["cr_idle_4_in"],
+      null,
+      null,
+      null,
+      ["cr_idle_8_in"],
+      ["cr_idle_9_in"],
+      ["cr_idle_10_in"]
+    ),
+    out: createSequence(
+      ["cr_idle_0_out"],
+      ["cr_idle_1_out"],
+      ["cr_idle_2_out"],
+      ["cr_idle_3_out"],
+      ["cr_idle_4_out"],
+      null,
+      null,
+      null,
+      ["cr_idle_8_out"],
+      ["cr_idle_9_out"],
+      ["cr_idle_10_out"]
+    ),
+    idle: createSequence(
+      "cr_idle_0_1",
+      "cr_idle_1_1",
+      "cr_idle_2_1",
+      "cr_idle_3_1",
+      "cr_idle_4_1",
+      null,
+      null,
+      null,
+      "cr_idle_8_1",
+      "cr_idle_9_1",
+      "cr_idle_10_1"
+    ),
+    rnd: createSequence(
+      ["cr_idle_0_0", "cr_idle_0_2"],
+      ["cr_idle_1_0", "cr_idle_1_2"],
+      ["cr_idle_2_0", "cr_idle_2_2"],
+      ["cr_idle_3_0", "cr_idle_3_2"],
+      ["cr_idle_4_0", "cr_idle_4_2"],
+      null,
+      null,
+      null,
+      ["cr_idle_8_0", "cr_idle_8_2"],
+      ["cr_idle_9_0", "cr_idle_9_2"],
+      ["cr_idle_10_0", "cr_idle_10_2"]
+    ),
   },
-
-  play_guitar: {
+  [EStalkerState.PLAY_GUITAR]: {
     prop: {
       maxidle: 3,
       sumidle: 3,
       rnd: 80,
+      moving: null,
     },
-    into: {
-      [0]: [
-        "sit_1_guitar_0_0",
-        { a: "guitar_a" },
-        {
-          f: (object: ClientObject) => {
-            CampManager.startPlayingGuitar(object);
-          },
+    into: createSequence([
+      "sit_1_guitar_0_0",
+      { a: "guitar_a" },
+      {
+        f: (object: ClientObject) => {
+          CampManager.startPlayingGuitar(object);
         },
-        "sit_1_guitar_0_1",
-      ],
-    },
-    out: { [0]: ["guitar_0_sit_1_0", { d: "guitar_a" }, "guitar_0_sit_1_1"] },
-    idle: { [0]: "guitar_0" },
+      },
+      "sit_1_guitar_0_1",
+    ]),
+    out: createSequence(["guitar_0_sit_1_0", { d: "guitar_a" }, "guitar_0_sit_1_1"]),
+    idle: createSequence("guitar_0"),
     rnd: null,
   },
-  play_harmonica: {
+  [EStalkerState.PLAY_HARMONICA]: {
     prop: {
       maxidle: 3,
       sumidle: 3,
       rnd: 80,
+      moving: null,
     },
-    into: {
-      [0]: [
-        "sit_2_harmonica_1_0",
-        { a: "harmonica_a" },
-        {
-          f: (object: ClientObject) => {
-            CampManager.startPlayingHarmonica(object);
-          },
+    into: createSequence([
+      "sit_2_harmonica_1_0",
+      { a: "harmonica_a" },
+      {
+        f: (object: ClientObject) => {
+          CampManager.startPlayingHarmonica(object);
         },
-        "sit_2_harmonica_1_1",
-      ],
-    },
-    out: { [0]: ["harmonica_1_sit_2_0", { d: "harmonica_a" }, "harmonica_1_sit_2_1"] },
-    idle: { [0]: "harmonica_0" },
+      },
+      "sit_2_harmonica_1_1",
+    ]),
+    out: createSequence(["harmonica_1_sit_2_0", { d: "harmonica_a" }, "harmonica_1_sit_2_1"]),
+    idle: createSequence("harmonica_0"),
     rnd: null,
   },
-
-  hello: {
+  [EStalkerState.HELLO]: {
     prop: {
       maxidle: 5,
       sumidle: 5,
       rnd: 100,
+      moving: null,
     },
     into: null,
     out: null,
     idle: null,
-    rnd: {
-      [0]: ["hello_0_idle_0"],
-      [1]: ["hello_1_idle_0"],
-      [2]: ["hello_2_idle_0"],
-      [3]: ["hello_3_idle_0"],
-      [4]: ["hello_4_idle_0"],
-      [8]: ["hello_8_idle_0"],
-      [9]: ["hello_9_idle_0"],
-      [10]: ["hello_10_idle_0"],
-    },
+    rnd: createSequence(
+      ["hello_0_idle_0"],
+      ["hello_1_idle_0"],
+      ["hello_2_idle_0"],
+      ["hello_3_idle_0"],
+      ["hello_4_idle_0"],
+      null,
+      null,
+      null,
+      ["hello_8_idle_0"],
+      ["hello_9_idle_0"],
+      ["hello_10_idle_0"]
+    ),
   },
-  refuse: {
+  [EStalkerState.REFUSE]: {
     prop: {
       maxidle: 3,
       sumidle: 3,
       rnd: 100,
+      moving: null,
     },
     into: null,
     out: null,
     idle: null,
-    rnd: {
-      [0]: ["net_0_0"],
-      [1]: ["net_1_0"],
-      [2]: ["net_2_0"],
-      [3]: ["net_3_0"],
-      [4]: ["net_4_0"],
-      [8]: ["net_8_0"],
-      [9]: ["net_9_0"],
-      [10]: ["net_10_0"],
-    },
+    rnd: createSequence(
+      ["net_0_0"],
+      ["net_1_0"],
+      ["net_2_0"],
+      ["net_3_0"],
+      ["net_4_0"],
+      null,
+      null,
+      null,
+      ["net_8_0"],
+      ["net_9_0"],
+      ["net_10_0"]
+    ),
   },
-  claim: {
+  [EStalkerState.CLAIM]: {
     prop: {
       maxidle: 5,
       sumidle: 2,
       rnd: 100,
+      moving: null,
     },
     into: null,
     out: null,
     idle: null,
-    rnd: $fromObject({
-      [0]: null,
-      [1]: ["gop_stop_1_0"],
-      [2]: ["gop_stop_2_0"],
-      [3]: ["gop_stop_3_0"],
-      [4]: ["gop_stop_4_0"],
-      [8]: ["gop_stop_8_0"],
-      [9]: ["gop_stop_9_0"],
-      [10]: ["gop_stop_10_0"],
-    }),
+    rnd: createSequence(
+      null,
+      ["gop_stop_1_0"],
+      ["gop_stop_2_0"],
+      ["gop_stop_3_0"],
+      ["gop_stop_4_0"],
+      null,
+      null,
+      null,
+      ["gop_stop_8_0"],
+      ["gop_stop_9_0"],
+      ["gop_stop_10_0"]
+    ),
   },
-  backoff: {
+  [EStalkerState.BACKOFF]: {
     prop: {
       maxidle: 5,
       sumidle: 2,
       rnd: 100,
+      moving: null,
     },
     into: null,
     out: null,
     idle: null,
-    rnd: $fromObject({
-      [0]: ["uhodi_1_0", "uhodi_1_1"],
-      [1]: ["uhodi_1_0", "uhodi_1_1"],
-      [2]: ["uhodi_2_0", "uhodi_2_1"],
-      [3]: ["uhodi_3_0", "uhodi_3_1"],
-      [4]: ["uhodi_4_0", "uhodi_4_1"],
-      [8]: ["uhodi_8_0", "uhodi_8_1"],
-      [9]: ["uhodi_9_0", "uhodi_9_1"],
-      [10]: ["uhodi_10_0", "uhodi_10_1"],
-    }),
+    rnd: createSequence(
+      ["uhodi_1_0", "uhodi_1_1"],
+      ["uhodi_1_0", "uhodi_1_1"],
+      ["uhodi_2_0", "uhodi_2_1"],
+      ["uhodi_3_0", "uhodi_3_1"],
+      ["uhodi_4_0", "uhodi_4_1"],
+      null,
+      null,
+      null,
+      ["uhodi_8_0", "uhodi_8_1"],
+      ["uhodi_9_0", "uhodi_9_1"],
+      ["uhodi_10_0", "uhodi_10_1"]
+    ),
   },
-  punch: {
+  [EStalkerState.PUNCH]: {
     prop: {
       maxidle: 5,
       sumidle: 2,
       rnd: 100,
+      moving: null,
     },
-    into: {
-      [0]: [
+    into: createSequence(
+      [
         "norm_facer_0_0",
         { f: (...args: Array<any>) => getExtern<AnyCallablesModule>("xr_effects").actor_punch(...args) },
         "norm_facer_0_1",
         { f: (...args: Array<any>) => getExtern<AnyCallablesModule>("xr_effects").clearAbuse(...args) },
       ],
-      [1]: [
+      [
         "norm_facer_1_0",
         { f: (...args: Array<any>) => getExtern<AnyCallablesModule>("xr_effects").actor_punch(...args) },
         "norm_facer_1_1",
         { f: (...args: Array<any>) => getExtern<AnyCallablesModule>("xr_effects").clearAbuse(...args) },
       ],
-      [2]: [
+      [
         "norm_facer_2_0",
         { f: (...args: Array<any>) => getExtern<AnyCallablesModule>("xr_effects").actor_punch(...args) },
         "norm_facer_2_1",
         { f: (...args: Array<any>) => getExtern<AnyCallablesModule>("xr_effects").clearAbuse(...args) },
       ],
-      [3]: [
+      [
         "norm_facer_3_0",
         { f: (...args: Array<any>) => getExtern<AnyCallablesModule>("xr_effects").actor_punch(...args) },
         "norm_facer_3_1",
         { f: (...args: Array<any>) => getExtern<AnyCallablesModule>("xr_effects").clearAbuse(...args) },
       ],
-      [4]: [
+      [
         "norm_facer_4_0",
         { f: (...args: Array<any>) => getExtern<AnyCallablesModule>("xr_effects").actor_punch(...args) },
         "norm_facer_4_1",
         { f: (...args: Array<any>) => getExtern<AnyCallablesModule>("xr_effects").clearAbuse(...args) },
       ],
-      [8]: [
+      null,
+      null,
+      null,
+      [
         "norm_facer_8_0",
         { f: (...args: Array<any>) => getExtern<AnyCallablesModule>("xr_effects").actor_punch(...args) },
         "norm_facer_8_1",
         { f: (...args: Array<any>) => getExtern<AnyCallablesModule>("xr_effects").clearAbuse(...args) },
       ],
-      [9]: [
+      [
         "norm_facer_9_0",
         { f: (...args: Array<any>) => getExtern<AnyCallablesModule>("xr_effects").actor_punch(...args) },
         "norm_facer_9_1",
         { f: (...args: Array<any>) => getExtern<AnyCallablesModule>("xr_effects").clearAbuse(...args) },
       ],
-      [10]: [
+      [
         "norm_facer_10_0",
         { f: (...args: Array<any>) => getExtern<AnyCallablesModule>("xr_effects").actor_punch(...args) },
         "norm_facer_10_1",
         { f: (...args: Array<any>) => getExtern<AnyCallablesModule>("xr_effects").clearAbuse(...args) },
-      ],
-    },
+      ]
+    ),
     out: null,
     idle: null,
     rnd: null,
   },
-
-  sleeping: {
+  [EStalkerState.SLEEPING]: {
     prop: {
       maxidle: 5,
       sumidle: 10,
       rnd: 100,
+      moving: null,
     },
-    into: { [0]: ["idle_0_to_sit_0", "sit_to_sleep_0"] },
-    out: { [0]: ["sleep_to_sit_0", "sit_0_to_idle_0"] },
-    idle: { [0]: "sleep_idle_0" },
-    rnd: { [0]: ["sleep_idle_1"] },
+    into: createSequence(["idle_0_to_sit_0", "sit_to_sleep_0"]),
+    out: createSequence(["sleep_to_sit_0", "sit_0_to_idle_0"]),
+    idle: createSequence("sleep_idle_0"),
+    rnd: createSequence(["sleep_idle_1"]),
   },
-
-  wounded: {
+  [EStalkerState.WOUNDED]: {
     prop: {
       maxidle: 5,
       sumidle: 10,
       rnd: 70,
+      moving: null,
     },
-    into: { [0]: ["idle_to_wounded_0"] },
-    out: { [0]: ["wounded_to_idle_0"] },
-    idle: { [0]: "wounded_idle_0" },
+    into: createSequence(["idle_to_wounded_0"]),
+    out: createSequence(["wounded_to_idle_0"]),
+    idle: createSequence("wounded_idle_0"),
     rnd: null,
   },
-  wounded_heavy_1: {
+  [EStalkerState.WOUNDED_HEAVY_1]: {
     prop: {
       maxidle: 5,
       sumidle: 10,
       rnd: 70,
+      moving: null,
     },
-    into: { [0]: ["idle_to_wounded_1"] },
-    out: { [0]: ["waunded_1_out"] },
-    idle: { [0]: "waunded_1_idle_0" },
+    into: createSequence(["idle_to_wounded_1"]),
+    out: createSequence(["waunded_1_out"]),
+    idle: createSequence("waunded_1_idle_0"),
     rnd: null,
   },
-  wounded_heavy_2: {
+  [EStalkerState.WOUNDED_HEAVY_2]: {
     prop: {
       maxidle: 5,
       sumidle: 10,
       rnd: 70,
+      moving: null,
     },
-    into: { [0]: ["idle_to_wounded_2"] },
-    out: { [0]: ["wounded_2_out"] },
-    idle: { [0]: "wounded_2_idle_0" },
+    into: createSequence(["idle_to_wounded_2"]),
+    out: createSequence(["wounded_2_out"]),
+    idle: createSequence("wounded_2_idle_0"),
     rnd: null,
   },
-  wounded_heavy_3: {
+  [EStalkerState.WOUNDED_HEAVY_3]: {
     prop: {
       maxidle: 5,
       sumidle: 10,
       rnd: 70,
+      moving: null,
     },
-    into: { [0]: ["idle_to_wounded_3"] },
-    out: { [0]: ["wounded_3_out"] },
-    idle: { [0]: "wounded_3_idle_0" },
+    into: createSequence(["idle_to_wounded_3"]),
+    out: createSequence(["wounded_3_out"]),
+    idle: createSequence("wounded_3_idle_0"),
     rnd: null,
   },
-  wounded_zombie: {
+  [EStalkerState.WOUNDED_ZOMBIE]: {
     prop: {
       maxidle: 5,
       sumidle: 10,
       rnd: 70,
+      moving: null,
     },
-    into: { [0]: ["idle_to_wounded_0"] },
-    out: { [0]: ["wounded_to_idle_0"] },
-    idle: { [0]: "wounded_idle_0" },
-    rnd: { [0]: ["wounded_idle_1"] },
+    into: createSequence(["idle_to_wounded_0"]),
+    out: createSequence(["wounded_to_idle_0"]),
+    idle: createSequence("wounded_idle_0"),
+    rnd: createSequence(["wounded_idle_1"]),
   },
-
-  choosing: {
+  [EStalkerState.CHOOSING]: {
     prop: {
       maxidle: 8,
       sumidle: 10,
       rnd: 80,
+      moving: null,
     },
     into: null,
     out: null,
     idle: null,
-    rnd: {
-      [0]: ["komandir_0", "komandir_1", "komandir_2"],
-    },
+    rnd: createSequence(["komandir_0", "komandir_1", "komandir_2"]),
   },
-  press: {
+  [EStalkerState.PRESS]: {
     prop: {
       maxidle: 8,
       sumidle: 10,
       rnd: 80,
+      moving: null,
     },
-    into: { [0]: ["knopka_0"] },
-    out: { [0]: ["knopka_1"] },
-    idle: { [0]: "knopka_2" },
+    into: createSequence(["knopka_0"]),
+    out: createSequence(["knopka_1"]),
+    idle: createSequence("knopka_2"),
     rnd: null,
   },
-
-  warding: {
+  [EStalkerState.WARDING]: {
     prop: {
       maxidle: 10,
       sumidle: 10,
       rnd: 0,
+      moving: null,
     },
-    into: { [0]: ["ohrana_0"] },
-    out: { [0]: ["ohrana_2"] },
-    idle: { [0]: "ohrana_1" },
+    into: createSequence(["ohrana_0"]),
+    out: createSequence(["ohrana_2"]),
+    idle: createSequence("ohrana_1"),
     rnd: null,
   },
-
-  warding_short: {
+  [EStalkerState.WARDING_SHORT]: {
     prop: {
       maxidle: 10,
       sumidle: 10,
       rnd: 0,
+      moving: null,
     },
-    into: { [0]: ["ohrana_0"] },
-    out: { [0]: ["ohrana_2"] },
-    idle: { [0]: "ohrana_1_short" },
+    into: createSequence(["ohrana_0"]),
+    out: createSequence(["ohrana_2"]),
+    idle: createSequence("ohrana_1_short"),
     rnd: null,
   },
-
-  fold_arms: {
+  [EStalkerState.FOLD_ARMS]: {
     prop: {
       maxidle: 10,
       sumidle: 10,
       rnd: 0,
+      moving: null,
     },
     into: null,
     out: null,
-    idle: { [0]: "cut_scene_idle_0" },
+    idle: createSequence("cut_scene_idle_0"),
     rnd: null,
   },
-
-  talk_default: {
+  [EStalkerState.TALK_DEFAULT]: {
     prop: {
       maxidle: 5,
       sumidle: 5,
       rnd: 70,
+      moving: null,
     },
-    into: {
-      [0]: null,
-      [2]: ["norm_talk_2_in_0"],
-    },
-    out: {
-      [0]: null,
-      [2]: ["norm_talk_2_out_0"],
-    },
-    idle: {
-      [0]: "idle_0_idle_1",
-      [2]: "norm_talk_2_idle_1",
-    },
-    rnd: {
-      [0]: ["idle_0_idle_0"],
-      [2]: ["norm_talk_2_idle_0", "norm_talk_2_idle_2", "norm_talk_2_idle_3", "norm_talk_2_idle_4"],
-    },
+    into: createSequence(null, null, ["norm_talk_2_in_0"]),
+    out: createSequence(null, null, ["norm_talk_2_out_0"]),
+    idle: createSequence("idle_0_idle_1", null, "norm_talk_2_idle_1"),
+    rnd: createSequence(["idle_0_idle_0"], null, [
+      "norm_talk_2_idle_0",
+      "norm_talk_2_idle_2",
+      "norm_talk_2_idle_3",
+      "norm_talk_2_idle_4",
+    ]),
   },
-
-  binocular: {
+  [EStalkerState.BINOCULAR]: {
     prop: {
       maxidle: 1,
       sumidle: 1,
       rnd: 100,
+      moving: null,
     },
-    into: { [0]: ["binoculars_draw_0", { a: "wpn_binoc" }, "binoculars_draw_1", "binoculars_zoom_in_0"] },
-
-    out: { [0]: ["binoculars_zoom_out_0", "binoculars_hide_0", { d: "wpn_binoc" }, "binoculars_hide_1"] },
-    idle: { [0]: "binoculars_zoom_idle_0" },
-    rnd: {
-      [0]: ["binoculars_zoom_idle_1", "binoculars_zoom_idle_2", "binoculars_zoom_idle_3", "binoculars_zoom_idle_4"],
-    },
+    into: createSequence(["binoculars_draw_0", { a: "wpn_binoc" }, "binoculars_draw_1", "binoculars_zoom_in_0"]),
+    out: createSequence(["binoculars_zoom_out_0", "binoculars_hide_0", { d: "wpn_binoc" }, "binoculars_hide_1"]),
+    idle: createSequence("binoculars_zoom_idle_0"),
+    rnd: createSequence([
+      "binoculars_zoom_idle_1",
+      "binoculars_zoom_idle_2",
+      "binoculars_zoom_idle_3",
+      "binoculars_zoom_idle_4",
+    ]),
   },
-  salut: {
+  [EStalkerState.SALUT]: {
     prop: {
       maxidle: 1,
       sumidle: 1,
       rnd: 100,
+      moving: null,
     },
-    into: { [0]: ["chest_0_idle_0", "chest_0_idle_2"] },
-    out: { [0]: ["chest_0_idle_3"] },
-    idle: { [0]: "chest_0_idle_1" },
+    into: createSequence(["chest_0_idle_0", "chest_0_idle_2"]),
+    out: createSequence(["chest_0_idle_3"]),
+    idle: createSequence("chest_0_idle_1"),
     rnd: null,
   },
-  salut_free: {
+  [EStalkerState.SALUT_FREE]: {
     prop: {
       maxidle: 1,
       sumidle: 1,
       rnd: 100,
+      moving: null,
     },
-    into: { [0]: ["chest_1_idle_0"] },
+    into: createSequence(["chest_1_idle_0"]),
     out: null,
     idle: null,
     rnd: null,
   },
-  hands_up: {
+  [EStalkerState.HANDS_UP]: {
     prop: {
       maxidle: 1,
       sumidle: 1,
       rnd: 100,
+      moving: null,
     },
     into: null,
     out: null,
-    idle: { [0]: "hand_up_0" },
+    idle: createSequence("hand_up_0"),
     rnd: null,
   },
-  trans_0: {
+  [EStalkerState.TRANS_0]: {
     prop: {
       maxidle: 1,
       sumidle: 1,
       rnd: 100,
+      moving: null,
     },
-    into: { [0]: ["idle_0_to_trans_0"] },
-    out: { [0]: ["trans_0_to_idle_0"] },
-    idle: { [0]: "trans_0_idle_0" },
+    into: createSequence(["idle_0_to_trans_0"]),
+    out: createSequence(["trans_0_to_idle_0"]),
+    idle: createSequence("trans_0_idle_0"),
     rnd: null,
   },
-  trans_1: {
+  [EStalkerState.TRANS_1]: {
     prop: {
       maxidle: 1,
       sumidle: 1,
       rnd: 100,
+      moving: null,
     },
-    into: { [0]: ["idle_0_to_trans_1"] },
-    out: { [0]: ["trans_1_to_idle_0"] },
-    idle: { [0]: "trans_1_idle_0" },
+    into: createSequence(["idle_0_to_trans_1"]),
+    out: createSequence(["trans_1_to_idle_0"]),
+    idle: createSequence("trans_1_idle_0"),
     rnd: null,
   },
-  trans_zombied: {
+  [EStalkerState.TRANS_ZOMBIED]: {
     prop: {
       maxidle: 1,
       sumidle: 1,
       rnd: 100,
+      moving: null,
     },
     into: null,
     out: null,
-    idle: { [0]: "trans_0_idle_1" },
-    rnd: {
-      [0]: ["trans_0_idle_0", "trans_0_idle_2", "trans_0_idle_3", "trans_0_idle_4", "trans_0_idle_5", "trans_0_idle_6"],
-    },
+    idle: createSequence("trans_0_idle_1"),
+    rnd: createSequence([
+      "trans_0_idle_0",
+      "trans_0_idle_2",
+      "trans_0_idle_3",
+      "trans_0_idle_4",
+      "trans_0_idle_5",
+      "trans_0_idle_6",
+    ]),
   },
-
-  probe_stand: {
+  [EStalkerState.PROBE_STAND]: {
     prop: {
       maxidle: 0,
       sumidle: 0,
       rnd: 100,
+      moving: null,
     },
-    into: {
-      [0]: [
-        "metering_anomalys_0_draw_0",
-        { f: (...args: Array<any>) => getExtern<AnyCallablesModule>("xr_effects").get_best_detector(...args) },
-        "metering_anomalys_0_draw_1",
-      ],
-    },
-    out: {
-      [0]: [
-        "metering_anomalys_0_hide_0",
-        { f: (...args: Array<any>) => getExtern<AnyCallablesModule>("xr_effects").hide_best_detector(...args) },
-        "metering_anomalys_0_hide_1",
-      ],
-    },
-    idle: { [0]: "metering_anomalys_0_idle_0" },
-    rnd: {
-      [0]: [
-        "metering_anomalys_0_idle_1",
-        "metering_anomalys_0_idle_2",
-        "metering_anomalys_0_idle_3",
-        "metering_anomalys_0_idle_4",
-        "metering_anomalys_0_idle_5",
-      ],
-    },
+    into: createSequence([
+      "metering_anomalys_0_draw_0",
+      { f: (...args: Array<any>) => getExtern<AnyCallablesModule>("xr_effects").get_best_detector(...args) },
+      "metering_anomalys_0_draw_1",
+    ]),
+    out: createSequence([
+      "metering_anomalys_0_hide_0",
+      { f: (...args: Array<any>) => getExtern<AnyCallablesModule>("xr_effects").hide_best_detector(...args) },
+      "metering_anomalys_0_hide_1",
+    ]),
+    idle: createSequence("metering_anomalys_0_idle_0"),
+    rnd: createSequence([
+      "metering_anomalys_0_idle_1",
+      "metering_anomalys_0_idle_2",
+      "metering_anomalys_0_idle_3",
+      "metering_anomalys_0_idle_4",
+      "metering_anomalys_0_idle_5",
+    ]),
   },
-
-  probe_way: {
+  [EStalkerState.PROBE_WAY]: {
     prop: {
       maxidle: 0,
       sumidle: 0,
       rnd: 100,
+      moving: null,
     },
-    into: {
-      [0]: [
-        "metering_anomalys_0_draw_0",
-        { f: (...args: Array<any>) => getExtern<AnyCallablesModule>("xr_effects").get_best_detector(...args) },
-        "metering_anomalys_0_draw_1",
-        "metering_anomalys_0_idle_6",
-      ],
-    },
-    out: {
-      [0]: [
-        "metering_anomalys_0_hide_0",
-        { f: (...args: Array<any>) => getExtern<AnyCallablesModule>("xr_effects").hide_best_detector(...args) },
-        "metering_anomalys_0_hide_1",
-      ],
-    },
-    idle: { [0]: "metering_anomalys_0_idle_0" },
+    into: createSequence([
+      "metering_anomalys_0_draw_0",
+      { f: (...args: Array<any>) => getExtern<AnyCallablesModule>("xr_effects").get_best_detector(...args) },
+      "metering_anomalys_0_draw_1",
+      "metering_anomalys_0_idle_6",
+    ]),
+    out: createSequence([
+      "metering_anomalys_0_hide_0",
+      { f: (...args: Array<any>) => getExtern<AnyCallablesModule>("xr_effects").hide_best_detector(...args) },
+      "metering_anomalys_0_hide_1",
+    ]),
+    idle: createSequence("metering_anomalys_0_idle_0"),
     rnd: null,
   },
-
-  probe_crouch: {
+  [EStalkerState.PROBE_CROUCH]: {
     prop: {
       maxidle: 0,
       sumidle: 0,
       rnd: 100,
+      moving: null,
     },
-    into: {
-      [0]: [
-        "metering_anomalys_1_draw_0",
-        { f: (...args: Array<any>) => getExtern<AnyCallablesModule>("xr_effects").get_best_detector(...args) },
-        "metering_anomalys_1_draw_1",
-      ],
-    },
-    out: {
-      [0]: [
-        "metering_anomalys_1_hide_0",
-        { f: (...args: Array<any>) => getExtern<AnyCallablesModule>("xr_effects").hide_best_detector(...args) },
-        "metering_anomalys_1_hide_1",
-      ],
-    },
-    idle: { [0]: "metering_anomalys_1_idle_0" },
-    rnd: {
-      [0]: [
-        "metering_anomalys_1_idle_1",
-        "metering_anomalys_1_idle_2",
-        "metering_anomalys_1_idle_3",
-        "metering_anomalys_1_idle_4",
-      ],
-    },
+    into: createSequence([
+      "metering_anomalys_1_draw_0",
+      { f: (...args: Array<any>) => getExtern<AnyCallablesModule>("xr_effects").get_best_detector(...args) },
+      "metering_anomalys_1_draw_1",
+    ]),
+    out: createSequence([
+      "metering_anomalys_1_hide_0",
+      { f: (...args: Array<any>) => getExtern<AnyCallablesModule>("xr_effects").hide_best_detector(...args) },
+      "metering_anomalys_1_hide_1",
+    ]),
+    idle: createSequence("metering_anomalys_1_idle_0"),
+    rnd: createSequence([
+      "metering_anomalys_1_idle_1",
+      "metering_anomalys_1_idle_2",
+      "metering_anomalys_1_idle_3",
+      "metering_anomalys_1_idle_4",
+    ]),
   },
-
-  scaner_stand: {
+  [EStalkerState.SCANER_STAND]: {
     prop: {
       maxidle: 0,
       sumidle: 0,
       rnd: 100,
+      moving: null,
     },
-    into: { [0]: ["metering_anomalys_0_draw_0", { a: "anomaly_scaner" }, "metering_anomalys_0_draw_1"] },
-    out: { [0]: ["metering_anomalys_0_hide_0", { d: "anomaly_scaner" }, "metering_anomalys_0_hide_1"] },
-    idle: { [0]: "metering_anomalys_0_idle_0" },
-    rnd: {
-      [0]: [
-        "metering_anomalys_0_idle_1",
-        "metering_anomalys_0_idle_2",
-        "metering_anomalys_0_idle_3",
-        "metering_anomalys_0_idle_4",
-        "metering_anomalys_0_idle_5",
-      ],
-    },
+    into: createSequence(["metering_anomalys_0_draw_0", { a: "anomaly_scaner" }, "metering_anomalys_0_draw_1"]),
+    out: createSequence(["metering_anomalys_0_hide_0", { d: "anomaly_scaner" }, "metering_anomalys_0_hide_1"]),
+    idle: createSequence("metering_anomalys_0_idle_0"),
+    rnd: createSequence([
+      "metering_anomalys_0_idle_1",
+      "metering_anomalys_0_idle_2",
+      "metering_anomalys_0_idle_3",
+      "metering_anomalys_0_idle_4",
+      "metering_anomalys_0_idle_5",
+    ]),
   },
-
-  scaner_way: {
+  [EStalkerState.SCANER_WAY]: {
     prop: {
       maxidle: 0,
       sumidle: 0,
+      moving: null,
       rnd: 100,
     },
-    into: {
-      [0]: [
-        "metering_anomalys_0_draw_0",
-        { a: "anomaly_scaner" },
-        "metering_anomalys_0_draw_1",
-        "metering_anomalys_0_idle_6",
-      ],
-    },
-    out: { [0]: ["metering_anomalys_0_hide_0", { d: "anomaly_scaner" }, "metering_anomalys_0_hide_1"] },
-    idle: { [0]: "metering_anomalys_0_idle_0" },
+    into: createSequence([
+      "metering_anomalys_0_draw_0",
+      { a: "anomaly_scaner" },
+      "metering_anomalys_0_draw_1",
+      "metering_anomalys_0_idle_6",
+    ]),
+    out: createSequence(["metering_anomalys_0_hide_0", { d: "anomaly_scaner" }, "metering_anomalys_0_hide_1"]),
+    idle: createSequence("metering_anomalys_0_idle_0"),
     rnd: null,
   },
-
-  scaner_crouch: {
+  [EStalkerState.SCANER_CROUCH]: {
     prop: {
       maxidle: 0,
       sumidle: 0,
       rnd: 100,
+      moving: null,
     },
-    into: { [0]: ["metering_anomalys_1_draw_0", { a: "anomaly_scaner" }, "metering_anomalys_1_draw_1"] },
-    out: { [0]: ["metering_anomalys_1_hide_0", { d: "anomaly_scaner" }, "metering_anomalys_1_hide_1"] },
-    idle: { [0]: "metering_anomalys_1_idle_0" },
-    rnd: {
-      [0]: [
-        "metering_anomalys_1_idle_1",
-        "metering_anomalys_1_idle_2",
-        "metering_anomalys_1_idle_3",
-        "metering_anomalys_1_idle_4",
-      ],
-    },
+    into: createSequence(["metering_anomalys_1_draw_0", { a: "anomaly_scaner" }, "metering_anomalys_1_draw_1"]),
+    out: createSequence(["metering_anomalys_1_hide_0", { d: "anomaly_scaner" }, "metering_anomalys_1_hide_1"]),
+    idle: createSequence("metering_anomalys_1_idle_0"),
+    rnd: createSequence([
+      "metering_anomalys_1_idle_1",
+      "metering_anomalys_1_idle_2",
+      "metering_anomalys_1_idle_3",
+      "metering_anomalys_1_idle_4",
+    ]),
   },
-
-  prisoner: {
+  [EStalkerState.PRISONER]: {
     prop: {
       maxidle: 1,
       sumidle: 1,
       rnd: 100,
+      moving: null,
     },
-    into: { [0]: ["prisoner_0_sit_down_0"] },
-    out: { [0]: ["prisoner_0_stand_up_0"] },
-    idle: { [0]: "prisoner_0_sit_idle_0" },
+    into: createSequence(["prisoner_0_sit_down_0"]),
+    out: createSequence(["prisoner_0_stand_up_0"]),
+    idle: createSequence("prisoner_0_sit_idle_0"),
     rnd: null,
   },
-
-  raciya: {
+  [EStalkerState.RACIYA]: {
     prop: {
       maxidle: 1,
       sumidle: 1,
       rnd: 100,
+      moving: null,
     },
-    into: {
-      [0]: ["raciya_0_draw_0", { a: "hand_radio" }, "raciya_0_draw_1"],
-      [1]: ["raciya_1_draw_0", { a: "hand_radio" }, "raciya_1_draw_1"],
-      [2]: ["raciya_2_draw_0", { a: "hand_radio" }, "raciya_2_draw_1"],
-      [3]: ["raciya_3_draw_0", { a: "hand_radio" }, "raciya_3_draw_1"],
-      [4]: ["raciya_4_draw_0", { a: "hand_radio" }, "raciya_4_draw_1"],
-      [8]: ["raciya_8_draw_0", { a: "hand_radio" }, "raciya_8_draw_1"],
-      [9]: ["raciya_9_draw_0", { a: "hand_radio" }, "raciya_9_draw_1"],
-      [10]: ["raciya_10_draw_0", { a: "hand_radio" }, "raciya_10_draw_1"],
-    },
-    out: {
-      [0]: ["raciya_0_hide_0", { d: "hand_radio" }, "raciya_0_hide_1"],
-      [1]: ["raciya_1_hide_0", { d: "hand_radio" }, "raciya_1_hide_1"],
-      [2]: ["raciya_2_hide_0", { d: "hand_radio" }, "raciya_2_hide_1"],
-      [3]: ["raciya_3_hide_0", { d: "hand_radio" }, "raciya_3_hide_1"],
-      [4]: ["raciya_4_hide_0", { d: "hand_radio" }, "raciya_4_hide_1"],
-      [8]: ["raciya_8_hide_0", { d: "hand_radio" }, "raciya_8_hide_1"],
-      [9]: ["raciya_9_hide_0", { d: "hand_radio" }, "raciya_9_hide_1"],
-      [10]: ["raciya_10_hide_0", { d: "hand_radio" }, "raciya_10_hide_1"],
-    },
-    idle: {
-      [0]: "raciya_0_idle_0",
-      [1]: "raciya_1_idle_0",
-      [2]: "raciya_2_idle_0",
-      [3]: "raciya_3_idle_0",
-      [4]: "raciya_4_idle_0",
-      [8]: "raciya_8_idle_0",
-      [9]: "raciya_9_idle_0",
-      [10]: "raciya_10_idle_0",
-    },
-    rnd: {
-      [0]: ["raciya_0_talk_0"],
-      [1]: ["raciya_1_talk_0"],
-      [2]: ["raciya_2_talk_0"],
-      [3]: ["raciya_3_talk_0"],
-      [4]: ["raciya_4_talk_0"],
-      [8]: ["raciya_8_talk_0"],
-      [9]: ["raciya_9_talk_0"],
-      [10]: ["raciya_10_talk_0"],
-    },
+    into: createSequence(
+      ["raciya_0_draw_0", { a: "hand_radio" }, "raciya_0_draw_1"],
+      ["raciya_1_draw_0", { a: "hand_radio" }, "raciya_1_draw_1"],
+      ["raciya_2_draw_0", { a: "hand_radio" }, "raciya_2_draw_1"],
+      ["raciya_3_draw_0", { a: "hand_radio" }, "raciya_3_draw_1"],
+      ["raciya_4_draw_0", { a: "hand_radio" }, "raciya_4_draw_1"],
+      null,
+      null,
+      null,
+      ["raciya_8_draw_0", { a: "hand_radio" }, "raciya_8_draw_1"],
+      ["raciya_9_draw_0", { a: "hand_radio" }, "raciya_9_draw_1"],
+      ["raciya_10_draw_0", { a: "hand_radio" }, "raciya_10_draw_1"]
+    ),
+    out: createSequence(
+      ["raciya_0_hide_0", { d: "hand_radio" }, "raciya_0_hide_1"],
+      ["raciya_1_hide_0", { d: "hand_radio" }, "raciya_1_hide_1"],
+      ["raciya_2_hide_0", { d: "hand_radio" }, "raciya_2_hide_1"],
+      ["raciya_3_hide_0", { d: "hand_radio" }, "raciya_3_hide_1"],
+      ["raciya_4_hide_0", { d: "hand_radio" }, "raciya_4_hide_1"],
+      null,
+      null,
+      null,
+      ["raciya_8_hide_0", { d: "hand_radio" }, "raciya_8_hide_1"],
+      ["raciya_9_hide_0", { d: "hand_radio" }, "raciya_9_hide_1"],
+      ["raciya_10_hide_0", { d: "hand_radio" }, "raciya_10_hide_1"]
+    ),
+    idle: createSequence(
+      "raciya_0_idle_0",
+      "raciya_1_idle_0",
+      "raciya_2_idle_0",
+      "raciya_3_idle_0",
+      "raciya_4_idle_0",
+      null,
+      null,
+      null,
+      "raciya_8_idle_0",
+      "raciya_9_idle_0",
+      "raciya_10_idle_0"
+    ),
+    rnd: createSequence(
+      ["raciya_0_talk_0"],
+      ["raciya_1_talk_0"],
+      ["raciya_2_talk_0"],
+      ["raciya_3_talk_0"],
+      ["raciya_4_talk_0"],
+      null,
+      null,
+      null,
+      ["raciya_8_talk_0"],
+      ["raciya_9_talk_0"],
+      ["raciya_10_talk_0"]
+    ),
   },
-
-  cr_raciya: {
+  [EStalkerState.CR_RACIYA]: {
     prop: {
       maxidle: 1,
       sumidle: 1,
       rnd: 100,
+      moving: null,
     },
-    into: {
-      [0]: ["cr_raciya_0_draw_0", { a: "hand_radio" }, "cr_raciya_0_draw_1"],
-      [1]: ["cr_raciya_1_draw_0", { a: "hand_radio" }, "cr_raciya_1_draw_1"],
-      [2]: ["cr_raciya_2_draw_0", { a: "hand_radio" }, "cr_raciya_2_draw_1"],
-      [3]: ["cr_raciya_3_draw_0", { a: "hand_radio" }, "cr_raciya_3_draw_1"],
-      [4]: ["cr_raciya_4_draw_0", { a: "hand_radio" }, "cr_raciya_4_draw_1"],
-      [8]: ["cr_raciya_8_draw_0", { a: "hand_radio" }, "cr_raciya_8_draw_1"],
-      [9]: ["cr_raciya_9_draw_0", { a: "hand_radio" }, "cr_raciya_9_draw_1"],
-      [10]: ["cr_raciya_10_draw_0", { a: "hand_radio" }, "cr_raciya_10_draw_1"],
-    },
-    out: {
-      [0]: ["cr_raciya_0_hide_0", { d: "hand_radio" }, "cr_raciya_0_hide_1"],
-      [1]: ["cr_raciya_1_hide_0", { d: "hand_radio" }, "cr_raciya_1_hide_1"],
-      [2]: ["cr_raciya_2_hide_0", { d: "hand_radio" }, "cr_raciya_2_hide_1"],
-      [3]: ["cr_raciya_3_hide_0", { d: "hand_radio" }, "cr_raciya_3_hide_1"],
-      [4]: ["cr_raciya_4_hide_0", { d: "hand_radio" }, "cr_raciya_4_hide_1"],
-      [8]: ["cr_raciya_8_hide_0", { d: "hand_radio" }, "cr_raciya_8_hide_1"],
-      [9]: ["cr_raciya_9_hide_0", { d: "hand_radio" }, "cr_raciya_9_hide_1"],
-      [10]: ["cr_raciya_10_hide_0", { d: "hand_radio" }, "cr_raciya_10_hide_1"],
-    },
-    idle: {
-      [0]: "cr_raciya_0_idle_0",
-      [1]: "cr_raciya_1_idle_0",
-      [2]: "cr_raciya_2_idle_0",
-      [3]: "cr_raciya_3_idle_0",
-      [4]: "cr_raciya_4_idle_0",
-      [8]: "cr_raciya_8_idle_0",
-      [9]: "cr_raciya_9_idle_0",
-      [10]: "cr_raciya_10_idle_0",
-    },
-    rnd: {
-      [0]: ["cr_raciya_0_talk_0"],
-      [1]: ["cr_raciya_1_talk_0"],
-      [2]: ["cr_raciya_2_talk_0"],
-      [3]: ["cr_raciya_3_talk_0"],
-      [4]: ["cr_raciya_4_talk_0"],
-      [8]: ["cr_raciya_8_talk_0"],
-      [9]: ["cr_raciya_9_talk_0"],
-      [10]: ["cr_raciya_10_talk_0"],
-    },
+    into: createSequence(
+      ["cr_raciya_0_draw_0", { a: "hand_radio" }, "cr_raciya_0_draw_1"],
+      ["cr_raciya_1_draw_0", { a: "hand_radio" }, "cr_raciya_1_draw_1"],
+      ["cr_raciya_2_draw_0", { a: "hand_radio" }, "cr_raciya_2_draw_1"],
+      ["cr_raciya_3_draw_0", { a: "hand_radio" }, "cr_raciya_3_draw_1"],
+      ["cr_raciya_4_draw_0", { a: "hand_radio" }, "cr_raciya_4_draw_1"],
+      null,
+      null,
+      null,
+      ["cr_raciya_8_draw_0", { a: "hand_radio" }, "cr_raciya_8_draw_1"],
+      ["cr_raciya_9_draw_0", { a: "hand_radio" }, "cr_raciya_9_draw_1"],
+      ["cr_raciya_10_draw_0", { a: "hand_radio" }, "cr_raciya_10_draw_1"]
+    ),
+    out: createSequence(
+      ["cr_raciya_0_hide_0", { d: "hand_radio" }, "cr_raciya_0_hide_1"],
+      ["cr_raciya_1_hide_0", { d: "hand_radio" }, "cr_raciya_1_hide_1"],
+      ["cr_raciya_2_hide_0", { d: "hand_radio" }, "cr_raciya_2_hide_1"],
+      ["cr_raciya_3_hide_0", { d: "hand_radio" }, "cr_raciya_3_hide_1"],
+      ["cr_raciya_4_hide_0", { d: "hand_radio" }, "cr_raciya_4_hide_1"],
+      null,
+      null,
+      null,
+      ["cr_raciya_8_hide_0", { d: "hand_radio" }, "cr_raciya_8_hide_1"],
+      ["cr_raciya_9_hide_0", { d: "hand_radio" }, "cr_raciya_9_hide_1"],
+      ["cr_raciya_10_hide_0", { d: "hand_radio" }, "cr_raciya_10_hide_1"]
+    ),
+    idle: createSequence(
+      "cr_raciya_0_idle_0",
+      "cr_raciya_1_idle_0",
+      "cr_raciya_2_idle_0",
+      "cr_raciya_3_idle_0",
+      "cr_raciya_4_idle_0",
+      "cr_raciya_8_idle_0",
+      "cr_raciya_9_idle_0",
+      "cr_raciya_10_idle_0"
+    ),
+    rnd: createSequence(
+      ["cr_raciya_0_talk_0"],
+      ["cr_raciya_1_talk_0"],
+      ["cr_raciya_2_talk_0"],
+      ["cr_raciya_3_talk_0"],
+      ["cr_raciya_4_talk_0"],
+      ["cr_raciya_8_talk_0"],
+      ["cr_raciya_9_talk_0"],
+      ["cr_raciya_10_talk_0"]
+    ),
   },
-
-  psy_armed: {
+  [EStalkerState.PSY_ARMED]: {
     prop: {
       maxidle: 1,
       sumidle: 1,
       rnd: 100,
+      moving: null,
     },
-    into: {
-      [0]: ["idle_0_to_psy_0_idle_0"],
-      [1]: ["idle_0_to_psy_1_idle_0"],
-    },
-    out: {
-      [0]: ["psy_0_idle_0_to_idle_0"],
-      [1]: ["psy_1_idle_0_to_idle_0"],
-    },
-    idle: {
-      [0]: "psy_0_idle_0",
-      [1]: "psy_1_idle_0",
-    },
-    rnd: {
-      [0]: ["psy_0_idle_1", "psy_0_idle_2", "psy_0_idle_3"],
-      [1]: ["psy_1_idle_1", "psy_1_idle_2", "psy_1_idle_3"],
-    },
+    into: createSequence(["idle_0_to_psy_0_idle_0"], ["idle_0_to_psy_1_idle_0"]),
+    out: createSequence(["psy_0_idle_0_to_idle_0"], ["psy_1_idle_0_to_idle_0"]),
+    idle: createSequence("psy_0_idle_0", "psy_1_idle_0"),
+    rnd: createSequence(
+      ["psy_0_idle_1", "psy_0_idle_2", "psy_0_idle_3"],
+      ["psy_1_idle_1", "psy_1_idle_2", "psy_1_idle_3"]
+    ),
   },
-  psy_shoot: {
+  [EStalkerState.PSY_SHOOT]: {
     prop: {
       maxidle: 1,
       sumidle: 1,
       rnd: 100,
+      moving: null,
     },
-    into: { [1]: ["psy_1_shot_0", { sh: 1000 }] },
+    into: createSequence(["psy_1_shot_0", { sh: 1000 }]),
     out: null,
-    idle: { [1]: "psy_1_death_0" },
+    idle: createSequence("psy_1_death_0"),
     rnd: null,
   },
-  lay_on_bed: {
+  [EStalkerState.LAY_ON_BED]: {
     prop: {
       maxidle: 1,
       sumidle: 1,
       rnd: 100,
       moving: true,
     },
-    into: { [0]: ["cut_scene_0_actor"] },
+    into: createSequence(["cut_scene_0_actor"]),
     out: null,
     idle: null,
     rnd: null,
   },
-
-  search_corpse: {
+  [EStalkerState.SEARCH_CORPSE]: {
     prop: {
       maxidle: 1,
       sumidle: 1,
       rnd: 100,
+      moving: null,
     },
-    into: {
-      [0]: [
-        "dinamit_1",
-        {
-          f: (object: ClientObject) => {
-            SchemeCorpseDetection.getAllFromCorpse(object);
-          },
+    into: createSequence([
+      "dinamit_1",
+      {
+        f: (object: ClientObject) => {
+          SchemeCorpseDetection.getAllFromCorpse(object);
         },
-      ],
-    },
+      },
+    ]),
     out: null,
     rnd: null,
     idle: null,
   },
-
-  help_wounded: {
+  [EStalkerState.HELP_WOUNDED]: {
     prop: {
       maxidle: 1,
       sumidle: 1,
       rnd: 100,
+      moving: null,
     },
-    into: {
-      [0]: [
-        "dinamit_1",
-        {
-          f: (object: ClientObject) => {
-            SchemeHelpWounded.helpWounded(object);
-          },
+    into: createSequence([
+      "dinamit_1",
+      {
+        f: (object: ClientObject) => {
+          SchemeHelpWounded.helpWounded(object);
         },
-      ],
-    },
+      },
+    ]),
     out: null,
     rnd: null,
     idle: null,
   },
-} as any;
+});

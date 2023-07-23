@@ -1,8 +1,7 @@
 import { describe, expect, it, jest } from "@jest/globals";
-import { EAnimationType } from "core/objects/state/lib";
 
 import { IRegistryObjectState, registerObject } from "@/engine/core/database";
-import { EStalkerState } from "@/engine/core/objects/state";
+import { EAnimationType, EStalkerState } from "@/engine/core/objects/state";
 import { StalkerAnimationManager } from "@/engine/core/objects/state/StalkerAnimationManager";
 import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateManager";
 import { EActionId } from "@/engine/core/schemes";

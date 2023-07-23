@@ -715,7 +715,7 @@ function get_sequence_for_npc(objectName: TName, existingObject: string): TNpcSe
 /**
  * todo;
  */
-export const priA15Animations: LuaTable<TName, IAnimationDescriptor> = {
+export const scenariosPriA15Animations: LuaTable<TName, IAnimationDescriptor> = {
   pri_a15_idle_none: {
     prop: {
       maxidle: 1,
@@ -732,7 +732,6 @@ export const priA15Animations: LuaTable<TName, IAnimationDescriptor> = {
     },
     rnd: null,
   },
-
   pri_a15_idle_unstrap: {
     prop: {
       maxidle: 1,
@@ -764,7 +763,6 @@ export const priA15Animations: LuaTable<TName, IAnimationDescriptor> = {
     idle: null,
     rnd: null,
   },
-
   pri_a15_vano_1_sokolov: {
     prop: {
       maxidle: 1,
@@ -779,7 +777,6 @@ export const priA15Animations: LuaTable<TName, IAnimationDescriptor> = {
     idle: null,
     rnd: null,
   },
-
   pri_a15_vano_1_zulus: {
     prop: {
       maxidle: 1,
@@ -794,7 +791,6 @@ export const priA15Animations: LuaTable<TName, IAnimationDescriptor> = {
     idle: null,
     rnd: null,
   },
-
   pri_a15_vano_1_wanderer: {
     prop: {
       maxidle: 1,
@@ -809,7 +805,6 @@ export const priA15Animations: LuaTable<TName, IAnimationDescriptor> = {
     idle: null,
     rnd: null,
   },
-
   pri_a15_vano_2_sokolov_zulus: {
     prop: {
       maxidle: 1,
@@ -824,7 +819,6 @@ export const priA15Animations: LuaTable<TName, IAnimationDescriptor> = {
     idle: null,
     rnd: null,
   },
-
   pri_a15_vano_2_sokolov_wanderer: {
     prop: {
       maxidle: 1,
@@ -839,7 +833,6 @@ export const priA15Animations: LuaTable<TName, IAnimationDescriptor> = {
     idle: null,
     rnd: null,
   },
-
   pri_a15_vano_2_zulus_wanderer: {
     prop: {
       maxidle: 1,
@@ -854,7 +847,6 @@ export const priA15Animations: LuaTable<TName, IAnimationDescriptor> = {
     idle: null,
     rnd: null,
   },
-
   pri_a15_vano_3_vano_alive: {
     prop: {
       maxidle: 1,
@@ -884,7 +876,6 @@ export const priA15Animations: LuaTable<TName, IAnimationDescriptor> = {
     idle: null,
     rnd: null,
   },
-
   pri_a15_sokolov_1_vano: {
     prop: {
       maxidle: 1,
@@ -899,7 +890,6 @@ export const priA15Animations: LuaTable<TName, IAnimationDescriptor> = {
     idle: null,
     rnd: null,
   },
-
   pri_a15_sokolov_1_zulus: {
     prop: {
       maxidle: 1,
@@ -914,7 +904,6 @@ export const priA15Animations: LuaTable<TName, IAnimationDescriptor> = {
     idle: null,
     rnd: null,
   },
-
   pri_a15_sokolov_1_wanderer: {
     prop: {
       maxidle: 1,
@@ -929,7 +918,6 @@ export const priA15Animations: LuaTable<TName, IAnimationDescriptor> = {
     idle: null,
     rnd: null,
   },
-
   pri_a15_sokolov_2_vano_zulus: {
     prop: {
       maxidle: 1,
@@ -944,7 +932,6 @@ export const priA15Animations: LuaTable<TName, IAnimationDescriptor> = {
     idle: null,
     rnd: null,
   },
-
   pri_a15_sokolov_2_vano_wanderer: {
     prop: {
       maxidle: 1,
@@ -959,7 +946,6 @@ export const priA15Animations: LuaTable<TName, IAnimationDescriptor> = {
     idle: null,
     rnd: null,
   },
-
   pri_a15_sokolov_2_zulus_wanderer: {
     prop: {
       maxidle: 1,
@@ -974,7 +960,6 @@ export const priA15Animations: LuaTable<TName, IAnimationDescriptor> = {
     idle: null,
     rnd: null,
   },
-
   pri_a15_sokolov_3_sokolov_alive: {
     prop: {
       maxidle: 1,
@@ -1004,7 +989,6 @@ export const priA15Animations: LuaTable<TName, IAnimationDescriptor> = {
     idle: null,
     rnd: null,
   },
-
   pri_a15_zulus_1_vano: {
     prop: {
       maxidle: 1,
@@ -1019,7 +1003,6 @@ export const priA15Animations: LuaTable<TName, IAnimationDescriptor> = {
     idle: null,
     rnd: null,
   },
-
   pri_a15_zulus_1_sokolov: {
     prop: {
       maxidle: 1,
@@ -1034,7 +1017,6 @@ export const priA15Animations: LuaTable<TName, IAnimationDescriptor> = {
     idle: null,
     rnd: null,
   },
-
   pri_a15_zulus_1_wanderer: {
     prop: {
       maxidle: 1,
@@ -1049,7 +1031,6 @@ export const priA15Animations: LuaTable<TName, IAnimationDescriptor> = {
     idle: null,
     rnd: null,
   },
-
   pri_a15_zulus_2_vano_sokolov: {
     prop: {
       maxidle: 1,
@@ -1064,7 +1045,6 @@ export const priA15Animations: LuaTable<TName, IAnimationDescriptor> = {
     idle: null,
     rnd: null,
   },
-
   pri_a15_zulus_2_vano_wanderer: {
     prop: {
       maxidle: 1,
@@ -1079,7 +1059,6 @@ export const priA15Animations: LuaTable<TName, IAnimationDescriptor> = {
     idle: null,
     rnd: null,
   },
-
   pri_a15_zulus_2_sokolov_wanderer: {
     prop: {
       maxidle: 1,
@@ -1094,7 +1073,6 @@ export const priA15Animations: LuaTable<TName, IAnimationDescriptor> = {
     idle: null,
     rnd: null,
   },
-
   pri_a15_zulus_3_zulus_alive: {
     prop: {
       maxidle: 1,
@@ -1123,7 +1101,6 @@ export const priA15Animations: LuaTable<TName, IAnimationDescriptor> = {
     idle: null,
     rnd: null,
   },
-
   pri_a15_wanderer_1_vano: {
     prop: {
       maxidle: 1,
@@ -1138,7 +1115,6 @@ export const priA15Animations: LuaTable<TName, IAnimationDescriptor> = {
     idle: null,
     rnd: null,
   },
-
   pri_a15_wanderer_1_sokolov: {
     prop: {
       maxidle: 1,
@@ -1153,7 +1129,6 @@ export const priA15Animations: LuaTable<TName, IAnimationDescriptor> = {
     idle: null,
     rnd: null,
   },
-
   pri_a15_wanderer_1_zulus: {
     prop: {
       maxidle: 1,
@@ -1168,7 +1143,6 @@ export const priA15Animations: LuaTable<TName, IAnimationDescriptor> = {
     idle: null,
     rnd: null,
   },
-
   pri_a15_wanderer_2_vano_sokolov: {
     prop: {
       maxidle: 1,
@@ -1183,7 +1157,6 @@ export const priA15Animations: LuaTable<TName, IAnimationDescriptor> = {
     idle: null,
     rnd: null,
   },
-
   pri_a15_wanderer_2_vano_zulus: {
     prop: {
       maxidle: 1,
@@ -1198,7 +1171,6 @@ export const priA15Animations: LuaTable<TName, IAnimationDescriptor> = {
     idle: null,
     rnd: null,
   },
-
   pri_a15_wanderer_2_sokolov_zulus: {
     prop: {
       maxidle: 1,
@@ -1213,7 +1185,6 @@ export const priA15Animations: LuaTable<TName, IAnimationDescriptor> = {
     idle: null,
     rnd: null,
   },
-
   pri_a15_wanderer_3_wanderer_alive: {
     prop: {
       maxidle: 1,
@@ -1243,7 +1214,6 @@ export const priA15Animations: LuaTable<TName, IAnimationDescriptor> = {
     idle: null,
     rnd: null,
   },
-
   pri_a15_actor_1_vano: {
     prop: {
       maxidle: 1,
@@ -1258,7 +1228,6 @@ export const priA15Animations: LuaTable<TName, IAnimationDescriptor> = {
     idle: null,
     rnd: null,
   },
-
   pri_a15_actor_1_sokolov: {
     prop: {
       maxidle: 1,
@@ -1273,7 +1242,6 @@ export const priA15Animations: LuaTable<TName, IAnimationDescriptor> = {
     idle: null,
     rnd: null,
   },
-
   pri_a15_actor_1_zulus: {
     prop: {
       maxidle: 1,
@@ -1288,7 +1256,6 @@ export const priA15Animations: LuaTable<TName, IAnimationDescriptor> = {
     idle: null,
     rnd: null,
   },
-
   pri_a15_actor_1_wanderer: {
     prop: {
       maxidle: 1,
@@ -1303,7 +1270,6 @@ export const priA15Animations: LuaTable<TName, IAnimationDescriptor> = {
     idle: null,
     rnd: null,
   },
-
   pri_a15_actor_2_vano_sokolov: {
     prop: {
       maxidle: 1,
@@ -1318,7 +1284,6 @@ export const priA15Animations: LuaTable<TName, IAnimationDescriptor> = {
     idle: null,
     rnd: null,
   },
-
   pri_a15_actor_2_vano_zulus: {
     prop: {
       maxidle: 1,
@@ -1333,7 +1298,6 @@ export const priA15Animations: LuaTable<TName, IAnimationDescriptor> = {
     idle: null,
     rnd: null,
   },
-
   pri_a15_actor_2_vano_wanderer: {
     prop: {
       maxidle: 1,
@@ -1362,7 +1326,6 @@ export const priA15Animations: LuaTable<TName, IAnimationDescriptor> = {
     idle: null,
     rnd: null,
   },
-
   pri_a15_actor_2_sokolov_wanderer: {
     prop: {
       maxidle: 1,
@@ -1377,7 +1340,6 @@ export const priA15Animations: LuaTable<TName, IAnimationDescriptor> = {
     idle: null,
     rnd: null,
   },
-
   pri_a15_actor_2_zulus_wanderer: {
     prop: {
       maxidle: 1,
@@ -1392,7 +1354,6 @@ export const priA15Animations: LuaTable<TName, IAnimationDescriptor> = {
     idle: null,
     rnd: null,
   },
-
   pri_a15_actor_3_vano_alive: {
     prop: {
       maxidle: 1,
@@ -1407,7 +1368,6 @@ export const priA15Animations: LuaTable<TName, IAnimationDescriptor> = {
     idle: null,
     rnd: null,
   },
-
   pri_a15_actor_3_sokolov_alive: {
     prop: {
       maxidle: 1,
@@ -1422,7 +1382,6 @@ export const priA15Animations: LuaTable<TName, IAnimationDescriptor> = {
     idle: null,
     rnd: null,
   },
-
   pri_a15_actor_3_zulus_alive: {
     prop: {
       maxidle: 1,
@@ -1437,7 +1396,6 @@ export const priA15Animations: LuaTable<TName, IAnimationDescriptor> = {
     idle: null,
     rnd: null,
   },
-
   pri_a15_actor_3_wanderer_alive: {
     prop: {
       maxidle: 1,
@@ -1452,7 +1410,6 @@ export const priA15Animations: LuaTable<TName, IAnimationDescriptor> = {
     idle: null,
     rnd: null,
   },
-
   pri_a15_actor_all_dead: {
     prop: {
       maxidle: 1,
@@ -1482,7 +1439,6 @@ export const priA15Animations: LuaTable<TName, IAnimationDescriptor> = {
     idle: null,
     rnd: null,
   },
-
   pri_a15_military_tarasov_1_vano: {
     prop: {
       maxidle: 1,
@@ -1497,7 +1453,6 @@ export const priA15Animations: LuaTable<TName, IAnimationDescriptor> = {
     idle: null,
     rnd: null,
   },
-
   pri_a15_military_tarasov_1_sokolov: {
     prop: {
       maxidle: 1,
@@ -1512,7 +1467,6 @@ export const priA15Animations: LuaTable<TName, IAnimationDescriptor> = {
     idle: null,
     rnd: null,
   },
-
   pri_a15_military_tarasov_1_zulus: {
     prop: {
       maxidle: 1,
@@ -1527,7 +1481,6 @@ export const priA15Animations: LuaTable<TName, IAnimationDescriptor> = {
     idle: null,
     rnd: null,
   },
-
   pri_a15_military_tarasov_1_wanderer: {
     prop: {
       maxidle: 1,
@@ -1542,7 +1495,6 @@ export const priA15Animations: LuaTable<TName, IAnimationDescriptor> = {
     idle: null,
     rnd: null,
   },
-
   pri_a15_military_tarasov_2_vano_sokolov: {
     prop: {
       maxidle: 1,
@@ -1557,7 +1509,6 @@ export const priA15Animations: LuaTable<TName, IAnimationDescriptor> = {
     idle: null,
     rnd: null,
   },
-
   pri_a15_military_tarasov_2_vano_zulus: {
     prop: {
       maxidle: 1,
@@ -1572,7 +1523,6 @@ export const priA15Animations: LuaTable<TName, IAnimationDescriptor> = {
     idle: null,
     rnd: null,
   },
-
   pri_a15_military_tarasov_2_vano_wanderer: {
     prop: {
       maxidle: 1,
@@ -1601,7 +1551,6 @@ export const priA15Animations: LuaTable<TName, IAnimationDescriptor> = {
     idle: null,
     rnd: null,
   },
-
   pri_a15_military_tarasov_2_sokolov_wanderer: {
     prop: {
       maxidle: 1,
@@ -1616,7 +1565,6 @@ export const priA15Animations: LuaTable<TName, IAnimationDescriptor> = {
     idle: null,
     rnd: null,
   },
-
   pri_a15_military_tarasov_2_zulus_wanderer: {
     prop: {
       maxidle: 1,
@@ -1631,7 +1579,6 @@ export const priA15Animations: LuaTable<TName, IAnimationDescriptor> = {
     idle: null,
     rnd: null,
   },
-
   pri_a15_military_tarasov_3_vano_alive: {
     prop: {
       maxidle: 1,
@@ -1646,7 +1593,6 @@ export const priA15Animations: LuaTable<TName, IAnimationDescriptor> = {
     idle: null,
     rnd: null,
   },
-
   pri_a15_military_tarasov_3_sokolov_alive: {
     prop: {
       maxidle: 1,
@@ -1661,7 +1607,6 @@ export const priA15Animations: LuaTable<TName, IAnimationDescriptor> = {
     idle: null,
     rnd: null,
   },
-
   pri_a15_military_tarasov_3_zulus_alive: {
     prop: {
       maxidle: 1,
@@ -1676,7 +1621,6 @@ export const priA15Animations: LuaTable<TName, IAnimationDescriptor> = {
     idle: null,
     rnd: null,
   },
-
   pri_a15_military_tarasov_3_wanderer_alive: {
     prop: {
       maxidle: 1,
@@ -1691,7 +1635,6 @@ export const priA15Animations: LuaTable<TName, IAnimationDescriptor> = {
     idle: null,
     rnd: null,
   },
-
   pri_a15_military_tarasov_all_dead: {
     prop: {
       maxidle: 1,
@@ -1721,7 +1664,6 @@ export const priA15Animations: LuaTable<TName, IAnimationDescriptor> = {
     idle: null,
     rnd: null,
   },
-
   pri_a15_military_2_1_vano: {
     prop: {
       maxidle: 1,
@@ -1736,7 +1678,6 @@ export const priA15Animations: LuaTable<TName, IAnimationDescriptor> = {
     idle: null,
     rnd: null,
   },
-
   pri_a15_military_2_1_sokolov: {
     prop: {
       maxidle: 1,
@@ -1751,7 +1692,6 @@ export const priA15Animations: LuaTable<TName, IAnimationDescriptor> = {
     idle: null,
     rnd: null,
   },
-
   pri_a15_military_2_1_zulus: {
     prop: {
       maxidle: 1,
@@ -1766,7 +1706,6 @@ export const priA15Animations: LuaTable<TName, IAnimationDescriptor> = {
     idle: null,
     rnd: null,
   },
-
   pri_a15_military_2_1_wanderer: {
     prop: {
       maxidle: 1,
@@ -1781,7 +1720,6 @@ export const priA15Animations: LuaTable<TName, IAnimationDescriptor> = {
     idle: null,
     rnd: null,
   },
-
   pri_a15_military_2_2_vano_sokolov: {
     prop: {
       maxidle: 1,
@@ -1796,7 +1734,6 @@ export const priA15Animations: LuaTable<TName, IAnimationDescriptor> = {
     idle: null,
     rnd: null,
   },
-
   pri_a15_military_2_2_vano_zulus: {
     prop: {
       maxidle: 1,
@@ -1811,7 +1748,6 @@ export const priA15Animations: LuaTable<TName, IAnimationDescriptor> = {
     idle: null,
     rnd: null,
   },
-
   pri_a15_military_2_2_vano_wanderer: {
     prop: {
       maxidle: 1,
@@ -1840,7 +1776,6 @@ export const priA15Animations: LuaTable<TName, IAnimationDescriptor> = {
     idle: null,
     rnd: null,
   },
-
   pri_a15_military_2_2_sokolov_wanderer: {
     prop: {
       maxidle: 1,
@@ -1855,7 +1790,6 @@ export const priA15Animations: LuaTable<TName, IAnimationDescriptor> = {
     idle: null,
     rnd: null,
   },
-
   pri_a15_military_2_2_zulus_wanderer: {
     prop: {
       maxidle: 1,
@@ -1870,7 +1804,6 @@ export const priA15Animations: LuaTable<TName, IAnimationDescriptor> = {
     idle: null,
     rnd: null,
   },
-
   pri_a15_military_2_3_vano_alive: {
     prop: {
       maxidle: 1,
@@ -1885,7 +1818,6 @@ export const priA15Animations: LuaTable<TName, IAnimationDescriptor> = {
     idle: null,
     rnd: null,
   },
-
   pri_a15_military_2_3_sokolov_alive: {
     prop: {
       maxidle: 1,
@@ -1900,7 +1832,6 @@ export const priA15Animations: LuaTable<TName, IAnimationDescriptor> = {
     idle: null,
     rnd: null,
   },
-
   pri_a15_military_2_3_zulus_alive: {
     prop: {
       maxidle: 1,
@@ -1915,7 +1846,6 @@ export const priA15Animations: LuaTable<TName, IAnimationDescriptor> = {
     idle: null,
     rnd: null,
   },
-
   pri_a15_military_2_3_wanderer_alive: {
     prop: {
       maxidle: 1,
@@ -1930,7 +1860,6 @@ export const priA15Animations: LuaTable<TName, IAnimationDescriptor> = {
     idle: null,
     rnd: null,
   },
-
   pri_a15_military_2_all_dead: {
     prop: {
       maxidle: 1,
@@ -1960,7 +1889,6 @@ export const priA15Animations: LuaTable<TName, IAnimationDescriptor> = {
     idle: null,
     rnd: null,
   },
-
   pri_a15_military_3_1_vano: {
     prop: {
       maxidle: 1,
@@ -1975,7 +1903,6 @@ export const priA15Animations: LuaTable<TName, IAnimationDescriptor> = {
     idle: null,
     rnd: null,
   },
-
   pri_a15_military_3_1_sokolov: {
     prop: {
       maxidle: 1,
@@ -1990,7 +1917,6 @@ export const priA15Animations: LuaTable<TName, IAnimationDescriptor> = {
     idle: null,
     rnd: null,
   },
-
   pri_a15_military_3_1_zulus: {
     prop: {
       maxidle: 1,
@@ -2005,7 +1931,6 @@ export const priA15Animations: LuaTable<TName, IAnimationDescriptor> = {
     idle: null,
     rnd: null,
   },
-
   pri_a15_military_3_1_wanderer: {
     prop: {
       maxidle: 1,
@@ -2020,7 +1945,6 @@ export const priA15Animations: LuaTable<TName, IAnimationDescriptor> = {
     idle: null,
     rnd: null,
   },
-
   pri_a15_military_3_2_vano_sokolov: {
     prop: {
       maxidle: 1,
@@ -2035,7 +1959,6 @@ export const priA15Animations: LuaTable<TName, IAnimationDescriptor> = {
     idle: null,
     rnd: null,
   },
-
   pri_a15_military_3_2_vano_zulus: {
     prop: {
       maxidle: 1,
@@ -2050,7 +1973,6 @@ export const priA15Animations: LuaTable<TName, IAnimationDescriptor> = {
     idle: null,
     rnd: null,
   },
-
   pri_a15_military_3_2_vano_wanderer: {
     prop: {
       maxidle: 1,
@@ -2079,7 +2001,6 @@ export const priA15Animations: LuaTable<TName, IAnimationDescriptor> = {
     idle: null,
     rnd: null,
   },
-
   pri_a15_military_3_2_sokolov_wanderer: {
     prop: {
       maxidle: 1,
@@ -2094,7 +2015,6 @@ export const priA15Animations: LuaTable<TName, IAnimationDescriptor> = {
     idle: null,
     rnd: null,
   },
-
   pri_a15_military_3_2_zulus_wanderer: {
     prop: {
       maxidle: 1,
@@ -2109,7 +2029,6 @@ export const priA15Animations: LuaTable<TName, IAnimationDescriptor> = {
     idle: null,
     rnd: null,
   },
-
   pri_a15_military_3_3_vano_alive: {
     prop: {
       maxidle: 1,
@@ -2124,7 +2043,6 @@ export const priA15Animations: LuaTable<TName, IAnimationDescriptor> = {
     idle: null,
     rnd: null,
   },
-
   pri_a15_military_3_3_sokolov_alive: {
     prop: {
       maxidle: 1,
@@ -2139,7 +2057,6 @@ export const priA15Animations: LuaTable<TName, IAnimationDescriptor> = {
     idle: null,
     rnd: null,
   },
-
   pri_a15_military_3_3_zulus_alive: {
     prop: {
       maxidle: 1,
@@ -2154,7 +2071,6 @@ export const priA15Animations: LuaTable<TName, IAnimationDescriptor> = {
     idle: null,
     rnd: null,
   },
-
   pri_a15_military_3_3_wanderer_alive: {
     prop: {
       maxidle: 1,
@@ -2169,7 +2085,6 @@ export const priA15Animations: LuaTable<TName, IAnimationDescriptor> = {
     idle: null,
     rnd: null,
   },
-
   pri_a15_military_3_all_dead: {
     prop: {
       maxidle: 1,
@@ -2199,7 +2114,6 @@ export const priA15Animations: LuaTable<TName, IAnimationDescriptor> = {
     idle: null,
     rnd: null,
   },
-
   pri_a15_military_4_1_vano: {
     prop: {
       maxidle: 1,
@@ -2214,7 +2128,6 @@ export const priA15Animations: LuaTable<TName, IAnimationDescriptor> = {
     idle: null,
     rnd: null,
   },
-
   pri_a15_military_4_1_sokolov: {
     prop: {
       maxidle: 1,
@@ -2229,7 +2142,6 @@ export const priA15Animations: LuaTable<TName, IAnimationDescriptor> = {
     idle: null,
     rnd: null,
   },
-
   pri_a15_military_4_1_zulus: {
     prop: {
       maxidle: 1,
@@ -2244,7 +2156,6 @@ export const priA15Animations: LuaTable<TName, IAnimationDescriptor> = {
     idle: null,
     rnd: null,
   },
-
   pri_a15_military_4_1_wanderer: {
     prop: {
       maxidle: 1,
@@ -2259,7 +2170,6 @@ export const priA15Animations: LuaTable<TName, IAnimationDescriptor> = {
     idle: null,
     rnd: null,
   },
-
   pri_a15_military_4_2_vano_sokolov: {
     prop: {
       maxidle: 1,
@@ -2274,7 +2184,6 @@ export const priA15Animations: LuaTable<TName, IAnimationDescriptor> = {
     idle: null,
     rnd: null,
   },
-
   pri_a15_military_4_2_vano_zulus: {
     prop: {
       maxidle: 1,
@@ -2289,7 +2198,6 @@ export const priA15Animations: LuaTable<TName, IAnimationDescriptor> = {
     idle: null,
     rnd: null,
   },
-
   pri_a15_military_4_2_vano_wanderer: {
     prop: {
       maxidle: 1,
@@ -2318,7 +2226,6 @@ export const priA15Animations: LuaTable<TName, IAnimationDescriptor> = {
     idle: null,
     rnd: null,
   },
-
   pri_a15_military_4_2_sokolov_wanderer: {
     prop: {
       maxidle: 1,
@@ -2333,7 +2240,6 @@ export const priA15Animations: LuaTable<TName, IAnimationDescriptor> = {
     idle: null,
     rnd: null,
   },
-
   pri_a15_military_4_2_zulus_wanderer: {
     prop: {
       maxidle: 1,
@@ -2348,7 +2254,6 @@ export const priA15Animations: LuaTable<TName, IAnimationDescriptor> = {
     idle: null,
     rnd: null,
   },
-
   pri_a15_military_4_3_vano_alive: {
     prop: {
       maxidle: 1,
@@ -2363,7 +2268,6 @@ export const priA15Animations: LuaTable<TName, IAnimationDescriptor> = {
     idle: null,
     rnd: null,
   },
-
   pri_a15_military_4_3_sokolov_alive: {
     prop: {
       maxidle: 1,
@@ -2378,7 +2282,6 @@ export const priA15Animations: LuaTable<TName, IAnimationDescriptor> = {
     idle: null,
     rnd: null,
   },
-
   pri_a15_military_4_3_zulus_alive: {
     prop: {
       maxidle: 1,
@@ -2393,7 +2296,6 @@ export const priA15Animations: LuaTable<TName, IAnimationDescriptor> = {
     idle: null,
     rnd: null,
   },
-
   pri_a15_military_4_3_wanderer_alive: {
     prop: {
       maxidle: 1,

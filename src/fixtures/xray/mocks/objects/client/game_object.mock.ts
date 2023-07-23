@@ -13,7 +13,9 @@ import {
   TCallback,
   TClassId,
   TIndex,
+  TName,
   TNumberId,
+  TSection,
   TSightType,
   Vector,
 } from "@/engine/lib/types";
@@ -64,10 +66,10 @@ export function mockClientGameObject({
   ...rest
 }: Partial<
   ClientObject & {
-    idOverride?: number;
-    sectionOverride?: string;
-    infoPortions?: Array<string>;
-    inventory: Array<[string | number, ClientObject]>;
+    idOverride?: TNumberId;
+    sectionOverride?: TSection;
+    infoPortions?: Array<TName>;
+    inventory: Array<[TSection | TNumberId, ClientObject]>;
   }
 > = {}): ClientObject {
   const internalInfos: Array<string> = [...infoPortions];
@@ -91,6 +93,7 @@ export function mockClientGameObject({
     ...rest,
     accessible: rest.accessible || jest.fn(() => true),
     active_item: rest.active_item || jest.fn(() => null),
+    add_animation: rest.add_animation || jest.fn(),
     animation_count,
     alive: rest.alive || jest.fn(() => true),
     accessible_nearest: rest.accessible_nearest || jest.fn(() => 15326),
@@ -306,6 +309,7 @@ export function mockClientGameObject({
         }
       }),
     weapon_unstrapped,
+    weapon_strapped: rest.weapon_strapped || jest.fn(() => true),
   };
 
   CLIENT_SIDE_REGISTRY.set(gameObject.id(), gameObject as ClientObject);

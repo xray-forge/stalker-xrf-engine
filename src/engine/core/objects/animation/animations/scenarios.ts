@@ -1,7 +1,10 @@
-import { EStalkerState, IAnimationDescriptor } from "@/engine/core/objects/state";
+import { IAnimationDescriptor } from "@/engine/core/objects/state";
 import { getExtern } from "@/engine/core/utils/binding";
 import { AnyCallablesModule, TName } from "@/engine/lib/types";
 
+/**
+ * List of scenario animations.
+ */
 export const scenarioAnimations: LuaTable<TName, IAnimationDescriptor> = {
   zat_b14_give_artefact_idle: {
     prop: {
