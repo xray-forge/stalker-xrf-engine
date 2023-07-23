@@ -7,7 +7,7 @@ import { mockFromLuaTable } from "@/fixtures/lua";
 
 describe("animpoint animations list", () => {
   it("should list all needed animations", () => {
-    expect(animpointAnimations.length()).toBe(38);
+    expect(animpointAnimations.length()).toBe(39);
 
     assertArraysIntersecting(mockFromLuaTable(animpointAnimations).getKeysArray(), [
       EStalkerState.ANIMPOINT_STAY_WALL,
@@ -48,6 +48,7 @@ describe("animpoint animations list", () => {
       EStalkerState.ANIMPOINT_SIT_HIGH_HARMONICA,
       EStalkerState.ANIMPOINT_SIT_NORMAL_HARMONICA,
       EStalkerState.ANIMPOINT_SIT_LOW_HARMONICA,
+      EStalkerState.ANIMPOINT_SIT_ASS_HARMONICA,
     ]);
   });
 });
