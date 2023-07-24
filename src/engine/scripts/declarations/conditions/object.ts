@@ -9,7 +9,7 @@ import {
   registry,
 } from "@/engine/core/database";
 import { SimulationBoardManager } from "@/engine/core/managers/interaction/SimulationBoardManager";
-import { ActorInventoryMenuManager, EActorMenuMode } from "@/engine/core/managers/interface/ActorInventoryMenuManager";
+import { ActorInventoryMenuManager } from "@/engine/core/managers/interface/ActorInventoryMenuManager";
 import { ItemUpgradesManager } from "@/engine/core/managers/interface/ItemUpgradesManager";
 import { SmartTerrain, Squad } from "@/engine/core/objects";
 import { ISmartTerrainJob } from "@/engine/core/objects/server/smart_terrain/types";
@@ -40,6 +40,7 @@ import {
   AnyArgs,
   AnyGameObject,
   ClientObject,
+  EActorMenuMode,
   EScheme,
   LuaArray,
   Optional,
@@ -57,125 +58,128 @@ import {
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * @returns whether object is snork
  */
-extern("xr_conditions.is_monster_snork", (actor: ClientObject, npc: ClientObject): boolean => {
-  return npc.clsid() === clsid.snork_s;
+extern("xr_conditions.is_monster_snork", (actor: ClientObject, object: ClientObject): boolean => {
+  return object.clsid() === clsid.snork_s;
+});
+
+/**
+ * @returns whether object is dog
+ */
+extern("xr_conditions.is_monster_dog", (actor: ClientObject, object: ClientObject): boolean => {
+  return object.clsid() === clsid.dog_s;
+});
+
+/**
+ * @returns whether object is psy dog
+ */
+extern("xr_conditions.is_monster_psy_dog", (actor: ClientObject, object: ClientObject): boolean => {
+  return object.clsid() === clsid.psy_dog_s;
+});
+
+/**
+ * @returns whether object is poltergeist
+ */
+extern("xr_conditions.is_monster_polter", (actor: ClientObject, object: ClientObject): boolean => {
+  return object.clsid() === clsid.poltergeist_s;
+});
+
+/**
+ * @returns whether object is tushkano
+ */
+extern("xr_conditions.is_monster_tushkano", (actor: ClientObject, object: ClientObject): boolean => {
+  return object.clsid() === clsid.tushkano_s;
+});
+
+/**
+ * @returns whether object is burer
+ */
+extern("xr_conditions.is_monster_burer", (actor: ClientObject, object: ClientObject): boolean => {
+  return object.clsid() === clsid.burer_s;
+});
+
+/**
+ * @returns whether object is controller
+ */
+extern("xr_conditions.is_monster_controller", (actor: ClientObject, object: ClientObject): boolean => {
+  return object.clsid() === clsid.controller_s;
+});
+
+/**
+ * @returns whether object is flesh
+ */
+extern("xr_conditions.is_monster_flesh", (actor: ClientObject, object: ClientObject): boolean => {
+  return object.clsid() === clsid.flesh_s;
+});
+
+/**
+ * @returns whether object is boar
+ */
+extern("xr_conditions.is_monster_boar", (actor: ClientObject, object: ClientObject): boolean => {
+  return object.clsid() === clsid.boar_s;
 });
 
 /**
  * todo;
  */
-extern("xr_conditions.is_monster_dog", (actor: ClientObject, npc: ClientObject): boolean => {
-  return npc.clsid() === clsid.dog_s;
+extern("xr_conditions.fighting_dist_ge", (actor: ClientObject, object: ClientObject, params: AnyArgs): boolean => {
+  return isDistanceBetweenObjectsGreaterOrEqual(actor, object, params[0]);
 });
 
 /**
  * todo;
  */
-extern("xr_conditions.is_monster_psy_dog", (actor: ClientObject, npc: ClientObject): boolean => {
-  return npc.clsid() === clsid.psy_dog_s;
+extern("xr_conditions.fighting_dist_le", (actor: ClientObject, object: ClientObject, params: AnyArgs): boolean => {
+  return isDistanceBetweenObjectsLessOrEqual(actor, object, params[0]);
 });
 
 /**
  * todo;
  */
-extern("xr_conditions.is_monster_polter", (actor: ClientObject, npc: ClientObject): boolean => {
-  return npc.clsid() === clsid.poltergeist_s;
-});
-
-/**
- * todo;
- */
-extern("xr_conditions.is_monster_tushkano", (actor: ClientObject, npc: ClientObject): boolean => {
-  return npc.clsid() === clsid.tushkano_s;
-});
-
-/**
- * todo;
- */
-extern("xr_conditions.is_monster_burer", (actor: ClientObject, npc: ClientObject): boolean => {
-  return npc.clsid() === clsid.burer_s;
-});
-
-/**
- * todo;
- */
-extern("xr_conditions.is_monster_controller", (actor: ClientObject, npc: ClientObject): boolean => {
-  return npc.clsid() === clsid.controller_s;
-});
-
-/**
- * todo;
- */
-extern("xr_conditions.is_monster_flesh", (actor: ClientObject, npc: ClientObject): boolean => {
-  return npc.clsid() === clsid.flesh_s;
-});
-
-/**
- * todo;
- */
-extern("xr_conditions.is_monster_boar", (actor: ClientObject, npc: ClientObject): boolean => {
-  return npc.clsid() === clsid.boar_s;
-});
-
-/**
- * todo;
- */
-extern("xr_conditions.fighting_dist_ge", (first: ClientObject, second: ClientObject, params: AnyArgs): boolean => {
-  return isDistanceBetweenObjectsGreaterOrEqual(first, second, params[0]);
-});
-
-/**
- * todo;
- */
-extern("xr_conditions.fighting_dist_le", (first: ClientObject, second: ClientObject, params: AnyArgs): boolean => {
-  return isDistanceBetweenObjectsLessOrEqual(first, second, params[0]);
-});
-
-/**
- * todo;
- */
-extern("xr_conditions.enemy_in_zone", (enemy: ClientObject, npc: ClientObject, params: AnyArgs): boolean => {
+extern("xr_conditions.enemy_in_zone", (actor: ClientObject, object: ClientObject, params: AnyArgs): boolean => {
   const zone: Optional<ClientObject> = registry.zones.get(params[0]);
 
   if (zone === null) {
     abort("Wrong zone name '%s' in enemy_in_zone function.", tostring(params[0]));
   }
 
-  return isObjectInZone(enemy, zone);
-});
-
-/**
- * todo;
- */
-extern("xr_conditions.check_npc_name", (actor: ClientObject, npc: ClientObject, params: LuaArray<string>): boolean => {
-  const npcName: Optional<TName> = npc.name();
-
-  if (npcName === null) {
-    return false;
-  }
-
-  for (const [k, v] of params) {
-    if (string.find(npcName, v)[0] !== null) {
-      return true;
-    }
-  }
-
-  return false;
+  return isObjectInZone(actor, zone);
 });
 
 /**
  * todo;
  */
 extern(
+  "xr_conditions.check_npc_name",
+  (actor: ClientObject, object: ClientObject, params: LuaArray<TName>): boolean => {
+    const objectName: Optional<TName> = object.name();
+
+    if (objectName === null) {
+      return false;
+    }
+
+    for (const [k, v] of params) {
+      if (string.find(objectName, v)[0] !== null) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+);
+
+/**
+ * todo;
+ */
+extern(
   "xr_conditions.check_enemy_name",
-  (actor: ClientObject, npc: ClientObject, params: LuaArray<string>): boolean => {
-    const enemyId: TNumberId = registry.objects.get(npc.id()).enemy_id!;
+  (actor: ClientObject, object: ClientObject, params: LuaArray<TName>): boolean => {
+    const enemyId: TNumberId = registry.objects.get(object.id()).enemy_id!;
     const enemy: Optional<ClientObject> = registry.objects.get(enemyId)?.object;
 
     if (enemy && enemy.alive()) {
-      const name: string = enemy.name();
+      const name: TName = enemy.name();
 
       for (const [i, v] of params) {
         if (string.find(name, v)[0] !== null) {
@@ -410,10 +414,10 @@ extern(
 );
 
 /**
- * todo;
+ * @returns whether object has any pistol in slot `1`
  */
-extern("xr_conditions.best_pistol", (actor: ClientObject, npc: ClientObject): boolean => {
-  return npc.item_in_slot(1) !== null;
+extern("xr_conditions.best_pistol", (actor: ClientObject, object: ClientObject): boolean => {
+  return object.item_in_slot(1) !== null;
 });
 
 /**
@@ -981,9 +985,9 @@ extern("xr_conditions.squad_curr_action", (actor: ClientObject, npc: ClientObjec
 });
 
 /**
- * todo;
+ * @returns whether actor is currently searching dead body
  */
-extern("xr_conditions.dead_body_searching", (actor: ClientObject, npc: ClientObject): boolean => {
+extern("xr_conditions.dead_body_searching", (actor: ClientObject, object: ClientObject): boolean => {
   return ActorInventoryMenuManager.getInstance().isActiveMode(EActorMenuMode.DEAD_BODY_SEARCH);
 });
 
@@ -1032,10 +1036,10 @@ extern("xr_conditions._used", (actor: ClientObject, npc: ClientObject): boolean 
 });
 
 /**
- * todo;
+ * @returns whether object is playing any sound
  */
-extern("xr_conditions.is_playing_sound", (actor: ClientObject, npc: ClientObject): boolean => {
-  return isPlayingSound(npc);
+extern("xr_conditions.is_playing_sound", (actor: ClientObject, object: ClientObject): boolean => {
+  return isPlayingSound(object);
 });
 
 /**
