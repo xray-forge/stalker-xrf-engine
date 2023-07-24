@@ -60,8 +60,10 @@ extern("actor_menu", {
  * todo;
  */
 extern("actor_menu_inventory", {
-  CUIActorMenu_OnItemDropped: (from: ClientObject, to: ClientObject, oldList: number, newList: number): void => {
-    return ActorInventoryMenuManager.getInstance().onItemDropped();
+  CUIActorMenu_OnItemDropped: (from: ClientObject, to: ClientObject, oldList: number, newList: number): boolean => {
+    ActorInventoryMenuManager.getInstance().onItemDropped(from, to, oldList, newList);
+
+    return true;
   },
 });
 

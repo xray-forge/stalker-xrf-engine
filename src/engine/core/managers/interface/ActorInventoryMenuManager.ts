@@ -6,7 +6,7 @@ import { readIniString } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { consoleCommands } from "@/engine/lib/constants/console_commands";
 import { ACTOR } from "@/engine/lib/constants/words";
-import { IniFile } from "@/engine/lib/types";
+import { ClientObject, IniFile } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -103,8 +103,8 @@ export class ActorInventoryMenuManager extends AbstractCoreManager {
   /**
    * todo: Description.
    */
-  public onItemDropped(): void {
-    logger.info("Actor menu inventory item dropped");
+  public onItemDropped(from: ClientObject, to: ClientObject, oldList: number, newList: number): void {
+    logger.info("Actor menu inventory item dropped:", from?.name(), to?.name(), oldList, newList);
   }
 
   /**
