@@ -1,4 +1,4 @@
-import { ActorInventoryMenuManager, EActorMenuMode } from "@/engine/core/managers/interface/ActorInventoryMenuManager";
+import { ActorInventoryMenuManager } from "@/engine/core/managers/interface/ActorInventoryMenuManager";
 import { ItemUpgradesManager } from "@/engine/core/managers/interface/ItemUpgradesManager";
 import { LoadScreenManager } from "@/engine/core/managers/interface/LoadScreenManager";
 import { PdaManager } from "@/engine/core/managers/interface/PdaManager";
@@ -6,7 +6,18 @@ import { WeaponParams } from "@/engine/core/ui/game/WeaponParams";
 import { extern } from "@/engine/core/utils/binding";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { TWeapon } from "@/engine/lib/constants/items/weapons";
-import { AnyArgs, AnyObject, ClientObject, TCount, TIndex, TLabel, TName, TSection } from "@/engine/lib/types";
+import {
+  AnyArgs,
+  AnyObject,
+  ClientObject,
+  EActorMenuMode,
+  EActorMenuType,
+  TCount,
+  TIndex,
+  TLabel,
+  TName,
+  TSection,
+} from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -60,7 +71,12 @@ extern("actor_menu", {
  * todo;
  */
 extern("actor_menu_inventory", {
-  CUIActorMenu_OnItemDropped: (from: ClientObject, to: ClientObject, oldList: number, newList: number): boolean => {
+  CUIActorMenu_OnItemDropped: (
+    from: ClientObject,
+    to: ClientObject,
+    oldList: EActorMenuType,
+    newList: EActorMenuType
+  ): boolean => {
     ActorInventoryMenuManager.getInstance().onItemDropped(from, to, oldList, newList);
 
     return true;

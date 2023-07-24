@@ -1,8 +1,8 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 
 import { registry } from "@/engine/core/database";
-import { ActorInventoryMenuManager, EActorMenuMode } from "@/engine/core/managers/interface/ActorInventoryMenuManager";
-import { AnyCallable } from "@/engine/lib/types";
+import { ActorInventoryMenuManager } from "@/engine/core/managers/interface/ActorInventoryMenuManager";
+import { AnyCallable, EActorMenuMode } from "@/engine/lib/types";
 import { gameConsole } from "@/fixtures/xray/mocks/console.mock";
 
 describe("ActorInventoryMenuManager class", () => {
