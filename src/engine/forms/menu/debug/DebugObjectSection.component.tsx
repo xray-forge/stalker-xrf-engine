@@ -129,6 +129,17 @@ function renderRelationButtons(): JSXNode {
         textColor={WHITE}
         font={fonts.letterica16}
       />
+
+      <Xr3tButton
+        tag={"kill_button"}
+        label={"Kill"}
+        x={90}
+        y={132}
+        width={72}
+        height={16}
+        textColor={WHITE}
+        font={fonts.letterica16}
+      />
     </Fragment>
   );
 }

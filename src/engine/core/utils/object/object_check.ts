@@ -37,6 +37,16 @@ export function isObjectInCombat(object: ClientObject): boolean {
 }
 
 /**
+ * Check whether object is strapping weapon.
+ *
+ * @param object - target client object to check
+ * @returns whether strapping/unstrapping weapon is in process
+ */
+export function isObjectStrappingWeapon(object: ClientObject): boolean {
+  return !(object.weapon_unstrapped() || object.weapon_strapped());
+}
+
+/**
  * Is provided target stalker and alive.
  *
  * @param targetObject - client/server object or story ID to check

@@ -73,7 +73,7 @@ export class StalkerStateManager {
   public isForced: boolean = false;
 
   public isObjectPointDirectionLook: boolean = false;
-  public isPositionDirectionApplied: boolean = false;
+  public isAnimationDirectionApplied: boolean = false;
 
   public animation!: StalkerAnimationManager;
   public animstate!: StalkerAnimationManager;
@@ -152,7 +152,7 @@ export class StalkerStateManager {
         this.isForced = extra.isForced === true;
 
         if (
-          this.isPositionDirectionApplied === false ||
+          this.isAnimationDirectionApplied === false ||
           (this.animationPosition !== null &&
             extra.animationPosition !== null &&
             !areSameVectors(this.animationPosition, extra.animationPosition as Vector)) ||
@@ -162,12 +162,12 @@ export class StalkerStateManager {
         ) {
           this.animationPosition = extra.animationPosition as Optional<Vector>;
           this.animationDirection = extra.animationDirection as Optional<Vector>;
-          this.isPositionDirectionApplied = false;
+          this.isAnimationDirectionApplied = false;
         }
       } else {
         this.animationPosition = null;
         this.animationDirection = null;
-        this.isPositionDirectionApplied = false;
+        this.isAnimationDirectionApplied = false;
         this.isForced = false;
       }
 

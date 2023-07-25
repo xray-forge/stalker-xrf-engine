@@ -60,15 +60,20 @@ export type TAnimationSequenceElement =
 export type TAnimationSequenceElements = TAnimationSequenceElement | LuaArray<TAnimationSequenceElement>;
 
 /**
+ * List of properties configuring animation.
+ */
+export interface IAnimationDescriptorProperties {
+  maxidle: TDuration;
+  sumidle: TDuration;
+  rnd: Optional<TRate>;
+  moving: Optional<boolean>;
+}
+
+/**
  * Descriptor of in-game animation.
  */
 export interface IAnimationDescriptor {
-  prop: {
-    maxidle: TDuration;
-    sumidle: TDuration;
-    rnd: Optional<TRate>;
-    moving: Optional<boolean>;
-  };
+  prop: IAnimationDescriptorProperties;
   into: Optional<LuaArray<TAnimationSequenceElements>>;
   out: Optional<LuaArray<TAnimationSequenceElements>>;
   idle: Optional<LuaArray<TAnimationSequenceElements>>;

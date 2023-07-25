@@ -43,6 +43,8 @@ export class DebugObjectSection extends AbstractDebugSection {
   public uiSetNeutralButton!: CUI3tButton;
   public uiSetEnemyButton!: CUI3tButton;
 
+  public uiKillButton!: CUI3tButton;
+
   public initializeControls(): void {
     resolveXmlFile(base, this.xml);
 
@@ -63,6 +65,8 @@ export class DebugObjectSection extends AbstractDebugSection {
     this.uiSetNeutralButton = this.xml.Init3tButton("set_neutral_button", this);
     this.uiSetEnemyButton = this.xml.Init3tButton("set_enemy_button", this);
 
+    this.uiKillButton = this.xml.Init3tButton("kill_button", this);
+
     this.owner.Register(this.uiUseTargetCheck, "use_target_object_check");
     this.owner.Register(this.uiLogPlannerStateButton, "log_planner_state");
     this.owner.Register(this.uiLogInventoryStateButton, "log_inventory_state");
@@ -73,6 +77,7 @@ export class DebugObjectSection extends AbstractDebugSection {
     this.owner.Register(this.uiSetFriendButton, "set_friend_button");
     this.owner.Register(this.uiSetNeutralButton, "set_neutral_button");
     this.owner.Register(this.uiSetEnemyButton, "set_enemy_button");
+    this.owner.Register(this.uiKillButton, "kill_button");
   }
 
   public initializeCallBacks(): void {
@@ -105,6 +110,7 @@ export class DebugObjectSection extends AbstractDebugSection {
       () => this.onSetRelation(ERelation.ENEMY),
       this
     );
+    this.owner.AddCallback("kill_button", ui_events.BUTTON_CLICKED, () => this.onKillObject(), this);
   }
 
   public initializeState(): void {
@@ -214,6 +220,21 @@ export class DebugObjectSection extends AbstractDebugSection {
       this.initializeState();
     } else {
       logger.info("No object found for relation change");
+    }
+  }
+
+  public onKillObject(): void {
+    if (!isGameStarted()) {
+      return logger.info("Cannot kill object while game is not started");
+    }
+
+    const targetObject: Optional<ClientObject> = this.getCurrentObject();
+
+    if (targetObject) {
+      logger.info("Kill object:", targetObject.name());
+      targetObject.kill(targetObject);
+    } else {
+      logger.info("No object found for killing");
     }
   }
 
