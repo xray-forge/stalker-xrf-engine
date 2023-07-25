@@ -1,19 +1,19 @@
 import { level } from "xray16";
 
 import { registry } from "@/engine/core/database";
+import { getCampForPosition } from "@/engine/core/database/camp";
 import { SmartCover } from "@/engine/core/objects";
-import { EStalkerState } from "@/engine/core/objects/animation";
+import { EStalkerState, WEAPON_POSTFIX } from "@/engine/core/objects/animation";
 import {
   animpoint_predicates,
   animpointPredicateAlways,
 } from "@/engine/core/objects/animation/predicates/animpoint_predicates";
 import { states } from "@/engine/core/objects/animation/states";
 import { EObjectCampActivity } from "@/engine/core/objects/state/camp";
-import { associativeTable } from "@/engine/core/objects/state/camp/camp_logic";
+import { CAMP_ACTIVITY_ANIMATION } from "@/engine/core/objects/state/camp/camp_logic";
 import { CampManager } from "@/engine/core/objects/state/camp/CampManager";
-import { AbstractSchemeManager } from "@/engine/core/schemes";
-import { ISchemeAnimpointState } from "@/engine/core/schemes/animpoint/ISchemeAnimpointState";
-import { IAnimpointActionDescriptor } from "@/engine/core/schemes/animpoint/types";
+import { IAnimpointActionDescriptor, ISchemeAnimpointState } from "@/engine/core/schemes/animpoint/types";
+import { AbstractSchemeManager } from "@/engine/core/schemes/base";
 import { assert } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { angleToDirection, createVector } from "@/engine/core/utils/vector";
@@ -76,8 +76,8 @@ export class AnimpointManager extends AbstractSchemeManager<ISchemeAnimpointStat
     if (this.state.useCamp) {
       const [campAction, isDirector] = this.camp!.getCampAction(this.object.id());
       const campActionsList = isDirector
-        ? associativeTable.get(campAction as EObjectCampActivity).director
-        : associativeTable.get(campAction as EObjectCampActivity).listener;
+        ? CAMP_ACTIVITY_ANIMATION.get(campAction as EObjectCampActivity).director
+        : CAMP_ACTIVITY_ANIMATION.get(campAction as EObjectCampActivity).listener;
 
       let isFound: boolean = false;
 
@@ -98,16 +98,16 @@ export class AnimpointManager extends AbstractSchemeManager<ISchemeAnimpointStat
       let action: EStalkerState = actionsList.get(randomNumber);
 
       if (this.state.actionNameBase) {
-        if (this.state.actionNameBase === description + "_weapon") {
-          action = (description + "_weapon") as EStalkerState;
+        if (this.state.actionNameBase === description + WEAPON_POSTFIX) {
+          action = (description + WEAPON_POSTFIX) as EStalkerState;
         }
 
-        if (action === description + "_weapon" && this.state.actionNameBase === description) {
+        if (action === description + WEAPON_POSTFIX && this.state.actionNameBase === description) {
           table.remove(actionsList, randomNumber);
           action = actionsList.get(math.random(actionsList.length()));
         }
       } else {
-        this.state.actionNameBase = action === description + "_weapon" ? action : description;
+        this.state.actionNameBase = action === description + WEAPON_POSTFIX ? action : description;
       }
 
       this.currentAction = action;
@@ -252,7 +252,7 @@ export class AnimpointManager extends AbstractSchemeManager<ISchemeAnimpointStat
     logger.info("Start:", this.object.name());
 
     if (this.state.useCamp) {
-      this.camp = CampManager.getInstanceForPosition(this.position);
+      this.camp = getCampForPosition(this.position);
     }
 
     this.fillApprovedActions();

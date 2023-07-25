@@ -1,6 +1,6 @@
 import type { CampManager } from "@/engine/core/objects/state/camp/index";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import type { Optional, TDuration, TLabel, TName, TProbability } from "@/engine/lib/types";
+import type { LuaArray, Optional, TDuration, TName, TProbability } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -28,10 +28,10 @@ export enum EObjectCampActivity {
  * Camp transition descriptor.
  */
 export interface ICampTransitionDescriptor {
-  director_state: Optional<TName>;
-  general_state: TName;
-  min_time: TDuration;
-  max_time: TDuration;
+  directorState: Optional<TName>;
+  generalState: TName;
+  minTime: TDuration;
+  maxTime: TDuration;
   timeout: TDuration;
   transitions: LuaTable<EObjectCampActivity, TProbability>;
   precondition: (this: void, camp: CampManager) => boolean;
@@ -42,4 +42,13 @@ export interface ICampTransitionDescriptor {
  */
 export interface ICampObjectState extends Record<EObjectCampActivity, Optional<EObjectCampRole>> {
   state: EObjectCampActivity;
+}
+
+/**
+ * Descriptor of animations when objects are participating in camp scenario.
+ * One is telling, others are listening.
+ */
+export interface IStoryAnimationDescriptor {
+  director: LuaArray<TName>;
+  listener: LuaArray<TName>;
 }

@@ -2,15 +2,11 @@ import { time_global } from "xray16";
 
 import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
+import { WEAPON_POSTFIX } from "@/engine/core/objects/animation";
 import { StoryManager } from "@/engine/core/objects/sounds/stories";
-import {
-  EObjectCampActivity,
-  EObjectCampRole,
-  ICampObjectState,
-  ICampTransitionDescriptor,
-} from "@/engine/core/objects/state/camp/camp_types";
-import { ISchemeAnimpointState } from "@/engine/core/schemes/animpoint/ISchemeAnimpointState";
-import { IAnimpointActionDescriptor } from "@/engine/core/schemes/animpoint/types";
+import { CAMP_ACTIVITIES } from "@/engine/core/objects/state/camp/camp_logic";
+import { EObjectCampActivity, EObjectCampRole, ICampObjectState } from "@/engine/core/objects/state/camp/camp_types";
+import { IAnimpointActionDescriptor, ISchemeAnimpointState } from "@/engine/core/schemes/animpoint/types";
 import { ESchemeEvent, IBaseSchemeState } from "@/engine/core/schemes/base";
 import { ISchemeMeetState } from "@/engine/core/schemes/meet";
 import { MeetManager } from "@/engine/core/schemes/meet/MeetManager";
@@ -19,7 +15,6 @@ import { parseStringsList, readIniString } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { isObjectMeeting } from "@/engine/core/utils/object";
 import { emitSchemeEvent } from "@/engine/core/utils/scheme";
-import { toJSON } from "@/engine/core/utils/transform";
 import {
   ClientObject,
   EScheme,
@@ -32,7 +27,6 @@ import {
   TNumberId,
   TProbability,
   TTimestamp,
-  Vector,
 } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -43,177 +37,6 @@ const logger: LuaLogger = new LuaLogger($filename);
  * In other cases checks are done with position verification.
  */
 export class CampManager {
-  /**
-   * @param position - current position to get manager for
-   * @returns instance of manager for NPC position if camp exists
-   */
-  public static getInstanceForPosition(position: Optional<Vector>): Optional<CampManager> {
-    if (position === null) {
-      return null;
-    }
-
-    // Check all nearest client-side camp objects, based on alife switch distance range.
-    for (const [, manager] of registry.camps) {
-      if (manager.object.inside(position)) {
-        return manager;
-      }
-    }
-
-    return null;
-  }
-
-  /**
-   * Start playing guitar for an object.
-   * Checks whether object is in camp and tries to start new guitar action with guitar playing.
-   *
-   * @param object - client object to start playing guitar for
-   */
-  public static startPlayingGuitar(object: ClientObject): void {
-    const campId: Optional<TNumberId> = registry.objects.get(object.id()).camp;
-
-    if (campId === null) {
-      return;
-    }
-
-    const manager: CampManager = registry.camps.get(campId);
-
-    manager.storyManager.setStoryTeller(manager.directorId);
-    manager.storyManager.setActiveId(manager.guitarTable.get(math.random(manager.guitarTable.length())));
-    manager.isSoundManagerStarted = true;
-    manager.storyManager.update();
-  }
-
-  /**
-   * Start playing harmonica for an object.
-   * Checks whether object is in camp and tries to start new harmonica action with guitar playing.
-   *
-   * @param object - client object to start playing harmonica for
-   */
-  public static startPlayingHarmonica(object: ClientObject): void {
-    const campId: Optional<TNumberId> = registry.objects.get(object.id()).camp;
-
-    if (campId === null) {
-      return;
-    }
-
-    const manager: CampManager = registry.camps.get(campId);
-
-    manager.storyManager.setStoryTeller(manager.directorId);
-    manager.storyManager.setActiveId(manager.harmonicaTable.get(math.random(manager.harmonicaTable.length())));
-    manager.isSoundManagerStarted = true;
-    manager.storyManager.update();
-  }
-
-  /**
-   * Checker to verify if story can be told in camp.
-   * Used by animstate checkers when objects have correct animation.
-   *
-   * @returns whether story can be told in camp
-   */
-  public static canTellCampStory(campManager: CampManager): boolean {
-    // Nothing to tell here.
-    if (campManager.storyTable.length() === 0) {
-      return false;
-    }
-
-    let count: TCount = 0;
-
-    for (const [id, v] of campManager.objects) {
-      const object: Optional<ClientObject> = registry.objects.get(id)?.object;
-
-      // todo: Probably just return instead of full FOR? If 2+
-      if (object !== null && !isObjectMeeting(object)) {
-        count += 1;
-      }
-    }
-
-    // Check whether camp has free speakers, verify that have 2+ of them.
-    return count > 1;
-  }
-
-  /**
-   * todo;
-   *
-   * @param campManager - manager to check
-   * @returns whether guitar can be played in camp
-   */
-  public static canPlayCampGuitar(campManager: CampManager): boolean {
-    // Nothing to play here.
-    if (campManager.guitarTable.length() === 0) {
-      return false;
-    }
-
-    let count: TCount = 0;
-
-    for (const [k, v] of campManager.objects) {
-      count += 1;
-    }
-
-    if (count > 1) {
-      for (const [objectId, objectInfo] of campManager.objects) {
-        const state: Optional<IRegistryObjectState> = registry.objects.get(objectId);
-        const schemeState: Optional<ISchemeAnimpointState> = state?.activeScheme
-          ? (state[state.activeScheme] as ISchemeAnimpointState)
-          : null;
-        const object: Optional<ClientObject> = state?.object;
-
-        if (
-          object !== null &&
-          objectInfo.guitar === EObjectCampRole.DIRECTOR &&
-          schemeState !== null &&
-          schemeState.actionNameBase === schemeState.description &&
-          !isObjectMeeting(object)
-        ) {
-          return true;
-        }
-      }
-    }
-
-    return false;
-  }
-
-  /**
-   * todo;
-   *
-   * @param campManager - manager to check
-   * @returns whether harmonica can be played in camp
-   */
-  public static canPlayCampHarmonica(campManager: CampManager): boolean {
-    // Nothing to play here.
-    if (campManager.harmonicaTable.length() === 0) {
-      return false;
-    }
-
-    let count: TCount = 0;
-
-    // todo: Len util.
-    for (const [id] of campManager.objects) {
-      count += 1;
-    }
-
-    if (count > 1) {
-      for (const [id, info] of campManager.objects) {
-        const state: Optional<IRegistryObjectState> = registry.objects.get(id);
-        const schemeState: Optional<ISchemeAnimpointState> = state?.activeScheme
-          ? (state[state.activeScheme!] as ISchemeAnimpointState)
-          : null;
-        const object: Optional<ClientObject> = state?.object;
-
-        if (
-          object !== null &&
-          info.harmonica === EObjectCampRole.DIRECTOR &&
-          schemeState !== null &&
-          schemeState.actionNameBase === schemeState.description &&
-          !isObjectMeeting(object)
-        ) {
-          return true;
-        }
-      }
-    }
-
-    return false;
-  }
-
   /**
    * Linked camp zone client object.
    */
@@ -247,60 +70,6 @@ export class CampManager {
   public activity: EObjectCampActivity = EObjectCampActivity.IDLE;
   public activitySwitchAt: TTimestamp = 0;
   public activityTimeout: TDuration = 0;
-
-  // todo: Static?
-  public states: LuaTable<EObjectCampActivity, ICampTransitionDescriptor> = $fromObject<
-    EObjectCampActivity,
-    ICampTransitionDescriptor
-  >({
-    [EObjectCampActivity.IDLE]: {
-      director_state: null,
-      general_state: "idle",
-      min_time: 20_000,
-      max_time: 40_000,
-      timeout: 0,
-      transitions: $fromObject({ harmonica: 30, guitar: 30, story: 40 } as Record<EObjectCampActivity, TProbability>),
-      precondition: () => true,
-    },
-    harmonica: {
-      director_state: "play_harmonica",
-      general_state: "listen",
-      min_time: 10_000,
-      max_time: 11_000,
-      timeout: 3000,
-      transitions: $fromObject({ idle: 100, harmonica: 0, guitar: 0, story: 0 } as Record<
-        EObjectCampActivity,
-        TProbability
-      >),
-      precondition: (it: CampManager) => CampManager.canPlayCampHarmonica(it),
-    },
-    guitar: {
-      director_state: "play_guitar",
-      general_state: "listen",
-      min_time: 10_000,
-      max_time: 11_000,
-      timeout: 4500,
-      transitions: $fromObject({
-        idle: 100,
-        harmonica: 0,
-        guitar: 0,
-        story: 0,
-      } as Record<EObjectCampActivity, TProbability>),
-      precondition: (it: CampManager) => CampManager.canPlayCampGuitar(it),
-    },
-    story: {
-      director_state: "tell",
-      general_state: "listen",
-      min_time: 10_000,
-      max_time: 11_000,
-      timeout: 0,
-      transitions: $fromObject({ idle: 100, harmonica: 0, guitar: 0, story: 0 } as Record<
-        EObjectCampActivity,
-        TProbability
-      >),
-      precondition: (it: CampManager) => CampManager.canTellCampStory(it),
-    },
-  });
 
   public constructor(object: ClientObject, ini: IniFile) {
     this.object = object;
@@ -400,12 +169,12 @@ export class CampManager {
    * todo: Description.
    */
   public setNextState(): void {
-    const transitions: LuaTable<EObjectCampActivity, TProbability> = this.states.get(this.activity).transitions;
+    const transitions: LuaTable<EObjectCampActivity, TProbability> = CAMP_ACTIVITIES.get(this.activity).transitions;
     let probability: TProbability = math.random(100);
 
     for (const [activity, chance] of transitions) {
       if (probability < chance) {
-        if (this.states.get(activity).precondition(this)) {
+        if (CAMP_ACTIVITIES.get(activity).precondition(this)) {
           this.activity = activity;
           break;
         }
@@ -421,8 +190,8 @@ export class CampManager {
     const now: TTimestamp = time_global();
 
     this.activitySwitchAt =
-      now + math.random(this.states.get(this.activity).min_time, this.states.get(this.activity).max_time);
-    this.activityTimeout = now + this.states.get(this.activity).timeout;
+      now + math.random(CAMP_ACTIVITIES.get(this.activity).minTime, CAMP_ACTIVITIES.get(this.activity).maxTime);
+    this.activityTimeout = now + CAMP_ACTIVITIES.get(this.activity).timeout;
 
     logger.info("Set camp next state:", probability, this.activity, "| switch at:", this.activitySwitchAt);
   }
@@ -516,7 +285,7 @@ export class CampManager {
 
     state.camp = this.object.id();
 
-    for (const [activity] of this.states) {
+    for (const [activity] of CAMP_ACTIVITIES) {
       const role: EObjectCampRole = this.getObjectRole(objectId, activity);
 
       if (role === EObjectCampRole.NONE) {
@@ -592,7 +361,7 @@ export class CampManager {
         for (const it of $range(1, objectActions.length())) {
           const actionName: TName = objectActions.get(it).name;
 
-          if (actionName === stalkerState || actionName === stalkerState + "_weapon") {
+          if (actionName === stalkerState || actionName === stalkerState + WEAPON_POSTFIX) {
             return EObjectCampRole.DIRECTOR;
           }
         }
