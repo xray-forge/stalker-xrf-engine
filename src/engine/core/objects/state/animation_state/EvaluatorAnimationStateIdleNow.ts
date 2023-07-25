@@ -21,6 +21,6 @@ export class EvaluatorAnimationStateIdleNow extends property_evaluator {
    * Check whether animation current state is idle.
    */
   public override evaluate(): boolean {
-    return this.stateManager.animstate.states.currentState === null;
+    return this.stateManager.animstate.state.currentState === null;
   }
 }

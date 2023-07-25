@@ -1,6 +1,6 @@
-import { IAnimationDescriptor } from "@/engine/core/objects/state/animation_types";
+import { IAnimationDescriptor } from "@/engine/core/objects/animation/animation_types";
+import { EStalkerState } from "@/engine/core/objects/animation/state_types";
 import { CampManager } from "@/engine/core/objects/state/camp";
-import { EStalkerState } from "@/engine/core/objects/state/state_types";
 import { createSequence } from "@/engine/core/utils/animation";
 import { food } from "@/engine/lib/constants/items/food";
 import { misc } from "@/engine/lib/constants/items/misc";
@@ -347,6 +347,42 @@ export const animpointAnimations: LuaTable<TName, IAnimationDescriptor> = $fromO
     idle: createSequence("animpoint_sit_low_eat_idle_1", "animpoint_sit_low_eat_idle_1"),
     rnd: createSequence(["animpoint_sit_low_eat_idle_1"], ["animpoint_sit_low_eat_idle_1"]),
   },
+  [EStalkerState.ANIMPOINT_SIT_ASS_EAT_BREAD]: {
+    prop: {
+      maxidle: 3,
+      sumidle: 3,
+      rnd: 80,
+      moving: null,
+    },
+    into: createSequence(
+      ["item_2_draw_0", { a: food.bread }, "item_2_draw_1"],
+      ["item_2_draw_0", { a: food.bread }, "item_2_draw_1"]
+    ),
+    out: createSequence(
+      ["item_2_holster_0", { d: food.bread }, "item_2_holster_1"],
+      ["item_2_holster_0", { d: food.bread }, "item_2_holster_1"]
+    ),
+    idle: createSequence("item_2_aim_0", "item_2_aim_0"),
+    rnd: createSequence(["item_2_prepare_0", "item_2_attack_0"], ["item_2_prepare_0", "item_2_attack_0"]),
+  },
+  [EStalkerState.ANIMPOINT_SIT_ASS_EAT_KOLBASA]: {
+    prop: {
+      maxidle: 3,
+      sumidle: 3,
+      rnd: 80,
+      moving: null,
+    },
+    into: createSequence(
+      ["item_1_draw_0", { a: food.kolbasa }, "item_1_draw_1"],
+      ["item_1_draw_0", { a: food.kolbasa }, "item_1_draw_1"]
+    ),
+    out: createSequence(
+      ["item_1_holster_0", { d: food.kolbasa }, "item_1_holster_1"],
+      ["item_1_holster_0", { d: food.kolbasa }, "item_1_holster_1"]
+    ),
+    idle: createSequence("item_1_idle_1", "item_1_idle_1"),
+    rnd: createSequence(["item_1_attack_0", "item_1_idle_0"], ["item_1_attack_0", "item_1_idle_0"]),
+  },
   [EStalkerState.ANIMPOINT_STAY_WALL_DRINK_VODKA]: {
     prop: {
       maxidle: 5,
@@ -526,6 +562,42 @@ export const animpointAnimations: LuaTable<TName, IAnimationDescriptor> = $fromO
     ),
     idle: createSequence("animpoint_sit_low_drink_idle_1", "animpoint_sit_low_drink_idle_1"),
     rnd: createSequence(["animpoint_sit_low_drink_idle_rnd_1"], ["animpoint_sit_low_drink_idle_rnd_1"]),
+  },
+  [EStalkerState.ANIMPOINT_SIT_ASS_DRINK_VODKA]: {
+    prop: {
+      maxidle: 3,
+      sumidle: 3,
+      rnd: 80,
+      moving: null,
+    },
+    into: createSequence(
+      ["item_4_draw_0", { a: food.vodka }, "item_4_draw_1"],
+      ["item_4_draw_0", { a: food.vodka }, "item_4_draw_1"]
+    ),
+    out: createSequence(
+      ["item_4_holster_0", { d: food.vodka }, "item_4_holster_1"],
+      ["item_4_holster_0", { d: food.vodka }, "item_4_holster_1"]
+    ),
+    idle: createSequence("item_4_aim_0", "item_4_aim_0"),
+    rnd: createSequence(["item_4_prepare_0", "item_4_attack_0"], ["item_4_prepare_0", "item_4_attack_0"]),
+  },
+  [EStalkerState.ANIMPOINT_SIT_ASS_DRINK_ENERGY]: {
+    prop: {
+      maxidle: 3,
+      sumidle: 3,
+      rnd: 80,
+      moving: null,
+    },
+    into: createSequence(
+      ["item_5_draw_0", { a: food.energy_drink }, "item_5_draw_1"],
+      ["item_5_draw_0", { a: food.energy_drink }, "item_5_draw_1"]
+    ),
+    out: createSequence(
+      ["item_5_holster_0", { d: food.energy_drink }, "item_5_holster_1"],
+      ["item_5_holster_0", { d: food.energy_drink }, "item_5_holster_1"]
+    ),
+    idle: createSequence("item_5_aim_0", "item_5_aim_0"),
+    rnd: createSequence(["item_5_prepare_0", "item_5_attack_0"], ["item_5_prepare_0", "item_5_attack_0"]),
   },
   [EStalkerState.ANIMPOINT_STAY_WALL_GUITAR]: {
     prop: {

@@ -1,4 +1,4 @@
-import { TAnimationSequenceElement, TAnimationSequenceElements } from "@/engine/core/objects/state";
+import { TAnimationSequenceElement, TAnimationSequenceElements } from "@/engine/core/objects/animation";
 import { LuaArray, Optional, TIndex } from "@/engine/lib/types";
 
 /**
@@ -7,12 +7,6 @@ import { LuaArray, Optional, TIndex } from "@/engine/lib/types";
  * @param sequence - variadic parameters describing animations
  * @returns sequence of animations, 0-based array
  */
-export function createSequence(
-  ...sequence: Array<Optional<TAnimationSequenceElements>>
-): LuaArray<TAnimationSequenceElements>;
-export function createSequence(
-  ...sequence: Array<Optional<Array<TAnimationSequenceElements>>>
-): LuaArray<TAnimationSequenceElements>;
 export function createSequence(
   ...sequence: Array<
     Optional<TAnimationSequenceElements | LuaArray<TAnimationSequenceElement>> | Array<TAnimationSequenceElements>

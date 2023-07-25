@@ -1,7 +1,7 @@
 import { action_base, level, LuabindClass, object, time_global } from "xray16";
 
+import { EWeaponAnimation } from "@/engine/core/objects/animation";
 import { states } from "@/engine/core/objects/animation/states";
-import { EWeaponAnimation } from "@/engine/core/objects/state";
 import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateManager";
 import { getObjectIdleState, getStateQueueParams } from "@/engine/core/objects/state/weapon/StateManagerWeapon";
 import { LuaLogger } from "@/engine/core/utils/logging";

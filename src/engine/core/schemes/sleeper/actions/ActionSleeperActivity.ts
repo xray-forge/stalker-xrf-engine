@@ -1,14 +1,14 @@
 import { action_base, LuabindClass, patrol } from "xray16";
 
 import { registry, setStalkerState } from "@/engine/core/database";
-import { EStalkerState } from "@/engine/core/objects/state";
+import { EStalkerState } from "@/engine/core/objects/animation";
 import { StalkerMoveManager } from "@/engine/core/objects/state/StalkerMoveManager";
 import { ISchemeSleeperState } from "@/engine/core/schemes/sleeper";
 import { abort } from "@/engine/core/utils/assertion";
 import { parseWaypointsDataFromList } from "@/engine/core/utils/ini/ini_parse";
 import { IWaypointData } from "@/engine/core/utils/ini/ini_types";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { AnyCallable, ClientObject, LuaArray, Optional, Patrol, TCount, Vector } from "@/engine/lib/types";
+import { AnyCallable, ClientObject, LuaArray, Optional, Patrol, TCount, TDuration, Vector } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -28,9 +28,9 @@ export class ActionSleeperActivity extends action_base {
   public timer!: {
     begin: Optional<number>;
     idle: Optional<number>;
-    maxidle: number;
-    sumidle: number;
-    random: number;
+    maxidle: TDuration;
+    sumidle: TDuration;
+    random: TDuration;
   };
 
   public constructor(state: ISchemeSleeperState, object: ClientObject) {

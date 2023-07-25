@@ -2,7 +2,7 @@ import { alife, relation_registry } from "xray16";
 
 import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { AbstractCoreManager } from "@/engine/core/managers/base/AbstractCoreManager";
-import { EStateActionId } from "@/engine/core/objects/state";
+import { EStateActionId } from "@/engine/core/objects/animation";
 import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateManager";
 import { EActionId } from "@/engine/core/schemes";
 import { gameTimeToString } from "@/engine/core/utils/game/game_time";
@@ -111,8 +111,8 @@ export class DebugManager extends AbstractCoreManager {
       logger.info("Callback object:", toJSON(stateManager.callback));
       logger.info("Is combat:", stateManager.isCombat);
       logger.info("Is alife:", stateManager.isAlife);
-      logger.info("Animation states:", toJSON(stateManager.animation.states));
-      logger.info("Animstate states:", toJSON(stateManager.animstate.states));
+      logger.info("Animation states:", toJSON(stateManager.animation.state));
+      logger.info("Animstate states:", toJSON(stateManager.animstate.state));
     } else {
       logger.info("No state manager declared for object");
     }

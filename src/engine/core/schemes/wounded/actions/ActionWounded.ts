@@ -2,7 +2,7 @@ import { action_base, alife, hit, LuabindClass, time_global } from "xray16";
 
 import { getPortableStoreValue, registry, setPortableStoreValue, setStalkerState } from "@/engine/core/database";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
-import { EStalkerState } from "@/engine/core/objects/state";
+import { EStalkerState } from "@/engine/core/objects/animation";
 import { ISchemeWoundedState } from "@/engine/core/schemes/wounded";
 import { WoundManager } from "@/engine/core/schemes/wounded/WoundManager";
 import { abort } from "@/engine/core/utils/assertion";

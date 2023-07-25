@@ -1,5 +1,5 @@
-import { IAnimstateDescriptor } from "@/engine/core/objects/state/animation_types";
-import { EStalkerState } from "@/engine/core/objects/state/state_types";
+import { IAnimationDescriptor } from "@/engine/core/objects/animation/animation_types";
+import { EStalkerState } from "@/engine/core/objects/animation/state_types";
 import { createSequence } from "@/engine/core/utils/animation";
 import { getExtern } from "@/engine/core/utils/binding";
 import { AnyArgs, AnyCallablesModule, TName } from "@/engine/lib/types";
@@ -7,7 +7,7 @@ import { AnyArgs, AnyCallablesModule, TName } from "@/engine/lib/types";
 /**
  * List of animstates to use during animation.
  */
-export const animationAnimstates: LuaTable<TName, IAnimstateDescriptor> = $fromObject<TName, IAnimstateDescriptor>({
+export const animationAnimstates: LuaTable<TName, IAnimationDescriptor> = $fromObject<TName, IAnimationDescriptor>({
   [EStalkerState.ANIMPOINT_STAY_WALL]: {
     prop: {
       maxidle: 5,

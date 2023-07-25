@@ -127,11 +127,11 @@ export class SchemeMeet extends AbstractScheme {
     state: ISchemeMeetState,
     scheme: EScheme
   ): void {
-    if (tostring(section) === state.meet_section && tostring(section) !== NIL) {
+    if (tostring(section) === state.meetSection && tostring(section) !== NIL) {
       return;
     }
 
-    state.meet_section = tostring(section);
+    state.meetSection = tostring(section);
 
     const def: AnyObject = {};
     const relation = getObjectsRelationSafe(object, registry.actor);
@@ -291,6 +291,7 @@ export class SchemeMeet extends AbstractScheme {
       }
     } else if (use === FALSE) {
       object.disable_talk();
+
       if (object.is_talking()) {
         object.stop_talk();
       }

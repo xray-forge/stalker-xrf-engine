@@ -10,7 +10,7 @@ import {
   ICampTransitionDescriptor,
 } from "@/engine/core/objects/state/camp/camp_types";
 import { ISchemeAnimpointState } from "@/engine/core/schemes/animpoint/ISchemeAnimpointState";
-import { IAnimpointAction } from "@/engine/core/schemes/animpoint/types";
+import { IAnimpointActionDescriptor } from "@/engine/core/schemes/animpoint/types";
 import { ESchemeEvent, IBaseSchemeState } from "@/engine/core/schemes/base";
 import { ISchemeMeetState } from "@/engine/core/schemes/meet";
 import { MeetManager } from "@/engine/core/schemes/meet/MeetManager";
@@ -493,7 +493,7 @@ export class CampManager {
    * @param objectId - target object id to check and get action / state
    * @returns tuple with action name and whether object is director
    */
-  public getCampAction(objectId: TNumberId): LuaMultiReturn<[Optional<string>, Optional<boolean>]> {
+  public getCampAction(objectId: TNumberId): LuaMultiReturn<[Optional<EObjectCampActivity>, Optional<boolean>]> {
     if (this.objects.get(objectId) === null) {
       // Not participating in stories.
       return $multi(null, null);
@@ -572,7 +572,7 @@ export class CampManager {
       return EObjectCampRole.NONE;
     }
 
-    const objectActions: LuaArray<IAnimpointAction> = schemeState.approvedActions;
+    const objectActions: LuaArray<IAnimpointActionDescriptor> = schemeState.approvedActions;
     let stalkerState: Optional<TName> = schemeState.description as TName;
 
     switch (activity) {

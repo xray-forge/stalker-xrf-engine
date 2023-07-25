@@ -27,7 +27,7 @@ export interface ISchemeMeetState extends IBaseSchemeState {
   far_snd_distance: TConditionList;
   far_snd: TConditionList;
   far_victim: TConditionList;
-  meet_section: Optional<TSection>;
+  meetSection: Optional<TSection>;
   reset_distance: TDistance;
   meet_only_at_path: boolean;
 }

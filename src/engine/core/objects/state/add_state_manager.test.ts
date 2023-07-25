@@ -1,5 +1,7 @@
 import { describe, expect, it } from "@jest/globals";
 
+import { EAnimationType } from "@/engine/core/objects/animation/animation_types";
+import { EStateActionId, EStateEvaluatorId } from "@/engine/core/objects/animation/state_types";
 import { addStateManager } from "@/engine/core/objects/state/add_state_manager";
 import {
   ActionAnimationStart,
@@ -17,7 +19,6 @@ import {
   EvaluatorAnimationStateLocked,
   EvaluatorAnimationStatePlayNow,
 } from "@/engine/core/objects/state/animation_state";
-import { EAnimationType } from "@/engine/core/objects/state/animation_types";
 import {
   ActionBodyStateCrouch,
   ActionBodyStateCrouchDanger,
@@ -82,7 +83,6 @@ import { EvaluatorStateIdle } from "@/engine/core/objects/state/state/EvaluatorS
 import { EvaluatorStateIdleAlife } from "@/engine/core/objects/state/state/EvaluatorStateIdleAlife";
 import { EvaluatorStateIdleItems } from "@/engine/core/objects/state/state/EvaluatorStateIdleItems";
 import { EvaluatorStateLogicActive } from "@/engine/core/objects/state/state/EvaluatorStateLogicActive";
-import { EStateActionId, EStateEvaluatorId } from "@/engine/core/objects/state/state_types";
 import {
   ActionWeaponDrop,
   ActionWeaponNone,

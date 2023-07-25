@@ -2,18 +2,19 @@ import { level } from "xray16";
 
 import { registry } from "@/engine/core/database";
 import { SmartCover } from "@/engine/core/objects";
+import { EStalkerState } from "@/engine/core/objects/animation";
+import {
+  animpoint_predicates,
+  animpointPredicateAlways,
+} from "@/engine/core/objects/animation/predicates/animpoint_predicates";
 import { states } from "@/engine/core/objects/animation/states";
-import { EStalkerState } from "@/engine/core/objects/state";
+import { EObjectCampActivity } from "@/engine/core/objects/state/camp";
+import { associativeTable } from "@/engine/core/objects/state/camp/camp_logic";
 import { CampManager } from "@/engine/core/objects/state/camp/CampManager";
 import { AbstractSchemeManager } from "@/engine/core/schemes";
-import {
-  animpointPredicateAlways,
-  associations,
-  associativeTable,
-} from "@/engine/core/schemes/animpoint/animpoint_predicates";
 import { ISchemeAnimpointState } from "@/engine/core/schemes/animpoint/ISchemeAnimpointState";
-import { IAnimpointAction } from "@/engine/core/schemes/animpoint/types";
-import { abort, assertDefined } from "@/engine/core/utils/assertion";
+import { IAnimpointActionDescriptor } from "@/engine/core/schemes/animpoint/types";
+import { assert } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { angleToDirection, createVector } from "@/engine/core/utils/vector";
 import { ClientObject, LuaArray, Optional, TName, TNumberId, TRate, Vector } from "@/engine/lib/types";
@@ -21,13 +22,14 @@ import { ClientObject, LuaArray, Optional, TName, TNumberId, TRate, Vector } fro
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Manager of animpoint scheme when stalkers are captured by animation and follow some defined logic.
+ * Specific animation state for some period of time.
  */
 export class AnimpointManager extends AbstractSchemeManager<ISchemeAnimpointState> {
   public isStarted: boolean = false;
 
   public currentAction: Optional<EStalkerState> = null;
-  public availableActions: Optional<LuaArray<IAnimpointAction>> = null;
+  public availableActions: Optional<LuaArray<IAnimpointActionDescriptor>> = null;
 
   public camp: Optional<CampManager> = null;
   public coverName: Optional<TName> = null;
@@ -74,8 +76,8 @@ export class AnimpointManager extends AbstractSchemeManager<ISchemeAnimpointStat
     if (this.state.useCamp) {
       const [campAction, isDirector] = this.camp!.getCampAction(this.object.id());
       const campActionsList = isDirector
-        ? associativeTable.get(campAction as TName).director
-        : associativeTable.get(campAction as TName).listener;
+        ? associativeTable.get(campAction as EObjectCampActivity).director
+        : associativeTable.get(campAction as EObjectCampActivity).listener;
 
       let isFound: boolean = false;
 
@@ -111,13 +113,13 @@ export class AnimpointManager extends AbstractSchemeManager<ISchemeAnimpointStat
       this.currentAction = action;
     } else {
       if (this.state.availableAnimations === null) {
-        assertDefined(
+        assert(
           this.state.approvedActions,
           "animpoint not in camp and approvedActions is null. Name [%s]",
           this.state.coverName
         );
 
-        for (const [index, action] of this.state.approvedActions!) {
+        for (const [, action] of this.state.approvedActions!) {
           table.insert(actionsList, action.name);
         }
       } else {
@@ -136,7 +138,7 @@ export class AnimpointManager extends AbstractSchemeManager<ISchemeAnimpointStat
   public calculatePosition(): void {
     const smartCover: Optional<SmartCover> = registry.smartCovers.get(this.state.coverName);
 
-    assertDefined(smartCover, "There is no smart_cover with name [%s]", this.state.coverName);
+    assert(smartCover, "There is no smart_cover with name [%s]", this.state.coverName);
 
     this.position = registry.smartCovers.get(this.state.coverName).position;
     this.positionLevelVertexId = level.vertex_id(this.position);
@@ -154,8 +156,8 @@ export class AnimpointManager extends AbstractSchemeManager<ISchemeAnimpointStat
 
     const descriptionState: EStalkerState = smartCover.description() as EStalkerState;
 
-    if (associations.get(descriptionState) === null) {
-      assertDefined(
+    if (animpoint_predicates.get(descriptionState) === null) {
+      assert(
         this.state.availableAnimations,
         "Wrong animpoint smart_cover description %s, name %s",
         tostring(descriptionState),
@@ -164,7 +166,7 @@ export class AnimpointManager extends AbstractSchemeManager<ISchemeAnimpointStat
     }
 
     this.state.description = descriptionState;
-    this.availableActions = associations.get(descriptionState);
+    this.availableActions = animpoint_predicates.get(descriptionState);
     this.state.approvedActions = new LuaTable();
   }
 
@@ -211,25 +213,27 @@ export class AnimpointManager extends AbstractSchemeManager<ISchemeAnimpointStat
     const isInCamp: boolean = this.camp !== null;
 
     if (this.state.availableAnimations !== null) {
-      for (const [k, v] of this.state.availableAnimations) {
+      for (const [, state] of this.state.availableAnimations) {
         table.insert(this.state.approvedActions, {
           predicate: animpointPredicateAlways,
-          name: v,
+          name: state,
         });
       }
     } else {
-      if (this.availableActions !== null) {
-        for (const [k, action] of this.availableActions) {
-          if (action.predicate(this.object.id(), isInCamp)) {
+      if (this.availableActions) {
+        for (const [, action] of this.availableActions) {
+          if (action.predicate(this.object, isInCamp)) {
             table.insert(this.state.approvedActions, action);
           }
         }
       }
     }
 
-    if (this.state.approvedActions.length() === 0) {
-      abort("There is no approved actions for stalker[%s] in animpoint", this.object.name());
-    }
+    assert(
+      this.state.approvedActions.length() !== 0,
+      "There is no approved actions for stalker[%s] in animpoint.",
+      this.object.name()
+    );
 
     logger.info("Filled approved actions:", this.object.name(), this.state.approvedActions.length());
   }
@@ -267,7 +271,7 @@ export class AnimpointManager extends AbstractSchemeManager<ISchemeAnimpointStat
   }
 
   /**
-   * todo: Description.
+   * Stop animation based on animpoint scheme logics.
    */
   public stop(): void {
     logger.info("Stop:", this.object.name());

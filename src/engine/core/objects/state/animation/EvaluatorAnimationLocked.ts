@@ -21,6 +21,6 @@ export class EvaluatorAnimationLocked extends property_evaluator {
    * Check whether any animation marker is active.
    */
   public override evaluate(): boolean {
-    return this.stateManager.animation.states.animationMarker !== null;
+    return this.stateManager.animation.state.animationMarker !== null;
   }
 }

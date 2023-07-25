@@ -1,6 +1,6 @@
-import { IAnimationDescriptor } from "@/engine/core/objects/state/animation_types";
+import { IAnimationDescriptor } from "@/engine/core/objects/animation/animation_types";
+import { EStalkerState } from "@/engine/core/objects/animation/state_types";
 import { CampManager } from "@/engine/core/objects/state/camp";
-import { EStalkerState } from "@/engine/core/objects/state/state_types";
 import { SchemeCorpseDetection } from "@/engine/core/schemes/corpse_detection";
 import { SchemeHelpWounded } from "@/engine/core/schemes/help_wounded";
 import { createSequence } from "@/engine/core/utils/animation";

@@ -3,7 +3,7 @@ import { describe, expect, it } from "@jest/globals";
 import { registry } from "@/engine/core/database/registry";
 import { registerStalker, unregisterStalker } from "@/engine/core/database/stalker";
 import { StalkerBinder } from "@/engine/core/objects";
-import { EStalkerState } from "@/engine/core/objects/state";
+import { EStalkerState } from "@/engine/core/objects/animation";
 import { EvaluatorAnimationStateIdleNow } from "@/engine/core/objects/state/animation_state/EvaluatorAnimationStateIdleNow";
 import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateManager";
 import { mockClientGameObject } from "@/fixtures/xray";
@@ -21,10 +21,10 @@ describe("EvaluatorAnimationStateIdleNow class", () => {
 
     expect(evaluator.evaluate()).toBeTruthy();
 
-    manager.animstate.states.currentState = EStalkerState.BACKOFF;
+    manager.animstate.state.currentState = EStalkerState.BACKOFF;
     expect(evaluator.evaluate()).toBeFalsy();
 
-    manager.animstate.states.currentState = null;
+    manager.animstate.state.currentState = null;
     expect(evaluator.evaluate()).toBeTruthy();
 
     unregisterStalker(stalker);

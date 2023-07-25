@@ -1,8 +1,9 @@
 import { stalker_ids, world_property, world_state } from "xray16";
 
+import { EAnimationType } from "@/engine/core/objects/animation/animation_types";
+import { EStateActionId, EStateEvaluatorId } from "@/engine/core/objects/animation/state_types";
 import * as animationManagement from "@/engine/core/objects/state/animation";
 import * as animationStateManagement from "@/engine/core/objects/state/animation_state";
-import { EAnimationType } from "@/engine/core/objects/state/animation_types";
 import * as bodyStateManagement from "@/engine/core/objects/state/body_state";
 import * as directionManagement from "@/engine/core/objects/state/direction";
 import * as mentalManagement from "@/engine/core/objects/state/mental";
@@ -16,7 +17,6 @@ import { EvaluatorStateIdle } from "@/engine/core/objects/state/state/EvaluatorS
 import { EvaluatorStateIdleAlife } from "@/engine/core/objects/state/state/EvaluatorStateIdleAlife";
 import { EvaluatorStateIdleItems } from "@/engine/core/objects/state/state/EvaluatorStateIdleItems";
 import { EvaluatorStateLogicActive } from "@/engine/core/objects/state/state/EvaluatorStateLogicActive";
-import { EStateActionId, EStateEvaluatorId } from "@/engine/core/objects/state/state_types";
 import * as weaponManagement from "@/engine/core/objects/state/weapon";
 import { EActionId, EEvaluatorId } from "@/engine/core/schemes";
 import { LuaLogger } from "@/engine/core/utils/logging";

@@ -1,8 +1,8 @@
-import type { EStalkerState } from "@/engine/core/objects/state";
-import type { IAnimpointAction } from "@/engine/core/schemes/animpoint/types";
+import type { EStalkerState } from "@/engine/core/objects/animation";
+import type { IAnimpointActionDescriptor } from "@/engine/core/schemes/animpoint/types";
 import type { IBaseSchemeState } from "@/engine/core/schemes/base";
 import type { IWaypointData } from "@/engine/core/utils/ini/ini_types";
-import type { LuaArray, Optional, TName } from "@/engine/lib/types";
+import type { LuaArray, Optional } from "@/engine/lib/types";
 
 /**
  * todo;
@@ -18,10 +18,8 @@ export interface ISchemeWalkerState extends IBaseSchemeState {
     standing: string;
     moving: string;
   };
-
   path_walk_info: Optional<LuaArray<IWaypointData>>;
   path_look_info: Optional<LuaArray<IWaypointData>>;
   description: Optional<EStalkerState>;
-
-  approvedActions: LuaArray<IAnimpointAction>;
+  approvedActions: LuaArray<IAnimpointActionDescriptor>;
 }

@@ -1,10 +1,11 @@
-import { EStalkerState } from "@/engine/core/objects/state/state_types";
+import { EStalkerState } from "@/engine/core/objects/animation/state_types";
 import {
   AnyCallable,
   LuaArray,
   Optional,
   TDuration,
   TIndex,
+  TLabel,
   TName,
   TNumberId,
   TRate,
@@ -75,22 +76,6 @@ export interface IAnimationDescriptor {
 }
 
 /**
- * Descriptor of in-game animation state.
- */
-export interface IAnimstateDescriptor {
-  prop: {
-    maxidle: TDuration;
-    sumidle: TDuration;
-    rnd: TRate;
-    moving: Optional<boolean>;
-  };
-  into: Optional<LuaArray<TAnimationSequenceElements>>;
-  out: Optional<LuaArray<TAnimationSequenceElements>>;
-  idle: Optional<LuaArray<TAnimationSequenceElements>>;
-  rnd: Optional<LuaArray<TAnimationSequenceElements>>;
-}
-
-/**
  * Type of possible weapon animation.
  */
 export enum EWeaponAnimation {
@@ -114,7 +99,7 @@ export enum EAnimationMarker {
 /**
  * todo;
  */
-export interface IAnimationManagerStates {
+export interface IAnimationManagerState {
   lastIndex: Optional<TIndex>;
   currentState: Optional<EStalkerState>;
   targetState: Optional<EStalkerState>;
@@ -130,3 +115,8 @@ export enum EAnimationType {
   ANIMATION = "animation",
   ANIMSTATE = "animstate",
 }
+
+/**
+ * todo;
+ */
+export const WEAPON_POSTFIX: TLabel = "_weapon";

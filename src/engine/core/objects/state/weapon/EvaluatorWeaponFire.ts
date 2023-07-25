@@ -1,14 +1,14 @@
 import { LuabindClass, property_evaluator } from "xray16";
 
+import { EWeaponAnimation } from "@/engine/core/objects/animation";
 import { states } from "@/engine/core/objects/animation/states";
-import { EWeaponAnimation } from "@/engine/core/objects/state";
 import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateManager";
 import { LuaLogger } from "@/engine/core/utils/logging";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * Whether object should fire weapon.
+ * Whether object in fire weapon state.
  */
 @LuabindClass()
 export class EvaluatorWeaponFire extends property_evaluator {
@@ -20,7 +20,7 @@ export class EvaluatorWeaponFire extends property_evaluator {
   }
 
   /**
-   * todo: Description.
+   * Evaluate whether weapon fire state is active.
    */
   public override evaluate(): boolean {
     return (

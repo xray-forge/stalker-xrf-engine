@@ -68,6 +68,6 @@ export class EvaluatorPostCombatIdleEnemy extends property_evaluator {
 
     this.state.animation.setState(null);
 
-    return this.state.animation.states.animationMarker !== null;
+    return this.state.animation.state.animationMarker !== null;
   }
 }

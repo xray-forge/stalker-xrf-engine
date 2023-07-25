@@ -1,7 +1,7 @@
 import { action_planner, LuabindClass, property_evaluator } from "xray16";
 
+import { EStalkerState, EStateEvaluatorId } from "@/engine/core/objects/animation/state_types";
 import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateManager";
-import { EStalkerState, EStateEvaluatorId } from "@/engine/core/objects/state/state_types";
 import { EActionId } from "@/engine/core/schemes/base";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { isObjectMeeting } from "@/engine/core/utils/object";

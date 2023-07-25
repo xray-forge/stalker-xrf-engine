@@ -2,7 +2,7 @@ import { action_base, danger_object, LuabindClass, patrol, stalker_ids, time_glo
 
 import { registry, setStalkerState } from "@/engine/core/database";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
-import { EStalkerState, ILookTargetDescriptor } from "@/engine/core/objects/state";
+import { EStalkerState, ILookTargetDescriptor } from "@/engine/core/objects/animation";
 import { StalkerMoveManager } from "@/engine/core/objects/state/StalkerMoveManager";
 import { ICampPoint, ISchemeCamperState } from "@/engine/core/schemes/camper/ISchemeCamperState";
 import { abort } from "@/engine/core/utils/assertion";
@@ -33,9 +33,6 @@ export class ActionCamperPatrol extends action_base {
   public enemy: Optional<ClientObject> = null;
   public enemyPosition: Optional<Vector> = null;
 
-  /**
-   * todo: Description.
-   */
   public constructor(state: ISchemeCamperState, object: ClientObject) {
     super(null, ActionCamperPatrol.__name);
 

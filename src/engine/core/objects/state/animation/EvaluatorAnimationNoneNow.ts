@@ -21,6 +21,6 @@ export class EvaluatorAnimationNoneNow extends property_evaluator {
    * Check whether current animation state is not null.
    */
   public override evaluate(): boolean {
-    return this.stateManager.animation.states.currentState === null;
+    return this.stateManager.animation.state.currentState === null;
   }
 }

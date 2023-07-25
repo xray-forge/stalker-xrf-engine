@@ -1,14 +1,14 @@
 import { action_planner, level, look, object, time_global } from "xray16";
 
-import { states } from "@/engine/core/objects/animation/states";
-import { EWeaponAnimation } from "@/engine/core/objects/state/animation_types";
-import { StalkerAnimationManager } from "@/engine/core/objects/state/StalkerAnimationManager";
+import { EWeaponAnimation } from "@/engine/core/objects/animation/animation_types";
 import {
   EStalkerState,
   EStateActionId,
   EStateEvaluatorId,
   ILookTargetDescriptor,
-} from "@/engine/core/objects/state/state_types";
+} from "@/engine/core/objects/animation/state_types";
+import { states } from "@/engine/core/objects/animation/states";
+import { StalkerAnimationManager } from "@/engine/core/objects/state/StalkerAnimationManager";
 import { getObjectAnimationWeapon } from "@/engine/core/objects/state/weapon/StateManagerWeapon";
 import { assert } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -187,7 +187,7 @@ export class StalkerStateManager {
    * todo: Description.
    */
   public update(): void {
-    if (this.animation.states.currentState === states.get(this.targetState).animation) {
+    if (this.animation.state.currentState === states.get(this.targetState).animation) {
       if (this.callback !== null && this.callback.callback !== null) {
         const now: TTimestamp = time_global();
 

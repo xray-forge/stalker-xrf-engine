@@ -6,7 +6,7 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Evaluate object smart cover state and whether it is in smart cover right now.
  */
 @LuabindClass()
 export class EvaluatorInSmartCover extends property_evaluator {
@@ -18,7 +18,7 @@ export class EvaluatorInSmartCover extends property_evaluator {
   }
 
   /**
-   * todo: Description.
+   * Check if object is in smart cover.
    */
   public override evaluate(): boolean {
     return this.object.in_smart_cover();

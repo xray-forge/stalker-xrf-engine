@@ -2,7 +2,7 @@ import { action_base, level, LuabindClass, patrol } from "xray16";
 
 import { getObjectByStoryId, registry, setStalkerState } from "@/engine/core/database";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
-import { EStalkerState } from "@/engine/core/objects/state";
+import { EStalkerState } from "@/engine/core/objects/animation";
 import { ActionSleeperActivity } from "@/engine/core/schemes/sleeper/actions";
 import {
   COVER_SUBSTATE_TABLE,

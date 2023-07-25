@@ -3,7 +3,7 @@ import { describe, expect, it } from "@jest/globals";
 import { registry } from "@/engine/core/database/registry";
 import { registerStalker, unregisterStalker } from "@/engine/core/database/stalker";
 import { StalkerBinder } from "@/engine/core/objects";
-import { EAnimationMarker } from "@/engine/core/objects/state";
+import { EAnimationMarker } from "@/engine/core/objects/animation";
 import { EvaluatorAnimationStateLocked } from "@/engine/core/objects/state/animation_state/EvaluatorAnimationStateLocked";
 import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateManager";
 import { mockClientGameObject } from "@/fixtures/xray";
@@ -21,10 +21,10 @@ describe("EvaluatorAnimationStateLocked class", () => {
 
     expect(evaluator.evaluate()).toBeFalsy();
 
-    manager.animstate.states.animationMarker = EAnimationMarker.IN;
+    manager.animstate.state.animationMarker = EAnimationMarker.IN;
     expect(evaluator.evaluate()).toBeTruthy();
 
-    manager.animstate.states.animationMarker = null;
+    manager.animstate.state.animationMarker = null;
     expect(evaluator.evaluate()).toBeFalsy();
 
     unregisterStalker(stalker);

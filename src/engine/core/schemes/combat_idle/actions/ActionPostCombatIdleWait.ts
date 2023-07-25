@@ -1,7 +1,7 @@
 import { action_base, anim, look, LuabindClass, move, object } from "xray16";
 
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
-import { EAnimationType, EStalkerState } from "@/engine/core/objects/state";
+import { EAnimationType, EStalkerState } from "@/engine/core/objects/animation";
 import { StalkerAnimationManager } from "@/engine/core/objects/state/StalkerAnimationManager";
 import { ISchemePostCombatIdleState } from "@/engine/core/schemes/combat_idle/ISchemePostCombatIdleState";
 import { LuaLogger } from "@/engine/core/utils/logging";

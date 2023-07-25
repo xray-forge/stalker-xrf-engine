@@ -1,18 +1,19 @@
-import { EStalkerState } from "@/engine/core/objects/state";
-import { LuaArray, TNumberId } from "@/engine/lib/types";
+import { EStalkerState } from "@/engine/core/objects/animation";
+import { ClientObject, LuaArray, TName } from "@/engine/lib/types";
 
 /**
- * todo;
+ * Descriptor of animpoint when object is captured in smart cover and deciding which specific animation to run.
  */
-export interface IAnimpointAction {
+export interface IAnimpointActionDescriptor {
   name: EStalkerState;
-  predicate: (this: void, objectId: TNumberId, isInCamp?: boolean) => boolean;
+  predicate: (this: void, object: ClientObject, isInCamp?: boolean) => boolean;
 }
 
 /**
- * todo;
+ * Descriptor of animations when objects are participating in camp scenario.
+ * One is telling, others are listening.
  */
 export interface IStoryAnimationDescriptor {
-  director: LuaArray<string>;
-  listener: LuaArray<string>;
+  director: LuaArray<TName>;
+  listener: LuaArray<TName>;
 }

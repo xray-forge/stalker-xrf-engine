@@ -1,18 +1,17 @@
 import { callback, hit, time_global } from "xray16";
 
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
-import { animations } from "@/engine/core/objects/animation/animations";
-import { animstates } from "@/engine/core/objects/animation/animstates";
 import {
   EAnimationMarker,
   EAnimationType,
   IAnimationDescriptor,
-  IAnimationManagerStates,
-  IAnimstateDescriptor,
+  IAnimationManagerState,
   TAnimationSequenceElements,
-} from "@/engine/core/objects/state/animation_types";
+} from "@/engine/core/objects/animation";
+import { animations } from "@/engine/core/objects/animation/animations";
+import { animstates } from "@/engine/core/objects/animation/animstates";
+import { EStalkerState } from "@/engine/core/objects/animation/state_types";
 import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateManager";
-import { EStalkerState } from "@/engine/core/objects/state/state_types";
 import { abort } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { createVector, vectorRotateY } from "@/engine/core/utils/vector";
@@ -40,8 +39,8 @@ export class StalkerAnimationManager {
   public object: ClientObject;
   public stateManager: StalkerStateManager;
 
-  public animations: LuaTable<TName, IAnimationDescriptor> | LuaTable<TName, IAnimstateDescriptor>;
-  public states: IAnimationManagerStates;
+  public animations: LuaTable<TName, IAnimationDescriptor>;
+  public state: IAnimationManagerState;
 
   public constructor(object: ClientObject, stateManager: StalkerStateManager, type: EAnimationType) {
     this.type = type;
@@ -49,7 +48,7 @@ export class StalkerAnimationManager {
     this.stateManager = stateManager;
     this.animations = type === EAnimationType.ANIMATION ? animations : animstates;
 
-    this.states = {
+    this.state = {
       lastIndex: null,
       currentState: null,
       targetState: null,
@@ -66,10 +65,10 @@ export class StalkerAnimationManager {
     this.object.set_callback(callback.script_animation, this.onAnimationCallback, this);
 
     if (this.type === EAnimationType.ANIMATION) {
-      this.stateManager.animstate.states.animationMarker = null;
+      this.stateManager.animstate.state.animationMarker = null;
     }
 
-    if (this.states.animationMarker === null) {
+    if (this.state.animationMarker === null) {
       this.updateAnimation();
     }
   }
@@ -98,9 +97,9 @@ export class StalkerAnimationManager {
       this.object.clear_animations();
 
       const state =
-        this.states.animationMarker === EAnimationMarker.IN
-          ? this.animations.get(this.states.targetState!)
-          : this.animations.get(this.states.currentState!);
+        this.state.animationMarker === EAnimationMarker.IN
+          ? this.animations.get(this.state.targetState!)
+          : this.animations.get(this.state.currentState!);
 
       if (state !== null && state.out !== null) {
         const weaponSlot: TIndex = this.getActiveWeaponSlot();
@@ -115,33 +114,33 @@ export class StalkerAnimationManager {
         }
       }
 
-      this.states.animationMarker = null;
+      this.state.animationMarker = null;
 
-      this.states.currentState = newState;
-      this.states.targetState = newState;
-      this.states.sequenceId = 1;
+      this.state.currentState = newState;
+      this.state.targetState = newState;
+      this.state.sequenceId = 1;
 
-      this.states.nextRandomAt = now;
+      this.state.nextRandomAt = now;
 
       return;
     }
 
-    this.states.targetState = newState;
-    this.states.nextRandomAt = now;
+    this.state.targetState = newState;
+    this.state.nextRandomAt = now;
   }
 
   /**
    * todo;
    */
   public selectAnimation(): LuaMultiReturn<[Optional<string>, any]> {
-    const states: IAnimationManagerStates = this.states;
+    const states: IAnimationManagerState = this.state;
 
     // New animation detected:
     if (states.targetState !== states.currentState) {
       if (states.targetState === null) {
-        const state = this.animations.get(states.currentState!);
+        const animationDescriptor: IAnimationDescriptor = this.animations.get(states.currentState!);
 
-        if (state.out === null) {
+        if (animationDescriptor.out === null) {
           states.animationMarker = EAnimationMarker.OUT;
           this.onAnimationCallback(true);
 
@@ -151,7 +150,7 @@ export class StalkerAnimationManager {
         states.animationMarker = EAnimationMarker.OUT;
 
         const weaponSlot: TIndex = this.getActiveWeaponSlot();
-        const animationForWeaponSlot = this.getAnimationForSlot(weaponSlot, state.out as any);
+        const animationForWeaponSlot = this.getAnimationForSlot(weaponSlot, animationDescriptor.out as any);
 
         if (animationForWeaponSlot === null) {
           states.animationMarker = EAnimationMarker.OUT;
@@ -169,7 +168,7 @@ export class StalkerAnimationManager {
           return $multi(null, null);
         }
 
-        return $multi(nextAnimation as any as string, state);
+        return $multi(nextAnimation as any as string, animationDescriptor);
       }
 
       if (states.currentState === null) {
@@ -210,12 +209,12 @@ export class StalkerAnimationManager {
     // Same non-null animation:
     if (states.targetState === states.currentState && states.currentState !== null) {
       const activeWeaponSlot: TIndex = this.getActiveWeaponSlot();
-      const state: IAnimationDescriptor | IAnimstateDescriptor = this.animations.get(states.currentState);
+      const state: IAnimationDescriptor = this.animations.get(states.currentState);
       let animation;
 
       if (state.rnd !== null) {
         animation = this.selectRandom(
-          state as IAnimstateDescriptor,
+          state as IAnimationDescriptor,
           activeWeaponSlot,
           time_global() >= states.nextRandomAt!
         );
@@ -266,11 +265,11 @@ export class StalkerAnimationManager {
    * todo;
    */
   public selectRandom(
-    animationStateDescriptor: IAnimstateDescriptor,
+    animationStateDescriptor: IAnimationDescriptor,
     weaponSlot: TIndex,
     mustPlay: boolean
-  ): Optional<string | LuaTable> {
-    if (!mustPlay && math.random(100) > (this.animations.get(this.states.currentState!).prop.rnd as TRate)) {
+  ): Optional<TAnimationSequenceElements> {
+    if (!mustPlay && math.random(100) > (this.animations.get(this.state.currentState!).prop.rnd as TRate)) {
       return null;
     }
 
@@ -280,7 +279,7 @@ export class StalkerAnimationManager {
       return null;
     }
 
-    const states: IAnimationManagerStates = this.states;
+    const states: IAnimationManagerState = this.state;
     let index: TIndex;
 
     if (animation.length() > 1) {
@@ -294,12 +293,12 @@ export class StalkerAnimationManager {
         }
       }
 
-      this.states.lastIndex = index;
+      this.state.lastIndex = index;
     } else {
       index = 1;
     }
 
-    return animation.get(index) as any as string;
+    return animation.get(index);
   }
 
   /**
@@ -388,11 +387,11 @@ export class StalkerAnimationManager {
    * todo;
    */
   public onAnimationCallback(skipMultiAnimationCheck?: boolean): void {
-    if (this.states.animationMarker === null || this.object.animation_count() !== 0) {
+    if (this.state.animationMarker === null || this.object.animation_count() !== 0) {
       return;
     }
 
-    const states: IAnimationManagerStates = this.states;
+    const states: IAnimationManagerState = this.state;
 
     if (states.animationMarker === EAnimationMarker.IN) {
       states.animationMarker = null;

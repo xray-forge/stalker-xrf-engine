@@ -1,6 +1,6 @@
-import type { EStalkerState } from "@/engine/core/objects/state";
+import type { EStalkerState } from "@/engine/core/objects/animation";
 import type { AnimpointManager } from "@/engine/core/schemes/animpoint/AnimpointManager";
-import type { IAnimpointAction } from "@/engine/core/schemes/animpoint/types";
+import type { IAnimpointActionDescriptor } from "@/engine/core/schemes/animpoint/types";
 import type { IBaseSchemeState } from "@/engine/core/schemes/base";
 import type { LuaArray, Optional, TDistance, TName } from "@/engine/lib/types";
 
@@ -16,5 +16,5 @@ export interface ISchemeAnimpointState extends IBaseSchemeState {
   reachMovement: EStalkerState;
   description: Optional<EStalkerState>;
   availableAnimations: Optional<LuaArray<EStalkerState>>;
-  approvedActions: LuaArray<IAnimpointAction>;
+  approvedActions: LuaArray<IAnimpointActionDescriptor>;
 }

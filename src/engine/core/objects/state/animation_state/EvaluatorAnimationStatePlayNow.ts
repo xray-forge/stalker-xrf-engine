@@ -21,6 +21,6 @@ export class EvaluatorAnimationStatePlayNow extends property_evaluator {
    * Check whether anim state is playing now.
    */
   public override evaluate(): boolean {
-    return this.stateManager.animstate.states.currentState !== null;
+    return this.stateManager.animstate.state.currentState !== null;
   }
 }

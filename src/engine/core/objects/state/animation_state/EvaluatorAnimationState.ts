@@ -22,6 +22,6 @@ export class EvaluatorAnimationState extends property_evaluator {
    * Check whether performing animation state for object.
    */
   public override evaluate(): boolean {
-    return states.get(this.stateManager.targetState).animstate === this.stateManager.animstate.states.currentState;
+    return states.get(this.stateManager.targetState).animstate === this.stateManager.animstate.state.currentState;
   }
 }
