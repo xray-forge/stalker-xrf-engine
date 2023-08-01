@@ -41,8 +41,6 @@ const logger: LuaLogger = new LuaLogger($filename);
  * @returns whether object logics active section is same as provided
  */
 export function isActiveSection(object: ClientObject, section?: Optional<TSection>): boolean {
-  assert(section, "'isActiveSection' error for '%s', no section defined: '%s'.", object.name(), section);
-
   return section === registry.objects.get(object.id()).activeSection;
 }
 

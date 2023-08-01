@@ -85,9 +85,6 @@ describe("'scheme logic' utils", () => {
 
     state.activeSection = null;
 
-    expect(() => isActiveSection(object, null)).toThrow();
-    expect(() => isActiveSection(object, undefined)).toThrow();
-
     expect(isActiveSection(object, "test@test")).toBe(false);
 
     state.activeSection = "another@test";

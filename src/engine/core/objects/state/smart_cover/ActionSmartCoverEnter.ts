@@ -9,7 +9,7 @@ import { EScheme, TName } from "@/engine/lib/types";
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Action to enter some specific smart cover based on object schema state.
  */
 @LuabindClass()
 export class ActionSmartCoverEnter extends action_base {
@@ -21,7 +21,7 @@ export class ActionSmartCoverEnter extends action_base {
   }
 
   /**
-   * todo: Description.
+   * Set current smart cover / loophole based on schema state.
    */
   public override initialize(): void {
     logger.info("Enter smart cover:", this.object.name());

@@ -222,7 +222,7 @@ const harmonicaVisuals: LuaTable<TName, boolean> = $fromObject<TName, boolean>({
 });
 
 /**
- * todo;
+ * Predicates for specific state.
  */
 export const animpoint_predicates: LuaTable<EStalkerState, LuaArray<IAnimpointActionDescriptor>> = $fromObject<
   EStalkerState,

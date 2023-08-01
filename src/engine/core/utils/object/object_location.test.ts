@@ -17,6 +17,7 @@ import {
   sendToNearestAccessibleVertex,
   teleportActorWithEffects,
 } from "@/engine/core/utils/object/object_location";
+import { MAX_U32 } from "@/engine/lib/constants/memory";
 import { ClientObject, ServerObject, Vector } from "@/engine/lib/types";
 import { mockRegisteredActor } from "@/fixtures/engine";
 import {
@@ -148,6 +149,14 @@ describe("object location utils", () => {
     expect(second.accessible).toHaveBeenCalled();
     expect(second.accessible_nearest).toHaveBeenCalledWith({ x: 15, y: 14, z: 16 }, { x: 0, y: 0, z: 0 });
     expect(second.set_dest_level_vertex_id).toHaveBeenCalledWith(14325);
+
+    const third: ClientObject = mockClientGameObject({
+      level_vertex_id: jest.fn(() => 1442),
+    });
+
+    expect(sendToNearestAccessibleVertex(third, MAX_U32)).toBe(1442);
+    expect(sendToNearestAccessibleVertex(third, MAX_U32 + 10)).toBe(1442);
+    expect(sendToNearestAccessibleVertex(third, MAX_U32 * 2)).toBe(1442);
   });
 
   it("'teleportActorWithEffects' should correctly teleport actor", () => {

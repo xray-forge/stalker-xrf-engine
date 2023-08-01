@@ -7,11 +7,11 @@ import { ClientObject, LuaArray, Optional, TDistance, TName } from "@/engine/lib
  * State of animpoint scheme.
  */
 export interface ISchemeAnimpointState extends IBaseSchemeState {
-  animpoint: AnimpointManager;
+  animpointManager: AnimpointManager;
   actionNameBase: Optional<TName>;
   coverName: TName;
   useCamp: boolean;
-  reachDistance: TDistance; // Already squared.
+  reachDistanceSqr: TDistance; // Already squared.
   reachMovement: EStalkerState;
   description: Optional<EStalkerState>;
   availableAnimations: Optional<LuaArray<EStalkerState>>;

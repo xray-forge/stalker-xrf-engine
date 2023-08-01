@@ -1105,7 +1105,7 @@ extern("xr_conditions.animpoint_reached", (actor: ClientObject, npc: ClientObjec
     return false;
   }
 
-  return animpointState.animpoint.isPositionReached();
+  return animpointState.animpointManager.isPositionReached();
 });
 
 /**

@@ -3,13 +3,13 @@ import { describe, expect, it } from "@jest/globals";
 import { registry } from "@/engine/core/database/registry";
 import { registerStalker, unregisterStalker } from "@/engine/core/database/stalker";
 import { StalkerBinder } from "@/engine/core/objects";
-import { EStalkerState } from "@/engine/core/objects/animation";
-import { EvaluatorAnimationStateIdleNow } from "@/engine/core/objects/state/animation_state/EvaluatorAnimationStateIdleNow";
+import { EAnimationMarker } from "@/engine/core/objects/animation";
+import { EvaluatorAnimstateLocked } from "@/engine/core/objects/state/animstate/EvaluatorAnimstateLocked";
 import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateManager";
 import { mockClientGameObject } from "@/fixtures/xray";
 
-describe("EvaluatorAnimationStateIdleNow class", () => {
-  it("should correctly perform animation state idle now", () => {
+describe("EvaluatorAnimstateLocked class", () => {
+  it("should correctly perform animation locked state", () => {
     const stalker: StalkerBinder = new StalkerBinder(mockClientGameObject());
 
     registerStalker(stalker);
@@ -17,15 +17,21 @@ describe("EvaluatorAnimationStateIdleNow class", () => {
     stalker.reinit();
 
     const manager: StalkerStateManager = registry.objects.get(stalker.object.id()).stateManager as StalkerStateManager;
-    const evaluator: EvaluatorAnimationStateIdleNow = new EvaluatorAnimationStateIdleNow(manager);
+    const evaluator: EvaluatorAnimstateLocked = new EvaluatorAnimstateLocked(manager);
 
-    expect(evaluator.evaluate()).toBeTruthy();
-
-    manager.animstate.state.currentState = EStalkerState.BACKOFF;
     expect(evaluator.evaluate()).toBeFalsy();
 
-    manager.animstate.state.currentState = null;
+    manager.animstate.state.animationMarker = EAnimationMarker.IN;
     expect(evaluator.evaluate()).toBeTruthy();
+
+    manager.animstate.state.animationMarker = EAnimationMarker.OUT;
+    expect(evaluator.evaluate()).toBeTruthy();
+
+    manager.animstate.state.animationMarker = EAnimationMarker.IDLE;
+    expect(evaluator.evaluate()).toBeFalsy();
+
+    manager.animstate.state.animationMarker = null;
+    expect(evaluator.evaluate()).toBeFalsy();
 
     unregisterStalker(stalker);
   });

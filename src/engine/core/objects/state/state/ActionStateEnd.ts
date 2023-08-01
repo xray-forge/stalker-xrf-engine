@@ -27,26 +27,11 @@ export class ActionStateEnd extends action_base {
   }
 
   /**
-   * todo;
-   */
-  public override initialize(): void {
-    logger.info("End state for:", this.object.name());
-
-    super.initialize();
-  }
-
-  /**
    * todo: Description.
    */
   public override execute(): void {
     super.execute();
-    this.updateWeapon();
-  }
 
-  /**
-   * todo: Description.
-   */
-  public updateWeapon(): void {
     if (this.stateManager.callback !== null) {
       const now: TTimestamp = time_global();
 

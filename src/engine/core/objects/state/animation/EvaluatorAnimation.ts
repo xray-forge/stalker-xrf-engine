@@ -8,6 +8,7 @@ const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * Evaluator to check whether performing animation for object.
+ * Checks if state manager animation is matching animation manager action.
  */
 @LuabindClass()
 export class EvaluatorAnimation extends property_evaluator {

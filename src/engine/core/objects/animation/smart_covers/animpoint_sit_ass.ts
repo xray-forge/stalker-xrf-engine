@@ -41,7 +41,7 @@ export function getSmartCoverAnimpointSitAss(): ISmartCoverDescriptor {
             precondition_params: "",
             actions: [
               {
-                animation: "sit_2_to_idle_0",
+                animation: "sit_2_to_idle_0_",
                 position: ZERO_VECTOR,
                 body_state: move.standing,
                 movement_type: move.run,

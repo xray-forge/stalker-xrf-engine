@@ -6,7 +6,9 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 import { getObjectSmartTerrain } from "@/engine/core/utils/object/object_get";
 import { createEmptyVector, graphDistance, vectorToString, yawDegree3d } from "@/engine/core/utils/vector";
 import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
+import { MAX_U32 } from "@/engine/lib/constants/memory";
 import { sounds } from "@/engine/lib/constants/sound/sounds";
+import { ZERO_VECTOR } from "@/engine/lib/constants/vectors";
 import {
   ClientObject,
   ESoundObjectType,
@@ -145,9 +147,15 @@ export function getDistanceBetweenSqr(first: ClientObject, second: ClientObject)
  * @param vertexId - destination vertex id
  * @returns actual vertex id to send object
  */
-export function sendToNearestAccessibleVertex(object: ClientObject, vertexId: TNumberId): TNumberId {
+export function sendToNearestAccessibleVertex(object: ClientObject, vertexId: Optional<TNumberId>): TNumberId {
+  if (vertexId === null || vertexId >= MAX_U32) {
+    object.set_dest_level_vertex_id(object.level_vertex_id());
+
+    return object.level_vertex_id();
+  }
+
   if (!object.accessible(vertexId)) {
-    vertexId = object.accessible_nearest(level.vertex_position(vertexId), createEmptyVector());
+    vertexId = object.accessible_nearest(level.vertex_position(vertexId), ZERO_VECTOR);
   }
 
   object.set_dest_level_vertex_id(vertexId);

@@ -1,20 +1,18 @@
 import { stalker_ids, world_property, world_state } from "xray16";
 
-import { EAnimationType } from "@/engine/core/objects/animation/animation_types";
 import { EStateActionId, EStateEvaluatorId } from "@/engine/core/objects/animation/state_types";
 import * as animationManagement from "@/engine/core/objects/state/animation";
-import * as animationStateManagement from "@/engine/core/objects/state/animation_state";
+import * as animationStateManagement from "@/engine/core/objects/state/animstate";
 import * as bodyStateManagement from "@/engine/core/objects/state/body_state";
 import * as directionManagement from "@/engine/core/objects/state/direction";
 import * as mentalManagement from "@/engine/core/objects/state/mental";
 import * as movementManagement from "@/engine/core/objects/state/movement";
 import * as smartCoverManagement from "@/engine/core/objects/state/smart_cover";
-import { StalkerAnimationManager } from "@/engine/core/objects/state/StalkerAnimationManager";
 import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateManager";
 import * as stateManagement from "@/engine/core/objects/state/state";
 import { ActionStateToIdle } from "@/engine/core/objects/state/state/ActionStateToIdle";
-import { EvaluatorStateIdle } from "@/engine/core/objects/state/state/EvaluatorStateIdle";
 import { EvaluatorStateIdleAlife } from "@/engine/core/objects/state/state/EvaluatorStateIdleAlife";
+import { EvaluatorStateIdleCombat } from "@/engine/core/objects/state/state/EvaluatorStateIdleCombat";
 import { EvaluatorStateIdleItems } from "@/engine/core/objects/state/state/EvaluatorStateIdleItems";
 import { EvaluatorStateLogicActive } from "@/engine/core/objects/state/state/EvaluatorStateLogicActive";
 import * as weaponManagement from "@/engine/core/objects/state/weapon";
@@ -27,7 +25,8 @@ const logger: LuaLogger = new LuaLogger($filename);
 /**
  * Add state manager instance to Stalker object.
  *
- * @param object
+ * @param object - target client object to create state manager for
+ * @returns initialized state manager with adjusted actions and evaluators
  */
 export function addStateManager(object: ClientObject): StalkerStateManager {
   const planner: ActionPlanner = object.motivation_action_manager();
@@ -35,7 +34,7 @@ export function addStateManager(object: ClientObject): StalkerStateManager {
 
   addBasicManagerGraph(stateManager, object);
 
-  planner.add_evaluator(EEvaluatorId.IS_STATE_IDLE_COMBAT, new EvaluatorStateIdle(stateManager));
+  planner.add_evaluator(EEvaluatorId.IS_STATE_IDLE_COMBAT, new EvaluatorStateIdleCombat(stateManager));
   planner.add_evaluator(EEvaluatorId.IS_STATE_IDLE_ALIFE, new EvaluatorStateIdleAlife(stateManager));
   planner.add_evaluator(EEvaluatorId.IS_STATE_IDLE_ITEMS, new EvaluatorStateIdleItems(stateManager));
   planner.add_evaluator(EEvaluatorId.IS_STATE_LOGIC_ACTIVE, new EvaluatorStateLogicActive(stateManager));
@@ -211,26 +210,22 @@ function addBasicManagerGraph(stateManager: StalkerStateManager, object: ClientO
     new directionManagement.EvaluatorDirectionSearch(stateManager)
   );
 
-  stateManager.animstate = new StalkerAnimationManager(object, stateManager, EAnimationType.ANIMSTATE);
-
   stateManager.planner.add_evaluator(
     EStateEvaluatorId.ANIMSTATE,
-    new animationStateManagement.EvaluatorAnimationState(stateManager)
+    new animationStateManagement.EvaluatorAnimstate(stateManager)
   );
   stateManager.planner.add_evaluator(
     EStateEvaluatorId.ANIMSTATE_IDLE_NOW,
-    new animationStateManagement.EvaluatorAnimationStateIdleNow(stateManager)
+    new animationStateManagement.EvaluatorAnimstateIdleNow(stateManager)
   );
   stateManager.planner.add_evaluator(
     EStateEvaluatorId.ANIMSTATE_PLAY_NOW,
-    new animationStateManagement.EvaluatorAnimationStatePlayNow(stateManager)
+    new animationStateManagement.EvaluatorAnimstatePlayNow(stateManager)
   );
   stateManager.planner.add_evaluator(
     EStateEvaluatorId.ANIMSTATE_LOCKED,
-    new animationStateManagement.EvaluatorAnimationStateLocked(stateManager)
+    new animationStateManagement.EvaluatorAnimstateLocked(stateManager)
   );
-
-  stateManager.animation = new StalkerAnimationManager(object, stateManager, EAnimationType.ANIMATION);
 
   stateManager.planner.add_evaluator(
     EStateEvaluatorId.ANIMATION,
@@ -625,7 +620,7 @@ function addBasicManagerGraph(stateManager: StalkerStateManager, object: ClientO
   stateManager.planner.add_action(EStateActionId.BODYSTATE_STANDING_FREE, standingFreeAction);
 
   // -- ANIMSTATES
-  const animationStateStartAction = new animationStateManagement.ActionAnimationStateStart(stateManager);
+  const animationStateStartAction = new animationStateManagement.ActionAnimstateStart(stateManager);
 
   animationStateStartAction.add_precondition(new world_property(EStateEvaluatorId.LOCKED, false));
   animationStateStartAction.add_precondition(new world_property(EStateEvaluatorId.LOCKED_EXTERNAL, false));
@@ -640,7 +635,7 @@ function addBasicManagerGraph(stateManager: StalkerStateManager, object: ClientO
   animationStateStartAction.add_effect(new world_property(EStateEvaluatorId.ANIMSTATE, true));
   stateManager.planner.add_action(EStateActionId.ANIMSTATE_START, animationStateStartAction);
 
-  const animationStateStopAction = new animationStateManagement.ActionAnimationStateStop(stateManager);
+  const animationStateStopAction = new animationStateManagement.ActionAnimstateStop(stateManager);
 
   animationStateStopAction.add_precondition(new world_property(EStateEvaluatorId.LOCKED, false));
   animationStateStopAction.add_precondition(new world_property(EStateEvaluatorId.LOCKED_EXTERNAL, false));

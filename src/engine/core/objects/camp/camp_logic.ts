@@ -3,8 +3,8 @@ import {
   EObjectCampActivity,
   ICampTransitionDescriptor,
   IStoryAnimationDescriptor,
-} from "@/engine/core/objects/state/camp/camp_types";
-import type { CampManager } from "@/engine/core/objects/state/camp/CampManager";
+} from "@/engine/core/objects/camp/camp_types";
+import type { CampManager } from "@/engine/core/objects/camp/CampManager";
 import { canPlayCampGuitar, canPlayCampHarmonica, canTellCampStory } from "@/engine/core/utils/camp";
 import type { TProbability } from "@/engine/lib/types";
 
@@ -43,8 +43,8 @@ export const CAMP_ACTIVITIES: LuaTable<EObjectCampActivity, ICampTransitionDescr
   [EObjectCampActivity.IDLE]: {
     directorState: null,
     generalState: "idle",
-    minTime: 20_000,
-    maxTime: 40_000,
+    minTime: 30_000,
+    maxTime: 60_000,
     timeout: 0,
     transitions: $fromObject({ harmonica: 30, guitar: 30, story: 40 } as Record<EObjectCampActivity, TProbability>),
     precondition: () => true,

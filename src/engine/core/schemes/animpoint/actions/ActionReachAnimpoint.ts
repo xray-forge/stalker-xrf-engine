@@ -22,7 +22,7 @@ export class ActionReachAnimpoint extends action_base {
 
   public override initialize(): void {
     super.initialize();
-    this.state.animpoint.calculatePosition();
+    this.state.animpointManager.calculatePosition();
 
     logger.info("Starting reach place of animpoint:", this.object.name());
   }
@@ -41,17 +41,18 @@ export class ActionReachAnimpoint extends action_base {
     super.execute();
 
     // Set destination point to walk.
-    this.object.set_dest_level_vertex_id(this.state.animpoint.positionLevelVertexId!);
-    this.object.set_desired_direction(this.state.animpoint.smartCoverDirection!);
+    this.object.set_dest_level_vertex_id(this.state.animpointManager.positionLevelVertexId!);
+    this.object.set_desired_direction(this.state.animpointManager.smartCoverDirection!);
     this.object.set_path_type(EClientObjectPath.LEVEL_PATH);
 
     const isDistanceReached: boolean =
-      this.object.position().distance_to_sqr(this.state.animpoint.vertexPosition!) <= this.state.reachDistance;
+      this.object.position().distance_to_sqr(this.state.animpointManager.vertexPosition!) <=
+      this.state.reachDistanceSqr;
 
     if (isDistanceReached) {
       // When reached place start looking to where animation should happen.
       setStalkerState(this.object, this.state.reachMovement, null, null, {
-        lookPosition: this.state.animpoint.lookPosition,
+        lookPosition: this.state.animpointManager.lookPosition,
         lookObject: null,
       });
     } else {

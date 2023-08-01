@@ -5,6 +5,7 @@ import {
   EAnimationMarker,
   EAnimationType,
   IAnimationDescriptor,
+  IAnimationDescriptorProperties,
   IAnimationManagerState,
   TAnimationSequenceElements,
 } from "@/engine/core/objects/animation";
@@ -74,28 +75,35 @@ export class StalkerAnimationManager {
   }
 
   /**
-   * todo;
+   * Set new animation state and reset all markers.
+   *
+   * @param state - target state to set
+   * @param isForced - whether state transition should be forced and skip all `out` animations
    */
-  public setState(newState: Optional<EStalkerState>, isForced: Optional<boolean> = false): void {
+  public setState(state: Optional<EStalkerState>, isForced?: Optional<boolean>): void {
     const now: TTimestamp = time_global();
 
+    if (state !== this.state.targetState) {
+      logger.info("Set state:", this.type, tostring(state));
+    }
+
     /**
-     * Force animation over existing ones.
+     * Force animation apply without waiting for previous end.
      */
     if (isForced === true) {
       this.object.clear_animations();
 
-      const state: Optional<IAnimationDescriptor> =
+      const currentState: Optional<IAnimationDescriptor> =
         this.state.animationMarker === EAnimationMarker.IN
           ? this.animations.get(this.state.targetState!)
           : this.animations.get(this.state.currentState!);
 
-      if (state?.out) {
+      if (currentState?.out) {
         const weaponSlot: TIndex = getObjectActiveWeaponSlot(this.object);
-        const animationForWeaponSlot = this.getAnimationForSlot(weaponSlot, state.out);
+        const animationForWeaponSlot = this.getAnimationForWeaponSlot(weaponSlot, currentState.out);
 
         if (animationForWeaponSlot !== null) {
-          for (const [id, nextAnimation] of animationForWeaponSlot) {
+          for (const [, nextAnimation] of animationForWeaponSlot) {
             if (type(nextAnimation) === "table") {
               this.processSpecialAction(nextAnimation as any);
             }
@@ -104,15 +112,15 @@ export class StalkerAnimationManager {
       }
 
       this.state.animationMarker = null;
-      this.state.currentState = newState;
-      this.state.targetState = newState;
+      this.state.currentState = state;
+      this.state.targetState = state;
       this.state.sequenceId = 1;
       this.state.nextRandomAt = now;
 
       return;
     }
 
-    this.state.targetState = newState;
+    this.state.targetState = state;
     this.state.nextRandomAt = now;
   }
 
@@ -128,11 +136,14 @@ export class StalkerAnimationManager {
   }
 
   /**
-   * todo;
+   * Add animation for object execution.
+   *
+   * @param animation - animation scenario name to execute by game object
+   * @param animationDescriptor - animation descriptor to play
    */
-  public addAnimation(animation: TName, state: IAnimationDescriptor): void {
+  public addAnimation(animation: TName, animationDescriptor: IAnimationDescriptor): void {
     const object: ClientObject = this.object;
-    const animationProperties = state.prop;
+    const animationProperties: Optional<IAnimationDescriptorProperties> = animationDescriptor.prop;
 
     if (
       this.stateManager.animationPosition &&
@@ -148,59 +159,71 @@ export class StalkerAnimationManager {
       );
 
       object.add_animation(animation, true, this.stateManager.animationPosition, direction, true);
-    } else if (animationProperties === null || animationProperties.moving !== true) {
-      object.add_animation(animation, true, false);
     } else {
-      object.add_animation(animation, true, true);
+      object.add_animation(animation, true, animationProperties?.moving === true);
     }
   }
 
   /**
-   * todo;
+   * Get matching animation sequence for currently active weapon slot.
+   * If weapon slot animation does not exist, return `0` from list.
+   *
+   * @param weaponSlot - active weapon slot of the game object
+   * @param animationsList - animations scenarios list
+   * @returns possible animation sequence for slot
    */
-  public getAnimationForSlot(
-    slot: TIndex,
+  public getAnimationForWeaponSlot(
+    weaponSlot: TIndex,
     animationsList: LuaArray<TAnimationSequenceElements>
   ): Optional<LuaArray<TAnimationSequenceElements>> {
-    if (animationsList.get(slot) === null) {
-      slot = 0;
+    if (animationsList.get(weaponSlot) === null) {
+      weaponSlot = 0;
     }
 
-    return $fromArray(animationsList.get(slot) as any);
+    return $fromArray(animationsList.get(weaponSlot) as any);
   }
 
   /**
-   * todo;
+   * Select active animation for execution on update tick.
+   *
+   * @returns tuple with animation name and descriptor or tuple with nulls
    */
   public selectAnimation(): LuaMultiReturn<[TName, IAnimationDescriptor] | [null, null]> {
     const states: IAnimationManagerState = this.state;
 
-    // New animation detected:
+    /**
+     * New animation detected for playback change.
+     */
     if (states.targetState !== states.currentState) {
+      // Stopping all animations:
       if (states.targetState === null) {
         const animationDescriptor: IAnimationDescriptor = this.animations.get(states.currentState!);
 
-        if (animationDescriptor.out === null) {
-          states.animationMarker = EAnimationMarker.OUT;
-          this.onAnimationCallback(true);
-
-          return $multi(null, null);
-        }
-
         states.animationMarker = EAnimationMarker.OUT;
 
-        const weaponSlot: TIndex = getObjectActiveWeaponSlot(this.object);
-        const animationForWeaponSlot = this.getAnimationForSlot(weaponSlot, animationDescriptor.out);
-
-        if (animationForWeaponSlot === null) {
-          states.animationMarker = EAnimationMarker.OUT;
+        // No way to transition out current animation, mark as executed and transition forward.
+        if (animationDescriptor.out === null) {
           this.onAnimationCallback(true);
 
           return $multi(null, null);
         }
 
-        const nextAnimation = animationForWeaponSlot.get(states.sequenceId);
+        const weaponSlot: TIndex = getObjectActiveWeaponSlot(this.object);
+        const animationForWeaponSlot: Optional<LuaArray<TAnimationSequenceElements>> = this.getAnimationForWeaponSlot(
+          weaponSlot,
+          animationDescriptor.out
+        );
 
+        // No animation for current / 0 slot, mark as executed and transition forward.
+        if (animationForWeaponSlot === null) {
+          this.onAnimationCallback(true);
+
+          return $multi(null, null);
+        }
+
+        const nextAnimation: TAnimationSequenceElements = animationForWeaponSlot.get(states.sequenceId);
+
+        // Have complex animation action, execute it and process forward with multiple scenarios.
         if (type(nextAnimation) === "table") {
           this.processSpecialAction(nextAnimation as any);
           this.onAnimationCallback(false);
@@ -208,33 +231,39 @@ export class StalkerAnimationManager {
           return $multi(null, null);
         }
 
+        // Possible have simple animation for 'out' play.
         return $multi(nextAnimation as unknown as TName, animationDescriptor);
       }
 
+      // From idle (null) to new animation:
       if (states.currentState === null) {
-        const state = this.animations.get(states.targetState!);
-
-        if (state.into === null) {
-          states.animationMarker = EAnimationMarker.IN;
-          this.onAnimationCallback(true);
-
-          return $multi(null, null);
-        }
+        const state: IAnimationDescriptor = this.animations.get(states.targetState!);
 
         states.animationMarker = EAnimationMarker.IN;
 
-        const weaponSlot: TIndex = getObjectActiveWeaponSlot(this.object);
-        const animationForWeaponSlot = this.getAnimationForSlot(weaponSlot, state.into);
-
-        if (animationForWeaponSlot === null) {
-          states.animationMarker = EAnimationMarker.IN;
+        // No `into` animation, mark it as finished and proceed forward.
+        if (state.into === null) {
           this.onAnimationCallback(true);
 
           return $multi(null, null);
         }
 
-        const nextAnimation = animationForWeaponSlot.get(states.sequenceId);
+        const weaponSlot: TIndex = getObjectActiveWeaponSlot(this.object);
+        const animationForWeaponSlot: Optional<LuaArray<TAnimationSequenceElements>> = this.getAnimationForWeaponSlot(
+          weaponSlot,
+          state.into
+        );
 
+        // No animation for desired weapon slot, mark as executed and proceed forward.
+        if (animationForWeaponSlot === null) {
+          this.onAnimationCallback(true);
+
+          return $multi(null, null);
+        }
+
+        const nextAnimation: TAnimationSequenceElements = animationForWeaponSlot.get(states.sequenceId);
+
+        // Next animation is complex, handle actions and proceed forward with callbacks.
         if (type(nextAnimation) === "table") {
           this.processSpecialAction(nextAnimation as any);
           this.onAnimationCallback(false);
@@ -242,16 +271,19 @@ export class StalkerAnimationManager {
           return $multi(null, null);
         }
 
+        // Have possible simple `in` animation scenario, continue processing.
         return $multi(nextAnimation as unknown as TName, state);
       }
     }
 
-    // Same non-null animation:
+    // Same non-null animation, processing idle state:
     if (states.targetState === states.currentState && states.currentState !== null) {
       const activeWeaponSlot: TIndex = getObjectActiveWeaponSlot(this.object);
       const state: IAnimationDescriptor = this.animations.get(states.currentState);
-      let animation;
 
+      let animation = null;
+
+      // Select random animation for idle state, if random list is defined.
       if (state.rnd !== null) {
         animation = this.selectRandom(
           state as IAnimationDescriptor,
@@ -260,11 +292,13 @@ export class StalkerAnimationManager {
         );
       }
 
+      // No random animation and idle is defined.
       if (animation === null && state.idle !== null) {
-        animation = this.getAnimationForSlot(activeWeaponSlot, state.idle as any);
+        animation = this.getAnimationForWeaponSlot(activeWeaponSlot, state.idle as any);
       }
 
-      if (animation !== null) {
+      // Have animation for idle state so can define current marker state.
+      if (animation) {
         states.animationMarker = EAnimationMarker.IDLE;
       }
 
@@ -275,20 +309,26 @@ export class StalkerAnimationManager {
   }
 
   /**
-   * todo;
+   * Select random animation sequence to play for `rnd` animation.
+   * Random animations are part of idle state to make actions more diverse.
+   *
+   * @param animationDescriptor - descriptor of animation to pick random from
+   * @param weaponSlot - item slot to check animation for
+   * @param shouldPlay - whether animation should be played
+   * @returns random animation sequence if valid one exists
    */
   public selectRandom(
-    animationStateDescriptor: IAnimationDescriptor,
+    animationDescriptor: IAnimationDescriptor,
     weaponSlot: TIndex,
-    mustPlay: boolean
+    shouldPlay: boolean
   ): Optional<TAnimationSequenceElements> {
-    if (!mustPlay && math.random(100) > (this.animations.get(this.state.currentState!).prop.rnd as TRate)) {
+    if (!shouldPlay && math.random(100) > (this.animations.get(this.state.currentState!).prop.rnd as TRate)) {
       return null;
     }
 
-    const animation: Optional<LuaArray<TAnimationSequenceElements>> = this.getAnimationForSlot(
+    const animation: Optional<LuaArray<TAnimationSequenceElements>> = this.getAnimationForWeaponSlot(
       weaponSlot,
-      animationStateDescriptor.rnd as LuaArray<TAnimationSequenceElements>
+      animationDescriptor.rnd as LuaArray<TAnimationSequenceElements>
     );
 
     if (animation === null) {
@@ -318,10 +358,13 @@ export class StalkerAnimationManager {
   }
 
   /**
-   * todo;
+   * Process special action as part of animation scenario.
+   * It may include sounds/items/hit etc.
+   *
+   * @param actionTable - table with action to process
    */
   public processSpecialAction(actionTable: LuaTable): void {
-    // Attach.
+    // Attach item.
     if (actionTable.get("a") !== null) {
       const objectInventoryItem: Optional<ClientObject> = this.object.object(actionTable.get("a"));
 
@@ -330,7 +373,7 @@ export class StalkerAnimationManager {
       }
     }
 
-    // Detach.
+    // Detach item.
     if (actionTable.get("d") !== null) {
       const objectInventoryItem: Optional<ClientObject> = this.object.object(actionTable.get("d"));
 
@@ -366,7 +409,10 @@ export class StalkerAnimationManager {
   }
 
   /**
-   * todo;
+   * On animation scenario finish by an object.
+   * Handle different phases of animation and proceed animations list of transform from one marker to another.
+   *
+   * @param skipMultiAnimationCheck - skip multiple animations scenario and transfer to another marker
    */
   public onAnimationCallback(skipMultiAnimationCheck?: boolean): void {
     if (this.state.animationMarker === null || this.object.animation_count() > 0) {
@@ -384,7 +430,7 @@ export class StalkerAnimationManager {
           const targetAnimations = this.animations.get(states.targetState!);
 
           if (targetAnimations !== null && targetAnimations.into !== null) {
-            intoList = this.getAnimationForSlot(getObjectActiveWeaponSlot(this.object), targetAnimations.into);
+            intoList = this.getAnimationForWeaponSlot(getObjectActiveWeaponSlot(this.object), targetAnimations.into);
           }
 
           if (intoList !== null && intoList.length() > states.sequenceId) {
@@ -405,7 +451,7 @@ export class StalkerAnimationManager {
       case EAnimationMarker.IDLE: {
         states.animationMarker = null;
 
-        const properties = this.animations.get(states.currentState!).prop;
+        const properties: IAnimationDescriptorProperties = this.animations.get(states.currentState!).prop;
 
         if (properties.maxidle === 0) {
           states.nextRandomAt = time_global() + properties.sumidle * 1000;
@@ -425,7 +471,7 @@ export class StalkerAnimationManager {
           let outAnimationList: Optional<LuaArray<TAnimationSequenceElements>> = new LuaTable();
 
           if (this.animations.get(states.currentState as EStalkerState).out) {
-            outAnimationList = this.getAnimationForSlot(
+            outAnimationList = this.getAnimationForWeaponSlot(
               getObjectActiveWeaponSlot(this.object),
               this.animations.get(states.currentState!).out as LuaArray<TAnimationSequenceElements>
             );

@@ -1,6 +1,6 @@
 import { IRegistryObjectState, registry } from "@/engine/core/database";
-import { EObjectCampRole } from "@/engine/core/objects/state/camp/camp_types";
-import type { CampManager } from "@/engine/core/objects/state/camp/CampManager";
+import { EObjectCampRole } from "@/engine/core/objects/camp/camp_types";
+import type { CampManager } from "@/engine/core/objects/camp/CampManager";
 import { ISchemeAnimpointState } from "@/engine/core/schemes/animpoint";
 import { isObjectMeeting } from "@/engine/core/utils/object/object_state";
 import { ClientObject, Optional, TCount, TNumberId } from "@/engine/lib/types";

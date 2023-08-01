@@ -1,13 +1,18 @@
 import type { EWeaponAnimation } from "@/engine/core/objects/animation/animation_types";
 import type {
+  AnyCallable,
+  AnyContextualCallable,
+  AnyObject,
   ClientObject,
   Optional,
   TAnimationType,
+  TDuration,
   TIndex,
   TLookType,
   TMoveType,
   TName,
   TSightType,
+  TTimestamp,
   Vector,
 } from "@/engine/lib/types";
 
@@ -344,3 +349,33 @@ export enum ECurrentMovementState {
   MOVING = 1,
   STANDING = 2,
 }
+
+/**
+ * todo;
+ */
+export interface IStateManagerCallbackDescriptor<T extends AnyObject = AnyObject> {
+  begin?: Optional<TTimestamp>;
+  timeout?: Optional<TDuration>;
+  context: T;
+  callback: Optional<AnyContextualCallable<T>>;
+  turnEndCallback?: Optional<AnyCallable>;
+}
+
+/**
+ * todo;
+ */
+export interface ITargetStateDescriptorExtras {
+  isForced?: boolean;
+  animation?: boolean;
+  animationPosition?: Optional<Vector>;
+  animationDirection?: Optional<Vector>;
+}
+
+/**
+ * todo;
+ */
+export const LOOK_DIRECTION_STATES: LuaTable<EStalkerState, boolean> = $fromObject({
+  threat_na: true,
+  wait_na: true,
+  guard_na: true,
+} as Record<EStalkerState, boolean>);

@@ -3,7 +3,6 @@ import { action_base, LuabindClass } from "xray16";
 import { states } from "@/engine/core/objects/animation/states";
 import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateManager";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { Optional } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

@@ -7,7 +7,7 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Check if any object logic scheme is active right now.
  */
 @LuabindClass()
 export class EvaluatorStateLogicActive extends property_evaluator {
@@ -19,7 +19,7 @@ export class EvaluatorStateLogicActive extends property_evaluator {
   }
 
   /**
-   * todo: Description.
+   * Evaluates whether object has any active section.
    */
   public override evaluate(): boolean {
     return registry.objects.get(this.object.id()).activeSection !== null;

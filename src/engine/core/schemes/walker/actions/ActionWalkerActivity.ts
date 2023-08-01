@@ -5,7 +5,7 @@ import { getCampForPosition } from "@/engine/core/database/camp";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import { EStalkerState } from "@/engine/core/objects/animation";
 import { animpoint_predicates } from "@/engine/core/objects/animation/predicates/animpoint_predicates";
-import { CampManager } from "@/engine/core/objects/state/camp/CampManager";
+import { CampManager } from "@/engine/core/objects/camp/CampManager";
 import { StalkerMoveManager } from "@/engine/core/objects/state/StalkerMoveManager";
 import { IAnimpointActionDescriptor } from "@/engine/core/schemes/animpoint/types";
 import { ISchemeEventHandler } from "@/engine/core/schemes/base";

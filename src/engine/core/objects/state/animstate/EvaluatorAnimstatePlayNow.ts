@@ -6,21 +6,21 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * Evaluate object smart cover state and whether it is in smart cover right now.
+ * Evaluator to check whether anim state is playing now.
  */
 @LuabindClass()
-export class EvaluatorInSmartCover extends property_evaluator {
-  public readonly stateManager: StalkerStateManager;
+export class EvaluatorAnimstatePlayNow extends property_evaluator {
+  private readonly stateManager: StalkerStateManager;
 
   public constructor(stateManager: StalkerStateManager) {
-    super(null, EvaluatorInSmartCover.__name);
+    super(null, EvaluatorAnimstatePlayNow.__name);
     this.stateManager = stateManager;
   }
 
   /**
-   * Check if object is in smart cover right now.
+   * Check whether anim state is playing now.
    */
   public override evaluate(): boolean {
-    return this.object.in_smart_cover();
+    return this.stateManager.animstate.state.currentState !== null;
   }
 }

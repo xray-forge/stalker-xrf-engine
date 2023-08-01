@@ -24,19 +24,19 @@ export class ActionAnimpoint extends action_base {
    * Start animation on init.
    */
   public override initialize(): void {
-    logger.info("Starting animpoint:", this.object.name(), this.state.animpoint.currentAction);
+    logger.info("Starting animpoint:", this.object.name(), this.state.animpointManager.currentAction);
 
     super.initialize();
-    this.state.animpoint.start();
+    this.state.animpointManager.start();
   }
 
   /**
    * Stop animation on finalize.
    */
   public override finalize(): void {
-    logger.info("Ending animpoint:", this.object.name(), this.state.animpoint.currentAction);
+    logger.info("Ending animpoint:", this.object.name(), this.state.animpointManager.currentAction);
 
-    this.state.animpoint.stop();
+    this.state.animpointManager.stop();
     super.finalize();
   }
 
@@ -44,7 +44,7 @@ export class ActionAnimpoint extends action_base {
    * Stop animation on net destroy.
    */
   public net_destroy(): void {
-    this.state.animpoint.stop();
+    this.state.animpointManager.stop();
   }
 
   /**
@@ -53,18 +53,18 @@ export class ActionAnimpoint extends action_base {
   public override execute(): void {
     super.execute();
 
-    if (!this.state.animpoint.isStarted) {
-      this.state.animpoint.start();
+    if (!this.state.animpointManager.isStarted) {
+      this.state.animpointManager.start();
     }
 
-    const [position, direction] = this.state.animpoint.getAnimationParameters();
+    const [position, direction] = this.state.animpointManager.getAnimationParameters();
 
     setStalkerState(
       this.object,
-      this.state.animpoint.getCurrentAction() as EStalkerState,
+      this.state.animpointManager.getCurrentAction() as EStalkerState,
       null,
       null,
-      { lookPosition: this.state.animpoint.lookPosition, lookObject: null },
+      { lookPosition: this.state.animpointManager.lookPosition, lookObject: null },
       { animationPosition: position, animationDirection: direction }
     );
   }

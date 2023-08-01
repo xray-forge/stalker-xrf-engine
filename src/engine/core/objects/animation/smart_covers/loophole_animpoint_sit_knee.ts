@@ -29,24 +29,24 @@ export function getAnimpointSitKneeLoophole(
       },
       lookout: {
         animations: {
-          idle: ["idle_0_to_sit_1"],
+          idle: ["sit_1_idle_0"],
         },
       },
       fire: {
         animations: {
-          idle: ["idle_0_to_sit_1"],
-          shoot: ["idle_0_to_sit_1"],
+          idle: ["sit_1_idle_0"],
+          shoot: ["sit_1_idle_0"],
         },
       },
       fire_no_lookout: {
         animations: {
-          idle: ["idle_0_to_sit_1"],
-          shoot: ["idle_0_to_sit_1"],
+          idle: ["sit_1_idle_0"],
+          shoot: ["sit_1_idle_0"],
         },
       },
       reload: {
         animations: {
-          idle: ["idle_0_to_sit_1"],
+          idle: ["sit_1_idle_0"],
         },
       },
     },

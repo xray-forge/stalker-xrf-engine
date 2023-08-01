@@ -44,8 +44,8 @@ export class SchemeAnimpoint extends AbstractScheme {
       EStalkerState.WALK
     ) as EStalkerState;
 
-    state.reachDistance = readIniNumber(ini, section, "reach_distance", false, 0.75);
-    state.reachDistance *= state.reachDistance; // Calculate for sqr comparison.
+    state.reachDistanceSqr = readIniNumber(ini, section, "reach_distance", false, 0.75);
+    state.reachDistanceSqr *= state.reachDistanceSqr; // Calculate for sqr comparison.
 
     const rawAvailableAnimations: Optional<string> = readIniString(ini, section, "avail_animations", false, "", null);
 
@@ -67,9 +67,9 @@ export class SchemeAnimpoint extends AbstractScheme {
     actionPlanner.add_evaluator(EEvaluatorId.IS_ANIMPOINT_NEEDED, new EvaluatorNeedAnimpoint(schemeState));
     actionPlanner.add_evaluator(EEvaluatorId.IS_ANIMPOINT_REACHED, new EvaluatorReachAnimpoint(schemeState));
 
-    schemeState.animpoint = new AnimpointManager(object, schemeState);
+    schemeState.animpointManager = new AnimpointManager(object, schemeState);
 
-    SchemeAnimpoint.subscribe(object, schemeState, schemeState.animpoint);
+    SchemeAnimpoint.subscribe(object, schemeState, schemeState.animpointManager);
 
     const actionReachAnimpoint: ActionReachAnimpoint = new ActionReachAnimpoint(schemeState);
 
@@ -99,6 +99,7 @@ export class SchemeAnimpoint extends AbstractScheme {
 
     SchemeAnimpoint.subscribe(object, schemeState, actionAnimpoint);
 
+    // Cannot go to alife simulation if animation is defined.
     actionPlanner.action(EActionId.ALIFE).add_precondition(new world_property(EEvaluatorId.IS_ANIMPOINT_NEEDED, false));
   }
 }

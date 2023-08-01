@@ -4,12 +4,12 @@ import { registry } from "@/engine/core/database/registry";
 import { registerStalker, setStalkerState, unregisterStalker } from "@/engine/core/database/stalker";
 import { StalkerBinder } from "@/engine/core/objects";
 import { EStalkerState } from "@/engine/core/objects/animation";
-import { ActionAnimationStateStart } from "@/engine/core/objects/state/animation_state/ActionAnimationStateStart";
+import { ActionAnimstateStart } from "@/engine/core/objects/state/animstate/ActionAnimstateStart";
 import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateManager";
 import { createEmptyVector } from "@/engine/core/utils/vector";
 import { mockClientGameObject, MockPropertyStorage } from "@/fixtures/xray";
 
-describe("ActionAnimationStateStart class", () => {
+describe("ActionAnimstateStart class", () => {
   it("should correctly perform animation state start action", () => {
     const stalker: StalkerBinder = new StalkerBinder(mockClientGameObject());
 
@@ -27,7 +27,7 @@ describe("ActionAnimationStateStart class", () => {
       lookObject: null,
     });
 
-    const action: ActionAnimationStateStart = new ActionAnimationStateStart(manager);
+    const action: ActionAnimstateStart = new ActionAnimstateStart(manager);
 
     action.setup(stalker.object, MockPropertyStorage.mock());
     action.initialize();

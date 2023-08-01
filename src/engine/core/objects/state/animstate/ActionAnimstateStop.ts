@@ -1,36 +1,35 @@
 import { action_base, LuabindClass } from "xray16";
 
-import { EStalkerState } from "@/engine/core/objects/animation";
 import { states } from "@/engine/core/objects/animation/states";
 import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateManager";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { Optional, TName } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * Evaluator to check animation state.
+ * Action to stop animation state.
  */
 @LuabindClass()
-export class ActionAnimationStateStart extends action_base {
+export class ActionAnimstateStop extends action_base {
   private readonly stateManager: StalkerStateManager;
 
   public constructor(stateManager: StalkerStateManager) {
-    super(null, ActionAnimationStateStart.__name);
+    super(null, ActionAnimstateStop.__name);
     this.stateManager = stateManager;
   }
 
   /**
-   * Check whether animation state.
+   * Perform animation state stop.
    */
   public override initialize(): void {
     super.initialize();
 
-    const targetAnimationState: Optional<TName> = states.get(this.stateManager.targetState).animstate;
+    logger.info("Stop animstate for:", this.object.name(), this.stateManager.animstate.state.currentState);
 
-    logger.info("Start animstate for:", this.object.name(), targetAnimationState);
-
-    this.stateManager.animstate.setState(targetAnimationState as EStalkerState);
+    this.stateManager.animstate.setState(
+      null,
+      (this.stateManager.isForced || states.get(this.stateManager.targetState).isForced) === true
+    );
     this.stateManager.animstate.setControl();
   }
 }

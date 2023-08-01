@@ -84,11 +84,11 @@ export interface ISchemeEventHandler {
    */
   update?(delta: TCount): void;
   /**
-   * todo: Description.
+   * todo: Description, swap params order.
    */
   activateScheme?(isLoading: boolean, object: ClientObject): void;
   /**
-   * todo: Description.
+   * todo: Description, swap params order.
    */
   resetScheme?(isLoading: boolean, object: ClientObject): void;
   /**
