@@ -7,7 +7,7 @@
     "noImplicitOverride": true,
     "moduleResolution": "node",
     "esModuleInterop": true,
-    "types": ["@typescript-to-lua/language-extensions", "lua-types/jit"],
+    "types": ["@typescript-to-lua/language-extensions", "lua-types/jit", "xray16"],
     "jsx": "preserve",
     "jsxFactory": "JSXXML",
     "strict": true,
