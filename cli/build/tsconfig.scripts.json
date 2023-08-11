@@ -23,12 +23,12 @@
     "noImplicitSelf": true,
     "noResolvePaths": ["xray16"],
     "luaPlugins": [
-      { "name": "xray16/plugins/transform_luabind_class/plugin.ts" },
-      { "name": "xray16/plugins/global_declarations_transform.ts" },
-      { "name": "xray16/plugins/built_at_info.ts" },
-      { "name": "xray16/plugins/strip_lua_logger.ts" },
-      { "name": "xray16/plugins/inject_filename.ts" },
-      { "name": "xray16/plugins/from_cast_utils.ts" }
+      { "name": "xray16/plugins/transform_luabind_class/plugin" },
+      { "name": "xray16/plugins/global_declarations_transform" },
+      { "name": "xray16/plugins/built_at_info" },
+      { "name": "xray16/plugins/strip_lua_logger" },
+      { "name": "xray16/plugins/inject_filename" },
+      { "name": "xray16/plugins/from_cast_utils" }
     ]
   }
 }
