@@ -26,6 +26,10 @@ export class EvaluatorPostCombatIdleEnemy extends property_evaluator {
    * Evaluate whether object can enter post-combat idle state.
    */
   public override evaluate(): boolean {
+    if (!this.object.alive()) {
+      return false;
+    }
+
     const bestEnemy: Optional<ClientObject> = this.object.best_enemy();
 
     if (bestEnemy !== null && !canObjectSelectAsEnemy(this.object, bestEnemy)) {
@@ -68,6 +72,6 @@ export class EvaluatorPostCombatIdleEnemy extends property_evaluator {
 
     this.state.animation.setState(null);
 
-    return this.state.animation.states.animationMarker !== null;
+    return this.state.animation.state.animationMarker !== null;
   }
 }

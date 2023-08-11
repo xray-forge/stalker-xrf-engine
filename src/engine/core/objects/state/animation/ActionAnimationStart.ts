@@ -1,7 +1,7 @@
 import { action_base, LuabindClass } from "xray16";
 
+import { EStalkerState } from "@/engine/core/objects/animation";
 import { states } from "@/engine/core/objects/animation/states";
-import { EStalkerState } from "@/engine/core/objects/state";
 import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateManager";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { Optional, TName } from "@/engine/lib/types";
@@ -29,7 +29,7 @@ export class ActionAnimationStart extends action_base {
 
     const targetAnimation: Optional<TName> = states.get(this.stateManager.targetState).animation;
 
-    logger.info("Start animation for:", this.object.name(), targetAnimation);
+    logger.info("Start for:", this.object.name(), targetAnimation);
 
     this.stateManager.animation.setState(states.get(this.stateManager.targetState).animation as EStalkerState);
     this.stateManager.animation.setControl();

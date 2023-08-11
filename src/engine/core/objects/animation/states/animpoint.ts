@@ -1,7 +1,7 @@
 import { anim, CSightParams, move } from "xray16";
 
-import { EWeaponAnimation } from "@/engine/core/objects/state/animation_types";
-import { EStalkerState, IStateDescriptor } from "@/engine/core/objects/state/state_types";
+import { EWeaponAnimation } from "@/engine/core/objects/animation/animation_types";
+import { EStalkerState, IStateDescriptor } from "@/engine/core/objects/animation/state_types";
 import { TName } from "@/engine/lib/types";
 
 /**
@@ -176,7 +176,7 @@ export const animpointStates: LuaTable<TName, IStateDescriptor> = $fromObject<TN
     mental: anim.free,
     bodystate: move.standing,
     animstate: EStalkerState.ANIMPOINT_SIT_ASS,
-    animation: EStalkerState.ANIMPOINT_SIT_NORMAL_EAT_KOLBASA,
+    animation: EStalkerState.ANIMPOINT_SIT_ASS_EAT_KOLBASA,
     direction: CSightParams.eSightTypeAnimationDirection,
   },
   [EStalkerState.ANIMPOINT_SIT_KNEE_EAT_BREAD]: {

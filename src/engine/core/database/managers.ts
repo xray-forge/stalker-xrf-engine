@@ -4,7 +4,7 @@ import type {
   TAbstractCoreManagerConstructor,
 } from "@/engine/core/managers/base/AbstractCoreManager";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { Optional } from "@/engine/lib/types";
+import { Optional, TName } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -34,6 +34,22 @@ export function getManagerInstance<T extends TAbstractCoreManagerConstructor>(
   }
 
   return registry.managers.get(managerClass) as InstanceType<T>;
+}
+
+/**
+ * Get initialized manager singleton or `null` by name.
+ *
+ * @param managerName - manager class name to get
+ * @returns manager instance singleton or null if it is not initialized
+ */
+export function getManagerInstanceByName<T extends AbstractCoreManager>(managerName: TName): Optional<T> {
+  for (const [constructor, manager] of registry.managers) {
+    if (constructor.name === managerName) {
+      return manager as T;
+    }
+  }
+
+  return null;
 }
 
 /**

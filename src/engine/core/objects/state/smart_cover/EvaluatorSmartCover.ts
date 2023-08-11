@@ -1,7 +1,7 @@
 import { LuabindClass, property_evaluator } from "xray16";
 
 import { registry } from "@/engine/core/database";
-import { EStalkerState } from "@/engine/core/objects/state";
+import { EStalkerState } from "@/engine/core/objects/animation";
 import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateManager";
 import { ISchemeSmartCoverState } from "@/engine/core/schemes/smartcover";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -10,7 +10,7 @@ import { EScheme, Optional, TName } from "@/engine/lib/types";
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Checks if object is going to a desired smart cover.
  */
 @LuabindClass()
 export class EvaluatorSmartCover extends property_evaluator {
@@ -22,7 +22,7 @@ export class EvaluatorSmartCover extends property_evaluator {
   }
 
   /**
-   * todo: Description.
+   * Verify whether object should be in smart cover and if destination smart cover is desired one.
    */
   public override evaluate(): boolean {
     if (this.stateManager.targetState !== EStalkerState.SMART_COVER) {

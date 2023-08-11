@@ -1,6 +1,6 @@
 import { CSightParams, LuabindClass, property_evaluator } from "xray16";
 
-import { EStalkerState } from "@/engine/core/objects/state";
+import { EStalkerState } from "@/engine/core/objects/animation";
 import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateManager";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { areSameVectorsByPrecision, subVectors } from "@/engine/core/utils/vector";

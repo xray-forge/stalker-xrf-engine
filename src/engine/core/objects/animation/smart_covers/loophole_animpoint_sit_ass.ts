@@ -29,24 +29,24 @@ export function getAnimpointSitAssLoophole(
       },
       lookout: {
         animations: {
-          idle: ["idle_0_to_sit_2"],
+          idle: ["sit_2_idle_0"],
         },
       },
       fire: {
         animations: {
-          idle: ["idle_0_to_sit_2"],
-          shoot: ["idle_0_to_sit_2"],
+          idle: ["sit_2_idle_0"],
+          shoot: ["sit_2_idle_0"],
         },
       },
       fire_no_lookout: {
         animations: {
-          idle: ["idle_0_to_sit_2"],
-          shoot: ["idle_0_to_sit_2"],
+          idle: ["sit_2_idle_0"],
+          shoot: ["sit_2_idle_0"],
         },
       },
       reload: {
         animations: {
-          idle: ["idle_0_to_sit_2"],
+          idle: ["sit_2_idle_0"],
         },
       },
     },

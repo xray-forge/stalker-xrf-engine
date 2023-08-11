@@ -1,9 +1,14 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 
-import { executeConsoleCommand, getConsoleFloatCommand } from "@/engine/core/utils/game/game_console";
+import {
+  executeConsoleCommand,
+  executeConsoleCommandsFromSection,
+  getConsoleFloatCommand,
+} from "@/engine/core/utils/game/game_console";
 import { consoleCommands } from "@/engine/lib/constants/console_commands";
 import { gameDifficulties } from "@/engine/lib/constants/game_difficulties";
 import { resetFunctionMock } from "@/fixtures/utils/function_mock";
+import { mockIniFile } from "@/fixtures/xray";
 import { gameConsole } from "@/fixtures/xray/mocks/console.mock";
 
 describe("'console' utils", () => {
@@ -23,6 +28,42 @@ describe("'console' utils", () => {
     resetFunctionMock(gameConsole.execute);
     executeConsoleCommand(consoleCommands.start, "server(all/single/alife/new)", "client(localhost)");
     expect(gameConsole.execute).toHaveBeenCalledWith("start server(all/single/alife/new) client(localhost)");
+  });
+
+  it("'executeConsoleCommandsFromSection' should correctly execute commands from ini section", () => {
+    executeConsoleCommandsFromSection("test");
+    expect(gameConsole.execute).not.toHaveBeenCalled();
+
+    executeConsoleCommandsFromSection("test", mockIniFile("test.ltx", {}));
+    expect(gameConsole.execute).not.toHaveBeenCalled();
+
+    executeConsoleCommandsFromSection(
+      "test",
+      mockIniFile("test.ltx", {
+        test: {
+          a: 1,
+          b: 2,
+        },
+      })
+    );
+
+    expect(gameConsole.execute).toHaveBeenCalledTimes(2);
+    expect(gameConsole.execute).toHaveBeenNthCalledWith(1, "a 1");
+    expect(gameConsole.execute).toHaveBeenNthCalledWith(2, "b 2");
+
+    resetFunctionMock(gameConsole.execute);
+
+    executeConsoleCommandsFromSection(
+      "another",
+      mockIniFile("test.ltx", {
+        another: {
+          c: "b a",
+        },
+      })
+    );
+
+    expect(gameConsole.execute).toHaveBeenCalledTimes(1);
+    expect(gameConsole.execute).toHaveBeenCalledWith("c b a");
   });
 
   it("'getConsoleFloatCommand' should correctly generate commands", () => {

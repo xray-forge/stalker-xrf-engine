@@ -3,7 +3,6 @@ import { action_base, LuabindClass } from "xray16";
 import { states } from "@/engine/core/objects/animation/states";
 import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateManager";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { Optional } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -25,7 +24,7 @@ export class ActionAnimationStop extends action_base {
   public override initialize(): void {
     super.initialize();
 
-    logger.info("Stop animation for:", this.object.name(), this.stateManager.animation.states.currentState);
+    logger.info("Stop animation for:", this.object.name(), this.stateManager.animation.state.currentState);
 
     this.stateManager.animation.setState(
       null,

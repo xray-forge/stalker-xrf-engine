@@ -43,6 +43,15 @@ export class LuaLogger {
   }
 
   /**
+   * Print generic info level message.
+   */
+  public format(base: string, ...args: AnyArgs): void {
+    if (gameConfig.DEBUG.IS_LOG_ENABLED && this.isEnabled) {
+      this.logAs("[info]", this.prefix, $fromArray([string.format(base, ...args)]));
+    }
+  }
+
+  /**
    * Print generic error level message.
    */
   public error(...args: AnyArgs): void {

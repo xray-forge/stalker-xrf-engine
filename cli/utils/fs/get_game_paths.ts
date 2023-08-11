@@ -19,6 +19,7 @@ type TGamePaths = typeof GAME_PATHS;
 
 /**
  * Get absolute paths to the game assets/executables/directories.
+ * todo: Memoize paths?
  */
 export async function getGamePaths(): Promise<TGamePaths> {
   const { path: gamePath } = await getAppPath(config.targets.stalker_game_steam_id).catch(() => {

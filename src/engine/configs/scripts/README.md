@@ -6,7 +6,7 @@
 - `suitable` - [string] whether described script job is suitable
 - `prior` - [number] priority ???
 - `on_death` [condlist] - section activation on object death
-- `camp` [?] - 
+- `camp` [?] -
 
 ## Base section fields
 

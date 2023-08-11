@@ -5,11 +5,12 @@ import { registry } from "@/engine/core/database/registry";
 import { IRegistryObjectState } from "@/engine/core/database/types";
 import { StalkerBinder } from "@/engine/core/objects";
 import {
+  EStalkerState,
+  ILookTargetDescriptor,
   IStateManagerCallbackDescriptor,
   ITargetStateDescriptorExtras,
-  StalkerStateManager,
-} from "@/engine/core/objects/state/StalkerStateManager";
-import { EStalkerState, ILookTargetDescriptor } from "@/engine/core/objects/state/state_types";
+} from "@/engine/core/objects/animation/state_types";
+import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateManager";
 import { ClientObject, Optional, TDuration } from "@/engine/lib/types";
 
 /**

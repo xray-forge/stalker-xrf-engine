@@ -1,8 +1,8 @@
 import { anim, move, object, TXR_object_state } from "xray16";
 
 import { IRegistryObjectState, registry } from "@/engine/core/database";
+import { EStalkerState, IStateDescriptor } from "@/engine/core/objects/animation/state_types";
 import { states } from "@/engine/core/objects/animation/states";
-import { EStalkerState, IStateDescriptor } from "@/engine/core/objects/state/state_types";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { ClientObject, LuaArray, Optional, TIndex, TName, TNumberId, TTimestamp } from "@/engine/lib/types";
 

@@ -1,6 +1,7 @@
-import { action_planner, cast_planner, LuabindClass, property_evaluator, stalker_ids } from "xray16";
+import { action_planner, LuabindClass, property_evaluator } from "xray16";
 
 import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateManager";
+import { COMBAT_ACTION_IDS, EActionId } from "@/engine/core/schemes";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { Optional, TNumberId } from "@/engine/lib/types";
 
@@ -14,7 +15,6 @@ export class EvaluatorStateEnd extends property_evaluator {
   private readonly stateManager: StalkerStateManager;
 
   private actionPlanner: Optional<action_planner> = null;
-  private combatPlanner: Optional<action_planner> = null;
 
   public constructor(stateManager: StalkerStateManager) {
     super(null, EvaluatorStateEnd.__name);
@@ -23,16 +23,9 @@ export class EvaluatorStateEnd extends property_evaluator {
 
   /**
    * todo: Description.
-   * todo: Probably simlify it, not needed checks except combat flag?
    */
   public override evaluate(): boolean {
-    if (this.actionPlanner === null) {
-      this.actionPlanner = this.object.motivation_action_manager();
-    }
-
-    if (this.combatPlanner === null) {
-      this.combatPlanner = cast_planner(this.actionPlanner.action(stalker_ids.action_combat_planner));
-    }
+    this.actionPlanner = this.actionPlanner || this.object.motivation_action_manager();
 
     if (!this.actionPlanner.initialized()) {
       return false;
@@ -40,15 +33,12 @@ export class EvaluatorStateEnd extends property_evaluator {
 
     const currentActionId: TNumberId = this.actionPlanner.current_action_id();
 
-    if (currentActionId === stalker_ids.action_combat_planner) {
-      if (!this.combatPlanner.initialized()) {
-        return false;
-      }
-    } else if (
-      currentActionId !== stalker_ids.action_danger_planner &&
-      currentActionId !== stalker_ids.action_anomaly_planner
-    ) {
+    if (!COMBAT_ACTION_IDS[currentActionId]) {
       this.stateManager.isCombat = false;
+    }
+
+    if (currentActionId !== EActionId.ALIFE) {
+      this.stateManager.isAlife = false;
     }
 
     return false;

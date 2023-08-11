@@ -1,23 +1,25 @@
 import { action_planner, level, look, object, time_global } from "xray16";
 
-import { states } from "@/engine/core/objects/animation/states";
-import { EWeaponAnimation } from "@/engine/core/objects/state/animation_types";
-import { StalkerAnimationManager } from "@/engine/core/objects/state/StalkerAnimationManager";
+import { EAnimationType, EWeaponAnimation } from "@/engine/core/objects/animation/animation_types";
 import {
   EStalkerState,
   EStateActionId,
   EStateEvaluatorId,
   ILookTargetDescriptor,
-} from "@/engine/core/objects/state/state_types";
+  IStateManagerCallbackDescriptor,
+  ITargetStateDescriptorExtras,
+  LOOK_DIRECTION_STATES,
+} from "@/engine/core/objects/animation/state_types";
+import { states } from "@/engine/core/objects/animation/states";
+import { StalkerAnimationManager } from "@/engine/core/objects/state/StalkerAnimationManager";
 import { getObjectAnimationWeapon } from "@/engine/core/objects/state/weapon/StateManagerWeapon";
 import { assert } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { areSameVectors, createEmptyVector, createVector, subVectors } from "@/engine/core/utils/vector";
+import { areSameVectors, createVector, subVectors } from "@/engine/core/utils/vector";
+import { ZERO_VECTOR } from "@/engine/lib/constants/vectors";
 import {
   ActionPlanner,
   AnyCallable,
-  AnyContextualCallable,
-  AnyObject,
   ClientObject,
   Optional,
   TDuration,
@@ -30,53 +32,23 @@ import {
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
- */
-export interface IStateManagerCallbackDescriptor<T extends AnyObject = AnyObject> {
-  begin?: Optional<TTimestamp>;
-  timeout?: Optional<TDuration>;
-  context: T;
-  callback: Optional<AnyContextualCallable<T>>;
-  turnEndCallback?: Optional<AnyCallable>;
-}
-
-/**
- * todo;
- */
-export interface ITargetStateDescriptorExtras {
-  isForced?: boolean;
-  animation?: boolean;
-  animationPosition?: Optional<Vector>;
-  animationDirection?: Optional<Vector>;
-}
-
-/**
- * todo;
- */
-const LOOK_DIRECTION_STATES: LuaTable<EStalkerState, boolean> = $fromObject({
-  threat_na: true,
-  wait_na: true,
-  guard_na: true,
-} as Record<EStalkerState, boolean>);
-
-/**
- * todo:
- * - Refactor and simplify
- * - Simplify creation of actions with some helper function and evaluators descriptor?
+ * State manager of any stalker game object.
+ * Handles animation, different states and body positioning when stalkers are doing anything.
  */
 export class StalkerStateManager {
-  public object: ClientObject;
-  public planner: ActionPlanner;
+  public readonly object: ClientObject;
+  public readonly planner: ActionPlanner;
 
   public isCombat: boolean = false;
   public isAlife: boolean = true;
   public isForced: boolean = false;
 
   public isObjectPointDirectionLook: boolean = false;
-  public isPositionDirectionApplied: boolean = false;
+  public isAnimationDirectionApplied: boolean = false;
 
-  public animation!: StalkerAnimationManager;
-  public animstate!: StalkerAnimationManager;
+  public animation: StalkerAnimationManager;
+  public animstate: StalkerAnimationManager;
+
   public animationPosition: Optional<Vector> = null;
   public animationDirection: Optional<Vector> = null;
 
@@ -90,10 +62,14 @@ export class StalkerStateManager {
     this.object = object;
     this.planner = new action_planner();
     this.planner.setup(object);
+    this.animstate = new StalkerAnimationManager(object, this, EAnimationType.ANIMSTATE);
+    this.animation = new StalkerAnimationManager(object, this, EAnimationType.ANIMATION);
   }
 
   /**
-   * Get target state of manager.
+   * Get target state of game object state manager.
+   *
+   * @returns target state or null
    */
   public getState(): Optional<EStalkerState> {
     return this.targetState;
@@ -101,82 +77,94 @@ export class StalkerStateManager {
 
   /**
    * Set object animation state.
+   *
+   * @param state - target game state to set
+   * @param callback - state manager callback for call once state is set
+   * @param timeout - time to wait for callback call once state is set
+   * @param target - target look/position description for state
+   * @param extra - additional configuration of state
    */
   public setState(
-    stateName: EStalkerState,
+    state: EStalkerState,
     callback: Optional<IStateManagerCallbackDescriptor>,
     timeout: Optional<TDuration>,
     target: Optional<ILookTargetDescriptor>,
     extra: Optional<ITargetStateDescriptorExtras>
   ): void {
-    assert(states.get(stateName), "Invalid set state called: '%s' fo '%s'.", stateName, this.object.name());
+    assert(states.get(state), "Invalid set state called: '%s' fo '%s'.", state, this.object.name());
 
-    if (target !== null) {
+    if (target) {
       this.lookPosition = target.lookPosition;
-
-      if (target.lookObject !== null) {
-        this.lookObjectId = target.lookObject.id();
-      } else {
-        this.lookObjectId = null;
-      }
+      this.lookObjectId = target.lookObject?.id() as Optional<TNumberId>;
     } else {
       this.lookPosition = null;
       this.lookObjectId = null;
     }
 
-    if (this.targetState !== stateName) {
+    // Same state provided, just updated positioning and continue.
+    if (this.targetState === state) {
+      return;
+    }
+
+    logger.format("Set state: '%s', %s -> %s", this.object.name(), this.targetState, state);
+
+    const previousStateDescriptorWeapon: Optional<EWeaponAnimation> = states.get(this.targetState).weapon;
+    const nextStateDescriptorWeapon: Optional<EWeaponAnimation> = states.get(state).weapon;
+
+    // Hide weapon if it is not needed for new animation.
+    if (
+      (previousStateDescriptorWeapon === EWeaponAnimation.FIRE ||
+        previousStateDescriptorWeapon === EWeaponAnimation.SNIPER_FIRE) &&
+      nextStateDescriptorWeapon !== EWeaponAnimation.FIRE &&
+      nextStateDescriptorWeapon !== EWeaponAnimation.SNIPER_FIRE
+    ) {
+      if (this.object.active_item() && this.object.best_weapon() && this.object.weapon_unstrapped()) {
+        this.object.set_item(object.idle, getObjectAnimationWeapon(this.object, state));
+      }
+    }
+
+    this.targetState = state;
+
+    const hasSpecialDangerMove: boolean = states.get(state).special_danger_move === true;
+
+    // Process special danger move if it is not with same state.
+    if (this.object.special_danger_move() !== hasSpecialDangerMove) {
+      this.object.special_danger_move(hasSpecialDangerMove);
+    }
+
+    // Process extra fields.
+    if (extra) {
+      this.isForced = extra.isForced === true;
+
+      // If position or direction are changed, reset applied state.
       if (
-        (states.get(this.targetState).weapon === EWeaponAnimation.FIRE ||
-          states.get(this.targetState).weapon === EWeaponAnimation.SNIPER_FIRE) &&
-        states.get(stateName).weapon !== EWeaponAnimation.FIRE &&
-        states.get(stateName).weapon !== EWeaponAnimation.SNIPER_FIRE
+        (this.animationPosition !== null &&
+          extra.animationPosition !== null &&
+          !areSameVectors(this.animationPosition, extra.animationPosition as Vector)) ||
+        (this.animationDirection !== null &&
+          extra.animationDirection !== null &&
+          !areSameVectors(this.animationDirection, extra.animationDirection as Vector))
       ) {
-        if (this.object.weapon_unstrapped()) {
-          this.object.set_item(object.idle, getObjectAnimationWeapon(this.object, stateName));
-        }
+        this.isAnimationDirectionApplied = false;
       }
 
-      if (states.get(stateName).special_danger_move === true) {
-        if (this.object.special_danger_move() !== true) {
-          this.object.special_danger_move(true);
-        }
-      } else {
-        if (this.object.special_danger_move() === true) {
-          this.object.special_danger_move(false);
-        }
-      }
+      this.animationPosition = extra.animationPosition as Optional<Vector>;
+      this.animationDirection = extra.animationDirection as Optional<Vector>;
+    } else {
+      this.isAnimationDirectionApplied = false;
+      this.animationPosition = null;
+      this.animationDirection = null;
+      this.isForced = false;
+    }
 
-      this.targetState = stateName;
-
-      if (extra !== null) {
-        this.isForced = extra.isForced === true;
-
-        if (
-          this.isPositionDirectionApplied === false ||
-          (this.animationPosition !== null &&
-            extra.animationPosition !== null &&
-            !areSameVectors(this.animationPosition, extra.animationPosition as Vector)) ||
-          (this.animationDirection !== null &&
-            extra.animationDirection !== null &&
-            !areSameVectors(this.animationDirection, extra.animationDirection as Vector))
-        ) {
-          this.animationPosition = extra.animationPosition as Optional<Vector>;
-          this.animationDirection = extra.animationDirection as Optional<Vector>;
-          this.isPositionDirectionApplied = false;
-        }
-      } else {
-        this.animationPosition = null;
-        this.animationDirection = null;
-        this.isPositionDirectionApplied = false;
-        this.isForced = false;
-      }
-
+    // Process additional callback.
+    if (callback) {
       this.callback = callback;
 
       if (timeout !== null && timeout >= 0) {
         this.callback!.timeout = timeout;
         this.callback!.begin = null;
-      } else if (this.callback) {
+      } else {
         this.callback.callback = null;
         this.callback.timeout = null;
       }
@@ -184,30 +172,34 @@ export class StalkerStateManager {
   }
 
   /**
-   * todo: Description.
+   * State manager update tick.
    */
   public update(): void {
-    if (this.animation.states.currentState === states.get(this.targetState).animation) {
-      if (this.callback !== null && this.callback.callback !== null) {
-        const now: TTimestamp = time_global();
+    // Notify set state callback if it is provided and desired state is set.
+    if (
+      this.callback !== null &&
+      this.callback.callback !== null &&
+      this.animation.state.currentState === states.get(this.targetState).animation
+    ) {
+      const now: TTimestamp = time_global();
 
-        if (this.callback.begin === null) {
-          this.callback.begin = now;
-        } else {
-          if (now - (this.callback.begin as TTimestamp) >= this.callback.timeout!) {
-            logger.info("Animation callback called:", this.object.name());
+      if (this.callback.begin === null) {
+        this.callback.begin = now;
+      } else {
+        if (now - (this.callback.begin as TTimestamp) >= this.callback.timeout!) {
+          logger.info("Animation callback called:", this.object.name());
 
-            const callbackFunction: AnyCallable = this.callback.callback as unknown as AnyCallable;
+          const callbackFunction: AnyCallable = this.callback.callback as unknown as AnyCallable;
 
-            this.callback.begin = null;
-            this.callback.callback = null;
+          this.callback.begin = null;
+          this.callback.callback = null;
 
-            callbackFunction(this.callback.context);
-          }
+          callbackFunction(this.callback.context);
         }
       }
     }
 
+    // Force object action planner updates.
     this.planner.update();
 
     if (!this.planner.initialized()) {
@@ -217,13 +209,16 @@ export class StalkerStateManager {
     let plannerPreviousActionId: Optional<TNumberId> = null;
     let plannerCurrentActionId: TNumberId = this.planner.current_action_id();
 
+    // Update planer till state is not set to end or locked.
     while (
+      plannerCurrentActionId &&
       plannerCurrentActionId !== plannerPreviousActionId &&
       plannerCurrentActionId !== EStateActionId.END &&
       plannerCurrentActionId !== EStateActionId.LOCKED
     ) {
-      plannerPreviousActionId = plannerCurrentActionId;
       this.planner.update();
+
+      plannerPreviousActionId = plannerCurrentActionId;
       plannerCurrentActionId = this.planner.current_action_id();
     }
   }
@@ -284,24 +279,27 @@ export class StalkerStateManager {
     if (this.lookObjectId !== null && level.object_by_id(this.lookObjectId) !== null) {
       this.lookAtObject();
     } else if (this.lookPosition !== null) {
-      let direction: Vector = subVectors(this.lookPosition!, this.object.position());
+      let sightDirection: Vector = subVectors(this.lookPosition!, this.object.position());
 
       if (this.isObjectPointDirectionLook) {
-        direction.y = 0;
+        sightDirection.y = 0;
       }
 
-      direction.normalize();
+      sightDirection.normalize();
 
-      if (areSameVectors(direction, createEmptyVector())) {
+      if (areSameVectors(sightDirection, ZERO_VECTOR)) {
+        const objectPosition: Vector = this.object.position();
+        const objectDirection: Vector = this.object.direction();
+
         this.lookPosition = createVector(
-          this.object.position().x + this.object.direction().x,
-          this.object.position().y + this.object.direction().y,
-          this.object.position().z + this.object.direction().z
+          objectPosition.x + objectDirection.x,
+          objectPosition.y + objectDirection.y,
+          objectPosition.z + objectDirection.z
         );
-        direction = this.object.direction();
+        sightDirection = this.object.direction();
       }
 
-      this.object.set_sight(look.direction, direction, true);
+      this.object.set_sight(look.direction, sightDirection, true);
     }
   }
 }

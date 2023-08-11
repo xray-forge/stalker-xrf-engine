@@ -1,10 +1,10 @@
-import { IAnimationDescriptor } from "@/engine/core/objects/state/animation_types";
-import { CampManager } from "@/engine/core/objects/state/camp";
-import { EStalkerState } from "@/engine/core/objects/state/state_types";
+import { IAnimationDescriptor } from "@/engine/core/objects/animation/animation_types";
+import { EStalkerState } from "@/engine/core/objects/animation/state_types";
 import { SchemeCorpseDetection } from "@/engine/core/schemes/corpse_detection";
 import { SchemeHelpWounded } from "@/engine/core/schemes/help_wounded";
 import { createSequence } from "@/engine/core/utils/animation";
 import { getExtern } from "@/engine/core/utils/binding";
+import { startPlayingGuitar, startPlayingHarmonica } from "@/engine/core/utils/camp";
 import { AnyCallablesModule, ClientObject, TName } from "@/engine/lib/types";
 
 /**
@@ -263,7 +263,7 @@ export const baseAnimations: LuaTable<TName, IAnimationDescriptor> = $fromObject
       { a: "guitar_a" },
       {
         f: (object: ClientObject) => {
-          CampManager.startPlayingGuitar(object);
+          startPlayingGuitar(object);
         },
       },
       "sit_1_guitar_0_1",
@@ -284,7 +284,7 @@ export const baseAnimations: LuaTable<TName, IAnimationDescriptor> = $fromObject
       { a: "harmonica_a" },
       {
         f: (object: ClientObject) => {
-          CampManager.startPlayingHarmonica(object);
+          startPlayingHarmonica(object);
         },
       },
       "sit_2_harmonica_1_1",

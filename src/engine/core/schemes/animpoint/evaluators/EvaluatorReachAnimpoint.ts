@@ -1,6 +1,6 @@
 import { LuabindClass, property_evaluator } from "xray16";
 
-import { ISchemeAnimpointState } from "@/engine/core/schemes/animpoint/ISchemeAnimpointState";
+import { ISchemeAnimpointState } from "@/engine/core/schemes/animpoint/types";
 import { LuaLogger } from "@/engine/core/utils/logging";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -21,6 +21,6 @@ export class EvaluatorReachAnimpoint extends property_evaluator {
    * @returns whether object animation logics is finished
    */
   public override evaluate(): boolean {
-    return this.state.animpoint.isPositionReached();
+    return this.state.animpointManager.isPositionReached();
   }
 }

@@ -5,24 +5,10 @@ import { executeConsoleCommand } from "@/engine/core/utils/game/game_console";
 import { readIniString } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { consoleCommands } from "@/engine/lib/constants/console_commands";
-import { ACTOR } from "@/engine/lib/constants/words";
-import { IniFile } from "@/engine/lib/types";
+import { ACTOR, NIL } from "@/engine/lib/constants/words";
+import { ClientObject, EActorMenuMode, EActorMenuType, IniFile } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
-
-/**
- * Current state of actor menu interaction.
- */
-export enum EActorMenuMode {
-  UNDEFINED = 0,
-  INVENTORY = 1,
-  TRADE = 2,
-  UPGRADE = 3,
-  DEAD_BODY_SEARCH = 4,
-  TALK_DIALOG = 9,
-  TALK_DIALOG_SHOW = 10,
-  TALK_DIALOG_HIDE = 11,
-}
 
 // todo: .CUIActorMenu_OnItemDropped handler
 export class ActorInventoryMenuManager extends AbstractCoreManager {
@@ -103,8 +89,8 @@ export class ActorInventoryMenuManager extends AbstractCoreManager {
   /**
    * todo: Description.
    */
-  public onItemDropped(): void {
-    logger.info("Actor menu inventory item dropped");
+  public onItemDropped(from: ClientObject, to: ClientObject, oldList: EActorMenuType, newList: EActorMenuType): void {
+    logger.info("Actor menu inventory item dropped:", from?.name() || NIL, to?.name() || NIL, oldList, newList);
   }
 
   /**

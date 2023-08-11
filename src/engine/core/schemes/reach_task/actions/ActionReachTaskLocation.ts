@@ -2,9 +2,9 @@ import { action_base, alife, anim, clsid, level, look, LuabindClass, move, objec
 
 import { registry } from "@/engine/core/database";
 import { SurgeManager } from "@/engine/core/managers/world/SurgeManager";
+import { EStalkerState } from "@/engine/core/objects/animation";
 import { Squad } from "@/engine/core/objects/server/squad/Squad";
 import { TSimulationObject } from "@/engine/core/objects/server/types";
-import { EStalkerState } from "@/engine/core/objects/state";
 import { ReachTaskPatrolManager } from "@/engine/core/schemes/reach_task/ReachTaskPatrolManager";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getObjectSquad, sendToNearestAccessibleVertex } from "@/engine/core/utils/object";

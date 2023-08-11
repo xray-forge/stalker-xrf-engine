@@ -14,6 +14,7 @@ import {
   ServerGroupObject,
   ServerHumanObject,
   ServerObject,
+  TIndex,
   TNumberId,
   Vector,
 } from "@/engine/lib/types";
@@ -98,4 +99,20 @@ export function getObjectCommunity(object: ClientObject | ServerHumanObject | Se
   }
 
   return communities.monster;
+}
+
+/**
+ * Get active weapon slot of an object for animating.
+ *
+ * @param object - target client object to check
+ * @returns active weapon slot index
+ */
+export function getObjectActiveWeaponSlot(object: ClientObject): TIndex {
+  const weapon: Optional<ClientObject> = object.active_item();
+
+  if (weapon === null || object.weapon_strapped()) {
+    return 0;
+  }
+
+  return weapon.animation_slot();
 }

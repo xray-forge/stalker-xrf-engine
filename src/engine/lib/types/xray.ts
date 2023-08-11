@@ -248,3 +248,34 @@ export enum ESoundObjectType {
   LOOPED = sound_object.looped || 1,
   S2D = sound_object.s2d || 2,
 }
+
+/**
+ * Current state of actor menu interaction.
+ */
+export enum EActorMenuMode {
+  UNDEFINED = 0,
+  INVENTORY = 1,
+  TRADE = 2,
+  UPGRADE = 3,
+  DEAD_BODY_SEARCH = 4,
+  TALK_DIALOG = 9,
+  TALK_DIALOG_SHOW = 10,
+  TALK_DIALOG_HIDE = 11,
+}
+
+/**
+ * Type of actor UI window to drag drop items.
+ */
+export enum EActorMenuType {
+  INVALID = 0,
+  ACTOR_SLOT,
+  ACTOR_BAG,
+  ACTOR_BELT,
+  ACTOR_TRADE,
+  PARTNER_TRADE_BAG,
+  PARTNER_TRADE,
+  DEAD_BODY_BAG,
+  QUICK_SLOT,
+  TRASH_SLOT,
+  LIST_TYPE_MAX,
+}

@@ -12,6 +12,7 @@ import {
   isObjectInjured,
   isObjectOnline,
   isObjectSeenByActor,
+  isObjectStrappingWeapon,
   isPlayingSound,
   isStalkerAlive,
   isSurgeEnabledOnLevel,
@@ -19,6 +20,7 @@ import {
 } from "@/engine/core/utils/object/object_check";
 import { classIds } from "@/engine/lib/constants/class_ids";
 import { ClientObject, ServerHumanObject, TClassId } from "@/engine/lib/types";
+import { replaceFunctionMock } from "@/fixtures/utils";
 import {
   CLIENT_SIDE_REGISTRY,
   MockActionPlanner,
@@ -26,7 +28,6 @@ import {
   mockIniFile,
   mockServerAlifeHumanStalker,
   mockServerAlifeMonsterBase,
-  mockServerAlifeObject,
 } from "@/fixtures/xray";
 
 describe("'object_check' utils", () => {
@@ -50,6 +51,26 @@ describe("'object_check' utils", () => {
 
     planner.currentActionId = stalker_ids.action_critically_wounded;
     expect(isObjectInCombat(object)).toBe(false);
+  });
+
+  it("'isObjectStrappingWeapon' should correctly check weapon strap state", () => {
+    const object: ClientObject = mockClientGameObject();
+
+    replaceFunctionMock(object.weapon_strapped, () => true);
+    replaceFunctionMock(object.weapon_unstrapped, () => false);
+    expect(isObjectStrappingWeapon(object)).toBe(false);
+
+    replaceFunctionMock(object.weapon_strapped, () => false);
+    replaceFunctionMock(object.weapon_unstrapped, () => true);
+    expect(isObjectStrappingWeapon(object)).toBe(false);
+
+    replaceFunctionMock(object.weapon_strapped, () => true);
+    replaceFunctionMock(object.weapon_unstrapped, () => true);
+    expect(isObjectStrappingWeapon(object)).toBe(false);
+
+    replaceFunctionMock(object.weapon_strapped, () => false);
+    replaceFunctionMock(object.weapon_unstrapped, () => false);
+    expect(isObjectStrappingWeapon(object)).toBe(true);
   });
 
   it("'isStalkerAlive' should correctly check stalker alive state", () => {
@@ -182,10 +203,10 @@ describe("'object_check' utils", () => {
   });
 
   it("'isSurgeEnabledOnLevel' should correctly check if surge is enabled for level", () => {
-    expect(isSurgeEnabledOnLevel("zaton")).toBe(false);
-    expect(isSurgeEnabledOnLevel("jupiter")).toBe(false);
-    expect(isSurgeEnabledOnLevel("labx8")).toBe(true);
-    expect(isSurgeEnabledOnLevel("jupiter_underground")).toBe(true);
+    expect(isSurgeEnabledOnLevel("zaton")).toBe(true);
+    expect(isSurgeEnabledOnLevel("jupiter")).toBe(true);
+    expect(isSurgeEnabledOnLevel("labx8")).toBe(false);
+    expect(isSurgeEnabledOnLevel("jupiter_underground")).toBe(false);
   });
 
   it("'isUndergroundLevel' should correctly check if level is undeground", () => {

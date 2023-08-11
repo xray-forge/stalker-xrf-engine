@@ -1,7 +1,72 @@
-;dynamic weather graphs
+; ======================================================================================================================
+; Define weather settings
+; ======================================================================================================================
 
+#include "dynamic_weather_graphs_surge.ltx"
+
+; dynamic weather consolse settings
+[weather_console_settings]
+
+; pediod_section_name = hours_range_min, hours_range_max | set duration for each period, set of weathers
+[weather_periods]
+neutral = 2, 7
+good = 2, 6
+alpha = 2, 3
+bad = 2, 5
+foggy = 2, 3
+
+; ======================================================================================================================
+; Define weather graphs
+; ======================================================================================================================
+
+; default weathers graph
 [dynamic_default]
-clear = 0.4
-cloudy = 0.4
+clear = 0.2
+alpha = 0.2
+cloudy = 0.2
+foggy = 0.2
 rain = 0.1
 thunder = 0.1
+
+; starts on one hour after prev period ending
+[transition]
+cloudy4 = 1.0
+
+; pre blowout weathers
+[pre_blowout]
+pre_blowout = 1.0
+
+; good weathers period
+[good]
+clear = 0.25
+clear2 = 0.25
+clear3 = 0.25
+clear4 = 0.25
+
+; neutral weathers period
+[neutral]
+cloudy = 0.15
+cloudy2 = 0.10
+cloudy2_redmoon = 0.05
+cloudy3 = 0.10
+cloudy4 = 0.15
+cloudy5 = 0.15
+dark = 0.15
+etalon = 0.15
+
+; alpha weathers period
+[alpha]
+alpha = 0.4
+alpha2 = 0.3
+alpha3 = 0.3
+
+; bad weathers period
+[bad]
+rain = 0.5
+thunder = 0.5
+
+; foggy weathers period
+[foggy]
+foggy = 0.4
+foggy_dark = 0.3
+foggy_nosun = 0.3

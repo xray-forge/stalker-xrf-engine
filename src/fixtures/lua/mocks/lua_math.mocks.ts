@@ -8,7 +8,14 @@ export const mockMath = {
   sqrt: (value: number) => Math.sqrt(value),
   cos: (value: number) => Math.cos(value),
   sin: (value: number) => Math.sin(value),
-  random: (max: number) => 1 + Math.round(Math.random() * (max - 1)),
+  mod: (value: number, base: number) => value % base,
+  random: (max?: number) => {
+    if (max === undefined) {
+      return Math.random();
+    }
+
+    return 1 + Math.round(Math.random() * (max - 1));
+  },
   floor: (value: number) => Math.floor(value),
   /**
    * value – a number representing a cosine, where x is between -1 and 1

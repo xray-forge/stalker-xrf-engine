@@ -1,4 +1,4 @@
-import { EStalkerState } from "@/engine/core/objects/state";
+import { EStalkerState } from "@/engine/core/objects/animation";
 import { IBaseSchemeState } from "@/engine/core/schemes/base";
 import {
   LuaArray,

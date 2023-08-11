@@ -1,6 +1,6 @@
 import { action_base, LuabindClass } from "xray16";
 
-import { EStalkerState } from "@/engine/core/objects/state";
+import { EStalkerState } from "@/engine/core/objects/animation";
 import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateManager";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { sendToNearestAccessibleVertex } from "@/engine/core/utils/object/object_location";
@@ -29,42 +29,22 @@ export class ActionStateToIdle extends action_base {
     super.initialize();
 
     this.object.inactualize_patrol_path();
-
-    if (this.object.best_enemy() !== null) {
-      this.stateManager.setState(EStalkerState.IDLE, null, null, null, { isForced: true });
-
-      return;
-    }
-
-    if (this.object.best_danger() !== null) {
-      this.stateManager.setState(EStalkerState.IDLE, null, null, null, { isForced: true });
-
-      return;
-    }
-
-    this.stateManager.setState(EStalkerState.IDLE, null, null, null, null);
+    this.object.set_path_type(EClientObjectPath.LEVEL_PATH);
 
     sendToNearestAccessibleVertex(this.object, this.object.level_vertex_id());
-
-    this.object.set_path_type(EClientObjectPath.LEVEL_PATH);
   }
 
   /**
    * todo: Description.
    */
   public override execute(): void {
-    sendToNearestAccessibleVertex(this.object, this.object.level_vertex_id());
-    this.object.set_path_type(EClientObjectPath.LEVEL_PATH);
+    super.execute();
 
-    if (this.object.best_enemy()) {
+    if (this.stateManager.targetState !== EStalkerState.IDLE) {
+      this.object.clear_animations();
       this.stateManager.setState(EStalkerState.IDLE, null, null, null, { isForced: true });
-      super.execute();
-    } else if (this.object.best_danger()) {
-      this.stateManager.setState(EStalkerState.IDLE, null, null, null, { isForced: true });
-      super.execute();
-    } else {
-      this.stateManager.setState(EStalkerState.IDLE, null, null, null, null);
-      super.execute();
+      this.stateManager.animation.setState(null, true);
+      this.stateManager.animation.setControl();
     }
   }
 }

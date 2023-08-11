@@ -1,6 +1,6 @@
 import { stalker_ids, world_property } from "xray16";
 
-import { EStalkerState } from "@/engine/core/objects/state";
+import { EStalkerState } from "@/engine/core/objects/animation";
 import { AbstractScheme, EActionId, EEvaluatorId } from "@/engine/core/schemes";
 import { ActionCamperPatrol } from "@/engine/core/schemes/camper/actions";
 import { EvaluatorCloseCombat, EvaluatorEnd } from "@/engine/core/schemes/camper/evaluators";

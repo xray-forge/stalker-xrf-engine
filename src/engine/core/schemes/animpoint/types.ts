@@ -1,18 +1,27 @@
-import { EStalkerState } from "@/engine/core/objects/state";
-import { LuaArray, TNumberId } from "@/engine/lib/types";
+import { EStalkerState } from "@/engine/core/objects/animation";
+import { IBaseSchemeState } from "@/engine/core/schemes";
+import { AnimpointManager } from "@/engine/core/schemes/animpoint/AnimpointManager";
+import { ClientObject, LuaArray, Optional, TDistance, TName } from "@/engine/lib/types";
 
 /**
- * todo;
+ * State of animpoint scheme.
  */
-export interface IAnimpointAction {
-  name: EStalkerState;
-  predicate: (this: void, objectId: TNumberId, isInCamp?: boolean) => boolean;
+export interface ISchemeAnimpointState extends IBaseSchemeState {
+  animpointManager: AnimpointManager;
+  actionNameBase: Optional<TName>;
+  coverName: TName;
+  useCamp: boolean;
+  reachDistanceSqr: TDistance; // Already squared.
+  reachMovement: EStalkerState;
+  description: Optional<EStalkerState>;
+  availableAnimations: Optional<LuaArray<EStalkerState>>;
+  approvedActions: LuaArray<IAnimpointActionDescriptor>;
 }
 
 /**
- * todo;
+ * Descriptor of animpoint when object is captured in smart cover and deciding which specific animation to run.
  */
-export interface IStoryAnimationDescriptor {
-  director: LuaArray<string>;
-  listener: LuaArray<string>;
+export interface IAnimpointActionDescriptor {
+  name: EStalkerState;
+  predicate: (this: void, object: ClientObject, isInCamp?: boolean) => boolean;
 }

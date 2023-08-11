@@ -1,4 +1,4 @@
-import { IAnimationDescriptor } from "@/engine/core/objects/state";
+import { IAnimationDescriptor } from "@/engine/core/objects/animation";
 import { createSequence } from "@/engine/core/utils/animation";
 import { getExtern } from "@/engine/core/utils/binding";
 import { AnyCallablesModule, TName } from "@/engine/lib/types";

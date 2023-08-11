@@ -26,10 +26,11 @@ export const mockLevelInterface = {
     });
   }),
   map_add_object_spot: jest.fn(),
-  name: jest.fn(() => null),
+  name: jest.fn(() => "zaton"),
   object_by_id: jest.fn((id: TNumberId) => CLIENT_SIDE_REGISTRY.get(id)),
   patrol_path_exists: jest.fn((name: TName) => name in patrols),
   set_snd_volume: jest.fn((volume: number) => {}),
   show_indicators: jest.fn(),
   vertex_position: jest.fn(() => MockVector.create(15, 14, 16)),
+  set_weather: jest.fn(),
 };

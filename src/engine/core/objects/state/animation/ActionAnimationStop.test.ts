@@ -3,7 +3,7 @@ import { describe, expect, it, jest } from "@jest/globals";
 import { registry } from "@/engine/core/database/registry";
 import { registerStalker, setStalkerState, unregisterStalker } from "@/engine/core/database/stalker";
 import { StalkerBinder } from "@/engine/core/objects";
-import { EStalkerState } from "@/engine/core/objects/state";
+import { EStalkerState } from "@/engine/core/objects/animation";
 import { ActionAnimationStop } from "@/engine/core/objects/state/animation/ActionAnimationStop";
 import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateManager";
 import { createEmptyVector } from "@/engine/core/utils/vector";

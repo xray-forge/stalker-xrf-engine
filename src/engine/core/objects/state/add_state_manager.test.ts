@@ -1,5 +1,7 @@
 import { describe, expect, it } from "@jest/globals";
 
+import { EAnimationType } from "@/engine/core/objects/animation/animation_types";
+import { EStateActionId, EStateEvaluatorId } from "@/engine/core/objects/animation/state_types";
 import { addStateManager } from "@/engine/core/objects/state/add_state_manager";
 import {
   ActionAnimationStart,
@@ -10,14 +12,13 @@ import {
   EvaluatorAnimationPlayNow,
 } from "@/engine/core/objects/state/animation";
 import {
-  ActionAnimationStateStart,
-  ActionAnimationStateStop,
-  EvaluatorAnimationState,
-  EvaluatorAnimationStateIdleNow,
-  EvaluatorAnimationStateLocked,
-  EvaluatorAnimationStatePlayNow,
-} from "@/engine/core/objects/state/animation_state";
-import { EAnimationType } from "@/engine/core/objects/state/animation_types";
+  ActionAnimstateStart,
+  ActionAnimstateStop,
+  EvaluatorAnimstate,
+  EvaluatorAnimstateIdleNow,
+  EvaluatorAnimstateLocked,
+  EvaluatorAnimstatePlayNow,
+} from "@/engine/core/objects/state/animstate";
 import {
   ActionBodyStateCrouch,
   ActionBodyStateCrouchDanger,
@@ -78,11 +79,10 @@ import {
   EvaluatorStateLocked,
   EvaluatorStateLockedExternal,
 } from "@/engine/core/objects/state/state";
-import { EvaluatorStateIdle } from "@/engine/core/objects/state/state/EvaluatorStateIdle";
 import { EvaluatorStateIdleAlife } from "@/engine/core/objects/state/state/EvaluatorStateIdleAlife";
+import { EvaluatorStateIdleCombat } from "@/engine/core/objects/state/state/EvaluatorStateIdleCombat";
 import { EvaluatorStateIdleItems } from "@/engine/core/objects/state/state/EvaluatorStateIdleItems";
 import { EvaluatorStateLogicActive } from "@/engine/core/objects/state/state/EvaluatorStateLogicActive";
-import { EStateActionId, EStateEvaluatorId } from "@/engine/core/objects/state/state_types";
 import {
   ActionWeaponDrop,
   ActionWeaponNone,
@@ -154,7 +154,7 @@ describe("add_state_manager util", () => {
     expect(stateManager.animstate.type).toBe(EAnimationType.ANIMSTATE);
     expect(stateManager.animation.type).toBe(EAnimationType.ANIMATION);
 
-    expect(planner.evaluator(EEvaluatorId.IS_STATE_IDLE_COMBAT) instanceof EvaluatorStateIdle).toBeTruthy();
+    expect(planner.evaluator(EEvaluatorId.IS_STATE_IDLE_COMBAT) instanceof EvaluatorStateIdleCombat).toBeTruthy();
     expect(planner.evaluator(EEvaluatorId.IS_STATE_IDLE_ALIFE) instanceof EvaluatorStateIdleAlife).toBeTruthy();
     expect(planner.evaluator(EEvaluatorId.IS_STATE_IDLE_ITEMS) instanceof EvaluatorStateIdleItems).toBeTruthy();
     expect(planner.evaluator(EEvaluatorId.IS_STATE_LOGIC_ACTIVE) instanceof EvaluatorStateLogicActive).toBeTruthy();
@@ -283,14 +283,10 @@ describe("add_state_manager util", () => {
     expect(planner.evaluator(EStateEvaluatorId.DIRECTION) instanceof EvaluatorDirection).toBeTruthy();
     expect(planner.evaluator(EStateEvaluatorId.DIRECTION_SEARCH) instanceof EvaluatorDirectionSearch).toBeTruthy();
 
-    expect(planner.evaluator(EStateEvaluatorId.ANIMSTATE) instanceof EvaluatorAnimationState).toBeTruthy();
-    expect(
-      planner.evaluator(EStateEvaluatorId.ANIMSTATE_IDLE_NOW) instanceof EvaluatorAnimationStateIdleNow
-    ).toBeTruthy();
-    expect(
-      planner.evaluator(EStateEvaluatorId.ANIMSTATE_PLAY_NOW) instanceof EvaluatorAnimationStatePlayNow
-    ).toBeTruthy();
-    expect(planner.evaluator(EStateEvaluatorId.ANIMSTATE_LOCKED) instanceof EvaluatorAnimationStateLocked).toBeTruthy();
+    expect(planner.evaluator(EStateEvaluatorId.ANIMSTATE) instanceof EvaluatorAnimstate).toBeTruthy();
+    expect(planner.evaluator(EStateEvaluatorId.ANIMSTATE_IDLE_NOW) instanceof EvaluatorAnimstateIdleNow).toBeTruthy();
+    expect(planner.evaluator(EStateEvaluatorId.ANIMSTATE_PLAY_NOW) instanceof EvaluatorAnimstatePlayNow).toBeTruthy();
+    expect(planner.evaluator(EStateEvaluatorId.ANIMSTATE_LOCKED) instanceof EvaluatorAnimstateLocked).toBeTruthy();
 
     expect(planner.evaluator(EStateEvaluatorId.ANIMATION) instanceof EvaluatorAnimation).toBeTruthy();
     expect(planner.evaluator(EStateEvaluatorId.ANIMATION_PLAY_NOW) instanceof EvaluatorAnimationPlayNow).toBeTruthy();
@@ -723,7 +719,7 @@ describe("add_state_manager util", () => {
 
     checkAction(
       planner.action(EStateActionId.ANIMSTATE_START),
-      ActionAnimationStateStart,
+      ActionAnimstateStart,
       [
         [EStateEvaluatorId.LOCKED, false],
         [EStateEvaluatorId.LOCKED_EXTERNAL, false],
@@ -741,7 +737,7 @@ describe("add_state_manager util", () => {
 
     checkAction(
       planner.action(EStateActionId.ANIMSTATE_STOP),
-      ActionAnimationStateStop,
+      ActionAnimstateStop,
       [
         [EStateEvaluatorId.LOCKED, false],
         [EStateEvaluatorId.LOCKED_EXTERNAL, false],

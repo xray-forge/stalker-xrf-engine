@@ -1,12 +1,13 @@
 import { action_base, LuabindClass } from "xray16";
 
 import { registry, setStalkerState } from "@/engine/core/database";
+import { getCampForPosition } from "@/engine/core/database/camp";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
-import { EStalkerState } from "@/engine/core/objects/state";
-import { CampManager } from "@/engine/core/objects/state/camp/CampManager";
+import { EStalkerState } from "@/engine/core/objects/animation";
+import { animpoint_predicates } from "@/engine/core/objects/animation/predicates/animpoint_predicates";
+import { CampManager } from "@/engine/core/objects/camp/CampManager";
 import { StalkerMoveManager } from "@/engine/core/objects/state/StalkerMoveManager";
-import { associations } from "@/engine/core/schemes/animpoint/animpoint_predicates";
-import { IAnimpointAction } from "@/engine/core/schemes/animpoint/types";
+import { IAnimpointActionDescriptor } from "@/engine/core/schemes/animpoint/types";
 import { ISchemeEventHandler } from "@/engine/core/schemes/base";
 import { ISchemeWalkerState } from "@/engine/core/schemes/walker";
 import { parseWaypointsData } from "@/engine/core/utils/ini/ini_parse";
@@ -30,7 +31,7 @@ export class ActionWalkerActivity extends action_base implements ISchemeEventHan
   public readonly state: ISchemeWalkerState;
   public readonly moveManager: StalkerMoveManager;
 
-  public availableActions: LuaTable<number, IAnimpointAction>;
+  public availableActions: LuaTable<number, IAnimpointActionDescriptor>;
 
   public isInCamp: Optional<boolean> = null;
   public campStoryManager: Optional<CampManager> = null;
@@ -42,11 +43,11 @@ export class ActionWalkerActivity extends action_base implements ISchemeEventHan
     this.moveManager = registry.objects.get(object.id()).moveManager!;
 
     this.state.description = EStalkerState.WALKER_CAMP;
-    this.availableActions = associations.get(this.state.description);
+    this.availableActions = animpoint_predicates.get(this.state.description);
     this.state.approvedActions = new LuaTable();
 
     for (const [, animpointAction] of this.availableActions) {
-      if (animpointAction.predicate(object.id())) {
+      if (animpointAction.predicate(object)) {
         table.insert(this.state.approvedActions, animpointAction);
       }
     }
@@ -89,7 +90,7 @@ export class ActionWalkerActivity extends action_base implements ISchemeEventHan
 
     this.moveManager.update();
 
-    const camp = CampManager.getInstanceForPosition(this.object.position());
+    const camp: Optional<CampManager> = getCampForPosition(this.object.position());
 
     if (camp !== null && this.state.use_camp === true) {
       this.campStoryManager = camp;

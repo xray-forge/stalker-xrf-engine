@@ -1,8 +1,9 @@
 import { LuabindClass, property_evaluator } from "xray16";
 
-import { ISchemeAnimpointState } from "@/engine/core/schemes/animpoint/ISchemeAnimpointState";
+import { ISchemeAnimpointState } from "@/engine/core/schemes/animpoint/types";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { isActiveSection } from "@/engine/core/utils/scheme";
+import { TSection } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -22,6 +23,6 @@ export class EvaluatorNeedAnimpoint extends property_evaluator {
    * @returns whether object is performing animation now
    */
   public override evaluate(): boolean {
-    return isActiveSection(this.object, this.state.section);
+    return isActiveSection(this.object, this.state.section as TSection);
   }
 }

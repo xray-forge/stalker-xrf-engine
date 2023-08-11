@@ -328,7 +328,7 @@ export class SurgeManager extends AbstractCoreManager {
   /**
    * Start surge.
    */
-  protected start(isForced?: boolean): void {
+  public start(isForced?: boolean): void {
     logger.info("Surge start");
 
     const [Y, M, D, h, m, s, ms] = this.lastSurgeAt.get(0, 0, 0, 0, 0, 0, 0);
@@ -342,6 +342,8 @@ export class SurgeManager extends AbstractCoreManager {
     const diffSec: TDuration = math.ceil(game.get_game_time().diffSec(this.initializedAt) / level.get_time_factor());
 
     if (!isSurgeEnabledOnLevel(level.name())) {
+      logger.info("Surge is not enabled on level");
+
       this.isSkipMessageToggled = true;
       this.skipSurge();
 
@@ -349,6 +351,8 @@ export class SurgeManager extends AbstractCoreManager {
     }
 
     if (diffSec + 6 > surgeConfig.DURATION) {
+      logger.info("Surge can be considered skipped:", diffSec + 6);
+
       this.skipSurge();
     } else {
       this.isStarted = true;

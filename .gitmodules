@@ -5,10 +5,5 @@
 
 [submodule "src/resources"]
 	path = src/resources
-	url = https://github.com/xray-forge/stalker-xrf-resources.git
-  branch = main
-
-[submodule "src/typedefs/xray16"]
-	path = src/typedefs/xray16
-	url = https://github.com/xray-forge/xray-16-types
+	url = https://gitlab.com/xray-forge/stalker-xrf-resources-base
   branch = main

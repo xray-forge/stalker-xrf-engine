@@ -1,7 +1,7 @@
 import { action_base, LuabindClass, time_global } from "xray16";
 
 import { registry, setStalkerState } from "@/engine/core/database";
-import { EStalkerState } from "@/engine/core/objects/state";
+import { EStalkerState } from "@/engine/core/objects/animation";
 import { StalkerMoveManager } from "@/engine/core/objects/state/StalkerMoveManager";
 import { ISchemePatrolState } from "@/engine/core/schemes/patrol";
 import { parseWaypointsData } from "@/engine/core/utils/ini";
@@ -13,7 +13,7 @@ import { ClientObject, EClientObjectPath, TDistance, TNumberId, TTimestamp, Vect
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Action patrol when objects should go to some specific place.
  */
 @LuabindClass()
 export class ActionPatrol extends action_base {

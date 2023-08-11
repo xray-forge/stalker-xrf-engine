@@ -2,7 +2,7 @@ import { alife } from "xray16";
 
 import { getObjectByStoryId, registry, setStalkerState } from "@/engine/core/database";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
-import { EStalkerState } from "@/engine/core/objects/state";
+import { EStalkerState } from "@/engine/core/objects/animation";
 import { AbstractSchemeManager } from "@/engine/core/schemes";
 import { SchemeAbuse } from "@/engine/core/schemes/abuse";
 import { ISchemeMeetState } from "@/engine/core/schemes/meet/ISchemeMeetState";

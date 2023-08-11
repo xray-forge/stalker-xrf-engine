@@ -1,7 +1,15 @@
 import { ini_file, LuabindClass, object_binder } from "xray16";
 
-import { closeLoadMarker, closeSaveMarker, openLoadMarker, openSaveMarker, registry } from "@/engine/core/database";
-import { CampManager } from "@/engine/core/objects/state/camp/CampManager";
+import {
+  closeLoadMarker,
+  closeSaveMarker,
+  openLoadMarker,
+  openSaveMarker,
+  registry,
+  resetCamp,
+} from "@/engine/core/database";
+import { registerCamp, unregisterCamp } from "@/engine/core/database/camp";
+import { CampManager } from "@/engine/core/objects/camp/CampManager";
 import { readIniString } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { IniFile, NetPacket, Optional, Reader, ServerObject, TDuration, TName } from "@/engine/lib/types";
@@ -22,14 +30,7 @@ export class CampBinder extends object_binder {
    */
   public override reinit(): void {
     super.reinit();
-
-    const manager: Optional<CampManager> = registry.camps.get(this.object.id()) as Optional<CampManager>;
-
-    logger.info("Initialize camp:", this.object.name(), manager !== null);
-
-    if (manager) {
-      manager.object = this.object;
-    }
+    resetCamp(this.object);
   }
 
   /**
@@ -51,7 +52,7 @@ export class CampBinder extends object_binder {
       const filename: Optional<TName> = readIniString(ini, "camp", "cfg", false, "", null);
       const manager: CampManager = new CampManager(this.object, filename === null ? ini : new ini_file(filename));
 
-      registry.camps.set(this.object.id(), manager);
+      registerCamp(this.object, manager);
     }
 
     return true;
@@ -63,8 +64,7 @@ export class CampBinder extends object_binder {
   public override net_destroy(): void {
     logger.info("Destroy camp:", this.object.name());
 
-    registry.camps.delete(this.object.id());
-
+    unregisterCamp(this.object);
     super.net_destroy();
   }
 

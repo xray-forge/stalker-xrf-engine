@@ -1,11 +1,10 @@
-import { action_planner, LuabindClass, property_evaluator } from "xray16";
+import { LuabindClass, property_evaluator } from "xray16";
 
+import { EStalkerState, EStateEvaluatorId } from "@/engine/core/objects/animation/state_types";
 import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateManager";
-import { EStalkerState, EStateEvaluatorId } from "@/engine/core/objects/state/state_types";
-import { EActionId } from "@/engine/core/schemes/base";
+import { EActionId, NO_IDLE_ALIFE_IDS } from "@/engine/core/schemes/base";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { isObjectMeeting } from "@/engine/core/utils/object";
-import { Optional } from "@/engine/lib/types";
+import { ActionPlanner, Optional, TNumberId } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -15,8 +14,7 @@ const logger: LuaLogger = new LuaLogger($filename);
 @LuabindClass()
 export class EvaluatorStateIdleAlife extends property_evaluator {
   private readonly stateManager: StalkerStateManager;
-
-  private currentActionId: Optional<EActionId> = null;
+  private actionPlanner: Optional<ActionPlanner> = null;
 
   public constructor(stateManager: StalkerStateManager) {
     super(null, EvaluatorStateIdleAlife.__name);
@@ -31,40 +29,42 @@ export class EvaluatorStateIdleAlife extends property_evaluator {
       return true;
     }
 
-    this.currentActionId = null;
+    this.actionPlanner = this.actionPlanner || this.object.motivation_action_manager();
 
-    const actionPlanner: action_planner = this.object.motivation_action_manager();
-
-    if (actionPlanner.initialized()) {
-      this.currentActionId = actionPlanner.current_action_id();
-      if (this.currentActionId !== EActionId.ALIFE) {
-        this.stateManager.isAlife = false;
-      }
-    }
-
-    if (isObjectMeeting(this.object)) {
+    if (!this.actionPlanner.initialized()) {
       return false;
-    } else {
-      const isAlifeIdle: boolean =
-        this.stateManager.targetState === EStalkerState.IDLE &&
-        // --not this.st.planner.evaluator(this.st.properties["locked"]).evaluate() and
-        !this.stateManager.planner.evaluator(EStateEvaluatorId.WEAPON_LOCKED).evaluate() &&
-        !this.stateManager.planner.evaluator(EStateEvaluatorId.ANIMSTATE_LOCKED).evaluate() &&
-        !this.stateManager.planner.evaluator(EStateEvaluatorId.ANIMATION_LOCKED).evaluate() &&
-        this.stateManager.planner.evaluator(EStateEvaluatorId.MOVEMENT).evaluate() &&
-        this.stateManager.planner.evaluator(EStateEvaluatorId.ANIMSTATE).evaluate() &&
-        this.stateManager.planner.evaluator(EStateEvaluatorId.ANIMATION).evaluate() &&
-        this.stateManager.planner.evaluator(EStateEvaluatorId.SMARTCOVER).evaluate();
-
-      if (isAlifeIdle) {
-        this.stateManager.isAlife = true;
-      }
-
-      if (this.stateManager.isAlife) {
-        return true;
-      }
-
-      return isAlifeIdle;
     }
+
+    const currentActionId: TNumberId = this.actionPlanner.current_action_id();
+
+    if (currentActionId !== EActionId.ALIFE) {
+      this.stateManager.isAlife = false;
+    }
+
+    if (NO_IDLE_ALIFE_IDS[currentActionId]) {
+      return false;
+    }
+
+    if (this.stateManager.isAlife) {
+      return true;
+    }
+
+    if (
+      this.stateManager.targetState === EStalkerState.IDLE &&
+      currentActionId === EActionId.STATE_TO_IDLE_ALIFE &&
+      // --not this.st.planner.evaluator(this.st.properties["locked"]).evaluate() and
+      !this.stateManager.planner.evaluator(EStateEvaluatorId.ANIMSTATE_LOCKED).evaluate() &&
+      !this.stateManager.planner.evaluator(EStateEvaluatorId.ANIMATION_LOCKED).evaluate() &&
+      this.stateManager.planner.evaluator(EStateEvaluatorId.MOVEMENT).evaluate() &&
+      this.stateManager.planner.evaluator(EStateEvaluatorId.ANIMSTATE).evaluate() &&
+      this.stateManager.planner.evaluator(EStateEvaluatorId.ANIMATION).evaluate() &&
+      this.stateManager.planner.evaluator(EStateEvaluatorId.SMARTCOVER).evaluate()
+    ) {
+      this.stateManager.isAlife = true;
+
+      return true;
+    }
+
+    return false;
   }
 }

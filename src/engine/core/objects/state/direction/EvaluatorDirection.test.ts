@@ -4,7 +4,7 @@ import { property_storage } from "xray16";
 import { registry } from "@/engine/core/database/registry";
 import { registerStalker, setStalkerState, unregisterStalker } from "@/engine/core/database/stalker";
 import { StalkerBinder } from "@/engine/core/objects";
-import { EStalkerState } from "@/engine/core/objects/state";
+import { EStalkerState } from "@/engine/core/objects/animation";
 import { EvaluatorDirection } from "@/engine/core/objects/state/direction/EvaluatorDirection";
 import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateManager";
 import { replaceFunctionMock } from "@/fixtures/utils/function_mock";

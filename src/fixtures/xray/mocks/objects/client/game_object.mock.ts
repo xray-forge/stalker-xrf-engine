@@ -95,6 +95,7 @@ export function mockClientGameObject({
     active_item: rest.active_item || jest.fn(() => null),
     add_animation: rest.add_animation || jest.fn(),
     animation_count,
+    animation_slot: rest.animation_slot || jest.fn(() => 1),
     alive: rest.alive || jest.fn(() => true),
     accessible_nearest: rest.accessible_nearest || jest.fn(() => 15326),
     active_slot: rest.active_slot || jest.fn(() => 3),

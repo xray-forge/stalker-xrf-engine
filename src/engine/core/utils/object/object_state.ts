@@ -1,5 +1,5 @@
 import { IRegistryObjectState, registry } from "@/engine/core/database";
-import { EStalkerState } from "@/engine/core/objects/state/state_types";
+import { EStalkerState } from "@/engine/core/objects/animation/state_types";
 import { EActionId } from "@/engine/core/schemes/base";
 import { ISchemeWoundedState } from "@/engine/core/schemes/wounded";
 import { NIL } from "@/engine/lib/constants/words";
@@ -10,7 +10,7 @@ import { ActionPlanner, ClientObject, EScheme, Optional, TNumberId } from "@/eng
  * @returns whether object is currently asleep
  */
 export function isObjectAsleep(objectId: TNumberId): boolean {
-  return registry.objects.get(objectId)?.stateManager?.animstate.states.currentState === EStalkerState.SLEEP;
+  return registry.objects.get(objectId)?.stateManager?.animstate.state.currentState === EStalkerState.SLEEP;
 }
 
 /**

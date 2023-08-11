@@ -4,7 +4,7 @@ import { CSightParams, property_storage } from "xray16";
 import { registry } from "@/engine/core/database/registry";
 import { registerStalker, setStalkerState, unregisterStalker } from "@/engine/core/database/stalker";
 import { StalkerBinder } from "@/engine/core/objects";
-import { EStalkerState } from "@/engine/core/objects/state";
+import { EStalkerState } from "@/engine/core/objects/animation";
 import { ActionDirectionSearch } from "@/engine/core/objects/state/direction/ActionDirectionSearch";
 import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateManager";
 import { resetFunctionMock } from "@/fixtures/utils/function_mock";

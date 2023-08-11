@@ -1,20 +1,20 @@
 import { callback, hit, time_global } from "xray16";
 
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
-import { animations } from "@/engine/core/objects/animation/animations";
-import { animstates } from "@/engine/core/objects/animation/animstates";
 import {
   EAnimationMarker,
   EAnimationType,
   IAnimationDescriptor,
-  IAnimationManagerStates,
-  IAnimstateDescriptor,
+  IAnimationDescriptorProperties,
+  IAnimationManagerState,
   TAnimationSequenceElements,
-} from "@/engine/core/objects/state/animation_types";
+} from "@/engine/core/objects/animation";
+import { animations } from "@/engine/core/objects/animation/animations";
+import { animstates } from "@/engine/core/objects/animation/animstates";
+import { EStalkerState } from "@/engine/core/objects/animation/state_types";
 import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateManager";
-import { EStalkerState } from "@/engine/core/objects/state/state_types";
-import { abort } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
+import { getObjectActiveWeaponSlot } from "@/engine/core/utils/object";
 import { createVector, vectorRotateY } from "@/engine/core/utils/vector";
 import {
   AnyCallable,
@@ -26,6 +26,7 @@ import {
   TName,
   TRate,
   TTimestamp,
+  Vector,
 } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -36,27 +37,25 @@ const logger: LuaLogger = new LuaLogger($filename);
  * Ties engine animation callbacks and game logic.
  */
 export class StalkerAnimationManager {
-  public type: EAnimationType;
-  public object: ClientObject;
-  public stateManager: StalkerStateManager;
+  public readonly type: EAnimationType;
+  public readonly object: ClientObject;
+  public readonly stateManager: StalkerStateManager;
+  public readonly animations: LuaTable<TName, IAnimationDescriptor>;
 
-  public animations: LuaTable<TName, IAnimationDescriptor> | LuaTable<TName, IAnimstateDescriptor>;
-  public states: IAnimationManagerStates;
+  public readonly state: IAnimationManagerState = {
+    lastIndex: null,
+    currentState: null,
+    targetState: null,
+    animationMarker: null,
+    nextRandomAt: null,
+    sequenceId: 1,
+  };
 
   public constructor(object: ClientObject, stateManager: StalkerStateManager, type: EAnimationType) {
     this.type = type;
     this.object = object;
     this.stateManager = stateManager;
     this.animations = type === EAnimationType.ANIMATION ? animations : animstates;
-
-    this.states = {
-      lastIndex: null,
-      currentState: null,
-      targetState: null,
-      animationMarker: null,
-      nextRandomAt: null,
-      sequenceId: 1,
-    };
   }
 
   /**
@@ -65,13 +64,64 @@ export class StalkerAnimationManager {
   public setControl(): void {
     this.object.set_callback(callback.script_animation, this.onAnimationCallback, this);
 
+    // On animation control also reset animstate.
     if (this.type === EAnimationType.ANIMATION) {
-      this.stateManager.animstate.states.animationMarker = null;
+      this.stateManager.animstate.state.animationMarker = null;
     }
 
-    if (this.states.animationMarker === null) {
+    if (this.state.animationMarker === null) {
       this.updateAnimation();
     }
+  }
+
+  /**
+   * Set new animation state and reset all markers.
+   *
+   * @param state - target state to set
+   * @param isForced - whether state transition should be forced and skip all `out` animations
+   */
+  public setState(state: Optional<EStalkerState>, isForced?: Optional<boolean>): void {
+    const now: TTimestamp = time_global();
+
+    if (state !== this.state.targetState) {
+      logger.format("Set state: '%s', '%s', %s -> %s", this.object.name(), this.type, this.state.targetState, state);
+    }
+
+    /**
+     * Force animation apply without waiting for previous end.
+     */
+    if (isForced === true) {
+      this.object.clear_animations();
+
+      const currentState: Optional<IAnimationDescriptor> =
+        this.state.animationMarker === EAnimationMarker.IN
+          ? this.animations.get(this.state.targetState!)
+          : this.animations.get(this.state.currentState!);
+
+      if (currentState?.out) {
+        const weaponSlot: TIndex = getObjectActiveWeaponSlot(this.object);
+        const animationForWeaponSlot = this.getAnimationForWeaponSlot(weaponSlot, currentState.out);
+
+        if (animationForWeaponSlot !== null) {
+          for (const [, nextAnimation] of animationForWeaponSlot) {
+            if (type(nextAnimation) === "table") {
+              this.processSpecialAction(nextAnimation as any);
+            }
+          }
+        }
+      }
+
+      this.state.animationMarker = null;
+      this.state.currentState = state;
+      this.state.targetState = state;
+      this.state.sequenceId = 1;
+      this.state.nextRandomAt = now;
+
+      return;
+    }
+
+    this.state.targetState = state;
+    this.state.nextRandomAt = now;
   }
 
   /**
@@ -86,201 +136,206 @@ export class StalkerAnimationManager {
   }
 
   /**
-   * todo;
+   * Add animation for object execution.
+   *
+   * @param animation - animation scenario name to execute by game object
+   * @param animationDescriptor - animation descriptor to play
    */
-  public setState(newState: Optional<EStalkerState>, isForced: Optional<boolean> = false): void {
-    const now: TTimestamp = time_global();
+  public addAnimation(animation: TName, animationDescriptor: IAnimationDescriptor): void {
+    const object: ClientObject = this.object;
+    const animationProperties: Optional<IAnimationDescriptorProperties> = animationDescriptor.prop;
 
-    /**
-     * Force animation over existing ones.
-     */
-    if (isForced === true) {
-      this.object.clear_animations();
+    if (
+      this.stateManager.animationPosition &&
+      this.stateManager.animationDirection &&
+      !this.stateManager.isAnimationDirectionApplied
+    ) {
+      this.stateManager.isAnimationDirectionApplied = true;
 
-      const state =
-        this.states.animationMarker === EAnimationMarker.IN
-          ? this.animations.get(this.states.targetState!)
-          : this.animations.get(this.states.currentState!);
+      const direction: Vector = createVector(
+        0,
+        -math.deg(math.atan2(this.stateManager.animationDirection.x, this.stateManager.animationDirection.z)),
+        0
+      );
 
-      if (state !== null && state.out !== null) {
-        const weaponSlot: TIndex = this.getActiveWeaponSlot();
-        const animationForWeaponSlot = this.getAnimationForSlot(weaponSlot, state.out as any);
-
-        if (animationForWeaponSlot !== null) {
-          for (const [id, nextAnimation] of animationForWeaponSlot) {
-            if (type(nextAnimation) === "table") {
-              this.processSpecialAction(nextAnimation as any);
-            }
-          }
-        }
-      }
-
-      this.states.animationMarker = null;
-
-      this.states.currentState = newState;
-      this.states.targetState = newState;
-      this.states.sequenceId = 1;
-
-      this.states.nextRandomAt = now;
-
-      return;
+      object.add_animation(animation, true, this.stateManager.animationPosition, direction, true);
+    } else {
+      object.add_animation(animation, true, animationProperties?.moving === true);
     }
-
-    this.states.targetState = newState;
-    this.states.nextRandomAt = now;
   }
 
   /**
-   * todo;
+   * Get matching animation sequence for currently active weapon slot.
+   * If weapon slot animation does not exist, return `0` from list.
+   *
+   * @param weaponSlot - active weapon slot of the game object
+   * @param animationsList - animations scenarios list
+   * @returns possible animation sequence for slot
    */
-  public selectAnimation(): LuaMultiReturn<[Optional<string>, any]> {
-    const states: IAnimationManagerStates = this.states;
+  public getAnimationForWeaponSlot(
+    weaponSlot: TIndex,
+    animationsList: LuaArray<TAnimationSequenceElements>
+  ): Optional<LuaArray<TAnimationSequenceElements>> {
+    if (animationsList.get(weaponSlot) === null) {
+      weaponSlot = 0;
+    }
 
-    // New animation detected:
+    return $fromArray(animationsList.get(weaponSlot) as any);
+  }
+
+  /**
+   * Select active animation for execution on update tick.
+   *
+   * @returns tuple with animation name and descriptor or tuple with nulls
+   */
+  public selectAnimation(): LuaMultiReturn<[TName, IAnimationDescriptor] | [null, null]> {
+    const states: IAnimationManagerState = this.state;
+
+    /**
+     * New animation detected for playback change.
+     */
     if (states.targetState !== states.currentState) {
+      // Stopping all animations:
       if (states.targetState === null) {
-        const state = this.animations.get(states.currentState!);
-
-        if (state.out === null) {
-          states.animationMarker = EAnimationMarker.OUT;
-          this.onAnimationCallback(true);
-
-          return $multi(null, null);
-        }
+        const animationDescriptor: IAnimationDescriptor = this.animations.get(states.currentState!);
 
         states.animationMarker = EAnimationMarker.OUT;
 
-        const weaponSlot: TIndex = this.getActiveWeaponSlot();
-        const animationForWeaponSlot = this.getAnimationForSlot(weaponSlot, state.out as any);
-
-        if (animationForWeaponSlot === null) {
-          states.animationMarker = EAnimationMarker.OUT;
+        // No way to transition out current animation, mark as executed and transition forward.
+        if (animationDescriptor.out === null) {
           this.onAnimationCallback(true);
 
           return $multi(null, null);
         }
 
-        const nextAnimation = animationForWeaponSlot.get(states.sequenceId);
+        const weaponSlot: TIndex = getObjectActiveWeaponSlot(this.object);
+        const animationForWeaponSlot: Optional<LuaArray<TAnimationSequenceElements>> = this.getAnimationForWeaponSlot(
+          weaponSlot,
+          animationDescriptor.out
+        );
 
+        // No animation for current / 0 slot, mark as executed and transition forward.
+        if (animationForWeaponSlot === null) {
+          this.onAnimationCallback(true);
+
+          return $multi(null, null);
+        }
+
+        const nextAnimation: TAnimationSequenceElements = animationForWeaponSlot.get(states.sequenceId);
+
+        // Have complex animation action, execute it and process forward with multiple scenarios.
         if (type(nextAnimation) === "table") {
           this.processSpecialAction(nextAnimation as any);
-          this.onAnimationCallback();
+          this.onAnimationCallback(false);
 
           return $multi(null, null);
         }
 
-        return $multi(nextAnimation as any as string, state);
+        // Possible have simple animation for 'out' play.
+        return $multi(nextAnimation as unknown as TName, animationDescriptor);
       }
 
+      // From idle (null) to new animation:
       if (states.currentState === null) {
-        const state = this.animations.get(states.targetState!);
-
-        if (state.into === null) {
-          states.animationMarker = EAnimationMarker.IN;
-          this.onAnimationCallback(true);
-
-          return $multi(null, null);
-        }
+        const state: IAnimationDescriptor = this.animations.get(states.targetState!);
 
         states.animationMarker = EAnimationMarker.IN;
 
-        const weaponSlot: TIndex = this.getActiveWeaponSlot();
-        const animationForWeaponSlot = this.getAnimationForSlot(weaponSlot, state.into as any);
-
-        if (animationForWeaponSlot === null) {
-          states.animationMarker = EAnimationMarker.IN;
+        // No `into` animation, mark it as finished and proceed forward.
+        if (state.into === null) {
           this.onAnimationCallback(true);
 
           return $multi(null, null);
         }
 
-        const nextAnimation = animationForWeaponSlot.get(states.sequenceId);
+        const weaponSlot: TIndex = getObjectActiveWeaponSlot(this.object);
+        const animationForWeaponSlot: Optional<LuaArray<TAnimationSequenceElements>> = this.getAnimationForWeaponSlot(
+          weaponSlot,
+          state.into
+        );
 
-        if (type(nextAnimation) === "table") {
-          this.processSpecialAction(nextAnimation as any);
-          this.onAnimationCallback();
+        // No animation for desired weapon slot, mark as executed and proceed forward.
+        if (animationForWeaponSlot === null) {
+          this.onAnimationCallback(true);
 
           return $multi(null, null);
         }
 
-        return $multi(nextAnimation as any as string, state);
+        const nextAnimation: TAnimationSequenceElements = animationForWeaponSlot.get(states.sequenceId);
+
+        // Next animation is complex, handle actions and proceed forward with callbacks.
+        if (type(nextAnimation) === "table") {
+          this.processSpecialAction(nextAnimation as any);
+          this.onAnimationCallback(false);
+
+          return $multi(null, null);
+        }
+
+        // Have possible simple `in` animation scenario, continue processing.
+        return $multi(nextAnimation as unknown as TName, state);
       }
     }
 
-    // Same non-null animation:
+    // Same non-null animation, processing idle state:
     if (states.targetState === states.currentState && states.currentState !== null) {
-      const activeWeaponSlot: TIndex = this.getActiveWeaponSlot();
-      const state: IAnimationDescriptor | IAnimstateDescriptor = this.animations.get(states.currentState);
-      let animation;
+      const activeWeaponSlot: TIndex = getObjectActiveWeaponSlot(this.object);
+      const state: IAnimationDescriptor = this.animations.get(states.currentState);
 
+      let animation = null;
+
+      // Select random animation for idle state, if random list is defined.
       if (state.rnd !== null) {
         animation = this.selectRandom(
-          state as IAnimstateDescriptor,
+          state as IAnimationDescriptor,
           activeWeaponSlot,
           time_global() >= states.nextRandomAt!
         );
       }
 
+      // No random animation and idle is defined.
       if (animation === null && state.idle !== null) {
-        animation = this.getAnimationForSlot(activeWeaponSlot, state.idle as any);
+        animation = this.getAnimationForWeaponSlot(activeWeaponSlot, state.idle as any);
       }
 
-      if (animation !== null) {
+      // Have animation for idle state so can define current marker state.
+      if (animation) {
         states.animationMarker = EAnimationMarker.IDLE;
       }
 
-      return $multi(animation, state) as any;
+      return $multi(animation as TName, state);
     }
 
     return $multi(null, null);
   }
 
   /**
-   * todo;
-   */
-  public getActiveWeaponSlot(): TIndex {
-    const weapon: Optional<ClientObject> = this.object.active_item();
-
-    if (weapon === null || this.object.weapon_strapped()) {
-      return 0;
-    }
-
-    return weapon.animation_slot();
-  }
-
-  /**
-   * todo;
-   */
-  public getAnimationForSlot(
-    slot: TIndex,
-    animationsList: LuaTable<TIndex, LuaArray<TAnimationSequenceElements>>
-  ): Optional<LuaArray<TAnimationSequenceElements>> {
-    if (animationsList.get(slot) === null) {
-      slot = 0;
-    }
-
-    return $fromArray(animationsList.get(slot) as any);
-  }
-
-  /**
-   * todo;
+   * Select random animation sequence to play for `rnd` animation.
+   * Random animations are part of idle state to make actions more diverse.
+   *
+   * @param animationDescriptor - descriptor of animation to pick random from
+   * @param weaponSlot - item slot to check animation for
+   * @param shouldPlay - whether animation should be played
+   * @returns random animation sequence if valid one exists
    */
   public selectRandom(
-    animationStateDescriptor: IAnimstateDescriptor,
+    animationDescriptor: IAnimationDescriptor,
     weaponSlot: TIndex,
-    mustPlay: boolean
-  ): Optional<string | LuaTable> {
-    if (!mustPlay && math.random(100) > (this.animations.get(this.states.currentState!).prop.rnd as TRate)) {
+    shouldPlay: boolean
+  ): Optional<TAnimationSequenceElements> {
+    if (!shouldPlay && math.random(100) > (this.animations.get(this.state.currentState!).prop.rnd as TRate)) {
       return null;
     }
 
-    const animation = this.getAnimationForSlot(weaponSlot, animationStateDescriptor.rnd as any);
+    const animation: Optional<LuaArray<TAnimationSequenceElements>> = this.getAnimationForWeaponSlot(
+      weaponSlot,
+      animationDescriptor.rnd as LuaArray<TAnimationSequenceElements>
+    );
 
     if (animation === null) {
       return null;
     }
 
-    const states: IAnimationManagerStates = this.states;
+    const states: IAnimationManagerState = this.state;
     let index: TIndex;
 
     if (animation.length() > 1) {
@@ -294,53 +349,22 @@ export class StalkerAnimationManager {
         }
       }
 
-      this.states.lastIndex = index;
+      this.state.lastIndex = index;
     } else {
       index = 1;
     }
 
-    return animation.get(index) as any as string;
+    return animation.get(index);
   }
 
   /**
-   * todo;
-   */
-  public addAnimation(animation: TName, state: IAnimationDescriptor): void {
-    const object: ClientObject = this.object;
-    const animationProperties = state.prop;
-
-    if (!(object.weapon_unstrapped() || object.weapon_strapped())) {
-      abort("[%s] Illegal call of add animation. Weapon is strapping now.", object.name());
-    }
-
-    if (animationProperties === null || animationProperties.moving !== true) {
-      object.add_animation(animation, true, false);
-
-      return;
-    }
-
-    if (this.stateManager.animationPosition === null || this.stateManager.isPositionDirectionApplied === true) {
-      object.add_animation(animation, true, true);
-    } else {
-      if (this.stateManager.animationDirection === null) {
-        abort("[%s] Animation direction is missing.", object.name());
-      }
-
-      const rotationY: TRate = -math.deg(
-        math.atan2(this.stateManager.animationDirection.x, this.stateManager.animationDirection.z)
-      );
-
-      object.add_animation(animation, true, this.stateManager.animationPosition, createVector(0, rotationY, 0), false);
-
-      this.stateManager.isPositionDirectionApplied = true;
-    }
-  }
-
-  /**
-   * todo;
+   * Process special action as part of animation scenario.
+   * It may include sounds/items/hit etc.
+   *
+   * @param actionTable - table with action to process
    */
   public processSpecialAction(actionTable: LuaTable): void {
-    // Attach.
+    // Attach item.
     if (actionTable.get("a") !== null) {
       const objectInventoryItem: Optional<ClientObject> = this.object.object(actionTable.get("a"));
 
@@ -349,7 +373,7 @@ export class StalkerAnimationManager {
       }
     }
 
-    // Detach.
+    // Detach item.
     if (actionTable.get("d") !== null) {
       const objectInventoryItem: Optional<ClientObject> = this.object.object(actionTable.get("d"));
 
@@ -385,86 +409,92 @@ export class StalkerAnimationManager {
   }
 
   /**
-   * todo;
+   * On animation scenario finish by an object.
+   * Handle different phases of animation and proceed animations list of transform from one marker to another.
+   *
+   * @param skipMultiAnimationCheck - skip multiple animations scenario and transfer to another marker
    */
   public onAnimationCallback(skipMultiAnimationCheck?: boolean): void {
-    if (this.states.animationMarker === null || this.object.animation_count() !== 0) {
+    if (this.state.animationMarker === null || this.object.animation_count() > 0) {
       return;
     }
 
-    const states: IAnimationManagerStates = this.states;
+    const states: IAnimationManagerState = this.state;
 
-    if (states.animationMarker === EAnimationMarker.IN) {
-      states.animationMarker = null;
+    switch (this.state.animationMarker) {
+      case EAnimationMarker.IN: {
+        states.animationMarker = null;
 
-      if (skipMultiAnimationCheck !== true) {
-        let intoList: Optional<LuaArray<TAnimationSequenceElements>> = new LuaTable();
-        const targetAnimations = this.animations.get(states.targetState!);
+        if (skipMultiAnimationCheck !== true) {
+          let intoList: Optional<LuaArray<TAnimationSequenceElements>> = new LuaTable();
+          const targetAnimations = this.animations.get(states.targetState!);
 
-        if (targetAnimations !== null && targetAnimations.into !== null) {
-          intoList = this.getAnimationForSlot(this.getActiveWeaponSlot(), targetAnimations.into as any);
+          if (targetAnimations !== null && targetAnimations.into !== null) {
+            intoList = this.getAnimationForWeaponSlot(getObjectActiveWeaponSlot(this.object), targetAnimations.into);
+          }
+
+          if (intoList !== null && intoList.length() > states.sequenceId) {
+            states.sequenceId += 1;
+            this.updateAnimation();
+
+            return;
+          }
         }
 
-        if (intoList !== null && intoList.length() > states.sequenceId) {
-          states.sequenceId = states.sequenceId + 1;
-          this.updateAnimation();
+        states.sequenceId = 1;
+        states.currentState = states.targetState;
+        this.updateAnimation();
 
-          return;
-        }
+        return;
       }
 
-      states.sequenceId = 1;
-      states.currentState = states.targetState;
-      this.updateAnimation();
+      case EAnimationMarker.IDLE: {
+        states.animationMarker = null;
 
-      return;
-    }
+        const properties: IAnimationDescriptorProperties = this.animations.get(states.currentState!).prop;
 
-    if (states.animationMarker === EAnimationMarker.IDLE) {
-      states.animationMarker = null;
-
-      const properties = this.animations.get(states.currentState!).prop;
-
-      if (properties.maxidle === 0) {
-        states.nextRandomAt = time_global() + properties.sumidle * 1000;
-      } else {
-        states.nextRandomAt = time_global() + (properties.sumidle + math.random(properties.maxidle)) * 1000;
-      }
-
-      this.updateAnimation();
-
-      return;
-    }
-
-    if (states.animationMarker === EAnimationMarker.OUT) {
-      states.animationMarker = null;
-
-      if (skipMultiAnimationCheck !== true) {
-        let outAnimationList: LuaTable<number, string | LuaTable> = new LuaTable();
-
-        if (this.animations.get(states.currentState!).out) {
-          outAnimationList = this.getAnimationForSlot(
-            this.getActiveWeaponSlot(),
-            this.animations.get(states.currentState!).out as any
-          ) as any;
+        if (properties.maxidle === 0) {
+          states.nextRandomAt = time_global() + properties.sumidle * 1000;
+        } else {
+          states.nextRandomAt = time_global() + (properties.sumidle + math.random(properties.maxidle)) * 1000;
         }
 
-        if (outAnimationList !== null && outAnimationList.length() > states.sequenceId) {
-          states.sequenceId = states.sequenceId + 1;
-          this.updateAnimation();
+        this.updateAnimation();
 
-          return;
-        }
+        return;
       }
 
-      states.sequenceId = 1;
-      states.currentState = null;
+      case EAnimationMarker.OUT: {
+        states.animationMarker = null;
 
-      if (this.type === EAnimationType.ANIMATION) {
-        if (this.stateManager.animstate !== null && this.stateManager.animstate.setControl !== null) {
+        if (skipMultiAnimationCheck !== true) {
+          let outAnimationList: Optional<LuaArray<TAnimationSequenceElements>> = new LuaTable();
+
+          if (this.animations.get(states.currentState as EStalkerState).out) {
+            outAnimationList = this.getAnimationForWeaponSlot(
+              getObjectActiveWeaponSlot(this.object),
+              this.animations.get(states.currentState!).out as LuaArray<TAnimationSequenceElements>
+            );
+          }
+
+          if (outAnimationList !== null && outAnimationList.length() > states.sequenceId) {
+            states.sequenceId += 1;
+            this.updateAnimation();
+
+            return;
+          }
+        }
+
+        states.sequenceId = 1;
+        states.currentState = null;
+
+        // After out animation set control to animstate.
+        if (this.type === EAnimationType.ANIMATION) {
           this.stateManager.animstate.setControl();
           // --this.mgr.animstate:update_anim()
         }
+
+        return;
       }
     }
   }

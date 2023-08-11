@@ -1,7 +1,7 @@
 import { describe, expect, it, jest } from "@jest/globals";
 
 import { IRegistryObjectState, registerObject } from "@/engine/core/database";
-import { EAnimationType, EStalkerState } from "@/engine/core/objects/state";
+import { EAnimationType, EStalkerState } from "@/engine/core/objects/animation";
 import { StalkerAnimationManager } from "@/engine/core/objects/state/StalkerAnimationManager";
 import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateManager";
 import { EActionId } from "@/engine/core/schemes";
@@ -29,10 +29,10 @@ describe("object state utils", () => {
 
     expect(isObjectAsleep(object.id())).toBe(false);
 
-    state.stateManager.animstate.states.currentState = EStalkerState.SLEEP;
+    state.stateManager.animstate.state.currentState = EStalkerState.SLEEP;
     expect(isObjectAsleep(object.id())).toBe(true);
 
-    state.stateManager.animstate.states.currentState = EStalkerState.SALUT;
+    state.stateManager.animstate.state.currentState = EStalkerState.SALUT;
     expect(isObjectAsleep(object.id())).toBe(false);
   });
 
