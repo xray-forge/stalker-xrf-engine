@@ -84,7 +84,7 @@ export class StalkerAnimationManager {
     const now: TTimestamp = time_global();
 
     if (state !== this.state.targetState) {
-      logger.info("Set state:", this.type, tostring(state));
+      logger.format("Set state: '%s', '%s', %s -> %s", this.object.name(), this.type, this.state.targetState, state);
     }
 
     /**

@@ -16,7 +16,7 @@ const logger: LuaLogger = new LuaLogger($filename);
 export class ActionPostCombatIdleWait extends action_base {
   public readonly state: ISchemePostCombatIdleState;
 
-  public animationState!: { animstate: { states: { anim_marker: null } } };
+  public animationState!: { animstate: { state: { animationMarker: null } } };
   public isAnimationStarted: boolean = false;
 
   public constructor(state: ISchemePostCombatIdleState) {
@@ -35,7 +35,7 @@ export class ActionPostCombatIdleWait extends action_base {
     this.object.set_movement_type(move.stand);
     this.object.set_sight(look.danger, null, 0);
 
-    this.animationState = { animstate: { states: { anim_marker: null } } };
+    this.animationState = { animstate: { state: { animationMarker: null } } };
 
     this.state.animation = new StalkerAnimationManager(
       this.object,

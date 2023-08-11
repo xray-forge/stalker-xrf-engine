@@ -11,8 +11,10 @@ import { DebugSoundSection } from "@/engine/core/ui/debug/sections/DebugSoundSec
 import { DebugSpawnSection } from "@/engine/core/ui/debug/sections/DebugSpawnSection";
 import { DebugTeleportSection } from "@/engine/core/ui/debug/sections/DebugTeleportSection";
 import { DebugUiSection } from "@/engine/core/ui/debug/sections/DebugUiSection";
-import { DebugWeatherSection } from "@/engine/core/ui/debug/sections/DebugWeatherSection";
 
+/**
+ * Possible debug sections to attach and edit game functionality.
+ */
 export enum EDebugSection {
   COMMANDS = "commands",
   GENERAL = "general",
@@ -25,7 +27,6 @@ export enum EDebugSection {
   SPAWN = "spawn",
   TELEPORT = "teleport",
   UI = "ui",
-  WEATHER = "weather",
 }
 
 export const sectionsMap = {
@@ -40,5 +41,4 @@ export const sectionsMap = {
   [EDebugSection.SPAWN]: (owner: CUIScriptWnd) => new DebugSpawnSection(owner),
   [EDebugSection.TELEPORT]: (owner: CUIScriptWnd) => new DebugTeleportSection(owner),
   [EDebugSection.UI]: (owner: CUIScriptWnd) => new DebugUiSection(owner),
-  [EDebugSection.WEATHER]: (owner: CUIScriptWnd) => new DebugWeatherSection(owner),
 };

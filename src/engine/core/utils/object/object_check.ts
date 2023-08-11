@@ -148,5 +148,5 @@ export function isUndergroundLevel(levelName: TLevel): boolean {
  * @returns whether surge can be started on provided level.
  */
 export function isSurgeEnabledOnLevel(levelName: TName): boolean {
-  return levelName in surgeConfig.SURGE_DISABLED_LEVELS;
+  return !(levelName in surgeConfig.SURGE_DISABLED_LEVELS);
 }

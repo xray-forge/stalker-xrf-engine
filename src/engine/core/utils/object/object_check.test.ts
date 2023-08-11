@@ -203,10 +203,10 @@ describe("'object_check' utils", () => {
   });
 
   it("'isSurgeEnabledOnLevel' should correctly check if surge is enabled for level", () => {
-    expect(isSurgeEnabledOnLevel("zaton")).toBe(false);
-    expect(isSurgeEnabledOnLevel("jupiter")).toBe(false);
-    expect(isSurgeEnabledOnLevel("labx8")).toBe(true);
-    expect(isSurgeEnabledOnLevel("jupiter_underground")).toBe(true);
+    expect(isSurgeEnabledOnLevel("zaton")).toBe(true);
+    expect(isSurgeEnabledOnLevel("jupiter")).toBe(true);
+    expect(isSurgeEnabledOnLevel("labx8")).toBe(false);
+    expect(isSurgeEnabledOnLevel("jupiter_underground")).toBe(false);
   });
 
   it("'isUndergroundLevel' should correctly check if level is undeground", () => {

@@ -11,3 +11,16 @@ export function trimString(target: string): string {
 
   return trimmed || "";
 }
+
+/**
+ * todo;
+ *
+ * @param target
+ * @param sub
+ */
+export function containsSubstring(target: string, sub: string): boolean {
+  target = string.lower(target);
+  sub = string.lower(sub);
+
+  return target !== string.gsub(target, sub, "")[0];
+}
