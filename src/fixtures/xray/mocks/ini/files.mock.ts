@@ -59,6 +59,11 @@ export const FILES_MOCKS = {
       story_id: "test-story-id",
     },
   },
+  "game.ltx": {
+    zaton: {
+      weathers: "dynamic_default",
+    },
+  },
   "object_spawn.ini": {},
   "misc\\script_sound.ltx": {
     list: ["pda_task"],
@@ -85,6 +90,17 @@ export const FILES_MOCKS = {
       cloudy: 0.4,
       rain: 0.1,
       thunder: 0.1,
+    },
+    weather_periods: {
+      neutral: "2, 7",
+      good: "2, 7",
+    },
+    neutral: {
+      cloudy: 0.2,
+      cloudy2: 0.2,
+      cloudy3: 0.2,
+      cloudy4: 0.2,
+      cloudy5: 0.2,
     },
   },
   "misc\\task_manager.ltx": {
