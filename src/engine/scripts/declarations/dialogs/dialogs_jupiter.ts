@@ -28,7 +28,7 @@ import { drugs } from "@/engine/lib/constants/items/drugs";
 import { food } from "@/engine/lib/constants/items/food";
 import { helmets, THelmet } from "@/engine/lib/constants/items/helmets";
 import { misc } from "@/engine/lib/constants/items/misc";
-import { outfits, TOutfit } from "@/engine/lib/constants/items/outfits";
+import { outfits } from "@/engine/lib/constants/items/outfits";
 import { questItems } from "@/engine/lib/constants/items/quest_items";
 import { weapons } from "@/engine/lib/constants/items/weapons";
 import { treasures } from "@/engine/lib/constants/treasures";

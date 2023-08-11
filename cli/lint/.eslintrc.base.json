@@ -3,6 +3,7 @@
     "browser": true,
     "node": true
   },
+  "ignorePatterns": ["target/**/*", "cli/build/plugins/**/*"],
   "extends": [
     "eslint:recommended",
     "plugin:@typescript-eslint/eslint-recommended",
@@ -11,11 +12,6 @@
     "plugin:import/typescript",
     "plugin:jest/style",
     "plugin:jsdoc/recommended"
-  ],
-  "ignorePatterns": [
-    "target/**/*",
-    // Typescript plugins typing check cause eslint issues, takes too much time for few files
-    "cli/build/plugins/**/*"
   ],
   "parser": "@typescript-eslint/parser",
   "plugins": ["@typescript-eslint", "jest", "import", "sort-keys-fix"],

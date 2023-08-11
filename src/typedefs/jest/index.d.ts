@@ -1,5 +1,3 @@
-import { ExpectationResult } from "expect";
-
 export * from "expect";
 
 /**
