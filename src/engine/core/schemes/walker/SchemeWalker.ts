@@ -4,7 +4,7 @@ import { AbstractScheme, EActionId, EEvaluatorId } from "@/engine/core/schemes";
 import { ActionWalkerActivity } from "@/engine/core/schemes/walker/actions";
 import { EvaluatorNeedWalker } from "@/engine/core/schemes/walker/evaluators";
 import { ISchemeWalkerState } from "@/engine/core/schemes/walker/ISchemeWalkerState";
-import { abort, assert } from "@/engine/core/utils/assertion";
+import { assert } from "@/engine/core/utils/assertion";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini/ini_config";
 import { readIniBoolean, readIniString } from "@/engine/core/utils/ini/ini_read";
 import { LuaLogger } from "@/engine/core/utils/logging";

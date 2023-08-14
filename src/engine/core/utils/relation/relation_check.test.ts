@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it } from "@jest/globals";
 
-import { registerActor, registerStoryLink, registry } from "@/engine/core/database";
+import { registerStoryLink, registry } from "@/engine/core/database";
 import { Squad } from "@/engine/core/objects";
 import {
   areCommunitiesEnemies,

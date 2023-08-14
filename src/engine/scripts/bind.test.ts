@@ -1,10 +1,9 @@
 import { describe, expect, it, jest } from "@jest/globals";
+import { alife, clsid } from "xray16";
 
 import { AnyObject, ClientObject } from "@/engine/lib/types";
-import { mockActorClientGameObject, MockAlifeSimulator, mockClientGameObject, mockIniFile } from "@/fixtures/xray";
-import { ActorBinder, AnomalyFieldBinder } from "@/engine/core/objects";
 import { replaceFunctionMock } from "@/fixtures/utils";
-import { alife, clsid } from "xray16";
+import { mockActorClientGameObject, MockAlifeSimulator, mockClientGameObject, mockIniFile } from "@/fixtures/xray";
 
 describe("'bind' entry point", () => {
   const checkBinding = (name: string, container: AnyObject = global) => {
@@ -70,8 +69,7 @@ describe("'bind' entry point", () => {
     jest.spyOn(arenaZone, "spawn_ini").mockImplementation(() =>
       mockIniFile("test.ltx", {
         arena_zone: "test",
-      })
-    );
+      }));
 
     callBinding("arenaZone", arenaZone);
     expect(arenaZone.bind_object).toHaveBeenCalled();
@@ -114,8 +112,7 @@ describe("'bind' entry point", () => {
     jest.spyOn(heli, "spawn_ini").mockImplementation(() =>
       mockIniFile("test.ltx", {
         logic: "test",
-      })
-    );
+      }));
 
     callBinding("heli", heli);
     expect(heli.bind_object).toHaveBeenCalled();
@@ -163,8 +160,7 @@ describe("'bind' entry point", () => {
     jest.spyOn(physicObject, "spawn_ini").mockImplementation(() =>
       mockIniFile("test.ltx", {
         logic: "test",
-      })
-    );
+      }));
 
     callBinding("physicObject", physicObject);
     expect(physicObject.bind_object).toHaveBeenCalledTimes(2);
@@ -212,13 +208,11 @@ describe("'bind' entry point", () => {
     jest.spyOn(firstSmartTerrain, "spawn_ini").mockImplementation(() =>
       mockIniFile("test.ltx", {
         gulag1: {},
-      })
-    );
+      }));
     jest.spyOn(secondSmartTerrain, "spawn_ini").mockImplementation(() =>
       mockIniFile("test.ltx", {
         smart_terrain: {},
-      })
-    );
+      }));
 
     replaceFunctionMock(alife, () => null);
 

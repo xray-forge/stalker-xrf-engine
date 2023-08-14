@@ -1,6 +1,6 @@
 import { beforeAll, describe, it } from "@jest/globals";
 
-import { AnyObject, TName } from "@/engine/lib/types";
+import { TName } from "@/engine/lib/types";
 import { checkNestedBinding } from "@/fixtures/engine";
 
 describe("'dialogs_jupiter' external callbacks", () => {

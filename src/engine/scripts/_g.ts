@@ -10,4 +10,5 @@ package.path += getFS().update_path("$game_data$", "?.script;");
 /**
  * Initialize external references.
  */
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 require("@/engine/scripts/register/externals_registrator").registerExternals();

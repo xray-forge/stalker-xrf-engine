@@ -1,5 +1,4 @@
 import {
-  CConsole,
   CMainMenu,
   connect_error_cb,
   COptionsManager,
@@ -28,7 +27,6 @@ import {
   login_operation_cb,
   LuabindClass,
   main_menu,
-  profile,
   SServerFilters,
   ui_events,
 } from "xray16";

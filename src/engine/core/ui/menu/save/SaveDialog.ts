@@ -1,5 +1,4 @@
 import {
-  CGameFont,
   CScriptXmlInit,
   CUIEditBox,
   CUIListBox,
@@ -11,7 +10,6 @@ import {
   dik_to_bind,
   Frect,
   FS,
-  GetFontMedium,
   getFS,
   key_bindings,
   LuabindClass,
@@ -20,12 +18,10 @@ import {
 } from "xray16";
 
 import { SaveItem } from "@/engine/core/ui/menu/save/SaveItem";
-import { executeConsoleCommand } from "@/engine/core/utils/game/game_console";
 import { createGameSave, deleteGameSave } from "@/engine/core/utils/game/game_save";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { resolveXmlFile, resolveXmlFormPath } from "@/engine/core/utils/ui";
+import { resolveXmlFile } from "@/engine/core/utils/ui";
 import { gameConfig } from "@/engine/lib/configs/GameConfig";
-import { consoleCommands } from "@/engine/lib/constants/console_commands";
 import { roots } from "@/engine/lib/constants/roots";
 import {
   FSFileList,

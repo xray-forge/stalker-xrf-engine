@@ -5,7 +5,6 @@ import { registry } from "@/engine/core/database/registry";
 import { registerStalker, unregisterStalker } from "@/engine/core/database/stalker";
 import { StalkerBinder } from "@/engine/core/objects";
 import { EvaluatorBodyStateCrouchNow } from "@/engine/core/objects/state/body_state/EvaluatorBodyStateCrouchNow";
-import { EvaluatorBodyStateStandingNow } from "@/engine/core/objects/state/body_state/EvaluatorBodyStateStandingNow";
 import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateManager";
 import { replaceFunctionMock } from "@/fixtures/utils/function_mock";
 import { mockClientGameObject } from "@/fixtures/xray";

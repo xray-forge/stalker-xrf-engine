@@ -1,5 +1,5 @@
 import { describe, expect, it } from "@jest/globals";
-import { log, print_stack } from "xray16";
+import { print_stack } from "xray16";
 
 import { abort, assert, assertBoolean, assertDefined, callstack } from "@/engine/core/utils/assertion";
 import { mockDebug } from "@/fixtures/lua/mocks/lua_debug.mock";
