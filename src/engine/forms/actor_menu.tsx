@@ -3,7 +3,7 @@ import { JSXNode, JSXXML } from "jsx-xml";
 import { captions } from "@/engine/lib/constants/captions";
 
 /**
- * todo;
+ * Actor menu form generation.
  */
 export function create(): JSXNode {
   return (

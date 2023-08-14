@@ -10,7 +10,8 @@ import { ActionBase, ActionPlanner, ClientObject } from "@/engine/lib/types";
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Post combat idle scheme manager.
+ * Used to add idle state logics for game objects if it is needed.
  */
 export class PostCombatIdle {
   /**

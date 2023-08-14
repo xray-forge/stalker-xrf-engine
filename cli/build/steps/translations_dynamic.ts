@@ -36,7 +36,7 @@ export async function buildDynamicTranslations(): Promise<void> {
   }
 
   /**
-   * todo;
+   * Collect list of all dynamic translations recursively in provided directory.
    */
   function collectTranslations(
     acc: Array<TFolderReplicationDescriptor>,

@@ -1,7 +1,7 @@
 import { JSXNode, JSXXML } from "jsx-xml";
 
 /**
- * todo;
+ * Generation of PDA logs section UI forms for 16/9.
  */
 export function create(): JSXNode {
   return (

@@ -50,7 +50,7 @@ async function formatLtxFile(file: string): Promise<void> {
  */
 async function getLtxConfigs(filters: Array<string> = []): Promise<Array<string>> {
   /**
-   * todo;
+   * Collect list of files for LTX formatting in provided directory.
    */
   function collectConfigs(acc: Array<string>, it: TFolderFiles): Array<string> {
     if (Array.isArray(it)) {

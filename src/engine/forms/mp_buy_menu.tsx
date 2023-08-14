@@ -3,7 +3,7 @@ import { JSXNode, JSXXML } from "jsx-xml";
 import { MultiplayerBuyButtons } from "@/engine/forms/menu/multiplayer/MultiplayerBuyButtons";
 
 /**
- * todo;
+ * Generation of buy menu forms for multiplayer.
  */
 export function create(): JSXNode {
   return (

@@ -99,11 +99,11 @@ function createFoldersForConfigs(xmlConfigs: Array<TFolderReplicationDescriptor>
 }
 
 /**
- * todo;
+ * @returns list of files for preview generation
  */
 async function getUiConfigs(filters: Array<string> = []): Promise<Array<TFolderReplicationDescriptor>> {
   /**
-   * todo;
+   * Collect list of xml configs for UI preview generation in a recursive way.
    */
   function collectXmlConfigs(
     acc: Array<TFolderReplicationDescriptor>,

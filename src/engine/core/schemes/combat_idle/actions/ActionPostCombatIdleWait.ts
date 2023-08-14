@@ -10,7 +10,8 @@ import { ClientObject, Optional } from "@/engine/lib/types";
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Action to wait some time for possible remaining enemies after combat.
+ * Stalkers wait for some time and then go with alife activity / looting corpses / helping others.
  */
 @LuabindClass()
 export class ActionPostCombatIdleWait extends action_base {
@@ -80,7 +81,10 @@ export class ActionPostCombatIdleWait extends action_base {
   }
 
   /**
-   * todo;
+   * todo: Move to utils as pure function?
+   *
+   * @param object - object to check weapon staet
+   * @returns whether weapon is in locked state
    */
   public isWeaponLocked(object: ClientObject): boolean {
     const isWeaponStrapped: boolean = object.weapon_strapped();

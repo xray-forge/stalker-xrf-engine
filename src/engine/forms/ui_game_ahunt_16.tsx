@@ -1,7 +1,7 @@
 import { JSXNode, JSXXML } from "jsx-xml";
 
 /**
- * todo;
+ * Generation of UI forms related to artefact hunt mode in multiplayer (16/9).
  */
 export function create(): JSXNode {
   return (

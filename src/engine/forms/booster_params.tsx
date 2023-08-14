@@ -12,7 +12,7 @@ export function create(): JSXNode {
 }
 
 /**
- * todo;
+ * Component describing booster parameters for inventory items.
  */
 export function BoosterParams(): JSXNode {
   return (

@@ -1,7 +1,7 @@
 import { JSXNode, JSXXML } from "jsx-xml";
 
 /**
- * todo;
+ * Generation of UI forms for talking.
  */
 export function create(): JSXNode {
   return (

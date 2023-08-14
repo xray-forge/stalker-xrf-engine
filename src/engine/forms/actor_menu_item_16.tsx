@@ -4,7 +4,7 @@ import { ArtefactParams } from "@/engine/forms/af_params_16";
 import { BoosterParams } from "@/engine/forms/booster_params_16";
 
 /**
- * todo;
+ * Actor menu form item form generation for 16/9 screens.
  */
 export function create(): JSXNode {
   return (

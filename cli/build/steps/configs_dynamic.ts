@@ -68,7 +68,8 @@ export async function buildDynamicConfigs(parameters: IBuildCommandParameters): 
  */
 async function getLtxConfigs(filters: Array<string> = []): Promise<Array<TFolderReplicationDescriptor>> {
   /**
-   * todo;
+   * Collect list of LTX configs for further transformation in typescript.
+   * Recursively find all ts files in configs dir.
    */
   function collectLtxConfigs(
     acc: Array<TFolderReplicationDescriptor>,

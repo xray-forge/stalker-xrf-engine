@@ -3,7 +3,7 @@ import { JSXNode, JSXXML } from "jsx-xml";
 import { MenuCredits } from "@/engine/forms/menu/MenuCredits";
 
 /**
- * todo;
+ * Generation of UI forms related to game credits.
  */
 export function create(): JSXNode {
   return (

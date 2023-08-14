@@ -1,7 +1,7 @@
 import { JSXNode, JSXXML } from "jsx-xml";
 
 /**
- * todo;
+ * Generation of multiplayer skin selector UI forms for 16/9.
  */
 export function create(): JSXNode {
   return (

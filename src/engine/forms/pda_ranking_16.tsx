@@ -3,7 +3,7 @@ import { JSXNode, JSXXML } from "jsx-xml";
 import { gameSettingConfig } from "@/engine/lib/configs/GameSettingConfig";
 
 /**
- * todo;
+ * Generation of PDA rankings section UI forms for 16/9.
  */
 export function create(): JSXNode {
   return (

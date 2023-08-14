@@ -64,7 +64,7 @@ export async function buildDynamicUi(parameters: IBuildCommandParameters): Promi
  */
 async function getUiConfigs(filters: Array<string> = []): Promise<Array<TFolderReplicationDescriptor>> {
   /**
-   * todo;
+   * Collect list of ts configs for including in build and correctly transforming to XML forms.
    */
   function collectXmlConfigs(
     acc: Array<TFolderReplicationDescriptor>,

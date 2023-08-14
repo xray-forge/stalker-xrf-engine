@@ -3,7 +3,7 @@ import { JSXNode, JSXXML } from "jsx-xml";
 import { captions } from "@/engine/lib/constants/captions";
 
 /**
- * todo;
+ * Generation of PDA character dialog section UI forms for 16/9.
  */
 export function create(): JSXNode {
   return (

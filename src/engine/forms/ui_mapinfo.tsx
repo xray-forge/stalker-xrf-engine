@@ -1,7 +1,7 @@
 import { JSXNode, JSXXML } from "jsx-xml";
 
 /**
- * todo;
+ * Creation of generic UI forms related to map information labels.
  */
 export function create(): JSXNode {
   return (
