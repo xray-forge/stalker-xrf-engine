@@ -14,10 +14,8 @@ import { zatB29AfTable, zatB29InfopBringTable } from "@/engine/scripts/declarati
 /**
  * todo;
  */
-extern("task_functors.condlist", (id: TStringId, field: string, p: string): Optional<TSection> => {
-  const conditionsList: TConditionList = parseConditionsList(p);
-
-  return pickSectionFromCondList(registry.actor, null, conditionsList);
+extern("task_functors.condlist", (id: TStringId, field: string, conditionList: string): Optional<TSection> => {
+  return pickSectionFromCondList(registry.actor, null, parseConditionsList(conditionList));
 });
 
 /**

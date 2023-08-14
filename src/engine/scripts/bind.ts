@@ -21,7 +21,6 @@ import {
   SmartTerrainBinder,
   StalkerBinder,
 } from "@/engine/core/objects/binders";
-import { abort } from "@/engine/core/utils/assertion";
 import { extern } from "@/engine/core/utils/binding";
 import { isGameStarted } from "@/engine/core/utils/game";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -37,9 +36,7 @@ extern("bind", {
   anomalyField: (object: ClientObject) => object.bind_object(new AnomalyFieldBinder(object)),
   anomalyZone: (object: ClientObject) => object.bind_object(new AnomalyZoneBinder(object)),
   arenaZone: (object: ClientObject) => {
-    const ini: Optional<IniFile> = object.spawn_ini();
-
-    if (ini?.section_exist("arena_zone")) {
+    if (object.spawn_ini()?.section_exist("arena_zone")) {
       object.bind_object(new ArenaZoneBinder(object));
     }
   },
@@ -60,15 +57,9 @@ extern("bind", {
   monster: (object: ClientObject) => object.bind_object(new MonsterBinder(object)),
   phantom: (object: ClientObject) => object.bind_object(new PhantomBinder(object)),
   physicObject: (object: ClientObject) => {
-    const ini: Optional<IniFile> = object.spawn_ini();
-
-    if (!ini?.section_exist("logic")) {
-      if (object.clsid() !== clsid.inventory_box) {
-        return;
-      }
+    if (object.spawn_ini()?.section_exist("logic") || object.clsid() === clsid.inventory_box) {
+      object.bind_object(new PhysicObjectBinder(object));
     }
-
-    object.bind_object(new PhysicObjectBinder(object));
   },
   restrictor: (object: ClientObject) => object.bind_object(new RestrictorBinder(object)),
   signalLight: (object: ClientObject) => object.bind_object(new SignalLightBinder(object)),
@@ -76,15 +67,11 @@ extern("bind", {
   smartTerrain: (object: ClientObject) => {
     const ini: Optional<IniFile> = object.spawn_ini();
 
-    if (ini !== null && (ini.section_exist("gulag1") || ini.section_exist("smart_terrain"))) {
-      if (object.clsid() === clsid.smart_terrain) {
-        if (isGameStarted()) {
-          object.bind_object(new SmartTerrainBinder(object));
-        } else {
-          logger.info("No simulation, smart terrain will not be enabled:", object.name());
-        }
+    if (ini && (ini.section_exist("gulag1") || ini.section_exist("smart_terrain"))) {
+      if (isGameStarted()) {
+        object.bind_object(new SmartTerrainBinder(object));
       } else {
-        abort("You must use SMART_TERRAIN instead of SCRIPT_ZONE %s", object.name());
+        logger.info("No simulation, smart terrain will not be enabled:", object.name());
       }
     }
   },
