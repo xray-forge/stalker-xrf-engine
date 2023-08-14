@@ -13,14 +13,14 @@
     "pack:game": "ts-node -P cli/tsconfig.json cli/run.ts pack game -c -o",
     "watch:scripts": "tstl -P ./cli/build/tsconfig.scripts.json --watch",
     "typecheck": "tstl -P ./cli/build/tsconfig.scripts.json --noEmit",
-    "format": "prettier --write \"**/*.(js|ts|tsx|md)\" && eslint . --ext .ts,.tsx,.js --fix -c cli/lint/.eslintrc.base.json",
+    "format": "prettier --write \"**/*.(js|ts|tsx|md)\" \"!cli/bin/**/*\" && eslint . --ext .ts,.tsx,.js --fix -c cli/lint/.eslintrc.base.json",
     "lint": "eslint . --ext .ts,.tsx,.js -c cli/lint/.eslintrc.base.json",
     "lint:strict": "eslint . --ext .ts,.tsx,.js -c cli/lint/.eslintrc.strict.json",
     "test": "jest",
     "help": "ts-node -P ./cli/tsconfig.json cli/run.ts -h"
   },
   "dependencies": {
-    "xray16": "1.0.1"
+    "xray16": "1.0.3"
   },
   "devDependencies": {
     "@jest/globals": "^29.5.0",
