@@ -1,7 +1,7 @@
 /* eslint sort-keys-fix/sort-keys-fix: "error" */
 
 /**
- * todo;
+ * List of available post processors.
  */
 export const postProcessors = {
   acidic: "acidic.ppe",

@@ -54,15 +54,21 @@ import {
 import { zatB29AfTable, zatB29InfopBringTable } from "@/engine/scripts/declarations/dialogs/dialogs_zaton";
 
 /**
- * todo;
+ * Show freeplay dialog in the end of game.
+ *
+ * @param text - string to show in dialog
+ * @param canStay - whether actor can leave zone
  */
-extern("xr_effects.show_freeplay_dialog", (actor: ClientObject, npc: ClientObject, p: [string, Optional<"true">]) => {
-  if (p[0] && p[1] && p[1] === TRUE) {
-    showFreeplayDialog("message_box_yes_no", p[0]);
-  } else if (p[0]) {
-    showFreeplayDialog("message_box_ok", p[0]);
+extern(
+  "xr_effects.show_freeplay_dialog",
+  (actor: ClientObject, object: ClientObject, [text, canLeave]: [string, Optional<"true">]) => {
+    if (text && canLeave && canLeave === TRUE) {
+      showFreeplayDialog("message_box_yes_no", text);
+    } else if (text) {
+      showFreeplayDialog("message_box_ok", text);
+    }
   }
-});
+);
 
 /**
  * todo;
