@@ -3,7 +3,7 @@
     "browser": true,
     "node": true
   },
-  "ignorePatterns": ["target/**/*", "cli/build/plugins/**/*"],
+  "ignorePatterns": ["target/**/*", "cli/bin/**/*"],
   "extends": [
     "eslint:recommended",
     "plugin:@typescript-eslint/eslint-recommended",
