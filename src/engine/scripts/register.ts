@@ -12,13 +12,13 @@ const logger: LuaLogger = new LuaLogger($filename);
  */
 extern("register", {
   /**
-   * todo: Description.
+   * Register game classes of objects and link lua implementation with c++ counterpart.
    */
   registerGameClasses: (factory: ObjectFactory): void => {
     (require("@/engine/scripts/register/class_registrator").registerGameClasses as AnyCallable)(factory);
   },
   /**
-   * todo: Description.
+   * Get current game class ID.
    */
   getGameClassId: (gameTypeOption: string, isServer: boolean): void => {
     (require("@/engine/scripts/register/game_class_id_registrator").getGameClassId as AnyCallable)(
@@ -27,7 +27,7 @@ extern("register", {
     );
   },
   /**
-   * todo: Description.
+   * Get current game ui ID.
    */
   getUiClassId: (gameType: string): void => {
     (require("@/engine/scripts/register/ui_class_id_registrator").getUiClassId as AnyCallable)(gameType);
