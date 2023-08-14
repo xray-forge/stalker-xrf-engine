@@ -224,7 +224,8 @@ export const classIds = {
 };
 
 /**
- * todo;
+ * Set of class IDs representing monsters.
+ * Simplifies detection of whether client object is monster.
  */
 export const monsterClassIds = {
   // --		[class_ids.cat_s] 					: true,
@@ -247,7 +248,8 @@ export const monsterClassIds = {
 } as const;
 
 /**
- * todo;
+ * Set of class IDs representing stalkers.
+ * Simplifies detection of whether client object is stalker.
  */
 export const stalkerClassIds = {
   [classIds.script_actor]: true,
@@ -255,7 +257,8 @@ export const stalkerClassIds = {
 } as const;
 
 /**
- * todo;
+ * Set of class IDs representing weapons.
+ * Simplifies detection of whether client object is weapon.
  */
 export const weaponClassIds = {
   [classIds.wpn_ak74]: true,
@@ -311,7 +314,8 @@ export const weaponClassIds = {
 } as const;
 
 /**
- * todo;
+ * Set of class IDs representing artefacts.
+ * Simplifies detection of whether client object is artefact.
  */
 export const artefactClassIds = {
   [classIds.art_bast_artefact]: true,
@@ -332,7 +336,7 @@ export const artefactClassIds = {
 } as const;
 
 /**
- * todo;
+ * List of possible game type class IDs.
  */
 export const gameClassId = {
   CL_AHUNT: "CL_AHUNT",
@@ -353,13 +357,13 @@ export const gameClassId = {
 } as const;
 
 /**
- * todo;
+ * Type definition of possible game class ID string.
  */
 export type TGameClassId = (typeof gameClassId)[keyof typeof gameClassId];
 
 /**
- * todo;
  * C++ declared class identifiers from client side.
+ * Matches class names in C++ counterpart.
  */
 export enum EClientObjectClass {
   CAI_Bloodsucker = "CAI_Bloodsucker",

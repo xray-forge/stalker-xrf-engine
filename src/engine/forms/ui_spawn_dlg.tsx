@@ -1,7 +1,7 @@
 import { JSXNode, JSXXML } from "jsx-xml";
 
 /**
- * todo;
+ * Create UI forms related to original in-game spawner dialog.
  */
 export function create(): JSXNode {
   return (

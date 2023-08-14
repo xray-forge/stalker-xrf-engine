@@ -1,7 +1,7 @@
 /* eslint sort-keys-fix/sort-keys-fix: "error" */
 
 /**
- * todo;
+ * List of available game tutorials to activate.
  */
 export const gameTutorials = {
   credits_seq: "credits_seq",

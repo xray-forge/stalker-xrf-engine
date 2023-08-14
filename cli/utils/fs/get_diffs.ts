@@ -2,21 +2,21 @@ import * as fsp from "fs/promises";
 import * as os from "os";
 import * as path from "path";
 
-interface FileStat {
+interface IFileStat {
   mtime: Date;
   size: number;
 }
 
-type FileMap = Record<string, FileStat>;
+type FileMap = Record<string, IFileStat>;
 
 type FilePathMap = string | FileMap;
 
-interface FileStats {
+interface IFileStats {
   totalSize: number;
   files: FileMap;
 }
 
-interface DiffOptions {
+interface IDiffOptions {
   exclusions: Array<string>;
   compareSizes: boolean;
 }
@@ -32,14 +32,21 @@ export interface IDiffs {
 }
 
 /**
- * todo;
+ * Get time value from date or date string.
+ *
+ * @param dateOrDateString - serialized date or date instance
+ * @returns timestamp parsed from date
  */
-function getTime(dateOrDateStr: Date | string): number {
-  return typeof dateOrDateStr === "string" ? Date.parse(dateOrDateStr) : dateOrDateStr.getTime();
+function getTime(dateOrDateString: Date | string): number {
+  return typeof dateOrDateString === "string" ? Date.parse(dateOrDateString) : dateOrDateString.getTime();
 }
 
 /**
- * todo;
+ * Make sure directory is accessible.
+ * If cannot access it, generate subtree in a recursive way.
+ *
+ * @param directory - path to directory
+ * @returns promise for ensuring directory is accessible
  */
 async function ensureDirAccess(directory: string): Promise<void> {
   try {
@@ -50,7 +57,7 @@ async function ensureDirAccess(directory: string): Promise<void> {
 }
 
 /**
- * todo;
+ * Get files from some directory with async generator.
  *
  * @yields - files from directory in a recursive way
  */
@@ -66,10 +73,17 @@ async function* getFiles(directory: string): AsyncGenerator<string> {
 }
 
 /**
- * todo;
+ * Get file stats for file by path.
+ *
+ * @param file - full path to file
+ * @param options - configuration of stats access
+ * @returns promise resolving file stats
  */
-async function getFileStats(directory: string, options): Promise<FileStats> {
-  const dir = path.resolve(directory);
+async function getFileStats(
+  file: string,
+  options: { exclusions?: Array<string>; pathSeparator?: string; encodePath?: boolean }
+): Promise<IFileStats> {
+  const dir = path.resolve(file);
 
   await ensureDirAccess(dir);
 
@@ -100,9 +114,14 @@ async function getFileStats(directory: string, options): Promise<FileStats> {
 }
 
 /**
- * todo;
+ * Get diff between two sets of files.
+ *
+ * @param base - base to check diffs from
+ * @param target - target to check diffs from base
+ * @param options - diff checking configuration
+ * @returns promise resolving diffs between two sets of files
  */
-export async function getDiffs(base: FilePathMap, target: FilePathMap, options?: DiffOptions): Promise<IDiffs> {
+export async function getDiffs(base: FilePathMap, target: FilePathMap, options?: IDiffOptions): Promise<IDiffs> {
   const { exclusions = [], compareSizes = true } = options || {};
   const statsOptions = { exclusions };
   let baseFiles = base;

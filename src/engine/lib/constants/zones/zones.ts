@@ -1,7 +1,7 @@
 /* eslint sort-keys-fix/sort-keys-fix: "error" */
 
 /**
- * todo;
+ * List of zones smart points.
  */
 export const zones = {
   actor_surge_hide_2: "actor_surge_hide_2",
@@ -30,11 +30,11 @@ export const zones = {
 } as const;
 
 /**
- * todo;
+ * Type definition of zones list.
  */
 export type TZones = typeof zones;
 
 /**
- * todo;
+ * Type definition of single zone id.
  */
 export type TZone = TZones[keyof TZones];

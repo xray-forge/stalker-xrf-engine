@@ -1,7 +1,8 @@
 /* eslint sort-keys-fix/sort-keys-fix: "error" */
 
 /**
- * todo;
+ * Enumeration describing sound type that can be heard by game objects.
+ * Usually provided in `hear` callbacks.
  */
 export enum ESoundType {
   ITM = "ITM",

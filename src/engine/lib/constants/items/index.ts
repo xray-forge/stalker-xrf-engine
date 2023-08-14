@@ -4,7 +4,6 @@ import { TDetector, TDetectors } from "@/engine/lib/constants/items/detectors";
 import { TDrugItem, TDrugItems } from "@/engine/lib/constants/items/drugs";
 import { TFoodItem, TFoodItems } from "@/engine/lib/constants/items/food";
 import { THelmet, THelmets } from "@/engine/lib/constants/items/helmets";
-import { TInventoryObject, TInventoryObjects } from "@/engine/lib/constants/items/inventory_objects";
 import { TOutfit, TOutfits } from "@/engine/lib/constants/items/outfits";
 import { TQuestItem, TQuestItems } from "@/engine/lib/constants/items/quest_items";
 import { TWeaponAddon, TWeaponAddons } from "@/engine/lib/constants/items/weapon_addons";
@@ -20,7 +19,6 @@ export type TInventoryItems =
   | TDrugItems
   | TFoodItems
   | THelmets
-  | TInventoryObjects
   | TOutfits
   | TWeaponAddons
   | TWeapons
@@ -36,7 +34,6 @@ export type TInventoryItem =
   | TDrugItem
   | TFoodItem
   | THelmet
-  | TInventoryObject
   | TOutfit
   | TWeaponAddon
   | TWeapon

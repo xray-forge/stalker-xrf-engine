@@ -1,7 +1,7 @@
 import { JSXNode, JSXXML } from "jsx-xml";
 
 /**
- * todo;
+ * Create kebindings form for gamepad.
  */
 export function create(): JSXNode {
   return (

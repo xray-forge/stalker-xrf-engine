@@ -3,7 +3,7 @@ import { JSXNode, JSXXML } from "jsx-xml";
 import { textures } from "@/engine/lib/constants/textures";
 
 /**
- * todo;
+ * Create UI components related to loading screen in game.
  */
 export function create(): JSXNode {
   return (

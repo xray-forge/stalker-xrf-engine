@@ -1,7 +1,7 @@
 import { JSXNode, JSXXML } from "jsx-xml";
 
 /**
- * todo;
+ * Generate UI forms related to multiplayer chat components.
  */
 export function create(): JSXNode {
   return (

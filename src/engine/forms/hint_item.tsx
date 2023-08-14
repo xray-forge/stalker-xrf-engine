@@ -1,7 +1,7 @@
 import { JSXNode, JSXXML } from "jsx-xml";
 
 /**
- * todo;
+ * Generate UI forms related to item hints in PDA.
  */
 export function create(): JSXNode {
   return (

@@ -1,7 +1,7 @@
 import { JSXNode, JSXXML } from "jsx-xml";
 
 /**
- * todo;
+ * Create UI forms related to deathmatch multiplayer configuration components (16/9).
  */
 export function create(): JSXNode {
   return (

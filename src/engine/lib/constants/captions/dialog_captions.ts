@@ -1,7 +1,7 @@
 /* eslint sort-keys-fix/sort-keys-fix: "error" */
 
 /**
- * todo;
+ * List of captions related to dialogs.
  */
 export const dialogCaptions = {
   about_quests_dialog_bandit_0: "about_quests_dialog_bandit_0",

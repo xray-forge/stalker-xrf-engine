@@ -6,7 +6,8 @@ import type { PartialRecord } from "@/engine/lib/types/general";
 export type TSection = string;
 
 /**
- * todo;
+ * Enumeration describing possible game logics schemes.
+ * Scheme allows to handle scripted behaviour with sharable logics components.
  */
 export enum EScheme {
   ABUSE = "abuse",
@@ -114,7 +115,7 @@ export enum ESchemeCondition {
 }
 
 /**
- * todo;
+ * Enumeration describing smart terrains jobs.
  */
 export enum EJobType {
   PATH_JOB = "path_job",
@@ -123,7 +124,7 @@ export enum EJobType {
 }
 
 /**
- * todo;
+ * Map describing job types for default logics schemes.
  */
 export const JobTypeByScheme: PartialRecord<EScheme, EJobType> = {
   [EScheme.WALKER]: EJobType.PATH_JOB,

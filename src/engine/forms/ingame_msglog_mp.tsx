@@ -1,7 +1,7 @@
 ﻿import { JSXNode, JSXXML } from "jsx-xml";
 
 /**
- * todo;
+ * Create UI forms related to messages log in game multiplayer.
  */
 export function create(): JSXNode {
   return (

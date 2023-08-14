@@ -1,7 +1,7 @@
 /* eslint sort-keys-fix/sort-keys-fix: "error" */
 
 /**
- * todo;
+ * Captions describing zones names.
  */
 export const landNamesCaptions = {
   st_jup_a10_name: "st_jup_a10_name",

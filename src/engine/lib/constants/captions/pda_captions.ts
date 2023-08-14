@@ -1,7 +1,7 @@
 /* eslint sort-keys-fix/sort-keys-fix: "error" */
 
 /**
- * todo;
+ * List of captions related to PDA interface.
  */
 export const pdaCaptions = {
   Time: "Time",

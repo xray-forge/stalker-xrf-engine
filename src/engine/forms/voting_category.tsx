@@ -1,7 +1,7 @@
 import { JSXNode, JSXXML } from "jsx-xml";
 
 /**
- * todo;
+ * Create forms for voting category in multiplayer.
  */
 export function create(): JSXNode {
   return (

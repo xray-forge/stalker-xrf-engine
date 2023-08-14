@@ -1,7 +1,7 @@
 /* eslint sort-keys-fix/sort-keys-fix: "error" */
 
 /**
- * todo;
+ * List of available pistol sections.
  */
 export const pistols = {
   wpn_beretta: "wpn_beretta",
@@ -16,17 +16,17 @@ export const pistols = {
 } as const;
 
 /**
- * todo;
+ * Type definition of pistols list.
  */
 export type TPistols = typeof pistols;
 
 /**
- * todo;
+ * Type definition of single pistol section.
  */
 export type TPistol = TPistols[keyof TPistols];
 
 /**
- * todo;
+ * List of all game weapon sections available.
  */
 export const weapons = {
   ...pistols,
@@ -97,11 +97,11 @@ export const weapons = {
 } as const;
 
 /**
- * todo;
+ * Type definition of available weapons list.
  */
 export type TWeapons = typeof weapons;
 
 /**
- * todo;
+ * Type definition of single weapon section.
  */
 export type TWeapon = TWeapons[keyof TWeapons];

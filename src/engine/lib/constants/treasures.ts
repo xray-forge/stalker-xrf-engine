@@ -1,7 +1,7 @@
 /* eslint sort-keys-fix/sort-keys-fix: "error" */
 
 /**
- * todo;
+ * List of available game treasures in original COP.
  */
 export const treasures = {
   jup_hiding_place_1: "jup_hiding_place_1",
@@ -112,11 +112,11 @@ export const treasures = {
 } as const;
 
 /**
- * todo;
+ * Type definition of available treasures list.
  */
 export type TTreasures = typeof treasures;
 
 /**
- * todo;
+ * Type definition of single treasure identifier.
  */
 export type TTreasure = TTreasures[keyof TTreasures];

@@ -1,7 +1,7 @@
 /* eslint sort-keys-fix/sort-keys-fix: "error" */
 
 /**
- * todo;
+ * List of captions shown in game screen UI.
  */
 export const screenCaptions = {
   actor_inventory_box_use: "actor_inventory_box_use",

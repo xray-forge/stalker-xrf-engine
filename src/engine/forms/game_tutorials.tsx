@@ -11,7 +11,7 @@ import {
 } from "@/engine/forms/tutorials";
 
 /**
- * todo;
+ * Generate UI forms related to game tutorials.
  */
 export function create(): JSXNode {
   return (

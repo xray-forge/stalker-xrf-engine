@@ -3,7 +3,7 @@ import { JSXNode, JSXXML } from "jsx-xml";
 // <!-- REMOVE THIS FILE -->-->
 
 /**
- * todo;
+ * Create UI forms related to trading with game NPC.
  */
 export function create(): JSXNode {
   /*

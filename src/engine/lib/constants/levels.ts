@@ -1,7 +1,7 @@
 /* eslint sort-keys-fix/sort-keys-fix: "error" */
 
 /**
- * todo;
+ * List of available levels.
  */
 export const levels = {
   jupiter: "jupiter",
@@ -12,11 +12,11 @@ export const levels = {
 } as const;
 
 /**
- * todo;
+ * Type definition of available levels list.
  */
 export type TLevels = typeof levels;
 
 /**
- * todo;
+ * Game level type definition.
  */
 export type TLevel = TLevels[keyof TLevels];

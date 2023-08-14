@@ -1,11 +1,11 @@
 import { TRate } from "@/engine/lib/types";
 
 /**
- * todo;
+ * Degree value constant based on PI.
  */
 export const PI_DEGREE: TRate = math.pi / 180;
 
 /**
- * todo;
+ * Degrees in 1 radian.
  */
 export const RADIAN: TRate = 57.2957;

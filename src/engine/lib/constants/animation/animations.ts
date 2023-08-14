@@ -1,7 +1,7 @@
 /* eslint sort-keys-fix/sort-keys-fix: "error" */
 
 /**
- * todo;
+ * List of available animation objects.
  */
 export const animations = {
   artefact_test_fireball_1_cam: "artefact_test_fireball_1_cam.anm",

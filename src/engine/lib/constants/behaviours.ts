@@ -2,7 +2,7 @@ import { communities, TCommunity } from "@/engine/lib/constants/communities";
 import { PartialRecord } from "@/engine/lib/types";
 
 /**
- * todo;
+ * Communities behaviour aggregation based on faction.
  */
 export const squadCommunityByBehaviour: LuaTable<TCommunity, TCommunity> = $fromObject({
   [communities.none]: null as unknown as TCommunity,
@@ -25,7 +25,7 @@ export const squadCommunityByBehaviour: LuaTable<TCommunity, TCommunity> = $from
 }) as LuaTable<TCommunity, TCommunity>;
 
 /**
- * todo;
+ * Set of squad monsters communities.
  */
 export const squadMonsters: PartialRecord<TCommunity, boolean> = {
   [communities.monster_predatory_day]: true,

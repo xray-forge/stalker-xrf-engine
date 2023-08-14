@@ -1,7 +1,7 @@
 /* eslint sort-keys-fix/sort-keys-fix: "error" */
 
 /**
- * todo;
+ * List of captions related to characters names.
  */
 export const charactersCaptions = {
   jup_a10_bandit_leader_name: "jup_a10_bandit_leader_name",

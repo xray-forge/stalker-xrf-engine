@@ -1,7 +1,7 @@
 /* eslint sort-keys-fix/sort-keys-fix: "error" */
 
 /**
- * todo;
+ * Captions describing artefact names / descriptions.
  */
 export const itemsArtefactsCaptions = {
   st_af_baloon_descr: "st_af_baloon_descr",
