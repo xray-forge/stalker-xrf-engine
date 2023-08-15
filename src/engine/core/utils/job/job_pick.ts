@@ -1,6 +1,6 @@
 import { SmartTerrain } from "@/engine/core/objects";
 import { isJobAvailableToObject } from "@/engine/core/utils/job/job_check";
-import { IObjectJobDescriptor } from "@/engine/core/utils/job/types";
+import { IObjectJobDescriptor } from "@/engine/core/utils/job/job_types";
 import { Optional, TNumberId, TRate } from "@/engine/lib/types";
 
 /**

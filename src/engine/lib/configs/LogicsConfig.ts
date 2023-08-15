@@ -82,6 +82,9 @@ export const logicsConfig = {
     RESPAWN_RADIUS_RESTRICTION_SQR: 150 * 150,
     DEFAULT_ARRIVAL_DISTANCE: 25,
   },
+  JOBS: {
+    // todo;
+  },
   TRADE: {
     DEFAULT_TRADE_LTX_PATH: "misc\\trade\\trade_generic.ltx",
   },

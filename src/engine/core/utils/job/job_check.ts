@@ -2,7 +2,7 @@ import { patrol } from "xray16";
 
 import { registry } from "@/engine/core/database";
 import type { SmartTerrain } from "@/engine/core/objects";
-import { IObjectJobDescriptor } from "@/engine/core/utils/job/types";
+import { IObjectJobDescriptor } from "@/engine/core/utils/job/job_types";
 import { AnyCallable, ClientObject, LuaArray, Optional, Patrol, ServerObject, TCount, TName } from "@/engine/lib/types";
 
 /**

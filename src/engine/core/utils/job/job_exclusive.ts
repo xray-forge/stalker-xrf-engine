@@ -12,7 +12,8 @@ import {
   readIniString,
   TConditionList,
 } from "@/engine/core/utils/ini";
-import { IJobDescriptor, TJobDescriptor } from "@/engine/core/utils/job/types";
+import { IJobDescriptor, TJobDescriptor } from "@/engine/core/utils/job/job_types";
+import { LuaLogger } from "@/engine/core/utils/logging";
 import { roots } from "@/engine/lib/constants/roots";
 import { FALSE } from "@/engine/lib/constants/words";
 import {
@@ -24,11 +25,46 @@ import {
   LuaArray,
   Optional,
   ServerHumanObject,
+  TCount,
+  TIndex,
   TName,
   TPath,
   TRate,
   TSection,
 } from "@/engine/lib/types";
+
+const logger: LuaLogger = new LuaLogger($filename);
+
+/**
+ * todo;
+ *
+ * @param smartTerrain
+ * @param jobsList
+ */
+export function loadExclusiveJobs(smartTerrain: SmartTerrain, jobsList: LuaArray<TJobDescriptor>): void {
+  const smartTerrainIni: IniFile = smartTerrain.ini;
+
+  if (smartTerrainIni.section_exist("smart_terrain")) {
+    logger.info("Exclusive jobs load:", smartTerrain.name());
+
+    if (smartTerrainIni.section_exist("exclusive")) {
+      const exclusiveJobsCount: TCount = smartTerrainIni.line_count("exclusive");
+
+      for (const i of $range(0, exclusiveJobsCount - 1)) {
+        const [result, id, value] = smartTerrainIni.r_line("exclusive", i, "", "");
+
+        loadExclusiveJob(smartTerrainIni, "exclusive", id, jobsList);
+      }
+    } else {
+      let index: TIndex = 1;
+
+      while (smartTerrainIni.line_exist("smart_terrain", "work" + index)) {
+        loadExclusiveJob(smartTerrainIni, "smart_terrain", "work" + index, jobsList);
+        index += 1;
+      }
+    }
+  }
+}
 
 /**
  * Add jobs unique to terrain instance.

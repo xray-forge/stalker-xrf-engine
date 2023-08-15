@@ -4,7 +4,7 @@ import * as path from "path";
 import { describe, expect, it, jest } from "@jest/globals";
 
 import { SmartTerrain } from "@/engine/core/objects";
-import { loadSmartTerrainJobs } from "@/engine/core/utils/job/job_load";
+import { createSmartTerrainJobs } from "@/engine/core/utils/job/job_create";
 
 describe("jobs_general should correctly generate default jobs", () => {
   it("should correctly generate default jobs", async () => {
@@ -20,7 +20,7 @@ describe("jobs_general should correctly generate default jobs", () => {
 
     jest.spyOn(smartTerrain, "name").mockImplementation(() => "test_smart");
 
-    const [jobsList, ltx] = loadSmartTerrainJobs(smartTerrain);
+    const [jobsList, ltx] = createSmartTerrainJobs(smartTerrain);
 
     expect(ltx).toBe(DEFAULT_JOBS_GENERAL);
     expect(jobsList).toEqualLuaArrays([

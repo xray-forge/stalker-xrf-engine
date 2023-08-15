@@ -4,17 +4,14 @@ import { registry } from "@/engine/core/database";
 import { SurgeManager } from "@/engine/core/managers/world/SurgeManager";
 import { SmartTerrain } from "@/engine/core/objects";
 import { isInTimeInterval } from "@/engine/core/utils/game";
-import { parseWaypointData } from "@/engine/core/utils/ini";
+import { IWaypointData, parseWaypointData } from "@/engine/core/utils/ini";
 import { isAccessibleJob, isJobInRestrictor } from "@/engine/core/utils/job/job_check";
-import { loadExclusiveJob } from "@/engine/core/utils/job/job_exclusive";
-import { TJobDescriptor } from "@/engine/core/utils/job/types";
-import { LuaLogger } from "@/engine/core/utils/logging";
+import { IJobDescriptor, IJobListDescriptor } from "@/engine/core/utils/job/job_types";
 import { communities } from "@/engine/lib/constants/communities";
 import {
   AnyObject,
   ClientObject,
-  IniFile,
-  LuaArray,
+  Patrol,
   ServerHumanObject,
   ServerObject,
   TCount,
@@ -22,22 +19,11 @@ import {
   TName,
 } from "@/engine/lib/types";
 
-const logger: LuaLogger = new LuaLogger($filename);
-
 /**
  * todo;
- *
- * @param smartTerrain - jobs to load for smart terrain
- * @returns array of job descriptors and ltx configuration text
  */
-export function loadSmartTerrainJobs(smartTerrain: SmartTerrain): LuaMultiReturn<[LuaArray<TJobDescriptor>, string]> {
-  const smartTerrainName: TName = smartTerrain.name();
-  const jobsList: LuaArray<TJobDescriptor> = new LuaTable();
-
-  let t: AnyObject;
-
-  logger.info("Load job for smart:", smartTerrainName);
-
+export function createStalkerJobs(smartTerrain: SmartTerrain): LuaMultiReturn<[IJobListDescriptor, string]> {
+  const stalkerJobs: IJobListDescriptor = { _precondition_is_monster: false, priority: 60, jobs: new LuaTable() };
   let ltx: string =
     "[meet@generic_lager]\n" +
     "close_distance = {=is_wounded} 0, 2\n" +
@@ -87,8 +73,127 @@ export function loadSmartTerrainJobs(smartTerrain: SmartTerrain): LuaMultiReturn
   // = Point job
   // ===================================================================================================================
 
-  const stalkerJobs = { _precondition_is_monster: false, priority: 60, jobs: new LuaTable() };
-  const stalkerGenericPoint = { priority: 3, jobs: new LuaTable() };
+  const [stalkerPointJobs, stalkerPointLtx] = createStalkerPointJobs(smartTerrain);
+
+  ltx += stalkerPointLtx;
+  table.insert(stalkerJobs.jobs, stalkerPointJobs);
+
+  // ===================================================================================================================
+  // = Surge
+  // ===================================================================================================================
+
+  const [stalkerSurgeJobs, stalkerSurgeLtx, stalkerSurgeJobsCount] = createStalkerSurgeJobs(smartTerrain);
+
+  if (stalkerSurgeJobsCount > 1) {
+    ltx += stalkerSurgeLtx;
+    table.insert(stalkerJobs.jobs, stalkerSurgeJobs);
+  }
+
+  // ===================================================================================================================
+  // = Sleep
+  // ===================================================================================================================
+
+  const [stalkerSleepJobs, stalkerSleepLtx, stalkerSleepJobsCount] = createStalkerSleepJobs(smartTerrain);
+
+  if (stalkerSleepJobsCount > 1) {
+    ltx += stalkerSleepLtx;
+    table.insert(stalkerJobs.jobs, stalkerSleepJobs);
+  }
+
+  // ===================================================================================================================
+  // = Collector
+  // ===================================================================================================================
+
+  const [stalkerCollectorJobs, stalkerCollectorLtx, stalkerCollectorJobsCount] =
+    createStalkerCollectorJobs(smartTerrain);
+
+  if (stalkerCollectorJobsCount > 1) {
+    ltx += stalkerCollectorLtx;
+    table.insert(stalkerJobs.jobs, stalkerCollectorJobs);
+  }
+
+  // ===================================================================================================================
+  // = Walker
+  // ===================================================================================================================
+
+  const [stalkerWalkerJobs, stalkerWalkerLtx, stalkerWalkerJobsCount] = createStalkerWalkerJobs(smartTerrain);
+
+  if (stalkerWalkerJobsCount > 1) {
+    ltx += stalkerWalkerLtx;
+    table.insert(stalkerJobs.jobs, stalkerWalkerJobs);
+  }
+
+  // ===================================================================================================================
+  // = Patrol
+  // ===================================================================================================================
+
+  const [stalkerPatrolJobs, stalkerPatrolLtx, stalkerPatrolJobsCount] = createStalkerPatrolJobs(smartTerrain);
+
+  if (stalkerPatrolJobsCount > 1) {
+    ltx += stalkerPatrolLtx;
+    table.insert(stalkerJobs.jobs, stalkerPatrolJobs);
+  }
+
+  // ===================================================================================================================
+  // = Animpoint
+  // ===================================================================================================================
+
+  const [stalkerAnimpointJobs, stalkerAnimpointLtx, stalkerAnimpointCount] = createStalkerAnimpointJobs(
+    smartTerrain,
+    stalkerJobs as any
+  );
+
+  if (stalkerAnimpointCount > 1) {
+    ltx += stalkerAnimpointLtx;
+    // insert directly into jobs list
+  }
+
+  // ===================================================================================================================
+  // = Guard
+  // ===================================================================================================================
+
+  const [stalkerGuardJobs, stalkerGuardLtx, stalkerGuardJobsCount] = createStalkerGuardJobs(smartTerrain);
+
+  if (stalkerGuardJobsCount > 1) {
+    ltx += stalkerGuardLtx;
+    table.insert(stalkerJobs.jobs, stalkerGuardJobs);
+  }
+
+  // ===================================================================================================================
+  // = Sniper
+  // ===================================================================================================================
+
+  const [stalkerSniperJobs, stalkerSniperLtx, stalkerSniperJobsCount] = createStalkerSniperJobs(smartTerrain);
+
+  if (stalkerSniperJobsCount > 1) {
+    ltx += stalkerSniperLtx;
+    table.insert(stalkerJobs.jobs, stalkerSniperJobs);
+  }
+
+  // ===================================================================================================================
+  // = Camper
+  // ===================================================================================================================
+
+  const [stalkerCamperJobs, stalkerCamperLtx, stalkerCamperJobsCount] = createStalkerCamperJobs(smartTerrain);
+
+  if (stalkerCamperJobsCount > 1) {
+    ltx += stalkerCamperLtx;
+    table.insert(stalkerJobs.jobs, stalkerCamperJobs);
+  }
+
+  return $multi(stalkerJobs, ltx);
+}
+
+/**
+ * todo;
+ */
+export function createStalkerPointJobs(
+  smartTerrain: SmartTerrain
+): LuaMultiReturn<[IJobListDescriptor, string, TCount]> {
+  const smartTerrainName: TName = smartTerrain.name();
+  const stalkerGenericPoint: IJobListDescriptor = { priority: 3, jobs: new LuaTable() };
+
+  let ltx: string = "";
 
   for (const it of $range(1, 20)) {
     const name = smartTerrainName + "_point_" + it;
@@ -123,32 +228,37 @@ export function loadSmartTerrainJobs(smartTerrain: SmartTerrain): LuaMultiReturn
       "anim = {!npc_community(zombied)} sit, guard\n";
 
     if (smartTerrain.defendRestrictor !== null) {
-      jobLtx = jobLtx + "out_restr = " + smartTerrain.defendRestrictor + "\n";
+      jobLtx += "out_restr = " + smartTerrain.defendRestrictor + "\n";
     }
 
     if (smartTerrain.smartTerrainActorControl !== null && smartTerrain.smartTerrainActorControl.isIgnoreZone !== null) {
-      jobLtx =
-        jobLtx +
+      jobLtx +=
         "combat_ignore_cond = {=npc_in_zone(smart.base_on_actor_control.ignore_zone)} true \n" +
         "combat_ignore_keep_when_attacked = true \n";
     }
 
-    ltx = ltx + jobLtx;
+    ltx += jobLtx;
   }
 
-  table.insert(stalkerJobs.jobs, stalkerGenericPoint);
+  return $multi(stalkerGenericPoint, ltx, 20);
+}
 
-  // ===================================================================================================================
-  // = Surge
-  // ===================================================================================================================
+/**
+ * todo;
+ */
+export function createStalkerSurgeJobs(
+  smartTerrain: SmartTerrain
+): LuaMultiReturn<[IJobListDescriptor, string, TCount]> {
+  const stalkerSurgeJobs: IJobListDescriptor = { priority: 50, jobs: new LuaTable() };
+  const smartTerrainName: TName = smartTerrain.name();
 
-  const stalkerSurge = { priority: 50, jobs: new LuaTable() };
-  let it = 1;
+  let ltx: string = "";
+  let it: TIndex = 1;
 
   while (level.patrol_path_exists(smartTerrainName + "_surge_" + it + "_walk")) {
     const wayName = smartTerrainName + "_surge_" + it + "_walk";
 
-    table.insert(stalkerSurge.jobs, {
+    table.insert(stalkerSurgeJobs.jobs, {
       priority: 50,
       job_id: {
         section: "logic@" + wayName,
@@ -196,26 +306,30 @@ export function loadSmartTerrainJobs(smartTerrain: SmartTerrain): LuaMultiReturn
         "combat_ignore_keep_when_attacked = true \n";
     }
 
-    ltx = ltx + jobLtx;
-    it = it + 1;
+    ltx += jobLtx;
+    it += 1;
   }
 
-  if (it > 1) {
-    table.insert(stalkerJobs.jobs, stalkerSurge);
-  }
+  return $multi(stalkerSurgeJobs, ltx, it);
+}
 
-  // ===================================================================================================================
-  // = Sleep
-  // ===================================================================================================================
-  const stalkerSleep = { priority: 10, jobs: new LuaTable() };
+/**
+ * todo;
+ */
+export function createStalkerSleepJobs(
+  smartTerrain: SmartTerrain
+): LuaMultiReturn<[IJobListDescriptor, string, TCount]> {
+  const sleepJobs: IJobListDescriptor = { priority: 10, jobs: new LuaTable() };
+  const smartTerrainName: TName = smartTerrain.name();
 
-  it = 1;
+  let ltx: string = "";
+  let it: TIndex = 1;
 
   // todo: Probably only one job applies by should be more?
   while (level.patrol_path_exists(smartTerrainName + "_sleep_" + it)) {
-    const wayName = smartTerrainName + "_sleep_" + it;
+    const wayName: TName = smartTerrainName + "_sleep_" + it;
 
-    t = {
+    table.insert(sleepJobs.jobs, {
       priority: 10,
       job_id: {
         section: "logic@" + wayName,
@@ -249,11 +363,9 @@ export function loadSmartTerrainJobs(smartTerrain: SmartTerrain): LuaMultiReturn
 
         return precondParams.is_safe_job !== false;
       },
-    };
+    });
 
-    table.insert(stalkerSleep.jobs, t);
-
-    let jobLtx =
+    let jobLtx: string =
       "[logic@" +
       wayName +
       "]\n" +
@@ -268,11 +380,11 @@ export function loadSmartTerrainJobs(smartTerrain: SmartTerrain): LuaMultiReturn
       "\n";
 
     if (smartTerrain.safeRestrictor !== null && isJobInRestrictor(smartTerrain, smartTerrain.safeRestrictor, wayName)) {
-      jobLtx = jobLtx + "invulnerable = {=npc_in_zone(smart.safe_restr)} true\n";
+      jobLtx += "invulnerable = {=npc_in_zone(smart.safe_restr)} true\n";
     }
 
     if (smartTerrain.defendRestrictor !== null) {
-      jobLtx = jobLtx + "out_restr = " + smartTerrain.defendRestrictor + "\n";
+      jobLtx += "out_restr = " + smartTerrain.defendRestrictor + "\n";
     }
 
     if (
@@ -280,33 +392,35 @@ export function loadSmartTerrainJobs(smartTerrain: SmartTerrain): LuaMultiReturn
       smartTerrain.smartTerrainActorControl.isIgnoreZone !== null &&
       isJobInRestrictor(smartTerrain, smartTerrain.smartTerrainActorControl.isIgnoreZone, wayName)
     ) {
-      jobLtx =
-        jobLtx +
+      jobLtx +=
         "combat_ignore_cond = {=npc_in_zone(smart.base_on_actor_control.ignore_zone)} true \n" +
         "combat_ignore_keep_when_attacked = true \n";
     }
 
-    ltx = ltx + jobLtx;
-    it = it + 1;
+    ltx += jobLtx;
+    it += 1;
   }
 
-  if (it > 1) {
-    table.insert(stalkerJobs.jobs, stalkerSleep);
-  }
+  return $multi(sleepJobs, ltx, it);
+}
 
-  // ===================================================================================================================
-  // = Collector
-  // ===================================================================================================================
+/**
+ * todo;
+ */
+export function createStalkerCollectorJobs(
+  smartTerrain: SmartTerrain
+): LuaMultiReturn<[IJobListDescriptor, string, TCount]> {
+  const collectorJobs: IJobListDescriptor = { priority: 25, jobs: new LuaTable() };
+  const smartTerrainName: TName = smartTerrain.name();
 
-  const stalkerCollector = { priority: 25, jobs: new LuaTable() };
-
-  it = 1;
+  let index: TIndex = 1;
+  let ltx: string = "";
 
   // todo: While and single insert?
-  while (level.patrol_path_exists(smartTerrainName + "_collector_" + it + "_walk")) {
-    const wayName = smartTerrainName + "_collector_" + it + "_walk";
+  while (level.patrol_path_exists(smartTerrainName + "_collector_" + index + "_walk")) {
+    const wayName: TName = smartTerrainName + "_collector_" + index + "_walk";
 
-    t = {
+    table.insert(collectorJobs.jobs, {
       priority: 25,
       job_id: {
         section: "logic@" + wayName,
@@ -346,9 +460,7 @@ export function loadSmartTerrainJobs(smartTerrain: SmartTerrain): LuaMultiReturn
 
         return false;
       },
-    };
-
-    table.insert(stalkerCollector.jobs, t);
+    });
 
     let jobLtx =
       "[logic@" +
@@ -363,21 +475,21 @@ export function loadSmartTerrainJobs(smartTerrain: SmartTerrain): LuaMultiReturn
       "sound_idle = state\n" +
       "meet = meet@generic_lager\n" +
       "path_walk = collector_" +
-      it +
+      index +
       "_walk\n" +
       "def_state_standing = guard\n" +
       "def_state_moving = patrol\n";
 
-    if (level.patrol_path_exists(smartTerrainName + "_collector_" + it + "_look")) {
-      jobLtx = jobLtx + "path_look = collector_" + it + "_look\n";
+    if (level.patrol_path_exists(smartTerrainName + "_collector_" + index + "_look")) {
+      jobLtx += "path_look = collector_" + index + "_look\n";
     }
 
     if (smartTerrain.safeRestrictor !== null && isJobInRestrictor(smartTerrain, smartTerrain.safeRestrictor, wayName)) {
-      jobLtx = jobLtx + "invulnerable = {=npc_in_zone(smart.safe_restr)} true\n";
+      jobLtx += "invulnerable = {=npc_in_zone(smart.safe_restr)} true\n";
     }
 
     if (smartTerrain.defendRestrictor !== null) {
-      jobLtx = jobLtx + "out_restr = " + smartTerrain.defendRestrictor + "\n";
+      jobLtx += "out_restr = " + smartTerrain.defendRestrictor + "\n";
     }
 
     if (
@@ -385,33 +497,34 @@ export function loadSmartTerrainJobs(smartTerrain: SmartTerrain): LuaMultiReturn
       smartTerrain.smartTerrainActorControl.isIgnoreZone !== null &&
       isJobInRestrictor(smartTerrain, smartTerrain.smartTerrainActorControl.isIgnoreZone, wayName)
     ) {
-      jobLtx =
-        jobLtx +
+      jobLtx +=
         "combat_ignore_cond = {=npc_in_zone(smart.base_on_actor_control.ignore_zone)} true \n" +
         "combat_ignore_keep_when_attacked = true \n";
     }
 
-    ltx = ltx + jobLtx;
-    it = it + 1;
+    ltx += jobLtx;
+    index += 1;
   }
 
-  if (it > 1) {
-    table.insert(stalkerJobs.jobs, stalkerCollector);
-  }
+  return $multi(collectorJobs, ltx, index);
+}
 
-  // ===================================================================================================================
-  // = Walker
-  // ===================================================================================================================
-  const stalkerWalker = { priority: 15, jobs: new LuaTable() };
+/**
+ * todo;
+ */
+export function createStalkerWalkerJobs(
+  smartTerrain: SmartTerrain
+): LuaMultiReturn<[IJobListDescriptor, string, TCount]> {
+  const smartTerrainName: TName = smartTerrain.name();
+  const stalkerWalker: IJobListDescriptor = { priority: 15, jobs: new LuaTable() };
 
-  it = 1;
+  let index: TIndex = 1;
+  let ltx: string = "";
 
-  while (level.patrol_path_exists(smartTerrainName + "_walker_" + it + "_walk")) {
-    // -- ���������� �������� ���������� ����� �� �������� ����� ����.
-    const wayName = smartTerrainName + "_walker_" + it + "_walk";
+  while (level.patrol_path_exists(smartTerrainName + "_walker_" + index + "_walk")) {
+    const wayName: TName = smartTerrainName + "_walker_" + index + "_walk";
 
-    // -- ��������� ���������
-    t = {
+    table.insert(stalkerWalker.jobs, {
       priority: 15,
       job_id: {
         section: "logic@" + wayName,
@@ -433,10 +546,9 @@ export function loadSmartTerrainJobs(smartTerrain: SmartTerrain): LuaMultiReturn
 
         return precondParams.is_safe_job !== false;
       },
-    };
-    table.insert(stalkerWalker.jobs, t);
+    });
 
-    let jobLtx =
+    let jobLtx: string =
       "[logic@" +
       wayName +
       "]\n" +
@@ -449,21 +561,21 @@ export function loadSmartTerrainJobs(smartTerrain: SmartTerrain): LuaMultiReturn
       "sound_idle = state\n" +
       "meet = meet@generic_lager\n" +
       "path_walk = walker_" +
-      it +
+      index +
       "_walk\n" +
       "def_state_standing = guard\n" +
       "def_state_moving = patrol\n";
 
-    if (level.patrol_path_exists(smartTerrainName + "_walker_" + it + "_look")) {
-      jobLtx = jobLtx + "path_look = walker_" + it + "_look\n";
+    if (level.patrol_path_exists(smartTerrainName + "_walker_" + index + "_look")) {
+      jobLtx += "path_look = walker_" + index + "_look\n";
     }
 
     if (smartTerrain.safeRestrictor !== null && isJobInRestrictor(smartTerrain, smartTerrain.safeRestrictor, wayName)) {
-      jobLtx = jobLtx + "invulnerable = {=npc_in_zone(smart.safe_restr)} true\n";
+      jobLtx += "invulnerable = {=npc_in_zone(smart.safe_restr)} true\n";
     }
 
     if (smartTerrain.defendRestrictor !== null) {
-      jobLtx = jobLtx + "out_restr = " + smartTerrain.defendRestrictor + "\n";
+      jobLtx += "out_restr = " + smartTerrain.defendRestrictor + "\n";
     }
 
     if (
@@ -471,28 +583,32 @@ export function loadSmartTerrainJobs(smartTerrain: SmartTerrain): LuaMultiReturn
       smartTerrain.smartTerrainActorControl.isIgnoreZone !== null &&
       isJobInRestrictor(smartTerrain, smartTerrain.smartTerrainActorControl.isIgnoreZone, wayName)
     ) {
-      jobLtx =
-        jobLtx +
+      jobLtx +=
         "combat_ignore_cond = {=npc_in_zone(smart.base_on_actor_control.ignore_zone)} true \n" +
         "combat_ignore_keep_when_attacked = true \n";
     }
 
-    ltx = ltx + jobLtx;
-    it = it + 1;
+    ltx += jobLtx;
+    index += 1;
   }
 
-  if (it > 1) {
-    table.insert(stalkerJobs.jobs, stalkerWalker);
-  }
+  return $multi(stalkerWalker, ltx, index);
+}
 
-  // ===================================================================================================================
-  // = Patrol
-  // ===================================================================================================================
-  const stalkerPatrol = { priority: 20, jobs: new LuaTable() };
+/**
+ * todo;
+ */
+export function createStalkerPatrolJobs(
+  smartTerrain: SmartTerrain
+): LuaMultiReturn<[IJobListDescriptor, string, TCount]> {
+  const stalkerPatrolJobs: IJobListDescriptor = { priority: 20, jobs: new LuaTable() };
+  const smartTerrainName: TName = smartTerrain.name();
 
-  it = 1;
-  while (level.patrol_path_exists(smartTerrainName + "_patrol_" + it + "_walk")) {
-    const wayName = smartTerrainName + "_patrol_" + it + "_walk";
+  let ltx: string = "";
+  let index: TIndex = 1;
+
+  while (level.patrol_path_exists(smartTerrainName + "_patrol_" + index + "_walk")) {
+    const wayName = smartTerrainName + "_patrol_" + index + "_walk";
     const ptr = new patrol(wayName);
     const wpProp = parseWaypointData(wayName, ptr.flags(0), ptr.name(0));
     let jobCount = 3;
@@ -502,8 +618,7 @@ export function loadSmartTerrainJobs(smartTerrain: SmartTerrain): LuaMultiReturn
     }
 
     for (const i of $range(1, jobCount)) {
-      // -- ��������� ���������
-      t = {
+      table.insert(stalkerPatrolJobs.jobs, {
         priority: 20,
         job_id: {
           section: "logic@" + wayName,
@@ -533,8 +648,7 @@ export function loadSmartTerrainJobs(smartTerrain: SmartTerrain): LuaMultiReturn
 
           return precondParams.is_safe_job !== false;
         },
-      };
-      table.insert(stalkerPatrol.jobs, t);
+      });
     }
 
     let jobLtx =
@@ -550,39 +664,45 @@ export function loadSmartTerrainJobs(smartTerrain: SmartTerrain): LuaMultiReturn
       "meet = meet@generic_lager\n" +
       "formation = back\n" +
       "path_walk = patrol_" +
-      it +
+      index +
       "_walk\n" +
       "on_signal = }| %=search_gulag_job%\n";
 
-    if (level.patrol_path_exists(smartTerrainName + "_patrol_" + it + "_look")) {
-      jobLtx = jobLtx + "path_look = patrol_" + it + "_look\n";
+    if (level.patrol_path_exists(smartTerrainName + "_patrol_" + index + "_look")) {
+      jobLtx += "path_look = patrol_" + index + "_look\n";
     }
 
     if (smartTerrain.safeRestrictor !== null && isJobInRestrictor(smartTerrain, smartTerrain.safeRestrictor, wayName)) {
-      jobLtx = jobLtx + "invulnerable = {=npc_in_zone(smart.safe_restr)} true\n";
+      jobLtx += "invulnerable = {=npc_in_zone(smart.safe_restr)} true\n";
     }
 
     if (smartTerrain.defendRestrictor !== null) {
-      jobLtx = jobLtx + "out_restr = " + smartTerrain.defendRestrictor + "\n";
+      jobLtx += "out_restr = " + smartTerrain.defendRestrictor + "\n";
     }
 
     ltx += jobLtx;
-    it += 1;
+    index += 1;
   }
 
-  if (it > 1) {
-    table.insert(stalkerJobs.jobs, stalkerPatrol);
-  }
+  return $multi(stalkerPatrolJobs, ltx, index);
+}
 
-  // ===================================================================================================================
-  // = Animpoint
-  // ===================================================================================================================
-  it = 1;
+/**
+ * todo;
+ */
+export function createStalkerAnimpointJobs(
+  smartTerrain: SmartTerrain,
+  stalkerJobs: IJobListDescriptor
+): LuaMultiReturn<[IJobListDescriptor, string, TCount]> {
+  const smartTerrainName: TName = smartTerrain.name();
 
-  while (registry.smartCovers.get(smartTerrainName + "_animpoint_" + it) !== null) {
-    const smartcoverName = smartTerrainName + "_animpoint_" + it;
+  let ltx: string = "";
+  let index: TIndex = 1;
 
-    t = {
+  while (registry.smartCovers.get(smartTerrainName + "_animpoint_" + index) !== null) {
+    const smartcoverName: TName = smartTerrainName + "_animpoint_" + index;
+
+    const t: IJobDescriptor = {
       priority: 15,
       job_id: {
         section: "logic@" + smartcoverName,
@@ -591,15 +711,16 @@ export function loadSmartTerrainJobs(smartTerrain: SmartTerrain): LuaMultiReturn
       _precondition_params: {},
       _precondition_function: (
         serverObject: ServerHumanObject,
-        smart: SmartTerrain,
+        smartTerrain: SmartTerrain,
         precondParams: AnyObject
       ): boolean => {
         return serverObject.community() !== communities.zombied;
       },
     };
+
     table.insert(stalkerJobs.jobs, t);
 
-    let jobLtx =
+    let jobLtx: string =
       "[logic@" +
       smartcoverName +
       "]\n" +
@@ -615,7 +736,7 @@ export function loadSmartTerrainJobs(smartTerrain: SmartTerrain): LuaMultiReturn
       "\n";
 
     if (smartTerrain.defendRestrictor !== null) {
-      jobLtx = jobLtx + "out_restr = " + smartTerrain.defendRestrictor + "\n";
+      jobLtx += "out_restr = " + smartTerrain.defendRestrictor + "\n";
     }
 
     // todo: Bad path name?
@@ -623,30 +744,36 @@ export function loadSmartTerrainJobs(smartTerrain: SmartTerrain): LuaMultiReturn
       smartTerrain.safeRestrictor !== null &&
       isJobInRestrictor(smartTerrain, smartTerrain.safeRestrictor, null as any)
     ) {
-      jobLtx = jobLtx + "invulnerable = {=npc_in_zone(smart.safe_restr)} true\n";
+      jobLtx += "invulnerable = {=npc_in_zone(smart.safe_restr)} true\n";
     }
 
     if (smartTerrain.smartTerrainActorControl !== null && smartTerrain.smartTerrainActorControl.isIgnoreZone !== null) {
-      jobLtx =
-        jobLtx +
+      jobLtx +=
         "combat_ignore_cond = {=npc_in_zone(smart.base_on_actor_control.ignore_zone)} true \n" +
         "combat_ignore_keep_when_attacked = true \n";
     }
 
-    ltx = ltx + jobLtx;
-    it = it + 1;
+    ltx += jobLtx;
+    index += 1;
   }
 
-  // ===================================================================================================================
-  // = Guard
-  // ===================================================================================================================
+  return $multi(stalkerJobs, ltx, index);
+}
+
+/**
+ * todo;
+ */
+export function createStalkerGuardJobs(smartTerrain: SmartTerrain): LuaMultiReturn<[any, string, TCount]> {
   const stalkerGuard = { priority: 25, jobs: new LuaTable() };
+  const smartTerrainName: TName = smartTerrain.name();
 
-  it = 1;
-  while (level.patrol_path_exists(smartTerrainName + "_guard_" + it + "_walk")) {
-    const wayName = smartTerrainName + "_guard_" + it + "_walk";
+  let ltx: string = "";
+  let index: TIndex = 1;
 
-    t = {
+  while (level.patrol_path_exists(smartTerrainName + "_guard_" + index + "_walk")) {
+    const wayName: TName = smartTerrainName + "_guard_" + index + "_walk";
+
+    table.insert(stalkerGuard.jobs, {
       priority: 25,
       job_id: {
         section: "logic@" + wayName,
@@ -672,8 +799,7 @@ export function loadSmartTerrainJobs(smartTerrain: SmartTerrain): LuaMultiReturn
 
         return precondParams.is_safe_job !== false;
       },
-    };
-    table.insert(stalkerGuard.jobs, t);
+    });
 
     let jobLtx =
       "[logic@" +
@@ -687,30 +813,30 @@ export function loadSmartTerrainJobs(smartTerrain: SmartTerrain): LuaMultiReturn
       "]\n" +
       "meet = meet@generic_lager\n" +
       "path_walk = guard_" +
-      it +
+      index +
       "_walk\n" +
       "path_look = guard_" +
-      it +
+      index +
       "_look\n";
 
     if (smartTerrain.safeRestrictor !== null && isJobInRestrictor(smartTerrain, smartTerrain.safeRestrictor, wayName)) {
-      jobLtx = jobLtx + "invulnerable = {=npc_in_zone(smart.safe_restr)} true\n";
+      jobLtx += "invulnerable = {=npc_in_zone(smart.safe_restr)} true\n";
     }
 
     if (smartTerrain.defendRestrictor !== null) {
-      jobLtx = jobLtx + "out_restr = " + smartTerrain.defendRestrictor + "\n";
+      jobLtx += "out_restr = " + smartTerrain.defendRestrictor + "\n";
     }
 
-    let job1Ltx =
+    let job1Ltx: string =
       "[walker1@" +
       wayName +
       "]\n" +
       "meet = meet@generic_lager\n" +
       "path_walk = guard_" +
-      it +
+      index +
       "_walk\n" +
       "path_look = guard_" +
-      it +
+      index +
       "_look\n" +
       "def_state_standing = wait_na\n" +
       "on_info = {!is_obj_on_job(logic@follower_" +
@@ -725,20 +851,20 @@ export function loadSmartTerrainJobs(smartTerrain: SmartTerrain): LuaMultiReturn
       "\n";
 
     if (smartTerrain.safeRestrictor !== null && isJobInRestrictor(smartTerrain, smartTerrain.safeRestrictor, wayName)) {
-      job1Ltx = job1Ltx + "invulnerable = {=npc_in_zone(smart.safe_restr)} true\n";
+      job1Ltx += "invulnerable = {=npc_in_zone(smart.safe_restr)} true\n";
     }
 
     if (smartTerrain.defendRestrictor !== null) {
-      job1Ltx = job1Ltx + "out_restr = " + smartTerrain.defendRestrictor + "\n";
+      job1Ltx += "out_restr = " + smartTerrain.defendRestrictor + "\n";
     }
 
-    job1Ltx = job1Ltx + "[remark@" + wayName + "]\n" + "anim = wait_na\n" + "target = logic@follower_" + wayName + "\n";
+    job1Ltx += "[remark@" + wayName + "]\n" + "anim = wait_na\n" + "target = logic@follower_" + wayName + "\n";
 
     if (smartTerrain.defendRestrictor !== null) {
-      job1Ltx = job1Ltx + "out_restr = " + smartTerrain.defendRestrictor + "\n";
+      job1Ltx += "out_restr = " + smartTerrain.defendRestrictor + "\n";
     }
 
-    t = {
+    table.insert(stalkerGuard.jobs, {
       priority: 24,
       job_id: {
         section: "logic@follower_" + wayName,
@@ -747,16 +873,15 @@ export function loadSmartTerrainJobs(smartTerrain: SmartTerrain): LuaMultiReturn
       _precondition_params: { changing_job: "logic@" + wayName },
       _precondition_function: (
         serverObject: ServerHumanObject,
-        smart: SmartTerrain,
+        smartTerrain: SmartTerrain,
         precondParams: AnyObject,
         npcInfo: AnyObject
       ): boolean => {
         return npcInfo.need_job === precondParams.changing_job;
       },
-    };
-    table.insert(stalkerGuard.jobs, t);
+    });
 
-    let followerLtx =
+    let followerLtx: string =
       "[logic@follower_" +
       wayName +
       "]\n" +
@@ -768,10 +893,10 @@ export function loadSmartTerrainJobs(smartTerrain: SmartTerrain): LuaMultiReturn
       "]\n" +
       "meet = meet@generic_lager\n" +
       "path_walk = guard_" +
-      it +
+      index +
       "_walk\n" +
       "path_look = guard_" +
-      it +
+      index +
       "_look\n" +
       "on_info = {=distance_to_obj_on_job_le(logic@" +
       wayName +
@@ -780,11 +905,10 @@ export function loadSmartTerrainJobs(smartTerrain: SmartTerrain): LuaMultiReturn
       "\n";
 
     if (smartTerrain.defendRestrictor !== null) {
-      followerLtx = followerLtx + "out_restr = " + smartTerrain.defendRestrictor + "\n";
+      followerLtx += "out_restr = " + smartTerrain.defendRestrictor + "\n";
     }
 
-    followerLtx =
-      followerLtx +
+    followerLtx +=
       "[remark@follower_" +
       wayName +
       "]\n" +
@@ -795,29 +919,32 @@ export function loadSmartTerrainJobs(smartTerrain: SmartTerrain): LuaMultiReturn
       "on_timer = 2000 | %=switch_to_desired_job%\n";
 
     if (smartTerrain.defendRestrictor !== null) {
-      followerLtx = followerLtx + "out_restr = " + smartTerrain.defendRestrictor + "\n";
+      followerLtx += "out_restr = " + smartTerrain.defendRestrictor + "\n";
     }
 
-    ltx = ltx + jobLtx + job1Ltx + followerLtx;
-    it = it + 1;
+    ltx += jobLtx + job1Ltx + followerLtx;
+    index += 1;
   }
 
-  if (it > 1) {
-    table.insert(stalkerJobs.jobs, stalkerGuard);
-  }
+  return $multi(stalkerGuard, ltx, index);
+}
 
-  // ===================================================================================================================
-  // = Sniper
-  // ===================================================================================================================
+/**
+ * todo;
+ */
+export function createStalkerSniperJobs(
+  smartTerrain: SmartTerrain
+): LuaMultiReturn<[IJobListDescriptor, string, TCount]> {
+  const stalkerDefSniper: IJobListDescriptor = { priority: 30, jobs: new LuaTable() };
+  const smartTerrainName: TName = smartTerrain.name();
 
-  const stalkerDefSniper = { priority: 30, jobs: new LuaTable() };
+  let ltx: string = "";
+  let index: TIndex = 1;
 
-  it = 1;
-
-  while (level.patrol_path_exists(smartTerrainName + "_sniper_" + it + "_walk")) {
-    const wayName = smartTerrainName + "_sniper_" + it + "_walk";
-    const ptr = new patrol(wayName);
-    const wpProp = parseWaypointData(wayName, ptr.flags(0), ptr.name(0));
+  while (level.patrol_path_exists(smartTerrainName + "_sniper_" + index + "_walk")) {
+    const wayName: TName = smartTerrainName + "_sniper_" + index + "_walk";
+    const ptr: Patrol = new patrol(wayName);
+    const wpProp: IWaypointData = parseWaypointData(wayName, ptr.flags(0), ptr.name(0));
     let state = "hide";
 
     if (wpProp.state !== null) {
@@ -826,7 +953,7 @@ export function loadSmartTerrainJobs(smartTerrain: SmartTerrain): LuaMultiReturn
       }
     }
 
-    t = {
+    table.insert(stalkerDefSniper.jobs, {
       priority: 30,
       job_id: {
         section: "logic@" + wayName,
@@ -844,10 +971,9 @@ export function loadSmartTerrainJobs(smartTerrain: SmartTerrain): LuaMultiReturn
 
         return isAccessibleJob(serverObject, precondParams.way_name);
       },
-    };
-    table.insert(stalkerDefSniper.jobs, t);
+    });
 
-    let jobLtx =
+    let jobLtx: string =
       "[logic@" +
       wayName +
       "]\n" +
@@ -859,10 +985,10 @@ export function loadSmartTerrainJobs(smartTerrain: SmartTerrain): LuaMultiReturn
       "]\n" +
       "meet = meet@generic_lager\n" +
       "path_walk = sniper_" +
-      it +
+      index +
       "_walk\n" +
       "path_look = sniper_" +
-      it +
+      index +
       "_look\n" +
       "sniper = true\n" +
       "def_state_campering =" +
@@ -873,29 +999,32 @@ export function loadSmartTerrainJobs(smartTerrain: SmartTerrain): LuaMultiReturn
       "_fire\n";
 
     if (smartTerrain.defendRestrictor !== null) {
-      jobLtx = jobLtx + "out_restr = " + smartTerrain.defendRestrictor + ",\n";
+      jobLtx += "out_restr = " + smartTerrain.defendRestrictor + ",\n";
     }
 
-    ltx = ltx + jobLtx;
-    it = it + 1;
+    ltx += jobLtx;
+    index += 1;
   }
 
-  if (it > 1) {
-    table.insert(stalkerJobs.jobs, stalkerDefSniper);
-  }
+  return $multi(stalkerDefSniper, ltx, index);
+}
 
-  // ===================================================================================================================
-  // = Camper
-  // ===================================================================================================================
+/**
+ * todo;
+ */
+export function createStalkerCamperJobs(
+  smartTerrain: SmartTerrain
+): LuaMultiReturn<[IJobListDescriptor, string, TCount]> {
+  const stalkerDefCamper: IJobListDescriptor = { priority: 45, jobs: new LuaTable() };
+  const smartTerrainName: TName = smartTerrain.name();
 
-  const stalkerDefCamper = { priority: 45, jobs: new LuaTable() };
+  let ltx: string = "";
+  let index: TIndex = 1;
 
-  it = 1;
-
-  while (level.patrol_path_exists(smartTerrainName + "_camper_" + it + "_walk")) {
-    const wayName = smartTerrainName + "_camper_" + it + "_walk";
-    const ptr = new patrol(wayName);
-    const wpProp = parseWaypointData(wayName, ptr.flags(0), ptr.name(0));
+  while (level.patrol_path_exists(smartTerrainName + "_camper_" + index + "_walk")) {
+    const wayName: TName = smartTerrainName + "_camper_" + index + "_walk";
+    const ptr: Patrol = new patrol(wayName);
+    const wpProp: IWaypointData = parseWaypointData(wayName, ptr.flags(0), ptr.name(0));
     let state = "hide";
     let radius = 0;
 
@@ -909,7 +1038,7 @@ export function loadSmartTerrainJobs(smartTerrain: SmartTerrain): LuaMultiReturn
       radius = wpProp.radius as number;
     }
 
-    t = {
+    table.insert(stalkerDefCamper.jobs, {
       priority: 45,
       job_id: {
         section: "logic@" + wayName,
@@ -919,8 +1048,7 @@ export function loadSmartTerrainJobs(smartTerrain: SmartTerrain): LuaMultiReturn
       _precondition_function: (serverObject: ServerHumanObject, smart: SmartTerrain, precond_params: AnyObject) => {
         return isAccessibleJob(serverObject, precond_params.way_name);
       },
-    };
-    table.insert(stalkerDefCamper.jobs, t);
+    });
 
     let jobLtx: string =
       "[logic@" +
@@ -937,7 +1065,7 @@ export function loadSmartTerrainJobs(smartTerrain: SmartTerrain): LuaMultiReturn
       tostring(radius) +
       "\n" +
       "path_walk = camper_" +
-      it +
+      index +
       "_walk\n" +
       "def_state_moving = rush\n" +
       "def_state_campering =" +
@@ -947,102 +1075,17 @@ export function loadSmartTerrainJobs(smartTerrain: SmartTerrain): LuaMultiReturn
       state +
       "_fire\n";
 
-    if (level.patrol_path_exists(smartTerrainName + "_camper_" + it + "_look")) {
-      jobLtx = jobLtx + "path_look = camper_" + it + "_look\n";
+    if (level.patrol_path_exists(smartTerrainName + "_camper_" + index + "_look")) {
+      jobLtx += "path_look = camper_" + index + "_look\n";
     }
 
     if (smartTerrain.defendRestrictor !== null) {
-      jobLtx = jobLtx + "out_restr = " + smartTerrain.defendRestrictor + ",\n";
+      jobLtx += "out_restr = " + smartTerrain.defendRestrictor + ",\n";
     }
 
-    ltx = ltx + jobLtx;
-    it += 1;
+    ltx += jobLtx;
+    index += 1;
   }
 
-  if (it > 1) {
-    table.insert(stalkerJobs.jobs, stalkerDefCamper);
-  }
-
-  table.insert(jobsList, stalkerJobs);
-
-  // ===================================================================================================================
-  const monsterJobs = { _precondition_is_monster: true, priority: 50, jobs: new LuaTable() };
-
-  // ===================================================================================================================
-  // = Mob home
-  // ===================================================================================================================
-
-  for (const it of $range(1, 20)) {
-    const name = smartTerrainName + "_home_" + it;
-    const homeMinRadius = 10;
-    const homeMidRadius = 20;
-    const homeMaxRadius = 70;
-
-    t = {
-      priority: 40,
-      job_id: {
-        section: "logic@" + name,
-        job_type: "point_job",
-      },
-    };
-    table.insert(monsterJobs.jobs, t);
-
-    // -- ��������� �������� ��������� � ���.
-    let jobLtx =
-      "[logic@" +
-      name +
-      "]\n" +
-      "active = mob_home@" +
-      name +
-      "\n" +
-      "[mob_home@" +
-      name +
-      "]\n" +
-      "gulag_point = true\n" +
-      "home_min_radius = " +
-      homeMinRadius +
-      "\n" +
-      "home_mid_radius = " +
-      homeMidRadius +
-      "\n" +
-      "home_max_radius = " +
-      homeMaxRadius +
-      "\n";
-
-    if (smartTerrain.defendRestrictor !== null) {
-      jobLtx = jobLtx + "out_restr = " + smartTerrain.defendRestrictor + "\n";
-    }
-
-    ltx = ltx + jobLtx;
-  }
-
-  table.insert(jobsList, monsterJobs);
-
-  // ===================================================================================================================
-  const smartTerrainIni: IniFile = smartTerrain.ini;
-
-  if (smartTerrainIni.section_exist("smart_terrain")) {
-    logger.info("Exclusive jobs load:", smartTerrainName);
-
-    if (smartTerrainIni.section_exist("exclusive")) {
-      const exclusiveJobsCount: TCount = smartTerrainIni.line_count("exclusive");
-
-      for (const i of $range(0, exclusiveJobsCount - 1)) {
-        const [result, id, value] = smartTerrainIni.r_line("exclusive", i, "", "");
-
-        loadExclusiveJob(smartTerrainIni, "exclusive", id, jobsList);
-      }
-    } else {
-      let index: TIndex = 1;
-
-      while (smartTerrainIni.line_exist("smart_terrain", "work" + index)) {
-        loadExclusiveJob(smartTerrainIni, "smart_terrain", "work" + index, jobsList);
-        index += 1;
-      }
-    }
-  }
-
-  logger.info("Composed job table:", smartTerrainName);
-
-  return $multi(jobsList, ltx);
+  return $multi(stalkerDefCamper, ltx, index);
 }

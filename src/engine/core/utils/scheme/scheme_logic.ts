@@ -14,7 +14,7 @@ import { assert, assertDefined } from "@/engine/core/utils/assertion";
 import { getObjectConfigOverrides, pickSectionFromCondList } from "@/engine/core/utils/ini/ini_config";
 import { getSchemeFromSection } from "@/engine/core/utils/ini/ini_parse";
 import { readIniConditionList, readIniString } from "@/engine/core/utils/ini/ini_read";
-import { ISmartTerrainJob } from "@/engine/core/utils/job/types";
+import { ISmartTerrainJob } from "@/engine/core/utils/job/job_types";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getObjectSmartTerrain } from "@/engine/core/utils/object/object_get";
 import { sendToNearestAccessibleVertex } from "@/engine/core/utils/object/object_location";

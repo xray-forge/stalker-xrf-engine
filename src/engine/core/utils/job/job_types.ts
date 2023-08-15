@@ -62,6 +62,7 @@ export interface IJobDescriptor {
   _precondition_is_monster?: Optional<boolean>;
   _precondition_params?: AnyObject;
   _precondition_function?: (
+    this: void,
     serverObject: ServerHumanObject,
     smartTerrain: SmartTerrain,
     preconditionParameters: AnyObject,

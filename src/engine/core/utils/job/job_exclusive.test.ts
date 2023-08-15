@@ -2,7 +2,7 @@ import { describe, expect, it, jest } from "@jest/globals";
 import { getFS } from "xray16";
 
 import { loadExclusiveJob } from "@/engine/core/utils/job/job_exclusive";
-import { TJobDescriptor } from "@/engine/core/utils/job/types";
+import { TJobDescriptor } from "@/engine/core/utils/job/job_types";
 import { IniFile, LuaArray } from "@/engine/lib/types";
 import { mockIniFile, registerIniFileMock } from "@/fixtures/xray";
 

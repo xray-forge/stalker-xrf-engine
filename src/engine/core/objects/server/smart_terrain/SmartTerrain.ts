@@ -65,7 +65,7 @@ import {
   selectJob,
   TJobDescriptor,
 } from "@/engine/core/utils/job";
-import { loadSmartTerrainJobs } from "@/engine/core/utils/job/job_load";
+import { createSmartTerrainJobs } from "@/engine/core/utils/job/job_create";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { areObjectsOnSameLevel, isMonster, isStalker } from "@/engine/core/utils/object";
 import { ERelation } from "@/engine/core/utils/relation";
@@ -735,7 +735,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
   public loadJobs(): void {
     logger.info("Load jobs:", this.name());
 
-    const [jobs, ltxContent] = loadSmartTerrainJobs(this);
+    const [jobs, ltxContent] = createSmartTerrainJobs(this);
     const [ltx, ltxName] = loadDynamicIni(this.name(), ltxContent);
 
     this.jobs = jobs;
