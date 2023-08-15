@@ -23,7 +23,6 @@ export function createStalkerSleepJobs(
   let ltx: string = "";
   let it: TIndex = 1;
 
-  // todo: Probably only one job applies by should be more?
   while (level.patrol_path_exists(`${smartTerrainName}_sleep_${it}`)) {
     const wayName: TName = `${smartTerrainName}_sleep_${it}`;
 
@@ -36,46 +35,29 @@ export function createStalkerSleepJobs(
       _precondition_params: {},
       _precondition_function: (
         serverObject: ServerHumanObject,
-        smart: SmartTerrain,
-        precondParams: AnyObject
+        smartTerrain: SmartTerrain,
+        parameters: AnyObject
       ): boolean => {
         if (serverObject.community() === communities.zombied) {
           return false;
-        }
-
-        if (!isInTimeInterval(21, 7)) {
+        } else if (!isInTimeInterval(21, 7)) {
           return false;
-        }
-
-        if (smart.alarmStartedAt === null) {
+        } else if (smartTerrain.alarmStartedAt === null) {
+          return true;
+        } else if (smartTerrain.safeRestrictor === null) {
           return true;
         }
 
-        if (smart.safeRestrictor === null) {
-          return true;
+        if (parameters.is_safe_job === null) {
+          parameters.is_safe_job = isJobPatrolInRestrictor(smartTerrain, smartTerrain.safeRestrictor, wayName);
         }
 
-        if (precondParams.is_safe_job === null) {
-          precondParams.is_safe_job = isJobPatrolInRestrictor(smart, smart.safeRestrictor, wayName);
-        }
-
-        return precondParams.is_safe_job !== false;
+        return parameters.is_safe_job !== false;
       },
     });
 
     let jobLtx: string =
-      "[logic@" +
-      wayName +
-      "]\n" +
-      "active = sleeper@" +
-      wayName +
-      "\n" +
-      "[sleeper@" +
-      wayName +
-      "]\n" +
-      "path_main = sleep_" +
-      it +
-      "\n";
+      `[logic@${wayName}]\n` + `active = sleeper@${wayName}\n` + `[sleeper@${wayName}]\n` + `path_main = sleep_${it}\n`;
 
     if (
       smartTerrain.safeRestrictor !== null &&
@@ -85,7 +67,7 @@ export function createStalkerSleepJobs(
     }
 
     if (smartTerrain.defendRestrictor !== null) {
-      jobLtx += "out_restr = " + smartTerrain.defendRestrictor + "\n";
+      jobLtx += `out_restr = ${smartTerrain.defendRestrictor}\n`;
     }
 
     if (

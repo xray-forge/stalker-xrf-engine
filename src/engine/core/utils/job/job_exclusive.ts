@@ -110,7 +110,7 @@ export function loadExclusiveJob(
         ini_path: iniPath,
         online: jobOnline,
         ini_file: jobIniFile,
-        job_type: jobType as TName,
+        job_type: jobType as EJobType,
       },
     };
 

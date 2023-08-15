@@ -53,6 +53,9 @@ export const patrols: Record<string, IPatrolMock> = {
       { name: "wp01|a=patrol", gvid: 444, lvid: 1444, position: MockVector.create(-5, 44, -21) },
     ],
   },
+  test_smart_sleep_1: {
+    points: [{ name: "wp00|a=patrol", gvid: 2443, lvid: 21443, position: MockVector.create(212, -14, 31) }],
+  },
   test_smart_surge_2_walk: {
     points: [
       { name: "wp00|a=patrol", gvid: 453, lvid: 1453, position: MockVector.create(-1, 3, -1) },
@@ -64,6 +67,9 @@ export const patrols: Record<string, IPatrolMock> = {
       { name: "wp00|a=patrol", gvid: 443, lvid: 1443, position: MockVector.create(21, -1, 31) },
       { name: "wp01|a=patrol", gvid: 444, lvid: 1444, position: MockVector.create(-5, 44, -21) },
     ],
+  },
+  test_smart_sleep_2: {
+    points: [{ name: "wp00|a=patrol", gvid: 2443, lvid: 21443, position: MockVector.create(212, -13, 31) }],
   },
   test_smart_surge_3_walk: {
     points: [

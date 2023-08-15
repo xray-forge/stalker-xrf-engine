@@ -52,6 +52,20 @@ describe("jobs_general should correctly generate default jobs", () => {
             ),
             priority: 50,
           },
+          {
+            jobs: $fromArray(
+              range(2, 1).map((it) => ({
+                _precondition_function: expect.any(Function),
+                _precondition_params: {},
+                job_id: {
+                  job_type: "path_job",
+                  section: `logic@test_smart_sleep_${it}`,
+                },
+                priority: 10,
+              }))
+            ),
+            priority: 10,
+          },
         ]),
         priority: 60,
       },

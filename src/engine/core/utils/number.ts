@@ -38,5 +38,5 @@ export function round(value: number): number {
  * @param startAt - first value in range
  */
 export function range(size: number, startAt: number = 0): ReadonlyArray<number> {
-  return [...Array(size).keys()].map((it: TIndex) => it + startAt);
+  return [...Array(size)].map((it: TIndex, index) => index + startAt);
 }

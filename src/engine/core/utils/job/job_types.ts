@@ -79,7 +79,7 @@ export interface IJobDescriptor {
 export interface IJobListDescriptor {
   _precondition_is_monster?: Optional<boolean>;
   priority: TRate;
-  jobs: LuaArray<IJobListDescriptor | IJobDescriptor>;
+  jobs: LuaArray<IJobDescriptor>;
 }
 
 /**
