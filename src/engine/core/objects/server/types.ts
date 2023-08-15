@@ -31,6 +31,18 @@ export enum ESimulationTerrainRole {
 }
 
 /**
+ * todo;
+ */
+export const VALID_SMART_TERRAINS_SIMULATION_ROLES: LuaTable<TName, boolean> = $fromObject<TName, boolean>({
+  [ESimulationTerrainRole.DEFAULT]: true,
+  [ESimulationTerrainRole.BASE]: true,
+  [ESimulationTerrainRole.SURGE]: true,
+  [ESimulationTerrainRole.RESOURCE]: true,
+  [ESimulationTerrainRole.TERRITORY]: true,
+  [ESimulationTerrainRole.LAIR]: true,
+});
+
+/**
  * Generic simulation target.
  * Used for building game logic with custom alife priorities and decisions.
  */

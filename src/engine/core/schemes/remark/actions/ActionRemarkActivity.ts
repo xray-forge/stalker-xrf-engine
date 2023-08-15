@@ -254,7 +254,7 @@ export function initTarget(
     const [job, gulag] = parseTarget(target);
     const smartTerrain: SmartTerrain = SimulationBoardManager.getInstance().getSmartTerrainByName(gulag!)!;
 
-    targetId = smartTerrain.idNPCOnJob(job!);
+    targetId = smartTerrain.getObjectIdByJobId(job!);
     isTargetInitialized = targetId !== null && true;
   } else {
     instruction(obj, targetString);

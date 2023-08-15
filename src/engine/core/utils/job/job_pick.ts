@@ -1,14 +1,14 @@
 import { SmartTerrain } from "@/engine/core/objects";
 import { isJobAvailableToObject } from "@/engine/core/utils/job/job_check";
 import { IObjectJobDescriptor } from "@/engine/core/utils/job/job_types";
-import { Optional, TNumberId, TRate } from "@/engine/lib/types";
+import { LuaArray, Optional, TNumberId, TRate } from "@/engine/lib/types";
 
 /**
  * todo;
  */
-export function selectJob(
+export function selectSmartTerrainJob(
   smartTerrain: SmartTerrain,
-  jobs: LuaTable<any, any>,
+  jobs: LuaArray<any>,
   objectJobDescriptor: IObjectJobDescriptor,
   selectedJobPriority: TRate
 ): LuaMultiReturn<[Optional<TNumberId>, TRate, Optional<any>]> {
@@ -23,7 +23,7 @@ export function selectJob(
 
     if (isJobAvailableToObject(objectJobDescriptor, jobInfo, smartTerrain)) {
       if (jobInfo.job_id === null) {
-        [selectedJobId, currentJobPriority, selectedJobLink] = selectJob(
+        [selectedJobId, currentJobPriority, selectedJobLink] = selectSmartTerrainJob(
           smartTerrain,
           jobInfo.jobs,
           objectJobDescriptor,

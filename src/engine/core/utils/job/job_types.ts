@@ -26,7 +26,7 @@ export interface IObjectJobDescriptor {
   need_job: string;
   job_prior: number;
   job_id: number;
-  job_link: Optional<{ npc_id: Optional<TNumberId>; job_id: TNumberId; priority: TRate }>;
+  job_link: Optional<IJobDescriptor>;
   begin_job: boolean;
   schemeType: ESchemeType;
 }
