@@ -1,0 +1,10 @@
+[logic@test_smart_patrol_1_walk]
+active = patrol@test_smart_patrol_1_walk
+[patrol@test_smart_patrol_1_walk]
+meet = meet@generic_lager
+formation = back
+path_walk = patrol_1_walk
+on_signal = end|%=search_gulag_job%
+path_look = patrol_1_look
+invulnerable = {=npc_in_zone(smart.safe_restr)} true
+out_restr = test_defend_restrictor

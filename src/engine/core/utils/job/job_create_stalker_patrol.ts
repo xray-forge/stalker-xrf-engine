@@ -1,12 +1,12 @@
 import { level, patrol } from "xray16";
 
 import { SmartTerrain } from "@/engine/core/objects";
-import { parseWaypointData } from "@/engine/core/utils/ini";
+import { IWaypointData, parseWaypointData } from "@/engine/core/utils/ini";
 import { isJobPatrolInRestrictor } from "@/engine/core/utils/job/job_check";
 import { IJobListDescriptor } from "@/engine/core/utils/job/job_types";
 import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
 import { communities } from "@/engine/lib/constants/communities";
-import { AnyObject, EJobType, ServerHumanObject, TCount, TIndex, TName } from "@/engine/lib/types";
+import { AnyObject, EJobType, Patrol, ServerHumanObject, TCount, TIndex, TName } from "@/engine/lib/types";
 
 /**
  * todo;
@@ -24,12 +24,12 @@ export function createStalkerPatrolJobs(
   let index: TIndex = 1;
 
   while (level.patrol_path_exists(`${smartTerrainName}_patrol_${index}_walk`)) {
-    const wayName = `${smartTerrainName}_patrol_${index}_walk`;
-    const ptr = new patrol(wayName);
-    const wpProp = parseWaypointData(wayName, ptr.flags(0), ptr.name(0));
-    let jobCount = 3;
+    const wayName: TName = `${smartTerrainName}_patrol_${index}_walk`;
+    const ptr: Patrol = new patrol(wayName);
+    const wpProp: IWaypointData = parseWaypointData(wayName, ptr.flags(0), ptr.name(0));
+    let jobCount: TCount = 3;
 
-    if (wpProp.count !== null) {
+    if (wpProp.count) {
       jobCount = wpProp.count as TCount;
     }
 
@@ -48,13 +48,9 @@ export function createStalkerPatrolJobs(
         ): boolean => {
           if (serverObject.community() === communities.zombied) {
             return false;
-          }
-
-          if (smart.alarmStartedAt === null) {
+          } else if (smart.alarmStartedAt === null) {
             return true;
-          }
-
-          if (smart.safeRestrictor === null) {
+          } else if (smart.safeRestrictor === null) {
             return true;
           }
 
@@ -67,24 +63,16 @@ export function createStalkerPatrolJobs(
       });
     }
 
-    let jobLtx =
-      "[logic@" +
-      wayName +
-      "]\n" +
-      "active = patrol@" +
-      wayName +
-      "\n" +
-      "[patrol@" +
-      wayName +
-      "]\n" +
+    let jobLtx: string =
+      `[logic@${wayName}]\n` +
+      `active = patrol@${wayName}\n` +
+      `[patrol@${wayName}]\n` +
       "meet = meet@generic_lager\n" +
       "formation = back\n" +
-      "path_walk = patrol_" +
-      index +
-      "_walk\n" +
-      "on_signal = }| %=search_gulag_job%\n";
+      `path_walk = patrol_${index}_walk\n` +
+      "on_signal = end|%=search_gulag_job%\n";
 
-    if (level.patrol_path_exists(smartTerrainName + "_patrol_" + index + "_look")) {
+    if (level.patrol_path_exists(`${smartTerrainName}_patrol_${index}_look`)) {
       jobLtx += `path_look = patrol_${index}_look\n`;
     }
 
