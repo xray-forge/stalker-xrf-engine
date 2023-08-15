@@ -97,6 +97,31 @@ describe("jobs_general should correctly generate stalker jobs", () => {
           jobs: $fromArray([
             {
               _precondition_function: expect.any(Function),
+              _precondition_params: {},
+              job_id: {
+                job_type: "path_job",
+                section: "logic@test_smart_guard_1_walk",
+              },
+              priority: 25,
+            },
+            {
+              _precondition_function: expect.any(Function),
+              _precondition_params: {
+                changing_job: "logic@test_smart_guard_1_walk",
+              },
+              job_id: {
+                job_type: "path_job",
+                section: "logic@follower_test_smart_guard_1_walk",
+              },
+              priority: 24,
+            },
+          ]),
+          priority: 25,
+        },
+        {
+          jobs: $fromArray([
+            {
+              _precondition_function: expect.any(Function),
               _precondition_params: {
                 way_name: "test_smart_camper_1_walk",
               },

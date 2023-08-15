@@ -264,6 +264,33 @@ active = animpoint@test_smart_animpoint_1
 [animpoint@test_smart_animpoint_1]
 meet = meet@generic_animpoint
 cover_name = test_smart_animpoint_1
+[logic@test_smart_guard_1_walk]
+active = walker@test_smart_guard_1_walk
+[walker@test_smart_guard_1_walk]
+meet = meet@generic_lager
+path_walk = guard_1_walk
+path_look = guard_1_look
+[walker1@test_smart_guard_1_walk]
+meet = meet@generic_lager
+path_walk = guard_1_walk
+path_look = guard_1_look
+def_state_standing = wait_na
+on_info = {!is_obj_on_job(logic@follower_test_smart_guard_1_walk:3)} walker@test_smart_guard_1_walk
+on_info2 = {=distance_to_obj_on_job_le(logic@follower_test_smart_guard_1_walk:3)} remark@test_smart_guard_1_walk
+[remark@test_smart_guard_1_walk]
+anim = wait_na
+target = logic@follower_test_smart_guard_1_walk
+[logic@follower_test_smart_guard_1_walk]
+active = walker@follow_test_smart_guard_1_walk
+[walker@follow_test_smart_guard_1_walk]
+meet = meet@generic_lager
+path_walk = guard_1_walk
+path_look = guard_1_look
+on_info = {=distance_to_obj_on_job_le(logic@test_smart_guard_1_walk:3)} remark@follower_test_smart_guard_1_walk
+[remark@follower_test_smart_guard_1_walk]
+anim = wait_na
+target = logic@test_smart_guard_1_walk
+on_timer = 2000 | %=switch_to_desired_job%
 [logic@test_smart_camper_1_walk]
 active = camper@test_smart_camper_1_walk
 [camper@test_smart_camper_1_walk]

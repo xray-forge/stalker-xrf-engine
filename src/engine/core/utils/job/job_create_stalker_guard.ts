@@ -30,42 +30,30 @@ export function createStalkerGuardJobs(
       _precondition_params: {},
       _precondition_function: (
         serverObject: ServerHumanObject,
-        smart: SmartTerrain,
-        precondParams: AnyObject
+        smartTerrain: SmartTerrain,
+        parameters: AnyObject
       ): boolean => {
-        if (smart.alarmStartedAt === null) {
+        if (smartTerrain.alarmStartedAt === null) {
+          return true;
+        } else if (smartTerrain.safeRestrictor === null) {
           return true;
         }
 
-        if (smart.safeRestrictor === null) {
-          return true;
+        if (parameters.is_safe_job === null) {
+          parameters.is_safe_job = isJobPatrolInRestrictor(smartTerrain, smartTerrain.safeRestrictor, wayName);
         }
 
-        if (precondParams.is_safe_job === null) {
-          precondParams.is_safe_job = isJobPatrolInRestrictor(smart, smart.safeRestrictor, wayName);
-        }
-
-        return precondParams.is_safe_job !== false;
+        return parameters.is_safe_job !== false;
       },
     });
 
-    let jobLtx =
-      "[logic@" +
-      wayName +
-      "]\n" +
-      "active = walker@" +
-      wayName +
-      "\n" +
-      "[walker@" +
-      wayName +
-      "]\n" +
+    let jobLtx: string =
+      `[logic@${wayName}]\n` +
+      `active = walker@${wayName}\n` +
+      `[walker@${wayName}]\n` +
       "meet = meet@generic_lager\n" +
-      "path_walk = guard_" +
-      index +
-      "_walk\n" +
-      "path_look = guard_" +
-      index +
-      "_look\n";
+      `path_walk = guard_${index}_walk\n` +
+      `path_look = guard_${index}_look\n`;
 
     if (
       smartTerrain.safeRestrictor !== null &&
@@ -79,27 +67,13 @@ export function createStalkerGuardJobs(
     }
 
     let job1Ltx: string =
-      "[walker1@" +
-      wayName +
-      "]\n" +
+      `[walker1@${wayName}]\n` +
       "meet = meet@generic_lager\n" +
-      "path_walk = guard_" +
-      index +
-      "_walk\n" +
-      "path_look = guard_" +
-      index +
-      "_look\n" +
+      `path_walk = guard_${index}_walk\n` +
+      `path_look = guard_${index}_look\n` +
       "def_state_standing = wait_na\n" +
-      "on_info = {!is_obj_on_job(logic@follower_" +
-      wayName +
-      ":3)} walker@" +
-      wayName +
-      "\n" +
-      "on_info2 = {=distance_to_obj_on_job_le(logic@follower_" +
-      wayName +
-      ":3)} remark@" +
-      wayName +
-      "\n";
+      `on_info = {!is_obj_on_job(logic@follower_${wayName}:3)} walker@${wayName}\n` +
+      `on_info2 = {=distance_to_obj_on_job_le(logic@follower_${wayName}:3)} remark@${wayName}\n`;
 
     if (
       smartTerrain.safeRestrictor !== null &&
@@ -112,7 +86,7 @@ export function createStalkerGuardJobs(
       job1Ltx += `out_restr = ${smartTerrain.defendRestrictor}\n`;
     }
 
-    job1Ltx += "[remark@" + wayName + "]\n" + "anim = wait_na\n" + "target = logic@follower_" + wayName + "\n";
+    job1Ltx += `[remark@${wayName}]\n` + "anim = wait_na\n" + `target = logic@follower_${wayName}\n`;
 
     if (smartTerrain.defendRestrictor !== null) {
       job1Ltx += `out_restr = ${smartTerrain.defendRestrictor}\n`;
@@ -128,48 +102,30 @@ export function createStalkerGuardJobs(
       _precondition_function: (
         serverObject: ServerHumanObject,
         smartTerrain: SmartTerrain,
-        precondParams: AnyObject,
+        parameters: AnyObject,
         npcInfo: AnyObject
       ): boolean => {
-        return npcInfo.need_job === precondParams.changing_job;
+        return npcInfo.need_job === parameters.changing_job;
       },
     });
 
     let followerLtx: string =
-      "[logic@follower_" +
-      wayName +
-      "]\n" +
-      "active = walker@follow_" +
-      wayName +
-      "\n" +
-      "[walker@follow_" +
-      wayName +
-      "]\n" +
+      `[logic@follower_${wayName}]\n` +
+      `active = walker@follow_${wayName}\n` +
+      `[walker@follow_${wayName}]\n` +
       "meet = meet@generic_lager\n" +
-      "path_walk = guard_" +
-      index +
-      "_walk\n" +
-      "path_look = guard_" +
-      index +
-      "_look\n" +
-      "on_info = {=distance_to_obj_on_job_le(logic@" +
-      wayName +
-      ":3)} remark@follower_" +
-      wayName +
-      "\n";
+      `path_walk = guard_${index}_walk\n` +
+      `path_look = guard_${index}_look\n` +
+      `on_info = {=distance_to_obj_on_job_le(logic@${wayName}:3)} remark@follower_${wayName}\n`;
 
     if (smartTerrain.defendRestrictor !== null) {
       followerLtx += `out_restr = ${smartTerrain.defendRestrictor}\n`;
     }
 
     followerLtx +=
-      "[remark@follower_" +
-      wayName +
-      "]\n" +
+      `[remark@follower_${wayName}]\n` +
       "anim = wait_na\n" +
-      "target = logic@" +
-      wayName +
-      "\n" +
+      `target = logic@${wayName}\n` +
       "on_timer = 2000 | %=switch_to_desired_job%\n";
 
     if (smartTerrain.defendRestrictor !== null) {

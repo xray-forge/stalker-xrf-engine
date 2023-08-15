@@ -2,7 +2,7 @@ import * as path from "path";
 
 import { describe, expect, it, jest } from "@jest/globals";
 
-import { IRegistryObjectState, registerObject, registerZone, registry } from "@/engine/core/database";
+import { registerObject, registerZone } from "@/engine/core/database";
 import { SmartTerrain, SmartTerrainControl } from "@/engine/core/objects";
 import { createStalkerCollectorJobs } from "@/engine/core/utils/job/job_create_stalker_collector";
 import { ServerHumanObject } from "@/engine/lib/types";
@@ -10,7 +10,7 @@ import { readInGameTestLtx } from "@/fixtures/engine";
 import { mockClientGameObject, mockServerAlifeHumanStalker } from "@/fixtures/xray";
 
 describe("jobs_general should correctly generate stalker collector jobs", () => {
-  it("should correctly generate default camper jobs with no collector patrols", async () => {
+  it("should correctly generate default collector jobs with no collector patrols", async () => {
     const smartTerrain: SmartTerrain = new SmartTerrain("test_smart");
 
     smartTerrain.ini = smartTerrain.spawn_ini();
@@ -23,7 +23,7 @@ describe("jobs_general should correctly generate stalker collector jobs", () => 
     expect(jobsList).toEqualLuaTables({ priority: 25, jobs: $fromArray([]) });
   });
 
-  it("should correctly generate default camper jobs with test smart", async () => {
+  it("should correctly generate default collector jobs with test smart", async () => {
     const jobsLtx: string = await readInGameTestLtx(
       path.resolve(__dirname, "__test__", "job_create_stalker_collector.default.ltx")
     );
@@ -54,7 +54,7 @@ describe("jobs_general should correctly generate stalker collector jobs", () => 
     });
   });
 
-  it("should correctly generate default camper jobs with restrictor", async () => {
+  it("should correctly generate default collector jobs with restrictor", async () => {
     const jobsLtx: string = await readInGameTestLtx(
       path.resolve(__dirname, "__test__", "job_create_stalker_collector.restrictor.ltx")
     );
@@ -86,7 +86,7 @@ describe("jobs_general should correctly generate stalker collector jobs", () => 
     });
   });
 
-  it("should correctly generate default camper jobs with ignore restrictor", async () => {
+  it("should correctly generate default collector jobs with ignore restrictor", async () => {
     const jobsLtx: string = await readInGameTestLtx(
       path.resolve(__dirname, "__test__", "job_create_stalker_collector.ignore.ltx")
     );
@@ -121,7 +121,7 @@ describe("jobs_general should correctly generate stalker collector jobs", () => 
     });
   });
 
-  it("should correctly generate default camper jobs with invulnerable state", async () => {
+  it("should correctly generate default collector jobs with invulnerable state", async () => {
     const jobsLtx: string = await readInGameTestLtx(
       path.resolve(__dirname, "__test__", "job_create_stalker_collector.invulnerable.ltx")
     );
@@ -157,7 +157,7 @@ describe("jobs_general should correctly generate stalker collector jobs", () => 
     });
   });
 
-  it("should correctly check camper jobs preconditions", async () => {
+  it("should correctly check collector jobs preconditions", async () => {
     const smartTerrain: SmartTerrain = new SmartTerrain("test_smart");
     const stalker: ServerHumanObject = mockServerAlifeHumanStalker();
 

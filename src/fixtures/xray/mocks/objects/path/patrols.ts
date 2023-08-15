@@ -68,6 +68,9 @@ export const patrols: Record<string, IPatrolMock> = {
   test_smart_collector_1_look: {
     points: [{ name: "wp00|a=patrol", gvid: 4424, lvid: 1133, position: MockVector.create(12, -31, -52) }],
   },
+  test_smart_guard_1_walk: {
+    points: [{ name: "wp00|a=patrol", gvid: 3321, lvid: 32744, position: MockVector.create(1, -3, -43) }],
+  },
   test_smart_surge_2_walk: {
     points: [
       { name: "wp00|a=patrol", gvid: 453, lvid: 1453, position: MockVector.create(-1, 3, -1) },
