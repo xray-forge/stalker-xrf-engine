@@ -47,10 +47,22 @@ export const patrols: Record<string, IPatrolMock> = {
       { name: "wp01|a=patrol", gvid: 444, lvid: 1444, position: MockVector.create(-5, 44, -21) },
     ],
   },
+  test_smart_surge_1_look: {
+    points: [
+      { name: "wp00|a=patrol", gvid: 443, lvid: 1443, position: MockVector.create(21, -1, 31) },
+      { name: "wp01|a=patrol", gvid: 444, lvid: 1444, position: MockVector.create(-5, 44, -21) },
+    ],
+  },
   test_smart_surge_2_walk: {
     points: [
       { name: "wp00|a=patrol", gvid: 453, lvid: 1453, position: MockVector.create(-1, 3, -1) },
       { name: "wp01|a=patrol", gvid: 454, lvid: 1454, position: MockVector.create(-5, 2, 1) },
+    ],
+  },
+  test_smart_surge_2_look: {
+    points: [
+      { name: "wp00|a=patrol", gvid: 443, lvid: 1443, position: MockVector.create(21, -1, 31) },
+      { name: "wp01|a=patrol", gvid: 444, lvid: 1444, position: MockVector.create(-5, 44, -21) },
     ],
   },
   test_smart_surge_3_walk: {

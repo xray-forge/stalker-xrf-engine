@@ -83,6 +83,7 @@ export const logicsConfig = {
     DEFAULT_ARRIVAL_DISTANCE: 25,
   },
   JOBS: {
+    STALKER_JOB_PRIORITY: 60,
     MONSTER_JOB_PRIORITY: 50,
     MOB_HOME: {
       COUNT: 20,
@@ -96,6 +97,9 @@ export const logicsConfig = {
       PRIORITY: 3,
       MIN_RADIUS: 3,
       MAX_RADIUS: 8,
+    },
+    STALKER_SURGE: {
+      PRIORITY: 50,
     },
   },
   TRADE: {

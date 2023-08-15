@@ -5,7 +5,7 @@ import { SurgeManager } from "@/engine/core/managers/world/SurgeManager";
 import { SmartTerrain } from "@/engine/core/objects";
 import { isInTimeInterval } from "@/engine/core/utils/game";
 import { IWaypointData, parseWaypointData } from "@/engine/core/utils/ini";
-import { isAccessibleJob, isJobInRestrictor } from "@/engine/core/utils/job/job_check";
+import { isAccessibleJob, isJobPatrolInRestrictor } from "@/engine/core/utils/job/job_check";
 import { IJobDescriptor, IJobListDescriptor } from "@/engine/core/utils/job/job_types";
 import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
 import { communities } from "@/engine/lib/constants/communities";
@@ -25,7 +25,12 @@ import {
  * todo;
  */
 export function createStalkerJobs(smartTerrain: SmartTerrain): LuaMultiReturn<[IJobListDescriptor, string]> {
-  const stalkerJobs: IJobListDescriptor = { _precondition_is_monster: false, priority: 60, jobs: new LuaTable() };
+  const stalkerJobs: IJobListDescriptor = {
+    _precondition_is_monster: false,
+    priority: logicsConfig.JOBS.STALKER_JOB_PRIORITY,
+    jobs: new LuaTable(),
+  };
+
   let ltx: string =
     "[meet@generic_lager]\n" +
     "close_distance = {=is_wounded} 0, 2\n" +
@@ -241,66 +246,66 @@ export function createStalkerPointJobs(
 }
 
 /**
- * todo;
+ * Create surge walk/look jobs for stalkers in smart terrain.
+ *
+ * @param smartTerrain - smart terrain to create default surge jobs for
+ * @returns surge jobs list, generated LTX and count of created jobs
  */
 export function createStalkerSurgeJobs(
   smartTerrain: SmartTerrain
 ): LuaMultiReturn<[IJobListDescriptor, string, TCount]> {
-  const stalkerSurgeJobs: IJobListDescriptor = { priority: 50, jobs: new LuaTable() };
   const smartTerrainName: TName = smartTerrain.name();
+  const stalkerSurgeJobs: IJobListDescriptor = {
+    priority: logicsConfig.JOBS.STALKER_SURGE.PRIORITY,
+    jobs: new LuaTable(),
+  };
 
   let ltx: string = "";
   let it: TIndex = 1;
 
-  while (level.patrol_path_exists(smartTerrainName + "_surge_" + it + "_walk")) {
-    const wayName = smartTerrainName + "_surge_" + it + "_walk";
+  while (level.patrol_path_exists(`${smartTerrainName}_surge_${it}_walk`)) {
+    const wayName: TName = `${smartTerrainName}_surge_${it}_walk`;
 
     table.insert(stalkerSurgeJobs.jobs, {
-      priority: 50,
+      priority: logicsConfig.JOBS.STALKER_SURGE.PRIORITY,
       job_id: {
-        section: "logic@" + wayName,
-        job_type: "path_job",
+        section: `logic@${wayName}`,
+        job_type: EJobType.PATH_JOB,
       },
       _precondition_params: {},
       _precondition_function: () => SurgeManager.getInstance().isStarted,
     });
 
-    let jobLtx =
-      "[logic@" +
-      wayName +
-      "]\n" +
-      "active = walker@" +
-      wayName +
-      "\n" +
-      "[walker@" +
-      wayName +
-      "]\n" +
+    let jobLtx: string =
+      `[logic@${wayName}]\n` +
+      `active = walker@${wayName}\n` +
+      `[walker@${wayName}]\n` +
       "sound_idle = state\n" +
       "use_camp = true\n" +
       "meet = meet@generic_lager\n" +
-      "path_walk = surge_" +
-      it +
-      "_walk\n" +
+      `path_walk = surge_${it}_walk\n` +
       "def_state_standing = guard\n" +
       "def_state_moving = patrol\n";
 
-    if (level.patrol_path_exists(smartTerrainName + "_surge_" + it + "_look")) {
-      jobLtx = jobLtx + "path_look = surge_" + it + "_look\n";
+    // Add linked look patrols.
+    if (level.patrol_path_exists(`${smartTerrainName}_surge_${it}_look`)) {
+      jobLtx += `path_look = surge_${it}_look\n`;
     }
 
+    // Check for defend position restrictions.
     if (smartTerrain.defendRestrictor !== null) {
-      jobLtx = jobLtx + "out_restr = " + smartTerrain.defendRestrictor + "\n";
+      jobLtx += `out_restr = ${smartTerrain.defendRestrictor}\n`;
     }
 
+    // Check for combat ignore restrictions.
     if (
       smartTerrain.smartTerrainActorControl !== null &&
       smartTerrain.smartTerrainActorControl.ignoreZone !== null &&
-      isJobInRestrictor(smartTerrain, smartTerrain.smartTerrainActorControl.ignoreZone, wayName)
+      isJobPatrolInRestrictor(smartTerrain, smartTerrain.smartTerrainActorControl.ignoreZone, wayName)
     ) {
-      jobLtx =
-        jobLtx +
-        "combat_ignore_cond = {=npc_in_zone(smart.base_on_actor_control.ignore_zone)} true \n" +
-        "combat_ignore_keep_when_attacked = true \n";
+      jobLtx +=
+        "combat_ignore_cond = {=npc_in_zone(smart.base_on_actor_control.ignore_zone)} true\n" +
+        "combat_ignore_keep_when_attacked = true\n";
     }
 
     ltx += jobLtx;
@@ -355,7 +360,7 @@ export function createStalkerSleepJobs(
         }
 
         if (precondParams.is_safe_job === null) {
-          precondParams.is_safe_job = isJobInRestrictor(smart, smart.safeRestrictor, wayName);
+          precondParams.is_safe_job = isJobPatrolInRestrictor(smart, smart.safeRestrictor, wayName);
         }
 
         return precondParams.is_safe_job !== false;
@@ -376,7 +381,10 @@ export function createStalkerSleepJobs(
       it +
       "\n";
 
-    if (smartTerrain.safeRestrictor !== null && isJobInRestrictor(smartTerrain, smartTerrain.safeRestrictor, wayName)) {
+    if (
+      smartTerrain.safeRestrictor !== null &&
+      isJobPatrolInRestrictor(smartTerrain, smartTerrain.safeRestrictor, wayName)
+    ) {
       jobLtx += "invulnerable = {=npc_in_zone(smart.safe_restr)} true\n";
     }
 
@@ -387,7 +395,7 @@ export function createStalkerSleepJobs(
     if (
       smartTerrain.smartTerrainActorControl !== null &&
       smartTerrain.smartTerrainActorControl.ignoreZone !== null &&
-      isJobInRestrictor(smartTerrain, smartTerrain.smartTerrainActorControl.ignoreZone, wayName)
+      isJobPatrolInRestrictor(smartTerrain, smartTerrain.smartTerrainActorControl.ignoreZone, wayName)
     ) {
       jobLtx +=
         "combat_ignore_cond = {=npc_in_zone(smart.base_on_actor_control.ignore_zone)} true \n" +
@@ -481,7 +489,10 @@ export function createStalkerCollectorJobs(
       jobLtx += "path_look = collector_" + index + "_look\n";
     }
 
-    if (smartTerrain.safeRestrictor !== null && isJobInRestrictor(smartTerrain, smartTerrain.safeRestrictor, wayName)) {
+    if (
+      smartTerrain.safeRestrictor !== null &&
+      isJobPatrolInRestrictor(smartTerrain, smartTerrain.safeRestrictor, wayName)
+    ) {
       jobLtx += "invulnerable = {=npc_in_zone(smart.safe_restr)} true\n";
     }
 
@@ -492,7 +503,7 @@ export function createStalkerCollectorJobs(
     if (
       smartTerrain.smartTerrainActorControl !== null &&
       smartTerrain.smartTerrainActorControl.ignoreZone !== null &&
-      isJobInRestrictor(smartTerrain, smartTerrain.smartTerrainActorControl.ignoreZone, wayName)
+      isJobPatrolInRestrictor(smartTerrain, smartTerrain.smartTerrainActorControl.ignoreZone, wayName)
     ) {
       jobLtx +=
         "combat_ignore_cond = {=npc_in_zone(smart.base_on_actor_control.ignore_zone)} true \n" +
@@ -538,7 +549,7 @@ export function createStalkerWalkerJobs(
         }
 
         if (precondParams.is_safe_job === null) {
-          precondParams.is_safe_job = isJobInRestrictor(smart, smart.safeRestrictor, wayName);
+          precondParams.is_safe_job = isJobPatrolInRestrictor(smart, smart.safeRestrictor, wayName);
         }
 
         return precondParams.is_safe_job !== false;
@@ -567,7 +578,10 @@ export function createStalkerWalkerJobs(
       jobLtx += "path_look = walker_" + index + "_look\n";
     }
 
-    if (smartTerrain.safeRestrictor !== null && isJobInRestrictor(smartTerrain, smartTerrain.safeRestrictor, wayName)) {
+    if (
+      smartTerrain.safeRestrictor !== null &&
+      isJobPatrolInRestrictor(smartTerrain, smartTerrain.safeRestrictor, wayName)
+    ) {
       jobLtx += "invulnerable = {=npc_in_zone(smart.safe_restr)} true\n";
     }
 
@@ -578,7 +592,7 @@ export function createStalkerWalkerJobs(
     if (
       smartTerrain.smartTerrainActorControl !== null &&
       smartTerrain.smartTerrainActorControl.ignoreZone !== null &&
-      isJobInRestrictor(smartTerrain, smartTerrain.smartTerrainActorControl.ignoreZone, wayName)
+      isJobPatrolInRestrictor(smartTerrain, smartTerrain.smartTerrainActorControl.ignoreZone, wayName)
     ) {
       jobLtx +=
         "combat_ignore_cond = {=npc_in_zone(smart.base_on_actor_control.ignore_zone)} true \n" +
@@ -640,7 +654,7 @@ export function createStalkerPatrolJobs(
           }
 
           if (precondParams.is_safe_job === null) {
-            precondParams.is_safe_job = isJobInRestrictor(smart, smart.safeRestrictor, wayName);
+            precondParams.is_safe_job = isJobPatrolInRestrictor(smart, smart.safeRestrictor, wayName);
           }
 
           return precondParams.is_safe_job !== false;
@@ -669,7 +683,10 @@ export function createStalkerPatrolJobs(
       jobLtx += "path_look = patrol_" + index + "_look\n";
     }
 
-    if (smartTerrain.safeRestrictor !== null && isJobInRestrictor(smartTerrain, smartTerrain.safeRestrictor, wayName)) {
+    if (
+      smartTerrain.safeRestrictor !== null &&
+      isJobPatrolInRestrictor(smartTerrain, smartTerrain.safeRestrictor, wayName)
+    ) {
       jobLtx += "invulnerable = {=npc_in_zone(smart.safe_restr)} true\n";
     }
 
@@ -739,7 +756,7 @@ export function createStalkerAnimpointJobs(
     // todo: Bad path name?
     if (
       smartTerrain.safeRestrictor !== null &&
-      isJobInRestrictor(smartTerrain, smartTerrain.safeRestrictor, null as any)
+      isJobPatrolInRestrictor(smartTerrain, smartTerrain.safeRestrictor, null as any)
     ) {
       jobLtx += "invulnerable = {=npc_in_zone(smart.safe_restr)} true\n";
     }
@@ -791,7 +808,7 @@ export function createStalkerGuardJobs(smartTerrain: SmartTerrain): LuaMultiRetu
         }
 
         if (precondParams.is_safe_job === null) {
-          precondParams.is_safe_job = isJobInRestrictor(smart, smart.safeRestrictor, wayName);
+          precondParams.is_safe_job = isJobPatrolInRestrictor(smart, smart.safeRestrictor, wayName);
         }
 
         return precondParams.is_safe_job !== false;
@@ -816,7 +833,10 @@ export function createStalkerGuardJobs(smartTerrain: SmartTerrain): LuaMultiRetu
       index +
       "_look\n";
 
-    if (smartTerrain.safeRestrictor !== null && isJobInRestrictor(smartTerrain, smartTerrain.safeRestrictor, wayName)) {
+    if (
+      smartTerrain.safeRestrictor !== null &&
+      isJobPatrolInRestrictor(smartTerrain, smartTerrain.safeRestrictor, wayName)
+    ) {
       jobLtx += "invulnerable = {=npc_in_zone(smart.safe_restr)} true\n";
     }
 
@@ -847,7 +867,10 @@ export function createStalkerGuardJobs(smartTerrain: SmartTerrain): LuaMultiRetu
       wayName +
       "\n";
 
-    if (smartTerrain.safeRestrictor !== null && isJobInRestrictor(smartTerrain, smartTerrain.safeRestrictor, wayName)) {
+    if (
+      smartTerrain.safeRestrictor !== null &&
+      isJobPatrolInRestrictor(smartTerrain, smartTerrain.safeRestrictor, wayName)
+    ) {
       job1Ltx += "invulnerable = {=npc_in_zone(smart.safe_restr)} true\n";
     }
 

@@ -62,7 +62,11 @@ export function areOnlyMonstersOnJobs(objectInfos: LuaArray<IObjectJobDescriptor
  * todo;
  * todo;
  */
-export function isJobInRestrictor(smart: SmartTerrain, restrictorName: TName, wayName: string): Optional<boolean> {
+export function isJobPatrolInRestrictor(
+  smartTerrain: SmartTerrain,
+  restrictorName: TName,
+  wayName: TName
+): Optional<boolean> {
   if (restrictorName === null) {
     return null;
   }
@@ -76,8 +80,8 @@ export function isJobInRestrictor(smart: SmartTerrain, restrictorName: TName, wa
   const patrolObject: Patrol = new patrol(wayName);
   const count: TCount = patrolObject.count();
 
-  for (const pt of $range(0, count - 1)) {
-    if (!restrictor.inside(patrolObject.point(pt))) {
+  for (const point of $range(0, count - 1)) {
+    if (!restrictor.inside(patrolObject.point(point))) {
       return false;
     }
   }

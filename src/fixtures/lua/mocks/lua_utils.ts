@@ -33,6 +33,10 @@ export function luaTableToObject(value: Optional<LuaTable | AnyObject | Array<un
   } else if (Array.isArray(value)) {
     return value.map((it) => luaTableToObject(it));
   } else if (typeof value === "object") {
+    if ((value as AnyObject)["$$typeof"]) {
+      return value;
+    }
+
     return Object.entries(value).reduce((acc, [key, value]) => {
       acc[key as unknown as string] = luaTableToObject(value);
 
