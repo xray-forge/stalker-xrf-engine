@@ -44,6 +44,7 @@ import {
   TCount,
   TDistance,
   TIndex,
+  TLabel,
   TName,
   TNumberId,
   TRate,
@@ -61,7 +62,7 @@ import { zatB29AfTable, zatB29InfopBringTable } from "@/engine/scripts/declarati
  */
 extern(
   "xr_effects.show_freeplay_dialog",
-  (actor: ClientObject, object: ClientObject, [text, canLeave]: [string, Optional<"true">]) => {
+  (actor: ClientObject, object: ClientObject, [text, canLeave]: [Optional<TLabel>, Optional<"true">]) => {
     if (text && canLeave && canLeave === TRUE) {
       showFreeplayDialog("message_box_yes_no", text);
     } else if (text) {
@@ -201,7 +202,7 @@ extern("xr_effects.zat_b28_heli_3_searching", (actor: ClientObject, npc: ClientO
  */
 extern("xr_effects.zat_b100_heli_2_searching", (actor: ClientObject, npc: ClientObject): void => {
   if (isObjectInZone(actor, registry.zones.get(zones.zat_b100_heli_2))) {
-    giveInfo("zat_b100_heli_2_searching");
+    giveInfo(infoPortions.zat_b100_heli_2_searching);
   }
 });
 

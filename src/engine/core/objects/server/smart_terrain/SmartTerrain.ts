@@ -33,18 +33,8 @@ import {
 } from "@/engine/core/database/simulation";
 import { SimulationBoardManager } from "@/engine/core/managers/interaction/SimulationBoardManager";
 import { MapDisplayManager } from "@/engine/core/managers/interface";
-import {
-  areOnlyMonstersOnJobs,
-  jobIterator,
-  loadSmartTerrainJobs,
-} from "@/engine/core/objects/server/smart_terrain/jobs_general";
 import { SmartTerrainControl } from "@/engine/core/objects/server/smart_terrain/SmartTerrainControl";
-import {
-  ESmartTerrainStatus,
-  IObjectJobDescriptor,
-  ISmartTerrainJob,
-  TJobDescriptor,
-} from "@/engine/core/objects/server/smart_terrain/types";
+import { ESmartTerrainStatus } from "@/engine/core/objects/server/smart_terrain/types";
 import { SquadReachTargetAction, SquadStayOnTargetAction } from "@/engine/core/objects/server/squad/action";
 import { simulationActivities } from "@/engine/core/objects/server/squad/simulation_activities";
 import { Squad } from "@/engine/core/objects/server/squad/Squad";
@@ -68,6 +58,14 @@ import {
   readIniString,
   TConditionList,
 } from "@/engine/core/utils/ini";
+import {
+  areOnlyMonstersOnJobs,
+  IObjectJobDescriptor,
+  ISmartTerrainJob,
+  selectJob,
+  TJobDescriptor,
+} from "@/engine/core/utils/job";
+import { loadSmartTerrainJobs } from "@/engine/core/utils/job/job_load";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { areObjectsOnSameLevel, isMonster, isStalker } from "@/engine/core/utils/object";
 import { ERelation } from "@/engine/core/utils/relation";
@@ -864,7 +862,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
    * todo: Description.
    */
   public selectObjectJob(objectJobDescriptor: IObjectJobDescriptor): void {
-    const [selectedJobId, selectedJobPriority, selectedJobLink] = jobIterator(this, this.jobs, objectJobDescriptor, 0);
+    const [selectedJobId, selectedJobPriority, selectedJobLink] = selectJob(this, this.jobs, objectJobDescriptor, 0);
 
     assertDefined(
       selectedJobId,

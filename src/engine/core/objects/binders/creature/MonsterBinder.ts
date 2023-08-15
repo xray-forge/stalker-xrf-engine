@@ -16,7 +16,6 @@ import {
 } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
-import { setupSmartJobsAndLogicOnSpawn } from "@/engine/core/objects/server/smart_terrain/jobs_general";
 import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain/SmartTerrain";
 import { SquadReachTargetAction } from "@/engine/core/objects/server/squad/action";
 import { Squad } from "@/engine/core/objects/server/squad/Squad";
@@ -24,6 +23,7 @@ import { TSimulationObject } from "@/engine/core/objects/server/types";
 import { ESchemeEvent, IBaseSchemeState } from "@/engine/core/schemes";
 import { SchemeHear } from "@/engine/core/schemes/hear/SchemeHear";
 import { pickSectionFromCondList, TConditionList } from "@/engine/core/utils/ini";
+import { setupObjectSmartJobsAndLogicOnSpawn } from "@/engine/core/utils/job";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getObjectSquad } from "@/engine/core/utils/object";
 import {
@@ -190,7 +190,7 @@ export class MonsterBinder extends object_binder {
       }
     }
 
-    setupSmartJobsAndLogicOnSpawn(this.object, this.state, object, ESchemeType.MONSTER, this.isLoaded);
+    setupObjectSmartJobsAndLogicOnSpawn(this.object, this.state, ESchemeType.MONSTER, this.isLoaded);
 
     return true;
   }

@@ -1,15 +1,15 @@
-import * as fsPromises from "fs/promises";
+import * as fsp from "fs/promises";
 import * as path from "path";
 
 import { describe, expect, it, jest } from "@jest/globals";
 
 import { SmartTerrain } from "@/engine/core/objects";
-import { loadSmartTerrainJobs } from "@/engine/core/objects/server/smart_terrain/jobs_general";
+import { loadSmartTerrainJobs } from "@/engine/core/utils/job/job_load";
 
 describe("jobs_general should correctly generate default jobs", () => {
   it("should correctly generate default jobs", async () => {
     const DEFAULT_JOBS_GENERAL: string = (
-      await fsPromises.readFile(path.resolve(__dirname, "__test__", "jobs_general.default.ltx"))
+      await fsp.readFile(path.resolve(__dirname, "__test__", "jobs_general.default.ltx"))
     )
       .toString()
       .replace(/\r\n/g, "\n");

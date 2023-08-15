@@ -1,42 +1,39 @@
-import { alife, getFS, ini_file, level, patrol } from "xray16";
+import { getFS, ini_file, level, patrol } from "xray16";
 
-import { IRegistryObjectState, registry } from "@/engine/core/database";
+import { registry } from "@/engine/core/database";
 import { SurgeManager } from "@/engine/core/managers/world/SurgeManager";
-import type { SmartTerrain } from "@/engine/core/objects/server/smart_terrain/SmartTerrain";
-import { IJobDescriptor, IObjectJobDescriptor, TJobDescriptor } from "@/engine/core/objects/server/smart_terrain/types";
-import { isInTimeInterval } from "@/engine/core/utils/game/game_time";
-import { pickSectionFromCondList } from "@/engine/core/utils/ini/ini_config";
-import { getSchemeFromSection, parseConditionsList, parseWaypointData } from "@/engine/core/utils/ini/ini_parse";
-import { readIniBoolean, readIniNumber, readIniString } from "@/engine/core/utils/ini/ini_read";
-import { TConditionList } from "@/engine/core/utils/ini/ini_types";
+import { SmartTerrain } from "@/engine/core/objects";
+import { isInTimeInterval } from "@/engine/core/utils/game";
+import {
+  getSchemeFromSection,
+  parseConditionsList,
+  parseWaypointData,
+  pickSectionFromCondList,
+  readIniBoolean,
+  readIniNumber,
+  readIniString,
+  TConditionList,
+} from "@/engine/core/utils/ini";
+import { isAccessibleJob, isJobInRestrictor } from "@/engine/core/utils/job/job_check";
+import { IJobDescriptor, TJobDescriptor } from "@/engine/core/utils/job/types";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { initializeObjectSchemeLogic } from "@/engine/core/utils/scheme";
 import { communities } from "@/engine/lib/constants/communities";
-import { MAX_U16 } from "@/engine/lib/constants/memory";
 import { roots } from "@/engine/lib/constants/roots";
 import { SMART_TERRAIN_SECTION } from "@/engine/lib/constants/sections";
 import { FALSE } from "@/engine/lib/constants/words";
 import {
-  AlifeSimulator,
-  AnyCallable,
   AnyObject,
   ClientObject,
   EJobType,
   EScheme,
-  ESchemeType,
   IniFile,
   JobTypeByScheme,
   LuaArray,
   Optional,
-  Patrol,
-  ServerCreatureObject,
   ServerHumanObject,
   ServerObject,
-  TCount,
   TName,
-  TNumberId,
   TPath,
-  TRate,
   TSection,
 } from "@/engine/lib/types";
 
@@ -46,6 +43,9 @@ const logger: LuaLogger = new LuaLogger($filename);
  * todo;
  * todo;
  * todo;
+ *
+ * @param smartTerrain - jobs to load for smart terrain
+ * @returns array of job descriptors and ltx configuration text
  */
 export function loadSmartTerrainJobs(smartTerrain: SmartTerrain): LuaMultiReturn<[LuaArray<TJobDescriptor>, string]> {
   const smartTerrainName: TName = smartTerrain.name();
@@ -1130,7 +1130,7 @@ function addExclusiveJob(
     _precondition_params: { condlist: conditionsList },
     _precondition_function: (
       serverObject: ServerHumanObject,
-      smart: SmartTerrain,
+      smartTerrain: SmartTerrain,
       precondParams: AnyObject
     ): boolean => {
       const result: Optional<string> = pickSectionFromCondList(registry.actor, serverObject, precondParams.condlist);
@@ -1154,158 +1154,4 @@ function addExclusiveJob(
       job_type: jobType,
     },
   });
-}
-
-/**
- * todo;
- * todo;
- */
-export function isJobInRestrictor(smart: SmartTerrain, restrictorName: TName, wayName: string): Optional<boolean> {
-  if (restrictorName === null) {
-    return null;
-  }
-
-  const restrictor: Optional<ClientObject> = registry.zones.get(restrictorName);
-
-  if (restrictor === null) {
-    return null;
-  }
-
-  const patrolObject: Patrol = new patrol(wayName);
-  const count: TCount = patrolObject.count();
-
-  for (const pt of $range(0, count - 1)) {
-    if (!restrictor.inside(patrolObject.point(pt))) {
-      return false;
-    }
-  }
-
-  return true;
-}
-
-/**
- * todo;
- */
-export function isAccessibleJob(serverObject: ServerObject, wayName: TName): boolean {
-  return registry.objects.get(serverObject.id)?.object !== null;
-}
-
-/**
- * todo;
- */
-export function jobIterator(
-  smartTerrain: SmartTerrain,
-  jobs: LuaTable<any, any>,
-  objectJobDescriptor: IObjectJobDescriptor,
-  selectedJobPriority: TRate
-): LuaMultiReturn<[Optional<TNumberId>, TRate, Optional<any>]> {
-  let selectedJobId: Optional<TNumberId> = null;
-  let currentJobPriority: TRate = selectedJobPriority;
-  let selectedJobLink = null;
-
-  for (const [k, jobInfo] of jobs) {
-    if (currentJobPriority > jobInfo.priority) {
-      return $multi(selectedJobId, currentJobPriority, selectedJobLink);
-    }
-
-    if (isJobAvailableToObject(objectJobDescriptor, jobInfo, smartTerrain)) {
-      if (jobInfo.job_id === null) {
-        [selectedJobId, currentJobPriority, selectedJobLink] = jobIterator(
-          smartTerrain,
-          jobInfo.jobs,
-          objectJobDescriptor,
-          selectedJobPriority
-        );
-      } else {
-        if (jobInfo.npc_id === null) {
-          return $multi(jobInfo.job_id, jobInfo.priority, jobInfo);
-        } else if (jobInfo.job_id === objectJobDescriptor.job_id) {
-          return $multi(jobInfo.job_id, jobInfo.priority, jobInfo);
-        }
-      }
-    }
-  }
-
-  return $multi(selectedJobId, currentJobPriority, selectedJobLink);
-}
-
-/**
- * todo;
- */
-export function areOnlyMonstersOnJobs(objectInfos: LuaArray<IObjectJobDescriptor>): boolean {
-  for (const [, objectInfo] of objectInfos) {
-    if (!objectInfo.isMonster) {
-      return false;
-    }
-  }
-
-  return true;
-}
-
-/**
- * todo;
- * todo: gulag general update
- */
-function isJobAvailableToObject(objectInfo: IObjectJobDescriptor, jobInfo: any, smartTerrain: SmartTerrain): boolean {
-  if (smartTerrain.jobDeadTimeById.get(jobInfo.job_id) !== null) {
-    return false;
-  }
-
-  if (jobInfo._precondition_is_monster !== null && jobInfo._precondition_is_monster !== objectInfo.isMonster) {
-    return false;
-  }
-
-  if (jobInfo._precondition_function !== null) {
-    if (
-      !(jobInfo._precondition_function as AnyCallable)(
-        objectInfo.serverObject,
-        smartTerrain,
-        jobInfo._precondition_params,
-        objectInfo
-      )
-    ) {
-      return false;
-    }
-  }
-
-  return true;
-}
-
-/**
- * todo;
- */
-export function setupSmartJobsAndLogicOnSpawn(
-  object: ClientObject,
-  state: IRegistryObjectState,
-  serverObject: Optional<ServerCreatureObject>,
-  schemeType: ESchemeType,
-  isLoaded: boolean
-): void {
-  logger.info("Setup smart terrain logic on spawn:", object.name(), schemeType);
-
-  const alifeSimulator: Optional<AlifeSimulator> = alife();
-
-  serverObject = alife()!.object(object.id());
-
-  if (alifeSimulator !== null && serverObject !== null) {
-    const smartTerrainId: TNumberId = serverObject.m_smart_terrain_id;
-
-    if (smartTerrainId !== null && smartTerrainId !== MAX_U16) {
-      const smartTerrain: SmartTerrain = alifeSimulator.object(smartTerrainId) as SmartTerrain;
-      const needSetupLogic: boolean =
-        !isLoaded &&
-        smartTerrain.objectJobDescriptors.get(object.id()) &&
-        smartTerrain.objectJobDescriptors.get(object.id()).begin_job === true;
-
-      if (needSetupLogic) {
-        smartTerrain.setupObjectLogic(object);
-      } else {
-        initializeObjectSchemeLogic(object, state, isLoaded, schemeType);
-      }
-    } else {
-      initializeObjectSchemeLogic(object, state, isLoaded, schemeType);
-    }
-  } else {
-    initializeObjectSchemeLogic(object, state, isLoaded, schemeType);
-  }
 }
