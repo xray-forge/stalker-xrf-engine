@@ -1,6 +1,7 @@
 import { describe, expect, it, jest } from "@jest/globals";
 import { getFS } from "xray16";
 
+import { parseConditionsList } from "@/engine/core/utils/ini";
 import { loadExclusiveJob } from "@/engine/core/utils/job/job_exclusive";
 import { TJobDescriptor } from "@/engine/core/utils/job/job_types";
 import { IniFile, LuaArray } from "@/engine/lib/types";
@@ -118,23 +119,7 @@ describe("'job_exclusive' utils", () => {
         _precondition_function: expect.any(Function),
         _precondition_is_monster: false,
         _precondition_params: {
-          condlist: {
-            "1": {
-              infop_check: {
-                "1": {
-                  name: "test_info",
-                  required: true,
-                },
-              },
-              infop_set: {},
-              section: "true",
-            },
-            "2": {
-              infop_check: {},
-              infop_set: {},
-              section: "false",
-            },
-          },
+          condlist: parseConditionsList("{+test_info} true, false"),
         },
         job_id: {
           ini_file: expect.any(Object),
