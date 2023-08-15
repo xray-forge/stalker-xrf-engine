@@ -1,11 +1,13 @@
 import { level, patrol } from "xray16";
 
 import { registry } from "@/engine/core/database";
-import { SurgeManager } from "@/engine/core/managers/world/SurgeManager";
 import { SmartTerrain } from "@/engine/core/objects";
 import { isInTimeInterval } from "@/engine/core/utils/game";
 import { IWaypointData, parseWaypointData } from "@/engine/core/utils/ini";
 import { isAccessibleJob, isJobPatrolInRestrictor } from "@/engine/core/utils/job/job_check";
+import { createStalkerPointJobs } from "@/engine/core/utils/job/job_create_stalker_point";
+import { createStalkerSleepJobs } from "@/engine/core/utils/job/job_create_stalker_sleep";
+import { createStalkerSurgeJobs } from "@/engine/core/utils/job/job_create_stalker_surge";
 import { IJobDescriptor, IJobListDescriptor } from "@/engine/core/utils/job/job_types";
 import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
 import { communities } from "@/engine/lib/constants/communities";
@@ -192,224 +194,6 @@ export function createStalkerJobs(smartTerrain: SmartTerrain): LuaMultiReturn<[I
 }
 
 /**
- * Create point / cover jobs for stalkers in smart terrain.
- *
- * @param smartTerrain - smart terrain to create default point jobs for
- * @returns cover jobs list, generated LTX and count of created jobs
- */
-export function createStalkerPointJobs(
-  smartTerrain: SmartTerrain
-): LuaMultiReturn<[IJobListDescriptor, string, TCount]> {
-  const smartTerrainName: TName = smartTerrain.name();
-  const pointJobs: IJobListDescriptor = {
-    priority: logicsConfig.JOBS.STALKER_POINT.PRIORITY,
-    jobs: new LuaTable(),
-  };
-
-  let ltx: string = "";
-
-  for (const it of $range(1, logicsConfig.JOBS.STALKER_POINT.COUNT)) {
-    const name: TName = `${smartTerrainName}_point_${it}`;
-
-    table.insert(pointJobs.jobs, {
-      priority: logicsConfig.JOBS.STALKER_POINT.PRIORITY,
-      job_id: {
-        section: `logic@${name}`,
-        job_type: EJobType.POINT_JOB,
-      },
-    });
-
-    ltx +=
-      `[logic@${name}]\n` +
-      `active = cover@${name}\n` +
-      `[cover@${name}]\n` +
-      "meet = meet@generic_lager\n" +
-      `smart = ${smartTerrainName}\n` +
-      `radius_min = ${logicsConfig.JOBS.STALKER_POINT.MIN_RADIUS}\n` +
-      `radius_max = ${logicsConfig.JOBS.STALKER_POINT.MAX_RADIUS}\n` +
-      "use_attack_direction = false\n" +
-      "anim = {!npc_community(zombied)} sit, guard\n";
-
-    if (smartTerrain.defendRestrictor !== null) {
-      ltx += `out_restr = ${smartTerrain.defendRestrictor}\n`;
-    }
-
-    if (smartTerrain.smartTerrainActorControl !== null && smartTerrain.smartTerrainActorControl.ignoreZone !== null) {
-      // todo: Probably smart.base_on_actor_control.ignore_zone should be injected? Original issue.
-      ltx +=
-        "combat_ignore_cond = {=npc_in_zone(smart.base_on_actor_control.ignore_zone)} true\n" +
-        "combat_ignore_keep_when_attacked = true\n";
-    }
-  }
-
-  return $multi(pointJobs, ltx, logicsConfig.JOBS.STALKER_POINT.COUNT);
-}
-
-/**
- * Create surge walk/look jobs for stalkers in smart terrain.
- *
- * @param smartTerrain - smart terrain to create default surge jobs for
- * @returns surge jobs list, generated LTX and count of created jobs
- */
-export function createStalkerSurgeJobs(
-  smartTerrain: SmartTerrain
-): LuaMultiReturn<[IJobListDescriptor, string, TCount]> {
-  const smartTerrainName: TName = smartTerrain.name();
-  const stalkerSurgeJobs: IJobListDescriptor = {
-    priority: logicsConfig.JOBS.STALKER_SURGE.PRIORITY,
-    jobs: new LuaTable(),
-  };
-
-  let ltx: string = "";
-  let it: TIndex = 1;
-
-  while (level.patrol_path_exists(`${smartTerrainName}_surge_${it}_walk`)) {
-    const wayName: TName = `${smartTerrainName}_surge_${it}_walk`;
-
-    table.insert(stalkerSurgeJobs.jobs, {
-      priority: logicsConfig.JOBS.STALKER_SURGE.PRIORITY,
-      job_id: {
-        section: `logic@${wayName}`,
-        job_type: EJobType.PATH_JOB,
-      },
-      _precondition_params: {},
-      _precondition_function: () => SurgeManager.getInstance().isStarted,
-    });
-
-    let jobLtx: string =
-      `[logic@${wayName}]\n` +
-      `active = walker@${wayName}\n` +
-      `[walker@${wayName}]\n` +
-      "sound_idle = state\n" +
-      "use_camp = true\n" +
-      "meet = meet@generic_lager\n" +
-      `path_walk = surge_${it}_walk\n` +
-      "def_state_standing = guard\n" +
-      "def_state_moving = patrol\n";
-
-    // Add linked look patrols.
-    if (level.patrol_path_exists(`${smartTerrainName}_surge_${it}_look`)) {
-      jobLtx += `path_look = surge_${it}_look\n`;
-    }
-
-    // Check for defend position restrictions.
-    if (smartTerrain.defendRestrictor !== null) {
-      jobLtx += `out_restr = ${smartTerrain.defendRestrictor}\n`;
-    }
-
-    // Check for combat ignore restrictions.
-    if (
-      smartTerrain.smartTerrainActorControl !== null &&
-      smartTerrain.smartTerrainActorControl.ignoreZone !== null &&
-      isJobPatrolInRestrictor(smartTerrain, smartTerrain.smartTerrainActorControl.ignoreZone, wayName)
-    ) {
-      jobLtx +=
-        "combat_ignore_cond = {=npc_in_zone(smart.base_on_actor_control.ignore_zone)} true\n" +
-        "combat_ignore_keep_when_attacked = true\n";
-    }
-
-    ltx += jobLtx;
-    it += 1;
-  }
-
-  return $multi(stalkerSurgeJobs, ltx, it);
-}
-
-/**
- * todo;
- */
-export function createStalkerSleepJobs(
-  smartTerrain: SmartTerrain
-): LuaMultiReturn<[IJobListDescriptor, string, TCount]> {
-  const sleepJobs: IJobListDescriptor = { priority: 10, jobs: new LuaTable() };
-  const smartTerrainName: TName = smartTerrain.name();
-
-  let ltx: string = "";
-  let it: TIndex = 1;
-
-  // todo: Probably only one job applies by should be more?
-  while (level.patrol_path_exists(smartTerrainName + "_sleep_" + it)) {
-    const wayName: TName = smartTerrainName + "_sleep_" + it;
-
-    table.insert(sleepJobs.jobs, {
-      priority: 10,
-      job_id: {
-        section: "logic@" + wayName,
-        job_type: "path_job",
-      },
-      _precondition_params: {},
-      _precondition_function: (
-        serverObject: ServerHumanObject,
-        smart: SmartTerrain,
-        precondParams: AnyObject
-      ): boolean => {
-        if (serverObject.community() === communities.zombied) {
-          return false;
-        }
-
-        if (!isInTimeInterval(21, 7)) {
-          return false;
-        }
-
-        if (smart.alarmStartedAt === null) {
-          return true;
-        }
-
-        if (smart.safeRestrictor === null) {
-          return true;
-        }
-
-        if (precondParams.is_safe_job === null) {
-          precondParams.is_safe_job = isJobPatrolInRestrictor(smart, smart.safeRestrictor, wayName);
-        }
-
-        return precondParams.is_safe_job !== false;
-      },
-    });
-
-    let jobLtx: string =
-      "[logic@" +
-      wayName +
-      "]\n" +
-      "active = sleeper@" +
-      wayName +
-      "\n" +
-      "[sleeper@" +
-      wayName +
-      "]\n" +
-      "path_main = sleep_" +
-      it +
-      "\n";
-
-    if (
-      smartTerrain.safeRestrictor !== null &&
-      isJobPatrolInRestrictor(smartTerrain, smartTerrain.safeRestrictor, wayName)
-    ) {
-      jobLtx += "invulnerable = {=npc_in_zone(smart.safe_restr)} true\n";
-    }
-
-    if (smartTerrain.defendRestrictor !== null) {
-      jobLtx += "out_restr = " + smartTerrain.defendRestrictor + "\n";
-    }
-
-    if (
-      smartTerrain.smartTerrainActorControl !== null &&
-      smartTerrain.smartTerrainActorControl.ignoreZone !== null &&
-      isJobPatrolInRestrictor(smartTerrain, smartTerrain.smartTerrainActorControl.ignoreZone, wayName)
-    ) {
-      jobLtx +=
-        "combat_ignore_cond = {=npc_in_zone(smart.base_on_actor_control.ignore_zone)} true \n" +
-        "combat_ignore_keep_when_attacked = true \n";
-    }
-
-    ltx += jobLtx;
-    it += 1;
-  }
-
-  return $multi(sleepJobs, ltx, it);
-}
-
-/**
  * todo;
  */
 export function createStalkerCollectorJobs(
@@ -429,7 +213,7 @@ export function createStalkerCollectorJobs(
       priority: 25,
       job_id: {
         section: "logic@" + wayName,
-        job_type: "path_job",
+        job_type: EJobType.PATH_JOB,
       },
       _precondition_params: {},
       _precondition_function: (
@@ -536,7 +320,7 @@ export function createStalkerWalkerJobs(
       priority: 15,
       job_id: {
         section: "logic@" + wayName,
-        job_type: "path_job",
+        job_type: EJobType.PATH_JOB,
       },
       _precondition_params: {},
       _precondition_function: (serverObject: ServerObject, smart: SmartTerrain, precondParams: AnyObject): boolean => {
@@ -633,7 +417,7 @@ export function createStalkerPatrolJobs(
         priority: 20,
         job_id: {
           section: "logic@" + wayName,
-          job_type: "path_job",
+          job_type: EJobType.PATH_JOB,
         },
         _precondition_params: {},
         _precondition_function: (
@@ -713,14 +497,14 @@ export function createStalkerAnimpointJobs(
   let ltx: string = "";
   let index: TIndex = 1;
 
-  while (registry.smartCovers.get(smartTerrainName + "_animpoint_" + index) !== null) {
-    const smartcoverName: TName = smartTerrainName + "_animpoint_" + index;
+  while (registry.smartCovers.get(`${smartTerrainName}_animpoint_${index}`) !== null) {
+    const smartCoverName: TName = `${smartTerrainName}_animpoint_${index}`;
 
     const t: IJobDescriptor = {
       priority: 15,
       job_id: {
-        section: "logic@" + smartcoverName,
-        job_type: "smartcover_job",
+        section: `logic@${smartCoverName}`,
+        job_type: EJobType.SMART_COVER_JOB,
       },
       _precondition_params: {},
       _precondition_function: (
@@ -736,17 +520,17 @@ export function createStalkerAnimpointJobs(
 
     let jobLtx: string =
       "[logic@" +
-      smartcoverName +
+      smartCoverName +
       "]\n" +
       "active = animpoint@" +
-      smartcoverName +
+      smartCoverName +
       "\n" +
       "[animpoint@" +
-      smartcoverName +
+      smartCoverName +
       "]\n" +
       "meet = meet@generic_animpoint\n" +
       "cover_name = " +
-      smartcoverName +
+      smartCoverName +
       "\n";
 
     if (smartTerrain.defendRestrictor !== null) {
@@ -791,7 +575,7 @@ export function createStalkerGuardJobs(smartTerrain: SmartTerrain): LuaMultiRetu
       priority: 25,
       job_id: {
         section: "logic@" + wayName,
-        job_type: "path_job",
+        job_type: EJobType.PATH_JOB,
       },
       _precondition_params: {},
       _precondition_function: (
@@ -888,7 +672,7 @@ export function createStalkerGuardJobs(smartTerrain: SmartTerrain): LuaMultiRetu
       priority: 24,
       job_id: {
         section: "logic@follower_" + wayName,
-        job_type: "path_job",
+        job_type: EJobType.PATH_JOB,
       },
       _precondition_params: { changing_job: "logic@" + wayName },
       _precondition_function: (
@@ -977,7 +761,7 @@ export function createStalkerSniperJobs(
       priority: 30,
       job_id: {
         section: "logic@" + wayName,
-        job_type: "path_job",
+        job_type: EJobType.PATH_JOB,
       },
       _precondition_params: { way_name: wayName },
       _precondition_function: (
@@ -1062,7 +846,7 @@ export function createStalkerCamperJobs(
       priority: 45,
       job_id: {
         section: "logic@" + wayName,
-        job_type: "path_job",
+        job_type: EJobType.PATH_JOB,
       },
       _precondition_params: { way_name: wayName },
       _precondition_function: (serverObject: ServerHumanObject, smart: SmartTerrain, precond_params: AnyObject) => {

@@ -2,6 +2,7 @@ import type { SmartTerrain } from "@/engine/core/objects";
 import type {
   ALifeSmartTerrainTask,
   AnyObject,
+  EJobType,
   ESchemeType,
   IniFile,
   LuaArray,
@@ -48,7 +49,7 @@ export interface ISmartTerrainJob extends IJobBase {
  */
 export interface IJobBase {
   section: TSection;
-  job_type: string;
+  job_type: EJobType;
   online?: Optional<string>;
   ini_path?: TPath;
   ini_file?: IniFile;

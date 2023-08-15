@@ -3,14 +3,14 @@ import * as path from "path";
 import { describe, expect, it, jest } from "@jest/globals";
 
 import { SmartTerrain, SmartTerrainControl } from "@/engine/core/objects";
-import { createStalkerPointJobs } from "@/engine/core/utils/job/job_create_stalker";
+import { createStalkerPointJobs } from "@/engine/core/utils/job/job_create_stalker_point";
 import { range } from "@/engine/core/utils/number";
 import { readInGameTestLtx } from "@/fixtures/engine";
 
 describe("jobs_general should correctly generate stalkers point jobs", () => {
   it("should correctly generate point jobs for stalkers", async () => {
     const pointJobsLtx: string = await readInGameTestLtx(
-      path.resolve(__dirname, "__test__", "job_create_stalker.point.ltx")
+      path.resolve(__dirname, "__test__", "job_create_stalker_point.ltx")
     );
 
     const smartTerrain: SmartTerrain = new SmartTerrain("test_smart");
@@ -39,7 +39,7 @@ describe("jobs_general should correctly generate stalkers point jobs", () => {
 
   it("should correctly generate point jobs for stalkers with extended smart terrains", async () => {
     const pointJobsLtx: string = await readInGameTestLtx(
-      path.resolve(__dirname, "__test__", "job_create_stalker.point.restrictors.ltx")
+      path.resolve(__dirname, "__test__", "job_create_stalker_point.restrictors.ltx")
     );
 
     const smartTerrain: SmartTerrain = new SmartTerrain("test_smart");

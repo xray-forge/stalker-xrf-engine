@@ -101,6 +101,9 @@ export const logicsConfig = {
     STALKER_SURGE: {
       PRIORITY: 50,
     },
+    STALKER_SLEEP: {
+      PRIORITY: 10,
+    },
   },
   TRADE: {
     DEFAULT_TRADE_LTX_PATH: "misc\\trade\\trade_generic.ltx",
