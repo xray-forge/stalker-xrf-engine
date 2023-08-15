@@ -259,6 +259,15 @@ path_walk = collector_1_walk
 def_state_standing = guard
 def_state_moving = patrol
 path_look = collector_1_look
+[logic@test_smart_walker_1_walk]
+active = walker@test_smart_walker_1_walk
+[walker@test_smart_walker_1_walk]
+sound_idle = state
+meet = meet@generic_lager
+path_walk = walker_1_walk
+def_state_standing = guard
+def_state_moving = patrol
+path_look = walker_1_look
 [logic@test_smart_patrol_1_walk]
 active = patrol@test_smart_patrol_1_walk
 [patrol@test_smart_patrol_1_walk]
@@ -299,6 +308,15 @@ on_info = {=distance_to_obj_on_job_le(logic@test_smart_guard_1_walk:3)} remark@f
 anim = wait_na
 target = logic@test_smart_guard_1_walk
 on_timer = 2000 | %=switch_to_desired_job%
+[logic@test_smart_sniper_1_walk]
+active = camper@test_smart_sniper_1_walk
+[camper@test_smart_sniper_1_walk]
+meet = meet@generic_lager
+path_walk = sniper_1_walk
+path_look = sniper_1_look
+sniper = true
+def_state_campering = hide
+def_state_campering_fire = hide_fire
 [logic@test_smart_camper_1_walk]
 active = camper@test_smart_camper_1_walk
 [camper@test_smart_camper_1_walk]

@@ -47,40 +47,22 @@ export function createStalkerSniperJobs(
       _precondition_function: (
         serverObject: ServerHumanObject,
         smart: SmartTerrain,
-        precondParams: AnyObject
+        parameters: AnyObject
       ): boolean => {
-        if (serverObject.community() === communities.zombied) {
-          return false;
-        }
-
-        return isAccessibleJob(serverObject, precondParams.way_name);
+        return serverObject.community() !== communities.zombied && isAccessibleJob(serverObject, parameters.way_name);
       },
     });
 
     let jobLtx: string =
-      "[logic@" +
-      wayName +
-      "]\n" +
-      "active = camper@" +
-      wayName +
-      "\n" +
-      "[camper@" +
-      wayName +
-      "]\n" +
+      `[logic@${wayName}]\n` +
+      `active = camper@${wayName}\n` +
+      `[camper@${wayName}]\n` +
       "meet = meet@generic_lager\n" +
-      "path_walk = sniper_" +
-      index +
-      "_walk\n" +
-      "path_look = sniper_" +
-      index +
-      "_look\n" +
+      `path_walk = sniper_${index}_walk\n` +
+      `path_look = sniper_${index}_look\n` +
       "sniper = true\n" +
-      "def_state_campering =" +
-      state +
-      "\n" +
-      "def_state_campering_fire =" +
-      state +
-      "_fire\n";
+      `def_state_campering = ${state}\n` +
+      `def_state_campering_fire = ${state}_fire\n`;
 
     if (smartTerrain.defendRestrictor !== null) {
       jobLtx += `out_restr = ${smartTerrain.defendRestrictor}\n`;

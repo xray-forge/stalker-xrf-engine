@@ -38,9 +38,7 @@ export function createStalkerWalkerJobs(
       ): boolean => {
         if (smartTerrain.alarmStartedAt === null) {
           return true;
-        }
-
-        if (smartTerrain.safeRestrictor === null) {
+        } else if (smartTerrain.safeRestrictor === null) {
           return true;
         }
 
@@ -53,20 +51,12 @@ export function createStalkerWalkerJobs(
     });
 
     let jobLtx: string =
-      "[logic@" +
-      wayName +
-      "]\n" +
-      "active = walker@" +
-      wayName +
-      "\n" +
-      "[walker@" +
-      wayName +
-      "]\n" +
+      `[logic@${wayName}]\n` +
+      `active = walker@${wayName}\n` +
+      `[walker@${wayName}]\n` +
       "sound_idle = state\n" +
       "meet = meet@generic_lager\n" +
-      "path_walk = walker_" +
-      index +
-      "_walk\n" +
+      `path_walk = walker_${index}_walk\n` +
       "def_state_standing = guard\n" +
       "def_state_moving = patrol\n";
 
@@ -91,8 +81,8 @@ export function createStalkerWalkerJobs(
       isJobPatrolInRestrictor(smartTerrain, smartTerrain.smartTerrainActorControl.ignoreZone, wayName)
     ) {
       jobLtx +=
-        "combat_ignore_cond = {=npc_in_zone(smart.base_on_actor_control.ignore_zone)} true \n" +
-        "combat_ignore_keep_when_attacked = true \n";
+        "combat_ignore_cond = {=npc_in_zone(smart.base_on_actor_control.ignore_zone)} true\n" +
+        "combat_ignore_keep_when_attacked = true\n";
     }
 
     ltx += jobLtx;

@@ -92,6 +92,20 @@ describe("jobs_general should correctly generate default jobs", () => {
                 _precondition_params: {},
                 job_id: {
                   job_type: "path_job",
+                  section: "logic@test_smart_walker_1_walk",
+                },
+                priority: 15,
+              },
+            ]),
+            priority: 15,
+          },
+          {
+            jobs: $fromArray([
+              {
+                _precondition_function: expect.any(Function),
+                _precondition_params: {},
+                job_id: {
+                  job_type: "path_job",
                   section: "logic@test_smart_patrol_1_walk",
                 },
                 priority: 20,
@@ -150,6 +164,22 @@ describe("jobs_general should correctly generate default jobs", () => {
               },
             ]),
             priority: 25,
+          },
+          {
+            jobs: $fromArray([
+              {
+                _precondition_function: expect.any(Function),
+                _precondition_params: {
+                  way_name: "test_smart_sniper_1_walk",
+                },
+                job_id: {
+                  job_type: "path_job",
+                  section: "logic@test_smart_sniper_1_walk",
+                },
+                priority: 30,
+              },
+            ]),
+            priority: 30,
           },
           {
             jobs: $fromArray([
