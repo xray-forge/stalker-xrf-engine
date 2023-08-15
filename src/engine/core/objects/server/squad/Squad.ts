@@ -1058,8 +1058,8 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
       assignedSmartTerrain.smartTerrainActorControl.status !== ESmartTerrainStatus.NORMAL
     ) {
       if (
-        registry.zones.get(assignedSmartTerrain.smartTerrainActorControl.isNoWeaponZone) === null ||
-        !registry.zones.get(assignedSmartTerrain.smartTerrainActorControl.isNoWeaponZone).inside(this.position)
+        registry.zones.get(assignedSmartTerrain.smartTerrainActorControl.noWeaponZone) === null ||
+        !registry.zones.get(assignedSmartTerrain.smartTerrainActorControl.noWeaponZone).inside(this.position)
       ) {
         return false;
       }

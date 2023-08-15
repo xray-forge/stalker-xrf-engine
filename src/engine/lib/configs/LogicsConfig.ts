@@ -91,6 +91,12 @@ export const logicsConfig = {
       MID_RADIUS: 20,
       MAX_RADIUS: 70,
     },
+    STALKER_POINT: {
+      COUNT: 20,
+      PRIORITY: 3,
+      MIN_RADIUS: 3,
+      MAX_RADIUS: 8,
+    },
   },
   TRADE: {
     DEFAULT_TRADE_LTX_PATH: "misc\\trade\\trade_generic.ltx",

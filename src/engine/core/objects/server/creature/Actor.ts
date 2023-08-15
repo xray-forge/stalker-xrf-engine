@@ -150,7 +150,7 @@ export class Actor extends cse_alife_creature_actor implements ISimulationTarget
 
     if (
       activeSmartTerrain.smartTerrainActorControl?.status === ESmartTerrainStatus.NORMAL &&
-      registry.zones.get(activeSmartTerrain.smartTerrainActorControl.isNoWeaponZone).inside(this.position)
+      registry.zones.get(activeSmartTerrain.smartTerrainActorControl.noWeaponZone).inside(this.position)
     ) {
       return false;
     }
