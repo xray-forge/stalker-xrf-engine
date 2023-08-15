@@ -255,3 +255,13 @@ active = animpoint@test_smart_animpoint_1
 [animpoint@test_smart_animpoint_1]
 meet = meet@generic_animpoint
 cover_name = test_smart_animpoint_1
+[logic@test_smart_camper_1_walk]
+active = camper@test_smart_camper_1_walk
+[camper@test_smart_camper_1_walk]
+meet = meet@generic_lager
+radius = nil
+path_walk = camper_1_walk
+def_state_moving = rush
+def_state_campering = hide
+def_state_campering_fire = hide_fire
+path_look = camper_1_look

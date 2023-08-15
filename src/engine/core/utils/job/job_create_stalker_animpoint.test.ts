@@ -6,7 +6,9 @@ import { registerSmartCover, registry } from "@/engine/core/database";
 import { SmartCover, SmartTerrain, SmartTerrainControl } from "@/engine/core/objects";
 import { createStalkerAnimpointJobs } from "@/engine/core/utils/job/job_create_stalker_animpoint";
 import { IJobListDescriptor } from "@/engine/core/utils/job/job_types";
+import { ServerHumanObject } from "@/engine/lib/types";
 import { readInGameTestLtx } from "@/fixtures/engine";
+import { mockServerAlifeHumanStalker } from "@/fixtures/xray";
 
 describe("jobs_general should correctly generate stalker animpoint jobs", () => {
   beforeEach(() => {
@@ -135,5 +137,29 @@ describe("jobs_general should correctly generate stalker animpoint jobs", () => 
         },
       ]),
     });
+  });
+
+  it("should correctly check preconditions", () => {
+    const smartTerrain: SmartTerrain = new SmartTerrain("test_smart");
+    const smartCover: SmartCover = new SmartCover("test_smart_cover");
+    const stalker: ServerHumanObject = mockServerAlifeHumanStalker();
+
+    smartTerrain.ini = smartTerrain.spawn_ini();
+
+    jest.spyOn(smartTerrain, "name").mockImplementation(() => "test_smart");
+    jest.spyOn(smartCover, "name").mockImplementation(() => "test_smart_animpoint_1");
+
+    registerSmartCover(smartCover);
+
+    const [jobsList] = createStalkerAnimpointJobs(smartTerrain, { priority: 50, jobs: new LuaTable() });
+    const precondition = jobsList.jobs.get(1)._precondition_function;
+
+    expect(precondition?.(stalker, smartTerrain, { is_safe_job: null }, {})).toBe(true);
+
+    jest.spyOn(stalker, "community").mockImplementation(() => "zombied");
+    expect(precondition?.(stalker, smartTerrain, {}, {})).toBe(false);
+
+    jest.spyOn(stalker, "community").mockImplementation(() => "stalker");
+    expect(precondition?.(stalker, smartTerrain, {}, {})).toBe(true);
   });
 });

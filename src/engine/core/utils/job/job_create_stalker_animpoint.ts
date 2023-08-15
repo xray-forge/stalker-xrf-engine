@@ -7,7 +7,10 @@ import { communities } from "@/engine/lib/constants/communities";
 import { AnyObject, EJobType, ServerHumanObject, TCount, TIndex, TName } from "@/engine/lib/types";
 
 /**
- * todo;
+ * Create animpoint jobs for stalkers in smart terrain.
+ *
+ * @param smartTerrain - smart terrain to create default animpoint jobs for
+ * @returns cover jobs list, generated LTX and count of created jobs
  */
 export function createStalkerAnimpointJobs(
   smartTerrain: SmartTerrain,

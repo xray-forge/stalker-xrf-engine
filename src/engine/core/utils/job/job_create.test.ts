@@ -80,6 +80,22 @@ describe("jobs_general should correctly generate default jobs", () => {
             },
             priority: 15,
           },
+          {
+            jobs: $fromArray([
+              {
+                _precondition_function: expect.any(Function),
+                _precondition_params: {
+                  way_name: "test_smart_camper_1_walk",
+                },
+                job_id: {
+                  job_type: "path_job",
+                  section: "logic@test_smart_camper_1_walk",
+                },
+                priority: 45,
+              },
+            ]),
+            priority: 45,
+          },
         ]),
         priority: 60,
       },

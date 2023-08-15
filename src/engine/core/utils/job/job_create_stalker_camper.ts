@@ -6,7 +6,7 @@ import { IWaypointData, parseWaypointData } from "@/engine/core/utils/ini";
 import { isAccessibleJob } from "@/engine/core/utils/job/job_check";
 import { IJobListDescriptor } from "@/engine/core/utils/job/job_types";
 import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
-import { AnyObject, EJobType, Patrol, ServerHumanObject, TCount, TIndex, TName } from "@/engine/lib/types";
+import { AnyObject, EJobType, Patrol, ServerHumanObject, TCount, TDistance, TIndex, TName } from "@/engine/lib/types";
 
 /**
  * todo;
@@ -15,7 +15,7 @@ export function createStalkerCamperJobs(
   smartTerrain: SmartTerrain
 ): LuaMultiReturn<[IJobListDescriptor, string, TCount]> {
   const smartTerrainName: TName = smartTerrain.name();
-  const stalkerDefCamper: IJobListDescriptor = {
+  const camperJobs: IJobListDescriptor = {
     priority: logicsConfig.JOBS.STALKER_CAMPER.PRIORITY,
     jobs: new LuaTable(),
   };
@@ -23,12 +23,12 @@ export function createStalkerCamperJobs(
   let ltx: string = "";
   let index: TIndex = 1;
 
-  while (level.patrol_path_exists(smartTerrainName + "_camper_" + index + "_walk")) {
-    const wayName: TName = smartTerrainName + "_camper_" + index + "_walk";
+  while (level.patrol_path_exists(`${smartTerrainName}_camper_${index}_walk`)) {
+    const wayName: TName = `${smartTerrainName}_camper_${index}_walk`;
     const ptr: Patrol = new patrol(wayName);
     const wpProp: IWaypointData = parseWaypointData(wayName, ptr.flags(0), ptr.name(0));
     let state: TName = EStalkerState.HIDE;
-    let radius = 0;
+    let radius: TDistance = 0;
 
     if (wpProp.state !== null) {
       if (wpProp.state === "stand") {
@@ -37,18 +37,18 @@ export function createStalkerCamperJobs(
     }
 
     if (wpProp.radius !== null) {
-      radius = wpProp.radius as number;
+      radius = wpProp.radius as TDistance;
     }
 
-    table.insert(stalkerDefCamper.jobs, {
+    table.insert(camperJobs.jobs, {
       priority: logicsConfig.JOBS.STALKER_CAMPER.PRIORITY,
       job_id: {
         section: `logic@${wayName}`,
         job_type: EJobType.PATH_JOB,
       },
       _precondition_params: { way_name: wayName },
-      _precondition_function: (serverObject: ServerHumanObject, smart: SmartTerrain, precond_params: AnyObject) => {
-        return isAccessibleJob(serverObject, precond_params.way_name);
+      _precondition_function: (serverObject: ServerHumanObject, smartTerrain: SmartTerrain, parameters: AnyObject) => {
+        return isAccessibleJob(serverObject, parameters.way_name);
       },
     });
 
@@ -70,10 +70,10 @@ export function createStalkerCamperJobs(
       index +
       "_walk\n" +
       "def_state_moving = rush\n" +
-      "def_state_campering =" +
+      "def_state_campering = " +
       state +
       "\n" +
-      "def_state_campering_fire =" +
+      "def_state_campering_fire = " +
       state +
       "_fire\n";
 
@@ -89,5 +89,5 @@ export function createStalkerCamperJobs(
     index += 1;
   }
 
-  return $multi(stalkerDefCamper, ltx, index);
+  return $multi(camperJobs, ltx, index);
 }
