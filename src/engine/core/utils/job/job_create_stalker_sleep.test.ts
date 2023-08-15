@@ -142,9 +142,9 @@ describe("jobs_general should correctly generate stalkers sleep jobs", () => {
 
     jest.spyOn(smartTerrain, "name").mockImplementation(() => "test_smart");
 
-    registerZone(mockClientGameObject({ name: () => "def_restrictor_test", inside: () => true }));
+    registerZone(mockClientGameObject({ name: () => "safe_restrictor_test", inside: () => true }));
 
-    smartTerrain.safeRestrictor = "def_restrictor_test";
+    smartTerrain.safeRestrictor = "safe_restrictor_test";
     smartTerrain.smartTerrainActorControl = { ignoreZone: "test_ignore_zone" } as SmartTerrainControl;
 
     const [jobsList, ltx, count] = createStalkerSleepJobs(smartTerrain);

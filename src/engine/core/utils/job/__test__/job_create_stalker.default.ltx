@@ -250,6 +250,15 @@ path_main = sleep_1
 active = sleeper@test_smart_sleep_2
 [sleeper@test_smart_sleep_2]
 path_main = sleep_2
+[logic@test_smart_collector_1_walk]
+active = walker@test_smart_collector_1_walk
+[walker@test_smart_collector_1_walk]
+sound_idle = state
+meet = meet@generic_lager
+path_walk = collector_1_walk
+def_state_standing = guard
+def_state_moving = patrol
+path_look = collector_1_look
 [logic@test_smart_animpoint_1]
 active = animpoint@test_smart_animpoint_1
 [animpoint@test_smart_animpoint_1]

@@ -6,6 +6,7 @@ import { isJobPatrolInRestrictor } from "@/engine/core/utils/job/job_check";
 import { IJobListDescriptor } from "@/engine/core/utils/job/job_types";
 import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
 import { communities } from "@/engine/lib/constants/communities";
+import { detectors } from "@/engine/lib/constants/items/detectors";
 import {
   AnyObject,
   ClientObject,
@@ -54,22 +55,13 @@ export function createStalkerCollectorJobs(
 
         const state: Optional<IRegistryObjectState> = registry.objects.get(serverObject.id);
 
-        if (state === null) {
+        if (state === null || state.object === null) {
           return false;
         }
 
-        const object: Optional<ClientObject> = state.object!;
-
-        if (object === null) {
-          return false;
-        }
-
-        const detectors = ["detector_simple", "detector_advanced", "detector_elite", "detector_scientific"];
-
-        for (const [k, v] of detectors) {
-          const obj = object.object(v);
-
-          if (obj !== null) {
+        // todo: object has detector util?
+        for (const [, value] of pairs(detectors)) {
+          if (state.object.object(value) !== null) {
             return true;
           }
         }
@@ -79,20 +71,12 @@ export function createStalkerCollectorJobs(
     });
 
     let jobLtx: string =
-      "[logic@" +
-      wayName +
-      "]\n" +
-      "active = walker@" +
-      wayName +
-      "\n" +
-      "[walker@" +
-      wayName +
-      "]\n" +
+      `[logic@${wayName}]\n` +
+      `active = walker@${wayName}\n` +
+      `[walker@${wayName}]\n` +
       "sound_idle = state\n" +
       "meet = meet@generic_lager\n" +
-      "path_walk = collector_" +
-      index +
-      "_walk\n" +
+      `path_walk = collector_${index}_walk\n` +
       "def_state_standing = guard\n" +
       "def_state_moving = patrol\n";
 
@@ -117,8 +101,8 @@ export function createStalkerCollectorJobs(
       isJobPatrolInRestrictor(smartTerrain, smartTerrain.smartTerrainActorControl.ignoreZone, wayName)
     ) {
       jobLtx +=
-        "combat_ignore_cond = {=npc_in_zone(smart.base_on_actor_control.ignore_zone)} true \n" +
-        "combat_ignore_keep_when_attacked = true \n";
+        "combat_ignore_cond = {=npc_in_zone(smart.base_on_actor_control.ignore_zone)} true\n" +
+        "combat_ignore_keep_when_attacked = true\n";
     }
 
     ltx += jobLtx;

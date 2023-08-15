@@ -72,6 +72,20 @@ describe("jobs_general should correctly generate default jobs", () => {
             priority: 10,
           },
           {
+            jobs: $fromArray([
+              {
+                _precondition_function: expect.any(Function),
+                _precondition_params: {},
+                job_id: {
+                  job_type: "path_job",
+                  section: "logic@test_smart_collector_1_walk",
+                },
+                priority: 25,
+              },
+            ]),
+            priority: 25,
+          },
+          {
             _precondition_function: expect.any(Function),
             _precondition_params: {},
             job_id: {
