@@ -5,7 +5,7 @@ import { level } from "xray16";
 
 import { registerZone } from "@/engine/core/database";
 import { SmartTerrain, SmartTerrainControl } from "@/engine/core/objects";
-import { createStalkerSleepJobs } from "@/engine/core/utils/job/job_create_stalker_sleep";
+import { createStalkerSleepJobs } from "@/engine/core/utils/job/job_create/job_create_stalker_sleep";
 import { range } from "@/engine/core/utils/number";
 import { ServerHumanObject } from "@/engine/lib/types";
 import { readInGameTestLtx } from "@/fixtures/engine";

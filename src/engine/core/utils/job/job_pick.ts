@@ -16,7 +16,7 @@ export function selectJob(
   let currentJobPriority: TRate = selectedJobPriority;
   let selectedJobLink = null;
 
-  for (const [k, jobInfo] of jobs) {
+  for (const [, jobInfo] of jobs) {
     if (currentJobPriority > jobInfo.priority) {
       return $multi(selectedJobId, currentJobPriority, selectedJobLink);
     }

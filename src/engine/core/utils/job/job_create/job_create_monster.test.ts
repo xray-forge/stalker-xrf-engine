@@ -3,7 +3,7 @@ import * as path from "path";
 import { describe, expect, it, jest } from "@jest/globals";
 
 import { SmartTerrain } from "@/engine/core/objects";
-import { createMonsterJobs } from "@/engine/core/utils/job/job_create_monster";
+import { createMonsterJobs } from "@/engine/core/utils/job/job_create/job_create_monster";
 import { range } from "@/engine/core/utils/number";
 import { readInGameTestLtx } from "@/fixtures/engine";
 

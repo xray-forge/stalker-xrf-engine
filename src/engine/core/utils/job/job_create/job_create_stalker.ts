@@ -1,14 +1,14 @@
 import { SmartTerrain } from "@/engine/core/objects";
-import { createStalkerAnimpointJobs } from "@/engine/core/utils/job/job_create_stalker_animpoint";
-import { createStalkerCamperJobs } from "@/engine/core/utils/job/job_create_stalker_camper";
-import { createStalkerCollectorJobs } from "@/engine/core/utils/job/job_create_stalker_collector";
-import { createStalkerGuardJobs } from "@/engine/core/utils/job/job_create_stalker_guard";
-import { createStalkerPatrolJobs } from "@/engine/core/utils/job/job_create_stalker_patrol";
-import { createStalkerPointJobs } from "@/engine/core/utils/job/job_create_stalker_point";
-import { createStalkerSleepJobs } from "@/engine/core/utils/job/job_create_stalker_sleep";
-import { createStalkerSniperJobs } from "@/engine/core/utils/job/job_create_stalker_sniper";
-import { createStalkerSurgeJobs } from "@/engine/core/utils/job/job_create_stalker_surge";
-import { createStalkerWalkerJobs } from "@/engine/core/utils/job/job_create_stalker_walker";
+import { createStalkerAnimpointJobs } from "@/engine/core/utils/job/job_create/job_create_stalker_animpoint";
+import { createStalkerCamperJobs } from "@/engine/core/utils/job/job_create/job_create_stalker_camper";
+import { createStalkerCollectorJobs } from "@/engine/core/utils/job/job_create/job_create_stalker_collector";
+import { createStalkerGuardJobs } from "@/engine/core/utils/job/job_create/job_create_stalker_guard";
+import { createStalkerPatrolJobs } from "@/engine/core/utils/job/job_create/job_create_stalker_patrol";
+import { createStalkerPointJobs } from "@/engine/core/utils/job/job_create/job_create_stalker_point";
+import { createStalkerSleepJobs } from "@/engine/core/utils/job/job_create/job_create_stalker_sleep";
+import { createStalkerSniperJobs } from "@/engine/core/utils/job/job_create/job_create_stalker_sniper";
+import { createStalkerSurgeJobs } from "@/engine/core/utils/job/job_create/job_create_stalker_surge";
+import { createStalkerWalkerJobs } from "@/engine/core/utils/job/job_create/job_create_stalker_walker";
 import { IJobListDescriptor } from "@/engine/core/utils/job/job_types";
 import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
 

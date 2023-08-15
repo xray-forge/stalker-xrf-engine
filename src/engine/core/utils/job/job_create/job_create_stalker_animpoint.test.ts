@@ -4,7 +4,7 @@ import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 
 import { registerSmartCover, registry } from "@/engine/core/database";
 import { SmartCover, SmartTerrain, SmartTerrainControl } from "@/engine/core/objects";
-import { createStalkerAnimpointJobs } from "@/engine/core/utils/job/job_create_stalker_animpoint";
+import { createStalkerAnimpointJobs } from "@/engine/core/utils/job/job_create/job_create_stalker_animpoint";
 import { IJobListDescriptor } from "@/engine/core/utils/job/job_types";
 import { ServerHumanObject } from "@/engine/lib/types";
 import { readInGameTestLtx } from "@/fixtures/engine";

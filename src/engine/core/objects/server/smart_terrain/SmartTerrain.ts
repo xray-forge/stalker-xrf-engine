@@ -65,7 +65,7 @@ import {
   selectJob,
   TJobDescriptor,
 } from "@/engine/core/utils/job";
-import { createSmartTerrainJobs } from "@/engine/core/utils/job/job_create";
+import { createSmartTerrainJobs } from "@/engine/core/utils/job/job_create/job_create";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { areObjectsOnSameLevel, isMonster, isStalker } from "@/engine/core/utils/object";
 import { ERelation } from "@/engine/core/utils/relation";

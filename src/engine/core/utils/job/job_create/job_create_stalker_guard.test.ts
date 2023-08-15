@@ -4,7 +4,7 @@ import { describe, expect, it, jest } from "@jest/globals";
 
 import { registerZone } from "@/engine/core/database";
 import { SmartTerrain, SmartTerrainControl } from "@/engine/core/objects";
-import { createStalkerGuardJobs } from "@/engine/core/utils/job/job_create_stalker_guard";
+import { createStalkerGuardJobs } from "@/engine/core/utils/job/job_create/job_create_stalker_guard";
 import { ServerHumanObject } from "@/engine/lib/types";
 import { readInGameTestLtx } from "@/fixtures/engine";
 import { mockClientGameObject, MockCTime, mockServerAlifeHumanStalker } from "@/fixtures/xray";

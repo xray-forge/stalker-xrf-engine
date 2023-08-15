@@ -4,7 +4,7 @@ import { describe, expect, it, jest } from "@jest/globals";
 
 import { registerSmartCover } from "@/engine/core/database";
 import { SmartCover, SmartTerrain } from "@/engine/core/objects";
-import { createStalkerJobs } from "@/engine/core/utils/job/job_create_stalker";
+import { createStalkerJobs } from "@/engine/core/utils/job/job_create/job_create_stalker";
 import { range } from "@/engine/core/utils/number";
 import { readInGameTestLtx } from "@/fixtures/engine";
 
