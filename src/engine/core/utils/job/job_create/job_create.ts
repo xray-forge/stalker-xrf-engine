@@ -21,7 +21,7 @@ const logger: LuaLogger = new LuaLogger($filename);
  * @returns array of job descriptors and ltx configuration text
  */
 export function createSmartTerrainJobs(smartTerrain: SmartTerrain): LuaMultiReturn<[LuaArray<TJobDescriptor>, string]> {
-  logger.info("Load job for smart:", smartTerrain.name());
+  logger.info("Create jobs for smart terrain:", smartTerrain.name());
 
   let jobsLtx: string = "";
   const jobsList: LuaArray<TJobDescriptor> = new LuaTable();

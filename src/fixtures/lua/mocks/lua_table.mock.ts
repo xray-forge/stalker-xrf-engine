@@ -22,7 +22,16 @@ export const mockTable = {
     }
   },
   sort: <K, V>(target: MockLuaTable<K, V>, comparator: (a: V, b: V) => number): void => {
-    const sortedValues = target.getValuesArray().sort(comparator);
+    const sortedValues = target.getValuesArray().sort((a, b) => {
+      const result = comparator(a, b);
+
+      // Handle lua true-false approach.
+      if (typeof result === "boolean") {
+        return result ? 1 : -1;
+      }
+
+      return result;
+    });
 
     target.reset();
 
