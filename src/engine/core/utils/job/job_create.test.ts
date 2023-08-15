@@ -1,18 +1,16 @@
-import * as fsp from "fs/promises";
 import * as path from "path";
 
 import { describe, expect, it, jest } from "@jest/globals";
 
 import { SmartTerrain } from "@/engine/core/objects";
 import { createSmartTerrainJobs } from "@/engine/core/utils/job/job_create";
+import { readInGameTestLtx } from "@/fixtures/engine";
 
 describe("jobs_general should correctly generate default jobs", () => {
   it("should correctly generate default jobs", async () => {
-    const DEFAULT_JOBS_GENERAL: string = (
-      await fsp.readFile(path.resolve(__dirname, "__test__", "jobs_general.default.ltx"))
-    )
-      .toString()
-      .replace(/\r\n/g, "\n");
+    const defaultJobsLtx: string = await readInGameTestLtx(
+      path.resolve(__dirname, "__test__", "job_create.default.ltx")
+    );
 
     const smartTerrain: SmartTerrain = new SmartTerrain("test_smart");
 
@@ -22,7 +20,7 @@ describe("jobs_general should correctly generate default jobs", () => {
 
     const [jobsList, ltx] = createSmartTerrainJobs(smartTerrain);
 
-    expect(ltx).toBe(DEFAULT_JOBS_GENERAL);
+    expect(ltx).toBe(defaultJobsLtx);
     expect(jobsList).toEqualLuaArrays([
       {
         _precondition_is_monster: false,

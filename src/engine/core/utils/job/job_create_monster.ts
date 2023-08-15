@@ -1,13 +1,22 @@
 import { SmartTerrain } from "@/engine/core/objects";
 import { IJobListDescriptor } from "@/engine/core/utils/job/job_types";
-import { TDistance, TName } from "@/engine/lib/types";
+import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
+import { EJobType, TName } from "@/engine/lib/types";
 
 /**
- * todo;
+ * Create list of default smart terrain jobs for monsters.
+ * Usually it assigns monster home for some point.
+ *
+ * @param smartTerrain - tarrain to create jobs for
+ * @returns jobs descriptor and ltx config text for matching jobs
  */
 export function createMonsterJobs(smartTerrain: SmartTerrain): LuaMultiReturn<[IJobListDescriptor, string]> {
   const smartTerrainName: TName = smartTerrain.name();
-  const monsterJobs: IJobListDescriptor = { _precondition_is_monster: true, priority: 50, jobs: new LuaTable() };
+  const monsterJobsDescriptor: IJobListDescriptor = {
+    _precondition_is_monster: true,
+    priority: logicsConfig.JOBS.MONSTER_JOB_PRIORITY,
+    jobs: new LuaTable(),
+  };
 
   let ltx: string = "";
 
@@ -15,47 +24,30 @@ export function createMonsterJobs(smartTerrain: SmartTerrain): LuaMultiReturn<[I
   // = Mob home
   // ===================================================================================================================
 
-  for (const it of $range(1, 20)) {
-    const name: TName = smartTerrainName + "_home_" + it;
-    const homeMinRadius: TDistance = 10;
-    const homeMidRadius: TDistance = 20;
-    const homeMaxRadius: TDistance = 70;
+  for (const it of $range(1, logicsConfig.JOBS.MOB_HOME.COUNT)) {
+    const name: TName = `${smartTerrainName}_home_${it}`;
 
-    table.insert(monsterJobs.jobs, {
-      priority: 40,
+    table.insert(monsterJobsDescriptor.jobs, {
+      priority: logicsConfig.JOBS.MOB_HOME.PRIORITY,
       job_id: {
-        section: "logic@" + name,
-        job_type: "point_job",
+        section: `logic@${name}`,
+        job_type: EJobType.POINT_JOB,
       },
     });
 
-    let jobLtx: string =
-      "[logic@" +
-      name +
-      "]\n" +
-      "active = mob_home@" +
-      name +
-      "\n" +
-      "[mob_home@" +
-      name +
-      "]\n" +
+    ltx +=
+      `[logic@${name}]\n` +
+      `active = mob_home@${name}\n` +
+      `[mob_home@${name}]\n` +
       "gulag_point = true\n" +
-      "home_min_radius = " +
-      homeMinRadius +
-      "\n" +
-      "home_mid_radius = " +
-      homeMidRadius +
-      "\n" +
-      "home_max_radius = " +
-      homeMaxRadius +
-      "\n";
+      `home_min_radius = ${logicsConfig.JOBS.MOB_HOME.MIN_RADIUS}\n` +
+      `home_mid_radius = ${logicsConfig.JOBS.MOB_HOME.MID_RADIUS}\n` +
+      `home_max_radius = ${logicsConfig.JOBS.MOB_HOME.MAX_RADIUS}\n`;
 
     if (smartTerrain.defendRestrictor !== null) {
-      jobLtx += "out_restr = " + smartTerrain.defendRestrictor + "\n";
+      ltx += `out_restr = ${smartTerrain.defendRestrictor}\n`;
     }
-
-    ltx += jobLtx;
   }
 
-  return $multi(monsterJobs, ltx);
+  return $multi(monsterJobsDescriptor, ltx);
 }

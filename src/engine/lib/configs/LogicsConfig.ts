@@ -83,7 +83,14 @@ export const logicsConfig = {
     DEFAULT_ARRIVAL_DISTANCE: 25,
   },
   JOBS: {
-    // todo;
+    MONSTER_JOB_PRIORITY: 50,
+    MOB_HOME: {
+      COUNT: 20,
+      PRIORITY: 40,
+      MIN_RADIUS: 10,
+      MID_RADIUS: 20,
+      MAX_RADIUS: 70,
+    },
   },
   TRADE: {
     DEFAULT_TRADE_LTX_PATH: "misc\\trade\\trade_generic.ltx",
