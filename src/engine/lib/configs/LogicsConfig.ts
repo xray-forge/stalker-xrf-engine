@@ -86,15 +86,31 @@ export const logicsConfig = {
     STALKER_JOB_PRIORITY: 60,
     MONSTER_JOB_PRIORITY: 50,
     MOB_HOME: {
-      COUNT: 20,
       PRIORITY: 40,
+      COUNT: 20,
       MIN_RADIUS: 10,
       MID_RADIUS: 20,
       MAX_RADIUS: 70,
     },
+    STALKER_ANIMPOINT: {
+      PRIORITY: 15,
+    },
+    STALKER_CAMPER: {
+      PRIORITY: 45,
+    },
+    STALKER_COLLECTOR: {
+      PRIORITY: 25,
+    },
+    STALKER_GUARD: {
+      PRIORITY: 25,
+      PRIORITY_FOLLOWER: 24,
+    },
+    STALKER_PATROL: {
+      PRIORITY: 20,
+    },
     STALKER_POINT: {
-      COUNT: 20,
       PRIORITY: 3,
+      COUNT: 20,
       MIN_RADIUS: 3,
       MAX_RADIUS: 8,
     },
@@ -103,6 +119,12 @@ export const logicsConfig = {
     },
     STALKER_SLEEP: {
       PRIORITY: 10,
+    },
+    STALKER_SNIPER: {
+      PRIORITY: 30,
+    },
+    STALKER_WALKER: {
+      PRIORITY: 15,
     },
   },
   TRADE: {
