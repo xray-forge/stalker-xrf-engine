@@ -89,5 +89,5 @@ export function createStalkerWalkerJobs(
     index += 1;
   }
 
-  return $multi(stalkerWalker, ltx, index);
+  return $multi(stalkerWalker, ltx, index - 1);
 }

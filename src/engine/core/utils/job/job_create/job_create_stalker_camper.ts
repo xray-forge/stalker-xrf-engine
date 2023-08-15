@@ -89,5 +89,5 @@ export function createStalkerCamperJobs(
     index += 1;
   }
 
-  return $multi(camperJobs, ltx, index);
+  return $multi(camperJobs, ltx, index - 1);
 }

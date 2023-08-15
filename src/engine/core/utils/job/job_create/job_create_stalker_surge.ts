@@ -74,5 +74,5 @@ export function createStalkerSurgeJobs(
     it += 1;
   }
 
-  return $multi(stalkerSurgeJobs, ltx, it);
+  return $multi(stalkerSurgeJobs, ltx, it - 1);
 }

@@ -72,5 +72,5 @@ export function createStalkerSniperJobs(
     index += 1;
   }
 
-  return $multi(stalkerDefSniper, ltx, index);
+  return $multi(stalkerDefSniper, ltx, index - 1);
 }

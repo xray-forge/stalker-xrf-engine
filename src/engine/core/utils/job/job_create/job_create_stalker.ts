@@ -82,7 +82,7 @@ export function createStalkerJobs(smartTerrain: SmartTerrain): LuaMultiReturn<[I
 
   const [stalkerSurgeJobs, stalkerSurgeLtx, stalkerSurgeJobsCount] = createStalkerSurgeJobs(smartTerrain);
 
-  if (stalkerSurgeJobsCount > 1) {
+  if (stalkerSurgeJobsCount > 0) {
     ltx += stalkerSurgeLtx;
     table.insert(stalkerJobs.jobs, stalkerSurgeJobs);
   }
@@ -93,7 +93,7 @@ export function createStalkerJobs(smartTerrain: SmartTerrain): LuaMultiReturn<[I
 
   const [stalkerSleepJobs, stalkerSleepLtx, stalkerSleepJobsCount] = createStalkerSleepJobs(smartTerrain);
 
-  if (stalkerSleepJobsCount > 1) {
+  if (stalkerSleepJobsCount > 0) {
     ltx += stalkerSleepLtx;
     table.insert(stalkerJobs.jobs, stalkerSleepJobs);
   }
@@ -105,7 +105,7 @@ export function createStalkerJobs(smartTerrain: SmartTerrain): LuaMultiReturn<[I
   const [stalkerCollectorJobs, stalkerCollectorLtx, stalkerCollectorJobsCount] =
     createStalkerCollectorJobs(smartTerrain);
 
-  if (stalkerCollectorJobsCount > 1) {
+  if (stalkerCollectorJobsCount > 0) {
     ltx += stalkerCollectorLtx;
     table.insert(stalkerJobs.jobs, stalkerCollectorJobs);
   }
@@ -116,7 +116,7 @@ export function createStalkerJobs(smartTerrain: SmartTerrain): LuaMultiReturn<[I
 
   const [stalkerWalkerJobs, stalkerWalkerLtx, stalkerWalkerJobsCount] = createStalkerWalkerJobs(smartTerrain);
 
-  if (stalkerWalkerJobsCount > 1) {
+  if (stalkerWalkerJobsCount > 0) {
     ltx += stalkerWalkerLtx;
     table.insert(stalkerJobs.jobs, stalkerWalkerJobs);
   }
@@ -127,7 +127,7 @@ export function createStalkerJobs(smartTerrain: SmartTerrain): LuaMultiReturn<[I
 
   const [stalkerPatrolJobs, stalkerPatrolLtx, stalkerPatrolJobsCount] = createStalkerPatrolJobs(smartTerrain);
 
-  if (stalkerPatrolJobsCount > 1) {
+  if (stalkerPatrolJobsCount > 0) {
     ltx += stalkerPatrolLtx;
     table.insert(stalkerJobs.jobs, stalkerPatrolJobs);
   }
@@ -141,7 +141,7 @@ export function createStalkerJobs(smartTerrain: SmartTerrain): LuaMultiReturn<[I
     stalkerJobs
   );
 
-  if (stalkerAnimpointCount > 1) {
+  if (stalkerAnimpointCount > 0) {
     ltx += stalkerAnimpointLtx;
     // insert directly into jobs list
   }
@@ -152,7 +152,7 @@ export function createStalkerJobs(smartTerrain: SmartTerrain): LuaMultiReturn<[I
 
   const [stalkerGuardJobs, stalkerGuardLtx, stalkerGuardJobsCount] = createStalkerGuardJobs(smartTerrain);
 
-  if (stalkerGuardJobsCount > 1) {
+  if (stalkerGuardJobsCount > 0) {
     ltx += stalkerGuardLtx;
     table.insert(stalkerJobs.jobs, stalkerGuardJobs);
   }
@@ -163,7 +163,7 @@ export function createStalkerJobs(smartTerrain: SmartTerrain): LuaMultiReturn<[I
 
   const [stalkerSniperJobs, stalkerSniperLtx, stalkerSniperJobsCount] = createStalkerSniperJobs(smartTerrain);
 
-  if (stalkerSniperJobsCount > 1) {
+  if (stalkerSniperJobsCount > 0) {
     ltx += stalkerSniperLtx;
     table.insert(stalkerJobs.jobs, stalkerSniperJobs);
   }
@@ -174,7 +174,7 @@ export function createStalkerJobs(smartTerrain: SmartTerrain): LuaMultiReturn<[I
 
   const [stalkerCamperJobs, stalkerCamperLtx, stalkerCamperJobsCount] = createStalkerCamperJobs(smartTerrain);
 
-  if (stalkerCamperJobsCount > 1) {
+  if (stalkerCamperJobsCount > 0) {
     ltx += stalkerCamperLtx;
     table.insert(stalkerJobs.jobs, stalkerCamperJobs);
   }

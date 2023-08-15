@@ -32,7 +32,7 @@ describe("jobs_general should correctly generate stalker walker jobs", () => {
 
     const [jobsList, ltx, count] = createStalkerWalkerJobs(smartTerrain);
 
-    expect(count).toBe(2);
+    expect(count).toBe(1);
     expect(ltx).toBe(jobsLtx);
     expect(jobsList).toEqualLuaTables({
       jobs: $fromArray([
@@ -63,7 +63,7 @@ describe("jobs_general should correctly generate stalker walker jobs", () => {
 
     const [jobsList, ltx, count] = createStalkerWalkerJobs(smartTerrain);
 
-    expect(count).toBe(2);
+    expect(count).toBe(1);
     expect(ltx).toBe(jobsLtx);
     expect(jobsList).toEqualLuaTables({
       jobs: $fromArray([
@@ -97,7 +97,7 @@ describe("jobs_general should correctly generate stalker walker jobs", () => {
 
     const [jobsList, ltx, count] = createStalkerWalkerJobs(smartTerrain);
 
-    expect(count).toBe(2);
+    expect(count).toBe(1);
     expect(ltx).toBe(jobsLtx);
     expect(jobsList).toEqualLuaTables({
       jobs: $fromArray([
@@ -132,7 +132,7 @@ describe("jobs_general should correctly generate stalker walker jobs", () => {
 
     const [jobsList, ltx, count] = createStalkerWalkerJobs(smartTerrain);
 
-    expect(count).toBe(2);
+    expect(count).toBe(1);
     expect(ltx).toBe(jobsLtx);
     expect(jobsList).toEqualLuaTables({
       jobs: $fromArray([

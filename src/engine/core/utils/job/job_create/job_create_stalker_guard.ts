@@ -136,5 +136,5 @@ export function createStalkerGuardJobs(
     index += 1;
   }
 
-  return $multi(stalkerGuard, ltx, index);
+  return $multi(stalkerGuard, ltx, index - 1);
 }

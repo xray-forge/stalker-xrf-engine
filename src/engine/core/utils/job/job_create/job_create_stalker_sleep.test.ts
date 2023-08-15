@@ -15,13 +15,11 @@ describe("jobs_general should correctly generate stalkers sleep jobs", () => {
   it("should correctly generate sleep jobs for stalkers when no patrols exist", async () => {
     const smartTerrain: SmartTerrain = new SmartTerrain("test_smart");
 
-    smartTerrain.ini = smartTerrain.spawn_ini();
-
     jest.spyOn(smartTerrain, "name").mockImplementation(() => "test_sleep_paths_smart");
 
     const [jobsList, ltx, count] = createStalkerSleepJobs(smartTerrain);
 
-    expect(count).toBe(1);
+    expect(count).toBe(0);
     expect(ltx).toBe("");
     expect(jobsList).toEqualLuaTables({
       jobs: {},
@@ -36,14 +34,13 @@ describe("jobs_general should correctly generate stalkers sleep jobs", () => {
 
     const smartTerrain: SmartTerrain = new SmartTerrain("test_smart");
 
-    smartTerrain.ini = smartTerrain.spawn_ini();
     smartTerrain.defendRestrictor = null;
 
     jest.spyOn(smartTerrain, "name").mockImplementation(() => "test_smart");
 
     const [jobsList, ltx, count] = createStalkerSleepJobs(smartTerrain);
 
-    expect(count).toBe(3);
+    expect(count).toBe(2);
     expect(ltx).toBe(surgeJobsLtx);
     expect(jobsList).toEqualLuaTables({
       jobs: $fromArray(
@@ -68,8 +65,6 @@ describe("jobs_general should correctly generate stalkers sleep jobs", () => {
 
     const smartTerrain: SmartTerrain = new SmartTerrain("test_smart");
 
-    smartTerrain.ini = smartTerrain.spawn_ini();
-
     jest.spyOn(smartTerrain, "name").mockImplementation(() => "test_smart");
 
     smartTerrain.defendRestrictor = "def_restrictor_test";
@@ -77,7 +72,7 @@ describe("jobs_general should correctly generate stalkers sleep jobs", () => {
 
     const [jobsList, ltx, count] = createStalkerSleepJobs(smartTerrain);
 
-    expect(count).toBe(3);
+    expect(count).toBe(2);
     expect(ltx).toBe(surgeJobsLtx);
     expect(jobsList).toEqualLuaTables({
       jobs: $fromArray(
@@ -104,8 +99,6 @@ describe("jobs_general should correctly generate stalkers sleep jobs", () => {
 
     registerZone(mockClientGameObject({ name: () => "some_restrictor", inside: () => true }));
 
-    smartTerrain.ini = smartTerrain.spawn_ini();
-
     jest.spyOn(smartTerrain, "name").mockImplementation(() => "test_smart");
 
     smartTerrain.defendRestrictor = "def_restrictor_test";
@@ -113,7 +106,7 @@ describe("jobs_general should correctly generate stalkers sleep jobs", () => {
 
     const [jobsList, ltx, count] = createStalkerSleepJobs(smartTerrain);
 
-    expect(count).toBe(3);
+    expect(count).toBe(2);
     expect(ltx).toBe(surgeJobsLtx);
     expect(jobsList).toEqualLuaTables({
       jobs: $fromArray(
@@ -138,8 +131,6 @@ describe("jobs_general should correctly generate stalkers sleep jobs", () => {
 
     const smartTerrain: SmartTerrain = new SmartTerrain("test_smart");
 
-    smartTerrain.ini = smartTerrain.spawn_ini();
-
     jest.spyOn(smartTerrain, "name").mockImplementation(() => "test_smart");
 
     registerZone(mockClientGameObject({ name: () => "safe_restrictor_test", inside: () => true }));
@@ -149,7 +140,7 @@ describe("jobs_general should correctly generate stalkers sleep jobs", () => {
 
     const [jobsList, ltx, count] = createStalkerSleepJobs(smartTerrain);
 
-    expect(count).toBe(3);
+    expect(count).toBe(2);
     expect(ltx).toBe(surgeJobsLtx);
     expect(jobsList).toEqualLuaTables({
       jobs: $fromArray(
@@ -170,8 +161,6 @@ describe("jobs_general should correctly generate stalkers sleep jobs", () => {
   it("should correctly use sleep preconditions", () => {
     const smartTerrain: SmartTerrain = new SmartTerrain("test_smart");
     const stalker: ServerHumanObject = mockServerAlifeHumanStalker();
-
-    smartTerrain.ini = smartTerrain.spawn_ini();
 
     jest.spyOn(smartTerrain, "name").mockImplementation(() => "test_smart");
 

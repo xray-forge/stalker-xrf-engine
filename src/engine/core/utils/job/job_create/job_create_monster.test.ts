@@ -15,8 +15,6 @@ describe("jobs_general should correctly generate monster default jobs", () => {
 
     const smartTerrain: SmartTerrain = new SmartTerrain("test_smart");
 
-    smartTerrain.ini = smartTerrain.spawn_ini();
-
     jest.spyOn(smartTerrain, "name").mockImplementation(() => "test_smart");
 
     const [jobsList, ltx] = createMonsterJobs(smartTerrain);

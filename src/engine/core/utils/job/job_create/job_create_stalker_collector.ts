@@ -109,5 +109,5 @@ export function createStalkerCollectorJobs(
     index += 1;
   }
 
-  return $multi(collectorJobs, ltx, index);
+  return $multi(collectorJobs, ltx, index - 1);
 }

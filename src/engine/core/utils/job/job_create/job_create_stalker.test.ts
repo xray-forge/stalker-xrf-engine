@@ -17,8 +17,6 @@ describe("jobs_general should correctly generate stalker jobs", () => {
     const smartTerrain: SmartTerrain = new SmartTerrain("test_smart");
     const smartCover: SmartCover = new SmartCover("test_smart_cover");
 
-    smartTerrain.ini = smartTerrain.spawn_ini();
-
     jest.spyOn(smartTerrain, "name").mockImplementation(() => "test_smart");
     jest.spyOn(smartCover, "name").mockImplementation(() => "test_smart_animpoint_1");
 
@@ -195,6 +193,38 @@ describe("jobs_general should correctly generate stalker jobs", () => {
             },
           ]),
           priority: 45,
+        },
+      ]),
+      priority: 60,
+    });
+  });
+
+  it("should correctly generate default stalker jobs for empty smart", async () => {
+    const defaultJobsLtx: string = await readInGameTestLtx(
+      path.resolve(__dirname, "__test__", "job_create_stalker.empty.ltx")
+    );
+
+    const smartTerrain: SmartTerrain = new SmartTerrain("test_smart_empty");
+
+    jest.spyOn(smartTerrain, "name").mockImplementation(() => "test_smart_empty");
+
+    const [jobsList, ltx] = createStalkerJobs(smartTerrain);
+
+    expect(ltx).toBe(defaultJobsLtx);
+    expect(jobsList).toEqualLuaTables({
+      _precondition_is_monster: false,
+      jobs: $fromArray([
+        {
+          jobs: $fromArray(
+            range(20, 1).map((it) => ({
+              job_id: {
+                job_type: "point_job",
+                section: "logic@test_smart_empty_point_" + it,
+              },
+              priority: 3,
+            }))
+          ),
+          priority: 3,
         },
       ]),
       priority: 60,

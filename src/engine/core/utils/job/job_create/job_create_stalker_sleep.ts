@@ -84,5 +84,5 @@ export function createStalkerSleepJobs(
     it += 1;
   }
 
-  return $multi(sleepJobs, ltx, it);
+  return $multi(sleepJobs, ltx, it - 1);
 }

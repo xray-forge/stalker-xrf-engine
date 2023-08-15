@@ -13,8 +13,6 @@ describe("jobs_general should correctly generate stalker camper jobs", () => {
   it("should correctly generate default camper jobs with no camp patrols", async () => {
     const smartTerrain: SmartTerrain = new SmartTerrain("test_smart");
 
-    smartTerrain.ini = smartTerrain.spawn_ini();
-
     jest.spyOn(smartTerrain, "name").mockImplementation(() => "test_smart_without_camps");
 
     const [jobsList, ltx] = createStalkerCamperJobs(smartTerrain);
@@ -30,13 +28,11 @@ describe("jobs_general should correctly generate stalker camper jobs", () => {
 
     const smartTerrain: SmartTerrain = new SmartTerrain("test_smart");
 
-    smartTerrain.ini = smartTerrain.spawn_ini();
-
     jest.spyOn(smartTerrain, "name").mockImplementation(() => "test_smart");
 
     const [jobsList, ltx, count] = createStalkerCamperJobs(smartTerrain);
 
-    expect(count).toBe(2);
+    expect(count).toBe(1);
     expect(ltx).toBe(jobsLtx);
     expect(jobsList).toEqualLuaTables({
       priority: 45,
@@ -63,14 +59,13 @@ describe("jobs_general should correctly generate stalker camper jobs", () => {
 
     const smartTerrain: SmartTerrain = new SmartTerrain("test_smart");
 
-    smartTerrain.ini = smartTerrain.spawn_ini();
     smartTerrain.defendRestrictor = "test_defend_restrictor";
 
     jest.spyOn(smartTerrain, "name").mockImplementation(() => "test_smart");
 
     const [jobsList, ltx, count] = createStalkerCamperJobs(smartTerrain);
 
-    expect(count).toBe(2);
+    expect(count).toBe(1);
     expect(ltx).toBe(jobsLtx);
     expect(jobsList).toEqualLuaTables({
       priority: 45,
@@ -93,8 +88,6 @@ describe("jobs_general should correctly generate stalker camper jobs", () => {
   it("should correctly check camper jobs preconditions", async () => {
     const smartTerrain: SmartTerrain = new SmartTerrain("test_smart");
     const stalker: ServerHumanObject = mockServerAlifeHumanStalker();
-
-    smartTerrain.ini = smartTerrain.spawn_ini();
 
     jest.spyOn(smartTerrain, "name").mockImplementation(() => "test_smart");
 

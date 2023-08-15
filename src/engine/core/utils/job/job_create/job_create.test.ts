@@ -215,4 +215,50 @@ describe("jobs_general should correctly generate default jobs", () => {
       },
     ]);
   });
+
+  it("should correctly generate default jobs for empty smarts", async () => {
+    const defaultJobsLtx: string = await readInGameTestLtx(path.resolve(__dirname, "__test__", "job_create.empty.ltx"));
+
+    const smartTerrain: SmartTerrain = new SmartTerrain("test_smart_empty");
+
+    smartTerrain.ini = smartTerrain.spawn_ini();
+    jest.spyOn(smartTerrain, "name").mockImplementation(() => "test_smart_empty");
+
+    const [jobsList, ltx] = createSmartTerrainJobs(smartTerrain);
+
+    expect(ltx).toBe(defaultJobsLtx);
+    expect(jobsList).toEqualLuaArrays([
+      {
+        _precondition_is_monster: false,
+        jobs: $fromArray([
+          {
+            jobs: $fromArray(
+              range(20, 1).map((it) => ({
+                job_id: {
+                  job_type: "point_job",
+                  section: "logic@test_smart_empty_point_" + it,
+                },
+                priority: 3,
+              }))
+            ),
+            priority: 3,
+          },
+        ]),
+        priority: 60,
+      },
+      {
+        _precondition_is_monster: true,
+        jobs: $fromArray(
+          range(20, 1).map((it) => ({
+            job_id: {
+              job_type: "point_job",
+              section: "logic@test_smart_empty_home_" + it,
+            },
+            priority: 40,
+          }))
+        ),
+        priority: 50,
+      },
+    ]);
+  });
 });

@@ -91,5 +91,5 @@ export function createStalkerPatrolJobs(
     index += 1;
   }
 
-  return $multi(stalkerPatrolJobs, ltx, index);
+  return $multi(stalkerPatrolJobs, ltx, index - 1);
 }

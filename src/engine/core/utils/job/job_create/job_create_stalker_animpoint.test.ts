@@ -18,8 +18,6 @@ describe("jobs_general should correctly generate stalker animpoint jobs", () => 
   it("should correctly generate default animpoint jobs with no smart covers", async () => {
     const smartTerrain: SmartTerrain = new SmartTerrain("test_smart");
 
-    smartTerrain.ini = smartTerrain.spawn_ini();
-
     jest.spyOn(smartTerrain, "name").mockImplementation(() => "test_smart");
 
     const jobs: IJobListDescriptor = { priority: 50, jobs: new LuaTable() };
@@ -36,8 +34,6 @@ describe("jobs_general should correctly generate stalker animpoint jobs", () => 
 
     const smartTerrain: SmartTerrain = new SmartTerrain("test_smart");
     const smartCover: SmartCover = new SmartCover("test_smart_cover");
-
-    smartTerrain.ini = smartTerrain.spawn_ini();
 
     jest.spyOn(smartTerrain, "name").mockImplementation(() => "test_smart");
     jest.spyOn(smartCover, "name").mockImplementation(() => "test_smart_animpoint_1");
@@ -71,8 +67,6 @@ describe("jobs_general should correctly generate stalker animpoint jobs", () => 
 
     const smartTerrain: SmartTerrain = new SmartTerrain("test_smart");
     const smartCover: SmartCover = new SmartCover("test_smart_cover");
-
-    smartTerrain.ini = smartTerrain.spawn_ini();
 
     jest.spyOn(smartTerrain, "name").mockImplementation(() => "test_smart");
     jest.spyOn(smartCover, "name").mockImplementation(() => "test_smart_animpoint_1");
@@ -109,8 +103,6 @@ describe("jobs_general should correctly generate stalker animpoint jobs", () => 
     const smartTerrain: SmartTerrain = new SmartTerrain("test_smart");
     const smartCover: SmartCover = new SmartCover("test_smart_cover");
 
-    smartTerrain.ini = smartTerrain.spawn_ini();
-
     jest.spyOn(smartTerrain, "name").mockImplementation(() => "test_smart");
     jest.spyOn(smartCover, "name").mockImplementation(() => "test_smart_animpoint_1");
 
@@ -143,8 +135,6 @@ describe("jobs_general should correctly generate stalker animpoint jobs", () => 
     const smartTerrain: SmartTerrain = new SmartTerrain("test_smart");
     const smartCover: SmartCover = new SmartCover("test_smart_cover");
     const stalker: ServerHumanObject = mockServerAlifeHumanStalker();
-
-    smartTerrain.ini = smartTerrain.spawn_ini();
 
     jest.spyOn(smartTerrain, "name").mockImplementation(() => "test_smart");
     jest.spyOn(smartCover, "name").mockImplementation(() => "test_smart_animpoint_1");

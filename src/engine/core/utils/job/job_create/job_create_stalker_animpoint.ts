@@ -69,5 +69,5 @@ export function createStalkerAnimpointJobs(
     index += 1;
   }
 
-  return $multi(stalkerJobs, ltx, index);
+  return $multi(stalkerJobs, ltx, index - 1);
 }
