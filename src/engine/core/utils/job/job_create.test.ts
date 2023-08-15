@@ -2,7 +2,8 @@ import * as path from "path";
 
 import { describe, expect, it, jest } from "@jest/globals";
 
-import { SmartTerrain } from "@/engine/core/objects";
+import { registerSmartCover } from "@/engine/core/database";
+import { SmartCover, SmartTerrain } from "@/engine/core/objects";
 import { createSmartTerrainJobs } from "@/engine/core/utils/job/job_create";
 import { range } from "@/engine/core/utils/number";
 import { readInGameTestLtx } from "@/fixtures/engine";
@@ -14,10 +15,14 @@ describe("jobs_general should correctly generate default jobs", () => {
     );
 
     const smartTerrain: SmartTerrain = new SmartTerrain("test_smart");
+    const smartCover: SmartCover = new SmartCover("test_smart_cover");
 
     smartTerrain.ini = smartTerrain.spawn_ini();
 
     jest.spyOn(smartTerrain, "name").mockImplementation(() => "test_smart");
+    jest.spyOn(smartCover, "name").mockImplementation(() => "test_smart_animpoint_1");
+
+    registerSmartCover(smartCover);
 
     const [jobsList, ltx] = createSmartTerrainJobs(smartTerrain);
 
@@ -65,6 +70,15 @@ describe("jobs_general should correctly generate default jobs", () => {
               }))
             ),
             priority: 10,
+          },
+          {
+            _precondition_function: expect.any(Function),
+            _precondition_params: {},
+            job_id: {
+              job_type: "smartcover_job",
+              section: "logic@test_smart_animpoint_1",
+            },
+            priority: 15,
           },
         ]),
         priority: 60,

@@ -38,19 +38,11 @@ export function createStalkerAnimpointJobs(
     });
 
     let jobLtx: string =
-      "[logic@" +
-      smartCoverName +
-      "]\n" +
-      "active = animpoint@" +
-      smartCoverName +
-      "\n" +
-      "[animpoint@" +
-      smartCoverName +
-      "]\n" +
+      `[logic@${smartCoverName}]\n` +
+      `active = animpoint@${smartCoverName}\n` +
+      `[animpoint@${smartCoverName}]\n` +
       "meet = meet@generic_animpoint\n" +
-      "cover_name = " +
-      smartCoverName +
-      "\n";
+      `cover_name = ${smartCoverName}\n`;
 
     if (smartTerrain.defendRestrictor !== null) {
       jobLtx += `out_restr = ${smartTerrain.defendRestrictor}\n`;
@@ -66,8 +58,8 @@ export function createStalkerAnimpointJobs(
 
     if (smartTerrain.smartTerrainActorControl !== null && smartTerrain.smartTerrainActorControl.ignoreZone !== null) {
       jobLtx +=
-        "combat_ignore_cond = {=npc_in_zone(smart.base_on_actor_control.ignore_zone)} true \n" +
-        "combat_ignore_keep_when_attacked = true \n";
+        "combat_ignore_cond = {=npc_in_zone(smart.base_on_actor_control.ignore_zone)} true\n" +
+        "combat_ignore_keep_when_attacked = true\n";
     }
 
     ltx += jobLtx;
