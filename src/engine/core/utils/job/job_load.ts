@@ -1,47 +1,30 @@
-import { getFS, ini_file, level, patrol } from "xray16";
+import { level, patrol } from "xray16";
 
 import { registry } from "@/engine/core/database";
 import { SurgeManager } from "@/engine/core/managers/world/SurgeManager";
 import { SmartTerrain } from "@/engine/core/objects";
 import { isInTimeInterval } from "@/engine/core/utils/game";
-import {
-  getSchemeFromSection,
-  parseConditionsList,
-  parseWaypointData,
-  pickSectionFromCondList,
-  readIniBoolean,
-  readIniNumber,
-  readIniString,
-  TConditionList,
-} from "@/engine/core/utils/ini";
+import { parseWaypointData } from "@/engine/core/utils/ini";
 import { isAccessibleJob, isJobInRestrictor } from "@/engine/core/utils/job/job_check";
-import { IJobDescriptor, TJobDescriptor } from "@/engine/core/utils/job/types";
+import { loadExclusiveJob } from "@/engine/core/utils/job/job_exclusive";
+import { TJobDescriptor } from "@/engine/core/utils/job/types";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { communities } from "@/engine/lib/constants/communities";
-import { roots } from "@/engine/lib/constants/roots";
-import { SMART_TERRAIN_SECTION } from "@/engine/lib/constants/sections";
-import { FALSE } from "@/engine/lib/constants/words";
 import {
   AnyObject,
   ClientObject,
-  EJobType,
-  EScheme,
   IniFile,
-  JobTypeByScheme,
   LuaArray,
-  Optional,
   ServerHumanObject,
   ServerObject,
+  TCount,
+  TIndex,
   TName,
-  TPath,
-  TSection,
 } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
- * todo;
  * todo;
  *
  * @param smartTerrain - jobs to load for smart terrain
@@ -583,8 +566,8 @@ export function loadSmartTerrainJobs(smartTerrain: SmartTerrain): LuaMultiReturn
       jobLtx = jobLtx + "out_restr = " + smartTerrain.defendRestrictor + "\n";
     }
 
-    ltx = ltx + jobLtx;
-    it = it + 1;
+    ltx += jobLtx;
+    it += 1;
   }
 
   if (it > 1) {
@@ -830,6 +813,7 @@ export function loadSmartTerrainJobs(smartTerrain: SmartTerrain): LuaMultiReturn
   const stalkerDefSniper = { priority: 30, jobs: new LuaTable() };
 
   it = 1;
+
   while (level.patrol_path_exists(smartTerrainName + "_sniper_" + it + "_walk")) {
     const wayName = smartTerrainName + "_sniper_" + it + "_walk";
     const ptr = new patrol(wayName);
@@ -972,7 +956,7 @@ export function loadSmartTerrainJobs(smartTerrain: SmartTerrain): LuaMultiReturn
     }
 
     ltx = ltx + jobLtx;
-    it = it + 1;
+    it += 1;
   }
 
   if (it > 1) {
@@ -1037,22 +1021,23 @@ export function loadSmartTerrainJobs(smartTerrain: SmartTerrain): LuaMultiReturn
   // ===================================================================================================================
   const smartTerrainIni: IniFile = smartTerrain.ini;
 
-  if (smartTerrainIni.section_exist(SMART_TERRAIN_SECTION)) {
+  if (smartTerrainIni.section_exist("smart_terrain")) {
     logger.info("Exclusive jobs load:", smartTerrainName);
-    if (smartTerrainIni.section_exist("exclusive")) {
-      const n = smartTerrainIni.line_count("exclusive");
 
-      for (const i of $range(0, n - 1)) {
+    if (smartTerrainIni.section_exist("exclusive")) {
+      const exclusiveJobsCount: TCount = smartTerrainIni.line_count("exclusive");
+
+      for (const i of $range(0, exclusiveJobsCount - 1)) {
         const [result, id, value] = smartTerrainIni.r_line("exclusive", i, "", "");
 
-        addExclusiveJob("exclusive", id, smartTerrainIni, jobsList);
+        loadExclusiveJob(smartTerrainIni, "exclusive", id, jobsList);
       }
     } else {
-      let num = 1;
+      let index: TIndex = 1;
 
-      while (smartTerrainIni.line_exist(SMART_TERRAIN_SECTION, "work" + num)) {
-        addExclusiveJob(SMART_TERRAIN_SECTION, "work" + num, smartTerrainIni, jobsList);
-        num = num + 1;
+      while (smartTerrainIni.line_exist("smart_terrain", "work" + index)) {
+        loadExclusiveJob(smartTerrainIni, "smart_terrain", "work" + index, jobsList);
+        index += 1;
       }
     }
   }
@@ -1060,98 +1045,4 @@ export function loadSmartTerrainJobs(smartTerrain: SmartTerrain): LuaMultiReturn
   logger.info("Composed job table:", smartTerrainName);
 
   return $multi(jobsList, ltx);
-}
-
-/**
- * Add jobs unique to terrain instance.
- */
-function addExclusiveJob(
-  section: TSection,
-  workField: TSection,
-  smartTerrainIni: IniFile,
-  jobsList: LuaArray<TJobDescriptor>
-): void {
-  const work: Optional<string> = readIniString(smartTerrainIni, section, workField, false, "");
-
-  if (work === null) {
-    return;
-  }
-
-  const iniPath: TPath = "scripts\\" + work;
-
-  assert(getFS().exist(roots.gameConfig, iniPath), "There is no configuration file [%s].", iniPath);
-
-  const jobIniFile = new ini_file(iniPath);
-  const jobOnline = readIniString(jobIniFile, "logic@" + workField, "job_online", false, "", null);
-  const newPrior = readIniNumber(jobIniFile, "logic@" + workField, "prior", false, 45);
-  const jobSuitable = readIniString(jobIniFile, "logic@" + workField, "suitable", false, "");
-  const isMonster = readIniBoolean(jobIniFile, "logic@" + workField, "monster_job", false, false);
-  const activeSection = readIniString(jobIniFile, "logic@" + workField, "active", false, "");
-  const scheme: Optional<EScheme> = getSchemeFromSection(activeSection) as EScheme;
-
-  let jobType: EJobType = JobTypeByScheme[scheme] as EJobType;
-
-  if (scheme === EScheme.MOB_HOME) {
-    if (readIniBoolean(jobIniFile, activeSection, "gulag_point", false, false)) {
-      jobType = EJobType.POINT_JOB;
-    }
-  }
-
-  if (jobSuitable === null) {
-    const t: IJobDescriptor = {
-      priority: newPrior,
-      _precondition_is_monster: isMonster,
-      job_id: {
-        section: "logic@" + workField,
-        ini_path: iniPath,
-        online: jobOnline,
-        ini_file: jobIniFile,
-        job_type: jobType as TName,
-      },
-    };
-
-    table.insert(jobsList, t);
-
-    return;
-  }
-
-  const conditionsList: TConditionList = parseConditionsList(jobSuitable);
-
-  const entry = {
-    priority: newPrior,
-    _precondition_is_monster: isMonster,
-    job_id: {
-      section: "logic@" + workField,
-      ini_path: iniPath,
-      ini_file: jobIniFile,
-      online: jobOnline,
-      job_type: jobType,
-    },
-    _precondition_params: { condlist: conditionsList },
-    _precondition_function: (
-      serverObject: ServerHumanObject,
-      smartTerrain: SmartTerrain,
-      precondParams: AnyObject
-    ): boolean => {
-      const result: Optional<string> = pickSectionFromCondList(registry.actor, serverObject, precondParams.condlist);
-
-      if (result === FALSE || result === null) {
-        return false;
-      }
-
-      return true;
-    },
-  };
-
-  table.insert(jobsList, entry);
-
-  table.insert(jobsList, {
-    priority: -1,
-    _precondition_is_monster: isMonster,
-    job_id: {
-      section: "logic@" + workField,
-      ini_file: jobIniFile,
-      job_type: jobType,
-    },
-  });
 }

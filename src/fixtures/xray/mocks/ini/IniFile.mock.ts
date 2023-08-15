@@ -64,8 +64,15 @@ export class MockIniFile<T extends AnyObject> {
 }
 
 /**
- * todo;
+ * Mock generic ini file for testing.
  */
 export function mockIniFile(path: TPath, data?: AnyObject): IniFile {
   return new MockIniFile(path, data) as unknown as IniFile;
+}
+
+/**
+ * Mock file existence in registry for testing.
+ */
+export function registerIniFileMock(ini: IniFile): void {
+  FILES_MOCKS[ini.fname()] = (ini as unknown as MockIniFile<AnyObject>).data;
 }

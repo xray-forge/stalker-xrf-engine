@@ -2,11 +2,12 @@ import { ammo } from "@/engine/lib/constants/items/ammo";
 import { detectors } from "@/engine/lib/constants/items/detectors";
 import { weapons } from "@/engine/lib/constants/items/weapons";
 import { iconTextures } from "@/engine/lib/constants/textures/icon_textures";
+import { AnyObject, TPath } from "@/engine/lib/types";
 
 /**
  * Mock ini files for testing.
  */
-export const FILES_MOCKS = {
+export const FILES_MOCKS: Record<TPath, AnyObject> = {
   "system.ini": {
     actor: {
       quick_item_1: "qi_1",
