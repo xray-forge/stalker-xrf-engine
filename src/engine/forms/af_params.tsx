@@ -1,14 +1,14 @@
 import { JSXNode, JSXXML } from "jsx-xml";
 
 /**
- * todo;
+ * Generation of UI forms for artefact parameters elements.
  */
 export function create(): JSXNode {
   return <ArtefactParams />;
 }
 
 /**
- * todo;
+ * Component describing possible artefact parameters.
  */
 export function ArtefactParams(): JSXNode {
   return (

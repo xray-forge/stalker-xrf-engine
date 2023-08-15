@@ -1,14 +1,14 @@
 import { JSXNode, JSXXML } from "jsx-xml";
 
 /**
- * todo;
+ * Generate artefact parameters UI forms for 16/9 screens.
  */
 export function create(): JSXNode {
   return <ArtefactParams />;
 }
 
 /**
- * todo;
+ * Component describing artefact parameters in inventory UI.
  */
 export function ArtefactParams(): JSXNode {
   return (

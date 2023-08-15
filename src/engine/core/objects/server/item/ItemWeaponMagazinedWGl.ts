@@ -8,7 +8,7 @@ import { Optional } from "@/engine/lib/types";
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Matching server class for magazined weapons with grenade launcher.
  */
 @LuabindClass()
 export class ItemWeaponMagazinedWGl extends cse_alife_item_weapon_magazined_w_gl {

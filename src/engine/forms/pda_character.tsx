@@ -1,7 +1,7 @@
 import { JSXNode, JSXXML } from "jsx-xml";
 
 /**
- * todo;
+ * Generation of PDA character section UI forms.
  */
 export function create(): JSXNode {
   return (

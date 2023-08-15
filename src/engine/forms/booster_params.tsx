@@ -5,14 +5,14 @@ import { XrTexture } from "@/engine/forms/components/base/XrTexture.component";
 import { fonts } from "@/engine/lib/constants/fonts";
 
 /**
- * todo;
+ * Generate UI components related to game food/boosters parameters.
  */
 export function create(): JSXNode {
   return <BoosterParams />;
 }
 
 /**
- * todo;
+ * Component describing booster parameters for inventory items.
  */
 export function BoosterParams(): JSXNode {
   return (
@@ -48,7 +48,7 @@ export function BoosterParams(): JSXNode {
 }
 
 /**
- * todo;
+ * Inventory item booster params representing component.
  */
 function BoosterParam({
   name,

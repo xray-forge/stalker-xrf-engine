@@ -1,7 +1,8 @@
 import { danger_object } from "xray16";
 
 /**
- * todo;
+ * Configuration of game logics.
+ * todo: move to LTX file once everything is combined here.
  */
 export const logicsConfig = {
   ALIFE: {

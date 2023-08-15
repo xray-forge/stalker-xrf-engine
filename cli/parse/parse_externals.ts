@@ -44,11 +44,11 @@ export async function parseExternals(): Promise<void> {
 }
 
 /**
- * Get list of LTX transformable descriptors.
+ * @returns descriptors of files to parse and generate docs
  */
 async function getSourcesList(source: string): Promise<Array<string>> {
   /**
-   * todo;
+   * Recursively find all files with possible definitions for docs generation.
    */
   function collectList(acc: Array<string>, it: TFolderFiles): Array<string> {
     if (Array.isArray(it)) {

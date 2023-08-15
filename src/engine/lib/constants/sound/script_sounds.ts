@@ -1,7 +1,7 @@
 /* eslint sort-keys-fix/sort-keys-fix: "error" */
 
 /**
- * todo;
+ * List of default sounds available for scripted playback.
  */
 export const scriptSounds = {
   alarm: "alarm",
@@ -71,11 +71,11 @@ export const scriptSounds = {
 } as const;
 
 /**
- * todo;
+ * Type definitions of sounds resources list.
  */
 export type TScriptSounds = typeof scriptSounds;
 
 /**
- * todo;
+ * Type definitions of single sound.
  */
 export type TScriptSound = TScriptSounds[keyof TScriptSounds];

@@ -44,7 +44,8 @@ const ARRIVAL_AFTER_ROTATION: number = 1;
 const sync: LuaTable<string, LuaTable<number, boolean>> = new LuaTable();
 
 /**
- * todo;
+ * Manager handling movement of stalker objects.
+ * Responsible for patrolling schemes logic.
  */
 export class StalkerMoveManager {
   /**

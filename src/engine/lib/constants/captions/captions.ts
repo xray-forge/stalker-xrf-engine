@@ -14,7 +14,6 @@ import { screenCaptions } from "@/engine/lib/constants/captions/screen_captions"
 
 /**
  * Translation enum captions.
- * todo: Include all translations, build translation collecting script.
  */
 export const captions = {
   ...achievementsCaptions,
@@ -33,11 +32,11 @@ export const captions = {
 };
 
 /**
- * todo;
+ * Type definition of translated captions list.
  */
 export type TCaptions = typeof captions;
 
 /**
- * todo;
+ * Type definition of single translated caption item.
  */
 export type TCaption = TCaptions[keyof TCaptions];

@@ -1,7 +1,7 @@
 import { JSXNode, JSXXML } from "jsx-xml";
 
 /**
- * todo;
+ * Generation of UI forms related to character in talk menu.
  */
 export function create(): JSXNode {
   return (

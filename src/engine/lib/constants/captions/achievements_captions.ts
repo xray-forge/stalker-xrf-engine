@@ -1,7 +1,7 @@
 /* eslint sort-keys-fix/sort-keys-fix: "error" */
 
 /**
- * todo;
+ * List of captions related to achievements.
  */
 export const achievementsCaptions = {
   st_achievement_10_descr: "st_achievement_10_descr",

@@ -1,7 +1,7 @@
 import { JSXNode, JSXXML } from "jsx-xml";
 
 /**
- * todo;
+ * Create UI forms related to PDA messages (16/9).
  */
 export function create(): JSXNode {
   return (

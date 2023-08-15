@@ -1,7 +1,7 @@
 import { JSXNode, JSXXML } from "jsx-xml";
 
 /**
- * todo;
+ * Generation of scroll bar UI forms for 16/9.
  */
 export function create(): JSXNode {
   return (

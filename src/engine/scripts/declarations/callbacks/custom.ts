@@ -43,27 +43,33 @@ extern("engine.surge_survive_start", () => SurgeManager.getInstance().onSurgeSur
 extern("engine.surge_survive_end", () => SurgeManager.getInstance().onSurgeSurviveEnd());
 
 /**
- * todo;
+ * Check whether task with provided ID is completed.
  */
 extern("engine.is_task_completed", (taskId: TStringId): boolean => TaskManager.getInstance().isTaskCompleted(taskId));
 
 /**
- * todo;
+ * Check whether task with provided ID is failed.
  */
 extern("engine.is_task_failed", (taskId: TStringId): boolean => TaskManager.getInstance().isTaskFailed(taskId));
 
 /**
- * todo;
+ * Callback of game effector.
+ * When some camera effects from cutscene ends, handle it in scheme.
+ *
+ * todo: rename to camera_effector_callback?
  */
 extern("engine.effector_callback", () => SchemeCutscene.onCutsceneEnd());
 
 /**
  * Checkers for achievements called from C++.
+ * Creates set of callbacks in generic way.
  */
 extern(
   "engine.check_achievement",
   Object.values(EAchievement).reduce<PartialRecord<EAchievement, AnyCallable>>((acc, it) => {
-    acc[it] = () => AchievementsManager.getInstance().checkAchieved(it);
+    const manager: AchievementsManager = AchievementsManager.getInstance();
+
+    acc[it] = () => manager.checkAchieved(it);
 
     return acc;
   }, {})

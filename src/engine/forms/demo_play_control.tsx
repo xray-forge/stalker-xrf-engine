@@ -1,7 +1,7 @@
 import { JSXNode, JSXXML } from "jsx-xml";
 
 /**
- * todo;
+ * Create UI forms related to recorded demos playback in multiplayer section of menu.
  */
 export function create(): JSXNode {
   return (

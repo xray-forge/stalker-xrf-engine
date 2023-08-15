@@ -1,7 +1,7 @@
 import { JSXNode, JSXXML } from "jsx-xml";
 
 /**
- * todo;
+ * Creation of ui components related to main menu versions dialog.
  */
 export function create(): JSXNode {
   return (

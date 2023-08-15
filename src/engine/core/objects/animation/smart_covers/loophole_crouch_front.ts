@@ -1,5 +1,4 @@
 import { ISmartCoverLoopholeDescriptor } from "@/engine/core/objects/animation/smart_covers/types_smart_covers";
-import { createVector } from "@/engine/core/utils/vector";
 import { MX_VECTOR, ZERO_VECTOR } from "@/engine/lib/constants/vectors";
 import { Optional, TStringId, Vector } from "@/engine/lib/types";
 

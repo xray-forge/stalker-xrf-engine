@@ -1,7 +1,7 @@
 /* eslint sort-keys-fix/sort-keys-fix: "error" */
 
 /**
- * todo;
+ * List of possible map marks types to display in map / minimap.
  */
 export const mapMarks = {
   alife_presentation_squad_enemy: "alife_presentation_squad_enemy",
@@ -21,7 +21,8 @@ export const mapMarks = {
 } as const;
 
 /**
- * todo;
+ * Type of map mark with category of object.
+ * Example: all the traders/medics/mechanics in game bases.
  */
 export enum EMapMarkType {
   GUIDER = "guider",

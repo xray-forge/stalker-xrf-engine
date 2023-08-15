@@ -1,7 +1,7 @@
 /* eslint sort-keys-fix/sort-keys-fix: "error" */
 
 /**
- * todo;
+ * List of possible game difficulties.
  */
 export const gameDifficulties = {
   gd_master: "gd_master",
@@ -11,12 +11,12 @@ export const gameDifficulties = {
 } as const;
 
 /**
- * todo;
+ * Definition of all difficulties' config.
  */
 export type TGameDifficulties = typeof gameDifficulties;
 
 /**
- * todo;
+ * Possible game difficulty type definition.
  */
 export type TGameDifficulty = TGameDifficulties[keyof TGameDifficulties];
 

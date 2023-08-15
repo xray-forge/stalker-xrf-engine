@@ -4,7 +4,7 @@ import { ArtefactParams } from "@/engine/forms/af_params";
 import { BoosterParams } from "@/engine/forms/booster_params";
 
 /**
- * todo;
+ * Generate UI forms related to menu items buying in multiplayer.
  */
 export function create(): JSXNode {
   return (

@@ -4,7 +4,7 @@ import { ArtefactParams } from "@/engine/forms/af_params_16";
 import { BoosterParams } from "@/engine/forms/booster_params_16";
 
 /**
- * todo;
+ * Create UI forms related to buying and selling menu items.
  */
 export function create(): JSXNode {
   return (

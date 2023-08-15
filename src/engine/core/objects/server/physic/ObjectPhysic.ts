@@ -14,6 +14,8 @@ const logger: LuaLogger = new LuaLogger($filename);
  * Examples:
  * - Static artefacts in scientist bunker
  * - Detectors to place in anomaly by quest
+ *
+ * todo: Rename to PhysicObject to match c++.
  */
 @LuabindClass()
 export class ObjectPhysic extends cse_alife_object_physic {

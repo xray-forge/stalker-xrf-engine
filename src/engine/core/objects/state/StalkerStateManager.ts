@@ -224,7 +224,8 @@ export class StalkerStateManager {
   }
 
   /**
-   * todo;
+   * Look at object defined by current animation.
+   * Applies look type / direction / object.
    */
   public lookAtObject(): void {
     this.isObjectPointDirectionLook = this.getLookObjectType();

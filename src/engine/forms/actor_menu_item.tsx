@@ -4,7 +4,7 @@ import { ArtefactParams } from "@/engine/forms/af_params";
 import { BoosterParams } from "@/engine/forms/booster_params";
 
 /**
- * todo;
+ * Actor menu form item form generation.
  */
 export function create(): JSXNode {
   return (

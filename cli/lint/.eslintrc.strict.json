@@ -1,6 +1,5 @@
 {
   "extends": ["./.eslintrc.base.json"],
-  "ignorePatterns": ["target/**/*", "cli/build/plugins/**/*"],
   "plugins": ["@typescript-eslint", "jest", "import", "sort-keys-fix", "unused-imports"],
   "rules": {
     "unused-imports/no-unused-imports": "error",

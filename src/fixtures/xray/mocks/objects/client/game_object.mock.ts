@@ -32,7 +32,8 @@ import { MockVector } from "@/fixtures/xray/mocks/vector.mock";
 let ID_COUNTER: TNumberId = 1000;
 
 /**
- * todo;
+ * Mock client game object.
+ * It is defined as script_object in c++ and wraps all script objects currently online.
  */
 export function mockClientGameObject({
   animation_count = jest.fn(() => 0),
@@ -114,6 +115,7 @@ export function mockClientGameObject({
           .forEach((it) => inRestrictions.push(it));
       }),
     best_danger: rest.best_danger || jest.fn(() => null),
+    bind_object: rest.bind_object || jest.fn(),
     bleeding,
     can_select_weapon: rest.can_select_weapon || jest.fn(),
     change_team: rest.change_team || jest.fn(),
@@ -145,6 +147,7 @@ export function mockClientGameObject({
       jest.fn((to: ClientObject) => {
         return mockRelationRegistryInterface.get_general_goodwill_between(id ? id() : idOverride, to.id());
       }),
+    get_campfire: rest.get_campfire || jest.fn(() => null),
     get_script: rest.get_script || jest.fn(() => false),
     get_script_name: rest.get_script_name || jest.fn(() => null),
     give_game_news,

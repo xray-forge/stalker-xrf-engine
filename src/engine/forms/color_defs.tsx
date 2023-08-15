@@ -3,7 +3,7 @@ import { JSXNode, JSXXML } from "jsx-xml";
 // todo: Use enum with defined colors.
 
 /**
- * todo;
+ * Generate definitions of colors and related UI forms.
  */
 export function create(): JSXNode {
   // <!-- For applying specified color insert "%cColorName" into the text -->

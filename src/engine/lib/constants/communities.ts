@@ -1,7 +1,7 @@
 /* eslint sort-keys-fix/sort-keys-fix: "error" */
 
 /**
- * todo;
+ * List of available stalkers game communities.
  */
 export const stalkerCommunities = {
   army: "army",
@@ -16,7 +16,7 @@ export const stalkerCommunities = {
 } as const;
 
 /**
- * todo;
+ * List of available monsters game communities.
  */
 export const monsterCommunities = {
   monster: "monster",
@@ -29,7 +29,7 @@ export const monsterCommunities = {
 } as const;
 
 /**
- * todo;
+ * List of all available game communities.
  */
 export const communities = {
   ...stalkerCommunities,
@@ -39,11 +39,11 @@ export const communities = {
 } as const;
 
 /**
- * todo;
+ * Communities list type definitions.
  */
 export type TCommunities = typeof communities;
 
 /**
- * todo;
+ * Single community type definition.
  */
 export type TCommunity = TCommunities[keyof TCommunities];

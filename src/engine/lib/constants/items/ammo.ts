@@ -1,7 +1,7 @@
 /* eslint sort-keys-fix/sort-keys-fix: "error" */
 
 /**
- * todo;
+ * List of available ammo.
  */
 export const ammo = {
   "ammo_11.43x23_fmj": "ammo_11.43x23_fmj",
@@ -28,11 +28,11 @@ export const ammo = {
 } as const;
 
 /**
- * todo;
+ * Type definition of ammo sections.
  */
 export type TAmmoItems = typeof ammo;
 
 /**
- * todo;
+ * Type definition of single ammo section.
  */
 export type TAmmoItem = TAmmoItems[keyof TAmmoItems];

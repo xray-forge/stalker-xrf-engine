@@ -1,7 +1,7 @@
 /* eslint sort-keys-fix/sort-keys-fix: "error" */
 
 /**
- * todo;
+ * Captions describing items upgrades.
  */
 export const itemsWeaponsUpgradesCaptions = {
   st_auto_fire: "st_auto_fire",

@@ -1,4 +1,6 @@
+import { MockLuabindClass } from "@/fixtures/xray/mocks/luabind.mock";
+
 /**
- * todo;
+ * Mock base window class.
  */
-export class MockCUIWindow {}
+export class MockCUIWindow extends MockLuabindClass {}

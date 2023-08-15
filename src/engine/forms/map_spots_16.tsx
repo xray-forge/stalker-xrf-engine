@@ -3,7 +3,7 @@
 import { MapSpots } from "@/engine/forms/game/map/MapSpots.component.16";
 
 /**
- * todo;
+ * Creation of UI forms related to in-game map spots (16/9).
  */
 export function create(): JSXNode {
   return <MapSpots />;

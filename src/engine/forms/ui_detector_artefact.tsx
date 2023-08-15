@@ -1,7 +1,7 @@
 import { JSXNode, JSXXML } from "jsx-xml";
 
 /**
- * todo;
+ * Generation of ui forms related to detector artefact display.
  */
 export function create(): JSXNode {
   return (

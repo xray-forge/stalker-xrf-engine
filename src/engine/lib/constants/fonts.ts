@@ -1,7 +1,7 @@
 /* eslint sort-keys-fix/sort-keys-fix: "error" */
 
 /**
- * todo;
+ * Declaration of fonts available for in-game usage.
  */
 export const fonts = {
   graffiti19: "graffiti19",
@@ -12,11 +12,11 @@ export const fonts = {
 } as const;
 
 /**
- * todo;
+ * Definition of all possible font config.
  */
 export type TFonts = typeof fonts;
 
 /**
- * todo;
+ * Signgle possible font type definition.
  */
 export type TFontId = keyof TFonts;

@@ -54,7 +54,8 @@ export async function buildStaticConfigs(parameters: IBuildCommandParameters): P
  */
 async function getStaticConfigs(filters: Array<string> = []): Promise<Array<TFolderReplicationDescriptor>> {
   /**
-   * todo;
+   * Collect list of LTX configs for including in build.
+   * Recursively find all ltx files in configs dir.
    */
   function collectConfigs(
     acc: Array<TFolderReplicationDescriptor>,

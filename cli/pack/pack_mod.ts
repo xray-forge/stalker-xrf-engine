@@ -2,7 +2,7 @@ import { default as assert } from "assert";
 import { cpSync, existsSync, rmSync } from "fs";
 import * as path from "path";
 
-import { blue, red, yellow, yellowBright } from "chalk";
+import { blue, yellow, yellowBright } from "chalk";
 
 import { build } from "#/build/build";
 import { default as config } from "#/config.json";

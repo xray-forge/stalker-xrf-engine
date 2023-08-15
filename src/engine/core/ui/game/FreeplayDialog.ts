@@ -8,7 +8,8 @@ import { Optional } from "@/engine/lib/types";
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Class describing dialog shown in the end of game.
+ * Enables freeplay choice when game ends.
  */
 @LuabindClass()
 export class FreeplayDialog extends CUIScriptWnd {

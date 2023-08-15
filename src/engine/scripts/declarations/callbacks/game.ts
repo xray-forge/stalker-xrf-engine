@@ -1,6 +1,3 @@
-/**
- * Outro conditions for game ending based on alife information.
- */
 import { SaveManager } from "@/engine/core/managers/base/SaveManager";
 import { TradeManager } from "@/engine/core/managers/interaction/TradeManager";
 import { smartCoversList } from "@/engine/core/objects/animation/smart_covers";
@@ -13,13 +10,16 @@ const logger: LuaLogger = new LuaLogger($filename);
 
 logger.info("Resolve and bind game externals");
 
-// todo: Check if needed.
+/**
+ * Declare list of available smart covers for game engine.
+ * Xray uses it internally.
+ */
 extern("smart_covers", {
   descriptions: smartCoversList,
 });
 
 /**
- * todo;
+ * Module of callbacks related to game outro.
  */
 extern("outro", {
   conditions: GameOutroManager.OUTRO_CONDITIONS,
@@ -30,7 +30,8 @@ extern("outro", {
 });
 
 /**
- * todo;
+ * Trading callbacks module.
+ * Adjust pricing / trading from lua.
  */
 extern("trade_manager", {
   get_sell_discount: (objectId: TNumberId) => TradeManager.getInstance().getSellDiscountForObject(objectId),

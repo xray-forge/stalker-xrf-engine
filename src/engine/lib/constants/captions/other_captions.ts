@@ -1,7 +1,7 @@
 /* eslint sort-keys-fix/sort-keys-fix: "error" */
 
 /**
- * todo;
+ * List of generic captions.
  */
 export const otherCaptions = {
   Btn_Cancel: "Btn_Cancel",

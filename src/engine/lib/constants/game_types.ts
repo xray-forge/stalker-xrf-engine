@@ -1,5 +1,5 @@
 /**
- * todo;
+ * List of available game modes based on bit masks.
  */
 export const gameTypes = {
   // -- game internal types, do not change

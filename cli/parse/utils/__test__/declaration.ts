@@ -11,12 +11,12 @@ interface IAbstractInterface {
 }
 
 /**
- * todo;
+ * Mock `extern` method for testing.
  */
 function extern(name: string, cb: (...args: Array<unknown>) => void): void {}
 
 /**
- * todo;
+ * Mock `another` method for testing of incorrect module global level calls.
  */
 function another(name: string, cb: (...args: Array<unknown>) => void): void {}
 

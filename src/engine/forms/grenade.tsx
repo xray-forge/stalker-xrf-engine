@@ -1,7 +1,7 @@
 import { JSXNode, JSXXML } from "jsx-xml";
 
 /**
- * todo;
+ * Creates UI forms related to grenade indicator when it is near player.
  */
 export function create(): JSXNode {
   return (

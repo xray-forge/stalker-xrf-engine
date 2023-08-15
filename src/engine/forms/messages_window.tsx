@@ -1,7 +1,7 @@
 import { JSXNode, JSXXML } from "jsx-xml";
 
 /**
- * todo;
+ * Create forms related to messages window.
  */
 export function create(): JSXNode {
   return (

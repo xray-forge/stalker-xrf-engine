@@ -7,7 +7,12 @@ import { Optional } from "#/utils/types";
 const NEW_LINE_CHARACTERS: Array<string> = ["\n"];
 
 /**
- * todo;
+ * Read last lines of some text file in a streamed way.
+ *
+ * @param filePath - full path to read file
+ * @param maxLineCount - number of lines to read from EOF
+ * @param encoding - encoding to use when reading file as text
+ * @returns last lines of text file
  */
 export async function readLastLinesOfFile(
   filePath: string,

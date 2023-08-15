@@ -1,7 +1,7 @@
 import { JSXNode, JSXXML } from "jsx-xml";
 
 /**
- * todo;
+ * Generation of multiplayer team selection UI forms.
  */
 export function create(): JSXNode {
   return (

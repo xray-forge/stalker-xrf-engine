@@ -1,7 +1,7 @@
 /* eslint sort-keys-fix/sort-keys-fix: "error" */
 
 /**
- * todo;
+ * List of captions related to dialog manager.
  */
 export const dialogManagerCaptions = {
   dm_anomalies_1: "dm_anomalies_1",

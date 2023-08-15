@@ -30,7 +30,6 @@ export const lootableTableExclude = {
   [misc.harmonica_a]: misc.harmonica_a,
   [weapons.wpn_binoc]: weapons.wpn_binoc,
   [weapons.wpn_binocular]: weapons.wpn_binocular,
-  [weapons.wpn_binocular_s]: weapons.wpn_binocular_s,
 } as const;
 
 export type TLootableExcludeItems = typeof lootableTableExclude;

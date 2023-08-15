@@ -1,7 +1,7 @@
 /* eslint sort-keys-fix/sort-keys-fix: "error" */
 
 /**
- * todo;
+ * Game detector items sections.
  */
 export const detectors = {
   detector_advanced: "detector_advanced",
@@ -11,11 +11,11 @@ export const detectors = {
 } as const;
 
 /**
- * todo;
+ * Detectors map typing.
  */
 export type TDetectors = typeof detectors;
 
 /**
- * todo;
+ * One of detectors typing.
  */
 export type TDetector = TDetectors[keyof TDetectors];

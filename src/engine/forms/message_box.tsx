@@ -1,7 +1,7 @@
 import { JSXNode, JSXXML } from "jsx-xml";
 
 /**
- * todo;
+ * Creation of UI forms related to generic message boxes in game.
  */
 export function create(): JSXNode {
   return (

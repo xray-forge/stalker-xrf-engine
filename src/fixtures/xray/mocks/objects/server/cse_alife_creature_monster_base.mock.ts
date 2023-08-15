@@ -1,15 +1,17 @@
 import { ServerMonsterAbstractObject, ServerMonsterBaseObject } from "@/engine/lib/types";
-import { mockServerAlifeObject } from "@/fixtures/xray";
-import { AbstractLuabindClass } from "@/fixtures/xray/mocks/objects/AbstractLuabindClass";
+import {
+  MockAlifeDynamicObject,
+  mockServerAlifeDynamicObject,
+} from "@/fixtures/xray/mocks/objects/server/cse_alife_dynamic_object.mock";
 
 /**
  * todo;
  */
-export class MockAlifeMonsterBase extends AbstractLuabindClass {}
+export class MockAlifeMonsterBase extends MockAlifeDynamicObject {}
 
 /**
  * todo;
  */
 export function mockServerAlifeMonsterBase(base: Partial<ServerMonsterBaseObject> = {}): ServerMonsterAbstractObject {
-  return mockServerAlifeObject(base) as unknown as ServerMonsterBaseObject;
+  return mockServerAlifeDynamicObject(base) as unknown as ServerMonsterBaseObject;
 }

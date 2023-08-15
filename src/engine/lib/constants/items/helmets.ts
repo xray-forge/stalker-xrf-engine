@@ -1,7 +1,7 @@
 /* eslint sort-keys-fix/sort-keys-fix: "error" */
 
 /**
- * todo;
+ * List of available helmets items sections.
  */
 export const helmets = {
   helm_battle: "helm_battle",
@@ -14,11 +14,11 @@ export const helmets = {
 } as const;
 
 /**
- * todo;
+ * Type definition of available helmets items sections.
  */
 export type THelmets = typeof helmets;
 
 /**
- * todo;
+ * Type definition of single helmet item section.
  */
 export type THelmet = THelmets[keyof THelmets];

@@ -1,7 +1,7 @@
 import { JSXNode, JSXXML } from "jsx-xml";
 
 /**
- * todo;
+ * Create UI components related to loading screen in game (16/9).
  */
 export function create(): JSXNode {
   return (

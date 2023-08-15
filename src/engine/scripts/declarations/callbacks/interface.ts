@@ -32,7 +32,7 @@ extern("loadscreen", {
 });
 
 /**
- * todo;
+ * Handle item upgrade callbacks from game engine.
  */
 extern("inventory_upgrades", {
   get_upgrade_cost: (section: TSection): TLabel => ItemUpgradesManager.getInstance().getUpgradeCost(section),
@@ -59,7 +59,7 @@ extern("inventory_upgrades", {
 });
 
 /**
- * todo;
+ * Handle actor menu modes switching (pda, map, inventory).
  */
 extern("actor_menu", {
   actor_menu_mode: (mode: EActorMenuMode): void => {
@@ -68,9 +68,18 @@ extern("actor_menu", {
 });
 
 /**
- * todo;
+ * Handle actor menu callbacks.
  */
 extern("actor_menu_inventory", {
+  /**
+   * Handle drag and drop event in inventory.
+   *
+   * @param from - from object in inventory dropped
+   * @param to - to object in inventory dropped
+   * @param oldList - old menu type
+   * @param newList - new menu type
+   * @returns whether drag drop was handled
+   */
   CUIActorMenu_OnItemDropped: (
     from: ClientObject,
     to: ClientObject,

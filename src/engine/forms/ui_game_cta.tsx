@@ -1,7 +1,7 @@
 import { JSXNode, JSXXML } from "jsx-xml";
 
 /**
- * todo;
+ * Create forms related to capture the artefact multiplayer game mode.
  */
 export function create(): JSXNode {
   return (

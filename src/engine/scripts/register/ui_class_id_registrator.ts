@@ -7,8 +7,8 @@ import type { Maybe } from "@/engine/lib/types";
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * Based on current game type.
- * Called from game engine.
+ * @param gameType - type of the game
+ * @returns mapped game class ID matching game type
  */
 export function getUiClassId(gameType: EGameType): Maybe<TGameClassId> {
   switch (gameType) {

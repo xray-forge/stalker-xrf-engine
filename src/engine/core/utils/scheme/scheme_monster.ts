@@ -1,7 +1,7 @@
 import { entity_action } from "xray16";
 
 import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
-import { ClientObject, EntityAction, TEntityActionType, TIndex, TName } from "@/engine/lib/types";
+import { ClientObject, EntityAction, TEntityActionType, TName } from "@/engine/lib/types";
 
 /**
  * Check whether monster is currently captured by script logic.

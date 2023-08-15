@@ -1,10 +1,13 @@
 import { ClientObject } from "@/engine/lib/types";
+import { MockLuabindClass } from "@/fixtures/xray/mocks/luabind.mock";
 
 /**
  * todo;
  */
-export class MockObjectBinder {
-  public constructor(public object: ClientObject) {}
+export class MockObjectBinder extends MockLuabindClass {
+  public constructor(public object: ClientObject) {
+    super();
+  }
 
   public load(): void {}
 

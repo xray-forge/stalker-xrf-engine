@@ -1,7 +1,7 @@
 import { JSXNode, JSXXML } from "jsx-xml";
 
 /**
- * todo;
+ * Create forms related to team death match multiplayer mode (16/9).
  */
 export function create(): JSXNode {
   return (

@@ -1,7 +1,7 @@
 /* eslint sort-keys-fix/sort-keys-fix: "error" */
 
 /**
- * todo;
+ * Captions shown in game menu.
  */
 export const mainMenuCaptions = {
   Clear: "Clear",

@@ -1,7 +1,7 @@
 /* eslint sort-keys-fix/sort-keys-fix: "error" */
 
 /**
- * todo;
+ * List of textures displayed as game icons.
  */
 export const iconTextures = {
   ui_inGame2_Anomalnaya_aktivnost: "ui_inGame2_Anomalnaya_aktivnost",

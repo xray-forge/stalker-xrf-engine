@@ -12,7 +12,7 @@ import {
 
 import { EDebugSection, sectionsMap } from "@/engine/core/ui/debug/types";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { resolveXmlFile, resolveXmlFormPath } from "@/engine/core/utils/ui";
+import { resolveXmlFile } from "@/engine/core/utils/ui";
 import { gameConfig } from "@/engine/lib/configs/GameConfig";
 import { TKeyCode, TPath, TUIEvent } from "@/engine/lib/types";
 

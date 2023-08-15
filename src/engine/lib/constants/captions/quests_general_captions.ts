@@ -1,7 +1,7 @@
 /* eslint sort-keys-fix/sort-keys-fix: "error" */
 
 /**
- * todo;
+ * General captions list related to surge quests.
  */
 export const questsGeneralCaptions = {
   hide_from_surge_descr_1_a: "hide_from_surge_descr_1_a",

@@ -32,7 +32,7 @@ export function addStateManager(object: ClientObject): StalkerStateManager {
   const planner: ActionPlanner = object.motivation_action_manager();
   const stateManager: StalkerStateManager = new StalkerStateManager(object);
 
-  addBasicManagerGraph(stateManager, object);
+  addBasicManagerGraph(stateManager);
 
   planner.add_evaluator(EEvaluatorId.IS_STATE_IDLE_COMBAT, new EvaluatorStateIdleCombat(stateManager));
   planner.add_evaluator(EEvaluatorId.IS_STATE_IDLE_ALIFE, new EvaluatorStateIdleAlife(stateManager));
@@ -85,9 +85,9 @@ export function addStateManager(object: ClientObject): StalkerStateManager {
 }
 
 /**
- * todo;
+ * Add basic graphs to state manager planner evalutors / actions.
  */
-function addBasicManagerGraph(stateManager: StalkerStateManager, object: ClientObject): void {
+function addBasicManagerGraph(stateManager: StalkerStateManager): void {
   stateManager.planner.add_evaluator(EStateEvaluatorId.END, new stateManagement.EvaluatorStateEnd(stateManager));
   stateManager.planner.add_evaluator(EStateEvaluatorId.LOCKED, new stateManagement.EvaluatorStateLocked(stateManager));
   stateManager.planner.add_evaluator(

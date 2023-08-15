@@ -8,7 +8,7 @@ const logger: LuaLogger = new LuaLogger($filename);
 logger.info("Resolve and bind actor externals");
 
 /**
- * todo;
+ * Handle actor critical power levels.
  */
 extern("on_actor_critical_power", () => {
   logger.info("Actor critical power");
@@ -64,43 +64,43 @@ extern("on_actor_psy", () => {
 });
 
 /**
- * todo;
+ * Handle zone traveling with different set of callbacks.
  */
 extern("travel_callbacks", {
   initializeTravellerDialog: (dialog: PhraseDialog) => TravelManager.getInstance().initializeTravellerDialog(dialog),
-  canStartTravelingDialogs: (actor: ClientObject, npc: ClientObject) =>
-    TravelManager.getInstance().canStartTravelingDialogs(actor, npc),
-  getSquadCurrentActionDescription: (actor: ClientObject, npc: ClientObject): TLabel =>
-    TravelManager.getInstance().getSquadCurrentActionDescription(actor, npc),
-  canActorMoveWithSquad: (actor: ClientObject, npc: ClientObject): boolean =>
-    TravelManager.getInstance().canActorMoveWithSquad(actor, npc),
-  canSquadTakeActor: (actor: ClientObject, npc: ClientObject) =>
-    TravelManager.getInstance().canSquadTakeActor(actor, npc),
-  cannotSquadTakeActor: (npc: ClientObject, actor: ClientObject, dialogId: TStringId, phraseId: TStringId) =>
-    TravelManager.getInstance().cannotSquadTakeActor(npc, actor, dialogId, phraseId),
-  onTravelTogetherWithSquad: (npc: ClientObject, actor: ClientObject, dialogId: TStringId, phraseId: TStringId) =>
-    TravelManager.getInstance().onTravelTogetherWithSquad(npc, actor, dialogId, phraseId),
+  canStartTravelingDialogs: (actor: ClientObject, object: ClientObject) =>
+    TravelManager.getInstance().canStartTravelingDialogs(actor, object),
+  getSquadCurrentActionDescription: (actor: ClientObject, object: ClientObject): TLabel =>
+    TravelManager.getInstance().getSquadCurrentActionDescription(actor, object),
+  canActorMoveWithSquad: (actor: ClientObject, object: ClientObject): boolean =>
+    TravelManager.getInstance().canActorMoveWithSquad(actor, object),
+  canSquadTakeActor: (actor: ClientObject, object: ClientObject) =>
+    TravelManager.getInstance().canSquadTakeActor(actor, object),
+  cannotSquadTakeActor: (object: ClientObject, actor: ClientObject, dialogId: TStringId, phraseId: TStringId) =>
+    TravelManager.getInstance().cannotSquadTakeActor(object, actor, dialogId, phraseId),
+  onTravelTogetherWithSquad: (object: ClientObject, actor: ClientObject, dialogId: TStringId, phraseId: TStringId) =>
+    TravelManager.getInstance().onTravelTogetherWithSquad(object, actor, dialogId, phraseId),
   onTravelToSpecificSmartWithSquad: (
     actor: ClientObject,
-    npc: ClientObject,
+    object: ClientObject,
     dialogId: TStringId,
     phraseId: TStringId
-  ) => TravelManager.getInstance().onTravelToSpecificSmartWithSquad(actor, npc, dialogId, phraseId),
-  canSquadTravel: (npc: ClientObject, actor: ClientObject, dialogId: TStringId, phraseId: TStringId) =>
-    TravelManager.getInstance().canSquadTravel(npc, actor, dialogId, phraseId),
+  ) => TravelManager.getInstance().onTravelToSpecificSmartWithSquad(actor, object, dialogId, phraseId),
+  canSquadTravel: (object: ClientObject, actor: ClientObject, dialogId: TStringId, phraseId: TStringId) =>
+    TravelManager.getInstance().canSquadTravel(object, actor, dialogId, phraseId),
   canNegotiateTravelToSmart: (
     actor: ClientObject,
-    npc: ClientObject,
+    object: ClientObject,
     dialogId: TStringId,
     prevPhraseId: TStringId,
     phraseId: TStringId
-  ) => TravelManager.getInstance().canNegotiateTravelToSmart(actor, npc, dialogId, prevPhraseId, phraseId),
-  getTravelConst: (actor: ClientObject, npc: ClientObject, dialogId: TStringId, phraseId: TStringId): TLabel =>
-    TravelManager.getInstance().getTravelConst(actor, npc, dialogId, phraseId),
-  isEnoughMoneyToTravel: (actor: ClientObject, npc: ClientObject, dialogId: TStringId, phraseId: TStringId) =>
-    TravelManager.getInstance().isEnoughMoneyToTravel(actor, npc, dialogId, phraseId),
-  isNotEnoughMoneyToTravel: (actor: ClientObject, npc: ClientObject, dialogId: TStringId, phraseId: TStringId) =>
-    TravelManager.getInstance().isNotEnoughMoneyToTravel(actor, npc, dialogId, phraseId),
-  cannotSquadTravel: (npc: ClientObject, actor: ClientObject, dialogId: TStringId, phraseId: TStringId) =>
-    TravelManager.getInstance().cannotSquadTravel(npc, actor, dialogId, phraseId),
+  ) => TravelManager.getInstance().canNegotiateTravelToSmart(actor, object, dialogId, prevPhraseId, phraseId),
+  getTravelConst: (actor: ClientObject, object: ClientObject, dialogId: TStringId, phraseId: TStringId): TLabel =>
+    TravelManager.getInstance().getTravelConst(actor, object, dialogId, phraseId),
+  isEnoughMoneyToTravel: (actor: ClientObject, object: ClientObject, dialogId: TStringId, phraseId: TStringId) =>
+    TravelManager.getInstance().isEnoughMoneyToTravel(actor, object, dialogId, phraseId),
+  isNotEnoughMoneyToTravel: (actor: ClientObject, object: ClientObject, dialogId: TStringId, phraseId: TStringId) =>
+    TravelManager.getInstance().isNotEnoughMoneyToTravel(actor, object, dialogId, phraseId),
+  cannotSquadTravel: (object: ClientObject, actor: ClientObject, dialogId: TStringId, phraseId: TStringId) =>
+    TravelManager.getInstance().cannotSquadTravel(object, actor, dialogId, phraseId),
 });

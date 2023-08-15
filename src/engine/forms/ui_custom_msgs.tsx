@@ -1,7 +1,7 @@
 import { JSXNode, JSXXML } from "jsx-xml";
 
 /**
- * todo;
+ * Generation of UI forms related to custom messages in game.
  */
 export function create(): JSXNode {
   return (

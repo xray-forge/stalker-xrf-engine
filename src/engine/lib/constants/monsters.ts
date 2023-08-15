@@ -1,7 +1,7 @@
 /* eslint sort-keys-fix/sort-keys-fix: "error" */
 
 /**
- * todo;
+ * List of monster sections participating in the game.
  */
 export const monsters = {
   bloodsucker_normal: "bloodsucker_normal",
@@ -28,17 +28,18 @@ export const monsters = {
 } as const;
 
 /**
- * todo;
+ * Type definition of monsters list.
  */
 export type TMonsters = typeof monsters;
 
 /**
- * todo;
+ * Monster section type.
  */
 export type TMonster = TMonsters[keyof TMonsters];
 
 /**
- * todo;
+ * Enumeration describing possible monster states.
+ * Applicable for bloodsuckers for script control of invisibility.
  */
 export enum EMonsterState {
   NONE = "",

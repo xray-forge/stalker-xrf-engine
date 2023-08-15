@@ -10,7 +10,7 @@ import { ClientObject, Optional, TDistance, TTimestamp } from "@/engine/lib/type
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Evaluatore to check whether post-combat idle state should be active.
  */
 @LuabindClass()
 export class EvaluatorPostCombatIdleEnemy extends property_evaluator {

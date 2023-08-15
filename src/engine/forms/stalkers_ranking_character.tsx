@@ -1,7 +1,7 @@
 import { JSXNode, JSXXML } from "jsx-xml";
 
 /**
- * todo;
+ * Generation of character details UI forms in rankings.
  */
 export function create(): JSXNode {
   return (

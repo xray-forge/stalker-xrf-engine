@@ -1,7 +1,7 @@
 /* eslint sort-keys-fix/sort-keys-fix: "error" */
 
 /**
- * todo;
+ * List of available artefact sections.
  */
 export const artefacts = {
   af_baloon: "af_baloon",
@@ -34,11 +34,11 @@ export const artefacts = {
 } as const;
 
 /**
- * todo;
+ * Type definition of available artefact sections.
  */
 export type TArtefacts = typeof artefacts;
 
 /**
- * todo;
+ * Type definition of single artefact section available in game.
  */
 export type TArtefact = TArtefacts[keyof TArtefacts];

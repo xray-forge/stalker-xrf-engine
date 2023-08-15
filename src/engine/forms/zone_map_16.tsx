@@ -5,7 +5,7 @@ import { XrTexture } from "@/engine/forms/components/base/XrTexture.component";
 import { fonts } from "@/engine/lib/constants/fonts";
 
 /**
- * todo;
+ * Create UI forms related to minimap display (16/9).
  */
 export function create(): JSXNode {
   return (

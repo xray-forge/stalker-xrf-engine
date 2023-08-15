@@ -1,7 +1,7 @@
 import { JSXNode, JSXXML } from "jsx-xml";
 
 /**
- * todo;
+ * Create UI forms related to motion icons components.
  */
 export function create(): JSXNode {
   return (

@@ -1,7 +1,7 @@
 /* eslint sort-keys-fix/sort-keys-fix: "error" */
 
 /**
- * todo;
+ * List of medkits sections.
  */
 export const medkits = {
   medkit: "medkit",
@@ -10,17 +10,17 @@ export const medkits = {
 } as const;
 
 /**
- * todo;
+ * Type definition of medkits list.
  */
 export type TMedkits = typeof medkits;
 
 /**
- * todo;
+ * Type definition of single medkit section available in game.
  */
 export type TMedkit = TMedkits[keyof TMedkits];
 
 /**
- * todo;
+ * List of drug sections available in game.
  */
 export const drugs = {
   ...medkits,
@@ -35,11 +35,11 @@ export const drugs = {
 } as const;
 
 /**
- * todo;
+ * Type definition of ddrugs sections list.
  */
 export type TDrugItems = typeof drugs;
 
 /**
- * todo;
+ * Type definition of single drug section item available in game.
  */
 export type TDrugItem = TDrugItems[keyof TDrugItems];

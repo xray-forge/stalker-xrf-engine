@@ -1,7 +1,8 @@
 import { JSXNode, JSXXML } from "jsx-xml";
 
 /**
- * todo;
+ * Create UI forms related to numpad input forms.
+ * Shown in game when trying to open doors etc.
  */
 export function create(): JSXNode {
   return (
