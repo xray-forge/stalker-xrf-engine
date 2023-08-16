@@ -975,7 +975,9 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
     objectInfo.job_link = selectedJobLink;
     objectInfo.need_job = NIL;
 
-    const objectStorage: Optional<IRegistryObjectState> = registry.objects.get(objectId);
+    const objectStorage: Optional<IRegistryObjectState> = registry.objects.get(
+      objectId
+    ) as Optional<IRegistryObjectState>;
 
     if (objectStorage) {
       this.setupObjectLogic(objectStorage.object!);
