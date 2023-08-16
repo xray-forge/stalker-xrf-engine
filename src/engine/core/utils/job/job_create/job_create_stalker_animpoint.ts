@@ -30,8 +30,8 @@ export function createStalkerAnimpointJobs(
         section: `logic@${smartCoverName}`,
         job_type: EJobType.SMART_COVER_JOB,
       },
-      _precondition_params: {},
-      _precondition_function: (
+      preconditionParameters: {},
+      preconditionFunction: (
         serverObject: ServerHumanObject,
         smartTerrain: SmartTerrain,
         precondParams: AnyObject

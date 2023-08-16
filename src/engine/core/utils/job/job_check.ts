@@ -25,16 +25,16 @@ export function isJobAvailableToObject(
     return false;
   }
 
-  if ("_precondition_is_monster" in jobInfo && jobInfo._precondition_is_monster !== objectInfo.isMonster) {
+  if ("preconditionIsMonster" in jobInfo && jobInfo.preconditionIsMonster !== objectInfo.isMonster) {
     return false;
   }
 
-  if (jobInfo._precondition_function) {
+  if (jobInfo.preconditionFunction) {
     if (
-      !(jobInfo._precondition_function as AnyCallable)(
+      !(jobInfo.preconditionFunction as AnyCallable)(
         objectInfo.serverObject,
         smartTerrain,
-        jobInfo._precondition_params,
+        jobInfo.preconditionParameters,
         objectInfo
       )
     ) {

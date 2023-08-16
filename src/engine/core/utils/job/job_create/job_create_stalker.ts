@@ -17,7 +17,7 @@ import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
  */
 export function createStalkerJobs(smartTerrain: SmartTerrain): LuaMultiReturn<[IJobListDescriptor, string]> {
   const stalkerJobs: IJobListDescriptor = {
-    _precondition_is_monster: false,
+    preconditionIsMonster: false,
     priority: logicsConfig.JOBS.STALKER_JOB_PRIORITY,
     jobs: new LuaTable(),
   };

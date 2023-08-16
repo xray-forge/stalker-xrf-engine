@@ -104,7 +104,7 @@ export function loadExclusiveJob(
   if (jobSuitableCondlist === null) {
     const jobDescriptor: IJobDescriptor = {
       priority: newPrior,
-      _precondition_is_monster: isMonster,
+      preconditionIsMonster: isMonster,
       job_id: {
         section: "logic@" + field,
         ini_path: iniPath,
@@ -120,7 +120,7 @@ export function loadExclusiveJob(
 
     table.insert(jobsList, {
       priority: newPrior,
-      _precondition_is_monster: isMonster,
+      preconditionIsMonster: isMonster,
       job_id: {
         section: "logic@" + field,
         ini_path: iniPath,
@@ -128,8 +128,8 @@ export function loadExclusiveJob(
         online: jobOnline,
         job_type: jobType,
       },
-      _precondition_params: { condlist: conditionsList },
-      _precondition_function: (
+      preconditionParameters: { condlist: conditionsList },
+      preconditionFunction: (
         serverObject: ServerHumanObject,
         smartTerrain: SmartTerrain,
         precondParams: AnyObject
@@ -143,7 +143,7 @@ export function loadExclusiveJob(
     // todo: Why is it needed with -1?
     table.insert(jobsList, {
       priority: -1,
-      _precondition_is_monster: isMonster,
+      preconditionIsMonster: isMonster,
       job_id: {
         section: "logic@" + field,
         ini_file: jobIniFile,

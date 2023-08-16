@@ -60,9 +60,9 @@ export interface IJobBase {
  */
 export interface IJobDescriptor {
   priority: TRate;
-  _precondition_is_monster?: Optional<boolean>;
-  _precondition_params?: AnyObject;
-  _precondition_function?: (
+  preconditionIsMonster?: Optional<boolean>;
+  preconditionParameters?: AnyObject;
+  preconditionFunction?: (
     this: void,
     serverObject: ServerHumanObject,
     smartTerrain: SmartTerrain,
@@ -77,7 +77,7 @@ export interface IJobDescriptor {
  * todo;
  */
 export interface IJobListDescriptor {
-  _precondition_is_monster?: Optional<boolean>;
+  preconditionIsMonster?: Optional<boolean>;
   priority: TRate;
   jobs: LuaArray<IJobDescriptor>;
 }

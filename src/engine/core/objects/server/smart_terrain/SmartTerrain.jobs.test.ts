@@ -86,8 +86,8 @@ describe("SmartTerrain class jobs logic", () => {
       isMonster: false,
       job_id: 3,
       job_link: {
-        _precondition_function: expect.any(Function),
-        _precondition_params: {
+        preconditionFunction: expect.any(Function),
+        preconditionParameters: {
           way_name: "test_smart_camper_1_walk",
         },
         job_id: 3,
@@ -147,8 +147,8 @@ describe("SmartTerrain class jobs logic", () => {
         isMonster: false,
         job_id: 4,
         job_link: {
-          _precondition_function: expect.any(Function),
-          _precondition_params: {
+          preconditionFunction: expect.any(Function),
+          preconditionParameters: {
             way_name: "test_smart_sniper_1_walk",
           },
           job_id: 4,
@@ -165,8 +165,8 @@ describe("SmartTerrain class jobs logic", () => {
         isMonster: false,
         job_id: 3,
         job_link: {
-          _precondition_function: expect.any(Function),
-          _precondition_params: {
+          preconditionFunction: expect.any(Function),
+          preconditionParameters: {
             way_name: "test_smart_camper_1_walk",
           },
           job_id: 3,
@@ -255,8 +255,8 @@ describe("SmartTerrain class jobs logic", () => {
         isMonster: false,
         job_id: 3,
         job_link: {
-          _precondition_function: expect.any(Function),
-          _precondition_params: {
+          preconditionFunction: expect.any(Function),
+          preconditionParameters: {
             way_name: "test_smart_camper_1_walk",
           },
           job_id: 3,
@@ -273,8 +273,8 @@ describe("SmartTerrain class jobs logic", () => {
         isMonster: false,
         job_id: 4,
         job_link: {
-          _precondition_function: expect.any(Function),
-          _precondition_params: {
+          preconditionFunction: expect.any(Function),
+          preconditionParameters: {
             way_name: "test_smart_sniper_1_walk",
           },
           job_id: 4,

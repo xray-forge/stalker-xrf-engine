@@ -38,8 +38,8 @@ describe("jobs_general should correctly generate stalker patrol jobs", () => {
       priority: 20,
       jobs: $fromArray([
         {
-          _precondition_function: expect.any(Function),
-          _precondition_params: {},
+          preconditionFunction: expect.any(Function),
+          preconditionParameters: {},
           job_id: {
             job_type: "path_job",
             section: "logic@test_smart_patrol_1_walk",
@@ -47,8 +47,8 @@ describe("jobs_general should correctly generate stalker patrol jobs", () => {
           priority: 20,
         },
         {
-          _precondition_function: expect.any(Function),
-          _precondition_params: {},
+          preconditionFunction: expect.any(Function),
+          preconditionParameters: {},
           job_id: {
             job_type: "path_job",
             section: "logic@test_smart_patrol_1_walk",
@@ -56,8 +56,8 @@ describe("jobs_general should correctly generate stalker patrol jobs", () => {
           priority: 20,
         },
         {
-          _precondition_function: expect.any(Function),
-          _precondition_params: {},
+          preconditionFunction: expect.any(Function),
+          preconditionParameters: {},
           job_id: {
             job_type: "path_job",
             section: "logic@test_smart_patrol_1_walk",
@@ -87,8 +87,8 @@ describe("jobs_general should correctly generate stalker patrol jobs", () => {
       priority: 20,
       jobs: $fromArray([
         {
-          _precondition_function: expect.any(Function),
-          _precondition_params: {},
+          preconditionFunction: expect.any(Function),
+          preconditionParameters: {},
           job_id: {
             job_type: "path_job",
             section: "logic@test_smart_patrol_1_walk",
@@ -96,8 +96,8 @@ describe("jobs_general should correctly generate stalker patrol jobs", () => {
           priority: 20,
         },
         {
-          _precondition_function: expect.any(Function),
-          _precondition_params: {},
+          preconditionFunction: expect.any(Function),
+          preconditionParameters: {},
           job_id: {
             job_type: "path_job",
             section: "logic@test_smart_patrol_1_walk",
@@ -105,8 +105,8 @@ describe("jobs_general should correctly generate stalker patrol jobs", () => {
           priority: 20,
         },
         {
-          _precondition_function: expect.any(Function),
-          _precondition_params: {},
+          preconditionFunction: expect.any(Function),
+          preconditionParameters: {},
           job_id: {
             job_type: "path_job",
             section: "logic@test_smart_patrol_1_walk",
@@ -139,8 +139,8 @@ describe("jobs_general should correctly generate stalker patrol jobs", () => {
       priority: 20,
       jobs: $fromArray([
         {
-          _precondition_function: expect.any(Function),
-          _precondition_params: {},
+          preconditionFunction: expect.any(Function),
+          preconditionParameters: {},
           job_id: {
             job_type: "path_job",
             section: "logic@test_smart_patrol_1_walk",
@@ -148,8 +148,8 @@ describe("jobs_general should correctly generate stalker patrol jobs", () => {
           priority: 20,
         },
         {
-          _precondition_function: expect.any(Function),
-          _precondition_params: {},
+          preconditionFunction: expect.any(Function),
+          preconditionParameters: {},
           job_id: {
             job_type: "path_job",
             section: "logic@test_smart_patrol_1_walk",
@@ -157,8 +157,8 @@ describe("jobs_general should correctly generate stalker patrol jobs", () => {
           priority: 20,
         },
         {
-          _precondition_function: expect.any(Function),
-          _precondition_params: {},
+          preconditionFunction: expect.any(Function),
+          preconditionParameters: {},
           job_id: {
             job_type: "path_job",
             section: "logic@test_smart_patrol_1_walk",
@@ -192,8 +192,8 @@ describe("jobs_general should correctly generate stalker patrol jobs", () => {
       priority: 20,
       jobs: $fromArray([
         {
-          _precondition_function: expect.any(Function),
-          _precondition_params: {},
+          preconditionFunction: expect.any(Function),
+          preconditionParameters: {},
           job_id: {
             job_type: "path_job",
             section: "logic@test_smart_patrol_1_walk",
@@ -201,8 +201,8 @@ describe("jobs_general should correctly generate stalker patrol jobs", () => {
           priority: 20,
         },
         {
-          _precondition_function: expect.any(Function),
-          _precondition_params: {},
+          preconditionFunction: expect.any(Function),
+          preconditionParameters: {},
           job_id: {
             job_type: "path_job",
             section: "logic@test_smart_patrol_1_walk",
@@ -210,8 +210,8 @@ describe("jobs_general should correctly generate stalker patrol jobs", () => {
           priority: 20,
         },
         {
-          _precondition_function: expect.any(Function),
-          _precondition_params: {},
+          preconditionFunction: expect.any(Function),
+          preconditionParameters: {},
           job_id: {
             job_type: "path_job",
             section: "logic@test_smart_patrol_1_walk",
@@ -229,7 +229,7 @@ describe("jobs_general should correctly generate stalker patrol jobs", () => {
     jest.spyOn(smartTerrain, "name").mockImplementation(() => "test_smart");
 
     const [jobsList] = createStalkerPatrolJobs(smartTerrain);
-    const precondition = jobsList.jobs.get(1)._precondition_function;
+    const precondition = jobsList.jobs.get(1).preconditionFunction;
 
     expect(precondition?.(stalker, smartTerrain, {}, {})).toBe(true);
 

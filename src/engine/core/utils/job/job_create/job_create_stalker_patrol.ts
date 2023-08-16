@@ -40,8 +40,8 @@ export function createStalkerPatrolJobs(
           section: `logic@${wayName}`,
           job_type: EJobType.PATH_JOB,
         },
-        _precondition_params: {},
-        _precondition_function: (
+        preconditionParameters: {},
+        preconditionFunction: (
           serverObject: ServerHumanObject,
           smart: SmartTerrain,
           precondParams: AnyObject

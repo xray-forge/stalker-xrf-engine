@@ -13,7 +13,7 @@ import { EJobType, TName } from "@/engine/lib/types";
 export function createMonsterJobs(smartTerrain: SmartTerrain): LuaMultiReturn<[IJobListDescriptor, string]> {
   const smartTerrainName: TName = smartTerrain.name();
   const monsterJobsDescriptor: IJobListDescriptor = {
-    _precondition_is_monster: true,
+    preconditionIsMonster: true,
     priority: logicsConfig.JOBS.MONSTER_JOB_PRIORITY,
     jobs: new LuaTable(),
   };

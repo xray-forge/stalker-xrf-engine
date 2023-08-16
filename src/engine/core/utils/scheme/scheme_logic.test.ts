@@ -181,7 +181,7 @@ describe("'scheme logic' utils", () => {
     // If initialing.
     activateSchemeBySection(first, ini, NIL, null, false);
     expect(firstState.activationTime).toBe(3000);
-    expect(firstState.activationGameTime).toBe(MockCTime.nowTime);
+    expect(firstState.activationGameTime.toString()).toBe(MockCTime.nowTime.toString());
     expect(first.set_nonscript_usable).toHaveBeenCalled();
 
     // If loading.

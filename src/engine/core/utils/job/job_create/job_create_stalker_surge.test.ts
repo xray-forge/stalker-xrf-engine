@@ -43,8 +43,8 @@ describe("jobs_general should correctly generate stalkers surge jobs", () => {
     expect(jobsList).toEqualLuaTables({
       jobs: $fromArray(
         range(3, 1).map((it) => ({
-          _precondition_function: expect.any(Function),
-          _precondition_params: {},
+          preconditionFunction: expect.any(Function),
+          preconditionParameters: {},
           job_id: {
             job_type: "path_job",
             section: `logic@test_smart_surge_${it}_walk`,
@@ -75,8 +75,8 @@ describe("jobs_general should correctly generate stalkers surge jobs", () => {
     expect(jobsList).toEqualLuaTables({
       jobs: $fromArray(
         range(3, 1).map((it) => ({
-          _precondition_function: expect.any(Function),
-          _precondition_params: {},
+          preconditionFunction: expect.any(Function),
+          preconditionParameters: {},
           job_id: {
             job_type: "path_job",
             section: `logic@test_smart_surge_${it}_walk`,
@@ -109,8 +109,8 @@ describe("jobs_general should correctly generate stalkers surge jobs", () => {
     expect(jobsList).toEqualLuaTables({
       jobs: $fromArray(
         range(3, 1).map((it) => ({
-          _precondition_function: expect.any(Function),
-          _precondition_params: {},
+          preconditionFunction: expect.any(Function),
+          preconditionParameters: {},
           job_id: {
             job_type: "path_job",
             section: `logic@test_smart_surge_${it}_walk`,

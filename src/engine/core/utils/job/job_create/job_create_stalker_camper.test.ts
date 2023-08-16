@@ -38,8 +38,8 @@ describe("jobs_general should correctly generate stalker camper jobs", () => {
       priority: 45,
       jobs: $fromArray([
         {
-          _precondition_function: expect.any(Function),
-          _precondition_params: {
+          preconditionFunction: expect.any(Function),
+          preconditionParameters: {
             way_name: "test_smart_camper_1_walk",
           },
           job_id: {
@@ -71,8 +71,8 @@ describe("jobs_general should correctly generate stalker camper jobs", () => {
       priority: 45,
       jobs: $fromArray([
         {
-          _precondition_function: expect.any(Function),
-          _precondition_params: {
+          preconditionFunction: expect.any(Function),
+          preconditionParameters: {
             way_name: "test_smart_camper_1_walk",
           },
           job_id: {
@@ -92,7 +92,7 @@ describe("jobs_general should correctly generate stalker camper jobs", () => {
     jest.spyOn(smartTerrain, "name").mockImplementation(() => "test_smart");
 
     const [jobsList] = createStalkerCamperJobs(smartTerrain);
-    const precondition = jobsList.jobs.get(1)._precondition_function;
+    const precondition = jobsList.jobs.get(1).preconditionFunction;
 
     registry.objects.set(stalker.id, { object: null } as unknown as IRegistryObjectState);
     expect(precondition?.(stalker, smartTerrain, {}, {})).toBe(false);

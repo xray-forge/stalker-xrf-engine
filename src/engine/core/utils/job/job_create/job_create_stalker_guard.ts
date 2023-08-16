@@ -27,8 +27,8 @@ export function createStalkerGuardJobs(
         section: `logic@${wayName}`,
         job_type: EJobType.PATH_JOB,
       },
-      _precondition_params: {},
-      _precondition_function: (
+      preconditionParameters: {},
+      preconditionFunction: (
         serverObject: ServerHumanObject,
         smartTerrain: SmartTerrain,
         parameters: AnyObject
@@ -98,8 +98,8 @@ export function createStalkerGuardJobs(
         section: `logic@follower_${wayName}`,
         job_type: EJobType.PATH_JOB,
       },
-      _precondition_params: { changing_job: `logic@${wayName}` },
-      _precondition_function: (
+      preconditionParameters: { changing_job: `logic@${wayName}` },
+      preconditionFunction: (
         serverObject: ServerHumanObject,
         smartTerrain: SmartTerrain,
         parameters: AnyObject,

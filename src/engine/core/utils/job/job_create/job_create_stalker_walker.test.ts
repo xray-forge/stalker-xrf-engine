@@ -37,8 +37,8 @@ describe("jobs_general should correctly generate stalker walker jobs", () => {
     expect(jobsList).toEqualLuaTables({
       jobs: $fromArray([
         {
-          _precondition_function: expect.any(Function),
-          _precondition_params: {},
+          preconditionFunction: expect.any(Function),
+          preconditionParameters: {},
           job_id: {
             job_type: "path_job",
             section: "logic@test_smart_walker_1_walk",
@@ -68,8 +68,8 @@ describe("jobs_general should correctly generate stalker walker jobs", () => {
     expect(jobsList).toEqualLuaTables({
       jobs: $fromArray([
         {
-          _precondition_function: expect.any(Function),
-          _precondition_params: {},
+          preconditionFunction: expect.any(Function),
+          preconditionParameters: {},
           job_id: {
             job_type: "path_job",
             section: "logic@test_smart_walker_1_walk",
@@ -102,8 +102,8 @@ describe("jobs_general should correctly generate stalker walker jobs", () => {
     expect(jobsList).toEqualLuaTables({
       jobs: $fromArray([
         {
-          _precondition_function: expect.any(Function),
-          _precondition_params: {},
+          preconditionFunction: expect.any(Function),
+          preconditionParameters: {},
           job_id: {
             job_type: "path_job",
             section: "logic@test_smart_walker_1_walk",
@@ -137,8 +137,8 @@ describe("jobs_general should correctly generate stalker walker jobs", () => {
     expect(jobsList).toEqualLuaTables({
       jobs: $fromArray([
         {
-          _precondition_function: expect.any(Function),
-          _precondition_params: {},
+          preconditionFunction: expect.any(Function),
+          preconditionParameters: {},
           job_id: {
             job_type: "path_job",
             section: "logic@test_smart_walker_1_walk",
@@ -157,7 +157,7 @@ describe("jobs_general should correctly generate stalker walker jobs", () => {
     jest.spyOn(smartTerrain, "name").mockImplementation(() => "test_smart");
 
     const [jobsList] = createStalkerWalkerJobs(smartTerrain);
-    const precondition = jobsList.jobs.get(1)._precondition_function;
+    const precondition = jobsList.jobs.get(1).preconditionFunction;
 
     expect(precondition?.(stalker, smartTerrain, {}, {})).toBe(true);
 

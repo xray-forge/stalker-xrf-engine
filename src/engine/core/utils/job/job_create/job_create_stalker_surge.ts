@@ -34,8 +34,8 @@ export function createStalkerSurgeJobs(
         section: `logic@${wayName}`,
         job_type: EJobType.PATH_JOB,
       },
-      _precondition_params: {},
-      _precondition_function: () => SurgeManager.getInstance().isStarted,
+      preconditionParameters: {},
+      preconditionFunction: () => SurgeManager.getInstance().isStarted,
     });
 
     let jobLtx: string =

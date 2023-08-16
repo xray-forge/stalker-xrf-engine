@@ -38,8 +38,8 @@ describe("jobs_general should correctly generate stalker guard jobs", () => {
       priority: 25,
       jobs: $fromArray([
         {
-          _precondition_function: expect.any(Function),
-          _precondition_params: {},
+          preconditionFunction: expect.any(Function),
+          preconditionParameters: {},
           job_id: {
             job_type: "path_job",
             section: "logic@test_smart_guard_1_walk",
@@ -47,8 +47,8 @@ describe("jobs_general should correctly generate stalker guard jobs", () => {
           priority: 25,
         },
         {
-          _precondition_function: expect.any(Function),
-          _precondition_params: {
+          preconditionFunction: expect.any(Function),
+          preconditionParameters: {
             changing_job: "logic@test_smart_guard_1_walk",
           },
           job_id: {
@@ -80,8 +80,8 @@ describe("jobs_general should correctly generate stalker guard jobs", () => {
       priority: 25,
       jobs: $fromArray([
         {
-          _precondition_function: expect.any(Function),
-          _precondition_params: {},
+          preconditionFunction: expect.any(Function),
+          preconditionParameters: {},
           job_id: {
             job_type: "path_job",
             section: "logic@test_smart_guard_1_walk",
@@ -89,8 +89,8 @@ describe("jobs_general should correctly generate stalker guard jobs", () => {
           priority: 25,
         },
         {
-          _precondition_function: expect.any(Function),
-          _precondition_params: {
+          preconditionFunction: expect.any(Function),
+          preconditionParameters: {
             changing_job: "logic@test_smart_guard_1_walk",
           },
           job_id: {
@@ -125,8 +125,8 @@ describe("jobs_general should correctly generate stalker guard jobs", () => {
       priority: 25,
       jobs: $fromArray([
         {
-          _precondition_function: expect.any(Function),
-          _precondition_params: {},
+          preconditionFunction: expect.any(Function),
+          preconditionParameters: {},
           job_id: {
             job_type: "path_job",
             section: "logic@test_smart_guard_1_walk",
@@ -134,8 +134,8 @@ describe("jobs_general should correctly generate stalker guard jobs", () => {
           priority: 25,
         },
         {
-          _precondition_function: expect.any(Function),
-          _precondition_params: {
+          preconditionFunction: expect.any(Function),
+          preconditionParameters: {
             changing_job: "logic@test_smart_guard_1_walk",
           },
           job_id: {
@@ -171,8 +171,8 @@ describe("jobs_general should correctly generate stalker guard jobs", () => {
       priority: 25,
       jobs: $fromArray([
         {
-          _precondition_function: expect.any(Function),
-          _precondition_params: {},
+          preconditionFunction: expect.any(Function),
+          preconditionParameters: {},
           job_id: {
             job_type: "path_job",
             section: "logic@test_smart_guard_1_walk",
@@ -180,8 +180,8 @@ describe("jobs_general should correctly generate stalker guard jobs", () => {
           priority: 25,
         },
         {
-          _precondition_function: expect.any(Function),
-          _precondition_params: {
+          preconditionFunction: expect.any(Function),
+          preconditionParameters: {
             changing_job: "logic@test_smart_guard_1_walk",
           },
           job_id: {
@@ -201,7 +201,7 @@ describe("jobs_general should correctly generate stalker guard jobs", () => {
     jest.spyOn(smartTerrain, "name").mockImplementation(() => "test_smart");
 
     const [jobsList] = createStalkerGuardJobs(smartTerrain);
-    const precondition = jobsList.jobs.get(1)._precondition_function;
+    const precondition = jobsList.jobs.get(1).preconditionFunction;
 
     expect(precondition?.(stalker, smartTerrain, {}, {})).toBe(true);
 
@@ -228,7 +228,7 @@ describe("jobs_general should correctly generate stalker guard jobs", () => {
     jest.spyOn(smartTerrain, "name").mockImplementation(() => "test_smart");
 
     const [jobsList] = createStalkerGuardJobs(smartTerrain);
-    const precondition = jobsList.jobs.get(2)._precondition_function;
+    const precondition = jobsList.jobs.get(2).preconditionFunction;
 
     expect(precondition?.(stalker, smartTerrain, {}, {})).toBe(true);
     expect(precondition?.(stalker, smartTerrain, { changing_job: "1" }, {})).toBe(false);

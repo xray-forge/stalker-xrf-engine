@@ -21,7 +21,7 @@ describe("jobs_general should correctly generate monster default jobs", () => {
 
     expect(ltx).toBe(monsterJobsLtx);
     expect(jobsList).toEqualLuaTables({
-      _precondition_is_monster: true,
+      preconditionIsMonster: true,
       jobs: $fromArray(
         range(20, 1).map((it) => ({
           job_id: {

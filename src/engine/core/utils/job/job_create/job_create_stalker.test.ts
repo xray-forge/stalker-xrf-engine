@@ -26,7 +26,7 @@ describe("jobs_general should correctly generate stalker jobs", () => {
 
     expect(ltx).toBe(defaultJobsLtx);
     expect(jobsList).toEqualLuaTables({
-      _precondition_is_monster: false,
+      preconditionIsMonster: false,
       jobs: $fromArray([
         {
           jobs: $fromArray(
@@ -43,8 +43,8 @@ describe("jobs_general should correctly generate stalker jobs", () => {
         {
           jobs: $fromArray(
             range(3, 1).map((it) => ({
-              _precondition_function: expect.any(Function),
-              _precondition_params: {},
+              preconditionFunction: expect.any(Function),
+              preconditionParameters: {},
               job_id: {
                 job_type: "path_job",
                 section: `logic@test_smart_surge_${it}_walk`,
@@ -57,8 +57,8 @@ describe("jobs_general should correctly generate stalker jobs", () => {
         {
           jobs: $fromArray(
             range(2, 1).map((it) => ({
-              _precondition_function: expect.any(Function),
-              _precondition_params: {},
+              preconditionFunction: expect.any(Function),
+              preconditionParameters: {},
               job_id: {
                 job_type: "path_job",
                 section: `logic@test_smart_sleep_${it}`,
@@ -71,8 +71,8 @@ describe("jobs_general should correctly generate stalker jobs", () => {
         {
           jobs: $fromArray([
             {
-              _precondition_function: expect.any(Function),
-              _precondition_params: {},
+              preconditionFunction: expect.any(Function),
+              preconditionParameters: {},
               job_id: {
                 job_type: "path_job",
                 section: "logic@test_smart_collector_1_walk",
@@ -85,8 +85,8 @@ describe("jobs_general should correctly generate stalker jobs", () => {
         {
           jobs: $fromArray([
             {
-              _precondition_function: expect.any(Function),
-              _precondition_params: {},
+              preconditionFunction: expect.any(Function),
+              preconditionParameters: {},
               job_id: {
                 job_type: "path_job",
                 section: "logic@test_smart_walker_1_walk",
@@ -99,8 +99,8 @@ describe("jobs_general should correctly generate stalker jobs", () => {
         {
           jobs: $fromArray([
             {
-              _precondition_function: expect.any(Function),
-              _precondition_params: {},
+              preconditionFunction: expect.any(Function),
+              preconditionParameters: {},
               job_id: {
                 job_type: "path_job",
                 section: "logic@test_smart_patrol_1_walk",
@@ -108,8 +108,8 @@ describe("jobs_general should correctly generate stalker jobs", () => {
               priority: 20,
             },
             {
-              _precondition_function: expect.any(Function),
-              _precondition_params: {},
+              preconditionFunction: expect.any(Function),
+              preconditionParameters: {},
               job_id: {
                 job_type: "path_job",
                 section: "logic@test_smart_patrol_1_walk",
@@ -117,8 +117,8 @@ describe("jobs_general should correctly generate stalker jobs", () => {
               priority: 20,
             },
             {
-              _precondition_function: expect.any(Function),
-              _precondition_params: {},
+              preconditionFunction: expect.any(Function),
+              preconditionParameters: {},
               job_id: {
                 job_type: "path_job",
                 section: "logic@test_smart_patrol_1_walk",
@@ -129,8 +129,8 @@ describe("jobs_general should correctly generate stalker jobs", () => {
           priority: 20,
         },
         {
-          _precondition_function: expect.any(Function),
-          _precondition_params: {},
+          preconditionFunction: expect.any(Function),
+          preconditionParameters: {},
           job_id: {
             job_type: "smartcover_job",
             section: "logic@test_smart_animpoint_1",
@@ -140,8 +140,8 @@ describe("jobs_general should correctly generate stalker jobs", () => {
         {
           jobs: $fromArray([
             {
-              _precondition_function: expect.any(Function),
-              _precondition_params: {},
+              preconditionFunction: expect.any(Function),
+              preconditionParameters: {},
               job_id: {
                 job_type: "path_job",
                 section: "logic@test_smart_guard_1_walk",
@@ -149,8 +149,8 @@ describe("jobs_general should correctly generate stalker jobs", () => {
               priority: 25,
             },
             {
-              _precondition_function: expect.any(Function),
-              _precondition_params: {
+              preconditionFunction: expect.any(Function),
+              preconditionParameters: {
                 changing_job: "logic@test_smart_guard_1_walk",
               },
               job_id: {
@@ -165,8 +165,8 @@ describe("jobs_general should correctly generate stalker jobs", () => {
         {
           jobs: $fromArray([
             {
-              _precondition_function: expect.any(Function),
-              _precondition_params: {
+              preconditionFunction: expect.any(Function),
+              preconditionParameters: {
                 way_name: "test_smart_sniper_1_walk",
               },
               job_id: {
@@ -181,8 +181,8 @@ describe("jobs_general should correctly generate stalker jobs", () => {
         {
           jobs: $fromArray([
             {
-              _precondition_function: expect.any(Function),
-              _precondition_params: {
+              preconditionFunction: expect.any(Function),
+              preconditionParameters: {
                 way_name: "test_smart_camper_1_walk",
               },
               job_id: {
@@ -212,7 +212,7 @@ describe("jobs_general should correctly generate stalker jobs", () => {
 
     expect(ltx).toBe(defaultJobsLtx);
     expect(jobsList).toEqualLuaTables({
-      _precondition_is_monster: false,
+      preconditionIsMonster: false,
       jobs: $fromArray([
         {
           jobs: $fromArray(

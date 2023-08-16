@@ -43,12 +43,8 @@ export function createStalkerSniperJobs(
         section: `logic@${wayName}`,
         job_type: EJobType.PATH_JOB,
       },
-      _precondition_params: { way_name: wayName },
-      _precondition_function: (
-        serverObject: ServerHumanObject,
-        smart: SmartTerrain,
-        parameters: AnyObject
-      ): boolean => {
+      preconditionParameters: { way_name: wayName },
+      preconditionFunction: (serverObject: ServerHumanObject, smart: SmartTerrain, parameters: AnyObject): boolean => {
         return serverObject.community() !== communities.zombied && isAccessibleJob(serverObject, parameters.way_name);
       },
     });

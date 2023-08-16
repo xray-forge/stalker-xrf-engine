@@ -45,8 +45,8 @@ describe("jobs_general should correctly generate stalkers sleep jobs", () => {
     expect(jobsList).toEqualLuaTables({
       jobs: $fromArray(
         range(2, 1).map((it) => ({
-          _precondition_function: expect.any(Function),
-          _precondition_params: {},
+          preconditionFunction: expect.any(Function),
+          preconditionParameters: {},
           job_id: {
             job_type: "path_job",
             section: `logic@test_smart_sleep_${it}`,
@@ -77,8 +77,8 @@ describe("jobs_general should correctly generate stalkers sleep jobs", () => {
     expect(jobsList).toEqualLuaTables({
       jobs: $fromArray(
         range(2, 1).map((it) => ({
-          _precondition_function: expect.any(Function),
-          _precondition_params: {},
+          preconditionFunction: expect.any(Function),
+          preconditionParameters: {},
           job_id: {
             job_type: "path_job",
             section: `logic@test_smart_sleep_${it}`,
@@ -111,8 +111,8 @@ describe("jobs_general should correctly generate stalkers sleep jobs", () => {
     expect(jobsList).toEqualLuaTables({
       jobs: $fromArray(
         range(2, 1).map((it) => ({
-          _precondition_function: expect.any(Function),
-          _precondition_params: {},
+          preconditionFunction: expect.any(Function),
+          preconditionParameters: {},
           job_id: {
             job_type: "path_job",
             section: `logic@test_smart_sleep_${it}`,
@@ -145,8 +145,8 @@ describe("jobs_general should correctly generate stalkers sleep jobs", () => {
     expect(jobsList).toEqualLuaTables({
       jobs: $fromArray(
         range(2, 1).map((it) => ({
-          _precondition_function: expect.any(Function),
-          _precondition_params: {},
+          preconditionFunction: expect.any(Function),
+          preconditionParameters: {},
           job_id: {
             job_type: "path_job",
             section: `logic@test_smart_sleep_${it}`,
@@ -165,7 +165,7 @@ describe("jobs_general should correctly generate stalkers sleep jobs", () => {
     jest.spyOn(smartTerrain, "name").mockImplementation(() => "test_smart");
 
     const [jobsList] = createStalkerSleepJobs(smartTerrain);
-    const precondition = jobsList.jobs.get(1)._precondition_function;
+    const precondition = jobsList.jobs.get(1).preconditionFunction;
 
     expect(precondition?.(stalker, smartTerrain, { is_safe_job: null }, {})).toBe(false);
 

@@ -48,8 +48,8 @@ describe("jobs_general should correctly generate stalker animpoint jobs", () => 
       priority: 50,
       jobs: $fromArray([
         {
-          _precondition_function: expect.any(Function),
-          _precondition_params: {},
+          preconditionFunction: expect.any(Function),
+          preconditionParameters: {},
           job_id: {
             job_type: "smartcover_job",
             section: "logic@test_smart_animpoint_1",
@@ -83,8 +83,8 @@ describe("jobs_general should correctly generate stalker animpoint jobs", () => 
       priority: 50,
       jobs: $fromArray([
         {
-          _precondition_function: expect.any(Function),
-          _precondition_params: {},
+          preconditionFunction: expect.any(Function),
+          preconditionParameters: {},
           job_id: {
             job_type: "smartcover_job",
             section: "logic@test_smart_animpoint_1",
@@ -119,8 +119,8 @@ describe("jobs_general should correctly generate stalker animpoint jobs", () => 
       priority: 50,
       jobs: $fromArray([
         {
-          _precondition_function: expect.any(Function),
-          _precondition_params: {},
+          preconditionFunction: expect.any(Function),
+          preconditionParameters: {},
           job_id: {
             job_type: "smartcover_job",
             section: "logic@test_smart_animpoint_1",
@@ -142,7 +142,7 @@ describe("jobs_general should correctly generate stalker animpoint jobs", () => 
     registerSmartCover(smartCover);
 
     const [jobsList] = createStalkerAnimpointJobs(smartTerrain, { priority: 50, jobs: new LuaTable() });
-    const precondition = jobsList.jobs.get(1)._precondition_function;
+    const precondition = jobsList.jobs.get(1).preconditionFunction;
 
     expect(precondition?.(stalker, smartTerrain, { is_safe_job: null }, {})).toBe(true);
 

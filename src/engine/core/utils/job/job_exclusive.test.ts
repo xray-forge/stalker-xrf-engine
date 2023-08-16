@@ -43,7 +43,7 @@ describe("'job_exclusive' utils", () => {
     expect(() => loadExclusiveJob(ini, "smart_terrain", "work1", list)).not.toThrow();
     expect(list).toEqualLuaArrays([
       {
-        _precondition_is_monster: false,
+        preconditionIsMonster: false,
         job_id: {
           ini_file: expect.any(Object),
           ini_path: "scripts\\some_file2.ltx",
@@ -79,7 +79,7 @@ describe("'job_exclusive' utils", () => {
 
     expect(list).toEqualLuaArrays([
       {
-        _precondition_is_monster: true,
+        preconditionIsMonster: true,
         job_id: {
           ini_file: expect.any(Object),
           ini_path: "scripts\\some_file3.ltx",
@@ -116,9 +116,9 @@ describe("'job_exclusive' utils", () => {
 
     expect(list).toEqualLuaArrays([
       {
-        _precondition_function: expect.any(Function),
-        _precondition_is_monster: false,
-        _precondition_params: {
+        preconditionFunction: expect.any(Function),
+        preconditionIsMonster: false,
+        preconditionParameters: {
           condlist: parseConditionsList("{+test_info} true, false"),
         },
         job_id: {
@@ -131,7 +131,7 @@ describe("'job_exclusive' utils", () => {
         priority: 105,
       },
       {
-        _precondition_is_monster: false,
+        preconditionIsMonster: false,
         job_id: {
           ini_file: expect.any(Object),
           job_type: "path_job",
