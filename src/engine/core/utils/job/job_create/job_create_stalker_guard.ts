@@ -98,14 +98,14 @@ export function createStalkerGuardJobs(
         section: `logic@follower_${wayName}`,
         jobType: EJobType.PATH_JOB,
       },
-      preconditionParameters: { changing_job: `logic@${wayName}` },
+      preconditionParameters: { nextDesiredJob: `logic@${wayName}` },
       preconditionFunction: (
         serverObject: ServerHumanObject,
         smartTerrain: SmartTerrain,
         parameters: AnyObject,
         npcInfo: AnyObject
       ): boolean => {
-        return npcInfo.need_job === parameters.changing_job;
+        return npcInfo.desiredJob === parameters.nextDesiredJob;
       },
     });
 

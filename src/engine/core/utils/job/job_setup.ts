@@ -49,7 +49,7 @@ export function setupObjectSmartJobsAndLogicOnSpawn(
   const needSetupLogic: boolean =
     !isLoaded &&
     smartTerrain.objectJobDescriptors.get(object.id()) &&
-    smartTerrain.objectJobDescriptors.get(object.id()).begin_job === true;
+    smartTerrain.objectJobDescriptors.get(object.id()).shouldBeginJob === true;
 
   if (needSetupLogic) {
     smartTerrain.setupObjectLogic(object);

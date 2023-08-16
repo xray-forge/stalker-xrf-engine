@@ -9,7 +9,6 @@ import type {
   Optional,
   ServerCreatureObject,
   ServerHumanObject,
-  TName,
   TNumberId,
   TPath,
   TRate,
@@ -23,11 +22,11 @@ import type {
 export interface IObjectJobDescriptor {
   isMonster: boolean;
   serverObject: ServerCreatureObject;
-  need_job: string; // Section with needed job?
-  job_prior: number;
-  jobId: number;
-  job_link: Optional<IJobDescriptor>;
-  begin_job: boolean;
+  desiredJob: TSection; // Section with needed job?
+  jobPriority: TRate;
+  jobId: TNumberId;
+  jobLink: Optional<IJobDescriptor>;
+  shouldBeginJob: boolean;
   schemeType: ESchemeType;
 }
 
@@ -35,12 +34,10 @@ export interface IObjectJobDescriptor {
  * todo;
  */
 export interface ISmartTerrainJob extends IJobBase {
-  alife_task: ALifeSmartTerrainTask;
+  alifeTask: ALifeSmartTerrainTask;
   priority: TRate;
-  reserve_job: Optional<boolean>;
-  prefix_name: Optional<TName>;
-  game_vertex_id: TNumberId;
-  level_id: TNumberId;
+  gameVertexId: TNumberId;
+  levelId: TNumberId;
   position: Vector;
 }
 

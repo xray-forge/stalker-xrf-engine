@@ -49,7 +49,7 @@ describe("jobs_general should correctly generate stalker guard jobs", () => {
         {
           preconditionFunction: expect.any(Function),
           preconditionParameters: {
-            changing_job: "logic@test_smart_guard_1_walk",
+            nextDesiredJob: "logic@test_smart_guard_1_walk",
           },
           jobId: {
             jobType: "path_job",
@@ -91,7 +91,7 @@ describe("jobs_general should correctly generate stalker guard jobs", () => {
         {
           preconditionFunction: expect.any(Function),
           preconditionParameters: {
-            changing_job: "logic@test_smart_guard_1_walk",
+            nextDesiredJob: "logic@test_smart_guard_1_walk",
           },
           jobId: {
             jobType: "path_job",
@@ -136,7 +136,7 @@ describe("jobs_general should correctly generate stalker guard jobs", () => {
         {
           preconditionFunction: expect.any(Function),
           preconditionParameters: {
-            changing_job: "logic@test_smart_guard_1_walk",
+            nextDesiredJob: "logic@test_smart_guard_1_walk",
           },
           jobId: {
             jobType: "path_job",
@@ -182,7 +182,7 @@ describe("jobs_general should correctly generate stalker guard jobs", () => {
         {
           preconditionFunction: expect.any(Function),
           preconditionParameters: {
-            changing_job: "logic@test_smart_guard_1_walk",
+            nextDesiredJob: "logic@test_smart_guard_1_walk",
           },
           jobId: {
             jobType: "path_job",
@@ -231,8 +231,8 @@ describe("jobs_general should correctly generate stalker guard jobs", () => {
     const precondition = jobsList.jobs.get(2).preconditionFunction;
 
     expect(precondition?.(stalker, smartTerrain, {}, {})).toBe(true);
-    expect(precondition?.(stalker, smartTerrain, { changing_job: "1" }, {})).toBe(false);
-    expect(precondition?.(stalker, smartTerrain, { changing_job: "1" }, { need_job: "2" })).toBe(false);
-    expect(precondition?.(stalker, smartTerrain, { changing_job: "3" }, { need_job: "3" })).toBe(true);
+    expect(precondition?.(stalker, smartTerrain, { nextDesiredJob: "1" }, {})).toBe(false);
+    expect(precondition?.(stalker, smartTerrain, { nextDesiredJob: "1" }, { desiredJob: "2" })).toBe(false);
+    expect(precondition?.(stalker, smartTerrain, { nextDesiredJob: "3" }, { desiredJob: "3" })).toBe(true);
   });
 });

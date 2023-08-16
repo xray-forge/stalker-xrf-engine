@@ -105,7 +105,7 @@ describe("jobs_general should correctly generate default jobs", () => {
               {
                 preconditionFunction: expect.any(Function),
                 preconditionParameters: {
-                  changing_job: "logic@test_smart_guard_1_walk",
+                  nextDesiredJob: "logic@test_smart_guard_1_walk",
                 },
                 jobId: {
                   jobType: "path_job",

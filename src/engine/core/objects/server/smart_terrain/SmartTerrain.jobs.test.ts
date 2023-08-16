@@ -82,10 +82,10 @@ describe("SmartTerrain class jobs logic", () => {
     expect(smartTerrain.objectJobDescriptors.length()).toBe(1);
     expect(smartTerrain.objectJobDescriptors.get(stalker.id)).toEqual({
       serverObject: stalker,
-      begin_job: true,
+      shouldBeginJob: true,
       isMonster: false,
       jobId: 3,
-      job_link: {
+      jobLink: {
         preconditionFunction: expect.any(Function),
         preconditionParameters: {
           wayName: "test_smart_camper_1_walk",
@@ -94,8 +94,8 @@ describe("SmartTerrain class jobs logic", () => {
         npc_id: stalker.id,
         priority: 45,
       },
-      job_prior: 45,
-      need_job: "nil",
+      jobPriority: 45,
+      desiredJob: "nil",
       schemeType: 1,
     });
   });
@@ -143,10 +143,10 @@ describe("SmartTerrain class jobs logic", () => {
     expect(smartTerrain.objectJobDescriptors).toEqualLuaTables({
       [firstStalker.id]: {
         serverObject: firstStalker,
-        begin_job: true,
+        shouldBeginJob: true,
         isMonster: false,
         jobId: 4,
-        job_link: {
+        jobLink: {
           preconditionFunction: expect.any(Function),
           preconditionParameters: {
             wayName: "test_smart_sniper_1_walk",
@@ -155,16 +155,16 @@ describe("SmartTerrain class jobs logic", () => {
           npc_id: firstStalker.id,
           priority: 30,
         },
-        job_prior: 30,
-        need_job: "nil",
+        jobPriority: 30,
+        desiredJob: "nil",
         schemeType: 1,
       },
       [secondStalker.id]: {
         serverObject: secondStalker,
-        begin_job: true,
+        shouldBeginJob: true,
         isMonster: false,
         jobId: 3,
-        job_link: {
+        jobLink: {
           preconditionFunction: expect.any(Function),
           preconditionParameters: {
             wayName: "test_smart_camper_1_walk",
@@ -173,8 +173,8 @@ describe("SmartTerrain class jobs logic", () => {
           npc_id: secondStalker.id,
           priority: 45,
         },
-        job_prior: 45,
-        need_job: "nil",
+        jobPriority: 45,
+        desiredJob: "nil",
         schemeType: 1,
       },
     });
@@ -205,16 +205,16 @@ describe("SmartTerrain class jobs logic", () => {
     expect(smartTerrain.objectJobDescriptors.length()).toBe(1);
     expect(smartTerrain.objectJobDescriptors.get(monster.id)).toEqual({
       serverObject: monster,
-      begin_job: true,
+      shouldBeginJob: true,
       isMonster: true,
       jobId: 34,
-      job_link: {
+      jobLink: {
         jobId: 34,
         npc_id: monster.id,
         priority: 40,
       },
-      job_prior: 40,
-      need_job: "nil",
+      jobPriority: 40,
+      desiredJob: "nil",
       schemeType: 2,
     });
   });
@@ -251,10 +251,10 @@ describe("SmartTerrain class jobs logic", () => {
     expect(smartTerrain.objectJobDescriptors).toEqualLuaTables({
       [firstStalker.id]: {
         serverObject: firstStalker,
-        begin_job: true,
+        shouldBeginJob: true,
         isMonster: false,
         jobId: 3,
-        job_link: {
+        jobLink: {
           preconditionFunction: expect.any(Function),
           preconditionParameters: {
             wayName: "test_smart_camper_1_walk",
@@ -263,16 +263,16 @@ describe("SmartTerrain class jobs logic", () => {
           npc_id: firstStalker.id,
           priority: 45,
         },
-        job_prior: 45,
-        need_job: "nil",
+        jobPriority: 45,
+        desiredJob: "nil",
         schemeType: 1,
       },
       [secondStalker.id]: {
         serverObject: secondStalker,
-        begin_job: true,
+        shouldBeginJob: true,
         isMonster: false,
         jobId: 4,
-        job_link: {
+        jobLink: {
           preconditionFunction: expect.any(Function),
           preconditionParameters: {
             wayName: "test_smart_sniper_1_walk",
@@ -281,8 +281,8 @@ describe("SmartTerrain class jobs logic", () => {
           npc_id: secondStalker.id,
           priority: 30,
         },
-        job_prior: 30,
-        need_job: "nil",
+        jobPriority: 30,
+        desiredJob: "nil",
         schemeType: 1,
       },
     });
@@ -306,7 +306,7 @@ describe("SmartTerrain class jobs logic", () => {
     smartTerrain.register_npc(secondStalker);
 
     expect(smartTerrain.getJobByObjectId(firstStalker.id)).toEqual({
-      alife_task: {
+      alifeTask: {
         gameVertexId: 20001,
         levelVertexId: 20002,
         taskPosition: {
@@ -315,9 +315,9 @@ describe("SmartTerrain class jobs logic", () => {
           z: 30,
         },
       },
-      game_vertex_id: 20001,
+      gameVertexId: 20001,
       jobType: "path_job",
-      level_id: 200010,
+      levelId: 200010,
       position: {
         x: 10,
         y: 20,
@@ -352,7 +352,7 @@ describe("SmartTerrain class jobs logic", () => {
       "logic@test_smart_sniper_1_walk": secondStalker.id,
     });
 
-    smartTerrain.objectJobDescriptors.get(firstStalker.id).need_job = "logic@test_smart_sniper_1_walk";
+    smartTerrain.objectJobDescriptors.get(firstStalker.id).desiredJob = "logic@test_smart_sniper_1_walk";
     smartTerrain.switchObjectToDesiredJob(firstStalker.id);
 
     expect(smartTerrain.objectByJobSection).toEqualLuaTables({
@@ -360,7 +360,7 @@ describe("SmartTerrain class jobs logic", () => {
       "logic@test_smart_camper_1_walk": secondStalker.id,
     });
 
-    smartTerrain.objectJobDescriptors.get(firstStalker.id).need_job = "logic@test_smart_camper_1_walk";
+    smartTerrain.objectJobDescriptors.get(firstStalker.id).desiredJob = "logic@test_smart_camper_1_walk";
     smartTerrain.switchObjectToDesiredJob(firstStalker.id);
 
     expect(smartTerrain.objectByJobSection).toEqualLuaTables({
@@ -368,7 +368,7 @@ describe("SmartTerrain class jobs logic", () => {
       "logic@test_smart_sniper_1_walk": secondStalker.id,
     });
 
-    smartTerrain.objectJobDescriptors.get(firstStalker.id).need_job = "logic@test_smart_sniper_1_walk";
+    smartTerrain.objectJobDescriptors.get(firstStalker.id).desiredJob = "logic@test_smart_sniper_1_walk";
     smartTerrain.switchObjectToDesiredJob(firstStalker.id);
     smartTerrain.updateJobs();
 

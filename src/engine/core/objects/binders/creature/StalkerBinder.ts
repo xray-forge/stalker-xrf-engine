@@ -200,7 +200,7 @@ export class StalkerBinder extends object_binder {
 
         if (smartTerrain.arrivingObjects.get(serverObject.id) === null) {
           const jobData = smartTerrain.objectJobDescriptors.get(serverObject.id);
-          const smartTask: ALifeSmartTerrainTask = smartTerrain.jobsData.get(jobData?.jobId).alife_task;
+          const smartTask: ALifeSmartTerrainTask = smartTerrain.jobsData.get(jobData?.jobId).alifeTask;
 
           this.object.set_npc_position(smartTask.position());
         }

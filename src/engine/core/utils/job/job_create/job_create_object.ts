@@ -17,11 +17,11 @@ export function createObjectJobDescriptor(object: ServerCreatureObject): IObject
   return {
     serverObject: object,
     isMonster: !isObjectStalker,
-    need_job: NIL,
-    job_prior: -1,
-    job_link: null,
+    desiredJob: NIL,
+    jobPriority: -1,
+    jobLink: null,
     jobId: -1,
-    begin_job: false,
+    shouldBeginJob: false,
     schemeType: isObjectStalker ? ESchemeType.STALKER : ESchemeType.MONSTER,
   };
 }
