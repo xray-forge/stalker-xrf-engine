@@ -2,6 +2,7 @@ import { SmartTerrain } from "@/engine/core/objects";
 import { createMonsterJobs } from "@/engine/core/utils/job/job_create/job_create_monster";
 import { createStalkerJobs } from "@/engine/core/utils/job/job_create/job_create_stalker";
 import { loadExclusiveJobs } from "@/engine/core/utils/job/job_exclusive";
+import { sortJobsByPriority } from "@/engine/core/utils/job/job_setup";
 import { TJobDescriptor } from "@/engine/core/utils/job/job_types";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { LuaArray } from "@/engine/lib/types";
@@ -40,6 +41,8 @@ export function createSmartTerrainJobs(smartTerrain: SmartTerrain): LuaMultiRetu
 
   // Exclusive jobs for smart terrain.
   loadExclusiveJobs(smartTerrain, jobsList);
+
+  sortJobsByPriority(jobsList);
 
   return $multi(jobsList, jobsLtx);
 }

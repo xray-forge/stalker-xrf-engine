@@ -25,11 +25,11 @@ export function isJobAvailableToObject(
     return false;
   }
 
-  if (jobInfo._precondition_is_monster !== null && jobInfo._precondition_is_monster !== objectInfo.isMonster) {
+  if ("_precondition_is_monster" in jobInfo && jobInfo._precondition_is_monster !== objectInfo.isMonster) {
     return false;
   }
 
-  if (jobInfo._precondition_function !== null) {
+  if (jobInfo._precondition_function) {
     if (
       !(jobInfo._precondition_function as AnyCallable)(
         objectInfo.serverObject,

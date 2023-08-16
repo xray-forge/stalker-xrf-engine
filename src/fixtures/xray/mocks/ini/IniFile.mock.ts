@@ -8,10 +8,12 @@ import { FILES_MOCKS } from "@/fixtures/xray/mocks/ini/files.mock";
  */
 export class MockIniFile<T extends AnyObject> {
   public path: TName;
+  public content: string;
   public data: T;
 
-  public constructor(path: string, data?: T) {
+  public constructor(path: string, data?: T, content: string = "") {
     this.path = path;
+    this.content = content;
     this.data = data || (FILES_MOCKS[path as keyof typeof FILES_MOCKS] as unknown as T) || {};
   }
 
@@ -66,8 +68,8 @@ export class MockIniFile<T extends AnyObject> {
 /**
  * Mock generic ini file for testing.
  */
-export function mockIniFile(path: TPath, data?: AnyObject): IniFile {
-  return new MockIniFile(path, data) as unknown as IniFile;
+export function mockIniFile(path: TPath, data?: AnyObject, content?: string): IniFile {
+  return new MockIniFile(path, data, content) as unknown as IniFile;
 }
 
 /**

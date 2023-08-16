@@ -15,9 +15,9 @@ describe("job_setup utils", () => {
     sortJobsByPriority(unsorted);
 
     expect(unsorted).toEqualLuaArrays([
-      { priority: 10 },
-      { priority: 15, jobs: $fromArray([{ priority: 10 }, { priority: 25 }, { priority: 50 }]) },
       { priority: 25 },
+      { priority: 15, jobs: $fromArray([{ priority: 50 }, { priority: 25 }, { priority: 10 }]) },
+      { priority: 10 },
     ]);
   });
 });

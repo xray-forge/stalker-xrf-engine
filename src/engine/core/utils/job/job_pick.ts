@@ -22,19 +22,19 @@ export function selectSmartTerrainJob(
     }
 
     if (isJobAvailableToObject(objectJobDescriptor, jobInfo, smartTerrain)) {
-      if (jobInfo.job_id === null) {
+      if (jobInfo.job_id) {
+        if (!jobInfo.npc_id) {
+          return $multi(jobInfo.job_id, jobInfo.priority, jobInfo);
+        } else if (jobInfo.job_id === objectJobDescriptor.job_id) {
+          return $multi(jobInfo.job_id, jobInfo.priority, jobInfo);
+        }
+      } else {
         [selectedJobId, currentJobPriority, selectedJobLink] = selectSmartTerrainJob(
           smartTerrain,
           jobInfo.jobs,
           objectJobDescriptor,
           selectedJobPriority
         );
-      } else {
-        if (jobInfo.npc_id === null) {
-          return $multi(jobInfo.job_id, jobInfo.priority, jobInfo);
-        } else if (jobInfo.job_id === objectJobDescriptor.job_id) {
-          return $multi(jobInfo.job_id, jobInfo.priority, jobInfo);
-        }
       }
     }
   }

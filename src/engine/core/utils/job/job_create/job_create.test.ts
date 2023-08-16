@@ -33,18 +33,6 @@ describe("jobs_general should correctly generate default jobs", () => {
         jobs: $fromArray([
           {
             jobs: $fromArray(
-              range(20, 1).map((it) => ({
-                job_id: {
-                  job_type: "point_job",
-                  section: "logic@test_smart_point_" + it,
-                },
-                priority: 3,
-              }))
-            ),
-            priority: 3,
-          },
-          {
-            jobs: $fromArray(
               range(3, 1).map((it) => ({
                 _precondition_function: expect.any(Function),
                 _precondition_params: {},
@@ -58,18 +46,36 @@ describe("jobs_general should correctly generate default jobs", () => {
             priority: 50,
           },
           {
-            jobs: $fromArray(
-              range(2, 1).map((it) => ({
+            jobs: $fromArray([
+              {
                 _precondition_function: expect.any(Function),
-                _precondition_params: {},
+                _precondition_params: {
+                  way_name: "test_smart_camper_1_walk",
+                },
                 job_id: {
                   job_type: "path_job",
-                  section: `logic@test_smart_sleep_${it}`,
+                  section: "logic@test_smart_camper_1_walk",
                 },
-                priority: 10,
-              }))
-            ),
-            priority: 10,
+                priority: 45,
+              },
+            ]),
+            priority: 45,
+          },
+          {
+            jobs: $fromArray([
+              {
+                _precondition_function: expect.any(Function),
+                _precondition_params: {
+                  way_name: "test_smart_sniper_1_walk",
+                },
+                job_id: {
+                  job_type: "path_job",
+                  section: "logic@test_smart_sniper_1_walk",
+                },
+                priority: 30,
+              },
+            ]),
+            priority: 30,
           },
           {
             jobs: $fromArray([
@@ -92,12 +98,23 @@ describe("jobs_general should correctly generate default jobs", () => {
                 _precondition_params: {},
                 job_id: {
                   job_type: "path_job",
-                  section: "logic@test_smart_walker_1_walk",
+                  section: "logic@test_smart_guard_1_walk",
                 },
-                priority: 15,
+                priority: 25,
+              },
+              {
+                _precondition_function: expect.any(Function),
+                _precondition_params: {
+                  changing_job: "logic@test_smart_guard_1_walk",
+                },
+                job_id: {
+                  job_type: "path_job",
+                  section: "logic@follower_test_smart_guard_1_walk",
+                },
+                priority: 24,
               },
             ]),
-            priority: 15,
+            priority: 25,
           },
           {
             jobs: $fromArray([
@@ -132,6 +149,20 @@ describe("jobs_general should correctly generate default jobs", () => {
             priority: 20,
           },
           {
+            jobs: $fromArray([
+              {
+                _precondition_function: expect.any(Function),
+                _precondition_params: {},
+                job_id: {
+                  job_type: "path_job",
+                  section: "logic@test_smart_walker_1_walk",
+                },
+                priority: 15,
+              },
+            ]),
+            priority: 15,
+          },
+          {
             _precondition_function: expect.any(Function),
             _precondition_params: {},
             job_id: {
@@ -141,61 +172,30 @@ describe("jobs_general should correctly generate default jobs", () => {
             priority: 15,
           },
           {
-            jobs: $fromArray([
-              {
+            jobs: $fromArray(
+              range(2, 1).map((it) => ({
                 _precondition_function: expect.any(Function),
                 _precondition_params: {},
                 job_id: {
                   job_type: "path_job",
-                  section: "logic@test_smart_guard_1_walk",
+                  section: `logic@test_smart_sleep_${it}`,
                 },
-                priority: 25,
-              },
-              {
-                _precondition_function: expect.any(Function),
-                _precondition_params: {
-                  changing_job: "logic@test_smart_guard_1_walk",
-                },
-                job_id: {
-                  job_type: "path_job",
-                  section: "logic@follower_test_smart_guard_1_walk",
-                },
-                priority: 24,
-              },
-            ]),
-            priority: 25,
+                priority: 10,
+              }))
+            ),
+            priority: 10,
           },
           {
-            jobs: $fromArray([
-              {
-                _precondition_function: expect.any(Function),
-                _precondition_params: {
-                  way_name: "test_smart_sniper_1_walk",
-                },
+            jobs: $fromArray(
+              range(20, 1).map((it) => ({
                 job_id: {
-                  job_type: "path_job",
-                  section: "logic@test_smart_sniper_1_walk",
+                  job_type: "point_job",
+                  section: "logic@test_smart_point_" + it,
                 },
-                priority: 30,
-              },
-            ]),
-            priority: 30,
-          },
-          {
-            jobs: $fromArray([
-              {
-                _precondition_function: expect.any(Function),
-                _precondition_params: {
-                  way_name: "test_smart_camper_1_walk",
-                },
-                job_id: {
-                  job_type: "path_job",
-                  section: "logic@test_smart_camper_1_walk",
-                },
-                priority: 45,
-              },
-            ]),
-            priority: 45,
+                priority: 3,
+              }))
+            ),
+            priority: 3,
           },
         ]),
         priority: 60,

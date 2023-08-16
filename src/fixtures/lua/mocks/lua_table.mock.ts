@@ -27,7 +27,7 @@ export const mockTable = {
 
       // Handle lua true-false approach.
       if (typeof result === "boolean") {
-        return result ? 1 : -1;
+        return result ? -1 : 1;
       }
 
       return result;

@@ -151,7 +151,7 @@ export function activateSchemeBySection(
 
     assert(currentSmartTerrain, "scheme/logic: activate_by_section: section is NIL && NPC !in smart.");
 
-    const job: Optional<ISmartTerrainJob> = currentSmartTerrain.getJob(object.id());
+    const job: Optional<ISmartTerrainJob> = currentSmartTerrain.getJobByObjectId(object.id());
 
     section = job?.section as TSection;
   }

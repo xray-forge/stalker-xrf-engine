@@ -11,7 +11,6 @@ import {
 } from "@/engine/core/database";
 import { MapDisplayManager } from "@/engine/core/managers/interface";
 import { SmartTerrain } from "@/engine/core/objects";
-import { ISmartTerrainJob } from "@/engine/core/objects/server/smart_terrain/types";
 import { IBaseSchemeState, ObjectRestrictionsManager, TAbstractSchemeConstructor } from "@/engine/core/schemes";
 import { SchemeAbuse } from "@/engine/core/schemes/abuse";
 import { SchemeCombat } from "@/engine/core/schemes/combat";
@@ -33,6 +32,7 @@ import { SchemeReachTask } from "@/engine/core/schemes/reach_task";
 import { SchemeIdle } from "@/engine/core/schemes/sr_idle";
 import { IdleManager } from "@/engine/core/schemes/sr_idle/IdleManager";
 import { SchemeWounded } from "@/engine/core/schemes/wounded";
+import { ISmartTerrainJob } from "@/engine/core/utils/job";
 import { disableInfo, giveInfo } from "@/engine/core/utils/object/object_info_portion";
 import {
   activateSchemeBySection,
@@ -208,7 +208,7 @@ describe("'scheme logic' utils", () => {
     loadSchemeImplementation(SchemePatrol);
 
     jest.spyOn(SchemePatrol, "activate").mockImplementation(() => {});
-    jest.spyOn(smartTerrain, "getJob").mockImplementation(
+    jest.spyOn(smartTerrain, "getJobByObjectId").mockImplementation(
       () =>
         ({
           section: "patrol@test",

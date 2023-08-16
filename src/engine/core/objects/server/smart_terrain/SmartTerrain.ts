@@ -67,7 +67,6 @@ import {
   IObjectJobDescriptor,
   ISmartTerrainJob,
   selectSmartTerrainJob,
-  sortJobsByPriority,
   TJobDescriptor,
 } from "@/engine/core/utils/job";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -123,6 +122,7 @@ export const PATH_FIELDS: LuaArray<string> = $fromArray(["path_walk", "path_main
 
 /**
  * todo;
+ * todo: Ignore jobs not on current level?
  */
 @LuabindClass()
 export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTarget {
@@ -180,7 +180,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
   public arrivingObjects: LuaTable<TNumberId, ServerCreatureObject> = new LuaTable();
 
   public objectByJobSection: LuaTable<TSection, TNumberId> = new LuaTable();
-  public objectsToRegister: LuaTable<TIndex, ServerCreatureObject> = new LuaTable();
+  public objectsToRegister: LuaArray<ServerCreatureObject> = new LuaTable();
 
   public smartTerrainAlifeTask!: ALifeSmartTerrainTask;
 
@@ -261,7 +261,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
 
     object.m_smart_terrain_id = this.id;
 
-    if (this.onObjectArrived(object)) {
+    if (this.isObjectArrived(object)) {
       this.objectJobDescriptors.set(object.id, createObjectJobDescriptor(object));
       this.jobDeadTimeById = new LuaTable();
       this.selectObjectJob(this.objectJobDescriptors.get(object.id));
@@ -537,6 +537,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
       }
     }
 
+    this.updateAlarmStatus();
     this.updateJobs();
 
     if (this.smartTerrainActorControl !== null) {
@@ -654,22 +655,18 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
       this.applyRespawnSection(respawnSection);
     }
 
-    if (level.patrol_path_exists(this.name() + "_traveller_actor")) {
-      this.travelerActorPath = this.name() + "_traveller_actor";
-    }
+    this.travelerActorPath = level.patrol_path_exists(this.name() + "_traveller_actor")
+      ? this.name() + "_traveller_actor"
+      : "";
 
-    if (level.patrol_path_exists(this.name() + "_traveller_squad")) {
-      this.travelerSquadPath = this.name() + "_traveller_squad";
-    }
+    this.travelerSquadPath = level.patrol_path_exists(this.name() + "_traveller_squad")
+      ? this.name() + "_traveller_squad"
+      : "";
 
     if (!SMART_TERRAIN_MASKS_LTX.section_exist(this.name())) {
       // logger.warn("No terrain_mask section in smart_terrain_masks.ltx:", this.name());
     }
   }
-
-  /**
-   * todo: Description.
-   */
 
   /**
    * Register all objects that were registered before smart terrains.
@@ -718,28 +715,25 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
     const [ltx, ltxName] = loadDynamicIni(this.name(), ltxContent);
 
     this.jobs = jobs;
+    this.jobsData = new LuaTable();
     this.ltxConfigName = ltxName;
     this.ltxConfig = ltx;
 
-    sortJobsByPriority(this.jobs);
-
     let id: TNumberId = 0;
 
-    this.jobsData = new LuaTable();
-
     const initializeJobsData = (jobs: LuaTable<any, any>) => {
-      for (const [k, v] of jobs) {
-        if (v.jobs !== null) {
-          initializeJobsData(v.jobs);
+      for (const [, jobDescriptor] of jobs) {
+        if (jobDescriptor.jobs) {
+          initializeJobsData(jobDescriptor.jobs);
         } else {
-          if (v.job_id === null) {
+          if (jobDescriptor.job_id === null) {
             abort("Incorrect job table provided, job_id is null.");
           }
 
-          this.jobsData.set(id, v.job_id);
-          this.jobsData.get(id).priority = v.priority;
+          this.jobsData.set(id, jobDescriptor.job_id);
+          this.jobsData.get(id).priority = jobDescriptor.priority;
 
-          v.job_id = id;
+          jobDescriptor.job_id = id;
           id += 1;
         }
       }
@@ -747,7 +741,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
 
     initializeJobsData(this.jobs);
 
-    for (const [index, job] of this.jobsData) {
+    for (const [, job] of this.jobsData) {
       const section = job.section;
       const ltx: IniFile = job.ini_file || this.ltxConfig;
 
@@ -757,46 +751,58 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
 
       const activeSection: TSection = ltx.r_string(section, "active");
 
-      if (job.job_type === EJobType.PATH_JOB) {
-        let pathField: string = "";
+      switch (job.job_type) {
+        case EJobType.PATH_JOB: {
+          let pathField: string = "";
 
-        for (const [i, vv] of PATH_FIELDS) {
-          if (ltx.line_exist(activeSection, vv)) {
-            pathField = vv;
-            break;
+          for (const [i, vv] of PATH_FIELDS) {
+            if (ltx.line_exist(activeSection, vv)) {
+              pathField = vv;
+              break;
+            }
           }
-        }
 
-        let pathName = ltx.r_string(activeSection, pathField);
+          let pathName: TName = ltx.r_string(activeSection, pathField);
 
-        if (job.prefix_name !== null) {
-          pathName = job.prefix_name + "_" + pathName;
-        } else {
-          pathName = this.name() + "_" + pathName;
-        }
-
-        if (pathName === "center_point") {
-          if (level.patrol_path_exists(pathName + "_task")) {
-            pathName = pathName + "_task";
+          if (job.prefix_name) {
+            pathName = job.prefix_name + "_" + pathName;
+          } else {
+            pathName = this.name() + "_" + pathName;
           }
+
+          if (pathName === "center_point") {
+            if (level.patrol_path_exists(pathName + "_task")) {
+              pathName += "_task";
+            }
+          }
+
+          job.alife_task = new CALifeSmartTerrainTask(pathName);
+
+          break;
         }
 
-        job.alife_task = new CALifeSmartTerrainTask(pathName);
-      } else if (job.job_type === EJobType.SMART_COVER_JOB) {
-        const smartCoverName: TName = ltx.r_string(activeSection, "cover_name");
-        const smartCover: Optional<SmartCover> = registry.smartCovers.get(smartCoverName);
+        case EJobType.SMART_COVER_JOB: {
+          const smartCoverName: TName = ltx.r_string(activeSection, "cover_name");
+          const smartCover: Optional<SmartCover> = registry.smartCovers.get(smartCoverName);
 
-        if (smartCover === null) {
-          abort(
-            "There is an exclusive job with wrong smatrcover name '%s' in smart terrain '%s'.",
-            tostring(smartCoverName),
-            this.name()
-          );
+          if (!smartCover) {
+            abort(
+              "There is an exclusive job with wrong smart cover name '%s' in smart terrain '%s'.",
+              tostring(smartCoverName),
+              this.name()
+            );
+          }
+
+          job.alife_task = new CALifeSmartTerrainTask(smartCover.m_game_vertex_id, smartCover.m_level_vertex_id);
+
+          break;
         }
 
-        job.alife_task = new CALifeSmartTerrainTask(smartCover.m_game_vertex_id, smartCover.m_level_vertex_id);
-      } else if (job.job_type === EJobType.POINT_JOB) {
-        job.alife_task = this.smartTerrainAlifeTask as CALifeSmartTerrainTask;
+        case EJobType.POINT_JOB: {
+          job.alife_task = this.smartTerrainAlifeTask as CALifeSmartTerrainTask;
+
+          break;
+        }
       }
 
       job.game_vertex_id = job.alife_task.game_vertex_id();
@@ -809,10 +815,8 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
    * todo: Description.
    */
   public updateJobs(): void {
-    this.updateAlarmStatus();
-
     for (const [id, object] of this.arrivingObjects) {
-      if (this.onObjectArrived(object)) {
+      if (this.isObjectArrived(object)) {
         this.objectJobDescriptors.set(object.id, createObjectJobDescriptor(object));
         this.jobDeadTimeById = new LuaTable();
         this.selectObjectJob(this.objectJobDescriptors.get(object.id));
@@ -822,8 +826,8 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
 
     table.sort(this.objectJobDescriptors, (a, b) => a.job_prior < b.job_prior);
 
-    for (const [k, v] of this.objectJobDescriptors) {
-      this.selectObjectJob(v);
+    for (const [, objectJobDescriptor] of this.objectJobDescriptors) {
+      this.selectObjectJob(objectJobDescriptor);
     }
   }
 
@@ -920,7 +924,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
   /**
    * todo: Description.
    */
-  public getJob(objectId: TNumberId): Optional<ISmartTerrainJob> {
+  public getJobByObjectId(objectId: TNumberId): Optional<ISmartTerrainJob> {
     return this.objectJobDescriptors.get(objectId) && this.jobsData.get(this.objectJobDescriptors.get(objectId).job_id);
   }
 
@@ -1252,7 +1256,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
   /**
    * When object arrived.
    */
-  public onObjectArrived(object: ServerCreatureObject): boolean {
+  public isObjectArrived(object: ServerCreatureObject): boolean {
     const state: Optional<IRegistryObjectState> = registry.objects.get(object.id);
 
     let objectGameVertex: GameGraphVertex;

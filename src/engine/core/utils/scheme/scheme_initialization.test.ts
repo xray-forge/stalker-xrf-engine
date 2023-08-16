@@ -3,7 +3,6 @@ import { alife } from "xray16";
 
 import { CUSTOM_DATA, IRegistryObjectState, registerActor, registerObject, registry } from "@/engine/core/database";
 import { SmartTerrain } from "@/engine/core/objects";
-import { ISmartTerrainJob } from "@/engine/core/objects/server/smart_terrain/types";
 import { TAbstractSchemeConstructor } from "@/engine/core/schemes";
 import { SchemeAbuse } from "@/engine/core/schemes/abuse";
 import { SchemeCombat } from "@/engine/core/schemes/combat";
@@ -19,6 +18,7 @@ import { SchemeMeet } from "@/engine/core/schemes/meet";
 import { SchemeMobCombat } from "@/engine/core/schemes/mob_combat";
 import { SchemeReachTask } from "@/engine/core/schemes/reach_task";
 import { SchemeWounded } from "@/engine/core/schemes/wounded";
+import { ISmartTerrainJob } from "@/engine/core/utils/job";
 import {
   configureObjectSchemes,
   initializeObjectSchemeLogic,
@@ -138,7 +138,9 @@ describe("'scheme initialization' utils", () => {
       jest.spyOn(it, "reset").mockImplementation(() => {});
     });
 
-    jest.spyOn(smartTerrain, "getJob").mockImplementation(() => ({ ini_path: "job_test.ltx" }) as ISmartTerrainJob);
+    jest
+      .spyOn(smartTerrain, "getJobByObjectId")
+      .mockImplementation(() => ({ ini_path: "job_test.ltx" }) as ISmartTerrainJob);
 
     resetFunctionMock(alife().create);
 

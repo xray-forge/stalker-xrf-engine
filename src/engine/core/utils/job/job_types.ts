@@ -23,7 +23,7 @@ import type {
 export interface IObjectJobDescriptor {
   isMonster: boolean;
   serverObject: ServerCreatureObject;
-  need_job: string;
+  need_job: string; // Section with needed job?
   job_prior: number;
   job_id: number;
   job_link: Optional<IJobDescriptor>;
@@ -38,7 +38,7 @@ export interface ISmartTerrainJob extends IJobBase {
   alife_task: ALifeSmartTerrainTask;
   priority: TRate;
   reserve_job: Optional<boolean>;
-  prefix_name: TName;
+  prefix_name: Optional<TName>;
   game_vertex_id: TNumberId;
   level_id: TNumberId;
   position: Vector;

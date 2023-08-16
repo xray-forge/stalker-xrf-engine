@@ -89,7 +89,7 @@ describe("object get utils", () => {
 
   it("'getObjectCommunity' should correctly get community", () => {
     expect(getObjectCommunity(mockClientGameObject())).toBe("monster");
-    expect(getObjectCommunity(mockServerAlifeHumanStalker())).toBe("monster");
+    expect(getObjectCommunity(mockServerAlifeHumanStalker())).toBe("stalker");
 
     const clientObject: ClientObject = mockClientGameObject({ clsid: () => classIds.script_stalker as TClassId });
     const serverObject: ServerHumanObject = mockServerAlifeHumanStalker({
