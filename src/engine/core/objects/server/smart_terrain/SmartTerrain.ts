@@ -80,7 +80,11 @@ import {
   initializeObjectSchemeLogic,
   switchObjectSchemeToSection,
 } from "@/engine/core/utils/scheme";
-import { turnOffSmartTerrainCampfires, turnOnSmartTerrainCampfires } from "@/engine/core/utils/smart_terrain";
+import {
+  turnOffSmartTerrainCampfires,
+  turnOnSmartTerrainCampfires,
+  updateSmartTerrainAlarmStatus,
+} from "@/engine/core/utils/smart_terrain";
 import { getTableSize } from "@/engine/core/utils/table";
 import { toJSON } from "@/engine/core/utils/transform/json";
 import { gameConfig } from "@/engine/lib/configs/GameConfig";
@@ -107,7 +111,6 @@ import {
   TDistance,
   TDuration,
   Time,
-  TIndex,
   TLabel,
   TName,
   TNumberId,
@@ -528,13 +531,13 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
 
     const currentGameTime: Time = game.get_game_time();
 
-    for (const [k, v] of this.jobDeadTimeById) {
-      if (currentGameTime.diffSec(v) >= logicsConfig.SMART_TERRAIN.DEATH_IDLE_TIME) {
-        this.jobDeadTimeById.delete(k);
+    for (const [id, time] of this.jobDeadTimeById) {
+      if (currentGameTime.diffSec(time) >= logicsConfig.SMART_TERRAIN.DEATH_IDLE_TIME) {
+        this.jobDeadTimeById.delete(id);
       }
     }
 
-    this.updateAlarmStatus();
+    updateSmartTerrainAlarmStatus(this);
     this.updateJobs();
 
     if (this.smartTerrainActorControl !== null) {
@@ -558,7 +561,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
   public initialize(): void {
     this.ini = this.spawn_ini();
 
-    assert(this.ini.section_exist(SMART_TERRAIN_SECTION), "[smart_terrain %s] no configuration!", this.name());
+    assert(this.ini.section_exist(SMART_TERRAIN_SECTION), "Smart terrain '%s' no configuration.", this.name());
 
     const filename: Optional<TName> = readIniString(this.ini, SMART_TERRAIN_SECTION, "cfg", false, "");
 
@@ -671,8 +674,8 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
   public registerDelayedObjects(): void {
     logger.info("Registering delayed NPCs:", this.name(), this.objectsToRegister.length);
 
-    for (const [k, v] of this.objectsToRegister) {
-      this.register_npc(v);
+    for (const [, object] of this.objectsToRegister) {
+      this.register_npc(object);
     }
 
     this.objectsToRegister = new LuaTable();
@@ -1105,26 +1108,6 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
   }
 
   /**
-   * Trigger smart terrain alarm.
-   */
-  public startAlarm(): void {
-    this.alarmStartedAt = game.get_game_time();
-  }
-
-  /**
-   * todo: Description.
-   */
-  public updateAlarmStatus(): void {
-    if (this.alarmStartedAt === null) {
-      return;
-    }
-
-    if (game.get_game_time().diffSec(this.alarmStartedAt) > logicsConfig.SMART_TERRAIN.ALARM_SMART_TERRAIN_GENERIC) {
-      this.alarmStartedAt = null;
-    }
-  }
-
-  /**
    * todo: Description.
    */
   public applyRespawnSection(respawnSection: TSection): void {
@@ -1269,7 +1252,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
     const smartTerrainGameVertex: GameGraphVertex = game_graph().vertex(this.m_game_vertex_id);
 
     if (object.group_id !== null) {
-      const squad = this.simulationBoardManager.getSquads().get(object.group_id);
+      const squad: Squad = this.simulationBoardManager.getSquads().get(object.group_id);
 
       if (squad !== null && squad.currentAction) {
         if (squad.currentAction.name === SquadReachTargetAction.ACTION_NAME) {
