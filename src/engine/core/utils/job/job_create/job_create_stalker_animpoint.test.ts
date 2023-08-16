@@ -51,7 +51,7 @@ describe("jobs_general should correctly generate stalker animpoint jobs", () => 
           preconditionFunction: expect.any(Function),
           preconditionParameters: {},
           jobId: {
-            job_type: "smartcover_job",
+            jobType: "smartcover_job",
             section: "logic@test_smart_animpoint_1",
           },
           priority: 15,
@@ -86,7 +86,7 @@ describe("jobs_general should correctly generate stalker animpoint jobs", () => 
           preconditionFunction: expect.any(Function),
           preconditionParameters: {},
           jobId: {
-            job_type: "smartcover_job",
+            jobType: "smartcover_job",
             section: "logic@test_smart_animpoint_1",
           },
           priority: 15,
@@ -122,7 +122,7 @@ describe("jobs_general should correctly generate stalker animpoint jobs", () => 
           preconditionFunction: expect.any(Function),
           preconditionParameters: {},
           jobId: {
-            job_type: "smartcover_job",
+            jobType: "smartcover_job",
             section: "logic@test_smart_animpoint_1",
           },
           priority: 15,

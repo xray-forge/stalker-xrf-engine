@@ -49,10 +49,10 @@ export interface ISmartTerrainJob extends IJobBase {
  */
 export interface IJobBase {
   section: TSection;
-  job_type: EJobType;
+  jobType: EJobType;
   online?: Optional<string>;
-  ini_path?: TPath;
-  ini_file?: IniFile;
+  iniPath?: TPath;
+  iniFile?: IniFile;
 }
 
 /**

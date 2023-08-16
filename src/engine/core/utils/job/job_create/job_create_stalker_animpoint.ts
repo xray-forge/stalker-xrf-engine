@@ -28,7 +28,7 @@ export function createStalkerAnimpointJobs(
       priority: logicsConfig.JOBS.STALKER_ANIMPOINT.PRIORITY,
       jobId: {
         section: `logic@${smartCoverName}`,
-        job_type: EJobType.SMART_COVER_JOB,
+        jobType: EJobType.SMART_COVER_JOB,
       },
       preconditionParameters: {},
       preconditionFunction: (

@@ -37,7 +37,7 @@ describe("jobs_general should correctly generate default jobs", () => {
                 preconditionFunction: expect.any(Function),
                 preconditionParameters: {},
                 jobId: {
-                  job_type: "path_job",
+                  jobType: "path_job",
                   section: `logic@test_smart_surge_${it}_walk`,
                 },
                 priority: 50,
@@ -53,7 +53,7 @@ describe("jobs_general should correctly generate default jobs", () => {
                   way_name: "test_smart_camper_1_walk",
                 },
                 jobId: {
-                  job_type: "path_job",
+                  jobType: "path_job",
                   section: "logic@test_smart_camper_1_walk",
                 },
                 priority: 45,
@@ -69,7 +69,7 @@ describe("jobs_general should correctly generate default jobs", () => {
                   way_name: "test_smart_sniper_1_walk",
                 },
                 jobId: {
-                  job_type: "path_job",
+                  jobType: "path_job",
                   section: "logic@test_smart_sniper_1_walk",
                 },
                 priority: 30,
@@ -83,7 +83,7 @@ describe("jobs_general should correctly generate default jobs", () => {
                 preconditionFunction: expect.any(Function),
                 preconditionParameters: {},
                 jobId: {
-                  job_type: "path_job",
+                  jobType: "path_job",
                   section: "logic@test_smart_collector_1_walk",
                 },
                 priority: 25,
@@ -97,7 +97,7 @@ describe("jobs_general should correctly generate default jobs", () => {
                 preconditionFunction: expect.any(Function),
                 preconditionParameters: {},
                 jobId: {
-                  job_type: "path_job",
+                  jobType: "path_job",
                   section: "logic@test_smart_guard_1_walk",
                 },
                 priority: 25,
@@ -108,7 +108,7 @@ describe("jobs_general should correctly generate default jobs", () => {
                   changing_job: "logic@test_smart_guard_1_walk",
                 },
                 jobId: {
-                  job_type: "path_job",
+                  jobType: "path_job",
                   section: "logic@follower_test_smart_guard_1_walk",
                 },
                 priority: 24,
@@ -122,7 +122,7 @@ describe("jobs_general should correctly generate default jobs", () => {
                 preconditionFunction: expect.any(Function),
                 preconditionParameters: {},
                 jobId: {
-                  job_type: "path_job",
+                  jobType: "path_job",
                   section: "logic@test_smart_patrol_1_walk",
                 },
                 priority: 20,
@@ -131,7 +131,7 @@ describe("jobs_general should correctly generate default jobs", () => {
                 preconditionFunction: expect.any(Function),
                 preconditionParameters: {},
                 jobId: {
-                  job_type: "path_job",
+                  jobType: "path_job",
                   section: "logic@test_smart_patrol_1_walk",
                 },
                 priority: 20,
@@ -140,7 +140,7 @@ describe("jobs_general should correctly generate default jobs", () => {
                 preconditionFunction: expect.any(Function),
                 preconditionParameters: {},
                 jobId: {
-                  job_type: "path_job",
+                  jobType: "path_job",
                   section: "logic@test_smart_patrol_1_walk",
                 },
                 priority: 20,
@@ -154,7 +154,7 @@ describe("jobs_general should correctly generate default jobs", () => {
                 preconditionFunction: expect.any(Function),
                 preconditionParameters: {},
                 jobId: {
-                  job_type: "path_job",
+                  jobType: "path_job",
                   section: "logic@test_smart_walker_1_walk",
                 },
                 priority: 15,
@@ -166,7 +166,7 @@ describe("jobs_general should correctly generate default jobs", () => {
             preconditionFunction: expect.any(Function),
             preconditionParameters: {},
             jobId: {
-              job_type: "smartcover_job",
+              jobType: "smartcover_job",
               section: "logic@test_smart_animpoint_1",
             },
             priority: 15,
@@ -177,7 +177,7 @@ describe("jobs_general should correctly generate default jobs", () => {
                 preconditionFunction: expect.any(Function),
                 preconditionParameters: {},
                 jobId: {
-                  job_type: "path_job",
+                  jobType: "path_job",
                   section: `logic@test_smart_sleep_${it}`,
                 },
                 priority: 10,
@@ -189,7 +189,7 @@ describe("jobs_general should correctly generate default jobs", () => {
             jobs: $fromArray(
               range(20, 1).map((it) => ({
                 jobId: {
-                  job_type: "point_job",
+                  jobType: "point_job",
                   section: "logic@test_smart_point_" + it,
                 },
                 priority: 3,
@@ -205,7 +205,7 @@ describe("jobs_general should correctly generate default jobs", () => {
         jobs: $fromArray(
           range(20, 1).map((it) => ({
             jobId: {
-              job_type: "point_job",
+              jobType: "point_job",
               section: "logic@test_smart_home_" + it,
             },
             priority: 40,
@@ -235,7 +235,7 @@ describe("jobs_general should correctly generate default jobs", () => {
             jobs: $fromArray(
               range(20, 1).map((it) => ({
                 jobId: {
-                  job_type: "point_job",
+                  jobType: "point_job",
                   section: "logic@test_smart_empty_point_" + it,
                 },
                 priority: 3,
@@ -251,7 +251,7 @@ describe("jobs_general should correctly generate default jobs", () => {
         jobs: $fromArray(
           range(20, 1).map((it) => ({
             jobId: {
-              job_type: "point_job",
+              jobType: "point_job",
               section: "logic@test_smart_empty_home_" + it,
             },
             priority: 40,

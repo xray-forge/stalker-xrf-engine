@@ -44,7 +44,7 @@ export function createStalkerCamperJobs(
       priority: logicsConfig.JOBS.STALKER_CAMPER.PRIORITY,
       jobId: {
         section: `logic@${wayName}`,
-        job_type: EJobType.PATH_JOB,
+        jobType: EJobType.PATH_JOB,
       },
       preconditionParameters: { way_name: wayName },
       preconditionFunction: (serverObject: ServerHumanObject, smartTerrain: SmartTerrain, parameters: AnyObject) => {

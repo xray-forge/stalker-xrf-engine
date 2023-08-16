@@ -28,7 +28,7 @@ export function createStalkerWalkerJobs(
       priority: logicsConfig.JOBS.STALKER_WALKER.PRIORITY,
       jobId: {
         section: `logic@${wayName}`,
-        job_type: EJobType.PATH_JOB,
+        jobType: EJobType.PATH_JOB,
       },
       preconditionParameters: {},
       preconditionFunction: (

@@ -88,7 +88,7 @@ export function configureObjectSchemes(
         if (currentSmart) {
           const job: Optional<ISmartTerrainJob> = currentSmart.getJobByObjectId(object.id());
 
-          state.jobIni = job ? (job.ini_path as TName) : null;
+          state.jobIni = job ? (job.iniPath as TName) : null;
         }
       }
 

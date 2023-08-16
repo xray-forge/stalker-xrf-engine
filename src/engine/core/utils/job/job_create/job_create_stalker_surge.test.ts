@@ -46,7 +46,7 @@ describe("jobs_general should correctly generate stalkers surge jobs", () => {
           preconditionFunction: expect.any(Function),
           preconditionParameters: {},
           jobId: {
-            job_type: "path_job",
+            jobType: "path_job",
             section: `logic@test_smart_surge_${it}_walk`,
           },
           priority: 50,
@@ -78,7 +78,7 @@ describe("jobs_general should correctly generate stalkers surge jobs", () => {
           preconditionFunction: expect.any(Function),
           preconditionParameters: {},
           jobId: {
-            job_type: "path_job",
+            jobType: "path_job",
             section: `logic@test_smart_surge_${it}_walk`,
           },
           priority: 50,
@@ -112,7 +112,7 @@ describe("jobs_general should correctly generate stalkers surge jobs", () => {
           preconditionFunction: expect.any(Function),
           preconditionParameters: {},
           jobId: {
-            job_type: "path_job",
+            jobType: "path_job",
             section: `logic@test_smart_surge_${it}_walk`,
           },
           priority: 50,

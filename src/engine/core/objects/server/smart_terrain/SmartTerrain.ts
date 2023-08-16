@@ -743,7 +743,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
 
     for (const [, job] of this.jobsData) {
       const section = job.section;
-      const ltx: IniFile = job.ini_file || this.jobsLtxConfig;
+      const ltx: IniFile = job.iniFile || this.jobsLtxConfig;
 
       if (!ltx.line_exist(section, "active")) {
         abort("gulag: ltx=%s  no 'active' in section %s", this.jobsLtxConfigName, section);
@@ -751,7 +751,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
 
       const activeSection: TSection = ltx.r_string(section, "active");
 
-      switch (job.job_type) {
+      switch (job.jobType) {
         case EJobType.PATH_JOB: {
           let pathField: string = "";
 
@@ -896,8 +896,8 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
 
     const objectJobDescriptor: IObjectJobDescriptor = this.objectJobDescriptors.get(object.id());
     const job: ISmartTerrainJob = this.jobsData.get(objectJobDescriptor.jobId);
-    const ltx: IniFile = job.ini_file || this.jobsLtxConfig;
-    const ltxName: TName = job.ini_path || this.jobsLtxConfigName;
+    const ltx: IniFile = job.iniFile || this.jobsLtxConfig;
+    const ltxName: TName = job.iniPath || this.jobsLtxConfigName;
 
     configureObjectSchemes(
       object,

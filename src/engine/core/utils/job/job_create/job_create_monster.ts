@@ -31,7 +31,7 @@ export function createMonsterJobs(smartTerrain: SmartTerrain): LuaMultiReturn<[I
       priority: logicsConfig.JOBS.MOB_HOME.PRIORITY,
       jobId: {
         section: `logic@${name}`,
-        job_type: EJobType.POINT_JOB,
+        jobType: EJobType.POINT_JOB,
       },
     });
 

@@ -43,7 +43,7 @@ describe("jobs_general should correctly generate stalker camper jobs", () => {
             way_name: "test_smart_camper_1_walk",
           },
           jobId: {
-            job_type: "path_job",
+            jobType: "path_job",
             section: "logic@test_smart_camper_1_walk",
           },
           priority: 45,
@@ -76,7 +76,7 @@ describe("jobs_general should correctly generate stalker camper jobs", () => {
             way_name: "test_smart_camper_1_walk",
           },
           jobId: {
-            job_type: "path_job",
+            jobType: "path_job",
             section: "logic@test_smart_camper_1_walk",
           },
           priority: 45,

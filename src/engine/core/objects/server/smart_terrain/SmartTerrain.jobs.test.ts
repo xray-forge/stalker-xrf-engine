@@ -316,7 +316,7 @@ describe("SmartTerrain class jobs logic", () => {
         },
       },
       game_vertex_id: 20001,
-      job_type: "path_job",
+      jobType: "path_job",
       level_id: 200010,
       position: {
         x: 10,

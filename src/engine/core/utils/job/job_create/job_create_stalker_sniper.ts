@@ -41,7 +41,7 @@ export function createStalkerSniperJobs(
       priority: logicsConfig.JOBS.STALKER_SNIPER.PRIORITY,
       jobId: {
         section: `logic@${wayName}`,
-        job_type: EJobType.PATH_JOB,
+        jobType: EJobType.PATH_JOB,
       },
       preconditionParameters: { way_name: wayName },
       preconditionFunction: (serverObject: ServerHumanObject, smart: SmartTerrain, parameters: AnyObject): boolean => {

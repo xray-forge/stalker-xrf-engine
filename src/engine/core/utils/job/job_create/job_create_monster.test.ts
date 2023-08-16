@@ -25,7 +25,7 @@ describe("jobs_general should correctly generate monster default jobs", () => {
       jobs: $fromArray(
         range(20, 1).map((it) => ({
           jobId: {
-            job_type: "point_job",
+            jobType: "point_job",
             section: "logic@test_smart_home_" + it,
           },
           priority: 40,

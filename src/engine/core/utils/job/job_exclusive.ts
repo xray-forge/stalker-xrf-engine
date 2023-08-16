@@ -107,10 +107,10 @@ export function loadExclusiveJob(
       preconditionIsMonster: isMonster,
       jobId: {
         section: "logic@" + field,
-        ini_path: iniPath,
+        iniPath: iniPath,
         online: jobOnline,
-        ini_file: jobIniFile,
-        job_type: jobType as EJobType,
+        iniFile: jobIniFile,
+        jobType: jobType as EJobType,
       },
     };
 
@@ -123,10 +123,10 @@ export function loadExclusiveJob(
       preconditionIsMonster: isMonster,
       jobId: {
         section: "logic@" + field,
-        ini_path: iniPath,
-        ini_file: jobIniFile,
+        iniPath: iniPath,
+        iniFile: jobIniFile,
         online: jobOnline,
-        job_type: jobType,
+        jobType: jobType,
       },
       preconditionParameters: { condlist: conditionsList },
       preconditionFunction: (
@@ -146,8 +146,8 @@ export function loadExclusiveJob(
       preconditionIsMonster: isMonster,
       jobId: {
         section: "logic@" + field,
-        ini_file: jobIniFile,
-        job_type: jobType,
+        iniFile: jobIniFile,
+        jobType: jobType,
       },
     });
   }

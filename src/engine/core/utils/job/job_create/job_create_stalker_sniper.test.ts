@@ -42,7 +42,7 @@ describe("jobs_general should correctly generate stalker patrol jobs", () => {
             way_name: "test_smart_sniper_1_walk",
           },
           jobId: {
-            job_type: "path_job",
+            jobType: "path_job",
             section: "logic@test_smart_sniper_1_walk",
           },
           priority: 30,
@@ -75,7 +75,7 @@ describe("jobs_general should correctly generate stalker patrol jobs", () => {
             way_name: "test_smart_sniper_1_walk",
           },
           jobId: {
-            job_type: "path_job",
+            jobType: "path_job",
             section: "logic@test_smart_sniper_1_walk",
           },
           priority: 30,

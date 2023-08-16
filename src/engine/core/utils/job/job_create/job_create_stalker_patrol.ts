@@ -38,7 +38,7 @@ export function createStalkerPatrolJobs(
         priority: logicsConfig.JOBS.STALKER_PATROL.PRIORITY,
         jobId: {
           section: `logic@${wayName}`,
-          job_type: EJobType.PATH_JOB,
+          jobType: EJobType.PATH_JOB,
         },
         preconditionParameters: {},
         preconditionFunction: (

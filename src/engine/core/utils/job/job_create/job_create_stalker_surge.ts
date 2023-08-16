@@ -32,7 +32,7 @@ export function createStalkerSurgeJobs(
       priority: logicsConfig.JOBS.STALKER_SURGE.PRIORITY,
       jobId: {
         section: `logic@${wayName}`,
-        job_type: EJobType.PATH_JOB,
+        jobType: EJobType.PATH_JOB,
       },
       preconditionParameters: {},
       preconditionFunction: () => SurgeManager.getInstance().isStarted,

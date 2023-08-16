@@ -45,9 +45,9 @@ describe("'job_exclusive' utils", () => {
       {
         preconditionIsMonster: false,
         jobId: {
-          ini_file: expect.any(Object),
-          ini_path: "scripts\\some_file2.ltx",
-          job_type: null,
+          iniFile: expect.any(Object),
+          iniPath: "scripts\\some_file2.ltx",
+          jobType: null,
           online: null,
           section: "logic@work1",
         },
@@ -81,9 +81,9 @@ describe("'job_exclusive' utils", () => {
       {
         preconditionIsMonster: true,
         jobId: {
-          ini_file: expect.any(Object),
-          ini_path: "scripts\\some_file3.ltx",
-          job_type: "smartcover_job",
+          iniFile: expect.any(Object),
+          iniPath: "scripts\\some_file3.ltx",
+          jobType: "smartcover_job",
           online: true,
           section: "logic@work2",
         },
@@ -122,9 +122,9 @@ describe("'job_exclusive' utils", () => {
           condlist: parseConditionsList("{+test_info} true, false"),
         },
         jobId: {
-          ini_file: expect.any(Object),
-          ini_path: "scripts\\some_file3.ltx",
-          job_type: "path_job",
+          iniFile: expect.any(Object),
+          iniPath: "scripts\\some_file3.ltx",
+          jobType: "path_job",
           online: false,
           section: "logic@work2",
         },
@@ -133,8 +133,8 @@ describe("'job_exclusive' utils", () => {
       {
         preconditionIsMonster: false,
         jobId: {
-          ini_file: expect.any(Object),
-          job_type: "path_job",
+          iniFile: expect.any(Object),
+          jobType: "path_job",
           section: "logic@work2",
         },
         priority: -1,

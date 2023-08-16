@@ -25,7 +25,7 @@ export function createStalkerGuardJobs(
       priority: logicsConfig.JOBS.STALKER_GUARD.PRIORITY,
       jobId: {
         section: `logic@${wayName}`,
-        job_type: EJobType.PATH_JOB,
+        jobType: EJobType.PATH_JOB,
       },
       preconditionParameters: {},
       preconditionFunction: (
@@ -96,7 +96,7 @@ export function createStalkerGuardJobs(
       priority: logicsConfig.JOBS.STALKER_GUARD.PRIORITY_FOLLOWER,
       jobId: {
         section: `logic@follower_${wayName}`,
-        job_type: EJobType.PATH_JOB,
+        jobType: EJobType.PATH_JOB,
       },
       preconditionParameters: { changing_job: `logic@${wayName}` },
       preconditionFunction: (

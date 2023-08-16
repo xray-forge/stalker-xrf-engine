@@ -27,7 +27,7 @@ export function createStalkerPointJobs(
       priority: logicsConfig.JOBS.STALKER_POINT.PRIORITY,
       jobId: {
         section: `logic@${name}`,
-        job_type: EJobType.POINT_JOB,
+        jobType: EJobType.POINT_JOB,
       },
     });
 

@@ -41,7 +41,7 @@ describe("jobs_general should correctly generate stalker patrol jobs", () => {
           preconditionFunction: expect.any(Function),
           preconditionParameters: {},
           jobId: {
-            job_type: "path_job",
+            jobType: "path_job",
             section: "logic@test_smart_patrol_1_walk",
           },
           priority: 20,
@@ -50,7 +50,7 @@ describe("jobs_general should correctly generate stalker patrol jobs", () => {
           preconditionFunction: expect.any(Function),
           preconditionParameters: {},
           jobId: {
-            job_type: "path_job",
+            jobType: "path_job",
             section: "logic@test_smart_patrol_1_walk",
           },
           priority: 20,
@@ -59,7 +59,7 @@ describe("jobs_general should correctly generate stalker patrol jobs", () => {
           preconditionFunction: expect.any(Function),
           preconditionParameters: {},
           jobId: {
-            job_type: "path_job",
+            jobType: "path_job",
             section: "logic@test_smart_patrol_1_walk",
           },
           priority: 20,
@@ -90,7 +90,7 @@ describe("jobs_general should correctly generate stalker patrol jobs", () => {
           preconditionFunction: expect.any(Function),
           preconditionParameters: {},
           jobId: {
-            job_type: "path_job",
+            jobType: "path_job",
             section: "logic@test_smart_patrol_1_walk",
           },
           priority: 20,
@@ -99,7 +99,7 @@ describe("jobs_general should correctly generate stalker patrol jobs", () => {
           preconditionFunction: expect.any(Function),
           preconditionParameters: {},
           jobId: {
-            job_type: "path_job",
+            jobType: "path_job",
             section: "logic@test_smart_patrol_1_walk",
           },
           priority: 20,
@@ -108,7 +108,7 @@ describe("jobs_general should correctly generate stalker patrol jobs", () => {
           preconditionFunction: expect.any(Function),
           preconditionParameters: {},
           jobId: {
-            job_type: "path_job",
+            jobType: "path_job",
             section: "logic@test_smart_patrol_1_walk",
           },
           priority: 20,
@@ -142,7 +142,7 @@ describe("jobs_general should correctly generate stalker patrol jobs", () => {
           preconditionFunction: expect.any(Function),
           preconditionParameters: {},
           jobId: {
-            job_type: "path_job",
+            jobType: "path_job",
             section: "logic@test_smart_patrol_1_walk",
           },
           priority: 20,
@@ -151,7 +151,7 @@ describe("jobs_general should correctly generate stalker patrol jobs", () => {
           preconditionFunction: expect.any(Function),
           preconditionParameters: {},
           jobId: {
-            job_type: "path_job",
+            jobType: "path_job",
             section: "logic@test_smart_patrol_1_walk",
           },
           priority: 20,
@@ -160,7 +160,7 @@ describe("jobs_general should correctly generate stalker patrol jobs", () => {
           preconditionFunction: expect.any(Function),
           preconditionParameters: {},
           jobId: {
-            job_type: "path_job",
+            jobType: "path_job",
             section: "logic@test_smart_patrol_1_walk",
           },
           priority: 20,
@@ -195,7 +195,7 @@ describe("jobs_general should correctly generate stalker patrol jobs", () => {
           preconditionFunction: expect.any(Function),
           preconditionParameters: {},
           jobId: {
-            job_type: "path_job",
+            jobType: "path_job",
             section: "logic@test_smart_patrol_1_walk",
           },
           priority: 20,
@@ -204,7 +204,7 @@ describe("jobs_general should correctly generate stalker patrol jobs", () => {
           preconditionFunction: expect.any(Function),
           preconditionParameters: {},
           jobId: {
-            job_type: "path_job",
+            jobType: "path_job",
             section: "logic@test_smart_patrol_1_walk",
           },
           priority: 20,
@@ -213,7 +213,7 @@ describe("jobs_general should correctly generate stalker patrol jobs", () => {
           preconditionFunction: expect.any(Function),
           preconditionParameters: {},
           jobId: {
-            job_type: "path_job",
+            jobType: "path_job",
             section: "logic@test_smart_patrol_1_walk",
           },
           priority: 20,
