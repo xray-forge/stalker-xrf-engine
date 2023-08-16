@@ -44,7 +44,7 @@ describe("'job_exclusive' utils", () => {
     expect(list).toEqualLuaArrays([
       {
         preconditionIsMonster: false,
-        job_id: {
+        jobId: {
           ini_file: expect.any(Object),
           ini_path: "scripts\\some_file2.ltx",
           job_type: null,
@@ -80,7 +80,7 @@ describe("'job_exclusive' utils", () => {
     expect(list).toEqualLuaArrays([
       {
         preconditionIsMonster: true,
-        job_id: {
+        jobId: {
           ini_file: expect.any(Object),
           ini_path: "scripts\\some_file3.ltx",
           job_type: "smartcover_job",
@@ -121,7 +121,7 @@ describe("'job_exclusive' utils", () => {
         preconditionParameters: {
           condlist: parseConditionsList("{+test_info} true, false"),
         },
-        job_id: {
+        jobId: {
           ini_file: expect.any(Object),
           ini_path: "scripts\\some_file3.ltx",
           job_type: "path_job",
@@ -132,7 +132,7 @@ describe("'job_exclusive' utils", () => {
       },
       {
         preconditionIsMonster: false,
-        job_id: {
+        jobId: {
           ini_file: expect.any(Object),
           job_type: "path_job",
           section: "logic@work2",

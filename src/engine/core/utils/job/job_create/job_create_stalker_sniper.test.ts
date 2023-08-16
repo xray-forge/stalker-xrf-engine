@@ -41,7 +41,7 @@ describe("jobs_general should correctly generate stalker patrol jobs", () => {
           preconditionParameters: {
             way_name: "test_smart_sniper_1_walk",
           },
-          job_id: {
+          jobId: {
             job_type: "path_job",
             section: "logic@test_smart_sniper_1_walk",
           },
@@ -74,7 +74,7 @@ describe("jobs_general should correctly generate stalker patrol jobs", () => {
           preconditionParameters: {
             way_name: "test_smart_sniper_1_walk",
           },
-          job_id: {
+          jobId: {
             job_type: "path_job",
             section: "logic@test_smart_sniper_1_walk",
           },

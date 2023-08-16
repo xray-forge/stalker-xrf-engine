@@ -24,7 +24,7 @@ describe("jobs_general should correctly generate monster default jobs", () => {
       preconditionIsMonster: true,
       jobs: $fromArray(
         range(20, 1).map((it) => ({
-          job_id: {
+          jobId: {
             job_type: "point_job",
             section: "logic@test_smart_home_" + it,
           },

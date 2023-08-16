@@ -972,10 +972,10 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
         smartTerrain.arrivingObjects.get(this.commander_id()) === null &&
         smartTerrain.objectJobDescriptors &&
         smartTerrain.objectJobDescriptors.get(this.commander_id()) &&
-        smartTerrain.objectJobDescriptors.get(this.commander_id()).job_id &&
-        smartTerrain.jobsData.get(smartTerrain.objectJobDescriptors.get(this.commander_id()).job_id)
+        smartTerrain.objectJobDescriptors.get(this.commander_id()).jobId &&
+        smartTerrain.jobsData.get(smartTerrain.objectJobDescriptors.get(this.commander_id()).jobId)
       ) {
-        return smartTerrain.jobsData.get(smartTerrain.objectJobDescriptors.get(this.commander_id()).job_id).alife_task;
+        return smartTerrain.jobsData.get(smartTerrain.objectJobDescriptors.get(this.commander_id()).jobId).alife_task;
       }
 
       return alife().object<TSimulationObject>(this.assignedTargetId)!.getAlifeSmartTerrainTask();

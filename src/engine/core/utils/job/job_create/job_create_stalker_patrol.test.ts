@@ -40,7 +40,7 @@ describe("jobs_general should correctly generate stalker patrol jobs", () => {
         {
           preconditionFunction: expect.any(Function),
           preconditionParameters: {},
-          job_id: {
+          jobId: {
             job_type: "path_job",
             section: "logic@test_smart_patrol_1_walk",
           },
@@ -49,7 +49,7 @@ describe("jobs_general should correctly generate stalker patrol jobs", () => {
         {
           preconditionFunction: expect.any(Function),
           preconditionParameters: {},
-          job_id: {
+          jobId: {
             job_type: "path_job",
             section: "logic@test_smart_patrol_1_walk",
           },
@@ -58,7 +58,7 @@ describe("jobs_general should correctly generate stalker patrol jobs", () => {
         {
           preconditionFunction: expect.any(Function),
           preconditionParameters: {},
-          job_id: {
+          jobId: {
             job_type: "path_job",
             section: "logic@test_smart_patrol_1_walk",
           },
@@ -89,7 +89,7 @@ describe("jobs_general should correctly generate stalker patrol jobs", () => {
         {
           preconditionFunction: expect.any(Function),
           preconditionParameters: {},
-          job_id: {
+          jobId: {
             job_type: "path_job",
             section: "logic@test_smart_patrol_1_walk",
           },
@@ -98,7 +98,7 @@ describe("jobs_general should correctly generate stalker patrol jobs", () => {
         {
           preconditionFunction: expect.any(Function),
           preconditionParameters: {},
-          job_id: {
+          jobId: {
             job_type: "path_job",
             section: "logic@test_smart_patrol_1_walk",
           },
@@ -107,7 +107,7 @@ describe("jobs_general should correctly generate stalker patrol jobs", () => {
         {
           preconditionFunction: expect.any(Function),
           preconditionParameters: {},
-          job_id: {
+          jobId: {
             job_type: "path_job",
             section: "logic@test_smart_patrol_1_walk",
           },
@@ -141,7 +141,7 @@ describe("jobs_general should correctly generate stalker patrol jobs", () => {
         {
           preconditionFunction: expect.any(Function),
           preconditionParameters: {},
-          job_id: {
+          jobId: {
             job_type: "path_job",
             section: "logic@test_smart_patrol_1_walk",
           },
@@ -150,7 +150,7 @@ describe("jobs_general should correctly generate stalker patrol jobs", () => {
         {
           preconditionFunction: expect.any(Function),
           preconditionParameters: {},
-          job_id: {
+          jobId: {
             job_type: "path_job",
             section: "logic@test_smart_patrol_1_walk",
           },
@@ -159,7 +159,7 @@ describe("jobs_general should correctly generate stalker patrol jobs", () => {
         {
           preconditionFunction: expect.any(Function),
           preconditionParameters: {},
-          job_id: {
+          jobId: {
             job_type: "path_job",
             section: "logic@test_smart_patrol_1_walk",
           },
@@ -194,7 +194,7 @@ describe("jobs_general should correctly generate stalker patrol jobs", () => {
         {
           preconditionFunction: expect.any(Function),
           preconditionParameters: {},
-          job_id: {
+          jobId: {
             job_type: "path_job",
             section: "logic@test_smart_patrol_1_walk",
           },
@@ -203,7 +203,7 @@ describe("jobs_general should correctly generate stalker patrol jobs", () => {
         {
           preconditionFunction: expect.any(Function),
           preconditionParameters: {},
-          job_id: {
+          jobId: {
             job_type: "path_job",
             section: "logic@test_smart_patrol_1_walk",
           },
@@ -212,7 +212,7 @@ describe("jobs_general should correctly generate stalker patrol jobs", () => {
         {
           preconditionFunction: expect.any(Function),
           preconditionParameters: {},
-          job_id: {
+          jobId: {
             job_type: "path_job",
             section: "logic@test_smart_patrol_1_walk",
           },

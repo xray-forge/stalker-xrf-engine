@@ -40,7 +40,7 @@ describe("jobs_general should correctly generate stalker collector jobs", () => 
         {
           preconditionFunction: expect.any(Function),
           preconditionParameters: {},
-          job_id: {
+          jobId: {
             job_type: "path_job",
             section: "logic@test_smart_collector_1_walk",
           },
@@ -71,7 +71,7 @@ describe("jobs_general should correctly generate stalker collector jobs", () => 
         {
           preconditionFunction: expect.any(Function),
           preconditionParameters: {},
-          job_id: {
+          jobId: {
             job_type: "path_job",
             section: "logic@test_smart_collector_1_walk",
           },
@@ -105,7 +105,7 @@ describe("jobs_general should correctly generate stalker collector jobs", () => 
         {
           preconditionFunction: expect.any(Function),
           preconditionParameters: {},
-          job_id: {
+          jobId: {
             job_type: "path_job",
             section: "logic@test_smart_collector_1_walk",
           },
@@ -140,7 +140,7 @@ describe("jobs_general should correctly generate stalker collector jobs", () => 
         {
           preconditionFunction: expect.any(Function),
           preconditionParameters: {},
-          job_id: {
+          jobId: {
             job_type: "path_job",
             section: "logic@test_smart_collector_1_walk",
           },

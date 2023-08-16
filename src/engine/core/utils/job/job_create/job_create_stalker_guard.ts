@@ -23,7 +23,7 @@ export function createStalkerGuardJobs(
 
     table.insert(stalkerGuard.jobs, {
       priority: logicsConfig.JOBS.STALKER_GUARD.PRIORITY,
-      job_id: {
+      jobId: {
         section: `logic@${wayName}`,
         job_type: EJobType.PATH_JOB,
       },
@@ -94,7 +94,7 @@ export function createStalkerGuardJobs(
 
     table.insert(stalkerGuard.jobs, {
       priority: logicsConfig.JOBS.STALKER_GUARD.PRIORITY_FOLLOWER,
-      job_id: {
+      jobId: {
         section: `logic@follower_${wayName}`,
         job_type: EJobType.PATH_JOB,
       },

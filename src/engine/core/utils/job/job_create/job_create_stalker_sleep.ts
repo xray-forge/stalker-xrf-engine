@@ -28,7 +28,7 @@ export function createStalkerSleepJobs(
 
     table.insert(sleepJobs.jobs, {
       priority: logicsConfig.JOBS.STALKER_SLEEP.PRIORITY,
-      job_id: {
+      jobId: {
         section: `logic@${wayName}`,
         job_type: EJobType.PATH_JOB,
       },

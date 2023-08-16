@@ -47,7 +47,7 @@ describe("jobs_general should correctly generate stalkers sleep jobs", () => {
         range(2, 1).map((it) => ({
           preconditionFunction: expect.any(Function),
           preconditionParameters: {},
-          job_id: {
+          jobId: {
             job_type: "path_job",
             section: `logic@test_smart_sleep_${it}`,
           },
@@ -79,7 +79,7 @@ describe("jobs_general should correctly generate stalkers sleep jobs", () => {
         range(2, 1).map((it) => ({
           preconditionFunction: expect.any(Function),
           preconditionParameters: {},
-          job_id: {
+          jobId: {
             job_type: "path_job",
             section: `logic@test_smart_sleep_${it}`,
           },
@@ -113,7 +113,7 @@ describe("jobs_general should correctly generate stalkers sleep jobs", () => {
         range(2, 1).map((it) => ({
           preconditionFunction: expect.any(Function),
           preconditionParameters: {},
-          job_id: {
+          jobId: {
             job_type: "path_job",
             section: `logic@test_smart_sleep_${it}`,
           },
@@ -147,7 +147,7 @@ describe("jobs_general should correctly generate stalkers sleep jobs", () => {
         range(2, 1).map((it) => ({
           preconditionFunction: expect.any(Function),
           preconditionParameters: {},
-          job_id: {
+          jobId: {
             job_type: "path_job",
             section: `logic@test_smart_sleep_${it}`,
           },

@@ -219,7 +219,7 @@ extern(
     const smart: SmartTerrain = getObjectSmartTerrain(npc)!;
 
     for (const [k, descriptor] of smart.objectJobDescriptors) {
-      const npcJob: ISmartTerrainJob = smart.jobsData.get(descriptor.job_id);
+      const npcJob: ISmartTerrainJob = smart.jobsData.get(descriptor.jobId);
 
       if (npcJob.section === params[0]) {
         return npc.position().distance_to_sqr(descriptor.serverObject.position) <= params[1] * params[1];
@@ -244,7 +244,7 @@ extern("xr_conditions.is_obj_on_job", (actor: ClientObject, npc: ClientObject, p
   }
 
   for (const [k, v] of smartTerrain.objectJobDescriptors) {
-    const npcJob: ISmartTerrainJob = smartTerrain.jobsData.get(v.job_id);
+    const npcJob: ISmartTerrainJob = smartTerrain.jobsData.get(v.jobId);
 
     if (npcJob.section === params[0]) {
       return true;

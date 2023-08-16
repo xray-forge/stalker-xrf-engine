@@ -42,7 +42,7 @@ describe("jobs_general should correctly generate stalker camper jobs", () => {
           preconditionParameters: {
             way_name: "test_smart_camper_1_walk",
           },
-          job_id: {
+          jobId: {
             job_type: "path_job",
             section: "logic@test_smart_camper_1_walk",
           },
@@ -75,7 +75,7 @@ describe("jobs_general should correctly generate stalker camper jobs", () => {
           preconditionParameters: {
             way_name: "test_smart_camper_1_walk",
           },
-          job_id: {
+          jobId: {
             job_type: "path_job",
             section: "logic@test_smart_camper_1_walk",
           },

@@ -30,7 +30,7 @@ export function createStalkerSurgeJobs(
 
     table.insert(stalkerSurgeJobs.jobs, {
       priority: logicsConfig.JOBS.STALKER_SURGE.PRIORITY,
-      job_id: {
+      jobId: {
         section: `logic@${wayName}`,
         job_type: EJobType.PATH_JOB,
       },

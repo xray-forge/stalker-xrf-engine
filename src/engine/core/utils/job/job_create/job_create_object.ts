@@ -20,7 +20,7 @@ export function createObjectJobDescriptor(object: ServerCreatureObject): IObject
     need_job: NIL,
     job_prior: -1,
     job_link: null,
-    job_id: -1,
+    jobId: -1,
     begin_job: false,
     schemeType: isObjectStalker ? ESchemeType.STALKER : ESchemeType.MONSTER,
   };

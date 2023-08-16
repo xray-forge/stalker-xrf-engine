@@ -22,11 +22,11 @@ export function selectSmartTerrainJob(
     }
 
     if (isJobAvailableToObject(objectJobDescriptor, jobInfo, smartTerrain)) {
-      if (jobInfo.job_id) {
+      if (jobInfo.jobId) {
         if (!jobInfo.npc_id) {
-          return $multi(jobInfo.job_id, jobInfo.priority, jobInfo);
-        } else if (jobInfo.job_id === objectJobDescriptor.job_id) {
-          return $multi(jobInfo.job_id, jobInfo.priority, jobInfo);
+          return $multi(jobInfo.jobId, jobInfo.priority, jobInfo);
+        } else if (jobInfo.jobId === objectJobDescriptor.jobId) {
+          return $multi(jobInfo.jobId, jobInfo.priority, jobInfo);
         }
       } else {
         [selectedJobId, currentJobPriority, selectedJobLink] = selectSmartTerrainJob(

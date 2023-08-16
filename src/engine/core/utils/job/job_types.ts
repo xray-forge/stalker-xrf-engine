@@ -25,7 +25,7 @@ export interface IObjectJobDescriptor {
   serverObject: ServerCreatureObject;
   need_job: string; // Section with needed job?
   job_prior: number;
-  job_id: number;
+  jobId: number;
   job_link: Optional<IJobDescriptor>;
   begin_job: boolean;
   schemeType: ESchemeType;
@@ -67,10 +67,10 @@ export interface IJobDescriptor {
     serverObject: ServerHumanObject,
     smartTerrain: SmartTerrain,
     preconditionParameters: AnyObject,
-    npc_info: AnyObject
+    objectInfo: AnyObject
   ) => boolean;
   npc_id?: Optional<TNumberId>;
-  job_id?: TNumberId | IJobBase;
+  jobId?: TNumberId | IJobBase;
 }
 
 /**

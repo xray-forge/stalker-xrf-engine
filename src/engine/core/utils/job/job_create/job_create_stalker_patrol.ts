@@ -36,7 +36,7 @@ export function createStalkerPatrolJobs(
     for (const i of $range(1, jobCount)) {
       table.insert(stalkerPatrolJobs.jobs, {
         priority: logicsConfig.JOBS.STALKER_PATROL.PRIORITY,
-        job_id: {
+        jobId: {
           section: `logic@${wayName}`,
           job_type: EJobType.PATH_JOB,
         },

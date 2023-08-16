@@ -25,7 +25,7 @@ export function createStalkerPointJobs(
 
     table.insert(pointJobs.jobs, {
       priority: logicsConfig.JOBS.STALKER_POINT.PRIORITY,
-      job_id: {
+      jobId: {
         section: `logic@${name}`,
         job_type: EJobType.POINT_JOB,
       },

@@ -24,7 +24,7 @@ describe("jobs_general should correctly generate stalkers point jobs", () => {
     expect(jobsList).toEqualLuaTables({
       jobs: $fromArray(
         range(20, 1).map((it) => ({
-          job_id: {
+          jobId: {
             job_type: "point_job",
             section: "logic@test_smart_point_" + it,
           },
@@ -54,7 +54,7 @@ describe("jobs_general should correctly generate stalkers point jobs", () => {
     expect(jobsList).toEqualLuaTables({
       jobs: $fromArray(
         range(20, 1).map((it) => ({
-          job_id: {
+          jobId: {
             job_type: "point_job",
             section: "logic@test_smart_point_" + it,
           },

@@ -320,7 +320,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
       return this.smartTerrainAlifeTask;
     }
 
-    return this.jobsData.get(this.objectJobDescriptors.get(object.id).job_id).alife_task;
+    return this.jobsData.get(this.objectJobDescriptors.get(object.id).jobId).alife_task;
   }
 
   /**
@@ -342,7 +342,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
     for (const [k, v] of this.objectJobDescriptors) {
       packet.w_u16(k);
       packet.w_u8(v.job_prior);
-      packet.w_u8(v.job_id);
+      packet.w_u8(v.jobId);
       packet.w_bool(v.begin_job);
       packet.w_stringZ(v.need_job);
     }
@@ -429,10 +429,10 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
         jobDescriptor.job_prior = -1;
       }
 
-      jobDescriptor.job_id = packet.r_u8();
+      jobDescriptor.jobId = packet.r_u8();
 
-      if (jobDescriptor.job_id === MAX_U8) {
-        jobDescriptor.job_id = -1;
+      if (jobDescriptor.jobId === MAX_U8) {
+        jobDescriptor.jobId = -1;
       }
 
       jobDescriptor.begin_job = packet.r_bool();
@@ -688,7 +688,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
     logger.info("Clear dead:", this.name(), object.name());
 
     if (this.objectJobDescriptors.get(object.id) !== null) {
-      this.jobDeadTimeById.set(this.objectJobDescriptors.get(object.id).job_id, game.get_game_time());
+      this.jobDeadTimeById.set(this.objectJobDescriptors.get(object.id).jobId, game.get_game_time());
 
       this.objectJobDescriptors.get(object.id).job_link!.npc_id = null;
       this.objectJobDescriptors.delete(object.id);
@@ -726,14 +726,14 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
         if (jobDescriptor.jobs) {
           initializeJobsData(jobDescriptor.jobs);
         } else {
-          if (jobDescriptor.job_id === null) {
-            abort("Incorrect job table provided, job_id is null.");
+          if (jobDescriptor.jobId === null) {
+            abort("Incorrect job table provided, jobId is null.");
           }
 
-          this.jobsData.set(id, jobDescriptor.job_id);
+          this.jobsData.set(id, jobDescriptor.jobId);
           this.jobsData.get(id).priority = jobDescriptor.priority;
 
-          jobDescriptor.job_id = id;
+          jobDescriptor.jobId = id;
           id += 1;
         }
       }
@@ -850,16 +850,16 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
       this.simulationRole
     );
 
-    if (selectedJobId !== objectJobDescriptor.job_id && selectedJobLink !== null) {
+    if (selectedJobId !== objectJobDescriptor.jobId && selectedJobLink !== null) {
       if (objectJobDescriptor.job_link !== null) {
-        this.objectByJobSection.delete(this.jobsData.get(objectJobDescriptor.job_link.job_id as TNumberId).section);
+        this.objectByJobSection.delete(this.jobsData.get(objectJobDescriptor.job_link.jobId as TNumberId).section);
         objectJobDescriptor.job_link.npc_id = null;
       }
 
       selectedJobLink.npc_id = objectJobDescriptor.serverObject.id;
-      this.objectByJobSection.set(this.jobsData.get(selectedJobLink.job_id).section, selectedJobLink.npc_id);
+      this.objectByJobSection.set(this.jobsData.get(selectedJobLink.jobId).section, selectedJobLink.npc_id);
 
-      objectJobDescriptor.job_id = selectedJobLink.job_id;
+      objectJobDescriptor.jobId = selectedJobLink.jobId;
       objectJobDescriptor.job_prior = selectedJobLink.priority;
       objectJobDescriptor.begin_job = false;
       objectJobDescriptor.job_link = selectedJobLink;
@@ -872,7 +872,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
     }
 
     if (!objectJobDescriptor.begin_job) {
-      const jobData: ISmartTerrainJob = this.jobsData.get(objectJobDescriptor.job_id);
+      const jobData: ISmartTerrainJob = this.jobsData.get(objectJobDescriptor.jobId);
 
       logger.info("Begin job in smart", this.name(), objectJobDescriptor.serverObject.name(), jobData.section);
 
@@ -895,7 +895,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
     logger.info("Setup logic:", this.name(), object.name());
 
     const objectJobDescriptor: IObjectJobDescriptor = this.objectJobDescriptors.get(object.id());
-    const job: ISmartTerrainJob = this.jobsData.get(objectJobDescriptor.job_id);
+    const job: ISmartTerrainJob = this.jobsData.get(objectJobDescriptor.jobId);
     const ltx: IniFile = job.ini_file || this.jobsLtxConfig;
     const ltxName: TName = job.ini_path || this.jobsLtxConfigName;
 
@@ -926,7 +926,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
   public getJobByObjectId(objectId: TNumberId): Optional<ISmartTerrainJob> {
     const descriptor: Optional<IObjectJobDescriptor> = this.objectJobDescriptors.get(objectId);
 
-    return descriptor && this.jobsData.get(descriptor.job_id);
+    return descriptor && this.jobsData.get(descriptor.jobId);
   }
 
   /**
@@ -949,12 +949,12 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
     // Just replacing when no another object exists / no jobs for another object.
     if (!changingObjectId || !this.objectJobDescriptors.get(changingObjectId)) {
       if (objectInfo.job_link) {
-        this.objectByJobSection.delete(this.jobsData.get(objectInfo.job_link.job_id as TNumberId).section);
+        this.objectByJobSection.delete(this.jobsData.get(objectInfo.job_link.jobId as TNumberId).section);
         objectInfo.job_link.npc_id = null;
       }
 
       objectInfo.job_link = null;
-      objectInfo.job_id = -1;
+      objectInfo.jobId = -1;
       objectInfo.job_prior = -1;
       this.selectObjectJob(objectInfo);
 
@@ -962,7 +962,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
     }
 
     if (objectInfo.job_link) {
-      this.objectByJobSection.delete(this.jobsData.get(objectInfo.job_link.job_id as TNumberId).section);
+      this.objectByJobSection.delete(this.jobsData.get(objectInfo.job_link.jobId as TNumberId).section);
       objectInfo.job_link.npc_id = null;
     }
 
@@ -970,9 +970,9 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
 
     selectedJobLink.npc_id = objectInfo.serverObject.id;
 
-    this.objectByJobSection.set(this.jobsData.get(selectedJobLink.job_id as TNumberId).section, selectedJobLink.npc_id);
+    this.objectByJobSection.set(this.jobsData.get(selectedJobLink.jobId as TNumberId).section, selectedJobLink.npc_id);
 
-    objectInfo.job_id = selectedJobLink.job_id as TNumberId;
+    objectInfo.jobId = selectedJobLink.jobId as TNumberId;
     objectInfo.job_prior = selectedJobLink.priority;
     objectInfo.begin_job = true;
     objectInfo.job_link = selectedJobLink;
@@ -989,7 +989,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
     const changingObjectInfo: IObjectJobDescriptor = this.objectJobDescriptors.get(changingObjectId);
 
     changingObjectInfo.job_link = null;
-    changingObjectInfo.job_id = -1;
+    changingObjectInfo.jobId = -1;
     changingObjectInfo.job_prior = -1;
 
     this.selectObjectJob(changingObjectInfo);
@@ -1005,7 +1005,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
       for (const [, job] of jobs) {
         if ("jobs" in job) {
           linkJobs(job.jobs, objectJobDescriptor);
-        } else if (job.job_id === objectJobDescriptor.job_id) {
+        } else if (job.jobId === objectJobDescriptor.jobId) {
           objectJobDescriptor.job_link = job;
           job.npc_id = objectJobDescriptor.serverObject.id;
 
@@ -1038,7 +1038,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
         const newJobDescriptor: IObjectJobDescriptor = createObjectJobDescriptor(serverObject);
 
         newJobDescriptor.job_prior = jobDescriptor.job_prior;
-        newJobDescriptor.job_id = jobDescriptor.job_id;
+        newJobDescriptor.jobId = jobDescriptor.jobId;
         newJobDescriptor.begin_job = jobDescriptor.begin_job;
         newJobDescriptor.need_job = jobDescriptor.need_job;
 
@@ -1048,7 +1048,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
 
         if (newJobDescriptor.job_link !== null) {
           this.objectByJobSection.set(
-            this.jobsData.get(newJobDescriptor.job_link.job_id as TNumberId).section,
+            this.jobsData.get(newJobDescriptor.job_link.jobId as TNumberId).section,
             objectId
           );
         }

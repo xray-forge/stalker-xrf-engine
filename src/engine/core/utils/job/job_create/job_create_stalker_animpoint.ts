@@ -26,7 +26,7 @@ export function createStalkerAnimpointJobs(
 
     table.insert(stalkerJobs.jobs, {
       priority: logicsConfig.JOBS.STALKER_ANIMPOINT.PRIORITY,
-      job_id: {
+      jobId: {
         section: `logic@${smartCoverName}`,
         job_type: EJobType.SMART_COVER_JOB,
       },

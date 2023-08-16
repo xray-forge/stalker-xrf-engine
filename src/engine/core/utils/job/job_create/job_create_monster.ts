@@ -29,7 +29,7 @@ export function createMonsterJobs(smartTerrain: SmartTerrain): LuaMultiReturn<[I
 
     table.insert(monsterJobsDescriptor.jobs, {
       priority: logicsConfig.JOBS.MOB_HOME.PRIORITY,
-      job_id: {
+      jobId: {
         section: `logic@${name}`,
         job_type: EJobType.POINT_JOB,
       },

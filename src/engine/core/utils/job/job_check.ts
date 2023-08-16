@@ -21,7 +21,7 @@ export function isJobAvailableToObject(
   jobInfo: any,
   smartTerrain: SmartTerrain
 ): boolean {
-  if (smartTerrain.jobDeadTimeById.get(jobInfo.job_id) !== null) {
+  if (smartTerrain.jobDeadTimeById.get(jobInfo.jobId) !== null) {
     return false;
   }
 

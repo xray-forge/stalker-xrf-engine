@@ -42,7 +42,7 @@ export function createStalkerCamperJobs(
 
     table.insert(camperJobs.jobs, {
       priority: logicsConfig.JOBS.STALKER_CAMPER.PRIORITY,
-      job_id: {
+      jobId: {
         section: `logic@${wayName}`,
         job_type: EJobType.PATH_JOB,
       },

@@ -39,7 +39,7 @@ describe("jobs_general should correctly generate stalker walker jobs", () => {
         {
           preconditionFunction: expect.any(Function),
           preconditionParameters: {},
-          job_id: {
+          jobId: {
             job_type: "path_job",
             section: "logic@test_smart_walker_1_walk",
           },
@@ -70,7 +70,7 @@ describe("jobs_general should correctly generate stalker walker jobs", () => {
         {
           preconditionFunction: expect.any(Function),
           preconditionParameters: {},
-          job_id: {
+          jobId: {
             job_type: "path_job",
             section: "logic@test_smart_walker_1_walk",
           },
@@ -104,7 +104,7 @@ describe("jobs_general should correctly generate stalker walker jobs", () => {
         {
           preconditionFunction: expect.any(Function),
           preconditionParameters: {},
-          job_id: {
+          jobId: {
             job_type: "path_job",
             section: "logic@test_smart_walker_1_walk",
           },
@@ -139,7 +139,7 @@ describe("jobs_general should correctly generate stalker walker jobs", () => {
         {
           preconditionFunction: expect.any(Function),
           preconditionParameters: {},
-          job_id: {
+          jobId: {
             job_type: "path_job",
             section: "logic@test_smart_walker_1_walk",
           },

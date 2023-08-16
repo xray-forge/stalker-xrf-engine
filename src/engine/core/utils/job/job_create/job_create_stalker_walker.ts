@@ -26,7 +26,7 @@ export function createStalkerWalkerJobs(
 
     table.insert(stalkerWalker.jobs, {
       priority: logicsConfig.JOBS.STALKER_WALKER.PRIORITY,
-      job_id: {
+      jobId: {
         section: `logic@${wayName}`,
         job_type: EJobType.PATH_JOB,
       },

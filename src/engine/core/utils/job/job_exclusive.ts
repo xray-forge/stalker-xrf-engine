@@ -105,7 +105,7 @@ export function loadExclusiveJob(
     const jobDescriptor: IJobDescriptor = {
       priority: newPrior,
       preconditionIsMonster: isMonster,
-      job_id: {
+      jobId: {
         section: "logic@" + field,
         ini_path: iniPath,
         online: jobOnline,
@@ -121,7 +121,7 @@ export function loadExclusiveJob(
     table.insert(jobsList, {
       priority: newPrior,
       preconditionIsMonster: isMonster,
-      job_id: {
+      jobId: {
         section: "logic@" + field,
         ini_path: iniPath,
         ini_file: jobIniFile,
@@ -144,7 +144,7 @@ export function loadExclusiveJob(
     table.insert(jobsList, {
       priority: -1,
       preconditionIsMonster: isMonster,
-      job_id: {
+      jobId: {
         section: "logic@" + field,
         ini_file: jobIniFile,
         job_type: jobType,

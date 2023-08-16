@@ -163,7 +163,7 @@ describe("SmartTerrain class generic logic", () => {
     smartTerrain.arrivingObjects.set(secondArriving.id, secondArriving);
 
     smartTerrain.objectJobDescriptors.set(thirdWithJob.id, thirdJob);
-    thirdJob.job_id = 2;
+    thirdJob.jobId = 2;
     thirdJob.job_prior = 35;
     thirdJob.begin_job = true;
     thirdJob.need_job = "another_job_section";
@@ -286,7 +286,7 @@ describe("SmartTerrain class generic logic", () => {
     expect(anotherSmartTerrain.objectJobDescriptors).toEqualLuaTables({
       [thirdWithJob.id]: {
         begin_job: true,
-        job_id: 2,
+        jobId: 2,
         job_prior: 35,
         need_job: "another_job_section",
       },

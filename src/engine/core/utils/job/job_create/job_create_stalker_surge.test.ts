@@ -45,7 +45,7 @@ describe("jobs_general should correctly generate stalkers surge jobs", () => {
         range(3, 1).map((it) => ({
           preconditionFunction: expect.any(Function),
           preconditionParameters: {},
-          job_id: {
+          jobId: {
             job_type: "path_job",
             section: `logic@test_smart_surge_${it}_walk`,
           },
@@ -77,7 +77,7 @@ describe("jobs_general should correctly generate stalkers surge jobs", () => {
         range(3, 1).map((it) => ({
           preconditionFunction: expect.any(Function),
           preconditionParameters: {},
-          job_id: {
+          jobId: {
             job_type: "path_job",
             section: `logic@test_smart_surge_${it}_walk`,
           },
@@ -111,7 +111,7 @@ describe("jobs_general should correctly generate stalkers surge jobs", () => {
         range(3, 1).map((it) => ({
           preconditionFunction: expect.any(Function),
           preconditionParameters: {},
-          job_id: {
+          jobId: {
             job_type: "path_job",
             section: `logic@test_smart_surge_${it}_walk`,
           },
