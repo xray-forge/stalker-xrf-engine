@@ -195,8 +195,8 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
   public simulationBoardManager: SimulationBoardManager = SimulationBoardManager.getInstance();
   public mapDisplayManager: MapDisplayManager = MapDisplayManager.getInstance();
 
-  public respawnConfiguration!: LuaTable<TSection, { squads: LuaArray<TSection>; num: TConditionList }>;
-  public alreadySpawned!: LuaTable<TSection, { num: TCount }>;
+  public respawnConfiguration: LuaTable<TSection, { squads: LuaArray<TSection>; num: TConditionList }> = new LuaTable();
+  public alreadySpawned: LuaTable<TSection, { num: TCount }> = new LuaTable();
 
   public override on_before_register(): void {
     super.on_before_register();
@@ -239,6 +239,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
     unregisterSimulationObject(this);
 
     this.simulationBoardManager.unregisterSmartTerrain(this);
+    this.isRegistered = false;
   }
 
   /**
@@ -377,7 +378,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
     }
 
     if (this.population < 0) {
-      abort("Smart_terrain [%s] population can't be less than zero!", this.name());
+      abort("Smart terrain '%s' population can't be less than zero.", this.name());
     }
 
     packet.w_u8(this.population);
@@ -447,10 +448,8 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
 
     this.isObjectsInitializationNeeded = true;
 
-    if (this.script_version > 9) {
-      if (packet.r_bool() === true) {
-        this.smartTerrainActorControl?.load(packet);
-      }
+    if (packet.r_bool() === true) {
+      this.smartTerrainActorControl?.load(packet);
     }
 
     const isRespawnPoint: boolean = packet.r_bool();
@@ -458,10 +457,10 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
     if (isRespawnPoint) {
       count = packet.r_u8();
       for (const it of $range(1, count)) {
-        const id = packet.r_stringZ();
-        const num = packet.r_u8();
+        const section: TSection = packet.r_stringZ();
+        const num: TCount = packet.r_u8();
 
-        this.alreadySpawned.get(id).num = num;
+        this.alreadySpawned.set(section, { num });
       }
 
       const exist: boolean = packet.r_bool();
