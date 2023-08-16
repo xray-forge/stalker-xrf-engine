@@ -32,6 +32,8 @@ export class MockAlifeObject extends MockLuabindClass {
     return this.section;
   }
 
+  public on_before_register(): void {}
+
   public on_register(): void {}
 
   public on_unregister(): void {}

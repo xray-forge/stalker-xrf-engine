@@ -201,6 +201,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
   public override on_before_register(): void {
     super.on_before_register();
 
+    // Register smart in simulation as first priority, other objects may require it for registering.
     this.simulationBoardManager.registerSmartTerrain(this);
     this.level = alife().level_name(game_graph().vertex(this.m_game_vertex_id).level_id());
   }

@@ -1,19 +1,26 @@
-import { describe, expect, it } from "@jest/globals";
+import { beforeEach, describe, expect, it } from "@jest/globals";
 
 import { registry } from "@/engine/core/database/registry";
 import {
   registerSmartCover,
   registerSmartTerrain,
+  registerSmartTerrainCampfire,
   unregisterSmartCover,
   unregisterSmartTerrain,
+  unRegisterSmartTerrainCampfire,
 } from "@/engine/core/database/smart";
 import { SmartCover, SmartTerrain } from "@/engine/core/objects";
-import { ClientObject } from "@/engine/lib/types";
-import { mockClientGameObject } from "@/fixtures/xray";
+import { ClientObject, ZoneCampfire } from "@/engine/lib/types";
+import { mockSmartTerrain } from "@/fixtures/engine";
+import { mockClientGameObject, MockCZoneCampfire } from "@/fixtures/xray";
 
 describe("'smart' module of the database", () => {
+  beforeEach(() => {
+    registry.objects = new LuaTable();
+  });
+
   it("should correctly register smart terrain", () => {
-    const smartTerrain: SmartTerrain = new SmartTerrain("test");
+    const smartTerrain: SmartTerrain = mockSmartTerrain();
     const smartObject: ClientObject = mockClientGameObject();
 
     registerSmartTerrain(smartObject, smartTerrain);
@@ -43,5 +50,29 @@ describe("'smart' module of the database", () => {
     unregisterSmartCover(smartCover);
 
     expect(registry.smartCovers.length()).toBe(0);
+  });
+
+  it("should correctly register smart terrains campfires", () => {
+    const smartTerrain: SmartTerrain = mockSmartTerrain();
+    const campfire: ZoneCampfire = MockCZoneCampfire.mock(true);
+    const campfireObject: ClientObject = mockClientGameObject({ get_campfire: () => campfire });
+
+    expect(registry.objects.length()).toBe(0);
+    expect(registry.smartTerrainsCampfires.length()).toBe(0);
+
+    registerSmartTerrainCampfire(smartTerrain, campfireObject);
+
+    expect(registry.objects.length()).toBe(1);
+    expect(registry.objects.get(campfireObject.id())).toBeDefined();
+    expect(registry.smartTerrainsCampfires.length()).toBe(1);
+    expect(registry.smartTerrainsCampfires.get(smartTerrain.name()).length()).toBe(1);
+    expect(registry.smartTerrainsCampfires.get(smartTerrain.name())).toEqualLuaTables({
+      [campfireObject.id()]: campfireObject.get_campfire(),
+    });
+
+    unRegisterSmartTerrainCampfire(smartTerrain, campfireObject);
+
+    expect(registry.objects.length()).toBe(0);
+    expect(registry.smartTerrainsCampfires.length()).toBe(0);
   });
 });

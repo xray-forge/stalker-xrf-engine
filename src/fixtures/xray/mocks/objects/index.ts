@@ -2,6 +2,7 @@ export * from "@/fixtures/xray/mocks/objects/Flags32.mock";
 
 export * from "@/fixtures/xray/mocks/objects/AlifeSimulator.mock";
 export * from "@/fixtures/xray/mocks/objects/CALifeSmartTerrainTask.mock";
+export * from "@/fixtures/xray/mocks/objects/CZoneCampfire.mock";
 export * from "@/fixtures/xray/mocks/objects/ObjectFactory.mock";
 
 export * from "@/fixtures/xray/mocks/objects/client";
