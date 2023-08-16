@@ -88,7 +88,7 @@ describe("SmartTerrain class jobs logic", () => {
       job_link: {
         preconditionFunction: expect.any(Function),
         preconditionParameters: {
-          way_name: "test_smart_camper_1_walk",
+          wayName: "test_smart_camper_1_walk",
         },
         jobId: 3,
         npc_id: stalker.id,
@@ -149,7 +149,7 @@ describe("SmartTerrain class jobs logic", () => {
         job_link: {
           preconditionFunction: expect.any(Function),
           preconditionParameters: {
-            way_name: "test_smart_sniper_1_walk",
+            wayName: "test_smart_sniper_1_walk",
           },
           jobId: 4,
           npc_id: firstStalker.id,
@@ -167,7 +167,7 @@ describe("SmartTerrain class jobs logic", () => {
         job_link: {
           preconditionFunction: expect.any(Function),
           preconditionParameters: {
-            way_name: "test_smart_camper_1_walk",
+            wayName: "test_smart_camper_1_walk",
           },
           jobId: 3,
           npc_id: secondStalker.id,
@@ -257,7 +257,7 @@ describe("SmartTerrain class jobs logic", () => {
         job_link: {
           preconditionFunction: expect.any(Function),
           preconditionParameters: {
-            way_name: "test_smart_camper_1_walk",
+            wayName: "test_smart_camper_1_walk",
           },
           jobId: 3,
           npc_id: firstStalker.id,
@@ -275,7 +275,7 @@ describe("SmartTerrain class jobs logic", () => {
         job_link: {
           preconditionFunction: expect.any(Function),
           preconditionParameters: {
-            way_name: "test_smart_sniper_1_walk",
+            wayName: "test_smart_sniper_1_walk",
           },
           jobId: 4,
           npc_id: secondStalker.id,

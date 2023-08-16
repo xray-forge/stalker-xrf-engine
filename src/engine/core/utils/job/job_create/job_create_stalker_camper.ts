@@ -46,9 +46,9 @@ export function createStalkerCamperJobs(
         section: `logic@${wayName}`,
         jobType: EJobType.PATH_JOB,
       },
-      preconditionParameters: { way_name: wayName },
+      preconditionParameters: { wayName: wayName },
       preconditionFunction: (serverObject: ServerHumanObject, smartTerrain: SmartTerrain, parameters: AnyObject) => {
-        return isAccessibleJob(serverObject, parameters.way_name);
+        return isAccessibleJob(serverObject, parameters.wayName);
       },
     });
 

@@ -39,7 +39,7 @@ describe("jobs_general should correctly generate stalker patrol jobs", () => {
         {
           preconditionFunction: expect.any(Function),
           preconditionParameters: {
-            way_name: "test_smart_sniper_1_walk",
+            wayName: "test_smart_sniper_1_walk",
           },
           jobId: {
             jobType: "path_job",
@@ -72,7 +72,7 @@ describe("jobs_general should correctly generate stalker patrol jobs", () => {
         {
           preconditionFunction: expect.any(Function),
           preconditionParameters: {
-            way_name: "test_smart_sniper_1_walk",
+            wayName: "test_smart_sniper_1_walk",
           },
           jobId: {
             jobType: "path_job",
