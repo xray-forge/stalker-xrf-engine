@@ -728,7 +728,7 @@ extern("xr_effects.clear_monster_animation", (actor: ClientObject, object: Clien
  * todo;
  */
 extern("xr_effects.switch_to_desired_job", (actor: ClientObject, object: ClientObject): void => {
-  (getObjectSmartTerrain(object) as SmartTerrain).switchObjectToDesiredJob(object);
+  (getObjectSmartTerrain(object) as SmartTerrain).switchObjectToDesiredJob(object.id());
 });
 
 /**

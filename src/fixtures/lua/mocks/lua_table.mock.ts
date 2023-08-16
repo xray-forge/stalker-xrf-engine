@@ -22,8 +22,9 @@ export const mockTable = {
     }
   },
   sort: <K, V>(target: MockLuaTable<K, V>, comparator: (a: V, b: V) => number): void => {
-    const sortedValues = target.getValuesArray().sort((a, b) => {
-      const result = comparator(a, b);
+    const isArrayTable: boolean = target.getKeysArray()[0] === 1;
+    const sortedValues = target.getEntriesArray().sort(([ak, av], [bk, bv]) => {
+      const result = comparator(av, bv);
 
       // Handle lua true-false approach.
       if (typeof result === "boolean") {
@@ -35,6 +36,10 @@ export const mockTable = {
 
     target.reset();
 
-    sortedValues.forEach((it, index) => target.set((index + 1) as unknown as K, it));
+    if (isArrayTable) {
+      sortedValues.forEach(([k, v], index) => target.set((index + 1) as unknown as K, v));
+    } else {
+      sortedValues.forEach(([k, v]) => target.set(k, v));
+    }
   },
 };

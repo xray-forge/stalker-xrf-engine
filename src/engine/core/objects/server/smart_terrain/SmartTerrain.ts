@@ -64,6 +64,7 @@ import {
   areOnlyMonstersOnJobs,
   createObjectJobDescriptor,
   createSmartTerrainJobs,
+  IJobDescriptor,
   IObjectJobDescriptor,
   ISmartTerrainJob,
   selectSmartTerrainJob,
@@ -127,10 +128,10 @@ export const PATH_FIELDS: LuaArray<string> = $fromArray(["path_walk", "path_main
 @LuabindClass()
 export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTarget {
   public ini!: IniFile;
-  public ltxConfig!: IniFile;
-  public ltxConfigName!: string;
+  public jobsLtxConfig!: IniFile;
+  public jobsLtxConfigName!: TName;
 
-  public squadId: TNumberId = 0;
+  public squadId: TNumberId = 0; // Squads identifier spawned by specific smart terrain.
   public level: TName = "";
 
   public simulationRole: ESimulationTerrainRole = ESimulationTerrainRole.DEFAULT;
@@ -170,13 +171,9 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
 
   public smartTerrainActorControl: Optional<SmartTerrainControl> = null;
 
-  /**
-   * Already working on smart descriptors.
-   */
+  // Already working on smart descriptors.
   public objectJobDescriptors: LuaTable<TNumberId, IObjectJobDescriptor> = new LuaTable();
-  /**
-   * Starting working on smart descriptors objects.
-   */
+  // Stalkers that are entering smart, but still not in correct vertex
   public arrivingObjects: LuaTable<TNumberId, ServerCreatureObject> = new LuaTable();
 
   public objectByJobSection: LuaTable<TSection, TNumberId> = new LuaTable();
@@ -716,8 +713,8 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
 
     this.jobs = jobs;
     this.jobsData = new LuaTable();
-    this.ltxConfigName = ltxName;
-    this.ltxConfig = ltx;
+    this.jobsLtxConfigName = ltxName;
+    this.jobsLtxConfig = ltx;
 
     let id: TNumberId = 0;
 
@@ -743,10 +740,10 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
 
     for (const [, job] of this.jobsData) {
       const section = job.section;
-      const ltx: IniFile = job.ini_file || this.ltxConfig;
+      const ltx: IniFile = job.ini_file || this.jobsLtxConfig;
 
       if (!ltx.line_exist(section, "active")) {
-        abort("gulag: ltx=%s  no 'active' in section %s", this.ltxConfigName, section);
+        abort("gulag: ltx=%s  no 'active' in section %s", this.jobsLtxConfigName, section);
       }
 
       const activeSection: TSection = ltx.r_string(section, "active");
@@ -867,7 +864,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
       const state: Optional<IRegistryObjectState> = registry.objects.get(objectJobDescriptor.serverObject.id);
 
       if (state !== null) {
-        switchObjectSchemeToSection(state.object, this.ltxConfig, NIL);
+        switchObjectSchemeToSection(state.object, this.jobsLtxConfig, NIL);
       }
     }
 
@@ -890,15 +887,14 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
 
   /**
    * todo: Description.
-   * todo: Move to scheme utils as separate function, it is not method of smart terrain.
    */
   public setupObjectLogic(object: ClientObject): void {
     logger.info("Setup logic:", this.name(), object.name());
 
     const objectJobDescriptor: IObjectJobDescriptor = this.objectJobDescriptors.get(object.id());
     const job: ISmartTerrainJob = this.jobsData.get(objectJobDescriptor.job_id);
-    const ltx: IniFile = job.ini_file || this.ltxConfig;
-    const ltxName: TName = job.ini_path || this.ltxConfigName;
+    const ltx: IniFile = job.ini_file || this.jobsLtxConfig;
+    const ltxName: TName = job.ini_path || this.jobsLtxConfigName;
 
     configureObjectSchemes(
       object,
@@ -925,27 +921,35 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
    * todo: Description.
    */
   public getJobByObjectId(objectId: TNumberId): Optional<ISmartTerrainJob> {
-    return this.objectJobDescriptors.get(objectId) && this.jobsData.get(this.objectJobDescriptors.get(objectId).job_id);
+    const descriptor: Optional<IObjectJobDescriptor> = this.objectJobDescriptors.get(objectId);
+
+    return descriptor && this.jobsData.get(descriptor.job_id);
+  }
+
+  /**
+   * @param jobSection - section of job to get working object ID
+   * @returns ID of game object working with provided section
+   */
+  public getObjectIdByJobId(jobSection: TSection): TNumberId {
+    return this.objectByJobSection.get(jobSection);
   }
 
   /**
    * todo: Description.
    */
-  public getObjectIdByJobId(jobName: TName): TNumberId {
-    return this.objectByJobSection.get(jobName);
-  }
+  public switchObjectToDesiredJob(objectId: TNumberId): void {
+    logger.info("Switch to desired job:", this.name(), objectId);
 
-  /**
-   * todo: Description.
-   */
-  public switchObjectToDesiredJob(object: ClientObject): void {
-    logger.info("Switch to desired job:", this.name(), object.name());
-
-    const objectId: TNumberId = object.id();
     const objectInfo: IObjectJobDescriptor = this.objectJobDescriptors.get(objectId);
-    const changingObjectId: TNumberId = this.objectByJobSection.get(objectInfo.need_job);
+    const changingObjectId: Optional<TNumberId> = this.objectByJobSection.get(objectInfo.need_job);
 
-    if (changingObjectId === null) {
+    // Just replacing when no another object exists / no jobs for another object.
+    if (!changingObjectId || !this.objectJobDescriptors.get(changingObjectId)) {
+      if (objectInfo.job_link) {
+        this.objectByJobSection.delete(this.jobsData.get(objectInfo.job_link.job_id as TNumberId).section);
+        objectInfo.job_link.npc_id = null;
+      }
+
       objectInfo.job_link = null;
       objectInfo.job_id = -1;
       objectInfo.job_prior = -1;
@@ -954,23 +958,12 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
       return;
     }
 
-    if (this.objectJobDescriptors.get(changingObjectId) === null) {
-      objectInfo.job_link = null;
-      objectInfo.job_id = -1;
-      objectInfo.job_prior = -1;
-      this.selectObjectJob(objectInfo);
-
-      return;
-    }
-
-    const desired_job = this.objectJobDescriptors.get(changingObjectId).job_id;
-
-    if (objectInfo.job_link !== null) {
+    if (objectInfo.job_link) {
       this.objectByJobSection.delete(this.jobsData.get(objectInfo.job_link.job_id as TNumberId).section);
       objectInfo.job_link.npc_id = null;
     }
 
-    const selectedJobLink = this.objectJobDescriptors.get(changingObjectId).job_link!;
+    const selectedJobLink: IJobDescriptor = this.objectJobDescriptors.get(changingObjectId).job_link!;
 
     selectedJobLink.npc_id = objectInfo.serverObject.id;
 
@@ -979,13 +972,12 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
     objectInfo.job_id = selectedJobLink.job_id as TNumberId;
     objectInfo.job_prior = selectedJobLink.priority;
     objectInfo.begin_job = true;
-
     objectInfo.job_link = selectedJobLink;
     objectInfo.need_job = NIL;
 
-    const objectStorage = registry.objects.get(objectId);
+    const objectStorage: Optional<IRegistryObjectState> = registry.objects.get(objectId);
 
-    if (objectStorage !== null) {
+    if (objectStorage) {
       this.setupObjectLogic(objectStorage.object!);
     }
 
