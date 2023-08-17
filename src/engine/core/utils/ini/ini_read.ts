@@ -156,7 +156,7 @@ export function readIniConditionList(ini: IniFile, section: TSection, field: TNa
   return {
     name: field,
     condlist: parseConditionsList(parameters.get(1)),
-    npc_id: null,
+    objectId: null,
     v1: null,
     v2: null,
   };
@@ -185,7 +185,7 @@ export function readIniStringAndCondList(ini: IniFile, section: TSection, field:
   return {
     name: field,
     condlist: parseConditionsList(parameters.get(2)),
-    npc_id: null,
+    objectId: null,
     v1: parameters.get(1),
     v2: null,
   };
@@ -218,7 +218,7 @@ export function readIniNumberAndConditionList(
   return {
     name: field,
     condlist: parseConditionsList(parameters.get(2)),
-    npc_id: null,
+    objectId: null,
     v1: tonumber(parameters.get(1))!,
     v2: null,
   };
@@ -251,7 +251,7 @@ export function readIniTwoStringsAndConditionsList(
   return {
     name: field,
     condlist: parseConditionsList(parameters.get(3)),
-    npc_id: null,
+    objectId: null,
     v1: parameters.get(1),
     v2: parameters.get(2),
   };

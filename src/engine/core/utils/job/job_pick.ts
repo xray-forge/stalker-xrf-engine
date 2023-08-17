@@ -34,7 +34,7 @@ export function selectSmartTerrainJob(
       // Job entity, can be verified.
       if (it.jobId) {
         // Has no assigned worker, can be used.
-        if (!it.npc_id) {
+        if (!it.objectId) {
           return $multi(it.jobId, it.priority, it);
           // Is already handled by object, continue working with it.
         } else if (it.jobId === objectJobDescriptor.jobId) {

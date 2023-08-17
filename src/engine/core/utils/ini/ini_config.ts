@@ -196,12 +196,12 @@ export function getConfigObjectAndZone(ini: IniFile, section: TSection, field: T
       const serverObject: Optional<ServerObject> = simulator.object(getObjectIdByStoryId(target.v1 as string)!);
 
       if (serverObject) {
-        target.npc_id = serverObject.id;
+        target.objectId = serverObject.id;
       } else {
         abort("Section '%s': field '%s': there is no object with story_id '%s'", section, field, target.v1);
       }
     } else {
-      target.npc_id = -1;
+      target.objectId = -1;
     }
   }
 

@@ -67,7 +67,7 @@ export interface IJobDescriptor {
     preconditionParameters: AnyObject,
     objectInfo: AnyObject
   ) => boolean;
-  npc_id?: Optional<TNumberId>;
+  objectId?: Optional<TNumberId>;
   jobId?: TNumberId | IJobBase;
 }
 

@@ -27,7 +27,7 @@ export type TAbstractSchemeConstructor = typeof AbstractScheme;
 export interface IBaseSchemeLogic {
   name: TName;
   condlist: TConditionList;
-  npc_id: Optional<TNumberId>;
+  objectId: Optional<TNumberId>;
   v1: Optional<string | number>;
   v2: Optional<string | number>;
 }

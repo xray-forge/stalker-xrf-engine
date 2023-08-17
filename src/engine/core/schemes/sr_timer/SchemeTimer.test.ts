@@ -85,7 +85,7 @@ describe("SchemeTimer functionality", () => {
         },
       },
       name: "on_value",
-      npc_id: null,
+      objectId: null,
       v1: 0,
       v2: null,
     });

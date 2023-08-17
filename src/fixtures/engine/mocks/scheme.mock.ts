@@ -75,7 +75,7 @@ export function mockBaseSchemeLogic(base: Partial<IBaseSchemeLogic> = {}): IBase
     ...base,
     name: base.name || "base-name",
     condlist: base.condlist || new LuaTable(),
-    npc_id: base.npc_id || null,
+    objectId: base.objectId || null,
     v1: base.v1 || null,
     v2: base.v2 || null,
   };

@@ -76,10 +76,10 @@ const SCHEME_LOGIC_SWITCH: Record<
     !isObjectInZone(actor, registry.zones.get(logic.v1 as TName)) &&
     switchObjectSchemeToSection(object, state.ini, pickSectionFromCondList(actor, object, logic.condlist)),
   [ESchemeCondition.ON_NPC_IN_ZONE]: (actor, object, state, logic) =>
-    isObjectInZone(level.object_by_id(logic.npc_id as TNumberId), registry.zones.get(logic.v2 as TName)) &&
+    isObjectInZone(level.object_by_id(logic.objectId as TNumberId), registry.zones.get(logic.v2 as TName)) &&
     switchObjectSchemeToSection(object, state.ini, pickSectionFromCondList(actor, object, logic.condlist)),
   [ESchemeCondition.ON_NPC_NOT_IN_ZONE]: (actor, object, state, logic) =>
-    !isObjectInZone(level.object_by_id(logic.npc_id as TNumberId), registry.zones.get(logic.v2 as TName)) &&
+    !isObjectInZone(level.object_by_id(logic.objectId as TNumberId), registry.zones.get(logic.v2 as TName)) &&
     switchObjectSchemeToSection(object, state.ini, pickSectionFromCondList(actor, object, logic.condlist)),
   [ESchemeCondition.ON_ACTOR_INSIDE]: (actor, object, state, logic) =>
     isObjectInZone(actor, object) &&

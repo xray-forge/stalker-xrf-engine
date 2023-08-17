@@ -522,7 +522,7 @@ describe("'switch logic' utils", () => {
           condlist: parseConditionsList("sr_idle@next"),
           v1: "story_id",
           v2: "zone_name",
-          npc_id: targetObject.id(),
+          objectId: targetObject.id(),
         }),
       ]),
     });
@@ -564,7 +564,7 @@ describe("'switch logic' utils", () => {
           condlist: parseConditionsList("sr_idle@next"),
           v1: "story_id",
           v2: "zone_name",
-          npc_id: targetObject.id(),
+          objectId: targetObject.id(),
         }),
       ]),
     });
