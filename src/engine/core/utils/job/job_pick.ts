@@ -4,7 +4,14 @@ import { IObjectJobDescriptor } from "@/engine/core/utils/job/job_types";
 import { LuaArray, Optional, TNumberId, TRate } from "@/engine/lib/types";
 
 /**
- * todo;
+ * Select smart terrain job for an object.
+ * todo: Flat jobs structure.
+ *
+ * @param smartTerrain - terrain to search for job inside
+ * @param jobs - list of jobs to search in
+ * @param objectJobDescriptor - descriptor of selected object work
+ * @param selectedJobPriority - currently selected job priority, starts with -1
+ * @returns selected job id, priority and link
  */
 export function selectSmartTerrainJob(
   smartTerrain: SmartTerrain,
@@ -16,22 +23,28 @@ export function selectSmartTerrainJob(
   let currentJobPriority: TRate = selectedJobPriority;
   let selectedJobLink = null;
 
-  for (const [, jobInfo] of jobs) {
-    if (currentJobPriority > jobInfo.priority) {
+  for (const [, it] of jobs) {
+    // Selected job with higher priority, no reason to go down (jobs are sorted by DESC).
+    if (currentJobPriority > it.priority) {
       return $multi(selectedJobId, currentJobPriority, selectedJobLink);
     }
 
-    if (isJobAvailableToObject(objectJobDescriptor, jobInfo, smartTerrain)) {
-      if (jobInfo.jobId) {
-        if (!jobInfo.npc_id) {
-          return $multi(jobInfo.jobId, jobInfo.priority, jobInfo);
-        } else if (jobInfo.jobId === objectJobDescriptor.jobId) {
-          return $multi(jobInfo.jobId, jobInfo.priority, jobInfo);
+    // Verify if job is accessible by object and meets conditions.
+    if (isJobAvailableToObject(objectJobDescriptor, it, smartTerrain)) {
+      // Job entity, can be verified.
+      if (it.jobId) {
+        // Has no assigned worker, can be used.
+        if (!it.npc_id) {
+          return $multi(it.jobId, it.priority, it);
+          // Is already handled by object, continue working with it.
+        } else if (it.jobId === objectJobDescriptor.jobId) {
+          return $multi(it.jobId, it.priority, it);
         }
       } else {
+        // Search jobs in list, one level down in recursive data structure.
         [selectedJobId, currentJobPriority, selectedJobLink] = selectSmartTerrainJob(
           smartTerrain,
-          jobInfo.jobs,
+          it.jobs,
           objectJobDescriptor,
           selectedJobPriority
         );

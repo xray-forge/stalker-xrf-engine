@@ -82,7 +82,7 @@ describe("SmartTerrain class jobs logic", () => {
     expect(smartTerrain.objectJobDescriptors.length()).toBe(1);
     expect(smartTerrain.objectJobDescriptors.get(stalker.id)).toEqual({
       serverObject: stalker,
-      shouldBeginJob: true,
+      jobBegun: true,
       isMonster: false,
       jobId: 3,
       jobLink: {
@@ -143,7 +143,7 @@ describe("SmartTerrain class jobs logic", () => {
     expect(smartTerrain.objectJobDescriptors).toEqualLuaTables({
       [firstStalker.id]: {
         serverObject: firstStalker,
-        shouldBeginJob: true,
+        jobBegun: true,
         isMonster: false,
         jobId: 4,
         jobLink: {
@@ -161,7 +161,7 @@ describe("SmartTerrain class jobs logic", () => {
       },
       [secondStalker.id]: {
         serverObject: secondStalker,
-        shouldBeginJob: true,
+        jobBegun: true,
         isMonster: false,
         jobId: 3,
         jobLink: {
@@ -205,7 +205,7 @@ describe("SmartTerrain class jobs logic", () => {
     expect(smartTerrain.objectJobDescriptors.length()).toBe(1);
     expect(smartTerrain.objectJobDescriptors.get(monster.id)).toEqual({
       serverObject: monster,
-      shouldBeginJob: true,
+      jobBegun: true,
       isMonster: true,
       jobId: 34,
       jobLink: {
@@ -251,7 +251,7 @@ describe("SmartTerrain class jobs logic", () => {
     expect(smartTerrain.objectJobDescriptors).toEqualLuaTables({
       [firstStalker.id]: {
         serverObject: firstStalker,
-        shouldBeginJob: true,
+        jobBegun: true,
         isMonster: false,
         jobId: 3,
         jobLink: {
@@ -269,7 +269,7 @@ describe("SmartTerrain class jobs logic", () => {
       },
       [secondStalker.id]: {
         serverObject: secondStalker,
-        shouldBeginJob: true,
+        jobBegun: true,
         isMonster: false,
         jobId: 4,
         jobLink: {

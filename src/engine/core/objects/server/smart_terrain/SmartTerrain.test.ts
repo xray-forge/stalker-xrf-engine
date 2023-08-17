@@ -165,7 +165,7 @@ describe("SmartTerrain class generic logic", () => {
     smartTerrain.objectJobDescriptors.set(thirdWithJob.id, thirdJob);
     thirdJob.jobId = 2;
     thirdJob.jobPriority = 35;
-    thirdJob.shouldBeginJob = true;
+    thirdJob.jobBegun = true;
     thirdJob.desiredJob = "another_job_section";
 
     smartTerrain.jobDeadTimeById.set(50, MockCTime.mock(2004, 7, 19, 13, 30, 10, 200));
@@ -285,7 +285,7 @@ describe("SmartTerrain class generic logic", () => {
     });
     expect(anotherSmartTerrain.objectJobDescriptors).toEqualLuaTables({
       [thirdWithJob.id]: {
-        shouldBeginJob: true,
+        jobBegun: true,
         jobId: 2,
         jobPriority: 35,
         desiredJob: "another_job_section",

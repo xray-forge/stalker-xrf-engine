@@ -17,7 +17,8 @@ import type {
 } from "@/engine/lib/types";
 
 /**
- * todo;
+ * Descriptor of game object job in smart.
+ * Contains information about object job state / progress.
  */
 export interface IObjectJobDescriptor {
   isMonster: boolean;
@@ -26,7 +27,7 @@ export interface IObjectJobDescriptor {
   jobPriority: TRate;
   jobId: TNumberId;
   jobLink: Optional<IJobDescriptor>;
-  shouldBeginJob: boolean;
+  jobBegun: boolean;
   schemeType: ESchemeType;
 }
 

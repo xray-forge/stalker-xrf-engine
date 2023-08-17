@@ -21,25 +21,27 @@ export function isJobAvailableToObject(
   jobInfo: any,
   smartTerrain: SmartTerrain
 ): boolean {
+  // Job worker recently died, ignore it for now.
   if (smartTerrain.jobDeadTimeById.get(jobInfo.jobId) !== null) {
     return false;
   }
 
+  // Check monster / stalker restriction for job.
   if ("preconditionIsMonster" in jobInfo && jobInfo.preconditionIsMonster !== objectInfo.isMonster) {
     return false;
   }
 
-  if (jobInfo.preconditionFunction) {
-    if (
-      !(jobInfo.preconditionFunction as AnyCallable)(
-        objectInfo.serverObject,
-        smartTerrain,
-        jobInfo.preconditionParameters,
-        objectInfo
-      )
-    ) {
-      return false;
-    }
+  // Has callback checker.
+  if (
+    jobInfo.preconditionFunction &&
+    !(jobInfo.preconditionFunction as AnyCallable)(
+      objectInfo.serverObject,
+      smartTerrain,
+      jobInfo.preconditionParameters,
+      objectInfo
+    )
+  ) {
+    return false;
   }
 
   return true;

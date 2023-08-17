@@ -21,7 +21,7 @@ export function createObjectJobDescriptor(object: ServerCreatureObject): IObject
     jobPriority: -1,
     jobLink: null,
     jobId: -1,
-    shouldBeginJob: false,
+    jobBegun: false,
     schemeType: isObjectStalker ? ESchemeType.STALKER : ESchemeType.MONSTER,
   };
 }

@@ -49,10 +49,10 @@ export function setupObjectSmartJobsAndLogicOnSpawn(
   const needSetupLogic: boolean =
     !isLoaded &&
     smartTerrain.objectJobDescriptors.get(object.id()) &&
-    smartTerrain.objectJobDescriptors.get(object.id()).shouldBeginJob === true;
+    smartTerrain.objectJobDescriptors.get(object.id()).jobBegun === true;
 
   if (needSetupLogic) {
-    smartTerrain.setupObjectLogic(object);
+    smartTerrain.setupObjectJobLogic(object);
   } else {
     initializeObjectSchemeLogic(object, state, isLoaded, schemeType);
   }
