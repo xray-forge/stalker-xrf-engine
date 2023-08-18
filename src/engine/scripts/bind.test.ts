@@ -69,8 +69,7 @@ describe("'bind' entry point", () => {
     jest.spyOn(arenaZone, "spawn_ini").mockImplementation(() =>
       mockIniFile("test.ltx", {
         arena_zone: "test",
-      })
-    );
+      }));
 
     callBinding("arenaZone", arenaZone);
     expect(arenaZone.bind_object).toHaveBeenCalled();
@@ -113,8 +112,7 @@ describe("'bind' entry point", () => {
     jest.spyOn(heli, "spawn_ini").mockImplementation(() =>
       mockIniFile("test.ltx", {
         logic: "test",
-      })
-    );
+      }));
 
     callBinding("heli", heli);
     expect(heli.bind_object).toHaveBeenCalled();
@@ -162,8 +160,7 @@ describe("'bind' entry point", () => {
     jest.spyOn(physicObject, "spawn_ini").mockImplementation(() =>
       mockIniFile("test.ltx", {
         logic: "test",
-      })
-    );
+      }));
 
     callBinding("physicObject", physicObject);
     expect(physicObject.bind_object).toHaveBeenCalledTimes(2);
@@ -211,13 +208,11 @@ describe("'bind' entry point", () => {
     jest.spyOn(firstSmartTerrain, "spawn_ini").mockImplementation(() =>
       mockIniFile("test.ltx", {
         gulag1: {},
-      })
-    );
+      }));
     jest.spyOn(secondSmartTerrain, "spawn_ini").mockImplementation(() =>
       mockIniFile("test.ltx", {
         smart_terrain: {},
-      })
-    );
+      }));
 
     replaceFunctionMock(alife, () => null);
 
