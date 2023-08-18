@@ -13,6 +13,8 @@ import {
  */
 export class MockAlifeCreatureActor extends MockAlifeDynamicObjectVisual {
   public override id: TNumberId = 0;
+  public override m_level_vertex_id: TNumberId = 255;
+  public override m_game_vertex_id: TNumberId = 512;
 
   public community(): TCommunity {
     return communities.actor;
@@ -33,6 +35,8 @@ export function mockServerAlifeCreatureActor({
   return mockServerAlifeDynamicObjectVisual({
     ...base,
     id,
+    m_level_vertex_id: base.m_level_vertex_id || 255,
+    m_game_vertex_id: base.m_game_vertex_id || 512,
     force_set_goodwill: base.force_set_goodwill || jest.fn(),
     community: base.community || jest.fn(() => communities.actor),
   } as ServerActorObject) as ServerActorObject;

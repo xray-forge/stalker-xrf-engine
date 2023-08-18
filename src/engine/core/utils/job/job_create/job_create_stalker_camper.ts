@@ -3,87 +3,89 @@ import { level, patrol } from "xray16";
 import { SmartTerrain } from "@/engine/core/objects";
 import { EStalkerState } from "@/engine/core/objects/animation";
 import { IWaypointData, parseWaypointData } from "@/engine/core/utils/ini";
-import { isAccessibleJob } from "@/engine/core/utils/job/job_check";
 import { jobPreconditionCamper } from "@/engine/core/utils/job/job_precondition";
-import { EJobPathType, EJobType, ISmartTerrainJobDescriptor } from "@/engine/core/utils/job/job_types";
+import { EJobPathType, EJobType, TSmartTerrainJobsList } from "@/engine/core/utils/job/job_types";
+import { StringBuilder } from "@/engine/core/utils/string";
 import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
-import { AnyObject, LuaArray, Patrol, ServerHumanObject, TCount, TDistance, TIndex, TName } from "@/engine/lib/types";
+import { Patrol, TDistance, TIndex, TName } from "@/engine/lib/types";
 
 /**
- * todo;
+ * Create camper jobs for stalkers in smart terrain.
+ *
+ * @param smartTerrain - smart terrain to create default animpoint jobs for
+ * @param jobs - list of smart terrain jobs to insert into
+ * @param builder - builder of large ltx file
+ * @returns cover jobs list and updated string builder
  */
 export function createStalkerCamperJobs(
   smartTerrain: SmartTerrain,
-  jobsList: LuaArray<ISmartTerrainJobDescriptor>
-): LuaMultiReturn<[LuaArray<ISmartTerrainJobDescriptor>, string]> {
+  jobs: TSmartTerrainJobsList,
+  builder: StringBuilder
+): LuaMultiReturn<[TSmartTerrainJobsList, StringBuilder]> {
   const smartTerrainName: TName = smartTerrain.name();
 
-  let ltx: string = "";
   let index: TIndex = 1;
 
-  while (level.patrol_path_exists(`${smartTerrainName}_camper_${index}_walk`)) {
-    const wayName: TName = `${smartTerrainName}_camper_${index}_walk`;
-    const ptr: Patrol = new patrol(wayName);
-    const wpProp: IWaypointData = parseWaypointData(wayName, ptr.flags(0), ptr.name(0));
+  while (level.patrol_path_exists(string.format("%s_camper_%s_walk", smartTerrainName, index))) {
+    const wayName: TName = string.format("%s_camper_%s_walk", smartTerrainName, index);
+    const smartPatrol: Patrol = new patrol(wayName);
+    const waypoint: IWaypointData = parseWaypointData(wayName, smartPatrol.flags(0), smartPatrol.name(0));
+
     let state: TName = EStalkerState.HIDE;
     let radius: TDistance = 0;
 
-    if (wpProp.state !== null) {
-      if (wpProp.state === "stand") {
+    if (waypoint.state !== null) {
+      if (waypoint.state === "stand") {
         state = EStalkerState.THREAT;
       }
     }
 
-    if (wpProp.radius !== null) {
-      radius = wpProp.radius as TDistance;
+    if (waypoint.radius !== null) {
+      radius = waypoint.radius as TDistance;
     }
 
-    table.insert(jobsList, {
+    table.insert(jobs, {
       type: EJobType.CAMPER,
       isMonsterJob: false,
       priority: logicsConfig.JOBS.STALKER_CAMPER.PRIORITY,
-      section: `logic@${wayName}`,
+      section: string.format("logic@%s", wayName),
       pathType: EJobPathType.PATH,
       preconditionParameters: { wayName: wayName },
       preconditionFunction: jobPreconditionCamper,
     });
 
-    let jobLtx: string =
-      "[logic@" +
-      wayName +
-      "]\n" +
-      "active = camper@" +
-      wayName +
-      "\n" +
-      "[camper@" +
-      wayName +
-      "]\n" +
-      "meet = meet@generic_lager\n" +
-      "radius = " +
-      tostring(radius) +
-      "\n" +
-      "path_walk = camper_" +
-      index +
-      "_walk\n" +
-      "def_state_moving = rush\n" +
-      "def_state_campering = " +
-      state +
-      "\n" +
-      "def_state_campering_fire = " +
-      state +
-      "_fire\n";
+    builder.append(
+      string.format(
+        `[logic@%s]
+active = camper@%s
+[camper@%s]
+meet = meet@generic_lager
+radius = %s
+path_walk = camper_%s_walk
+def_state_moving = rush
+def_state_campering = %s
+def_state_campering_fire = %s_fire
+`,
+        wayName,
+        wayName,
+        wayName,
+        radius,
+        index,
+        state,
+        state
+      )
+    );
 
-    if (level.patrol_path_exists(`${smartTerrainName}_camper_${index}_look`)) {
-      jobLtx += `path_look = camper_${index}_look\n`;
+    if (level.patrol_path_exists(string.format("%s_camper_%s_look", smartTerrainName, index))) {
+      builder.append(string.format("path_look = camper_%s_look\n", index));
     }
 
     if (smartTerrain.defendRestrictor !== null) {
-      jobLtx += `out_restr = ${smartTerrain.defendRestrictor}\n`;
+      builder.append(string.format("out_restr = %s\n", smartTerrain.defendRestrictor));
     }
 
-    ltx += jobLtx;
     index += 1;
   }
 
-  return $multi(jobsList, ltx);
+  return $multi(jobs, builder);
 }

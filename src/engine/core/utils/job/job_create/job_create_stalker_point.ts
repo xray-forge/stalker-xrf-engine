@@ -1,55 +1,69 @@
 import { SmartTerrain } from "@/engine/core/objects";
-import { EJobPathType, EJobType, ISmartTerrainJobDescriptor } from "@/engine/core/utils/job/job_types";
+import { EJobPathType, EJobType, TSmartTerrainJobsList } from "@/engine/core/utils/job/job_types";
+import { StringBuilder } from "@/engine/core/utils/string";
 import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
-import { LuaArray, TCount, TName } from "@/engine/lib/types";
+import { TName } from "@/engine/lib/types";
 
 /**
- * Create point / cover jobs for stalkers in smart terrain.
+ * Create point jobs for stalkers in smart terrain.
  *
- * @param smartTerrain - smart terrain to create default point jobs for
- * @returns cover jobs list, generated LTX and count of created jobs
+ * @param smartTerrain - smart terrain to create default animpoint jobs for
+ * @param jobs - list of smart terrain jobs to insert into
+ * @param builder - builder of large ltx file
+ * @returns cover jobs list and updated string builder
  */
 export function createStalkerPointJobs(
   smartTerrain: SmartTerrain,
-  jobsList: LuaArray<ISmartTerrainJobDescriptor>
-): LuaMultiReturn<[LuaArray<ISmartTerrainJobDescriptor>, string]> {
+  jobs: TSmartTerrainJobsList,
+  builder: StringBuilder
+): LuaMultiReturn<[TSmartTerrainJobsList, StringBuilder]> {
   const smartTerrainName: TName = smartTerrain.name();
 
-  let ltx: string = "";
+  for (const index of $range(1, logicsConfig.JOBS.STALKER_POINT.COUNT)) {
+    const name: TName = string.format("%s_point_%s", smartTerrainName, index);
 
-  for (const it of $range(1, logicsConfig.JOBS.STALKER_POINT.COUNT)) {
-    const name: TName = `${smartTerrainName}_point_${it}`;
-
-    table.insert(jobsList, {
+    table.insert(jobs, {
       type: EJobType.POINT,
       isMonsterJob: false,
       priority: logicsConfig.JOBS.STALKER_POINT.PRIORITY,
-      section: `logic@${name}`,
+      section: string.format("logic@%s", name),
       pathType: EJobPathType.POINT,
     });
 
-    ltx +=
-      `[logic@${name}]\n` +
-      `active = cover@${name}\n` +
-      `[cover@${name}]\n` +
-      "meet = meet@generic_lager\n" +
-      `smart = ${smartTerrainName}\n` +
-      `radius_min = ${logicsConfig.JOBS.STALKER_POINT.MIN_RADIUS}\n` +
-      `radius_max = ${logicsConfig.JOBS.STALKER_POINT.MAX_RADIUS}\n` +
-      "use_attack_direction = false\n" +
-      "anim = {!npc_community(zombied)} sit, guard\n";
+    builder.append(
+      string.format(
+        `[logic@%s]
+active = cover@%s
+[cover@%s]
+meet = meet@generic_lager
+smart = %s
+radius_min = %s
+radius_max = %s
+use_attack_direction = false
+anim = {!npc_community(zombied)} sit, guard
+`,
+        name,
+        name,
+        name,
+        smartTerrainName,
+        logicsConfig.JOBS.STALKER_POINT.MIN_RADIUS,
+        logicsConfig.JOBS.STALKER_POINT.MAX_RADIUS
+      )
+    );
 
     if (smartTerrain.defendRestrictor !== null) {
-      ltx += `out_restr = ${smartTerrain.defendRestrictor}\n`;
+      builder.append(string.format("out_restr = %s\n", smartTerrain.defendRestrictor));
     }
 
     if (smartTerrain.smartTerrainActorControl !== null && smartTerrain.smartTerrainActorControl.ignoreZone !== null) {
       // todo: Probably smart.base_on_actor_control.ignore_zone should be injected? Original issue.
-      ltx +=
-        "combat_ignore_cond = {=npc_in_zone(smart.base_on_actor_control.ignore_zone)} true\n" +
-        "combat_ignore_keep_when_attacked = true\n";
+      builder.append(
+        `combat_ignore_cond = {=npc_in_zone(smart.base_on_actor_control.ignore_zone)} true
+combat_ignore_keep_when_attacked = true
+`
+      );
     }
   }
 
-  return $multi(jobsList, ltx);
+  return $multi(jobs, builder);
 }

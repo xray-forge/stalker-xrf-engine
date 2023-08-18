@@ -1,11 +1,12 @@
 import * as path from "path";
 
-import { describe, expect, it, jest } from "@jest/globals";
+import { describe, expect, it } from "@jest/globals";
 
 import { SmartTerrain } from "@/engine/core/objects";
 import { EJobPathType, EJobType } from "@/engine/core/utils/job";
 import { createMonsterJobs } from "@/engine/core/utils/job/job_create/job_create_monster";
 import { range } from "@/engine/core/utils/number";
+import { StringBuilder } from "@/engine/core/utils/string";
 import { mockSmartTerrain, readInGameTestLtx } from "@/fixtures/engine";
 
 describe("jobs_general should correctly generate monster default jobs", () => {
@@ -15,10 +16,10 @@ describe("jobs_general should correctly generate monster default jobs", () => {
     );
 
     const smartTerrain: SmartTerrain = mockSmartTerrain();
-    const [jobsList, ltx] = createMonsterJobs(smartTerrain);
+    const [jobs, builder] = createMonsterJobs(smartTerrain, new LuaTable(), new StringBuilder());
 
-    expect(ltx).toBe(monsterJobsLtx);
-    expect(jobsList).toEqualLuaArrays(
+    expect(builder.build()).toBe(monsterJobsLtx);
+    expect(jobs).toEqualLuaArrays(
       range(20, 1).map((it) => ({
         type: EJobType.MONSTER_HOME,
         isMonsterJob: true,

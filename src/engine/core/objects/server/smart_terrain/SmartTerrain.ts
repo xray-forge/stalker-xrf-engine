@@ -1,6 +1,7 @@
 import {
   alife,
   CALifeSmartTerrainTask,
+  CGameGraph,
   cse_alife_smart_zone,
   editor,
   game,
@@ -17,7 +18,6 @@ import {
   closeSaveMarker,
   hardResetOfflineObject,
   IRegistryObjectState,
-  loadDynamicIni,
   openSaveMarker,
   registerObjectStoryLinks,
   registry,
@@ -33,7 +33,6 @@ import {
 } from "@/engine/core/database/simulation";
 import { SimulationBoardManager } from "@/engine/core/managers/interaction/SimulationBoardManager";
 import { MapDisplayManager } from "@/engine/core/managers/interface";
-import { SmartCover } from "@/engine/core/objects";
 import { SmartTerrainControl } from "@/engine/core/objects/server/smart_terrain/SmartTerrainControl";
 import { ESmartTerrainStatus } from "@/engine/core/objects/server/smart_terrain/types";
 import { SquadReachTargetAction, SquadStayOnTargetAction } from "@/engine/core/objects/server/squad/action";
@@ -131,13 +130,13 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
   public jobsConfigName!: TName;
 
   public squadId: TNumberId = 0; // Squads identifier spawned by specific smart terrain.
-  public level: TName = "";
 
   public simulationRole: ESimulationTerrainRole = ESimulationTerrainRole.DEFAULT;
   public smartTerrainDisplayedMapSpot: Optional<ERelation> = null;
   public respawnSector: Optional<TConditionList> = null;
   public forbiddenPoint: string = "";
 
+  public isOnLevel: boolean = false;
   public isRegistered: boolean = false;
   public isRespawnPoint: boolean = false;
   public isObjectsInitializationNeeded: boolean = false; // Whether after game start / load.
@@ -201,11 +200,12 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
 
     // Register smart in simulation as first priority, other objects may require it for registering.
     this.simulationBoardManager.registerSmartTerrain(this);
-    this.level = alife().level_name(game_graph().vertex(this.m_game_vertex_id).level_id());
   }
 
   public override on_register(): void {
     super.on_register();
+
+    this.isOnLevel = areObjectsOnSameLevel(this, alife().actor());
 
     registerObjectStoryLinks(this);
     registerSimulationObject(this);
@@ -269,8 +269,11 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
 
     this.population -= 1;
 
-    if (this.objectJobDescriptors.get(object.id) !== null) {
-      this.objectJobDescriptors.get(object.id).job!.objectId = null;
+    const objectJobDescriptor: Optional<IObjectJobDescriptor> = this.objectJobDescriptors.get(object.id);
+
+    if (objectJobDescriptor !== null) {
+      this.unlinkObjectJob(objectJobDescriptor);
+
       this.objectJobDescriptors.delete(object.id);
 
       object.clear_smart_terrain();
@@ -689,6 +692,10 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
    * todo: Move into creation handler some parts
    */
   public initializeJobs(): void {
+    if (!this.isOnLevel) {
+      return;
+    }
+
     const [jobsList, jobsConfig, jobsConfigName] = createSmartTerrainJobs(this);
 
     this.jobs = jobsList;
@@ -700,6 +707,10 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
    * todo: Description.
    */
   public updateJobs(): void {
+    if (!this.isOnLevel) {
+      return;
+    }
+
     for (const [id, object] of this.arrivingObjects) {
       if (this.isObjectArrived(object)) {
         this.objectJobDescriptors.set(object.id, createObjectJobDescriptor(object));
@@ -722,6 +733,10 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
    * @param objectJobDescriptor - descriptor of active job for an object
    */
   public selectObjectJob(objectJobDescriptor: IObjectJobDescriptor): void {
+    if (!this.isOnLevel) {
+      return;
+    }
+
     const [selectedJobId, selectedJobPriority, selectedJobLink] = selectSmartTerrainJob(
       this,
       this.jobs,
@@ -824,10 +839,10 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
   /**
    * todo: Description.
    */
-  public unlinkObjectJob(objectInfo: IObjectJobDescriptor): void {
-    if (objectInfo.job) {
-      this.objectByJobSection.delete(this.jobs.get(objectInfo.job.id as TNumberId).section);
-      objectInfo.job.objectId = null;
+  public unlinkObjectJob(objectJobDescriptor: IObjectJobDescriptor): void {
+    if (objectJobDescriptor.job) {
+      this.objectByJobSection.delete(objectJobDescriptor.job.section);
+      objectJobDescriptor.job.objectId = null;
     }
   }
 
@@ -835,6 +850,10 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
    * todo: Description.
    */
   public switchObjectToDesiredJob(objectId: TNumberId): void {
+    if (!this.isOnLevel) {
+      return;
+    }
+
     logger.info("Switch to desired job:", this.name(), objectId);
 
     const objectInfo: IObjectJobDescriptor = this.objectJobDescriptors.get(objectId);

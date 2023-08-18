@@ -6,6 +6,7 @@ import { SmartTerrain, SmartTerrainControl } from "@/engine/core/objects";
 import { EJobPathType, EJobType } from "@/engine/core/utils/job";
 import { createStalkerPointJobs } from "@/engine/core/utils/job/job_create/job_create_stalker_point";
 import { range } from "@/engine/core/utils/number";
+import { StringBuilder } from "@/engine/core/utils/string";
 import { mockSmartTerrain, readInGameTestLtx } from "@/fixtures/engine";
 
 describe("should correctly generate stalkers point jobs", () => {
@@ -15,10 +16,10 @@ describe("should correctly generate stalkers point jobs", () => {
     );
 
     const smartTerrain: SmartTerrain = mockSmartTerrain("empty_smart");
-    const [jobsList, ltx] = createStalkerPointJobs(smartTerrain, new LuaTable());
+    const [jobs, builder] = createStalkerPointJobs(smartTerrain, new LuaTable(), new StringBuilder());
 
-    expect(ltx).toBe(pointJobsLtx);
-    expect(jobsList).toEqualLuaArrays(
+    expect(builder.build()).toBe(pointJobsLtx);
+    expect(jobs).toEqualLuaArrays(
       range(20, 1).map((it) => ({
         isMonsterJob: false,
         pathType: EJobPathType.POINT,
@@ -34,10 +35,10 @@ describe("should correctly generate stalkers point jobs", () => {
     );
 
     const smartTerrain: SmartTerrain = mockSmartTerrain();
-    const [jobsList, ltx] = createStalkerPointJobs(smartTerrain, new LuaTable());
+    const [jobs, builder] = createStalkerPointJobs(smartTerrain, new LuaTable(), new StringBuilder());
 
-    expect(ltx).toBe(pointJobsLtx);
-    expect(jobsList).toEqualLuaArrays(
+    expect(builder.build()).toBe(pointJobsLtx);
+    expect(jobs).toEqualLuaArrays(
       range(20, 1).map((it) => ({
         isMonsterJob: false,
         pathType: EJobPathType.POINT,
@@ -58,10 +59,10 @@ describe("should correctly generate stalkers point jobs", () => {
     smartTerrain.defendRestrictor = "def_restrictor_test";
     smartTerrain.smartTerrainActorControl = { ignoreZone: "test_ignore_zone" } as SmartTerrainControl;
 
-    const [jobsList, ltx] = createStalkerPointJobs(smartTerrain, new LuaTable());
+    const [jobs, builder] = createStalkerPointJobs(smartTerrain, new LuaTable(), new StringBuilder());
 
-    expect(ltx).toBe(pointJobsLtx);
-    expect(jobsList).toEqualLuaArrays(
+    expect(builder.build()).toBe(pointJobsLtx);
+    expect(jobs).toEqualLuaArrays(
       range(20, 1).map((it) => ({
         isMonsterJob: false,
         pathType: EJobPathType.POINT,

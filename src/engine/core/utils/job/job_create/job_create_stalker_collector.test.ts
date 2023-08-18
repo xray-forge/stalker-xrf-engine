@@ -1,22 +1,23 @@
 import * as path from "path";
 
-import { describe, expect, it, jest } from "@jest/globals";
+import { describe, expect, it } from "@jest/globals";
 
-import { registerObject, registerZone } from "@/engine/core/database";
+import { registerZone } from "@/engine/core/database";
 import { SmartTerrain, SmartTerrainControl } from "@/engine/core/objects";
 import { EJobPathType, EJobType } from "@/engine/core/utils/job";
 import { createStalkerCollectorJobs } from "@/engine/core/utils/job/job_create/job_create_stalker_collector";
-import { ServerHumanObject } from "@/engine/lib/types";
+import { jobPreconditionCollector } from "@/engine/core/utils/job/job_precondition";
+import { StringBuilder } from "@/engine/core/utils/string";
 import { mockSmartTerrain, readInGameTestLtx } from "@/fixtures/engine";
-import { mockClientGameObject, mockServerAlifeHumanStalker } from "@/fixtures/xray";
+import { mockClientGameObject } from "@/fixtures/xray";
 
-describe("jobs_general should correctly generate stalker collector jobs", () => {
-  it("should correctly generate default collector jobs with no collector patrols", async () => {
+describe("should correctly generate stalker collector jobs", () => {
+  it("should correctly generate default collector jobs with no collector patrols", () => {
     const smartTerrain: SmartTerrain = mockSmartTerrain("smart_empty");
-    const [jobsList, ltx] = createStalkerCollectorJobs(smartTerrain, new LuaTable());
+    const [jobs, builder] = createStalkerCollectorJobs(smartTerrain, new LuaTable(), new StringBuilder());
 
-    expect(ltx).toBe("");
-    expect(jobsList).toEqualLuaArrays([]);
+    expect(builder.build()).toBe("");
+    expect(jobs).toEqualLuaArrays([]);
   });
 
   it("should correctly generate default collector jobs with test smart", async () => {
@@ -25,12 +26,12 @@ describe("jobs_general should correctly generate stalker collector jobs", () => 
     );
 
     const smartTerrain: SmartTerrain = mockSmartTerrain();
-    const [jobsList, ltx] = createStalkerCollectorJobs(smartTerrain, new LuaTable());
+    const [jobs, builder] = createStalkerCollectorJobs(smartTerrain, new LuaTable(), new StringBuilder());
 
-    expect(ltx).toBe(jobsLtx);
-    expect(jobsList).toEqualLuaArrays([
+    expect(builder.build()).toBe(jobsLtx);
+    expect(jobs).toEqualLuaArrays([
       {
-        preconditionFunction: expect.any(Function),
+        preconditionFunction: jobPreconditionCollector,
         preconditionParameters: {},
         isMonsterJob: false,
         pathType: EJobPathType.PATH,
@@ -50,12 +51,12 @@ describe("jobs_general should correctly generate stalker collector jobs", () => 
 
     smartTerrain.defendRestrictor = "test_defend_restrictor";
 
-    const [jobsList, ltx] = createStalkerCollectorJobs(smartTerrain, new LuaTable());
+    const [jobs, builder] = createStalkerCollectorJobs(smartTerrain, new LuaTable(), new StringBuilder());
 
-    expect(ltx).toBe(jobsLtx);
-    expect(jobsList).toEqualLuaArrays([
+    expect(builder.build()).toBe(jobsLtx);
+    expect(jobs).toEqualLuaArrays([
       {
-        preconditionFunction: expect.any(Function),
+        preconditionFunction: jobPreconditionCollector,
         preconditionParameters: {},
         isMonsterJob: false,
         pathType: EJobPathType.PATH,
@@ -78,12 +79,12 @@ describe("jobs_general should correctly generate stalker collector jobs", () => 
 
     registerZone(mockClientGameObject({ name: () => "some_restrictor", inside: () => true }));
 
-    const [jobsList, ltx] = createStalkerCollectorJobs(smartTerrain, new LuaTable());
+    const [jobs, builder] = createStalkerCollectorJobs(smartTerrain, new LuaTable(), new StringBuilder());
 
-    expect(ltx).toBe(jobsLtx);
-    expect(jobsList).toEqualLuaArrays([
+    expect(builder.build()).toBe(jobsLtx);
+    expect(jobs).toEqualLuaArrays([
       {
-        preconditionFunction: expect.any(Function),
+        preconditionFunction: jobPreconditionCollector,
         preconditionParameters: {},
         isMonsterJob: false,
         pathType: EJobPathType.PATH,
@@ -107,12 +108,12 @@ describe("jobs_general should correctly generate stalker collector jobs", () => 
 
     registerZone(mockClientGameObject({ name: () => "safe_restrictor_test", inside: () => true }));
 
-    const [jobsList, ltx, count] = createStalkerCollectorJobs(smartTerrain, new LuaTable());
+    const [jobs, builder] = createStalkerCollectorJobs(smartTerrain, new LuaTable(), new StringBuilder());
 
-    expect(ltx).toBe(jobsLtx);
-    expect(jobsList).toEqualLuaArrays([
+    expect(builder.build()).toBe(jobsLtx);
+    expect(jobs).toEqualLuaArrays([
       {
-        preconditionFunction: expect.any(Function),
+        preconditionFunction: jobPreconditionCollector,
         preconditionParameters: {},
         isMonsterJob: false,
         pathType: EJobPathType.PATH,

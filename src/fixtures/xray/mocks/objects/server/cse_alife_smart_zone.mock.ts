@@ -8,8 +8,8 @@ import { MockAlifeObject, mockServerAlifeObject } from "@/fixtures/xray/mocks/ob
  * todo;
  */
 export class MockAlifeSmartZone extends MockAlifeObject {
-  public m_game_vertex_id = 150;
-  public m_level_vertex_id = 250;
+  public override m_level_vertex_id: TNumberId = 255;
+  public override m_game_vertex_id: TNumberId = 512;
 
   public set_available_loopholes = jest.fn();
 
@@ -27,7 +27,8 @@ export function mockServerAlifeSmartZone(base: Partial<ServerSmartZoneObject> = 
   return mockServerAlifeObject({
     ...base,
     clsid: () => mockClsid.smart_zone,
-    m_level_vertex_id: base.m_level_vertex_id || 430,
+    m_level_vertex_id: base.m_level_vertex_id || 255,
+    m_game_vertex_id: base.m_game_vertex_id || 512,
     updateMapDisplay: jest.fn(),
   } as unknown as ServerSmartZoneObject) as unknown as ServerSmartZoneObject;
 }

@@ -8,16 +8,17 @@ import { EJobPathType, EJobType } from "@/engine/core/utils/job";
 import { createStalkerPatrolJobs } from "@/engine/core/utils/job/job_create/job_create_stalker_patrol";
 import { jobPreconditionPatrol } from "@/engine/core/utils/job/job_precondition";
 import { range } from "@/engine/core/utils/number";
+import { StringBuilder } from "@/engine/core/utils/string";
 import { mockSmartTerrain, readInGameTestLtx } from "@/fixtures/engine";
 import { mockClientGameObject } from "@/fixtures/xray";
 
-describe("jobs_general should correctly generate stalker patrol jobs", () => {
+describe("should correctly generate stalker patrol jobs", () => {
   it("should correctly generate default patrol jobs with no patrols", async () => {
     const smartTerrain: SmartTerrain = mockSmartTerrain("empty_smart");
-    const [jobsList, ltx] = createStalkerPatrolJobs(smartTerrain, new LuaTable());
+    const [jobs, builder] = createStalkerPatrolJobs(smartTerrain, new LuaTable(), new StringBuilder());
 
-    expect(ltx).toBe("");
-    expect(jobsList).toEqualLuaArrays([]);
+    expect(builder.build()).toBe("");
+    expect(jobs).toEqualLuaArrays([]);
   });
 
   it("should correctly generate default patrol jobs with test smart", async () => {
@@ -26,10 +27,10 @@ describe("jobs_general should correctly generate stalker patrol jobs", () => {
     );
 
     const smartTerrain: SmartTerrain = mockSmartTerrain();
-    const [jobsList, ltx] = createStalkerPatrolJobs(smartTerrain, new LuaTable());
+    const [jobs, builder] = createStalkerPatrolJobs(smartTerrain, new LuaTable(), new StringBuilder());
 
-    expect(ltx).toBe(jobsLtx);
-    expect(jobsList).toEqualLuaArrays(
+    expect(builder.build()).toBe(jobsLtx);
+    expect(jobs).toEqualLuaArrays(
       range(3).map(() => ({
         preconditionFunction: jobPreconditionPatrol,
         preconditionParameters: {
@@ -53,10 +54,10 @@ describe("jobs_general should correctly generate stalker patrol jobs", () => {
 
     smartTerrain.defendRestrictor = "test_defend_restrictor";
 
-    const [jobsList, ltx] = createStalkerPatrolJobs(smartTerrain, new LuaTable());
+    const [jobs, builder] = createStalkerPatrolJobs(smartTerrain, new LuaTable(), new StringBuilder());
 
-    expect(ltx).toBe(jobsLtx);
-    expect(jobsList).toEqualLuaArrays(
+    expect(builder.build()).toBe(jobsLtx);
+    expect(jobs).toEqualLuaArrays(
       range(3).map(() => ({
         preconditionFunction: jobPreconditionPatrol,
         preconditionParameters: {
@@ -85,10 +86,10 @@ describe("jobs_general should correctly generate stalker patrol jobs", () => {
 
     jest.spyOn(smartTerrain, "name").mockImplementation(() => "test_smart");
 
-    const [jobsList, ltx] = createStalkerPatrolJobs(smartTerrain, new LuaTable());
+    const [jobs, builder] = createStalkerPatrolJobs(smartTerrain, new LuaTable(), new StringBuilder());
 
-    expect(ltx).toBe(jobsLtx);
-    expect(jobsList).toEqualLuaArrays(
+    expect(builder.build()).toBe(jobsLtx);
+    expect(jobs).toEqualLuaArrays(
       range(3).map(() => ({
         preconditionFunction: jobPreconditionPatrol,
         preconditionParameters: {
@@ -116,10 +117,10 @@ describe("jobs_general should correctly generate stalker patrol jobs", () => {
 
     registerZone(mockClientGameObject({ name: () => "safe_restrictor_test", inside: () => true }));
 
-    const [jobsList, ltx] = createStalkerPatrolJobs(smartTerrain, new LuaTable());
+    const [jobs, builder] = createStalkerPatrolJobs(smartTerrain, new LuaTable(), new StringBuilder());
 
-    expect(ltx).toBe(jobsLtx);
-    expect(jobsList).toEqualLuaArrays(
+    expect(builder.build()).toBe(jobsLtx);
+    expect(jobs).toEqualLuaArrays(
       range(3).map(() => ({
         preconditionFunction: jobPreconditionPatrol,
         preconditionParameters: {

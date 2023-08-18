@@ -4,24 +4,30 @@ import { SmartTerrain } from "@/engine/core/objects";
 import { IWaypointData, parseWaypointData } from "@/engine/core/utils/ini";
 import { isJobPatrolInRestrictor } from "@/engine/core/utils/job/job_check";
 import { jobPreconditionPatrol } from "@/engine/core/utils/job/job_precondition";
-import { EJobPathType, EJobType, ISmartTerrainJobDescriptor } from "@/engine/core/utils/job/job_types";
+import { EJobPathType, EJobType, TSmartTerrainJobsList } from "@/engine/core/utils/job/job_types";
+import { StringBuilder } from "@/engine/core/utils/string";
 import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
-import { LuaArray, Patrol, TCount, TIndex, TName } from "@/engine/lib/types";
+import { Patrol, TCount, TIndex, TName } from "@/engine/lib/types";
 
 /**
- * todo;
+ * Create patrol jobs for stalkers in smart terrain.
+ *
+ * @param smartTerrain - smart terrain to create default animpoint jobs for
+ * @param jobs - list of smart terrain jobs to insert into
+ * @param builder - builder of large ltx file
+ * @returns cover jobs list and updated string builder
  */
 export function createStalkerPatrolJobs(
   smartTerrain: SmartTerrain,
-  jobsList: LuaArray<ISmartTerrainJobDescriptor>
-): LuaMultiReturn<[LuaArray<ISmartTerrainJobDescriptor>, string]> {
+  jobs: TSmartTerrainJobsList,
+  builder: StringBuilder
+): LuaMultiReturn<[TSmartTerrainJobsList, StringBuilder]> {
   const smartTerrainName: TName = smartTerrain.name();
 
-  let ltx: string = "";
   let index: TIndex = 1;
 
-  while (level.patrol_path_exists(`${smartTerrainName}_patrol_${index}_walk`)) {
-    const wayName: TName = `${smartTerrainName}_patrol_${index}_walk`;
+  while (level.patrol_path_exists(string.format("%s_patrol_%s_walk", smartTerrainName, index))) {
+    const wayName: TName = string.format("%s_patrol_%s_walk", smartTerrainName, index);
     const ptr: Patrol = new patrol(wayName);
     const wpProp: IWaypointData = parseWaypointData(wayName, ptr.flags(0), ptr.name(0));
     let jobCount: TCount = 3;
@@ -31,11 +37,11 @@ export function createStalkerPatrolJobs(
     }
 
     for (const i of $range(1, jobCount)) {
-      table.insert(jobsList, {
+      table.insert(jobs, {
         type: EJobType.PATROL,
         isMonsterJob: false,
         priority: logicsConfig.JOBS.STALKER_PATROL.PRIORITY,
-        section: `logic@${wayName}`,
+        section: string.format("logic@%s", wayName),
         pathType: EJobPathType.PATH,
         preconditionParameters: {
           wayName,
@@ -44,33 +50,40 @@ export function createStalkerPatrolJobs(
       });
     }
 
-    let jobLtx: string =
-      `[logic@${wayName}]\n` +
-      `active = patrol@${wayName}\n` +
-      `[patrol@${wayName}]\n` +
-      "meet = meet@generic_lager\n" +
-      "formation = back\n" +
-      `path_walk = patrol_${index}_walk\n` +
-      "on_signal = end|%=search_gulag_job%\n";
+    builder.append(
+      string.format(
+        `[logic@%s]
+active = patrol@%s
+[patrol@%s]
+meet = meet@generic_lager
+formation = back
+path_walk = patrol_%s_walk
+on_signal = end|%%=search_gulag_job%%
+`,
+        wayName,
+        wayName,
+        wayName,
+        index
+      )
+    );
 
-    if (level.patrol_path_exists(`${smartTerrainName}_patrol_${index}_look`)) {
-      jobLtx += `path_look = patrol_${index}_look\n`;
+    if (level.patrol_path_exists(string.format("%s_patrol_%s_look", smartTerrainName, index))) {
+      builder.append(string.format("path_look = patrol_%s_look\n", index));
     }
 
     if (
       smartTerrain.safeRestrictor !== null &&
       isJobPatrolInRestrictor(smartTerrain, smartTerrain.safeRestrictor, wayName)
     ) {
-      jobLtx += "invulnerable = {=npc_in_zone(smart.safe_restr)} true\n";
+      builder.append("invulnerable = {=npc_in_zone(smart.safe_restr)} true\n");
     }
 
     if (smartTerrain.defendRestrictor !== null) {
-      jobLtx += `out_restr = ${smartTerrain.defendRestrictor}\n`;
+      builder.append(string.format("out_restr = %s\n", smartTerrain.defendRestrictor));
     }
 
-    ltx += jobLtx;
     index += 1;
   }
 
-  return $multi(jobsList, ltx);
+  return $multi(jobs, builder);
 }

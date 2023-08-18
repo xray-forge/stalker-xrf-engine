@@ -7,8 +7,14 @@ import { abort } from "@/engine/core/utils/assertion";
 import { createMonsterJobs } from "@/engine/core/utils/job/job_create/job_create_monster";
 import { createStalkerJobs } from "@/engine/core/utils/job/job_create/job_create_stalker";
 import { createExclusiveJobs } from "@/engine/core/utils/job/job_exclusive";
-import { EJobPathType, ISmartTerrainJobDescriptor, PATH_FIELDS } from "@/engine/core/utils/job/job_types";
+import {
+  EJobPathType,
+  ISmartTerrainJobDescriptor,
+  PATH_FIELDS,
+  TSmartTerrainJobsList,
+} from "@/engine/core/utils/job/job_types";
 import { LuaLogger } from "@/engine/core/utils/logging";
+import { StringBuilder } from "@/engine/core/utils/string";
 import { IniFile, LuaArray, Optional, TName, TNumberId, TSection } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -27,28 +33,24 @@ const logger: LuaLogger = new LuaLogger($filename);
  */
 export function createSmartTerrainJobs(
   smartTerrain: SmartTerrain
-): LuaMultiReturn<[LuaArray<ISmartTerrainJobDescriptor>, IniFile, TName]> {
+): LuaMultiReturn<[TSmartTerrainJobsList, IniFile, TName]> {
   logger.info("Create jobs for smart terrain:", smartTerrain.name());
 
-  let jobsLtxText: string = "";
-  const jobsList: LuaArray<ISmartTerrainJobDescriptor> = new LuaTable();
+  const builder: StringBuilder = new StringBuilder();
+  const jobs: LuaArray<ISmartTerrainJobDescriptor> = new LuaTable();
 
   // Exclusive jobs for smart terrain.
-  createExclusiveJobs(smartTerrain, jobsList);
+  createExclusiveJobs(smartTerrain, jobs);
 
   // Stalkers part.
-  const [, stalkerJobsLtx] = createStalkerJobs(smartTerrain, jobsList);
-
-  jobsLtxText += stalkerJobsLtx;
+  createStalkerJobs(smartTerrain, jobs, builder);
 
   // Monsters part.
-  const [, monsterLtx] = createMonsterJobs(smartTerrain, jobsList);
+  createMonsterJobs(smartTerrain, jobs, builder);
 
-  jobsLtxText += monsterLtx;
+  const [jobsConfig, jobsConfigName] = loadDynamicIni(smartTerrain.name(), builder.build());
 
-  const [jobsConfig, jobsConfigName] = loadDynamicIni(smartTerrain.name(), jobsLtxText);
-
-  for (const [, job] of jobsList) {
+  for (const [, job] of jobs) {
     const section: TSection = job.section;
     const ltx: IniFile = job.iniFile || jobsConfig;
 
@@ -69,12 +71,12 @@ export function createSmartTerrainJobs(
           }
         }
 
-        let pathName: TName = `${smartTerrain.name()}_${ltx.r_string(activeSection, pathField)}`;
+        let pathName: TName = string.format("%s_%s", smartTerrain.name(), ltx.r_string(activeSection, pathField));
 
         // todo: enumeration.
         if (pathField === "center_point") {
-          if (level.patrol_path_exists(pathName + "_task")) {
-            pathName += "_task";
+          if (level.patrol_path_exists(string.format("%s_task", pathName))) {
+            pathName = string.format("%s_task", pathName);
           }
         }
 
@@ -113,15 +115,15 @@ export function createSmartTerrainJobs(
   }
 
   // Sort tasks by priority.
-  table.sort(jobsList, (a: ISmartTerrainJobDescriptor, b: ISmartTerrainJobDescriptor) => a.priority > b.priority);
+  table.sort(jobs, (a: ISmartTerrainJobDescriptor, b: ISmartTerrainJobDescriptor) => a.priority > b.priority);
 
   // Create matching IDs links.
   let id: TNumberId = 1;
 
-  for (const [, jobDescriptor] of jobsList) {
+  for (const [, jobDescriptor] of jobs) {
     jobDescriptor.id = id;
     id += 1;
   }
 
-  return $multi(jobsList, jobsConfig, jobsConfigName);
+  return $multi(jobs, jobsConfig, jobsConfigName);
 }

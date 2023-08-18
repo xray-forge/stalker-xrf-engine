@@ -1,24 +1,23 @@
 import * as path from "path";
 
-import { describe, expect, it, jest } from "@jest/globals";
-import { level } from "xray16";
+import { describe, expect, it } from "@jest/globals";
 
 import { registerZone } from "@/engine/core/database";
 import { SmartTerrain, SmartTerrainControl } from "@/engine/core/objects";
 import { EJobPathType, EJobType } from "@/engine/core/utils/job";
 import { createStalkerSleepJobs } from "@/engine/core/utils/job/job_create/job_create_stalker_sleep";
 import { range } from "@/engine/core/utils/number";
-import { ServerHumanObject } from "@/engine/lib/types";
+import { StringBuilder } from "@/engine/core/utils/string";
 import { mockSmartTerrain, readInGameTestLtx } from "@/fixtures/engine";
-import { mockClientGameObject, MockCTime, mockServerAlifeHumanStalker } from "@/fixtures/xray";
+import { mockClientGameObject } from "@/fixtures/xray";
 
 describe("jobs_general should correctly generate stalkers sleep jobs", () => {
   it("should correctly generate sleep jobs for stalkers when no patrols exist", async () => {
     const smartTerrain: SmartTerrain = mockSmartTerrain("empty_smart");
-    const [jobsList, ltx] = createStalkerSleepJobs(smartTerrain, new LuaTable());
+    const [jobs, builder] = createStalkerSleepJobs(smartTerrain, new LuaTable(), new StringBuilder());
 
-    expect(ltx).toBe("");
-    expect(jobsList).toEqualLuaArrays([]);
+    expect(builder.build()).toBe("");
+    expect(jobs).toEqualLuaArrays([]);
   });
 
   it("should correctly generate sleep jobs for stalkers when patrols exist", async () => {
@@ -30,10 +29,10 @@ describe("jobs_general should correctly generate stalkers sleep jobs", () => {
 
     smartTerrain.defendRestrictor = null;
 
-    const [jobsList, ltx] = createStalkerSleepJobs(smartTerrain, new LuaTable());
+    const [jobs, builder] = createStalkerSleepJobs(smartTerrain, new LuaTable(), new StringBuilder());
 
-    expect(ltx).toBe(surgeJobsLtx);
-    expect(jobsList).toEqualLuaArrays(
+    expect(builder.build()).toBe(surgeJobsLtx);
+    expect(jobs).toEqualLuaArrays(
       range(2, 1).map((it) => ({
         preconditionFunction: expect.any(Function),
         preconditionParameters: {
@@ -58,10 +57,10 @@ describe("jobs_general should correctly generate stalkers sleep jobs", () => {
     smartTerrain.defendRestrictor = "def_restrictor_test";
     smartTerrain.smartTerrainActorControl = { ignoreZone: "test_ignore_zone" } as SmartTerrainControl;
 
-    const [jobsList, ltx] = createStalkerSleepJobs(smartTerrain, new LuaTable());
+    const [jobs, builder] = createStalkerSleepJobs(smartTerrain, new LuaTable(), new StringBuilder());
 
-    expect(ltx).toBe(surgeJobsLtx);
-    expect(jobsList).toEqualLuaArrays(
+    expect(builder.build()).toBe(surgeJobsLtx);
+    expect(jobs).toEqualLuaArrays(
       range(2, 1).map((it) => ({
         preconditionFunction: expect.any(Function),
         preconditionParameters: {
@@ -88,10 +87,10 @@ describe("jobs_general should correctly generate stalkers sleep jobs", () => {
     smartTerrain.defendRestrictor = "def_restrictor_test";
     smartTerrain.smartTerrainActorControl = { ignoreZone: "some_restrictor" } as SmartTerrainControl;
 
-    const [jobsList, ltx] = createStalkerSleepJobs(smartTerrain, new LuaTable());
+    const [jobs, builder] = createStalkerSleepJobs(smartTerrain, new LuaTable(), new StringBuilder());
 
-    expect(ltx).toBe(surgeJobsLtx);
-    expect(jobsList).toEqualLuaArrays(
+    expect(builder.build()).toBe(surgeJobsLtx);
+    expect(jobs).toEqualLuaArrays(
       range(2, 1).map((it) => ({
         preconditionFunction: expect.any(Function),
         preconditionParameters: {
@@ -118,10 +117,10 @@ describe("jobs_general should correctly generate stalkers sleep jobs", () => {
     smartTerrain.safeRestrictor = "safe_restrictor_test";
     smartTerrain.smartTerrainActorControl = { ignoreZone: "test_ignore_zone" } as SmartTerrainControl;
 
-    const [jobsList, ltx] = createStalkerSleepJobs(smartTerrain, new LuaTable());
+    const [jobs, builder] = createStalkerSleepJobs(smartTerrain, new LuaTable(), new StringBuilder());
 
-    expect(ltx).toBe(surgeJobsLtx);
-    expect(jobsList).toEqualLuaArrays(
+    expect(builder.build()).toBe(surgeJobsLtx);
+    expect(jobs).toEqualLuaArrays(
       range(2, 1).map((it) => ({
         preconditionFunction: expect.any(Function),
         preconditionParameters: {

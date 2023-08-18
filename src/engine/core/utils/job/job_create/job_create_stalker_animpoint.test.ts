@@ -1,26 +1,25 @@
 import * as path from "path";
 
-import { beforeEach, describe, expect, it, jest } from "@jest/globals";
+import { beforeEach, describe, expect, it } from "@jest/globals";
 
 import { registerSmartCover, registry } from "@/engine/core/database";
 import { SmartCover, SmartTerrain, SmartTerrainControl } from "@/engine/core/objects";
 import { EJobPathType, EJobType } from "@/engine/core/utils/job";
 import { createStalkerAnimpointJobs } from "@/engine/core/utils/job/job_create/job_create_stalker_animpoint";
-import { ServerHumanObject } from "@/engine/lib/types";
+import { StringBuilder } from "@/engine/core/utils/string";
 import { mockSmartCover, mockSmartTerrain, readInGameTestLtx } from "@/fixtures/engine";
-import { mockServerAlifeHumanStalker } from "@/fixtures/xray";
 
-describe("jobs_general should correctly generate stalker animpoint jobs", () => {
+describe("should correctly generate stalker animpoint jobs", () => {
   beforeEach(() => {
     registry.smartCovers = new LuaTable();
   });
 
   it("should correctly generate default animpoint jobs with no smart covers", async () => {
     const smartTerrain: SmartTerrain = mockSmartTerrain();
-    const [jobsList, ltx] = createStalkerAnimpointJobs(smartTerrain, new LuaTable());
+    const [jobs, builder] = createStalkerAnimpointJobs(smartTerrain, new LuaTable(), new StringBuilder());
 
-    expect(ltx).toBe("");
-    expect(jobsList).toEqualLuaArrays([]);
+    expect(builder.build()).toBe("");
+    expect(jobs).toEqualLuaArrays([]);
   });
 
   it("should correctly generate default animpoint jobs with available smart covers", async () => {
@@ -33,10 +32,10 @@ describe("jobs_general should correctly generate stalker animpoint jobs", () => 
 
     registerSmartCover(smartCover);
 
-    const [jobsList, ltx] = createStalkerAnimpointJobs(smartTerrain, new LuaTable());
+    const [jobs, builder] = createStalkerAnimpointJobs(smartTerrain, new LuaTable(), new StringBuilder());
 
-    expect(ltx).toBe(jobsLtx);
-    expect(jobsList).toEqualLuaArrays([
+    expect(builder.build()).toBe(jobsLtx);
+    expect(jobs).toEqualLuaArrays([
       {
         preconditionFunction: expect.any(Function),
         preconditionParameters: {},
@@ -61,10 +60,10 @@ describe("jobs_general should correctly generate stalker animpoint jobs", () => 
 
     registerSmartCover(smartCover);
 
-    const [jobsList, ltx] = createStalkerAnimpointJobs(smartTerrain, new LuaTable());
+    const [jobs, builder] = createStalkerAnimpointJobs(smartTerrain, new LuaTable(), new StringBuilder());
 
-    expect(ltx).toBe(jobsLtx);
-    expect(jobsList).toEqualLuaArrays([
+    expect(builder.build()).toBe(jobsLtx);
+    expect(jobs).toEqualLuaArrays([
       {
         preconditionFunction: expect.any(Function),
         preconditionParameters: {},
@@ -90,10 +89,10 @@ describe("jobs_general should correctly generate stalker animpoint jobs", () => 
 
     registerSmartCover(smartCover);
 
-    const [jobsList, ltx] = createStalkerAnimpointJobs(smartTerrain, new LuaTable());
+    const [jobs, builder] = createStalkerAnimpointJobs(smartTerrain, new LuaTable(), new StringBuilder());
 
-    expect(ltx).toBe(jobsLtx);
-    expect(jobsList).toEqualLuaArrays([
+    expect(builder.build()).toBe(jobsLtx);
+    expect(jobs).toEqualLuaArrays([
       {
         preconditionFunction: expect.any(Function),
         preconditionParameters: {},

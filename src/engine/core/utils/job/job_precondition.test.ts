@@ -31,6 +31,7 @@ import {
   jobPreconditionWalker,
 } from "@/engine/core/utils/job/job_precondition";
 import { IObjectJobDescriptor } from "@/engine/core/utils/job/job_types";
+import { StringBuilder } from "@/engine/core/utils/string";
 import { AnyObject, ServerHumanObject } from "@/engine/lib/types";
 import { mockSmartCover, mockSmartTerrain } from "@/fixtures/engine";
 import { mockClientGameObject, MockCTime, mockServerAlifeHumanStalker } from "@/fixtures/xray";
@@ -40,8 +41,8 @@ describe("job_precondition utilities", () => {
     const smartTerrain: SmartTerrain = mockSmartTerrain();
     const stalker: ServerHumanObject = mockServerAlifeHumanStalker();
 
-    const [jobsList] = createStalkerWalkerJobs(smartTerrain, new LuaTable());
-    const parameters: AnyObject = jobsList.get(1).preconditionParameters as AnyObject;
+    const [jobs] = createStalkerWalkerJobs(smartTerrain, new LuaTable(), new StringBuilder());
+    const parameters: AnyObject = jobs.get(1).preconditionParameters as AnyObject;
 
     expect(jobPreconditionWalker(stalker, smartTerrain, parameters)).toBe(true);
 
@@ -69,8 +70,8 @@ describe("job_precondition utilities", () => {
     const smartTerrain: SmartTerrain = mockSmartTerrain();
     const stalker: ServerHumanObject = mockServerAlifeHumanStalker();
 
-    const [jobsList] = createStalkerWalkerJobs(smartTerrain, new LuaTable());
-    const parameters: AnyObject = jobsList.get(1).preconditionParameters as AnyObject;
+    const [jobs] = createStalkerWalkerJobs(smartTerrain, new LuaTable(), new StringBuilder());
+    const parameters: AnyObject = jobs.get(1).preconditionParameters as AnyObject;
 
     SurgeManager.getInstance().isStarted = true;
     expect(jobPreconditionSurge(stalker, smartTerrain, parameters)).toBe(true);
@@ -83,8 +84,8 @@ describe("job_precondition utilities", () => {
     const smartTerrain: SmartTerrain = mockSmartTerrain();
     const stalker: ServerHumanObject = mockServerAlifeHumanStalker();
 
-    const [jobsList] = createStalkerSniperJobs(smartTerrain, new LuaTable());
-    const parameters: AnyObject = jobsList.get(1).preconditionParameters as AnyObject;
+    const [jobs] = createStalkerSniperJobs(smartTerrain, new LuaTable(), new StringBuilder());
+    const parameters: AnyObject = jobs.get(1).preconditionParameters as AnyObject;
 
     registry.objects.set(stalker.id, { object: null } as unknown as IRegistryObjectState);
 
@@ -104,8 +105,8 @@ describe("job_precondition utilities", () => {
 
     registerSmartCover(smartCover);
 
-    const [jobsList] = createStalkerAnimpointJobs(smartTerrain, new LuaTable());
-    const parameters: AnyObject = jobsList.get(1).preconditionParameters as AnyObject;
+    const [jobs] = createStalkerAnimpointJobs(smartTerrain, new LuaTable(), new StringBuilder());
+    const parameters: AnyObject = jobs.get(1).preconditionParameters as AnyObject;
 
     expect(jobPreconditionAnimpoint(stalker, smartTerrain, { ...parameters, isSafeJob: null })).toBe(true);
 
@@ -120,8 +121,8 @@ describe("job_precondition utilities", () => {
     const smartTerrain: SmartTerrain = mockSmartTerrain();
     const stalker: ServerHumanObject = mockServerAlifeHumanStalker();
 
-    const [jobsList] = createStalkerCamperJobs(smartTerrain, new LuaTable());
-    const parameters: AnyObject = jobsList.get(1).preconditionParameters as AnyObject;
+    const [jobs] = createStalkerCamperJobs(smartTerrain, new LuaTable(), new StringBuilder());
+    const parameters: AnyObject = jobs.get(1).preconditionParameters as AnyObject;
 
     registry.objects.set(stalker.id, { object: null } as unknown as IRegistryObjectState);
     expect(jobPreconditionCamper(stalker, smartTerrain, parameters)).toBe(false);
@@ -134,8 +135,8 @@ describe("job_precondition utilities", () => {
     const smartTerrain: SmartTerrain = mockSmartTerrain();
     const stalker: ServerHumanObject = mockServerAlifeHumanStalker();
 
-    const [jobsList] = createStalkerCollectorJobs(smartTerrain, new LuaTable());
-    const parameters: AnyObject = jobsList.get(1).preconditionParameters as AnyObject;
+    const [jobs] = createStalkerCollectorJobs(smartTerrain, new LuaTable(), new StringBuilder());
+    const parameters: AnyObject = jobs.get(1).preconditionParameters as AnyObject;
 
     expect(jobPreconditionCollector(stalker, smartTerrain, parameters)).toBe(false);
 
@@ -157,8 +158,8 @@ describe("job_precondition utilities", () => {
     const smartTerrain: SmartTerrain = mockSmartTerrain();
     const stalker: ServerHumanObject = mockServerAlifeHumanStalker();
 
-    const [jobsList] = createStalkerGuardJobs(smartTerrain, new LuaTable());
-    const parameters: AnyObject = jobsList.get(1).preconditionParameters as AnyObject;
+    const [jobs] = createStalkerGuardJobs(smartTerrain, new LuaTable(), new StringBuilder());
+    const parameters: AnyObject = jobs.get(1).preconditionParameters as AnyObject;
 
     expect(jobPreconditionGuard(stalker, smartTerrain, parameters)).toBe(true);
 
@@ -182,8 +183,8 @@ describe("job_precondition utilities", () => {
     const smartTerrain: SmartTerrain = mockSmartTerrain();
     const stalker: ServerHumanObject = mockServerAlifeHumanStalker();
 
-    const [jobsList] = createStalkerGuardJobs(smartTerrain, new LuaTable());
-    const parameters: AnyObject = jobsList.get(2).preconditionParameters as AnyObject;
+    const [jobs] = createStalkerGuardJobs(smartTerrain, new LuaTable(), new StringBuilder());
+    const parameters: AnyObject = jobs.get(2).preconditionParameters as AnyObject;
 
     expect(jobPreconditionGuardFollower(stalker, smartTerrain, parameters, {} as IObjectJobDescriptor)).toBe(false);
     expect(
@@ -215,8 +216,8 @@ describe("job_precondition utilities", () => {
     const smartTerrain: SmartTerrain = mockSmartTerrain();
     const stalker: ServerHumanObject = mockServerAlifeHumanStalker();
 
-    const [jobsList] = createStalkerPatrolJobs(smartTerrain, new LuaTable());
-    const parameters: AnyObject = jobsList.get(1).preconditionParameters as AnyObject;
+    const [jobs] = createStalkerPatrolJobs(smartTerrain, new LuaTable(), new StringBuilder());
+    const parameters: AnyObject = jobs.get(1).preconditionParameters as AnyObject;
 
     expect(jobPreconditionPatrol(stalker, smartTerrain, {})).toBe(true);
 
@@ -240,8 +241,8 @@ describe("job_precondition utilities", () => {
     const smartTerrain: SmartTerrain = mockSmartTerrain();
     const stalker: ServerHumanObject = mockServerAlifeHumanStalker();
 
-    const [jobsList] = createStalkerSleepJobs(smartTerrain, new LuaTable());
-    const parameters: AnyObject = jobsList.get(1).preconditionParameters as AnyObject;
+    const [jobs] = createStalkerSleepJobs(smartTerrain, new LuaTable(), new StringBuilder());
+    const parameters: AnyObject = jobs.get(1).preconditionParameters as AnyObject;
 
     expect(jobPreconditionSleep(stalker, smartTerrain, { ...parameters, isSafeJob: null })).toBe(false);
 

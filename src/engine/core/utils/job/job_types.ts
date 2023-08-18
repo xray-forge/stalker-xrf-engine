@@ -110,4 +110,9 @@ export interface ISmartTerrainJobDescriptor {
 /**
  * todo;
  */
+export type TSmartTerrainJobsList = LuaArray<ISmartTerrainJobDescriptor>;
+
+/**
+ * todo;
+ */
 export const PATH_FIELDS: LuaArray<string> = $fromArray(["path_walk", "path_main", "path_home", "center_point"]);

@@ -7,6 +7,7 @@ import { SmartTerrain, SmartTerrainControl } from "@/engine/core/objects";
 import { EJobPathType, EJobType } from "@/engine/core/utils/job";
 import { createStalkerWalkerJobs } from "@/engine/core/utils/job/job_create/job_create_stalker_walker";
 import { jobPreconditionWalker } from "@/engine/core/utils/job/job_precondition";
+import { StringBuilder } from "@/engine/core/utils/string";
 import { mockSmartTerrain, readInGameTestLtx } from "@/fixtures/engine";
 import { mockClientGameObject } from "@/fixtures/xray";
 
@@ -14,10 +15,10 @@ describe("jobs_general should correctly generate stalker walker jobs", () => {
   it("should correctly generate default walker jobs with no patrols", async () => {
     const smartTerrain: SmartTerrain = mockSmartTerrain("test_smart_without_walker");
 
-    const [jobsList, ltx] = createStalkerWalkerJobs(smartTerrain, new LuaTable());
+    const [jobs, builder] = createStalkerWalkerJobs(smartTerrain, new LuaTable(), new StringBuilder());
 
-    expect(ltx).toBe("");
-    expect(jobsList).toEqualLuaArrays([]);
+    expect(builder.build()).toBe("");
+    expect(jobs).toEqualLuaArrays([]);
   });
 
   it("should correctly generate default walker jobs with test smart", async () => {
@@ -26,10 +27,10 @@ describe("jobs_general should correctly generate stalker walker jobs", () => {
     );
 
     const smartTerrain: SmartTerrain = mockSmartTerrain();
-    const [jobsList, ltx] = createStalkerWalkerJobs(smartTerrain, new LuaTable());
+    const [jobs, builder] = createStalkerWalkerJobs(smartTerrain, new LuaTable(), new StringBuilder());
 
-    expect(ltx).toBe(jobsLtx);
-    expect(jobsList).toEqualLuaArrays([
+    expect(builder.build()).toBe(jobsLtx);
+    expect(jobs).toEqualLuaArrays([
       {
         isMonsterJob: false,
         preconditionFunction: jobPreconditionWalker,
@@ -55,10 +56,10 @@ describe("jobs_general should correctly generate stalker walker jobs", () => {
 
     jest.spyOn(smartTerrain, "name").mockImplementation(() => "test_smart");
 
-    const [jobsList, ltx] = createStalkerWalkerJobs(smartTerrain, new LuaTable());
+    const [jobs, builder] = createStalkerWalkerJobs(smartTerrain, new LuaTable(), new StringBuilder());
 
-    expect(ltx).toBe(jobsLtx);
-    expect(jobsList).toEqualLuaArrays([
+    expect(builder.build()).toBe(jobsLtx);
+    expect(jobs).toEqualLuaArrays([
       {
         isMonsterJob: false,
         preconditionFunction: jobPreconditionWalker,
@@ -87,10 +88,10 @@ describe("jobs_general should correctly generate stalker walker jobs", () => {
 
     jest.spyOn(smartTerrain, "name").mockImplementation(() => "test_smart");
 
-    const [jobsList, ltx] = createStalkerWalkerJobs(smartTerrain, new LuaTable());
+    const [jobs, builder] = createStalkerWalkerJobs(smartTerrain, new LuaTable(), new StringBuilder());
 
-    expect(ltx).toBe(jobsLtx);
-    expect(jobsList).toEqualLuaArrays([
+    expect(builder.build()).toBe(jobsLtx);
+    expect(jobs).toEqualLuaArrays([
       {
         isMonsterJob: false,
         preconditionFunction: jobPreconditionWalker,
@@ -120,10 +121,10 @@ describe("jobs_general should correctly generate stalker walker jobs", () => {
 
     jest.spyOn(smartTerrain, "name").mockImplementation(() => "test_smart");
 
-    const [jobsList, ltx] = createStalkerWalkerJobs(smartTerrain, new LuaTable());
+    const [jobs, builder] = createStalkerWalkerJobs(smartTerrain, new LuaTable(), new StringBuilder());
 
-    expect(ltx).toBe(jobsLtx);
-    expect(jobsList).toEqualLuaArrays([
+    expect(builder.build()).toBe(jobsLtx);
+    expect(jobs).toEqualLuaArrays([
       {
         isMonsterJob: false,
         preconditionFunction: jobPreconditionWalker,

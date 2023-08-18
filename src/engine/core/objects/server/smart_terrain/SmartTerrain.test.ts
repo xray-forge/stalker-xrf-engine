@@ -16,6 +16,7 @@ import {
   MockCTime,
   mockIniFile,
   MockNetProcessor,
+  mockServerAlifeCreatureActor,
   mockServerAlifeHumanStalker,
 } from "@/fixtures/xray";
 
@@ -25,6 +26,8 @@ describe("SmartTerrain class generic logic", () => {
     registry.simulationObjects = new LuaTable();
     registry.storyLink.sidById = new LuaTable();
     registry.storyLink.idBySid = new LuaTable();
+
+    mockServerAlifeCreatureActor();
   });
 
   it("should correctly init default fields", () => {
@@ -35,7 +38,7 @@ describe("SmartTerrain class generic logic", () => {
     expect(smartTerrain.jobsConfigName).toBeUndefined();
 
     expect(smartTerrain.squadId).toBe(0);
-    expect(smartTerrain.level).toBe("");
+    expect(smartTerrain.isOnLevel).toBe(false);
     expect(smartTerrain.simulationRole).toBe(ESimulationTerrainRole.DEFAULT);
     expect(smartTerrain.smartTerrainDisplayedMapSpot).toBeNull();
     expect(smartTerrain.respawnSector).toBeNull();
@@ -85,7 +88,6 @@ describe("SmartTerrain class generic logic", () => {
 
     smartTerrain.on_before_register();
 
-    expect(smartTerrain.level).toBe("pripyat");
     expect(smartTerrain.simulationBoardManager.getSmartTerrainByName(smartTerrain.name())).toBe(smartTerrain);
     expect(smartTerrain.simulationBoardManager.getSmartTerrainPopulation(smartTerrain)).toBe(0);
   });
@@ -118,12 +120,11 @@ describe("SmartTerrain class generic logic", () => {
     expect(registry.storyLink.idBySid.get("test_smart_sid")).toBe(smartTerrain.id);
     expect(registry.storyLink.sidById.get(smartTerrain.id)).toBe("test_smart_sid");
 
-    expect(smartTerrain.level).toBe("pripyat");
-
     expect(registry.simulationObjects.length()).toBe(1);
     expect(registry.simulationObjects.get(smartTerrain.id)).toBe(smartTerrain);
     expect(smartTerrain.smartTerrainAlifeTask instanceof MockCALifeSmartTerrainTask).toBe(true);
     expect(smartTerrain.isRegistered).toBe(true);
+    expect(smartTerrain.isOnLevel).toBe(true);
     expect(smartTerrain.jobs).toBeDefined();
     expect(smartTerrain.registerDelayedObjects).toHaveBeenCalledTimes(1);
     expect(smartTerrain.nextCheckAt).toBe(4000);

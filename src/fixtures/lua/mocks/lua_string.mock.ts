@@ -17,6 +17,8 @@ export const mockString = {
       result = result.replace("%s", tostring(replacement));
     }
 
+    result = result.replace(/%%/g, "%");
+
     return result;
   },
   find: (target: string, pattern: string, startIndex?: number): Array<Optional<string | number>> => {

@@ -3,27 +3,30 @@ import { level, patrol } from "xray16";
 import { SmartTerrain } from "@/engine/core/objects";
 import { EStalkerState } from "@/engine/core/objects/animation";
 import { IWaypointData, parseWaypointData } from "@/engine/core/utils/ini";
-import { isAccessibleJob } from "@/engine/core/utils/job/job_check";
 import { jobPreconditionSniper } from "@/engine/core/utils/job/job_precondition";
-import { EJobPathType, EJobType, ISmartTerrainJobDescriptor } from "@/engine/core/utils/job/job_types";
+import { EJobPathType, EJobType, TSmartTerrainJobsList } from "@/engine/core/utils/job/job_types";
+import { StringBuilder } from "@/engine/core/utils/string";
 import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
-import { communities } from "@/engine/lib/constants/communities";
-import { AnyObject, LuaArray, Patrol, ServerHumanObject, TCount, TIndex, TName } from "@/engine/lib/types";
+import { Patrol, TIndex, TName } from "@/engine/lib/types";
 
 /**
- * todo;
+ * Create sniper jobs for stalkers in smart terrain.
+ *
+ * @param smartTerrain - smart terrain to create default animpoint jobs for
+ * @param jobs - list of smart terrain jobs to insert into
+ * @param builder - builder of large ltx file
+ * @returns cover jobs list and updated string builder
  */
 export function createStalkerSniperJobs(
   smartTerrain: SmartTerrain,
-  jobsList: LuaArray<ISmartTerrainJobDescriptor>
-): LuaMultiReturn<[LuaArray<ISmartTerrainJobDescriptor>, string]> {
+  jobs: TSmartTerrainJobsList,
+  builder: StringBuilder
+): LuaMultiReturn<[TSmartTerrainJobsList, StringBuilder]> {
   const smartTerrainName: TName = smartTerrain.name();
-
-  let ltx: string = "";
   let index: TIndex = 1;
 
-  while (level.patrol_path_exists(`${smartTerrainName}_sniper_${index}_walk`)) {
-    const wayName: TName = `${smartTerrainName}_sniper_${index}_walk`;
+  while (level.patrol_path_exists(string.format("%s_sniper_%s_walk", smartTerrainName, index))) {
+    const wayName: TName = string.format("%s_sniper_%s_walk", smartTerrainName, index);
     const ptr: Patrol = new patrol(wayName);
     const wpProp: IWaypointData = parseWaypointData(wayName, ptr.flags(0), ptr.name(0));
     let state: TName = EStalkerState.HIDE;
@@ -35,34 +38,44 @@ export function createStalkerSniperJobs(
       }
     }
 
-    table.insert(jobsList, {
+    table.insert(jobs, {
       type: EJobType.SNIPER,
       isMonsterJob: false,
       priority: logicsConfig.JOBS.STALKER_SNIPER.PRIORITY,
-      section: `logic@${wayName}`,
+      section: string.format("logic@%s", wayName),
       pathType: EJobPathType.PATH,
       preconditionParameters: { wayName: wayName },
       preconditionFunction: jobPreconditionSniper,
     });
 
-    let jobLtx: string =
-      `[logic@${wayName}]\n` +
-      `active = camper@${wayName}\n` +
-      `[camper@${wayName}]\n` +
-      "meet = meet@generic_lager\n" +
-      `path_walk = sniper_${index}_walk\n` +
-      `path_look = sniper_${index}_look\n` +
-      "sniper = true\n" +
-      `def_state_campering = ${state}\n` +
-      `def_state_campering_fire = ${state}_fire\n`;
+    builder.append(
+      string.format(
+        `[logic@%s]
+active = camper@%s
+[camper@%s]
+meet = meet@generic_lager
+path_walk = sniper_%s_walk
+path_look = sniper_%s_look
+sniper = true
+def_state_campering = %s
+def_state_campering_fire = %s_fire
+`,
+        wayName,
+        wayName,
+        wayName,
+        index,
+        index,
+        state,
+        state
+      )
+    );
 
     if (smartTerrain.defendRestrictor !== null) {
-      jobLtx += `out_restr = ${smartTerrain.defendRestrictor}\n`;
+      builder.append(string.format("out_restr = %s\n", smartTerrain.defendRestrictor));
     }
 
-    ltx += jobLtx;
     index += 1;
   }
 
-  return $multi(jobsList, ltx);
+  return $multi(jobs, builder);
 }

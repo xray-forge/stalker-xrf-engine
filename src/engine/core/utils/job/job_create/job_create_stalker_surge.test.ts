@@ -1,6 +1,6 @@
 import * as path from "path";
 
-import { describe, expect, it, jest } from "@jest/globals";
+import { describe, expect, it } from "@jest/globals";
 
 import { registerZone } from "@/engine/core/database";
 import { SmartTerrain, SmartTerrainControl } from "@/engine/core/objects";
@@ -8,6 +8,7 @@ import { EJobPathType, EJobType } from "@/engine/core/utils/job";
 import { createStalkerSurgeJobs } from "@/engine/core/utils/job/job_create/job_create_stalker_surge";
 import { jobPreconditionSurge } from "@/engine/core/utils/job/job_precondition";
 import { range } from "@/engine/core/utils/number";
+import { StringBuilder } from "@/engine/core/utils/string";
 import { mockSmartTerrain, readInGameTestLtx } from "@/fixtures/engine";
 import { mockClientGameObject } from "@/fixtures/xray";
 
@@ -15,10 +16,10 @@ describe("jobs_general should correctly generate stalkers surge jobs", () => {
   it("should correctly generate surge jobs for stalkers when no patrols exist", async () => {
     const smartTerrain: SmartTerrain = mockSmartTerrain("test_surge_paths_smart");
 
-    const [jobsList, ltx] = createStalkerSurgeJobs(smartTerrain, new LuaTable());
+    const [jobs, builder] = createStalkerSurgeJobs(smartTerrain, new LuaTable(), new StringBuilder());
 
-    expect(ltx).toBe("");
-    expect(jobsList).toEqualLuaArrays([]);
+    expect(builder.build()).toBe("");
+    expect(jobs).toEqualLuaArrays([]);
   });
 
   it("should correctly generate surge jobs for stalkers when patrols exist", async () => {
@@ -29,10 +30,10 @@ describe("jobs_general should correctly generate stalkers surge jobs", () => {
 
     smartTerrain.defendRestrictor = null;
 
-    const [jobsList, ltx] = createStalkerSurgeJobs(smartTerrain, new LuaTable());
+    const [jobs, builder] = createStalkerSurgeJobs(smartTerrain, new LuaTable(), new StringBuilder());
 
-    expect(ltx).toBe(surgeJobsLtx);
-    expect(jobsList).toEqualLuaArrays(
+    expect(builder.build()).toBe(surgeJobsLtx);
+    expect(jobs).toEqualLuaArrays(
       range(3, 1).map((it) => ({
         preconditionFunction: jobPreconditionSurge,
         preconditionParameters: {},
@@ -54,10 +55,10 @@ describe("jobs_general should correctly generate stalkers surge jobs", () => {
     smartTerrain.defendRestrictor = "def_restrictor_test";
     smartTerrain.smartTerrainActorControl = { ignoreZone: "test_ignore_zone" } as SmartTerrainControl;
 
-    const [jobsList, ltx] = createStalkerSurgeJobs(smartTerrain, new LuaTable());
+    const [jobs, builder] = createStalkerSurgeJobs(smartTerrain, new LuaTable(), new StringBuilder());
 
-    expect(ltx).toBe(surgeJobsLtx);
-    expect(jobsList).toEqualLuaArrays(
+    expect(builder.build()).toBe(surgeJobsLtx);
+    expect(jobs).toEqualLuaArrays(
       range(3, 1).map((it) => ({
         preconditionFunction: jobPreconditionSurge,
         preconditionParameters: {},
@@ -81,10 +82,10 @@ describe("jobs_general should correctly generate stalkers surge jobs", () => {
     smartTerrain.defendRestrictor = "def_restrictor_test";
     smartTerrain.smartTerrainActorControl = { ignoreZone: "some_restrictor" } as SmartTerrainControl;
 
-    const [jobsList, ltx] = createStalkerSurgeJobs(smartTerrain, new LuaTable());
+    const [jobs, builder] = createStalkerSurgeJobs(smartTerrain, new LuaTable(), new StringBuilder());
 
-    expect(ltx).toBe(surgeJobsLtx);
-    expect(jobsList).toEqualLuaArrays(
+    expect(builder.build()).toBe(surgeJobsLtx);
+    expect(jobs).toEqualLuaArrays(
       range(3, 1).map((it) => ({
         preconditionFunction: jobPreconditionSurge,
         preconditionParameters: {},

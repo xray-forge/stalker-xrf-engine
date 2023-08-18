@@ -1,12 +1,16 @@
-import { describe, expect, it, jest } from "@jest/globals";
+import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 
 import { SmartTerrain } from "@/engine/core/objects";
 import { EJobPathType, EJobType } from "@/engine/core/utils/job";
 import { MAX_U16 } from "@/engine/lib/constants/memory";
 import { AnyObject, ServerHumanObject, ServerMonsterBaseObject } from "@/engine/lib/types";
-import { mockServerAlifeHumanStalker, mockServerAlifeMonsterBase } from "@/fixtures/xray";
+import { mockServerAlifeCreatureActor, mockServerAlifeHumanStalker, mockServerAlifeMonsterBase } from "@/fixtures/xray";
 
 describe("SmartTerrain class jobs logic", () => {
+  beforeEach(() => {
+    mockServerAlifeCreatureActor();
+  });
+
   it("should correctly create jobs on register", () => {
     const smartTerrain: SmartTerrain = new SmartTerrain("test_smart");
 
@@ -46,6 +50,9 @@ describe("SmartTerrain class jobs logic", () => {
     jest.spyOn(smartTerrain, "name").mockImplementation(() => "test_smart");
 
     expect(stalker.m_smart_terrain_id).toBe(MAX_U16);
+
+    (stalker as AnyObject).m_game_vertex_id = 400;
+    (stalker as AnyObject).m_level_vertex_id = 401;
 
     smartTerrain.on_register();
     smartTerrain.register_npc(stalker);
@@ -273,7 +280,7 @@ describe("SmartTerrain class jobs logic", () => {
         isMonsterJob: true,
         alifeTask: {
           gameVertexId: 512,
-          levelVertexId: 250,
+          levelVertexId: 255,
           taskPosition: {
             x: 1,
             y: 2,

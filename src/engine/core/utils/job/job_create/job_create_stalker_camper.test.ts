@@ -6,17 +6,18 @@ import { IRegistryObjectState, registerObject, registry } from "@/engine/core/da
 import { SmartTerrain } from "@/engine/core/objects";
 import { EJobPathType, EJobType } from "@/engine/core/utils/job";
 import { createStalkerCamperJobs } from "@/engine/core/utils/job/job_create/job_create_stalker_camper";
+import { StringBuilder } from "@/engine/core/utils/string";
 import { ServerHumanObject } from "@/engine/lib/types";
 import { mockSmartTerrain, readInGameTestLtx } from "@/fixtures/engine";
 import { mockClientGameObject, mockServerAlifeHumanStalker } from "@/fixtures/xray";
 
-describe("jobs_general should correctly generate stalker camper jobs", () => {
+describe("should correctly generate stalker camper jobs", () => {
   it("should correctly generate default camper jobs with no camp patrols", async () => {
     const smartTerrain: SmartTerrain = mockSmartTerrain("empty_smart");
-    const [jobsList, ltx] = createStalkerCamperJobs(smartTerrain, new LuaTable());
+    const [jobs, builder] = createStalkerCamperJobs(smartTerrain, new LuaTable(), new StringBuilder());
 
-    expect(ltx).toBe("");
-    expect(jobsList).toEqualLuaArrays([]);
+    expect(builder.build()).toBe("");
+    expect(jobs).toEqualLuaArrays([]);
   });
 
   it("should correctly generate default camper jobs with test smart", async () => {
@@ -25,10 +26,10 @@ describe("jobs_general should correctly generate stalker camper jobs", () => {
     );
 
     const smartTerrain: SmartTerrain = mockSmartTerrain();
-    const [jobsList, ltx] = createStalkerCamperJobs(smartTerrain, new LuaTable());
+    const [jobs, builder] = createStalkerCamperJobs(smartTerrain, new LuaTable(), new StringBuilder());
 
-    expect(ltx).toBe(jobsLtx);
-    expect(jobsList).toEqualLuaArrays([
+    expect(builder.build()).toBe(jobsLtx);
+    expect(jobs).toEqualLuaArrays([
       {
         preconditionFunction: expect.any(Function),
         preconditionParameters: {
@@ -52,10 +53,10 @@ describe("jobs_general should correctly generate stalker camper jobs", () => {
 
     smartTerrain.defendRestrictor = "test_defend_restrictor";
 
-    const [jobsList, ltx] = createStalkerCamperJobs(smartTerrain, new LuaTable());
+    const [jobs, builder] = createStalkerCamperJobs(smartTerrain, new LuaTable(), new StringBuilder());
 
-    expect(ltx).toBe(jobsLtx);
-    expect(jobsList).toEqualLuaArrays([
+    expect(builder.build()).toBe(jobsLtx);
+    expect(jobs).toEqualLuaArrays([
       {
         preconditionFunction: expect.any(Function),
         preconditionParameters: {

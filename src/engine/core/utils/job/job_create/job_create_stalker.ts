@@ -1,3 +1,5 @@
+/* eslint max-len: 0 */
+
 import { SmartTerrain } from "@/engine/core/objects";
 import { createStalkerAnimpointJobs } from "@/engine/core/utils/job/job_create/job_create_stalker_animpoint";
 import { createStalkerCamperJobs } from "@/engine/core/utils/job/job_create/job_create_stalker_camper";
@@ -9,140 +11,69 @@ import { createStalkerSleepJobs } from "@/engine/core/utils/job/job_create/job_c
 import { createStalkerSniperJobs } from "@/engine/core/utils/job/job_create/job_create_stalker_sniper";
 import { createStalkerSurgeJobs } from "@/engine/core/utils/job/job_create/job_create_stalker_surge";
 import { createStalkerWalkerJobs } from "@/engine/core/utils/job/job_create/job_create_stalker_walker";
-import { ISmartTerrainJobDescriptor } from "@/engine/core/utils/job/job_types";
-import { LuaArray } from "@/engine/lib/types";
+import { TSmartTerrainJobsList } from "@/engine/core/utils/job/job_types";
+import { StringBuilder } from "@/engine/core/utils/string";
 
 /**
- * todo;
+ * Create list of jobs for stalkers in smart terrain.
+ *
+ * @param smartTerrain - smart terrain to create default animpoint jobs for
+ * @param jobs - list of smart terrain jobs to insert into
+ * @param builder - builder of large ltx file
+ * @returns cover jobs list and updated string builder
  */
 export function createStalkerJobs(
   smartTerrain: SmartTerrain,
-  jobsList: LuaArray<ISmartTerrainJobDescriptor>
-): LuaMultiReturn<[LuaArray<ISmartTerrainJobDescriptor>, string]> {
-  let ltx: string =
-    "[meet@generic_lager]\n" +
-    "close_distance = {=is_wounded} 0, 2\n" +
-    "close_anim = {=is_wounded} nil, {!is_squad_commander} nil, {=actor_has_weapon} threat_na, talk_default\n" +
-    "close_snd_hello = {=is_wounded} nil, {!is_squad_commander} nil, {=actor_enemy} nil," +
-    " {=actor_has_weapon} meet_hide_weapon, meet_hello\n" +
-    "close_snd_bye = {=is_wounded} nil, {!is_squad_commander} nil," +
-    " {=actor_enemy} nil, {=actor_has_weapon} nil, meet_hello\n" +
-    "close_victim = {=is_wounded} nil, {!is_squad_commander} nil, actor\n" +
-    "far_distance = 0\n" +
-    "far_anim = nil\n" +
-    "far_snd = nil\n" +
-    "far_victim = nil\n" +
-    "use = {=is_wounded} false, {!is_squad_commander} false, {=actor_enemy} false, {=has_enemy} false," +
-    " {=actor_has_weapon} false, {=dist_to_actor_le(3)} true, false\n" +
-    "snd_on_use = {=is_wounded} nil, {=actor_enemy} nil, {!is_squad_commander} meet_use_no_talk_leader," +
-    " {=actor_has_weapon} meet_use_no_weapon, {=has_enemy} meet_use_no_fight," +
-    " {=dist_to_actor_le(3)} meet_use_no_default, nil\n" +
-    "meet_dialog = nil\n" +
-    "abuse = {=has_enemy} false, true\n" +
-    "trade_enable = true\n" +
-    "allow_break = true\n" +
-    "use_text = nil\n" +
-    "[meet@generic_animpoint]\n" +
-    "close_distance = 0\n" +
-    "close_anim = {!is_squad_commander} nil, nil\n" +
-    "close_snd_hello = {!is_squad_commander} nil, nil\n" +
-    "close_snd_bye = {!is_squad_commander} nil, nil\n" +
-    "close_victim = {!is_squad_commander} nil, nil\n" +
-    "far_distance = 0\n" +
-    "far_anim = nil\n" +
-    "far_snd = nil\n" +
-    "far_victim = nil\n" +
-    "use = {=is_wounded} false, {!is_squad_commander} false, {=actor_enemy} false, {=has_enemy} false," +
-    " {=actor_has_weapon} false, {=dist_to_actor_le(3)} true, false\n" +
-    "snd_on_use = {=is_wounded} nil, {=actor_enemy} nil, {!is_squad_commander} meet_use_no_talk_leader," +
-    " {=actor_has_weapon} meet_use_no_weapon, {=has_enemy} meet_use_no_fight," +
-    " {=dist_to_actor_le(3)} meet_use_no_default, nil\n" +
-    "meet_dialog = nil\n" +
-    "abuse = {=has_enemy} false, true\n" +
-    "trade_enable = true\n" +
-    "allow_break = true\n" +
-    "meet_on_talking = false\n" +
-    "use_text = nil\n";
+  jobs: TSmartTerrainJobsList,
+  builder: StringBuilder
+): LuaMultiReturn<[TSmartTerrainJobsList, StringBuilder]> {
+  builder.append(`[meet@generic_lager]
+close_distance = {=is_wounded} 0, 2
+close_anim = {=is_wounded} nil, {!is_squad_commander} nil, {=actor_has_weapon} threat_na, talk_default
+close_snd_hello = {=is_wounded} nil, {!is_squad_commander} nil, {=actor_enemy} nil, {=actor_has_weapon} meet_hide_weapon, meet_hello
+close_snd_bye = {=is_wounded} nil, {!is_squad_commander} nil, {=actor_enemy} nil, {=actor_has_weapon} nil, meet_hello
+close_victim = {=is_wounded} nil, {!is_squad_commander} nil, actor
+far_distance = 0
+far_anim = nil
+far_snd = nil
+far_victim = nil
+use = {=is_wounded} false, {!is_squad_commander} false, {=actor_enemy} false, {=has_enemy} false, {=actor_has_weapon} false, {=dist_to_actor_le(3)} true, false
+snd_on_use = {=is_wounded} nil, {=actor_enemy} nil, {!is_squad_commander} meet_use_no_talk_leader, {=actor_has_weapon} meet_use_no_weapon, {=has_enemy} meet_use_no_fight, {=dist_to_actor_le(3)} meet_use_no_default, nil
+meet_dialog = nil
+abuse = {=has_enemy} false, true
+trade_enable = true
+allow_break = true
+use_text = nil
+[meet@generic_animpoint]
+close_distance = 0
+close_anim = {!is_squad_commander} nil, nil
+close_snd_hello = {!is_squad_commander} nil, nil
+close_snd_bye = {!is_squad_commander} nil, nil
+close_victim = {!is_squad_commander} nil, nil
+far_distance = 0
+far_anim = nil
+far_snd = nil
+far_victim = nil
+use = {=is_wounded} false, {!is_squad_commander} false, {=actor_enemy} false, {=has_enemy} false, {=actor_has_weapon} false, {=dist_to_actor_le(3)} true, false
+snd_on_use = {=is_wounded} nil, {=actor_enemy} nil, {!is_squad_commander} meet_use_no_talk_leader, {=actor_has_weapon} meet_use_no_weapon, {=has_enemy} meet_use_no_fight, {=dist_to_actor_le(3)} meet_use_no_default, nil
+meet_dialog = nil
+abuse = {=has_enemy} false, true
+trade_enable = true
+allow_break = true
+meet_on_talking = false
+use_text = nil
+`);
 
-  // ===================================================================================================================
-  // = Surge
-  // ===================================================================================================================
+  createStalkerSurgeJobs(smartTerrain, jobs, builder);
+  createStalkerCamperJobs(smartTerrain, jobs, builder);
+  createStalkerSniperJobs(smartTerrain, jobs, builder);
+  createStalkerCollectorJobs(smartTerrain, jobs, builder);
+  createStalkerGuardJobs(smartTerrain, jobs, builder);
+  createStalkerPatrolJobs(smartTerrain, jobs, builder);
+  createStalkerWalkerJobs(smartTerrain, jobs, builder);
+  createStalkerAnimpointJobs(smartTerrain, jobs, builder);
+  createStalkerSleepJobs(smartTerrain, jobs, builder);
+  createStalkerPointJobs(smartTerrain, jobs, builder);
 
-  const [, stalkerSurgeLtx] = createStalkerSurgeJobs(smartTerrain, jobsList);
-
-  ltx += stalkerSurgeLtx;
-
-  // ===================================================================================================================
-  // = Camper
-  // ===================================================================================================================
-
-  const [, stalkerCamperLtx] = createStalkerCamperJobs(smartTerrain, jobsList);
-
-  ltx += stalkerCamperLtx;
-
-  // ===================================================================================================================
-  // = Sniper
-  // ===================================================================================================================
-
-  const [, stalkerSniperLtx] = createStalkerSniperJobs(smartTerrain, jobsList);
-
-  ltx += stalkerSniperLtx;
-
-  // ===================================================================================================================
-  // = Collector
-  // ===================================================================================================================
-
-  const [, stalkerCollectorLtx] = createStalkerCollectorJobs(smartTerrain, jobsList);
-
-  ltx += stalkerCollectorLtx;
-
-  // ===================================================================================================================
-  // = Guard
-  // ===================================================================================================================
-
-  const [, stalkerGuardLtx] = createStalkerGuardJobs(smartTerrain, jobsList);
-
-  ltx += stalkerGuardLtx;
-
-  // ===================================================================================================================
-  // = Patrol
-  // ===================================================================================================================
-
-  const [, stalkerPatrolLtx] = createStalkerPatrolJobs(smartTerrain, jobsList);
-
-  ltx += stalkerPatrolLtx;
-
-  // ===================================================================================================================
-  // = Walker
-  // ===================================================================================================================
-
-  const [, stalkerWalkerLtx] = createStalkerWalkerJobs(smartTerrain, jobsList);
-
-  ltx += stalkerWalkerLtx;
-
-  // ===================================================================================================================
-  // = Animpoint
-  // ===================================================================================================================
-
-  const [, stalkerAnimpointLtx] = createStalkerAnimpointJobs(smartTerrain, jobsList);
-
-  ltx += stalkerAnimpointLtx;
-
-  // ===================================================================================================================
-  // = Sleep
-  // ===================================================================================================================
-
-  const [, stalkerSleepLtx] = createStalkerSleepJobs(smartTerrain, jobsList);
-
-  ltx += stalkerSleepLtx;
-
-  // ===================================================================================================================
-  // = Point job
-  // ===================================================================================================================
-
-  const [, stalkerPointLtx] = createStalkerPointJobs(smartTerrain, jobsList);
-
-  ltx += stalkerPointLtx;
-
-  return $multi(jobsList, ltx);
+  return $multi(jobs, builder);
 }

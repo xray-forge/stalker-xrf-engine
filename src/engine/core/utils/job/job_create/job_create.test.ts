@@ -1,6 +1,6 @@
 import * as path from "path";
 
-import { describe, expect, it } from "@jest/globals";
+import { beforeEach, describe, expect, it } from "@jest/globals";
 
 import { registerSmartCover } from "@/engine/core/database";
 import { SmartCover, SmartTerrain } from "@/engine/core/objects";
@@ -21,7 +21,7 @@ import {
 import { range } from "@/engine/core/utils/number";
 import { AnyObject } from "@/engine/lib/types";
 import { mockSmartCover, mockSmartTerrain, readInGameTestLtx } from "@/fixtures/engine";
-import { MockIniFile } from "@/fixtures/xray";
+import { MockIniFile, mockServerAlifeCreatureActor } from "@/fixtures/xray";
 
 describe("jobs_create should correctly generate default jobs", () => {
   const getSmartTerrainTaskDetails = () => ({
@@ -29,6 +29,10 @@ describe("jobs_create should correctly generate default jobs", () => {
     gameVertexId: expect.any(Number),
     levelId: expect.any(Number),
     position: expect.any(Object),
+  });
+
+  beforeEach(() => {
+    mockServerAlifeCreatureActor();
   });
 
   it("should correctly generate default jobs", async () => {

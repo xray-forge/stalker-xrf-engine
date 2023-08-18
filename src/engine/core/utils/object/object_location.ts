@@ -1,4 +1,4 @@
-import { alife, device, game_graph, level, sound_object } from "xray16";
+import { alife, CGameGraph, device, game_graph, level, sound_object } from "xray16";
 
 import { registry } from "@/engine/core/database";
 import { SmartTerrain } from "@/engine/core/objects";
@@ -99,9 +99,9 @@ export function isDistanceBetweenObjectsLessOrEqual(
  * @returns whether objects are on same level
  */
 export function areObjectsOnSameLevel(first: ServerObject, second: ServerObject): boolean {
-  return (
-    game_graph().vertex(first.m_game_vertex_id).level_id() === game_graph().vertex(second.m_game_vertex_id).level_id()
-  );
+  const graph: CGameGraph = game_graph();
+
+  return graph.vertex(first.m_game_vertex_id).level_id() === graph.vertex(second.m_game_vertex_id).level_id();
 }
 
 /**
