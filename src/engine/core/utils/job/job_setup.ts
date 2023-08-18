@@ -2,7 +2,7 @@ import { alife } from "xray16";
 
 import { IRegistryObjectState } from "@/engine/core/database";
 import { SmartTerrain } from "@/engine/core/objects";
-import { TJobDescriptor } from "@/engine/core/utils/job/job_types";
+import { ISmartTerrainJobDescriptor } from "@/engine/core/utils/job/job_types";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { initializeObjectSchemeLogic } from "@/engine/core/utils/scheme";
 import { MAX_U16 } from "@/engine/lib/constants/memory";
@@ -31,7 +31,7 @@ export function setupObjectSmartJobsAndLogicOnSpawn(
   schemeType: ESchemeType,
   isLoaded: boolean
 ): void {
-  logger.info("Setup smart terrain logic on spawn:", object.name(), schemeType);
+  // logger.info("Setup smart terrain logic on spawn:", object.name(), schemeType);
 
   const alifeSimulator: Optional<AlifeSimulator> = alife();
   const serverObject: Optional<ServerCreatureObject> = alife()!.object(object.id());
@@ -49,26 +49,11 @@ export function setupObjectSmartJobsAndLogicOnSpawn(
   const needSetupLogic: boolean =
     !isLoaded &&
     smartTerrain.objectJobDescriptors.get(object.id()) &&
-    smartTerrain.objectJobDescriptors.get(object.id()).jobBegun === true;
+    smartTerrain.objectJobDescriptors.get(object.id()).isBegun === true;
 
   if (needSetupLogic) {
     smartTerrain.setupObjectJobLogic(object);
   } else {
     initializeObjectSchemeLogic(object, state, isLoaded, schemeType);
   }
-}
-
-/**
- * Sort jobs list by priority.
- *
- * @param jobs - jobs list to sort
- */
-export function sortJobsByPriority(jobs: LuaArray<TJobDescriptor>): void {
-  for (const [, descriptor] of jobs) {
-    if ("jobs" in descriptor) {
-      sortJobsByPriority(descriptor.jobs);
-    }
-  }
-
-  table.sort(jobs, (a: TJobDescriptor, b: TJobDescriptor) => a.priority > b.priority);
 }

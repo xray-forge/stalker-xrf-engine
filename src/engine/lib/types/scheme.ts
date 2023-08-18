@@ -113,30 +113,3 @@ export enum ESchemeCondition {
   // Check whether distance is less/equal than parameter, do not check visibility or object state.
   ON_ACTOR_DISTANCE_LESS_THAN_NOT_VISIBLE = "on_actor_dist_le_nvis",
 }
-
-/**
- * Enumeration describing smart terrains jobs.
- */
-export enum EJobType {
-  PATH_JOB = "path_job",
-  POINT_JOB = "point_job",
-  SMART_COVER_JOB = "smartcover_job",
-}
-
-/**
- * Map describing job types for default logics schemes.
- */
-export const JobTypeByScheme: PartialRecord<EScheme, EJobType> = {
-  [EScheme.WALKER]: EJobType.PATH_JOB,
-  [EScheme.CAMPER]: EJobType.PATH_JOB,
-  [EScheme.PATROL]: EJobType.PATH_JOB,
-  [EScheme.ANIMPOINT]: EJobType.SMART_COVER_JOB,
-  [EScheme.SMARTCOVER]: EJobType.SMART_COVER_JOB,
-  [EScheme.REMARK]: EJobType.POINT_JOB,
-  [EScheme.COVER]: EJobType.POINT_JOB,
-  [EScheme.SLEEPER]: EJobType.PATH_JOB,
-  [EScheme.MOB_WALKER]: EJobType.PATH_JOB,
-  [EScheme.MOB_HOME]: EJobType.PATH_JOB,
-  [EScheme.MOB_JUMP]: EJobType.POINT_JOB,
-  [EScheme.COMPANION]: EJobType.POINT_JOB,
-} as const;

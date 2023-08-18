@@ -3,21 +3,23 @@ import { level } from "xray16";
 import { SmartTerrain } from "@/engine/core/objects";
 import { isInTimeInterval } from "@/engine/core/utils/game";
 import { isJobPatrolInRestrictor } from "@/engine/core/utils/job/job_check";
-import { IJobListDescriptor } from "@/engine/core/utils/job/job_types";
+import { jobPreconditionSleep } from "@/engine/core/utils/job/job_precondition";
+import { EJobPathType, EJobType, ISmartTerrainJobDescriptor } from "@/engine/core/utils/job/job_types";
 import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
 import { communities } from "@/engine/lib/constants/communities";
-import { AnyObject, EJobType, ServerHumanObject, TCount, TIndex, TName } from "@/engine/lib/types";
+import { AnyObject, LuaArray, ServerHumanObject, TCount, TIndex, TName } from "@/engine/lib/types";
 
 /**
  * Create sleep jobs for stalkers in smart terrain.
  *
  * @param smartTerrain - smart terrain to create default sleep jobs for
+ * @param jobsList - list of jobs to insert new data into
  * @returns surge jobs list, generated LTX and count of created jobs
  */
 export function createStalkerSleepJobs(
-  smartTerrain: SmartTerrain
-): LuaMultiReturn<[IJobListDescriptor, string, TCount]> {
-  const sleepJobs: IJobListDescriptor = { priority: logicsConfig.JOBS.STALKER_SLEEP.PRIORITY, jobs: new LuaTable() };
+  smartTerrain: SmartTerrain,
+  jobsList: LuaArray<ISmartTerrainJobDescriptor>
+): LuaMultiReturn<[LuaArray<ISmartTerrainJobDescriptor>, string]> {
   const smartTerrainName: TName = smartTerrain.name();
 
   let ltx: string = "";
@@ -26,34 +28,14 @@ export function createStalkerSleepJobs(
   while (level.patrol_path_exists(`${smartTerrainName}_sleep_${it}`)) {
     const wayName: TName = `${smartTerrainName}_sleep_${it}`;
 
-    table.insert(sleepJobs.jobs, {
+    table.insert(jobsList, {
+      type: EJobType.SLEEP,
+      isMonsterJob: false,
       priority: logicsConfig.JOBS.STALKER_SLEEP.PRIORITY,
-      jobId: {
-        section: `logic@${wayName}`,
-        jobType: EJobType.PATH_JOB,
-      },
-      preconditionParameters: {},
-      preconditionFunction: (
-        serverObject: ServerHumanObject,
-        smartTerrain: SmartTerrain,
-        parameters: AnyObject
-      ): boolean => {
-        if (serverObject.community() === communities.zombied) {
-          return false;
-        } else if (!isInTimeInterval(21, 7)) {
-          return false;
-        } else if (smartTerrain.alarmStartedAt === null) {
-          return true;
-        } else if (smartTerrain.safeRestrictor === null) {
-          return true;
-        }
-
-        if (parameters.is_safe_job === null) {
-          parameters.is_safe_job = isJobPatrolInRestrictor(smartTerrain, smartTerrain.safeRestrictor, wayName);
-        }
-
-        return parameters.is_safe_job !== false;
-      },
+      section: `logic@${wayName}`,
+      pathType: EJobPathType.PATH,
+      preconditionParameters: { wayName },
+      preconditionFunction: jobPreconditionSleep,
     });
 
     let jobLtx: string =
@@ -84,5 +66,5 @@ export function createStalkerSleepJobs(
     it += 1;
   }
 
-  return $multi(sleepJobs, ltx, it - 1);
+  return $multi(jobsList, ltx);
 }

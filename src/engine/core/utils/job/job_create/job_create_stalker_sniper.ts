@@ -4,21 +4,19 @@ import { SmartTerrain } from "@/engine/core/objects";
 import { EStalkerState } from "@/engine/core/objects/animation";
 import { IWaypointData, parseWaypointData } from "@/engine/core/utils/ini";
 import { isAccessibleJob } from "@/engine/core/utils/job/job_check";
-import { IJobListDescriptor } from "@/engine/core/utils/job/job_types";
+import { jobPreconditionSniper } from "@/engine/core/utils/job/job_precondition";
+import { EJobPathType, EJobType, ISmartTerrainJobDescriptor } from "@/engine/core/utils/job/job_types";
 import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
 import { communities } from "@/engine/lib/constants/communities";
-import { AnyObject, EJobType, Patrol, ServerHumanObject, TCount, TIndex, TName } from "@/engine/lib/types";
+import { AnyObject, LuaArray, Patrol, ServerHumanObject, TCount, TIndex, TName } from "@/engine/lib/types";
 
 /**
  * todo;
  */
 export function createStalkerSniperJobs(
-  smartTerrain: SmartTerrain
-): LuaMultiReturn<[IJobListDescriptor, string, TCount]> {
-  const stalkerDefSniper: IJobListDescriptor = {
-    priority: logicsConfig.JOBS.STALKER_SNIPER.PRIORITY,
-    jobs: new LuaTable(),
-  };
+  smartTerrain: SmartTerrain,
+  jobsList: LuaArray<ISmartTerrainJobDescriptor>
+): LuaMultiReturn<[LuaArray<ISmartTerrainJobDescriptor>, string]> {
   const smartTerrainName: TName = smartTerrain.name();
 
   let ltx: string = "";
@@ -37,16 +35,14 @@ export function createStalkerSniperJobs(
       }
     }
 
-    table.insert(stalkerDefSniper.jobs, {
+    table.insert(jobsList, {
+      type: EJobType.SNIPER,
+      isMonsterJob: false,
       priority: logicsConfig.JOBS.STALKER_SNIPER.PRIORITY,
-      jobId: {
-        section: `logic@${wayName}`,
-        jobType: EJobType.PATH_JOB,
-      },
+      section: `logic@${wayName}`,
+      pathType: EJobPathType.PATH,
       preconditionParameters: { wayName: wayName },
-      preconditionFunction: (serverObject: ServerHumanObject, smart: SmartTerrain, parameters: AnyObject): boolean => {
-        return serverObject.community() !== communities.zombied && isAccessibleJob(serverObject, parameters.wayName);
-      },
+      preconditionFunction: jobPreconditionSniper,
     });
 
     let jobLtx: string =
@@ -68,5 +64,5 @@ export function createStalkerSniperJobs(
     index += 1;
   }
 
-  return $multi(stalkerDefSniper, ltx, index - 1);
+  return $multi(jobsList, ltx);
 }

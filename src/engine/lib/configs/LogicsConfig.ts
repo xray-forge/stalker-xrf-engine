@@ -86,7 +86,7 @@ export const logicsConfig = {
     STALKER_JOB_PRIORITY: 60,
     MONSTER_JOB_PRIORITY: 50,
     MOB_HOME: {
-      PRIORITY: 40,
+      PRIORITY: 10,
       COUNT: 20,
       MIN_RADIUS: 10,
       MID_RADIUS: 20,

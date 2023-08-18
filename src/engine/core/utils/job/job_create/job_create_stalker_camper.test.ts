@@ -4,21 +4,19 @@ import { describe, expect, it, jest } from "@jest/globals";
 
 import { IRegistryObjectState, registerObject, registry } from "@/engine/core/database";
 import { SmartTerrain } from "@/engine/core/objects";
+import { EJobPathType, EJobType } from "@/engine/core/utils/job";
 import { createStalkerCamperJobs } from "@/engine/core/utils/job/job_create/job_create_stalker_camper";
 import { ServerHumanObject } from "@/engine/lib/types";
-import { readInGameTestLtx } from "@/fixtures/engine";
+import { mockSmartTerrain, readInGameTestLtx } from "@/fixtures/engine";
 import { mockClientGameObject, mockServerAlifeHumanStalker } from "@/fixtures/xray";
 
 describe("jobs_general should correctly generate stalker camper jobs", () => {
   it("should correctly generate default camper jobs with no camp patrols", async () => {
-    const smartTerrain: SmartTerrain = new SmartTerrain("test_smart");
-
-    jest.spyOn(smartTerrain, "name").mockImplementation(() => "test_smart_without_camps");
-
-    const [jobsList, ltx] = createStalkerCamperJobs(smartTerrain);
+    const smartTerrain: SmartTerrain = mockSmartTerrain("empty_smart");
+    const [jobsList, ltx] = createStalkerCamperJobs(smartTerrain, new LuaTable());
 
     expect(ltx).toBe("");
-    expect(jobsList).toEqualLuaTables({ priority: 45, jobs: $fromArray([]) });
+    expect(jobsList).toEqualLuaArrays([]);
   });
 
   it("should correctly generate default camper jobs with test smart", async () => {
@@ -26,30 +24,23 @@ describe("jobs_general should correctly generate stalker camper jobs", () => {
       path.resolve(__dirname, "__test__", "job_create_stalker_camper.default.ltx")
     );
 
-    const smartTerrain: SmartTerrain = new SmartTerrain("test_smart");
+    const smartTerrain: SmartTerrain = mockSmartTerrain();
+    const [jobsList, ltx] = createStalkerCamperJobs(smartTerrain, new LuaTable());
 
-    jest.spyOn(smartTerrain, "name").mockImplementation(() => "test_smart");
-
-    const [jobsList, ltx, count] = createStalkerCamperJobs(smartTerrain);
-
-    expect(count).toBe(1);
     expect(ltx).toBe(jobsLtx);
-    expect(jobsList).toEqualLuaTables({
-      priority: 45,
-      jobs: $fromArray([
-        {
-          preconditionFunction: expect.any(Function),
-          preconditionParameters: {
-            wayName: "test_smart_camper_1_walk",
-          },
-          jobId: {
-            jobType: "path_job",
-            section: "logic@test_smart_camper_1_walk",
-          },
-          priority: 45,
+    expect(jobsList).toEqualLuaArrays([
+      {
+        preconditionFunction: expect.any(Function),
+        preconditionParameters: {
+          wayName: "test_smart_camper_1_walk",
         },
-      ]),
-    });
+        isMonsterJob: false,
+        pathType: EJobPathType.PATH,
+        section: "logic@test_smart_camper_1_walk",
+        priority: 45,
+        type: EJobType.CAMPER,
+      },
+    ]);
   });
 
   it("should correctly generate default camper jobs with restrictor", async () => {
@@ -57,47 +48,25 @@ describe("jobs_general should correctly generate stalker camper jobs", () => {
       path.resolve(__dirname, "__test__", "job_create_stalker_camper.restrictor.ltx")
     );
 
-    const smartTerrain: SmartTerrain = new SmartTerrain("test_smart");
+    const smartTerrain: SmartTerrain = mockSmartTerrain();
 
     smartTerrain.defendRestrictor = "test_defend_restrictor";
 
-    jest.spyOn(smartTerrain, "name").mockImplementation(() => "test_smart");
+    const [jobsList, ltx] = createStalkerCamperJobs(smartTerrain, new LuaTable());
 
-    const [jobsList, ltx, count] = createStalkerCamperJobs(smartTerrain);
-
-    expect(count).toBe(1);
     expect(ltx).toBe(jobsLtx);
-    expect(jobsList).toEqualLuaTables({
-      priority: 45,
-      jobs: $fromArray([
-        {
-          preconditionFunction: expect.any(Function),
-          preconditionParameters: {
-            wayName: "test_smart_camper_1_walk",
-          },
-          jobId: {
-            jobType: "path_job",
-            section: "logic@test_smart_camper_1_walk",
-          },
-          priority: 45,
+    expect(jobsList).toEqualLuaArrays([
+      {
+        preconditionFunction: expect.any(Function),
+        preconditionParameters: {
+          wayName: "test_smart_camper_1_walk",
         },
-      ]),
-    });
-  });
-
-  it("should correctly check camper jobs preconditions", async () => {
-    const smartTerrain: SmartTerrain = new SmartTerrain("test_smart");
-    const stalker: ServerHumanObject = mockServerAlifeHumanStalker();
-
-    jest.spyOn(smartTerrain, "name").mockImplementation(() => "test_smart");
-
-    const [jobsList] = createStalkerCamperJobs(smartTerrain);
-    const precondition = jobsList.jobs.get(1).preconditionFunction;
-
-    registry.objects.set(stalker.id, { object: null } as unknown as IRegistryObjectState);
-    expect(precondition?.(stalker, smartTerrain, {}, {})).toBe(false);
-
-    registerObject(mockClientGameObject({ idOverride: stalker.id }));
-    expect(precondition?.(stalker, smartTerrain, {}, {})).toBe(true);
+        isMonsterJob: false,
+        pathType: EJobPathType.PATH,
+        section: "logic@test_smart_camper_1_walk",
+        priority: 45,
+        type: EJobType.CAMPER,
+      },
+    ]);
   });
 });

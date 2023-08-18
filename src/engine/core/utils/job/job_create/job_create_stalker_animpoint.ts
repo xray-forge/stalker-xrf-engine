@@ -1,10 +1,11 @@
 import { registry } from "@/engine/core/database";
 import { SmartTerrain } from "@/engine/core/objects";
 import { isJobPatrolInRestrictor } from "@/engine/core/utils/job/job_check";
-import { IJobListDescriptor } from "@/engine/core/utils/job/job_types";
+import { jobPreconditionAnimpoint } from "@/engine/core/utils/job/job_precondition";
+import { EJobPathType, EJobType, ISmartTerrainJobDescriptor } from "@/engine/core/utils/job/job_types";
 import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
 import { communities } from "@/engine/lib/constants/communities";
-import { AnyObject, EJobType, ServerHumanObject, TCount, TIndex, TName } from "@/engine/lib/types";
+import { AnyObject, LuaArray, ServerHumanObject, TCount, TIndex, TName } from "@/engine/lib/types";
 
 /**
  * Create animpoint jobs for stalkers in smart terrain.
@@ -14,8 +15,8 @@ import { AnyObject, EJobType, ServerHumanObject, TCount, TIndex, TName } from "@
  */
 export function createStalkerAnimpointJobs(
   smartTerrain: SmartTerrain,
-  stalkerJobs: IJobListDescriptor
-): LuaMultiReturn<[IJobListDescriptor, string, TCount]> {
+  jobsList: LuaArray<ISmartTerrainJobDescriptor>
+): LuaMultiReturn<[LuaArray<ISmartTerrainJobDescriptor>, string, TCount]> {
   const smartTerrainName: TName = smartTerrain.name();
 
   let ltx: string = "";
@@ -24,20 +25,14 @@ export function createStalkerAnimpointJobs(
   while (registry.smartCovers.get(`${smartTerrainName}_animpoint_${index}`) !== null) {
     const smartCoverName: TName = `${smartTerrainName}_animpoint_${index}`;
 
-    table.insert(stalkerJobs.jobs, {
+    table.insert(jobsList, {
+      type: EJobType.ANIMPOINT,
+      isMonsterJob: false,
       priority: logicsConfig.JOBS.STALKER_ANIMPOINT.PRIORITY,
-      jobId: {
-        section: `logic@${smartCoverName}`,
-        jobType: EJobType.SMART_COVER_JOB,
-      },
+      section: `logic@${smartCoverName}`,
+      pathType: EJobPathType.SMART_COVER,
       preconditionParameters: {},
-      preconditionFunction: (
-        serverObject: ServerHumanObject,
-        smartTerrain: SmartTerrain,
-        precondParams: AnyObject
-      ): boolean => {
-        return serverObject.community() !== communities.zombied;
-      },
+      preconditionFunction: jobPreconditionAnimpoint,
     });
 
     let jobLtx: string =
@@ -69,5 +64,5 @@ export function createStalkerAnimpointJobs(
     index += 1;
   }
 
-  return $multi(stalkerJobs, ltx, index - 1);
+  return $multi(jobsList, ltx, index - 1);
 }

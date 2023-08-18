@@ -2,8 +2,18 @@ import { patrol } from "xray16";
 
 import { registry } from "@/engine/core/database";
 import type { SmartTerrain } from "@/engine/core/objects";
-import { IObjectJobDescriptor } from "@/engine/core/utils/job/job_types";
-import { AnyCallable, ClientObject, LuaArray, Optional, Patrol, ServerObject, TCount, TName } from "@/engine/lib/types";
+import { IObjectJobDescriptor, ISmartTerrainJobDescriptor } from "@/engine/core/utils/job/job_types";
+import {
+  AnyObject,
+  ClientObject,
+  LuaArray,
+  Optional,
+  Patrol,
+  ServerObject,
+  TCount,
+  TName,
+  TNumberId,
+} from "@/engine/lib/types";
 
 /**
  * todo;
@@ -18,26 +28,26 @@ export function isAccessibleJob(serverObject: ServerObject, wayName: TName): boo
  */
 export function isJobAvailableToObject(
   objectInfo: IObjectJobDescriptor,
-  jobInfo: any,
+  jobInfo: ISmartTerrainJobDescriptor,
   smartTerrain: SmartTerrain
 ): boolean {
   // Job worker recently died, ignore it for now.
-  if (smartTerrain.jobDeadTimeById.get(jobInfo.jobId) !== null) {
+  if (smartTerrain.jobDeadTimeById.get(jobInfo.id as TNumberId) !== null) {
     return false;
   }
 
   // Check monster / stalker restriction for job.
-  if ("preconditionIsMonster" in jobInfo && jobInfo.preconditionIsMonster !== objectInfo.isMonster) {
+  if ("isMonsterJob" in jobInfo && jobInfo.isMonsterJob !== objectInfo.isMonster) {
     return false;
   }
 
   // Has callback checker.
   if (
     jobInfo.preconditionFunction &&
-    !(jobInfo.preconditionFunction as AnyCallable)(
-      objectInfo.serverObject,
+    !jobInfo.preconditionFunction(
+      objectInfo.object,
       smartTerrain,
-      jobInfo.preconditionParameters,
+      jobInfo.preconditionParameters as AnyObject,
       objectInfo
     )
   ) {

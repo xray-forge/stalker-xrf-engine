@@ -4,21 +4,19 @@ import { SmartTerrain } from "@/engine/core/objects";
 import { EStalkerState } from "@/engine/core/objects/animation";
 import { IWaypointData, parseWaypointData } from "@/engine/core/utils/ini";
 import { isAccessibleJob } from "@/engine/core/utils/job/job_check";
-import { IJobListDescriptor } from "@/engine/core/utils/job/job_types";
+import { jobPreconditionCamper } from "@/engine/core/utils/job/job_precondition";
+import { EJobPathType, EJobType, ISmartTerrainJobDescriptor } from "@/engine/core/utils/job/job_types";
 import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
-import { AnyObject, EJobType, Patrol, ServerHumanObject, TCount, TDistance, TIndex, TName } from "@/engine/lib/types";
+import { AnyObject, LuaArray, Patrol, ServerHumanObject, TCount, TDistance, TIndex, TName } from "@/engine/lib/types";
 
 /**
  * todo;
  */
 export function createStalkerCamperJobs(
-  smartTerrain: SmartTerrain
-): LuaMultiReturn<[IJobListDescriptor, string, TCount]> {
+  smartTerrain: SmartTerrain,
+  jobsList: LuaArray<ISmartTerrainJobDescriptor>
+): LuaMultiReturn<[LuaArray<ISmartTerrainJobDescriptor>, string]> {
   const smartTerrainName: TName = smartTerrain.name();
-  const camperJobs: IJobListDescriptor = {
-    priority: logicsConfig.JOBS.STALKER_CAMPER.PRIORITY,
-    jobs: new LuaTable(),
-  };
 
   let ltx: string = "";
   let index: TIndex = 1;
@@ -40,16 +38,14 @@ export function createStalkerCamperJobs(
       radius = wpProp.radius as TDistance;
     }
 
-    table.insert(camperJobs.jobs, {
+    table.insert(jobsList, {
+      type: EJobType.CAMPER,
+      isMonsterJob: false,
       priority: logicsConfig.JOBS.STALKER_CAMPER.PRIORITY,
-      jobId: {
-        section: `logic@${wayName}`,
-        jobType: EJobType.PATH_JOB,
-      },
+      section: `logic@${wayName}`,
+      pathType: EJobPathType.PATH,
       preconditionParameters: { wayName: wayName },
-      preconditionFunction: (serverObject: ServerHumanObject, smartTerrain: SmartTerrain, parameters: AnyObject) => {
-        return isAccessibleJob(serverObject, parameters.wayName);
-      },
+      preconditionFunction: jobPreconditionCamper,
     });
 
     let jobLtx: string =
@@ -89,5 +85,5 @@ export function createStalkerCamperJobs(
     index += 1;
   }
 
-  return $multi(camperJobs, ltx, index - 1);
+  return $multi(jobsList, ltx);
 }

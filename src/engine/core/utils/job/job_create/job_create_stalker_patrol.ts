@@ -3,21 +3,18 @@ import { level, patrol } from "xray16";
 import { SmartTerrain } from "@/engine/core/objects";
 import { IWaypointData, parseWaypointData } from "@/engine/core/utils/ini";
 import { isJobPatrolInRestrictor } from "@/engine/core/utils/job/job_check";
-import { IJobListDescriptor } from "@/engine/core/utils/job/job_types";
+import { jobPreconditionPatrol } from "@/engine/core/utils/job/job_precondition";
+import { EJobPathType, EJobType, ISmartTerrainJobDescriptor } from "@/engine/core/utils/job/job_types";
 import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
-import { communities } from "@/engine/lib/constants/communities";
-import { AnyObject, EJobType, Patrol, ServerHumanObject, TCount, TIndex, TName } from "@/engine/lib/types";
+import { LuaArray, Patrol, TCount, TIndex, TName } from "@/engine/lib/types";
 
 /**
  * todo;
  */
 export function createStalkerPatrolJobs(
-  smartTerrain: SmartTerrain
-): LuaMultiReturn<[IJobListDescriptor, string, TCount]> {
-  const stalkerPatrolJobs: IJobListDescriptor = {
-    priority: logicsConfig.JOBS.STALKER_PATROL.PRIORITY,
-    jobs: new LuaTable(),
-  };
+  smartTerrain: SmartTerrain,
+  jobsList: LuaArray<ISmartTerrainJobDescriptor>
+): LuaMultiReturn<[LuaArray<ISmartTerrainJobDescriptor>, string]> {
   const smartTerrainName: TName = smartTerrain.name();
 
   let ltx: string = "";
@@ -34,32 +31,16 @@ export function createStalkerPatrolJobs(
     }
 
     for (const i of $range(1, jobCount)) {
-      table.insert(stalkerPatrolJobs.jobs, {
+      table.insert(jobsList, {
+        type: EJobType.PATROL,
+        isMonsterJob: false,
         priority: logicsConfig.JOBS.STALKER_PATROL.PRIORITY,
-        jobId: {
-          section: `logic@${wayName}`,
-          jobType: EJobType.PATH_JOB,
+        section: `logic@${wayName}`,
+        pathType: EJobPathType.PATH,
+        preconditionParameters: {
+          wayName,
         },
-        preconditionParameters: {},
-        preconditionFunction: (
-          serverObject: ServerHumanObject,
-          smart: SmartTerrain,
-          precondParams: AnyObject
-        ): boolean => {
-          if (serverObject.community() === communities.zombied) {
-            return false;
-          } else if (smart.alarmStartedAt === null) {
-            return true;
-          } else if (smart.safeRestrictor === null) {
-            return true;
-          }
-
-          if (precondParams.is_safe_job === null) {
-            precondParams.is_safe_job = isJobPatrolInRestrictor(smart, smart.safeRestrictor, wayName);
-          }
-
-          return precondParams.is_safe_job !== false;
-        },
+        preconditionFunction: jobPreconditionPatrol,
       });
     }
 
@@ -91,5 +72,5 @@ export function createStalkerPatrolJobs(
     index += 1;
   }
 
-  return $multi(stalkerPatrolJobs, ltx, index - 1);
+  return $multi(jobsList, ltx);
 }

@@ -31,8 +31,8 @@ describe("SmartTerrain class generic logic", () => {
     const smartTerrain: SmartTerrain = new SmartTerrain("test_init");
 
     expect(smartTerrain.ini).toBeUndefined();
-    expect(smartTerrain.jobsLtxConfig).toBeUndefined();
-    expect(smartTerrain.jobsLtxConfigName).toBeUndefined();
+    expect(smartTerrain.jobsConfig).toBeUndefined();
+    expect(smartTerrain.jobsConfigName).toBeUndefined();
 
     expect(smartTerrain.squadId).toBe(0);
     expect(smartTerrain.level).toBe("");
@@ -67,8 +67,7 @@ describe("SmartTerrain class generic logic", () => {
     expect(smartTerrain.smartTerrainActorControl).toBeNull();
 
     expect(smartTerrain.arrivingObjects.length()).toBe(0);
-    expect(smartTerrain.jobs).toBeUndefined();
-    expect(smartTerrain.jobsData.length()).toBe(0);
+    expect(smartTerrain.jobs.length()).toBe(0);
     expect(smartTerrain.objectJobDescriptors.length()).toBe(0);
     expect(smartTerrain.objectByJobSection.length()).toBe(0);
     expect(smartTerrain.jobDeadTimeById.length()).toBe(0);
@@ -165,7 +164,7 @@ describe("SmartTerrain class generic logic", () => {
     smartTerrain.objectJobDescriptors.set(thirdWithJob.id, thirdJob);
     thirdJob.jobId = 2;
     thirdJob.jobPriority = 35;
-    thirdJob.jobBegun = true;
+    thirdJob.isBegun = true;
     thirdJob.desiredJob = "another_job_section";
 
     smartTerrain.jobDeadTimeById.set(50, MockCTime.mock(2004, 7, 19, 13, 30, 10, 200));
@@ -285,7 +284,7 @@ describe("SmartTerrain class generic logic", () => {
     });
     expect(anotherSmartTerrain.objectJobDescriptors).toEqualLuaTables({
       [thirdWithJob.id]: {
-        jobBegun: true,
+        isBegun: true,
         jobId: 2,
         jobPriority: 35,
         desiredJob: "another_job_section",

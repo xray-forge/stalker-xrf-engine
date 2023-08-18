@@ -6,7 +6,7 @@ import { SmartTerrain } from "@/engine/core/objects";
 import { ESchemeEvent, IBaseSchemeState } from "@/engine/core/schemes";
 import { assert } from "@/engine/core/utils/assertion";
 import { readIniNumber, readIniString } from "@/engine/core/utils/ini";
-import { ISmartTerrainJob } from "@/engine/core/utils/job";
+import { ISmartTerrainJobDescriptor } from "@/engine/core/utils/job";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getObjectSmartTerrain } from "@/engine/core/utils/object/object_get";
 import { spawnItemsForObject } from "@/engine/core/utils/object/object_spawn";
@@ -86,9 +86,9 @@ export function configureObjectSchemes(
         const currentSmart: Optional<SmartTerrain> = getObjectSmartTerrain(object);
 
         if (currentSmart) {
-          const job: Optional<ISmartTerrainJob> = currentSmart.getJobByObjectId(object.id());
+          const job: Optional<ISmartTerrainJobDescriptor> = currentSmart.getJobByObjectId(object.id());
 
-          state.jobIni = job ? (job.iniPath as TName) : null;
+          state.jobIni = job?.iniPath as Optional<TPath>;
         }
       }
 

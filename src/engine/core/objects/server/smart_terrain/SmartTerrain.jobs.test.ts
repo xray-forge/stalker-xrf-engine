@@ -1,6 +1,7 @@
 import { describe, expect, it, jest } from "@jest/globals";
 
 import { SmartTerrain } from "@/engine/core/objects";
+import { EJobPathType, EJobType } from "@/engine/core/utils/job";
 import { MAX_U16 } from "@/engine/lib/constants/memory";
 import { AnyObject, ServerHumanObject, ServerMonsterBaseObject } from "@/engine/lib/types";
 import { mockServerAlifeHumanStalker, mockServerAlifeMonsterBase } from "@/fixtures/xray";
@@ -14,8 +15,7 @@ describe("SmartTerrain class jobs logic", () => {
 
     smartTerrain.on_register();
 
-    expect(smartTerrain.jobs.length()).toBe(2);
-    expect(smartTerrain.jobsData.length()).toBe(54);
+    expect(smartTerrain.jobs.length()).toBe(54);
     expect(smartTerrain.objectJobDescriptors.length()).toBe(0);
     expect(smartTerrain.objectByJobSection.length()).toBe(0);
     expect(smartTerrain.jobDeadTimeById.length()).toBe(0);
@@ -81,16 +81,36 @@ describe("SmartTerrain class jobs logic", () => {
     expect(smartTerrain.objectByJobSection.length()).toBe(1);
     expect(smartTerrain.objectJobDescriptors.length()).toBe(1);
     expect(smartTerrain.objectJobDescriptors.get(stalker.id)).toEqual({
-      serverObject: stalker,
-      jobBegun: true,
+      object: stalker,
+      isBegun: true,
       isMonster: false,
-      jobId: 3,
-      jobLink: {
+      jobId: 4,
+      job: {
         preconditionFunction: expect.any(Function),
+        isMonsterJob: false,
         preconditionParameters: {
           wayName: "test_smart_camper_1_walk",
         },
-        jobId: 3,
+        id: 4,
+        alifeTask: {
+          gameVertexId: 20001,
+          levelVertexId: 20002,
+          taskPosition: {
+            x: 10,
+            y: 20,
+            z: 30,
+          },
+        },
+        gameVertexId: 20001,
+        pathType: EJobPathType.PATH,
+        levelId: 200010,
+        position: {
+          x: 10,
+          y: 20,
+          z: 30,
+        },
+        section: "logic@test_smart_camper_1_walk",
+        type: EJobType.CAMPER,
         objectId: stalker.id,
         priority: 45,
       },
@@ -142,16 +162,36 @@ describe("SmartTerrain class jobs logic", () => {
 
     expect(smartTerrain.objectJobDescriptors).toEqualLuaTables({
       [firstStalker.id]: {
-        serverObject: firstStalker,
-        jobBegun: true,
+        object: firstStalker,
+        isBegun: true,
         isMonster: false,
-        jobId: 4,
-        jobLink: {
+        jobId: 5,
+        job: {
           preconditionFunction: expect.any(Function),
+          isMonsterJob: false,
           preconditionParameters: {
             wayName: "test_smart_sniper_1_walk",
           },
-          jobId: 4,
+          id: 5,
+          alifeTask: {
+            gameVertexId: 20001,
+            levelVertexId: 20002,
+            taskPosition: {
+              x: 10,
+              y: 20,
+              z: 30,
+            },
+          },
+          gameVertexId: 20001,
+          pathType: EJobPathType.PATH,
+          levelId: 200010,
+          position: {
+            x: 10,
+            y: 20,
+            z: 30,
+          },
+          section: "logic@test_smart_sniper_1_walk",
+          type: EJobType.SNIPER,
           objectId: firstStalker.id,
           priority: 30,
         },
@@ -160,16 +200,36 @@ describe("SmartTerrain class jobs logic", () => {
         schemeType: 1,
       },
       [secondStalker.id]: {
-        serverObject: secondStalker,
-        jobBegun: true,
+        object: secondStalker,
+        isBegun: true,
         isMonster: false,
-        jobId: 3,
-        jobLink: {
+        jobId: 4,
+        job: {
           preconditionFunction: expect.any(Function),
+          isMonsterJob: false,
           preconditionParameters: {
             wayName: "test_smart_camper_1_walk",
           },
-          jobId: 3,
+          id: 4,
+          alifeTask: {
+            gameVertexId: 20001,
+            levelVertexId: 20002,
+            taskPosition: {
+              x: 10,
+              y: 20,
+              z: 30,
+            },
+          },
+          gameVertexId: 20001,
+          pathType: EJobPathType.PATH,
+          levelId: 200010,
+          position: {
+            x: 10,
+            y: 20,
+            z: 30,
+          },
+          section: "logic@test_smart_camper_1_walk",
+          type: EJobType.CAMPER,
           objectId: secondStalker.id,
           priority: 45,
         },
@@ -204,16 +264,36 @@ describe("SmartTerrain class jobs logic", () => {
     expect(smartTerrain.objectByJobSection.length()).toBe(1);
     expect(smartTerrain.objectJobDescriptors.length()).toBe(1);
     expect(smartTerrain.objectJobDescriptors.get(monster.id)).toEqual({
-      serverObject: monster,
-      jobBegun: true,
+      object: monster,
+      isBegun: true,
       isMonster: true,
-      jobId: 34,
-      jobLink: {
-        jobId: 34,
+      jobId: 15,
+      job: {
+        id: 15,
+        isMonsterJob: true,
+        alifeTask: {
+          gameVertexId: 512,
+          levelVertexId: 250,
+          taskPosition: {
+            x: 1,
+            y: 2,
+            z: 3,
+          },
+        },
+        gameVertexId: 512,
+        pathType: EJobPathType.POINT,
+        levelId: 5120,
+        position: {
+          x: 1,
+          y: 2,
+          z: 3,
+        },
+        priority: 10,
+        type: EJobType.MONSTER_HOME,
+        section: "logic@test_smart_home_1",
         objectId: monster.id,
-        priority: 40,
       },
-      jobPriority: 40,
+      jobPriority: 10,
       desiredJob: "nil",
       schemeType: 2,
     });
@@ -250,36 +330,76 @@ describe("SmartTerrain class jobs logic", () => {
 
     expect(smartTerrain.objectJobDescriptors).toEqualLuaTables({
       [firstStalker.id]: {
-        serverObject: firstStalker,
-        jobBegun: true,
+        object: firstStalker,
+        isBegun: true,
         isMonster: false,
-        jobId: 3,
-        jobLink: {
+        jobId: 4,
+        job: {
           preconditionFunction: expect.any(Function),
+          isMonsterJob: false,
           preconditionParameters: {
             wayName: "test_smart_camper_1_walk",
           },
-          jobId: 3,
-          objectId: firstStalker.id,
+          id: 4,
+          alifeTask: {
+            gameVertexId: 20001,
+            levelVertexId: 20002,
+            taskPosition: {
+              x: 10,
+              y: 20,
+              z: 30,
+            },
+          },
+          gameVertexId: 20001,
+          pathType: EJobPathType.PATH,
+          levelId: 200010,
+          position: {
+            x: 10,
+            y: 20,
+            z: 30,
+          },
           priority: 45,
+          type: EJobType.CAMPER,
+          section: "logic@test_smart_camper_1_walk",
+          objectId: firstStalker.id,
         },
         jobPriority: 45,
         desiredJob: "nil",
         schemeType: 1,
       },
       [secondStalker.id]: {
-        serverObject: secondStalker,
-        jobBegun: true,
+        object: secondStalker,
+        isBegun: true,
         isMonster: false,
-        jobId: 4,
-        jobLink: {
+        jobId: 5,
+        job: {
           preconditionFunction: expect.any(Function),
+          isMonsterJob: false,
           preconditionParameters: {
             wayName: "test_smart_sniper_1_walk",
           },
-          jobId: 4,
-          objectId: secondStalker.id,
+          id: 5,
+          alifeTask: {
+            gameVertexId: 20001,
+            levelVertexId: 20002,
+            taskPosition: {
+              x: 10,
+              y: 20,
+              z: 30,
+            },
+          },
+          gameVertexId: 20001,
+          pathType: EJobPathType.PATH,
+          levelId: 200010,
+          position: {
+            x: 10,
+            y: 20,
+            z: 30,
+          },
           priority: 30,
+          type: EJobType.SNIPER,
+          section: "logic@test_smart_sniper_1_walk",
+          objectId: secondStalker.id,
         },
         jobPriority: 30,
         desiredJob: "nil",
@@ -316,7 +436,10 @@ describe("SmartTerrain class jobs logic", () => {
         },
       },
       gameVertexId: 20001,
-      jobType: "path_job",
+      pathType: EJobPathType.PATH,
+      objectId: firstStalker.id,
+      id: 4,
+      type: EJobType.CAMPER,
       levelId: 200010,
       position: {
         x: 10,
@@ -325,9 +448,14 @@ describe("SmartTerrain class jobs logic", () => {
       },
       priority: 45,
       section: "logic@test_smart_camper_1_walk",
+      preconditionFunction: expect.any(Function),
+      isMonsterJob: false,
+      preconditionParameters: {
+        wayName: "test_smart_camper_1_walk",
+      },
     });
 
-    expect(smartTerrain.getObjectIdByJobId("logic@test_smart_camper_1_walk")).toBe(firstStalker.id);
+    expect(smartTerrain.getObjectIdByJobSection("logic@test_smart_camper_1_walk")).toBe(firstStalker.id);
   });
 
   it("should correctly switch objects to desired jobs", () => {

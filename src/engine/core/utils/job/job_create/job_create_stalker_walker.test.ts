@@ -4,21 +4,20 @@ import { describe, expect, it, jest } from "@jest/globals";
 
 import { registerZone } from "@/engine/core/database";
 import { SmartTerrain, SmartTerrainControl } from "@/engine/core/objects";
+import { EJobPathType, EJobType } from "@/engine/core/utils/job";
 import { createStalkerWalkerJobs } from "@/engine/core/utils/job/job_create/job_create_stalker_walker";
-import { ServerHumanObject } from "@/engine/lib/types";
-import { readInGameTestLtx } from "@/fixtures/engine";
-import { mockClientGameObject, MockCTime, mockServerAlifeHumanStalker } from "@/fixtures/xray";
+import { jobPreconditionWalker } from "@/engine/core/utils/job/job_precondition";
+import { mockSmartTerrain, readInGameTestLtx } from "@/fixtures/engine";
+import { mockClientGameObject } from "@/fixtures/xray";
 
 describe("jobs_general should correctly generate stalker walker jobs", () => {
   it("should correctly generate default walker jobs with no patrols", async () => {
-    const smartTerrain: SmartTerrain = new SmartTerrain("test_smart");
+    const smartTerrain: SmartTerrain = mockSmartTerrain("test_smart_without_walker");
 
-    jest.spyOn(smartTerrain, "name").mockImplementation(() => "test_smart_without_walker");
-
-    const [jobsList, ltx] = createStalkerWalkerJobs(smartTerrain);
+    const [jobsList, ltx] = createStalkerWalkerJobs(smartTerrain, new LuaTable());
 
     expect(ltx).toBe("");
-    expect(jobsList).toEqualLuaTables({ priority: 15, jobs: $fromArray([]) });
+    expect(jobsList).toEqualLuaArrays([]);
   });
 
   it("should correctly generate default walker jobs with test smart", async () => {
@@ -26,28 +25,23 @@ describe("jobs_general should correctly generate stalker walker jobs", () => {
       path.resolve(__dirname, "__test__", "job_create_stalker_walker.default.ltx")
     );
 
-    const smartTerrain: SmartTerrain = new SmartTerrain("test_smart");
+    const smartTerrain: SmartTerrain = mockSmartTerrain();
+    const [jobsList, ltx] = createStalkerWalkerJobs(smartTerrain, new LuaTable());
 
-    jest.spyOn(smartTerrain, "name").mockImplementation(() => "test_smart");
-
-    const [jobsList, ltx, count] = createStalkerWalkerJobs(smartTerrain);
-
-    expect(count).toBe(1);
     expect(ltx).toBe(jobsLtx);
-    expect(jobsList).toEqualLuaTables({
-      jobs: $fromArray([
-        {
-          preconditionFunction: expect.any(Function),
-          preconditionParameters: {},
-          jobId: {
-            jobType: "path_job",
-            section: "logic@test_smart_walker_1_walk",
-          },
-          priority: 15,
+    expect(jobsList).toEqualLuaArrays([
+      {
+        isMonsterJob: false,
+        preconditionFunction: jobPreconditionWalker,
+        preconditionParameters: {
+          wayName: "test_smart_walker_1_walk",
         },
-      ]),
-      priority: 15,
-    });
+        pathType: EJobPathType.PATH,
+        section: "logic@test_smart_walker_1_walk",
+        type: EJobType.WALKER,
+        priority: 15,
+      },
+    ]);
   });
 
   it("should correctly generate default walker jobs with restrictor", async () => {
@@ -55,30 +49,28 @@ describe("jobs_general should correctly generate stalker walker jobs", () => {
       path.resolve(__dirname, "__test__", "job_create_stalker_walker.restrictor.ltx")
     );
 
-    const smartTerrain: SmartTerrain = new SmartTerrain("test_smart");
+    const smartTerrain: SmartTerrain = mockSmartTerrain();
 
     smartTerrain.defendRestrictor = "test_defend_restrictor";
 
     jest.spyOn(smartTerrain, "name").mockImplementation(() => "test_smart");
 
-    const [jobsList, ltx, count] = createStalkerWalkerJobs(smartTerrain);
+    const [jobsList, ltx] = createStalkerWalkerJobs(smartTerrain, new LuaTable());
 
-    expect(count).toBe(1);
     expect(ltx).toBe(jobsLtx);
-    expect(jobsList).toEqualLuaTables({
-      jobs: $fromArray([
-        {
-          preconditionFunction: expect.any(Function),
-          preconditionParameters: {},
-          jobId: {
-            jobType: "path_job",
-            section: "logic@test_smart_walker_1_walk",
-          },
-          priority: 15,
+    expect(jobsList).toEqualLuaArrays([
+      {
+        isMonsterJob: false,
+        preconditionFunction: jobPreconditionWalker,
+        preconditionParameters: {
+          wayName: "test_smart_walker_1_walk",
         },
-      ]),
-      priority: 15,
-    });
+        pathType: EJobPathType.PATH,
+        section: "logic@test_smart_walker_1_walk",
+        type: EJobType.WALKER,
+        priority: 15,
+      },
+    ]);
   });
 
   it("should correctly generate default walker jobs with ignore restrictor", async () => {
@@ -86,7 +78,7 @@ describe("jobs_general should correctly generate stalker walker jobs", () => {
       path.resolve(__dirname, "__test__", "job_create_stalker_walker.ignore.ltx")
     );
 
-    const smartTerrain: SmartTerrain = new SmartTerrain("test_smart");
+    const smartTerrain: SmartTerrain = mockSmartTerrain();
 
     smartTerrain.defendRestrictor = "test_defend_restrictor";
     smartTerrain.smartTerrainActorControl = { ignoreZone: "some_restrictor" } as SmartTerrainControl;
@@ -95,24 +87,22 @@ describe("jobs_general should correctly generate stalker walker jobs", () => {
 
     jest.spyOn(smartTerrain, "name").mockImplementation(() => "test_smart");
 
-    const [jobsList, ltx, count] = createStalkerWalkerJobs(smartTerrain);
+    const [jobsList, ltx] = createStalkerWalkerJobs(smartTerrain, new LuaTable());
 
-    expect(count).toBe(1);
     expect(ltx).toBe(jobsLtx);
-    expect(jobsList).toEqualLuaTables({
-      jobs: $fromArray([
-        {
-          preconditionFunction: expect.any(Function),
-          preconditionParameters: {},
-          jobId: {
-            jobType: "path_job",
-            section: "logic@test_smart_walker_1_walk",
-          },
-          priority: 15,
+    expect(jobsList).toEqualLuaArrays([
+      {
+        isMonsterJob: false,
+        preconditionFunction: jobPreconditionWalker,
+        preconditionParameters: {
+          wayName: "test_smart_walker_1_walk",
         },
-      ]),
-      priority: 15,
-    });
+        pathType: EJobPathType.PATH,
+        section: "logic@test_smart_walker_1_walk",
+        type: EJobType.WALKER,
+        priority: 15,
+      },
+    ]);
   });
 
   it("should correctly generate default walker jobs with invulnerable state", async () => {
@@ -120,7 +110,7 @@ describe("jobs_general should correctly generate stalker walker jobs", () => {
       path.resolve(__dirname, "__test__", "job_create_stalker_walker.invulnerable.ltx")
     );
 
-    const smartTerrain: SmartTerrain = new SmartTerrain("test_smart");
+    const smartTerrain: SmartTerrain = mockSmartTerrain();
 
     smartTerrain.defendRestrictor = "test_defend_restrictor";
     smartTerrain.smartTerrainActorControl = { ignoreZone: "some_restrictor" } as SmartTerrainControl;
@@ -130,54 +120,21 @@ describe("jobs_general should correctly generate stalker walker jobs", () => {
 
     jest.spyOn(smartTerrain, "name").mockImplementation(() => "test_smart");
 
-    const [jobsList, ltx, count] = createStalkerWalkerJobs(smartTerrain);
+    const [jobsList, ltx] = createStalkerWalkerJobs(smartTerrain, new LuaTable());
 
-    expect(count).toBe(1);
     expect(ltx).toBe(jobsLtx);
-    expect(jobsList).toEqualLuaTables({
-      jobs: $fromArray([
-        {
-          preconditionFunction: expect.any(Function),
-          preconditionParameters: {},
-          jobId: {
-            jobType: "path_job",
-            section: "logic@test_smart_walker_1_walk",
-          },
-          priority: 15,
+    expect(jobsList).toEqualLuaArrays([
+      {
+        isMonsterJob: false,
+        preconditionFunction: jobPreconditionWalker,
+        preconditionParameters: {
+          wayName: "test_smart_walker_1_walk",
         },
-      ]),
-      priority: 15,
-    });
-  });
-
-  it("should correctly check walker jobs preconditions", async () => {
-    const smartTerrain: SmartTerrain = new SmartTerrain("test_smart");
-    const stalker: ServerHumanObject = mockServerAlifeHumanStalker();
-
-    jest.spyOn(smartTerrain, "name").mockImplementation(() => "test_smart");
-
-    const [jobsList] = createStalkerWalkerJobs(smartTerrain);
-    const precondition = jobsList.jobs.get(1).preconditionFunction;
-
-    expect(precondition?.(stalker, smartTerrain, {}, {})).toBe(true);
-
-    jest.spyOn(stalker, "community").mockImplementation(() => "zombied");
-    expect(precondition?.(stalker, smartTerrain, {}, {})).toBe(true);
-
-    jest.spyOn(stalker, "community").mockImplementation(() => "stalker");
-    smartTerrain.alarmStartedAt = MockCTime.mock(1, 2, 3, 4, 5, 6, 7);
-    expect(precondition?.(stalker, smartTerrain, {}, {})).toBe(true);
-
-    smartTerrain.safeRestrictor = "safe_restrictor_test";
-    expect(precondition?.(stalker, smartTerrain, {}, {})).toBe(true);
-
-    expect(precondition?.(stalker, smartTerrain, {}, {})).toBe(true);
-    expect(precondition?.(stalker, smartTerrain, { is_safe_job: false }, {})).toBe(false);
-
-    registerZone(mockClientGameObject({ name: () => "safe_restrictor_test", inside: () => false }));
-    expect(precondition?.(stalker, smartTerrain, { is_safe_job: null }, {})).toBe(false);
-
-    registerZone(mockClientGameObject({ name: () => "safe_restrictor_test", inside: () => true }));
-    expect(precondition?.(stalker, smartTerrain, { is_safe_job: null }, {})).toBe(true);
+        pathType: EJobPathType.PATH,
+        section: "logic@test_smart_walker_1_walk",
+        type: EJobType.WALKER,
+        priority: 15,
+      },
+    ]);
   });
 });

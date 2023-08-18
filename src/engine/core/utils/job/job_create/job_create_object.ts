@@ -10,18 +10,16 @@ const logger: LuaLogger = new LuaLogger($filename);
  * todo;
  */
 export function createObjectJobDescriptor(object: ServerCreatureObject): IObjectJobDescriptor {
-  logger.info("Create object job descriptor:", object.name());
-
   const isObjectStalker: boolean = isStalker(object);
 
   return {
-    serverObject: object,
+    object: object,
     isMonster: !isObjectStalker,
     desiredJob: NIL,
     jobPriority: -1,
-    jobLink: null,
+    job: null,
     jobId: -1,
-    jobBegun: false,
+    isBegun: false,
     schemeType: isObjectStalker ? ESchemeType.STALKER : ESchemeType.MONSTER,
   };
 }

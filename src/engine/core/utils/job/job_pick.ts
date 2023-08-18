@@ -1,11 +1,13 @@
 import { SmartTerrain } from "@/engine/core/objects";
 import { isJobAvailableToObject } from "@/engine/core/utils/job/job_check";
-import { IObjectJobDescriptor } from "@/engine/core/utils/job/job_types";
+import { IObjectJobDescriptor, ISmartTerrainJobDescriptor } from "@/engine/core/utils/job/job_types";
+import { LuaLogger } from "@/engine/core/utils/logging";
 import { LuaArray, Optional, TNumberId, TRate } from "@/engine/lib/types";
+
+const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * Select smart terrain job for an object.
- * todo: Flat jobs structure.
  *
  * @param smartTerrain - terrain to search for job inside
  * @param jobs - list of jobs to search in
@@ -15,42 +17,19 @@ import { LuaArray, Optional, TNumberId, TRate } from "@/engine/lib/types";
  */
 export function selectSmartTerrainJob(
   smartTerrain: SmartTerrain,
-  jobs: LuaArray<any>,
+  jobs: LuaArray<ISmartTerrainJobDescriptor>,
   objectJobDescriptor: IObjectJobDescriptor,
   selectedJobPriority: TRate
-): LuaMultiReturn<[Optional<TNumberId>, TRate, Optional<any>]> {
-  let selectedJobId: Optional<TNumberId> = null;
-  let currentJobPriority: TRate = selectedJobPriority;
-  let selectedJobLink = null;
-
+): LuaMultiReturn<[Optional<TNumberId>, TRate, Optional<ISmartTerrainJobDescriptor>]> {
   for (const [, it] of jobs) {
-    // Selected job with higher priority, no reason to go down (jobs are sorted by DESC).
-    if (currentJobPriority > it.priority) {
-      return $multi(selectedJobId, currentJobPriority, selectedJobLink);
-    }
-
     // Verify if job is accessible by object and meets conditions.
     if (isJobAvailableToObject(objectJobDescriptor, it, smartTerrain)) {
-      // Job entity, can be verified.
-      if (it.jobId) {
-        // Has no assigned worker, can be used.
-        if (!it.objectId) {
-          return $multi(it.jobId, it.priority, it);
-          // Is already handled by object, continue working with it.
-        } else if (it.jobId === objectJobDescriptor.jobId) {
-          return $multi(it.jobId, it.priority, it);
-        }
-      } else {
-        // Search jobs in list, one level down in recursive data structure.
-        [selectedJobId, currentJobPriority, selectedJobLink] = selectSmartTerrainJob(
-          smartTerrain,
-          it.jobs,
-          objectJobDescriptor,
-          selectedJobPriority
-        );
+      // Has no assigned worker, can be used.
+      if (!it.objectId || it.id === objectJobDescriptor.jobId || selectedJobPriority > it.priority) {
+        return $multi(it.id as TNumberId, it.priority, it);
       }
     }
   }
 
-  return $multi(selectedJobId, currentJobPriority, selectedJobLink);
+  return $multi(null, selectedJobPriority, null);
 }

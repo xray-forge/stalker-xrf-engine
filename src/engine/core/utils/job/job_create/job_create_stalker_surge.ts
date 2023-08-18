@@ -3,24 +3,23 @@ import { level } from "xray16";
 import { SurgeManager } from "@/engine/core/managers/world/SurgeManager";
 import { SmartTerrain } from "@/engine/core/objects";
 import { isJobPatrolInRestrictor } from "@/engine/core/utils/job/job_check";
-import { IJobListDescriptor } from "@/engine/core/utils/job/job_types";
+import { jobPreconditionSurge } from "@/engine/core/utils/job/job_precondition";
+import { EJobPathType, EJobType, ISmartTerrainJobDescriptor } from "@/engine/core/utils/job/job_types";
 import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
-import { EJobType, TCount, TIndex, TName } from "@/engine/lib/types";
+import { LuaArray, TCount, TIndex, TName } from "@/engine/lib/types";
 
 /**
  * Create surge walk/look jobs for stalkers in smart terrain.
  *
  * @param smartTerrain - smart terrain to create default surge jobs for
+ * @param jobsList - list of jobs to insert data in
  * @returns surge jobs list, generated LTX and count of created jobs
  */
 export function createStalkerSurgeJobs(
-  smartTerrain: SmartTerrain
-): LuaMultiReturn<[IJobListDescriptor, string, TCount]> {
+  smartTerrain: SmartTerrain,
+  jobsList: LuaArray<ISmartTerrainJobDescriptor>
+): LuaMultiReturn<[LuaArray<ISmartTerrainJobDescriptor>, string]> {
   const smartTerrainName: TName = smartTerrain.name();
-  const stalkerSurgeJobs: IJobListDescriptor = {
-    priority: logicsConfig.JOBS.STALKER_SURGE.PRIORITY,
-    jobs: new LuaTable(),
-  };
 
   let ltx: string = "";
   let it: TIndex = 1;
@@ -28,14 +27,14 @@ export function createStalkerSurgeJobs(
   while (level.patrol_path_exists(`${smartTerrainName}_surge_${it}_walk`)) {
     const wayName: TName = `${smartTerrainName}_surge_${it}_walk`;
 
-    table.insert(stalkerSurgeJobs.jobs, {
+    table.insert(jobsList, {
+      type: EJobType.SURGE,
+      isMonsterJob: false,
       priority: logicsConfig.JOBS.STALKER_SURGE.PRIORITY,
-      jobId: {
-        section: `logic@${wayName}`,
-        jobType: EJobType.PATH_JOB,
-      },
+      section: `logic@${wayName}`,
+      pathType: EJobPathType.PATH,
       preconditionParameters: {},
-      preconditionFunction: () => SurgeManager.getInstance().isStarted,
+      preconditionFunction: jobPreconditionSurge,
     });
 
     let jobLtx: string =
@@ -74,5 +73,5 @@ export function createStalkerSurgeJobs(
     it += 1;
   }
 
-  return $multi(stalkerSurgeJobs, ltx, it - 1);
+  return $multi(jobsList, ltx);
 }

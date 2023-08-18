@@ -18,7 +18,7 @@ import { SchemeMeet } from "@/engine/core/schemes/meet";
 import { SchemeMobCombat } from "@/engine/core/schemes/mob_combat";
 import { SchemeReachTask } from "@/engine/core/schemes/reach_task";
 import { SchemeWounded } from "@/engine/core/schemes/wounded";
-import { ISmartTerrainJob } from "@/engine/core/utils/job";
+import { ISmartTerrainJobDescriptor } from "@/engine/core/utils/job";
 import {
   configureObjectSchemes,
   initializeObjectSchemeLogic,
@@ -140,7 +140,7 @@ describe("'scheme initialization' utils", () => {
 
     jest
       .spyOn(smartTerrain, "getJobByObjectId")
-      .mockImplementation(() => ({ iniPath: "job_test.ltx" }) as ISmartTerrainJob);
+      .mockImplementation(() => ({ iniPath: "job_test.ltx" }) as ISmartTerrainJobDescriptor);
 
     resetFunctionMock(alife().create);
 

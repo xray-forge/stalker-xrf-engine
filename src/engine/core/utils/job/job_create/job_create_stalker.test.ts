@@ -4,9 +4,22 @@ import { describe, expect, it, jest } from "@jest/globals";
 
 import { registerSmartCover } from "@/engine/core/database";
 import { SmartCover, SmartTerrain } from "@/engine/core/objects";
+import { EJobPathType, EJobType } from "@/engine/core/utils/job";
 import { createStalkerJobs } from "@/engine/core/utils/job/job_create/job_create_stalker";
+import {
+  jobPreconditionAnimpoint,
+  jobPreconditionCamper,
+  jobPreconditionCollector,
+  jobPreconditionGuard,
+  jobPreconditionGuardFollower,
+  jobPreconditionPatrol,
+  jobPreconditionSleep,
+  jobPreconditionSniper,
+  jobPreconditionSurge,
+  jobPreconditionWalker,
+} from "@/engine/core/utils/job/job_precondition";
 import { range } from "@/engine/core/utils/number";
-import { readInGameTestLtx } from "@/fixtures/engine";
+import { mockSmartCover, mockSmartTerrain, readInGameTestLtx } from "@/fixtures/engine";
 
 describe("jobs_general should correctly generate stalker jobs", () => {
   it("should correctly generate default stalker jobs", async () => {
@@ -14,220 +27,168 @@ describe("jobs_general should correctly generate stalker jobs", () => {
       path.resolve(__dirname, "__test__", "job_create_stalker.default.ltx")
     );
 
-    const smartTerrain: SmartTerrain = new SmartTerrain("test_smart");
-    const smartCover: SmartCover = new SmartCover("test_smart_cover");
-
-    jest.spyOn(smartTerrain, "name").mockImplementation(() => "test_smart");
-    jest.spyOn(smartCover, "name").mockImplementation(() => "test_smart_animpoint_1");
+    const smartTerrain: SmartTerrain = mockSmartTerrain();
+    const smartCover: SmartCover = mockSmartCover("test_smart_animpoint_1");
 
     registerSmartCover(smartCover);
 
-    const [jobsList, ltx] = createStalkerJobs(smartTerrain);
+    const [jobsList, ltx] = createStalkerJobs(smartTerrain, new LuaTable());
 
     expect(ltx).toBe(defaultJobsLtx);
-    expect(jobsList).toEqualLuaTables({
-      preconditionIsMonster: false,
-      jobs: $fromArray([
-        {
-          jobs: $fromArray(
-            range(20, 1).map((it) => ({
-              jobId: {
-                jobType: "point_job",
-                section: "logic@test_smart_point_" + it,
-              },
-              priority: 3,
-            }))
-          ),
-          priority: 3,
+    expect(jobsList).toEqualLuaArrays([
+      ...range(3, 1).map((it) => ({
+        type: EJobType.SURGE,
+        preconditionFunction: jobPreconditionSurge,
+        preconditionParameters: {},
+        isMonsterJob: false,
+        pathType: EJobPathType.PATH,
+        section: `logic@test_smart_surge_${it}_walk`,
+        priority: 50,
+      })),
+      {
+        type: EJobType.CAMPER,
+        preconditionFunction: jobPreconditionCamper,
+        preconditionParameters: {
+          wayName: "test_smart_camper_1_walk",
         },
-        {
-          jobs: $fromArray(
-            range(3, 1).map((it) => ({
-              preconditionFunction: expect.any(Function),
-              preconditionParameters: {},
-              jobId: {
-                jobType: "path_job",
-                section: `logic@test_smart_surge_${it}_walk`,
-              },
-              priority: 50,
-            }))
-          ),
-          priority: 50,
+        isMonsterJob: false,
+        pathType: EJobPathType.PATH,
+        section: "logic@test_smart_camper_1_walk",
+        priority: 45,
+      },
+      {
+        type: EJobType.SNIPER,
+        preconditionFunction: jobPreconditionSniper,
+        preconditionParameters: {
+          wayName: "test_smart_sniper_1_walk",
         },
-        {
-          jobs: $fromArray(
-            range(2, 1).map((it) => ({
-              preconditionFunction: expect.any(Function),
-              preconditionParameters: {},
-              jobId: {
-                jobType: "path_job",
-                section: `logic@test_smart_sleep_${it}`,
-              },
-              priority: 10,
-            }))
-          ),
-          priority: 10,
+        isMonsterJob: false,
+        pathType: EJobPathType.PATH,
+        section: "logic@test_smart_sniper_1_walk",
+        priority: 30,
+      },
+      {
+        type: EJobType.COLLECTOR,
+        preconditionFunction: jobPreconditionCollector,
+        preconditionParameters: {},
+        isMonsterJob: false,
+        pathType: EJobPathType.PATH,
+        section: "logic@test_smart_collector_1_walk",
+        priority: 25,
+      },
+      {
+        type: EJobType.GUARD,
+        preconditionFunction: jobPreconditionGuard,
+        preconditionParameters: {
+          wayName: "test_smart_guard_1_walk",
         },
-        {
-          jobs: $fromArray([
-            {
-              preconditionFunction: expect.any(Function),
-              preconditionParameters: {},
-              jobId: {
-                jobType: "path_job",
-                section: "logic@test_smart_collector_1_walk",
-              },
-              priority: 25,
-            },
-          ]),
-          priority: 25,
+        isMonsterJob: false,
+        pathType: EJobPathType.PATH,
+        section: "logic@test_smart_guard_1_walk",
+        priority: 25,
+      },
+      {
+        type: EJobType.GUARD_FOLLOWER,
+        preconditionFunction: jobPreconditionGuardFollower,
+        preconditionParameters: {
+          nextDesiredJob: "logic@test_smart_guard_1_walk",
         },
-        {
-          jobs: $fromArray([
-            {
-              preconditionFunction: expect.any(Function),
-              preconditionParameters: {},
-              jobId: {
-                jobType: "path_job",
-                section: "logic@test_smart_walker_1_walk",
-              },
-              priority: 15,
-            },
-          ]),
-          priority: 15,
+        isMonsterJob: false,
+        pathType: EJobPathType.PATH,
+        section: "logic@follower_test_smart_guard_1_walk",
+        priority: 24,
+      },
+      {
+        type: EJobType.PATROL,
+        preconditionFunction: jobPreconditionPatrol,
+        preconditionParameters: {
+          wayName: "test_smart_patrol_1_walk",
         },
-        {
-          jobs: $fromArray([
-            {
-              preconditionFunction: expect.any(Function),
-              preconditionParameters: {},
-              jobId: {
-                jobType: "path_job",
-                section: "logic@test_smart_patrol_1_walk",
-              },
-              priority: 20,
-            },
-            {
-              preconditionFunction: expect.any(Function),
-              preconditionParameters: {},
-              jobId: {
-                jobType: "path_job",
-                section: "logic@test_smart_patrol_1_walk",
-              },
-              priority: 20,
-            },
-            {
-              preconditionFunction: expect.any(Function),
-              preconditionParameters: {},
-              jobId: {
-                jobType: "path_job",
-                section: "logic@test_smart_patrol_1_walk",
-              },
-              priority: 20,
-            },
-          ]),
-          priority: 20,
+        isMonsterJob: false,
+        pathType: EJobPathType.PATH,
+        section: "logic@test_smart_patrol_1_walk",
+        priority: 20,
+      },
+      {
+        type: EJobType.PATROL,
+        preconditionFunction: jobPreconditionPatrol,
+        preconditionParameters: {
+          wayName: "test_smart_patrol_1_walk",
         },
-        {
-          preconditionFunction: expect.any(Function),
-          preconditionParameters: {},
-          jobId: {
-            jobType: "smartcover_job",
-            section: "logic@test_smart_animpoint_1",
-          },
-          priority: 15,
+        isMonsterJob: false,
+        pathType: EJobPathType.PATH,
+        section: "logic@test_smart_patrol_1_walk",
+        priority: 20,
+      },
+      {
+        type: EJobType.PATROL,
+        preconditionFunction: jobPreconditionPatrol,
+        preconditionParameters: {
+          wayName: "test_smart_patrol_1_walk",
         },
-        {
-          jobs: $fromArray([
-            {
-              preconditionFunction: expect.any(Function),
-              preconditionParameters: {},
-              jobId: {
-                jobType: "path_job",
-                section: "logic@test_smart_guard_1_walk",
-              },
-              priority: 25,
-            },
-            {
-              preconditionFunction: expect.any(Function),
-              preconditionParameters: {
-                nextDesiredJob: "logic@test_smart_guard_1_walk",
-              },
-              jobId: {
-                jobType: "path_job",
-                section: "logic@follower_test_smart_guard_1_walk",
-              },
-              priority: 24,
-            },
-          ]),
-          priority: 25,
+        isMonsterJob: false,
+        pathType: EJobPathType.PATH,
+        section: "logic@test_smart_patrol_1_walk",
+        priority: 20,
+      },
+      {
+        type: EJobType.WALKER,
+        preconditionFunction: jobPreconditionWalker,
+        preconditionParameters: {
+          wayName: "test_smart_walker_1_walk",
         },
-        {
-          jobs: $fromArray([
-            {
-              preconditionFunction: expect.any(Function),
-              preconditionParameters: {
-                wayName: "test_smart_sniper_1_walk",
-              },
-              jobId: {
-                jobType: "path_job",
-                section: "logic@test_smart_sniper_1_walk",
-              },
-              priority: 30,
-            },
-          ]),
-          priority: 30,
+        isMonsterJob: false,
+        pathType: EJobPathType.PATH,
+        section: "logic@test_smart_walker_1_walk",
+        priority: 15,
+      },
+      {
+        type: EJobType.ANIMPOINT,
+        preconditionFunction: jobPreconditionAnimpoint,
+        preconditionParameters: {},
+        isMonsterJob: false,
+        pathType: EJobPathType.SMART_COVER,
+        section: "logic@test_smart_animpoint_1",
+        priority: 15,
+      },
+      ...range(2, 1).map((it) => ({
+        type: EJobType.SLEEP,
+        preconditionFunction: jobPreconditionSleep,
+        preconditionParameters: {
+          wayName: `test_smart_sleep_${it}`,
         },
-        {
-          jobs: $fromArray([
-            {
-              preconditionFunction: expect.any(Function),
-              preconditionParameters: {
-                wayName: "test_smart_camper_1_walk",
-              },
-              jobId: {
-                jobType: "path_job",
-                section: "logic@test_smart_camper_1_walk",
-              },
-              priority: 45,
-            },
-          ]),
-          priority: 45,
-        },
-      ]),
-      priority: 60,
-    });
+        isMonsterJob: false,
+        pathType: EJobPathType.PATH,
+        section: `logic@test_smart_sleep_${it}`,
+        priority: 10,
+      })),
+      ...range(20, 1).map((it) => ({
+        type: EJobType.POINT,
+        isMonsterJob: false,
+        pathType: EJobPathType.POINT,
+        section: "logic@test_smart_point_" + it,
+        priority: 3,
+      })),
+    ]);
   });
 
   it("should correctly generate default stalker jobs for empty smart", async () => {
-    const defaultJobsLtx: string = await readInGameTestLtx(
+    const defaultEmptyJobsLtx: string = await readInGameTestLtx(
       path.resolve(__dirname, "__test__", "job_create_stalker.empty.ltx")
     );
 
-    const smartTerrain: SmartTerrain = new SmartTerrain("test_smart_empty");
+    const smartTerrain: SmartTerrain = mockSmartTerrain("test_smart_empty");
+    const [jobsList, ltx] = createStalkerJobs(smartTerrain, new LuaTable());
 
-    jest.spyOn(smartTerrain, "name").mockImplementation(() => "test_smart_empty");
-
-    const [jobsList, ltx] = createStalkerJobs(smartTerrain);
-
-    expect(ltx).toBe(defaultJobsLtx);
-    expect(jobsList).toEqualLuaTables({
-      preconditionIsMonster: false,
-      jobs: $fromArray([
-        {
-          jobs: $fromArray(
-            range(20, 1).map((it) => ({
-              jobId: {
-                jobType: "point_job",
-                section: "logic@test_smart_empty_point_" + it,
-              },
-              priority: 3,
-            }))
-          ),
-          priority: 3,
-        },
-      ]),
-      priority: 60,
-    });
+    expect(ltx).toBe(defaultEmptyJobsLtx);
+    expect(jobsList).toEqualLuaArrays(
+      range(20, 1).map((it) => ({
+        isMonsterJob: false,
+        pathType: EJobPathType.POINT,
+        section: "logic@test_smart_empty_point_" + it,
+        type: EJobType.POINT,
+        priority: 3,
+      }))
+    );
   });
 });

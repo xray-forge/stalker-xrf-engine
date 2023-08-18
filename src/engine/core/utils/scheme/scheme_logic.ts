@@ -14,7 +14,7 @@ import { assert, assertDefined } from "@/engine/core/utils/assertion";
 import { getObjectConfigOverrides, pickSectionFromCondList } from "@/engine/core/utils/ini/ini_config";
 import { getSchemeFromSection } from "@/engine/core/utils/ini/ini_parse";
 import { readIniConditionList, readIniString } from "@/engine/core/utils/ini/ini_read";
-import { ISmartTerrainJob } from "@/engine/core/utils/job/job_types";
+import { ISmartTerrainJobDescriptor } from "@/engine/core/utils/job";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getObjectSmartTerrain } from "@/engine/core/utils/object/object_get";
 import { sendToNearestAccessibleVertex } from "@/engine/core/utils/object/object_location";
@@ -151,7 +151,7 @@ export function activateSchemeBySection(
 
     assert(currentSmartTerrain, "scheme/logic: activate_by_section: section is NIL && NPC !in smart.");
 
-    const job: Optional<ISmartTerrainJob> = currentSmartTerrain.getJobByObjectId(object.id());
+    const job: Optional<ISmartTerrainJobDescriptor> = currentSmartTerrain.getJobByObjectId(object.id());
 
     section = job?.section as TSection;
   }

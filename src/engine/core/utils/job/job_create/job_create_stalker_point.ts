@@ -1,7 +1,7 @@
 import { SmartTerrain } from "@/engine/core/objects";
-import { IJobListDescriptor } from "@/engine/core/utils/job/job_types";
+import { EJobPathType, EJobType, ISmartTerrainJobDescriptor } from "@/engine/core/utils/job/job_types";
 import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
-import { EJobType, TCount, TName } from "@/engine/lib/types";
+import { LuaArray, TCount, TName } from "@/engine/lib/types";
 
 /**
  * Create point / cover jobs for stalkers in smart terrain.
@@ -10,25 +10,22 @@ import { EJobType, TCount, TName } from "@/engine/lib/types";
  * @returns cover jobs list, generated LTX and count of created jobs
  */
 export function createStalkerPointJobs(
-  smartTerrain: SmartTerrain
-): LuaMultiReturn<[IJobListDescriptor, string, TCount]> {
+  smartTerrain: SmartTerrain,
+  jobsList: LuaArray<ISmartTerrainJobDescriptor>
+): LuaMultiReturn<[LuaArray<ISmartTerrainJobDescriptor>, string]> {
   const smartTerrainName: TName = smartTerrain.name();
-  const pointJobs: IJobListDescriptor = {
-    priority: logicsConfig.JOBS.STALKER_POINT.PRIORITY,
-    jobs: new LuaTable(),
-  };
 
   let ltx: string = "";
 
   for (const it of $range(1, logicsConfig.JOBS.STALKER_POINT.COUNT)) {
     const name: TName = `${smartTerrainName}_point_${it}`;
 
-    table.insert(pointJobs.jobs, {
+    table.insert(jobsList, {
+      type: EJobType.POINT,
+      isMonsterJob: false,
       priority: logicsConfig.JOBS.STALKER_POINT.PRIORITY,
-      jobId: {
-        section: `logic@${name}`,
-        jobType: EJobType.POINT_JOB,
-      },
+      section: `logic@${name}`,
+      pathType: EJobPathType.POINT,
     });
 
     ltx +=
@@ -54,5 +51,5 @@ export function createStalkerPointJobs(
     }
   }
 
-  return $multi(pointJobs, ltx, logicsConfig.JOBS.STALKER_POINT.COUNT);
+  return $multi(jobsList, ltx);
 }

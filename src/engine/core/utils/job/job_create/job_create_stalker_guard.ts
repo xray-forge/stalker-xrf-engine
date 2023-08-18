@@ -2,18 +2,19 @@ import { level } from "xray16";
 
 import { SmartTerrain } from "@/engine/core/objects";
 import { isJobPatrolInRestrictor } from "@/engine/core/utils/job/job_check";
-import { IJobListDescriptor } from "@/engine/core/utils/job/job_types";
+import { jobPreconditionGuard, jobPreconditionGuardFollower } from "@/engine/core/utils/job/job_precondition";
+import { EJobPathType, EJobType, ISmartTerrainJobDescriptor } from "@/engine/core/utils/job/job_types";
 import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
-import { AnyObject, EJobType, ServerHumanObject, TCount, TIndex, TName } from "@/engine/lib/types";
+import { AnyObject, LuaArray, ServerHumanObject, TCount, TIndex, TName } from "@/engine/lib/types";
 
 /**
  * todo;
  */
 export function createStalkerGuardJobs(
-  smartTerrain: SmartTerrain
-): LuaMultiReturn<[IJobListDescriptor, string, TCount]> {
+  smartTerrain: SmartTerrain,
+  jobsList: LuaArray<ISmartTerrainJobDescriptor>
+): LuaMultiReturn<[LuaArray<ISmartTerrainJobDescriptor>, string]> {
   const smartTerrainName: TName = smartTerrain.name();
-  const stalkerGuard: IJobListDescriptor = { priority: logicsConfig.JOBS.STALKER_GUARD.PRIORITY, jobs: new LuaTable() };
 
   let ltx: string = "";
   let index: TIndex = 1;
@@ -21,30 +22,16 @@ export function createStalkerGuardJobs(
   while (level.patrol_path_exists(`${smartTerrainName}_guard_${index}_walk`)) {
     const wayName: TName = `${smartTerrainName}_guard_${index}_walk`;
 
-    table.insert(stalkerGuard.jobs, {
+    table.insert(jobsList, {
+      type: EJobType.GUARD,
       priority: logicsConfig.JOBS.STALKER_GUARD.PRIORITY,
-      jobId: {
-        section: `logic@${wayName}`,
-        jobType: EJobType.PATH_JOB,
+      section: `logic@${wayName}`,
+      pathType: EJobPathType.PATH,
+      isMonsterJob: false,
+      preconditionParameters: {
+        wayName: wayName,
       },
-      preconditionParameters: {},
-      preconditionFunction: (
-        serverObject: ServerHumanObject,
-        smartTerrain: SmartTerrain,
-        parameters: AnyObject
-      ): boolean => {
-        if (smartTerrain.alarmStartedAt === null) {
-          return true;
-        } else if (smartTerrain.safeRestrictor === null) {
-          return true;
-        }
-
-        if (parameters.is_safe_job === null) {
-          parameters.is_safe_job = isJobPatrolInRestrictor(smartTerrain, smartTerrain.safeRestrictor, wayName);
-        }
-
-        return parameters.is_safe_job !== false;
-      },
+      preconditionFunction: jobPreconditionGuard,
     });
 
     let jobLtx: string =
@@ -92,21 +79,14 @@ export function createStalkerGuardJobs(
       job1Ltx += `out_restr = ${smartTerrain.defendRestrictor}\n`;
     }
 
-    table.insert(stalkerGuard.jobs, {
+    table.insert(jobsList, {
+      type: EJobType.GUARD_FOLLOWER,
       priority: logicsConfig.JOBS.STALKER_GUARD.PRIORITY_FOLLOWER,
-      jobId: {
-        section: `logic@follower_${wayName}`,
-        jobType: EJobType.PATH_JOB,
-      },
+      section: `logic@follower_${wayName}`,
+      pathType: EJobPathType.PATH,
+      isMonsterJob: false,
       preconditionParameters: { nextDesiredJob: `logic@${wayName}` },
-      preconditionFunction: (
-        serverObject: ServerHumanObject,
-        smartTerrain: SmartTerrain,
-        parameters: AnyObject,
-        npcInfo: AnyObject
-      ): boolean => {
-        return npcInfo.desiredJob === parameters.nextDesiredJob;
-      },
+      preconditionFunction: jobPreconditionGuardFollower,
     });
 
     let followerLtx: string =
@@ -136,5 +116,5 @@ export function createStalkerGuardJobs(
     index += 1;
   }
 
-  return $multi(stalkerGuard, ltx, index - 1);
+  return $multi(jobsList, ltx);
 }

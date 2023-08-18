@@ -182,9 +182,8 @@ export class MonsterBinder extends object_binder {
       const smartTerrain: Optional<SmartTerrain> = alife().object<SmartTerrain>(serverObject.m_smart_terrain_id);
 
       if (smartTerrain !== null && smartTerrain.arrivingObjects.get(serverObject.id) === null) {
-        const smartTask: ALifeSmartTerrainTask = smartTerrain.jobsData.get(
-          smartTerrain.objectJobDescriptors.get(serverObject.id).jobId
-        ).alifeTask;
+        const smartTask: ALifeSmartTerrainTask = smartTerrain.objectJobDescriptors.get(serverObject.id).job
+          ?.alifeTask as ALifeSmartTerrainTask;
 
         this.object.set_npc_position(smartTask.position());
       }

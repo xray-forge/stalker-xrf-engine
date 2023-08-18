@@ -2,21 +2,19 @@ import { level } from "xray16";
 
 import { SmartTerrain } from "@/engine/core/objects";
 import { isJobPatrolInRestrictor } from "@/engine/core/utils/job/job_check";
-import { IJobListDescriptor } from "@/engine/core/utils/job/job_types";
+import { jobPreconditionWalker } from "@/engine/core/utils/job/job_precondition";
+import { EJobPathType, EJobType, ISmartTerrainJobDescriptor } from "@/engine/core/utils/job/job_types";
 import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
-import { AnyObject, EJobType, ServerObject, TCount, TIndex, TName } from "@/engine/lib/types";
+import { LuaArray, TIndex, TName } from "@/engine/lib/types";
 
 /**
  * todo;
  */
 export function createStalkerWalkerJobs(
-  smartTerrain: SmartTerrain
-): LuaMultiReturn<[IJobListDescriptor, string, TCount]> {
+  smartTerrain: SmartTerrain,
+  jobsList: LuaArray<ISmartTerrainJobDescriptor>
+): LuaMultiReturn<[LuaArray<ISmartTerrainJobDescriptor>, string]> {
   const smartTerrainName: TName = smartTerrain.name();
-  const stalkerWalker: IJobListDescriptor = {
-    priority: logicsConfig.JOBS.STALKER_WALKER.PRIORITY,
-    jobs: new LuaTable(),
-  };
 
   let index: TIndex = 1;
   let ltx: string = "";
@@ -24,30 +22,14 @@ export function createStalkerWalkerJobs(
   while (level.patrol_path_exists(`${smartTerrainName}_walker_${index}_walk`)) {
     const wayName: TName = `${smartTerrainName}_walker_${index}_walk`;
 
-    table.insert(stalkerWalker.jobs, {
+    table.insert(jobsList, {
+      type: EJobType.WALKER,
+      isMonsterJob: false,
       priority: logicsConfig.JOBS.STALKER_WALKER.PRIORITY,
-      jobId: {
-        section: `logic@${wayName}`,
-        jobType: EJobType.PATH_JOB,
-      },
-      preconditionParameters: {},
-      preconditionFunction: (
-        serverObject: ServerObject,
-        smartTerrain: SmartTerrain,
-        precondParams: AnyObject
-      ): boolean => {
-        if (smartTerrain.alarmStartedAt === null) {
-          return true;
-        } else if (smartTerrain.safeRestrictor === null) {
-          return true;
-        }
-
-        if (precondParams.is_safe_job === null) {
-          precondParams.is_safe_job = isJobPatrolInRestrictor(smartTerrain, smartTerrain.safeRestrictor, wayName);
-        }
-
-        return precondParams.is_safe_job !== false;
-      },
+      section: `logic@${wayName}`,
+      pathType: EJobPathType.PATH,
+      preconditionParameters: { wayName },
+      preconditionFunction: jobPreconditionWalker,
     });
 
     let jobLtx: string =
@@ -89,5 +71,5 @@ export function createStalkerWalkerJobs(
     index += 1;
   }
 
-  return $multi(stalkerWalker, ltx, index - 1);
+  return $multi(jobsList, ltx);
 }

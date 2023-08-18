@@ -32,7 +32,7 @@ import { SchemeReachTask } from "@/engine/core/schemes/reach_task";
 import { SchemeIdle } from "@/engine/core/schemes/sr_idle";
 import { IdleManager } from "@/engine/core/schemes/sr_idle/IdleManager";
 import { SchemeWounded } from "@/engine/core/schemes/wounded";
-import { ISmartTerrainJob } from "@/engine/core/utils/job";
+import { ISmartTerrainJobDescriptor } from "@/engine/core/utils/job";
 import { disableInfo, giveInfo } from "@/engine/core/utils/object/object_info_portion";
 import {
   activateSchemeBySection,
@@ -212,7 +212,7 @@ describe("'scheme logic' utils", () => {
       () =>
         ({
           section: "patrol@test",
-        }) as ISmartTerrainJob
+        }) as ISmartTerrainJobDescriptor
     );
 
     const ini: IniFile = mockIniFile("test.ltx", {

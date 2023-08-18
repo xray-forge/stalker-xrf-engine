@@ -3,32 +3,21 @@ import { level } from "xray16";
 import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { SmartTerrain } from "@/engine/core/objects";
 import { isJobPatrolInRestrictor } from "@/engine/core/utils/job/job_check";
-import { IJobListDescriptor } from "@/engine/core/utils/job/job_types";
+import { jobPreconditionCollector } from "@/engine/core/utils/job/job_precondition";
+import { EJobPathType, EJobType, ISmartTerrainJobDescriptor } from "@/engine/core/utils/job/job_types";
 import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
 import { communities } from "@/engine/lib/constants/communities";
 import { detectors } from "@/engine/lib/constants/items/detectors";
-import {
-  AnyObject,
-  ClientObject,
-  EJobType,
-  Optional,
-  ServerHumanObject,
-  TCount,
-  TIndex,
-  TName,
-} from "@/engine/lib/types";
+import { AnyObject, LuaArray, Optional, ServerHumanObject, TCount, TIndex, TName } from "@/engine/lib/types";
 
 /**
  * todo;
  */
 export function createStalkerCollectorJobs(
-  smartTerrain: SmartTerrain
-): LuaMultiReturn<[IJobListDescriptor, string, TCount]> {
+  smartTerrain: SmartTerrain,
+  jobsList: LuaArray<ISmartTerrainJobDescriptor>
+): LuaMultiReturn<[LuaArray<ISmartTerrainJobDescriptor>, string]> {
   const smartTerrainName: TName = smartTerrain.name();
-  const collectorJobs: IJobListDescriptor = {
-    priority: logicsConfig.JOBS.STALKER_COLLECTOR.PRIORITY,
-    jobs: new LuaTable(),
-  };
 
   let index: TIndex = 1;
   let ltx: string = "";
@@ -37,37 +26,14 @@ export function createStalkerCollectorJobs(
   while (level.patrol_path_exists(`${smartTerrainName}_collector_${index}_walk`)) {
     const wayName: TName = `${smartTerrainName}_collector_${index}_walk`;
 
-    table.insert(collectorJobs.jobs, {
+    table.insert(jobsList, {
+      type: EJobType.COLLECTOR,
+      isMonsterJob: false,
       priority: logicsConfig.JOBS.STALKER_COLLECTOR.PRIORITY,
-      jobId: {
-        section: `logic@${wayName}`,
-        jobType: EJobType.PATH_JOB,
-      },
+      section: `logic@${wayName}`,
+      pathType: EJobPathType.PATH,
       preconditionParameters: {},
-      preconditionFunction: (
-        serverObject: ServerHumanObject,
-        smart: SmartTerrain,
-        precondParams: AnyObject
-      ): boolean => {
-        if (serverObject.community() === communities.zombied) {
-          return false;
-        }
-
-        const state: Optional<IRegistryObjectState> = registry.objects.get(serverObject.id);
-
-        if (state === null || state.object === null) {
-          return false;
-        }
-
-        // todo: object has detector util?
-        for (const [, value] of pairs(detectors)) {
-          if (state.object.object(value) !== null) {
-            return true;
-          }
-        }
-
-        return false;
-      },
+      preconditionFunction: jobPreconditionCollector,
     });
 
     let jobLtx: string =
@@ -109,5 +75,5 @@ export function createStalkerCollectorJobs(
     index += 1;
   }
 
-  return $multi(collectorJobs, ltx, index - 1);
+  return $multi(jobsList, ltx);
 }

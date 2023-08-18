@@ -1,22 +1,21 @@
 import { SmartTerrain } from "@/engine/core/objects";
-import { IJobListDescriptor } from "@/engine/core/utils/job/job_types";
+import { EJobPathType, EJobType, ISmartTerrainJobDescriptor } from "@/engine/core/utils/job/job_types";
 import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
-import { EJobType, TName } from "@/engine/lib/types";
+import { LuaArray, TName } from "@/engine/lib/types";
 
 /**
  * Create list of default smart terrain jobs for monsters.
  * Usually it assigns monster home for some point.
  *
- * @param smartTerrain - tarrain to create jobs for
+ * @param smartTerrain - terrain to create jobs for
+ * @param jobsList - list of jobs to insert into
  * @returns jobs descriptor and ltx config text for matching jobs
  */
-export function createMonsterJobs(smartTerrain: SmartTerrain): LuaMultiReturn<[IJobListDescriptor, string]> {
+export function createMonsterJobs(
+  smartTerrain: SmartTerrain,
+  jobsList: LuaArray<ISmartTerrainJobDescriptor> = new LuaTable()
+): LuaMultiReturn<[LuaArray<ISmartTerrainJobDescriptor>, string]> {
   const smartTerrainName: TName = smartTerrain.name();
-  const monsterJobsDescriptor: IJobListDescriptor = {
-    preconditionIsMonster: true,
-    priority: logicsConfig.JOBS.MONSTER_JOB_PRIORITY,
-    jobs: new LuaTable(),
-  };
 
   let ltx: string = "";
 
@@ -27,12 +26,12 @@ export function createMonsterJobs(smartTerrain: SmartTerrain): LuaMultiReturn<[I
   for (const it of $range(1, logicsConfig.JOBS.MOB_HOME.COUNT)) {
     const name: TName = `${smartTerrainName}_home_${it}`;
 
-    table.insert(monsterJobsDescriptor.jobs, {
+    table.insert(jobsList, {
+      type: EJobType.MONSTER_HOME,
+      isMonsterJob: true,
       priority: logicsConfig.JOBS.MOB_HOME.PRIORITY,
-      jobId: {
-        section: `logic@${name}`,
-        jobType: EJobType.POINT_JOB,
-      },
+      section: `logic@${name}`,
+      pathType: EJobPathType.POINT,
     });
 
     ltx +=
@@ -49,5 +48,5 @@ export function createMonsterJobs(smartTerrain: SmartTerrain): LuaMultiReturn<[I
     }
   }
 
-  return $multi(monsterJobsDescriptor, ltx);
+  return $multi(jobsList, ltx);
 }

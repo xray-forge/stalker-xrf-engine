@@ -51,7 +51,7 @@ import { SchemeReachTask } from "@/engine/core/schemes/reach_task/SchemeReachTas
 import { SchemeLight } from "@/engine/core/schemes/sr_light/SchemeLight";
 import { SchemeWounded } from "@/engine/core/schemes/wounded/SchemeWounded";
 import { pickSectionFromCondList, readIniString, TConditionList } from "@/engine/core/utils/ini";
-import { setupObjectSmartJobsAndLogicOnSpawn } from "@/engine/core/utils/job";
+import { IObjectJobDescriptor, setupObjectSmartJobsAndLogicOnSpawn } from "@/engine/core/utils/job";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getObjectCommunity, getObjectSquad } from "@/engine/core/utils/object";
 import { ERelation, setClientObjectRelation, setObjectSympathy } from "@/engine/core/utils/relation";
@@ -199,10 +199,9 @@ export class StalkerBinder extends object_binder {
         const smartTerrain: SmartTerrain = alife().object<SmartTerrain>(serverObject.m_smart_terrain_id)!;
 
         if (smartTerrain.arrivingObjects.get(serverObject.id) === null) {
-          const jobData = smartTerrain.objectJobDescriptors.get(serverObject.id);
-          const smartTask: ALifeSmartTerrainTask = smartTerrain.jobsData.get(jobData?.jobId).alifeTask;
+          const jobDescriptor: IObjectJobDescriptor = smartTerrain.objectJobDescriptors.get(serverObject.id);
 
-          this.object.set_npc_position(smartTask.position());
+          this.object.set_npc_position(jobDescriptor.job!.alifeTask!.position());
         }
       }
     }

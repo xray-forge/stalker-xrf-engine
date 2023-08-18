@@ -9,19 +9,16 @@ import { createStalkerSleepJobs } from "@/engine/core/utils/job/job_create/job_c
 import { createStalkerSniperJobs } from "@/engine/core/utils/job/job_create/job_create_stalker_sniper";
 import { createStalkerSurgeJobs } from "@/engine/core/utils/job/job_create/job_create_stalker_surge";
 import { createStalkerWalkerJobs } from "@/engine/core/utils/job/job_create/job_create_stalker_walker";
-import { IJobListDescriptor } from "@/engine/core/utils/job/job_types";
-import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
+import { ISmartTerrainJobDescriptor } from "@/engine/core/utils/job/job_types";
+import { LuaArray } from "@/engine/lib/types";
 
 /**
  * todo;
  */
-export function createStalkerJobs(smartTerrain: SmartTerrain): LuaMultiReturn<[IJobListDescriptor, string]> {
-  const stalkerJobs: IJobListDescriptor = {
-    preconditionIsMonster: false,
-    priority: logicsConfig.JOBS.STALKER_JOB_PRIORITY,
-    jobs: new LuaTable(),
-  };
-
+export function createStalkerJobs(
+  smartTerrain: SmartTerrain,
+  jobsList: LuaArray<ISmartTerrainJobDescriptor>
+): LuaMultiReturn<[LuaArray<ISmartTerrainJobDescriptor>, string]> {
   let ltx: string =
     "[meet@generic_lager]\n" +
     "close_distance = {=is_wounded} 0, 2\n" +
@@ -68,116 +65,84 @@ export function createStalkerJobs(smartTerrain: SmartTerrain): LuaMultiReturn<[I
     "use_text = nil\n";
 
   // ===================================================================================================================
-  // = Point job
-  // ===================================================================================================================
-
-  const [stalkerPointJobs, stalkerPointLtx] = createStalkerPointJobs(smartTerrain);
-
-  ltx += stalkerPointLtx;
-  table.insert(stalkerJobs.jobs, stalkerPointJobs);
-
-  // ===================================================================================================================
   // = Surge
   // ===================================================================================================================
 
-  const [stalkerSurgeJobs, stalkerSurgeLtx, stalkerSurgeJobsCount] = createStalkerSurgeJobs(smartTerrain);
+  const [, stalkerSurgeLtx] = createStalkerSurgeJobs(smartTerrain, jobsList);
 
-  if (stalkerSurgeJobsCount > 0) {
-    ltx += stalkerSurgeLtx;
-    table.insert(stalkerJobs.jobs, stalkerSurgeJobs);
-  }
-
-  // ===================================================================================================================
-  // = Sleep
-  // ===================================================================================================================
-
-  const [stalkerSleepJobs, stalkerSleepLtx, stalkerSleepJobsCount] = createStalkerSleepJobs(smartTerrain);
-
-  if (stalkerSleepJobsCount > 0) {
-    ltx += stalkerSleepLtx;
-    table.insert(stalkerJobs.jobs, stalkerSleepJobs);
-  }
-
-  // ===================================================================================================================
-  // = Collector
-  // ===================================================================================================================
-
-  const [stalkerCollectorJobs, stalkerCollectorLtx, stalkerCollectorJobsCount] =
-    createStalkerCollectorJobs(smartTerrain);
-
-  if (stalkerCollectorJobsCount > 0) {
-    ltx += stalkerCollectorLtx;
-    table.insert(stalkerJobs.jobs, stalkerCollectorJobs);
-  }
-
-  // ===================================================================================================================
-  // = Walker
-  // ===================================================================================================================
-
-  const [stalkerWalkerJobs, stalkerWalkerLtx, stalkerWalkerJobsCount] = createStalkerWalkerJobs(smartTerrain);
-
-  if (stalkerWalkerJobsCount > 0) {
-    ltx += stalkerWalkerLtx;
-    table.insert(stalkerJobs.jobs, stalkerWalkerJobs);
-  }
-
-  // ===================================================================================================================
-  // = Patrol
-  // ===================================================================================================================
-
-  const [stalkerPatrolJobs, stalkerPatrolLtx, stalkerPatrolJobsCount] = createStalkerPatrolJobs(smartTerrain);
-
-  if (stalkerPatrolJobsCount > 0) {
-    ltx += stalkerPatrolLtx;
-    table.insert(stalkerJobs.jobs, stalkerPatrolJobs);
-  }
-
-  // ===================================================================================================================
-  // = Animpoint
-  // ===================================================================================================================
-
-  const [stalkerAnimpointJobs, stalkerAnimpointLtx, stalkerAnimpointCount] = createStalkerAnimpointJobs(
-    smartTerrain,
-    stalkerJobs
-  );
-
-  if (stalkerAnimpointCount > 0) {
-    ltx += stalkerAnimpointLtx;
-    // insert directly into jobs list
-  }
-
-  // ===================================================================================================================
-  // = Guard
-  // ===================================================================================================================
-
-  const [stalkerGuardJobs, stalkerGuardLtx, stalkerGuardJobsCount] = createStalkerGuardJobs(smartTerrain);
-
-  if (stalkerGuardJobsCount > 0) {
-    ltx += stalkerGuardLtx;
-    table.insert(stalkerJobs.jobs, stalkerGuardJobs);
-  }
-
-  // ===================================================================================================================
-  // = Sniper
-  // ===================================================================================================================
-
-  const [stalkerSniperJobs, stalkerSniperLtx, stalkerSniperJobsCount] = createStalkerSniperJobs(smartTerrain);
-
-  if (stalkerSniperJobsCount > 0) {
-    ltx += stalkerSniperLtx;
-    table.insert(stalkerJobs.jobs, stalkerSniperJobs);
-  }
+  ltx += stalkerSurgeLtx;
 
   // ===================================================================================================================
   // = Camper
   // ===================================================================================================================
 
-  const [stalkerCamperJobs, stalkerCamperLtx, stalkerCamperJobsCount] = createStalkerCamperJobs(smartTerrain);
+  const [, stalkerCamperLtx] = createStalkerCamperJobs(smartTerrain, jobsList);
 
-  if (stalkerCamperJobsCount > 0) {
-    ltx += stalkerCamperLtx;
-    table.insert(stalkerJobs.jobs, stalkerCamperJobs);
-  }
+  ltx += stalkerCamperLtx;
 
-  return $multi(stalkerJobs, ltx);
+  // ===================================================================================================================
+  // = Sniper
+  // ===================================================================================================================
+
+  const [, stalkerSniperLtx] = createStalkerSniperJobs(smartTerrain, jobsList);
+
+  ltx += stalkerSniperLtx;
+
+  // ===================================================================================================================
+  // = Collector
+  // ===================================================================================================================
+
+  const [, stalkerCollectorLtx] = createStalkerCollectorJobs(smartTerrain, jobsList);
+
+  ltx += stalkerCollectorLtx;
+
+  // ===================================================================================================================
+  // = Guard
+  // ===================================================================================================================
+
+  const [, stalkerGuardLtx] = createStalkerGuardJobs(smartTerrain, jobsList);
+
+  ltx += stalkerGuardLtx;
+
+  // ===================================================================================================================
+  // = Patrol
+  // ===================================================================================================================
+
+  const [, stalkerPatrolLtx] = createStalkerPatrolJobs(smartTerrain, jobsList);
+
+  ltx += stalkerPatrolLtx;
+
+  // ===================================================================================================================
+  // = Walker
+  // ===================================================================================================================
+
+  const [, stalkerWalkerLtx] = createStalkerWalkerJobs(smartTerrain, jobsList);
+
+  ltx += stalkerWalkerLtx;
+
+  // ===================================================================================================================
+  // = Animpoint
+  // ===================================================================================================================
+
+  const [, stalkerAnimpointLtx] = createStalkerAnimpointJobs(smartTerrain, jobsList);
+
+  ltx += stalkerAnimpointLtx;
+
+  // ===================================================================================================================
+  // = Sleep
+  // ===================================================================================================================
+
+  const [, stalkerSleepLtx] = createStalkerSleepJobs(smartTerrain, jobsList);
+
+  ltx += stalkerSleepLtx;
+
+  // ===================================================================================================================
+  // = Point job
+  // ===================================================================================================================
+
+  const [, stalkerPointLtx] = createStalkerPointJobs(smartTerrain, jobsList);
+
+  ltx += stalkerPointLtx;
+
+  return $multi(jobsList, ltx);
 }
