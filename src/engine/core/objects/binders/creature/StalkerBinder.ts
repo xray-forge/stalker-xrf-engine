@@ -46,7 +46,7 @@ import { ESchemeEvent, IBaseSchemeState } from "@/engine/core/schemes/base";
 import { SchemeCombat } from "@/engine/core/schemes/combat/SchemeCombat";
 import { PostCombatIdle } from "@/engine/core/schemes/combat_idle/PostCombatIdle";
 import { SchemeHear } from "@/engine/core/schemes/hear/SchemeHear";
-import { SchemeMeet } from "@/engine/core/schemes/meet/SchemeMeet";
+import { activateMeetWithObject, updateObjectInteractionAvailability } from "@/engine/core/schemes/meet/utils";
 import { SchemeReachTask } from "@/engine/core/schemes/reach_task/SchemeReachTask";
 import { SchemeLight } from "@/engine/core/schemes/sr_light/SchemeLight";
 import { ISchemeWoundedState } from "@/engine/core/schemes/wounded";
@@ -298,7 +298,7 @@ export class StalkerBinder extends object_binder {
 
     if (isObjectAlive) {
       GlobalSoundManager.getInstance().update(object.id());
-      SchemeMeet.updateObjectInteractionAvailability(object);
+      updateObjectInteractionAvailability(object);
       initializeObjectInvulnerability(this.object);
     }
 
@@ -463,7 +463,7 @@ export class StalkerBinder extends object_binder {
     if (this.object.alive()) {
       EventsManager.emitEvent(EGameEvent.STALKER_INTERACTION, object, who);
       DialogManager.getInstance().resetForObject(this.object);
-      SchemeMeet.onMeetWithObject(object);
+      activateMeetWithObject(object);
 
       if (this.state.activeSection) {
         emitSchemeEvent(this.object, this.state[this.state.activeScheme!]!, ESchemeEvent.USE, object, who);

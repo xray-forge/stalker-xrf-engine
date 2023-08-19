@@ -5,12 +5,12 @@ import { ISchemeMeetState } from "@/engine/core/schemes/meet";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { isObjectWounded } from "@/engine/core/utils/object";
 import { FALSE } from "@/engine/lib/constants/words";
-import { ActionPlanner, ClientObject, Optional } from "@/engine/lib/types";
+import { ActionPlanner, Optional } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Evaluator to check if object is ready to communicate.
  */
 @LuabindClass()
 export class EvaluatorContact extends property_evaluator {
@@ -23,34 +23,34 @@ export class EvaluatorContact extends property_evaluator {
   }
 
   /**
-   * todo: Description.
+   * Evaluate whether object is ready to contact with actor.
+   * Based on distance wait for actor to speak or continue doing other things.
    */
   public override evaluate(): boolean {
-    const actor: Optional<ClientObject> = registry.actor;
-
-    if (!actor?.alive()) {
+    // No alive actor.
+    if (!registry.actor?.alive()) {
       return false;
-    } else {
-      this.state.meetManager.update();
-
-      if (isObjectWounded(this.object.id())) {
-        return false;
-      } else if (this.object.best_enemy() !== null) {
-        return false;
-      }
-
-      if (this.actionPlanner === null) {
-        this.actionPlanner = this.object.motivation_action_manager();
-      }
-
-      if (this.actionPlanner.evaluator(stalker_ids.property_enemy).evaluate()) {
-        this.state.meetManager.use = FALSE;
-        this.object.disable_talk();
-
-        return false;
-      }
-
-      return this.state.meetManager.currentDistanceToSpeaker !== null;
     }
+
+    this.state.meetManager.update();
+
+    // Wounded or have enemy, cannot speak.
+    if (isObjectWounded(this.object.id()) || this.object.best_enemy() !== null) {
+      return false;
+    }
+
+    if (this.actionPlanner === null) {
+      this.actionPlanner = this.object.motivation_action_manager();
+    }
+
+    // In combat/searching for enemy, cannot speak.
+    if (this.actionPlanner.evaluator(stalker_ids.property_enemy).evaluate()) {
+      this.state.meetManager.use = FALSE;
+      this.object.disable_talk();
+
+      return false;
+    }
+
+    return this.state.meetManager.currentDistanceToSpeaker !== null;
   }
 }
