@@ -141,7 +141,7 @@ function copyGameEngine(engine: string): void {
 /**
  * Copy gamedata assets needed for the game build.
  *
- * @param isFiltered - whether gamedata should be copied with applied filtering based on compressed DBs
+ * @param isFiltered - whether gamedata should be copied with applied filtering based on compressed DBs content
  */
 function copyGamedataAssets(isFiltered: boolean = true): void {
   const destinationPath: string = path.resolve(TARGET_GAME_PACKAGE_DIR, "gamedata");
