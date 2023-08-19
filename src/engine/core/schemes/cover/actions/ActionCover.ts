@@ -4,6 +4,7 @@ import { registry, setStalkerState } from "@/engine/core/database";
 import { SimulationBoardManager } from "@/engine/core/managers/interaction/SimulationBoardManager";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import { EStalkerState } from "@/engine/core/objects/animation";
+import { ISchemeEventHandler } from "@/engine/core/schemes/base";
 import { ISchemeCoverState } from "@/engine/core/schemes/cover";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/ini_config";
 import { areSameVectors, createEmptyVector, createVector, subVectors } from "@/engine/core/utils/vector";
@@ -13,7 +14,7 @@ import { CoverPoint, EClientObjectPath, Optional, TDistance, TNumberId, Vector }
  * Find cover and hide action.
  */
 @LuabindClass()
-export class ActionCover extends action_base {
+export class ActionCover extends action_base implements ISchemeEventHandler {
   public readonly state: ISchemeCoverState;
 
   public enemyRandomPosition: Optional<Vector> = null;
@@ -39,27 +40,25 @@ export class ActionCover extends action_base {
         this.state.animationConditionList
       );
 
-      setStalkerState(
-        this.object,
-        targetState!,
-        null,
-        null,
-        { lookPosition: this.enemyRandomPosition, lookObject: null },
-        null
-      );
+      setStalkerState(this.object, targetState!, null, null, {
+        lookPosition: this.enemyRandomPosition,
+        lookObject: null,
+      });
+
+      // Play idle state sounds from stalkers like complaining etc.
+      if (this.state.soundIdle !== null) {
+        GlobalSoundManager.getInstance().playSound(this.object.id(), this.state.soundIdle);
+      }
     } else {
       this.object.set_dest_level_vertex_id(this.coverVertexId);
       setStalkerState(this.object, EStalkerState.ASSAULT);
-    }
-
-    if (this.state.soundIdle !== null) {
-      GlobalSoundManager.getInstance().playSound(this.object.id(), this.state.soundIdle);
     }
 
     super.execute();
   }
 
   /**
+   * Handle scheme activation event.
    * todo: Description.
    */
   public activateScheme(): void {

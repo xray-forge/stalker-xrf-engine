@@ -22,6 +22,7 @@ export enum EActionId {
   STATE_TO_IDLE_ITEMS = BASE + 103, // 195
   SMART_COVER_ACTIVITY = BASE + 215, // 307
   MEET_WAITING_ACTIVITY = BASE + 251, // 343
+  // Object is staying is smart cover point.
   COVER_ACTIVITY = BASE + 301, // 393
   CAMP_PATROL = BASE + 311, // 403
   ABUSE = BASE + 340, // 432
