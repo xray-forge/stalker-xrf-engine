@@ -1,56 +1,37 @@
 import { getFS, ini_file } from "xray16";
 
-import { registry } from "@/engine/core/database";
 import { SmartTerrain } from "@/engine/core/objects";
 import { assert } from "@/engine/core/utils/assertion";
 import {
   getSchemeFromSection,
   parseConditionsList,
-  pickSectionFromCondList,
   readIniBoolean,
   readIniNumber,
   readIniString,
   TConditionList,
 } from "@/engine/core/utils/ini";
 import { jobPreconditionExclusive } from "@/engine/core/utils/job/job_precondition";
-import {
-  EJobPathType,
-  EJobType,
-  ISmartTerrainJobDescriptor,
-  JobPathTypeByScheme,
-} from "@/engine/core/utils/job/job_types";
+import { EJobPathType, EJobType, JobPathTypeByScheme, TSmartTerrainJobsList } from "@/engine/core/utils/job/job_types";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { roots } from "@/engine/lib/constants/roots";
-import { FALSE } from "@/engine/lib/constants/words";
-import {
-  AnyObject,
-  EScheme,
-  IniFile,
-  LuaArray,
-  Optional,
-  ServerCreatureObject,
-  ServerHumanObject,
-  TCount,
-  TIndex,
-  TPath,
-  TRate,
-  TSection,
-} from "@/engine/lib/types";
+import { EScheme, IniFile, Optional, TCount, TIndex, TPath, TRate, TSection } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Create exclusive jobs defined for smart terrain.
+ * Handles `exclusive` section in smart terrain ltx file config.
  *
- * @param smartTerrain
- * @param jobsList
+ * @param smartTerrain - target smart terrain to create jobs for
+ * @param jobs - list of jobs to insert new jobs into
+ * @returns list of jobs where exclusive jobs are inserted
  */
-export function createExclusiveJobs(smartTerrain: SmartTerrain, jobsList: LuaArray<ISmartTerrainJobDescriptor>): void {
+export function createExclusiveJobs(smartTerrain: SmartTerrain, jobs: TSmartTerrainJobsList): TSmartTerrainJobsList {
   const smartTerrainIni: IniFile = smartTerrain.ini;
 
   // No smart terrain jobs configuration in spawn ini.
   if (!smartTerrainIni.section_exist("smart_terrain")) {
-    return;
+    return jobs;
   }
 
   if (smartTerrainIni.section_exist("exclusive")) {
@@ -59,34 +40,43 @@ export function createExclusiveJobs(smartTerrain: SmartTerrain, jobsList: LuaArr
     for (const i of $range(0, exclusiveJobsCount - 1)) {
       const [result, field, value] = smartTerrainIni.r_line("exclusive", i, "", "");
 
-      createExclusiveJob(smartTerrainIni, "exclusive", field, jobsList);
+      createExclusiveJob(smartTerrainIni, "exclusive", field, jobs);
     }
   } else {
     let index: TIndex = 1;
 
     while (smartTerrainIni.line_exist("smart_terrain", `work${index}`)) {
-      createExclusiveJob(smartTerrainIni, "smart_terrain", `work${index}`, jobsList);
+      createExclusiveJob(smartTerrainIni, "smart_terrain", `work${index}`, jobs);
       index += 1;
     }
   }
+
+  return jobs;
 }
 
 /**
- * Add jobs unique to terrain instance.
+ * Create exclusive job and insert it into jobs list.
+ * Job configuration is based on ini file / section / field.
+ *
+ * @param ini - target ini file to read from
+ * @param section - target section to read work details from
+ * @param field - name of field to read job details from
+ * @param jobs - list of jobs to insert new job into
+ * @returns list of jobs where new job is inserted
  */
 export function createExclusiveJob(
   ini: IniFile,
   section: TSection,
   field: TSection,
-  jobsList: LuaArray<ISmartTerrainJobDescriptor>
-): LuaArray<ISmartTerrainJobDescriptor> {
+  jobs: TSmartTerrainJobsList
+): TSmartTerrainJobsList {
   // logger.format("Add exclusive job':  %s - %s", section, field);
 
   const workScriptPath: Optional<TPath> = readIniString(ini, section, field, false, "", null);
 
   // Field with work path does not exist, nothing to load.
   if (workScriptPath === null) {
-    return jobsList;
+    return jobs;
   }
 
   const iniPath: TPath = "scripts\\" + workScriptPath;
@@ -109,7 +99,7 @@ export function createExclusiveJob(
 
   // Add generic job placeholder if condlist is not defined, just combine ini parameters.
   if (jobSuitableCondlist === null) {
-    table.insert(jobsList, {
+    table.insert(jobs, {
       type: EJobType.EXCLUSIVE,
       priority: jobPriority,
       isMonsterJob: isMonster,
@@ -122,7 +112,7 @@ export function createExclusiveJob(
   } else {
     const conditionsList: TConditionList = parseConditionsList(jobSuitableCondlist);
 
-    table.insert(jobsList, {
+    table.insert(jobs, {
       type: EJobType.EXCLUSIVE,
       priority: jobPriority,
       isMonsterJob: isMonster,
@@ -136,5 +126,5 @@ export function createExclusiveJob(
     });
   }
 
-  return jobsList;
+  return jobs;
 }

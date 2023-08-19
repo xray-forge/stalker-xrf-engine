@@ -14,37 +14,37 @@ import { AnyObject, Optional, ServerCreatureObject } from "@/engine/lib/types";
  * Check if animpoint job is available.
  */
 export function jobPreconditionAnimpoint(
-  serverObject: ServerCreatureObject,
+  object: ServerCreatureObject,
   smartTerrain: SmartTerrain,
   parameters: AnyObject
 ): boolean {
-  return serverObject.community() !== communities.zombied;
+  return object.community() !== communities.zombied;
 }
 
 /**
  * Check if camper job is available.
  */
 export function jobPreconditionCamper(
-  serverObject: ServerCreatureObject,
+  object: ServerCreatureObject,
   smartTerrain: SmartTerrain,
   parameters: AnyObject
 ): boolean {
-  return isAccessibleJob(serverObject, parameters.wayName);
+  return isAccessibleJob(object, parameters.wayName);
 }
 
 /**
  * Check if collector job is available.
  */
 export function jobPreconditionCollector(
-  serverObject: ServerCreatureObject,
+  object: ServerCreatureObject,
   smartTerrain: SmartTerrain,
   parameters: AnyObject
 ): boolean {
-  if (serverObject.community() === communities.zombied) {
+  if (object.community() === communities.zombied) {
     return false;
   }
 
-  const state: Optional<IRegistryObjectState> = registry.objects.get(serverObject.id);
+  const state: Optional<IRegistryObjectState> = registry.objects.get(object.id);
 
   if (state === null || state.object === null) {
     return false;
@@ -64,7 +64,7 @@ export function jobPreconditionCollector(
  * Check if guard job is available.
  */
 export function jobPreconditionGuard(
-  serverObject: ServerCreatureObject,
+  object: ServerCreatureObject,
   smartTerrain: SmartTerrain,
   parameters: AnyObject
 ): boolean {
@@ -85,7 +85,7 @@ export function jobPreconditionGuard(
  * Check if guard follower job is available.
  */
 export function jobPreconditionGuardFollower(
-  serverObject: ServerCreatureObject,
+  object: ServerCreatureObject,
   smartTerrain: SmartTerrain,
   parameters: AnyObject,
   objectInfo: IObjectJobDescriptor
@@ -97,11 +97,11 @@ export function jobPreconditionGuardFollower(
  * Check if patrol job is available.
  */
 export function jobPreconditionPatrol(
-  serverObject: ServerCreatureObject,
+  object: ServerCreatureObject,
   smartTerrain: SmartTerrain,
   parameters: AnyObject
 ): boolean {
-  if (serverObject.community() === communities.zombied) {
+  if (object.community() === communities.zombied) {
     return false;
   } else if (smartTerrain.alarmStartedAt === null) {
     return true;
@@ -120,11 +120,11 @@ export function jobPreconditionPatrol(
  * Check if sleep job is available.
  */
 export function jobPreconditionSleep(
-  serverObject: ServerCreatureObject,
+  object: ServerCreatureObject,
   smartTerrain: SmartTerrain,
   parameters: AnyObject
 ): boolean {
-  if (serverObject.community() === communities.zombied) {
+  if (object.community() === communities.zombied) {
     return false;
   } else if (!isInTimeInterval(21, 7)) {
     return false;
@@ -145,18 +145,18 @@ export function jobPreconditionSleep(
  * Check if sniper job is available.
  */
 export function jobPreconditionSniper(
-  serverObject: ServerCreatureObject,
+  object: ServerCreatureObject,
   smartTerrain: SmartTerrain,
   parameters: AnyObject
 ): boolean {
-  return serverObject.community() !== communities.zombied && isAccessibleJob(serverObject, parameters.wayName);
+  return object.community() !== communities.zombied && isAccessibleJob(object, parameters.wayName);
 }
 
 /**
  * Check if surge job is available.
  */
 export function jobPreconditionSurge(
-  serverObject: ServerCreatureObject,
+  object: ServerCreatureObject,
   smartTerrain: SmartTerrain,
   parameters: AnyObject
 ): boolean {
@@ -167,7 +167,7 @@ export function jobPreconditionSurge(
  * Check if surge job is available.
  */
 export function jobPreconditionWalker(
-  serverObject: ServerCreatureObject,
+  object: ServerCreatureObject,
   smartTerrain: SmartTerrain,
   parameters: AnyObject
 ): boolean {
@@ -188,11 +188,11 @@ export function jobPreconditionWalker(
  * Check if surge job is available.
  */
 export function jobPreconditionExclusive(
-  serverObject: ServerCreatureObject,
+  object: ServerCreatureObject,
   smartTerrain: SmartTerrain,
   parameters: AnyObject
 ): boolean {
-  const result: Optional<string> = pickSectionFromCondList(registry.actor, serverObject, parameters.condlist);
+  const result: Optional<string> = pickSectionFromCondList(registry.actor, object, parameters.condlist);
 
   return result !== FALSE && result !== null;
 }

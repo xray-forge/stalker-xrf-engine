@@ -23,7 +23,6 @@ import { TSimulationObject } from "@/engine/core/objects/server/types";
 import { ESchemeEvent, IBaseSchemeState } from "@/engine/core/schemes";
 import { SchemeHear } from "@/engine/core/schemes/hear/SchemeHear";
 import { pickSectionFromCondList, TConditionList } from "@/engine/core/utils/ini";
-import { setupObjectSmartJobsAndLogicOnSpawn } from "@/engine/core/utils/job";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getObjectSquad } from "@/engine/core/utils/object";
 import {
@@ -32,6 +31,7 @@ import {
   scriptCaptureMonster,
   scriptCommandMonster,
   scriptReleaseMonster,
+  setupObjectSmartJobsAndLogicOnSpawn,
   trySwitchToAnotherSection,
 } from "@/engine/core/utils/scheme";
 import { createEmptyVector } from "@/engine/core/utils/vector";

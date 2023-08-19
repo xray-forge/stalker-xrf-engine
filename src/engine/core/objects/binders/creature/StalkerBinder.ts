@@ -51,13 +51,14 @@ import { SchemeReachTask } from "@/engine/core/schemes/reach_task/SchemeReachTas
 import { SchemeLight } from "@/engine/core/schemes/sr_light/SchemeLight";
 import { SchemeWounded } from "@/engine/core/schemes/wounded/SchemeWounded";
 import { pickSectionFromCondList, readIniString, TConditionList } from "@/engine/core/utils/ini";
-import { IObjectJobDescriptor, setupObjectSmartJobsAndLogicOnSpawn } from "@/engine/core/utils/job";
+import { IObjectJobDescriptor } from "@/engine/core/utils/job";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getObjectCommunity, getObjectSquad } from "@/engine/core/utils/object";
 import { ERelation, setClientObjectRelation, setObjectSympathy } from "@/engine/core/utils/relation";
 import {
   emitSchemeEvent,
   initializeObjectInvulnerability,
+  setupObjectSmartJobsAndLogicOnSpawn,
   trySwitchToAnotherSection,
 } from "@/engine/core/utils/scheme";
 import { createEmptyVector } from "@/engine/core/utils/vector";
@@ -66,7 +67,6 @@ import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import { MAX_U16 } from "@/engine/lib/constants/memory";
 import {
   ActionPlanner,
-  ALifeSmartTerrainTask,
   AnyObject,
   ClientObject,
   EClientObjectRelation,

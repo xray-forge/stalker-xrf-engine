@@ -37,7 +37,7 @@ export function isJobAvailableToObject(
   }
 
   // Check monster / stalker restriction for job.
-  if ("isMonsterJob" in jobInfo && jobInfo.isMonsterJob !== objectInfo.isMonster) {
+  if (jobInfo.isMonsterJob !== null && jobInfo.isMonsterJob !== objectInfo.isMonster) {
     return false;
   }
 

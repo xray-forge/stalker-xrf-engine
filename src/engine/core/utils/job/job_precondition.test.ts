@@ -10,6 +10,7 @@ import {
 } from "@/engine/core/database";
 import { SurgeManager } from "@/engine/core/managers/world/SurgeManager";
 import { SmartCover, SmartTerrain } from "@/engine/core/objects";
+import { parseConditionsList } from "@/engine/core/utils/ini";
 import { createStalkerAnimpointJobs } from "@/engine/core/utils/job/job_create/job_create_stalker_animpoint";
 import { createStalkerCamperJobs } from "@/engine/core/utils/job/job_create/job_create_stalker_camper";
 import { createStalkerCollectorJobs } from "@/engine/core/utils/job/job_create/job_create_stalker_collector";
@@ -22,6 +23,7 @@ import {
   jobPreconditionAnimpoint,
   jobPreconditionCamper,
   jobPreconditionCollector,
+  jobPreconditionExclusive,
   jobPreconditionGuard,
   jobPreconditionGuardFollower,
   jobPreconditionPatrol,
@@ -179,7 +181,7 @@ describe("job_precondition utilities", () => {
     expect(jobPreconditionGuard(stalker, smartTerrain, { ...parameters, isSafeJob: null })).toBe(false);
   });
 
-  it("should correctly check guard follower jobs preconditions", async () => {
+  it("'jobPreconditionGuardFollower' should correctly check guard follower jobs preconditions", async () => {
     const smartTerrain: SmartTerrain = mockSmartTerrain();
     const stalker: ServerHumanObject = mockServerAlifeHumanStalker();
 
@@ -212,7 +214,7 @@ describe("job_precondition utilities", () => {
     ).toBe(true);
   });
 
-  it("should correctly check patrol jobs preconditions", async () => {
+  it("'jobPreconditionPatrol' should correctly check patrol jobs preconditions", async () => {
     const smartTerrain: SmartTerrain = mockSmartTerrain();
     const stalker: ServerHumanObject = mockServerAlifeHumanStalker();
 
@@ -266,5 +268,16 @@ describe("job_precondition utilities", () => {
     smartTerrain.safeRestrictor = "another_sleep_test_restrictor";
     expect(jobPreconditionSleep(stalker, smartTerrain, { ...parameters, isSafeJob: true })).toBe(true);
     expect(jobPreconditionSleep(stalker, smartTerrain, { ...parameters, isSafeJob: false })).toBe(false);
+  });
+
+  it("'jobPreconditionExclusive' should correctly use condlist preconditions", () => {
+    const smartTerrain: SmartTerrain = mockSmartTerrain();
+    const stalker: ServerHumanObject = mockServerAlifeHumanStalker();
+
+    expect(jobPreconditionExclusive(stalker, smartTerrain, { condlist: parseConditionsList("true") })).toBe(true);
+    expect(jobPreconditionExclusive(stalker, smartTerrain, { condlist: parseConditionsList("false") })).toBe(false);
+    expect(
+      jobPreconditionExclusive(stalker, smartTerrain, { condlist: parseConditionsList("{-some_info} true, false") })
+    ).toBe(true);
   });
 });

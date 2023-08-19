@@ -12,24 +12,22 @@ const logger: LuaLogger = new LuaLogger($filename);
  * @param smartTerrain - terrain to search for job inside
  * @param jobs - list of jobs to search in
  * @param objectJobDescriptor - descriptor of selected object work
- * @param selectedJobPriority - currently selected job priority, starts with -1
  * @returns selected job id, priority and link
  */
 export function selectSmartTerrainJob(
   smartTerrain: SmartTerrain,
   jobs: LuaArray<ISmartTerrainJobDescriptor>,
-  objectJobDescriptor: IObjectJobDescriptor,
-  selectedJobPriority: TRate
-): LuaMultiReturn<[Optional<TNumberId>, TRate, Optional<ISmartTerrainJobDescriptor>]> {
+  objectJobDescriptor: IObjectJobDescriptor
+): LuaMultiReturn<[Optional<TNumberId>, Optional<ISmartTerrainJobDescriptor>]> {
   for (const [, it] of jobs) {
     // Verify if job is accessible by object and meets conditions.
     if (isJobAvailableToObject(objectJobDescriptor, it, smartTerrain)) {
       // Has no assigned worker, can be used.
-      if (!it.objectId || it.id === objectJobDescriptor.jobId || selectedJobPriority > it.priority) {
-        return $multi(it.id as TNumberId, it.priority, it);
+      if (!it.objectId || it.id === objectJobDescriptor.jobId) {
+        return $multi(it.id as TNumberId, it);
       }
     }
   }
 
-  return $multi(null, selectedJobPriority, null);
+  return $multi(null, null);
 }

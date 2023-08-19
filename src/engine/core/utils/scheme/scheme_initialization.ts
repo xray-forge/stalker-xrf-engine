@@ -1,4 +1,4 @@
-import { ini_file } from "xray16";
+import { alife, ini_file } from "xray16";
 
 import { CUSTOM_DATA, getObjectLogicIniConfig, IRegistryObjectState, registry } from "@/engine/core/database";
 import { TradeManager } from "@/engine/core/managers/interaction/TradeManager";
@@ -20,13 +20,16 @@ import {
 import { disableObjectBaseSchemes } from "@/engine/core/utils/scheme/scheme_setup";
 import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
 import { TInventoryItem } from "@/engine/lib/constants/items";
+import { MAX_U16 } from "@/engine/lib/constants/memory";
 import {
+  AlifeSimulator,
   ClientObject,
   EClientObjectRelation,
   EScheme,
   ESchemeType,
   IniFile,
   Optional,
+  ServerCreatureObject,
   TCount,
   TName,
   TPath,
@@ -135,6 +138,46 @@ export function configureObjectSchemes(
   }
 
   return state.ini;
+}
+
+/**
+ * todo; Add tests
+ * todo; Add tests
+ * todo; Add tests
+ *
+ * @param object - target client object to setup logic
+ * @param state - target object registry state
+ * @param schemeType - target object active scheme type
+ * @param isLoaded - whether object is initialized after game load
+ */
+export function setupObjectSmartJobsAndLogicOnSpawn(
+  object: ClientObject,
+  state: IRegistryObjectState,
+  schemeType: ESchemeType,
+  isLoaded: boolean
+): void {
+  // logger.info("Setup smart terrain logic on spawn:", object.name(), schemeType);
+
+  const alifeSimulator: Optional<AlifeSimulator> = alife();
+  const serverObject: Optional<ServerCreatureObject> = alife()!.object(object.id());
+
+  if (
+    alifeSimulator === null ||
+    serverObject === null ||
+    serverObject.m_smart_terrain_id === null ||
+    serverObject.m_smart_terrain_id === MAX_U16
+  ) {
+    return initializeObjectSchemeLogic(object, state, isLoaded, schemeType);
+  }
+
+  const smartTerrain: SmartTerrain = alifeSimulator.object(serverObject.m_smart_terrain_id) as SmartTerrain;
+  const needSetupLogic: boolean = !isLoaded && smartTerrain.objectJobDescriptors.get(object.id())?.isBegun === true;
+
+  if (needSetupLogic) {
+    smartTerrain.setupObjectJobLogic(object);
+  } else {
+    initializeObjectSchemeLogic(object, state, isLoaded, schemeType);
+  }
 }
 
 /**

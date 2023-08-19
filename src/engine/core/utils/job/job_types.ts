@@ -73,6 +73,7 @@ export interface IObjectJobDescriptor {
   jobPriority: TRate;
   jobId: TNumberId;
   job: Optional<ISmartTerrainJobDescriptor>;
+  // Whether job is begun and logics for object schemes is set.
   isBegun: boolean;
   schemeType: ESchemeType;
 }

@@ -9,7 +9,7 @@ import { IniFile, LuaArray } from "@/engine/lib/types";
 import { mockIniFile, registerIniFileMock } from "@/fixtures/xray";
 
 describe("'job_exclusive' utils", () => {
-  it("'loadExclusiveJob' should correctly handle empty ini", () => {
+  it("'createExclusiveJob' should correctly handle empty ini", () => {
     const list: LuaArray<ISmartTerrainJobDescriptor> = createExclusiveJob(
       mockIniFile("text.ltx", {}),
       "a",
@@ -20,7 +20,7 @@ describe("'job_exclusive' utils", () => {
     expect(list).toEqualLuaArrays([]);
   });
 
-  it("'loadExclusiveJob' should correctly throw if script does not exist", () => {
+  it("'createExclusiveJob' should correctly throw if script does not exist", () => {
     const ini: IniFile = mockIniFile("text.ltx", {
       smart_terrain: {
         work1: "some_file.ltx",
@@ -31,7 +31,7 @@ describe("'job_exclusive' utils", () => {
     expect(() => createExclusiveJob(ini, "smart_terrain", "work1", new LuaTable())).toThrow();
   });
 
-  it("'loadExclusiveJob' should correctly read if script does exist", () => {
+  it("'createExclusiveJob' should correctly read if script does exist", () => {
     const list: LuaArray<ISmartTerrainJobDescriptor> = new LuaTable();
     const ini: IniFile = mockIniFile("text.ltx", {
       smart_terrain: {
@@ -59,7 +59,7 @@ describe("'job_exclusive' utils", () => {
     ]);
   });
 
-  it("'loadExclusiveJob' should correctly read configured jobs without condlist", () => {
+  it("'createExclusiveJob' should correctly read configured jobs without condlist", () => {
     const list: LuaArray<ISmartTerrainJobDescriptor> = new LuaTable();
     const ini: IniFile = mockIniFile("text.ltx", {
       smart_terrain: {
@@ -95,7 +95,7 @@ describe("'job_exclusive' utils", () => {
     ]);
   });
 
-  it("'loadExclusiveJob' should correctly read configured jobs with condlist", () => {
+  it("'createExclusiveJob' should correctly read configured jobs with condlist", () => {
     const list: LuaArray<ISmartTerrainJobDescriptor> = new LuaTable();
     const ini: IniFile = mockIniFile("text.ltx", {
       smart_terrain: {

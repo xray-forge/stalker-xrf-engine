@@ -51,6 +51,7 @@ describe("'lua' VM mocks to test libraries", () => {
     expect(string.format("abc%s", "54")).toBe("abc54");
     expect(string.format("%s-to-%s", "1", 1)).toBe("1-to-1");
     expect(string.format("%s:%s:%s and %s", "a", 1, true, null)).toBe("a:1:true and nil");
+    expect(string.format("%s %% %s %% %s", "a", 1, true)).toBe("a % 1 % true");
   });
 
   it("string len mock should be applied", () => {

@@ -63,7 +63,6 @@ import {
   areOnlyMonstersOnJobs,
   createObjectJobDescriptor,
   createSmartTerrainJobs,
-  EJobPathType,
   IObjectJobDescriptor,
   ISmartTerrainJobDescriptor,
   selectSmartTerrainJob,
@@ -737,12 +736,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
       return;
     }
 
-    const [selectedJobId, selectedJobPriority, selectedJobLink] = selectSmartTerrainJob(
-      this,
-      this.jobs,
-      objectJobDescriptor,
-      0
-    );
+    const [selectedJobId, selectedJobLink] = selectSmartTerrainJob(this, this.jobs, objectJobDescriptor);
 
     assertDefined(
       selectedJobId,

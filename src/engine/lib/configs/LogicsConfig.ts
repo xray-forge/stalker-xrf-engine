@@ -83,8 +83,6 @@ export const logicsConfig = {
     DEFAULT_ARRIVAL_DISTANCE: 25,
   },
   JOBS: {
-    STALKER_JOB_PRIORITY: 60,
-    MONSTER_JOB_PRIORITY: 50,
     MOB_HOME: {
       PRIORITY: 10,
       COUNT: 20,
