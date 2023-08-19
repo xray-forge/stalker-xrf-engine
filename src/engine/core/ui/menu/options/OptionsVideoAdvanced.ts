@@ -1,4 +1,4 @@
-import { CScriptXmlInit, CUIScrollView, CUIWindow, LuabindClass, vector2 } from "xray16";
+import { CScriptXmlInit, CUIScrollView, CUIStatic, CUIWindow, LuabindClass, vector2 } from "xray16";
 
 import { OptionsDialog } from "@/engine/core/ui/menu/options/OptionsDialog";
 import { EGameRenderer } from "@/engine/core/ui/menu/options/types";
@@ -239,15 +239,20 @@ export class OptionsVideoAdvanced extends CUIWindow {
      * ---------
      */
 
-    const vSyncSetting = xml.InitStatic("video_adv:templ_item", this.scrollView);
+    const vSyncSetting: CUIStatic = xml.InitStatic("video_adv:templ_item", this.scrollView);
 
     xml.InitStatic("video_adv:cap_vsync", vSyncSetting);
     xml.InitCheck("video_adv:check_vsync", vSyncSetting);
 
-    const only60HZSetting = xml.InitStatic("video_adv:templ_item", this.scrollView);
+    const fpsLimitInGame: CUIStatic = xml.InitStatic("video_adv:templ_item", this.scrollView);
 
-    xml.InitStatic("video_adv:cap_60hz", only60HZSetting);
-    xml.InitCheck("video_adv:check_60hz", only60HZSetting);
+    xml.InitStatic("video_adv:cap_fps_limit", fpsLimitInGame);
+    xml.InitTrackBar("video_adv:track_fps_limit", fpsLimitInGame);
+
+    const fpsLimitInMenu: CUIStatic = xml.InitStatic("video_adv:templ_item", this.scrollView);
+
+    xml.InitStatic("video_adv:cap_fps_limit_in_menu", fpsLimitInMenu);
+    xml.InitTrackBar("video_adv:track_fps_limit_in_menu", fpsLimitInMenu);
 
     /*
      *  _st = xml:InitStatic("video_adv:templ_item", nil)

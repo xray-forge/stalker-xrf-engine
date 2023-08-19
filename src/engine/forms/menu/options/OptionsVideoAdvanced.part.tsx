@@ -195,15 +195,31 @@ export function OptionsVideoAdvanced(): JSXNode {
         <options_item entry="rs_v_sync" group="mm_opt_video_adv" depend="vid" />
       </check_vsync>
 
-      <cap_60hz x="16" y="3" width="108" height="24">
+      <cap_fps_limit x="16" y="3" width="108" height="24">
         <text r="170" g="170" b="170" font="letterica16" align="r" vert_align="c">
-          ui_mm_60_hz
+          ui_mm_fps_limit
         </text>
-      </cap_60hz>
-      <check_60hz x="133" y="0" width="35" stretch="1" height="29">
-        <texture>ui_inGame2_checkbox</texture>
-        <options_item entry="rs_refresh_60hz" group="mm_opt_video_adv" depend="vid" />
-      </check_60hz>
+      </cap_fps_limit>
+
+      <track_fps_limit x="144" y="5" width="160" height="20" min="30" max="501" step="1" is_integer="1">
+        <options_item entry="rs_fps_limit" group="mm_opt_video" />
+        <output_wnd x="165" y="0" width="20" height="20">
+          <text r="170" g="170" b="170" font="letterica16" align="r" vert_align="c"></text>
+        </output_wnd>
+      </track_fps_limit>
+
+      <cap_fps_limit_in_menu x="16" y="3" width="108" height="24">
+        <text r="170" g="170" b="170" font="letterica16" align="r" vert_align="c">
+          ui_mm_fps_limit_in_menu
+        </text>
+      </cap_fps_limit_in_menu>
+
+      <track_fps_limit_in_menu x="144" y="5" width="160" height="20" min="30" max="501" step="1" is_integer="1">
+        <options_item entry="rs_fps_limit_in_menu" group="mm_opt_video" />
+        <output_wnd x="165" y="0" width="20" height="20">
+          <text r="170" g="170" b="170" font="letterica16" align="r" vert_align="c"></text>
+        </output_wnd>
+      </track_fps_limit_in_menu>
 
       <cap_sun_shafts x="16" y="3" width="108" height="24">
         <text r="170" g="170" b="170" font="letterica16" align="r" vert_align="c">
