@@ -206,11 +206,15 @@ export function mockClientGameObject({
           return isInvulnerable;
         }
       }),
-    iterate_inventory: jest.fn((cb: (owner: ClientObject, item: ClientObject) => void, owner: ClientObject) => {
-      for (const [, item] of inventoryMap) {
-        cb(owner, item);
+    iterate_inventory: jest.fn(
+      (cb: (owner: ClientObject, item: ClientObject) => void | boolean, owner: ClientObject) => {
+        for (const [, item] of inventoryMap) {
+          if (cb(owner, item)) {
+            break;
+          }
+        }
       }
-    }),
+    ),
     parent: rest.parent || jest.fn(() => null),
     position: rest.position || jest.fn(() => objectPosition),
     radiation,

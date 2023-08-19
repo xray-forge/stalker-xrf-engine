@@ -13,12 +13,15 @@ import {
   isObjectOnline,
   isObjectSeenByActor,
   isObjectStrappingWeapon,
+  isObjectWithValuableLoot,
   isPlayingSound,
   isStalkerAlive,
   isSurgeEnabledOnLevel,
   isUndergroundLevel,
 } from "@/engine/core/utils/object/object_check";
 import { classIds } from "@/engine/lib/constants/class_ids";
+import { ammo } from "@/engine/lib/constants/items/ammo";
+import { weapons } from "@/engine/lib/constants/items/weapons";
 import { ClientObject, ServerHumanObject, TClassId } from "@/engine/lib/types";
 import { replaceFunctionMock } from "@/fixtures/utils";
 import {
@@ -51,6 +54,40 @@ describe("'object_check' utils", () => {
 
     planner.currentActionId = stalker_ids.action_critically_wounded;
     expect(isObjectInCombat(object)).toBe(false);
+  });
+
+  it("'isObjectWithValuableLoot' should correctly check object valuable loot", () => {
+    expect(isObjectWithValuableLoot(mockClientGameObject())).toBe(false);
+    expect(
+      isObjectWithValuableLoot(
+        mockClientGameObject({
+          inventory: [
+            ["grenade_f2", mockClientGameObject({ sectionOverride: "grenade_f2" })],
+            ["grenade_f3", mockClientGameObject({ sectionOverride: "grenade_f3" })],
+          ],
+        })
+      )
+    ).toBe(false);
+    expect(
+      isObjectWithValuableLoot(
+        mockClientGameObject({
+          inventory: [
+            ["grenade_f2", mockClientGameObject({ sectionOverride: "grenade_f2" })],
+            [weapons.wpn_ak74u, mockClientGameObject({ sectionOverride: weapons.wpn_ak74u })],
+          ],
+        })
+      )
+    ).toBe(true);
+    expect(
+      isObjectWithValuableLoot(
+        mockClientGameObject({
+          inventory: [
+            [weapons.wpn_ak74u, mockClientGameObject({ sectionOverride: weapons.wpn_ak74u })],
+            [ammo["ammo_5.45x39_fmj"], mockClientGameObject({ sectionOverride: ammo["ammo_5.45x39_fmj"] })],
+          ],
+        })
+      )
+    ).toBe(true);
   });
 
   it("'isObjectStrappingWeapon' should correctly check weapon strap state", () => {

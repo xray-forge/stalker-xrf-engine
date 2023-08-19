@@ -489,7 +489,8 @@ export class StalkerAnimationManager {
         states.currentState = null;
 
         // After out animation set control to animstate.
-        if (this.type === EAnimationType.ANIMATION) {
+        // Make sure animstate controller exists (in case of post-combat idle placeholder used, todo: investigate)
+        if (this.type === EAnimationType.ANIMATION && this.stateManager.animstate.setControl) {
           this.stateManager.animstate.setControl();
           // --this.mgr.animstate:update_anim()
         }

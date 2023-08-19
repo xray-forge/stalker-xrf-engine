@@ -3,7 +3,7 @@ import { log, print_stack, time_global } from "xray16";
 import { toJSON } from "@/engine/core/utils/transform/json";
 import { gameConfig } from "@/engine/lib/configs/GameConfig";
 import { FALSE, NIL, TRUE } from "@/engine/lib/constants/words";
-import { AnyArgs, AnyObject, TLabel } from "@/engine/lib/types";
+import { AnyArgs, AnyObject, TLabel, TName } from "@/engine/lib/types";
 
 /**
  * Lua logger class.
@@ -105,7 +105,7 @@ export class LuaLogger {
     // Map some values to successfully print in composed string.
     for (const idx of $range(1, args.length())) {
       const it = args.get(idx);
-      const itType = type(it);
+      const itType: TName = type(it);
 
       if (itType === NIL) {
         args.set(idx, "<nil>");

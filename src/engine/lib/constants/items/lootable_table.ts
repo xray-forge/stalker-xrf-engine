@@ -8,6 +8,9 @@ import { outfits } from "@/engine/lib/constants/items/outfits";
 import { weaponAddons } from "@/engine/lib/constants/items/weapon_addons";
 import { weapons } from "@/engine/lib/constants/items/weapons";
 
+/**
+ * List of items that can be looted by stalkers from corpses.
+ */
 export const lootableTable = {
   ...ammo,
   ...detectors,

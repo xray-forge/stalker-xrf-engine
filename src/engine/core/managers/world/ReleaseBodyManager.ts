@@ -16,6 +16,7 @@ import { abort } from "@/engine/core/utils/assertion";
 import { readIniString } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { isMonster, isStalker } from "@/engine/core/utils/object";
+import { resetTable } from "@/engine/core/utils/table";
 import { roots } from "@/engine/lib/constants/roots";
 import {
   ClientObject,
@@ -57,8 +58,8 @@ export class ReleaseBodyManager extends AbstractCoreManager {
   public static readonly IDLE_AFTER_DEATH: number = 40_000; // time to ignore clean up
   public static readonly MAX_BODY_COUNT: number = 15;
 
-  public releaseObjectRegistry: LuaArray<IReleaseDescriptor> = new LuaTable();
-  public keepItemsRegistry: LuaArray<TStringId> = new LuaTable();
+  public readonly releaseObjectRegistry: LuaArray<IReleaseDescriptor> = new LuaTable();
+  public readonly keepItemsRegistry: LuaArray<TStringId> = new LuaTable();
 
   /**
    * todo: Description.
@@ -240,7 +241,7 @@ export class ReleaseBodyManager extends AbstractCoreManager {
 
     const count: TCount = reader.r_u16();
 
-    this.releaseObjectRegistry = new LuaTable();
+    resetTable(this.releaseObjectRegistry);
 
     for (const it of $range(1, count)) {
       const vid = reader.r_u16();
@@ -251,8 +252,9 @@ export class ReleaseBodyManager extends AbstractCoreManager {
 
     const levelId: TNumberId = reader.r_u16();
 
-    if (levelId !== game_graph().vertex(alife().object(0)!.m_game_vertex_id).level_id()) {
-      this.releaseObjectRegistry = new LuaTable();
+    // Is not same level, reset corpses list.
+    if (levelId !== game_graph().vertex(alife().actor().m_game_vertex_id).level_id()) {
+      resetTable(this.releaseObjectRegistry);
     }
 
     closeLoadMarker(reader, ReleaseBodyManager.name);

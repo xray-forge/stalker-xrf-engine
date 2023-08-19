@@ -3,9 +3,10 @@ import { level, LuabindClass, property_evaluator } from "xray16";
 import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { IReleaseDescriptor, ReleaseBodyManager } from "@/engine/core/managers/world/ReleaseBodyManager";
 import { ISchemeCorpseDetectionState } from "@/engine/core/schemes/corpse_detection";
-import { isLootableItemSection, isObjectWounded } from "@/engine/core/utils/object";
+import { isObjectWithValuableLoot, isObjectWounded } from "@/engine/core/utils/object";
 import { communities } from "@/engine/lib/constants/communities";
-import { ClientObject, Optional, TDistance, TNumberId, Vector } from "@/engine/lib/types";
+import { ACTOR_VISUAL_STALKER } from "@/engine/lib/constants/sections";
+import { ClientObject, LuaArray, Optional, TDistance, TNumberId, Vector } from "@/engine/lib/types";
 
 /**
  * todo;
@@ -20,36 +21,26 @@ export class EvaluatorCorpseDetect extends property_evaluator {
   }
 
   /**
-   * todo: Description.
+   * Check if coprse with valuables is detected.
    */
   public override evaluate(): boolean {
-    if (!this.object.alive()) {
-      return false;
-    } else if (this.object.best_enemy() !== null) {
-      return false;
-    } else if (this.object.character_community() === communities.zombied) {
-      return false;
-    } else if (this.state.corpse_detection_enabled === false) {
-      return false;
-    } else if (isObjectWounded(this.object.id())) {
-      return false;
-    } else if (this.object.section() === "actor_visual_stalker") {
+    if (
+      !this.object.alive() || // Dead cannot loot.
+      this.object.best_enemy() !== null || // Is in combat, cannot loot.
+      this.object.character_community() === communities.zombied || // Is zombied, does not care.
+      this.state.corpse_detection_enabled === false || // Looting logics is disabled.
+      isObjectWounded(this.object.id()) || // Is wounded, cannot do anything.
+      this.object.section() === ACTOR_VISUAL_STALKER // Is cutscene participant, does not care about loot.
+    ) {
       return false;
     }
 
-    const corpses: LuaTable<number, IReleaseDescriptor> = ReleaseBodyManager.getInstance().releaseObjectRegistry;
+    const corpses: LuaArray<IReleaseDescriptor> = ReleaseBodyManager.getInstance().releaseObjectRegistry;
 
-    let nearestCorpseDistSqr: TDistance = 400;
+    let nearestCorpseDistSqr: TDistance = 400; // 20 * 20
     let nearestCorpseVertex: Optional<TNumberId> = null;
     let nearestCorpsePosition: Optional<Vector> = null;
     let corpseId: Optional<TNumberId> = null;
-
-    let hasValuableLoot: boolean = false;
-    const checkLoot = (npc: ClientObject, item: ClientObject) => {
-      if (isLootableItemSection(item.section())) {
-        hasValuableLoot = true;
-      }
-    };
 
     for (const it of $range(1, corpses.length())) {
       const id: TNumberId = corpses.get(it).id;
@@ -62,11 +53,8 @@ export class EvaluatorCorpseDetect extends property_evaluator {
         (registryState.corpse_already_selected === null || registryState.corpse_already_selected === this.object.id())
       ) {
         if (this.object.position().distance_to_sqr(corpseObject.position()) < nearestCorpseDistSqr) {
-          hasValuableLoot = false;
-          corpseObject.iterate_inventory(checkLoot, corpseObject);
-
-          if (hasValuableLoot) {
-            const corpseVertex: number = level.vertex_id(corpseObject.position());
+          if (isObjectWithValuableLoot(corpseObject)) {
+            const corpseVertex: TNumberId = level.vertex_id(corpseObject.position());
 
             if (this.object.accessible(corpseVertex)) {
               nearestCorpseDistSqr = this.object.position().distance_to_sqr(corpseObject.position());
