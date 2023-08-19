@@ -4,8 +4,6 @@ import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import { AbstractScheme, EActionId, EEvaluatorId } from "@/engine/core/schemes";
 import { SchemeAbuse } from "@/engine/core/schemes/abuse/SchemeAbuse";
-import { SchemeCorpseDetection } from "@/engine/core/schemes/corpse_detection/SchemeCorpseDetection";
-import { SchemeHelpWounded } from "@/engine/core/schemes/help_wounded/SchemeHelpWounded";
 import { ActionMeetWait } from "@/engine/core/schemes/meet/actions";
 import { EvaluatorContact } from "@/engine/core/schemes/meet/evaluators";
 import { ISchemeMeetState } from "@/engine/core/schemes/meet/ISchemeMeetState";
@@ -13,7 +11,7 @@ import { MeetManager } from "@/engine/core/schemes/meet/MeetManager";
 import { ISchemeWoundedState } from "@/engine/core/schemes/wounded";
 import { parseConditionsList, pickSectionFromCondList, readIniString } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { isObjectWounded } from "@/engine/core/utils/object";
+import { isObjectHelpingWounded, isObjectSearchingCorpse, isObjectWounded } from "@/engine/core/utils/object";
 import { getObjectsRelationSafe } from "@/engine/core/utils/relation";
 import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
 import { FALSE, NIL, TRUE } from "@/engine/lib/constants/words";
@@ -33,7 +31,10 @@ import {
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Scheme describing logics of `meet` state.
+ * Controls whether object can interact/speak with actor in different states.
+ *
+ * For example: cannot speak when looting corpse/helping wounded, or can implement speaking with enemy stalkers.
  */
 export class SchemeMeet extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.MEET;
@@ -284,7 +285,7 @@ export class SchemeMeet extends AbstractScheme {
     const use: Optional<string> = state.meetManager.use;
 
     if (use === TRUE) {
-      if (SchemeCorpseDetection.isUnderCorpseDetection(object) || SchemeHelpWounded.isUnderHelpWounded(object)) {
+      if (isObjectSearchingCorpse(object) || isObjectHelpingWounded(object)) {
         object.disable_talk();
       } else {
         object.enable_talk();

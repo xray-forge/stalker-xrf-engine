@@ -1,6 +1,6 @@
 import { IAnimationDescriptor } from "@/engine/core/objects/animation/animation_types";
 import { EStalkerState } from "@/engine/core/objects/animation/state_types";
-import { SchemeCorpseDetection } from "@/engine/core/schemes/corpse_detection";
+import { finishCorpseLooting } from "@/engine/core/schemes/corpse_detection/utils";
 import { SchemeHelpWounded } from "@/engine/core/schemes/help_wounded";
 import { createSequence } from "@/engine/core/utils/animation";
 import { getExtern } from "@/engine/core/utils/binding";
@@ -997,9 +997,8 @@ export const baseAnimations: LuaTable<TName, IAnimationDescriptor> = $fromObject
     into: createSequence([
       "dinamit_1",
       {
-        f: (object: ClientObject) => {
-          SchemeCorpseDetection.getAllFromCorpse(object);
-        },
+        // When animation ends, loot everything from an object.
+        f: (object: ClientObject) => finishCorpseLooting(object),
       },
     ]),
     out: null,

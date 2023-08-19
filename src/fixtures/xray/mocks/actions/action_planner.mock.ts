@@ -94,6 +94,7 @@ export function mockDefaultActionPlanner(): ActionPlanner {
   actionPlanner.add_action(mockStalkerIds.action_danger_planner, mockActionBase());
   actionPlanner.add_action(mockStalkerIds.action_accomplish_task, mockActionBase());
   actionPlanner.add_action(mockStalkerIds.action_combat_planner, mockActionBase());
+  actionPlanner.add_action(194 /* EActionId.STATE_TO_IDLE_ALIFE */, mockActionBase());
 
   return actionPlanner as unknown as ActionPlanner;
 }

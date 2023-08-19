@@ -13,7 +13,9 @@ const BASE: TNumberId = stalker_ids.action_script || 92;
  */
 export enum EActionId {
   ALIFE = stalker_ids.action_alife_planner, // 88
+  // Search corpse action, when searching dead bodies.
   SEARCH_CORPSE = BASE + 50, // 142
+  // Help heavy wounded action, when HP is low and stalker is laying on the floor.
   HELP_WOUNDED = BASE + 55, // 147
   STATE_TO_IDLE_COMBAT = BASE + 101, // 193
   STATE_TO_IDLE_ALIFE = BASE + 102, // 194

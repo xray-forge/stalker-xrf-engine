@@ -127,9 +127,12 @@ export interface IRegistryObjectState extends Record<EScheme, Optional<IBaseSche
    */
   mute: Optional<boolean>;
   /**
-   * todo;
+   * ID of object currently looting object.
+   * Used to prevent looting of same object by multiple objects at once.
+   *
+   * todo: Move to loot scheme state, not store it in global.
    */
-  corpse_already_selected: Optional<TNumberId>;
+  lootedByObject: Optional<TNumberId>;
   /**
    * todo;
    */

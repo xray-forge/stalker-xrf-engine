@@ -76,19 +76,6 @@ export class SchemeHelpWounded extends AbstractScheme {
   /**
    * todo: Description.
    */
-  public static isUnderHelpWounded(object: ClientObject): boolean {
-    const actionManager: ActionPlanner = object.motivation_action_manager();
-
-    if (!actionManager.initialized()) {
-      return false;
-    }
-
-    return actionManager.current_action_id() === EActionId.HELP_WOUNDED;
-  }
-
-  /**
-   * todo: Description.
-   */
   public static helpWounded(object: ClientObject): void {
     const state: IRegistryObjectState = registry.objects.get(object.id());
     const selectedId: TNumberId = (state[EScheme.HELP_WOUNDED] as ISchemeHelpWoundedState).selected_id;

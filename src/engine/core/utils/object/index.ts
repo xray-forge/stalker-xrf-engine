@@ -7,6 +7,7 @@ export * from "@/engine/core/utils/object/object_find";
 export * from "@/engine/core/utils/object/object_get";
 export * from "@/engine/core/utils/object/object_info_portion";
 export * from "@/engine/core/utils/object/object_location";
+export * from "@/engine/core/utils/object/object_loot";
 export * from "@/engine/core/utils/object/object_section";
 export * from "@/engine/core/utils/object/object_set";
 export * from "@/engine/core/utils/object/object_sound";

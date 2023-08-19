@@ -187,7 +187,7 @@ export function mockClientGameObject({
       jest.fn((key: string | number) => {
         if (typeof key === "string") {
           return (
-            [...inventoryMap.entries()].find(([, it]) => {
+            [...inventoryMap.values()].find((it) => {
               return it.section() === key;
             }) || null
           );
@@ -311,9 +311,13 @@ export function mockClientGameObject({
     transfer_item:
       transfer_item ||
       jest.fn((item: ClientObject, to: ClientObject) => {
+        const targetInventory: Map<string | number, ClientObject> = (to as AnyObject).inventory;
+
         for (const [key, it] of inventoryMap) {
           if (it === item) {
             inventoryMap.delete(key);
+            targetInventory.set(it.section(), it);
+            break;
           }
         }
       }),

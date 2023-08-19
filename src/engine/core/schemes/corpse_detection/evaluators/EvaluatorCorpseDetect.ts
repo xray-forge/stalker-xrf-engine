@@ -9,7 +9,7 @@ import { ACTOR_VISUAL_STALKER } from "@/engine/lib/constants/sections";
 import { ClientObject, LuaArray, Optional, TDistance, TNumberId, Vector } from "@/engine/lib/types";
 
 /**
- * todo;
+ * Evaluator to check whether object can find some corpse to loot and pick items from it.
  */
 @LuabindClass()
 export class EvaluatorCorpseDetect extends property_evaluator {
@@ -21,16 +21,22 @@ export class EvaluatorCorpseDetect extends property_evaluator {
   }
 
   /**
-   * Check if coprse with valuables is detected.
+   * Check if corpse with valuables is detected.
    */
   public override evaluate(): boolean {
     if (
-      !this.object.alive() || // Dead cannot loot.
-      this.object.best_enemy() !== null || // Is in combat, cannot loot.
-      this.object.character_community() === communities.zombied || // Is zombied, does not care.
-      this.state.corpse_detection_enabled === false || // Looting logics is disabled.
-      isObjectWounded(this.object.id()) || // Is wounded, cannot do anything.
-      this.object.section() === ACTOR_VISUAL_STALKER // Is cutscene participant, does not care about loot.
+      // Dead cannot loot.
+      !this.object.alive() ||
+      // Is in combat, cannot loot.
+      this.object.best_enemy() !== null ||
+      // Is zombied, does not care.
+      this.object.character_community() === communities.zombied ||
+      // Looting logics is disabled.
+      this.state.isCorpseDetectionEnabled === false ||
+      // Is wounded, cannot do anything.
+      isObjectWounded(this.object.id()) ||
+      // Is cutscene participant, does not care about loot.
+      this.object.section() === ACTOR_VISUAL_STALKER
     ) {
       return false;
     }
@@ -48,37 +54,48 @@ export class EvaluatorCorpseDetect extends property_evaluator {
       const corpseObject: Optional<ClientObject> = registryState !== null ? registryState.object! : null;
 
       if (
+        // Is registered in client side.
         corpseObject &&
+        // Is visible so can be looted.
         this.object.see(corpseObject) &&
-        (registryState.corpse_already_selected === null || registryState.corpse_already_selected === this.object.id())
+        // Is not looted by anyone or looted by current object.
+        (registryState.lootedByObject === null || registryState.lootedByObject === this.object.id())
       ) {
-        if (this.object.position().distance_to_sqr(corpseObject.position()) < nearestCorpseDistSqr) {
-          if (isObjectWithValuableLoot(corpseObject)) {
-            const corpseVertex: TNumberId = level.vertex_id(corpseObject.position());
+        if (
+          // Is near enough.
+          this.object.position().distance_to_sqr(corpseObject.position()) < nearestCorpseDistSqr &&
+          // Has valuable loot.
+          isObjectWithValuableLoot(corpseObject)
+        ) {
+          const corpseVertex: TNumberId = level.vertex_id(corpseObject.position());
 
-            if (this.object.accessible(corpseVertex)) {
-              nearestCorpseDistSqr = this.object.position().distance_to_sqr(corpseObject.position());
-              nearestCorpseVertex = corpseVertex;
-              nearestCorpsePosition = corpseObject.position();
-              corpseId = id;
-            }
+          // Can be reached by object.
+          if (this.object.accessible(corpseVertex)) {
+            nearestCorpseDistSqr = this.object.position().distance_to_sqr(corpseObject.position());
+            nearestCorpseVertex = corpseVertex;
+            nearestCorpsePosition = corpseObject.position();
+            corpseId = id;
           }
         }
       }
     }
 
     if (nearestCorpseVertex !== null) {
-      this.state.vertex_id = nearestCorpseVertex;
-      this.state.vertex_position = nearestCorpsePosition;
+      this.state.selectedCorpseVertexId = nearestCorpseVertex;
+      this.state.selectedCorpseVertexPosition = nearestCorpsePosition;
 
-      if (this.state.selected_corpse_id !== null && this.state.selected_corpse_id !== corpseId) {
-        if (registry.objects.get(this.state.selected_corpse_id) !== null) {
-          registry.objects.get(this.state.selected_corpse_id).corpse_already_selected = null;
+      // Looted corpse before, mark it as not selected.
+      if (this.state.selectedCorpseId !== null && this.state.selectedCorpseId !== corpseId) {
+        const lootedObjectState: Optional<IRegistryObjectState> = registry.objects.get(this.state.selectedCorpseId);
+
+        if (lootedObjectState !== null) {
+          lootedObjectState.lootedByObject = null;
         }
       }
 
-      this.state.selected_corpse_id = corpseId;
-      registry.objects.get(this.state.selected_corpse_id!).corpse_already_selected = this.object.id();
+      // Link looting state for current object and looted object.
+      this.state.selectedCorpseId = corpseId;
+      registry.objects.get(corpseId as TNumberId).lootedByObject = this.object.id();
 
       return true;
     }
