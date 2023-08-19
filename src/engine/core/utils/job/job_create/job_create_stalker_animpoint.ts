@@ -1,16 +1,11 @@
 import { registry } from "@/engine/core/database";
 import { SmartTerrain } from "@/engine/core/objects";
-import { isJobPatrolInRestrictor } from "@/engine/core/utils/job/job_check";
 import { jobPreconditionAnimpoint } from "@/engine/core/utils/job/job_precondition";
-import {
-  EJobPathType,
-  EJobType,
-  ISmartTerrainJobDescriptor,
-  TSmartTerrainJobsList,
-} from "@/engine/core/utils/job/job_types";
+import { EJobPathType, EJobType, TSmartTerrainJobsList } from "@/engine/core/utils/job/job_types";
+import { isPatrolInRestrictor } from "@/engine/core/utils/patrol";
 import { StringBuilder } from "@/engine/core/utils/string";
 import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
-import { LuaArray, TIndex, TName } from "@/engine/lib/types";
+import { TIndex, TName } from "@/engine/lib/types";
 
 /**
  * Create animpoint jobs for stalkers in smart terrain.
@@ -24,7 +19,7 @@ export function createStalkerAnimpointJobs(
   smartTerrain: SmartTerrain,
   jobs: TSmartTerrainJobsList,
   builder: StringBuilder
-): LuaMultiReturn<[LuaArray<ISmartTerrainJobDescriptor>, StringBuilder]> {
+): LuaMultiReturn<[TSmartTerrainJobsList, StringBuilder]> {
   const smartTerrainName: TName = smartTerrain.name();
 
   let index: TIndex = 1;
@@ -62,10 +57,7 @@ cover_name = %s
     }
 
     // todo: Bad path name as third parameter? Bad smart.safe_restr?
-    if (
-      smartTerrain.safeRestrictor !== null &&
-      isJobPatrolInRestrictor(smartTerrain, smartTerrain.safeRestrictor, null as any)
-    ) {
+    if (smartTerrain.safeRestrictor !== null && isPatrolInRestrictor(smartTerrain.safeRestrictor, null as any)) {
       builder.append("invulnerable = {=npc_in_zone(smart.safe_restr)} true\n");
     }
 

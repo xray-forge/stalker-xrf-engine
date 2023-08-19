@@ -89,15 +89,13 @@ describe("job_precondition utilities", () => {
     const [jobs] = createStalkerSniperJobs(smartTerrain, new LuaTable(), new StringBuilder());
     const parameters: AnyObject = jobs.get(1).preconditionParameters as AnyObject;
 
-    registry.objects.set(stalker.id, { object: null } as unknown as IRegistryObjectState);
-
-    expect(jobPreconditionSniper(stalker, smartTerrain, parameters)).toBe(false);
-
-    registerObject(mockClientGameObject({ idOverride: stalker.id }));
     expect(jobPreconditionSniper(stalker, smartTerrain, parameters)).toBe(true);
 
     jest.spyOn(stalker, "community").mockImplementation(() => "zombied");
     expect(jobPreconditionSniper(stalker, smartTerrain, parameters)).toBe(false);
+
+    jest.spyOn(stalker, "community").mockImplementation(() => "stalker");
+    expect(jobPreconditionSniper(stalker, smartTerrain, parameters)).toBe(true);
   });
 
   it("'jobPreconditionAnimpoint' should correctly check animpoint preconditions", () => {
@@ -126,10 +124,6 @@ describe("job_precondition utilities", () => {
     const [jobs] = createStalkerCamperJobs(smartTerrain, new LuaTable(), new StringBuilder());
     const parameters: AnyObject = jobs.get(1).preconditionParameters as AnyObject;
 
-    registry.objects.set(stalker.id, { object: null } as unknown as IRegistryObjectState);
-    expect(jobPreconditionCamper(stalker, smartTerrain, parameters)).toBe(false);
-
-    registerObject(mockClientGameObject({ idOverride: stalker.id }));
     expect(jobPreconditionCamper(stalker, smartTerrain, parameters)).toBe(true);
   });
 

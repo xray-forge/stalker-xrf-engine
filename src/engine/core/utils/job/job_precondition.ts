@@ -3,8 +3,8 @@ import { SurgeManager } from "@/engine/core/managers/world/SurgeManager";
 import { SmartTerrain } from "@/engine/core/objects";
 import { isInTimeInterval } from "@/engine/core/utils/game";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini";
-import { isAccessibleJob, isJobPatrolInRestrictor } from "@/engine/core/utils/job/job_check";
 import { IObjectJobDescriptor } from "@/engine/core/utils/job/job_types";
+import { isPatrolInRestrictor } from "@/engine/core/utils/patrol";
 import { communities } from "@/engine/lib/constants/communities";
 import { detectors } from "@/engine/lib/constants/items/detectors";
 import { FALSE } from "@/engine/lib/constants/words";
@@ -29,7 +29,7 @@ export function jobPreconditionCamper(
   smartTerrain: SmartTerrain,
   parameters: AnyObject
 ): boolean {
-  return isAccessibleJob(object, parameters.wayName);
+  return true;
 }
 
 /**
@@ -75,7 +75,7 @@ export function jobPreconditionGuard(
   }
 
   if (parameters.isSafeJob === null) {
-    parameters.isSafeJob = isJobPatrolInRestrictor(smartTerrain, smartTerrain.safeRestrictor, parameters.wayName);
+    parameters.isSafeJob = isPatrolInRestrictor(smartTerrain.safeRestrictor, parameters.wayName);
   }
 
   return parameters.isSafeJob !== false;
@@ -110,7 +110,7 @@ export function jobPreconditionPatrol(
   }
 
   if (parameters.isSafeJob === null) {
-    parameters.isSafeJob = isJobPatrolInRestrictor(smartTerrain, smartTerrain.safeRestrictor, parameters.wayName);
+    parameters.isSafeJob = isPatrolInRestrictor(smartTerrain.safeRestrictor, parameters.wayName);
   }
 
   return parameters.isSafeJob !== false;
@@ -135,7 +135,7 @@ export function jobPreconditionSleep(
   }
 
   if (parameters.isSafeJob === null) {
-    parameters.isSafeJob = isJobPatrolInRestrictor(smartTerrain, smartTerrain.safeRestrictor, parameters.wayName);
+    parameters.isSafeJob = isPatrolInRestrictor(smartTerrain.safeRestrictor, parameters.wayName);
   }
 
   return parameters.isSafeJob !== false;
@@ -149,7 +149,7 @@ export function jobPreconditionSniper(
   smartTerrain: SmartTerrain,
   parameters: AnyObject
 ): boolean {
-  return object.community() !== communities.zombied && isAccessibleJob(object, parameters.wayName);
+  return object.community() !== communities.zombied;
 }
 
 /**
@@ -178,7 +178,7 @@ export function jobPreconditionWalker(
   }
 
   if (parameters.isSafeJob === null) {
-    parameters.isSafeJob = isJobPatrolInRestrictor(smartTerrain, smartTerrain.safeRestrictor, parameters.wayName);
+    parameters.isSafeJob = isPatrolInRestrictor(smartTerrain.safeRestrictor, parameters.wayName);
   }
 
   return parameters.isSafeJob !== false;

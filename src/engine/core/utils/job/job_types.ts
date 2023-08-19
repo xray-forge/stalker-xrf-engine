@@ -17,6 +17,11 @@ import {
 } from "@/engine/lib/types";
 
 /**
+ * todo;
+ */
+export const PATH_FIELDS: LuaArray<string> = $fromArray(["path_walk", "path_main", "path_home", "center_point"]);
+
+/**
  * Enumeration describing smart terrains jobs.
  */
 export enum EJobPathType {
@@ -109,11 +114,13 @@ export interface ISmartTerrainJobDescriptor {
 }
 
 /**
- * todo;
+ * List of smart terrain jobs.
+ * Use in many places, so alias can be simpler.
  */
 export type TSmartTerrainJobsList = LuaArray<ISmartTerrainJobDescriptor>;
 
 /**
- * todo;
+ * List of object jobs.
+ * Use in many places, so alias can be simpler.
  */
-export const PATH_FIELDS: LuaArray<string> = $fromArray(["path_walk", "path_main", "path_home", "center_point"]);
+export type TObjectJobsList = LuaArray<IObjectJobDescriptor>;

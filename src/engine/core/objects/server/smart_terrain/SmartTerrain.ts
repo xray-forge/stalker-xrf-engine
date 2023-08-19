@@ -60,12 +60,13 @@ import {
   TConditionList,
 } from "@/engine/core/utils/ini";
 import {
-  areOnlyMonstersOnJobs,
+  areNoStalkersWorkingOnJobs,
   createObjectJobDescriptor,
   createSmartTerrainJobs,
   IObjectJobDescriptor,
   ISmartTerrainJobDescriptor,
   selectSmartTerrainJob,
+  TSmartTerrainJobsList,
 } from "@/engine/core/utils/job";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { areObjectsOnSameLevel, isMonster, isStalker } from "@/engine/core/utils/object";
@@ -163,6 +164,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
 
   public defendRestrictor: Optional<string> = null;
   public attackRestrictor: Optional<TName> = null;
+  // Name of restrictor where objects are considered safe.
   public safeRestrictor: Optional<TName> = null;
   public spawnPointName: Optional<TName> = null;
 
@@ -181,7 +183,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
   /**
    * Tree-like representation of available smart terrain jobs.
    */
-  public jobs: LuaArray<ISmartTerrainJobDescriptor> = new LuaTable();
+  public jobs: TSmartTerrainJobsList = new LuaTable();
   /**
    * Flat representation of available smart terrain jobs.
    */
@@ -493,9 +495,9 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
       return;
     }
 
-    if (this.areCampfiresOn && areOnlyMonstersOnJobs(this.objectJobDescriptors)) {
+    if (this.areCampfiresOn && areNoStalkersWorkingOnJobs(this.objectJobDescriptors)) {
       turnOffSmartTerrainCampfires(this);
-    } else if (!this.areCampfiresOn && !areOnlyMonstersOnJobs(this.objectJobDescriptors)) {
+    } else if (!this.areCampfiresOn && !areNoStalkersWorkingOnJobs(this.objectJobDescriptors)) {
       turnOnSmartTerrainCampfires(this);
     }
 

@@ -1,8 +1,12 @@
 import { SmartTerrain } from "@/engine/core/objects";
 import { isJobAvailableToObject } from "@/engine/core/utils/job/job_check";
-import { IObjectJobDescriptor, ISmartTerrainJobDescriptor } from "@/engine/core/utils/job/job_types";
+import {
+  IObjectJobDescriptor,
+  ISmartTerrainJobDescriptor,
+  TSmartTerrainJobsList,
+} from "@/engine/core/utils/job/job_types";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { LuaArray, Optional, TNumberId, TRate } from "@/engine/lib/types";
+import { Optional, TNumberId } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -16,7 +20,7 @@ const logger: LuaLogger = new LuaLogger($filename);
  */
 export function selectSmartTerrainJob(
   smartTerrain: SmartTerrain,
-  jobs: LuaArray<ISmartTerrainJobDescriptor>,
+  jobs: TSmartTerrainJobsList,
   objectJobDescriptor: IObjectJobDescriptor
 ): LuaMultiReturn<[Optional<TNumberId>, Optional<ISmartTerrainJobDescriptor>]> {
   for (const [, it] of jobs) {

@@ -2,20 +2,15 @@ import { describe, expect, it, jest } from "@jest/globals";
 import { getFS } from "xray16";
 
 import { parseConditionsList } from "@/engine/core/utils/ini";
-import { createExclusiveJob } from "@/engine/core/utils/job/job_exclusive";
+import { createExclusiveJob } from "@/engine/core/utils/job/job_create/job_create_exclusive";
 import { jobPreconditionExclusive } from "@/engine/core/utils/job/job_precondition";
-import { EJobPathType, EJobType, ISmartTerrainJobDescriptor } from "@/engine/core/utils/job/job_types";
-import { IniFile, LuaArray } from "@/engine/lib/types";
+import { EJobPathType, EJobType, TSmartTerrainJobsList } from "@/engine/core/utils/job/job_types";
+import { IniFile } from "@/engine/lib/types";
 import { mockIniFile, registerIniFileMock } from "@/fixtures/xray";
 
-describe("'job_exclusive' utils", () => {
+describe("'job_create_exclusive' utils", () => {
   it("'createExclusiveJob' should correctly handle empty ini", () => {
-    const list: LuaArray<ISmartTerrainJobDescriptor> = createExclusiveJob(
-      mockIniFile("text.ltx", {}),
-      "a",
-      "b",
-      new LuaTable()
-    );
+    const list: TSmartTerrainJobsList = createExclusiveJob(mockIniFile("text.ltx", {}), "a", "b", new LuaTable());
 
     expect(list).toEqualLuaArrays([]);
   });
@@ -32,7 +27,7 @@ describe("'job_exclusive' utils", () => {
   });
 
   it("'createExclusiveJob' should correctly read if script does exist", () => {
-    const list: LuaArray<ISmartTerrainJobDescriptor> = new LuaTable();
+    const list: TSmartTerrainJobsList = new LuaTable();
     const ini: IniFile = mockIniFile("text.ltx", {
       smart_terrain: {
         work1: "some_file2.ltx",
@@ -60,7 +55,7 @@ describe("'job_exclusive' utils", () => {
   });
 
   it("'createExclusiveJob' should correctly read configured jobs without condlist", () => {
-    const list: LuaArray<ISmartTerrainJobDescriptor> = new LuaTable();
+    const list: TSmartTerrainJobsList = new LuaTable();
     const ini: IniFile = mockIniFile("text.ltx", {
       smart_terrain: {
         work2: "some_file3.ltx",
@@ -96,7 +91,7 @@ describe("'job_exclusive' utils", () => {
   });
 
   it("'createExclusiveJob' should correctly read configured jobs with condlist", () => {
-    const list: LuaArray<ISmartTerrainJobDescriptor> = new LuaTable();
+    const list: TSmartTerrainJobsList = new LuaTable();
     const ini: IniFile = mockIniFile("text.ltx", {
       smart_terrain: {
         work2: "some_file3.ltx",

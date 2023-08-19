@@ -1,9 +1,9 @@
 import { level } from "xray16";
 
 import { SmartTerrain } from "@/engine/core/objects";
-import { isJobPatrolInRestrictor } from "@/engine/core/utils/job/job_check";
 import { jobPreconditionCollector } from "@/engine/core/utils/job/job_precondition";
 import { EJobPathType, EJobType, TSmartTerrainJobsList } from "@/engine/core/utils/job/job_types";
+import { isPatrolInRestrictor } from "@/engine/core/utils/patrol";
 import { StringBuilder } from "@/engine/core/utils/string";
 import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
 import { TIndex, TName } from "@/engine/lib/types";
@@ -59,10 +59,7 @@ def_state_moving = patrol
       builder.append(string.format("path_look = collector_%s_look\n", index));
     }
 
-    if (
-      smartTerrain.safeRestrictor !== null &&
-      isJobPatrolInRestrictor(smartTerrain, smartTerrain.safeRestrictor, wayName)
-    ) {
+    if (smartTerrain.safeRestrictor !== null && isPatrolInRestrictor(smartTerrain.safeRestrictor, wayName)) {
       builder.append("invulnerable = {=npc_in_zone(smart.safe_restr)} true\n");
     }
 
@@ -73,7 +70,7 @@ def_state_moving = patrol
     if (
       smartTerrain.smartTerrainActorControl !== null &&
       smartTerrain.smartTerrainActorControl.ignoreZone !== null &&
-      isJobPatrolInRestrictor(smartTerrain, smartTerrain.smartTerrainActorControl.ignoreZone, wayName)
+      isPatrolInRestrictor(smartTerrain.smartTerrainActorControl.ignoreZone, wayName)
     ) {
       builder.append(
         `combat_ignore_cond = {=npc_in_zone(smart.base_on_actor_control.ignore_zone)} true

@@ -4,9 +4,9 @@ import { loadDynamicIni } from "@/engine/core/database/ini";
 import { registry } from "@/engine/core/database/registry";
 import type { SmartCover, SmartTerrain } from "@/engine/core/objects";
 import { abort } from "@/engine/core/utils/assertion";
+import { createExclusiveJobs } from "@/engine/core/utils/job/job_create/job_create_exclusive";
 import { createMonsterJobs } from "@/engine/core/utils/job/job_create/job_create_monster";
 import { createStalkerJobs } from "@/engine/core/utils/job/job_create/job_create_stalker";
-import { createExclusiveJobs } from "@/engine/core/utils/job/job_exclusive";
 import {
   EJobPathType,
   ISmartTerrainJobDescriptor,
@@ -15,7 +15,7 @@ import {
 } from "@/engine/core/utils/job/job_types";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { StringBuilder } from "@/engine/core/utils/string";
-import { IniFile, LuaArray, Optional, TName, TNumberId, TSection } from "@/engine/lib/types";
+import { IniFile, Optional, TName, TNumberId, TSection } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -37,7 +37,7 @@ export function createSmartTerrainJobs(
   logger.info("Create jobs for smart terrain:", smartTerrain.name());
 
   const builder: StringBuilder = new StringBuilder();
-  const jobs: LuaArray<ISmartTerrainJobDescriptor> = new LuaTable();
+  const jobs: TSmartTerrainJobsList = new LuaTable();
 
   // Exclusive jobs for smart terrain.
   createExclusiveJobs(smartTerrain, jobs);
@@ -73,7 +73,7 @@ export function createSmartTerrainJobs(
 
         let pathName: TName = string.format("%s_%s", smartTerrain.name(), ltx.r_string(activeSection, pathField));
 
-        // todo: enumeration.
+        // todo: enum.
         if (pathField === "center_point") {
           if (level.patrol_path_exists(string.format("%s_task", pathName))) {
             pathName = string.format("%s_task", pathName);

@@ -1,99 +1,53 @@
-import { patrol } from "xray16";
-
-import { registry } from "@/engine/core/database";
 import type { SmartTerrain } from "@/engine/core/objects";
-import { IObjectJobDescriptor, ISmartTerrainJobDescriptor } from "@/engine/core/utils/job/job_types";
-import {
-  AnyObject,
-  ClientObject,
-  LuaArray,
-  Optional,
-  Patrol,
-  ServerObject,
-  TCount,
-  TName,
-  TNumberId,
-} from "@/engine/lib/types";
+import { IObjectJobDescriptor, ISmartTerrainJobDescriptor, TObjectJobsList } from "@/engine/core/utils/job/job_types";
+import { AnyObject, TNumberId } from "@/engine/lib/types";
 
 /**
- * todo;
- */
-export function isAccessibleJob(serverObject: ServerObject, wayName: TName): boolean {
-  return registry.objects.get(serverObject.id)?.object !== null;
-}
-
-/**
- * todo;
- * todo: gulag general update
+ * Check if object can use job.
+ * Validates if it is matching for creature type and job preconditions are met.
+ *
+ * @param objectJob - descriptor of object job
+ * @param smartTerrainJob - descriptor of smart terrain job
+ * @param smartTerrain - target smart terrain where job should be processed
+ * @returns whether job is available for object
  */
 export function isJobAvailableToObject(
-  objectInfo: IObjectJobDescriptor,
-  jobInfo: ISmartTerrainJobDescriptor,
+  objectJob: IObjectJobDescriptor,
+  smartTerrainJob: ISmartTerrainJobDescriptor,
   smartTerrain: SmartTerrain
 ): boolean {
   // Job worker recently died, ignore it for now.
-  if (smartTerrain.jobDeadTimeById.get(jobInfo.id as TNumberId) !== null) {
+  if (smartTerrain.jobDeadTimeById.get(smartTerrainJob.id as TNumberId) !== null) {
     return false;
   }
 
   // Check monster / stalker restriction for job.
-  if (jobInfo.isMonsterJob !== null && jobInfo.isMonsterJob !== objectInfo.isMonster) {
+  if (smartTerrainJob.isMonsterJob !== null && smartTerrainJob.isMonsterJob !== objectJob.isMonster) {
     return false;
   }
 
-  // Has callback checker.
-  if (
-    jobInfo.preconditionFunction &&
-    !jobInfo.preconditionFunction(
-      objectInfo.object,
+  // Has callback checker - call it.
+  return (
+    !smartTerrainJob.preconditionFunction ||
+    smartTerrainJob.preconditionFunction(
+      objectJob.object,
       smartTerrain,
-      jobInfo.preconditionParameters as AnyObject,
-      objectInfo
+      smartTerrainJob.preconditionParameters as AnyObject,
+      objectJob
     )
-  ) {
-    return false;
-  }
-
-  return true;
+  );
 }
 
 /**
- * todo;
+ * Check if no stalkers are working on smart terrain jobs.
+ * If no one is working or only monsters, return true.
+ *
+ * @param descriptors - list of object job descriptors to check
+ * @returns whether no stalkers working on jobs
  */
-export function areOnlyMonstersOnJobs(objectInfos: LuaArray<IObjectJobDescriptor>): boolean {
-  for (const [, objectInfo] of objectInfos) {
-    if (!objectInfo.isMonster) {
-      return false;
-    }
-  }
-
-  return true;
-}
-
-/**
- * todo;
- * todo;
- */
-export function isJobPatrolInRestrictor(
-  smartTerrain: SmartTerrain,
-  restrictorName: TName,
-  wayName: TName
-): Optional<boolean> {
-  if (restrictorName === null) {
-    return null;
-  }
-
-  const restrictor: Optional<ClientObject> = registry.zones.get(restrictorName);
-
-  if (restrictor === null) {
-    return null;
-  }
-
-  const patrolObject: Patrol = new patrol(wayName);
-  const count: TCount = patrolObject.count();
-
-  for (const point of $range(0, count - 1)) {
-    if (!restrictor.inside(patrolObject.point(point))) {
+export function areNoStalkersWorkingOnJobs(descriptors: TObjectJobsList): boolean {
+  for (const [, descriptor] of descriptors) {
+    if (!descriptor.isMonster) {
       return false;
     }
   }

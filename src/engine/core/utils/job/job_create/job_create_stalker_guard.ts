@@ -1,9 +1,9 @@
 import { level } from "xray16";
 
 import { SmartTerrain } from "@/engine/core/objects";
-import { isJobPatrolInRestrictor } from "@/engine/core/utils/job/job_check";
 import { jobPreconditionGuard, jobPreconditionGuardFollower } from "@/engine/core/utils/job/job_precondition";
 import { EJobPathType, EJobType, TSmartTerrainJobsList } from "@/engine/core/utils/job/job_types";
+import { isPatrolInRestrictor } from "@/engine/core/utils/patrol";
 import { StringBuilder } from "@/engine/core/utils/string";
 import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
 import { TIndex, TName } from "@/engine/lib/types";
@@ -56,10 +56,7 @@ path_look = guard_%s_look
       )
     );
 
-    if (
-      smartTerrain.safeRestrictor !== null &&
-      isJobPatrolInRestrictor(smartTerrain, smartTerrain.safeRestrictor, wayName)
-    ) {
+    if (smartTerrain.safeRestrictor !== null && isPatrolInRestrictor(smartTerrain.safeRestrictor, wayName)) {
       builder.append("invulnerable = {=npc_in_zone(smart.safe_restr)} true\n");
     }
 
@@ -87,10 +84,7 @@ on_info2 = {=distance_to_obj_on_job_le(logic@follower_%s:3)} remark@%s
       )
     );
 
-    if (
-      smartTerrain.safeRestrictor !== null &&
-      isJobPatrolInRestrictor(smartTerrain, smartTerrain.safeRestrictor, wayName)
-    ) {
+    if (smartTerrain.safeRestrictor !== null && isPatrolInRestrictor(smartTerrain.safeRestrictor, wayName)) {
       builder.append("invulnerable = {=npc_in_zone(smart.safe_restr)} true\n");
     }
 
