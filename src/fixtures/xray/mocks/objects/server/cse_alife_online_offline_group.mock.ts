@@ -2,7 +2,8 @@ import { jest } from "@jest/globals";
 
 import type { Squad } from "@/engine/core/objects/server/squad";
 import { communities, TCommunity } from "@/engine/lib/constants/communities";
-import { ServerCreatureObject, ServerGroupObject, ServerSquadMemberDescriptor } from "@/engine/lib/types";
+import { ServerCreatureObject, ServerGroupObject, ServerSquadMemberDescriptor, TNumberId } from "@/engine/lib/types";
+import { mockClsid } from "@/fixtures/xray/mocks/constants";
 import {
   MockAlifeDynamicObject,
   mockServerAlifeDynamicObject,
@@ -13,6 +14,10 @@ import {
  */
 export class MockAlifeOnlineOfflineGroup extends MockAlifeDynamicObject {
   public members: Array<ServerSquadMemberDescriptor> = [];
+
+  public clsid(): TNumberId {
+    return mockClsid.online_offline_group_s;
+  }
 
   public squad_members(): Array<ServerSquadMemberDescriptor> {
     return this.members;
@@ -51,6 +56,7 @@ export function mockServerAlifeOnlineOfflineGroup(base: Partial<ServerGroupObjec
 
   return mockServerAlifeDynamicObject({
     ...base,
+    clsid: () => mockClsid.online_offline_group_s,
     assignSmartTerrain: jest.fn(),
     update: jest.fn(),
     createSquadMembers: jest.fn(),

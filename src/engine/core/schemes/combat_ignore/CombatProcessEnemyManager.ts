@@ -6,6 +6,7 @@ import { AbstractSchemeManager } from "@/engine/core/schemes";
 import { ISchemeCombatIgnoreState } from "@/engine/core/schemes/combat_ignore/index";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { canObjectSelectAsEnemy } from "@/engine/core/utils/object";
+import { startSmartTerrainAlarm } from "@/engine/core/utils/smart_terrain";
 import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import { MAX_U16 } from "@/engine/lib/constants/memory";
@@ -36,7 +37,7 @@ export class CombatProcessEnemyManager extends AbstractSchemeManager<ISchemeComb
       if (serverObject && serverObject.m_smart_terrain_id !== MAX_U16) {
         const smartTerrain: SmartTerrain = alife().object<SmartTerrain>(serverObject.m_smart_terrain_id)!;
 
-        smartTerrain.startAlarm();
+        startSmartTerrainAlarm(smartTerrain);
 
         if (enemy.id() === registry.actor.id() && smartTerrain.smartTerrainActorControl !== null) {
           smartTerrain.smartTerrainActorControl.onActorAttackSmartTerrain();

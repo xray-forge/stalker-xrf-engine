@@ -972,10 +972,10 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
         smartTerrain.arrivingObjects.get(this.commander_id()) === null &&
         smartTerrain.objectJobDescriptors &&
         smartTerrain.objectJobDescriptors.get(this.commander_id()) &&
-        smartTerrain.objectJobDescriptors.get(this.commander_id()).job_id &&
-        smartTerrain.jobsData.get(smartTerrain.objectJobDescriptors.get(this.commander_id()).job_id)
+        smartTerrain.objectJobDescriptors.get(this.commander_id()).jobId &&
+        smartTerrain.jobs.get(smartTerrain.objectJobDescriptors.get(this.commander_id()).jobId)
       ) {
-        return smartTerrain.jobsData.get(smartTerrain.objectJobDescriptors.get(this.commander_id()).job_id).alife_task;
+        return smartTerrain.objectJobDescriptors.get(this.commander_id()).job!.alifeTask as CALifeSmartTerrainTask;
       }
 
       return alife().object<TSimulationObject>(this.assignedTargetId)!.getAlifeSmartTerrainTask();
@@ -1058,8 +1058,8 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
       assignedSmartTerrain.smartTerrainActorControl.status !== ESmartTerrainStatus.NORMAL
     ) {
       if (
-        registry.zones.get(assignedSmartTerrain.smartTerrainActorControl.isNoWeaponZone) === null ||
-        !registry.zones.get(assignedSmartTerrain.smartTerrainActorControl.isNoWeaponZone).inside(this.position)
+        registry.zones.get(assignedSmartTerrain.smartTerrainActorControl.noWeaponZone) === null ||
+        !registry.zones.get(assignedSmartTerrain.smartTerrainActorControl.noWeaponZone).inside(this.position)
       ) {
         return false;
       }

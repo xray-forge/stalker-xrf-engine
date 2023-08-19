@@ -1,6 +1,6 @@
 import { describe, expect, it } from "@jest/globals";
 
-import { trimString } from "@/engine/core/utils/string";
+import { trimString } from "@/engine/core/utils/string/string_general";
 
 describe("'string' utils", () => {
   it("'trimString' should correctly trim string values", () => {

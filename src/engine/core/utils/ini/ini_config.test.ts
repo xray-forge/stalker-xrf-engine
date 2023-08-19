@@ -47,7 +47,7 @@ describe("'config' utils for ini file", () => {
     ).toEqualLuaTables({
       condlist: parseConditionsList("{+a -b} walker@get_out"),
       name: "key",
-      npc_id: 100000,
+      objectId: 100000,
       v1: "zat_cop_id",
       v2: "zat_b38_actor_jump_down",
     });
@@ -90,7 +90,7 @@ describe("'config' utils for ini file", () => {
       combat_ignore: {
         condlist: parseConditionsList("second"),
         name: "combat_ignore_cond",
-        npc_id: null,
+        objectId: null,
         v1: null,
         v2: null,
       },
@@ -98,7 +98,7 @@ describe("'config' utils for ini file", () => {
       combat_type: {
         condlist: parseConditionsList("fourth"),
         name: "combat_type",
-        npc_id: null,
+        objectId: null,
         v1: null,
         v2: null,
       },
@@ -108,7 +108,7 @@ describe("'config' utils for ini file", () => {
       on_combat: {
         condlist: parseConditionsList("fifth"),
         name: "on_combat",
-        npc_id: null,
+        objectId: null,
         v1: null,
         v2: null,
       },
@@ -127,14 +127,14 @@ describe("'config' utils for ini file", () => {
 
     const firstIndex: TIndex = addConditionToList(list, 1, {
       condlist: new LuaTable(),
-      npc_id: 123,
+      objectId: 123,
       v1: 1,
       v2: null,
       name: "first",
     });
     const secondIndex: TIndex = addConditionToList(list, 2, {
       condlist: new LuaTable(),
-      npc_id: 333,
+      objectId: 333,
       v1: "a",
       v2: "b",
       name: "second",
@@ -147,12 +147,12 @@ describe("'config' utils for ini file", () => {
     expect(list).toEqualLuaArrays([
       mockBaseSchemeLogic({
         name: "first",
-        npc_id: 123,
+        objectId: 123,
         v1: 1,
       }),
       mockBaseSchemeLogic({
         name: "second",
-        npc_id: 333,
+        objectId: 333,
         v1: "a",
         v2: "b",
       }),
@@ -305,14 +305,14 @@ describe("'config' utils for ini file", () => {
       mockBaseSchemeLogic({
         v1: "test-cfg-sid",
         v2: "jup_hide_a6",
-        npc_id: serverObject.id,
+        objectId: serverObject.id,
         name: "on_npc_in_zone",
         condlist: parseConditionsList("test11"),
       }),
       mockBaseSchemeLogic({
         v1: "test-cfg-sid",
         v2: "jup_hide_a6",
-        npc_id: serverObject.id,
+        objectId: serverObject.id,
         name: "on_npc_not_in_zone",
         condlist: parseConditionsList("test12"),
       }),

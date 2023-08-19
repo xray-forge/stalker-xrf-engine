@@ -132,6 +132,10 @@ export class MockLuaTable<K, V> extends Map<K, V> {
     return [...this.values()];
   }
 
+  public getEntriesArray(): Array<[K, V]> {
+    return [...this.entries()];
+  }
+
   public reset(): void {
     this.getKeysArray().forEach((it) => this.delete(it));
   }

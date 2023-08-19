@@ -5,6 +5,17 @@ import { MockLuaTable } from "@/fixtures/lua/mocks/LuaTable.mock";
  * Mock table utils for correct interoperation with typescript.
  */
 export const mockTableUtils = {
+  isEmpty: (target: AnyObject): boolean => {
+    if (target === null) {
+      return true;
+    }
+
+    if (target instanceof MockLuaTable) {
+      return target.length() === 0;
+    } else {
+      return Object.keys(target).length === 0;
+    }
+  },
   copyTable: (target: AnyObject, source: AnyObject) => Object.assign(target, source),
   getTableSize: (target: unknown): number => {
     if (target instanceof MockLuaTable) {

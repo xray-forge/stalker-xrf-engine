@@ -1,43 +1,45 @@
 import { LuabindClass, object_binder } from "xray16";
 
-import { registry } from "@/engine/core/database";
+import { registerSmartTerrainCampfire, unRegisterSmartTerrainCampfire } from "@/engine/core/database";
 import { SimulationBoardManager } from "@/engine/core/managers/interaction/SimulationBoardManager";
+import { SmartTerrain } from "@/engine/core/objects";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { ClientObject, ServerObject, ZoneCampfire } from "@/engine/lib/types";
+import { Optional, ServerObject } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Bind campfire client object.
  */
 @LuabindClass()
 export class CampfireBinder extends object_binder {
-  public readonly campfire: ZoneCampfire;
-
-  public constructor(object: ClientObject) {
-    super(object);
-    this.campfire = object.get_campfire();
-  }
+  // Smart terrain owning campfire.
+  public smartTerrain: Optional<SmartTerrain> = null;
 
   public override net_spawn(object: ServerObject): boolean {
     if (!super.net_spawn(object)) {
       return false;
     }
 
-    logger.info("Register", object.name());
+    // logger.info("Register:", object.name());
 
     const [smartTerrainName] = string.gsub(this.object.name(), "_campfire_%d*", "");
 
-    if (SimulationBoardManager.getInstance().getSmartTerrainByName(smartTerrainName) !== null) {
-      this.campfire.turn_off();
+    this.smartTerrain = SimulationBoardManager.getInstance().getSmartTerrainByName(smartTerrainName);
 
-      if (registry.smartTerrainsCampfires.get(smartTerrainName) === null) {
-        registry.smartTerrainsCampfires.set(smartTerrainName, new LuaTable());
-      }
-
-      registry.smartTerrainsCampfires.get(smartTerrainName).set(this.object.id(), this.campfire);
+    if (this.smartTerrain) {
+      registerSmartTerrainCampfire(this.smartTerrain, this.object);
     }
 
     return true;
+  }
+
+  public override net_destroy(): void {
+    super.net_destroy();
+
+    if (this.smartTerrain) {
+      unRegisterSmartTerrainCampfire(this.smartTerrain, this.object);
+      this.smartTerrain = null;
+    }
   }
 }

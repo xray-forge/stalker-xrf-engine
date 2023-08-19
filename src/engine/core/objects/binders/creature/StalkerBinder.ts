@@ -39,7 +39,6 @@ import { MapDisplayManager } from "@/engine/core/managers/interface/MapDisplayMa
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import { DropManager } from "@/engine/core/managers/world/DropManager";
 import { ReleaseBodyManager } from "@/engine/core/managers/world/ReleaseBodyManager";
-import { setupSmartJobsAndLogicOnSpawn } from "@/engine/core/objects/server/smart_terrain/jobs_general";
 import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain/SmartTerrain";
 import { addStateManager } from "@/engine/core/objects/state/add_state_manager";
 import { StalkerMoveManager } from "@/engine/core/objects/state/StalkerMoveManager";
@@ -52,12 +51,14 @@ import { SchemeReachTask } from "@/engine/core/schemes/reach_task/SchemeReachTas
 import { SchemeLight } from "@/engine/core/schemes/sr_light/SchemeLight";
 import { SchemeWounded } from "@/engine/core/schemes/wounded/SchemeWounded";
 import { pickSectionFromCondList, readIniString, TConditionList } from "@/engine/core/utils/ini";
+import { IObjectJobDescriptor } from "@/engine/core/utils/job";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getObjectCommunity, getObjectSquad } from "@/engine/core/utils/object";
 import { ERelation, setClientObjectRelation, setObjectSympathy } from "@/engine/core/utils/relation";
 import {
   emitSchemeEvent,
   initializeObjectInvulnerability,
+  setupObjectSmartJobsAndLogicOnSpawn,
   trySwitchToAnotherSection,
 } from "@/engine/core/utils/scheme";
 import { createEmptyVector } from "@/engine/core/utils/vector";
@@ -66,7 +67,6 @@ import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import { MAX_U16 } from "@/engine/lib/constants/memory";
 import {
   ActionPlanner,
-  ALifeSmartTerrainTask,
   AnyObject,
   ClientObject,
   EClientObjectRelation,
@@ -199,18 +199,14 @@ export class StalkerBinder extends object_binder {
         const smartTerrain: SmartTerrain = alife().object<SmartTerrain>(serverObject.m_smart_terrain_id)!;
 
         if (smartTerrain.arrivingObjects.get(serverObject.id) === null) {
-          const smartName: TName = smartTerrain.name();
-          const jobDatas = smartTerrain.objectJobDescriptors;
-          const arriving = smartTerrain.arrivingObjects;
-          const jobData = smartTerrain.objectJobDescriptors.get(serverObject.id);
-          const smartTask: ALifeSmartTerrainTask = smartTerrain.jobsData.get(jobData?.job_id).alife_task;
+          const jobDescriptor: IObjectJobDescriptor = smartTerrain.objectJobDescriptors.get(serverObject.id);
 
-          this.object.set_npc_position(smartTask.position());
+          this.object.set_npc_position(jobDescriptor.job!.alifeTask!.position());
         }
       }
     }
 
-    setupSmartJobsAndLogicOnSpawn(this.object, this.state, object, ESchemeType.STALKER, this.isLoaded);
+    setupObjectSmartJobsAndLogicOnSpawn(this.object, this.state, ESchemeType.STALKER, this.isLoaded);
 
     if (getObjectCommunity(this.object) !== communities.zombied) {
       PostCombatIdle.addPostCombatIdleWait(this.object);

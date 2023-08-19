@@ -58,12 +58,14 @@ import {
   MockAlifeSmartCover,
   MockAlifeSmartZone,
   MockAnomalousZone,
+  MockCALifeSmartTerrainTask,
   MockCGameTask,
   MockCScriptXmlInit,
   MockCUIListBoxItem,
   MockCUIListBoxItemMsgChain,
   MockCUIScriptWnd,
   MockCUIWindow,
+  MockCZoneCampfire,
   MockDangerObject,
   MockFlags32,
   MockObjectBinder,
@@ -81,7 +83,9 @@ import { MockVector } from "@/fixtures/xray/mocks/vector.mock";
  * Mock whole xray16 game libraries for testing environment and replace with testable mocks.
  */
 export function mockXRay16({
+  CALifeSmartTerrainTask = MockCALifeSmartTerrainTask,
   CGameTask = MockCGameTask,
+  CSavedGameWrapper = MockCSavedGameWrapper,
   CScriptXmlInit = MockCScriptXmlInit,
   CSightParams = MockCSightParams,
   CTime = MockCTime,
@@ -89,6 +93,7 @@ export function mockXRay16({
   CUIListBoxItemMsgChain = MockCUIListBoxItemMsgChain,
   CUIScriptWnd = MockCUIScriptWnd,
   CUIWindow = MockCUIWindow,
+  CZoneCampfire = MockCZoneCampfire,
   IsImportantSave = jest.fn(() => mocksConfig.isAutoSavingEnabled),
   action_base = MockActionBase,
   action_planner = MockActionPlanner,
@@ -100,7 +105,6 @@ export function mockXRay16({
   clsid = mockClsid,
   cond = MockCond,
   create_ini_file = mockCreateIniFile,
-  CSavedGameWrapper = MockCSavedGameWrapper,
   cse_alife_creature_actor = MockAlifeCreatureActor,
   cse_alife_helicopter = MockAlifeHelicopter,
   cse_alife_dynamic_object = MockAlifeDynamicObject,
@@ -169,6 +173,7 @@ export function mockXRay16({
   world_state = MockWorldState,
 } = {}): void {
   jest.mock("xray16", () => ({
+    CALifeSmartTerrainTask,
     CGameTask,
     CScriptXmlInit,
     CSightParams,
@@ -177,6 +182,7 @@ export function mockXRay16({
     CUIListBoxItemMsgChain,
     CUIScriptWnd,
     CUIWindow,
+    CZoneCampfire,
     IsImportantSave,
     LuabindClass: () => {},
     action_base,

@@ -1,0 +1,38 @@
+[logic@test_smart_surge_1_walk]
+active = walker@test_smart_surge_1_walk
+[walker@test_smart_surge_1_walk]
+sound_idle = state
+use_camp = true
+meet = meet@generic_lager
+path_walk = surge_1_walk
+def_state_standing = guard
+def_state_moving = patrol
+path_look = surge_1_look
+out_restr = def_restrictor_test
+combat_ignore_cond = {=npc_in_zone(smart.base_on_actor_control.ignore_zone)} true
+combat_ignore_keep_when_attacked = true
+[logic@test_smart_surge_2_walk]
+active = walker@test_smart_surge_2_walk
+[walker@test_smart_surge_2_walk]
+sound_idle = state
+use_camp = true
+meet = meet@generic_lager
+path_walk = surge_2_walk
+def_state_standing = guard
+def_state_moving = patrol
+path_look = surge_2_look
+out_restr = def_restrictor_test
+combat_ignore_cond = {=npc_in_zone(smart.base_on_actor_control.ignore_zone)} true
+combat_ignore_keep_when_attacked = true
+[logic@test_smart_surge_3_walk]
+active = walker@test_smart_surge_3_walk
+[walker@test_smart_surge_3_walk]
+sound_idle = state
+use_camp = true
+meet = meet@generic_lager
+path_walk = surge_3_walk
+def_state_standing = guard
+def_state_moving = patrol
+out_restr = def_restrictor_test
+combat_ignore_cond = {=npc_in_zone(smart.base_on_actor_control.ignore_zone)} true
+combat_ignore_keep_when_attacked = true

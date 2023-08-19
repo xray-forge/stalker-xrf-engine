@@ -77,6 +77,9 @@ async function* getFiles(directory: string): AsyncGenerator<string> {
  *
  * @param file - full path to file
  * @param options - configuration of stats access
+ * @param options.exclusions - exclusions list
+ * @param options.pathSeparator - separator of paths
+ * @param options.encodePath - whether path should be encoded
  * @returns promise resolving file stats
  */
 async function getFileStats(

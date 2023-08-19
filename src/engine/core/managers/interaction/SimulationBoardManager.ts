@@ -122,8 +122,8 @@ export class SimulationBoardManager extends AbstractCoreManager {
   /**
    * todo: Description.
    */
-  public getSmartTerrainPopulation(smart: SmartTerrain): TCount {
-    return this.smartTerrains.get(smart.id).stayingSquadsCount;
+  public getSmartTerrainPopulation(smartTerrain: SmartTerrain): TCount {
+    return this.smartTerrains.get(smartTerrain.id).stayingSquadsCount;
   }
 
   /**
@@ -240,6 +240,7 @@ export class SimulationBoardManager extends AbstractCoreManager {
     }
 
     this.smartTerrains.delete(object.id);
+    this.smartTerrainsByName.delete(object.name());
   }
 
   /**

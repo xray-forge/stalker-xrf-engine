@@ -1,3 +1,5 @@
+import { TIndex } from "@/engine/lib/types";
+
 /**
  * Clamp number to limits.
  *
@@ -27,4 +29,14 @@ export function round(value: number): number {
   const max: number = min + 1;
 
   return value - min >= max - value ? max : min;
+}
+
+/**
+ * Range util for easier lambda iteration over specified number ranges.
+ *
+ * @param size - size of rage
+ * @param startAt - first value in range
+ */
+export function range(size: number, startAt: number = 0): ReadonlyArray<number> {
+  return [...Array(size)].map((it: TIndex, index) => index + startAt);
 }

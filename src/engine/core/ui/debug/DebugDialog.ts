@@ -20,7 +20,8 @@ const logger: LuaLogger = new LuaLogger($filename);
 const base: TPath = "menu\\debug\\DebugDialog.component";
 
 /**
- * todo;
+ * Generic debug dialog containing different sections dedicated to different game modules.
+ * Simplifies development and debugging.
  */
 @LuabindClass()
 export class DebugDialog extends CUIScriptWnd {
@@ -44,7 +45,7 @@ export class DebugDialog extends CUIScriptWnd {
   }
 
   /**
-   * todo: Description.
+   * Initialize UI controls related to debug sections switching.
    */
   public initControls(): void {
     this.SetWndRect(new Frect().set(0, 0, gameConfig.UI.BASE_WIDTH, gameConfig.UI.BASE_HEIGHT));
@@ -76,7 +77,7 @@ export class DebugDialog extends CUIScriptWnd {
   }
 
   /**
-   * todo: Description.
+   * Initialize UI components handlers.
    */
   public initCallBacks(): void {
     this.AddCallback("cancel_button", ui_events.BUTTON_CLICKED, () => this.onCancelButtonAction(), this);
@@ -87,7 +88,7 @@ export class DebugDialog extends CUIScriptWnd {
   }
 
   /**
-   * todo: Description.
+   * Initialize state of dialog UI.
    */
   public initState(): void {
     Object.entries(sectionsMap).forEach(([section, factory]) => {
@@ -108,7 +109,7 @@ export class DebugDialog extends CUIScriptWnd {
   }
 
   /**
-   * todo: Description.
+   * Handle cancel button and close debugging.
    */
   public onCancelButtonAction(): void {
     this.owner.ShowDialog(true);
@@ -118,7 +119,7 @@ export class DebugDialog extends CUIScriptWnd {
   }
 
   /**
-   * todo: Description.
+   * Handle switch of debug section.
    */
   public onSectionSwitchClicked(section: EDebugSection): void {
     for (const [it, component] of this.sectionsList) {
@@ -131,7 +132,7 @@ export class DebugDialog extends CUIScriptWnd {
   }
 
   /**
-   * todo: Description.
+   * Handle keboard button press events.
    */
   public override OnKeyboard(key: TKeyCode, event: TUIEvent): boolean {
     const result: boolean = super.OnKeyboard(key, event);

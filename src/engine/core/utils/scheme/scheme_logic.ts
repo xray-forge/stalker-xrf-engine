@@ -3,7 +3,6 @@ import { callback, clsid, game, time_global } from "xray16";
 import { IRegistryObjectState, IStoredOfflineObject, registry } from "@/engine/core/database";
 import { MapDisplayManager } from "@/engine/core/managers/interface/MapDisplayManager";
 import { SmartTerrain } from "@/engine/core/objects";
-import { ISmartTerrainJob } from "@/engine/core/objects/server/smart_terrain/types";
 import {
   ESchemeEvent,
   IBaseSchemeLogic,
@@ -15,6 +14,7 @@ import { assert, assertDefined } from "@/engine/core/utils/assertion";
 import { getObjectConfigOverrides, pickSectionFromCondList } from "@/engine/core/utils/ini/ini_config";
 import { getSchemeFromSection } from "@/engine/core/utils/ini/ini_parse";
 import { readIniConditionList, readIniString } from "@/engine/core/utils/ini/ini_read";
+import { ISmartTerrainJobDescriptor } from "@/engine/core/utils/job";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getObjectSmartTerrain } from "@/engine/core/utils/object/object_get";
 import { sendToNearestAccessibleVertex } from "@/engine/core/utils/object/object_location";
@@ -151,7 +151,7 @@ export function activateSchemeBySection(
 
     assert(currentSmartTerrain, "scheme/logic: activate_by_section: section is NIL && NPC !in smart.");
 
-    const job: Optional<ISmartTerrainJob> = currentSmartTerrain.getJob(object.id());
+    const job: Optional<ISmartTerrainJobDescriptor> = currentSmartTerrain.getJobByObjectId(object.id());
 
     section = job?.section as TSection;
   }

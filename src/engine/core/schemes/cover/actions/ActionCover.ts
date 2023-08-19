@@ -27,6 +27,9 @@ export class ActionCover extends action_base {
 
   /**
    * todo: Description.
+   *
+   * Go to cover location if it is not reached.
+   * In other cases sit in it and play desired animation.
    */
   public override execute(): void {
     if (this.coverPosition.distance_to_sqr(this.object.position()) <= 0.4) {
@@ -54,13 +57,6 @@ export class ActionCover extends action_base {
     }
 
     super.execute();
-  }
-
-  /**
-   * todo: Description.
-   */
-  public isPositionReached(): boolean {
-    return this.coverPosition.distance_to_sqr(this.object.position()) <= 0.4;
   }
 
   /**

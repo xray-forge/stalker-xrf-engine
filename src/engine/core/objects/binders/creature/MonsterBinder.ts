@@ -16,7 +16,6 @@ import {
 } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
-import { setupSmartJobsAndLogicOnSpawn } from "@/engine/core/objects/server/smart_terrain/jobs_general";
 import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain/SmartTerrain";
 import { SquadReachTargetAction } from "@/engine/core/objects/server/squad/action";
 import { Squad } from "@/engine/core/objects/server/squad/Squad";
@@ -32,6 +31,7 @@ import {
   scriptCaptureMonster,
   scriptCommandMonster,
   scriptReleaseMonster,
+  setupObjectSmartJobsAndLogicOnSpawn,
   trySwitchToAnotherSection,
 } from "@/engine/core/utils/scheme";
 import { createEmptyVector } from "@/engine/core/utils/vector";
@@ -182,15 +182,14 @@ export class MonsterBinder extends object_binder {
       const smartTerrain: Optional<SmartTerrain> = alife().object<SmartTerrain>(serverObject.m_smart_terrain_id);
 
       if (smartTerrain !== null && smartTerrain.arrivingObjects.get(serverObject.id) === null) {
-        const smartTask: ALifeSmartTerrainTask = smartTerrain.jobsData.get(
-          smartTerrain.objectJobDescriptors.get(serverObject.id).job_id
-        ).alife_task;
+        const smartTask: ALifeSmartTerrainTask = smartTerrain.objectJobDescriptors.get(serverObject.id).job
+          ?.alifeTask as ALifeSmartTerrainTask;
 
         this.object.set_npc_position(smartTask.position());
       }
     }
 
-    setupSmartJobsAndLogicOnSpawn(this.object, this.state, object, ESchemeType.MONSTER, this.isLoaded);
+    setupObjectSmartJobsAndLogicOnSpawn(this.object, this.state, ESchemeType.MONSTER, this.isLoaded);
 
     return true;
   }

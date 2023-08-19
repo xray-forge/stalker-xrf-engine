@@ -47,11 +47,59 @@ export const patrols: Record<string, IPatrolMock> = {
       { name: "wp01|a=patrol", gvid: 444, lvid: 1444, position: MockVector.create(-5, 44, -21) },
     ],
   },
+  test_smart_surge_1_look: {
+    points: [
+      { name: "wp00|a=patrol", gvid: 443, lvid: 1443, position: MockVector.create(21, -1, 31) },
+      { name: "wp01|a=patrol", gvid: 444, lvid: 1444, position: MockVector.create(-5, 44, -21) },
+    ],
+  },
+  test_smart_sleep_1: {
+    points: [{ name: "wp00|a=patrol", gvid: 2443, lvid: 21443, position: MockVector.create(212, -14, 31) }],
+  },
+  test_smart_camper_1_walk: {
+    points: [{ name: "wp00|a=patrol", gvid: 6232, lvid: 12412, position: MockVector.create(12, -33, 63) }],
+  },
+  test_smart_camper_1_look: {
+    points: [{ name: "wp00|a=patrol", gvid: 5232, lvid: 12411, position: MockVector.create(11, -33, -52) }],
+  },
+  test_smart_collector_1_walk: {
+    points: [{ name: "wp00|a=patrol", gvid: 4423, lvid: 1132, position: MockVector.create(21, -13, 63) }],
+  },
+  test_smart_collector_1_look: {
+    points: [{ name: "wp00|a=patrol", gvid: 4424, lvid: 1133, position: MockVector.create(12, -31, -52) }],
+  },
+  test_smart_guard_1_walk: {
+    points: [{ name: "wp00|a=patrol", gvid: 3321, lvid: 32744, position: MockVector.create(1, -3, -43) }],
+  },
+  test_smart_patrol_1_walk: {
+    points: [{ name: "wp00|a=patrol", gvid: 4421, lvid: 44323, position: MockVector.create(13, -32, -34) }],
+  },
+  test_smart_patrol_1_look: {
+    points: [{ name: "wp00|a=patrol", gvid: 554, lvid: 423231, position: MockVector.create(41, -23, -31) }],
+  },
+  test_smart_sniper_1_walk: {
+    points: [{ name: "wp00|a=patrol", gvid: 4427, lvid: 44333, position: MockVector.create(14, -33, 24) }],
+  },
+  test_smart_walker_1_walk: {
+    points: [{ name: "wp00|a=patrol", gvid: 231, lvid: 44532, position: MockVector.create(13, -24, 21) }],
+  },
+  test_smart_walker_1_look: {
+    points: [{ name: "wp00|a=patrol", gvid: 232, lvid: 44533, position: MockVector.create(13, -25, 1) }],
+  },
   test_smart_surge_2_walk: {
     points: [
       { name: "wp00|a=patrol", gvid: 453, lvid: 1453, position: MockVector.create(-1, 3, -1) },
       { name: "wp01|a=patrol", gvid: 454, lvid: 1454, position: MockVector.create(-5, 2, 1) },
     ],
+  },
+  test_smart_surge_2_look: {
+    points: [
+      { name: "wp00|a=patrol", gvid: 443, lvid: 1443, position: MockVector.create(21, -1, 31) },
+      { name: "wp01|a=patrol", gvid: 444, lvid: 1444, position: MockVector.create(-5, 44, -21) },
+    ],
+  },
+  test_smart_sleep_2: {
+    points: [{ name: "wp00|a=patrol", gvid: 2443, lvid: 21443, position: MockVector.create(212, -13, 31) }],
   },
   test_smart_surge_3_walk: {
     points: [

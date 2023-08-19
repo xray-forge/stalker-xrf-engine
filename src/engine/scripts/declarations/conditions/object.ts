@@ -12,13 +12,13 @@ import { SimulationBoardManager } from "@/engine/core/managers/interaction/Simul
 import { ActorInventoryMenuManager } from "@/engine/core/managers/interface/ActorInventoryMenuManager";
 import { ItemUpgradesManager } from "@/engine/core/managers/interface/ItemUpgradesManager";
 import { SmartTerrain, Squad } from "@/engine/core/objects";
-import { ISmartTerrainJob } from "@/engine/core/objects/server/smart_terrain/types";
 import { ISchemeAnimpointState, SchemeAnimpoint } from "@/engine/core/schemes/animpoint";
 import { ISchemeDeathState } from "@/engine/core/schemes/death";
 import { ISchemeHitState } from "@/engine/core/schemes/hit";
 import { SchemeDeimos } from "@/engine/core/schemes/sr_deimos";
 import { abort, assertDefined } from "@/engine/core/utils/assertion";
 import { extern } from "@/engine/core/utils/binding";
+import { ISmartTerrainJobDescriptor } from "@/engine/core/utils/job";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import {
   getObjectSmartTerrain,
@@ -215,14 +215,12 @@ extern("xr_conditions.is_wounded", (actor: ClientObject, object: ClientObject): 
  */
 extern(
   "xr_conditions.distance_to_obj_on_job_le",
-  (actor: ClientObject, npc: ClientObject, params: AnyArgs): boolean => {
-    const smart: SmartTerrain = getObjectSmartTerrain(npc)!;
+  (actor: ClientObject, object: ClientObject, params: AnyArgs): boolean => {
+    const smart: SmartTerrain = getObjectSmartTerrain(object)!;
 
-    for (const [k, descriptor] of smart.objectJobDescriptors) {
-      const npcJob: ISmartTerrainJob = smart.jobsData.get(descriptor.job_id);
-
-      if (npcJob.section === params[0]) {
-        return npc.position().distance_to_sqr(descriptor.serverObject.position) <= params[1] * params[1];
+    for (const [, descriptor] of smart.objectJobDescriptors) {
+      if (descriptor.job && descriptor.job.section === params[0]) {
+        return object.position().distance_to_sqr(descriptor.object.position) <= params[1] * params[1];
       }
     }
 
@@ -233,20 +231,18 @@ extern(
 /**
  * todo;
  */
-extern("xr_conditions.is_obj_on_job", (actor: ClientObject, npc: ClientObject, params: AnyArgs): boolean => {
+extern("xr_conditions.is_obj_on_job", (actor: ClientObject, object: ClientObject, params: AnyArgs): boolean => {
   const smartTerrain: Optional<SmartTerrain> =
     params && params[1]
       ? SimulationBoardManager.getInstance().getSmartTerrainByName(params[1])
-      : getObjectSmartTerrain(npc);
+      : getObjectSmartTerrain(object);
 
   if (smartTerrain === null) {
     return false;
   }
 
-  for (const [k, v] of smartTerrain.objectJobDescriptors) {
-    const npcJob: ISmartTerrainJob = smartTerrain.jobsData.get(v.job_id);
-
-    if (npcJob.section === params[0]) {
+  for (const [, descriptor] of smartTerrain.objectJobDescriptors) {
+    if (descriptor.job && descriptor.job.section === params[0]) {
       return true;
     }
   }

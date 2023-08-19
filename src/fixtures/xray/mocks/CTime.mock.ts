@@ -21,7 +21,7 @@ export class MockCTime {
   public static nowTime: MockCTime = MockCTime.create(2012, 6, 12, 9, 30, 0, 0);
 
   public static now(): MockCTime {
-    return MockCTime.nowTime;
+    return MockCTime.nowTime.copy();
   }
 
   public y: number = 2012;

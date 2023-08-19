@@ -82,6 +82,49 @@ export const logicsConfig = {
     RESPAWN_RADIUS_RESTRICTION_SQR: 150 * 150,
     DEFAULT_ARRIVAL_DISTANCE: 25,
   },
+  JOBS: {
+    MOB_HOME: {
+      PRIORITY: 10,
+      COUNT: 20,
+      MIN_RADIUS: 10,
+      MID_RADIUS: 20,
+      MAX_RADIUS: 70,
+    },
+    STALKER_ANIMPOINT: {
+      PRIORITY: 15,
+    },
+    STALKER_CAMPER: {
+      PRIORITY: 45,
+    },
+    STALKER_COLLECTOR: {
+      PRIORITY: 25,
+    },
+    STALKER_GUARD: {
+      PRIORITY: 25,
+      PRIORITY_FOLLOWER: 24,
+    },
+    STALKER_PATROL: {
+      PRIORITY: 20,
+    },
+    STALKER_POINT: {
+      PRIORITY: 3,
+      COUNT: 20,
+      MIN_RADIUS: 3,
+      MAX_RADIUS: 8,
+    },
+    STALKER_SURGE: {
+      PRIORITY: 50,
+    },
+    STALKER_SLEEP: {
+      PRIORITY: 10,
+    },
+    STALKER_SNIPER: {
+      PRIORITY: 30,
+    },
+    STALKER_WALKER: {
+      PRIORITY: 15,
+    },
+  },
   TRADE: {
     DEFAULT_TRADE_LTX_PATH: "misc\\trade\\trade_generic.ltx",
   },

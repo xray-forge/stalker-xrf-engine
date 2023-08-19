@@ -11,7 +11,7 @@ const logger: LuaLogger = new LuaLogger($filename);
  * @param target - object to check emptiness
  * @returns whether target table is empty
  */
-export function isEmpty(target: Optional<LuaTable<any>>): boolean {
+export function isEmpty(target: Optional<LuaTable<any>>): target is LuaTable {
   if (target === null) {
     return true;
   }

@@ -68,9 +68,9 @@ describe("'extensions_order' utils", () => {
 
     expect(syncExtensionsOrder($fromArray([first, second, third, fourth]), new LuaTable())).toEqualLuaArrays([
       first,
+      fourth,
       second,
       third,
-      fourth,
     ]);
 
     expect(

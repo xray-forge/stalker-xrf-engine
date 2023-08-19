@@ -33,8 +33,8 @@ export class SmartTerrainControl {
   public readonly smartTerrain: SmartTerrain;
   public status: ESmartTerrainStatus = ESmartTerrainStatus.NORMAL;
 
-  public isNoWeaponZone: TName;
-  public isIgnoreZone: TName;
+  public noWeaponZone: TName;
+  public ignoreZone: TName;
 
   public alarmStartedAt: Optional<Time> = null;
   public alarmStartSoundConditionList: TConditionList;
@@ -43,8 +43,8 @@ export class SmartTerrainControl {
   public constructor(smartTerrain: SmartTerrain, ini: IniFile, section: TSection) {
     this.smartTerrain = smartTerrain;
 
-    this.isNoWeaponZone = readIniString(ini, section, "noweap_zone", true, "");
-    this.isIgnoreZone = readIniString(ini, section, "ignore_zone", false, "");
+    this.noWeaponZone = readIniString(ini, section, "noweap_zone", true, "");
+    this.ignoreZone = readIniString(ini, section, "ignore_zone", false, "");
 
     this.alarmStartSoundConditionList = parseConditionsList(
       readIniString(ini, section, "alarm_start_sound", false, "")
@@ -98,7 +98,7 @@ export class SmartTerrainControl {
    * todo: Description.
    */
   public getActorStatus(): boolean {
-    const zoneObject: ClientObject = registry.zones.get(this.isNoWeaponZone);
+    const zoneObject: ClientObject = registry.zones.get(this.noWeaponZone);
 
     if (zoneObject === null) {
       return false;

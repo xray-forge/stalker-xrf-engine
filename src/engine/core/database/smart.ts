@@ -1,9 +1,11 @@
+import { registerObject, unregisterObject } from "@/engine/core/database/objects";
 import { registry } from "@/engine/core/database/registry";
 import { IRegistryObjectState } from "@/engine/core/database/types";
 import { registerZone, unregisterZone } from "@/engine/core/database/zones";
 import { SmartCover } from "@/engine/core/objects";
 import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain/SmartTerrain";
-import { ClientObject } from "@/engine/lib/types";
+import { isEmpty } from "@/engine/core/utils/table";
+import { ClientObject, Optional, TName, TNumberId, ZoneCampfire } from "@/engine/lib/types";
 
 /**
  * Register smart terrain object.
@@ -45,4 +47,47 @@ export function registerSmartCover(smartCover: SmartCover): void {
  */
 export function unregisterSmartCover(smartCover: SmartCover): void {
   registry.smartCovers.delete(smartCover.name());
+}
+
+/**
+ * Register smart terrain campfire object.
+ *
+ * @param smartTerrain - smart terrain object to register for
+ * @param object - game object to register as campfire
+ */
+export function registerSmartTerrainCampfire(smartTerrain: SmartTerrain, object: ClientObject): void {
+  const smartTerrainName: TName = smartTerrain.name();
+  const campfire: ZoneCampfire = object.get_campfire();
+
+  campfire.turn_off();
+
+  if (registry.smartTerrainsCampfires.get(smartTerrainName) === null) {
+    registry.smartTerrainsCampfires.set(smartTerrainName, new LuaTable());
+  }
+
+  registry.smartTerrainsCampfires.get(smartTerrainName).set(object.id(), campfire);
+
+  registerObject(object);
+}
+
+/**
+ * Unregister smart terrain campfire object.
+ *
+ * @param smartTerrain - smart terrain object to unregister for
+ * @param object - game object to unregister as campfire
+ */
+export function unRegisterSmartTerrainCampfire(smartTerrain: SmartTerrain, object: ClientObject): void {
+  const smartTerrainName: TName = smartTerrain.name();
+  const smartTerrainList: Optional<LuaTable<TNumberId, ZoneCampfire>> =
+    registry.smartTerrainsCampfires.get(smartTerrainName);
+
+  if (smartTerrainList !== null) {
+    smartTerrainList.delete(object.id());
+
+    if (isEmpty(smartTerrainList)) {
+      registry.smartTerrainsCampfires.delete(smartTerrainName);
+    }
+  }
+
+  unregisterObject(object);
 }

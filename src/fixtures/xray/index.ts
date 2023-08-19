@@ -6,6 +6,7 @@ export * from "@/fixtures/xray/mocks/interface";
 export * from "@/fixtures/xray/mocks/fs";
 export * from "@/fixtures/xray/mocks/device.mock";
 export * from "@/fixtures/xray/mocks/console.mock";
+export * from "@/fixtures/xray/mocks/CTime.mock";
 export * from "@/fixtures/xray/mocks/MocksConfig";
 
 export * from "@/fixtures/xray/mockXRay16";

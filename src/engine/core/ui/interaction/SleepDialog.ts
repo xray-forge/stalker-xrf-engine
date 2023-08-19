@@ -101,7 +101,7 @@ export class SleepDialog extends CUIScriptWnd {
   }
 
   /**
-   * todo;
+   * Initialize display of sleep dialog.
    */
   public initialize(): void {
     const currentHours: TTimestamp = level.get_time_hours();

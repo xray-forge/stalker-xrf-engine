@@ -108,7 +108,7 @@ describe("'read' utils for ini file", () => {
           },
         },
       },
-      npc_id: null,
+      objectId: null,
       v1: null,
       v2: null,
     });
@@ -125,7 +125,7 @@ describe("'read' utils for ini file", () => {
         },
         "2": { section: "ph_door@open", infop_check: {}, infop_set: {} },
       },
-      npc_id: null,
+      objectId: null,
       v1: null,
       v2: null,
     });
@@ -161,7 +161,7 @@ describe("'read' utils for ini file", () => {
           section: "",
         },
       },
-      npc_id: null,
+      objectId: null,
       v1: 5,
       v2: null,
     });
@@ -185,7 +185,7 @@ describe("'read' utils for ini file", () => {
           section: "",
         },
       },
-      npc_id: null,
+      objectId: null,
       v1: 150,
       v2: null,
     });
@@ -217,7 +217,7 @@ describe("'read' utils for ini file", () => {
           section: "sr_idle@end  ",
         },
       },
-      npc_id: null,
+      objectId: null,
       v1: 0,
       v2: null,
     });
@@ -253,7 +253,7 @@ describe("'read' utils for ini file", () => {
           section: "sr_idle@two ",
         },
       },
-      npc_id: null,
+      objectId: null,
       v1: "lx8_sr_lab ",
       v2: null,
     });
@@ -267,7 +267,7 @@ describe("'read' utils for ini file", () => {
           section: "camper@military_2_heli_2_fight",
         },
       },
-      npc_id: null,
+      objectId: null,
       v1: "path_end ",
       v2: null,
     });
@@ -303,7 +303,7 @@ describe("'read' utils for ini file", () => {
           section: "sr_idle@two ",
         },
       },
-      npc_id: null,
+      objectId: null,
       v1: null,
       v2: null,
     });
@@ -317,7 +317,7 @@ describe("'read' utils for ini file", () => {
           section: "camper@military_2_heli_2_fight",
         },
       },
-      npc_id: null,
+      objectId: null,
       v1: null,
       v2: null,
     });

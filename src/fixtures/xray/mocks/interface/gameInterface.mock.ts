@@ -3,7 +3,7 @@ import { jest } from "@jest/globals";
 import { MockCTime } from "@/fixtures/xray/mocks/CTime.mock";
 
 /**
- * todo;
+ * Mock xray game method table interface.
  */
 export const mockGameInterface = {
   CTime: jest.fn(() => MockCTime.now()),

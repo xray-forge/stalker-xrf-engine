@@ -1,0 +1,215 @@
+[meet@generic_lager]
+close_distance = {=is_wounded} 0, 2
+close_anim = {=is_wounded} nil, {!is_squad_commander} nil, {=actor_has_weapon} threat_na, talk_default
+close_snd_hello = {=is_wounded} nil, {!is_squad_commander} nil, {=actor_enemy} nil, {=actor_has_weapon} meet_hide_weapon, meet_hello
+close_snd_bye = {=is_wounded} nil, {!is_squad_commander} nil, {=actor_enemy} nil, {=actor_has_weapon} nil, meet_hello
+close_victim = {=is_wounded} nil, {!is_squad_commander} nil, actor
+far_distance = 0
+far_anim = nil
+far_snd = nil
+far_victim = nil
+use = {=is_wounded} false, {!is_squad_commander} false, {=actor_enemy} false, {=has_enemy} false, {=actor_has_weapon} false, {=dist_to_actor_le(3)} true, false
+snd_on_use = {=is_wounded} nil, {=actor_enemy} nil, {!is_squad_commander} meet_use_no_talk_leader, {=actor_has_weapon} meet_use_no_weapon, {=has_enemy} meet_use_no_fight, {=dist_to_actor_le(3)} meet_use_no_default, nil
+meet_dialog = nil
+abuse = {=has_enemy} false, true
+trade_enable = true
+allow_break = true
+use_text = nil
+[meet@generic_animpoint]
+close_distance = 0
+close_anim = {!is_squad_commander} nil, nil
+close_snd_hello = {!is_squad_commander} nil, nil
+close_snd_bye = {!is_squad_commander} nil, nil
+close_victim = {!is_squad_commander} nil, nil
+far_distance = 0
+far_anim = nil
+far_snd = nil
+far_victim = nil
+use = {=is_wounded} false, {!is_squad_commander} false, {=actor_enemy} false, {=has_enemy} false, {=actor_has_weapon} false, {=dist_to_actor_le(3)} true, false
+snd_on_use = {=is_wounded} nil, {=actor_enemy} nil, {!is_squad_commander} meet_use_no_talk_leader, {=actor_has_weapon} meet_use_no_weapon, {=has_enemy} meet_use_no_fight, {=dist_to_actor_le(3)} meet_use_no_default, nil
+meet_dialog = nil
+abuse = {=has_enemy} false, true
+trade_enable = true
+allow_break = true
+meet_on_talking = false
+use_text = nil
+[logic@test_smart_empty_point_1]
+active = cover@test_smart_empty_point_1
+[cover@test_smart_empty_point_1]
+meet = meet@generic_lager
+smart = test_smart_empty
+radius_min = 3
+radius_max = 8
+use_attack_direction = false
+anim = {!npc_community(zombied)} sit, guard
+[logic@test_smart_empty_point_2]
+active = cover@test_smart_empty_point_2
+[cover@test_smart_empty_point_2]
+meet = meet@generic_lager
+smart = test_smart_empty
+radius_min = 3
+radius_max = 8
+use_attack_direction = false
+anim = {!npc_community(zombied)} sit, guard
+[logic@test_smart_empty_point_3]
+active = cover@test_smart_empty_point_3
+[cover@test_smart_empty_point_3]
+meet = meet@generic_lager
+smart = test_smart_empty
+radius_min = 3
+radius_max = 8
+use_attack_direction = false
+anim = {!npc_community(zombied)} sit, guard
+[logic@test_smart_empty_point_4]
+active = cover@test_smart_empty_point_4
+[cover@test_smart_empty_point_4]
+meet = meet@generic_lager
+smart = test_smart_empty
+radius_min = 3
+radius_max = 8
+use_attack_direction = false
+anim = {!npc_community(zombied)} sit, guard
+[logic@test_smart_empty_point_5]
+active = cover@test_smart_empty_point_5
+[cover@test_smart_empty_point_5]
+meet = meet@generic_lager
+smart = test_smart_empty
+radius_min = 3
+radius_max = 8
+use_attack_direction = false
+anim = {!npc_community(zombied)} sit, guard
+[logic@test_smart_empty_point_6]
+active = cover@test_smart_empty_point_6
+[cover@test_smart_empty_point_6]
+meet = meet@generic_lager
+smart = test_smart_empty
+radius_min = 3
+radius_max = 8
+use_attack_direction = false
+anim = {!npc_community(zombied)} sit, guard
+[logic@test_smart_empty_point_7]
+active = cover@test_smart_empty_point_7
+[cover@test_smart_empty_point_7]
+meet = meet@generic_lager
+smart = test_smart_empty
+radius_min = 3
+radius_max = 8
+use_attack_direction = false
+anim = {!npc_community(zombied)} sit, guard
+[logic@test_smart_empty_point_8]
+active = cover@test_smart_empty_point_8
+[cover@test_smart_empty_point_8]
+meet = meet@generic_lager
+smart = test_smart_empty
+radius_min = 3
+radius_max = 8
+use_attack_direction = false
+anim = {!npc_community(zombied)} sit, guard
+[logic@test_smart_empty_point_9]
+active = cover@test_smart_empty_point_9
+[cover@test_smart_empty_point_9]
+meet = meet@generic_lager
+smart = test_smart_empty
+radius_min = 3
+radius_max = 8
+use_attack_direction = false
+anim = {!npc_community(zombied)} sit, guard
+[logic@test_smart_empty_point_10]
+active = cover@test_smart_empty_point_10
+[cover@test_smart_empty_point_10]
+meet = meet@generic_lager
+smart = test_smart_empty
+radius_min = 3
+radius_max = 8
+use_attack_direction = false
+anim = {!npc_community(zombied)} sit, guard
+[logic@test_smart_empty_point_11]
+active = cover@test_smart_empty_point_11
+[cover@test_smart_empty_point_11]
+meet = meet@generic_lager
+smart = test_smart_empty
+radius_min = 3
+radius_max = 8
+use_attack_direction = false
+anim = {!npc_community(zombied)} sit, guard
+[logic@test_smart_empty_point_12]
+active = cover@test_smart_empty_point_12
+[cover@test_smart_empty_point_12]
+meet = meet@generic_lager
+smart = test_smart_empty
+radius_min = 3
+radius_max = 8
+use_attack_direction = false
+anim = {!npc_community(zombied)} sit, guard
+[logic@test_smart_empty_point_13]
+active = cover@test_smart_empty_point_13
+[cover@test_smart_empty_point_13]
+meet = meet@generic_lager
+smart = test_smart_empty
+radius_min = 3
+radius_max = 8
+use_attack_direction = false
+anim = {!npc_community(zombied)} sit, guard
+[logic@test_smart_empty_point_14]
+active = cover@test_smart_empty_point_14
+[cover@test_smart_empty_point_14]
+meet = meet@generic_lager
+smart = test_smart_empty
+radius_min = 3
+radius_max = 8
+use_attack_direction = false
+anim = {!npc_community(zombied)} sit, guard
+[logic@test_smart_empty_point_15]
+active = cover@test_smart_empty_point_15
+[cover@test_smart_empty_point_15]
+meet = meet@generic_lager
+smart = test_smart_empty
+radius_min = 3
+radius_max = 8
+use_attack_direction = false
+anim = {!npc_community(zombied)} sit, guard
+[logic@test_smart_empty_point_16]
+active = cover@test_smart_empty_point_16
+[cover@test_smart_empty_point_16]
+meet = meet@generic_lager
+smart = test_smart_empty
+radius_min = 3
+radius_max = 8
+use_attack_direction = false
+anim = {!npc_community(zombied)} sit, guard
+[logic@test_smart_empty_point_17]
+active = cover@test_smart_empty_point_17
+[cover@test_smart_empty_point_17]
+meet = meet@generic_lager
+smart = test_smart_empty
+radius_min = 3
+radius_max = 8
+use_attack_direction = false
+anim = {!npc_community(zombied)} sit, guard
+[logic@test_smart_empty_point_18]
+active = cover@test_smart_empty_point_18
+[cover@test_smart_empty_point_18]
+meet = meet@generic_lager
+smart = test_smart_empty
+radius_min = 3
+radius_max = 8
+use_attack_direction = false
+anim = {!npc_community(zombied)} sit, guard
+[logic@test_smart_empty_point_19]
+active = cover@test_smart_empty_point_19
+[cover@test_smart_empty_point_19]
+meet = meet@generic_lager
+smart = test_smart_empty
+radius_min = 3
+radius_max = 8
+use_attack_direction = false
+anim = {!npc_community(zombied)} sit, guard
+[logic@test_smart_empty_point_20]
+active = cover@test_smart_empty_point_20
+[cover@test_smart_empty_point_20]
+meet = meet@generic_lager
+smart = test_smart_empty
+radius_min = 3
+radius_max = 8
+use_attack_direction = false
+anim = {!npc_community(zombied)} sit, guard

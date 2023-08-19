@@ -3,6 +3,7 @@ import { alife, danger_object, LuabindClass, property_evaluator, stalker_ids, ti
 import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain";
 import { ISchemeDangerState } from "@/engine/core/schemes/danger";
 import { isObjectFacingDanger } from "@/engine/core/utils/object";
+import { startSmartTerrainAlarm } from "@/engine/core/utils/smart_terrain";
 import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
 import { MAX_U16 } from "@/engine/lib/constants/memory";
 import { ActionPlanner, DangerObject, Optional, ServerCreatureObject, TTimestamp } from "@/engine/lib/types";
@@ -58,7 +59,7 @@ export class EvaluatorDanger extends property_evaluator {
     const serverObject: Optional<ServerCreatureObject> = alife().object(this.object.id());
 
     if (serverObject && serverObject.m_smart_terrain_id !== MAX_U16) {
-      alife().object<SmartTerrain>(serverObject.m_smart_terrain_id)!.startAlarm();
+      startSmartTerrainAlarm(alife().object<SmartTerrain>(serverObject.m_smart_terrain_id) as SmartTerrain);
     }
 
     return true;

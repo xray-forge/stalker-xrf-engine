@@ -1,12 +1,12 @@
-import { ini_file } from "xray16";
+import { alife, ini_file } from "xray16";
 
 import { CUSTOM_DATA, getObjectLogicIniConfig, IRegistryObjectState, registry } from "@/engine/core/database";
 import { TradeManager } from "@/engine/core/managers/interaction/TradeManager";
 import { SmartTerrain } from "@/engine/core/objects";
-import { ISmartTerrainJob } from "@/engine/core/objects/server/smart_terrain/types";
 import { ESchemeEvent, IBaseSchemeState } from "@/engine/core/schemes";
 import { assert } from "@/engine/core/utils/assertion";
 import { readIniNumber, readIniString } from "@/engine/core/utils/ini";
+import { ISmartTerrainJobDescriptor } from "@/engine/core/utils/job";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getObjectSmartTerrain } from "@/engine/core/utils/object/object_get";
 import { spawnItemsForObject } from "@/engine/core/utils/object/object_spawn";
@@ -20,13 +20,16 @@ import {
 import { disableObjectBaseSchemes } from "@/engine/core/utils/scheme/scheme_setup";
 import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
 import { TInventoryItem } from "@/engine/lib/constants/items";
+import { MAX_U16 } from "@/engine/lib/constants/memory";
 import {
+  AlifeSimulator,
   ClientObject,
   EClientObjectRelation,
   EScheme,
   ESchemeType,
   IniFile,
   Optional,
+  ServerCreatureObject,
   TCount,
   TName,
   TPath,
@@ -86,9 +89,9 @@ export function configureObjectSchemes(
         const currentSmart: Optional<SmartTerrain> = getObjectSmartTerrain(object);
 
         if (currentSmart) {
-          const job: Optional<ISmartTerrainJob> = currentSmart.getJob(object.id());
+          const job: Optional<ISmartTerrainJobDescriptor> = currentSmart.getJobByObjectId(object.id());
 
-          state.jobIni = job ? (job.ini_path as TName) : null;
+          state.jobIni = job?.iniPath as Optional<TPath>;
         }
       }
 
@@ -135,6 +138,46 @@ export function configureObjectSchemes(
   }
 
   return state.ini;
+}
+
+/**
+ * todo; Add tests
+ * todo; Add tests
+ * todo; Add tests
+ *
+ * @param object - target client object to setup logic
+ * @param state - target object registry state
+ * @param schemeType - target object active scheme type
+ * @param isLoaded - whether object is initialized after game load
+ */
+export function setupObjectSmartJobsAndLogicOnSpawn(
+  object: ClientObject,
+  state: IRegistryObjectState,
+  schemeType: ESchemeType,
+  isLoaded: boolean
+): void {
+  // logger.info("Setup smart terrain logic on spawn:", object.name(), schemeType);
+
+  const alifeSimulator: Optional<AlifeSimulator> = alife();
+  const serverObject: Optional<ServerCreatureObject> = alife()!.object(object.id());
+
+  if (
+    alifeSimulator === null ||
+    serverObject === null ||
+    serverObject.m_smart_terrain_id === null ||
+    serverObject.m_smart_terrain_id === MAX_U16
+  ) {
+    return initializeObjectSchemeLogic(object, state, isLoaded, schemeType);
+  }
+
+  const smartTerrain: SmartTerrain = alifeSimulator.object(serverObject.m_smart_terrain_id) as SmartTerrain;
+  const needSetupLogic: boolean = !isLoaded && smartTerrain.objectJobDescriptors.get(object.id())?.isBegun === true;
+
+  if (needSetupLogic) {
+    smartTerrain.setupObjectJobLogic(object);
+  } else {
+    initializeObjectSchemeLogic(object, state, isLoaded, schemeType);
+  }
 }
 
 /**
