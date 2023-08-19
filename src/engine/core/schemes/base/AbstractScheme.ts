@@ -42,7 +42,7 @@ export abstract class AbstractScheme {
   }
 
   /**
-   * todo: Description.
+   * Assign some scheme state to an object and prepare shared constants in it in a correct way.
    */
   protected static assign<T extends IBaseSchemeState>(
     object: ClientObject,

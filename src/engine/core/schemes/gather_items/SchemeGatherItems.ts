@@ -11,21 +11,21 @@ import { ActionPlanner, ClientObject, EScheme, ESchemeType, IniFile, TSection } 
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Generic scheme to change object state and mark whether object has valuable items and can be looted.
  */
 export class SchemeGatherItems extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.GATHER_ITEMS;
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.STALKER;
 
   /**
-   * todo: Description.
+   * Activate scheme for an object - add to object state.
    */
   public static override activate(object: ClientObject, ini: IniFile, scheme: EScheme, section: TSection): void {
     AbstractScheme.assign(object, ini, scheme, section);
   }
 
   /**
-   * todo: Description.
+   * Add custom gather items state logics for an object.
    */
   public static override add(
     object: ClientObject,
@@ -41,7 +41,7 @@ export class SchemeGatherItems extends AbstractScheme {
   }
 
   /**
-   * todo: Description.
+   * Reset state for object.
    */
   public static override reset(
     object: ClientObject,
@@ -49,8 +49,8 @@ export class SchemeGatherItems extends AbstractScheme {
     state: IRegistryObjectState,
     section: TSection
   ): void {
-    (state[EScheme.GATHER_ITEMS] as ISchemeGatherItemsState).isGatherItemsEnabled = readIniBoolean(
-      state.ini!,
+    (state[EScheme.GATHER_ITEMS] as ISchemeGatherItemsState).canBeLooted = readIniBoolean(
+      state.ini,
       section,
       "gather_items_enabled",
       false,

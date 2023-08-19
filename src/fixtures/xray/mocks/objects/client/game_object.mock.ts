@@ -170,6 +170,7 @@ export function mockClientGameObject({
     inside: rest.inside || jest.fn(() => false),
     inventory: inventoryMap,
     is_talking,
+    is_there_items_to_pickup: rest.is_there_items_to_pickup || jest.fn(() => false),
     level_vertex_id: rest.level_vertex_id || jest.fn(() => 255),
     max_ignore_monster_distance: rest.max_ignore_monster_distance || jest.fn(),
     money: money || jest.fn(() => objectMoney),

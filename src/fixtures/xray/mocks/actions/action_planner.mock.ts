@@ -58,6 +58,14 @@ export class MockActionPlanner extends MockLuabindClass {
     this.goalWorldState = state;
   }
 
+  public remove_evaluator(id: TNumberId): void {
+    if (!id) {
+      throw new Error("Unexpected id.");
+    }
+
+    delete this.evaluators[id];
+  }
+
   public action(id: TNumberId): Optional<MockActionBase> {
     return (this.actions[id] as unknown as MockActionBase) || null;
   }

@@ -1,8 +1,16 @@
+import { IRegistryObjectState } from "@/engine/core/database";
 import { AbstractSchemeManager, IBaseSchemeLogic, IBaseSchemeState } from "@/engine/core/schemes";
 import { IConfigSwitchCondition, TConditionList } from "@/engine/core/utils/ini/ini_types";
 import { ClientObject, EScheme } from "@/engine/lib/types";
 import { MockLuaTable } from "@/fixtures/lua";
 import { mockIniFile } from "@/fixtures/xray/mocks/ini";
+
+/**
+ * Mock generic registry state for an object.
+ */
+export function mockRegistryState(base: Partial<IRegistryObjectState> = {}): IRegistryObjectState {
+  return { ...base } as IRegistryObjectState;
+}
 
 /**
  * Mock generic scheme state.

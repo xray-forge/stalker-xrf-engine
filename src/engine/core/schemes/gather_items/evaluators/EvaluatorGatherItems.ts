@@ -3,7 +3,7 @@ import { LuabindClass, property_evaluator } from "xray16";
 import { ISchemeGatherItemsState } from "@/engine/core/schemes/gather_items";
 
 /**
- * Evaluator to check whether object has anything to pick up.
+ * Evaluator to check whether object has anything to pick up by others after death.
  */
 @LuabindClass()
 export class EvaluatorGatherItems extends property_evaluator {
@@ -15,13 +15,9 @@ export class EvaluatorGatherItems extends property_evaluator {
   }
 
   /**
-   * Evaluate whether object has any items to pick up.
+   * Evaluate whether object has any items to pick up and can be looted.
    */
   public override evaluate(): boolean {
-    if (!this.state.isGatherItemsEnabled) {
-      return false;
-    }
-
-    return this.object.is_there_items_to_pickup();
+    return this.state.canBeLooted === true && this.object.is_there_items_to_pickup();
   }
 }
