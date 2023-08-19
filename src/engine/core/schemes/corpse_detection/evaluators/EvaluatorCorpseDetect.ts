@@ -56,10 +56,10 @@ export class EvaluatorCorpseDetect extends property_evaluator {
       if (
         // Is registered in client side.
         corpseObject &&
-        // Is visible so can be looted.
-        this.object.see(corpseObject) &&
         // Is not looted by anyone or looted by current object.
-        (registryState.lootedByObject === null || registryState.lootedByObject === this.object.id())
+        (registryState.lootedByObject === null || registryState.lootedByObject === this.object.id()) &&
+        // Is visible so can be looted.
+        this.object.see(corpseObject)
       ) {
         if (
           // Is near enough.

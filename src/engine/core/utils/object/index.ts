@@ -14,3 +14,4 @@ export * from "@/engine/core/utils/object/object_sound";
 export * from "@/engine/core/utils/object/object_spawn";
 export * from "@/engine/core/utils/object/object_state";
 export * from "@/engine/core/utils/object/object_task_reward";
+export * from "@/engine/core/utils/object/object_wounds";

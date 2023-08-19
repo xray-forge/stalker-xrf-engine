@@ -8,7 +8,7 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Action class describing how stalkers help each other when one of them is wounded.
  */
 @LuabindClass()
 export class ActionHelpWounded extends action_base {
@@ -20,35 +20,32 @@ export class ActionHelpWounded extends action_base {
   }
 
   /**
-   * todo: Description.
+   * On init set destination vertex of wounded object and try to reach it.
    */
   public override initialize(): void {
     super.initialize();
 
     this.object.set_desired_position();
     this.object.set_desired_direction();
-    this.object.set_dest_level_vertex_id(this.state.vertex_id);
+
+    this.object.set_dest_level_vertex_id(this.state.selectedWoundedVertexId);
 
     setStalkerState(this.object, EStalkerState.PATROL);
   }
 
   /**
-   * todo: Description.
+   * Wait for object to reach target location.
+   * Then run heal up animation.
+   * On animation end separate callback to heal target will be called.
    */
   public override execute(): void {
     super.execute();
 
-    if (this.object.position().distance_to_sqr(this.state.vertex_position) > 2) {
-      return;
+    if (this.object.position().distance_to_sqr(this.state.selectedWoundedVertexPosition) <= 2) {
+      setStalkerState(this.object, EStalkerState.HELP_WOUNDED, null, null, {
+        lookPosition: this.state.selectedWoundedVertexPosition,
+        lookObject: null,
+      });
     }
-
-    setStalkerState(
-      this.object,
-      EStalkerState.HELP_WOUNDED,
-      null,
-      null,
-      { lookPosition: this.state.vertex_position, lookObject: null },
-      null
-    );
   }
 }

@@ -9,7 +9,7 @@ import { ActionPlanner, Optional } from "@/engine/lib/types";
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Evaluator to check if object is wounded critically.
  */
 @LuabindClass()
 export class EvaluatorWounded extends property_evaluator {
@@ -22,25 +22,25 @@ export class EvaluatorWounded extends property_evaluator {
   }
 
   /**
-   * todo: Description.
+   * Perform wounded state check.
    */
   public override evaluate(): boolean {
-    if (this.object.in_smart_cover()) {
-      return false;
-    } else if (this.state.wounded_set !== true) {
+    // If scheme is not activated or object is in smart cover (animation state is captured).
+    if (!this.state.wounded_set || this.object.in_smart_cover()) {
       return false;
     }
 
     this.state.woundManager.update();
 
-    if (this.actionPlanner === null) {
-      this.actionPlanner = this.object.motivation_action_manager();
-    }
-
     if (this.object.critically_wounded()) {
       return false;
     }
 
+    if (this.actionPlanner === null) {
+      this.actionPlanner = this.object.motivation_action_manager();
+    }
+
+    // If fighting and wounded_fight is set to 'true' still fight:
     if (
       this.actionPlanner.evaluator(stalker_ids.property_enemy).evaluate() &&
       getPortableStoreValue(this.object, "wounded_fight") === TRUE
@@ -48,6 +48,7 @@ export class EvaluatorWounded extends property_evaluator {
       return false;
     }
 
+    // Wounded state is set for an object, consider it wounded.
     return tostring(getPortableStoreValue(this.object, "wounded_state")) !== NIL;
   }
 }

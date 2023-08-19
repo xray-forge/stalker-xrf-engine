@@ -1,7 +1,7 @@
 import { IAnimationDescriptor } from "@/engine/core/objects/animation/animation_types";
 import { EStalkerState } from "@/engine/core/objects/animation/state_types";
 import { finishCorpseLooting } from "@/engine/core/schemes/corpse_detection/utils";
-import { SchemeHelpWounded } from "@/engine/core/schemes/help_wounded";
+import { finishHelpWounded } from "@/engine/core/schemes/help_wounded/utils";
 import { createSequence } from "@/engine/core/utils/animation";
 import { getExtern } from "@/engine/core/utils/binding";
 import { startPlayingGuitar, startPlayingHarmonica } from "@/engine/core/utils/camp";
@@ -1015,8 +1015,9 @@ export const baseAnimations: LuaTable<TName, IAnimationDescriptor> = $fromObject
     into: createSequence([
       "dinamit_1",
       {
+        // When animation ends, finish help wounded and heal up.
         f: (object: ClientObject) => {
-          SchemeHelpWounded.helpWounded(object);
+          finishHelpWounded(object);
         },
       },
     ]),

@@ -9,12 +9,12 @@ import { updateStalkerLogic } from "@/engine/core/objects/binders/creature/Stalk
 import { ISchemeMeetState } from "@/engine/core/schemes/meet";
 import { SchemeMeet } from "@/engine/core/schemes/meet/SchemeMeet";
 import { ISchemeWoundedState } from "@/engine/core/schemes/wounded";
-import { SchemeWounded } from "@/engine/core/schemes/wounded/SchemeWounded";
 import { extern } from "@/engine/core/utils/binding";
 import { createGameAutoSave } from "@/engine/core/utils/game";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import {
   actorHasMedKit,
+  enableObjectWoundedHealing,
   getActorAvailableMedKit,
   getNpcSpeaker,
   getObjectCommunity,
@@ -103,7 +103,7 @@ extern("dialogs.transfer_medkit", (firstSpeaker: ClientObject, secondSpeaker: Cl
     secondSpeaker.id()
   );
 
-  SchemeWounded.unlockMedkit(secondSpeaker);
+  enableObjectWoundedHealing(secondSpeaker);
 
   if (secondSpeaker.relation(firstSpeaker) !== EClientObjectRelation.ENEMY) {
     secondSpeaker.set_relation(EClientObjectRelation.FRIEND, firstSpeaker);

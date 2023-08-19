@@ -7,11 +7,13 @@ import { AbstractSchemeManager } from "@/engine/core/schemes";
 import { ISchemeWoundedState } from "@/engine/core/schemes/wounded/ISchemeWoundedState";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/ini_config";
 import { drugs } from "@/engine/lib/constants/items/drugs";
+import { scriptSounds } from "@/engine/lib/constants/sound/script_sounds";
 import { FALSE, NIL, TRUE } from "@/engine/lib/constants/words";
 import { AlifeSimulator, LuaArray, Optional, TCount, TIndex, TRate, TTimestamp } from "@/engine/lib/types";
 
 /**
- * todo;
+ * Manager to handle wounded state of stalkers.
+ * On low HP eat medkits / lay on the floor and call for help.
  */
 export class WoundManager extends AbstractSchemeManager<ISchemeWoundedState> {
   public canUseMedkit: boolean = false;
@@ -23,7 +25,7 @@ export class WoundManager extends AbstractSchemeManager<ISchemeWoundedState> {
   public woundState!: string;
 
   /**
-   * todo: Description.
+   * Handle recalculation of wounded state on each iteration.
    */
   public update(): void {
     const hp: TCount = 100 * this.object.health;
@@ -84,7 +86,7 @@ export class WoundManager extends AbstractSchemeManager<ISchemeWoundedState> {
       const beginAt: Optional<TTimestamp> = getPortableStoreValue(this.object, "begin_wounded");
 
       if (beginAt !== null && now - beginAt <= 60_000) {
-        GlobalSoundManager.getInstance().playSound(this.object.id(), "help_thanks", null, null);
+        GlobalSoundManager.getInstance().playSound(this.object.id(), scriptSounds.help_thanks);
       }
 
       setPortableStoreValue(this.object, "begin_wounded", null);
@@ -200,14 +202,11 @@ export class WoundManager extends AbstractSchemeManager<ISchemeWoundedState> {
   }
 
   /**
-   * todo: Description.
+   * Handle object being hit.
+   * Recalculate wounded states.
    */
   public override onHit(): void {
-    if (!this.object.alive()) {
-      return;
-    }
-
-    if (this.object.critically_wounded()) {
+    if (!this.object.alive() || this.object.critically_wounded()) {
       return;
     }
 

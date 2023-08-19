@@ -12,7 +12,9 @@ const BASE: TNumberId = stalker_ids.property_script || 74;
  * todo;
  */
 export enum EEvaluatorId {
+  // Whether any corpse to loot exists nearby.
   IS_CORPSE_EXISTING = BASE + 50, // 124
+  // Whether any wounded stalker to help exists nearby.
   IS_WOUNDED_EXISTING = BASE + 55, // 129
   IS_STATE_IDLE_COMBAT = BASE + 101, // 175
   IS_STATE_IDLE_ALIFE = BASE + 102, // 176

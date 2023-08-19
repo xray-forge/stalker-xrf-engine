@@ -49,7 +49,7 @@ import { SchemeHear } from "@/engine/core/schemes/hear/SchemeHear";
 import { SchemeMeet } from "@/engine/core/schemes/meet/SchemeMeet";
 import { SchemeReachTask } from "@/engine/core/schemes/reach_task/SchemeReachTask";
 import { SchemeLight } from "@/engine/core/schemes/sr_light/SchemeLight";
-import { SchemeWounded } from "@/engine/core/schemes/wounded/SchemeWounded";
+import { ISchemeWoundedState } from "@/engine/core/schemes/wounded";
 import { pickSectionFromCondList, readIniString, TConditionList } from "@/engine/core/utils/ini";
 import { IObjectJobDescriptor } from "@/engine/core/utils/job";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -555,7 +555,7 @@ export class StalkerBinder extends object_binder {
     }
 
     if (amount > 0) {
-      SchemeWounded.onHit(object.id());
+      (this.state[EScheme.WOUNDED] as ISchemeWoundedState)?.woundManager.onHit();
     }
 
     EventsManager.emitEvent(EGameEvent.STALKER_HIT, this.object, amount, direction, who, boneIndex);
