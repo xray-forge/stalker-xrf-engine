@@ -4,26 +4,16 @@ import { getObjectByStoryId, registry, setStalkerState } from "@/engine/core/dat
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import { EStalkerState } from "@/engine/core/objects/animation";
 import { AbstractSchemeManager } from "@/engine/core/schemes";
-import { SchemeAbuse } from "@/engine/core/schemes/abuse";
-import { ISchemeMeetState } from "@/engine/core/schemes/meet/ISchemeMeetState";
+import { EMeetDistance, ISchemeMeetState } from "@/engine/core/schemes/meet/ISchemeMeetState";
 import { isBlackScreen } from "@/engine/core/utils/game";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { isObjectInCombat, isObjectWounded } from "@/engine/core/utils/object";
+import { isObjectInCombat, isObjectWounded, setObjectAbuseState } from "@/engine/core/utils/object";
 import { captions } from "@/engine/lib/constants/captions";
 import { FALSE, NIL, TRUE } from "@/engine/lib/constants/words";
 import { ClientObject, Optional, StringOptional, TDistance, TName, TSection, TStringId } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
-
-/**
- * Approximate meet distance to simplify logical checks.
- */
-enum EMeetDistance {
-  NONE = 0,
-  CLOSE = 1,
-  FAR = 2,
-}
 
 /**
  * Handle meeting interaction between object and actor.
@@ -34,7 +24,8 @@ enum EMeetDistance {
  */
 export class MeetManager extends AbstractSchemeManager<ISchemeMeetState> {
   public startDialog: Optional<TName> = null;
-  public abuseMode: Optional<TName> = null;
+  // Condlist result from abuse mode enabled check.
+  public isAbuseModeEnabled: Optional<TName> = null;
   public currentDistanceToSpeaker: Optional<EMeetDistance> = null;
   public use: Optional<TSection> = null;
 
@@ -54,15 +45,7 @@ export class MeetManager extends AbstractSchemeManager<ISchemeMeetState> {
   public initialize(): void {
     const actor: Optional<ClientObject> = registry.actor;
 
-    if (actor === null) {
-      this.isHelloPassed = false;
-      this.isByePassed = false;
-      this.currentDistanceToSpeaker = null;
-
-      return;
-    }
-
-    if (!this.object.alive()) {
+    if (actor === null || !this.object.alive()) {
       this.isHelloPassed = false;
       this.isByePassed = false;
       this.currentDistanceToSpeaker = null;
@@ -73,10 +56,10 @@ export class MeetManager extends AbstractSchemeManager<ISchemeMeetState> {
     const distance: TDistance = this.object.position().distance_to(actor.position());
     const isActorVisible: boolean = this.object.see(actor);
     const isObjectFar: boolean =
-      isActorVisible && distance <= tonumber(pickSectionFromCondList(actor, this.object, this.state.far_distance))!;
+      isActorVisible && distance <= tonumber(pickSectionFromCondList(actor, this.object, this.state.farDistance))!;
     const isObjectClose: boolean =
       this.object.is_talking() ||
-      (isActorVisible && distance <= tonumber(pickSectionFromCondList(actor, this.object, this.state.close_distance))!);
+      (isActorVisible && distance <= tonumber(pickSectionFromCondList(actor, this.object, this.state.closeDistance))!);
 
     if (isObjectClose) {
       this.isHelloPassed = true;
@@ -84,7 +67,7 @@ export class MeetManager extends AbstractSchemeManager<ISchemeMeetState> {
     } else if (isObjectFar) {
       this.isByePassed = true;
       this.currentDistanceToSpeaker = EMeetDistance.FAR;
-    } else if (distance >= this.state.reset_distance) {
+    } else if (distance >= this.state.resetDistance) {
       this.isHelloPassed = false;
       this.isByePassed = false;
       this.currentDistanceToSpeaker = null;
@@ -94,7 +77,8 @@ export class MeetManager extends AbstractSchemeManager<ISchemeMeetState> {
   }
 
   /**
-   * todo: Description.
+   * Handles meet state activation.
+   * Called when actor is joining close distance to object.
    */
   public activateMeetState(): void {
     const actor: ClientObject = registry.actor;
@@ -103,11 +87,11 @@ export class MeetManager extends AbstractSchemeManager<ISchemeMeetState> {
     let victimStoryId: Optional<TStringId> = null;
 
     if (this.currentDistanceToSpeaker === EMeetDistance.CLOSE) {
-      state = pickSectionFromCondList(actor, this.object, this.state.close_anim);
-      victimStoryId = pickSectionFromCondList(actor, this.object, this.state.close_victim);
+      state = pickSectionFromCondList(actor, this.object, this.state.closeAnimation);
+      victimStoryId = pickSectionFromCondList(actor, this.object, this.state.closeVictim);
     } else if (this.currentDistanceToSpeaker === EMeetDistance.FAR) {
-      state = pickSectionFromCondList(actor, this.object, this.state.far_anim);
-      victimStoryId = pickSectionFromCondList(actor, this.object, this.state.far_victim);
+      state = pickSectionFromCondList(actor, this.object, this.state.farAnimation);
+      victimStoryId = pickSectionFromCondList(actor, this.object, this.state.farVictim);
     }
 
     if (tostring(victimStoryId) === NIL) {
@@ -124,7 +108,7 @@ export class MeetManager extends AbstractSchemeManager<ISchemeMeetState> {
     }
 
     // Say hello.
-    const optionalSound: Optional<TSection> = pickSectionFromCondList(actor, this.object, this.state.far_snd);
+    const optionalSound: Optional<TSection> = pickSectionFromCondList(actor, this.object, this.state.farSound);
 
     if (tostring(optionalSound) !== NIL) {
       GlobalSoundManager.getInstance().playSound(this.object.id(), optionalSound, null, null);
@@ -140,9 +124,9 @@ export class MeetManager extends AbstractSchemeManager<ISchemeMeetState> {
     const isActorVisible: boolean = this.object.see(actor);
 
     if (isActorVisible) {
-      if (distance <= tonumber(pickSectionFromCondList(actor, this.object, this.state.close_snd_distance))!) {
+      if (distance <= tonumber(pickSectionFromCondList(actor, this.object, this.state.closeSoundDistance))!) {
         if (!this.isHelloPassed) {
-          const snd: Optional<TSection> = pickSectionFromCondList(actor, this.object, this.state.close_snd_hello);
+          const snd: Optional<TSection> = pickSectionFromCondList(actor, this.object, this.state.closeSoundHello);
 
           if (tostring(snd) !== NIL && !isObjectInCombat(this.object)) {
             GlobalSoundManager.getInstance().playSound(this.object.id(), snd, null, null);
@@ -150,10 +134,10 @@ export class MeetManager extends AbstractSchemeManager<ISchemeMeetState> {
 
           this.isHelloPassed = true;
         }
-      } else if (distance <= tonumber(pickSectionFromCondList(actor, this.object, this.state.far_snd_distance))!) {
+      } else if (distance <= tonumber(pickSectionFromCondList(actor, this.object, this.state.farSoundDistance))!) {
         if (this.isHelloPassed) {
           if (!this.isByePassed) {
-            const sound: Optional<TSection> = pickSectionFromCondList(actor, this.object, this.state.close_snd_bye);
+            const sound: Optional<TSection> = pickSectionFromCondList(actor, this.object, this.state.closeSoundBye);
 
             if (tostring(sound) !== NIL && !isObjectInCombat(this.object)) {
               GlobalSoundManager.getInstance().playSound(this.object.id(), sound, null, null);
@@ -166,17 +150,17 @@ export class MeetManager extends AbstractSchemeManager<ISchemeMeetState> {
     }
 
     const isObjectFar: boolean =
-      isActorVisible && distance <= tonumber(pickSectionFromCondList(actor, this.object, this.state.far_distance))!;
+      isActorVisible && distance <= tonumber(pickSectionFromCondList(actor, this.object, this.state.farDistance))!;
     const isObjectClose: boolean =
       (isActorVisible &&
-        distance <= tonumber(pickSectionFromCondList(actor, this.object, this.state.close_distance))!) ||
-      (this.object.is_talking() && this.state.meet_on_talking !== null);
+        distance <= tonumber(pickSectionFromCondList(actor, this.object, this.state.closeDistance))!) ||
+      (this.object.is_talking() && this.state.isMeetOnTalking !== null);
 
     if (isObjectClose) {
       this.currentDistanceToSpeaker = EMeetDistance.CLOSE;
     } else if (isObjectFar) {
       this.currentDistanceToSpeaker = EMeetDistance.FAR;
-    } else if (distance > this.state.reset_distance) {
+    } else if (distance > this.state.resetDistance) {
       this.isHelloPassed = false;
       this.isByePassed = false;
       this.currentDistanceToSpeaker = null;
@@ -184,10 +168,10 @@ export class MeetManager extends AbstractSchemeManager<ISchemeMeetState> {
       this.currentDistanceToSpeaker = null;
     }
 
-    this.isDialogBreakEnabled = pickSectionFromCondList(actor, this.object, this.state.allow_break) === TRUE;
+    this.isDialogBreakEnabled = pickSectionFromCondList(actor, this.object, this.state.isBreakAllowed) === TRUE;
 
-    if (this.state.meet_dialog !== null) {
-      const startingDialog: Optional<TName> = pickSectionFromCondList(actor, this.object, this.state.meet_dialog);
+    if (this.state.meetDialog !== null) {
+      const startingDialog: Optional<TName> = pickSectionFromCondList(actor, this.object, this.state.meetDialog);
 
       if (this.startDialog !== startingDialog) {
         this.startDialog = startingDialog;
@@ -228,7 +212,7 @@ export class MeetManager extends AbstractSchemeManager<ISchemeMeetState> {
     const meetInteractionText: StringOptional<TSection> = pickSectionFromCondList(
       actor,
       this.object,
-      this.state.use_text
+      this.state.useText
     )!;
 
     if (meetInteractionText !== NIL) {
@@ -246,21 +230,16 @@ export class MeetManager extends AbstractSchemeManager<ISchemeMeetState> {
     // Handle interaction abusing logics.
     const abuse: Optional<TSection> = pickSectionFromCondList(actor, this.object, this.state.abuse);
 
-    if (this.abuseMode !== abuse) {
-      if (abuse === TRUE) {
-        SchemeAbuse.enableAbuse(this.object);
-      } else {
-        SchemeAbuse.disableAbuse(this.object);
-      }
-
-      this.abuseMode = abuse;
+    if (this.isAbuseModeEnabled !== abuse) {
+      setObjectAbuseState(this.object, abuse === TRUE);
+      this.isAbuseModeEnabled = abuse;
     }
 
     // Handle possibility of trading
     if (isObjectWounded(this.object.id())) {
       this.isTradingEnabled = false;
     } else {
-      const isTradingEnabled: boolean = pickSectionFromCondList(actor, this.object, this.state.trade_enable) === TRUE;
+      const isTradingEnabled: boolean = pickSectionFromCondList(actor, this.object, this.state.isTradeEnabled) === TRUE;
 
       if (this.isTradingEnabled !== isTradingEnabled) {
         this.isTradingEnabled = isTradingEnabled;

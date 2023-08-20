@@ -4,30 +4,40 @@ import type { TConditionList } from "@/engine/core/utils/ini/ini_types";
 import type { Optional, TDistance, TSection } from "@/engine/lib/types";
 
 /**
+ * Approximate meet distance to simplify logical checks.
+ */
+export enum EMeetDistance {
+  CLOSE = 1,
+  FAR = 2,
+}
+
+/**
  * Scheme state representing `meet` configuration for specific object.
  */
 export interface ISchemeMeetState extends IBaseSchemeState {
   meetManager: MeetManager;
-  snd_on_use: TConditionList;
-  use: TConditionList;
-  meet_dialog: TConditionList;
-  abuse: TConditionList;
-  trade_enable: TConditionList;
-  allow_break: TConditionList;
-  meet_on_talking: TConditionList;
-  use_text: TConditionList;
-  close_distance: TConditionList;
-  close_anim: TConditionList;
-  close_snd_distance: TConditionList;
-  close_snd_hello: TConditionList;
-  close_snd_bye: TConditionList;
-  close_victim: TConditionList;
-  far_distance: TConditionList;
-  far_anim: TConditionList;
-  far_snd_distance: TConditionList;
-  far_snd: TConditionList;
-  far_victim: TConditionList;
   meetSection: Optional<TSection>;
-  reset_distance: TDistance;
-  meet_only_at_path: boolean;
+  abuse: TConditionList;
+  use: TConditionList;
+  useText: TConditionList;
+  useSound: TConditionList;
+  meetDialog: TConditionList;
+  isMeetOnlyAtPathEnabled: boolean;
+  isTradeEnabled: TConditionList;
+  isBreakAllowed: TConditionList;
+  isMeetOnTalking: TConditionList;
+  // Distance to reset state.
+  resetDistance: TDistance;
+  // Distance considered close for meeting.
+  closeDistance: TConditionList;
+  closeAnimation: TConditionList;
+  closeSoundDistance: TConditionList;
+  closeSoundHello: TConditionList;
+  closeSoundBye: TConditionList;
+  closeVictim: TConditionList;
+  farDistance: TConditionList;
+  farAnimation: TConditionList;
+  farSoundDistance: TConditionList;
+  farSound: TConditionList;
+  farVictim: TConditionList;
 }

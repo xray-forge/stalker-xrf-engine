@@ -5,6 +5,7 @@ import { finishHelpWounded } from "@/engine/core/schemes/help_wounded/utils";
 import { createSequence } from "@/engine/core/utils/animation";
 import { getExtern } from "@/engine/core/utils/binding";
 import { startPlayingGuitar, startPlayingHarmonica } from "@/engine/core/utils/camp";
+import { clearObjectAbuse, objectPunchActor } from "@/engine/core/utils/object";
 import { AnyCallablesModule, ClientObject, TName } from "@/engine/lib/types";
 
 /**
@@ -399,54 +400,54 @@ export const baseAnimations: LuaTable<TName, IAnimationDescriptor> = $fromObject
     into: createSequence(
       [
         "norm_facer_0_0",
-        { f: (...args: Array<any>) => getExtern<AnyCallablesModule>("xr_effects").actor_punch(...args) },
+        { f: (object: ClientObject) => objectPunchActor(object) },
         "norm_facer_0_1",
-        { f: (...args: Array<any>) => getExtern<AnyCallablesModule>("xr_effects").clearAbuse(...args) },
+        { f: (object: ClientObject) => clearObjectAbuse(object) },
       ],
       [
         "norm_facer_1_0",
-        { f: (...args: Array<any>) => getExtern<AnyCallablesModule>("xr_effects").actor_punch(...args) },
+        { f: (object: ClientObject) => objectPunchActor(object) },
         "norm_facer_1_1",
-        { f: (...args: Array<any>) => getExtern<AnyCallablesModule>("xr_effects").clearAbuse(...args) },
+        { f: (object: ClientObject) => clearObjectAbuse(object) },
       ],
       [
         "norm_facer_2_0",
-        { f: (...args: Array<any>) => getExtern<AnyCallablesModule>("xr_effects").actor_punch(...args) },
+        { f: (object: ClientObject) => objectPunchActor(object) },
         "norm_facer_2_1",
-        { f: (...args: Array<any>) => getExtern<AnyCallablesModule>("xr_effects").clearAbuse(...args) },
+        { f: (object: ClientObject) => clearObjectAbuse(object) },
       ],
       [
         "norm_facer_3_0",
-        { f: (...args: Array<any>) => getExtern<AnyCallablesModule>("xr_effects").actor_punch(...args) },
+        { f: (object: ClientObject) => objectPunchActor(object) },
         "norm_facer_3_1",
-        { f: (...args: Array<any>) => getExtern<AnyCallablesModule>("xr_effects").clearAbuse(...args) },
+        { f: (object: ClientObject) => clearObjectAbuse(object) },
       ],
       [
         "norm_facer_4_0",
-        { f: (...args: Array<any>) => getExtern<AnyCallablesModule>("xr_effects").actor_punch(...args) },
+        { f: (object: ClientObject) => objectPunchActor(object) },
         "norm_facer_4_1",
-        { f: (...args: Array<any>) => getExtern<AnyCallablesModule>("xr_effects").clearAbuse(...args) },
+        { f: (object: ClientObject) => clearObjectAbuse(object) },
       ],
       null,
       null,
       null,
       [
         "norm_facer_8_0",
-        { f: (...args: Array<any>) => getExtern<AnyCallablesModule>("xr_effects").actor_punch(...args) },
+        { f: (object: ClientObject) => objectPunchActor(object) },
         "norm_facer_8_1",
-        { f: (...args: Array<any>) => getExtern<AnyCallablesModule>("xr_effects").clearAbuse(...args) },
+        { f: (object: ClientObject) => clearObjectAbuse(object) },
       ],
       [
         "norm_facer_9_0",
-        { f: (...args: Array<any>) => getExtern<AnyCallablesModule>("xr_effects").actor_punch(...args) },
+        { f: (object: ClientObject) => objectPunchActor(object) },
         "norm_facer_9_1",
-        { f: (...args: Array<any>) => getExtern<AnyCallablesModule>("xr_effects").clearAbuse(...args) },
+        { f: (object: ClientObject) => clearObjectAbuse(object) },
       ],
       [
         "norm_facer_10_0",
-        { f: (...args: Array<any>) => getExtern<AnyCallablesModule>("xr_effects").actor_punch(...args) },
+        { f: (object: ClientObject) => objectPunchActor(object) },
         "norm_facer_10_1",
-        { f: (...args: Array<any>) => getExtern<AnyCallablesModule>("xr_effects").clearAbuse(...args) },
+        { f: (object: ClientObject) => clearObjectAbuse(object) },
       ]
     ),
     out: null,

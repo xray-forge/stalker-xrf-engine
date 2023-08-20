@@ -1,12 +1,16 @@
 import { registry } from "@/engine/core/database";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
-import { SchemeAbuse } from "@/engine/core/schemes/abuse";
 import { ISchemeMeetState } from "@/engine/core/schemes/meet";
 import { MeetManager } from "@/engine/core/schemes/meet/MeetManager";
 import { ISchemeWoundedState } from "@/engine/core/schemes/wounded";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { isObjectHelpingWounded, isObjectSearchingCorpse, isObjectWounded } from "@/engine/core/utils/object";
+import {
+  addObjectAbuse,
+  isObjectHelpingWounded,
+  isObjectSearchingCorpse,
+  isObjectWounded,
+} from "@/engine/core/utils/object";
 import { getObjectsRelationSafe } from "@/engine/core/utils/relation";
 import { FALSE, NIL, TRUE } from "@/engine/lib/constants/words";
 import { ClientObject, EClientObjectRelation, EScheme, Optional, TName } from "@/engine/lib/types";
@@ -70,19 +74,19 @@ export function activateMeetWithObject(object: ClientObject): void {
   logger.info("Activate meet interaction:", object.name());
 
   const actor: ClientObject = registry.actor;
-  const sound: Optional<TName> = pickSectionFromCondList(actor, object, state.snd_on_use);
+  const sound: Optional<TName> = pickSectionFromCondList(actor, object, state.useSound);
 
   if (tostring(sound) !== NIL) {
-    GlobalSoundManager.getInstance().playSound(object.id(), sound, null, null);
+    GlobalSoundManager.getInstance().playSound(object.id(), sound);
   }
 
   const meetManager: MeetManager = state.meetManager;
 
   if (
     meetManager.use === FALSE &&
-    meetManager.abuseMode === TRUE &&
+    meetManager.isAbuseModeEnabled === TRUE &&
     getObjectsRelationSafe(object, actor) !== EClientObjectRelation.ENEMY
   ) {
-    SchemeAbuse.addAbuse(object, 1);
+    addObjectAbuse(object, 1);
   }
 }

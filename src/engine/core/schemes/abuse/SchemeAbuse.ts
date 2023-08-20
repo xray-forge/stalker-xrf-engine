@@ -73,48 +73,4 @@ export class SchemeAbuse extends AbstractScheme {
     state: IRegistryObjectState,
     section: TSection
   ): void {}
-
-  /**
-   * Increment abuse for object.
-   */
-  public static addAbuse(object: ClientObject, value: TCount): void {
-    const abuseState: Optional<ISchemeAbuseState> = registry.objects.get(object.id())[
-      SchemeAbuse.SCHEME_SECTION
-    ] as ISchemeAbuseState;
-
-    abuseState?.abuseManager.addAbuse(value);
-  }
-
-  /**
-   * Clear abuse state for object.
-   */
-  public static clearAbuse(object: ClientObject): void {
-    const state: Optional<ISchemeAbuseState> = registry.objects.get(object.id())[
-      SchemeAbuse.SCHEME_SECTION
-    ] as ISchemeAbuseState;
-
-    state?.abuseManager.clearAbuse();
-  }
-
-  /**
-   * Disable abuse for object.
-   */
-  public static disableAbuse(object: ClientObject): void {
-    const state: Optional<ISchemeAbuseState> = registry.objects.get(object.id())[
-      SchemeAbuse.SCHEME_SECTION
-    ] as ISchemeAbuseState;
-
-    state?.abuseManager.disableAbuse();
-  }
-
-  /**
-   * Enable abuse for object.
-   */
-  public static enableAbuse(object: ClientObject): void {
-    const state: Optional<ISchemeAbuseState> = registry.objects.get(object.id())[
-      SchemeAbuse.SCHEME_SECTION
-    ] as ISchemeAbuseState;
-
-    state?.abuseManager.enableAbuse();
-  }
 }

@@ -1,5 +1,3 @@
-import type { PartialRecord } from "@/engine/lib/types/general";
-
 /**
  * Section name string, representing string256 in c++.
  */

@@ -12,6 +12,7 @@ export const CLIENT_SIDE_REGISTRY: MockLuaTable<TNumberId, ClientObject> = MockL
  * Mock game `level` interface.
  */
 export const mockLevelInterface = {
+  add_cam_effector: jest.fn(),
   add_pp_effector: jest.fn(),
   disable_input: jest.fn(),
   get_game_difficulty: jest.fn(() => 3),

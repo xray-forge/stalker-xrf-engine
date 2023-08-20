@@ -12,9 +12,9 @@ import {
 import { SmartTerrain, Squad } from "@/engine/core/objects";
 import { parseConditionsList, pickSectionFromCondList, readIniString, TConditionList } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { isSquadMonsterCommunity } from "@/engine/core/utils/object";
 import { getAnomalyArtefacts } from "@/engine/core/utils/object/object_anomaly";
 import { hasAlifeInfo } from "@/engine/core/utils/object/object_info_portion";
+import { isSquadMonsterCommunity } from "@/engine/core/utils/object/object_section";
 import {
   ERelation,
   getSquadMembersRelationToActor,
