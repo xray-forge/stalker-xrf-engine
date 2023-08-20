@@ -89,7 +89,7 @@ describe("SmartTerrain class generic logic", () => {
     smartTerrain.on_before_register();
 
     expect(smartTerrain.simulationBoardManager.getSmartTerrainByName(smartTerrain.name())).toBe(smartTerrain);
-    expect(smartTerrain.simulationBoardManager.getSmartTerrainPopulation(smartTerrain)).toBe(0);
+    expect(smartTerrain.simulationBoardManager.getSmartTerrainPopulation(smartTerrain.id)).toBe(0);
   });
 
   it("should correctly generate captions", () => {
@@ -145,7 +145,7 @@ describe("SmartTerrain class generic logic", () => {
 
     expect(registry.storyLink.idBySid.get("test_smart_sid")).toBeNull();
     expect(registry.storyLink.sidById.get(smartTerrain.id)).toBeNull();
-    expect(smartTerrain.simulationBoardManager.getSmartTerrainDescriptorById(smartTerrain.id)).toBeNull();
+    expect(smartTerrain.simulationBoardManager.getSmartTerrainDescriptor(smartTerrain.id)).toBeNull();
     expect(smartTerrain.simulationBoardManager.getSmartTerrainByName(smartTerrain.name())).toBeNull();
     expect(smartTerrain.isRegistered).toBe(false);
   });

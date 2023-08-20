@@ -1,7 +1,7 @@
 import { alife, clsid, game, level, patrol, system_ini } from "xray16";
 
 import { registry, SYSTEM_INI } from "@/engine/core/database";
-import { SimulationBoardManager } from "@/engine/core/managers/interaction/SimulationBoardManager";
+import { SimulationBoardManager } from "@/engine/core/managers/simulation/SimulationBoardManager";
 import { SmartTerrain, Squad } from "@/engine/core/objects";
 import { assert, assertDefined } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -165,7 +165,7 @@ export function spawnSquadInSmart(section: Optional<TStringId>, smartTerrainName
 
   assertDefined(smartTerrain, "Wrong smartName '%s' for faction in spawnSquad function", tostring(smartTerrainName));
 
-  const squad: Squad = simulationBoardManager.createSmartSquad(smartTerrain, section);
+  const squad: Squad = simulationBoardManager.createSquad(smartTerrain, section);
 
   simulationBoardManager.enterSmartTerrain(squad, smartTerrain.id);
 

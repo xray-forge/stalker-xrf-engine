@@ -28,8 +28,8 @@ import {
   updateSimulationObjectAvailability,
 } from "@/engine/core/database/simulation";
 import { unregisterStoryLinkByObjectId } from "@/engine/core/database/story_objects";
-import { SimulationBoardManager } from "@/engine/core/managers/interaction/SimulationBoardManager";
 import { MapDisplayManager } from "@/engine/core/managers/interface/MapDisplayManager";
+import { SimulationBoardManager } from "@/engine/core/managers/simulation/SimulationBoardManager";
 import type { SmartTerrain } from "@/engine/core/objects/server/smart_terrain/SmartTerrain";
 import { ESmartTerrainStatus } from "@/engine/core/objects/server/smart_terrain/types";
 import { SquadReachTargetAction, SquadStayOnTargetAction } from "@/engine/core/objects/server/squad/action";
@@ -520,31 +520,6 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
   /**
    * todo: Description.
    */
-  public onRemoveSquadFromSimulation(): void {
-    logger.info("Remove squad:", this.name());
-
-    const squadMembers: LuaTable<TNumberId, boolean> = new LuaTable();
-
-    for (const squadMember of this.squad_members()) {
-      squadMembers.set(squadMember.id, true);
-    }
-
-    // Second loop is to prevent iteration breaking when iterating + mutating?
-    for (const [id, v] of squadMembers) {
-      const object: Optional<ServerObject> = alife().object(id);
-
-      if (object !== null) {
-        this.unregister_member(id);
-        alife().release(object, true);
-      }
-    }
-
-    this.mapDisplayManager.removeSquadMapSpot(this);
-  }
-
-  /**
-   * todo: Description.
-   */
   public onSquadObjectDeath(object: ServerObject): void {
     logger.info("On object death:", this.name(), object.name());
 
@@ -563,7 +538,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
         pickSectionFromCondList(registry.actor, this, this.deathConditionList as any);
       }
 
-      this.simulationBoardManager.onRemoveSquad(this);
+      this.simulationBoardManager.releaseSquad(this);
 
       return;
     }
@@ -592,11 +567,9 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
         object.m_smart_terrain_id !== MAX_U16 &&
         oldSmartTerrainId !== null &&
         object.m_smart_terrain_id === oldSmartTerrainId &&
-        this.simulationBoardManager.getSmartTerrainDescriptorById(oldSmartTerrainId) !== null
+        this.simulationBoardManager.getSmartTerrainDescriptor(oldSmartTerrainId) !== null
       ) {
-        this.simulationBoardManager
-          .getSmartTerrainDescriptorById(oldSmartTerrainId)!
-          .smartTerrain.unregister_npc(object);
+        this.simulationBoardManager.getSmartTerrainDescriptor(oldSmartTerrainId)!.smartTerrain.unregister_npc(object);
       }
 
       if (smartTerrain !== null) {

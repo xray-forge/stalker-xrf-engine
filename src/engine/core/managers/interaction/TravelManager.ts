@@ -3,9 +3,9 @@ import { alife, clsid, game, level, patrol, time_global } from "xray16";
 import { getStoryIdByObjectId, registry, TRAVEL_MANAGER_LTX } from "@/engine/core/database";
 import { AbstractCoreManager } from "@/engine/core/managers/base/AbstractCoreManager";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
-import { SimulationBoardManager } from "@/engine/core/managers/interaction/SimulationBoardManager";
 import { ENotificationDirection } from "@/engine/core/managers/interface/notifications";
 import { NotificationManager } from "@/engine/core/managers/interface/notifications/NotificationManager";
+import { SimulationBoardManager } from "@/engine/core/managers/simulation/SimulationBoardManager";
 import { SurgeManager } from "@/engine/core/managers/world/SurgeManager";
 import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain/SmartTerrain";
 import { SquadStayOnTargetAction } from "@/engine/core/objects/server/squad/action";
@@ -523,10 +523,10 @@ export class TravelManager extends AbstractCoreManager {
       const direction: TDirection = -point.point(1).sub(point.point(0)).getH();
       const board: SimulationBoardManager = SimulationBoardManager.getInstance();
 
-      for (const [k, v] of board.getSmartTerrainDescriptorById(this.travelToSmartId!)!.assignedSquads) {
-        if (getStoryIdByObjectId(v.id) === null && isAnySquadMemberEnemyToActor(v)) {
-          board.exitSmartTerrain(v, this.travelToSmartId);
-          board.onRemoveSquad(v);
+      for (const [, squad] of board.getSmartTerrainDescriptor(this.travelToSmartId!)!.assignedSquads) {
+        if (getStoryIdByObjectId(squad.id) === null && isAnySquadMemberEnemyToActor(squad)) {
+          board.exitSmartTerrain(squad, this.travelToSmartId);
+          board.releaseSquad(squad);
         }
       }
 

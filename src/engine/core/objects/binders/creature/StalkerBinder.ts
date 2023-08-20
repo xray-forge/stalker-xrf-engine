@@ -33,9 +33,9 @@ import {
 } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { DialogManager } from "@/engine/core/managers/interaction/dialog/DialogManager";
-import { SimulationBoardManager } from "@/engine/core/managers/interaction/SimulationBoardManager";
 import { TradeManager } from "@/engine/core/managers/interaction/TradeManager";
 import { MapDisplayManager } from "@/engine/core/managers/interface/MapDisplayManager";
+import { SimulationBoardManager } from "@/engine/core/managers/simulation/SimulationBoardManager";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import { DropManager } from "@/engine/core/managers/world/DropManager";
 import { ReleaseBodyManager } from "@/engine/core/managers/world/ReleaseBodyManager";

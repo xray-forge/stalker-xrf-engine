@@ -1,7 +1,7 @@
 import { action_base, level, LuabindClass } from "xray16";
 
 import { registry, setStalkerState } from "@/engine/core/database";
-import { SimulationBoardManager } from "@/engine/core/managers/interaction/SimulationBoardManager";
+import { SimulationBoardManager } from "@/engine/core/managers/simulation/SimulationBoardManager";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import { EStalkerState } from "@/engine/core/objects/animation";
 import { ISchemeEventHandler } from "@/engine/core/schemes/base";

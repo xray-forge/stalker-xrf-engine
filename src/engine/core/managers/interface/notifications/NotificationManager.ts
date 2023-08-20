@@ -3,10 +3,6 @@ import { alife, clsid, game } from "xray16";
 import { getObjectIdByStoryId, registry } from "@/engine/core/database";
 import { AbstractCoreManager } from "@/engine/core/managers/base/AbstractCoreManager";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
-import {
-  ISmartTerrainDescriptor,
-  SimulationBoardManager,
-} from "@/engine/core/managers/interaction/SimulationBoardManager";
 import { ETaskState } from "@/engine/core/managers/interaction/tasks/types";
 import {
   notificationManagerIcons,
@@ -25,6 +21,7 @@ import {
   ITipNotification,
   ITreasureNotification,
 } from "@/engine/core/managers/interface/notifications/types";
+import { ISmartTerrainDescriptor, SimulationBoardManager } from "@/engine/core/managers/simulation";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import { Stalker } from "@/engine/core/objects";
 import { abort, assert } from "@/engine/core/utils/assertion";
@@ -313,7 +310,7 @@ export class NotificationManager extends AbstractCoreManager {
     // todo: Probably name and number id problem? Not real condition?
     if (point !== null) {
       const smartDescriptor: Optional<ISmartTerrainDescriptor> =
-        SimulationBoardManager.getInstance().getSmartTerrainDescriptorById(point as TNumberId);
+        SimulationBoardManager.getInstance().getSmartTerrainDescriptor(point as TNumberId);
 
       if (smartDescriptor !== null) {
         pointName = smartDescriptor.smartTerrain.getNameCaption();

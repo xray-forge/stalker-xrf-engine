@@ -8,9 +8,9 @@ import {
   isStoryObjectExisting,
   registry,
 } from "@/engine/core/database";
-import { SimulationBoardManager } from "@/engine/core/managers/interaction/SimulationBoardManager";
 import { ActorInventoryMenuManager } from "@/engine/core/managers/interface/ActorInventoryMenuManager";
 import { ItemUpgradesManager } from "@/engine/core/managers/interface/ItemUpgradesManager";
+import { SimulationBoardManager } from "@/engine/core/managers/simulation/SimulationBoardManager";
 import { SmartTerrain, Squad } from "@/engine/core/objects";
 import { ISchemeAnimpointState, SchemeAnimpoint } from "@/engine/core/schemes/animpoint";
 import { ISchemeDeathState } from "@/engine/core/schemes/death";
@@ -744,7 +744,7 @@ extern("xr_conditions.squads_in_zone_b41", (actor: ClientObject, npc: ClientObje
     return false;
   }
 
-  for (const [k, v] of SimulationBoardManager.getInstance().getSmartTerrainDescriptorById(smartTerrain.id)!
+  for (const [k, v] of SimulationBoardManager.getInstance().getSmartTerrainDescriptor(smartTerrain.id)!
     .assignedSquads) {
     if (v !== null) {
       for (const j of v.squad_members()) {

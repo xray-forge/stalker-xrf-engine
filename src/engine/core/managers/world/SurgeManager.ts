@@ -11,10 +11,10 @@ import {
 } from "@/engine/core/database";
 import { AbstractCoreManager } from "@/engine/core/managers/base/AbstractCoreManager";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
-import { SimulationBoardManager } from "@/engine/core/managers/interaction/SimulationBoardManager";
 import { TaskManager } from "@/engine/core/managers/interaction/tasks";
 import { ActorInputManager } from "@/engine/core/managers/interface";
 import { MapDisplayManager } from "@/engine/core/managers/interface/MapDisplayManager";
+import { SimulationBoardManager } from "@/engine/core/managers/simulation/SimulationBoardManager";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import { WeatherManager } from "@/engine/core/managers/world/WeatherManager";
 import { AnomalyZoneBinder, SmartTerrain } from "@/engine/core/objects";
@@ -277,9 +277,8 @@ export class SurgeManager extends AbstractCoreManager {
       return false;
     }
 
-    const smartTerrain: Optional<SmartTerrain> = boardManager.getSmartTerrainDescriptorById(
-      squad.assignedSmartTerrainId
-    )?.smartTerrain as Optional<SmartTerrain>;
+    const smartTerrain: Optional<SmartTerrain> = boardManager.getSmartTerrainDescriptor(squad.assignedSmartTerrainId)
+      ?.smartTerrain as Optional<SmartTerrain>;
 
     return smartTerrain !== null && tonumber(smartTerrain.simulationProperties["surge"])! <= 0;
   }

@@ -2,7 +2,7 @@ import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { alife } from "xray16";
 
 import { registerActor } from "@/engine/core/database";
-import { SimulationBoardManager } from "@/engine/core/managers/interaction/SimulationBoardManager";
+import { SimulationBoardManager } from "@/engine/core/managers/simulation/SimulationBoardManager";
 import { SmartTerrain, Squad } from "@/engine/core/objects";
 import {
   getInventoryNameForItemSection,
@@ -164,7 +164,7 @@ describe("object spawning utils", () => {
     const squad: Squad = mockServerAlifeOnlineOfflineGroup() as Squad;
 
     jest.spyOn(simulationManager, "enterSmartTerrain").mockImplementation(() => {});
-    jest.spyOn(simulationManager, "createSmartSquad").mockImplementation(() => squad);
+    jest.spyOn(simulationManager, "createSquadForSmartTerrain").mockImplementation(() => squad);
     jest.spyOn(simulationManager, "setupObjectSquadAndGroup").mockImplementation(() => {});
 
     simulationManager.registerSmartTerrain(smartTerrain as SmartTerrain);
@@ -176,7 +176,7 @@ describe("object spawning utils", () => {
 
     expect(createdSquad).toBe(squad);
     expect(squad.update).toHaveBeenCalled();
-    expect(simulationManager.createSmartSquad).toHaveBeenCalledWith(smartTerrain, "squad");
+    expect(simulationManager.createSquad).toHaveBeenCalledWith(smartTerrain, "squad");
     expect(simulationManager.enterSmartTerrain).toHaveBeenCalledWith(squad, smartTerrain.id);
     expect(simulationManager.setupObjectSquadAndGroup).toHaveBeenCalledTimes(2);
   });

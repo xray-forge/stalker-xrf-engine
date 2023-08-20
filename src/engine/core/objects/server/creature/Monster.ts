@@ -9,7 +9,7 @@ import {
   unregisterStoryLinkByObjectId,
 } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers";
-import { SimulationBoardManager } from "@/engine/core/managers/interaction/SimulationBoardManager";
+import { SimulationBoardManager } from "@/engine/core/managers/simulation/SimulationBoardManager";
 import { Squad } from "@/engine/core/objects";
 import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain";
 import { assert } from "@/engine/core/utils/assertion";

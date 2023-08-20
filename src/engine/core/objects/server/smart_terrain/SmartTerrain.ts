@@ -1,7 +1,6 @@
 import {
   alife,
   CALifeSmartTerrainTask,
-  CGameGraph,
   cse_alife_smart_zone,
   editor,
   game,
@@ -31,8 +30,8 @@ import {
   unregisterSimulationObject,
   updateSimulationObjectAvailability,
 } from "@/engine/core/database/simulation";
-import { SimulationBoardManager } from "@/engine/core/managers/interaction/SimulationBoardManager";
 import { MapDisplayManager } from "@/engine/core/managers/interface";
+import { SimulationBoardManager } from "@/engine/core/managers/simulation/SimulationBoardManager";
 import { SmartTerrainControl } from "@/engine/core/objects/server/smart_terrain/SmartTerrainControl";
 import { ESmartTerrainStatus } from "@/engine/core/objects/server/smart_terrain/types";
 import { SquadReachTargetAction, SquadStayOnTargetAction } from "@/engine/core/objects/server/squad/action";
@@ -121,7 +120,6 @@ const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * todo;
- * todo: Ignore jobs not on current level?
  */
 @LuabindClass()
 export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTarget {
@@ -220,7 +218,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
 
     this.initializeJobs();
 
-    this.simulationBoardManager.initializeSmartTerrain(this);
+    this.simulationBoardManager.initializeSmartTerrainSimulation(this);
 
     if (this.isObjectsInitializationNeeded) {
       this.isObjectsInitializationNeeded = false;
@@ -960,7 +958,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
         this.simulationRole,
         this.squadId,
         this.maxPopulation,
-        SimulationBoardManager.getInstance().getSmartTerrainPopulation(this)
+        SimulationBoardManager.getInstance().getSmartTerrainPopulation(this.id)
       );
 
       if (this.isRespawnPoint !== null && this.alreadySpawned !== null) {
@@ -985,7 +983,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
         caption = caption + "\\nnot respawn point\\n";
       }
 
-      for (const [id, squad] of SimulationBoardManager.getInstance().getSmartTerrainDescriptorById(this.id)!
+      for (const [id, squad] of SimulationBoardManager.getInstance().getSmartTerrainDescriptor(this.id)!
         .assignedSquads) {
         caption += tostring(squad.name()) + "\\n";
       }
@@ -1073,7 +1071,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
       const sectionToSpawn: TSection = availableSections.get(math.random(1, availableSections.length()));
       const sectionParams = this.respawnConfiguration.get(sectionToSpawn);
       const squadId: TStringId = sectionParams.squads.get(math.random(1, sectionParams.squads.length()));
-      const squad: Squad = this.simulationBoardManager.createSmartSquad(this, squadId);
+      const squad: Squad = this.simulationBoardManager.createSquad(this, squadId);
 
       squad.respawnPointId = this.id;
       squad.respawnPointSection = sectionToSpawn;
@@ -1104,7 +1102,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
         return;
       }
 
-      const squadsCount: TCount = this.simulationBoardManager.getSmartTerrainActiveSquads(this.id);
+      const squadsCount: TCount = this.simulationBoardManager.getSmartTerrainAssignedSquads(this.id);
 
       if (this.maxPopulation <= squadsCount) {
         return;
@@ -1190,7 +1188,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
       return false;
     }
 
-    let squadsCount: TCount = this.simulationBoardManager.getSmartTerrainActiveSquads(this.id);
+    let squadsCount: TCount = this.simulationBoardManager.getSmartTerrainAssignedSquads(this.id);
 
     if (isPopulationDecreaseNeeded) {
       squadsCount -= 1;

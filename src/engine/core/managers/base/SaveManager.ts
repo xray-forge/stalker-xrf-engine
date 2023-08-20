@@ -1,11 +1,11 @@
 import { EGameEvent, EventsManager } from "@/engine/core/managers";
 import { AbstractCoreManager } from "@/engine/core/managers/base/AbstractCoreManager";
 import { AchievementsManager } from "@/engine/core/managers/interaction/achievements";
-import { SimulationBoardManager } from "@/engine/core/managers/interaction/SimulationBoardManager";
 import { TaskManager } from "@/engine/core/managers/interaction/tasks";
 import { ActorInputManager } from "@/engine/core/managers/interface";
 import { GameSettingsManager } from "@/engine/core/managers/interface/GameSettingsManager";
 import { StatisticsManager } from "@/engine/core/managers/interface/statistics/StatisticsManager";
+import { SimulationBoardManager } from "@/engine/core/managers/simulation/SimulationBoardManager";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import { PsyAntennaManager } from "@/engine/core/managers/world/PsyAntennaManager";
 import { ReleaseBodyManager } from "@/engine/core/managers/world/ReleaseBodyManager";
