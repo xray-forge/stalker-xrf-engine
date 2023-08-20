@@ -164,7 +164,7 @@ describe("object spawning utils", () => {
     const squad: Squad = mockServerAlifeOnlineOfflineGroup() as Squad;
 
     jest.spyOn(simulationManager, "enterSmartTerrain").mockImplementation(() => {});
-    jest.spyOn(simulationManager, "createSquadForSmartTerrain").mockImplementation(() => squad);
+    jest.spyOn(simulationManager, "createSquad").mockImplementation(() => squad);
     jest.spyOn(simulationManager, "setupObjectSquadAndGroup").mockImplementation(() => {});
 
     simulationManager.registerSmartTerrain(smartTerrain as SmartTerrain);
