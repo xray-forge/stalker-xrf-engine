@@ -7,7 +7,7 @@ import { isActiveSection } from "@/engine/core/utils/scheme";
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Check if smart cover can be used in combat.
  */
 @LuabindClass()
 export class EvaluatorUseSmartCoverInCombat extends property_evaluator {
@@ -19,13 +19,9 @@ export class EvaluatorUseSmartCoverInCombat extends property_evaluator {
   }
 
   /**
-   * todo: Description.
+   * Verify if currently smart cover section is active and usage in combat is enabled.
    */
   public override evaluate(): boolean {
-    if (isActiveSection(this.object, this.state.section)) {
-      return this.state.use_in_combat;
-    }
-
-    return false;
+    return isActiveSection(this.object, this.state.section) ? this.state.use_in_combat : false;
   }
 }

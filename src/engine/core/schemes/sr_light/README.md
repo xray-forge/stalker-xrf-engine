@@ -1,8 +1,9 @@
-## scheme
+## sr_light
 
-description
+Scheme to control stalkers torches light mode.
 
 ## ini parameters
 
 ```
+light_on - ?
 ```

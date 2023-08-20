@@ -2,7 +2,7 @@ import { LuabindClass, property_evaluator } from "xray16";
 
 import { ISchemeWalkerState } from "@/engine/core/schemes/walker";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { isActiveSectionState } from "@/engine/core/utils/scheme/scheme_logic";
+import { isActiveSection } from "@/engine/core/utils/scheme/scheme_logic";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -22,6 +22,6 @@ export class EvaluatorNeedWalker extends property_evaluator {
    * Check whether walker scheme is active and should still continue processing.
    */
   public override evaluate(): boolean {
-    return isActiveSectionState(this.object, this.state);
+    return isActiveSection(this.object, this.state.section);
   }
 }

@@ -29,16 +29,16 @@ export class SchemeParticle extends AbstractScheme {
     state.looped = readIniBoolean(ini, section, "looped", false);
 
     if (state.path === null || state.path === "") {
-      abort("SR_PARTICLE : invalid path name");
+      abort("Scheme sr_particle: invalid path name");
     }
 
     if (state.mode !== 1 && state.mode !== 2) {
-      abort("SR_PARTICLE : invalid mode");
+      abort("Scheme sr_particle: invalid mode");
     }
   }
 
   /**
-   * todo: Description.
+   * Add scheme handler and subscribe it to events.
    */
   public static override add(
     object: ClientObject,

@@ -1,28 +1,19 @@
+import { ESmartCoverState } from "@/engine/core/objects/animation/state_types";
 import { IBaseSchemeState } from "@/engine/core/schemes/base";
 import { Optional, StringOptional, TDuration, TName, Vector } from "@/engine/lib/types";
 
 /**
  * todo;
  */
-export enum ECoverState {
-  FIRE_TARGET = "fire_target",
-  FIRE_NO_LOOKOUT_TARGET = "fire_no_lookout_target",
-  IDLE_TARGET = "idle_target",
-  LOOKOUT_TARGET = "lookout_target",
-}
-
-/**
- * todo;
- */
-export const COVER_SUBSTATE_TABLE: Record<ECoverState, string> = {
-  [ECoverState.FIRE_TARGET]: "fire",
-  [ECoverState.FIRE_NO_LOOKOUT_TARGET]: "fire",
-  [ECoverState.IDLE_TARGET]: "idle",
-  [ECoverState.LOOKOUT_TARGET]: "idle",
+export const COVER_SUBSTATE_TABLE: Record<ESmartCoverState, string> = {
+  [ESmartCoverState.FIRE_TARGET]: "fire",
+  [ESmartCoverState.FIRE_NO_LOOKOUT_TARGET]: "fire",
+  [ESmartCoverState.IDLE_TARGET]: "idle",
+  [ESmartCoverState.LOOKOUT_TARGET]: "idle",
 };
 
 /**
- * todo;
+ * Smart cover scheme state.
  */
 export interface ISchemeSmartCoverState extends IBaseSchemeState {
   cover_name: Optional<TName>;

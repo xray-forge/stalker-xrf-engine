@@ -2,7 +2,7 @@ import { IBaseSchemeState } from "@/engine/core/schemes/base";
 import { TRate } from "@/engine/lib/types";
 
 /**
- * todo;
+ * State describing physical hit scheme.
  */
 export interface ISchemePhysicalHitState extends IBaseSchemeState {
   power: TRate;

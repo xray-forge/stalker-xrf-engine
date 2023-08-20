@@ -3,6 +3,7 @@ import { action_base, LuabindClass, patrol } from "xray16";
 import { registry, setStalkerState } from "@/engine/core/database";
 import { EStalkerState } from "@/engine/core/objects/animation";
 import { StalkerMoveManager } from "@/engine/core/objects/state/StalkerMoveManager";
+import { ISchemeEventHandler } from "@/engine/core/schemes";
 import { ISchemeSleeperState } from "@/engine/core/schemes/sleeper";
 import { abort } from "@/engine/core/utils/assertion";
 import { parseWaypointsDataFromList } from "@/engine/core/utils/ini/ini_parse";
@@ -19,11 +20,11 @@ const STATE_SLEEPING = 1;
  * todo;
  */
 @LuabindClass()
-export class ActionSleeperActivity extends action_base {
+export class ActionSleeperActivity extends action_base implements ISchemeEventHandler {
   public readonly state: ISchemeSleeperState;
   public readonly moveManager: StalkerMoveManager;
   public wasReset: boolean = false;
-  public sleepingState: number = STATE_WALKING;
+  public sleepingState: 1 | 0 = STATE_WALKING; // todo: use boolean
 
   public timer!: {
     begin: Optional<number>;
@@ -42,7 +43,7 @@ export class ActionSleeperActivity extends action_base {
   }
 
   /**
-   * todo: Description.
+   * Reset scheme state and object positioning for new sleeping activity.
    */
   public override initialize(): void {
     super.initialize();
@@ -51,6 +52,39 @@ export class ActionSleeperActivity extends action_base {
     this.object.set_desired_direction();
 
     this.resetScheme();
+  }
+
+  /**
+   * Handle execution of action.
+   * Walk to needed place and start sleeping.
+   */
+  public override execute(): void {
+    super.execute();
+
+    if (!this.wasReset) {
+      this.resetScheme();
+    }
+
+    if (this.sleepingState === STATE_WALKING) {
+      return this.moveManager.update();
+    }
+
+    /*
+     * Sounds are disabled originally.
+     *
+     *  if this.state == state_sleeping then
+     *    --        GlobalSound:set_sound(this.object, "sleep")
+     *  end
+     */
+  }
+
+  /**
+   * todo: Description.
+   */
+  public override finalize(): void {
+    // --  GlobalSound:set_sound(this.object, null)
+    this.moveManager.finalize();
+    super.finalize();
   }
 
   /**
@@ -106,9 +140,7 @@ export class ActionSleeperActivity extends action_base {
       null,
       // todo: Unsafe this casting, should be avoided later with updates
       { obj: this, func: this.callback as unknown as AnyCallable },
-      true,
-      null,
-      null
+      true
     );
     this.wasReset = true;
   }
@@ -123,49 +155,18 @@ export class ActionSleeperActivity extends action_base {
   /**
    * todo: Description.
    */
-  public callback(mode: number, number: number): boolean {
+  public callback(): boolean {
     this.sleepingState = STATE_SLEEPING;
 
     const sleepPatrol: Patrol = new patrol(this.state.path_main);
     const position: Optional<Vector> = sleepPatrol.count() === 2 ? sleepPatrol.point(1) : null;
 
     if (this.state.wakeable) {
-      setStalkerState(this.object, EStalkerState.SIT, null, null, { lookPosition: position, lookObject: null }, null);
+      setStalkerState(this.object, EStalkerState.SIT, null, null, { lookPosition: position, lookObject: null });
     } else {
-      setStalkerState(this.object, EStalkerState.SLEEP, null, null, { lookPosition: position, lookObject: null }, null);
+      setStalkerState(this.object, EStalkerState.SLEEP, null, null, { lookPosition: position, lookObject: null });
     }
 
     return true;
-  }
-
-  /**
-   * todo: Description.
-   */
-  public override execute(): void {
-    super.execute();
-    if (!this.wasReset) {
-      this.resetScheme();
-    }
-
-    if (this.sleepingState === STATE_WALKING) {
-      this.moveManager.update();
-
-      return;
-    }
-
-    /*
-     *  if this.state == state_sleeping then
-     *    --        GlobalSound:set_sound(this.object, "sleep")
-     *  end
-     */
-  }
-
-  /**
-   * todo: Description.
-   */
-  public override finalize(): void {
-    // --  GlobalSound:set_sound(this.object, null)
-    this.moveManager.finalize();
-    super.finalize();
   }
 }

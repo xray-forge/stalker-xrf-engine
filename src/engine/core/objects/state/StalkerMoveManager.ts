@@ -146,14 +146,14 @@ export class StalkerMoveManager {
   public reset(
     walkPath: TName,
     walkPathInfo: LuaArray<IWaypointData>,
-    lookPath: Optional<string>,
-    lookPathInfo: Optional<LuaArray<IWaypointData>>,
-    team: Optional<string>,
+    lookPath: Optional<string> = null,
+    lookPathInfo: Optional<LuaArray<IWaypointData>> = null,
+    team: Optional<string> = null,
     suggestedState: Optional<any>,
-    moveCbInfo: Optional<{ obj: AnyObject; func: AnyCallable }>,
-    noValidation: Optional<boolean>,
-    fplaceholder: Optional<any>,
-    useDefaultSound: Optional<boolean>
+    moveCbInfo: Optional<{ obj: AnyObject; func: AnyCallable }> = null,
+    noValidation: Optional<boolean> = null,
+    fplaceholder: Optional<any> = null,
+    useDefaultSound: Optional<boolean> = null
   ): void {
     this.ptWaitTime = DEFAULT_WAIT_TIME;
     this.suggestedState = suggestedState;

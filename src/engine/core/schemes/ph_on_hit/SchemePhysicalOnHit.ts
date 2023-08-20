@@ -10,14 +10,14 @@ import { ClientObject, EScheme, ESchemeType, IniFile, Optional, TSection } from 
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Scheme to handle hits as part of logic for physical objects.
  */
 export class SchemePhysicalOnHit extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.PH_ON_HIT;
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.ITEM;
 
   /**
-   * todo: Description.
+   * Activate hit handling scheme.
    */
   public static override activate(object: ClientObject, ini: IniFile, scheme: EScheme, section: TSection): void {
     const state: ISchemePhysicalOnHitState = AbstractScheme.assign(object, ini, scheme, section);
@@ -27,7 +27,7 @@ export class SchemePhysicalOnHit extends AbstractScheme {
   }
 
   /**
-   * todo: Description.
+   * Add scheme handlers and subscribe to events.
    */
   public static override add(
     object: ClientObject,
@@ -40,7 +40,7 @@ export class SchemePhysicalOnHit extends AbstractScheme {
   }
 
   /**
-   * todo: Description.
+   * Handle disabling of the scheme.
    */
   public static override disable(object: ClientObject, scheme: EScheme): void {
     const state: Optional<ISchemePhysicalOnHitState> = registry.objects.get(object.id())[
@@ -48,7 +48,7 @@ export class SchemePhysicalOnHit extends AbstractScheme {
     ] as ISchemePhysicalOnHitState;
 
     if (state !== null) {
-      SchemePhysicalHit.unsubscribe(object, state, state.action);
+      AbstractScheme.unsubscribe(object, state, state.action);
     }
   }
 }

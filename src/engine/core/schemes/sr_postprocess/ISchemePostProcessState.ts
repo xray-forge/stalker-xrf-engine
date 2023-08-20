@@ -2,7 +2,7 @@ import type { IBaseSchemeState } from "@/engine/core/schemes/base";
 import type { TRate } from "@/engine/lib/types";
 
 /**
- * todo;
+ * State of post-processing scheme logics.
  */
 export interface ISchemePostProcessState extends IBaseSchemeState {
   intensity: TRate;

@@ -10,14 +10,15 @@ import { ClientObject, EScheme, ESchemeType, IniFile, TSection } from "@/engine/
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Scheme describing monsters hiding somewhere.
+ * When actor enters zone, play some sounds and then force monster to attack.
  */
 export class SchemeMonster extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.SR_MONSTER;
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.RESTRICTOR;
 
   /**
-   * todo: Description.
+   * Activate scheme and apply configuration.
    */
   public static override activate(object: ClientObject, ini: IniFile, scheme: EScheme, section: TSection): void {
     const state: ISchemeMonsterState = AbstractScheme.assign(object, ini, scheme, section);
@@ -27,15 +28,13 @@ export class SchemeMonster extends AbstractScheme {
     state.delay = readIniNumber(ini, section, "delay", false, 0);
     state.idle = readIniNumber(ini, section, "idle", false, 30) * 10000;
 
-    const path: string = readIniString(ini, section, "sound_path", false, "", null)!;
-
-    state.path_table = parseStringsList(path);
+    state.path_table = parseStringsList(readIniString(ini, section, "sound_path", false, "", null)!);
     state.monster = readIniString(ini, section, "monster_section", false, "", null);
     state.sound_slide_vel = readIniNumber(ini, section, "slide_velocity", false, 7);
   }
 
   /**
-   * todo: Description.
+   * Add scheme handlers and subscribe them to events.
    */
   public static override add(
     object: ClientObject,

@@ -45,9 +45,9 @@ export class ActionRemarkActivity extends action_base {
    */
   public override initialize(): void {
     super.initialize();
+
     this.object.set_desired_position();
     this.object.set_desired_direction();
-    // --    GlobalSound:set_sound(this.object, null)
   }
 
   /**
@@ -135,13 +135,13 @@ export class ActionRemarkActivity extends action_base {
    */
   public update(): void {
     if (this.state === stateInitial) {
-      const cb: IStateManagerCallbackDescriptor = { context: this, callback: this.onAnimationUpdate };
+      const callbackDescriptor: IStateManagerCallbackDescriptor = { context: this, callback: this.onAnimationUpdate };
       const target = this.getTarget();
 
       if (target === null) {
         const anim: EStalkerState = pickSectionFromCondList(registry.actor, this.object, this.st.anim)!;
 
-        setStalkerState(this.object, anim, cb, 0, null, null);
+        setStalkerState(this.object, anim, callbackDescriptor, 0);
         this.state = stateAnimation;
 
         return;
@@ -149,7 +149,7 @@ export class ActionRemarkActivity extends action_base {
 
       const anim: EStalkerState = pickSectionFromCondList(registry.actor, this.object, this.st.anim)!;
 
-      setStalkerState(this.object, anim, cb, 0, target, null);
+      setStalkerState(this.object, anim, callbackDescriptor, 0, target);
       this.state = stateAnimation;
     } else if (this.state === stateAnimation) {
       // Empty.
@@ -184,7 +184,7 @@ export class ActionRemarkActivity extends action_base {
  * todo
  */
 export function initTarget(
-  obj: ClientObject,
+  object: ClientObject,
   targetString: string
 ): LuaMultiReturn<[Optional<Vector>, Optional<number>, Optional<boolean>]> {
   // todo: Simplify.
@@ -211,14 +211,14 @@ export function initTarget(
     const [pos] = string.find(targetStr, "|");
 
     if (pos === null) {
-      instruction(obj, targetStr);
+      instruction(object, targetStr);
     }
 
     const targetType = string.sub(targetStr, 1, pos - 1);
     const target = string.sub(targetStr, pos + 1);
 
     if (target === null || target === "" || targetType === null || targetType === "") {
-      instruction(obj, targetStr);
+      instruction(object, targetStr);
     }
 
     return $multi(targetType, target);
@@ -231,7 +231,7 @@ export function initTarget(
   if (targetString === NIL) {
     return $multi(targetPosition, targetId, isTargetInitialized);
   } else if (targetString === null) {
-    instruction(obj, "");
+    instruction(object, "");
   }
 
   const [targetType, target] = parseType(targetString);
@@ -257,7 +257,7 @@ export function initTarget(
     targetId = smartTerrain.getObjectIdByJobSection(job!);
     isTargetInitialized = targetId !== null && true;
   } else {
-    instruction(obj, targetString);
+    instruction(object, targetString);
   }
 
   return $multi(targetPosition, targetId, isTargetInitialized);

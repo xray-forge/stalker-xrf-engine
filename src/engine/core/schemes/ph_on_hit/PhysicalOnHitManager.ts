@@ -9,12 +9,9 @@ import { ClientObject, Optional, TCount, TIndex, TName, Vector } from "@/engine/
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Manager to handle hits logic of physical game objects.
  */
 export class PhysicalOnHitManager extends AbstractSchemeManager<ISchemePhysicalOnHitState> {
-  /**
-   * todo: Description.
-   */
   public override onHit(
     object: ClientObject,
     amount: TCount,
@@ -24,12 +21,10 @@ export class PhysicalOnHitManager extends AbstractSchemeManager<ISchemePhysicalO
   ): void {
     const whoName: TName = who ? who.name() : NIL;
 
-    logger.info("Object hit:", object.name(), "<-", whoName, amount);
+    logger.info("Physical object hit:", object.name(), "<-", whoName, amount);
 
     if (registry.objects.get(this.object.id()).activeScheme) {
-      if (trySwitchToAnotherSection(object, this.state)) {
-        return;
-      }
+      trySwitchToAnotherSection(object, this.state);
     }
   }
 }

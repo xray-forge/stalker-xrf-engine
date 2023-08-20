@@ -102,7 +102,7 @@ export class ParticleManager extends AbstractSchemeManager<ISchemeParticleState>
       this.updateMode2();
     }
 
-    this.is_end();
+    this.isEnd();
 
     trySwitchToAnotherSection(this.object, this.state);
   }
@@ -110,7 +110,7 @@ export class ParticleManager extends AbstractSchemeManager<ISchemeParticleState>
   /**
    * todo: Description.
    */
-  public is_end(): boolean {
+  public isEnd(): boolean {
     if (this.state.looped === true || this.isFirstPlayed) {
       return false;
     }
