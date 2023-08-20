@@ -62,9 +62,11 @@ export class SchemeSmartCover extends AbstractScheme {
   ): void {
     const actionPlanner: ActionPlanner = object.motivation_action_manager();
 
+    // Add new evaluators to check smart cover state.
     actionPlanner.add_evaluator(EEvaluatorId.IS_SMART_COVER_NEEDED, new EvaluatorNeedSmartCover(state));
     actionPlanner.add_evaluator(EEvaluatorId.CAN_USE_SMART_COVER_IN_COMBAT, new EvaluatorUseSmartCoverInCombat(state));
 
+    // Action to handle hiding in smart cover.
     const actionSmartCoverActivity: ActionSmartCoverActivity = new ActionSmartCoverActivity(state);
 
     actionSmartCoverActivity.add_precondition(new world_property(stalker_ids.property_alive, true));
@@ -82,13 +84,16 @@ export class SchemeSmartCover extends AbstractScheme {
     // --new_action.add_effect (new world_property(stalker_ids.property_danger,false))
     actionPlanner.add_action(EActionId.SMART_COVER_ACTIVITY, actionSmartCoverActivity);
 
-    SchemeSmartCover.subscribe(object, state, actionSmartCoverActivity);
-
+    // Cannot continue alife when smart cover is needed.
     actionPlanner
       .action(EActionId.ALIFE)
       .add_precondition(new world_property(EEvaluatorId.IS_SMART_COVER_NEEDED, false));
+    // Cannot participate in combat directly if is active smart cover scheme.
     actionPlanner
       .action(stalker_ids.action_combat_planner)
       .add_precondition(new world_property(EEvaluatorId.CAN_USE_SMART_COVER_IN_COMBAT, false));
+
+    // Subscribe to scheme events.
+    SchemeSmartCover.subscribe(object, state, actionSmartCoverActivity);
   }
 }

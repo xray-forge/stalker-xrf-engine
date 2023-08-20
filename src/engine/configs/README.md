@@ -12,3 +12,7 @@ With `typescript` variant you can generate different variations on build time, c
 With `ini` variant it is less verbose and standard across modding community.
 
 But ltx variant generally is easier to write/read and accepted by community.
+
+## TODO
+
+- Add readme files with LTX sections / fields documentation and explanation

@@ -17,22 +17,22 @@ export class SchemePhysicalIdle extends AbstractScheme {
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.ITEM;
 
   /**
-   * todo: Description.
+   * Activate scheme and read ini configuration.
    */
   public static override activate(object: ClientObject, ini: IniFile, scheme: EScheme, section: TSection): void {
     const state: ISchemePhysicalIdleState = AbstractScheme.assign(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section);
-    state.hit_on_bone = parseBoneStateDescriptors(readIniString(ini, section, "hit_on_bone", false, ""));
-    state.nonscript_usable = readIniBoolean(ini, section, "nonscript_usable", false);
-    state.on_use = readIniConditionList(ini, section, "on_use");
-    state.tips = readIniString(ini, section, "tips", false, "", "");
+    state.bonesHitCondlists = parseBoneStateDescriptors(readIniString(ini, section, "hit_on_bone", false, ""));
+    state.isNonscriptUsable = readIniBoolean(ini, section, "nonscript_usable", false);
+    state.onUse = readIniConditionList(ini, section, "on_use");
+    state.tip = readIniString(ini, section, "tips", false, "", "");
 
-    object.set_tip_text(state.tips);
+    object.set_tip_text(state.tip);
   }
 
   /**
-   * todo: Description.
+   * Add scheme events listeners and subscribe them to events.
    */
   public static override add(
     object: ClientObject,

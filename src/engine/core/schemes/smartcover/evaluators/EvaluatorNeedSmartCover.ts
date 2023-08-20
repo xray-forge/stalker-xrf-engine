@@ -7,7 +7,7 @@ import { isActiveSection } from "@/engine/core/utils/scheme";
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Check if object needs smart cover - scheme is active.
  */
 @LuabindClass()
 export class EvaluatorNeedSmartCover extends property_evaluator {
@@ -19,7 +19,7 @@ export class EvaluatorNeedSmartCover extends property_evaluator {
   }
 
   /**
-   * todo: Description.
+   * Check if smart cover section is active.
    */
   public override evaluate(): boolean {
     return isActiveSection(this.object, this.state.section);

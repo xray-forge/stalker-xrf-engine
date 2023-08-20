@@ -2,8 +2,11 @@ import { alife, level, stalker_ids } from "xray16";
 
 import { getObjectIdByStoryId, registry } from "@/engine/core/database";
 import { Squad } from "@/engine/core/objects";
+import { EActionId } from "@/engine/core/schemes";
+import { LuaLogger } from "@/engine/core/utils/logging";
 import { isStalker } from "@/engine/core/utils/object/object_class";
 import { surgeConfig } from "@/engine/lib/configs/SurgeConfig";
+import { lootableTable } from "@/engine/lib/constants/items/lootable_table";
 import { TLevel } from "@/engine/lib/constants/levels";
 import {
   ActionPlanner,
@@ -15,6 +18,8 @@ import {
   TNumberId,
   TStringId,
 } from "@/engine/lib/types";
+
+const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * Check whether provided object is in combat.
@@ -34,6 +39,59 @@ export function isObjectInCombat(object: ClientObject): boolean {
   return (
     currentActionId === stalker_ids.action_combat_planner || currentActionId === stalker_ids.action_post_combat_wait
   );
+}
+
+/**
+ * Check whether provided object is searching corpse.
+ *
+ * @param object - target client object to check
+ * @returns whether object is searching corpse
+ */
+export function isObjectSearchingCorpse(object: ClientObject): boolean {
+  const manager: ActionPlanner = object.motivation_action_manager();
+
+  if (!manager.initialized()) {
+    return false;
+  }
+
+  return manager.current_action_id() === EActionId.SEARCH_CORPSE;
+}
+
+/**
+ * Check whether provided object is helping wounded.
+ *
+ * @param object - target client object to check
+ * @returns whether object is helping wounded
+ */
+export function isObjectHelpingWounded(object: ClientObject): boolean {
+  const actionManager: ActionPlanner = object.motivation_action_manager();
+
+  if (!actionManager.initialized()) {
+    return false;
+  }
+
+  return actionManager.current_action_id() === EActionId.HELP_WOUNDED;
+}
+
+/**
+ * Check if object has valuable loot.
+ *
+ * @param object - target client object to check
+ * @returns whether object has any valuables to loot
+ */
+export function isObjectWithValuableLoot(object: ClientObject): boolean {
+  let hasValuableLoot: boolean = false;
+
+  object.iterate_inventory((object: ClientObject, item: ClientObject) => {
+    if (item.section() in lootableTable) {
+      hasValuableLoot = true;
+
+      // Stop iterations, one is enough.
+      return true;
+    }
+  }, object);
+
+  return hasValuableLoot;
 }
 
 /**

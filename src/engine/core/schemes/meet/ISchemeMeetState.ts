@@ -4,7 +4,7 @@ import type { TConditionList } from "@/engine/core/utils/ini/ini_types";
 import type { Optional, TDistance, TSection } from "@/engine/lib/types";
 
 /**
- * todo;
+ * Scheme state representing `meet` configuration for specific object.
  */
 export interface ISchemeMeetState extends IBaseSchemeState {
   meetManager: MeetManager;

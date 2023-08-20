@@ -8,7 +8,7 @@ export const gameConfig = {
   /**
    * Affects label in game menu.
    */
-  VERSION: "ver %s XRF 0.2",
+  VERSION: "ver %s XRF 0.5",
   /**
    * Whether extensions are enabled.
    */

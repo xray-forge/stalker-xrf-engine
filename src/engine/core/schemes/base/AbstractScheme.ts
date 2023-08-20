@@ -42,7 +42,7 @@ export abstract class AbstractScheme {
   }
 
   /**
-   * todo: Description.
+   * Assign some scheme state to an object and prepare shared constants in it in a correct way.
    */
   protected static assign<T extends IBaseSchemeState>(
     object: ClientObject,
@@ -71,7 +71,8 @@ export abstract class AbstractScheme {
   }
 
   /**
-   * Add scheme state to client object.
+   * Add scheme state handlers to client object states.
+   * Usually used to add actions, evaluators or custom managers.
    *
    * @param object - target client object
    * @param ini - ini file describing object logic
@@ -119,7 +120,11 @@ export abstract class AbstractScheme {
   }
 
   /**
-   * todo: Description.
+   * Ub-subscribe provided action class from scheme events.
+   *
+   * @param object - target client object owning scheme states
+   * @param state - scheme state owning action subscriber
+   * @param action - action subscribing handler
    */
   public static unsubscribe(object: ClientObject, state: IBaseSchemeState, action: AnyObject): void {
     if (state.actions) {

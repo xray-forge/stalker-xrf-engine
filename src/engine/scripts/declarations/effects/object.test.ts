@@ -17,7 +17,7 @@ describe("'object' effects declaration", () => {
     checkXrEffect("sniper_fire_mode");
     checkXrEffect("kill_npc");
     checkXrEffect("remove_npc");
-    checkXrEffect("clearAbuse");
+    checkXrEffect("clear_abuse");
     checkXrEffect("disable_combat_handler");
     checkXrEffect("disable_combat_ignore_handler");
     checkXrEffect("spawn_object");

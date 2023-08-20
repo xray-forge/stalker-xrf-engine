@@ -170,6 +170,7 @@ export function mockClientGameObject({
     inside: rest.inside || jest.fn(() => false),
     inventory: inventoryMap,
     is_talking,
+    is_there_items_to_pickup: rest.is_there_items_to_pickup || jest.fn(() => false),
     level_vertex_id: rest.level_vertex_id || jest.fn(() => 255),
     max_ignore_monster_distance: rest.max_ignore_monster_distance || jest.fn(),
     money: money || jest.fn(() => objectMoney),
@@ -186,7 +187,7 @@ export function mockClientGameObject({
       jest.fn((key: string | number) => {
         if (typeof key === "string") {
           return (
-            [...inventoryMap.entries()].find(([, it]) => {
+            [...inventoryMap.values()].find((it) => {
               return it.section() === key;
             }) || null
           );
@@ -205,11 +206,15 @@ export function mockClientGameObject({
           return isInvulnerable;
         }
       }),
-    iterate_inventory: jest.fn((cb: (owner: ClientObject, item: ClientObject) => void, owner: ClientObject) => {
-      for (const [, item] of inventoryMap) {
-        cb(owner, item);
+    iterate_inventory: jest.fn(
+      (cb: (owner: ClientObject, item: ClientObject) => void | boolean, owner: ClientObject) => {
+        for (const [, item] of inventoryMap) {
+          if (cb(owner, item)) {
+            break;
+          }
+        }
       }
-    }),
+    ),
     parent: rest.parent || jest.fn(() => null),
     position: rest.position || jest.fn(() => objectPosition),
     radiation,
@@ -306,9 +311,13 @@ export function mockClientGameObject({
     transfer_item:
       transfer_item ||
       jest.fn((item: ClientObject, to: ClientObject) => {
+        const targetInventory: Map<string | number, ClientObject> = (to as AnyObject).inventory;
+
         for (const [key, it] of inventoryMap) {
           if (it === item) {
             inventoryMap.delete(key);
+            targetInventory.set(it.section(), it);
+            break;
           }
         }
       }),

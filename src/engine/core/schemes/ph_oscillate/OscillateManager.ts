@@ -1,4 +1,4 @@
-import { device, time_global } from "xray16";
+import { time_global } from "xray16";
 
 import { AbstractSchemeManager } from "@/engine/core/schemes";
 import { ISchemeOscillateState } from "@/engine/core/schemes/ph_oscillate/ISchemeOscillateState";
@@ -6,7 +6,7 @@ import { createVector, vectorRotateY } from "@/engine/core/utils/vector";
 import { Optional, PhysicsJoint, TRate, TTimestamp, Vector } from "@/engine/lib/types";
 
 /**
- * todo;
+ * Manager to handle oscillation of objects with some time period.
  */
 export class OscillateManager extends AbstractSchemeManager<ISchemeOscillateState> {
   public time: TTimestamp = 0;
@@ -19,16 +19,15 @@ export class OscillateManager extends AbstractSchemeManager<ISchemeOscillateStat
    * todo: Description.
    */
   public override resetScheme(): void {
-    this.time = device().time_global();
+    this.time = time_global();
     this.dir = createVector(math.random(), 0, math.random()).normalize();
     this.coefficient = this.state.force / this.state.period;
     this.joint = this.object.get_physics_shell()!.get_joint_by_bone_name(this.state.joint);
-    this.time = time_global();
     this.pause = false;
   }
 
   /**
-   * todo: Description.
+   * Handle periodic force applications.
    */
   public update(): void {
     const now: TTimestamp = time_global();

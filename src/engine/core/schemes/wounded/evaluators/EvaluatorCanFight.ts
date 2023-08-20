@@ -8,7 +8,7 @@ import { FALSE } from "@/engine/lib/constants/words";
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Evaluator to check whether object is wounded and cannot fight.
  */
 @LuabindClass()
 export class EvaluatorCanFight extends property_evaluator {
@@ -21,12 +21,9 @@ export class EvaluatorCanFight extends property_evaluator {
 
   /**
    * Evaluate whether object can fight.
+   * Allows overriding it with config and still fighting when wounded_fight is enabled with ltx.
    */
   public override evaluate(): boolean {
-    if (this.object.critically_wounded()) {
-      return true;
-    }
-
-    return getPortableStoreValue(this.object, "wounded_fight") !== FALSE;
+    return this.object.critically_wounded() || getPortableStoreValue(this.object, "wounded_fight") !== FALSE;
   }
 }

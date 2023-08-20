@@ -7,14 +7,14 @@ import { ENotificationDirection, NotificationManager } from "@/engine/core/manag
 import { SurgeManager } from "@/engine/core/managers/world/SurgeManager";
 import { updateStalkerLogic } from "@/engine/core/objects/binders/creature/StalkerBinder";
 import { ISchemeMeetState } from "@/engine/core/schemes/meet";
-import { SchemeMeet } from "@/engine/core/schemes/meet/SchemeMeet";
+import { updateObjectInteractionAvailability } from "@/engine/core/schemes/meet/utils";
 import { ISchemeWoundedState } from "@/engine/core/schemes/wounded";
-import { SchemeWounded } from "@/engine/core/schemes/wounded/SchemeWounded";
 import { extern } from "@/engine/core/utils/binding";
 import { createGameAutoSave } from "@/engine/core/utils/game";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import {
   actorHasMedKit,
+  enableObjectWoundedHealing,
   getActorAvailableMedKit,
   getNpcSpeaker,
   getObjectCommunity,
@@ -39,11 +39,11 @@ const logger: LuaLogger = new LuaLogger($filename);
 extern("dialogs", {});
 
 /**
- * todo;
+ * Break dialog for two participating objects.
  */
-extern("dialogs.break_dialog", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
-  firstSpeaker.stop_talk();
-  secondSpeaker.stop_talk();
+extern("dialogs.break_dialog", (actor: ClientObject, object: ClientObject): void => {
+  actor.stop_talk();
+  object.stop_talk();
 });
 
 /**
@@ -53,15 +53,15 @@ extern("dialogs.update_npc_dialog", (firstSpeaker: ClientObject, secondSpeaker: 
   const object: ClientObject = getNpcSpeaker(firstSpeaker, secondSpeaker);
 
   (registry.objects.get(object.id())[EScheme.MEET] as ISchemeMeetState).meetManager.update();
-  SchemeMeet.updateObjectInteractionAvailability(object);
+  updateObjectInteractionAvailability(object);
   updateStalkerLogic(object);
 });
 
 /**
- * todo;
+ * Check if speaking with wounded object.
  */
-extern("dialogs.is_wounded", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
-  return isObjectWounded(getNpcSpeaker(firstSpeaker, secondSpeaker).id());
+extern("dialogs.is_wounded", (actor: ClientObject, object: ClientObject): boolean => {
+  return isObjectWounded(getNpcSpeaker(actor, object).id());
 });
 
 /**
@@ -72,16 +72,16 @@ extern("dialogs.is_not_wounded", (firstSpeaker: ClientObject, secondSpeaker: Cli
 });
 
 /**
- * todo;
+ * Check if actor has at least one medkit.
  */
-extern("dialogs.actor_have_medkit", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
+extern("dialogs.actor_have_medkit", (): boolean => {
   return actorHasMedKit();
 });
 
 /**
- * todo;
+ * Check if actor has no medkits.
  */
-extern("dialogs.actor_hasnt_medkit", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
+extern("dialogs.actor_hasnt_medkit", (): boolean => {
   return !actorHasMedKit();
 });
 
@@ -103,7 +103,7 @@ extern("dialogs.transfer_medkit", (firstSpeaker: ClientObject, secondSpeaker: Cl
     secondSpeaker.id()
   );
 
-  SchemeWounded.unlockMedkit(secondSpeaker);
+  enableObjectWoundedHealing(secondSpeaker);
 
   if (secondSpeaker.relation(firstSpeaker) !== EClientObjectRelation.ENEMY) {
     secondSpeaker.set_relation(EClientObjectRelation.FRIEND, firstSpeaker);
@@ -113,25 +113,25 @@ extern("dialogs.transfer_medkit", (firstSpeaker: ClientObject, secondSpeaker: Cl
 });
 
 /**
- * todo;
+ * Check whether actor has at least one bandage.
  */
-extern("dialogs.actor_have_bandage", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
-  return firstSpeaker.object(drugs.bandage) !== null;
+extern("dialogs.actor_have_bandage", (actor: ClientObject, object: ClientObject): boolean => {
+  return actor.object(drugs.bandage) !== null;
 });
 
 /**
- * todo;
+ * Transfer bandage from actor to object and set relation to friendly.
  */
-extern("dialogs.transfer_bandage", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
-  transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), drugs.bandage);
-  secondSpeaker.set_relation(EClientObjectRelation.FRIEND, firstSpeaker);
+extern("dialogs.transfer_bandage", (actor: ClientObject, object: ClientObject): void => {
+  transferItemsFromActor(object, drugs.bandage);
+  object.set_relation(EClientObjectRelation.FRIEND, actor);
 });
 
 /**
- * todo;
+ * Kill actor on dialog option selection.
  */
-extern("dialogs.kill_yourself", (npc: ClientObject, actor: ClientObject): void => {
-  npc.kill(actor);
+extern("dialogs.kill_yourself", (actor: ClientObject, object: ClientObject): void => {
+  actor.kill(object);
 });
 
 /**
@@ -142,98 +142,98 @@ extern("dialogs.allow_wounded_dialog", (object: ClientObject, victim: ClientObje
 });
 
 /**
- * todo;
+ * Check whether current level is zaton.
  */
-extern("dialogs.level_zaton", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
+extern("dialogs.level_zaton", (): boolean => {
   return level.name() === levels.zaton;
 });
 
 /**
- * todo;
+ * Check whether current level is jupiter.
  */
-extern("dialogs.level_jupiter", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
+extern("dialogs.level_jupiter", (): boolean => {
   return level.name() === levels.jupiter;
 });
 
 /**
- * todo;
+ * Check whether current level is pripyat.
  */
-extern("dialogs.level_pripyat", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
+extern("dialogs.level_pripyat", (): boolean => {
   return level.name() === levels.pripyat;
 });
 
 /**
- * todo;
+ * Check whether current level is not zaton.
  */
-extern("dialogs.not_level_zaton", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
+extern("dialogs.not_level_zaton", (): boolean => {
   return level.name() !== levels.zaton;
 });
 
 /**
- * todo;
+ * Check whether current level is not jupiter.
  */
-extern("dialogs.not_level_jupiter", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
+extern("dialogs.not_level_jupiter", (): boolean => {
   return level.name() !== levels.jupiter;
 });
 
 /**
- * todo;
+ * Check whether current level is not pripyat.
  */
-extern("dialogs.not_level_pripyat", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
+extern("dialogs.not_level_pripyat", (): boolean => {
   return level.name() !== levels.pripyat;
 });
 
 /**
- * todo;
+ * Check whether actor is friend with object.
  */
-extern("dialogs.is_friend", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
-  return firstSpeaker.relation(secondSpeaker) === EClientObjectRelation.FRIEND;
+extern("dialogs.is_friend", (actor: ClientObject, object: ClientObject): boolean => {
+  return actor.relation(object) === EClientObjectRelation.FRIEND;
 });
 
 /**
- * todo;
+ * Check whether actor is not friend with object.
  */
 extern("dialogs.is_not_friend", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
   return firstSpeaker.relation(secondSpeaker) !== EClientObjectRelation.FRIEND;
 });
 
 /**
- * todo;
+ * Become friends with object.
  */
-extern("dialogs.become_friend", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
-  firstSpeaker.set_relation(EClientObjectRelation.FRIEND, secondSpeaker);
+extern("dialogs.become_friend", (actor: ClientObject, object: ClientObject): void => {
+  actor.set_relation(EClientObjectRelation.FRIEND, object);
 });
 
 /**
- * todo;
+ * Check if speaking with stalker community member.
  */
 extern("dialogs.npc_stalker", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
   return getObjectCommunity(getNpcSpeaker(firstSpeaker, secondSpeaker)) === communities.stalker;
 });
 
 /**
- * todo;
+ * Check if speaking with bandit community member.
  */
 extern("dialogs.npc_bandit", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
   return getObjectCommunity(getNpcSpeaker(firstSpeaker, secondSpeaker)) === communities.bandit;
 });
 
 /**
- * todo;
+ * Check if speaking with freedom community member.
  */
 extern("dialogs.npc_freedom", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
   return getObjectCommunity(getNpcSpeaker(firstSpeaker, secondSpeaker)) === communities.freedom;
 });
 
 /**
- * todo;
+ * Check if speaking with dolg community member.
  */
 extern("dialogs.npc_dolg", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
   return getObjectCommunity(getNpcSpeaker(firstSpeaker, secondSpeaker)) === communities.dolg;
 });
 
 /**
- * todo;
+ * Check if speaking with army community member.
  */
 extern("dialogs.npc_army", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
   return getObjectCommunity(getNpcSpeaker(firstSpeaker, secondSpeaker)) === communities.army;
@@ -344,10 +344,10 @@ extern("dialogs.actor_not_in_stalker", (actor: ClientObject, npc: ClientObject):
 });
 
 /**
- * todo;
+ * Check if actor has at least 2000 money value.
  */
-extern("dialogs.has_2000_money", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
-  return firstSpeaker.money() >= 2000;
+extern("dialogs.has_2000_money", (actor: ClientObject, object: ClientObject): boolean => {
+  return actor.money() >= 2000;
 });
 
 /**

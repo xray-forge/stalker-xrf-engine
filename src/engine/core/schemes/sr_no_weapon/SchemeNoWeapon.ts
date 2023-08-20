@@ -14,10 +14,11 @@ export class SchemeNoWeapon extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.SR_NO_WEAPON;
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.RESTRICTOR;
 
+  // todo: Move to registry.
   public static NO_WEAPON_ZONES_STATE: LuaTable<TNumberId, boolean> = new LuaTable();
 
   /**
-   * todo: Description.
+   * Activate scheme logics and create matching states.
    */
   public static override activate(object: ClientObject, ini: IniFile, scheme: EScheme, section: TSection): void {
     const state: ISchemeNoWeaponState = AbstractScheme.assign(object, ini, scheme, section);
@@ -26,7 +27,7 @@ export class SchemeNoWeapon extends AbstractScheme {
   }
 
   /**
-   * todo: Description.
+   * Add handlers related to scheme and subscribe to events.
    */
   public static override add(
     object: ClientObject,
@@ -40,6 +41,7 @@ export class SchemeNoWeapon extends AbstractScheme {
 
   /**
    * todo: Description.
+   * todo: Move to separate util to check.
    */
   public static isInWeaponRestrictionZone(): boolean {
     for (const [id, isActive] of SchemeNoWeapon.NO_WEAPON_ZONES_STATE) {

@@ -16,7 +16,7 @@ After cloning suggested repositories or providing custom assets, you should list
 
 ### 🏗️ Running build
 
-If assets are downloaded and configured correctly, the only needed thing is:
+If assets are downloaded and configured correctly, the only needed thing is one of following:
 
 ```
 npm run cli pack game -- --clean --optimize
@@ -30,10 +30,10 @@ npm run pack:game
 
 As result, new package will be created in `target` folder.
 
-If you want to 'just build' package for testing from existing assets without full build cycle, you can use alternative:
+If you want to 'just build' package for testing from existing assets without full build/compress cycle, you can use alternative:
 
 ```
-npm run cli pack game -- --engine release --build
+npm run cli pack game -- --engine release --no-build
 ```
 
 ### 🏗️ Assets links

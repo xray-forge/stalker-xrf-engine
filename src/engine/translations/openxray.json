@@ -161,6 +161,18 @@
     "rus": "Настройка геймпада",
     "ukr": "Настройка геймпада"
   },
+  "ui_mm_fps_limit": {
+    "eng": "In-game FPS limit",
+    "pol": "Limit FPS w grze",
+    "rus": "Лимит FPS в игре",
+    "ukr": "Ліміт FPS в грі"
+  },
+  "ui_mm_fps_limit_in_menu": {
+    "eng": "Menu FPS limit",
+    "pol": "Limit FPS w menu",
+    "rus": "Лимит FPS в меню",
+    "ukr": "Ліміт FPS в меню"
+  },
   "eng": {
     "eng": "English",
     "pol": "Angielski (English)",

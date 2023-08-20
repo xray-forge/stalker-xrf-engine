@@ -14,7 +14,9 @@ import { ActionPlanner, ClientObject, EScheme, ESchemeType, IniFile, TSection } 
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Scheme describing smart cover logics.
+ * Usually it is used as some point with animation in smart terrains.
+ * Example: stalkers sitting near tables, stalkers standing near wall etc.
  */
 export class SchemeCover extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.COVER;
@@ -51,6 +53,7 @@ export class SchemeCover extends AbstractScheme {
   ): void {
     const actionPlanner: ActionPlanner = object.motivation_action_manager();
 
+    // Add new evaluator to check whether smart cover is needed.
     actionPlanner.add_evaluator(EEvaluatorId.NEED_COVER, new EvaluatorNeedCover(state));
 
     const newAction: ActionCover = new ActionCover(state);
@@ -61,12 +64,17 @@ export class SchemeCover extends AbstractScheme {
     newAction.add_precondition(new world_property(stalker_ids.property_anomaly, false));
     newAction.add_precondition(new world_property(EEvaluatorId.IS_WOUNDED, false));
     newAction.add_precondition(new world_property(EEvaluatorId.NEED_COVER, true));
+    // Mark as cover not needed anymore.
     newAction.add_effect(new world_property(EEvaluatorId.NEED_COVER, false));
+    // Mark as state logic inactive.
     newAction.add_effect(new world_property(EEvaluatorId.IS_STATE_LOGIC_ACTIVE, false));
+
     actionPlanner.add_action(EActionId.COVER_ACTIVITY, newAction);
 
+    // Subscribe action to global scheme events.
     SchemeCover.subscribe(object, state, newAction);
 
+    // Do not continue alife activity while stay in animpoint.
     actionPlanner.action(EActionId.ALIFE).add_precondition(new world_property(EEvaluatorId.NEED_COVER, false));
   }
 }

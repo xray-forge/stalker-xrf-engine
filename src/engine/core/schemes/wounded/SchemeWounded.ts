@@ -180,7 +180,7 @@ export class SchemeWounded extends AbstractScheme {
       state.use_medkit = defaults.use_medkit;
       state.autoheal = true;
       state.enable_talk = true;
-      state.not_for_help = defaults.not_for_help;
+      state.notForHelp = defaults.not_for_help;
     } else {
       state.hp_state = SchemeWounded.parseData(readIniString(ini, section, "hp_state", false, "", defaults.hp_state));
       state.hp_state_see = SchemeWounded.parseData(
@@ -199,58 +199,10 @@ export class SchemeWounded extends AbstractScheme {
       state.use_medkit = readIniBoolean(ini, section, "use_medkit", false, defaults.use_medkit);
       state.autoheal = readIniBoolean(ini, section, "autoheal", false, true);
       state.enable_talk = readIniBoolean(ini, section, "enable_talk", false, true);
-      state.not_for_help = readIniBoolean(ini, section, "not_for_help", false, defaults.not_for_help);
+      state.notForHelp = readIniBoolean(ini, section, "not_for_help", false, defaults.not_for_help);
     }
 
     state.wounded_set = true;
-  }
-
-  /**
-   * todo: Description.
-   */
-  public static unlockMedkit(object: ClientObject): void {
-    const state: Optional<IRegistryObjectState> = registry.objects.get(object.id());
-
-    (state?.wounded as Maybe<ISchemeWoundedState>)?.woundManager.unlockMedkit();
-  }
-
-  /**
-   * todo: Description.
-   */
-  public static eatMedkit(object: ClientObject): void {
-    const state: Optional<IRegistryObjectState> = registry.objects.get(object.id());
-
-    (state?.wounded as Maybe<ISchemeWoundedState>)?.woundManager.eatMedkit();
-  }
-
-  /**
-   * todo: Description.
-   */
-  public static onHit(objectId: TNumberId): void {
-    const state: Optional<IRegistryObjectState> = registry.objects.get(objectId);
-
-    (state?.wounded as Maybe<ISchemeWoundedState>)?.woundManager.onHit();
-  }
-
-  /**
-   * todo: Description.
-   */
-  public static isPsyWoundedById(objectId: TNumberId): boolean {
-    const state: Optional<IRegistryObjectState> = registry.objects.get(objectId);
-
-    if (state.wounded !== null) {
-      const woundState = (state?.wounded as Maybe<ISchemeWoundedState>)?.woundManager.woundState;
-
-      return (
-        woundState === "psy_pain" ||
-        woundState === "psy_armed" ||
-        woundState === "psy_shoot" ||
-        woundState === "psycho_pain" ||
-        woundState === "psycho_shoot"
-      );
-    }
-
-    return false;
   }
 
   /**

@@ -140,6 +140,16 @@ export enum EStateActionId {
 /**
  * todo;
  */
+export enum ESmartCoverState {
+  FIRE_TARGET = "fire_target",
+  FIRE_NO_LOOKOUT_TARGET = "fire_no_lookout_target",
+  IDLE_TARGET = "idle_target",
+  LOOKOUT_TARGET = "lookout_target",
+}
+
+/**
+ * todo;
+ */
 export enum EStalkerState {
   ANIMPOINT_SIT_HIGH = "animpoint_sit_high",
   ANIMPOINT_SIT_HIGH_WEAPON = "animpoint_sit_high_weapon",

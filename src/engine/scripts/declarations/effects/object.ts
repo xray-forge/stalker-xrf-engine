@@ -205,15 +205,15 @@ extern("xr_effects.remove_npc", (actor: ClientObject, npc: ClientObject, p: [Opt
 /**
  * todo;
  */
-extern("xr_effects.clearAbuse", (object: ClientObject) => {
+extern("xr_effects.clear_abuse", (object: ClientObject) => {
   SchemeAbuse.clearAbuse(object);
 });
 
 /**
  * todo;
  */
-extern("xr_effects.disable_combat_handler", (actor: ClientObject, npc: ClientObject): void => {
-  const state: IRegistryObjectState = registry.objects.get(npc.id());
+extern("xr_effects.disable_combat_handler", (actor: ClientObject, object: ClientObject): void => {
+  const state: IRegistryObjectState = registry.objects.get(object.id());
 
   if (state[EScheme.COMBAT]) {
     (state[EScheme.COMBAT] as ISchemeCombatState).enabled = false;

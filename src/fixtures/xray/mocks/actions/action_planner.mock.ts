@@ -58,6 +58,14 @@ export class MockActionPlanner extends MockLuabindClass {
     this.goalWorldState = state;
   }
 
+  public remove_evaluator(id: TNumberId): void {
+    if (!id) {
+      throw new Error("Unexpected id.");
+    }
+
+    delete this.evaluators[id];
+  }
+
   public action(id: TNumberId): Optional<MockActionBase> {
     return (this.actions[id] as unknown as MockActionBase) || null;
   }
@@ -86,6 +94,7 @@ export function mockDefaultActionPlanner(): ActionPlanner {
   actionPlanner.add_action(mockStalkerIds.action_danger_planner, mockActionBase());
   actionPlanner.add_action(mockStalkerIds.action_accomplish_task, mockActionBase());
   actionPlanner.add_action(mockStalkerIds.action_combat_planner, mockActionBase());
+  actionPlanner.add_action(194 /* EActionId.STATE_TO_IDLE_ALIFE */, mockActionBase());
 
   return actionPlanner as unknown as ActionPlanner;
 }

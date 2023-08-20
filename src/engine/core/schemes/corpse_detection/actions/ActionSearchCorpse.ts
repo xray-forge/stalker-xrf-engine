@@ -1,13 +1,14 @@
 import { action_base, LuabindClass } from "xray16";
 
-import { registry, setStalkerState } from "@/engine/core/database";
+import { IRegistryObjectState, registry, setStalkerState } from "@/engine/core/database";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import { EStalkerState } from "@/engine/core/objects/animation";
 import { ISchemeCorpseDetectionState } from "@/engine/core/schemes/corpse_detection";
-import { Vector } from "@/engine/lib/types";
+import { scriptSounds } from "@/engine/lib/constants/sound/script_sounds";
+import { Optional, Vector } from "@/engine/lib/types";
 
 /**
- * todo;
+ * Action to go loot corpse by stalkers.
  */
 @LuabindClass()
 export class ActionSearchCorpse extends action_base {
@@ -19,18 +20,23 @@ export class ActionSearchCorpse extends action_base {
   }
 
   /**
-   * todo: Description.
+   * Clean up action states.
    */
   public override finalize(): void {
-    if (this.state.selected_corpse_id !== null && registry.objects.has(this.state.selected_corpse_id)) {
-      registry.objects.get(this.state.selected_corpse_id).corpse_already_selected = null;
+    // Unmark corpse as selected by an object, if any exist.
+    if (this.state.selectedCorpseId !== null) {
+      const corpseState: Optional<IRegistryObjectState> = registry.objects.get(this.state.selectedCorpseId);
+
+      if (corpseState !== null) {
+        corpseState.lootedByObject = null;
+      }
     }
 
     super.finalize();
   }
 
   /**
-   * todo: Description.
+   * Initialize object logics when it is capture by corpse loot action.
    */
   public override initialize(): void {
     super.initialize();
@@ -38,25 +44,26 @@ export class ActionSearchCorpse extends action_base {
     this.object.set_desired_position();
     this.object.set_desired_direction();
 
-    this.object.set_dest_level_vertex_id(this.state.vertex_id);
+    this.object.set_dest_level_vertex_id(this.state.selectedCorpseVertexId);
 
     setStalkerState(this.object, EStalkerState.PATROL);
   }
 
   /**
-   * todo: Description.
+   * Execute corpse loot action.
+   * - Reach corpse
+   * - Loot corpse and play sound
    */
   public override execute(): void {
     super.execute();
 
-    if (this.object.position().distance_to_sqr(this.state.vertex_position as Vector) > 2) {
-      return;
+    // Start playing looting animation when actually reach destination point.
+    if (this.object.position().distance_to_sqr(this.state.selectedCorpseVertexPosition as Vector) <= 2) {
+      setStalkerState(this.object, EStalkerState.SEARCH_CORPSE, null, null, {
+        lookPosition: this.state.selectedCorpseVertexPosition,
+        lookObject: null,
+      });
+      GlobalSoundManager.getInstance().playSound(this.object.id(), scriptSounds.corpse_loot_begin);
     }
-
-    setStalkerState(this.object, EStalkerState.SEARCH_CORPSE, null, null, {
-      lookPosition: this.state.vertex_position,
-      lookObject: null,
-    });
-    GlobalSoundManager.getInstance().playSound(this.object.id(), "corpse_loot_begin", null, null);
   }
 }

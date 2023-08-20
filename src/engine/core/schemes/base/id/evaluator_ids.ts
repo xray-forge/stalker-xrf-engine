@@ -12,13 +12,17 @@ const BASE: TNumberId = stalker_ids.property_script || 74;
  * todo;
  */
 export enum EEvaluatorId {
+  // Whether any corpse to loot exists nearby.
   IS_CORPSE_EXISTING = BASE + 50, // 124
+  // Whether any wounded stalker to help exists nearby.
   IS_WOUNDED_EXISTING = BASE + 55, // 129
   IS_STATE_IDLE_COMBAT = BASE + 101, // 175
   IS_STATE_IDLE_ALIFE = BASE + 102, // 176
   IS_STATE_LOGIC_ACTIVE = BASE + 104, // 178
   IS_STATE_IDLE_ITEMS = BASE + 105, // 179
+  // Check if smart cover scheme is active and should go in cover.
   IS_SMART_COVER_NEEDED = BASE + 401, // 475
+  // Check if combat smart cover is needed and should go in cover for fighting cover.
   CAN_USE_SMART_COVER_IN_COMBAT = BASE + 402, // 476
   IS_ANIMPOINT_NEEDED = BASE + 501, // 575
   IS_ANIMPOINT_REACHED = BASE + 502, // 576

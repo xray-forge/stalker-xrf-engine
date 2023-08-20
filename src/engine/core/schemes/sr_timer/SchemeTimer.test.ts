@@ -3,6 +3,7 @@ import { describe, expect, it } from "@jest/globals";
 import { IRegistryObjectState, registerObject, registry } from "@/engine/core/database";
 import { ETimerType, ISchemeTimerState } from "@/engine/core/schemes/sr_timer/ISchemeTimerState";
 import { SchemeTimer } from "@/engine/core/schemes/sr_timer/SchemeTimer";
+import { parseConditionsList } from "@/engine/core/utils/ini";
 import { loadSchemeImplementation } from "@/engine/core/utils/scheme/scheme_setup";
 import { ClientObject, EScheme, ESchemeType, IniFile } from "@/engine/lib/types";
 import { mockClientGameObject, mockIniFile } from "@/fixtures/xray";
@@ -60,30 +61,10 @@ describe("SchemeTimer functionality", () => {
     expect(schemeState.timerId).toBe("timerId123");
     expect(schemeState.string).toBe("label");
     expect(schemeState.onValue).toEqualLuaTables({
-      condlist: {
-        "1": {
-          infop_check: {
-            "1": {
-              expected: false,
-              func: "squad_exist",
-              params: {
-                "1": "zat_b38_bloodsuckers_sleepers",
-              },
-            },
-          },
-          infop_set: {
-            "1": {
-              name: "zat_b57_gas_running_stop",
-              required: true,
-            },
-            "2": {
-              name: "zat_b57_den_of_the_bloodsucker_tell_stalkers_about_destroy_lair_give",
-              required: true,
-            },
-          },
-          section: "sr_idle@end  ",
-        },
-      },
+      condlist: parseConditionsList(
+        "sr_idle@end {!squad_exist(zat_b38_bloodsuckers_sleepers)} " +
+          "%+zat_b57_gas_running_stop +zat_b57_den_of_the_bloodsucker_tell_stalkers_about_destroy_lair_give%"
+      ),
       name: "on_value",
       objectId: null,
       v1: 0,

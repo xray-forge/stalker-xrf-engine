@@ -10,11 +10,11 @@ import { ClientObject, Optional, TCount, TIndex, TSection, Vector } from "@/engi
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Manager to handle idle state of physical objects.
  */
 export class PhysicalIdleManager extends AbstractSchemeManager<ISchemePhysicalIdleState> {
   public override resetScheme(): void {
-    this.object.set_nonscript_usable(this.state.nonscript_usable);
+    this.object.set_nonscript_usable(this.state.isNonscriptUsable);
   }
 
   public update(): void {
@@ -32,34 +32,28 @@ export class PhysicalIdleManager extends AbstractSchemeManager<ISchemePhysicalId
     who: Optional<ClientObject>,
     boneIndex: TIndex
   ): void {
-    logger.info("Idle hit:", this.object.name());
+    logger.info("Idle physical object hit:", this.object.name());
 
-    if (this.state.hit_on_bone.has(boneIndex)) {
+    if (this.state.bonesHitCondlists.has(boneIndex)) {
       const section: TSection = pickSectionFromCondList(
         registry.actor,
         this.object,
-        this.state.hit_on_bone.get(boneIndex).state as TConditionList
+        this.state.bonesHitCondlists.get(boneIndex).state as TConditionList
       )!;
 
       switchObjectSchemeToSection(object, this.state.ini, section);
     }
   }
 
-  public override onUse(): Optional<boolean> {
-    logger.info("Idle use:", this.object.name());
+  public override onUse(): void {
+    logger.info("Idle physical object  use:", this.object.name());
 
-    if (this.state.on_use) {
-      if (
-        switchObjectSchemeToSection(
-          this.object,
-          this.state.ini!,
-          pickSectionFromCondList(registry.actor, this.object, this.state.on_use.condlist)!
-        )
-      ) {
-        return true;
-      }
+    if (this.state.onUse) {
+      switchObjectSchemeToSection(
+        this.object,
+        this.state.ini,
+        pickSectionFromCondList(registry.actor, this.object, this.state.onUse.condlist)
+      );
     }
-
-    return null;
   }
 }

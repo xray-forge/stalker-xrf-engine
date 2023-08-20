@@ -1,0 +1,8 @@
+## smartcover
+
+description
+
+## ini parameters
+
+```
+```

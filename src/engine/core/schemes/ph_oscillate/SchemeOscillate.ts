@@ -10,24 +10,11 @@ import { ClientObject, EScheme, ESchemeType, IniFile, TName, TSection } from "@/
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Scheme to oscillate physical objects with some period of time.
  */
 export class SchemeOscillate extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.PH_OSCILLATE;
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.ITEM;
-
-  /**
-   * todo: Description.
-   */
-  public static override add(
-    object: ClientObject,
-    ini: IniFile,
-    scheme: EScheme,
-    section: TSection,
-    state: ISchemeOscillateState
-  ): void {
-    SchemeOscillate.subscribe(object, state, new OscillateManager(object, state));
-  }
 
   /**
    * todo: Description.
@@ -62,5 +49,18 @@ export class SchemeOscillate extends AbstractScheme {
     if (state.angle === null) {
       state.angle = 0;
     }
+  }
+
+  /**
+   * Add scheme related handlers and subscribe them.
+   */
+  public static override add(
+    object: ClientObject,
+    ini: IniFile,
+    scheme: EScheme,
+    section: TSection,
+    state: ISchemeOscillateState
+  ): void {
+    SchemeOscillate.subscribe(object, state, new OscillateManager(object, state));
   }
 }

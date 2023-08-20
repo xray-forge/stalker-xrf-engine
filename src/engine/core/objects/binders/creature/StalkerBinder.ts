@@ -46,14 +46,13 @@ import { ESchemeEvent, IBaseSchemeState } from "@/engine/core/schemes/base";
 import { SchemeCombat } from "@/engine/core/schemes/combat/SchemeCombat";
 import { PostCombatIdle } from "@/engine/core/schemes/combat_idle/PostCombatIdle";
 import { SchemeHear } from "@/engine/core/schemes/hear/SchemeHear";
-import { SchemeMeet } from "@/engine/core/schemes/meet/SchemeMeet";
+import { activateMeetWithObject, updateObjectInteractionAvailability } from "@/engine/core/schemes/meet/utils";
 import { SchemeReachTask } from "@/engine/core/schemes/reach_task/SchemeReachTask";
-import { SchemeLight } from "@/engine/core/schemes/sr_light/SchemeLight";
-import { SchemeWounded } from "@/engine/core/schemes/wounded/SchemeWounded";
+import { ISchemeWoundedState } from "@/engine/core/schemes/wounded";
 import { pickSectionFromCondList, readIniString, TConditionList } from "@/engine/core/utils/ini";
 import { IObjectJobDescriptor } from "@/engine/core/utils/job";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { getObjectCommunity, getObjectSquad } from "@/engine/core/utils/object";
+import { getObjectCommunity, getObjectSquad, isUndergroundLevel } from "@/engine/core/utils/object";
 import { ERelation, setClientObjectRelation, setObjectSympathy } from "@/engine/core/utils/relation";
 import {
   emitSchemeEvent,
@@ -64,6 +63,7 @@ import {
 import { createEmptyVector } from "@/engine/core/utils/vector";
 import { communities, TCommunity } from "@/engine/lib/constants/communities";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
+import { misc } from "@/engine/lib/constants/items/misc";
 import { MAX_U16 } from "@/engine/lib/constants/memory";
 import {
   ActionPlanner,
@@ -93,7 +93,8 @@ import { ESchemeType } from "@/engine/lib/types/scheme";
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Binder for client side objects representing stalkers.
+ * Wraps logics and adds additional layers when stalker objects are online.
  */
 @LuabindClass()
 export class StalkerBinder extends object_binder {
@@ -279,7 +280,7 @@ export class StalkerBinder extends object_binder {
     }
 
     if (time_global() - this.lastUpdatedAt > 1000) {
-      SchemeLight.checkObjectLight(object);
+      this.updateLightState(object);
       this.lastUpdatedAt = time_global();
     }
 
@@ -298,7 +299,7 @@ export class StalkerBinder extends object_binder {
 
     if (isObjectAlive) {
       GlobalSoundManager.getInstance().update(object.id());
-      SchemeMeet.updateObjectInteractionAvailability(object);
+      updateObjectInteractionAvailability(object);
       initializeObjectInvulnerability(this.object);
     }
 
@@ -312,6 +313,80 @@ export class StalkerBinder extends object_binder {
 
     if (!isObjectAlive) {
       object.set_tip_text_default();
+    }
+  }
+
+  /**
+   * todo: Description.
+   */
+  public updateLightState(object: ClientObject): void {
+    if (object === null) {
+      return;
+    }
+
+    const torch: Optional<ClientObject> = object.object(misc.device_torch);
+    const isCurrentlyIndoor: boolean = isUndergroundLevel(level.name());
+
+    if (torch === null) {
+      return;
+    }
+
+    let light: boolean = false;
+    let forced: boolean = false;
+
+    /*
+      if (benchmark.light) {
+        light = true;
+        forced = true;
+      }
+     */
+
+    if (!object.alive()) {
+      light = false;
+      forced = true;
+    }
+
+    if (!forced) {
+      for (const [, manager] of registry.lightZones) {
+        [light, forced] = manager.checkStalker(object);
+
+        if (forced === true) {
+          break;
+        }
+      }
+    }
+
+    if (!forced) {
+      const htime = level.get_time_hours();
+
+      if (htime <= 4 || htime >= 22) {
+        light = true;
+      }
+
+      if (light === false) {
+        if (isCurrentlyIndoor) {
+          light = true;
+        }
+      }
+    }
+
+    if (!forced && light === true) {
+      const scheme = registry.objects.get(object.id()).activeScheme!;
+
+      if (scheme === EScheme.CAMPER || scheme === EScheme.SLEEPER) {
+        light = false;
+        forced = true;
+      }
+    }
+
+    if (!forced && light) {
+      if (object.best_enemy() !== null && !isCurrentlyIndoor) {
+        light = false;
+      }
+    }
+
+    if (light !== null) {
+      torch.enable_attachable_item(light);
     }
   }
 
@@ -432,7 +507,7 @@ export class StalkerBinder extends object_binder {
       emitSchemeEvent(this.object, this.state[this.state.activeScheme!]!, ESchemeEvent.DEATH, victim, who);
     }
 
-    SchemeLight.checkObjectLight(this.object);
+    this.updateLightState(this.object);
     DropManager.getInstance().createCorpseReleaseItems(this.object);
 
     unregisterHelicopterEnemy(this.helicopterEnemyIndex!);
@@ -463,7 +538,7 @@ export class StalkerBinder extends object_binder {
     if (this.object.alive()) {
       EventsManager.emitEvent(EGameEvent.STALKER_INTERACTION, object, who);
       DialogManager.getInstance().resetForObject(this.object);
-      SchemeMeet.onMeetWithObject(object);
+      activateMeetWithObject(object);
 
       if (this.state.activeSection) {
         emitSchemeEvent(this.object, this.state[this.state.activeScheme!]!, ESchemeEvent.USE, object, who);
@@ -555,7 +630,7 @@ export class StalkerBinder extends object_binder {
     }
 
     if (amount > 0) {
-      SchemeWounded.onHit(object.id());
+      (this.state[EScheme.WOUNDED] as ISchemeWoundedState)?.woundManager.onHit();
     }
 
     EventsManager.emitEvent(EGameEvent.STALKER_HIT, this.object, amount, direction, who, boneIndex);

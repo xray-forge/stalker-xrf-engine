@@ -3,11 +3,11 @@ import { color, hit, noise, time_global } from "xray16";
 import { registry } from "@/engine/core/database";
 import { AbstractSchemeManager } from "@/engine/core/schemes";
 import { ISchemePostProcessState } from "@/engine/core/schemes/sr_postprocess/ISchemePostProcessState";
-import { PPEffector } from "@/engine/core/schemes/sr_postprocess/PPEffector";
+import { PostProcessEffector } from "@/engine/core/schemes/sr_postprocess/PostProcessEffector";
 import { abort } from "@/engine/core/utils/assertion";
 import { trySwitchToAnotherSection } from "@/engine/core/utils/scheme/scheme_switch";
 import { createEmptyVector } from "@/engine/core/utils/vector";
-import { ClientObject, Color, Hit, Noise, TDuration } from "@/engine/lib/types";
+import { ClientObject, Color, Hit, Noise, TDuration, TTimestamp } from "@/engine/lib/types";
 
 /**
  * todo;
@@ -17,7 +17,7 @@ export class SchemePostProcessManager extends AbstractSchemeManager<ISchemePostP
   public gray: number = 1;
   public grayAmplitude: number = 1.0;
 
-  public pp!: PPEffector;
+  public postProcessEffector!: PostProcessEffector;
   public noise!: Noise;
   public grayColor: Color = new color(0.5, 0.5, 0.5);
   public baseColor: Color = new color(0.5, 0.5, 0.5);
@@ -31,7 +31,7 @@ export class SchemePostProcessManager extends AbstractSchemeManager<ISchemePostP
   public intensityInertion: number = 0;
 
   /**
-   * todo: Description.
+   * Handle reset event to play anew.
    */
   public override resetScheme(): void {
     this.isActorInside = false;
@@ -44,9 +44,9 @@ export class SchemePostProcessManager extends AbstractSchemeManager<ISchemePostP
     this.hitPower = 0;
     this.intensityInertion = this.intensityBase < 0.0 ? -this.state.intensity_speed : this.state.intensity_speed;
 
-    this.pp = new PPEffector(this.object.id() + 2000);
-    this.pp.params.noise = new noise();
-    this.pp.start();
+    this.postProcessEffector = new PostProcessEffector(this.object.id() + 2000);
+    this.postProcessEffector.params.noise = new noise();
+    this.postProcessEffector.start();
 
     this.gray = 1;
     this.noise = new noise(1.0, 0.3, 30);
@@ -98,14 +98,18 @@ export class SchemePostProcessManager extends AbstractSchemeManager<ISchemePostP
       }
     }
 
-    this.pp.params.color_base = this.baseColor;
-    this.pp.params.color_gray = new color(
+    this.postProcessEffector.params.color_base = this.baseColor;
+    this.postProcessEffector.params.color_gray = new color(
       this.grayColor.r + this.intensity,
       this.grayColor.g + this.intensity,
       this.grayColor.b + this.intensity
     );
-    this.pp.params.gray = this.grayAmplitude * this.intensity;
-    this.pp.params.noise = new noise(this.noiseVar.intensity * this.intensity, this.noiseVar.grain, this.noiseVar.fps);
+    this.postProcessEffector.params.gray = this.grayAmplitude * this.intensity;
+    this.postProcessEffector.params.noise = new noise(
+      this.noiseVar.intensity * this.intensity,
+      this.noiseVar.grain,
+      this.noiseVar.fps
+    );
     this.updateHit(delta);
   }
 
@@ -119,24 +123,30 @@ export class SchemePostProcessManager extends AbstractSchemeManager<ISchemePostP
       return;
     }
 
+    const now: TTimestamp = time_global();
+
     this.hitPower = this.hitPower + delta * 0.001 * this.state.hit_intensity;
-    if (time_global() - this.hitTime < 1000) {
+
+    if (now - this.hitTime < 1000) {
       return;
     }
 
-    this.hitTime = time_global();
+    this.hitTime = now;
 
     const actor: ClientObject = registry.actor;
-    const h: Hit = new hit();
+    const actorHit: Hit = new hit();
 
-    h.power = this.hitPower;
-    h.direction = createEmptyVector();
-    h.impulse = 0;
-    h.draftsman = registry.actor;
-    h.type = hit.radiation;
-    registry.actor.hit(h);
+    actorHit.power = this.hitPower;
+    actorHit.direction = createEmptyVector();
+    actorHit.impulse = 0;
+    actorHit.draftsman = actor;
 
-    h.type = hit.shock;
-    actor.hit(h);
+    // Hit with radiation.
+    actorHit.type = hit.radiation;
+    actor.hit(actorHit);
+
+    // Hit with shock.
+    actorHit.type = hit.shock;
+    actor.hit(actorHit);
   }
 }

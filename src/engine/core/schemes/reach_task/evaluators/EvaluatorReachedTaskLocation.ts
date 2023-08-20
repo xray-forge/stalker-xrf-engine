@@ -10,7 +10,7 @@ import { Optional } from "@/engine/lib/types";
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Evaluator to check whether object has reached task location.
  */
 @LuabindClass()
 export class EvaluatorReachedTaskLocation extends property_evaluator {
@@ -19,21 +19,17 @@ export class EvaluatorReachedTaskLocation extends property_evaluator {
   }
 
   /**
-   * todo: Description.
+   * Evaluate if target is still reaching some target with squad.
    */
   public override evaluate(): boolean {
     const squad: Optional<Squad> = getObjectSquad(this.object);
 
-    if (squad?.currentAction?.name === SquadReachTargetAction.ACTION_NAME) {
-      const squadTarget: Optional<TSimulationObject> = alife().object(squad.assignedTargetId!);
-
-      if (squadTarget === null) {
-        return false;
-      }
-
-      return !squadTarget.isReachedBySquad(squad);
+    if (squad?.currentAction?.name !== SquadReachTargetAction.ACTION_NAME) {
+      return false;
     }
 
-    return false;
+    const simulationTarget: Optional<TSimulationObject> = alife().object(squad.assignedTargetId!);
+
+    return simulationTarget !== null && !simulationTarget.isReachedBySquad(squad);
   }
 }

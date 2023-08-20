@@ -42,7 +42,7 @@ export class SchemeSleeper extends AbstractScheme {
   }
 
   /**
-   * todo: Description.
+   * Add scheme handlers and subscribe them to events.
    */
   public static override add(
     object: ClientObject,
@@ -53,6 +53,7 @@ export class SchemeSleeper extends AbstractScheme {
   ): void {
     const actionPlanner: ActionPlanner = object.motivation_action_manager();
 
+    // Add evaluator to check if sleep is needed.
     actionPlanner.add_evaluator(EEvaluatorId.NEED_SLEEPER, new EvaluatorNeedSleep(state));
 
     const actionSleeper: ActionSleeperActivity = new ActionSleeperActivity(state, object);
@@ -70,8 +71,9 @@ export class SchemeSleeper extends AbstractScheme {
 
     actionPlanner.add_action(EActionId.SLEEP_ACTIVITY, actionSleeper);
 
-    SchemeSleeper.subscribe(object, state, actionSleeper);
-
+    // Cannot use alife activity when need to sleep.
     actionPlanner.action(EActionId.ALIFE).add_precondition(new world_property(EEvaluatorId.NEED_SLEEPER, false));
+
+    SchemeSleeper.subscribe(object, state, actionSleeper);
   }
 }

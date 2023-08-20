@@ -3,7 +3,8 @@ import type { WoundManager } from "@/engine/core/schemes/wounded/WoundManager";
 import type { LuaArray, Optional, TNumberId } from "@/engine/lib/types";
 
 /**
- * todo;
+ * State of object wounded scheme.
+ * Configures how stalker should behave once it is wounded.
  */
 export interface ISchemeWoundedState extends IBaseSchemeState {
   woundManager: WoundManager;
@@ -18,7 +19,8 @@ export interface ISchemeWoundedState extends IBaseSchemeState {
   help_start_dialog: Optional<string>;
   use_medkit: Optional<boolean>;
   help_dialog: TNumberId;
-  not_for_help: Optional<boolean>;
+  // Whether object should not be helped by other stalkers.
+  notForHelp: Optional<boolean>;
   autoheal: boolean;
   enable_talk: boolean;
 }

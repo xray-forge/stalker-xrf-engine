@@ -2,13 +2,10 @@ import { action_base, level, LuabindClass, patrol } from "xray16";
 
 import { getObjectByStoryId, registry, setStalkerState } from "@/engine/core/database";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
-import { EStalkerState } from "@/engine/core/objects/animation";
+import { ESmartCoverState, EStalkerState } from "@/engine/core/objects/animation/state_types";
+import { ISchemeEventHandler } from "@/engine/core/schemes";
 import { ActionSleeperActivity } from "@/engine/core/schemes/sleeper/actions";
-import {
-  COVER_SUBSTATE_TABLE,
-  ECoverState,
-  ISchemeSmartCoverState,
-} from "@/engine/core/schemes/smartcover/ISchemeSmartCoverState";
+import { COVER_SUBSTATE_TABLE, ISchemeSmartCoverState } from "@/engine/core/schemes/smartcover/ISchemeSmartCoverState";
 import { abort } from "@/engine/core/utils/assertion";
 import { parseConditionsList, pickSectionFromCondList, TConditionList } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -18,10 +15,10 @@ import { ClientObject, Optional, StringOptional, TName, TNumberId, Vector } from
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Action to handle hiding in smart covers.
  */
 @LuabindClass()
-export class ActionSmartCoverActivity extends action_base {
+export class ActionSmartCoverActivity extends action_base implements ISchemeEventHandler {
   public readonly state: ISchemeSmartCoverState;
   public initialized: boolean = false;
 
@@ -30,7 +27,7 @@ export class ActionSmartCoverActivity extends action_base {
 
   public targetEnemyId: Optional<TNumberId> = null;
 
-  public coverState!: StringOptional<ECoverState>;
+  public coverState!: StringOptional<ESmartCoverState>;
   public coverName!: string;
   public firePosition!: Vector;
   public targetPath!: string;
@@ -56,14 +53,14 @@ export class ActionSmartCoverActivity extends action_base {
       return;
     }
 
-    if (this.coverState === ECoverState.IDLE_TARGET) {
+    if (this.coverState === ESmartCoverState.IDLE_TARGET) {
       object.set_smart_cover_target_idle();
-    } else if (this.coverState === ECoverState.LOOKOUT_TARGET) {
+    } else if (this.coverState === ESmartCoverState.LOOKOUT_TARGET) {
       this.checkTarget();
       object.set_smart_cover_target_lookout();
-    } else if (this.coverState === ECoverState.FIRE_TARGET) {
+    } else if (this.coverState === ESmartCoverState.FIRE_TARGET) {
       object.set_smart_cover_target_fire();
-    } else if (this.coverState === ECoverState.FIRE_NO_LOOKOUT_TARGET) {
+    } else if (this.coverState === ESmartCoverState.FIRE_NO_LOOKOUT_TARGET) {
       this.checkTarget();
       object.set_smart_cover_target_fire_no_lookout();
     } else {
@@ -99,7 +96,7 @@ export class ActionSmartCoverActivity extends action_base {
     this.checkTarget();
 
     this.coverСondlist = parseConditionsList(this.state.cover_state);
-    this.coverState = pickSectionFromCondList(registry.actor, this.object, this.coverСondlist) as ECoverState;
+    this.coverState = pickSectionFromCondList(registry.actor, this.object, this.coverСondlist) as ESmartCoverState;
     this.targetSelector(this.object);
     this.checkTargetSelector();
 
@@ -180,15 +177,15 @@ export class ActionSmartCoverActivity extends action_base {
   public override execute(): void {
     super.execute();
 
-    const needCoverState: ECoverState = pickSectionFromCondList(
+    const needCoverState: ESmartCoverState = pickSectionFromCondList(
       registry.actor,
       this.object,
       this.coverСondlist
-    ) as ECoverState;
+    ) as ESmartCoverState;
 
     if (
       needCoverState === ("default_behaviour" as any) ||
-      COVER_SUBSTATE_TABLE[this.coverState as ECoverState] !== COVER_SUBSTATE_TABLE[needCoverState]
+      COVER_SUBSTATE_TABLE[this.coverState as ESmartCoverState] !== COVER_SUBSTATE_TABLE[needCoverState]
     ) {
       this.coverState = needCoverState;
     }

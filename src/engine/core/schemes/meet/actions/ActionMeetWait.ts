@@ -6,7 +6,7 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Action to wait for actor to speak, when actor is close.
  */
 @LuabindClass()
 export class ActionMeetWait extends action_base {
@@ -18,7 +18,7 @@ export class ActionMeetWait extends action_base {
   }
 
   /**
-   * todo: Description.
+   * Stop and wait.
    */
   public override initialize(): void {
     super.initialize();
@@ -28,7 +28,7 @@ export class ActionMeetWait extends action_base {
   }
 
   /**
-   * todo: Description.
+   * Handle meet state and waiting for communication.
    */
   public override execute(): void {
     super.execute();

@@ -8,17 +8,22 @@ import { EActionId } from "@/engine/core/schemes";
 import {
   isActorSeenByObject,
   isImmuneToSurgeObject,
+  isObjectHelpingWounded,
   isObjectInCombat,
   isObjectInjured,
   isObjectOnline,
+  isObjectSearchingCorpse,
   isObjectSeenByActor,
   isObjectStrappingWeapon,
+  isObjectWithValuableLoot,
   isPlayingSound,
   isStalkerAlive,
   isSurgeEnabledOnLevel,
   isUndergroundLevel,
 } from "@/engine/core/utils/object/object_check";
 import { classIds } from "@/engine/lib/constants/class_ids";
+import { ammo } from "@/engine/lib/constants/items/ammo";
+import { weapons } from "@/engine/lib/constants/items/weapons";
 import { ClientObject, ServerHumanObject, TClassId } from "@/engine/lib/types";
 import { replaceFunctionMock } from "@/fixtures/utils";
 import {
@@ -51,6 +56,84 @@ describe("'object_check' utils", () => {
 
     planner.currentActionId = stalker_ids.action_critically_wounded;
     expect(isObjectInCombat(object)).toBe(false);
+  });
+
+  it("'isObjectSearchingCorpse' should correctly check object searching corpse state", () => {
+    const object: ClientObject = mockClientGameObject();
+    const planner: MockActionPlanner = object.motivation_action_manager() as unknown as MockActionPlanner;
+
+    expect(isObjectSearchingCorpse(object)).toBe(false);
+
+    planner.isInitialized = true;
+    expect(isObjectSearchingCorpse(object)).toBe(false);
+
+    planner.currentActionId = EActionId.MEET_WAITING_ACTIVITY;
+    expect(isObjectSearchingCorpse(object)).toBe(false);
+
+    planner.currentActionId = EActionId.SEARCH_CORPSE;
+    expect(isObjectSearchingCorpse(object)).toBe(true);
+
+    planner.currentActionId = stalker_ids.action_post_combat_wait;
+    expect(isObjectSearchingCorpse(object)).toBe(false);
+
+    planner.currentActionId = stalker_ids.action_critically_wounded;
+    expect(isObjectSearchingCorpse(object)).toBe(false);
+  });
+
+  it("'isObjectHelpingWounded' should correctly check object helping wounded state", () => {
+    const object: ClientObject = mockClientGameObject();
+    const planner: MockActionPlanner = object.motivation_action_manager() as unknown as MockActionPlanner;
+
+    expect(isObjectHelpingWounded(object)).toBe(false);
+
+    planner.isInitialized = true;
+    expect(isObjectHelpingWounded(object)).toBe(false);
+
+    planner.currentActionId = EActionId.MEET_WAITING_ACTIVITY;
+    expect(isObjectHelpingWounded(object)).toBe(false);
+
+    planner.currentActionId = EActionId.HELP_WOUNDED;
+    expect(isObjectHelpingWounded(object)).toBe(true);
+
+    planner.currentActionId = stalker_ids.action_post_combat_wait;
+    expect(isObjectHelpingWounded(object)).toBe(false);
+
+    planner.currentActionId = stalker_ids.action_critically_wounded;
+    expect(isObjectHelpingWounded(object)).toBe(false);
+  });
+
+  it("'isObjectWithValuableLoot' should correctly check object valuable loot", () => {
+    expect(isObjectWithValuableLoot(mockClientGameObject())).toBe(false);
+    expect(
+      isObjectWithValuableLoot(
+        mockClientGameObject({
+          inventory: [
+            ["grenade_f2", mockClientGameObject({ sectionOverride: "grenade_f2" })],
+            ["grenade_f3", mockClientGameObject({ sectionOverride: "grenade_f3" })],
+          ],
+        })
+      )
+    ).toBe(false);
+    expect(
+      isObjectWithValuableLoot(
+        mockClientGameObject({
+          inventory: [
+            ["grenade_f2", mockClientGameObject({ sectionOverride: "grenade_f2" })],
+            [weapons.wpn_ak74u, mockClientGameObject({ sectionOverride: weapons.wpn_ak74u })],
+          ],
+        })
+      )
+    ).toBe(true);
+    expect(
+      isObjectWithValuableLoot(
+        mockClientGameObject({
+          inventory: [
+            [weapons.wpn_ak74u, mockClientGameObject({ sectionOverride: weapons.wpn_ak74u })],
+            [ammo["ammo_5.45x39_fmj"], mockClientGameObject({ sectionOverride: ammo["ammo_5.45x39_fmj"] })],
+          ],
+        })
+      )
+    ).toBe(true);
   });
 
   it("'isObjectStrappingWeapon' should correctly check weapon strap state", () => {

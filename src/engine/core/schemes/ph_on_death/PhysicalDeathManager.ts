@@ -5,17 +5,12 @@ import { trySwitchToAnotherSection } from "@/engine/core/utils/scheme/scheme_swi
 import { ClientObject, Optional } from "@/engine/lib/types";
 
 /**
- * todo;
+ * Manager to handle death events for physical objects.
  */
 export class PhysicalDeathManager extends AbstractSchemeManager<ISchemePhysicalOnDeathState> {
-  /**
-   * todo: Description.
-   */
   public override onDeath(object: ClientObject, who: Optional<ClientObject>): void {
     if (registry.objects.get(this.object.id()).activeScheme) {
-      if (trySwitchToAnotherSection(object, this.state)) {
-        return;
-      }
+      trySwitchToAnotherSection(object, this.state);
     }
   }
 }

@@ -36,6 +36,16 @@ export abstract class AbstractSchemeManager<T extends IBaseSchemeState> implemen
     logger.info("Net destroy:", this.state?.scheme, this.object.name());
   }
 
+  /**
+   * Handle scheme hit callback.
+   * Emits when objects are hit by something.
+   *
+   * @param object - target client object being hit
+   * @param amount - amount of hit applied
+   * @param direction - direction of hit
+   * @param who - client object which is source of hit
+   * @param boneIndex - index of bone being hit
+   */
   public onHit(
     object: ClientObject,
     amount: TCount,
@@ -54,7 +64,14 @@ export abstract class AbstractSchemeManager<T extends IBaseSchemeState> implemen
     logger.info("Waypoint:", this.state?.scheme, this.object.name());
   }
 
-  public onDeath(victim: ClientObject, who: Optional<ClientObject>): void {
+  /**
+   * Handle scheme death callback.
+   * Emits when objects are dying.
+   *
+   * @param object - target client object dying
+   * @param who - client object who killed the object
+   */
+  public onDeath(object: ClientObject, who: Optional<ClientObject>): void {
     logger.info("Death:", this.state?.scheme, this.object.name());
   }
 

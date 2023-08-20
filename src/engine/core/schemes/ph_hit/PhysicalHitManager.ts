@@ -10,27 +10,22 @@ import { Hit, Vector } from "@/engine/lib/types";
  * todo;
  */
 export class PhysicalHitManager extends AbstractSchemeManager<ISchemePhysicalHitState> {
-  /**
-   * todo: Description.
-   */
   public override resetScheme(): void {
-    const p1: Vector = new patrol(this.state.dir_path).point(0);
-    const p2: Vector = this.object.position();
+    const patrolPoint: Vector = new patrol(this.state.dir_path).point(0);
+    const objectPosition: Vector = this.object.position();
 
-    const hitObject: Hit = new hit();
+    const objectHit: Hit = new hit();
 
-    hitObject.power = this.state.power;
-    hitObject.impulse = this.state.impulse;
-    hitObject.bone(this.state.bone);
-    hitObject.type = hit.strike;
-    hitObject.direction = copyVector(p1).sub(p2); // subVectors util?
-    hitObject.draftsman = this.object;
-    this.object.hit(hitObject);
+    objectHit.power = this.state.power;
+    objectHit.impulse = this.state.impulse;
+    objectHit.bone(this.state.bone);
+    objectHit.type = hit.strike;
+    objectHit.direction = copyVector(patrolPoint).sub(objectPosition); // todo: is copy needed?
+    objectHit.draftsman = this.object;
+
+    this.object.hit(objectHit);
   }
 
-  /**
-   * todo: Description.
-   */
   public update(): void {
     trySwitchToAnotherSection(this.object, this.state);
   }

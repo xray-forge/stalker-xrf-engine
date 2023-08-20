@@ -135,11 +135,11 @@ combat_ignore_cond = {-zat_b38_fight_started} true
 on_signal = zat_b38_scary_sound | {-zat_b38_scary_sound} remark@illusion %+zat_b38_scary_sound +zat_b38_illusion%
 on_signal2 = zat_b38_monster_1 | {-zat_b38_monster_1} %+zat_b38_monster_1%
 on_info2 = {+zat_b38_monster_1 -zat_b38_stalker_cop_see_bloodsucker_done -zat_b38_bloodscuker_1_death} remark@monster_1 %=play_sound(zat_b38_stalker_cop_see_bloodsucker) +zat_b38_stalker_cop_see_bloodsucker_done%
-on_info3 = {+zat_b38_bloodscuker_1_death -zat_b38_bloodscuker_2_death -zat_b38_stalker_cop_kill_1_done +zat_b38_we_fight_monster_1} %=play_sound(zat_b38_stalker_cop_kill_1) +zat_b38_stalker_cop_kill_1_done =clearAbuse%
+on_info3 = {+zat_b38_bloodscuker_1_death -zat_b38_bloodscuker_2_death -zat_b38_stalker_cop_kill_1_done +zat_b38_we_fight_monster_1} %=play_sound(zat_b38_stalker_cop_kill_1) +zat_b38_stalker_cop_kill_1_done =clear_abuse%
 on_signal3 = zat_b38_monster_2 | {-zat_b38_monster_2} %+zat_b38_monster_2%
 on_info4 = {+zat_b38_monster_2 +zat_b38_bloodscuker_2_death =dist_to_actor_le(5)} animpoint@break_lift %+zat_b38_break_lift =play_sound(zat_b38_stalker_cop_come_here_1)%, {+zat_b38_monster_2 +zat_b38_bloodscuker_2_death} remark@wait_bf_lift
 on_info5 = {+zat_b38_monster_2 -zat_b38_bloodscuker_2_death} remark@monster_2 %+zat_b38_stalker_cop_see_bloodsucker_2 =play_sound(zat_b38_stalker_cop_another_one)%
-on_info6 = {+zat_b38_bloodscuker_2_death -zat_b38_stalker_cop_kill_2_done +zat_b38_we_fight_monster_2} %=play_sound(zat_b38_stalker_cop_kill_2) +zat_b38_stalker_cop_kill_2_done =clearAbuse%
+on_info6 = {+zat_b38_bloodscuker_2_death -zat_b38_stalker_cop_kill_2_done +zat_b38_we_fight_monster_2} %=play_sound(zat_b38_stalker_cop_kill_2) +zat_b38_stalker_cop_kill_2_done =clear_abuse%
 
 [remark@illusion]:remark
 anim = threat
