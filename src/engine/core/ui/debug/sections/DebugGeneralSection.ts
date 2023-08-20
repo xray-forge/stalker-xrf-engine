@@ -12,7 +12,7 @@ const logger: LuaLogger = new LuaLogger($filename);
 const base: TPath = "menu\\debug\\DebugGeneralSection.component";
 
 /**
- * todo;
+ * Section of debug menu to handle generic information / generic actions.
  */
 @LuabindClass()
 export class DebugGeneralSection extends AbstractDebugSection {

@@ -20,9 +20,8 @@ import { Squad } from "@/engine/core/objects";
 import { abort, assert, assertDefined } from "@/engine/core/utils/assertion";
 import { extern } from "@/engine/core/utils/binding";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { isObjectInZone } from "@/engine/core/utils/object";
+import { isObjectInZone, objectPunchActor } from "@/engine/core/utils/object";
 import { giveItemsToActor } from "@/engine/core/utils/object/object_task_reward";
-import { animations } from "@/engine/lib/constants/animation/animations";
 import { detectors, TDetector } from "@/engine/lib/constants/items/detectors";
 import { helmets } from "@/engine/lib/constants/items/helmets";
 import { misc } from "@/engine/lib/constants/items/misc";
@@ -38,6 +37,7 @@ import {
   Optional,
   TIndex,
   TLabel,
+  TName,
   TNumberId,
   TRate,
   TSection,
@@ -48,24 +48,25 @@ import {
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Disable game UI for actor and reset active item slot.
  */
-extern("xr_effects.disable_ui", (actor: ClientObject, npc: ClientObject, p: [string]): void => {
-  ActorInputManager.getInstance().disableGameUi(actor, !p || (p && p[0] !== TRUE));
+extern("xr_effects.disable_ui", (actor: ClientObject, object: ClientObject, parameters: [string]): void => {
+  ActorInputManager.getInstance().disableGameUi(actor, !parameters || (parameters && parameters[0] !== TRUE));
 });
 
 /**
- * todo;
+ * Disable game UI for actor.
  */
-extern("xr_effects.disable_ui_only", (actor: ClientObject, npc: ClientObject): void => {
+extern("xr_effects.disable_ui_only", (actor: ClientObject, object: ClientObject): void => {
   ActorInputManager.getInstance().disableGameUiOnly(actor);
 });
 
 /**
- * todo;
+ * Enable actor UI.
+ * Effect parameter describes whether slot should be restored - `true` by default.
  */
-extern("xr_effects.enable_ui", (actor: ClientObject, npc: ClientObject, p: [string]): void => {
-  ActorInputManager.getInstance().enableGameUi(!p || (p && p[0] !== TRUE));
+extern("xr_effects.enable_ui", (actor: ClientObject, object: ClientObject, parameters: [string]): void => {
+  ActorInputManager.getInstance().enableGameUi(!parameters || (parameters && parameters[0] !== TRUE));
 });
 
 let camEffectorPlayingObjectId: Optional<TNumberId> = null;
@@ -106,28 +107,28 @@ extern("xr_effects.stop_cam_effector", (actor: ClientObject, npc: ClientObject, 
 });
 
 /**
- * todo;
+ * Disable actor night vision tools.
  */
 extern("xr_effects.disable_actor_nightvision", (actor: ClientObject): void => {
   ActorInputManager.getInstance().disableActorNightVision(actor);
 });
 
 /**
- * todo;
+ * Enable actor night vision tools.
  */
 extern("xr_effects.enable_actor_nightvision", (actor: ClientObject): void => {
   ActorInputManager.getInstance().enableActorNightVision(actor);
 });
 
 /**
- * todo;
+ * Disable actor torch.
  */
 extern("xr_effects.disable_actor_torch", (actor: ClientObject): void => {
   ActorInputManager.getInstance().disableActorTorch(actor);
 });
 
 /**
- * todo;
+ * Enable actor torch.
  */
 extern("xr_effects.enable_actor_torch", (actor: ClientObject): void => {
   ActorInputManager.getInstance().enableActorTorch(actor);
@@ -219,21 +220,26 @@ extern("xr_effects.stop_postprocess", (actor: ClientObject, npc: ClientObject, p
 });
 
 /**
- * todo;
+ * Run game tutorial.
+ * Expects tutorial name parameter to run.
  */
-extern("xr_effects.run_tutorial", (actor: ClientObject, npc: ClientObject, params: [string]): void => {
+extern("xr_effects.run_tutorial", (actor: ClientObject, object: ClientObject, [tutorialName]: [TName]): void => {
   logger.info("Run tutorial");
-  game.start_tutorial(params[0]);
+  game.start_tutorial(tutorialName);
 });
 
 /**
- * todo;
+ * Give items of provided section to actor.
+ * Expects variadic list of sections to give for the actor.
  */
-extern("xr_effects.give_actor", (actor: ClientObject, npc: Optional<ClientObject>, params: Array<TSection>): void => {
-  for (const section of params) {
-    giveItemsToActor(section);
+extern(
+  "xr_effects.give_actor",
+  (actor: ClientObject, object: Optional<ClientObject>, sections: Array<TSection>): void => {
+    for (const section of sections) {
+      giveItemsToActor(section);
+    }
   }
-});
+);
 
 /**
  * todo;
@@ -313,30 +319,10 @@ extern("xr_effects.restore_actor_position", (): void => {
 });
 
 /**
- * todo;
+ * Punch actor and force to drop active slot weapon as object.
  */
-extern("xr_effects.actor_punch", (object: ClientObject): void => {
-  const actor: ClientObject = registry.actor;
-
-  if (actor.position().distance_to_sqr(object.position()) > 4) {
-    return;
-  }
-
-  ActorInputManager.getInstance().setInactiveInputTime(30);
-  level.add_cam_effector(animations.camera_effects_fusker, 999, false, "");
-
-  // todo: Enum for active object slot.
-  const activeSlot: TIndex = actor.active_slot();
-
-  if (activeSlot !== 2 && activeSlot !== 3) {
-    return;
-  }
-
-  const activeItem: Optional<ClientObject> = actor.active_item();
-
-  if (activeItem) {
-    actor.drop_item(activeItem);
-  }
+extern("xr_effects.actor_punch", (actor: ClientObject, object: ClientObject): void => {
+  objectPunchActor(object);
 });
 
 /**
@@ -374,26 +360,26 @@ extern("xr_effects.set_active_task", (actor: ClientObject, object: ClientObject,
 });
 
 /**
- * todo;
+ * Kill actor instantly.
  */
-extern("xr_effects.kill_actor", (actor: ClientObject, npc: ClientObject): void => {
+extern("xr_effects.kill_actor", (actor: ClientObject, object: ClientObject): void => {
   logger.info("Kill actor");
   actor.kill(actor);
 });
 
 /**
- * todo;
+ * Find all online objects of squad and make actor visible for them.
+ * Expects squad story ID as parameter.
  */
 extern(
   "xr_effects.make_actor_visible_to_squad",
-  (actor: ClientObject, object: ClientObject, parameters: [TStringId]): void => {
-    const storyId: Optional<TStringId> = parameters && parameters[0];
+  (actor: ClientObject, object: ClientObject, [storyId]: [TStringId]): void => {
     const squad: Optional<Squad> = getServerObjectByStoryId(storyId);
 
     assertDefined(squad, "There is no squad with id[%s]", storyId);
 
     for (const squadMember of squad.squad_members()) {
-      const clientObject = level.object_by_id(squadMember.id);
+      const clientObject: Optional<ClientObject> = level.object_by_id(squadMember.id);
 
       if (clientObject !== null) {
         clientObject.make_object_visible_somewhen(actor);
@@ -403,11 +389,14 @@ extern(
 );
 
 /**
- * todo;
+ * Trigger sleep dialog for actor.
+ * Checks if actor is in one of sleep zones and shows UI.
  */
 extern("xr_effects.sleep", (actor: ClientObject): void => {
   logger.info("Sleep effect");
 
+  // todo: Define sleep zones somewhere in config.
+  // todo: Define sleep zones somewhere in config.
   // todo: Define sleep zones somewhere in config.
   const sleepZones: LuaArray<TZone> = $fromArray<TZone>([
     zones.zat_a2_sr_sleep,
@@ -448,18 +437,19 @@ extern("xr_effects.activate_weapon", (actor: ClientObject, npc: ClientObject, p:
 });
 
 /**
- * todo;
+ * Give actor list of treasures.
+ * Expects variadic list of treasure IDs.
  */
 extern(
   "xr_effects.give_treasure",
-  (actor: ClientObject, object: ClientObject, parameters: LuaArray<TTreasure>): void => {
+  (actor: ClientObject, object: ClientObject, treasures: LuaArray<TTreasure>): void => {
     logger.info("Give treasures");
 
-    assertDefined(parameters, "Required parameter is [NIL].");
+    assertDefined(treasures, "Required parameter is 'NIL'.");
 
     const treasureManager: TreasureManager = TreasureManager.getInstance();
 
-    for (const [index, value] of parameters) {
+    for (const [index, value] of treasures) {
       treasureManager.giveActorTreasureCoordinates(value);
     }
   }
@@ -473,11 +463,11 @@ const detectorsOrder: LuaArray<TDetector> = $fromArray<TDetector>([
 ]);
 
 /**
- * todo;
+ * Force actor to use detector if any exists in inventory.
  */
 extern("xr_effects.get_best_detector", (actor: ClientObject): void => {
-  for (const [k, v] of detectorsOrder) {
-    const item: Optional<ClientObject> = actor.object(v);
+  for (const [, detector] of detectorsOrder) {
+    const item: Optional<ClientObject> = actor.object(detector);
 
     if (item !== null) {
       item.enable_attachable_item(true);
@@ -488,11 +478,11 @@ extern("xr_effects.get_best_detector", (actor: ClientObject): void => {
 });
 
 /**
- * todo;
+ * Hide actor detector if it is active item.
  */
 extern("xr_effects.hide_best_detector", (actor: ClientObject): void => {
-  for (const [k, v] of detectorsOrder) {
-    const item: Optional<ClientObject> = actor.object(v);
+  for (const [, detector] of detectorsOrder) {
+    const item: Optional<ClientObject> = actor.object(detector);
 
     if (item !== null) {
       item.enable_attachable_item(false);

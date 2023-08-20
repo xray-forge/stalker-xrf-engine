@@ -19,7 +19,7 @@ export class EvaluatorStateLocked extends property_evaluator {
   }
 
   /**
-   * todo;
+   * Check if state is locked and cannot be changed in this period.
    */
   public override evaluate(): boolean {
     return (

@@ -29,8 +29,8 @@ import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundMan
 import { Stalker } from "@/engine/core/objects";
 import { abort, assert } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { isObjectWounded } from "@/engine/core/utils/object";
 import { getInventoryNameForItemSection } from "@/engine/core/utils/object/object_spawn";
+import { isObjectWounded } from "@/engine/core/utils/object/object_state";
 import { captions, TCaption } from "@/engine/lib/constants/captions/captions";
 import { scriptSounds } from "@/engine/lib/constants/sound/script_sounds";
 import { textures, TTexture } from "@/engine/lib/constants/textures";

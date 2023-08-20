@@ -11,6 +11,12 @@ const logger: LuaLogger = new LuaLogger($filename);
 logger.info("Resolve and bind game externals");
 
 /**
+ * Declare `main` function to enable custom scripts execution.
+ * In case if custom script is executed from console and has no `main` function, this placeholder will be used.
+ */
+extern("main", () => {});
+
+/**
  * Declare list of available smart covers for game engine.
  * Xray uses it internally.
  */

@@ -8,6 +8,7 @@ describe("'game' external callbacks", () => {
   });
 
   it("should correctly inject external methods for game", () => {
+    checkBinding("main");
     checkBinding("smart_covers");
     checkNestedBinding("smart_covers", "descriptions");
     checkBinding("outro");

@@ -91,7 +91,7 @@ export class SchemeMeet extends AbstractScheme {
         ? readIniString(state.ini, state.sectionLogic, SchemeMeet.SCHEME_SECTION, false, "")
         : readIniString(state.ini, section, SchemeMeet.SCHEME_SECTION, false, "");
 
-    initializeMeetScheme(object, state.ini, meetSection, state.meet as ISchemeMeetState, scheme);
+    initializeMeetScheme(object, state.ini, meetSection, state.meet as ISchemeMeetState);
   }
 
   /**

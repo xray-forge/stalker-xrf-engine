@@ -27,6 +27,7 @@ import {
 } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getObjectSmartTerrain } from "@/engine/core/utils/object";
+import { clearObjectAbuse } from "@/engine/core/utils/object/object_meeting";
 import {
   releaseObject,
   spawnItemsForObject,
@@ -203,10 +204,10 @@ extern("xr_effects.remove_npc", (actor: ClientObject, npc: ClientObject, p: [Opt
 });
 
 /**
- * todo;
+ * Clear abuse for provided object.
  */
-extern("xr_effects.clear_abuse", (object: ClientObject) => {
-  SchemeAbuse.clearAbuse(object);
+extern("xr_effects.clear_abuse", (actor: ClientObject, object: ClientObject) => {
+  clearObjectAbuse(object);
 });
 
 /**

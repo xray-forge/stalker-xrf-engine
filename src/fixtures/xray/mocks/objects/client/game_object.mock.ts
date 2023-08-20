@@ -140,6 +140,13 @@ export function mockClientGameObject({
           return false;
         }
       }),
+    drop_item:
+      rest.drop_item ||
+      jest.fn((it: ClientObject) => {
+        if (inventoryMap.get(it.section())) {
+          inventoryMap.delete(it.section());
+        }
+      }),
     force_set_goodwill: rest.force_set_goodwill || jest.fn(),
     game_vertex_id,
     general_goodwill:
@@ -333,6 +340,15 @@ export function mockClientGameObject({
 /**
  * Mock client game object.
  */
-export function mockActorClientGameObject(base: Partial<ClientObject> = {}): ClientObject {
+export function mockActorClientGameObject(
+  base: Partial<
+    ClientObject & {
+      idOverride?: TNumberId;
+      sectionOverride?: TSection;
+      infoPortions?: Array<TName>;
+      inventory: Array<[TSection | TNumberId, ClientObject]>;
+    }
+  > = {}
+): ClientObject {
   return mockClientGameObject({ ...base, idOverride: ACTOR_ID });
 }

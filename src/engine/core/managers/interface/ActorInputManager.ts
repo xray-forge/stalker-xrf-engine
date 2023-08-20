@@ -6,7 +6,17 @@ import { SchemeNoWeapon } from "@/engine/core/schemes/sr_no_weapon";
 import { readTimeFromPacket, writeTimeToPacket } from "@/engine/core/utils/game/game_time";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { misc } from "@/engine/lib/constants/items/misc";
-import { ClientObject, GameHud, NetPacket, NetProcessor, Optional, TDuration, Time, TIndex } from "@/engine/lib/types";
+import {
+  ClientObject,
+  EActiveItemSlot,
+  GameHud,
+  NetPacket,
+  NetProcessor,
+  Optional,
+  TDuration,
+  Time,
+  TIndex,
+} from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -14,22 +24,13 @@ const logger: LuaLogger = new LuaLogger($filename);
  * Manager to handle actor input.
  */
 export class ActorInputManager extends AbstractCoreManager {
-  /**
-   * Item slot `none`.
-   */
-  public static readonly NONE_ITEM_SLOT: TIndex = 0;
-  /**
-   * Item slot applied by default when game is started.
-   */
-  public static readonly DEFAULT_ACTIVE_ITEM_SLOT: TIndex = 3;
-
   public isWeaponHidden: boolean = false;
   public isWeaponHiddenInDialog: boolean = false;
   public isActorNightVisionEnabled: boolean = false;
   public isActorTorchEnabled: boolean = false;
 
-  public activeItemSlot: TIndex = ActorInputManager.DEFAULT_ACTIVE_ITEM_SLOT;
-  public memoizedItemSlot: TIndex = ActorInputManager.NONE_ITEM_SLOT;
+  public activeItemSlot: EActiveItemSlot = EActiveItemSlot.PRIMARY;
+  public memoizedItemSlot: EActiveItemSlot = EActiveItemSlot.NONE;
 
   public disableInputAt: Optional<Time> = null;
   public disableInputDuration: Optional<TDuration> = null;
@@ -148,9 +149,9 @@ export class ActorInputManager extends AbstractCoreManager {
     if (resetSlot) {
       const slot: TIndex = actor.active_slot();
 
-      if (slot !== ActorInputManager.NONE_ITEM_SLOT) {
+      if (slot !== EActiveItemSlot.NONE) {
         this.memoizedItemSlot = slot;
-        actor.activate_slot(ActorInputManager.NONE_ITEM_SLOT);
+        actor.activate_slot(EActiveItemSlot.NONE);
       }
     }
 
@@ -174,14 +175,14 @@ export class ActorInputManager extends AbstractCoreManager {
 
     if (restore) {
       if (
-        this.memoizedItemSlot !== ActorInputManager.NONE_ITEM_SLOT &&
+        this.memoizedItemSlot !== EActiveItemSlot.NONE &&
         registry.actor.item_in_slot(this.memoizedItemSlot) !== null
       ) {
         registry.actor.activate_slot(this.memoizedItemSlot);
       }
     }
 
-    this.memoizedItemSlot = ActorInputManager.NONE_ITEM_SLOT;
+    this.memoizedItemSlot = EActiveItemSlot.NONE;
 
     level.show_weapon(true);
     level.enable_input();
@@ -205,9 +206,9 @@ export class ActorInputManager extends AbstractCoreManager {
 
     const slot: TIndex = actor.active_slot();
 
-    if (slot !== ActorInputManager.NONE_ITEM_SLOT) {
+    if (slot !== EActiveItemSlot.NONE) {
       this.memoizedItemSlot = slot;
-      actor.activate_slot(ActorInputManager.NONE_ITEM_SLOT);
+      actor.activate_slot(EActiveItemSlot.NONE);
     }
 
     level.disable_input();

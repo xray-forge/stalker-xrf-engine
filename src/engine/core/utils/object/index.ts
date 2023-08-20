@@ -1,3 +1,4 @@
+export * from "@/engine/core/utils/object/object_action";
 export * from "@/engine/core/utils/object/object_alife";
 export * from "@/engine/core/utils/object/object_anomaly";
 export * from "@/engine/core/utils/object/object_check";
@@ -8,6 +9,7 @@ export * from "@/engine/core/utils/object/object_get";
 export * from "@/engine/core/utils/object/object_info_portion";
 export * from "@/engine/core/utils/object/object_location";
 export * from "@/engine/core/utils/object/object_loot";
+export * from "@/engine/core/utils/object/object_meeting";
 export * from "@/engine/core/utils/object/object_section";
 export * from "@/engine/core/utils/object/object_set";
 export * from "@/engine/core/utils/object/object_sound";

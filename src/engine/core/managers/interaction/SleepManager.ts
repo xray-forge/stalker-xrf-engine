@@ -41,7 +41,7 @@ export class SleepManager extends AbstractCoreManager {
     }
 
     this.sleepDialog.uiTimeTrack.SetCurrentValue();
-    this.sleepDialog.testAndShow();
+    this.sleepDialog.showSleepOptions();
   }
 
   /**
