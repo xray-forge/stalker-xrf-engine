@@ -9,3 +9,8 @@ export const SMART_TERRAIN_SECTION: TName = "smart_terrain";
  * Section representing stalkers that are used only for cutscenes / scenarios (todo: confirm).
  */
 export const ACTOR_VISUAL_STALKER: TName = "actor_visual_stalker";
+
+/**
+ * Section to disable meet scheme.
+ */
+export const NO_MEET_SECTION: TName = "no_meet";
