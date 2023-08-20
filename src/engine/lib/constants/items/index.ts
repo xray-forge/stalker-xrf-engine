@@ -1,31 +1,16 @@
-import { TAmmoItem, TAmmoItems } from "@/engine/lib/constants/items/ammo";
-import { TArtefact, TArtefacts } from "@/engine/lib/constants/items/artefacts";
-import { TDetector, TDetectors } from "@/engine/lib/constants/items/detectors";
-import { TDrugItem, TDrugItems } from "@/engine/lib/constants/items/drugs";
-import { TFoodItem, TFoodItems } from "@/engine/lib/constants/items/food";
-import { THelmet, THelmets } from "@/engine/lib/constants/items/helmets";
-import { TOutfit, TOutfits } from "@/engine/lib/constants/items/outfits";
-import { TQuestItem, TQuestItems } from "@/engine/lib/constants/items/quest_items";
-import { TWeaponAddon, TWeaponAddons } from "@/engine/lib/constants/items/weapon_addons";
-import { TWeapon, TWeapons } from "@/engine/lib/constants/items/weapons";
+import { TAmmoItem } from "@/engine/lib/constants/items/ammo";
+import { TArtefact } from "@/engine/lib/constants/items/artefacts";
+import { TDetector } from "@/engine/lib/constants/items/detectors";
+import { TDrugItem } from "@/engine/lib/constants/items/drugs";
+import { TFoodItem } from "@/engine/lib/constants/items/food";
+import { THelmet } from "@/engine/lib/constants/items/helmets";
+import { TOutfit } from "@/engine/lib/constants/items/outfits";
+import { TQuestItem } from "@/engine/lib/constants/items/quest_items";
+import { TWeaponAddon } from "@/engine/lib/constants/items/weapon_addons";
+import { TWeapon } from "@/engine/lib/constants/items/weapons";
 
 /**
- * todo;
- */
-export type TInventoryItems =
-  | TAmmoItems
-  | TArtefacts
-  | TDetectors
-  | TDrugItems
-  | TFoodItems
-  | THelmets
-  | TOutfits
-  | TWeaponAddons
-  | TWeapons
-  | TQuestItems;
-
-/**
- * todo;
+ * Type definition of possible item section.
  */
 export type TInventoryItem =
   | TAmmoItem

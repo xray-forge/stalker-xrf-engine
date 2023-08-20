@@ -20,6 +20,7 @@ const logger: LuaLogger = new LuaLogger($filename);
  * Approximate meet distance to simplify logical checks.
  */
 enum EMeetDistance {
+  NONE = 0,
   CLOSE = 1,
   FAR = 2,
 }

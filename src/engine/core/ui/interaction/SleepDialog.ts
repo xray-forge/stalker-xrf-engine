@@ -147,9 +147,9 @@ export class SleepDialog extends CUIScriptWnd {
   }
 
   /**
-   * todo;
+   * Show in-game sleep dialog options.
    */
-  public testAndShow(): void {
+  public showSleepOptions(): void {
     logger.info("Show sleep options");
 
     const actor: ClientObject = registry.actor;
@@ -217,8 +217,3 @@ export class SleepDialog extends CUIScriptWnd {
     disableInfo(infoPortions.sleep_active);
   }
 }
-
-// @ts-ignore Todo: Get rid of globals
-main = () => {
-  logger.info("[main] Call sleep from main");
-};

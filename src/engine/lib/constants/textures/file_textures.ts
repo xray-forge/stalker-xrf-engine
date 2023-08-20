@@ -1,7 +1,7 @@
 /* eslint sort-keys-fix/sort-keys-fix: "error" */
 
 /**
- * todo;
+ * List of possible game textures used in original COP.
  */
 export const fileTextures = {
   $alphadxt1: "$alphadxt1",
