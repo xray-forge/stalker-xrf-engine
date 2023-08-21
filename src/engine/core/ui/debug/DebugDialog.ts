@@ -92,7 +92,7 @@ export class DebugDialog extends CUIScriptWnd {
    */
   public initState(): void {
     Object.entries(sectionsMap).forEach(([section, factory]) => {
-      logger.info("Construct new section component:", section);
+      // logger.info("Construct new section component:", section);
 
       const sectionComponent: CUIWindow = factory(this);
 

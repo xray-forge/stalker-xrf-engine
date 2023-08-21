@@ -12,7 +12,7 @@ const logger: LuaLogger = new LuaLogger($filename);
  * @param smartTerrain - terrain to turn on linked campfires
  */
 export function turnOnSmartTerrainCampfires(smartTerrain: SmartTerrain): void {
-  logger.info("Turn on campfires for:", smartTerrain.name());
+  // logger.info("Turn on campfires for:", smartTerrain.name());
 
   const smartTerrainCampfires: Optional<LuaTable<TNumberId, ZoneCampfire>> = registry.smartTerrainsCampfires.get(
     smartTerrain.name()
@@ -35,7 +35,7 @@ export function turnOnSmartTerrainCampfires(smartTerrain: SmartTerrain): void {
  * @param smartTerrain - terrain to turn off linked campfires
  */
 export function turnOffSmartTerrainCampfires(smartTerrain: SmartTerrain): void {
-  logger.info("Turn off campfires for:", smartTerrain.name());
+  // logger.info("Turn off campfires for:", smartTerrain.name());
 
   const smartTerrainCampfires: Optional<LuaTable<TNumberId, ZoneCampfire>> = registry.smartTerrainsCampfires.get(
     smartTerrain.name()

@@ -1,12 +1,12 @@
 import { CUI3tButton, CUICheckButton, CUIStatic, level, LuabindClass, ui_events } from "xray16";
 
-import { registry } from "@/engine/core/database";
+import { getPortableStoreValue, registry, setPortableStoreValue } from "@/engine/core/database";
 import { DebugManager } from "@/engine/core/managers/debug/DebugManager";
 import { Squad } from "@/engine/core/objects";
 import { AbstractDebugSection } from "@/engine/core/ui/debug/sections/AbstractDebugSection";
 import { isGameStarted } from "@/engine/core/utils/game";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { getObjectSquad } from "@/engine/core/utils/object";
+import { getObjectSquad, setObjectWounded } from "@/engine/core/utils/object";
 import { getNearestClientObject } from "@/engine/core/utils/object/object_find";
 import {
   ERelation,
@@ -30,6 +30,7 @@ export class DebugObjectSection extends AbstractDebugSection {
   public uiTargetStalkerLabel!: CUIStatic;
   public uiTargetStalkerRelationLabel!: CUIStatic;
   public uiTargetStalkerSquadRelationLabel!: CUIStatic;
+  public uiTargetStalkerHealthLabel!: CUIStatic;
 
   public uiUseTargetCheck!: CUICheckButton;
   public uiUseTargetCheckLabel!: CUIStatic;
@@ -44,6 +45,7 @@ export class DebugObjectSection extends AbstractDebugSection {
   public uiSetEnemyButton!: CUI3tButton;
 
   public uiKillButton!: CUI3tButton;
+  public uiSetWoundedButton!: CUI3tButton;
 
   public initializeControls(): void {
     resolveXmlFile(base, this.xml);
@@ -52,6 +54,7 @@ export class DebugObjectSection extends AbstractDebugSection {
     this.uiTargetStalkerLabel = this.xml.InitStatic("target_stalker_label", this);
     this.uiTargetStalkerRelationLabel = this.xml.InitStatic("target_stalker_relation_label", this);
     this.uiTargetStalkerSquadRelationLabel = this.xml.InitStatic("target_stalker_squad_relation_label", this);
+    this.uiTargetStalkerHealthLabel = this.xml.InitStatic("target_stalker_health_label", this);
     this.uiUseTargetCheckLabel = this.xml.InitStatic("use_target_object_label", this);
     this.uiUseTargetCheck = this.xml.InitCheck("use_target_object_check", this);
 
@@ -66,6 +69,7 @@ export class DebugObjectSection extends AbstractDebugSection {
     this.uiSetEnemyButton = this.xml.Init3tButton("set_enemy_button", this);
 
     this.uiKillButton = this.xml.Init3tButton("kill_button", this);
+    this.uiSetWoundedButton = this.xml.Init3tButton("set_wounded_button", this);
 
     this.owner.Register(this.uiUseTargetCheck, "use_target_object_check");
     this.owner.Register(this.uiLogPlannerStateButton, "log_planner_state");
@@ -78,6 +82,7 @@ export class DebugObjectSection extends AbstractDebugSection {
     this.owner.Register(this.uiSetNeutralButton, "set_neutral_button");
     this.owner.Register(this.uiSetEnemyButton, "set_enemy_button");
     this.owner.Register(this.uiKillButton, "kill_button");
+    this.owner.Register(this.uiSetWoundedButton, "set_wounded_button");
   }
 
   public initializeCallBacks(): void {
@@ -111,6 +116,7 @@ export class DebugObjectSection extends AbstractDebugSection {
       this
     );
     this.owner.AddCallback("kill_button", ui_events.BUTTON_CLICKED, () => this.onKillObject(), this);
+    this.owner.AddCallback("set_wounded_button", ui_events.BUTTON_CLICKED, () => this.onSetWoundedObject(), this);
   }
 
   public initializeState(): void {
@@ -127,11 +133,13 @@ export class DebugObjectSection extends AbstractDebugSection {
       this.uiTargetStalkerSquadRelationLabel.SetText(
         "squad relation: " + (squad ? getSquadMembersRelationToActorSafe(squad) : NIL)
       );
+      this.uiTargetStalkerHealthLabel.SetText("health: " + (targetStalker ? targetStalker.health : NIL));
     } else {
       this.uiNearestStalkerLabel.SetText("Nearest: " + NIL);
       this.uiTargetStalkerLabel.SetText("Target: " + NIL);
       this.uiTargetStalkerRelationLabel.SetText("object relation: " + NIL);
       this.uiTargetStalkerSquadRelationLabel.SetText("squad relation: " + NIL);
+      this.uiTargetStalkerHealthLabel.SetText("health: " + NIL);
     }
 
     this.uiUseTargetCheck.SetCheck(true);
@@ -235,6 +243,22 @@ export class DebugObjectSection extends AbstractDebugSection {
       targetObject.kill(targetObject);
     } else {
       logger.info("No object found for killing");
+    }
+  }
+
+  public onSetWoundedObject(): void {
+    if (!isGameStarted()) {
+      return logger.info("Cannot set wounded object while game is not started");
+    }
+
+    const targetObject: Optional<ClientObject> = this.getCurrentObject();
+
+    if (targetObject) {
+      logger.info("Set wounded object:", targetObject.name());
+
+      setObjectWounded(targetObject);
+    } else {
+      logger.info("No object found for wounding");
     }
   }
 

@@ -227,7 +227,7 @@ export function spawnObjectInObject<T extends ServerObject>(
   section: Optional<TSection>,
   targetId: Optional<TNumberId>
 ): T {
-  logger.info("Spawn in object:", section, targetId);
+  // logger.info("Spawn in object:", section, targetId);
 
   assertDefined(section, "Wrong spawn section for 'spawnObjectInObject' function '%s'.", section);
   assertDefined(targetId, "Wrong spawn targetId for 'spawnObjectInObject' function '%s'.", section);

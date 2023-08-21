@@ -14,6 +14,7 @@ export function create(): JSXNode {
       <XrText tag={"target_stalker_label"} x={12} y={32} label={"none"} />
       <XrText tag={"target_stalker_relation_label"} x={140} y={32} label={"none"} />
       <XrText tag={"target_stalker_squad_relation_label"} x={240} y={32} label={"none"} />
+      <XrText tag={"target_stalker_health_label"} x={340} y={32} label={"none"} />
 
       <XrCheckBox tag={"use_target_object_check"} x={12} y={50} width={24} height={20} />
       <XrStatic tag={"use_target_object_label"} x={40} y={50} width={60} height={16}>
@@ -135,6 +136,17 @@ function renderRelationButtons(): JSXNode {
         label={"Kill"}
         x={90}
         y={132}
+        width={72}
+        height={16}
+        textColor={WHITE}
+        font={fonts.letterica16}
+      />
+
+      <Xr3tButton
+        tag={"set_wounded_button"}
+        label={"Set wounded"}
+        x={90}
+        y={152}
         width={72}
         height={16}
         textColor={WHITE}

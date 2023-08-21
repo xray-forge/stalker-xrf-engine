@@ -4,6 +4,7 @@ import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { IReleaseDescriptor, ReleaseBodyManager } from "@/engine/core/managers/world/ReleaseBodyManager";
 import { ISchemeCorpseDetectionState } from "@/engine/core/schemes/corpse_detection";
 import { isObjectWithValuableLoot, isObjectWounded } from "@/engine/core/utils/object";
+import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
 import { communities } from "@/engine/lib/constants/communities";
 import { ACTOR_VISUAL_STALKER } from "@/engine/lib/constants/sections";
 import { ClientObject, LuaArray, Optional, TDistance, TNumberId, Vector } from "@/engine/lib/types";
@@ -43,7 +44,7 @@ export class EvaluatorCorpseDetect extends property_evaluator {
 
     const corpses: LuaArray<IReleaseDescriptor> = ReleaseBodyManager.getInstance().releaseObjectRegistry;
 
-    let nearestCorpseDistSqr: TDistance = 400; // 20 * 20
+    let nearestCorpseDistSqr: TDistance = logicsConfig.SEARCH_CORPSE.DISTANCE_TO_SEARCH_SQR;
     let nearestCorpseVertex: Optional<TNumberId> = null;
     let nearestCorpsePosition: Optional<Vector> = null;
     let corpseId: Optional<TNumberId> = null;

@@ -264,7 +264,7 @@ extern(
  * todo;
  */
 extern("xr_effects.spawn_corpse", (actor: ClientObject, obj: ClientObject, params: [string, string, number]): void => {
-  logger.info("Spawn corpse:", params[0]);
+  // logger.info("Spawn corpse:", params[0]);
 
   const spawnSection: TSection = params[0];
 

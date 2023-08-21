@@ -50,11 +50,7 @@ export function isObjectInCombat(object: ClientObject): boolean {
 export function isObjectSearchingCorpse(object: ClientObject): boolean {
   const manager: ActionPlanner = object.motivation_action_manager();
 
-  if (!manager.initialized()) {
-    return false;
-  }
-
-  return manager.current_action_id() === EActionId.SEARCH_CORPSE;
+  return manager.initialized() && manager.current_action_id() === EActionId.SEARCH_CORPSE;
 }
 
 /**
@@ -66,11 +62,7 @@ export function isObjectSearchingCorpse(object: ClientObject): boolean {
 export function isObjectHelpingWounded(object: ClientObject): boolean {
   const actionManager: ActionPlanner = object.motivation_action_manager();
 
-  if (!actionManager.initialized()) {
-    return false;
-  }
-
-  return actionManager.current_action_id() === EActionId.HELP_WOUNDED;
+  return actionManager.initialized() && actionManager.current_action_id() === EActionId.HELP_WOUNDED;
 }
 
 /**

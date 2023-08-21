@@ -46,7 +46,7 @@ export function resolveXmlFormPath(path: TPath, hasWideScreenSupport: boolean = 
 
   const resolved: TPath = canBeWide && getFS().exist(roots.gameConfig, "ui\\" + wideBase) ? wideBase : base + ".xml";
 
-  logger.info("Resolved XML to:", resolved);
+  // logger.info("Resolved XML to:", resolved);
 
   return resolved;
 }
