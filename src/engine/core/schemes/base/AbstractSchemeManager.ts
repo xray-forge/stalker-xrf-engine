@@ -21,11 +21,11 @@ export abstract class AbstractSchemeManager<T extends IBaseSchemeState> implemen
   }
 
   public resetScheme(): void {
-    logger.info("Reset scheme:", this.state?.scheme, this.object.name());
+    // logger.info("Reset scheme:", this.state?.scheme, this.object.name());
   }
 
   public deactivate(): void {
-    logger.info("Deactivate:", this.state?.scheme, this.object.name());
+    // logger.info("Deactivate:", this.state?.scheme, this.object.name());
   }
 
   public net_spawn(): void {

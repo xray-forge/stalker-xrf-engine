@@ -207,7 +207,7 @@ export class NotificationManager extends AbstractCoreManager {
    * Send notification about task state update.
    */
   public sendTaskNotification(newState: ETaskState, task: GameTask): void {
-    logger.info("Show task notification:", newState, task.get_id(), task.get_title());
+    // logger.info("Show task notification:", newState, task.get_id(), task.get_title());
 
     const notificationTaskDescription: Record<ETaskState, TLabel> = {
       [ETaskState.NEW]: "general_new_task",
@@ -303,7 +303,7 @@ export class NotificationManager extends AbstractCoreManager {
     soundCaption: Optional<TLabel> = null,
     delay: TDuration = 0
   ): void {
-    logger.info("Send sound notification:", object?.name(), soundPath, soundCaption, faction);
+    // logger.info("Send sound notification:", object?.name(), soundPath, soundCaption, faction);
 
     let pointName: TName = "";
 

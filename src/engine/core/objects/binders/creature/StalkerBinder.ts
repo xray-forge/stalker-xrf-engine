@@ -508,7 +508,7 @@ export class StalkerBinder extends object_binder {
     }
 
     this.updateLightState(this.object);
-    DropManager.getInstance().createCorpseReleaseItems(this.object);
+    DropManager.getInstance().onObjectDeath(this.object);
 
     unregisterHelicopterEnemy(this.helicopterEnemyIndex!);
     unregisterStalker(this, false);

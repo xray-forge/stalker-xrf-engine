@@ -18,8 +18,6 @@ export class ActorInventoryMenuManager extends AbstractCoreManager {
    * todo: Description.
    */
   public override initialize(): void {
-    logger.info("Initialize actor inventory quick items slots");
-
     const ini: IniFile = system_ini();
 
     executeConsoleCommand(consoleCommands.slot_0, readIniString(ini, ACTOR, "quick_item_1", false, "", ""));

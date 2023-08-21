@@ -267,7 +267,7 @@ export class SimulationBoardManager extends AbstractCoreManager {
       smartTerrain.m_game_vertex_id
     );
 
-    logger.info("Creating squad in smart:", squad.name(), smartTerrain.name());
+    // logger.info("Creating squad in smart:", squad.name(), smartTerrain.name());
 
     squad.createSquadMembers(smartTerrain);
 

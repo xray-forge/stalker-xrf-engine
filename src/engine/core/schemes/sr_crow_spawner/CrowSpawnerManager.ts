@@ -74,7 +74,7 @@ export class CrowSpawnerManager extends AbstractSchemeManager<ISchemeCrowSpawner
             crowPatrol.game_vertex_id(0)
           );
 
-          logger.info("Spawn new crow:", object.id, selectedPath);
+          // logger.info("Spawn new crow:", object.id, selectedPath);
 
           this.spawnPointsIdle.set(selectedPath, time_global() + 10000);
 

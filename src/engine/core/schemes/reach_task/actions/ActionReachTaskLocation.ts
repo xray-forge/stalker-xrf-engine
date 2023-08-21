@@ -55,12 +55,7 @@ export class ActionReachTaskLocation extends action_base {
 
     const objectSquad: Squad = getObjectSquad(this.object)!;
 
-    logger.info(
-      "Initialize reach location action:",
-      objectSquad.name(),
-      this.object.name(),
-      objectSquad.assignedTargetId
-    );
+    logger.info("Start reach location action:", objectSquad.name(), this.object.name(), objectSquad.assignedTargetId);
 
     this.reachTargetId = objectSquad.assignedTargetId!;
     this.squadId = objectSquad.id;

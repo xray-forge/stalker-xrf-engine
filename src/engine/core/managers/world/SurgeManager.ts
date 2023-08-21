@@ -154,7 +154,7 @@ export class SurgeManager extends AbstractCoreManager {
    * todo: Description.
    */
   public initializeSurgeCovers(): void {
-    logger.info("Initialize surge covers");
+    // logger.info("Initialize surge covers");
     this.surgeCovers = new LuaTable();
 
     const levelName: TLevel = level.name();

@@ -63,6 +63,7 @@ export class ActionWalkerActivity extends action_base implements ISchemeEventHan
 
     this.object.set_desired_position();
     this.object.set_desired_direction();
+
     this.resetScheme(false, this.object);
   }
 

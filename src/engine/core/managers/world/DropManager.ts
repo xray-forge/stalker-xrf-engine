@@ -175,7 +175,7 @@ export class DropManager extends AbstractCoreManager {
    * @param object - target object to create release items.
    */
   public createCorpseReleaseItems(object: ClientObject): void {
-    logger.info("Create corpse release items:", object.name());
+    // logger.info("Create corpse release items:", object.name());
 
     const alifeObject: Optional<Stalker> = alife().object<Stalker>(object.id());
 
@@ -184,7 +184,7 @@ export class DropManager extends AbstractCoreManager {
     }
 
     alifeObject.isCorpseLootDropped = true;
-    object.iterate_inventory((object, item) => this.releaseItem(object, item), object);
+    object.iterate_inventory((object, item) => this.filterLootItem(object, item), object);
 
     if (object.spawn_ini().section_exist(DropManager.DONT_SPAWN_LOOT_LTX_SECTION)) {
       return;
@@ -224,12 +224,12 @@ export class DropManager extends AbstractCoreManager {
   /**
    * todo: Description.
    */
-  protected releaseItem(object: ClientObject, item: ClientObject): void {
+  protected filterLootItem(object: ClientObject, item: ClientObject): void {
     const section: TSection = item.section();
     const ini: IniFile = object.spawn_ini();
 
     if (ini !== null && ini.section_exist("keep_items")) {
-      logger.info("Keep item, listed in config:", object.name(), item.name(), section);
+      // logger.info("Keep item, listed in config:", object.name(), item.name(), section);
 
       return;
     }
@@ -245,7 +245,7 @@ export class DropManager extends AbstractCoreManager {
     }
 
     if (this.itemsAlwaysKept.get(section)) {
-      logger.info("Keep item, always keep listed:", object.name(), item.name(), section);
+      // logger.info("Keep item, always keep listed:", object.name(), item.name(), section);
 
       return;
     }
@@ -265,18 +265,18 @@ export class DropManager extends AbstractCoreManager {
         );
       }
 
-      logger.info("Keep item, weapon", object.name(), item.name(), item.clsid(), section);
+      // logger.info("Keep item, weapon", object.name(), item.name(), item.clsid(), section);
 
       return;
     }
 
     if (isLootableItemSection(item.section()) && !isAmmoSection(item.section())) {
-      logger.info("Keep item, misc lootable:", object.name(), item.name(), section);
+      // logger.info("Keep item, misc lootable:", object.name(), item.name(), section);
 
       return;
     }
 
-    logger.info("Release loot item:", object.name(), item.name(), section);
+    // logger.info("Release loot item:", object.name(), item.name(), section);
     alife().release(alife().object(item.id()), true);
   }
 
@@ -301,5 +301,15 @@ export class DropManager extends AbstractCoreManager {
     }
 
     return isDependent;
+  }
+
+  /**
+   * Handle client object death.
+   * Spawn required loot, filter existing loot and mark state of items in inventory.
+   *
+   * @param object - client object facing death event
+   */
+  public onObjectDeath(object: ClientObject): void {
+    this.createCorpseReleaseItems(object);
   }
 }
