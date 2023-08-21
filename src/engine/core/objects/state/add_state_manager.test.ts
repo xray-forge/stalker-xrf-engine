@@ -168,14 +168,14 @@ describe("add_state_manager util", () => {
 
     checkAction(
       planner.action(EActionId.STATE_TO_IDLE_COMBAT),
-      "ToIdleCombat",
+      "CombatToIdle",
       [[EEvaluatorId.IS_STATE_IDLE_COMBAT, false]],
       [[EEvaluatorId.IS_STATE_IDLE_COMBAT, true]]
     );
 
     checkAction(
       planner.action(EActionId.STATE_TO_IDLE_ITEMS),
-      "ToIdleItems",
+      "ItemsToIdle",
       [
         [EEvaluatorId.IS_STATE_IDLE_ITEMS, false],
         [mockStalkerIds.property_items, true],
@@ -186,7 +186,7 @@ describe("add_state_manager util", () => {
 
     checkAction(
       planner.action(EActionId.STATE_TO_IDLE_ALIFE),
-      "ToIdleAlife",
+      "DangerToIdle",
       [
         [mockStalkerIds.property_enemy, false],
         [mockStalkerIds.property_danger, false],

@@ -53,7 +53,7 @@ export class ActionPostCombatIdleWait extends action_base {
   public override finalize(): void {
     logger.info("End post combat idle state:", this.object.name());
 
-    GlobalSoundManager.getInstance().playSound(this.object.id(), "post_combat_relax", null, null);
+    GlobalSoundManager.getInstance().playSound(this.object.id(), "post_combat_relax");
 
     if (this.isAnimationStarted) {
       (this.state.animation as StalkerAnimationManager).setState(null, true);
