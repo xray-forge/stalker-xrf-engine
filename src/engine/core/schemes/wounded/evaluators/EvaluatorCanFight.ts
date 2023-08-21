@@ -24,6 +24,6 @@ export class EvaluatorCanFight extends property_evaluator {
    * Allows overriding it with config and still fighting when wounded_fight is enabled with ltx.
    */
   public override evaluate(): boolean {
-    return this.object.critically_wounded() || getPortableStoreValue(this.object, "wounded_fight") !== FALSE;
+    return this.object.critically_wounded() || getPortableStoreValue(this.object.id(), "wounded_fight") !== FALSE;
   }
 }

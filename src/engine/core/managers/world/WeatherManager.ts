@@ -121,8 +121,6 @@ export class WeatherManager extends AbstractCoreManager {
       ? DYNAMIC_WEATHER_GRAPHS.line_count("weather_periods")
       : 0;
 
-    logger.info("Initialize weather periods:", weatherPeriodsLines);
-
     // Reset lists.
     this.weatherPeriods = new LuaTable();
     this.weatherPeriodsInverse = new LuaTable();

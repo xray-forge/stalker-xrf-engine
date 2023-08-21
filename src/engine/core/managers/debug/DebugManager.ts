@@ -11,7 +11,7 @@ import { getNumberRelationBetweenCommunities } from "@/engine/core/utils/relatio
 import { toJSON } from "@/engine/core/utils/transform/json";
 import { stalkerCommunities, TCommunity } from "@/engine/lib/constants/communities";
 import { NIL } from "@/engine/lib/constants/words";
-import { ActionPlanner, ClientObject, ESchemeType, Optional, TNumberId } from "@/engine/lib/types";
+import { ActionBase, ActionPlanner, ClientObject, ESchemeType, Optional, TLabel, TNumberId } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -43,6 +43,7 @@ export class DebugManager extends AbstractCoreManager {
     logger.pushSeparator();
     logger.info("Print object planner state report:", object.name());
 
+    const plannerShowPrefix: TLabel = `${logger.getFullPrefix()} [${object.name()}]`;
     const actionPlanner: Optional<ActionPlanner> = object.motivation_action_manager();
 
     if (actionPlanner === null) {
@@ -56,12 +57,8 @@ export class DebugManager extends AbstractCoreManager {
     logger.info("Current planner initialized:", actionPlanner.initialized());
     logger.info("Current action id:", currentActionId);
 
-    if (currentActionId !== null) {
-      logger.info("Action is:", EActionId[currentActionId] || EStateActionId[currentActionId] || "unknown");
-    }
-
     if (actionPlanner.show !== null) {
-      actionPlanner.show(logger.getFullPrefix() + " ");
+      actionPlanner.show(plannerShowPrefix);
     } else {
       logger.info("For more details run game in mixed/debug mode");
     }
@@ -79,12 +76,8 @@ export class DebugManager extends AbstractCoreManager {
       logger.info("Current state planner initialized:", actionPlanner.initialized());
       logger.info("Current state action id:", currentActionId);
 
-      if (currentActionId !== null) {
-        logger.info("State action is:", EStateActionId[currentActionId] || "unknown");
-      }
-
       if (actionPlanner.show !== null) {
-        actionPlanner.show(logger.getFullPrefix() + " ");
+        actionPlanner.show(plannerShowPrefix + "[planner] ");
       } else {
         logger.info("For more state details run game in mixed/debug mode");
       }

@@ -3,10 +3,6 @@ import { alife, clsid, game } from "xray16";
 import { getObjectIdByStoryId, registry } from "@/engine/core/database";
 import { AbstractCoreManager } from "@/engine/core/managers/base/AbstractCoreManager";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
-import {
-  ISmartTerrainDescriptor,
-  SimulationBoardManager,
-} from "@/engine/core/managers/interaction/SimulationBoardManager";
 import { ETaskState } from "@/engine/core/managers/interaction/tasks/types";
 import {
   notificationManagerIcons,
@@ -25,6 +21,7 @@ import {
   ITipNotification,
   ITreasureNotification,
 } from "@/engine/core/managers/interface/notifications/types";
+import { ISmartTerrainDescriptor, SimulationBoardManager } from "@/engine/core/managers/simulation";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import { Stalker } from "@/engine/core/objects";
 import { abort, assert } from "@/engine/core/utils/assertion";
@@ -210,7 +207,7 @@ export class NotificationManager extends AbstractCoreManager {
    * Send notification about task state update.
    */
   public sendTaskNotification(newState: ETaskState, task: GameTask): void {
-    logger.info("Show task notification:", newState, task.get_id(), task.get_title());
+    // logger.info("Show task notification:", newState, task.get_id(), task.get_title());
 
     const notificationTaskDescription: Record<ETaskState, TLabel> = {
       [ETaskState.NEW]: "general_new_task",
@@ -306,14 +303,14 @@ export class NotificationManager extends AbstractCoreManager {
     soundCaption: Optional<TLabel> = null,
     delay: TDuration = 0
   ): void {
-    logger.info("Send sound notification:", object?.name(), soundPath, soundCaption, faction);
+    // logger.info("Send sound notification:", object?.name(), soundPath, soundCaption, faction);
 
     let pointName: TName = "";
 
     // todo: Probably name and number id problem? Not real condition?
     if (point !== null) {
       const smartDescriptor: Optional<ISmartTerrainDescriptor> =
-        SimulationBoardManager.getInstance().getSmartTerrainDescriptorById(point as TNumberId);
+        SimulationBoardManager.getInstance().getSmartTerrainDescriptor(point as TNumberId);
 
       if (smartDescriptor !== null) {
         pointName = smartDescriptor.smartTerrain.getNameCaption();

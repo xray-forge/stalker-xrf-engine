@@ -34,7 +34,7 @@ const logger: LuaLogger = new LuaLogger($filename);
 export function createSmartTerrainJobs(
   smartTerrain: SmartTerrain
 ): LuaMultiReturn<[TSmartTerrainJobsList, IniFile, TName]> {
-  logger.info("Create jobs for smart terrain:", smartTerrain.name());
+  // logger.info("Create jobs for smart terrain:", smartTerrain.name());
 
   const builder: StringBuilder = new StringBuilder();
   const jobs: TSmartTerrainJobsList = new LuaTable();

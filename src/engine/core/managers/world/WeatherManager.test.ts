@@ -42,12 +42,12 @@ describe("WeatherManager class", () => {
   });
 
   it("should correctly set state", () => {
-    const weatherManager: WeatherManager = getManagerInstance(WeatherManager);
+    const manager: WeatherManager = getManagerInstance(WeatherManager);
 
-    weatherManager.setStateAsString("dynamic_default=clear,cloudy");
+    manager.setStateAsString("dynamic_default=clear,cloudy");
 
-    expect(MockLuaTable.getMockSize(weatherManager.weatherState)).toBe(1);
-    expect(weatherManager.weatherState).toStrictEqual(
+    expect(MockLuaTable.getMockSize(manager.weatherState)).toBe(1);
+    expect(manager.weatherState).toStrictEqual(
       mockLuaTable<string, IWeatherState>([
         [
           "dynamic_default",
@@ -68,17 +68,17 @@ describe("WeatherManager class", () => {
   });
 
   it("should correctly save and load data", () => {
-    const weatherManager: WeatherManager = getManagerInstance(WeatherManager);
+    const manager: WeatherManager = getManagerInstance(WeatherManager);
     const netProcessor: MockNetProcessor = new MockNetProcessor();
 
-    weatherManager.setStateAsString("dynamic_default=clear,cloudy");
-    weatherManager.weatherSection = "test_weather";
-    weatherManager.weatherPeriod = "good";
-    weatherManager.weatherLastPeriodChangeHour = 9;
-    weatherManager.weatherNextPeriodChangeHour = 13;
-    weatherManager.lastUpdatedAtHour = 11;
+    manager.setStateAsString("dynamic_default=clear,cloudy");
+    manager.weatherSection = "test_weather";
+    manager.weatherPeriod = "good";
+    manager.weatherLastPeriodChangeHour = 9;
+    manager.weatherNextPeriodChangeHour = 13;
+    manager.lastUpdatedAtHour = 11;
 
-    weatherManager.save(mockNetPacket(netProcessor));
+    manager.save(mockNetPacket(netProcessor));
 
     expect(netProcessor.writeDataOrder).toEqual([
       EPacketDataType.STRING,
@@ -94,14 +94,14 @@ describe("WeatherManager class", () => {
 
     disposeManager(WeatherManager);
 
-    const newWeatherManager: WeatherManager = getManagerInstance(WeatherManager);
+    const newManager: WeatherManager = getManagerInstance(WeatherManager);
 
-    newWeatherManager.load(mockNetProcessor(netProcessor));
+    newManager.load(mockNetProcessor(netProcessor));
 
     expect(netProcessor.readDataOrder).toEqual(netProcessor.writeDataOrder);
     expect(netProcessor.dataList).toHaveLength(0);
-    expect(newWeatherManager).not.toBe(weatherManager);
-    expect(weatherManager.weatherState).toEqual(newWeatherManager.weatherState);
-    expect(weatherManager.weatherFx).toEqual(newWeatherManager.weatherFx);
+    expect(newManager).not.toBe(manager);
+    expect(manager.weatherState).toEqual(newManager.weatherState);
+    expect(manager.weatherFx).toEqual(newManager.weatherFx);
   });
 });

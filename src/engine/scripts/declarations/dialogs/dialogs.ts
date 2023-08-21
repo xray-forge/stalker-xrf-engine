@@ -1,9 +1,9 @@
 import { alife, level } from "xray16";
 
 import { registry } from "@/engine/core/database";
-import { SimulationBoardManager } from "@/engine/core/managers/interaction/SimulationBoardManager";
 import { ActorInputManager } from "@/engine/core/managers/interface";
 import { ENotificationDirection, NotificationManager } from "@/engine/core/managers/interface/notifications";
+import { SimulationBoardManager } from "@/engine/core/managers/simulation/SimulationBoardManager";
 import { SurgeManager } from "@/engine/core/managers/world/SurgeManager";
 import { updateStalkerLogic } from "@/engine/core/objects/binders/creature/StalkerBinder";
 import { ISchemeMeetState } from "@/engine/core/schemes/meet";

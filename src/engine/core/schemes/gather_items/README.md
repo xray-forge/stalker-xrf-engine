@@ -6,4 +6,5 @@ Allows control of whether object is lootable or not.
 ## ini parameters
 
 ```
+
 ```

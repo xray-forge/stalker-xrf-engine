@@ -20,6 +20,7 @@ import {
 } from "@/engine/core/utils/object/object_task_reward";
 import { getObjectsRelationSafe, isActorEnemyWithFaction } from "@/engine/core/utils/relation";
 import { communities } from "@/engine/lib/constants/communities";
+import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import { infoPortions, TInfoPortion } from "@/engine/lib/constants/info_portions/info_portions";
 import { ammo } from "@/engine/lib/constants/items/ammo";
 import { artefacts, TArtefact } from "@/engine/lib/constants/items/artefacts";
@@ -2016,9 +2017,7 @@ extern(
  * todo;
  */
 extern("dialogs_jupiter.jup_b218_counter_not_3", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
-  const actor: ClientObject = registry.actor;
-
-  return getPortableStoreValue(actor, "jup_b218_squad_members_count", 0 as number) !== 3;
+  return getPortableStoreValue(ACTOR_ID, "jup_b218_squad_members_count", 0 as number) !== 3;
 });
 
 /**
@@ -2027,9 +2026,7 @@ extern("dialogs_jupiter.jup_b218_counter_not_3", (firstSpeaker: ClientObject, se
 extern(
   "dialogs_jupiter.jup_b218_counter_equal_3",
   (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
-    const actor: ClientObject = registry.actor;
-
-    return getPortableStoreValue(actor, "jup_b218_squad_members_count", 0 as number) === 3;
+    return getPortableStoreValue(ACTOR_ID, "jup_b218_squad_members_count", 0 as number) === 3;
   }
 );
 
@@ -2037,9 +2034,7 @@ extern(
  * todo;
  */
 extern("dialogs_jupiter.jup_b218_counter_not_0", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
-  const actor: ClientObject = registry.actor;
-
-  return getPortableStoreValue(actor, "jup_b218_squad_members_count", 0 as number) !== 0;
+  return getPortableStoreValue(ACTOR_ID, "jup_b218_squad_members_count", 0 as number) !== 0;
 });
 
 /**

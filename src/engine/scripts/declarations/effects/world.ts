@@ -1,7 +1,7 @@
 import { alife, level, patrol } from "xray16";
 
 import { getObjectByStoryId, getObjectIdByStoryId, IRegistryObjectState, registry } from "@/engine/core/database";
-import { SimulationBoardManager } from "@/engine/core/managers/interaction/SimulationBoardManager";
+import { SimulationBoardManager } from "@/engine/core/managers/simulation/SimulationBoardManager";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import { SurgeManager } from "@/engine/core/managers/world/SurgeManager";
 import { WeatherManager } from "@/engine/core/managers/world/WeatherManager";

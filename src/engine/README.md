@@ -5,7 +5,7 @@ This directory contains engine implementation source code.
 ## configs
 
 Ltx configs of game logics and settings. <br/>
-Includes both '*.ltx' and '*.ts' variants.
+Includes both '_.ltx' and '_.ts' variants.
 
 ## core
 
@@ -18,7 +18,7 @@ Codebase of extensions used to provide modular game changing logic/assets. <br/>
 
 ## forms
 
-Codebase of UI forms both in '*.xml' and '*.tsx' variants.
+Codebase of UI forms both in '_.xml' and '_.tsx' variants.
 
 ## lib
 
@@ -32,4 +32,4 @@ Also includes globals definitions to access from logics configs.
 ## translations
 
 Source code related to translations of strings. <br/>
-Both '*.xml' and '*.json' variants can be used.
+Both '_.xml' and '_.json' variants can be used.

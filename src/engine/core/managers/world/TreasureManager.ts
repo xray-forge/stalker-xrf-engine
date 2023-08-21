@@ -241,12 +241,12 @@ export class TreasureManager extends AbstractCoreManager {
    * todo: Description.
    */
   protected spawnTreasure(treasureId: TTreasure): void {
-    logger.info("Spawn treasure ID:", treasureId);
+    // logger.info("Spawn treasure ID:", treasureId);
 
     assertDefined(this.secrets.get(treasureId), "There is no stored secret:", treasureId);
 
     if (this.secrets.get(treasureId).given) {
-      logger.info("Secret already given:", treasureId);
+      logger.info("Spawned secret is already given:", treasureId);
 
       return;
     }

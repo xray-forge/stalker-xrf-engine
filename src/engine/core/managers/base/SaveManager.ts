@@ -1,11 +1,11 @@
 import { EGameEvent, EventsManager } from "@/engine/core/managers";
 import { AbstractCoreManager } from "@/engine/core/managers/base/AbstractCoreManager";
 import { AchievementsManager } from "@/engine/core/managers/interaction/achievements";
-import { SimulationBoardManager } from "@/engine/core/managers/interaction/SimulationBoardManager";
 import { TaskManager } from "@/engine/core/managers/interaction/tasks";
 import { ActorInputManager } from "@/engine/core/managers/interface";
 import { GameSettingsManager } from "@/engine/core/managers/interface/GameSettingsManager";
 import { StatisticsManager } from "@/engine/core/managers/interface/statistics/StatisticsManager";
+import { SimulationBoardManager } from "@/engine/core/managers/simulation/SimulationBoardManager";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import { PsyAntennaManager } from "@/engine/core/managers/world/PsyAntennaManager";
 import { ReleaseBodyManager } from "@/engine/core/managers/world/ReleaseBodyManager";
@@ -33,7 +33,7 @@ export class SaveManager extends AbstractCoreManager {
    * Save core managers data.
    */
   public clientSave(packet: NetPacket): void {
-    logger.info("Saving client");
+    logger.info("Saving client data");
 
     WeatherManager.getInstance().save(packet);
     ReleaseBodyManager.getInstance().save(packet);
@@ -52,7 +52,7 @@ export class SaveManager extends AbstractCoreManager {
    * Load core managers data.
    */
   public clientLoad(reader: NetProcessor): void {
-    logger.info("Loading client");
+    logger.info("Loading client data");
 
     WeatherManager.getInstance().load(reader);
     ReleaseBodyManager.getInstance().load(reader);
@@ -71,7 +71,7 @@ export class SaveManager extends AbstractCoreManager {
    * Write state for core managers.
    */
   public serverSave(packet: NetPacket): void {
-    logger.info("Saving server");
+    logger.info("Saving server data");
 
     SimulationBoardManager.getInstance().save(packet);
   }
@@ -80,7 +80,7 @@ export class SaveManager extends AbstractCoreManager {
    * Read state for core managers.
    */
   public serverLoad(reader: NetProcessor): void {
-    logger.info("Loading server");
+    logger.info("Loading server data");
 
     SimulationBoardManager.getInstance().load(reader);
   }

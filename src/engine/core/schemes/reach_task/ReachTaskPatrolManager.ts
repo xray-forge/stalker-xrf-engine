@@ -82,7 +82,7 @@ export class ReachTaskPatrolManager {
       return;
     }
 
-    logger.info("Add object to patrol:", object.name(), this.targetId);
+    // logger.info("Add object to patrol:", object.name(), this.targetId);
 
     this.objectsList.set(object.id(), {
       soldier: object.id(),
@@ -121,7 +121,7 @@ export class ReachTaskPatrolManager {
    * todo: Description.
    */
   public resetPositions(): void {
-    logger.info("Reset formation positions:", this.targetId, this.commanderId, this.objectsCount);
+    // logger.info("Reset formation positions:", this.targetId, this.commanderId, this.objectsCount);
 
     const form_ = formations[this.formation as "back"];
     let index = 1;

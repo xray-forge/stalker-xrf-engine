@@ -20,7 +20,7 @@ export class PsyAntennaSchemaManager extends AbstractSchemeManager<ISchemePsyAnt
    */
   public override resetScheme(loading?: boolean): void {
     if (loading) {
-      this.antennaState = getPortableStoreValue(this.object, "inside")!;
+      this.antennaState = getPortableStoreValue(this.object.id(), "inside")!;
     }
 
     if (this.antennaState === EAntennaState.INSIDE) {
@@ -141,6 +141,6 @@ export class PsyAntennaSchemaManager extends AbstractSchemeManager<ISchemePsyAnt
    * todo: Description.
    */
   public save(): void {
-    setPortableStoreValue(this.object, "inside", this.antennaState);
+    setPortableStoreValue(this.object.id(), "inside", this.antennaState);
   }
 }

@@ -5,7 +5,6 @@ import { EventsManager } from "@/engine/core/managers";
 import { SaveManager } from "@/engine/core/managers/base/SaveManager";
 import { AchievementsManager } from "@/engine/core/managers/interaction/achievements";
 import { DialogManager } from "@/engine/core/managers/interaction/dialog";
-import { SimulationBoardManager } from "@/engine/core/managers/interaction/SimulationBoardManager";
 import { SleepManager } from "@/engine/core/managers/interaction/SleepManager";
 import { TaskManager } from "@/engine/core/managers/interaction/tasks";
 import { TradeManager } from "@/engine/core/managers/interaction/TradeManager";
@@ -17,6 +16,7 @@ import { ItemUpgradesManager } from "@/engine/core/managers/interface/ItemUpgrad
 import { LoadScreenManager } from "@/engine/core/managers/interface/LoadScreenManager";
 import { PdaManager } from "@/engine/core/managers/interface/PdaManager";
 import { StatisticsManager } from "@/engine/core/managers/interface/statistics";
+import { SimulationBoardManager } from "@/engine/core/managers/simulation/SimulationBoardManager";
 import { DynamicMusicManager } from "@/engine/core/managers/sounds/DynamicMusicManager";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import { PhantomManager } from "@/engine/core/managers/world/PhantomManager";

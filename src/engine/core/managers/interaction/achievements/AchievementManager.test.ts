@@ -17,7 +17,7 @@ import { infoPortions, TInfoPortion } from "@/engine/lib/constants/info_portions
 import { artefacts } from "@/engine/lib/constants/items/artefacts";
 import { TName } from "@/engine/lib/types";
 import { MockLuaTable } from "@/fixtures/lua/mocks/LuaTable.mock";
-import { mockClientGameObject } from "@/fixtures/xray";
+import { mockActorClientGameObject, mockClientGameObject } from "@/fixtures/xray";
 import { MockCTime } from "@/fixtures/xray/mocks/CTime.mock";
 import { EPacketDataType, mockNetPacket, mockNetProcessor, MockNetProcessor } from "@/fixtures/xray/mocks/save";
 
@@ -66,7 +66,7 @@ describe("AchievementManager class", () => {
 
   beforeEach(() => {
     disposeManager(EventsManager);
-    registerActor(mockClientGameObject());
+    registerActor(mockActorClientGameObject());
   });
 
   it("should correctly initialize and destroy", () => {

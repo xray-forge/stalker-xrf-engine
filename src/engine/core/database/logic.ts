@@ -75,7 +75,7 @@ export function loadObjectLogic(object: ClientObject, reader: NetProcessor): voi
   state.activationTime = reader.r_s32() + time_global();
   state.activationGameTime = readTimeFromPacket(reader) as Time;
 
-  loadPortableStore(object, reader);
+  loadPortableStore(object.id(), reader);
 
   closeLoadMarker(reader, "object" + object.name());
 }

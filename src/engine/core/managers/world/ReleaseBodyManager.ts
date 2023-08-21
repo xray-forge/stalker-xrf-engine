@@ -15,7 +15,7 @@ import { AbstractCoreManager } from "@/engine/core/managers/base/AbstractCoreMan
 import { abort } from "@/engine/core/utils/assertion";
 import { readIniString } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { isMonster, isStalker } from "@/engine/core/utils/object";
+import { isMonster, isStalker } from "@/engine/core/utils/object/object_class";
 import { resetTable } from "@/engine/core/utils/table";
 import { roots } from "@/engine/lib/constants/roots";
 import {
@@ -134,20 +134,20 @@ export class ReleaseBodyManager extends AbstractCoreManager {
    */
   protected inspectionResult(object: ClientObject): boolean {
     if (getStoryIdByObjectId(object.id()) !== null) {
-      logger.info("Ignore corpse release, present in story:", object.name());
+      // logger.info("Ignore corpse release, present in story:", object.name());
 
       return false;
     }
 
     if (this.checkForKnownInfo(object)) {
-      logger.info("Ignore corpse release, present in known info:", object.name());
+      // logger.info("Ignore corpse release, present in known info:", object.name());
 
       return false;
     }
 
     for (const [k, v] of this.keepItemsRegistry) {
       if (object.object(this.keepItemsRegistry.get(k)) !== null) {
-        logger.info("Ignore corpse release, contains keep item:", object.name(), k);
+        // logger.info("Ignore corpse release, contains keep item:", object.name(), k);
 
         return false;
       }

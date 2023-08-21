@@ -82,7 +82,7 @@ export class MapDisplayManager extends AbstractCoreManager {
     state: IRegistryObjectState,
     section: TSection
   ): void {
-    logger.info("Update npc spot:", object.name());
+    // logger.info("Update npc spot:", object.name());
 
     const objectId: TNumberId = object.id();
     const simulator: AlifeSimulator = alife();

@@ -43,12 +43,12 @@ export class EvaluatorWounded extends property_evaluator {
     // If fighting and wounded_fight is set to 'true' still fight:
     if (
       this.actionPlanner.evaluator(stalker_ids.property_enemy).evaluate() &&
-      getPortableStoreValue(this.object, "wounded_fight") === TRUE
+      getPortableStoreValue(this.object.id(), "wounded_fight") === TRUE
     ) {
       return false;
     }
 
     // Wounded state is set for an object, consider it wounded.
-    return tostring(getPortableStoreValue(this.object, "wounded_state")) !== NIL;
+    return tostring(getPortableStoreValue(this.object.id(), "wounded_state")) !== NIL;
   }
 }

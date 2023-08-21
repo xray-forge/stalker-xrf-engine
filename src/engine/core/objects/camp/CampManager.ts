@@ -85,7 +85,7 @@ export class CampManager {
 
     this.storyManager = StoryManager.getStoryManagerForId("camp" + this.object.id());
 
-    logger.info("Created for:", object.name(), stories, guitars, harmonicas);
+    // logger.info("Created for:", object.name(), stories, guitars, harmonicas);
   }
 
   /**
@@ -193,7 +193,7 @@ export class CampManager {
       now + math.random(CAMP_ACTIVITIES.get(this.activity).minTime, CAMP_ACTIVITIES.get(this.activity).maxTime);
     this.activityTimeout = now + CAMP_ACTIVITIES.get(this.activity).timeout;
 
-    logger.info("Set camp next state:", probability, this.activity, "| switch at:", this.activitySwitchAt);
+    // logger.info("Set camp next state:", probability, this.activity, "| switch at:", this.activitySwitchAt);
   }
 
   /**

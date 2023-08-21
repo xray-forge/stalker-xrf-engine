@@ -83,12 +83,10 @@ export class HelicopterMoveManager extends AbstractSchemeManager<ISchemeHelicopt
     this.maxVelocity = this.state.max_velocity;
 
     if (loading) {
-      this.heliState = getPortableStoreValue(this.object, "st");
-
-      this.lastIndex = getPortableStoreValue(this.object, "li") || null;
-      this.nextIndex = getPortableStoreValue(this.object, "ni") || null;
-
-      this.wasCallback = getPortableStoreValue(this.object, "wc");
+      this.heliState = getPortableStoreValue(this.object.id(), "st");
+      this.lastIndex = getPortableStoreValue(this.object.id(), "li") || null;
+      this.nextIndex = getPortableStoreValue(this.object.id(), "ni") || null;
+      this.wasCallback = getPortableStoreValue(this.object.id(), "wc");
     } else {
       this.lastIndex = null;
       this.nextIndex = null;
@@ -162,12 +160,12 @@ export class HelicopterMoveManager extends AbstractSchemeManager<ISchemeHelicopt
    * todo: Description.
    */
   public save(): void {
-    setPortableStoreValue(this.object, "st", this.heliState);
+    setPortableStoreValue(this.object.id(), "st", this.heliState);
     // ---
-    setPortableStoreValue(this.object, "li", this.lastIndex || false);
-    setPortableStoreValue(this.object, "ni", this.nextIndex || false);
+    setPortableStoreValue(this.object.id(), "li", this.lastIndex || false);
+    setPortableStoreValue(this.object.id(), "ni", this.nextIndex || false);
     // ---
-    setPortableStoreValue(this.object, "wc", this.wasCallback);
+    setPortableStoreValue(this.object.id(), "wc", this.wasCallback);
   }
 
   /**

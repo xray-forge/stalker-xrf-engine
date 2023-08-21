@@ -9,7 +9,7 @@ import {
   SYSTEM_INI,
   unregisterHelicopterObject,
 } from "@/engine/core/database";
-import { SimulationBoardManager } from "@/engine/core/managers/interaction/SimulationBoardManager";
+import { SimulationBoardManager } from "@/engine/core/managers/simulation/SimulationBoardManager";
 import { SmartTerrain, Squad, updateStalkerLogic } from "@/engine/core/objects";
 import { IBaseSchemeState } from "@/engine/core/schemes";
 import { SchemeAbuse } from "@/engine/core/schemes/abuse";
@@ -264,7 +264,7 @@ extern(
  * todo;
  */
 extern("xr_effects.spawn_corpse", (actor: ClientObject, obj: ClientObject, params: [string, string, number]): void => {
-  logger.info("Spawn corpse:", params[0]);
+  // logger.info("Spawn corpse:", params[0]);
 
   const spawnSection: TSection = params[0];
 
@@ -354,7 +354,7 @@ extern(
 
     const simulationBoardManager: SimulationBoardManager = SimulationBoardManager.getInstance();
     const squad: Squad = getServerObjectByStoryId(storyId) as Squad;
-    const squadSmartTerrain: Optional<SmartTerrain> = simulationBoardManager.getSmartTerrainDescriptorById(
+    const squadSmartTerrain: Optional<SmartTerrain> = simulationBoardManager.getSmartTerrainDescriptor(
       squad.assignedSmartTerrainId as TNumberId
     )!.smartTerrain;
 
@@ -411,7 +411,7 @@ extern("xr_effects.remove_squad", (actor: ClientObject, obj: ClientObject, p: [s
     abort("Wrong squad identificator [%s]. squad doesnt exist", tostring(storyId));
   }
 
-  SimulationBoardManager.getInstance().onRemoveSquad(squad);
+  SimulationBoardManager.getInstance().releaseSquad(squad);
 });
 
 /**
@@ -493,16 +493,16 @@ extern("xr_effects.clear_smart_terrain", (actor: ClientObject, object: ClientObj
   const smartTerrain: SmartTerrain = simulationBoardManager.getSmartTerrainByName(smartTerrainname) as SmartTerrain;
   const smartTerrainId: TNumberId = smartTerrain.id;
 
-  for (const [k, v] of simulationBoardManager.getSmartTerrainDescriptorById(smartTerrainId)!.assignedSquads) {
+  for (const [k, squad] of simulationBoardManager.getSmartTerrainDescriptor(smartTerrainId)!.assignedSquads) {
     if (p[1] && p[1] === FALSE) {
       // todo: Probably unreachable condition / cast
-      if (!getObjectIdByStoryId(v.id as unknown as string)) {
-        simulationBoardManager.exitSmartTerrain(v, smartTerrainId);
-        simulationBoardManager.onRemoveSquad(v);
+      if (!getObjectIdByStoryId(squad.id as unknown as string)) {
+        simulationBoardManager.exitSmartTerrain(squad, smartTerrainId);
+        simulationBoardManager.releaseSquad(squad);
       }
     } else {
-      simulationBoardManager.exitSmartTerrain(v, smartTerrainId);
-      simulationBoardManager.onRemoveSquad(v);
+      simulationBoardManager.exitSmartTerrain(squad, smartTerrainId);
+      simulationBoardManager.releaseSquad(squad);
     }
   }
 });

@@ -40,8 +40,8 @@ describe("'logic' database module", () => {
     state.activationTime = 15_000;
     state.activationGameTime = time;
 
-    setPortableStoreValue(object, "test-key-1", "test-val");
-    setPortableStoreValue(object, "test-key-2", 255);
+    setPortableStoreValue(object.id(), "test-key-1", "test-val");
+    setPortableStoreValue(object.id(), "test-key-2", 255);
 
     saveObjectLogic(object, mockNetPacket(netProcessor));
 
@@ -131,7 +131,7 @@ describe("'logic' database module", () => {
     expect(nextState.activationTime).toBe(15_000);
     expect(nextState.activationGameTime.toString()).toBe(time.toString());
 
-    expect(getPortableStoreValue(object, "test-key-1")).toBe("test-val");
-    expect(getPortableStoreValue(object, "test-key-2")).toBe(255);
+    expect(getPortableStoreValue(object.id(), "test-key-1")).toBe("test-val");
+    expect(getPortableStoreValue(object.id(), "test-key-2")).toBe(255);
   });
 });

@@ -5,6 +5,7 @@ import { ISchemeHelpWoundedState } from "@/engine/core/schemes/help_wounded";
 import { ISchemeWoundedState } from "@/engine/core/schemes/wounded";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { isObjectWounded } from "@/engine/core/utils/object";
+import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
 import { communities } from "@/engine/lib/constants/communities";
 import { ACTOR_VISUAL_STALKER } from "@/engine/lib/constants/sections";
 import { ClientObject, EScheme, Optional, TDistance, TNumberId, Vector } from "@/engine/lib/types";
@@ -48,7 +49,7 @@ export class EvaluatorWoundedExist extends property_evaluator {
       return false;
     }
 
-    let nearestDistance: TDistance = 900; // sqr -> 30*30
+    let nearestDistance: TDistance = logicsConfig.HELP_WOUNDED.DISTANCE_TO_HELP_SQR;
     let nearestVertexId: Optional<TNumberId> = null;
     let nearestPosition: Optional<Vector> = null;
     let selectedObjectId: Optional<TNumberId> = null;

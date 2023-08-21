@@ -72,8 +72,6 @@ export class DynamicMusicManager extends AbstractCoreManager {
   public nextTrackStartTime: TTimestamp = 0;
 
   public override initialize(): void {
-    logger.info("Initialize dynamic music manager");
-
     const eventsManager: EventsManager = EventsManager.getInstance();
 
     eventsManager.registerCallback(EGameEvent.ACTOR_UPDATE, this.onActorUpdate, this);

@@ -123,7 +123,7 @@ export function activateSchemeBySection(
   additional: Optional<string>,
   isLoading: boolean
 ): void {
-  logger.info("Activate scheme:", object.name(), section, additional);
+  // logger.info("Activate scheme:", object.name(), section, additional);
 
   assertDefined(isLoading, "scheme/logic: activateBySection: loading field is null, true || false expected.");
 
@@ -169,7 +169,7 @@ export function activateSchemeBySection(
 
   assert(schemeImplementation, "scheme/logic: scheme '%s' is not registered.", scheme);
 
-  logger.info("Set active scheme:", scheme, "->", object.name(), section, additional);
+  // logger.info("Set active scheme:", scheme, "->", object.name(), section, additional);
 
   schemeImplementation.activate(object, ini, scheme, section as TSection, additional);
 

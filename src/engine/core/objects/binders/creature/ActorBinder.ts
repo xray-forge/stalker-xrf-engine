@@ -58,7 +58,7 @@ export class ActorBinder extends object_binder {
     }
 
     registerActor(this.object);
-    initializePortableStore(this.object);
+    initializePortableStore(this.object.id());
 
     // todo: Move out deimos related logic / data.
     (registry.actor as unknown as ActorBinder).deimosIntensity = this.deimosIntensity;
@@ -98,7 +98,7 @@ export class ActorBinder extends object_binder {
     super.reinit();
 
     registerActor(this.object);
-    destroyPortableStore(this.object);
+    destroyPortableStore(this.object.id());
 
     this.object.set_callback(callback.inventory_info, (object: ClientObject, info: string) => {
       this.eventsManager.emitEvent(EGameEvent.ACTOR_INFO_UPDATE, object, info);
@@ -181,7 +181,7 @@ export class ActorBinder extends object_binder {
 
     super.load(reader);
 
-    loadPortableStore(this.object, reader);
+    loadPortableStore(this.object.id(), reader);
     SaveManager.getInstance().clientLoad(reader);
 
     // todo: Move out deimos logic.

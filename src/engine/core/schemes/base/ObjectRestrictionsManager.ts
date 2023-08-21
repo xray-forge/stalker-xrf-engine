@@ -15,7 +15,7 @@ export class ObjectRestrictionsManager {
    * Initialize restrictor manager for game object.
    */
   public static initializeForObject(object: ClientObject): ObjectRestrictionsManager {
-    logger.info("Get restrictor manager for object:", object.name());
+    // logger.info("Initialize restrictor manager for object:", object.name());
 
     const state: Optional<IRegistryObjectState> = registry.objects.get(object.id());
 
@@ -60,7 +60,7 @@ export class ObjectRestrictionsManager {
     const objectName: TName = this.object.name();
     const ini: IniFile = registry.objects.get(this.object.id()).ini;
 
-    logger.info("Activate restrictions:", objectName, section);
+    // logger.info("Activate restrictions:", objectName, section);
 
     // Update OUT restrictors based on active / ini restrictors.
     const outRestrictorString: string = readIniString(ini, section, "out_restr", false, "", "");
