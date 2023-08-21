@@ -61,10 +61,10 @@ export class EvaluatorWoundedExist extends property_evaluator {
       const visibleObjectState: IRegistryObjectState = registry.objects.get(visibleObjectId);
 
       if (
-        // Is alive.
-        visibleObject.alive() &&
         // Is wounded.
         isObjectWounded(visibleObject.id()) &&
+        // Is alive.
+        visibleObject.alive() &&
         // Is not selected by others to help or selected by current object.
         (visibleObjectState.wounded_already_selected === null ||
           visibleObjectState.wounded_already_selected === objectId) &&
