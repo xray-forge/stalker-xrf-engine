@@ -33,7 +33,7 @@ export class SaveManager extends AbstractCoreManager {
    * Save core managers data.
    */
   public clientSave(packet: NetPacket): void {
-    logger.info("Saving client");
+    logger.info("Saving client data");
 
     WeatherManager.getInstance().save(packet);
     ReleaseBodyManager.getInstance().save(packet);
@@ -52,7 +52,7 @@ export class SaveManager extends AbstractCoreManager {
    * Load core managers data.
    */
   public clientLoad(reader: NetProcessor): void {
-    logger.info("Loading client");
+    logger.info("Loading client data");
 
     WeatherManager.getInstance().load(reader);
     ReleaseBodyManager.getInstance().load(reader);
@@ -71,7 +71,7 @@ export class SaveManager extends AbstractCoreManager {
    * Write state for core managers.
    */
   public serverSave(packet: NetPacket): void {
-    logger.info("Saving server");
+    logger.info("Saving server data");
 
     SimulationBoardManager.getInstance().save(packet);
   }
@@ -80,7 +80,7 @@ export class SaveManager extends AbstractCoreManager {
    * Read state for core managers.
    */
   public serverLoad(reader: NetProcessor): void {
-    logger.info("Loading server");
+    logger.info("Loading server data");
 
     SimulationBoardManager.getInstance().load(reader);
   }

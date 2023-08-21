@@ -49,7 +49,7 @@ export class EventsManager extends AbstractTimersManager {
     callback: (this: T, ...args: AnyArgs) => void,
     context: Optional<AnyObject> = null
   ): void {
-    logger.info("Register callback:", EGameEvent[event]);
+    // logger.info("Register callback:", EGameEvent[event]);
 
     this.assertEventIsDeclared(event);
     this.callbacks[event].set(callback as any, { context: context });
@@ -63,7 +63,7 @@ export class EventsManager extends AbstractTimersManager {
    */
   public unregisterCallback<T>(event: EGameEvent, callback: AnyContextualCallable<unknown>): void;
   public unregisterCallback<T>(event: EGameEvent, callback: AnyCallable): void {
-    logger.info("Unregister callback:", EGameEvent[event]);
+    // logger.info("Unregister callback:", EGameEvent[event]);
 
     this.assertEventIsDeclared(event);
     this.callbacks[event].delete(callback as AnyCallable);

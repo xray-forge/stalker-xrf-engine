@@ -56,7 +56,7 @@ export class TradeManager extends AbstractCoreManager {
    * todo: Do not reuse data variable.
    */
   public initializeForObject(object: ClientObject, configFilePath: TPath): void {
-    logger.info("Initialize trade for:", object.name(), configFilePath);
+    // logger.info("Initialize trade for:", object.name(), configFilePath);
 
     const objectId: TNumberId = object.id();
 

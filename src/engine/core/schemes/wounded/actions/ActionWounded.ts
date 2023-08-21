@@ -50,11 +50,11 @@ export class ActionWounded extends action_base {
 
     if (this.state.autoheal === true) {
       if (woundManager.canUseMedkit !== true) {
-        const woundedAt: TTimestamp = getPortableStoreValue(this.object, "begin_wounded")!;
+        const woundedAt: TTimestamp = getPortableStoreValue(this.object.id(), "begin_wounded")!;
         const now: TTimestamp = time_global();
 
         if (woundedAt === null) {
-          setPortableStoreValue(this.object, "begin_wounded", now);
+          setPortableStoreValue(this.object.id(), "begin_wounded", now);
         } else if (now - woundedAt > 60000) {
           const npc: ClientObject = this.object;
 
@@ -64,8 +64,8 @@ export class ActionWounded extends action_base {
       }
     }
 
-    const woundManagerState: EStalkerState = getPortableStoreValue<EStalkerState>(this.object, "wounded_state")!;
-    const woundManagerSound: string = getPortableStoreValue(this.object, "wounded_sound")!;
+    const woundManagerState: EStalkerState = getPortableStoreValue<EStalkerState>(this.object.id(), "wounded_state")!;
+    const woundManagerSound: string = getPortableStoreValue(this.object.id(), "wounded_sound")!;
 
     if (woundManagerState === TRUE) {
       const hitObject: Hit = new hit();

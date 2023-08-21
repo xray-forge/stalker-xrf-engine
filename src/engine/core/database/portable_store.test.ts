@@ -45,11 +45,11 @@ describe("'portable_store' functionality", () => {
 
     expect(registry.objects.get(object.id()).portableStore).toBeUndefined();
 
-    initializePortableStore(object);
+    initializePortableStore(object.id());
 
     expect(registry.objects.get(object.id()).portableStore).toEqual(new LuaTable());
 
-    destroyPortableStore(object);
+    destroyPortableStore(object.id());
 
     expect(registry.objects.get(object.id()).portableStore).toBeNull();
   });
@@ -60,31 +60,31 @@ describe("'portable_store' functionality", () => {
     registerObject(object);
 
     // Numbers.
-    expect(getPortableStoreValue(object, "some_key")).toBeNull();
+    expect(getPortableStoreValue(object.id(), "some_key")).toBeNull();
 
-    setPortableStoreValue(object, "some_key", 1000);
-    expect(getPortableStoreValue(object, "some_key")).toBe(1000);
+    setPortableStoreValue(object.id(), "some_key", 1000);
+    expect(getPortableStoreValue(object.id(), "some_key")).toBe(1000);
 
-    setPortableStoreValue(object, "some_key", null);
-    expect(getPortableStoreValue(object, "some_key")).toBeNull();
+    setPortableStoreValue(object.id(), "some_key", null);
+    expect(getPortableStoreValue(object.id(), "some_key")).toBeNull();
 
     // Boolean.
-    expect(getPortableStoreValue(object, "another")).toBeNull();
+    expect(getPortableStoreValue(object.id(), "another")).toBeNull();
 
-    setPortableStoreValue(object, "another", true);
-    expect(getPortableStoreValue(object, "another")).toBe(true);
+    setPortableStoreValue(object.id(), "another", true);
+    expect(getPortableStoreValue(object.id(), "another")).toBe(true);
 
-    setPortableStoreValue(object, "another", null);
-    expect(getPortableStoreValue(object, "another")).toBeNull();
+    setPortableStoreValue(object.id(), "another", null);
+    expect(getPortableStoreValue(object.id(), "another")).toBeNull();
 
     // String.
-    expect(getPortableStoreValue(object, "string")).toBeNull();
+    expect(getPortableStoreValue(object.id(), "string")).toBeNull();
 
-    setPortableStoreValue(object, "string", "example");
-    expect(getPortableStoreValue(object, "string")).toBe("example");
+    setPortableStoreValue(object.id(), "string", "example");
+    expect(getPortableStoreValue(object.id(), "string")).toBe("example");
 
-    setPortableStoreValue(object, "string", null);
-    expect(getPortableStoreValue(object, "string")).toBeNull();
+    setPortableStoreValue(object.id(), "string", null);
+    expect(getPortableStoreValue(object.id(), "string")).toBeNull();
   });
 
   it("should correctly save and load values", () => {
@@ -92,9 +92,9 @@ describe("'portable_store' functionality", () => {
 
     registerObject(object);
 
-    setPortableStoreValue(object, "number_test", 1000);
-    setPortableStoreValue(object, "boolean_test", true);
-    setPortableStoreValue(object, "string_test", "example");
+    setPortableStoreValue(object.id(), "number_test", 1000);
+    setPortableStoreValue(object.id(), "boolean_test", true);
+    setPortableStoreValue(object.id(), "string_test", "example");
 
     const netProcessor: MockNetProcessor = new MockNetProcessor();
 
@@ -129,13 +129,13 @@ describe("'portable_store' functionality", () => {
 
     registerObject(nextObject);
 
-    loadPortableStore(nextObject, mockNetProcessor(netProcessor));
+    loadPortableStore(nextObject.id(), mockNetProcessor(netProcessor));
 
     expect(netProcessor.readDataOrder).toEqual(netProcessor.writeDataOrder);
     expect(netProcessor.dataList).toEqual([]);
 
-    expect(getPortableStoreValue(object, "number_test")).toBe(1000);
-    expect(getPortableStoreValue(object, "boolean_test")).toBe(true);
-    expect(getPortableStoreValue(object, "string_test")).toBe("example");
+    expect(getPortableStoreValue(object.id(), "number_test")).toBe(1000);
+    expect(getPortableStoreValue(object.id(), "boolean_test")).toBe(true);
+    expect(getPortableStoreValue(object.id(), "string_test")).toBe("example");
   });
 });

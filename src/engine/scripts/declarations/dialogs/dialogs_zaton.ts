@@ -24,6 +24,7 @@ import {
   transferMoneyFromActor,
 } from "@/engine/core/utils/object";
 import { captions } from "@/engine/lib/constants/captions/captions";
+import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import { infoPortions, TInfoPortion } from "@/engine/lib/constants/info_portions";
 import { TInventoryItem } from "@/engine/lib/constants/items";
 import { ammo } from "@/engine/lib/constants/items/ammo";
@@ -600,27 +601,21 @@ extern("dialogs_zaton.zat_b33_set_counter_10", (firstSpeaker: ClientObject, seco
  * todo;
  */
 extern("dialogs_zaton.zat_b33_counter_ge_2", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
-  const actor: ClientObject = registry.actor;
-
-  return getPortableStoreValue(actor, "zat_b33_items", 0 as number) >= 2;
+  return getPortableStoreValue(ACTOR_ID, "zat_b33_items", 0 as number) >= 2;
 });
 
 /**
  * todo;
  */
 extern("dialogs_zaton.zat_b33_counter_ge_4", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
-  const actor: ClientObject = registry.actor;
-
-  return getPortableStoreValue(actor, "zat_b33_items", 0 as number) >= 4;
+  return getPortableStoreValue(ACTOR_ID, "zat_b33_items", 0 as number) >= 4;
 });
 
 /**
  * todo;
  */
 extern("dialogs_zaton.zat_b33_counter_ge_8", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
-  const actor: ClientObject = registry.actor;
-
-  return getPortableStoreValue(actor, "zat_b33_items", 0 as number) >= 8;
+  return getPortableStoreValue(ACTOR_ID, "zat_b33_items", 0 as number) >= 8;
 });
 
 /**
@@ -678,9 +673,7 @@ extern("dialogs_zaton.zat_b33_counter_de_8", (firstSpeaker: ClientObject, second
  * todo;
  */
 extern("dialogs_zaton.zat_b33_counter_eq_10", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
-  const actor: ClientObject = registry.actor;
-
-  return getPortableStoreValue(actor, "zat_b33_items", 0 as number) === 10;
+  return getPortableStoreValue(ACTOR_ID, "zat_b33_items", 0 as number) === 10;
 });
 
 /**
@@ -1091,12 +1084,11 @@ extern("dialogs_zaton.zat_b29_actor_exchange", (firstSpeaker: ClientObject, seco
  * todo;
  */
 extern("dialogs_zaton.zat_b30_transfer_percent", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
-  const actor: ClientObject = registry.actor;
   const amount: number = math.random(5, 25) * 100;
-  const days: number = getPortableStoreValue(actor, "zat_b30_days_cnt", 0);
+  const days: number = getPortableStoreValue(ACTOR_ID, "zat_b30_days_cnt", 0);
 
   giveMoneyToActor(amount * days);
-  setPortableStoreValue(actor, "zat_b30_days_cnt", 0);
+  setPortableStoreValue(ACTOR_ID, "zat_b30_days_cnt", 0);
 });
 
 /**
@@ -1600,9 +1592,7 @@ extern("dialogs_zaton.if_actor_has_toolkit_2", (firstSpeaker: ClientObject, seco
 extern(
   "dialogs_zaton.zat_b215_counter_greater_3",
   (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
-    const actor: ClientObject = registry.actor;
-
-    return getPortableStoreValue(actor, "zat_a9_way_to_pripyat_counter", 0 as number) > 3;
+    return getPortableStoreValue(ACTOR_ID, "zat_a9_way_to_pripyat_counter", 0 as number) > 3;
   }
 );
 
@@ -1861,10 +1851,9 @@ extern(
 extern(
   "dialogs_zaton.zat_b30_barmen_has_percent",
   (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
-    const actor: ClientObject = registry.actor;
-    const cnt: TCount = getPortableStoreValue(actor, "zat_b30_days_cnt", 0);
+    const count: TCount = getPortableStoreValue(ACTOR_ID, "zat_b30_days_cnt", 0);
 
-    return cnt > 0;
+    return count > 0;
   }
 );
 /**
@@ -1873,10 +1862,9 @@ extern(
 extern(
   "dialogs_zaton.zat_b30_barmen_do_not_has_percent",
   (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
-    const actor: ClientObject = registry.actor;
-    const cnt: TCount = getPortableStoreValue(actor, "zat_b30_days_cnt", 0);
+    const count: TCount = getPortableStoreValue(ACTOR_ID, "zat_b30_days_cnt", 0);
 
-    return cnt < 1;
+    return count < 1;
   }
 );
 

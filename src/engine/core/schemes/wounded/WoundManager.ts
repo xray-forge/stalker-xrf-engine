@@ -50,10 +50,10 @@ export class WoundManager extends AbstractSchemeManager<ISchemeWoundedState> {
       this.victim = NIL;
     }
 
-    setPortableStoreValue(this.object, "wounded_state", this.woundState);
-    setPortableStoreValue(this.object, "wounded_sound", this.sound);
-    setPortableStoreValue(this.object, "wounded_fight", this.fight);
-    setPortableStoreValue(this.object, "wounded_victim", this.victim);
+    setPortableStoreValue(this.object.id(), "wounded_state", this.woundState);
+    setPortableStoreValue(this.object.id(), "wounded_sound", this.sound);
+    setPortableStoreValue(this.object.id(), "wounded_fight", this.fight);
+    setPortableStoreValue(this.object.id(), "wounded_victim", this.victim);
   }
 
   /**
@@ -83,13 +83,13 @@ export class WoundManager extends AbstractSchemeManager<ISchemeWoundedState> {
       }
 
       const now: TTimestamp = time_global();
-      const beginAt: Optional<TTimestamp> = getPortableStoreValue(this.object, "begin_wounded");
+      const beginAt: Optional<TTimestamp> = getPortableStoreValue(this.object.id(), "begin_wounded");
 
       if (beginAt !== null && now - beginAt <= 60_000) {
         GlobalSoundManager.getInstance().playSound(this.object.id(), scriptSounds.help_thanks);
       }
 
-      setPortableStoreValue(this.object, "begin_wounded", null);
+      setPortableStoreValue(this.object.id(), "begin_wounded", null);
     }
 
     this.canUseMedkit = false;

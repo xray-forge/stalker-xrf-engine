@@ -8,6 +8,7 @@ import { createGameAutoSave } from "@/engine/core/utils/game/game_save";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { TCaption } from "@/engine/lib/constants/captions";
 import { consoleCommands } from "@/engine/lib/constants/console_commands";
+import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import { ClientObject, GameHud, LuaArray, Optional, TName } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -18,9 +19,9 @@ const logger: LuaLogger = new LuaLogger($filename);
 extern("xr_effects.inc_counter", (actor: ClientObject, npc: ClientObject, p: [Optional<string>, number]) => {
   if (p[0]) {
     const incValue: number = p[1] || 1;
-    const newValue: number = getPortableStoreValue(actor, p[0], 0) + incValue;
+    const newValue: number = getPortableStoreValue(ACTOR_ID, p[0], 0) + incValue;
 
-    setPortableStoreValue(actor, p[0], newValue);
+    setPortableStoreValue(ACTOR_ID, p[0], newValue);
   }
 });
 
@@ -30,13 +31,13 @@ extern("xr_effects.inc_counter", (actor: ClientObject, npc: ClientObject, p: [Op
 extern("xr_effects.dec_counter", (actor: ClientObject, npc: ClientObject, p: [Optional<string>, number]) => {
   if (p[0]) {
     const decValue: number = p[1] || 1;
-    let newValue: number = getPortableStoreValue(actor, p[0], 0) - decValue;
+    let newValue: number = getPortableStoreValue(ACTOR_ID, p[0], 0) - decValue;
 
     if (newValue < 0) {
       newValue = 0;
     }
 
-    setPortableStoreValue(actor, p[0], newValue);
+    setPortableStoreValue(ACTOR_ID, p[0], newValue);
   }
 });
 
@@ -47,7 +48,7 @@ extern(
   "xr_effects.set_counter",
   (actor: ClientObject, npc: ClientObject, params: [Optional<string>, Optional<number>]): void => {
     if (params[0]) {
-      setPortableStoreValue(actor, params[0], params[1] || 0);
+      setPortableStoreValue(ACTOR_ID, params[0], params[1] || 0);
     }
   }
 );

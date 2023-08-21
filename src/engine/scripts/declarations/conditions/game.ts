@@ -4,6 +4,7 @@ import { getPortableStoreValue, IRegistryObjectState, registry } from "@/engine/
 import { extern } from "@/engine/core/utils/binding";
 import { isBlackScreen } from "@/engine/core/utils/game";
 import { LuaLogger } from "@/engine/core/utils/logging";
+import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import { ClientObject, Optional, TName } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -29,7 +30,7 @@ extern(
   "xr_conditions.counter_greater",
   (actor: ClientObject, npc: ClientObject, p: [Optional<string>, Optional<number>]): boolean => {
     if (p[0] && p[1]) {
-      return getPortableStoreValue(actor, p[0], 0) > p[1];
+      return getPortableStoreValue(ACTOR_ID, p[0], 0) > p[1];
     } else {
       return false;
     }
@@ -43,7 +44,7 @@ extern(
   "xr_conditions.counter_equal",
   (actor: ClientObject, npc: ClientObject, p: [Optional<string>, Optional<number>]): boolean => {
     if (p[0] && p[1]) {
-      return getPortableStoreValue(actor, p[0], 0) === p[1];
+      return getPortableStoreValue(ACTOR_ID, p[0], 0) === p[1];
     } else {
       return false;
     }

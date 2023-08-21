@@ -19,6 +19,7 @@ import { spawnObject, spawnObjectInObject, spawnSquadInSmart } from "@/engine/co
 import { giveItemsToActor, takeItemFromActor } from "@/engine/core/utils/object/object_task_reward";
 import { copyVector, createEmptyVector, createVector } from "@/engine/core/utils/vector";
 import { captions } from "@/engine/lib/constants/captions/captions";
+import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import { infoPortions, TInfoPortion } from "@/engine/lib/constants/info_portions";
 import { TInventoryItem } from "@/engine/lib/constants/items";
 import { ammo } from "@/engine/lib/constants/items/ammo";
@@ -474,7 +475,7 @@ extern(
     } as unknown as LuaArray<LuaTable<string, number>>;
 
     if (params && params[0] !== null) {
-      const cnt: TCount = getPortableStoreValue(actor, "jup_b10_ufo_counter", 0);
+      const cnt: TCount = getPortableStoreValue(ACTOR_ID, "jup_b10_ufo_counter", 0);
 
       if (cnt > 2) {
         return;
@@ -641,7 +642,7 @@ extern("xr_effects.jup_b221_play_main", (actor: ClientObject, npc: ClientObject,
     const themeToPlay = reachableTheme.get(math.random(1, reachableTheme.length()));
 
     disableInfo(infoNeedReply);
-    setPortableStoreValue(actor, "jup_b221_played_main_theme", tostring(themeToPlay));
+    setPortableStoreValue(ACTOR_ID, "jup_b221_played_main_theme", tostring(themeToPlay));
     giveInfo((mainTheme + tostring(themeToPlay) + "_played") as TInfoPortion);
 
     if (themeToPlay !== 0) {
@@ -654,7 +655,7 @@ extern("xr_effects.jup_b221_play_main", (actor: ClientObject, npc: ClientObject,
       abort("No such theme_to_play in function 'jup_b221_play_main'");
     }
   } else {
-    const themeToPlay: TIndex = tonumber(getPortableStoreValue(actor, "jup_b221_played_main_theme", 0)) as TIndex;
+    const themeToPlay: TIndex = tonumber(getPortableStoreValue(ACTOR_ID, "jup_b221_played_main_theme", 0)) as TIndex;
 
     giveInfo(infoNeedReply);
 
@@ -668,7 +669,7 @@ extern("xr_effects.jup_b221_play_main", (actor: ClientObject, npc: ClientObject,
       abort("No such theme_to_play in function 'jup_b221_play_main'");
     }
 
-    setPortableStoreValue(actor, "jup_b221_played_main_theme", "0");
+    setPortableStoreValue(ACTOR_ID, "jup_b221_played_main_theme", "0");
   }
 });
 
@@ -1064,6 +1065,6 @@ extern("xr_effects.jup_b200_count_found", (actor: ClientObject): void => {
     }
   }
 
-  count = count + getPortableStoreValue(actor, "jup_b200_tech_materials_brought_counter", 0);
-  setPortableStoreValue(actor, "jup_b200_tech_materials_found_counter", count);
+  count += getPortableStoreValue(ACTOR_ID, "jup_b200_tech_materials_brought_counter", 0);
+  setPortableStoreValue(ACTOR_ID, "jup_b200_tech_materials_found_counter", count);
 });

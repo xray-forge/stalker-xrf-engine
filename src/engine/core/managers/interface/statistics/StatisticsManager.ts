@@ -15,6 +15,7 @@ import { TInventoryItem } from "@/engine/lib/constants/items";
 import { TArtefact } from "@/engine/lib/constants/items/artefacts";
 import { TWeapon, weapons } from "@/engine/lib/constants/items/weapons";
 import { TMonster } from "@/engine/lib/constants/monsters";
+import { ANABIOTICS_USED_KEY } from "@/engine/lib/constants/portable_store_keys";
 import { NIL } from "@/engine/lib/constants/words";
 import {
   ClientObject,
@@ -39,8 +40,6 @@ const logger: LuaLogger = new LuaLogger($filename);
  * Manager to measure game statistics of actions done by actor.
  */
 export class StatisticsManager extends AbstractCoreManager {
-  public static readonly USED_ANABIOTICS_COUNT_KEY: TName = "anabiotics_used";
-
   public actorStatistics: IActorStatistics = {
     surgesCount: 0,
     completedTasksCount: 0,
@@ -147,7 +146,7 @@ export class StatisticsManager extends AbstractCoreManager {
    * @returns count of used anabiotics
    */
   public getUsedAnabioticsCount(): TCount {
-    return getPortableStoreValue(registry.actor, StatisticsManager.USED_ANABIOTICS_COUNT_KEY, 0);
+    return getPortableStoreValue(ACTOR_ID, ANABIOTICS_USED_KEY, 0);
   }
 
   /**
@@ -156,11 +155,7 @@ export class StatisticsManager extends AbstractCoreManager {
   public onSurvivedSurgeWithAnabiotic(): void {
     logger.info("Increment used anabiotics count");
 
-    setPortableStoreValue(
-      registry.actor,
-      StatisticsManager.USED_ANABIOTICS_COUNT_KEY,
-      getPortableStoreValue(registry.actor, StatisticsManager.USED_ANABIOTICS_COUNT_KEY, 0) + 1
-    );
+    setPortableStoreValue(ACTOR_ID, ANABIOTICS_USED_KEY, getPortableStoreValue(ACTOR_ID, ANABIOTICS_USED_KEY, 0) + 1);
   }
 
   /**

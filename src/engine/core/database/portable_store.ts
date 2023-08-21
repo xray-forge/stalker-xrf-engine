@@ -40,20 +40,20 @@ export function isValidPortableStoreValue(value: unknown): boolean {
 /**
  * Set value in object portable store by key.
  *
- * @param object - game object to set portable value for
+ * @param objectId - game object id to set portable value for
  * @param key - portable store key to set
  * @param value - value to set in portable store
  */
-export function setPortableStoreValue<T extends TPortableStoreValue>(object: ClientObject, key: TName, value: T): void {
+export function setPortableStoreValue<T extends TPortableStoreValue>(objectId: TNumberId, key: TName, value: T): void {
   if (!isValidPortableStoreValue(value)) {
     abort("database/portable store: not registered type tried to set: [%s]:[%s].", key, type(value));
   }
 
-  let portableStore: Optional<LuaTable<TName>> = registry.objects.get(object.id()).portableStore;
+  let portableStore: Optional<LuaTable<TName>> = registry.objects.get(objectId).portableStore;
 
   if (!portableStore) {
     portableStore = new LuaTable();
-    registry.objects.get(object.id()).portableStore = portableStore;
+    registry.objects.get(objectId).portableStore = portableStore;
   }
 
   portableStore.set(key, value);
@@ -62,22 +62,20 @@ export function setPortableStoreValue<T extends TPortableStoreValue>(object: Cli
 /**
  * Get value from object portable store.
  *
- * @param object - game object to load portable store value from
+ * @param objectId - game object id to load portable store value from
  * @param key - portable store key to get value
  */
-export function getPortableStoreValue<T extends TPortableStoreValue>(object: ClientObject, key: TName): Optional<T>;
+export function getPortableStoreValue<T extends TPortableStoreValue>(objectId: TNumberId, key: TName): Optional<T>;
 export function getPortableStoreValue<T extends TPortableStoreValue>(
-  object: ClientObject,
+  objectId: TNumberId,
   key: TName,
   defaultValue: T
 ): T;
 export function getPortableStoreValue<T extends TPortableStoreValue>(
-  object: ClientObject,
+  objectId: TNumberId,
   key: TName,
   defaultValue: Optional<T> = null
 ): Optional<T> {
-  const objectId: TNumberId = object.id();
-
   if (registry.objects.get(objectId).portableStore) {
     const value: Optional<T> = registry.objects.get(objectId).portableStore!.get(key);
 
@@ -136,11 +134,10 @@ export function savePortableStore(object: ClientObject, packet: NetPacket): void
 /**
  * Load object portable store data from net packet.
  *
- * @param object - game object to load portable store for
+ * @param objectId - game object id to load portable store for
  * @param reader - net processor to load data from
  */
-export function loadPortableStore(object: ClientObject, reader: NetProcessor): void {
-  const objectId: TNumberId = object.id();
+export function loadPortableStore(objectId: TNumberId, reader: NetProcessor): void {
   let portableStore: Optional<LuaTable<string>> = registry.objects.get(objectId).portableStore;
 
   if (!portableStore) {
@@ -176,10 +173,10 @@ export function loadPortableStore(object: ClientObject, reader: NetProcessor): v
 /**
  * Initialize object portable store if it does not exist.
  *
- * @param object - client game object for portable store initialization
+ * @param objectId - client game object id for portable store initialization
  */
-export function initializePortableStore(object: ClientObject): void {
-  const state: IRegistryObjectState = registry.objects.get(object.id());
+export function initializePortableStore(objectId: TNumberId): void {
+  const state: IRegistryObjectState = registry.objects.get(objectId);
 
   if (!state.portableStore) {
     state.portableStore = new LuaTable();
@@ -189,10 +186,10 @@ export function initializePortableStore(object: ClientObject): void {
 /**
  * Initialize object portable store if it does not exist.
  *
- * @param object - client game object for portable store destruction
+ * @param objectId - client game object id for portable store destruction
  */
-export function destroyPortableStore(object: ClientObject): void {
-  const state: Optional<IRegistryObjectState> = registry.objects.get(object.id());
+export function destroyPortableStore(objectId: TNumberId): void {
+  const state: Optional<IRegistryObjectState> = registry.objects.get(objectId);
 
   if (state !== null) {
     state.portableStore = null;

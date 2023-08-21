@@ -88,8 +88,6 @@ export function initializeManager(managerClass: TAbstractCoreManagerConstructor)
     registry.managers.set(managerClass, instance);
 
     instance.initialize();
-  } else {
-    logger.info("Manager already initialized, skip:", managerClass.name);
   }
 }
 
