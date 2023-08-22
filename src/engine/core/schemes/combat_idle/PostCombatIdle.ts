@@ -18,7 +18,7 @@ export class PostCombatIdle {
    * todo: Description.
    */
   public static addPostCombatIdleWait(object: ClientObject): void {
-    logger.info("Add post-combat idle for:", object.name());
+    // logger.info("Add post-combat idle for:", object.name());
 
     const actionPlanner: ActionPlanner = object.motivation_action_manager();
     const combatAction: ActionBase = actionPlanner.action(stalker_ids.action_combat_planner);

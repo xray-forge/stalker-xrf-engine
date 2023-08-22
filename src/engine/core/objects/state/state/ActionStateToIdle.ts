@@ -36,6 +36,12 @@ export class ActionStateToIdle extends action_base {
     sendToNearestAccessibleVertex(this.object, this.object.level_vertex_id());
   }
 
+  public override finalize(): void {
+    super.finalize();
+
+    logger.info("End state to idle for:", this.object.name(), this.name);
+  }
+
   /**
    * Rest object state to idle.
    */

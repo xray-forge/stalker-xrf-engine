@@ -178,6 +178,8 @@ describe("add_state_manager util", () => {
       "ToIdleItems",
       [
         [EEvaluatorId.IS_STATE_IDLE_ITEMS, false],
+        [EEvaluatorId.IS_WOUNDED, false],
+        [EEvaluatorId.IS_WOUNDED_EXISTING, false],
         [mockStalkerIds.property_items, true],
         [mockStalkerIds.property_enemy, false],
       ],
@@ -198,7 +200,15 @@ describe("add_state_manager util", () => {
       [[EEvaluatorId.IS_STATE_IDLE_ALIFE, true]]
     );
 
-    checkAction(planner.action(EActionId.ALIFE), "generic", [[EEvaluatorId.IS_STATE_IDLE_ALIFE, true]], []);
+    checkAction(
+      planner.action(EActionId.ALIFE),
+      "generic",
+      [
+        [EEvaluatorId.IS_STATE_IDLE_ALIFE, true],
+        [mockStalkerIds.property_items, false],
+      ],
+      []
+    );
     checkAction(
       planner.action(mockStalkerIds.action_gather_items),
       "generic",

@@ -51,6 +51,8 @@ export function addStateManager(object: ClientObject): StalkerStateManager {
   actionItemsToIdle.add_precondition(new world_property(EEvaluatorId.IS_STATE_IDLE_ITEMS, false));
   actionItemsToIdle.add_precondition(new world_property(stalker_ids.property_items, true));
   actionItemsToIdle.add_precondition(new world_property(stalker_ids.property_enemy, false));
+  actionItemsToIdle.add_precondition(new world_property(EEvaluatorId.IS_WOUNDED, false));
+  actionItemsToIdle.add_precondition(new world_property(EEvaluatorId.IS_WOUNDED_EXISTING, false));
   actionItemsToIdle.add_effect(new world_property(EEvaluatorId.IS_STATE_IDLE_ITEMS, true));
 
   planner.add_action(EActionId.STATE_TO_IDLE_ITEMS, actionItemsToIdle);
@@ -68,6 +70,7 @@ export function addStateManager(object: ClientObject): StalkerStateManager {
   planner.add_action(EActionId.STATE_TO_IDLE_ALIFE, actionAlifeToIdle);
 
   planner.action(EActionId.ALIFE).add_precondition(new world_property(EEvaluatorId.IS_STATE_IDLE_ALIFE, true));
+  planner.action(EActionId.ALIFE).add_precondition(new world_property(stalker_ids.property_items, false));
 
   planner
     .action(stalker_ids.action_gather_items)
