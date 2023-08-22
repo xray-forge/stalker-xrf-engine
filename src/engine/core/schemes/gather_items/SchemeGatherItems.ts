@@ -34,10 +34,10 @@ export class SchemeGatherItems extends AbstractScheme {
     section: TSection,
     state: ISchemeGatherItemsState
   ): void {
-    const actionPlanner: ActionPlanner = object.motivation_action_manager();
+    const planner: ActionPlanner = object.motivation_action_manager();
 
-    actionPlanner.remove_evaluator(stalker_ids.property_items);
-    actionPlanner.add_evaluator(stalker_ids.property_items, new EvaluatorGatherItems(state));
+    planner.remove_evaluator(stalker_ids.property_items);
+    planner.add_evaluator(stalker_ids.property_items, new EvaluatorGatherItems(state));
   }
 
   /**

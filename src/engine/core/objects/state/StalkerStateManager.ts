@@ -39,8 +39,10 @@ export class StalkerStateManager {
   public readonly object: ClientObject;
   public readonly planner: ActionPlanner;
 
-  public isCombat: boolean = false;
+  public controller: Optional<EAnimationType> = null;
+
   public isAlife: boolean = true;
+  public isCombat: boolean = false;
   public isForced: boolean = false;
 
   public isObjectPointDirectionLook: boolean = false;
@@ -162,8 +164,8 @@ export class StalkerStateManager {
       this.callback = callback;
 
       if (timeout !== null && timeout >= 0) {
-        this.callback!.timeout = timeout;
-        this.callback!.begin = null;
+        this.callback.timeout = timeout;
+        this.callback.begin = null;
       } else {
         this.callback.callback = null;
         this.callback.timeout = null;
@@ -186,7 +188,7 @@ export class StalkerStateManager {
       if (this.callback.begin === null) {
         this.callback.begin = now;
       } else {
-        if (now - (this.callback.begin as TTimestamp) >= this.callback.timeout!) {
+        if (now - (this.callback.begin as TTimestamp) >= (this.callback.timeout as TDuration)) {
           logger.info("Animation callback called:", this.object.name());
 
           const callbackFunction: AnyCallable = this.callback.callback as unknown as AnyCallable;
@@ -252,23 +254,17 @@ export class StalkerStateManager {
    * todo;
    */
   public getObjectLookPositionType(): TLookType {
+    // Has animation defined look direction.
     if (states.get(this.targetState).direction !== null) {
-      return states.get(this.targetState).direction! as TLookType;
+      return states.get(this.targetState).direction as TLookType;
     }
 
-    if (!this.planner.evaluator(EStateEvaluatorId.MOVEMENT_STAND).evaluate()) {
-      if (this.lookPosition !== null) {
-        return look.direction;
-      }
-
-      return look.path_dir;
-    }
-
+    // Has look position defined.
     if (this.lookPosition !== null) {
       return look.direction;
     }
 
-    return look.danger;
+    return this.planner.evaluator(EStateEvaluatorId.MOVEMENT_STAND).evaluate() ? look.danger : look.path_dir;
   }
 
   /**

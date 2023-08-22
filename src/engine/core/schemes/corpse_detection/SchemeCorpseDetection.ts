@@ -42,10 +42,10 @@ export class SchemeCorpseDetection extends AbstractScheme {
     section: TSection,
     state: ISchemeCorpseDetectionState
   ): void {
-    const manager: ActionPlanner = object.motivation_action_manager();
+    const planner: ActionPlanner = object.motivation_action_manager();
 
     // Add evaluator to check if anything can be looted.
-    manager.add_evaluator(EEvaluatorId.IS_CORPSE_EXISTING, new EvaluatorCorpseDetect(state));
+    planner.add_evaluator(EEvaluatorId.IS_CORPSE_EXISTING, new EvaluatorCorpseDetect(state));
 
     const actionSearchCorpse: ActionSearchCorpse = new ActionSearchCorpse(state);
 
@@ -61,13 +61,13 @@ export class SchemeCorpseDetection extends AbstractScheme {
     actionSearchCorpse.add_effect(new world_property(EEvaluatorId.IS_CORPSE_EXISTING, false));
 
     // Add alife action for execution when evaluator allows to do so.
-    manager.add_action(EActionId.SEARCH_CORPSE, actionSearchCorpse);
+    planner.add_action(EActionId.SEARCH_CORPSE, actionSearchCorpse);
 
     // Do not return to alife when searching for corpse.
-    manager.action(EActionId.ALIFE).add_precondition(new world_property(EEvaluatorId.IS_CORPSE_EXISTING, false));
+    planner.action(EActionId.ALIFE).add_precondition(new world_property(EEvaluatorId.IS_CORPSE_EXISTING, false));
 
     // Do not return to alife idle when searching for corpse.
-    manager
+    planner
       .action(EActionId.STATE_TO_IDLE_ALIFE)
       .add_precondition(new world_property(EEvaluatorId.IS_CORPSE_EXISTING, false));
   }

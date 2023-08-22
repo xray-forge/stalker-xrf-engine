@@ -15,7 +15,8 @@ const MIN_RATIO: TRate = 1500;
 const SNIPER_AIM_TIME: TDuration = 3000;
 
 /**
- * todo;
+ * Try to end animation and call matching callbacks.
+ * Optionally adjusts current weapon state to match desired.
  */
 @LuabindClass()
 export class ActionStateEnd extends action_base {
@@ -26,33 +27,42 @@ export class ActionStateEnd extends action_base {
     this.stateManager = stateManager;
   }
 
+  public override initialize(): void {
+    logger.info("Start ending state action:", this.object.name(), this.stateManager.targetState);
+  }
+
   /**
-   * todo: Description.
+   * Try to end current state.
    */
   public override execute(): void {
     super.execute();
 
+    // Handle callback execution of animation.
     if (this.stateManager.callback !== null) {
       const now: TTimestamp = time_global();
 
+      // Set start of animation timeout.
       if (this.stateManager.callback.begin === null) {
         this.stateManager.callback.begin = now;
       }
 
+      // Verify duration of timeout.
       if (now - (this.stateManager.callback.begin as TTimestamp) >= (this.stateManager.callback.timeout as TDuration)) {
         if (this.stateManager.callback.callback !== null) {
+          logger.info("Animation ended with callback:", this.object.name(), this.stateManager.targetState);
           this.stateManager.callback.callback.call(this.stateManager.callback.context);
         }
 
+        // Reset timeout to be executed only once.
         this.stateManager.callback = null;
       }
     }
 
-    const targetWeaponState: Optional<EWeaponAnimation> = states.get(this.stateManager.targetState).weapon;
-
     if (!isWeapon(this.object.best_weapon())) {
       return;
     }
+
+    const targetWeaponState: Optional<EWeaponAnimation> = states.get(this.stateManager.targetState).weapon;
 
     if (targetWeaponState === EWeaponAnimation.FIRE || targetWeaponState === EWeaponAnimation.SNIPER_FIRE) {
       let sniperAimDuration: TDuration = SNIPER_AIM_TIME;
@@ -112,7 +122,8 @@ export class ActionStateEnd extends action_base {
 
       return;
     } else if (targetWeaponState === EWeaponAnimation.UNSTRAPPED) {
-      this.object.set_item(getObjectIdleState(this.stateManager.targetState!), this.object.best_weapon());
+      // Unstrap weapon.
+      this.object.set_item(getObjectIdleState(this.stateManager.targetState), this.object.best_weapon());
     }
   }
 }

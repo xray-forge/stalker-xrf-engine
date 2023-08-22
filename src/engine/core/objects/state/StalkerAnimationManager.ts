@@ -62,6 +62,8 @@ export class StalkerAnimationManager {
    * Allow animation control based on animation manager.
    */
   public setControl(): void {
+    this.stateManager.controller = this.type;
+
     this.object.set_callback(callback.script_animation, this.onAnimationCallback, this);
 
     // On animation control also reset animstate.

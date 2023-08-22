@@ -6,7 +6,8 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * Evaluator to check whether direction is set.
+ * Evaluator to check whether direction search is needed.
+ * Enables actions for dynamic direction search when position is not set.
  */
 @LuabindClass()
 export class EvaluatorDirectionSearch extends property_evaluator {
