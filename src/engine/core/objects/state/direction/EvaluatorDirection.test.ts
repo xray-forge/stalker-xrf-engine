@@ -40,7 +40,7 @@ describe("EvaluatorDirection class", () => {
         context: {},
       },
       null,
-      { lookObject: lookObject, lookPosition: null }
+      { lookObjectId: lookObject.id(), lookPosition: null }
     );
     expect(evaluator.evaluate()).toBeFalsy();
 
@@ -88,7 +88,7 @@ describe("EvaluatorDirection class", () => {
         context: {},
       },
       null,
-      { lookObject: null, lookPosition: lookObject.position() }
+      { lookObjectId: null, lookPosition: lookObject.position() }
     );
     expect(evaluator.evaluate()).toBeFalsy();
 

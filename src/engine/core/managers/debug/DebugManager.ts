@@ -2,7 +2,9 @@ import { alife, cast_planner, relation_registry, stalker_ids } from "xray16";
 
 import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { AbstractCoreManager } from "@/engine/core/managers/base/AbstractCoreManager";
+import { EStateActionId } from "@/engine/core/objects/animation";
 import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateManager";
+import { EActionId } from "@/engine/core/schemes";
 import { gameTimeToString } from "@/engine/core/utils/game/game_time";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getObjectActiveWeaponSlot } from "@/engine/core/utils/object";
@@ -10,7 +12,7 @@ import { getNumberRelationBetweenCommunities } from "@/engine/core/utils/relatio
 import { toJSON } from "@/engine/core/utils/transform/json";
 import { stalkerCommunities, TCommunity } from "@/engine/lib/constants/communities";
 import { NIL } from "@/engine/lib/constants/words";
-import { ActionPlanner, ClientObject, ESchemeType, Optional, TLabel, TNumberId } from "@/engine/lib/types";
+import { ActionPlanner, ClientObject, ESchemeType, Optional, TLabel, TName, TNumberId } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -54,7 +56,7 @@ export class DebugManager extends AbstractCoreManager {
     logger.info("Current best enemy:", object.best_enemy()?.name() || NIL);
     logger.info("Current best danger:", object.best_danger()?.object()?.name() || NIL);
     logger.info("Current planner initialized:", actionPlanner.initialized());
-    logger.info("Current planner action id:", currentActionId);
+    logger.info("Current planner action id:", currentActionId, EActionId[currentActionId]);
 
     // Detect specifically which action is played.
     if (
@@ -87,7 +89,7 @@ export class DebugManager extends AbstractCoreManager {
       const currentActionId: Optional<TNumberId> = actionPlanner.current_action_id();
 
       logger.info("Current state planner initialized:", actionPlanner.initialized());
-      logger.info("Current state action id:", currentActionId);
+      logger.info("Current state action id:", currentActionId, EStateActionId[currentActionId]);
 
       if (actionPlanner.show !== null) {
         actionPlanner.show(plannerShowPrefix + "[planner] ");
@@ -121,7 +123,15 @@ export class DebugManager extends AbstractCoreManager {
       logger.info("Is combat:", stateManager.isCombat);
       logger.info("Is alife:", stateManager.isAlife);
       logger.info("Animation states:", toJSON(stateManager.animation.state));
+      logger.info(
+        "Animation controller animation:",
+        toJSON(stateManager.animation.animations.get(stateManager.animation.state.currentState as TName))
+      );
       logger.info("Animstate states:", toJSON(stateManager.animstate.state));
+      logger.info(
+        "Animstate controller animation:",
+        toJSON(stateManager.animation.animations.get(stateManager.animation.state.currentState as TName))
+      );
     } else {
       logger.info("No state manager declared for object");
     }

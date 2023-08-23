@@ -68,7 +68,6 @@ export function addStateManager(object: ClientObject): StalkerStateManager {
   planner.add_action(EActionId.STATE_TO_IDLE_ALIFE, actionAlifeToIdle);
 
   planner.action(EActionId.ALIFE).add_precondition(new world_property(EEvaluatorId.IS_STATE_IDLE_ALIFE, true));
-  planner.action(EActionId.ALIFE).add_precondition(new world_property(stalker_ids.property_items, false));
 
   planner
     .action(stalker_ids.action_gather_items)
@@ -674,31 +673,31 @@ function addBasicManagerGraph(stateManager: StalkerStateManager): void {
   smartCoverExitAction.add_effect(new world_property(EStateEvaluatorId.SMARTCOVER, true));
   statePlanner.add_action(EStateActionId.SMARTCOVER_EXIT, smartCoverExitAction);
 
-  const lockedSmartCoverAction = new stateManagement.ActionStateLocked(stateManager, "lockedSmartCoverAction");
+  const lockedSmartCoverAction = new stateManagement.ActionStateLocked(stateManager, "ActionStateLockedSmartCover");
 
   lockedSmartCoverAction.add_precondition(new world_property(EStateEvaluatorId.IN_SMARTCOVER, true));
   lockedSmartCoverAction.add_effect(new world_property(EStateEvaluatorId.IN_SMARTCOVER, false));
   statePlanner.add_action(EStateActionId.LOCKED_SMARTCOVER, lockedSmartCoverAction);
 
-  const lockedAction = new stateManagement.ActionStateLocked(stateManager, "lockedAction");
+  const lockedAction = new stateManagement.ActionStateLocked(stateManager, "ActionStateLocked");
 
   lockedAction.add_precondition(new world_property(EStateEvaluatorId.LOCKED, true));
   lockedAction.add_effect(new world_property(EStateEvaluatorId.LOCKED, false));
   statePlanner.add_action(EStateActionId.LOCKED, lockedAction);
 
-  const lockedAnimationAction = new stateManagement.ActionStateLocked(stateManager, "lockedAnimationAction");
+  const lockedAnimationAction = new stateManagement.ActionStateLocked(stateManager, "ActionStateLockedAnimation");
 
   lockedAnimationAction.add_precondition(new world_property(EStateEvaluatorId.ANIMATION_LOCKED, true));
   lockedAnimationAction.add_effect(new world_property(EStateEvaluatorId.ANIMATION_LOCKED, false));
   statePlanner.add_action(EStateActionId.LOCKED_ANIMATION, lockedAnimationAction);
 
-  const lockedAnimstateAction = new stateManagement.ActionStateLocked(stateManager, "lockedAnimstateAction");
+  const lockedAnimstateAction = new stateManagement.ActionStateLocked(stateManager, "ActionStateLockedAnimstate");
 
   lockedAnimstateAction.add_precondition(new world_property(EStateEvaluatorId.ANIMSTATE_LOCKED, true));
   lockedAnimstateAction.add_effect(new world_property(EStateEvaluatorId.ANIMSTATE_LOCKED, false));
   statePlanner.add_action(EStateActionId.LOCKED_ANIMSTATE, lockedAnimstateAction);
 
-  const lockedExternalAction = new stateManagement.ActionStateLocked(stateManager, "lockedExternalAction");
+  const lockedExternalAction = new stateManagement.ActionStateLocked(stateManager, "ActionStateLockedExternal");
 
   lockedExternalAction.add_precondition(new world_property(EStateEvaluatorId.LOCKED_EXTERNAL, true));
   lockedExternalAction.add_effect(new world_property(EStateEvaluatorId.LOCKED_EXTERNAL, false));

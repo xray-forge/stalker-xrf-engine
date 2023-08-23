@@ -49,7 +49,7 @@ export class SchemeGatherItems extends AbstractScheme {
     state: IRegistryObjectState,
     section: TSection
   ): void {
-    (state[EScheme.GATHER_ITEMS] as ISchemeGatherItemsState).canBeLooted = readIniBoolean(
+    (state[EScheme.GATHER_ITEMS] as ISchemeGatherItemsState).canLootItems = readIniBoolean(
       state.ini,
       section,
       "gather_items_enabled",

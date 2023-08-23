@@ -5,6 +5,7 @@ import { EStalkerState, ILookTargetDescriptor } from "@/engine/core/objects/anim
 import { ISchemeCompanionState } from "@/engine/core/schemes/companion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { vectorRotateY } from "@/engine/core/utils/vector";
+import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import { ClientObject, EClientObjectPath, Optional, Vector } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -100,7 +101,7 @@ export class ActionCompanionActivity extends action_base {
 
     if (this.object.level_vertex_id() === this.assistPoint) {
       nextState = EStalkerState.THREAT;
-      target = { lookObject: registry.actor, lookPosition: null };
+      target = { lookObjectId: ACTOR_ID, lookPosition: null };
     } else {
       const t = time_global();
 
@@ -109,7 +110,7 @@ export class ActionCompanionActivity extends action_base {
 
         if (distToAssistPt <= DIST_WALK) {
           nextState = EStalkerState.RAID;
-          target = { lookObject: registry.actor, lookPosition: null };
+          target = { lookObjectId: ACTOR_ID, lookPosition: null };
         } else if (distToAssistPt <= DIST_RUN) {
           nextState = EStalkerState.RUSH;
         } else {
@@ -139,7 +140,7 @@ export class ActionCompanionActivity extends action_base {
         nextState,
         null,
         null,
-        { lookObject: registry.actor, lookPosition: null },
+        { lookObjectId: ACTOR_ID, lookPosition: null },
         { animation: true }
       );
       this.lastState = nextState;

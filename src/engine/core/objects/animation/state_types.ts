@@ -3,7 +3,6 @@ import type {
   AnyCallable,
   AnyContextualCallable,
   AnyObject,
-  ClientObject,
   Optional,
   TAnimationType,
   TDuration,
@@ -11,6 +10,7 @@ import type {
   TLookType,
   TMoveType,
   TName,
+  TNumberId,
   TSightType,
   TTimestamp,
   Vector,
@@ -344,10 +344,10 @@ export interface IStateDescriptor {
 }
 
 /**
- * todo;
+ * Descriptor of loop position for state animation.
  */
 export interface ILookTargetDescriptor {
-  lookObject: Optional<ClientObject>;
+  lookObjectId: Optional<TNumberId>;
   lookPosition: Optional<Vector>;
 }
 

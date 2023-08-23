@@ -9,7 +9,6 @@ export type TSection = string;
  */
 export enum EScheme {
   ABUSE = "abuse",
-  ACTOR_DIALOGS = "actor_dialogs",
   ANIMPOINT = "animpoint",
   CAMPER = "camper",
   COMBAT = "combat",

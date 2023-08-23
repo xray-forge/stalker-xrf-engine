@@ -24,7 +24,7 @@ describe("EvaluatorAnimation class", () => {
 
     setStalkerState(stalker.object, EStalkerState.BACKOFF, null, null, {
       lookPosition: createEmptyVector(),
-      lookObject: null,
+      lookObjectId: null,
     });
 
     expect(evaluator.evaluate()).toBeFalsy();

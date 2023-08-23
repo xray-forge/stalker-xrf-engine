@@ -27,10 +27,6 @@ export class ActionStateEnd extends action_base {
     this.stateManager = stateManager;
   }
 
-  public override initialize(): void {
-    logger.info("Start ending state action:", this.object.name(), this.stateManager.targetState);
-  }
-
   /**
    * Try to end current state.
    */

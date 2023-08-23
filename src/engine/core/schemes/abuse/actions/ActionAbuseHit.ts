@@ -3,6 +3,7 @@ import { action_base, LuabindClass } from "xray16";
 import { registry, setStalkerState } from "@/engine/core/database";
 import { EStalkerState } from "@/engine/core/objects/animation";
 import { ISchemeAbuseState } from "@/engine/core/schemes/abuse/ISchemeAbuseState";
+import { ACTOR_ID } from "@/engine/lib/constants/ids";
 
 /**
  * React to object abuse.
@@ -30,7 +31,7 @@ export class ActionAbuseHit extends action_base {
       EStalkerState.PUNCH,
       null,
       null,
-      { lookObject: registry.actor, lookPosition: null },
+      { lookObjectId: ACTOR_ID, lookPosition: null },
       { animation: true }
     );
   }

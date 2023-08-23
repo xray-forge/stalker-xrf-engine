@@ -538,6 +538,7 @@ export class StalkerBinder extends object_binder {
     if (this.object.alive()) {
       EventsManager.emitEvent(EGameEvent.STALKER_INTERACTION, object, who);
       DialogManager.getInstance().resetForObject(this.object);
+
       activateMeetWithObject(object);
 
       if (this.state.activeSection) {

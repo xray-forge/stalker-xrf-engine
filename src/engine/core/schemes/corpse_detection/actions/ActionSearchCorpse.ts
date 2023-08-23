@@ -61,7 +61,7 @@ export class ActionSearchCorpse extends action_base {
     if (this.object.position().distance_to_sqr(this.state.selectedCorpseVertexPosition as Vector) <= 2) {
       setStalkerState(this.object, EStalkerState.SEARCH_CORPSE, null, null, {
         lookPosition: this.state.selectedCorpseVertexPosition,
-        lookObject: null,
+        lookObjectId: null,
       });
       GlobalSoundManager.getInstance().playSound(this.object.id(), scriptSounds.corpse_loot_begin);
     }

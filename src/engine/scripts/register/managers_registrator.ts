@@ -1,4 +1,4 @@
-import { disposeManagers, initializeManager, registry } from "@/engine/core/database";
+import { initializeManager } from "@/engine/core/database";
 import { EventsManager } from "@/engine/core/managers";
 import { TAbstractCoreManagerConstructor } from "@/engine/core/managers/base/AbstractCoreManager";
 import { SaveManager } from "@/engine/core/managers/base/SaveManager";
@@ -28,6 +28,8 @@ const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * Register game managers and dispose existing ones.
+ *
+ * todo: Check why game time cannot be accessed when managers initialize (surge manager)
  */
 export function registerManagers(): void {
   const managers: Array<TAbstractCoreManagerConstructor> = [
@@ -56,10 +58,6 @@ export function registerManagers(): void {
     TreasureManager,
     WeatherManager,
   ];
-
-  logger.info("Dispose existing managers:", registry.managers.length());
-
-  disposeManagers();
 
   logger.info("Register game managers:", managers.length);
 

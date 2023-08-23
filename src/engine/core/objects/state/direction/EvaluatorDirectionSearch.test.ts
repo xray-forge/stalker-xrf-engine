@@ -25,7 +25,7 @@ describe("EvaluatorDirectionSearch class", () => {
     expect(evaluator.evaluate()).toBeTruthy();
 
     setStalkerState(stalker.object, EStalkerState.SMART_COVER, null, null, {
-      lookObject: null,
+      lookObjectId: null,
       lookPosition: createEmptyVector(),
     });
 
@@ -36,7 +36,7 @@ describe("EvaluatorDirectionSearch class", () => {
     expect(evaluator.evaluate()).toBeTruthy();
 
     setStalkerState(stalker.object, EStalkerState.SMART_COVER, null, null, {
-      lookObject: lookObject,
+      lookObjectId: lookObject,
       lookPosition: null,
     });
 

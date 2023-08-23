@@ -222,16 +222,6 @@ export function enableObjectBaseSchemes(
         registry.schemes.get(EScheme.HIT).activate(object, ini, EScheme.HIT, hitSection);
       }
 
-      /*
-       * Originally unused.
-       *
-      const actor_dialogs_section = getConfigString(ini, section, "actor_dialogs", npc, false, "");
-
-      if (actor_dialogs_section) {
-        ActionSchemeMeet.set_actor_dialogs(npc, ini, "actor_dialogs", actor_dialogs_section);
-      }
-     */
-
       const woundedSection: TSection = readIniString(ini, logicsSection, "wounded", false, "");
 
       // todo: null can be replaced with actual section.

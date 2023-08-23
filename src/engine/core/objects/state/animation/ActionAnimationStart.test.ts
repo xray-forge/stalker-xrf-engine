@@ -24,7 +24,7 @@ describe("ActionAnimationStart class", () => {
 
     setStalkerState(stalker.object, EStalkerState.CAUTION, null, null, {
       lookPosition: createEmptyVector(),
-      lookObject: null,
+      lookObjectId: null,
     });
 
     const action: ActionAnimationStart = new ActionAnimationStart(manager);

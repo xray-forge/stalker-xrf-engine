@@ -29,7 +29,7 @@ export class ActionZombieShoot extends action_base {
   public state: ISchemeCombatState;
   public targetStateDescriptor: ILookTargetDescriptor = {
     lookPosition: null,
-    lookObject: null,
+    lookObjectId: null,
   };
 
   public wasHit: boolean = false;
@@ -153,7 +153,7 @@ export class ActionZombieShoot extends action_base {
    * todo: Description.
    */
   public setState(state: EStalkerState, bestEnemy: Optional<ClientObject>, position: Optional<Vector>): void {
-    this.targetStateDescriptor.lookObject = bestEnemy;
+    this.targetStateDescriptor.lookObjectId = bestEnemy?.id() as Optional<TNumberId>;
     this.targetStateDescriptor.lookPosition = bestEnemy ? this.enemyLastSeenPosition : position;
 
     setStalkerState(this.object, state, null, null, this.targetStateDescriptor, null);

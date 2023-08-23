@@ -96,7 +96,7 @@ export class ActionRemarkActivity extends action_base {
    */
   public getTarget(): Optional<ILookTargetDescriptor> {
     const lookTargetDescriptor: ILookTargetDescriptor = {
-      lookObject: null as Optional<ClientObject>,
+      lookObjectId: null as Optional<TNumberId>,
       lookPosition: null as Optional<Vector>,
     };
 
@@ -112,7 +112,7 @@ export class ActionRemarkActivity extends action_base {
     }
 
     if (this.st.target_id) {
-      lookTargetDescriptor.lookObject = level.object_by_id(this.st.target_id);
+      lookTargetDescriptor.lookObjectId = level.object_by_id(this.st.target_id)?.id() as Optional<TNumberId>;
     }
 
     if (this.st.target_position) {

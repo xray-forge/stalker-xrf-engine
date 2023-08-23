@@ -25,7 +25,7 @@ const logger: LuaLogger = new LuaLogger($filename);
 @LuabindClass()
 export class ActionZombieGoToDanger extends action_base {
   public state: ISchemeCombatState;
-  public targetState: ILookTargetDescriptor = { lookObject: null, lookPosition: null };
+  public targetState: ILookTargetDescriptor = { lookObjectId: null, lookPosition: null };
 
   public wasHit: boolean = false;
   public hitReactionEndTime: TTimestamp = 0;
@@ -66,7 +66,7 @@ export class ActionZombieGoToDanger extends action_base {
    */
   public setState(state: EStalkerState, bestEnemy: Optional<ClientObject>, position: Optional<Vector>): void {
     if (state !== this.lastState) {
-      this.targetState.lookObject = bestEnemy;
+      this.targetState.lookObjectId = bestEnemy?.id() as Optional<TNumberId>;
       this.targetState.lookPosition = position;
       setStalkerState(this.object, state, null, null, this.targetState);
       this.lastState = state;

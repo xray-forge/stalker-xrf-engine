@@ -122,6 +122,4 @@ export function registerSchemes(): void {
       SchemeWounded,
     ] as Array<TAbstractSchemeConstructor>)
   );
-
-  loadSchemeImplementation(SchemeMeet, SchemeMeet.SCHEME_SECTION_ACTOR_DIALOGS);
 }

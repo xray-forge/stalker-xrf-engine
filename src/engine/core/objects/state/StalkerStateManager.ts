@@ -97,7 +97,7 @@ export class StalkerStateManager {
 
     if (target) {
       this.lookPosition = target.lookPosition;
-      this.lookObjectId = target.lookObject?.id() as Optional<TNumberId>;
+      this.lookObjectId = target.lookObjectId;
     } else {
       this.lookPosition = null;
       this.lookObjectId = null;

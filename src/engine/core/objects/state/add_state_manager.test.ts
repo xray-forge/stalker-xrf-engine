@@ -198,15 +198,7 @@ describe("add_state_manager util", () => {
       [[EEvaluatorId.IS_STATE_IDLE_ALIFE, true]]
     );
 
-    checkAction(
-      planner.action(EActionId.ALIFE),
-      "generic",
-      [
-        [EEvaluatorId.IS_STATE_IDLE_ALIFE, true],
-        [mockStalkerIds.property_items, false],
-      ],
-      []
-    );
+    checkAction(planner.action(EActionId.ALIFE), "generic", [[EEvaluatorId.IS_STATE_IDLE_ALIFE, true]], []);
     checkAction(
       planner.action(mockStalkerIds.action_gather_items),
       "generic",
@@ -833,35 +825,35 @@ describe("add_state_manager util", () => {
 
     checkAction(
       planner.action(EStateActionId.LOCKED_SMARTCOVER),
-      "lockedSmartCoverAction",
+      "ActionStateLockedSmartCover",
       [[EStateEvaluatorId.IN_SMARTCOVER, true]],
       [[EStateEvaluatorId.IN_SMARTCOVER, false]]
     );
 
     checkAction(
       planner.action(EStateActionId.LOCKED),
-      "lockedAction",
+      "ActionStateLocked",
       [[EStateEvaluatorId.LOCKED, true]],
       [[EStateEvaluatorId.LOCKED, false]]
     );
 
     checkAction(
       planner.action(EStateActionId.LOCKED_ANIMATION),
-      "lockedAnimationAction",
+      "ActionStateLockedAnimation",
       [[EStateEvaluatorId.ANIMATION_LOCKED, true]],
       [[EStateEvaluatorId.ANIMATION_LOCKED, false]]
     );
 
     checkAction(
       planner.action(EStateActionId.LOCKED_ANIMSTATE),
-      "lockedAnimstateAction",
+      "ActionStateLockedAnimstate",
       [[EStateEvaluatorId.ANIMSTATE_LOCKED, true]],
       [[EStateEvaluatorId.ANIMSTATE_LOCKED, false]]
     );
 
     checkAction(
       planner.action(EStateActionId.LOCKED_EXTERNAL),
-      "lockedExternalAction",
+      "ActionStateLockedExternal",
       [[EStateEvaluatorId.LOCKED_EXTERNAL, true]],
       [[EStateEvaluatorId.LOCKED_EXTERNAL, false]]
     );

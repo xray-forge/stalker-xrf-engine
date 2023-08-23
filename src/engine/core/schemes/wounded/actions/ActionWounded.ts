@@ -87,7 +87,7 @@ export class ActionWounded extends action_base {
       }
 
       // todo: Here should be victim
-      setStalkerState(this.object, woundManagerState, null, null, { lookObject: null, lookPosition: null });
+      setStalkerState(this.object, woundManagerState, null, null, { lookObjectId: null, lookPosition: null });
     }
 
     if (woundManagerSound === NIL) {

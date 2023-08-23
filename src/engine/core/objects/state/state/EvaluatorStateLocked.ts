@@ -7,7 +7,8 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * Check if manager state is locked.
+ * Check if manager state is locked currently.
+ * Should wait for body to turn / for weapon animation to finish.
  */
 @LuabindClass()
 export class EvaluatorStateLocked extends property_evaluator {

@@ -51,7 +51,7 @@ export class ActionLookAround extends action_base {
 
     setStalkerState(this.object, EStalkerState.HIDE, null, null, {
       lookPosition: this.state.lastSeenEnemyAtPosition,
-      lookObject: null,
+      lookObjectId: null,
     });
   }
 
@@ -90,7 +90,7 @@ export class ActionLookAround extends action_base {
 
       setStalkerState(this.object, EStalkerState.HIDE, null, null, {
         lookPosition: this.object.position().add(direction),
-        lookObject: null,
+        lookObjectId: null,
       });
     }
   }

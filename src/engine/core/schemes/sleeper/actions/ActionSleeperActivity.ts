@@ -162,9 +162,9 @@ export class ActionSleeperActivity extends action_base implements ISchemeEventHa
     const position: Optional<Vector> = sleepPatrol.count() === 2 ? sleepPatrol.point(1) : null;
 
     if (this.state.wakeable) {
-      setStalkerState(this.object, EStalkerState.SIT, null, null, { lookPosition: position, lookObject: null });
+      setStalkerState(this.object, EStalkerState.SIT, null, null, { lookPosition: position, lookObjectId: null });
     } else {
-      setStalkerState(this.object, EStalkerState.SLEEP, null, null, { lookPosition: position, lookObject: null });
+      setStalkerState(this.object, EStalkerState.SLEEP, null, null, { lookPosition: position, lookObjectId: null });
     }
 
     return true;

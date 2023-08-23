@@ -25,7 +25,7 @@ describe("EvaluatorGatherItems class", () => {
   it("should correctly evaluate state for lootable state", () => {
     const object: ClientObject = mockClientGameObject();
     const state: ISchemeGatherItemsState = mockSchemeState<ISchemeGatherItemsState>(object, EScheme.GATHER_ITEMS, {
-      canBeLooted: true,
+      canLootItems: true,
     });
     const evaluator: EvaluatorGatherItems = new EvaluatorGatherItems(state);
 
@@ -41,7 +41,7 @@ describe("EvaluatorGatherItems class", () => {
   it("should correctly evaluate state for not lootable state", () => {
     const object: ClientObject = mockClientGameObject();
     const state: ISchemeGatherItemsState = mockSchemeState<ISchemeGatherItemsState>(object, EScheme.GATHER_ITEMS, {
-      canBeLooted: false,
+      canLootItems: false,
     });
     const evaluator: EvaluatorGatherItems = new EvaluatorGatherItems(state);
 

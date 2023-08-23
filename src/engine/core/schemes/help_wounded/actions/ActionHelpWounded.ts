@@ -44,7 +44,7 @@ export class ActionHelpWounded extends action_base {
     if (this.object.position().distance_to_sqr(this.state.selectedWoundedVertexPosition) <= 2) {
       setStalkerState(this.object, EStalkerState.HELP_WOUNDED, null, null, {
         lookPosition: this.state.selectedWoundedVertexPosition,
-        lookObject: null,
+        lookObjectId: null,
       });
     }
   }

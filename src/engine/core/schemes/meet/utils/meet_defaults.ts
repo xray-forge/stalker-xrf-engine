@@ -30,7 +30,7 @@ export const meetEnemyDefaults = {
  */
 export const meetNeutralDefaults = {
   abuse: "{=has_enemy} false, true",
-  isBreakAllowed: "true",
+  isBreakAllowed: TRUE,
   closeAnimation: "{=is_wounded} nil, {!is_squad_commander} nil, {=actor_has_weapon} threat_na, talk_default",
   closeDistance: "{=is_wounded} 0, {!is_squad_commander} 0, 3",
   closeSoundBye:
@@ -40,19 +40,19 @@ export const meetNeutralDefaults = {
     "{=is_wounded} nil, {!is_squad_commander} nil, {=actor_enemy} nil," +
     " {=actor_has_weapon} meet_hide_weapon, meet_hello",
   closeVictim: "{=is_wounded} nil, {!is_squad_commander} nil, actor",
-  farAnimation: "nil",
+  farAnimation: NIL,
   farDistance: "{=is_wounded} 0, {!is_squad_commander} 0, 5",
-  farSound: "nil",
+  farSound: NIL,
   farSoundDistance: "{=is_wounded} 0, {!is_squad_commander} 0, 5",
-  farVictim: "nil",
-  meetDialog: "nil",
-  isMeetOnTalking: "true",
+  farVictim: NIL,
+  meetDialog: NIL,
+  isMeetOnTalking: TRUE,
   useSound:
     "{=is_wounded} nil, {!is_squad_commander} meet_use_no_talk_leader, {=actor_enemy} nil," +
     " {=has_enemy} meet_use_no_fight, {=actor_has_weapon} meet_use_no_weapon, {!dist_to_actor_le(3)} nil",
-  isTradeEnabled: "true",
+  isTradeEnabled: TRUE,
   use:
     "{=is_wounded} false, {!is_squad_commander} false, {=actor_enemy} false, {=has_enemy} false," +
     " {=actor_has_weapon} false, {=dist_to_actor_le(3)} true, false",
-  useText: "nil",
+  useText: NIL,
 } as const;
