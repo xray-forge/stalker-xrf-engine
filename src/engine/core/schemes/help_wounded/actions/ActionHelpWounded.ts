@@ -32,15 +32,7 @@ export class ActionHelpWounded extends action_base {
 
     logger.info("Start helping wounded:", this.object.name(), tostring(this.state.selectedWoundedVertexId));
 
-    this.object.set_desired_position();
-    this.object.set_desired_direction();
-    this.object.set_path_type(EClientObjectPath.LEVEL_PATH);
-
-    this.object.set_dest_level_vertex_id(
-      sendToNearestAccessibleVertex(this.object, this.state.selectedWoundedVertexId)
-    );
-
-    setStalkerState(this.object, EStalkerState.RUN);
+    this.sendObjectToWounded();
   }
 
   public override finalize(): void {
@@ -62,38 +54,60 @@ export class ActionHelpWounded extends action_base {
   public override execute(): void {
     super.execute();
 
-    // Do not execute if already play same animation or if target is not defined.
-    if (
-      this.state.selectedWoundedId === null ||
-      getStalkerState(this.object) === EStalkerState.HELP_WOUNDED_WITH_MEDKIT
-    ) {
+    // Do not execute if target is not defined.
+    if (this.helpingTargetId === null) {
       return;
     }
 
     // Reach destination vertex for healing.
-    if (this.object.position().distance_to_sqr(this.state.selectedWoundedVertexPosition as Vector) < 2) {
-      // Start heal wounded animation, heal target on finish.
-      setStalkerState(
-        this.object,
-        EStalkerState.HELP_WOUNDED_WITH_MEDKIT,
-        null,
-        null,
-        {
-          lookPosition: this.state.selectedWoundedVertexPosition,
-          lookObjectId: null,
-        },
-        { isForced: true }
-      );
-
-      // Say That everything will be ok once per healing action.
-      if (!this.isHelpingSoundPlayed) {
-        GlobalSoundManager.getInstance().playSound(this.object.id(), scriptSounds.wounded_medkit);
-        this.isHelpingSoundPlayed = true;
-      }
+    if (
+      getStalkerState(this.object) !== EStalkerState.HELP_WOUNDED_WITH_MEDKIT &&
+      this.object.position().distance_to_sqr(this.state.selectedWoundedVertexPosition as Vector) < 2
+    ) {
+      this.startHelpingWounded();
     } else if (this.helpingTargetId !== this.state.selectedWoundedId) {
-      setStalkerState(this.object, EStalkerState.RUN);
+      this.sendObjectToWounded();
     }
+  }
 
+  /**
+   * Send stalker to wounded.
+   */
+  public sendObjectToWounded(): void {
     this.helpingTargetId = this.state.selectedWoundedId;
+
+    this.object.set_desired_position();
+    this.object.set_desired_direction();
+    this.object.set_path_type(EClientObjectPath.LEVEL_PATH);
+
+    this.object.set_dest_level_vertex_id(
+      sendToNearestAccessibleVertex(this.object, this.state.selectedWoundedVertexId)
+    );
+
+    setStalkerState(this.object, EStalkerState.RUN);
+  }
+
+  /**
+   * Start helping wounded.
+   */
+  public startHelpingWounded(): void {
+    // Start heal wounded animation, heal target on finish.
+    setStalkerState(
+      this.object,
+      EStalkerState.HELP_WOUNDED_WITH_MEDKIT,
+      null,
+      null,
+      {
+        lookPosition: this.state.selectedWoundedVertexPosition,
+        lookObjectId: null,
+      },
+      { isForced: true }
+    );
+
+    // Say That everything will be ok once per healing action.
+    if (!this.isHelpingSoundPlayed) {
+      GlobalSoundManager.getInstance().playSound(this.object.id(), scriptSounds.wounded_medkit);
+      this.isHelpingSoundPlayed = true;
+    }
   }
 }

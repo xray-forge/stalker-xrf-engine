@@ -34,15 +34,7 @@ export class ActionSearchCorpse extends action_base {
 
     logger.info("Start search corpse:", this.object.name(), tostring(this.state.selectedCorpseId));
 
-    this.object.set_desired_position();
-    this.object.set_desired_direction();
-    this.object.set_path_type(EClientObjectPath.LEVEL_PATH);
-
-    this.object.set_dest_level_vertex_id(this.state.selectedCorpseVertexId);
-
-    setStalkerState(this.object, EStalkerState.PATROL);
-
-    this.lootingObjectId = this.state.selectedCorpseId;
+    this.sendObjectToCorpse();
   }
 
   /**
@@ -70,27 +62,48 @@ export class ActionSearchCorpse extends action_base {
   public override execute(): void {
     super.execute();
 
-    // Do not execute if already play same animation or if target is not defined.
-    if (this.state.selectedCorpseId === null || getStalkerState(this.object) === EStalkerState.SEARCH_CORPSE) {
+    if (this.lootingObjectId === null) {
       return;
     }
 
     // Start playing looting animation when actually reach destination point.
-    if (this.object.position().distance_to_sqr(this.state.selectedCorpseVertexPosition as Vector) <= 2) {
-      setStalkerState(this.object, EStalkerState.SEARCH_CORPSE, null, null, {
-        lookPosition: this.state.selectedCorpseVertexPosition,
-        lookObjectId: null,
-      });
-
-      // Play looting start sound once.
-      if (!this.isLootingSoundPlayed) {
-        GlobalSoundManager.getInstance().playSound(this.object.id(), scriptSounds.corpse_loot_begin);
-        this.isLootingSoundPlayed = true;
-      }
+    if (
+      getStalkerState(this.object) !== EStalkerState.SEARCH_CORPSE &&
+      this.object.position().distance_to_sqr(this.state.selectedCorpseVertexPosition as Vector) <= 2
+    ) {
+      this.startSearchingCorpse();
     } else if (this.lootingObjectId !== this.state.selectedCorpseId) {
-      setStalkerState(this.object, EStalkerState.PATROL);
+      this.sendObjectToCorpse();
     }
+  }
 
+  /**
+   * Start searching corpse.
+   */
+  public startSearchingCorpse(): void {
+    setStalkerState(this.object, EStalkerState.SEARCH_CORPSE, null, null, {
+      lookPosition: this.state.selectedCorpseVertexPosition,
+      lookObjectId: null,
+    });
+
+    // Play looting start sound once.
+    if (!this.isLootingSoundPlayed) {
+      GlobalSoundManager.getInstance().playSound(this.object.id(), scriptSounds.corpse_loot_begin);
+      this.isLootingSoundPlayed = true;
+    }
+  }
+
+  /**
+   * Send stalker to corpse.
+   */
+  public sendObjectToCorpse(): void {
     this.lootingObjectId = this.state.selectedCorpseId;
+
+    this.object.set_desired_position();
+    this.object.set_desired_direction();
+    this.object.set_path_type(EClientObjectPath.LEVEL_PATH);
+    this.object.set_dest_level_vertex_id(this.state.selectedCorpseVertexId);
+
+    setStalkerState(this.object, EStalkerState.PATROL);
   }
 }

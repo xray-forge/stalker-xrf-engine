@@ -1,5 +1,5 @@
 import { TAnimationSequenceElement, TAnimationSequenceElements } from "@/engine/core/objects/animation";
-import { LuaArray, Optional, TIndex } from "@/engine/lib/types";
+import { LuaArray, Optional } from "@/engine/lib/types";
 
 /**
  * Create animation sequence.
@@ -13,11 +13,9 @@ export function createSequence(
   >
 ): LuaArray<TAnimationSequenceElements> {
   const list: LuaArray<TAnimationSequenceElements> = new LuaTable();
-  let index: TIndex = 0;
 
-  for (const it of sequence) {
-    list.set(index, it as TAnimationSequenceElement);
-    index++;
+  for (const [index, it] of $fromArray(sequence)) {
+    list.set(index - 1, it as TAnimationSequenceElement);
   }
 
   return list;

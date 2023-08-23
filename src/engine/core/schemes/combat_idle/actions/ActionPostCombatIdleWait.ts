@@ -1,11 +1,11 @@
-import { action_base, anim, look, LuabindClass, move, object } from "xray16";
+import { action_base, anim, look, LuabindClass, move } from "xray16";
 
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import { EAnimationType, EStalkerState } from "@/engine/core/objects/animation";
 import { StalkerAnimationManager } from "@/engine/core/objects/state/StalkerAnimationManager";
 import { ISchemePostCombatIdleState } from "@/engine/core/schemes/combat_idle/ISchemePostCombatIdleState";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { ClientObject, Optional } from "@/engine/lib/types";
+import { isObjectWeaponLocked, setObjectBestWeapon } from "@/engine/core/utils/object/object_weapon";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -30,7 +30,8 @@ export class ActionPostCombatIdleWait extends action_base {
 
     super.initialize();
 
-    this.object.set_item(object.idle, this.object.best_weapon());
+    setObjectBestWeapon(this.object);
+
     this.object.set_mental_state(anim.danger);
     this.object.set_body_state(move.crouch);
     this.object.set_movement_type(move.stand);
@@ -69,51 +70,26 @@ export class ActionPostCombatIdleWait extends action_base {
   public override execute(): void {
     super.execute();
 
-    if (!this.object.in_smart_cover()) {
-      if (this.isAnimationStarted === false && !this.isWeaponLocked(this.object)) {
-        this.isAnimationStarted = true;
-        (this.state.animation as StalkerAnimationManager).setState(EStalkerState.HIDE);
-        (this.state.animation as StalkerAnimationManager).setControl();
-      }
+    if (this.isAnimationStarted) {
+      return;
     }
+
+    if (this.object.in_smart_cover()) {
+      return;
+    }
+
+    if (isObjectWeaponLocked(this.object)) {
+      logger.info("Waiting for weapon unlock:", this.object.active_item()?.name());
+
+      return;
+    } else {
+      logger.info("Weapon unlocked unlock:", this.object.active_item()?.name());
+    }
+
+    this.isAnimationStarted = true;
+    (this.state.animation as StalkerAnimationManager).setState(EStalkerState.HIDE);
+    (this.state.animation as StalkerAnimationManager).setControl();
 
     GlobalSoundManager.getInstance().playSound(this.object.id(), "post_combat_wait", null, null);
-  }
-
-  /**
-   * todo: Move to utils as pure function?
-   *
-   * @param object - object to check weapon staet
-   * @returns whether weapon is in locked state
-   */
-  public isWeaponLocked(object: ClientObject): boolean {
-    const isWeaponStrapped: boolean = object.weapon_strapped();
-    const isWeaponUnstrapped: boolean = object.weapon_unstrapped();
-
-    if (!(isWeaponUnstrapped || isWeaponStrapped)) {
-      return true;
-    }
-
-    const bestWeapon: Optional<ClientObject> = object.best_weapon();
-
-    if (bestWeapon === null) {
-      return false;
-    }
-
-    if (object.active_item() === null) {
-      return false;
-    }
-
-    const isWeaponGoingToBeStrapped: boolean = object.is_weapon_going_to_be_strapped(bestWeapon);
-
-    if (isWeaponGoingToBeStrapped && !isWeaponStrapped) {
-      return true;
-    }
-
-    if (!isWeaponGoingToBeStrapped && !isWeaponUnstrapped) {
-      return true;
-    }
-
-    return false;
   }
 }

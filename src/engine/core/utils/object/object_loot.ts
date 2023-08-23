@@ -54,12 +54,13 @@ export function findNearestCorpseToLoot(
         // Is not looted by anyone or looted by current object.
         (isLootedBy === null || isLootedBy === object.id()) &&
         // Seen dead object recently.
-        object.memory_position(corpseObject) !== null
+        object.memory_position(corpseObject) !== null &&
+        isObjectWithValuableLoot(corpseObject)
       ) {
         const distanceBetween: TDistance = object.position().distance_to_sqr(corpseObject.position());
 
         // Is near enough and has valuable loot.
-        if (distanceBetween < nearestCorpseDistSqr && isObjectWithValuableLoot(corpseObject)) {
+        if (distanceBetween < nearestCorpseDistSqr) {
           const corpseVertex: TNumberId = level.vertex_id(corpseObject.position());
 
           // Can be reached by object.
