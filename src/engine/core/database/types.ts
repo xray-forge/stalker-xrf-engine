@@ -136,10 +136,6 @@ export interface IRegistryObjectState extends Record<EScheme, Optional<IBaseSche
   /**
    * todo;
    */
-  wounded_already_selected: Optional<TNumberId>;
-  /**
-   * todo;
-   */
   old_aim_time: Optional<TTimestamp>;
   /**
    * todo;

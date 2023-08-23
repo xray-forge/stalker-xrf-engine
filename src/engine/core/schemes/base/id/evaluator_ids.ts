@@ -32,6 +32,7 @@ export enum EEvaluatorId {
   IS_CLOSE_COMBAT = BASE + 1082, // 1156
   IS_SCRIPTED_COMBAT = BASE + 1110, // 1184
   IS_ABUSED = BASE + 1120, // 1194
+  // Whether object is wounded and cannot fight, lay and wait for help.
   IS_WOUNDED = BASE + 2010, // 2084
   CAN_FIGHT = BASE + 2011, // 2085
   IS_PATROL_ENDED = BASE + 2250, // 2324

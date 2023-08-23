@@ -6,10 +6,13 @@ import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundMan
 import { AbstractSchemeManager } from "@/engine/core/schemes";
 import { ISchemeWoundedState } from "@/engine/core/schemes/wounded/ISchemeWoundedState";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/ini_config";
+import { LuaLogger } from "@/engine/core/utils/logging";
 import { drugs } from "@/engine/lib/constants/items/drugs";
 import { scriptSounds } from "@/engine/lib/constants/sound/script_sounds";
 import { FALSE, NIL, TRUE } from "@/engine/lib/constants/words";
 import { AlifeSimulator, LuaArray, Optional, TCount, TIndex, TRate, TTimestamp } from "@/engine/lib/types";
+
+const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * Manager to handle wounded state of stalkers.
@@ -68,6 +71,8 @@ export class WoundManager extends AbstractSchemeManager<ISchemeWoundedState> {
    */
   public eatMedkit(): void {
     if (this.canUseMedkit) {
+      logger.info("Eat medkit:", this.object.name());
+
       if (this.object.object("medkit_script") !== null) {
         this.object.eat(this.object.object("medkit_script")!);
       }
@@ -187,10 +192,10 @@ export class WoundManager extends AbstractSchemeManager<ISchemeWoundedState> {
   /**
    * todo: Description.
    */
-  public getKeyFromDistance(t: LuaArray<any>, hp: TRate): Optional<number> {
+  public getKeyFromDistance(list: LuaArray<any>, hp: TRate): Optional<number> {
     let key: Optional<number> = null;
 
-    for (const [k, v] of t) {
+    for (const [k, v] of list) {
       if (v.dist >= hp) {
         key = k;
       } else {

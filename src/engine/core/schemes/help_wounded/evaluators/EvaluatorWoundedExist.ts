@@ -1,14 +1,14 @@
-import { level, LuabindClass, property_evaluator } from "xray16";
+import { LuabindClass, property_evaluator } from "xray16";
 
-import { IRegistryObjectState, registry } from "@/engine/core/database";
-import { ISchemeHelpWoundedState } from "@/engine/core/schemes/help_wounded";
-import { ISchemeWoundedState } from "@/engine/core/schemes/wounded";
+import { setPortableStoreValue } from "@/engine/core/database";
+import { ISchemeHelpWoundedState } from "@/engine/core/schemes/help_wounded/ISchemeHelpWoundedState";
+import { freeSelectedWoundedStalkerSpot } from "@/engine/core/schemes/help_wounded/utils";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { isObjectWounded } from "@/engine/core/utils/object";
-import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
+import { findObjectNearestWoundedToHelp, isObjectWounded } from "@/engine/core/utils/object";
 import { communities } from "@/engine/lib/constants/communities";
+import { HELPING_WOUNDED_OBJECT_KEY } from "@/engine/lib/constants/portable_store_keys";
 import { ACTOR_VISUAL_STALKER } from "@/engine/lib/constants/sections";
-import { ClientObject, EScheme, Optional, TDistance, TNumberId, Vector } from "@/engine/lib/types";
+import { ClientObject, Optional, TNumberId } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -26,87 +26,54 @@ export class EvaluatorWoundedExist extends property_evaluator {
 
   /**
    * Evaluate whether object can detect any wounded stalkers nearby.
+   * Called with ~400-500ms period.
    */
   public override evaluate(): boolean {
     const object: ClientObject = this.object;
-    const objectId: TNumberId = object.id();
-    const objectPosition: Vector = object.position();
 
-    if (
-      // Cannot help, scheme is disabled.
-      !this.state.isHelpingWoundedEnabled ||
-      // Is not alive and cannot help.
-      !object.alive() ||
-      // Have enemies to fight.
-      object.best_enemy() !== null ||
-      // Zombied cannot help others.
-      object.character_community() === communities.zombied ||
-      // Nearby stalkers shoul be wounded.
-      isObjectWounded(object.id()) ||
-      // Cutscene object, should follow scenarios.
-      object.section() === ACTOR_VISUAL_STALKER
-    ) {
+    return (
+      // Scheme should be enabled.
+      this.state.isHelpingWoundedEnabled &&
+      // Should be alive.
+      object.alive() &&
+      // Should have no enemies.
+      object.best_enemy() === null &&
+      // Should be not zombied.
+      object.character_community() !== communities.zombied &&
+      // Should be not wounded.
+      !isObjectWounded(object.id()) &&
+      // Should be not cinematic visual object.
+      object.section() !== ACTOR_VISUAL_STALKER &&
+      // Should have anyone to heal nearby.
+      this.hasWoundedToHeal()
+    );
+  }
+
+  /**
+   * @returns whether any wounded stalker to heal exists nearby
+   */
+  public hasWoundedToHeal(): boolean {
+    const [nearestObject, nearestVertexId, nearestPosition] = findObjectNearestWoundedToHelp(this.object);
+
+    // No active objects to help.
+    if (nearestObject === null) {
       return false;
     }
 
-    let nearestDistance: TDistance = logicsConfig.HELP_WOUNDED.DISTANCE_TO_HELP_SQR;
-    let nearestVertexId: Optional<TNumberId> = null;
-    let nearestPosition: Optional<Vector> = null;
-    let selectedObjectId: Optional<TNumberId> = null;
+    const nearestObjectId: Optional<TNumberId> = nearestObject.id();
 
-    // Iterate all seen objects in nearest time.
-    for (const memoryVisibleObject of object.memory_visible_objects()) {
-      const visibleObject: ClientObject = memoryVisibleObject.object();
-      const visibleObjectId: TNumberId = visibleObject.id();
-      const visibleObjectState: IRegistryObjectState = registry.objects.get(visibleObjectId);
-
-      if (
-        // Is wounded.
-        isObjectWounded(visibleObject.id()) &&
-        // Is alive.
-        visibleObject.alive() &&
-        // Is not selected by others to help or selected by current object.
-        (visibleObjectState.wounded_already_selected === null ||
-          visibleObjectState.wounded_already_selected === objectId) &&
-        // Is seen.
-        object.see(visibleObject) &&
-        // Is not marked as excluded.
-        (visibleObjectState[EScheme.WOUNDED] as ISchemeWoundedState).notForHelp !== true
-      ) {
-        const visibleObjectPosition: Vector = visibleObject.position();
-        const distanceBetweenObjects: TDistance = objectPosition.distance_to_sqr(visibleObjectPosition);
-
-        if (distanceBetweenObjects < nearestDistance) {
-          const vertexId: TNumberId = level.vertex_id(visibleObjectPosition);
-
-          if (object.accessible(vertexId)) {
-            nearestDistance = distanceBetweenObjects;
-            nearestVertexId = vertexId;
-            nearestPosition = visibleObjectPosition;
-            selectedObjectId = visibleObjectId;
-          }
-        }
-      }
+    // Changed priority and now will try to heal someone else, unblock previous one.
+    if (this.state.selectedWoundedId !== null && this.state.selectedWoundedId !== nearestObjectId) {
+      freeSelectedWoundedStalkerSpot(this.state.selectedWoundedId);
     }
 
-    if (nearestVertexId) {
-      this.state.selectedWoundedVertexId = nearestVertexId;
-      this.state.selectedWoundedVertexPosition = nearestPosition!;
+    // Block others from healing current target.
+    setPortableStoreValue(nearestObjectId, HELPING_WOUNDED_OBJECT_KEY, this.object.id());
 
-      if (this.state.selectedWoundedId !== null && this.state.selectedWoundedId !== selectedObjectId) {
-        const previousWoundedState: Optional<IRegistryObjectState> = registry.objects.get(this.state.selectedWoundedId);
+    this.state.selectedWoundedId = nearestObjectId;
+    this.state.selectedWoundedVertexId = nearestVertexId;
+    this.state.selectedWoundedVertexPosition = nearestPosition!;
 
-        if (previousWoundedState !== null) {
-          registry.objects.get(this.state.selectedWoundedId).wounded_already_selected = null;
-        }
-      }
-
-      this.state.selectedWoundedId = selectedObjectId as TNumberId;
-      registry.objects.get(selectedObjectId as TNumberId).wounded_already_selected = object.id();
-
-      return true;
-    }
-
-    return false;
+    return true;
   }
 }

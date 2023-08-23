@@ -80,6 +80,10 @@ export const registry = {
    */
   offlineObjects: new LuaTable<TNumberId, IStoredOfflineObject>(),
   /**
+   * List of wounded objects.
+   */
+  objectsWounded: new LuaTable<TNumberId, IRegistryObjectState>(),
+  /**
    * List of objects participating in alife simulation.
    */
   simulationObjects: new LuaTable<TNumberId, TSimulationObject>(),

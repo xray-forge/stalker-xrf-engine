@@ -1,6 +1,12 @@
 import { describe, expect, it } from "@jest/globals";
 
-import { registerObject, resetObject, unregisterObject } from "@/engine/core/database/objects";
+import {
+  registerObject,
+  registerWoundedObject,
+  resetObject,
+  unregisterObject,
+  unRegisterWoundedObject,
+} from "@/engine/core/database/objects";
 import { registry } from "@/engine/core/database/registry";
 import { IRegistryObjectState } from "@/engine/core/database/types";
 import { ClientObject } from "@/engine/lib/types";
@@ -21,5 +27,16 @@ describe("database objects utilities", () => {
 
     unregisterObject(object);
     expect(registry.objects.get(object.id())).toBeNull();
+  });
+
+  it("should correctly register and unregister wounded objects", () => {
+    const object: ClientObject = mockClientGameObject();
+    const state: IRegistryObjectState = registerObject(object);
+
+    registerWoundedObject(object);
+    expect(registry.objectsWounded.get(object.id())).toBe(state);
+
+    unRegisterWoundedObject(object);
+    expect(registry.objectsWounded.get(object.id())).toBeNull();
   });
 });
