@@ -6,7 +6,6 @@ import { EEvaluatorId, TAbstractSchemeConstructor } from "@/engine/core/schemes/
 import { SchemeCombat } from "@/engine/core/schemes/combat";
 import { SchemeCombatIgnore } from "@/engine/core/schemes/combat_ignore";
 import { SchemeHit } from "@/engine/core/schemes/hit";
-import { SchemeMeet } from "@/engine/core/schemes/meet";
 import { SchemeMobCombat } from "@/engine/core/schemes/mob_combat";
 import { SchemePhysicalOnHit } from "@/engine/core/schemes/ph_on_hit";
 import {
@@ -41,7 +40,6 @@ describe("'scheme setup' utils", () => {
     expect(SchemeCombat.disable).toHaveBeenCalledTimes(1);
     expect(SchemeCombatIgnore.disable).toHaveBeenCalledTimes(1);
     expect(SchemeHit.disable).toHaveBeenCalledTimes(1);
-    expect(SchemeMeet.disable).toHaveBeenCalledTimes(0);
     expect(SchemeMobCombat.disable).toHaveBeenCalledTimes(0);
     expect(SchemePhysicalOnHit.disable).toHaveBeenCalledTimes(0);
 
@@ -52,7 +50,6 @@ describe("'scheme setup' utils", () => {
     expect(SchemeCombat.disable).toHaveBeenCalledTimes(0);
     expect(SchemeCombatIgnore.disable).toHaveBeenCalledTimes(1);
     expect(SchemeHit.disable).toHaveBeenCalledTimes(0);
-    expect(SchemeMeet.disable).toHaveBeenCalledTimes(0);
     expect(SchemeMobCombat.disable).toHaveBeenCalledTimes(1);
     expect(SchemePhysicalOnHit.disable).toHaveBeenCalledTimes(0);
 
@@ -63,7 +60,6 @@ describe("'scheme setup' utils", () => {
     expect(SchemeCombat.disable).toHaveBeenCalledTimes(0);
     expect(SchemeCombatIgnore.disable).toHaveBeenCalledTimes(0);
     expect(SchemeHit.disable).toHaveBeenCalledTimes(0);
-    expect(SchemeMeet.disable).toHaveBeenCalledTimes(0);
     expect(SchemeMobCombat.disable).toHaveBeenCalledTimes(0);
     expect(SchemePhysicalOnHit.disable).toHaveBeenCalledTimes(1);
 
@@ -74,7 +70,6 @@ describe("'scheme setup' utils", () => {
     expect(SchemeCombat.disable).toHaveBeenCalledTimes(0);
     expect(SchemeCombatIgnore.disable).toHaveBeenCalledTimes(0);
     expect(SchemeHit.disable).toHaveBeenCalledTimes(1);
-    expect(SchemeMeet.disable).toHaveBeenCalledTimes(0);
     expect(SchemeMobCombat.disable).toHaveBeenCalledTimes(0);
     expect(SchemePhysicalOnHit.disable).toHaveBeenCalledTimes(0);
   });
