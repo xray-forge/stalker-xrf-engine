@@ -55,7 +55,7 @@ export function initializeMeetScheme(
     state.abuse = parseConditionsList(FALSE);
     state.isTradeEnabled = parseConditionsList(TRUE);
     state.isBreakAllowed = parseConditionsList(TRUE);
-    state.isMeetOnTalking = parseConditionsList(FALSE);
+    state.isMeetOnTalking = false;
     state.useText = parseConditionsList(NIL);
 
     state.resetDistance = logicsConfig.MEET_RESET_DISTANCE;
@@ -102,9 +102,8 @@ export function initializeMeetScheme(
     state.isBreakAllowed = parseConditionsList(
       readIniString(ini, section, "allow_break", false, "", defaults.isBreakAllowed)
     );
-    state.isMeetOnTalking = parseConditionsList(
-      readIniString(ini, section, "meet_on_talking", false, "", defaults.isMeetOnTalking)
-    );
+    state.isMeetOnTalking =
+      readIniString(ini, section, "meet_on_talking", false, "", defaults.isMeetOnTalking) === TRUE;
     state.useText = parseConditionsList(readIniString(ini, section, "use_text", false, "", defaults.useText));
 
     state.resetDistance = logicsConfig.MEET_RESET_DISTANCE;
@@ -112,4 +111,5 @@ export function initializeMeetScheme(
   }
 
   state.meetManager.initialize();
+  state.isMeetInitialized = true;
 }

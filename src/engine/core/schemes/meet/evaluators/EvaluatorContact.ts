@@ -27,6 +27,10 @@ export class EvaluatorContact extends property_evaluator {
    * Based on distance wait for actor to speak or continue doing other things.
    */
   public override evaluate(): boolean {
+    if (!this.state.isMeetInitialized) {
+      return false;
+    }
+
     // No alive actor.
     if (!registry.actor?.alive()) {
       return false;

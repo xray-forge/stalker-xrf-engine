@@ -20,11 +20,12 @@ export function isObjectAsleep(objectId: TNumberId): boolean {
 export function isObjectWounded(objectId: TNumberId): boolean {
   const state: Optional<IRegistryObjectState> = registry.objects.get(objectId);
 
+  // Not registered / not correct game object provided.
   if (!state || !state[EScheme.WOUNDED]) {
     return false;
-  } else {
-    return tostring((state[EScheme.WOUNDED] as ISchemeWoundedState).woundManager.woundState) !== NIL;
   }
+
+  return tostring((state[EScheme.WOUNDED] as ISchemeWoundedState).woundManager.woundState) !== NIL;
 }
 
 /**

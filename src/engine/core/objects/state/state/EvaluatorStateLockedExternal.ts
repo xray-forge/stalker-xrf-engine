@@ -6,7 +6,8 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo
+ * Check if state manager is locked by current alife or alife activity.
+ * It means that state manager cannot control object, another activity fully controls.
  */
 @LuabindClass()
 export class EvaluatorStateLockedExternal extends property_evaluator {

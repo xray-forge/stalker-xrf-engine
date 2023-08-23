@@ -11,7 +11,16 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 import { isObjectInCombat, isObjectWounded, setObjectAbuseState } from "@/engine/core/utils/object";
 import { captions } from "@/engine/lib/constants/captions";
 import { FALSE, NIL, TRUE } from "@/engine/lib/constants/words";
-import { ClientObject, Optional, StringOptional, TDistance, TName, TSection, TStringId } from "@/engine/lib/types";
+import {
+  ClientObject,
+  Optional,
+  StringOptional,
+  TDistance,
+  TName,
+  TNumberId,
+  TSection,
+  TStringId,
+} from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -104,7 +113,10 @@ export class MeetManager extends AbstractSchemeManager<ISchemeMeetState> {
 
     // Look at speaker.
     if (tostring(state) !== NIL) {
-      setStalkerState(this.object, state as EStalkerState, null, null, { lookObject: victim, lookPosition: null });
+      setStalkerState(this.object, state as EStalkerState, null, null, {
+        lookObjectId: victim?.id() as Optional<TNumberId>,
+        lookPosition: null,
+      });
     }
 
     // Say hello.
@@ -126,10 +138,14 @@ export class MeetManager extends AbstractSchemeManager<ISchemeMeetState> {
     if (isActorVisible) {
       if (distance <= tonumber(pickSectionFromCondList(actor, this.object, this.state.closeSoundDistance))!) {
         if (!this.isHelloPassed) {
-          const snd: Optional<TSection> = pickSectionFromCondList(actor, this.object, this.state.closeSoundHello);
+          const closeSoundHello: Optional<TSection> = pickSectionFromCondList(
+            actor,
+            this.object,
+            this.state.closeSoundHello
+          );
 
-          if (tostring(snd) !== NIL && !isObjectInCombat(this.object)) {
-            GlobalSoundManager.getInstance().playSound(this.object.id(), snd, null, null);
+          if (tostring(closeSoundHello) !== NIL && !isObjectInCombat(this.object)) {
+            GlobalSoundManager.getInstance().playSound(this.object.id(), closeSoundHello);
           }
 
           this.isHelloPassed = true;
@@ -154,7 +170,7 @@ export class MeetManager extends AbstractSchemeManager<ISchemeMeetState> {
     const isObjectClose: boolean =
       (isActorVisible &&
         distance <= tonumber(pickSectionFromCondList(actor, this.object, this.state.closeDistance))!) ||
-      (this.object.is_talking() && this.state.isMeetOnTalking !== null);
+      (this.object.is_talking() && this.state.isMeetOnTalking);
 
     if (isObjectClose) {
       this.currentDistanceToSpeaker = EMeetDistance.CLOSE;

@@ -2,7 +2,7 @@ import { LuabindClass, property_evaluator } from "xray16";
 
 import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateManager";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { ClientObject, Optional } from "@/engine/lib/types";
+import { isObjectWeaponLocked } from "@/engine/core/utils/object/object_weapon";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -19,30 +19,9 @@ export class EvaluatorWeaponLocked extends property_evaluator {
   }
 
   /**
-   * todo: Description.
+   * Check if weapon state is locked right now and it cannot be changed / used.
    */
   public override evaluate(): boolean {
-    const isWeaponStrapped: boolean = this.object.weapon_strapped();
-    const isWeaponUnstrapped: boolean = this.object.weapon_unstrapped();
-
-    if (!(isWeaponUnstrapped || isWeaponStrapped)) {
-      return true;
-    }
-
-    const bestWeapon: Optional<ClientObject> = this.object.best_weapon();
-
-    if (bestWeapon === null) {
-      return false;
-    }
-
-    const isWeaponGoingToBeStrapped: boolean = this.object.is_weapon_going_to_be_strapped(bestWeapon);
-
-    if (isWeaponGoingToBeStrapped && !isWeaponStrapped) {
-      return true;
-    } else if (!isWeaponGoingToBeStrapped && !isWeaponUnstrapped && this.object.active_item() !== null) {
-      return true;
-    }
-
-    return false;
+    return isObjectWeaponLocked(this.object);
   }
 }

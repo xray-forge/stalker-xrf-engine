@@ -23,7 +23,12 @@ export class SchemeHelpWounded extends AbstractScheme {
   /**
    * Activate section with help wounded for the object.
    */
-  public static override activate(object: ClientObject, ini: IniFile, scheme: EScheme, section: Optional<TSection>) {
+  public static override activate(
+    object: ClientObject,
+    ini: IniFile,
+    scheme: EScheme,
+    section: Optional<TSection>
+  ): void {
     AbstractScheme.assign(object, ini, scheme, section);
   }
 
@@ -48,13 +53,19 @@ export class SchemeHelpWounded extends AbstractScheme {
     action.add_precondition(new world_property(stalker_ids.property_enemy, false));
     action.add_precondition(new world_property(stalker_ids.property_danger, false));
     action.add_precondition(new world_property(stalker_ids.property_anomaly, false));
-    action.add_precondition(new world_property(EEvaluatorId.IS_WOUNDED_EXISTING, true));
     action.add_precondition(new world_property(EEvaluatorId.IS_WOUNDED, false));
+    action.add_precondition(new world_property(EEvaluatorId.IS_WOUNDED_EXISTING, true));
+
     // Clean up wounded stalkers search once action is finished.
     action.add_effect(new world_property(EEvaluatorId.IS_WOUNDED_EXISTING, false));
 
     // Help stalkers nearby if conditions are met.
     actionPlanner.add_action(EActionId.HELP_WOUNDED, action);
+
+    // Do not allow items collection when wounded are nearby.
+    actionPlanner
+      .action(EActionId.STATE_TO_IDLE_ITEMS)
+      .add_precondition(new world_property(EEvaluatorId.IS_WOUNDED_EXISTING, false));
 
     // Do not allow alife activity before finish helping all stalkers nearby.
     actionPlanner.action(EActionId.ALIFE).add_precondition(new world_property(EEvaluatorId.IS_WOUNDED_EXISTING, false));

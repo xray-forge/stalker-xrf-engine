@@ -1,36 +1,39 @@
-import { alife } from "xray16";
-
-import { IRegistryObjectState, registry } from "@/engine/core/database";
-import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
+import { IRegistryObjectState, registry, setPortableStoreValue } from "@/engine/core/database";
 import { ISchemeHelpWoundedState } from "@/engine/core/schemes/help_wounded";
 import { ISchemeWoundedState } from "@/engine/core/schemes/wounded";
-import { scriptSounds } from "@/engine/lib/constants/sound/script_sounds";
-import { ClientObject, EScheme, Maybe, Optional, TNumberId } from "@/engine/lib/types";
+import { LuaLogger } from "@/engine/core/utils/logging";
+import { giveWoundedObjectMedkit } from "@/engine/core/utils/object";
+import { HELPING_WOUNDED_OBJECT_KEY } from "@/engine/lib/constants/portable_store_keys";
+import { ClientObject, EScheme, Optional, TNumberId } from "@/engine/lib/types";
+
+const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo: Description.
+ * Finish helping wounded on successful healing animation.
+ * Give medkit and enable healing for wounded object.
+ *
+ * @param object - target object animation is finished for (healer)
  */
-export function finishHelpWounded(object: ClientObject): void {
+export function finishObjectHelpWounded(object: ClientObject): void {
   const state: IRegistryObjectState = registry.objects.get(object.id());
 
-  const selectedObjectId: TNumberId = (state[EScheme.HELP_WOUNDED] as ISchemeHelpWoundedState).selectedWoundedId;
+  const selectedObjectId: TNumberId = (state[EScheme.HELP_WOUNDED] as ISchemeHelpWoundedState)
+    .selectedWoundedId as TNumberId;
   const selectedObjectState: Optional<IRegistryObjectState> = registry.objects.get(selectedObjectId);
-  const selectedObject: Optional<ClientObject> = selectedObjectState?.object as Optional<ClientObject>;
 
-  if (selectedObject) {
-    // Give script medkit to heal up for an object.
-    alife().create(
-      "medkit_script",
-      selectedObject.position(),
-      selectedObject.level_vertex_id(),
-      selectedObject.game_vertex_id(),
-      selectedObjectId
-    );
+  if (selectedObjectState !== null) {
+    giveWoundedObjectMedkit(selectedObjectState.object);
+    (selectedObjectState.wounded as Optional<ISchemeWoundedState>)?.woundManager.unlockMedkit();
+  }
+}
 
-    (selectedObjectState?.wounded as Maybe<ISchemeWoundedState>)?.woundManager.unlockMedkit();
-    selectedObjectState.wounded_already_selected = -1;
-
-    // Say thank you.
-    GlobalSoundManager.getInstance().playSound(object.id(), scriptSounds.wounded_medkit);
+/**
+ * todo;
+ *
+ * @param helpingId
+ */
+export function freeSelectedWoundedStalkerSpot(helpingId: Optional<TNumberId>): void {
+  if (helpingId !== null) {
+    setPortableStoreValue(helpingId, HELPING_WOUNDED_OBJECT_KEY, null);
   }
 }

@@ -240,7 +240,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
   }
 
   public override register_npc(object: ServerCreatureObject): void {
-    logger.info("Register object in smart:", this.name(), object.name(), this.population);
+    // logger.info("Register object in smart:", this.name(), object.name(), this.population);
 
     this.population += 1;
 
@@ -752,14 +752,6 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
     if (selectedJobId !== objectJobDescriptor.jobId && selectedJobLink !== null) {
       this.unlinkObjectJob(objectJobDescriptor);
 
-      logger.format(
-        "Select new job: %s ->  %s / %s, in '%s'",
-        objectJobDescriptor.object.name(),
-        selectedJobLink.id,
-        selectedJobLink.section,
-        this.name()
-      );
-
       // Link new job.
       selectedJobLink.objectId = objectJobDescriptor.object.id;
       this.objectByJobSection.set(this.jobs.get(selectedJobLink.id as TNumberId).section, selectedJobLink.objectId);
@@ -896,7 +888,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
    * todo: Description.
    */
   public initializeObjectsAfterLoad(): void {
-    logger.info("Initialize objects after load:", this.name());
+    // logger.info("Initialize objects after load:", this.name());
 
     const alifeSimulator: AlifeSimulator = alife();
 
@@ -1052,9 +1044,10 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
 
   /**
    * todo: Description.
+   * todo: throttle globally to delay spawn 10+ at once
    */
   public respawnSquad(): void {
-    logger.info("Respawn squad in smart:", this.name());
+    // logger.info("Respawn squad in smart:", this.name());
 
     const availableSections: LuaArray<TSection> = new LuaTable();
 

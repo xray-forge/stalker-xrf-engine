@@ -9,22 +9,24 @@ import { EClientObjectPath, TName } from "@/engine/lib/types";
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Switch current state to idle when need cleanup for alife/combat/items loot activity etc.
  */
 @LuabindClass()
 export class ActionStateToIdle extends action_base {
   private readonly stateManager: StalkerStateManager;
+  public readonly name: TName;
 
   public constructor(stateManager: StalkerStateManager, name?: TName) {
     super(null, name || ActionStateToIdle.__name);
     this.stateManager = stateManager;
+    this.name = name || ActionStateToIdle.__name;
   }
 
   /**
-   * todo: Description.
+   * Starting resetting state to idle for object.
    */
   public override initialize(): void {
-    logger.info("State to idle for:", this.object.name());
+    logger.info("State to idle for:", this.object.name(), this.name);
 
     super.initialize();
 
@@ -35,7 +37,7 @@ export class ActionStateToIdle extends action_base {
   }
 
   /**
-   * todo: Description.
+   * Rest object state to idle.
    */
   public override execute(): void {
     super.execute();

@@ -18,13 +18,24 @@ export class ActionMeetWait extends action_base {
   }
 
   /**
-   * Stop and wait.
+   * Stop and wait for actor to meet.
    */
   public override initialize(): void {
     super.initialize();
 
+    logger.info("Start meet waiting");
+
     this.object.set_desired_position();
     this.object.set_desired_direction();
+  }
+
+  /**
+   * Stop waiting, continue regular actions.
+   */
+  public override finalize(): void {
+    super.finalize();
+
+    logger.info("Stop meet waiting");
   }
 
   /**

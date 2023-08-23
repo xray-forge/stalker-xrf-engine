@@ -116,7 +116,7 @@ export class AnomalyZoneBinder extends object_binder {
 
     const filename: Optional<string> = readIniString(this.ini, ANOMAL_ZONE_SECTION, "cfg", false, "", null);
 
-    logger.info("Init anomaly zone from file:", object.name(), filename);
+    // logger.info("Init anomaly zone from file:", object.name(), filename);
 
     if (filename !== null) {
       this.ini = new ini_file(filename);
@@ -146,12 +146,12 @@ export class AnomalyZoneBinder extends object_binder {
       "{+actor_was_in_many_bad_places} coeff2, coeff"
     );
 
-    logger.info("Init zone layers (picked/count):", this.currentZoneLayer, this.zoneLayersCount);
+    // logger.info("Init zone layers (picked/count):", this.currentZoneLayer, this.zoneLayersCount);
 
     for (const i of $range(1, this.zoneLayersCount)) {
       const section: string = ANOMAL_ZONE_LAYER + i;
 
-      logger.info("Init layer:", section);
+      // logger.info("Init layer:", section);
 
       this.layersRespawnTriesTable.set(
         section,
@@ -231,7 +231,7 @@ export class AnomalyZoneBinder extends object_binder {
         this.minesTable.set(section, new LuaTable());
 
         if (ini.line_count(minesSection) > 0) {
-          logger.info("Init mines for section:", section, minesSection);
+          // logger.info("Init mines for section:", section, minesSection);
           for (const i of $range(0, ini.line_count(minesSection) - 1)) {
             const [temp1, mineName, temp2] = ini.r_line(minesSection, i, "", "");
 
@@ -291,7 +291,7 @@ export class AnomalyZoneBinder extends object_binder {
    * todo: Description.
    */
   public disableAnomalyFields(): void {
-    logger.info("Disable anomaly fields:", this.object.name());
+    // logger.info("Disable anomaly fields:", this.object.name());
 
     if (!this.isCustomPlacement) {
       this.isDisabled = true;
@@ -398,7 +398,7 @@ export class AnomalyZoneBinder extends object_binder {
    * todo: Description.
    */
   public spawnRandomArtefact(): void {
-    logger.info("Spawn random artefact:", this.object.name(), this.currentZoneLayer);
+    // logger.info("Spawn random artefact:", this.object.name(), this.currentZoneLayer);
 
     const layer: string = this.currentZoneLayer;
     let randomArtefact: string = "";
@@ -466,7 +466,7 @@ export class AnomalyZoneBinder extends object_binder {
    * todo: Description.
    */
   public getRandomArtefactPath(): string {
-    logger.info("Get artefact path:", this.object.name());
+    // logger.info("Get artefact path:", this.object.name());
 
     const paths: LuaArray<string> = new LuaTable();
 

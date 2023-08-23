@@ -168,14 +168,14 @@ describe("add_state_manager util", () => {
 
     checkAction(
       planner.action(EActionId.STATE_TO_IDLE_COMBAT),
-      "CombatToIdle",
+      "ToIdleCombat",
       [[EEvaluatorId.IS_STATE_IDLE_COMBAT, false]],
       [[EEvaluatorId.IS_STATE_IDLE_COMBAT, true]]
     );
 
     checkAction(
       planner.action(EActionId.STATE_TO_IDLE_ITEMS),
-      "ItemsToIdle",
+      "ToIdleItems",
       [
         [EEvaluatorId.IS_STATE_IDLE_ITEMS, false],
         [mockStalkerIds.property_items, true],
@@ -186,10 +186,12 @@ describe("add_state_manager util", () => {
 
     checkAction(
       planner.action(EActionId.STATE_TO_IDLE_ALIFE),
-      "DangerToIdle",
+      "ToIdleAlife",
       [
+        [mockStalkerIds.property_alive, true],
         [mockStalkerIds.property_enemy, false],
         [mockStalkerIds.property_danger, false],
+        [mockStalkerIds.property_items, false],
         [EEvaluatorId.IS_STATE_LOGIC_ACTIVE, false],
         [EEvaluatorId.IS_STATE_IDLE_ALIFE, false],
       ],
@@ -823,35 +825,35 @@ describe("add_state_manager util", () => {
 
     checkAction(
       planner.action(EStateActionId.LOCKED_SMARTCOVER),
-      "lockedSmartCoverAction",
+      "ActionStateLockedSmartCover",
       [[EStateEvaluatorId.IN_SMARTCOVER, true]],
       [[EStateEvaluatorId.IN_SMARTCOVER, false]]
     );
 
     checkAction(
       planner.action(EStateActionId.LOCKED),
-      "lockedAction",
+      "ActionStateLocked",
       [[EStateEvaluatorId.LOCKED, true]],
       [[EStateEvaluatorId.LOCKED, false]]
     );
 
     checkAction(
       planner.action(EStateActionId.LOCKED_ANIMATION),
-      "lockedAnimationAction",
+      "ActionStateLockedAnimation",
       [[EStateEvaluatorId.ANIMATION_LOCKED, true]],
       [[EStateEvaluatorId.ANIMATION_LOCKED, false]]
     );
 
     checkAction(
       planner.action(EStateActionId.LOCKED_ANIMSTATE),
-      "lockedAnimstateAction",
+      "ActionStateLockedAnimstate",
       [[EStateEvaluatorId.ANIMSTATE_LOCKED, true]],
       [[EStateEvaluatorId.ANIMSTATE_LOCKED, false]]
     );
 
     checkAction(
       planner.action(EStateActionId.LOCKED_EXTERNAL),
-      "lockedExternalAction",
+      "ActionStateLockedExternal",
       [[EStateEvaluatorId.LOCKED_EXTERNAL, true]],
       [[EStateEvaluatorId.LOCKED_EXTERNAL, false]]
     );

@@ -127,17 +127,6 @@ export interface IRegistryObjectState extends Record<EScheme, Optional<IBaseSche
    */
   mute: Optional<boolean>;
   /**
-   * ID of object currently looting object.
-   * Used to prevent looting of same object by multiple objects at once.
-   *
-   * todo: Move to loot scheme state, not store it in global. Probaly pstore is correct place.
-   */
-  lootedByObject: Optional<TNumberId>;
-  /**
-   * todo;
-   */
-  wounded_already_selected: Optional<TNumberId>;
-  /**
    * todo;
    */
   old_aim_time: Optional<TTimestamp>;

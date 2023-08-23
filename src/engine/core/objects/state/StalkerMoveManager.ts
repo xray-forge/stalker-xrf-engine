@@ -332,8 +332,7 @@ export class StalkerMoveManager {
       this.currentStateStanding,
       { context: this, callback: this.onAnimationUpdate, turnEndCallback: this.onAnimationTurnEnd },
       this.ptWaitTime,
-      { lookPosition: lookPosition, lookObject: null },
-      null
+      { lookPosition: lookPosition, lookObjectId: null }
     );
   }
 
@@ -448,14 +447,12 @@ export class StalkerMoveManager {
       this.reset(
         this.pathWalk!,
         this.pathWalkInfo,
-        this.pathLook!,
+        this.pathLook,
         this.pathLookInfo,
         this.team,
         this.suggestedState,
         this.moveCbInfo,
-        this.noValidation!,
-        null,
-        null
+        this.noValidation
       );
     } else {
       this.updateMovementState();

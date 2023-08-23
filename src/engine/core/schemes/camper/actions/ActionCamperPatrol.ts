@@ -181,7 +181,7 @@ export class ActionCamperPatrol extends action_base {
               this.state.suggested_state.campering_fire,
               null,
               null,
-              { lookObject: this.enemy, lookPosition: this.enemy.position() },
+              { lookObjectId: this.enemy.id(), lookPosition: this.enemy.position() },
               { animation: true }
             );
           } else {
@@ -190,7 +190,7 @@ export class ActionCamperPatrol extends action_base {
               EStalkerState.HIDE_SNIPER_FIRE,
               null,
               null,
-              { lookObject: this.enemy, lookPosition: this.enemy.position() },
+              { lookObjectId: this.enemy.id(), lookPosition: this.enemy.position() },
               { animation: true }
             );
           }
@@ -201,7 +201,7 @@ export class ActionCamperPatrol extends action_base {
               this.state.suggested_state.campering_fire,
               null,
               null,
-              { lookObject: this.enemy, lookPosition: this.enemy.position() },
+              { lookObjectId: this.enemy.id(), lookPosition: this.enemy.position() },
               { animation: true }
             );
           } else {
@@ -210,7 +210,7 @@ export class ActionCamperPatrol extends action_base {
               EStalkerState.HIDE_FIRE,
               null,
               null,
-              { lookObject: this.enemy, lookPosition: this.enemy.position() },
+              { lookObjectId: this.enemy.id(), lookPosition: this.enemy.position() },
               { animation: true }
             );
           }
@@ -263,7 +263,7 @@ export class ActionCamperPatrol extends action_base {
         if (this.state.sniper === true) {
           if (time_global() - this.state.mem_enemy! < this.state.post_enemy_wait) {
             const position: Optional<ILookTargetDescriptor> =
-              this.enemyPosition !== null ? { lookPosition: this.enemyPosition, lookObject: null } : null;
+              this.enemyPosition !== null ? { lookPosition: this.enemyPosition, lookObjectId: null } : null;
 
             if (this.state.suggested_state.campering) {
               setStalkerState(this.object, this.state.suggested_state.campering, null, null, position, null);
@@ -276,7 +276,7 @@ export class ActionCamperPatrol extends action_base {
         } else {
           if (this.isOnPlace()) {
             const position: Optional<ILookTargetDescriptor> =
-              this.enemyPosition !== null ? { lookPosition: this.enemyPosition, lookObject: null } : null;
+              this.enemyPosition !== null ? { lookPosition: this.enemyPosition, lookObjectId: null } : null;
 
             if (this.state.suggested_state.campering) {
               setStalkerState(this.object, this.state.suggested_state.campering, null, null, position, null);
@@ -348,7 +348,7 @@ export class ActionCamperPatrol extends action_base {
 
     const bestDangerObject: ClientObject = bestDanger.object();
     const bestDangerType = bestDanger.type();
-    const position: ILookTargetDescriptor = { lookPosition: bestDanger.position(), lookObject: null };
+    const position: ILookTargetDescriptor = { lookPosition: bestDanger.position(), lookObjectId: null };
 
     if (!this.danger) {
       this.object.play_sound(stalker_ids.sound_alarm, 1, 0, 1, 0);
@@ -362,7 +362,7 @@ export class ActionCamperPatrol extends action_base {
     if (isUrgentDanger === true) {
       const dangerObjectPosition: ILookTargetDescriptor = {
         lookPosition: bestDangerObject.position(),
-        lookObject: null,
+        lookObjectId: null,
       };
 
       if (this.state.suggested_state.campering_fire) {
@@ -426,13 +426,13 @@ export class ActionCamperPatrol extends action_base {
           this.state.suggested_state.campering,
           null,
           null,
-          { lookPosition: this.lookPoint, lookObject: null },
+          { lookPosition: this.lookPoint, lookObjectId: null },
           null
         );
       } else {
         setStalkerState(this.object, EStalkerState.HIDE_NA, null, null, {
           lookPosition: this.lookPoint,
-          lookObject: null,
+          lookObjectId: null,
         });
       }
 

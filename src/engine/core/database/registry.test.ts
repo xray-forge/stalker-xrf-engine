@@ -4,7 +4,7 @@ import { registry } from "@/engine/core/database/registry";
 
 describe("registry storage", () => {
   it("storage to contain all fields", () => {
-    expect(Object.keys(registry)).toHaveLength(38);
+    expect(Object.keys(registry)).toHaveLength(39);
   });
 
   it("storage to initialize with correct data", () => {
@@ -16,6 +16,7 @@ describe("registry storage", () => {
     expect(registry.cache.conditionLists instanceof LuaTable).toBeTruthy();
     expect(registry.actorCombat instanceof LuaTable).toBeTruthy();
     expect(registry.objects instanceof LuaTable).toBeTruthy();
+    expect(registry.objectsWounded instanceof LuaTable).toBeTruthy();
     expect(registry.offlineObjects instanceof LuaTable).toBeTruthy();
     expect(registry.simulationObjects instanceof LuaTable).toBeTruthy();
     expect(registry.storyLink.sidById instanceof LuaTable).toBeTruthy();

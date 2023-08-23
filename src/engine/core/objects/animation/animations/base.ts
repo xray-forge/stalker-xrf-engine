@@ -1,11 +1,12 @@
 import { IAnimationDescriptor } from "@/engine/core/objects/animation/animation_types";
 import { EStalkerState } from "@/engine/core/objects/animation/state_types";
 import { finishCorpseLooting } from "@/engine/core/schemes/corpse_detection/utils";
-import { finishHelpWounded } from "@/engine/core/schemes/help_wounded/utils";
+import { finishObjectHelpWounded } from "@/engine/core/schemes/help_wounded/utils";
 import { createSequence } from "@/engine/core/utils/animation";
 import { getExtern } from "@/engine/core/utils/binding";
 import { startPlayingGuitar, startPlayingHarmonica } from "@/engine/core/utils/camp";
 import { clearObjectAbuse, objectPunchActor } from "@/engine/core/utils/object";
+import { misc } from "@/engine/lib/constants/items/misc";
 import { AnyCallablesModule, ClientObject, TName } from "@/engine/lib/types";
 
 /**
@@ -1017,12 +1018,36 @@ export const baseAnimations: LuaTable<TName, IAnimationDescriptor> = $fromObject
       "dinamit_1",
       {
         // When animation ends, finish help wounded and heal up.
+        // todo: Probably just handle as callback in action object? Why setting globally?
         f: (object: ClientObject) => {
-          finishHelpWounded(object);
+          finishObjectHelpWounded(object);
         },
       },
     ]),
     out: null,
+    rnd: null,
+    idle: null,
+  },
+  [EStalkerState.HELP_WOUNDED_WITH_MEDKIT]: {
+    prop: {
+      maxidle: 1,
+      sumidle: 1,
+      rnd: 100,
+      moving: null,
+    },
+    into: createSequence([
+      "cr_raciya_0_draw_0",
+      { a: misc.medkit_script },
+      "dinamit_1",
+      {
+        // When animation ends, finish help wounded and heal up.
+        // todo: Probably just handle as callback in action object? Why setting globally?
+        f: (object: ClientObject) => {
+          finishObjectHelpWounded(object);
+        },
+      },
+    ]),
+    out: createSequence(["cr_raciya_0_hide_0", { d: misc.medkit_script }, "cr_raciya_0_hide_1"]),
     rnd: null,
     idle: null,
   },

@@ -24,7 +24,7 @@ describe("ActionAnimationStop class", () => {
 
     setStalkerState(stalker.object, EStalkerState.BACKOFF, null, null, {
       lookPosition: createEmptyVector(),
-      lookObject: null,
+      lookObjectId: null,
     });
 
     const action: ActionAnimationStop = new ActionAnimationStop(manager);

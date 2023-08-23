@@ -69,7 +69,6 @@ export function disableObjectBaseSchemes(object: ClientObject, schemeType: ESche
     case ESchemeType.STALKER:
       registry.schemes.get(EScheme.COMBAT).disable(object, EScheme.COMBAT);
       registry.schemes.get(EScheme.HIT).disable(object, EScheme.HIT);
-      registry.schemes.get(EScheme.ACTOR_DIALOGS).disable(object, EScheme.ACTOR_DIALOGS);
       registry.schemes.get(EScheme.COMBAT_IGNORE).disable(object, EScheme.COMBAT_IGNORE);
 
       object.invulnerable(false);

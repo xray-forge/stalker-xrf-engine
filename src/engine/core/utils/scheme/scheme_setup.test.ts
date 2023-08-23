@@ -6,7 +6,6 @@ import { EEvaluatorId, TAbstractSchemeConstructor } from "@/engine/core/schemes/
 import { SchemeCombat } from "@/engine/core/schemes/combat";
 import { SchemeCombatIgnore } from "@/engine/core/schemes/combat_ignore";
 import { SchemeHit } from "@/engine/core/schemes/hit";
-import { SchemeMeet } from "@/engine/core/schemes/meet";
 import { SchemeMobCombat } from "@/engine/core/schemes/mob_combat";
 import { SchemePhysicalOnHit } from "@/engine/core/schemes/ph_on_hit";
 import {
@@ -28,13 +27,11 @@ describe("'scheme setup' utils", () => {
       SchemeCombat,
       SchemeCombatIgnore,
       SchemeHit,
-      SchemeMeet,
       SchemeMobCombat,
       SchemePhysicalOnHit,
     ];
 
     loadSchemeImplementations($fromArray(schemes));
-    loadSchemeImplementation(SchemeMeet, SchemeMeet.SCHEME_SECTION_ACTOR_DIALOGS);
 
     schemes.forEach((it) => jest.spyOn(it, "disable").mockImplementation(jest.fn()));
 
@@ -43,7 +40,6 @@ describe("'scheme setup' utils", () => {
     expect(SchemeCombat.disable).toHaveBeenCalledTimes(1);
     expect(SchemeCombatIgnore.disable).toHaveBeenCalledTimes(1);
     expect(SchemeHit.disable).toHaveBeenCalledTimes(1);
-    expect(SchemeMeet.disable).toHaveBeenCalledTimes(1);
     expect(SchemeMobCombat.disable).toHaveBeenCalledTimes(0);
     expect(SchemePhysicalOnHit.disable).toHaveBeenCalledTimes(0);
 
@@ -54,7 +50,6 @@ describe("'scheme setup' utils", () => {
     expect(SchemeCombat.disable).toHaveBeenCalledTimes(0);
     expect(SchemeCombatIgnore.disable).toHaveBeenCalledTimes(1);
     expect(SchemeHit.disable).toHaveBeenCalledTimes(0);
-    expect(SchemeMeet.disable).toHaveBeenCalledTimes(0);
     expect(SchemeMobCombat.disable).toHaveBeenCalledTimes(1);
     expect(SchemePhysicalOnHit.disable).toHaveBeenCalledTimes(0);
 
@@ -65,7 +60,6 @@ describe("'scheme setup' utils", () => {
     expect(SchemeCombat.disable).toHaveBeenCalledTimes(0);
     expect(SchemeCombatIgnore.disable).toHaveBeenCalledTimes(0);
     expect(SchemeHit.disable).toHaveBeenCalledTimes(0);
-    expect(SchemeMeet.disable).toHaveBeenCalledTimes(0);
     expect(SchemeMobCombat.disable).toHaveBeenCalledTimes(0);
     expect(SchemePhysicalOnHit.disable).toHaveBeenCalledTimes(1);
 
@@ -76,7 +70,6 @@ describe("'scheme setup' utils", () => {
     expect(SchemeCombat.disable).toHaveBeenCalledTimes(0);
     expect(SchemeCombatIgnore.disable).toHaveBeenCalledTimes(0);
     expect(SchemeHit.disable).toHaveBeenCalledTimes(1);
-    expect(SchemeMeet.disable).toHaveBeenCalledTimes(0);
     expect(SchemeMobCombat.disable).toHaveBeenCalledTimes(0);
     expect(SchemePhysicalOnHit.disable).toHaveBeenCalledTimes(0);
   });
@@ -97,12 +90,10 @@ describe("'scheme setup' utils", () => {
     expect(registry.schemes.length()).toBe(0);
 
     loadSchemeImplementation(thirdMock);
-    loadSchemeImplementation(thirdMock, EScheme.ACTOR_DIALOGS);
 
-    expect(registry.schemes.length()).toBe(2);
+    expect(registry.schemes.length()).toBe(1);
 
     expect(registry.schemes.get(EScheme.MEET)).toBe(thirdMock);
-    expect(registry.schemes.get(EScheme.ACTOR_DIALOGS)).toBe(thirdMock);
   });
 
   it("'loadSchemeImplementations' should correctly load schemes list", () => {

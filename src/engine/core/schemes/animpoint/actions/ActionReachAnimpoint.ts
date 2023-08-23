@@ -53,7 +53,7 @@ export class ActionReachAnimpoint extends action_base {
       // When reached place start looking to where animation should happen.
       setStalkerState(this.object, this.state.reachMovement, null, null, {
         lookPosition: this.state.animpointManager.lookPosition,
-        lookObject: null,
+        lookObjectId: null,
       });
     } else {
       // Just walk to the place.

@@ -1,10 +1,14 @@
-import { IRegistryObjectState, registry } from "@/engine/core/database";
+import { IRegistryObjectState, registry, setPortableStoreValue } from "@/engine/core/database";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import { ISchemeCorpseDetectionState } from "@/engine/core/schemes/corpse_detection";
+import { LuaLogger } from "@/engine/core/utils/logging";
 import { transferLoot } from "@/engine/core/utils/object/object_loot";
 import { chance } from "@/engine/core/utils/random";
+import { LOOTING_DEAD_OBJECT_KEY } from "@/engine/lib/constants/portable_store_keys";
 import { scriptSounds } from "@/engine/lib/constants/sound/script_sounds";
 import { ClientObject, EScheme, LuaArray, Optional, TNumberId } from "@/engine/lib/types";
+
+const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * Finish loot corpse action - transfer all the items from corpse and play sound notification about loot quality.
@@ -27,5 +31,16 @@ export function finishCorpseLooting(object: ClientObject): void {
       object.id(),
       transferred.length() > 0 && chance(80) ? scriptSounds.corpse_loot_good : scriptSounds.corpse_loot_bad
     );
+  }
+}
+
+/**
+ * todo;
+ */
+export function freeSelectedLootedObjectSpot(lootedObject: TNumberId): void {
+  const lootedObjectState: Optional<IRegistryObjectState> = registry.objects.get(lootedObject);
+
+  if (lootedObjectState !== null) {
+    setPortableStoreValue(lootedObject, LOOTING_DEAD_OBJECT_KEY, null);
   }
 }

@@ -3,7 +3,6 @@ import type {
   AnyCallable,
   AnyContextualCallable,
   AnyObject,
-  ClientObject,
   Optional,
   TAnimationType,
   TDuration,
@@ -11,6 +10,7 @@ import type {
   TLookType,
   TMoveType,
   TName,
+  TNumberId,
   TSightType,
   TTimestamp,
   Vector,
@@ -237,6 +237,7 @@ export enum EStalkerState {
   HELLO = "hello",
   HELLO_WPN = "hello_wpn",
   HELP_WOUNDED = "help_wounded",
+  HELP_WOUNDED_WITH_MEDKIT = "help_wounded_with_medkit",
   HIDE = "hide",
   HIDE_FIRE = "hide_fire",
   HIDE_NA = "hide_na",
@@ -344,10 +345,10 @@ export interface IStateDescriptor {
 }
 
 /**
- * todo;
+ * Descriptor of loop position for state animation.
  */
 export interface ILookTargetDescriptor {
-  lookObject: Optional<ClientObject>;
+  lookObjectId: Optional<TNumberId>;
   lookPosition: Optional<Vector>;
 }
 

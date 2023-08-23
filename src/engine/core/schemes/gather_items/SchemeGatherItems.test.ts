@@ -83,7 +83,7 @@ describe("SchemeGatherItems class", () => {
       npc: object,
       scheme: EScheme.GATHER_ITEMS,
       section: "gather_items_default@test",
-      canBeLooted: true,
+      canLootItems: true,
     });
 
     SchemeGatherItems.reset(object, EScheme.GATHER_ITEMS, state, "gather_items_true@test");
@@ -92,7 +92,7 @@ describe("SchemeGatherItems class", () => {
       npc: object,
       scheme: EScheme.GATHER_ITEMS,
       section: "gather_items_default@test",
-      canBeLooted: true,
+      canLootItems: true,
     });
 
     SchemeGatherItems.reset(object, EScheme.GATHER_ITEMS, state, "gather_items_false@test");
@@ -101,7 +101,7 @@ describe("SchemeGatherItems class", () => {
       npc: object,
       scheme: EScheme.GATHER_ITEMS,
       section: "gather_items_default@test",
-      canBeLooted: false,
+      canLootItems: false,
     });
   });
 });

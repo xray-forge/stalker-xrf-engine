@@ -42,32 +42,31 @@ export class SchemeCorpseDetection extends AbstractScheme {
     section: TSection,
     state: ISchemeCorpseDetectionState
   ): void {
-    const manager: ActionPlanner = object.motivation_action_manager();
+    const planner: ActionPlanner = object.motivation_action_manager();
 
     // Add evaluator to check if anything can be looted.
-    manager.add_evaluator(EEvaluatorId.IS_CORPSE_EXISTING, new EvaluatorCorpseDetect(state));
+    planner.add_evaluator(EEvaluatorId.IS_CORPSE_EXISTING, new EvaluatorCorpseDetect(state));
 
-    const actionSearchCorpse: ActionSearchCorpse = new ActionSearchCorpse(state);
+    const action: ActionSearchCorpse = new ActionSearchCorpse(state);
 
-    actionSearchCorpse.add_precondition(new world_property(stalker_ids.property_alive, true));
-    actionSearchCorpse.add_precondition(new world_property(stalker_ids.property_enemy, false));
-    actionSearchCorpse.add_precondition(new world_property(stalker_ids.property_danger, false));
-    actionSearchCorpse.add_precondition(new world_property(stalker_ids.property_anomaly, false));
-    actionSearchCorpse.add_precondition(new world_property(stalker_ids.property_items, false));
-    actionSearchCorpse.add_precondition(new world_property(EEvaluatorId.IS_CORPSE_EXISTING, true));
-    actionSearchCorpse.add_precondition(new world_property(EEvaluatorId.IS_WOUNDED, false));
-    actionSearchCorpse.add_precondition(new world_property(EEvaluatorId.IS_WOUNDED_EXISTING, false));
-    // Mark as corpse not existing after search end.
-    actionSearchCorpse.add_effect(new world_property(EEvaluatorId.IS_CORPSE_EXISTING, false));
+    action.add_precondition(new world_property(stalker_ids.property_alive, true));
+    action.add_precondition(new world_property(stalker_ids.property_enemy, false));
+    action.add_precondition(new world_property(stalker_ids.property_danger, false));
+    action.add_precondition(new world_property(stalker_ids.property_anomaly, false));
+    action.add_precondition(new world_property(EEvaluatorId.IS_CORPSE_EXISTING, true));
+    action.add_precondition(new world_property(EEvaluatorId.IS_WOUNDED_EXISTING, false));
+    action.add_precondition(new world_property(EEvaluatorId.IS_MEET_CONTACT, false));
+
+    action.add_effect(new world_property(EEvaluatorId.IS_CORPSE_EXISTING, false));
 
     // Add alife action for execution when evaluator allows to do so.
-    manager.add_action(EActionId.SEARCH_CORPSE, actionSearchCorpse);
+    planner.add_action(EActionId.SEARCH_CORPSE, action);
 
     // Do not return to alife when searching for corpse.
-    manager.action(EActionId.ALIFE).add_precondition(new world_property(EEvaluatorId.IS_CORPSE_EXISTING, false));
+    planner.action(EActionId.ALIFE).add_precondition(new world_property(EEvaluatorId.IS_CORPSE_EXISTING, false));
 
     // Do not return to alife idle when searching for corpse.
-    manager
+    planner
       .action(EActionId.STATE_TO_IDLE_ALIFE)
       .add_precondition(new world_property(EEvaluatorId.IS_CORPSE_EXISTING, false));
   }

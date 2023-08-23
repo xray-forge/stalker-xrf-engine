@@ -39,29 +39,33 @@ export function addStateManager(object: ClientObject): StalkerStateManager {
   planner.add_evaluator(EEvaluatorId.IS_STATE_IDLE_ITEMS, new EvaluatorStateIdleItems(stateManager));
   planner.add_evaluator(EEvaluatorId.IS_STATE_LOGIC_ACTIVE, new EvaluatorStateLogicActive(stateManager));
 
-  const actionCombatStateToIdle: ActionStateToIdle = new ActionStateToIdle(stateManager, "CombatToIdle");
+  const actionCombatStateToIdle: ActionStateToIdle = new ActionStateToIdle(stateManager, "ToIdleCombat");
 
   actionCombatStateToIdle.add_precondition(new world_property(EEvaluatorId.IS_STATE_IDLE_COMBAT, false));
   actionCombatStateToIdle.add_effect(new world_property(EEvaluatorId.IS_STATE_IDLE_COMBAT, true));
+
   planner.add_action(EActionId.STATE_TO_IDLE_COMBAT, actionCombatStateToIdle);
 
-  const actionItemsToIdle: ActionStateToIdle = new ActionStateToIdle(stateManager, "ItemsToIdle");
+  const actionItemsToIdle: ActionStateToIdle = new ActionStateToIdle(stateManager, "ToIdleItems");
 
   actionItemsToIdle.add_precondition(new world_property(EEvaluatorId.IS_STATE_IDLE_ITEMS, false));
   actionItemsToIdle.add_precondition(new world_property(stalker_ids.property_items, true));
   actionItemsToIdle.add_precondition(new world_property(stalker_ids.property_enemy, false));
   actionItemsToIdle.add_effect(new world_property(EEvaluatorId.IS_STATE_IDLE_ITEMS, true));
+
   planner.add_action(EActionId.STATE_TO_IDLE_ITEMS, actionItemsToIdle);
 
-  const actionDangerToIdle: ActionStateToIdle = new ActionStateToIdle(stateManager, "DangerToIdle");
+  const actionAlifeToIdle: ActionStateToIdle = new ActionStateToIdle(stateManager, "ToIdleAlife");
 
-  actionDangerToIdle.add_precondition(new world_property(stalker_ids.property_enemy, false));
-  actionDangerToIdle.add_precondition(new world_property(stalker_ids.property_danger, false));
-  actionDangerToIdle.add_precondition(new world_property(EEvaluatorId.IS_STATE_LOGIC_ACTIVE, false));
-  actionDangerToIdle.add_precondition(new world_property(EEvaluatorId.IS_STATE_IDLE_ALIFE, false));
-  actionDangerToIdle.add_effect(new world_property(EEvaluatorId.IS_STATE_IDLE_ALIFE, true));
+  actionAlifeToIdle.add_precondition(new world_property(stalker_ids.property_alive, true));
+  actionAlifeToIdle.add_precondition(new world_property(stalker_ids.property_enemy, false));
+  actionAlifeToIdle.add_precondition(new world_property(stalker_ids.property_danger, false));
+  actionAlifeToIdle.add_precondition(new world_property(stalker_ids.property_items, false));
+  actionAlifeToIdle.add_precondition(new world_property(EEvaluatorId.IS_STATE_LOGIC_ACTIVE, false));
+  actionAlifeToIdle.add_precondition(new world_property(EEvaluatorId.IS_STATE_IDLE_ALIFE, false));
+  actionAlifeToIdle.add_effect(new world_property(EEvaluatorId.IS_STATE_IDLE_ALIFE, true));
 
-  planner.add_action(EActionId.STATE_TO_IDLE_ALIFE, actionDangerToIdle);
+  planner.add_action(EActionId.STATE_TO_IDLE_ALIFE, actionAlifeToIdle);
 
   planner.action(EActionId.ALIFE).add_precondition(new world_property(EEvaluatorId.IS_STATE_IDLE_ALIFE, true));
 
@@ -85,174 +89,140 @@ export function addStateManager(object: ClientObject): StalkerStateManager {
 }
 
 /**
- * Add basic graphs to state manager planner evalutors / actions.
+ * Add basic GOAP graphs to state manager planner evaluators / actions.
+ * Defines how action states should behave for stalker state management / animation.
+ *
+ * End goal is ended state of all animations and body states.
  */
 function addBasicManagerGraph(stateManager: StalkerStateManager): void {
-  stateManager.planner.add_evaluator(EStateEvaluatorId.END, new stateManagement.EvaluatorStateEnd(stateManager));
-  stateManager.planner.add_evaluator(EStateEvaluatorId.LOCKED, new stateManagement.EvaluatorStateLocked(stateManager));
-  stateManager.planner.add_evaluator(
+  const statePlanner: ActionPlanner = stateManager.planner;
+
+  statePlanner.add_evaluator(EStateEvaluatorId.END, new stateManagement.EvaluatorStateEnd(stateManager));
+  statePlanner.add_evaluator(EStateEvaluatorId.LOCKED, new stateManagement.EvaluatorStateLocked(stateManager));
+  statePlanner.add_evaluator(
     EStateEvaluatorId.LOCKED_EXTERNAL,
     new stateManagement.EvaluatorStateLockedExternal(stateManager)
   );
 
-  stateManager.planner.add_evaluator(EStateEvaluatorId.WEAPON, new weaponManagement.EvaluatorWeapon(stateManager));
-  stateManager.planner.add_evaluator(
-    EStateEvaluatorId.WEAPON_LOCKED,
-    new weaponManagement.EvaluatorWeaponLocked(stateManager)
-  );
-  stateManager.planner.add_evaluator(
+  statePlanner.add_evaluator(EStateEvaluatorId.WEAPON, new weaponManagement.EvaluatorWeapon(stateManager));
+  statePlanner.add_evaluator(EStateEvaluatorId.WEAPON_LOCKED, new weaponManagement.EvaluatorWeaponLocked(stateManager));
+  statePlanner.add_evaluator(
     EStateEvaluatorId.WEAPON_STRAPPED,
     new weaponManagement.EvaluatorWeaponStrapped(stateManager)
   );
-  stateManager.planner.add_evaluator(
+  statePlanner.add_evaluator(
     EStateEvaluatorId.WEAPON_STRAPPED_NOW,
     new weaponManagement.EvaluatorWeaponStrappedNow(stateManager)
   );
-  stateManager.planner.add_evaluator(
+  statePlanner.add_evaluator(
     EStateEvaluatorId.WEAPON_UNSTRAPPED,
     new weaponManagement.EvaluatorWeaponUnstrapped(stateManager)
   );
-  stateManager.planner.add_evaluator(
+  statePlanner.add_evaluator(
     EStateEvaluatorId.WEAPON_UNSTRAPPED_NOW,
     new weaponManagement.EvaluatorWeaponUnstrappedNow(stateManager)
   );
-  stateManager.planner.add_evaluator(
-    EStateEvaluatorId.WEAPON_NONE,
-    new weaponManagement.EvaluatorWeaponNone(stateManager)
-  );
-  stateManager.planner.add_evaluator(
+  statePlanner.add_evaluator(EStateEvaluatorId.WEAPON_NONE, new weaponManagement.EvaluatorWeaponNone(stateManager));
+  statePlanner.add_evaluator(
     EStateEvaluatorId.WEAPON_NONE_NOW,
     new weaponManagement.EvaluatorWeaponNoneNow(stateManager)
   );
-  stateManager.planner.add_evaluator(
-    EStateEvaluatorId.WEAPON_DROP,
-    new weaponManagement.EvaluatorWeaponDrop(stateManager)
-  );
-  stateManager.planner.add_evaluator(
-    EStateEvaluatorId.WEAPON_FIRE,
-    new weaponManagement.EvaluatorWeaponFire(stateManager)
-  );
+  statePlanner.add_evaluator(EStateEvaluatorId.WEAPON_DROP, new weaponManagement.EvaluatorWeaponDrop(stateManager));
+  statePlanner.add_evaluator(EStateEvaluatorId.WEAPON_FIRE, new weaponManagement.EvaluatorWeaponFire(stateManager));
 
-  stateManager.planner.add_evaluator(
-    EStateEvaluatorId.MOVEMENT,
-    new movementManagement.EvaluatorMovement(stateManager)
-  );
-  stateManager.planner.add_evaluator(
+  statePlanner.add_evaluator(EStateEvaluatorId.MOVEMENT, new movementManagement.EvaluatorMovement(stateManager));
+  statePlanner.add_evaluator(
     EStateEvaluatorId.MOVEMENT_WALK,
     new movementManagement.EvaluatorMovementWalk(stateManager)
   );
-  stateManager.planner.add_evaluator(
-    EStateEvaluatorId.MOVEMENT_RUN,
-    new movementManagement.EvaluatorMovementRun(stateManager)
-  );
-  stateManager.planner.add_evaluator(
+  statePlanner.add_evaluator(EStateEvaluatorId.MOVEMENT_RUN, new movementManagement.EvaluatorMovementRun(stateManager));
+  statePlanner.add_evaluator(
     EStateEvaluatorId.MOVEMENT_STAND,
     new movementManagement.EvaluatorMovementStand(stateManager)
   );
-  stateManager.planner.add_evaluator(
+  statePlanner.add_evaluator(
     EStateEvaluatorId.MOVEMENT_STAND_NOW,
     new movementManagement.EvaluatorMovementStandNow(stateManager)
   );
 
-  stateManager.planner.add_evaluator(EStateEvaluatorId.MENTAL, new mentalManagement.EvaluatorMental(stateManager));
-  stateManager.planner.add_evaluator(
-    EStateEvaluatorId.MENTAL_FREE,
-    new mentalManagement.EvaluatorMentalFree(stateManager)
-  );
-  stateManager.planner.add_evaluator(
+  statePlanner.add_evaluator(EStateEvaluatorId.MENTAL, new mentalManagement.EvaluatorMental(stateManager));
+  statePlanner.add_evaluator(EStateEvaluatorId.MENTAL_FREE, new mentalManagement.EvaluatorMentalFree(stateManager));
+  statePlanner.add_evaluator(
     EStateEvaluatorId.MENTAL_FREE_NOW,
     new mentalManagement.EvaluatorMentalFreeNow(stateManager)
   );
-  stateManager.planner.add_evaluator(
-    EStateEvaluatorId.MENTAL_DANGER,
-    new mentalManagement.EvaluatorMentalDanger(stateManager)
-  );
-  stateManager.planner.add_evaluator(
+  statePlanner.add_evaluator(EStateEvaluatorId.MENTAL_DANGER, new mentalManagement.EvaluatorMentalDanger(stateManager));
+  statePlanner.add_evaluator(
     EStateEvaluatorId.MENTAL_DANGER_NOW,
     new mentalManagement.EvaluatorMentalDangerNow(stateManager)
   );
-  stateManager.planner.add_evaluator(
-    EStateEvaluatorId.MENTAL_PANIC,
-    new mentalManagement.EvaluatorMentalPanic(stateManager)
-  );
-  stateManager.planner.add_evaluator(
+  statePlanner.add_evaluator(EStateEvaluatorId.MENTAL_PANIC, new mentalManagement.EvaluatorMentalPanic(stateManager));
+  statePlanner.add_evaluator(
     EStateEvaluatorId.MENTAL_PANIC_NOW,
     new mentalManagement.EvaluatorMentalPanicNow(stateManager)
   );
 
-  stateManager.planner.add_evaluator(
-    EStateEvaluatorId.BODYSTATE,
-    new bodyStateManagement.EvaluatorBodyState(stateManager)
-  );
-  stateManager.planner.add_evaluator(
+  statePlanner.add_evaluator(EStateEvaluatorId.BODYSTATE, new bodyStateManagement.EvaluatorBodyState(stateManager));
+  statePlanner.add_evaluator(
     EStateEvaluatorId.BODYSTATE_CROUCH,
     new bodyStateManagement.EvaluatorBodyStateCrouch(stateManager)
   );
-  stateManager.planner.add_evaluator(
+  statePlanner.add_evaluator(
     EStateEvaluatorId.BODYSTATE_STANDING,
     new bodyStateManagement.EvaluatorBodyStateStanding(stateManager)
   );
-  stateManager.planner.add_evaluator(
+  statePlanner.add_evaluator(
     EStateEvaluatorId.BODYSTATE_CROUCH_NOW,
     new bodyStateManagement.EvaluatorBodyStateCrouchNow(stateManager)
   );
-  stateManager.planner.add_evaluator(
+  statePlanner.add_evaluator(
     EStateEvaluatorId.BODYSTATE_STANDING_NOW,
     new bodyStateManagement.EvaluatorBodyStateStandingNow(stateManager)
   );
 
-  stateManager.planner.add_evaluator(
-    EStateEvaluatorId.DIRECTION,
-    new directionManagement.EvaluatorDirection(stateManager)
-  );
-  stateManager.planner.add_evaluator(
+  statePlanner.add_evaluator(EStateEvaluatorId.DIRECTION, new directionManagement.EvaluatorDirection(stateManager));
+  statePlanner.add_evaluator(
     EStateEvaluatorId.DIRECTION_SEARCH,
     new directionManagement.EvaluatorDirectionSearch(stateManager)
   );
 
-  stateManager.planner.add_evaluator(
+  statePlanner.add_evaluator(
     EStateEvaluatorId.ANIMSTATE,
     new animationStateManagement.EvaluatorAnimstate(stateManager)
   );
-  stateManager.planner.add_evaluator(
+  statePlanner.add_evaluator(
     EStateEvaluatorId.ANIMSTATE_IDLE_NOW,
     new animationStateManagement.EvaluatorAnimstateIdleNow(stateManager)
   );
-  stateManager.planner.add_evaluator(
+  statePlanner.add_evaluator(
     EStateEvaluatorId.ANIMSTATE_PLAY_NOW,
     new animationStateManagement.EvaluatorAnimstatePlayNow(stateManager)
   );
-  stateManager.planner.add_evaluator(
+  statePlanner.add_evaluator(
     EStateEvaluatorId.ANIMSTATE_LOCKED,
     new animationStateManagement.EvaluatorAnimstateLocked(stateManager)
   );
 
-  stateManager.planner.add_evaluator(
-    EStateEvaluatorId.ANIMATION,
-    new animationManagement.EvaluatorAnimation(stateManager)
-  );
-  stateManager.planner.add_evaluator(
+  statePlanner.add_evaluator(EStateEvaluatorId.ANIMATION, new animationManagement.EvaluatorAnimation(stateManager));
+  statePlanner.add_evaluator(
     EStateEvaluatorId.ANIMATION_PLAY_NOW,
     new animationManagement.EvaluatorAnimationPlayNow(stateManager)
   );
-  stateManager.planner.add_evaluator(
+  statePlanner.add_evaluator(
     EStateEvaluatorId.ANIMATION_NONE_NOW,
     new animationManagement.EvaluatorAnimationNoneNow(stateManager)
   );
-  stateManager.planner.add_evaluator(
+  statePlanner.add_evaluator(
     EStateEvaluatorId.ANIMATION_LOCKED,
     new animationManagement.EvaluatorAnimationLocked(stateManager)
   );
 
-  stateManager.planner.add_evaluator(
-    EStateEvaluatorId.SMARTCOVER,
-    new smartCoverManagement.EvaluatorSmartCover(stateManager)
-  );
-  stateManager.planner.add_evaluator(
+  statePlanner.add_evaluator(EStateEvaluatorId.SMARTCOVER, new smartCoverManagement.EvaluatorSmartCover(stateManager));
+  statePlanner.add_evaluator(
     EStateEvaluatorId.SMARTCOVER_NEED,
     new smartCoverManagement.EvaluatorSmartCoverNeed(stateManager)
   );
-  stateManager.planner.add_evaluator(
+  statePlanner.add_evaluator(
     EStateEvaluatorId.IN_SMARTCOVER,
     new smartCoverManagement.EvaluatorInSmartCover(stateManager)
   );
@@ -277,7 +247,7 @@ function addBasicManagerGraph(stateManager: StalkerStateManager): void {
   unstrapAction.add_precondition(new world_property(EStateEvaluatorId.ANIMSTATE_IDLE_NOW, true));
   unstrapAction.add_precondition(new world_property(EStateEvaluatorId.ANIMATION_NONE_NOW, true));
   unstrapAction.add_effect(new world_property(EStateEvaluatorId.WEAPON, true));
-  stateManager.planner.add_action(EStateActionId.WEAPON_UNSTRAPP, unstrapAction);
+  statePlanner.add_action(EStateActionId.WEAPON_UNSTRAPP, unstrapAction);
 
   // -- STRAPP
   const strapAction = new weaponManagement.ActionWeaponStrap(stateManager);
@@ -293,7 +263,7 @@ function addBasicManagerGraph(stateManager: StalkerStateManager): void {
   strapAction.add_precondition(new world_property(EStateEvaluatorId.ANIMSTATE_IDLE_NOW, true));
   strapAction.add_precondition(new world_property(EStateEvaluatorId.ANIMATION_NONE_NOW, true));
   strapAction.add_effect(new world_property(EStateEvaluatorId.WEAPON, true));
-  stateManager.planner.add_action(EStateActionId.WEAPON_STRAPP, strapAction);
+  statePlanner.add_action(EStateActionId.WEAPON_STRAPP, strapAction);
 
   // -- NONE
   const weaponNoneAction = new weaponManagement.ActionWeaponNone(stateManager);
@@ -308,7 +278,7 @@ function addBasicManagerGraph(stateManager: StalkerStateManager): void {
   weaponNoneAction.add_precondition(new world_property(EStateEvaluatorId.WEAPON_NONE, true));
   weaponNoneAction.add_precondition(new world_property(EStateEvaluatorId.ANIMATION_NONE_NOW, true));
   weaponNoneAction.add_effect(new world_property(EStateEvaluatorId.WEAPON, true));
-  stateManager.planner.add_action(EStateActionId.WEAPON_NONE, weaponNoneAction);
+  statePlanner.add_action(EStateActionId.WEAPON_NONE, weaponNoneAction);
 
   // -- DROP
   const weaponDropAction = new weaponManagement.ActionWeaponDrop(stateManager);
@@ -323,7 +293,7 @@ function addBasicManagerGraph(stateManager: StalkerStateManager): void {
   weaponDropAction.add_precondition(new world_property(EStateEvaluatorId.WEAPON_DROP, true));
   weaponDropAction.add_precondition(new world_property(EStateEvaluatorId.ANIMATION_NONE_NOW, true));
   weaponDropAction.add_effect(new world_property(EStateEvaluatorId.WEAPON, true));
-  stateManager.planner.add_action(EStateActionId.WEAPON_DROP, weaponDropAction);
+  statePlanner.add_action(EStateActionId.WEAPON_DROP, weaponDropAction);
 
   // -- WALK
   const movementWalkAction = new movementManagement.ActionMovementWalk(stateManager);
@@ -340,7 +310,7 @@ function addBasicManagerGraph(stateManager: StalkerStateManager): void {
   movementWalkAction.add_precondition(new world_property(EStateEvaluatorId.ANIMSTATE_IDLE_NOW, true));
   movementWalkAction.add_precondition(new world_property(EStateEvaluatorId.ANIMATION_NONE_NOW, true));
   movementWalkAction.add_effect(new world_property(EStateEvaluatorId.MOVEMENT, true));
-  stateManager.planner.add_action(EStateActionId.MOVEMENT_WALK, movementWalkAction);
+  statePlanner.add_action(EStateActionId.MOVEMENT_WALK, movementWalkAction);
 
   // -- WALK_turn
 
@@ -361,7 +331,7 @@ function addBasicManagerGraph(stateManager: StalkerStateManager): void {
   movementWalkTurnAction.add_precondition(new world_property(EStateEvaluatorId.ANIMATION_NONE_NOW, true));
   movementWalkTurnAction.add_effect(new world_property(EStateEvaluatorId.MOVEMENT, true));
   movementWalkTurnAction.add_effect(new world_property(EStateEvaluatorId.DIRECTION, true));
-  stateManager.planner.add_action(EStateActionId.MOVEMENT_WALK_TURN, movementWalkTurnAction);
+  statePlanner.add_action(EStateActionId.MOVEMENT_WALK_TURN, movementWalkTurnAction);
 
   // -- WALK_search
   const movementWalkSearchAction = new movementManagement.ActionMovementWalkSearch(stateManager);
@@ -381,7 +351,7 @@ function addBasicManagerGraph(stateManager: StalkerStateManager): void {
   movementWalkSearchAction.add_precondition(new world_property(EStateEvaluatorId.ANIMATION_NONE_NOW, true));
   movementWalkSearchAction.add_effect(new world_property(EStateEvaluatorId.MOVEMENT, true));
   movementWalkSearchAction.add_effect(new world_property(EStateEvaluatorId.DIRECTION, true));
-  stateManager.planner.add_action(EStateActionId.MOVEMENT_WALK_SEARCH, movementWalkSearchAction);
+  statePlanner.add_action(EStateActionId.MOVEMENT_WALK_SEARCH, movementWalkSearchAction);
 
   // -- RUN
   const movementRunAction = new movementManagement.ActionMovementRun(stateManager);
@@ -398,7 +368,7 @@ function addBasicManagerGraph(stateManager: StalkerStateManager): void {
   movementRunAction.add_precondition(new world_property(EStateEvaluatorId.ANIMSTATE_IDLE_NOW, true));
   movementRunAction.add_precondition(new world_property(EStateEvaluatorId.ANIMATION_NONE_NOW, true));
   movementRunAction.add_effect(new world_property(EStateEvaluatorId.MOVEMENT, true));
-  stateManager.planner.add_action(EStateActionId.MOVEMENT_RUN, movementRunAction);
+  statePlanner.add_action(EStateActionId.MOVEMENT_RUN, movementRunAction);
 
   // -- RUN_turn
   const movementRunTurnAction = new movementManagement.ActionMovementRunTurn(stateManager);
@@ -418,7 +388,7 @@ function addBasicManagerGraph(stateManager: StalkerStateManager): void {
   movementRunTurnAction.add_precondition(new world_property(EStateEvaluatorId.ANIMATION_NONE_NOW, true));
   movementRunTurnAction.add_effect(new world_property(EStateEvaluatorId.MOVEMENT, true));
   movementRunTurnAction.add_effect(new world_property(EStateEvaluatorId.DIRECTION, true));
-  stateManager.planner.add_action(EStateActionId.MOVEMENT_RUN_TURN, movementRunTurnAction);
+  statePlanner.add_action(EStateActionId.MOVEMENT_RUN_TURN, movementRunTurnAction);
 
   // -- RUN_search
   const movementRunSearchAction = new movementManagement.ActionMovementRunSearch(stateManager);
@@ -438,7 +408,7 @@ function addBasicManagerGraph(stateManager: StalkerStateManager): void {
   movementRunSearchAction.add_precondition(new world_property(EStateEvaluatorId.ANIMATION_NONE_NOW, true));
   movementRunSearchAction.add_effect(new world_property(EStateEvaluatorId.MOVEMENT, true));
   movementRunSearchAction.add_effect(new world_property(EStateEvaluatorId.DIRECTION, true));
-  stateManager.planner.add_action(EStateActionId.MOVEMENT_RUN_SEARCH, movementRunSearchAction);
+  statePlanner.add_action(EStateActionId.MOVEMENT_RUN_SEARCH, movementRunSearchAction);
 
   // -- STAND
   const movementStandAction = new movementManagement.ActionMovementStand(stateManager);
@@ -450,7 +420,7 @@ function addBasicManagerGraph(stateManager: StalkerStateManager): void {
   movementStandAction.add_precondition(new world_property(EStateEvaluatorId.MOVEMENT_STAND, true));
   movementStandAction.add_precondition(new world_property(EStateEvaluatorId.MENTAL, true));
   movementStandAction.add_effect(new world_property(EStateEvaluatorId.MOVEMENT, true));
-  stateManager.planner.add_action(EStateActionId.MOVEMENT_STAND, movementStandAction);
+  statePlanner.add_action(EStateActionId.MOVEMENT_STAND, movementStandAction);
 
   // -- STAND_turn
   const standTurnAction = new movementManagement.ActionMovementStandTurn(stateManager);
@@ -465,7 +435,7 @@ function addBasicManagerGraph(stateManager: StalkerStateManager): void {
   standTurnAction.add_precondition(new world_property(EStateEvaluatorId.MENTAL, true));
   standTurnAction.add_effect(new world_property(EStateEvaluatorId.MOVEMENT, true));
   standTurnAction.add_effect(new world_property(EStateEvaluatorId.DIRECTION, true));
-  stateManager.planner.add_action(EStateActionId.MOVEMENT_STAND_TURN, standTurnAction);
+  statePlanner.add_action(EStateActionId.MOVEMENT_STAND_TURN, standTurnAction);
 
   // -- STAND_search
   const movementStandSearchAction = new movementManagement.ActionMovementStandSearch(stateManager);
@@ -480,7 +450,7 @@ function addBasicManagerGraph(stateManager: StalkerStateManager): void {
   movementStandSearchAction.add_precondition(new world_property(EStateEvaluatorId.MENTAL, true));
   movementStandSearchAction.add_effect(new world_property(EStateEvaluatorId.MOVEMENT, true));
   movementStandSearchAction.add_effect(new world_property(EStateEvaluatorId.DIRECTION, true));
-  stateManager.planner.add_action(EStateActionId.MOVEMENT_STAND_SEARCH, movementStandSearchAction);
+  statePlanner.add_action(EStateActionId.MOVEMENT_STAND_SEARCH, movementStandSearchAction);
 
   // -- DIRECTION
 
@@ -498,7 +468,7 @@ function addBasicManagerGraph(stateManager: StalkerStateManager): void {
   directionTurnAction.add_precondition(new world_property(EStateEvaluatorId.ANIMSTATE_IDLE_NOW, true));
   directionTurnAction.add_precondition(new world_property(EStateEvaluatorId.MOVEMENT, true));
   directionTurnAction.add_effect(new world_property(EStateEvaluatorId.DIRECTION, true));
-  stateManager.planner.add_action(EStateActionId.DIRECTION_TURN, directionTurnAction);
+  statePlanner.add_action(EStateActionId.DIRECTION_TURN, directionTurnAction);
 
   // -- SEARCH
   const directionSearchAction = new directionManagement.ActionDirectionSearch(stateManager);
@@ -514,7 +484,7 @@ function addBasicManagerGraph(stateManager: StalkerStateManager): void {
   directionSearchAction.add_precondition(new world_property(EStateEvaluatorId.ANIMSTATE_IDLE_NOW, true));
   directionSearchAction.add_precondition(new world_property(EStateEvaluatorId.MOVEMENT, true));
   directionSearchAction.add_effect(new world_property(EStateEvaluatorId.DIRECTION, true));
-  stateManager.planner.add_action(EStateActionId.DIRECTION_SEARCH, directionSearchAction);
+  statePlanner.add_action(EStateActionId.DIRECTION_SEARCH, directionSearchAction);
 
   // -- MENTAL STATES
 
@@ -531,7 +501,7 @@ function addBasicManagerGraph(stateManager: StalkerStateManager): void {
   mentalFreeAction.add_precondition(new world_property(EStateEvaluatorId.BODYSTATE, true));
   mentalFreeAction.add_precondition(new world_property(EStateEvaluatorId.BODYSTATE_STANDING_NOW, true));
   mentalFreeAction.add_effect(new world_property(EStateEvaluatorId.MENTAL, true));
-  stateManager.planner.add_action(EStateActionId.MENTAL_FREE, mentalFreeAction);
+  statePlanner.add_action(EStateActionId.MENTAL_FREE, mentalFreeAction);
 
   // -- DANGER
   const mentalDangerAction = new mentalManagement.ActionMentalDanger(stateManager);
@@ -545,7 +515,7 @@ function addBasicManagerGraph(stateManager: StalkerStateManager): void {
   mentalDangerAction.add_precondition(new world_property(EStateEvaluatorId.MENTAL_DANGER, true));
   mentalDangerAction.add_effect(new world_property(EStateEvaluatorId.MENTAL, true));
   mentalDangerAction.add_effect(new world_property(EStateEvaluatorId.MENTAL_DANGER_NOW, true));
-  stateManager.planner.add_action(EStateActionId.MENTAL_DANGER, mentalDangerAction);
+  statePlanner.add_action(EStateActionId.MENTAL_DANGER, mentalDangerAction);
 
   // -- PANIC
   const mentalPanicAction = new mentalManagement.ActionMentalPanic(stateManager);
@@ -557,7 +527,7 @@ function addBasicManagerGraph(stateManager: StalkerStateManager): void {
   mentalPanicAction.add_precondition(new world_property(EStateEvaluatorId.ANIMATION_NONE_NOW, true));
   mentalPanicAction.add_precondition(new world_property(EStateEvaluatorId.MENTAL_PANIC, true));
   mentalPanicAction.add_effect(new world_property(EStateEvaluatorId.MENTAL, true));
-  stateManager.planner.add_action(EStateActionId.MENTAL_PANIC, mentalPanicAction);
+  statePlanner.add_action(EStateActionId.MENTAL_PANIC, mentalPanicAction);
 
   // -- BODYSTATES
 
@@ -572,7 +542,7 @@ function addBasicManagerGraph(stateManager: StalkerStateManager): void {
   bodyStateStateCrouch.add_precondition(new world_property(EStateEvaluatorId.BODYSTATE_CROUCH, true));
   bodyStateStateCrouch.add_precondition(new world_property(EStateEvaluatorId.MENTAL_DANGER_NOW, true));
   bodyStateStateCrouch.add_effect(new world_property(EStateEvaluatorId.BODYSTATE, true));
-  stateManager.planner.add_action(EStateActionId.BODYSTATE_CROUCH, bodyStateStateCrouch);
+  statePlanner.add_action(EStateActionId.BODYSTATE_CROUCH, bodyStateStateCrouch);
 
   // -- CROUCH_danger
   const bodyStateCrouchDangerAction = new bodyStateManagement.ActionBodyStateCrouchDanger(stateManager);
@@ -586,7 +556,7 @@ function addBasicManagerGraph(stateManager: StalkerStateManager): void {
   bodyStateCrouchDangerAction.add_precondition(new world_property(EStateEvaluatorId.BODYSTATE_CROUCH, true));
   bodyStateCrouchDangerAction.add_effect(new world_property(EStateEvaluatorId.BODYSTATE, true));
   bodyStateCrouchDangerAction.add_effect(new world_property(EStateEvaluatorId.MENTAL, true));
-  stateManager.planner.add_action(EStateActionId.BODYSTATE_CROUCH_DANGER, bodyStateCrouchDangerAction);
+  statePlanner.add_action(EStateActionId.BODYSTATE_CROUCH_DANGER, bodyStateCrouchDangerAction);
 
   // --  STAND
 
@@ -600,7 +570,7 @@ function addBasicManagerGraph(stateManager: StalkerStateManager): void {
   bodyStateStandingAction.add_precondition(new world_property(EStateEvaluatorId.BODYSTATE_STANDING, true));
   bodyStateStandingAction.add_effect(new world_property(EStateEvaluatorId.BODYSTATE, true));
   bodyStateStandingAction.add_effect(new world_property(EStateEvaluatorId.BODYSTATE_STANDING_NOW, true));
-  stateManager.planner.add_action(EStateActionId.BODYSTATE_STANDING, bodyStateStandingAction);
+  statePlanner.add_action(EStateActionId.BODYSTATE_STANDING, bodyStateStandingAction);
 
   // --  STAND_free
 
@@ -617,7 +587,7 @@ function addBasicManagerGraph(stateManager: StalkerStateManager): void {
   standingFreeAction.add_effect(new world_property(EStateEvaluatorId.BODYSTATE, true));
   standingFreeAction.add_effect(new world_property(EStateEvaluatorId.BODYSTATE_STANDING_NOW, true));
   standingFreeAction.add_effect(new world_property(EStateEvaluatorId.MENTAL, true));
-  stateManager.planner.add_action(EStateActionId.BODYSTATE_STANDING_FREE, standingFreeAction);
+  statePlanner.add_action(EStateActionId.BODYSTATE_STANDING_FREE, standingFreeAction);
 
   // -- ANIMSTATES
   const animationStateStartAction = new animationStateManagement.ActionAnimstateStart(stateManager);
@@ -633,7 +603,7 @@ function addBasicManagerGraph(stateManager: StalkerStateManager): void {
   animationStateStartAction.add_precondition(new world_property(EStateEvaluatorId.MOVEMENT, true));
   animationStateStartAction.add_precondition(new world_property(EStateEvaluatorId.ANIMSTATE_PLAY_NOW, false));
   animationStateStartAction.add_effect(new world_property(EStateEvaluatorId.ANIMSTATE, true));
-  stateManager.planner.add_action(EStateActionId.ANIMSTATE_START, animationStateStartAction);
+  statePlanner.add_action(EStateActionId.ANIMSTATE_START, animationStateStartAction);
 
   const animationStateStopAction = new animationStateManagement.ActionAnimstateStop(stateManager);
 
@@ -647,7 +617,7 @@ function addBasicManagerGraph(stateManager: StalkerStateManager): void {
   animationStateStopAction.add_effect(new world_property(EStateEvaluatorId.ANIMSTATE, true));
   animationStateStopAction.add_effect(new world_property(EStateEvaluatorId.ANIMSTATE_PLAY_NOW, false));
   animationStateStopAction.add_effect(new world_property(EStateEvaluatorId.ANIMSTATE_IDLE_NOW, true));
-  stateManager.planner.add_action(EStateActionId.ANIMSTATE_STOP, animationStateStopAction);
+  statePlanner.add_action(EStateActionId.ANIMSTATE_STOP, animationStateStopAction);
 
   // -- ANIMATION
 
@@ -668,7 +638,7 @@ function addBasicManagerGraph(stateManager: StalkerStateManager): void {
   animationStartAction.add_precondition(new world_property(EStateEvaluatorId.ANIMATION, false));
   animationStartAction.add_precondition(new world_property(EStateEvaluatorId.ANIMATION_PLAY_NOW, false));
   animationStartAction.add_effect(new world_property(EStateEvaluatorId.ANIMATION, true));
-  stateManager.planner.add_action(EStateActionId.ANIMATION_START, animationStartAction);
+  statePlanner.add_action(EStateActionId.ANIMATION_START, animationStartAction);
 
   // -- STOP
   const animationStopAction = new animationManagement.ActionAnimationStop(stateManager);
@@ -681,7 +651,7 @@ function addBasicManagerGraph(stateManager: StalkerStateManager): void {
   animationStopAction.add_effect(new world_property(EStateEvaluatorId.ANIMATION, true));
   animationStopAction.add_effect(new world_property(EStateEvaluatorId.ANIMATION_PLAY_NOW, false));
   animationStopAction.add_effect(new world_property(EStateEvaluatorId.ANIMATION_NONE_NOW, true));
-  stateManager.planner.add_action(EStateActionId.ANIMATION_STOP, animationStopAction);
+  statePlanner.add_action(EStateActionId.ANIMATION_STOP, animationStopAction);
 
   const smartCoverEnterAction = new smartCoverManagement.ActionSmartCoverEnter(stateManager);
 
@@ -692,7 +662,7 @@ function addBasicManagerGraph(stateManager: StalkerStateManager): void {
   smartCoverEnterAction.add_precondition(new world_property(EStateEvaluatorId.ANIMSTATE_IDLE_NOW, true));
   smartCoverEnterAction.add_precondition(new world_property(EStateEvaluatorId.ANIMATION_PLAY_NOW, false));
   smartCoverEnterAction.add_effect(new world_property(EStateEvaluatorId.SMARTCOVER, true));
-  stateManager.planner.add_action(EStateActionId.SMARTCOVER_ENTER, smartCoverEnterAction);
+  statePlanner.add_action(EStateActionId.SMARTCOVER_ENTER, smartCoverEnterAction);
 
   const smartCoverExitAction = new smartCoverManagement.ActionSmartCoverExit(stateManager);
 
@@ -701,37 +671,37 @@ function addBasicManagerGraph(stateManager: StalkerStateManager): void {
   smartCoverExitAction.add_precondition(new world_property(EStateEvaluatorId.SMARTCOVER_NEED, false));
   smartCoverExitAction.add_precondition(new world_property(EStateEvaluatorId.SMARTCOVER, false));
   smartCoverExitAction.add_effect(new world_property(EStateEvaluatorId.SMARTCOVER, true));
-  stateManager.planner.add_action(EStateActionId.SMARTCOVER_EXIT, smartCoverExitAction);
+  statePlanner.add_action(EStateActionId.SMARTCOVER_EXIT, smartCoverExitAction);
 
-  const lockedSmartCoverAction = new stateManagement.ActionStateLocked(stateManager, "lockedSmartCoverAction");
+  const lockedSmartCoverAction = new stateManagement.ActionStateLocked(stateManager, "ActionStateLockedSmartCover");
 
   lockedSmartCoverAction.add_precondition(new world_property(EStateEvaluatorId.IN_SMARTCOVER, true));
   lockedSmartCoverAction.add_effect(new world_property(EStateEvaluatorId.IN_SMARTCOVER, false));
-  stateManager.planner.add_action(EStateActionId.LOCKED_SMARTCOVER, lockedSmartCoverAction);
+  statePlanner.add_action(EStateActionId.LOCKED_SMARTCOVER, lockedSmartCoverAction);
 
-  const lockedAction = new stateManagement.ActionStateLocked(stateManager, "lockedAction");
+  const lockedAction = new stateManagement.ActionStateLocked(stateManager, "ActionStateLocked");
 
   lockedAction.add_precondition(new world_property(EStateEvaluatorId.LOCKED, true));
   lockedAction.add_effect(new world_property(EStateEvaluatorId.LOCKED, false));
-  stateManager.planner.add_action(EStateActionId.LOCKED, lockedAction);
+  statePlanner.add_action(EStateActionId.LOCKED, lockedAction);
 
-  const lockedAnimationAction = new stateManagement.ActionStateLocked(stateManager, "lockedAnimationAction");
+  const lockedAnimationAction = new stateManagement.ActionStateLocked(stateManager, "ActionStateLockedAnimation");
 
   lockedAnimationAction.add_precondition(new world_property(EStateEvaluatorId.ANIMATION_LOCKED, true));
   lockedAnimationAction.add_effect(new world_property(EStateEvaluatorId.ANIMATION_LOCKED, false));
-  stateManager.planner.add_action(EStateActionId.LOCKED_ANIMATION, lockedAnimationAction);
+  statePlanner.add_action(EStateActionId.LOCKED_ANIMATION, lockedAnimationAction);
 
-  const lockedAnimstateAction = new stateManagement.ActionStateLocked(stateManager, "lockedAnimstateAction");
+  const lockedAnimstateAction = new stateManagement.ActionStateLocked(stateManager, "ActionStateLockedAnimstate");
 
   lockedAnimstateAction.add_precondition(new world_property(EStateEvaluatorId.ANIMSTATE_LOCKED, true));
   lockedAnimstateAction.add_effect(new world_property(EStateEvaluatorId.ANIMSTATE_LOCKED, false));
-  stateManager.planner.add_action(EStateActionId.LOCKED_ANIMSTATE, lockedAnimstateAction);
+  statePlanner.add_action(EStateActionId.LOCKED_ANIMSTATE, lockedAnimstateAction);
 
-  const lockedExternalAction = new stateManagement.ActionStateLocked(stateManager, "lockedExternalAction");
+  const lockedExternalAction = new stateManagement.ActionStateLocked(stateManager, "ActionStateLockedExternal");
 
   lockedExternalAction.add_precondition(new world_property(EStateEvaluatorId.LOCKED_EXTERNAL, true));
   lockedExternalAction.add_effect(new world_property(EStateEvaluatorId.LOCKED_EXTERNAL, false));
-  stateManager.planner.add_action(EStateActionId.LOCKED_EXTERNAL, lockedExternalAction);
+  statePlanner.add_action(EStateActionId.LOCKED_EXTERNAL, lockedExternalAction);
 
   const endStateAction = new stateManagement.ActionStateEnd(stateManager);
 
@@ -745,10 +715,10 @@ function addBasicManagerGraph(stateManager: StalkerStateManager): void {
   endStateAction.add_precondition(new world_property(EStateEvaluatorId.ANIMATION, true));
   endStateAction.add_precondition(new world_property(EStateEvaluatorId.SMARTCOVER, true));
   endStateAction.add_effect(new world_property(EStateEvaluatorId.END, true));
-  stateManager.planner.add_action(EStateActionId.END, endStateAction);
+  statePlanner.add_action(EStateActionId.END, endStateAction);
 
   const goal: WorldState = new world_state();
 
   goal.add_property(new world_property(EStateEvaluatorId.END, true));
-  stateManager.planner.set_goal_world_state(goal);
+  statePlanner.set_goal_world_state(goal);
 }

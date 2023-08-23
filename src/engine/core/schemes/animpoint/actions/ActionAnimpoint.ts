@@ -64,7 +64,7 @@ export class ActionAnimpoint extends action_base {
       this.state.animpointManager.getCurrentAction() as EStalkerState,
       null,
       null,
-      { lookPosition: this.state.animpointManager.lookPosition, lookObject: null },
+      { lookPosition: this.state.animpointManager.lookPosition, lookObjectId: null },
       { animationPosition: position, animationDirection: direction }
     );
   }

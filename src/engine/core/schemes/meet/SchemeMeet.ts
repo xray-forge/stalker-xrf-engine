@@ -1,6 +1,6 @@
 import { stalker_ids, world_property } from "xray16";
 
-import { IRegistryObjectState, registry } from "@/engine/core/database";
+import { IRegistryObjectState } from "@/engine/core/database";
 import { AbstractScheme, EActionId, EEvaluatorId } from "@/engine/core/schemes";
 import { ActionMeetWait } from "@/engine/core/schemes/meet/actions";
 import { EvaluatorContact } from "@/engine/core/schemes/meet/evaluators";
@@ -22,7 +22,6 @@ const logger: LuaLogger = new LuaLogger($filename);
  */
 export class SchemeMeet extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.MEET;
-  public static readonly SCHEME_SECTION_ACTOR_DIALOGS: EScheme = EScheme.ACTOR_DIALOGS;
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.STALKER;
 
   /**
@@ -42,10 +41,10 @@ export class SchemeMeet extends AbstractScheme {
     section: TSection,
     state: ISchemeMeetState
   ): void {
-    const actionPlanner: ActionPlanner = object.motivation_action_manager();
+    const planner: ActionPlanner = object.motivation_action_manager();
 
     // Evaluators:
-    actionPlanner.add_evaluator(EEvaluatorId.IS_MEET_CONTACT, new EvaluatorContact(state));
+    planner.add_evaluator(EEvaluatorId.IS_MEET_CONTACT, new EvaluatorContact(state));
 
     // Actions:
     const actionMeetWait: ActionMeetWait = new ActionMeetWait(state);
@@ -54,8 +53,8 @@ export class SchemeMeet extends AbstractScheme {
     actionMeetWait.add_precondition(new world_property(stalker_ids.property_enemy, false));
     actionMeetWait.add_precondition(new world_property(stalker_ids.property_danger, false));
     actionMeetWait.add_precondition(new world_property(stalker_ids.property_anomaly, false));
-
     actionMeetWait.add_precondition(new world_property(stalker_ids.property_items, false));
+
     actionMeetWait.add_precondition(new world_property(EEvaluatorId.IS_WOUNDED_EXISTING, false));
     actionMeetWait.add_precondition(new world_property(EEvaluatorId.IS_CORPSE_EXISTING, false));
 
@@ -63,11 +62,11 @@ export class SchemeMeet extends AbstractScheme {
     actionMeetWait.add_precondition(new world_property(EEvaluatorId.IS_WOUNDED, false));
     actionMeetWait.add_precondition(new world_property(EEvaluatorId.IS_ABUSED, false));
     actionMeetWait.add_effect(new world_property(EEvaluatorId.IS_MEET_CONTACT, false));
-    actionPlanner.add_action(EActionId.MEET_WAITING_ACTIVITY, actionMeetWait);
+    planner.add_action(EActionId.MEET_WAITING_ACTIVITY, actionMeetWait);
 
-    actionPlanner.action(EActionId.ALIFE).add_precondition(new world_property(EEvaluatorId.IS_MEET_CONTACT, false));
+    planner.action(EActionId.ALIFE).add_precondition(new world_property(EEvaluatorId.IS_MEET_CONTACT, false));
 
-    actionPlanner
+    planner
       .action(EActionId.STATE_TO_IDLE_ALIFE)
       .add_precondition(new world_property(EEvaluatorId.IS_MEET_CONTACT, false));
 
@@ -92,14 +91,5 @@ export class SchemeMeet extends AbstractScheme {
         : readIniString(state.ini, section, SchemeMeet.SCHEME_SECTION, false, "");
 
     initializeMeetScheme(object, state.ini, meetSection, state.meet as ISchemeMeetState);
-  }
-
-  /**
-   * Disable meet scheme and reset related states.
-   */
-  public static override disable(object: ClientObject, scheme: EScheme): void {
-    const state: IRegistryObjectState = registry.objects.get(object.id());
-
-    state[EScheme.ACTOR_DIALOGS] = null;
   }
 }

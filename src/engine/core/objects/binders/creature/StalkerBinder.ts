@@ -495,6 +495,9 @@ export class StalkerBinder extends object_binder {
       this.state.stateManager!.animation.setState(null, true);
     }
 
+    this.updateLightState(this.object);
+    DropManager.getInstance().onObjectDeath(this.object);
+
     if (this.state[EScheme.REACH_TASK]) {
       emitSchemeEvent(this.object, this.state[EScheme.REACH_TASK], ESchemeEvent.DEATH, victim, who);
     }
@@ -506,9 +509,6 @@ export class StalkerBinder extends object_binder {
     if (this.state.activeSection) {
       emitSchemeEvent(this.object, this.state[this.state.activeScheme!]!, ESchemeEvent.DEATH, victim, who);
     }
-
-    this.updateLightState(this.object);
-    DropManager.getInstance().onObjectDeath(this.object);
 
     unregisterHelicopterEnemy(this.helicopterEnemyIndex!);
     unregisterStalker(this, false);
@@ -526,6 +526,7 @@ export class StalkerBinder extends object_binder {
     }
 
     EventsManager.emitEvent(EGameEvent.STALKER_KILLED, this.object, who);
+
     ReleaseBodyManager.getInstance().addDeadBody(this.object);
   }
 
@@ -533,11 +534,12 @@ export class StalkerBinder extends object_binder {
    * todo: Description.
    */
   public onUse(object: ClientObject, who: ClientObject): void {
-    logger.info("Stalker use:", this.object.name(), "by", who.name());
+    logger.info("Stalker used:", this.object.name(), "by", who.name());
 
     if (this.object.alive()) {
       EventsManager.emitEvent(EGameEvent.STALKER_INTERACTION, object, who);
       DialogManager.getInstance().resetForObject(this.object);
+
       activateMeetWithObject(object);
 
       if (this.state.activeSection) {

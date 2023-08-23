@@ -65,7 +65,6 @@ describe("'scheme initialization' utils", () => {
     resetFunctionMock(alife().create);
 
     loadSchemeImplementations($fromArray(schemes));
-    loadSchemeImplementation(SchemeMeet, EScheme.ACTOR_DIALOGS);
 
     expect(() => {
       configureObjectSchemes(object, ini, "test.ltx", ESchemeType.STALKER, "logics", "test-smart");
@@ -145,7 +144,6 @@ describe("'scheme initialization' utils", () => {
     resetFunctionMock(alife().create);
 
     loadSchemeImplementations($fromArray(schemes));
-    loadSchemeImplementation(SchemeMeet, EScheme.ACTOR_DIALOGS);
 
     expect(() => {
       configureObjectSchemes(object, ini, "test.ltx", ESchemeType.STALKER, "logics_not_existing", "test-smart");

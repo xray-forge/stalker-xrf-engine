@@ -15,6 +15,7 @@ export enum EMeetDistance {
  * Scheme state representing `meet` configuration for specific object.
  */
 export interface ISchemeMeetState extends IBaseSchemeState {
+  isMeetInitialized: boolean;
   meetManager: MeetManager;
   meetSection: Optional<TSection>;
   abuse: TConditionList;
@@ -25,7 +26,7 @@ export interface ISchemeMeetState extends IBaseSchemeState {
   isMeetOnlyAtPathEnabled: boolean;
   isTradeEnabled: TConditionList;
   isBreakAllowed: TConditionList;
-  isMeetOnTalking: TConditionList;
+  isMeetOnTalking: boolean;
   // Distance to reset state.
   resetDistance: TDistance;
   // Distance considered close for meeting.

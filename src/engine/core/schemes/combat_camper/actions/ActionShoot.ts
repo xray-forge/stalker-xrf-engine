@@ -4,6 +4,7 @@ import { setStalkerState } from "@/engine/core/database";
 import { EStalkerState } from "@/engine/core/objects/animation";
 import { ISchemeCombatState } from "@/engine/core/schemes/combat";
 import { LuaLogger } from "@/engine/core/utils/logging";
+import { TNumberId } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -25,7 +26,7 @@ export class ActionShoot extends action_base {
     logger.info("Start camper shooting:", this.object.name());
 
     setStalkerState(this.object, EStalkerState.HIDE_FIRE, null, null, {
-      lookObject: this.object.best_enemy(),
+      lookObjectId: this.object.best_enemy()?.id() as TNumberId,
       lookPosition: null,
     });
     this.state.isCamperCombatAction = true;

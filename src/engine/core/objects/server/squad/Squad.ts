@@ -521,7 +521,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
    * todo: Description.
    */
   public onSquadObjectDeath(object: ServerObject): void {
-    logger.info("On object death:", this.name(), object.name());
+    // logger.info("On squad object death:", this.name(), object.name());
 
     this.soundManager.unregisterObject(object.id);
     this.unregister_member(object.id);
@@ -676,12 +676,15 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
    * todo: Description.
    */
   public addSquadMember(spawnSection: TSection, spawnPosition: Vector, lvi: TNumberId, gvi: TNumberId): TNumberId {
-    logger.info("Add squad member:", this.name());
+    // logger.info("Add squad member:", this.name());
 
     const customData = readIniString(SYSTEM_INI, spawnSection, "custom_data", false, "", "default_custom_data.ltx");
 
     if (customData !== "default_custom_data.ltx") {
-      logger.warn("INCORRECT npc_spawn_section USED [%s]. You cannot use npc with custom_data in squads", spawnSection);
+      logger.format(
+        "INCORRECT npc_spawn_section used for '%s'. You cannot use npc with custom_data in squad",
+        spawnSection
+      );
     }
 
     const serverObject = alife().create(spawnSection, spawnPosition, lvi, gvi);
@@ -704,7 +707,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
    * todo: Description.
    */
   public createSquadMembers(spawnSmartTerrain: SmartTerrain): void {
-    logger.info("Create squad members:", this.name(), spawnSmartTerrain?.name());
+    // logger.info("Create squad members:", this.name(), spawnSmartTerrain?.name());
 
     const sectionName: TName = this.section_name();
 

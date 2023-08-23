@@ -6,7 +6,7 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * Evaluator to check whether animation is finished.
+ * Evaluator to check whether object should reach target location to start animation.
  */
 @LuabindClass()
 export class EvaluatorReachAnimpoint extends property_evaluator {
@@ -18,7 +18,7 @@ export class EvaluatorReachAnimpoint extends property_evaluator {
   }
 
   /**
-   * @returns whether object animation logics is finished
+   * @returns whether object animation requires position reaching
    */
   public override evaluate(): boolean {
     return this.state.animpointManager.isPositionReached();

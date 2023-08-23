@@ -11,6 +11,7 @@ const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * Whether current active weapon matches required weapon.
+ * Check if object needs weapon at all and whether it is the best possible one.
  */
 @LuabindClass()
 export class EvaluatorWeapon extends property_evaluator {
@@ -31,41 +32,42 @@ export class EvaluatorWeapon extends property_evaluator {
       return true;
     }
 
-    if (!isWeapon(this.object.best_weapon())) {
+    const activeItem: Optional<ClientObject> = this.object.active_item();
+
+    if (
+      activeItem === null &&
+      (weaponAnimation === EWeaponAnimation.NONE ||
+        weaponAnimation === EWeaponAnimation.STRAPPED ||
+        weaponAnimation === EWeaponAnimation.DROP)
+    ) {
       return true;
     }
 
     const bestWeapon: Optional<ClientObject> = this.object.best_weapon();
-    const activeItem: Optional<ClientObject> = this.object.active_item();
 
-    if (
-      weaponAnimation === EWeaponAnimation.STRAPPED &&
-      ((isStrappableWeapon(bestWeapon) &&
+    if (bestWeapon === null) {
+      return false;
+    }
+
+    if (activeItem?.id() !== bestWeapon.id()) {
+      return false;
+    }
+
+    if (weaponAnimation === EWeaponAnimation.STRAPPED) {
+      return (
+        isStrappableWeapon(bestWeapon) &&
         this.object.weapon_strapped() &&
-        this.object.is_weapon_going_to_be_strapped(bestWeapon)) ||
-        (!isStrappableWeapon(bestWeapon) && activeItem === null))
-    ) {
-      return true;
+        this.object.is_weapon_going_to_be_strapped(bestWeapon)
+      );
     }
 
     if (
       (weaponAnimation === EWeaponAnimation.UNSTRAPPED ||
         weaponAnimation === EWeaponAnimation.FIRE ||
         weaponAnimation === EWeaponAnimation.SNIPER_FIRE) &&
-      activeItem !== null &&
-      bestWeapon !== null &&
-      activeItem.id() === bestWeapon.id() &&
       !this.object.is_weapon_going_to_be_strapped(bestWeapon) &&
       this.object.weapon_unstrapped()
     ) {
-      return true;
-    }
-
-    if (weaponAnimation === EWeaponAnimation.NONE && activeItem === null) {
-      return true;
-    }
-
-    if (weaponAnimation === EWeaponAnimation.DROP && activeItem === null) {
       return true;
     }
 

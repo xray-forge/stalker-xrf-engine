@@ -2,7 +2,7 @@ import { cast_planner, stalker_ids, world_property } from "xray16";
 
 import { registry } from "@/engine/core/database";
 import { ActionPostCombatIdleWait } from "@/engine/core/schemes/combat_idle/actions";
-import { EvaluatorPostCombatIdleEnemy } from "@/engine/core/schemes/combat_idle/evaluators";
+import { EvaluatorHasEnemy } from "@/engine/core/schemes/combat_idle/evaluators";
 import { ISchemePostCombatIdleState } from "@/engine/core/schemes/combat_idle/ISchemePostCombatIdleState";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { ActionBase, ActionPlanner, ClientObject } from "@/engine/lib/types";
@@ -18,7 +18,7 @@ export class PostCombatIdle {
    * todo: Description.
    */
   public static addPostCombatIdleWait(object: ClientObject): void {
-    logger.info("Add post-combat idle for:", object.name());
+    // logger.info("Add post-combat idle for:", object.name());
 
     const actionPlanner: ActionPlanner = object.motivation_action_manager();
     const combatAction: ActionBase = actionPlanner.action(stalker_ids.action_combat_planner);
@@ -34,10 +34,10 @@ export class PostCombatIdle {
     registry.objects.get(object.id()).post_combat_wait = state;
 
     actionPlanner.remove_evaluator(stalker_ids.property_enemy);
-    actionPlanner.add_evaluator(stalker_ids.property_enemy, new EvaluatorPostCombatIdleEnemy(state));
+    actionPlanner.add_evaluator(stalker_ids.property_enemy, new EvaluatorHasEnemy(state));
 
     combatActionPlanner.remove_evaluator(stalker_ids.property_enemy);
-    combatActionPlanner.add_evaluator(stalker_ids.property_enemy, new EvaluatorPostCombatIdleEnemy(state));
+    combatActionPlanner.add_evaluator(stalker_ids.property_enemy, new EvaluatorHasEnemy(state));
     combatActionPlanner.remove_action(stalker_ids.action_post_combat_wait);
 
     const actionPostCombatIdleWait: ActionPostCombatIdleWait = new ActionPostCombatIdleWait(state);

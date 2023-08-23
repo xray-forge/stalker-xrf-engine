@@ -1,6 +1,6 @@
 import { stalker_ids, world_property } from "xray16";
 
-import { IRegistryObjectState, registry } from "@/engine/core/database";
+import { IRegistryObjectState } from "@/engine/core/database";
 import { AbstractScheme, EActionId, EEvaluatorId } from "@/engine/core/schemes";
 import { ActionWounded } from "@/engine/core/schemes/wounded/actions";
 import { EvaluatorCanFight, EvaluatorWounded } from "@/engine/core/schemes/wounded/evaluators";
@@ -108,7 +108,7 @@ export class SchemeWounded extends AbstractScheme {
     state: ISchemeWoundedState,
     scheme: EScheme
   ): void {
-    logger.info("Init wounded:", object.name(), section, scheme);
+    // logger.info("Init wounded:", object.name(), section, scheme);
 
     if (tostring(section) === state.wounded_section && tostring(section) !== NIL) {
       return;
