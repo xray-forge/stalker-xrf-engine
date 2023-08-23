@@ -10,7 +10,7 @@ import { ClientObject, Optional, TDistance, TTimestamp } from "@/engine/lib/type
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * Evaluator to check whether have any active enemy.
+ * Evaluator to check whether any enemy exists.
  */
 @LuabindClass()
 export class EvaluatorHasEnemy extends property_evaluator {

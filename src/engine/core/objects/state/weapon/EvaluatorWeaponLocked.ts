@@ -37,9 +37,7 @@ export class EvaluatorWeaponLocked extends property_evaluator {
 
     const isWeaponGoingToBeStrapped: boolean = this.object.is_weapon_going_to_be_strapped(bestWeapon);
 
-    if (isWeaponGoingToBeStrapped && !isWeaponStrapped) {
-      return true;
-    } else if (!isWeaponGoingToBeStrapped && !isWeaponUnstrapped && this.object.active_item() !== null) {
+    if (isWeaponGoingToBeStrapped && (!isWeaponStrapped || isWeaponUnstrapped)) {
       return true;
     }
 

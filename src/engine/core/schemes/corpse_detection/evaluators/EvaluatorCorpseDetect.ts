@@ -1,13 +1,16 @@
-import { level, LuabindClass, property_evaluator } from "xray16";
+import { LuabindClass, property_evaluator } from "xray16";
 
-import { IRegistryObjectState, registry } from "@/engine/core/database";
-import { IReleaseDescriptor, ReleaseBodyManager } from "@/engine/core/managers/world/ReleaseBodyManager";
-import { ISchemeCorpseDetectionState } from "@/engine/core/schemes/corpse_detection";
-import { isObjectWithValuableLoot, isObjectWounded } from "@/engine/core/utils/object";
-import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
+import { setPortableStoreValue } from "@/engine/core/database";
+import { ISchemeCorpseDetectionState } from "@/engine/core/schemes/corpse_detection/ISchemeCorpseDetectionState";
+import { freeSelectedLootedObjectSpot } from "@/engine/core/schemes/corpse_detection/utils";
+import { LuaLogger } from "@/engine/core/utils/logging";
+import { findNearestCorpseToLoot, isObjectWounded } from "@/engine/core/utils/object";
 import { communities } from "@/engine/lib/constants/communities";
+import { LOOTING_DEAD_OBJECT_KEY } from "@/engine/lib/constants/portable_store_keys";
 import { ACTOR_VISUAL_STALKER } from "@/engine/lib/constants/sections";
-import { ClientObject, LuaArray, Optional, TDistance, TNumberId, Vector } from "@/engine/lib/types";
+import { TNumberId } from "@/engine/lib/types";
+
+const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * Evaluator to check whether object can find some corpse to loot and pick items from it.
@@ -25,78 +28,46 @@ export class EvaluatorCorpseDetect extends property_evaluator {
    * Check if corpse with valuables is detected.
    */
   public override evaluate(): boolean {
-    if (
+    return (
       // Dead cannot loot.
-      !this.object.alive() ||
+      this.object.alive() &&
       // Is in combat, cannot loot.
-      this.object.best_enemy() !== null ||
+      this.object.best_enemy() === null &&
+      // Looting logics should not be disabled
+      this.state.isCorpseDetectionEnabled !== false &&
       // Is zombied, does not care.
-      this.object.character_community() === communities.zombied ||
-      // Looting logics is disabled.
-      this.state.isCorpseDetectionEnabled === false ||
-      // Is wounded, cannot do anything.
-      isObjectWounded(this.object.id()) ||
+      this.object.character_community() !== communities.zombied &&
+      // If wounded, cannot do anything.
+      !isObjectWounded(this.object.id()) &&
       // Is cutscene participant, does not care about loot.
-      this.object.section() === ACTOR_VISUAL_STALKER
-    ) {
-      return false;
-    }
+      this.object.section() !== ACTOR_VISUAL_STALKER &&
+      // Has anything to loot.
+      this.hasCorpseToLoot()
+    );
+  }
 
-    const corpses: LuaArray<IReleaseDescriptor> = ReleaseBodyManager.getInstance().releaseObjectRegistry;
+  /**
+   * todo;
+   *
+   * @returns whether any corpse nearby exists
+   */
+  public hasCorpseToLoot(): boolean {
+    const [corpseObject, corpseVertexId, corpsePosition] = findNearestCorpseToLoot(this.object);
 
-    let nearestCorpseDistSqr: TDistance = logicsConfig.SEARCH_CORPSE.DISTANCE_TO_SEARCH_SQR;
-    let nearestCorpseVertex: Optional<TNumberId> = null;
-    let nearestCorpsePosition: Optional<Vector> = null;
-    let corpseId: Optional<TNumberId> = null;
-
-    for (const it of $range(1, corpses.length())) {
-      const id: TNumberId = corpses.get(it).id;
-      const registryState: Optional<IRegistryObjectState> = registry.objects.get(id);
-      const corpseObject: Optional<ClientObject> = registryState !== null ? registryState.object! : null;
-
-      if (
-        // Is registered in client side.
-        corpseObject &&
-        // Is not looted by anyone or looted by current object.
-        (registryState.lootedByObject === null || registryState.lootedByObject === this.object.id()) &&
-        // Is visible so can be looted.
-        this.object.see(corpseObject)
-      ) {
-        if (
-          // Is near enough.
-          this.object.position().distance_to_sqr(corpseObject.position()) < nearestCorpseDistSqr &&
-          // Has valuable loot.
-          isObjectWithValuableLoot(corpseObject)
-        ) {
-          const corpseVertex: TNumberId = level.vertex_id(corpseObject.position());
-
-          // Can be reached by object.
-          if (this.object.accessible(corpseVertex)) {
-            nearestCorpseDistSqr = this.object.position().distance_to_sqr(corpseObject.position());
-            nearestCorpseVertex = corpseVertex;
-            nearestCorpsePosition = corpseObject.position();
-            corpseId = id;
-          }
-        }
-      }
-    }
-
-    if (nearestCorpseVertex !== null) {
-      this.state.selectedCorpseVertexId = nearestCorpseVertex;
-      this.state.selectedCorpseVertexPosition = nearestCorpsePosition;
+    if (corpseVertexId !== null) {
+      const corpseId: TNumberId = corpseObject.id();
 
       // Looted corpse before, mark it as not selected.
       if (this.state.selectedCorpseId !== null && this.state.selectedCorpseId !== corpseId) {
-        const lootedObjectState: Optional<IRegistryObjectState> = registry.objects.get(this.state.selectedCorpseId);
-
-        if (lootedObjectState !== null) {
-          lootedObjectState.lootedByObject = null;
-        }
+        freeSelectedLootedObjectSpot(this.state.selectedCorpseId);
       }
+
+      setPortableStoreValue(corpseId, LOOTING_DEAD_OBJECT_KEY, this.object.id());
 
       // Link looting state for current object and looted object.
       this.state.selectedCorpseId = corpseId;
-      registry.objects.get(corpseId as TNumberId).lootedByObject = this.object.id();
+      this.state.selectedCorpseVertexId = corpseVertexId;
+      this.state.selectedCorpseVertexPosition = corpsePosition;
 
       return true;
     }
