@@ -7,7 +7,7 @@ import { mockFromLuaTable } from "@/fixtures/lua";
 
 describe("base animations list", () => {
   it("should list all needed animations", () => {
-    expect(baseAnimations.length()).toBe(46);
+    expect(baseAnimations.length()).toBe(47);
 
     assertArraysIntersecting(mockFromLuaTable(baseAnimations).getKeysArray(), [
       EStalkerState.IDLE,
@@ -56,6 +56,7 @@ describe("base animations list", () => {
       EStalkerState.LAY_ON_BED,
       EStalkerState.SEARCH_CORPSE,
       EStalkerState.HELP_WOUNDED,
+      EStalkerState.HELP_WOUNDED_WITH_MEDKIT,
     ]);
   });
 });

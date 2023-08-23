@@ -7,7 +7,7 @@ import { mockFromLuaTable } from "@/fixtures/lua";
 
 describe("base states list", () => {
   it("should list all needed animations", () => {
-    expect(baseStates.length()).toBe(102);
+    expect(baseStates.length()).toBe(103);
 
     assertArraysIntersecting(mockFromLuaTable(baseStates).getKeysArray(), [
       EStalkerState.IDLE,
@@ -79,6 +79,7 @@ describe("base states list", () => {
       EStalkerState.PUNCH,
       EStalkerState.SEARCH_CORPSE,
       EStalkerState.HELP_WOUNDED,
+      EStalkerState.HELP_WOUNDED_WITH_MEDKIT,
       EStalkerState.DYNAMITE,
       EStalkerState.BINOCULAR,
       EStalkerState.HIDE_RAC,
