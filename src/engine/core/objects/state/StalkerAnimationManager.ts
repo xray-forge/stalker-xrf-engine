@@ -178,7 +178,7 @@ export class StalkerAnimationManager {
     weaponSlot: TIndex,
     animationsList: LuaArray<TAnimationSequenceElements>
   ): Optional<LuaArray<TAnimationSequenceElements>> {
-    if (animationsList.get(weaponSlot) === null) {
+    if (!animationsList.has(weaponSlot)) {
       weaponSlot = 0;
     }
 
