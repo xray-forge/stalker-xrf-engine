@@ -44,7 +44,7 @@ export class LevelChangerBinder extends object_binder {
     this.object.enable_level_changer(serverObject.isEnabled);
     this.object.set_level_changer_invitation(serverObject.invitationHint);
 
-    logger.info("Net spawned:", this.object.id(), serverObject.isEnabled, serverObject.invitationHint);
+    logger.info("Net spawned level changer:", this.object.id(), serverObject.isEnabled, serverObject.invitationHint);
 
     return true;
   }

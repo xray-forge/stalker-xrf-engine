@@ -752,14 +752,6 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
     if (selectedJobId !== objectJobDescriptor.jobId && selectedJobLink !== null) {
       this.unlinkObjectJob(objectJobDescriptor);
 
-      logger.format(
-        "Select new job: %s ->  %s / %s, in '%s'",
-        objectJobDescriptor.object.name(),
-        selectedJobLink.id,
-        selectedJobLink.section,
-        this.name()
-      );
-
       // Link new job.
       selectedJobLink.objectId = objectJobDescriptor.object.id;
       this.objectByJobSection.set(this.jobs.get(selectedJobLink.id as TNumberId).section, selectedJobLink.objectId);

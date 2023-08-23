@@ -447,14 +447,12 @@ export class StalkerMoveManager {
       this.reset(
         this.pathWalk!,
         this.pathWalkInfo,
-        this.pathLook!,
+        this.pathLook,
         this.pathLookInfo,
         this.team,
         this.suggestedState,
         this.moveCbInfo,
-        this.noValidation!,
-        null,
-        null
+        this.noValidation
       );
     } else {
       this.updateMovementState();
