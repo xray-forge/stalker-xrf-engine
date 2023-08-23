@@ -8,9 +8,19 @@ import { ISchemeWoundedState } from "@/engine/core/schemes/wounded/ISchemeWounde
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/ini_config";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { drugs } from "@/engine/lib/constants/items/drugs";
+import { misc } from "@/engine/lib/constants/items/misc";
 import { scriptSounds } from "@/engine/lib/constants/sound/script_sounds";
 import { FALSE, NIL, TRUE } from "@/engine/lib/constants/words";
-import { AlifeSimulator, LuaArray, Optional, TCount, TIndex, TRate, TTimestamp } from "@/engine/lib/types";
+import {
+  AlifeSimulator,
+  ClientObject,
+  LuaArray,
+  Optional,
+  TCount,
+  TIndex,
+  TRate,
+  TTimestamp,
+} from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -73,8 +83,8 @@ export class WoundManager extends AbstractSchemeManager<ISchemeWoundedState> {
     if (this.canUseMedkit) {
       logger.info("Eat medkit:", this.object.name());
 
-      if (this.object.object("medkit_script") !== null) {
-        this.object.eat(this.object.object("medkit_script")!);
+      if (this.object.object(misc.medkit_script) !== null) {
+        this.object.eat(this.object.object(misc.medkit_script) as ClientObject);
       }
 
       const simulator: AlifeSimulator = alife();

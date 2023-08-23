@@ -63,7 +63,10 @@ export class ActionHelpWounded extends action_base {
     super.execute();
 
     // Do not execute if already play same animation or if target is not defined.
-    if (this.state.selectedWoundedId === null || getStalkerState(this.object) === EStalkerState.HELP_WOUNDED) {
+    if (
+      this.state.selectedWoundedId === null ||
+      getStalkerState(this.object) === EStalkerState.HELP_WOUNDED_WITH_MEDKIT
+    ) {
       return;
     }
 
@@ -72,7 +75,7 @@ export class ActionHelpWounded extends action_base {
       // Start heal wounded animation, heal target on finish.
       setStalkerState(
         this.object,
-        EStalkerState.HELP_WOUNDED,
+        EStalkerState.HELP_WOUNDED_WITH_MEDKIT,
         null,
         null,
         {

@@ -64,7 +64,7 @@ export class SchemeHelpWounded extends AbstractScheme {
 
     // Do not allow items collection when wounded are nearby.
     actionPlanner
-      .action(stalker_ids.action_gather_items)
+      .action(EActionId.STATE_TO_IDLE_ITEMS)
       .add_precondition(new world_property(EEvaluatorId.IS_WOUNDED_EXISTING, false));
 
     // Do not allow alife activity before finish helping all stalkers nearby.

@@ -237,6 +237,7 @@ export enum EStalkerState {
   HELLO = "hello",
   HELLO_WPN = "hello_wpn",
   HELP_WOUNDED = "help_wounded",
+  HELP_WOUNDED_WITH_MEDKIT = "help_wounded_with_medkit",
   HIDE = "hide",
   HIDE_FIRE = "hide_fire",
   HIDE_NA = "hide_na",

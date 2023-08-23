@@ -30,6 +30,7 @@ import { captions } from "@/engine/lib/constants/captions/captions";
 import { communities } from "@/engine/lib/constants/communities";
 import { infoPortions } from "@/engine/lib/constants/info_portions";
 import { drugs, TMedkit } from "@/engine/lib/constants/items/drugs";
+import { misc } from "@/engine/lib/constants/items/misc";
 import { pistols, TPistol } from "@/engine/lib/constants/items/weapons";
 import { levels } from "@/engine/lib/constants/levels";
 import { ClientObject, EClientObjectRelation, EScheme, Optional, TNumberId } from "@/engine/lib/types";
@@ -96,7 +97,7 @@ extern("dialogs.transfer_medkit", (firstSpeaker: ClientObject, secondSpeaker: Cl
   }
 
   alife().create(
-    "medkit_script",
+    misc.medkit_script,
     secondSpeaker.position(),
     secondSpeaker.level_vertex_id(),
     secondSpeaker.game_vertex_id(),

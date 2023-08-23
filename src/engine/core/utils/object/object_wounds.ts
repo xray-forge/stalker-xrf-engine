@@ -4,6 +4,7 @@ import { getPortableStoreValue, IRegistryObjectState, registry } from "@/engine/
 import { ISchemeWoundedState } from "@/engine/core/schemes/wounded";
 import { createVector } from "@/engine/core/utils/vector";
 import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
+import { misc } from "@/engine/lib/constants/items/misc";
 import { HELPING_WOUNDED_OBJECT_KEY } from "@/engine/lib/constants/portable_store_keys";
 import {
   ClientObject,
@@ -24,7 +25,7 @@ import {
  */
 export function giveWoundedObjectMedkit(object: ClientObject): void {
   // Give script medkit to heal up for an object.
-  alife().create("medkit_script", object.position(), object.level_vertex_id(), object.game_vertex_id(), object.id());
+  alife().create(misc.medkit_script, object.position(), object.level_vertex_id(), object.game_vertex_id(), object.id());
 }
 
 /**
