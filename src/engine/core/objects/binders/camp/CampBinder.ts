@@ -43,7 +43,7 @@ export class CampBinder extends object_binder {
       return false;
     }
 
-    logger.info("Spawn camp:", this.object.name());
+    // logger.info("Spawn camp:", this.object.name());
 
     const ini: IniFile = this.object.spawn_ini();
 
@@ -62,7 +62,7 @@ export class CampBinder extends object_binder {
    * Handle net destroy event.
    */
   public override net_destroy(): void {
-    logger.info("Destroy camp:", this.object.name());
+    // logger.info("Destroy camp:", this.object.name());
 
     unregisterCamp(this.object);
     super.net_destroy();

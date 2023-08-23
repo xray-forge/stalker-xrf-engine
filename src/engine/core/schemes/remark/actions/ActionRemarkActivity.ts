@@ -96,8 +96,8 @@ export class ActionRemarkActivity extends action_base {
    */
   public getTarget(): Optional<ILookTargetDescriptor> {
     const lookTargetDescriptor: ILookTargetDescriptor = {
-      lookObjectId: null as Optional<TNumberId>,
-      lookPosition: null as Optional<Vector>,
+      lookObjectId: null,
+      lookPosition: null,
     };
 
     const [targetPosition, targetId, targetInit] = initTarget(this.object, this.st.target);

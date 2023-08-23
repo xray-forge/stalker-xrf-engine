@@ -10,20 +10,20 @@ import { ClientObject, Optional, TDistance, TTimestamp } from "@/engine/lib/type
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * Evaluatore to check whether post-combat idle state should be active.
+ * Evaluator to check whether have any active enemy.
  */
 @LuabindClass()
-export class EvaluatorPostCombatIdleEnemy extends property_evaluator {
+export class EvaluatorHasEnemy extends property_evaluator {
   public readonly state: ISchemePostCombatIdleState;
 
   public constructor(state: ISchemePostCombatIdleState) {
-    super(null, EvaluatorPostCombatIdleEnemy.__name);
+    super(null, EvaluatorHasEnemy.__name);
     this.state = state;
     this.state.timer = time_global();
   }
 
   /**
-   * Evaluate whether object can enter post-combat idle state.
+   * Evaluate whether object has enemy or searching for one.
    */
   public override evaluate(): boolean {
     if (!this.object.alive()) {
