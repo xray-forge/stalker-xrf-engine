@@ -21,7 +21,9 @@ import type {
  */
 export enum EStateEvaluatorId {
   END = 1,
+  // Whether state is locked and cannot be changed (weapon animation happening, turning body)
   LOCKED = 2,
+  // Whether state is locked by alife/combat activity.
   LOCKED_EXTERNAL = 3,
 
   // -- WEAPON

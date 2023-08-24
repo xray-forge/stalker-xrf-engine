@@ -359,13 +359,49 @@ export const animpointAnimations: LuaTable<TName, IAnimationDescriptor> = $fromO
       ["item_2_draw_0", { a: food.bread }, "item_2_draw_1"]
     ),
     out: createSequence(
+      ["item_2_holster_1", { d: food.bread }, "item_2_holster_0"],
+      ["item_2_holster_1", { d: food.bread }, "item_2_holster_0"]
+    ),
+    idle: createSequence("item_2_aim_0", "item_2_aim_0"),
+    rnd: createSequence(["item_2_prepare_0", "item_2_attack_0"], ["item_2_prepare_0", "item_2_attack_0"]),
+  },
+  [EStalkerState.ANIMPOINT_SIT_ASS_EAT_KOLBASA]: {
+    prop: {
+      maxidle: 3,
+      sumidle: 3,
+      rnd: 80,
+      moving: null,
+    },
+    into: createSequence(
+      ["item_1_draw_0", { a: food.kolbasa }, "item_1_draw_1"],
+      ["item_1_draw_0", { a: food.kolbasa }, "item_1_draw_1"]
+    ),
+    out: createSequence(
+      ["item_1_holster_0", { d: food.kolbasa }, "item_1_holster_1"],
+      ["item_1_holster_0", { d: food.kolbasa }, "item_1_holster_1"]
+    ),
+    idle: createSequence("item_1_idle_1", "item_1_idle_1"),
+    rnd: createSequence(["item_1_attack_0", "item_1_idle_0"], ["item_1_attack_0", "item_1_idle_0"]),
+  },
+  [EStalkerState.ANIMPOINT_SIT_KNEE_EAT_BREAD]: {
+    prop: {
+      maxidle: 3,
+      sumidle: 3,
+      rnd: 80,
+      moving: null,
+    },
+    into: createSequence(
+      ["item_2_draw_0", { a: food.bread }, "item_2_draw_1"],
+      ["item_2_draw_0", { a: food.bread }, "item_2_draw_1"]
+    ),
+    out: createSequence(
       ["item_2_holster_0", { d: food.bread }, "item_2_holster_1"],
       ["item_2_holster_0", { d: food.bread }, "item_2_holster_1"]
     ),
     idle: createSequence("item_2_aim_0", "item_2_aim_0"),
     rnd: createSequence(["item_2_prepare_0", "item_2_attack_0"], ["item_2_prepare_0", "item_2_attack_0"]),
   },
-  [EStalkerState.ANIMPOINT_SIT_ASS_EAT_KOLBASA]: {
+  [EStalkerState.ANIMPOINT_SIT_KNEE_EAT_KOLBASA]: {
     prop: {
       maxidle: 3,
       sumidle: 3,
@@ -599,6 +635,42 @@ export const animpointAnimations: LuaTable<TName, IAnimationDescriptor> = $fromO
     idle: createSequence("item_5_aim_0", "item_5_aim_0"),
     rnd: createSequence(["item_5_prepare_0", "item_5_attack_0"], ["item_5_prepare_0", "item_5_attack_0"]),
   },
+  [EStalkerState.ANIMPOINT_SIT_KNEE_DRINK_VODKA]: {
+    prop: {
+      maxidle: 3,
+      sumidle: 3,
+      rnd: 80,
+      moving: null,
+    },
+    into: createSequence(
+      ["item_4_draw_0", { a: food.vodka }, "item_4_draw_1"],
+      ["item_4_draw_0", { a: food.vodka }, "item_4_draw_1"]
+    ),
+    out: createSequence(
+      ["item_4_holster_0", { d: food.vodka }, "item_4_holster_1"],
+      ["item_4_holster_0", { d: food.vodka }, "item_4_holster_1"]
+    ),
+    idle: createSequence("item_4_aim_0", "item_4_aim_0"),
+    rnd: createSequence(["item_4_prepare_0", "item_4_attack_0"], ["item_4_prepare_0", "item_4_attack_0"]),
+  },
+  [EStalkerState.ANIMPOINT_SIT_KNEE_DRINK_ENERGY]: {
+    prop: {
+      maxidle: 3,
+      sumidle: 3,
+      rnd: 80,
+      moving: null,
+    },
+    into: createSequence(
+      ["item_5_draw_0", { a: food.energy_drink }, "item_5_draw_1"],
+      ["item_5_draw_0", { a: food.energy_drink }, "item_5_draw_1"]
+    ),
+    out: createSequence(
+      ["item_5_holster_0", { d: food.energy_drink }, "item_5_holster_1"],
+      ["item_5_holster_0", { d: food.energy_drink }, "item_5_holster_1"]
+    ),
+    idle: createSequence("item_5_aim_0", "item_5_aim_0"),
+    rnd: createSequence(["item_5_prepare_0", "item_5_attack_0"], ["item_5_prepare_0", "item_5_attack_0"]),
+  },
   [EStalkerState.ANIMPOINT_STAY_WALL_GUITAR]: {
     prop: {
       maxidle: 5,
@@ -743,6 +815,42 @@ export const animpointAnimations: LuaTable<TName, IAnimationDescriptor> = $fromO
     idle: createSequence("guitar_0", "guitar_0"),
     rnd: null,
   },
+  [EStalkerState.ANIMPOINT_SIT_KNEE_GUITAR]: {
+    prop: {
+      maxidle: 3,
+      sumidle: 3,
+      rnd: 80,
+      moving: null,
+    },
+    into: createSequence(
+      [
+        "sit_1_guitar_0_0",
+        { a: misc.guitar_a },
+        {
+          f: (object: ClientObject) => {
+            startPlayingGuitar(object);
+          },
+        },
+        "sit_1_guitar_0_1",
+      ],
+      [
+        "sit_1_guitar_0_0",
+        { a: misc.guitar_a },
+        {
+          f: (object: ClientObject) => {
+            startPlayingGuitar(object);
+          },
+        },
+        "sit_1_guitar_0_1",
+      ]
+    ),
+    out: createSequence(
+      ["guitar_0_sit_1_0", { d: misc.guitar_a }, "guitar_0_sit_1_1"],
+      ["guitar_0_sit_1_0", { d: misc.guitar_a }, "guitar_0_sit_1_1"]
+    ),
+    idle: createSequence("guitar_0", "guitar_0"),
+    rnd: null,
+  },
   [EStalkerState.ANIMPOINT_STAY_WALL_HARMONICA]: {
     prop: {
       maxidle: 5,
@@ -852,6 +960,42 @@ export const animpointAnimations: LuaTable<TName, IAnimationDescriptor> = $fromO
     rnd: null,
   },
   [EStalkerState.ANIMPOINT_SIT_ASS_HARMONICA]: {
+    prop: {
+      maxidle: 3,
+      sumidle: 3,
+      rnd: 80,
+      moving: null,
+    },
+    into: createSequence(
+      [
+        "sit_2_harmonica_1_0",
+        { a: misc.harmonica_a },
+        {
+          f: (object: ClientObject) => {
+            startPlayingHarmonica(object);
+          },
+        },
+        "sit_2_harmonica_1_1",
+      ],
+      [
+        "sit_2_harmonica_1_0",
+        { a: misc.harmonica_a },
+        {
+          f: (object: ClientObject) => {
+            startPlayingHarmonica(object);
+          },
+        },
+        "sit_2_harmonica_1_1",
+      ]
+    ),
+    out: createSequence(
+      ["harmonica_1_sit_2_0", { d: misc.harmonica_a }, "harmonica_1_sit_2_1"],
+      ["harmonica_1_sit_2_0", { d: misc.harmonica_a }, "harmonica_1_sit_2_1"]
+    ),
+    idle: createSequence("harmonica_0", "harmonica_0"),
+    rnd: null,
+  },
+  [EStalkerState.ANIMPOINT_SIT_KNEE_HARMONICA]: {
     prop: {
       maxidle: 3,
       sumidle: 3,
