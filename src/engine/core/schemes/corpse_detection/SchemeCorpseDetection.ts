@@ -1,7 +1,8 @@
 import { stalker_ids, world_property } from "xray16";
 
 import { IRegistryObjectState } from "@/engine/core/database";
-import { AbstractScheme, EActionId, EEvaluatorId } from "@/engine/core/schemes";
+import { EActionId, EEvaluatorId } from "@/engine/core/objects/ai/types";
+import { AbstractScheme } from "@/engine/core/schemes";
 import { ActionSearchCorpse } from "@/engine/core/schemes/corpse_detection/actions";
 import { EvaluatorCorpseDetect } from "@/engine/core/schemes/corpse_detection/evaluators";
 import { ISchemeCorpseDetectionState } from "@/engine/core/schemes/corpse_detection/ISchemeCorpseDetectionState";

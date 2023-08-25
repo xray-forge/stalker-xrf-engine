@@ -1,22 +1,14 @@
 import { stalker_ids, world_property } from "xray16";
 
-import { IRegistryObjectState, registry } from "@/engine/core/database";
-import { AbstractScheme, EActionId, EEvaluatorId } from "@/engine/core/schemes";
+import { IRegistryObjectState } from "@/engine/core/database";
+import { EActionId, EEvaluatorId } from "@/engine/core/objects/ai/types";
+import { AbstractScheme } from "@/engine/core/schemes";
 import { AbuseManager } from "@/engine/core/schemes/abuse/AbuseManager";
 import { ActionAbuseHit } from "@/engine/core/schemes/abuse/actions/ActionAbuseHit";
 import { EvaluatorAbuse } from "@/engine/core/schemes/abuse/evaluators/EvaluatorAbuse";
 import { ISchemeAbuseState } from "@/engine/core/schemes/abuse/ISchemeAbuseState";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import {
-  ActionPlanner,
-  ClientObject,
-  EScheme,
-  ESchemeType,
-  IniFile,
-  Optional,
-  TCount,
-  TSection,
-} from "@/engine/lib/types";
+import { ActionPlanner, ClientObject, EScheme, ESchemeType, IniFile, TSection } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

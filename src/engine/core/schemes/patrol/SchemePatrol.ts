@@ -1,8 +1,9 @@
 import { stalker_ids, world_property } from "xray16";
 
 import { registry } from "@/engine/core/database";
+import { EActionId, EEvaluatorId } from "@/engine/core/objects/ai/types";
 import { Squad } from "@/engine/core/objects/server/squad/Squad";
-import { AbstractScheme, EActionId, EEvaluatorId } from "@/engine/core/schemes";
+import { AbstractScheme } from "@/engine/core/schemes";
 import { ActionCommander, ActionPatrol } from "@/engine/core/schemes/patrol/actions";
 import { EvaluatorPatrolComm, EvaluatorPatrolEnd } from "@/engine/core/schemes/patrol/evaluators";
 import { ISchemePatrolState } from "@/engine/core/schemes/patrol/ISchemePatrolState";

@@ -1,6 +1,7 @@
 import { stalker_ids, world_property } from "xray16";
 
-import { AbstractScheme, EActionId, EEvaluatorId } from "@/engine/core/schemes";
+import { EActionId, EEvaluatorId } from "@/engine/core/objects/ai/types";
+import { AbstractScheme } from "@/engine/core/schemes";
 import { ActionRemarkActivity } from "@/engine/core/schemes/remark/actions/ActionRemarkActivity";
 import { EvaluatorNeedRemark } from "@/engine/core/schemes/remark/evaluators/EvaluatorNeedRemark";
 import { ISchemeRemarkState } from "@/engine/core/schemes/remark/ISchemeRemarkState";

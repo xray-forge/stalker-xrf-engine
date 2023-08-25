@@ -1,7 +1,8 @@
 import { stalker_ids, world_property } from "xray16";
 
 import { IRegistryObjectState } from "@/engine/core/database";
-import { AbstractScheme, EActionId, EEvaluatorId } from "@/engine/core/schemes";
+import { EActionId, EEvaluatorId } from "@/engine/core/objects/ai/types";
+import { AbstractScheme } from "@/engine/core/schemes";
 import { ActionMeetWait } from "@/engine/core/schemes/meet/actions";
 import { EvaluatorContact } from "@/engine/core/schemes/meet/evaluators";
 import { ISchemeMeetState } from "@/engine/core/schemes/meet/ISchemeMeetState";

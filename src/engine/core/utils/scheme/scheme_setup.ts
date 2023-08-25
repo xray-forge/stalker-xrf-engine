@@ -1,7 +1,8 @@
 import { stalker_ids, world_property } from "xray16";
 
 import { registry } from "@/engine/core/database";
-import { EEvaluatorId, TAbstractSchemeConstructor } from "@/engine/core/schemes";
+import { EEvaluatorId } from "@/engine/core/objects/ai/types";
+import { TAbstractSchemeConstructor } from "@/engine/core/schemes/base";
 import { assert } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { ActionBase, ClientObject, EScheme, ESchemeType, LuaArray } from "@/engine/lib/types";
@@ -88,7 +89,7 @@ export function disableObjectBaseSchemes(object: ClientObject, schemeType: ESche
 
       return;
 
-    case ESchemeType.HELI:
+    case ESchemeType.HELICOPTER:
       registry.schemes.get(EScheme.HIT).disable(object, EScheme.HIT);
 
       return;

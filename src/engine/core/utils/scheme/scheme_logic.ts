@@ -289,7 +289,7 @@ export function enableObjectBaseSchemes(
       return;
     }
 
-    case ESchemeType.HELI: {
+    case ESchemeType.HELICOPTER: {
       const hitSection: Optional<TSection> = readIniString(ini, logicsSection, "on_hit", false, "");
 
       if (hitSection !== null) {

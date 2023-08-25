@@ -2,7 +2,8 @@ import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { stalker_ids } from "xray16";
 
 import { registry } from "@/engine/core/database";
-import { EEvaluatorId, TAbstractSchemeConstructor } from "@/engine/core/schemes/base";
+import { EEvaluatorId } from "@/engine/core/objects/ai/types";
+import { TAbstractSchemeConstructor } from "@/engine/core/schemes/base";
 import { SchemeCombat } from "@/engine/core/schemes/combat";
 import { SchemeCombatIgnore } from "@/engine/core/schemes/combat_ignore";
 import { SchemeHit } from "@/engine/core/schemes/hit";
@@ -65,7 +66,7 @@ describe("'scheme setup' utils", () => {
 
     schemes.forEach((it) => jest.spyOn(it, "disable").mockReset().mockImplementation(jest.fn()));
 
-    disableObjectBaseSchemes(mockClientGameObject(), ESchemeType.HELI);
+    disableObjectBaseSchemes(mockClientGameObject(), ESchemeType.HELICOPTER);
 
     expect(SchemeCombat.disable).toHaveBeenCalledTimes(0);
     expect(SchemeCombatIgnore.disable).toHaveBeenCalledTimes(0);

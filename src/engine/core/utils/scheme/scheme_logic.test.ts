@@ -315,10 +315,10 @@ describe("'scheme logic' utils", () => {
 
     loadSchemeImplementation(SchemeHit);
 
-    enableObjectBaseSchemes(object, ini, ESchemeType.HELI, "sr_idle@first");
+    enableObjectBaseSchemes(object, ini, ESchemeType.HELICOPTER, "sr_idle@first");
     expect(SchemeHit.activate).not.toHaveBeenCalled();
 
-    enableObjectBaseSchemes(object, ini, ESchemeType.HELI, "sr_idle@second");
+    enableObjectBaseSchemes(object, ini, ESchemeType.HELICOPTER, "sr_idle@second");
     expect(SchemeHit.activate).toHaveBeenCalledWith(object, ini, EScheme.HIT, "hit@another");
   });
 
@@ -501,7 +501,7 @@ describe("'scheme logic' utils", () => {
     monsterState.schemeType = ESchemeType.MONSTER;
     itemState.schemeType = ESchemeType.ITEM;
     restrictorState.schemeType = ESchemeType.RESTRICTOR;
-    helicopterState.schemeType = ESchemeType.HELI;
+    helicopterState.schemeType = ESchemeType.HELICOPTER;
 
     // Not registered schemes.
     expect(() => resetObjectGenericSchemesOnSectionSwitch(stalker, EScheme.SR_IDLE, "sr_idle@test")).toThrow();

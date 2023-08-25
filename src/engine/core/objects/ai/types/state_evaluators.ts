@@ -1,0 +1,67 @@
+/**
+ * IDs of state planner evaluators.
+ */
+export enum EStateEvaluatorId {
+  END = 1,
+  // Whether state is locked and cannot be changed (weapon animation happening, turning body)
+  LOCKED = 2,
+  // Whether state is locked by alife/combat activity.
+  LOCKED_EXTERNAL = 3,
+
+  // -- WEAPON
+  WEAPON = 11,
+  WEAPON_LOCKED = 12,
+  WEAPON_STRAPPED = 13,
+  WEAPON_STRAPPED_NOW = 14,
+  WEAPON_UNSTRAPPED = 15,
+  WEAPON_UNSTRAPPED_NOW = 16,
+  WEAPON_NONE = 17,
+  WEAPON_NONE_NOW = 18,
+  WEAPON_DROP = 19,
+  WEAPON_FIRE = 20,
+
+  // -- MOVEMENT
+  MOVEMENT = 21,
+  MOVEMENT_WALK = 22,
+  MOVEMENT_RUN = 23,
+  MOVEMENT_STAND = 24,
+  MOVEMENT_STAND_NOW = 25,
+
+  // -- MENTAL STATES
+  MENTAL = 31,
+  MENTAL_FREE = 32,
+  MENTAL_FREE_NOW = 33,
+  MENTAL_DANGER = 34,
+  MENTAL_DANGER_NOW = 35,
+  MENTAL_PANIC = 36,
+  MENTAL_PANIC_NOW = 37,
+
+  // -- BODYSTATES
+  BODYSTATE = 41,
+  BODYSTATE_CROUCH = 42,
+  BODYSTATE_STANDING = 43,
+  BODYSTATE_CROUCH_NOW = 44,
+  BODYSTATE_STANDING_NOW = 45,
+
+  // -- DIRECTION
+  DIRECTION = 51,
+  DIRECTION_SEARCH = 52,
+
+  // -- ANIMSTATE
+  ANIMSTATE = 61,
+  ANIMSTATE_LOCKED = 62,
+  ANIMSTATE_IDLE_NOW = 64,
+  ANIMSTATE_PLAY_NOW = 66,
+
+  // -- ANIMATION
+  ANIMATION = 81,
+  ANIMATION_LOCKED = 82,
+  ANIMATION_PLAY_NOW = 84,
+  ANIMATION_NONE_NOW = 86,
+
+  // -- SMARTCOVER
+  SMARTCOVER_NEED = 90,
+  SMARTCOVER = 91,
+  IN_SMARTCOVER = 92,
+  // --    smartcover_locked]           = 92,
+}

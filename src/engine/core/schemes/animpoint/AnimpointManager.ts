@@ -1,4 +1,3 @@
-import { EObjectCampActivity } from "core/objects/camp";
 import { level } from "xray16";
 
 import { registry } from "@/engine/core/database";
@@ -10,6 +9,7 @@ import {
   animpointPredicateAlways,
 } from "@/engine/core/objects/animation/predicates/animpoint_predicates";
 import { states } from "@/engine/core/objects/animation/states";
+import { EObjectCampActivity } from "@/engine/core/objects/camp";
 import { CAMP_ACTIVITY_ANIMATION } from "@/engine/core/objects/camp/camp_logic";
 import { CampManager } from "@/engine/core/objects/camp/CampManager";
 import { IAnimpointActionDescriptor, ISchemeAnimpointState } from "@/engine/core/schemes/animpoint/types";

@@ -70,10 +70,15 @@ export enum EScheme {
  * Describes with what object type scheme logic works.
  */
 export enum ESchemeType {
+  // Stalker object scheme.
   STALKER = 1,
+  // Monster object scheme.
   MONSTER = 2,
+  // Item object scheme.
   ITEM = 3,
-  HELI = 4,
+  // Helicopter object scheme.
+  HELICOPTER = 4,
+  // Zone / restrictor scheme.
   RESTRICTOR = 5,
 }
 

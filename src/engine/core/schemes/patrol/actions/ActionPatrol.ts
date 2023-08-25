@@ -1,8 +1,8 @@
 import { action_base, LuabindClass, time_global } from "xray16";
 
 import { registry, setStalkerState } from "@/engine/core/database";
+import { StalkerMoveManager } from "@/engine/core/objects/ai/state/StalkerMoveManager";
 import { EStalkerState } from "@/engine/core/objects/animation";
-import { StalkerMoveManager } from "@/engine/core/objects/state/StalkerMoveManager";
 import { ISchemePatrolState } from "@/engine/core/schemes/patrol";
 import { parseWaypointsData } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";

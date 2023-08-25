@@ -1,7 +1,7 @@
 import { stalker_ids, world_property } from "xray16";
 
+import { EActionId, EEvaluatorId } from "@/engine/core/objects/ai/types";
 import { AbstractScheme } from "@/engine/core/schemes/base/AbstractScheme";
-import { EActionId, EEvaluatorId } from "@/engine/core/schemes/base/id";
 import { ActionSmartCoverActivity } from "@/engine/core/schemes/smartcover/actions";
 import { EvaluatorNeedSmartCover, EvaluatorUseSmartCoverInCombat } from "@/engine/core/schemes/smartcover/evaluators";
 import { ISchemeSmartCoverState } from "@/engine/core/schemes/smartcover/ISchemeSmartCoverState";
