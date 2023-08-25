@@ -6,12 +6,12 @@ import { ActionMentalDanger, ActionMentalFree, ActionMentalPanic } from "@/engin
 import { ActionPlanner } from "@/engine/lib/types";
 
 /**
+ * Setup GOAP logics related to mental state changes of stalkers.
  *
- * @param planner
- * @param stateManager
+ * @param planner - action planner to configure
+ * @param stateManager - target object state manager
  */
 export function setupStalkerMentalStatePlanner(planner: ActionPlanner, stateManager: StalkerStateManager): void {
-  // -- FREE
   const mentalFreeAction: ActionMentalFree = new ActionMentalFree(stateManager);
 
   mentalFreeAction.add_precondition(new world_property(EStateEvaluatorId.LOCKED_EXTERNAL, false));
@@ -26,7 +26,6 @@ export function setupStalkerMentalStatePlanner(planner: ActionPlanner, stateMana
   mentalFreeAction.add_effect(new world_property(EStateEvaluatorId.MENTAL, true));
   planner.add_action(EStateActionId.MENTAL_FREE, mentalFreeAction);
 
-  // -- DANGER
   const mentalDangerAction: ActionMentalDanger = new ActionMentalDanger(stateManager);
 
   mentalDangerAction.add_precondition(new world_property(EStateEvaluatorId.MENTAL, false));
@@ -40,7 +39,6 @@ export function setupStalkerMentalStatePlanner(planner: ActionPlanner, stateMana
   mentalDangerAction.add_effect(new world_property(EStateEvaluatorId.MENTAL_DANGER_NOW, true));
   planner.add_action(EStateActionId.MENTAL_DANGER, mentalDangerAction);
 
-  // -- PANIC
   const mentalPanicAction: ActionMentalPanic = new ActionMentalPanic(stateManager);
 
   mentalPanicAction.add_precondition(new world_property(EStateEvaluatorId.LOCKED_EXTERNAL, false));

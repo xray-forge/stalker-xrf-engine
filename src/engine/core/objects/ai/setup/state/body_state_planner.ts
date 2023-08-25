@@ -11,12 +11,12 @@ import {
 import { ActionPlanner } from "@/engine/lib/types";
 
 /**
+ * Setup GOAP logics related to body state changes of stalkers.
  *
- * @param planner
- * @param stateManager
+ * @param planner - action planner to configure
+ * @param stateManager - target object state manager
  */
 export function setupStalkerBodyStatePlanner(planner: ActionPlanner, stateManager: StalkerStateManager): void {
-  // -- CROUCH
   const bodyStateStateCrouch: ActionBodyStateCrouch = new ActionBodyStateCrouch(stateManager);
 
   bodyStateStateCrouch.add_precondition(new world_property(EStateEvaluatorId.LOCKED_EXTERNAL, false));
@@ -29,7 +29,6 @@ export function setupStalkerBodyStatePlanner(planner: ActionPlanner, stateManage
   bodyStateStateCrouch.add_effect(new world_property(EStateEvaluatorId.BODYSTATE, true));
   planner.add_action(EStateActionId.BODYSTATE_CROUCH, bodyStateStateCrouch);
 
-  // -- CROUCH_danger
   const bodyStateCrouchDangerAction: ActionBodyStateCrouchDanger = new ActionBodyStateCrouchDanger(stateManager);
 
   bodyStateCrouchDangerAction.add_precondition(new world_property(EStateEvaluatorId.LOCKED_EXTERNAL, false));
@@ -43,7 +42,6 @@ export function setupStalkerBodyStatePlanner(planner: ActionPlanner, stateManage
   bodyStateCrouchDangerAction.add_effect(new world_property(EStateEvaluatorId.MENTAL, true));
   planner.add_action(EStateActionId.BODYSTATE_CROUCH_DANGER, bodyStateCrouchDangerAction);
 
-  // --  STAND
   const bodyStateStandingAction: ActionBodyStateStanding = new ActionBodyStateStanding(stateManager);
 
   bodyStateStandingAction.add_precondition(new world_property(EStateEvaluatorId.LOCKED_EXTERNAL, false));
@@ -56,7 +54,6 @@ export function setupStalkerBodyStatePlanner(planner: ActionPlanner, stateManage
   bodyStateStandingAction.add_effect(new world_property(EStateEvaluatorId.BODYSTATE_STANDING_NOW, true));
   planner.add_action(EStateActionId.BODYSTATE_STANDING, bodyStateStandingAction);
 
-  // --  STAND_free
   const standingFreeAction: ActionBodyStateStandingFree = new ActionBodyStateStandingFree(stateManager);
 
   standingFreeAction.add_precondition(new world_property(EStateEvaluatorId.LOCKED_EXTERNAL, false));

@@ -1,15 +1,17 @@
 import { world_property, world_state } from "xray16";
 
-import { setupStalkerAnimationStatePlanner } from "@/engine/core/objects/ai/setup/state/animation_planner";
-import { setupStalkerAnimstateStatePlanner } from "@/engine/core/objects/ai/setup/state/animstate_planner";
-import { setupStalkerBodyStatePlanner } from "@/engine/core/objects/ai/setup/state/body_state_planner";
-import { setupStalkerDirectionStatePlanner } from "@/engine/core/objects/ai/setup/state/direction_planner";
-import { setupStalkerLockedStatePlanner } from "@/engine/core/objects/ai/setup/state/locked_planner";
-import { setupStalkerMentalStatePlanner } from "@/engine/core/objects/ai/setup/state/mental_planner";
-import { setupStalkerMovementStatePlanner } from "@/engine/core/objects/ai/setup/state/movement_planner";
-import { setupStalkerSmartCoverStatePlanner } from "@/engine/core/objects/ai/setup/state/smart_cover_planner";
-import { setupStalkerStateEvaluators } from "@/engine/core/objects/ai/setup/state/state_evaluators";
-import { setupStalkerWeaponStatePlanner } from "@/engine/core/objects/ai/setup/state/weapon_planner";
+import {
+  setupStalkerAnimationStatePlanner,
+  setupStalkerAnimstateStatePlanner,
+  setupStalkerBodyStatePlanner,
+  setupStalkerDirectionStatePlanner,
+  setupStalkerLockedStatePlanner,
+  setupStalkerMentalStatePlanner,
+  setupStalkerMovementStatePlanner,
+  setupStalkerSmartCoverStatePlanner,
+  setupStalkerStateEvaluators,
+  setupStalkerWeaponStatePlanner,
+} from "@/engine/core/objects/ai/setup/state";
 import { EStateActionId, EStateEvaluatorId } from "@/engine/core/objects/animation";
 import { StalkerStateManager } from "@/engine/core/objects/state";
 import { ActionStateEnd } from "@/engine/core/objects/state/state";
@@ -41,6 +43,7 @@ export function setupStalkerStatePlanner(planner: ActionPlanner, stateManager: S
   setupStalkerSmartCoverStatePlanner(planner, stateManager);
   setupStalkerLockedStatePlanner(planner, stateManager);
 
+  // Final action to execute over time when all state actions are finished.
   const endStateAction: ActionStateEnd = new ActionStateEnd(stateManager);
 
   endStateAction.add_precondition(new world_property(EStateEvaluatorId.END, false));
@@ -55,6 +58,7 @@ export function setupStalkerStatePlanner(planner: ActionPlanner, stateManager: S
   endStateAction.add_effect(new world_property(EStateEvaluatorId.END, true));
   planner.add_action(EStateActionId.END, endStateAction);
 
+  // End goal for action graph.
   const goal: WorldState = new world_state();
 
   goal.add_property(new world_property(EStateEvaluatorId.END, true));

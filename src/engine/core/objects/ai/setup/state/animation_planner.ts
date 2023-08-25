@@ -7,9 +7,10 @@ import { ActionStateLocked } from "@/engine/core/objects/state/state";
 import { ActionPlanner } from "@/engine/lib/types";
 
 /**
+ * Setup GOAP logics related to animation execution of stalkers.
  *
- * @param planner
- * @param stateManager
+ * @param planner - action planner to configure
+ * @param stateManager - target object state manager
  */
 export function setupStalkerAnimationStatePlanner(planner: ActionPlanner, stateManager: StalkerStateManager): void {
   // -- START

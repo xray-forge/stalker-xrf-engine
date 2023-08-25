@@ -16,12 +16,12 @@ import {
 import { ActionPlanner } from "@/engine/lib/types";
 
 /**
+ * Setup GOAP logics related to movement state changes of stalkers.
  *
- * @param planner
- * @param stateManager
+ * @param planner - action planner to configure
+ * @param stateManager - target object state manager
  */
 export function setupStalkerMovementStatePlanner(planner: ActionPlanner, stateManager: StalkerStateManager): void {
-  // -- WALK
   const movementWalkAction: ActionMovementWalk = new ActionMovementWalk(stateManager);
 
   movementWalkAction.add_precondition(new world_property(EStateEvaluatorId.LOCKED, false));
@@ -37,8 +37,6 @@ export function setupStalkerMovementStatePlanner(planner: ActionPlanner, stateMa
   movementWalkAction.add_precondition(new world_property(EStateEvaluatorId.ANIMATION_NONE_NOW, true));
   movementWalkAction.add_effect(new world_property(EStateEvaluatorId.MOVEMENT, true));
   planner.add_action(EStateActionId.MOVEMENT_WALK, movementWalkAction);
-
-  // -- WALK_turn
 
   const movementWalkTurnAction: ActionMovementWalkTurn = new ActionMovementWalkTurn(stateManager);
 
@@ -59,7 +57,6 @@ export function setupStalkerMovementStatePlanner(planner: ActionPlanner, stateMa
   movementWalkTurnAction.add_effect(new world_property(EStateEvaluatorId.DIRECTION, true));
   planner.add_action(EStateActionId.MOVEMENT_WALK_TURN, movementWalkTurnAction);
 
-  // -- WALK_search
   const movementWalkSearchAction: ActionMovementWalkSearch = new ActionMovementWalkSearch(stateManager);
 
   movementWalkSearchAction.add_precondition(new world_property(EStateEvaluatorId.LOCKED, false));
@@ -79,7 +76,6 @@ export function setupStalkerMovementStatePlanner(planner: ActionPlanner, stateMa
   movementWalkSearchAction.add_effect(new world_property(EStateEvaluatorId.DIRECTION, true));
   planner.add_action(EStateActionId.MOVEMENT_WALK_SEARCH, movementWalkSearchAction);
 
-  // -- RUN
   const movementRunAction: ActionMovementRun = new ActionMovementRun(stateManager);
 
   movementRunAction.add_precondition(new world_property(EStateEvaluatorId.LOCKED, false));
@@ -96,7 +92,6 @@ export function setupStalkerMovementStatePlanner(planner: ActionPlanner, stateMa
   movementRunAction.add_effect(new world_property(EStateEvaluatorId.MOVEMENT, true));
   planner.add_action(EStateActionId.MOVEMENT_RUN, movementRunAction);
 
-  // -- RUN_turn
   const movementRunTurnAction: ActionMovementRunTurn = new ActionMovementRunTurn(stateManager);
 
   movementRunTurnAction.add_precondition(new world_property(EStateEvaluatorId.LOCKED, false));
@@ -116,7 +111,6 @@ export function setupStalkerMovementStatePlanner(planner: ActionPlanner, stateMa
   movementRunTurnAction.add_effect(new world_property(EStateEvaluatorId.DIRECTION, true));
   planner.add_action(EStateActionId.MOVEMENT_RUN_TURN, movementRunTurnAction);
 
-  // -- RUN_search
   const movementRunSearchAction: ActionMovementRunSearch = new ActionMovementRunSearch(stateManager);
 
   movementRunSearchAction.add_precondition(new world_property(EStateEvaluatorId.LOCKED, false));
@@ -136,7 +130,6 @@ export function setupStalkerMovementStatePlanner(planner: ActionPlanner, stateMa
   movementRunSearchAction.add_effect(new world_property(EStateEvaluatorId.DIRECTION, true));
   planner.add_action(EStateActionId.MOVEMENT_RUN_SEARCH, movementRunSearchAction);
 
-  // -- STAND
   const movementStandAction: ActionMovementStand = new ActionMovementStand(stateManager);
 
   movementStandAction.add_precondition(new world_property(EStateEvaluatorId.LOCKED_EXTERNAL, false));
@@ -148,7 +141,6 @@ export function setupStalkerMovementStatePlanner(planner: ActionPlanner, stateMa
   movementStandAction.add_effect(new world_property(EStateEvaluatorId.MOVEMENT, true));
   planner.add_action(EStateActionId.MOVEMENT_STAND, movementStandAction);
 
-  // -- STAND_turn
   const standTurnAction: ActionMovementStandTurn = new ActionMovementStandTurn(stateManager);
 
   standTurnAction.add_precondition(new world_property(EStateEvaluatorId.LOCKED_EXTERNAL, false));
@@ -163,7 +155,6 @@ export function setupStalkerMovementStatePlanner(planner: ActionPlanner, stateMa
   standTurnAction.add_effect(new world_property(EStateEvaluatorId.DIRECTION, true));
   planner.add_action(EStateActionId.MOVEMENT_STAND_TURN, standTurnAction);
 
-  // -- STAND_search
   const movementStandSearchAction: ActionMovementStandSearch = new ActionMovementStandSearch(stateManager);
 
   movementStandSearchAction.add_precondition(new world_property(EStateEvaluatorId.LOCKED_EXTERNAL, false));

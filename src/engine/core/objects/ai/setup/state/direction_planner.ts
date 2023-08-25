@@ -6,12 +6,12 @@ import { ActionDirectionSearch, ActionDirectionTurn } from "@/engine/core/object
 import { ActionPlanner } from "@/engine/lib/types";
 
 /**
+ * Setup GOAP logics related to body direction changes of stalkers.
  *
- * @param planner
- * @param stateManager
+ * @param planner - action planner to configure
+ * @param stateManager - target object state manager
  */
 export function setupStalkerDirectionStatePlanner(planner: ActionPlanner, stateManager: StalkerStateManager): void {
-  // -- TURN
   const directionTurnAction: ActionDirectionTurn = new ActionDirectionTurn(stateManager);
 
   // --action.add_precondition    (new world_property(EStateManagerProperty.locked,                 false))
@@ -27,7 +27,6 @@ export function setupStalkerDirectionStatePlanner(planner: ActionPlanner, stateM
   directionTurnAction.add_effect(new world_property(EStateEvaluatorId.DIRECTION, true));
   planner.add_action(EStateActionId.DIRECTION_TURN, directionTurnAction);
 
-  // -- SEARCH
   const directionSearchAction: ActionDirectionSearch = new ActionDirectionSearch(stateManager);
 
   // --action.add_precondition    (new world_property(EStateManagerProperty.locked,                 false))

@@ -11,12 +11,12 @@ import {
 import { ActionPlanner } from "@/engine/lib/types";
 
 /**
+ * Setup GOAP logics related to weapon state changes of stalkers.
  *
- * @param planner
- * @param stateManager
+ * @param planner - action planner to configure
+ * @param stateManager - target object state manager
  */
 export function setupStalkerWeaponStatePlanner(planner: ActionPlanner, stateManager: StalkerStateManager): void {
-  // -- UNSTRAPP
   const unstrapAction: ActionWeaponUnstrap = new ActionWeaponUnstrap(stateManager);
 
   unstrapAction.add_precondition(new world_property(EStateEvaluatorId.LOCKED, false));
@@ -32,7 +32,6 @@ export function setupStalkerWeaponStatePlanner(planner: ActionPlanner, stateMana
   unstrapAction.add_effect(new world_property(EStateEvaluatorId.WEAPON, true));
   planner.add_action(EStateActionId.WEAPON_UNSTRAPP, unstrapAction);
 
-  // -- STRAPP
   const strapAction: ActionWeaponStrap = new ActionWeaponStrap(stateManager);
 
   strapAction.add_precondition(new world_property(EStateEvaluatorId.LOCKED, false));
@@ -48,7 +47,6 @@ export function setupStalkerWeaponStatePlanner(planner: ActionPlanner, stateMana
   strapAction.add_effect(new world_property(EStateEvaluatorId.WEAPON, true));
   planner.add_action(EStateActionId.WEAPON_STRAPP, strapAction);
 
-  // -- NONE
   const weaponNoneAction: ActionWeaponNone = new ActionWeaponNone(stateManager);
 
   weaponNoneAction.add_precondition(new world_property(EStateEvaluatorId.LOCKED, false));
@@ -63,7 +61,6 @@ export function setupStalkerWeaponStatePlanner(planner: ActionPlanner, stateMana
   weaponNoneAction.add_effect(new world_property(EStateEvaluatorId.WEAPON, true));
   planner.add_action(EStateActionId.WEAPON_NONE, weaponNoneAction);
 
-  // -- DROP
   const weaponDropAction: ActionWeaponDrop = new ActionWeaponDrop(stateManager);
 
   weaponDropAction.add_precondition(new world_property(EStateEvaluatorId.LOCKED, false));
