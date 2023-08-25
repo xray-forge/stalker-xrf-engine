@@ -2,8 +2,8 @@ import { alife, cast_planner, relation_registry, stalker_ids } from "xray16";
 
 import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { AbstractCoreManager } from "@/engine/core/managers/base/AbstractCoreManager";
+import { StalkerStateManager } from "@/engine/core/objects/ai/state/StalkerStateManager";
 import { EActionId, EStateActionId } from "@/engine/core/objects/ai/types";
-import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateManager";
 import { gameTimeToString } from "@/engine/core/utils/game/game_time";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getObjectActiveWeaponSlot } from "@/engine/core/utils/object";

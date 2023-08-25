@@ -1,7 +1,6 @@
 import { world_property } from "xray16";
 
-import { EStateActionId, EStateEvaluatorId } from "@/engine/core/objects/ai/types";
-import { StalkerStateManager } from "@/engine/core/objects/state";
+import { StalkerStateManager } from "@/engine/core/objects/ai/state";
 import {
   ActionMovementRun,
   ActionMovementRunSearch,
@@ -12,7 +11,8 @@ import {
   ActionMovementWalk,
   ActionMovementWalkSearch,
   ActionMovementWalkTurn,
-} from "@/engine/core/objects/state/movement";
+} from "@/engine/core/objects/ai/state/movement";
+import { EStateActionId, EStateEvaluatorId } from "@/engine/core/objects/ai/types";
 import { ActionPlanner } from "@/engine/lib/types";
 
 /**

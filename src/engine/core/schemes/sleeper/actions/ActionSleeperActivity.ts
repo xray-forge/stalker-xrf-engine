@@ -1,8 +1,8 @@
 import { action_base, LuabindClass, patrol } from "xray16";
 
 import { registry, setStalkerState } from "@/engine/core/database";
+import { StalkerMoveManager } from "@/engine/core/objects/ai/state/StalkerMoveManager";
 import { EStalkerState } from "@/engine/core/objects/animation";
-import { StalkerMoveManager } from "@/engine/core/objects/state/StalkerMoveManager";
 import { ISchemeEventHandler } from "@/engine/core/schemes";
 import { ISchemeSleeperState } from "@/engine/core/schemes/sleeper";
 import { abort } from "@/engine/core/utils/assertion";

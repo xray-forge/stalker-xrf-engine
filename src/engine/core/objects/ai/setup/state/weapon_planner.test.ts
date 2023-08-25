@@ -1,14 +1,14 @@
 import { describe, it } from "@jest/globals";
 
 import { setupStalkerWeaponStatePlanner } from "@/engine/core/objects/ai/setup/state/weapon_planner";
-import { EStateActionId, EStateEvaluatorId } from "@/engine/core/objects/ai/types";
-import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateManager";
+import { StalkerStateManager } from "@/engine/core/objects/ai/state/StalkerStateManager";
 import {
   ActionWeaponDrop,
   ActionWeaponNone,
   ActionWeaponStrap,
   ActionWeaponUnstrap,
-} from "@/engine/core/objects/state/weapon";
+} from "@/engine/core/objects/ai/state/weapon";
+import { EStateActionId, EStateEvaluatorId } from "@/engine/core/objects/ai/types";
 import { ActionPlanner, ClientObject } from "@/engine/lib/types";
 import { checkPlannerAction } from "@/fixtures/engine";
 import { mockClientGameObject } from "@/fixtures/xray";

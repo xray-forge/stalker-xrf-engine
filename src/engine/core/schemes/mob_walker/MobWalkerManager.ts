@@ -1,7 +1,7 @@
 import { anim, cond, look, move, patrol, sound } from "xray16";
 
 import { registry, setMonsterState } from "@/engine/core/database";
-import { StalkerMoveManager } from "@/engine/core/objects/state/StalkerMoveManager";
+import { StalkerMoveManager } from "@/engine/core/objects/ai/state/StalkerMoveManager";
 import { AbstractSchemeManager } from "@/engine/core/schemes/base";
 import { ISchemeMobWalkerState } from "@/engine/core/schemes/mob_walker/ISchemeMobWalkerState";
 import { abort } from "@/engine/core/utils/assertion";

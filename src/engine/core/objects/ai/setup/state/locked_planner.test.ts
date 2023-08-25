@@ -1,8 +1,8 @@
 import { describe, it } from "@jest/globals";
 
 import { setupStalkerLockedStatePlanner } from "@/engine/core/objects/ai/setup/state/locked_planner";
+import { StalkerStateManager } from "@/engine/core/objects/ai/state/StalkerStateManager";
 import { EStateActionId, EStateEvaluatorId } from "@/engine/core/objects/ai/types";
-import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateManager";
 import { ActionPlanner, ClientObject } from "@/engine/lib/types";
 import { checkPlannerAction } from "@/fixtures/engine";
 import { mockClientGameObject } from "@/fixtures/xray";

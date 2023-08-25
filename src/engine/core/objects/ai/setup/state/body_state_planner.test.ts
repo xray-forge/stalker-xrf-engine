@@ -1,14 +1,14 @@
 import { describe, it } from "@jest/globals";
 
 import { setupStalkerBodyStatePlanner } from "@/engine/core/objects/ai/setup/state/body_state_planner";
-import { EStateActionId, EStateEvaluatorId } from "@/engine/core/objects/ai/types";
 import {
   ActionBodyStateCrouch,
   ActionBodyStateCrouchDanger,
   ActionBodyStateStanding,
   ActionBodyStateStandingFree,
-} from "@/engine/core/objects/state/body_state";
-import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateManager";
+} from "@/engine/core/objects/ai/state/body_state";
+import { StalkerStateManager } from "@/engine/core/objects/ai/state/StalkerStateManager";
+import { EStateActionId, EStateEvaluatorId } from "@/engine/core/objects/ai/types";
 import { ActionPlanner, ClientObject } from "@/engine/lib/types";
 import { checkPlannerAction } from "@/fixtures/engine";
 import { mockClientGameObject } from "@/fixtures/xray";

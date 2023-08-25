@@ -40,9 +40,9 @@ import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundMan
 import { DropManager } from "@/engine/core/managers/world/DropManager";
 import { ReleaseBodyManager } from "@/engine/core/managers/world/ReleaseBodyManager";
 import { setupStalkerMotivationPlanner, setupStalkerStatePlanner } from "@/engine/core/objects/ai/setup";
+import { StalkerStateManager } from "@/engine/core/objects/ai/state";
+import { StalkerMoveManager } from "@/engine/core/objects/ai/state/StalkerMoveManager";
 import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain/SmartTerrain";
-import { StalkerStateManager } from "@/engine/core/objects/state";
-import { StalkerMoveManager } from "@/engine/core/objects/state/StalkerMoveManager";
 import { ESchemeEvent, IBaseSchemeState } from "@/engine/core/schemes/base";
 import { SchemeCombat } from "@/engine/core/schemes/combat/SchemeCombat";
 import { PostCombatIdle } from "@/engine/core/schemes/combat_idle/PostCombatIdle";

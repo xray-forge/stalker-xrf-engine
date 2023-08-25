@@ -1,27 +1,26 @@
 import { describe, expect, it } from "@jest/globals";
 
 import { setupStalkerStateEvaluators } from "@/engine/core/objects/ai/setup/state/state_evaluators";
-import { EStateEvaluatorId } from "@/engine/core/objects/ai/types";
 import {
   EvaluatorAnimation,
   EvaluatorAnimationLocked,
   EvaluatorAnimationNoneNow,
   EvaluatorAnimationPlayNow,
-} from "@/engine/core/objects/state/animation";
+} from "@/engine/core/objects/ai/state/animation";
 import {
   EvaluatorAnimstate,
   EvaluatorAnimstateIdleNow,
   EvaluatorAnimstateLocked,
   EvaluatorAnimstatePlayNow,
-} from "@/engine/core/objects/state/animstate";
+} from "@/engine/core/objects/ai/state/animstate";
 import {
   EvaluatorBodyState,
   EvaluatorBodyStateCrouch,
   EvaluatorBodyStateCrouchNow,
   EvaluatorBodyStateStanding,
   EvaluatorBodyStateStandingNow,
-} from "@/engine/core/objects/state/body_state";
-import { EvaluatorDirection, EvaluatorDirectionSearch } from "@/engine/core/objects/state/direction";
+} from "@/engine/core/objects/ai/state/body_state";
+import { EvaluatorDirection, EvaluatorDirectionSearch } from "@/engine/core/objects/ai/state/direction";
 import {
   EvaluatorMental,
   EvaluatorMentalDanger,
@@ -30,25 +29,25 @@ import {
   EvaluatorMentalFreeNow,
   EvaluatorMentalPanic,
   EvaluatorMentalPanicNow,
-} from "@/engine/core/objects/state/mental";
+} from "@/engine/core/objects/ai/state/mental";
 import {
   EvaluatorMovement,
   EvaluatorMovementRun,
   EvaluatorMovementStand,
   EvaluatorMovementStandNow,
   EvaluatorMovementWalk,
-} from "@/engine/core/objects/state/movement";
+} from "@/engine/core/objects/ai/state/movement";
 import {
   EvaluatorInSmartCover,
   EvaluatorSmartCover,
   EvaluatorSmartCoverNeed,
-} from "@/engine/core/objects/state/smart_cover";
-import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateManager";
+} from "@/engine/core/objects/ai/state/smart_cover";
+import { StalkerStateManager } from "@/engine/core/objects/ai/state/StalkerStateManager";
 import {
   EvaluatorStateEnd,
   EvaluatorStateLocked,
   EvaluatorStateLockedExternal,
-} from "@/engine/core/objects/state/state";
+} from "@/engine/core/objects/ai/state/state";
 import {
   EvaluatorWeapon,
   EvaluatorWeaponDrop,
@@ -60,7 +59,8 @@ import {
   EvaluatorWeaponStrappedNow,
   EvaluatorWeaponUnstrapped,
   EvaluatorWeaponUnstrappedNow,
-} from "@/engine/core/objects/state/weapon";
+} from "@/engine/core/objects/ai/state/weapon";
+import { EStateEvaluatorId } from "@/engine/core/objects/ai/types";
 import { ActionPlanner, ClientObject } from "@/engine/lib/types";
 import { MockActionPlanner, mockClientGameObject } from "@/fixtures/xray";
 

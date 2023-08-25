@@ -1,13 +1,13 @@
 import { world_property } from "xray16";
 
-import { EStateActionId, EStateEvaluatorId } from "@/engine/core/objects/ai/types";
-import { StalkerStateManager } from "@/engine/core/objects/state";
+import { StalkerStateManager } from "@/engine/core/objects/ai/state";
 import {
   ActionBodyStateCrouch,
   ActionBodyStateCrouchDanger,
   ActionBodyStateStanding,
   ActionBodyStateStandingFree,
-} from "@/engine/core/objects/state/body_state";
+} from "@/engine/core/objects/ai/state/body_state";
+import { EStateActionId, EStateEvaluatorId } from "@/engine/core/objects/ai/types";
 import { ActionPlanner } from "@/engine/lib/types";
 
 /**

@@ -13,8 +13,8 @@ import {
   setupStalkerStateEvaluators,
   setupStalkerWeaponStatePlanner,
 } from "@/engine/core/objects/ai/setup/state";
-import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateManager";
-import { ActionStateEnd } from "@/engine/core/objects/state/state";
+import { StalkerStateManager } from "@/engine/core/objects/ai/state/StalkerStateManager";
+import { ActionStateEnd } from "@/engine/core/objects/ai/state/state";
 import { ActionPlanner, ClientObject } from "@/engine/lib/types";
 import { checkPlannerAction } from "@/fixtures/engine";
 import { MockActionPlanner, mockClientGameObject, MockWorldState } from "@/fixtures/xray";

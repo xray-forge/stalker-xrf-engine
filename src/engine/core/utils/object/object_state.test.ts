@@ -1,10 +1,10 @@
 import { describe, expect, it, jest } from "@jest/globals";
 
 import { IRegistryObjectState, registerObject } from "@/engine/core/database";
+import { StalkerAnimationManager } from "@/engine/core/objects/ai/state/StalkerAnimationManager";
+import { StalkerStateManager } from "@/engine/core/objects/ai/state/StalkerStateManager";
 import { EActionId } from "@/engine/core/objects/ai/types";
 import { EAnimationType, EStalkerState } from "@/engine/core/objects/animation";
-import { StalkerAnimationManager } from "@/engine/core/objects/state/StalkerAnimationManager";
-import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateManager";
 import { ISchemeWoundedState } from "@/engine/core/schemes/wounded";
 import { WoundManager } from "@/engine/core/schemes/wounded/WoundManager";
 import { isObjectAsleep, isObjectMeeting, isObjectWounded } from "@/engine/core/utils/object/object_state";

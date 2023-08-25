@@ -1,4 +1,4 @@
-import { StalkerAnimationManager } from "@/engine/core/objects/state/StalkerAnimationManager";
+import { StalkerAnimationManager } from "@/engine/core/objects/ai/state/StalkerAnimationManager";
 import { Optional, TName, TNumberId } from "@/engine/lib/types";
 
 /**

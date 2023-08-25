@@ -1,9 +1,9 @@
 import { world_property } from "xray16";
 
+import { StalkerStateManager } from "@/engine/core/objects/ai/state";
+import { ActionAnimstateStart, ActionAnimstateStop } from "@/engine/core/objects/ai/state/animstate";
+import { ActionStateLocked } from "@/engine/core/objects/ai/state/state";
 import { EStateActionId, EStateEvaluatorId } from "@/engine/core/objects/ai/types";
-import { StalkerStateManager } from "@/engine/core/objects/state";
-import { ActionAnimstateStart, ActionAnimstateStop } from "@/engine/core/objects/state/animstate";
-import { ActionStateLocked } from "@/engine/core/objects/state/state";
 import { ActionPlanner } from "@/engine/lib/types";
 
 /**

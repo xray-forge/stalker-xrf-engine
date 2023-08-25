@@ -4,13 +4,13 @@ import { registerObject, unregisterObject } from "@/engine/core/database/objects
 import { registry } from "@/engine/core/database/registry";
 import { IRegistryObjectState } from "@/engine/core/database/types";
 import { StalkerBinder } from "@/engine/core/objects";
+import { StalkerStateManager } from "@/engine/core/objects/ai/state/StalkerStateManager";
 import {
   EStalkerState,
   ILookTargetDescriptor,
   IStateManagerCallbackDescriptor,
   ITargetStateDescriptorExtras,
 } from "@/engine/core/objects/animation/state_types";
-import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateManager";
 import { ClientObject, Optional, TDuration } from "@/engine/lib/types";
 
 /**

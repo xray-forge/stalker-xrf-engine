@@ -1,9 +1,9 @@
 import { describe, it } from "@jest/globals";
 
 import { setupStalkerAnimationStatePlanner } from "@/engine/core/objects/ai/setup/state/animation_planner";
+import { ActionAnimationStart, ActionAnimationStop } from "@/engine/core/objects/ai/state/animation";
+import { StalkerStateManager } from "@/engine/core/objects/ai/state/StalkerStateManager";
 import { EStateActionId, EStateEvaluatorId } from "@/engine/core/objects/ai/types";
-import { ActionAnimationStart, ActionAnimationStop } from "@/engine/core/objects/state/animation";
-import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateManager";
 import { ActionPlanner, ClientObject } from "@/engine/lib/types";
 import { checkPlannerAction } from "@/fixtures/engine";
 import { mockClientGameObject } from "@/fixtures/xray";
