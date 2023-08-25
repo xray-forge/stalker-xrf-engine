@@ -97,7 +97,7 @@ export class HelicopterBinder extends object_binder {
 
     if (!this.initialized && actor) {
       this.initialized = true;
-      initializeObjectSchemeLogic(this.object, this.state, this.loaded, ESchemeType.HELI);
+      initializeObjectSchemeLogic(this.object, this.state, this.loaded, ESchemeType.HELICOPTER);
     }
 
     if (this.state.activeSection !== null) {

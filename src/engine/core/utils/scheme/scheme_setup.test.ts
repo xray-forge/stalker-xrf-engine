@@ -65,7 +65,7 @@ describe("'scheme setup' utils", () => {
 
     schemes.forEach((it) => jest.spyOn(it, "disable").mockReset().mockImplementation(jest.fn()));
 
-    disableObjectBaseSchemes(mockClientGameObject(), ESchemeType.HELI);
+    disableObjectBaseSchemes(mockClientGameObject(), ESchemeType.HELICOPTER);
 
     expect(SchemeCombat.disable).toHaveBeenCalledTimes(0);
     expect(SchemeCombatIgnore.disable).toHaveBeenCalledTimes(0);
