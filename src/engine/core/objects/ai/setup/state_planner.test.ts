@@ -1,8 +1,7 @@
 import { describe, expect, it } from "@jest/globals";
 
-import { EAnimationType } from "@/engine/core/objects/animation/animation_types";
+import { setupStalkerStatePlanner } from "@/engine/core/objects/ai";
 import { EStateActionId, EStateEvaluatorId } from "@/engine/core/objects/animation/state_types";
-import { addStateManager } from "@/engine/core/objects/state/add_state_manager";
 import {
   ActionAnimationStart,
   ActionAnimationStop,
@@ -71,7 +70,6 @@ import {
   EvaluatorSmartCover,
   EvaluatorSmartCoverNeed,
 } from "@/engine/core/objects/state/smart_cover";
-import { StalkerAnimationManager } from "@/engine/core/objects/state/StalkerAnimationManager";
 import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateManager";
 import {
   ActionStateEnd,
@@ -79,10 +77,6 @@ import {
   EvaluatorStateLocked,
   EvaluatorStateLockedExternal,
 } from "@/engine/core/objects/state/state";
-import { EvaluatorStateIdleAlife } from "@/engine/core/objects/state/state/EvaluatorStateIdleAlife";
-import { EvaluatorStateIdleCombat } from "@/engine/core/objects/state/state/EvaluatorStateIdleCombat";
-import { EvaluatorStateIdleItems } from "@/engine/core/objects/state/state/EvaluatorStateIdleItems";
-import { EvaluatorStateLogicActive } from "@/engine/core/objects/state/state/EvaluatorStateLogicActive";
 import {
   ActionWeaponDrop,
   ActionWeaponNone,
@@ -99,152 +93,19 @@ import {
   EvaluatorWeaponUnstrapped,
   EvaluatorWeaponUnstrappedNow,
 } from "@/engine/core/objects/state/weapon";
-import { EActionId, EEvaluatorId } from "@/engine/core/schemes";
-import { ActionBase, AnyArgs, ClientObject, Optional } from "@/engine/lib/types";
-import { MockActionBase, MockActionPlanner, mockClientGameObject, MockWorldState } from "@/fixtures/xray";
-import { mockStalkerIds } from "@/fixtures/xray/mocks/constants";
+import { ActionPlanner, ClientObject } from "@/engine/lib/types";
+import { checkPlannerAction } from "@/fixtures/engine";
+import { MockActionPlanner, mockClientGameObject, MockWorldState } from "@/fixtures/xray";
 
-describe("add_state_manager util", () => {
-  const checkAction = (
-    action: Optional<MockActionBase | ActionBase>,
-    target: string | { new (...args: AnyArgs): ActionBase },
-    properties: Array<[number, boolean]>,
-    effects: Array<[number, boolean]>
-  ): void => {
-    const base = action as unknown as MockActionBase;
-
-    expect(base).toBeDefined();
-
-    if (typeof target === "string") {
-      expect(base.name).toBe(target);
-    } else {
-      expect(base.name).toBe(target.name);
-      expect(base instanceof target).toBeTruthy();
-    }
-
-    expect(base.preconditions).toHaveLength(properties.length);
-    expect(base.effects).toHaveLength(effects.length);
-
-    properties.forEach(([id, value]) => {
-      const actual = base.getPrecondition(id)?.value();
-
-      if (actual !== value) {
-        throw new Error(`Action '${base.name}' precondition '${id}' is wrong. Expected '${value}', got '${actual}'.`);
-      }
-    });
-
-    effects.forEach(([id, value]) => {
-      const actual = base.getEffect(id)?.value();
-
-      if (actual !== value) {
-        throw new Error(`Action '${base.name}' effect '${id}' is wrong. Expected '${value}', got '${actual}'.`);
-      }
-    });
-  };
-
-  it("should correctly setup object planner evaluators", () => {
-    const object: ClientObject = mockClientGameObject();
-    const planner: MockActionPlanner = object.motivation_action_manager() as unknown as MockActionPlanner;
-    const stateManager: StalkerStateManager = addStateManager(object);
-
-    expect(Object.keys(planner.evaluators)).toHaveLength(4);
-
-    expect(stateManager.animstate instanceof StalkerAnimationManager).toBeTruthy();
-    expect(stateManager.animation instanceof StalkerAnimationManager).toBeTruthy();
-    expect(stateManager.animstate.type).toBe(EAnimationType.ANIMSTATE);
-    expect(stateManager.animation.type).toBe(EAnimationType.ANIMATION);
-
-    expect(planner.evaluator(EEvaluatorId.IS_STATE_IDLE_COMBAT) instanceof EvaluatorStateIdleCombat).toBeTruthy();
-    expect(planner.evaluator(EEvaluatorId.IS_STATE_IDLE_ALIFE) instanceof EvaluatorStateIdleAlife).toBeTruthy();
-    expect(planner.evaluator(EEvaluatorId.IS_STATE_IDLE_ITEMS) instanceof EvaluatorStateIdleItems).toBeTruthy();
-    expect(planner.evaluator(EEvaluatorId.IS_STATE_LOGIC_ACTIVE) instanceof EvaluatorStateLogicActive).toBeTruthy();
-  });
-
-  it("should correctly setup object planner actions", () => {
-    const object: ClientObject = mockClientGameObject();
-    const planner: MockActionPlanner = object.motivation_action_manager() as unknown as MockActionPlanner;
-
-    addStateManager(object);
-
-    checkAction(
-      planner.action(EActionId.STATE_TO_IDLE_COMBAT),
-      "ToIdleCombat",
-      [[EEvaluatorId.IS_STATE_IDLE_COMBAT, false]],
-      [[EEvaluatorId.IS_STATE_IDLE_COMBAT, true]]
-    );
-
-    checkAction(
-      planner.action(EActionId.STATE_TO_IDLE_ITEMS),
-      "ToIdleItems",
-      [
-        [EEvaluatorId.IS_STATE_IDLE_ITEMS, false],
-        [mockStalkerIds.property_items, true],
-        [mockStalkerIds.property_enemy, false],
-      ],
-      [[EEvaluatorId.IS_STATE_IDLE_ITEMS, true]]
-    );
-
-    checkAction(
-      planner.action(EActionId.STATE_TO_IDLE_ALIFE),
-      "ToIdleAlife",
-      [
-        [mockStalkerIds.property_alive, true],
-        [mockStalkerIds.property_enemy, false],
-        [mockStalkerIds.property_danger, false],
-        [mockStalkerIds.property_items, false],
-        [EEvaluatorId.IS_STATE_LOGIC_ACTIVE, false],
-        [EEvaluatorId.IS_STATE_IDLE_ALIFE, false],
-      ],
-      [[EEvaluatorId.IS_STATE_IDLE_ALIFE, true]]
-    );
-
-    checkAction(planner.action(EActionId.ALIFE), "generic", [[EEvaluatorId.IS_STATE_IDLE_ALIFE, true]], []);
-    checkAction(
-      planner.action(mockStalkerIds.action_gather_items),
-      "generic",
-      [[EEvaluatorId.IS_STATE_IDLE_ITEMS, true]],
-      []
-    );
-    checkAction(
-      planner.action(mockStalkerIds.action_combat_planner),
-      "generic",
-      [[EEvaluatorId.IS_STATE_IDLE_COMBAT, true]],
-      []
-    );
-
-    checkAction(
-      planner.action(mockStalkerIds.action_anomaly_planner),
-      "generic",
-      [[EEvaluatorId.IS_STATE_IDLE_COMBAT, true]],
-      []
-    );
-
-    checkAction(
-      planner.action(mockStalkerIds.action_danger_planner),
-      "generic",
-      [[EEvaluatorId.IS_STATE_IDLE_COMBAT, true]],
-      []
-    );
-  });
-
+describe("setup_state_manager util", () => {
   it("should correctly setup state planner evaluators", () => {
     const object: ClientObject = mockClientGameObject();
-    const stateManager: StalkerStateManager = addStateManager(object);
-    const planner: MockActionPlanner = stateManager.planner as unknown as MockActionPlanner;
+    const stateManager: StalkerStateManager = new StalkerStateManager(object);
+    const planner: ActionPlanner = stateManager.planner;
 
-    expect(Object.keys(planner.evaluators)).toHaveLength(43);
+    setupStalkerStatePlanner(planner, stateManager);
 
-    expect(stateManager.animstate instanceof StalkerAnimationManager).toBeTruthy();
-    expect(stateManager.animation instanceof StalkerAnimationManager).toBeTruthy();
-    expect(stateManager.animstate.type).toBe(EAnimationType.ANIMSTATE);
-    expect(stateManager.animation.type).toBe(EAnimationType.ANIMATION);
-
-    const targetWorldState: MockWorldState = planner.goalWorldState as unknown as MockWorldState;
-
-    expect(targetWorldState).not.toBeNull();
-    expect(targetWorldState.properties).toHaveLength(1);
-    expect(targetWorldState.properties[0].condition()).toBe(EStateEvaluatorId.END);
-    expect(targetWorldState.properties[0].value()).toBe(true);
+    expect(Object.keys((planner as unknown as MockActionPlanner).evaluators)).toHaveLength(43);
 
     expect(planner.evaluator(EStateEvaluatorId.END) instanceof EvaluatorStateEnd).toBeTruthy();
     expect(planner.evaluator(EStateEvaluatorId.LOCKED) instanceof EvaluatorStateLocked).toBeTruthy();
@@ -300,12 +161,30 @@ describe("add_state_manager util", () => {
     expect(planner.evaluator(EStateEvaluatorId.IN_SMARTCOVER) instanceof EvaluatorInSmartCover).toBeTruthy();
   });
 
+  it("should correctly setup state planner target world state", () => {
+    const object: ClientObject = mockClientGameObject();
+    const stateManager: StalkerStateManager = new StalkerStateManager(object);
+    const planner: ActionPlanner = stateManager.planner;
+
+    setupStalkerStatePlanner(planner, stateManager);
+
+    const targetWorldState: MockWorldState = (planner as unknown as MockActionPlanner)
+      .goalWorldState as unknown as MockWorldState;
+
+    expect(targetWorldState).not.toBeNull();
+    expect(targetWorldState.properties).toHaveLength(1);
+    expect(targetWorldState.properties[0].condition()).toBe(EStateEvaluatorId.END);
+    expect(targetWorldState.properties[0].value()).toBe(true);
+  });
+
   it("should correctly setup state planner weapon actions", () => {
     const object: ClientObject = mockClientGameObject();
-    const stateManager: StalkerStateManager = addStateManager(object);
-    const planner: MockActionPlanner = stateManager.planner as unknown as MockActionPlanner;
+    const stateManager: StalkerStateManager = new StalkerStateManager(object);
+    const planner: ActionPlanner = stateManager.planner;
 
-    checkAction(
+    setupStalkerStatePlanner(planner, stateManager);
+
+    checkPlannerAction(
       planner.action(EStateActionId.WEAPON_UNSTRAPP),
       ActionWeaponUnstrap,
       [
@@ -323,7 +202,7 @@ describe("add_state_manager util", () => {
       [[EStateEvaluatorId.WEAPON, true]]
     );
 
-    checkAction(
+    checkPlannerAction(
       planner.action(EStateActionId.WEAPON_STRAPP),
       ActionWeaponStrap,
       [
@@ -341,7 +220,7 @@ describe("add_state_manager util", () => {
       [[EStateEvaluatorId.WEAPON, true]]
     );
 
-    checkAction(
+    checkPlannerAction(
       planner.action(EStateActionId.WEAPON_NONE),
       ActionWeaponNone,
       [
@@ -358,7 +237,7 @@ describe("add_state_manager util", () => {
       [[EStateEvaluatorId.WEAPON, true]]
     );
 
-    checkAction(
+    checkPlannerAction(
       planner.action(EStateActionId.WEAPON_DROP),
       ActionWeaponDrop,
       [
@@ -378,10 +257,12 @@ describe("add_state_manager util", () => {
 
   it("should correctly setup state planner movement actions", () => {
     const object: ClientObject = mockClientGameObject();
-    const stateManager: StalkerStateManager = addStateManager(object);
-    const planner: MockActionPlanner = stateManager.planner as unknown as MockActionPlanner;
+    const stateManager: StalkerStateManager = new StalkerStateManager(object);
+    const planner: ActionPlanner = stateManager.planner;
 
-    checkAction(
+    setupStalkerStatePlanner(planner, stateManager);
+
+    checkPlannerAction(
       planner.action(EStateActionId.MOVEMENT_WALK),
       ActionMovementWalk,
       [
@@ -399,7 +280,7 @@ describe("add_state_manager util", () => {
       [[EStateEvaluatorId.MOVEMENT, true]]
     );
 
-    checkAction(
+    checkPlannerAction(
       planner.action(EStateActionId.MOVEMENT_WALK_TURN),
       ActionMovementWalkTurn,
       [
@@ -422,7 +303,7 @@ describe("add_state_manager util", () => {
       ]
     );
 
-    checkAction(
+    checkPlannerAction(
       planner.action(EStateActionId.MOVEMENT_WALK_SEARCH),
       ActionMovementWalkSearch,
       [
@@ -445,7 +326,7 @@ describe("add_state_manager util", () => {
       ]
     );
 
-    checkAction(
+    checkPlannerAction(
       planner.action(EStateActionId.MOVEMENT_RUN),
       ActionMovementRun,
       [
@@ -463,7 +344,7 @@ describe("add_state_manager util", () => {
       [[EStateEvaluatorId.MOVEMENT, true]]
     );
 
-    checkAction(
+    checkPlannerAction(
       planner.action(EStateActionId.MOVEMENT_RUN_TURN),
       ActionMovementRunTurn,
       [
@@ -486,7 +367,7 @@ describe("add_state_manager util", () => {
       ]
     );
 
-    checkAction(
+    checkPlannerAction(
       planner.action(EStateActionId.MOVEMENT_RUN_SEARCH),
       ActionMovementRunSearch,
       [
@@ -509,7 +390,7 @@ describe("add_state_manager util", () => {
       ]
     );
 
-    checkAction(
+    checkPlannerAction(
       planner.action(EStateActionId.MOVEMENT_STAND),
       ActionMovementStand,
       [
@@ -523,7 +404,7 @@ describe("add_state_manager util", () => {
       [[EStateEvaluatorId.MOVEMENT, true]]
     );
 
-    checkAction(
+    checkPlannerAction(
       planner.action(EStateActionId.MOVEMENT_STAND_TURN),
       ActionMovementStandTurn,
       [
@@ -542,7 +423,7 @@ describe("add_state_manager util", () => {
       ]
     );
 
-    checkAction(
+    checkPlannerAction(
       planner.action(EStateActionId.MOVEMENT_STAND_SEARCH),
       ActionMovementStandSearch,
       [
@@ -561,7 +442,7 @@ describe("add_state_manager util", () => {
       ]
     );
 
-    checkAction(
+    checkPlannerAction(
       planner.action(EStateActionId.DIRECTION_TURN),
       ActionDirectionTurn,
       [
@@ -578,7 +459,7 @@ describe("add_state_manager util", () => {
       [[EStateEvaluatorId.DIRECTION, true]]
     );
 
-    checkAction(
+    checkPlannerAction(
       planner.action(EStateActionId.DIRECTION_SEARCH),
       ActionDirectionSearch,
       [
@@ -598,10 +479,12 @@ describe("add_state_manager util", () => {
 
   it("should correctly setup state planner mental actions", () => {
     const object: ClientObject = mockClientGameObject();
-    const stateManager: StalkerStateManager = addStateManager(object);
-    const planner: MockActionPlanner = stateManager.planner as unknown as MockActionPlanner;
+    const stateManager: StalkerStateManager = new StalkerStateManager(object);
+    const planner: ActionPlanner = stateManager.planner;
 
-    checkAction(
+    setupStalkerStatePlanner(planner, stateManager);
+
+    checkPlannerAction(
       planner.action(EStateActionId.MENTAL_FREE),
       ActionMentalFree,
       [
@@ -616,7 +499,7 @@ describe("add_state_manager util", () => {
       [[EStateEvaluatorId.MENTAL, true]]
     );
 
-    checkAction(
+    checkPlannerAction(
       planner.action(EStateActionId.MENTAL_DANGER),
       ActionMentalDanger,
       [
@@ -632,7 +515,7 @@ describe("add_state_manager util", () => {
       ]
     );
 
-    checkAction(
+    checkPlannerAction(
       planner.action(EStateActionId.MENTAL_PANIC),
       ActionMentalPanic,
       [
@@ -648,10 +531,12 @@ describe("add_state_manager util", () => {
 
   it("should correctly setup state planner bodystate actions", () => {
     const object: ClientObject = mockClientGameObject();
-    const stateManager: StalkerStateManager = addStateManager(object);
-    const planner: MockActionPlanner = stateManager.planner as unknown as MockActionPlanner;
+    const stateManager: StalkerStateManager = new StalkerStateManager(object);
+    const planner: ActionPlanner = stateManager.planner;
 
-    checkAction(
+    setupStalkerStatePlanner(planner, stateManager);
+
+    checkPlannerAction(
       planner.action(EStateActionId.BODYSTATE_CROUCH),
       ActionBodyStateCrouch,
       [
@@ -664,7 +549,7 @@ describe("add_state_manager util", () => {
       [[EStateEvaluatorId.BODYSTATE, true]]
     );
 
-    checkAction(
+    checkPlannerAction(
       planner.action(EStateActionId.BODYSTATE_CROUCH_DANGER),
       ActionBodyStateCrouchDanger,
       [
@@ -680,7 +565,7 @@ describe("add_state_manager util", () => {
       ]
     );
 
-    checkAction(
+    checkPlannerAction(
       planner.action(EStateActionId.BODYSTATE_STANDING),
       ActionBodyStateStanding,
       [
@@ -695,7 +580,7 @@ describe("add_state_manager util", () => {
       ]
     );
 
-    checkAction(
+    checkPlannerAction(
       planner.action(EStateActionId.BODYSTATE_STANDING_FREE),
       ActionBodyStateStandingFree,
       [
@@ -716,10 +601,12 @@ describe("add_state_manager util", () => {
 
   it("should correctly setup state planner animation actions", () => {
     const object: ClientObject = mockClientGameObject();
-    const stateManager: StalkerStateManager = addStateManager(object);
-    const planner: MockActionPlanner = stateManager.planner as unknown as MockActionPlanner;
+    const stateManager: StalkerStateManager = new StalkerStateManager(object);
+    const planner: ActionPlanner = stateManager.planner;
 
-    checkAction(
+    setupStalkerStatePlanner(planner, stateManager);
+
+    checkPlannerAction(
       planner.action(EStateActionId.ANIMSTATE_START),
       ActionAnimstateStart,
       [
@@ -737,7 +624,7 @@ describe("add_state_manager util", () => {
       [[EStateEvaluatorId.ANIMSTATE, true]]
     );
 
-    checkAction(
+    checkPlannerAction(
       planner.action(EStateActionId.ANIMSTATE_STOP),
       ActionAnimstateStop,
       [
@@ -755,7 +642,7 @@ describe("add_state_manager util", () => {
       ]
     );
 
-    checkAction(
+    checkPlannerAction(
       planner.action(EStateActionId.ANIMATION_START),
       ActionAnimationStart,
       [
@@ -776,7 +663,7 @@ describe("add_state_manager util", () => {
       [[EStateEvaluatorId.ANIMATION, true]]
     );
 
-    checkAction(
+    checkPlannerAction(
       planner.action(EStateActionId.ANIMATION_STOP),
       ActionAnimationStop,
       [
@@ -791,7 +678,7 @@ describe("add_state_manager util", () => {
       ]
     );
 
-    checkAction(
+    checkPlannerAction(
       planner.action(EStateActionId.SMARTCOVER_ENTER),
       ActionSmartCoverEnter,
       [
@@ -805,7 +692,7 @@ describe("add_state_manager util", () => {
       [[EStateEvaluatorId.SMARTCOVER, true]]
     );
 
-    checkAction(
+    checkPlannerAction(
       planner.action(EStateActionId.SMARTCOVER_EXIT),
       ActionSmartCoverExit,
       [
@@ -820,45 +707,47 @@ describe("add_state_manager util", () => {
 
   it("should correctly setup state planner lock/end actions", () => {
     const object: ClientObject = mockClientGameObject();
-    const stateManager: StalkerStateManager = addStateManager(object);
-    const planner: MockActionPlanner = stateManager.planner as unknown as MockActionPlanner;
+    const stateManager: StalkerStateManager = new StalkerStateManager(object);
+    const planner: ActionPlanner = stateManager.planner;
 
-    checkAction(
+    setupStalkerStatePlanner(planner, stateManager);
+
+    checkPlannerAction(
       planner.action(EStateActionId.LOCKED_SMARTCOVER),
       "ActionStateLockedSmartCover",
       [[EStateEvaluatorId.IN_SMARTCOVER, true]],
       [[EStateEvaluatorId.IN_SMARTCOVER, false]]
     );
 
-    checkAction(
+    checkPlannerAction(
       planner.action(EStateActionId.LOCKED),
       "ActionStateLocked",
       [[EStateEvaluatorId.LOCKED, true]],
       [[EStateEvaluatorId.LOCKED, false]]
     );
 
-    checkAction(
+    checkPlannerAction(
       planner.action(EStateActionId.LOCKED_ANIMATION),
       "ActionStateLockedAnimation",
       [[EStateEvaluatorId.ANIMATION_LOCKED, true]],
       [[EStateEvaluatorId.ANIMATION_LOCKED, false]]
     );
 
-    checkAction(
+    checkPlannerAction(
       planner.action(EStateActionId.LOCKED_ANIMSTATE),
       "ActionStateLockedAnimstate",
       [[EStateEvaluatorId.ANIMSTATE_LOCKED, true]],
       [[EStateEvaluatorId.ANIMSTATE_LOCKED, false]]
     );
 
-    checkAction(
+    checkPlannerAction(
       planner.action(EStateActionId.LOCKED_EXTERNAL),
       "ActionStateLockedExternal",
       [[EStateEvaluatorId.LOCKED_EXTERNAL, true]],
       [[EStateEvaluatorId.LOCKED_EXTERNAL, false]]
     );
 
-    checkAction(
+    checkPlannerAction(
       planner.action(EStateActionId.END),
       ActionStateEnd,
       [

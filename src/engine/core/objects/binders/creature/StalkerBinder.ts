@@ -39,8 +39,9 @@ import { SimulationBoardManager } from "@/engine/core/managers/simulation/Simula
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import { DropManager } from "@/engine/core/managers/world/DropManager";
 import { ReleaseBodyManager } from "@/engine/core/managers/world/ReleaseBodyManager";
+import { setupStalkerMotivationPlanner, setupStalkerStatePlanner } from "@/engine/core/objects/ai/setup";
 import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain/SmartTerrain";
-import { addStateManager } from "@/engine/core/objects/state/add_state_manager";
+import { StalkerStateManager } from "@/engine/core/objects/state";
 import { StalkerMoveManager } from "@/engine/core/objects/state/StalkerMoveManager";
 import { ESchemeEvent, IBaseSchemeState } from "@/engine/core/schemes/base";
 import { SchemeCombat } from "@/engine/core/schemes/combat/SchemeCombat";
@@ -109,8 +110,11 @@ export class StalkerBinder extends object_binder {
     super.reinit();
 
     this.state = resetObject(this.object);
-    this.state.stateManager = addStateManager(this.object);
+    this.state.stateManager = new StalkerStateManager(this.object);
     this.state.moveManager = new StalkerMoveManager(this.object).initialize();
+
+    setupStalkerStatePlanner(this.state.stateManager.planner, this.state.stateManager);
+    setupStalkerMotivationPlanner(this.object.motivation_action_manager(), this.state.stateManager);
   }
 
   public override net_spawn(object: ServerCreatureObject): boolean {
