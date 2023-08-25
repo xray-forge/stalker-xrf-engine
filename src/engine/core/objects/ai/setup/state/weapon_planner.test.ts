@@ -1,7 +1,7 @@
 import { describe, it } from "@jest/globals";
 
-import { setupStalkerStatePlanner } from "@/engine/core/objects/ai";
-import { EStateActionId, EStateEvaluatorId } from "@/engine/core/objects/animation/state_types";
+import { setupStalkerWeaponStatePlanner } from "@/engine/core/objects/ai/setup/state/weapon_planner";
+import { EStateActionId, EStateEvaluatorId } from "@/engine/core/objects/ai/types";
 import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateManager";
 import {
   ActionWeaponDrop,
@@ -19,7 +19,7 @@ describe("weapon_planner util", () => {
     const stateManager: StalkerStateManager = new StalkerStateManager(object);
     const planner: ActionPlanner = stateManager.planner;
 
-    setupStalkerStatePlanner(planner, stateManager);
+    setupStalkerWeaponStatePlanner(planner, stateManager);
 
     checkPlannerAction(
       planner.action(EStateActionId.WEAPON_UNSTRAPP),

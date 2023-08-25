@@ -1,12 +1,12 @@
 import { describe, expect, it } from "@jest/globals";
 
-import { EEvaluatorId } from "@/engine/core/schemes/base/id/evaluator_ids";
+import { EStateEvaluatorId } from "@/engine/core/objects/ai/types";
 
-describe("'evaluator_ids' constants integrity", () => {
+describe("'state_evaluators' constants integrity", () => {
   it("should contain only unique identifier values", () => {
     const existing: Set<unknown> = new Set();
 
-    Object.values(EEvaluatorId).forEach((value) => {
+    Object.values(EStateEvaluatorId).forEach((value) => {
       expect(existing.has(value)).toBeFalsy();
       existing.add(value);
     });

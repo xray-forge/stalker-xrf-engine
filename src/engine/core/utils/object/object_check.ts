@@ -2,7 +2,7 @@ import { alife, level, stalker_ids } from "xray16";
 
 import { getObjectIdByStoryId, registry } from "@/engine/core/database";
 import { Squad } from "@/engine/core/objects";
-import { EActionId } from "@/engine/core/schemes";
+import { EActionId } from "@/engine/core/objects/ai";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { isStalker } from "@/engine/core/utils/object/object_class";
 import { surgeConfig } from "@/engine/lib/configs/SurgeConfig";

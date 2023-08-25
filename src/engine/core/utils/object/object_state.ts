@@ -1,6 +1,6 @@
 import { IRegistryObjectState, registry } from "@/engine/core/database";
+import { EActionId } from "@/engine/core/objects/ai/types";
 import { EStalkerState } from "@/engine/core/objects/animation/state_types";
-import { EActionId } from "@/engine/core/schemes/base";
 import { ISchemeWoundedState } from "@/engine/core/schemes/wounded";
 import { NIL } from "@/engine/lib/constants/words";
 import { ActionPlanner, ClientObject, EScheme, Optional, TNumberId } from "@/engine/lib/types";

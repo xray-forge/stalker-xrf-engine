@@ -1,6 +1,6 @@
 import { LuabindClass, property_evaluator } from "xray16";
 
-import { EStateEvaluatorId } from "@/engine/core/objects/animation/state_types";
+import { EStateEvaluatorId } from "@/engine/core/objects/ai/types";
 import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateManager";
 import { LuaLogger } from "@/engine/core/utils/logging";
 

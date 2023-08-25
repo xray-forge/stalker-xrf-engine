@@ -1,7 +1,8 @@
 import { stalker_ids, world_property } from "xray16";
 
 import { IRegistryObjectState } from "@/engine/core/database";
-import { AbstractScheme, EActionId, EEvaluatorId } from "@/engine/core/schemes";
+import { EActionId, EEvaluatorId } from "@/engine/core/objects/ai/types";
+import { AbstractScheme } from "@/engine/core/schemes";
 import { ActionWounded } from "@/engine/core/schemes/wounded/actions";
 import { EvaluatorCanFight, EvaluatorWounded } from "@/engine/core/schemes/wounded/evaluators";
 import { ISchemeWoundedState } from "@/engine/core/schemes/wounded/ISchemeWoundedState";
@@ -11,17 +12,7 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 import { getObjectCommunity } from "@/engine/core/utils/object/object_get";
 import { communities, TCommunity } from "@/engine/lib/constants/communities";
 import { NIL } from "@/engine/lib/constants/words";
-import {
-  ActionPlanner,
-  AnyObject,
-  ClientObject,
-  IniFile,
-  LuaArray,
-  Maybe,
-  Optional,
-  TDistance,
-  TNumberId,
-} from "@/engine/lib/types";
+import { ActionPlanner, AnyObject, ClientObject, IniFile, LuaArray, Optional, TDistance } from "@/engine/lib/types";
 import { EScheme, ESchemeType, TSection } from "@/engine/lib/types/scheme";
 
 const woundedByState: Record<number, string> = {

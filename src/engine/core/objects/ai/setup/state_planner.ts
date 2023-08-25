@@ -12,7 +12,7 @@ import {
   setupStalkerStateEvaluators,
   setupStalkerWeaponStatePlanner,
 } from "@/engine/core/objects/ai/setup/state";
-import { EStateActionId, EStateEvaluatorId } from "@/engine/core/objects/animation";
+import { EStateActionId, EStateEvaluatorId } from "@/engine/core/objects/ai/types";
 import { StalkerStateManager } from "@/engine/core/objects/state";
 import { ActionStateEnd } from "@/engine/core/objects/state/state";
 import { LuaLogger } from "@/engine/core/utils/logging";

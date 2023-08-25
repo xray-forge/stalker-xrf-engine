@@ -1,6 +1,7 @@
 import { stalker_ids, world_property } from "xray16";
 
-import { AbstractScheme, EActionId, EEvaluatorId } from "@/engine/core/schemes";
+import { EActionId, EEvaluatorId } from "@/engine/core/objects/ai";
+import { AbstractScheme } from "@/engine/core/schemes";
 import { ISchemeCombatState } from "@/engine/core/schemes/combat";
 import { ActionLookAround, ActionShoot } from "@/engine/core/schemes/combat_camper/actions";
 import { EvaluatorCombatCamper, EvaluatorSee } from "@/engine/core/schemes/combat_camper/evaluator";

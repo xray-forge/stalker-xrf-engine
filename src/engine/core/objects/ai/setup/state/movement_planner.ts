@@ -1,6 +1,6 @@
 import { world_property } from "xray16";
 
-import { EStateActionId, EStateEvaluatorId } from "@/engine/core/objects/animation";
+import { EStateActionId, EStateEvaluatorId } from "@/engine/core/objects/ai/types";
 import { StalkerStateManager } from "@/engine/core/objects/state";
 import {
   ActionMovementRun,

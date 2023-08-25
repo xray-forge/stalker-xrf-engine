@@ -1,7 +1,7 @@
 import { describe, it } from "@jest/globals";
 
-import { setupStalkerStatePlanner } from "@/engine/core/objects/ai";
-import { EStateActionId, EStateEvaluatorId } from "@/engine/core/objects/animation/state_types";
+import { setupStalkerLockedStatePlanner } from "@/engine/core/objects/ai/setup/state/locked_planner";
+import { EStateActionId, EStateEvaluatorId } from "@/engine/core/objects/ai/types";
 import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateManager";
 import { ActionPlanner, ClientObject } from "@/engine/lib/types";
 import { checkPlannerAction } from "@/fixtures/engine";
@@ -13,7 +13,7 @@ describe("locked_planner util", () => {
     const stateManager: StalkerStateManager = new StalkerStateManager(object);
     const planner: ActionPlanner = stateManager.planner;
 
-    setupStalkerStatePlanner(planner, stateManager);
+    setupStalkerLockedStatePlanner(planner, stateManager);
 
     checkPlannerAction(
       planner.action(EStateActionId.LOCKED),

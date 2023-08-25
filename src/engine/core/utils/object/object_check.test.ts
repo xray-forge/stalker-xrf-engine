@@ -3,8 +3,8 @@ import { stalker_ids } from "xray16";
 
 import { registerActor, registerStoryLink, registry } from "@/engine/core/database";
 import { Squad } from "@/engine/core/objects";
+import { EActionId } from "@/engine/core/objects/ai/types";
 import { LoopedSound } from "@/engine/core/objects/sounds/playable_sounds";
-import { EActionId } from "@/engine/core/schemes";
 import {
   isActorSeenByObject,
   isImmuneToSurgeObject,

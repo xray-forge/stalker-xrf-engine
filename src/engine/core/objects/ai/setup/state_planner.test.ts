@@ -1,6 +1,6 @@
 import { describe, expect, it, jest } from "@jest/globals";
 
-import { setupStalkerStatePlanner } from "@/engine/core/objects/ai";
+import { EStateActionId, EStateEvaluatorId, setupStalkerStatePlanner } from "@/engine/core/objects/ai";
 import {
   setupStalkerAnimationStatePlanner,
   setupStalkerAnimstateStatePlanner,
@@ -13,7 +13,6 @@ import {
   setupStalkerStateEvaluators,
   setupStalkerWeaponStatePlanner,
 } from "@/engine/core/objects/ai/setup/state";
-import { EStateActionId, EStateEvaluatorId } from "@/engine/core/objects/animation/state_types";
 import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateManager";
 import { ActionStateEnd } from "@/engine/core/objects/state/state";
 import { ActionPlanner, ClientObject } from "@/engine/lib/types";

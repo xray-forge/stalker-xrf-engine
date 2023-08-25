@@ -9,7 +9,7 @@ import { TNumberId } from "@/engine/lib/types";
 const BASE: TNumberId = stalker_ids.action_script || 92;
 
 /**
- * todo;
+ * Action IDs of motivation action planner.
  */
 export enum EActionId {
   GATHER_ITEMS = stalker_ids.action_gather_items, // 2

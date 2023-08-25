@@ -1,6 +1,6 @@
 import { LuabindClass, property_evaluator, stalker_ids, time_global } from "xray16";
 
-import { EEvaluatorId } from "@/engine/core/schemes/base";
+import { EEvaluatorId } from "@/engine/core/objects/ai/types";
 import { ISchemeCamperState } from "@/engine/core/schemes/camper/ISchemeCamperState";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { isActiveSection } from "@/engine/core/utils/scheme";

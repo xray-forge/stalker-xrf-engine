@@ -1,10 +1,9 @@
 import { action_planner, level, look, object, time_global } from "xray16";
 
+import { EStateActionId, EStateEvaluatorId } from "@/engine/core/objects/ai/types";
 import { EAnimationType, EWeaponAnimation } from "@/engine/core/objects/animation/animation_types";
 import {
   EStalkerState,
-  EStateActionId,
-  EStateEvaluatorId,
   ILookTargetDescriptor,
   IStateManagerCallbackDescriptor,
   ITargetStateDescriptorExtras,

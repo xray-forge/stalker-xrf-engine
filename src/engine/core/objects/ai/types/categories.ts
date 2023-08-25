@@ -1,6 +1,6 @@
 import { stalker_ids } from "xray16";
 
-import { EActionId } from "@/engine/core/schemes/base/id/action_ids";
+import { EActionId } from "@/engine/core/objects/ai/types/motivator_actions";
 import { TNumberId } from "@/engine/lib/types";
 
 /**

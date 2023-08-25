@@ -1,12 +1,12 @@
 import { stalker_ids, world_property } from "xray16";
 
+import { EActionId, EEvaluatorId } from "@/engine/core/objects/ai/types";
 import { StalkerStateManager } from "@/engine/core/objects/state";
 import { ActionStateToIdle } from "@/engine/core/objects/state/state/ActionStateToIdle";
 import { EvaluatorStateIdleAlife } from "@/engine/core/objects/state/state/EvaluatorStateIdleAlife";
 import { EvaluatorStateIdleCombat } from "@/engine/core/objects/state/state/EvaluatorStateIdleCombat";
 import { EvaluatorStateIdleItems } from "@/engine/core/objects/state/state/EvaluatorStateIdleItems";
 import { EvaluatorStateLogicActive } from "@/engine/core/objects/state/state/EvaluatorStateLogicActive";
-import { EActionId, EEvaluatorId } from "@/engine/core/schemes";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { ActionPlanner } from "@/engine/lib/types";
 
@@ -25,14 +25,14 @@ export function setupStalkerMotivationPlanner(planner: ActionPlanner, stateManag
   planner.add_evaluator(EEvaluatorId.IS_STATE_IDLE_ITEMS, new EvaluatorStateIdleItems(stateManager));
   planner.add_evaluator(EEvaluatorId.IS_STATE_LOGIC_ACTIVE, new EvaluatorStateLogicActive(stateManager));
 
-  const actionCombatStateToIdle: ActionStateToIdle = new ActionStateToIdle(stateManager, "ToIdleCombat");
+  const actionCombatStateToIdle: ActionStateToIdle = new ActionStateToIdle(stateManager, "ActionToIdleCombat");
 
   actionCombatStateToIdle.add_precondition(new world_property(EEvaluatorId.IS_STATE_IDLE_COMBAT, false));
   actionCombatStateToIdle.add_effect(new world_property(EEvaluatorId.IS_STATE_IDLE_COMBAT, true));
 
   planner.add_action(EActionId.STATE_TO_IDLE_COMBAT, actionCombatStateToIdle);
 
-  const actionItemsToIdle: ActionStateToIdle = new ActionStateToIdle(stateManager, "ToIdleItems");
+  const actionItemsToIdle: ActionStateToIdle = new ActionStateToIdle(stateManager, "ActionToIdleItems");
 
   actionItemsToIdle.add_precondition(new world_property(EEvaluatorId.IS_STATE_IDLE_ITEMS, false));
   actionItemsToIdle.add_precondition(new world_property(stalker_ids.property_items, true));
@@ -41,7 +41,7 @@ export function setupStalkerMotivationPlanner(planner: ActionPlanner, stateManag
 
   planner.add_action(EActionId.STATE_TO_IDLE_ITEMS, actionItemsToIdle);
 
-  const actionAlifeToIdle: ActionStateToIdle = new ActionStateToIdle(stateManager, "ToIdleAlife");
+  const actionAlifeToIdle: ActionStateToIdle = new ActionStateToIdle(stateManager, "ActionToIdleAlife");
 
   actionAlifeToIdle.add_precondition(new world_property(stalker_ids.property_alive, true));
   actionAlifeToIdle.add_precondition(new world_property(stalker_ids.property_enemy, false));

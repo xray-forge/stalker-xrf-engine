@@ -1,6 +1,7 @@
 import { describe, expect, it } from "@jest/globals";
 
 import { setupStalkerMotivationPlanner } from "@/engine/core/objects/ai/setup/motivation_planner";
+import { EActionId, EEvaluatorId } from "@/engine/core/objects/ai/types";
 import { EAnimationType } from "@/engine/core/objects/animation/animation_types";
 import { StalkerAnimationManager } from "@/engine/core/objects/state/StalkerAnimationManager";
 import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateManager";
@@ -8,7 +9,6 @@ import { EvaluatorStateIdleAlife } from "@/engine/core/objects/state/state/Evalu
 import { EvaluatorStateIdleCombat } from "@/engine/core/objects/state/state/EvaluatorStateIdleCombat";
 import { EvaluatorStateIdleItems } from "@/engine/core/objects/state/state/EvaluatorStateIdleItems";
 import { EvaluatorStateLogicActive } from "@/engine/core/objects/state/state/EvaluatorStateLogicActive";
-import { EActionId, EEvaluatorId } from "@/engine/core/schemes";
 import { ActionPlanner, ClientObject } from "@/engine/lib/types";
 import { checkPlannerAction } from "@/fixtures/engine";
 import { MockActionPlanner, mockClientGameObject } from "@/fixtures/xray";
@@ -44,14 +44,14 @@ describe("motivation_planner setup util", () => {
 
     checkPlannerAction(
       planner.action(EActionId.STATE_TO_IDLE_COMBAT),
-      "ToIdleCombat",
+      "ActionToIdleCombat",
       [[EEvaluatorId.IS_STATE_IDLE_COMBAT, false]],
       [[EEvaluatorId.IS_STATE_IDLE_COMBAT, true]]
     );
 
     checkPlannerAction(
       planner.action(EActionId.STATE_TO_IDLE_ITEMS),
-      "ToIdleItems",
+      "ActionToIdleItems",
       [
         [EEvaluatorId.IS_STATE_IDLE_ITEMS, false],
         [mockStalkerIds.property_items, true],
@@ -62,7 +62,7 @@ describe("motivation_planner setup util", () => {
 
     checkPlannerAction(
       planner.action(EActionId.STATE_TO_IDLE_ALIFE),
-      "ToIdleAlife",
+      "ActionToIdleAlife",
       [
         [mockStalkerIds.property_alive, true],
         [mockStalkerIds.property_enemy, false],

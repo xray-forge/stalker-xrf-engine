@@ -1,7 +1,7 @@
 import { describe, expect, it } from "@jest/globals";
 
-import { setupStalkerStatePlanner } from "@/engine/core/objects/ai";
-import { EStateEvaluatorId } from "@/engine/core/objects/animation/state_types";
+import { setupStalkerStateEvaluators } from "@/engine/core/objects/ai/setup/state/state_evaluators";
+import { EStateEvaluatorId } from "@/engine/core/objects/ai/types";
 import {
   EvaluatorAnimation,
   EvaluatorAnimationLocked,
@@ -70,7 +70,7 @@ describe("state_evaluator util", () => {
     const stateManager: StalkerStateManager = new StalkerStateManager(object);
     const planner: ActionPlanner = stateManager.planner;
 
-    setupStalkerStatePlanner(planner, stateManager);
+    setupStalkerStateEvaluators(planner, stateManager);
 
     expect(Object.keys((planner as unknown as MockActionPlanner).evaluators)).toHaveLength(43);
 

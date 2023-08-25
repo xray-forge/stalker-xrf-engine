@@ -1,9 +1,7 @@
 import { describe, it } from "@jest/globals";
 
-import { setupStalkerStatePlanner } from "@/engine/core/objects/ai";
-import { EStateActionId, EStateEvaluatorId } from "@/engine/core/objects/animation/state_types";
-import { ActionAnimationStart, ActionAnimationStop } from "@/engine/core/objects/state/animation";
-import { ActionAnimstateStart, ActionAnimstateStop } from "@/engine/core/objects/state/animstate";
+import { setupStalkerBodyStatePlanner } from "@/engine/core/objects/ai/setup/state/body_state_planner";
+import { EStateActionId, EStateEvaluatorId } from "@/engine/core/objects/ai/types";
 import {
   ActionBodyStateCrouch,
   ActionBodyStateCrouchDanger,
@@ -21,7 +19,7 @@ describe("body_state_planner util", () => {
     const stateManager: StalkerStateManager = new StalkerStateManager(object);
     const planner: ActionPlanner = stateManager.planner;
 
-    setupStalkerStatePlanner(planner, stateManager);
+    setupStalkerBodyStatePlanner(planner, stateManager);
 
     checkPlannerAction(
       planner.action(EStateActionId.BODYSTATE_CROUCH),

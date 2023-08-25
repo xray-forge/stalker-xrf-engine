@@ -1,6 +1,7 @@
 import { stalker_ids, world_property } from "xray16";
 
-import { AbstractScheme, EActionId, EEvaluatorId } from "@/engine/core/schemes";
+import { EActionId, EEvaluatorId } from "@/engine/core/objects/ai/types";
+import { AbstractScheme } from "@/engine/core/schemes";
 import { ISchemeCombatState } from "@/engine/core/schemes/combat";
 import { ActionZombieGoToDanger, ActionZombieShoot } from "@/engine/core/schemes/combat_zombied/actions";
 import { EvaluatorCombatZombied } from "@/engine/core/schemes/combat_zombied/evaluators";

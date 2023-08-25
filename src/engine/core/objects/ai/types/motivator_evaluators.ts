@@ -9,7 +9,7 @@ import { TNumberId } from "@/engine/lib/types";
 const BASE: TNumberId = stalker_ids.property_script || 74;
 
 /**
- * todo;
+ * Evaluators IDs of goap motivation planner.
  */
 export enum EEvaluatorId {
   // Whether any corpse to loot exists nearby.

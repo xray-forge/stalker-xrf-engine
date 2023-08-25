@@ -1,7 +1,7 @@
 import { describe, it } from "@jest/globals";
 
-import { setupStalkerStatePlanner } from "@/engine/core/objects/ai";
-import { EStateActionId, EStateEvaluatorId } from "@/engine/core/objects/animation/state_types";
+import { setupStalkerMovementStatePlanner } from "@/engine/core/objects/ai/setup/state/movement_planner";
+import { EStateActionId, EStateEvaluatorId } from "@/engine/core/objects/ai/types";
 import {
   ActionMovementRun,
   ActionMovementRunSearch,
@@ -24,7 +24,7 @@ describe("movement_planner util", () => {
     const stateManager: StalkerStateManager = new StalkerStateManager(object);
     const planner: ActionPlanner = stateManager.planner;
 
-    setupStalkerStatePlanner(planner, stateManager);
+    setupStalkerMovementStatePlanner(planner, stateManager);
 
     checkPlannerAction(
       planner.action(EStateActionId.MOVEMENT_WALK),
