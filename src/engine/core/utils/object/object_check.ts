@@ -1,4 +1,4 @@
-import { alife, level, stalker_ids } from "xray16";
+import { alife, level } from "xray16";
 
 import { getObjectIdByStoryId, registry } from "@/engine/core/database";
 import { Squad } from "@/engine/core/objects";
@@ -36,9 +36,7 @@ export function isObjectInCombat(object: ClientObject): boolean {
 
   const currentActionId: Optional<TNumberId> = actionPlanner.current_action_id();
 
-  return (
-    currentActionId === stalker_ids.action_combat_planner || currentActionId === stalker_ids.action_post_combat_wait
-  );
+  return currentActionId === EActionId.COMBAT || currentActionId === EActionId.POST_COMBAT_WAIT;
 }
 
 /**

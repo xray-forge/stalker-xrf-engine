@@ -1,4 +1,4 @@
-import { stalker_ids, world_property } from "xray16";
+import { world_property } from "xray16";
 
 import { EActionId, EEvaluatorId } from "@/engine/core/objects/ai/types";
 import { AbstractScheme } from "@/engine/core/schemes";
@@ -51,8 +51,8 @@ export class SchemeCompanion extends AbstractScheme {
 
     const actionCompanionActivity: ActionCompanionActivity = new ActionCompanionActivity(state);
 
-    actionCompanionActivity.add_precondition(new world_property(stalker_ids.property_alive, true));
-    actionCompanionActivity.add_precondition(new world_property(stalker_ids.property_enemy, false));
+    actionCompanionActivity.add_precondition(new world_property(EEvaluatorId.ALIVE, true));
+    actionCompanionActivity.add_precondition(new world_property(EEvaluatorId.ENEMY, false));
     actionCompanionActivity.add_precondition(new world_property(EEvaluatorId.NEED_COMPANION, true));
     addCommonActionPreconditions(actionCompanionActivity);
     actionCompanionActivity.add_effect(new world_property(EEvaluatorId.NEED_COMPANION, false));

@@ -1,4 +1,4 @@
-import { alife, cast_planner, relation_registry, stalker_ids } from "xray16";
+import { alife, cast_planner, relation_registry } from "xray16";
 
 import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { AbstractCoreManager } from "@/engine/core/managers/base/AbstractCoreManager";
@@ -59,9 +59,9 @@ export class DebugManager extends AbstractCoreManager {
 
     // Detect specifically which action is played.
     if (
-      currentActionId === stalker_ids.action_alife_planner ||
-      currentActionId === stalker_ids.action_combat_planner ||
-      currentActionId === stalker_ids.action_danger_planner
+      currentActionId === EActionId.ALIFE ||
+      currentActionId === EActionId.COMBAT ||
+      currentActionId === EActionId.ANOMALY
     ) {
       logger.info(
         "Current action id:",

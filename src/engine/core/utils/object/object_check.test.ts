@@ -1,5 +1,4 @@
 import { describe, expect, it, jest } from "@jest/globals";
-import { stalker_ids } from "xray16";
 
 import { registerActor, registerStoryLink, registry } from "@/engine/core/database";
 import { Squad } from "@/engine/core/objects";
@@ -48,13 +47,13 @@ describe("'object_check' utils", () => {
     planner.currentActionId = EActionId.MEET_WAITING_ACTIVITY;
     expect(isObjectInCombat(object)).toBe(false);
 
-    planner.currentActionId = stalker_ids.action_combat_planner;
+    planner.currentActionId = EActionId.COMBAT;
     expect(isObjectInCombat(object)).toBe(true);
 
-    planner.currentActionId = stalker_ids.action_post_combat_wait;
+    planner.currentActionId = EActionId.POST_COMBAT_WAIT;
     expect(isObjectInCombat(object)).toBe(true);
 
-    planner.currentActionId = stalker_ids.action_critically_wounded;
+    planner.currentActionId = EActionId.CRITICALLY_WOUNDED;
     expect(isObjectInCombat(object)).toBe(false);
   });
 
@@ -73,10 +72,10 @@ describe("'object_check' utils", () => {
     planner.currentActionId = EActionId.SEARCH_CORPSE;
     expect(isObjectSearchingCorpse(object)).toBe(true);
 
-    planner.currentActionId = stalker_ids.action_post_combat_wait;
+    planner.currentActionId = EActionId.POST_COMBAT_WAIT;
     expect(isObjectSearchingCorpse(object)).toBe(false);
 
-    planner.currentActionId = stalker_ids.action_critically_wounded;
+    planner.currentActionId = EActionId.CRITICALLY_WOUNDED;
     expect(isObjectSearchingCorpse(object)).toBe(false);
   });
 
@@ -95,10 +94,10 @@ describe("'object_check' utils", () => {
     planner.currentActionId = EActionId.HELP_WOUNDED;
     expect(isObjectHelpingWounded(object)).toBe(true);
 
-    planner.currentActionId = stalker_ids.action_post_combat_wait;
+    planner.currentActionId = EActionId.POST_COMBAT_WAIT;
     expect(isObjectHelpingWounded(object)).toBe(false);
 
-    planner.currentActionId = stalker_ids.action_critically_wounded;
+    planner.currentActionId = EActionId.CRITICALLY_WOUNDED;
     expect(isObjectHelpingWounded(object)).toBe(false);
   });
 

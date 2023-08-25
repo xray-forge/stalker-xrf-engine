@@ -1,5 +1,6 @@
-import { alife, danger_object, LuabindClass, property_evaluator, stalker_ids, time_global } from "xray16";
+import { alife, danger_object, LuabindClass, property_evaluator, time_global } from "xray16";
 
+import { EActionId } from "@/engine/core/objects/ai";
 import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain";
 import { ISchemeDangerState } from "@/engine/core/schemes/danger";
 import { isObjectFacingDanger } from "@/engine/core/utils/object";
@@ -45,10 +46,7 @@ export class EvaluatorDanger extends property_evaluator {
       return false;
     }
 
-    if (
-      this.actionPlanner.initialized() &&
-      this.actionPlanner.current_action_id() === stalker_ids.action_danger_planner
-    ) {
+    if (this.actionPlanner.initialized() && this.actionPlanner.current_action_id() === EActionId.DANGER) {
       if (bestDanger.type() === danger_object.entity_corpse) {
         this.state.dangerTime = bestDanger.object().death_time();
       }

@@ -1,4 +1,4 @@
-import { stalker_ids, world_property } from "xray16";
+import { world_property } from "xray16";
 
 import { EActionId, EEvaluatorId } from "@/engine/core/objects/ai/types";
 import { AbstractScheme } from "@/engine/core/schemes";
@@ -65,10 +65,10 @@ export class SchemeRemark extends AbstractScheme {
 
     const actionRemarkActivity: ActionRemarkActivity = new ActionRemarkActivity(state);
 
-    actionRemarkActivity.add_precondition(new world_property(stalker_ids.property_alive, true));
-    actionRemarkActivity.add_precondition(new world_property(stalker_ids.property_danger, false));
-    actionRemarkActivity.add_precondition(new world_property(stalker_ids.property_enemy, false));
-    actionRemarkActivity.add_precondition(new world_property(stalker_ids.property_anomaly, false));
+    actionRemarkActivity.add_precondition(new world_property(EEvaluatorId.ALIVE, true));
+    actionRemarkActivity.add_precondition(new world_property(EEvaluatorId.DANGER, false));
+    actionRemarkActivity.add_precondition(new world_property(EEvaluatorId.ENEMY, false));
+    actionRemarkActivity.add_precondition(new world_property(EEvaluatorId.ANONALY, false));
     actionRemarkActivity.add_precondition(new world_property(EEvaluatorId.NEED_REMARK, true));
     addCommonActionPreconditions(actionRemarkActivity);
     actionRemarkActivity.add_effect(new world_property(EEvaluatorId.NEED_REMARK, false));

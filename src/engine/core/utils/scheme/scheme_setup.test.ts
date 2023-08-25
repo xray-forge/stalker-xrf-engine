@@ -1,5 +1,4 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
-import { stalker_ids } from "xray16";
 
 import { registry } from "@/engine/core/database";
 import { EEvaluatorId } from "@/engine/core/objects/ai/types";
@@ -142,7 +141,7 @@ describe("'scheme setup' utils", () => {
     expect(action.preconditions[3].value()).toBe(false);
     expect(action.preconditions[4].condition()).toBe(EEvaluatorId.IS_CORPSE_EXISTING);
     expect(action.preconditions[4].value()).toBe(false);
-    expect(action.preconditions[5].condition()).toBe(stalker_ids.property_items);
+    expect(action.preconditions[5].condition()).toBe(EEvaluatorId.ITEMS);
     expect(action.preconditions[5].value()).toBe(false);
   });
 });

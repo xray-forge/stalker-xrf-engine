@@ -1,4 +1,4 @@
-import { level, stalker_ids, world_property } from "xray16";
+import { level, world_property } from "xray16";
 
 import { EActionId, EEvaluatorId } from "@/engine/core/objects/ai/types";
 import { AbstractScheme } from "@/engine/core/schemes/base";
@@ -75,10 +75,10 @@ export class SchemeWalker extends AbstractScheme {
 
     const actionWalkerActivity: ActionWalkerActivity = new ActionWalkerActivity(state, object);
 
-    actionWalkerActivity.add_precondition(new world_property(stalker_ids.property_alive, true));
-    actionWalkerActivity.add_precondition(new world_property(stalker_ids.property_danger, false));
-    actionWalkerActivity.add_precondition(new world_property(stalker_ids.property_enemy, false));
-    actionWalkerActivity.add_precondition(new world_property(stalker_ids.property_anomaly, false));
+    actionWalkerActivity.add_precondition(new world_property(EEvaluatorId.ALIVE, true));
+    actionWalkerActivity.add_precondition(new world_property(EEvaluatorId.DANGER, false));
+    actionWalkerActivity.add_precondition(new world_property(EEvaluatorId.ENEMY, false));
+    actionWalkerActivity.add_precondition(new world_property(EEvaluatorId.ANONALY, false));
     actionWalkerActivity.add_precondition(new world_property(EEvaluatorId.NEED_WALKER, true));
 
     addCommonActionPreconditions(actionWalkerActivity);

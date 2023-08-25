@@ -1,6 +1,5 @@
-import { stalker_ids } from "xray16";
-
 import { IRegistryObjectState } from "@/engine/core/database";
+import { EEvaluatorId } from "@/engine/core/objects/ai";
 import { AbstractScheme } from "@/engine/core/schemes/base";
 import { EvaluatorGatherItems } from "@/engine/core/schemes/gather_items/evaluators";
 import { ISchemeGatherItemsState } from "@/engine/core/schemes/gather_items/ISchemeGatherItemsState";
@@ -36,8 +35,8 @@ export class SchemeGatherItems extends AbstractScheme {
   ): void {
     const planner: ActionPlanner = object.motivation_action_manager();
 
-    planner.remove_evaluator(stalker_ids.property_items);
-    planner.add_evaluator(stalker_ids.property_items, new EvaluatorGatherItems(state));
+    planner.remove_evaluator(EEvaluatorId.ITEMS);
+    planner.add_evaluator(EEvaluatorId.ITEMS, new EvaluatorGatherItems(state));
   }
 
   /**

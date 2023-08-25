@@ -7,7 +7,10 @@ describe("'motivator_evaluators' constants integrity", () => {
     const existing: Set<unknown> = new Set();
 
     Object.values(EEvaluatorId).forEach((value) => {
-      expect(existing.has(value)).toBeFalsy();
+      if (existing.has(value)) {
+        throw new Error(`Found duplicate in declaration: ${value} / ${EEvaluatorId[value as number]}.`);
+      }
+
       existing.add(value);
     });
   });

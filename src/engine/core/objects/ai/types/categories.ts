@@ -1,5 +1,3 @@
-import { stalker_ids } from "xray16";
-
 import { EActionId } from "@/engine/core/objects/ai/types/motivator_actions";
 import { TNumberId } from "@/engine/lib/types";
 
@@ -7,9 +5,9 @@ import { TNumberId } from "@/engine/lib/types";
  * Map of actions linked to combat.
  */
 export const COMBAT_ACTION_IDS: Record<TNumberId, boolean> = {
-  [stalker_ids.action_combat_planner]: true,
-  [stalker_ids.action_danger_planner]: true,
-  [stalker_ids.action_anomaly_planner]: true,
+  [EActionId.COMBAT]: true,
+  [EActionId.DANGER]: true,
+  [EActionId.ANOMALY]: true,
 };
 
 /**

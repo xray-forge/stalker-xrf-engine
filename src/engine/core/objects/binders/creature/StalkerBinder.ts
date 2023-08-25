@@ -9,7 +9,6 @@ import {
   object_binder,
   patrol,
   property_evaluator_const,
-  stalker_ids,
   time_global,
 } from "xray16";
 
@@ -39,6 +38,7 @@ import { SimulationBoardManager } from "@/engine/core/managers/simulation/Simula
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import { DropManager } from "@/engine/core/managers/world/DropManager";
 import { ReleaseBodyManager } from "@/engine/core/managers/world/ReleaseBodyManager";
+import { EActionId } from "@/engine/core/objects/ai";
 import { setupStalkerMotivationPlanner, setupStalkerStatePlanner } from "@/engine/core/objects/ai/setup";
 import { StalkerStateManager } from "@/engine/core/objects/ai/state";
 import { StalkerMoveManager } from "@/engine/core/objects/ai/state/StalkerMoveManager";
@@ -183,8 +183,8 @@ export class StalkerBinder extends object_binder {
     if (getStoryIdByObjectId(objectId) === "zat_b53_artefact_hunter_1") {
       const actionPlanner: ActionPlanner = this.object.motivation_action_manager();
 
-      actionPlanner.remove_evaluator(stalker_ids.property_anomaly);
-      actionPlanner.add_evaluator(stalker_ids.property_anomaly, new property_evaluator_const(false));
+      actionPlanner.remove_evaluator(EActionId.ANOMALY);
+      actionPlanner.add_evaluator(EActionId.ANOMALY, new property_evaluator_const(false));
     }
 
     SchemeReachTask.addReachTaskSchemeAction(this.object);
@@ -655,7 +655,7 @@ export function updateStalkerLogic(object: ClientObject): void {
     let switched: boolean = false;
     const manager: ActionPlanner = object.motivation_action_manager();
 
-    if (manager.initialized() && manager.current_action_id() === stalker_ids.action_combat_planner) {
+    if (manager.initialized() && manager.current_action_id() === EActionId.COMBAT) {
       const overrides: Optional<AnyObject> = state.overrides;
 
       if (overrides !== null) {

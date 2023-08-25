@@ -1,4 +1,4 @@
-import { stalker_ids, world_property } from "xray16";
+import { world_property } from "xray16";
 
 import { EActionId, EEvaluatorId } from "@/engine/core/objects/ai";
 import { AbstractScheme } from "@/engine/core/schemes";
@@ -34,19 +34,19 @@ export class SchemeCombatCamper extends AbstractScheme {
 
     const shootAction: ActionShoot = new ActionShoot(state);
 
-    shootAction.add_precondition(new world_property(stalker_ids.property_alive, true));
-    shootAction.add_precondition(new world_property(stalker_ids.property_enemy, true));
-    shootAction.add_precondition(new world_property(stalker_ids.property_anomaly, false));
+    shootAction.add_precondition(new world_property(EEvaluatorId.ALIVE, true));
+    shootAction.add_precondition(new world_property(EEvaluatorId.ENEMY, true));
+    shootAction.add_precondition(new world_property(EEvaluatorId.ANONALY, false));
     shootAction.add_precondition(new world_property(EEvaluatorId.IS_SCRIPTED_COMBAT, true));
     shootAction.add_precondition(new world_property(EEvaluatorId.IS_COMBAT_CAMPING_ENABLED, true));
     shootAction.add_precondition(new world_property(EEvaluatorId.SEE_BEST_ENEMY, true));
-    shootAction.add_effect(new world_property(stalker_ids.property_enemy, false));
+    shootAction.add_effect(new world_property(EEvaluatorId.ENEMY, false));
     shootAction.add_effect(new world_property(EEvaluatorId.IS_STATE_LOGIC_ACTIVE, false));
     planner.add_action(EActionId.SHOOT, shootAction);
 
     const lookAroundAction: ActionLookAround = new ActionLookAround(state);
 
-    lookAroundAction.add_precondition(new world_property(stalker_ids.property_anomaly, false));
+    lookAroundAction.add_precondition(new world_property(EEvaluatorId.ANONALY, false));
     lookAroundAction.add_precondition(new world_property(EEvaluatorId.IS_SCRIPTED_COMBAT, true));
     lookAroundAction.add_precondition(new world_property(EEvaluatorId.IS_COMBAT_CAMPING_ENABLED, true));
     lookAroundAction.add_precondition(new world_property(EEvaluatorId.SEE_BEST_ENEMY, false));

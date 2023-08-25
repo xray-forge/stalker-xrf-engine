@@ -1,4 +1,4 @@
-import { stalker_ids, world_property } from "xray16";
+import { world_property } from "xray16";
 
 import { IRegistryObjectState } from "@/engine/core/database";
 import { EActionId, EEvaluatorId } from "@/engine/core/objects/ai/types";
@@ -50,11 +50,11 @@ export class SchemeMeet extends AbstractScheme {
     // Actions:
     const actionMeetWait: ActionMeetWait = new ActionMeetWait(state);
 
-    actionMeetWait.add_precondition(new world_property(stalker_ids.property_alive, true));
-    actionMeetWait.add_precondition(new world_property(stalker_ids.property_enemy, false));
-    actionMeetWait.add_precondition(new world_property(stalker_ids.property_danger, false));
-    actionMeetWait.add_precondition(new world_property(stalker_ids.property_anomaly, false));
-    actionMeetWait.add_precondition(new world_property(stalker_ids.property_items, false));
+    actionMeetWait.add_precondition(new world_property(EEvaluatorId.ALIVE, true));
+    actionMeetWait.add_precondition(new world_property(EEvaluatorId.ENEMY, false));
+    actionMeetWait.add_precondition(new world_property(EEvaluatorId.DANGER, false));
+    actionMeetWait.add_precondition(new world_property(EEvaluatorId.ANONALY, false));
+    actionMeetWait.add_precondition(new world_property(EEvaluatorId.ITEMS, false));
 
     actionMeetWait.add_precondition(new world_property(EEvaluatorId.IS_WOUNDED_EXISTING, false));
     actionMeetWait.add_precondition(new world_property(EEvaluatorId.IS_CORPSE_EXISTING, false));

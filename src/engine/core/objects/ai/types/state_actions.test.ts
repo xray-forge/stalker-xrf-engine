@@ -1,4 +1,4 @@
-import { describe, expect, it } from "@jest/globals";
+import { describe, it } from "@jest/globals";
 
 import { EStateActionId } from "@/engine/core/objects/ai";
 
@@ -7,7 +7,10 @@ describe("'state_actions' constants integrity", () => {
     const existing: Set<unknown> = new Set();
 
     Object.values(EStateActionId).forEach((value) => {
-      expect(existing.has(value)).toBeFalsy();
+      if (existing.has(value)) {
+        throw new Error(`Found duplicate in declaration: ${value} / ${EStateActionId[value as number]}.`);
+      }
+
       existing.add(value);
     });
   });

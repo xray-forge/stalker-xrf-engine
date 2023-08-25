@@ -1,6 +1,7 @@
-import { cast_planner, stalker_ids, world_property } from "xray16";
+import { cast_planner, world_property } from "xray16";
 
 import { registry } from "@/engine/core/database";
+import { EActionId, EEvaluatorId } from "@/engine/core/objects/ai";
 import { ActionPostCombatIdleWait } from "@/engine/core/schemes/combat_idle/actions";
 import { EvaluatorHasEnemy } from "@/engine/core/schemes/combat_idle/evaluators";
 import { ISchemePostCombatIdleState } from "@/engine/core/schemes/combat_idle/ISchemePostCombatIdleState";
@@ -21,7 +22,7 @@ export class PostCombatIdle {
     // logger.info("Add post-combat idle for:", object.name());
 
     const actionPlanner: ActionPlanner = object.motivation_action_manager();
-    const combatAction: ActionBase = actionPlanner.action(stalker_ids.action_combat_planner);
+    const combatAction: ActionBase = actionPlanner.action(EActionId.COMBAT);
     const combatActionPlanner: ActionPlanner = cast_planner(combatAction);
 
     const state: ISchemePostCombatIdleState = {
@@ -33,21 +34,21 @@ export class PostCombatIdle {
 
     registry.objects.get(object.id()).post_combat_wait = state;
 
-    actionPlanner.remove_evaluator(stalker_ids.property_enemy);
-    actionPlanner.add_evaluator(stalker_ids.property_enemy, new EvaluatorHasEnemy(state));
+    actionPlanner.remove_evaluator(EEvaluatorId.ENEMY);
+    actionPlanner.add_evaluator(EEvaluatorId.ENEMY, new EvaluatorHasEnemy(state));
 
-    combatActionPlanner.remove_evaluator(stalker_ids.property_enemy);
-    combatActionPlanner.add_evaluator(stalker_ids.property_enemy, new EvaluatorHasEnemy(state));
-    combatActionPlanner.remove_action(stalker_ids.action_post_combat_wait);
+    combatActionPlanner.remove_evaluator(EEvaluatorId.ENEMY);
+    combatActionPlanner.add_evaluator(EEvaluatorId.ENEMY, new EvaluatorHasEnemy(state));
+    combatActionPlanner.remove_action(EActionId.POST_COMBAT_WAIT);
 
     const actionPostCombatIdleWait: ActionPostCombatIdleWait = new ActionPostCombatIdleWait(state);
 
-    actionPostCombatIdleWait.add_precondition(new world_property(stalker_ids.property_enemy, true));
-    actionPostCombatIdleWait.add_precondition(new world_property(stalker_ids.property_pure_enemy, false));
-    actionPostCombatIdleWait.add_precondition(new world_property(stalker_ids.property_critically_wounded, false));
-    actionPostCombatIdleWait.add_precondition(new world_property(stalker_ids.property_danger_grenade, false));
-    actionPostCombatIdleWait.add_effect(new world_property(stalker_ids.property_enemy, false));
+    actionPostCombatIdleWait.add_precondition(new world_property(EEvaluatorId.ENEMY, true));
+    actionPostCombatIdleWait.add_precondition(new world_property(EEvaluatorId.PURE_ENEMY, false));
+    actionPostCombatIdleWait.add_precondition(new world_property(EEvaluatorId.CRITICALLY_WOUNDED, false));
+    actionPostCombatIdleWait.add_precondition(new world_property(EEvaluatorId.DANGER_GRENADE, false));
+    actionPostCombatIdleWait.add_effect(new world_property(EEvaluatorId.ENEMY, false));
 
-    combatActionPlanner.add_action(stalker_ids.action_post_combat_wait, actionPostCombatIdleWait);
+    combatActionPlanner.add_action(EActionId.POST_COMBAT_WAIT, actionPostCombatIdleWait);
   }
 }

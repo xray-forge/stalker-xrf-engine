@@ -1,4 +1,4 @@
-import { stalker_ids, world_property } from "xray16";
+import { world_property } from "xray16";
 
 import { IRegistryObjectState } from "@/engine/core/database";
 import { EActionId, EEvaluatorId } from "@/engine/core/objects/ai/types";
@@ -43,8 +43,8 @@ export class SchemeAbuse extends AbstractScheme {
 
     const action: ActionAbuseHit = new ActionAbuseHit(state);
 
-    action.add_precondition(new world_property(stalker_ids.property_alive, true));
-    action.add_precondition(new world_property(stalker_ids.property_danger, false));
+    action.add_precondition(new world_property(EEvaluatorId.ALIVE, true));
+    action.add_precondition(new world_property(EEvaluatorId.DANGER, false));
     action.add_precondition(new world_property(EEvaluatorId.IS_WOUNDED, false));
     action.add_precondition(new world_property(EEvaluatorId.IS_ABUSED, true));
     action.add_effect(new world_property(EEvaluatorId.IS_ABUSED, false));

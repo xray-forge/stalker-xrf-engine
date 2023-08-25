@@ -1,4 +1,4 @@
-import { stalker_ids, world_property } from "xray16";
+import { world_property } from "xray16";
 
 import { EActionId, EEvaluatorId } from "@/engine/core/objects/ai/types";
 import { AbstractScheme } from "@/engine/core/schemes";
@@ -37,10 +37,10 @@ export class SchemeCombatZombied extends AbstractScheme {
 
     const actionZombieShoot: ActionZombieShoot = new ActionZombieShoot(state);
 
-    actionZombieShoot.add_precondition(new world_property(stalker_ids.property_alive, true));
+    actionZombieShoot.add_precondition(new world_property(EEvaluatorId.ALIVE, true));
     actionZombieShoot.add_precondition(new world_property(EEvaluatorId.IS_COMBAT_ZOMBIED_ENABLED, true));
     actionZombieShoot.add_precondition(new world_property(EEvaluatorId.IS_SCRIPTED_COMBAT, true));
-    actionZombieShoot.add_effect(new world_property(stalker_ids.property_enemy, false));
+    actionZombieShoot.add_effect(new world_property(EEvaluatorId.ENEMY, false));
     actionZombieShoot.add_effect(new world_property(EEvaluatorId.IS_STATE_LOGIC_ACTIVE, false));
     planner.add_action(EActionId.ZOMBIED_SHOOT, actionZombieShoot);
 
@@ -48,11 +48,11 @@ export class SchemeCombatZombied extends AbstractScheme {
 
     const actionZombieGoToDanger: ActionZombieGoToDanger = new ActionZombieGoToDanger(state);
 
-    actionZombieGoToDanger.add_precondition(new world_property(stalker_ids.property_alive, true));
+    actionZombieGoToDanger.add_precondition(new world_property(EEvaluatorId.ALIFE, true));
     actionZombieGoToDanger.add_precondition(new world_property(EEvaluatorId.IS_COMBAT_ZOMBIED_ENABLED, true));
-    actionZombieGoToDanger.add_precondition(new world_property(stalker_ids.property_enemy, false));
-    actionZombieGoToDanger.add_precondition(new world_property(stalker_ids.property_danger, true));
-    actionZombieGoToDanger.add_effect(new world_property(stalker_ids.property_danger, false));
+    actionZombieGoToDanger.add_precondition(new world_property(EEvaluatorId.ENEMY, false));
+    actionZombieGoToDanger.add_precondition(new world_property(EEvaluatorId.DANGER, true));
+    actionZombieGoToDanger.add_effect(new world_property(EEvaluatorId.DANGER, false));
     actionZombieGoToDanger.add_effect(new world_property(EEvaluatorId.IS_STATE_LOGIC_ACTIVE, false));
     planner.add_action(EActionId.ZOMBIED_GO_TO_DANGER, actionZombieGoToDanger);
 

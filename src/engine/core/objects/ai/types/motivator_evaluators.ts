@@ -9,7 +9,7 @@ export enum EEvaluatorId {
    */
   ALIVE = stalker_ids.property_alive, // 0
   DEAD = stalker_ids.property_dead, // 1
-  ALREADY_DEAD = stalker_ids.property_dead, // 2
+  ALREADY_DEAD = stalker_ids.property_already_dead, // 2
   ALIFE = stalker_ids.property_alife, // 3
   PUZZLE_SOLVED = stalker_ids.property_puzzle_solved, // 4
   SMART_TERRAIN_TASK = stalker_ids.property_smart_terrain_task, // 5

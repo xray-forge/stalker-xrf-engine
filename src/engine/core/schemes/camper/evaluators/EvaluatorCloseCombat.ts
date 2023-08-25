@@ -1,4 +1,4 @@
-import { LuabindClass, property_evaluator, stalker_ids, time_global } from "xray16";
+import { LuabindClass, property_evaluator, time_global } from "xray16";
 
 import { EEvaluatorId } from "@/engine/core/objects/ai/types";
 import { ISchemeCamperState } from "@/engine/core/schemes/camper/ISchemeCamperState";
@@ -34,7 +34,7 @@ export class EvaluatorCloseCombat extends property_evaluator {
       this.actionPlanner = this.object.motivation_action_manager();
     }
 
-    if (!this.actionPlanner.evaluator(stalker_ids.property_enemy).evaluate()) {
+    if (!this.actionPlanner.evaluator(EEvaluatorId.ENEMY).evaluate()) {
       return false;
     }
 
@@ -42,7 +42,7 @@ export class EvaluatorCloseCombat extends property_evaluator {
       return false;
     }
 
-    if (this.actionPlanner.evaluator(stalker_ids.property_danger).evaluate()) {
+    if (this.actionPlanner.evaluator(EEvaluatorId.DANGER).evaluate()) {
       return true;
     }
 

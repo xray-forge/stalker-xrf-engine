@@ -1,4 +1,4 @@
-import { describe, expect, it } from "@jest/globals";
+import { describe, it } from "@jest/globals";
 
 import { EStateEvaluatorId } from "@/engine/core/objects/ai/types";
 
@@ -7,7 +7,10 @@ describe("'state_evaluators' constants integrity", () => {
     const existing: Set<unknown> = new Set();
 
     Object.values(EStateEvaluatorId).forEach((value) => {
-      expect(existing.has(value)).toBeFalsy();
+      if (existing.has(value)) {
+        throw new Error(`Found duplicate in declaration: ${value} / ${EStateEvaluatorId[value as number]}.`);
+      }
+
       existing.add(value);
     });
   });

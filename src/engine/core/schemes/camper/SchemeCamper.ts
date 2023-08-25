@@ -1,4 +1,4 @@
-import { stalker_ids, world_property } from "xray16";
+import { world_property } from "xray16";
 
 import { EActionId, EEvaluatorId } from "@/engine/core/objects/ai/types";
 import { EStalkerState } from "@/engine/core/objects/animation";
@@ -105,31 +105,29 @@ export class SchemeCamper extends AbstractScheme {
 
     const actionPatrol: ActionCamperPatrol = new ActionCamperPatrol(state, object);
 
-    actionPatrol.add_precondition(new world_property(stalker_ids.property_alive, true));
+    actionPatrol.add_precondition(new world_property(EEvaluatorId.ALIVE, true));
     actionPatrol.add_precondition(new world_property(EEvaluatorId.IS_CAMPING_ENDED, false));
     actionPatrol.add_precondition(new world_property(EEvaluatorId.IS_CLOSE_COMBAT, false));
     actionPatrol.add_precondition(new world_property(EEvaluatorId.CAN_FIGHT, true));
-    actionPatrol.add_precondition(new world_property(stalker_ids.property_danger, false));
-    actionPatrol.add_precondition(new world_property(stalker_ids.property_anomaly, false));
+    actionPatrol.add_precondition(new world_property(EEvaluatorId.DANGER, false));
+    actionPatrol.add_precondition(new world_property(EEvaluatorId.ANONALY, false));
 
     actionPatrol.add_precondition(new world_property(EEvaluatorId.IS_MEET_CONTACT, false));
     actionPatrol.add_precondition(new world_property(EEvaluatorId.IS_WOUNDED, false));
     actionPatrol.add_precondition(new world_property(EEvaluatorId.IS_ABUSED, false));
 
     actionPatrol.add_effect(new world_property(EEvaluatorId.IS_CAMPING_ENDED, true));
-    actionPatrol.add_effect(new world_property(stalker_ids.property_enemy, false));
+    actionPatrol.add_effect(new world_property(EEvaluatorId.ENEMY, false));
     actionPatrol.add_effect(new world_property(EEvaluatorId.IS_STATE_LOGIC_ACTIVE, false));
     manager.add_action(EActionId.CAMP_PATROL, actionPatrol);
     SchemeCamper.subscribe(object, state, actionPatrol);
 
     manager.action(EActionId.ALIFE).add_precondition(new world_property(EEvaluatorId.IS_CAMPING_ENDED, true));
-    manager
-      .action(stalker_ids.action_gather_items)
-      .add_precondition(new world_property(EEvaluatorId.IS_CAMPING_ENDED, true));
+    manager.action(EActionId.GATHER_ITEMS).add_precondition(new world_property(EEvaluatorId.IS_CAMPING_ENDED, true));
     manager.action(EActionId.SEARCH_CORPSE).add_precondition(new world_property(EEvaluatorId.IS_CAMPING_ENDED, true));
     manager.action(EActionId.HELP_WOUNDED).add_precondition(new world_property(EEvaluatorId.IS_CAMPING_ENDED, true));
 
-    const actionCombatPlanner: ActionBase = manager.action(stalker_ids.action_combat_planner);
+    const actionCombatPlanner: ActionBase = manager.action(EActionId.COMBAT);
 
     actionCombatPlanner.add_precondition(new world_property(EEvaluatorId.IS_CLOSE_COMBAT, true));
     actionCombatPlanner.add_effect(new world_property(EEvaluatorId.IS_CLOSE_COMBAT, false));

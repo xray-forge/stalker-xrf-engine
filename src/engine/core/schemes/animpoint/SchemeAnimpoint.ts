@@ -1,4 +1,4 @@
-import { stalker_ids, world_property } from "xray16";
+import { world_property } from "xray16";
 
 import { EActionId, EEvaluatorId } from "@/engine/core/objects/ai/types";
 import { EStalkerState } from "@/engine/core/objects/animation";
@@ -75,9 +75,9 @@ export class SchemeAnimpoint extends AbstractScheme {
     const actionReachAnimpoint: ActionReachAnimpoint = new ActionReachAnimpoint(schemeState);
 
     addCommonActionPreconditions(actionReachAnimpoint);
-    actionReachAnimpoint.add_precondition(new world_property(stalker_ids.property_alive, true));
-    actionReachAnimpoint.add_precondition(new world_property(stalker_ids.property_anomaly, false));
-    actionReachAnimpoint.add_precondition(new world_property(stalker_ids.property_enemy, false));
+    actionReachAnimpoint.add_precondition(new world_property(EEvaluatorId.ALIVE, true));
+    actionReachAnimpoint.add_precondition(new world_property(EEvaluatorId.ANONALY, false));
+    actionReachAnimpoint.add_precondition(new world_property(EEvaluatorId.ENEMY, false));
     actionReachAnimpoint.add_precondition(new world_property(EEvaluatorId.IS_ANIMPOINT_NEEDED, true));
     actionReachAnimpoint.add_precondition(new world_property(EEvaluatorId.IS_ANIMPOINT_REACHED, false));
 
@@ -91,9 +91,9 @@ export class SchemeAnimpoint extends AbstractScheme {
     const actionAnimpoint: ActionAnimpoint = new ActionAnimpoint(schemeState);
 
     addCommonActionPreconditions(actionAnimpoint);
-    actionAnimpoint.add_precondition(new world_property(stalker_ids.property_alive, true));
-    actionAnimpoint.add_precondition(new world_property(stalker_ids.property_anomaly, false));
-    actionAnimpoint.add_precondition(new world_property(stalker_ids.property_enemy, false));
+    actionAnimpoint.add_precondition(new world_property(EEvaluatorId.ALIVE, true));
+    actionAnimpoint.add_precondition(new world_property(EEvaluatorId.ANONALY, false));
+    actionAnimpoint.add_precondition(new world_property(EEvaluatorId.ENEMY, false));
     actionAnimpoint.add_precondition(new world_property(EEvaluatorId.IS_ANIMPOINT_NEEDED, true));
     actionAnimpoint.add_precondition(new world_property(EEvaluatorId.IS_ANIMPOINT_REACHED, true));
     actionAnimpoint.add_effect(new world_property(EEvaluatorId.IS_ANIMPOINT_NEEDED, false));

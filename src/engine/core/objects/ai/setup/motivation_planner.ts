@@ -1,4 +1,4 @@
-import { stalker_ids, world_property } from "xray16";
+import { world_property } from "xray16";
 
 import { StalkerStateManager } from "@/engine/core/objects/ai/state";
 import { ActionStateToIdle } from "@/engine/core/objects/ai/state/state/ActionStateToIdle";
@@ -35,18 +35,18 @@ export function setupStalkerMotivationPlanner(planner: ActionPlanner, stateManag
   const actionItemsToIdle: ActionStateToIdle = new ActionStateToIdle(stateManager, "ActionToIdleItems");
 
   actionItemsToIdle.add_precondition(new world_property(EEvaluatorId.IS_STATE_IDLE_ITEMS, false));
-  actionItemsToIdle.add_precondition(new world_property(stalker_ids.property_items, true));
-  actionItemsToIdle.add_precondition(new world_property(stalker_ids.property_enemy, false));
+  actionItemsToIdle.add_precondition(new world_property(EEvaluatorId.ITEMS, true));
+  actionItemsToIdle.add_precondition(new world_property(EEvaluatorId.ENEMY, false));
   actionItemsToIdle.add_effect(new world_property(EEvaluatorId.IS_STATE_IDLE_ITEMS, true));
 
   planner.add_action(EActionId.STATE_TO_IDLE_ITEMS, actionItemsToIdle);
 
   const actionAlifeToIdle: ActionStateToIdle = new ActionStateToIdle(stateManager, "ActionToIdleAlife");
 
-  actionAlifeToIdle.add_precondition(new world_property(stalker_ids.property_alive, true));
-  actionAlifeToIdle.add_precondition(new world_property(stalker_ids.property_enemy, false));
-  actionAlifeToIdle.add_precondition(new world_property(stalker_ids.property_danger, false));
-  actionAlifeToIdle.add_precondition(new world_property(stalker_ids.property_items, false));
+  actionAlifeToIdle.add_precondition(new world_property(EEvaluatorId.ALIVE, true));
+  actionAlifeToIdle.add_precondition(new world_property(EEvaluatorId.ENEMY, false));
+  actionAlifeToIdle.add_precondition(new world_property(EEvaluatorId.DANGER, false));
+  actionAlifeToIdle.add_precondition(new world_property(EEvaluatorId.ITEMS, false));
   actionAlifeToIdle.add_precondition(new world_property(EEvaluatorId.IS_STATE_LOGIC_ACTIVE, false));
   actionAlifeToIdle.add_precondition(new world_property(EEvaluatorId.IS_STATE_IDLE_ALIFE, false));
   actionAlifeToIdle.add_effect(new world_property(EEvaluatorId.IS_STATE_IDLE_ALIFE, true));

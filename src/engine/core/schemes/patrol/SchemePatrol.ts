@@ -1,4 +1,4 @@
-import { stalker_ids, world_property } from "xray16";
+import { world_property } from "xray16";
 
 import { registry } from "@/engine/core/database";
 import { EActionId, EEvaluatorId } from "@/engine/core/objects/ai/types";
@@ -107,30 +107,32 @@ export class SchemePatrol extends AbstractScheme {
 
     const actionCommander: ActionCommander = new ActionCommander(state, object);
 
-    actionCommander.add_precondition(new world_property(stalker_ids.property_alive, true));
-    actionCommander.add_precondition(new world_property(stalker_ids.property_danger, false));
-    actionCommander.add_precondition(new world_property(stalker_ids.property_enemy, false));
-    actionCommander.add_precondition(new world_property(stalker_ids.property_anomaly, false));
+    actionCommander.add_precondition(new world_property(EEvaluatorId.ALIVE, true));
+    actionCommander.add_precondition(new world_property(EEvaluatorId.DANGER, false));
+    actionCommander.add_precondition(new world_property(EEvaluatorId.ENEMY, false));
+    actionCommander.add_precondition(new world_property(EEvaluatorId.ANONALY, false));
     addCommonActionPreconditions(actionCommander);
     actionCommander.add_precondition(new world_property(EEvaluatorId.IS_PATROL_ENDED, false));
     actionCommander.add_precondition(new world_property(EEvaluatorId.IS_PATROL_COMMANDER, true));
     actionCommander.add_effect(new world_property(EEvaluatorId.IS_PATROL_ENDED, true));
     actionCommander.add_effect(new world_property(EEvaluatorId.IS_STATE_LOGIC_ACTIVE, false));
     actionPlanner.add_action(EActionId.COMMAND_SQUAD, actionCommander);
+
     SchemePatrol.subscribe(object, state, actionCommander);
 
     const actionPatrol: ActionPatrol = new ActionPatrol(state, object);
 
-    actionPatrol.add_precondition(new world_property(stalker_ids.property_alive, true));
-    actionPatrol.add_precondition(new world_property(stalker_ids.property_danger, false));
-    actionPatrol.add_precondition(new world_property(stalker_ids.property_enemy, false));
-    actionPatrol.add_precondition(new world_property(stalker_ids.property_anomaly, false));
+    actionPatrol.add_precondition(new world_property(EEvaluatorId.ALIVE, true));
+    actionPatrol.add_precondition(new world_property(EEvaluatorId.DANGER, false));
+    actionPatrol.add_precondition(new world_property(EEvaluatorId.ENEMY, false));
+    actionPatrol.add_precondition(new world_property(EEvaluatorId.ANONALY, false));
     addCommonActionPreconditions(actionPatrol);
     actionPatrol.add_precondition(new world_property(EEvaluatorId.IS_PATROL_ENDED, false));
     actionPatrol.add_precondition(new world_property(EEvaluatorId.IS_PATROL_COMMANDER, false));
     actionPatrol.add_effect(new world_property(EEvaluatorId.IS_PATROL_ENDED, true));
     actionPatrol.add_effect(new world_property(EEvaluatorId.IS_STATE_LOGIC_ACTIVE, false));
     actionPlanner.add_action(EActionId.PATROL_ACTIVITY, actionPatrol);
+
     SchemePatrol.subscribe(object, state, actionPatrol);
 
     actionPlanner.action(EActionId.ALIFE).add_precondition(new world_property(EEvaluatorId.IS_PATROL_ENDED, true));

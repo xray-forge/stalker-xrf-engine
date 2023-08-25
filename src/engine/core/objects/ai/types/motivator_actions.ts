@@ -51,7 +51,7 @@ export enum EActionId {
   DANGER_HOLD_POSITION = stalker_ids.action_danger_in_direction_hold_position, // 79
   DANGER_DETOUR = stalker_ids.action_danger_in_direction_detour, // 80
   DANGER_SEARCH = stalker_ids.action_danger_in_direction_search, // 81
-  GRENADE_TAKE_COVER = stalker_ids.action_danger_grenade_wait_for_explosion, // 82
+  GRENADE_TAKE_COVER = stalker_ids.action_danger_grenade_take_cover, // 82
   GRENADE_WAIT_FOR_EXPLOSION = stalker_ids.action_danger_grenade_wait_for_explosion, // 83
   GRENADE_TAKE_COVER_AFTER_EXPLOSION = stalker_ids.action_danger_grenade_take_cover_after_explosion, // 84
   GRENADE_LOOK_AROUND = stalker_ids.action_danger_grenade_look_around, // 85
