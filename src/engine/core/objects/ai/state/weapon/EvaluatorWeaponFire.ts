@@ -8,7 +8,7 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * Whether object in fire weapon state.
+ * Whether object is in fire weapon state.
  */
 @LuabindClass()
 export class EvaluatorWeaponFire extends property_evaluator {

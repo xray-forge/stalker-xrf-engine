@@ -1,4 +1,4 @@
-import { CHelicopter, level, system_ini, time_global } from "xray16";
+import { CHelicopter, level, time_global } from "xray16";
 
 import {
   closeLoadMarker,
@@ -8,6 +8,7 @@ import {
   openLoadMarker,
   openSaveMarker,
   registry,
+  SYSTEM_INI,
 } from "@/engine/core/database";
 import { getHeliHealth } from "@/engine/core/schemes/heli_move/heli_utils";
 import { isGameLevelChanging } from "@/engine/core/utils/game";
@@ -116,7 +117,7 @@ export class HeliCombat {
 
     this.levelMaxY = level.get_bounding_volume().max.y;
 
-    const ltx: IniFile = system_ini();
+    const ltx: IniFile = SYSTEM_INI;
 
     this.flybyAttackDist = readIniNumber(ltx, "helicopter", "flyby_attack_dist", true);
     this.searchAttackDist = readIniNumber(ltx, "helicopter", "search_attack_dist", true);

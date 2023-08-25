@@ -26,8 +26,6 @@ export class ActionStateToIdle extends action_base {
    * Starting resetting state to idle for object.
    */
   public override initialize(): void {
-    logger.info("State to idle for:", this.object.name(), this.name);
-
     super.initialize();
 
     this.object.inactualize_patrol_path();
@@ -42,6 +40,7 @@ export class ActionStateToIdle extends action_base {
   public override execute(): void {
     super.execute();
 
+    // If any animation is active in state manager, reset everything for client object.
     if (this.stateManager.targetState !== EStalkerState.IDLE) {
       this.object.clear_animations();
       this.stateManager.setState(EStalkerState.IDLE, null, null, null, { isForced: true });

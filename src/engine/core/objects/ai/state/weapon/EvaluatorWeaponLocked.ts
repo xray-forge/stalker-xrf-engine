@@ -7,7 +7,7 @@ import { isObjectWeaponLocked } from "@/engine/core/utils/object/object_weapon";
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * Whether weapon state is locked.
+ * Whether weapon state is locked and cannot be used.
  */
 @LuabindClass()
 export class EvaluatorWeaponLocked extends property_evaluator {

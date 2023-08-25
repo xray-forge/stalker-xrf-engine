@@ -10,7 +10,6 @@ import {
   patrol,
   property_evaluator_const,
   stalker_ids,
-  system_ini,
   time_global,
 } from "xray16";
 
@@ -28,6 +27,7 @@ import {
   registry,
   resetObject,
   saveObjectLogic,
+  SYSTEM_INI,
   unregisterHelicopterEnemy,
   unregisterStalker,
 } from "@/engine/core/database";
@@ -120,7 +120,7 @@ export class StalkerBinder extends object_binder {
   public override net_spawn(object: ServerCreatureObject): boolean {
     const objectId: TNumberId = this.object.id();
     const actor: ClientObject = registry.actor;
-    const visual: TName = readIniString(system_ini(), this.object.section(), "set_visual", false, "");
+    const visual: TName = readIniString(SYSTEM_INI, this.object.section(), "set_visual", false, "");
 
     if (visual !== null && visual !== "") {
       if (visual === "actor_visual") {

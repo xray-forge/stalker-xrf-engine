@@ -1,7 +1,9 @@
-import { object } from "xray16";
+import { anim, move, object, TXR_object_state } from "xray16";
 
+import { EStalkerState, IStateDescriptor } from "@/engine/core/objects/animation";
+import { states } from "@/engine/core/objects/animation/states";
 import { isWeapon } from "@/engine/core/utils/object/object_class";
-import { ClientObject, Optional } from "@/engine/lib/types";
+import { ClientObject, Optional, TIndex } from "@/engine/lib/types";
 
 /**
  * todo;
@@ -36,4 +38,33 @@ export function setObjectBestWeapon(target: ClientObject): void {
   if (bestWeapon && isWeapon(bestWeapon)) {
     target.set_item(object.idle, bestWeapon);
   }
+}
+
+/**
+ * todo;
+ */
+export function getWeaponStateForAnimationState(targetState: EStalkerState): TXR_object_state {
+  const stateDescriptor: IStateDescriptor = states.get(targetState);
+
+  if (
+    stateDescriptor.animation === null &&
+    stateDescriptor.mental === anim.danger &&
+    stateDescriptor.movement === move.stand
+  ) {
+    return object.aim1;
+  } else {
+    return object.idle;
+  }
+}
+
+/**
+ * todo;
+ */
+export function getObjectWeaponForAnimationState(
+  object: ClientObject,
+  targetState: EStalkerState
+): Optional<ClientObject> {
+  const weaponSlot: Optional<TIndex> = states.get(targetState).weaponSlot as Optional<TIndex>;
+
+  return weaponSlot === null ? object.best_weapon() : object.item_in_slot(weaponSlot);
 }

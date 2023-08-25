@@ -1,5 +1,6 @@
-import { clsid, system_ini } from "xray16";
+import { clsid } from "xray16";
 
+import { SYSTEM_INI } from "@/engine/core/database";
 import { artefactClassIds, monsterClassIds, stalkerClassIds, weaponClassIds } from "@/engine/lib/constants/class_ids";
 import {
   AnyGameObject,
@@ -77,5 +78,5 @@ export function isArtefact(object: AnyGameObject): object is ServerArtefactItemO
  * @returns whether strap animation is available for weapon
  */
 export function isStrappableWeapon(object: Optional<ClientObject>): object is ClientObject {
-  return object === null ? false : system_ini().line_exist(object.section(), "strap_bone0");
+  return object === null ? false : SYSTEM_INI.line_exist(object.section(), "strap_bone0");
 }
