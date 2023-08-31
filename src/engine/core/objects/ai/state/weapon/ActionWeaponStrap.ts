@@ -1,15 +1,15 @@
 import { action_base, LuabindClass, object } from "xray16";
 
 import { StalkerStateManager } from "@/engine/core/objects/ai/state/StalkerStateManager";
-import { getObjectAnimationWeapon } from "@/engine/core/objects/ai/state/weapon/StateManagerWeapon";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { isStrappableWeapon } from "@/engine/core/utils/object";
+import { getObjectWeaponForAnimationState } from "@/engine/core/utils/object/object_weapon";
 import { ClientObject, Optional } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Strap active weapon item if it is stapable.
  */
 @LuabindClass()
 export class ActionWeaponStrap extends action_base {
@@ -24,11 +24,9 @@ export class ActionWeaponStrap extends action_base {
    * Strap active weapon.
    */
   public override initialize(): void {
-    logger.info("Strap weapon for:", this.object.name());
-
     super.initialize();
 
-    const weapon: Optional<ClientObject> = getObjectAnimationWeapon(this.object, this.stateManager.targetState);
+    const weapon: Optional<ClientObject> = getObjectWeaponForAnimationState(this.object, this.stateManager.targetState);
 
     if (isStrappableWeapon(weapon)) {
       this.object.set_item(object.strap, weapon);

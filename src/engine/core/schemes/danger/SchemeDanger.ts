@@ -1,6 +1,7 @@
-import { cast_planner, stalker_ids } from "xray16";
+import { cast_planner } from "xray16";
 
 import { IRegistryObjectState } from "@/engine/core/database";
+import { EActionId, EEvaluatorId } from "@/engine/core/objects/ai";
 import { AbstractScheme } from "@/engine/core/schemes/base";
 import { DangerManager } from "@/engine/core/schemes/danger/DangerManager";
 import { EvaluatorDanger } from "@/engine/core/schemes/danger/evaluators";
@@ -29,14 +30,14 @@ export class SchemeDanger extends AbstractScheme {
     state: ISchemeDangerState
   ): void {
     const actionPlanner: ActionPlanner = object.motivation_action_manager();
-    const dangerAction: ActionBase = actionPlanner.action(stalker_ids.action_danger_planner);
+    const dangerAction: ActionBase = actionPlanner.action(EActionId.DANGER);
     const dangerActionPlanner: ActionPlanner = cast_planner(dangerAction);
 
-    actionPlanner.remove_evaluator(stalker_ids.property_danger);
-    actionPlanner.add_evaluator(stalker_ids.property_danger, new EvaluatorDanger(state));
+    actionPlanner.remove_evaluator(EEvaluatorId.DANGER);
+    actionPlanner.add_evaluator(EEvaluatorId.DANGER, new EvaluatorDanger(state));
 
-    dangerActionPlanner.remove_evaluator(stalker_ids.property_danger);
-    dangerActionPlanner.add_evaluator(stalker_ids.property_danger, new EvaluatorDanger(state));
+    dangerActionPlanner.remove_evaluator(EEvaluatorId.DANGER);
+    dangerActionPlanner.add_evaluator(EEvaluatorId.DANGER, new EvaluatorDanger(state));
 
     // Assign manager to handle danger events.
     state.dangerManager = new DangerManager(object, state);

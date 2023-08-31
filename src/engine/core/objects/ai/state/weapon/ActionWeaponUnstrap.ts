@@ -1,13 +1,16 @@
 import { action_base, LuabindClass } from "xray16";
 
 import { StalkerStateManager } from "@/engine/core/objects/ai/state/StalkerStateManager";
-import { getObjectAnimationWeapon, getObjectIdleState } from "@/engine/core/objects/ai/state/weapon/StateManagerWeapon";
 import { LuaLogger } from "@/engine/core/utils/logging";
+import {
+  getObjectWeaponForAnimationState,
+  getWeaponStateForAnimationState,
+} from "@/engine/core/utils/object/object_weapon";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Unstrap active weapon item.
  */
 @LuabindClass()
 export class ActionWeaponUnstrap extends action_base {
@@ -22,12 +25,11 @@ export class ActionWeaponUnstrap extends action_base {
    * Unstrap active animation weapon.
    */
   public override initialize(): void {
-    logger.info("Unstrap weapon for:", this.object.name());
-
     super.initialize();
+
     this.object.set_item(
-      getObjectIdleState(this.stateManager.targetState),
-      getObjectAnimationWeapon(this.object, this.stateManager.targetState)
+      getWeaponStateForAnimationState(this.stateManager.targetState),
+      getObjectWeaponForAnimationState(this.object, this.stateManager.targetState)
     );
   }
 }

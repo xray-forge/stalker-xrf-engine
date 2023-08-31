@@ -1,4 +1,4 @@
-import { stalker_ids, world_property } from "xray16";
+import { world_property } from "xray16";
 
 import { registry } from "@/engine/core/database";
 import { EEvaluatorId } from "@/engine/core/objects/ai/types";
@@ -54,7 +54,7 @@ export function addCommonActionPreconditions(action: ActionBase): void {
   action.add_precondition(new world_property(EEvaluatorId.IS_ABUSED, false));
   action.add_precondition(new world_property(EEvaluatorId.IS_WOUNDED_EXISTING, false));
   action.add_precondition(new world_property(EEvaluatorId.IS_CORPSE_EXISTING, false));
-  action.add_precondition(new world_property(stalker_ids.property_items, false));
+  action.add_precondition(new world_property(EEvaluatorId.ITEMS, false));
 }
 
 /**

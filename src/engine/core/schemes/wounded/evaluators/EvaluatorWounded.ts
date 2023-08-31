@@ -1,6 +1,7 @@
-import { LuabindClass, property_evaluator, stalker_ids } from "xray16";
+import { LuabindClass, property_evaluator } from "xray16";
 
 import { getPortableStoreValue } from "@/engine/core/database/portable_store";
+import { EEvaluatorId } from "@/engine/core/objects/ai";
 import { ISchemeWoundedState } from "@/engine/core/schemes/wounded";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { NIL, TRUE } from "@/engine/lib/constants/words";
@@ -42,7 +43,7 @@ export class EvaluatorWounded extends property_evaluator {
 
     // If fighting and wounded_fight is set to 'true' still fight:
     if (
-      this.actionPlanner.evaluator(stalker_ids.property_enemy).evaluate() &&
+      this.actionPlanner.evaluator(EEvaluatorId.ENEMY).evaluate() &&
       getPortableStoreValue(this.object.id(), "wounded_fight") === TRUE
     ) {
       return false;

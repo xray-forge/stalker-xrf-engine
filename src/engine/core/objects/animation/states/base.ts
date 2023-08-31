@@ -829,7 +829,7 @@ export const baseStates: LuaTable<TName, IStateDescriptor> = $fromObject<TName, 
   },
   [EStalkerState.PSY_SHOOT]: {
     weapon: EWeaponAnimation.FIRE,
-    weapon_slot: 1,
+    weaponSlot: 1,
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,

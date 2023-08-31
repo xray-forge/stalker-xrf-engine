@@ -1,7 +1,6 @@
 import { action_planner, level, look, object, time_global } from "xray16";
 
 import { StalkerAnimationManager } from "@/engine/core/objects/ai/state/StalkerAnimationManager";
-import { getObjectAnimationWeapon } from "@/engine/core/objects/ai/state/weapon/StateManagerWeapon";
 import { EStateActionId, EStateEvaluatorId } from "@/engine/core/objects/ai/types";
 import { EAnimationType, EWeaponAnimation } from "@/engine/core/objects/animation/animation_types";
 import {
@@ -14,6 +13,7 @@ import {
 import { states } from "@/engine/core/objects/animation/states";
 import { assert } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
+import { getObjectWeaponForAnimationState } from "@/engine/core/utils/object/object_weapon";
 import { areSameVectors, createVector, subVectors } from "@/engine/core/utils/vector";
 import { ZERO_VECTOR } from "@/engine/lib/constants/vectors";
 import {
@@ -120,7 +120,7 @@ export class StalkerStateManager {
       nextStateDescriptorWeapon !== EWeaponAnimation.SNIPER_FIRE
     ) {
       if (this.object.active_item() && this.object.best_weapon() && this.object.weapon_unstrapped()) {
-        this.object.set_item(object.idle, getObjectAnimationWeapon(this.object, state));
+        this.object.set_item(object.idle, getObjectWeaponForAnimationState(this.object, state));
       }
     }
 

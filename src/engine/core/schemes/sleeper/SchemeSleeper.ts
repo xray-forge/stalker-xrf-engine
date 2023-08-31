@@ -1,4 +1,4 @@
-import { stalker_ids, world_property } from "xray16";
+import { world_property } from "xray16";
 
 import { EActionId, EEvaluatorId } from "@/engine/core/objects/ai/types";
 import { AbstractScheme } from "@/engine/core/schemes";
@@ -59,10 +59,10 @@ export class SchemeSleeper extends AbstractScheme {
 
     const actionSleeper: ActionSleeperActivity = new ActionSleeperActivity(state, object);
 
-    actionSleeper.add_precondition(new world_property(stalker_ids.property_alive, true));
-    actionSleeper.add_precondition(new world_property(stalker_ids.property_danger, false));
-    actionSleeper.add_precondition(new world_property(stalker_ids.property_enemy, false));
-    actionSleeper.add_precondition(new world_property(stalker_ids.property_anomaly, false));
+    actionSleeper.add_precondition(new world_property(EEvaluatorId.ALIVE, true));
+    actionSleeper.add_precondition(new world_property(EEvaluatorId.DANGER, false));
+    actionSleeper.add_precondition(new world_property(EEvaluatorId.ENEMY, false));
+    actionSleeper.add_precondition(new world_property(EEvaluatorId.ANONALY, false));
     actionSleeper.add_precondition(new world_property(EEvaluatorId.NEED_SLEEPER, true));
 
     addCommonActionPreconditions(actionSleeper);

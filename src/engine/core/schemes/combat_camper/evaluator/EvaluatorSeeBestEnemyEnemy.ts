@@ -11,11 +11,11 @@ const logger: LuaLogger = new LuaLogger($filename);
  * Also remembers last seen position.
  */
 @LuabindClass()
-export class EvaluatorSee extends property_evaluator {
+export class EvaluatorSeeBestEnemyEnemy extends property_evaluator {
   public readonly state: ISchemeCombatState;
 
   public constructor(storage: ISchemeCombatState) {
-    super(null, EvaluatorSee.__name);
+    super(null, EvaluatorSeeBestEnemyEnemy.__name);
     this.state = storage;
   }
 

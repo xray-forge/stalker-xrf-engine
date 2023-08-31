@@ -1,4 +1,4 @@
-import { callback, CHelicopter, clsid, level, LuabindClass, object_binder, system_ini, time_global } from "xray16";
+import { callback, CHelicopter, clsid, level, LuabindClass, object_binder, time_global } from "xray16";
 
 import {
   closeLoadMarker,
@@ -9,6 +9,7 @@ import {
   registerHelicopter,
   registry,
   resetObject,
+  SYSTEM_INI,
   unregisterHelicopter,
 } from "@/engine/core/database";
 import { loadObjectLogic, saveObjectLogic } from "@/engine/core/database/logic";
@@ -79,9 +80,7 @@ export class HelicopterBinder extends object_binder {
 
     this.lastHitSndTimeout = 0;
 
-    const ltx: IniFile = system_ini();
-
-    this.flameStartHealth = readIniNumber(ltx, "helicopter", "flame_start_health", true);
+    this.flameStartHealth = readIniNumber(SYSTEM_INI, "helicopter", "flame_start_health", true);
 
     const objectIni: IniFile = this.object.spawn_ini();
 

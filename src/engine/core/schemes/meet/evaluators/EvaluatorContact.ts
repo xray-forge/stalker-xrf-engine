@@ -1,6 +1,7 @@
-import { LuabindClass, property_evaluator, stalker_ids } from "xray16";
+import { LuabindClass, property_evaluator } from "xray16";
 
 import { registry } from "@/engine/core/database";
+import { EEvaluatorId } from "@/engine/core/objects/ai";
 import { ISchemeMeetState } from "@/engine/core/schemes/meet";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { isObjectWounded } from "@/engine/core/utils/object";
@@ -48,7 +49,7 @@ export class EvaluatorContact extends property_evaluator {
     }
 
     // In combat/searching for enemy, cannot speak.
-    if (this.actionPlanner.evaluator(stalker_ids.property_enemy).evaluate()) {
+    if (this.actionPlanner.evaluator(EEvaluatorId.ENEMY).evaluate()) {
       this.state.meetManager.use = FALSE;
       this.object.disable_talk();
 

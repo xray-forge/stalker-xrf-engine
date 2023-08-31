@@ -1,4 +1,4 @@
-import { stalker_ids, world_property } from "xray16";
+import { world_property } from "xray16";
 
 import { EActionId, EEvaluatorId } from "@/engine/core/objects/ai/types";
 import { AbstractScheme } from "@/engine/core/schemes";
@@ -59,10 +59,10 @@ export class SchemeCover extends AbstractScheme {
 
     const newAction: ActionCover = new ActionCover(state);
 
-    newAction.add_precondition(new world_property(stalker_ids.property_alive, true));
-    newAction.add_precondition(new world_property(stalker_ids.property_danger, false));
-    newAction.add_precondition(new world_property(stalker_ids.property_enemy, false));
-    newAction.add_precondition(new world_property(stalker_ids.property_anomaly, false));
+    newAction.add_precondition(new world_property(EEvaluatorId.ALIVE, true));
+    newAction.add_precondition(new world_property(EEvaluatorId.DANGER, false));
+    newAction.add_precondition(new world_property(EEvaluatorId.ENEMY, false));
+    newAction.add_precondition(new world_property(EEvaluatorId.ANONALY, false));
     newAction.add_precondition(new world_property(EEvaluatorId.IS_WOUNDED, false));
     newAction.add_precondition(new world_property(EEvaluatorId.NEED_COVER, true));
     // Mark as cover not needed anymore.

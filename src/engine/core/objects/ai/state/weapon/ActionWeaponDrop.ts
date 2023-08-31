@@ -1,16 +1,17 @@
 import { action_base, LuabindClass, object } from "xray16";
 
 import { StalkerStateManager } from "@/engine/core/objects/ai/state/StalkerStateManager";
-import { getObjectAnimationWeapon } from "@/engine/core/objects/ai/state/weapon/StateManagerWeapon";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { isStrappableWeapon, setItemCondition } from "@/engine/core/utils/object";
+import { getObjectWeaponForAnimationState } from "@/engine/core/utils/object/object_weapon";
 import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
 import { ClientObject, Optional } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Action to drop active item.
+ * In case if item is not stappable, just hide all active items.
  */
 @LuabindClass()
 export class ActionWeaponDrop extends action_base {
@@ -26,15 +27,14 @@ export class ActionWeaponDrop extends action_base {
    * If object has no weapon, just select no weapon active.
    */
   public override initialize(): void {
-    logger.info("Drop weapon for:", this.object.name());
-
     super.initialize();
 
-    const weapon: Optional<ClientObject> = getObjectAnimationWeapon(this.object, this.stateManager.targetState);
+    const weapon: Optional<ClientObject> = getObjectWeaponForAnimationState(this.object, this.stateManager.targetState);
 
     if (isStrappableWeapon(weapon)) {
       this.object.set_item(object.drop, weapon);
 
+      // todo: Is it needed?
       setItemCondition(
         weapon,
         math.random(

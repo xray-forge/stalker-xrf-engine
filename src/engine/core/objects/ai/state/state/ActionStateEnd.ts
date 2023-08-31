@@ -1,15 +1,17 @@
 import { action_base, level, LuabindClass, object, time_global } from "xray16";
 
 import { StalkerStateManager } from "@/engine/core/objects/ai/state/StalkerStateManager";
-import { getObjectIdleState, getStateQueueParams } from "@/engine/core/objects/ai/state/weapon/StateManagerWeapon";
 import { EWeaponAnimation } from "@/engine/core/objects/animation";
 import { states } from "@/engine/core/objects/animation/states";
 import { LuaLogger } from "@/engine/core/utils/logging";
+import { getObjectSmartCoverStateQueueParams } from "@/engine/core/utils/object";
 import { isStalker, isWeapon } from "@/engine/core/utils/object/object_class";
+import { getWeaponStateForAnimationState } from "@/engine/core/utils/object/object_weapon";
 import { ClientObject, EClientObjectRelation, Optional, TDuration, TRate, TTimestamp } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
+// todo: Move out.
 const AIM_RATIO: TRate = 1000 / 50;
 const MIN_RATIO: TRate = 1500;
 const SNIPER_AIM_TIME: TDuration = 3000;
@@ -87,7 +89,10 @@ export class ActionStateEnd extends action_base {
 
             this.object.set_item(object.fire1, this.object.best_weapon(), 1, sniperAimDuration);
           } else {
-            const [value] = getStateQueueParams(this.object, states.get(this.stateManager.targetState!));
+            const [value] = getObjectSmartCoverStateQueueParams(
+              this.object,
+              states.get(this.stateManager.targetState!)
+            );
 
             this.object.set_item(object.fire1, this.object.best_weapon(), value);
           }
@@ -104,7 +109,7 @@ export class ActionStateEnd extends action_base {
         if (targetWeaponState === EWeaponAnimation.SNIPER_FIRE) {
           this.object.set_item(object.fire1, this.object.best_weapon(), 1, sniperAimDuration);
         } else {
-          const [value] = getStateQueueParams(this.object, states.get(this.stateManager.targetState!));
+          const [value] = getObjectSmartCoverStateQueueParams(this.object, states.get(this.stateManager.targetState!));
 
           this.object.set_item(object.fire1, this.object.best_weapon(), value);
         }
@@ -112,14 +117,14 @@ export class ActionStateEnd extends action_base {
         return;
       }
 
-      const [value] = getStateQueueParams(this.object, states.get(this.stateManager.targetState!));
+      const [value] = getObjectSmartCoverStateQueueParams(this.object, states.get(this.stateManager.targetState!));
 
       this.object.set_item(object.fire1, this.object.best_weapon(), value);
 
       return;
     } else if (targetWeaponState === EWeaponAnimation.UNSTRAPPED) {
       // Unstrap weapon.
-      this.object.set_item(getObjectIdleState(this.stateManager.targetState), this.object.best_weapon());
+      this.object.set_item(getWeaponStateForAnimationState(this.stateManager.targetState), this.object.best_weapon());
     }
   }
 }

@@ -4,7 +4,7 @@ import { StalkerStateManager } from "@/engine/core/objects/ai/state/StalkerState
 import { EWeaponAnimation } from "@/engine/core/objects/animation";
 import { states } from "@/engine/core/objects/animation/states";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { isStrappableWeapon, isWeapon } from "@/engine/core/utils/object";
+import { isStrappableWeapon } from "@/engine/core/utils/object";
 import { ClientObject, Optional } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);

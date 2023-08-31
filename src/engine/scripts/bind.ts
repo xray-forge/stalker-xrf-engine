@@ -6,8 +6,8 @@ import {
   AnomalyZoneBinder,
   ArenaZoneBinder,
   ArtefactBinder,
-  CampBinder,
   CampfireBinder,
+  CampZoneBinder,
   CrowBinder,
   HelicopterBinder,
   LabX8DoorBinder,
@@ -41,7 +41,7 @@ extern("bind", {
     }
   },
   artefact: (object: ClientObject) => object.bind_object(new ArtefactBinder(object)),
-  camp: (object: ClientObject) => object.bind_object(new CampBinder(object)),
+  camp: (object: ClientObject) => object.bind_object(new CampZoneBinder(object)),
   campfire: (object: ClientObject) => object.bind_object(new CampfireBinder(object)),
   crow: (object: ClientObject) => object.bind_object(new CrowBinder(object)),
   // todo: Rename to full name 'helicopter'.

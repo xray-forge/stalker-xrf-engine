@@ -217,7 +217,7 @@ export interface IStateDescriptor {
   bodystate: Optional<TMoveType>;
   animstate: Optional<TName>;
   animation: Optional<TName>;
-  weapon_slot?: Optional<TIndex>;
+  weaponSlot?: Optional<TIndex>;
   direction?: TLookType | TSightType;
   special_danger_move?: Optional<boolean>;
   isForced?: Optional<boolean>;

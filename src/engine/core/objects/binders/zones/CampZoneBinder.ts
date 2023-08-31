@@ -23,7 +23,7 @@ const logger: LuaLogger = new LuaLogger($filename);
  * Note: related manager appears if it is defined or if NPC enters camp.
  */
 @LuabindClass()
-export class CampBinder extends object_binder {
+export class CampZoneBinder extends object_binder {
   /**
    * Re-initialize camp state.
    * Update camp manager object link pointing to current camp.
@@ -95,9 +95,9 @@ export class CampBinder extends object_binder {
    * @param packet - net packet to save data into
    */
   public override save(packet: NetPacket): void {
-    openSaveMarker(packet, CampBinder.__name);
+    openSaveMarker(packet, CampZoneBinder.__name);
     super.save(packet);
-    closeSaveMarker(packet, CampBinder.__name);
+    closeSaveMarker(packet, CampZoneBinder.__name);
   }
 
   /**
@@ -106,8 +106,8 @@ export class CampBinder extends object_binder {
    * @param reader - net reader to read data from
    */
   public override load(reader: Reader): void {
-    openLoadMarker(reader, CampBinder.__name);
+    openLoadMarker(reader, CampZoneBinder.__name);
     super.load(reader);
-    closeLoadMarker(reader, CampBinder.__name);
+    closeLoadMarker(reader, CampZoneBinder.__name);
   }
 }

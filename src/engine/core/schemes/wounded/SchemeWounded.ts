@@ -1,4 +1,4 @@
-import { stalker_ids, world_property } from "xray16";
+import { world_property } from "xray16";
 
 import { IRegistryObjectState } from "@/engine/core/database";
 import { EActionId, EEvaluatorId } from "@/engine/core/objects/ai/types";
@@ -50,27 +50,19 @@ export class SchemeWounded extends AbstractScheme {
 
     const action: ActionWounded = new ActionWounded(state);
 
-    action.add_precondition(new world_property(stalker_ids.property_alive, true));
+    action.add_precondition(new world_property(EEvaluatorId.ALIVE, true));
     action.add_precondition(new world_property(EEvaluatorId.IS_WOUNDED, true));
     action.add_effect(new world_property(EEvaluatorId.IS_WOUNDED, false));
-    action.add_effect(new world_property(stalker_ids.property_enemy, false));
+    action.add_effect(new world_property(EEvaluatorId.ENEMY, false));
     action.add_effect(new world_property(EEvaluatorId.CAN_FIGHT, true));
 
     manager.add_action(EActionId.BECOME_WOUNDED, action);
 
     manager.action(EActionId.ALIFE).add_precondition(new world_property(EEvaluatorId.IS_WOUNDED, false));
-    manager
-      .action(stalker_ids.action_gather_items)
-      .add_precondition(new world_property(EEvaluatorId.IS_WOUNDED, false));
-    manager
-      .action(stalker_ids.action_combat_planner)
-      .add_precondition(new world_property(EEvaluatorId.CAN_FIGHT, true));
-    manager
-      .action(stalker_ids.action_danger_planner)
-      .add_precondition(new world_property(EEvaluatorId.CAN_FIGHT, true));
-    manager
-      .action(stalker_ids.action_anomaly_planner)
-      .add_precondition(new world_property(EEvaluatorId.CAN_FIGHT, true));
+    manager.action(EActionId.GATHER_ITEMS).add_precondition(new world_property(EEvaluatorId.IS_WOUNDED, false));
+    manager.action(EActionId.COMBAT).add_precondition(new world_property(EEvaluatorId.CAN_FIGHT, true));
+    manager.action(EActionId.DANGER).add_precondition(new world_property(EEvaluatorId.CAN_FIGHT, true));
+    manager.action(EActionId.ANOMALY).add_precondition(new world_property(EEvaluatorId.CAN_FIGHT, true));
   }
 
   public static override reset(

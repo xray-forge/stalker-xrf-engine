@@ -1,4 +1,4 @@
-import { alife, clsid, game, level, patrol, system_ini } from "xray16";
+import { alife, clsid, game, level, patrol } from "xray16";
 
 import { registry, SYSTEM_INI } from "@/engine/core/database";
 import { SimulationBoardManager } from "@/engine/core/managers/simulation/SimulationBoardManager";
@@ -90,8 +90,7 @@ export function spawnAmmoForObject(
   }
 
   const [id, gvid, lvid, position] = getObjectPositioning(object);
-  const ini: IniFile = system_ini();
-  const countInBox: TCount = ini.r_u32(ammoSection, "box_size");
+  const countInBox: TCount = SYSTEM_INI.r_u32(ammoSection, "box_size");
 
   let ammoSpawned: TCount = 0;
 

@@ -1,7 +1,7 @@
-import { stalker_ids, world_property } from "xray16";
+import { world_property } from "xray16";
 
 import { IRegistryObjectState, registry } from "@/engine/core/database";
-import { EEvaluatorId } from "@/engine/core/objects/ai/types";
+import { EActionId, EEvaluatorId } from "@/engine/core/objects/ai/types";
 import { AbstractScheme } from "@/engine/core/schemes";
 import { EvaluatorCheckCombat } from "@/engine/core/schemes/combat/evaluators/EvaluatorCheckCombat";
 import { ISchemeCombatState } from "@/engine/core/schemes/combat/ISchemeCombatState";
@@ -75,7 +75,7 @@ export class SchemeCombat extends AbstractScheme {
 
     actionPlanner.add_evaluator(EEvaluatorId.IS_SCRIPTED_COMBAT, new EvaluatorCheckCombat(state));
 
-    const action: ActionBase = actionPlanner.action(stalker_ids.action_combat_planner);
+    const action: ActionBase = actionPlanner.action(EActionId.COMBAT);
 
     action.add_precondition(new world_property(EEvaluatorId.IS_SCRIPTED_COMBAT, false));
 

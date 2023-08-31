@@ -8,7 +8,7 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * Whether object should hide weapon at all.
+ * Whether object should hide weapon.
  */
 @LuabindClass()
 export class EvaluatorWeaponNone extends property_evaluator {
