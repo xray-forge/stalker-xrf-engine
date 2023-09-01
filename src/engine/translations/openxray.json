@@ -7,7 +7,7 @@
     "pol": "Automatycznie rozładuj broń po podniesieniu",
     "rus": "Разряжать ор. при поднятии",
     "spa": "Arma de descarga automática después de la recogida",
-    "ukr": "Автоматичне розрядження зброї після підняття"
+    "ukr": "Авторозрядження зброї при піднятті"
   },
   "st_unload_magazine_all": {
     "eng": "unload all weapons",
@@ -297,7 +297,7 @@
     "pol": "Angielski (English)",
     "rus": "Английский (English)",
     "spa": "Inglesa (English)",
-    "ukr": "Английский (English)"
+    "ukr": "Англійська (English)"
   },
   "fra": {
     "eng": "French",
@@ -307,7 +307,7 @@
     "pol": "Francuski (French)",
     "rus": "Французский (French)",
     "spa": "Francesa (French)",
-    "ukr": "Французский (French)"
+    "ukr": "Французька (French)"
   },
   "ger": {
     "eng": "German",
@@ -317,7 +317,7 @@
     "pol": "Niemiecki (German)",
     "rus": "Немецкий (German)",
     "spa": "Alemana (German)",
-    "ukr": "Немецкий (German)"
+    "ukr": "Німецька (German)"
   },
   "ita": {
     "eng": "Italian",
@@ -327,7 +327,7 @@
     "pol": "Wіoski (Italian)",
     "rus": "Итальянский (Italian)",
     "spa": "Italiana (Italian)",
-    "ukr": "Итальянский (Italian)"
+    "ukr": "Італійська (Italian)"
   },
   "pol": {
     "eng": "Polish",
@@ -337,7 +337,7 @@
     "pol": "Polski (Polish)",
     "rus": "Польский (Polish)",
     "spa": "Polaca (Polish)",
-    "ukr": "Польский (Polish)"
+    "ukr": "Польська (Polish)"
   },
   "rus": {
     "eng": "Russian",
