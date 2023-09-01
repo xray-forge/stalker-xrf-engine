@@ -16,4 +16,5 @@ All commands are using `ts-node` and simply can be called with `npm run cli $NAM
 - [start](start/README.md)
 - [test](test/README.md)
 - [utils](utils/README.md)
+- [translations](translations/README.md)
 - [verify](verify/README.md)

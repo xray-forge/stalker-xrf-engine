@@ -1,14 +1,18 @@
 {
   "locale": "ukr",
-  "available_locales": ["ukr", "eng", "pol", "rus"],
+  "available_locales": ["eng", "fra", "ger", "ita", "pol", "rus", "spa", "ukr"],
   "resources": {
     "mod_assets_base_folder": "..\\src\\resources\\",
     "mod_assets_override_folders": ["..\\..\\stalker-xrf-resources-extended"],
     "mod_assets_locales": {
       "eng": ["..\\..\\stalker-xrf-resources-locale-eng"],
-      "ukr": ["..\\..\\stalker-xrf-resources-locale-ukr"],
+      "fra": [],
+      "ger": [],
+      "ita": [],
+      "pol": [],
       "rus": ["..\\..\\stalker-xrf-resources-locale-rus"],
-      "pol": []
+      "spa": [],
+      "ukr": ["..\\..\\stalker-xrf-resources-locale-ukr"]
     }
   },
   "build": {

@@ -15,9 +15,11 @@ import {
   EEncoding,
   exists,
   IJsonTranslationSchema,
+  isDirectory,
   IXmlTranslationSchema,
   NodeLogger,
   Optional,
+  readDirContentFlat,
 } from "#/utils";
 
 const log: NodeLogger = new NodeLogger("PARSE_TRANSLATION_AS_JSON");
@@ -27,6 +29,8 @@ const DEFAULT_TARGET_ENCODING_CHECK_LIMIT: number = 64;
 
 interface IParseTranslationParameters {
   encoding?: string;
+  output?: string;
+  clean?: boolean;
   language?: string;
   verbose?: boolean;
 }
@@ -34,25 +38,56 @@ interface IParseTranslationParameters {
 /**
  * Parse provided file path as JSON.
  */
-export async function parseTranslationAsJson(file: string, parameters: IParseTranslationParameters): Promise<void> {
+export async function parseTranslationAsJson(target: string, parameters: IParseTranslationParameters): Promise<void> {
   NodeLogger.IS_VERBOSE = Boolean(parameters.verbose);
 
   const locale: string = getTargetLocale(parameters);
   const encoding: string = parameters.encoding;
+  const output: string = parameters.output ?? TARGET_PARSED_DIR;
 
-  log.info("Parsing translation:", yellow(file), green(locale));
+  const isCustomOutput: boolean = output !== TARGET_PARSED_DIR;
+
+  log.info("Parsing translation:", yellow(target), green(locale));
   log.debug("Running with parameters:", parameters);
 
-  if (await exists(file)) {
-    const data: IJsonTranslationSchema = await parseXmlToJson(file, encoding);
+  // Throw, no path exists.
+  if (!(await exists(target))) {
+    log.error("Cannot find path for parsing:", red(target));
 
-    await saveResult(file, JSON.stringify(transformXmlToJSON(data, locale), null, 2) + "\n");
+    throw new Error("Provided path does not exist.");
+  }
 
-    log.info("Saved resulting file to:", yellow(TARGET_PARSED_DIR));
-  } else {
-    log.error("Cannot find file:", red(file));
+  const isSourceDirectory: boolean = await isDirectory(target);
+  const isOutputDirectory: boolean = await isDirectory(output);
 
-    throw new Error("Provided file path does not exist.");
+  if (isCustomOutput && isSourceDirectory && !isOutputDirectory) {
+    throw new Error(`Trying to write whole translations directory to a single file: '${target}' -> '${output}'.`);
+  }
+
+  const files: Array<string> = isSourceDirectory
+    ? (await readDirContentFlat(target)).filter((it) => path.extname(it) === EAssetExtension.XML)
+    : [target];
+
+  if (parameters.clean) {
+    log.info("Clean target output:", yellow(output));
+    fs.rmSync(output, isOutputDirectory ? { recursive: true, force: true } : { force: true });
+  }
+
+  for (const it of files) {
+    const data: IJsonTranslationSchema = await parseXmlToJson(it, encoding);
+    const fileDetails: path.ParsedPath = path.parse(it);
+    const destination: string = isOutputDirectory
+      ? path.resolve(output, `${fileDetails.name}${EAssetExtension.JSON}`)
+      : path.resolve(output);
+
+    if (createDirIfNoExisting(output)) {
+      log.debug("MKDIR:", yellowBright(output));
+    }
+
+    log.debug("Write file:", yellow(destination));
+    await fsp.writeFile(destination, JSON.stringify(transformXmlToJSON(data, locale), null, 2) + "\n");
+
+    log.info("Saved resulting file to:", yellow(destination));
   }
 }
 
@@ -98,25 +133,9 @@ async function parseXmlToJson(file: string, encoding?: string): Promise<Record<s
   const data: Buffer = fs.readFileSync(file);
   const usedEncoding: string = encoding ?? readEncodingFromBuffer(data) ?? DEFAULT_TARGET_ENCODING;
 
-  log.info("Parsing file with encoding:", green(usedEncoding));
+  log.info("Parsing file with encoding:", green(usedEncoding), yellowBright(file));
 
   return parser.parse(decode(data, usedEncoding));
-}
-
-/**
- * Save resulting content.
- */
-async function saveResult(file: string, content: string): Promise<void> {
-  const fileDetails: path.ParsedPath = path.parse(file);
-  const target: string = path.resolve(TARGET_PARSED_DIR, `${fileDetails.name}${EAssetExtension.JSON}`);
-
-  if (createDirIfNoExisting(TARGET_PARSED_DIR)) {
-    log.debug("MKDIR:", yellowBright(TARGET_PARSED_DIR));
-  }
-
-  log.debug("Write file:", yellow(target));
-
-  await fsp.writeFile(target, content);
 }
 
 /**
@@ -130,9 +149,7 @@ function getTargetLocale(parameters: IParseTranslationParameters): string {
 
     return locale;
   } else {
-    log.debug("Fallback to default config locale:", config.locale);
-
-    return config.locale;
+    throw new Error(`Unknown locale supplied with --language parameter: '${locale}'.`);
   }
 }
 
