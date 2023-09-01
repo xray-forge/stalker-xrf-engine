@@ -6,12 +6,12 @@
     "mod_assets_override_folders": ["..\\..\\stalker-xrf-resources-extended"],
     "mod_assets_locales": {
       "eng": ["..\\..\\stalker-xrf-resources-locale-eng"],
-      "fra": [],
-      "ger": [],
-      "ita": [],
-      "pol": [],
+      "fra": ["..\\..\\stalker-xrf-resources-locale-eng"],
+      "ger": ["..\\..\\stalker-xrf-resources-locale-eng"],
+      "ita": ["..\\..\\stalker-xrf-resources-locale-eng"],
+      "pol": ["..\\..\\stalker-xrf-resources-locale-eng"],
       "rus": ["..\\..\\stalker-xrf-resources-locale-rus"],
-      "spa": [],
+      "spa": ["..\\..\\stalker-xrf-resources-locale-eng"],
       "ukr": ["..\\..\\stalker-xrf-resources-locale-ukr"]
     }
   },
