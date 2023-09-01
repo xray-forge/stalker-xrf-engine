@@ -1511,32 +1511,32 @@
   },
   "ui_mm_extensions": {
     "eng": "Credits",
-    "fra": "ui_mm_extensions",
-    "ger": "ui_mm_extensions",
-    "ita": "ui_mm_extensions",
+    "fra": null,
+    "ger": null,
+    "ita": null,
     "pol": "Rozszerzenia",
     "rus": "Расширения",
-    "spa": "ui_mm_extensions",
+    "spa": null,
     "ukr": "Розширення"
   },
   "ui_mm_up": {
     "eng": "Up",
-    "fra": "ui_mm_up",
-    "ger": "ui_mm_up",
-    "ita": "ui_mm_up",
+    "fra": null,
+    "ger": null,
+    "ita": null,
     "pol": "W górę",
     "rus": "Вверх",
-    "spa": "ui_mm_up",
+    "spa": null,
     "ukr": "Вгору"
   },
   "ui_mm_down": {
     "eng": "Down",
-    "fra": "ui_mm_down",
-    "ger": "ui_mm_down",
-    "ita": "ui_mm_down",
+    "fra": null,
+    "ger": null,
+    "ita": null,
     "pol": "W dół",
     "rus": "Вниз",
-    "spa": "ui_mm_down",
+    "spa": null,
     "ukr": "Вниз"
   },
   "ui_mm_crosshair_distance": {
@@ -3134,7 +3134,7 @@
     "fra": "Appliquer les changements ? Tous les changements seront annulés dans",
     "ger": "Änderungen übernehmen? Alle Änderungen werden rückgängig gemacht in",
     "ita": "Vuoi applicare le modifiche? Le impostazioni precedenti saranno ripristinate in",
-    "pol": "ui_mm_confirm_changes",
+    "pol": "Zatwierdź zmiany? Wszystkie zmiany zostaną cofnięte w",
     "rus": "Применить сделанные изменения? Все изменения будут отменены через",
     "spa": "żAplicar cambios? Todos los cambios serán revertidos en",
     "ukr": "Застосувати зроблені зміни? Усі зміни будуть скасовані через"
