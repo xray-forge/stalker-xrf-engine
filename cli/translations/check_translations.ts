@@ -1,7 +1,7 @@
 import * as fsp from "fs/promises";
 import * as path from "path";
 
-import { red, yellow } from "chalk";
+import { green, red, yellow } from "chalk";
 
 import { GAME_DATA_TRANSLATIONS_DIR } from "#/globals";
 import { AnyObject, EAssetExtension, exists, NodeLogger, readDirContentFlat } from "#/utils";
@@ -64,13 +64,13 @@ async function analyzeTranslationJSON(
   Object.entries(data).forEach(([key, value]) => {
     if (parameters.language) {
       if (!value[parameters.language]) {
-        log.info("Missing translation:", yellow(file), yellow(parameters.language), "->", yellow(key));
+        log.info("Missing translation:", yellow(file), green(parameters.language), "->", yellow(key));
         count += 1;
       }
     } else {
       Object.entries(value).forEach(([currentLocale, currentTranslation]) => {
         if (currentTranslation === null) {
-          log.info("Missing translation:", yellow(file), yellow(currentLocale), "->", yellow(key));
+          log.info("Missing translation:", yellow(file), green(currentLocale), "->", yellow(key));
           count += 1;
         }
       });

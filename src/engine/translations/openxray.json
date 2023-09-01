@@ -1,53 +1,53 @@
 {
   "st_unload_magazine_after_pickup": {
     "eng": "Autounload weapon after pickup",
-    "fra": null,
-    "ger": null,
-    "ita": null,
-    "pol": "st_unload_magazine_after_pickup",
+    "fra": "Arme à déchargement automatique après ramassage",
+    "ger": "Automatisches Entladen der Waffe nach dem Aufnehmen",
+    "ita": "Scarica automaticamente l'arma dopo averla raccolta",
+    "pol": "Automatycznie rozładuj broń po podniesieniu",
     "rus": "Разряжать ор. при поднятии",
-    "spa": null,
-    "ukr": "Разряжать ор. при поднятии"
+    "spa": "Arma de descarga automática después de la recogida",
+    "ukr": "Автоматичне розрядження зброї після підняття"
   },
   "st_unload_magazine_all": {
     "eng": "unload all weapons",
-    "fra": null,
-    "ger": null,
-    "ita": null,
+    "fra": "décharger toutes les armes",
+    "ger": "entlade alle Waffen",
+    "ita": "scaricare tutte le armi",
     "pol": "rozіaduj wszystkie bronie",
     "rus": "разрядить всё оружие",
-    "spa": null,
-    "ukr": "разрядить всё оружие"
+    "spa": "descargar todas las armas",
+    "ukr": "розрядити всю зброю"
   },
   "st_unequip": {
     "eng": "unequip",
-    "fra": null,
-    "ger": null,
-    "ita": null,
+    "fra": "déséquiper",
+    "ger": "ausrüsten",
+    "ita": "disequipaggiato",
     "pol": "Zdejmij",
     "rus": "убрать в рюкзак",
-    "spa": null,
-    "ukr": "убрать в рюкзак"
+    "spa": "desequipar",
+    "ukr": "сховати"
   },
   "st_donate": {
     "eng": "Donate",
-    "fra": null,
-    "ger": null,
-    "ita": null,
+    "fra": "Faire un don",
+    "ger": "Spenden",
+    "ita": "Donare",
     "pol": "Podaruj",
     "rus": "Подарить",
-    "spa": null,
-    "ukr": "Подарить"
+    "spa": "Donar",
+    "ukr": "Пожертвувати"
   },
   "st_loading_lights": {
     "eng": "Loading lights",
-    "fra": null,
-    "ger": null,
-    "ita": null,
+    "fra": "Éclairage de chargement",
+    "ger": "Beleuchtung wird geladen",
+    "ita": "Caricamento illuminazione",
     "pol": "Wczytywanie oњwietlenia",
     "rus": "Загрузка освещения",
-    "spa": null,
-    "ukr": "Загрузка освещения"
+    "spa": "Cargando iluminación",
+    "ukr": "Завантаження освітлення"
   },
   "st_client_connecting_to": {
     "eng": "CLIENT: Connecting to",
@@ -57,7 +57,7 @@
     "pol": "Klient: Czenie z",
     "rus": "Клиент: Соединение с",
     "spa": null,
-    "ukr": "Клиент: Соединение с"
+    "ukr": "Клієнт: Зв'язок з"
   },
   "st_client_spawning": {
     "eng": "CLIENT: Spawning",
@@ -67,7 +67,7 @@
     "pol": "Klient: Odradzanie",
     "rus": "Клиент: Создание",
     "spa": null,
-    "ukr": "Клиент: Создание"
+    "ukr": "Клієнт: Створення"
   },
   "st_client_synchronising": {
     "eng": "CLIENT: Synchronizing",
@@ -231,142 +231,142 @@
   },
   "ui_mm_fov": {
     "eng": "Field of view",
-    "fra": null,
-    "ger": null,
-    "ita": null,
+    "fra": "Champ du vent",
+    "ger": "Feld des Windes",
+    "ita": "Campo del vento",
     "pol": "Pole widzenia",
     "rus": "Поле зрения",
-    "spa": null,
-    "ukr": "Поле зрения"
+    "spa": "Campo visivo",
+    "ukr": "Поле зору"
   },
   "st_switch_version_invitation": {
     "eng": "Do you really want to launch another version of the game?",
-    "fra": null,
-    "ger": null,
-    "ita": null,
+    "fra": "Voulez-vous vraiment lancer une autre version du jeu?",
+    "ger": "Möchten Sie wirklich eine andere Version des Spiels veröffentlichen?",
+    "ita": "Vuoi davvero lanciare un'altra versione del gioco?",
     "pol": "Czy na pewno chcesz uruchomic kolejna wersje gry?",
     "rus": "Вы действительно хотите запустить другую версию игры?",
-    "spa": null,
-    "ukr": "Вы действительно хотите запустить другую версию игры?"
+    "spa": "¿De verdad quieres lanzar otra versión del juego?",
+    "ukr": "Ви дійсно хочете запустити іншу версію гри?"
   },
   "ui_mm_localization": {
     "eng": "Language",
-    "fra": null,
-    "ger": null,
-    "ita": null,
+    "fra": "Langue",
+    "ger": "Sprache",
+    "ita": "Lingua",
     "pol": "Jкzyk",
     "rus": "Язык",
-    "spa": null,
-    "ukr": "Язык"
+    "spa": "Idioma",
+    "ukr": "Мова"
   },
   "ui_mm_gamepad_setup": {
     "eng": "Gamepad setup",
-    "fra": null,
-    "ger": null,
-    "ita": null,
+    "fra": "Configuration de la manette de jeu",
+    "ger": "Gamepad-Setup",
+    "ita": "Configurazione del gamepad",
     "pol": "Konfiguracja gamepada",
     "rus": "Настройка геймпада",
-    "spa": null,
-    "ukr": "Настройка геймпада"
+    "spa": "Configuración del mando",
+    "ukr": "Налаштування геймпаду"
   },
   "ui_mm_fps_limit": {
     "eng": "In-game FPS limit",
-    "fra": null,
-    "ger": null,
-    "ita": null,
+    "fra": "Limiter les FPS avec grze",
+    "ger": "Begrenzen Sie die FPS auf Grze",
+    "ita": "Limita FPS con grze",
     "pol": "Limit FPS w grze",
     "rus": "Лимит FPS в игре",
-    "spa": null,
+    "spa": "Limitar FPS con tamaño",
     "ukr": "Ліміт FPS в грі"
   },
   "ui_mm_fps_limit_in_menu": {
     "eng": "Menu FPS limit",
-    "fra": null,
-    "ger": null,
-    "ita": null,
+    "fra": "Limiter les FPS avec le menu",
+    "ger": "FPS begrenzen im Menü",
+    "ita": "Limita FPS nel menu",
     "pol": "Limit FPS w menu",
     "rus": "Лимит FPS в меню",
-    "spa": null,
+    "spa": "Limitar FPS con menú",
     "ukr": "Ліміт FPS в меню"
   },
   "eng": {
     "eng": "English",
-    "fra": null,
-    "ger": null,
-    "ita": null,
+    "fra": "Anglaise (English)",
+    "ger": "Englisch (English)",
+    "ita": "Inglese (English)",
     "pol": "Angielski (English)",
     "rus": "Английский (English)",
-    "spa": null,
+    "spa": "Inglesa (English)",
     "ukr": "Английский (English)"
   },
   "fra": {
     "eng": "French",
-    "fra": null,
-    "ger": null,
-    "ita": null,
+    "fra": "Francesa (French)",
+    "ger": "Französisch (French)",
+    "ita": "Francese (French)",
     "pol": "Francuski (French)",
     "rus": "Французский (French)",
-    "spa": null,
+    "spa": "Francesa (French)",
     "ukr": "Французский (French)"
   },
   "ger": {
     "eng": "German",
-    "fra": null,
-    "ger": null,
-    "ita": null,
+    "fra": "Allemande (German)",
+    "ger": "Deutsch (German)",
+    "ita": "Tedesca (German)",
     "pol": "Niemiecki (German)",
     "rus": "Немецкий (German)",
-    "spa": null,
+    "spa": "Alemana (German)",
     "ukr": "Немецкий (German)"
   },
   "ita": {
     "eng": "Italian",
-    "fra": null,
-    "ger": null,
-    "ita": null,
+    "fra": "Italienne (Italian)",
+    "ger": "Italienisch (Italian)",
+    "ita": "Italiana (Italian)",
     "pol": "Wіoski (Italian)",
     "rus": "Итальянский (Italian)",
-    "spa": null,
+    "spa": "Italiana (Italian)",
     "ukr": "Итальянский (Italian)"
   },
   "pol": {
     "eng": "Polish",
-    "fra": null,
-    "ger": null,
-    "ita": null,
+    "fra": "Polonais (Polish)",
+    "ger": "Polieren (Polish)",
+    "ita": "Polacca (Polish)",
     "pol": "Polski (Polish)",
     "rus": "Польский (Polish)",
-    "spa": null,
+    "spa": "Polaca (Polish)",
     "ukr": "Польский (Polish)"
   },
   "rus": {
     "eng": "Russian",
-    "fra": null,
-    "ger": null,
-    "ita": null,
+    "fra": "Russe (Russian)",
+    "ger": "Russisch (Russian)",
+    "ita": "Russa (Russian)",
     "pol": "Rosyjski (Russian)",
     "rus": "Русский (Russian)",
-    "spa": null,
-    "ukr": "Русский (Russian)"
+    "spa": "Rusa (Russian)",
+    "ukr": "Російська (Russian)"
   },
   "spa": {
     "eng": "Spanish",
-    "fra": null,
-    "ger": null,
-    "ita": null,
+    "fra": "Espagnole (Spanish)",
+    "ger": "Spanisch (Spanish)",
+    "ita": "Spagnola (Spanish)",
     "pol": "Hiszpaсski (Spanish)",
     "rus": "Испанский (Spanish)",
-    "spa": null,
-    "ukr": "Испанский (Spanish)"
+    "spa": "Española (Spanish)",
+    "ukr": "Іспанська (Spanish)"
   },
   "ukr": {
     "eng": "Ukrainian",
-    "fra": null,
-    "ger": null,
-    "ita": null,
+    "fra": "Ukrainienne (Ukrainian)",
+    "ger": "Ukrainische (Ukrainian)",
+    "ita": "Ucraina (Ukrainian)",
     "pol": "Ukraiński (Ukrainian)",
     "rus": "Украинский (Ukrainian)",
-    "spa": null,
+    "spa": "Ucranio (Ukrainian)",
     "ukr": "Українська (Ukrainian)"
   }
 }
