@@ -18,7 +18,7 @@ export function abort(format: string, ...rest: AnyArgs): never {
   logger.error("Aborting:", reason);
 
   print_stack();
-  error(reason, 1);
+  error(reason, 2);
 }
 
 /**
