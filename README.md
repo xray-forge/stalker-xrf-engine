@@ -99,13 +99,13 @@ Optimizations, quality and logics updates are welcome.
 ## 💿 Build
 
 Script engine can be packaged and built into custom game package.<br/>
-Detailed description: [link](doc/BUILDING_CUSTOM_GAME_PACKAGE.md)
+Detailed description: [link](https://xray-forge.github.io/stalker-xrf-book/xrf/packaging.html)
 
 ---
 
 ## 🧰 Docs
 
-- Development and game documentation: [docs](doc/README.md)
+- Development and game documentation: [docs book](https://xray-forge.github.io/stalker-xrf-book/general/general.html)
 - Types and game bindings: [source](https://github.com/xray-forge/xray-16-types), [docs](https://xray-forge.github.io/xray-16-types/modules.html)
 
 ## 🏗️ Assets
@@ -120,6 +120,6 @@ Additional assets repository can be cloned manually or with shortcut command: <b
 
 ## 🧰 Bugs
 
-It took 3 months just to rewrite all the 20 years LUA codebase to typescript and create custom transformers to support luabind. <br/>
+It took 3 months just to migrate all the 20 years of LUA codebase to typescript and create custom transformers to support luabind. <br/>
 Further game testing and re-architecture produces new bugs and issues which are easier to prevent with unit tests. <br/>
 As for now, main focus is separation and clarification of logics and unit testing coverage.
