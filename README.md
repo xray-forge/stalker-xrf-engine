@@ -55,6 +55,13 @@ Template for stalker mods and modded game packages. <br/>
 The intention of this engine template is to allow easier mod development without introducing breaking changes to the original plot. <br/>
 Optimizations, quality and logics updates are welcome.
 
+## 🌓 TODOs / tasks
+
+- [cli and tooling](https://github.com/orgs/xray-forge/projects/3)
+- [xrf engine](https://github.com/orgs/xray-forge/projects/4)
+- [c++ engine (open xray)](https://github.com/orgs/xray-forge/projects/6)
+- [documentation](https://github.com/orgs/xray-forge/projects/5)
+
 ## 🧰 State / bugs
 
 It took 3 months just to migrate all the 20 years of LUA codebase to typescript and create custom transformers to support luabind. <br/>

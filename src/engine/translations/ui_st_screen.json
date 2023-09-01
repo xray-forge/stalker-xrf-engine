@@ -1,692 +1,1201 @@
 {
   "actor_inventory_box_use": {
     "eng": "Open personal box ($$ACTION_USE$$)",
-    "pol": "Otw�rz skrytk� ($$ACTION_USE$$)",
+    "fra": "Ouvrir cantine ($$ACTION_USE$$)",
+    "ger": "Persönliche Kiste öffnen ($$ACTION_USE$$)",
+    "ita": "Apri ripostiglio personale ($$ACTION_USE$$)",
+    "pol": "Otwórz skrytkę ($$ACTION_USE$$)",
     "rus": "Открыть личный ящик ($$ACTION_USE$$)",
+    "spa": "Abrir caja personal ($$ACTION_USE$$)",
     "ukr": "Відкрити особистий ящик ($$ACTION_USE$$)"
   },
   "cant_walk": {
     "eng": "You’re too exhausted to move",
-    "pol": "Wyczerpanie nie pozwala ci i�� dalej",
+    "fra": "Vous ętes trop épuisé pour pouvoir vous déplacer.",
+    "ger": "Sie sind zu erschöpft, um weiterzugehen",
+    "ita": "Sei troppo esausto per muoverti",
+    "pol": "Wyczerpanie nie pozwala ci iść dalej",
     "rus": "Вы слишком истощены, чтобы двигаться",
+    "spa": "Estás agotado; no puedes moverte",
     "ukr": "Ви надто виснажені, щоб рухатися"
   },
   "cant_walk_weight": {
     "eng": "You’re too overloaded to move",
-    "pol": "Nadmierne obci��enie nie pozwala ci i�� dalej",
+    "fra": "Vous ętes trop chargé pour pouvoir vous déplacer.",
+    "ger": "Sie sind zu überladen, um weiterzugehen",
+    "ita": "Sei troppo sovraccarico per muoverti",
+    "pol": "Nadmierne obciążenie nie pozwala ci iść dalej",
     "rus": "Вы слишком перегружены, чтобы двигаться",
+    "spa": "Vas demasiado cargado; no puedes moverte",
     "ukr": "Ви надто переобтяжені, щоб рухатися"
   },
   "car_character_use": {
     "eng": "Open door ($$ACTION_USE$$)",
-    "pol": "Otw�rz drzwi ($$ACTION_USE$$)",
+    "fra": "Ouvrir la porte ($$ACTION_USE$$)",
+    "ger": "Tür öffnen ($$ACTION_USE$$)",
+    "ita": "Apri porta ($$ACTION_USE$$)",
+    "pol": "Otwórz drzwi ($$ACTION_USE$$)",
     "rus": "Открыть дверь ($$ACTION_USE$$)",
+    "spa": "Abrir puerta ($$ACTION_USE$$)",
     "ukr": "Відчинити двері ($$ACTION_USE$$)"
   },
   "character_use": {
     "eng": "Speak ($$ACTION_USE$$)",
+    "fra": "Parler ($$ACTION_USE$$)",
+    "ger": "Reden ($$ACTION_USE$$)",
+    "ita": "Parla ($$ACTION_USE$$)",
     "pol": "Rozmawiaj ($$ACTION_USE$$)",
     "rus": "Говорить ($$ACTION_USE$$)",
+    "spa": "Hablar ($$ACTION_USE$$)",
     "ukr": "Розмовляти ($$ACTION_USE$$)"
   },
   "dead_character_use": {
     "eng": "Search body ($$ACTION_USE$$)",
-    "pol": "Przeszukaj cia�o ($$ACTION_USE$$)",
+    "fra": "Fouiller le cadavre ($$ACTION_USE$$)",
+    "ger": "Leiche durchsuchen ($$ACTION_USE$$)",
+    "ita": "Ispeziona corpo ($$ACTION_USE$$)",
+    "pol": "Przeszukaj ciało ($$ACTION_USE$$)",
     "rus": "Обыскать труп ($$ACTION_USE$$)",
+    "spa": "Registrar cuerpo ($$ACTION_USE$$)",
     "ukr": "Обшукати труп ($$ACTION_USE$$)"
   },
   "dead_character_use_or_drag": {
-    "eng": "Search body ($$ACTION_USE$$)\\nDrag body (SHIFT+$$ACTION_USE$$)",
-    "pol": "Przeszukaj cia�o ($$ACTION_USE$$)\\nPrzeci�gnij cia�o (SHIFT+$$ACTION_USE$$)",
+    "eng": [
+      "Search body ($$ACTION_USE$$)",
+      "Drag body (SHIFT+$$ACTION_USE$$)"
+    ],
+    "fra": [
+      "Fouiller le cadavre ($$ACTION_USE$$)",
+      "Traîner le cadavre (MAJ. +$$ACTION_USE$$)"
+    ],
+    "ger": [
+      "Leiche durchsuchen ($$ACTION_USE$$)",
+      "Leiche aufheben (Umschalt + $$ACTION_USE$$)"
+    ],
+    "ita": [
+      "Ispeziona corpo ($$ACTION_USE$$)",
+      "Trascina corpo (SHIFT+$$ACTION_USE$$)"
+    ],
+    "pol": [
+      "Przeszukaj ciało ($$ACTION_USE$$)",
+      "Przeciągnij ciało (SHIFT+$$ACTION_USE$$)"
+    ],
     "rus": "Обыскать труп ($$ACTION_USE$$)\\nТащить труп (SHIFT+$$ACTION_USE$$)",
-    "ukr": "Обшукати труп ($$ACTION_USE$$)\\nТягнути труп (SHIFT+$$ACTION_USE$$)"
+    "spa": [
+      "Registrar cuerpo ($$ACTION_USE$$)",
+      "Arrastrar cuerpo (MAYÚS+$$ACTION_USE$$)"
+    ],
+    "ukr": [
+      "Обшукати труп ($$ACTION_USE$$)",
+      "Тягнути труп (SHIFT+$$ACTION_USE$$)"
+    ]
   },
   "general_complete_task": {
     "eng": "Mission complete:",
+    "fra": "Mission accomplie :",
+    "ger": "Mission abgeschlossen:",
+    "ita": "Missione completa:",
     "pol": "Zadanie wykonane:",
     "rus": "Задание выполнено:",
+    "spa": "Misión completada:",
     "ukr": "Завдання виконане:"
   },
   "general_fail_task": {
     "eng": "Mission failed:",
-    "pol": "Zadanie nie powiod�o si�:",
+    "fra": "Échec de la mission :",
+    "ger": "Mission fehlgeschlagen:",
+    "ita": "Missione fallita:",
+    "pol": "Zadanie nie powiodło się:",
     "rus": "Задание провалено:",
+    "spa": "Misión fallida:",
     "ukr": "Завдання провалене:"
   },
   "general_in_item": {
     "eng": "Item received:",
+    "fra": "Objet reçu :",
+    "ger": "Gegenstand erhalten:",
+    "ita": "Oggetto ricevuto:",
     "pol": "Otrzymany przedmiot:",
     "rus": "Получен предмет:",
+    "spa": "Objeto recibido:",
     "ukr": "Отримано предмет:"
   },
   "general_in_money": {
     "eng": "Money received:",
-    "pol": "Otrzymane pieni�dze:",
+    "fra": "Argent reçu :",
+    "ger": "Geld erhalten:",
+    "ita": "Denaro ricevuto:",
+    "pol": "Otrzymane pieniądze:",
     "rus": "Получены деньги:",
+    "spa": "Dinero recibido:",
     "ukr": "Отримано гроші:"
   },
   "general_new_task": {
     "eng": "New mission:",
+    "fra": "Nouvelle mission :",
+    "ger": "Neue Mission:",
+    "ita": "Nuova missione:",
     "pol": "Nowe zadanie:",
     "rus": "Новое задание:",
+    "spa": "Nueva misión:",
     "ukr": "Нове завдання:"
   },
   "general_out_item": {
     "eng": "Item lost:",
+    "fra": "Objet perdu :",
+    "ger": "Gegenstand verloren:",
+    "ita": "Oggetto perduto:",
     "pol": "Utracony przedmiot:",
     "rus": "Потерян предмет:",
+    "spa": "Objeto perdido:",
     "ukr": "Втрачено предмет:"
   },
   "general_out_money": {
     "eng": "Money lost:",
-    "pol": "Utracone pieni�dze:",
+    "fra": "Argent perdu :",
+    "ger": "Geld abgegeben:",
+    "ita": "Denaro perduto:",
+    "pol": "Utracone pieniądze:",
     "rus": "Потеряны деньги:",
+    "spa": "Dinero perdido:",
     "ukr": "Втрачено гроші:"
   },
   "general_reverse_task": {
     "eng": "Mission cancelled:",
+    "fra": "Mission annulée :",
+    "ger": "Mission abgebrochen:",
+    "ita": "Missione annullata:",
     "pol": "Zadanie anulowane:",
     "rus": "Задание отменено:",
+    "spa": "Misión cancelada:",
     "ukr": "Завдання відмінене:"
   },
   "general_update_task": {
     "eng": "Mission updated:",
+    "fra": "Mission mise ŕ jour :",
+    "ger": "Mission aktualisiert:",
+    "ita": "Missione aggiornata:",
     "pol": "Nowe informacje o zadaniu:",
     "rus": "Задание обновлено:",
+    "spa": "Misión actualizada:",
     "ukr": "Завдання оновлене:"
   },
   "gun_jammed": {
     "eng": "Your weapon has jammed. Reload it.",
-    "pol": "Bro� si� zaci�a. Musisz prze�adowa�.",
+    "fra": "Votre arme s'est enrayée. Vous devez la recharger.",
+    "ger": "Ihre Waffe klemmt. Bitte nachladen.",
+    "ita": "La tua arma si č inceppata. Ricaricala.",
+    "pol": "Broń się zacięła. Musisz przeładować.",
     "rus": "Оружие заклинило. Нужно перезарядить.",
+    "spa": "El arma se ha atascado. Recárgala.",
     "ukr": "Зброю заклинило. Необхідно перезарядити"
   },
   "inventory_box_use": {
     "eng": "Search box ($$ACTION_USE$$)",
-    "pol": "Przeszukaj skrzynk� ($$ACTION_USE$$)",
+    "fra": "Fouiller la boîte ($$ACTION_USE$$)",
+    "ger": "Behälter durchsuchen ($$ACTION_USE$$)",
+    "ita": "Ispeziona ripostiglio ($$ACTION_USE$$)",
+    "pol": "Przeszukaj skrzynkę ($$ACTION_USE$$)",
     "rus": "Обыскать ящик ($$ACTION_USE$$)",
+    "spa": "Registrar caja ($$ACTION_USE$$)",
     "ukr": "Обшукати ящик ($$ACTION_USE$$)"
   },
   "inventory_item_use": {
     "eng": "Pick up item ($$ACTION_USE$$)",
-    "pol": "Podnie� przedmiot ($$ACTION_USE$$)",
+    "fra": "Prendre l'objet ($$ACTION_USE$$)",
+    "ger": "Gegenstand aufheben ($$ACTION_USE$$)",
+    "ita": "Raccogli oggetto ($$ACTION_USE$$)",
+    "pol": "Podnieś przedmiot ($$ACTION_USE$$)",
     "rus": "Поднять предмет ($$ACTION_USE$$)",
+    "spa": "Coger objeto ($$ACTION_USE$$)",
     "ukr": "Підняти предмет ($$ACTION_USE$$)"
   },
   "jup_b10_ufo_searching_tips": {
     "eng": "Search aircraft ($$ACTION_USE$$)",
+    "fra": "Fouiller l'appareil ($$ACTION_USE$$)",
+    "ger": "Flugobjekt durchsuchen ($$ACTION_USE$$)",
+    "ita": "Ispeziona velivolo ($$ACTION_USE$$)",
     "pol": "Przeszukaj samolot ($$ACTION_USE$$)",
     "rus": "Обыскать летательный аппарат ($$ACTION_USE$$)",
+    "spa": "Registrar avión ($$ACTION_USE$$)",
     "ukr": "Обшукати літальний апарат ($$ACTION_USE$$)"
   },
   "jup_b1_bar_door": {
     "eng": "Door jammed",
-    "pol": "Drzwi si� zaci�y",
+    "fra": "Porte bloquée",
+    "ger": "Tür klemmt",
+    "ita": "Porta bloccata",
+    "pol": "Drzwi się zacięły",
     "rus": "Дверь заклинило",
+    "spa": "Puerta atascada",
     "ukr": "Двері заклинило"
   },
   "jup_b1_door_is_closed": {
     "eng": "The door is locked from the inside",
-    "pol": "Drzwi s� zamkni�te od �rodka",
+    "fra": "La porte est verrouillée de l'intérieur.",
+    "ger": "Die Tür ist von innen verschlossen",
+    "ita": "La porta č chiusa dall'interno",
+    "pol": "Drzwi są zamknięte od środka",
     "rus": "Дверь закрыта изнутри",
+    "spa": "La puerta está cerrada por dentro",
     "ukr": "Двері зачинено зсередини"
   },
   "jup_b202_treasures_closed": {
     "eng": "Safe locked",
-    "pol": "Sejf zamkni�ty",
+    "fra": "Coffre verrouillé",
+    "ger": "Tresor verschlossen",
+    "ita": "Cassaforte chiusa",
+    "pol": "Sejf zamknięty",
     "rus": "Сейф закрыт",
+    "spa": "Caja cerrada",
     "ukr": "Сейф закритий"
   },
   "jup_b205_tip_door_closed": {
     "eng": "Code needed",
+    "fra": "Code nécessaire",
+    "ger": "Code notwendig",
+    "ita": "Codice richiesto",
     "pol": "Potrzebny jest kod",
     "rus": "Необходим код",
+    "spa": "Se necesita código",
     "ukr": "Потрібний код"
   },
   "jup_b205_tip_door_decode": {
     "eng": "Enter code ($$ACTION_USE$$)",
-    "pol": "Wprowad� kod ($$ACTION_USE$$)",
+    "fra": "Saisir le code ($$ACTION_USE$$)",
+    "ger": "Code eingeben ($$ACTION_USE$$)",
+    "ita": "Inserisci codice ($$ACTION_USE$$)",
+    "pol": "Wprowadź kod ($$ACTION_USE$$)",
     "rus": "Ввести код ($$ACTION_USE$$)",
+    "spa": "Introducir código ($$ACTION_USE$$)",
     "ukr": "Ввести код ($$ACTION_USE$$)"
   },
   "jup_b206_use_plant": {
     "eng": "Take plant ($$ACTION_USE$$)",
-    "pol": "Podnie� ro�lin� ($$ACTION_USE$$)",
+    "fra": "Prendre la plante ($$ACTION_USE$$)",
+    "ger": "Pflanze nehmen ($$ACTION_USE$$)",
+    "ita": "Prendi pianta ($$ACTION_USE$$)",
+    "pol": "Podnieś roślinę ($$ACTION_USE$$)",
     "rus": "Сорвать растение ($$ACTION_USE$$)",
+    "spa": "Coger planta ($$ACTION_USE$$)",
     "ukr": "Зірвати рослину ($$ACTION_USE$$)"
   },
   "jup_b209_scanner_place_tips": {
     "eng": "Set up scanner ($$ACTION_USE$$)",
+    "fra": "Régler le détecteur ($$ACTION_USE$$)",
+    "ger": "Scanner aufstellen ($$ACTION_USE$$)",
+    "ita": "Imposta scanner ($$ACTION_USE$$)",
     "pol": "Ustaw skaner ($$ACTION_USE$$)",
     "rus": "Установить сканер ($$ACTION_USE$$)",
+    "spa": "Configurar escáner ($$ACTION_USE$$)",
     "ukr": "Встановити сканер ($$ACTION_USE$$)"
   },
   "jup_b209_scanner_remove_tips": {
     "eng": "Take scanner ($$ACTION_USE$$)",
-    "pol": "We� skaner ($$ACTION_USE$$)",
+    "fra": "Prendre le détecteur ($$ACTION_USE$$)",
+    "ger": "Scanner nehmen ($$ACTION_USE$$)",
+    "ita": "Prendi scanner ($$ACTION_USE$$)",
+    "pol": "Weź skaner ($$ACTION_USE$$)",
     "rus": "Забрать сканер ($$ACTION_USE$$)",
+    "spa": "Coger escáner ($$ACTION_USE$$)",
     "ukr": "Забрати сканер ($$ACTION_USE$$)"
   },
   "lx8_raduga": {
-    "eng": "Rainbow aggression suppressor\\nmodel of external emissions complex\\nscale 1:20",
-    "pol": "Supresor agresji T�cza\\nmodel zewn�trznego kompleksu emisji\\nskala1:20",
+    "eng": [
+      "Rainbow aggression suppressor",
+      "model of external emissions complex",
+      "scale 1:20"
+    ],
+    "fra": [
+      "Modérateur d'agressivité Arc-en-ciel",
+      "Modčle du complexe d'émission externe",
+      "échelle 1:20"
+    ],
+    "ger": [
+      "Regenbogen Aggressionsunterdrücker",
+      "Modell des externen Emissionskomplexes",
+      "Maßstab 1:20"
+    ],
+    "ita": [
+      "Riduttore di aggressivitŕ Arcobaleno",
+      "modello del complesso di emissioni esterne",
+      "scala 01:20"
+    ],
+    "pol": [
+      "Supresor agresji Tęcza",
+      "model zewnętrznego kompleksu emisji",
+      "skala1:20"
+    ],
     "rus": "Подавитель агрессии «Радуга»\\nмакет внешнего излучательного комплекса\\nмасштаб 1:20",
-    "ukr": "Пригнічувач агресії «Веселка»\\nмакет зовнішнього комлексу випромінювання\\nмасштаб 1:20"
+    "spa": [
+      "Supresor de agresión de arco iris",
+      "modelo de complejo de emisiones externas",
+      "escala 1:20"
+    ],
+    "ukr": [
+      "Пригнічувач агресії «Веселка»",
+      "макет зовнішнього комлексу випромінювання",
+      "масштаб 1:20"
+    ]
   },
   "pas_b400_tip_switcher": {
     "eng": "Activate switch ($$ACTION_USE$$)",
-    "pol": "U�yj prze��cznika ($$ACTION_USE$$)",
+    "fra": "Actionner l'interrupteur ($$ACTION_USE$$)",
+    "ger": "Schalter aktivieren ($$ACTION_USE$$)",
+    "ita": "Attiva interruttore ($$ACTION_USE$$)",
+    "pol": "Użyj przełącznika ($$ACTION_USE$$)",
     "rus": "Включить рубильник ($$ACTION_USE$$)",
+    "spa": "Activar interruptor ($$ACTION_USE$$)",
     "ukr": "Увімкнути рубильник ($$ACTION_USE$$)"
   },
   "pri_a18_use_idol": {
     "eng": "Examine device ($$ACTION_USE$$)",
-    "pol": "Zbadaj urz�dzenie ($$ACTION_USE$$)",
+    "fra": "Examiner l'objet ($$ACTION_USE$$)",
+    "ger": "Gerät untersuchen ($$ACTION_USE$$)",
+    "ita": "Esamina congegno ($$ACTION_USE$$)",
+    "pol": "Zbadaj urządzenie ($$ACTION_USE$$)",
     "rus": "Осмотреть конструкцию ($$ACTION_USE$$)",
+    "spa": "Examinar dispositivo ($$ACTION_USE$$)",
     "ukr": "Оглянути конструкцію ($$ACTION_USE$$)"
   },
   "pri_a25_blow_up_enter_door": {
     "eng": "Plant explosives ($$ACTION_USE$$)",
-    "pol": "Pod�� �adunki wybuchowe ($$ACTION_USE$$)",
+    "fra": "Placer des explosifs ($$ACTION_USE$$)",
+    "ger": "Sprengstoff anbringen ($$ACTION_USE$$)",
+    "ita": "Piazza esplosivi ($$ACTION_USE$$)",
+    "pol": "Podłóż ładunki wybuchowe ($$ACTION_USE$$)",
     "rus": "Установить взрывчатку ($$ACTION_USE$$)",
+    "spa": "Colocar explosivos ($$ACTION_USE$$)",
     "ukr": "Встановити вибухівку ($$ACTION_USE$$)"
   },
   "pri_a28_talk_with_stupid_medic": {
     "eng": "Recover ($$ACTION_USE$$)",
+    "fra": "Se reposer ($$ACTION_USE$$)",
+    "ger": "Erholen ($$ACTION_USE$$)",
+    "ita": "Recupera ($$ACTION_USE$$)",
     "pol": "Odzyskaj ($$ACTION_USE$$)",
     "rus": "Привести в чувство ($$ACTION_USE$$)",
+    "spa": "Recuperar ($$ACTION_USE$$)",
     "ukr": "Привести до тями ($$ACTION_USE$$)"
   },
   "pri_b306_elevator_door_locked_used": {
     "eng": "Elevator has no power",
+    "fra": "L'ascenseur n'est pas sous tension.",
+    "ger": "Aufzug hat keinen Strom",
+    "ita": "L'ascensore non ha corrente",
     "pol": "Brak zasilania windy",
     "rus": "Лифт обесточен",
+    "spa": "El ascensor no tiene corriente.",
     "ukr": "Ліфт знеструмлено"
   },
   "pri_b306_generator_use": {
     "eng": "Activate generator ($$ACTION_USE$$)",
-    "pol": "W��cz generator ($$ACTION_USE$$)",
+    "fra": "Allumer le générateur ($$ACTION_USE$$)",
+    "ger": "Generator aktivieren ($$ACTION_USE$$)",
+    "ita": "Attiva generatore ($$ACTION_USE$$)",
+    "pol": "Włącz generator ($$ACTION_USE$$)",
     "rus": "Запустить генератор ($$ACTION_USE$$)",
+    "spa": "Activar generador ($$ACTION_USE$$)",
     "ukr": "Запустити генератор ($$ACTION_USE$$)"
   },
   "sleep_ok_button": {
     "eng": "Sleep",
-    "pol": "�pij",
+    "fra": "Dormir",
+    "ger": "Schlafen",
+    "ita": "Dormi",
+    "pol": "Śpij",
     "rus": "Спать",
+    "spa": "Dormir",
     "ukr": "Спати"
   },
   "sleep_warning_all_pleasures": {
     "eng": "You cannot sleep! You are bleeding dangerously and suffering from radiation exposure. Use drugs or contact a medic.",
-    "pol": "Nie mo�esz spa�! Gwa�townie krwawisz, a aktualny stopie� napromieniowania zagra�a twojemu �yciu. U�yj lekarstw lub odwied� medyka. ",
+    "fra": "Vous ne pouvez pas dormir : vous souffrez d'une grave hémorragie et avez été irradié. Prenez des médicaments ou consultez un médecin !",
+    "ger": "Sie können nicht schlafen! Sie bluten bedrohlich stark und waren radioaktiver Strahlung ausgesetzt. Nehmen Sie Medikamente ein oder konsultieren Sie einen Arzt.",
+    "ita": "Non puoi dormire!?Perdi molto sangue e sei stato esposto alle radiazioni! Usa le droghe o contatta un medico.",
+    "pol": "Nie możesz spać! Gwałtownie krwawisz, a aktualny stopień napromieniowania zagraża twojemu życiu. Użyj lekarstw lub odwiedź medyka. ",
     "rus": "Вы не можете спать! У Вас опасное кровотечение и высокий уровень облучённости организма. Используйте медикаменты или обратитесь к медику.",
+    "spa": "ˇNo puedes dormir! Te estás desangrando gravemente y te has expuesto a las radiaciones. Necesitas medicinas o un médico.",
     "ukr": "Ви не можете спати! У Вас небезпечна кровотеча та високий рівень опромінення організму. Використайте медикаменти або зверніться до медика."
   },
   "sleep_warning_bleeding": {
     "eng": "You cannot sleep! You are bleeding dangerously. Use drugs or contact a medic.",
-    "pol": "Nie mo�esz spa�! Gwa�townie krwawisz. U�yj lekarstw lub odwied� medyka.",
+    "fra": "Vous ne pouvez pas dormir : vous souffrez d'une grave hémorragie. Prenez des médicaments ou consultez un médecin !",
+    "ger": "Sie können nicht schlafen! Sie bluten bedrohlich stark. Nehmen Sie Medikamente ein oder konsultieren Sie einen Arzt.",
+    "ita": "Non puoi dormire!?Perdi molto sangue. Usa le droghe o contatta un medico.",
+    "pol": "Nie możesz spać! Gwałtownie krwawisz. Użyj lekarstw lub odwiedź medyka.",
     "rus": "Вы не можете спать! У Вас опасное кровотечение. Используйте медикаменты или обратитесь к медику.",
+    "spa": "ˇNo puedes dormir! Te estás desangrando gravemente. Necesitas medicinas o un médico.",
     "ukr": "Ви не можете спати! У Вас небезпечна кровотеча. Використайте медикаменти або зверніться до медика."
   },
   "sleep_warning_radiation": {
     "eng": "You cannot sleep! You are suffering from radiation exposure. Use drugs or contact a medic.",
-    "pol": "Nie mo�esz spa�! Aktualny stopie� napromieniowania zagra�a twojemu �yciu. U�yj lekarstw lub odwied� medyka. ",
+    "fra": "Vous ne pouvez pas dormir : vous avez été irradié. Prenez des médicaments ou consultez un médecin !",
+    "ger": "Sie können nicht schlafen! Sie waren radioaktiver Strahlung ausgesetzt. Nehmen Sie Medikamente ein oder konsultieren Sie einen Arzt.",
+    "ita": "Non puoi dormire! Sei stato esposto alle radiazioni! Usa le droghe o contatta un medico.",
+    "pol": "Nie możesz spać! Aktualny stopień napromieniowania zagraża twojemu życiu. Użyj lekarstw lub odwiedź medyka. ",
     "rus": "Вы не можете спать! У Вас высокий уровень облучённости организма. Используйте медикаменты или обратитесь к медику.",
+    "spa": "ˇNo puedes dormir! Te has expuesto a las radiaciones. Necesitas medicinas o un médico.",
     "ukr": "Ви не можете спати! У Вас високий рівень опромінення організму. Використайте медикаменти або зверніться до медика."
   },
   "sleep_zone_tip": {
     "eng": "Sleep ($$ACTION_USE$$)",
-    "pol": "�pij ($$ACTION_USE$$)",
+    "fra": "Dormir ($$ACTION_USE$$)",
+    "ger": "Schlafen ($$ACTION_USE$$)",
+    "ita": "Dormi ($$ACTION_USE$$)",
+    "pol": "Śpij ($$ACTION_USE$$)",
     "rus": "Спать ($$ACTION_USE$$)",
+    "spa": "Dormir ($$ACTION_USE$$)",
     "ukr": "Спати ($$ACTION_USE$$)"
   },
   "st_ach_balance_advocate": {
     "eng": "You have attained the Man of Balance achievement.",
-    "pol": "Uda�o ci si� zdoby� osi�gni�cie �Obro�ca r�wnowagi�.",
+    "fra": "Vous avez obtenu le succčs Homme équilibré.",
+    "ger": "Sie haben folgenden Erfolg errungen: Mann des Gleichgewichts.",
+    "ita": "Hai ottenuto l'obiettivo Uomo equilibrato.",
+    "pol": "Udało ci się zdobyć osiągnięcie „Obrońca równowagi”.",
     "rus": "Получено достижение «Сторонник равновесия».",
+    "spa": "Has conseguido el logro Un tipo ecuánime.",
     "ukr": "Отримано досягнення «Прибічник рівноваги»"
   },
   "st_ach_battle_systems_master": {
     "eng": "You have attained the Weapon Systems Master achievement.",
-    "pol": "Uda�o ci si� zdoby� osi�gni�cie �Ekspert system�w obronnych�.",
+    "fra": "Vous avez obtenu le succčs Expert en armement.",
+    "ger": "Sie haben folgenden Erfolg errungen: Experte für Waffensysteme.",
+    "ita": "Hai ottenuto l'obiettivo Maestro dei sistemi delle armi.",
+    "pol": "Udało ci się zdobyć osiągnięcie „Ekspert systemów obronnych”.",
     "rus": "Получено достижение «Мастер боевых систем».",
+    "spa": "Has conseguido el logro Dominio de las armas.",
     "ukr": "Отримано досягнення «Майстер бойових систем»"
   },
   "st_ach_detective": {
     "eng": "You have attained the Detective achievement.",
-    "pol": "Uda�o ci si� zdoby� osi�gni�cie �Detektyw�.",
+    "fra": "Vous avez obtenu le succčs Détective.",
+    "ger": "Sie haben folgenden Erfolg errungen: Detektiv.",
+    "ita": "Hai ottenuto l'obiettivo Detective.",
+    "pol": "Udało ci się zdobyć osiągnięcie „Detektyw”.",
     "rus": "Получено достижение «Сыщик».",
+    "spa": "Has conseguido el logro Detective.",
     "ukr": "Отримано досягнення «Сищик»"
   },
   "st_ach_diplomat": {
     "eng": "You have attained the Diplomat achievement.",
-    "pol": "Uda�o ci si� zdoby� osi�gni�cie �Dyplomata�. ",
+    "fra": "Vous avez obtenu le succčs Diplomate.",
+    "ger": "Sie haben folgenden Erfolg errungen: Diplomat.",
+    "ita": "Hai ottenuto l'obiettivo Diplomatico.",
+    "pol": "Udało ci się zdobyć osiągnięcie „Dyplomata”. ",
     "rus": "Получено достижение «Дипломат».",
+    "spa": "Has conseguido el logro Diplomático.",
     "ukr": "Отримано досягнення «Дипломат»"
   },
   "st_ach_friend_of_duty": {
     "eng": "You have attained the Friend of Duty achievement.",
-    "pol": "Uda�o ci si� zdoby� osi�gni�cie �Przyjaciel Powinno�ci�.",
+    "fra": "Vous avez obtenu le succčs Ami du Devoir.",
+    "ger": "Sie haben folgenden Erfolg errungen: Freund der Wächter.",
+    "ita": "Hai ottenuto l'obiettivo Amico della Duty.",
+    "pol": "Udało ci się zdobyć osiągnięcie „Przyjaciel Powinności”.",
     "rus": "Получено достижение «Друг «Долга».",
+    "spa": "Has conseguido el logro Amigo de Deber.",
     "ukr": "Отримано досягнення «Друг «Долгу»"
   },
   "st_ach_friend_of_freedom": {
     "eng": "You have attained the Friend of Freedom achievement.",
-    "pol": "Uda�o ci si� zdoby� osi�gni�cie �Przyjaciel Wolno�ci�.",
+    "fra": "Vous avez obtenu le succčs Ami de la Liberté.",
+    "ger": "Sie haben folgenden Erfolg errungen: Freund der Freiheit.",
+    "ita": "Hai ottenuto l'obiettivo Amico della Freedom.",
+    "pol": "Udało ci się zdobyć osiągnięcie „Przyjaciel Wolności”.",
     "rus": "Получено достижение «Друг «Свободы».",
+    "spa": "Has conseguido el logro Amigo de Libertad.",
     "ukr": "Отримано досягнення «Друг «Волі»"
   },
   "st_ach_friend_of_stalkers": {
     "eng": "You have attained the Friend of Stalkers achievement.",
-    "pol": "Uda�o ci si� zdoby� osi�gni�cie �Przyjaciel stalker�w�.",
+    "fra": "Vous avez obtenu le succčs Ami des stalkers.",
+    "ger": "Sie haben folgenden Erfolg errungen: Freund der Stalker.",
+    "ita": "Hai ottenuto l'obiettivo Amico degli stalker.",
+    "pol": "Udało ci się zdobyć osiągnięcie „Przyjaciel stalkerów”.",
     "rus": "Получено достижение «Друг сталкеров».",
+    "spa": "Has conseguido el logro Amigo de los stalkers.",
     "ukr": "Отримано досягнення «Друг сталкерів»"
   },
   "st_ach_herald_of_justice": {
     "eng": "You have attained the Courier of Justice achievement.",
-    "pol": "Uda�o ci si� zdoby� osi�gni�cie �Wys�annik sprawiedliwo�ci�.",
+    "fra": "Vous avez obtenu le succčs Messager de la Justice.",
+    "ger": "Sie haben folgenden Erfolg errungen: Verfechter der Gerechtigkeit.",
+    "ita": "Hai ottenuto l'obiettivo Corriere della giustizia.",
+    "pol": "Udało ci się zdobyć osiągnięcie „Wysłannik sprawiedliwości”.",
     "rus": "Получено достижение «Гонец правосудия».",
+    "spa": "Has conseguido el logro Mensajero de la justicia.",
     "ukr": "Отримано досягнення «Гінець правосуддя»"
   },
   "st_ach_high_tech_master": {
     "eng": "You have attained the Hi-Tech Expert achievement.",
-    "pol": "Uda�o ci si� zdoby� osi�gni�cie �Ekspert wysokiej technologii�.",
+    "fra": "Vous avez obtenu le succčs Expert en technologie de pointe.",
+    "ger": "Sie haben folgenden Erfolg errungen: High-Tech-Experte.",
+    "ita": "Hai ottenuto l'obiettivo Esperto di tecnologia.",
+    "pol": "Udało ci się zdobyć osiągnięcie „Ekspert wysokiej technologii”.",
     "rus": "Получено достижение «Мастер высоких технологий».",
+    "spa": "Has conseguido el logro Experto en tecnología.",
     "ukr": "Отримано досягнення «Майстер високих технологій»"
   },
   "st_ach_information_dealer": {
     "eng": "You have attained the Trafficker of Information achievement.",
-    "pol": "Uda�o ci si� zdoby� osi�gni�cie �Handlarz informacjami�.",
+    "fra": "Vous avez obtenu le succčs Trafiquant d'informations.",
+    "ger": "Sie haben folgenden Erfolg errungen: Informationsmakler.",
+    "ita": "Hai ottenuto l'obiettivo Trafficante d'informazioni.",
+    "pol": "Udało ci się zdobyć osiągnięcie „Handlarz informacjami”.",
     "rus": "Получено достижение «Торговец информацией».",
+    "spa": "Has conseguido el logro Traficante de información.",
     "ukr": "Отримано досягнення «Торговець інформацією»"
   },
   "st_ach_keeper_of_secrets": {
     "eng": "You have attained the Keeper of Secrets achievement.",
-    "pol": "Uda�o ci si� zdoby� osi�gni�cie �Stra�nik sekret�w�.",
+    "fra": "Vous avez obtenu le succčs Gardien des secrets.",
+    "ger": "Sie haben folgenden Erfolg errungen: Bewahrer von Geheimnissen.",
+    "ita": "Hai ottenuto l'obiettivo Custode di segreti.",
+    "pol": "Udało ci się zdobyć osiągnięcie „Strażnik sekretów”.",
     "rus": "Получено достижение «Хранитель тайн».",
+    "spa": "Has conseguido el logro Guardián de secretos.",
     "ukr": "Отримано досягнення «Зберігач таємниць»"
   },
   "st_ach_kingpin": {
     "eng": "You have attained the Boss achievement.",
-    "pol": "Uda�o ci si� zdoby� osi�gni�cie �Szef�.",
+    "fra": "Vous avez obtenu le succčs Boss.",
+    "ger": "Sie haben folgenden Erfolg errungen: Boss.",
+    "ita": "Hai ottenuto l'obiettivo Boss.",
+    "pol": "Udało ci się zdobyć osiągnięcie „Szef”.",
     "rus": "Получено достижение «Авторитет».",
+    "spa": "Has conseguido el logro Mandamás.",
     "ukr": "Отримано досягнення «Авторитет»"
   },
   "st_ach_leader": {
     "eng": "You have attained the Leader achievement.",
-    "pol": "Uda�o ci si� zdoby� osi�gni�cie �Przyw�dca�.",
+    "fra": "Vous avez obtenu le succčs Chef.",
+    "ger": "Sie haben folgenden Erfolg errungen: Anführer.",
+    "ita": "Hai ottenuto l'obiettivo Leader.",
+    "pol": "Udało ci się zdobyć osiągnięcie „Przywódca”.",
     "rus": "Получено достижение «Лидер».",
+    "spa": "Has conseguido el logro Líder.",
     "ukr": "Отримано досягнення «Лідер»"
   },
   "st_ach_mutant_hunter": {
     "eng": "You have attained the Mutant Hunter achievement.",
-    "pol": "Uda�o ci si� zdoby� osi�gni�cie ��owca mutant�w�.",
+    "fra": "Vous avez obtenu le succčs Chasseur de mutants.",
+    "ger": "Sie haben folgenden Erfolg errungen: Mutantenjäger.",
+    "ita": "Hai ottenuto l'obiettivo Cacciatore di mutanti.",
+    "pol": "Udało ci się zdobyć osiągnięcie „Łowca mutantów”.",
     "rus": "Получено достижение «Охотник на мутантов».",
+    "spa": "Has conseguido el logro Cazador de mutantes.",
     "ukr": "Отримано досягнення «Мисливець на мутантів»"
   },
   "st_ach_one_of_the_lads": {
     "eng": "You have attained the One of Ours achievement.",
-    "pol": "Uda�o ci si� zdoby� osi�gni�cie �Jeden z nas�.",
+    "fra": "Vous avez obtenu le succčs L'un des nôtres.",
+    "ger": "Sie haben folgenden Erfolg errungen: Einer von uns.",
+    "ita": "Hai ottenuto l'obiettivo Uno dei nostri.",
+    "pol": "Udało ci się zdobyć osiągnięcie „Jeden z nas”.",
     "rus": "Получено достижение «Свой парень».",
+    "spa": "Has conseguido el logro Uno de los nuestros.",
     "ukr": "Отримано досягнення «Свій хлопець»"
   },
   "st_ach_pioneer": {
     "eng": "You have attained the Pioneer achievement.",
-    "pol": "Uda�o ci si� zdoby� osi�gni�cie �Pionier�.",
+    "fra": "Vous avez obtenu le succčs Pionnier.",
+    "ger": "Sie haben folgenden Erfolg errungen: Pionier.",
+    "ita": "Hai ottenuto l'obiettivo Pioniere.",
+    "pol": "Udało ci się zdobyć osiągnięcie „Pionier”.",
     "rus": "Получено достижение «Первооткрыватель».",
+    "spa": "Has conseguido el logro Precursor.",
     "ukr": "Отримано досягнення «Першовідкривач»"
   },
   "st_ach_research_man": {
     "eng": "You have attained the Research Assistant achievement.",
-    "pol": "Uda�o ci si� zdoby� osi�gni�cie �Asystent�.",
+    "fra": "Vous avez obtenu le succčs Assistant de recherche.",
+    "ger": "Sie haben folgenden Erfolg errungen: Wissenschaftlicher Mitarbeiter.",
+    "ita": "Hai ottenuto l'obiettivo Assistente ricercatore.",
+    "pol": "Udało ci się zdobyć osiągnięcie „Asystent”.",
     "rus": "Получено достижение «Научный сотрудник».",
+    "spa": "Has conseguido el logro Ayudante de investigación.",
     "ukr": "Отримано досягнення «Науковій співробітник»"
   },
   "st_ach_seeker": {
     "eng": "You have attained the Artifact Hunter achievement.",
-    "pol": "Uda�o ci si� zdoby� osi�gni�cie ��owca artefakt�w�.",
+    "fra": "Vous avez obtenu le succčs Chasseur d'artefacts.",
+    "ger": "Sie haben folgenden Erfolg errungen: Artefaktjäger.",
+    "ita": "Hai ottenuto l'obiettivo Cacciatore di manufatti.",
+    "pol": "Udało ci się zdobyć osiągnięcie „Łowca artefaktów”.",
     "rus": "Получено достижение «Искатель».",
+    "spa": "Has conseguido el logro Cazador de artefactos.",
     "ukr": "Отримано досягнення «Шукач»"
   },
   "st_ach_skilled_stalker": {
     "eng": "You have attained the Seasoned Stalker achievement.",
-    "pol": "Uda�o ci si� zdoby� osi�gni�cie �Do�wiadczony stalker�.",
+    "fra": "Vous avez obtenu le succčs Stalker aguerri.",
+    "ger": "Sie haben folgenden Erfolg errungen: Erfahrener Stalker.",
+    "ita": "Hai ottenuto l'obiettivo Stalker esperto.",
+    "pol": "Udało ci się zdobyć osiągnięcie „Doświadczony stalker”.",
     "rus": "Получено достижение «Опытный сталкер».",
+    "spa": "Has conseguido el logro Stalker experimentado.",
     "ukr": "Отримано досягнення «Досвідчений сталкер»"
   },
   "st_ach_wealthy": {
     "eng": "You have attained the Wealthy Client achievement.",
-    "pol": "Uda�o ci si� zdoby� osi�gni�cie �Bogaty klient�.",
+    "fra": "Vous avez obtenu le succčs Bon client.",
+    "ger": "Sie haben folgenden Erfolg errungen: Reicher Kunde.",
+    "ita": "Hai ottenuto l'obiettivo Un ricco cliente.",
+    "pol": "Udało ci się zdobyć osiągnięcie „Bogaty klient”.",
     "rus": "Получено достижение «Состоятельный клиент».",
+    "spa": "Has conseguido el logro Cliente adinerado.",
     "ukr": "Отримано досягнення «Заможний клієнт»"
   },
   "st_autosave": {
     "eng": "Autosaving...",
-    "pol": "Autozapis�",
+    "fra": "Sauvegarde automatique...",
+    "ger": "Automatische Speicherung...",
+    "ita": "Salvataggio automatico in corso...",
+    "pol": "Autozapis…",
     "rus": "Автосохранение...",
+    "spa": "Autoguardando...",
     "ukr": "Автозбереження... "
   },
   "st_can_use_weapon_now": {
     "eng": "You can now take your weapon out.",
-    "pol": "Mo�esz teraz wyj�� bro�.",
+    "fra": "Vous pouvez maintenant sortir votre arme.",
+    "ger": "Sie können Ihre Waffe jetzt wieder herausnehmen.",
+    "ita": "Ora puoi estrarre l'arma.",
+    "pol": "Możesz teraz wyjąć broń.",
     "rus": "Теперь можно достать оружие.",
+    "spa": "Ya puedes soltar el arma.",
     "ukr": "Тепер можна дістати зброю"
   },
   "st_codelock": {
     "eng": "Code lock ($$ACTION_USE$$)",
+    "fra": "Serrure numérique ($$ACTION_USE$$)",
+    "ger": "Code lock ($$ACTION_USE$$)",
+    "ita": "Codice di blocco ($$ACTION_USE$$)",
     "pol": "Zamek szyfrowy ($$ACTION_USE$$)",
     "rus": "Кодовый замок ($$ACTION_USE$$)",
+    "spa": "Código de bloqueo ($$ACTION_USE$$)",
     "ukr": "Кодовий замок ($$ACTION_USE$$)"
   },
   "st_detective_news": {
     "eng": "Medical supplies have been placed in the personal box on the Skadovsk for solving the secret of the missing stalkers.",
-    "pol": "W nagrod� za rozwi�zanie tajemnicy zaginionych stalker�w w twojej skrytce na Skadowsku zosta�y umieszczone �rodki medyczne.",
+    "fra": "Des fournitures médicales ont été placées dans votre cantine du Skadovsk pour vous remercier d'avoir élucidé le mystčre des stalkers disparus.",
+    "ger": "Als Belohnung dafür, dass Sie das Geheimnis der verschwundenen Stalker lüften konnten, wurden medizinische Vorräte in Ihrer persönlichen Kiste auf der Skadowsk hinterlegt.",
+    "ita": "I medicinali sono stati collocati nel ripostiglio personale sulla Skadovsk per aver risolto il mistero degli stalker scomparsi.",
+    "pol": "W nagrodę za rozwiązanie tajemnicy zaginionych stalkerów w twojej skrytce na Skadowsku zostały umieszczone środki medyczne.",
     "rus": "За раскрытие дела о пропаже сталкеров в личный ящик на «Скадовске» добавлены медикаменты.",
+    "spa": "Se han ańadido medicinas en la caja personal del Skadovsk por resolver el misterio de los stalkers desaparecidos.",
     "ukr": "За розкриття справи про пропажу сталкерів до особистого ящика на «Скадовську» покладено медикаменти."
   },
   "st_duty_first_reward_news": {
     "eng": "A PS5-M Universal Protection suit has been placed in the personal box at Yanov for helping Duty.",
-    "pol": "W nagrod� za pomoc Powinno�ci w twojej skrytce na stacji Jan�w umieszczony zosta� kombinezon PS5-M Uniwersalna ochrona.",
+    "fra": "Une combinaison PS5-M a été placée dans votre cantine de Yanov, en remerciement de l'aide apportée au Devoir.",
+    "ger": "Als Belohnung für die Hilfe, die Sie den Wächtern geleistet haben, wurde ein PS5-M Universalschutzanzug in Ihrer persönlichen Kiste in der Janow-Station hinterlegt.",
+    "ita": "Una tuta di protezione universale PS5-M č stata collocata nel tuo ripostiglio personale a Yanov per aver aiutato la Duty.",
+    "pol": "W nagrodę za pomoc Powinności w twojej skrytce na stacji Janów umieszczony został kombinezon PS5-M Uniwersalna ochrona.",
     "rus": "За помощь «Долгу» в личный ящик на «Янове» помещён костюм ПС5-М «Универсальная защита».",
+    "spa": "Se ha ańadido un traje blindado universal PS5-M en la caja personal de Yanov por ayudar a Deber.",
     "ukr": "За допомогу «Долгу» до особистого ящика на «Янові» поміщено костюм ПС5-М «Універсальний захист»."
   },
   "st_duty_second_reward_news": {
     "eng": "A PSZ-9d Duty Armor suit has been placed in the personal box at Yanov for helping Duty.",
-    "pol": "W nagrod� za pomoc Powinno�ci w twojej skrytce na stacji Jan�w umieszczony zosta� kombinezon Pancerz Powinno�ci PSZ-9d. ",
+    "fra": "Une combinaison PSZ-9d a été placée dans votre cantine de Yanov, en remerciement de l'aide apportée au Devoir.",
+    "ger": "Als Belohnung für die Hilfe, die Sie den Wächtern geleistet haben, wurde eine PSZ-9d Wächterpanzerung in Ihrer persönlichen Kiste in der Janow-Station hinterlegt.",
+    "ita": "Una tuta corazzata PSZ-9d della Duty č stata collocata nel tuo ripostiglio personale a Yanov per aver aiutato la Duty.",
+    "pol": "W nagrodę za pomoc Powinności w twojej skrytce na stacji Janów umieszczony został kombinezon Pancerz Powinności PSZ-9d. ",
     "rus": "За помощь «Долгу» в личный ящик на «Янове» помещён костюм ПСЗ-9д «Броня «Долга».",
+    "spa": "Se ha ańadido un traje blindado PSZ-9d de Deber en la caja personal de Yanov por ayudar a Deber.",
     "ukr": "За допомогу «Долгу» до особистого ящика на «Янові» поміщено костюм ПСЗ-9д «Броня «Долгу»."
   },
   "st_freedom_first_reward_news": {
     "eng": "A Wind of Freedom suit has been placed in the personal box at Yanov for helping Freedom.",
-    "pol": "W nagrod� za pomoc Wolno�ci w twojej skrytce na stacji Jan�w umieszczony zosta� kombinezon Powiew Wolno�ci.",
+    "fra": "Une combinaison \"Vent de Liberté\" a été placée dans votre cantine de Yanov, en remerciement de l'aide apportée ŕ la Liberté.",
+    "ger": "Als Belohnung für die Hilfe, die Sie der Freiheit geleistet haben, wurde ein Freiheit-Sturmanzug in Ihrer persönlichen Kiste in der Janow-Station hinterlegt.",
+    "ita": "Una tuta \"Vento della Freedom\" č stata collocata nel tuo ripostiglio personale a Yanov per aver aiutato la Freedom.",
+    "pol": "W nagrodę za pomoc Wolności w twojej skrytce na stacji Janów umieszczony został kombinezon Powiew Wolności.",
     "rus": "За помощь «Свободе» в личный ящик на «Янове» помещён костюм «Ветер свободы».",
+    "spa": "Se ha ańadido un traje Viento de Libertad en la caja personal de Yanov por ayudar a Libertad.",
     "ukr": "За допомогу «Волі» до особистого ящика на «Янові» поміщено костюм «Вітер свободи»."
   },
   "st_freedom_second_reward_news": {
     "eng": "A Freedom Guard suit has been placed in the personal box at Yanov for helping Freedom.",
-    "pol": "W nagrod� za pomoc Wolno�ci w twojej skrytce na stacji Jan�w umieszczony zosta� kombinezon Stra�nik wolno�ci.",
+    "fra": "Une combinaison \"Garde de la Liberté\" a été placée dans votre cantine de Yanov, en remerciement de l'aide apportée ŕ la Liberté.",
+    "ger": "Als Belohnung für die Hilfe, die Sie der Freiheit geleistet haben, wurde ein Freiheit-Wachanzug in Ihrer persönlichen Kiste in der Janow-Station hinterlegt.",
+    "ita": "Una tuta \"Guardiano della Freedom\" č stata collocata nel tuo ripostiglio personale a Yanov per aver aiutato la Freedom.",
+    "pol": "W nagrodę za pomoc Wolności w twojej skrytce na stacji Janów umieszczony został kombinezon Strażnik wolności.",
     "rus": "За помощь «Свободе» в личный ящик на «Янове» помещён костюм «Страж свободы».",
+    "spa": "Se ha ańadido un traje de guardia de Libertad en la caja personal de Yanov por ayudar a Libertad.",
     "ukr": "За допомогу «Волі» до особистого ящика на «Янові» поміщено костюм «Вартовий волі»."
   },
   "st_freeplay_text_ok": {
     "eng": "You didn’t manage to reach the helicopters and the evacuation team left the Zone without you.",
-    "pol": "Nie uda�o ci si� dotrze� do helikopter�w i dru�yna ewakuacyjna opu�ci�a Zon� bez ciebie.",
+    "fra": "Vous n'avez pas réussi ŕ atteindre les hélicoptčres ŕ temps et l'équipe d'évacuation est partie sans vous.",
+    "ger": "Sie haben es nicht bis zum Hubschrauber geschafft und das Evakuierungsteam hat die Zone ohne Sie verlassen.",
+    "ita": "Non sei riuscito a raggiungere gli elicotteri e la squadra di evacuazione ha lasciato la Zona senza di te.",
+    "pol": "Nie udało ci się dotrzeć do helikopterów i drużyna ewakuacyjna opuściła Zonę bez ciebie.",
     "rus": "Вы не успели добраться к вертолётам. Группа эвакуации покинула Зону без Вас.",
+    "spa": "No lograste llegar a los helicópteros y el equipo de evacuación se ha ido de la Zona sin ti.",
     "ukr": "Ви не встигли дістатися гелікоптерів. Група евакуації полишила Зону без Вас."
   },
   "st_freeplay_text_yes_no": {
     "eng": "Are you ready to leave the Zone? There’s no way back.",
-    "pol": "Czy na pewno chcesz opu�ci� Zon�? Powr�t jest niemo�liwy.",
+    "fra": "Pręt ŕ quitter la Zone ? C'est un voyage ŕ sens unique...",
+    "ger": "Sind Sie bereit, die Zone zu verlassen? Es gibt keinen Weg zurück.",
+    "ita": "Sei pronto per lasciare la Zona??Non potrai piů tornare indietro.",
+    "pol": "Czy na pewno chcesz opuścić Zonę? Powrót jest niemożliwy.",
     "rus": "Готовы ли Вы покинуть Зону? Обратного пути не будет.",
+    "spa": "żListo para irte de la Zona? No hay vuelta atrás.",
     "ukr": "Чи готові Ви покинути Зону? Дороги назад не буде."
   },
   "st_game_over": {
     "eng": "Game over.",
+    "fra": "Fin de la partie.",
+    "ger": "Game Over",
+    "ita": "Fine della partita.",
     "pol": "Koniec gry.",
     "rus": "Игра окончена.",
+    "spa": "Partida terminada.",
     "ukr": "Гру закінчено"
   },
   "st_game_over_press_jump": {
     "eng": "Press ($$ACTION_JUMP$$) to exit to the main menu.",
-    "pol": "Naci�nij klawisz ($$ACTION_JUMP$$), aby wyj�� do menu g��wnego.",
+    "fra": "Appuyez sur ($$ACTION_JUMP$$) pour revenir au menu principal.",
+    "ger": "Drücken Sie ($$ACTION_JUMP$$), um ins Hauptmenü zurückzukehren.",
+    "ita": "Premi ($$ACTION_JUMP$$) per tornare al menu principale.",
+    "pol": "Naciśnij klawisz ($$ACTION_JUMP$$), aby wyjść do menu głównego.",
     "rus": "Нажмите ($$ACTION_JUMP$$) для выхода в главное меню",
+    "spa": "Pulsa ($$ACTION_JUMP$$) para volver al menú principal.",
     "ukr": "Натисніть ($$ACTION_JUMP$$) для виходу до головного меню"
   },
   "st_game_paused": {
     "eng": "Pause",
+    "fra": "Pause",
+    "ger": "Pause",
+    "ita": "Pausa",
     "pol": "Pauza",
     "rus": "Пауза",
+    "spa": "Pausa",
     "ukr": "Пауза"
   },
   "st_game_saved": {
     "eng": "Game saved",
+    "fra": "Partie sauvegardée",
+    "ger": "Spiel gespeichert",
+    "ita": "Partita salvata",
     "pol": "Gra zapisana",
     "rus": "Игра сохранена",
+    "spa": "Partida guardada",
     "ukr": "Гру збережено"
   },
   "st_herald_of_justice_news": {
     "eng": "An artifact has been placed in the personal box on the Skadovsk for helping to expose Magpie.",
-    "pol": "W nagrod� za pomoc w zdemaskowaniu Sroki w twojej skrytce na Skadowsku umieszczony zosta� artefakt.",
+    "fra": "Un artefact a été placé dans votre cantine du Skadovsk en remerciement pour votre aide dans l'affaire de la Pie.",
+    "ger": "Als Belohnung für Ihre Hilfe dabei, Magpie zu überführen, wurde ein Artefakt in Ihrer persönlichen Kiste auf der Skadowsk hinterlegt.",
+    "ita": "Č stato collocato un manufatto nel tuo ripostiglio personale sulla Skadovsk per aver smascherato Magpie.",
+    "pol": "W nagrodę za pomoc w zdemaskowaniu Sroki w twojej skrytce na Skadowsku umieszczony został artefakt.",
     "rus": "За помощь в разоблачении Сороки в личный ящик на «Скадовске» помещён артефакт.",
+    "spa": "Se ha ańadido un artefacto a la caja personal del Skadovsk por ayudar a desenmascarar a Urraca.",
     "ukr": "За допомогу у викритті Сороки до особистого ящика на «Скадовську» покладено артефакт."
   },
   "st_jup_b41_door_locked": {
     "eng": "You must wait for the dock to become airtight",
-    "pol": "Musisz poczeka�, a� dok zostanie uszczelniony.",
+    "fra": "Vous devez attendre que le dock devienne étanche.",
+    "ger": "Sie müssen warten, bis das Dock luftdicht verschlossen ist",
+    "ita": "Devi aspettare che il porto sia sigillato",
+    "pol": "Musisz poczekać, aż dok zostanie uszczelniony.",
     "rus": "Необходимо дождаться герметизации шлюза",
+    "spa": "Tienes que esperar a que el muelle se vuelva estanco.",
     "ukr": "Необхідно дочекатися герметизації шлюзу"
   },
   "st_lx8_button_press_true": {
     "eng": "Access granted",
-    "pol": "Przyznano dost�p",
+    "fra": "Accčs autorisé",
+    "ger": "Zugang gewährt",
+    "ita": "Accesso consentito",
+    "pol": "Przyznano dostęp",
     "rus": "Доступ разрешён",
+    "spa": "Acceso garantizado",
     "ukr": "Доступ дозволено"
   },
   "st_lx8_lift_button": {
     "eng": "Take the elevator up ($$ACTION_USE$$)",
-    "pol": "Jed� wind� do g�ry ($$ACTION_USE$$)",
+    "fra": "Prendre l'ascenseur pour monter ($$ACTION_USE$$)",
+    "ger": "Aufzug nach oben ($$ACTION_USE$$)",
+    "ita": "Prendi l'ascensore che sale ($$ACTION_USE$$)",
+    "pol": "Jedź windą do góry ($$ACTION_USE$$)",
     "rus": "Подняться на лифте ($$ACTION_USE$$)",
+    "spa": "Subir en el ascensor ($$ACTION_USE$$)",
     "ukr": "Піднятися ліфтом ($$ACTION_USE$$)"
   },
   "st_pri_b306_go_down": {
     "eng": "Take the elevator down ($$ACTION_USE$$)",
-    "pol": "Jed� wind� w d� ($$ACTION_USE$$)",
+    "fra": "Prendre l'ascenseur pour descendre ($$ACTION_USE$$)",
+    "ger": "Aufzug nach unten ($$ACTION_USE$$)",
+    "ita": "Prendi l'ascensore che scende ($$ACTION_USE$$)",
+    "pol": "Jedź windą w dół ($$ACTION_USE$$)",
     "rus": "Спуститься на лифте ($$ACTION_USE$$)",
+    "spa": "Bajar en el ascensor ($$ACTION_USE$$)",
     "ukr": "Спуститися ліфтом ($$ACTION_USE$$)"
   },
   "st_psy_danger": {
     "eng": "Critical psy-emission level. Leave danger area immediately.",
-    "pol": "Krytyczny poziom emisji psionicznych. Opu�� natychmiast zagro�ony obszar.",
+    "fra": "Niveau d'émissions psi critique. Quittez immédiatement la zone dangereuse !",
+    "ger": "Kritisches Psi-Emissionsniveau. Begeben Sie sich sofort aus der Gefahrenzone.",
+    "ita": "Livello di psico-emissione critico. Abbandonare immediatamente l'area a rischio.",
+    "pol": "Krytyczny poziom emisji psionicznych. Opuść natychmiast zagrożony obszar.",
     "rus": "Критический уровень пси-излучения. Немедленно покиньте опасную зону.",
+    "spa": "Nivel crítico de emisión psíquica. Sal del área de peligro inmediatamente.",
     "ukr": "Критичний рівень псі-віпромінювання. Негайно полишіть небезпечну зону."
   },
   "st_radiation_danger": {
     "eng": "Dangerous radiation levels. Protection required to go further.",
-    "pol": "Niebezpieczny poziom promieniowania. Aby przej�� dalej, niezb�dna jest ochrona.",
+    "fra": "Niveaux de radiations élevés. Vous ne pouvez pas aller plus loin sans protection.",
+    "ger": "Kritisches Strahlungsniveau. Um weiterzugehen, wird Schutz benötigt.",
+    "ita": "Livelli di radiazione pericolosi. Č necessaria una protezione per avanzare.",
+    "pol": "Niebezpieczny poziom promieniowania. Aby przejść dalej, niezbędna jest ochrona.",
     "rus": "Опасный уровень радиации. Для прохода необходима защита.",
+    "spa": "Niveles de radiación peligrosos. Necesitas protección para seguir.",
     "ukr": "Небезпечний рівень радіації. Для проходу необхідний захист."
   },
   "st_search_helicopter": {
     "eng": "Examine helicopter ($$ACTION_USE$$)",
+    "fra": "Examiner l'hélicoptčre ($$ACTION_USE$$)",
+    "ger": "Hubschrauber untersuchen ($$ACTION_USE$$)",
+    "ita": "Esamina elicottero ($$ACTION_USE$$)",
     "pol": "Zbadaj helikopter ($$ACTION_USE$$)",
     "rus": "Осмотреть вертолёт ($$ACTION_USE$$)",
+    "spa": "Examinar helicóptero ($$ACTION_USE$$)",
     "ukr": "Оглянути вертоліт ($$ACTION_USE$$)"
   },
   "st_search_treasure": {
     "eng": "Search the stash ($$ACTION_USE$$)",
+    "fra": "Fouiller la planque ($$ACTION_USE$$)",
+    "ger": "Versteck durchsuchen ($$ACTION_USE$$)",
+    "ita": "Ispeziona il ripostiglio ($$ACTION_USE$$)",
     "pol": "Przeszukaj schowek ($$ACTION_USE$$)",
     "rus": "Обыскать тайник ($$ACTION_USE$$)",
+    "spa": "Registrar escondite ($$ACTION_USE$$)",
     "ukr": "Обшукати схованку ($$ACTION_USE$$)"
   },
   "st_sleep_hours": {
     "eng": "h",
+    "fra": "h",
+    "ger": "h",
+    "ita": "h",
     "pol": "g.",
     "rus": "ч",
+    "spa": "h",
     "ukr": "ч"
   },
   "st_tip": {
     "eng": "Message",
-    "pol": "Wiadomo��",
+    "fra": "Message",
+    "ger": "Nachricht",
+    "ita": "Messaggio",
+    "pol": "Wiadomość",
     "rus": "Сообщение",
+    "spa": "Mensaje",
     "ukr": "Повідомлення"
   },
   "tip_door_blocked": {
     "eng": "Door blocked",
+    "fra": "Porte bloquée",
+    "ger": "Tür blockiert",
+    "ita": "Porta bloccata",
     "pol": "Drzwi zablokowane",
     "rus": "Дверь заблокирована",
+    "spa": "Puerta bloqueada",
     "ukr": "Двері заблоковано"
   },
   "tip_door_close": {
     "eng": "Close door ($$ACTION_USE$$)",
+    "fra": "Fermer la porte ($$ACTION_USE$$)",
+    "ger": "Tür schließen ($$ACTION_USE$$)",
+    "ita": "Chiudi porta ($$ACTION_USE$$)",
     "pol": "Zamknij drzwi ($$ACTION_USE$$)",
     "rus": "Закрыть дверь ($$ACTION_USE$$)",
+    "spa": "Cerrar puerta ($$ACTION_USE$$)",
     "ukr": "Зачинити двері ($$ACTION_USE$$)"
   },
   "tip_door_closed_base_alarm": {
     "eng": "Door locked - the camp is on alert",
-    "pol": "Drzwi zamkni�te - ob�z jest w stanie pogotowia",
+    "fra": "Porte verrouillée. Le camp est en alerte.",
+    "ger": "Tür verschlossen - das Lager befindet sich im Alarmzustand",
+    "ita": "Porta chiusa - l'accampamento č in all'erta",
+    "pol": "Drzwi zamknięte - obóz jest w stanie pogotowia",
     "rus": "Дверь заперта - в лагере тревога",
+    "spa": "Puerta cerrada: campamento en alerta",
     "ukr": "Двері зачинено - у таборі тривога"
   },
   "tip_door_closed_hide_weapon": {
     "eng": "Door locked - you must holster your weapon",
-    "pol": "Drzwi zamkni�te - musisz schowa� bro�",
+    "fra": "Porte verrouillée. Vous devez ranger votre arme.",
+    "ger": "Tür verschlossen - Sie müssen Ihre Waffe einstecken",
+    "ita": "Porta chiusa - devi rinfoderare l'arma",
+    "pol": "Drzwi zamknięte - musisz schować broń",
     "rus": "Дверь заперта - необходимо спрятать оружие",
+    "spa": "Puerta cerrada: guarda el arma",
     "ukr": "Двері зачинено - необхідно сховати зброю"
   },
   "tip_door_locked": {
     "eng": "Door locked",
-    "pol": "Drzwi zamkni�te",
+    "fra": "Porte verrouillée",
+    "ger": "Tür verschlossen",
+    "ita": "Porta chiusa",
+    "pol": "Drzwi zamknięte",
     "rus": "Дверь заперта",
+    "spa": "Puerta cerrada",
     "ukr": "Двері зачинено"
   },
   "tip_door_no_electricity": {
     "eng": "Door is not being powered",
+    "fra": "La porte n'est pas sous tension.",
+    "ger": "Stromzufuhr der Tür ist unterbrochen",
+    "ita": "La porta non č alimentata",
     "pol": "Brak zasilania drzwi",
     "rus": "Дверь обесточена",
+    "spa": "La puerta no tiene corriente",
     "ukr": "Двері знеструмлено"
   },
   "tip_door_open": {
     "eng": "Open door ($$ACTION_USE$$)",
-    "pol": "Otw�rz drzwi ($$ACTION_USE$$)",
+    "fra": "Ouvrir la porte ($$ACTION_USE$$)",
+    "ger": "Tür öffnen ($$ACTION_USE$$)",
+    "ita": "Apri porta ($$ACTION_USE$$)",
+    "pol": "Otwórz drzwi ($$ACTION_USE$$)",
     "rus": "Открыть дверь ($$ACTION_USE$$)",
+    "spa": "Abrir puerta ($$ACTION_USE$$)",
     "ukr": "Відчинити двері ($$ACTION_USE$$)"
   },
   "tip_gate_locked": {
     "eng": "Gate blocked",
+    "fra": "Portail fermé",
+    "ger": "Tor blockiert",
+    "ita": "Cancello bloccato",
     "pol": "Brama zablokowana",
     "rus": "Ворота заблокированы",
+    "spa": "Puerta bloqueada",
     "ukr": "Ворота заблоковано"
   },
   "tip_need_access_card": {
     "eng": "Use the access card ($$ACTION_USE$$)",
-    "pol": "U�yj karty dost�pu ($$ACTION_USE$$)",
+    "fra": "Utiliser la carte d'accčs ($$ACTION_USE$$)",
+    "ger": "Zugangskarte benutzen ($$ACTION_USE$$)",
+    "ita": "Usa la tessera d'accesso ($$ACTION_USE$$)",
+    "pol": "Użyj karty dostępu ($$ACTION_USE$$)",
     "rus": "Воспользоватся картой доступа ($$ACTION_USE$$)",
+    "spa": "Usar tarjeta de acceso ($$ACTION_USE$$)",
     "ukr": "Скористатися картою доступу ($$ACTION_USE$$)"
   },
   "tip_no_access_card": {
     "eng": "Access card required",
-    "pol": "Wymagana karta dost�pu",
+    "fra": "Carte d'accčs nécessaire",
+    "ger": "Zugangskarte erforderlich",
+    "ita": "Tessera d'accesso richiesta",
+    "pol": "Wymagana karta dostępu",
     "rus": "Необходима карта доступа",
+    "spa": "Se necesita tarjeta de acceso",
     "ukr": "Необхідна карта доступу"
   },
   "tip_open_another_site": {
     "eng": "The door cannot be opened from this side",
-    "pol": "Drzwi nie mo�na otworzy� z tej strony",
+    "fra": "Cette porte ne peut pas ętre ouverte de ce côté.",
+    "ger": "Die Tür kann nicht von dieser Seite aus geöffnet werden",
+    "ita": "Impossibile aprire la porta da questa parte",
+    "pol": "Drzwi nie można otworzyć z tej strony",
     "rus": "Дверь нельзя открыть с этой стороны",
+    "spa": "La puerta no puede abrirse por este lado",
     "ukr": "Двері неможливо відчинити із цього боку"
   },
   "ui_st_mp_experience_grow": {
     "eng": "-",
+    "fra": "-",
+    "ger": "-",
+    "ita": "-",
     "pol": "-",
     "rus": "-",
+    "spa": "-",
     "ukr": "-"
   },
   "zat_b12_conteiner_full_locked": {
     "eng": "The container is locked. Two keys are needed to open it.",
-    "pol": "Pojemnik jest zamkni�ty. Aby go otworzy�, potrzebne s� dwa klucze.",
+    "fra": "Ce conteneur est verrouillé. Deux clefs sont nécessaires pour l'ouvrir.",
+    "ger": "Die Kiste ist verschlossen. Es werden zwei Schlüssel benötigt.",
+    "ita": "Il contenitore č chiuso a chiave. Servono due chiavi per aprirlo.",
+    "pol": "Pojemnik jest zamknięty. Aby go otworzyć, potrzebne są dwa klucze.",
     "rus": "Контейнер закрыт - необходимы два ключа",
+    "spa": "El contenedor está cerrado. Necesitas dos llaves para abrirlo.",
     "ukr": "Контейнер закритий - необхідні два ключі"
   },
   "zat_b12_conteiner_has_one_key": {
     "eng": "Use key ($$ACTION_USE$$)",
-    "pol": "U�yj klucza ($$ACTION_USE$$)",
+    "fra": "Utiliser la clef ($$ACTION_USE$$)",
+    "ger": "Schlüssel benutzen ($$ACTION_USE$$)",
+    "ita": "Usa chiave ($$ACTION_USE$$)",
+    "pol": "Użyj klucza ($$ACTION_USE$$)",
     "rus": "Использовать ключ ($$ACTION_USE$$)",
+    "spa": "Usar llave ($$ACTION_USE$$)",
     "ukr": "Використати ключ ($$ACTION_USE$$)"
   },
   "zat_b12_conteiner_has_two_key": {
     "eng": "Use keys ($$ACTION_USE$$)",
-    "pol": "U�yj kluczy ($$ACTION_USE$$)",
+    "fra": "Utiliser les clefs ($$ACTION_USE$$)",
+    "ger": "Schlüssel benutzen ($$ACTION_USE$$)",
+    "ita": "Usa chiavi ($$ACTION_USE$$)",
+    "pol": "Użyj kluczy ($$ACTION_USE$$)",
     "rus": "Использовать ключи ($$ACTION_USE$$)",
+    "spa": "Usar llaves ($$ACTION_USE$$)",
     "ukr": "Використати ключі ($$ACTION_USE$$)"
   },
   "zat_b12_conteiner_locked": {
     "eng": "The container is locked. You need the second key to open it.",
-    "pol": "Pojemnik jest zamkni�ty. Aby go otworzy�, potrzebny jest drugi klucz.",
+    "fra": "Ce conteneur est verrouillé. Vous avez besoin de la deuxičme clef pour l'ouvrir.",
+    "ger": "Die Kiste ist verschlossen. Sie benötigen den zweiten Schlüssel, um sie zu öffnen.",
+    "ita": "Il contenitore č chiuso a chiave. Ti serve la seconda chiave per aprirlo.",
+    "pol": "Pojemnik jest zamknięty. Aby go otworzyć, potrzebny jest drugi klucz.",
     "rus": "Контейнер закрыт - необходим второй ключ",
+    "spa": "El contenedor está cerrado. Necesitas la segunda llave para abrirlo.",
     "ukr": "Контейнер закритий - необхідний другий ключ"
   },
   "zat_b12_conteiner_open": {
     "eng": "Open container ($$ACTION_USE$$)",
-    "pol": "Otw�rz pojemnik ($$ACTION_USE$$)",
+    "fra": "Ouvrir le conteneur ($$ACTION_USE$$)",
+    "ger": "Kiste öffnen ($$ACTION_USE$$)",
+    "ita": "Apri contenitore ($$ACTION_USE$$)",
+    "pol": "Otwórz pojemnik ($$ACTION_USE$$)",
     "rus": "Открыть контейнер ($$ACTION_USE$$)",
+    "spa": "Abrir contenedor ($$ACTION_USE$$)",
     "ukr": "Відчинити контейнер ($$ACTION_USE$$)"
   },
   "zat_b14_door_locked_hint": {
     "eng": "The door mechanism has been blocked from the inside.",
-    "pol": "Mechanizm drzwi zosta� zablokowany od �rodka.",
+    "fra": "Le mécanisme de la porte est bloqué de l'intérieur.",
+    "ger": "Der Türmechanismus wurde von innen blockiert",
+    "ita": "Il meccanismo della porta č stato bloccato dall'interno",
+    "pol": "Mechanizm drzwi został zablokowany od środka.",
     "rus": "Дверной механизм заблокирован изнутри",
+    "spa": "El mecanismo de la puerta está bloqueado desde dentro.",
     "ukr": "Механізм дверей заблоковано зсередини"
   },
   "zat_b57_balon_use_hint": {
     "eng": "Connect gas tank ($$ACTION_USE$$)",
-    "pol": "Pod��cz zbiornik z gazem ($$ACTION_USE$$) ",
+    "fra": "Placer la bombonne de gaz ($$ACTION_USE$$)",
+    "ger": "Gastank verbinden ($$ACTION_USE$$)",
+    "ita": "Collega tanica del gas ($$ACTION_USE$$)",
+    "pol": "Podłącz zbiornik z gazem ($$ACTION_USE$$) ",
     "rus": "Подключить газовый баллон ($$ACTION_USE$$)",
+    "spa": "Conectar tanque de gas ($$ACTION_USE$$)",
     "ukr": "Підключити газовий балон ($$ACTION_USE$$)"
   },
   "zat_b57_gas_warning": {
     "eng": "Warning! Chemical hazard!",
-    "pol": "Uwaga! Zagro�enie chemiczne!",
+    "fra": "Attention ! Danger chimique !",
+    "ger": "Achtung! Chemische Gefahr!",
+    "ita": "Attenzione!?Pericolo chimico!",
+    "pol": "Uwaga! Zagrożenie chemiczne!",
     "rus": "Осторожно! Химическая опасность!",
+    "spa": "ˇAviso! ˇRiesgo químico!",
     "ukr": "Обережно! Хімічна небезпека!"
   },
   "zat_b57_vintil_press": {
     "eng": "Turn valve ($$ACTION_USE$$)",
-    "pol": "Otw�rz zaw�r ($$ACTION_USE$$)",
+    "fra": "Tourner la valve ($$ACTION_USE$$)",
+    "ger": "Ventil drehen ($$ACTION_USE$$)",
+    "ita": "Gira la valvola ($$ACTION_USE$$)",
+    "pol": "Otwórz zawór ($$ACTION_USE$$)",
     "rus": "Повернуть вентиль ($$ACTION_USE$$)",
+    "spa": "Girar válvula ($$ACTION_USE$$)",
     "ukr": "Повернути вентиль ($$ACTION_USE$$)"
   },
   "zat_b33_car_searching_tip": {
     "eng": "Search car ($$ACTION_USE$$)",
-    "pol": "Przeszukaj samoch�d ($$ACTION_USE$$)",
+    "fra": "Fouiller le véhicule ($$ACTION_USE$$)",
+    "ger": "Fahrzeug durchsuchen ($$ACTION_USE$$)",
+    "ita": "Ispeziona automobile ($$ACTION_USE$$)",
+    "pol": "Przeszukaj samochód ($$ACTION_USE$$)",
     "rus": "Обыскать «Запорожец» ($$ACTION_USE$$)",
+    "spa": "Registrar coche ($$ACTION_USE$$)",
     "ukr": "Обшукати «Запорожець» ($$ACTION_USE$$)"
   },
   "st_resupply_ready": {
     "eng": "You can restock on medical supplies and ammo by visiting Lieutenant Rogovets and Lieutenant Kirillov.",
-    "pol": "Mo�esz uzupe�ni� sw�j zapas �rodk�w medycznych, odwiedzaj�c porucznik�w Rogowca i Kiry�owa.",
+    "fra": "Vous pouvez obtenir des fournitures médicales et des munitions auprčs des lieutenants Rogovets et Kirillov.",
+    "ger": "Sie können bei Leutnant Rogowez und Leutnant Kirilloff Ihre Vorräte an Medikamenten und Munition auffrischen.",
+    "ita": "Puoi fare scorta di medicinali e munizioni dal Tenente Rogovets e dal Tenente Kirillov.",
+    "pol": "Możesz uzupełnić swój zapas środków medycznych, odwiedzając poruczników Rogowca i Kiryłowa.",
     "rus": "Перед операцией можно пополнить запас медикаментов и боеприпасов у лейтенантов Роговца и Кириллова.",
+    "spa": "Visita a los tenientes Rogovets y Kirillov para que te den provisiones y munición.",
     "ukr": "Перед операцією можна поповнити запас медикаментів та боєприпасів у лейтенантів Рогівця та Кирилова."
   },
   "st_surge_while_asleep": {
     "eng": "An emission has recently occurred in the Zone.",
-    "pol": "Niedawno w Zonie nast�pi�a emisja.",
+    "fra": "Une émission s'est produite récemment dans la Zone.",
+    "ger": "Vor kurzem fand eine Emission in der Zone statt.",
+    "ita": "Da poco si č verificata un'emissione nella Zona",
+    "pol": "Niedawno w Zonie nastąpiła emisja.",
     "rus": "В Зоне недавно произошёл выброс.",
+    "spa": "Una emisión se acaba de producir en la Zona.",
     "ukr": "У Зоні нещодавно стався викид."
   },
   "st_ach_marked_by_zone": {
     "eng": "You have attained the Marked by the Zone achievement.",
-    "pol": "Uda�o ci si� zdoby� osi�gni�cie �Naznaczony przez Zon�\".",
+    "fra": "Vous avez obtenu le succčs Affecté par la Zone.",
+    "ger": "Sie haben folgenden Erfolg errungen: Gezeichnet von der Zone.",
+    "ita": "Hai ottenuto l'obiettivo Marcato dalla Zona",
+    "pol": "Udało ci się zdobyć osiągnięcie „Naznaczony przez Zonę\".",
     "rus": "Получено достижение «Отмеченный Зоной»",
+    "spa": "Has conseguido el logro Marcado por la Zona.",
     "ukr": "Отримано досягнення «Мічений Зоною»"
   },
   "st_mutant_hunter_news": {
     "eng": "Ammo has been placed in the personal box at Yanov for eliminating dangerous mutants.",
-    "pol": "W nagrod� za eliminacj� niebezpiecznych mutant�w w twojej skrytce na stacji Jan�w zosta�a umieszczona amunicja.",
+    "fra": "Des munitions ont été placées dans votre cantine de Yanov, pour vous remercier d'avoir éliminé de dangereux mutants.",
+    "ger": "Als Dank dafür, dass Sie gefährliche Mutanten getötet haben, wurde Munition in Ihrer persönlichen Kiste in der Janow-Station hinterlegt.",
+    "ita": "Delle munizioni sono state collocate nel tuo ripostiglio personale a Yanov per aver eliminato i mutanti.",
+    "pol": "W nagrodę za eliminację niebezpiecznych mutantów w twojej skrytce na stacji Janów została umieszczona amunicja.",
     "rus": "За уничтожение опасных мутантов в личный ящик на «Янове» помещены боеприпасы.",
+    "spa": "Se ha ańadido munición a la caja personal de Yanov por eliminar a los mutantes peligrosos.",
     "ukr": "За знищення небезпечних мутантів до особистого ящика на «Янові» покладено боєприпаси."
   },
   "st_found_old_treasure": {
     "eng": "Received coordinates of a stash that has already been discovered.",
-    "pol": "Otrzymano wsp�rz�dne schowka, kt�ry ju� wcze�niej zosta� odkryty.",
+    "fra": "Coordonnées d'une planque déjŕ découverte récupérées",
+    "ger": "Koordinaten eines Verstecks erhalten, das schon bekannt ist.",
+    "ita": "Hai ricevuto le coordinate di un ripostiglio giŕ scoperto.",
+    "pol": "Otrzymano współrzędne schowka, który już wcześniej został odkryty.",
     "rus": "Получены координаты ранее найденного тайника",
+    "spa": "Recibidas coordenadas del escondite que ya ha sido descubierto.",
     "ukr": "Отримано координати раніше знайденої схованки"
   },
   "st_got_treasure": {
     "eng": "Stash found",
+    "fra": "Planque trouvée",
+    "ger": "Versteck gefunden",
+    "ita": "Ripostiglio individuato",
     "pol": "Znaleziono schowek",
     "rus": "Найден тайник",
+    "spa": "Escondite encontrado",
     "ukr": "Знайдено схованку"
   },
   "st_found_new_treasure": {
     "eng": "Stash coordinates received",
-    "pol": "Otrzymano wsp�rz�dne schowka",
+    "fra": "Coordonnées de la planque reçues",
+    "ger": "Versteckkoordinaten erhalten",
+    "ita": "Coordinate del ripostiglio ricevute",
+    "pol": "Otrzymano współrzędne schowka",
     "rus": "Получены координаты тайника",
+    "spa": "Recibidas coordenadas del escondite",
     "ukr": "Отримано координати схованки"
   },
   "st_press_any_key": {
     "eng": "Press any key to play",
-    "pol": "Naci�nij dowolny klawisz, aby rozpocz�� gr�",
+    "fra": "Appuyez sur une touche pour jouer",
+    "ger": "Zum Spielen beliebige Taste drücken",
+    "ita": "Premi un tasto per giocare",
+    "pol": "Naciśnij dowolny klawisz, aby rozpocząć grę",
     "rus": "Нажмите любую клавишу для перехода к игре",
+    "spa": "Pulsa cualquier tecla para jugar",
     "ukr": "Натисніть будь-яку клавішу для переходу до гри"
   }
 }

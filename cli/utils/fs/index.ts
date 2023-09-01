@@ -6,6 +6,7 @@ export * from "#/utils/fs/exists";
 export * from "#/utils/fs/get_diffs";
 export * from "#/utils/fs/get_game_paths";
 export * from "#/utils/fs/get_path_parent_folder";
+export * from "#/utils/fs/is_directory";
 export * from "#/utils/fs/is_same_path";
 export * from "#/utils/fs/nornamize_parameter_path";
 export * from "#/utils/fs/open_folder_in_explorer";

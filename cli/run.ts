@@ -14,6 +14,7 @@ import { setupPackCommands } from "#/pack/run";
 import { setupParseCommands } from "#/parse/run";
 import { setupPreviewCommands } from "#/preview/run";
 import { setupStartCommands } from "#/start/run";
+import { setupTranslationsCommands } from "#/translations/run";
 import { setupVerifyCommands } from "#/verify/run";
 
 const program: Command = new Command("cli");
@@ -30,6 +31,7 @@ setupPackCommands(program);
 setupParseCommands(program);
 setupPreviewCommands(program);
 setupStartCommands(program);
+setupTranslationsCommands(program);
 setupVerifyCommands(program);
 
 program.parseAsync();

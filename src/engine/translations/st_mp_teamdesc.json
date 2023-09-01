@@ -1,26 +1,42 @@
 {
   "team_1_desc": {
     "eng": "The Zone's anarchists. They hold that the Zone is a sanctuary of freedom and believe that all laws, rules and conventions of the outside world are void here. Their motto is \"Do what you want and mind your own business.\" Freedom fights the government's attempts to control the Zone and is at war with the Mercenaries. Its members are equipped mainly with Soviet and Russian firearms.",
-    "pol": "Anarchi�ci Zony. Uznaj� Zon� za sanktuarium wolno�ci i uwa�aj�, �e wszelkie prawa, zasady i konwencje �wiata zewn�trznego nie maj� tu zastosowania. Ich motto brzmi: �R�b, co chcesz, i pilnuj swojego nosa�. Frakcja Wolno�� zwalcza starania rz�du o przej�cie kontroli nad Zon� i prowadzi wojn� z najemnikami. Jej cz�onkowie s� zwykle wyposa�eni w radzieck� i rosyjsk� bro�.",
+    "fra": "Les anarchistes de la Zone. Ils considčrent que la Zone est un véritable sanctuaire et que les lois, conventions et rčgles du monde extérieur n'y ont pas cours. Leur devise : \"Fais ce que tu veux et occupe-toi de tes oignons\". La Liberté essaie d'empęcher les autorités de prendre le contrôle de la Zone et est en guerre contre les mercenaires. Ses membres sont principalement équipés d'armes russes ou soviétiques.",
+    "ger": "Die Anarchisten der Zone. Sie halten die Zone für einen Ort der Freiheit und sind der Meinung, dass alle Gesetze, Regeln und Konventionen der restlichen Welt hier nicht gelten. Ihr Motto lautet: \"Tu, was du willst, und mach dein Ding.\" Die Freiheitler kämpfen gegen die Versuche der Regierung, Kontrolle über die Zone zu erlangen, und sie liegen mit den Söldnern im Krieg. Ihre Mitglieder tragen hauptsächlich sowjetische und russische Waffen.",
+    "ita": "Gli anarchici della Zona. Sostengono che la Zona sia un santuario di libertŕ e credono che qui tutte le leggi, le regole e le convenzioni del mondo esterno non siano valide. Il loro motto č \"Fai quel che vuoi e pensa ai fatti tuoi\". La Freedom combatte i tentativi del governo di controllare la Zona ed č in guerra con i mercenari. I suoi membri sono equipaggiati principalmente con armi da fuoco russe e sovietiche.",
+    "pol": "Anarchiści Zony. Uznają Zonę za sanktuarium wolności i uważają, że wszelkie prawa, zasady i konwencje świata zewnętrznego nie mają tu zastosowania. Ich motto brzmi: „Rób, co chcesz, i pilnuj swojego nosa”. Frakcja Wolność zwalcza starania rządu o przejęcie kontroli nad Zoną i prowadzi wojnę z najemnikami. Jej członkowie są zwykle wyposażeni w radziecką i rosyjską broń.",
     "rus": "Анархисты Зоны. Исповедуют идею о том, что Зона - заповедник неограниченной свободы для всех, поэтому законы, правила и условности внешнего мира здесь теряют силу. Их девиз таков: «Делай, что хочешь, только не мешай другим». Борются против попыток взять Зону под контроль, а также против клана наёмников. Экипированы в основном стрелковым оружием производства бывшего СССР и России.",
+    "spa": "Los anarquistas de la Zona. Dicen que la Zona es un santuario de libertad y consideran que todas las leyes, normas y convenciones del exterior no son válidas aquí. Su lema es \"haz lo que quieras y ocúpate de tus asuntos\". Libertad hace frente a los intentos del gobierno por controlar la Zona y está en lucha con los mercenarios. Sus miembros están equipados principalmente con armas de fuego soviéticas y rusas.",
     "ukr": "Анархісти Зони. Сповідують ідею про те, що Зона - заповідник необмеженої свободи для всіх, тому закони, правила та умовності зовнішнього світу тут втрачають силу. Їхній девіз є таким: «Роби що хочеш, лише не заважай іншим». Борються проти спроб узяти Зону під контроль, а також проти клану найманців. Екіпіровані в основному стрілецькою зброєю виробництва колишнього СРСР та Росії."
   },
   "team_1_name": {
     "eng": "Freedom faction (Free Stalkers)",
-    "pol": "Frakcja Wolno�� (wolni stalkerzy)",
+    "fra": "Faction de la liberté (stalkers indépendants)",
+    "ger": "Freiheitsfraktion (Freie Stalker)",
+    "ita": "Fazione della Freedom (stalker liberi)",
+    "pol": "Frakcja Wolność (wolni stalkerzy)",
     "rus": "Группировка «Свобода» (Свободные сталкеры)",
+    "spa": "Facción Libertad (stalkers libres)",
     "ukr": "Угруповання «Свобода» (Вільні сталкери)"
   },
   "team_2_desc": {
     "eng": "These adventure-seeking cutthroats come from all over the world and welcome even the dirtiest of work. Their motto is predictably \"Money has no smell.\" They’ll keep fighting for complete control over artifact fields, so long as there’s demand for them. Mercenaries are equipped mainly with Western firearms.",
-    "pol": "Grupa szukaj�cych przyg�d zbir�w z ca�ego �wiata. Nie gardz� najpodlejsz� robot�. Ich motto brzmi: �Pieni�dze nie �mierdz��. Dop�ki ich us�ugi b�d� w cenie, nie zrezygnuj� z walki o ca�kowit� kontrol� nad polami artefakt�w. Najemnicy s� zwykle wyposa�eni w zachodni� bro�.",
+    "fra": "Ces aventuriers sans scrupules viennent du monde entier et acceptent toutes les missions, męme les plus hasardeuses. Leur devise est bien évidemment \"l'argent n'a pas d'odeur\". Ils se battront pour le contrôle des champs d'artefacts tant qu'il y aura une demande. Leur équipement est principalement d'origine occidentale.",
+    "ger": "Diese abenteuerlustigen Halsabschneider kommen aus aller Welt und sind sich für nichts zu schade. Ihr Motto lautet: \"Geld stinkt nicht\". Solange es Bedarf an Artefakten gibt, werden sie um die vollständige Kontrolle über die Artefaktfelder kämpfen. Die Söldner tragen hauptsächlich westliche Waffen.",
+    "ita": "Questi tagliagole in cerca di avventura provengono da tutto il mondo e accettano persino i lavori piů sporchi. Il loro motto č, prevedibilmente, \"Pecunia non olet\". Continueranno a combattere per avere il controllo completo dei campi di manufatti, finché ce ne sarŕ richiesta. I mercenari sono equipaggiati principalmente con armi da fuoco occidentali.",
+    "pol": "Grupa szukających przygód zbirów z całego świata. Nie gardzą najpodlejszą robotą. Ich motto brzmi: „Pieniądze nie śmierdzą”. Dopóki ich usługi będą w cenie, nie zrezygnują z walki o całkowitą kontrolę nad polami artefaktów. Najemnicy są zwykle wyposażeni w zachodnią broń.",
     "rus": "Искатели приключений и головорезы со всего мира, не гнушающиеся никакой, даже самой грязной, работой. Девиз логичен и предсказуем: «Деньги не пахнут». До тех пор, пока за артефакты хорошо платят, наёмники будут бороться за контроль над их месторождениями. Экипированы в основном стрелковым вооружением западного производства.",
+    "spa": "Estos matones aventureros vienen de todo el mundo y aceptan los trabajos más sucios. Su lema es: \"El dinero es lo primero\". Luchan por el control total de los artefactos de la Zona, siempre que siga habiendo demanda. Los mercenarios están equipados principalmente con armas occidentales.",
     "ukr": "Шукачі пригод та головорізи з усього світу, котрі не гребують жодною, навіть найбруднішою, роботою. Девіз логічний та передбачений: «Гроші не пахнуть». Допоки за артефакти добре платять, найманці боротимуться за контроль над їхніми родовищами. Екіпіровані в основному стрілецьким озброєнням західного виробництва."
   },
   "team_2_name": {
     "eng": "Mercenary faction (Cutthroats)",
+    "fra": "Faction des mercenaires (Coupe-jarrets)",
+    "ger": "Söldnerfraktion (Die Halsabschneider)",
+    "ita": "Fazione dei mercenari (tagliagole)",
     "pol": "Frakcja Najemnicy (zbiry)",
     "rus": "Группировка «Наёмники» (Головорезы)",
+    "spa": "Facción de los mercenarios (los matones)",
     "ukr": "Угруповання «Найманці» (Головорізи)"
   }
 }
