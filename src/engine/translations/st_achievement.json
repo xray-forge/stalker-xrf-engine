@@ -1,704 +1,1356 @@
 {
   "st_achievement_10_descr": {
     "eng": "Your enemy must feel humiliated after being killed by you ten times in a row and failing to kill you even once during this time! You are not cruel, though - you're just giving him a reason to keep practicing.",
-    "pol": "Co za upokorzenie dla wroga! Udaіo ci siк zabiж dziesiкciu przeciwnikуw pod rz№d, nie gin№c przy tym! Nie moїna jednak nazwaж tego okrucieсstwem. Po prostu dajesz im powody do dalszego doskonalenia umiejкtnoњci.",
+    "fra": "Votre ennemi doit en avoir assez : vous venez de le tuer 10 fois sans qu'il parvienne ŕ vous éliminer ! Ce n'est pas de la cruauté, vous voulez simplement l'aider ŕ s'améliorer...",
+    "ger": "Ihr Gegner muss sich ganz schön gedemütigt fühlen, nachdem er von Ihnen zehn Mal hintereinander getötet wurde und er Sie in dieser Zeit nicht ein einziges Mal erledigen konnte! Nein, Sie sind nicht grausam - Sie geben ihm einfach nur gute Gründe, um weiterhin fleißig zu üben.",
+    "ita": "Il tuo nemico si sentirŕ umiliato, dopo essere stato ucciso per dieci volte di fila senza riuscire a ucciderti neppure una volta! Comunque, la tua non č crudeltŕ: lo stai semplicemente spronando ad allenarsi.",
+    "pol": "Co za upokorzenie dla wroga! Udało ci się zabić dziesięciu przeciwników pod rząd, nie ginąc przy tym! Nie można jednak nazwać tego okrucieństwem. Po prostu dajesz im powody do dalszego doskonalenia umiejętności.",
     "rus": "Какое унижение для противника! Убитый десять раз, он ни разу не смог Вас достать. Впрочем, ему лучше воспринимать это не как излишнюю жестокость, а как хороший стимул для тренировок.",
+    "spa": "ˇQué humillante debe ser para el enemigo que lo maten diez veces seguidas sin que tú sufras un rasguńo! Pero no es que seas cruel: en el fondo, le ayudas a mejorar.",
     "ukr": "Яка ганьба для ворога! Вбитий десять разів, він жодного разу не зміг Вас дістати. Втім, йому краще сприймати це не як надмірну жорстокість, а як добрий стимул для тренувань."
   },
   "st_achievement_10_name": {
     "eng": "Time to Reap",
-    "pol": "Pora їniw",
+    "fra": "Moisson d'âmes",
+    "ger": "Erntezeit",
+    "ita": "Il mietitore",
+    "pol": "Pora żniw",
     "rus": "Время жатвы",
+    "spa": "La cosecha",
     "ukr": "Час жнив"
   },
   "st_achievement_11_descr": {
     "eng": "You're deadly! Killing two birds with one stone... You skewered them both with your Gauss rifle.",
-    "pol": "Jesteњ wcielon№ њmierci№! Udaіo ci siк upiec dwie pieczenie przy jednym ogniu, zabijaj№c dwуch wrogуw jednym strzaіem z karabinu Gaussa.",
+    "fra": "Vous avez fait d'une pierre deux coups... en éliminant deux ennemis avec la męme balle de votre fusil Gauss.",
+    "ger": "Zwei Fliegen mit einer Klappe geschlagen... Sie sind ja richtig gemeingefährlich! Mit Ihrem Gaußgewehr haben Sie beide förmlich aufgespießt.",
+    "ita": "Sei inarrestabile! Hai preso due piccioni con una fava... falciati entrambi con il tuo fucile Gauss.",
+    "pol": "Jesteś wcieloną śmiercią! Udało ci się upiec dwie pieczenie przy jednym ogniu, zabijając dwóch wrogów jednym strzałem z karabinu Gaussa.",
     "rus": "Одним выстрелом нанизать двух противников? Да Вы воплощение самой Смерти!",
+    "spa": "ˇQué certero! Has matado a dos pájaros de un tiro. En concreto, de un tiro con tu fusil Gauss.",
     "ukr": "Одним пострілом прохромити двох ворогів? Та Ви втілення самої Смерті!"
   },
   "st_achievement_11_name": {
     "eng": "Skewer",
-    "pol": "Szaszіyk",
+    "fra": "Brochette",
+    "ger": "Grillspieß",
+    "ita": "Doppio colpo",
+    "pol": "Szaszłyk",
     "rus": "Шампур",
+    "spa": "Dos de un tiro",
     "ukr": "Шампур"
   },
   "st_achievement_12_descr": {
     "eng": "Your calm and calculating approach brings  a swift death to the enemy, as you expertly hit two targets with two shots of your double-barreled shotgun in the space of a couple of seconds.",
-    "pol": "Eliminujesz swoich wrogуw ze spokojem i wyrachowaniem, dziкki czemu udaіo ci siк trafiж dwуch wrogуw z dwururki w odstкpie ledwie kilku sekund.",
+    "fra": "Votre approche calme et mesurée a porté ses fruits : vous avez touché deux cibles en deux tirs de votre fusil ŕ canon scié, en l'espace de quelques secondes.",
+    "ger": "Ihre kühle und berechnende Vorgehensweise bringt den Tod über Ihre Gegner: Sie konnten mit zwei Schüssen aus Ihrer doppelläufigen Schrotflinte innerhalb von wenigen Sekunden zwei Ziele eliminieren.",
+    "ita": "La tua calma e la tua attenta pianificazione sono letali per il nemico: nel giro di un paio di secondi, sei riuscito ad abbattere due bersagli sparando per due volte con la tua doppietta.",
+    "pol": "Eliminujesz swoich wrogów ze spokojem i wyrachowaniem, dzięki czemu udało ci się trafić dwóch wrogów z dwururki w odstępie ledwie kilku sekund.",
     "rus": "Вы несёте мгновенную смерть врагу. Выбить из охотничьего ружья две цели подряд? Неплохо, неплохо...",
+    "spa": "Tu estrategia pausada y bien calculada ha resultado letal para el enemigo: has acertado dos blancos con dos disparos de tu escopeta de dos cańones en apenas un par de segundos.",
     "ukr": "Ви несете миттєву смерть ворогові. Вибити з мисливської рушниці дві цілі поспіль? Нівроку, нівроку... "
   },
   "st_achievement_12_name": {
     "eng": "Two shots, two kills.",
-    "pol": "Dwa strzaіy, dwa trupy",
+    "fra": "Deux balles, deux morts",
+    "ger": "Zwei Schüsse, zwei tödliche Treffer.",
+    "ita": "Due colpi, due morti",
+    "pol": "Dwa strzały, dwa trupy",
     "rus": "Два выстрела - два трупа",
+    "spa": "2 disparos, 2 muertes",
     "ukr": "Два постріли - два трупи"
   },
   "st_achievement_13_descr": {
     "eng": "You obviously know what being a stalker is all about, which is why you're become the number one legendary stalker!",
-    "pol": "Doskonale wiesz, na czym polega bycie stalkerem, dlatego teї jesteњ pierwszym z okolicznych stalkerуw, ktуry zyskaі miano legendy.",
+    "fra": "La carričre de stalker n'a plus aucun secret pour vous ! Vous ętes désormais une légende !",
+    "ger": "Sie wissen, was es heißt, ein Stalker zu sein. Aus diesem Grund sind Sie der erste Stalker, der den Status einer Legende innehat!",
+    "ita": "Tu sai che cosa significhi essere uno stalker, ed č per questo che sei diventato un'autentica leggenda!",
+    "pol": "Doskonale wiesz, na czym polega bycie stalkerem, dlatego też jesteś pierwszym z okolicznych stalkerów, który zyskał miano legendy.",
     "rus": "Вы постигли глубинную суть сталкерского ремесла, первым пробившись в ряды легендарных сталкеров.",
+    "spa": "Tú sí que sabes lo que es ser un stalker: ˇpor algo eres el primer stalker legendario!",
     "ukr": "Ви осягнули глибинну суть сталкерського ремесла і перший пробилися до лав легендарних сталкерів"
   },
   "st_achievement_13_name": {
     "eng": "Social Climber",
-    "pol": "Awans spoіeczny",
+    "fra": "Ascension sociale",
+    "ger": "Aufsteiger",
+    "ita": "Arrampicatore sociale",
+    "pol": "Awans społeczny",
     "rus": "Карьерист",
+    "spa": "Triunfo social",
     "ukr": "Кар'єрист"
   },
   "st_achievement_14_descr": {
     "eng": "Cutting through an exoskeleton with a knife? It looks like you’re the kind who likes to cut right down to the bone.",
-    "pol": "Przeci№ж egzoszkielet noїem? Uwielbiasz stawiaж sobie trudne cele i je realizowaж.",
+    "fra": "S'attaquer ŕ un exosquelette avec un couteau ? Vous n'avez pas froid aux yeux et relevez les défis les plus difficiles sans sourciller !",
+    "ger": "Mit einem Messer durch ein Exoskelett schneiden? Scheinbar macht es Ihnen Spaß, sich hohe Ziele zu setzen und diese auch zu erreichen. ",
+    "ita": "Vuoi sfondare un esoscheletro usando un coltello? Sembra che ti piacciano le imprese difficili, eh?",
+    "pol": "Przeciąć egzoszkielet nożem? Uwielbiasz stawiać sobie trudne cele i je realizować.",
     "rus": "Вскрыть экзоскелет ножом? Ого! Кажется, Вы не боитесь ставить перед собой необычные цели - и при этом не щадите себя, лишь бы достичь их.",
+    "spa": "żIntentas cortar un exoesqueleto con un cuchillo? Parece que te gusta marcarte metas imposibles y superarlas.",
     "ukr": "Розтяти екзоскелет ножем? Ти ба! Скидається на те, що Ви не боїтеся ставити перед собою незвичайну мету - і при цьому не жалієте себе, лише б її досягнути."
   },
   "st_achievement_14_name": {
     "eng": "Tin Opener",
+    "fra": "Ouvre-boîte",
+    "ger": "Dosenöffner",
+    "ita": "Apriscatole",
     "pol": "Otwieracz do puszek",
     "rus": "Консервный нож",
+    "spa": "Abrelatas",
     "ukr": "Консервний ніж"
   },
   "st_achievement_15_descr": {
     "eng": "They thought they had you, but you showed them who's boss by killing five of them, despite knock'in on death's doorstep yourself!",
-    "pol": "Wydawaіo im siк, їe juї po tobie, ale nie zdawali sobie sprawy, z kim maj№ do czynienia. Nawet na skraju њmierci udaіo ci siк zabiж piкciu z nich.",
+    "fra": "Ils pensaient vous avoir eu, mais vous leur avez démontré le contraire en tuant cinq d'entre eux alors que vous étiez agonisant.",
+    "ger": "Sie dachten schon, sie haben Sie, aber dann haben Sie ihnen gezeigt, wer hier das Sagen hat: Sie haben fünf von ihnen getötet, obwohl der Gevatter Tod schon vor Ihrer eigenen Tür stand!",
+    "ita": "Pensavano di averti fregato, ma gli hai fatto capire chi comanda, ammazzandone cinque nonostante fossi a un passo dalla morte!",
+    "pol": "Wydawało im się, że już po tobie, ale nie zdawali sobie sprawy, z kim mają do czynienia. Nawet na skraju śmierci udało ci się zabić pięciu z nich.",
     "rus": "Они думали что достали Вас? Ха, не тут-то было! Вы остановились в двух шагах от небытия да ещё и уложили пятерых.",
+    "spa": "Pensaban que te tenían acorralado, pero has liquidado a cinco enemigos. ˇY eso que estabas a las puertas de la muerte!",
     "ukr": "Вони думали, що дістали Вас? Та облизня їм! Ви зупинилися за два кроки від небуття та ще й поклали п'ятьох."
   },
   "st_achievement_15_name": {
     "eng": "Die Hard",
-    "pol": "Drogo sprzedaж swoj№ skуrк",
+    "fra": "Dur ŕ cuire",
+    "ger": "Nicht totzukriegen",
+    "ita": "Duro a morire",
+    "pol": "Drogo sprzedać swoją skórę",
     "rus": "Крепкий орешек",
+    "spa": "Duro de pelar",
     "ukr": "Міцний горішок"
   },
   "st_achievement_16_descr": {
     "eng": "What an adrenalin rush! You annihilated your enemy with a hail of bullets - 5 kills in five seconds! Sweet!",
-    "pol": "Co za przypіyw adrenaliny! Udaіo ci siк zebraж krwawe їniwo wњrуd wrogуw, eliminuj№c piкж osуb w piкж sekund! Niewiarygodne!",
+    "fra": "Profitant d'une poussée d'adrénaline, vous avez déchaîné une pluie de plomb sur vos cibles et tué 5 ennemis en cinq secondes !",
+    "ger": "Was für ein Gemetzel! Sie haben Ihren Gegner einfach mit einem Kugelhagel ausgelöscht - fünf an der Zahl innerhalb von fünf Sekunden! Unglaublich!",
+    "ita": "Che scarica di adrenalina! Hai fatto a pezzi il tuo nemico con una pioggia di proiettili: 5 uccisioni in 5 secondi, incredibile!",
+    "pol": "Co za przypływ adrenaliny! Udało ci się zebrać krwawe żniwo wśród wrogów, eliminując pięć osób w pięć sekund! Niewiarygodne!",
     "rus": "Вы просто смели их потоком пуль. Пять врагов за пять секунд... впечатляет!",
+    "spa": "ˇQué derroche de adrenalina! Has aniquilado a tus enemigos con una ráfaga de balas. ˇ5 muertes en 5 segundos! ˇIncreíble!",
     "ukr": "Ви просто змели їх струменем куль. П'ятеро ворогів за п'ять секунд... це вражає!"
   },
   "st_achievement_16_name": {
     "eng": "Unbridled Rage",
-    "pol": "Nieokieіznana furia",
+    "fra": "Berserker",
+    "ger": "Blutrausch",
+    "ita": "Furia scatenata",
+    "pol": "Nieokiełznana furia",
     "rus": "Неукротимая ярость",
+    "spa": "Furia desatada",
     "ukr": "Нестримна лють"
   },
   "st_achievement_17_descr": {
     "eng": "Wow, great aim! You got two for the price of 1 by shooting the enemy in the eye without dying.",
-    "pol": "Niesamowita celnoњж! Udaіo ci siк zabiж dwуch wrogуw strzaіami w oko, nie gin№c przy tym.",
+    "fra": "En plein dans l'śil ! Vous avez éliminé deux ennemis d'une balle dans l'śil sans vous faire tuer.",
+    "ger": "Wow, Sie können wirklich gut zielen! Sie haben zwei Gegner mit einem Schuss direkt ins Auge getötet, ohne selbst dabei draufzugehen.",
+    "ita": "Wow, che mira strepitosa! Hai ucciso due nemici con un colpo negli occhi, senza morire nel frattempo.",
+    "pol": "Niesamowita celność! Udało ci się zabić dwóch wrogów strzałami w oko, nie ginąc przy tym.",
     "rus": "Похоже, поговорка «Не в бровь, а в глаз» - именно про Вас. Дважды убить врага таким образом, ухитрившись не погибнуть? Вот это да!",
+    "spa": "ˇTremenda puntería! Has matado a dos enemigos disparándoles de frente y sigues vivo.",
     "ukr": "Схоже, приказка «Як в око вцілив» - саме про Вас. Двічі вбити ворога у такий спосіб та ще й примудритися не загинути? Оце так!"
   },
   "st_achievement_17_name": {
     "eng": "Eye Specialist",
+    "fra": "Ophtalmologue",
+    "ger": "Auge um Auge",
+    "ita": "Specialista degli occhi",
     "pol": "Okulista",
     "rus": "Окулист",
+    "spa": "Buena vista",
     "ukr": "Окуліст"
   },
   "st_achievement_18_descr": {
     "eng": "Let them hide behind corners and lay their ambushes - that won't stop you. Hell, you can hit a target on the move without even aiming!",
-    "pol": "Niech siк kryj№ za wкgіami i szykuj№ zasadzki, dla ciebie to їaden problem. Potrafisz trafiж nawet ruchomy cel bez przymierzenia!",
+    "fra": "Qu'ils tendent leurs embuscades, cela ne vous arrętera pas ! Vous arrivez męme ŕ toucher une cible en mouvement, sans viser !",
+    "ger": "Sollen sie Ihnen ruhig hinter der Ecke auflauern - das wird Sie nicht aufhalten. Meine Güte, Sie treffen ein Ziel in Bewegung sogar, ohne zu zielen!",
+    "ita": "Che si nascondano pure dietro gli angoli per tenderti un'imboscata: non ti fermeranno! Tu sai colpire un bersaglio in movimento, senza neppure mirare!",
+    "pol": "Niech się kryją za węgłami i szykują zasadzki, dla ciebie to żaden problem. Potrafisz trafić nawet ruchomy cel bez przymierzenia!",
     "rus": "Они могут поджидать Вас за углом, но никогда не станут серьёзной помехой: даже на бегу Вы способны попасть белке в глаз.",
+    "spa": "Deja que se escondan detrás de una esquina o que tiendan emboscadas: no podrán contigo. ˇSi hasta puedes acertar un blanco móvil sin ni siquiera apuntar!",
     "ukr": "Вони можуть чигати на Вас за рогом, але ніколи не перетворяться на серйозну перепону: навіть на бігу Ви здатні поцілити в око вивірці."
   },
   "st_achievement_18_name": {
     "eng": "Lightning Reflexes",
-    "pol": "Bіyskawiczny refleks",
+    "fra": "Réflexes éclair",
+    "ger": "Blitzartige Reflexe",
+    "ita": "Riflessi fulminei",
+    "pol": "Błyskawiczny refleks",
     "rus": "Молниеносные рефлексы",
+    "spa": "Reflejos de lince",
     "ukr": "Блискавичні рефлекси"
   },
   "st_achievement_19_descr": {
     "eng": "Let him run as fast as he can - your bullets will catch him either way.",
-    "pol": "Niech biegnie tak szybko, jak tylko potrafi... I tak dogoni№ go twoje pociski.",
+    "fra": "Il peut courir aussi vite qu'il peut... Vos balles le rattraperont quoi qu'il fasse !",
+    "ger": "Lassen Sie ihn ruhig davonlaufen so schnell wie er kann - Ihre Kugeln erwischen ihn sowieso.",
+    "ita": "Che scappi piů forte che puň: tanto alla fine i tuoi proiettili lo raggiungeranno.",
+    "pol": "Niech biegnie tak szybko, jak tylko potrafi... I tak dogonią go twoje pociski.",
     "rus": "Пускай враг спасается, пускай бежит со всех ног! Будь он хоть олимпийским чемпионом по спринту, Ваша пуля всё равно летит быстрее.",
+    "spa": "Déjale que corra: tus balas lo alcanzarán de todas formas.",
     "ukr": "Нехай ворог намагається врятуватися, нехай втікає без пам'яті! Навіть якщо це олімпійський чемпіон зі спринту, Ваша куля все одно летить швидше."
   },
   "st_achievement_19_name": {
     "eng": "Stop the Runner",
-    "pol": "Zatrzymaж uciekiniera",
+    "fra": "Cours, Forrest, cours !",
+    "ger": "Weglaufen ist zwecklos",
+    "ita": "Ferma il fuggiasco",
+    "pol": "Zatrzymać uciekiniera",
     "rus": "Остановить беглеца",
+    "spa": "Para al corredor",
     "ukr": "Зупинити втікача"
   },
   "st_achievement_1_descr": {
     "eng": "You have slaughtered twenty enemies in a row without dying! Wow, what a bloodbath!",
-    "pol": "Udaіo ci siк zabiж dwudziestu wrogуw pod rz№d, nie gin№c przy tym! Co za masakra!",
+    "fra": "Vous avez massacré 20 ennemis d'affilée sans vous faire tuer. Un vrai bain de sang !",
+    "ger": "Sie haben zwanzig Gegner hintereinander abgeschlachtet, ohne selbst dabei draufzugehen! Wahnsinn, was für ein Blutbad!",
+    "ita": "Hai massacrato venti nemici di fila, senza morire! Accidenti, che bagno di sangue!",
+    "pol": "Udało ci się zabić dwudziestu wrogów pod rząd, nie ginąc przy tym! Co za masakra!",
     "rus": "Настоящая кровавая бойня... Вы убили ни много ни мало двадцатерых, а сами остались живы!",
+    "spa": "Has aniquilado a 20 enemigos uno detrás de otro y sigues vivo. ˇMenuda carnicería!",
     "ukr": "Справжня кривава різанина... Ви вбили аж двадцятьох, а самі лишилися живі!"
   },
   "st_achievement_1_name": {
     "eng": "Massacre",
+    "fra": "Massacre",
+    "ger": "Massaker",
+    "ita": "Massacro",
     "pol": "Masakra",
     "rus": "Расправа",
+    "spa": "Masacre",
     "ukr": "Розправа"
   },
   "st_achievement_20_descr": {
     "eng": "There may have been three of them and they may have had sniper rifles, but your skill put an end to them.",
-    "pol": "Moїe i byіo ich trzech, moїe i mieli karabiny snajperskie, ale przy twoich umiejкtnoњciach i tak byli bez szans.",
+    "fra": "Ils étaient trois, chacun armé d'un fusil de précision... mais cela ne leur a pas servi ŕ grand-chose...",
+    "ger": "Sie mögen zu dritt gewesen sein und Scharfschützengewehre gehabt haben, aber Ihre Überlegenheit hat sie das Leben gekostet.",
+    "ita": "Erano in tre e avevano dei fucili di precisione, ma alla fine la tua grande abilitŕ ha avuto ragione di loro.",
+    "pol": "Może i było ich trzech, może i mieli karabiny snajperskie, ale przy twoich umiejętnościach i tak byli bez szans.",
     "rus": "Пускай их было трое и у каждого снайперская винтовка, Ваше мастерство позволило уделать их всех.",
+    "spa": "Sí, eran 3 y tenían fusiles de francotirador, pero tu pericia terminó con ellos.",
     "ukr": "Нехай їх було троє та в кожного снайперська гвинтівка, Ваша майстерність дозволила зліпити їх усіх."
   },
   "st_achievement_20_name": {
     "eng": "Most Accurate Shooter",
+    "fra": "Mortelle précision",
+    "ger": "Treffsicherster Schütze",
+    "ita": "Tiratore scelto",
     "pol": "Najcelniejszy strzelec",
     "rus": "Самый меткий стрелок",
+    "spa": "Tirador de precisión",
     "ukr": "Найвлучніший стрілець"
   },
   "st_achievement_21_descr": {
     "eng": "You don't need to fire a single round to outwit the barbarians.",
-    "pol": "Pozostawiaj№c barbarzyсskie zachowania wrogom, udaіo ci siк pokazaж, їe nie trzeba oddaж ani jednego strzaіu, aby wygraж.",
+    "fra": "Laissant les barbares s'amuser entre eux, vous avez démontré qu'il était possible de gagner sans tirer un seul coup de feu.",
+    "ger": "Eine brutale Vorgehensweise überlassen Sie lieber dem Gegner und zeigen ihm stattdessen, wie man gewinnt, ohne eine einzige Patrone abzufeuern.",
+    "ita": "Lasciando che siano i nemici a comportarsi da barbari, hai mostrato loro che sei in grado di vincere anche senza sparare un solo colpo.",
+    "pol": "Pozostawiając barbarzyńskie zachowania wrogom, udało ci się pokazać, że nie trzeba oddać ani jednego strzału, aby wygrać.",
     "rus": "Пусть варварские методы остаются противнику. Вы сумели показать, что для победы не всегда приходится применять оружие.",
+    "spa": "Has demostrado al enemigo que se puede ganar sin necesidad de disparar una sola bala. ˇDeja a los demás que se comporten como bárbaros!",
     "ukr": "Варварські методи нехай лишаються ворогові. Ви зуміли показати, що для перемоги не завжди треба використовувати зброю."
   },
   "st_achievement_21_name": {
     "eng": "Peace Messenger",
+    "fra": "Colombe de la paix",
+    "ger": "Friedensbote",
+    "ita": "Messaggero di pace",
     "pol": "Zwiastun pokoju",
     "rus": "Посол мира",
+    "spa": "Mensajero de la paz",
     "ukr": "Посланець миру"
   },
   "st_achievement_22_descr": {
-    "eng": "Distance is not a problem for a real sniper! You can hit the bull's eye at distances over 120 meters. ",
-    "pol": "Dystans to nie problem dla prawdziwego snajpera! Potrafisz trafiж w cel z ponad 120 metrуw.",
+    "eng": "Distance is not a problem for a real sniper! You can hit the bull's eye at distances over 120 meters.",
+    "fra": "Peu importe la distance pour un vrai tireur de précision. Vous tirez en plein dans le mille ŕ plus de 120 m de distance. ",
+    "ger": "Selbst große Entfernungen sind für einen richtigen Scharfschützen kein Problem! Sie treffen sogar aus einer Distanz von über 120 Metern mitten ins Schwarze.",
+    "ita": "La distanza non č un problema per un vero cecchino! Sai centrare il bersaglio anche da oltre 120 metri. ",
+    "pol": "Dystans to nie problem dla prawdziwego snajpera! Potrafisz trafić w cel z ponad 120 metrów.",
     "rus": "Что расстояние для настоящего снайпера? Вы бьёте точно в яблочко на расстоянии более ста двадцати метров.",
+    "spa": "ˇLa distancia no es un problema para un buen francotirador! Puedes dar en el blanco a 120 metros de distancia. ",
     "ukr": "Що є відстань для справжнього снайпера? Ви б'єте точно в яблучко на відстані понад сто двадцять метрів."
   },
   "st_achievement_22_name": {
     "eng": "Deadly Accuracy",
-    "pol": "Њmiercionoњna celnoњж",
+    "fra": "Śil de lynx",
+    "ger": "Tödliche Genauigkeit",
+    "ita": "Precisione letale",
+    "pol": "Śmiercionośna celność",
     "rus": "Смертельная точность",
+    "spa": "Puntería letal",
     "ukr": "Смертельна точність"
   },
   "st_achievement_23_descr": {
     "eng": "Your enemy got you down, but you left him a nice surprise with that live grenade!",
-    "pol": "Wrogowie zdoіali ciк pokonaж, ale zostaіa po tobie pami№tka w postaci odbezpieczonego granatu!",
+    "fra": "L'ennemi vous a abattu, mais vous lui avez laissé une surprise : une grenade pręte ŕ exploser !",
+    "ger": "Ihr Gegner konnte Sie ausschalten, aber Sie haben ihm ein kleines Abschiedsgeschenk in Form einer Handgranate zurückgelassen!",
+    "ita": "Il nemico č riuscito ad abbatterti, ma tu gli hai lasciato come ricordino una bella granata!",
+    "pol": "Wrogowie zdołali cię pokonać, ale została po tobie pamiątka w postaci odbezpieczonego granatu!",
     "rus": "Противник всё же достал Вас. Но представьте его удивление, когда рядом с Вашим рюкзаком он нашёл взведённую гранату!",
+    "spa": "Tu enemigo consiguió liquidarte, pero le dejaste una sorpresita: ˇuna granada!",
     "ukr": "Ворог таки дістав Вас. Але уявіть його подив, коли поруч із Вашим рюкзаком він знайшов зведену гранату!"
   },
   "st_achievement_23_name": {
     "eng": "Something to Remember You By",
-    "pol": "Coњ na pami№tkк",
+    "fra": "Souvenir",
+    "ger": "Abschiedsgeschenk",
+    "ita": "Non ti scordar di me",
+    "pol": "Coś na pamiątkę",
     "rus": "Сувенир на память",
+    "spa": "Para que no me olvides",
     "ukr": "Сувенір на згадку"
   },
   "st_achievement_24_descr": {
     "eng": "They killed your friends and they deserve your unleashed vengeance. Three enemy corpses for three dead friends - that's justice.",
-    "pol": "Zabili twoich przyjaciуі i zasіugiwali na krwaw№ zemstк. Trzech wrogуw za trzech przyjaciуі to sprawiedliwy przelicznik.",
+    "fra": "Ils ont tué vos amis et mérité votre courroux. Trois morts pour trois amis abattus, ce n'est que justice.",
+    "ger": "Ihre Gegner haben Ihre Freunde getötet und wurden deshalb zurecht das Opfer Ihrer gnadenlosen Vergeltungsmaßnahmen. Drei gegnerische Leichen für drei tote Freunde - das ist ausgleichende Gerechtigkeit.",
+    "ita": "Hanno ucciso i tuoi amici, la tua vendetta č stata piů che legittima. Tre cadaveri di nemici per i tuoi tre amici morti: giustizia č fatta.",
+    "pol": "Zabili twoich przyjaciół i zasługiwali na krwawą zemstę. Trzech wrogów za trzech przyjaciół to sprawiedliwy przelicznik.",
     "rus": "Они убили Ваших товарищей и заслуживают мести. Три вражеских трупа за троих убитых своих - ещё довольно мягкий приговор.",
+    "spa": "Liquidaron a tus amigos y tu venganza ha sido terrible: 3 cadáveres enemigos por 3 amigos muertos. Es justo.",
     "ukr": "Вони вбили Ваших товаришів і заслуговують на помсту. Три ворожих трупи за трьох убитих товаришів - то ще доволі м'який присуд."
   },
   "st_achievement_24_name": {
     "eng": "Avenger",
-    "pol": "Mњciciel",
+    "fra": "Vengeur masqué",
+    "ger": "Rächer",
+    "ita": "Vendicatore",
+    "pol": "Mściciel",
     "rus": "Мститель",
+    "spa": "Vengador",
     "ukr": "Месник"
   },
   "st_achievement_25_descr": {
     "eng": "You are your friend's guardian angel. You saved him twice from an attack since he was carrying the artifact.",
-    "pol": "Jesteњ anioіem strуїem jednego ze swoich przyjaciуі. Dwa razy udaіo ci siк ocaliж go przed atakiem, podczas gdy niуsі artefakt.",
+    "fra": "Vous ętes l'ange gardien de votre ami. Vous l'avez sauvé deux fois alors qu'il transportait l'artefact.",
+    "ger": "Sie sind der Schutzengel Ihres Kameraden. Zwei Mal konnten Sie ihn vor einem Angriff beschützen, als er das Artefakt getragen hat.",
+    "ita": "Sei il difensore del tuo amico: lo hai salvato per due volte da un attacco, mentre trasportava il manufatto.",
+    "pol": "Jesteś aniołem stróżem jednego ze swoich przyjaciół. Dwa razy udało ci się ocalić go przed atakiem, podczas gdy niósł artefakt.",
     "rus": "Сегодня Вы работаете ангелом-хранителем. Убив врагов, которые дважды пытались его перехватить, Вы сохранили жизнь своему товарищу.",
+    "spa": "Eres el ángel de la guardia de tu amigo. Lo has salvado 2 veces de un ataque mientras llevaba el artefacto.",
     "ukr": "Сьогодні Ви працюєте янголом-охоронцем. Убивши ворогів, які двічі намагалися його перехопити, Ви зберегли життя своєму товаришеві."
   },
   "st_achievement_25_name": {
     "eng": "Cherub",
+    "fra": "Ange gardien",
+    "ger": "Schutzengel",
+    "ita": "Angelo custode",
     "pol": "Cherubin",
     "rus": "Херувим",
+    "spa": "Querubín",
     "ukr": "Херувим"
   },
   "st_achievement_26_descr": {
     "eng": "You kept your honor and your team's by putting some points on the board.",
-    "pol": "Udaіo ci siк ocaliж honor swуj i swojej druїyny poprzez zdobycie kilku punktуw.",
+    "fra": "Vous avez sauvé votre honneur et celui de votre équipe en marquant quelques points.",
+    "ger": "Sie haben sich Ihren Stolz und den Ihres Teams bewahrt, indem Sie einige Punkte erzielen konnten.",
+    "ita": "Sei riuscito a difendere il tuo onore e quello della tua squadra, mettendo a segno alcuni punti.",
+    "pol": "Udało ci się ocalić honor swój i swojej drużyny poprzez zdobycie kilku punktów.",
     "rus": "Вам удалось не ударить в грязь лицом и отстоять честь команды! Противнику не достался выигрыш «всухую».",
+    "spa": "Has protegido tu honor y el de tu equipo consiguiendo puntos.",
     "ukr": "Вам вдалося не втратити лице і відстояти честь команди! Ворогові не судилося виграти «всуху»."
   },
   "st_achievement_26_name": {
     "eng": "Keeping Your Honor",
-    "pol": "Obroсca honoru",
+    "fra": "L'honneur est sauf",
+    "ger": "Gerettete Ehre",
+    "ita": "L'onore č salvo",
+    "pol": "Obrońca honoru",
     "rus": "Сохранить достоинство",
+    "spa": "Honorable",
     "ukr": "Зберегти гідність"
   },
   "st_achievement_27_descr": {
     "eng": "Do you really know where the next artifact will show up? Well, you picked it up in a matter of seconds when it appeared!",
-    "pol": "Naprawdк wiesz, gdzie pojawi siк nastкpny artefakt? Udaіo ci siк go podnieњж w ci№gu kilku sekund od pojawienia siк.",
+    "fra": "Avouez que vous saviez oů l'artefact allait apparaître. Non ? Pourtant, vous l'avez récupéré dans la seconde oů il est apparu.",
+    "ger": "Wissen Sie wirklich, wo das nächste Artefakt auftaucht? In der Tat, Sie konnten es sich nur wenige Sekunden nach seinem Erscheinen schnappen!",
+    "ita": "Per caso sapevi dove sarebbe comparso il prossimo manufatto? Beh, fatto sa che sei riuscito a prenderlo, nel giro di pochi secondi!",
+    "pol": "Naprawdę wiesz, gdzie pojawi się następny artefakt? Udało ci się go podnieść w ciągu kilku sekund od pojawienia się.",
     "rus": "Вы и правда заранее знаете, где он появится? Как бы то ни было, Вы умудрились подобрать артефакт через пару секунд после его появления.",
+    "spa": "żSabes realmente dónde aparecerá el siguiente artefacto? ˇPorque lo has cogido a los pocos segundos de que se mostrase!",
     "ukr": "Чи Ви й правда знаєте, де він з'явиться? Як би там не було, Ви примудрилися підібрати артефакт за пару секунд після його появи."
   },
   "st_achievement_27_name": {
     "eng": "Stalker's Intuition",
+    "fra": "6e sens",
+    "ger": "Intuition eines Stalkers",
+    "ita": "Intuito da stalker",
     "pol": "Intuicja stalkera",
     "rus": "Сталкерское чутье",
+    "spa": "Intuición de stalker",
     "ukr": "Сталкерське чуття"
   },
   "st_achievement_28_descr": {
     "eng": "You got lucky there - you killed the enemy with the last bullet in your clip! Better them than you, that's for sure!",
-    "pol": "Ale fart! Udaіo ci siк zabiж wroga ostatnim nabojem w magazynku! Za to w jego przypadku trudno mуwiж o farcie…",
+    "fra": "Vous avez eu de la chance : vous avez tué l'ennemi avec la derničre balle de votre chargeur ! Tant mieux pour vous !",
+    "ger": "Sie hatten wirklich Glück - mit der letzten Patrone aus Ihrem Magazin konnten Sie den Gegner erledigen! Lieber er als Sie, das ist klar!",
+    "ita": "Sei stato fortunato: hai ucciso il nemico con l'ultimo proiettile del caricatore! Beh, alla fine quello che conta č il risultato.",
+    "pol": "Ale fart! Udało ci się zabić wroga ostatnim nabojem w magazynku! Za to w jego przypadku trudno mówić o farcie…",
     "rus": "Да Вы везунчик... Это же надо - завалить врага последней пулей в магазине автомата! Впрочем, пусть лучше везёт Вам, чем Вашим врагам.",
+    "spa": "Has tenido suerte: ˇhas liquidado al enemigo con la última bala de tu cargador! Era él o tú, está claro.",
     "ukr": "Та Ви щасливець... Це ж треба - завалити ворога останньою кулею в магазині автомата! Та ліпше нехай щастить Вам, ніж Вашим ворогам."
   },
   "st_achievement_28_name": {
     "eng": "Lucky Bastard",
-    "pol": "Cholerny szczкњciarz",
+    "fra": "Cul bordé de nouilles",
+    "ger": "Glückspilz",
+    "ita": "Lucky Bastard",
+    "pol": "Cholerny szczęściarz",
     "rus": "Счастливчик",
+    "spa": "Cabrón afortunado",
     "ukr": "Щасливець"
   },
   "st_achievement_29_descr": {
     "eng": "You killed eight enemies in a row. You've drawn a line in the sand - let's see if they're willing to cross it.",
-    "pol": "Udaіo ci siк zabiж oњmiu wrogуw pod rz№d. Zobaczymy teraz, czy odwaї№ siк podj№ж rкkawicк.",
+    "fra": "Vous avez tué 8 ennemis d'affilée. Voyons comment votre adversaire va réagir !",
+    "ger": "Sie haben acht Gegner hintereinander getötet und den Feind dadurch gereizt - mal sehen, wie er darauf reagiert.",
+    "ita": "Hai ucciso otto nemici di fila. Bene, hai lanciato la sfida: ora vediamo cosa sapranno fare loro.",
+    "pol": "Udało ci się zabić ośmiu wrogów pod rząd. Zobaczymy teraz, czy odważą się podjąć rękawicę.",
     "rus": "Один за другим были убиты восемь врагов. Вы бросили им вызов и не боитесь приглашения на матч-реванш.",
+    "spa": "Has matado a 8 enemigos seguidos. Toda una provocación, a ver cómo responde el adversario.",
     "ukr": "Один за одним було вбито вісьмох ворогів. Ви кинули їм виклик і не боїтеся запрошення на матч-реванш."
   },
   "st_achievement_29_name": {
-    "eng": "Blacklist ",
+    "eng": "Blacklist",
+    "fra": "Liste noire ",
+    "ger": "Schwarze Liste",
+    "ita": "La sfida ",
     "pol": "Czarna lista",
     "rus": "Чёрный список",
+    "spa": "Lista negra ",
     "ukr": "Чорний список"
   },
   "st_achievement_2_descr": {
     "eng": "Nobody killed you because you're careful and cautious. You didn't die once during the game and scored over fifteen points.",
-    "pol": "Nikt nie zdoіaі ciк zabiж przez caі№ grк, poniewaї cechujesz siк ostroїnoњci№ i rozwag№. Przy tym moїesz siк poszczyciж zdobyciem piкtnastu punktуw.",
+    "fra": "Vous n'ętes pas mort au cours de la partie et avez marqué plus de 15 points. On dirait que la prudence a du bon...",
+    "ger": "Sie sind sehr wachsam und vorsichtig. Aus diesem Grund ist es niemandem gelungen, Sie zu töten. Kein einziges Mal sind Sie während des Spiels gestorben und haben über fünfzehn Punkte erzielt.",
+    "ita": "Nessuno č riuscito a ucciderti, grazie alla tua grande cautela. Non sei mai morto nel corso della partita e hai ottenuto piů di 15 punti.",
+    "pol": "Nikt nie zdołał cię zabić przez całą grę, ponieważ cechujesz się ostrożnością i rozwagą. Przy tym możesz się poszczycić zdobyciem piętnastu punktów.",
     "rus": "В этот раз никто не смог достать Вас: им не по силам состязаться с таким аккуратным и предусмотрительным противником. За время игры Вы ни разу не погибли и заработали более пятнадцати очков!",
+    "spa": "Has sobrevivido porque andas con cautela y mucho cuidado. No has muerto ni una sola vez durante el juego y has conseguido más de 15 puntos.",
     "ukr": "Цього разу ніхто не зміг дістати Вас: вони не мають снаги змагатися із таким акуратним та завбачливим супротивником. За час гри Ви жодного разу не загинули і набрали п'ятнадцять очок!"
   },
   "st_achievement_2_name": {
     "eng": "Paranoia",
+    "fra": "Paranoďaque",
+    "ger": "Paranoia",
+    "ita": "Paranoia",
     "pol": "Paranoja",
     "rus": "Паранойя",
+    "spa": "Paranoia",
     "ukr": "Параноя"
   },
   "st_achievement_30_descr": {
     "eng": "You do your work without attracting attention by always using a silencer. Why let the enemy know the direction of death?",
-    "pol": "Dziкki tіumikowi zaіatwiasz sprawк nie przyci№gaj№c uwagi. Po co wrуg ma wiedzieж, sk№d nadchodzi њmierж?",
+    "fra": "Vous travaillez sans attirer l'attention, avec un silencieux. Aprčs tout, l'ennemi n'a pas besoin de savoir d'oů venait la balle...",
+    "ger": "Sie erledigen Ihre Arbeit unauffällig, indem Sie immer einen Schalldämpfer verwenden. Warum soll man den Gegner wissen lassen, aus welcher Richtung der Tod kommt?",
+    "ita": "Sai come fare il tuo lavoro senza attirare l'attenzione: non scordi mai il silenziatore. Perché far sapere al nemico da che direzione giunge la sua morte?",
+    "pol": "Dzięki tłumikowi załatwiasz sprawę nie przyciągając uwagi. Po co wróg ma wiedzieć, skąd nadchodzi śmierć?",
     "rus": "Вы любите делать своё дело, не привлекая лишнего внимания, поэтому всегда пользуетесь глушителем. Да и зачем врагу знать, откуда он был убит?",
+    "spa": "Haces tu trabajo sin llamar la atención y usando siempre un silenciador. żPor qué hacerle saber al enemigo de qué dirección surge su muerte?",
     "ukr": "Ви полюбляєте робити свою справу, не привертаючи зайвої уваги, тому завжди користуєтеся глушником. Та й нащо ворогові знати, звідки його було вбито?"
   },
   "st_achievement_30_name": {
     "eng": "Silent Death",
-    "pol": "Bezgіoњna њmierж",
+    "fra": "Mort silencieuse",
+    "ger": "Leiser Tod",
+    "ita": "Morte silente",
+    "pol": "Bezgłośna śmierć",
     "rus": "Молчаливая гибель",
+    "spa": "Muerte silenciosa",
     "ukr": "Мовчазна погибель"
   },
   "st_achievement_3_descr": {
     "eng": "You destroyed your enemy by winning and scoring twice as many points as their leading scorer.",
-    "pol": "Udaіo ci siк rozbiж przeciwnikуw w pyі, zwyciкїaj№c i zdobywaj№c przy tym dwa razy wiкcej punktуw niї najlepszy z nich.",
+    "fra": "Vous avez anéanti l'ennemi en gagnant et en marquant deux fois plus de points que le meilleur joueur adverse.",
+    "ger": "Sie haben Ihren Gegner vernichtend geschlagen, weil Sie gewonnen haben und dabei doppelt so viele Punkte erzielen konnten als der beste gegnerische Spieler.",
+    "ita": "Hai annichilito il tuo nemico, vincendo e ottenendo il doppio dei punti del loro miglior rappresentante.",
+    "pol": "Udało ci się rozbić przeciwników w pył, zwyciężając i zdobywając przy tym dwa razy więcej punktów niż najlepszy z nich.",
     "rus": "Врага ждал разгром: победа за Вами, да и очков у Вас вдвое больше, чем у лучшего их бойца.",
+    "spa": "Has acabado con tu enemigo derrotándolo y consiguiendo el doble de puntos que el puntuador líder. Ni más ni menos.",
     "ukr": "На ворога чекав розгром: перемога за Вами, та й очок у Вас удвічі більше, ніж у кращого їхнього бійця."
   },
   "st_achievement_3_name": {
     "eng": "Overwhelming Superiority",
-    "pol": "Przytіaczaj№ca przewaga",
+    "fra": "Supériorité écrasante",
+    "ger": "Erdrückende Überlegenheit",
+    "ita": "Superioritŕ schiacciante",
+    "pol": "Przytłaczająca przewaga",
     "rus": "Подавляющее превосходство",
+    "spa": "Superioridad aplastante",
     "ukr": "Приголомшлива перевага"
   },
   "st_achievement_4_descr": {
     "eng": "Your bold plan to instantly capture the artifact was successful and within the first three minutes of the game you scored for your team.",
-    "pol": "Twуj њmiaіy plan natychmiastowego zdobycia artefaktu zakoсczyі siк sukcesem, dziкki czemu twoja druїyna zdobyіa punkt w ci№gu trzech minut od rozpoczкcia gry.",
+    "fra": "La chance sourit aux audacieux ! Vous avez bien fait de récupérer l'artefact immédiatement et avez marqué des points pour votre équipe dčs les trois premičres minutes de la partie.",
+    "ger": "Ihr waghalsiger Plan, das Artefakt sofort zu schnappen, ist aufgegangen und Sie konnten so innerhalb von drei Minuten nach Spielbeginn für Ihr Team punkten.",
+    "ita": "Il tuo piano per catturare all'istante il manufatto ha avuto successo: hai segnato per la tua squadra entro tre minuti dall'inizio della partita.",
+    "pol": "Twój śmiały plan natychmiastowego zdobycia artefaktu zakończył się sukcesem, dzięki czemu twoja drużyna zdobyła punkt w ciągu trzech minut od rozpoczęcia gry.",
     "rus": "Дерзкий план по мгновенному захвату артефакта удался! Вы открыли счёт своей команды менее чем за три минуты с момента начала игры.",
+    "spa": "Tu valiente plan para conseguir el artefacto de inmediato ha sido un éxito. Has conseguido puntos para tu equipo en los tres primeros minutos de partida.",
     "ukr": "Зухвалий план із миттєвого захвату артефакта вдався! Ви відкрили рахунок своєї команди менш ніж за три хвилини з моменту початку гри."
   },
   "st_achievement_4_name": {
     "eng": "Blitzkrieg",
+    "fra": "Blitzkrieg",
+    "ger": "Blitzkrieg",
+    "ita": "Guerra lampo",
     "pol": "Blitzkrieg",
     "rus": "Блицкриг",
+    "spa": "Ataque relámpago",
     "ukr": "Бліцкріг"
   },
   "st_achievement_5_descr": {
     "eng": "You annihilated the enemy without giving up a single artifact.  That’ll show them what real team work is all about.",
-    "pol": "Nie pozostawiliњcie przeciwnikom nawet cienia nadziei, zwyciкїaj№c zanim zdoіali oni zdobyж choж jeden artefakt. To dla nich prawdziwa lekcja pracy zespoіowej!",
+    "fra": "Vous n'avez pas laissé le temps ŕ l'équipe adverse de récupérer un seul artefact. Vive le travail en équipe !",
+    "ger": "Sie haben dem Gegner nicht den Hauch einer Chance gelassen und gewonnen, ohne dass er auch nur ein einziges Artefakt aufsammeln konnte. Das war eine Lehrstunde über richtiges Teamwork!",
+    "ita": "Non hai lasciato scampo al nemico, dato che non gli hai lasciato mettere le mani su neppure un manufatto. Cosě impareranno a che cosa serve il lavoro di squadra!",
+    "pol": "Nie pozostawiliście przeciwnikom nawet cienia nadziei, zwyciężając zanim zdołali oni zdobyć choć jeden artefakt. To dla nich prawdziwa lekcja pracy zespołowej!",
     "rus": "Вы не дали противникам ни малейшего шанса на победу! Они так и не смогли добыть ни одного артефакта.",
+    "spa": "No le has dejado a tu enemigo ni oler la victoria: has ganado sin que pudiese conseguir un solo artefacto. ˇLe has dado una lección de trabajo en equipo!",
     "ukr": "Ви не дали ворогам жодного шансу на перемогу! Вони так і не змогли здобути жодного артефакта."
   },
   "st_achievement_5_name": {
     "eng": "Shutout!",
+    "fra": "Ni vu ni connu",
+    "ger": "Zu-Null-Sieg!",
+    "ita": "Nessuna speranza!",
     "pol": "Pobieda!",
     "rus": "Победа «всухую»",
+    "spa": "Ni un solo artefacto",
     "ukr": "Перемога «всуху»"
   },
   "st_achievement_6_descr": {
     "eng": "You scored highest in every area by getting the most kills, the most artifacts and dying the least! Keep it up!",
-    "pol": "Udaіo ci siк uzyskaж najlepszy wynik w kaїdej dziedzinie, eliminuj№c najwiкcej wrogуw i zdobywaj№c najwiкcej artefaktуw przy najmniejszej liczbie њmierci. Tak trzymaj!",
+    "fra": "Vous avez obtenu le meilleur score dans toutes les catégories en faisant le plus de victimes, en récupérant la plupart des artefacts et en mourant le moins ! Continuez comme ça !",
+    "ger": "Sie haben mit den meisten verursachten Kills, den meisten Artefakten und den wenigsten erlittenen Kills die höchste Punktzahl in allen Bereichen erzielt! Weiter so!",
+    "ita": "Hai ottenuto il massimo dei punti in ogni area: il maggior numero di uccisioni, piů manufatti e il minor numero di morti! Continua cosě!",
+    "pol": "Udało ci się uzyskać najlepszy wynik w każdej dziedzinie, eliminując najwięcej wrogów i zdobywając najwięcej artefaktów przy najmniejszej liczbie śmierci. Tak trzymaj!",
     "rus": "Вы победили во всех номинациях: больше всего убитых противников, больше всего добытых артефактов, меньше всего собственных смертей... Так держать!",
+    "spa": "Has conseguido la mejor puntuación en todas las áreas: has matado a más enemigos, has conseguido más artefactos y te han matado menos veces. ˇSigue así!",
     "ukr": "Ви перемогли в усіх номінаціях: найбільше вбитих ворогів, найбільше здобутих артефактів, найменше власних смертей... Так тримати!"
   },
   "st_achievement_6_name": {
     "eng": "All-rounder",
+    "fra": "Premier de la classe",
+    "ger": "Allrounder",
+    "ita": "Campione completo",
     "pol": "Wszechstronne uzdolnienia",
     "rus": "Чемпион-многоборец",
+    "spa": "Polifacético",
     "ukr": "Чемпіон-багатоборець"
   },
   "st_achievement_7_descr": {
     "eng": "Your blade skills are unrivaled! You gutted three enemies in twenty seconds, showing off your hand skills.",
-    "pol": "Twoje umiejкtnoњci walki noїem s№ niezrуwnane! Udaіo ci siк wypatroszyж trzech przeciwnikуw w ci№gu dwudziestu sekund, udowadniaj№c, їe masz prawdziwy talent do walki wrкcz.",
+    "fra": "Vous avez éviscéré trois ennemis en moins de 20 secondes, démontrant ainsi votre maîtrise du combat au corps-ŕ-corps.",
+    "ger": "Ihr Kampfgeschick mit der Klinge ist beängstigend! Sie haben innerhalb von zwanzig Sekunden drei Gegner aufgeschlitzt und damit bewiesen, dass Sie selbst ohne Schusswaffen den Tod über Ihren Gegner bringen können.",
+    "ita": "Con una lama in mano sai fare meraviglie! Hai sbudellato 3 nemici in 20 secondi, dimostrando di essere una macchina della morte anche senza armi da fuoco.",
+    "pol": "Twoje umiejętności walki nożem są niezrównane! Udało ci się wypatroszyć trzech przeciwników w ciągu dwudziestu sekund, udowadniając, że masz prawdziwy talent do walki wręcz.",
     "rus": "Сталь боевого ножа стала продолжением Вашего тела. За треть минуты Вам удалось выпотрошить троих врагов!",
+    "spa": "ˇTu manejo del cuchillo es tremendo! Has degollado a 3 enemigos en 20 segundos. ˇEres una máquina de matar incluso desarmado!",
     "ukr": "Сталь бойового ножа стала продовженням Вашого тіла. За третину хвилини Вам вдалося випатрати трьох ворогів!"
   },
   "st_achievement_7_name": {
     "eng": "Fury",
+    "fra": "Machine ŕ découper",
+    "ger": "Blutige Klinge",
+    "ita": "Furia",
     "pol": "Furia",
     "rus": "Бешенство",
+    "spa": "Furia",
     "ukr": "Шаленство"
   },
   "st_achievement_8_descr": {
     "eng": "Every enemy has a weakness, and you found it shooting him in the eye with your sidearm.",
-    "pol": "Kaїdy wrуg ma czuіy punkt w swoim opancerzeniu. Tobie udaіo siк go znaleџж, trafiaj№c z pistoletu w oko w peіni opancerzonego przeciwnika.",
+    "fra": "Chaque ennemi a son talon d'Achille et vous l'avez démontré une fois de plus en plaçant une balle dans l'śil d'un ennemi trčs bien protégé.",
+    "ger": "Auch wenn Ihr Gegner noch so stark gepanzert ist, hat er dennoch einen wunden Punkt - und den haben Sie gefunden, indem Sie ihm ins Auge geschossen haben.",
+    "ita": "Ogni nemico ha un punto debole, e tu hai trovato quello di questo sventurato colpendo un nemico corazzato nell'occhio, con la tua fida arma.",
+    "pol": "Każdy wróg ma czuły punkt w swoim opancerzeniu. Tobie udało się go znaleźć, trafiając z pistoletu w oko w pełni opancerzonego przeciwnika.",
     "rus": "Даже у самого опытного противника найдётся уязвимое место. Вы нашли его ахиллесову пяту, выстрелив из пистолета прямо ему в глаз!",
+    "spa": "Todo enemigo tiene un punto débil: tú lo has encontrado acertando en el ojo a un rival armado hasta los dientes con tu arma de cinto.",
     "ukr": "Навіть в найдосвіченішого ворога знайдеться вразливе місце. Ви знайшли його ахілесову п'яту, поціливши з пістолета просто йому в око!"
   },
   "st_achievement_8_name": {
     "eng": "Achilles' Heel",
-    "pol": "Piкta achillesowa",
+    "fra": "Talon d'Achille",
+    "ger": "Achillesferse",
+    "ita": "Tallone d'Achille",
+    "pol": "Pięta achillesowa",
     "rus": "«Ахиллесова пята»",
+    "spa": "Talón de Aquiles",
     "ukr": "«Ахілесова п'ята»"
   },
   "st_achievement_9_descr": {
     "eng": "The enemy's bullets are powerless against you. You walk through them without a scratch and moe the enemy down!",
-    "pol": "Wrogim kulom siк nie kіaniasz! Przechodzisz przez ich grad bez zadraњniкcia i rozbijasz przeciwnikуw w pyі!",
+    "fra": "Les balles de l'ennemi ne vous font pas peur ! Elles ne font que vous effleurer sans vous blesser et ne vous empęchent pas d'abattre vos adversaires !",
+    "ger": "Die Kugeln des Gegners fliegen an Ihnen vorbei! Sie marschieren einfach durch den Kugelhagel hindurch, ohne einen Kratzer abzubekommen, und machen den Gegner fertig!",
+    "ita": "I proiettili nemici non riescono neppure a sfiorarti! Li hai superati senza neppure un graffio e hai risolto il problema!",
+    "pol": "Wrogim kulom się nie kłaniasz! Przechodzisz przez ich grad bez zadraśnięcia i rozbijasz przeciwników w pył!",
     "rus": "Что Вам свист вражеских пуль? Вы проходите сквозь дождь из капель смерти. В Вашей руке нож. Ваша цель - лицо врага.",
+    "spa": "ˇLas balas enemigas no pueden contigo! ˇHas avanzado entre ellas como si nada y has acabado con el enemigo!",
     "ukr": "Що Вам свист ворожих куль? Ви проходите крізь дощ із крапель смерті. У Вашій руці ніж. Ваша ціль - обличчя ворога."
   },
   "st_achievement_9_name": {
     "eng": "Faster Than Bullets",
-    "pol": "Szybciej niї pocisk",
+    "fra": "Plus rapide que les balles",
+    "ger": "Kugelsicher",
+    "ita": "Piů veloce di un proiettile",
+    "pol": "Szybciej niż pocisk",
     "rus": "Быстрее пуль",
+    "spa": "Más rápido que las balas",
     "ukr": "Швидше за кулі"
   },
   "st_sp_achievement_1_descr": {
     "eng": "You’re willing to research the most recent developments in the Zone. You have advanced our understanding of the Zone by finding new anomalous formations previously unknown to science.",
-    "pol": "Chкtnie zajmujesz siк њledzeniem rozwoju wydarzeс w Zonie. Udaіo ci siк powiкkszyж zasуb wiedzy o niej przez odkrycie anomalii wczeњniej nieznanych nauce. ",
+    "fra": "Vous ętes pręt ŕ examiner les derniers développements dans la Zone. Vous nous avez permis d'approfondir notre connaissance de la Zone en découvrant de nouvelles formations anormales encore inconnues de la science.",
+    "ger": "Sie sind bereit, die neuesten Entwicklungen in der Zone zu erforschen. Sie haben unser Verständnis der Zone vorangebracht, indem Sie neue Anomalieformationen entdeckt haben, die die Wissenschaft bis dahin nicht kannte.",
+    "ita": "Sei disposto a eseguire ricerche sugli ultimi sviluppi della Zona. Ci hai aiutato a comprendere meglio la Zona scoprendo nuove formazioni anomale precedentemente sconosciute alla scienza.",
+    "pol": "Chętnie zajmujesz się śledzeniem rozwoju wydarzeń w Zonie. Udało ci się powiększyć zasób wiedzy o niej przez odkrycie anomalii wcześniej nieznanych nauce. ",
     "rus": "Как только в Зоне появляется что-нибудь новое, Вы готовы исследовать это первым. Находя ещё не изученные аномальные образования, Вы помогли науке намного лучше понять Зону.",
+    "spa": "Estás dispuesto a investigar los acontecimientos más recientes en la Zona. Nos has permitido conocerla más fondo descubriendo nuevas formaciones anómalas antes desconocidas para la ciencia.",
     "ukr": "Як тільки у Зоні з'являється щось нове, Ви готові дослідити це першим. Знаходячи ще не вивчені аномальні утворення, Ви допомогли науці набагато краще зрозуміти Зону."
   },
   "st_sp_achievement_1_name": {
     "eng": "Pioneer",
+    "fra": "Pionnier",
+    "ger": "Pionier",
+    "ita": "Pioniere",
     "pol": "Pionier",
     "rus": "Первооткрыватель",
+    "spa": "Precursor",
     "ukr": "Першовідкривач"
   },
   "st_sp_achievement_2_hint": {
-    "eng": "Stalkers think more of you now.\\nIn appreciation of your efforts, stalkers have taken to leaving ammo in your personal box at Yanov station.",
-    "pol": "Inni stalkerzy maj№ o tobie coraz lepsz№ opiniк. \\nCzasami zostawiaj№ oni amunicjк w twojej skrytce na stacji Janуw jako wyraz szacunku.",
+    "eng": [
+      "Stalkers think more of you now.",
+      "In appreciation of your efforts, stalkers have taken to leaving ammo in your personal box at Yanov station."
+    ],
+    "fra": [
+      "Les stalkers vous estiment davantage ŕ présent.",
+      "Pour vous remercier de vos efforts, ils ont décidé de déposer des munitions dans votre cantine de la gare de Yanov."
+    ],
+    "ger": [
+      "Die Stalker halten jetzt mehr von Ihnen.",
+      "In Wertschätzung Ihrer Mühen hinterlegen sie mittlerweile regelmäßig Munition in Ihrer persönlichen Kiste in der Janow-Station für Sie."
+    ],
+    "ita": [
+      "Ora gli stalker hanno una considerazione molto piů alta di te.",
+      "Per ringraziarti dei tuoi sforzi, ti hanno lasciato delle munizioni nel tuo ripostiglio personale della stazione Yanov."
+    ],
+    "pol": [
+      "Inni stalkerzy mają o tobie coraz lepszą opinię. ",
+      "Czasami zostawiają oni amunicję w twojej skrytce na stacji Janów jako wyraz szacunku."
+    ],
     "rus": "Сталкеры стали лучше к Вам относиться.\\nЧтобы хоть как-то отблагодарить Вас, они время от времени оставляют патроны в Вашем личном ящике на станции «Янов».",
-    "ukr": "Сталкери стали краще до Вас ставитися.\\nЩоб хоч якось віддячити Вам, вони час від часу залишають патрони у Вашому особистому ящику на станції «Янів»."
+    "spa": [
+      "Los stalkers te valoran más.",
+      "En compensación por tu trabajo, ahora te dejan munición en tu caja personal de la estación de Yanov."
+    ],
+    "ukr": [
+      "Сталкери стали краще до Вас ставитися.",
+      "Щоб хоч якось віддячити Вам, вони час від часу залишають патрони у Вашому особистому ящику на станції «Янів»."
+    ]
   },
   "st_sp_achievement_2_descr": {
     "eng": "You don’t try to avoid dangerous mutants - you hunt them down and do it well. Good hunters are held in high esteem among stalkers.",
-    "pol": "Nie unikasz niebezpiecznych mutantуw - polujesz na nich i to z dobrymi wynikami. Dobrzy іowcy s№ szanowani wњrуd stalkerуw.",
+    "fra": "Vous n'évitez pas les mutants, vous les traquez et avec talent ! Les bons chasseurs sont appréciés parmi les stalkers.",
+    "ger": "Sie scheuen sich nicht vor gefährlichen Mutanten - Sie machen Jagd auf sie und Sie sind gut darin! Stalker haben höchsten Respekt vor guten Jägern.",
+    "ita": "Tu non cerchi di evitare i mutanti pericolosi: gli dai la caccia e sei anche molto bravo. I bravi cacciatori sono molto stimati tra gli stalker.",
+    "pol": "Nie unikasz niebezpiecznych mutantów - polujesz na nich i to z dobrymi wynikami. Dobrzy łowcy są szanowani wśród stalkerów.",
     "rus": "Вы не пытаетесь избегать опасных мутантов - вы ведете на них охоту и преуспели в этом. Хорошие охотники - уважаемые люди среди сталкеров.",
+    "spa": "No intentas evitar a los peligrosos mutantes, sino que les das caza. Los buenos cazadores gozan del reconocimiento de los stalkers.",
     "ukr": "Ви не намагаєтеся уникати небезпечних мутантів - ви ведете на них полювання і маєте в цьому успіх. Добрі мисливці - шановні люди серед сталкерів."
   },
   "st_sp_achievement_2_name": {
     "eng": "Mutant Hunter",
-    "pol": "Јowca mutantуw",
+    "fra": "Chasseur de mutant",
+    "ger": "Mutantenjäger",
+    "ita": "Cacciatore di mutanti",
+    "pol": "Łowca mutantów",
     "rus": "Охотник на мутантов",
+    "spa": "Cazador de mutantes",
     "ukr": "Мисливець на мутантів"
   },
   "st_sp_achievement_3_hint": {
-    "eng": "Stalkers think more of you now.\\nAs a sign of respect, stalkers have taken to leaving medical supplies in your personal box at Skadovsk.",
-    "pol": "Inni stalkerzy maj№ o tobie coraz lepsz№ opiniк. \\nCzasami zostawiaj№ oni њrodki medyczne w twojej skrytce na Skadowsku jako wyraz szacunku.",
+    "eng": [
+      "Stalkers think more of you now.",
+      "As a sign of respect, stalkers have taken to leaving medical supplies in your personal box at Skadovsk."
+    ],
+    "fra": [
+      "Les stalkers ont une meilleure opinion de vous.",
+      "En témoignage de leur respect, ils ont décidé de déposer des fournitures médicales dans votre cantine sur le Skadovsk."
+    ],
+    "ger": [
+      "Die Stalker halten jetzt mehr von Ihnen.",
+      "Als Zeichen ihres Respekts hinterlegen sie mittlerweile regelmäßig medizinische Vorräte in Ihrer persönlichen Kiste in der Skadowsk-Station für Sie."
+    ],
+    "ita": [
+      "Ora gli stalker hanno una considerazione molto piů alta di te.",
+      "Per ringraziarti dei tuoi sforzi, ti hanno lasciato dei medicinali nel tuo ripostiglio personale sulla Skadovsk."
+    ],
+    "pol": [
+      "Inni stalkerzy mają o tobie coraz lepszą opinię. ",
+      "Czasami zostawiają oni środki medyczne w twojej skrytce na Skadowsku jako wyraz szacunku."
+    ],
     "rus": "Сталкеры стали лучше к Вам относиться.\\nИз искреннего уважения к Вам они время от времени оставляют медикаменты в Вашем личном ящике на «Скадовске».",
-    "ukr": "Сталкери стали краще до Вас ставитися.\\nЗі щирої поваги до Вас вони час від часу залишають медикаменти у ящику на «Скадовську»."
+    "spa": [
+      "Los stalkers te valoran más.",
+      "Como muestra de respeto, ahora te dejan suministros médicos en tu caja personal de Skadovsk."
+    ],
+    "ukr": [
+      "Сталкери стали краще до Вас ставитися.",
+      "Зі щирої поваги до Вас вони час від часу залишають медикаменти у ящику на «Скадовську»."
+    ]
   },
   "st_sp_achievement_3_descr": {
     "eng": "You uncovered the secret behind stalker disappearances at Skadovsk: the guilty party weren’t mutants after all, but a far more dangerous foe - man. Your successful pursuit of the truth has earned you the respect of stalkers.",
-    "pol": "Udaіo ci siк odkryж sekret stoj№cy za zaginiкciami stalkerуw na Skadowsku: winni byli nie mutanci, lecz duїo groџniejszy wrуg - czіowiek. Udane dochodzenie przysporzyіo ci szacunku wielu stalkerуw.",
+    "fra": "Vous avez résolu le mystčre des disparitions du Skadovsk. Le coupable n'était pas un mutant, mais un ennemi bien plus redoutable : un homme. Votre quęte de la vérité vous a valu le respect de vos pairs.",
+    "ger": "Sie haben das Geheimnis um das Verschwinden der Stalker bei der Skadowsk aufgedeckt: Überraschenderweise steckten nicht Mutanten hinter der Sache, sondern ein viel gefährlicherer Feind - Menschen. Durch Ihre erfolgreiche Suche nach der Wahrheit haben Sie sich den Respekt der Stalker verdient.",
+    "ita": "Hai scoperto il segreto dietro le scomparse degli stalker sulla Skadovsk. Il gruppo di colpevoli non era affatto composto da mutanti, ma da un nemico molto piů pericoloso: l'uomo. Ora che hai scoperto la veritŕ ti sei guadagnato il rispetto degli stalker.",
+    "pol": "Udało ci się odkryć sekret stojący za zaginięciami stalkerów na Skadowsku: winni byli nie mutanci, lecz dużo groźniejszy wróg - człowiek. Udane dochodzenie przysporzyło ci szacunku wielu stalkerów.",
     "rus": "Вы раскрыли тайну исчезновения сталкеров со «Скадовска»: виноваты в этом оказались не мутанты, а более опасный противник - человек. Ваше упорство в поисках истины вызвало глубокое уважение сталкеров.",
+    "spa": "Has descubierto el secreto de la desaparición de stalkers en Skadovsk. Al final, la culpa no era de los mutantes, sino de un enemigo más peligroso: el hombre. Descubrir la verdad te ha hecho ganarte el respeto de los stalkers.",
     "ukr": "Ви розкрили таємницю зникнення сталкерів зі «Скадовська»: винуваті в цьому виявилися не мутанти, а небезпечніший супротивник - людина. Ваша завзятість у пошуках істини викликала глибоку повагу в сталкерів."
   },
   "st_sp_achievement_3_name": {
     "eng": "Detective",
+    "fra": "Détective",
+    "ger": "Detektiv",
+    "ita": "Detective",
     "pol": "Detektyw",
     "rus": "Сыщик",
+    "spa": "Detective",
     "ukr": "Сищик"
   },
   "st_sp_achievement_4_hint": {
-    "eng": "Stalkers think more of you now.\\nStalkers have asked Owl the trader to give you a discount. \\nBeard is now offering you his best prices for artifacts.",
-    "pol": "Inni stalkerzy maj№ o tobie coraz lepsz№ opiniк. \\nPoprosili oni handlarza Sowк, aby udzieliі ci zniїki. \\Brodacz z kolei oferuje ci teraz najwyїsze stawki za artefakty.",
+    "eng": [
+      "Stalkers think more of you now.",
+      "Stalkers have asked Owl the trader to give you a discount. ",
+      "Beard is now offering you his best prices for artifacts."
+    ],
+    "fra": [
+      "Les stalkers ont une meilleure opinion de vous.",
+      "Ils ont demandé au Hibou de vous faire une ristourne. ",
+      "Le Barbu vous propose désormais ses meilleurs prix en échange de vos artefacts. "
+    ],
+    "ger": [
+      "Die Stalker halten jetzt mehr von Ihnen.",
+      "Sie haben den Händler Uhu gebeten, Ihnen einen Rabatt zu gewähren.",
+      "Beard macht Ihnen besonders gute Angebote für Artefakte."
+    ],
+    "ita": [
+      "Ora gli stalker hanno una considerazione molto piů alta di te.",
+      "Gli stalker hanno chiesto a Owl di farti uno sconto.",
+      "Ora Beard ti propone i prezzi migliori per i suoi manufatti."
+    ],
+    "pol": [
+      "Inni stalkerzy mają o tobie coraz lepszą opinię. ",
+      "Poprosili oni handlarza Sowę, aby udzielił ci zniżki. \\Brodacz z kolei oferuje ci teraz najwyższe stawki za artefakty."
+    ],
     "rus": "Сталкеры стали лучше к Вам относиться.\\nПо их просьбе торговец Сыч сделал для Вас постоянную скидку на товары.\\nБорода предлагает Вам хорошие цены за артефакты.",
-    "ukr": "Сталкери стали краще до Вас ставитися.\\nНа їхнє прохання торговець Сич зробив для Вас постійну знижку на товари.\\nБорода пропонує Вам хороші ціни за артефакти."
+    "spa": [
+      "Los stalkers te valoran más.",
+      "Le han pedido al comerciante Búho que te haga un descuento. ",
+      "Ahora, Barbas te ofrecerá sus artefactos al mejor precio."
+    ],
+    "ukr": [
+      "Сталкери стали краще до Вас ставитися.",
+      "На їхнє прохання торговець Сич зробив для Вас постійну знижку на товари.",
+      "Борода пропонує Вам хороші ціни за артефакти."
+    ]
   },
   "st_sp_achievement_4_descr": {
     "eng": "You showed the bandits and their leader, Sultan, who’s boss, thus making you a popular man among stalkers. You’re always welcome at Skadovsk.",
-    "pol": "Pokazaіeњ bandytom i ich przywуdcy Suіtanowi, kto jest szefem, co przysporzyіo ci popularnoњci wњrуd stalkerуw. Na Skadowsku zawsze czeka ciк serdeczne przyjкcie.",
+    "fra": "Vous avez montré aux bandits et ŕ leur chef, Sultan, qui est le patron et avez gagné en popularité auprčs des stalkers. Vous serez toujours le bienvenu sur le Skadovsk.",
+    "ger": "Sie haben den Banditen und ihrem Anführer Sultan gezeigt, wer hier das Sagen hat, und damit Berühmtheit unter den Stalkern erlangt. Daher sind Sie auf der Skadowsk stets ein willkommener Gast.",
+    "ita": "Hai dimostrato ai banditi e a Sultan, il loro capo, chi comanda da queste parti. Ora sei famoso tra gli stalker. Sulla Skadovsk sei sempre il benvenuto.",
+    "pol": "Pokazałeś bandytom i ich przywódcy Sułtanowi, kto jest szefem, co przysporzyło ci popularności wśród stalkerów. Na Skadowsku zawsze czeka cię serdeczne przyjęcie.",
     "rus": "Дав отпор бандитам во главе с Султаном, Вы обрели популярность среди сталкеров. Вас всегда рады видеть на «Скадовске».",
+    "spa": "Has demostrado quién manda a los bandidos y a su líder Sultán, lo que te ha valido una gran popularidad entre los stalkers. Siempre serás bienvenido en Skadovsk.",
     "ukr": "Давши одкоша бандитам на чолі із Султаном, Ви набули популярності серед сталкерів. Вас завжди раді бачити на «Скадовську»."
   },
   "st_sp_achievement_4_name": {
     "eng": "One of Ours",
+    "fra": "L'un des nôtres",
+    "ger": "Einer von uns",
+    "ita": "Uno dei nostri",
     "pol": "Jeden z nas",
     "rus": "Свой парень",
+    "spa": "Uno de los nuestros",
     "ukr": "Свій хлопець"
   },
   "st_sp_achievement_5_hint": {
-    "eng": "You have earned the respect of bandits.\\nOwl the trader has given you a discount out of fear that he may be your next victim. \\nAs agreed, Beard will now pay you a cut of his proceeds.",
-    "pol": "Udaіo ci siк zdobyж szacunek bandytуw. \\nHandlarz Sowa udzieliі ci zniїki ze strachu . \\nZgodnie z umow№, Brodacz bкdzie od teraz pіaciі ci haracz od swoich dochodуw.",
+    "eng": [
+      "You have earned the respect of bandits.",
+      "Owl the trader has given you a discount out of fear that he may be your next victim. ",
+      "As agreed, Beard will now pay you a cut of his proceeds."
+    ],
+    "fra": [
+      "Vous avez gagné le respect des bandits.",
+      "Craignant d'ętre votre prochaine victime, le Hibou vous a fait une ristourne.",
+      "Comme convenu, le Barbu vous remettra désormais une partie de ses bénéfices."
+    ],
+    "ger": [
+      "Sie haben sich den Respekt der Banditen verdient.\\Aus Furcht davor, dass er Ihr nächstes Opfer werden könnte, gewährt Ihnen der Händler Uhu Rabatt.",
+      "Wie abgemacht erhalten Sie ab jetzt Ihren Anteil an Beards Gewinn."
+    ],
+    "ita": [
+      "Ti sei guadagnato il rispetto dei banditi.",
+      "Owl ti ha fatto uno sconto per paura di essere la tua prossima vittima.",
+      "Come d'accordo, ora Beard ti darŕ una parte dei suoi profitti."
+    ],
+    "pol": [
+      "Udało ci się zdobyć szacunek bandytów. ",
+      "Handlarz Sowa udzielił ci zniżki ze strachu . ",
+      "Zgodnie z umową, Brodacz będzie od teraz płacił ci haracz od swoich dochodów."
+    ],
     "rus": "Бандиты стали относится к Вам с уважением.\\nТорговец Сыч из опасения, что следующей жертвой может стать он сам, сделал для Вас постоянную скидку.\\nБорода, согласно договорённости, должен выплачивать Вам процент от своих доходов.",
-    "ukr": "Бандити стали ставитися до Вас із повагою.\\nТорговець Сич із побоювання, що наступною жертвою може стати він сам, зробив для Вас постійну знижку.\\nБорода, згідно із домовлістю, повинен виплачувати Вам відсоток від своїх доходів."
+    "spa": [
+      "Te has ganado el respeto de los bandidos.",
+      "El comerciante Búho te ha ofrecido un descuento por miedo a ser tu próxima víctima.",
+      "Según lo acordado, Barbas te pagará parte de sus ganancias."
+    ],
+    "ukr": [
+      "Бандити стали ставитися до Вас із повагою.",
+      "Торговець Сич із побоювання, що наступною жертвою може стати він сам, зробив для Вас постійну знижку.",
+      "Борода, згідно із домовлістю, повинен виплачувати Вам відсоток від своїх доходів."
+    ]
   },
   "st_sp_achievement_5_descr": {
     "eng": "You helped Sultan outmaneuver the stalkers and take Beard’s business under your control. You are now feared and respected at Zaton.",
-    "pol": "Z twoj№ pomoc№ Suіtan wymanewrowaі stalkerуw i przej№і kontrolк nad interesem Brodacza. Budzisz teraz strach i szacunek w mieszkaсcach Zatonu.",
+    "fra": "Vous avez aidé Sultan ŕ vaincre les stalkers et ŕ prendre le contrôle des affaires du Barbu. Vous ętes ŕ la fois craint et respecté ŕ Zaton.",
+    "ger": "Sie haben Sultan geholfen, die Stalker zu überlisten, und die Kontrolle über Beards Geschäft übernommen. Sie werden jetzt in Zaton gefürchtet und respektiert.",
+    "ita": "Hai aiutato Sultan a sconfiggere gli stalker e hai preso l'attivitŕ di Beard sotto il tuo controllo. Ora a Zaton tutti ti temono e ti rispettano.",
+    "pol": "Z twoją pomocą Sułtan wymanewrował stalkerów i przejął kontrolę nad interesem Brodacza. Budzisz teraz strach i szacunek w mieszkańcach Zatonu.",
     "rus": "Вы помогли Султану перехватить инициативу у сталкеров и взять под контроль дела Бороды. Теперь на Затоне Вас боятся и уважают.",
+    "spa": "Has ayudado a Sultán a zafarse de los stalkers y a tomar el control del negocio de Barbas. Ahora eres temido y respetado en Zaton.",
     "ukr": "Ви допомогли Султанові перехопити ініціативу в сталкерів та взяти під контроль справу Бороди. Тепер на Затоні Вас бояться і поважають."
   },
   "st_sp_achievement_5_name": {
     "eng": "Boss",
+    "fra": "Boss",
+    "ger": "Boss",
+    "ita": "Boss",
     "pol": "Szef",
     "rus": "Авторитет",
+    "spa": "Mandamás",
     "ukr": "Авторитет"
   },
   "st_sp_achievement_6_hint": {
     "eng": "Stalkers decided to give Magpie’s loot, which he had acquired through lies and deceit, to someone more worthy. They put his stuff in your personal box at Yanov.",
-    "pol": "Stalkerzy zdecydowali siк oddaж іupy, ktуre Sroka zdobyі kіamstwami i podstкpem, komuњ bardziej wartoњciowemu. Umieњcili je w twojej skrytce na stacji Janуw.",
+    "fra": "Les stalkers ont décidé de remettre le butin de la Pie, obtenu par le mensonge et la tromperie, ŕ quelqu'un de plus méritant. Ils ont déposé le tout dans votre cantine de Yanov.",
+    "ger": "Die Stalker haben entschieden, Magpies Beute, die er durch Lug und Trug angehäuft hatte, jemandem zu geben, der sie wirklich verdient. Deswegen haben sie die Sachen in Ihrer persönlichen Kiste in der Janow-Station deponiert.",
+    "ita": "Gli stalker hanno deciso di dare il bottino di Magpie, che lui aveva ottenuto con le menzogne e l'inganno, a qualcuno che lo meritasse di piů. Hanno messo la sua roba nel tuo ripostiglio personale a Yanov.",
+    "pol": "Stalkerzy zdecydowali się oddać łupy, które Sroka zdobył kłamstwami i podstępem, komuś bardziej wartościowemu. Umieścili je w twojej skrytce na stacji Janów.",
     "rus": "Хабар Сороки, полученный подлостью и обманом, сталкеры отдают тому, кто больше всего его заслуживает. Эту добычу сложили в Ваш личный ящик на «Янове».",
+    "spa": "Los stalkers han decidido entregar el botín de Urraca, fruto de mentiras y engańos, a alguien que lo merezca más. Ahora está en tu caja personal, en Yanov.",
     "ukr": "Хабар Сороки, отриманий підлістю та обманом, сталкери віддають тому, хто найбільше на те заслуговує. Цю здобич склали до Вашого особистого ящика на «Янові»."
   },
   "st_sp_achievement_6_descr": {
     "eng": "You brought the scumbag to justice. Magpie cheated and deceived many a stalker, and now his time has come.",
-    "pol": "Udaіo ci siк wymierzyж sprawiedliwoњж zіoczyсcy. Sroka oszukaі i zwiуdі wielu stalkerуw, ale teraz wybiіa jego godzina.",
+    "fra": "Justice a été faite. La Pie, cette petite ordure, a trompé plus d'un stalker et il est temps pour lui de payer !",
+    "ger": "Sie haben den Mistkerl Magpie zur Rechenschaft gezogen. Er hatte viele Stalker betrogen und übers Ohr gehauen, aber jetzt ist seine Zeit reif für eine gerechte Bestrafung.",
+    "ita": "Hai consegnato quel sacco di immondizia alla giustizia. Magpie ha ingannato molti stalker, e ora č giunta la sua ora.",
+    "pol": "Udało ci się wymierzyć sprawiedliwość złoczyńcy. Sroka oszukał i zwiódł wielu stalkerów, ale teraz wybiła jego godzina.",
     "rus": "Вы не дали подлецу уйти от правосудия. Сталкер Сорока не раз подставлял других под удар и не перебирал методами, теперь его ждёт справедливая расплата.",
+    "spa": "Has hecho justicia con esa escoria. Urraca engańó y mintió a muchos stalkers y ahora tendrá que pagar.",
     "ukr": "Ви не дали негідникові втекти від правосуддя. Сталкер Сорока не раз підставляв інших під удар і не гребував методами, тож тепер на нього чекає справедлива розплата."
   },
   "st_sp_achievement_6_name": {
     "eng": "Courier of Justice",
-    "pol": "Wysіannik sprawiedliwoњci",
+    "fra": "Messager de la justice",
+    "ger": "Verfechter der Gerechtigkeit",
+    "ita": "Corriere della giustizia",
+    "pol": "Wysłannik sprawiedliwości",
     "rus": "Гонец правосудия",
+    "spa": "Mensajero de la justicia",
     "ukr": "Гонець правосуддя"
   },
   "st_sp_achievement_7_hint": {
-    "eng": "Stalkers think more of you now.\\nBandits will try to hunt you down whenever you venture out into the Zone.",
-    "pol": "Inni stalkerzy maj№ o tobie coraz lepsz№ opiniк. \\nBandyci bкd№ na ciebie polowaж podczas twoich wypraw w gі№b Zony.",
+    "eng": [
+      "Stalkers think more of you now.",
+      "Bandits will try to hunt you down whenever you venture out into the Zone."
+    ],
+    "fra": [
+      "Les stalkers ont une meilleure opinion de vous.",
+      "Les bandits tenteront de vous attaquer oů que vous soyez dans la Zone."
+    ],
+    "ger": [
+      "Die Stalker halten jetzt mehr von Ihnen.",
+      "Banditen werden versuchen, Sie zur Strecke zu bringen, wenn Sie sich in die Zone wagen sollten."
+    ],
+    "ita": [
+      "Ora gli stalker hanno una considerazione piů alta di te.",
+      "I banditi ti daranno la caccia non appena ti avventurerai nella Zona."
+    ],
+    "pol": [
+      "Inni stalkerzy mają o tobie coraz lepszą opinię. ",
+      "Bandyci będą na ciebie polować podczas twoich wypraw w głąb Zony."
+    ],
     "rus": "Сталкеры стали лучше к Вам относиться.\\nБандиты будут преследовать Вас во время вылазок в Зону.",
-    "ukr": "Сталкери стали краще до Вас ставитися.\\nБандити люто переслідуватимуть Вас під час вилазок до Зони."
+    "spa": [
+      "Los stalkers te valoran más ahora.",
+      "Los bandidos tratarán de darte caza allá donde te aventures en la Zona."
+    ],
+    "ukr": [
+      "Сталкери стали краще до Вас ставитися.",
+      "Бандити люто переслідуватимуть Вас під час вилазок до Зони."
+    ]
   },
   "st_sp_achievement_7_descr": {
     "eng": "You found every type of artifact known to Zone researchers. This earned you the respect of stalkers and the close attention of bandits.",
-    "pol": "Udaіo ci siк zdobyж wszystkie typy artefaktуw znane badaczom Zony. To osi№gniкcie wzbudziіo szacunek stalkerуw, ale z drugiej strony њci№gnкіo na ciebie uwagк bandytуw.",
+    "fra": "Vous avez découvert tous les types d'artefacts connus des chercheurs de la Zone. Cela vous a valu le respect des stalkers et l'attention des bandits.",
+    "ger": "Sie haben jede Art von Artefakt gefunden, die den Zonenforschern bekannt ist. Dadurch haben Sie den Respekt der Stalker und die besondere Aufmerksamkeit der Banditen gewonnen.",
+    "ita": "Hai trovato ogni tipo di manufatto conosciuto ai ricercatori della Zona. Questo ti č valso il rispetto degli stalker e l'attenzione dei banditi.",
+    "pol": "Udało ci się zdobyć wszystkie typy artefaktów znane badaczom Zony. To osiągnięcie wzbudziło szacunek stalkerów, ale z drugiej strony ściągnęło na ciebie uwagę bandytów.",
     "rus": "Вы нашли все виды артефактов, известные исследователям Зоны. Тем самым Вы заслужили уважение сталкеров и пристальное внимание бандитов.",
+    "spa": "Has encontrado todos los artefactos que conocen los investigadores de la Zona. Te has ganado el respeto de los stalkers y la atención de los bandidos.",
     "ukr": "Ви знайшли усі види артефактів, відомі дослідникам Зони. Тим самим Ви заслужили на повагу сталкерів і пильну увагу бандитів."
   },
   "st_sp_achievement_7_name": {
     "eng": "Artifact Hunter",
-    "pol": "Јowca artefaktуw",
+    "fra": "Chasseur d'artefacts",
+    "ger": "Artefaktjäger",
+    "ita": "Cacciatore di manufatti",
+    "pol": "Łowca artefaktów",
     "rus": "Искатель",
+    "spa": "Cazador de artefactos",
     "ukr": "Шукач"
   },
   "st_sp_achievement_8_hint": {
     "eng": "Cardan can perform a unique modification, which will allow you to move quickly while wearing an exoskeleton, by installing hydraulic servomotor boosters.",
-    "pol": "Kardan moїe wykonaж unikaln№ modyfikacjк, ktуra pozwoli ci na zachowanie mobilnoњci przy noszeniu egzoszkieletu dziкki instalacji hydraulicznych wzmacniaczy serwomotorуw.",
+    "fra": "Cardan peut améliorer votre exosquelette en y ajoutant des servomoteurs hydrauliques qui vous permettront de vous déplacer plus rapidement.",
+    "ger": "Kardan kann eine einzigartige Modifikation durchführen, indem er hydraulische Servomotorenverstärker einbaut. Damit können Sie sich schneller bewegen, wenn Sie ein Exoskelett tragen.",
+    "ita": "Cardan puň eseguire solo una modifica, che ti permetterŕ di muoverti piů velocemente quando indossi un esoscheletro, installando dei potenziatori idraulici al servomotore.",
+    "pol": "Kardan może wykonać unikalną modyfikację, która pozwoli ci na zachowanie mobilności przy noszeniu egzoszkieletu dzięki instalacji hydraulicznych wzmacniaczy serwomotorów.",
     "rus": "Кардан может добавить гидравлические усилители в сервоприводы экзоскелета: эта уникальная модификация позволит носителю экзоскелета перемещаться намного быстрее.",
+    "spa": "Cardán puede realizar una modificación única que te permitirá moverte rápidamente con exoesqueleto instalando potenciadores servomotores hidráulicos.",
     "ukr": "Кардан може виготовити унікальну модифікацію, котра дозволить швидко пересуватися в екзоскелеті: він збирається обладнати сервоприводи гідравлічними посилювачами."
   },
   "st_sp_achievement_8_descr": {
     "eng": "Now Cardan has all the tools he’ll ever need. This will allow him to perform new and more complex upgrades.",
-    "pol": "Kardan ma teraz wszystkie narzкdzia, jakich potrzebuje. Pozwoli mu to na wykonywanie nowych, bardziej skomplikowanych ulepszeс.",
+    "fra": "Cardan a tous les outils dont il a besoin. Cela lui permettra de réaliser de nouvelles améliorations plus complexes.",
+    "ger": "Jetzt hat Kardan alle Werkzeuge, die er jemals brauchen wird. Dadurch ist er in der Lage, neue und komplexere Verbesserungen durchzuführen.",
+    "ita": "Ora Cardan ha tutti gli strumenti che gli serviranno. Questo gli permetterŕ di eseguire potenziamenti nuovi e piů complessi.",
+    "pol": "Kardan ma teraz wszystkie narzędzia, jakich potrzebuje. Pozwoli mu to na wykonywanie nowych, bardziej skomplikowanych ulepszeń.",
     "rus": "Теперь у Кардана есть наборы инструментов на любой случай. Это позволит ему проводить недоступные прежде улучшения.",
+    "spa": "Cardán tiene todas las herramientas que pueda necesitar, lo que le permite realizar nuevas y complejas mejoras.",
     "ukr": "Тепер в Кардана є набори інструментів на будь-який випадок. Це дозволить йому проводити недоступні раніше поліпшення."
   },
   "st_sp_achievement_8_name": {
     "eng": "Weapon Systems Expert",
-    "pol": "Ekspert systemуw obronnych",
+    "fra": "Expert en armement",
+    "ger": "Experte für Waffensysteme",
+    "ita": "Esperto di sistemi d'armi",
+    "pol": "Ekspert systemów obronnych",
     "rus": "Мастер боевых систем",
+    "spa": "Experto en sistemas de armas",
     "ukr": "Майстер бойових систем"
   },
   "st_sp_achievement_9_hint": {
     "eng": "Azot can perform a unique tactical helmet modification: an infrared scanner that allows for detection of nearby humans.",
-    "pol": "Azot moїe wykonaж unikaln№ modyfikacjк heіmu taktycznego: montaї skanera podczerwieni pozwalaj№cego na wykrywanie ludzi znajduj№cych siк w pobliїu.",
+    "fra": "Azote peut modifier un casque tactique de façon unique : il y ajoute un détecteur infrarouge permettant d'identifier la présence d'humains ŕ proximité.",
+    "ger": "Azot kann eine einzigartige Modifikation am taktischen Helm durchführen: ein Infrarotscanner, der Menschen in der Nähe aufspürt.",
+    "ita": "Azot puň eseguire una sola modifica all'elmo tattico: uno scanner a infrarossi che permette di individuare gli umani vicini.",
+    "pol": "Azot może wykonać unikalną modyfikację hełmu taktycznego: montaż skanera podczerwieni pozwalającego na wykrywanie ludzi znajdujących się w pobliżu.",
     "rus": "Азот может провести уникальную модификацию тактического шлема: оснащённый инфракрасным сканером, тот позволит фиксировать находящихся поблизости людей. ",
+    "spa": "Azot puede realizar una modificación de casco táctico única: un escáner de infrarrojos que permite detectar a los humanos cercanos.",
     "ukr": "Азот може виготовити унікальну модифікацію тактичного шолома: інфрачервоний сканер, котрий дозволяє у темряві фіксувати людей, що знаходяться поблизу. "
   },
   "st_sp_achievement_9_descr": {
     "eng": "Azot has all the tools a Zone technician could dream of. He can now perform hi-tech modifications.",
-    "pol": "Azot posiada wszystkie narzкdzia, o jakich moїe marzyж technik pracuj№cy w Zonie. Moїe on wykonywaж zaawansowane technologicznie modyfikacje.",
+    "fra": "Azote dispose de tous les outils dont un technicien de la Zone pourrait ręver. Il peut ŕ présent réaliser des modifications de pointe.",
+    "ger": "Jetzt hat Azot alle Werkzeuge, von denen er je geträumt hat. Dadurch ist er in der Lage, High-Tech-Modifikationen durchzuführen.",
+    "ita": "Azot ha tutti gli strumenti che un tecnico della Zona potrebbe desiderare. Ora puň eseguire anche le modifiche tecnologiche piů sofisticate.",
+    "pol": "Azot posiada wszystkie narzędzia, o jakich może marzyć technik pracujący w Zonie. Może on wykonywać zaawansowane technologicznie modyfikacje.",
     "rus": "Азот получил все наборы инструментов, о которых только может мечтать техник в Зоне. Теперь он может проводить высокотехнологичные модификации.",
+    "spa": "Azot tiene todas las herramientas que un técnico de la Zona podría sońar. Ahora puede realizar modificaciones avanzadas.",
     "ukr": "Азот одержав усі набори інструментів, про які тільки може мріяти технік у Зоні. Тепер він у змозі виготовляти різноманітні високотехнологічні модифікації."
   },
   "st_sp_achievement_9_name": {
     "eng": "Hi-Tech Expert",
+    "fra": "Expert en technologie de pointe",
+    "ger": "High-Tech-Experte",
+    "ita": "Esperto di tecnologia",
     "pol": "Ekspert wysokiej technologii",
     "rus": "Мастер высоких технологий",
+    "spa": "Experto en tecnología",
     "ukr": "Майстер високих технологій"
   },
   "st_sp_achievement_10_hint": {
     "eng": "Your experience allows you to find rare artifacts more often.",
-    "pol": "Doњwiadczenie pozwala ci czкњciej znajdowaж artefakty.",
+    "fra": "Votre expérience vous permet de trouver des artefacts rares plus fréquemment.",
+    "ger": "Dank Ihrer Erfahrung finden Sie häufiger seltene Artefakte.",
+    "ita": "La tua esperienza ti permette di trovare piů spesso manufatti rari.",
+    "pol": "Doświadczenie pozwala ci częściej znajdować artefakty.",
     "rus": "Накопленный опыт позволяет Вам чаще находить редкие артефакты.",
+    "spa": "Tu experiencia te permite encontrar artefactos poco comunes más a menudo.",
     "ukr": "Накопичений досвід дозволяє Вам частіше знаходити рідкі артефакти."
   },
   "st_sp_achievement_10_descr": {
     "eng": "There are virtually no accessible areas by the center of the Zone that you haven’t been to yet. You’ve been a guest of almost every local anomaly.",
-    "pol": "Udaіo ci siк odwiedziж praktycznie wszystkie dostкpne obszary poіoїone w pobliїu centrum Zony. Zdarzyіo ci siк wpaњж w prawie kaїd№ anomaliк.",
+    "fra": "Les lieux accessibles autour du centre de la Zone n'ont plus aucun secret pour vous. Vous connaissez toutes les anomalies du coin ou presque.",
+    "ger": "In der Zone existiert so gut wie kein begehbares Gebiet, in dem Sie nicht bereits waren. Sie haben schon nahezu alle Anomalien mindestens einmal zu Gesicht bekommen.",
+    "ita": "Nei pressi del centro della Zona sei stato praticamente dappertutto. Hai visitato praticamente tutte le anomalie locali.",
+    "pol": "Udało ci się odwiedzić praktycznie wszystkie dostępne obszary położone w pobliżu centrum Zony. Zdarzyło ci się wpaść w prawie każdą anomalię.",
     "rus": "У центра Зоны почти не осталось доступных мест, обойдённых Вашим вниманием. Вы побывали практически во всех здешних аномалиях.",
+    "spa": "Prácticamente no hay áreas accesibles por el centro de la Zona que no hayas visitado. Has presenciado casi todas las anomalías locales.",
     "ukr": "Біля центру Зони майже не лишилося доступних місць, обійдених Вашою увагою. Ви побували фактично в усіх тутешніх аномаліях."
   },
   "st_sp_achievement_10_name": {
     "eng": "Seasoned Stalker",
-    "pol": "Doњwiadczony stalker",
+    "fra": "Stalker aguerri",
+    "ger": "Erfahrener Stalker",
+    "ita": "Stalker esperto",
+    "pol": "Doświadczony stalker",
     "rus": "Опытный сталкер",
+    "spa": "Stalker experimentado",
     "ukr": "Досвідчений сталкер"
   },
   "st_sp_achievement_11_hint": {
     "eng": "Your leadership qualities improve your team’s chances of survival.",
-    "pol": "Twoje umiejкtnoњci przywуdcze zwiкkszaj№ szanse przeїycia twojej druїyny.",
+    "fra": "Vos qualités de chef augmentent les chances de survie de votre groupe.",
+    "ger": "Ihre Führungsqualitäten erhöhen die Überlebenschancen Ihres Teams.",
+    "ita": "Le tue qualitŕ di leader migliorano le possibilitŕ di sopravvivenza della tua squadra.",
+    "pol": "Twoje umiejętności przywódcze zwiększają szanse przeżycia twojej drużyny.",
     "rus": "Ваши лидерские навыки повышают шансы команды на выживание.",
+    "spa": "Tus dotes de liderazgo mejoran la probabilidad de supervivencia de tu equipo.",
     "ukr": "Ваші лідерські навички підвищують шанси команди на виживання."
   },
   "st_sp_achievement_11_descr": {
     "eng": "You had a team job to do, so you put a great squad together and proved you're a leader.",
-    "pol": "Kiedy zaszіa potrzeba dziaіania w grupie, udaіo ci siк zgromadziж њwietn№ druїynк i dowieњж swoich umiejкtnoњci przywуdczych.",
+    "fra": "Obligé de travailler en équipe, vous avez formé un groupe solide et prouvé que vous aviez l'étoffe d'un chef.",
+    "ger": "Sie hatten einen Teamauftrag zu erfüllen - also haben Sie einfach einen großartigen Trupp zusammengestellt und bewiesen, dass Sie der geborene Anführer sind.",
+    "ita": "Dovevi svolgere un lavoro di squadra, quindi hai radunato grandi uomini e dimostrato che sei un vero leader.",
+    "pol": "Kiedy zaszła potrzeba działania w grupie, udało ci się zgromadzić świetną drużynę i dowieść swoich umiejętności przywódczych.",
     "rus": "Столкнувшись с насущной необходимостью работать в команде, Вы сколотили хороший отряд. Это убедительное доказательство качеств настоящего лидера.",
+    "spa": "Tenías un trabajo en equipo, así que formaste un pelotón y demostrarte que eres un líder.",
     "ukr": "Зіткнувшись із нагальною потребою працювати в команді, Ви зібрали гарний загін. Це переконливий доказ якостей справжнього лідера."
   },
   "st_sp_achievement_11_name": {
     "eng": "Leader",
-    "pol": "Przywуdca",
+    "fra": "Chef",
+    "ger": "Anführer",
+    "ita": "Leader",
+    "pol": "Przywódca",
     "rus": "Лидер",
+    "spa": "Líder",
     "ukr": "Лідер"
   },
   "st_sp_achievement_12_hint": {
     "eng": "Freedom, Duty, free stalkers and even bandits have come to recognize your negotiation skills, and think highly of you as a result.",
-    "pol": "Wolnoњж, Powinnoњж, wolni stalkerzy, a nawet bandyci poznali twoje zdolnoњci negocjacyjne i darz№ ciк z ich powodu szacunkiem.",
+    "fra": "La Liberté, le Devoir, les stalkers indépendants et męme les bandits ont fini par reconnaître vos talents de négociateur et ont une profonde estime pour vous.",
+    "ger": "Freiheitler, Wächter, freie Stalker und sogar Banditen haben Ihr Verhandlungsgeschick zu schätzen gelernt und haben nun größten Respekt vor Ihnen.",
+    "ita": "La Freedom, la Duty, gli stalker liberi e persino i banditi riconoscono le tue capacitŕ di negoziazione, e hanno una grande considerazione di te.",
+    "pol": "Wolność, Powinność, wolni stalkerzy, a nawet bandyci poznali twoje zdolności negocjacyjne i darzą cię z ich powodu szacunkiem.",
     "rus": "Уважая Ваше умение договариваться, «Свобода», «Долг», вольные сталкеры и даже бандиты стали лучше к Вам относится.",
+    "spa": "Libertad, Deber, los stalkers libres y hasta los bandidos tienen que reconocer tus dotes de negociador y, por tanto, te valoran.",
     "ukr": "Поважаючи Ваше вміння домовлятися, «Воля», «Долг», вільні сталкери ба навіть бандити стали краще до Вас ставитися."
   },
   "st_sp_achievement_12_descr": {
     "eng": "You know how to solve a problem peacefully. Who needs brute force when simple words can resolve a dispute just as well? Nonetheless, you should watch out for people that shoot first and ask questions later.",
-    "pol": "Wiesz, jak rozwi№zaж problem bez rozlewu krwi. Kto potrzebuje siіy, kiedy sіowa mog№ rozwi№zaж spor rуwnie skutecznie? Nadal jednak musisz wystrzegaж siк osуb, ktуre najpierw strzelaj№, a pуџniej zadaj№ pytania.",
+    "fra": "Vous savez résoudre les problčmes avec diplomatie. Ŕ quoi bon recourir ŕ la force lorsque de simples paroles peuvent suffire ŕ régler un différend ? Faites tout de męme attention ŕ ceux qui tirent avant et discutent aprčs...",
+    "ger": "Sie wissen, wie man Probleme friedlich löst. Warum Gewalt anwenden, wenn ein Streit auch durch Worte geschlichtet werden kann? Dennoch sollten Sie sich vor Leuten vorsehen, die zuerst schießen und danach fragen.",
+    "ita": "Sai come risolvere un problema in modo pacifico. A che serve la forza bruta quando bastano le parole a risolvere le dispute? Nonostante questo, guardati da quelli che prima sparano poi fanno domande.",
+    "pol": "Wiesz, jak rozwiązać problem bez rozlewu krwi. Kto potrzebuje siły, kiedy słowa mogą rozwiązać spor równie skutecznie? Nadal jednak musisz wystrzegać się osób, które najpierw strzelają, a później zadają pytania.",
     "rus": "Вы умеете решать проблемы мирным способом. Не обязательно применять силу, если всё можно решить путём переговоров. Тем не менее, Вам по-прежнему стоит остерегаться тех, кто сначала стреляет, а потом спрашивает.",
+    "spa": "Sabes cómo resolver un problema pacíficamente. żQuién necesita la fuerza bruta cuando las palabras pueden zanjar una disputa? Eso sí, ojo con los que disparan antes de preguntar.",
     "ukr": "Ви вмієте вирішувати проблеми у мирний спосіб. Не обов'язково застосовувати силу, якщо все можна вирішити шляхом переговорів. Проте Вам як і раніше варто остерігатися тих, хто спочатку стріляє, а потім запитує."
   },
   "st_sp_achievement_12_name": {
     "eng": "Diplomat",
+    "fra": "Diplomate",
+    "ger": "Diplomat",
+    "ita": "Diplomatico",
     "pol": "Dyplomata",
     "rus": "Дипломат",
+    "spa": "Diplomático",
     "ukr": "Дипломат"
   },
   "st_sp_achievement_13_descr": {
     "eng": "You’ve worked with the scientists for so long that you could rightfully be called a research assistant. Everyone in the scientists’ bunker considers you one of their own.",
-    "pol": "Wspуіpracujesz z naukowcami juї tak dіugo, їe moїna ciк uznaж za peіnoprawnego asystenta. Wszyscy w bunkrze naukowcуw uwaїaj№ ciк za jednego ze swoich.",
+    "fra": "Vous travaillez avec les scientifiques depuis si longtemps qu'on pourrait vous prendre pour un laborantin. Tous les scientifiques du bunker vous considčrent comme leur collčgue.",
+    "ger": "Sie haben schon so lange mit den Wissenschaftlern zusammengearbeitet, dass Sie sich eigentlich als wissenschaftlichen Mitarbeiter bezeichnen könnten. Jeder im Bunker der Wissenschaftler erachtet Sie als einen Kollegen.",
+    "ita": "Hai lavorato con gli scienziati talmente a lungo che non sarebbe fuori luogo definirti un assistente ricercatore. Tutti, nel bunker degli scienziati, ti considerano uno di loro.",
+    "pol": "Współpracujesz z naukowcami już tak długo, że można cię uznać za pełnoprawnego asystenta. Wszyscy w bunkrze naukowców uważają cię za jednego ze swoich.",
     "rus": "Вы так долго работали с учёными, что вполне заслуживаете звания научного сотрудника. Теперь все обитатели исследовательского бункера относятся к Вам, как к своему.",
+    "spa": "Llevas tanto tiempo trabajando con los científicos que casi podrías ser considerado su ayudante. Para todos los científicos del búnker, eres uno de los suyos.",
     "ukr": "Ви так довго працювали з ученими, що цілком заслуговуєте на звання наукового співробітника. Тепер усі мешканці дослідницького бункера ставляться до Вас як до своєї людини."
   },
   "st_sp_achievement_13_name": {
     "eng": "Research Assistant",
+    "fra": "Laborantin",
+    "ger": "Wissenschaftlicher Mitarbeiter",
+    "ita": "Assistente ricercatore",
     "pol": "Asystent",
     "rus": "Научный сотрудник",
+    "spa": "Ayudante de investigación",
     "ukr": "Науковий співробітник"
   },
   "st_sp_achievement_14_hint": {
-    "eng": "Your relations with Duty have improved. If you find yourself in a pickle, Duty fighters will try to help you.\\nAzot, the technician who favors Duty, has offered you a discount. \\nYour relations with Freedom have deteriorated. \\Hawaiian, the trader who favors Freedom, will now charge you more for his goods.",
-    "pol": "Twoje stosunki z Powinnoњci№ ulegіy poprawie. Jeњli napytasz sobie biedy, bojownicy tej frakcji bкd№ prуbowali ci pomуc. \\nAzot, technik sympatyzuj№cy z Powinnoњci№, zaoferowaі ci zniїkк. \\nTwoje stosunki z Wolnoњci№ ulegіy pogorszeniu. \\Hawajczyk, handlarz sympatyzuj№cy z t№ frakcj№, od tej chwili bкdzie ї№daі od ciebie wyїszych cen.",
+    "eng": [
+      "Your relations with Duty have improved. If you find yourself in a pickle, Duty fighters will try to help you.",
+      "Azot, the technician who favors Duty, has offered you a discount. ",
+      "Your relations with Freedom have deteriorated. \\Hawaiian, the trader who favors Freedom, will now charge you more for his goods."
+    ],
+    "fra": [
+      "Vos relations avec le Devoir se sont améliorées. En cas de problčme, les combattants du Devoir seront lŕ pour vous aider.",
+      "Azote, le technicien du Devoir, vous a offert une ristourne.",
+      "Vos relations avec la Liberté se sont détériorées.",
+      "L'Hawaďen, le marchand de la Liberté, vous fera payer sa marchandise plus cher."
+    ],
+    "ger": [
+      "Ihr Verhältnis zu den Wächtern hat sich gebessert. Wenn Sie in Schwierigkeiten geraten, werden die Kämpfer der Wächter versuchen, Ihnen zu helfen.",
+      "Azot, ein Techniker, der den Wächtern nahe steht, gewährt Ihnen Rabatt.",
+      "Ihr Verhältnis zu den Freiheitlern hat sich verschlechtert.",
+      "Der Hawaiianer, der Händler, der der Freiheit nahe steht, verlangt jetzt mehr von Ihnen für seine Waren."
+    ],
+    "ita": [
+      "I tuoi rapporti con la Duty sono migliorati. Se dovessi trovarti nei guai, i combattenti della Duty cercheranno di aiutarti.",
+      "Azot, il tecnico che sostiene la Duty, ti ha offerto uno sconto.",
+      "I tuoi rapporti con la Freedom si sono deteriorati. ",
+      "Hawaiian, il commerciante che sostiene la Freedom, ti farŕ pagare di piů la sua merce."
+    ],
+    "pol": [
+      "Twoje stosunki z Powinnością uległy poprawie. Jeśli napytasz sobie biedy, bojownicy tej frakcji będą próbowali ci pomóc. ",
+      "Azot, technik sympatyzujący z Powinnością, zaoferował ci zniżkę. ",
+      "Twoje stosunki z Wolnością uległy pogorszeniu. \\Hawajczyk, handlarz sympatyzujący z tą frakcją, od tej chwili będzie żądał od ciebie wyższych cen."
+    ],
     "rus": "Ваши отношения с «Долгом» улучшились. Если Вы попадёте в неприятности, бойцы «Долга» постараются прийти к Вам на помощь.\\nТехник Азот симпатизирует «Долгу», поэтому сделал для Вас постоянную скидку.\\nВаши отношения со «Свободой» ухудшились.\\nГаваец - торговец, симпатизирующий «Свободе», - повысил цены на свои товары.",
-    "ukr": "Ваші відносини з «Долгом» покращилися. Якщо Ви трапите у халепу, бійці угруповання намагатимуться прийти до Вас на допомогу.\\nТехнік Азот симпатизує «Долгу», тому зробив для Вас постійну знижку.\\nВаші відносини із «Волею» погіршилися.\\nГаваєць - торговець, який симпатизує «Волі», - підвищив ціни на свої товари."
+    "spa": [
+      "Tus relaciones con Deber han mejorado. Si estás en apuros, sus soldados tratarán de ayudarte.",
+      "Azot, el técnico que trabaja para Deber, te ofrece un descuento.",
+      "Tus relaciones con Libertad se han deteriorado.\\El Hawaiano, comerciante cercano a Libertad, te cobrará todo más caro."
+    ],
+    "ukr": [
+      "Ваші відносини з «Долгом» покращилися. Якщо Ви трапите у халепу, бійці угруповання намагатимуться прийти до Вас на допомогу.",
+      "Технік Азот симпатизує «Долгу», тому зробив для Вас постійну знижку.",
+      "Ваші відносини із «Волею» погіршилися.",
+      "Гаваєць - торговець, який симпатизує «Волі», - підвищив ціни на свої товари."
+    ]
   },
   "st_sp_achievement_14_descr": {
     "eng": "You have provided plenty of help to Duty, and this has earned you the respect of Duty fighters and their friends. But keep in mind that not everyone in the Zone is a Duty fan.",
-    "pol": "Pomoc udzielona przez ciebie Powinnoњci sprawiіa, їe bojownicy i sympatycy tej frakcji nabrali do ciebie szacunku. Musisz jednak pamiкtaж, їe nie kaїda osoba, jak№ napotkasz w Zonie, jest pozytywnie nastawiona do Powinnoњci.",
+    "fra": "Vous avez été d'une grande aide au Devoir, ce qui vous a valu le respect de ses combattants et de leurs alliés. Mais n'oubliez pas que certains résidents de la Zone ne s'entendent pas aussi bien que vous avec cette faction.",
+    "ger": "Sie haben den Wächtern große Hilfe geleistet und sich damit den Respekt von ihnen und ihren Freunden verdient. Vergessen Sie allerdings nicht, dass nicht jeder in der Zone ein Anhänger der Wächter ist.",
+    "ita": "Hai aiutato molto la Duty, e questo ti č valso il rispetto dei combattenti della Duty e dei loro amici. Ma ricorda che nella Zona non tutti sono dei sostenitori della Duty.",
+    "pol": "Pomoc udzielona przez ciebie Powinności sprawiła, że bojownicy i sympatycy tej frakcji nabrali do ciebie szacunku. Musisz jednak pamiętać, że nie każda osoba, jaką napotkasz w Zonie, jest pozytywnie nastawiona do Powinności.",
     "rus": "Вы много помогали группировке «Долг», поэтому приобрели авторитет среди её бойцов и их друзей. Но не стоит забывать, что не все симпатизируют «Долгу».",
+    "spa": "Has sido de gran ayuda a Deber, lo que te ha hecho ganarte el respeto de sus soldados y amigos. Sin embargo, no olvides que esta facción también tiene sus detractores.",
     "ukr": "Ви багато допомагали угрупованню «Долг», тому набули авторитету серед його бійців та їхніх друзів. Але не варто забувати, що не всі симпатизують «Долгу»."
   },
   "st_sp_achievement_14_name": {
     "eng": "A Friend of Duty",
-    "pol": "Przyjaciel Powinnoњci",
+    "fra": "Ami du Devoir",
+    "ger": "Freund der Wächter",
+    "ita": "Un amico della Duty",
+    "pol": "Przyjaciel Powinności",
     "rus": "Друг «Долга»",
+    "spa": "Amigo de Deber",
     "ukr": "Друг «Долгу»"
   },
   "st_sp_achievement_15_hint": {
-    "eng": "\\nYour relations with Freedom have improved. If you find yourself in a pickle, Freedom fighters will try to help you.\\Hawaiian, the trader who favors Freedom, has offered you a discount. \\nYour relations with Duty have deteriorated. \\nAzot, the technician who favors Duty, will now charge you more for his services.",
-    "pol": "Twoje stosunki z Wolnoњci№ ulegіy poprawie. Jeњli napytasz sobie biedy, bojownicy tej frakcji bкd№ prуbowali ci pomуc. \\nHawajczyk, technik sympatyzuj№cy z Wolnoњci№, zaoferowaі ci zniїkк. \\nTwoje stosunki z Powinnoњci№ ulegіy pogorszeniu. \\Azot, handlarz sympatyzuj№cy z t№ frakcj№, od tej chwili bкdzie ї№daі od ciebie wyїszych cen.",
+    "eng": [
+      "",
+      "Your relations with Freedom have improved. If you find yourself in a pickle, Freedom fighters will try to help you.\\Hawaiian, the trader who favors Freedom, has offered you a discount. ",
+      "Your relations with Duty have deteriorated. ",
+      "Azot, the technician who favors Duty, will now charge you more for his services."
+    ],
+    "fra": [
+      "Vos relations avec la Liberté se sont améliorées. En cas de problčme, les combattants de la Liberté seront lŕ pour vous aider.",
+      "L'Hawaďen, le marchand de la Liberté, vous a offert une ristourne.",
+      "Vos relations avec le Devoir se sont détériorées.",
+      "Azote, le technicien du Devoir, vous fera payer sa marchandise plus cher."
+    ],
+    "ger": [
+      "Ihr Verhältnis zu den Freiheitlern hat sich gebessert. Wenn Sie in Schwierigkeiten geraten, werden die Kämpfer der Freiheit versuchen, Ihnen zu helfen.",
+      "Der Hawaiianer, ein Techniker, der der Freiheit nahe steht, gewährt Ihnen Rabatt.",
+      "Ihr Verhältnis zu den Wächtern hat sich verschlechtert.",
+      "Azot, der Händler, der den Wächtern nahe steht, verlangt jetzt mehr von Ihnen für seine Waren."
+    ],
+    "ita": [
+      "",
+      "I tuoi rapporti con la Freedom sono migliorati. Se dovessi trovarti nei guai, i combattenti della Freedom cercheranno di aiutarti.",
+      "Hawaiian, il commerciante che sostiene la Freedom, ti ha offerto uno sconto.",
+      "I tuoi rapporti con la Duty si sono deteriorati. ",
+      "Azot, il tecnico che sostiene la Duty, ti farŕ pagare di piů per i suoi servizi."
+    ],
+    "pol": [
+      "Twoje stosunki z Wolnością uległy poprawie. Jeśli napytasz sobie biedy, bojownicy tej frakcji będą próbowali ci pomóc. ",
+      "Hawajczyk, technik sympatyzujący z Wolnością, zaoferował ci zniżkę. ",
+      "Twoje stosunki z Powinnością uległy pogorszeniu. \\Azot, handlarz sympatyzujący z tą frakcją, od tej chwili będzie żądał od ciebie wyższych cen."
+    ],
     "rus": "Ваши отношения со «Свободой» улучшились. Если вы попадете в неприятности, бойцы «Свободы» постараются прийти к вам на помощь.\\nГаваец - торговец, симпатизирующий «Свободе», - сделал Вам постоянную скидку.\\nВаши отношения с «Долгом» ухудшились.\\nТехник Азот симпатизирует «Долгу», поэтому повысил цены на свои услуги.",
-    "ukr": "Ваші відносини із «Волею» покращилися. Якщо ви трапите в халепу, бійці «Волі» намагатимуться прийти до вас на допомогу.\\nГаваєць - торговець, який симпатизує «Волі», - зробив Вам постійну знижку.\\nВаші відносини із «Долгом» погіршилися.\\nТехнік Азот симпатизує «Долгу», тому підвищив ціни на свої послуги."
+    "spa": [
+      "",
+      "Tus relaciones con Libertad han mejorado. Si estás en apuros, sus soldados tratarán de ayudarte.",
+      "El Hawaiano, comerciante cercano a Libertad, te ofrece un descuento.",
+      "Tus relaciones con Deber se han deteriorado.\\Azot, el técnico que trabaja para Deber, te cobrará más por sus servicios."
+    ],
+    "ukr": [
+      "Ваші відносини із «Волею» покращилися. Якщо ви трапите в халепу, бійці «Волі» намагатимуться прийти до вас на допомогу.",
+      "Гаваєць - торговець, який симпатизує «Волі», - зробив Вам постійну знижку.",
+      "Ваші відносини із «Долгом» погіршилися.",
+      "Технік Азот симпатизує «Долгу», тому підвищив ціни на свої послуги."
+    ]
   },
   "st_sp_achievement_15_descr": {
     "eng": "You have provided plenty of help to Freedom, and this has earned you the respect of Freedom fighters and their friends. But keep in mind that not everyone in the Zone is a Freedom fan.",
-    "pol": "Pomoc udzielona przez ciebie Wolnoњci sprawiіa, їe bojownicy i sympatycy tej frakcji nabrali do ciebie szacunku. Musisz jednak pamiкtaж, їe nie kaїda osoba, jak№ napotkasz w Zonie, jest pozytywnie nastawiona do Wolnoњci.",
+    "fra": "Vous avez été d'une grande aide ŕ la Liberté, ce qui vous a valu le respect de ses combattants et de leurs alliés. Mais n'oubliez pas que certains résidents de la Zone ne s'entendent pas aussi bien que vous avec cette faction.",
+    "ger": "Sie haben den Freiheitlern große Hilfe geleistet und sich damit den Respekt von ihnen und ihren Freunden verdient. Vergessen Sie allerdings nicht, dass nicht jeder in der Zone ein Anhänger der Freiheit ist.",
+    "ita": "Hai aiutato molto la Freedom, e questo ti č valso il rispetto dei combattenti della Freedom e dei loro amici. Ma ricorda che nella Zona non tutti sono dei sostenitori della Freedom.",
+    "pol": "Pomoc udzielona przez ciebie Wolności sprawiła, że bojownicy i sympatycy tej frakcji nabrali do ciebie szacunku. Musisz jednak pamiętać, że nie każda osoba, jaką napotkasz w Zonie, jest pozytywnie nastawiona do Wolności.",
     "rus": "Вы много помогали группировке «Свобода» и приобрели авторитет среди её бойцов и их друзей. Но не стоит забывать, что не все симпатизируют «Свободе».",
+    "spa": "Has sido de gran ayuda a Libertad, lo que te ha hecho ganarte el respeto de sus soldados y amigos. Sin embargo, no olvides que esta facción también tiene sus detractores.",
     "ukr": "Ви багато допомагали угрупованню «Воля» і набули авторитету серед її бійців та їхніх друзів. Але не варто забувати, що не всі симпатизують «Волі»."
   },
   "st_sp_achievement_15_name": {
     "eng": "A Friend of Freedom",
-    "pol": "Przyjaciel Wolnoњci",
+    "fra": "Ami de la Liberté",
+    "ger": "Freund der Freiheit",
+    "ita": "Un amico della Freedom",
+    "pol": "Przyjaciel Wolności",
     "rus": "Друг «Свободы»",
+    "spa": "Amigo de Libertad",
     "ukr": "Друг «Волі»"
   },
   "st_sp_achievement_16_hint": {
     "eng": "Stalkers at Yanov value a balance of power between Duty and Freedom, which is why both the technician and the trader have given you discounts now.",
-    "pol": "Stalkerzy ze stacji Janуw ceni№ sobie rуwnowagк siі miкdzy Powinnoњci№ a Wolnoњci№, dlatego teї zarуwno technik, jak i handlarz udzielili ci zniїki.",
+    "fra": "Les stalkers de Yanov estiment qu'il est important de maintenir l'équilibre entre le Devoir et la Liberté. En conséquence, leur technicien et leur marchand ont tous deux décidé de vous faire profiter de leurs tarifs préférentiels.",
+    "ger": "Die Stalker in der Janow-Station schätzen ein Gleichgewicht zwischen den Wächtern und der Freiheit. Aus diesem Grund gewähren Ihnen sowohl der Techniker als auch der Händler von nun an einen Rabatt.",
+    "ita": "Gli stalker di Yanov fanno molta attenzione a che ci sia un equilibrio di forze tra la Duty e la Freedom, ecco perché sia il tecnico che il commerciante ti hanno offerto uno sconto.",
+    "pol": "Stalkerzy ze stacji Janów cenią sobie równowagę sił między Powinnością a Wolnością, dlatego też zarówno technik, jak i handlarz udzielili ci zniżki.",
     "rus": "Для сталкеров на «Янове» важен баланс сил «Долга» и «Свободы», поэтому техник и торговец сделали Вам постоянные скидки.",
+    "spa": "Los stalkers de Yanov valoran el equilibrio de poder entre Deber y Libertad. Por eso, tanto el técnico como el comerciante te ofrecen ahora descuentos.",
     "ukr": "Для сталкерів на «Янові» є важливим баланс сил «Долгу» та «Волі», тому технік і торговець зробили Вам постійні знижки."
   },
   "st_sp_achievement_16_descr": {
     "eng": "You didn’t side with either faction and always acted as a free stalker. You’ve not made any enemies, but you haven’t got any new friends either.",
-    "pol": "Nie stoisz po stronie їadnej z frakcji i zawsze dziaіasz jako wolny stalker. Nie masz їadnych nowych wrogуw z tego powodu, ale nie udaіo ci siк teї zyskaж nowych przyjaciуі.",
+    "fra": "Vous ne vous ętes rangé du côté d'aucune faction et avez toujours agi en stalker indépendant. Vous n'avez pas d'ennemis, mais vous ne vous ętes pas fait de nouveaux amis non plus.",
+    "ger": "Sie haben sich keiner der Fraktionen angeschlossen und immer wie ein freier Stalker gehandelt. Daher haben Sie sich zwar keine Feinde gemacht, aber auch keine neuen Freunde gewonnen.",
+    "ita": "Non ti sei schierato con nessuna fazione e hai scelto di agire come stalker libero. Non ti sei fatto alcun nemico, ma nemmeno nessun nuovo amico.",
+    "pol": "Nie stoisz po stronie żadnej z frakcji i zawsze działasz jako wolny stalker. Nie masz żadnych nowych wrogów z tego powodu, ale nie udało ci się też zyskać nowych przyjaciół.",
     "rus": "Вы не отдали предпочтение какой-либо группировке и всегда поступали как вольный сталкер. В результате Вы не нажили новых врагов, но и не приобрели новых друзей.",
+    "spa": "No te has aliado con ninguna facción y siempre has ido por libre. No te has ganado ningún enemigo, pero tampoco has hecho amigos.",
     "ukr": "Ви не віддали перевагу якомусь угрупованню і завжди поводилися мов вільний сталкер. У результаті Ви не нажили нових ворогів, але й не зустріли нових друзів."
   },
   "st_sp_achievement_16_name": {
     "eng": "A Man of Balance",
-    "pol": "Obroсca rуwnowagi",
+    "fra": "Un homme équilibré",
+    "ger": "Mann des Gleichgewichts",
+    "ita": "Un uomo equilibrato",
+    "pol": "Obrońca równowagi",
     "rus": "Сторонник равновесия",
+    "spa": "Un tipo ecuánime",
     "ukr": "Прихильник рівноваги"
   },
   "st_sp_achievement_17_hint": {
     "eng": "Traders offer you more rare and expensive goods.",
-    "pol": "Handlarze oferuj№ ci rzadkie i kosztowne towary.",
+    "fra": "Les marchands vous proposent de la marchandise plus rare et plus chčre.",
+    "ger": "Händler bieten Ihnen seltenere und teurere Waren an.",
+    "ita": "I commercianti ti offrono merci piů rare e costose.",
+    "pol": "Handlarze oferują ci rzadkie i kosztowne towary.",
     "rus": "Торговцы чаще предлагают Вам самые редкие и дорогие товары.",
+    "spa": "Los comerciantes te ofrecen cosas más caras e inusuales.",
     "ukr": "Торговці частіше пропонують Вам найрідші та найдорожчі товари."
   },
   "st_sp_achievement_17_descr": {
     "eng": "Although you know what it’s like to be short of cash, you’re not doing too badly at the moment. In fact, sometimes your wealth can be considerable, and traders value a client of your stature.",
-    "pol": "Wiesz, jak to jest nie mieж grosza przy duszy, ale obecnie nie masz powodуw do narzekaс. Jako їe zdarza ci siк dysponowaж znacz№cymi sumami pieniкdzy, handlarze ceni№ sobie ciebie jako klienta.",
+    "fra": "Vous avez connu des périodes de vache maigre, mais les affaires ne vont pas trop mal en ce moment. Vous parvenez męme parfois ŕ mettre beaucoup d'argent de côté et les marchands savent reconnaître un bon client.",
+    "ger": "Obwohl Sie das Gefühl kennen, wenn das Geld knapp wird, geht es Ihnen im Moment recht gut. Man könnte sogar sagen, dass Sie zeitweise reich sind, und Kunden wie Sie werden von Händlern besonders geschätzt.",
+    "ita": "Anche se sai cosa vuol dire \"essere al verde\", al momento non navighi in cattive acque. Infatti, ci sono volte, quando la tua ricchezza puň essere considerevole, che i commercianti ti vedono come un cliente importante.",
+    "pol": "Wiesz, jak to jest nie mieć grosza przy duszy, ale obecnie nie masz powodów do narzekań. Jako że zdarza ci się dysponować znaczącymi sumami pieniędzy, handlarze cenią sobie ciebie jako klienta.",
     "rus": "Не понаслышке зная, что такое безденежье, Вы, тем не менее, далеко не всегда стеснены в средствах - напротив, иногда Вашим денежным сбережениям можно позавидовать. Подобные клиенты - большая радость для торговца.",
+    "spa": "Aunque sabes lo que significa vivir con lo justo, ahora no te va mal. De hecho, en ocasiones te juntas con sumas considerables, y los comerciantes valoran a un cliente de tu talla.",
     "ukr": "Не з чуток знайомий із браком коштів, Ви при тому далеко не завжди обмежені у грошах. Навпаки, іноді Вашим заощадженням можна позаздрити. Подібні клієнти - велика радість для торговця."
   },
   "st_sp_achievement_17_name": {
     "eng": "A Wealthy Client",
+    "fra": "Bon client",
+    "ger": "Reicher Kunde",
+    "ita": "Un ricco cliente",
     "pol": "Bogaty klient",
     "rus": "Состоятельный клиент",
+    "spa": "Un cliente adinerado",
     "ukr": "Заможний клієнт"
   },
   "st_sp_achievement_18_hint": {
     "eng": "After getting the notes, Strelok found a new reason to live on and make it to his objective, whatever the cost.",
-    "pol": "Po otrzymaniu notatek, Strieіok odzyskaі chкж do їycia i dojњcia do celu, niezaleїnie od kosztуw.",
+    "fra": "Les messages que vous avez remis ŕ Strelok lui ont donné une nouvelle raison de vivre et d'atteindre son objectif, coűte que coűte.",
+    "ger": "Nachdem Strelok die Nachrichten bekommen hat, hat er nun eine neue Lebensaufgabe gefunden und will diese um jeden Preis erfüllen.",
+    "ita": "Dopo aver ricevuto gli appunti, Strelok ha trovato un nuovo motivo di vita e ha scelto di perseguire i suoi obiettivi, a qualunque costo.",
+    "pol": "Po otrzymaniu notatek, Striełok odzyskał chęć do życia i dojścia do celu, niezależnie od kosztów.",
     "rus": "Записки оказались для Стрелка дополнительным стимулом к тому, чтобы выжить и во чтобы то ни стало добраться до намеченной цели.",
+    "spa": "Tras conseguir las notas, Strelok halló una nueva razón para vivir y perseguir su objetivo a toda costa.",
     "ukr": "Записки виявилися для Стрільця додатковим стимулом до того, щоб вижити та за будь-яку ціну дістатися наміченої мети."
   },
   "st_sp_achievement_18_descr": {
     "eng": "Your foresight has served you well: on finding notes in Strelok's group’s stashes, you kept them until you found their rightful owner.",
-    "pol": "Moїesz poszczyciж siк dalekowzrocznoњci№: przechowywane przez ciebie zapiski znalezione w schowkach grupy Strieіoka wrуciіy do prawowitego wіaњciciela.",
+    "fra": "Vous avez été bien inspiré : lorsque vous avez trouvé les messages dans les planques du groupe de Strelok, vous avez décidé de les conserver pour les remettre ŕ leur propriétaire.",
+    "ger": "Ihre Weitsicht hat sich bewährt: Nachdem Sie die Nachrichten im Versteck von Streloks Gruppe gefunden haben, haben Sie sie behalten, bis Sie sie dem rechtmäßigen Besitzer geben konnten.",
+    "ita": "La tua previsione ti č stata utile: dopo aver trovato gli appunti nei ripostigli del gruppo di Strelok, li hai tenuti finché non li hai consegnati al legittimo proprietario.",
+    "pol": "Możesz poszczycić się dalekowzrocznością: przechowywane przez ciebie zapiski znalezione w schowkach grupy Striełoka wróciły do prawowitego właściciela.",
     "rus": "Вам нельзя отказать в предусмотрительности: найдя записки в тайниках группы Стрелка, Вы не расставались с ними, пока не нашли того, кому они принадлежат.",
+    "spa": "Tu capacidad de previsión te impulsó a guardar las notas que encontraste en los escondites del grupo de Strelok hasta dar con su propietario.",
     "ukr": "Вам не можна відмовити у завбачливості: знайшовши записки у схованках групи Стрільця, Ви не розставалися із ними, поки не знайшли того, кому вони належать."
   },
   "st_sp_achievement_18_name": {
     "eng": "A Keeper of Secrets",
-    "pol": "Straїnik sekretуw",
+    "fra": "Gardien des secrets",
+    "ger": "Bewahrer von Geheimnissen",
+    "ita": "Custode di segreti",
+    "pol": "Strażnik sekretów",
     "rus": "Хранитель тайн",
+    "spa": "Guardián de secretos",
     "ukr": "Зберігач таємниць"
   },
   "st_sp_achievement_19_descr": {
     "eng": "You managed to survive an emission without taking cover thanks to the anabiotic pills. The effects of this on your psyche are unclear, as you notice a strange silence inside your mind. It seems that you no longer hear a constant stream of thoughts.",
-    "pol": "Udaіo ci siк przeїyж emisjк bez ukrywania siк dziкki lekom anabiotycznym. Wpіyw tego zdarzenia na twoj№ psychikк nie jest do koсca zrozumiaіy, poniewaї twуj umysі wypeіnia dziwna cisza. Wydaje siк, їe juї nie sіyszysz ci№gіego strumienia myњli.",
+    "fra": "Vous avez réussi ŕ survivre ŕ une émission sans vous mettre ŕ couvert grâce aux anabiotiques. Les effets sur votre psychisme commencent ŕ se faire sentir ; un étrange silence s'est installé dans votre esprit, vous n'entendez plus le brouhaha de vos pensées.",
+    "ger": "Dank den anabiotischen Pillen konnten Sie eine Emission überleben, ohne sich in Sicherheit bringen zu müssen. Die psychischen Auswirkungen dieser extremen Erfahrung sind jedoch noch nicht ganz ersichtlich - Sie spüren eine seltsame Stille in Ihrem Geist.",
+    "ita": "Sei riuscito a sopravvivere a un'emissione senza metterti al riparo grazie alle pillole anabiotiche. Gli effetti sulla tua psiche non sono chiari, e senti uno strano silenzio nella tua mente. A quanto pare non percepisci piů un flusso di pensieri costante.",
+    "pol": "Udało ci się przeżyć emisję bez ukrywania się dzięki lekom anabiotycznym. Wpływ tego zdarzenia na twoją psychikę nie jest do końca zrozumiały, ponieważ twój umysł wypełnia dziwna cisza. Wydaje się, że już nie słyszysz ciągłego strumienia myśli.",
     "rus": "Вы смогли пережить выброс, не спрятавшись в укрытии - Вас спасли таблетки анабиотика. Это оказало неоднозначное воздействие на Вашу психику: в голове наступила странная тишина. Кажется, Вы больше не слышите постоянного потока мыслей.",
+    "spa": "Has conseguido sobrevivir a una emisión sin cubrirte gracias a los anabióticos. Los efectos psíquicos son inciertos, pero percibes un silencio mental extrańo. Parece que ya no oyes tus propias ideas constantemente.",
     "ukr": "Ви змогли пережити викид, не переховуючись в укритті - Вас врятували таблетки анабіотика. Це вчинило неоднозначний вплив на Вашу психіку: в голові настала дивна тиша. Здається, Ви більше не чуєте постійного плину думок."
   },
   "st_sp_achievement_19_name": {
     "eng": "Marked by the Zone",
-    "pol": "Naznaczony przez Zonк",
+    "fra": "Affecté par la Zone",
+    "ger": "Gezeichnet von der Zone",
+    "ita": "Segnato dalla zona",
+    "pol": "Naznaczony przez Zonę",
     "rus": "Отмеченный Зоной",
+    "spa": "Marcado por la Zona",
     "ukr": "Мічений Зоною"
   },
   "st_sp_achievement_20_hint": {
     "eng": "Owl the trader has offered you a discount for being his best informer and partner.",
-    "pol": "Handlarz Sowa zaoferowaі ci zniїkк, poniewaї jesteњ jego najlepszym informatorem i partnerem.",
+    "fra": "Le Hibou vous a offert une ristourne pour vous remercier d'ętre son meilleur informateur et partenaire.",
+    "ger": "Der Händler Uhu gewährt Ihnen ab jetzt einen Rabatt, weil Sie sein bester Informant und Partner sind.",
+    "ita": "Owl il commerciante ti ha offerto uno sconto perché sei il suo socio e informatore migliore.",
+    "pol": "Handlarz Sowa zaoferował ci zniżkę, ponieważ jesteś jego najlepszym informatorem i partnerem.",
     "rus": "Торговец Сыч сделал Вам скидку как лучшему информатору и коллеге.",
+    "spa": "El comerciante Búho te ofrece un descuento por ser su mejor informador y socio.",
     "ukr": "Торговець Сич зробив Вам знижку як кращому інформатору та колезі."
   },
   "st_sp_achievement_20_descr": {
     "eng": "When you get your hands on a piece of info, you always find the right buyer. Obviously, you always have your own profit in mind when selling information to those who need it.",
-    "pol": "Kiedy zdobкdziesz waїn№ informacjк, zawsze znajdujesz dla niej odpowiedniego nabywcк. Oczywiњcie sprzedaj№c informacje odpowiednim osobom kierujesz siк wіasn№ korzyњci№.",
+    "fra": "Lorsque vous dénichez des informations, vous trouvez toujours le bon acheteur. Évidemment, lorsque vous les vendez, vous faites toujours en sorte que cela soit dans votre intéręt.",
+    "ger": "Wenn Sie eine interessante Information aufschnappen, finden Sie immer den richtigen Käufer dafür. Natürlich haben Sie stets Ihren eigenen Gewinn im Sinn, wenn Sie die Informationen an die Leute verkaufen, die sie benötigen.",
+    "ita": "Quando metti le mani su un'informazione trovi sempre l'acquirente giusto. Ovviamente, quando vendi le informazioni hai sempre a mente il tuo profitto personale.",
+    "pol": "Kiedy zdobędziesz ważną informację, zawsze znajdujesz dla niej odpowiedniego nabywcę. Oczywiście sprzedając informacje odpowiednim osobom kierujesz się własną korzyścią.",
     "rus": "Какая бы информация ни попадала в Ваши в руки, Вы всегда находили на неё покупателя. Не упуская возможности предоставить информацию интересующимся, Вы, естественно, не забывали и о собственной выгоде.",
+    "spa": "Cuando echas mano a algún dato, siempre encuentras a algún interesado. Obviamente, sabes cuánto pedir si vendes información a quien la necesita.",
     "ukr": "Яка б інформація не трапляла до Ваших рук, Ви завжди знаходили на неї покупця. Не гублячи можливості надати інформацію зацікавленим особам, Ви, звісно, не забували і про власний зиск."
   },
   "st_sp_achievement_20_name": {
     "eng": "Trafficker of Information",
+    "fra": "Trafiquant d'informations",
+    "ger": "Informationsmakler",
+    "ita": "Trafficante d'informazioni",
     "pol": "Handlarz informacjami",
     "rus": "Торговец информацией",
+    "spa": "Traficante de información",
     "ukr": "Торговець інформацією"
   },
   "st_sp_achievement_21_hint": {
@@ -706,13 +1358,29 @@
       "Your relations with stalkers have improved. If you find yourself in a pickle, stalkers will try to help you.",
       "Stalker medics have agreed to sell you medical supplies at cost price."
     ],
+    "fra": [
+      "Vos relations avec les stalkers se sont améliorées. En cas de problčme, ils seront lŕ pour vous aider.",
+      "Leurs médecins ont accepté de vous vendre des fournitures médicales ŕ prix coűtant."
+    ],
+    "ger": [
+      "Ihr Verhältnis zu den Stalkern hat sich gebessert. Wenn Sie in Schwierigkeiten geraten, werden die Stalker versuchen, Ihnen zu helfen.",
+      "Die Ärzte der Stalker haben sich entschieden, Ihnen medizinische Produkte zum Einkaufspreis zu verkaufen."
+    ],
+    "ita": [
+      "Il tuo rapporto con gli stalker č migliorato. Se ti trovi nei guai, gli stalker cercheranno di aiutarti.",
+      "I medici degli stalker hanno accettato di venderti i medicinali a prezzo di costo."
+    ],
     "pol": [
-      "Twoje stosunki ze stalkerami ulegіy poprawie. Jeњli kiedykolwiek napytasz sobie biedy, bкd№ oni prуbowali ci pomуc.",
-      "Stalkerscy medycy zgodzili siк sprzedawaж ci lekarstwa po kosztach."
+      "Twoje stosunki ze stalkerami uległy poprawie. Jeśli kiedykolwiek napytasz sobie biedy, będą oni próbowali ci pomóc. ",
+      "Stalkerscy medycy zgodzili się sprzedawać ci lekarstwa po kosztach."
     ],
     "rus": [
       "Ваши отношения со сталкерами улучшились. Если Вы попадёте в неприятности, сталкеры постараются прийти к вам на помощь.",
       "Сталкеры-медики условились продавать Вам медикаменты по себестоимости."
+    ],
+    "spa": [
+      "Tus relaciones con los stalkers han mejorado. Si estás en apuros, tratarán de ayudarte.",
+      "Los médicos de la facción han acordado venderte suministros médicos a precio de coste."
     ],
     "ukr": [
       "Ваші відносини зі сталкерами покращилися. Якщо Ви трапите у халепу, сталкери намагатимуться прийти до вас на допомогу.",
@@ -721,26 +1389,42 @@
   },
   "st_sp_achievement_21_descr": {
     "eng": "You’ve always helped out stalkers in trouble. Although their faction is not very tight-knit, you now have allies in the unofficial stalker brotherhood who will help you in combat and afterwards too.",
-    "pol": "Zawsze pomagasz stalkerom w potrzebie. Mimo їe ich frakcja nie jest specjalnie zїyta, masz teraz w nieoficjalnym bractwie sojusznikуw, ktуrzy bкd№ udzielaж ci pomocy w walce i poza ni№.",
+    "fra": "Vous avez toujours aidé les stalkers indépendants dans les coups durs. Leur faction n'est pas la plus unie, mais vous avez désormais des alliés dans la fraternité officieuse des stalkers qui vous feront de leur mieux pour vous aider.",
+    "ger": "Sie haben Stalkern in Not immer geholfen. Auch wenn die inoffizielle Stalkerbruderschaft nicht sehr eng miteinander verbunden ist, werden sie Ihnen bei Kämpfen und auch danach zur Seite stehen.",
+    "ita": "Hai sempre aiutato gli stalker in difficoltŕ. Anche se la loro fazione č molto unita e chiusa, ora hai degli alleati nell'ufficiosa fratellanza degli stalker che ti aiuteranno in combattimento e anche dopo.",
+    "pol": "Zawsze pomagasz stalkerom w potrzebie. Mimo że ich frakcja nie jest specjalnie zżyta, masz teraz w nieoficjalnym bractwie sojuszników, którzy będą udzielać ci pomocy w walce i poza nią.",
     "rus": "Встречая попавших в беду сталкеров, Вы всегда оказывали им помощь. Эти ребята не слишком сплочены, но в их негласном братстве у Вас появились союзники, на которых можно смело положиться и в бою, и в мирной ситуации.",
+    "spa": "Siempre has ayudado a los stalkers con problemas. Aunque no es una facción muy unida, ahora cuentas con aliados en su hermandad extraoficial y te ayudarán en situaciones de combate y más.",
     "ukr": "Зустрічаючи сталкерів, які трапили в халепу, Ви завжди надавали їм допомогу. Сталкери не надто організовані, та в їхньому негласному братерстві у Вас з'явилися союзники, котрі зможуть допомогти Вам і в бою, і в мирній ситуації."
   },
   "st_sp_achievement_21_name": {
     "eng": "A Friend of Stalkers",
-    "pol": "Przyjaciel stalkerуw",
+    "fra": "Ami des stalkers",
+    "ger": "Freund der Stalker",
+    "ita": "Amico degli stalker",
+    "pol": "Przyjaciel stalkerów",
     "rus": "Друг сталкеров",
+    "spa": "Amigo de los stalkers",
     "ukr": "Друг сталкерів"
   },
   "st_sp_achievement_1_hint": {
     "eng": "Various new information allowed Professors Hermann and Ozersky to create a new experimental drug, an anabiotic, in the Zone.",
-    "pol": "Rуїne nowe informacje pozwoliіy profesorom Hermanowi i Oziorskiemu na stworzenie w Zonie nowego eksperymentalnego leku, tak zwanego anabiotyku.",
+    "fra": "Différentes informations ont permis aux professeurs Hermann et Ozersky de créer une nouvelle drogue expérimentale de type anabiotique dans la Zone.",
+    "ger": "Unterschiedliche neue Erkenntnisse haben es den Professoren Hermann und Oserski ermöglicht, in der Zone ein neues experimentelles Präparat herzustellen, ein Anabiotikum.",
+    "ita": "Varie nuove informazioni hanno permesso ai professori Hermann e Ozersky di creare una nuova droga, un anabiotico, nella Zona.",
+    "pol": "Różne nowe informacje pozwoliły profesorom Hermanowi i Oziorskiemu na stworzenie w Zonie nowego eksperymentalnego leku, tak zwanego anabiotyku.",
     "rus": "Совокупность новых данных позволила профессорам Герману и Озёрскому синтезировать в условиях Зоны экспериментальный анабиотик.",
+    "spa": "Diversas informaciones recientes permitieron a los profesores Hermann y Ozersky crear una nueva droga experimental en la Zona: un anabiótico.",
     "ukr": "Сукупність нових даних дозволила професорам Герману та Озьорському синтезувати в умовах Зони експериментальний анабіотик."
   },
   "st_sp_achievement_19_hint": {
     "eng": "You have a chance of surviving an emission even without the aid of drugs, provided your health is in order.",
-    "pol": "Istnieje szansa przeїycia emisji nawet bez pomocy lekarstw, pod warunkiem, їe jesteњ w peіni zdrowia.",
+    "fra": "Vous avez une chance de survivre ŕ une émission męme sans médicament, dans la mesure oů vous ętes en bonne santé.",
+    "ger": "Wenn Sie bei voller Gesundheit sind, haben Sie selbst ohne medizinische Mittel eine reelle Überlebenschance bei Emissionen.",
+    "ita": "A patto che tu disponga di sufficiente salute, puoi riuscire a sopravvivere a un'emissione anche senza utilizzare droghe anti-radiazioni.",
+    "pol": "Istnieje szansa przeżycia emisji nawet bez pomocy lekarstw, pod warunkiem, że jesteś w pełni zdrowia.",
     "rus": "Даже без приема препаратов у Вас есть шанс пережить выброс вне укрытия, если Ваше здоровье ничем не подорвано.",
+    "spa": "Puedes sobrevivir a una emisión, incluso sin ayuda de fármacos, siempre que estés saludable.",
     "ukr": "Навіть без прийому препаратів у Вас є шанс пережити викид поза укриттям, якщо Ваше здоров'я нічим не підірване."
   },
   "st_sp_achievement_13_hint": {
@@ -748,13 +1432,29 @@
       "Given how useful you are, Professor Hermann is now offering you medical supplies and equipment intended exclusively for bunker personnel at cost price.",
       "Novikov is so used to you that he only wants you to pay for parts when performing modifications."
     ],
+    "fra": [
+      "Content de votre efficacité, le professeur Hermann accepte ŕ présent de vous vendre ŕ prix coűtant des fournitures médicales et de l'équipement destinés exclusivement au personnel du bunker.",
+      "Novikov vous connaît bien et ne vous facture plus la main-d'śuvre lorsqu'il vous prépare des modifications."
+    ],
+    "ger": [
+      "Da Sie stets eine große Hilfe sind, bietet Professor Hermann Ihnen medizinische Produkte und Ausrüstung, die ausschließlich für das Bunkerpersonal vorgesehen sind, zum Einkaufspreis an.",
+      "Nowikow hat Sie so sehr ins Herz geschlossen, dass er Ihnen bei Modifikationen lediglich das Material in Rechnung stellt."
+    ],
+    "ita": [
+      "Considerata la tua utilitŕ, il professor Hermann ti offre dei medicinali e degli equipaggiamenti solitamente riservati al peronale del bunker, a prezzo di costo.",
+      "Novikov si č cosě abituato alla tua presenza che ti chiede solo il pagamento delle parti utilizzate per le modifiche."
+    ],
     "pol": [
-      "Ze wzglкdu na twoj№ uїytecznoњж, profesor Herman oferuje ci teraz po kosztach њrodki medyczne i wyposaїenie przeznaczone tylko dla personelu bunkra.",
-      "Nowikow na tyle do ciebie przywykі, їe przy wykonywaniu modyfikacji oczekuje tylko zwrotu kosztu uїytych czкњci."
+      "Ze względu na twoją użyteczność, profesor Herman oferuje ci teraz po kosztach środki medyczne i wyposażenie przeznaczone tylko dla personelu bunkra. ",
+      "Nowikow na tyle do ciebie przywykł, że przy wykonywaniu modyfikacji oczekuje tylko zwrotu kosztu użytych części."
     ],
     "rus": [
       "Разглядев в Вас ценного помощника, профессор Герман предлагает Вам медикаменты и оборудование, предназначенные только для персонала бункера, по себестоимости.",
       "Новиков настолько к Вам привык, что, делая модификации, требует оплату только за расходные материалы."
+    ],
+    "spa": [
+      "Como estás siendo muy útil, el profesor Hermann te ofrece suministros médicos y equipo solo para personal del búnker a precio de coste.",
+      "Novikov está tan habituado a trabajar contigo que solo te cobrará las piezas cuando realice modificaciones."
     ],
     "ukr": [
       "Розгледівши у Вас цінного помічника, професор Герман пропонує Вам медикаменти та устаткування, призначені лише для персоналу бункера, за собівартістю.",

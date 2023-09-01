@@ -1,32 +1,52 @@
 {
   "hide_from_surge_message": {
     "eng": "Attention! Emission starts in:",
-    "pol": "Uwaga! Emisja rozpocznie si� za:",
+    "fra": "Attention ! Début de l'émission dans :",
+    "ger": "Achtung! Emission beginnt in:",
+    "ita": "Attenzione! Inizio emissione tra:",
+    "pol": "Uwaga! Emisja rozpocznie się za:",
     "rus": "Внимание! До выброса осталось",
+    "spa": "ˇAtención! La emisión comenzará en:",
     "ukr": "Увага! До викиду залишилося"
   },
   "hide_from_surge_descr_1_a": {
     "eng": "You must run to the nearest cover immediately and hide from the emission.",
-    "pol": "Musisz natychmiast biec do najbli�szego schronienia i ukry� si� przed emisj�.",
+    "fra": "Mettez-vous immédiatement ŕ couvert pour vous protéger de l'émission.",
+    "ger": "Sie müssen sich in den nächsten Unterschlupf begeben, um sich vor der Emission zu schützen.",
+    "ita": "Devi raggiungere subito la copertura piů vicina per ripararti dall'emissione.",
+    "pol": "Musisz natychmiast biec do najbliższego schronienia i ukryć się przed emisją.",
     "rus": "Необходимо срочно бежать к ближайшему укрытию и спрятаться от выброса.",
+    "spa": "Busca el lugar más cercano para guarecerte inmediatamente de la emisión.",
     "ukr": "Необхідно терміново бігти до найближчого укриття і сховатися від викиду."
   },
   "hide_from_surge_descr_2_a": {
     "eng": "You must not leave cover during an emission.",
-    "pol": "Nie mo�esz wychodzi� ze schronienia w trakcie emisji.",
+    "fra": "Ne quittez pas votre abri pendant une émission.",
+    "ger": "Sie dürfen Ihren Unterschlupf während der Emission nicht verlassen.",
+    "ita": "Non devi mai uscire allo scoperto durante un'emissione.",
+    "pol": "Nie możesz wychodzić ze schronienia w trakcie emisji.",
     "rus": "Во время выброса ни в коем случае нельзя покидать укрытие.",
+    "spa": "No debes salir de tu refugio mientras dure la emisión.",
     "ukr": "Під час викиду в жодному разі не можна залишати укриття."
   },
   "hide_from_surge_name_1": {
     "eng": "Emission: find cover",
-    "pol": "Emisja: znajd� schronienie",
+    "fra": "Emission : se mettre ŕ couvert",
+    "ger": "Emission: Deckung suchen",
+    "ita": "Emissione: trova un riparo",
+    "pol": "Emisja: znajdź schronienie",
     "rus": "Выброс: найти укрытие",
+    "spa": "Emisión: ponte a cubierto",
     "ukr": "Викид: знайти укриття"
   },
   "hide_from_surge_name_2": {
     "eng": "Emission: wait in cover",
+    "fra": "Emission : rester ŕ couvert",
+    "ger": "Emission: In Deckung warten",
+    "ita": "Emissione: attendi al riparo",
     "pol": "Emisja: czekaj w schronieniu",
     "rus": "Выброс: переждать в укрытии",
+    "spa": "Emisión: espera a cubierto",
     "ukr": "Викид: перечекати в укритті"
   }
 }

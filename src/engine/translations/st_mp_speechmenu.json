@@ -1,110 +1,182 @@
 {
   "speech_attack": {
     "eng": "Everyone, attack!",
+    "fra": "Tout le monde, ŕ l'attaque !",
+    "ger": "Alle angreifen!",
+    "ita": "Gente, attaccare!",
     "pol": "Wszyscy, do ataku!",
     "rus": "Все в атаку!",
+    "spa": "ˇAtacad todos!",
     "ukr": "Усі в атаку!"
   },
   "speech_covermeartifact": {
     "eng": "I'm going for the artifact! Cover me!",
-    "pol": "Id� po artefakt! Os�ania� mnie!",
+    "fra": "Je vais récupérer l'artefact ! Couvrez-moi !",
+    "ger": "Ich suche das Artefakt! Gib mir Deckung!",
+    "ita": "Vado a prendere il manufatto! Coprimi!",
+    "pol": "Idę po artefakt! Osłaniać mnie!",
     "rus": "Беру артефакт! Прикройте!",
+    "spa": "ˇVoy a por el artefacto! ˇCúbreme!",
     "ukr": "Беру артефакт! Прикрийте!"
   },
   "speech_followme": {
     "eng": "Follow me!",
-    "pol": "Za mn�!",
+    "fra": "Suivez-moi !",
+    "ger": "Mir nach!",
+    "ita": "Seguimi!",
+    "pol": "Za mną!",
     "rus": "За мной!",
+    "spa": "ˇSígueme!",
     "ukr": "За мною!"
   },
   "speech_guardartifact": {
     "eng": "Guard the artifact for now. Don’t take it yet!",
+    "fra": "Protégez l'artefact pour l'instant ! Ne le prenez pas encore !",
+    "ger": "Wir bewachen vorerst das Artefakt. Nicht angreifen!",
+    "ita": "Per ora proteggi il manufatto. Aspetta a prenderlo!",
     "pol": "Na razie pilnuj artefaktu. Jeszcze go nie bierz!",
     "rus": "Охраняем арефакт. Пока не берём!",
+    "spa": "De momento protege el artefacto. ˇNo lo cojas todavía!",
     "ukr": "Охороняємо артефакт. Поки що не беремо!"
   },
   "speech_holdingpos": {
     "eng": "I'm holding my position!",
-    "pol": "Trzymam pozycj�!",
+    "fra": "Je tiens ma position !",
+    "ger": "Ich halte die Position.",
+    "ita": "Mantengo la posizione!",
+    "pol": "Trzymam pozycję!",
     "rus": "Остаюсь на позиции",
+    "spa": "ˇMantengo mi posición!",
     "ukr": "Залишаюся на позиції"
   },
   "speech_holdpos": {
     "eng": "Hold your positions!",
-    "pol": "Trzyma� pozycje!",
+    "fra": "Tenez vos positions !",
+    "ger": "Position halten!",
+    "ita": "Mantenete la posizione!",
+    "pol": "Trzymać pozycje!",
     "rus": "Держим позицию!",
+    "spa": "ˇMantened posiciones!",
     "ukr": "Тримаємо позицію!"
   },
   "speech_icoverartifact": {
     "eng": "Take the artifact! I’ll cover you!",
-    "pol": "Bierz artefakt! B�d� ci� os�ania�!",
+    "fra": "Prenez l'artefact ! Je vous couvre !",
+    "ger": "Nimm das Artefakt! Ich gebe dir Deckung.",
+    "ita": "Prendi il manufatto! Ti copro io!",
+    "pol": "Bierz artefakt! Będę cię osłaniać!",
     "rus": "Берите артефакт! Я прикрою!",
+    "spa": "ˇCoge el artefacto! ˇYo te cubro!",
     "ukr": "Беріть артефакт! Я прикрию!"
   },
   "speech_needhelp": {
     "eng": "I need help!",
-    "pol": "Potrzebuj� pomocy!",
+    "fra": "J'ai besoin d'aide !",
+    "ger": "Ich brauche Hilfe.",
+    "ita": "Mi serve aiuto!",
+    "pol": "Potrzebuję pomocy!",
     "rus": "Нужна помощь!",
+    "spa": "ˇNecesito ayuda!",
     "ukr": "Потрібна допомога!"
   },
   "speech_needmoney": {
     "eng": "No money - buy me equipment!",
-    "pol": "Nie mam pieni�dzy - kup wi�cej sprz�tu!",
+    "fra": "Je n'ai pas assez d'argent ! Achetez-moi de l'équipement !",
+    "ger": "Kein Geld - kauf mehr Ausrüstung.",
+    "ita": "Non ho soldi... comprami dell'equipaggiamento!",
+    "pol": "Nie mam pieniędzy - kup więcej sprzętu!",
     "rus": "Нет денег, купите экипировку!",
+    "spa": "No tengo dinero. ˇCómprame equipo!",
     "ukr": "Немає грошей, придбайте спорядження!"
   },
   "speech_no": {
     "eng": "No.",
+    "fra": "Non.",
+    "ger": "Nein.",
+    "ita": "No.",
     "pol": "Nie.",
     "rus": "Нет.",
+    "spa": "No.",
     "ukr": "Ні."
   },
   "speech_noenemy": {
     "eng": "No one in sight!",
+    "fra": "Personne en vue !",
+    "ger": "Niemand zu sehen.",
+    "ita": "Nessuno in vista!",
     "pol": "Czysto!",
     "rus": "Никого поблизости.",
+    "spa": "ˇNadie a la vista!",
     "ukr": "Нікого поблизу."
   },
   "speech_report": {
     "eng": "Report, now!",
-    "pol": "Zg�o� si�!",
+    "fra": "Au rapport, maintenant !",
+    "ger": "Meldung, sofort!",
+    "ita": "Rapporto, subito!",
+    "pol": "Zgłoś się!",
     "rus": "Доложите ситуацию!",
+    "spa": "ˇInforma!",
     "ukr": "Доповідайте ситуацію!"
   },
   "speech_retreat": {
     "eng": "Retreat!",
-    "pol": "Odwr�t!",
+    "fra": "Repliez-vous !",
+    "ger": "Rückzug!",
+    "ita": "Ritirata!",
+    "pol": "Odwrót!",
     "rus": "Отступаем!",
+    "spa": "ˇRetirada!",
     "ukr": "Відступаємо!"
   },
   "speech_returntheartefact": {
     "eng": "Return the artifact!",
-    "pol": "Odnie� artefakt!",
+    "fra": "Rapportez l'artefact !",
+    "ger": "Hol das Artefakt zurück!",
+    "ita": "Restituisci il manufatto!",
+    "pol": "Odnieś artefakt!",
     "rus": "Верните артефакт!",
+    "spa": "ˇDevuelve el artefacto!",
     "ukr": "Поверніть артефакт!"
   },
   "speech_roger": {
     "eng": "Roger.",
+    "fra": "Compris !",
+    "ger": "Verstanden.",
+    "ita": "Ricevuto.",
     "pol": "Rozumiem.",
     "rus": "Вас понял.",
+    "spa": "Bien.",
     "ukr": "Вас зрозумів."
   },
   "speech_silence": {
     "eng": "Shut up!",
+    "fra": "Silence !",
+    "ger": "Halt's Maul!",
+    "ita": "Taci!",
     "pol": "Cicho!",
     "rus": "Заткнитесь!",
+    "spa": "ˇCállate!",
     "ukr": "Стуліть пельку!"
   },
   "speech_sticktogether": {
     "eng": "Stick together.",
-    "pol": "Musimy trzyma� si� razem.",
+    "fra": "Restez groupés !",
+    "ger": "Zusammenbleiben.",
+    "ita": "Restiamo uniti.",
+    "pol": "Musimy trzymać się razem.",
     "rus": "Держимся вместе.",
+    "spa": "No os separéis.",
     "ukr": "Тримаємося разом."
   },
   "speech_takeartifact": {
     "eng": "Take the artifact!",
+    "fra": "Prenez l'artefact !",
+    "ger": "Hol das Artefakt!",
+    "ita": "Prendi il manufatto!",
     "pol": "Bierz artefakt!",
     "rus": "Берём артефакт!",
+    "spa": "ˇCoge el artefacto!",
     "ukr": "Беремо артефакт!"
   }
 }

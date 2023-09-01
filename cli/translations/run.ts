@@ -13,7 +13,7 @@ export function setupTranslationsCommands(command: Command): void {
     .description("parse provided xml translation file or folder path as json")
     .option("-l, --language <locale>", "use language as key for translations")
     .option("-c, --clean", "whether output should be cleaned up")
-    .option("-o, --output", "output file or directory")
+    .option("-o, --output <path>", "output file or directory")
     .option("-e, --encoding <encoding>", "use specified target XML encoding")
     .option("-v, --verbose", "use verbose logging")
     .action(parseTranslationAsJson);

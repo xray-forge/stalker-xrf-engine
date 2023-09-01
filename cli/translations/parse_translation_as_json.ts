@@ -43,7 +43,7 @@ export async function parseTranslationAsJson(target: string, parameters: IParseT
 
   const locale: string = getTargetLocale(parameters);
   const encoding: string = parameters.encoding;
-  const output: string = parameters.output ?? TARGET_PARSED_DIR;
+  const output: string = parameters.output ? path.resolve(parameters.output) : TARGET_PARSED_DIR;
 
   const isCustomOutput: boolean = output !== TARGET_PARSED_DIR;
 
@@ -73,45 +73,64 @@ export async function parseTranslationAsJson(target: string, parameters: IParseT
     fs.rmSync(output, isOutputDirectory ? { recursive: true, force: true } : { force: true });
   }
 
-  for (const it of files) {
-    const data: IJsonTranslationSchema = await parseXmlToJson(it, encoding);
-    const fileDetails: path.ParsedPath = path.parse(it);
-    const destination: string = isOutputDirectory
-      ? path.resolve(output, `${fileDetails.name}${EAssetExtension.JSON}`)
-      : path.resolve(output);
+  try {
+    for (const it of files) {
+      const data: IJsonTranslationSchema = await parseXmlToJson(it, encoding);
+      const fileDetails: path.ParsedPath = path.parse(it);
+      const destination: string = isOutputDirectory
+        ? path.resolve(output, `${fileDetails.name}${EAssetExtension.JSON}`)
+        : path.resolve(output);
 
-    if (createDirIfNoExisting(output)) {
-      log.debug("MKDIR:", yellowBright(output));
+      const isDestinationExisting: boolean = await exists(destination);
+
+      if (createDirIfNoExisting(output)) {
+        log.debug("MKDIR:", yellowBright(output));
+      }
+
+      log.debug("Write file:", yellow(destination));
+
+      const base: AnyObject = isDestinationExisting ? JSON.parse((await fsp.readFile(destination)).toString()) : {};
+      const content: string = JSON.stringify(transformXmlToJSON(data, locale, base), null, 2) + "\n";
+
+      await fsp.writeFile(destination, content);
+
+      log.info("Saved resulting file to:", yellow(destination));
     }
-
-    log.debug("Write file:", yellow(destination));
-    await fsp.writeFile(destination, JSON.stringify(transformXmlToJSON(data, locale), null, 2) + "\n");
-
-    log.info("Saved resulting file to:", yellow(destination));
+  } catch (error) {
+    log.error("Parsing of translations failed:", error.message);
+    throw error;
   }
 }
 
 /**
  * Transform XML to JSON translation.
  */
-function transformXmlToJSON(schema: AnyObject, locale: string): IJsonTranslationSchema {
+function transformXmlToJSON(schema: AnyObject, locale: string, base: AnyObject = {}): IJsonTranslationSchema {
   if (!isValidSchema(schema)) {
     throw new Error("Invalid XML schema file provided, expected XRay translations XML file.");
   }
 
   return schema["string_table"]["string"].reduce((acc, it) => {
-    acc[it["@_id"]] = config.available_locales.reduce((translation, lang) => {
+    const currentTranslationId: string = it["@_id"];
+    const currentTranslationRecord: AnyObject = acc[currentTranslationId] || {};
+
+    acc[currentTranslationId] = config.available_locales.reduce((translation, lang) => {
       if (lang === locale) {
-        translation[lang] = it.text.includes("\\n") ? it.text.split("\\n") : it.text;
+        try {
+          translation[lang] = it.text.includes("\\n") ? it.text.split("\\n") : it.text;
+        } catch (error) {
+          console.error(error, lang, it.text);
+          throw error;
+        }
       } else {
-        translation[lang] = it["@_id"];
+        translation[lang] = currentTranslationRecord[lang] || it["@_id"];
       }
 
       return translation;
     }, {});
 
     return acc;
-  }, {});
+  }, base);
 }
 
 /**
@@ -129,7 +148,11 @@ function isValidSchema(record: AnyObject): record is IXmlTranslationSchema {
  * Parse provided file content to JSON.
  */
 async function parseXmlToJson(file: string, encoding?: string): Promise<Record<string, any>> {
-  const parser: XMLParser = new XMLParser({ ignoreAttributes: false, isArray: (tag) => tag === "string" });
+  const parser: XMLParser = new XMLParser({
+    ignoreAttributes: false,
+    isArray: (tag) => tag === "string",
+    stopNodes: ["*.text"],
+  });
   const data: Buffer = fs.readFileSync(file);
   const usedEncoding: string = encoding ?? readEncodingFromBuffer(data) ?? DEFAULT_TARGET_ENCODING;
 

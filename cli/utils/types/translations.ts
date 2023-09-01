@@ -12,5 +12,6 @@ export interface IJsonTranslationSchema {
 export enum EEncoding {
   ASCII = "ascii",
   WINDOWS_1251 = "windows-1251",
+  WINDOWS_1250 = "windows-1250",
   UTF_8 = "utf-8",
 }
