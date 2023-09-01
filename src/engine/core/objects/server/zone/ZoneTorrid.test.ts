@@ -1,7 +1,7 @@
 import { describe, expect, it, jest } from "@jest/globals";
 
 import { getObjectIdByStoryId, getServerObjectByStoryId, getStoryIdByObjectId, registry } from "@/engine/core/database";
-import { ZoneTorrid } from "@/engine/core/objects";
+import { ZoneTorrid } from "@/engine/core/objects/server/zone/ZoneTorrid";
 import { mockIniFile } from "@/fixtures/xray/mocks/ini";
 
 describe("ZoneTorrid server class", () => {

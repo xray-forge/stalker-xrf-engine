@@ -1,7 +1,6 @@
 import { level } from "xray16";
 
-import { registry } from "@/engine/core/database";
-import { getCampForPosition } from "@/engine/core/database/camp";
+import { getCampZoneForPosition, registry } from "@/engine/core/database";
 import { SmartCover } from "@/engine/core/objects";
 import { EStalkerState, WEAPON_POSTFIX } from "@/engine/core/objects/animation";
 import {
@@ -258,7 +257,7 @@ export class AnimpointManager extends AbstractSchemeManager<ISchemeAnimpointStat
     logger.info("Start:", this.object.name());
 
     if (this.state.useCamp) {
-      this.campManager = getCampForPosition(this.position);
+      this.campManager = getCampZoneForPosition(this.position);
     }
 
     this.fillPossibleAnimationActions();

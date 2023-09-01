@@ -1,7 +1,6 @@
 import { action_base, LuabindClass } from "xray16";
 
-import { registry, setStalkerState } from "@/engine/core/database";
-import { getCampForPosition } from "@/engine/core/database/camp";
+import { getCampZoneForPosition, registry, setStalkerState } from "@/engine/core/database";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import { StalkerMoveManager } from "@/engine/core/objects/ai/state/StalkerMoveManager";
 import { EStalkerState } from "@/engine/core/objects/animation";
@@ -91,7 +90,7 @@ export class ActionWalkerActivity extends action_base implements ISchemeEventHan
 
     this.moveManager.update();
 
-    const camp: Optional<CampManager> = getCampForPosition(this.object.position());
+    const camp: Optional<CampManager> = getCampZoneForPosition(this.object.position());
 
     if (camp !== null && this.state.use_camp === true) {
       this.campStoryManager = camp;
