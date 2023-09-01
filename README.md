@@ -60,3 +60,10 @@ Optimizations, quality and logics updates are welcome.
 It took 3 months just to migrate all the 20 years of LUA codebase to typescript and create custom transformers to support luabind. <br/>
 Further game testing and re-architecture produces new bugs and issues which are easier to prevent with unit tests. <br/>
 As for now, main focus is separation and clarification of logics and unit testing coverage.
+
+## 🌓 TODOs / tasks
+
+- [cli and tooling](https://github.com/orgs/xray-forge/projects/3)
+- [core](https://github.com/orgs/xray-forge/projects/4)
+- [documentation](https://github.com/orgs/xray-forge/projects/5)
+- [game engine (open xray)](https://github.com/orgs/xray-forge/projects/6)
