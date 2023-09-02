@@ -126,20 +126,15 @@ export interface ISimulationTarget {
 }
 
 /**
- * Precondition object describing simulation target checker.
+ * Whether squad can select target.
  */
-export interface ISimulationActivityPrecondition {
-  /**
-   * Whether squad can select target.
-   */
-  canSelect: (this: void, squad: Squad, target: ISimulationTarget) => boolean;
-}
+export type TSimulationActivityPrecondition = (this: void, squad: Squad, target: ISimulationTarget) => boolean;
 
 /**
  * Generic faction activity description in terms of target selection.
  */
 export interface ISimulationActivityDescriptor {
-  squad: Optional<PartialRecord<TCommunity, Optional<ISimulationActivityPrecondition>>>;
-  smart: Optional<PartialRecord<ESimulationTerrainRole, Optional<ISimulationActivityPrecondition>>>;
-  actor: Optional<ISimulationActivityPrecondition>;
+  squad: Optional<PartialRecord<TCommunity, Optional<TSimulationActivityPrecondition>>>;
+  smart: Optional<PartialRecord<ESimulationTerrainRole, Optional<TSimulationActivityPrecondition>>>;
+  actor: Optional<TSimulationActivityPrecondition>;
 }

@@ -34,9 +34,9 @@ import { MapDisplayManager } from "@/engine/core/managers/interface";
 import {
   ESimulationTerrainRole,
   ISimulationActivityDescriptor,
-  ISimulationActivityPrecondition,
   ISimulationTarget,
   simulationActivities,
+  TSimulationActivityPrecondition,
   TSimulationObject,
   VALID_SMART_TERRAINS_SIMULATION_ROLES,
 } from "@/engine/core/managers/simulation";
@@ -1202,34 +1202,34 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
     }
 
     if ((tonumber(this.simulationProperties[ESimulationTerrainRole.RESOURCE]) as number) > 0) {
-      const simulationProperties: Optional<ISimulationActivityPrecondition> = squadParameters.smart
-        .resource as Optional<ISimulationActivityPrecondition>;
+      const simulationProperties: Optional<TSimulationActivityPrecondition> = squadParameters.smart
+        .resource as Optional<TSimulationActivityPrecondition>;
 
-      if (simulationProperties?.canSelect(squad, this)) {
+      if (simulationProperties?.(squad, this)) {
         return true;
       }
     }
 
     if ((tonumber(this.simulationProperties[ESimulationTerrainRole.BASE]) as number) > 0) {
-      if (squadParameters.smart.base?.canSelect(squad, this)) {
+      if (squadParameters.smart.base?.(squad, this)) {
         return true;
       }
     }
 
-    if (tonumber(this.simulationProperties[ESimulationTerrainRole.LAIR])! > 0) {
-      if (squadParameters.smart.lair?.canSelect(squad, this)) {
+    if ((tonumber(this.simulationProperties[ESimulationTerrainRole.LAIR]) as number) > 0) {
+      if (squadParameters.smart.lair?.(squad, this)) {
         return true;
       }
     }
 
-    if (tonumber(this.simulationProperties[ESimulationTerrainRole.TERRITORY])! > 0) {
-      if (squadParameters.smart.territory?.canSelect(squad, this)) {
+    if ((tonumber(this.simulationProperties[ESimulationTerrainRole.TERRITORY]) as number) > 0) {
+      if (squadParameters.smart.territory?.(squad, this)) {
         return true;
       }
     }
 
-    if (tonumber(this.simulationProperties[ESimulationTerrainRole.SURGE])! > 0) {
-      if (squadParameters.smart.surge?.canSelect(squad, this)) {
+    if ((tonumber(this.simulationProperties[ESimulationTerrainRole.SURGE]) as number) > 0) {
+      if (squadParameters.smart.surge?.(squad, this)) {
         return true;
       }
     }
