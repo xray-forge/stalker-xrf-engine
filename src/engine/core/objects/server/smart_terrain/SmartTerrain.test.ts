@@ -2,7 +2,8 @@ import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { time_global } from "xray16";
 
 import { registry } from "@/engine/core/database";
-import { ESimulationTerrainRole, SmartTerrain, SmartTerrainControl } from "@/engine/core/objects";
+import { ESimulationTerrainRole } from "@/engine/core/managers/simulation";
+import { SmartTerrain, SmartTerrainControl } from "@/engine/core/objects/server/smart_terrain";
 import { ESmartTerrainStatus } from "@/engine/core/objects/server/smart_terrain/types";
 import { parseConditionsList } from "@/engine/core/utils/ini";
 import { createObjectJobDescriptor, IObjectJobDescriptor } from "@/engine/core/utils/job";

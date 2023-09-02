@@ -131,7 +131,7 @@ export class SimulationBoardManager extends AbstractCoreManager {
     let count: TCount = 0;
 
     for (const [k, squad] of this.smartTerrains.get(smartTerrainId).assignedSquads) {
-      if (squad.getScriptTarget() !== null) {
+      if (squad.getLogicsScriptTarget() !== null) {
         count += 1;
       }
     }
@@ -245,14 +245,14 @@ export class SimulationBoardManager extends AbstractCoreManager {
     }
 
     if (smartTerrainId === null) {
-      squad.assignSmartTerrain(null);
+      squad.assignToSmartTerrain(null);
 
       return;
     }
 
     const target: ISmartTerrainDescriptor = this.smartTerrains.get(smartTerrainId);
 
-    squad.assignSmartTerrain(target.smartTerrain);
+    squad.assignToSmartTerrain(target.smartTerrain);
     target.assignedSquads.set(squad.id, squad);
     target.smartTerrain.mapDisplayManager.updateSmartTerrainMapSpot(target.smartTerrain);
   }
@@ -332,7 +332,6 @@ export class SimulationBoardManager extends AbstractCoreManager {
    * @param squad - target squad to register
    */
   public registerSquad(squad: Squad): void {
-    simulationLogger.format("Register squad: '%s'.", squad.name());
     this.squads.set(squad.id, squad);
   }
 
@@ -342,7 +341,6 @@ export class SimulationBoardManager extends AbstractCoreManager {
    * @param squad - target squad to unregister
    */
   public unRegisterSquad(squad: Squad): void {
-    simulationLogger.format("Unregister squad: '%s'.", squad.name());
     this.squads.delete(squad.id);
   }
 
@@ -376,8 +374,6 @@ export class SimulationBoardManager extends AbstractCoreManager {
    * todo: Description.
    */
   public enterSmartTerrain(squad: Squad, smartTerrainId: TNumberId): void {
-    simulationLogger.format("Enter smart terrain: '%s' -> '%s'.", squad.name(), smartTerrainId);
-
     if (!this.smartTerrains.has(smartTerrainId)) {
       if (!this.temporaryEnteredSquads.has(smartTerrainId)) {
         this.temporaryEnteredSquads.set(smartTerrainId, new LuaTable());
@@ -389,6 +385,12 @@ export class SimulationBoardManager extends AbstractCoreManager {
     }
 
     const smartTerrainDescriptor: ISmartTerrainDescriptor = this.smartTerrains.get(smartTerrainId);
+
+    simulationLogger.format(
+      "Enter smart terrain: '%s' -> '%s'.",
+      squad.name(),
+      smartTerrainDescriptor.smartTerrain.name()
+    );
 
     if (squad.enteredSmartTerrainId) {
       abort("Couldn't enter smart, still in old one. Squad: [%s]", squad.name());

@@ -111,7 +111,7 @@ export class ActionReachTaskLocation extends action_base {
 
     let squadTarget: Optional<TSimulationObject> = registry.simulationObjects.get(objectSquad.assignedTargetId!);
 
-    if (squadTarget === null && objectSquad.getScriptTarget() !== null) {
+    if (squadTarget === null && objectSquad.getLogicsScriptTarget() !== null) {
       squadTarget = alife().object(objectSquad.assignedTargetId!);
     }
 

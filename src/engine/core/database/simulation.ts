@@ -28,6 +28,7 @@ export function unregisterSimulationObject(object: TSimulationObject): void {
 
 /**
  * Update simulation object participation.
+ * If object can participate, store it in global registry.
  *
  * @param object - simulation object to update availability status
  */

@@ -4,7 +4,7 @@ import { registry } from "@/engine/core/database/registry";
 
 describe("registry storage", () => {
   it("storage to contain all fields", () => {
-    expect(Object.keys(registry)).toHaveLength(39);
+    expect(Object.keys(registry)).toHaveLength(41);
   });
 
   it("storage to initialize with correct data", () => {
@@ -60,6 +60,8 @@ describe("registry storage", () => {
     expect(registry.sounds.managers instanceof LuaTable).toBeTruthy();
     expect(registry.noCombatZones instanceof LuaTable).toBeTruthy();
     expect(registry.noCombatSmartTerrains instanceof LuaTable).toBeTruthy();
+    expect(registry.baseSmartTerrains instanceof LuaTable).toBeTruthy();
     expect(registry.extensions instanceof LuaTable).toBeTruthy();
+    expect(registry.isSurgeStarted).toBe(false);
   });
 });

@@ -75,10 +75,10 @@ describe("job_precondition utilities", () => {
     const [jobs] = createStalkerWalkerJobs(smartTerrain, new LuaTable(), new StringBuilder());
     const parameters: AnyObject = jobs.get(1).preconditionParameters as AnyObject;
 
-    SurgeManager.getInstance().isStarted = true;
+    registry.isSurgeStarted = true;
     expect(jobPreconditionSurge(stalker, smartTerrain, parameters)).toBe(true);
 
-    SurgeManager.getInstance().isStarted = false;
+    registry.isSurgeStarted = false;
     expect(jobPreconditionSurge(stalker, smartTerrain, parameters)).toBe(false);
   });
 
