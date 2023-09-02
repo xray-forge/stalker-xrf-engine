@@ -1,7 +1,6 @@
 import { action_base, alife, anim, clsid, level, look, LuabindClass, move, object, time_global } from "xray16";
 
 import { registry } from "@/engine/core/database";
-import { SurgeManager } from "@/engine/core/managers/world/SurgeManager";
 import { EStalkerState } from "@/engine/core/objects/animation";
 import { Squad } from "@/engine/core/objects/server/squad/Squad";
 import { TSimulationObject } from "@/engine/core/objects/server/types";
@@ -191,11 +190,7 @@ export class ActionReachTaskLocation extends action_base {
 
     this.object.set_path_type(EClientObjectPath.LEVEL_PATH);
 
-    if (
-      squadTarget === null ||
-      squadTarget.clsid() === clsid.online_offline_group_s ||
-      SurgeManager.getInstance().isStarted
-    ) {
+    if (squadTarget === null || squadTarget.clsid() === clsid.online_offline_group_s || registry.isSurgeStarted) {
       this.object.set_movement_type(level.object_by_id(objectSquad.commander_id())!.movement_type());
       this.object.set_mental_state(level.object_by_id(objectSquad.commander_id())!.mental_state());
 
@@ -236,7 +231,7 @@ export class ActionReachTaskLocation extends action_base {
  */
 function updateObjectMovement(object: ClientObject, target: Optional<TSimulationObject>): void {
   if (target !== null && !object.is_talking()) {
-    if (SurgeManager.getInstance().isStarted) {
+    if (registry.isSurgeStarted) {
       object.set_movement_type(move.run);
       object.set_mental_state(anim.free);
 

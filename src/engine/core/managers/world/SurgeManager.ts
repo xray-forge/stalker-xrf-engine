@@ -357,6 +357,8 @@ export class SurgeManager extends AbstractCoreManager {
       this.isStarted = true;
       this.isFinished = false;
 
+      registry.isSurgeStarted = true;
+
       if (!hasAlifeInfo(infoPortions.pri_b305_fifth_cam_end) || hasAlifeInfo(infoPortions.pri_a28_actor_in_zone_stay)) {
         createGameAutoSave(captions.st_save_uni_surge_start);
       }
@@ -375,6 +377,9 @@ export class SurgeManager extends AbstractCoreManager {
 
     this.isStarted = false;
     this.isFinished = true;
+
+    registry.isSurgeStarted = false;
+
     this.respawnArtefactsByLevel = { zaton: true, jupiter: true, pripyat: true };
     this.nextScheduledSurgeDelay = math.random(
       surgeConfig.INTERVAL_BETWEEN_SURGES.MIN,
@@ -405,6 +410,9 @@ export class SurgeManager extends AbstractCoreManager {
 
     this.isStarted = false;
     this.isFinished = true;
+
+    registry.isSurgeStarted = false;
+
     this.respawnArtefactsByLevel = { zaton: true, jupiter: true, pripyat: true };
     this.lastSurgeAt = game.get_game_time();
     this.nextScheduledSurgeDelay = math.random(
@@ -986,6 +994,8 @@ export class SurgeManager extends AbstractCoreManager {
     this.isFinished = reader.r_bool();
     this.isStarted = reader.r_bool();
     this.lastSurgeAt = readTimeFromPacket(reader)!;
+
+    registry.isSurgeStarted = this.isStarted;
 
     if (this.isStarted) {
       this.initializedAt = readTimeFromPacket(reader)!;

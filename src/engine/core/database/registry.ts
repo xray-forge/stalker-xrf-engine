@@ -242,4 +242,8 @@ export const registry = {
    * List of extensions details loaded additionally to the game engine.
    */
   extensions: new LuaTable<TName, IExtensionsDescriptor>(),
+  /**
+   * Whether surge is started right now.
+   */
+  isSurgeStarted: false,
 };
