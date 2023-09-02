@@ -98,12 +98,6 @@ export interface ISimulationTarget {
    */
   getAlifeSmartTerrainTask(): ALifeSmartTerrainTask;
   /**
-   * Get full object location.
-   *
-   * @returns position, levelVertexId, gameVertexId
-   */
-  getGameLocation(): LuaMultiReturn<[Vector, TNumberId, TNumberId]>;
-  /**
    * @returns whether object can be selected as simulation target by squad
    */
   isValidSquadTarget(squad: Squad): boolean;

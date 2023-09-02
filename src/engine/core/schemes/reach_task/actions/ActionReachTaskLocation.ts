@@ -137,10 +137,11 @@ export class ActionReachTaskLocation extends action_base {
   /**
    * todo: Description.
    */
-  public executeSquadCommander(objectSquad: Squad, squadTarget: Optional<TSimulationObject>): void {
+  public executeSquadCommander(squad: Squad, squadTarget: Optional<TSimulationObject>): void {
     if (squadTarget !== null && !this.object.is_talking()) {
-      // eslint-disable-next-line prefer-const
-      let [position, lvi, gvi] = squadTarget.getGameLocation();
+      const gvi: TNumberId = squadTarget.m_game_vertex_id;
+      let lvi: TNumberId = squadTarget.m_level_vertex_id;
+      let position: Vector = squadTarget.position;
 
       if (this.object.game_vertex_id() !== gvi) {
         this.object.set_path_type(EClientObjectPath.GAME_PATH);

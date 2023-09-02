@@ -91,13 +91,6 @@ export class Actor extends cse_alife_creature_actor implements ISimulationTarget
   }
 
   /**
-   * Get full actor location.
-   */
-  public getGameLocation(): LuaMultiReturn<[Vector, TNumberId, TNumberId]> {
-    return $multi(this.position, this.m_level_vertex_id, this.m_game_vertex_id);
-  }
-
-  /**
    * Get generic task.
    */
   public getAlifeSmartTerrainTask(): ALifeSmartTerrainTask {

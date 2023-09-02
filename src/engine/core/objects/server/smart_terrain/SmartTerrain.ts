@@ -68,7 +68,7 @@ import {
   TSmartTerrainJobsList,
 } from "@/engine/core/utils/job";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { areObjectsOnSameLevel, isMonster, isStalker } from "@/engine/core/utils/object";
+import { areObjectsOnSameLevel, isMonsterSquad, isStalker } from "@/engine/core/utils/object";
 import { ERelation } from "@/engine/core/utils/relation";
 import {
   activateSchemeBySection,
@@ -1240,28 +1240,18 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
   /**
    * todo: Description.
    */
-  public getGameLocation(): LuaMultiReturn<[Vector, TNumberId, TNumberId]> {
-    return $multi(this.position, this.m_level_vertex_id, this.m_game_vertex_id);
-  }
-
-  /**
-   * todo: Description.
-   */
   public isReachedBySquad(squad: Squad): boolean {
-    const [squadPosition, squadLevelVertexId, squadGameVertexId] = squad.getGameLocation();
-    const [targetPosition, targetLevelVertexId, targetVertexId] = this.getGameLocation();
-
-    if (game_graph().vertex(squadGameVertexId).level_id() !== game_graph().vertex(targetVertexId).level_id()) {
+    if (!areObjectsOnSameLevel(squad, this)) {
       return false;
     }
 
-    if (isMonster(alife().object(squad.commander_id())!) && squad.getLogicsScriptTarget() === null) {
-      return squadPosition.distance_to_sqr(targetPosition) <= logicsConfig.SMART_TERRAIN.DEFAULT_ARRIVAL_DISTANCE;
+    if (isMonsterSquad(squad) && squad.getLogicsScriptTarget() === null) {
+      return squad.position.distance_to_sqr(this.position) <= logicsConfig.SMART_TERRAIN.DEFAULT_ARRIVAL_DISTANCE;
     }
 
     return (
       squad.isAlwaysArrived ||
-      squadPosition.distance_to_sqr(targetPosition) <= this.arrivalDistance * this.arrivalDistance
+      squad.position.distance_to_sqr(this.position) <= this.arrivalDistance * this.arrivalDistance
     );
   }
 

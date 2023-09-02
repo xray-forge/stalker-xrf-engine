@@ -483,6 +483,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
       if (squadTarget === null || squadTarget.isReachedBySquad(this)) {
         if (squadTarget !== null) {
           squadTarget.onStartedBeingReachedBySquad(this);
+          // todo: Probably should be revisited.
           squadTarget.onEndedBeingReachedBySquad(this);
         }
 
@@ -847,13 +848,6 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
     }
 
     return null;
-  }
-
-  /**
-   * @returns postion, level vertex id, game vertex id
-   */
-  public getGameLocation(): LuaMultiReturn<[Vector, TNumberId, TNumberId]> {
-    return $multi(this.position, this.m_level_vertex_id, this.m_game_vertex_id);
   }
 
   /**

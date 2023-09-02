@@ -120,7 +120,7 @@ export class MonsterBinder extends object_binder {
         return;
       }
 
-      const [targetPosition] = currentTarget.getGameLocation();
+      const targetPosition: Vector = currentTarget.position;
 
       scriptCaptureMonster(this.object, true);
 

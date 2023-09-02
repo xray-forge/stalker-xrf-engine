@@ -105,3 +105,10 @@ export function isSquad(object: ServerObject): object is Squad {
 export function isSmartTerrain(object: ServerObject): object is SmartTerrain {
   return object.clsid() === clsid.smart_terrain;
 }
+
+/**
+ * todo;
+ */
+export function isMonsterSquad(squad: Squad): boolean {
+  return isMonster(alife().object(squad.commander_id()) as ServerObject);
+}
