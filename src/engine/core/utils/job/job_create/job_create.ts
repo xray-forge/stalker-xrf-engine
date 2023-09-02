@@ -17,7 +17,7 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 import { StringBuilder } from "@/engine/core/utils/string";
 import { IniFile, Optional, TName, TNumberId, TSection } from "@/engine/lib/types";
 
-const logger: LuaLogger = new LuaLogger($filename);
+const logger: LuaLogger = new LuaLogger($filename, { file: "job" });
 
 /**
  * Create jobs for smart terrain.
@@ -34,7 +34,7 @@ const logger: LuaLogger = new LuaLogger($filename);
 export function createSmartTerrainJobs(
   smartTerrain: SmartTerrain
 ): LuaMultiReturn<[TSmartTerrainJobsList, IniFile, TName]> {
-  // logger.info("Create jobs for smart terrain:", smartTerrain.name());
+  logger.info("Create jobs for smart terrain:", smartTerrain.name());
 
   const builder: StringBuilder = new StringBuilder();
   const jobs: TSmartTerrainJobsList = new LuaTable();

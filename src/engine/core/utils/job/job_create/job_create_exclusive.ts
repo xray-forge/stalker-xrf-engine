@@ -16,7 +16,7 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 import { roots } from "@/engine/lib/constants/roots";
 import { EScheme, IniFile, Optional, TCount, TIndex, TPath, TRate, TSection } from "@/engine/lib/types";
 
-const logger: LuaLogger = new LuaLogger($filename);
+const logger: LuaLogger = new LuaLogger($filename, { file: "job" });
 
 /**
  * Create exclusive jobs defined for smart terrain.
@@ -70,7 +70,7 @@ export function createExclusiveJob(
   field: TSection,
   jobs: TSmartTerrainJobsList
 ): TSmartTerrainJobsList {
-  // logger.format("Add exclusive job':  %s - %s", section, field);
+  logger.format("Add exclusive job: '%s' - '%s'", section, field);
 
   const workScriptPath: Optional<TPath> = readIniString(ini, section, field, false, "", null);
 

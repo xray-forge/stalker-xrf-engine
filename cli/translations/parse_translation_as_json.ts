@@ -7,7 +7,7 @@ import { XMLParser } from "fast-xml-parser";
 import { decode, encodingExists } from "iconv-lite";
 
 import { default as config } from "#/config.json";
-import { TARGET_PARSED_DIR } from "#/globals";
+import { TARGET_PARSED_DIR, WINDOWS_1251_LOCALES } from "#/globals";
 import {
   AnyObject,
   createDirIfNoExisting,
@@ -24,7 +24,6 @@ import {
 
 const log: NodeLogger = new NodeLogger("PARSE_TRANSLATION_AS_JSON");
 
-const DEFAULT_TARGET_ENCODING: EEncoding = EEncoding.WINDOWS_1251;
 const DEFAULT_TARGET_ENCODING_CHECK_LIMIT: number = 64;
 
 interface IParseTranslationParameters {
@@ -75,7 +74,7 @@ export async function parseTranslationAsJson(target: string, parameters: IParseT
 
   try {
     for (const it of files) {
-      const data: IJsonTranslationSchema = await parseXmlToJson(it, encoding);
+      const data: IJsonTranslationSchema = await parseXmlToJson(it, encoding, locale);
       const fileDetails: path.ParsedPath = path.parse(it);
       const destination: string = isOutputDirectory
         ? path.resolve(output, `${fileDetails.name}${EAssetExtension.JSON}`)
@@ -142,14 +141,18 @@ function isValidSchema(record: AnyObject): record is IXmlTranslationSchema {
 /**
  * Parse provided file content to JSON.
  */
-async function parseXmlToJson(file: string, encoding?: string): Promise<Record<string, any>> {
+async function parseXmlToJson(file: string, encoding: string, locale: string): Promise<Record<string, any>> {
   const parser: XMLParser = new XMLParser({
     ignoreAttributes: false,
     isArray: (tag) => tag === "string",
     stopNodes: ["*.text"],
   });
   const data: Buffer = fs.readFileSync(file);
-  const usedEncoding: string = encoding ?? readEncodingFromBuffer(data) ?? DEFAULT_TARGET_ENCODING;
+
+  const defaultEncoding: EEncoding = WINDOWS_1251_LOCALES.includes(locale)
+    ? EEncoding.WINDOWS_1251
+    : EEncoding.WINDOWS_1250;
+  const usedEncoding: EEncoding = (encoding ?? readEncodingFromBuffer(data) ?? defaultEncoding) as EEncoding;
 
   log.info("Parsing file with encoding:", green(usedEncoding), yellowBright(file));
 
@@ -160,7 +163,7 @@ async function parseXmlToJson(file: string, encoding?: string): Promise<Record<s
  * Get locale to use as key.
  */
 function getTargetLocale(parameters: IParseTranslationParameters): string {
-  const locale: string = parameters.language ?? config.locale;
+  const locale: string = parameters.language ?? "";
 
   if (config.available_locales.includes(locale)) {
     log.debug("Using parameter locale:", locale);

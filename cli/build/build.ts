@@ -14,6 +14,7 @@ import {
 import { buildDynamicTranslations } from "#/build/steps/translations_dynamic";
 import { buildStaticTranslations } from "#/build/steps/translations_static";
 import { buildStaticUi } from "#/build/steps/ui_statics";
+import { default as config } from "#/config.json";
 import { TARGET_GAME_DATA_DIR } from "#/globals/paths";
 import { NodeLogger, TimeTracker } from "#/utils";
 
@@ -40,6 +41,7 @@ export interface IBuildCommandParameters {
   include: "all" | Array<EBuildTarget>;
   exclude: Array<EBuildTarget>;
   filter?: Array<string>;
+  language?: string;
 }
 
 /**
@@ -57,6 +59,16 @@ export async function build(parameters: IBuildCommandParameters): Promise<void> 
     log.info("XRF build:", green(pkg?.name), blue(new Date().toLocaleString()));
     log.debug("XRF params:", JSON.stringify(parameters));
     log.debug("XRF targets:", buildTargets);
+
+    /**
+     * Apply locale parameters.`
+     */
+    parameters.language = parameters.language ?? config.locale;
+    process.env.language = parameters.language;
+
+    if (!config.available_locales.includes(parameters.language)) {
+      throw new Error(`Unsupported locale provided for asset building: '${parameters.language}'.`);
+    }
 
     if (parameters.filter?.length) {
       log.info("Apply filters:", parameters.filter);

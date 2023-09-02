@@ -117,6 +117,7 @@ import {
 } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
+const jobLogger: LuaLogger = new LuaLogger($filename, { file: "job" });
 
 /**
  * todo;
@@ -695,6 +696,8 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
       return;
     }
 
+    jobLogger.info("Initialize smart jobs:", this.name());
+
     const [jobsList, jobsConfig, jobsConfigName] = createSmartTerrainJobs(this);
 
     this.jobs = jobsList;
@@ -840,7 +843,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
       return;
     }
 
-    logger.info("Switch to desired job:", this.name(), objectId);
+    jobLogger.info("Switch to desired job:", this.name(), objectId);
 
     const objectInfo: IObjectJobDescriptor = this.objectJobDescriptors.get(objectId);
     const changingObjectId: Optional<TNumberId> = this.objectByJobSection.get(objectInfo.desiredJob);
@@ -906,11 +909,11 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
       const serverObject: Optional<ServerCreatureObject> = alifeSimulator.object(objectId);
 
       if (serverObject === null) {
-        logger.info("Discard jobs for object:", this.name(), objectId);
+        jobLogger.info("Discard jobs for object:", this.name(), objectId);
         this.objectJobDescriptors.delete(objectId);
         // todo: Also free section?
       } else {
-        logger.info("Re-init jobs for object:", this.name(), objectId);
+        jobLogger.info("Re-init jobs for object:", this.name(), objectId);
 
         const newJobDescriptor: IObjectJobDescriptor = createObjectJobDescriptor(serverObject);
 

@@ -5,10 +5,11 @@ import {
   closeSaveMarker,
   openLoadMarker,
   openSaveMarker,
+  registerCampZone,
   registry,
-  resetCamp,
+  resetCampZone,
+  unregisterCampZone,
 } from "@/engine/core/database";
-import { registerCamp, unregisterCamp } from "@/engine/core/database/camp";
 import { CampManager } from "@/engine/core/objects/camp/CampManager";
 import { readIniString } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -30,7 +31,7 @@ export class CampZoneBinder extends object_binder {
    */
   public override reinit(): void {
     super.reinit();
-    resetCamp(this.object);
+    resetCampZone(this.object);
   }
 
   /**
@@ -52,7 +53,7 @@ export class CampZoneBinder extends object_binder {
       const filename: Optional<TName> = readIniString(ini, "camp", "cfg", false, "", null);
       const manager: CampManager = new CampManager(this.object, filename === null ? ini : new ini_file(filename));
 
-      registerCamp(this.object, manager);
+      registerCampZone(this.object, manager);
     }
 
     return true;
@@ -64,7 +65,7 @@ export class CampZoneBinder extends object_binder {
   public override net_destroy(): void {
     // logger.info("Destroy camp:", this.object.name());
 
-    unregisterCamp(this.object);
+    unregisterCampZone(this.object);
     super.net_destroy();
   }
 

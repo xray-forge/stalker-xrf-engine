@@ -1,9 +1,11 @@
 import { log, print_stack, time_global } from "xray16";
 
+import { openLogFile } from "@/engine/core/utils/logging/logging_files";
+import { ELuaLoggerMode, ILuaLoggerConfig } from "@/engine/core/utils/logging/logging_types";
 import { toJSON } from "@/engine/core/utils/transform/json";
 import { gameConfig } from "@/engine/lib/configs/GameConfig";
 import { FALSE, NIL, TRUE } from "@/engine/lib/constants/words";
-import { AnyArgs, AnyObject, TLabel, TName } from "@/engine/lib/types";
+import { AnyArgs, AnyObject, Optional, TLabel, TName } from "@/engine/lib/types";
 
 /**
  * Lua logger class.
@@ -13,11 +15,16 @@ import { AnyArgs, AnyObject, TLabel, TName } from "@/engine/lib/types";
  */
 export class LuaLogger {
   public readonly prefix: TLabel;
-  public isEnabled: boolean;
 
-  public constructor(prefix: TLabel, isEnabled: boolean = true) {
+  public isEnabled: boolean;
+  public mode: ELuaLoggerMode;
+  public file: Optional<LuaFile>;
+
+  public constructor(prefix: TLabel, { isEnabled = true, mode = ELuaLoggerMode.SINGLE, file }: ILuaLoggerConfig = {}) {
     this.isEnabled = isEnabled;
+    this.mode = mode;
     this.prefix = string.format("[%s]", prefix);
+    this.file = file ? openLogFile(file) : null;
 
     if (gameConfig.DEBUG.IS_RESOLVE_LOG_ENABLED) {
       this.info("Declared logger: '" + prefix + "'");
@@ -103,23 +110,34 @@ export class LuaLogger {
    */
   public logAs(level: string, prefix: string, args: LuaTable<number>): void {
     // Map some values to successfully print in composed string.
-    for (const idx of $range(1, args.length())) {
-      const it = args.get(idx);
+    for (const index of $range(1, args.length())) {
+      const it = args.get(index);
       const itType: TName = type(it);
 
       if (itType === NIL) {
-        args.set(idx, "<nil>");
+        args.set(index, "<nil>");
       } else if (itType === "string") {
-        args.set(idx, it === "" ? "<empty_str>" : it);
+        args.set(index, it === "" ? "<empty_str>" : it);
       } else if (itType === "number") {
-        args.set(idx, it);
+        args.set(index, it);
       } else if (itType === "boolean") {
-        args.set(idx, string.format("<boolean: %s>", it === true ? TRUE : FALSE));
+        args.set(index, string.format("<boolean: %s>", it === true ? TRUE : FALSE));
       } else {
-        args.set(idx, string.format("<%s: %s>", itType, tostring(it)));
+        args.set(index, string.format("<%s: %s>", itType, tostring(it)));
       }
     }
 
-    return log(string.format("[%s]%s%s %s", time_global(), prefix, level, table.concat(args, " ")));
+    const result: string = string.format("[%s]%s%s %s", time_global(), prefix, level, table.concat(args, " "));
+
+    // Write into custom file if it is defined for current logger.
+    if (this.file) {
+      this.file.write(result);
+      this.file.write("\n");
+    }
+
+    // Write into shared game console if no file defined/dual mode enabled.
+    if (this.file === null || this.mode === ELuaLoggerMode.DUAL) {
+      log(result);
+    }
   }
 }

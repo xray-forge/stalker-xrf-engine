@@ -20,6 +20,7 @@ export function setupBuildCommands(command: Command): void {
         .conflicts("include")
     )
     .addOption(new Option("-v, --verbose", "print verbose build logs"))
+    .addOption(new Option("-l, --language <language>", "language to use when building mod"))
     .addOption(new Option("-f, --filter <targets...>", "filter files with regex").default([]))
     .addOption(new Option("-c, --clean", "perform target clean before build"))
     .addOption(new Option("--nl, --no-lua-logs", "strip all lua logs from target build"))

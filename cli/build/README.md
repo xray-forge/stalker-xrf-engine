@@ -24,6 +24,8 @@ List of arguments:
 
 - `--all` - build all assets
 - `--verbose` - use more verbose logging
+- `--language <language>` - use language override for building of gamedata
+- `--filter <...patterns>` - use filtering for assets building
 - `--clean` - clean up `target/gamedata` folder before build
 - `--no-lua-logs` - strip LuaLogger calls and creation from built code
 - `-h, --help` - display help for command

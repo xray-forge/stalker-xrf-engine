@@ -6,6 +6,7 @@ import { encode } from "iconv-lite";
 import { JSXXML } from "jsx-xml";
 
 import { default as config } from "#/config.json";
+import { WINDOWS_1251_LOCALES } from "#/globals";
 import { GAME_DATA_TRANSLATIONS_DIR, TARGET_GAME_DATA_TRANSLATIONS_DIR } from "#/globals/paths";
 import {
   EAssetExtension,
@@ -21,7 +22,6 @@ import {
 const log: NodeLogger = new NodeLogger("BUILD_TRANSLATIONS_DYNAMIC");
 
 const EXPECTED_CONFIG_EXTENSIONS: Array<EAssetExtension> = [EAssetExtension.JSON];
-const WINDOWS_1251_LOCALES: Array<string> = ["ukr", "rus"];
 const LOCALES_TO_PROCESS: Array<string> = config.available_locales;
 
 /**

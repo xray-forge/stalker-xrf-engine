@@ -29,8 +29,8 @@ export async function buildResourcesStatics(parameters: IBuildCommandParameters)
     ? config.resources.mod_assets_override_folders.map((it) => path.resolve(CLI_DIR, normalizeParameterPath(it)))
     : [];
 
-  if (parameters.assetOverrides && config.resources.mod_assets_locales[config.locale]) {
-    config.resources.mod_assets_locales[config.locale].forEach((it) => {
+  if (parameters.assetOverrides && config.resources.mod_assets_locales[parameters.language]) {
+    config.resources.mod_assets_locales[parameters.language].forEach((it) => {
       configuredTargetPath.push(path.resolve(CLI_DIR, normalizeParameterPath(it)));
     });
   } else {
