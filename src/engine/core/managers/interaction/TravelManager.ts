@@ -5,12 +5,12 @@ import { AbstractCoreManager } from "@/engine/core/managers/base/AbstractCoreMan
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { ENotificationDirection } from "@/engine/core/managers/interface/notifications";
 import { NotificationManager } from "@/engine/core/managers/interface/notifications/NotificationManager";
+import { TSimulationObject } from "@/engine/core/managers/simulation";
 import { SimulationBoardManager } from "@/engine/core/managers/simulation/SimulationBoardManager";
 import { SurgeManager } from "@/engine/core/managers/world/SurgeManager";
 import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain/SmartTerrain";
 import { SquadStayOnTargetAction } from "@/engine/core/objects/server/squad/action";
 import { Squad } from "@/engine/core/objects/server/squad/Squad";
-import { TSimulationObject } from "@/engine/core/objects/server/types";
 import { abort } from "@/engine/core/utils/assertion";
 import { createGameAutoSave } from "@/engine/core/utils/game/game_save";
 import { parseConditionsList, pickSectionFromCondList, TConditionList } from "@/engine/core/utils/ini";

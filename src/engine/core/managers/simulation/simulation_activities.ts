@@ -1,6 +1,16 @@
 import { registry } from "@/engine/core/database";
-import { SurgeManager } from "@/engine/core/managers/world/SurgeManager";
-import { ISimulationActivityDescriptor, SmartTerrain } from "@/engine/core/objects";
+import {
+  simulationPreconditionAlways,
+  simulationPreconditionDay,
+  simulationPreconditionNear,
+  simulationPreconditionNearAndDay,
+  simulationPreconditionNearAndNight,
+  simulationPreconditionNight,
+  simulationPreconditionNotSurge,
+  simulationPreconditionSurge,
+} from "@/engine/core/managers/simulation/simulation_preconditions";
+import { ESimulationRole, ISimulationActivityDescriptor } from "@/engine/core/managers/simulation/simulation_types";
+import { SmartTerrain } from "@/engine/core/objects";
 import { Squad } from "@/engine/core/objects/server/squad/Squad";
 import { isInTimeInterval } from "@/engine/core/utils/game/game_time";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -19,24 +29,20 @@ const logger: LuaLogger = new LuaLogger($filename);
  */
 export const simulationActivities: LuaTable<TCommunity, ISimulationActivityDescriptor> = $fromObject({
   [communities.none]: {
-    squad: null,
-    smart: null,
-    actor: null,
+    [ESimulationRole.SQUAD]: null,
+    [ESimulationRole.SMART_TERRAIN]: null,
+    [ESimulationRole.ACTOR]: null,
   },
   [communities.stalker]: {
-    actor: null,
-    smart: {
+    [ESimulationRole.ACTOR]: null,
+    [ESimulationRole.SMART_TERRAIN]: {
       base: {
         canSelect: (squad: Squad, target: SmartTerrain) => {
-          const smartName: TName = target.name();
-
           return (
             isInTimeInterval(18, 8) &&
             !registry.isSurgeStarted &&
             !isAnySquadMemberEnemyToActor(squad) &&
-            (smartName === storyNames.zat_stalker_base_smart ||
-              smartName === storyNames.jup_a6 ||
-              smartName === storyNames.pri_a16)
+            registry.baseSmartTerrains.get(target.name()) !== null
           );
         },
       },
@@ -48,22 +54,27 @@ export const simulationActivities: LuaTable<TCommunity, ISimulationActivityDescr
         canSelect: (squad: Squad, target: ServerObject) => isInTimeInterval(8, 18) && !registry.isSurgeStarted,
       },
     },
-    squad: null,
+    [ESimulationRole.SQUAD]: null,
   },
   [communities.bandit]: {
-    squad: {
+    [ESimulationRole.SQUAD]: {
       stalker: {
         canSelect: (squad: Squad, target: ServerObject) =>
           isInTimeInterval(8, 21) && !registry.isSurgeStarted && getServerDistanceBetween(squad, target) <= 150,
       },
     },
-    smart: {
+    [ESimulationRole.SMART_TERRAIN]: {
       base: {
-        canSelect: (squad: Squad, target: ServerObject) =>
-          isInTimeInterval(21, 8) &&
-          !registry.isSurgeStarted &&
-          !isAnySquadMemberEnemyToActor(squad) &&
-          (target.name() === storyNames.zat_stalker_base_smart || target.name() === storyNames.jup_a10_smart_terrain),
+        canSelect: (squad: Squad, target: ServerObject) => {
+          const smartName: TName = target.name();
+
+          return (
+            isInTimeInterval(21, 8) &&
+            !registry.isSurgeStarted &&
+            !isAnySquadMemberEnemyToActor(squad) &&
+            (smartName === storyNames.zat_stalker_base_smart || smartName === storyNames.jup_a10_smart_terrain)
+          );
+        },
       },
       territory: {
         canSelect: () => isInTimeInterval(8, 21) && !registry.isSurgeStarted,
@@ -71,13 +82,13 @@ export const simulationActivities: LuaTable<TCommunity, ISimulationActivityDescr
       surge: { canSelect: () => registry.isSurgeStarted },
       resource: null,
     },
-    actor: {
+    [ESimulationRole.ACTOR]: {
       canSelect: (squad: Squad, target: ServerObject) =>
         hasAlifeInfo(infoPortions.sim_bandit_attack_harder) && getServerDistanceBetween(squad, target) <= 150,
     },
   },
   [communities.dolg]: {
-    squad: {
+    [ESimulationRole.SQUAD]: {
       freedom: {
         canSelect: (squad: Squad, target: ServerObject) =>
           isInTimeInterval(8, 19) && !registry.isSurgeStarted && getServerDistanceBetween(squad, target) <= 150,
@@ -103,7 +114,7 @@ export const simulationActivities: LuaTable<TCommunity, ISimulationActivityDescr
           isInTimeInterval(8, 19) && !registry.isSurgeStarted && getServerDistanceBetween(squad, target) <= 150,
       },
     },
-    smart: {
+    [ESimulationRole.SMART_TERRAIN]: {
       base: {
         canSelect: (squad: Squad, target: ServerObject) =>
           isInTimeInterval(19, 8) &&
@@ -116,19 +127,19 @@ export const simulationActivities: LuaTable<TCommunity, ISimulationActivityDescr
       territory: {
         canSelect: () => isInTimeInterval(8, 19) && !registry.isSurgeStarted,
       },
-      surge: { canSelect: () => registry.isSurgeStarted },
+      surge: { canSelect: simulationPreconditionSurge },
       resource: null,
     },
-    actor: null,
+    [ESimulationRole.ACTOR]: null,
   },
   [communities.freedom]: {
-    squad: {
+    [ESimulationRole.SQUAD]: {
       dolg: {
         canSelect: (squad: Squad, target: ServerObject) =>
           isInTimeInterval(8, 19) && !registry.isSurgeStarted && getServerDistanceBetween(squad, target) <= 150,
       },
     },
-    smart: {
+    [ESimulationRole.SMART_TERRAIN]: {
       base: {
         canSelect: (squad: Squad, target: ServerObject) =>
           isInTimeInterval(19, 8) &&
@@ -141,191 +152,171 @@ export const simulationActivities: LuaTable<TCommunity, ISimulationActivityDescr
       territory: {
         canSelect: () => isInTimeInterval(8, 19) && !registry.isSurgeStarted,
       },
-      surge: { canSelect: () => registry.isSurgeStarted },
+      surge: { canSelect: simulationPreconditionSurge },
       resource: null,
     },
-    actor: null,
+    [ESimulationRole.ACTOR]: null,
   },
   [communities.killer]: {
-    squad: null,
-    smart: {
-      territory: { canSelect: () => !registry.isSurgeStarted },
+    [ESimulationRole.SQUAD]: null,
+    [ESimulationRole.SMART_TERRAIN]: {
+      territory: { canSelect: simulationPreconditionNotSurge },
       base: null,
       resource: null,
-      surge: { canSelect: () => registry.isSurgeStarted },
+      surge: { canSelect: simulationPreconditionSurge },
     },
-    actor: {
-      canSelect: (squad: Squad, target: ServerObject) => getServerDistanceBetween(squad, target) <= 150,
+    [ESimulationRole.ACTOR]: {
+      canSelect: simulationPreconditionNear,
     },
   },
   [communities.zombied]: {
-    squad: null,
-    smart: { territory: { canSelect: () => true }, lair: { canSelect: () => true }, resource: null, base: null },
-    actor: null,
+    [ESimulationRole.SQUAD]: null,
+    [ESimulationRole.SMART_TERRAIN]: {
+      territory: { canSelect: simulationPreconditionAlways },
+      lair: { canSelect: simulationPreconditionAlways },
+      resource: null,
+      base: null,
+    },
+    [ESimulationRole.ACTOR]: null,
   },
   [communities.monster_predatory_day]: {
-    squad: {
-      monster_vegetarian: { canSelect: () => isInTimeInterval(6, 19) },
+    [ESimulationRole.SQUAD]: {
+      monster_vegetarian: { canSelect: simulationPreconditionDay },
       stalker: {
-        canSelect: (squad: Squad, target: ServerObject) =>
-          isInTimeInterval(6, 19) && getServerDistanceBetween(squad, target) <= 150,
+        canSelect: simulationPreconditionNearAndDay,
       },
       bandit: {
-        canSelect: (squad: Squad, target: ServerObject) =>
-          isInTimeInterval(6, 19) && getServerDistanceBetween(squad, target) <= 150,
+        canSelect: simulationPreconditionNearAndDay,
       },
       dolg: {
-        canSelect: (squad: Squad, target: ServerObject) =>
-          isInTimeInterval(6, 19) && getServerDistanceBetween(squad, target) <= 150,
+        canSelect: simulationPreconditionNearAndDay,
       },
       freedom: {
-        canSelect: (squad: Squad, target: ServerObject) =>
-          isInTimeInterval(6, 19) && getServerDistanceBetween(squad, target) <= 150,
+        canSelect: simulationPreconditionNearAndDay,
       },
       killer: {
-        canSelect: (squad: Squad, target: ServerObject) =>
-          isInTimeInterval(6, 19) && getServerDistanceBetween(squad, target) <= 150,
+        canSelect: simulationPreconditionNearAndDay,
       },
     },
-    smart: {
-      territory: { canSelect: () => isInTimeInterval(6, 19) },
-      lair: { canSelect: () => isInTimeInterval(19, 6) },
+    [ESimulationRole.SMART_TERRAIN]: {
+      territory: { canSelect: simulationPreconditionDay },
+      lair: { canSelect: simulationPreconditionNight },
       base: null,
       resource: null,
     },
-    actor: {
-      canSelect: (squad: Squad, target: ServerObject) =>
-        isInTimeInterval(6, 19) && getServerDistanceBetween(squad, target) <= 150,
+    [ESimulationRole.ACTOR]: {
+      canSelect: simulationPreconditionNearAndDay,
     },
   },
   [communities.monster_predatory_night]: {
-    squad: {
-      monster_vegetarian: { canSelect: () => isInTimeInterval(21, 6) },
+    [ESimulationRole.SQUAD]: {
+      monster_vegetarian: { canSelect: simulationPreconditionNight },
       stalker: {
-        canSelect: (squad: Squad, target: ServerObject) =>
-          isInTimeInterval(19, 6) && getServerDistanceBetween(squad, target) <= 150,
+        canSelect: simulationPreconditionNearAndNight,
       },
       bandit: {
-        canSelect: (squad: Squad, target: ServerObject) =>
-          isInTimeInterval(19, 6) && getServerDistanceBetween(squad, target) <= 150,
+        canSelect: simulationPreconditionNearAndNight,
       },
       dolg: {
-        canSelect: (squad: Squad, target: ServerObject) =>
-          isInTimeInterval(19, 6) && getServerDistanceBetween(squad, target) <= 150,
+        canSelect: simulationPreconditionNearAndNight,
       },
       freedom: {
-        canSelect: (squad: Squad, target: ServerObject) =>
-          isInTimeInterval(19, 6) && getServerDistanceBetween(squad, target) <= 150,
+        canSelect: simulationPreconditionNearAndNight,
       },
       killer: {
-        canSelect: (squad: Squad, target: ServerObject) =>
-          isInTimeInterval(19, 6) && getServerDistanceBetween(squad, target) <= 150,
+        canSelect: simulationPreconditionNearAndNight,
       },
     },
-    smart: {
-      territory: { canSelect: () => isInTimeInterval(19, 6) },
-      lair: { canSelect: () => isInTimeInterval(6, 19) },
+    [ESimulationRole.SMART_TERRAIN]: {
+      territory: { canSelect: simulationPreconditionNight },
+      lair: { canSelect: simulationPreconditionDay },
       base: null,
       resource: null,
     },
-    actor: {
-      canSelect: (squad: Squad, target: ServerObject) =>
-        isInTimeInterval(19, 6) && getServerDistanceBetween(squad, target) <= 150,
+    [ESimulationRole.ACTOR]: {
+      canSelect: simulationPreconditionNearAndNight,
     },
   },
   [communities.monster_vegetarian]: {
-    squad: null,
-    smart: {
-      lair: { canSelect: () => true },
+    [ESimulationRole.SQUAD]: null,
+    [ESimulationRole.SMART_TERRAIN]: {
+      lair: { canSelect: simulationPreconditionAlways },
       base: null,
       resource: null,
     },
-    actor: {
-      canSelect: (squad: Squad, target: ServerObject) =>
-        isInTimeInterval(6, 19) && getServerDistanceBetween(squad, target) <= 150,
+    [ESimulationRole.ACTOR]: {
+      canSelect: simulationPreconditionNearAndDay,
     },
   },
   [communities.monster_zombied_day]: {
-    squad: {
+    [ESimulationRole.SQUAD]: {
       stalker: {
-        canSelect: (squad: Squad, target: ServerObject) =>
-          isInTimeInterval(6, 19) && getServerDistanceBetween(squad, target) <= 150,
+        canSelect: simulationPreconditionNearAndDay,
       },
       bandit: {
-        canSelect: (squad: Squad, target: ServerObject) =>
-          isInTimeInterval(6, 19) && getServerDistanceBetween(squad, target) <= 150,
+        canSelect: simulationPreconditionNearAndDay,
       },
       dolg: {
-        canSelect: (squad: Squad, target: ServerObject) =>
-          isInTimeInterval(6, 19) && getServerDistanceBetween(squad, target) <= 150,
+        canSelect: simulationPreconditionNearAndDay,
       },
       freedom: {
-        canSelect: (squad: Squad, target: ServerObject) =>
-          isInTimeInterval(6, 19) && getServerDistanceBetween(squad, target) <= 150,
+        canSelect: simulationPreconditionNearAndDay,
       },
       killer: {
-        canSelect: (squad: Squad, target: ServerObject) =>
-          isInTimeInterval(6, 19) && getServerDistanceBetween(squad, target) <= 150,
+        canSelect: simulationPreconditionNearAndDay,
       },
     },
-    smart: {
-      territory: { canSelect: () => !registry.isSurgeStarted },
-      lair: { canSelect: () => isInTimeInterval(19, 6) },
+    [ESimulationRole.SMART_TERRAIN]: {
+      territory: { canSelect: simulationPreconditionNotSurge },
+      lair: { canSelect: simulationPreconditionNight },
       base: null,
       resource: null,
     },
-    actor: {
-      canSelect: (squad: Squad, target: ServerObject) =>
-        isInTimeInterval(6, 19) && getServerDistanceBetween(squad, target) <= 150,
+    [ESimulationRole.ACTOR]: {
+      canSelect: simulationPreconditionNearAndDay,
     },
   },
   [communities.monster_zombied_night]: {
-    squad: {
+    [ESimulationRole.SQUAD]: {
       stalker: {
-        canSelect: (squad: Squad, target: ServerObject) =>
-          isInTimeInterval(19, 6) && getServerDistanceBetween(squad, target) <= 150,
+        canSelect: simulationPreconditionNearAndNight,
       },
       bandit: {
-        canSelect: (squad: Squad, target: ServerObject) =>
-          isInTimeInterval(19, 6) && getServerDistanceBetween(squad, target) <= 150,
+        canSelect: simulationPreconditionNearAndNight,
       },
       dolg: {
-        canSelect: (squad: Squad, target: ServerObject) =>
-          isInTimeInterval(19, 6) && getServerDistanceBetween(squad, target) <= 150,
+        canSelect: simulationPreconditionNearAndNight,
       },
       freedom: {
-        canSelect: (squad: Squad, target: ServerObject) =>
-          isInTimeInterval(19, 6) && getServerDistanceBetween(squad, target) <= 150,
+        canSelect: simulationPreconditionNearAndNight,
       },
       killer: {
-        canSelect: (squad: Squad, target: ServerObject) =>
-          isInTimeInterval(19, 6) && getServerDistanceBetween(squad, target) <= 150,
+        canSelect: simulationPreconditionNearAndNight,
       },
     },
-    smart: {
-      territory: { canSelect: () => isInTimeInterval(19, 6) },
-      lair: { canSelect: () => isInTimeInterval(6, 19) },
+    [ESimulationRole.SMART_TERRAIN]: {
+      territory: { canSelect: simulationPreconditionNight },
+      lair: { canSelect: simulationPreconditionDay },
       base: null,
       resource: null,
     },
-    actor: {
-      canSelect: (squad: Squad, target: ServerObject) =>
-        isInTimeInterval(19, 6) && getServerDistanceBetween(squad, target) <= 150,
+    [ESimulationRole.ACTOR]: {
+      canSelect: simulationPreconditionNearAndNight,
     },
   },
   [communities.monster_special]: {
-    squad: null,
-    smart: { lair: { canSelect: () => true }, base: null, resource: null },
-    actor: null,
+    [ESimulationRole.SQUAD]: null,
+    [ESimulationRole.SMART_TERRAIN]: { lair: { canSelect: () => true }, base: null, resource: null },
+    [ESimulationRole.ACTOR]: null,
   },
   [communities.monster]: {
-    squad: null,
-    smart: { lair: { canSelect: () => true }, base: null, resource: null },
-    actor: null,
+    [ESimulationRole.SQUAD]: null,
+    [ESimulationRole.SMART_TERRAIN]: { lair: { canSelect: () => true }, base: null, resource: null },
+    [ESimulationRole.ACTOR]: null,
   },
   [communities.army]: {
-    squad: null,
-    smart: {
+    [ESimulationRole.SQUAD]: null,
+    [ESimulationRole.SMART_TERRAIN]: {
       base: {
         canSelect: (squad: Squad, target: ServerObject) => isInTimeInterval(18, 8) && !registry.isSurgeStarted,
       },
@@ -337,11 +328,11 @@ export const simulationActivities: LuaTable<TCommunity, ISimulationActivityDescr
         canSelect: (squad: Squad, target: ServerObject) => isInTimeInterval(8, 18) && !registry.isSurgeStarted,
       },
     },
-    actor: null,
+    [ESimulationRole.ACTOR]: null,
   },
   [communities.ecolog]: {
-    squad: null,
-    smart: {
+    [ESimulationRole.SQUAD]: null,
+    [ESimulationRole.SMART_TERRAIN]: {
       base: {
         canSelect: (squad: Squad, target: ServerObject) => isInTimeInterval(18, 8) && !registry.isSurgeStarted,
       },
@@ -353,15 +344,15 @@ export const simulationActivities: LuaTable<TCommunity, ISimulationActivityDescr
         canSelect: (squad: Squad, target: ServerObject) => isInTimeInterval(8, 18) && !registry.isSurgeStarted,
       },
     },
-    actor: null,
+    [ESimulationRole.ACTOR]: null,
   },
   [communities.monolith]: {
-    squad: null,
-    smart: {
+    [ESimulationRole.SQUAD]: null,
+    [ESimulationRole.SMART_TERRAIN]: {
       base: {
         canSelect: (squad: Squad, target: ServerObject) => isInTimeInterval(18, 8) && !registry.isSurgeStarted,
       },
-      surge: { canSelect: () => registry.isSurgeStarted },
+      surge: { canSelect: simulationPreconditionSurge },
       territory: {
         canSelect: () => isInTimeInterval(8, 18) && !registry.isSurgeStarted,
       },
@@ -369,6 +360,6 @@ export const simulationActivities: LuaTable<TCommunity, ISimulationActivityDescr
         canSelect: (squad: Squad, target: ServerObject) => isInTimeInterval(8, 18) && !registry.isSurgeStarted,
       },
     },
-    actor: null,
+    [ESimulationRole.ACTOR]: null,
   },
 }) as LuaTable<TCommunity, ISimulationActivityDescriptor>;

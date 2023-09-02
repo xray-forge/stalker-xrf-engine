@@ -31,20 +31,20 @@ import {
   updateSimulationObjectAvailability,
 } from "@/engine/core/database/simulation";
 import { MapDisplayManager } from "@/engine/core/managers/interface";
-import { SimulationBoardManager } from "@/engine/core/managers/simulation/SimulationBoardManager";
-import { SmartTerrainControl } from "@/engine/core/objects/server/smart_terrain/SmartTerrainControl";
-import { ESmartTerrainStatus } from "@/engine/core/objects/server/smart_terrain/types";
-import { SquadReachTargetAction, SquadStayOnTargetAction } from "@/engine/core/objects/server/squad/action";
-import { simulationActivities } from "@/engine/core/objects/server/squad/simulation_activities";
-import { Squad } from "@/engine/core/objects/server/squad/Squad";
 import {
   ESimulationTerrainRole,
   ISimulationActivityDescriptor,
   ISimulationActivityPrecondition,
   ISimulationTarget,
+  simulationActivities,
   TSimulationObject,
   VALID_SMART_TERRAINS_SIMULATION_ROLES,
-} from "@/engine/core/objects/server/types";
+} from "@/engine/core/managers/simulation";
+import { SimulationBoardManager } from "@/engine/core/managers/simulation/SimulationBoardManager";
+import { SmartTerrainControl } from "@/engine/core/objects/server/smart_terrain/SmartTerrainControl";
+import { ESmartTerrainStatus } from "@/engine/core/objects/server/smart_terrain/types";
+import { SquadReachTargetAction, SquadStayOnTargetAction } from "@/engine/core/objects/server/squad/action";
+import { Squad } from "@/engine/core/objects/server/squad/Squad";
 import { abort, assert, assertDefined } from "@/engine/core/utils/assertion";
 import { readTimeFromPacket, writeTimeToPacket } from "@/engine/core/utils/game/game_time";
 import {

@@ -4,6 +4,7 @@ import type {
   TAbstractCoreManagerConstructor,
 } from "@/engine/core/managers/base/AbstractCoreManager";
 import type { ITradeManagerDescriptor } from "@/engine/core/managers/interaction/TradeManager";
+import type { TSimulationObject } from "@/engine/core/managers/simulation";
 import type {
   AnomalyFieldBinder,
   AnomalyZoneBinder,
@@ -11,7 +12,6 @@ import type {
   SignalLightBinder,
   SmartCover,
   SmartTerrain,
-  TSimulationObject,
 } from "@/engine/core/objects";
 import type { AbstractPlayableSound } from "@/engine/core/objects/sounds/playable_sounds";
 import type { StoryManager } from "@/engine/core/objects/sounds/stories";
@@ -235,6 +235,14 @@ export const registry = {
   noCombatSmartTerrains: $fromObject<TName, boolean>({
     [storyNames.zat_stalker_base_smart]: true,
     [storyNames.jup_b41]: true,
+    [storyNames.jup_a6]: true,
+    [storyNames.pri_a16]: true,
+  }),
+  /**
+   * Set of terrains defined as stalker bases.
+   */
+  baseSmartTerrains: $fromObject<TName, boolean>({
+    [storyNames.zat_stalker_base_smart]: true,
     [storyNames.jup_a6]: true,
     [storyNames.pri_a16]: true,
   }),

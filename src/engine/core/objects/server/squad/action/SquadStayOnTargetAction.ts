@@ -1,6 +1,7 @@
 import { game } from "xray16";
 
-import { ISquadAction, Squad } from "@/engine/core/objects";
+import { Squad } from "@/engine/core/objects/server/squad/Squad";
+import { ISquadAction } from "@/engine/core/objects/server/squad/squad_types";
 import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
 import { Optional, TDuration, Time, TName } from "@/engine/lib/types";
 

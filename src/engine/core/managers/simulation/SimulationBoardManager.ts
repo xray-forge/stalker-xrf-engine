@@ -7,12 +7,12 @@ import {
   groupIdByLevelName,
   ISimulationFactionDescriptor,
   ISmartTerrainDescriptor,
+  TSimulationObject,
 } from "@/engine/core/managers/simulation/simulation_types";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain/SmartTerrain";
 import { SquadReachTargetAction } from "@/engine/core/objects/server/squad/action";
 import { Squad } from "@/engine/core/objects/server/squad/Squad";
-import { TSimulationObject } from "@/engine/core/objects/server/types";
 import { abort, assertDefined } from "@/engine/core/utils/assertion";
 import { parseStringsList } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";

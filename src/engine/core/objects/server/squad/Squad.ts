@@ -29,18 +29,18 @@ import {
 } from "@/engine/core/database/simulation";
 import { unregisterStoryLinkByObjectId } from "@/engine/core/database/story_objects";
 import { MapDisplayManager } from "@/engine/core/managers/interface/MapDisplayManager";
-import { SimulationBoardManager } from "@/engine/core/managers/simulation/SimulationBoardManager";
-import type { SmartTerrain } from "@/engine/core/objects/server/smart_terrain/SmartTerrain";
-import { ESmartTerrainStatus } from "@/engine/core/objects/server/smart_terrain/types";
-import { SquadReachTargetAction, SquadStayOnTargetAction } from "@/engine/core/objects/server/squad/action";
-import { simulationActivities } from "@/engine/core/objects/server/squad/simulation_activities";
 import {
   ISimulationActivityDescriptor,
   ISimulationActivityPrecondition,
   ISimulationTarget,
-  ISquadAction,
+  simulationActivities,
   TSimulationObject,
-} from "@/engine/core/objects/server/types";
+} from "@/engine/core/managers/simulation";
+import { SimulationBoardManager } from "@/engine/core/managers/simulation/SimulationBoardManager";
+import { ISquadAction } from "@/engine/core/objects";
+import type { SmartTerrain } from "@/engine/core/objects/server/smart_terrain/SmartTerrain";
+import { ESmartTerrainStatus } from "@/engine/core/objects/server/smart_terrain/types";
+import { SquadReachTargetAction, SquadStayOnTargetAction } from "@/engine/core/objects/server/squad/action";
 import { StoryManager } from "@/engine/core/objects/sounds/stories";
 import { abort, assertDefined } from "@/engine/core/utils/assertion";
 import {

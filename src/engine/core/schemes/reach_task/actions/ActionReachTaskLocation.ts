@@ -1,9 +1,9 @@
 import { action_base, alife, anim, clsid, level, look, LuabindClass, move, object, time_global } from "xray16";
 
 import { registry } from "@/engine/core/database";
+import { TSimulationObject } from "@/engine/core/managers/simulation";
 import { EStalkerState } from "@/engine/core/objects/animation";
 import { Squad } from "@/engine/core/objects/server/squad/Squad";
-import { TSimulationObject } from "@/engine/core/objects/server/types";
 import { ReachTaskPatrolManager } from "@/engine/core/schemes/reach_task/ReachTaskPatrolManager";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getObjectSquad, sendToNearestAccessibleVertex } from "@/engine/core/utils/object";

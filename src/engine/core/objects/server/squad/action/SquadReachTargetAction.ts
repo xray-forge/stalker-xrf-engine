@@ -1,8 +1,9 @@
 import { alife } from "xray16";
 
 import { registry } from "@/engine/core/database";
+import { TSimulationObject } from "@/engine/core/managers/simulation";
 import type { Squad } from "@/engine/core/objects/server/squad/Squad";
-import type { ISquadAction, TSimulationObject } from "@/engine/core/objects/server/types";
+import type { ISquadAction } from "@/engine/core/objects/server/squad/squad_types";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { Optional, TName } from "@/engine/lib/types";
 
