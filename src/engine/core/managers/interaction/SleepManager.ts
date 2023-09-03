@@ -84,7 +84,7 @@ export class SleepManager extends AbstractCoreManager {
     weatherManager.forceWeatherChange();
     surgeManager.isTimeForwarded = true;
 
-    if (surgeManager.isStarted && weatherManager.weatherFx) {
+    if (SurgeManager.IS_STARTED && weatherManager.weatherFx) {
       level.stop_weather_fx();
       weatherManager.forceWeatherChange();
     }

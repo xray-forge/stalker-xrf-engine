@@ -1,4 +1,4 @@
-import { registry } from "@/engine/core/database";
+import { SurgeManager } from "@/engine/core/managers/world/SurgeManager";
 import { Squad } from "@/engine/core/objects";
 import { isInTimeInterval } from "@/engine/core/utils/game";
 import { getServerDistanceBetween } from "@/engine/core/utils/object";
@@ -15,14 +15,14 @@ export function simulationPreconditionAlways(): boolean {
  * todo;
  */
 export function simulationPreconditionSurge(): boolean {
-  return registry.isSurgeStarted;
+  return SurgeManager.IS_STARTED;
 }
 
 /**
  * todo;
  */
 export function simulationPreconditionNotSurge(): boolean {
-  return !registry.isSurgeStarted;
+  return !SurgeManager.IS_STARTED;
 }
 
 /**

@@ -401,7 +401,7 @@ export class DynamicMusicManager extends AbstractCoreManager {
 
     const surgeManager: SurgeManager = SurgeManager.getInstance();
 
-    if (surgeManager.isStarted && surgeManager.isBlowoutSoundEnabled) {
+    if (SurgeManager.IS_STARTED && surgeManager.isBlowoutSoundEnabled) {
       if (surgeManager.isKillingAll()) {
         this.forceFade = true;
         this.fadeToAmbientVolume = this.gameAmbientVolume;

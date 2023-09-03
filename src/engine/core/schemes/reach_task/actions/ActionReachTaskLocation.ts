@@ -2,11 +2,12 @@ import { action_base, alife, anim, clsid, level, look, LuabindClass, move, objec
 
 import { registry } from "@/engine/core/database";
 import { TSimulationObject } from "@/engine/core/managers/simulation";
+import { SurgeManager } from "@/engine/core/managers/world/SurgeManager";
 import { EStalkerState } from "@/engine/core/objects/animation";
 import { Squad } from "@/engine/core/objects/server/squad/Squad";
 import { ReachTaskPatrolManager } from "@/engine/core/schemes/reach_task/ReachTaskPatrolManager";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { getObjectSquad, sendToNearestAccessibleVertex } from "@/engine/core/utils/object";
+import { getObjectSquad, isSquad, sendToNearestAccessibleVertex } from "@/engine/core/utils/object";
 import { areSameVectors, createEmptyVector, createVector } from "@/engine/core/utils/vector";
 import {
   ClientObject,
@@ -191,7 +192,7 @@ export class ActionReachTaskLocation extends action_base {
 
     this.object.set_path_type(EClientObjectPath.LEVEL_PATH);
 
-    if (squadTarget === null || squadTarget.clsid() === clsid.online_offline_group_s || registry.isSurgeStarted) {
+    if (squadTarget === null || isSquad(squadTarget) || SurgeManager.IS_STARTED) {
       this.object.set_movement_type(level.object_by_id(objectSquad.commander_id())!.movement_type());
       this.object.set_mental_state(level.object_by_id(objectSquad.commander_id())!.mental_state());
 
@@ -232,7 +233,7 @@ export class ActionReachTaskLocation extends action_base {
  */
 function updateObjectMovement(object: ClientObject, target: Optional<TSimulationObject>): void {
   if (target !== null && !object.is_talking()) {
-    if (registry.isSurgeStarted) {
+    if (SurgeManager.IS_STARTED) {
       object.set_movement_type(move.run);
       object.set_mental_state(anim.free);
 

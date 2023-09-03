@@ -62,6 +62,5 @@ describe("registry storage", () => {
     expect(registry.noCombatSmartTerrains instanceof LuaTable).toBeTruthy();
     expect(registry.baseSmartTerrains instanceof LuaTable).toBeTruthy();
     expect(registry.extensions instanceof LuaTable).toBeTruthy();
-    expect(registry.isSurgeStarted).toBe(false);
   });
 });

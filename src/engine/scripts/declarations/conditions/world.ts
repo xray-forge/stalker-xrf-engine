@@ -60,14 +60,14 @@ extern(
  * @returns whether surge is completed
  */
 extern("xr_conditions.surge_complete", (): boolean => {
-  return SurgeManager.getInstance().isFinished;
+  return SurgeManager.IS_FINISHED;
 });
 
 /**
  * @returns whether surge is started
  */
 extern("xr_conditions.surge_started", (): boolean => {
-  return SurgeManager.getInstance().isStarted;
+  return SurgeManager.IS_STARTED;
 });
 
 /**

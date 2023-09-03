@@ -78,14 +78,14 @@ export class SurgeManager extends AbstractCoreManager {
   public static readonly SLEEP_CAM_EFFECTOR_ID: TNumberId = 3;
   public static readonly SLEEP_FADE_PP_EFFECTOR_ID: TNumberId = 4;
 
+  public static IS_STARTED: boolean = false;
+  public static IS_FINISHED: boolean = true;
+
   public respawnArtefactsByLevel: PartialRecord<TLevel, boolean> = {
     [levels.zaton]: false,
     [levels.jupiter]: false,
     [levels.pripyat]: false,
   };
-
-  public isStarted: boolean = false;
-  public isFinished: boolean = true;
   public isTimeForwarded: boolean = false;
   public isEffectorSet: boolean = false;
   public isAfterGameLoad: boolean = false;
@@ -267,7 +267,7 @@ export class SurgeManager extends AbstractCoreManager {
    * todo: Description.
    */
   public isKillingAll(): boolean {
-    return this.isStarted && this.isUiDisabled;
+    return SurgeManager.IS_STARTED && this.isUiDisabled;
   }
 
   private canReleaseSquad(squad: Squad): boolean {
@@ -319,7 +319,7 @@ export class SurgeManager extends AbstractCoreManager {
   public requestSurgeStop(): void {
     logger.info("Request surge stop");
 
-    if (this.isStarted) {
+    if (SurgeManager.IS_STARTED) {
       this.endSurge(true);
     }
   }
@@ -354,10 +354,8 @@ export class SurgeManager extends AbstractCoreManager {
 
       this.skipSurge();
     } else {
-      this.isStarted = true;
-      this.isFinished = false;
-
-      registry.isSurgeStarted = true;
+      SurgeManager.IS_STARTED = true;
+      SurgeManager.IS_FINISHED = false;
 
       if (!hasAlifeInfo(infoPortions.pri_b305_fifth_cam_end) || hasAlifeInfo(infoPortions.pri_a28_actor_in_zone_stay)) {
         createGameAutoSave(captions.st_save_uni_surge_start);
@@ -375,10 +373,8 @@ export class SurgeManager extends AbstractCoreManager {
 
     this.lastSurgeAt.set(Y, M, D, h, m, s + surgeConfig.DURATION, ms);
 
-    this.isStarted = false;
-    this.isFinished = true;
-
-    registry.isSurgeStarted = false;
+    SurgeManager.IS_STARTED = false;
+    SurgeManager.IS_FINISHED = true;
 
     this.respawnArtefactsByLevel = { zaton: true, jupiter: true, pripyat: true };
     this.nextScheduledSurgeDelay = math.random(
@@ -408,10 +404,8 @@ export class SurgeManager extends AbstractCoreManager {
   public endSurge(manual?: boolean): void {
     logger.info("Ending surge:", manual);
 
-    this.isStarted = false;
-    this.isFinished = true;
-
-    registry.isSurgeStarted = false;
+    SurgeManager.IS_STARTED = false;
+    SurgeManager.IS_FINISHED = true;
 
     this.respawnArtefactsByLevel = { zaton: true, jupiter: true, pripyat: true };
     this.lastSurgeAt = game.get_game_time();
@@ -678,7 +672,7 @@ export class SurgeManager extends AbstractCoreManager {
       this.respawnArtefactsAndReplaceAnomalyZones();
     }
 
-    if (!this.isStarted) {
+    if (!SurgeManager.IS_STARTED) {
       const currentGameTime: Time = game.get_game_time();
 
       if (this.isTimeForwarded) {
@@ -920,7 +914,7 @@ export class SurgeManager extends AbstractCoreManager {
     const random: number = math.random(35, 45);
     const surgeManager: SurgeManager = SurgeManager.getInstance();
 
-    if (surgeManager.isStarted) {
+    if (SurgeManager.IS_STARTED) {
       const timeFactor: TRate = level.get_time_factor();
       const timeDiffInSeconds: TDuration = math.ceil(
         game.get_game_time().diffSec(surgeManager.initializedAt) / timeFactor
@@ -959,11 +953,11 @@ export class SurgeManager extends AbstractCoreManager {
   public override save(packet: NetPacket): void {
     openSaveMarker(packet, SurgeManager.name);
 
-    packet.w_bool(this.isFinished);
-    packet.w_bool(this.isStarted);
+    packet.w_bool(SurgeManager.IS_FINISHED);
+    packet.w_bool(SurgeManager.IS_STARTED);
     writeTimeToPacket(packet, this.lastSurgeAt);
 
-    if (this.isStarted) {
+    if (SurgeManager.IS_STARTED) {
       writeTimeToPacket(packet, this.initializedAt);
 
       packet.w_bool(this.respawnArtefactsByLevel.zaton as boolean);
@@ -991,13 +985,11 @@ export class SurgeManager extends AbstractCoreManager {
   public override load(reader: NetProcessor): void {
     openLoadMarker(reader, SurgeManager.name);
 
-    this.isFinished = reader.r_bool();
-    this.isStarted = reader.r_bool();
+    SurgeManager.IS_FINISHED = reader.r_bool();
+    SurgeManager.IS_STARTED = reader.r_bool();
     this.lastSurgeAt = readTimeFromPacket(reader)!;
 
-    registry.isSurgeStarted = this.isStarted;
-
-    if (this.isStarted) {
+    if (SurgeManager.IS_STARTED) {
       this.initializedAt = readTimeFromPacket(reader)!;
 
       this.respawnArtefactsByLevel.zaton = reader.r_bool();

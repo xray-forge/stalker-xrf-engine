@@ -407,14 +407,14 @@ extern("dialogs.disable_ui_only", (firstSpeaker: ClientObject, secondSpeaker: Cl
  * todo;
  */
 extern("dialogs.is_surge_running", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
-  return SurgeManager.getInstance().isStarted;
+  return SurgeManager.IS_STARTED;
 });
 
 /**
  * todo;
  */
 extern("dialogs.is_surge_not_running", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
-  return SurgeManager.getInstance().isFinished;
+  return SurgeManager.IS_FINISHED;
 });
 
 /**
