@@ -298,7 +298,7 @@ export class MainMenu extends CUIScriptWnd {
   /**
    * Clicked debug button.
    */
-  public onDevelopmentDebugButtonClick(): void {
+  public onDevelopmentDebugButtonClick(...rest: Array<any>): void {
     if (gameConfig.DEBUG.IS_ENABLED) {
       logger.info("Activating debug settings view");
     } else {
@@ -453,8 +453,10 @@ export class MainMenu extends CUIScriptWnd {
   /**
    * Handle keyboard buttons press events.
    */
-  public override OnKeyboard(key: TKeyCode, event: TUIEvent): boolean {
+  public override OnKeyboard(key: TKeyCode, event: TUIEvent, ...rest: Array<any>): boolean {
     super.OnKeyboard(key, event);
+
+    const r = [...rest];
 
     if (event === ui_events.WINDOW_KEY_PRESSED) {
       switch (key) {
