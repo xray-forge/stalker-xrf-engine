@@ -1,6 +1,7 @@
-import { clsid } from "xray16";
+import { alife, clsid } from "xray16";
 
 import { SYSTEM_INI } from "@/engine/core/database";
+import type { SmartTerrain, Squad } from "@/engine/core/objects";
 import { artefactClassIds, monsterClassIds, stalkerClassIds, weaponClassIds } from "@/engine/lib/constants/class_ids";
 import {
   AnyGameObject,
@@ -11,6 +12,7 @@ import {
   ServerMonsterAbstractObject,
   ServerObject,
   TClassId,
+  TNumberId,
 } from "@/engine/lib/types";
 
 /**
@@ -79,4 +81,34 @@ export function isArtefact(object: AnyGameObject): object is ServerArtefactItemO
  */
 export function isStrappableWeapon(object: Optional<ClientObject>): object is ClientObject {
   return object === null ? false : SYSTEM_INI.line_exist(object.section(), "strap_bone0");
+}
+
+/**
+ * todo;
+ */
+export function isSquadId(objectId: TNumberId): boolean {
+  const serverObject: Optional<ServerObject> = alife().object(objectId);
+
+  return serverObject !== null && serverObject.clsid() === clsid.online_offline_group_s;
+}
+
+/**
+ * todo;
+ */
+export function isSquad(object: ServerObject): object is Squad {
+  return object.clsid() === clsid.online_offline_group_s;
+}
+
+/**
+ * todo;
+ */
+export function isSmartTerrain(object: ServerObject): object is SmartTerrain {
+  return object.clsid() === clsid.smart_terrain;
+}
+
+/**
+ * todo;
+ */
+export function isMonsterSquad(squad: Squad): boolean {
+  return isMonster(alife().object(squad.commander_id()) as ServerObject);
 }

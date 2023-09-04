@@ -21,7 +21,8 @@ import {
   ITipNotification,
   ITreasureNotification,
 } from "@/engine/core/managers/interface/notifications/types";
-import { ISmartTerrainDescriptor, SimulationBoardManager } from "@/engine/core/managers/simulation";
+import { ISmartTerrainDescriptor } from "@/engine/core/managers/simulation/simulation_types";
+import { SimulationBoardManager } from "@/engine/core/managers/simulation/SimulationBoardManager";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import { Stalker } from "@/engine/core/objects";
 import { abort, assert } from "@/engine/core/utils/assertion";

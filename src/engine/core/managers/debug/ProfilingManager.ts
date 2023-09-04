@@ -185,7 +185,7 @@ export class ProfilingManager extends AbstractCoreManager {
     this.profilingTimer.start();
 
     debug.sethook();
-    debug.sethook((context, lineNumber) => this.hook(context, lineNumber), this.mode);
+    debug.sethook((context) => this.hook(context), this.mode);
 
     this.isProfilingStarted = true;
 

@@ -1,8 +1,8 @@
 import { alife, LuabindClass, property_evaluator } from "xray16";
 
+import { TSimulationObject } from "@/engine/core/managers/simulation";
 import { SquadReachTargetAction } from "@/engine/core/objects/server/squad/action";
 import type { Squad } from "@/engine/core/objects/server/squad/Squad";
-import { TSimulationObject } from "@/engine/core/objects/server/types";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getObjectSquad } from "@/engine/core/utils/object";
 import { Optional } from "@/engine/lib/types";

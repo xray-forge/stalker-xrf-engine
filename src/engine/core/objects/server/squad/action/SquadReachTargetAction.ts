@@ -1,10 +1,11 @@
 import { alife } from "xray16";
 
 import { registry } from "@/engine/core/database";
+import { TSimulationObject } from "@/engine/core/managers/simulation";
 import type { Squad } from "@/engine/core/objects/server/squad/Squad";
-import type { ISquadAction, TSimulationObject } from "@/engine/core/objects/server/types";
+import type { ISquadAction } from "@/engine/core/objects/server/squad/squad_types";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { Optional, TName } from "@/engine/lib/types";
+import { Optional, TName, TNumberId } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -45,14 +46,16 @@ export class SquadReachTargetAction implements ISquadAction {
 
   /**
    * Generic update tick.
+   *
+   * @returns whether task is finished
    */
   public update(isUnderSimulation: boolean): boolean {
     /**
      * Rely on simulation board manager for offline mode.
      */
     const squadTarget: Optional<TSimulationObject> = isUnderSimulation
-      ? registry.simulationObjects.get(this.squad.assignedTargetId!)
-      : alife().object(this.squad.assignedTargetId!);
+      ? registry.simulationObjects.get(this.squad.assignedTargetId as TNumberId)
+      : alife().object(this.squad.assignedTargetId as TNumberId);
 
     /**
      * Target object stopped existing.

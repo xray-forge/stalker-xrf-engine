@@ -214,6 +214,7 @@ export class MapDisplayManager extends AbstractCoreManager {
       return;
     }
 
+    // Squad leader is NPC with some role, do not display default icons.
     if (
       level.map_has_object_spot(squadCommanderId, mapMarks.ui_pda2_trader_location) !== 0 ||
       level.map_has_object_spot(squadCommanderId, mapMarks.ui_pda2_mechanic_location) !== 0 ||
@@ -297,12 +298,12 @@ export class MapDisplayManager extends AbstractCoreManager {
   public removeSquadMapSpot(squad: Squad): void {
     if (squad.currentMapSpotId === null || squad.currentMapSpotSection === null) {
       return;
+    } else {
+      level.map_remove_object_spot(squad.currentMapSpotId, squad.currentMapSpotSection);
+
+      squad.currentMapSpotId = null;
+      squad.currentMapSpotSection = null;
     }
-
-    level.map_remove_object_spot(squad.currentMapSpotId, squad.currentMapSpotSection);
-
-    squad.currentMapSpotId = null;
-    squad.currentMapSpotSection = null;
   }
 
   /**

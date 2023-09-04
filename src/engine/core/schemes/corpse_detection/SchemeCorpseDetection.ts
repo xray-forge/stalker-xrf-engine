@@ -56,7 +56,6 @@ export class SchemeCorpseDetection extends AbstractScheme {
     action.add_precondition(new world_property(EEvaluatorId.ANONALY, false));
     action.add_precondition(new world_property(EEvaluatorId.IS_CORPSE_EXISTING, true));
     action.add_precondition(new world_property(EEvaluatorId.IS_WOUNDED_EXISTING, false));
-    action.add_precondition(new world_property(EEvaluatorId.IS_MEET_CONTACT, false));
 
     action.add_effect(new world_property(EEvaluatorId.IS_CORPSE_EXISTING, false));
 

@@ -31,20 +31,20 @@ import {
   updateSimulationObjectAvailability,
 } from "@/engine/core/database/simulation";
 import { MapDisplayManager } from "@/engine/core/managers/interface";
+import {
+  ESimulationTerrainRole,
+  ISimulationActivityDescriptor,
+  ISimulationTarget,
+  simulationActivities,
+  TSimulationActivityPrecondition,
+  TSimulationObject,
+  VALID_SMART_TERRAINS_SIMULATION_ROLES,
+} from "@/engine/core/managers/simulation";
 import { SimulationBoardManager } from "@/engine/core/managers/simulation/SimulationBoardManager";
 import { SmartTerrainControl } from "@/engine/core/objects/server/smart_terrain/SmartTerrainControl";
 import { ESmartTerrainStatus } from "@/engine/core/objects/server/smart_terrain/types";
 import { SquadReachTargetAction, SquadStayOnTargetAction } from "@/engine/core/objects/server/squad/action";
-import { simulationActivities } from "@/engine/core/objects/server/squad/simulation_activities";
 import { Squad } from "@/engine/core/objects/server/squad/Squad";
-import {
-  ESimulationTerrainRole,
-  ISimulationActivityDescriptor,
-  ISimulationActivityPrecondition,
-  ISimulationTarget,
-  TSimulationObject,
-  VALID_SMART_TERRAINS_SIMULATION_ROLES,
-} from "@/engine/core/objects/server/types";
 import { abort, assert, assertDefined } from "@/engine/core/utils/assertion";
 import { readTimeFromPacket, writeTimeToPacket } from "@/engine/core/utils/game/game_time";
 import {
@@ -68,7 +68,7 @@ import {
   TSmartTerrainJobsList,
 } from "@/engine/core/utils/job";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { areObjectsOnSameLevel, isMonster, isStalker } from "@/engine/core/utils/object";
+import { areObjectsOnSameLevel, isMonsterSquad, isStalker } from "@/engine/core/utils/object";
 import { ERelation } from "@/engine/core/utils/relation";
 import {
   activateSchemeBySection,
@@ -1202,34 +1202,34 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
     }
 
     if ((tonumber(this.simulationProperties[ESimulationTerrainRole.RESOURCE]) as number) > 0) {
-      const simulationProperties: Optional<ISimulationActivityPrecondition> = squadParameters.smart
-        .resource as Optional<ISimulationActivityPrecondition>;
+      const simulationProperties: Optional<TSimulationActivityPrecondition> = squadParameters.smart
+        .resource as Optional<TSimulationActivityPrecondition>;
 
-      if (simulationProperties?.canSelect(squad, this)) {
+      if (simulationProperties?.(squad, this)) {
         return true;
       }
     }
 
     if ((tonumber(this.simulationProperties[ESimulationTerrainRole.BASE]) as number) > 0) {
-      if (squadParameters.smart.base?.canSelect(squad, this)) {
+      if (squadParameters.smart.base?.(squad, this)) {
         return true;
       }
     }
 
-    if (tonumber(this.simulationProperties[ESimulationTerrainRole.LAIR])! > 0) {
-      if (squadParameters.smart.lair?.canSelect(squad, this)) {
+    if ((tonumber(this.simulationProperties[ESimulationTerrainRole.LAIR]) as number) > 0) {
+      if (squadParameters.smart.lair?.(squad, this)) {
         return true;
       }
     }
 
-    if (tonumber(this.simulationProperties[ESimulationTerrainRole.TERRITORY])! > 0) {
-      if (squadParameters.smart.territory?.canSelect(squad, this)) {
+    if ((tonumber(this.simulationProperties[ESimulationTerrainRole.TERRITORY]) as number) > 0) {
+      if (squadParameters.smart.territory?.(squad, this)) {
         return true;
       }
     }
 
-    if (tonumber(this.simulationProperties[ESimulationTerrainRole.SURGE])! > 0) {
-      if (squadParameters.smart.surge?.canSelect(squad, this)) {
+    if ((tonumber(this.simulationProperties[ESimulationTerrainRole.SURGE]) as number) > 0) {
+      if (squadParameters.smart.surge?.(squad, this)) {
         return true;
       }
     }
@@ -1240,28 +1240,18 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
   /**
    * todo: Description.
    */
-  public getGameLocation(): LuaMultiReturn<[Vector, TNumberId, TNumberId]> {
-    return $multi(this.position, this.m_level_vertex_id, this.m_game_vertex_id);
-  }
-
-  /**
-   * todo: Description.
-   */
   public isReachedBySquad(squad: Squad): boolean {
-    const [squadPosition, squadLevelVertexId, squadGameVertexId] = squad.getGameLocation();
-    const [targetPosition, targetLevelVertexId, targetVertexId] = this.getGameLocation();
-
-    if (game_graph().vertex(squadGameVertexId).level_id() !== game_graph().vertex(targetVertexId).level_id()) {
+    if (!areObjectsOnSameLevel(squad, this)) {
       return false;
     }
 
-    if (isMonster(alife().object(squad.commander_id())!) && squad.getScriptTarget() === null) {
-      return squadPosition.distance_to_sqr(targetPosition) <= logicsConfig.SMART_TERRAIN.DEFAULT_ARRIVAL_DISTANCE;
+    if (isMonsterSquad(squad) && squad.getLogicsScriptTarget() === null) {
+      return squad.position.distance_to_sqr(this.position) <= logicsConfig.SMART_TERRAIN.DEFAULT_ARRIVAL_DISTANCE;
     }
 
     return (
       squad.isAlwaysArrived ||
-      squadPosition.distance_to_sqr(targetPosition) <= this.arrivalDistance * this.arrivalDistance
+      squad.position.distance_to_sqr(this.position) <= this.arrivalDistance * this.arrivalDistance
     );
   }
 

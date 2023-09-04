@@ -24,7 +24,7 @@ import {
   initializeObjectSchemeLogic,
   initializeObjectSectionItems,
 } from "@/engine/core/utils/scheme/scheme_initialization";
-import { loadSchemeImplementation, loadSchemeImplementations } from "@/engine/core/utils/scheme/scheme_setup";
+import { loadSchemeImplementations } from "@/engine/core/utils/scheme/scheme_setup";
 import { AnyObject, ClientObject, EClientObjectRelation, EScheme, ESchemeType, IniFile } from "@/engine/lib/types";
 import { resetFunctionMock } from "@/fixtures/utils";
 import { FILES_MOCKS, mockClientGameObject, mockIniFile, mockServerAlifeHumanStalker } from "@/fixtures/xray";

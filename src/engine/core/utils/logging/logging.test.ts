@@ -7,7 +7,7 @@ import { gameConfig } from "@/engine/lib/configs/GameConfig";
 import { replaceFunctionMock, resetFunctionMock } from "@/fixtures/utils";
 
 describe("'logging' utils", () => {
-  const logging: { LuaLogger: typeof LuaLogger } = jest.requireActual("@/engine/core/utils/logging");
+  const logging: { LuaLogger: typeof LuaLogger } = jest.requireActual("@/engine/core/utils/logging/LuaLogger");
   const Logger: typeof LuaLogger = logging.LuaLogger;
 
   it("'LuaLogger' should correctly initialize", () => {

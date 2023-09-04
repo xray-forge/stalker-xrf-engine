@@ -7,12 +7,12 @@ import {
   groupIdByLevelName,
   ISimulationFactionDescriptor,
   ISmartTerrainDescriptor,
+  TSimulationObject,
 } from "@/engine/core/managers/simulation/simulation_types";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain/SmartTerrain";
 import { SquadReachTargetAction } from "@/engine/core/objects/server/squad/action";
 import { Squad } from "@/engine/core/objects/server/squad/Squad";
-import { TSimulationObject } from "@/engine/core/objects/server/types";
 import { abort, assertDefined } from "@/engine/core/utils/assertion";
 import { parseStringsList } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -36,6 +36,7 @@ import {
 } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
+const simulationLogger: LuaLogger = new LuaLogger($filename, { file: "simulation" });
 
 /**
  * todo;
@@ -130,7 +131,7 @@ export class SimulationBoardManager extends AbstractCoreManager {
     let count: TCount = 0;
 
     for (const [k, squad] of this.smartTerrains.get(smartTerrainId).assignedSquads) {
-      if (squad.getScriptTarget() !== null) {
+      if (squad.getLogicsScriptTarget() !== null) {
         count += 1;
       }
     }
@@ -184,6 +185,8 @@ export class SimulationBoardManager extends AbstractCoreManager {
    * @param smartTerrain - target smart terrain object to register in alife simulation
    */
   public registerSmartTerrain(smartTerrain: SmartTerrain): void {
+    simulationLogger.info("Register smart terrain:", smartTerrain.name());
+
     if (this.smartTerrains.get(smartTerrain.id) !== null) {
       abort("Smart terrain '%s' is already registered in simulation board.", smartTerrain.name());
     }
@@ -202,6 +205,8 @@ export class SimulationBoardManager extends AbstractCoreManager {
    * @param smartTerrain - target smart terrain to unregister
    */
   public unregisterSmartTerrain(smartTerrain: SmartTerrain): void {
+    simulationLogger.info("Unregister smart terrain:", smartTerrain.name());
+
     if (!this.smartTerrains.has(smartTerrain.id)) {
       abort("Trying to unregister not registered smart terrain '%s'.", smartTerrain.name());
     }
@@ -214,6 +219,8 @@ export class SimulationBoardManager extends AbstractCoreManager {
    * todo: Description.
    */
   public assignSquadToSmartTerrain(squad: Squad, smartTerrainId: Optional<TNumberId>): void {
+    simulationLogger.format("Assign squad to smart terrain: '%s' -> '%s'.", squad.name(), smartTerrainId);
+
     if (smartTerrainId !== null && !this.smartTerrains.has(smartTerrainId)) {
       if (!this.temporaryAssignedSquads.has(smartTerrainId)) {
         this.temporaryAssignedSquads.set(smartTerrainId, new LuaTable());
@@ -238,14 +245,14 @@ export class SimulationBoardManager extends AbstractCoreManager {
     }
 
     if (smartTerrainId === null) {
-      squad.assignSmartTerrain(null);
+      squad.assignToSmartTerrain(null);
 
       return;
     }
 
     const target: ISmartTerrainDescriptor = this.smartTerrains.get(smartTerrainId);
 
-    squad.assignSmartTerrain(target.smartTerrain);
+    squad.assignToSmartTerrain(target.smartTerrain);
     target.assignedSquads.set(squad.id, squad);
     target.smartTerrain.mapDisplayManager.updateSmartTerrainMapSpot(target.smartTerrain);
   }
@@ -260,6 +267,8 @@ export class SimulationBoardManager extends AbstractCoreManager {
    * @returns newly created squad
    */
   public createSquad(smartTerrain: SmartTerrain, section: TStringId): Squad {
+    simulationLogger.format("Create squad: '%s' -> '%s'.", smartTerrain.name(), section);
+
     const squad: Squad = alife().create<Squad>(
       section,
       smartTerrain.position,
@@ -293,7 +302,7 @@ export class SimulationBoardManager extends AbstractCoreManager {
    * @param squad - target squad object to remove with members including
    */
   public releaseSquad(squad: Squad): void {
-    logger.info("Remove squad:", squad.name());
+    simulationLogger.format("Release squad: '%s'.", squad.name());
 
     this.exitSmartTerrain(squad, squad.assignedSmartTerrainId);
     this.assignSquadToSmartTerrain(squad, null);
@@ -339,6 +348,8 @@ export class SimulationBoardManager extends AbstractCoreManager {
    * todo: Description.
    */
   public exitSmartTerrain(squad: Squad, smartTerrainId: Optional<TNumberId>): void {
+    simulationLogger.format("Exist smart terrain: '%s' x '%s'.", squad.name(), smartTerrainId);
+
     if (smartTerrainId === null) {
       return;
     }
@@ -374,6 +385,12 @@ export class SimulationBoardManager extends AbstractCoreManager {
     }
 
     const smartTerrainDescriptor: ISmartTerrainDescriptor = this.smartTerrains.get(smartTerrainId);
+
+    simulationLogger.format(
+      "Enter smart terrain: '%s' -> '%s'.",
+      squad.name(),
+      smartTerrainDescriptor.smartTerrain.name()
+    );
 
     if (squad.enteredSmartTerrainId) {
       abort("Couldn't enter smart, still in old one. Squad: [%s]", squad.name());
@@ -461,7 +478,7 @@ export class SimulationBoardManager extends AbstractCoreManager {
       this.areDefaultSimulationSquadsSpawned = true;
     }
 
-    logger.info("Spawn default simulation squads");
+    simulationLogger.info("Spawn default simulation squads");
 
     for (const serverLevel of game_graph().levels()) {
       const levelSectionName: TSection = "start_position_" + alife().level_name(serverLevel.id);
@@ -487,13 +504,15 @@ export class SimulationBoardManager extends AbstractCoreManager {
       }
     }
 
-    logger.info("Spawned default simulation squads");
+    simulationLogger.info("Spawned default simulation squads");
   }
 
   /**
    * Handle event of actor unregister in network.
    */
   public onActorNetworkDestroy(): void {
+    simulationLogger.format("Actor network destroy");
+
     if (actor_stats.remove_from_ranking !== null) {
       actor_stats.remove_from_ranking(registry.actor.id());
     }
@@ -509,6 +528,7 @@ export class SimulationBoardManager extends AbstractCoreManager {
    * Handle event of actor register in network.
    */
   public onActorNetworkRegister(): void {
+    simulationLogger.format("Actor network register");
     this.initializeDefaultSimulationSquads();
   }
 

@@ -15,11 +15,11 @@ import {
   unregisterObject,
 } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers";
+import { TSimulationObject } from "@/engine/core/managers/simulation";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain/SmartTerrain";
 import { SquadReachTargetAction } from "@/engine/core/objects/server/squad/action";
 import { Squad } from "@/engine/core/objects/server/squad/Squad";
-import { TSimulationObject } from "@/engine/core/objects/server/types";
 import { ESchemeEvent, IBaseSchemeState } from "@/engine/core/schemes";
 import { SchemeHear } from "@/engine/core/schemes/hear/SchemeHear";
 import { pickSectionFromCondList, TConditionList } from "@/engine/core/utils/ini";
@@ -120,7 +120,7 @@ export class MonsterBinder extends object_binder {
         return;
       }
 
-      const [targetPosition] = currentTarget.getGameLocation();
+      const targetPosition: Vector = currentTarget.position;
 
       scriptCaptureMonster(this.object, true);
 

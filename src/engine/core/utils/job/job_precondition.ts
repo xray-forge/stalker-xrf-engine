@@ -160,7 +160,7 @@ export function jobPreconditionSurge(
   smartTerrain: SmartTerrain,
   parameters: AnyObject
 ): boolean {
-  return SurgeManager.getInstance().isStarted;
+  return SurgeManager.IS_STARTED;
 }
 
 /**

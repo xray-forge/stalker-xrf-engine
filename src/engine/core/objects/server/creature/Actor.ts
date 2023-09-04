@@ -13,12 +13,11 @@ import { openLoadMarker } from "@/engine/core/database/save_markers";
 import { registerSimulationObject, unregisterSimulationObject } from "@/engine/core/database/simulation";
 import { EGameEvent, EventsManager } from "@/engine/core/managers";
 import { SaveManager } from "@/engine/core/managers/base/SaveManager";
+import { ISimulationTarget, simulationActivities } from "@/engine/core/managers/simulation";
 import { SimulationBoardManager } from "@/engine/core/managers/simulation/SimulationBoardManager";
 import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain/SmartTerrain";
 import { ESmartTerrainStatus } from "@/engine/core/objects/server/smart_terrain/types";
-import { simulationActivities } from "@/engine/core/objects/server/squad/simulation_activities";
 import { Squad } from "@/engine/core/objects/server/squad/Squad";
-import { ISimulationTarget } from "@/engine/core/objects/server/types";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/ini_config";
 import { parseConditionsList } from "@/engine/core/utils/ini/ini_parse";
 import { TConditionList } from "@/engine/core/utils/ini/ini_types";
@@ -92,13 +91,6 @@ export class Actor extends cse_alife_creature_actor implements ISimulationTarget
   }
 
   /**
-   * Get full actor location.
-   */
-  public getGameLocation(): LuaMultiReturn<[Vector, TNumberId, TNumberId]> {
-    return $multi(this.position, this.m_level_vertex_id, this.m_game_vertex_id);
-  }
-
-  /**
    * Get generic task.
    */
   public getAlifeSmartTerrainTask(): ALifeSmartTerrainTask {
@@ -162,7 +154,7 @@ export class Actor extends cse_alife_creature_actor implements ISimulationTarget
    * Whether actor can be selected as simulation target by squad.
    */
   public isValidSquadTarget(squad: Squad): boolean {
-    return simulationActivities.get(squad.faction)?.actor?.canSelect(squad, this) === true;
+    return simulationActivities.get(squad.faction)?.actor?.(squad, this) === true;
   }
 
   /**
