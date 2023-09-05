@@ -1,6 +1,6 @@
 import { CALifeSmartTerrainTask, game_graph, level } from "xray16";
 
-import { loadDynamicIni } from "@/engine/core/database/ini";
+import { loadDynamicIniFile } from "@/engine/core/database/ini";
 import { registry } from "@/engine/core/database/registry";
 import type { SmartCover, SmartTerrain } from "@/engine/core/objects";
 import { abort } from "@/engine/core/utils/assertion";
@@ -48,7 +48,7 @@ export function createSmartTerrainJobs(
   // Monsters part.
   createMonsterJobs(smartTerrain, jobs, builder);
 
-  const [jobsConfig, jobsConfigName] = loadDynamicIni(smartTerrain.name(), builder.build());
+  const [jobsConfig, jobsConfigName] = loadDynamicIniFile(smartTerrain.name(), builder.build());
 
   for (const [, job] of jobs) {
     const section: TSection = job.section;

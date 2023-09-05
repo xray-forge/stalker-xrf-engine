@@ -1,5 +1,7 @@
 import { danger_object } from "xray16";
 
+import { TDuration } from "@/engine/lib/types";
+
 /**
  * Configuration of game logics.
  * todo: move to LTX file once everything is combined here.
@@ -135,6 +137,8 @@ export const logicsConfig = {
   },
   TRADE: {
     DEFAULT_TRADE_LTX_PATH: "misc\\trade\\trade_generic.ltx",
+    UPDATE_PERIOD: 3_600_000,
+    RESUPPLY_PERIOD: 24 * 3_600_000,
   },
   MONSTER_CAPTURE_SCRIPT_NAME: "xrf",
 } as const;

@@ -1,7 +1,7 @@
 import { alife, ini_file } from "xray16";
 
 import { CUSTOM_DATA, getObjectLogicIniConfig, IRegistryObjectState, registry } from "@/engine/core/database";
-import { TradeManager } from "@/engine/core/managers/interaction/TradeManager";
+import { TradeManager } from "@/engine/core/managers/interaction/trade/TradeManager";
 import { SmartTerrain } from "@/engine/core/objects";
 import { ESchemeEvent, IBaseSchemeState } from "@/engine/core/schemes";
 import { assert } from "@/engine/core/utils/assertion";
@@ -124,7 +124,7 @@ export function configureObjectSchemes(
 
   // todo: Move to separate activation methods?
   if (schemeType === ESchemeType.STALKER) {
-    const tradeIni: TPath = readIniString(
+    const tradeIniPath: TPath = readIniString(
       actualIni,
       logicsSection,
       "trade",
@@ -133,7 +133,8 @@ export function configureObjectSchemes(
       logicsConfig.TRADE.DEFAULT_TRADE_LTX_PATH
     );
 
-    TradeManager.initializeForObject(object, tradeIni);
+    TradeManager.getInstance().initializeForObject(object, tradeIniPath);
+
     initializeObjectSectionItems(object, state);
   }
 

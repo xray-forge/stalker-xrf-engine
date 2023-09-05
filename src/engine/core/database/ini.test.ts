@@ -1,6 +1,6 @@
-import { describe, expect, it } from "@jest/globals";
+import { beforeEach, describe, expect, it } from "@jest/globals";
 
-import { getObjectLogicIniConfig, loadDynamicIni } from "@/engine/core/database/ini";
+import { getObjectLogicIniConfig, loadDynamicIniFile, loadIniFile } from "@/engine/core/database/ini";
 import { DUMMY_LTX } from "@/engine/core/database/ini_registry";
 import { registerObject } from "@/engine/core/database/objects";
 import { registry } from "@/engine/core/database/registry";
@@ -9,11 +9,15 @@ import { ClientObject, IniFile } from "@/engine/lib/types";
 import { mockClientGameObject, MockIniFile } from "@/fixtures/xray";
 
 describe("'ini' module of database", () => {
-  it("should correctly create dynamic ini files", () => {
-    expect(() => loadDynamicIni("test.ltx")).toThrow();
-    expect(() => loadDynamicIni("*test.ltx")).toThrow();
+  beforeEach(() => {
+    registry.ini = new LuaTable();
+  });
 
-    const [first, firstName] = loadDynamicIni(
+  it("should correctly create dynamic ini files", () => {
+    expect(() => loadDynamicIniFile("test.ltx")).toThrow();
+    expect(() => loadDynamicIniFile("*test.ltx")).toThrow();
+
+    const [first, firstName] = loadDynamicIniFile(
       "test.ltx",
       JSON.stringify({
         test: {
@@ -30,12 +34,31 @@ describe("'ini' module of database", () => {
     expect(first.r_string("test", "b")).toBe("another");
     expect(first.r_bool("test", "c")).toBe(false);
 
-    const [second, secondName] = loadDynamicIni("test.ltx");
+    const [second, secondName] = loadDynamicIniFile("test.ltx");
 
     expect(first).toBe(second);
     expect(firstName).toBe(secondName);
 
     expect(registry.ini.length()).toBe(1);
+  });
+
+  it("should correctly open static ini files", () => {
+    expect(registry.ini.length()).toBe(0);
+
+    expect(() => loadIniFile("test1.ltx")).not.toThrow();
+    expect(() => loadIniFile("test2.ltx")).not.toThrow();
+
+    expect(registry.ini.length()).toBe(2);
+    expect(loadIniFile("test1.ltx")).toBe(loadIniFile("test1.ltx"));
+    expect(loadIniFile("test2.ltx")).toBe(loadIniFile("test2.ltx"));
+    expect(loadIniFile("test1.ltx")).not.toBe(loadIniFile("test2.ltx"));
+
+    const iniFile: IniFile = loadIniFile("test3.ltx");
+
+    expect(iniFile instanceof MockIniFile).toBeTruthy();
+    expect(iniFile.fname()).toBe("test3.ltx");
+
+    expect(registry.ini.length()).toBe(3);
   });
 
   it("should correctly load object logic ini file", () => {
@@ -51,7 +74,10 @@ describe("'ini' module of database", () => {
 
     registerObject(withSpawnIni);
 
-    const [dynamicLtx, dynamicLtxName] = loadDynamicIni("config.ltx", JSON.stringify({ test: { a: 1, b: "test" } }));
+    const [dynamicLtx, dynamicLtxName] = loadDynamicIniFile(
+      "config.ltx",
+      JSON.stringify({ test: { a: 1, b: "test" } })
+    );
     const logicIni: IniFile = getObjectLogicIniConfig(withSpawnIni, dynamicLtxName);
 
     expect(dynamicLtx).toBe(logicIni);

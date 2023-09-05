@@ -21,7 +21,7 @@ export const CUSTOM_DATA: TName = "<customdata>";
  * @param content - dynamic ini file content to initialize, if it does not exist
  * @returns multi return of file and filename
  */
-export function loadDynamicIni(name: TName, content: Optional<string> = null): LuaMultiReturn<[IniFile, TName]> {
+export function loadDynamicIniFile(name: TName, content: Optional<string> = null): LuaMultiReturn<[IniFile, TName]> {
   const nameKey: TName = DYNAMIC_LTX_PREFIX + name;
   const existingIniFile: Optional<IniFile> = registry.ini.get(nameKey);
 
@@ -35,6 +35,26 @@ export function loadDynamicIni(name: TName, content: Optional<string> = null): L
     registry.ini.set(nameKey, newIniFile);
 
     return $multi(newIniFile, nameKey);
+  }
+}
+
+/**
+ * todo;
+ *
+ * @param name - ini file name
+ * @returns multi return of file
+ */
+export function loadIniFile(name: TName): IniFile {
+  const existingIniFile: Optional<IniFile> = registry.ini.get(name);
+
+  if (existingIniFile !== null) {
+    return existingIniFile;
+  } else {
+    const iniFile: IniFile = new ini_file(name);
+
+    registry.ini.set(name, iniFile);
+
+    return iniFile;
   }
 }
 
@@ -60,7 +80,7 @@ export function getObjectLogicIniConfig(object: ClientObject, filename: TName): 
       return new ini_file(state.jobIni);
     }
 
-    return loadDynamicIni(string.sub(filename, 2))[0];
+    return loadDynamicIniFile(string.sub(filename, 2))[0];
   } else {
     return new ini_file(filename);
   }

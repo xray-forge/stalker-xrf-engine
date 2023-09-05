@@ -32,7 +32,7 @@ import {
 } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { DialogManager } from "@/engine/core/managers/interaction/dialog/DialogManager";
-import { TradeManager } from "@/engine/core/managers/interaction/TradeManager";
+import { TradeManager } from "@/engine/core/managers/interaction/trade/TradeManager";
 import { MapDisplayManager } from "@/engine/core/managers/interface/MapDisplayManager";
 import { SimulationBoardManager } from "@/engine/core/managers/simulation/SimulationBoardManager";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
@@ -403,7 +403,7 @@ export class StalkerBinder extends object_binder {
 
     super.save(packet);
     saveObjectLogic(this.object, packet);
-    TradeManager.getInstance().saveObjectState(this.object, packet);
+    TradeManager.getInstance().saveObjectState(packet, this.object);
     GlobalSoundManager.getInstance().saveObject(packet, this.object);
     DialogManager.getInstance().saveObjectDialogs(packet, this.object);
 
