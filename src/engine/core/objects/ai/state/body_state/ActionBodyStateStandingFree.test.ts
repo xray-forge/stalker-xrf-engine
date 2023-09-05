@@ -3,9 +3,9 @@ import { anim, move, property_storage } from "xray16";
 
 import { registry } from "@/engine/core/database/registry";
 import { registerStalker, unregisterStalker } from "@/engine/core/database/stalker";
-import { StalkerBinder } from "@/engine/core/objects";
 import { ActionBodyStateStandingFree } from "@/engine/core/objects/ai/state/body_state/ActionBodyStateStandingFree";
 import { StalkerStateManager } from "@/engine/core/objects/ai/state/StalkerStateManager";
+import { StalkerBinder } from "@/engine/core/objects/binders/creature/StalkerBinder";
 import { mockClientGameObject } from "@/fixtures/xray";
 
 describe("ActionBodyStateStandingFree class", () => {

@@ -1,9 +1,8 @@
 import { describe, expect, it, jest } from "@jest/globals";
 
 import { getObjectIdByStoryId, getServerObjectByStoryId, getStoryIdByObjectId, registry } from "@/engine/core/database";
-import { LevelChanger } from "@/engine/core/objects";
-import { mockIniFile } from "@/fixtures/xray/mocks/ini";
-import { EPacketDataType, mockNetPacket, MockNetProcessor } from "@/fixtures/xray/mocks/save";
+import { LevelChanger } from "@/engine/core/objects/server/LevelChanger";
+import { EPacketDataType, mockIniFile, mockNetPacket, MockNetProcessor } from "@/fixtures/xray";
 
 describe("LevelChanger server class", () => {
   it("should correctly create generic objects without story links", () => {

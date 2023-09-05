@@ -2,7 +2,7 @@ import { callback, clsid, game, time_global } from "xray16";
 
 import { IRegistryObjectState, IStoredOfflineObject, registry } from "@/engine/core/database";
 import { MapDisplayManager } from "@/engine/core/managers/interface/MapDisplayManager";
-import { SmartTerrain } from "@/engine/core/objects";
+import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain";
 import {
   ESchemeEvent,
   IBaseSchemeLogic,
@@ -42,22 +42,6 @@ const logger: LuaLogger = new LuaLogger($filename);
  */
 export function isActiveSection(object: ClientObject, section?: Optional<TSection>): boolean {
   return section === registry.objects.get(object.id()).activeSection;
-}
-
-/**
- * Check if provided scheme state is active.
- * todo: Get only section, not whole state.
- *
- * @deprecated in favor of `isActiveSection`
- *
- * @param object - target client object
- * @param state - target scheme state to check
- * @returns whether provided base scheme state is active for an object
- */
-export function isActiveSectionState(object: ClientObject, state: IBaseSchemeState): boolean {
-  assertDefined(state.section, "Object %s '%s': state.section is null.", object.name(), state.section);
-
-  return state.section === registry.objects.get(object.id()).activeSection;
 }
 
 /**

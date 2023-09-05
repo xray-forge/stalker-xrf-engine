@@ -9,8 +9,7 @@ import {
 } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers";
 import { SimulationBoardManager } from "@/engine/core/managers/simulation/SimulationBoardManager";
-import { Squad } from "@/engine/core/objects";
-import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain";
+import type { SmartTerrain, Squad } from "@/engine/core/objects/server";
 import { assert } from "@/engine/core/utils/assertion";
 import { parseNumberOptional, parseStringOptional } from "@/engine/core/utils/ini/ini_parse";
 import { readIniString } from "@/engine/core/utils/ini/ini_read";

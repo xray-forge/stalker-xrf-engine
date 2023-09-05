@@ -1,6 +1,6 @@
 import { jest } from "@jest/globals";
 
-import { SmartCover } from "@/engine/core/objects";
+import { SmartCover } from "@/engine/core/objects/server/smart_cover";
 import { TName, TSection } from "@/engine/lib/types";
 
 /**

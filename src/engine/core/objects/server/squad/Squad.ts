@@ -29,9 +29,9 @@ import {
   TSimulationObject,
 } from "@/engine/core/managers/simulation";
 import { SimulationBoardManager } from "@/engine/core/managers/simulation/SimulationBoardManager";
-import { ISquadAction } from "@/engine/core/objects";
 import type { SmartTerrain } from "@/engine/core/objects/server/smart_terrain/SmartTerrain";
 import { ESmartTerrainStatus } from "@/engine/core/objects/server/smart_terrain/types";
+import { ISquadAction } from "@/engine/core/objects/server/squad";
 import { SquadReachTargetAction, SquadStayOnTargetAction } from "@/engine/core/objects/server/squad/action";
 import { StoryManager } from "@/engine/core/objects/sounds/stories";
 import { abort } from "@/engine/core/utils/assertion";

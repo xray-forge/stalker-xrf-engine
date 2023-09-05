@@ -24,7 +24,7 @@ import {
 import { ISmartTerrainDescriptor } from "@/engine/core/managers/simulation/simulation_types";
 import { SimulationBoardManager } from "@/engine/core/managers/simulation/SimulationBoardManager";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
-import { Stalker } from "@/engine/core/objects";
+import { Stalker } from "@/engine/core/objects/server/creature/Stalker";
 import { abort, assert } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getInventoryNameForItemSection } from "@/engine/core/utils/object/object_spawn";

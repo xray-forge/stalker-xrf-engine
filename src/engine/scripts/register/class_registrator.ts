@@ -32,7 +32,7 @@ import {
   ZoneRestrictor,
   ZoneTorrid,
   ZoneVisual,
-} from "@/engine/core/objects";
+} from "@/engine/core/objects/server";
 import { MainMenu } from "@/engine/core/ui/menu";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { EClientObjectClass, EConfigClassId, EScriptClassId } from "@/engine/lib/constants/class_ids";

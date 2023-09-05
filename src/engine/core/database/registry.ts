@@ -10,9 +10,8 @@ import type {
   AnomalyZoneBinder,
   LabX8DoorBinder,
   SignalLightBinder,
-  SmartCover,
-  SmartTerrain,
-} from "@/engine/core/objects";
+} from "@/engine/core/objects/binders";
+import type { SmartCover, SmartTerrain } from "@/engine/core/objects/server";
 import type { AbstractPlayableSound } from "@/engine/core/objects/sounds/playable_sounds";
 import type { StoryManager } from "@/engine/core/objects/sounds/stories";
 import type { TAbstractSchemeConstructor } from "@/engine/core/schemes/base";

@@ -2,10 +2,10 @@ import { describe, expect, it, jest } from "@jest/globals";
 
 import { registry } from "@/engine/core/database/registry";
 import { registerStalker, setStalkerState, unregisterStalker } from "@/engine/core/database/stalker";
-import { StalkerBinder } from "@/engine/core/objects";
 import { ActionAnimstateStart } from "@/engine/core/objects/ai/state/animstate/ActionAnimstateStart";
 import { StalkerStateManager } from "@/engine/core/objects/ai/state/StalkerStateManager";
 import { EStalkerState } from "@/engine/core/objects/animation";
+import { StalkerBinder } from "@/engine/core/objects/binders/creature/StalkerBinder";
 import { createEmptyVector } from "@/engine/core/utils/vector";
 import { mockClientGameObject, MockPropertyStorage } from "@/fixtures/xray";
 

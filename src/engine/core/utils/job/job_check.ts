@@ -1,4 +1,4 @@
-import type { SmartTerrain } from "@/engine/core/objects";
+import type { SmartTerrain } from "@/engine/core/objects/server/smart_terrain";
 import { IObjectJobDescriptor, ISmartTerrainJobDescriptor, TObjectJobsList } from "@/engine/core/utils/job/job_types";
 import { AnyObject, TNumberId } from "@/engine/lib/types";
 

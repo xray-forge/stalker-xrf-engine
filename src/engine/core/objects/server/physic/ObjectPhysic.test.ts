@@ -1,7 +1,7 @@
 import { describe, expect, it, jest } from "@jest/globals";
 
 import { getObjectIdByStoryId, getServerObjectByStoryId, getStoryIdByObjectId, registry } from "@/engine/core/database";
-import { ObjectPhysic } from "@/engine/core/objects";
+import { ObjectPhysic } from "@/engine/core/objects/server/physic/ObjectPhysic";
 import { mockIniFile } from "@/fixtures/xray/mocks/ini";
 
 describe("ObjectPhysic server class", () => {

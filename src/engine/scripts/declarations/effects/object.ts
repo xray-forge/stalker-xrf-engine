@@ -10,9 +10,9 @@ import {
   unregisterHelicopterObject,
 } from "@/engine/core/database";
 import { SimulationBoardManager } from "@/engine/core/managers/simulation/SimulationBoardManager";
-import { SmartTerrain, Squad, updateStalkerLogic } from "@/engine/core/objects";
+import { updateStalkerLogic } from "@/engine/core/objects/binders/creature/StalkerBinder";
+import type { SmartTerrain, Squad } from "@/engine/core/objects/server";
 import { IBaseSchemeState } from "@/engine/core/schemes";
-import { SchemeAbuse } from "@/engine/core/schemes/abuse";
 import { ISchemeCombatState } from "@/engine/core/schemes/combat";
 import { ISchemeCombatIgnoreState } from "@/engine/core/schemes/combat_ignore";
 import { ISchemeMobCombatState } from "@/engine/core/schemes/mob_combat";

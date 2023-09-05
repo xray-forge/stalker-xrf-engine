@@ -2,7 +2,7 @@ import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { alife } from "xray16";
 
 import { CUSTOM_DATA, IRegistryObjectState, registerActor, registerObject, registry } from "@/engine/core/database";
-import { SmartTerrain } from "@/engine/core/objects";
+import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain";
 import { TAbstractSchemeConstructor } from "@/engine/core/schemes";
 import { SchemeAbuse } from "@/engine/core/schemes/abuse";
 import { SchemeCombat } from "@/engine/core/schemes/combat";

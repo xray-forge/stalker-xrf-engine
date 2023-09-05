@@ -2,16 +2,16 @@ import { anim, move } from "xray16";
 
 import { registerObject, unregisterObject } from "@/engine/core/database/objects";
 import { registry } from "@/engine/core/database/registry";
-import { IRegistryObjectState } from "@/engine/core/database/types";
-import { StalkerBinder } from "@/engine/core/objects";
-import { StalkerStateManager } from "@/engine/core/objects/ai/state/StalkerStateManager";
+import type { IRegistryObjectState } from "@/engine/core/database/types";
+import type { StalkerStateManager } from "@/engine/core/objects/ai/state/StalkerStateManager";
 import {
   EStalkerState,
   ILookTargetDescriptor,
   IStateManagerCallbackDescriptor,
   ITargetStateDescriptorExtras,
 } from "@/engine/core/objects/animation/state_types";
-import { ClientObject, Optional, TDuration } from "@/engine/lib/types";
+import type { StalkerBinder } from "@/engine/core/objects/binders/creature/StalkerBinder";
+import type { ClientObject, Optional, TDuration } from "@/engine/lib/types";
 
 /**
  * Register stalker binder object.

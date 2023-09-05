@@ -1,7 +1,7 @@
 import { alife } from "xray16";
 
 import { registry } from "@/engine/core/database";
-import { Squad } from "@/engine/core/objects";
+import { Squad } from "@/engine/core/objects/server/squad";
 import { hasAlifeInfo } from "@/engine/core/utils/object/object_info_portion";
 import { areObjectsOnSameLevel } from "@/engine/core/utils/object/object_location";
 import { isEmpty } from "@/engine/core/utils/table";

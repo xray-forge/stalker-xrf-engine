@@ -4,10 +4,9 @@ import { IRegistryObjectState, registerObject } from "@/engine/core/database";
 import { EvaluatorGatherItems } from "@/engine/core/schemes/gather_items/evaluators";
 import { ISchemeGatherItemsState } from "@/engine/core/schemes/gather_items/ISchemeGatherItemsState";
 import { SchemeGatherItems } from "@/engine/core/schemes/gather_items/SchemeGatherItems";
-import { loadSchemeImplementation } from "@/engine/core/utils/scheme";
+import { loadSchemeImplementation } from "@/engine/core/utils/scheme/scheme_setup";
 import { ActionPlanner, ClientObject, EScheme, IniFile } from "@/engine/lib/types";
-import { mockClientGameObject, mockIniFile } from "@/fixtures/xray";
-import { mockStalkerIds } from "@/fixtures/xray/mocks/constants";
+import { mockClientGameObject, mockIniFile, mockStalkerIds } from "@/fixtures/xray";
 
 describe("SchemeGatherItems class", () => {
   it("should correctly activate schemes", () => {

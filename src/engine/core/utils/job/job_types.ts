@@ -1,4 +1,4 @@
-import type { SmartTerrain } from "@/engine/core/objects";
+import type { SmartTerrain } from "@/engine/core/objects/server/smart_terrain";
 import {
   ALifeSmartTerrainTask,
   AnyObject,

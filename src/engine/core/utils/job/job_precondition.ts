@@ -1,6 +1,6 @@
 import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { SurgeManager } from "@/engine/core/managers/world/SurgeManager";
-import { SmartTerrain } from "@/engine/core/objects";
+import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain";
 import { isInTimeInterval } from "@/engine/core/utils/game";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini";
 import { IObjectJobDescriptor } from "@/engine/core/utils/job/job_types";

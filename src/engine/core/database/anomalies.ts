@@ -2,8 +2,7 @@ import { registerObject, unregisterObject } from "@/engine/core/database/objects
 import { registry } from "@/engine/core/database/registry";
 import { IRegistryObjectState } from "@/engine/core/database/types";
 import { registerZone, unregisterZone } from "@/engine/core/database/zones";
-import { AnomalyFieldBinder } from "@/engine/core/objects";
-import { AnomalyZoneBinder } from "@/engine/core/objects/binders/zones/AnomalyZoneBinder";
+import { AnomalyFieldBinder, AnomalyZoneBinder } from "@/engine/core/objects/binders/zones";
 
 /**
  * Register anomaly zone object binder.

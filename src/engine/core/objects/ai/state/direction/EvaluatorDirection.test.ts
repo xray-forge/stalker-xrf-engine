@@ -3,10 +3,10 @@ import { property_storage } from "xray16";
 
 import { registry } from "@/engine/core/database/registry";
 import { registerStalker, setStalkerState, unregisterStalker } from "@/engine/core/database/stalker";
-import { StalkerBinder } from "@/engine/core/objects";
 import { EvaluatorDirection } from "@/engine/core/objects/ai/state/direction/EvaluatorDirection";
 import { StalkerStateManager } from "@/engine/core/objects/ai/state/StalkerStateManager";
 import { EStalkerState } from "@/engine/core/objects/animation";
+import { StalkerBinder } from "@/engine/core/objects/binders/creature/StalkerBinder";
 import { replaceFunctionMock } from "@/fixtures/utils/function_mock";
 import { mockClientGameObject, MockSightParameters } from "@/fixtures/xray";
 import { MockCSightParams } from "@/fixtures/xray/mocks/CSightParams.mock";

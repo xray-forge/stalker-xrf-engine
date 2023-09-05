@@ -2,7 +2,8 @@ import { CALifeSmartTerrainTask, game_graph, level } from "xray16";
 
 import { loadDynamicIniFile } from "@/engine/core/database/ini";
 import { registry } from "@/engine/core/database/registry";
-import type { SmartCover, SmartTerrain } from "@/engine/core/objects";
+import type { SmartCover } from "@/engine/core/objects/server/smart_cover";
+import type { SmartTerrain } from "@/engine/core/objects/server/smart_terrain";
 import { abort } from "@/engine/core/utils/assertion";
 import { createExclusiveJobs } from "@/engine/core/utils/job/job_create/job_create_exclusive";
 import { createMonsterJobs } from "@/engine/core/utils/job/job_create/job_create_monster";

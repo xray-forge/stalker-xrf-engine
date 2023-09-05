@@ -1,7 +1,7 @@
 import { describe, expect, it, jest } from "@jest/globals";
 
 import { getObjectIdByStoryId, getServerObjectByStoryId, getStoryIdByObjectId, registry } from "@/engine/core/database";
-import { ZoneRestrictor } from "@/engine/core/objects";
+import { ZoneRestrictor } from "@/engine/core/objects/server/zone/ZoneRestrictor";
 import { mockIniFile } from "@/fixtures/xray/mocks/ini";
 
 describe("ZoneRestrictor server class", () => {

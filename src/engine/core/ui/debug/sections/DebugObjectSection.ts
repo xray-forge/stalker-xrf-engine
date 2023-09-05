@@ -1,8 +1,8 @@
 import { CUI3tButton, CUICheckButton, CUIStatic, level, LuabindClass, ui_events } from "xray16";
 
-import { getPortableStoreValue, registry, setPortableStoreValue } from "@/engine/core/database";
+import { registry } from "@/engine/core/database";
 import { DebugManager } from "@/engine/core/managers/debug/DebugManager";
-import { Squad } from "@/engine/core/objects";
+import { Squad } from "@/engine/core/objects/server/squad";
 import { AbstractDebugSection } from "@/engine/core/ui/debug/sections/AbstractDebugSection";
 import { isGameStarted } from "@/engine/core/utils/game";
 import { LuaLogger } from "@/engine/core/utils/logging";

@@ -7,7 +7,7 @@ import {
   TPHRTable,
   TPRTTable,
 } from "@/engine/core/managers/interaction/dialog";
-import { SmartTerrain } from "@/engine/core/objects";
+import type { SmartTerrain } from "@/engine/core/objects/server/smart_terrain";
 import { extern } from "@/engine/core/utils/binding";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getObjectCommunity, getObjectSmartTerrain } from "@/engine/core/utils/object";

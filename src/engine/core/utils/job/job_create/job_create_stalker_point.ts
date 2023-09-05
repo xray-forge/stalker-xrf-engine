@@ -1,4 +1,4 @@
-import { SmartTerrain } from "@/engine/core/objects";
+import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain";
 import { EJobPathType, EJobType, TSmartTerrainJobsList } from "@/engine/core/utils/job/job_types";
 import { StringBuilder } from "@/engine/core/utils/string";
 import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";

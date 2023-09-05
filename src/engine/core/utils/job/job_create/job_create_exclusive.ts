@@ -1,6 +1,6 @@
 import { getFS, ini_file } from "xray16";
 
-import { SmartTerrain } from "@/engine/core/objects";
+import type { SmartTerrain } from "@/engine/core/objects/server/smart_terrain";
 import { assert } from "@/engine/core/utils/assertion";
 import {
   getSchemeFromSection,

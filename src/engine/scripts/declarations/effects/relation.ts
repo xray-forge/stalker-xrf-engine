@@ -1,5 +1,5 @@
 import { getServerObjectByStoryId, registry } from "@/engine/core/database";
-import { Squad } from "@/engine/core/objects";
+import { Squad } from "@/engine/core/objects/server/squad";
 import { abort } from "@/engine/core/utils/assertion";
 import { extern } from "@/engine/core/utils/binding";
 import { LuaLogger } from "@/engine/core/utils/logging";

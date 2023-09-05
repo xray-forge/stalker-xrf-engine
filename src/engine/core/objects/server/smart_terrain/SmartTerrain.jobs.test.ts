@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 
-import { SmartTerrain } from "@/engine/core/objects";
+import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain";
 import { EJobPathType, EJobType } from "@/engine/core/utils/job";
 import { MAX_U16 } from "@/engine/lib/constants/memory";
 import { AnyObject, ServerHumanObject, ServerMonsterBaseObject } from "@/engine/lib/types";

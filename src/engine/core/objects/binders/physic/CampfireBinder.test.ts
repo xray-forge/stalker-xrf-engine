@@ -1,7 +1,8 @@
 import { beforeEach, describe, expect, it } from "@jest/globals";
 
 import { registry } from "@/engine/core/database";
-import { CampfireBinder, SmartTerrain } from "@/engine/core/objects";
+import { CampfireBinder } from "@/engine/core/objects/binders/physic/CampfireBinder";
+import type { SmartTerrain } from "@/engine/core/objects/server/smart_terrain";
 import { ServerDynamicObject, ZoneCampfire } from "@/engine/lib/types";
 import { mockSmartTerrain } from "@/fixtures/engine";
 import { mockClientGameObject, MockCZoneCampfire, mockServerAlifeDynamicObject } from "@/fixtures/xray";

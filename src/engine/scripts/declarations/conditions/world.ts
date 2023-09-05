@@ -3,7 +3,7 @@ import { level } from "xray16";
 import { registry } from "@/engine/core/database";
 import { SimulationBoardManager } from "@/engine/core/managers/simulation/SimulationBoardManager";
 import { SurgeManager } from "@/engine/core/managers/world/SurgeManager";
-import { SmartTerrain, SmartTerrainControl } from "@/engine/core/objects";
+import { SmartTerrain, SmartTerrainControl } from "@/engine/core/objects/server/smart_terrain";
 import { ESmartTerrainStatus } from "@/engine/core/objects/server/smart_terrain/types";
 import { abort } from "@/engine/core/utils/assertion";
 import { extern } from "@/engine/core/utils/binding";

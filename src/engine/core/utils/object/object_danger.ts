@@ -2,7 +2,7 @@ import { alife, danger_object } from "xray16";
 
 import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { SimulationBoardManager } from "@/engine/core/managers/simulation/SimulationBoardManager";
-import { SmartTerrain } from "@/engine/core/objects";
+import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain";
 import { ESmartTerrainStatus } from "@/engine/core/objects/server/smart_terrain/types";
 import { ISchemeCombatIgnoreState } from "@/engine/core/schemes/combat_ignore";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini";

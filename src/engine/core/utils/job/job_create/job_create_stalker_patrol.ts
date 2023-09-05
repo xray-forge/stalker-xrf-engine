@@ -1,6 +1,6 @@
 import { level, patrol } from "xray16";
 
-import { SmartTerrain } from "@/engine/core/objects";
+import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain";
 import { IWaypointData, parseWaypointData } from "@/engine/core/utils/ini";
 import { jobPreconditionPatrol } from "@/engine/core/utils/job/job_precondition";
 import { EJobPathType, EJobType, TSmartTerrainJobsList } from "@/engine/core/utils/job/job_types";

@@ -1,7 +1,7 @@
 import { describe, expect, it, jest } from "@jest/globals";
 
 import { getObjectIdByStoryId, getServerObjectByStoryId, getStoryIdByObjectId, registry } from "@/engine/core/database";
-import { ObjectHangingLamp } from "@/engine/core/objects";
+import { ObjectHangingLamp } from "@/engine/core/objects/server/physic/ObjectHangingLamp";
 import { mockIniFile } from "@/fixtures/xray/mocks/ini";
 
 describe("ObjectHangingLamp server class", () => {

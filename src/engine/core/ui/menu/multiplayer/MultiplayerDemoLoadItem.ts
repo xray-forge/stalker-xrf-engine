@@ -9,9 +9,9 @@ import {
   vector2,
 } from "xray16";
 
-import { MultiplayerDemo } from "@/engine/core/ui/menu/multiplayer/MultiplayerDemo";
-import { MultiplayerMenu } from "@/engine/core/ui/menu/multiplayer/MultiplayerMenu";
-import { TName } from "@/engine/lib/types";
+import type { MultiplayerDemo } from "@/engine/core/ui/menu/multiplayer/MultiplayerDemo";
+import type { MultiplayerMenu } from "@/engine/core/ui/menu/multiplayer/MultiplayerMenu";
+import type { TName } from "@/engine/lib/types";
 
 /**
  * todo;
