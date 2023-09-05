@@ -11,7 +11,7 @@ import { AnyCallable, Optional, ProfileTimer, TCount, TName } from "@/engine/lib
 const logger: LuaLogger = new LuaLogger($filename);
 
 export interface IProfileSnapshotDescriptor {
-  count: number;
+  count: TCount;
   currentTimer: ProfileTimer;
   childTimer: ProfileTimer;
 }
@@ -28,8 +28,7 @@ export class ProfilingManager extends AbstractCoreManager {
   public isProfilingStarted: boolean = false;
 
   /**
-   * todo: fix xray profiling
-   * c - call statements profiling, currently will not work with x-ray for some reasons.
+   * c - call statements profiling.
    * r - return statements profiling to count function returns.
    */
   public mode: string = "r";
@@ -68,20 +67,27 @@ export class ProfilingManager extends AbstractCoreManager {
   }
 
   /**
-   * todo: Description.
+   * Force collection of lua garbage.
+   * Finds all not reachable objects and disposes them.
    */
   public collectLuaGarbage(): void {
     collectgarbage("collect");
   }
 
   /**
-   * todo: Description.
+   * Get currently used RAM volume by lua VM.
+   *
+   * @returns count of used RAM in kilobytes
    */
   public getLuaMemoryUsed(): TCount {
     return collectgarbage("count");
   }
+
   /**
-   * todo: Description.
+   * Get string descriptor of any function in lua by debug information.
+   *
+   * @param info - debug information describing function state in stack
+   * @returns function name descriptor based on debug information
    */
   public getFunctionName(info: debug.FunctionInfo): string {
     return string.format("[%s]:%s (%s:%s)", info.short_src, info.linedefined, info.what, info.name);
@@ -168,7 +174,10 @@ export class ProfilingManager extends AbstractCoreManager {
   }
 
   /**
-   * todo: Description.
+   * Setups lua debug/profile hook based on provided mode.
+   *
+   * @param mode - mode mask to run hook in
+   * @param skipLogs - whether information about hook setup should be logged (usually turned off for restart)
    */
   public setupHook(mode: string = this.mode, skipLogs?: boolean): void {
     this.mode = mode;
@@ -211,13 +220,16 @@ export class ProfilingManager extends AbstractCoreManager {
   }
 
   /**
-   * todo: Description.
+   * Hook function that is called by debug module every time function executes/returns/line changes.
+   * Based on debug mask provided for hook setup.
+   *
+   * @param context - context of hook call based on call case
    */
-  protected hook(context: string, lineNumber?: number): void {
+  protected hook(context: string): void {
     const caller = debug.getinfo(3, "f")!;
     const functionInfo: debug.FunctionInfo = debug.getinfo(2)!;
-    const functionRef: AnyCallable = functionInfo.func! as AnyCallable;
-    const callerRef: Optional<AnyCallable> = caller === null ? null : (caller.func! as AnyCallable);
+    const functionRef: AnyCallable = functionInfo.func as AnyCallable;
+    const callerRef: Optional<AnyCallable> = caller === null ? null : (caller.func as AnyCallable);
 
     switch (context) {
       case "return": {
