@@ -28,7 +28,7 @@ jobs:
           lfs: false
 
       - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
           cache: "npm"
@@ -37,7 +37,7 @@ jobs:
       - run: npm run setup
 
       - name: Jest cache
-        uses: actions/cache@v4
+        uses: actions/cache@v3
         with:
           path: /tmp/jest_rt
           key: ${{ hashFiles('**/package-lock.json') }}-${{ matrix.shard }}
@@ -57,7 +57,7 @@ jobs:
           submodules: recursive
 
       - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
           cache: "npm"
@@ -80,7 +80,7 @@ jobs:
           submodules: recursive
 
       - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
           cache: "npm"
@@ -102,7 +102,7 @@ jobs:
         run: zip -qq -r gamedata.release.zip gamedata/ bin/ xrf_build.log README.md
 
       - name: Upload build artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v3
         with:
           if-no-files-found: error
           name: gamedata-release
