@@ -1,6 +1,5 @@
 import { JSXNode, JSXXML } from "jsx-xml";
 
-import { captions } from "@/engine/lib/constants/captions/captions";
 import { fonts } from "@/engine/lib/constants/fonts";
 import { textures } from "@/engine/lib/constants/textures";
 

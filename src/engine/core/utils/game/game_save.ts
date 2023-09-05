@@ -6,7 +6,6 @@ import { executeConsoleCommand } from "@/engine/core/utils/game/game_console";
 import { gameTimeToString } from "@/engine/core/utils/game/game_time";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { gameConfig } from "@/engine/lib/configs/GameConfig";
-import { captions } from "@/engine/lib/constants/captions";
 import { consoleCommands } from "@/engine/lib/constants/console_commands";
 import { TGameDifficulty } from "@/engine/lib/constants/game_difficulties";
 import { roots } from "@/engine/lib/constants/roots";
@@ -103,16 +102,16 @@ export function getFileDataForGameSave(name: TName): TLabel {
 
     const health: TLabel = string.format(
       "\\n%s %d%s",
-      game.translate_string(captions.st_ui_health_sensor),
+      game.translate_string("st_ui_health_sensor"),
       savedGame.actor_health() * 100,
       "%"
     );
 
     return string.format(
       "%s: %s\\n%s: %s%s",
-      game.translate_string(captions.st_level),
+      game.translate_string("st_level"),
       game.translate_string(savedGame.level_name()),
-      game.translate_string(captions.ui_inv_time),
+      game.translate_string("ui_inv_time"),
       dateTime,
       health
     );

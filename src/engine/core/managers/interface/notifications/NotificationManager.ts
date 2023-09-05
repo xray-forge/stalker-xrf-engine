@@ -29,7 +29,6 @@ import { abort, assert } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getInventoryNameForItemSection } from "@/engine/core/utils/object/object_spawn";
 import { isObjectWounded } from "@/engine/core/utils/object/object_state";
-import { captions, TCaption } from "@/engine/lib/constants/captions/captions";
 import { scriptSounds } from "@/engine/lib/constants/sound/script_sounds";
 import { textures, TTexture } from "@/engine/lib/constants/textures";
 import {
@@ -129,7 +128,7 @@ export class NotificationManager extends AbstractCoreManager {
     logger.info("Show relocate money message:", direction, amount, amount);
 
     const notificationTitle: TLabel = game.translate_string(
-      direction === ENotificationDirection.IN ? captions.general_in_money : captions.general_out_money
+      direction === ENotificationDirection.IN ? "general_in_money" : "general_out_money"
     );
     const notificationText: TLabel = tostring(amount);
     const notificationIcon: TTexture =
@@ -156,7 +155,7 @@ export class NotificationManager extends AbstractCoreManager {
     logger.info("Show relocate item message:", direction, itemSection, amount);
 
     const notificationTitle: TLabel = game.translate_string(
-      direction === ENotificationDirection.IN ? captions.general_in_item : captions.general_out_item
+      direction === ENotificationDirection.IN ? "general_in_item" : "general_out_item"
     );
     const notificationText: TLabel = string.format(
       "%s%s",
@@ -187,11 +186,11 @@ export class NotificationManager extends AbstractCoreManager {
     let notificationTitle: TLabel = "";
 
     if (state === ETreasureState.NEW_TREASURE_COORDINATES) {
-      notificationTitle = game.translate_string(captions.st_found_new_treasure);
+      notificationTitle = game.translate_string("st_found_new_treasure");
     } else if (state === ETreasureState.FOUND_TREASURE) {
-      notificationTitle = game.translate_string(captions.st_got_treasure);
+      notificationTitle = game.translate_string("st_got_treasure");
     } else if (state === ETreasureState.LOOTED_TREASURE_COORDINATES) {
-      notificationTitle = game.translate_string(captions.st_found_old_treasure);
+      notificationTitle = game.translate_string("st_found_old_treasure");
     }
 
     this.onSendGenericNotification(
@@ -241,7 +240,7 @@ export class NotificationManager extends AbstractCoreManager {
    * Send generic tip notification.
    */
   public sendTipNotification(
-    caption: TCaption,
+    caption: TLabel,
     sender: Optional<TNotificationIcon | ClientObject> = null,
     delay: Optional<TDuration> = 0,
     showtime: Optional<TTimestamp> = NotificationManager.DEFAULT_NOTIFICATION_SHOW_DURATION,
@@ -271,7 +270,7 @@ export class NotificationManager extends AbstractCoreManager {
       }
     }
 
-    const notificationTitle: TLabel = game.translate_string(captions.st_tip);
+    const notificationTitle: TLabel = game.translate_string("st_tip");
     const notificationDescription: TLabel = game.translate_string(caption);
     let notificationIcon: TTexture = textures.ui_iconsTotal_grouping;
 
@@ -372,7 +371,7 @@ export class NotificationManager extends AbstractCoreManager {
    */
   public onSurgeSkipped(shouldNotify: boolean): void {
     if (shouldNotify) {
-      this.sendTipNotification(captions.st_surge_while_asleep, notificationManagerIcons.recent_surge);
+      this.sendTipNotification("st_surge_while_asleep", notificationManagerIcons.recent_surge);
     }
   }
 
@@ -382,8 +381,8 @@ export class NotificationManager extends AbstractCoreManager {
    */
   public onSendGenericNotification(
     isFlexible: boolean,
-    notificationTitle: TCaption,
-    notificationText: TCaption,
+    notificationTitle: TLabel,
+    notificationText: TLabel,
     notificationIcon: TName,
     delay: TDuration,
     showTime: TDuration,

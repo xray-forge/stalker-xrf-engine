@@ -18,7 +18,6 @@ import { disableInfo, giveInfo, hasAlifeInfo } from "@/engine/core/utils/object/
 import { spawnObject, spawnObjectInObject, spawnSquadInSmart } from "@/engine/core/utils/object/object_spawn";
 import { giveItemsToActor, takeItemFromActor } from "@/engine/core/utils/object/object_task_reward";
 import { copyVector, createEmptyVector, createVector } from "@/engine/core/utils/vector";
-import { captions } from "@/engine/lib/constants/captions/captions";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import { infoPortions, TInfoPortion } from "@/engine/lib/constants/info_portions";
 import { TInventoryItem } from "@/engine/lib/constants/items";
@@ -136,7 +135,7 @@ extern("xr_effects.pas_b400_switcher", (actor: ClientObject, npc: ClientObject):
  */
 extern("xr_effects.jup_b209_place_scanner", (actor: ClientObject, npc: ClientObject): void => {
   if (isObjectInZone(actor, registry.zones.get(zones.jup_b209_hypotheses))) {
-    createGameAutoSave(captions.st_save_jup_b209_placed_mutant_scanner);
+    createGameAutoSave("st_save_jup_b209_placed_mutant_scanner");
     giveInfo(infoPortions.jup_b209_scanner_placed);
     takeItemFromActor(questItems.jup_b209_monster_scanner);
     spawnObject("jup_b209_ph_scanner", "jup_b209_scanner_place_point");

@@ -32,7 +32,6 @@ import { createVector } from "@/engine/core/utils/vector";
 import { surgeConfig } from "@/engine/lib/configs/SurgeConfig";
 import { animations } from "@/engine/lib/constants/animation/animations";
 import { postProcessors } from "@/engine/lib/constants/animation/post_processors";
-import { captions } from "@/engine/lib/constants/captions/captions";
 import { consoleCommands } from "@/engine/lib/constants/console_commands";
 import { infoPortions } from "@/engine/lib/constants/info_portions";
 import { TInventoryItem } from "@/engine/lib/constants/items";
@@ -359,7 +358,7 @@ export class SurgeManager extends AbstractCoreManager {
       SurgeManager.IS_FINISHED = false;
 
       if (!hasAlifeInfo(infoPortions.pri_b305_fifth_cam_end) || hasAlifeInfo(infoPortions.pri_a28_actor_in_zone_stay)) {
-        createGameAutoSave(captions.st_save_uni_surge_start);
+        createGameAutoSave("st_save_uni_surge_start");
       }
     }
   }

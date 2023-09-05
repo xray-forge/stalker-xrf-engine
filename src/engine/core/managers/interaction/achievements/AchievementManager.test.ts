@@ -11,7 +11,6 @@ import { ENotificationType, ITipNotification } from "@/engine/core/managers/inte
 import { StatisticsManager } from "@/engine/core/managers/interface/statistics/StatisticsManager";
 import { WeatherManager } from "@/engine/core/managers/world/WeatherManager";
 import { disableInfo, giveInfo, hasAlifeInfo } from "@/engine/core/utils/object/object_info_portion";
-import { captions } from "@/engine/lib/constants/captions";
 import { communities } from "@/engine/lib/constants/communities";
 import { infoPortions, TInfoPortion } from "@/engine/lib/constants/info_portions";
 import { artefacts } from "@/engine/lib/constants/items/artefacts";
@@ -162,7 +161,7 @@ describe("AchievementManager class", () => {
 
     checkGenericAchievement({
       check: () => achievementsManager.checkAchievedPioneer(),
-      notificationCaption: captions.st_ach_pioneer,
+      notificationCaption: "st_ach_pioneer",
       notificationIcon: achievementIcons[EAchievement.PIONEER],
       achievementInfo: infoPortions.pioneer_achievement_gained,
       requiredInfos: [
@@ -178,7 +177,7 @@ describe("AchievementManager class", () => {
 
     checkGenericAchievement({
       check: () => achievementsManager.checkAchievedMutantHunter(),
-      notificationCaption: captions.st_ach_mutant_hunter,
+      notificationCaption: "st_ach_mutant_hunter",
       notificationIcon: achievementIcons[EAchievement.MUTANT_HUNTER],
       achievementInfo: infoPortions.mutant_hunter_achievement_gained,
       requiredInfos: [
@@ -194,7 +193,7 @@ describe("AchievementManager class", () => {
 
     checkGenericAchievement({
       check: () => achievementsManager.checkAchievedDetective(),
-      notificationCaption: captions.st_ach_detective,
+      notificationCaption: "st_ach_detective",
       notificationIcon: achievementIcons[EAchievement.DETECTIVE],
       achievementInfo: infoPortions.detective_achievement_gained,
       requiredInfos: [infoPortions.zat_b22_barmen_gave_reward],
@@ -206,7 +205,7 @@ describe("AchievementManager class", () => {
 
     checkGenericAchievement({
       check: () => achievementsManager.checkAchievedOneOfLads(),
-      notificationCaption: captions.st_ach_one_of_the_lads,
+      notificationCaption: "st_ach_one_of_the_lads",
       notificationIcon: achievementIcons[EAchievement.ONE_OF_THE_LADS],
       achievementInfo: infoPortions.one_of_the_lads_gained,
       requiredInfos: [infoPortions.zat_b30_sultan_loose, infoPortions.zat_b7_actor_help_stalkers],
@@ -218,7 +217,7 @@ describe("AchievementManager class", () => {
 
     checkGenericAchievement({
       check: () => achievementsManager.checkAchievedKingpin(),
-      notificationCaption: captions.st_ach_kingpin,
+      notificationCaption: "st_ach_kingpin",
       notificationIcon: achievementIcons[EAchievement.KINGPIN],
       achievementInfo: infoPortions.kingpin_gained,
       requiredInfos: [infoPortions.zat_b30_barmen_under_sultan, infoPortions.zat_b7_actor_help_bandits],
@@ -230,7 +229,7 @@ describe("AchievementManager class", () => {
 
     checkGenericAchievement({
       check: () => achievementsManager.checkAchievedHeraldOfJustice(),
-      notificationCaption: captions.st_ach_herald_of_justice,
+      notificationCaption: "st_ach_herald_of_justice",
       notificationIcon: achievementIcons[EAchievement.HERALD_OF_JUSTICE],
       achievementInfo: infoPortions.herald_of_justice_achievement_gained,
       requiredInfos: [
@@ -246,7 +245,7 @@ describe("AchievementManager class", () => {
 
     checkGenericAchievement({
       check: () => achievementsManager.checkAchievedBattleSystemsMaster(),
-      notificationCaption: captions.st_ach_battle_systems_master,
+      notificationCaption: "st_ach_battle_systems_master",
       notificationIcon: achievementIcons[EAchievement.BATTLE_SYSTEMS_MASTER],
       achievementInfo: infoPortions.battle_systems_master_achievement_gained,
       requiredInfos: [infoPortions.zat_b3_all_instruments_brought],
@@ -258,7 +257,7 @@ describe("AchievementManager class", () => {
 
     checkGenericAchievement({
       check: () => achievementsManager.checkAchievedHighTechMaster(),
-      notificationCaption: captions.st_ach_high_tech_master,
+      notificationCaption: "st_ach_high_tech_master",
       notificationIcon: achievementIcons[EAchievement.HIGH_TECH_MASTER],
       achievementInfo: infoPortions.high_tech_master_achievement_gained,
       requiredInfos: [
@@ -274,7 +273,7 @@ describe("AchievementManager class", () => {
 
     checkGenericAchievement({
       check: () => achievementsManager.checkAchievedSkilledStalker(),
-      notificationCaption: captions.st_ach_skilled_stalker,
+      notificationCaption: "st_ach_skilled_stalker",
       notificationIcon: achievementIcons[EAchievement.SKILLED_STALKER],
       achievementInfo: infoPortions.skilled_stalker_achievement_gained,
       requiredInfos: [infoPortions.actor_was_in_many_bad_places],
@@ -286,7 +285,7 @@ describe("AchievementManager class", () => {
 
     checkGenericAchievement({
       check: () => achievementsManager.checkAchievedLeader(),
-      notificationCaption: captions.st_ach_leader,
+      notificationCaption: "st_ach_leader",
       notificationIcon: achievementIcons[EAchievement.LEADER],
       achievementInfo: infoPortions.leader_achievement_gained,
       requiredInfos: [
@@ -302,7 +301,7 @@ describe("AchievementManager class", () => {
 
     checkGenericAchievement({
       check: () => achievementsManager.checkAchievedDiplomat(),
-      notificationCaption: captions.st_ach_diplomat,
+      notificationCaption: "st_ach_diplomat",
       notificationIcon: achievementIcons[EAchievement.DIPLOMAT],
       achievementInfo: infoPortions.diplomat_achievement_gained,
       requiredInfos: [infoPortions.jup_a12_wo_shooting, infoPortions.jup_a10_bandit_take_all_money],
@@ -314,7 +313,7 @@ describe("AchievementManager class", () => {
 
     checkGenericAchievement({
       check: () => achievementsManager.checkAchievedDiplomat(),
-      notificationCaption: captions.st_ach_diplomat,
+      notificationCaption: "st_ach_diplomat",
       notificationIcon: achievementIcons[EAchievement.DIPLOMAT],
       achievementInfo: infoPortions.diplomat_achievement_gained,
       requiredInfos: [infoPortions.jup_a12_wo_shooting, infoPortions.jup_a10_bandit_take_money],
@@ -328,7 +327,7 @@ describe("AchievementManager class", () => {
 
     checkGenericAchievement({
       check: () => achievementsManager.checkAchievedResearchMan(),
-      notificationCaption: captions.st_ach_research_man,
+      notificationCaption: "st_ach_research_man",
       notificationIcon: achievementIcons[EAchievement.RESEARCH_MAN],
       achievementInfo: infoPortions.research_man_gained,
       requiredInfos: [
@@ -343,7 +342,7 @@ describe("AchievementManager class", () => {
 
     checkGenericAchievement({
       check: () => achievementsManager.checkAchievedResearchMan(),
-      notificationCaption: captions.st_ach_research_man,
+      notificationCaption: "st_ach_research_man",
       notificationIcon: achievementIcons[EAchievement.RESEARCH_MAN],
       achievementInfo: infoPortions.research_man_gained,
       requiredInfos: [
@@ -360,7 +359,7 @@ describe("AchievementManager class", () => {
 
     checkGenericAchievement({
       check: () => achievementsManager.checkAchievedFriendOfDuty(),
-      notificationCaption: captions.st_ach_friend_of_duty,
+      notificationCaption: "st_ach_friend_of_duty",
       notificationIcon: achievementIcons[EAchievement.FRIEND_OF_DUTY],
       achievementInfo: infoPortions.sim_duty_help_harder,
       requiredInfos: [
@@ -377,7 +376,7 @@ describe("AchievementManager class", () => {
 
     checkGenericAchievement({
       check: () => achievementsManager.checkAchievedFriendOfFreedom(),
-      notificationCaption: captions.st_ach_friend_of_freedom,
+      notificationCaption: "st_ach_friend_of_freedom",
       notificationIcon: achievementIcons[EAchievement.FRIEND_OF_FREEDOM],
       achievementInfo: infoPortions.sim_freedom_help_harder,
       requiredInfos: [
@@ -394,7 +393,7 @@ describe("AchievementManager class", () => {
 
     checkGenericAchievement({
       check: () => achievementsManager.checkAchievedBalanceAdvocate(),
-      notificationCaption: captions.st_ach_balance_advocate,
+      notificationCaption: "st_ach_balance_advocate",
       notificationIcon: achievementIcons[EAchievement.BALANCE_ADVOCATE],
       achievementInfo: infoPortions.balance_advocate_gained,
       requiredInfos: [
@@ -410,7 +409,7 @@ describe("AchievementManager class", () => {
 
     checkGenericAchievement({
       check: () => achievementsManager.checkAchievedKeeperOfSecrets(),
-      notificationCaption: captions.st_ach_keeper_of_secrets,
+      notificationCaption: "st_ach_keeper_of_secrets",
       notificationIcon: achievementIcons[EAchievement.KEEPER_OF_SECRETS],
       achievementInfo: infoPortions.keeper_of_secrets_achievement_gained,
       requiredInfos: [infoPortions.pri_b305_all_strelok_notes_given],
@@ -422,7 +421,7 @@ describe("AchievementManager class", () => {
 
     checkGenericAchievement({
       check: () => achievementsManager.checkAchievedInformationDealer(),
-      notificationCaption: captions.st_ach_information_dealer,
+      notificationCaption: "st_ach_information_dealer",
       notificationIcon: achievementIcons[EAchievement.INFORMATION_DEALER],
       achievementInfo: infoPortions.actor_information_dealer,
       requiredInfos: [
@@ -443,7 +442,7 @@ describe("AchievementManager class", () => {
 
     checkGenericAchievement({
       check: () => achievementsManager.checkAchievedInformationDealer(),
-      notificationCaption: captions.st_ach_information_dealer,
+      notificationCaption: "st_ach_information_dealer",
       notificationIcon: achievementIcons[EAchievement.INFORMATION_DEALER],
       achievementInfo: infoPortions.actor_information_dealer,
       requiredInfos: [
@@ -466,7 +465,7 @@ describe("AchievementManager class", () => {
 
     checkGenericAchievement({
       check: () => achievementsManager.checkAchievedFriendOfStalkers(),
-      notificationCaption: captions.st_ach_friend_of_stalkers,
+      notificationCaption: "st_ach_friend_of_stalkers",
       notificationIcon: achievementIcons[EAchievement.FRIEND_OF_STALKERS],
       achievementInfo: infoPortions.sim_stalker_help_harder,
       requiredInfos: [
@@ -487,7 +486,7 @@ describe("AchievementManager class", () => {
 
   it("should correctly check wealthy achievement", () => {
     const achievementsManager: AchievementsManager = AchievementsManager.getInstance();
-    const onNotification = mockNotificationListener(captions.st_ach_wealthy, achievementIcons[EAchievement.WEALTHY]);
+    const onNotification = mockNotificationListener("st_ach_wealthy", achievementIcons[EAchievement.WEALTHY]);
 
     giveInfo(infoPortions.actor_wealthy);
     expect(achievementsManager.checkAchievedWealthy()).toBeTruthy();
@@ -507,7 +506,7 @@ describe("AchievementManager class", () => {
   it("should correctly check seeker achievement", () => {
     const achievementsManager: AchievementsManager = AchievementsManager.getInstance();
     const statisticsManager: StatisticsManager = StatisticsManager.getInstance();
-    const onNotification = mockNotificationListener(captions.st_ach_seeker, achievementIcons[EAchievement.SEEKER]);
+    const onNotification = mockNotificationListener("st_ach_seeker", achievementIcons[EAchievement.SEEKER]);
 
     giveInfo(infoPortions.sim_bandit_attack_harder);
     expect(achievementsManager.checkAchievedSeeker()).toBeTruthy();
@@ -542,7 +541,7 @@ describe("AchievementManager class", () => {
     const statisticsManager: StatisticsManager = StatisticsManager.getInstance();
     const achievementsManager: AchievementsManager = AchievementsManager.getInstance();
     const onNotification = mockNotificationListener(
-      captions.st_ach_marked_by_zone,
+      "st_ach_marked_by_zone",
       achievementIcons[EAchievement.MARKED_BY_ZONE]
     );
 

@@ -23,7 +23,6 @@ import {
 } from "@/engine/core/utils/object";
 import { isAnySquadMemberEnemyToActor } from "@/engine/core/utils/relation";
 import { postProcessors } from "@/engine/lib/constants/animation/post_processors";
-import { captions } from "@/engine/lib/constants/captions/captions";
 import { communities, TCommunity } from "@/engine/lib/constants/communities";
 import { TRUE } from "@/engine/lib/constants/words";
 import { zones } from "@/engine/lib/constants/zones";
@@ -132,7 +131,7 @@ export class TravelManager extends AbstractCoreManager {
   public initializeTravellerDialog(dialog: PhraseDialog): void {
     const npcCommunity: TCommunity = communities.stalker; // -- npc:character_community()
 
-    let actorPhrase: Phrase = dialog.AddPhrase(captions.dm_traveler_what_are_you_doing, "0", "", -10000);
+    let actorPhrase: Phrase = dialog.AddPhrase("dm_traveler_what_are_you_doing", "0", "", -10000);
     let actorScript: PhraseScript = actorPhrase.GetPhraseScript();
 
     let npcPhrase: Phrase = dialog.AddPhrase("if you see this - this is bad", "1", "0", -10000);
@@ -379,16 +378,16 @@ export class TravelManager extends AbstractCoreManager {
   /**
    * todo: Description.
    */
-  public getTravelConst(actor: ClientObject, npc: ClientObject, dialogId: TStringId, phraseId: TStringId): TLabel {
+  public getTravelConst(actor: ClientObject, object: ClientObject, dialogId: TStringId, phraseId: TStringId): TLabel {
     const simBoard: SimulationBoardManager = SimulationBoardManager.getInstance();
     const travelPhraseId: TStringId = string.sub(phraseId, 1, string.len(phraseId) - 2);
     const smartName: TName = this.smartNamesByPhraseId.get(travelPhraseId);
     const smartTerrain: Optional<SmartTerrain> = simBoard.getSmartTerrainByName(smartName)!;
 
-    const distance: TDistance = npc.position().distance_to(smartTerrain.position);
+    const distance: TDistance = object.position().distance_to(smartTerrain.position);
     const price: TCount = this.getTravelPriceByDistance(distance);
 
-    return game.translate_string(captions.dm_traveler_travel_cost) + " " + tostring(price) + ".";
+    return game.translate_string("dm_traveler_travel_cost") + " " + tostring(price) + ".";
   }
 
   /**
@@ -428,7 +427,7 @@ export class TravelManager extends AbstractCoreManager {
    */
   public onTravelToSpecificSmartWithSquad(
     actor: ClientObject,
-    npc: ClientObject,
+    object: ClientObject,
     dialogId: TStringId,
     phraseId: TStringId
   ): void {
@@ -436,13 +435,13 @@ export class TravelManager extends AbstractCoreManager {
     const travelPhraseId: TStringId = string.sub(phraseId, 1, string.len(phraseId) - 3);
     const smartName: TName = this.smartNamesByPhraseId.get(travelPhraseId);
     const smartTerrain: Optional<SmartTerrain> = simulationBoardManager.getSmartTerrainByName(smartName)!;
-    const squad: Optional<Squad> = getObjectSquad(npc);
+    const squad: Optional<Squad> = getObjectSquad(object);
 
-    logger.info("Actor travel with squad:", npc.name(), smartName);
+    logger.info("Actor travel with squad:", object.name(), smartName);
 
-    createGameAutoSave(captions.st_save_uni_travel_generic);
+    createGameAutoSave("st_save_uni_travel_generic");
 
-    npc.stop_talk();
+    object.stop_talk();
 
     level.disable_input();
     level.hide_indicators_safe();
@@ -472,17 +471,17 @@ export class TravelManager extends AbstractCoreManager {
    */
   public onTravelTogetherWithSquad(
     actor: ClientObject,
-    npc: ClientObject,
+    object: ClientObject,
     dialogId: TStringId,
     phraseId: TStringId
   ): void {
-    createGameAutoSave(captions.st_save_uni_travel_generic);
+    createGameAutoSave("st_save_uni_travel_generic");
 
-    const squad: Squad = getObjectSquad(npc)!;
+    const squad: Squad = getObjectSquad(object)!;
     const squadTargetId: Optional<TNumberId> = squad.assignedTargetId;
     const smartTerrain: SmartTerrain = alife().object<SmartTerrain>(squadTargetId!)!;
 
-    npc.stop_talk();
+    object.stop_talk();
 
     level.disable_input();
     level.hide_indicators_safe();

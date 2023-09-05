@@ -9,7 +9,6 @@ import { isStalker } from "@/engine/core/utils/object/object_class";
 import { getObjectPositioning } from "@/engine/core/utils/object/object_get";
 import { isAmmoSection } from "@/engine/core/utils/object/object_section";
 import { createEmptyVector } from "@/engine/core/utils/vector";
-import { TCaption } from "@/engine/lib/constants/captions";
 import {
   AlifeSimulator,
   AnyGameObject,
@@ -141,7 +140,7 @@ export function spawnItemsForObjectFromList<T extends TSection>(
  */
 export function getInventoryNameForItemSection(section: TSection): TLabel {
   if (SYSTEM_INI.section_exist(section) && SYSTEM_INI.line_exist(section, "inv_name")) {
-    const caption: Optional<TCaption> = SYSTEM_INI.r_string(section, "inv_name");
+    const caption: Optional<TLabel> = SYSTEM_INI.r_string(section, "inv_name");
 
     return game.translate_string(caption || section);
   } else {

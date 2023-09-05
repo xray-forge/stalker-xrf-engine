@@ -22,7 +22,6 @@ import {
 } from "@/engine/core/utils/object/object_info_portion";
 import { spawnItemsForObjectFromList } from "@/engine/core/utils/object/object_spawn";
 import { increaseCommunityGoodwillToId } from "@/engine/core/utils/relation";
-import { captions } from "@/engine/lib/constants/captions/captions";
 import { communities } from "@/engine/lib/constants/communities";
 import { infoPortions } from "@/engine/lib/constants/info_portions/info_portions";
 import { NetPacket, NetProcessor, Optional, TDuration, Time, TNumberId } from "@/engine/lib/types";
@@ -120,7 +119,7 @@ export class AchievementsManager extends AbstractCoreManager {
 
         EventsManager.emitEvent<ITipNotification>(EGameEvent.NOTIFICATION, {
           type: ENotificationType.TIP,
-          caption: captions.st_ach_pioneer,
+          caption: "st_ach_pioneer",
           senderId: achievementIcons[EAchievement.PIONEER],
         });
       }
@@ -145,7 +144,7 @@ export class AchievementsManager extends AbstractCoreManager {
 
         EventsManager.emitEvent<ITipNotification>(EGameEvent.NOTIFICATION, {
           type: ENotificationType.TIP,
-          caption: captions.st_ach_mutant_hunter,
+          caption: "st_ach_mutant_hunter",
           senderId: achievementIcons[EAchievement.MUTANT_HUNTER],
         });
       }
@@ -164,7 +163,7 @@ export class AchievementsManager extends AbstractCoreManager {
 
         EventsManager.emitEvent<ITipNotification>(EGameEvent.NOTIFICATION, {
           type: ENotificationType.TIP,
-          caption: captions.st_ach_detective,
+          caption: "st_ach_detective",
           senderId: achievementIcons[EAchievement.DETECTIVE],
         });
       }
@@ -183,7 +182,7 @@ export class AchievementsManager extends AbstractCoreManager {
 
         EventsManager.emitEvent<ITipNotification>(EGameEvent.NOTIFICATION, {
           type: ENotificationType.TIP,
-          caption: captions.st_ach_one_of_the_lads,
+          caption: "st_ach_one_of_the_lads",
           senderId: achievementIcons[EAchievement.ONE_OF_THE_LADS],
         });
       }
@@ -202,7 +201,7 @@ export class AchievementsManager extends AbstractCoreManager {
 
         EventsManager.emitEvent<ITipNotification>(EGameEvent.NOTIFICATION, {
           type: ENotificationType.TIP,
-          caption: captions.st_ach_kingpin,
+          caption: "st_ach_kingpin",
           senderId: achievementIcons[EAchievement.KINGPIN],
         });
       }
@@ -227,7 +226,7 @@ export class AchievementsManager extends AbstractCoreManager {
 
         EventsManager.emitEvent<ITipNotification>(EGameEvent.NOTIFICATION, {
           type: ENotificationType.TIP,
-          caption: captions.st_ach_herald_of_justice,
+          caption: "st_ach_herald_of_justice",
           senderId: achievementIcons[EAchievement.HERALD_OF_JUSTICE],
         });
       }
@@ -259,7 +258,7 @@ export class AchievementsManager extends AbstractCoreManager {
 
     EventsManager.emitEvent<ITipNotification>(EGameEvent.NOTIFICATION, {
       type: ENotificationType.TIP,
-      caption: captions.st_ach_seeker,
+      caption: "st_ach_seeker",
       senderId: achievementIcons[EAchievement.SEEKER],
     });
 
@@ -276,7 +275,7 @@ export class AchievementsManager extends AbstractCoreManager {
 
         EventsManager.emitEvent<ITipNotification>(EGameEvent.NOTIFICATION, {
           type: ENotificationType.TIP,
-          caption: captions.st_ach_battle_systems_master,
+          caption: "st_ach_battle_systems_master",
           senderId: achievementIcons[EAchievement.BATTLE_SYSTEMS_MASTER],
         });
       }
@@ -301,7 +300,7 @@ export class AchievementsManager extends AbstractCoreManager {
 
         EventsManager.emitEvent<ITipNotification>(EGameEvent.NOTIFICATION, {
           type: ENotificationType.TIP,
-          caption: captions.st_ach_high_tech_master,
+          caption: "st_ach_high_tech_master",
           senderId: achievementIcons[EAchievement.HIGH_TECH_MASTER],
         });
       }
@@ -320,7 +319,7 @@ export class AchievementsManager extends AbstractCoreManager {
 
         EventsManager.emitEvent<ITipNotification>(EGameEvent.NOTIFICATION, {
           type: ENotificationType.TIP,
-          caption: captions.st_ach_skilled_stalker,
+          caption: "st_ach_skilled_stalker",
           senderId: achievementIcons[EAchievement.SKILLED_STALKER],
         });
       }
@@ -345,7 +344,7 @@ export class AchievementsManager extends AbstractCoreManager {
 
         EventsManager.emitEvent<ITipNotification>(EGameEvent.NOTIFICATION, {
           type: ENotificationType.TIP,
-          caption: captions.st_ach_leader,
+          caption: "st_ach_leader",
           senderId: achievementIcons[EAchievement.LEADER],
         });
       }
@@ -380,7 +379,7 @@ export class AchievementsManager extends AbstractCoreManager {
 
         EventsManager.emitEvent<ITipNotification>(EGameEvent.NOTIFICATION, {
           type: ENotificationType.TIP,
-          caption: captions.st_ach_diplomat,
+          caption: "st_ach_diplomat",
           senderId: achievementIcons[EAchievement.DIPLOMAT],
         });
       }
@@ -413,7 +412,7 @@ export class AchievementsManager extends AbstractCoreManager {
 
         EventsManager.emitEvent<ITipNotification>(EGameEvent.NOTIFICATION, {
           type: ENotificationType.TIP,
-          caption: captions.st_ach_research_man,
+          caption: "st_ach_research_man",
           senderId: achievementIcons[EAchievement.RESEARCH_MAN],
         });
       }
@@ -439,7 +438,7 @@ export class AchievementsManager extends AbstractCoreManager {
 
         EventsManager.emitEvent<ITipNotification>(EGameEvent.NOTIFICATION, {
           type: ENotificationType.TIP,
-          caption: captions.st_ach_friend_of_duty,
+          caption: "st_ach_friend_of_duty",
           senderId: achievementIcons[EAchievement.FRIEND_OF_DUTY],
         });
       }
@@ -465,7 +464,7 @@ export class AchievementsManager extends AbstractCoreManager {
 
         EventsManager.emitEvent<ITipNotification>(EGameEvent.NOTIFICATION, {
           type: ENotificationType.TIP,
-          caption: captions.st_ach_friend_of_freedom,
+          caption: "st_ach_friend_of_freedom",
           senderId: achievementIcons[EAchievement.FRIEND_OF_FREEDOM],
         });
       }
@@ -490,7 +489,7 @@ export class AchievementsManager extends AbstractCoreManager {
 
         EventsManager.emitEvent<ITipNotification>(EGameEvent.NOTIFICATION, {
           type: ENotificationType.TIP,
-          caption: captions.st_ach_balance_advocate,
+          caption: "st_ach_balance_advocate",
           senderId: achievementIcons[EAchievement.BALANCE_ADVOCATE],
         });
       }
@@ -508,7 +507,7 @@ export class AchievementsManager extends AbstractCoreManager {
 
       EventsManager.emitEvent<ITipNotification>(EGameEvent.NOTIFICATION, {
         type: ENotificationType.TIP,
-        caption: captions.st_ach_wealthy,
+        caption: "st_ach_wealthy",
         senderId: achievementIcons[EAchievement.WEALTHY],
       });
     }
@@ -526,7 +525,7 @@ export class AchievementsManager extends AbstractCoreManager {
 
         EventsManager.emitEvent<ITipNotification>(EGameEvent.NOTIFICATION, {
           type: ENotificationType.TIP,
-          caption: captions.st_ach_keeper_of_secrets,
+          caption: "st_ach_keeper_of_secrets",
           senderId: achievementIcons[EAchievement.KEEPER_OF_SECRETS],
         });
       }
@@ -548,7 +547,7 @@ export class AchievementsManager extends AbstractCoreManager {
 
       EventsManager.emitEvent<ITipNotification>(EGameEvent.NOTIFICATION, {
         type: ENotificationType.TIP,
-        caption: captions.st_ach_marked_by_zone,
+        caption: "st_ach_marked_by_zone",
         senderId: achievementIcons[EAchievement.MARKED_BY_ZONE],
       });
 
@@ -590,7 +589,7 @@ export class AchievementsManager extends AbstractCoreManager {
 
         EventsManager.emitEvent<ITipNotification>(EGameEvent.NOTIFICATION, {
           type: ENotificationType.TIP,
-          caption: captions.st_ach_information_dealer,
+          caption: "st_ach_information_dealer",
           senderId: achievementIcons[EAchievement.INFORMATION_DEALER],
         });
       }
@@ -618,7 +617,7 @@ export class AchievementsManager extends AbstractCoreManager {
 
         EventsManager.emitEvent<ITipNotification>(EGameEvent.NOTIFICATION, {
           type: ENotificationType.TIP,
-          caption: captions.st_ach_friend_of_stalkers,
+          caption: "st_ach_friend_of_stalkers",
           senderId: achievementIcons[EAchievement.FRIEND_OF_STALKERS],
         });
       }
@@ -657,7 +656,7 @@ export class AchievementsManager extends AbstractCoreManager {
 
       EventsManager.emitEvent<ITipNotification>(EGameEvent.NOTIFICATION, {
         type: ENotificationType.TIP,
-        caption: captions.st_detective_news,
+        caption: "st_detective_news",
         senderId: notificationManagerIcons.got_medicine,
       });
 
@@ -687,7 +686,7 @@ export class AchievementsManager extends AbstractCoreManager {
 
       EventsManager.emitEvent<ITipNotification>(EGameEvent.NOTIFICATION, {
         type: ENotificationType.TIP,
-        caption: captions.st_mutant_hunter_news,
+        caption: "st_mutant_hunter_news",
         senderId: notificationManagerIcons.got_ammo,
       });
 

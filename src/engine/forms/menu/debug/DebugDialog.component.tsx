@@ -5,7 +5,6 @@ import { XrComponent } from "@/engine/forms/components/base/XrComponent.componen
 import { XrScrollView } from "@/engine/forms/components/base/XrScrollView.component";
 import { XrTexture } from "@/engine/forms/components/base/XrTexture.component";
 import { gameConfig } from "@/engine/lib/configs/GameConfig";
-import { captions } from "@/engine/lib/constants/captions/captions";
 import { WHITE } from "@/engine/lib/constants/colors";
 import { fonts } from "@/engine/lib/constants/fonts";
 import { textures } from "@/engine/lib/constants/textures";

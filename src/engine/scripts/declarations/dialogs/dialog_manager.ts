@@ -12,7 +12,6 @@ import { extern } from "@/engine/core/utils/binding";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getObjectCommunity, getObjectSmartTerrain } from "@/engine/core/utils/object";
 import { getNpcSpeaker } from "@/engine/core/utils/object/object_task_reward";
-import { captions } from "@/engine/lib/constants/captions/captions";
 import { communities, TCommunity } from "@/engine/lib/constants/communities";
 import { TRUE } from "@/engine/lib/constants/words";
 import { ClientObject, Optional, PhraseDialog, TName, TNumberId, TRate, TStringId } from "@/engine/lib/types";
@@ -578,11 +577,11 @@ extern("dialog_manager.create_bye_phrase", (): string => {
   }
 
   if (rnd >= 66) {
-    return game.translate_string(captions.actor_break_dialog_1);
+    return game.translate_string("actor_break_dialog_1");
   } else if (rnd >= 33) {
-    return game.translate_string(captions.actor_break_dialog_2);
+    return game.translate_string("actor_break_dialog_2");
   } else {
-    return game.translate_string(captions.actor_break_dialog_3);
+    return game.translate_string("actor_break_dialog_3");
   }
 });
 

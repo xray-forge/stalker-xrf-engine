@@ -23,7 +23,6 @@ import {
   transferItemsToActor,
   transferMoneyFromActor,
 } from "@/engine/core/utils/object";
-import { captions } from "@/engine/lib/constants/captions/captions";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import { infoPortions, TInfoPortion } from "@/engine/lib/constants/info_portions";
 import { TInventoryItem } from "@/engine/lib/constants/items";
@@ -834,14 +833,14 @@ export const zatB29AfTable = {
  * todo;
  */
 export const zatB29AfNamesTable = {
-  [16]: captions.st_af_gravi_name,
-  [17]: captions.st_af_eye_name,
-  [18]: captions.st_af_baloon_name,
-  [19]: captions.st_af_dummy_dummy_name,
-  [20]: captions.st_af_gold_fish_name,
-  [21]: captions.st_af_fire_name,
-  [22]: captions.st_af_glass_name,
-  [23]: captions.st_af_ice_name,
+  [16]: "st_af_gravi_name",
+  [17]: "st_af_eye_name",
+  [18]: "st_af_baloon_name",
+  [19]: "st_af_dummy_dummy_name",
+  [20]: "st_af_gold_fish_name",
+  [21]: "st_af_fire_name",
+  [22]: "st_af_glass_name",
+  [23]: "st_af_ice_name",
 } as unknown as LuaArray<string>;
 
 /**

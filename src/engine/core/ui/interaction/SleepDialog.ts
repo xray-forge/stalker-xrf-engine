@@ -19,7 +19,6 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 import { disableInfo, giveInfo } from "@/engine/core/utils/object/object_info_portion";
 import { isWideScreen, resolveXmlFormPath } from "@/engine/core/utils/ui";
 import { gameConfig } from "@/engine/lib/configs/GameConfig";
-import { captions } from "@/engine/lib/constants/captions/captions";
 import { infoPortions } from "@/engine/lib/constants/info_portions/info_portions";
 import { ClientObject, TPath, TTimestamp, Vector2D } from "@/engine/lib/types";
 
@@ -113,7 +112,7 @@ export class SleepDialog extends CUIScriptWnd {
         hours = hours - 24;
       }
 
-      this.uiSleepStTable[it].TextControl().SetText(hours + game.translate_string(captions.st_sleep_hours));
+      this.uiSleepStTable[it].TextControl().SetText(hours + game.translate_string("st_sleep_hours"));
     }
 
     const delta: number = math.floor((591 / 24) * currentHours);
@@ -160,11 +159,11 @@ export class SleepDialog extends CUIScriptWnd {
       this.uiSleepMessageBox.InitMessageBox("message_box_ok");
 
       if (actor.bleeding > 0 && actor.radiation > 0) {
-        this.uiSleepMessageBox.SetText(captions.sleep_warning_all_pleasures);
+        this.uiSleepMessageBox.SetText("sleep_warning_all_pleasures");
       } else if (actor.bleeding > 0) {
-        this.uiSleepMessageBox.SetText(captions.sleep_warning_bleeding);
+        this.uiSleepMessageBox.SetText("sleep_warning_bleeding");
       } else {
-        this.uiSleepMessageBox.SetText(captions.sleep_warning_radiation);
+        this.uiSleepMessageBox.SetText("sleep_warning_radiation");
       }
 
       this.uiSleepMessageBox.ShowDialog(true);

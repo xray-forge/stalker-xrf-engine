@@ -32,7 +32,6 @@ import { executeConsoleCommand } from "@/engine/core/utils/game/game_console";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { resolveXmlFile, resolveXmlFormPath } from "@/engine/core/utils/ui";
 import { gameConfig } from "@/engine/lib/configs/GameConfig";
-import { captions } from "@/engine/lib/constants/captions/captions";
 import { consoleCommands } from "@/engine/lib/constants/console_commands";
 import { gameDifficulties } from "@/engine/lib/constants/game_difficulties";
 import { gameTutorials } from "@/engine/lib/constants/game_tutorials";
@@ -240,7 +239,7 @@ export class MainMenu extends CUIScriptWnd {
     this.uiModalBox.InitMessageBox("message_box_quit_game");
 
     this.uiModalBox.SetText(
-      level.game_id() === gameTypes.eGameIDSingle ? captions.ui_mm_quit_game_message : captions.ui_mm_disconnect_message
+      level.game_id() === gameTypes.eGameIDSingle ? "ui_mm_quit_game_message" : "ui_mm_disconnect_message"
     );
     this.uiModalBox.ShowDialog(true);
   }
