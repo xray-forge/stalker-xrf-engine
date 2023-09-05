@@ -1,12 +1,12 @@
 import { level } from "xray16";
 
-import { SmartTerrain } from "@/engine/core/objects";
+import type { SmartTerrain } from "@/engine/core/objects/server/smart_terrain";
 import { jobPreconditionWalker } from "@/engine/core/utils/job/job_precondition";
 import { EJobPathType, EJobType, TSmartTerrainJobsList } from "@/engine/core/utils/job/job_types";
 import { isPatrolInRestrictor } from "@/engine/core/utils/patrol";
 import { StringBuilder } from "@/engine/core/utils/string";
 import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
-import { LuaArray, TIndex, TName } from "@/engine/lib/types";
+import { TIndex, TName } from "@/engine/lib/types";
 
 /**
  * Create walker jobs for stalkers in smart terrain.

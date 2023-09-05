@@ -1,7 +1,7 @@
 import { alife, CGameGraph, device, game_graph, level, sound_object } from "xray16";
 
 import { registry } from "@/engine/core/database";
-import { SmartTerrain } from "@/engine/core/objects";
+import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getObjectSmartTerrain } from "@/engine/core/utils/object/object_get";
 import { createEmptyVector, graphDistance, vectorToString, yawDegree3d } from "@/engine/core/utils/vector";

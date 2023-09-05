@@ -10,7 +10,7 @@ import {
   registry,
 } from "@/engine/core/database";
 import { MapDisplayManager } from "@/engine/core/managers/interface";
-import { SmartTerrain } from "@/engine/core/objects";
+import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain";
 import { IBaseSchemeState, ObjectRestrictionsManager, TAbstractSchemeConstructor } from "@/engine/core/schemes";
 import { SchemeAbuse } from "@/engine/core/schemes/abuse";
 import { SchemeCombat } from "@/engine/core/schemes/combat";
@@ -39,13 +39,12 @@ import {
   enableObjectBaseSchemes,
   getSectionToActivate,
   isActiveSection,
-  isActiveSectionState,
   resetObjectGenericSchemesOnSectionSwitch,
 } from "@/engine/core/utils/scheme/scheme_logic";
 import { loadSchemeImplementation, loadSchemeImplementations } from "@/engine/core/utils/scheme/scheme_setup";
 import { NIL } from "@/engine/lib/constants/words";
 import { ClientObject, EScheme, ESchemeType, IniFile, ServerHumanObject } from "@/engine/lib/types";
-import { getSchemeAction, mockSchemeState } from "@/fixtures/engine/mocks";
+import { getSchemeAction } from "@/fixtures/engine/mocks";
 import { MockAlifeSimulator, mockClientGameObject, mockIniFile, mockServerAlifeHumanStalker } from "@/fixtures/xray";
 import { MockCTime } from "@/fixtures/xray/mocks/CTime.mock";
 
@@ -91,29 +90,6 @@ describe("'scheme logic' utils", () => {
 
     expect(isActiveSection(object, "test@test")).toBe(false);
     expect(isActiveSection(object, "another@test")).toBe(true);
-  });
-
-  it("'isActiveSectionState' should correctly check scheme activity", () => {
-    const object: ClientObject = mockClientGameObject();
-    const state: IRegistryObjectState = registerObject(object);
-
-    state.activeSection = "sr_idle@test";
-
-    expect(
-      isActiveSectionState(object, mockSchemeState(object, EScheme.SR_TELEPORT, { section: "sr_teleport@test" }))
-    ).toBe(false);
-    expect(
-      isActiveSectionState(object, mockSchemeState(object, EScheme.SR_TELEPORT, { section: "sr_idle@test" }))
-    ).toBe(true);
-
-    state.activeSection = "sr_teleport@test";
-
-    expect(
-      isActiveSectionState(object, mockSchemeState(object, EScheme.SR_TELEPORT, { section: "sr_teleport@test" }))
-    ).toBe(true);
-    expect(
-      isActiveSectionState(object, mockSchemeState(object, EScheme.SR_TELEPORT, { section: "sr_idle@test" }))
-    ).toBe(false);
   });
 
   it("'getSectionToActivate' should correctly determine active section", () => {

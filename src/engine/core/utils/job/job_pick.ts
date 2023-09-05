@@ -1,4 +1,4 @@
-import { SmartTerrain } from "@/engine/core/objects";
+import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain";
 import { isJobAvailableToObject } from "@/engine/core/utils/job/job_check";
 import {
   IObjectJobDescriptor,

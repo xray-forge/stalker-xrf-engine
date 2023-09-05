@@ -1,6 +1,6 @@
 import { jest } from "@jest/globals";
 
-import { SmartTerrain } from "@/engine/core/objects";
+import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain/SmartTerrain";
 import { TName, TSection } from "@/engine/lib/types";
 import { mockIniFile } from "@/fixtures/xray";
 

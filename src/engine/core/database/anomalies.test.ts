@@ -7,7 +7,7 @@ import {
   unregisterAnomalyZone,
 } from "@/engine/core/database/anomalies";
 import { registry } from "@/engine/core/database/registry";
-import { AnomalyFieldBinder, AnomalyZoneBinder } from "@/engine/core/objects";
+import { AnomalyFieldBinder, AnomalyZoneBinder } from "@/engine/core/objects/binders/zones";
 import { mockClientGameObject } from "@/fixtures/xray";
 
 describe("'anomalies' module of the database", () => {

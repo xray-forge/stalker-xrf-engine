@@ -1,7 +1,7 @@
 import { alife, level } from "xray16";
 
-import { Squad } from "@/engine/core/objects";
 import { EStalkerState } from "@/engine/core/objects/animation";
+import { Squad } from "@/engine/core/objects/server/squad";
 import { abort, assertDefined } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getObjectSquad } from "@/engine/core/utils/object";

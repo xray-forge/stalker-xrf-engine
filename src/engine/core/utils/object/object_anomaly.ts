@@ -1,7 +1,7 @@
 import { alife } from "xray16";
 
 import { registry } from "@/engine/core/database";
-import { AnomalyZoneBinder } from "@/engine/core/objects";
+import { AnomalyZoneBinder } from "@/engine/core/objects/binders/zones/AnomalyZoneBinder";
 import { LuaArray, Optional, ServerObject, TName, TSection } from "@/engine/lib/types";
 
 /**

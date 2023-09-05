@@ -7,7 +7,7 @@ import {
   unregisterHelicopterEnemy,
 } from "@/engine/core/database/helicopters";
 import { registry } from "@/engine/core/database/registry";
-import { HelicopterBinder } from "@/engine/core/objects";
+import { HelicopterBinder } from "@/engine/core/objects/binders/HelicopterBinder";
 import { ClientObject, TIndex } from "@/engine/lib/types";
 import { mockClientGameObject, mockIniFile } from "@/fixtures/xray";
 

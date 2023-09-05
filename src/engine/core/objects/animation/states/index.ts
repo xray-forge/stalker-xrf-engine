@@ -1,4 +1,4 @@
-import { IStateDescriptor } from "@/engine/core/objects/animation";
+import { IStateDescriptor } from "@/engine/core/objects/animation/state_types";
 import { animpointStates } from "@/engine/core/objects/animation/states/animpoint";
 import { baseStates } from "@/engine/core/objects/animation/states/base";
 import { priA15States } from "@/engine/core/objects/animation/states/priA15";

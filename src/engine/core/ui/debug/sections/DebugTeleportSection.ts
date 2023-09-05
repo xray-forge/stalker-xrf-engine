@@ -2,7 +2,7 @@ import { CUI3tButton, CUIComboBox, CUIListBox, CUIWindow, game, level, LuabindCl
 
 import { registry } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers";
-import { SmartTerrain } from "@/engine/core/objects";
+import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain";
 import { AbstractDebugSection } from "@/engine/core/ui/debug/sections/AbstractDebugSection";
 import { DebugTeleportListEntry } from "@/engine/core/ui/debug/sections/DebugTeleportListEntry";
 import { executeConsoleCommand, isGameStarted } from "@/engine/core/utils/game";

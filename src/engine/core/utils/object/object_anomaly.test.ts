@@ -1,7 +1,7 @@
 import { describe, expect, it } from "@jest/globals";
 
 import { registry } from "@/engine/core/database";
-import { AnomalyZoneBinder } from "@/engine/core/objects";
+import { AnomalyZoneBinder } from "@/engine/core/objects/binders/zones/AnomalyZoneBinder";
 import { anomalyHasArtefact, getAnomalyArtefacts } from "@/engine/core/utils/object/object_anomaly";
 import { mockClientGameObject, mockServerAlifeObject } from "@/fixtures/xray";
 

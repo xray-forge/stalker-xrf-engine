@@ -1,8 +1,8 @@
 import { alife, level } from "xray16";
 
 import { getObjectIdByStoryId, registry } from "@/engine/core/database";
-import { Squad } from "@/engine/core/objects";
 import { EActionId } from "@/engine/core/objects/ai/types";
+import { Squad } from "@/engine/core/objects/server/squad";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { isStalker } from "@/engine/core/utils/object/object_class";
 import { surgeConfig } from "@/engine/lib/configs/SurgeConfig";

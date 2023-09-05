@@ -9,7 +9,7 @@ import {
   primaryMapSpotObjects,
   sleepZones,
 } from "@/engine/core/managers/interface/MapDisplayManagerObjects";
-import { SmartTerrain, Squad } from "@/engine/core/objects";
+import type { SmartTerrain, Squad } from "@/engine/core/objects/server";
 import { parseConditionsList, pickSectionFromCondList, readIniString, TConditionList } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getAnomalyArtefacts } from "@/engine/core/utils/object/object_anomaly";

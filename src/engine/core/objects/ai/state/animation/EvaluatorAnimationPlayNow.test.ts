@@ -2,10 +2,10 @@ import { describe, expect, it } from "@jest/globals";
 
 import { registry } from "@/engine/core/database/registry";
 import { registerStalker, unregisterStalker } from "@/engine/core/database/stalker";
-import { StalkerBinder } from "@/engine/core/objects";
 import { EvaluatorAnimationPlayNow } from "@/engine/core/objects/ai/state/animation/EvaluatorAnimationPlayNow";
 import { StalkerStateManager } from "@/engine/core/objects/ai/state/StalkerStateManager";
 import { EStalkerState } from "@/engine/core/objects/animation";
+import { StalkerBinder } from "@/engine/core/objects/binders/creature/StalkerBinder";
 import { mockClientGameObject } from "@/fixtures/xray";
 
 describe("EvaluatorAnimationPlayNow class", () => {

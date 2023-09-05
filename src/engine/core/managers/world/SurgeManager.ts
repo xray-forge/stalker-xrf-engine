@@ -17,7 +17,8 @@ import { MapDisplayManager } from "@/engine/core/managers/interface/MapDisplayMa
 import { SimulationBoardManager } from "@/engine/core/managers/simulation/SimulationBoardManager";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import { WeatherManager } from "@/engine/core/managers/world/WeatherManager";
-import { AnomalyZoneBinder, SmartTerrain } from "@/engine/core/objects";
+import type { AnomalyZoneBinder } from "@/engine/core/objects/binders/zones";
+import type { SmartTerrain } from "@/engine/core/objects/server/smart_terrain";
 import { Squad } from "@/engine/core/objects/server/squad/Squad";
 import { isBlackScreen } from "@/engine/core/utils/game";
 import { executeConsoleCommand, getConsoleFloatCommand } from "@/engine/core/utils/game/game_console";

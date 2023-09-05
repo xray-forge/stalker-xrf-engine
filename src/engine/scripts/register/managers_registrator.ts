@@ -7,7 +7,7 @@ import { AchievementsManager } from "@/engine/core/managers/interaction/achievem
 import { DialogManager } from "@/engine/core/managers/interaction/dialog/DialogManager";
 import { SleepManager } from "@/engine/core/managers/interaction/SleepManager";
 import { TaskManager } from "@/engine/core/managers/interaction/tasks";
-import { TradeManager } from "@/engine/core/managers/interaction/TradeManager";
+import { TradeManager } from "@/engine/core/managers/interaction/trade/TradeManager";
 import { TravelManager } from "@/engine/core/managers/interaction/TravelManager";
 import { ActorInputManager, MapDisplayManager, NotificationManager } from "@/engine/core/managers/interface";
 import { ActorInventoryMenuManager } from "@/engine/core/managers/interface/ActorInventoryMenuManager";

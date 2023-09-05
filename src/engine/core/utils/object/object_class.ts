@@ -1,7 +1,8 @@
 import { alife, clsid } from "xray16";
 
 import { SYSTEM_INI } from "@/engine/core/database";
-import type { SmartTerrain, Squad } from "@/engine/core/objects";
+import type { SmartTerrain } from "@/engine/core/objects/server/smart_terrain";
+import type { Squad } from "@/engine/core/objects/server/squad";
 import { artefactClassIds, monsterClassIds, stalkerClassIds, weaponClassIds } from "@/engine/lib/constants/class_ids";
 import {
   AnyGameObject,

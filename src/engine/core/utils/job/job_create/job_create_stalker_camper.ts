@@ -1,7 +1,7 @@
 import { level, patrol } from "xray16";
 
-import { SmartTerrain } from "@/engine/core/objects";
 import { EStalkerState } from "@/engine/core/objects/animation";
+import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain";
 import { IWaypointData, parseWaypointData } from "@/engine/core/utils/ini";
 import { jobPreconditionCamper } from "@/engine/core/utils/job/job_precondition";
 import { EJobPathType, EJobType, TSmartTerrainJobsList } from "@/engine/core/utils/job/job_types";

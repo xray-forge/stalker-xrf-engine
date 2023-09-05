@@ -1,7 +1,14 @@
 import { describe, expect, it } from "@jest/globals";
 import { print_stack } from "xray16";
 
-import { abort, assert, assertBoolean, assertDefined, callstack } from "@/engine/core/utils/assertion";
+import {
+  abort,
+  assert,
+  assertBoolean,
+  assertDefined,
+  assertNonEmptyString,
+  callstack,
+} from "@/engine/core/utils/assertion";
 import { mockDebug } from "@/fixtures/lua/mocks/lua_debug.mock";
 
 describe("'debug' utils", () => {
@@ -45,6 +52,15 @@ describe("'debug' utils", () => {
     expect(() => assertBoolean([])).toThrow();
     expect(() => assertDefined(true)).not.toThrow();
     expect(() => assertDefined(false)).not.toThrow();
+  });
+
+  it("'assertNonEmptyString' should correctly check and throw exceptions", () => {
+    expect(() => assertNonEmptyString(null)).toThrow();
+    expect(() => assertNonEmptyString("")).toThrow();
+    expect(() => assertNonEmptyString("a")).not.toThrow();
+    expect(() => assertNonEmptyString("abc")).not.toThrow();
+    expect(() => assertNonEmptyString("dgef")).not.toThrow();
+    expect(() => assertNonEmptyString("abcdefg")).not.toThrow();
   });
 
   it("'callstack' should correctly print debug stack", () => {

@@ -9,7 +9,8 @@ import {
   unregisterSmartTerrain,
   unRegisterSmartTerrainCampfire,
 } from "@/engine/core/database/smart";
-import { SmartCover, SmartTerrain } from "@/engine/core/objects";
+import { SmartCover } from "@/engine/core/objects/server/smart_cover";
+import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain";
 import { ClientObject, ZoneCampfire } from "@/engine/lib/types";
 import { mockSmartTerrain } from "@/fixtures/engine";
 import { mockClientGameObject, MockCZoneCampfire } from "@/fixtures/xray";

@@ -51,6 +51,7 @@ export function assertDefined<T>(
     abort(string.format(format, ...rest));
   }
 }
+
 /**
  * Assertion function to ensure provided value is boolean.
  *
@@ -64,6 +65,23 @@ export function assertBoolean(
   ...rest: AnyArgs
 ): asserts value is boolean {
   if (type(value) !== "boolean") {
+    abort(string.format(format, ...rest));
+  }
+}
+
+/**
+ * Assertion function to ensure provided value is boolean.
+ *
+ * @param value - value to check
+ * @param format - optional c-like formatted string for interpolation
+ * @param rest - rest parameters to interpolate into format string
+ */
+export function assertNonEmptyString(
+  value: Optional<string>,
+  format: string = "Type assertion failed, expected boolean value.",
+  ...rest: AnyArgs
+): asserts value is string {
+  if (value === null || value === "") {
     abort(string.format(format, ...rest));
   }
 }

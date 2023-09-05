@@ -16,7 +16,7 @@ import {
   TNotificationIcon,
 } from "@/engine/core/managers/interface";
 import { TreasureManager } from "@/engine/core/managers/world/TreasureManager";
-import { Squad } from "@/engine/core/objects";
+import type { Squad } from "@/engine/core/objects/server/squad";
 import { abort, assert, assertDefined } from "@/engine/core/utils/assertion";
 import { extern } from "@/engine/core/utils/binding";
 import { LuaLogger } from "@/engine/core/utils/logging";

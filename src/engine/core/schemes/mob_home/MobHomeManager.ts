@@ -1,7 +1,7 @@
 import { alife, patrol } from "xray16";
 
 import { setMonsterState } from "@/engine/core/database";
-import { SmartTerrain } from "@/engine/core/objects";
+import type { SmartTerrain } from "@/engine/core/objects/server/smart_terrain";
 import { AbstractSchemeManager } from "@/engine/core/schemes";
 import { ISchemeMobHomeState } from "@/engine/core/schemes/mob_home/ISchemeMobHomeState";
 import { assert } from "@/engine/core/utils/assertion";

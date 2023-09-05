@@ -1,6 +1,6 @@
 import { world_property } from "xray16";
 
-import { StalkerStateManager } from "@/engine/core/objects/ai/state";
+import type { StalkerStateManager } from "@/engine/core/objects/ai/state";
 import { ActionMentalDanger, ActionMentalFree, ActionMentalPanic } from "@/engine/core/objects/ai/state/mental";
 import { EStateActionId, EStateEvaluatorId } from "@/engine/core/objects/ai/types";
 import { ActionPlanner } from "@/engine/lib/types";
