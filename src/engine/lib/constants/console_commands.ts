@@ -103,7 +103,6 @@
  * CMD1(CCC_DrawGameGraphAll, "ai_draw_game_graph_all");
  * CMD1(CCC_DrawGameGraphCurrent, "ai_draw_game_graph_current_level");
  * CMD1(CCC_DrawGameGraphLevel, "ai_draw_game_graph_level");
- * CMD1(CCC_DebugNode, "ai_dbg_node");
  * CMD1(CCC_PHFps, "ph_frequency");
  * CMD1(CCC_PHIterations, "ph_iterations");
  * CMD1(CCC_InvUpgradesHierarchy, "inv_upgrades_hierarchy");
@@ -179,24 +178,7 @@
  * CMD3(CCC_Mask, "dbg_track_obj_blends_state", &dbg_track_obj_flags, dbg_track_obj_blends_state);
  * CMD3(CCC_Mask, "dbg_track_obj_blends_dump", &dbg_track_obj_flags, dbg_track_obj_blends_dump);
  * CMD3(CCC_Mask, "ai_debug", &psAI_Flags, aiDebug);
- * CMD3(CCC_Mask, "ai_dbg_brain", &psAI_Flags, aiBrain);
- * CMD3(CCC_Mask, "ai_dbg_motion", &psAI_Flags, aiMotion);
- * CMD3(CCC_Mask, "ai_dbg_frustum", &psAI_Flags, aiFrustum);
- * CMD3(CCC_Mask, "ai_dbg_funcs", &psAI_Flags, aiFuncs);
- * CMD3(CCC_Mask, "ai_dbg_alife", &psAI_Flags, aiALife);
- * CMD3(CCC_Mask, "ai_dbg_goap", &psAI_Flags, aiGOAP);
- * CMD3(CCC_Mask, "ai_dbg_goap_script", &psAI_Flags, aiGOAPScript);
- * CMD3(CCC_Mask, "ai_dbg_goap_object", &psAI_Flags, aiGOAPObject);
- * CMD3(CCC_Mask, "ai_dbg_cover", &psAI_Flags, aiCover);
- * CMD3(CCC_Mask, "ai_dbg_anim", &psAI_Flags, aiAnimation);
- * CMD3(CCC_Mask, "ai_dbg_vision", &psAI_Flags, aiVision);
- * CMD3(CCC_Mask, "ai_dbg_monster", &psAI_Flags, aiMonsterDebug);
- * CMD3(CCC_Mask, "ai_dbg_stalker", &psAI_Flags, aiStalker);
  * CMD3(CCC_Mask, "ai_stats", &psAI_Flags, aiStats);
- * CMD3(CCC_Mask, "ai_dbg_destroy", &psAI_Flags, aiDestroy);
- * CMD3(CCC_Mask, "ai_dbg_serialize", &psAI_Flags, aiSerialize);
- * CMD3(CCC_Mask, "ai_dbg_dialogs", &psAI_Flags, aiDialogs);
- * CMD3(CCC_Mask, "ai_dbg_infoportion", &psAI_Flags, aiInfoPortion);
  * CMD3(CCC_Mask, "ai_draw_game_graph", &psAI_Flags, aiDrawGameGraph);
  * CMD3(CCC_Mask, "ai_draw_game_graph_stalkers", &psAI_Flags, aiDrawGameGraphStalkers);
  * CMD3(CCC_Mask, "ai_draw_game_graph_objects", &psAI_Flags, aiDrawGameGraphObjects);
@@ -352,6 +334,24 @@
  * };
  */
 export const consoleCommands = {
+  ai_dbg_alife: "ai_dbg_alife",
+  ai_dbg_anim: "ai_dbg_anim",
+  ai_dbg_brain: "ai_dbg_brain",
+  ai_dbg_cover: "ai_dbg_cover",
+  ai_dbg_destroy: "ai_dbg_destroy",
+  ai_dbg_dialogs: "ai_dbg_dialogs",
+  ai_dbg_frustum: "ai_dbg_frustum",
+  ai_dbg_funcs: "ai_dbg_funcs",
+  ai_dbg_goap: "ai_dbg_goap",
+  ai_dbg_goap_object: "ai_dbg_goap_object",
+  ai_dbg_goap_script: "ai_dbg_goap_script",
+  ai_dbg_infoportion: "ai_dbg_infoportion",
+  ai_dbg_monster: "ai_dbg_monster",
+  ai_dbg_motion: "ai_dbg_motion",
+  ai_dbg_node: "ai_dbg_node",
+  ai_dbg_serialize: "ai_dbg_serialize",
+  ai_dbg_stalker: "ai_dbg_stalker",
+  ai_dbg_vision: "ai_dbg_vision",
   cdkey: "cdkey",
   /**
    * Save options changes.
@@ -479,11 +479,29 @@ export const consoleCommands = {
 export type TConsoleCommands = typeof consoleCommands;
 
 /**
- * todo;
+ * Script type definition enumeration possible command names const.
  */
 export type TConsoleCommand = TConsoleCommands[keyof TConsoleCommands];
 
 export const onOffCommands: Array<TConsoleCommand> = [
+  consoleCommands.ai_dbg_alife,
+  consoleCommands.ai_dbg_anim,
+  consoleCommands.ai_dbg_brain,
+  consoleCommands.ai_dbg_cover,
+  consoleCommands.ai_dbg_destroy,
+  consoleCommands.ai_dbg_dialogs,
+  consoleCommands.ai_dbg_frustum,
+  consoleCommands.ai_dbg_funcs,
+  consoleCommands.ai_dbg_goap,
+  consoleCommands.ai_dbg_goap_object,
+  consoleCommands.ai_dbg_goap_script,
+  consoleCommands.ai_dbg_infoportion,
+  consoleCommands.ai_dbg_monster,
+  consoleCommands.ai_dbg_motion,
+  consoleCommands.ai_dbg_node,
+  consoleCommands.ai_dbg_serialize,
+  consoleCommands.ai_dbg_stalker,
+  consoleCommands.ai_dbg_vision,
   consoleCommands.g_god,
   consoleCommands.g_unlimitedammo,
   consoleCommands.g_autopickup,

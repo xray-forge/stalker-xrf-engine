@@ -1,11 +1,10 @@
-# [XRF](../../) / CLI / START_GAME
+# [XRF](../../) / CLI / FORMAT
 
 ### Description
 
-Open game exe file configured in `cli/config.json`. <br/>
-
-Main goal is simple game testing after each rebuild / change.
+Reformat ltx files to share similar formatting and general look. <br/>
+Removes odd spacing and formats everything to look similar.
 
 ### Example
 
-- `npm run cli start_game`
+- `npm run cli format ltx`
