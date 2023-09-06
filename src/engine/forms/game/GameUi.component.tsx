@@ -1,7 +1,5 @@
 import { JSXNode, JSXXML } from "jsx-xml";
 
-import { captions } from "@/engine/lib/constants/captions";
-
 /**
  * todo;
  */
@@ -139,22 +137,22 @@ export function GameUi(): JSXNode {
       </quick_slot3>
       <quick_slot0_text x="42" y="746" width="21" height="13">
         <text align="c" vert_align="c" font="letterica16">
-          {captions.quick_use_str_1}
+          quick_use_str_1
         </text>
       </quick_slot0_text>
       <quick_slot1_text x="92" y="746" width="21" height="13">
         <text align="c" vert_align="c" font="letterica16">
-          {captions.quick_use_str_2}
+          quick_use_str_2
         </text>
       </quick_slot1_text>
       <quick_slot2_text x="142" y="746" width="21" height="13">
         <text align="c" vert_align="c" font="letterica16">
-          {captions.quick_use_str_3}
+          quick_use_str_3
         </text>
       </quick_slot2_text>
       <quick_slot3_text x="192" y="746" width="21" height="13">
         <text align="c" vert_align="c" font="letterica16">
-          {captions.quick_use_str_4}
+          quick_use_str_4
         </text>
       </quick_slot3_text>
 
