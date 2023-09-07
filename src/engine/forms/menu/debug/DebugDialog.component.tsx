@@ -84,7 +84,7 @@ export function create(): JSXNode {
         height={20}
         width={100}
         font={fonts.letterica18}
-        label={captions.ui_mm_cancel}
+        label={"ui_mm_cancel"}
         textColor={TEXT_COLOR_DARKER}
         texture={textures.ui_inGame2_Mp_bigbuttone}
       />

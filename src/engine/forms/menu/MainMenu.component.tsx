@@ -26,76 +26,76 @@ export function create(): JSXNode {
       <button h={25} />
 
       <menu_main btn_height={34} font={fonts.graffiti22}>
-        <btn name={"btn_new_game"} caption={captions.ui_mm_newgame} />
-        <btn name={"btn_load"} caption={captions.ui_mm_load_game} />
-        <btn name={"btn_net_game"} caption={captions.ui_mm_network_game} />
-        <btn name={"btn_options"} caption={captions.ui_mm_options_n} />
-        <btn name={"btn_credits"} caption={captions.ui_mm_credits} />
-        <btn name={"btn_extensions"} caption={captions.ui_mm_extensions} />
-        <btn name={"btn_quit"} caption={captions.ui_mm_quit2windows} />
+        <btn name={"btn_new_game"} caption={"ui_mm_newgame"} />
+        <btn name={"btn_load"} caption={"ui_mm_load_game"} />
+        <btn name={"btn_net_game"} caption={"ui_mm_network_game"} />
+        <btn name={"btn_options"} caption={"ui_mm_options_n"} />
+        <btn name={"btn_credits"} caption={"ui_mm_credits"} />
+        <btn name={"btn_extensions"} caption={"ui_mm_extensions"} />
+        <btn name={"btn_quit"} caption={"ui_mm_quit2windows"} />
       </menu_main>
 
       <menu_network_game btn_height={34} font={fonts.graffiti22}>
-        <btn name={"btn_internet"} caption={captions.ui_mp_internet} />
-        <btn name={"btn_localnet"} caption={captions.ui_mp_localnet} />
-        <btn name={"btn_new_back"} caption={captions.ui_mm_back} />
+        <btn name={"btn_internet"} caption={"ui_mp_internet"} />
+        <btn name={"btn_localnet"} caption={"ui_mp_localnet"} />
+        <btn name={"btn_new_back"} caption={"ui_mm_back"} />
       </menu_network_game>
 
       <menu_main_logout btn_height={34} font={fonts.graffiti22}>
-        <btn name={"btn_new_game"} caption={captions.ui_mm_newgame} />
-        <btn name={"btn_load"} caption={captions.ui_mm_load_game} />
-        <btn name={"btn_multiplayer"} caption={captions.ui_mm_network_game} />
-        <btn name={"btn_logout"} caption={captions.ui_mm_logout} />
-        <btn name={"btn_options"} caption={captions.ui_mm_options_n} />
-        <btn name={"btn_credits"} caption={captions.ui_mm_credits} />
-        <btn name={"btn_extensions"} caption={captions.ui_mm_extensions} />
-        <btn name={"btn_quit"} caption={captions.ui_mm_quit2windows} />
+        <btn name={"btn_new_game"} caption={"ui_mm_newgame"} />
+        <btn name={"btn_load"} caption={"ui_mm_load_game"} />
+        <btn name={"btn_multiplayer"} caption={"ui_mm_network_game"} />
+        <btn name={"btn_logout"} caption={"ui_mm_logout"} />
+        <btn name={"btn_options"} caption={"ui_mm_options_n"} />
+        <btn name={"btn_credits"} caption={"ui_mm_credits"} />
+        <btn name={"btn_extensions"} caption={"ui_mm_extensions"} />
+        <btn name={"btn_quit"} caption={"ui_mm_quit2windows"} />
       </menu_main_logout>
 
       <menu_main_last_save btn_height={34} font={fonts.graffiti22}>
-        <btn name={"btn_new_game"} caption={captions.ui_mm_newgame} />
-        <btn name={"btn_load"} caption={captions.ui_mm_load_game} />
-        <btn name={"btn_lastsave"} caption={captions.ui_mm_last_save} />
-        <btn name={"btn_net_game"} caption={captions.ui_mm_network_game} />
-        <btn name={"btn_options"} caption={captions.ui_mm_options_n} />
-        <btn name={"btn_credits"} caption={captions.ui_mm_credits} />
-        <btn name={"btn_quit"} caption={captions.ui_mm_quit2windows} />
+        <btn name={"btn_new_game"} caption={"ui_mm_newgame"} />
+        <btn name={"btn_load"} caption={"ui_mm_load_game"} />
+        <btn name={"btn_lastsave"} caption={"ui_mm_last_save"} />
+        <btn name={"btn_net_game"} caption={"ui_mm_network_game"} />
+        <btn name={"btn_options"} caption={"ui_mm_options_n"} />
+        <btn name={"btn_credits"} caption={"ui_mm_credits"} />
+        <btn name={"btn_quit"} caption={"ui_mm_quit2windows"} />
       </menu_main_last_save>
 
       <menu_new_game btn_height={34} font={fonts.graffiti22}>
-        <btn name={"btn_novice"} caption={captions.ui_mm_novice} />
-        <btn name={"btn_stalker"} caption={captions.ui_mm_stalker} />
-        <btn name={"btn_veteran"} caption={captions.ui_mm_veteran} />
-        <btn name={"btn_master"} caption={captions.ui_mm_master} />
-        <btn name={"btn_new_back"} caption={captions.ui_mm_back} />
+        <btn name={"btn_novice"} caption={"ui_mm_novice"} />
+        <btn name={"btn_stalker"} caption={"ui_mm_stalker"} />
+        <btn name={"btn_veteran"} caption={"ui_mm_veteran"} />
+        <btn name={"btn_master"} caption={"ui_mm_master"} />
+        <btn name={"btn_new_back"} caption={"ui_mm_back"} />
       </menu_new_game>
 
       <menu_main_single btn_height={34} font={fonts.graffiti22}>
-        <btn name={"btn_ret"} caption={captions.ui_mm_return_game} />
-        <btn name={"btn_lastsave"} caption={captions.ui_mm_last_save} />
-        <btn name={"btn_load"} caption={captions.ui_mm_load_game} />
-        <btn name={"btn_save"} caption={captions.ui_mm_save_game} />
-        <btn name={"btn_options"} caption={captions.ui_mm_options_n} />
-        <btn name={"btn_credits"} caption={captions.ui_mm_credits} />
-        <btn name={"btn_quit_to_mm"} caption={captions.ui_mm_quit_game} />
-        <btn name={"btn_quit"} caption={captions.ui_mm_quit2windows} />
+        <btn name={"btn_ret"} caption={"ui_mm_return_game"} />
+        <btn name={"btn_lastsave"} caption={"ui_mm_last_save"} />
+        <btn name={"btn_load"} caption={"ui_mm_load_game"} />
+        <btn name={"btn_save"} caption={"ui_mm_save_game"} />
+        <btn name={"btn_options"} caption={"ui_mm_options_n"} />
+        <btn name={"btn_credits"} caption={"ui_mm_credits"} />
+        <btn name={"btn_quit_to_mm"} caption={"ui_mm_quit_game"} />
+        <btn name={"btn_quit"} caption={"ui_mm_quit2windows"} />
       </menu_main_single>
 
       <menu_main_single_dead btn_height={34} font={fonts.graffiti22}>
-        <btn name={"btn_lastsave"} caption={captions.ui_mm_last_save} />
-        <btn name={"btn_load"} caption={captions.ui_mm_load_game} />
-        <btn name={"btn_options"} caption={captions.ui_mm_options_n} />
-        <btn name={"btn_credits"} caption={captions.ui_mm_credits} />
-        <btn name={"btn_quit_to_mm"} caption={captions.ui_mm_quit_game} />
-        <btn name={"btn_quit"} caption={captions.ui_mm_quit2windows} />
+        <btn name={"btn_lastsave"} caption={"ui_mm_last_save"} />
+        <btn name={"btn_load"} caption={"ui_mm_load_game"} />
+        <btn name={"btn_options"} caption={"ui_mm_options_n"} />
+        <btn name={"btn_credits"} caption={"ui_mm_credits"} />
+        <btn name={"btn_quit_to_mm"} caption={"ui_mm_quit_game"} />
+        <btn name={"btn_quit"} caption={"ui_mm_quit2windows"} />
       </menu_main_single_dead>
 
-      <menu_main_mm btn_height={34} font={fonts.graffiti22}>
-        <btn name={"btn_ret"} caption={captions.ui_mm_return_game} />
-        <btn name={"btn_options"} caption={captions.ui_mm_options_n} />
-        <btn name={"btn_credits"} caption={captions.ui_mm_credits} />
-        <btn name={"btn_quit_to_mm"} caption={captions.ui_mm_disconnect} />
-        <btn name={"btn_quit"} caption={captions.ui_mm_quit2windows} />
+      <menu_main_mm btn_height={34} font={"fonts.graffiti22"}>
+        <btn name={"btn_ret"} caption={"ui_mm_return_game"} />
+        <btn name={"btn_options"} caption={"ui_mm_options_n"} />
+        <btn name={"btn_credits"} caption={"ui_mm_credits"} />
+        <btn name={"btn_quit_to_mm"} caption={"ui_mm_disconnect"} />
+        <btn name={"btn_quit"} caption={"ui_mm_quit2windows"} />
       </menu_main_mm>
 
       <menu_sound random={0}>
