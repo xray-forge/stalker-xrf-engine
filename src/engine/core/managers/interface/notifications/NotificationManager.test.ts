@@ -18,7 +18,6 @@ import {
 import { AbstractPlayableSound } from "@/engine/core/objects/sounds/playable_sounds/AbstractPlayableSound";
 import { ActorSound } from "@/engine/core/objects/sounds/playable_sounds/ActorSound";
 import { ISchemeWoundedState } from "@/engine/core/schemes/wounded";
-import { scriptSounds } from "@/engine/lib/constants/sound/script_sounds";
 import { GameTask } from "@/engine/lib/types";
 import { resetFunctionMock } from "@/fixtures/utils/function_mock";
 import { mockClientGameObject } from "@/fixtures/xray";
@@ -412,11 +411,11 @@ describe("NotificationManager class", () => {
   it("should correctly play PDA notification sounds", () => {
     const notificationManager: NotificationManager = NotificationManager.getInstance();
 
-    expect(registry.sounds.themes.get(scriptSounds.pda_task)).toBeNull();
+    expect(registry.sounds.themes.get("pda_task")).toBeNull();
 
     notificationManager.onPlayPdaNotificationSound();
 
-    const notificationSound: AbstractPlayableSound = registry.sounds.themes.get(scriptSounds.pda_task);
+    const notificationSound: AbstractPlayableSound = registry.sounds.themes.get("pda_task");
 
     expect(notificationSound).toBeDefined();
     expect(notificationSound).toBeInstanceOf(ActorSound);

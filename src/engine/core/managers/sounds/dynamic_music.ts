@@ -1,4 +1,3 @@
-import { sounds, TSound } from "@/engine/lib/constants/sound/sounds";
 import { LuaArray, Optional, TName } from "@/engine/lib/types";
 
 /**
@@ -6,7 +5,7 @@ import { LuaArray, Optional, TName } from "@/engine/lib/types";
  */
 export interface IDynamicMusicDescriptor {
   maps?: Optional<TName>;
-  files: LuaArray<TSound>;
+  files: LuaArray<TName>;
 }
 
 /**
@@ -14,31 +13,15 @@ export interface IDynamicMusicDescriptor {
  */
 export const dynamicMusicThemes: LuaArray<IDynamicMusicDescriptor> = $fromArray<IDynamicMusicDescriptor>([
   {
-    files: $fromArray<TSound>([
-      sounds.music_combat_theme1_part_1,
-      sounds.music_combat_theme1_part_2,
-      sounds.music_combat_theme1_part_3,
-    ]),
+    files: $fromArray(["music_combat_theme1_part_1", "music_combat_theme1_part_2", "music_combat_theme1_part_3"]),
   },
   {
-    files: $fromArray<TSound>([
-      sounds.music_combat_theme2_part_1,
-      sounds.music_combat_theme2_part_2,
-      sounds.music_combat_theme2_part_3,
-    ]),
+    files: $fromArray(["music_combat_theme2_part_1", "music_combat_theme2_part_2", "music_combat_theme2_part_3"]),
   },
   {
-    files: $fromArray<TSound>([
-      sounds.music_combat_theme3_part_1,
-      sounds.music_combat_theme3_part_2,
-      sounds.music_combat_theme3_part_3,
-    ]),
+    files: $fromArray(["music_combat_theme3_part_1", "music_combat_theme3_part_2", "music_combat_theme3_part_3"]),
   },
   {
-    files: $fromArray<TSound>([
-      sounds.music_combat_theme4_part_1,
-      sounds.music_combat_theme4_part_2,
-      sounds.music_combat_theme4_part_3,
-    ]),
+    files: $fromArray(["music_combat_theme4_part_1", "music_combat_theme4_part_2", "music_combat_theme4_part_3"]),
   },
 ]);

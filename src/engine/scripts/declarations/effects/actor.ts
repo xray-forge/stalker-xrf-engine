@@ -29,7 +29,6 @@ import { outfits } from "@/engine/lib/constants/items/outfits";
 import { weapons } from "@/engine/lib/constants/items/weapons";
 import { TTreasure } from "@/engine/lib/constants/treasures";
 import { TRUE } from "@/engine/lib/constants/words";
-import { TZone, zones } from "@/engine/lib/constants/zones";
 import {
   ClientObject,
   GameTask,
@@ -398,11 +397,11 @@ extern("xr_effects.sleep", (actor: ClientObject): void => {
   // todo: Define sleep zones somewhere in config.
   // todo: Define sleep zones somewhere in config.
   // todo: Define sleep zones somewhere in config.
-  const sleepZones: LuaArray<TZone> = $fromArray<TZone>([
-    zones.zat_a2_sr_sleep,
-    zones.jup_a6_sr_sleep,
-    zones.pri_a16_sr_sleep,
-    zones.actor_surge_hide_2,
+  const sleepZones: LuaArray<TName> = $fromArray([
+    "zat_a2_sr_sleep",
+    "jup_a6_sr_sleep",
+    "pri_a16_sr_sleep",
+    "actor_surge_hide_2",
   ]);
 
   for (const [, zone] of sleepZones) {

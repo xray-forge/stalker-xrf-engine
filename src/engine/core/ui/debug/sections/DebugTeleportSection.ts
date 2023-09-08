@@ -10,7 +10,7 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 import { getServerObjects, isGameVertexFromLevel } from "@/engine/core/utils/object";
 import { resolveXmlFile } from "@/engine/core/utils/ui";
 import { vectorToString } from "@/engine/core/utils/vector";
-import { postProcessors } from "@/engine/lib/constants/animation/post_processors";
+import { postProcessors } from "@/engine/lib/constants/animation";
 import { consoleCommands } from "@/engine/lib/constants/console_commands";
 import { LuaArray, Optional, TPath, Vector2D } from "@/engine/lib/types";
 

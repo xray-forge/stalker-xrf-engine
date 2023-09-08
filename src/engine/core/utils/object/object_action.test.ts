@@ -4,7 +4,7 @@ import { level } from "xray16";
 import { registerActor, registry } from "@/engine/core/database";
 import { ActorInputManager } from "@/engine/core/managers/interface";
 import { objectPunchActor } from "@/engine/core/utils/object/object_action";
-import { animations } from "@/engine/lib/constants/animation/animations";
+import { animations } from "@/engine/lib/constants/animation";
 import { ClientObject, EActiveItemSlot } from "@/engine/lib/types";
 import { resetFunctionMock } from "@/fixtures/utils";
 import { mockActorClientGameObject, mockClientGameObject } from "@/fixtures/xray";

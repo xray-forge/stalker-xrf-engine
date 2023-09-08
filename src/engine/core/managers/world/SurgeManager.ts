@@ -30,8 +30,7 @@ import { isArtefact, isImmuneToSurgeObject, isObjectOnLevel, isSurgeEnabledOnLev
 import { disableInfo, giveInfo, hasAlifeInfo } from "@/engine/core/utils/object/object_info_portion";
 import { createVector } from "@/engine/core/utils/vector";
 import { surgeConfig } from "@/engine/lib/configs/SurgeConfig";
-import { animations } from "@/engine/lib/constants/animation/animations";
-import { postProcessors } from "@/engine/lib/constants/animation/post_processors";
+import { animations, postProcessors } from "@/engine/lib/constants/animation";
 import { consoleCommands } from "@/engine/lib/constants/console_commands";
 import { infoPortions } from "@/engine/lib/constants/info_portions";
 import { TInventoryItem } from "@/engine/lib/constants/items";

@@ -22,10 +22,9 @@ import {
   getServerDistanceBetween,
 } from "@/engine/core/utils/object";
 import { isAnySquadMemberEnemyToActor } from "@/engine/core/utils/relation";
-import { postProcessors } from "@/engine/lib/constants/animation/post_processors";
+import { postProcessors } from "@/engine/lib/constants/animation";
 import { communities, TCommunity } from "@/engine/lib/constants/communities";
 import { TRUE } from "@/engine/lib/constants/words";
-import { zones } from "@/engine/lib/constants/zones";
 import {
   ClientObject,
   Optional,
@@ -205,7 +204,7 @@ export class TravelManager extends AbstractCoreManager {
       return false;
     } else if (npc.character_community() === communities.army) {
       return false;
-    } else if (getObjectSmartTerrain(npc)?.name() === zones.jup_b41) {
+    } else if (getObjectSmartTerrain(npc)?.name() === "jup_b41") {
       return false;
     }
 

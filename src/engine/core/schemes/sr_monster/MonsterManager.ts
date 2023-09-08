@@ -11,7 +11,6 @@ import {
   trySwitchToAnotherSection,
 } from "@/engine/core/utils/scheme";
 import { copyVector, subVectors } from "@/engine/core/utils/vector";
-import { sounds } from "@/engine/lib/constants/sound/sounds";
 import {
   ClientObject,
   ESoundObjectType,
@@ -53,7 +52,7 @@ export class MonsterManager extends AbstractSchemeManager<ISchemeMonsterState> {
     this.state.signals = new LuaTable();
     this.soundObject = null;
     this.finalAction = false;
-    this.appearSound = new sound_object(sounds.monsters_boar_boar_swamp_appear_1);
+    this.appearSound = new sound_object("monsters_boar_boar_swamp_appear_1");
     this.idleState = false;
     this.pathName = null;
     this.monsterObject = null;

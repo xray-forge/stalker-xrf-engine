@@ -5,7 +5,6 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 import { transferLoot } from "@/engine/core/utils/object/object_loot";
 import { chance } from "@/engine/core/utils/random";
 import { LOOTING_DEAD_OBJECT_KEY } from "@/engine/lib/constants/portable_store_keys";
-import { scriptSounds } from "@/engine/lib/constants/sound/script_sounds";
 import { ClientObject, EScheme, LuaArray, Optional, TNumberId } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -29,7 +28,7 @@ export function finishCorpseLooting(object: ClientObject): void {
     // Still tell about bad loot if transferred list is empty (actor took everything).
     GlobalSoundManager.getInstance().playSound(
       object.id(),
-      transferred.length() > 0 && chance(80) ? scriptSounds.corpse_loot_good : scriptSounds.corpse_loot_bad
+      transferred.length() > 0 && chance(80) ? "corpse_loot_good" : "corpse_loot_bad"
     );
   }
 }

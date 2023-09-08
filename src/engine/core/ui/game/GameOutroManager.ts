@@ -8,7 +8,6 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 import { hasAlifeInfo } from "@/engine/core/utils/object/object_info_portion";
 import { gameTutorials } from "@/engine/lib/constants/game_tutorials";
 import { infoPortions } from "@/engine/lib/constants/info_portions";
-import { sounds } from "@/engine/lib/constants/sound/sounds";
 import { AnyCallablesModule, ESoundObjectType, Optional, SoundObject, TName, TRate } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -141,7 +140,7 @@ export class GameOutroManager extends AbstractCoreManager {
 
   public startSound(): void {
     logger.info("start outro sound");
-    this.sound = new sound_object(sounds.music_outro);
+    this.sound = new sound_object("music_outro");
     this.sound.play(null, 0.0, ESoundObjectType.S2D);
     this.setSoundVolume(1.0);
   }
