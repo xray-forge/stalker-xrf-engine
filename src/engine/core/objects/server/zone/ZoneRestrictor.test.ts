@@ -59,8 +59,8 @@ describe("ZoneRestrictor server class", () => {
     const onZoneRegister = jest.fn();
     const onZoneUnregister = jest.fn();
 
-    eventsManager.registerCallback(EGameEvent.RESTRICTOR_REGISTERED, onRestrictorRegister);
-    eventsManager.registerCallback(EGameEvent.RESTRICTOR_UNREGISTERED, onRestrictorUnregister);
+    eventsManager.registerCallback(EGameEvent.RESTRICTOR_ZONE_REGISTERED, onRestrictorRegister);
+    eventsManager.registerCallback(EGameEvent.RESTRICTOR_ZONE_UNREGISTERED, onRestrictorUnregister);
 
     eventsManager.registerCallback(EGameEvent.ZONE_REGISTERED, onZoneRegister);
     eventsManager.registerCallback(EGameEvent.ZONE_UNREGISTERED, onZoneUnregister);

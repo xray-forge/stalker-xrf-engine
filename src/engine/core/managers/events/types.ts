@@ -149,13 +149,37 @@ export enum EGameEvent {
    */
   ZONE_UNREGISTERED,
   /**
-   * Registered restrictor server object.
+   * Registered anomalous zone server object.
    */
-  RESTRICTOR_REGISTERED,
+  ANOMALOUS_ZONE_REGISTERED,
   /**
-   * Unregistered restrictor server object.
+   * Unregistered anomalous zone server object.
    */
-  RESTRICTOR_UNREGISTERED,
+  ANOMALOUS_ZONE_UNREGISTERED,
+  /**
+   * Registered restrictor zone server object.
+   */
+  RESTRICTOR_ZONE_REGISTERED,
+  /**
+   * Unregistered restrictor zone server object.
+   */
+  RESTRICTOR_ZONE_UNREGISTERED,
+  /**
+   * Registered torrid zone server object.
+   */
+  TORRID_ZONE_REGISTERED,
+  /**
+   * Registered torrid zone server object.
+   */
+  TORRID_ZONE_UNREGISTERED,
+  /**
+   * Registered visual zone server object.
+   */
+  VISUAL_ZONE_REGISTERED,
+  /**
+   * Registered visual zone server object.
+   */
+  VISUAL_ZONE_UNREGISTERED,
 }
 
 /**

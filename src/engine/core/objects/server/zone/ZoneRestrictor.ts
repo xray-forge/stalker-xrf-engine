@@ -16,11 +16,11 @@ export class ZoneRestrictor extends cse_alife_space_restrictor {
 
     registerObjectStoryLinks(this);
     EventsManager.emitEvent(EGameEvent.ZONE_REGISTERED, this);
-    EventsManager.emitEvent(EGameEvent.RESTRICTOR_REGISTERED, this);
+    EventsManager.emitEvent(EGameEvent.RESTRICTOR_ZONE_REGISTERED, this);
   }
 
   public override on_unregister(): void {
-    EventsManager.emitEvent(EGameEvent.RESTRICTOR_UNREGISTERED, this);
+    EventsManager.emitEvent(EGameEvent.RESTRICTOR_ZONE_UNREGISTERED, this);
     EventsManager.emitEvent(EGameEvent.ZONE_UNREGISTERED, this);
     unregisterStoryLinkByObjectId(this.id);
 

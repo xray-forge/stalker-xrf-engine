@@ -80,7 +80,7 @@ export class TreasureManager extends AbstractCoreManager {
 
     eventsManager.registerCallback(EGameEvent.ACTOR_UPDATE, this.update, this);
     eventsManager.registerCallback(EGameEvent.ACTOR_ITEM_TAKE, this.onActorItemTake, this);
-    eventsManager.registerCallback(EGameEvent.RESTRICTOR_REGISTERED, this.onRegisterRestrictor, this);
+    eventsManager.registerCallback(EGameEvent.RESTRICTOR_ZONE_REGISTERED, this.onRegisterRestrictor, this);
 
     const totalSecretsCount: TCount = SECRETS_LTX.line_count("list");
 
@@ -143,7 +143,7 @@ export class TreasureManager extends AbstractCoreManager {
 
     eventsManager.unregisterCallback(EGameEvent.ACTOR_UPDATE, this.update);
     eventsManager.unregisterCallback(EGameEvent.ACTOR_ITEM_TAKE, this.onActorItemTake);
-    eventsManager.unregisterCallback(EGameEvent.RESTRICTOR_REGISTERED, this.onRegisterRestrictor);
+    eventsManager.unregisterCallback(EGameEvent.RESTRICTOR_ZONE_REGISTERED, this.onRegisterRestrictor);
   }
 
   /**
