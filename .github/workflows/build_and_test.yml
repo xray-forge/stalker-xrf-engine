@@ -36,13 +36,22 @@ jobs:
       - run: npm ci
       - run: npm run setup
 
-      - name: Jest cache
-        uses: actions/cache@v3
+      - name: Restore jest cache
+        id: cache-jest-restore
+        uses: actions/cache/restore@v3
         with:
           path: /tmp/jest_rt
-          key: ${{ hashFiles('**/package-lock.json') }}-${{ matrix.shard }}
+          key: ${{ github.ref_name }}-${{ hashFiles('**/package-lock.json') }}-${{ matrix.shard }}
 
       - run: npm run test -- --shard=${{ matrix.shard }}/${{ strategy.job-total }} --maxWorkers=100%
+
+      - name: Save jest cache
+        if: ${{ github.event_name != 'pull_request' }}
+        id: cache-jest-save
+        uses: actions/cache/save@v3
+        with:
+          path: /tmp/jest_rt
+          key: ${{ steps.cache-jest-restore.outputs.cache-primary-key }}
 
   check:
     runs-on: ubuntu-latest
