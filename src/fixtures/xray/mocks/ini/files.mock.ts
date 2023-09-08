@@ -1,7 +1,6 @@
 import { ammo } from "@/engine/lib/constants/items/ammo";
 import { detectors } from "@/engine/lib/constants/items/detectors";
 import { weapons } from "@/engine/lib/constants/items/weapons";
-import { iconTextures } from "@/engine/lib/constants/textures/icon_textures";
 import { AnyObject, TPath } from "@/engine/lib/types";
 
 /**
@@ -106,7 +105,7 @@ export const FILES_MOCKS: Record<TPath, AnyObject> = {
   },
   "misc\\task_manager.ltx": {
     hide_from_surge: {
-      icon: iconTextures.ui_inGame2_Vibros,
+      icon: "ui_inGame2_Vibros",
       prior: 200,
       title_functor: "surge_task_title",
       descr_functor: "surge_task_descr",
@@ -115,7 +114,7 @@ export const FILES_MOCKS: Record<TPath, AnyObject> = {
       condlist_1: "{!actor_alive()} fail",
     },
     zat_b28_heli_3_crash: {
-      icon: iconTextures.ui_inGame2_Skat_3,
+      icon: "ui_inGame2_Skat_3",
       prior: 103,
       storyline: true,
       title: "zat_b28_heli_3_crash_name",

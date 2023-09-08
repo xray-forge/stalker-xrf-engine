@@ -5,11 +5,10 @@ import { normalizeBaseNodeProps } from "#/utils";
 import { XrText } from "@/engine/forms/components/base/XrText.component";
 import { XrTexture } from "@/engine/forms/components/base/XrTexture.component";
 import { fonts, TFontId } from "@/engine/lib/constants/fonts";
-import { TTexture } from "@/engine/lib/constants/textures";
-import { IBaseXmlNode, IRgbColor, TTextAlign } from "@/engine/lib/types";
+import { IBaseXmlNode, IRgbColor, TName, TTextAlign } from "@/engine/lib/types";
 
 export interface IXrEditBoxProps extends IBaseXmlNode {
-  texture?: TTexture;
+  texture?: TName;
   color?: IRgbColor;
   font?: TFontId;
   align?: TTextAlign;

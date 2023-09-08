@@ -19,7 +19,6 @@ import { AbstractPlayableSound } from "@/engine/core/objects/sounds/playable_sou
 import { ActorSound } from "@/engine/core/objects/sounds/playable_sounds/ActorSound";
 import { ISchemeWoundedState } from "@/engine/core/schemes/wounded";
 import { scriptSounds } from "@/engine/lib/constants/sound/script_sounds";
-import { textures } from "@/engine/lib/constants/textures";
 import { GameTask } from "@/engine/lib/types";
 import { resetFunctionMock } from "@/fixtures/utils/function_mock";
 import { mockClientGameObject } from "@/fixtures/xray";
@@ -139,7 +138,7 @@ describe("NotificationManager class", () => {
       true,
       "translated_general_in_money",
       "2000",
-      textures.ui_inGame2_Dengi_polucheni,
+      "ui_inGame2_Dengi_polucheni",
       0,
       NotificationManager.DEFAULT_NOTIFICATION_SHOW_DURATION
     );
@@ -151,7 +150,7 @@ describe("NotificationManager class", () => {
       true,
       "translated_general_out_money",
       "128",
-      textures.ui_inGame2_Dengi_otdani,
+      "ui_inGame2_Dengi_otdani",
       0,
       NotificationManager.DEFAULT_NOTIFICATION_SHOW_DURATION
     );
@@ -167,7 +166,7 @@ describe("NotificationManager class", () => {
       true,
       "translated_general_in_item",
       "translated_st_detector2 x25",
-      textures.ui_inGame2_Predmet_poluchen,
+      "ui_inGame2_Predmet_poluchen",
       0,
       NotificationManager.DEFAULT_NOTIFICATION_SHOW_DURATION
     );
@@ -179,7 +178,7 @@ describe("NotificationManager class", () => {
       true,
       "translated_general_out_item",
       "translated_st_detector2",
-      textures.ui_inGame2_Predmet_otdan,
+      "ui_inGame2_Predmet_otdan",
       0,
       NotificationManager.DEFAULT_NOTIFICATION_SHOW_DURATION
     );
@@ -195,7 +194,7 @@ describe("NotificationManager class", () => {
       true,
       "translated_st_found_new_treasure",
       "",
-      textures.ui_inGame2_Polucheni_koordinaty_taynika,
+      "ui_inGame2_Polucheni_koordinaty_taynika",
       0,
       NotificationManager.DEFAULT_NOTIFICATION_SHOW_DURATION
     );
@@ -207,7 +206,7 @@ describe("NotificationManager class", () => {
       true,
       "translated_st_got_treasure",
       "",
-      textures.ui_inGame2_Polucheni_koordinaty_taynika,
+      "ui_inGame2_Polucheni_koordinaty_taynika",
       0,
       NotificationManager.DEFAULT_NOTIFICATION_SHOW_DURATION
     );
@@ -219,7 +218,7 @@ describe("NotificationManager class", () => {
       true,
       "translated_st_found_old_treasure",
       "",
-      textures.ui_inGame2_Polucheni_koordinaty_taynika,
+      "ui_inGame2_Polucheni_koordinaty_taynika",
       0,
       NotificationManager.DEFAULT_NOTIFICATION_SHOW_DURATION
     );
@@ -301,7 +300,7 @@ describe("NotificationManager class", () => {
       false,
       "translated_st_tip",
       "translated_test_simple",
-      textures.ui_iconsTotal_grouping,
+      "ui_iconsTotal_grouping",
       0,
       NotificationManager.DEFAULT_NOTIFICATION_SHOW_DURATION,
       0

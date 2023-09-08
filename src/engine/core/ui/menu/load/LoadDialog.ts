@@ -32,7 +32,6 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 import { resolveXmlFormPath } from "@/engine/core/utils/ui";
 import { gameConfig } from "@/engine/lib/configs/GameConfig";
 import { roots } from "@/engine/lib/constants/roots";
-import { textures } from "@/engine/lib/constants/textures";
 import {
   ClientObject,
   FSFileListEX,
@@ -172,7 +171,7 @@ export class LoadDialog extends CUIScriptWnd {
 
       const rect: Frect = this.uiPicture.GetTextureRect();
 
-      this.uiPicture.InitTexture(textures.ui_ui_noise);
+      this.uiPicture.InitTexture("ui_ui_noise");
       this.uiPicture.SetTextureRect(new Frect().set(rect.x1, rect.y1, rect.x2, rect.y2));
 
       return;
@@ -195,7 +194,7 @@ export class LoadDialog extends CUIScriptWnd {
     if (isGameSaveFileExist(itemText + ".dds")) {
       this.uiPicture.InitTexture(itemText);
     } else {
-      this.uiPicture.InitTexture(textures.ui_ui_noise);
+      this.uiPicture.InitTexture("ui_ui_noise");
     }
 
     this.uiPicture.SetTextureRect(new Frect().set(rect.x1, rect.y1, rect.x2, rect.y2));

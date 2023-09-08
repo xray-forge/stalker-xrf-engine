@@ -1,7 +1,6 @@
 import { JSXNode, JSXXML } from "jsx-xml";
 
 import { fonts } from "@/engine/lib/constants/fonts";
-import { textures } from "@/engine/lib/constants/textures";
 
 /**
  * todo;
@@ -15,9 +14,9 @@ export function create(): JSXNode {
         <buttons_region x={8} y={0} width={220} height={380} always_show_scroll={false} vert_interval={12} />
 
         <shniaga x={7} y={-20} width={219} height={61} stretch={1}>
-          <texture>{textures.ui_inGame2_slider}</texture>
+          <texture>ui_inGame2_slider</texture>
           <magnifire x={27} y={18} width={162} height={24} stretch={1}>
-            <texture>{textures.ui_magnifier2}</texture>
+            <texture>ui_magnifier2</texture>
             <y_offset>1</y_offset>
           </magnifire>
         </shniaga>
@@ -117,22 +116,22 @@ function MainMenuBackground(): JSXNode {
     <background x={0} y={0} width={1024} height={768}>
       <auto_static x={500} y={130} width={345} height={160} stretch={1}>
         <texture width={432} height={160}>
-          {textures.ui_video_voroni_crop}
+          {"ui\\video_voroni_crop"}
         </texture>
       </auto_static>
       <auto_static x={432} y={353} width={460} height={416} stretch={1}>
         <texture x={0} y={0} width={576} height={416}>
-          {textures.ui_video_water_crop}
+          {"ui\\video_water_crop"}
         </texture>
       </auto_static>
       <auto_static x={102} y={0} width={819} height={768} stretch={1}>
-        <texture>{textures.ui_inGame2_background}</texture>
+        <texture>ui_inGame2_background</texture>
       </auto_static>
       <auto_static x={0} y={0} width={104} height={768} stretch={1}>
-        <texture>{textures.ui_inGame2_left_widepanel}</texture>
+        <texture>ui_inGame2_left_widepanel</texture>
       </auto_static>
       <auto_static x={920} y={0} width={104} height={768} stretch={1}>
-        <texture>{textures.ui_inGame2_right_widepanel}</texture>
+        <texture>ui_inGame2_right_widepanel</texture>
       </auto_static>
     </background>
   );

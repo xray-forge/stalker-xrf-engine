@@ -3,15 +3,7 @@ import { Fragment, JSXNode, JSXXML } from "jsx-xml";
 import { Xr3tButton, XrRoot, XrStatic } from "@/engine/forms/components/base";
 import { XrComponent } from "@/engine/forms/components/base/XrComponent.component";
 import { XrList } from "@/engine/forms/components/base/XrList.component";
-import { gameConfig } from "@/engine/lib/configs/GameConfig";
 import { WHITE } from "@/engine/lib/constants/colors";
-import { textures } from "@/engine/lib/constants/textures";
-
-const BASE_WIDTH: number = gameConfig.UI.BASE_WIDTH;
-const BASE_HEIGHT: number = gameConfig.UI.BASE_HEIGHT;
-
-export const SECTION_WIDTH: number = BASE_WIDTH - 132;
-export const SECTION_HEIGHT: number = BASE_HEIGHT - 16;
 
 /**
  * Create extensions dialog form.
@@ -87,7 +79,7 @@ function OptionsBody(): JSXNode {
         y={300}
         width={369}
         height={358}
-        texture={textures.ui_inGame2_servers_list_frame}
+        texture={"ui_inGame2_servers_list_frame"}
       />
 
       <XrList tag={"items_list"} x={494} y={300} width={369} height={358} itemHeight={18} canSelect={true} />

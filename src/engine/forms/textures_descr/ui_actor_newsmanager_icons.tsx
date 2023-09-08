@@ -1,14 +1,12 @@
 import { JSXNode, JSXXML } from "jsx-xml";
 
-import { textures } from "@/engine/lib/constants/textures";
-
 /**
  * todo;
  */
 export function create(): JSXNode {
   return (
     <w>
-      <file name={textures.ui_ui_actor_newsmanager_icons}>
+      <file name={"ui\\ui_actor_newsmanager_icons"}>
         <texture id="ui_inGame2_Vibros" x="0" y="0" width="83" height="47" />
         <texture id="ui_inGame2_kompas" x="0" y="47" width="83" height="47" />
         <texture id="ui_inGame2_Pripyat_1" x="0" y="94" width="83" height="47" />

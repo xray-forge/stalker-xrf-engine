@@ -30,7 +30,6 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 import { getInventoryNameForItemSection } from "@/engine/core/utils/object/object_spawn";
 import { isObjectWounded } from "@/engine/core/utils/object/object_state";
 import { scriptSounds } from "@/engine/lib/constants/sound/script_sounds";
-import { textures, TTexture } from "@/engine/lib/constants/textures";
 import {
   AlifeSimulator,
   ClientObject,
@@ -131,8 +130,10 @@ export class NotificationManager extends AbstractCoreManager {
       direction === ENotificationDirection.IN ? "general_in_money" : "general_out_money"
     );
     const notificationText: TLabel = tostring(amount);
-    const notificationIcon: TTexture =
-      direction === ENotificationDirection.IN ? textures.ui_inGame2_Dengi_polucheni : textures.ui_inGame2_Dengi_otdani;
+    const notificationIcon: TName =
+      direction === ENotificationDirection.IN
+        ? notificationManagerIcons.money_received
+        : notificationManagerIcons.money_given;
 
     this.onSendGenericNotification(
       true,
@@ -162,10 +163,10 @@ export class NotificationManager extends AbstractCoreManager {
       getInventoryNameForItemSection(itemSection),
       amount === 1 ? "" : " x" + amount
     );
-    const notificationIcon: TTexture =
+    const notificationIcon: TName =
       direction === ENotificationDirection.IN
-        ? textures.ui_inGame2_Predmet_poluchen
-        : textures.ui_inGame2_Predmet_otdan;
+        ? notificationManagerIcons.item_received
+        : notificationManagerIcons.item_given;
 
     this.onSendGenericNotification(
       true,
@@ -197,7 +198,7 @@ export class NotificationManager extends AbstractCoreManager {
       true,
       notificationTitle,
       "",
-      textures.ui_inGame2_Polucheni_koordinaty_taynika,
+      notificationManagerIcons.received_secret_coordinates,
       0,
       NotificationManager.DEFAULT_NOTIFICATION_SHOW_DURATION
     );
@@ -219,7 +220,7 @@ export class NotificationManager extends AbstractCoreManager {
 
     const notificationTitle: TLabel = game.translate_string(notificationTaskDescription[newState]);
     const notificationDescription: string = game.translate_string(task.get_title()) + ".";
-    const notificationIcon: TTexture = task.get_icon_name() ?? textures.ui_iconsTotal_storyline;
+    const notificationIcon: TName = task.get_icon_name() ?? "ui_iconsTotal_storyline";
     const notificationDuration: TDuration =
       newState === "updated"
         ? NotificationManager.DEFAULT_NOTIFICATION_SHOW_DURATION
@@ -272,7 +273,7 @@ export class NotificationManager extends AbstractCoreManager {
 
     const notificationTitle: TLabel = game.translate_string("st_tip");
     const notificationDescription: TLabel = game.translate_string(caption);
-    let notificationIcon: TTexture = textures.ui_iconsTotal_grouping;
+    let notificationIcon: TName = "ui_iconsTotal_grouping";
 
     // If sender is game object, check sender character icon to display instead of generic one.
     if (sender !== null) {
@@ -333,7 +334,7 @@ export class NotificationManager extends AbstractCoreManager {
       return;
     }
 
-    let textureName: TTexture = textures.ui_iconsTotal_grouping;
+    let textureName: TName = "ui_iconsTotal_grouping";
 
     if (object !== null && (object.clsid() === clsid.script_stalker || object.clsid() === clsid.stalker)) {
       textureName = object.character_icon();

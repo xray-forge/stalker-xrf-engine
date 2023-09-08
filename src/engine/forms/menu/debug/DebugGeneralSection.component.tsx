@@ -4,7 +4,6 @@ import { Xr3tButton, XrRoot, XrStatic, XrText } from "@/engine/forms/components/
 import { SECTION_HEIGHT, SECTION_WIDTH } from "@/engine/forms/menu/debug/DebugDialog.component";
 import { WHITE } from "@/engine/lib/constants/colors";
 import { fonts } from "@/engine/lib/constants/fonts";
-import { textures } from "@/engine/lib/constants/textures";
 
 const BASE_WIDTH: number = SECTION_WIDTH;
 const BASE_HEIGHT: number = SECTION_HEIGHT;
@@ -40,7 +39,7 @@ export function create(): JSXNode {
         label={"Refresh"}
         font={fonts.letterica16}
         textColor={WHITE}
-        texture={textures.ui_inGame2_Mp_bigbuttone}
+        texture={"ui_inGame2_Mp_bigbuttone"}
       />
 
       <Xr3tButton
@@ -52,7 +51,7 @@ export function create(): JSXNode {
         label={"Collect"}
         font={fonts.letterica16}
         textColor={WHITE}
-        texture={textures.ui_inGame2_Mp_bigbuttone}
+        texture={"ui_inGame2_Mp_bigbuttone"}
       />
 
       <Xr3tButton
@@ -64,7 +63,7 @@ export function create(): JSXNode {
         label={"Enable profiling"}
         font={fonts.letterica16}
         textColor={WHITE}
-        texture={textures.ui_inGame2_Mp_bigbuttone}
+        texture={"ui_inGame2_Mp_bigbuttone"}
       />
 
       <Xr3tButton
@@ -76,7 +75,7 @@ export function create(): JSXNode {
         label={"Log profiling report"}
         font={fonts.letterica16}
         textColor={WHITE}
-        texture={textures.ui_inGame2_Mp_bigbuttone}
+        texture={"ui_inGame2_Mp_bigbuttone"}
       />
 
       <Xr3tButton
@@ -88,7 +87,7 @@ export function create(): JSXNode {
         label={"Enable simulation debug"}
         font={fonts.letterica16}
         textColor={WHITE}
-        texture={textures.ui_inGame2_Mp_bigbuttone}
+        texture={"ui_inGame2_Mp_bigbuttone"}
       />
 
       <Xr3tButton
@@ -100,7 +99,7 @@ export function create(): JSXNode {
         label={"Dump system.ini"}
         font={fonts.letterica16}
         textColor={WHITE}
-        texture={textures.ui_inGame2_Mp_bigbuttone}
+        texture={"ui_inGame2_Mp_bigbuttone"}
       />
     </XrRoot>
   );
