@@ -2,7 +2,7 @@ import { afterEach, beforeEach, describe, expect, it, jest } from "@jest/globals
 import { alife } from "xray16";
 
 import { disposeManager, registerActor, registry } from "@/engine/core/database";
-import { EGameEvent, EventsManager } from "@/engine/core/managers";
+import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import {
   ENotificationDirection,
   ENotificationType,

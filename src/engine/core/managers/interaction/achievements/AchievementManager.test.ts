@@ -2,7 +2,7 @@ import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { relation_registry } from "xray16";
 
 import { disposeManager, getManagerInstance, registerActor, registry } from "@/engine/core/database";
-import { EGameEvent, EventsManager } from "@/engine/core/managers";
+import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { achievementIcons } from "@/engine/core/managers/interaction/achievements/AchievementIcons";
 import { achievementRewards } from "@/engine/core/managers/interaction/achievements/AchievementRewards";
 import { AchievementsManager } from "@/engine/core/managers/interaction/achievements/AchievementsManager";

@@ -1,5 +1,5 @@
-import { EGameEvent, EventsManager } from "@/engine/core/managers";
 import { AbstractCoreManager } from "@/engine/core/managers/base/AbstractCoreManager";
+import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { AchievementsManager } from "@/engine/core/managers/interaction/achievements";
 import { TaskManager } from "@/engine/core/managers/interaction/tasks";
 import { ActorInputManager } from "@/engine/core/managers/interface";

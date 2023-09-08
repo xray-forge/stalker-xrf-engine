@@ -7,7 +7,7 @@ import {
   registry,
   unregisterStoryLinkByObjectId,
 } from "@/engine/core/database";
-import { EGameEvent, EventsManager } from "@/engine/core/managers";
+import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { SimulationBoardManager } from "@/engine/core/managers/simulation/SimulationBoardManager";
 import type { SmartTerrain, Squad } from "@/engine/core/objects/server";
 import { assert } from "@/engine/core/utils/assertion";

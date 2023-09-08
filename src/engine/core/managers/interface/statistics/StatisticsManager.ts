@@ -1,8 +1,8 @@
 import { alife, clsid } from "xray16";
 
 import { getPortableStoreValue, registry, setPortableStoreValue } from "@/engine/core/database";
-import { EGameEvent, EventsManager } from "@/engine/core/managers";
 import { AbstractCoreManager } from "@/engine/core/managers/base/AbstractCoreManager";
+import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import type { TaskObject } from "@/engine/core/managers/interaction/tasks";
 import type { IActorStatistics } from "@/engine/core/managers/interface/statistics/statistics_types";
 import type { ITreasureDescriptor } from "@/engine/core/managers/world/treasures";

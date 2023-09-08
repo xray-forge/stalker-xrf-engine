@@ -140,6 +140,22 @@ export enum EGameEvent {
    * Game state load.
    */
   GAME_LOAD,
+  /**
+   * Registered zone server object.
+   */
+  ZONE_REGISTERED,
+  /**
+   * Registered zone server object.
+   */
+  ZONE_UNREGISTERED,
+  /**
+   * Registered restrictor server object.
+   */
+  RESTRICTOR_REGISTERED,
+  /**
+   * Unregistered restrictor server object.
+   */
+  RESTRICTOR_UNREGISTERED,
 }
 
 /**

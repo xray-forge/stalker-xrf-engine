@@ -2,7 +2,7 @@ import { beforeEach, describe, expect, it } from "@jest/globals";
 import { clsid } from "xray16";
 
 import { disposeManager, getManagerInstance, registerActor, registry } from "@/engine/core/database";
-import { EGameEvent, EventsManager } from "@/engine/core/managers";
+import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { StatisticsManager } from "@/engine/core/managers/interface/statistics/StatisticsManager";
 import { classIds } from "@/engine/lib/constants/class_ids";
 import { weapons } from "@/engine/lib/constants/items/weapons";

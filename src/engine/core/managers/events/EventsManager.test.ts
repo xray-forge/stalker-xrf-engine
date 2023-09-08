@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 
 import { getManagerInstance, registry } from "@/engine/core/database";
-import { EGameEvent, EventsManager } from "@/engine/core/managers";
+import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { AnyCallable, AnyObject } from "@/engine/lib/types";
 import { MockLuaTable } from "@/fixtures/lua/mocks/LuaTable.mock";
 
@@ -13,7 +13,7 @@ describe("EventsManager class", () => {
   it("should correctly initialize", () => {
     const manager: EventsManager = getManagerInstance(EventsManager);
 
-    expect(MockLuaTable.getMockSize(manager.callbacks)).toBe(33);
+    expect(MockLuaTable.getMockSize(manager.callbacks)).toBe(37);
 
     Object.keys(manager.callbacks).forEach((it) => {
       expect(MockLuaTable.getMockSize(manager.callbacks[it as unknown as EGameEvent])).toBe(0);

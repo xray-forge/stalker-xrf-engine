@@ -1,8 +1,8 @@
 import { initializeManager } from "@/engine/core/database";
-import { EventsManager } from "@/engine/core/managers";
 import { TAbstractCoreManagerConstructor } from "@/engine/core/managers/base/AbstractCoreManager";
 import { SaveManager } from "@/engine/core/managers/base/SaveManager";
 import { ProfilingManager } from "@/engine/core/managers/debug/ProfilingManager";
+import { EventsManager } from "@/engine/core/managers/events";
 import { AchievementsManager } from "@/engine/core/managers/interaction/achievements";
 import { DialogManager } from "@/engine/core/managers/interaction/dialog/DialogManager";
 import { SleepManager } from "@/engine/core/managers/interaction/SleepManager";

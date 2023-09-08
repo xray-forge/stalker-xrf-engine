@@ -1,6 +1,7 @@
 import { describe, expect, it, jest } from "@jest/globals";
 
 import { getObjectIdByStoryId, getServerObjectByStoryId, getStoryIdByObjectId, registry } from "@/engine/core/database";
+import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { ZoneRestrictor } from "@/engine/core/objects/server/zone/ZoneRestrictor";
 import { mockIniFile } from "@/fixtures/xray/mocks/ini";
 
@@ -47,5 +48,35 @@ describe("ZoneRestrictor server class", () => {
 
     expect(registry.storyLink.idBySid.length()).toBe(0);
     expect(registry.storyLink.sidById.length()).toBe(0);
+  });
+
+  it("should correctly emit lifecycle events", () => {
+    const eventsManager: EventsManager = EventsManager.getInstance();
+    const zoneRestrictor: ZoneRestrictor = new ZoneRestrictor("test-section");
+
+    const onRestrictorRegister = jest.fn();
+    const onRestrictorUnregister = jest.fn();
+    const onZoneRegister = jest.fn();
+    const onZoneUnregister = jest.fn();
+
+    eventsManager.registerCallback(EGameEvent.RESTRICTOR_REGISTERED, onRestrictorRegister);
+    eventsManager.registerCallback(EGameEvent.RESTRICTOR_UNREGISTERED, onRestrictorUnregister);
+
+    eventsManager.registerCallback(EGameEvent.ZONE_REGISTERED, onZoneRegister);
+    eventsManager.registerCallback(EGameEvent.ZONE_UNREGISTERED, onZoneUnregister);
+
+    zoneRestrictor.on_register();
+
+    expect(onRestrictorRegister).toHaveBeenCalledWith(zoneRestrictor);
+    expect(onRestrictorUnregister).not.toHaveBeenCalled();
+    expect(onZoneRegister).toHaveBeenCalledWith(zoneRestrictor);
+    expect(onZoneUnregister).not.toHaveBeenCalled();
+
+    zoneRestrictor.on_unregister();
+
+    expect(onRestrictorRegister).toHaveBeenCalledWith(zoneRestrictor);
+    expect(onRestrictorUnregister).toHaveBeenCalledWith(zoneRestrictor);
+    expect(onZoneRegister).toHaveBeenCalledWith(zoneRestrictor);
+    expect(onZoneUnregister).toHaveBeenCalledWith(zoneRestrictor);
   });
 });

@@ -1,7 +1,8 @@
 import { game, get_hud, level } from "xray16";
 
 import { closeLoadMarker, closeSaveMarker, openLoadMarker, openSaveMarker, registry } from "@/engine/core/database";
-import { AbstractCoreManager, EGameEvent, EventsManager } from "@/engine/core/managers";
+import { AbstractCoreManager } from "@/engine/core/managers/base";
+import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { readTimeFromPacket, writeTimeToPacket } from "@/engine/core/utils/game/game_time";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { isActorInWeaponRestrictionZone } from "@/engine/core/utils/object/object_zone";

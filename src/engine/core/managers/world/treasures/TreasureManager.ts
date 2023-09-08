@@ -64,13 +64,6 @@ export class TreasureManager extends AbstractCoreManager {
     return TreasureManager.getInstance().registerItem(serverObject);
   }
 
-  /**
-   * Register server restrictor in treasure manager.
-   */
-  public static registerRestrictor(serverObject: ServerObject): Optional<boolean> {
-    return TreasureManager.getInstance().registerRestrictor(serverObject);
-  }
-
   public areItemsSpawned: boolean = false;
 
   public secrets: LuaTable<TStringId, ITreasureDescriptor> = new LuaTable();
@@ -87,6 +80,7 @@ export class TreasureManager extends AbstractCoreManager {
 
     eventsManager.registerCallback(EGameEvent.ACTOR_UPDATE, this.update, this);
     eventsManager.registerCallback(EGameEvent.ACTOR_ITEM_TAKE, this.onActorItemTake, this);
+    eventsManager.registerCallback(EGameEvent.RESTRICTOR_REGISTERED, this.onRegisterRestrictor, this);
 
     const totalSecretsCount: TCount = SECRETS_LTX.line_count("list");
 
@@ -149,6 +143,7 @@ export class TreasureManager extends AbstractCoreManager {
 
     eventsManager.unregisterCallback(EGameEvent.ACTOR_UPDATE, this.update);
     eventsManager.unregisterCallback(EGameEvent.ACTOR_ITEM_TAKE, this.onActorItemTake);
+    eventsManager.unregisterCallback(EGameEvent.RESTRICTOR_REGISTERED, this.onRegisterRestrictor);
   }
 
   /**
@@ -171,7 +166,7 @@ export class TreasureManager extends AbstractCoreManager {
     assert(section === "name", "There is no 'name' field in [secret] section for object [%s].", serverObject.name());
     assert(value !== "", "Field 'name' in [secret] section got no value for object [%s].", serverObject.name());
 
-    assertDefined(
+    assert(
       this.secrets.get(value) !== null,
       "Attempt to register item [%s] in unexistent secret [%s].",
       serverObject.name(),
@@ -180,12 +175,7 @@ export class TreasureManager extends AbstractCoreManager {
 
     const item: LuaArray<ITreasureItemsDescriptor> = this.secrets.get(value).items.get(serverObject.section_name());
 
-    assertDefined(
-      item !== null,
-      "Attempt to register unknown item [%s] in secret [%s].",
-      serverObject.section_name(),
-      value
-    );
+    assert(item !== null, "Attempt to register unknown item [%s] in secret [%s].", serverObject.section_name(), value);
 
     for (const it of $range(1, item.length())) {
       if (!item.get(it).item_ids) {
@@ -202,21 +192,6 @@ export class TreasureManager extends AbstractCoreManager {
     }
 
     return null;
-  }
-
-  /**
-   * todo: Description.
-   */
-  public registerRestrictor(serverObject: ServerObject): boolean {
-    const spawnIni: IniFile = serverObject.spawn_ini();
-
-    if (spawnIni.section_exist(TreasureManager.SECRET_LTX_SECTION)) {
-      this.secretsRestrictorByName.set(serverObject.name(), serverObject.id);
-
-      return true;
-    } else {
-      return false;
-    }
   }
 
   /**
@@ -371,6 +346,21 @@ export class TreasureManager extends AbstractCoreManager {
           }
         }
       }
+    }
+  }
+
+  /**
+   * todo: Description.
+   */
+  public onRegisterRestrictor(serverObject: ServerObject): boolean {
+    const spawnIni: IniFile = serverObject.spawn_ini();
+
+    if (spawnIni.section_exist(TreasureManager.SECRET_LTX_SECTION)) {
+      this.secretsRestrictorByName.set(serverObject.name(), serverObject.id);
+
+      return true;
+    } else {
+      return false;
     }
   }
 

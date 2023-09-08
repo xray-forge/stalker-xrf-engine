@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it } from "@jest/globals";
 
 import { disposeManager, getManagerInstance, registerActor, registry } from "@/engine/core/database";
-import { EventsManager } from "@/engine/core/managers";
+import { EventsManager } from "@/engine/core/managers/events";
 import { ActorInputManager } from "@/engine/core/managers/interface/ActorInputManager";
 import { replaceFunctionMock } from "@/fixtures/utils/function_mock";
 import { mockClientGameObject } from "@/fixtures/xray";
