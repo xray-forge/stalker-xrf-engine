@@ -14,7 +14,7 @@
     "watch:scripts": "tstl -P ./cli/build/tsconfig.scripts.json --watch",
     "typecheck": "tstl -P ./cli/build/tsconfig.scripts.json --noEmit",
     "format": "prettier --write \"**/*.(js|ts|tsx|md)\" \"!cli/bin/**/*\" && eslint . --ext .ts,.tsx,.js --fix -c cli/lint/.eslintrc.base.json",
-    "lint": "eslint . --ext .ts,.tsx,.js -c cli/lint/.eslintrc.base.json",
+    "lint": "eslint . --ext .ts,.tsx,.js -c cli/lint/.eslintrc.base.json --cache --cache-location target/eslint/cache.json",
     "lint:strict": "eslint . --ext .ts,.tsx,.js -c cli/lint/.eslintrc.strict.json",
     "test": "jest",
     "help": "ts-node -P ./cli/tsconfig.json cli/run.ts -h"
