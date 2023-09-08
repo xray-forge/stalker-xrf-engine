@@ -3,7 +3,7 @@ import { ISchemeNoWeaponState } from "@/engine/core/schemes/sr_no_weapon/IScheme
 import { NoWeaponManager } from "@/engine/core/schemes/sr_no_weapon/NoWeaponManager";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini/ini_config";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { ClientObject, EScheme, ESchemeType, IniFile, TNumberId, TSection } from "@/engine/lib/types";
+import { ClientObject, EScheme, ESchemeType, IniFile, TSection } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -13,9 +13,6 @@ const logger: LuaLogger = new LuaLogger($filename);
 export class SchemeNoWeapon extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.SR_NO_WEAPON;
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.RESTRICTOR;
-
-  // todo: Move to registry.
-  public static NO_WEAPON_ZONES_STATE: LuaTable<TNumberId, boolean> = new LuaTable();
 
   /**
    * Activate scheme logics and create matching states.
@@ -37,19 +34,5 @@ export class SchemeNoWeapon extends AbstractScheme {
     state: ISchemeNoWeaponState
   ): void {
     SchemeNoWeapon.subscribe(object, state, new NoWeaponManager(object, state, this));
-  }
-
-  /**
-   * todo: Description.
-   * todo: Move to separate util to check.
-   */
-  public static isInWeaponRestrictionZone(): boolean {
-    for (const [id, isActive] of SchemeNoWeapon.NO_WEAPON_ZONES_STATE) {
-      if (isActive) {
-        return true;
-      }
-    }
-
-    return false;
   }
 }

@@ -1,5 +1,5 @@
 import { IRegistryObjectState } from "@/engine/core/database";
-import { EEvaluatorId } from "@/engine/core/objects/ai";
+import { EEvaluatorId } from "@/engine/core/objects/ai/types";
 import { AbstractScheme } from "@/engine/core/schemes/base";
 import { EvaluatorGatherItems } from "@/engine/core/schemes/gather_items/evaluators";
 import { ISchemeGatherItemsState } from "@/engine/core/schemes/gather_items/ISchemeGatherItemsState";

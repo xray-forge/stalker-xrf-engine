@@ -45,7 +45,7 @@ import {
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Manager to handle treasures indication, giving and completion for actor.
  */
 export class TreasureManager extends AbstractCoreManager {
   public static readonly SECRET_LTX_SECTION: TSection = "secret";
@@ -461,7 +461,7 @@ export class TreasureManager extends AbstractCoreManager {
 
     const secretsCount: TCount = reader.r_u16();
 
-    for (const it of $range(1, secretsCount)) {
+    for (const index of $range(1, secretsCount)) {
       let id: number | string = reader.r_u16();
 
       for (const [k, v] of this.secretsRestrictorByName) {

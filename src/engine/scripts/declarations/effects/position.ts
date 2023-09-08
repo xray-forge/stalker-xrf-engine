@@ -107,9 +107,10 @@ extern("xr_effects.teleport_actor", (actor: ClientObject, object: ClientObject, 
     actor.set_actor_direction(dir);
   }
 
-  for (const [k, v] of registry.noWeaponZones) {
-    if (isObjectInZone(actor, registry.zones.get(k))) {
-      registry.noWeaponZones.set(k, true);
+  // todo: probably should check after teleport
+  for (const [id] of registry.noWeaponZones) {
+    if (isObjectInZone(actor, registry.objects.get(id).object)) {
+      registry.noWeaponZones.set(id, true);
     }
   }
 

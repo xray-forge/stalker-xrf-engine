@@ -155,7 +155,7 @@ export const registry = {
   /**
    * Set of zones under no weapon restriction.
    */
-  noWeaponZones: new LuaTable<TName, boolean>(),
+  noWeaponZones: new LuaTable<TNumberId, boolean>(),
   /**
    * List of light active.
    */

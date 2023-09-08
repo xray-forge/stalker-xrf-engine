@@ -1,7 +1,7 @@
 import { alife } from "xray16";
 
-import { TSimulationObject } from "@/engine/core/managers/simulation";
-import { Squad } from "@/engine/core/objects/server/squad";
+import type { TSimulationObject } from "@/engine/core/managers/simulation";
+import type { Squad } from "@/engine/core/objects/server/squad";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { areObjectsOnSameLevel, getServerDistanceBetween } from "@/engine/core/utils/object/object_location";
 import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";

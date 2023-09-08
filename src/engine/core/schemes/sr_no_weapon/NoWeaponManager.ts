@@ -34,7 +34,7 @@ export class NoWeaponManager extends AbstractSchemeManager<ISchemeNoWeaponState>
     this.currentActorState = EActorZoneState.NOWHERE;
     this.checkActorState(registry.actor);
 
-    registry.noWeaponZones.set(this.object.name(), false);
+    registry.noWeaponZones.delete(this.object.id());
   }
 
   /**
@@ -116,7 +116,7 @@ export class NoWeaponManager extends AbstractSchemeManager<ISchemeNoWeaponState>
     logger.info("Entering no weapon zone");
 
     this.currentActorState = EActorZoneState.INSIDE;
-    this.scheme.NO_WEAPON_ZONES_STATE.set(this.object.id(), true);
+    registry.noWeaponZones.set(this.object.id(), true);
 
     this.removeCanUseWeaponLabelOnUI();
   }
@@ -128,10 +128,9 @@ export class NoWeaponManager extends AbstractSchemeManager<ISchemeNoWeaponState>
     logger.info("Leaving no weapon zone");
 
     this.currentActorState = EActorZoneState.OUTSIDE;
-    this.scheme.NO_WEAPON_ZONES_STATE.set(this.object.id(), false);
 
-    if (registry.noWeaponZones.get(this.object.name())) {
-      registry.noWeaponZones.set(this.object.name(), false);
+    if (registry.noWeaponZones.get(this.object.id())) {
+      registry.noWeaponZones.delete(this.object.id());
     } else {
       this.showCanUseWeaponLabelOnUI();
     }
