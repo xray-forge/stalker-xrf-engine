@@ -9,7 +9,6 @@ import { pickSectionFromCondList } from "@/engine/core/utils/ini/ini_config";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { drugs } from "@/engine/lib/constants/items/drugs";
 import { misc } from "@/engine/lib/constants/items/misc";
-import { scriptSounds } from "@/engine/lib/constants/sound/script_sounds";
 import { FALSE, NIL, TRUE } from "@/engine/lib/constants/words";
 import {
   AlifeSimulator,
@@ -101,7 +100,7 @@ export class WoundManager extends AbstractSchemeManager<ISchemeWoundedState> {
       const beginAt: Optional<TTimestamp> = getPortableStoreValue(this.object.id(), "begin_wounded");
 
       if (beginAt !== null && now - beginAt <= 60_000) {
-        GlobalSoundManager.getInstance().playSound(this.object.id(), scriptSounds.help_thanks);
+        GlobalSoundManager.getInstance().playSound(this.object.id(), "help_thanks");
       }
 
       setPortableStoreValue(this.object.id(), "begin_wounded", null);

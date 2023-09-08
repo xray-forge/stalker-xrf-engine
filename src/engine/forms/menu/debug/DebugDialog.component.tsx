@@ -5,10 +5,8 @@ import { XrComponent } from "@/engine/forms/components/base/XrComponent.componen
 import { XrScrollView } from "@/engine/forms/components/base/XrScrollView.component";
 import { XrTexture } from "@/engine/forms/components/base/XrTexture.component";
 import { gameConfig } from "@/engine/lib/configs/GameConfig";
-import { captions } from "@/engine/lib/constants/captions/captions";
 import { WHITE } from "@/engine/lib/constants/colors";
 import { fonts } from "@/engine/lib/constants/fonts";
-import { textures } from "@/engine/lib/constants/textures";
 import { IRgbColor } from "@/engine/lib/types";
 
 const BASE_WIDTH: number = gameConfig.UI.BASE_WIDTH;
@@ -31,7 +29,7 @@ export function create(): JSXNode {
           height={BASE_HEIGHT}
           textureWidth={BASE_WIDTH}
           textureHeight={BASE_HEIGHT}
-          texture={textures.ui_ui_actor_multiplayer_background}
+          texture={"ui\\ui_actor_multiplayer_background"}
           stretch
         />
       </XrBackground>
@@ -42,12 +40,12 @@ export function create(): JSXNode {
         y={8}
         height={SECTION_HEIGHT}
         width={SECTION_WIDTH}
-        texture={textures.ui_inGame2_picture_window}
+        texture={"ui_inGame2_picture_window"}
         stretch
       />
 
       <XrStatic tag={"frame_menu_background"} x={16} y={8} width={100} height={BASE_HEIGHT - 52}>
-        <XrTexture id={textures.ui_icons_PDA_tooltips} r={0} g={0} b={0} a={150} />
+        <XrTexture id={"ui_icons_PDA_tooltips"} r={0} g={0} b={0} a={150} />
       </XrStatic>
 
       <XrScrollView
@@ -73,7 +71,7 @@ export function create(): JSXNode {
         width={90}
         height={16}
         textColor={WHITE}
-        texture={textures.ui_inGame2_Mp_bigbuttone}
+        texture={"ui_inGame2_Mp_bigbuttone"}
       />
 
       <XrComponent tag={"section"} x={124} y={8} height={SECTION_HEIGHT} width={SECTION_WIDTH} />
@@ -85,9 +83,9 @@ export function create(): JSXNode {
         height={20}
         width={100}
         font={fonts.letterica18}
-        label={captions.ui_mm_cancel}
+        label={"ui_mm_cancel"}
         textColor={TEXT_COLOR_DARKER}
-        texture={textures.ui_inGame2_Mp_bigbuttone}
+        texture={"ui_inGame2_Mp_bigbuttone"}
       />
     </XrRoot>
   );

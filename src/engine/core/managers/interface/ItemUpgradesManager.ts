@@ -10,7 +10,6 @@ import {
 } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { gameSettingConfig } from "@/engine/lib/configs/GameSettingConfig";
-import { captions, TCaption } from "@/engine/lib/constants/captions/captions";
 import { questItems } from "@/engine/lib/constants/items/quest_items";
 import { FALSE, TRUE } from "@/engine/lib/constants/words";
 import { ClientObject, LuaArray, Optional, TCount, TLabel, TName, TRate } from "@/engine/lib/types";
@@ -29,14 +28,14 @@ export type TItemUpgradeBranch = 0 | 1 | 2;
 export class ItemUpgradesManager extends AbstractCoreManager {
   public static readonly ITEM_REPAIR_PRICE_COEFFICIENT: TRate = 0.6;
 
-  public upgradeHints: Optional<LuaArray<TCaption>> = null;
+  public upgradeHints: Optional<LuaArray<TLabel>> = null;
   public currentMechanicName: TName = "";
   public currentPriceDiscountRate: TRate = 1;
 
   /**
    * todo: Description.
    */
-  public setCurrentHints(hints: LuaArray<TCaption>): void {
+  public setCurrentHints(hints: LuaArray<TLabel>): void {
     this.upgradeHints = hints;
   }
 
@@ -77,7 +76,7 @@ export class ItemUpgradesManager extends AbstractCoreManager {
     if (registry.actor !== null) {
       const price: TCount = math.floor(ITEM_UPGRADES.r_u32(section, "cost") * this.currentPriceDiscountRate);
 
-      return game.translate_string(captions.st_upgr_cost) + ": " + price;
+      return game.translate_string("st_upgr_cost") + ": " + price;
     }
 
     return " ";
@@ -148,7 +147,7 @@ export class ItemUpgradesManager extends AbstractCoreManager {
     mechanicName: TName
   ): TLabel {
     if (itemName === questItems.pri_a17_gauss_rifle) {
-      return game.translate_string(captions.st_gauss_cannot_be_repaired);
+      return game.translate_string("st_gauss_cannot_be_repaired");
     }
 
     const price: TCount = this.getRepairPrice(itemName, itemCondition);
@@ -158,9 +157,9 @@ export class ItemUpgradesManager extends AbstractCoreManager {
       // Not enough money: N $
       return string.format(
         "%s: %s RU\\n%s: %s %s",
-        game.translate_string(captions.st_upgr_cost),
+        game.translate_string("st_upgr_cost"),
         price,
-        game.translate_string(captions.ui_inv_not_enought_money),
+        game.translate_string("ui_inv_not_enought_money"),
         price - registry.actor.money(),
         gameSettingConfig.CURRENCY
       );
@@ -169,10 +168,10 @@ export class ItemUpgradesManager extends AbstractCoreManager {
     // Price N $. Repair?
     return string.format(
       "%s %s %s. %s?",
-      game.translate_string(captions.st_upgr_cost),
+      game.translate_string("st_upgr_cost"),
       price,
       gameSettingConfig.CURRENCY,
-      game.translate_string(captions.ui_inv_repair)
+      game.translate_string("ui_inv_repair")
     );
   }
 
@@ -247,7 +246,7 @@ export class ItemUpgradesManager extends AbstractCoreManager {
       const price: TCount = math.floor(ITEM_UPGRADES.r_u32(section, "cost") * this.currentPriceDiscountRate);
 
       if (actor.money() < price) {
-        return string.format("%s\\n - %s", label, game.translate_string(captions.st_upgr_enough_money));
+        return string.format("%s\\n - %s", label, game.translate_string("st_upgr_enough_money"));
       }
     }
 

@@ -7,7 +7,6 @@ import { pickSectionFromCondList } from "@/engine/core/utils/ini/ini_config";
 import { parseConditionsList } from "@/engine/core/utils/ini/ini_parse";
 import { TConditionList } from "@/engine/core/utils/ini/ini_types";
 import { hasAlifeInfo } from "@/engine/core/utils/object/object_info_portion";
-import { captions } from "@/engine/lib/constants/captions/captions";
 import { ClientObject, Optional, TLabel, TNumberId, TRate, TSection, TStringId } from "@/engine/lib/types";
 import { zatB29AfTable, zatB29InfopBringTable } from "@/engine/scripts/declarations/dialogs/dialogs_zaton";
 
@@ -109,9 +108,7 @@ extern("task_functors.zat_b29_adv_descr", (id: TStringId, field: string, p: stri
  * todo;
  */
 extern("task_functors.surge_task_title", (): string => {
-  return SurgeManager.getInstance().isActorInCover()
-    ? captions.hide_from_surge_name_2
-    : captions.hide_from_surge_name_1;
+  return SurgeManager.getInstance().isActorInCover() ? "hide_from_surge_name_2" : "hide_from_surge_name_1";
 });
 
 /**
@@ -119,8 +116,8 @@ extern("task_functors.surge_task_title", (): string => {
  */
 extern("task_functors.surge_task_descr", (): Optional<string> => {
   return SurgeManager.getInstance().isActorInCover()
-    ? game.translate_string(captions.hide_from_surge_descr_2_a)
-    : game.translate_string(captions.hide_from_surge_descr_1_a);
+    ? game.translate_string("hide_from_surge_descr_2_a")
+    : game.translate_string("hide_from_surge_descr_1_a");
 });
 
 /**

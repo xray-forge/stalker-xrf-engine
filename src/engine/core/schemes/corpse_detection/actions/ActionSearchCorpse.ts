@@ -6,7 +6,6 @@ import { EStalkerState } from "@/engine/core/objects/animation";
 import { ISchemeCorpseDetectionState } from "@/engine/core/schemes/corpse_detection/ISchemeCorpseDetectionState";
 import { freeSelectedLootedObjectSpot } from "@/engine/core/schemes/corpse_detection/utils";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { scriptSounds } from "@/engine/lib/constants/sound/script_sounds";
 import { EClientObjectPath, Optional, TNumberId, Vector } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -88,7 +87,7 @@ export class ActionSearchCorpse extends action_base {
 
     // Play looting start sound once.
     if (!this.isLootingSoundPlayed) {
-      GlobalSoundManager.getInstance().playSound(this.object.id(), scriptSounds.corpse_loot_begin);
+      GlobalSoundManager.getInstance().playSound(this.object.id(), "corpse_loot_begin");
       this.isLootingSoundPlayed = true;
     }
   }

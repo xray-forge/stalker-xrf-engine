@@ -1,5 +1,5 @@
 import { EEffectorState } from "@/engine/core/schemes/sr_cutscene/ISchemeCutsceneState";
-import { TAnimation } from "@/engine/lib/constants/animation/animations";
+import { TAnimation } from "@/engine/lib/constants/animation";
 import { FALSE } from "@/engine/lib/constants/words";
 
 export interface ICamEffectorSetDescriptorItem {

@@ -3,8 +3,8 @@ import * as path from "path";
 import { beforeEach, describe, expect, it } from "@jest/globals";
 
 import { registerSmartCover } from "@/engine/core/database";
-import { SmartCover, SmartTerrain } from "@/engine/core/objects";
-import { EJobPathType, EJobType } from "@/engine/core/utils/job";
+import { SmartCover } from "@/engine/core/objects/server/smart_cover";
+import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain";
 import { createSmartTerrainJobs } from "@/engine/core/utils/job/job_create/job_create";
 import {
   jobPreconditionAnimpoint,
@@ -18,6 +18,7 @@ import {
   jobPreconditionSurge,
   jobPreconditionWalker,
 } from "@/engine/core/utils/job/job_precondition";
+import { EJobPathType, EJobType } from "@/engine/core/utils/job/job_types";
 import { range } from "@/engine/core/utils/number";
 import { AnyObject } from "@/engine/lib/types";
 import { mockSmartCover, mockSmartTerrain, readInGameTestLtx } from "@/fixtures/engine";

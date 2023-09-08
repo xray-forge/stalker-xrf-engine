@@ -7,7 +7,6 @@ import { ISchemeHelpWoundedState } from "@/engine/core/schemes/help_wounded/ISch
 import { freeSelectedWoundedStalkerSpot } from "@/engine/core/schemes/help_wounded/utils";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { sendToNearestAccessibleVertex } from "@/engine/core/utils/object";
-import { scriptSounds } from "@/engine/lib/constants/sound/script_sounds";
 import { EClientObjectPath, Optional, TNumberId, Vector } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -106,7 +105,7 @@ export class ActionHelpWounded extends action_base {
 
     // Say That everything will be ok once per healing action.
     if (!this.isHelpingSoundPlayed) {
-      GlobalSoundManager.getInstance().playSound(this.object.id(), scriptSounds.wounded_medkit);
+      GlobalSoundManager.getInstance().playSound(this.object.id(), "wounded_medkit");
       this.isHelpingSoundPlayed = true;
     }
   }

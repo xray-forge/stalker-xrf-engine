@@ -7,7 +7,7 @@ import { parseConditionsList, parseParameters } from "@/engine/core/utils/ini/in
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { switchObjectSchemeToSection } from "@/engine/core/utils/scheme/scheme_switch";
 import { mapSoundMaskToSoundType } from "@/engine/core/utils/sound";
-import { ESoundType } from "@/engine/lib/constants/sound/sound_type";
+import { ESoundType } from "@/engine/lib/constants/sound";
 import {
   ClientObject,
   EScheme,

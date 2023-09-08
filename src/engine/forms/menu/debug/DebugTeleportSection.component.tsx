@@ -5,7 +5,6 @@ import { XrList } from "@/engine/forms/components/base/XrList.component";
 import { XrComboBox } from "@/engine/forms/components/base/XrListRenderer.component";
 import { SECTION_HEIGHT, SECTION_WIDTH } from "@/engine/forms/menu/debug/DebugDialog.component";
 import { WHITE } from "@/engine/lib/constants/colors";
-import { textures } from "@/engine/lib/constants/textures";
 
 /**
  * todo;
@@ -14,7 +13,7 @@ export function create(): JSXNode {
   return (
     <XrRoot>
       <XrBackground width={SECTION_WIDTH} height={SECTION_HEIGHT}>
-        <XrStatic texture={textures.ui_inGame2_picture_window} width={SECTION_WIDTH} height={SECTION_HEIGHT} stretch />
+        <XrStatic texture={"ui_inGame2_picture_window"} width={SECTION_WIDTH} height={SECTION_HEIGHT} stretch />
       </XrBackground>
 
       <XrComboBox tag={"coordinates_categories_list"} x={12} y={16} width={200} height={24} />
@@ -25,7 +24,7 @@ export function create(): JSXNode {
         y={44}
         height={SECTION_HEIGHT - 92}
         width={SECTION_WIDTH - 28}
-        texture={textures.ui_inGame2_servers_list_frame}
+        texture={"ui_inGame2_servers_list_frame"}
       />
 
       <XrList

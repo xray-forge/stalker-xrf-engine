@@ -1,6 +1,6 @@
 import { describe, expect, it } from "@jest/globals";
 
-import { animations } from "@/engine/lib/constants/animation/animations";
+import { animations } from "@/engine/lib/constants/animation";
 
 describe("'animations' constants integrity", () => {
   it("should match key-value entries", () => {

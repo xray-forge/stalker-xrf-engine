@@ -21,7 +21,6 @@ import {
   getSquadMembersRelationToActorSafe,
 } from "@/engine/core/utils/relation";
 import { gameConfig } from "@/engine/lib/configs/GameConfig";
-import { captions } from "@/engine/lib/constants/captions/captions";
 import { infoPortions } from "@/engine/lib/constants/info_portions/info_portions";
 import { levels } from "@/engine/lib/constants/levels";
 import { EMapMarkType, mapMarks } from "@/engine/lib/constants/map_marks";
@@ -447,12 +446,12 @@ export class MapDisplayManager extends AbstractCoreManager {
           const artefactTable: LuaArray<TSection> = getAnomalyArtefacts(scanner.zone);
 
           if (artefactTable.length() > 0) {
-            hint = hint + game.translate_string(captions.st_jup_b32_has_af);
+            hint = hint + game.translate_string("st_jup_b32_has_af");
             for (const [k, v] of artefactTable!) {
               hint = hint + "\\n" + game.translate_string("st_" + v + "_name");
             }
           } else {
-            hint = hint + game.translate_string(captions.st_jup_b32_no_af);
+            hint = hint + game.translate_string("st_jup_b32_no_af");
           }
 
           /**

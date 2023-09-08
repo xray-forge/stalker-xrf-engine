@@ -3,15 +3,12 @@ import { JSXNode, JSXXML } from "jsx-xml";
 import { normalizeBaseNodeProps } from "#/utils";
 
 import { XrTexture } from "@/engine/forms/components/base/XrTexture.component";
-import { textures, TTexture } from "@/engine/lib/constants/textures";
-import { IBaseXmlNode } from "@/engine/lib/types";
+import { IBaseXmlNode, TName } from "@/engine/lib/types";
 
 export interface IXrCheckBoxProps extends IBaseXmlNode {
   itemTag?: string;
-
   stretch?: boolean;
-  texture?: TTexture;
-
+  texture?: TName;
   entry?: string;
   group?: string;
 }
@@ -28,7 +25,7 @@ export function XrCheckBox(props: IXrCheckBoxProps): JSXNode {
     width,
     height,
     stretch,
-    texture = textures.ui_inGame2_checkbox,
+    texture = "ui_inGame2_checkbox",
     entry,
     group,
     children = null,

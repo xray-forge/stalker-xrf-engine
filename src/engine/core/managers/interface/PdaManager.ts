@@ -5,32 +5,31 @@ import { StatisticsManager } from "@/engine/core/managers/interface/statistics";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { TWeapon, weapons } from "@/engine/lib/constants/items/weapons";
 import { monsters, TMonster } from "@/engine/lib/constants/monsters";
-import { textures, TTexture } from "@/engine/lib/constants/textures";
-import { Optional, PartialRecord, TLabel } from "@/engine/lib/types";
+import { Optional, PartialRecord, TLabel, TName } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
-const killedMonsters: PartialRecord<TMonster, { back: TTexture; icon: string }> = {
-  [monsters.bloodsucker_weak]: { back: textures.ui_inGame2_Krovosos, icon: "" },
-  [monsters.bloodsucker_normal]: { back: textures.ui_inGame2_Krovosos_1, icon: "" },
-  [monsters.bloodsucker_strong]: { back: textures.ui_inGame2_Krovosos_2, icon: "" },
-  [monsters.boar_weak]: { back: textures.ui_inGame2_Kaban_1, icon: "" },
-  [monsters.boar_strong]: { back: textures.ui_inGame2_Kaban, icon: "" },
-  [monsters.burer]: { back: textures.ui_inGame2_Burer, icon: "" },
-  [monsters.chimera]: { back: textures.ui_inGame2_Himera, icon: "" },
-  [monsters.controller]: { back: textures.ui_inGame2_Controller, icon: "" },
-  [monsters.dog]: { back: textures.ui_inGame2_Blind_Dog, icon: "" },
-  [monsters.flesh_weak]: { back: textures.ui_inGame2_Flesh, icon: "" },
-  [monsters.flesh_strong]: { back: textures.ui_inGame2_Flesh_1, icon: "" },
-  [monsters.gigant]: { back: textures.ui_inGame2_Pseudo_Gigant, icon: "" },
-  [monsters.poltergeist_tele]: { back: textures.ui_inGame2_Poltergeyst, icon: "" },
-  [monsters.poltergeist_flame]: { back: textures.ui_inGame2_Poltergeist_1, icon: "" },
-  [monsters.psy_dog_weak]: { back: textures.ui_inGame2_PseudoDog_1, icon: "" },
-  [monsters.psy_dog_strong]: { back: textures.ui_inGame2_PseudoDog, icon: "" },
-  [monsters.pseudodog_weak]: { back: textures.ui_inGame2_PseudoDog_1, icon: "" },
-  [monsters.pseudodog_strong]: { back: textures.ui_inGame2_PseudoDog, icon: "" },
-  [monsters.snork]: { back: textures.ui_inGame2_Snork, icon: "" },
-  [monsters.tushkano]: { back: textures.ui_inGame2_Tushkan, icon: "" },
+const killedMonsters: PartialRecord<TMonster, { back: TName; icon: TName }> = {
+  [monsters.bloodsucker_weak]: { back: "ui_inGame2_Krovosos", icon: "" },
+  [monsters.bloodsucker_normal]: { back: "ui_inGame2_Krovosos_1", icon: "" },
+  [monsters.bloodsucker_strong]: { back: "ui_inGame2_Krovosos_2", icon: "" },
+  [monsters.boar_weak]: { back: "ui_inGame2_Kaban_1", icon: "" },
+  [monsters.boar_strong]: { back: "ui_inGame2_Kaban", icon: "" },
+  [monsters.burer]: { back: "ui_inGame2_Burer", icon: "" },
+  [monsters.chimera]: { back: "ui_inGame2_Himera", icon: "" },
+  [monsters.controller]: { back: "ui_inGame2_Controller", icon: "" },
+  [monsters.dog]: { back: "ui_inGame2_Blind_Dog", icon: "" },
+  [monsters.flesh_weak]: { back: "ui_inGame2_Flesh", icon: "" },
+  [monsters.flesh_strong]: { back: "ui_inGame2_Flesh_1", icon: "" },
+  [monsters.gigant]: { back: "ui_inGame2_Pseudo_Gigant", icon: "" },
+  [monsters.poltergeist_tele]: { back: "ui_inGame2_Poltergeyst", icon: "" },
+  [monsters.poltergeist_flame]: { back: "ui_inGame2_Poltergeist_1", icon: "" },
+  [monsters.psy_dog_weak]: { back: "ui_inGame2_PseudoDog_1", icon: "" },
+  [monsters.psy_dog_strong]: { back: "ui_inGame2_PseudoDog", icon: "" },
+  [monsters.pseudodog_weak]: { back: "ui_inGame2_PseudoDog_1", icon: "" },
+  [monsters.pseudodog_strong]: { back: "ui_inGame2_PseudoDog", icon: "" },
+  [monsters.snork]: { back: "ui_inGame2_Snork", icon: "" },
+  [monsters.tushkano]: { back: "ui_inGame2_Tushkan", icon: "" },
 };
 
 enum EStatSection {

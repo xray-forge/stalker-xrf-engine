@@ -26,7 +26,6 @@ import {
   isStalkerAlive,
   transferItemsFromActor,
 } from "@/engine/core/utils/object";
-import { captions } from "@/engine/lib/constants/captions/captions";
 import { communities } from "@/engine/lib/constants/communities";
 import { infoPortions } from "@/engine/lib/constants/info_portions";
 import { drugs, TMedkit } from "@/engine/lib/constants/items/drugs";
@@ -770,63 +769,63 @@ extern("dialogs.actor_is_damn_healthy", (firstSpeaker: ClientObject, secondSpeak
  * todo;
  */
 extern("dialogs.leave_zone_save", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
-  createGameAutoSave(captions.st_save_uni_zone_to_reality);
+  createGameAutoSave("st_save_uni_zone_to_reality");
 });
 
 /**
  * todo;
  */
 extern("dialogs.save_uni_travel_zat_to_jup", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
-  createGameAutoSave(captions.st_save_uni_travel_zat_to_jup);
+  createGameAutoSave("st_save_uni_travel_zat_to_jup");
 });
 
 /**
  * todo;
  */
 extern("dialogs.save_uni_travel_zat_to_pri", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
-  createGameAutoSave(captions.st_save_uni_travel_zat_to_pri);
+  createGameAutoSave("st_save_uni_travel_zat_to_pri");
 });
 
 /**
  * todo;
  */
 extern("dialogs.save_uni_travel_jup_to_zat", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
-  createGameAutoSave(captions.st_save_uni_travel_jup_to_zat);
+  createGameAutoSave("st_save_uni_travel_jup_to_zat");
 });
 
 /**
  * todo;
  */
 extern("dialogs.save_uni_travel_jup_to_pri", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
-  createGameAutoSave(captions.st_save_uni_travel_jup_to_pri);
+  createGameAutoSave("st_save_uni_travel_jup_to_pri");
 });
 
 /**
  * todo;
  */
 extern("dialogs.save_uni_travel_pri_to_zat", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
-  createGameAutoSave(captions.st_save_uni_travel_pri_to_zat);
+  createGameAutoSave("st_save_uni_travel_pri_to_zat");
 });
 
 /**
  * todo;
  */
 extern("dialogs.save_uni_travel_pri_to_jup", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
-  createGameAutoSave(captions.st_save_uni_travel_pri_to_jup);
+  createGameAutoSave("st_save_uni_travel_pri_to_jup");
 });
 
 /**
  * todo;
  */
 extern("dialogs.save_jup_b218_travel_jup_to_pas", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
-  createGameAutoSave(captions.st_save_jup_b218_travel_jup_to_pas);
+  createGameAutoSave("st_save_jup_b218_travel_jup_to_pas");
 });
 
 /**
  * todo;
  */
 extern("dialogs.save_pri_a17_hospital_start", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
-  createGameAutoSave(captions.st_save_pri_a17_hospital_start);
+  createGameAutoSave("st_save_pri_a17_hospital_start");
 });
 
 /**
@@ -834,7 +833,7 @@ extern("dialogs.save_pri_a17_hospital_start", (firstSpeaker: ClientObject, secon
  */
 extern("dialogs.save_jup_a10_gonna_return_debt", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
   if (!hasAlifeInfo(infoPortions.jup_a10_avtosave)) {
-    createGameAutoSave(captions.st_save_jup_a10_gonna_return_debt);
+    createGameAutoSave("st_save_jup_a10_gonna_return_debt");
     giveInfo(infoPortions.jup_a10_avtosave);
   }
 });
@@ -843,21 +842,21 @@ extern("dialogs.save_jup_a10_gonna_return_debt", (firstSpeaker: ClientObject, se
  * todo;
  */
 extern("dialogs.save_jup_b6_arrived_to_fen", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
-  createGameAutoSave(captions.st_save_jup_b6_arrived_to_fen);
+  createGameAutoSave("st_save_jup_b6_arrived_to_fen");
 });
 
 /**
  * todo;
  */
 extern("dialogs.save_jup_b6_arrived_to_ash_heap", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
-  createGameAutoSave(captions.st_save_jup_b6_arrived_to_ash_heap);
+  createGameAutoSave("st_save_jup_b6_arrived_to_ash_heap");
 });
 
 /**
  * todo;
  */
 extern("dialogs.save_jup_b19_arrived_to_kopachy", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
-  createGameAutoSave(captions.st_save_jup_b19_arrived_to_kopachy);
+  createGameAutoSave("st_save_jup_b19_arrived_to_kopachy");
 });
 
 /**
@@ -866,7 +865,7 @@ extern("dialogs.save_jup_b19_arrived_to_kopachy", (firstSpeaker: ClientObject, s
 extern(
   "dialogs.save_zat_b106_arrived_to_chimera_lair",
   (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
-    createGameAutoSave(captions.st_save_zat_b106_arrived_to_chimera_lair);
+    createGameAutoSave("st_save_zat_b106_arrived_to_chimera_lair");
   }
 );
 
@@ -874,5 +873,5 @@ extern(
  * todo;
  */
 extern("dialogs.save_zat_b5_met_with_others", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
-  createGameAutoSave(captions.st_save_zat_b5_met_with_others);
+  createGameAutoSave("st_save_zat_b5_met_with_others");
 });

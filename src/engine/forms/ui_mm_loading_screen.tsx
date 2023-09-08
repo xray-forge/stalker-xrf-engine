@@ -1,7 +1,5 @@
 import { JSXNode, JSXXML } from "jsx-xml";
 
-import { textures } from "@/engine/lib/constants/textures";
-
 /**
  * Create UI components related to loading screen in game.
  */
@@ -18,11 +16,11 @@ export function create(): JSXNode {
 
       <loading_progress x="260" y="599" width="506" height="4" horz="1" min="0" max="100" pos="0" inertion="5.0">
         <progress>
-          <texture>{textures.ui_mm_loading_progress_bar}</texture>
+          <texture>ui_mm_loading_progress_bar</texture>
         </progress>
         <background stretch="1">
           <texture width="506" height="4" r="0" g="0" b="0" a="255">
-            {textures.ui_mm_loading_progress_bar}
+            ui_mm_loading_progress_bar
           </texture>
         </background>
       </loading_progress>

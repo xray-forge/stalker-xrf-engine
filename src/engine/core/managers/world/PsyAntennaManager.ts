@@ -10,7 +10,6 @@ import { abort } from "@/engine/core/utils/assertion";
 import { isGameLevelChanging } from "@/engine/core/utils/game";
 import { clampNumber } from "@/engine/core/utils/number";
 import { createEmptyVector, createVector, vectorRotateY } from "@/engine/core/utils/vector";
-import { sounds } from "@/engine/lib/constants/sound/sounds";
 import {
   ClientObject,
   ESoundObjectType,
@@ -78,8 +77,8 @@ export class PsyAntennaManager extends AbstractCoreManager {
     closeSaveMarker(packet, PsyAntennaManager.name + "_static");
   }
 
-  public readonly soundObjectRight: SoundObject = new sound_object(sounds.anomaly_psy_voices_1_r);
-  public readonly soundObjectLeft: SoundObject = new sound_object(sounds.anomaly_psy_voices_1_l);
+  public readonly soundObjectRight: SoundObject = new sound_object("anomaly_psy_voices_1_r");
+  public readonly soundObjectLeft: SoundObject = new sound_object("anomaly_psy_voices_1_l");
 
   public phantomMax: TCount = 8;
   public phantomSpawnProbability: TProbability = 0;

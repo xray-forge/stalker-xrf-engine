@@ -1,6 +1,5 @@
 import { ETaskState } from "@/engine/core/managers/interaction/tasks/types";
 import { TNotificationIcon } from "@/engine/core/managers/interface/notifications";
-import { TCaption } from "@/engine/lib/constants/captions";
 import {
   ClientObject,
   GameTask,
@@ -87,7 +86,7 @@ export interface ITreasureNotification extends INotification {
  * Generic tip notification.
  */
 export interface ITipNotification extends INotification {
-  caption: TCaption;
+  caption: TLabel;
   delay?: Optional<TDuration>;
   sender?: Optional<TNotificationIcon | ClientObject>;
   showtime?: Optional<TTimestamp>;

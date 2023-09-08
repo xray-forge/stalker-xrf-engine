@@ -17,34 +17,31 @@ import {
   closeSaveMarker,
   hardResetOfflineObject,
   IRegistryObjectState,
+  openLoadMarker,
   openSaveMarker,
   registerObjectStoryLinks,
+  registerSimulationObject,
   registry,
   SMART_TERRAIN_MASKS_LTX,
   softResetOfflineObject,
-  unregisterStoryLinkByObjectId,
-} from "@/engine/core/database";
-import { openLoadMarker } from "@/engine/core/database/save_markers";
-import {
-  registerSimulationObject,
   unregisterSimulationObject,
+  unregisterStoryLinkByObjectId,
   updateSimulationObjectAvailability,
-} from "@/engine/core/database/simulation";
+} from "@/engine/core/database";
 import { MapDisplayManager } from "@/engine/core/managers/interface";
 import {
   ESimulationTerrainRole,
   ISimulationActivityDescriptor,
   ISimulationTarget,
   simulationActivities,
+  SimulationBoardManager,
   TSimulationActivityPrecondition,
   TSimulationObject,
   VALID_SMART_TERRAINS_SIMULATION_ROLES,
 } from "@/engine/core/managers/simulation";
-import { SimulationBoardManager } from "@/engine/core/managers/simulation/SimulationBoardManager";
 import { SmartTerrainControl } from "@/engine/core/objects/server/smart_terrain/SmartTerrainControl";
 import { ESmartTerrainStatus } from "@/engine/core/objects/server/smart_terrain/types";
-import { SquadReachTargetAction, SquadStayOnTargetAction } from "@/engine/core/objects/server/squad/action";
-import { Squad } from "@/engine/core/objects/server/squad/Squad";
+import { Squad, SquadReachTargetAction, SquadStayOnTargetAction } from "@/engine/core/objects/server/squad";
 import { abort, assert, assertDefined } from "@/engine/core/utils/assertion";
 import { readTimeFromPacket, writeTimeToPacket } from "@/engine/core/utils/game/game_time";
 import {
@@ -86,7 +83,6 @@ import { getTableSize } from "@/engine/core/utils/table";
 import { toJSON } from "@/engine/core/utils/transform/json";
 import { gameConfig } from "@/engine/lib/configs/GameConfig";
 import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
-import { TCaption } from "@/engine/lib/constants/captions/captions";
 import { MAX_U8 } from "@/engine/lib/constants/memory";
 import { roots } from "@/engine/lib/constants/roots";
 import { SMART_TERRAIN_SECTION } from "@/engine/lib/constants/sections";
@@ -531,7 +527,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
    * Get smart terrain name label.
    * Used for UI display or mentioning in strings.
    */
-  public getNameCaption(): TCaption {
+  public getNameCaption(): TLabel {
     return string.format("st_%s_name", this.name());
   }
 

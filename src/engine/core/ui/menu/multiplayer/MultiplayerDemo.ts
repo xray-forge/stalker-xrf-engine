@@ -25,7 +25,6 @@ import { executeConsoleCommand } from "@/engine/core/utils/game/game_console";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { consoleCommands } from "@/engine/lib/constants/console_commands";
 import { roots } from "@/engine/lib/constants/roots";
-import { textures } from "@/engine/lib/constants/textures";
 import { FSFileListEX, Optional, TCount, TName, Vector2D } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -192,14 +191,14 @@ export class MultiplayerDemo extends CUIWindow {
   /**
    * todo: Description.
    */
-  public getMapTextureName(mapName: TName): string {
+  public getMapTextureName(mapName: TName): TName {
     const textureName: TName = "intro\\intro_map_pic_" + mapName;
 
     if (getFS().exist(roots.gameTextures, textureName + ".dds") !== null) {
       return textureName;
     }
 
-    return textures.ui_ui_noise;
+    return "ui_ui_noise";
   }
 
   /**

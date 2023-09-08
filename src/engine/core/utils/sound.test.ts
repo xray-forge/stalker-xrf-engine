@@ -2,7 +2,7 @@ import { describe, expect, it } from "@jest/globals";
 import { snd_type } from "xray16";
 
 import { isSoundType, mapSoundMaskToSoundType } from "@/engine/core/utils/sound";
-import { ESoundType } from "@/engine/lib/constants/sound/sound_type";
+import { ESoundType } from "@/engine/lib/constants/sound";
 
 describe("'sound' utils", () => {
   it("'mapSoundMaskToSoundType' should correctly convert mask to enum", () => {

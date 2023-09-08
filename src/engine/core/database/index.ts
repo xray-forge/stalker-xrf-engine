@@ -15,6 +15,7 @@ export * from "@/engine/core/database/registry";
 export * from "@/engine/core/database/save_markers";
 export * from "@/engine/core/database/smart";
 export * from "@/engine/core/database/stalker";
+export * from "@/engine/core/database/simulation";
 export * from "@/engine/core/database/story_objects";
 export * from "@/engine/core/database/types";
 export * from "@/engine/core/database/zones";

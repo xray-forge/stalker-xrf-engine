@@ -7,7 +7,6 @@ import { EZombieCombatAction, ISchemeCombatState } from "@/engine/core/schemes/c
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { chance } from "@/engine/core/utils/random";
 import { copyVector, createEmptyVector } from "@/engine/core/utils/vector";
-import { scriptSounds } from "@/engine/lib/constants/sound/script_sounds";
 import {
   ClientObject,
   EClientObjectPath,
@@ -72,7 +71,7 @@ export class ActionZombieShoot extends action_base {
     this.state.currentAction = EZombieCombatAction.SHOOT;
 
     if (chance(25)) {
-      GlobalSoundManager.getInstance().playSound(this.object.id(), scriptSounds.fight_attack);
+      GlobalSoundManager.getInstance().playSound(this.object.id(), "fight_attack");
     }
   }
 

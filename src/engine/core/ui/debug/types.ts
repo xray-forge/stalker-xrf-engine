@@ -10,7 +10,6 @@ import { DebugRegistrySection } from "@/engine/core/ui/debug/sections/DebugRegis
 import { DebugSoundSection } from "@/engine/core/ui/debug/sections/DebugSoundSection";
 import { DebugSpawnSection } from "@/engine/core/ui/debug/sections/DebugSpawnSection";
 import { DebugTeleportSection } from "@/engine/core/ui/debug/sections/DebugTeleportSection";
-import { DebugUiSection } from "@/engine/core/ui/debug/sections/DebugUiSection";
 
 /**
  * Possible debug sections to attach and edit game functionality.
@@ -40,5 +39,4 @@ export const sectionsMap = {
   [EDebugSection.SOUND]: (owner: CUIScriptWnd) => new DebugSoundSection(owner),
   [EDebugSection.SPAWN]: (owner: CUIScriptWnd) => new DebugSpawnSection(owner),
   [EDebugSection.TELEPORT]: (owner: CUIScriptWnd) => new DebugTeleportSection(owner),
-  [EDebugSection.UI]: (owner: CUIScriptWnd) => new DebugUiSection(owner),
 };

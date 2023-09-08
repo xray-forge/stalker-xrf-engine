@@ -12,7 +12,6 @@ import { executeConsoleCommand, getConsoleFloatCommand } from "@/engine/core/uti
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { clampNumber } from "@/engine/core/utils/number";
 import { consoleCommands } from "@/engine/lib/constants/console_commands";
-import { TSound } from "@/engine/lib/constants/sound/sounds";
 import {
   ClientObject,
   LuaArray,
@@ -50,7 +49,7 @@ export class DynamicMusicManager extends AbstractCoreManager {
   public static readonly LOGIC_UPDATE_STEP: TDuration = 300;
   public static readonly AMBIENT_FADE_UPDATE_DELTA: TDuration = 200;
 
-  public themes: LuaArray<LuaArray<TSound>> = new LuaTable();
+  public themes: LuaArray<LuaArray<TName>> = new LuaTable();
   public theme: Optional<StereoSound> = null;
   public updateDelta: TDuration = 0;
 
@@ -148,7 +147,7 @@ export class DynamicMusicManager extends AbstractCoreManager {
    * todo: Description.
    */
   public initializeThemes(): void {
-    const newThemesList: LuaArray<LuaArray<TSound>> = new LuaTable();
+    const newThemesList: LuaArray<LuaArray<TName>> = new LuaTable();
     const levelName: TName = level.name();
 
     logger.info("Initialize level themes:", levelName);

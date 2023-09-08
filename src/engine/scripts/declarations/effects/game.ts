@@ -6,17 +6,16 @@ import { extern } from "@/engine/core/utils/binding";
 import { executeConsoleCommand } from "@/engine/core/utils/game/game_console";
 import { createGameAutoSave } from "@/engine/core/utils/game/game_save";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { TCaption } from "@/engine/lib/constants/captions";
 import { consoleCommands } from "@/engine/lib/constants/console_commands";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
-import { ClientObject, GameHud, LuaArray, Optional, TName } from "@/engine/lib/types";
+import { ClientObject, GameHud, LuaArray, Optional, TLabel, TName } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * todo;
  */
-extern("xr_effects.inc_counter", (actor: ClientObject, npc: ClientObject, p: [Optional<string>, number]) => {
+extern("xr_effects.inc_counter", (actor: ClientObject, object: ClientObject, p: [Optional<string>, number]) => {
   if (p[0]) {
     const incValue: number = p[1] || 1;
     const newValue: number = getPortableStoreValue(ACTOR_ID, p[0], 0) + incValue;
@@ -132,7 +131,7 @@ extern("xr_effects.scenario_autosave", (actor: ClientObject, object: ClientObjec
 /**
  * todo;
  */
-extern("xr_effects.mech_discount", (actor: ClientObject, npc: ClientObject, p: [string]) => {
+extern("xr_effects.mech_discount", (actor: ClientObject, object: ClientObject, p: [string]) => {
   if (p[0]) {
     ItemUpgradesManager.getInstance().setCurrentPriceDiscount(tonumber(p[0])!);
   }
@@ -143,7 +142,7 @@ extern("xr_effects.mech_discount", (actor: ClientObject, npc: ClientObject, p: [
  */
 extern(
   "xr_effects.upgrade_hint",
-  (actor: ClientObject, npc: ClientObject, parameters: Optional<LuaArray<TCaption>>): void => {
+  (actor: ClientObject, object: ClientObject, parameters: Optional<LuaArray<TLabel>>): void => {
     if (parameters) {
       ItemUpgradesManager.getInstance().setCurrentHints(parameters);
     }
@@ -153,7 +152,7 @@ extern(
 /**
  * todo;
  */
-extern("xr_effects.add_cs_text", (actor: ClientObject, npc: ClientObject, p: [string]) => {
+extern("xr_effects.add_cs_text", (actor: ClientObject, object: ClientObject, p: [string]) => {
   if (p[0]) {
     const hud: GameHud = get_hud();
     let customText: Optional<StaticDrawableWrapper> = hud.GetCustomStatic("text_on_screen_center");

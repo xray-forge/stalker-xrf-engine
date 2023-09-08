@@ -4,13 +4,11 @@ import { IBaseXmlNode } from "@/engine/lib/types";
 
 export interface IXrTextureProps extends IBaseXmlNode {
   tag?: never;
-
   id?: string;
   idEnabled?: string;
   idTouched?: string;
   idDisabled?: string;
   idHighlighted?: string;
-
   a?: number;
   r?: number;
   g?: number;

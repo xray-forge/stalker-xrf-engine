@@ -7,7 +7,6 @@ import { getObjectSmartTerrain } from "@/engine/core/utils/object/object_get";
 import { createEmptyVector, graphDistance, vectorToString, yawDegree3d } from "@/engine/core/utils/vector";
 import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
 import { MAX_U32 } from "@/engine/lib/constants/memory";
-import { sounds } from "@/engine/lib/constants/sound/sounds";
 import { ZERO_VECTOR } from "@/engine/lib/constants/vectors";
 import {
   ClientObject,
@@ -215,11 +214,5 @@ export function teleportActorWithEffects(actor: ClientObject, position: Vector, 
   actor.set_actor_position(position);
   actor.set_actor_direction(-direction.getH());
 
-  new sound_object(sounds.affects_tinnitus3a).play_no_feedback(
-    actor,
-    ESoundObjectType.S2D,
-    0,
-    createEmptyVector(),
-    1.0
-  );
+  new sound_object("affects_tinnitus3a").play_no_feedback(actor, ESoundObjectType.S2D, 0, createEmptyVector(), 1.0);
 }

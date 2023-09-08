@@ -9,7 +9,6 @@ import { isBlackScreen } from "@/engine/core/utils/game";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { isObjectInCombat, isObjectWounded, setObjectAbuseState } from "@/engine/core/utils/object";
-import { captions } from "@/engine/lib/constants/captions";
 import { FALSE, NIL, TRUE } from "@/engine/lib/constants/words";
 import {
   ClientObject,
@@ -235,7 +234,7 @@ export class MeetManager extends AbstractSchemeManager<ISchemeMeetState> {
       this.object.set_tip_text(meetInteractionText);
     } else {
       if (this.object.is_talk_enabled()) {
-        this.object.set_tip_text(captions.character_use);
+        this.object.set_tip_text("character_use");
       } else {
         this.object.set_tip_text("");
       }
