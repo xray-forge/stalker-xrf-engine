@@ -1,7 +1,7 @@
 import { cse_alife_item_custom_outfit, LuabindClass } from "xray16";
 
 import { registerObjectStoryLinks, unregisterStoryLinkByObjectId } from "@/engine/core/database";
-import { TreasureManager } from "@/engine/core/managers/world/TreasureManager";
+import { TreasureManager } from "@/engine/core/managers/world/treasures";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { Optional } from "@/engine/lib/types";
 

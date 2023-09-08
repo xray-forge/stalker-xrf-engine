@@ -5,7 +5,7 @@ import { EGameEvent, EventsManager } from "@/engine/core/managers";
 import { AbstractCoreManager } from "@/engine/core/managers/base/AbstractCoreManager";
 import type { TaskObject } from "@/engine/core/managers/interaction/tasks";
 import type { IActorStatistics } from "@/engine/core/managers/interface/statistics/statistics_types";
-import type { ITreasureDescriptor } from "@/engine/core/managers/world/TreasureManager";
+import type { ITreasureDescriptor } from "@/engine/core/managers/world/treasures";
 import { assert } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { isArtefact } from "@/engine/core/utils/object";

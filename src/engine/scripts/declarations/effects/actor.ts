@@ -15,7 +15,7 @@ import {
   NotificationManager,
   TNotificationIcon,
 } from "@/engine/core/managers/interface";
-import { TreasureManager } from "@/engine/core/managers/world/TreasureManager";
+import { TreasureManager } from "@/engine/core/managers/world/treasures";
 import type { Squad } from "@/engine/core/objects/server/squad";
 import { abort, assert, assertDefined } from "@/engine/core/utils/assertion";
 import { extern } from "@/engine/core/utils/binding";
@@ -27,7 +27,6 @@ import { helmets } from "@/engine/lib/constants/items/helmets";
 import { misc } from "@/engine/lib/constants/items/misc";
 import { outfits } from "@/engine/lib/constants/items/outfits";
 import { weapons } from "@/engine/lib/constants/items/weapons";
-import { TTreasure } from "@/engine/lib/constants/treasures";
 import { TRUE } from "@/engine/lib/constants/words";
 import {
   ClientObject,
@@ -441,15 +440,15 @@ extern("xr_effects.activate_weapon", (actor: ClientObject, npc: ClientObject, p:
  */
 extern(
   "xr_effects.give_treasure",
-  (actor: ClientObject, object: ClientObject, treasures: LuaArray<TTreasure>): void => {
+  (actor: ClientObject, object: ClientObject, treasures: LuaArray<TStringId>): void => {
     logger.info("Give treasures");
 
     assertDefined(treasures, "Required parameter is 'NIL'.");
 
     const treasureManager: TreasureManager = TreasureManager.getInstance();
 
-    for (const [index, value] of treasures) {
-      treasureManager.giveActorTreasureCoordinates(value);
+    for (const [, id] of treasures) {
+      treasureManager.giveActorTreasureCoordinates(id);
     }
   }
 );

@@ -4,7 +4,7 @@ import { alife } from "xray16";
 
 import { registry } from "@/engine/core/database";
 import { getPortableStoreValue } from "@/engine/core/database/portable_store";
-import { TreasureManager } from "@/engine/core/managers/world/TreasureManager";
+import { TreasureManager } from "@/engine/core/managers/world/treasures";
 import { AnomalyZoneBinder } from "@/engine/core/objects/binders/zones/AnomalyZoneBinder";
 import { extern, getExtern } from "@/engine/core/utils/binding";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -32,7 +32,6 @@ import { misc } from "@/engine/lib/constants/items/misc";
 import { outfits } from "@/engine/lib/constants/items/outfits";
 import { questItems } from "@/engine/lib/constants/items/quest_items";
 import { weapons } from "@/engine/lib/constants/items/weapons";
-import { treasures } from "@/engine/lib/constants/treasures";
 import {
   AnyCallable,
   AnyCallablesModule,
@@ -61,9 +60,9 @@ extern("dialogs_jupiter.jup_b208_give_reward", (firstSpeaker: ClientObject, seco
 
   const treasureManager: TreasureManager = TreasureManager.getInstance();
 
-  treasureManager.giveActorTreasureCoordinates(treasures.jup_hiding_place_18);
-  treasureManager.giveActorTreasureCoordinates(treasures.jup_hiding_place_35);
-  treasureManager.giveActorTreasureCoordinates(treasures.jup_hiding_place_45);
+  treasureManager.giveActorTreasureCoordinates("jup_hiding_place_18");
+  treasureManager.giveActorTreasureCoordinates("jup_hiding_place_35");
+  treasureManager.giveActorTreasureCoordinates("jup_hiding_place_45");
 });
 
 /**
@@ -985,8 +984,8 @@ extern(
     const treasureManager: TreasureManager = TreasureManager.getInstance();
 
     giveMoneyToActor(5000);
-    treasureManager.giveActorTreasureCoordinates(treasures.jup_hiding_place_40);
-    treasureManager.giveActorTreasureCoordinates(treasures.jup_hiding_place_34);
+    treasureManager.giveActorTreasureCoordinates("jup_hiding_place_40");
+    treasureManager.giveActorTreasureCoordinates("jup_hiding_place_34");
   }
 );
 
@@ -1001,8 +1000,8 @@ extern(
     if (hasAlifeInfo(infoPortions.jup_a12_stalker_prisoner_free_dialog_done)) {
       const treasureManager: TreasureManager = TreasureManager.getInstance();
 
-      treasureManager.giveActorTreasureCoordinates(treasures.jup_hiding_place_40);
-      treasureManager.giveActorTreasureCoordinates(treasures.jup_hiding_place_34);
+      treasureManager.giveActorTreasureCoordinates("jup_hiding_place_40");
+      treasureManager.giveActorTreasureCoordinates("jup_hiding_place_34");
     }
   }
 );
@@ -2525,5 +2524,5 @@ extern(
  * todo;
  */
 extern("dialogs_jupiter.jup_b19_reward", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
-  TreasureManager.giveTreasureCoordinates(treasures.jup_hiding_place_38);
+  TreasureManager.giveTreasureCoordinates("jup_hiding_place_38");
 });

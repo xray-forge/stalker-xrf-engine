@@ -14,7 +14,7 @@ import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundMan
 import { PsyAntennaManager } from "@/engine/core/managers/world/PsyAntennaManager";
 import { ReleaseBodyManager } from "@/engine/core/managers/world/ReleaseBodyManager";
 import { SurgeManager } from "@/engine/core/managers/world/SurgeManager";
-import { TreasureManager } from "@/engine/core/managers/world/TreasureManager";
+import { TreasureManager } from "@/engine/core/managers/world/treasures";
 import { WeatherManager } from "@/engine/core/managers/world/WeatherManager";
 import { AnyObject } from "@/engine/lib/types";
 import { MockIoFile } from "@/fixtures/lua";

@@ -21,7 +21,7 @@ import { DynamicMusicManager } from "@/engine/core/managers/sounds/DynamicMusicM
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import { PhantomManager } from "@/engine/core/managers/world/PhantomManager";
 import { ReleaseBodyManager } from "@/engine/core/managers/world/ReleaseBodyManager";
-import { TreasureManager } from "@/engine/core/managers/world/TreasureManager";
+import { TreasureManager } from "@/engine/core/managers/world/treasures";
 import { WeatherManager } from "@/engine/core/managers/world/WeatherManager";
 import { LuaLogger } from "@/engine/core/utils/logging";
 
