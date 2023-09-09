@@ -261,10 +261,6 @@ export enum EGameEvent {
    */
   ITEM_EXPLOSIVE_REGISTERED,
   /**
-   * Unregistered explosive item server object.
-   */
-  ITEM_GRENADE_UNREGISTERED,
-  /**
    * Registered grenade item server object.
    */
   ITEM_GRENADE_REGISTERED,
