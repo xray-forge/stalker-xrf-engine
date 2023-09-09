@@ -1,7 +1,7 @@
 import { alife, clsid, game, level, patrol, time_global } from "xray16";
 
 import { getStoryIdByObjectId, registry, TRAVEL_MANAGER_LTX } from "@/engine/core/database";
-import { AbstractCoreManager } from "@/engine/core/managers/base/AbstractCoreManager";
+import { AbstractManager } from "@/engine/core/managers/base/AbstractManager";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { ENotificationDirection } from "@/engine/core/managers/interface/notifications";
 import { NotificationManager } from "@/engine/core/managers/interface/notifications/NotificationManager";
@@ -62,7 +62,7 @@ export interface ITravelRouteDescriptor {
 /**
  * Manager to handle fast traveling of actor.
  */
-export class TravelManager extends AbstractCoreManager {
+export class TravelManager extends AbstractManager {
   public static readonly LOCATIONS_LTX_SECTION: TSection = "locations";
   public static readonly TRAVELER_LTX_SECTION: TSection = "traveler";
   public static readonly NAME_LTX_SECTION: TSection = "name";

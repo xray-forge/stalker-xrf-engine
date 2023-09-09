@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 
 import { disposeManagers, initializeManager, registerActor, registry } from "@/engine/core/database";
-import { TAbstractCoreManagerConstructor } from "@/engine/core/managers/base/AbstractCoreManager";
+import { TAbstractCoreManagerConstructor } from "@/engine/core/managers/base/AbstractManager";
 import { SaveManager } from "@/engine/core/managers/base/SaveManager";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { AchievementsManager } from "@/engine/core/managers/interaction/achievements";

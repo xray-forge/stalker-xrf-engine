@@ -1,6 +1,6 @@
 import { game } from "xray16";
 
-import { AbstractCoreManager } from "@/engine/core/managers/base/AbstractCoreManager";
+import { AbstractManager } from "@/engine/core/managers/base/AbstractManager";
 import { StatisticsManager } from "@/engine/core/managers/interface/statistics";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { TWeapon, weapons } from "@/engine/lib/constants/items/weapons";
@@ -45,7 +45,7 @@ enum EStatSection {
 /**
  * todo;
  */
-export class PdaManager extends AbstractCoreManager {
+export class PdaManager extends AbstractManager {
   public getStat(section: EStatSection): TLabel {
     const statisticsManager: StatisticsManager = StatisticsManager.getInstance();
 

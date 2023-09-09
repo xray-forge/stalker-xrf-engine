@@ -1,7 +1,7 @@
 import { IsDynamicMusic, level, time_global } from "xray16";
 
 import { registry } from "@/engine/core/database";
-import { AbstractCoreManager } from "@/engine/core/managers/base/AbstractCoreManager";
+import { AbstractManager } from "@/engine/core/managers/base/AbstractManager";
 import { EventsManager } from "@/engine/core/managers/events/EventsManager";
 import { EGameEvent } from "@/engine/core/managers/events/types";
 import { dynamicMusicThemes } from "@/engine/core/managers/sounds/dynamic_music";
@@ -40,7 +40,7 @@ export enum EDynamicMusicState {
 /**
  * todo;
  */
-export class DynamicMusicManager extends AbstractCoreManager {
+export class DynamicMusicManager extends AbstractManager {
   public static readonly MAX_DIST: TDistance = 100;
   public static readonly MIN_DIST: TDistance = 75;
 

@@ -1,7 +1,7 @@
 import { alife, clsid, game } from "xray16";
 
 import { getObjectIdByStoryId, registry } from "@/engine/core/database";
-import { AbstractCoreManager } from "@/engine/core/managers/base/AbstractCoreManager";
+import { AbstractManager } from "@/engine/core/managers/base/AbstractManager";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { ETaskState } from "@/engine/core/managers/interaction/tasks/types";
 import {
@@ -53,7 +53,7 @@ const logger: LuaLogger = new LuaLogger($filename);
  *
  * todo: Handle notification events from app-level events without direct imports.
  */
-export class NotificationManager extends AbstractCoreManager {
+export class NotificationManager extends AbstractManager {
   public static readonly DEFAULT_NOTIFICATION_SHOW_DURATION: TDuration = 5_000;
   public static readonly QUEST_NOTIFICATION_SHOW_DURATION: TDuration = 10_000;
 

@@ -1,7 +1,7 @@
 import { alife, game } from "xray16";
 
 import { getObjectIdByStoryId, registry } from "@/engine/core/database";
-import { AbstractCoreManager } from "@/engine/core/managers/base/AbstractCoreManager";
+import { AbstractManager } from "@/engine/core/managers/base/AbstractManager";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { achievementIcons } from "@/engine/core/managers/interaction/achievements/AchievementIcons";
 import { achievementRewards } from "@/engine/core/managers/interaction/achievements/AchievementRewards";
@@ -32,7 +32,7 @@ const logger: LuaLogger = new LuaLogger($filename);
  * todo;
  * todo: move to config file generic achievements descriptions
  */
-export class AchievementsManager extends AbstractCoreManager {
+export class AchievementsManager extends AbstractManager {
   public lastDetectiveAchievementSpawnTime: Optional<Time> = null;
   public lastMutantHunterAchievementSpawnTime: Optional<Time> = null;
 

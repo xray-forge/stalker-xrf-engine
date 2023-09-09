@@ -1,5 +1,5 @@
 import { initializeManager } from "@/engine/core/database";
-import { TAbstractCoreManagerConstructor } from "@/engine/core/managers/base/AbstractCoreManager";
+import { TAbstractCoreManagerConstructor } from "@/engine/core/managers/base/AbstractManager";
 import { SaveManager } from "@/engine/core/managers/base/SaveManager";
 import { ProfilingManager } from "@/engine/core/managers/debug/ProfilingManager";
 import { EventsManager } from "@/engine/core/managers/events";

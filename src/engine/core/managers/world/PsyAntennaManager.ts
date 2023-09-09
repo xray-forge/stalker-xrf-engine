@@ -3,7 +3,7 @@ import { get_hud, hit, level, sound_object, StaticDrawableWrapper, time_global }
 import { closeLoadMarker, closeSaveMarker, openSaveMarker, registry } from "@/engine/core/database";
 import { getWeakManagerInstance, isManagerInitialized } from "@/engine/core/database/managers";
 import { openLoadMarker } from "@/engine/core/database/save_markers";
-import { AbstractCoreManager } from "@/engine/core/managers/base/AbstractCoreManager";
+import { AbstractManager } from "@/engine/core/managers/base/AbstractManager";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { PhantomManager } from "@/engine/core/managers/world/PhantomManager";
 import { abort } from "@/engine/core/utils/assertion";
@@ -40,7 +40,7 @@ export interface IPsyPostProcessDescriptor {
 /**
  * todo;
  */
-export class PsyAntennaManager extends AbstractCoreManager {
+export class PsyAntennaManager extends AbstractManager {
   /**
    * todo: Description.
    */

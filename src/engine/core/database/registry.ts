@@ -1,8 +1,5 @@
 import type { IRegistryObjectState, IStoredOfflineObject } from "@/engine/core/database/types";
-import type {
-  AbstractCoreManager,
-  TAbstractCoreManagerConstructor,
-} from "@/engine/core/managers/base/AbstractCoreManager";
+import type { AbstractManager, TAbstractCoreManagerConstructor } from "@/engine/core/managers/base/AbstractManager";
 import type { ITradeManagerDescriptor } from "@/engine/core/managers/interaction/trade";
 import type { TSimulationObject } from "@/engine/core/managers/simulation";
 import type {
@@ -55,7 +52,7 @@ export const registry = {
   /**
    * List of active game managers.
    */
-  managers: new LuaTable<TAbstractCoreManagerConstructor, AbstractCoreManager>(),
+  managers: new LuaTable<TAbstractCoreManagerConstructor, AbstractManager>(),
   /**
    * List of activated schemes in game.
    */

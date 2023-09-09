@@ -1,12 +1,12 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 
 import { registry } from "@/engine/core/database";
-import { AbstractCoreManager } from "@/engine/core/managers/base/AbstractCoreManager";
+import { AbstractManager } from "@/engine/core/managers/base/AbstractManager";
 import { MockLuaTable } from "@/fixtures/lua";
 import { mockNetPacket, mockNetProcessor } from "@/fixtures/xray";
 
 describe("AbstractCoreManager class", () => {
-  class ExampleManager extends AbstractCoreManager {
+  class ExampleManager extends AbstractManager {
     public override initialize = jest.fn();
     public override destroy = jest.fn();
   }

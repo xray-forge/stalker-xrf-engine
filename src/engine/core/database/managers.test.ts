@@ -9,20 +9,20 @@ import {
   isManagerInitialized,
 } from "@/engine/core/database/managers";
 import { registry } from "@/engine/core/database/registry";
-import { AbstractCoreManager } from "@/engine/core/managers/base/AbstractCoreManager";
+import { AbstractManager } from "@/engine/core/managers/base/AbstractManager";
 
 describe("'managers' module of the database", () => {
-  class ExampleManagerOne extends AbstractCoreManager {
+  class ExampleManagerOne extends AbstractManager {
     public override initialize = jest.fn();
     public override destroy = jest.fn();
   }
 
-  class ExampleManagerTwo extends AbstractCoreManager {
+  class ExampleManagerTwo extends AbstractManager {
     public override initialize = jest.fn();
     public override destroy = jest.fn();
   }
 
-  class ExampleManagerThree extends AbstractCoreManager {
+  class ExampleManagerThree extends AbstractManager {
     public override initialize = jest.fn();
     public override destroy = jest.fn();
   }

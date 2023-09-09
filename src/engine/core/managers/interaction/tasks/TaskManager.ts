@@ -2,7 +2,7 @@ import { task } from "xray16";
 
 import { closeLoadMarker, closeSaveMarker, openSaveMarker, TASK_MANAGER_LTX } from "@/engine/core/database";
 import { openLoadMarker } from "@/engine/core/database/save_markers";
-import { AbstractCoreManager } from "@/engine/core/managers/base/AbstractCoreManager";
+import { AbstractManager } from "@/engine/core/managers/base/AbstractManager";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { TaskObject } from "@/engine/core/managers/interaction/tasks/TaskObject";
 import { ETaskState } from "@/engine/core/managers/interaction/tasks/types";
@@ -17,7 +17,7 @@ const logger: LuaLogger = new LuaLogger($filename);
 /**
  * Management of current tasks lists, states, rewards and progression.
  */
-export class TaskManager extends AbstractCoreManager {
+export class TaskManager extends AbstractManager {
   /**
    * List of currently tracked tasks in the game.
    */

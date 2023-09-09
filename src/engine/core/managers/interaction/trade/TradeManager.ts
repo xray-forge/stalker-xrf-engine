@@ -8,7 +8,7 @@ import {
   openSaveMarker,
   registry,
 } from "@/engine/core/database";
-import { AbstractCoreManager } from "@/engine/core/managers/base/AbstractCoreManager";
+import { AbstractManager } from "@/engine/core/managers/base/AbstractManager";
 import { ITradeManagerDescriptor } from "@/engine/core/managers/interaction/trade/trade_types";
 import { TAnimationSequenceElement } from "@/engine/core/objects/animation";
 import { abort, assertNonEmptyString } from "@/engine/core/utils/assertion";
@@ -34,7 +34,7 @@ const logger: LuaLogger = new LuaLogger($filename, { file: "trade" });
  * Manager to handle current trading state / trading items lists for stalker objects.
  * Handles initialization and updating of trading states, manages descriptors with trading information.
  */
-export class TradeManager extends AbstractCoreManager {
+export class TradeManager extends AbstractManager {
   /**
    * Initialize trade manager descriptor for provided stalker object.
    */

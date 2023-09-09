@@ -1,7 +1,7 @@
 import { alife, level } from "xray16";
 
 import { DEATH_GENERIC_LTX, IRegistryObjectState, registry } from "@/engine/core/database";
-import { AbstractCoreManager } from "@/engine/core/managers/base/AbstractCoreManager";
+import { AbstractManager } from "@/engine/core/managers/base/AbstractManager";
 import { Stalker } from "@/engine/core/objects/server/creature/Stalker";
 import { abort } from "@/engine/core/utils/assertion";
 import { parseNumbersList, parseStringsList } from "@/engine/core/utils/ini";
@@ -48,7 +48,7 @@ export interface IItemDropAmountDescriptor {
  * todo;
  * todo: Maybe add reset method and re-assign all 5 objects with info on each reset to clear information.
  */
-export class DropManager extends AbstractCoreManager {
+export class DropManager extends AbstractManager {
   public static readonly DEPENDENT_ITEMS_LTX_SECTION: TSection = "item_dependence";
   public static readonly KEEP_ITEMS_LTX_SECTION: TSection = "keep_items";
   public static readonly DONT_SPAWN_LOOT_LTX_SECTION: TSection = "dont_spawn_loot";

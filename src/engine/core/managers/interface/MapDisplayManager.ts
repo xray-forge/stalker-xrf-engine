@@ -1,7 +1,7 @@
 import { alife, game, level, time_global } from "xray16";
 
 import { getObjectIdByStoryId, IRegistryObjectState, registry } from "@/engine/core/database";
-import { AbstractCoreManager } from "@/engine/core/managers/base/AbstractCoreManager";
+import { AbstractManager } from "@/engine/core/managers/base/AbstractManager";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import {
   anomalyScannerObjects,
@@ -48,7 +48,7 @@ const logger: LuaLogger = new LuaLogger($filename);
 /**
  * Manager handling display of objects on game map in PDA.
  */
-export class MapDisplayManager extends AbstractCoreManager {
+export class MapDisplayManager extends AbstractManager {
   public static readonly DISTANCE_TO_SHOW_MAP_MARKS: TDistance = 75;
   public static readonly UPDATES_THROTTLE: TDuration = 5_000;
 

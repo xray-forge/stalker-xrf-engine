@@ -11,7 +11,7 @@ import {
   openSaveMarker,
   registry,
 } from "@/engine/core/database";
-import { AbstractCoreManager } from "@/engine/core/managers/base/AbstractCoreManager";
+import { AbstractManager } from "@/engine/core/managers/base/AbstractManager";
 import { abort } from "@/engine/core/utils/assertion";
 import { readIniString } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -51,7 +51,7 @@ export interface IReleaseDescriptor {
  * Manage persisting dead bodies.
  * Release the most further of them from time to time to keep up with limits.
  */
-export class ReleaseBodyManager extends AbstractCoreManager {
+export class ReleaseBodyManager extends AbstractManager {
   public static readonly KEEP_ITEMS_LTX_SECTION: TSection = "keep_items";
 
   public static readonly MAX_DISTANCE_SQR: number = 4_900; // 70 * 70

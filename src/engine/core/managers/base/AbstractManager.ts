@@ -5,7 +5,7 @@ import { IConstructor, NetPacket, NetProcessor, Optional, TDuration } from "@/en
 /**
  * Abstract class for core manager implementation.
  */
-export abstract class AbstractCoreManager {
+export abstract class AbstractManager {
   /**
    * Get singleton manager instance from managers registry.
    * Initialize manager if it was not initialized before.
@@ -13,7 +13,7 @@ export abstract class AbstractCoreManager {
    * @param initialize - whether initialize should be called on manager instance creation, `true` by default
    * @returns manager instance
    */
-  public static getInstance<T extends AbstractCoreManager>(this: IConstructor<T>, initialize: boolean = true): T {
+  public static getInstance<T extends AbstractManager>(this: IConstructor<T>, initialize: boolean = true): T {
     return getManagerInstance(this, initialize);
   }
 
@@ -23,14 +23,14 @@ export abstract class AbstractCoreManager {
    *
    * @returns manager instance or `null`
    */
-  public static getWeakInstance<T extends AbstractCoreManager>(this: IConstructor<T>): Optional<T> {
+  public static getWeakInstance<T extends AbstractManager>(this: IConstructor<T>): Optional<T> {
     return getWeakManagerInstance(this);
   }
 
   /**
    * Dispose manager instance if it is registered.
    */
-  public static dispose<T extends AbstractCoreManager>(this: IConstructor<T>): void {
+  public static dispose<T extends AbstractManager>(this: IConstructor<T>): void {
     return disposeManager(this);
   }
 
@@ -80,4 +80,4 @@ export abstract class AbstractCoreManager {
 /**
  * Core manager constructor.
  */
-export type TAbstractCoreManagerConstructor<T extends AbstractCoreManager = AbstractCoreManager> = IConstructor<T>;
+export type TAbstractCoreManagerConstructor<T extends AbstractManager = AbstractManager> = IConstructor<T>;

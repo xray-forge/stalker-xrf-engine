@@ -9,7 +9,7 @@ import {
   registry,
   SURGE_MANAGER_LTX,
 } from "@/engine/core/database";
-import { AbstractCoreManager } from "@/engine/core/managers/base/AbstractCoreManager";
+import { AbstractManager } from "@/engine/core/managers/base/AbstractManager";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { TaskManager } from "@/engine/core/managers/interaction/tasks";
 import { ActorInputManager } from "@/engine/core/managers/interface";
@@ -71,7 +71,7 @@ export interface ISurgeCoverDescriptor {
 /**
  * todo: Separate manager to handle artefacts spawn / ownership etc in parallel, do not mix logic.
  */
-export class SurgeManager extends AbstractCoreManager {
+export class SurgeManager extends AbstractManager {
   public static readonly SURGE_SHOCK_PP_EFFECTOR_ID: TNumberId = 1;
   public static readonly EARTHQUAKE_CAM_EFFECTOR_ID: TNumberId = 2;
   public static readonly SLEEP_CAM_EFFECTOR_ID: TNumberId = 3;

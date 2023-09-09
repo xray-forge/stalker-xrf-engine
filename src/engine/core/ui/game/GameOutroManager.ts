@@ -1,7 +1,7 @@
 import { CUIGameCustom, game, get_hud, sound_object } from "xray16";
 
 import { registry } from "@/engine/core/database";
-import { AbstractCoreManager } from "@/engine/core/managers/base/AbstractCoreManager";
+import { AbstractManager } from "@/engine/core/managers/base/AbstractManager";
 import { ActorInputManager } from "@/engine/core/managers/interface";
 import { getExtern } from "@/engine/core/utils/binding";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -18,7 +18,7 @@ const VOLUME_MIN: TRate = 0.3;
 /**
  * todo
  */
-export class GameOutroManager extends AbstractCoreManager {
+export class GameOutroManager extends AbstractManager {
   /**
    * todo;
    * todo: Use utils to check multiple

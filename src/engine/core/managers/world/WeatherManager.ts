@@ -10,7 +10,7 @@ import {
   openSaveMarker,
   registry,
 } from "@/engine/core/database";
-import { AbstractCoreManager } from "@/engine/core/managers/base/AbstractCoreManager";
+import { AbstractManager } from "@/engine/core/managers/base/AbstractManager";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import type { SurgeManager } from "@/engine/core/managers/world/SurgeManager";
 import { assert } from "@/engine/core/utils/assertion";
@@ -59,7 +59,7 @@ export interface IWeatherState {
 /**
  * Initialize weather and manage updating of it hourly.
  */
-export class WeatherManager extends AbstractCoreManager {
+export class WeatherManager extends AbstractManager {
   public shouldForceWeatherChangeOnTimeChange: boolean = false;
 
   public lastUpdatedAtHour: TTimestamp = 0;

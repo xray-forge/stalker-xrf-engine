@@ -1,4 +1,4 @@
-import { AbstractCoreManager } from "@/engine/core/managers/base/AbstractCoreManager";
+import { AbstractManager } from "@/engine/core/managers/base/AbstractManager";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { TIndex, TName } from "@/engine/lib/types";
 
@@ -7,7 +7,7 @@ const logger: LuaLogger = new LuaLogger($filename);
 /**
  * todo: Description.
  */
-export class LoadScreenManager extends AbstractCoreManager {
+export class LoadScreenManager extends AbstractManager {
   /**
    * todo: Description.
    */

@@ -1,5 +1,5 @@
 import { SYSTEM_INI } from "@/engine/core/database";
-import { AbstractCoreManager } from "@/engine/core/managers/base/AbstractCoreManager";
+import { AbstractManager } from "@/engine/core/managers/base/AbstractManager";
 import { executeConsoleCommand } from "@/engine/core/utils/game/game_console";
 import { readIniString } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -10,7 +10,7 @@ import { ClientObject, EActorMenuMode, EActorMenuType, IniFile } from "@/engine/
 const logger: LuaLogger = new LuaLogger($filename);
 
 // todo: .CUIActorMenu_OnItemDropped handler
-export class ActorInventoryMenuManager extends AbstractCoreManager {
+export class ActorInventoryMenuManager extends AbstractManager {
   public activeMode: EActorMenuMode = EActorMenuMode.UNDEFINED;
 
   /**

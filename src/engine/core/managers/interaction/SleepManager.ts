@@ -1,7 +1,7 @@
 import { level } from "xray16";
 
 import { registry } from "@/engine/core/database";
-import { AbstractCoreManager } from "@/engine/core/managers/base/AbstractCoreManager";
+import { AbstractManager } from "@/engine/core/managers/base/AbstractManager";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { ActorInputManager } from "@/engine/core/managers/interface";
 import { SurgeManager } from "@/engine/core/managers/world/SurgeManager";
@@ -20,7 +20,7 @@ const logger: LuaLogger = new LuaLogger($filename);
 /**
  * Manage sleep process of the actor.
  */
-export class SleepManager extends AbstractCoreManager {
+export class SleepManager extends AbstractManager {
   /**
    * Sleep dialog UI component.
    */

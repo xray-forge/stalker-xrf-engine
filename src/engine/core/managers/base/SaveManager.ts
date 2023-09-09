@@ -1,4 +1,4 @@
-import { AbstractCoreManager } from "@/engine/core/managers/base/AbstractCoreManager";
+import { AbstractManager } from "@/engine/core/managers/base/AbstractManager";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { AchievementsManager } from "@/engine/core/managers/interaction/achievements";
 import { TaskManager } from "@/engine/core/managers/interaction/tasks";
@@ -26,7 +26,7 @@ export interface IDynamicSaveData {
 /**
  * Manage game saves for other managers / parts.
  */
-export class SaveManager extends AbstractCoreManager {
+export class SaveManager extends AbstractManager {
   public dynamicData: IDynamicSaveData = { generic: {}, store: {} };
 
   /**

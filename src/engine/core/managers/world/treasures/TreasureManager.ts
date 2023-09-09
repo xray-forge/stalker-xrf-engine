@@ -8,7 +8,7 @@ import {
   registry,
   SECRETS_LTX,
 } from "@/engine/core/database";
-import { AbstractCoreManager } from "@/engine/core/managers/base/AbstractCoreManager";
+import { AbstractManager } from "@/engine/core/managers/base/AbstractManager";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { ETreasureState, NotificationManager } from "@/engine/core/managers/interface/notifications";
 import { ITreasureDescriptor, ITreasureItemsDescriptor } from "@/engine/core/managers/world/treasures/treasures_types";
@@ -47,7 +47,7 @@ const logger: LuaLogger = new LuaLogger($filename);
 /**
  * Manager to handle treasures indication, giving and completion for actor.
  */
-export class TreasureManager extends AbstractCoreManager {
+export class TreasureManager extends AbstractManager {
   public static readonly SECRET_LTX_SECTION: TSection = "secret";
 
   /**

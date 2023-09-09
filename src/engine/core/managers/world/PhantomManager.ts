@@ -1,12 +1,12 @@
 import { level } from "xray16";
 
-import { AbstractCoreManager } from "@/engine/core/managers/base/AbstractCoreManager";
+import { AbstractManager } from "@/engine/core/managers/base/AbstractManager";
 import { TCount, Vector } from "@/engine/lib/types";
 
 /**
  * todo;
  */
-export class PhantomManager extends AbstractCoreManager {
+export class PhantomManager extends AbstractManager {
   public phantomsCount: TCount = 0;
 
   /**

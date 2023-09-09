@@ -1,7 +1,7 @@
 import { game, get_hud, level } from "xray16";
 
 import { closeLoadMarker, closeSaveMarker, openLoadMarker, openSaveMarker, registry } from "@/engine/core/database";
-import { AbstractCoreManager } from "@/engine/core/managers/base";
+import { AbstractManager } from "@/engine/core/managers/base";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { readTimeFromPacket, writeTimeToPacket } from "@/engine/core/utils/game/game_time";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -24,7 +24,7 @@ const logger: LuaLogger = new LuaLogger($filename);
 /**
  * Manager to handle actor input.
  */
-export class ActorInputManager extends AbstractCoreManager {
+export class ActorInputManager extends AbstractManager {
   public isWeaponHidden: boolean = false;
   public isWeaponHiddenInDialog: boolean = false;
   public isActorNightVisionEnabled: boolean = false;

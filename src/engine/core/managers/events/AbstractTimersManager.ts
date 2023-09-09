@@ -1,6 +1,6 @@
 import { time_global } from "xray16";
 
-import { AbstractCoreManager } from "@/engine/core/managers/base/AbstractCoreManager";
+import { AbstractManager } from "@/engine/core/managers/base/AbstractManager";
 import { IIntervalDescriptor, ITimeoutDescriptor } from "@/engine/core/managers/events/types";
 import { assert } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -12,7 +12,7 @@ const logger: LuaLogger = new LuaLogger($filename);
 /**
  * Abstract intervals manager.
  */
-export class AbstractTimersManager extends AbstractCoreManager {
+export class AbstractTimersManager extends AbstractManager {
   /**
    * @param callback - functor to call on defined period
    * @param period - period time to call functor, expect values bigger than 50

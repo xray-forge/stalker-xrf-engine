@@ -1,7 +1,7 @@
 import { alife, clsid } from "xray16";
 
 import { getPortableStoreValue, registry, setPortableStoreValue } from "@/engine/core/database";
-import { AbstractCoreManager } from "@/engine/core/managers/base/AbstractCoreManager";
+import { AbstractManager } from "@/engine/core/managers/base/AbstractManager";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import type { TaskObject } from "@/engine/core/managers/interaction/tasks";
 import type { IActorStatistics } from "@/engine/core/managers/interface/statistics/statistics_types";
@@ -39,7 +39,7 @@ const logger: LuaLogger = new LuaLogger($filename);
 /**
  * Manager to measure game statistics of actions done by actor.
  */
-export class StatisticsManager extends AbstractCoreManager {
+export class StatisticsManager extends AbstractManager {
   public actorStatistics: IActorStatistics = {
     surgesCount: 0,
     completedTasksCount: 0,

@@ -8,7 +8,7 @@ import {
   openSaveMarker,
   registry,
 } from "@/engine/core/database";
-import { AbstractCoreManager } from "@/engine/core/managers/base/AbstractCoreManager";
+import { AbstractManager } from "@/engine/core/managers/base/AbstractManager";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import {
   EGenericDialogCategory,
@@ -43,7 +43,7 @@ const logger: LuaLogger = new LuaLogger($filename);
 /**
  * todo;
  */
-export class DialogManager extends AbstractCoreManager {
+export class DialogManager extends AbstractManager {
   private static ID_COUNTER: TNumberId = 5;
 
   private getNextPhraseId(): TNumberId {

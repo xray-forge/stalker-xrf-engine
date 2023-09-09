@@ -1,7 +1,7 @@
 import { game } from "xray16";
 
 import { ITEM_UPGRADES, registry, STALKER_UPGRADE_INFO, SYSTEM_INI } from "@/engine/core/database";
-import { AbstractCoreManager } from "@/engine/core/managers/base/AbstractCoreManager";
+import { AbstractManager } from "@/engine/core/managers/base/AbstractManager";
 import {
   parseConditionsList,
   parseStringsList,
@@ -25,7 +25,7 @@ export type TItemUpgradeBranch = 0 | 1 | 2;
 /**
  * todo;
  */
-export class ItemUpgradesManager extends AbstractCoreManager {
+export class ItemUpgradesManager extends AbstractManager {
   public static readonly ITEM_REPAIR_PRICE_COEFFICIENT: TRate = 0.6;
 
   public upgradeHints: Optional<LuaArray<TLabel>> = null;
