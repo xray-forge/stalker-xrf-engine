@@ -33,6 +33,6 @@ export class SchemeNoWeapon extends AbstractScheme {
     section: TSection,
     state: ISchemeNoWeaponState
   ): void {
-    SchemeNoWeapon.subscribe(object, state, new NoWeaponManager(object, state, this));
+    SchemeNoWeapon.subscribe(object, state, new NoWeaponManager(object, state));
   }
 }

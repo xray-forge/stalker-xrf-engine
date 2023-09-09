@@ -57,6 +57,14 @@ export enum EGameEvent {
    */
   ACTOR_START_SLEEP,
   /**
+   * Actor entering no weapon zone restrictor.
+   */
+  ACTOR_ENTER_NO_WEAPON_ZONE,
+  /**
+   * Actor leaving no weapon zone restrictor.
+   */
+  ACTOR_LEAVE_NO_WEAPON_ZONE,
+  /**
    * Actor finished sleeping.
    */
   ACTOR_FINISH_SLEEP,

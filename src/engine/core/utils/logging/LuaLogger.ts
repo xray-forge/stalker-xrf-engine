@@ -18,13 +18,16 @@ export class LuaLogger {
 
   public isEnabled: boolean;
   public mode: ELuaLoggerMode;
-  public file: Optional<LuaFile>;
+
+  protected loggerFile: Optional<LuaFile>;
+  protected luaFile: LuaFile;
 
   public constructor(prefix: TLabel, { isEnabled = true, mode = ELuaLoggerMode.SINGLE, file }: ILuaLoggerConfig = {}) {
     this.isEnabled = isEnabled;
     this.mode = mode;
     this.prefix = string.format("[%s]", prefix);
-    this.file = file ? openLogFile(file) : null;
+    this.loggerFile = file ? openLogFile(file) : null;
+    this.luaFile = openLogFile("lua");
 
     if (gameConfig.DEBUG.IS_RESOLVE_LOG_ENABLED) {
       this.info("Declared logger: '" + prefix + "'");
@@ -130,13 +133,19 @@ export class LuaLogger {
     const result: string = string.format("[%s]%s%s %s", time_global(), prefix, level, table.concat(args, " "));
 
     // Write into custom file if it is defined for current logger.
-    if (this.file) {
-      this.file.write(result);
-      this.file.write("\n");
+    if (this.loggerFile) {
+      this.loggerFile.write(result);
+      this.loggerFile.write("\n");
     }
 
     // Write into shared game console if no file defined/dual mode enabled.
-    if (this.file === null || this.mode === ELuaLoggerMode.DUAL) {
+    if (this.loggerFile === null || this.mode === ELuaLoggerMode.DUAL) {
+      // Write into custom file if it is defined for current logger.
+      if (gameConfig.DEBUG.IS_SEPARATE_LUA_LOG_ENABLED) {
+        this.luaFile.write(result);
+        this.luaFile.write("\n");
+      }
+
       log(result);
     }
   }

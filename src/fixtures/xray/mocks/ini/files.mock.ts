@@ -67,6 +67,10 @@ export const FILES_MOCKS: Record<TPath, AnyObject> = {
       weathers: "dynamic_default",
     },
   },
+  ["scheme_mock.ltx"]: {
+    starting: {},
+    "sr_no_weapon@another": {},
+  },
   "object_spawn.ini": {},
   "misc\\script_sound.ltx": {
     list: ["pda_task"],

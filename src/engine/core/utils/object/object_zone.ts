@@ -5,7 +5,7 @@ import { registry } from "@/engine/core/database";
  * todo;
  * todo;
  */
-export function isActorInWeaponRestrictionZone(): boolean {
+export function isActorInNoWeaponZone(): boolean {
   for (const [, isActive] of registry.noWeaponZones) {
     if (isActive) {
       return true;

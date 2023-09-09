@@ -5,7 +5,7 @@ import { AbstractCoreManager } from "@/engine/core/managers/base";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { readTimeFromPacket, writeTimeToPacket } from "@/engine/core/utils/game/game_time";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { isActorInWeaponRestrictionZone } from "@/engine/core/utils/object/object_zone";
+import { isActorInNoWeaponZone } from "@/engine/core/utils/object/object_zone";
 import { misc } from "@/engine/lib/constants/items/misc";
 import {
   ClientObject,
@@ -249,7 +249,7 @@ export class ActorInputManager extends AbstractCoreManager {
       }
     }
 
-    if (isActorInWeaponRestrictionZone()) {
+    if (isActorInNoWeaponZone()) {
       if (!this.isWeaponHidden) {
         logger.info("Hiding weapon");
         actor.hide_weapon();

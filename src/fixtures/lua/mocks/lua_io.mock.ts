@@ -37,6 +37,8 @@ export class MockIoFile {
     return this.content;
   });
 
+  public setvbuf = jest.fn((): void => {});
+
   public asMock = jest.fn((): LuaFile => {
     return this as unknown as LuaFile;
   });
