@@ -269,6 +269,78 @@ export enum EGameEvent {
    */
   ITEM_GRENADE_UNREGISTERED,
   /**
+   * Registered helmet item server object.
+   */
+  ITEM_HELMET_REGISTERED,
+  /**
+   * Unregistered helmet item server object.
+   */
+  ITEM_HELMET_UNREGISTERED,
+  /**
+   * Registered outfit item server object.
+   */
+  ITEM_OUTFIT_REGISTERED,
+  /**
+   * Unregistered outfit item server object.
+   */
+  ITEM_OUTFIT_UNREGISTERED,
+  /**
+   * Unregistered pda item server object.
+   */
+  ITEM_PDA_REGISTERED,
+  /**
+   * Unregistered pda item server object.
+   */
+  ITEM_PDA_UNREGISTERED,
+  /**
+   * Unregistered pda item server object.
+   */
+  ITEM_TORCH_REGISTERED,
+  /**
+   * Unregistered pda item server object.
+   */
+  ITEM_TORCH_UNREGISTERED,
+  /**
+   * Unregistered pda item server object.
+   */
+  ITEM_WEAPON_REGISTERED,
+  /**
+   * Unregistered pda item server object.
+   */
+  ITEM_WEAPON_UNREGISTERED,
+  /**
+   * Unregistered auto shotgun  item server object.
+   */
+  ITEM_WEAPON_AUTOMATIC_SHOTGUN_REGISTERED,
+  /**
+   * Unregistered auto shotgun item server object.
+   */
+  ITEM_WEAPON_AUTOMATIC_SHOTGUN_UNREGISTERED,
+  /**
+   * Unregistered magazined weapon item server object.
+   */
+  ITEM_WEAPON_MAGAZINED_REGISTERED,
+  /**
+   * Unregistered magazined weapon item server object.
+   */
+  ITEM_WEAPON_MAGAZINED_UNREGISTERED,
+  /**
+   * Registered magazined weapon with grenade launcher server object.
+   */
+  ITEM_WEAPON_MAGAZINED_WGL_REGISTERED,
+  /**
+   * Unregistered magazined weapon with grenade launcher server object.
+   */
+  ITEM_WEAPON_MAGAZINED_WGL_UNREGISTERED,
+  /**
+   * Registered shotgun weapon server object.
+   */
+  ITEM_WEAPON_SHOTGUN_REGISTERED,
+  /**
+   * Unregistered shotgun weapon server object.
+   */
+  ITEM_WEAPON_SHOTGUN_UNREGISTERED,
+  /**
    * Surge ended.
    */
   SURGE_ENDED,

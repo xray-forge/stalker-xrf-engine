@@ -1,6 +1,7 @@
 import { describe, expect, it, jest } from "@jest/globals";
 
 import { getObjectIdByStoryId, getServerObjectByStoryId, getStoryIdByObjectId, registry } from "@/engine/core/database";
+import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { ItemWeaponShotgun } from "@/engine/core/objects/server/item/ItemWeaponShotgun";
 import { mockIniFile } from "@/fixtures/xray/mocks/ini";
 
@@ -60,5 +61,44 @@ describe("ItemWeaponShotgun server class", () => {
 
     expect(registry.storyLink.idBySid.length()).toBe(0);
     expect(registry.storyLink.sidById.length()).toBe(0);
+  });
+
+  it("should correctly emit lifecycle events", () => {
+    const eventsManager: EventsManager = EventsManager.getInstance();
+    const itemWeaponShotgun: ItemWeaponShotgun = new ItemWeaponShotgun("test-section");
+
+    const onItemWeaponShotgunRegister = jest.fn();
+    const onItemWeaponShotgunUnregister = jest.fn();
+    const onItemWeaponRegister = jest.fn();
+    const onItemWeaponUnregister = jest.fn();
+    const onItemRegister = jest.fn();
+    const onItemUnregister = jest.fn();
+
+    eventsManager.registerCallback(EGameEvent.ITEM_WEAPON_SHOTGUN_REGISTERED, onItemWeaponShotgunRegister);
+    eventsManager.registerCallback(EGameEvent.ITEM_WEAPON_SHOTGUN_UNREGISTERED, onItemWeaponShotgunUnregister);
+
+    eventsManager.registerCallback(EGameEvent.ITEM_WEAPON_REGISTERED, onItemWeaponRegister);
+    eventsManager.registerCallback(EGameEvent.ITEM_WEAPON_UNREGISTERED, onItemWeaponUnregister);
+
+    eventsManager.registerCallback(EGameEvent.ITEM_REGISTERED, onItemRegister);
+    eventsManager.registerCallback(EGameEvent.ITEM_UNREGISTERED, onItemUnregister);
+
+    itemWeaponShotgun.on_register();
+
+    expect(onItemWeaponShotgunRegister).toHaveBeenCalledWith(itemWeaponShotgun);
+    expect(onItemWeaponShotgunUnregister).not.toHaveBeenCalled();
+    expect(onItemWeaponRegister).toHaveBeenCalledWith(itemWeaponShotgun);
+    expect(onItemWeaponUnregister).not.toHaveBeenCalled();
+    expect(onItemRegister).toHaveBeenCalledWith(itemWeaponShotgun);
+    expect(onItemUnregister).not.toHaveBeenCalled();
+
+    itemWeaponShotgun.on_unregister();
+
+    expect(onItemWeaponShotgunRegister).toHaveBeenCalledWith(itemWeaponShotgun);
+    expect(onItemWeaponShotgunUnregister).toHaveBeenCalledWith(itemWeaponShotgun);
+    expect(onItemWeaponRegister).toHaveBeenCalledWith(itemWeaponShotgun);
+    expect(onItemWeaponUnregister).toHaveBeenCalledWith(itemWeaponShotgun);
+    expect(onItemRegister).toHaveBeenCalledWith(itemWeaponShotgun);
+    expect(onItemUnregister).toHaveBeenCalledWith(itemWeaponShotgun);
   });
 });

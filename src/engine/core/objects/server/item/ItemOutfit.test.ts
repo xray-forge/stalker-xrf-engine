@@ -1,6 +1,7 @@
 import { describe, expect, it, jest } from "@jest/globals";
 
 import { getObjectIdByStoryId, getServerObjectByStoryId, getStoryIdByObjectId, registry } from "@/engine/core/database";
+import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { ItemOutfit } from "@/engine/core/objects/server/item/ItemOutfit";
 import { mockIniFile } from "@/fixtures/xray/mocks/ini";
 
@@ -60,5 +61,35 @@ describe("ItemOutfit server class", () => {
 
     expect(registry.storyLink.idBySid.length()).toBe(0);
     expect(registry.storyLink.sidById.length()).toBe(0);
+  });
+
+  it("should correctly emit lifecycle events", () => {
+    const eventsManager: EventsManager = EventsManager.getInstance();
+    const itemOutfit: ItemOutfit = new ItemOutfit("test-section");
+
+    const onItemOutfitRegister = jest.fn();
+    const onItemOutfitUnregister = jest.fn();
+    const onItemRegister = jest.fn();
+    const onItemUnregister = jest.fn();
+
+    eventsManager.registerCallback(EGameEvent.ITEM_OUTFIT_REGISTERED, onItemOutfitRegister);
+    eventsManager.registerCallback(EGameEvent.ITEM_OUTFIT_UNREGISTERED, onItemOutfitUnregister);
+
+    eventsManager.registerCallback(EGameEvent.ITEM_REGISTERED, onItemRegister);
+    eventsManager.registerCallback(EGameEvent.ITEM_UNREGISTERED, onItemUnregister);
+
+    itemOutfit.on_register();
+
+    expect(onItemOutfitRegister).toHaveBeenCalledWith(itemOutfit);
+    expect(onItemOutfitUnregister).not.toHaveBeenCalled();
+    expect(onItemRegister).toHaveBeenCalledWith(itemOutfit);
+    expect(onItemUnregister).not.toHaveBeenCalled();
+
+    itemOutfit.on_unregister();
+
+    expect(onItemOutfitRegister).toHaveBeenCalledWith(itemOutfit);
+    expect(onItemOutfitUnregister).toHaveBeenCalledWith(itemOutfit);
+    expect(onItemRegister).toHaveBeenCalledWith(itemOutfit);
+    expect(onItemUnregister).toHaveBeenCalledWith(itemOutfit);
   });
 });

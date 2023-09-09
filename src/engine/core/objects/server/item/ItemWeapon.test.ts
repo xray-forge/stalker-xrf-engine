@@ -1,6 +1,7 @@
 import { describe, expect, it, jest } from "@jest/globals";
 
 import { getObjectIdByStoryId, getServerObjectByStoryId, getStoryIdByObjectId, registry } from "@/engine/core/database";
+import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { ItemWeapon } from "@/engine/core/objects/server/item/ItemWeapon";
 import { mockIniFile } from "@/fixtures/xray/mocks/ini";
 
@@ -60,5 +61,35 @@ describe("ItemWeapon server class", () => {
 
     expect(registry.storyLink.idBySid.length()).toBe(0);
     expect(registry.storyLink.sidById.length()).toBe(0);
+  });
+
+  it("should correctly emit lifecycle events", () => {
+    const eventsManager: EventsManager = EventsManager.getInstance();
+    const itemWeapon: ItemWeapon = new ItemWeapon("test-section");
+
+    const onItemTorchRegister = jest.fn();
+    const onItemTorchUnregister = jest.fn();
+    const onItemRegister = jest.fn();
+    const onItemUnregister = jest.fn();
+
+    eventsManager.registerCallback(EGameEvent.ITEM_WEAPON_REGISTERED, onItemTorchRegister);
+    eventsManager.registerCallback(EGameEvent.ITEM_WEAPON_UNREGISTERED, onItemTorchUnregister);
+
+    eventsManager.registerCallback(EGameEvent.ITEM_REGISTERED, onItemRegister);
+    eventsManager.registerCallback(EGameEvent.ITEM_UNREGISTERED, onItemUnregister);
+
+    itemWeapon.on_register();
+
+    expect(onItemTorchRegister).toHaveBeenCalledWith(itemWeapon);
+    expect(onItemTorchUnregister).not.toHaveBeenCalled();
+    expect(onItemRegister).toHaveBeenCalledWith(itemWeapon);
+    expect(onItemUnregister).not.toHaveBeenCalled();
+
+    itemWeapon.on_unregister();
+
+    expect(onItemTorchRegister).toHaveBeenCalledWith(itemWeapon);
+    expect(onItemTorchUnregister).toHaveBeenCalledWith(itemWeapon);
+    expect(onItemRegister).toHaveBeenCalledWith(itemWeapon);
+    expect(onItemUnregister).toHaveBeenCalledWith(itemWeapon);
   });
 });
