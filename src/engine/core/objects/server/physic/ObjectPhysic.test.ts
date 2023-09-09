@@ -1,6 +1,7 @@
 import { describe, expect, it, jest } from "@jest/globals";
 
 import { getObjectIdByStoryId, getServerObjectByStoryId, getStoryIdByObjectId, registry } from "@/engine/core/database";
+import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { ObjectPhysic } from "@/engine/core/objects/server/physic/ObjectPhysic";
 import { mockIniFile } from "@/fixtures/xray/mocks/ini";
 
@@ -60,5 +61,26 @@ describe("ObjectPhysic server class", () => {
 
     expect(registry.storyLink.idBySid.length()).toBe(0);
     expect(registry.storyLink.sidById.length()).toBe(0);
+  });
+
+  it("should correctly emit lifecycle events", () => {
+    const eventsManager: EventsManager = EventsManager.getInstance();
+    const object: ObjectPhysic = new ObjectPhysic("test-section");
+
+    const obObjectRegister = jest.fn();
+    const onObjectUnregister = jest.fn();
+
+    eventsManager.registerCallback(EGameEvent.OBJECT_PHYSIC_REGISTER, obObjectRegister);
+    eventsManager.registerCallback(EGameEvent.OBJECT_PHYSIC_UNREGISTER, onObjectUnregister);
+
+    object.on_register();
+
+    expect(obObjectRegister).toHaveBeenCalledWith(object);
+    expect(onObjectUnregister).not.toHaveBeenCalled();
+
+    object.on_unregister();
+
+    expect(obObjectRegister).toHaveBeenCalledWith(object);
+    expect(onObjectUnregister).toHaveBeenCalledWith(object);
   });
 });

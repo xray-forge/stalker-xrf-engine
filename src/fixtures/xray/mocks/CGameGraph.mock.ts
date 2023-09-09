@@ -25,4 +25,6 @@ export class MockCGameGraph {
 
     return MockCGameGraph.registry[vertexId];
   });
+
+  public levels = jest.fn(() => []);
 }

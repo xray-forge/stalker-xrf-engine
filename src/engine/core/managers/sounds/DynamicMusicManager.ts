@@ -74,7 +74,7 @@ export class DynamicMusicManager extends AbstractCoreManager {
     const eventsManager: EventsManager = EventsManager.getInstance();
 
     eventsManager.registerCallback(EGameEvent.ACTOR_UPDATE, this.onActorUpdate, this);
-    eventsManager.registerCallback(EGameEvent.ACTOR_NET_DESTROY, this.onActorNetworkDestroy, this);
+    eventsManager.registerCallback(EGameEvent.ACTOR_DESTROY, this.onActorNetworkDestroy, this);
     eventsManager.registerCallback(EGameEvent.MAIN_MENU_ON, this.onMainMenuOn, this);
     eventsManager.registerCallback(EGameEvent.MAIN_MENU_OFF, this.onMainMenuOff, this);
   }
@@ -83,7 +83,7 @@ export class DynamicMusicManager extends AbstractCoreManager {
     const eventsManager: EventsManager = EventsManager.getInstance();
 
     eventsManager.unregisterCallback(EGameEvent.ACTOR_UPDATE, this.onActorUpdate);
-    eventsManager.unregisterCallback(EGameEvent.ACTOR_NET_DESTROY, this.onActorNetworkDestroy);
+    eventsManager.unregisterCallback(EGameEvent.ACTOR_DESTROY, this.onActorNetworkDestroy);
     eventsManager.unregisterCallback(EGameEvent.MAIN_MENU_ON, this.onMainMenuOn);
     eventsManager.unregisterCallback(EGameEvent.MAIN_MENU_OFF, this.onMainMenuOff);
   }

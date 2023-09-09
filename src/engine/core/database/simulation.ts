@@ -4,6 +4,7 @@ import { SIMULATION_OBJECTS_PROPS_LTX } from "@/engine/core/database/ini_registr
 import { registry } from "@/engine/core/database/registry";
 import { TSimulationObject } from "@/engine/core/managers/simulation";
 import { parseConditionsList } from "@/engine/core/utils/ini/ini_parse";
+import { isSquad } from "@/engine/core/utils/object";
 import { ACTOR, DEFAULT } from "@/engine/lib/constants/words";
 import { TCount, TSection } from "@/engine/lib/types";
 
@@ -48,10 +49,7 @@ export function updateSimulationObjectAvailability(object: TSimulationObject): v
 export function initializeSimulationObjectProperties(simulationObject: TSimulationObject): void {
   simulationObject.simulationProperties = new LuaTable();
 
-  let section: TSection =
-    simulationObject.clsid() === clsid.online_offline_group_s
-      ? simulationObject.section_name()
-      : simulationObject.name();
+  let section: TSection = isSquad(simulationObject) ? simulationObject.section_name() : simulationObject.name();
 
   if (!SIMULATION_OBJECTS_PROPS_LTX.section_exist(section)) {
     if (simulationObject.clsid() === clsid.online_offline_group_s) {

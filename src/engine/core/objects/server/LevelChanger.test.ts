@@ -1,7 +1,9 @@
 import { describe, expect, it, jest } from "@jest/globals";
 
 import { getObjectIdByStoryId, getServerObjectByStoryId, getStoryIdByObjectId, registry } from "@/engine/core/database";
+import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { LevelChanger } from "@/engine/core/objects/server/LevelChanger";
+import { ZoneAnomalous } from "@/engine/core/objects/server/zone";
 import { EPacketDataType, mockIniFile, mockNetPacket, MockNetProcessor } from "@/fixtures/xray";
 
 describe("LevelChanger server class", () => {
@@ -71,5 +73,26 @@ describe("LevelChanger server class", () => {
 
     expect(anotherLevelChanger.isEnabled).toBe(false);
     expect(anotherLevelChanger.invitationHint).toBe("another");
+  });
+
+  it("should correctly emit lifecycle events", () => {
+    const eventsManager: EventsManager = EventsManager.getInstance();
+    const levelChanger: LevelChanger = new LevelChanger("test-section");
+
+    const onLevelChangerRegister = jest.fn();
+    const onLevelChangerUnregister = jest.fn();
+
+    eventsManager.registerCallback(EGameEvent.LEVEL_CHANGER_REGISTERED, onLevelChangerRegister);
+    eventsManager.registerCallback(EGameEvent.LEVEL_CHANGER_UNREGISTERED, onLevelChangerUnregister);
+
+    levelChanger.on_register();
+
+    expect(onLevelChangerRegister).toHaveBeenCalledWith(levelChanger);
+    expect(onLevelChangerUnregister).not.toHaveBeenCalled();
+
+    levelChanger.on_unregister();
+
+    expect(onLevelChangerRegister).toHaveBeenCalledWith(levelChanger);
+    expect(onLevelChangerUnregister).toHaveBeenCalledWith(levelChanger);
   });
 });

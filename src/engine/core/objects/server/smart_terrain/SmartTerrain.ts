@@ -28,6 +28,7 @@ import {
   unregisterStoryLinkByObjectId,
   updateSimulationObjectAvailability,
 } from "@/engine/core/database";
+import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { MapDisplayManager } from "@/engine/core/managers/interface";
 import {
   ESimulationTerrainRole,
@@ -224,16 +225,20 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
 
     this.registerDelayedObjects();
     this.nextCheckAt = time_global();
+
+    EventsManager.emitEvent(EGameEvent.SMART_TERRAIN_REGISTER, this);
   }
 
   public override on_unregister(): void {
-    super.on_unregister();
+    EventsManager.emitEvent(EGameEvent.SMART_TERRAIN_UNREGISTER, this);
 
     unregisterStoryLinkByObjectId(this.id);
     unregisterSimulationObject(this);
 
     this.simulationBoardManager.unregisterSmartTerrain(this);
     this.isRegistered = false;
+
+    super.on_unregister();
   }
 
   public override register_npc(object: ServerCreatureObject): void {

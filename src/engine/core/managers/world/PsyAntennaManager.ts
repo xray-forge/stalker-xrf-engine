@@ -125,7 +125,7 @@ export class PsyAntennaManager extends AbstractCoreManager {
     const eventsManager: EventsManager = EventsManager.getInstance();
 
     eventsManager.registerCallback(EGameEvent.ACTOR_UPDATE, this.update, this);
-    eventsManager.registerCallback(EGameEvent.ACTOR_NET_DESTROY, this.dispose, this);
+    eventsManager.registerCallback(EGameEvent.ACTOR_DESTROY, this.dispose, this);
   }
 
   /**
@@ -135,7 +135,7 @@ export class PsyAntennaManager extends AbstractCoreManager {
     const eventsManager: EventsManager = EventsManager.getInstance();
 
     eventsManager.unregisterCallback(EGameEvent.ACTOR_UPDATE, this.update);
-    eventsManager.unregisterCallback(EGameEvent.ACTOR_NET_DESTROY, this.dispose);
+    eventsManager.unregisterCallback(EGameEvent.ACTOR_DESTROY, this.dispose);
 
     this.soundObjectRight.stop();
     this.soundObjectLeft.stop();

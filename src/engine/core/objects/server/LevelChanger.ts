@@ -8,6 +8,7 @@ import {
   unregisterStoryLinkByObjectId,
 } from "@/engine/core/database";
 import { openLoadMarker } from "@/engine/core/database/save_markers";
+import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { NetPacket, TLabel } from "@/engine/lib/types";
 
@@ -26,10 +27,13 @@ export class LevelChanger extends cse_alife_level_changer {
     super.on_register();
 
     registerObjectStoryLinks(this);
+    EventsManager.emitEvent(EGameEvent.LEVEL_CHANGER_REGISTERED, this);
   }
 
   public override on_unregister(): void {
+    EventsManager.emitEvent(EGameEvent.LEVEL_CHANGER_UNREGISTERED, this);
     unregisterStoryLinkByObjectId(this.id);
+
     super.on_unregister();
   }
 

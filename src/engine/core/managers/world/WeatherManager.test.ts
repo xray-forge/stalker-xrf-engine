@@ -32,7 +32,7 @@ describe("WeatherManager class", () => {
     const weatherManager: WeatherManager = getManagerInstance(WeatherManager);
     const eventsManager: EventsManager = getManagerInstance(EventsManager);
 
-    eventsManager.emitEvent(EGameEvent.ACTOR_NET_SPAWN);
+    eventsManager.emitEvent(EGameEvent.ACTOR_SPAWN);
 
     expect(level.name()).toBe("zaton");
 

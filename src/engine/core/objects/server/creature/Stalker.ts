@@ -47,32 +47,6 @@ export class Stalker extends cse_alife_human_stalker {
     return super.can_switch_online();
   }
 
-  public override STATE_Write(packet: NetPacket): void {
-    super.STATE_Write(packet);
-
-    packet.w_stringZ(
-      tostring(
-        this.online
-          ? level?.object_by_id(this.id)?.level_vertex_id()
-          : registry.offlineObjects.get(this.id).levelVertexId
-      )
-    );
-
-    packet.w_stringZ(tostring(registry.offlineObjects.get(this.id).activeSection));
-    packet.w_bool(this.isCorpseLootDropped);
-  }
-
-  public override STATE_Read(packet: NetPacket, size: number): void {
-    super.STATE_Read(packet, size);
-
-    const offlineObject: IStoredOfflineObject = registerOfflineObject(this.id);
-
-    offlineObject.levelVertexId = parseNumberOptional(packet.r_stringZ());
-    offlineObject.activeSection = parseStringOptional(packet.r_stringZ());
-
-    this.isCorpseLootDropped = packet.r_bool();
-  }
-
   public override on_register(): void {
     super.on_register();
 
@@ -88,14 +62,16 @@ export class Stalker extends cse_alife_human_stalker {
     const smartName: TName = readIniString(objectIni, "logic", "smart_terrain", false, "", "");
     const smartTerrain: Optional<SmartTerrain> = simulationBoardManager.getSmartTerrainByName(smartName);
 
-    if (smartTerrain === null) {
-      return;
+    if (smartTerrain) {
+      alife().object<SmartTerrain>(smartTerrain.id)!.register_npc(this);
     }
 
-    alife().object<SmartTerrain>(smartTerrain.id)!.register_npc(this);
+    EventsManager.emitEvent(EGameEvent.STALKER_REGISTER, this);
   }
 
   public override on_unregister(): void {
+    EventsManager.emitEvent(EGameEvent.STALKER_UNREGISTER, this);
+
     const smartTerrainId: TNumberId = this.smart_terrain_id();
 
     if (smartTerrainId !== MAX_U16) {
@@ -134,5 +110,31 @@ export class Stalker extends cse_alife_human_stalker {
     }
 
     EventsManager.emitEvent(EGameEvent.STALKER_DEATH, this, killer);
+  }
+
+  public override STATE_Write(packet: NetPacket): void {
+    super.STATE_Write(packet);
+
+    packet.w_stringZ(
+      tostring(
+        this.online
+          ? level?.object_by_id(this.id)?.level_vertex_id()
+          : registry.offlineObjects.get(this.id).levelVertexId
+      )
+    );
+
+    packet.w_stringZ(tostring(registry.offlineObjects.get(this.id).activeSection));
+    packet.w_bool(this.isCorpseLootDropped);
+  }
+
+  public override STATE_Read(packet: NetPacket, size: number): void {
+    super.STATE_Read(packet, size);
+
+    const offlineObject: IStoredOfflineObject = registerOfflineObject(this.id);
+
+    offlineObject.levelVertexId = parseNumberOptional(packet.r_stringZ());
+    offlineObject.activeSection = parseStringOptional(packet.r_stringZ());
+
+    this.isCorpseLootDropped = packet.r_bool();
   }
 }

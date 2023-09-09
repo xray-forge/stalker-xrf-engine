@@ -5,13 +5,21 @@ import { AnyCallable, TDuration, TTimestamp } from "@/engine/lib/types";
  */
 export enum EGameEvent {
   /**
-   * Actor spawned after start / load in level.
+   * Actor registered.
    */
-  ACTOR_NET_SPAWN = 1,
+  ACTOR_REGISTER,
   /**
-   * Actor object destroyed.
+   * Actor unregistered.
    */
-  ACTOR_NET_DESTROY,
+  ACTOR_UNREGISTER,
+  /**
+   * Actor spawned after start / load in level and become online.
+   */
+  ACTOR_SPAWN = 1,
+  /**
+   * Actor object destroyed and gone offline.
+   */
+  ACTOR_DESTROY,
   /**
    * Actor update iteration.
    */
@@ -57,6 +65,150 @@ export enum EGameEvent {
    */
   ACTOR_FIRST_UPDATE,
   /**
+   * On stalker object registered.
+   */
+  STALKER_REGISTER,
+  /**
+   * On stalker object unregistered.
+   */
+  STALKER_UNREGISTER,
+  /**
+   * On interaction with NPC, when player 'uses' game object.
+   */
+  STALKER_INTERACTION,
+  /**
+   * On stalker hit.
+   */
+  STALKER_HIT,
+  /**
+   * On stalker killed.
+   * Client side death event.
+   */
+  STALKER_KILLED,
+  /**
+   * Stalker death.
+   * Server side death event.
+   */
+  STALKER_DEATH,
+  /**
+   * On monster register.
+   */
+  MONSTER_REGISTER,
+  /**
+   * On monster unregister.
+   */
+  MONSTER_UNREGISTER,
+  /**
+   * On monster hit.
+   */
+  MONSTER_HIT,
+  /**
+   * On monster killed.
+   * Client side death event.
+   */
+  MONSTER_KILLED,
+  /**
+   * Monster death.
+   * Server side death event.
+   */
+  MONSTER_DEATH,
+  /**
+   * Registered helicopter server object.
+   */
+  HELICOPTER_REGISTERED,
+  /**
+   * Unregistered helicopter server object.
+   */
+  HELICOPTER_UNREGISTERED,
+  /**
+   * Registered squad server object.
+   */
+  SQUAD_REGISTERED,
+  /**
+   * Unregistered squad server object.
+   */
+  SQUAD_UNREGISTERED,
+  /**
+   * Smart terrain registered.
+   */
+  SMART_TERRAIN_REGISTER,
+  /**
+   * Smart terrain unregistered.
+   */
+  SMART_TERRAIN_UNREGISTER,
+  /**
+   * Registered physic object.
+   */
+  OBJECT_PHYSIC_REGISTER,
+  /**
+   * Unregister physic object.
+   */
+  OBJECT_PHYSIC_UNREGISTER,
+  /**
+   * Registered hanging lamp object.
+   */
+  OBJECT_HANGING_LAMP_REGISTER,
+  /**
+   * Unregister hanging lamp object.
+   */
+  OBJECT_HANGING_LAMP_UNREGISTER,
+  /**
+   * Smart cover registered.
+   */
+  SMART_COVER_REGISTER,
+  /**
+   * Smart cover unregistered.
+   */
+  SMART_COVER_UNREGISTER,
+  /**
+   * Registered zone server object.
+   */
+  ZONE_REGISTERED,
+  /**
+   * Unregistered zone server object.
+   */
+  ZONE_UNREGISTERED,
+  /**
+   * Registered anomalous zone server object.
+   */
+  ANOMALOUS_ZONE_REGISTERED,
+  /**
+   * Unregistered anomalous zone server object.
+   */
+  ANOMALOUS_ZONE_UNREGISTERED,
+  /**
+   * Registered restrictor zone server object.
+   */
+  RESTRICTOR_ZONE_REGISTERED,
+  /**
+   * Unregistered restrictor zone server object.
+   */
+  RESTRICTOR_ZONE_UNREGISTERED,
+  /**
+   * Registered torrid zone server object.
+   */
+  TORRID_ZONE_REGISTERED,
+  /**
+   * Unregistered torrid zone server object.
+   */
+  TORRID_ZONE_UNREGISTERED,
+  /**
+   * Registered visual zone server object.
+   */
+  VISUAL_ZONE_REGISTERED,
+  /**
+   * Unregistered visual zone server object.
+   */
+  VISUAL_ZONE_UNREGISTERED,
+  /**
+   * Registered level changer server object.
+   */
+  LEVEL_CHANGER_REGISTERED,
+  /**
+   * Unregistered level changer server object.
+   */
+  LEVEL_CHANGER_UNREGISTERED,
+  /**
    * Surge ended.
    */
   SURGE_ENDED,
@@ -89,38 +241,6 @@ export enum EGameEvent {
    */
   HIT,
   /**
-   * On interaction with NPC, when player 'uses' game object.
-   */
-  STALKER_INTERACTION,
-  /**
-   * On stalker hit.
-   */
-  STALKER_HIT,
-  /**
-   * On stalker killed.
-   * Client side death event.
-   */
-  STALKER_KILLED,
-  /**
-   * Stalker death.
-   * Server side death event.
-   */
-  STALKER_DEATH,
-  /**
-   * On monster hit.
-   */
-  MONSTER_HIT,
-  /**
-   * On monster killed.
-   * Client side death event.
-   */
-  MONSTER_KILLED,
-  /**
-   * Monster death.
-   * Server side death event.
-   */
-  MONSTER_DEATH,
-  /**
    * Main menu turned on.
    */
   MAIN_MENU_ON,
@@ -140,46 +260,6 @@ export enum EGameEvent {
    * Game state load.
    */
   GAME_LOAD,
-  /**
-   * Registered zone server object.
-   */
-  ZONE_REGISTERED,
-  /**
-   * Registered zone server object.
-   */
-  ZONE_UNREGISTERED,
-  /**
-   * Registered anomalous zone server object.
-   */
-  ANOMALOUS_ZONE_REGISTERED,
-  /**
-   * Unregistered anomalous zone server object.
-   */
-  ANOMALOUS_ZONE_UNREGISTERED,
-  /**
-   * Registered restrictor zone server object.
-   */
-  RESTRICTOR_ZONE_REGISTERED,
-  /**
-   * Unregistered restrictor zone server object.
-   */
-  RESTRICTOR_ZONE_UNREGISTERED,
-  /**
-   * Registered torrid zone server object.
-   */
-  TORRID_ZONE_REGISTERED,
-  /**
-   * Registered torrid zone server object.
-   */
-  TORRID_ZONE_UNREGISTERED,
-  /**
-   * Registered visual zone server object.
-   */
-  VISUAL_ZONE_REGISTERED,
-  /**
-   * Registered visual zone server object.
-   */
-  VISUAL_ZONE_UNREGISTERED,
 }
 
 /**
