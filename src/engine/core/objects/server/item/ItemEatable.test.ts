@@ -1,6 +1,7 @@
 import { describe, expect, it, jest } from "@jest/globals";
 
 import { getObjectIdByStoryId, getServerObjectByStoryId, getStoryIdByObjectId, registry } from "@/engine/core/database";
+import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { ItemEatable } from "@/engine/core/objects/server/item/ItemEatable";
 import { mockIniFile } from "@/fixtures/xray/mocks/ini";
 
@@ -60,5 +61,35 @@ describe("ItemEatable server class", () => {
 
     expect(registry.storyLink.idBySid.length()).toBe(0);
     expect(registry.storyLink.sidById.length()).toBe(0);
+  });
+
+  it("should correctly emit lifecycle events", () => {
+    const eventsManager: EventsManager = EventsManager.getInstance();
+    const itemEatable: ItemEatable = new ItemEatable("test-section");
+
+    const onItemEatableRegister = jest.fn();
+    const onItemEatableUnregister = jest.fn();
+    const onItemRegister = jest.fn();
+    const onItemUnregister = jest.fn();
+
+    eventsManager.registerCallback(EGameEvent.ITEM_EATABLE_REGISTERED, onItemEatableRegister);
+    eventsManager.registerCallback(EGameEvent.ITEM_EATABLE_UNREGISTERED, onItemEatableUnregister);
+
+    eventsManager.registerCallback(EGameEvent.ITEM_REGISTERED, onItemRegister);
+    eventsManager.registerCallback(EGameEvent.ITEM_UNREGISTERED, onItemUnregister);
+
+    itemEatable.on_register();
+
+    expect(onItemEatableRegister).toHaveBeenCalledWith(itemEatable);
+    expect(onItemEatableUnregister).not.toHaveBeenCalled();
+    expect(onItemRegister).toHaveBeenCalledWith(itemEatable);
+    expect(onItemUnregister).not.toHaveBeenCalled();
+
+    itemEatable.on_unregister();
+
+    expect(onItemEatableRegister).toHaveBeenCalledWith(itemEatable);
+    expect(onItemEatableUnregister).toHaveBeenCalledWith(itemEatable);
+    expect(onItemRegister).toHaveBeenCalledWith(itemEatable);
+    expect(onItemUnregister).toHaveBeenCalledWith(itemEatable);
   });
 });

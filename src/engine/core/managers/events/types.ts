@@ -249,6 +249,30 @@ export enum EGameEvent {
    */
   ITEM_DETECTOR_UNREGISTERED,
   /**
+   * Registered eatable item server object.
+   */
+  ITEM_EATABLE_REGISTERED,
+  /**
+   * Unregistered eatable item server object.
+   */
+  ITEM_EATABLE_UNREGISTERED,
+  /**
+   * Registered explosive item server object.
+   */
+  ITEM_EXPLOSIVE_REGISTERED,
+  /**
+   * Unregistered explosive item server object.
+   */
+  ITEM_GRENADE_UNREGISTERED,
+  /**
+   * Registered grenade item server object.
+   */
+  ITEM_GRENADE_REGISTERED,
+  /**
+   * Unregistered grenade item server object.
+   */
+  ITEM_GRENADE_UNREGISTERED,
+  /**
    * Surge ended.
    */
   SURGE_ENDED,
