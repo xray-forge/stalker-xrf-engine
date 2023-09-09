@@ -1,7 +1,9 @@
 import { jest } from "@jest/globals";
-import { rotation } from "xray16";
+import { CALifeMonsterBrain, rotation } from "xray16";
 
-import { ServerHumanObject } from "@/engine/lib/types";
+import { MAX_U16 } from "@/engine/lib/constants/memory";
+import { ServerHumanObject, TNumberId } from "@/engine/lib/types";
+import { MockCAlifeMonsterBrain } from "@/fixtures/xray";
 import { mockClsid } from "@/fixtures/xray/mocks/constants";
 import {
   MockServerAlifeCreatureAbstract,
@@ -9,10 +11,17 @@ import {
 } from "@/fixtures/xray/mocks/objects/server/cse_alife_creature_abstract.mock";
 
 /**
- * todo;
+ * Mock server human object representation.
  */
 export class MockAlifeHumanStalker extends MockServerAlifeCreatureAbstract {
+  public override m_smart_terrain_id: TNumberId = MAX_U16;
+  public aiBrain: CALifeMonsterBrain = MockCAlifeMonsterBrain.mock();
+
+  public smart_terrain_id = jest.fn(() => this.m_smart_terrain_id);
+
   public clsid = jest.fn(() => mockClsid.script_stalker);
+
+  public brain = jest.fn(() => this.aiBrain);
 }
 
 /**

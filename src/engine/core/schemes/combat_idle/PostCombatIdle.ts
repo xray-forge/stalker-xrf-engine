@@ -1,7 +1,7 @@
 import { cast_planner, world_property } from "xray16";
 
 import { registry } from "@/engine/core/database";
-import { EActionId, EEvaluatorId } from "@/engine/core/objects/ai";
+import { EActionId, EEvaluatorId } from "@/engine/core/objects/ai/types";
 import { ActionPostCombatIdleWait } from "@/engine/core/schemes/combat_idle/actions";
 import { EvaluatorHasEnemy } from "@/engine/core/schemes/combat_idle/evaluators";
 import { ISchemePostCombatIdleState } from "@/engine/core/schemes/combat_idle/ISchemePostCombatIdleState";

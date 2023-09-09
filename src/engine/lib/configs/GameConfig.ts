@@ -39,6 +39,10 @@ export const gameConfig = {
      * Useful to debug circular dependencies and resolving problems.
      */
     IS_RESOLVE_LOG_ENABLED: false,
+    /**
+     * Whether lua console logs should be also redirected into separate lua log file.
+     */
+    IS_SEPARATE_LUA_LOG_ENABLED: true,
   },
   /**
    * Base sizing for templates in UI.

@@ -1,7 +1,9 @@
 import { describe, expect, it, jest } from "@jest/globals";
 
 import { getObjectIdByStoryId, getServerObjectByStoryId, getStoryIdByObjectId, registry } from "@/engine/core/database";
+import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { Helicopter } from "@/engine/core/objects/server/Helicopter";
+import { LevelChanger } from "@/engine/core/objects/server/LevelChanger";
 import { mockIniFile } from "@/fixtures/xray/mocks/ini";
 
 describe("Helicopter server class", () => {
@@ -46,5 +48,26 @@ describe("Helicopter server class", () => {
 
     expect(registry.storyLink.idBySid.length()).toBe(0);
     expect(registry.storyLink.sidById.length()).toBe(0);
+  });
+
+  it("should correctly emit lifecycle events", () => {
+    const eventsManager: EventsManager = EventsManager.getInstance();
+    const helicopter: Helicopter = new Helicopter("test-section");
+
+    const onHelicopterRegister = jest.fn();
+    const onHelicopterUnregister = jest.fn();
+
+    eventsManager.registerCallback(EGameEvent.HELICOPTER_REGISTERED, onHelicopterRegister);
+    eventsManager.registerCallback(EGameEvent.HELICOPTER_UNREGISTERED, onHelicopterUnregister);
+
+    helicopter.on_register();
+
+    expect(onHelicopterRegister).toHaveBeenCalledWith(helicopter);
+    expect(onHelicopterUnregister).not.toHaveBeenCalled();
+
+    helicopter.on_unregister();
+
+    expect(onHelicopterRegister).toHaveBeenCalledWith(helicopter);
+    expect(onHelicopterUnregister).toHaveBeenCalledWith(helicopter);
   });
 });

@@ -2,7 +2,7 @@ import { beforeEach, describe, expect, it } from "@jest/globals";
 import { level } from "xray16";
 
 import { disposeManager, getManagerInstance, registry } from "@/engine/core/database";
-import { EGameEvent, EventsManager } from "@/engine/core/managers";
+import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { IWeatherState, WeatherManager } from "@/engine/core/managers/world/WeatherManager";
 import { NIL } from "@/engine/lib/constants/words";
 import { mockLuaTable, MockLuaTable } from "@/fixtures/lua/mocks/LuaTable.mock";
@@ -32,7 +32,7 @@ describe("WeatherManager class", () => {
     const weatherManager: WeatherManager = getManagerInstance(WeatherManager);
     const eventsManager: EventsManager = getManagerInstance(EventsManager);
 
-    eventsManager.emitEvent(EGameEvent.ACTOR_NET_SPAWN);
+    eventsManager.emitEvent(EGameEvent.ACTOR_SPAWN);
 
     expect(level.name()).toBe("zaton");
 

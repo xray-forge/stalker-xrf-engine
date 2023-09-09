@@ -1,6 +1,7 @@
 import { describe, expect, it, jest } from "@jest/globals";
 
 import { getObjectIdByStoryId, getServerObjectByStoryId, getStoryIdByObjectId, registry } from "@/engine/core/database";
+import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { ItemGrenade } from "@/engine/core/objects/server/item/ItemGrenade";
 import { mockIniFile } from "@/fixtures/xray/mocks/ini";
 
@@ -60,5 +61,35 @@ describe("ItemGrenade server class", () => {
 
     expect(registry.storyLink.idBySid.length()).toBe(0);
     expect(registry.storyLink.sidById.length()).toBe(0);
+  });
+
+  it("should correctly emit lifecycle events", () => {
+    const eventsManager: EventsManager = EventsManager.getInstance();
+    const itemExplosive: ItemGrenade = new ItemGrenade("test-section");
+
+    const onItemGrenadeRegister = jest.fn();
+    const onItemGrenadeUnregister = jest.fn();
+    const onItemRegister = jest.fn();
+    const onItemUnregister = jest.fn();
+
+    eventsManager.registerCallback(EGameEvent.ITEM_GRENADE_REGISTERED, onItemGrenadeRegister);
+    eventsManager.registerCallback(EGameEvent.ITEM_GRENADE_UNREGISTERED, onItemGrenadeUnregister);
+
+    eventsManager.registerCallback(EGameEvent.ITEM_REGISTERED, onItemRegister);
+    eventsManager.registerCallback(EGameEvent.ITEM_UNREGISTERED, onItemUnregister);
+
+    itemExplosive.on_register();
+
+    expect(onItemGrenadeRegister).toHaveBeenCalledWith(itemExplosive);
+    expect(onItemGrenadeUnregister).not.toHaveBeenCalled();
+    expect(onItemRegister).toHaveBeenCalledWith(itemExplosive);
+    expect(onItemUnregister).not.toHaveBeenCalled();
+
+    itemExplosive.on_unregister();
+
+    expect(onItemGrenadeRegister).toHaveBeenCalledWith(itemExplosive);
+    expect(onItemGrenadeUnregister).toHaveBeenCalledWith(itemExplosive);
+    expect(onItemRegister).toHaveBeenCalledWith(itemExplosive);
+    expect(onItemUnregister).toHaveBeenCalledWith(itemExplosive);
   });
 });

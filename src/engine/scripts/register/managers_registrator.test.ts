@@ -1,9 +1,9 @@
 import { beforeEach, describe, expect, it } from "@jest/globals";
 
 import { registry } from "@/engine/core/database";
-import { EventsManager } from "@/engine/core/managers";
 import { SaveManager } from "@/engine/core/managers/base/SaveManager";
 import { ProfilingManager } from "@/engine/core/managers/debug/ProfilingManager";
+import { EventsManager } from "@/engine/core/managers/events";
 import { AchievementsManager } from "@/engine/core/managers/interaction/achievements";
 import { DialogManager } from "@/engine/core/managers/interaction/dialog";
 import { SleepManager } from "@/engine/core/managers/interaction/SleepManager";
@@ -22,7 +22,7 @@ import { DynamicMusicManager } from "@/engine/core/managers/sounds/DynamicMusicM
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import { PhantomManager } from "@/engine/core/managers/world/PhantomManager";
 import { ReleaseBodyManager } from "@/engine/core/managers/world/ReleaseBodyManager";
-import { TreasureManager } from "@/engine/core/managers/world/TreasureManager";
+import { TreasureManager } from "@/engine/core/managers/world/treasures";
 import { WeatherManager } from "@/engine/core/managers/world/WeatherManager";
 import { AnyObject } from "@/engine/lib/types";
 import { registerManagers } from "@/engine/scripts/register/managers_registrator";

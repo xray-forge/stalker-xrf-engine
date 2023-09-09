@@ -55,13 +55,15 @@ export class SimulationBoardManager extends AbstractCoreManager {
   public override initialize(): void {
     const eventsManager: EventsManager = EventsManager.getInstance();
 
-    eventsManager.registerCallback(EGameEvent.ACTOR_NET_DESTROY, this.onActorNetworkDestroy, this);
+    eventsManager.registerCallback(EGameEvent.ACTOR_REGISTER, this.onActorRegister, this);
+    eventsManager.registerCallback(EGameEvent.ACTOR_DESTROY, this.onActorDestroy, this);
   }
 
   public override destroy(): void {
     const eventsManager: EventsManager = EventsManager.getInstance();
 
-    eventsManager.unregisterCallback(EGameEvent.ACTOR_NET_DESTROY, this.onActorNetworkDestroy);
+    eventsManager.unregisterCallback(EGameEvent.ACTOR_REGISTER, this.onActorRegister);
+    eventsManager.unregisterCallback(EGameEvent.ACTOR_DESTROY, this.onActorDestroy);
   }
 
   /**
@@ -510,7 +512,7 @@ export class SimulationBoardManager extends AbstractCoreManager {
   /**
    * Handle event of actor unregister in network.
    */
-  public onActorNetworkDestroy(): void {
+  public onActorDestroy(): void {
     simulationLogger.format("Actor network destroy");
 
     if (actor_stats.remove_from_ranking !== null) {
@@ -527,7 +529,7 @@ export class SimulationBoardManager extends AbstractCoreManager {
   /**
    * Handle event of actor register in network.
    */
-  public onActorNetworkRegister(): void {
+  public onActorRegister(): void {
     simulationLogger.format("Actor network register");
     this.initializeDefaultSimulationSquads();
   }

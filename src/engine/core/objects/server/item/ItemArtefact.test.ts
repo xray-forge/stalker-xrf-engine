@@ -1,6 +1,7 @@
 import { describe, expect, it, jest } from "@jest/globals";
 
 import { getObjectIdByStoryId, getServerObjectByStoryId, getStoryIdByObjectId, registry } from "@/engine/core/database";
+import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { ItemArtefact } from "@/engine/core/objects/server/item/ItemArtefact";
 import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
 import { MockAlifeCreatureActor, MockAlifeSimulator } from "@/fixtures/xray";
@@ -70,5 +71,35 @@ describe("ItemArtefact server class", () => {
     expect(itemArtefact.can_switch_offline()).toBe(false);
     expect(itemArtefact.can_switch_offline()).toBe(true);
     expect(itemArtefact.can_switch_offline()).toBe(true);
+  });
+
+  it("should correctly emit lifecycle events", () => {
+    const eventsManager: EventsManager = EventsManager.getInstance();
+    const itemArtefact: ItemArtefact = new ItemArtefact("test-section");
+
+    const onItemArtefactRegister = jest.fn();
+    const onItemArtefactUnregister = jest.fn();
+    const onItemRegister = jest.fn();
+    const onItemUnregister = jest.fn();
+
+    eventsManager.registerCallback(EGameEvent.ITEM_ARTEFACT_REGISTERED, onItemArtefactRegister);
+    eventsManager.registerCallback(EGameEvent.ITEM_ARTEFACT_UNREGISTERED, onItemArtefactUnregister);
+
+    eventsManager.registerCallback(EGameEvent.ITEM_REGISTERED, onItemRegister);
+    eventsManager.registerCallback(EGameEvent.ITEM_UNREGISTERED, onItemUnregister);
+
+    itemArtefact.on_register();
+
+    expect(onItemArtefactRegister).toHaveBeenCalledWith(itemArtefact);
+    expect(onItemArtefactUnregister).not.toHaveBeenCalled();
+    expect(onItemRegister).toHaveBeenCalledWith(itemArtefact);
+    expect(onItemUnregister).not.toHaveBeenCalled();
+
+    itemArtefact.on_unregister();
+
+    expect(onItemArtefactRegister).toHaveBeenCalledWith(itemArtefact);
+    expect(onItemArtefactUnregister).toHaveBeenCalledWith(itemArtefact);
+    expect(onItemRegister).toHaveBeenCalledWith(itemArtefact);
+    expect(onItemUnregister).toHaveBeenCalledWith(itemArtefact);
   });
 });

@@ -1,6 +1,8 @@
 import { describe, expect, it, jest } from "@jest/globals";
 
 import { getObjectIdByStoryId, getServerObjectByStoryId, getStoryIdByObjectId, registry } from "@/engine/core/database";
+import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
+import { InventoryBox } from "@/engine/core/objects/server";
 import { Item } from "@/engine/core/objects/server/item/Item";
 import { mockIniFile } from "@/fixtures/xray/mocks/ini";
 
@@ -60,5 +62,26 @@ describe("Item server class", () => {
 
     expect(registry.storyLink.idBySid.length()).toBe(0);
     expect(registry.storyLink.sidById.length()).toBe(0);
+  });
+
+  it("should correctly emit lifecycle events", () => {
+    const eventsManager: EventsManager = EventsManager.getInstance();
+    const item: InventoryBox = new Item("test-section");
+
+    const onItemRegister = jest.fn();
+    const onItemUnregister = jest.fn();
+
+    eventsManager.registerCallback(EGameEvent.ITEM_REGISTERED, onItemRegister);
+    eventsManager.registerCallback(EGameEvent.ITEM_UNREGISTERED, onItemUnregister);
+
+    item.on_register();
+
+    expect(onItemRegister).toHaveBeenCalledWith(item);
+    expect(onItemUnregister).not.toHaveBeenCalled();
+
+    item.on_unregister();
+
+    expect(onItemRegister).toHaveBeenCalledWith(item);
+    expect(onItemUnregister).toHaveBeenCalledWith(item);
   });
 });

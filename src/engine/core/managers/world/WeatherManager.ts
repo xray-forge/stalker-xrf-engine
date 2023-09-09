@@ -94,7 +94,7 @@ export class WeatherManager extends AbstractCoreManager {
     const eventsManager: EventsManager = EventsManager.getInstance();
 
     eventsManager.registerCallback(EGameEvent.ACTOR_UPDATE, this.update, this);
-    eventsManager.registerCallback(EGameEvent.ACTOR_NET_SPAWN, this.onActorNetworkSpawn, this);
+    eventsManager.registerCallback(EGameEvent.ACTOR_SPAWN, this.onActorNetworkSpawn, this);
 
     // Initialize weathers configuration.
     this.initializeWeatherPeriods();
@@ -107,7 +107,7 @@ export class WeatherManager extends AbstractCoreManager {
     const eventsManager: EventsManager = EventsManager.getInstance();
 
     eventsManager.unregisterCallback(EGameEvent.ACTOR_UPDATE, this.update);
-    eventsManager.unregisterCallback(EGameEvent.ACTOR_NET_SPAWN, this.onActorNetworkSpawn);
+    eventsManager.unregisterCallback(EGameEvent.ACTOR_SPAWN, this.onActorNetworkSpawn);
   }
 
   /**

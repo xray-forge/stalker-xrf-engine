@@ -78,6 +78,7 @@ export function mockClientGameObject({
 
   let isInvulnerable: boolean = false;
   let objectPosition: Vector = MockVector.mock(0.25, 0.25, 0.25);
+  const objectCenter: Vector = MockVector.mock(0.15, 0.15, 0.15);
   let objectDirection: Vector = MockVector.mock(1, 1, 1);
   let objectMoney: number = 0;
 
@@ -121,6 +122,7 @@ export function mockClientGameObject({
     buy_supplies: rest.buy_supplies || jest.fn(),
     buy_item_condition_factor: rest.buy_item_condition_factor || jest.fn(),
     can_select_weapon: rest.can_select_weapon || jest.fn(),
+    center: rest.center || jest.fn(() => objectCenter),
     change_team: rest.change_team || jest.fn(),
     character_community: rest.character_community || jest.fn(() => "stalker"),
     character_icon,

@@ -5,7 +5,7 @@ import { alife, game, level } from "xray16";
 import { isStoryObjectExisting, registry } from "@/engine/core/database";
 import { getPortableStoreValue, setPortableStoreValue } from "@/engine/core/database/portable_store";
 import { ENotificationDirection, NotificationManager } from "@/engine/core/managers/interface/notifications";
-import { TreasureManager } from "@/engine/core/managers/world/TreasureManager";
+import { TreasureManager } from "@/engine/core/managers/world/treasures";
 import { extern, getExtern } from "@/engine/core/utils/binding";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import {
@@ -36,7 +36,6 @@ import { misc } from "@/engine/lib/constants/items/misc";
 import { outfits } from "@/engine/lib/constants/items/outfits";
 import { questItems } from "@/engine/lib/constants/items/quest_items";
 import { TWeapon, weapons } from "@/engine/lib/constants/items/weapons";
-import { treasures } from "@/engine/lib/constants/treasures";
 import {
   AnyCallable,
   AnyCallablesModule,
@@ -477,7 +476,7 @@ extern(
   "dialogs_zaton.zat_b7_give_bandit_reward_to_actor",
   (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
     giveMoneyToActor(math.random(15, 30) * 100);
-    TreasureManager.getInstance().giveActorTreasureCoordinates(treasures.zat_hiding_place_30);
+    TreasureManager.getInstance().giveActorTreasureCoordinates("zat_hiding_place_30");
   }
 );
 
@@ -504,7 +503,7 @@ extern(
       transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), food.vodka, 4);
     }
 
-    TreasureManager.giveTreasureCoordinates(treasures.zat_hiding_place_29);
+    TreasureManager.giveTreasureCoordinates("zat_hiding_place_29");
   }
 );
 
@@ -1839,8 +1838,8 @@ extern(
 
     const treasureManager: TreasureManager = TreasureManager.getInstance();
 
-    treasureManager.giveActorTreasureCoordinates(treasures.zat_hiding_place_49);
-    treasureManager.giveActorTreasureCoordinates(treasures.zat_hiding_place_15);
+    treasureManager.giveActorTreasureCoordinates("zat_hiding_place_49");
+    treasureManager.giveActorTreasureCoordinates("zat_hiding_place_15");
   }
 );
 
@@ -2423,7 +2422,7 @@ extern(
  * todo;
  */
 extern("dialogs_zaton.zat_b106_give_reward", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
-  TreasureManager.giveTreasureCoordinates(treasures.zat_hiding_place_50);
+  TreasureManager.giveTreasureCoordinates("zat_hiding_place_50");
 });
 
 /**
@@ -2480,7 +2479,7 @@ extern(
   "dialogs_zaton.zat_b5_stalker_transfer_money",
   (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
     giveMoneyToActor(2500);
-    TreasureManager.giveTreasureCoordinates(treasures.zat_hiding_place_7);
+    TreasureManager.giveTreasureCoordinates("zat_hiding_place_7");
   }
 );
 
@@ -2503,7 +2502,7 @@ extern("dialogs_zaton.zat_b5_dealer_easy_revard", (firstSpeaker: ClientObject, s
  */
 extern("dialogs_zaton.zat_b5_bandits_revard", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
   giveMoneyToActor(5_000);
-  TreasureManager.giveTreasureCoordinates(treasures.zat_hiding_place_20);
+  TreasureManager.giveTreasureCoordinates("zat_hiding_place_20");
 });
 
 /**
@@ -2535,7 +2534,7 @@ extern(
   "dialogs_zaton.zat_b57_stalker_reward_to_actor_detector",
   (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
     transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), detectors.detector_elite);
-    TreasureManager.giveTreasureCoordinates(treasures.zat_hiding_place_54);
+    TreasureManager.giveTreasureCoordinates("zat_hiding_place_54");
   }
 );
 

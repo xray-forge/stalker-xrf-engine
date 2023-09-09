@@ -38,10 +38,10 @@ import { SimulationBoardManager } from "@/engine/core/managers/simulation/Simula
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import { DropManager } from "@/engine/core/managers/world/DropManager";
 import { ReleaseBodyManager } from "@/engine/core/managers/world/ReleaseBodyManager";
-import { EActionId } from "@/engine/core/objects/ai";
 import { setupStalkerMotivationPlanner, setupStalkerStatePlanner } from "@/engine/core/objects/ai/setup";
 import { StalkerStateManager } from "@/engine/core/objects/ai/state";
 import { StalkerMoveManager } from "@/engine/core/objects/ai/state/StalkerMoveManager";
+import { EActionId } from "@/engine/core/objects/ai/types";
 import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain/SmartTerrain";
 import { ESchemeEvent, IBaseSchemeState } from "@/engine/core/schemes/base";
 import { SchemeCombat } from "@/engine/core/schemes/combat/SchemeCombat";

@@ -1,6 +1,6 @@
 import { world_property } from "xray16";
 
-import { EActionId, EEvaluatorId } from "@/engine/core/objects/ai";
+import { EActionId, EEvaluatorId } from "@/engine/core/objects/ai/types";
 import { AbstractScheme } from "@/engine/core/schemes";
 import { ISchemeCombatState } from "@/engine/core/schemes/combat";
 import { ActionLookAround, ActionShoot } from "@/engine/core/schemes/combat_camper/actions";

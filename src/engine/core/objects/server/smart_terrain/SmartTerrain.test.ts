@@ -2,6 +2,7 @@ import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { time_global } from "xray16";
 
 import { registry } from "@/engine/core/database";
+import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { ESimulationTerrainRole } from "@/engine/core/managers/simulation";
 import { SmartTerrain, SmartTerrainControl } from "@/engine/core/objects/server/smart_terrain";
 import { ESmartTerrainStatus } from "@/engine/core/objects/server/smart_terrain/types";
@@ -84,8 +85,30 @@ describe("SmartTerrain class generic logic", () => {
     expect(smartTerrain.alreadySpawned.length()).toBe(0);
   });
 
+  it("should correctly emit registering lifecycle events", () => {
+    const eventsManager: EventsManager = EventsManager.getInstance();
+    const smartTerrain: SmartTerrain = mockSmartTerrain();
+
+    const onSmartTerrainRegister = jest.fn();
+    const onSmartTerrainUnregister = jest.fn();
+
+    eventsManager.registerCallback(EGameEvent.SMART_TERRAIN_REGISTER, onSmartTerrainRegister);
+    eventsManager.registerCallback(EGameEvent.SMART_TERRAIN_UNREGISTER, onSmartTerrainUnregister);
+
+    smartTerrain.on_before_register();
+    smartTerrain.on_register();
+
+    expect(onSmartTerrainRegister).toHaveBeenCalledWith(smartTerrain);
+    expect(onSmartTerrainUnregister).not.toHaveBeenCalled();
+
+    smartTerrain.on_unregister();
+
+    expect(onSmartTerrainRegister).toHaveBeenCalledWith(smartTerrain);
+    expect(onSmartTerrainUnregister).toHaveBeenCalledWith(smartTerrain);
+  });
+
   it("should correctly handle before register", () => {
-    const smartTerrain: SmartTerrain = new SmartTerrain("test_init");
+    const smartTerrain: SmartTerrain = mockSmartTerrain();
 
     smartTerrain.on_before_register();
 
@@ -96,7 +119,7 @@ describe("SmartTerrain class generic logic", () => {
   it("should correctly generate captions", () => {
     const smartTerrain: SmartTerrain = new SmartTerrain("test_init");
 
-    expect(smartTerrain.getNameCaption()).toBe("st_test_init_100002_name");
+    expect(smartTerrain.getNameCaption()).toBe(`st_test_init_${smartTerrain.id}_name`);
   });
 
   it("should correctly handle register", () => {
@@ -358,4 +381,8 @@ describe("SmartTerrain class generic logic", () => {
     expect(anotherSmartTerrain.lastRespawnUpdatedAt).toBeNull();
     expect(anotherSmartTerrain.population).toBe(0);
   });
+
+  it.todo("should handle simulation callbacks");
+
+  it.todo("should correctly check simulation availability");
 });

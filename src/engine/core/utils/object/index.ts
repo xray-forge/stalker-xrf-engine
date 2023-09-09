@@ -19,3 +19,4 @@ export * from "@/engine/core/utils/object/object_state";
 export * from "@/engine/core/utils/object/object_task_reward";
 export * from "@/engine/core/utils/object/object_weapon";
 export * from "@/engine/core/utils/object/object_wounds";
+export * from "@/engine/core/utils/object/object_zone";

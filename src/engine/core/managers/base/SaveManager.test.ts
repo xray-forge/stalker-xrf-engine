@@ -1,9 +1,9 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 
 import { disposeManagers, initializeManager, registerActor, registry } from "@/engine/core/database";
-import { EGameEvent, EventsManager } from "@/engine/core/managers";
 import { TAbstractCoreManagerConstructor } from "@/engine/core/managers/base/AbstractCoreManager";
 import { SaveManager } from "@/engine/core/managers/base/SaveManager";
+import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { AchievementsManager } from "@/engine/core/managers/interaction/achievements";
 import { TaskManager } from "@/engine/core/managers/interaction/tasks";
 import { ActorInputManager } from "@/engine/core/managers/interface";
@@ -14,7 +14,7 @@ import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundMan
 import { PsyAntennaManager } from "@/engine/core/managers/world/PsyAntennaManager";
 import { ReleaseBodyManager } from "@/engine/core/managers/world/ReleaseBodyManager";
 import { SurgeManager } from "@/engine/core/managers/world/SurgeManager";
-import { TreasureManager } from "@/engine/core/managers/world/TreasureManager";
+import { TreasureManager } from "@/engine/core/managers/world/treasures";
 import { WeatherManager } from "@/engine/core/managers/world/WeatherManager";
 import { AnyObject } from "@/engine/lib/types";
 import { MockIoFile } from "@/fixtures/lua";

@@ -122,7 +122,7 @@ export class SurgeManager extends AbstractCoreManager {
   public override initialize(): void {
     const eventsManager: EventsManager = EventsManager.getInstance();
 
-    eventsManager.registerCallback(EGameEvent.ACTOR_NET_SPAWN, this.onActorNetworkSpawn, this);
+    eventsManager.registerCallback(EGameEvent.ACTOR_SPAWN, this.onActorNetworkSpawn, this);
     eventsManager.registerCallback(EGameEvent.ACTOR_UPDATE, this.update, this);
     eventsManager.registerCallback(EGameEvent.ACTOR_USE_ITEM, this.onActorUseItem, this);
     eventsManager.registerCallback(EGameEvent.ACTOR_ITEM_TAKE, this.onActorItemTake, this);
@@ -143,7 +143,7 @@ export class SurgeManager extends AbstractCoreManager {
   public override destroy(): void {
     const eventsManager: EventsManager = EventsManager.getInstance();
 
-    eventsManager.unregisterCallback(EGameEvent.ACTOR_NET_SPAWN, this.onActorNetworkSpawn);
+    eventsManager.unregisterCallback(EGameEvent.ACTOR_SPAWN, this.onActorNetworkSpawn);
     eventsManager.unregisterCallback(EGameEvent.ACTOR_UPDATE, this.update);
     eventsManager.unregisterCallback(EGameEvent.ACTOR_USE_ITEM, this.onActorUseItem);
     eventsManager.unregisterCallback(EGameEvent.ACTOR_ITEM_TAKE, this.onActorItemTake);

@@ -1,6 +1,8 @@
 import { describe, expect, it, jest } from "@jest/globals";
 
 import { getObjectIdByStoryId, getServerObjectByStoryId, getStoryIdByObjectId, registry } from "@/engine/core/database";
+import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
+import { ObjectPhysic } from "@/engine/core/objects/server";
 import { ObjectHangingLamp } from "@/engine/core/objects/server/physic/ObjectHangingLamp";
 import { mockIniFile } from "@/fixtures/xray/mocks/ini";
 
@@ -60,5 +62,26 @@ describe("ObjectHangingLamp server class", () => {
 
     expect(registry.storyLink.idBySid.length()).toBe(0);
     expect(registry.storyLink.sidById.length()).toBe(0);
+  });
+
+  it("should correctly emit lifecycle events", () => {
+    const eventsManager: EventsManager = EventsManager.getInstance();
+    const object: ObjectHangingLamp = new ObjectHangingLamp("test-section");
+
+    const obObjectRegister = jest.fn();
+    const onObjectUnregister = jest.fn();
+
+    eventsManager.registerCallback(EGameEvent.OBJECT_HANGING_LAMP_REGISTER, obObjectRegister);
+    eventsManager.registerCallback(EGameEvent.OBJECT_HANGING_LAMP_UNREGISTER, onObjectUnregister);
+
+    object.on_register();
+
+    expect(obObjectRegister).toHaveBeenCalledWith(object);
+    expect(onObjectUnregister).not.toHaveBeenCalled();
+
+    object.on_unregister();
+
+    expect(obObjectRegister).toHaveBeenCalledWith(object);
+    expect(onObjectUnregister).toHaveBeenCalledWith(object);
   });
 });

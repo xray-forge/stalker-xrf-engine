@@ -19,6 +19,7 @@ import {
   updateSimulationObjectAvailability,
 } from "@/engine/core/database/simulation";
 import { unregisterStoryLinkByObjectId } from "@/engine/core/database/story_objects";
+import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { MapDisplayManager } from "@/engine/core/managers/interface/MapDisplayManager";
 import {
   ESimulationTerrainRole,
@@ -305,6 +306,8 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
 
     registerObjectStoryLinks(this);
     registerSimulationObject(this);
+
+    EventsManager.emitEvent(EGameEvent.SQUAD_REGISTERED, this);
   }
 
   public override on_unregister(): void {
@@ -326,6 +329,8 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
         smartTerrain.alreadySpawned.get(this.respawnPointSection!).num -= 1;
       }
     }
+
+    EventsManager.emitEvent(EGameEvent.SQUAD_UNREGISTERED, this);
   }
 
   /**

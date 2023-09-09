@@ -1,8 +1,8 @@
 import { initializeManager } from "@/engine/core/database";
-import { EventsManager } from "@/engine/core/managers";
 import { TAbstractCoreManagerConstructor } from "@/engine/core/managers/base/AbstractCoreManager";
 import { SaveManager } from "@/engine/core/managers/base/SaveManager";
 import { ProfilingManager } from "@/engine/core/managers/debug/ProfilingManager";
+import { EventsManager } from "@/engine/core/managers/events";
 import { AchievementsManager } from "@/engine/core/managers/interaction/achievements";
 import { DialogManager } from "@/engine/core/managers/interaction/dialog/DialogManager";
 import { SleepManager } from "@/engine/core/managers/interaction/SleepManager";
@@ -21,7 +21,7 @@ import { DynamicMusicManager } from "@/engine/core/managers/sounds/DynamicMusicM
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import { PhantomManager } from "@/engine/core/managers/world/PhantomManager";
 import { ReleaseBodyManager } from "@/engine/core/managers/world/ReleaseBodyManager";
-import { TreasureManager } from "@/engine/core/managers/world/TreasureManager";
+import { TreasureManager } from "@/engine/core/managers/world/treasures";
 import { WeatherManager } from "@/engine/core/managers/world/WeatherManager";
 import { LuaLogger } from "@/engine/core/utils/logging";
 

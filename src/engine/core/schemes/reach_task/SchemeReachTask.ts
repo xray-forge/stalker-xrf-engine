@@ -1,6 +1,6 @@
 import { cast_planner, world_property } from "xray16";
 
-import { EActionId, EEvaluatorId } from "@/engine/core/objects/ai";
+import { EActionId, EEvaluatorId } from "@/engine/core/objects/ai/types";
 import { AbstractScheme } from "@/engine/core/schemes/base/AbstractScheme";
 import { ActionReachTaskLocation } from "@/engine/core/schemes/reach_task/actions";
 import { EvaluatorReachedTaskLocation } from "@/engine/core/schemes/reach_task/evaluators";

@@ -19,7 +19,7 @@ export function mockSchemeState<T extends IBaseSchemeState>(
   object: ClientObject,
   scheme: EScheme,
   {
-    ini = mockIniFile("scheme.ltx"),
+    ini = mockIniFile("scheme_mock.ltx"),
     logic = new LuaTable(),
     signals = new LuaTable(),
     idle_end = 0,

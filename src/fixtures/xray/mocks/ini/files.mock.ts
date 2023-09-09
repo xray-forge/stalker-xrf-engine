@@ -53,6 +53,9 @@ export const FILES_MOCKS: Record<TPath, AnyObject> = {
     },
     [weapons.grenade_f1]: {},
     squad: {},
+    "test-squad": {
+      faction: "stalker",
+    },
   },
   "spawn.ini": {
     story_object: {
@@ -63,6 +66,10 @@ export const FILES_MOCKS: Record<TPath, AnyObject> = {
     zaton: {
       weathers: "dynamic_default",
     },
+  },
+  ["scheme_mock.ltx"]: {
+    starting: {},
+    "sr_no_weapon@another": {},
   },
   "object_spawn.ini": {},
   "misc\\script_sound.ltx": {
@@ -137,5 +144,16 @@ export const FILES_MOCKS: Record<TPath, AnyObject> = {
     buy_item_condition_factor: 0.7,
     generic_buy: {},
     generic_sell: {},
+  },
+  "misc\\squad_behaviours.ltx": {
+    stalker: {
+      actor: 1,
+      resource: 2,
+      surge: 1,
+      base: 1,
+      territory: 1,
+      lair: 0,
+      squad: 0,
+    },
   },
 };

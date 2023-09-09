@@ -1,7 +1,8 @@
 import { cse_alife_item_weapon_magazined, LuabindClass } from "xray16";
 
 import { registerObjectStoryLinks, unregisterStoryLinkByObjectId } from "@/engine/core/database";
-import { TreasureManager } from "@/engine/core/managers/world/TreasureManager";
+import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
+import { TreasureManager } from "@/engine/core/managers/world/treasures";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { Optional } from "@/engine/lib/types";
 
@@ -16,12 +17,20 @@ export class ItemWeaponMagazined extends cse_alife_item_weapon_magazined {
 
   public override on_register(): void {
     super.on_register();
+
     registerObjectStoryLinks(this);
     this.isSecretItem = TreasureManager.registerItem(this);
+    EventsManager.emitEvent(EGameEvent.ITEM_REGISTERED, this);
+    EventsManager.emitEvent(EGameEvent.ITEM_WEAPON_REGISTERED, this);
+    EventsManager.emitEvent(EGameEvent.ITEM_WEAPON_MAGAZINED_REGISTERED, this);
   }
 
   public override on_unregister(): void {
+    EventsManager.emitEvent(EGameEvent.ITEM_WEAPON_MAGAZINED_UNREGISTERED, this);
+    EventsManager.emitEvent(EGameEvent.ITEM_WEAPON_UNREGISTERED, this);
+    EventsManager.emitEvent(EGameEvent.ITEM_UNREGISTERED, this);
     unregisterStoryLinkByObjectId(this.id);
+
     super.on_unregister();
   }
 

@@ -1,6 +1,6 @@
 import { level } from "xray16";
 
-import { registry } from "@/engine/core/database";
+import { registry } from "@/engine/core/database/registry";
 import { ActorInputManager } from "@/engine/core/managers/interface/ActorInputManager";
 import { animations } from "@/engine/lib/constants/animation";
 import { ClientObject, EActiveItemSlot, Optional } from "@/engine/lib/types";

@@ -1,10 +1,11 @@
 import { game, get_hud, level } from "xray16";
 
 import { closeLoadMarker, closeSaveMarker, openLoadMarker, openSaveMarker, registry } from "@/engine/core/database";
-import { AbstractCoreManager, EGameEvent, EventsManager } from "@/engine/core/managers";
-import { SchemeNoWeapon } from "@/engine/core/schemes/sr_no_weapon";
+import { AbstractCoreManager } from "@/engine/core/managers/base";
+import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { readTimeFromPacket, writeTimeToPacket } from "@/engine/core/utils/game/game_time";
 import { LuaLogger } from "@/engine/core/utils/logging";
+import { isActorInNoWeaponZone } from "@/engine/core/utils/object/object_zone";
 import { misc } from "@/engine/lib/constants/items/misc";
 import {
   ClientObject,
@@ -40,7 +41,7 @@ export class ActorInputManager extends AbstractCoreManager {
 
     eventsManager.registerCallback(EGameEvent.ACTOR_UPDATE, this.onUpdate, this);
     eventsManager.registerCallback(EGameEvent.ACTOR_FIRST_UPDATE, this.onFirstUpdate, this);
-    eventsManager.registerCallback(EGameEvent.ACTOR_NET_SPAWN, this.onNetworkSpawn, this);
+    eventsManager.registerCallback(EGameEvent.ACTOR_SPAWN, this.onNetworkSpawn, this);
   }
 
   public override destroy(): void {
@@ -48,7 +49,7 @@ export class ActorInputManager extends AbstractCoreManager {
 
     eventsManager.unregisterCallback(EGameEvent.ACTOR_UPDATE, this.onUpdate);
     eventsManager.unregisterCallback(EGameEvent.ACTOR_FIRST_UPDATE, this.onFirstUpdate);
-    eventsManager.unregisterCallback(EGameEvent.ACTOR_NET_SPAWN, this.onNetworkSpawn);
+    eventsManager.unregisterCallback(EGameEvent.ACTOR_SPAWN, this.onNetworkSpawn);
   }
 
   public override save(packet: NetPacket): void {
@@ -248,7 +249,7 @@ export class ActorInputManager extends AbstractCoreManager {
       }
     }
 
-    if (SchemeNoWeapon.isInWeaponRestrictionZone()) {
+    if (isActorInNoWeaponZone()) {
       if (!this.isWeaponHidden) {
         logger.info("Hiding weapon");
         actor.hide_weapon();

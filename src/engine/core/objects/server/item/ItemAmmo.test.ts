@@ -1,6 +1,7 @@
 import { describe, expect, it, jest } from "@jest/globals";
 
 import { getObjectIdByStoryId, getServerObjectByStoryId, getStoryIdByObjectId, registry } from "@/engine/core/database";
+import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { ItemAmmo } from "@/engine/core/objects/server/item/ItemAmmo";
 import { mockIniFile } from "@/fixtures/xray/mocks/ini";
 
@@ -60,5 +61,35 @@ describe("ItemAmmo server class", () => {
 
     expect(registry.storyLink.idBySid.length()).toBe(0);
     expect(registry.storyLink.sidById.length()).toBe(0);
+  });
+
+  it("should correctly emit lifecycle events", () => {
+    const eventsManager: EventsManager = EventsManager.getInstance();
+    const itemAmmo: ItemAmmo = new ItemAmmo("test-section");
+
+    const onItemAmmoRegister = jest.fn();
+    const onItemAmmoUnregister = jest.fn();
+    const onItemRegister = jest.fn();
+    const onItemUnregister = jest.fn();
+
+    eventsManager.registerCallback(EGameEvent.ITEM_AMMO_REGISTERED, onItemAmmoRegister);
+    eventsManager.registerCallback(EGameEvent.ITEM_AMMO_UNREGISTERED, onItemAmmoUnregister);
+
+    eventsManager.registerCallback(EGameEvent.ITEM_REGISTERED, onItemRegister);
+    eventsManager.registerCallback(EGameEvent.ITEM_UNREGISTERED, onItemUnregister);
+
+    itemAmmo.on_register();
+
+    expect(onItemAmmoRegister).toHaveBeenCalledWith(itemAmmo);
+    expect(onItemAmmoUnregister).not.toHaveBeenCalled();
+    expect(onItemRegister).toHaveBeenCalledWith(itemAmmo);
+    expect(onItemUnregister).not.toHaveBeenCalled();
+
+    itemAmmo.on_unregister();
+
+    expect(onItemAmmoRegister).toHaveBeenCalledWith(itemAmmo);
+    expect(onItemAmmoUnregister).toHaveBeenCalledWith(itemAmmo);
+    expect(onItemRegister).toHaveBeenCalledWith(itemAmmo);
+    expect(onItemUnregister).toHaveBeenCalledWith(itemAmmo);
   });
 });

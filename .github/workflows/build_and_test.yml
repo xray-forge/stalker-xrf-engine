@@ -36,13 +36,22 @@ jobs:
       - run: npm ci
       - run: npm run setup
 
-      - name: Jest cache
-        uses: actions/cache@v3
+      - name: Restore jest cache
+        id: cache-jest-restore
+        uses: actions/cache/restore@v3
         with:
           path: /tmp/jest_rt
-          key: ${{ hashFiles('**/package-lock.json') }}-${{ matrix.shard }}
+          key: jest-${{ hashFiles('**/package-lock.json') }}-${{ matrix.shard }}
 
       - run: npm run test -- --shard=${{ matrix.shard }}/${{ strategy.job-total }} --maxWorkers=100%
+
+      - name: Save jest cache
+        if: ${{ steps.cache-jest-restore.outputs.cache-hit != 'true' && github.event_name != 'pull_request' }}
+        id: cache-jest-save
+        uses: actions/cache/save@v3
+        with:
+          path: /tmp/jest_rt
+          key: ${{ steps.cache-jest-restore.outputs.cache-primary-key }}
 
   check:
     runs-on: ubuntu-latest
@@ -62,10 +71,25 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: "npm"
 
+      - name: Restore eslint cache
+        id: cache-eslint-restore
+        uses: actions/cache/restore@v3
+        with:
+          path: target/eslint
+          key: eslint-${{ hashFiles('**/package-lock.json') }}-${{ matrix.shard }}
+
       - run: npm ci
       - run: npm run setup
       - run: npm run typecheck
       - run: npm run lint
+
+      - name: Save eslint cache
+        if: ${{ steps.cache-eslint-restore.outputs.cache-hit != 'true' && github.event_name != 'pull_request' }}
+        id: cache-eslint-save
+        uses: actions/cache/save@v3
+        with:
+          path: target/eslint
+          key: ${{ steps.cache-eslint-restore.outputs.cache-primary-key }}
 
   build:
     runs-on: ubuntu-latest

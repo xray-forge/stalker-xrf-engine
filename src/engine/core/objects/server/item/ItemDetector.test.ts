@@ -1,6 +1,7 @@
 import { describe, expect, it, jest } from "@jest/globals";
 
 import { getObjectIdByStoryId, getServerObjectByStoryId, getStoryIdByObjectId, registry } from "@/engine/core/database";
+import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { ItemDetector } from "@/engine/core/objects/server/item/ItemDetector";
 import { mockIniFile } from "@/fixtures/xray/mocks/ini";
 
@@ -60,5 +61,35 @@ describe("ItemDetector server class", () => {
 
     expect(registry.storyLink.idBySid.length()).toBe(0);
     expect(registry.storyLink.sidById.length()).toBe(0);
+  });
+
+  it("should correctly emit lifecycle events", () => {
+    const eventsManager: EventsManager = EventsManager.getInstance();
+    const itemDetector: ItemDetector = new ItemDetector("test-section");
+
+    const onItemDetectorRegister = jest.fn();
+    const onItemDetectorUnregister = jest.fn();
+    const onItemRegister = jest.fn();
+    const onItemUnregister = jest.fn();
+
+    eventsManager.registerCallback(EGameEvent.ITEM_DETECTOR_REGISTERED, onItemDetectorRegister);
+    eventsManager.registerCallback(EGameEvent.ITEM_DETECTOR_UNREGISTERED, onItemDetectorUnregister);
+
+    eventsManager.registerCallback(EGameEvent.ITEM_REGISTERED, onItemRegister);
+    eventsManager.registerCallback(EGameEvent.ITEM_UNREGISTERED, onItemUnregister);
+
+    itemDetector.on_register();
+
+    expect(onItemDetectorRegister).toHaveBeenCalledWith(itemDetector);
+    expect(onItemDetectorUnregister).not.toHaveBeenCalled();
+    expect(onItemRegister).toHaveBeenCalledWith(itemDetector);
+    expect(onItemUnregister).not.toHaveBeenCalled();
+
+    itemDetector.on_unregister();
+
+    expect(onItemDetectorRegister).toHaveBeenCalledWith(itemDetector);
+    expect(onItemDetectorUnregister).toHaveBeenCalledWith(itemDetector);
+    expect(onItemRegister).toHaveBeenCalledWith(itemDetector);
+    expect(onItemUnregister).toHaveBeenCalledWith(itemDetector);
   });
 });

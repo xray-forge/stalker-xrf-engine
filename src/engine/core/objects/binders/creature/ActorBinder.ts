@@ -65,7 +65,7 @@ export class ActorBinder extends object_binder {
 
     this.deimosIntensity = null;
 
-    this.eventsManager.emitEvent(EGameEvent.ACTOR_NET_SPAWN, this);
+    this.eventsManager.emitEvent(EGameEvent.ACTOR_SPAWN, this);
 
     return true;
   }
@@ -85,7 +85,7 @@ export class ActorBinder extends object_binder {
     this.object.set_callback(callback.take_item_from_box, null);
     this.object.set_callback(callback.use_object, null);
 
-    this.eventsManager.emitEvent(EGameEvent.ACTOR_NET_DESTROY, this);
+    this.eventsManager.emitEvent(EGameEvent.ACTOR_DESTROY, this);
 
     unregisterActor();
 

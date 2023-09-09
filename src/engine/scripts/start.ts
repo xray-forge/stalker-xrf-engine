@@ -1,6 +1,6 @@
 import { time_global } from "xray16";
 
-import { EGameEvent, EventsManager } from "@/engine/core/managers";
+import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { extern } from "@/engine/core/utils/binding";
 import { unlockSystemIniOverriding } from "@/engine/core/utils/ini/ini_system";
 import { LuaLogger } from "@/engine/core/utils/logging";

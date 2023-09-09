@@ -1,7 +1,7 @@
 import { cast_planner } from "xray16";
 
 import { IRegistryObjectState } from "@/engine/core/database";
-import { EActionId, EEvaluatorId } from "@/engine/core/objects/ai";
+import { EActionId, EEvaluatorId } from "@/engine/core/objects/ai/types";
 import { AbstractScheme } from "@/engine/core/schemes/base";
 import { DangerManager } from "@/engine/core/schemes/danger/DangerManager";
 import { EvaluatorDanger } from "@/engine/core/schemes/danger/evaluators";

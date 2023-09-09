@@ -11,8 +11,8 @@ import {
 } from "@/engine/core/database";
 import { openLoadMarker } from "@/engine/core/database/save_markers";
 import { registerSimulationObject, unregisterSimulationObject } from "@/engine/core/database/simulation";
-import { EGameEvent, EventsManager } from "@/engine/core/managers";
 import { SaveManager } from "@/engine/core/managers/base/SaveManager";
+import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { ISimulationTarget, simulationActivities } from "@/engine/core/managers/simulation";
 import { SimulationBoardManager } from "@/engine/core/managers/simulation/SimulationBoardManager";
 import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain/SmartTerrain";
@@ -29,10 +29,8 @@ import {
   ClientObject,
   NetPacket,
   Optional,
-  ServerCreatureObject,
-  TNumberId,
+  ServerObject,
   TSize,
-  Vector,
 } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -54,16 +52,20 @@ export class Actor extends cse_alife_creature_actor implements ISimulationTarget
     registerStoryLink(this.id, ACTOR);
     registerSimulationObject(this);
 
-    SimulationBoardManager.getInstance().onActorNetworkRegister();
+    SimulationBoardManager.getInstance().onActorRegister();
+
+    EventsManager.emitEvent(EGameEvent.ACTOR_REGISTER, this);
   }
 
   public override on_unregister(): void {
-    super.on_unregister();
-
     logger.info("Unregister actor");
+
+    EventsManager.emitEvent(EGameEvent.ACTOR_UNREGISTER, this);
 
     unregisterStoryLinkByObjectId(this.id);
     unregisterSimulationObject(this);
+
+    super.on_unregister();
   }
 
   public override STATE_Write(packet: NetPacket): void {
@@ -82,7 +84,7 @@ export class Actor extends cse_alife_creature_actor implements ISimulationTarget
     closeLoadMarker(packet, Actor.__name);
   }
 
-  public override on_death(killer: ServerCreatureObject): void {
+  public override on_death(killer: ServerObject): void {
     super.on_death(killer);
 
     logger.info("On actor death:", this.name(), killer.id, killer?.name());

@@ -1,6 +1,6 @@
 import { alife, danger_object, LuabindClass, property_evaluator, time_global } from "xray16";
 
-import { EActionId } from "@/engine/core/objects/ai";
+import { EActionId } from "@/engine/core/objects/ai/types";
 import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain";
 import { ISchemeDangerState } from "@/engine/core/schemes/danger";
 import { isObjectFacingDanger } from "@/engine/core/utils/object";
