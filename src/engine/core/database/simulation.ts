@@ -4,7 +4,7 @@ import { SIMULATION_OBJECTS_PROPS_LTX } from "@/engine/core/database/ini_registr
 import { registry } from "@/engine/core/database/registry";
 import { TSimulationObject } from "@/engine/core/managers/simulation";
 import { parseConditionsList } from "@/engine/core/utils/ini/ini_parse";
-import { isSquad } from "@/engine/core/utils/object";
+import { isSquad } from "@/engine/core/utils/object/object_class";
 import { ACTOR, DEFAULT } from "@/engine/lib/constants/words";
 import { TCount, TSection } from "@/engine/lib/types";
 

@@ -1,6 +1,8 @@
 import { describe, expect, it, jest } from "@jest/globals";
 
 import { getObjectIdByStoryId, getServerObjectByStoryId, getStoryIdByObjectId, registry } from "@/engine/core/database";
+import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
+import { ZoneAnomalous } from "@/engine/core/objects/server";
 import { InventoryBox } from "@/engine/core/objects/server/item/InventoryBox";
 import { mockIniFile } from "@/fixtures/xray/mocks/ini";
 
@@ -60,5 +62,35 @@ describe("InventoryBox server class", () => {
 
     expect(registry.storyLink.idBySid.length()).toBe(0);
     expect(registry.storyLink.sidById.length()).toBe(0);
+  });
+
+  it("should correctly emit lifecycle events", () => {
+    const eventsManager: EventsManager = EventsManager.getInstance();
+    const inventoryBox: InventoryBox = new InventoryBox("test-section");
+
+    const onInventoryBoxRegister = jest.fn();
+    const onInventoryBoxUnregister = jest.fn();
+    const onItemRegister = jest.fn();
+    const onItemUnregister = jest.fn();
+
+    eventsManager.registerCallback(EGameEvent.INVENTORY_BOX_REGISTERED, onInventoryBoxRegister);
+    eventsManager.registerCallback(EGameEvent.INVENTORY_BOX_UNREGISTERED, onInventoryBoxUnregister);
+
+    eventsManager.registerCallback(EGameEvent.ITEM_REGISTERED, onItemRegister);
+    eventsManager.registerCallback(EGameEvent.ITEM_UNREGISTERED, onItemUnregister);
+
+    inventoryBox.on_register();
+
+    expect(onInventoryBoxRegister).toHaveBeenCalledWith(inventoryBox);
+    expect(onInventoryBoxUnregister).not.toHaveBeenCalled();
+    expect(onItemRegister).toHaveBeenCalledWith(inventoryBox);
+    expect(onItemUnregister).not.toHaveBeenCalled();
+
+    inventoryBox.on_unregister();
+
+    expect(onInventoryBoxRegister).toHaveBeenCalledWith(inventoryBox);
+    expect(onInventoryBoxUnregister).toHaveBeenCalledWith(inventoryBox);
+    expect(onItemRegister).toHaveBeenCalledWith(inventoryBox);
+    expect(onItemUnregister).toHaveBeenCalledWith(inventoryBox);
   });
 });

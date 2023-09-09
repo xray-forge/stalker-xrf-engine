@@ -209,6 +209,46 @@ export enum EGameEvent {
    */
   LEVEL_CHANGER_UNREGISTERED,
   /**
+   * Registered item server object.
+   */
+  ITEM_REGISTERED,
+  /**
+   * Unregistered item server object.
+   */
+  ITEM_UNREGISTERED,
+  /**
+   * Registered inventory box server object.
+   */
+  INVENTORY_BOX_REGISTERED,
+  /**
+   * Unregistered inventory box server object.
+   */
+  INVENTORY_BOX_UNREGISTERED,
+  /**
+   * Registered ammo item server object.
+   */
+  ITEM_AMMO_REGISTERED,
+  /**
+   * Unregistered ammo item server object.
+   */
+  ITEM_AMMO_UNREGISTERED,
+  /**
+   * Registered artefact item server object.
+   */
+  ITEM_ARTEFACT_REGISTERED,
+  /**
+   * Unregistered artefact item server object.
+   */
+  ITEM_ARTEFACT_UNREGISTERED,
+  /**
+   * Registered detector item server object.
+   */
+  ITEM_DETECTOR_REGISTERED,
+  /**
+   * Unregistered detector item server object.
+   */
+  ITEM_DETECTOR_UNREGISTERED,
+  /**
    * Surge ended.
    */
   SURGE_ENDED,
