@@ -34,7 +34,7 @@ export class CutsceneManager extends AbstractSchemeManager<ISchemeCutsceneState>
   public motion: Optional<CamEffectorSet> = null;
   public sceneState: ESceneState = ESceneState.NONE;
 
-  public override resetScheme(): void {
+  public override activate(): void {
     logger.info("Reset scheme");
 
     this.sceneState = ESceneState.NONE;

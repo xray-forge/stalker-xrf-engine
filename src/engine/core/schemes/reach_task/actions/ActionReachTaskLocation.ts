@@ -3,6 +3,7 @@ import { action_base, alife, anim, clsid, level, look, LuabindClass, move, objec
 import { registry } from "@/engine/core/database";
 import { TSimulationObject } from "@/engine/core/managers/simulation";
 import { SurgeManager } from "@/engine/core/managers/surge/SurgeManager";
+import { ISchemeEventHandler } from "@/engine/core/objects/ai/scheme";
 import { EStalkerState } from "@/engine/core/objects/animation/types";
 import { Squad } from "@/engine/core/objects/server/squad/Squad";
 import { ReachTaskPatrolManager } from "@/engine/core/schemes/reach_task/ReachTaskPatrolManager";
@@ -28,7 +29,7 @@ const logger: LuaLogger = new LuaLogger($filename);
  * Based on parent squad adjusts destination and formation of the squad participants.
  */
 @LuabindClass()
-export class ActionReachTaskLocation extends action_base {
+export class ActionReachTaskLocation extends action_base implements ISchemeEventHandler {
   public nextUpdateAt: TTimestamp = 0;
 
   public reachTargetId!: TNumberId;
@@ -223,7 +224,7 @@ export class ActionReachTaskLocation extends action_base {
   /**
    * todo: Description.
    */
-  public net_destroy(object: ClientObject): void {
+  public onSwitchOffline(object: ClientObject): void {
     this.patrolManager?.removeObjectFromPatrol(object);
   }
 }

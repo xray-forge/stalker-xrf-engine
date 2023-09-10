@@ -18,7 +18,7 @@ export class OscillateManager extends AbstractSchemeManager<ISchemeOscillateStat
   /**
    * todo: Description.
    */
-  public override resetScheme(): void {
+  public override activate(): void {
     this.time = time_global();
     this.dir = createVector(math.random(), 0, math.random()).normalize();
     this.coefficient = this.state.force / this.state.period;

@@ -34,7 +34,7 @@ export class PhysicalDoorManager extends AbstractSchemeManager<ISchemePhysicalDo
   /**
    * todo: Description.
    */
-  public override resetScheme(loading?: boolean): void {
+  public override activate(loading?: boolean): void {
     this.state.signals = new LuaTable();
 
     this.isInitialized = false;

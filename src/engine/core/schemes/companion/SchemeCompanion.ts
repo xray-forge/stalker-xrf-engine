@@ -62,8 +62,6 @@ export class SchemeCompanion extends AbstractScheme {
     actionCompanionActivity.add_effect(new world_property(EEvaluatorId.IS_STATE_LOGIC_ACTIVE, false));
     actionPlanner.add_action(EActionId.COMPANION_ACTIVITY, actionCompanionActivity);
 
-    SchemeCompanion.subscribe(object, state, actionCompanionActivity);
-
     actionPlanner.action(EActionId.ALIFE).add_precondition(new world_property(EEvaluatorId.NEED_COMPANION, false));
   }
 }

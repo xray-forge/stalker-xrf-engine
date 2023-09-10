@@ -51,7 +51,7 @@ export class ActionSleeperActivity extends action_base implements ISchemeEventHa
     this.object.set_desired_position();
     this.object.set_desired_direction();
 
-    this.resetScheme();
+    this.reset();
   }
 
   /**
@@ -62,7 +62,7 @@ export class ActionSleeperActivity extends action_base implements ISchemeEventHa
     super.execute();
 
     if (!this.wasReset) {
-      this.resetScheme();
+      this.reset();
     }
 
     if (this.sleepingState === STATE_WALKING) {
@@ -90,7 +90,14 @@ export class ActionSleeperActivity extends action_base implements ISchemeEventHa
   /**
    * todo: Description.
    */
-  public resetScheme(): void {
+  public activate(): void {
+    this.wasReset = false;
+  }
+
+  /**
+   * todo: Description.
+   */
+  public reset(): void {
     this.timer = {
       begin: null,
       idle: null,
@@ -143,13 +150,6 @@ export class ActionSleeperActivity extends action_base implements ISchemeEventHa
       true
     );
     this.wasReset = true;
-  }
-
-  /**
-   * todo: Description.
-   */
-  public activateScheme(): void {
-    this.wasReset = false;
   }
 
   /**

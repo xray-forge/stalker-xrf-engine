@@ -160,13 +160,11 @@ export function activateSchemeBySection(
   state.activeSection = section;
   state.activeScheme = scheme;
 
-  // todo: Unify activate and reset events.
   if (state.schemeType === ESchemeType.STALKER) {
     sendToNearestAccessibleVertex(object, object.level_vertex_id());
-    emitSchemeEvent(object, state[scheme] as IBaseSchemeState, ESchemeEvent.ACTIVATE_SCHEME, isLoading, object);
-  } else {
-    emitSchemeEvent(object, state[scheme] as IBaseSchemeState, ESchemeEvent.RESET_SCHEME, isLoading, object);
   }
+
+  emitSchemeEvent(object, state[scheme] as IBaseSchemeState, ESchemeEvent.ACTIVATE, isLoading, object);
 }
 
 /**

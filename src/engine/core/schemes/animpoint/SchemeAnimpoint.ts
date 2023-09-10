@@ -90,8 +90,6 @@ export class SchemeAnimpoint extends AbstractScheme {
 
     planner.add_action(EActionId.ANIMPOINT_REACH, actionReachAnimpoint);
 
-    SchemeAnimpoint.subscribe(object, schemeState, actionReachAnimpoint);
-
     const actionAnimpoint: ActionAnimpoint = new ActionAnimpoint(schemeState);
 
     addCommonActionPreconditions(actionAnimpoint);

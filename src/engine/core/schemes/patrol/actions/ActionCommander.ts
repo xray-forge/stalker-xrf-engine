@@ -2,6 +2,7 @@ import { action_base, LuabindClass } from "xray16";
 
 import { getStalkerState, registry } from "@/engine/core/database";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
+import { ISchemeEventHandler } from "@/engine/core/objects/ai/scheme";
 import { StalkerMoveManager } from "@/engine/core/objects/ai/state/StalkerMoveManager";
 import { EStalkerState } from "@/engine/core/objects/animation/types";
 import { ISchemePatrolState } from "@/engine/core/schemes/patrol";
@@ -12,7 +13,7 @@ import { ClientObject, Optional } from "@/engine/lib/types";
  * Action to command patrol/group of stalker on way somewhere.
  */
 @LuabindClass()
-export class ActionCommander extends action_base {
+export class ActionCommander extends action_base implements ISchemeEventHandler {
   public readonly state: ISchemePatrolState;
   public readonly moveManager: StalkerMoveManager;
 
@@ -34,13 +35,13 @@ export class ActionCommander extends action_base {
     this.object.set_desired_position();
     this.object.set_desired_direction();
 
-    this.activateScheme();
+    this.activate();
   }
 
   /**
    * todo: Description.
    */
-  public activateScheme(): void {
+  public activate(): void {
     this.state.signals = new LuaTable();
 
     if (this.state.path_walk_info === null) {
@@ -142,7 +143,7 @@ export class ActionCommander extends action_base {
   /**
    * todo: Description.
    */
-  public net_destroy(object: ClientObject): void {
+  public onSwitchOffline(object: ClientObject): void {
     this.deactivate(object);
   }
 

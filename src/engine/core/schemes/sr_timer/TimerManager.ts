@@ -15,7 +15,7 @@ const logger: LuaLogger = new LuaLogger($filename);
  * Timer manager to increment/decrement time according to scheme logic and show UI timer.
  */
 export class TimerManager extends AbstractSchemeManager<ISchemeTimerState> {
-  public override resetScheme(): void {
+  public override activate(): void {
     logger.info("Reset timer:", this.object.name());
 
     const hud: CUIGameCustom = get_hud();

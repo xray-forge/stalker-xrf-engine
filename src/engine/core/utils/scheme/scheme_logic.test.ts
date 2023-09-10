@@ -219,7 +219,7 @@ describe("'scheme logic' utils", () => {
     state.schemeType = ESchemeType.RESTRICTOR;
 
     jest.spyOn(SchemeIdle, "activate");
-    jest.spyOn(IdleManager.prototype, "resetScheme");
+    jest.spyOn(IdleManager.prototype, "activate");
 
     expect(() => activateSchemeBySection(object, ini, "sr_idle@test", null, false)).toThrow();
 
@@ -232,7 +232,7 @@ describe("'scheme logic' utils", () => {
     expect(state.activeSection).toBe("sr_idle@test");
     expect(state.activeScheme).toBe(EScheme.SR_IDLE);
     expect(SchemeIdle.activate).toHaveBeenCalledWith(object, ini, EScheme.SR_IDLE, "sr_idle@test", null);
-    expect(getSchemeAction(state[EScheme.SR_IDLE] as IBaseSchemeState).resetScheme).toHaveBeenCalledWith(false, object);
+    expect(getSchemeAction(state[EScheme.SR_IDLE] as IBaseSchemeState).activate).toHaveBeenCalledWith(false, object);
   });
 
   it("'activateSchemeBySection' should correctly change generic sections", () => {
@@ -248,7 +248,7 @@ describe("'scheme logic' utils", () => {
     state.schemeType = ESchemeType.STALKER;
 
     jest.spyOn(SchemeHit, "activate");
-    jest.spyOn(HitManager.prototype, "activateScheme");
+    jest.spyOn(HitManager.prototype, "activate");
     jest.spyOn(MapDisplayManager.getInstance(), "updateObjectMapSpot").mockImplementation(jest.fn());
 
     loadGenericSchemes();
@@ -259,7 +259,7 @@ describe("'scheme logic' utils", () => {
     expect(state.activeScheme).toBe(EScheme.HIT);
     expect(SchemeHit.activate).toHaveBeenCalledWith(object, ini, EScheme.HIT, "hit@test", null);
     expect(object.set_dest_level_vertex_id).toHaveBeenCalledWith(255);
-    expect(getSchemeAction(state[EScheme.HIT] as IBaseSchemeState).activateScheme).toHaveBeenCalledWith(false, object);
+    expect(getSchemeAction(state[EScheme.HIT] as IBaseSchemeState).activate).toHaveBeenCalledWith(false, object);
 
     expect(state.overrides).toEqualLuaTables({
       combat_ignore: null,

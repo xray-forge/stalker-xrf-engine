@@ -64,7 +64,7 @@ export class PhysicObjectBinder extends object_binder {
     const state: IRegistryObjectState = registry.objects.get(this.object.id());
 
     if (state.activeScheme) {
-      emitSchemeEvent(this.object, state[state.activeScheme]!, ESchemeEvent.NET_DESTROY, this.object);
+      emitSchemeEvent(this.object, state[state.activeScheme]!, ESchemeEvent.SWITCH_OFFLINE, this.object);
     }
 
     const on_offline_condlist: Optional<TConditionList> = state?.overrides?.on_offline_condlist;

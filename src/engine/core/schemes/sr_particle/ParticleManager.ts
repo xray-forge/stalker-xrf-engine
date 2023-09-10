@@ -21,7 +21,7 @@ export class ParticleManager extends AbstractSchemeManager<ISchemeParticleState>
   /**
    * todo: Description.
    */
-  public override resetScheme(): void {
+  public override activate(): void {
     if (this.state.mode === 2) {
       this.path = new patrol(this.state.path);
 

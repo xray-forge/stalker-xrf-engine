@@ -7,7 +7,7 @@ import { TCount } from "@/engine/lib/types";
  * todo;
  */
 export class IdleManager extends AbstractSchemeManager<ISchemeIdleState> {
-  public override resetScheme(): void {
+  public override activate(): void {
     this.state.signals = new LuaTable();
   }
 

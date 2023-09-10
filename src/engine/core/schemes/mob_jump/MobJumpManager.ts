@@ -22,7 +22,7 @@ export class MobJumpManager extends AbstractSchemeManager<ISchemeMobJumpState> {
   /**
    * todo: Description.
    */
-  public override resetScheme(): void {
+  public override activate(): void {
     scriptCaptureMonster(this.object, true, MobJumpManager.name);
 
     // -- reset signals

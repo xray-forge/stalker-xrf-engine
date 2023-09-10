@@ -33,7 +33,7 @@ export class SchemePostProcessManager extends AbstractSchemeManager<ISchemePostP
   /**
    * Handle reset event to play anew.
    */
-  public override resetScheme(): void {
+  public override activate(): void {
     this.isActorInside = false;
 
     this.grayAmplitude = 1.0;

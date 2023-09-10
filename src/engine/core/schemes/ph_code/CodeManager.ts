@@ -12,7 +12,7 @@ export class CodeManager extends AbstractSchemeManager<ISchemeCodeState> {
   /**
    * todo: Description.
    */
-  public override resetScheme(): void {
+  public override activate(): void {
     this.object.set_nonscript_usable(false);
   }
 

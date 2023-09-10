@@ -22,7 +22,7 @@ export class CrowSpawnerManager extends AbstractSchemeManager<ISchemeCrowSpawner
   /**
    * todo: Description.
    */
-  public override resetScheme(): void {
+  public override activate(): void {
     for (const [k, v] of this.state.pathsList!) {
       this.spawnPointsIdle.set(v, time_global());
     }

@@ -53,7 +53,7 @@ export class HelicopterMoveManager extends AbstractSchemeManager<ISchemeHelicopt
   /**
    * todo: Description.
    */
-  public override resetScheme(loading?: boolean): void {
+  public override activate(loading?: boolean): void {
     this.state.signals = new LuaTable();
     this.heliObject.TurnEngineSound(this.state.engine_sound);
 

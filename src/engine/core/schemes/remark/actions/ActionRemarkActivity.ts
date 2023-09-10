@@ -3,6 +3,7 @@ import { action_base, level, LuabindClass, patrol } from "xray16";
 import { getObjectIdByStoryId, registry, setStalkerState } from "@/engine/core/database";
 import { SimulationBoardManager } from "@/engine/core/managers/simulation/SimulationBoardManager";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
+import { ISchemeEventHandler } from "@/engine/core/objects/ai/scheme";
 import {
   EStalkerState,
   ILookTargetDescriptor,
@@ -27,7 +28,7 @@ const logger: LuaLogger = new LuaLogger($filename);
  * todo;
  */
 @LuabindClass()
-export class ActionRemarkActivity extends action_base {
+export class ActionRemarkActivity extends action_base implements ISchemeEventHandler {
   public st: ISchemeRemarkState;
   public state: number = stateInitial;
 
@@ -76,7 +77,7 @@ export class ActionRemarkActivity extends action_base {
   /**
    * todo
    */
-  public activateScheme(): void {
+  public activate(): void {
     this.st.signals = new LuaTable();
     this.soundEndSignalled = false;
     this.actionEndSignalled = false;
