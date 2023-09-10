@@ -6,7 +6,7 @@ import { toJSON } from "@/engine/core/utils/transform/json";
 import { gameConfig } from "@/engine/lib/configs/GameConfig";
 import { replaceFunctionMock, resetFunctionMock } from "@/fixtures/utils";
 
-describe("'logging' utils", () => {
+describe("LuaLogger class", () => {
   const logging: { LuaLogger: typeof LuaLogger } = jest.requireActual("@/engine/core/utils/logging/LuaLogger");
   const Logger: typeof LuaLogger = logging.LuaLogger;
 

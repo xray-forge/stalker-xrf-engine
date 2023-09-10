@@ -13,7 +13,7 @@ import { ActorSound } from "@/engine/core/objects/sounds/playable_sounds/ActorSo
 import { LoopedSound } from "@/engine/core/objects/sounds/playable_sounds/LoopedSound";
 import { NpcSound } from "@/engine/core/objects/sounds/playable_sounds/NpcSound";
 import { ObjectSound } from "@/engine/core/objects/sounds/playable_sounds/ObjectSound";
-import { EPlayableSound } from "@/engine/core/objects/sounds/types";
+import { EPlayableSound } from "@/engine/core/objects/sounds/sounds_types";
 import { abort, assert, assertDefined } from "@/engine/core/utils/assertion";
 import { readIniString } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";

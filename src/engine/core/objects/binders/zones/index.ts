@@ -4,5 +4,3 @@ export * from "@/engine/core/objects/binders/zones/ArenaZoneBinder";
 export * from "@/engine/core/objects/binders/zones/CampZoneBinder";
 export * from "@/engine/core/objects/binders/zones/LevelChangerBinder";
 export * from "@/engine/core/objects/binders/zones/RestrictorBinder";
-export * from "@/engine/core/objects/binders/zones/SmartCoverBinder";
-export * from "@/engine/core/objects/binders/zones/SmartTerrainBinder";

@@ -645,6 +645,9 @@ export class StalkerBinder extends object_binder {
 
 /**
  * todo: Description.
+ * todo: move out?
+ * todo: move out?
+ * todo: move out?
  */
 export function updateStalkerLogic(object: ClientObject): void {
   const state: Optional<IRegistryObjectState> = registry.objects.get(object.id());

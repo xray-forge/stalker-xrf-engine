@@ -4,7 +4,7 @@ import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { ENotificationType, ISoundNotification } from "@/engine/core/managers/notifications/notifications_types";
 import { AbstractPlayableSound } from "@/engine/core/objects/sounds/playable_sounds/AbstractPlayableSound";
-import { EPlayableSound, ESoundPlaylistType } from "@/engine/core/objects/sounds/types";
+import { EPlayableSound, ESoundPlaylistType } from "@/engine/core/objects/sounds/sounds_types";
 import { IBaseSchemeState } from "@/engine/core/schemes/base";
 import { assert } from "@/engine/core/utils/assertion";
 import { parseStringsList } from "@/engine/core/utils/ini/ini_parse";

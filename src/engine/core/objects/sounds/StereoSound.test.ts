@@ -6,7 +6,7 @@ import { StereoSound } from "@/engine/core/objects/sounds/StereoSound";
 import { replaceFunctionMock } from "@/fixtures/utils/function_mock";
 import { mockClientGameObject } from "@/fixtures/xray";
 
-describe("StereoSound object", () => {
+describe("StereoSound class", () => {
   it("should correctly initialize", () => {
     const stereoSound: StereoSound = new StereoSound();
 
@@ -82,4 +82,8 @@ describe("StereoSound object", () => {
     expect(stereoSound.soundEndTime).toBe(280);
     expect(stereoSound.soundObject?.volume).toBe(70);
   });
+
+  it.todo("should correctly play at time");
+
+  it.todo("should correctly check play state");
 });
