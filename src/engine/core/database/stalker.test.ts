@@ -10,7 +10,7 @@ import {
   unregisterStalker,
 } from "@/engine/core/database/stalker";
 import { StalkerStateManager } from "@/engine/core/objects/ai/state/StalkerStateManager";
-import { EStalkerState } from "@/engine/core/objects/animation/state_types";
+import { EStalkerState } from "@/engine/core/objects/animation/types/state_types";
 import { StalkerBinder } from "@/engine/core/objects/binders/creature/StalkerBinder";
 import { createEmptyVector } from "@/engine/core/utils/vector";
 import { mockClientGameObject } from "@/fixtures/xray";

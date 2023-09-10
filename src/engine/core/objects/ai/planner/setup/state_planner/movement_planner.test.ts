@@ -1,6 +1,6 @@
 import { describe, it } from "@jest/globals";
 
-import { setupStalkerMovementStatePlanner } from "@/engine/core/objects/ai/setup/state/movement_planner";
+import { setupStalkerMovementStatePlanner } from "@/engine/core/objects/ai/planner/setup/state_planner/movement_planner";
 import {
   ActionMovementRun,
   ActionMovementRunSearch,

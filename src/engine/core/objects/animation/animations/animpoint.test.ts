@@ -1,7 +1,7 @@
 import { describe, expect, it } from "@jest/globals";
 
-import { EStalkerState } from "@/engine/core/objects/animation";
 import { animpointAnimations } from "@/engine/core/objects/animation/animations/animpoint";
+import { EStalkerState } from "@/engine/core/objects/animation/types";
 import { assertArraysIntersecting } from "@/fixtures/engine";
 import { mockFromLuaTable } from "@/fixtures/lua";
 

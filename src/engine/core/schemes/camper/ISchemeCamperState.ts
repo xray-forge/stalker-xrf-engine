@@ -1,5 +1,5 @@
 import { IBaseSchemeState } from "@/engine/core/objects/ai/scheme";
-import { EStalkerState } from "@/engine/core/objects/animation";
+import { EStalkerState } from "@/engine/core/objects/animation/types";
 import {
   LuaArray,
   Optional,

@@ -1,6 +1,6 @@
 import { describe, it } from "@jest/globals";
 
-import { setupStalkerSmartCoverStatePlanner } from "@/engine/core/objects/ai/setup/state/smart_cover_planner";
+import { setupStalkerSmartCoverStatePlanner } from "@/engine/core/objects/ai/planner/setup/state_planner/smart_cover_planner";
 import { ActionSmartCoverEnter, ActionSmartCoverExit } from "@/engine/core/objects/ai/state/smart_cover";
 import { StalkerStateManager } from "@/engine/core/objects/ai/state/StalkerStateManager";
 import { EStateActionId, EStateEvaluatorId } from "@/engine/core/objects/ai/types";

@@ -1,6 +1,6 @@
 import { describe, it } from "@jest/globals";
 
-import { setupStalkerMentalStatePlanner } from "@/engine/core/objects/ai/setup/state/mental_planner";
+import { setupStalkerMentalStatePlanner } from "@/engine/core/objects/ai/planner/setup/state_planner/mental_planner";
 import { ActionMentalDanger, ActionMentalFree, ActionMentalPanic } from "@/engine/core/objects/ai/state/mental";
 import { StalkerStateManager } from "@/engine/core/objects/ai/state/StalkerStateManager";
 import { EStateActionId, EStateEvaluatorId } from "@/engine/core/objects/ai/types";

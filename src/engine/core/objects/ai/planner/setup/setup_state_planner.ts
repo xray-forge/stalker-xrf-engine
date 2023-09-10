@@ -11,7 +11,7 @@ import {
   setupStalkerSmartCoverStatePlanner,
   setupStalkerStateEvaluators,
   setupStalkerWeaponStatePlanner,
-} from "@/engine/core/objects/ai/setup/state";
+} from "@/engine/core/objects/ai/planner/setup/state_planner";
 import { StalkerStateManager } from "@/engine/core/objects/ai/state";
 import { ActionStateEnd } from "@/engine/core/objects/ai/state/state";
 import { EStateActionId, EStateEvaluatorId } from "@/engine/core/objects/ai/types";

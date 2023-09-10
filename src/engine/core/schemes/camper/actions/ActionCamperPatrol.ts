@@ -3,7 +3,7 @@ import { action_base, danger_object, LuabindClass, patrol, stalker_ids, time_glo
 import { registry, setStalkerState } from "@/engine/core/database";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import { StalkerMoveManager } from "@/engine/core/objects/ai/state/StalkerMoveManager";
-import { EStalkerState, ILookTargetDescriptor } from "@/engine/core/objects/animation";
+import { EStalkerState, ILookTargetDescriptor } from "@/engine/core/objects/animation/types";
 import { ICampPoint, ISchemeCamperState } from "@/engine/core/schemes/camper/ISchemeCamperState";
 import { abort } from "@/engine/core/utils/assertion";
 import { parseWaypointsData } from "@/engine/core/utils/ini";

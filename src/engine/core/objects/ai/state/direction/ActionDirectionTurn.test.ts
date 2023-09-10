@@ -5,7 +5,7 @@ import { registry } from "@/engine/core/database/registry";
 import { registerStalker, setStalkerState, unregisterStalker } from "@/engine/core/database/stalker";
 import { ActionDirectionTurn } from "@/engine/core/objects/ai/state/direction/ActionDirectionTurn";
 import { StalkerStateManager } from "@/engine/core/objects/ai/state/StalkerStateManager";
-import { EStalkerState } from "@/engine/core/objects/animation";
+import { EStalkerState } from "@/engine/core/objects/animation/types";
 import { StalkerBinder } from "@/engine/core/objects/binders/creature/StalkerBinder";
 import { createEmptyVector, createVector } from "@/engine/core/utils/vector";
 import { ClientObject } from "@/engine/lib/types";

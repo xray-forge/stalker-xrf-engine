@@ -1,6 +1,6 @@
 import { describe, expect, it } from "@jest/globals";
 
-import { setupStalkerMotivationPlanner } from "@/engine/core/objects/ai/setup/motivation_planner";
+import { setupStalkerMotivationPlanner } from "@/engine/core/objects/ai/planner/setup/setup_motivation_planner";
 import { StalkerAnimationManager } from "@/engine/core/objects/ai/state/StalkerAnimationManager";
 import { StalkerStateManager } from "@/engine/core/objects/ai/state/StalkerStateManager";
 import { EvaluatorStateIdleAlife } from "@/engine/core/objects/ai/state/state/EvaluatorStateIdleAlife";
@@ -8,7 +8,7 @@ import { EvaluatorStateIdleCombat } from "@/engine/core/objects/ai/state/state/E
 import { EvaluatorStateIdleItems } from "@/engine/core/objects/ai/state/state/EvaluatorStateIdleItems";
 import { EvaluatorStateLogicActive } from "@/engine/core/objects/ai/state/state/EvaluatorStateLogicActive";
 import { EActionId, EEvaluatorId } from "@/engine/core/objects/ai/types";
-import { EAnimationType } from "@/engine/core/objects/animation/animation_types";
+import { EAnimationType } from "@/engine/core/objects/animation/types/animation_types";
 import { ActionPlanner, ClientObject } from "@/engine/lib/types";
 import { checkPlannerAction } from "@/fixtures/engine";
 import { MockActionPlanner, mockClientGameObject } from "@/fixtures/xray";

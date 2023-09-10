@@ -1,8 +1,8 @@
 import { action_base, LuabindClass } from "xray16";
 
 import { StalkerStateManager } from "@/engine/core/objects/ai/state/StalkerStateManager";
-import { EStalkerState } from "@/engine/core/objects/animation";
 import { states } from "@/engine/core/objects/animation/states";
+import { EStalkerState } from "@/engine/core/objects/animation/types";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { Optional, TName } from "@/engine/lib/types";
 

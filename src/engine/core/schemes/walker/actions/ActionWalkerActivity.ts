@@ -4,8 +4,8 @@ import { getCampZoneForPosition, registry, setStalkerState } from "@/engine/core
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import { ISchemeEventHandler } from "@/engine/core/objects/ai/scheme";
 import { StalkerMoveManager } from "@/engine/core/objects/ai/state/StalkerMoveManager";
-import { EStalkerState } from "@/engine/core/objects/animation";
 import { animpoint_predicates } from "@/engine/core/objects/animation/predicates/animpoint_predicates";
+import { EStalkerState } from "@/engine/core/objects/animation/types";
 import { CampManager } from "@/engine/core/objects/camp/CampManager";
 import { IAnimpointActionDescriptor } from "@/engine/core/schemes/animpoint/types";
 import { ISchemeWalkerState } from "@/engine/core/schemes/walker";

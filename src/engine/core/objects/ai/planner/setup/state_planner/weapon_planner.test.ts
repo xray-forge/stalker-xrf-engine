@@ -1,6 +1,6 @@
 import { describe, it } from "@jest/globals";
 
-import { setupStalkerWeaponStatePlanner } from "@/engine/core/objects/ai/setup/state/weapon_planner";
+import { setupStalkerWeaponStatePlanner } from "@/engine/core/objects/ai/planner/setup/state_planner/weapon_planner";
 import { StalkerStateManager } from "@/engine/core/objects/ai/state/StalkerStateManager";
 import {
   ActionWeaponDrop,

@@ -2,7 +2,7 @@ import { LuabindClass, property_evaluator } from "xray16";
 
 import { StalkerStateManager } from "@/engine/core/objects/ai/state/StalkerStateManager";
 import { COMBAT_ACTION_IDS, EActionId, EStateEvaluatorId } from "@/engine/core/objects/ai/types";
-import { EStalkerState } from "@/engine/core/objects/animation/state_types";
+import { EStalkerState } from "@/engine/core/objects/animation/types/state_types";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { ActionPlanner, Optional, TNumberId } from "@/engine/lib/types";
 

@@ -5,7 +5,7 @@ import { registry } from "@/engine/core/database/registry";
 import { registerStalker, setStalkerState, unregisterStalker } from "@/engine/core/database/stalker";
 import { EvaluatorBodyStateStandingTarget } from "@/engine/core/objects/ai/state/body_state/EvaluatorBodyStateStandingTarget";
 import { StalkerStateManager } from "@/engine/core/objects/ai/state/StalkerStateManager";
-import { EStalkerState } from "@/engine/core/objects/animation";
+import { EStalkerState } from "@/engine/core/objects/animation/types";
 import { StalkerBinder } from "@/engine/core/objects/binders/creature/StalkerBinder";
 import { mockClientGameObject } from "@/fixtures/xray";
 

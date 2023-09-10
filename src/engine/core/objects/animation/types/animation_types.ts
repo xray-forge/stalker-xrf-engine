@@ -1,4 +1,4 @@
-import { EStalkerState } from "@/engine/core/objects/animation/state_types";
+import { EStalkerState } from "@/engine/core/objects/animation/types/state_types";
 import {
   AnyCallable,
   LuaArray,

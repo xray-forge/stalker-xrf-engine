@@ -8,7 +8,7 @@ import {
   setPortableStoreValue,
 } from "@/engine/core/database";
 import { MapDisplayManager } from "@/engine/core/managers/map";
-import { EStalkerState } from "@/engine/core/objects/animation";
+import { EStalkerState } from "@/engine/core/objects/animation/types";
 import { showFreeplayDialog } from "@/engine/core/ui/game/FreeplayDialog";
 import { abort } from "@/engine/core/utils/assertion";
 import { extern, getExtern } from "@/engine/core/utils/binding";

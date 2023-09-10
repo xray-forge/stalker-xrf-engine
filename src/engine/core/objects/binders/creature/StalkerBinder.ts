@@ -38,8 +38,8 @@ import { MapDisplayManager } from "@/engine/core/managers/map/MapDisplayManager"
 import { SimulationBoardManager } from "@/engine/core/managers/simulation/SimulationBoardManager";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import { TradeManager } from "@/engine/core/managers/trade/TradeManager";
+import { setupStalkerMotivationPlanner, setupStalkerStatePlanner } from "@/engine/core/objects/ai/planner/setup";
 import { ESchemeEvent, IBaseSchemeState } from "@/engine/core/objects/ai/scheme";
-import { setupStalkerMotivationPlanner, setupStalkerStatePlanner } from "@/engine/core/objects/ai/setup";
 import { StalkerStateManager } from "@/engine/core/objects/ai/state";
 import { StalkerMoveManager } from "@/engine/core/objects/ai/state/StalkerMoveManager";
 import { EActionId } from "@/engine/core/objects/ai/types";

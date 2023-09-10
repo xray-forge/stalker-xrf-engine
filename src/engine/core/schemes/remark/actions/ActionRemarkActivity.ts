@@ -3,7 +3,11 @@ import { action_base, level, LuabindClass, patrol } from "xray16";
 import { getObjectIdByStoryId, registry, setStalkerState } from "@/engine/core/database";
 import { SimulationBoardManager } from "@/engine/core/managers/simulation/SimulationBoardManager";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
-import { EStalkerState, ILookTargetDescriptor, IStateManagerCallbackDescriptor } from "@/engine/core/objects/animation";
+import {
+  EStalkerState,
+  ILookTargetDescriptor,
+  IStateManagerCallbackDescriptor,
+} from "@/engine/core/objects/animation/types";
 import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain/SmartTerrain";
 import { ISchemeRemarkState } from "@/engine/core/schemes/remark";
 import { abort } from "@/engine/core/utils/assertion";

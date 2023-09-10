@@ -1,7 +1,7 @@
 import { anim, move, object, TXR_object_state } from "xray16";
 
-import { EStalkerState, IStateDescriptor } from "@/engine/core/objects/animation";
 import { states } from "@/engine/core/objects/animation/states";
+import { EStalkerState, IStateDescriptor } from "@/engine/core/objects/animation/types";
 import { isWeapon } from "@/engine/core/utils/object/object_class";
 import { ClientObject, Optional, TIndex } from "@/engine/lib/types";
 

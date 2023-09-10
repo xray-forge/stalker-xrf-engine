@@ -1,6 +1,6 @@
 import { describe, expect, it } from "@jest/globals";
 
-import { setupStalkerStateEvaluators } from "@/engine/core/objects/ai/setup/state/state_evaluators";
+import { setupStalkerStateEvaluators } from "@/engine/core/objects/ai/planner/setup/state_planner/state_evaluators";
 import {
   EvaluatorAnimation,
   EvaluatorAnimationLocked,

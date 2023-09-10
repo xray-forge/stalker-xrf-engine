@@ -1,5 +1,5 @@
 import { registry } from "@/engine/core/database";
-import { IAnimationDescriptor, TAnimationSequenceElements } from "@/engine/core/objects/animation";
+import { IAnimationDescriptor, TAnimationSequenceElements } from "@/engine/core/objects/animation/types";
 import { createSequence } from "@/engine/core/utils/animation";
 import { abort } from "@/engine/core/utils/assertion";
 import { parseStringsList } from "@/engine/core/utils/ini";

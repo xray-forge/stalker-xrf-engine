@@ -1,6 +1,6 @@
 import { describe, it } from "@jest/globals";
 
-import { setupStalkerBodyStatePlanner } from "@/engine/core/objects/ai/setup/state/body_state_planner";
+import { setupStalkerBodyStatePlanner } from "@/engine/core/objects/ai/planner/setup/state_planner/body_state_planner";
 import {
   ActionBodyStateCrouch,
   ActionBodyStateCrouchDanger,

@@ -1,8 +1,8 @@
 import { LuabindClass, property_evaluator } from "xray16";
 
 import { StalkerStateManager } from "@/engine/core/objects/ai/state/StalkerStateManager";
-import { EWeaponAnimation } from "@/engine/core/objects/animation";
 import { states } from "@/engine/core/objects/animation/states";
+import { EWeaponAnimation } from "@/engine/core/objects/animation/types";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { isStrappableWeapon } from "@/engine/core/utils/object";
 import { ClientObject, Optional } from "@/engine/lib/types";

@@ -1,6 +1,6 @@
 import { describe, expect, it, jest } from "@jest/globals";
 
-import { setupStalkerStatePlanner } from "@/engine/core/objects/ai/setup";
+import { setupStalkerStatePlanner } from "@/engine/core/objects/ai/planner/setup";
 import {
   setupStalkerAnimationStatePlanner,
   setupStalkerAnimstateStatePlanner,
@@ -12,7 +12,7 @@ import {
   setupStalkerSmartCoverStatePlanner,
   setupStalkerStateEvaluators,
   setupStalkerWeaponStatePlanner,
-} from "@/engine/core/objects/ai/setup/state";
+} from "@/engine/core/objects/ai/planner/setup/state_planner";
 import { StalkerStateManager } from "@/engine/core/objects/ai/state/StalkerStateManager";
 import { ActionStateEnd } from "@/engine/core/objects/ai/state/state";
 import { EStateActionId, EStateEvaluatorId } from "@/engine/core/objects/ai/types";
@@ -20,7 +20,7 @@ import { ActionPlanner, ClientObject } from "@/engine/lib/types";
 import { checkPlannerAction } from "@/fixtures/engine";
 import { MockActionPlanner, mockClientGameObject, MockWorldState } from "@/fixtures/xray";
 
-jest.mock("@/engine/core/objects/ai/setup/state");
+jest.mock("@/engine/core/objects/ai/planner/setup/state_planner");
 
 describe("state_manager util", () => {
   it("should correctly setup state planner events", () => {

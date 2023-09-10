@@ -1,8 +1,8 @@
 import { action_base, level, LuabindClass, object, time_global } from "xray16";
 
 import { StalkerStateManager } from "@/engine/core/objects/ai/state/StalkerStateManager";
-import { EWeaponAnimation } from "@/engine/core/objects/animation";
 import { states } from "@/engine/core/objects/animation/states";
+import { EWeaponAnimation } from "@/engine/core/objects/animation/types";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getObjectSmartCoverStateQueueParams } from "@/engine/core/utils/object";
 import { isStalker, isWeapon } from "@/engine/core/utils/object/object_class";

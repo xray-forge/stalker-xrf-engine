@@ -1,4 +1,4 @@
-import type { EWeaponAnimation } from "@/engine/core/objects/animation/animation_types";
+import type { EWeaponAnimation } from "@/engine/core/objects/animation/types/animation_types";
 import type {
   AnyCallable,
   AnyContextualCallable,

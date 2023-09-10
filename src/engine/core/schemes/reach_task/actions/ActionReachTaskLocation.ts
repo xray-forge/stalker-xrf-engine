@@ -3,7 +3,7 @@ import { action_base, alife, anim, clsid, level, look, LuabindClass, move, objec
 import { registry } from "@/engine/core/database";
 import { TSimulationObject } from "@/engine/core/managers/simulation";
 import { SurgeManager } from "@/engine/core/managers/surge/SurgeManager";
-import { EStalkerState } from "@/engine/core/objects/animation";
+import { EStalkerState } from "@/engine/core/objects/animation/types";
 import { Squad } from "@/engine/core/objects/server/squad/Squad";
 import { ReachTaskPatrolManager } from "@/engine/core/schemes/reach_task/ReachTaskPatrolManager";
 import { LuaLogger } from "@/engine/core/utils/logging";

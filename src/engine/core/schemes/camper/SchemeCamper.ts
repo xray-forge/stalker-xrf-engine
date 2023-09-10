@@ -2,7 +2,7 @@ import { world_property } from "xray16";
 
 import { AbstractScheme } from "@/engine/core/objects/ai/scheme";
 import { EActionId, EEvaluatorId } from "@/engine/core/objects/ai/types";
-import { EStalkerState } from "@/engine/core/objects/animation";
+import { EStalkerState } from "@/engine/core/objects/animation/types";
 import { ActionCamperPatrol } from "@/engine/core/schemes/camper/actions";
 import { EvaluatorCloseCombat, EvaluatorEndSectionLogics } from "@/engine/core/schemes/camper/evaluators";
 import { ISchemeCamperState } from "@/engine/core/schemes/camper/ISchemeCamperState";

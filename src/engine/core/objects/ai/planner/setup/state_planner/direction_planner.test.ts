@@ -1,6 +1,6 @@
 import { describe, it } from "@jest/globals";
 
-import { setupStalkerDirectionStatePlanner } from "@/engine/core/objects/ai/setup/state/direction_planner";
+import { setupStalkerDirectionStatePlanner } from "@/engine/core/objects/ai/planner/setup/state_planner/direction_planner";
 import { ActionDirectionSearch, ActionDirectionTurn } from "@/engine/core/objects/ai/state/direction";
 import { StalkerStateManager } from "@/engine/core/objects/ai/state/StalkerStateManager";
 import { EStateActionId, EStateEvaluatorId } from "@/engine/core/objects/ai/types";

@@ -9,7 +9,7 @@ import {
   unRegisterWoundedObject,
 } from "@/engine/core/database";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
-import { EStalkerState } from "@/engine/core/objects/animation";
+import { EStalkerState } from "@/engine/core/objects/animation/types";
 import { ISchemeWoundedState } from "@/engine/core/schemes/wounded";
 import { WoundManager } from "@/engine/core/schemes/wounded/WoundManager";
 import { abort } from "@/engine/core/utils/assertion";
