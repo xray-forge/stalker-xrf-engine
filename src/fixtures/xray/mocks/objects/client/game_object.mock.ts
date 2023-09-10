@@ -279,6 +279,7 @@ export function mockClientGameObject({
     set_condition: rest.set_condition || jest.fn(),
     set_manual_invisibility: rest.set_manual_invisibility || jest.fn(),
     set_mental_state: rest.set_mental_state || jest.fn(),
+    set_movement_type: rest.set_movement_type || jest.fn(),
     set_nonscript_usable: rest.set_nonscript_usable || jest.fn(),
     set_home: rest.set_home || jest.fn(),
     set_invisible: rest.set_invisible || jest.fn(),

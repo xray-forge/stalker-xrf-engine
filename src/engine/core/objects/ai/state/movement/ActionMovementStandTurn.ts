@@ -6,7 +6,7 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Action to set current movement state as stand + turn.
  */
 @LuabindClass()
 export class ActionMovementStandTurn extends action_base {
@@ -18,7 +18,7 @@ export class ActionMovementStandTurn extends action_base {
   }
 
   /**
-   * todo: Description.
+   * Apply correct states for an object.
    */
   public override initialize(): void {
     super.initialize();

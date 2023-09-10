@@ -6,7 +6,7 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Action to set object movement state to run.
  */
 @LuabindClass()
 export class ActionMovementRun extends action_base {
