@@ -37,7 +37,9 @@ export class SchemeReachTask extends AbstractScheme {
     const manager: ActionPlanner = object.motivation_action_manager();
     const alifeAction: ActionBase = manager.action(EActionId.ALIFE);
     const alifeActionPlanner: ActionPlanner = cast_planner(alifeAction);
-    const smartTerrainTaskAction: ActionBase = alifeActionPlanner.action(EActionId.SMART_TERRAIN_TASK);
+    const smartTerrainTaskAction: ActionReachTaskLocation = alifeActionPlanner.action(
+      EActionId.SMART_TERRAIN_TASK
+    ) as ActionReachTaskLocation;
 
     SchemeReachTask.subscribe(object, state, smartTerrainTaskAction);
   }

@@ -1,5 +1,5 @@
 import { IRegistryObjectState, registry } from "@/engine/core/database";
-import { IBaseSchemeState } from "@/engine/core/objects/ai/scheme/types";
+import { IBaseSchemeState, ISchemeEventHandler } from "@/engine/core/objects/ai/scheme/scheme_types";
 import { abort } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { AnyObject, ClientObject, IniFile, Optional, TName } from "@/engine/lib/types";
@@ -107,11 +107,7 @@ export abstract class AbstractScheme {
   /**
    * todo: Description.
    */
-  public static subscribe(
-    object: ClientObject,
-    state: IBaseSchemeState,
-    subscriber: TName | AnyObject | LuaTable
-  ): void {
+  public static subscribe(object: ClientObject, state: IBaseSchemeState, subscriber: ISchemeEventHandler): void {
     if (!state.actions) {
       state.actions = new LuaTable();
     }

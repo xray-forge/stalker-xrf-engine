@@ -13,7 +13,7 @@ const logger: LuaLogger = new LuaLogger($filename);
  * Manager to handle idle state of physical objects.
  */
 export class PhysicalIdleManager extends AbstractSchemeManager<ISchemePhysicalIdleState> {
-  public override resetScheme(): void {
+  public override activate(): void {
     this.object.set_nonscript_usable(this.state.isNonscriptUsable);
   }
 

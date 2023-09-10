@@ -42,7 +42,7 @@ describe("MobHomeManager functionality", () => {
       );
     });
 
-    mobHomeManager.resetScheme();
+    mobHomeManager.activate();
 
     expect(mobHomeManager.getHomeParameters).toHaveBeenCalledTimes(1);
     expect(object.set_home).toHaveBeenCalledWith(

@@ -17,29 +17,29 @@ describe("'scheme logic' utils", () => {
     const object: ClientObject = mockClientGameObject();
     const schemeState: IBaseSchemeState = mockSchemeState(object, EScheme.MEET);
     const mockAction = {
-      activateScheme: jest.fn(),
+      activate: jest.fn(),
       deactivate: jest.fn(),
+      save: jest.fn(),
+      update: jest.fn(),
       onDeath: jest.fn(),
       onCutscene: jest.fn(),
       onExtrapolate: jest.fn(),
-      net_destroy: jest.fn(),
+      onSwitchOnline: jest.fn(),
+      onSwitchOffline: jest.fn(),
       onHit: jest.fn(),
-      resetScheme: jest.fn(),
-      save: jest.fn(),
-      update: jest.fn(),
       onUse: jest.fn(),
       onWaypoint: jest.fn(),
     };
 
-    expect(() => emitSchemeEvent(object, schemeState, ESchemeEvent.ACTIVATE_SCHEME)).not.toThrow();
+    expect(() => emitSchemeEvent(object, schemeState, ESchemeEvent.ACTIVATE)).not.toThrow();
 
     schemeState.actions = new LuaTable();
-    expect(() => emitSchemeEvent(object, schemeState, ESchemeEvent.ACTIVATE_SCHEME)).not.toThrow();
+    expect(() => emitSchemeEvent(object, schemeState, ESchemeEvent.ACTIVATE)).not.toThrow();
 
     schemeState.actions.set(mockAction, true);
 
-    emitSchemeEvent(object, schemeState, ESchemeEvent.ACTIVATE_SCHEME, object, 1, 2, 3);
-    expect(mockAction.activateScheme).toHaveBeenCalledWith(object, 1, 2, 3);
+    emitSchemeEvent(object, schemeState, ESchemeEvent.ACTIVATE, object, 1, 2, 3);
+    expect(mockAction.activate).toHaveBeenCalledWith(object, 1, 2, 3);
 
     emitSchemeEvent(object, schemeState, ESchemeEvent.DEACTIVATE);
     expect(mockAction.deactivate).toHaveBeenCalledTimes(1);
@@ -53,14 +53,14 @@ describe("'scheme logic' utils", () => {
     emitSchemeEvent(object, schemeState, ESchemeEvent.EXTRAPOLATE);
     expect(mockAction.onExtrapolate).toHaveBeenCalledTimes(1);
 
-    emitSchemeEvent(object, schemeState, ESchemeEvent.NET_DESTROY);
-    expect(mockAction.net_destroy).toHaveBeenCalledTimes(1);
+    emitSchemeEvent(object, schemeState, ESchemeEvent.SWITCH_OFFLINE);
+    expect(mockAction.onSwitchOffline).toHaveBeenCalledTimes(1);
+
+    emitSchemeEvent(object, schemeState, ESchemeEvent.SWITCH_ONLINE);
+    expect(mockAction.onSwitchOnline).toHaveBeenCalledTimes(1);
 
     emitSchemeEvent(object, schemeState, ESchemeEvent.HIT);
     expect(mockAction.onHit).toHaveBeenCalledTimes(1);
-
-    emitSchemeEvent(object, schemeState, ESchemeEvent.RESET_SCHEME);
-    expect(mockAction.resetScheme).toHaveBeenCalledTimes(1);
 
     emitSchemeEvent(object, schemeState, ESchemeEvent.SAVE);
     expect(mockAction.save).toHaveBeenCalledTimes(1);

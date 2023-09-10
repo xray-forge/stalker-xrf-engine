@@ -42,7 +42,7 @@ export class ActionSmartCoverActivity extends action_base implements ISchemeEven
 
     this.initialized = true;
 
-    this.activateScheme();
+    this.activate();
   }
 
   /**
@@ -72,7 +72,7 @@ export class ActionSmartCoverActivity extends action_base implements ISchemeEven
   /**
    * todo: Description.
    */
-  public activateScheme(): void {
+  public activate(): void {
     this.state.signals = new LuaTable();
 
     if (!this.initialized) {

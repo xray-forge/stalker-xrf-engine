@@ -662,13 +662,13 @@ describe("'switch logic' utils", () => {
     expect(switchObjectSchemeToSection(object, ini, null)).toBe(false);
     expect(handler.deactivate).not.toHaveBeenCalled();
 
-    jest.spyOn(TimerManager.prototype, "resetScheme").mockImplementation(jest.fn);
+    jest.spyOn(TimerManager.prototype, "activate").mockImplementation(jest.fn);
 
     expect(switchObjectSchemeToSection(object, ini, "sr_timer@next")).toBe(true);
     expect(handler.deactivate).toHaveBeenCalledTimes(1);
     expect(state.activeScheme).toBe(EScheme.SR_TIMER);
     expect(state.activeSection).toBe("sr_timer@next");
     expect(state[EScheme.SR_TIMER]).toBeDefined();
-    expect(getSchemeAction(state[EScheme.SR_TIMER] as IBaseSchemeState).resetScheme).toHaveBeenCalledTimes(1);
+    expect(getSchemeAction(state[EScheme.SR_TIMER] as IBaseSchemeState).activate).toHaveBeenCalledTimes(1);
   });
 });

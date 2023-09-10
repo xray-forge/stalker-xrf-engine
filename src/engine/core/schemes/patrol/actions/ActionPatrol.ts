@@ -1,6 +1,7 @@
 import { action_base, LuabindClass, time_global } from "xray16";
 
 import { registry, setStalkerState } from "@/engine/core/database";
+import { ISchemeEventHandler } from "@/engine/core/objects/ai/scheme";
 import { StalkerMoveManager } from "@/engine/core/objects/ai/state/StalkerMoveManager";
 import { EStalkerState } from "@/engine/core/objects/animation/types";
 import { ISchemePatrolState } from "@/engine/core/schemes/patrol";
@@ -16,7 +17,7 @@ const logger: LuaLogger = new LuaLogger($filename);
  * Action patrol when objects should go to some specific place.
  */
 @LuabindClass()
-export class ActionPatrol extends action_base {
+export class ActionPatrol extends action_base implements ISchemeEventHandler {
   public readonly state: ISchemePatrolState;
   public readonly moveManager: StalkerMoveManager;
 
@@ -48,7 +49,7 @@ export class ActionPatrol extends action_base {
   /**
    * todo: Description.
    */
-  public activateScheme(): void {
+  public activate(): void {
     this.state.signals = new LuaTable();
 
     if (this.state.path_walk_info === null) {
@@ -124,21 +125,21 @@ export class ActionPatrol extends action_base {
   /**
    * todo: Description.
    */
-  public onDeath(npc: ClientObject): void {
-    registry.patrols.generic.get(this.state.patrol_key).removeNpc(npc);
+  public onDeath(object: ClientObject): void {
+    registry.patrols.generic.get(this.state.patrol_key).removeNpc(object);
   }
 
   /**
    * todo: Description.
    */
-  public deactivate(npc: ClientObject): void {
-    registry.patrols.generic.get(this.state.patrol_key).removeNpc(npc);
+  public deactivate(object: ClientObject): void {
+    registry.patrols.generic.get(this.state.patrol_key).removeNpc(object);
   }
 
   /**
    * todo: Description.
    */
-  public net_destroy(npc: ClientObject): void {
-    this.deactivate(npc);
+  public onSwitchOffline(object: ClientObject): void {
+    this.deactivate(object);
   }
 }

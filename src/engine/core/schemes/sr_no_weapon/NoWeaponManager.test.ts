@@ -36,7 +36,7 @@ describe("NoWeaponManager class", () => {
     registry.noWeaponZones.set(object.id(), true);
     manager.actorState = EActorZoneState.INSIDE;
 
-    manager.resetScheme();
+    manager.activate();
     manager.actorState = EActorZoneState.NOWHERE;
     expect(registry.noWeaponZones.get(object.id())).toBeNull();
 

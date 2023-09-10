@@ -15,6 +15,9 @@ import { ClientObject, Optional } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
+// todo: Remove?
+// todo: Remove?
+// todo: Remove?
 const ASSOC_TBL = {
   idle: { director: ["wait"] },
   harmonica: { director: ["play_harmonica"] },
@@ -63,7 +66,7 @@ export class ActionWalkerActivity extends action_base implements ISchemeEventHan
     this.object.set_desired_position();
     this.object.set_desired_direction();
 
-    this.resetScheme(false, this.object);
+    this.reset(false, this.object);
   }
 
   /**
@@ -80,6 +83,40 @@ export class ActionWalkerActivity extends action_base implements ISchemeEventHan
     }
 
     super.finalize();
+  }
+
+  /**
+   * todo: Description.
+   */
+  public activate(isLoading: boolean, object: ClientObject): void {
+    this.state.signals = new LuaTable();
+    this.reset(isLoading, object);
+  }
+
+  /**
+   * todo: Description.
+   */
+  public reset(isLoading: boolean, object: ClientObject): void {
+    if (this.state.path_walk_info === null) {
+      this.state.path_walk_info = parseWaypointsData(this.state.path_walk);
+    }
+
+    if (this.state.path_look_info === null) {
+      this.state.path_look_info = parseWaypointsData(this.state.path_look);
+    }
+
+    this.moveManager.reset(
+      this.state.path_walk,
+      this.state.path_walk_info,
+      this.state.path_look,
+      this.state.path_look_info,
+      this.state.team,
+      this.state.suggested_state,
+      null,
+      null,
+      null,
+      null
+    );
   }
 
   /**
@@ -131,51 +168,10 @@ export class ActionWalkerActivity extends action_base implements ISchemeEventHan
   /**
    * todo: Description.
    */
-  public isPositionReached(): boolean {
-    return this.moveManager.isArrivedToFirstWaypoint();
-  }
-
-  /**
-   * todo: Description.
-   */
-  public net_destroy(object: ClientObject): void {
+  public onSwitchOffline(object: ClientObject): void {
     if (this.isInCamp === true) {
       this.campStoryManager!.unregisterObject(object.id());
       this.isInCamp = null;
     }
-  }
-
-  /**
-   * todo: Description.
-   */
-  public activateScheme(isLoading: boolean, object: ClientObject): void {
-    this.state.signals = new LuaTable();
-    this.resetScheme(isLoading, object);
-  }
-
-  /**
-   * todo: Description.
-   */
-  public resetScheme(isLoading: boolean, object: ClientObject): void {
-    if (this.state.path_walk_info === null) {
-      this.state.path_walk_info = parseWaypointsData(this.state.path_walk);
-    }
-
-    if (this.state.path_look_info === null) {
-      this.state.path_look_info = parseWaypointsData(this.state.path_look);
-    }
-
-    this.moveManager.reset(
-      this.state.path_walk,
-      this.state.path_walk_info,
-      this.state.path_look,
-      this.state.path_look_info,
-      this.state.team,
-      this.state.suggested_state,
-      null,
-      null,
-      null,
-      null
-    );
   }
 }

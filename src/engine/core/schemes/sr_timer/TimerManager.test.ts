@@ -20,7 +20,7 @@ describe("TimerManager class", () => {
     const timerManager: TimerManager = new TimerManager(object, state);
     const hud: CUIGameCustom = get_hud();
 
-    timerManager.resetScheme();
+    timerManager.activate();
 
     expect(hud.GetCustomStatic("timer-id")).toBeDefined();
     expect(hud.GetCustomStatic("hud_timer_text")!.wnd().TextControl().GetText()).toBe("timer-label");
@@ -39,7 +39,7 @@ describe("TimerManager class", () => {
     const timerManager: TimerManager = new TimerManager(object, state);
     const hud: CUIGameCustom = get_hud();
 
-    timerManager.resetScheme();
+    timerManager.activate();
 
     expect(hud.GetCustomStatic("timer-id")).toBeDefined();
     expect(hud.GetCustomStatic("hud_timer_text")).toBeNull();

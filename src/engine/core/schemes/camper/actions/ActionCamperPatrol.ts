@@ -2,6 +2,7 @@ import { action_base, danger_object, LuabindClass, patrol, stalker_ids, time_glo
 
 import { registry, setStalkerState } from "@/engine/core/database";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
+import { ISchemeEventHandler } from "@/engine/core/objects/ai/scheme";
 import { StalkerMoveManager } from "@/engine/core/objects/ai/state/StalkerMoveManager";
 import { EStalkerState, ILookTargetDescriptor } from "@/engine/core/objects/animation/types";
 import { ICampPoint, ISchemeCamperState } from "@/engine/core/schemes/camper/ISchemeCamperState";
@@ -9,13 +10,13 @@ import { abort } from "@/engine/core/utils/assertion";
 import { parseWaypointsData } from "@/engine/core/utils/ini";
 import { isObjectAtWaypoint, isObjectFacingDanger } from "@/engine/core/utils/object";
 import { createVector } from "@/engine/core/utils/vector";
-import { ClientObject, DangerObject, Optional, Vector } from "@/engine/lib/types";
+import { ClientObject, DangerObject, Optional, Patrol, Vector } from "@/engine/lib/types";
 
 /**
  * todo;
  */
 @LuabindClass()
-export class ActionCamperPatrol extends action_base {
+export class ActionCamperPatrol extends action_base implements ISchemeEventHandler {
   public state: ISchemeCamperState;
   public moveManager: StalkerMoveManager;
 
@@ -50,14 +51,21 @@ export class ActionCamperPatrol extends action_base {
     this.object.set_desired_position();
     this.object.set_desired_direction();
 
-    this.resetScheme();
+    this.reset();
     this.enemyPosition = null;
   }
 
   /**
    * todo: Description.
    */
-  public resetScheme(): void {
+  public activate(): void {
+    this.reset();
+  }
+
+  /**
+   * todo: Description.
+   */
+  public reset(): void {
     setStalkerState(this.object, EStalkerState.PATROL, null, null, null, null);
 
     this.state.signals = new LuaTable();
@@ -118,13 +126,6 @@ export class ActionCamperPatrol extends action_base {
     this.state.last_look_point = null;
     this.state.cur_look_point = null;
     this.state.scan_begin = null;
-  }
-
-  /**
-   * todo: Description.
-   */
-  public activateScheme(): void {
-    this.resetScheme();
   }
 
   /**
@@ -516,7 +517,7 @@ export class ActionCamperPatrol extends action_base {
       return false;
     }
 
-    const path = new patrol(this.state.path_walk);
+    const path: Patrol = new patrol(this.state.path_walk);
 
     if (path !== null) {
       for (const k of $range(0, path.count() - 1)) {

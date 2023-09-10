@@ -10,7 +10,7 @@ import { Hit, Vector } from "@/engine/lib/types";
  * todo;
  */
 export class PhysicalHitManager extends AbstractSchemeManager<ISchemePhysicalHitState> {
-  public override resetScheme(): void {
+  public override activate(): void {
     const patrolPoint: Vector = new patrol(this.state.dir_path).point(0);
     const objectPosition: Vector = this.object.position();
 

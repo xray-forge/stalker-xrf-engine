@@ -20,7 +20,7 @@ export class MobHomeManager extends AbstractSchemeManager<ISchemeMobHomeState> {
   public static readonly DEFAULT_MID_RADIUS: TDistance = 20;
   public static readonly DEFAULT_MAX_RADIUS: TDistance = 70;
 
-  public override resetScheme(): void {
+  public override activate(): void {
     setMonsterState(this.object, this.state.monsterState);
 
     const [name, minRadius, maxRadius, isAggressive, midRadius] = this.getHomeParameters();

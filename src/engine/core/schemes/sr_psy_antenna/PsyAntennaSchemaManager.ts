@@ -18,7 +18,7 @@ export class PsyAntennaSchemaManager extends AbstractSchemeManager<ISchemePsyAnt
   /**
    * todo: Description.
    */
-  public override resetScheme(loading?: boolean): void {
+  public override activate(loading?: boolean): void {
     if (loading) {
       this.antennaState = getPortableStoreValue(this.object.id(), "inside")!;
     }

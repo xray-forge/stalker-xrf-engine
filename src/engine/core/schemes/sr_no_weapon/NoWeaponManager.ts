@@ -19,7 +19,7 @@ export class NoWeaponManager extends AbstractSchemeManager<ISchemeNoWeaponState>
    * Instantly assume it is no weapon anymore and reset current states.
    * Recalculate actual state.
    */
-  public override resetScheme(): void {
+  public override activate(): void {
     registry.noWeaponZones.delete(this.object.id());
 
     logger.info("Reset no weapon state");

@@ -17,7 +17,7 @@ const logger: LuaLogger = new LuaLogger($filename);
 export class PhysicalButtonManager extends AbstractSchemeManager<ISchemePhysicalButtonState> {
   public lastHitAt: Optional<TTimestamp> = null;
 
-  public override resetScheme(): void {
+  public override activate(): void {
     this.object.play_cycle(this.state.anim, this.state.blending);
 
     this.lastHitAt = time_global();

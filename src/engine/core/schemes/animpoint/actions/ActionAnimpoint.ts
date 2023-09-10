@@ -42,13 +42,6 @@ export class ActionAnimpoint extends action_base implements ISchemeEventHandler 
   }
 
   /**
-   * Stop animation on net destroy.
-   */
-  public net_destroy(): void {
-    this.state.animpointManager.stop();
-  }
-
-  /**
    * On animation execution start, perform animations scenario.
    */
   public override execute(): void {
@@ -68,5 +61,12 @@ export class ActionAnimpoint extends action_base implements ISchemeEventHandler 
       { lookPosition: this.state.animpointManager.lookPosition, lookObjectId: null },
       { animationPosition: position, animationDirection: direction }
     );
+  }
+
+  /**
+   * Stop animation on net destroy.
+   */
+  public onSwitchOffline(): void {
+    this.state.animpointManager.stop();
   }
 }

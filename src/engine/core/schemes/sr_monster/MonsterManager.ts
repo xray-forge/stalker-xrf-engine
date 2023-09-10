@@ -45,7 +45,7 @@ export class MonsterManager extends AbstractSchemeManager<ISchemeMonsterState> {
   /**
    * todo: Description.
    */
-  public override resetScheme(): void {
+  public override activate(): void {
     this.isActorInside = false;
 
     this.state.idle_end = 0;

@@ -79,7 +79,7 @@ export class MinigunManager extends AbstractSchemeManager<ISchemeMinigunState> {
   /**
    * todo: Description.
    */
-  public override resetScheme(): void {
+  public override activate(): void {
     this.startDelayingTime = time_global();
     this.startShootingTime = time_global();
 

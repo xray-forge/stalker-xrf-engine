@@ -15,7 +15,7 @@ export class PhysicalForceManager extends AbstractSchemeManager<ISchemePhysicalF
   /**
    * todo: Description.
    */
-  public override resetScheme(): void {
+  public override activate(): void {
     if (this.state.delay !== 0) {
       this.time = time_global() + this.state.delay;
     }

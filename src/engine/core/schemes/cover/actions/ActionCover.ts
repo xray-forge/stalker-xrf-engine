@@ -61,7 +61,7 @@ export class ActionCover extends action_base implements ISchemeEventHandler {
    * Handle scheme activation event.
    * todo: Description.
    */
-  public activateScheme(): void {
+  public activate(): void {
     this.state.signals = new LuaTable();
 
     const smartTerrainVertexId: TNumberId = SimulationBoardManager.getInstance().getSmartTerrainByName(

@@ -233,11 +233,11 @@ export class StalkerBinder extends object_binder {
     const state: IRegistryObjectState = registry.objects.get(objectId);
 
     if (state.activeScheme) {
-      emitSchemeEvent(this.object, state[state.activeScheme]!, ESchemeEvent.NET_DESTROY, this.object);
+      emitSchemeEvent(this.object, state[state.activeScheme]!, ESchemeEvent.SWITCH_OFFLINE, this.object);
     }
 
     if (this.state[EScheme.REACH_TASK]) {
-      emitSchemeEvent(this.object, this.state[EScheme.REACH_TASK], ESchemeEvent.NET_DESTROY, this.object);
+      emitSchemeEvent(this.object, this.state[EScheme.REACH_TASK], ESchemeEvent.SWITCH_OFFLINE, this.object);
     }
 
     // Call logics on offline.

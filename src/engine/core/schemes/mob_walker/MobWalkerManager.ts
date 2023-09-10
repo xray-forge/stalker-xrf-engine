@@ -56,7 +56,7 @@ export class MobWalkerManager extends AbstractSchemeManager<ISchemeMobWalkerStat
   /**
    * todo: Description.
    */
-  public override resetScheme(): void {
+  public override activate(): void {
     setMonsterState(this.object, this.state.state);
 
     this.state.signals = new LuaTable();
@@ -108,7 +108,7 @@ export class MobWalkerManager extends AbstractSchemeManager<ISchemeMobWalkerStat
    */
   public update(): void {
     if (!isMonsterScriptCaptured(this.object)) {
-      this.resetScheme();
+      this.activate();
 
       return;
     }

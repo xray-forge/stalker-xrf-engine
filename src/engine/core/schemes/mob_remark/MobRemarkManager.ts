@@ -20,7 +20,7 @@ export class MobRemarkManager extends AbstractSchemeManager<ISchemeMobRemarkStat
   /**
    * todo: Description.
    */
-  public override resetScheme(): void {
+  public override activate(): void {
     setMonsterState(this.object, this.state.state);
 
     this.object.disable_talk();
