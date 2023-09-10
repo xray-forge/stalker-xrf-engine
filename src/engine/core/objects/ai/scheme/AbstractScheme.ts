@@ -1,11 +1,15 @@
-import { IRegistryObjectState, registry } from "@/engine/core/database";
-import { IBaseSchemeState, ISchemeEventHandler } from "@/engine/core/objects/ai/scheme/scheme_types";
+import { IBaseSchemeState, IRegistryObjectState, registry } from "@/engine/core/database";
 import { abort } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { AnyObject, ClientObject, IniFile, Optional, TName } from "@/engine/lib/types";
+import { AnyObject, ClientObject, IniFile, ISchemeEventHandler, Optional, TName } from "@/engine/lib/types";
 import { EScheme, ESchemeType, TSection } from "@/engine/lib/types/scheme";
 
 const logger: LuaLogger = new LuaLogger($filename);
+
+/**
+ * Typing describing abstract scheme implementation.
+ */
+export type TAbstractSchemeConstructor = typeof AbstractScheme;
 
 /**
  * todo;

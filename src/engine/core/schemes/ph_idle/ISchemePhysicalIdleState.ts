@@ -1,4 +1,4 @@
-import type { IBaseSchemeLogic, IBaseSchemeState } from "@/engine/core/objects/ai/scheme";
+import type { IBaseSchemeLogic, IBaseSchemeState } from "@/engine/core/database";
 import type { IBoneStateDescriptor } from "@/engine/core/utils/ini/ini_types";
 import type { LuaArray, Optional, TLabel } from "@/engine/lib/types";
 

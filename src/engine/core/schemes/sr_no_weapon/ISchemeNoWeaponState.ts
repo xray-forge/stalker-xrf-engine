@@ -1,4 +1,4 @@
-import type { IBaseSchemeState } from "@/engine/core/objects/ai/scheme";
+import type { IBaseSchemeState } from "@/engine/core/database/types";
 
 /**
  * Enumeration to define actor state relative to zone.

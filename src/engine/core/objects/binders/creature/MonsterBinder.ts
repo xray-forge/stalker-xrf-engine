@@ -3,6 +3,7 @@ import { alife, callback, clsid, cond, hit, level, LuabindClass, move, object_bi
 import {
   closeLoadMarker,
   closeSaveMarker,
+  IBaseSchemeState,
   IRegistryObjectState,
   IStoredOfflineObject,
   loadObjectLogic,
@@ -17,7 +18,6 @@ import {
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { TSimulationObject } from "@/engine/core/managers/simulation";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
-import { ESchemeEvent, IBaseSchemeState } from "@/engine/core/objects/ai/scheme";
 import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain/SmartTerrain";
 import { SquadReachTargetAction } from "@/engine/core/objects/server/squad/action";
 import { Squad } from "@/engine/core/objects/server/squad/Squad";
@@ -40,6 +40,7 @@ import {
   ALifeSmartTerrainTask,
   ClientObject,
   EScheme,
+  ESchemeEvent,
   ESchemeType,
   Hit,
   NetPacket,

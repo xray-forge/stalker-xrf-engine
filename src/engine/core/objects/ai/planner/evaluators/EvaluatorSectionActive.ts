@@ -1,7 +1,7 @@
 import { LuabindClass, property_evaluator } from "xray16";
 
 import { registry } from "@/engine/core/database";
-import { IBaseSchemeState } from "@/engine/core/objects/ai/scheme";
+import type { IBaseSchemeState } from "@/engine/core/database/types";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { TName } from "@/engine/lib/types";
 

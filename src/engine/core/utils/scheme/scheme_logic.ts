@@ -1,14 +1,15 @@
 import { callback, clsid, game, time_global } from "xray16";
 
-import { IRegistryObjectState, IStoredOfflineObject, registry } from "@/engine/core/database";
-import { MapDisplayManager } from "@/engine/core/managers/map/MapDisplayManager";
-import { ObjectRestrictionsManager } from "@/engine/core/objects/ai/restriction";
 import {
-  ESchemeEvent,
   IBaseSchemeLogic,
   IBaseSchemeState,
-  TAbstractSchemeConstructor,
-} from "@/engine/core/objects/ai/scheme";
+  IRegistryObjectState,
+  IStoredOfflineObject,
+  registry,
+} from "@/engine/core/database";
+import { MapDisplayManager } from "@/engine/core/managers/map/MapDisplayManager";
+import { ObjectRestrictionsManager } from "@/engine/core/objects/ai/restriction";
+import { TAbstractSchemeConstructor } from "@/engine/core/objects/ai/scheme";
 import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain";
 import { assert, assertDefined } from "@/engine/core/utils/assertion";
 import { getObjectConfigOverrides, pickSectionFromCondList } from "@/engine/core/utils/ini/ini_config";
@@ -29,7 +30,7 @@ import {
   initializeObjectTakeItemsEnabledState,
 } from "@/engine/core/utils/scheme/scheme_object_initialization";
 import { NIL } from "@/engine/lib/constants/words";
-import { ClientObject, EScheme, ESchemeType, IniFile, Optional, TSection } from "@/engine/lib/types";
+import { ClientObject, EScheme, ESchemeEvent, ESchemeType, IniFile, Optional, TSection } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

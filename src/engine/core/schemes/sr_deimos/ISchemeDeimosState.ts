@@ -1,4 +1,4 @@
-import type { IBaseSchemeState } from "@/engine/core/objects/ai/scheme";
+import type { IBaseSchemeState } from "@/engine/core/database/types";
 import type { TCount, TRate, TStringId } from "@/engine/lib/types";
 
 /**

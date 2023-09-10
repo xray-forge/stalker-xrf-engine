@@ -1,4 +1,4 @@
-import { IBaseSchemeState } from "@/engine/core/objects/ai/scheme";
+import type { IBaseSchemeState } from "@/engine/core/database/types";
 import { EStalkerState } from "@/engine/core/objects/animation/types";
 import {
   LuaArray,

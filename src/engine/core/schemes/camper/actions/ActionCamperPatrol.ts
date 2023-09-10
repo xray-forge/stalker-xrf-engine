@@ -2,7 +2,6 @@ import { action_base, danger_object, LuabindClass, patrol, stalker_ids, time_glo
 
 import { registry, setStalkerState } from "@/engine/core/database";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
-import { ISchemeEventHandler } from "@/engine/core/objects/ai/scheme";
 import { StalkerMoveManager } from "@/engine/core/objects/ai/state/StalkerMoveManager";
 import { EStalkerState, ILookTargetDescriptor } from "@/engine/core/objects/animation/types";
 import { ICampPoint, ISchemeCamperState } from "@/engine/core/schemes/camper/ISchemeCamperState";
@@ -10,7 +9,7 @@ import { abort } from "@/engine/core/utils/assertion";
 import { parseWaypointsData } from "@/engine/core/utils/ini";
 import { isObjectAtWaypoint, isObjectFacingDanger } from "@/engine/core/utils/object";
 import { createVector } from "@/engine/core/utils/vector";
-import { ClientObject, DangerObject, Optional, Patrol, Vector } from "@/engine/lib/types";
+import { ClientObject, DangerObject, ISchemeEventHandler, Optional, Patrol, Vector } from "@/engine/lib/types";
 
 /**
  * todo;

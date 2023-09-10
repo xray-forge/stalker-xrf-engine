@@ -1,7 +1,6 @@
 import { action_base, LuabindClass, patrol } from "xray16";
 
 import { registry, setStalkerState } from "@/engine/core/database";
-import { ISchemeEventHandler } from "@/engine/core/objects/ai/scheme";
 import { StalkerMoveManager } from "@/engine/core/objects/ai/state/StalkerMoveManager";
 import { EStalkerState } from "@/engine/core/objects/animation/types";
 import { ISchemeSleeperState } from "@/engine/core/schemes/sleeper";
@@ -9,7 +8,17 @@ import { abort } from "@/engine/core/utils/assertion";
 import { parseWaypointsDataFromList } from "@/engine/core/utils/ini/ini_parse";
 import { IWaypointData } from "@/engine/core/utils/ini/ini_types";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { AnyCallable, ClientObject, LuaArray, Optional, Patrol, TCount, TDuration, Vector } from "@/engine/lib/types";
+import {
+  AnyCallable,
+  ClientObject,
+  ISchemeEventHandler,
+  LuaArray,
+  Optional,
+  Patrol,
+  TCount,
+  TDuration,
+  Vector,
+} from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

@@ -2,8 +2,8 @@ import { describe, expect, it } from "@jest/globals";
 import { property_storage } from "xray16";
 
 import { IRegistryObjectState, registerObject } from "@/engine/core/database";
+import type { IBaseSchemeState } from "@/engine/core/database/types";
 import { EvaluatorSectionEnded } from "@/engine/core/objects/ai/planner/evaluators/EvaluatorSectionEnded";
-import { IBaseSchemeState } from "@/engine/core/objects/ai/scheme";
 import { ClientObject, EScheme } from "@/engine/lib/types";
 import { mockSchemeState } from "@/fixtures/engine";
 import { mockClientGameObject } from "@/fixtures/xray";

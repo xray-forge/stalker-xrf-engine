@@ -1,15 +1,16 @@
 import { ObjectRestrictionsManager } from "@/engine/core/objects/ai/restriction";
-import { IBaseSchemeState } from "@/engine/core/objects/ai/scheme";
 import { StalkerMoveManager } from "@/engine/core/objects/ai/state/StalkerMoveManager";
 import { StalkerStateManager } from "@/engine/core/objects/ai/state/StalkerStateManager";
 import { ISchemePostCombatIdleState } from "@/engine/core/schemes/combat_idle/ISchemePostCombatIdleState";
 import { IActionSchemeHearState } from "@/engine/core/schemes/hear";
+import { TConditionList } from "@/engine/core/utils/ini";
 import {
   AnyObject,
   ClientObject,
   EScheme,
   ESchemeType,
   IniFile,
+  LuaArray,
   Optional,
   Time,
   TName,
@@ -17,6 +18,38 @@ import {
   TSection,
   TTimestamp,
 } from "@/engine/lib/types";
+
+/**
+ * todo;
+ */
+export interface IBaseSchemeLogic {
+  name: TName;
+  condlist: TConditionList;
+  objectId: Optional<TNumberId>;
+  v1: Optional<string | number>;
+  v2: Optional<string | number>;
+}
+
+/**
+ * todo;
+ */
+export interface IBaseSchemeState {
+  ini: IniFile;
+  /**
+   * List of switch conditions.
+   * Based on logic check one scheme section can be switched to another if condlists provide next section.
+   */
+  logic: Optional<LuaArray<IBaseSchemeLogic>>;
+  /**
+   * List of signals in active scheme state.
+   * Signals are flags indicating whether some action/thing happened.
+   */
+  signals: Optional<LuaTable<TName, boolean>>; // Rework with LuaSet?
+  scheme: EScheme;
+  section: Optional<TSection>;
+  actions?: LuaTable<AnyObject, boolean>;
+  overrides: Optional<AnyObject>;
+}
 
 /**
  * Client objects registry state logics descriptor.

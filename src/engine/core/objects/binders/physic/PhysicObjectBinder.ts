@@ -13,7 +13,6 @@ import {
 } from "@/engine/core/database";
 import { loadObjectLogic, saveObjectLogic } from "@/engine/core/database/logic";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
-import { ESchemeEvent } from "@/engine/core/objects/ai/scheme";
 import { PhysicObjectItemBox } from "@/engine/core/objects/binders/physic/PhysicObjectItemBox";
 import { pickSectionFromCondList, TConditionList } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -21,6 +20,7 @@ import { emitSchemeEvent, initializeObjectSchemeLogic } from "@/engine/core/util
 import {
   ClientObject,
   EScheme,
+  ESchemeEvent,
   ESchemeType,
   IniFile,
   NetPacket,

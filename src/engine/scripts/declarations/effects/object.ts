@@ -4,13 +4,13 @@ import {
   getObjectByStoryId,
   getObjectIdByStoryId,
   getServerObjectByStoryId,
+  IBaseSchemeState,
   IRegistryObjectState,
   registry,
   SYSTEM_INI,
   unregisterHelicopterObject,
 } from "@/engine/core/database";
 import { SimulationBoardManager } from "@/engine/core/managers/simulation/SimulationBoardManager";
-import { IBaseSchemeState } from "@/engine/core/objects/ai/scheme";
 import { updateStalkerLogic } from "@/engine/core/objects/binders/creature/StalkerBinder";
 import type { SmartTerrain, Squad } from "@/engine/core/objects/server";
 import { ISchemeCombatState } from "@/engine/core/schemes/combat";
@@ -830,8 +830,8 @@ extern("xr_effects.clear_box", (actor: ClientObject, object: ClientObject, p: [s
     table.insert(itemsList, item);
   }, inventoryBox);
 
-  for (const [k, v] of itemsList) {
-    alife().release(alife().object(v.id()), true);
+  for (const [, item] of itemsList) {
+    alife().release(alife().object(item.id()), true);
   }
 });
 

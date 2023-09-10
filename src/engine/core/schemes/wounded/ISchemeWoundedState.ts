@@ -1,4 +1,4 @@
-import type { IBaseSchemeState } from "@/engine/core/objects/ai/scheme";
+import type { IBaseSchemeState } from "@/engine/core/database/types";
 import type { WoundManager } from "@/engine/core/schemes/wounded/WoundManager";
 import type { LuaArray, Optional, TNumberId } from "@/engine/lib/types";
 

@@ -1,7 +1,6 @@
 import { action_base, LuabindClass, time_global } from "xray16";
 
 import { registry, setStalkerState } from "@/engine/core/database";
-import { ISchemeEventHandler } from "@/engine/core/objects/ai/scheme";
 import { StalkerMoveManager } from "@/engine/core/objects/ai/state/StalkerMoveManager";
 import { EStalkerState } from "@/engine/core/objects/animation/types";
 import { ISchemePatrolState } from "@/engine/core/schemes/patrol";
@@ -9,7 +8,15 @@ import { parseWaypointsData } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { sendToNearestAccessibleVertex } from "@/engine/core/utils/object/object_location";
 import { areSameVectors, createEmptyVector, createVector } from "@/engine/core/utils/vector";
-import { ClientObject, EClientObjectPath, TDistance, TNumberId, TTimestamp, Vector } from "@/engine/lib/types";
+import {
+  ClientObject,
+  EClientObjectPath,
+  ISchemeEventHandler,
+  TDistance,
+  TNumberId,
+  TTimestamp,
+  Vector,
+} from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

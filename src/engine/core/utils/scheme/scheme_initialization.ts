@@ -1,8 +1,13 @@
 import { alife, ini_file } from "xray16";
 
-import { CUSTOM_DATA, getObjectLogicIniConfig, IRegistryObjectState, registry } from "@/engine/core/database";
+import {
+  CUSTOM_DATA,
+  getObjectLogicIniConfig,
+  IBaseSchemeState,
+  IRegistryObjectState,
+  registry,
+} from "@/engine/core/database";
 import { TradeManager } from "@/engine/core/managers/trade/TradeManager";
-import { ESchemeEvent, IBaseSchemeState } from "@/engine/core/objects/ai/scheme";
 import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain";
 import { assert } from "@/engine/core/utils/assertion";
 import { readIniNumber, readIniString } from "@/engine/core/utils/ini";
@@ -26,6 +31,7 @@ import {
   ClientObject,
   EClientObjectRelation,
   EScheme,
+  ESchemeEvent,
   ESchemeType,
   IniFile,
   Optional,

@@ -1,4 +1,4 @@
-import type { IBaseSchemeLogic, IBaseSchemeState } from "@/engine/core/objects/ai/scheme";
+import type { IBaseSchemeLogic, IBaseSchemeState } from "@/engine/core/database/types";
 import type { EMonsterState } from "@/engine/lib/constants/monsters";
 import type { Optional } from "@/engine/lib/types";
 

@@ -1,4 +1,4 @@
-import type { IBaseSchemeState } from "@/engine/core/objects/ai/scheme";
+import type { IBaseSchemeState } from "@/engine/core/database/types";
 import type { LuaArray, TDuration, TName, TProbability } from "@/engine/lib/types";
 
 /**

@@ -1,9 +1,9 @@
 import { FS, get_hud, getFS, sound_object, time_global } from "xray16";
 
 import { IRegistryObjectState, registry } from "@/engine/core/database";
+import type { IBaseSchemeState } from "@/engine/core/database/types";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { ENotificationType, ISoundNotification } from "@/engine/core/managers/notifications/notifications_types";
-import { IBaseSchemeState } from "@/engine/core/objects/ai/scheme";
 import { AbstractPlayableSound } from "@/engine/core/objects/sounds/playable_sounds/AbstractPlayableSound";
 import { EPlayableSound, ESoundPlaylistType } from "@/engine/core/objects/sounds/sounds_types";
 import { assert } from "@/engine/core/utils/assertion";
