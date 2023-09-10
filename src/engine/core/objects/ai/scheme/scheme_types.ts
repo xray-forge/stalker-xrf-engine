@@ -12,7 +12,6 @@ import type {
   TName,
   TNumberId,
   TSection,
-  TTimestamp,
   Vector,
 } from "@/engine/lib/types";
 
@@ -50,7 +49,6 @@ export interface IBaseSchemeState {
   scheme: EScheme;
   section: Optional<TSection>;
   actions?: LuaTable<AnyObject, boolean>;
-  idle_end: TTimestamp;
   overrides: Optional<AnyObject>;
 }
 

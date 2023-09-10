@@ -79,7 +79,6 @@ export class LabX8DoorBinder extends object_binder {
     }
 
     // -- this.idle = 5000
-    // -- this.idle_end = 0
 
     const idleSound: TPath = readIniString(
       ini,
@@ -192,7 +191,6 @@ export class LabX8DoorBinder extends object_binder {
     }
 
     if (!this.isIdle) {
-      // --        if(this.idle_end<=game.time()) {
       if (this.isPlayFwd) {
         this.object.get_physics_object().run_anim_forward();
       } else {
@@ -257,7 +255,6 @@ export class LabX8DoorBinder extends object_binder {
     }
 
     this.object.get_physics_object().stop_anim();
-    // --    this.idle_end = this.idle + game.time()
     if (this.startSound) {
       this.startSound.play_at_pos(this.object, this.object.position(), this.startDelay / 1000, ESoundObjectType.S3D);
     }
@@ -286,7 +283,6 @@ export class LabX8DoorBinder extends object_binder {
     }
 
     this.object.get_physics_object().stop_anim();
-    // --    this.idle_end = this.idle + game.time()
     if (this.startSound) {
       this.startSound.play_at_pos(this.object, this.object.position(), this.startDelay / 1000, ESoundObjectType.S3D);
     }
