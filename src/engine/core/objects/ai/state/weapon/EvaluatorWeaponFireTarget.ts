@@ -4,6 +4,7 @@ import { StalkerStateManager } from "@/engine/core/objects/ai/state/StalkerState
 import { EWeaponAnimation } from "@/engine/core/objects/animation";
 import { states } from "@/engine/core/objects/animation/states";
 import { LuaLogger } from "@/engine/core/utils/logging";
+import { Optional } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -23,9 +24,8 @@ export class EvaluatorWeaponFireTarget extends property_evaluator {
    * Evaluate whether weapon fire state is active.
    */
   public override evaluate(): boolean {
-    return (
-      states.get(this.stateManager.targetState).weapon === EWeaponAnimation.FIRE ||
-      states.get(this.stateManager.targetState).weapon === EWeaponAnimation.SNIPER_FIRE
-    );
+    const weaponAnimation: Optional<EWeaponAnimation> = states.get(this.stateManager.targetState).weapon;
+
+    return weaponAnimation === EWeaponAnimation.FIRE || weaponAnimation === EWeaponAnimation.SNIPER_FIRE;
   }
 }
