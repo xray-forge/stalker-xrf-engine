@@ -1,9 +1,9 @@
 import { world_property } from "xray16";
 
+import { EvaluatorSectionActive } from "@/engine/core/objects/ai/planner/evaluators/EvaluatorSectionActive";
 import { AbstractScheme } from "@/engine/core/objects/ai/scheme";
 import { EActionId, EEvaluatorId } from "@/engine/core/objects/ai/types";
 import { ActionSleeperActivity } from "@/engine/core/schemes/sleeper/actions/ActionSleeperActivity";
-import { EvaluatorNeedSleep } from "@/engine/core/schemes/sleeper/evaluators/EvaluatorNeedSleep";
 import { ISchemeSleeperState } from "@/engine/core/schemes/sleeper/ISchemeSleeperState";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini/ini_config";
 import { readIniBoolean, readIniString } from "@/engine/core/utils/ini/ini_read";
@@ -55,7 +55,10 @@ export class SchemeSleeper extends AbstractScheme {
     const actionPlanner: ActionPlanner = object.motivation_action_manager();
 
     // Add evaluator to check if sleep is needed.
-    actionPlanner.add_evaluator(EEvaluatorId.NEED_SLEEPER, new EvaluatorNeedSleep(state));
+    actionPlanner.add_evaluator(
+      EEvaluatorId.NEED_SLEEPER,
+      new EvaluatorSectionActive(state, "EvaluatorSleepSectionActive")
+    );
 
     const actionSleeper: ActionSleeperActivity = new ActionSleeperActivity(state, object);
 

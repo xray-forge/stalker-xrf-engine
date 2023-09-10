@@ -29,14 +29,14 @@ export abstract class AbstractScheme {
    * @param ini - ini file with scheme details
    * @param scheme - name of scheme to activate, `mob_home` as example
    * @param section - scheme section, `mob_home@2` as example
-   * @param additional - additional scheme data
+   * @param smartTerrainName - additional scheme data with smart terrain name
    */
   public static activate(
     object: ClientObject,
     ini: IniFile,
     scheme: EScheme,
     section: TSection,
-    additional?: Optional<string>
+    smartTerrainName?: Optional<TName>
   ): void {
     abort("Called not implemented 'activate' method: %s, %s", object.name(), scheme);
   }

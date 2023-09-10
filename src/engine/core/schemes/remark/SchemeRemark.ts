@@ -1,9 +1,9 @@
 import { world_property } from "xray16";
 
+import { EvaluatorSectionActive } from "@/engine/core/objects/ai/planner/evaluators/EvaluatorSectionActive";
 import { AbstractScheme } from "@/engine/core/objects/ai/scheme";
 import { EActionId, EEvaluatorId } from "@/engine/core/objects/ai/types";
 import { ActionRemarkActivity } from "@/engine/core/schemes/remark/actions/ActionRemarkActivity";
-import { EvaluatorNeedRemark } from "@/engine/core/schemes/remark/evaluators/EvaluatorNeedRemark";
 import { ISchemeRemarkState } from "@/engine/core/schemes/remark/ISchemeRemarkState";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini/ini_config";
 import { parseConditionsList } from "@/engine/core/utils/ini/ini_parse";
@@ -61,7 +61,10 @@ export class SchemeRemark extends AbstractScheme {
   ): void {
     const actionPlanner: ActionPlanner = object.motivation_action_manager();
 
-    actionPlanner.add_evaluator(EEvaluatorId.NEED_REMARK, new EvaluatorNeedRemark(state));
+    actionPlanner.add_evaluator(
+      EEvaluatorId.NEED_REMARK,
+      new EvaluatorSectionActive(state, "EvaluatorRemarkSectionActive")
+    );
 
     const actionRemarkActivity: ActionRemarkActivity = new ActionRemarkActivity(state);
 

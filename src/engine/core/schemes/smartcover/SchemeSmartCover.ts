@@ -1,9 +1,10 @@
 import { world_property } from "xray16";
 
+import { EvaluatorSectionActive } from "@/engine/core/objects/ai/planner/evaluators/EvaluatorSectionActive";
 import { AbstractScheme } from "@/engine/core/objects/ai/scheme/AbstractScheme";
 import { EActionId, EEvaluatorId } from "@/engine/core/objects/ai/types";
 import { ActionSmartCoverActivity } from "@/engine/core/schemes/smartcover/actions";
-import { EvaluatorNeedSmartCover, EvaluatorUseSmartCoverInCombat } from "@/engine/core/schemes/smartcover/evaluators";
+import { EvaluatorUseSmartCoverInCombat } from "@/engine/core/schemes/smartcover/evaluators";
 import { ISchemeSmartCoverState } from "@/engine/core/schemes/smartcover/ISchemeSmartCoverState";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini/ini_config";
 import { readIniBoolean, readIniNumber, readIniString } from "@/engine/core/utils/ini/ini_read";
@@ -63,7 +64,10 @@ export class SchemeSmartCover extends AbstractScheme {
     const actionPlanner: ActionPlanner = object.motivation_action_manager();
 
     // Add new evaluators to check smart cover state.
-    actionPlanner.add_evaluator(EEvaluatorId.IS_SMART_COVER_NEEDED, new EvaluatorNeedSmartCover(state));
+    actionPlanner.add_evaluator(
+      EEvaluatorId.IS_SMART_COVER_NEEDED,
+      new EvaluatorSectionActive(state, "EvaluatorSmartCoverSectionActive")
+    );
     actionPlanner.add_evaluator(EEvaluatorId.CAN_USE_SMART_COVER_IN_COMBAT, new EvaluatorUseSmartCoverInCombat(state));
 
     // Action to handle hiding in smart cover.

@@ -1,1 +1,2 @@
-export * from "@/engine/core/objects/ai/planner/evaluators/EvaluatorEndSectionLogics";
+export * from "@/engine/core/objects/ai/planner/evaluators/EvaluatorSectionEnded";
+export * from "@/engine/core/objects/ai/planner/evaluators/EvaluatorSectionEnded";

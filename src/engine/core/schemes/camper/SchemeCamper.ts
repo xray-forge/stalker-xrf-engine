@@ -4,7 +4,7 @@ import { AbstractScheme } from "@/engine/core/objects/ai/scheme";
 import { EActionId, EEvaluatorId } from "@/engine/core/objects/ai/types";
 import { EStalkerState } from "@/engine/core/objects/animation/types";
 import { ActionCamperPatrol } from "@/engine/core/schemes/camper/actions";
-import { EvaluatorCloseCombat, EvaluatorEndSectionLogics } from "@/engine/core/schemes/camper/evaluators";
+import { EvaluatorCloseCombat, EvaluatorSectionEnded } from "@/engine/core/schemes/camper/evaluators";
 import { ISchemeCamperState } from "@/engine/core/schemes/camper/ISchemeCamperState";
 import { abort } from "@/engine/core/utils/assertion";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini/ini_config";
@@ -12,7 +12,7 @@ import { readIniBoolean, readIniNumber, readIniString } from "@/engine/core/util
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { RADIAN } from "@/engine/lib/constants/math";
 import { FALSE } from "@/engine/lib/constants/words";
-import { ActionBase, ClientObject, EScheme, ESchemeType, IniFile, Optional, TSection } from "@/engine/lib/types";
+import { ActionBase, ClientObject, EScheme, ESchemeType, IniFile, Optional, TName, TSection } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -31,13 +31,13 @@ export class SchemeCamper extends AbstractScheme {
     ini: IniFile,
     scheme: EScheme,
     section: TSection,
-    additional: string
+    smartTerrainName: TName
   ): void {
     const state: ISchemeCamperState = AbstractScheme.assign(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section);
-    state.path_walk = readIniString(ini, section, "path_walk", true, additional);
-    state.path_look = readIniString(ini, section, "path_look", true, additional);
+    state.path_walk = readIniString(ini, section, "path_walk", true, smartTerrainName);
+    state.path_look = readIniString(ini, section, "path_look", true, smartTerrainName);
 
     if (state.path_walk === state.path_look) {
       abort(
@@ -100,7 +100,10 @@ export class SchemeCamper extends AbstractScheme {
   ): void {
     const manager = object.motivation_action_manager();
 
-    manager.add_evaluator(EEvaluatorId.IS_CAMPING_ENDED, new EvaluatorEndSectionLogics(state));
+    manager.add_evaluator(
+      EEvaluatorId.IS_CAMPING_ENDED,
+      new EvaluatorSectionEnded(state, "EvaluatorCamperSectionEnded")
+    );
     manager.add_evaluator(EEvaluatorId.IS_CLOSE_COMBAT, new EvaluatorCloseCombat(state));
 
     const actionPatrol: ActionCamperPatrol = new ActionCamperPatrol(state, object);

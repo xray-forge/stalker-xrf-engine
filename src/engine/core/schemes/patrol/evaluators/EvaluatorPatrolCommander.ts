@@ -10,11 +10,11 @@ const logger: LuaLogger = new LuaLogger($filename);
  * todo;
  */
 @LuabindClass()
-export class EvaluatorPatrolComm extends property_evaluator {
+export class EvaluatorPatrolCommander extends property_evaluator {
   public readonly state: ISchemePatrolState;
 
   public constructor(state: ISchemePatrolState) {
-    super(null, EvaluatorPatrolComm.__name);
+    super(null, EvaluatorPatrolCommander.__name);
     this.state = state;
   }
 
