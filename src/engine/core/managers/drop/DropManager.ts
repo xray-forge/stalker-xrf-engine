@@ -2,6 +2,7 @@ import { alife, level } from "xray16";
 
 import { DEATH_GENERIC_LTX, IRegistryObjectState, registry } from "@/engine/core/database";
 import { AbstractManager } from "@/engine/core/managers/base/AbstractManager";
+import { IItemDropAmountDescriptor } from "@/engine/core/managers/drop/drop_types";
 import { Stalker } from "@/engine/core/objects/server/creature/Stalker";
 import { abort } from "@/engine/core/utils/assertion";
 import { parseNumbersList, parseStringsList } from "@/engine/core/utils/ini";
@@ -35,14 +36,6 @@ import {
 } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
-
-/**
- * todo;
- */
-export interface IItemDropAmountDescriptor {
-  min: TCount;
-  max: TCount;
-}
 
 /**
  * todo;
@@ -306,6 +299,7 @@ export class DropManager extends AbstractManager {
   /**
    * Handle client object death.
    * Spawn required loot, filter existing loot and mark state of items in inventory.
+   * todo: implement with eventsManager, not direct call.
    *
    * @param object - client object facing death event
    */

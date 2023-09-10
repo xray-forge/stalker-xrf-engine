@@ -1,11 +1,11 @@
-import type { TaskObject } from "core/managers/tasks";
-import type { ITreasureDescriptor } from "core/managers/treasures";
 import { alife, clsid } from "xray16";
 
 import { getPortableStoreValue, registry, setPortableStoreValue } from "@/engine/core/database";
 import { AbstractManager } from "@/engine/core/managers/base/AbstractManager";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
-import type { IActorStatistics } from "@/engine/core/managers/interface/statistics/statistics_types";
+import type { IActorStatistics } from "@/engine/core/managers/statistics/statistics_types";
+import type { TaskObject } from "@/engine/core/managers/tasks";
+import type { ITreasureDescriptor } from "@/engine/core/managers/treasures";
 import { assert } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { isArtefact } from "@/engine/core/utils/object";

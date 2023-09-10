@@ -1,7 +1,7 @@
 /**
  * todo;
  */
-export const notificationManagerIcons = {
+export const notificationsIcons = {
   pioneer: "ui_inGame2_PD_Pervootkrivatel",
   mutant_hunter: "ui_inGame2_PD_Ohotnik_na_mutantov",
   detective: "ui_inGame2_PD_Sisshik",
@@ -42,7 +42,7 @@ export const notificationManagerIcons = {
 /**
  * todo;
  */
-export type TNotificationIcons = typeof notificationManagerIcons;
+export type TNotificationIcons = typeof notificationsIcons;
 
 /**
  * todo;

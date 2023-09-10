@@ -1,4 +1,3 @@
-import { TaskManager } from "core/managers/tasks";
 import { alife, game, hit, level } from "xray16";
 
 import {
@@ -16,6 +15,7 @@ import { ActorInputManager } from "@/engine/core/managers/interface";
 import { MapDisplayManager } from "@/engine/core/managers/interface/MapDisplayManager";
 import { SimulationBoardManager } from "@/engine/core/managers/simulation/SimulationBoardManager";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
+import { TaskManager } from "@/engine/core/managers/tasks";
 import { WeatherManager } from "@/engine/core/managers/world/WeatherManager";
 import type { AnomalyZoneBinder } from "@/engine/core/objects/binders/zones";
 import type { SmartTerrain } from "@/engine/core/objects/server/smart_terrain";

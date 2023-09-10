@@ -5,6 +5,7 @@ import { AbstractManager } from "@/engine/core/managers/base/AbstractManager";
 import { EGameEvent } from "@/engine/core/managers/events/events_types";
 import { EventsManager } from "@/engine/core/managers/events/EventsManager";
 import { dynamicMusicThemes } from "@/engine/core/managers/sounds/dynamic_music";
+import { EDynamicMusicState } from "@/engine/core/managers/sounds/sounds_types";
 import { SurgeManager } from "@/engine/core/managers/world/SurgeManager";
 import { StereoSound } from "@/engine/core/objects/sounds/StereoSound";
 import { abort } from "@/engine/core/utils/assertion";
@@ -27,15 +28,6 @@ import {
 } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
-
-/**
- * todo;
- */
-export enum EDynamicMusicState {
-  IDLE,
-  START,
-  FINISH,
-}
 
 /**
  * todo;

@@ -1,7 +1,7 @@
 import { game } from "xray16";
 
 import { AbstractManager } from "@/engine/core/managers/base/AbstractManager";
-import { StatisticsManager } from "@/engine/core/managers/interface/statistics";
+import { StatisticsManager } from "@/engine/core/managers/statistics";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { TWeapon, weapons } from "@/engine/lib/constants/items/weapons";
 import { monsters, TMonster } from "@/engine/lib/constants/monsters";

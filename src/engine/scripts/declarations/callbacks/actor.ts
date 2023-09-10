@@ -1,5 +1,4 @@
-import { TravelManager } from "core/managers/travel";
-
+import { TravelManager } from "@/engine/core/managers/travel";
 import { extern } from "@/engine/core/utils/binding";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { ClientObject, PhraseDialog, TLabel, TStringId } from "@/engine/lib/types";

@@ -30,8 +30,8 @@ import { achievementRewards } from "@/engine/core/managers/achievements/achievem
 import { EAchievement } from "@/engine/core/managers/achievements/achievements_types";
 import { AchievementsManager } from "@/engine/core/managers/achievements/AchievementsManager";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
-import { ENotificationType, ITipNotification } from "@/engine/core/managers/interface";
-import { StatisticsManager } from "@/engine/core/managers/interface/statistics/StatisticsManager";
+import { ENotificationType, ITipNotification } from "@/engine/core/managers/notifications";
+import { StatisticsManager } from "@/engine/core/managers/statistics";
 import { disableInfo, giveInfo, hasAlifeInfo } from "@/engine/core/utils/object/object_info_portion";
 import { communities } from "@/engine/lib/constants/communities";
 import { infoPortions, TInfoPortion } from "@/engine/lib/constants/info_portions";

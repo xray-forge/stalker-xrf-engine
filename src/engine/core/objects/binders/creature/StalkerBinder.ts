@@ -30,13 +30,13 @@ import {
   unregisterHelicopterEnemy,
   unregisterStalker,
 } from "@/engine/core/database";
-import { DialogManager } from "@/engine/core/managers/dialog/DialogManager";
+import { DialogManager } from "@/engine/core/managers/dialogs";
+import { DropManager } from "@/engine/core/managers/drop";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { MapDisplayManager } from "@/engine/core/managers/interface/MapDisplayManager";
 import { SimulationBoardManager } from "@/engine/core/managers/simulation/SimulationBoardManager";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import { TradeManager } from "@/engine/core/managers/trade/TradeManager";
-import { DropManager } from "@/engine/core/managers/world/DropManager";
 import { ReleaseBodyManager } from "@/engine/core/managers/world/ReleaseBodyManager";
 import { setupStalkerMotivationPlanner, setupStalkerStatePlanner } from "@/engine/core/objects/ai/setup";
 import { StalkerStateManager } from "@/engine/core/objects/ai/state";

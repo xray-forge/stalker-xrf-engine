@@ -1,4 +1,4 @@
-import { TNotificationIcon } from "@/engine/core/managers/interface/notifications";
+import { TNotificationIcon } from "@/engine/core/managers/notifications/index";
 import { ETaskState } from "@/engine/core/managers/tasks/types";
 import {
   ClientObject,

@@ -8,7 +8,7 @@ import {
   openSaveMarker,
   registry,
 } from "@/engine/core/database";
-import { NotificationManager } from "@/engine/core/managers/interface/notifications";
+import { NotificationManager } from "@/engine/core/managers/notifications";
 import { ETaskState, ETaskStatus, POSSIBLE_STATES } from "@/engine/core/managers/tasks/types";
 import { assertDefined } from "@/engine/core/utils/assertion";
 import { getExtern } from "@/engine/core/utils/binding";

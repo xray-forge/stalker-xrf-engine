@@ -1,5 +1,3 @@
-import { TaskManager } from "core/managers/tasks";
-import { TreasureManager } from "core/managers/treasures";
 import { alife, device, game, level, patrol } from "xray16";
 
 import {
@@ -9,13 +7,11 @@ import {
   registry,
   SYSTEM_INI,
 } from "@/engine/core/database";
-import {
-  ActorInputManager,
-  ENotificationDirection,
-  NotificationManager,
-  TNotificationIcon,
-} from "@/engine/core/managers/interface";
+import { ActorInputManager } from "@/engine/core/managers/interface";
+import { ENotificationDirection, NotificationManager, TNotificationIcon } from "@/engine/core/managers/notifications";
 import { SleepManager } from "@/engine/core/managers/sleep/SleepManager";
+import { TaskManager } from "@/engine/core/managers/tasks";
+import { TreasureManager } from "@/engine/core/managers/treasures";
 import type { Squad } from "@/engine/core/objects/server/squad";
 import { abort, assert, assertDefined } from "@/engine/core/utils/assertion";
 import { extern } from "@/engine/core/utils/binding";

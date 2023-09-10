@@ -41,4 +41,34 @@ describe("SimulationBoardManager class", () => {
     expect(netProcessor.dataList).toHaveLength(0);
     expect(newManager.areDefaultSimulationSquadsSpawned).toBe(true);
   });
+
+  it.todo("should correctly get factions");
+
+  it.todo("should correctly get squads");
+
+  it.todo("should correctly get smart terrain descriptors, population and info");
+
+  it.todo("should correctly get squad simulation targets");
+
+  it.todo("should correctly register smart terrains");
+
+  it.todo("should correctly unregister smart terrains");
+
+  it.todo("should correctly assign squads to smart terrains");
+
+  it.todo("should correctly create squads");
+
+  it.todo("should correctly release squads");
+
+  it.todo("should correctly handle squads register/unregister");
+
+  it.todo("should correctly handle smart terrain enter/exit");
+
+  it.todo("should correctly setup squads for objects");
+
+  it.todo("should correctly initialize smart terrains for simulation");
+
+  it.todo("should correctly initialize default simulation squads");
+
+  it.todo("should correctly handle actor going online/offline");
 });

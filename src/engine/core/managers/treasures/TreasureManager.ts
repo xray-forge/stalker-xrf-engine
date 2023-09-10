@@ -10,7 +10,7 @@ import {
 } from "@/engine/core/database";
 import { AbstractManager } from "@/engine/core/managers/base/AbstractManager";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
-import { ETreasureState, NotificationManager } from "@/engine/core/managers/interface/notifications";
+import { ETreasureState, NotificationManager } from "@/engine/core/managers/notifications";
 import { ITreasureDescriptor, ITreasureItemsDescriptor } from "@/engine/core/managers/treasures/treasures_types";
 import { assert, assertDefined } from "@/engine/core/utils/assertion";
 import {

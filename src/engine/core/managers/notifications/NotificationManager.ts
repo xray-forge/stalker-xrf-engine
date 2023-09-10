@@ -4,10 +4,10 @@ import { getObjectIdByStoryId, registry } from "@/engine/core/database";
 import { AbstractManager } from "@/engine/core/managers/base/AbstractManager";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import {
-  notificationManagerIcons,
+  notificationsIcons,
   TNotificationIcon,
   TNotificationIconKey,
-} from "@/engine/core/managers/interface/notifications/NotificationManagerIcons";
+} from "@/engine/core/managers/notifications/notifications_icons";
 import {
   ENotificationDirection,
   ENotificationType,
@@ -19,7 +19,7 @@ import {
   ITaskUpdatedNotification,
   ITipNotification,
   ITreasureNotification,
-} from "@/engine/core/managers/interface/notifications/types";
+} from "@/engine/core/managers/notifications/notifications_types";
 import { ISmartTerrainDescriptor } from "@/engine/core/managers/simulation/simulation_types";
 import { SimulationBoardManager } from "@/engine/core/managers/simulation/SimulationBoardManager";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
@@ -130,9 +130,7 @@ export class NotificationManager extends AbstractManager {
     );
     const notificationText: TLabel = tostring(amount);
     const notificationIcon: TName =
-      direction === ENotificationDirection.IN
-        ? notificationManagerIcons.money_received
-        : notificationManagerIcons.money_given;
+      direction === ENotificationDirection.IN ? notificationsIcons.money_received : notificationsIcons.money_given;
 
     this.onSendGenericNotification(
       true,
@@ -163,9 +161,7 @@ export class NotificationManager extends AbstractManager {
       amount === 1 ? "" : " x" + amount
     );
     const notificationIcon: TName =
-      direction === ENotificationDirection.IN
-        ? notificationManagerIcons.item_received
-        : notificationManagerIcons.item_given;
+      direction === ENotificationDirection.IN ? notificationsIcons.item_received : notificationsIcons.item_given;
 
     this.onSendGenericNotification(
       true,
@@ -197,7 +193,7 @@ export class NotificationManager extends AbstractManager {
       true,
       notificationTitle,
       "",
-      notificationManagerIcons.received_secret_coordinates,
+      notificationsIcons.received_secret_coordinates,
       0,
       NotificationManager.DEFAULT_NOTIFICATION_SHOW_DURATION
     );
@@ -337,8 +333,8 @@ export class NotificationManager extends AbstractManager {
 
     if (object !== null && (object.clsid() === clsid.script_stalker || object.clsid() === clsid.stalker)) {
       textureName = object.character_icon();
-    } else if (notificationManagerIcons[faction as TNotificationIconKey]) {
-      textureName = notificationManagerIcons[faction as TNotificationIconKey];
+    } else if (notificationsIcons[faction as TNotificationIconKey]) {
+      textureName = notificationsIcons[faction as TNotificationIconKey];
     }
 
     const notificationTitle: TLabel = string.format(
@@ -371,7 +367,7 @@ export class NotificationManager extends AbstractManager {
    */
   public onSurgeSkipped(shouldNotify: boolean): void {
     if (shouldNotify) {
-      this.sendTipNotification("st_surge_while_asleep", notificationManagerIcons.recent_surge);
+      this.sendTipNotification("st_surge_while_asleep", notificationsIcons.recent_surge);
     }
   }
 

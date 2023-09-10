@@ -14,7 +14,7 @@ import {
   IPhrasesDescriptor,
   TPHRTable,
   TPRTTable,
-} from "@/engine/core/managers/dialog/dialog_types";
+} from "@/engine/core/managers/dialogs/dialog_types";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { assert } from "@/engine/core/utils/assertion";
 import { parseInfoPortions, parseStringsList } from "@/engine/core/utils/ini";

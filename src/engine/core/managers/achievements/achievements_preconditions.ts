@@ -3,8 +3,8 @@ import { achievementIcons } from "@/engine/core/managers/achievements/achievemen
 import { achievementRewards } from "@/engine/core/managers/achievements/achievements_rewards";
 import { EAchievement } from "@/engine/core/managers/achievements/achievements_types";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
-import { ENotificationType, ITipNotification } from "@/engine/core/managers/interface";
-import { StatisticsManager } from "@/engine/core/managers/interface/statistics";
+import { ENotificationType, ITipNotification } from "@/engine/core/managers/notifications";
+import { StatisticsManager } from "@/engine/core/managers/statistics";
 import { giveInfo, hasAlifeInfo, hasAlifeInfos, hasFewAlifeInfos } from "@/engine/core/utils/object";
 import { increaseCommunityGoodwillToId } from "@/engine/core/utils/relation";
 import { communities } from "@/engine/lib/constants/communities";

@@ -28,11 +28,7 @@ import { achievementRewards } from "@/engine/core/managers/achievements/achievem
 import { EAchievement } from "@/engine/core/managers/achievements/achievements_types";
 import { AbstractManager } from "@/engine/core/managers/base/AbstractManager";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
-import {
-  ENotificationType,
-  ITipNotification,
-  notificationManagerIcons,
-} from "@/engine/core/managers/interface/notifications";
+import { ENotificationType, ITipNotification, notificationsIcons } from "@/engine/core/managers/notifications";
 import { abort } from "@/engine/core/utils/assertion";
 import { readTimeFromPacket, writeTimeToPacket } from "@/engine/core/utils/game/game_time";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -149,7 +145,7 @@ export class AchievementsManager extends AbstractManager {
       EventsManager.emitEvent<ITipNotification>(EGameEvent.NOTIFICATION, {
         type: ENotificationType.TIP,
         caption: "st_detective_news",
-        senderId: notificationManagerIcons.got_medicine,
+        senderId: notificationsIcons.got_medicine,
       });
 
       this.lastDetectiveAchievementSpawnTime = game.get_game_time();
@@ -179,7 +175,7 @@ export class AchievementsManager extends AbstractManager {
       EventsManager.emitEvent<ITipNotification>(EGameEvent.NOTIFICATION, {
         type: ENotificationType.TIP,
         caption: "st_mutant_hunter_news",
-        senderId: notificationManagerIcons.got_ammo,
+        senderId: notificationsIcons.got_ammo,
       });
 
       this.lastMutantHunterAchievementSpawnTime = game.get_game_time();

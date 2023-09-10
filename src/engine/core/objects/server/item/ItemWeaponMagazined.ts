@@ -1,8 +1,8 @@
-import { TreasureManager } from "core/managers/treasures";
 import { cse_alife_item_weapon_magazined, LuabindClass } from "xray16";
 
 import { registerObjectStoryLinks, unregisterStoryLinkByObjectId } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
+import { TreasureManager } from "@/engine/core/managers/treasures";
 import { LuaLogger } from "@/engine/core/utils/logging";
 
 const logger: LuaLogger = new LuaLogger($filename);

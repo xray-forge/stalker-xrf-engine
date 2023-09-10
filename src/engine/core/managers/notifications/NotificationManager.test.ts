@@ -1,5 +1,4 @@
 import { afterEach, beforeEach, describe, expect, it, jest } from "@jest/globals";
-import { ETaskState } from "core/managers/tasks";
 
 import { disposeManager, initializeManager, registerActor, registerStoryLink, registry } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
@@ -14,7 +13,8 @@ import {
   ITipNotification,
   ITreasureNotification,
   NotificationManager,
-} from "@/engine/core/managers/interface";
+} from "@/engine/core/managers/notifications";
+import { ETaskState } from "@/engine/core/managers/tasks";
 import { AbstractPlayableSound } from "@/engine/core/objects/sounds/playable_sounds/AbstractPlayableSound";
 import { ActorSound } from "@/engine/core/objects/sounds/playable_sounds/ActorSound";
 import { ISchemeWoundedState } from "@/engine/core/schemes/wounded";

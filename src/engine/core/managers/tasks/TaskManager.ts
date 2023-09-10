@@ -4,7 +4,7 @@ import { closeLoadMarker, closeSaveMarker, openSaveMarker, TASK_MANAGER_LTX } fr
 import { openLoadMarker } from "@/engine/core/database/save_markers";
 import { AbstractManager } from "@/engine/core/managers/base/AbstractManager";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
-import { NotificationManager } from "@/engine/core/managers/interface/notifications";
+import { NotificationManager } from "@/engine/core/managers/notifications";
 import { TaskObject } from "@/engine/core/managers/tasks/TaskObject";
 import { ETaskState } from "@/engine/core/managers/tasks/types";
 import { assert } from "@/engine/core/utils/assertion";
