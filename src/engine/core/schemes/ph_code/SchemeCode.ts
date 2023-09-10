@@ -43,7 +43,7 @@ export class SchemeCode extends AbstractScheme {
       let cc: Optional<IBaseSchemeLogic> = readIniStringAndCondList(ini, section, "on_check_code" + it);
 
       while (cc) {
-        state.on_check_code.set(cc.v1 as TName, cc.condlist);
+        state.on_check_code.set(cc.p1 as TName, cc.condlist);
         it += 1;
         cc = readIniStringAndCondList(ini, section, "on_check_code" + it);
       }

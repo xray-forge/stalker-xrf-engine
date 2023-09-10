@@ -1,6 +1,6 @@
 import { CCar, level, move, patrol, time_global } from "xray16";
 
-import { getObjectByStoryId, registry } from "@/engine/core/database";
+import { getObjectByStoryId, IBaseSchemeLogic, registry } from "@/engine/core/database";
 import { AbstractSchemeManager } from "@/engine/core/objects/ai/scheme";
 import { ISchemeMinigunState } from "@/engine/core/schemes/ph_minigun/ISchemeMinigunState";
 import { abort } from "@/engine/core/utils/assertion";
@@ -62,8 +62,8 @@ export class MinigunManager extends AbstractSchemeManager<ISchemeMinigunState> {
   public fireTrackTarget: Optional<boolean> = null;
   public pathFire: Optional<string> = null;
   public pathFirePoint: Optional<Vector> = null;
-  public onTargetVis: Optional<{ v1: ClientObject; condlist: TConditionList; name: TName }> = null;
-  public onTargetNvis: Optional<{ v1: ClientObject; condlist: TConditionList; name: TName }> = null;
+  public onTargetVis: Optional<IBaseSchemeLogic> = null;
+  public onTargetNvis: Optional<IBaseSchemeLogic> = null;
 
   public constructor(object: ClientObject, state: ISchemeMinigunState) {
     super(object, state);
@@ -143,11 +143,11 @@ export class MinigunManager extends AbstractSchemeManager<ISchemeMinigunState> {
       if (this.state.on_target_vis) {
         const vis = this.state.on_target_vis;
 
-        if (vis.v1 !== null) {
-          const storyObject = getObjectByStoryId(vis.v1 as TStringId);
+        if (vis.p1 !== null) {
+          const storyObject = getObjectByStoryId(vis.p1 as TStringId);
 
           if (storyObject && storyObject.alive()) {
-            vis.v1 = storyObject as any;
+            vis.p1 = storyObject as any;
             this.onTargetVis = vis as any;
           }
         }
@@ -156,12 +156,12 @@ export class MinigunManager extends AbstractSchemeManager<ISchemeMinigunState> {
       if (this.state.on_target_nvis) {
         const nvis = this.state.on_target_nvis;
 
-        if (nvis.v1 !== null) {
-          const storyObject = getObjectByStoryId(nvis.v1 as TStringId);
+        if (nvis.p1 !== null) {
+          const storyObject = getObjectByStoryId(nvis.p1 as TStringId);
 
           if (storyObject && storyObject.alive()) {
-            nvis.v1 = storyObject as any;
-            this.onTargetNvis = nvis as any;
+            nvis.p1 = storyObject as any;
+            this.onTargetNvis = nvis;
           }
         }
       }
@@ -324,7 +324,11 @@ export class MinigunManager extends AbstractSchemeManager<ISchemeMinigunState> {
     }
 
     if (this.hasWeapon) {
-      if (this.onTargetVis && this.onTargetVis.v1.alive() && this.mgun.IsObjectVisible(this.onTargetVis.v1)) {
+      if (
+        this.onTargetVis &&
+        (this.onTargetVis.p1 as any).alive() &&
+        this.mgun.IsObjectVisible(this.onTargetVis.p1 as any)
+      ) {
         const newSection: Optional<TSection> = pickSectionFromCondList(
           registry.actor,
           this.object,
@@ -336,7 +340,11 @@ export class MinigunManager extends AbstractSchemeManager<ISchemeMinigunState> {
         }
       }
 
-      if (this.onTargetNvis && this.onTargetNvis.v1.alive() && !this.mgun.IsObjectVisible(this.onTargetNvis.v1)) {
+      if (
+        this.onTargetNvis &&
+        (this.onTargetNvis.p1 as any).alive() &&
+        !this.mgun.IsObjectVisible(this.onTargetNvis.p1 as any)
+      ) {
         const newSection: Optional<TSection> = pickSectionFromCondList(
           registry.actor,
           this.object,

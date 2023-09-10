@@ -26,8 +26,8 @@ export interface IBaseSchemeLogic {
   name: TName;
   condlist: TConditionList;
   objectId: Optional<TNumberId>;
-  v1: Optional<string | number>;
-  v2: Optional<string | number>;
+  p1: Optional<string | number>;
+  p2: Optional<string | number>;
 }
 
 /**

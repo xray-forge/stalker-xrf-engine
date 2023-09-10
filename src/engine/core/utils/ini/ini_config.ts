@@ -192,12 +192,12 @@ export function getConfigObjectAndZone(ini: IniFile, section: TSection, field: T
     const simulator: Optional<AlifeSimulator> = alife();
 
     if (simulator !== null) {
-      const serverObject: Optional<ServerObject> = simulator.object(getObjectIdByStoryId(target.v1 as string)!);
+      const serverObject: Optional<ServerObject> = simulator.object(getObjectIdByStoryId(target.p1 as string)!);
 
       if (serverObject) {
         target.objectId = serverObject.id;
       } else {
-        abort("Section '%s': field '%s': there is no object with story_id '%s'", section, field, target.v1);
+        abort("Section '%s': field '%s': there is no object with story_id '%s'", section, field, target.p1);
       }
     } else {
       target.objectId = -1;

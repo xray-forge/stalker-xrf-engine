@@ -157,8 +157,8 @@ export function readIniConditionList(ini: IniFile, section: TSection, field: TNa
     name: field,
     condlist: parseConditionsList(parameters.get(1)),
     objectId: null,
-    v1: null,
-    v2: null,
+    p1: null,
+    p2: null,
   };
 }
 
@@ -186,8 +186,8 @@ export function readIniStringAndCondList(ini: IniFile, section: TSection, field:
     name: field,
     condlist: parseConditionsList(parameters.get(2)),
     objectId: null,
-    v1: parameters.get(1),
-    v2: null,
+    p1: parameters.get(1),
+    p2: null,
   };
 }
 
@@ -219,8 +219,8 @@ export function readIniNumberAndConditionList(
     name: field,
     condlist: parseConditionsList(parameters.get(2)),
     objectId: null,
-    v1: tonumber(parameters.get(1))!,
-    v2: null,
+    p1: tonumber(parameters.get(1))!,
+    p2: null,
   };
 }
 
@@ -252,7 +252,7 @@ export function readIniTwoStringsAndConditionsList(
     name: field,
     condlist: parseConditionsList(parameters.get(3)),
     objectId: null,
-    v1: parameters.get(1),
-    v2: parameters.get(2),
+    p1: parameters.get(1),
+    p2: parameters.get(2),
   };
 }

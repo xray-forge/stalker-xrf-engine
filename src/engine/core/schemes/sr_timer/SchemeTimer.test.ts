@@ -67,8 +67,8 @@ describe("SchemeTimer functionality", () => {
       ),
       name: "on_value",
       objectId: null,
-      v1: 0,
-      v2: null,
+      p1: 0,
+      p2: null,
     });
   });
 });

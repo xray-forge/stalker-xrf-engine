@@ -1,7 +1,6 @@
 import { describe, expect, it } from "@jest/globals";
 
-import { registerActor, registerObject, registerStoryLink } from "@/engine/core/database";
-import { IBaseSchemeLogic } from "@/engine/core/objects/ai/scheme";
+import { IBaseSchemeLogic, registerActor, registerObject, registerStoryLink } from "@/engine/core/database";
 import {
   addConditionToList,
   getConfigObjectAndZone,
@@ -48,8 +47,8 @@ describe("'config' utils for ini file", () => {
       condlist: parseConditionsList("{+a -b} walker@get_out"),
       name: "key",
       objectId: 100000,
-      v1: "zat_cop_id",
-      v2: "zat_b38_actor_jump_down",
+      p1: "zat_cop_id",
+      p2: "zat_b38_actor_jump_down",
     });
   });
 
@@ -91,16 +90,16 @@ describe("'config' utils for ini file", () => {
         condlist: parseConditionsList("second"),
         name: "combat_ignore_cond",
         objectId: null,
-        v1: null,
-        v2: null,
+        p1: null,
+        p2: null,
       },
       combat_ignore_keep_when_attacked: "third",
       combat_type: {
         condlist: parseConditionsList("fourth"),
         name: "combat_type",
         objectId: null,
-        v1: null,
-        v2: null,
+        p1: null,
+        p2: null,
       },
       heli_hunter: parseConditionsList("first"),
       max_post_combat_time: 50,
@@ -109,8 +108,8 @@ describe("'config' utils for ini file", () => {
         condlist: parseConditionsList("fifth"),
         name: "on_combat",
         objectId: null,
-        v1: null,
-        v2: null,
+        p1: null,
+        p2: null,
       },
       on_offline_condlist: parseConditionsList("sixth"),
       soundgroup: "seventh",
@@ -128,15 +127,15 @@ describe("'config' utils for ini file", () => {
     const firstIndex: TIndex = addConditionToList(list, 1, {
       condlist: new LuaTable(),
       objectId: 123,
-      v1: 1,
-      v2: null,
+      p1: 1,
+      p2: null,
       name: "first",
     });
     const secondIndex: TIndex = addConditionToList(list, 2, {
       condlist: new LuaTable(),
       objectId: 333,
-      v1: "a",
-      v2: "b",
+      p1: "a",
+      p2: "b",
       name: "second",
     });
 
@@ -148,13 +147,13 @@ describe("'config' utils for ini file", () => {
       mockBaseSchemeLogic({
         name: "first",
         objectId: 123,
-        v1: 1,
+        p1: 1,
       }),
       mockBaseSchemeLogic({
         name: "second",
         objectId: 333,
-        v1: "a",
-        v2: "b",
+        p1: "a",
+        p2: "b",
       }),
     ]);
   });
@@ -207,7 +206,7 @@ describe("'config' utils for ini file", () => {
       )
     ).toEqualLuaArrays([
       mockBaseSchemeLogic({
-        v1: 3,
+        p1: 3,
         name: "on_actor_dist_le",
         condlist: parseConditionsList("{=actor_has_weapon} remark"),
       }),
@@ -225,12 +224,12 @@ describe("'config' utils for ini file", () => {
       )
     ).toEqualLuaArrays([
       mockBaseSchemeLogic({
-        v1: 31,
+        p1: 31,
         name: "on_actor_dist_le_nvis",
         condlist: parseConditionsList("{=actor_condition} value"),
       }),
       mockBaseSchemeLogic({
-        v1: 55,
+        p1: 55,
         name: "on_actor_dist_ge",
         condlist: parseConditionsList("{=another_cond} another"),
       }),
@@ -261,12 +260,12 @@ describe("'config' utils for ini file", () => {
       )
     ).toEqualLuaArrays([
       mockBaseSchemeLogic({
-        v1: 100,
+        p1: 100,
         name: "on_actor_dist_ge_nvis",
         condlist: parseConditionsList("test1"),
       }),
       mockBaseSchemeLogic({
-        v1: "anim_end",
+        p1: "anim_end",
         name: "on_signal",
         condlist: parseConditionsList("test2"),
       }),
@@ -275,22 +274,22 @@ describe("'config' utils for ini file", () => {
         condlist: parseConditionsList("{+pri_a28_infop} test3"),
       }),
       mockBaseSchemeLogic({
-        v1: 50,
+        p1: 50,
         name: "on_timer",
         condlist: parseConditionsList("test4"),
       }),
       mockBaseSchemeLogic({
-        v1: 10,
+        p1: 10,
         name: "on_game_timer",
         condlist: parseConditionsList("test5"),
       }),
       mockBaseSchemeLogic({
-        v1: "zat_b38",
+        p1: "zat_b38",
         name: "on_actor_in_zone",
         condlist: parseConditionsList("test7"),
       }),
       mockBaseSchemeLogic({
-        v1: "zat_b38",
+        p1: "zat_b38",
         name: "on_actor_not_in_zone",
         condlist: parseConditionsList("test8"),
       }),
@@ -303,15 +302,15 @@ describe("'config' utils for ini file", () => {
         condlist: parseConditionsList("test10"),
       }),
       mockBaseSchemeLogic({
-        v1: "test-cfg-sid",
-        v2: "jup_hide_a6",
+        p1: "test-cfg-sid",
+        p2: "jup_hide_a6",
         objectId: serverObject.id,
         name: "on_npc_in_zone",
         condlist: parseConditionsList("test11"),
       }),
       mockBaseSchemeLogic({
-        v1: "test-cfg-sid",
-        v2: "jup_hide_a6",
+        p1: "test-cfg-sid",
+        p2: "jup_hide_a6",
         objectId: serverObject.id,
         name: "on_npc_not_in_zone",
         condlist: parseConditionsList("test12"),
