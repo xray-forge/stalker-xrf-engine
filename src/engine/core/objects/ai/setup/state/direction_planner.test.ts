@@ -23,14 +23,14 @@ describe("direction_planner util", () => {
         [EStateEvaluatorId.ANIMSTATE_LOCKED, false],
         [EStateEvaluatorId.ANIMATION_LOCKED, false],
         [EStateEvaluatorId.LOCKED_EXTERNAL, false],
-        [EStateEvaluatorId.DIRECTION, false],
+        [EStateEvaluatorId.DIRECTION_SET, false],
         [EStateEvaluatorId.DIRECTION_SEARCH, false],
-        [EStateEvaluatorId.WEAPON, true],
+        [EStateEvaluatorId.WEAPON_SET, true],
         [EStateEvaluatorId.ANIMATION_NONE_NOW, true],
         [EStateEvaluatorId.ANIMSTATE_IDLE_NOW, true],
         [EStateEvaluatorId.MOVEMENT_SET, true],
       ],
-      [[EStateEvaluatorId.DIRECTION, true]]
+      [[EStateEvaluatorId.DIRECTION_SET, true]]
     );
 
     checkPlannerAction(
@@ -40,14 +40,14 @@ describe("direction_planner util", () => {
         [EStateEvaluatorId.ANIMSTATE_LOCKED, false],
         [EStateEvaluatorId.ANIMATION_LOCKED, false],
         [EStateEvaluatorId.LOCKED_EXTERNAL, false],
-        [EStateEvaluatorId.DIRECTION, false],
+        [EStateEvaluatorId.DIRECTION_SET, false],
         [EStateEvaluatorId.DIRECTION_SEARCH, true],
-        [EStateEvaluatorId.WEAPON, true],
+        [EStateEvaluatorId.WEAPON_SET, true],
         [EStateEvaluatorId.ANIMATION_NONE_NOW, true],
         [EStateEvaluatorId.ANIMSTATE_IDLE_NOW, true],
         [EStateEvaluatorId.MOVEMENT_SET, true],
       ],
-      [[EStateEvaluatorId.DIRECTION, true]]
+      [[EStateEvaluatorId.DIRECTION_SET, true]]
     );
   });
 });

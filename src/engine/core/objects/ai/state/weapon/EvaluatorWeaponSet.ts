@@ -14,11 +14,11 @@ const logger: LuaLogger = new LuaLogger($filename);
  * Check if object needs weapon at all and whether it is the best possible one.
  */
 @LuabindClass()
-export class EvaluatorWeapon extends property_evaluator {
+export class EvaluatorWeaponSet extends property_evaluator {
   private readonly stateManager: StalkerStateManager;
 
   public constructor(stateManager: StalkerStateManager) {
-    super(null, EvaluatorWeapon.__name);
+    super(null, EvaluatorWeaponSet.__name);
     this.stateManager = stateManager;
   }
 

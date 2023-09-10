@@ -14,13 +14,13 @@ import {
   EvaluatorAnimstatePlayNow,
 } from "@/engine/core/objects/ai/state/animstate";
 import {
-  EvaluatorBodyState,
-  EvaluatorBodyStateCrouch,
   EvaluatorBodyStateCrouchNow,
-  EvaluatorBodyStateStanding,
+  EvaluatorBodyStateCrouchTarget,
+  EvaluatorBodyStateSet,
   EvaluatorBodyStateStandingNow,
+  EvaluatorBodyStateStandingTarget,
 } from "@/engine/core/objects/ai/state/body_state";
-import { EvaluatorDirection, EvaluatorDirectionSearch } from "@/engine/core/objects/ai/state/direction";
+import { EvaluatorDirectionSearch, EvaluatorDirectionSet } from "@/engine/core/objects/ai/state/direction";
 import {
   EvaluatorMentalDangerNow,
   EvaluatorMentalDangerTarget,
@@ -49,16 +49,16 @@ import {
   EvaluatorStateLockedExternal,
 } from "@/engine/core/objects/ai/state/state";
 import {
-  EvaluatorWeapon,
-  EvaluatorWeaponDrop,
-  EvaluatorWeaponFire,
+  EvaluatorWeaponDropTarget,
+  EvaluatorWeaponFireTarget,
   EvaluatorWeaponLocked,
-  EvaluatorWeaponNone,
   EvaluatorWeaponNoneNow,
-  EvaluatorWeaponStrapped,
+  EvaluatorWeaponNoneTarget,
+  EvaluatorWeaponSet,
   EvaluatorWeaponStrappedNow,
-  EvaluatorWeaponUnstrapped,
+  EvaluatorWeaponStrappedTarget,
   EvaluatorWeaponUnstrappedNow,
+  EvaluatorWeaponUnstrappedTarget,
 } from "@/engine/core/objects/ai/state/weapon";
 import { EStateEvaluatorId } from "@/engine/core/objects/ai/types";
 import { ActionPlanner, ClientObject } from "@/engine/lib/types";
@@ -77,18 +77,22 @@ describe("state_evaluator util", () => {
     expect(planner.evaluator(EStateEvaluatorId.END) instanceof EvaluatorStateEnd).toBeTruthy();
     expect(planner.evaluator(EStateEvaluatorId.LOCKED) instanceof EvaluatorStateLocked).toBeTruthy();
     expect(planner.evaluator(EStateEvaluatorId.LOCKED_EXTERNAL) instanceof EvaluatorStateLockedExternal).toBeTruthy();
-    expect(planner.evaluator(EStateEvaluatorId.WEAPON) instanceof EvaluatorWeapon).toBeTruthy();
+    expect(planner.evaluator(EStateEvaluatorId.WEAPON_SET) instanceof EvaluatorWeaponSet).toBeTruthy();
     expect(planner.evaluator(EStateEvaluatorId.WEAPON_LOCKED) instanceof EvaluatorWeaponLocked).toBeTruthy();
-    expect(planner.evaluator(EStateEvaluatorId.WEAPON_STRAPPED) instanceof EvaluatorWeaponStrapped).toBeTruthy();
+    expect(
+      planner.evaluator(EStateEvaluatorId.WEAPON_STRAPPED_TARGET) instanceof EvaluatorWeaponStrappedTarget
+    ).toBeTruthy();
     expect(planner.evaluator(EStateEvaluatorId.WEAPON_STRAPPED_NOW) instanceof EvaluatorWeaponStrappedNow).toBeTruthy();
-    expect(planner.evaluator(EStateEvaluatorId.WEAPON_UNSTRAPPED) instanceof EvaluatorWeaponUnstrapped).toBeTruthy();
+    expect(
+      planner.evaluator(EStateEvaluatorId.WEAPON_UNSTRAPPED_TARGET) instanceof EvaluatorWeaponUnstrappedTarget
+    ).toBeTruthy();
     expect(
       planner.evaluator(EStateEvaluatorId.WEAPON_UNSTRAPPED_NOW) instanceof EvaluatorWeaponUnstrappedNow
     ).toBeTruthy();
-    expect(planner.evaluator(EStateEvaluatorId.WEAPON_NONE) instanceof EvaluatorWeaponNone).toBeTruthy();
+    expect(planner.evaluator(EStateEvaluatorId.WEAPON_NONE_TARGET) instanceof EvaluatorWeaponNoneTarget).toBeTruthy();
     expect(planner.evaluator(EStateEvaluatorId.WEAPON_NONE_NOW) instanceof EvaluatorWeaponNoneNow).toBeTruthy();
-    expect(planner.evaluator(EStateEvaluatorId.WEAPON_DROP) instanceof EvaluatorWeaponDrop).toBeTruthy();
-    expect(planner.evaluator(EStateEvaluatorId.WEAPON_FIRE) instanceof EvaluatorWeaponFire).toBeTruthy();
+    expect(planner.evaluator(EStateEvaluatorId.WEAPON_DROP_TARGET) instanceof EvaluatorWeaponDropTarget).toBeTruthy();
+    expect(planner.evaluator(EStateEvaluatorId.WEAPON_FIRE_TARGET) instanceof EvaluatorWeaponFireTarget).toBeTruthy();
     expect(planner.evaluator(EStateEvaluatorId.MOVEMENT_SET) instanceof EvaluatorMovementSet).toBeTruthy();
     expect(
       planner.evaluator(EStateEvaluatorId.MOVEMENT_WALK_TARGET) instanceof EvaluatorMovementWalkTarget
@@ -107,16 +111,20 @@ describe("state_evaluator util", () => {
     expect(planner.evaluator(EStateEvaluatorId.MENTAL_DANGER_NOW) instanceof EvaluatorMentalDangerNow).toBeTruthy();
     expect(planner.evaluator(EStateEvaluatorId.MENTAL_PANIC_TARGET) instanceof EvaluatorMentalPanicTarget).toBeTruthy();
     expect(planner.evaluator(EStateEvaluatorId.MENTAL_PANIC_NOW) instanceof EvaluatorMentalPanicNow).toBeTruthy();
-    expect(planner.evaluator(EStateEvaluatorId.BODYSTATE) instanceof EvaluatorBodyState).toBeTruthy();
-    expect(planner.evaluator(EStateEvaluatorId.BODYSTATE_CROUCH) instanceof EvaluatorBodyStateCrouch).toBeTruthy();
-    expect(planner.evaluator(EStateEvaluatorId.BODYSTATE_STANDING) instanceof EvaluatorBodyStateStanding).toBeTruthy();
+    expect(planner.evaluator(EStateEvaluatorId.BODYSTATE_SET) instanceof EvaluatorBodyStateSet).toBeTruthy();
+    expect(
+      planner.evaluator(EStateEvaluatorId.BODYSTATE_CROUCH_TARGET) instanceof EvaluatorBodyStateCrouchTarget
+    ).toBeTruthy();
+    expect(
+      planner.evaluator(EStateEvaluatorId.BODYSTATE_STANDING_TARGET) instanceof EvaluatorBodyStateStandingTarget
+    ).toBeTruthy();
     expect(
       planner.evaluator(EStateEvaluatorId.BODYSTATE_CROUCH_NOW) instanceof EvaluatorBodyStateCrouchNow
     ).toBeTruthy();
     expect(
       planner.evaluator(EStateEvaluatorId.BODYSTATE_STANDING_NOW) instanceof EvaluatorBodyStateStandingNow
     ).toBeTruthy();
-    expect(planner.evaluator(EStateEvaluatorId.DIRECTION) instanceof EvaluatorDirection).toBeTruthy();
+    expect(planner.evaluator(EStateEvaluatorId.DIRECTION_SET) instanceof EvaluatorDirectionSet).toBeTruthy();
     expect(planner.evaluator(EStateEvaluatorId.DIRECTION_SEARCH) instanceof EvaluatorDirectionSearch).toBeTruthy();
 
     expect(planner.evaluator(EStateEvaluatorId.ANIMSTATE) instanceof EvaluatorAnimstate).toBeTruthy();

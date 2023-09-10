@@ -16,7 +16,7 @@ export function setupStalkerSmartCoverStatePlanner(planner: ActionPlanner, state
   const smartCoverEnterAction: ActionSmartCoverEnter = new ActionSmartCoverEnter(stateManager);
 
   smartCoverEnterAction.add_precondition(new world_property(EStateEvaluatorId.LOCKED, false));
-  smartCoverEnterAction.add_precondition(new world_property(EStateEvaluatorId.WEAPON, true));
+  smartCoverEnterAction.add_precondition(new world_property(EStateEvaluatorId.WEAPON_SET, true));
   smartCoverEnterAction.add_precondition(new world_property(EStateEvaluatorId.SMARTCOVER_NEED, true));
   smartCoverEnterAction.add_precondition(new world_property(EStateEvaluatorId.SMARTCOVER, false));
   smartCoverEnterAction.add_precondition(new world_property(EStateEvaluatorId.ANIMSTATE_IDLE_NOW, true));
@@ -27,7 +27,7 @@ export function setupStalkerSmartCoverStatePlanner(planner: ActionPlanner, state
   const smartCoverExitAction: ActionSmartCoverExit = new ActionSmartCoverExit(stateManager);
 
   smartCoverExitAction.add_precondition(new world_property(EStateEvaluatorId.LOCKED, false));
-  smartCoverExitAction.add_precondition(new world_property(EStateEvaluatorId.WEAPON, true));
+  smartCoverExitAction.add_precondition(new world_property(EStateEvaluatorId.WEAPON_SET, true));
   smartCoverExitAction.add_precondition(new world_property(EStateEvaluatorId.SMARTCOVER_NEED, false));
   smartCoverExitAction.add_precondition(new world_property(EStateEvaluatorId.SMARTCOVER, false));
   smartCoverExitAction.add_effect(new world_property(EStateEvaluatorId.SMARTCOVER, true));

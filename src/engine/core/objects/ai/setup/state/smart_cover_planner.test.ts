@@ -21,7 +21,7 @@ describe("smart_cover_planner util", () => {
       ActionSmartCoverEnter,
       [
         [EStateEvaluatorId.LOCKED, false],
-        [EStateEvaluatorId.WEAPON, true],
+        [EStateEvaluatorId.WEAPON_SET, true],
         [EStateEvaluatorId.SMARTCOVER_NEED, true],
         [EStateEvaluatorId.SMARTCOVER, false],
         [EStateEvaluatorId.ANIMSTATE_IDLE_NOW, true],
@@ -35,7 +35,7 @@ describe("smart_cover_planner util", () => {
       ActionSmartCoverExit,
       [
         [EStateEvaluatorId.LOCKED, false],
-        [EStateEvaluatorId.WEAPON, true],
+        [EStateEvaluatorId.WEAPON_SET, true],
         [EStateEvaluatorId.SMARTCOVER_NEED, false],
         [EStateEvaluatorId.SMARTCOVER, false],
       ],

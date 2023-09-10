@@ -12,11 +12,11 @@ const logger: LuaLogger = new LuaLogger($filename);
  * todo;
  */
 @LuabindClass()
-export class EvaluatorDirection extends property_evaluator {
+export class EvaluatorDirectionSet extends property_evaluator {
   private readonly stateManager: StalkerStateManager;
 
   public constructor(stateManager: StalkerStateManager) {
-    super(null, EvaluatorDirection.__name);
+    super(null, EvaluatorDirectionSet.__name);
     this.stateManager = stateManager;
   }
 

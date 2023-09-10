@@ -18,13 +18,13 @@ export function setupStalkerDirectionStatePlanner(planner: ActionPlanner, stateM
   directionTurnAction.add_precondition(new world_property(EStateEvaluatorId.ANIMSTATE_LOCKED, false));
   directionTurnAction.add_precondition(new world_property(EStateEvaluatorId.ANIMATION_LOCKED, false));
   directionTurnAction.add_precondition(new world_property(EStateEvaluatorId.LOCKED_EXTERNAL, false));
-  directionTurnAction.add_precondition(new world_property(EStateEvaluatorId.DIRECTION, false));
+  directionTurnAction.add_precondition(new world_property(EStateEvaluatorId.DIRECTION_SET, false));
   directionTurnAction.add_precondition(new world_property(EStateEvaluatorId.DIRECTION_SEARCH, false));
-  directionTurnAction.add_precondition(new world_property(EStateEvaluatorId.WEAPON, true)); // --!
+  directionTurnAction.add_precondition(new world_property(EStateEvaluatorId.WEAPON_SET, true)); // --!
   directionTurnAction.add_precondition(new world_property(EStateEvaluatorId.ANIMATION_NONE_NOW, true));
   directionTurnAction.add_precondition(new world_property(EStateEvaluatorId.ANIMSTATE_IDLE_NOW, true));
   directionTurnAction.add_precondition(new world_property(EStateEvaluatorId.MOVEMENT_SET, true));
-  directionTurnAction.add_effect(new world_property(EStateEvaluatorId.DIRECTION, true));
+  directionTurnAction.add_effect(new world_property(EStateEvaluatorId.DIRECTION_SET, true));
   planner.add_action(EStateActionId.DIRECTION_TURN, directionTurnAction);
 
   const directionSearchAction: ActionDirectionSearch = new ActionDirectionSearch(stateManager);
@@ -33,12 +33,12 @@ export function setupStalkerDirectionStatePlanner(planner: ActionPlanner, stateM
   directionSearchAction.add_precondition(new world_property(EStateEvaluatorId.ANIMSTATE_LOCKED, false));
   directionSearchAction.add_precondition(new world_property(EStateEvaluatorId.ANIMATION_LOCKED, false));
   directionSearchAction.add_precondition(new world_property(EStateEvaluatorId.LOCKED_EXTERNAL, false));
-  directionSearchAction.add_precondition(new world_property(EStateEvaluatorId.DIRECTION, false));
+  directionSearchAction.add_precondition(new world_property(EStateEvaluatorId.DIRECTION_SET, false));
   directionSearchAction.add_precondition(new world_property(EStateEvaluatorId.DIRECTION_SEARCH, true));
-  directionSearchAction.add_precondition(new world_property(EStateEvaluatorId.WEAPON, true)); // --!
+  directionSearchAction.add_precondition(new world_property(EStateEvaluatorId.WEAPON_SET, true)); // --!
   directionSearchAction.add_precondition(new world_property(EStateEvaluatorId.ANIMATION_NONE_NOW, true));
   directionSearchAction.add_precondition(new world_property(EStateEvaluatorId.ANIMSTATE_IDLE_NOW, true));
   directionSearchAction.add_precondition(new world_property(EStateEvaluatorId.MOVEMENT_SET, true));
-  directionSearchAction.add_effect(new world_property(EStateEvaluatorId.DIRECTION, true));
+  directionSearchAction.add_effect(new world_property(EStateEvaluatorId.DIRECTION_SET, true));
   planner.add_action(EStateActionId.DIRECTION_SEARCH, directionSearchAction);
 }

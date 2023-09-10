@@ -26,12 +26,12 @@ describe("body_state_planner util", () => {
       ActionBodyStateCrouch,
       [
         [EStateEvaluatorId.LOCKED_EXTERNAL, false],
-        [EStateEvaluatorId.BODYSTATE, false],
+        [EStateEvaluatorId.BODYSTATE_SET, false],
         [EStateEvaluatorId.BODYSTATE_CROUCH_NOW, false],
-        [EStateEvaluatorId.BODYSTATE_CROUCH, true],
+        [EStateEvaluatorId.BODYSTATE_CROUCH_TARGET, true],
         [EStateEvaluatorId.MENTAL_DANGER_NOW, true],
       ],
-      [[EStateEvaluatorId.BODYSTATE, true]]
+      [[EStateEvaluatorId.BODYSTATE_SET, true]]
     );
 
     checkPlannerAction(
@@ -39,13 +39,13 @@ describe("body_state_planner util", () => {
       ActionBodyStateCrouchDanger,
       [
         [EStateEvaluatorId.LOCKED_EXTERNAL, false],
-        [EStateEvaluatorId.BODYSTATE, false],
+        [EStateEvaluatorId.BODYSTATE_SET, false],
         [EStateEvaluatorId.MENTAL_SET, false],
         [EStateEvaluatorId.BODYSTATE_CROUCH_NOW, false],
-        [EStateEvaluatorId.BODYSTATE_CROUCH, true],
+        [EStateEvaluatorId.BODYSTATE_CROUCH_TARGET, true],
       ],
       [
-        [EStateEvaluatorId.BODYSTATE, true],
+        [EStateEvaluatorId.BODYSTATE_SET, true],
         [EStateEvaluatorId.MENTAL_SET, true],
       ]
     );
@@ -55,12 +55,12 @@ describe("body_state_planner util", () => {
       ActionBodyStateStanding,
       [
         [EStateEvaluatorId.LOCKED_EXTERNAL, false],
-        [EStateEvaluatorId.BODYSTATE, false],
+        [EStateEvaluatorId.BODYSTATE_SET, false],
         [EStateEvaluatorId.BODYSTATE_STANDING_NOW, false],
-        [EStateEvaluatorId.BODYSTATE_STANDING, true],
+        [EStateEvaluatorId.BODYSTATE_STANDING_TARGET, true],
       ],
       [
-        [EStateEvaluatorId.BODYSTATE, true],
+        [EStateEvaluatorId.BODYSTATE_SET, true],
         [EStateEvaluatorId.BODYSTATE_STANDING_NOW, true],
       ]
     );
@@ -70,14 +70,14 @@ describe("body_state_planner util", () => {
       ActionBodyStateStandingFree,
       [
         [EStateEvaluatorId.LOCKED_EXTERNAL, false],
-        [EStateEvaluatorId.BODYSTATE, false],
+        [EStateEvaluatorId.BODYSTATE_SET, false],
         [EStateEvaluatorId.MENTAL_SET, false],
         [EStateEvaluatorId.BODYSTATE_STANDING_NOW, false],
-        [EStateEvaluatorId.BODYSTATE_STANDING, true],
+        [EStateEvaluatorId.BODYSTATE_STANDING_TARGET, true],
         [EStateEvaluatorId.MENTAL_FREE_TARGET, false],
       ],
       [
-        [EStateEvaluatorId.BODYSTATE, true],
+        [EStateEvaluatorId.BODYSTATE_SET, true],
         [EStateEvaluatorId.BODYSTATE_STANDING_NOW, true],
         [EStateEvaluatorId.MENTAL_SET, true],
       ]

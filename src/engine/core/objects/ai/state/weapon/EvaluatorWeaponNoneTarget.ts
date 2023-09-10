@@ -4,33 +4,25 @@ import { StalkerStateManager } from "@/engine/core/objects/ai/state/StalkerState
 import { EWeaponAnimation } from "@/engine/core/objects/animation";
 import { states } from "@/engine/core/objects/animation/states";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { Optional } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * Whether weapon should be in hands.
+ * Whether object should hide weapon.
  */
 @LuabindClass()
-export class EvaluatorWeaponUnstrapped extends property_evaluator {
+export class EvaluatorWeaponNoneTarget extends property_evaluator {
   private readonly stateManager: StalkerStateManager;
 
   public constructor(stateManager: StalkerStateManager) {
-    super(null, EvaluatorWeaponUnstrapped.__name);
+    super(null, EvaluatorWeaponNoneTarget.__name);
     this.stateManager = stateManager;
   }
 
   /**
-   * Check if weapon target state is unstrapped state.
+   * Check if weapon target state in animation is 'none'.
    */
   public override evaluate(): boolean {
-    const weapon: Optional<EWeaponAnimation> = states.get(this.stateManager.targetState).weapon;
-
-    return (
-      weapon !== null &&
-      (weapon === EWeaponAnimation.UNSTRAPPED ||
-        weapon === EWeaponAnimation.FIRE ||
-        weapon === EWeaponAnimation.SNIPER_FIRE)
-    );
+    return states.get(this.stateManager.targetState).weapon === EWeaponAnimation.NONE;
   }
 }

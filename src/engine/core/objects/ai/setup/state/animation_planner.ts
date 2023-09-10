@@ -22,11 +22,11 @@ export function setupStalkerAnimationStatePlanner(planner: ActionPlanner, stateM
   animationStartAction.add_precondition(new world_property(EStateEvaluatorId.ANIMSTATE, true));
   animationStartAction.add_precondition(new world_property(EStateEvaluatorId.SMARTCOVER, true));
   animationStartAction.add_precondition(new world_property(EStateEvaluatorId.IN_SMARTCOVER, false));
-  animationStartAction.add_precondition(new world_property(EStateEvaluatorId.DIRECTION, true));
-  animationStartAction.add_precondition(new world_property(EStateEvaluatorId.WEAPON, true));
+  animationStartAction.add_precondition(new world_property(EStateEvaluatorId.DIRECTION_SET, true));
+  animationStartAction.add_precondition(new world_property(EStateEvaluatorId.WEAPON_SET, true));
   animationStartAction.add_precondition(new world_property(EStateEvaluatorId.MOVEMENT_SET, true));
   animationStartAction.add_precondition(new world_property(EStateEvaluatorId.MENTAL_SET, true));
-  animationStartAction.add_precondition(new world_property(EStateEvaluatorId.BODYSTATE, true));
+  animationStartAction.add_precondition(new world_property(EStateEvaluatorId.BODYSTATE_SET, true));
   animationStartAction.add_precondition(new world_property(EStateEvaluatorId.ANIMATION, false));
   animationStartAction.add_precondition(new world_property(EStateEvaluatorId.ANIMATION_PLAY_NOW, false));
   animationStartAction.add_effect(new world_property(EStateEvaluatorId.ANIMATION, true));

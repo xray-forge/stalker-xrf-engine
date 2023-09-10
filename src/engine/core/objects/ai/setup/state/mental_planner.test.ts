@@ -25,7 +25,7 @@ describe("mental_planner util", () => {
         [EStateEvaluatorId.ANIMSTATE_IDLE_NOW, true],
         [EStateEvaluatorId.ANIMATION_NONE_NOW, true],
         [EStateEvaluatorId.MENTAL_FREE_TARGET, true],
-        [EStateEvaluatorId.BODYSTATE, true],
+        [EStateEvaluatorId.BODYSTATE_SET, true],
         [EStateEvaluatorId.BODYSTATE_STANDING_NOW, true],
       ],
       [[EStateEvaluatorId.MENTAL_SET, true]]

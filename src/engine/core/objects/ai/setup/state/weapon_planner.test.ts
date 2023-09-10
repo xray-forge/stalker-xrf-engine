@@ -30,13 +30,13 @@ describe("weapon_planner util", () => {
         [EStateEvaluatorId.ANIMATION_LOCKED, false],
         [EStateEvaluatorId.LOCKED_EXTERNAL, false],
         [EStateEvaluatorId.MOVEMENT_SET, true],
-        [EStateEvaluatorId.BODYSTATE, true],
+        [EStateEvaluatorId.BODYSTATE_SET, true],
         [EStateEvaluatorId.MENTAL_SET, true],
-        [EStateEvaluatorId.WEAPON_UNSTRAPPED, true],
+        [EStateEvaluatorId.WEAPON_UNSTRAPPED_TARGET, true],
         [EStateEvaluatorId.ANIMSTATE_IDLE_NOW, true],
         [EStateEvaluatorId.ANIMATION_NONE_NOW, true],
       ],
-      [[EStateEvaluatorId.WEAPON, true]]
+      [[EStateEvaluatorId.WEAPON_SET, true]]
     );
 
     checkPlannerAction(
@@ -48,13 +48,13 @@ describe("weapon_planner util", () => {
         [EStateEvaluatorId.ANIMATION_LOCKED, false],
         [EStateEvaluatorId.LOCKED_EXTERNAL, false],
         [EStateEvaluatorId.MOVEMENT_SET, true],
-        [EStateEvaluatorId.BODYSTATE, true],
+        [EStateEvaluatorId.BODYSTATE_SET, true],
         [EStateEvaluatorId.MENTAL_SET, true],
-        [EStateEvaluatorId.WEAPON_STRAPPED, true],
+        [EStateEvaluatorId.WEAPON_STRAPPED_TARGET, true],
         [EStateEvaluatorId.ANIMSTATE_IDLE_NOW, true],
         [EStateEvaluatorId.ANIMATION_NONE_NOW, true],
       ],
-      [[EStateEvaluatorId.WEAPON, true]]
+      [[EStateEvaluatorId.WEAPON_SET, true]]
     );
 
     checkPlannerAction(
@@ -66,12 +66,12 @@ describe("weapon_planner util", () => {
         [EStateEvaluatorId.ANIMATION_LOCKED, false],
         [EStateEvaluatorId.LOCKED_EXTERNAL, false],
         [EStateEvaluatorId.MOVEMENT_SET, true],
-        [EStateEvaluatorId.BODYSTATE, true],
+        [EStateEvaluatorId.BODYSTATE_SET, true],
         [EStateEvaluatorId.MENTAL_SET, true],
-        [EStateEvaluatorId.WEAPON_NONE, true],
+        [EStateEvaluatorId.WEAPON_NONE_TARGET, true],
         [EStateEvaluatorId.ANIMATION_NONE_NOW, true],
       ],
-      [[EStateEvaluatorId.WEAPON, true]]
+      [[EStateEvaluatorId.WEAPON_SET, true]]
     );
 
     checkPlannerAction(
@@ -83,12 +83,12 @@ describe("weapon_planner util", () => {
         [EStateEvaluatorId.ANIMATION_LOCKED, false],
         [EStateEvaluatorId.LOCKED_EXTERNAL, false],
         [EStateEvaluatorId.MOVEMENT_SET, true],
-        [EStateEvaluatorId.BODYSTATE, true],
+        [EStateEvaluatorId.BODYSTATE_SET, true],
         [EStateEvaluatorId.MENTAL_SET, true],
-        [EStateEvaluatorId.WEAPON_DROP, true],
+        [EStateEvaluatorId.WEAPON_DROP_TARGET, true],
         [EStateEvaluatorId.ANIMATION_NONE_NOW, true],
       ],
-      [[EStateEvaluatorId.WEAPON, true]]
+      [[EStateEvaluatorId.WEAPON_SET, true]]
     );
   });
 });

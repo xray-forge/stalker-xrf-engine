@@ -21,7 +21,7 @@ export function setupStalkerMentalStatePlanner(planner: ActionPlanner, stateMana
   mentalFreeAction.add_precondition(new world_property(EStateEvaluatorId.ANIMSTATE_IDLE_NOW, true));
   mentalFreeAction.add_precondition(new world_property(EStateEvaluatorId.ANIMATION_NONE_NOW, true));
   mentalFreeAction.add_precondition(new world_property(EStateEvaluatorId.MENTAL_FREE_TARGET, true));
-  mentalFreeAction.add_precondition(new world_property(EStateEvaluatorId.BODYSTATE, true));
+  mentalFreeAction.add_precondition(new world_property(EStateEvaluatorId.BODYSTATE_SET, true));
   mentalFreeAction.add_precondition(new world_property(EStateEvaluatorId.BODYSTATE_STANDING_NOW, true));
   mentalFreeAction.add_effect(new world_property(EStateEvaluatorId.MENTAL_SET, true));
   planner.add_action(EStateActionId.MENTAL_FREE, mentalFreeAction);

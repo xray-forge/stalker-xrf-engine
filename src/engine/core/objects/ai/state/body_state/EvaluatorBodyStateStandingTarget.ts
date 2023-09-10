@@ -1,4 +1,4 @@
-import { LuabindClass, property_evaluator } from "xray16";
+import { LuabindClass, move, property_evaluator } from "xray16";
 
 import { StalkerStateManager } from "@/engine/core/objects/ai/state/StalkerStateManager";
 import { states } from "@/engine/core/objects/animation/states";
@@ -7,24 +7,21 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * Evaluator whether body state should be changed.
+ * Evaluator to check whether next body state should be standing.
  */
 @LuabindClass()
-export class EvaluatorBodyState extends property_evaluator {
+export class EvaluatorBodyStateStandingTarget extends property_evaluator {
   public readonly stateManager: StalkerStateManager;
 
   public constructor(stateManager: StalkerStateManager) {
-    super(null, EvaluatorBodyState.__name);
+    super(null, EvaluatorBodyStateStandingTarget.__name);
     this.stateManager = stateManager;
   }
 
   /**
-   * Check if changing body state is needed at the moment.
+   * Check if standing is target body state.
    */
   public override evaluate(): boolean {
-    return (
-      states.get(this.stateManager.targetState).bodystate === null ||
-      states.get(this.stateManager.targetState).bodystate === this.object.target_body_state()
-    );
+    return states.get(this.stateManager.targetState).bodystate === move.standing;
   }
 }

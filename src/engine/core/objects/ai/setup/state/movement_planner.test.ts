@@ -35,7 +35,7 @@ describe("movement_planner util", () => {
         [EStateEvaluatorId.ANIMATION_LOCKED, false],
         [EStateEvaluatorId.LOCKED_EXTERNAL, false],
         [EStateEvaluatorId.MOVEMENT_SET, false],
-        [EStateEvaluatorId.BODYSTATE, true],
+        [EStateEvaluatorId.BODYSTATE_SET, true],
         [EStateEvaluatorId.MENTAL_SET, true],
         [EStateEvaluatorId.MOVEMENT_WALK_TARGET, true],
         [EStateEvaluatorId.ANIMSTATE_IDLE_NOW, true],
@@ -53,9 +53,9 @@ describe("movement_planner util", () => {
         [EStateEvaluatorId.ANIMATION_LOCKED, false],
         [EStateEvaluatorId.LOCKED_EXTERNAL, false],
         [EStateEvaluatorId.MOVEMENT_SET, false],
-        [EStateEvaluatorId.DIRECTION, false],
+        [EStateEvaluatorId.DIRECTION_SET, false],
         [EStateEvaluatorId.DIRECTION_SEARCH, false],
-        [EStateEvaluatorId.BODYSTATE, true],
+        [EStateEvaluatorId.BODYSTATE_SET, true],
         [EStateEvaluatorId.MENTAL_SET, true],
         [EStateEvaluatorId.MOVEMENT_WALK_TARGET, true],
         [EStateEvaluatorId.ANIMSTATE_IDLE_NOW, true],
@@ -63,7 +63,7 @@ describe("movement_planner util", () => {
       ],
       [
         [EStateEvaluatorId.MOVEMENT_SET, true],
-        [EStateEvaluatorId.DIRECTION, true],
+        [EStateEvaluatorId.DIRECTION_SET, true],
       ]
     );
 
@@ -76,16 +76,16 @@ describe("movement_planner util", () => {
         [EStateEvaluatorId.ANIMATION_LOCKED, false],
         [EStateEvaluatorId.LOCKED_EXTERNAL, false],
         [EStateEvaluatorId.MOVEMENT_SET, false],
-        [EStateEvaluatorId.DIRECTION, false],
+        [EStateEvaluatorId.DIRECTION_SET, false],
         [EStateEvaluatorId.DIRECTION_SEARCH, true],
-        [EStateEvaluatorId.BODYSTATE, true],
+        [EStateEvaluatorId.BODYSTATE_SET, true],
         [EStateEvaluatorId.MENTAL_SET, true],
         [EStateEvaluatorId.MOVEMENT_WALK_TARGET, true],
         [EStateEvaluatorId.ANIMSTATE_IDLE_NOW, true],
         [EStateEvaluatorId.ANIMATION_NONE_NOW, true],
       ],
       [
-        [EStateEvaluatorId.DIRECTION, true],
+        [EStateEvaluatorId.DIRECTION_SET, true],
         [EStateEvaluatorId.MOVEMENT_SET, true],
       ]
     );
@@ -99,7 +99,7 @@ describe("movement_planner util", () => {
         [EStateEvaluatorId.ANIMATION_LOCKED, false],
         [EStateEvaluatorId.LOCKED_EXTERNAL, false],
         [EStateEvaluatorId.MOVEMENT_SET, false],
-        [EStateEvaluatorId.BODYSTATE, true],
+        [EStateEvaluatorId.BODYSTATE_SET, true],
         [EStateEvaluatorId.MENTAL_SET, true],
         [EStateEvaluatorId.MOVEMENT_RUN_TARGET, true],
         [EStateEvaluatorId.ANIMSTATE_IDLE_NOW, true],
@@ -117,9 +117,9 @@ describe("movement_planner util", () => {
         [EStateEvaluatorId.ANIMATION_LOCKED, false],
         [EStateEvaluatorId.LOCKED_EXTERNAL, false],
         [EStateEvaluatorId.MOVEMENT_SET, false],
-        [EStateEvaluatorId.DIRECTION, false],
+        [EStateEvaluatorId.DIRECTION_SET, false],
         [EStateEvaluatorId.DIRECTION_SEARCH, false],
-        [EStateEvaluatorId.BODYSTATE, true],
+        [EStateEvaluatorId.BODYSTATE_SET, true],
         [EStateEvaluatorId.MENTAL_SET, true],
         [EStateEvaluatorId.MOVEMENT_RUN_TARGET, true],
         [EStateEvaluatorId.ANIMSTATE_IDLE_NOW, true],
@@ -127,7 +127,7 @@ describe("movement_planner util", () => {
       ],
       [
         [EStateEvaluatorId.MOVEMENT_SET, true],
-        [EStateEvaluatorId.DIRECTION, true],
+        [EStateEvaluatorId.DIRECTION_SET, true],
       ]
     );
 
@@ -140,9 +140,9 @@ describe("movement_planner util", () => {
         [EStateEvaluatorId.ANIMATION_LOCKED, false],
         [EStateEvaluatorId.LOCKED_EXTERNAL, false],
         [EStateEvaluatorId.MOVEMENT_SET, false],
-        [EStateEvaluatorId.DIRECTION, false],
+        [EStateEvaluatorId.DIRECTION_SET, false],
         [EStateEvaluatorId.DIRECTION_SEARCH, true],
-        [EStateEvaluatorId.BODYSTATE, true],
+        [EStateEvaluatorId.BODYSTATE_SET, true],
         [EStateEvaluatorId.MENTAL_SET, true],
         [EStateEvaluatorId.MOVEMENT_RUN_TARGET, true],
         [EStateEvaluatorId.ANIMSTATE_IDLE_NOW, true],
@@ -150,7 +150,7 @@ describe("movement_planner util", () => {
       ],
       [
         [EStateEvaluatorId.MOVEMENT_SET, true],
-        [EStateEvaluatorId.DIRECTION, true],
+        [EStateEvaluatorId.DIRECTION_SET, true],
       ]
     );
 
@@ -176,14 +176,14 @@ describe("movement_planner util", () => {
         [EStateEvaluatorId.ANIMSTATE_LOCKED, false],
         [EStateEvaluatorId.ANIMATION_LOCKED, false],
         [EStateEvaluatorId.MOVEMENT_SET, false],
-        [EStateEvaluatorId.DIRECTION, false],
+        [EStateEvaluatorId.DIRECTION_SET, false],
         [EStateEvaluatorId.DIRECTION_SEARCH, false],
         [EStateEvaluatorId.MOVEMENT_STAND_TARGET, true],
         [EStateEvaluatorId.MENTAL_SET, true],
       ],
       [
         [EStateEvaluatorId.MOVEMENT_SET, true],
-        [EStateEvaluatorId.DIRECTION, true],
+        [EStateEvaluatorId.DIRECTION_SET, true],
       ]
     );
 
@@ -195,14 +195,14 @@ describe("movement_planner util", () => {
         [EStateEvaluatorId.ANIMSTATE_LOCKED, false],
         [EStateEvaluatorId.ANIMATION_LOCKED, false],
         [EStateEvaluatorId.MOVEMENT_SET, false],
-        [EStateEvaluatorId.DIRECTION, false],
+        [EStateEvaluatorId.DIRECTION_SET, false],
         [EStateEvaluatorId.DIRECTION_SEARCH, true],
         [EStateEvaluatorId.MOVEMENT_STAND_TARGET, true],
         [EStateEvaluatorId.MENTAL_SET, true],
       ],
       [
         [EStateEvaluatorId.MOVEMENT_SET, true],
-        [EStateEvaluatorId.DIRECTION, true],
+        [EStateEvaluatorId.DIRECTION_SET, true],
       ]
     );
   });

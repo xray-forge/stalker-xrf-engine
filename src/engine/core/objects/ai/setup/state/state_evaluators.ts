@@ -12,13 +12,13 @@ import {
   EvaluatorAnimstatePlayNow,
 } from "@/engine/core/objects/ai/state/animstate";
 import {
-  EvaluatorBodyState,
-  EvaluatorBodyStateCrouch,
   EvaluatorBodyStateCrouchNow,
-  EvaluatorBodyStateStanding,
+  EvaluatorBodyStateCrouchTarget,
+  EvaluatorBodyStateSet,
   EvaluatorBodyStateStandingNow,
+  EvaluatorBodyStateStandingTarget,
 } from "@/engine/core/objects/ai/state/body_state";
-import { EvaluatorDirection, EvaluatorDirectionSearch } from "@/engine/core/objects/ai/state/direction";
+import { EvaluatorDirectionSearch, EvaluatorDirectionSet } from "@/engine/core/objects/ai/state/direction";
 import {
   EvaluatorMentalDangerNow,
   EvaluatorMentalDangerTarget,
@@ -46,16 +46,16 @@ import {
   EvaluatorStateLockedExternal,
 } from "@/engine/core/objects/ai/state/state";
 import {
-  EvaluatorWeapon,
-  EvaluatorWeaponDrop,
-  EvaluatorWeaponFire,
+  EvaluatorWeaponDropTarget,
+  EvaluatorWeaponFireTarget,
   EvaluatorWeaponLocked,
-  EvaluatorWeaponNone,
   EvaluatorWeaponNoneNow,
-  EvaluatorWeaponStrapped,
+  EvaluatorWeaponNoneTarget,
+  EvaluatorWeaponSet,
   EvaluatorWeaponStrappedNow,
-  EvaluatorWeaponUnstrapped,
+  EvaluatorWeaponStrappedTarget,
   EvaluatorWeaponUnstrappedNow,
+  EvaluatorWeaponUnstrappedTarget,
 } from "@/engine/core/objects/ai/state/weapon";
 import { EStateEvaluatorId } from "@/engine/core/objects/ai/types";
 import { ActionPlanner } from "@/engine/lib/types";
@@ -71,16 +71,16 @@ export function setupStalkerStateEvaluators(planner: ActionPlanner, stateManager
   planner.add_evaluator(EStateEvaluatorId.LOCKED, new EvaluatorStateLocked(stateManager));
   planner.add_evaluator(EStateEvaluatorId.LOCKED_EXTERNAL, new EvaluatorStateLockedExternal(stateManager));
 
-  planner.add_evaluator(EStateEvaluatorId.WEAPON, new EvaluatorWeapon(stateManager));
+  planner.add_evaluator(EStateEvaluatorId.WEAPON_SET, new EvaluatorWeaponSet(stateManager));
   planner.add_evaluator(EStateEvaluatorId.WEAPON_LOCKED, new EvaluatorWeaponLocked(stateManager));
-  planner.add_evaluator(EStateEvaluatorId.WEAPON_STRAPPED, new EvaluatorWeaponStrapped(stateManager));
+  planner.add_evaluator(EStateEvaluatorId.WEAPON_STRAPPED_TARGET, new EvaluatorWeaponStrappedTarget(stateManager));
   planner.add_evaluator(EStateEvaluatorId.WEAPON_STRAPPED_NOW, new EvaluatorWeaponStrappedNow(stateManager));
-  planner.add_evaluator(EStateEvaluatorId.WEAPON_UNSTRAPPED, new EvaluatorWeaponUnstrapped(stateManager));
+  planner.add_evaluator(EStateEvaluatorId.WEAPON_UNSTRAPPED_TARGET, new EvaluatorWeaponUnstrappedTarget(stateManager));
   planner.add_evaluator(EStateEvaluatorId.WEAPON_UNSTRAPPED_NOW, new EvaluatorWeaponUnstrappedNow(stateManager));
-  planner.add_evaluator(EStateEvaluatorId.WEAPON_NONE, new EvaluatorWeaponNone(stateManager));
+  planner.add_evaluator(EStateEvaluatorId.WEAPON_NONE_TARGET, new EvaluatorWeaponNoneTarget(stateManager));
   planner.add_evaluator(EStateEvaluatorId.WEAPON_NONE_NOW, new EvaluatorWeaponNoneNow(stateManager));
-  planner.add_evaluator(EStateEvaluatorId.WEAPON_DROP, new EvaluatorWeaponDrop(stateManager));
-  planner.add_evaluator(EStateEvaluatorId.WEAPON_FIRE, new EvaluatorWeaponFire(stateManager));
+  planner.add_evaluator(EStateEvaluatorId.WEAPON_DROP_TARGET, new EvaluatorWeaponDropTarget(stateManager));
+  planner.add_evaluator(EStateEvaluatorId.WEAPON_FIRE_TARGET, new EvaluatorWeaponFireTarget(stateManager));
 
   planner.add_evaluator(EStateEvaluatorId.MOVEMENT_SET, new EvaluatorMovementSet(stateManager));
   planner.add_evaluator(EStateEvaluatorId.MOVEMENT_WALK_TARGET, new EvaluatorMovementWalkTarget(stateManager));
@@ -96,13 +96,16 @@ export function setupStalkerStateEvaluators(planner: ActionPlanner, stateManager
   planner.add_evaluator(EStateEvaluatorId.MENTAL_PANIC_TARGET, new EvaluatorMentalPanicTarget(stateManager));
   planner.add_evaluator(EStateEvaluatorId.MENTAL_PANIC_NOW, new EvaluatorMentalPanicNow(stateManager));
 
-  planner.add_evaluator(EStateEvaluatorId.BODYSTATE, new EvaluatorBodyState(stateManager));
-  planner.add_evaluator(EStateEvaluatorId.BODYSTATE_CROUCH, new EvaluatorBodyStateCrouch(stateManager));
-  planner.add_evaluator(EStateEvaluatorId.BODYSTATE_STANDING, new EvaluatorBodyStateStanding(stateManager));
+  planner.add_evaluator(EStateEvaluatorId.BODYSTATE_SET, new EvaluatorBodyStateSet(stateManager));
+  planner.add_evaluator(EStateEvaluatorId.BODYSTATE_CROUCH_TARGET, new EvaluatorBodyStateCrouchTarget(stateManager));
+  planner.add_evaluator(
+    EStateEvaluatorId.BODYSTATE_STANDING_TARGET,
+    new EvaluatorBodyStateStandingTarget(stateManager)
+  );
   planner.add_evaluator(EStateEvaluatorId.BODYSTATE_CROUCH_NOW, new EvaluatorBodyStateCrouchNow(stateManager));
   planner.add_evaluator(EStateEvaluatorId.BODYSTATE_STANDING_NOW, new EvaluatorBodyStateStandingNow(stateManager));
 
-  planner.add_evaluator(EStateEvaluatorId.DIRECTION, new EvaluatorDirection(stateManager));
+  planner.add_evaluator(EStateEvaluatorId.DIRECTION_SET, new EvaluatorDirectionSet(stateManager));
   planner.add_evaluator(EStateEvaluatorId.DIRECTION_SEARCH, new EvaluatorDirectionSearch(stateManager));
 
   planner.add_evaluator(EStateEvaluatorId.ANIMSTATE, new EvaluatorAnimstate(stateManager));

@@ -3,7 +3,7 @@ import { property_storage } from "xray16";
 
 import { registry } from "@/engine/core/database/registry";
 import { registerStalker, setStalkerState, unregisterStalker } from "@/engine/core/database/stalker";
-import { EvaluatorDirection } from "@/engine/core/objects/ai/state/direction/EvaluatorDirection";
+import { EvaluatorDirectionSet } from "@/engine/core/objects/ai/state/direction/EvaluatorDirectionSet";
 import { StalkerStateManager } from "@/engine/core/objects/ai/state/StalkerStateManager";
 import { EStalkerState } from "@/engine/core/objects/animation";
 import { StalkerBinder } from "@/engine/core/objects/binders/creature/StalkerBinder";
@@ -11,7 +11,7 @@ import { replaceFunctionMock } from "@/fixtures/utils/function_mock";
 import { mockClientGameObject, MockSightParameters } from "@/fixtures/xray";
 import { MockCSightParams } from "@/fixtures/xray/mocks/CSightParams.mock";
 
-describe("EvaluatorDirection class", () => {
+describe("EvaluatorDirectionSet class", () => {
   it("should correctly perform direction check when look at object and activate callback", () => {
     const stalker: StalkerBinder = new StalkerBinder(mockClientGameObject());
 
@@ -20,7 +20,7 @@ describe("EvaluatorDirection class", () => {
     stalker.reinit();
 
     const manager: StalkerStateManager = registry.objects.get(stalker.object.id()).stateManager as StalkerStateManager;
-    const evaluator: EvaluatorDirection = new EvaluatorDirection(manager);
+    const evaluator: EvaluatorDirectionSet = new EvaluatorDirectionSet(manager);
     const endCallback = jest.fn();
     const lookObject = mockClientGameObject();
 
@@ -71,7 +71,7 @@ describe("EvaluatorDirection class", () => {
     stalker.reinit();
 
     const manager: StalkerStateManager = registry.objects.get(stalker.object.id()).stateManager as StalkerStateManager;
-    const evaluator: EvaluatorDirection = new EvaluatorDirection(manager);
+    const evaluator: EvaluatorDirectionSet = new EvaluatorDirectionSet(manager);
     const endCallback = jest.fn();
     const lookObject = mockClientGameObject();
 

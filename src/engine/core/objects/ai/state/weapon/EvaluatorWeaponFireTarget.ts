@@ -8,21 +8,24 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * Whether weapon should be strapped.
+ * Whether object is in fire weapon state.
  */
 @LuabindClass()
-export class EvaluatorWeaponStrapped extends property_evaluator {
+export class EvaluatorWeaponFireTarget extends property_evaluator {
   private readonly stateManager: StalkerStateManager;
 
   public constructor(stateManager: StalkerStateManager) {
-    super(null, EvaluatorWeaponStrapped.__name);
+    super(null, EvaluatorWeaponFireTarget.__name);
     this.stateManager = stateManager;
   }
 
   /**
-   * Check if target weapon state in animation is 'strapped'.
+   * Evaluate whether weapon fire state is active.
    */
   public override evaluate(): boolean {
-    return states.get(this.stateManager.targetState).weapon === EWeaponAnimation.STRAPPED;
+    return (
+      states.get(this.stateManager.targetState).weapon === EWeaponAnimation.FIRE ||
+      states.get(this.stateManager.targetState).weapon === EWeaponAnimation.SNIPER_FIRE
+    );
   }
 }
