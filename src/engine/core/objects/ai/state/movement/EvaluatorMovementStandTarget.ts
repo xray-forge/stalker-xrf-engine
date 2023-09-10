@@ -7,21 +7,21 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Evaluator to check movement type `stand` requirement in target state.
  */
 @LuabindClass()
-export class EvaluatorMovementWalk extends property_evaluator {
+export class EvaluatorMovementStandTarget extends property_evaluator {
   private readonly stateManager: StalkerStateManager;
 
   public constructor(stateManager: StalkerStateManager) {
-    super(null, EvaluatorMovementWalk.__name);
+    super(null, EvaluatorMovementStandTarget.__name);
     this.stateManager = stateManager;
   }
 
   /**
-   * todo: Description.
+   * Check if state requires `stand` movement type.
    */
   public override evaluate(): boolean {
-    return states.get(this.stateManager.targetState).movement === move.walk;
+    return states.get(this.stateManager.targetState).movement === move.stand;
   }
 }

@@ -23,7 +23,7 @@ export function setupStalkerAnimstateStatePlanner(planner: ActionPlanner, stateM
   animstateStartAction.add_precondition(new world_property(EStateEvaluatorId.DIRECTION, true));
   animstateStartAction.add_precondition(new world_property(EStateEvaluatorId.MENTAL_SET, true));
   animstateStartAction.add_precondition(new world_property(EStateEvaluatorId.WEAPON, true));
-  animstateStartAction.add_precondition(new world_property(EStateEvaluatorId.MOVEMENT, true));
+  animstateStartAction.add_precondition(new world_property(EStateEvaluatorId.MOVEMENT_SET, true));
   animstateStartAction.add_precondition(new world_property(EStateEvaluatorId.ANIMSTATE_PLAY_NOW, false));
   animstateStartAction.add_effect(new world_property(EStateEvaluatorId.ANIMSTATE, true));
   planner.add_action(EStateActionId.ANIMSTATE_START, animstateStartAction);

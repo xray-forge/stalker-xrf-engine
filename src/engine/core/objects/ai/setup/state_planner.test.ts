@@ -63,7 +63,7 @@ describe("state_manager util", () => {
       [
         [EStateEvaluatorId.END, false],
         [EStateEvaluatorId.WEAPON, true],
-        [EStateEvaluatorId.MOVEMENT, true],
+        [EStateEvaluatorId.MOVEMENT_SET, true],
         [EStateEvaluatorId.MENTAL_SET, true],
         [EStateEvaluatorId.BODYSTATE, true],
         [EStateEvaluatorId.DIRECTION, true],

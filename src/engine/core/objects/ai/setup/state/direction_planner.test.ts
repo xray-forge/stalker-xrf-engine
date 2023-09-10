@@ -28,7 +28,7 @@ describe("direction_planner util", () => {
         [EStateEvaluatorId.WEAPON, true],
         [EStateEvaluatorId.ANIMATION_NONE_NOW, true],
         [EStateEvaluatorId.ANIMSTATE_IDLE_NOW, true],
-        [EStateEvaluatorId.MOVEMENT, true],
+        [EStateEvaluatorId.MOVEMENT_SET, true],
       ],
       [[EStateEvaluatorId.DIRECTION, true]]
     );
@@ -45,7 +45,7 @@ describe("direction_planner util", () => {
         [EStateEvaluatorId.WEAPON, true],
         [EStateEvaluatorId.ANIMATION_NONE_NOW, true],
         [EStateEvaluatorId.ANIMSTATE_IDLE_NOW, true],
-        [EStateEvaluatorId.MOVEMENT, true],
+        [EStateEvaluatorId.MOVEMENT_SET, true],
       ],
       [[EStateEvaluatorId.DIRECTION, true]]
     );

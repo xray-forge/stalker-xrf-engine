@@ -50,7 +50,7 @@ export class EvaluatorStateIdleCombat extends property_evaluator {
       this.actionPlanner.current_action_id() === EActionId.STATE_TO_IDLE_COMBAT &&
       !this.stateManager.planner.evaluator(EStateEvaluatorId.ANIMSTATE_LOCKED).evaluate() &&
       !this.stateManager.planner.evaluator(EStateEvaluatorId.ANIMATION_LOCKED).evaluate() &&
-      this.stateManager.planner.evaluator(EStateEvaluatorId.MOVEMENT).evaluate() &&
+      this.stateManager.planner.evaluator(EStateEvaluatorId.MOVEMENT_SET).evaluate() &&
       this.stateManager.planner.evaluator(EStateEvaluatorId.ANIMSTATE).evaluate() &&
       this.stateManager.planner.evaluator(EStateEvaluatorId.ANIMATION).evaluate() &&
       this.stateManager.planner.evaluator(EStateEvaluatorId.SMARTCOVER).evaluate()

@@ -55,7 +55,7 @@ export class EvaluatorStateIdleAlife extends property_evaluator {
       // --not this.st.planner.evaluator(this.st.properties["locked"]).evaluate() and
       !this.stateManager.planner.evaluator(EStateEvaluatorId.ANIMSTATE_LOCKED).evaluate() &&
       !this.stateManager.planner.evaluator(EStateEvaluatorId.ANIMATION_LOCKED).evaluate() &&
-      this.stateManager.planner.evaluator(EStateEvaluatorId.MOVEMENT).evaluate() &&
+      this.stateManager.planner.evaluator(EStateEvaluatorId.MOVEMENT_SET).evaluate() &&
       this.stateManager.planner.evaluator(EStateEvaluatorId.ANIMSTATE).evaluate() &&
       this.stateManager.planner.evaluator(EStateEvaluatorId.ANIMATION).evaluate() &&
       this.stateManager.planner.evaluator(EStateEvaluatorId.SMARTCOVER).evaluate()

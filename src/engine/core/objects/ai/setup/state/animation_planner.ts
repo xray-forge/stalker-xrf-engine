@@ -24,7 +24,7 @@ export function setupStalkerAnimationStatePlanner(planner: ActionPlanner, stateM
   animationStartAction.add_precondition(new world_property(EStateEvaluatorId.IN_SMARTCOVER, false));
   animationStartAction.add_precondition(new world_property(EStateEvaluatorId.DIRECTION, true));
   animationStartAction.add_precondition(new world_property(EStateEvaluatorId.WEAPON, true));
-  animationStartAction.add_precondition(new world_property(EStateEvaluatorId.MOVEMENT, true));
+  animationStartAction.add_precondition(new world_property(EStateEvaluatorId.MOVEMENT_SET, true));
   animationStartAction.add_precondition(new world_property(EStateEvaluatorId.MENTAL_SET, true));
   animationStartAction.add_precondition(new world_property(EStateEvaluatorId.BODYSTATE, true));
   animationStartAction.add_precondition(new world_property(EStateEvaluatorId.ANIMATION, false));

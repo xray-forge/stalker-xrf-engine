@@ -31,11 +31,11 @@ import {
   EvaluatorMentalSet,
 } from "@/engine/core/objects/ai/state/mental";
 import {
-  EvaluatorMovement,
-  EvaluatorMovementRun,
-  EvaluatorMovementStand,
+  EvaluatorMovementRunTarget,
+  EvaluatorMovementSet,
   EvaluatorMovementStandNow,
-  EvaluatorMovementWalk,
+  EvaluatorMovementStandTarget,
+  EvaluatorMovementWalkTarget,
 } from "@/engine/core/objects/ai/state/movement";
 import {
   EvaluatorInSmartCover,
@@ -89,10 +89,14 @@ describe("state_evaluator util", () => {
     expect(planner.evaluator(EStateEvaluatorId.WEAPON_NONE_NOW) instanceof EvaluatorWeaponNoneNow).toBeTruthy();
     expect(planner.evaluator(EStateEvaluatorId.WEAPON_DROP) instanceof EvaluatorWeaponDrop).toBeTruthy();
     expect(planner.evaluator(EStateEvaluatorId.WEAPON_FIRE) instanceof EvaluatorWeaponFire).toBeTruthy();
-    expect(planner.evaluator(EStateEvaluatorId.MOVEMENT) instanceof EvaluatorMovement).toBeTruthy();
-    expect(planner.evaluator(EStateEvaluatorId.MOVEMENT_WALK) instanceof EvaluatorMovementWalk).toBeTruthy();
-    expect(planner.evaluator(EStateEvaluatorId.MOVEMENT_RUN) instanceof EvaluatorMovementRun).toBeTruthy();
-    expect(planner.evaluator(EStateEvaluatorId.MOVEMENT_STAND) instanceof EvaluatorMovementStand).toBeTruthy();
+    expect(planner.evaluator(EStateEvaluatorId.MOVEMENT_SET) instanceof EvaluatorMovementSet).toBeTruthy();
+    expect(
+      planner.evaluator(EStateEvaluatorId.MOVEMENT_WALK_TARGET) instanceof EvaluatorMovementWalkTarget
+    ).toBeTruthy();
+    expect(planner.evaluator(EStateEvaluatorId.MOVEMENT_RUN_TARGET) instanceof EvaluatorMovementRunTarget).toBeTruthy();
+    expect(
+      planner.evaluator(EStateEvaluatorId.MOVEMENT_STAND_TARGET) instanceof EvaluatorMovementStandTarget
+    ).toBeTruthy();
     expect(planner.evaluator(EStateEvaluatorId.MOVEMENT_STAND_NOW) instanceof EvaluatorMovementStandNow).toBeTruthy();
     expect(planner.evaluator(EStateEvaluatorId.MENTAL_SET) instanceof EvaluatorMentalSet).toBeTruthy();
     expect(planner.evaluator(EStateEvaluatorId.MENTAL_FREE_TARGET) instanceof EvaluatorMentalFreeTarget).toBeTruthy();

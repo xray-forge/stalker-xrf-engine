@@ -263,7 +263,7 @@ export class StalkerStateManager {
       return look.direction;
     }
 
-    return this.planner.evaluator(EStateEvaluatorId.MOVEMENT_STAND).evaluate() ? look.danger : look.path_dir;
+    return this.planner.evaluator(EStateEvaluatorId.MOVEMENT_STAND_TARGET).evaluate() ? look.danger : look.path_dir;
   }
 
   /**

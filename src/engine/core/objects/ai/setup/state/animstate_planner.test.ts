@@ -28,7 +28,7 @@ describe("animation_planner util", () => {
         [EStateEvaluatorId.DIRECTION, true],
         [EStateEvaluatorId.MENTAL_SET, true],
         [EStateEvaluatorId.WEAPON, true],
-        [EStateEvaluatorId.MOVEMENT, true],
+        [EStateEvaluatorId.MOVEMENT_SET, true],
         [EStateEvaluatorId.ANIMSTATE_PLAY_NOW, false],
       ],
       [[EStateEvaluatorId.ANIMSTATE, true]]

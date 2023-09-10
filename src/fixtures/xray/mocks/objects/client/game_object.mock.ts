@@ -320,6 +320,11 @@ export function mockClientGameObject({
       jest.fn(() => {
         return MockMove.standing;
       }),
+    target_movement_type:
+      rest.target_movement_type ||
+      jest.fn(() => {
+        return MockMove.standing;
+      }),
     team: rest.team || jest.fn(() => 140),
     transfer_money: rest.transfer_money || jest.fn(),
     transfer_item:

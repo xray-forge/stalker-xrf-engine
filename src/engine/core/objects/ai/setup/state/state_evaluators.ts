@@ -29,11 +29,11 @@ import {
   EvaluatorMentalSet,
 } from "@/engine/core/objects/ai/state/mental";
 import {
-  EvaluatorMovement,
-  EvaluatorMovementRun,
-  EvaluatorMovementStand,
+  EvaluatorMovementRunTarget,
+  EvaluatorMovementSet,
   EvaluatorMovementStandNow,
-  EvaluatorMovementWalk,
+  EvaluatorMovementStandTarget,
+  EvaluatorMovementWalkTarget,
 } from "@/engine/core/objects/ai/state/movement";
 import {
   EvaluatorInSmartCover,
@@ -82,10 +82,10 @@ export function setupStalkerStateEvaluators(planner: ActionPlanner, stateManager
   planner.add_evaluator(EStateEvaluatorId.WEAPON_DROP, new EvaluatorWeaponDrop(stateManager));
   planner.add_evaluator(EStateEvaluatorId.WEAPON_FIRE, new EvaluatorWeaponFire(stateManager));
 
-  planner.add_evaluator(EStateEvaluatorId.MOVEMENT, new EvaluatorMovement(stateManager));
-  planner.add_evaluator(EStateEvaluatorId.MOVEMENT_WALK, new EvaluatorMovementWalk(stateManager));
-  planner.add_evaluator(EStateEvaluatorId.MOVEMENT_RUN, new EvaluatorMovementRun(stateManager));
-  planner.add_evaluator(EStateEvaluatorId.MOVEMENT_STAND, new EvaluatorMovementStand(stateManager));
+  planner.add_evaluator(EStateEvaluatorId.MOVEMENT_SET, new EvaluatorMovementSet(stateManager));
+  planner.add_evaluator(EStateEvaluatorId.MOVEMENT_WALK_TARGET, new EvaluatorMovementWalkTarget(stateManager));
+  planner.add_evaluator(EStateEvaluatorId.MOVEMENT_RUN_TARGET, new EvaluatorMovementRunTarget(stateManager));
+  planner.add_evaluator(EStateEvaluatorId.MOVEMENT_STAND_TARGET, new EvaluatorMovementStandTarget(stateManager));
   planner.add_evaluator(EStateEvaluatorId.MOVEMENT_STAND_NOW, new EvaluatorMovementStandNow(stateManager));
 
   planner.add_evaluator(EStateEvaluatorId.MENTAL_SET, new EvaluatorMentalSet(stateManager));
