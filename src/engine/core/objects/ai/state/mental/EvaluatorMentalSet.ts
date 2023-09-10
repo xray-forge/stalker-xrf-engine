@@ -3,18 +3,19 @@ import { LuabindClass, property_evaluator } from "xray16";
 import type { StalkerStateManager } from "@/engine/core/objects/ai/state/StalkerStateManager";
 import { states } from "@/engine/core/objects/animation/states";
 import { LuaLogger } from "@/engine/core/utils/logging";
+import { Optional, TAnimationType } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Evaluator to check if target mental state is achieved.
  */
 @LuabindClass()
-export class EvaluatorMental extends property_evaluator {
+export class EvaluatorMentalSet extends property_evaluator {
   private readonly stateManager: StalkerStateManager;
 
   public constructor(stateManager: StalkerStateManager) {
-    super(null, EvaluatorMental.__name);
+    super(null, EvaluatorMentalSet.__name);
     this.stateManager = stateManager;
   }
 
@@ -22,9 +23,8 @@ export class EvaluatorMental extends property_evaluator {
    * Check if mental desired mental state matches actual object mental state.
    */
   public override evaluate(): boolean {
-    return (
-      states.get(this.stateManager.targetState).mental === null ||
-      states.get(this.stateManager.targetState).mental === this.object.target_mental_state()
-    );
+    const targetMentalState: Optional<TAnimationType> = states.get(this.stateManager.targetState).mental;
+
+    return targetMentalState === null || targetMentalState === this.object.target_mental_state();
   }
 }

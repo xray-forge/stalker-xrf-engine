@@ -33,13 +33,13 @@ export function setupStalkerBodyStatePlanner(planner: ActionPlanner, stateManage
 
   bodyStateCrouchDangerAction.add_precondition(new world_property(EStateEvaluatorId.LOCKED_EXTERNAL, false));
   bodyStateCrouchDangerAction.add_precondition(new world_property(EStateEvaluatorId.BODYSTATE, false));
-  bodyStateCrouchDangerAction.add_precondition(new world_property(EStateEvaluatorId.MENTAL, false));
+  bodyStateCrouchDangerAction.add_precondition(new world_property(EStateEvaluatorId.MENTAL_SET, false));
   // --	action.add_precondition    (new world_property(EStateManagerProperty.weapon,                 true))
   // --'	action.add_precondition    (new world_property(EStateManagerProperty.movement,               true))
   bodyStateCrouchDangerAction.add_precondition(new world_property(EStateEvaluatorId.BODYSTATE_CROUCH_NOW, false));
   bodyStateCrouchDangerAction.add_precondition(new world_property(EStateEvaluatorId.BODYSTATE_CROUCH, true));
   bodyStateCrouchDangerAction.add_effect(new world_property(EStateEvaluatorId.BODYSTATE, true));
-  bodyStateCrouchDangerAction.add_effect(new world_property(EStateEvaluatorId.MENTAL, true));
+  bodyStateCrouchDangerAction.add_effect(new world_property(EStateEvaluatorId.MENTAL_SET, true));
   planner.add_action(EStateActionId.BODYSTATE_CROUCH_DANGER, bodyStateCrouchDangerAction);
 
   const bodyStateStandingAction: ActionBodyStateStanding = new ActionBodyStateStanding(stateManager);
@@ -58,14 +58,14 @@ export function setupStalkerBodyStatePlanner(planner: ActionPlanner, stateManage
 
   standingFreeAction.add_precondition(new world_property(EStateEvaluatorId.LOCKED_EXTERNAL, false));
   standingFreeAction.add_precondition(new world_property(EStateEvaluatorId.BODYSTATE, false));
-  standingFreeAction.add_precondition(new world_property(EStateEvaluatorId.MENTAL, false));
+  standingFreeAction.add_precondition(new world_property(EStateEvaluatorId.MENTAL_SET, false));
   // --	action.add_precondition    (new world_property(EStateManagerProperty.weapon,                 true))
   // --'	action.add_precondition    (new world_property(EStateManagerProperty.movement,               true))
   standingFreeAction.add_precondition(new world_property(EStateEvaluatorId.BODYSTATE_STANDING_NOW, false));
   standingFreeAction.add_precondition(new world_property(EStateEvaluatorId.BODYSTATE_STANDING, true));
-  standingFreeAction.add_precondition(new world_property(EStateEvaluatorId.MENTAL_FREE, false));
+  standingFreeAction.add_precondition(new world_property(EStateEvaluatorId.MENTAL_FREE_TARGET, false));
   standingFreeAction.add_effect(new world_property(EStateEvaluatorId.BODYSTATE, true));
   standingFreeAction.add_effect(new world_property(EStateEvaluatorId.BODYSTATE_STANDING_NOW, true));
-  standingFreeAction.add_effect(new world_property(EStateEvaluatorId.MENTAL, true));
+  standingFreeAction.add_effect(new world_property(EStateEvaluatorId.MENTAL_SET, true));
   planner.add_action(EStateActionId.BODYSTATE_STANDING_FREE, standingFreeAction);
 }

@@ -29,7 +29,7 @@ describe("setup_state_manager util", () => {
         [EStateEvaluatorId.DIRECTION, true],
         [EStateEvaluatorId.WEAPON, true],
         [EStateEvaluatorId.MOVEMENT, true],
-        [EStateEvaluatorId.MENTAL, true],
+        [EStateEvaluatorId.MENTAL_SET, true],
         [EStateEvaluatorId.BODYSTATE, true],
         [EStateEvaluatorId.ANIMATION, false],
         [EStateEvaluatorId.ANIMATION_PLAY_NOW, false],

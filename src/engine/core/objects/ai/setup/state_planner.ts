@@ -49,7 +49,7 @@ export function setupStalkerStatePlanner(planner: ActionPlanner, stateManager: S
   endStateAction.add_precondition(new world_property(EStateEvaluatorId.END, false));
   endStateAction.add_precondition(new world_property(EStateEvaluatorId.WEAPON, true));
   endStateAction.add_precondition(new world_property(EStateEvaluatorId.MOVEMENT, true));
-  endStateAction.add_precondition(new world_property(EStateEvaluatorId.MENTAL, true));
+  endStateAction.add_precondition(new world_property(EStateEvaluatorId.MENTAL_SET, true));
   endStateAction.add_precondition(new world_property(EStateEvaluatorId.BODYSTATE, true));
   endStateAction.add_precondition(new world_property(EStateEvaluatorId.DIRECTION, true));
   endStateAction.add_precondition(new world_property(EStateEvaluatorId.ANIMSTATE, true));

@@ -40,13 +40,13 @@ describe("body_state_planner util", () => {
       [
         [EStateEvaluatorId.LOCKED_EXTERNAL, false],
         [EStateEvaluatorId.BODYSTATE, false],
-        [EStateEvaluatorId.MENTAL, false],
+        [EStateEvaluatorId.MENTAL_SET, false],
         [EStateEvaluatorId.BODYSTATE_CROUCH_NOW, false],
         [EStateEvaluatorId.BODYSTATE_CROUCH, true],
       ],
       [
         [EStateEvaluatorId.BODYSTATE, true],
-        [EStateEvaluatorId.MENTAL, true],
+        [EStateEvaluatorId.MENTAL_SET, true],
       ]
     );
 
@@ -71,15 +71,15 @@ describe("body_state_planner util", () => {
       [
         [EStateEvaluatorId.LOCKED_EXTERNAL, false],
         [EStateEvaluatorId.BODYSTATE, false],
-        [EStateEvaluatorId.MENTAL, false],
+        [EStateEvaluatorId.MENTAL_SET, false],
         [EStateEvaluatorId.BODYSTATE_STANDING_NOW, false],
         [EStateEvaluatorId.BODYSTATE_STANDING, true],
-        [EStateEvaluatorId.MENTAL_FREE, false],
+        [EStateEvaluatorId.MENTAL_FREE_TARGET, false],
       ],
       [
         [EStateEvaluatorId.BODYSTATE, true],
         [EStateEvaluatorId.BODYSTATE_STANDING_NOW, true],
-        [EStateEvaluatorId.MENTAL, true],
+        [EStateEvaluatorId.MENTAL_SET, true],
       ]
     );
   });

@@ -25,7 +25,7 @@ export function setupStalkerWeaponStatePlanner(planner: ActionPlanner, stateMana
   unstrapAction.add_precondition(new world_property(EStateEvaluatorId.LOCKED_EXTERNAL, false));
   unstrapAction.add_precondition(new world_property(EStateEvaluatorId.MOVEMENT, true));
   unstrapAction.add_precondition(new world_property(EStateEvaluatorId.BODYSTATE, true));
-  unstrapAction.add_precondition(new world_property(EStateEvaluatorId.MENTAL, true));
+  unstrapAction.add_precondition(new world_property(EStateEvaluatorId.MENTAL_SET, true));
   unstrapAction.add_precondition(new world_property(EStateEvaluatorId.WEAPON_UNSTRAPPED, true));
   unstrapAction.add_precondition(new world_property(EStateEvaluatorId.ANIMSTATE_IDLE_NOW, true));
   unstrapAction.add_precondition(new world_property(EStateEvaluatorId.ANIMATION_NONE_NOW, true));
@@ -40,7 +40,7 @@ export function setupStalkerWeaponStatePlanner(planner: ActionPlanner, stateMana
   strapAction.add_precondition(new world_property(EStateEvaluatorId.LOCKED_EXTERNAL, false));
   strapAction.add_precondition(new world_property(EStateEvaluatorId.MOVEMENT, true));
   strapAction.add_precondition(new world_property(EStateEvaluatorId.BODYSTATE, true));
-  strapAction.add_precondition(new world_property(EStateEvaluatorId.MENTAL, true));
+  strapAction.add_precondition(new world_property(EStateEvaluatorId.MENTAL_SET, true));
   strapAction.add_precondition(new world_property(EStateEvaluatorId.WEAPON_STRAPPED, true));
   strapAction.add_precondition(new world_property(EStateEvaluatorId.ANIMSTATE_IDLE_NOW, true));
   strapAction.add_precondition(new world_property(EStateEvaluatorId.ANIMATION_NONE_NOW, true));
@@ -55,7 +55,7 @@ export function setupStalkerWeaponStatePlanner(planner: ActionPlanner, stateMana
   weaponNoneAction.add_precondition(new world_property(EStateEvaluatorId.LOCKED_EXTERNAL, false));
   weaponNoneAction.add_precondition(new world_property(EStateEvaluatorId.MOVEMENT, true));
   weaponNoneAction.add_precondition(new world_property(EStateEvaluatorId.BODYSTATE, true));
-  weaponNoneAction.add_precondition(new world_property(EStateEvaluatorId.MENTAL, true));
+  weaponNoneAction.add_precondition(new world_property(EStateEvaluatorId.MENTAL_SET, true));
   weaponNoneAction.add_precondition(new world_property(EStateEvaluatorId.WEAPON_NONE, true));
   weaponNoneAction.add_precondition(new world_property(EStateEvaluatorId.ANIMATION_NONE_NOW, true));
   weaponNoneAction.add_effect(new world_property(EStateEvaluatorId.WEAPON, true));
@@ -69,7 +69,7 @@ export function setupStalkerWeaponStatePlanner(planner: ActionPlanner, stateMana
   weaponDropAction.add_precondition(new world_property(EStateEvaluatorId.LOCKED_EXTERNAL, false));
   weaponDropAction.add_precondition(new world_property(EStateEvaluatorId.MOVEMENT, true));
   weaponDropAction.add_precondition(new world_property(EStateEvaluatorId.BODYSTATE, true));
-  weaponDropAction.add_precondition(new world_property(EStateEvaluatorId.MENTAL, true));
+  weaponDropAction.add_precondition(new world_property(EStateEvaluatorId.MENTAL_SET, true));
   weaponDropAction.add_precondition(new world_property(EStateEvaluatorId.WEAPON_DROP, true));
   weaponDropAction.add_precondition(new world_property(EStateEvaluatorId.ANIMATION_NONE_NOW, true));
   weaponDropAction.add_effect(new world_property(EStateEvaluatorId.WEAPON, true));

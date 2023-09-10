@@ -20,13 +20,13 @@ import {
 } from "@/engine/core/objects/ai/state/body_state";
 import { EvaluatorDirection, EvaluatorDirectionSearch } from "@/engine/core/objects/ai/state/direction";
 import {
-  EvaluatorMental,
-  EvaluatorMentalDanger,
   EvaluatorMentalDangerNow,
-  EvaluatorMentalFree,
+  EvaluatorMentalDangerTarget,
   EvaluatorMentalFreeNow,
-  EvaluatorMentalPanic,
+  EvaluatorMentalFreeTarget,
   EvaluatorMentalPanicNow,
+  EvaluatorMentalPanicTarget,
+  EvaluatorMentalSet,
 } from "@/engine/core/objects/ai/state/mental";
 import {
   EvaluatorMovement,
@@ -88,12 +88,12 @@ export function setupStalkerStateEvaluators(planner: ActionPlanner, stateManager
   planner.add_evaluator(EStateEvaluatorId.MOVEMENT_STAND, new EvaluatorMovementStand(stateManager));
   planner.add_evaluator(EStateEvaluatorId.MOVEMENT_STAND_NOW, new EvaluatorMovementStandNow(stateManager));
 
-  planner.add_evaluator(EStateEvaluatorId.MENTAL, new EvaluatorMental(stateManager));
-  planner.add_evaluator(EStateEvaluatorId.MENTAL_FREE, new EvaluatorMentalFree(stateManager));
+  planner.add_evaluator(EStateEvaluatorId.MENTAL_SET, new EvaluatorMentalSet(stateManager));
+  planner.add_evaluator(EStateEvaluatorId.MENTAL_FREE_TARGET, new EvaluatorMentalFreeTarget(stateManager));
   planner.add_evaluator(EStateEvaluatorId.MENTAL_FREE_NOW, new EvaluatorMentalFreeNow(stateManager));
-  planner.add_evaluator(EStateEvaluatorId.MENTAL_DANGER, new EvaluatorMentalDanger(stateManager));
+  planner.add_evaluator(EStateEvaluatorId.MENTAL_DANGER_TARGET, new EvaluatorMentalDangerTarget(stateManager));
   planner.add_evaluator(EStateEvaluatorId.MENTAL_DANGER_NOW, new EvaluatorMentalDangerNow(stateManager));
-  planner.add_evaluator(EStateEvaluatorId.MENTAL_PANIC, new EvaluatorMentalPanic(stateManager));
+  planner.add_evaluator(EStateEvaluatorId.MENTAL_PANIC_TARGET, new EvaluatorMentalPanicTarget(stateManager));
   planner.add_evaluator(EStateEvaluatorId.MENTAL_PANIC_NOW, new EvaluatorMentalPanicNow(stateManager));
 
   planner.add_evaluator(EStateEvaluatorId.BODYSTATE, new EvaluatorBodyState(stateManager));

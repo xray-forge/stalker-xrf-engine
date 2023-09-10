@@ -21,28 +21,28 @@ describe("mental_planner util", () => {
       ActionMentalFree,
       [
         [EStateEvaluatorId.LOCKED_EXTERNAL, false],
-        [EStateEvaluatorId.MENTAL, false],
+        [EStateEvaluatorId.MENTAL_SET, false],
         [EStateEvaluatorId.ANIMSTATE_IDLE_NOW, true],
         [EStateEvaluatorId.ANIMATION_NONE_NOW, true],
-        [EStateEvaluatorId.MENTAL_FREE, true],
+        [EStateEvaluatorId.MENTAL_FREE_TARGET, true],
         [EStateEvaluatorId.BODYSTATE, true],
         [EStateEvaluatorId.BODYSTATE_STANDING_NOW, true],
       ],
-      [[EStateEvaluatorId.MENTAL, true]]
+      [[EStateEvaluatorId.MENTAL_SET, true]]
     );
 
     checkPlannerAction(
       planner.action(EStateActionId.MENTAL_DANGER),
       ActionMentalDanger,
       [
-        [EStateEvaluatorId.MENTAL, false],
+        [EStateEvaluatorId.MENTAL_SET, false],
         [EStateEvaluatorId.LOCKED_EXTERNAL, false],
         [EStateEvaluatorId.ANIMSTATE_IDLE_NOW, true],
         [EStateEvaluatorId.ANIMATION_NONE_NOW, true],
-        [EStateEvaluatorId.MENTAL_DANGER, true],
+        [EStateEvaluatorId.MENTAL_DANGER_TARGET, true],
       ],
       [
-        [EStateEvaluatorId.MENTAL, true],
+        [EStateEvaluatorId.MENTAL_SET, true],
         [EStateEvaluatorId.MENTAL_DANGER_NOW, true],
       ]
     );
@@ -52,12 +52,12 @@ describe("mental_planner util", () => {
       ActionMentalPanic,
       [
         [EStateEvaluatorId.LOCKED_EXTERNAL, false],
-        [EStateEvaluatorId.MENTAL, false],
+        [EStateEvaluatorId.MENTAL_SET, false],
         [EStateEvaluatorId.ANIMSTATE_IDLE_NOW, true],
         [EStateEvaluatorId.ANIMATION_NONE_NOW, true],
-        [EStateEvaluatorId.MENTAL_PANIC, true],
+        [EStateEvaluatorId.MENTAL_PANIC_TARGET, true],
       ],
-      [[EStateEvaluatorId.MENTAL, true]]
+      [[EStateEvaluatorId.MENTAL_SET, true]]
     );
   });
 });

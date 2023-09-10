@@ -7,21 +7,21 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Evaluator to check if mental danger state should be set.
  */
 @LuabindClass()
-export class EvaluatorMentalFree extends property_evaluator {
-  private readonly stateManager: StalkerStateManager;
+export class EvaluatorMentalDangerTarget extends property_evaluator {
+  public readonly stateManager: StalkerStateManager;
 
   public constructor(stateManager: StalkerStateManager) {
-    super(null, EvaluatorMentalFree.__name);
+    super(null, EvaluatorMentalDangerTarget.__name);
     this.stateManager = stateManager;
   }
 
   /**
-   * Check if target mental state is 'free'.
+   * Check if target mental state is 'danger'.
    */
   public override evaluate(): boolean {
-    return states.get(this.stateManager.targetState).mental === anim.free;
+    return states.get(this.stateManager.targetState).mental === anim.danger;
   }
 }

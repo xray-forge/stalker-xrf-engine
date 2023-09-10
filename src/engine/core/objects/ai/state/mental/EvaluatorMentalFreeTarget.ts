@@ -6,19 +6,22 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
+/**
+ * Evaluator to check if mental free state should be set.
+ */
 @LuabindClass()
-export class EvaluatorMentalPanic extends property_evaluator {
+export class EvaluatorMentalFreeTarget extends property_evaluator {
   private readonly stateManager: StalkerStateManager;
 
   public constructor(stateManager: StalkerStateManager) {
-    super(null, EvaluatorMentalPanic.__name);
+    super(null, EvaluatorMentalFreeTarget.__name);
     this.stateManager = stateManager;
   }
 
   /**
-   * Check if target mental state is 'panic'.
+   * Check if target mental state is 'free'.
    */
   public override evaluate(): boolean {
-    return states.get(this.stateManager.targetState).mental === anim.panic;
+    return states.get(this.stateManager.targetState).mental === anim.free;
   }
 }

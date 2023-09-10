@@ -6,7 +6,7 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Action to set mental free state of game objects.
  */
 @LuabindClass()
 export class ActionMentalFree extends action_base {
@@ -18,7 +18,7 @@ export class ActionMentalFree extends action_base {
   }
 
   /**
-   * todo: Description.
+   * Initialize action and change mental state.
    */
   public override initialize(): void {
     super.initialize();
@@ -26,7 +26,7 @@ export class ActionMentalFree extends action_base {
   }
 
   /**
-   * todo: Description.
+   * Force setting mental state when it is needed.
    */
   public override execute(): void {
     super.execute();

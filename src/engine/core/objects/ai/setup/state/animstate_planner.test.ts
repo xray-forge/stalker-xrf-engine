@@ -26,7 +26,7 @@ describe("animation_planner util", () => {
         [EStateEvaluatorId.SMARTCOVER, true],
         [EStateEvaluatorId.ANIMATION_NONE_NOW, true],
         [EStateEvaluatorId.DIRECTION, true],
-        [EStateEvaluatorId.MENTAL, true],
+        [EStateEvaluatorId.MENTAL_SET, true],
         [EStateEvaluatorId.WEAPON, true],
         [EStateEvaluatorId.MOVEMENT, true],
         [EStateEvaluatorId.ANIMSTATE_PLAY_NOW, false],

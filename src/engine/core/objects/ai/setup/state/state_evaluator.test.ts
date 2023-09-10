@@ -22,13 +22,13 @@ import {
 } from "@/engine/core/objects/ai/state/body_state";
 import { EvaluatorDirection, EvaluatorDirectionSearch } from "@/engine/core/objects/ai/state/direction";
 import {
-  EvaluatorMental,
-  EvaluatorMentalDanger,
   EvaluatorMentalDangerNow,
-  EvaluatorMentalFree,
+  EvaluatorMentalDangerTarget,
   EvaluatorMentalFreeNow,
-  EvaluatorMentalPanic,
+  EvaluatorMentalFreeTarget,
   EvaluatorMentalPanicNow,
+  EvaluatorMentalPanicTarget,
+  EvaluatorMentalSet,
 } from "@/engine/core/objects/ai/state/mental";
 import {
   EvaluatorMovement,
@@ -94,12 +94,14 @@ describe("state_evaluator util", () => {
     expect(planner.evaluator(EStateEvaluatorId.MOVEMENT_RUN) instanceof EvaluatorMovementRun).toBeTruthy();
     expect(planner.evaluator(EStateEvaluatorId.MOVEMENT_STAND) instanceof EvaluatorMovementStand).toBeTruthy();
     expect(planner.evaluator(EStateEvaluatorId.MOVEMENT_STAND_NOW) instanceof EvaluatorMovementStandNow).toBeTruthy();
-    expect(planner.evaluator(EStateEvaluatorId.MENTAL) instanceof EvaluatorMental).toBeTruthy();
-    expect(planner.evaluator(EStateEvaluatorId.MENTAL_FREE) instanceof EvaluatorMentalFree).toBeTruthy();
+    expect(planner.evaluator(EStateEvaluatorId.MENTAL_SET) instanceof EvaluatorMentalSet).toBeTruthy();
+    expect(planner.evaluator(EStateEvaluatorId.MENTAL_FREE_TARGET) instanceof EvaluatorMentalFreeTarget).toBeTruthy();
     expect(planner.evaluator(EStateEvaluatorId.MENTAL_FREE_NOW) instanceof EvaluatorMentalFreeNow).toBeTruthy();
-    expect(planner.evaluator(EStateEvaluatorId.MENTAL_DANGER) instanceof EvaluatorMentalDanger).toBeTruthy();
+    expect(
+      planner.evaluator(EStateEvaluatorId.MENTAL_DANGER_TARGET) instanceof EvaluatorMentalDangerTarget
+    ).toBeTruthy();
     expect(planner.evaluator(EStateEvaluatorId.MENTAL_DANGER_NOW) instanceof EvaluatorMentalDangerNow).toBeTruthy();
-    expect(planner.evaluator(EStateEvaluatorId.MENTAL_PANIC) instanceof EvaluatorMentalPanic).toBeTruthy();
+    expect(planner.evaluator(EStateEvaluatorId.MENTAL_PANIC_TARGET) instanceof EvaluatorMentalPanicTarget).toBeTruthy();
     expect(planner.evaluator(EStateEvaluatorId.MENTAL_PANIC_NOW) instanceof EvaluatorMentalPanicNow).toBeTruthy();
     expect(planner.evaluator(EStateEvaluatorId.BODYSTATE) instanceof EvaluatorBodyState).toBeTruthy();
     expect(planner.evaluator(EStateEvaluatorId.BODYSTATE_CROUCH) instanceof EvaluatorBodyStateCrouch).toBeTruthy();
