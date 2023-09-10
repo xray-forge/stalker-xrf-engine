@@ -482,7 +482,7 @@ export class SurgeManager extends AbstractManager {
         for (const member of squad.squad_members()) {
           if (!isStoryObject(member.object)) {
             if (this.canReleaseSquad(squad)) {
-              logger.info("Releasing npc from squad because of surge:", member.object.name(), squad.name());
+              logger.info("Releasing object from squad because of surge:", member.object.name(), squad.name());
 
               const clientObject: Optional<ClientObject> = level.object_by_id(member.object.id);
 
@@ -503,7 +503,7 @@ export class SurgeManager extends AbstractManager {
               }
 
               if (release) {
-                logger.info("Releasing npc from squad because of surge:", member.object.name(), squad.name());
+                logger.info("Releasing object from squad because of surge:", member.object.name(), squad.name());
 
                 const clientObject = level.object_by_id(member.object.id);
 
@@ -572,7 +572,7 @@ export class SurgeManager extends AbstractManager {
 
           if (!isInCover) {
             logger.info(
-              "Releasing npc from squad after actors death because of surge:",
+              "Releasing object from squad after actors death because of surge:",
               member.object.name(),
               squad.name()
             );

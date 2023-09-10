@@ -27,7 +27,7 @@ extern("xr_effects.inc_counter", (actor: ClientObject, object: ClientObject, p: 
 /**
  * todo;
  */
-extern("xr_effects.dec_counter", (actor: ClientObject, npc: ClientObject, p: [Optional<string>, number]) => {
+extern("xr_effects.dec_counter", (actor: ClientObject, object: ClientObject, p: [Optional<string>, number]) => {
   if (p[0]) {
     const decValue: number = p[1] || 1;
     let newValue: number = getPortableStoreValue(ACTOR_ID, p[0], 0) - decValue;
@@ -45,7 +45,7 @@ extern("xr_effects.dec_counter", (actor: ClientObject, npc: ClientObject, p: [Op
  */
 extern(
   "xr_effects.set_counter",
-  (actor: ClientObject, npc: ClientObject, params: [Optional<string>, Optional<number>]): void => {
+  (actor: ClientObject, object: ClientObject, params: [Optional<string>, Optional<number>]): void => {
     if (params[0]) {
       setPortableStoreValue(ACTOR_ID, params[0], params[1] || 0);
     }
@@ -55,7 +55,7 @@ extern(
 /**
  * todo;
  */
-extern("xr_effects.game_disconnect", (actor: ClientObject, npc: ClientObject): void => {
+extern("xr_effects.game_disconnect", (actor: ClientObject, object: ClientObject): void => {
   logger.info("Game disconnect");
   executeConsoleCommand(consoleCommands.disconnect);
 });
@@ -63,9 +63,9 @@ extern("xr_effects.game_disconnect", (actor: ClientObject, npc: ClientObject): v
 let isGameoverCreditsStarted: boolean = false;
 
 /**
- * todo;
+ * Show game credits scene.
  */
-extern("xr_effects.game_credits", (actor: ClientObject, npc: ClientObject): void => {
+extern("xr_effects.game_credits", (): void => {
   logger.info("Game credits");
 
   isGameoverCreditsStarted = true;
@@ -75,7 +75,7 @@ extern("xr_effects.game_credits", (actor: ClientObject, npc: ClientObject): void
 /**
  * todo;
  */
-extern("xr_effects.game_over", (actor: ClientObject, npc: ClientObject): void => {
+extern("xr_effects.game_over", (): void => {
   logger.info("Game over");
 
   if (isGameoverCreditsStarted !== true) {
@@ -88,14 +88,14 @@ extern("xr_effects.game_over", (actor: ClientObject, npc: ClientObject): void =>
 /**
  * todo;
  */
-extern("xr_effects.after_credits", (actor: ClientObject, npc: ClientObject): void => {
+extern("xr_effects.after_credits", (): void => {
   executeConsoleCommand(consoleCommands.main_menu, "on");
 });
 
 /**
  * todo;
  */
-extern("xr_effects.before_credits", (actor: ClientObject, npc: ClientObject): void => {
+extern("xr_effects.before_credits", (): void => {
   executeConsoleCommand(consoleCommands.main_menu, "off");
 });
 
@@ -152,8 +152,8 @@ extern(
 /**
  * todo;
  */
-extern("xr_effects.add_cs_text", (actor: ClientObject, object: ClientObject, p: [string]) => {
-  if (p[0]) {
+extern("xr_effects.add_cs_text", (actor: ClientObject, object: ClientObject, [label]: [Optional<TLabel>]) => {
+  if (label) {
     const hud: GameHud = get_hud();
     let customText: Optional<StaticDrawableWrapper> = hud.GetCustomStatic("text_on_screen_center");
 
@@ -163,18 +163,18 @@ extern("xr_effects.add_cs_text", (actor: ClientObject, object: ClientObject, p: 
 
     hud.AddCustomStatic("text_on_screen_center", true);
     customText = hud.GetCustomStatic("text_on_screen_center");
-    customText!.wnd().TextControl().SetText(game.translate_string(p[0]));
+    customText!.wnd().TextControl().SetText(game.translate_string(label));
   }
 });
 
 /**
- * todo;
+ * Delete custom text on screen center.
  */
-extern("xr_effects.del_cs_text", (actor: ClientObject, npc: ClientObject, p: []) => {
-  const hud: GameHud = get_hud();
-  const csText: Optional<StaticDrawableWrapper> = hud.GetCustomStatic("text_on_screen_center");
+extern("xr_effects.del_cs_text", () => {
+  const gameHud: GameHud = get_hud();
+  const csText: Optional<StaticDrawableWrapper> = gameHud.GetCustomStatic("text_on_screen_center");
 
   if (csText) {
-    hud.RemoveCustomStatic("text_on_screen_center");
+    gameHud.RemoveCustomStatic("text_on_screen_center");
   }
 });

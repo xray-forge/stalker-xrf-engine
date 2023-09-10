@@ -110,8 +110,8 @@ extern(
 /**
  * todo;
  */
-extern("xr_effects.reset_sound_npc", (actor: ClientObject, npc: ClientObject): void => {
-  const objectId: TNumberId = npc.id();
+extern("xr_effects.reset_sound_npc", (actor: ClientObject, object: ClientObject): void => {
+  const objectId: TNumberId = object.id();
 
   if (registry.sounds.generic.get(objectId) !== null) {
     registry.sounds.generic.get(objectId).reset(objectId);
@@ -329,7 +329,7 @@ extern("xr_effects.turn_off_underpass_lamps", (actor: ClientObject, object: Clie
 /**
  * todo;
  */
-extern("xr_effects.turn_off", (actor: ClientObject, npc: ClientObject, parameters: LuaArray<TStringId>): void => {
+extern("xr_effects.turn_off", (actor: ClientObject, object: ClientObject, parameters: LuaArray<TStringId>): void => {
   for (const [index, storyId] of parameters) {
     const object: Optional<ClientObject> = getObjectByStoryId(storyId);
 
@@ -353,10 +353,10 @@ extern("xr_effects.turn_off_object", (actor: ClientObject, object: ClientObject)
  */
 extern(
   "xr_effects.turn_on_and_force",
-  (actor: ClientObject, npc: ClientObject, params: [TStringId, number, number]): void => {
-    const object: Optional<ClientObject> = getObjectByStoryId(params[0]);
+  (actor: ClientObject, object: ClientObject, params: [TStringId, number, number]): void => {
+    const storyObject: Optional<ClientObject> = getObjectByStoryId(params[0]);
 
-    if (!object) {
+    if (!storyObject) {
       abort("TURN_ON_AND_FORCE. Target object does ! exist");
 
       return;
@@ -370,24 +370,24 @@ extern(
       params[2] = 14000;
     }
 
-    object.set_const_force(createVector(0, 1, 0), params[1], params[2]);
-    object.start_particles("weapons\\light_signal", "link");
-    object.get_hanging_lamp().turn_on();
+    storyObject.set_const_force(createVector(0, 1, 0), params[1], params[2]);
+    storyObject.start_particles("weapons\\light_signal", "link");
+    storyObject.get_hanging_lamp().turn_on();
   }
 );
 
 /**
  * todo;
  */
-extern("xr_effects.turn_off_and_force", (actor: ClientObject, npc: ClientObject, p: [TStringId]): void => {
-  const object: Optional<ClientObject> = getObjectByStoryId(p[0]);
+extern("xr_effects.turn_off_and_force", (actor: ClientObject, object: ClientObject, p: [TStringId]): void => {
+  const storyObject: Optional<ClientObject> = getObjectByStoryId(p[0]);
 
-  if (!object) {
-    abort("TURN_OFF [%s]. Target object does ! exist", npc.name());
+  if (!storyObject) {
+    abort("TURN_OFF [%s]. Target object does ! exist", p[0]);
   }
 
-  object.stop_particles("weapons\\light_signal", "link");
-  object.get_hanging_lamp().turn_off();
+  storyObject.stop_particles("weapons\\light_signal", "link");
+  storyObject.get_hanging_lamp().turn_off();
 });
 
 /**
@@ -400,15 +400,15 @@ extern("xr_effects.turn_on_object", (actor: ClientObject, object: ClientObject):
 /**
  * todo;
  */
-extern("xr_effects.turn_on", (actor: ClientObject, npc: ClientObject, parameters: LuaArray<TStringId>) => {
+extern("xr_effects.turn_on", (actor: ClientObject, object: ClientObject, parameters: LuaArray<TStringId>) => {
   for (const [index, storyId] of parameters) {
-    const object: Optional<ClientObject> = getObjectByStoryId(storyId);
+    const storyObject: Optional<ClientObject> = getObjectByStoryId(storyId);
 
-    if (!object) {
-      abort("TURN_ON [%s]. Target object does ! exist", npc.name());
+    if (!storyObject) {
+      abort("TURN_ON [%s]. Target object does ! exist", storyId);
     }
 
-    object.get_hanging_lamp().turn_on();
+    storyObject.get_hanging_lamp().turn_on();
   }
 });
 
@@ -447,7 +447,7 @@ extern("xr_effects.stop_surge", (): void => {
  */
 extern(
   "xr_effects.set_surge_mess_and_task",
-  (actor: ClientObject, npc: ClientObject, p: [string, Optional<string>]): void => {
+  (actor: ClientObject, object: ClientObject, p: [string, Optional<string>]): void => {
     const surgeManager: SurgeManager = SurgeManager.getInstance();
 
     surgeManager.setSurgeMessage(p[0]);
@@ -461,35 +461,35 @@ extern(
 /**
  * todo;
  */
-extern("xr_effects.enable_anomaly", (actor: ClientObject, npc: ClientObject, p: [string]) => {
+extern("xr_effects.enable_anomaly", (actor: ClientObject, object: ClientObject, p: [string]) => {
   if (p[0] === null) {
     abort("Story id for enable_anomaly function is ! set");
   }
 
-  const object: Optional<ClientObject> = getObjectByStoryId(p[0]);
+  const storyObject: Optional<ClientObject> = getObjectByStoryId(p[0]);
 
-  if (!object) {
+  if (!storyObject) {
     abort("There is no object with story_id %s for enable_anomaly function", tostring(p[0]));
   }
 
-  object.enable_anomaly();
+  storyObject.enable_anomaly();
 });
 
 /**
  * todo;
  */
-extern("xr_effects.disable_anomaly", (actor: ClientObject, npc: ClientObject, p: [TStringId]): void => {
+extern("xr_effects.disable_anomaly", (actor: ClientObject, object: ClientObject, p: [TStringId]): void => {
   if (p[0] === null) {
     abort("Story id for disable_anomaly function is ! set");
   }
 
-  const object: Optional<ClientObject> = getObjectByStoryId(p[0]);
+  const storyObject: Optional<ClientObject> = getObjectByStoryId(p[0]);
 
-  if (!object) {
+  if (!storyObject) {
     abort("There is no object with story_id %s for disable_anomaly function", tostring(p[0]));
   }
 
-  object.disable_anomaly();
+  storyObject.disable_anomaly();
 });
 
 /**
@@ -513,8 +513,8 @@ extern("xr_effects.launch_signal_rocket", (actor: ClientObject, obj: ClientObjec
 extern(
   "xr_effects.create_cutscene_actor_with_weapon",
   (
-    first: ClientObject,
-    second: ClientObject,
+    actor: ClientObject,
+    object: ClientObject,
     params: [Optional<string>, Optional<string>, number, number, number]
   ): void => {
     logger.info("Create cutscene actor with weapon");
@@ -522,39 +522,38 @@ extern(
     const spawnSection: Optional<TSection> = params[0];
 
     if (spawnSection === null) {
-      abort("Wrong spawn section for 'spawn_object' function %s. For object %s", tostring(spawnSection), second.name());
+      abort("Wrong spawn section for 'spawn_object' function %s. For object %s", tostring(spawnSection), object.name());
     }
 
     const pathName: Optional<TName> = params[1];
 
     if (pathName === null) {
-      abort("Wrong path_name for 'spawn_object' function %s. For object %s", tostring(pathName), second.name());
+      abort("Wrong path_name for 'spawn_object' function %s. For object %s", tostring(pathName), object.name());
     }
 
     if (!level.patrol_path_exists(pathName)) {
-      abort("Path %s doesnt exist. Function 'spawn_object' for object %s ", tostring(pathName), second.name());
+      abort("Path %s doesnt exist. Function 'spawn_object' for object %s ", tostring(pathName), object.name());
     }
 
     const ptr: Patrol = new patrol(pathName);
     const index: TIndex = params[2] || 0;
     const yaw: TRate = params[3] || 0;
 
-    const npc: ServerObject = alife().create(
+    const serverObject: ServerObject = alife().create(
       spawnSection,
       ptr.point(index),
       ptr.level_vertex_id(0),
       ptr.game_vertex_id(0)
     )!;
 
-    if (isStalker(npc)) {
-      npc.o_torso()!.yaw = (yaw * math.pi) / 180;
+    if (isStalker(serverObject)) {
+      serverObject.o_torso()!.yaw = (yaw * math.pi) / 180;
     } else {
-      npc.angle.y = (yaw * math.pi) / 180;
+      serverObject.angle.y = (yaw * math.pi) / 180;
     }
 
     const slotOverride: TIndex = params[4] || 0;
 
-    const actor: ClientObject = registry.actor;
     let slot: number;
     let activeItem: Optional<ClientObject> = null;
 
@@ -592,7 +591,7 @@ extern(
         ptr.point(index),
         ptr.level_vertex_id(0),
         ptr.game_vertex_id(0),
-        npc.id
+        serverObject.id
       );
 
       if (sectionName !== weapons.wpn_gauss) {
@@ -605,8 +604,8 @@ extern(
 /**
  * todo;
  */
-extern("xr_effects.stop_sr_cutscene", (actor: ClientObject, npc: ClientObject, parameters: []) => {
-  const state: IRegistryObjectState = registry.objects.get(npc.id());
+extern("xr_effects.stop_sr_cutscene", (actor: ClientObject, object: ClientObject, parameters: []) => {
+  const state: IRegistryObjectState = registry.objects.get(object.id());
 
   if (state.activeScheme !== null) {
     state[state.activeScheme]!.signals!.set("cam_effector_stop", true);

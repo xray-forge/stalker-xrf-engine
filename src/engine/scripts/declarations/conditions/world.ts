@@ -80,7 +80,7 @@ extern("xr_conditions.surge_kill_all", (): boolean => {
 /**
  * todo;
  */
-extern("xr_conditions.signal_rocket_flying", (actor: ClientObject, npc: ClientObject, p: [string]): boolean => {
+extern("xr_conditions.signal_rocket_flying", (actor: ClientObject, object: ClientObject, p: [string]): boolean => {
   if (p === null) {
     abort("Signal rocket name is !set!");
   }
@@ -97,7 +97,7 @@ extern("xr_conditions.signal_rocket_flying", (actor: ClientObject, npc: ClientOb
 /**
  * todo;
  */
-extern("xr_conditions.time_period", (actor: ClientObject, npc: ClientObject, p: [number, number]): boolean => {
+extern("xr_conditions.time_period", (actor: ClientObject, object: ClientObject, p: [number, number]): boolean => {
   const [tshift, period] = p;
 
   if (tshift !== null && period !== null && registry.actor !== null) {

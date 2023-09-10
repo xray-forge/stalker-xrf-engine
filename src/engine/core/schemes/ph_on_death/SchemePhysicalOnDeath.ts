@@ -46,6 +46,6 @@ export class SchemePhysicalOnDeath extends AbstractScheme {
    */
   public static override disable(object: ClientObject, scheme: EScheme): void {
     // todo: unsubscribe from actions? Was not issue because death happens only once
-    // ---  npc:set_callback(callback.death, nil)
+    // ---  object:set_callback(callback.death, nil)
   }
 }

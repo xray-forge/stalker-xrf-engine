@@ -141,13 +141,12 @@ export class ActionSmartCoverActivity extends action_base implements ISchemeEven
 
       if (this.targetPath !== NIL) {
         if (level.patrol_path_exists(this.targetPath)) {
-          // --printf("target_selector:using fire_point[%s] for npc[%s]!!!", this.target_path, this.object.name())
           object.set_smart_cover_target(new patrol(this.targetPath).point(0));
           this.firePosition = new patrol(this.targetPath).point(0);
 
           return true;
         } else {
-          abort("There is no patrol path [%s] for npc [%s]", this.targetPath, object.name());
+          abort("There is no patrol path [%s] for object [%s].", this.targetPath, object.name());
         }
       }
     } else if (this.state.target_enemy !== null) {

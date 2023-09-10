@@ -67,7 +67,7 @@ export class ActionCommander extends action_base implements ISchemeEventHandler 
 
     registry.patrols.generic
       .get(this.state.patrol_key)
-      .setCommand(this.object, this.currentState, this.state.formation);
+      .setObjectCommand(this.object, this.currentState, this.state.formation);
   }
 
   /**
@@ -109,7 +109,7 @@ export class ActionCommander extends action_base implements ISchemeEventHandler 
       this.previousState = nextState;
     }
 
-    registry.patrols.generic.get(this.state.patrol_key).setCommand(this.object, nextState, this.state.formation);
+    registry.patrols.generic.get(this.state.patrol_key).setObjectCommand(this.object, nextState, this.state.formation);
   }
 
   /**
@@ -119,7 +119,7 @@ export class ActionCommander extends action_base implements ISchemeEventHandler 
     if (this.object.alive() === true) {
       registry.patrols.generic
         .get(this.state.patrol_key)
-        .setCommand(this.object, EStalkerState.GUARD, this.state.formation);
+        .setObjectCommand(this.object, EStalkerState.GUARD, this.state.formation);
       this.moveManager.finalize();
     }
 
@@ -130,14 +130,14 @@ export class ActionCommander extends action_base implements ISchemeEventHandler 
    * todo: Description.
    */
   public deactivate(object: ClientObject): void {
-    registry.patrols.generic.get(this.state.patrol_key).removeNpc(object);
+    registry.patrols.generic.get(this.state.patrol_key).removeObject(object);
   }
 
   /**
    * todo: Description.
    */
   public onDeath(object: ClientObject): void {
-    registry.patrols.generic.get(this.state.patrol_key).removeNpc(object);
+    registry.patrols.generic.get(this.state.patrol_key).removeObject(object);
   }
 
   /**

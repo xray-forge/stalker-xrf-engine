@@ -242,7 +242,7 @@ extern("dialogs.npc_army", (firstSpeaker: ClientObject, secondSpeaker: ClientObj
 /**
  * todo;
  */
-extern("dialogs.actor_in_dolg", (actor: ClientObject, npc: ClientObject): boolean => {
+extern("dialogs.actor_in_dolg", (actor: ClientObject, object: ClientObject): boolean => {
   for (const [k, v] of SimulationBoardManager.getInstance().getFactions()) {
     if (v.isCommunity === true && v.name === communities.dolg) {
       return true;
@@ -255,7 +255,7 @@ extern("dialogs.actor_in_dolg", (actor: ClientObject, npc: ClientObject): boolea
 /**
  * todo;
  */
-extern("dialogs.actor_not_in_dolg", (actor: ClientObject, npc: ClientObject): boolean => {
+extern("dialogs.actor_not_in_dolg", (actor: ClientObject, object: ClientObject): boolean => {
   for (const [k, v] of SimulationBoardManager.getInstance().getFactions()) {
     if (v.isCommunity === true && v.name === communities.dolg) {
       return false;
@@ -268,7 +268,7 @@ extern("dialogs.actor_not_in_dolg", (actor: ClientObject, npc: ClientObject): bo
 /**
  * todo;
  */
-extern("dialogs.actor_in_freedom", (actor: ClientObject, npc: ClientObject): boolean => {
+extern("dialogs.actor_in_freedom", (actor: ClientObject, object: ClientObject): boolean => {
   for (const [k, v] of SimulationBoardManager.getInstance().getFactions()) {
     if (v.isCommunity === true && v.name === communities.freedom) {
       return true;
@@ -281,7 +281,7 @@ extern("dialogs.actor_in_freedom", (actor: ClientObject, npc: ClientObject): boo
 /**
  * todo;
  */
-extern("dialogs.actor_not_in_freedom", (actor: ClientObject, npc: ClientObject): boolean => {
+extern("dialogs.actor_not_in_freedom", (actor: ClientObject, object: ClientObject): boolean => {
   for (const [k, v] of SimulationBoardManager.getInstance().getFactions()) {
     if (v.isCommunity === true && v.name === communities.freedom) {
       return false;
@@ -294,7 +294,7 @@ extern("dialogs.actor_not_in_freedom", (actor: ClientObject, npc: ClientObject):
 /**
  * todo;
  */
-extern("dialogs.actor_in_bandit", (actor: ClientObject, npc: ClientObject): boolean => {
+extern("dialogs.actor_in_bandit", (actor: ClientObject, object: ClientObject): boolean => {
   for (const [k, v] of SimulationBoardManager.getInstance().getFactions()) {
     if (v.isCommunity === true && v.name === communities.bandit) {
       return true;
@@ -307,7 +307,7 @@ extern("dialogs.actor_in_bandit", (actor: ClientObject, npc: ClientObject): bool
 /**
  * todo;
  */
-extern("dialogs.actor_not_in_bandit", (actor: ClientObject, npc: ClientObject): boolean => {
+extern("dialogs.actor_not_in_bandit", (actor: ClientObject, object: ClientObject): boolean => {
   for (const [k, v] of SimulationBoardManager.getInstance().getFactions()) {
     if (v.isCommunity === true && v.name === communities.bandit) {
       return false;
@@ -320,7 +320,7 @@ extern("dialogs.actor_not_in_bandit", (actor: ClientObject, npc: ClientObject): 
 /**
  * todo;
  */
-extern("dialogs.actor_in_stalker", (actor: ClientObject, npc: ClientObject): boolean => {
+extern("dialogs.actor_in_stalker", (actor: ClientObject, object: ClientObject): boolean => {
   for (const [k, v] of SimulationBoardManager.getInstance().getFactions()) {
     if (v.isCommunity === true && v.name === communities.stalker) {
       return true;
@@ -333,7 +333,7 @@ extern("dialogs.actor_in_stalker", (actor: ClientObject, npc: ClientObject): boo
 /**
  * todo;
  */
-extern("dialogs.actor_not_in_stalker", (actor: ClientObject, npc: ClientObject): boolean => {
+extern("dialogs.actor_not_in_stalker", (actor: ClientObject, object: ClientObject): boolean => {
   for (const [k, v] of SimulationBoardManager.getInstance().getFactions()) {
     if (v.isCommunity && v.name === communities.stalker) {
       return false;
@@ -355,11 +355,11 @@ extern("dialogs.has_2000_money", (actor: ClientObject, object: ClientObject): bo
  */
 extern("dialogs.transfer_any_pistol_from_actor", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
   const actor: ClientObject = registry.actor;
-  const npc: ClientObject = getNpcSpeaker(firstSpeaker, secondSpeaker);
+  const object: ClientObject = getNpcSpeaker(firstSpeaker, secondSpeaker);
   const pistol: Optional<TPistol> = getNpcPistol(actor);
 
   if (pistol !== null) {
-    actor.transfer_item(actor.object(pistol)!, npc);
+    actor.transfer_item(actor.object(pistol)!, object);
     NotificationManager.getInstance().sendItemRelocatedNotification(ENotificationDirection.OUT, pistol);
   }
 });
@@ -367,16 +367,16 @@ extern("dialogs.transfer_any_pistol_from_actor", (firstSpeaker: ClientObject, se
 /**
  * todo;
  */
-function getNpcPistol(npc: ClientObject): Optional<TPistol> {
+function getNpcPistol(object: ClientObject): Optional<TPistol> {
   let pistol: Optional<TPistol> = null;
 
-  npc.iterate_inventory((owner, item) => {
+  object.iterate_inventory((owner, item) => {
     const section: TPistol = item.section();
 
     if (pistols[section] !== null) {
       pistol = section;
     }
-  }, npc);
+  }, object);
 
   return pistol;
 }

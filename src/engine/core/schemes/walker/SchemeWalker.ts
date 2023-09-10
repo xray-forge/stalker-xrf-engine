@@ -42,7 +42,7 @@ export class SchemeWalker extends AbstractScheme {
 
     assert(
       state.path_walk !== state.path_look,
-      "You are trying to set 'path_look' equal to 'path_walk' in section [%s] for npc [%s]",
+      "You are trying to set 'path_look' equal to 'path_walk' in section [%s] for object [%s]",
       section,
       object.name()
     );

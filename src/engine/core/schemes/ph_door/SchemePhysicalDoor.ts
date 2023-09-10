@@ -33,7 +33,7 @@ export class SchemePhysicalDoor extends AbstractScheme {
     state.tip_unlock = readIniString(ini, section, "tip_open", false, "", "tip_door_locked");
     state.tip_close = readIniString(ini, section, "tip_close", false, "", "tip_door_close");
     state.slider = readIniBoolean(ini, section, "slider", false, false);
-    // --    st.snd_init        = getConfigString(ini, section, "snd_init", npc, false, "")
+    // -- st.snd_init = getConfigString(ini, section, "snd_init", object, false, "")
     state.snd_open_start = readIniString(ini, section, "snd_open_start", false, "", "trader_door_open_start");
     state.snd_close_start = readIniString(ini, section, "snd_close_start", false, "", "trader_door_close_start");
     state.snd_close_stop = readIniString(ini, section, "snd_close_stop", false, "", "trader_door_close_stop");

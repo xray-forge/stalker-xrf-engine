@@ -167,7 +167,7 @@ extern(
 /**
  * todo;
  */
-extern("xr_effects.set_squads_enemies", (actor: ClientObject, npc: ClientObject, p: [string, string]) => {
+extern("xr_effects.set_squads_enemies", (actor: ClientObject, object: ClientObject, p: [string, string]) => {
   if (p[0] === null || p[1] === null) {
     abort("Wrong parameters in function set_squad_enemies");
 
@@ -184,15 +184,15 @@ extern("xr_effects.set_squads_enemies", (actor: ClientObject, npc: ClientObject,
   }
 
   for (const k of squad1.squad_members()) {
-    const npcObj1: Optional<ClientObject> = registry.objects.get(k.id)?.object as Optional<ClientObject>;
+    const squadObject: Optional<ClientObject> = registry.objects.get(k.id)?.object as Optional<ClientObject>;
 
-    if (npcObj1 !== null) {
+    if (squadObject !== null) {
       for (const kk of squad2.squad_members()) {
         const npcObj2: Optional<ClientObject> = registry.objects.get(kk.id).object as Optional<ClientObject>;
 
         if (npcObj2 !== null) {
-          npcObj1.set_relation(EClientObjectRelation.ENEMY, npcObj2);
-          npcObj2.set_relation(EClientObjectRelation.ENEMY, npcObj1);
+          squadObject.set_relation(EClientObjectRelation.ENEMY, npcObj2);
+          npcObj2.set_relation(EClientObjectRelation.ENEMY, squadObject);
         }
       }
     }

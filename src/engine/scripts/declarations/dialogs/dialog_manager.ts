@@ -18,6 +18,10 @@ import { ClientObject, Optional, PhraseDialog, TName, TNumberId, TRate, TStringI
 
 const logger: LuaLogger = new LuaLogger($filename);
 
+// todo: actor/object order is screwed somewhere?
+// todo: actor/object order is screwed somewhere?
+// todo: actor/object order is screwed somewhere?
+
 extern("dialog_manager", {});
 
 /**
@@ -58,26 +62,26 @@ export function action(
   PTsubtable: LuaTable<TStringId, IPhrasesDescriptor>,
   PRTsubtable: TPRTTable,
   currentPhraseId: TStringId,
-  npc: ClientObject
-) {
-  if (!PRTsubtable.get(npc.id()).ignore_once) {
+  object: ClientObject
+): void {
+  if (!PRTsubtable.get(object.id()).ignore_once) {
     if (PTsubtable.get(currentPhraseId).once === TRUE) {
-      setPhraseHighestPriority(PRTsubtable, npc.id(), currentPhraseId);
+      setPhraseHighestPriority(PRTsubtable, object.id(), currentPhraseId);
     }
 
-    PRTsubtable.get(npc.id()).ignore_once = true;
+    PRTsubtable.get(object.id()).ignore_once = true;
   }
 }
 
 /**
  * todo;
  */
-export function setPhraseHighestPriority(PRTsubtable: TPRTTable, npcId: TNumberId, phraseId: TStringId) {
-  if (PRTsubtable.get(npcId) === null) {
-    PRTsubtable.set(npcId, new LuaTable());
+export function setPhraseHighestPriority(PRTsubtable: TPRTTable, objectId: TNumberId, phraseId: TStringId) {
+  if (PRTsubtable.get(objectId) === null) {
+    PRTsubtable.set(objectId, new LuaTable());
   }
 
-  PRTsubtable.get(npcId).set(phraseId, 255);
+  PRTsubtable.get(objectId).set(phraseId, 255);
 }
 
 /**
@@ -229,11 +233,11 @@ extern(
  */
 extern(
   "dialog_manager.fill_priority_job_table",
-  (actor: ClientObject, npc: ClientObject, dialogName: TName, phraseId: TStringId): void => {
+  (actor: ClientObject, object: ClientObject, dialogName: TName, phraseId: TStringId): void => {
     const dialogManager: DialogManager = DialogManager.getInstance();
 
     dialogManager.fillPriorityTable(
-      npc,
+      object,
       dialogManager.phrasesMap.get(EGenericDialogCategory.JOB),
       dialogManager.priorityTable.get(EGenericDialogCategory.JOB)
     );
@@ -311,10 +315,10 @@ extern(
  */
 extern(
   "dialog_manager.precondition_job_dialogs_no_more",
-  (npc: ClientObject, actor: ClientObject, dialogName: TName, parentId: TStringId, id: TStringId) => {
+  (object: ClientObject, actor: ClientObject, dialogName: TName, parentId: TStringId, id: TStringId) => {
     const dialogManager: DialogManager = DialogManager.getInstance();
 
-    return dialogManager.isTold(npc, EGenericDialogCategory.JOB);
+    return dialogManager.isTold(object, EGenericDialogCategory.JOB);
   }
 );
 
@@ -323,8 +327,8 @@ extern(
  */
 extern(
   "dialog_manager.precondition_job_dialogs_do_not_know",
-  (npc: ClientObject, actor: ClientObject, dialogName: TName, parentId: TStringId, id: TStringId) => {
-    return preconditionNoMore(npc, EGenericDialogCategory.JOB);
+  (object: ClientObject, actor: ClientObject, dialogName: TName, parentId: TStringId, id: TStringId) => {
+    return preconditionNoMore(object, EGenericDialogCategory.JOB);
   }
 );
 
@@ -350,16 +354,16 @@ extern(
  */
 extern(
   "dialog_manager.action_job_dialogs",
-  (npc: ClientObject, actor: ClientObject, dialogName: string, id: string): void => {
+  (object: ClientObject, actor: ClientObject, dialogName: string, id: string): void => {
     const dialogManager: DialogManager = DialogManager.getInstance();
 
     action(
       dialogManager.phrasesMap.get(EGenericDialogCategory.JOB),
       dialogManager.priorityTable.get(EGenericDialogCategory.JOB),
       id,
-      npc
+      object
     );
-    told(dialogManager.priorityTable.get(EGenericDialogCategory.JOB), npc);
+    told(dialogManager.priorityTable.get(EGenericDialogCategory.JOB), object);
   }
 );
 
@@ -368,8 +372,8 @@ extern(
  */
 extern(
   "dialog_manager.precondition_anomalies_dialogs_no_more",
-  (npc: ClientObject, actor: ClientObject, dialogName: TName, parentId: TStringId, id: TStringId): boolean => {
-    return DialogManager.getInstance().isTold(npc, EGenericDialogCategory.ANOMALIES);
+  (object: ClientObject, actor: ClientObject, dialogName: TName, parentId: TStringId, id: TStringId): boolean => {
+    return DialogManager.getInstance().isTold(object, EGenericDialogCategory.ANOMALIES);
   }
 );
 

@@ -5,6 +5,9 @@ import { abort } from "@/engine/core/utils/assertion";
 import { createEmptyVector, createVector, vectorCross, vectorRotateY, yawDegree } from "@/engine/core/utils/vector";
 import { ClientObject, Optional, TCount, TDistance, TName, TNumberId, TRate, Vector } from "@/engine/lib/types";
 
+// todo: Move out
+// todo: Move out
+// todo: Move out
 const formations = {
   line: [
     { dir: createVector(-1, 0, 0), dist: 2 },
@@ -32,6 +35,9 @@ const formations = {
   ],
 };
 
+// todo: Move out
+// todo: Move out
+// todo: Move out
 const ACCEL_BY_CURTYPE = {
   walk: EStalkerState.RUN,
   patrol: EStalkerState.RUSH,
@@ -57,13 +63,16 @@ export class PatrolManager {
     this.pathName = pathName;
   }
 
-  public addNpc(object: ClientObject, leader: Optional<boolean>): void {
+  /**
+   * todo;
+   */
+  public addObject(object: ClientObject, leader: Optional<boolean>): void {
     if (object === null || object.alive() === false || this.npcList.get(object.id()) !== null) {
       return;
     }
 
     if (this.npcCount === 7) {
-      abort("[XR_PATROL] attempt to add more { 7 npc. [%s]", object.name());
+      abort("[XR_PATROL] attempt to add more { 7 object. [%s]", object.name());
     }
 
     this.npcList.set(object.id(), { soldier: object, dir: createVector(1, 0, 0), dist: 0 });
@@ -77,24 +86,30 @@ export class PatrolManager {
     this.resetPositions();
   }
 
-  public removeNpc(npc: Optional<ClientObject>): void {
-    if (npc === null) {
+  /**
+   * todo;
+   */
+  public removeObject(object: Optional<ClientObject>): void {
+    if (object === null) {
       return;
     }
 
-    if (this.npcList.get(npc.id()) === null) {
+    if (this.npcList.get(object.id()) === null) {
       return;
     }
 
-    this.npcList.delete(npc.id());
+    this.npcList.delete(object.id());
     this.npcCount = this.npcCount - 1;
 
-    if (npc.id() === this.commanderId) {
+    if (object.id() === this.commanderId) {
       this.commanderId = -1;
       this.resetPositions();
     }
   }
 
+  /**
+   * todo;
+   */
   public resetPositions(): void {
     const form_ = formations[this.formation as keyof typeof formations];
     let index = 1;
@@ -115,6 +130,9 @@ export class PatrolManager {
     }
   }
 
+  /**
+   * todo;
+   */
   public setFormation(formation: string): void {
     if (formation === null) {
       abort("Invalid formation (null) for PatrolManager[%s]", this.pathName);
@@ -128,16 +146,16 @@ export class PatrolManager {
     this.resetPositions();
   }
 
-  public getCommander(npc: ClientObject): void {
-    if (npc === null) {
+  public getCommander(object: ClientObject): void {
+    if (object === null) {
       abort("Invalid NPC on call PatrolManager:get_npc_command in PatrolManager[%s]", this.pathName);
     }
 
-    if (this.npcList.get(npc.id()) === null) {
-      abort("NPC with name %s can't present in PatrolManager[%s]", npc.name(), this.pathName);
+    if (this.npcList.get(object.id()) === null) {
+      abort("NPC with name %s can't present in PatrolManager[%s]", object.name(), this.pathName);
     }
 
-    if (npc.id() === this.commanderId) {
+    if (object.id() === this.commanderId) {
       abort("Patrol commander called function PatrolManager:get_npc_command in PatrolManager[%s]", this.pathName);
     }
 
@@ -150,21 +168,24 @@ export class PatrolManager {
     return commander;
   }
 
-  public getNpcCommand(npc: ClientObject): LuaMultiReturn<[number, Vector, EStalkerState]> {
-    if (npc === null) {
+  /**
+   * todo;
+   */
+  public getObjectCommand(object: ClientObject): LuaMultiReturn<[number, Vector, EStalkerState]> {
+    if (object === null) {
       abort("Invalid NPC on call PatrolManager:get_npc_command in PatrolManager[%s]", this.pathName);
     }
 
     // --'���������� �������� ������
-    const npcId: TNumberId = npc.id();
+    const objectId: TNumberId = object.id();
 
     // --'�������� ������ �� ���������� � ������
-    if (this.npcList.get(npc.id()) === null) {
-      abort("NPC with name %s can't present in PatrolManager[%s]", npc.name(), this.pathName);
+    if (this.npcList.get(object.id()) === null) {
+      abort("NPC with name %s can't present in PatrolManager[%s]", object.name(), this.pathName);
     }
 
     // --'��������, ����� �������� �� ������� �������� ������ ��������
-    if (npc.id() === this.commanderId) {
+    if (object.id() === this.commanderId) {
       abort("Patrol commander called function PatrolManager:get_npc_command in PatrolManager[%s]", this.pathName);
     }
 
@@ -173,15 +194,15 @@ export class PatrolManager {
     const pos: Vector = createEmptyVector();
     let vertexId: TNumberId = commander.location_on_path(5, pos);
 
-    if (level.vertex_position(vertexId).distance_to(this.npcList.get(npcId).soldier.position()) > 5) {
+    if (level.vertex_position(vertexId).distance_to(this.npcList.get(objectId).soldier.position()) > 5) {
       vertexId = commander.level_vertex_id();
     }
 
     dir.y = 0;
     dir.normalize();
 
-    let dirS: Vector = this.npcList.get(npcId).dir;
-    const distS: TDistance = this.npcList.get(npcId).dist;
+    let dirS: Vector = this.npcList.get(objectId).dir;
+    const distS: TDistance = this.npcList.get(objectId).dist;
 
     let angle: TRate = yawDegree(dirS, createVector(0, 0, 1));
     const vvv: Vector = vectorCross(dirS, createVector(0, 0, 1));
@@ -195,9 +216,9 @@ export class PatrolManager {
     const d: number = 2;
     const vertex: TNumberId = level.vertex_in_direction(level.vertex_in_direction(vertexId, dirS, distS), dir, d);
 
-    this.npcList.get(npcId).vertex_id = vertex;
+    this.npcList.get(objectId).vertex_id = vertex;
 
-    const distance: TDistance = commander.position().distance_to(this.npcList.get(npcId).soldier.position());
+    const distance: TDistance = commander.position().distance_to(this.npcList.get(objectId).soldier.position());
 
     if (distance > distS + 2) {
       const newState: EStalkerState = ACCEL_BY_CURTYPE[this.currentState as keyof typeof ACCEL_BY_CURTYPE];
@@ -210,15 +231,18 @@ export class PatrolManager {
     return $multi(vertex, dir, this.currentState);
   }
 
-  public setCommand(object: ClientObject, command: EStalkerState, formation: string): void {
+  /**
+   * todo;
+   */
+  public setObjectCommand(object: ClientObject, command: EStalkerState, formation: string): void {
     if (object === null || object.alive() === false) {
-      this.removeNpc(object);
+      this.removeObject(object);
 
       return;
     }
 
     if (object.id() !== this.commanderId) {
-      return; // --abort ("NPC %s is not commander in PatrolManager[%s]", npc:name (), this.path_name)
+      return; // --abort ("NPC %s is not commander in PatrolManager[%s]", object:name (), this.path_name)
     }
 
     this.currentState = command;

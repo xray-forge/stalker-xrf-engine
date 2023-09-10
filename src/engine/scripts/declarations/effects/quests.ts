@@ -122,7 +122,7 @@ extern("xr_effects.jup_b206_get_plant", (actor: ClientObject, object: ClientObje
 /**
  * todo;
  */
-extern("xr_effects.pas_b400_switcher", (actor: ClientObject, npc: ClientObject): void => {
+extern("xr_effects.pas_b400_switcher", (actor: ClientObject, object: ClientObject): void => {
   if (isObjectInZone(actor, registry.zones.get("pas_b400_sr_switcher"))) {
     giveInfo(infoPortions.pas_b400_switcher_use);
   }
@@ -131,7 +131,7 @@ extern("xr_effects.pas_b400_switcher", (actor: ClientObject, npc: ClientObject):
 /**
  * todo;
  */
-extern("xr_effects.jup_b209_place_scanner", (actor: ClientObject, npc: ClientObject): void => {
+extern("xr_effects.jup_b209_place_scanner", (actor: ClientObject, object: ClientObject): void => {
   if (isObjectInZone(actor, registry.zones.get("jup_b209_hypotheses"))) {
     createGameAutoSave("st_save_jup_b209_placed_mutant_scanner");
     giveInfo(infoPortions.jup_b209_scanner_placed);
@@ -143,7 +143,7 @@ extern("xr_effects.jup_b209_place_scanner", (actor: ClientObject, npc: ClientObj
 /**
  * todo;
  */
-extern("xr_effects.jup_b9_heli_1_searching", (actor: ClientObject, npc: ClientObject): void => {
+extern("xr_effects.jup_b9_heli_1_searching", (actor: ClientObject, object: ClientObject): void => {
   if (isObjectInZone(actor, registry.zones.get("jup_b9_heli_1"))) {
     giveInfo(infoPortions.jup_b9_heli_1_searching);
   }
@@ -152,7 +152,7 @@ extern("xr_effects.jup_b9_heli_1_searching", (actor: ClientObject, npc: ClientOb
 /**
  * todo;
  */
-extern("xr_effects.pri_a18_use_idol", (actor: ClientObject, npc: ClientObject): void => {
+extern("xr_effects.pri_a18_use_idol", (actor: ClientObject, object: ClientObject): void => {
   if (isObjectInZone(actor, registry.zones.get("pri_a18_use_idol_restrictor"))) {
     giveInfo(infoPortions.pri_a18_run_cam);
   }
@@ -161,7 +161,7 @@ extern("xr_effects.pri_a18_use_idol", (actor: ClientObject, npc: ClientObject): 
 /**
  * todo;
  */
-extern("xr_effects.jup_b8_heli_4_searching", (actor: ClientObject, npc: ClientObject): void => {
+extern("xr_effects.jup_b8_heli_4_searching", (actor: ClientObject, object: ClientObject): void => {
   if (isObjectInZone(actor, registry.zones.get("jup_b8_heli_4"))) {
     giveInfo(infoPortions.jup_b8_heli_4_searching);
   }
@@ -170,7 +170,7 @@ extern("xr_effects.jup_b8_heli_4_searching", (actor: ClientObject, npc: ClientOb
 /**
  * todo;
  */
-extern("xr_effects.jup_b10_ufo_searching", (actor: ClientObject, npc: ClientObject): void => {
+extern("xr_effects.jup_b10_ufo_searching", (actor: ClientObject, object: ClientObject): void => {
   if (isObjectInZone(actor, registry.zones.get("jup_b10_ufo_restrictor"))) {
     giveInfo(infoPortions.jup_b10_ufo_memory_started);
     giveItemsToActor(questItems.jup_b10_ufo_memory);
@@ -180,7 +180,7 @@ extern("xr_effects.jup_b10_ufo_searching", (actor: ClientObject, npc: ClientObje
 /**
  * todo;
  */
-extern("xr_effects.zat_b101_heli_5_searching", (actor: ClientObject, npc: ClientObject): void => {
+extern("xr_effects.zat_b101_heli_5_searching", (actor: ClientObject, object: ClientObject): void => {
   if (isObjectInZone(actor, registry.zones.get("zat_b101_heli_5"))) {
     giveInfo(infoPortions.zat_b101_heli_5_searching);
   }
@@ -189,7 +189,7 @@ extern("xr_effects.zat_b101_heli_5_searching", (actor: ClientObject, npc: Client
 /**
  * todo;
  */
-extern("xr_effects.zat_b28_heli_3_searching", (actor: ClientObject, npc: ClientObject): void => {
+extern("xr_effects.zat_b28_heli_3_searching", (actor: ClientObject, object: ClientObject): void => {
   if (isObjectInZone(actor, registry.zones.get("zat_b28_heli_3"))) {
     giveInfo(infoPortions.zat_b28_heli_3_searching);
   }
@@ -198,7 +198,7 @@ extern("xr_effects.zat_b28_heli_3_searching", (actor: ClientObject, npc: ClientO
 /**
  * todo;
  */
-extern("xr_effects.zat_b100_heli_2_searching", (actor: ClientObject, npc: ClientObject): void => {
+extern("xr_effects.zat_b100_heli_2_searching", (actor: ClientObject, object: ClientObject): void => {
   if (isObjectInZone(actor, registry.zones.get("zat_b100_heli_2"))) {
     giveInfo(infoPortions.zat_b100_heli_2_searching);
   }
@@ -207,7 +207,7 @@ extern("xr_effects.zat_b100_heli_2_searching", (actor: ClientObject, npc: Client
 /**
  * todo;
  */
-extern("xr_effects.jup_teleport_actor", (actor: ClientObject, npc: ClientObject): void => {
+extern("xr_effects.jup_teleport_actor", (actor: ClientObject, object: ClientObject): void => {
   const pointIn: Vector = new patrol("jup_b16_teleport_in").point(0);
   const pointOut: Vector = new patrol("jup_b16_teleport_out").point(0);
   const actorPosition: Vector = actor.position();
@@ -269,7 +269,7 @@ let particlesList: Optional<LuaArray<{ particle: ParticlesObject; sound: SoundOb
 /**
  * todo;
  */
-extern("xr_effects.jup_b16_play_particle_and_sound", (actor: ClientObject, npc: ClientObject, p: [number]) => {
+extern("xr_effects.jup_b16_play_particle_and_sound", (actor: ClientObject, object: ClientObject, p: [number]) => {
   if (particlesList === null) {
     particlesList = [
       {
@@ -291,7 +291,7 @@ extern("xr_effects.jup_b16_play_particle_and_sound", (actor: ClientObject, npc: 
     ] as unknown as LuaArray<any>;
   }
 
-  particlesList.get(p[0]).particle.play_at_pos(new patrol(npc.name() + "_particle").point(0));
+  particlesList.get(p[0]).particle.play_at_pos(new patrol(object.name() + "_particle").point(0));
 });
 
 /**
@@ -299,7 +299,7 @@ extern("xr_effects.jup_b16_play_particle_and_sound", (actor: ClientObject, npc: 
  */
 extern(
   "xr_effects.zat_b29_create_random_infop",
-  (actor: ClientObject, npc: ClientObject, parameters: LuaArray<TInfoPortion>): void => {
+  (actor: ClientObject, object: ClientObject, parameters: LuaArray<TInfoPortion>): void => {
     if (parameters.get(2) === null) {
       abort("Not enough parameters for zat_b29_create_random_infop!");
     }
@@ -340,7 +340,7 @@ extern(
 /**
  * todo;
  */
-extern("xr_effects.give_item_b29", (actor: ClientObject, npc: ClientObject, p: [string]) => {
+extern("xr_effects.give_item_b29", (actor: ClientObject, object: ClientObject, p: [string]) => {
   // --	const story_object = p && getStoryObject(p[1])
   const anomalyZonesList = [
     "zat_b55_anomal_zone",
@@ -375,7 +375,7 @@ extern("xr_effects.give_item_b29", (actor: ClientObject, npc: ClientObject, p: [
 /**
  * todo;
  */
-extern("xr_effects.relocate_item_b29", (actor: ClientObject, npc: ClientObject, p: [string, string]) => {
+extern("xr_effects.relocate_item_b29", (actor: ClientObject, object: ClientObject, p: [string, string]) => {
   let item: Optional<string> = null;
 
   for (const it of $range(16, 23)) {
@@ -402,7 +402,7 @@ extern("xr_effects.relocate_item_b29", (actor: ClientObject, npc: ClientObject, 
 /**
  * todo;
  */
-extern("xr_effects.jup_b202_inventory_box_relocate", (actor: ClientObject, npc: ClientObject): void => {
+extern("xr_effects.jup_b202_inventory_box_relocate", (actor: ClientObject, object: ClientObject): void => {
   const inventoryBoxOut: Optional<ClientObject> = getObjectByStoryId("jup_b202_actor_treasure");
   const inventoryBoxIn: Optional<ClientObject> = getObjectByStoryId("jup_b202_snag_treasure");
   const itemsToRelocate: LuaArray<ClientObject> = new LuaTable();
@@ -425,7 +425,7 @@ extern("xr_effects.jup_b202_inventory_box_relocate", (actor: ClientObject, npc: 
  */
 extern(
   "xr_effects.jup_b10_spawn_drunk_dead_items",
-  (actor: ClientObject, npc: ClientObject, params: [string]): void => {
+  (actor: ClientObject, object: ClientObject, params: [string]): void => {
     const itemsAll = {
       [weapons.wpn_ak74]: 1,
       [weapons.wpn_fort]: 1,
@@ -498,7 +498,7 @@ extern(
     } else {
       for (const [k, v] of itemsAll) {
         for (const i of $range(1, v)) {
-          alife().create(k, npc.position(), npc.level_vertex_id(), npc.game_vertex_id(), npc.id());
+          alife().create(k, object.position(), object.level_vertex_id(), object.game_vertex_id(), object.id());
         }
       }
     }
@@ -508,7 +508,7 @@ extern(
 /**
  * todo;
  */
-extern("xr_effects.zat_b202_spawn_random_loot", (actor: ClientObject, npc: ClientObject, p: []) => {
+extern("xr_effects.zat_b202_spawn_random_loot", (actor: ClientObject, object: ClientObject, p: []) => {
   const spawnItemsList = [
     [
       {
@@ -590,7 +590,7 @@ extern("xr_effects.zat_b202_spawn_random_loot", (actor: ClientObject, npc: Clien
 /**
  * todo;
  */
-extern("xr_effects.jup_b221_play_main", (actor: ClientObject, npc: ClientObject, p: [string]) => {
+extern("xr_effects.jup_b221_play_main", (actor: ClientObject, object: ClientObject, p: [string]) => {
   let infoPortionsList: LuaArray<TInfoPortion> = new LuaTable();
   let mainTheme: string;
   let replyTheme: string;
@@ -643,7 +643,7 @@ extern("xr_effects.jup_b221_play_main", (actor: ClientObject, npc: ClientObject,
     giveInfo((mainTheme + tostring(themeToPlay) + "_played") as TInfoPortion);
 
     if (themeToPlay !== 0) {
-      getExtern<AnyCallable>("play_sound", getExtern("xr_effects"))(actor, npc, [
+      getExtern<AnyCallable>("play_sound", getExtern("xr_effects"))(actor, object, [
         mainTheme + tostring(themeToPlay),
         null,
         null,
@@ -657,7 +657,7 @@ extern("xr_effects.jup_b221_play_main", (actor: ClientObject, npc: ClientObject,
     giveInfo(infoNeedReply);
 
     if (themeToPlay !== 0) {
-      getExtern<AnyCallable>("play_sound", getExtern("xr_effects"))(actor, npc, [
+      getExtern<AnyCallable>("play_sound", getExtern("xr_effects"))(actor, object, [
         replyTheme + tostring(themeToPlay),
         null,
         null,
@@ -673,7 +673,7 @@ extern("xr_effects.jup_b221_play_main", (actor: ClientObject, npc: ClientObject,
 /**
  * todo
  */
-extern("xr_effects.zat_a1_tutorial_end_give", (actor: ClientObject, npc: ClientObject): void => {
+extern("xr_effects.zat_a1_tutorial_end_give", (actor: ClientObject, object: ClientObject): void => {
   // --	level.add_pp_effector("black.ppe", 1313, true) //---{ ! stop on r1 !
   giveInfo(infoPortions.zat_a1_tutorial_end);
 });
@@ -710,14 +710,14 @@ extern("xr_effects.oasis_heal", (): void => {
 /**
  * todo
  */
-extern("xr_effects.pas_b400_play_particle", (actor: ClientObject, npc: ClientObject): void => {
+extern("xr_effects.pas_b400_play_particle", (actor: ClientObject, object: ClientObject): void => {
   registry.actor.start_particles("zones\\zone_acidic_idle", "bip01_head");
 });
 
 /**
  * todo
  */
-extern("xr_effects.pas_b400_stop_particle", (actor: ClientObject, npc: ClientObject): void => {
+extern("xr_effects.pas_b400_stop_particle", (actor: ClientObject, object: ClientObject): void => {
   registry.actor.stop_particles("zones\\zone_acidic_idle", "bip01_head");
 });
 
@@ -735,8 +735,8 @@ extern("xr_effects.damage_pri_a17_gauss", (): void => {
 /**
  * todo;
  */
-extern("xr_effects.pri_a17_hard_animation_reset", (actor: ClientObject, npc: ClientObject): void => {
-  const stateManager = registry.objects.get(npc.id()).stateManager!;
+extern("xr_effects.pri_a17_hard_animation_reset", (actor: ClientObject, object: ClientObject): void => {
+  const stateManager = registry.objects.get(object.id()).stateManager!;
 
   stateManager.setState("pri_a17_fall_down" as EStalkerState, null, null, null, null);
   stateManager.animation.setState(null, true);
@@ -747,8 +747,8 @@ extern("xr_effects.pri_a17_hard_animation_reset", (actor: ClientObject, npc: Cli
 /**
  * todo;
  */
-extern("xr_effects.jup_b217_hard_animation_reset", (actor: ClientObject, npc: ClientObject): void => {
-  const stateManager = registry.objects.get(npc.id()).stateManager!;
+extern("xr_effects.jup_b217_hard_animation_reset", (actor: ClientObject, object: ClientObject): void => {
+  const stateManager = registry.objects.get(object.id()).stateManager!;
 
   stateManager.setState("jup_b217_nitro_straight" as EStalkerState, null, null, null, null);
   stateManager.animation.setState(null, true);
@@ -759,147 +759,147 @@ extern("xr_effects.jup_b217_hard_animation_reset", (actor: ClientObject, npc: Cl
 /**
  * todo;
  */
-extern("xr_effects.pri_a18_radio_start", (actor: ClientObject, npc: ClientObject): void => {
+extern("xr_effects.pri_a18_radio_start", (actor: ClientObject, object: ClientObject): void => {
   giveInfo(infoPortions.pri_a18_radio_start);
 });
 
 /**
  * todo;
  */
-extern("xr_effects.pri_a17_ice_climb_end", (actor: ClientObject, npc: ClientObject): void => {
+extern("xr_effects.pri_a17_ice_climb_end", (actor: ClientObject, object: ClientObject): void => {
   giveInfo(infoPortions.pri_a17_ice_climb_end);
 });
 
 /**
  * todo;
  */
-extern("xr_effects.jup_b219_opening", (actor: ClientObject, npc: ClientObject): void => {
+extern("xr_effects.jup_b219_opening", (actor: ClientObject, object: ClientObject): void => {
   giveInfo(infoPortions.jup_b219_opening);
 });
 
 /**
  * todo;
  */
-extern("xr_effects.jup_b219_entering_underpass", (actor: ClientObject, npc: ClientObject): void => {
+extern("xr_effects.jup_b219_entering_underpass", (actor: ClientObject, object: ClientObject): void => {
   giveInfo(infoPortions.jup_b219_entering_underpass);
 });
 
 /**
  * todo;
  */
-extern("xr_effects.pri_a17_pray_start", (actor: ClientObject, npc: ClientObject): void => {
+extern("xr_effects.pri_a17_pray_start", (actor: ClientObject, object: ClientObject): void => {
   giveInfo(infoPortions.pri_a17_pray_start);
 });
 
 /**
  * todo;
  */
-extern("xr_effects.zat_b38_open_info", (actor: ClientObject, npc: ClientObject): void => {
+extern("xr_effects.zat_b38_open_info", (actor: ClientObject, object: ClientObject): void => {
   giveInfo(infoPortions.zat_b38_open_info);
 });
 
 /**
  * todo;
  */
-extern("xr_effects.zat_b38_switch_info", (actor: ClientObject, npc: ClientObject): void => {
+extern("xr_effects.zat_b38_switch_info", (actor: ClientObject, object: ClientObject): void => {
   giveInfo(infoPortions.zat_b38_switch_info);
 });
 
 /**
  * todo;
  */
-extern("xr_effects.zat_b38_cop_dead", (actor: ClientObject, npc: ClientObject): void => {
+extern("xr_effects.zat_b38_cop_dead", (actor: ClientObject, object: ClientObject): void => {
   giveInfo(infoPortions.zat_b38_cop_dead);
 });
 
 /**
  * todo;
  */
-extern("xr_effects.jup_b15_zulus_drink_anim_info", (actor: ClientObject, npc: ClientObject): void => {
+extern("xr_effects.jup_b15_zulus_drink_anim_info", (actor: ClientObject, object: ClientObject): void => {
   giveInfo(infoPortions.jup_b15_zulus_drink_anim_info);
 });
 
 /**
  * todo;
  */
-extern("xr_effects.pri_a17_preacher_death", (actor: ClientObject, npc: ClientObject): void => {
+extern("xr_effects.pri_a17_preacher_death", (actor: ClientObject, object: ClientObject): void => {
   giveInfo(infoPortions.pri_a17_preacher_death);
 });
 
 /**
  * todo;
  */
-extern("xr_effects.zat_b3_tech_surprise_anim_end", (actor: ClientObject, npc: ClientObject): void => {
+extern("xr_effects.zat_b3_tech_surprise_anim_end", (actor: ClientObject, object: ClientObject): void => {
   giveInfo(infoPortions.zat_b3_tech_surprise_anim_end);
 });
 
 /**
  * todo;
  */
-extern("xr_effects.zat_b3_tech_waked_up", (actor: ClientObject, npc: ClientObject): void => {
+extern("xr_effects.zat_b3_tech_waked_up", (actor: ClientObject, object: ClientObject): void => {
   giveInfo(infoPortions.zat_b3_tech_waked_up);
 });
 
 /**
  * todo;
  */
-extern("xr_effects.zat_b3_tech_drinked_out", (actor: ClientObject, npc: ClientObject): void => {
+extern("xr_effects.zat_b3_tech_drinked_out", (actor: ClientObject, object: ClientObject): void => {
   giveInfo(infoPortions.zat_b3_tech_drinked_out);
 });
 
 /**
  * todo;
  */
-extern("xr_effects.pri_a28_kirillov_hq_online", (actor: ClientObject, npc: ClientObject): void => {
+extern("xr_effects.pri_a28_kirillov_hq_online", (actor: ClientObject, object: ClientObject): void => {
   giveInfo(infoPortions.pri_a28_kirillov_hq_online);
 });
 
 /**
  * todo;
  */
-extern("xr_effects.pri_a20_radio_start", (actor: ClientObject, npc: ClientObject): void => {
+extern("xr_effects.pri_a20_radio_start", (actor: ClientObject, object: ClientObject): void => {
   giveInfo(infoPortions.pri_a20_radio_start);
 });
 
 /**
  * todo;
  */
-extern("xr_effects.pri_a22_kovalski_speak", (actor: ClientObject, npc: ClientObject): void => {
+extern("xr_effects.pri_a22_kovalski_speak", (actor: ClientObject, object: ClientObject): void => {
   giveInfo(infoPortions.pri_a22_kovalski_speak);
 });
 
 /**
  * todo;
  */
-extern("xr_effects.zat_b38_underground_door_open", (actor: ClientObject, npc: ClientObject): void => {
+extern("xr_effects.zat_b38_underground_door_open", (actor: ClientObject, object: ClientObject): void => {
   giveInfo(infoPortions.zat_b38_underground_door_open);
 });
 
 /**
  * todo;
  */
-extern("xr_effects.zat_b38_jump_tonnel_info", (actor: ClientObject, npc: ClientObject): void => {
+extern("xr_effects.zat_b38_jump_tonnel_info", (actor: ClientObject, object: ClientObject): void => {
   giveInfo(infoPortions.zat_b38_jump_tonnel_info);
 });
 
 /**
  * todo;
  */
-extern("xr_effects.jup_a9_cam1_actor_anim_end", (actor: ClientObject, npc: ClientObject): void => {
+extern("xr_effects.jup_a9_cam1_actor_anim_end", (actor: ClientObject, object: ClientObject): void => {
   giveInfo(infoPortions.jup_a9_cam1_actor_anim_end);
 });
 
 /**
  * todo;
  */
-extern("xr_effects.pri_a28_talk_ssu_video_end", (actor: ClientObject, npc: ClientObject): void => {
+extern("xr_effects.pri_a28_talk_ssu_video_end", (actor: ClientObject, object: ClientObject): void => {
   giveInfo(infoPortions.pri_a28_talk_ssu_video_end);
 });
 
 /**
  * todo;
  */
-extern("xr_effects.zat_b33_pic_snag_container", (actor: ClientObject, npc: ClientObject): void => {
+extern("xr_effects.zat_b33_pic_snag_container", (actor: ClientObject, object: ClientObject): void => {
   if (isObjectInZone(actor, registry.zones.get("zat_b33_tutor"))) {
     giveItemsToActor(questItems.zat_b33_safe_container);
     giveInfo(infoPortions.zat_b33_find_package);
@@ -918,7 +918,7 @@ extern("xr_effects.zat_b33_pic_snag_container", (actor: ClientObject, npc: Clien
 /**
  * todo;
  */
-extern("xr_effects.zat_b202_spawn_b33_loot", (actor: ClientObject, npc: ClientObject, p: []) => {
+extern("xr_effects.zat_b202_spawn_b33_loot", (actor: ClientObject, object: ClientObject, p: []) => {
   const infoPortionsList: LuaArray<TInfoPortion> = $fromArray<TInfoPortion>([
     infoPortions.zat_b33_first_item_gived,
     infoPortions.zat_b33_second_item_gived,

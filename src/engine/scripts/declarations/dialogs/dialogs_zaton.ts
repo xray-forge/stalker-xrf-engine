@@ -562,7 +562,7 @@ extern("dialogs_zaton.zat_b7_squad_alive", (firstSpeaker: ClientObject, secondSp
 extern(
   "dialogs_zaton.zat_b103_transfer_merc_supplies",
   (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
-    const npc: ClientObject = getNpcSpeaker(firstSpeaker, secondSpeaker);
+    const object: ClientObject = getNpcSpeaker(firstSpeaker, secondSpeaker);
     const actor: ClientObject = registry.actor;
     let it: TCount = 6;
 
@@ -574,7 +574,7 @@ extern(
 
       actor.iterate_inventory((temp, item) => {
         if (item.section() === section && it !== 0) {
-          actor.transfer_item(item, npc);
+          actor.transfer_item(item, object);
           it = it - 1;
         }
       }, actor);
@@ -1029,7 +1029,7 @@ export function getGoodGunsInInventory(object: ClientObject): LuaArray<TWeapon> 
   ] as unknown as LuaArray<TWeapon>;
 
   object.iterate_inventory((owner: ClientObject, item: ClientObject): void => {
-    const section = item.section();
+    const section: TSection = item.section();
 
     for (const [k, v] of wpnTable) {
       if (section === v) {
@@ -1082,8 +1082,8 @@ extern("dialogs_zaton.zat_b29_actor_exchange", (firstSpeaker: ClientObject, seco
  * todo;
  */
 extern("dialogs_zaton.zat_b30_transfer_percent", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
-  const amount: number = math.random(5, 25) * 100;
-  const days: number = getPortableStoreValue(ACTOR_ID, "zat_b30_days_cnt", 0);
+  const amount: TCount = math.random(5, 25) * 100;
+  const days: TCount = getPortableStoreValue(ACTOR_ID, "zat_b30_days_cnt", 0);
 
   giveMoneyToActor(amount * days);
   setPortableStoreValue(ACTOR_ID, "zat_b30_days_cnt", 0);
@@ -1134,7 +1134,7 @@ extern(
     const actor: ClientObject = registry.actor;
     let cnt: number = 0;
 
-    actor.iterate_inventory((npc, item) => {
+    actor.iterate_inventory((object, item) => {
       if (item.section() === detectors.detector_scientific) {
         cnt = cnt + 1;
       }
@@ -1469,7 +1469,7 @@ extern(
 extern(
   "dialogs_zaton.zat_b12_actor_transfer_documents",
   (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
-    const npc: ClientObject = getNpcSpeaker(firstSpeaker, secondSpeaker);
+    const object: ClientObject = getNpcSpeaker(firstSpeaker, secondSpeaker);
     const actor: ClientObject = registry.actor;
 
     const amountDoc1: TCount = 1000;
@@ -1486,11 +1486,11 @@ extern(
       amountTotal = amountTotal + amountDoc1;
     }
 
-    npc.iterate_inventory((temp, item) => {
+    object.iterate_inventory((temp, item) => {
       if (item.section() === questItems.zat_b12_documents_2) {
         cnt = cnt + 1;
       }
-    }, npc);
+    }, object);
 
     actor.iterate_inventory((temp, item) => {
       if (item.section() === questItems.zat_b12_documents_2) {
@@ -1526,7 +1526,7 @@ extern(
 extern("dialogs_zaton.zat_b3_actor_got_toolkit", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
   const actor: ClientObject = registry.actor;
 
-  actor.iterate_inventory((npc: ClientObject, item: ClientObject) => {
+  actor.iterate_inventory((owner: ClientObject, item: ClientObject) => {
     const section: TSection = item.section();
 
     if (

@@ -86,7 +86,7 @@ export class ActionPatrol extends action_base implements ISchemeEventHandler {
 
     this.timeToUpdate = time_global() + 1000;
 
-    const [lvid, dir, currentState] = registry.patrols.generic.get(this.state.patrol_key).getNpcCommand(this.object);
+    const [lvid, dir, currentState] = registry.patrols.generic.get(this.state.patrol_key).getObjectCommand(this.object);
 
     this.levelVertexId = lvid;
     this.dir = dir;
@@ -126,14 +126,14 @@ export class ActionPatrol extends action_base implements ISchemeEventHandler {
    * todo: Description.
    */
   public onDeath(object: ClientObject): void {
-    registry.patrols.generic.get(this.state.patrol_key).removeNpc(object);
+    registry.patrols.generic.get(this.state.patrol_key).removeObject(object);
   }
 
   /**
    * todo: Description.
    */
   public deactivate(object: ClientObject): void {
-    registry.patrols.generic.get(this.state.patrol_key).removeNpc(object);
+    registry.patrols.generic.get(this.state.patrol_key).removeObject(object);
   }
 
   /**

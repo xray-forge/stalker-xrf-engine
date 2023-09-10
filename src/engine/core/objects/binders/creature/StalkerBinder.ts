@@ -487,9 +487,8 @@ export class StalkerBinder extends object_binder {
     registry.actorCombat.delete(this.object.id());
 
     const state: IRegistryObjectState = registry.objects.get(this.object.id());
-    const npc: ClientObject = this.object;
 
-    MapDisplayManager.getInstance().removeObjectMapSpot(npc, state);
+    MapDisplayManager.getInstance().removeObjectMapSpot(this.object, state);
 
     const knownInfo: Optional<TName> = readIniString(state.ini!, state.sectionLogic, "known_info", false, "", null);
 

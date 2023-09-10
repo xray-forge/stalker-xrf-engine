@@ -64,7 +64,7 @@ const logger: LuaLogger = new LuaLogger($filename);
 /**
  * todo;
  */
-extern("xr_effects.anim_obj_forward", (actor: ClientObject, npc: ClientObject, p: LuaArray<string>): void => {
+extern("xr_effects.anim_obj_forward", (actor: ClientObject, object: ClientObject, p: LuaArray<string>): void => {
   for (const [k, v] of p) {
     if (v !== null) {
       registry.doors.get(v).forwardAnimation();
@@ -75,7 +75,7 @@ extern("xr_effects.anim_obj_forward", (actor: ClientObject, npc: ClientObject, p
 /**
  * todo;
  */
-extern("xr_effects.anim_obj_backward", (actor: ClientObject, npc: ClientObject, p: [string]): void => {
+extern("xr_effects.anim_obj_backward", (actor: ClientObject, object: ClientObject, p: [string]): void => {
   if (p[0] !== null) {
     registry.doors.get(p[0]).backwardAnimation();
   }
@@ -84,7 +84,7 @@ extern("xr_effects.anim_obj_backward", (actor: ClientObject, npc: ClientObject, 
 /**
  * todo;
  */
-extern("xr_effects.anim_obj_stop", (actor: ClientObject, npc: ClientObject, p: [string]): void => {
+extern("xr_effects.anim_obj_stop", (actor: ClientObject, object: ClientObject, p: [string]): void => {
   if (p[0] !== null) {
     registry.doors.get(p[0]).stopAnimation();
   }
@@ -95,29 +95,29 @@ extern("xr_effects.anim_obj_stop", (actor: ClientObject, npc: ClientObject, p: [
  */
 extern(
   "xr_effects.hit_obj",
-  (actor: ClientObject, npc: ClientObject, params: [string, string, number, number, string, string]) => {
-    logger.info("Hit obj");
-
+  (actor: ClientObject, object: ClientObject, params: [string, string, number, number, string, string]) => {
     const h: hit = new hit();
-    const object: Optional<ClientObject> = getObjectByStoryId(params[0]);
+    const storyObject: Optional<ClientObject> = getObjectByStoryId(params[0]);
 
-    if (!object) {
+    if (!storyObject) {
       return;
     }
+
+    logger.info("Hit object:", object.name(), storyObject.name());
 
     h.bone(params[1]);
     h.power = params[2];
     h.impulse = params[3];
 
     if (params[4]) {
-      h.direction = subVectors(new patrol(params[4]).point(0), object.position());
+      h.direction = subVectors(new patrol(params[4]).point(0), storyObject.position());
     } else {
-      h.direction = subVectors(npc.position(), object.position());
+      h.direction = subVectors(object.position(), storyObject.position());
     }
 
-    h.draftsman = npc;
+    h.draftsman = object;
     h.type = hit.wound;
-    object.hit(h);
+    storyObject.hit(h);
   }
 );
 
@@ -178,20 +178,20 @@ extern("xr_effects.sniper_fire_mode", (actor: ClientObject, object: ClientObject
 /**
  * todo;
  */
-extern("xr_effects.kill_npc", (actor: ClientObject, npc: Optional<ClientObject>, p: [Optional<TStringId>]) => {
+extern("xr_effects.kill_npc", (actor: ClientObject, object: Optional<ClientObject>, p: [Optional<TStringId>]) => {
   if (p && p[0]) {
-    npc = getObjectByStoryId(p[0]);
+    object = getObjectByStoryId(p[0]);
   }
 
-  if (npc !== null && npc.alive()) {
-    npc.kill(npc);
+  if (object !== null && object.alive()) {
+    object.kill(object);
   }
 });
 
 /**
  * todo;
  */
-extern("xr_effects.remove_npc", (actor: ClientObject, npc: ClientObject, p: [Optional<TStringId>]) => {
+extern("xr_effects.remove_npc", (actor: ClientObject, object: ClientObject, p: [Optional<TStringId>]) => {
   let objectId: Optional<TNumberId> = null;
 
   if (p && p[0]) {
@@ -228,8 +228,8 @@ extern("xr_effects.disable_combat_handler", (actor: ClientObject, object: Client
 /**
  * todo;
  */
-extern("xr_effects.disable_combat_ignore_handler", (actor: ClientObject, npc: ClientObject): void => {
-  const state: IRegistryObjectState = registry.objects.get(npc.id());
+extern("xr_effects.disable_combat_ignore_handler", (actor: ClientObject, object: ClientObject): void => {
+  const state: IRegistryObjectState = registry.objects.get(object.id());
 
   if (state[EScheme.COMBAT_IGNORE]) {
     (state[EScheme.COMBAT_IGNORE] as ISchemeCombatIgnoreState).enabled = false;
@@ -510,62 +510,68 @@ extern("xr_effects.clear_smart_terrain", (actor: ClientObject, object: ClientObj
 /**
  * todo;
  */
-extern("xr_effects.update_npc_logic", (actor: ClientObject, npc: ClientObject, params: LuaArray<TStringId>): void => {
-  for (const [index, storyId] of params) {
-    const object: Optional<ClientObject> = getObjectByStoryId(storyId);
+extern(
+  "xr_effects.update_npc_logic",
+  (actor: ClientObject, object: ClientObject, params: LuaArray<TStringId>): void => {
+    for (const [index, storyId] of params) {
+      const storyObject: Optional<ClientObject> = getObjectByStoryId(storyId);
 
-    if (object !== null) {
-      updateStalkerLogic(object);
+      if (storyObject !== null) {
+        updateStalkerLogic(storyObject);
 
-      const planner: ActionPlanner = object.motivation_action_manager();
+        const planner: ActionPlanner = storyObject.motivation_action_manager();
 
-      planner.update();
-      planner.update();
-      planner.update();
+        planner.update();
+        planner.update();
+        planner.update();
 
-      const state: IRegistryObjectState = registry.objects.get(object.id());
+        const state: IRegistryObjectState = registry.objects.get(storyObject.id());
 
-      // todo: Is it ok? Why?
-      state.stateManager!.update();
-      state.stateManager!.update();
-      state.stateManager!.update();
-      state.stateManager!.update();
-      state.stateManager!.update();
-      state.stateManager!.update();
-      state.stateManager!.update();
+        // todo: Is it ok? Why?
+        state.stateManager!.update();
+        state.stateManager!.update();
+        state.stateManager!.update();
+        state.stateManager!.update();
+        state.stateManager!.update();
+        state.stateManager!.update();
+        state.stateManager!.update();
+      }
     }
   }
-});
+);
 
 /**
  * todo;
  */
-extern("xr_effects.update_obj_logic", (actor: ClientObject, npc: ClientObject, params: LuaArray<TStringId>): void => {
-  for (const [index, storyId] of params) {
-    const object: Optional<ClientObject> = getObjectByStoryId(storyId);
+extern(
+  "xr_effects.update_obj_logic",
+  (actor: ClientObject, object: ClientObject, params: LuaArray<TStringId>): void => {
+    for (const [index, storyId] of params) {
+      const storyObject: Optional<ClientObject> = getObjectByStoryId(storyId);
 
-    if (object !== null) {
-      logger.info("Update object logic:", object.id());
+      if (storyObject !== null) {
+        logger.info("Update object logic:", storyObject.id());
 
-      const state: IRegistryObjectState = registry.objects.get(object.id());
+        const state: IRegistryObjectState = registry.objects.get(storyObject.id());
 
-      trySwitchToAnotherSection(object, state[state.activeScheme as EScheme] as IBaseSchemeState);
+        trySwitchToAnotherSection(storyObject, state[state.activeScheme as EScheme] as IBaseSchemeState);
+      }
     }
   }
-});
+);
 
 /**
  * todo;
  */
 extern(
   "xr_effects.hit_npc",
-  (actor: ClientObject, npc: ClientObject, params: [string, string, string, number, number, string]): void => {
-    logger.info("Hit npc");
+  (actor: ClientObject, object: ClientObject, params: [string, string, string, number, number, string]): void => {
+    logger.info("Hit object:", object.name());
 
     const targetHit: Hit = new hit();
     const rev: boolean = params[5] ? params[5] === TRUE : false;
 
-    targetHit.draftsman = npc;
+    targetHit.draftsman = object;
     targetHit.type = hit.wound;
     if (params[0] !== "self") {
       const hitter: Optional<ClientObject> = getObjectByStoryId(params[0]);
@@ -576,16 +582,16 @@ extern(
 
       if (rev) {
         targetHit.draftsman = hitter;
-        targetHit.direction = hitter.position().sub(npc.position());
+        targetHit.direction = hitter.position().sub(object.position());
       } else {
-        targetHit.direction = npc.position().sub(hitter.position());
+        targetHit.direction = object.position().sub(hitter.position());
       }
     } else {
       if (rev) {
         targetHit.draftsman = null;
-        targetHit.direction = npc.position().sub(new patrol(params[1]).point(0));
+        targetHit.direction = object.position().sub(new patrol(params[1]).point(0));
       } else {
-        targetHit.direction = new patrol(params[1]).point(0).sub(npc.position());
+        targetHit.direction = new patrol(params[1]).point(0).sub(object.position());
       }
     }
 
@@ -593,15 +599,15 @@ extern(
     targetHit.power = params[3];
     targetHit.impulse = params[4];
 
-    npc.hit(targetHit);
+    object.hit(targetHit);
   }
 );
 
 /**
  * todo;
  */
-extern("xr_effects.restore_health", (actor: ClientObject, npc: ClientObject): void => {
-  npc.health = 1;
+extern("xr_effects.restore_health", (actor: ClientObject, object: ClientObject): void => {
+  object.health = 1;
 });
 
 /**
@@ -609,12 +615,12 @@ extern("xr_effects.restore_health", (actor: ClientObject, npc: ClientObject): vo
  */
 extern(
   "xr_effects.force_obj",
-  (actor: ClientObject, npc: ClientObject, p: [string, Optional<number>, Optional<number>]) => {
+  (actor: ClientObject, object: ClientObject, p: [string, Optional<number>, Optional<number>]) => {
     logger.info("Force object");
 
-    const object: Optional<ClientObject> = getObjectByStoryId(p[0]);
+    const storyObject: Optional<ClientObject> = getObjectByStoryId(p[0]);
 
-    if (!object) {
+    if (!storyObject) {
       abort("'force_obj' Target object does ! exist");
     }
 
@@ -626,7 +632,7 @@ extern(
       p[2] = 100;
     }
 
-    object.set_const_force(createVector(0, 1, 0), p[1], p[2]);
+    storyObject.set_const_force(createVector(0, 1, 0), p[1], p[2]);
   }
 );
 
@@ -735,41 +741,41 @@ extern("xr_effects.switch_to_desired_job", (actor: ClientObject, object: ClientO
 /**
  * todo;
  */
-extern("xr_effects.spawn_item_to_npc", (actor: ClientObject, npc: ClientObject, p: [Optional<string>]): void => {
+extern("xr_effects.spawn_item_to_npc", (actor: ClientObject, object: ClientObject, p: [Optional<string>]): void => {
   const newItem: Optional<TSection> = p[0];
 
   if (newItem) {
-    alife().create(newItem, npc.position(), npc.level_vertex_id(), npc.game_vertex_id(), npc.id());
+    alife().create(newItem, object.position(), object.level_vertex_id(), object.game_vertex_id(), object.id());
   }
 });
 
 /**
  * todo;
  */
-extern("xr_effects.give_money_to_npc", (actor: ClientObject, npc: ClientObject, p: [Optional<number>]): void => {
+extern("xr_effects.give_money_to_npc", (actor: ClientObject, object: ClientObject, p: [Optional<number>]): void => {
   const money: Optional<TCount> = p[0];
 
   if (money) {
-    npc.give_money(money);
+    object.give_money(money);
   }
 });
 
 /**
  * todo;
  */
-extern("xr_effects.seize_money_to_npc", (actor: ClientObject, npc: ClientObject, p: [Optional<number>]): void => {
+extern("xr_effects.seize_money_to_npc", (actor: ClientObject, object: ClientObject, p: [Optional<number>]): void => {
   const money: Optional<TCount> = p[0];
 
   if (money) {
-    npc.give_money(-money);
+    object.give_money(-money);
   }
 });
 
 /**
  * todo;
  */
-extern("xr_effects.heli_start_flame", (actor: ClientObject, npc: ClientObject): void => {
-  npc.get_helicopter().StartFlame();
+extern("xr_effects.heli_start_flame", (actor: ClientObject, object: ClientObject): void => {
+  object.get_helicopter().StartFlame();
 });
 
 /**
@@ -807,7 +813,7 @@ extern("xr_effects.set_bloodsucker_state", (actor: ClientObject, object: ClientO
 /**
  * todo;
  */
-extern("xr_effects.clear_box", (actor: ClientObject, npc: ClientObject, p: [string]) => {
+extern("xr_effects.clear_box", (actor: ClientObject, object: ClientObject, p: [string]) => {
   logger.info("Clear box");
 
   if ((p && p[0]) === null) {
@@ -832,10 +838,10 @@ extern("xr_effects.clear_box", (actor: ClientObject, npc: ClientObject, p: [stri
 /**
  * todo;
  */
-extern("xr_effects.polter_actor_ignore", (actor: ClientObject, npc: ClientObject, [ignore]: [string]) => {
+extern("xr_effects.polter_actor_ignore", (actor: ClientObject, object: ClientObject, [ignore]: [string]) => {
   if (ignore === TRUE) {
-    npc.poltergeist_set_actor_ignore(true);
+    object.poltergeist_set_actor_ignore(true);
   } else if (ignore === FALSE) {
-    npc.poltergeist_set_actor_ignore(false);
+    object.poltergeist_set_actor_ignore(false);
   }
 });
