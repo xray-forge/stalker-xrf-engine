@@ -248,14 +248,14 @@ export class TradeManager extends AbstractManager {
         object.buy_condition(descriptor.config, buyCondition);
       }
 
-      const sellCondition = reader.r_stringZ();
+      const sellCondition: string = reader.r_stringZ();
 
       if (sellCondition !== "") {
         descriptor.currentSellCondition = sellCondition;
         object.sell_condition(descriptor.config, sellCondition);
       }
 
-      const buySupplies = reader.r_stringZ();
+      const buySupplies: string = reader.r_stringZ();
 
       if (buySupplies !== "") {
         descriptor.currentBuySupplies = buySupplies;

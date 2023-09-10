@@ -5,10 +5,10 @@ import { ProfilingManager } from "@/engine/core/managers/debug/ProfilingManager"
 import { EventsManager } from "@/engine/core/managers/events";
 import { AchievementsManager } from "@/engine/core/managers/interaction/achievements";
 import { DialogManager } from "@/engine/core/managers/interaction/dialog";
-import { SleepManager } from "@/engine/core/managers/interaction/SleepManager";
+import { SleepManager } from "@/engine/core/managers/interaction/sleep";
 import { TaskManager } from "@/engine/core/managers/interaction/tasks";
 import { TradeManager } from "@/engine/core/managers/interaction/trade/TradeManager";
-import { TravelManager } from "@/engine/core/managers/interaction/TravelManager";
+import { TravelManager } from "@/engine/core/managers/interaction/travel/TravelManager";
 import { ActorInputManager, MapDisplayManager, NotificationManager } from "@/engine/core/managers/interface";
 import { ActorInventoryMenuManager } from "@/engine/core/managers/interface/ActorInventoryMenuManager";
 import { GameSettingsManager } from "@/engine/core/managers/interface/GameSettingsManager";

@@ -15,7 +15,7 @@ import {
   IPhrasesDescriptor,
   TPHRTable,
   TPRTTable,
-} from "@/engine/core/managers/interaction/dialog/types";
+} from "@/engine/core/managers/interaction/dialog/dialog_types";
 import { assert } from "@/engine/core/utils/assertion";
 import { parseInfoPortions, parseStringsList } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -404,6 +404,13 @@ export class DialogManager extends AbstractManager {
   }
 
   /**
+   * On interaction with new game object.
+   */
+  public onInteractWithObject(object: ClientObject, who: ClientObject): void {
+    registry.activeSpeaker = object;
+  }
+
+  /**
    * todo;
    */
   public saveObjectDialogs(packet: NetPacket, object: ClientObject): void {
@@ -433,12 +440,5 @@ export class DialogManager extends AbstractManager {
     reader.r_bool();
 
     closeLoadMarker(reader, DialogManager.name);
-  }
-
-  /**
-   * On interaction with new game object.
-   */
-  public onInteractWithObject(object: ClientObject, who: ClientObject): void {
-    registry.activeSpeaker = object;
   }
 }

@@ -108,4 +108,12 @@ describe("TaskManager class", () => {
     expect(MockLuaTable.getMockSize(taskManager.tasksList)).toBe(1);
     expect(MockLuaTable.getMockSize(newTaskManager.tasksList)).toBe(1);
   });
+
+  it.todo("should correctly give tasks");
+
+  it.todo("should correctly check if tasks are completed");
+
+  it.todo("should correctly check if tasks are failed");
+
+  it.todo("should correctly handle task updates");
 });

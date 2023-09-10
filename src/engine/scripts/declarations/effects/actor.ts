@@ -7,7 +7,7 @@ import {
   registry,
   SYSTEM_INI,
 } from "@/engine/core/database";
-import { SleepManager } from "@/engine/core/managers/interaction/SleepManager";
+import { SleepManager } from "@/engine/core/managers/interaction/sleep/SleepManager";
 import { TaskManager } from "@/engine/core/managers/interaction/tasks";
 import {
   ActorInputManager,

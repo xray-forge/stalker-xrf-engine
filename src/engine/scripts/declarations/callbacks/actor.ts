@@ -1,4 +1,4 @@
-import { TravelManager } from "@/engine/core/managers/interaction/TravelManager";
+import { TravelManager } from "@/engine/core/managers/interaction/travel/TravelManager";
 import { extern } from "@/engine/core/utils/binding";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { ClientObject, PhraseDialog, TLabel, TStringId } from "@/engine/lib/types";
@@ -96,7 +96,7 @@ extern("travel_callbacks", {
     phraseId: TStringId
   ) => TravelManager.getInstance().canNegotiateTravelToSmart(actor, object, dialogId, prevPhraseId, phraseId),
   getTravelConst: (actor: ClientObject, object: ClientObject, dialogId: TStringId, phraseId: TStringId): TLabel =>
-    TravelManager.getInstance().getTravelConst(actor, object, dialogId, phraseId),
+    TravelManager.getInstance().getTravelCost(actor, object, dialogId, phraseId),
   isEnoughMoneyToTravel: (actor: ClientObject, object: ClientObject, dialogId: TStringId, phraseId: TStringId) =>
     TravelManager.getInstance().isEnoughMoneyToTravel(actor, object, dialogId, phraseId),
   isNotEnoughMoneyToTravel: (actor: ClientObject, object: ClientObject, dialogId: TStringId, phraseId: TStringId) =>

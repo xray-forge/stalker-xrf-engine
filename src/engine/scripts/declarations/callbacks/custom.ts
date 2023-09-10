@@ -1,6 +1,6 @@
 import { EAchievement } from "@/engine/core/managers/interaction/achievements/achievements_types";
 import { AchievementsManager } from "@/engine/core/managers/interaction/achievements/AchievementsManager";
-import { SleepManager } from "@/engine/core/managers/interaction/SleepManager";
+import { SleepManager } from "@/engine/core/managers/interaction/sleep";
 import { TaskManager } from "@/engine/core/managers/interaction/tasks";
 import { SurgeManager } from "@/engine/core/managers/world/SurgeManager";
 import { SchemeCutscene } from "@/engine/core/schemes/sr_cutscene/SchemeCutscene";

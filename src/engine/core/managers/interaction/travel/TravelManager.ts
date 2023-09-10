@@ -3,6 +3,7 @@ import { alife, clsid, game, level, patrol, time_global } from "xray16";
 import { getStoryIdByObjectId, registry, TRAVEL_MANAGER_LTX } from "@/engine/core/database";
 import { AbstractManager } from "@/engine/core/managers/base/AbstractManager";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
+import { ITravelRouteDescriptor } from "@/engine/core/managers/interaction/travel/travel_types";
 import { ENotificationDirection } from "@/engine/core/managers/interface/notifications";
 import { NotificationManager } from "@/engine/core/managers/interface/notifications/NotificationManager";
 import { TSimulationObject } from "@/engine/core/managers/simulation";
@@ -13,7 +14,7 @@ import { SquadStayOnTargetAction } from "@/engine/core/objects/server/squad/acti
 import { Squad } from "@/engine/core/objects/server/squad/Squad";
 import { abort } from "@/engine/core/utils/assertion";
 import { createGameAutoSave } from "@/engine/core/utils/game/game_save";
-import { parseConditionsList, pickSectionFromCondList, TConditionList } from "@/engine/core/utils/ini";
+import { parseConditionsList, pickSectionFromCondList } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import {
   getObjectCommunity,
@@ -48,16 +49,6 @@ import {
 } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
-
-/**
- * todo;
- */
-export interface ITravelRouteDescriptor {
-  phrase_id: string;
-  name: string;
-  level: string;
-  condlist: TConditionList;
-}
 
 /**
  * Manager to handle fast traveling of actor.
@@ -377,7 +368,7 @@ export class TravelManager extends AbstractManager {
   /**
    * todo: Description.
    */
-  public getTravelConst(actor: ClientObject, object: ClientObject, dialogId: TStringId, phraseId: TStringId): TLabel {
+  public getTravelCost(actor: ClientObject, object: ClientObject, dialogId: TStringId, phraseId: TStringId): TLabel {
     const simBoard: SimulationBoardManager = SimulationBoardManager.getInstance();
     const travelPhraseId: TStringId = string.sub(phraseId, 1, string.len(phraseId) - 2);
     const smartName: TName = this.smartNamesByPhraseId.get(travelPhraseId);

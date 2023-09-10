@@ -102,4 +102,16 @@ describe("TaskObject class", () => {
     expect(netProcessor.readDataOrder).toEqual(netProcessor.writeDataOrder);
     expect(netProcessor.dataList).toHaveLength(0);
   });
+
+  it.todo("should correctly give tasks");
+
+  it.todo("should correctly calculate task states");
+
+  it.todo("should correctly calculate task level direction");
+
+  it.todo("should correctly give task rewards");
+
+  it.todo("should correctly deactivate tasks");
+
+  it.todo("should correctly handle guider spots");
 });
