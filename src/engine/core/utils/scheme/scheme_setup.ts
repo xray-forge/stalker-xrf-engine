@@ -1,8 +1,8 @@
 import { world_property } from "xray16";
 
 import { registry } from "@/engine/core/database";
+import { TAbstractSchemeConstructor } from "@/engine/core/objects/ai/scheme";
 import { EEvaluatorId } from "@/engine/core/objects/ai/types";
-import { TAbstractSchemeConstructor } from "@/engine/core/schemes/base";
 import { assert } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { ActionBase, ClientObject, EScheme, ESchemeType, LuaArray } from "@/engine/lib/types";

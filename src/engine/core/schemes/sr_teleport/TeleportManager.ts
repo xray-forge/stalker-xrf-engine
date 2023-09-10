@@ -1,7 +1,7 @@
 import { level, patrol, time_global } from "xray16";
 
 import { registry } from "@/engine/core/database";
-import { AbstractSchemeManager } from "@/engine/core/schemes";
+import { AbstractSchemeManager } from "@/engine/core/objects/ai/scheme";
 import { ETeleportState, ISchemeTeleportState } from "@/engine/core/schemes/sr_teleport/ISchemeTeleportState";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { teleportActorWithEffects } from "@/engine/core/utils/object";

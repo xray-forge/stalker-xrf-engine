@@ -1,5 +1,5 @@
 import { IRegistryObjectState } from "@/engine/core/database";
-import { AbstractSchemeManager, IBaseSchemeLogic, IBaseSchemeState } from "@/engine/core/schemes";
+import { AbstractSchemeManager, IBaseSchemeLogic, IBaseSchemeState } from "@/engine/core/objects/ai/scheme";
 import { IConfigSwitchCondition, TConditionList } from "@/engine/core/utils/ini/ini_types";
 import { ClientObject, EScheme } from "@/engine/lib/types";
 import { MockLuaTable } from "@/fixtures/lua";

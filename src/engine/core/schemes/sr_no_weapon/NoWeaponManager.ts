@@ -1,6 +1,6 @@
 import { registry } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
-import { AbstractSchemeManager } from "@/engine/core/schemes";
+import { AbstractSchemeManager } from "@/engine/core/objects/ai/scheme";
 import { EActorZoneState, ISchemeNoWeaponState } from "@/engine/core/schemes/sr_no_weapon/ISchemeNoWeaponState";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { trySwitchToAnotherSection } from "@/engine/core/utils/scheme/scheme_switch";

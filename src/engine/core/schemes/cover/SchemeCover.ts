@@ -1,7 +1,7 @@
 import { world_property } from "xray16";
 
+import { AbstractScheme } from "@/engine/core/objects/ai/scheme";
 import { EActionId, EEvaluatorId } from "@/engine/core/objects/ai/types";
-import { AbstractScheme } from "@/engine/core/schemes";
 import { ActionCover } from "@/engine/core/schemes/cover/actions";
 import { EvaluatorNeedCover } from "@/engine/core/schemes/cover/evaluators";
 import { ISchemeCoverState } from "@/engine/core/schemes/cover/ISchemeCoverState";

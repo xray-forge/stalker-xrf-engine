@@ -1,10 +1,10 @@
 import { world_property } from "xray16";
 
+import { AbstractScheme } from "@/engine/core/objects/ai/scheme";
 import { EActionId, EEvaluatorId } from "@/engine/core/objects/ai/types";
 import { EStalkerState } from "@/engine/core/objects/animation";
-import { AbstractScheme } from "@/engine/core/schemes";
 import { ActionCamperPatrol } from "@/engine/core/schemes/camper/actions";
-import { EvaluatorCloseCombat, EvaluatorEnd } from "@/engine/core/schemes/camper/evaluators";
+import { EvaluatorCloseCombat, EvaluatorEndSectionLogics } from "@/engine/core/schemes/camper/evaluators";
 import { ISchemeCamperState } from "@/engine/core/schemes/camper/ISchemeCamperState";
 import { abort } from "@/engine/core/utils/assertion";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini/ini_config";
@@ -100,7 +100,7 @@ export class SchemeCamper extends AbstractScheme {
   ): void {
     const manager = object.motivation_action_manager();
 
-    manager.add_evaluator(EEvaluatorId.IS_CAMPING_ENDED, new EvaluatorEnd(state));
+    manager.add_evaluator(EEvaluatorId.IS_CAMPING_ENDED, new EvaluatorEndSectionLogics(state));
     manager.add_evaluator(EEvaluatorId.IS_CLOSE_COMBAT, new EvaluatorCloseCombat(state));
 
     const actionPatrol: ActionCamperPatrol = new ActionCamperPatrol(state, object);

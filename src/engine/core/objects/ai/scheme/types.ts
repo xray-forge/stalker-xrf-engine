@@ -1,4 +1,4 @@
-import type { AbstractScheme } from "@/engine/core/schemes";
+import type { AbstractScheme } from "@/engine/core/objects/ai/scheme";
 import type { TConditionList } from "@/engine/core/utils/ini/ini_types";
 import type {
   AnyObject,

@@ -2,7 +2,7 @@ import { get_hud, level } from "xray16";
 
 import { getPortableStoreValue, registry, setPortableStoreValue } from "@/engine/core/database";
 import { PsyAntennaManager } from "@/engine/core/managers/psy/PsyAntennaManager";
-import { AbstractSchemeManager } from "@/engine/core/schemes";
+import { AbstractSchemeManager } from "@/engine/core/objects/ai/scheme";
 import { EAntennaState, ISchemePsyAntennaState } from "@/engine/core/schemes/sr_psy_antenna/ISchemePsyAntennaState";
 import { trySwitchToAnotherSection } from "@/engine/core/utils/scheme/scheme_switch";
 import { NIL } from "@/engine/lib/constants/words";

@@ -1,6 +1,6 @@
 import { time_global } from "xray16";
 
-import { AbstractSchemeManager } from "@/engine/core/schemes";
+import { AbstractSchemeManager } from "@/engine/core/objects/ai/scheme";
 import { ISchemeAbuseState } from "@/engine/core/schemes/abuse/ISchemeAbuseState";
 import { Optional, TCount, TRate, TTimestamp } from "@/engine/lib/types";
 

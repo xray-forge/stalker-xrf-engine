@@ -1,8 +1,8 @@
 import { world_property } from "xray16";
 
 import { IRegistryObjectState, registry } from "@/engine/core/database";
+import { AbstractScheme } from "@/engine/core/objects/ai/scheme";
 import { EActionId, EEvaluatorId } from "@/engine/core/objects/ai/types";
-import { AbstractScheme } from "@/engine/core/schemes";
 import { EvaluatorCheckCombat } from "@/engine/core/schemes/combat/evaluators/EvaluatorCheckCombat";
 import { ISchemeCombatState } from "@/engine/core/schemes/combat/ISchemeCombatState";
 import { SchemeCombatCamper } from "@/engine/core/schemes/combat_camper/SchemeCombatCamper";

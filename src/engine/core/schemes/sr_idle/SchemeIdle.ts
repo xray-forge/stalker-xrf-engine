@@ -1,4 +1,4 @@
-import { AbstractScheme } from "@/engine/core/schemes/base/AbstractScheme";
+import { AbstractScheme } from "@/engine/core/objects/ai/scheme/AbstractScheme";
 import { IdleManager } from "@/engine/core/schemes/sr_idle/IdleManager";
 import { ISchemeIdleState } from "@/engine/core/schemes/sr_idle/ISchemeIdleState";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini/ini_config";

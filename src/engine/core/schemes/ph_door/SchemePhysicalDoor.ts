@@ -1,4 +1,4 @@
-import { AbstractScheme } from "@/engine/core/schemes/base";
+import { AbstractScheme } from "@/engine/core/objects/ai/scheme";
 import { ISchemePhysicalDoorState } from "@/engine/core/schemes/ph_door/ISchemePhysicalDoorState";
 import { PhysicalDoorManager } from "@/engine/core/schemes/ph_door/PhysicalDoorManager";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini/ini_config";

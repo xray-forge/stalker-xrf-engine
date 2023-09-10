@@ -1,8 +1,8 @@
 import { alife } from "xray16";
 
 import { registry } from "@/engine/core/database";
+import { AbstractSchemeManager } from "@/engine/core/objects/ai/scheme";
 import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain/SmartTerrain";
-import { AbstractSchemeManager } from "@/engine/core/schemes";
 import { ISchemeCombatIgnoreState } from "@/engine/core/schemes/combat_ignore/index";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { canObjectSelectAsEnemy } from "@/engine/core/utils/object";

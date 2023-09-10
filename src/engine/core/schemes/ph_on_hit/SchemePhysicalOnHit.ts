@@ -1,5 +1,5 @@
 import { registry } from "@/engine/core/database";
-import { AbstractScheme } from "@/engine/core/schemes/base/AbstractScheme";
+import { AbstractScheme } from "@/engine/core/objects/ai/scheme/AbstractScheme";
 import { SchemePhysicalHit } from "@/engine/core/schemes/ph_hit";
 import { ISchemePhysicalOnHitState } from "@/engine/core/schemes/ph_on_hit/ISchemePhysicalOnHitState";
 import { PhysicalOnHitManager } from "@/engine/core/schemes/ph_on_hit/PhysicalOnHitManager";

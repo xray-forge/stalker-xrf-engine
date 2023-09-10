@@ -1,5 +1,5 @@
+import type { IBaseSchemeState } from "@/engine/core/objects/ai/scheme";
 import type { AbuseManager } from "@/engine/core/schemes/abuse/AbuseManager";
-import type { IBaseSchemeState } from "@/engine/core/schemes/base";
 
 /**
  * Generic abuse scheme state.

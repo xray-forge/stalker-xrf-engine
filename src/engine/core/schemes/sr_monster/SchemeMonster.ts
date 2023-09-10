@@ -1,4 +1,4 @@
-import { AbstractScheme } from "@/engine/core/schemes/base/AbstractScheme";
+import { AbstractScheme } from "@/engine/core/objects/ai/scheme/AbstractScheme";
 import { ISchemeMonsterState } from "@/engine/core/schemes/sr_monster/ISchemeMonsterState";
 import { MonsterManager } from "@/engine/core/schemes/sr_monster/MonsterManager";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini/ini_config";

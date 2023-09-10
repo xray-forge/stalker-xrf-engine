@@ -4,7 +4,7 @@ import { loadPortableStore, savePortableStore } from "@/engine/core/database/por
 import { registry } from "@/engine/core/database/registry";
 import { closeLoadMarker, closeSaveMarker, openLoadMarker, openSaveMarker } from "@/engine/core/database/save_markers";
 import { IRegistryObjectState } from "@/engine/core/database/types";
-import { ESchemeEvent, IBaseSchemeState } from "@/engine/core/schemes/base/types";
+import { ESchemeEvent, IBaseSchemeState } from "@/engine/core/objects/ai/scheme/types";
 import { readTimeFromPacket, writeTimeToPacket } from "@/engine/core/utils/game/game_time";
 import { emitSchemeEvent } from "@/engine/core/utils/scheme/scheme_event";
 import { NIL } from "@/engine/lib/constants/words";

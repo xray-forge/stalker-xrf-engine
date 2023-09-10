@@ -1,4 +1,4 @@
-import { AbstractScheme } from "@/engine/core/schemes/base";
+import { AbstractScheme } from "@/engine/core/objects/ai/scheme";
 import { ISchemeMobDeathState } from "@/engine/core/schemes/mob_death/ISchemeMobDeathState";
 import { MobDeathManager } from "@/engine/core/schemes/mob_death/MobDeathManager";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini/ini_config";

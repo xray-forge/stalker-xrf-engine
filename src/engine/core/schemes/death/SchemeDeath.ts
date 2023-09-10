@@ -1,5 +1,5 @@
 import { IRegistryObjectState } from "@/engine/core/database";
-import { AbstractScheme } from "@/engine/core/schemes/base";
+import { AbstractScheme } from "@/engine/core/objects/ai/scheme";
 import { DeathManager } from "@/engine/core/schemes/death/DeathManager";
 import { ISchemeDeathState } from "@/engine/core/schemes/death/ISchemeDeathState";
 import { abort } from "@/engine/core/utils/assertion";

@@ -2,7 +2,7 @@ import { afterAll, describe, expect, it, jest } from "@jest/globals";
 import { game } from "xray16";
 
 import { IRegistryObjectState, registerActor, registerObject, registerZone } from "@/engine/core/database";
-import { IBaseSchemeLogic, IBaseSchemeState } from "@/engine/core/schemes";
+import { IBaseSchemeLogic, IBaseSchemeState } from "@/engine/core/objects/ai/scheme";
 import { SchemeIdle } from "@/engine/core/schemes/sr_idle";
 import { SchemeTimer } from "@/engine/core/schemes/sr_timer";
 import { TimerManager } from "@/engine/core/schemes/sr_timer/TimerManager";

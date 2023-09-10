@@ -1,7 +1,7 @@
 import { describe, expect, it } from "@jest/globals";
 
 import { registerActor, registerObject, registerStoryLink } from "@/engine/core/database";
-import { IBaseSchemeLogic } from "@/engine/core/schemes";
+import { IBaseSchemeLogic } from "@/engine/core/objects/ai/scheme";
 import {
   addConditionToList,
   getConfigObjectAndZone,

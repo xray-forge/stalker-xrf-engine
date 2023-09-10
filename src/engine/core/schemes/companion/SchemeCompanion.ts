@@ -1,7 +1,7 @@
 import { world_property } from "xray16";
 
+import { AbstractScheme } from "@/engine/core/objects/ai/scheme";
 import { EActionId, EEvaluatorId } from "@/engine/core/objects/ai/types";
-import { AbstractScheme } from "@/engine/core/schemes";
 import { ActionCompanionActivity } from "@/engine/core/schemes/companion/actions";
 import { EvaluatorNeedCompanion } from "@/engine/core/schemes/companion/evaluators";
 import { ISchemeCompanionState } from "@/engine/core/schemes/companion/ISchemeCompanionState";

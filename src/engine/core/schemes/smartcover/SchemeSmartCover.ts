@@ -1,7 +1,7 @@
 import { world_property } from "xray16";
 
+import { AbstractScheme } from "@/engine/core/objects/ai/scheme/AbstractScheme";
 import { EActionId, EEvaluatorId } from "@/engine/core/objects/ai/types";
-import { AbstractScheme } from "@/engine/core/schemes/base/AbstractScheme";
 import { ActionSmartCoverActivity } from "@/engine/core/schemes/smartcover/actions";
 import { EvaluatorNeedSmartCover, EvaluatorUseSmartCoverInCombat } from "@/engine/core/schemes/smartcover/evaluators";
 import { ISchemeSmartCoverState } from "@/engine/core/schemes/smartcover/ISchemeSmartCoverState";

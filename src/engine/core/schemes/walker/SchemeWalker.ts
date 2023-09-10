@@ -1,7 +1,7 @@
 import { level, world_property } from "xray16";
 
+import { AbstractScheme } from "@/engine/core/objects/ai/scheme";
 import { EActionId, EEvaluatorId } from "@/engine/core/objects/ai/types";
-import { AbstractScheme } from "@/engine/core/schemes/base";
 import { ActionWalkerActivity } from "@/engine/core/schemes/walker/actions";
 import { EvaluatorNeedWalker } from "@/engine/core/schemes/walker/evaluators";
 import { ISchemeWalkerState } from "@/engine/core/schemes/walker/ISchemeWalkerState";

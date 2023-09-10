@@ -2,12 +2,12 @@ import { time_global } from "xray16";
 
 import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
+import { ESchemeEvent, IBaseSchemeState } from "@/engine/core/objects/ai/scheme";
 import { WEAPON_POSTFIX } from "@/engine/core/objects/animation";
 import { CAMP_ACTIVITIES } from "@/engine/core/objects/camp/camp_logic";
 import { EObjectCampActivity, EObjectCampRole, ICampObjectState } from "@/engine/core/objects/camp/camp_types";
 import { StoryManager } from "@/engine/core/objects/sounds/stories";
 import { IAnimpointActionDescriptor, ISchemeAnimpointState } from "@/engine/core/schemes/animpoint/types";
-import { ESchemeEvent, IBaseSchemeState } from "@/engine/core/schemes/base";
 import { ISchemeMeetState } from "@/engine/core/schemes/meet";
 import { MeetManager } from "@/engine/core/schemes/meet/MeetManager";
 import { abort } from "@/engine/core/utils/assertion";

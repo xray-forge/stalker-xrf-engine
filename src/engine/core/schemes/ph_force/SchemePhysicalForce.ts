@@ -1,6 +1,6 @@
 import { patrol } from "xray16";
 
-import { AbstractScheme } from "@/engine/core/schemes/base";
+import { AbstractScheme } from "@/engine/core/objects/ai/scheme";
 import { ISchemePhysicalForceState } from "@/engine/core/schemes/ph_force/ISchemePhysicalForceState";
 import { PhysicalForceManager } from "@/engine/core/schemes/ph_force/PhysicalForceManager";
 import { abort } from "@/engine/core/utils/assertion";

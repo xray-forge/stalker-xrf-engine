@@ -1,6 +1,6 @@
 import { particles_object, patrol, time_global } from "xray16";
 
-import { AbstractSchemeManager } from "@/engine/core/schemes/base";
+import { AbstractSchemeManager } from "@/engine/core/objects/ai/scheme";
 import { ISchemeParticleState } from "@/engine/core/schemes/sr_particle/ISchemeParticleState";
 import { parseWaypointsData } from "@/engine/core/utils/ini/ini_parse";
 import { IWaypointData } from "@/engine/core/utils/ini/ini_types";

@@ -1,4 +1,4 @@
-import { ESchemeEvent, IBaseSchemeState } from "@/engine/core/schemes";
+import { ESchemeEvent, IBaseSchemeState } from "@/engine/core/objects/ai/scheme";
 import { AnyArgs, AnyContextualCallable, ClientObject } from "@/engine/lib/types";
 
 /**

@@ -10,8 +10,12 @@ import {
   registry,
 } from "@/engine/core/database";
 import { MapDisplayManager } from "@/engine/core/managers/map";
+import {
+  IBaseSchemeState,
+  ObjectRestrictionsManager,
+  TAbstractSchemeConstructor,
+} from "@/engine/core/objects/ai/scheme";
 import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain";
-import { IBaseSchemeState, ObjectRestrictionsManager, TAbstractSchemeConstructor } from "@/engine/core/schemes";
 import { SchemeAbuse } from "@/engine/core/schemes/abuse";
 import { SchemeCombat } from "@/engine/core/schemes/combat";
 import { SchemeCombatIgnore } from "@/engine/core/schemes/combat_ignore";

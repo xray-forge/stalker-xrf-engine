@@ -1,6 +1,6 @@
+import type { IBaseSchemeState } from "@/engine/core/objects/ai/scheme";
 import type { EStalkerState } from "@/engine/core/objects/animation";
 import type { IAnimpointActionDescriptor } from "@/engine/core/schemes/animpoint/types";
-import type { IBaseSchemeState } from "@/engine/core/schemes/base";
 import type { IWaypointData } from "@/engine/core/utils/ini/ini_types";
 import type { LuaArray, Optional } from "@/engine/lib/types";
 

@@ -1,6 +1,7 @@
 import { action_base, LuabindClass } from "xray16";
 
 import { setStalkerState } from "@/engine/core/database";
+import { ISchemeEventHandler } from "@/engine/core/objects/ai/scheme";
 import { EStalkerState } from "@/engine/core/objects/animation";
 import { ISchemeAnimpointState } from "@/engine/core/schemes/animpoint/types";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -12,7 +13,7 @@ const logger: LuaLogger = new LuaLogger($filename);
  * Usually performed on place.
  */
 @LuabindClass()
-export class ActionAnimpoint extends action_base {
+export class ActionAnimpoint extends action_base implements ISchemeEventHandler {
   public readonly state: ISchemeAnimpointState;
 
   public constructor(state: ISchemeAnimpointState) {

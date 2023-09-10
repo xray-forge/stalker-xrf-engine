@@ -1,7 +1,7 @@
 import { describe, expect, it } from "@jest/globals";
 
 import { IRegistryObjectState, registerObject } from "@/engine/core/database";
-import { ObjectRestrictionsManager } from "@/engine/core/schemes";
+import { ObjectRestrictionsManager } from "@/engine/core/objects/ai/scheme";
 import { ClientObject } from "@/engine/lib/types";
 import { mockClientGameObject, mockIniFile } from "@/fixtures/xray";
 

@@ -1,5 +1,5 @@
 import { IRegistryObjectState, registry } from "@/engine/core/database";
-import { IBaseSchemeState } from "@/engine/core/schemes/base/types";
+import { IBaseSchemeState } from "@/engine/core/objects/ai/scheme/types";
 import { abort } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { AnyObject, ClientObject, IniFile, Optional, TName } from "@/engine/lib/types";

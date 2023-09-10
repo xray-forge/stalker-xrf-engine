@@ -1,6 +1,6 @@
 import { level, snd_type, time_global } from "xray16";
 
-import { AbstractSchemeManager } from "@/engine/core/schemes";
+import { AbstractSchemeManager } from "@/engine/core/objects/ai/scheme";
 import { ISchemeDangerState } from "@/engine/core/schemes/danger/ISchemeDangerState";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { canObjectSelectAsEnemy } from "@/engine/core/utils/object";

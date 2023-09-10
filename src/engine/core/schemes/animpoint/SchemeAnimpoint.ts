@@ -1,8 +1,8 @@
 import { world_property } from "xray16";
 
+import { AbstractScheme } from "@/engine/core/objects/ai/scheme";
 import { EActionId, EEvaluatorId } from "@/engine/core/objects/ai/types";
 import { EStalkerState } from "@/engine/core/objects/animation";
-import { AbstractScheme } from "@/engine/core/schemes";
 import { ActionAnimpoint, ActionReachAnimpoint } from "@/engine/core/schemes/animpoint/actions";
 import { AnimpointManager } from "@/engine/core/schemes/animpoint/AnimpointManager";
 import { EvaluatorNeedAnimpoint, EvaluatorReachAnimpoint } from "@/engine/core/schemes/animpoint/evaluators";

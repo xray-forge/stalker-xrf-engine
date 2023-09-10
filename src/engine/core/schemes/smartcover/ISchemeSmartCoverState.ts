@@ -1,5 +1,5 @@
+import { IBaseSchemeState } from "@/engine/core/objects/ai/scheme";
 import { ESmartCoverState } from "@/engine/core/objects/animation/state_types";
-import { IBaseSchemeState } from "@/engine/core/schemes/base";
 import { Optional, StringOptional, TDuration, TName, Vector } from "@/engine/lib/types";
 
 /**
