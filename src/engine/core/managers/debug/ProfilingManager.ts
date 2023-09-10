@@ -1,6 +1,6 @@
 import { profile_timer } from "xray16";
 
-import { AbstractCoreManager } from "@/engine/core/managers/base/AbstractCoreManager";
+import { AbstractManager } from "@/engine/core/managers/base/AbstractManager";
 import { abort } from "@/engine/core/utils/assertion";
 import { executeConsoleCommand } from "@/engine/core/utils/game/game_console";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -19,7 +19,7 @@ export interface IProfileSnapshotDescriptor {
 /**
  * Manager to profile lua methods frequency calls and measure duration of functions execution.
  */
-export class ProfilingManager extends AbstractCoreManager {
+export class ProfilingManager extends AbstractManager {
   public countersMap: LuaTable<AnyCallable, IProfileSnapshotDescriptor> = new LuaTable();
   public namesMap: LuaTable<AnyCallable, debug.FunctionInfo> = new LuaTable();
   public callsCountMap: LuaTable<AnyCallable, { info: debug.FunctionInfo; count: number }> = new LuaTable();

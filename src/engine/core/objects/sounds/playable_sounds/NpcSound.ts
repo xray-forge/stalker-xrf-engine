@@ -2,9 +2,9 @@ import { FS, game, get_hud, getFS, snd_type, sound_object, stalker_ids, time_glo
 
 import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
-import { ENotificationType, ISoundNotification } from "@/engine/core/managers/interface/notifications/types";
+import { ENotificationType, ISoundNotification } from "@/engine/core/managers/notifications/notifications_types";
 import { AbstractPlayableSound } from "@/engine/core/objects/sounds/playable_sounds/AbstractPlayableSound";
-import { EPlayableSound, ESoundPlaylistType } from "@/engine/core/objects/sounds/types";
+import { EPlayableSound, ESoundPlaylistType } from "@/engine/core/objects/sounds/sounds_types";
 import { abort } from "@/engine/core/utils/assertion";
 import { parseStringsList, readIniBoolean, readIniNumber, readIniString } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";

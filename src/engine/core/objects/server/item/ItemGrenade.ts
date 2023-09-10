@@ -2,9 +2,8 @@ import { cse_alife_item_grenade, LuabindClass } from "xray16";
 
 import { registerObjectStoryLinks, unregisterStoryLinkByObjectId } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
-import { TreasureManager } from "@/engine/core/managers/world/treasures";
+import { TreasureManager } from "@/engine/core/managers/treasures";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { Optional } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -13,7 +12,7 @@ const logger: LuaLogger = new LuaLogger($filename);
  */
 @LuabindClass()
 export class ItemGrenade extends cse_alife_item_grenade {
-  public isSecretItem: Optional<boolean> = false;
+  public isSecretItem: boolean = false;
 
   public override on_register(): void {
     super.on_register();

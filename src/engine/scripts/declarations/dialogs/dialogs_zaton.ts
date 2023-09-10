@@ -4,8 +4,8 @@ import { alife, game, level } from "xray16";
 
 import { isStoryObjectExisting, registry } from "@/engine/core/database";
 import { getPortableStoreValue, setPortableStoreValue } from "@/engine/core/database/portable_store";
-import { ENotificationDirection, NotificationManager } from "@/engine/core/managers/interface/notifications";
-import { TreasureManager } from "@/engine/core/managers/world/treasures";
+import { ENotificationDirection, NotificationManager } from "@/engine/core/managers/notifications";
+import { TreasureManager } from "@/engine/core/managers/treasures";
 import { extern, getExtern } from "@/engine/core/utils/binding";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import {

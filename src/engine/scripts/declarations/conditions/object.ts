@@ -8,7 +8,7 @@ import {
   isStoryObjectExisting,
   registry,
 } from "@/engine/core/database";
-import { ActorInventoryMenuManager } from "@/engine/core/managers/interface/ActorInventoryMenuManager";
+import { ActorInventoryMenuManager } from "@/engine/core/managers/actor/ActorInventoryMenuManager";
 import { ItemUpgradesManager } from "@/engine/core/managers/interface/ItemUpgradesManager";
 import { SimulationBoardManager } from "@/engine/core/managers/simulation/SimulationBoardManager";
 import type { SmartTerrain, Squad } from "@/engine/core/objects/server";

@@ -14,9 +14,9 @@ import {
   unregisterActor,
 } from "@/engine/core/database";
 import { updateSimulationObjectAvailability } from "@/engine/core/database/simulation";
-import { SaveManager } from "@/engine/core/managers/base/SaveManager";
+import { EGameEvent } from "@/engine/core/managers/events/events_types";
 import { EventsManager } from "@/engine/core/managers/events/EventsManager";
-import { EGameEvent } from "@/engine/core/managers/events/types";
+import { SaveManager } from "@/engine/core/managers/save/SaveManager";
 import { Actor } from "@/engine/core/objects/server/creature/Actor";
 import { ISchemeDeimosState } from "@/engine/core/schemes/sr_deimos";
 import { SchemeDeimos } from "@/engine/core/schemes/sr_deimos/SchemeDeimos";

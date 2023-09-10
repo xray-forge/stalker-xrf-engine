@@ -1,8 +1,5 @@
 import { registry } from "@/engine/core/database/registry";
-import type {
-  AbstractCoreManager,
-  TAbstractCoreManagerConstructor,
-} from "@/engine/core/managers/base/AbstractCoreManager";
+import type { AbstractManager, TAbstractCoreManagerConstructor } from "@/engine/core/managers/base/AbstractManager";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { Optional, TName } from "@/engine/lib/types";
 
@@ -22,7 +19,7 @@ export function getManagerInstance<T extends TAbstractCoreManagerConstructor>(
   if (!registry.managers.get(managerClass)) {
     logger.info("Initialize manager:", managerClass.name);
 
-    const instance: AbstractCoreManager = new managerClass();
+    const instance: AbstractManager = new managerClass();
 
     registry.managers.set(managerClass, instance);
 
@@ -42,7 +39,7 @@ export function getManagerInstance<T extends TAbstractCoreManagerConstructor>(
  * @param managerName - manager class name to get
  * @returns manager instance singleton or null if it is not initialized
  */
-export function getManagerInstanceByName<T extends AbstractCoreManager>(managerName: TName): Optional<T> {
+export function getManagerInstanceByName<T extends AbstractManager>(managerName: TName): Optional<T> {
   for (const [constructor, manager] of registry.managers) {
     if (constructor.name === managerName) {
       return manager as T;
@@ -83,7 +80,7 @@ export function initializeManager(managerClass: TAbstractCoreManagerConstructor)
   if (registry.managers.get(managerClass) === null) {
     logger.info("Initialize manager:", managerClass.name);
 
-    const instance: AbstractCoreManager = new managerClass();
+    const instance: AbstractManager = new managerClass();
 
     registry.managers.set(managerClass, instance);
 
@@ -97,7 +94,7 @@ export function initializeManager(managerClass: TAbstractCoreManagerConstructor)
  * @param managerClass - manager class statics reference, used as key in registry to get singletons
  */
 export function disposeManager<T extends TAbstractCoreManagerConstructor>(managerClass: T): void {
-  const manager: Optional<AbstractCoreManager> = registry.managers.get(managerClass);
+  const manager: Optional<AbstractManager> = registry.managers.get(managerClass);
 
   if (manager !== null) {
     logger.info("Dispose manager:", managerClass.name);

@@ -10,7 +10,7 @@ import {
   simulationPreconditionSurge,
 } from "@/engine/core/managers/simulation/simulation_preconditions";
 import { ESimulationRole, ISimulationActivityDescriptor } from "@/engine/core/managers/simulation/simulation_types";
-import { SurgeManager } from "@/engine/core/managers/world/SurgeManager";
+import { SurgeManager } from "@/engine/core/managers/surge/SurgeManager";
 import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain";
 import { Squad } from "@/engine/core/objects/server/squad/Squad";
 import { isInTimeInterval } from "@/engine/core/utils/game/game_time";

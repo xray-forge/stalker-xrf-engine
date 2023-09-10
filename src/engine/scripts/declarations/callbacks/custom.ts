@@ -1,8 +1,8 @@
-import { AchievementsManager } from "@/engine/core/managers/interaction/achievements/AchievementsManager";
-import { EAchievement } from "@/engine/core/managers/interaction/achievements/types";
-import { SleepManager } from "@/engine/core/managers/interaction/SleepManager";
-import { TaskManager } from "@/engine/core/managers/interaction/tasks";
-import { SurgeManager } from "@/engine/core/managers/world/SurgeManager";
+import { EAchievement } from "@/engine/core/managers/achievements/achievements_types";
+import { AchievementsManager } from "@/engine/core/managers/achievements/AchievementsManager";
+import { SleepManager } from "@/engine/core/managers/sleep";
+import { SurgeManager } from "@/engine/core/managers/surge/SurgeManager";
+import { TaskManager } from "@/engine/core/managers/tasks";
 import { SchemeCutscene } from "@/engine/core/schemes/sr_cutscene/SchemeCutscene";
 import { extern } from "@/engine/core/utils/binding";
 import { LuaLogger } from "@/engine/core/utils/logging";

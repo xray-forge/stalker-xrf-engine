@@ -67,7 +67,7 @@ export const FILES_MOCKS: Record<TPath, AnyObject> = {
       weathers: "dynamic_default",
     },
   },
-  ["scheme_mock.ltx"]: {
+  "scheme_mock.ltx": {
     starting: {},
     "sr_no_weapon@another": {},
   },
@@ -144,6 +144,26 @@ export const FILES_MOCKS: Record<TPath, AnyObject> = {
     buy_item_condition_factor: 0.7,
     generic_buy: {},
     generic_sell: {},
+  },
+  "misc\\secrets.ltx": {
+    list: {
+      jup_b1_secret: null,
+      jup_b2_secret: null,
+      jup_b3_secret: null,
+    },
+    jup_b1_secret: {
+      empty: "{+info_b10_first_zone_visited} true, false",
+      wpn_abakan: "1, 1",
+      wpn_addon_scope: "1, 1",
+    },
+    jup_b2_secret: {
+      refreshing: "true",
+      wpn_abakan: "1, 1",
+    },
+    jup_b3_secret: {
+      wpn_abakan: "1, 1",
+      wpn_addon_scope: "1, 1",
+    },
   },
   "misc\\squad_behaviours.ltx": {
     stalker: {

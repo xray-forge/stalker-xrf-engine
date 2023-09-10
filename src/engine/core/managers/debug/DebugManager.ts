@@ -1,7 +1,7 @@
 import { alife, cast_planner, relation_registry } from "xray16";
 
 import { IRegistryObjectState, registry } from "@/engine/core/database";
-import { AbstractCoreManager } from "@/engine/core/managers/base/AbstractCoreManager";
+import { AbstractManager } from "@/engine/core/managers/base/AbstractManager";
 import { StalkerStateManager } from "@/engine/core/objects/ai/state/StalkerStateManager";
 import { EActionId, EStateActionId } from "@/engine/core/objects/ai/types";
 import { gameTimeToString } from "@/engine/core/utils/game/game_time";
@@ -18,7 +18,7 @@ const logger: LuaLogger = new LuaLogger($filename);
 /**
  * Debug manager to work with UI overlay components / console commands and help debugging the game.
  */
-export class DebugManager extends AbstractCoreManager {
+export class DebugManager extends AbstractManager {
   /**
    * Debug object inventory items.
    */

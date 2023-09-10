@@ -1,7 +1,7 @@
 import { actor_stats, alife, clsid, game_graph, level } from "xray16";
 
 import { registry, SIMULATION_LTX } from "@/engine/core/database";
-import { AbstractCoreManager } from "@/engine/core/managers/base/AbstractCoreManager";
+import { AbstractManager } from "@/engine/core/managers/base/AbstractManager";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import {
   groupIdByLevelName,
@@ -41,7 +41,7 @@ const simulationLogger: LuaLogger = new LuaLogger($filename, { file: "simulation
 /**
  * todo;
  */
-export class SimulationBoardManager extends AbstractCoreManager {
+export class SimulationBoardManager extends AbstractManager {
   public areDefaultSimulationSquadsSpawned: boolean = false;
 
   protected factions: LuaArray<ISimulationFactionDescriptor> = new LuaTable();

@@ -8,7 +8,7 @@ import {
   ENotificationType,
   IItemRelocatedNotification,
   IMoneyRelocatedNotification,
-} from "@/engine/core/managers/interface";
+} from "@/engine/core/managers/notifications";
 import {
   actorHasAtLeastOneItem,
   actorHasItem,

@@ -29,7 +29,7 @@ import {
   updateSimulationObjectAvailability,
 } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
-import { MapDisplayManager } from "@/engine/core/managers/interface";
+import { MapDisplayManager } from "@/engine/core/managers/map";
 import {
   ESimulationTerrainRole,
   ISimulationActivityDescriptor,

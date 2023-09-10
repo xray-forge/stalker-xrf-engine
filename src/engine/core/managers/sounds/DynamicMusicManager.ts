@@ -1,11 +1,12 @@
 import { IsDynamicMusic, level, time_global } from "xray16";
 
 import { registry } from "@/engine/core/database";
-import { AbstractCoreManager } from "@/engine/core/managers/base/AbstractCoreManager";
+import { AbstractManager } from "@/engine/core/managers/base/AbstractManager";
+import { EGameEvent } from "@/engine/core/managers/events/events_types";
 import { EventsManager } from "@/engine/core/managers/events/EventsManager";
-import { EGameEvent } from "@/engine/core/managers/events/types";
 import { dynamicMusicThemes } from "@/engine/core/managers/sounds/dynamic_music";
-import { SurgeManager } from "@/engine/core/managers/world/SurgeManager";
+import { EDynamicMusicState } from "@/engine/core/managers/sounds/sounds_types";
+import { SurgeManager } from "@/engine/core/managers/surge/SurgeManager";
 import { StereoSound } from "@/engine/core/objects/sounds/StereoSound";
 import { abort } from "@/engine/core/utils/assertion";
 import { executeConsoleCommand, getConsoleFloatCommand } from "@/engine/core/utils/game/game_console";
@@ -31,16 +32,7 @@ const logger: LuaLogger = new LuaLogger($filename);
 /**
  * todo;
  */
-export enum EDynamicMusicState {
-  IDLE,
-  START,
-  FINISH,
-}
-
-/**
- * todo;
- */
-export class DynamicMusicManager extends AbstractCoreManager {
+export class DynamicMusicManager extends AbstractManager {
   public static readonly MAX_DIST: TDistance = 100;
   public static readonly MIN_DIST: TDistance = 75;
 

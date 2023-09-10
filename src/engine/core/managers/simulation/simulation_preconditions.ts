@@ -1,4 +1,4 @@
-import { SurgeManager } from "@/engine/core/managers/world/SurgeManager";
+import { SurgeManager } from "@/engine/core/managers/surge/SurgeManager";
 import type { Squad } from "@/engine/core/objects/server/squad";
 import { isInTimeInterval } from "@/engine/core/utils/game";
 import { getServerDistanceBetween } from "@/engine/core/utils/object";

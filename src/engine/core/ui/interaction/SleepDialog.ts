@@ -14,7 +14,7 @@ import {
 } from "xray16";
 
 import { registry } from "@/engine/core/database";
-import { SleepManager } from "@/engine/core/managers/interaction/SleepManager";
+import { SleepManager } from "@/engine/core/managers/sleep";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { disableInfo, giveInfo } from "@/engine/core/utils/object/object_info_portion";
 import { isWideScreen, resolveXmlFormPath } from "@/engine/core/utils/ui";

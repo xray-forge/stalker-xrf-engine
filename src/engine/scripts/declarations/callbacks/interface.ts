@@ -1,7 +1,7 @@
-import { ActorInventoryMenuManager } from "@/engine/core/managers/interface/ActorInventoryMenuManager";
+import { ActorInventoryMenuManager } from "@/engine/core/managers/actor/ActorInventoryMenuManager";
 import { ItemUpgradesManager } from "@/engine/core/managers/interface/ItemUpgradesManager";
 import { LoadScreenManager } from "@/engine/core/managers/interface/LoadScreenManager";
-import { PdaManager } from "@/engine/core/managers/interface/PdaManager";
+import { PdaManager } from "@/engine/core/managers/pda/PdaManager";
 import { WeaponParams } from "@/engine/core/ui/game/WeaponParams";
 import { extern } from "@/engine/core/utils/binding";
 import { LuaLogger } from "@/engine/core/utils/logging";

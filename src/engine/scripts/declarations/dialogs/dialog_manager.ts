@@ -6,7 +6,7 @@ import {
   IPhrasesDescriptor,
   TPHRTable,
   TPRTTable,
-} from "@/engine/core/managers/interaction/dialog";
+} from "@/engine/core/managers/dialogs";
 import type { SmartTerrain } from "@/engine/core/objects/server/smart_terrain";
 import { extern } from "@/engine/core/utils/binding";
 import { LuaLogger } from "@/engine/core/utils/logging";

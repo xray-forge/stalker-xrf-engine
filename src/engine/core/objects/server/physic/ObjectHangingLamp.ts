@@ -2,7 +2,7 @@ import { cse_alife_object_hanging_lamp, LuabindClass } from "xray16";
 
 import { registerObjectStoryLinks, unregisterStoryLinkByObjectId } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
-import { TreasureManager } from "@/engine/core/managers/world/treasures";
+import { TreasureManager } from "@/engine/core/managers/treasures";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { Optional } from "@/engine/lib/types";
 

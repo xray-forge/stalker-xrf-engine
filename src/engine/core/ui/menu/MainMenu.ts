@@ -17,8 +17,8 @@ import {
 } from "xray16";
 
 import { registry } from "@/engine/core/database";
+import { EGameEvent } from "@/engine/core/managers/events/events_types";
 import { EventsManager } from "@/engine/core/managers/events/EventsManager";
-import { EGameEvent } from "@/engine/core/managers/events/types";
 import { DebugDialog } from "@/engine/core/ui/debug/DebugDialog";
 import { ExtensionsDialog } from "@/engine/core/ui/menu/extensions/ExtensionsDialog";
 import { LoadDialog } from "@/engine/core/ui/menu/load/LoadDialog";

@@ -6,14 +6,14 @@ import {
   registry,
   SCRIPT_SOUND_LTX,
 } from "@/engine/core/database";
-import { AbstractCoreManager } from "@/engine/core/managers/base/AbstractCoreManager";
+import { AbstractManager } from "@/engine/core/managers/base/AbstractManager";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { AbstractPlayableSound } from "@/engine/core/objects/sounds/playable_sounds/AbstractPlayableSound";
 import { ActorSound } from "@/engine/core/objects/sounds/playable_sounds/ActorSound";
 import { LoopedSound } from "@/engine/core/objects/sounds/playable_sounds/LoopedSound";
 import { NpcSound } from "@/engine/core/objects/sounds/playable_sounds/NpcSound";
 import { ObjectSound } from "@/engine/core/objects/sounds/playable_sounds/ObjectSound";
-import { EPlayableSound } from "@/engine/core/objects/sounds/types";
+import { EPlayableSound } from "@/engine/core/objects/sounds/sounds_types";
 import { abort, assert, assertDefined } from "@/engine/core/utils/assertion";
 import { readIniString } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -37,7 +37,7 @@ const logger: LuaLogger = new LuaLogger($filename);
 /**
  * todo;
  */
-export class GlobalSoundManager extends AbstractCoreManager {
+export class GlobalSoundManager extends AbstractManager {
   /**
    * todo: check.
    */

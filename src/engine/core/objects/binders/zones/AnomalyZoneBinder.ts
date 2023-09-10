@@ -10,7 +10,7 @@ import {
   resetObject,
   unregisterAnomalyZone,
 } from "@/engine/core/database";
-import { MapDisplayManager } from "@/engine/core/managers/interface/MapDisplayManager";
+import { MapDisplayManager } from "@/engine/core/managers/map/MapDisplayManager";
 import { AnomalyFieldBinder } from "@/engine/core/objects/binders/zones/AnomalyFieldBinder";
 import { abort, assertDefined } from "@/engine/core/utils/assertion";
 import {

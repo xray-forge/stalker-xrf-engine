@@ -1,7 +1,7 @@
 import { game } from "xray16";
 
 import { getObjectIdByStoryId, registry } from "@/engine/core/database";
-import { SurgeManager } from "@/engine/core/managers/world/SurgeManager";
+import { SurgeManager } from "@/engine/core/managers/surge/SurgeManager";
 import { extern } from "@/engine/core/utils/binding";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/ini_config";
 import { parseConditionsList } from "@/engine/core/utils/ini/ini_parse";

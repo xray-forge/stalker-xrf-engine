@@ -30,14 +30,14 @@ import {
   unregisterHelicopterEnemy,
   unregisterStalker,
 } from "@/engine/core/database";
+import { ReleaseBodyManager } from "@/engine/core/managers/death/ReleaseBodyManager";
+import { DialogManager } from "@/engine/core/managers/dialogs";
+import { DropManager } from "@/engine/core/managers/drop";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
-import { DialogManager } from "@/engine/core/managers/interaction/dialog/DialogManager";
-import { TradeManager } from "@/engine/core/managers/interaction/trade/TradeManager";
-import { MapDisplayManager } from "@/engine/core/managers/interface/MapDisplayManager";
+import { MapDisplayManager } from "@/engine/core/managers/map/MapDisplayManager";
 import { SimulationBoardManager } from "@/engine/core/managers/simulation/SimulationBoardManager";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
-import { DropManager } from "@/engine/core/managers/world/DropManager";
-import { ReleaseBodyManager } from "@/engine/core/managers/world/ReleaseBodyManager";
+import { TradeManager } from "@/engine/core/managers/trade/TradeManager";
 import { setupStalkerMotivationPlanner, setupStalkerStatePlanner } from "@/engine/core/objects/ai/setup";
 import { StalkerStateManager } from "@/engine/core/objects/ai/state";
 import { StalkerMoveManager } from "@/engine/core/objects/ai/state/StalkerMoveManager";
@@ -645,6 +645,9 @@ export class StalkerBinder extends object_binder {
 
 /**
  * todo: Description.
+ * todo: move out?
+ * todo: move out?
+ * todo: move out?
  */
 export function updateStalkerLogic(object: ClientObject): void {
   const state: Optional<IRegistryObjectState> = registry.objects.get(object.id());
