@@ -16,14 +16,12 @@ export function mockRegistryState(base: Partial<IRegistryObjectState> = {}): IRe
  * Mock generic scheme state.
  */
 export function mockSchemeState<T extends IBaseSchemeState>(
-  object: ClientObject,
   scheme: EScheme,
   {
     ini = mockIniFile("scheme_mock.ltx"),
     logic = new LuaTable(),
     signals = new LuaTable(),
     idle_end = 0,
-    npc,
     overrides = null,
     ...base
   }: Partial<T> = {}
@@ -33,7 +31,6 @@ export function mockSchemeState<T extends IBaseSchemeState>(
     idle_end,
     ini,
     logic,
-    npc,
     overrides,
     scheme: base.scheme || scheme,
     section: base.section || scheme + "@test",

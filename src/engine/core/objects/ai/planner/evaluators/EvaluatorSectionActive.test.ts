@@ -11,7 +11,7 @@ import { mockClientGameObject } from "@/fixtures/xray";
 describe("EvaluatorSectionActive class", () => {
   it("should correctly check if section state is active", () => {
     const object: ClientObject = mockClientGameObject();
-    const schemeState: IBaseSchemeState = mockSchemeState(object, EScheme.MEET, { section: "test@active" });
+    const schemeState: IBaseSchemeState = mockSchemeState(EScheme.MEET, { section: "test@active" });
     const state: IRegistryObjectState = registerObject(object);
 
     const evaluator: EvaluatorSectionActive = new EvaluatorSectionActive(schemeState);
@@ -29,13 +29,8 @@ describe("EvaluatorSectionActive class", () => {
   });
 
   it("should correctly apply custom names", () => {
-    const first: EvaluatorSectionActive = new EvaluatorSectionActive(
-      mockSchemeState(mockClientGameObject(), EScheme.MEET)
-    );
-    const second: EvaluatorSectionActive = new EvaluatorSectionActive(
-      mockSchemeState(mockClientGameObject(), EScheme.MEET),
-      "SomeCustomName"
-    );
+    const first: EvaluatorSectionActive = new EvaluatorSectionActive(mockSchemeState(EScheme.MEET));
+    const second: EvaluatorSectionActive = new EvaluatorSectionActive(mockSchemeState(EScheme.MEET), "SomeCustomName");
 
     expect(first.__name).toBe("EvaluatorSectionActive");
     expect(second.__name).toBe("SomeCustomName");

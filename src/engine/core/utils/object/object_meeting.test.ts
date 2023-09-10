@@ -12,7 +12,7 @@ describe("object_meeting utils", () => {
     const state: IRegistryObjectState = registerObject(object);
     const manager = { addAbuse: jest.fn() };
 
-    state[EScheme.ABUSE] = mockSchemeState(object, EScheme.ABUSE, {
+    state[EScheme.ABUSE] = mockSchemeState(EScheme.ABUSE, {
       abuseManager: manager,
     } as AnyObject);
 
@@ -28,7 +28,7 @@ describe("object_meeting utils", () => {
     const state: IRegistryObjectState = registerObject(object);
     const manager = { clearAbuse: jest.fn() };
 
-    state[EScheme.ABUSE] = mockSchemeState(object, EScheme.ABUSE, {
+    state[EScheme.ABUSE] = mockSchemeState(EScheme.ABUSE, {
       abuseManager: manager,
     } as AnyObject);
 
@@ -44,7 +44,7 @@ describe("object_meeting utils", () => {
     const state: IRegistryObjectState = registerObject(object);
     const manager = { enableAbuse: jest.fn(), disableAbuse: jest.fn() };
 
-    state[EScheme.ABUSE] = mockSchemeState(object, EScheme.ABUSE, {
+    state[EScheme.ABUSE] = mockSchemeState(EScheme.ABUSE, {
       abuseManager: manager,
     } as AnyObject);
 

@@ -45,7 +45,7 @@ describe("object state utils", () => {
 
     expect(isObjectWounded(object.id())).toBe(false);
 
-    const schemeState: ISchemeWoundedState = mockSchemeState(object, EScheme.WOUNDED, {});
+    const schemeState: ISchemeWoundedState = mockSchemeState(EScheme.WOUNDED, {});
     const woundManager: WoundManager = new WoundManager(object, schemeState);
 
     schemeState.woundManager = woundManager;

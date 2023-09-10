@@ -15,7 +15,7 @@ describe("'scheme logic' utils", () => {
 
   it("'emitSchemeEvent' should correctly emit events", () => {
     const object: ClientObject = mockClientGameObject();
-    const schemeState: IBaseSchemeState = mockSchemeState(object, EScheme.MEET);
+    const schemeState: IBaseSchemeState = mockSchemeState(EScheme.MEET);
     const mockAction = {
       activate: jest.fn(),
       deactivate: jest.fn(),

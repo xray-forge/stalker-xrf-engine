@@ -22,7 +22,7 @@ import {
 describe("MobHomeManager functionality", () => {
   it("should correctly call set home", () => {
     const object: ClientObject = mockClientGameObject();
-    const state: ISchemeMobHomeState = mockSchemeState<ISchemeMobHomeState>(object, EScheme.MOB_HOME, {
+    const state: ISchemeMobHomeState = mockSchemeState<ISchemeMobHomeState>(EScheme.MOB_HOME, {
       homeMinRadius: 40,
       homeMaxRadius: 60,
       homeWayPoint: "test-wp",
@@ -60,7 +60,7 @@ describe("MobHomeManager functionality", () => {
 
   it("should correctly get home location for generic points", () => {
     const object: ClientObject = mockClientGameObject();
-    const state: ISchemeMobHomeState = mockSchemeState<ISchemeMobHomeState>(object, EScheme.MOB_HOME, {
+    const state: ISchemeMobHomeState = mockSchemeState<ISchemeMobHomeState>(EScheme.MOB_HOME, {
       homeMinRadius: 100,
       homeMaxRadius: 200,
       homeWayPoint: "test-wp",
@@ -81,7 +81,7 @@ describe("MobHomeManager functionality", () => {
 
   it("should correctly get home location for defaults", () => {
     const object: ClientObject = mockClientGameObject();
-    const state: ISchemeMobHomeState = mockSchemeState<ISchemeMobHomeState>(object, EScheme.MOB_HOME, {
+    const state: ISchemeMobHomeState = mockSchemeState<ISchemeMobHomeState>(EScheme.MOB_HOME, {
       homeWayPoint: "test-wp",
     });
     const mobHomeManager: MobHomeManager = new MobHomeManager(object, state);
@@ -106,7 +106,7 @@ describe("MobHomeManager functionality", () => {
     MockAlifeSimulator.addToRegistry(serverObject);
     MockAlifeSimulator.addToRegistry(smartTerrain);
 
-    const state: ISchemeMobHomeState = mockSchemeState<ISchemeMobHomeState>(object, EScheme.MOB_HOME, {
+    const state: ISchemeMobHomeState = mockSchemeState<ISchemeMobHomeState>(EScheme.MOB_HOME, {
       homeWayPoint: "test-wp",
       isSmartTerrainPoint: true,
     });

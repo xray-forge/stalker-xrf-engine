@@ -54,10 +54,7 @@ export abstract class AbstractScheme {
     let schemeState: Optional<T> = objectState[scheme] as Optional<T>;
 
     if (!schemeState) {
-      schemeState = {
-        npc: object,
-      } as T;
-
+      schemeState = {} as T;
       objectState[scheme] = schemeState;
 
       registry.schemes.get(scheme).add(object, ini, scheme, section as TSection, schemeState);
@@ -72,7 +69,7 @@ export abstract class AbstractScheme {
 
   /**
    * Add scheme state handlers to client object states.
-   * Usually used to add actions, evaluators or custom managers.
+   * Called once if object registry state does not have created base state for provided scheme.
    *
    * @param object - target client object
    * @param ini - ini file describing object logic

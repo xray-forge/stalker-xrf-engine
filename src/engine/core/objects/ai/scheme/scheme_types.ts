@@ -36,7 +36,6 @@ export interface IBaseSchemeLogic {
  * todo;
  */
 export interface IBaseSchemeState {
-  npc: ClientObject;
   ini: IniFile;
   /**
    * List of switch conditions.

@@ -29,7 +29,6 @@ describe("SchemeGatherItems class", () => {
 
     expect(state[EScheme.GATHER_ITEMS]).toEqual({
       ini,
-      npc: object,
       scheme: EScheme.GATHER_ITEMS,
       section: "gather_items_default@test",
     });
@@ -79,7 +78,6 @@ describe("SchemeGatherItems class", () => {
     SchemeGatherItems.reset(object, EScheme.GATHER_ITEMS, state, "gather_items_default@test");
     expect(state[EScheme.GATHER_ITEMS]).toEqual({
       ini,
-      npc: object,
       scheme: EScheme.GATHER_ITEMS,
       section: "gather_items_default@test",
       canLootItems: true,
@@ -88,7 +86,6 @@ describe("SchemeGatherItems class", () => {
     SchemeGatherItems.reset(object, EScheme.GATHER_ITEMS, state, "gather_items_true@test");
     expect(state[EScheme.GATHER_ITEMS]).toEqual({
       ini,
-      npc: object,
       scheme: EScheme.GATHER_ITEMS,
       section: "gather_items_default@test",
       canLootItems: true,
@@ -97,7 +94,6 @@ describe("SchemeGatherItems class", () => {
     SchemeGatherItems.reset(object, EScheme.GATHER_ITEMS, state, "gather_items_false@test");
     expect(state[EScheme.GATHER_ITEMS]).toEqual({
       ini,
-      npc: object,
       scheme: EScheme.GATHER_ITEMS,
       section: "gather_items_default@test",
       canLootItems: false,
