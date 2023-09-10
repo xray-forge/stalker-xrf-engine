@@ -4,7 +4,6 @@ import { registerObjectStoryLinks, unregisterStoryLinkByObjectId } from "@/engin
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { TreasureManager } from "@/engine/core/managers/world/treasures";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { Optional } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -13,7 +12,7 @@ const logger: LuaLogger = new LuaLogger($filename);
  */
 @LuabindClass()
 export class InventoryBox extends cse_alife_inventory_box {
-  public isSecretItem: Optional<boolean> = false;
+  public isSecretItem: boolean = false;
 
   public override on_register(): void {
     super.on_register();

@@ -6,8 +6,9 @@ import { LuaArray, Optional, TCount, TNumberId, TProbability, TSection } from "@
  */
 export interface ITreasureItemsDescriptor {
   count: TCount;
-  prob: TProbability;
-  item_ids: Optional<LuaArray<TNumberId>>;
+  probability: TProbability;
+  // Linked objects to the secret.
+  itemsIds: Optional<LuaArray<TNumberId>>;
 }
 
 /**
@@ -16,6 +17,7 @@ export interface ITreasureItemsDescriptor {
 export interface ITreasureDescriptor {
   given: boolean;
   checked: boolean;
+  // Condlist to check if secret can be refreshed.
   refreshing: Optional<TConditionList>;
   empty: Optional<TConditionList>;
   itemsToFindRemain: TCount;
