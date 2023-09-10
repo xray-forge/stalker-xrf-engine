@@ -6,7 +6,7 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Action to set movement type to stand + search.
  */
 @LuabindClass()
 export class ActionMovementStandSearch extends action_base {
@@ -18,7 +18,7 @@ export class ActionMovementStandSearch extends action_base {
   }
 
   /**
-   * todo: Description.
+   * Set correct movement type and according sight type.
    */
   public override initialize(): void {
     super.initialize();

@@ -1,4 +1,4 @@
-import { WEAPON_POSTFIX } from "@/engine/core/objects/animation";
+import { WEAPON_POSTFIX } from "@/engine/core/objects/animation/types";
 import {
   EObjectCampActivity,
   ICampTransitionDescriptor,

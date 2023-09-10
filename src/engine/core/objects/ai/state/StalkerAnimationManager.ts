@@ -2,6 +2,8 @@ import { callback, hit, time_global } from "xray16";
 
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import type { StalkerStateManager } from "@/engine/core/objects/ai/state/StalkerStateManager";
+import { animations } from "@/engine/core/objects/animation/animations";
+import { animstates } from "@/engine/core/objects/animation/animstates";
 import {
   EAnimationMarker,
   EAnimationType,
@@ -9,10 +11,8 @@ import {
   IAnimationDescriptorProperties,
   IAnimationManagerState,
   TAnimationSequenceElements,
-} from "@/engine/core/objects/animation/animation_types";
-import { animations } from "@/engine/core/objects/animation/animations";
-import { animstates } from "@/engine/core/objects/animation/animstates";
-import type { EStalkerState } from "@/engine/core/objects/animation/state_types";
+} from "@/engine/core/objects/animation/types/animation_types";
+import type { EStalkerState } from "@/engine/core/objects/animation/types/state_types";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getObjectActiveWeaponSlot } from "@/engine/core/utils/object/object_get";
 import { createVector, vectorRotateY } from "@/engine/core/utils/vector";

@@ -1,5 +1,5 @@
 import { IRegistryObjectState, registry } from "@/engine/core/database";
-import { AbstractScheme } from "@/engine/core/schemes";
+import { AbstractScheme } from "@/engine/core/objects/ai/scheme";
 import { CombatProcessEnemyManager } from "@/engine/core/schemes/combat_ignore/CombatProcessEnemyManager";
 import { ISchemeCombatIgnoreState } from "@/engine/core/schemes/combat_ignore/ISchemeCombatIgnoreState";
 import { LuaLogger } from "@/engine/core/utils/logging";

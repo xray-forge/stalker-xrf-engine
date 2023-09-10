@@ -1,9 +1,9 @@
 import { level, world_property } from "xray16";
 
+import { EvaluatorSectionActive } from "@/engine/core/objects/ai/planner/evaluators/EvaluatorSectionActive";
+import { AbstractScheme } from "@/engine/core/objects/ai/scheme";
 import { EActionId, EEvaluatorId } from "@/engine/core/objects/ai/types";
-import { AbstractScheme } from "@/engine/core/schemes/base";
 import { ActionWalkerActivity } from "@/engine/core/schemes/walker/actions";
-import { EvaluatorNeedWalker } from "@/engine/core/schemes/walker/evaluators";
 import { ISchemeWalkerState } from "@/engine/core/schemes/walker/ISchemeWalkerState";
 import { assert } from "@/engine/core/utils/assertion";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini/ini_config";
@@ -71,7 +71,10 @@ export class SchemeWalker extends AbstractScheme {
   ): void {
     const actionPlanner: ActionPlanner = object.motivation_action_manager();
 
-    actionPlanner.add_evaluator(EEvaluatorId.NEED_WALKER, new EvaluatorNeedWalker(state));
+    actionPlanner.add_evaluator(
+      EEvaluatorId.NEED_WALKER,
+      new EvaluatorSectionActive(state, "EvaluatorWalkerSectionActive")
+    );
 
     const actionWalkerActivity: ActionWalkerActivity = new ActionWalkerActivity(state, object);
 

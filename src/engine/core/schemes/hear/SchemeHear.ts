@@ -1,5 +1,5 @@
 import { getStoryIdByObjectId, IRegistryObjectState, registry } from "@/engine/core/database";
-import { AbstractScheme } from "@/engine/core/schemes";
+import { AbstractScheme } from "@/engine/core/objects/ai/scheme";
 import { ISchemeDangerState } from "@/engine/core/schemes/danger";
 import { IActionSchemeHearState } from "@/engine/core/schemes/hear/IActionSchemeHearState";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/ini_config";

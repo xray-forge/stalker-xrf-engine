@@ -1,4 +1,4 @@
-import type { IBaseSchemeLogic, IBaseSchemeState } from "@/engine/core/schemes/base";
+import type { IBaseSchemeLogic, IBaseSchemeState } from "@/engine/core/objects/ai/scheme";
 import type { TInfoPortion } from "@/engine/lib/constants/info_portions";
 import type { Optional, TCount, TDistance, TDuration, TName, TRate } from "@/engine/lib/types";
 

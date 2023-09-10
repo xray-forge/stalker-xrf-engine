@@ -1,6 +1,6 @@
+import { TAbstractSchemeConstructor } from "@/engine/core/objects/ai/scheme";
 import { SchemeAbuse } from "@/engine/core/schemes/abuse";
 import { SchemeAnimpoint } from "@/engine/core/schemes/animpoint";
-import { TAbstractSchemeConstructor } from "@/engine/core/schemes/base";
 import { SchemeCamper } from "@/engine/core/schemes/camper";
 import { SchemeCombat } from "@/engine/core/schemes/combat";
 import { SchemeCombatCamper } from "@/engine/core/schemes/combat_camper";

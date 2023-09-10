@@ -1,7 +1,7 @@
 import { CHelicopter, level, patrol } from "xray16";
 
 import { getPortableStoreValue, registry, setPortableStoreValue } from "@/engine/core/database";
-import { AbstractSchemeManager } from "@/engine/core/schemes";
+import { AbstractSchemeManager } from "@/engine/core/objects/ai/scheme";
 import { getHeliFirer, HeliFire } from "@/engine/core/schemes/heli_move/HeliFire";
 import { getHeliFlyer, HeliFly } from "@/engine/core/schemes/heli_move/HeliFly";
 import { getHeliLooker, HeliLook } from "@/engine/core/schemes/heli_move/HeliLook";

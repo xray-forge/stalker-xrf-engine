@@ -1,11 +1,12 @@
 import { world_property } from "xray16";
 
+import { EvaluatorSectionActive } from "@/engine/core/objects/ai/planner/evaluators/EvaluatorSectionActive";
+import { AbstractScheme } from "@/engine/core/objects/ai/scheme";
 import { EActionId, EEvaluatorId } from "@/engine/core/objects/ai/types";
-import { EStalkerState } from "@/engine/core/objects/animation";
-import { AbstractScheme } from "@/engine/core/schemes";
+import { EStalkerState } from "@/engine/core/objects/animation/types";
 import { ActionAnimpoint, ActionReachAnimpoint } from "@/engine/core/schemes/animpoint/actions";
 import { AnimpointManager } from "@/engine/core/schemes/animpoint/AnimpointManager";
-import { EvaluatorNeedAnimpoint, EvaluatorReachAnimpoint } from "@/engine/core/schemes/animpoint/evaluators";
+import { EvaluatorReachAnimpoint } from "@/engine/core/schemes/animpoint/evaluators";
 import { ISchemeAnimpointState } from "@/engine/core/schemes/animpoint/types";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini/ini_config";
 import { parseStringsList } from "@/engine/core/utils/ini/ini_parse";
@@ -65,8 +66,11 @@ export class SchemeAnimpoint extends AbstractScheme {
   ): void {
     const planner: ActionPlanner = object.motivation_action_manager();
 
-    planner.add_evaluator(EEvaluatorId.IS_ANIMPOINT_NEEDED, new EvaluatorNeedAnimpoint(schemeState));
     planner.add_evaluator(EEvaluatorId.IS_ANIMPOINT_REACHED, new EvaluatorReachAnimpoint(schemeState));
+    planner.add_evaluator(
+      EEvaluatorId.IS_ANIMPOINT_NEEDED,
+      new EvaluatorSectionActive(schemeState, "EvaluatorSleepSectionActive")
+    );
 
     schemeState.animpointManager = new AnimpointManager(object, schemeState);
 

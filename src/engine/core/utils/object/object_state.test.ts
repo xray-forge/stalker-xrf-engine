@@ -4,7 +4,7 @@ import { IRegistryObjectState, registerObject } from "@/engine/core/database";
 import { StalkerAnimationManager } from "@/engine/core/objects/ai/state/StalkerAnimationManager";
 import { StalkerStateManager } from "@/engine/core/objects/ai/state/StalkerStateManager";
 import { EActionId } from "@/engine/core/objects/ai/types";
-import { EAnimationType, EStalkerState } from "@/engine/core/objects/animation";
+import { EAnimationType, EStalkerState } from "@/engine/core/objects/animation/types";
 import { ISchemeWoundedState } from "@/engine/core/schemes/wounded";
 import { WoundManager } from "@/engine/core/schemes/wounded/WoundManager";
 import { isObjectAsleep, isObjectMeeting, isObjectWounded } from "@/engine/core/utils/object/object_state";

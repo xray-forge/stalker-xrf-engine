@@ -1,9 +1,9 @@
 import { world_property } from "xray16";
 
+import { EvaluatorSectionActive } from "@/engine/core/objects/ai/planner/evaluators/EvaluatorSectionActive";
+import { AbstractScheme } from "@/engine/core/objects/ai/scheme";
 import { EActionId, EEvaluatorId } from "@/engine/core/objects/ai/types";
-import { AbstractScheme } from "@/engine/core/schemes";
 import { ActionCompanionActivity } from "@/engine/core/schemes/companion/actions";
-import { EvaluatorNeedCompanion } from "@/engine/core/schemes/companion/evaluators";
 import { ISchemeCompanionState } from "@/engine/core/schemes/companion/ISchemeCompanionState";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini/ini_config";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -47,7 +47,10 @@ export class SchemeCompanion extends AbstractScheme {
   ): void {
     const actionPlanner: ActionPlanner = object.motivation_action_manager();
 
-    actionPlanner.add_evaluator(EEvaluatorId.NEED_COMPANION, new EvaluatorNeedCompanion(state));
+    actionPlanner.add_evaluator(
+      EEvaluatorId.NEED_COMPANION,
+      new EvaluatorSectionActive(state, "EvaluatorCompanionSectionActive")
+    );
 
     const actionCompanionActivity: ActionCompanionActivity = new ActionCompanionActivity(state);
 

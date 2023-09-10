@@ -1,4 +1,4 @@
-import type { IBaseSchemeState } from "@/engine/core/schemes/base";
+import type { IBaseSchemeState } from "@/engine/core/objects/ai/scheme";
 import type { MeetManager } from "@/engine/core/schemes/meet/MeetManager";
 import type { TConditionList } from "@/engine/core/utils/ini/ini_types";
 import type { Optional, TDistance, TSection } from "@/engine/lib/types";

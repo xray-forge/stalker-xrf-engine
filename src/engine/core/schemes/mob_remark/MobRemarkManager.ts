@@ -2,7 +2,7 @@ import { anim, cond, MonsterSpace, sound } from "xray16";
 
 import { registry, setMonsterState } from "@/engine/core/database";
 import { NotificationManager } from "@/engine/core/managers/notifications";
-import { AbstractSchemeManager } from "@/engine/core/schemes/base";
+import { AbstractSchemeManager } from "@/engine/core/objects/ai/scheme";
 import { ISchemeMobRemarkState } from "@/engine/core/schemes/mob_remark/ISchemeMobRemarkState";
 import { abort } from "@/engine/core/utils/assertion";
 import { getExtern } from "@/engine/core/utils/binding";

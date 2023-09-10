@@ -6,7 +6,7 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Checking current mental state to be danger.
  */
 @LuabindClass()
 export class EvaluatorMentalDangerNow extends property_evaluator {
@@ -18,7 +18,7 @@ export class EvaluatorMentalDangerNow extends property_evaluator {
   }
 
   /**
-   * todo: Description.
+   * Evaluate whether mental state of object is danger now.
    */
   public override evaluate(): boolean {
     return this.object.target_mental_state() === anim.danger;

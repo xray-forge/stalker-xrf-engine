@@ -1,7 +1,7 @@
 import { LuabindClass, property_evaluator } from "xray16";
 
 import type { StalkerStateManager } from "@/engine/core/objects/ai/state/StalkerStateManager";
-import { EAnimationMarker } from "@/engine/core/objects/animation/animation_types";
+import { EAnimationMarker } from "@/engine/core/objects/animation/types/animation_types";
 import { LuaLogger } from "@/engine/core/utils/logging";
 
 const logger: LuaLogger = new LuaLogger($filename);

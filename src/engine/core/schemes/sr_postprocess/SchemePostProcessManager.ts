@@ -1,7 +1,7 @@
 import { color, hit, noise, time_global } from "xray16";
 
 import { registry } from "@/engine/core/database";
-import { AbstractSchemeManager } from "@/engine/core/schemes";
+import { AbstractSchemeManager } from "@/engine/core/objects/ai/scheme";
 import { ISchemePostProcessState } from "@/engine/core/schemes/sr_postprocess/ISchemePostProcessState";
 import { PostProcessEffector } from "@/engine/core/schemes/sr_postprocess/PostProcessEffector";
 import { abort } from "@/engine/core/utils/assertion";

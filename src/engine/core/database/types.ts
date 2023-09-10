@@ -1,6 +1,7 @@
+import { ObjectRestrictionsManager } from "@/engine/core/objects/ai/restriction";
+import { IBaseSchemeState } from "@/engine/core/objects/ai/scheme";
 import { StalkerMoveManager } from "@/engine/core/objects/ai/state/StalkerMoveManager";
 import { StalkerStateManager } from "@/engine/core/objects/ai/state/StalkerStateManager";
-import { IBaseSchemeState, ObjectRestrictionsManager } from "@/engine/core/schemes";
 import { ISchemePostCombatIdleState } from "@/engine/core/schemes/combat_idle/ISchemePostCombatIdleState";
 import { IActionSchemeHearState } from "@/engine/core/schemes/hear";
 import {

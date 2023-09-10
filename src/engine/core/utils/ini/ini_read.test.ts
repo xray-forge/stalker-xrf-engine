@@ -1,6 +1,6 @@
 import { describe, expect, it } from "@jest/globals";
 
-import { IBaseSchemeLogic } from "@/engine/core/schemes";
+import { IBaseSchemeLogic } from "@/engine/core/objects/ai/scheme";
 import {
   readIniBoolean,
   readIniConditionList,

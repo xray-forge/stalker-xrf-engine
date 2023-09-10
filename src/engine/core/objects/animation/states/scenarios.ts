@@ -1,7 +1,7 @@
 import { anim, CSightParams, move } from "xray16";
 
-import { EWeaponAnimation } from "@/engine/core/objects/animation/animation_types";
-import { IStateDescriptor } from "@/engine/core/objects/animation/state_types";
+import { EWeaponAnimation } from "@/engine/core/objects/animation/types/animation_types";
+import { IStateDescriptor } from "@/engine/core/objects/animation/types/state_types";
 import { TName } from "@/engine/lib/types";
 
 /**

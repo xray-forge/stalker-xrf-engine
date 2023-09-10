@@ -1,6 +1,6 @@
 import { level, patrol } from "xray16";
 
-import { EStalkerState } from "@/engine/core/objects/animation";
+import { EStalkerState } from "@/engine/core/objects/animation/types";
 import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain";
 import { IWaypointData, parseWaypointData } from "@/engine/core/utils/ini";
 import { jobPreconditionSniper } from "@/engine/core/utils/job/job_precondition";

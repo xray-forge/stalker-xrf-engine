@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 
 import { registry } from "@/engine/core/database";
-import { ESchemeEvent, IBaseSchemeState } from "@/engine/core/schemes";
+import { ESchemeEvent, IBaseSchemeState } from "@/engine/core/objects/ai/scheme";
 import { emitSchemeEvent } from "@/engine/core/utils/scheme/scheme_event";
 import { ClientObject, EScheme } from "@/engine/lib/types";
 import { mockSchemeState } from "@/fixtures/engine/mocks";

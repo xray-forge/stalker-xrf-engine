@@ -1,4 +1,4 @@
-import type { IBaseSchemeState } from "@/engine/core/schemes/base";
+import type { IBaseSchemeState } from "@/engine/core/objects/ai/scheme";
 import type { EMonsterState } from "@/engine/lib/constants/monsters";
 import type { Optional, TDistance } from "@/engine/lib/types";
 

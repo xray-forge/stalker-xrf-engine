@@ -1,4 +1,4 @@
-import { IBaseSchemeState } from "@/engine/core/schemes/base";
+import { IBaseSchemeState } from "@/engine/core/objects/ai/scheme";
 import { Optional, TNumberId, Vector } from "@/engine/lib/types";
 
 /**

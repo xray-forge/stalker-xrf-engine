@@ -5,7 +5,7 @@ import { loadObjectLogic, saveObjectLogic } from "@/engine/core/database/logic";
 import { registerObject, resetObject } from "@/engine/core/database/objects";
 import { getPortableStoreValue, setPortableStoreValue } from "@/engine/core/database/portable_store";
 import { IRegistryObjectState } from "@/engine/core/database/types";
-import { IBaseSchemeState } from "@/engine/core/schemes";
+import { IBaseSchemeState } from "@/engine/core/objects/ai/scheme";
 import { ClientObject, EScheme } from "@/engine/lib/types";
 import { replaceFunctionMock } from "@/fixtures/utils/function_mock";
 import { EPacketDataType, mockClientGameObject, mockNetPacket, MockNetProcessor } from "@/fixtures/xray";

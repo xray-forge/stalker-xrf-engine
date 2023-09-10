@@ -6,7 +6,7 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Checking current mental state to be free.
  */
 @LuabindClass()
 export class EvaluatorMentalFreeNow extends property_evaluator {

@@ -1,9 +1,9 @@
 import { world_property } from "xray16";
 
+import { EvaluatorSectionActive } from "@/engine/core/objects/ai/planner/evaluators/EvaluatorSectionActive";
+import { AbstractScheme } from "@/engine/core/objects/ai/scheme";
 import { EActionId, EEvaluatorId } from "@/engine/core/objects/ai/types";
-import { AbstractScheme } from "@/engine/core/schemes";
 import { ActionCover } from "@/engine/core/schemes/cover/actions";
-import { EvaluatorNeedCover } from "@/engine/core/schemes/cover/evaluators";
 import { ISchemeCoverState } from "@/engine/core/schemes/cover/ISchemeCoverState";
 import { assertDefined } from "@/engine/core/utils/assertion";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini/ini_config";
@@ -55,7 +55,10 @@ export class SchemeCover extends AbstractScheme {
     const actionPlanner: ActionPlanner = object.motivation_action_manager();
 
     // Add new evaluator to check whether smart cover is needed.
-    actionPlanner.add_evaluator(EEvaluatorId.NEED_COVER, new EvaluatorNeedCover(state));
+    actionPlanner.add_evaluator(
+      EEvaluatorId.NEED_COVER,
+      new EvaluatorSectionActive(state, "EvaluatorCoverSectionActive")
+    );
 
     const newAction: ActionCover = new ActionCover(state);
 

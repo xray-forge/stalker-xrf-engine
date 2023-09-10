@@ -6,7 +6,7 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Checking current mental state to be panic.
  */
 @LuabindClass()
 export class EvaluatorMentalPanicNow extends property_evaluator {

@@ -1,4 +1,4 @@
-import { AbstractScheme } from "@/engine/core/schemes/base";
+import { AbstractScheme } from "@/engine/core/objects/ai/scheme";
 import { ISchemeNoWeaponState } from "@/engine/core/schemes/sr_no_weapon/ISchemeNoWeaponState";
 import { NoWeaponManager } from "@/engine/core/schemes/sr_no_weapon/NoWeaponManager";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini/ini_config";

@@ -9,7 +9,7 @@ import {
   ILookTargetDescriptor,
   IStateManagerCallbackDescriptor,
   ITargetStateDescriptorExtras,
-} from "@/engine/core/objects/animation/state_types";
+} from "@/engine/core/objects/animation/types";
 import type { StalkerBinder } from "@/engine/core/objects/binders/creature/StalkerBinder";
 import type { ClientObject, Optional, TDuration } from "@/engine/lib/types";
 

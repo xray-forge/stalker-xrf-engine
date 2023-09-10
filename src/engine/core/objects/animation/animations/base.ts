@@ -1,5 +1,5 @@
-import { IAnimationDescriptor } from "@/engine/core/objects/animation/animation_types";
-import { EStalkerState } from "@/engine/core/objects/animation/state_types";
+import { IAnimationDescriptor } from "@/engine/core/objects/animation/types/animation_types";
+import { EStalkerState } from "@/engine/core/objects/animation/types/state_types";
 import { finishCorpseLooting } from "@/engine/core/schemes/corpse_detection/utils";
 import { finishObjectHelpWounded } from "@/engine/core/schemes/help_wounded/utils";
 import { createSequence } from "@/engine/core/utils/animation";

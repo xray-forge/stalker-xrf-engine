@@ -3,7 +3,7 @@ import { alife } from "xray16";
 import { registry } from "@/engine/core/database/registry";
 import { getObjectIdByStoryId } from "@/engine/core/database/story_objects";
 import { IRegistryObjectState } from "@/engine/core/database/types";
-import { IBaseSchemeLogic } from "@/engine/core/schemes";
+import { IBaseSchemeLogic } from "@/engine/core/objects/ai/scheme";
 import { abort } from "@/engine/core/utils/assertion";
 import { parseConditionsList } from "@/engine/core/utils/ini/ini_parse";
 import {

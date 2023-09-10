@@ -2,7 +2,7 @@ import { LuabindClass, property_evaluator } from "xray16";
 
 import { StalkerStateManager } from "@/engine/core/objects/ai/state/StalkerStateManager";
 import { EStateEvaluatorId, NO_IDLE_ALIFE_IDS } from "@/engine/core/objects/ai/types";
-import { EStalkerState } from "@/engine/core/objects/animation/state_types";
+import { EStalkerState } from "@/engine/core/objects/animation/types/state_types";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { ActionPlanner, Optional, TNumberId } from "@/engine/lib/types";
 
@@ -45,7 +45,7 @@ export class EvaluatorStateIdleItems extends property_evaluator {
       this.stateManager.targetState === EStalkerState.IDLE &&
       !this.stateManager.planner.evaluator(EStateEvaluatorId.ANIMSTATE_LOCKED).evaluate() &&
       !this.stateManager.planner.evaluator(EStateEvaluatorId.ANIMATION_LOCKED).evaluate() &&
-      this.stateManager.planner.evaluator(EStateEvaluatorId.MOVEMENT).evaluate() &&
+      this.stateManager.planner.evaluator(EStateEvaluatorId.MOVEMENT_SET).evaluate() &&
       this.stateManager.planner.evaluator(EStateEvaluatorId.ANIMSTATE).evaluate() &&
       this.stateManager.planner.evaluator(EStateEvaluatorId.ANIMATION).evaluate() &&
       this.stateManager.planner.evaluator(EStateEvaluatorId.SMARTCOVER).evaluate()

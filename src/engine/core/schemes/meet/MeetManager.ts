@@ -2,8 +2,8 @@ import { alife } from "xray16";
 
 import { getObjectByStoryId, registry, setStalkerState } from "@/engine/core/database";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
-import { EStalkerState } from "@/engine/core/objects/animation";
-import { AbstractSchemeManager } from "@/engine/core/schemes";
+import { AbstractSchemeManager } from "@/engine/core/objects/ai/scheme";
+import { EStalkerState } from "@/engine/core/objects/animation/types";
 import { EMeetDistance, ISchemeMeetState } from "@/engine/core/schemes/meet/ISchemeMeetState";
 import { isBlackScreen } from "@/engine/core/utils/game";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini";

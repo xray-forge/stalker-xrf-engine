@@ -2,8 +2,8 @@ import { action_base, level, LuabindClass, patrol } from "xray16";
 
 import { getObjectByStoryId, registry, setStalkerState } from "@/engine/core/database";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
-import { ESmartCoverState, EStalkerState } from "@/engine/core/objects/animation/state_types";
-import { ISchemeEventHandler } from "@/engine/core/schemes";
+import { ISchemeEventHandler } from "@/engine/core/objects/ai/scheme";
+import { ESmartCoverState, EStalkerState } from "@/engine/core/objects/animation/types/state_types";
 import { ActionSleeperActivity } from "@/engine/core/schemes/sleeper/actions";
 import { COVER_SUBSTATE_TABLE, ISchemeSmartCoverState } from "@/engine/core/schemes/smartcover/ISchemeSmartCoverState";
 import { abort } from "@/engine/core/utils/assertion";

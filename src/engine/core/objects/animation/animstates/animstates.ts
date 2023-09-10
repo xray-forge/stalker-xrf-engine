@@ -1,5 +1,5 @@
-import { IAnimationDescriptor } from "@/engine/core/objects/animation/animation_types";
-import { EStalkerState } from "@/engine/core/objects/animation/state_types";
+import { IAnimationDescriptor } from "@/engine/core/objects/animation/types/animation_types";
+import { EStalkerState } from "@/engine/core/objects/animation/types/state_types";
 import { createSequence } from "@/engine/core/utils/animation";
 import { getExtern } from "@/engine/core/utils/binding";
 import { AnyArgs, AnyCallablesModule, TName } from "@/engine/lib/types";

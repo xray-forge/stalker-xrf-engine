@@ -1,11 +1,12 @@
 import { world_property } from "xray16";
 
 import { registry } from "@/engine/core/database";
+import { EvaluatorSectionEnded } from "@/engine/core/objects/ai/planner/evaluators";
+import { AbstractScheme } from "@/engine/core/objects/ai/scheme";
 import { EActionId, EEvaluatorId } from "@/engine/core/objects/ai/types";
 import { Squad } from "@/engine/core/objects/server/squad/Squad";
-import { AbstractScheme } from "@/engine/core/schemes";
 import { ActionCommander, ActionPatrol } from "@/engine/core/schemes/patrol/actions";
-import { EvaluatorPatrolComm, EvaluatorPatrolEnd } from "@/engine/core/schemes/patrol/evaluators";
+import { EvaluatorPatrolCommander } from "@/engine/core/schemes/patrol/evaluators";
 import { ISchemePatrolState } from "@/engine/core/schemes/patrol/ISchemePatrolState";
 import { PatrolManager } from "@/engine/core/schemes/patrol/PatrolManager";
 import { abort } from "@/engine/core/utils/assertion";
@@ -102,8 +103,11 @@ export class SchemePatrol extends AbstractScheme {
   ): void {
     const actionPlanner: ActionPlanner = object.motivation_action_manager();
 
-    actionPlanner.add_evaluator(EEvaluatorId.IS_PATROL_ENDED, new EvaluatorPatrolEnd(state));
-    actionPlanner.add_evaluator(EEvaluatorId.IS_PATROL_COMMANDER, new EvaluatorPatrolComm(state));
+    actionPlanner.add_evaluator(
+      EEvaluatorId.IS_PATROL_ENDED,
+      new EvaluatorSectionEnded(state, "EvaluatorPatrolSectionEnded")
+    );
+    actionPlanner.add_evaluator(EEvaluatorId.IS_PATROL_COMMANDER, new EvaluatorPatrolCommander(state));
 
     const actionCommander: ActionCommander = new ActionCommander(state, object);
 

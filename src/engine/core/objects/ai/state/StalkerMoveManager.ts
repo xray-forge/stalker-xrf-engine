@@ -1,7 +1,7 @@
 import { callback, level, move, patrol, time_global } from "xray16";
 
 import { IRegistryObjectState, registry, setStalkerState } from "@/engine/core/database";
-import { ECurrentMovementState, EStalkerState } from "@/engine/core/objects/animation/state_types";
+import { ECurrentMovementState, EStalkerState } from "@/engine/core/objects/animation/types/state_types";
 import { abort } from "@/engine/core/utils/assertion";
 import { IWaypointData, parseConditionsList, pickSectionFromCondList, TConditionList } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";

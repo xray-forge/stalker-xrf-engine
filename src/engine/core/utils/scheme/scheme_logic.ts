@@ -2,14 +2,14 @@ import { callback, clsid, game, time_global } from "xray16";
 
 import { IRegistryObjectState, IStoredOfflineObject, registry } from "@/engine/core/database";
 import { MapDisplayManager } from "@/engine/core/managers/map/MapDisplayManager";
-import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain";
+import { ObjectRestrictionsManager } from "@/engine/core/objects/ai/restriction";
 import {
   ESchemeEvent,
   IBaseSchemeLogic,
   IBaseSchemeState,
-  ObjectRestrictionsManager,
   TAbstractSchemeConstructor,
-} from "@/engine/core/schemes";
+} from "@/engine/core/objects/ai/scheme";
+import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain";
 import { assert, assertDefined } from "@/engine/core/utils/assertion";
 import { getObjectConfigOverrides, pickSectionFromCondList } from "@/engine/core/utils/ini/ini_config";
 import { getSchemeFromSection } from "@/engine/core/utils/ini/ini_parse";

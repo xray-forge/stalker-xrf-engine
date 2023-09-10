@@ -1,6 +1,6 @@
 import type { CUIStatic } from "xray16";
 
-import type { IBaseSchemeLogic, IBaseSchemeState } from "@/engine/core/schemes/base";
+import type { IBaseSchemeLogic, IBaseSchemeState } from "@/engine/core/objects/ai/scheme";
 import type { Optional, TCount, TLabel, TStringId } from "@/engine/lib/types";
 
 /**

@@ -1,18 +1,18 @@
 import { level } from "xray16";
 
 import { getCampZoneForPosition, registry } from "@/engine/core/database";
-import { EStalkerState, WEAPON_POSTFIX } from "@/engine/core/objects/animation";
+import { AbstractSchemeManager } from "@/engine/core/objects/ai/scheme";
 import {
   animpoint_predicates,
   animpointPredicateAlways,
 } from "@/engine/core/objects/animation/predicates/animpoint_predicates";
 import { states } from "@/engine/core/objects/animation/states";
+import { EStalkerState, WEAPON_POSTFIX } from "@/engine/core/objects/animation/types";
 import { EObjectCampActivity } from "@/engine/core/objects/camp";
 import { CAMP_ACTIVITY_ANIMATION } from "@/engine/core/objects/camp/camp_logic";
 import { CampManager } from "@/engine/core/objects/camp/CampManager";
 import { SmartCover } from "@/engine/core/objects/server/smart_cover";
 import { IAnimpointActionDescriptor, ISchemeAnimpointState } from "@/engine/core/schemes/animpoint/types";
-import { AbstractSchemeManager } from "@/engine/core/schemes/base";
 import { assert } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { angleToDirection, createVector } from "@/engine/core/utils/vector";

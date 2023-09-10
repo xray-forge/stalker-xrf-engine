@@ -1,4 +1,4 @@
-import { IBaseSchemeState } from "@/engine/core/schemes/base";
+import { IBaseSchemeState } from "@/engine/core/objects/ai/scheme";
 import { DangerManager } from "@/engine/core/schemes/danger/DangerManager";
 import { Optional, TTimestamp } from "@/engine/lib/types";
 

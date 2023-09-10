@@ -1,7 +1,7 @@
 import { CCar, level, move, patrol, time_global } from "xray16";
 
 import { getObjectByStoryId, registry } from "@/engine/core/database";
-import { AbstractSchemeManager } from "@/engine/core/schemes/base";
+import { AbstractSchemeManager } from "@/engine/core/objects/ai/scheme";
 import { ISchemeMinigunState } from "@/engine/core/schemes/ph_minigun/ISchemeMinigunState";
 import { abort } from "@/engine/core/utils/assertion";
 import { pickSectionFromCondList, TConditionList } from "@/engine/core/utils/ini";

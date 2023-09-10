@@ -6,7 +6,7 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Evaluator to check movement type `stand` is applied now.
  */
 @LuabindClass()
 export class EvaluatorMovementStandNow extends property_evaluator {
@@ -18,7 +18,7 @@ export class EvaluatorMovementStandNow extends property_evaluator {
   }
 
   /**
-   * todo: Description.
+   * Check if state is set to `stand` movement action.
    */
   public override evaluate(): boolean {
     return this.object.target_movement_type() === move.stand;
