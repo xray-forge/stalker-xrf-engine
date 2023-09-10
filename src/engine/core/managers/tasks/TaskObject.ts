@@ -8,8 +8,8 @@ import {
   openSaveMarker,
   registry,
 } from "@/engine/core/database";
-import { ETaskState, ETaskStatus, POSSIBLE_STATES } from "@/engine/core/managers/interaction/tasks/types";
 import { NotificationManager } from "@/engine/core/managers/interface/notifications";
+import { ETaskState, ETaskStatus, POSSIBLE_STATES } from "@/engine/core/managers/tasks/types";
 import { assertDefined } from "@/engine/core/utils/assertion";
 import { getExtern } from "@/engine/core/utils/binding";
 import { readTimeFromPacket, writeTimeToPacket } from "@/engine/core/utils/game/game_time";

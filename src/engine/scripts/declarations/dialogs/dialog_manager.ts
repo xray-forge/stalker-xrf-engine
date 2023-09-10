@@ -1,12 +1,6 @@
+import { DialogManager, EGenericDialogCategory, IPhrasesDescriptor, TPHRTable, TPRTTable } from "core/managers/dialog";
 import { game } from "xray16";
 
-import {
-  DialogManager,
-  EGenericDialogCategory,
-  IPhrasesDescriptor,
-  TPHRTable,
-  TPRTTable,
-} from "@/engine/core/managers/interaction/dialog";
 import type { SmartTerrain } from "@/engine/core/objects/server/smart_terrain";
 import { extern } from "@/engine/core/utils/binding";
 import { LuaLogger } from "@/engine/core/utils/logging";

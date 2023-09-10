@@ -2,8 +2,7 @@ import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { relation_registry } from "xray16";
 
 import { disposeManager, getManagerInstance, registerActor, registry } from "@/engine/core/database";
-import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
-import { achievementIcons } from "@/engine/core/managers/interaction/achievements/achievements_icons";
+import { achievementIcons } from "@/engine/core/managers/achievements/achievements_icons";
 import {
   hasAchievedBalanceAdvocate,
   hasAchievedBattleSystemsMaster,
@@ -26,10 +25,11 @@ import {
   hasAchievedSeeker,
   hasAchievedSkilledStalker,
   hasAchievedWealthy,
-} from "@/engine/core/managers/interaction/achievements/achievements_preconditions";
-import { achievementRewards } from "@/engine/core/managers/interaction/achievements/achievements_rewards";
-import { EAchievement } from "@/engine/core/managers/interaction/achievements/achievements_types";
-import { AchievementsManager } from "@/engine/core/managers/interaction/achievements/AchievementsManager";
+} from "@/engine/core/managers/achievements/achievements_preconditions";
+import { achievementRewards } from "@/engine/core/managers/achievements/achievements_rewards";
+import { EAchievement } from "@/engine/core/managers/achievements/achievements_types";
+import { AchievementsManager } from "@/engine/core/managers/achievements/AchievementsManager";
+import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { ENotificationType, ITipNotification } from "@/engine/core/managers/interface";
 import { StatisticsManager } from "@/engine/core/managers/interface/statistics/StatisticsManager";
 import { disableInfo, giveInfo, hasAlifeInfo } from "@/engine/core/utils/object/object_info_portion";

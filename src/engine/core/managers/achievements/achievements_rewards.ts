@@ -1,4 +1,4 @@
-import { EAchievement } from "@/engine/core/managers/interaction/achievements/achievements_types";
+import { EAchievement } from "@/engine/core/managers/achievements/achievements_types";
 import { TInventoryItem } from "@/engine/lib/constants/items";
 import { ammo } from "@/engine/lib/constants/items/ammo";
 import { drugs } from "@/engine/lib/constants/items/drugs";

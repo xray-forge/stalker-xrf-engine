@@ -1,8 +1,8 @@
 import { registry } from "@/engine/core/database";
+import { achievementIcons } from "@/engine/core/managers/achievements/achievements_icons";
+import { achievementRewards } from "@/engine/core/managers/achievements/achievements_rewards";
+import { EAchievement } from "@/engine/core/managers/achievements/achievements_types";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
-import { achievementIcons } from "@/engine/core/managers/interaction/achievements/achievements_icons";
-import { achievementRewards } from "@/engine/core/managers/interaction/achievements/achievements_rewards";
-import { EAchievement } from "@/engine/core/managers/interaction/achievements/achievements_types";
 import { ENotificationType, ITipNotification } from "@/engine/core/managers/interface";
 import { StatisticsManager } from "@/engine/core/managers/interface/statistics";
 import { giveInfo, hasAlifeInfo, hasAlifeInfos, hasFewAlifeInfos } from "@/engine/core/utils/object";

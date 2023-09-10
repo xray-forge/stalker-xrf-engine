@@ -1,6 +1,7 @@
+import type { ITradeManagerDescriptor } from "core/managers/trade";
+
 import type { IRegistryObjectState, IStoredOfflineObject } from "@/engine/core/database/types";
 import type { AbstractManager, TAbstractCoreManagerConstructor } from "@/engine/core/managers/base/AbstractManager";
-import type { ITradeManagerDescriptor } from "@/engine/core/managers/interaction/trade";
 import type { TSimulationObject } from "@/engine/core/managers/simulation";
 import type {
   AnomalyFieldBinder,

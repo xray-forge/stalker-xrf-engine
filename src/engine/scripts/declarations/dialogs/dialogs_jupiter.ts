@@ -1,10 +1,10 @@
 /* eslint @typescript-eslint/explicit-function-return-type: "error" */
 
+import { TreasureManager } from "core/managers/treasures";
 import { alife } from "xray16";
 
 import { registry } from "@/engine/core/database";
 import { getPortableStoreValue } from "@/engine/core/database/portable_store";
-import { TreasureManager } from "@/engine/core/managers/world/treasures";
 import { AnomalyZoneBinder } from "@/engine/core/objects/binders/zones/AnomalyZoneBinder";
 import { extern, getExtern } from "@/engine/core/utils/binding";
 import { LuaLogger } from "@/engine/core/utils/logging";

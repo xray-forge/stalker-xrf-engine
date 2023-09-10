@@ -1,9 +1,9 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 
 import { disposeManager, getManagerInstance, registerActor } from "@/engine/core/database";
+import { EAchievement } from "@/engine/core/managers/achievements/achievements_types";
+import { AchievementsManager } from "@/engine/core/managers/achievements/AchievementsManager";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
-import { EAchievement } from "@/engine/core/managers/interaction/achievements/achievements_types";
-import { AchievementsManager } from "@/engine/core/managers/interaction/achievements/AchievementsManager";
 import { ENotificationType, ITipNotification } from "@/engine/core/managers/interface";
 import { WeatherManager } from "@/engine/core/managers/world/WeatherManager";
 import { disableInfo, giveInfo, hasAlifeInfo } from "@/engine/core/utils/object/object_info_portion";

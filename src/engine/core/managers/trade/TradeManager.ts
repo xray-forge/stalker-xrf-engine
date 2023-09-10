@@ -9,7 +9,7 @@ import {
   registry,
 } from "@/engine/core/database";
 import { AbstractManager } from "@/engine/core/managers/base/AbstractManager";
-import { ITradeManagerDescriptor } from "@/engine/core/managers/interaction/trade/trade_types";
+import { ITradeManagerDescriptor } from "@/engine/core/managers/trade/trade_types";
 import { TAnimationSequenceElement } from "@/engine/core/objects/animation";
 import { abort, assertNonEmptyString } from "@/engine/core/utils/assertion";
 import { parseConditionsList, pickSectionFromCondList, readIniNumber, readIniString } from "@/engine/core/utils/ini";

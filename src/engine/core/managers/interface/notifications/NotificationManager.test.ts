@@ -1,8 +1,8 @@
 import { afterEach, beforeEach, describe, expect, it, jest } from "@jest/globals";
+import { ETaskState } from "core/managers/tasks";
 
 import { disposeManager, initializeManager, registerActor, registerStoryLink, registry } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
-import { ETaskState } from "@/engine/core/managers/interaction/tasks";
 import {
   ENotificationDirection,
   ENotificationType,

@@ -3,7 +3,7 @@ import { time_global } from "xray16";
 
 import { loadIniFile } from "@/engine/core/database";
 import { registry } from "@/engine/core/database/registry";
-import { TradeManager } from "@/engine/core/managers/interaction/trade/TradeManager";
+import { TradeManager } from "@/engine/core/managers/trade";
 import { parseConditionsList } from "@/engine/core/utils/ini";
 import { ClientObject, IniFile } from "@/engine/lib/types";
 import { replaceFunctionMock } from "@/fixtures/utils";

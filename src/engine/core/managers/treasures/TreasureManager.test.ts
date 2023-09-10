@@ -3,8 +3,8 @@ import { level } from "xray16";
 
 import { registerActor, registry } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
-import { TreasureManager } from "@/engine/core/managers/world/treasures/TreasureManager";
-import { ITreasureDescriptor } from "@/engine/core/managers/world/treasures/treasures_types";
+import { TreasureManager } from "@/engine/core/managers/treasures/TreasureManager";
+import { ITreasureDescriptor } from "@/engine/core/managers/treasures/treasures_types";
 import { parseConditionsList } from "@/engine/core/utils/ini";
 import { giveInfo } from "@/engine/core/utils/object";
 import { ClientObject, ServerObject } from "@/engine/lib/types";

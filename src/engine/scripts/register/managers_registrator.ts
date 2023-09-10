@@ -1,13 +1,15 @@
+import { AchievementsManager } from "core/managers/achievements";
+import { DialogManager } from "core/managers/dialog";
+import { SleepManager } from "core/managers/sleep";
+import { TaskManager } from "core/managers/tasks";
+import { TradeManager } from "core/managers/trade";
+import { TravelManager } from "core/managers/travel";
+import { TreasureManager } from "core/managers/treasures";
+
 import { initializeManager } from "@/engine/core/database";
 import { TAbstractCoreManagerConstructor } from "@/engine/core/managers/base/AbstractManager";
 import { ProfilingManager } from "@/engine/core/managers/debug/ProfilingManager";
 import { EventsManager } from "@/engine/core/managers/events";
-import { AchievementsManager } from "@/engine/core/managers/interaction/achievements";
-import { DialogManager } from "@/engine/core/managers/interaction/dialog/DialogManager";
-import { SleepManager } from "@/engine/core/managers/interaction/sleep";
-import { TaskManager } from "@/engine/core/managers/interaction/tasks";
-import { TradeManager } from "@/engine/core/managers/interaction/trade/TradeManager";
-import { TravelManager } from "@/engine/core/managers/interaction/travel/TravelManager";
 import { ActorInputManager, MapDisplayManager, NotificationManager } from "@/engine/core/managers/interface";
 import { ActorInventoryMenuManager } from "@/engine/core/managers/interface/ActorInventoryMenuManager";
 import { GameSettingsManager } from "@/engine/core/managers/interface/GameSettingsManager";
@@ -21,7 +23,6 @@ import { DynamicMusicManager } from "@/engine/core/managers/sounds/DynamicMusicM
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import { PhantomManager } from "@/engine/core/managers/world/PhantomManager";
 import { ReleaseBodyManager } from "@/engine/core/managers/world/ReleaseBodyManager";
-import { TreasureManager } from "@/engine/core/managers/world/treasures";
 import { WeatherManager } from "@/engine/core/managers/world/WeatherManager";
 import { LuaLogger } from "@/engine/core/utils/logging";
 

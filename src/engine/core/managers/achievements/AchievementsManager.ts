@@ -1,8 +1,6 @@
 import { alife, game } from "xray16";
 
 import { getObjectIdByStoryId } from "@/engine/core/database";
-import { AbstractManager } from "@/engine/core/managers/base/AbstractManager";
-import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import {
   hasAchievedBalanceAdvocate,
   hasAchievedBattleSystemsMaster,
@@ -25,9 +23,11 @@ import {
   hasAchievedSeeker,
   hasAchievedSkilledStalker,
   hasAchievedWealthy,
-} from "@/engine/core/managers/interaction/achievements/achievements_preconditions";
-import { achievementRewards } from "@/engine/core/managers/interaction/achievements/achievements_rewards";
-import { EAchievement } from "@/engine/core/managers/interaction/achievements/achievements_types";
+} from "@/engine/core/managers/achievements/achievements_preconditions";
+import { achievementRewards } from "@/engine/core/managers/achievements/achievements_rewards";
+import { EAchievement } from "@/engine/core/managers/achievements/achievements_types";
+import { AbstractManager } from "@/engine/core/managers/base/AbstractManager";
+import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import {
   ENotificationType,
   ITipNotification,

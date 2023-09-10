@@ -4,9 +4,9 @@ import { closeLoadMarker, closeSaveMarker, openSaveMarker, TASK_MANAGER_LTX } fr
 import { openLoadMarker } from "@/engine/core/database/save_markers";
 import { AbstractManager } from "@/engine/core/managers/base/AbstractManager";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
-import { TaskObject } from "@/engine/core/managers/interaction/tasks/TaskObject";
-import { ETaskState } from "@/engine/core/managers/interaction/tasks/types";
 import { NotificationManager } from "@/engine/core/managers/interface/notifications";
+import { TaskObject } from "@/engine/core/managers/tasks/TaskObject";
+import { ETaskState } from "@/engine/core/managers/tasks/types";
 import { assert } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getTableSize } from "@/engine/core/utils/table";

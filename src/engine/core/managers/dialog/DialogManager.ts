@@ -9,13 +9,13 @@ import {
   registry,
 } from "@/engine/core/database";
 import { AbstractManager } from "@/engine/core/managers/base/AbstractManager";
-import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import {
   EGenericDialogCategory,
   IPhrasesDescriptor,
   TPHRTable,
   TPRTTable,
-} from "@/engine/core/managers/interaction/dialog/dialog_types";
+} from "@/engine/core/managers/dialog/dialog_types";
+import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { assert } from "@/engine/core/utils/assertion";
 import { parseInfoPortions, parseStringsList } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";

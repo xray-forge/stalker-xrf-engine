@@ -1,5 +1,5 @@
-import { ETaskState } from "@/engine/core/managers/interaction/tasks/types";
 import { TNotificationIcon } from "@/engine/core/managers/interface/notifications";
+import { ETaskState } from "@/engine/core/managers/tasks/types";
 import {
   ClientObject,
   GameTask,

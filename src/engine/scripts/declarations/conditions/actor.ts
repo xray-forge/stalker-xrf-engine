@@ -4,7 +4,7 @@ import { registry } from "@/engine/core/database";
 import {
   hasAchievedInformationDealer,
   hasAchievedWealthy,
-} from "@/engine/core/managers/interaction/achievements/achievements_preconditions";
+} from "@/engine/core/managers/achievements/achievements_preconditions";
 import { SurgeManager } from "@/engine/core/managers/world/SurgeManager";
 import { ISchemeDeathState } from "@/engine/core/schemes/death";
 import { ISchemeHitState } from "@/engine/core/schemes/hit";

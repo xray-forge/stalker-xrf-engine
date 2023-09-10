@@ -1,3 +1,4 @@
+import { TaskManager } from "core/managers/tasks";
 import { alife, game, hit, level } from "xray16";
 
 import {
@@ -11,7 +12,6 @@ import {
 } from "@/engine/core/database";
 import { AbstractManager } from "@/engine/core/managers/base/AbstractManager";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
-import { TaskManager } from "@/engine/core/managers/interaction/tasks";
 import { ActorInputManager } from "@/engine/core/managers/interface";
 import { MapDisplayManager } from "@/engine/core/managers/interface/MapDisplayManager";
 import { SimulationBoardManager } from "@/engine/core/managers/simulation/SimulationBoardManager";
