@@ -1,1 +1,1 @@
-export * from "@/engine/core/managers";
+export * from "@/engine/core/managers/base/AbstractManager";

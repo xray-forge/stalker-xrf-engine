@@ -3,13 +3,35 @@ import { relation_registry } from "xray16";
 
 import { disposeManager, getManagerInstance, registerActor, registry } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
-import { achievementIcons } from "@/engine/core/managers/interaction/achievements/AchievementIcons";
-import { achievementRewards } from "@/engine/core/managers/interaction/achievements/AchievementRewards";
+import { achievementIcons } from "@/engine/core/managers/interaction/achievements/achievements_icons";
+import {
+  hasAchievedBalanceAdvocate,
+  hasAchievedBattleSystemsMaster,
+  hasAchievedDetective,
+  hasAchievedDiplomat,
+  hasAchievedFriendOfDuty,
+  hasAchievedFriendOfFreedom,
+  hasAchievedFriendOfStalkers,
+  hasAchievedHeraldOfJustice,
+  hasAchievedHighTechMaster,
+  hasAchievedInformationDealer,
+  hasAchievedKeeperOfSecrets,
+  hasAchievedKingpin,
+  hasAchievedLeader,
+  hasAchievedMarkedByZone,
+  hasAchievedMutantHunter,
+  hasAchievedOneOfLads,
+  hasAchievedPioneer,
+  hasAchievedResearchMan,
+  hasAchievedSeeker,
+  hasAchievedSkilledStalker,
+  hasAchievedWealthy,
+} from "@/engine/core/managers/interaction/achievements/achievements_preconditions";
+import { achievementRewards } from "@/engine/core/managers/interaction/achievements/achievements_rewards";
+import { EAchievement } from "@/engine/core/managers/interaction/achievements/achievements_types";
 import { AchievementsManager } from "@/engine/core/managers/interaction/achievements/AchievementsManager";
-import { EAchievement } from "@/engine/core/managers/interaction/achievements/types";
 import { ENotificationType, ITipNotification } from "@/engine/core/managers/interface";
 import { StatisticsManager } from "@/engine/core/managers/interface/statistics/StatisticsManager";
-import { WeatherManager } from "@/engine/core/managers/world/WeatherManager";
 import { disableInfo, giveInfo, hasAlifeInfo } from "@/engine/core/utils/object/object_info_portion";
 import { communities } from "@/engine/lib/constants/communities";
 import { infoPortions, TInfoPortion } from "@/engine/lib/constants/info_portions";
@@ -17,8 +39,6 @@ import { artefacts } from "@/engine/lib/constants/items/artefacts";
 import { TName } from "@/engine/lib/types";
 import { MockLuaTable } from "@/fixtures/lua/mocks/LuaTable.mock";
 import { mockActorClientGameObject, mockClientGameObject } from "@/fixtures/xray";
-import { MockCTime } from "@/fixtures/xray/mocks/CTime.mock";
-import { EPacketDataType, mockNetPacket, mockNetProcessor, MockNetProcessor } from "@/fixtures/xray/mocks/save";
 
 describe("AchievementManager class", () => {
   const mockNotificationListener = (caption: string, senderId: string) => {
@@ -68,99 +88,9 @@ describe("AchievementManager class", () => {
     registerActor(mockActorClientGameObject());
   });
 
-  it("should correctly initialize and destroy", () => {
-    const achievementsManager: AchievementsManager = getManagerInstance(AchievementsManager);
-    const eventsManager: EventsManager = getManagerInstance(EventsManager);
-
-    expect(eventsManager.getSubscribersCount()).toBe(1);
-
-    expect(achievementsManager.lastDetectiveAchievementSpawnTime).toBeNull();
-    expect(achievementsManager.lastMutantHunterAchievementSpawnTime).toBeNull();
-
-    disposeManager(AchievementsManager);
-
-    expect(eventsManager.getSubscribersCount()).toBe(0);
-  });
-
-  it("should correctly save and load by default", () => {
-    const netProcessor: MockNetProcessor = new MockNetProcessor();
-    const achievementsManager: AchievementsManager = getManagerInstance(AchievementsManager);
-
-    achievementsManager.save(mockNetPacket(netProcessor));
-
-    expect(netProcessor.writeDataOrder).toEqual([EPacketDataType.BOOLEAN, EPacketDataType.BOOLEAN]);
-    expect(netProcessor.dataList).toEqual([false, false]);
-
-    disposeManager(WeatherManager);
-
-    const newAchievementsManager: AchievementsManager = getManagerInstance(AchievementsManager);
-
-    newAchievementsManager.load(mockNetProcessor(netProcessor));
-
-    expect(netProcessor.readDataOrder).toEqual(netProcessor.writeDataOrder);
-    expect(netProcessor.dataList).toHaveLength(0);
-    expect(newAchievementsManager).toBe(achievementsManager);
-  });
-
-  it("should correctly save and load when state is updated", () => {
-    const netProcessor: MockNetProcessor = new MockNetProcessor();
-    const achievementsManager: AchievementsManager = getManagerInstance(AchievementsManager);
-
-    achievementsManager.lastDetectiveAchievementSpawnTime = MockCTime.mock(2023, 4, 16, 10, 57, 4, 400);
-    achievementsManager.lastMutantHunterAchievementSpawnTime = MockCTime.mock(2012, 2, 24, 5, 33, 2, 0);
-
-    achievementsManager.save(mockNetPacket(netProcessor));
-
-    expect(netProcessor.writeDataOrder).toEqual([
-      EPacketDataType.BOOLEAN,
-      EPacketDataType.U8,
-      EPacketDataType.U8,
-      EPacketDataType.U8,
-      EPacketDataType.U8,
-      EPacketDataType.U8,
-      EPacketDataType.U8,
-      EPacketDataType.U16,
-      EPacketDataType.BOOLEAN,
-      EPacketDataType.U8,
-      EPacketDataType.U8,
-      EPacketDataType.U8,
-      EPacketDataType.U8,
-      EPacketDataType.U8,
-      EPacketDataType.U8,
-      EPacketDataType.U16,
-    ]);
-    expect(netProcessor.dataList).toEqual([true, 23, 4, 16, 10, 57, 4, 400, true, 12, 2, 24, 5, 33, 2, 0]);
-
-    disposeManager(WeatherManager);
-
-    const newAchievementsManager: AchievementsManager = getManagerInstance(AchievementsManager);
-
-    newAchievementsManager.load(mockNetProcessor(netProcessor));
-
-    expect(netProcessor.readDataOrder).toEqual(netProcessor.writeDataOrder);
-    expect(netProcessor.dataList).toHaveLength(0);
-    expect(newAchievementsManager).toBe(achievementsManager);
-  });
-
-  it("should correctly check achievements by with generic method", () => {
-    const achievementsManager: AchievementsManager = getManagerInstance(AchievementsManager);
-
-    expect(achievementsManager.checkAchieved(EAchievement.DETECTIVE)).toBeFalsy();
-    expect(achievementsManager.checkAchieved(EAchievement.ONE_OF_THE_LADS)).toBeFalsy();
-
-    giveInfo(infoPortions.zat_b22_barmen_gave_reward);
-    giveInfo(infoPortions.zat_b30_sultan_loose);
-    giveInfo(infoPortions.zat_b7_actor_help_stalkers);
-
-    expect(achievementsManager.checkAchieved(EAchievement.DETECTIVE)).toBeTruthy();
-    expect(achievementsManager.checkAchieved(EAchievement.ONE_OF_THE_LADS)).toBeTruthy();
-  });
-
   it("should correctly check pioneer achievement", () => {
-    const achievementsManager: AchievementsManager = AchievementsManager.getInstance();
-
     checkGenericAchievement({
-      check: () => achievementsManager.checkAchievedPioneer(),
+      check: hasAchievedPioneer,
       notificationCaption: "st_ach_pioneer",
       notificationIcon: achievementIcons[EAchievement.PIONEER],
       achievementInfo: infoPortions.pioneer_achievement_gained,
@@ -173,10 +103,8 @@ describe("AchievementManager class", () => {
   });
 
   it("should correctly check mutant hunter achievement", () => {
-    const achievementsManager: AchievementsManager = AchievementsManager.getInstance();
-
     checkGenericAchievement({
-      check: () => achievementsManager.checkAchievedMutantHunter(),
+      check: hasAchievedMutantHunter,
       notificationCaption: "st_ach_mutant_hunter",
       notificationIcon: achievementIcons[EAchievement.MUTANT_HUNTER],
       achievementInfo: infoPortions.mutant_hunter_achievement_gained,
@@ -189,10 +117,8 @@ describe("AchievementManager class", () => {
   });
 
   it("should correctly check detective achievement", () => {
-    const achievementsManager: AchievementsManager = AchievementsManager.getInstance();
-
     checkGenericAchievement({
-      check: () => achievementsManager.checkAchievedDetective(),
+      check: hasAchievedDetective,
       notificationCaption: "st_ach_detective",
       notificationIcon: achievementIcons[EAchievement.DETECTIVE],
       achievementInfo: infoPortions.detective_achievement_gained,
@@ -201,10 +127,8 @@ describe("AchievementManager class", () => {
   });
 
   it("should correctly check one of lads achievement", () => {
-    const achievementsManager: AchievementsManager = AchievementsManager.getInstance();
-
     checkGenericAchievement({
-      check: () => achievementsManager.checkAchievedOneOfLads(),
+      check: hasAchievedOneOfLads,
       notificationCaption: "st_ach_one_of_the_lads",
       notificationIcon: achievementIcons[EAchievement.ONE_OF_THE_LADS],
       achievementInfo: infoPortions.one_of_the_lads_gained,
@@ -213,10 +137,8 @@ describe("AchievementManager class", () => {
   });
 
   it("should correctly check kingpin achievement", () => {
-    const achievementsManager: AchievementsManager = AchievementsManager.getInstance();
-
     checkGenericAchievement({
-      check: () => achievementsManager.checkAchievedKingpin(),
+      check: hasAchievedKingpin,
       notificationCaption: "st_ach_kingpin",
       notificationIcon: achievementIcons[EAchievement.KINGPIN],
       achievementInfo: infoPortions.kingpin_gained,
@@ -225,10 +147,8 @@ describe("AchievementManager class", () => {
   });
 
   it("should correctly check herald of justice achievement", () => {
-    const achievementsManager: AchievementsManager = AchievementsManager.getInstance();
-
     checkGenericAchievement({
-      check: () => achievementsManager.checkAchievedHeraldOfJustice(),
+      check: hasAchievedHeraldOfJustice,
       notificationCaption: "st_ach_herald_of_justice",
       notificationIcon: achievementIcons[EAchievement.HERALD_OF_JUSTICE],
       achievementInfo: infoPortions.herald_of_justice_achievement_gained,
@@ -241,10 +161,8 @@ describe("AchievementManager class", () => {
   });
 
   it("should correctly check battle systems master achievement", () => {
-    const achievementsManager: AchievementsManager = AchievementsManager.getInstance();
-
     checkGenericAchievement({
-      check: () => achievementsManager.checkAchievedBattleSystemsMaster(),
+      check: hasAchievedBattleSystemsMaster,
       notificationCaption: "st_ach_battle_systems_master",
       notificationIcon: achievementIcons[EAchievement.BATTLE_SYSTEMS_MASTER],
       achievementInfo: infoPortions.battle_systems_master_achievement_gained,
@@ -253,10 +171,8 @@ describe("AchievementManager class", () => {
   });
 
   it("should correctly check high tech master achievement", () => {
-    const achievementsManager: AchievementsManager = AchievementsManager.getInstance();
-
     checkGenericAchievement({
-      check: () => achievementsManager.checkAchievedHighTechMaster(),
+      check: hasAchievedHighTechMaster,
       notificationCaption: "st_ach_high_tech_master",
       notificationIcon: achievementIcons[EAchievement.HIGH_TECH_MASTER],
       achievementInfo: infoPortions.high_tech_master_achievement_gained,
@@ -269,10 +185,8 @@ describe("AchievementManager class", () => {
   });
 
   it("should correctly check skilled stalker achievement", () => {
-    const achievementsManager: AchievementsManager = AchievementsManager.getInstance();
-
     checkGenericAchievement({
-      check: () => achievementsManager.checkAchievedSkilledStalker(),
+      check: hasAchievedSkilledStalker,
       notificationCaption: "st_ach_skilled_stalker",
       notificationIcon: achievementIcons[EAchievement.SKILLED_STALKER],
       achievementInfo: infoPortions.skilled_stalker_achievement_gained,
@@ -284,7 +198,7 @@ describe("AchievementManager class", () => {
     const achievementsManager: AchievementsManager = AchievementsManager.getInstance();
 
     checkGenericAchievement({
-      check: () => achievementsManager.checkAchievedLeader(),
+      check: hasAchievedLeader,
       notificationCaption: "st_ach_leader",
       notificationIcon: achievementIcons[EAchievement.LEADER],
       achievementInfo: infoPortions.leader_achievement_gained,
@@ -297,10 +211,8 @@ describe("AchievementManager class", () => {
   });
 
   it("should correctly check diplomat achievement", () => {
-    const achievementsManager: AchievementsManager = AchievementsManager.getInstance();
-
     checkGenericAchievement({
-      check: () => achievementsManager.checkAchievedDiplomat(),
+      check: hasAchievedDiplomat,
       notificationCaption: "st_ach_diplomat",
       notificationIcon: achievementIcons[EAchievement.DIPLOMAT],
       achievementInfo: infoPortions.diplomat_achievement_gained,
@@ -312,7 +224,7 @@ describe("AchievementManager class", () => {
     registerActor(mockClientGameObject());
 
     checkGenericAchievement({
-      check: () => achievementsManager.checkAchievedDiplomat(),
+      check: hasAchievedDiplomat,
       notificationCaption: "st_ach_diplomat",
       notificationIcon: achievementIcons[EAchievement.DIPLOMAT],
       achievementInfo: infoPortions.diplomat_achievement_gained,
@@ -323,10 +235,8 @@ describe("AchievementManager class", () => {
   });
 
   it("should correctly check research man achievement", () => {
-    const achievementsManager: AchievementsManager = AchievementsManager.getInstance();
-
     checkGenericAchievement({
-      check: () => achievementsManager.checkAchievedResearchMan(),
+      check: () => hasAchievedResearchMan(),
       notificationCaption: "st_ach_research_man",
       notificationIcon: achievementIcons[EAchievement.RESEARCH_MAN],
       achievementInfo: infoPortions.research_man_gained,
@@ -341,7 +251,7 @@ describe("AchievementManager class", () => {
     registerActor(mockClientGameObject());
 
     checkGenericAchievement({
-      check: () => achievementsManager.checkAchievedResearchMan(),
+      check: () => hasAchievedResearchMan(),
       notificationCaption: "st_ach_research_man",
       notificationIcon: achievementIcons[EAchievement.RESEARCH_MAN],
       achievementInfo: infoPortions.research_man_gained,
@@ -355,10 +265,8 @@ describe("AchievementManager class", () => {
   });
 
   it("should correctly check friends with duty achievement", () => {
-    const achievementsManager: AchievementsManager = AchievementsManager.getInstance();
-
     checkGenericAchievement({
-      check: () => achievementsManager.checkAchievedFriendOfDuty(),
+      check: () => hasAchievedFriendOfDuty(),
       notificationCaption: "st_ach_friend_of_duty",
       notificationIcon: achievementIcons[EAchievement.FRIEND_OF_DUTY],
       achievementInfo: infoPortions.sim_duty_help_harder,
@@ -372,10 +280,8 @@ describe("AchievementManager class", () => {
   });
 
   it("should correctly check friends with freedom achievement", () => {
-    const achievementsManager: AchievementsManager = AchievementsManager.getInstance();
-
     checkGenericAchievement({
-      check: () => achievementsManager.checkAchievedFriendOfFreedom(),
+      check: () => hasAchievedFriendOfFreedom(),
       notificationCaption: "st_ach_friend_of_freedom",
       notificationIcon: achievementIcons[EAchievement.FRIEND_OF_FREEDOM],
       achievementInfo: infoPortions.sim_freedom_help_harder,
@@ -389,10 +295,8 @@ describe("AchievementManager class", () => {
   });
 
   it("should correctly check balance advocate achievement", () => {
-    const achievementsManager: AchievementsManager = AchievementsManager.getInstance();
-
     checkGenericAchievement({
-      check: () => achievementsManager.checkAchievedBalanceAdvocate(),
+      check: () => hasAchievedBalanceAdvocate(),
       notificationCaption: "st_ach_balance_advocate",
       notificationIcon: achievementIcons[EAchievement.BALANCE_ADVOCATE],
       achievementInfo: infoPortions.balance_advocate_gained,
@@ -405,10 +309,8 @@ describe("AchievementManager class", () => {
   });
 
   it("should correctly check keeper of secrets achievement", () => {
-    const achievementsManager: AchievementsManager = AchievementsManager.getInstance();
-
     checkGenericAchievement({
-      check: () => achievementsManager.checkAchievedKeeperOfSecrets(),
+      check: () => hasAchievedKeeperOfSecrets(),
       notificationCaption: "st_ach_keeper_of_secrets",
       notificationIcon: achievementIcons[EAchievement.KEEPER_OF_SECRETS],
       achievementInfo: infoPortions.keeper_of_secrets_achievement_gained,
@@ -417,10 +319,8 @@ describe("AchievementManager class", () => {
   });
 
   it("should correctly check information dealer achievement", () => {
-    const achievementsManager: AchievementsManager = AchievementsManager.getInstance();
-
     checkGenericAchievement({
-      check: () => achievementsManager.checkAchievedInformationDealer(),
+      check: () => hasAchievedInformationDealer(),
       notificationCaption: "st_ach_information_dealer",
       notificationIcon: achievementIcons[EAchievement.INFORMATION_DEALER],
       achievementInfo: infoPortions.actor_information_dealer,
@@ -441,7 +341,7 @@ describe("AchievementManager class", () => {
     registerActor(mockClientGameObject());
 
     checkGenericAchievement({
-      check: () => achievementsManager.checkAchievedInformationDealer(),
+      check: () => hasAchievedInformationDealer(),
       notificationCaption: "st_ach_information_dealer",
       notificationIcon: achievementIcons[EAchievement.INFORMATION_DEALER],
       achievementInfo: infoPortions.actor_information_dealer,
@@ -461,10 +361,8 @@ describe("AchievementManager class", () => {
   });
 
   it("should correctly check friend of stalkers achievement", () => {
-    const achievementsManager: AchievementsManager = AchievementsManager.getInstance();
-
     checkGenericAchievement({
-      check: () => achievementsManager.checkAchievedFriendOfStalkers(),
+      check: () => hasAchievedFriendOfStalkers(),
       notificationCaption: "st_ach_friend_of_stalkers",
       notificationIcon: achievementIcons[EAchievement.FRIEND_OF_STALKERS],
       achievementInfo: infoPortions.sim_stalker_help_harder,
@@ -485,31 +383,29 @@ describe("AchievementManager class", () => {
   });
 
   it("should correctly check wealthy achievement", () => {
-    const achievementsManager: AchievementsManager = AchievementsManager.getInstance();
     const onNotification = mockNotificationListener("st_ach_wealthy", achievementIcons[EAchievement.WEALTHY]);
 
     giveInfo(infoPortions.actor_wealthy);
-    expect(achievementsManager.checkAchievedWealthy()).toBeTruthy();
+    expect(hasAchievedWealthy()).toBeTruthy();
 
     disableInfo(infoPortions.actor_wealthy);
-    expect(achievementsManager.checkAchievedWealthy()).toBeFalsy();
+    expect(hasAchievedWealthy()).toBeFalsy();
 
     registry.actor.give_money(25_000);
-    expect(achievementsManager.checkAchievedWealthy()).toBeFalsy();
+    expect(hasAchievedWealthy()).toBeFalsy();
 
     registry.actor.give_money(75_000);
-    expect(achievementsManager.checkAchievedWealthy()).toBeTruthy();
+    expect(hasAchievedWealthy()).toBeTruthy();
     expect(onNotification).toHaveBeenCalledTimes(1);
     expect(hasAlifeInfo(infoPortions.actor_wealthy)).toBeTruthy();
   });
 
   it("should correctly check seeker achievement", () => {
-    const achievementsManager: AchievementsManager = AchievementsManager.getInstance();
     const statisticsManager: StatisticsManager = StatisticsManager.getInstance();
     const onNotification = mockNotificationListener("st_ach_seeker", achievementIcons[EAchievement.SEEKER]);
 
     giveInfo(infoPortions.sim_bandit_attack_harder);
-    expect(achievementsManager.checkAchievedSeeker()).toBeTruthy();
+    expect(hasAchievedSeeker()).toBeTruthy();
 
     disableInfo(infoPortions.sim_bandit_attack_harder);
 
@@ -518,7 +414,7 @@ describe("AchievementManager class", () => {
       [artefacts.af_blood]: false,
     } as Record<TName, boolean>);
 
-    expect(achievementsManager.checkAchievedSeeker()).toBeFalsy();
+    expect(hasAchievedSeeker()).toBeFalsy();
 
     statisticsManager.actorStatistics.collectedArtefacts = new LuaTable();
 
@@ -526,7 +422,7 @@ describe("AchievementManager class", () => {
       statisticsManager.actorStatistics.collectedArtefacts.set("af_" + it, true);
     }
 
-    expect(achievementsManager.checkAchievedSeeker()).toBeTruthy();
+    expect(hasAchievedSeeker()).toBeTruthy();
     expect(onNotification).toHaveBeenCalledTimes(1);
     expect(hasAlifeInfo(infoPortions.sim_bandit_attack_harder)).toBeTruthy();
 
@@ -546,17 +442,17 @@ describe("AchievementManager class", () => {
     );
 
     giveInfo(infoPortions.actor_marked_by_zone_3_times);
-    expect(achievementsManager.checkAchievedMarkedByZone()).toBeTruthy();
+    expect(hasAchievedMarkedByZone()).toBeTruthy();
 
     disableInfo(infoPortions.actor_marked_by_zone_3_times);
-    expect(achievementsManager.checkAchievedMarkedByZone()).toBeFalsy();
+    expect(hasAchievedMarkedByZone()).toBeFalsy();
 
     statisticsManager.onSurvivedSurgeWithAnabiotic();
     statisticsManager.onSurvivedSurgeWithAnabiotic();
-    expect(achievementsManager.checkAchievedMarkedByZone()).toBeFalsy();
+    expect(hasAchievedMarkedByZone()).toBeFalsy();
 
     statisticsManager.onSurvivedSurgeWithAnabiotic();
-    expect(achievementsManager.checkAchievedMarkedByZone()).toBeTruthy();
+    expect(hasAchievedMarkedByZone()).toBeTruthy();
     expect(onNotification).toHaveBeenCalledTimes(1);
     expect(hasAlifeInfo(infoPortions.actor_marked_by_zone_3_times)).toBeTruthy();
   });

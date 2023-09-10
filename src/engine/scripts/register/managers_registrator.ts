@@ -1,6 +1,5 @@
 import { initializeManager } from "@/engine/core/database";
 import { TAbstractCoreManagerConstructor } from "@/engine/core/managers/base/AbstractManager";
-import { SaveManager } from "@/engine/core/managers/base/SaveManager";
 import { ProfilingManager } from "@/engine/core/managers/debug/ProfilingManager";
 import { EventsManager } from "@/engine/core/managers/events";
 import { AchievementsManager } from "@/engine/core/managers/interaction/achievements";
@@ -16,6 +15,7 @@ import { ItemUpgradesManager } from "@/engine/core/managers/interface/ItemUpgrad
 import { LoadScreenManager } from "@/engine/core/managers/interface/LoadScreenManager";
 import { PdaManager } from "@/engine/core/managers/interface/PdaManager";
 import { StatisticsManager } from "@/engine/core/managers/interface/statistics/StatisticsManager";
+import { SaveManager } from "@/engine/core/managers/save/SaveManager";
 import { SimulationBoardManager } from "@/engine/core/managers/simulation/SimulationBoardManager";
 import { DynamicMusicManager } from "@/engine/core/managers/sounds/DynamicMusicManager";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";

@@ -11,8 +11,8 @@ import {
 } from "@/engine/core/database";
 import { openLoadMarker } from "@/engine/core/database/save_markers";
 import { registerSimulationObject, unregisterSimulationObject } from "@/engine/core/database/simulation";
-import { SaveManager } from "@/engine/core/managers/base/SaveManager";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
+import { SaveManager } from "@/engine/core/managers/save/SaveManager";
 import { ISimulationTarget, simulationActivities } from "@/engine/core/managers/simulation";
 import { SimulationBoardManager } from "@/engine/core/managers/simulation/SimulationBoardManager";
 import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain/SmartTerrain";

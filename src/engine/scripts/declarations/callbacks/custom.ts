@@ -1,5 +1,5 @@
+import { EAchievement } from "@/engine/core/managers/interaction/achievements/achievements_types";
 import { AchievementsManager } from "@/engine/core/managers/interaction/achievements/AchievementsManager";
-import { EAchievement } from "@/engine/core/managers/interaction/achievements/types";
 import { SleepManager } from "@/engine/core/managers/interaction/SleepManager";
 import { TaskManager } from "@/engine/core/managers/interaction/tasks";
 import { SurgeManager } from "@/engine/core/managers/world/SurgeManager";

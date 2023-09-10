@@ -1,7 +1,10 @@
 import { level } from "xray16";
 
 import { registry } from "@/engine/core/database";
-import { AchievementsManager } from "@/engine/core/managers/interaction/achievements";
+import {
+  hasAchievedInformationDealer,
+  hasAchievedWealthy,
+} from "@/engine/core/managers/interaction/achievements/achievements_preconditions";
 import { SurgeManager } from "@/engine/core/managers/world/SurgeManager";
 import { ISchemeDeathState } from "@/engine/core/schemes/death";
 import { ISchemeHitState } from "@/engine/core/schemes/hit";
@@ -15,17 +18,17 @@ import { AnyArgs, ClientObject, EScheme, LuaArray, Optional, TCount, TDistance, 
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Whether `wealthy` is achieved.
  */
 extern("xr_conditions.wealthy_functor", (): boolean => {
-  return AchievementsManager.getInstance().checkAchievedWealthy();
+  return hasAchievedWealthy();
 });
 
 /**
- * todo;
+ * Whether `information dealer` is achieved.
  */
 extern("xr_conditions.information_dealer_functor", (): boolean => {
-  return AchievementsManager.getInstance().checkAchievedInformationDealer();
+  return hasAchievedInformationDealer();
 });
 
 /**

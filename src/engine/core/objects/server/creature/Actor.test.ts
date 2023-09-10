@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 
-import { SaveManager } from "@/engine/core/managers/base/SaveManager";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
+import { SaveManager } from "@/engine/core/managers/save/SaveManager";
 import { SimulationBoardManager } from "@/engine/core/managers/simulation";
 import { Actor } from "@/engine/core/objects/server/creature/Actor";
 import { ServerObject } from "@/engine/lib/types";

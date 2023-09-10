@@ -2,8 +2,8 @@ import { IsDynamicMusic, level, time_global } from "xray16";
 
 import { registry } from "@/engine/core/database";
 import { AbstractManager } from "@/engine/core/managers/base/AbstractManager";
+import { EGameEvent } from "@/engine/core/managers/events/events_types";
 import { EventsManager } from "@/engine/core/managers/events/EventsManager";
-import { EGameEvent } from "@/engine/core/managers/events/types";
 import { dynamicMusicThemes } from "@/engine/core/managers/sounds/dynamic_music";
 import { SurgeManager } from "@/engine/core/managers/world/SurgeManager";
 import { StereoSound } from "@/engine/core/objects/sounds/StereoSound";

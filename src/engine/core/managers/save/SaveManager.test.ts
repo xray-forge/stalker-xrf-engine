@@ -2,13 +2,13 @@ import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 
 import { disposeManagers, initializeManager, registerActor, registry } from "@/engine/core/database";
 import { TAbstractCoreManagerConstructor } from "@/engine/core/managers/base/AbstractManager";
-import { SaveManager } from "@/engine/core/managers/base/SaveManager";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { AchievementsManager } from "@/engine/core/managers/interaction/achievements";
 import { TaskManager } from "@/engine/core/managers/interaction/tasks";
 import { ActorInputManager } from "@/engine/core/managers/interface";
 import { GameSettingsManager } from "@/engine/core/managers/interface/GameSettingsManager";
 import { StatisticsManager } from "@/engine/core/managers/interface/statistics/StatisticsManager";
+import { SaveManager } from "@/engine/core/managers/save/SaveManager";
 import { SimulationBoardManager } from "@/engine/core/managers/simulation/SimulationBoardManager";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import { PsyAntennaManager } from "@/engine/core/managers/world/PsyAntennaManager";
