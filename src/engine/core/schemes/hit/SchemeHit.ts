@@ -34,7 +34,7 @@ export class SchemeHit extends AbstractScheme {
     const state: ISchemeHitState = AbstractScheme.assign(object, ini, scheme, section);
 
     if (!ini.section_exist(section)) {
-      abort("There is no section [%s] for npc [%s]", section, object.name());
+      abort("There is no section [%s] for object [%s]", section, object.name());
     }
 
     state.logic = getConfigSwitchConditions(ini, section);

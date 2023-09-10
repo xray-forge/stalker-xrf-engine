@@ -1,8 +1,7 @@
 import { time_global } from "xray16";
 
-import { IRegistryObjectState, registry } from "@/engine/core/database";
+import { IBaseSchemeState, IRegistryObjectState, registry } from "@/engine/core/database";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
-import { ESchemeEvent, IBaseSchemeState } from "@/engine/core/objects/ai/scheme";
 import { WEAPON_POSTFIX } from "@/engine/core/objects/animation/types";
 import { CAMP_ACTIVITIES } from "@/engine/core/objects/camp/camp_logic";
 import { EObjectCampActivity, EObjectCampRole, ICampObjectState } from "@/engine/core/objects/camp/camp_types";
@@ -18,6 +17,7 @@ import { emitSchemeEvent } from "@/engine/core/utils/scheme";
 import {
   ClientObject,
   EScheme,
+  ESchemeEvent,
   IniFile,
   LuaArray,
   Optional,

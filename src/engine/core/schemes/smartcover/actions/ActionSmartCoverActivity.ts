@@ -2,7 +2,6 @@ import { action_base, level, LuabindClass, patrol } from "xray16";
 
 import { getObjectByStoryId, registry, setStalkerState } from "@/engine/core/database";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
-import { ISchemeEventHandler } from "@/engine/core/objects/ai/scheme";
 import { ESmartCoverState, EStalkerState } from "@/engine/core/objects/animation/types/state_types";
 import { ActionSleeperActivity } from "@/engine/core/schemes/sleeper/actions";
 import { COVER_SUBSTATE_TABLE, ISchemeSmartCoverState } from "@/engine/core/schemes/smartcover/ISchemeSmartCoverState";
@@ -10,7 +9,15 @@ import { abort } from "@/engine/core/utils/assertion";
 import { parseConditionsList, pickSectionFromCondList, TConditionList } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { NIL } from "@/engine/lib/constants/words";
-import { ClientObject, Optional, StringOptional, TName, TNumberId, Vector } from "@/engine/lib/types";
+import {
+  ClientObject,
+  ISchemeEventHandler,
+  Optional,
+  StringOptional,
+  TName,
+  TNumberId,
+  Vector,
+} from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -141,13 +148,12 @@ export class ActionSmartCoverActivity extends action_base implements ISchemeEven
 
       if (this.targetPath !== NIL) {
         if (level.patrol_path_exists(this.targetPath)) {
-          // --printf("target_selector:using fire_point[%s] for npc[%s]!!!", this.target_path, this.object.name())
           object.set_smart_cover_target(new patrol(this.targetPath).point(0));
           this.firePosition = new patrol(this.targetPath).point(0);
 
           return true;
         } else {
-          abort("There is no patrol path [%s] for npc [%s]", this.targetPath, object.name());
+          abort("There is no patrol path [%s] for object [%s].", this.targetPath, object.name());
         }
       }
     } else if (this.state.target_enemy !== null) {

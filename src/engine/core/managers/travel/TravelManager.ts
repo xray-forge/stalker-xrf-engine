@@ -119,7 +119,7 @@ export class TravelManager extends AbstractManager {
    * todo: Description.
    */
   public initializeTravellerDialog(dialog: PhraseDialog): void {
-    const npcCommunity: TCommunity = communities.stalker; // -- npc:character_community()
+    const npcCommunity: TCommunity = communities.stalker; // -- object:character_community()
 
     let actorPhrase: Phrase = dialog.AddPhrase("dm_traveler_what_are_you_doing", "0", "", -10000);
     let actorScript: PhraseScript = actorPhrase.GetPhraseScript();
@@ -186,16 +186,16 @@ export class TravelManager extends AbstractManager {
   /**
    * todo: Description.
    */
-  public canStartTravelingDialogs(actor: ClientObject, npc: ClientObject): boolean {
-    const squad: Optional<Squad> = getObjectSquad(npc);
+  public canStartTravelingDialogs(actor: ClientObject, object: ClientObject): boolean {
+    const squad: Optional<Squad> = getObjectSquad(object);
 
-    if (squad !== null && squad.commander_id() !== npc.id()) {
+    if (squad !== null && squad.commander_id() !== object.id()) {
       return false;
-    } else if (npc.character_community() === communities.bandit) {
+    } else if (object.character_community() === communities.bandit) {
       return false;
-    } else if (npc.character_community() === communities.army) {
+    } else if (object.character_community() === communities.army) {
       return false;
-    } else if (getObjectSmartTerrain(npc)?.name() === "jup_b41") {
+    } else if (getObjectSmartTerrain(object)?.name() === "jup_b41") {
       return false;
     }
 
@@ -207,15 +207,15 @@ export class TravelManager extends AbstractManager {
    */
   public getSquadCurrentActionDescription(
     actor: ClientObject,
-    npc: ClientObject,
+    object: ClientObject,
     dialogId?: TStringId,
     phraseId?: TStringId
   ): TLabel {
-    const squad: Squad = getObjectSquad(npc)!;
+    const squad: Squad = getObjectSquad(object)!;
     const squadTargetId: Optional<TNumberId> = squad.assignedTargetId;
 
     if (squad.currentAction === null || squad.currentAction.name === SquadStayOnTargetAction.ACTION_NAME) {
-      return "dm_" + "stalker" + "_doing_nothing_" + tostring(math.random(1, 3)); // -- npc:character_community()
+      return "dm_" + "stalker" + "_doing_nothing_" + tostring(math.random(1, 3)); // -- object:character_community()
     }
 
     const targetSquadObject: Optional<TSimulationObject> = alife().object(squadTargetId!);
@@ -249,11 +249,11 @@ export class TravelManager extends AbstractManager {
    */
   public canActorMoveWithSquad(
     actor: ClientObject,
-    npc: ClientObject,
+    object: ClientObject,
     dialogId?: TStringId,
     phraseId?: TStringId
   ): boolean {
-    const squad: Squad = getObjectSquad(npc)!;
+    const squad: Squad = getObjectSquad(object)!;
 
     return !(squad.currentAction === null || squad.currentAction.name === SquadStayOnTargetAction.ACTION_NAME);
   }
@@ -262,12 +262,12 @@ export class TravelManager extends AbstractManager {
    * todo: Description.
    */
   public canSquadTakeActor(
-    npc: ClientObject,
+    object: ClientObject,
     actor: ClientObject,
     dialogId?: TStringId,
     phraseId?: TStringId
   ): boolean {
-    const squad: Squad = getObjectSquad(npc)!;
+    const squad: Squad = getObjectSquad(object)!;
     const squadTargetObject: ServerObject = alife().object(squad.assignedTargetId!)!;
     const squadTargetClsId: TClassId = squadTargetObject.clsid();
 
@@ -278,12 +278,12 @@ export class TravelManager extends AbstractManager {
    * todo: Description.
    */
   public cannotSquadTakeActor(
-    npc: ClientObject,
+    object: ClientObject,
     actor: ClientObject,
     dialog_id: TStringId,
     phrase_id: TStringId
   ): boolean {
-    return !this.canSquadTakeActor(npc, actor, dialog_id, phrase_id);
+    return !this.canSquadTakeActor(object, actor, dialog_id, phrase_id);
   }
 
   /**
@@ -315,8 +315,8 @@ export class TravelManager extends AbstractManager {
   /**
    * todo: Description.
    */
-  public canSquadTravel(npc: ClientObject, actor: ClientObject, dialogId: TStringId, phraseId: TStringId): boolean {
-    const squad: Squad = getObjectSquad(npc)!;
+  public canSquadTravel(object: ClientObject, actor: ClientObject, dialogId: TStringId, phraseId: TStringId): boolean {
+    const squad: Squad = getObjectSquad(object)!;
 
     // todo: Filter all squads to current level, do not check other locations.
     for (const [id, smartDescriptor] of this.smartTravelDescriptorsByName) {
@@ -331,8 +331,8 @@ export class TravelManager extends AbstractManager {
   /**
    * todo: Description.
    */
-  public cannotSquadTravel(npc: ClientObject, actor: ClientObject, dialogId: TStringId, phraseId: TStringId) {
-    return !this.canSquadTravel(npc, actor, dialogId, phraseId);
+  public cannotSquadTravel(object: ClientObject, actor: ClientObject, dialogId: TStringId, phraseId: TStringId) {
+    return !this.canSquadTravel(object, actor, dialogId, phraseId);
   }
 
   /**
@@ -340,7 +340,7 @@ export class TravelManager extends AbstractManager {
    */
   public canNegotiateTravelToSmart(
     actor: ClientObject,
-    npc: ClientObject,
+    object: ClientObject,
     dialogId: TStringId,
     prevPhraseId: TStringId,
     phraseId: TStringId
@@ -354,7 +354,7 @@ export class TravelManager extends AbstractManager {
     return this.isSmartAvailableToReach(
       smartName,
       this.smartTravelDescriptorsByName.get(smartName),
-      getObjectSquad(npc)!
+      getObjectSquad(object)!
     );
   }
 
@@ -385,7 +385,7 @@ export class TravelManager extends AbstractManager {
    */
   public isEnoughMoneyToTravel(
     actor: ClientObject,
-    npc: ClientObject,
+    object: ClientObject,
     dialogId: TStringId,
     phraseId: TStringId
   ): boolean {
@@ -393,7 +393,7 @@ export class TravelManager extends AbstractManager {
     const smartName: TName = this.smartNamesByPhraseId.get(travelPhraseId);
     const smart: Optional<SmartTerrain> = SimulationBoardManager.getInstance().getSmartTerrainByName(smartName);
 
-    const distance: TDistance = npc.position().distance_to(smart!.position);
+    const distance: TDistance = object.position().distance_to(smart!.position);
     const price: TCount = this.getTravelPriceByDistance(distance);
 
     return price <= registry.actor.money();
@@ -404,11 +404,11 @@ export class TravelManager extends AbstractManager {
    */
   public isNotEnoughMoneyToTravel(
     actor: ClientObject,
-    npc: ClientObject,
+    object: ClientObject,
     dialogId: TStringId,
     phraseId: TStringId
   ): boolean {
-    return !this.isEnoughMoneyToTravel(actor, npc, dialogId, phraseId);
+    return !this.isEnoughMoneyToTravel(actor, object, dialogId, phraseId);
   }
 
   /**

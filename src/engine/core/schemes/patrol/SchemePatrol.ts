@@ -45,7 +45,7 @@ export class SchemePatrol extends AbstractScheme {
 
     if (state.path_walk === state.path_look) {
       abort(
-        "You are trying to set 'path_look' equal to 'path_walk' in section [%s] for npc [%s]",
+        "You are trying to set 'path_look' equal to 'path_walk' in section [%s] for object [%s]",
         section,
         object.name()
       );
@@ -88,7 +88,7 @@ export class SchemePatrol extends AbstractScheme {
       registry.patrols.generic.set(state.patrol_key, new PatrolManager(state.path_name));
     }
 
-    registry.patrols.generic.get(state.patrol_key).addNpc(object, state.commander);
+    registry.patrols.generic.get(state.patrol_key).addObject(object, state.commander);
   }
 
   /**

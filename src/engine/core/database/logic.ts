@@ -3,13 +3,13 @@ import { time_global } from "xray16";
 import { loadPortableStore, savePortableStore } from "@/engine/core/database/portable_store";
 import { registry } from "@/engine/core/database/registry";
 import { closeLoadMarker, closeSaveMarker, openLoadMarker, openSaveMarker } from "@/engine/core/database/save_markers";
-import { IRegistryObjectState } from "@/engine/core/database/types";
-import { ESchemeEvent, IBaseSchemeState } from "@/engine/core/objects/ai/scheme/scheme_types";
+import { IBaseSchemeState, IRegistryObjectState } from "@/engine/core/database/types";
 import { readTimeFromPacket, writeTimeToPacket } from "@/engine/core/utils/game/game_time";
 import { emitSchemeEvent } from "@/engine/core/utils/scheme/scheme_event";
 import { NIL } from "@/engine/lib/constants/words";
 import {
   ClientObject,
+  ESchemeEvent,
   NetPacket,
   NetProcessor,
   Optional,

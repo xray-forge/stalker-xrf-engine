@@ -3,6 +3,7 @@ import { callback, CHelicopter, clsid, level, LuabindClass, object_binder, time_
 import {
   closeLoadMarker,
   closeSaveMarker,
+  IBaseSchemeState,
   IRegistryObjectState,
   openLoadMarker,
   openSaveMarker,
@@ -14,7 +15,6 @@ import {
 } from "@/engine/core/database";
 import { loadObjectLogic, saveObjectLogic } from "@/engine/core/database/logic";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
-import { ESchemeEvent, IBaseSchemeState } from "@/engine/core/objects/ai/scheme";
 import { getHeliHealth } from "@/engine/core/schemes/heli_move/heli_utils";
 import { HeliCombat } from "@/engine/core/schemes/heli_move/HeliCombat";
 import { getHeliFirer, HeliFire } from "@/engine/core/schemes/heli_move/HeliFire";
@@ -23,6 +23,7 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 import { emitSchemeEvent, initializeObjectSchemeLogic } from "@/engine/core/utils/scheme";
 import {
   ClientObject,
+  ESchemeEvent,
   ESchemeType,
   IniFile,
   NetPacket,

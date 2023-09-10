@@ -255,12 +255,12 @@ export class NotificationManager extends AbstractManager {
         if (serverObject !== null) {
           // Check if sender is not wounded.
           if (serverObject.online && isObjectWounded(serverObject.id)) {
-            return logger.info("Cannot send tip, npc is wounded");
+            return logger.info("Cannot send tip, object is wounded");
           }
 
           // Check if sender is alive.
           if (!serverObject.alive()) {
-            return logger.info("Cannot send tip, npc is not alive");
+            return logger.info("Cannot send tip, object is not alive");
           }
         }
       }

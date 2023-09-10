@@ -1,7 +1,7 @@
-import { IRegistryObjectState } from "@/engine/core/database";
-import { AbstractSchemeManager, IBaseSchemeLogic, IBaseSchemeState } from "@/engine/core/objects/ai/scheme";
+import { IBaseSchemeLogic, IBaseSchemeState, IRegistryObjectState } from "@/engine/core/database";
+import { AbstractSchemeManager } from "@/engine/core/objects/ai/scheme";
 import { IConfigSwitchCondition, TConditionList } from "@/engine/core/utils/ini/ini_types";
-import { ClientObject, EScheme } from "@/engine/lib/types";
+import { EScheme } from "@/engine/lib/types";
 import { MockLuaTable } from "@/fixtures/lua";
 import { mockIniFile } from "@/fixtures/xray/mocks/ini";
 
@@ -16,24 +16,19 @@ export function mockRegistryState(base: Partial<IRegistryObjectState> = {}): IRe
  * Mock generic scheme state.
  */
 export function mockSchemeState<T extends IBaseSchemeState>(
-  object: ClientObject,
   scheme: EScheme,
   {
     ini = mockIniFile("scheme_mock.ltx"),
     logic = new LuaTable(),
     signals = new LuaTable(),
-    idle_end = 0,
-    npc,
     overrides = null,
     ...base
   }: Partial<T> = {}
 ): T {
   return {
     ...(base as T),
-    idle_end,
     ini,
     logic,
-    npc,
     overrides,
     scheme: base.scheme || scheme,
     section: base.section || scheme + "@test",
@@ -84,8 +79,8 @@ export function mockBaseSchemeLogic(base: Partial<IBaseSchemeLogic> = {}): IBase
     name: base.name || "base-name",
     condlist: base.condlist || new LuaTable(),
     objectId: base.objectId || null,
-    v1: base.v1 || null,
-    v2: base.v2 || null,
+    p1: base.p1 || null,
+    p2: base.p2 || null,
   };
 }
 

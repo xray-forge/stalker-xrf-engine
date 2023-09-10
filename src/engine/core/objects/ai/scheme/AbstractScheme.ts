@@ -1,11 +1,15 @@
-import { IRegistryObjectState, registry } from "@/engine/core/database";
-import { IBaseSchemeState, ISchemeEventHandler } from "@/engine/core/objects/ai/scheme/scheme_types";
+import { IBaseSchemeState, IRegistryObjectState, registry } from "@/engine/core/database";
 import { abort } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { AnyObject, ClientObject, IniFile, Optional, TName } from "@/engine/lib/types";
+import { AnyObject, ClientObject, IniFile, ISchemeEventHandler, Optional, TName } from "@/engine/lib/types";
 import { EScheme, ESchemeType, TSection } from "@/engine/lib/types/scheme";
 
 const logger: LuaLogger = new LuaLogger($filename);
+
+/**
+ * Typing describing abstract scheme implementation.
+ */
+export type TAbstractSchemeConstructor = typeof AbstractScheme;
 
 /**
  * todo;
@@ -54,10 +58,7 @@ export abstract class AbstractScheme {
     let schemeState: Optional<T> = objectState[scheme] as Optional<T>;
 
     if (!schemeState) {
-      schemeState = {
-        npc: object,
-      } as T;
-
+      schemeState = {} as T;
       objectState[scheme] = schemeState;
 
       registry.schemes.get(scheme).add(object, ini, scheme, section as TSection, schemeState);
@@ -72,7 +73,7 @@ export abstract class AbstractScheme {
 
   /**
    * Add scheme state handlers to client object states.
-   * Usually used to add actions, evaluators or custom managers.
+   * Called once if object registry state does not have created base state for provided scheme.
    *
    * @param object - target client object
    * @param ini - ini file describing object logic

@@ -79,8 +79,8 @@ const cutscene: Record<
         s?: string;
         s1?: string;
         det?: string;
-        f?: (npc: ClientObject) => void;
-        f1?: (npc: ClientObject) => void;
+        f?: (object: ClientObject) => void;
+        f1?: (object: ClientObject) => void;
       }
     >;
   }

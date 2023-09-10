@@ -1,3 +1,7 @@
+import type { TCount, TIndex, TName } from "@/engine/lib/types/alias";
+import type { Optional } from "@/engine/lib/types/general";
+import type { ClientObject, Vector } from "@/engine/lib/types/xray";
+
 /**
  * Section name string, representing string256 in c++.
  */
@@ -114,4 +118,84 @@ export enum ESchemeCondition {
   ON_ACTOR_DISTANCE_LESS_THAN = "on_actor_dist_le",
   // Check whether distance is less/equal than parameter, do not check visibility or object state.
   ON_ACTOR_DISTANCE_LESS_THAN_NOT_VISIBLE = "on_actor_dist_le_nvis",
+}
+
+/**
+ * Generic scheme logics events to get callbacks from schemeManager subscribers.
+ */
+export enum ESchemeEvent {
+  ACTIVATE = "activate",
+  DEACTIVATE = "deactivate",
+  SAVE = "save",
+  UPDATE = "update",
+  DEATH = "onDeath",
+  CUTSCENE = "onCutscene",
+  EXTRAPOLATE = "onExtrapolate",
+  SWITCH_ONLINE = "onSwitchOnline",
+  SWITCH_OFFLINE = "onSwitchOffline",
+  HIT = "onHit",
+  USE = "onUse",
+  WAYPOINT = "onWaypoint",
+}
+
+/**
+ * Interface implementing scheme events handler.
+ * Simplifies handling of scheme signals.
+ */
+export interface ISchemeEventHandler {
+  /**
+   * todo: Description, swap params order.
+   */
+  activate?(isLoading: boolean, object: ClientObject): void;
+  /**
+   * todo: Description.
+   */
+  deactivate?(object: ClientObject): void;
+  /**
+   * todo: Description.
+   */
+  update?(delta: TCount): void;
+  /**
+   * todo: Description.
+   */
+  save?(delta: TCount): void;
+  /**
+   * todo: Description.
+   */
+  onSwitchOnline?(object: ClientObject): void;
+  /**
+   * todo: Description.
+   */
+  onSwitchOffline?(object: ClientObject): void;
+  /**
+   * Handle scheme hit callback.
+   * Emits when objects are hit by something.
+   *
+   * @param object - target client object being hit
+   * @param amount - amount of hit applied
+   * @param direction - direction of hit
+   * @param who - client object which is source of hit
+   * @param boneIndex - index of bone being hit
+   */
+  onHit?(object: ClientObject, amount: TCount, direction: Vector, who: Optional<ClientObject>, boneIndex: TIndex): void;
+  /**
+   * todo: Description.
+   */
+  onUse?(object: ClientObject, who: Optional<ClientObject>): void;
+  /**
+   * todo: Description.
+   */
+  onWaypoint?(object: ClientObject, actionType: TName, index: TIndex): void;
+  /**
+   * Handle scheme death callback.
+   * Emits when objects are dying.
+   *
+   * @param victim - target client object dying
+   * @param who - client object who killed the object
+   */
+  onDeath?(victim: ClientObject, who: Optional<ClientObject>): void;
+  /**
+   * todo: Description.
+   */
+  onCutscene?(): void;
 }

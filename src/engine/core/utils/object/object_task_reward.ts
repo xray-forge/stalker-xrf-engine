@@ -56,8 +56,8 @@ export function transferMoneyFromActor(to: ClientObject, amount: TCount): void {
 /**
  * From two possible speakers pick NPC one, omit actor.
  *
- * @param first - possible npc speaker
- * @param second - possible npc speaker
+ * @param first - possible non-actor speaker
+ * @param second - possible non-actor speaker
  * @returns non-actor game object picked from parameters
  */
 export function getNpcSpeaker(first: ClientObject, second: ClientObject): ClientObject {
@@ -296,7 +296,7 @@ export function actorHasAtLeastOneItem(
  *
  * @param object - target object to check inventory
  * @param itemSectionOrId - item section or ID to check in inventory
- * @returns whether npc has item in inventory
+ * @returns whether object has item in inventory
  */
 export function objectHasItem(object: ClientObject, itemSectionOrId: TSection | TNumberId): boolean {
   return object.object(itemSectionOrId) !== null;

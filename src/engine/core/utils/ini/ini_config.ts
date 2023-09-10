@@ -2,8 +2,7 @@ import { alife } from "xray16";
 
 import { registry } from "@/engine/core/database/registry";
 import { getObjectIdByStoryId } from "@/engine/core/database/story_objects";
-import { IRegistryObjectState } from "@/engine/core/database/types";
-import { IBaseSchemeLogic } from "@/engine/core/objects/ai/scheme";
+import { IBaseSchemeLogic, IRegistryObjectState } from "@/engine/core/database/types";
 import { abort } from "@/engine/core/utils/assertion";
 import { parseConditionsList } from "@/engine/core/utils/ini/ini_parse";
 import {
@@ -193,12 +192,12 @@ export function getConfigObjectAndZone(ini: IniFile, section: TSection, field: T
     const simulator: Optional<AlifeSimulator> = alife();
 
     if (simulator !== null) {
-      const serverObject: Optional<ServerObject> = simulator.object(getObjectIdByStoryId(target.v1 as string)!);
+      const serverObject: Optional<ServerObject> = simulator.object(getObjectIdByStoryId(target.p1 as string)!);
 
       if (serverObject) {
         target.objectId = serverObject.id;
       } else {
-        abort("Section '%s': field '%s': there is no object with story_id '%s'", section, field, target.v1);
+        abort("Section '%s': field '%s': there is no object with story_id '%s'", section, field, target.p1);
       }
     } else {
       target.objectId = -1;

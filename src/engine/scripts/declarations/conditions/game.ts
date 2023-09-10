@@ -12,9 +12,9 @@ const logger: LuaLogger = new LuaLogger($filename);
 /**
  * todo;
  */
-extern("xr_conditions.signal", (actor: ClientObject, npc: ClientObject, p: [string]): boolean => {
+extern("xr_conditions.signal", (actor: ClientObject, object: ClientObject, p: [string]): boolean => {
   if (p[0]) {
-    const state: IRegistryObjectState = registry.objects.get(npc.id());
+    const state: IRegistryObjectState = registry.objects.get(object.id());
     const sigs: Optional<LuaTable<TName, boolean>> = state[state.activeScheme!]!.signals;
 
     return sigs !== null && sigs.get(p[0]) === true;
@@ -28,7 +28,7 @@ extern("xr_conditions.signal", (actor: ClientObject, npc: ClientObject, p: [stri
  */
 extern(
   "xr_conditions.counter_greater",
-  (actor: ClientObject, npc: ClientObject, p: [Optional<string>, Optional<number>]): boolean => {
+  (actor: ClientObject, object: ClientObject, p: [Optional<string>, Optional<number>]): boolean => {
     if (p[0] && p[1]) {
       return getPortableStoreValue(ACTOR_ID, p[0], 0) > p[1];
     } else {
@@ -42,7 +42,7 @@ extern(
  */
 extern(
   "xr_conditions.counter_equal",
-  (actor: ClientObject, npc: ClientObject, p: [Optional<string>, Optional<number>]): boolean => {
+  (actor: ClientObject, object: ClientObject, p: [Optional<string>, Optional<number>]): boolean => {
     if (p[0] && p[1]) {
       return getPortableStoreValue(ACTOR_ID, p[0], 0) === p[1];
     } else {

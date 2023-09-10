@@ -3,7 +3,7 @@ import { danger_object } from "xray16";
 
 import { IRegistryObjectState, registerObject, registry } from "@/engine/core/database";
 import { SimulationBoardManager } from "@/engine/core/managers/simulation/SimulationBoardManager";
-import { SmartTerrain, SmartTerrainControl } from "@/engine/core/objects";
+import { SmartTerrain, SmartTerrainControl } from "@/engine/core/objects/server/smart_terrain";
 import { ESmartTerrainStatus } from "@/engine/core/objects/server/smart_terrain/types";
 import { ISchemeCombatIgnoreState } from "@/engine/core/schemes/combat_ignore";
 import { ISchemeWoundedState } from "@/engine/core/schemes/wounded";
@@ -30,7 +30,7 @@ describe("'object_danger' utils", () => {
     const bestDanger: MockDangerObject = new MockDangerObject();
     const state: IRegistryObjectState = registerObject(object);
 
-    state[EScheme.COMBAT_IGNORE] = mockSchemeState(object, EScheme.COMBAT_IGNORE);
+    state[EScheme.COMBAT_IGNORE] = mockSchemeState(EScheme.COMBAT_IGNORE);
     replaceFunctionMock(object.best_danger, () => bestDanger);
 
     expect(isObjectFacingDanger(object)).toBe(false);
@@ -53,7 +53,7 @@ describe("'object_danger' utils", () => {
     const bestDanger: MockDangerObject = new MockDangerObject();
     const state: IRegistryObjectState = registerObject(object);
 
-    state[EScheme.COMBAT_IGNORE] = mockSchemeState(object, EScheme.COMBAT_IGNORE);
+    state[EScheme.COMBAT_IGNORE] = mockSchemeState(EScheme.COMBAT_IGNORE);
     replaceFunctionMock(object.best_danger, () => bestDanger);
 
     bestDanger.dangerDependentObject = mockClientGameObject();
@@ -73,7 +73,7 @@ describe("'object_danger' utils", () => {
     const bestDanger: MockDangerObject = new MockDangerObject();
     const state: IRegistryObjectState = registerObject(object);
 
-    state[EScheme.COMBAT_IGNORE] = mockSchemeState(object, EScheme.COMBAT_IGNORE);
+    state[EScheme.COMBAT_IGNORE] = mockSchemeState(EScheme.COMBAT_IGNORE);
     replaceFunctionMock(object.best_danger, () => bestDanger);
 
     bestDanger.dangerType = danger_object.entity_corpse;
@@ -85,7 +85,7 @@ describe("'object_danger' utils", () => {
     const bestDanger: MockDangerObject = new MockDangerObject();
     const state: IRegistryObjectState = registerObject(object);
 
-    state[EScheme.COMBAT_IGNORE] = mockSchemeState(object, EScheme.COMBAT_IGNORE);
+    state[EScheme.COMBAT_IGNORE] = mockSchemeState(EScheme.COMBAT_IGNORE);
     replaceFunctionMock(object.best_danger, () => bestDanger);
 
     bestDanger.dangerType = danger_object.entity_death;
@@ -102,7 +102,7 @@ describe("'object_danger' utils", () => {
     const bestDanger: MockDangerObject = new MockDangerObject();
     const state: IRegistryObjectState = registerObject(object);
 
-    state[EScheme.COMBAT_IGNORE] = mockSchemeState(object, EScheme.COMBAT_IGNORE);
+    state[EScheme.COMBAT_IGNORE] = mockSchemeState(EScheme.COMBAT_IGNORE);
     bestDanger.dangerType = danger_object.grenade;
     replaceFunctionMock(object.best_danger, () => bestDanger);
 
@@ -123,7 +123,7 @@ describe("'object_danger' utils", () => {
     expect(isObjectFacingDanger(object)).toBe(true);
 
     // When injured.
-    state[EScheme.WOUNDED] = mockSchemeState<ISchemeWoundedState>(object, EScheme.WOUNDED, {
+    state[EScheme.WOUNDED] = mockSchemeState<ISchemeWoundedState>(EScheme.WOUNDED, {
       woundManager: { woundState: "true" } as WoundManager,
     });
     expect(isObjectFacingDanger(object)).toBe(false);
@@ -133,7 +133,7 @@ describe("'object_danger' utils", () => {
     const object: ClientObject = mockClientGameObject({ clsid: () => classIds.script_stalker as TClassId });
     const enemy: ClientObject = mockClientGameObject();
     const state: IRegistryObjectState = registerObject(object);
-    const combatIgnoreState: ISchemeCombatIgnoreState = mockSchemeState(object, EScheme.COMBAT_IGNORE);
+    const combatIgnoreState: ISchemeCombatIgnoreState = mockSchemeState(EScheme.COMBAT_IGNORE);
 
     state[EScheme.COMBAT_IGNORE] = combatIgnoreState;
     expect(canObjectSelectAsEnemy(object, enemy)).toBe(true);
@@ -169,7 +169,7 @@ describe("'object_danger' utils", () => {
     const object: ClientObject = mockClientGameObject({ clsid: () => classIds.script_stalker as TClassId });
     const enemy: ClientObject = mockClientGameObject();
     const state: IRegistryObjectState = registerObject(object);
-    const combatIgnoreState: ISchemeCombatIgnoreState = mockSchemeState(object, EScheme.COMBAT_IGNORE);
+    const combatIgnoreState: ISchemeCombatIgnoreState = mockSchemeState(EScheme.COMBAT_IGNORE);
 
     const noCombatZone: ClientObject = mockClientGameObject();
     const noCombatSmart: ServerSmartZoneObject = mockServerAlifeSmartZone({
@@ -194,7 +194,7 @@ describe("'object_danger' utils", () => {
     const object: ClientObject = mockClientGameObject({ clsid: () => classIds.script_stalker as TClassId });
     const enemy: ClientObject = mockClientGameObject();
     const state: IRegistryObjectState = registerObject(object);
-    const combatIgnoreState: ISchemeCombatIgnoreState = mockSchemeState(object, EScheme.COMBAT_IGNORE);
+    const combatIgnoreState: ISchemeCombatIgnoreState = mockSchemeState(EScheme.COMBAT_IGNORE);
 
     const noCombatSmart: ServerSmartZoneObject = mockServerAlifeSmartZone({
       name: <T>() => "zat_stalker_base_smart" as T,

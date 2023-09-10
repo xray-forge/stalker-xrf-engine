@@ -270,7 +270,7 @@ export class ReachTaskPatrolManager {
     }
 
     if (object.id() !== this.commanderId) {
-      return; // --abort ("NPC %s is not commander in PatrolManager[%s]", npc.name (), this.target_name)
+      return;
     }
 
     this.currentState = command;

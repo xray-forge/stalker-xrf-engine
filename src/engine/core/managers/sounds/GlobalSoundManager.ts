@@ -125,7 +125,7 @@ export class GlobalSoundManager extends AbstractManager {
     const playableTheme: Optional<AbstractPlayableSound> = registry.sounds.themes.get(sound);
     const soundItem: Optional<AbstractPlayableSound> = registry.sounds.generic.get(objectId);
 
-    assertDefined(playableTheme, "'playSound': Wrong sound theme [%s], npc[%s].", tostring(sound), objectId);
+    assertDefined(playableTheme, "'playSound': Wrong sound theme [%s], object [%s].", tostring(sound), objectId);
     assert(playableTheme.type !== LoopedSound.type, "You trying to play sound [%s] which type is looped.", sound);
 
     if (soundItem === null || playableTheme.shouldPlayAlways) {

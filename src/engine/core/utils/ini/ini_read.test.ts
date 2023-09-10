@@ -1,6 +1,6 @@
 import { describe, expect, it } from "@jest/globals";
 
-import { IBaseSchemeLogic } from "@/engine/core/objects/ai/scheme";
+import { IBaseSchemeLogic } from "@/engine/core/database";
 import {
   readIniBoolean,
   readIniConditionList,
@@ -109,8 +109,8 @@ describe("'read' utils for ini file", () => {
         },
       },
       objectId: null,
-      v1: null,
-      v2: null,
+      p1: null,
+      p2: null,
     });
 
     const secondScheme: Optional<IBaseSchemeLogic> = readIniConditionList(ini, "section1", "b");
@@ -126,8 +126,8 @@ describe("'read' utils for ini file", () => {
         "2": { section: "ph_door@open", infop_check: {}, infop_set: {} },
       },
       objectId: null,
-      v1: null,
-      v2: null,
+      p1: null,
+      p2: null,
     });
   });
 
@@ -162,8 +162,8 @@ describe("'read' utils for ini file", () => {
         },
       },
       objectId: null,
-      v1: 5,
-      v2: null,
+      p1: 5,
+      p2: null,
     });
 
     expect(readIniNumberAndConditionList(ini, "section1", "b")).toEqualLuaTables({
@@ -186,8 +186,8 @@ describe("'read' utils for ini file", () => {
         },
       },
       objectId: null,
-      v1: 150,
-      v2: null,
+      p1: 150,
+      p2: null,
     });
 
     expect(readIniNumberAndConditionList(ini, "section1", "c")).toEqualLuaTables({
@@ -218,8 +218,8 @@ describe("'read' utils for ini file", () => {
         },
       },
       objectId: null,
-      v1: 0,
-      v2: null,
+      p1: 0,
+      p2: null,
     });
   });
 
@@ -254,8 +254,8 @@ describe("'read' utils for ini file", () => {
         },
       },
       objectId: null,
-      v1: "lx8_sr_lab ",
-      v2: null,
+      p1: "lx8_sr_lab ",
+      p2: null,
     });
 
     expect(readIniStringAndCondList(ini, "section1", "b")).toEqualLuaTables({
@@ -268,8 +268,8 @@ describe("'read' utils for ini file", () => {
         },
       },
       objectId: null,
-      v1: "path_end ",
-      v2: null,
+      p1: "path_end ",
+      p2: null,
     });
   });
 
@@ -304,8 +304,8 @@ describe("'read' utils for ini file", () => {
         },
       },
       objectId: null,
-      v1: null,
-      v2: null,
+      p1: null,
+      p2: null,
     });
 
     expect(readIniConditionList(ini, "section1", "b")).toEqualLuaTables({
@@ -318,8 +318,8 @@ describe("'read' utils for ini file", () => {
         },
       },
       objectId: null,
-      v1: null,
-      v2: null,
+      p1: null,
+      p2: null,
     });
   });
 });

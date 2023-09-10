@@ -21,7 +21,7 @@ export function isLootableItemSection(section: TSection): boolean {
 }
 
 /**
- * Checks whether provided object can be looted from npc.
+ * Checks whether provided object can be looted from corpses.
  *
  * @param section - object section to check if lootable.
  * @returns whether object is excluded from loot drop.

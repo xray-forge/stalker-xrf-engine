@@ -1,5 +1,5 @@
-import { ESchemeEvent, IBaseSchemeState } from "@/engine/core/objects/ai/scheme";
-import { AnyArgs, AnyContextualCallable, ClientObject } from "@/engine/lib/types";
+import { IBaseSchemeState } from "@/engine/core/database";
+import { AnyArgs, AnyContextualCallable, ClientObject, ESchemeEvent } from "@/engine/lib/types";
 
 /**
  * Emit scheme event for active `actions` list in scheme state.

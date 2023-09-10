@@ -645,7 +645,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
 
     if (customData !== "default_custom_data.ltx") {
       logger.format(
-        "INCORRECT npc_spawn_section used for '%s'. You cannot use npc with custom_data in squad",
+        "INCORRECT npc_spawn_section used for '%s'. You cannot use object with custom_data in squad",
         spawnSection
       );
     }

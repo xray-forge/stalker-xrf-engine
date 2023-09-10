@@ -1,4 +1,4 @@
-import { AbstractScheme, ESchemeEvent } from "@/engine/core/objects/ai/scheme";
+import { AbstractScheme } from "@/engine/core/objects/ai/scheme";
 import { CutsceneManager } from "@/engine/core/schemes/sr_cutscene/CutsceneManager";
 import { ISchemeCutsceneState } from "@/engine/core/schemes/sr_cutscene/ISchemeCutsceneState";
 import { getConfigSwitchConditions, parseStringsList } from "@/engine/core/utils/ini";
@@ -6,7 +6,7 @@ import { readIniBoolean, readIniNumber, readIniString } from "@/engine/core/util
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { emitSchemeEvent } from "@/engine/core/utils/scheme";
 import { NIL } from "@/engine/lib/constants/words";
-import { ClientObject, EScheme, ESchemeType, IniFile, TSection } from "@/engine/lib/types";
+import { ClientObject, EScheme, ESchemeEvent, ESchemeType, IniFile, TSection } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

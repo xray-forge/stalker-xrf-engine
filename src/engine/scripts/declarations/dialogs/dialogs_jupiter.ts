@@ -1055,7 +1055,7 @@ extern(
     const actor: ClientObject = registry.actor;
     let cnt: TCount = 0;
 
-    const zatB30Count = (npc: ClientObject, item: ClientObject): void => {
+    const zatB30Count = (object: ClientObject, item: ClientObject): void => {
       if (item.section() === "detector_elite") {
         cnt = cnt + 1;
       }
@@ -1514,13 +1514,12 @@ extern(
 extern(
   "dialogs_jupiter.jup_b202_hit_bandit_from_actor",
   (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
-    const npc: ClientObject = getNpcSpeaker(firstSpeaker, secondSpeaker);
+    const object: ClientObject = getNpcSpeaker(firstSpeaker, secondSpeaker);
     const actor: ClientObject = registry.actor;
 
     giveInfo(infoPortions.jup_b202_bandit_hited);
     giveInfo(infoPortions.jup_b202_bandit_hited_by_actor);
-    getExtern<AnyCallablesModule>("xr_effects").set_squad_goodwill(actor, npc, ["jup_b202_bandit_squad", "enemy"]);
-    // --xr_effects.hit_npc_from_actor(actor,npc,{"jup_b202_bandit"})
+    getExtern<AnyCallablesModule>("xr_effects").set_squad_goodwill(actor, object, ["jup_b202_bandit_squad", "enemy"]);
   }
 );
 
@@ -1544,8 +1543,8 @@ extern(
 extern(
   "dialogs_jupiter.jup_b6_stalker_dialog_precond",
   (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
-    const npc: ClientObject = getNpcSpeaker(firstSpeaker, secondSpeaker);
-    const npcAlife: Optional<ServerCreatureObject> = alife().object(npc.id());
+    const object: ClientObject = getNpcSpeaker(firstSpeaker, secondSpeaker);
+    const npcAlife: Optional<ServerCreatureObject> = alife().object(object.id());
 
     if (!npcAlife) {
       return false;
@@ -1595,7 +1594,7 @@ extern(
   (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
     const actor: ClientObject = registry.actor as ClientObject;
 
-    const isToolkit = (npc: ClientObject, item: ClientObject): void => {
+    const isToolkit = (object: ClientObject, item: ClientObject): void => {
       const section: TSection = item.section();
 
       if (
@@ -1849,10 +1848,10 @@ extern("dialogs_jupiter.transfer_af_mincer_meat", (firstSpeaker: ClientObject, s
  * todo;
  */
 extern("dialogs_jupiter.jup_b15_dec_counter", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
-  const npc: ClientObject = getNpcSpeaker(firstSpeaker, secondSpeaker);
+  const object: ClientObject = getNpcSpeaker(firstSpeaker, secondSpeaker);
   const actor: ClientObject = registry.actor;
 
-  return getExtern<AnyCallablesModule>("xr_effects").dec_counter(actor, npc, ["jup_b15_full_drunk_count", 1]);
+  return getExtern<AnyCallablesModule>("xr_effects").dec_counter(actor, object, ["jup_b15_full_drunk_count", 1]);
 });
 
 /**
@@ -2042,10 +2041,10 @@ extern("dialogs_jupiter.jup_b218_counter_not_0", (firstSpeaker: ClientObject, se
 extern(
   "dialogs_jupiter.jup_b25_frase_count_inc",
   (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
-    const npc: ClientObject = getNpcSpeaker(firstSpeaker, secondSpeaker);
+    const object: ClientObject = getNpcSpeaker(firstSpeaker, secondSpeaker);
     const actor: ClientObject = registry.actor;
 
-    return getExtern<AnyCallablesModule>("xr_effects").inc_counter(actor, npc, ["jup_b25_frase", 1]);
+    return getExtern<AnyCallablesModule>("xr_effects").inc_counter(actor, object, ["jup_b25_frase", 1]);
   }
 );
 

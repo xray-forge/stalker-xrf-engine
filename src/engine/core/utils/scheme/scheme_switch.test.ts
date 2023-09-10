@@ -1,8 +1,14 @@
 import { afterAll, describe, expect, it, jest } from "@jest/globals";
 import { game } from "xray16";
 
-import { IRegistryObjectState, registerActor, registerObject, registerZone } from "@/engine/core/database";
-import { IBaseSchemeLogic, IBaseSchemeState } from "@/engine/core/objects/ai/scheme";
+import {
+  IBaseSchemeLogic,
+  IBaseSchemeState,
+  IRegistryObjectState,
+  registerActor,
+  registerObject,
+  registerZone,
+} from "@/engine/core/database";
 import { SchemeIdle } from "@/engine/core/schemes/sr_idle";
 import { SchemeTimer } from "@/engine/core/schemes/sr_timer";
 import { TimerManager } from "@/engine/core/schemes/sr_timer/TimerManager";
@@ -29,13 +35,13 @@ describe("'switch logic' utils", () => {
   it("'trySwitchToAnotherSection' should throw if no logic present / logic is not expected", () => {
     const object: ClientObject = mockClientGameObject();
 
-    const firstState: IBaseSchemeState = mockSchemeState(object, EScheme.SR_IDLE, {
+    const firstState: IBaseSchemeState = mockSchemeState(EScheme.SR_IDLE, {
       logic: null,
     });
-    const secondState: IBaseSchemeState = mockSchemeState(object, EScheme.SR_IDLE, {
+    const secondState: IBaseSchemeState = mockSchemeState(EScheme.SR_IDLE, {
       logic: new LuaTable(),
     });
-    const thirdState: IBaseSchemeState = mockSchemeState(object, EScheme.SR_IDLE, {
+    const thirdState: IBaseSchemeState = mockSchemeState(EScheme.SR_IDLE, {
       logic: new LuaTable(),
     });
 
@@ -58,13 +64,13 @@ describe("'switch logic' utils", () => {
     const ini: IniFile = mockIniFile("test.ltx", {
       "sr_idle@next": {},
     });
-    const schemeState: IBaseSchemeState = mockSchemeState(object, EScheme.SR_IDLE, {
+    const schemeState: IBaseSchemeState = mockSchemeState(EScheme.SR_IDLE, {
       ini,
       logic: $fromArray([
         mockBaseSchemeLogic({
           name: ESchemeCondition.ON_ACTOR_DISTANCE_LESS_THAN,
           condlist: parseConditionsList("sr_idle@next"),
-          v1: 10,
+          p1: 10,
         }),
       ]),
     });
@@ -102,13 +108,13 @@ describe("'switch logic' utils", () => {
     const ini: IniFile = mockIniFile("test.ltx", {
       "sr_idle@next": {},
     });
-    const schemeState: IBaseSchemeState = mockSchemeState(object, EScheme.SR_IDLE, {
+    const schemeState: IBaseSchemeState = mockSchemeState(EScheme.SR_IDLE, {
       ini,
       logic: $fromArray([
         mockBaseSchemeLogic({
           name: ESchemeCondition.ON_ACTOR_DISTANCE_LESS_THAN_NOT_VISIBLE,
           condlist: parseConditionsList("sr_idle@next"),
-          v1: 10,
+          p1: 10,
         }),
       ]),
     });
@@ -138,13 +144,13 @@ describe("'switch logic' utils", () => {
     const ini: IniFile = mockIniFile("test.ltx", {
       "sr_idle@next": {},
     });
-    const schemeState: IBaseSchemeState = mockSchemeState(object, EScheme.SR_IDLE, {
+    const schemeState: IBaseSchemeState = mockSchemeState(EScheme.SR_IDLE, {
       ini,
       logic: $fromArray([
         mockBaseSchemeLogic({
           name: ESchemeCondition.ON_ACTOR_DISTANCE_GREATER_THAN,
           condlist: parseConditionsList("sr_idle@next"),
-          v1: 30,
+          p1: 30,
         }),
       ]),
     });
@@ -182,13 +188,13 @@ describe("'switch logic' utils", () => {
     const ini: IniFile = mockIniFile("test.ltx", {
       "sr_idle@next": {},
     });
-    const schemeState: IBaseSchemeState = mockSchemeState(object, EScheme.SR_IDLE, {
+    const schemeState: IBaseSchemeState = mockSchemeState(EScheme.SR_IDLE, {
       ini,
       logic: $fromArray([
         mockBaseSchemeLogic({
           name: ESchemeCondition.ON_ACTOR_DISTANCE_GREATER_THAN_NOT_VISIBLE,
           condlist: parseConditionsList("sr_idle@next"),
-          v1: 30,
+          p1: 30,
         }),
       ]),
     });
@@ -218,7 +224,7 @@ describe("'switch logic' utils", () => {
     const ini: IniFile = mockIniFile("test.ltx", {
       "sr_idle@next": {},
     });
-    const schemeState: IBaseSchemeState = mockSchemeState(object, EScheme.SR_IDLE, {
+    const schemeState: IBaseSchemeState = mockSchemeState(EScheme.SR_IDLE, {
       ini,
       logic: $fromArray([
         mockBaseSchemeLogic({
@@ -251,7 +257,7 @@ describe("'switch logic' utils", () => {
     const ini: IniFile = mockIniFile("test.ltx", {
       "sr_idle@next": {},
     });
-    const schemeState: IBaseSchemeState = mockSchemeState(object, EScheme.SR_IDLE, {
+    const schemeState: IBaseSchemeState = mockSchemeState(EScheme.SR_IDLE, {
       ini,
       logic: $fromArray([
         mockBaseSchemeLogic({
@@ -285,14 +291,14 @@ describe("'switch logic' utils", () => {
     const ini: IniFile = mockIniFile("test.ltx", {
       "sr_idle@next": {},
     });
-    const schemeState: IBaseSchemeState = mockSchemeState(object, EScheme.SR_IDLE, {
+    const schemeState: IBaseSchemeState = mockSchemeState(EScheme.SR_IDLE, {
       ini,
       signals: null,
       logic: $fromArray([
         mockBaseSchemeLogic({
           name: ESchemeCondition.ON_SIGNAL,
           condlist: parseConditionsList("sr_idle@next"),
-          v1: "expected",
+          p1: "expected",
         }),
       ]),
     });
@@ -323,7 +329,7 @@ describe("'switch logic' utils", () => {
     const ini: IniFile = mockIniFile("test.ltx", {
       "sr_idle@next": {},
     });
-    const schemeState: IBaseSchemeState = mockSchemeState(object, EScheme.SR_IDLE, {
+    const schemeState: IBaseSchemeState = mockSchemeState(EScheme.SR_IDLE, {
       ini,
       logic: $fromArray([
         mockBaseSchemeLogic({
@@ -358,13 +364,13 @@ describe("'switch logic' utils", () => {
     const ini: IniFile = mockIniFile("test.ltx", {
       "sr_idle@next": {},
     });
-    const schemeState: IBaseSchemeState = mockSchemeState(object, EScheme.SR_IDLE, {
+    const schemeState: IBaseSchemeState = mockSchemeState(EScheme.SR_IDLE, {
       ini,
       logic: $fromArray([
         mockBaseSchemeLogic({
           name: ESchemeCondition.ON_TIMER,
           condlist: parseConditionsList("sr_idle@next"),
-          v1: 5000,
+          p1: 5000,
         }),
       ]),
     });
@@ -397,13 +403,13 @@ describe("'switch logic' utils", () => {
     const ini: IniFile = mockIniFile("test.ltx", {
       "sr_idle@next": {},
     });
-    const schemeState: IBaseSchemeState = mockSchemeState(object, EScheme.SR_IDLE, {
+    const schemeState: IBaseSchemeState = mockSchemeState(EScheme.SR_IDLE, {
       ini,
       logic: $fromArray([
         mockBaseSchemeLogic({
           name: ESchemeCondition.ON_GAME_TIMER,
           condlist: parseConditionsList("sr_idle@next"),
-          v1: 60 * 5,
+          p1: 60 * 5,
         }),
       ]),
     });
@@ -436,13 +442,13 @@ describe("'switch logic' utils", () => {
     const ini: IniFile = mockIniFile("test.ltx", {
       "sr_idle@next": {},
     });
-    const schemeState: IBaseSchemeState = mockSchemeState(object, EScheme.SR_IDLE, {
+    const schemeState: IBaseSchemeState = mockSchemeState(EScheme.SR_IDLE, {
       ini,
       logic: $fromArray([
         mockBaseSchemeLogic({
           name: ESchemeCondition.ON_ACTOR_IN_ZONE,
           condlist: parseConditionsList("sr_idle@next"),
-          v1: "zone_name",
+          p1: "zone_name",
         }),
       ]),
     });
@@ -474,13 +480,13 @@ describe("'switch logic' utils", () => {
     const ini: IniFile = mockIniFile("test.ltx", {
       "sr_idle@next": {},
     });
-    const schemeState: IBaseSchemeState = mockSchemeState(object, EScheme.SR_IDLE, {
+    const schemeState: IBaseSchemeState = mockSchemeState(EScheme.SR_IDLE, {
       ini,
       logic: $fromArray([
         mockBaseSchemeLogic({
           name: ESchemeCondition.ON_ACTOR_NOT_IN_ZONE,
           condlist: parseConditionsList("sr_idle@next"),
-          v1: "zone_name",
+          p1: "zone_name",
         }),
       ]),
     });
@@ -514,14 +520,14 @@ describe("'switch logic' utils", () => {
     const ini: IniFile = mockIniFile("test.ltx", {
       "sr_idle@next": {},
     });
-    const schemeState: IBaseSchemeState = mockSchemeState(object, EScheme.SR_IDLE, {
+    const schemeState: IBaseSchemeState = mockSchemeState(EScheme.SR_IDLE, {
       ini,
       logic: $fromArray([
         mockBaseSchemeLogic({
           name: ESchemeCondition.ON_NPC_IN_ZONE,
           condlist: parseConditionsList("sr_idle@next"),
-          v1: "story_id",
-          v2: "zone_name",
+          p1: "story_id",
+          p2: "zone_name",
           objectId: targetObject.id(),
         }),
       ]),
@@ -556,14 +562,14 @@ describe("'switch logic' utils", () => {
     const ini: IniFile = mockIniFile("test.ltx", {
       "sr_idle@next": {},
     });
-    const schemeState: IBaseSchemeState = mockSchemeState(object, EScheme.SR_IDLE, {
+    const schemeState: IBaseSchemeState = mockSchemeState(EScheme.SR_IDLE, {
       ini,
       logic: $fromArray([
         mockBaseSchemeLogic({
           name: ESchemeCondition.ON_NPC_NOT_IN_ZONE,
           condlist: parseConditionsList("sr_idle@next"),
-          v1: "story_id",
-          v2: "zone_name",
+          p1: "story_id",
+          p2: "zone_name",
           objectId: targetObject.id(),
         }),
       ]),
@@ -599,14 +605,14 @@ describe("'switch logic' utils", () => {
       "sr_idle@first": {},
       "sr_idle@second": {},
     });
-    const schemeState: IBaseSchemeState = mockSchemeState(object, EScheme.SR_IDLE, {
+    const schemeState: IBaseSchemeState = mockSchemeState(EScheme.SR_IDLE, {
       ini,
       signals: new LuaTable(),
       logic: $fromArray([
         mockBaseSchemeLogic({
           name: ESchemeCondition.ON_SIGNAL,
           condlist: parseConditionsList("sr_idle@first"),
-          v1: "test_signal",
+          p1: "test_signal",
         }),
         mockBaseSchemeLogic({
           name: ESchemeCondition.ON_INFO,
@@ -636,7 +642,7 @@ describe("'switch logic' utils", () => {
   it("'switchObjectSchemeToSection' should correctly reset base schemes", () => {
     const object: ClientObject = mockClientGameObject();
     const state: IRegistryObjectState = registerObject(object);
-    const schemeState: IBaseSchemeState = mockSchemeState(object, EScheme.SR_IDLE, {
+    const schemeState: IBaseSchemeState = mockSchemeState(EScheme.SR_IDLE, {
       actions: new LuaTable(),
     });
     const ini: IniFile = mockIniFile("test.ltx", {

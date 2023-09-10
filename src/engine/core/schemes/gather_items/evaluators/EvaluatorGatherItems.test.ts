@@ -9,7 +9,7 @@ import { mockClientGameObject, MockPropertyStorage } from "@/fixtures/xray";
 describe("EvaluatorGatherItems class", () => {
   it("should correctly evaluate state for default state", () => {
     const object: ClientObject = mockClientGameObject();
-    const state: ISchemeGatherItemsState = mockSchemeState(object, EScheme.GATHER_ITEMS);
+    const state: ISchemeGatherItemsState = mockSchemeState(EScheme.GATHER_ITEMS);
     const evaluator: EvaluatorGatherItems = new EvaluatorGatherItems(state);
 
     evaluator.setup(object, MockPropertyStorage.mock());
@@ -24,7 +24,7 @@ describe("EvaluatorGatherItems class", () => {
 
   it("should correctly evaluate state for lootable state", () => {
     const object: ClientObject = mockClientGameObject();
-    const state: ISchemeGatherItemsState = mockSchemeState<ISchemeGatherItemsState>(object, EScheme.GATHER_ITEMS, {
+    const state: ISchemeGatherItemsState = mockSchemeState<ISchemeGatherItemsState>(EScheme.GATHER_ITEMS, {
       canLootItems: true,
     });
     const evaluator: EvaluatorGatherItems = new EvaluatorGatherItems(state);
@@ -40,7 +40,7 @@ describe("EvaluatorGatherItems class", () => {
 
   it("should correctly evaluate state for not lootable state", () => {
     const object: ClientObject = mockClientGameObject();
-    const state: ISchemeGatherItemsState = mockSchemeState<ISchemeGatherItemsState>(object, EScheme.GATHER_ITEMS, {
+    const state: ISchemeGatherItemsState = mockSchemeState<ISchemeGatherItemsState>(EScheme.GATHER_ITEMS, {
       canLootItems: false,
     });
     const evaluator: EvaluatorGatherItems = new EvaluatorGatherItems(state);

@@ -68,7 +68,7 @@ let camEffectorPlayingObjectId: Optional<TNumberId> = null;
 /**
  * todo;
  */
-extern("xr_effects.run_cam_effector", (actor: ClientObject, npc: ClientObject, p: [string, number, string]) => {
+extern("xr_effects.run_cam_effector", (actor: ClientObject, object: ClientObject, p: [string, number, string]) => {
   logger.info("Run cam effector");
 
   if (p[0]) {
@@ -85,14 +85,14 @@ extern("xr_effects.run_cam_effector", (actor: ClientObject, npc: ClientObject, p
 
     // --level.add_pp_effector(p[1] + ".ppe", num, loop)
     level.add_cam_effector("camera_effects\\" + p[0] + ".anm", num, loop, "xr_effects.cam_effector_callback");
-    camEffectorPlayingObjectId = npc.id();
+    camEffectorPlayingObjectId = object.id();
   }
 });
 
 /**
  * todo;
  */
-extern("xr_effects.stop_cam_effector", (actor: ClientObject, npc: ClientObject, p: [Optional<number>]): void => {
+extern("xr_effects.stop_cam_effector", (actor: ClientObject, object: ClientObject, p: [Optional<number>]): void => {
   logger.info("Stop cam effector:", p);
 
   if (p[0] && type(p[0]) === "number" && p[0] > 0) {
@@ -133,7 +133,7 @@ extern("xr_effects.enable_actor_torch", (actor: ClientObject): void => {
  */
 extern(
   "xr_effects.run_cam_effector_global",
-  (actor: ClientObject, npc: ClientObject, params: [string, Optional<number>, Optional<number>]): void => {
+  (actor: ClientObject, object: ClientObject, params: [string, Optional<number>, Optional<number>]): void => {
     logger.info("Run cam effector global");
 
     let num: TIndex = 1000 + math.random(100);
@@ -154,7 +154,7 @@ extern(
       "xr_effects.cam_effector_callback",
       fov
     );
-    camEffectorPlayingObjectId = npc.id();
+    camEffectorPlayingObjectId = object.id();
   }
 );
 
@@ -184,7 +184,7 @@ extern("xr_effects.cam_effector_callback", (): void => {
 /**
  * todo;
  */
-extern("xr_effects.run_postprocess", (actor: ClientObject, npc: ClientObject, p: [string, number]): void => {
+extern("xr_effects.run_postprocess", (actor: ClientObject, object: ClientObject, p: [string, number]): void => {
   logger.info("Run postprocess");
 
   if (p[0]) {
@@ -205,7 +205,7 @@ extern("xr_effects.run_postprocess", (actor: ClientObject, npc: ClientObject, p:
 /**
  * todo;
  */
-extern("xr_effects.stop_postprocess", (actor: ClientObject, npc: ClientObject, p: [number]): void => {
+extern("xr_effects.stop_postprocess", (actor: ClientObject, object: ClientObject, p: [number]): void => {
   logger.info("Stop postprocess");
 
   if (p[0] && type(p[0]) === "number" && p[0] > 0) {
@@ -271,7 +271,7 @@ extern(
 /**
  * todo;
  */
-extern("xr_effects.relocate_item", (actor: ClientObject, npc: ClientObject, params: [string, string, string]) => {
+extern("xr_effects.relocate_item", (actor: ClientObject, object: ClientObject, params: [string, string, string]) => {
   logger.info("Relocate item");
 
   const item: Optional<TSection> = params && params[0];
@@ -292,7 +292,7 @@ extern("xr_effects.relocate_item", (actor: ClientObject, npc: ClientObject, para
 /**
  * todo;
  */
-extern("xr_effects.activate_weapon_slot", (actor: ClientObject, npc: ClientObject, [index]: [TIndex]): void => {
+extern("xr_effects.activate_weapon_slot", (actor: ClientObject, object: ClientObject, [index]: [TIndex]): void => {
   actor.activate_slot(index);
 });
 
@@ -324,7 +324,11 @@ extern("xr_effects.actor_punch", (actor: ClientObject, object: ClientObject): vo
  */
 extern(
   "xr_effects.send_tip",
-  (actor: ClientObject, npc: ClientObject, [caption, icon, senderId]: [TLabel, TNotificationIcon, TStringId]): void => {
+  (
+    actor: ClientObject,
+    object: ClientObject,
+    [caption, icon, senderId]: [TLabel, TNotificationIcon, TStringId]
+  ): void => {
     logger.info("Send tip");
     NotificationManager.getInstance().sendTipNotification(caption, icon, 0, null, senderId);
   }
@@ -420,13 +424,13 @@ extern("xr_effects.damage_actor_items_on_start", (actor: ClientObject): void => 
 /**
  * todo;
  */
-extern("xr_effects.activate_weapon", (actor: ClientObject, npc: ClientObject, p: [string]) => {
-  const object: Optional<ClientObject> = actor.object(p[0]);
+extern("xr_effects.activate_weapon", (actor: ClientObject, object: ClientObject, p: [string]) => {
+  const inventoryItem: Optional<ClientObject> = actor.object(p[0]);
 
-  assertDefined(object, "Actor has no such weapon! [%s]", p[0]);
+  assertDefined(inventoryItem, "Actor has no such weapon! [%s]", p[0]);
 
-  if (object !== null) {
-    actor.make_item_active(object);
+  if (inventoryItem !== null) {
+    actor.make_item_active(inventoryItem);
   }
 });
 
@@ -489,24 +493,27 @@ extern("xr_effects.hide_best_detector", (actor: ClientObject): void => {
 /**
  * todo;
  */
-extern("xr_effects.set_torch_state", (actor: ClientObject, npc: ClientObject, p: [string, Optional<string>]): void => {
-  if (p === null || p[1] === null) {
-    abort("Not enough parameters in 'set_torch_state' function!");
-  }
+extern(
+  "xr_effects.set_torch_state",
+  (actor: ClientObject, object: ClientObject, p: [string, Optional<string>]): void => {
+    if (p === null || p[1] === null) {
+      abort("Not enough parameters in 'set_torch_state' function!");
+    }
 
-  const object: Optional<ClientObject> = getObjectByStoryId(p[0]);
+    const storyObject: Optional<ClientObject> = getObjectByStoryId(p[0]);
 
-  if (object === null) {
-    return;
-  }
+    if (storyObject === null) {
+      return;
+    }
 
-  const torch: Optional<ClientObject> = object.object(misc.device_torch);
+    const torch: Optional<ClientObject> = storyObject.object(misc.device_torch);
 
-  if (torch) {
-    if (p[1] === "on") {
-      torch.enable_attachable_item(true);
-    } else if (p[1] === "off") {
-      torch.enable_attachable_item(false);
+    if (torch) {
+      if (p[1] === "on") {
+        torch.enable_attachable_item(true);
+      } else if (p[1] === "off") {
+        torch.enable_attachable_item(false);
+      }
     }
   }
-});
+);

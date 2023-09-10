@@ -47,7 +47,7 @@ extern(
  */
 extern(
   "xr_conditions.is_factions_neutrals",
-  (actor: ClientObject, npc: ClientObject, [community]: [TCommunity]): boolean => {
+  (actor: ClientObject, object: ClientObject, [community]: [TCommunity]): boolean => {
     if (community === null) {
       return true;
     }
@@ -62,7 +62,7 @@ extern(
 /**
  * todo;
  */
-extern("xr_conditions.is_factions_friends", (actor: ClientObject, npc: ClientObject, p: [TCommunity]): boolean => {
+extern("xr_conditions.is_factions_friends", (actor: ClientObject, object: ClientObject, p: [TCommunity]): boolean => {
   if (p[0] !== null) {
     return areCommunitiesFriendly(getObjectCommunity(actor), p[0]);
   } else {
@@ -75,7 +75,7 @@ extern("xr_conditions.is_factions_friends", (actor: ClientObject, npc: ClientObj
  */
 extern(
   "xr_conditions.is_faction_enemy_to_actor",
-  (actor: ClientObject, npc: ClientObject, p: [TCommunity]): boolean => {
+  (actor: ClientObject, object: ClientObject, p: [TCommunity]): boolean => {
     return p[0] === null ? false : isActorEnemyWithFaction(p[0]);
   }
 );
@@ -143,18 +143,18 @@ extern(
 /**
  * todo;
  */
-extern("xr_conditions.is_squad_neutral_to_actor", (actor: ClientObject, npc: ClientObject, p: [string]): boolean => {
+extern("xr_conditions.is_squad_neutral_to_actor", (actor: ClientObject, object: ClientObject, p: [string]): boolean => {
   return !(
-    getExtern<AnyCallable>("is_squad_enemy_to_actor", getExtern("xr_conditions"))(actor, npc, p) ||
-    getExtern<AnyCallable>("is_squad_friend_to_actor", getExtern("xr_conditions"))(actor, npc, p)
+    getExtern<AnyCallable>("is_squad_enemy_to_actor", getExtern("xr_conditions"))(actor, object, p) ||
+    getExtern<AnyCallable>("is_squad_friend_to_actor", getExtern("xr_conditions"))(actor, object, p)
   );
 });
 
 /**
  * todo;
  */
-extern("xr_conditions.fighting_actor", (actor: ClientObject, npc: ClientObject): boolean => {
-  const enemyId: TNumberId = registry.objects.get(npc.id()).enemy_id!;
+extern("xr_conditions.fighting_actor", (actor: ClientObject, object: ClientObject): boolean => {
+  const enemyId: TNumberId = registry.objects.get(object.id()).enemy_id!;
   const enemy: Optional<ClientObject> = registry.objects.get(enemyId)?.object as Optional<ClientObject>;
 
   return enemy !== null && enemy.id() === actor.id();
@@ -163,48 +163,49 @@ extern("xr_conditions.fighting_actor", (actor: ClientObject, npc: ClientObject):
 /**
  * todo;
  */
-extern("xr_conditions.actor_enemy", (actor: ClientObject, npc: ClientObject): boolean => {
-  const state: Optional<ISchemeDeathState> = registry.objects.get(npc.id())[EScheme.DEATH] as ISchemeDeathState;
+extern("xr_conditions.actor_enemy", (actor: ClientObject, object: ClientObject): boolean => {
+  const state: Optional<ISchemeDeathState> = registry.objects.get(object.id())[EScheme.DEATH] as ISchemeDeathState;
 
-  return npc.relation(actor) === EClientObjectRelation.ENEMY || state?.killer === actor.id();
+  return object.relation(actor) === EClientObjectRelation.ENEMY || state?.killer === actor.id();
 });
 
 /**
  * todo;
  */
-extern("xr_conditions.actor_friend", (actor: ClientObject, npc: ClientObject): boolean => {
-  return npc.relation(actor) === EClientObjectRelation.FRIEND;
+extern("xr_conditions.actor_friend", (actor: ClientObject, object: ClientObject): boolean => {
+  return object.relation(actor) === EClientObjectRelation.FRIEND;
 });
 
 /**
  * todo;
  */
-extern("xr_conditions.actor_neutral", (actor: ClientObject, npc: ClientObject): boolean => {
-  return npc.relation(actor) === EClientObjectRelation.NEUTRAL;
+extern("xr_conditions.actor_neutral", (actor: ClientObject, object: ClientObject): boolean => {
+  return object.relation(actor) === EClientObjectRelation.NEUTRAL;
 });
 
 /**
  * todo;
+ * todo; use only one signature without server objects
  */
 extern(
   "xr_conditions.npc_community",
-  (actor: ClientObject, npc: ClientObject | ServerHumanObject, params: [TCommunity]): boolean => {
+  (actor: ClientObject, object: ClientObject | ServerHumanObject, params: [TCommunity]): boolean => {
     if (params[0] === null) {
       abort("Wrong number of params in npc_community");
     }
 
-    let object: Optional<ClientObject> = null;
+    let targetObject: Optional<ClientObject> = null;
 
-    if (type(npc.id) !== "function") {
-      object = registry.objects.get((npc as ServerHumanObject).id)?.object as ClientObject;
+    if (type(object.id) !== "function") {
+      targetObject = registry.objects.get((object as ServerHumanObject).id)?.object as ClientObject;
 
-      if (object === null) {
-        return (npc as ServerHumanObject).community() === params[0];
+      if (targetObject === null) {
+        return (object as ServerHumanObject).community() === params[0];
       }
     } else {
-      object = npc as ClientObject;
+      targetObject = object as ClientObject;
     }
 
-    return getObjectCommunity(object) === params[0];
+    return getObjectCommunity(targetObject) === params[0];
   }
 );

@@ -1,7 +1,6 @@
 import { game, level, time_global } from "xray16";
 
-import { IRegistryObjectState, registry } from "@/engine/core/database";
-import { ESchemeEvent, IBaseSchemeLogic, IBaseSchemeState } from "@/engine/core/objects/ai/scheme";
+import { IBaseSchemeLogic, IBaseSchemeState, IRegistryObjectState, registry } from "@/engine/core/database";
 import { abort, assert } from "@/engine/core/utils/assertion";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/ini_config";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -14,6 +13,7 @@ import {
   ClientObject,
   EScheme,
   ESchemeCondition,
+  ESchemeEvent,
   IniFile,
   LuaArray,
   Optional,
@@ -42,20 +42,20 @@ const SCHEME_LOGIC_SWITCH: Record<
   [NIL]: () => abort("Error: 'scheme/switch': unknown condition encountered."),
   [ESchemeCondition.ON_ACTOR_DISTANCE_LESS_THAN]: (actor, object, state, logic) =>
     isActorSeenByObject(object) &&
-    getDistanceBetween(actor, object) <= (logic.v1 as TDistance) &&
+    getDistanceBetween(actor, object) <= (logic.p1 as TDistance) &&
     switchObjectSchemeToSection(object, state.ini, pickSectionFromCondList(actor, object, logic.condlist)),
   [ESchemeCondition.ON_ACTOR_DISTANCE_LESS_THAN_NOT_VISIBLE]: (actor, object, state, logic) =>
-    getDistanceBetween(actor, object) <= (logic.v1 as TDistance) &&
+    getDistanceBetween(actor, object) <= (logic.p1 as TDistance) &&
     switchObjectSchemeToSection(object, state.ini, pickSectionFromCondList(actor, object, logic.condlist)),
   [ESchemeCondition.ON_ACTOR_DISTANCE_GREATER_THAN]: (actor, object, state, logic) =>
     isActorSeenByObject(object) &&
-    getDistanceBetween(actor, object) > (logic.v1 as TDistance) &&
+    getDistanceBetween(actor, object) > (logic.p1 as TDistance) &&
     switchObjectSchemeToSection(object, state.ini, pickSectionFromCondList(actor, object, logic.condlist)),
   [ESchemeCondition.ON_ACTOR_DISTANCE_GREATER_THAN_NOT_VISIBLE]: (actor, object, state, logic) =>
-    getDistanceBetween(actor, object) > (logic.v1 as TDistance) &&
+    getDistanceBetween(actor, object) > (logic.p1 as TDistance) &&
     switchObjectSchemeToSection(object, state.ini, pickSectionFromCondList(actor, object, logic.condlist)),
   [ESchemeCondition.ON_SIGNAL]: (actor, object, state, logic) =>
-    (state.signals?.get(logic.v1 as TName) &&
+    (state.signals?.get(logic.p1 as TName) &&
       switchObjectSchemeToSection(
         object,
         state.ini,
@@ -64,22 +64,22 @@ const SCHEME_LOGIC_SWITCH: Record<
   [ESchemeCondition.ON_INFO]: (actor, object, state, logic) =>
     switchObjectSchemeToSection(object, state.ini, pickSectionFromCondList(actor, object, logic.condlist)),
   [ESchemeCondition.ON_TIMER]: (actor, object, state, logic) =>
-    time_global() >= registry.objects.get(object.id()).activationTime + (logic.v1 as TDuration) &&
+    time_global() >= registry.objects.get(object.id()).activationTime + (logic.p1 as TDuration) &&
     switchObjectSchemeToSection(object, state.ini, pickSectionFromCondList(actor, object, logic.condlist)),
   [ESchemeCondition.ON_GAME_TIMER]: (actor, object, state, logic) =>
-    game.get_game_time().diffSec(registry.objects.get(object.id()).activationGameTime) >= (logic.v1 as TTimestamp) &&
+    game.get_game_time().diffSec(registry.objects.get(object.id()).activationGameTime) >= (logic.p1 as TTimestamp) &&
     switchObjectSchemeToSection(object, state.ini, pickSectionFromCondList(actor, object, logic.condlist)),
   [ESchemeCondition.ON_ACTOR_IN_ZONE]: (actor, object, state, logic) =>
-    isObjectInZone(actor, registry.zones.get(logic.v1 as TName)) &&
+    isObjectInZone(actor, registry.zones.get(logic.p1 as TName)) &&
     switchObjectSchemeToSection(object, state.ini, pickSectionFromCondList(actor, object, logic.condlist)),
   [ESchemeCondition.ON_ACTOR_NOT_IN_ZONE]: (actor, object, state, logic) =>
-    !isObjectInZone(actor, registry.zones.get(logic.v1 as TName)) &&
+    !isObjectInZone(actor, registry.zones.get(logic.p1 as TName)) &&
     switchObjectSchemeToSection(object, state.ini, pickSectionFromCondList(actor, object, logic.condlist)),
   [ESchemeCondition.ON_NPC_IN_ZONE]: (actor, object, state, logic) =>
-    isObjectInZone(level.object_by_id(logic.objectId as TNumberId), registry.zones.get(logic.v2 as TName)) &&
+    isObjectInZone(level.object_by_id(logic.objectId as TNumberId), registry.zones.get(logic.p2 as TName)) &&
     switchObjectSchemeToSection(object, state.ini, pickSectionFromCondList(actor, object, logic.condlist)),
   [ESchemeCondition.ON_NPC_NOT_IN_ZONE]: (actor, object, state, logic) =>
-    !isObjectInZone(level.object_by_id(logic.objectId as TNumberId), registry.zones.get(logic.v2 as TName)) &&
+    !isObjectInZone(level.object_by_id(logic.objectId as TNumberId), registry.zones.get(logic.p2 as TName)) &&
     switchObjectSchemeToSection(object, state.ini, pickSectionFromCondList(actor, object, logic.condlist)),
   [ESchemeCondition.ON_ACTOR_INSIDE]: (actor, object, state, logic) =>
     isObjectInZone(actor, object) &&

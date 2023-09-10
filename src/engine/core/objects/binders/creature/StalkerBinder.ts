@@ -17,6 +17,7 @@ import {
   closeSaveMarker,
   DUMMY_LTX,
   getStoryIdByObjectId,
+  IBaseSchemeState,
   IRegistryObjectState,
   loadObjectLogic,
   openLoadMarker,
@@ -39,7 +40,6 @@ import { SimulationBoardManager } from "@/engine/core/managers/simulation/Simula
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import { TradeManager } from "@/engine/core/managers/trade/TradeManager";
 import { setupStalkerMotivationPlanner, setupStalkerStatePlanner } from "@/engine/core/objects/ai/planner/setup";
-import { ESchemeEvent, IBaseSchemeState } from "@/engine/core/objects/ai/scheme";
 import { StalkerStateManager } from "@/engine/core/objects/ai/state";
 import { StalkerMoveManager } from "@/engine/core/objects/ai/state/StalkerMoveManager";
 import { EActionId } from "@/engine/core/objects/ai/types";
@@ -72,6 +72,7 @@ import {
   ClientObject,
   EClientObjectRelation,
   EScheme,
+  ESchemeEvent,
   IniFile,
   NetPacket,
   Optional,
@@ -487,9 +488,8 @@ export class StalkerBinder extends object_binder {
     registry.actorCombat.delete(this.object.id());
 
     const state: IRegistryObjectState = registry.objects.get(this.object.id());
-    const npc: ClientObject = this.object;
 
-    MapDisplayManager.getInstance().removeObjectMapSpot(npc, state);
+    MapDisplayManager.getInstance().removeObjectMapSpot(this.object, state);
 
     const knownInfo: Optional<TName> = readIniString(state.ini!, state.sectionLogic, "known_info", false, "", null);
 

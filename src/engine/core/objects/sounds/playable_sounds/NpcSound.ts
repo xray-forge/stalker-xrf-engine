@@ -255,7 +255,7 @@ export class NpcSound extends AbstractPlayableSound {
       return false;
     }
 
-    logger.info("Play npc sound for:", object.name(), faction, point, message, "#");
+    logger.info("Play NPC sound for:", object.name(), faction, point, message, "#");
 
     this.playingStartedAt = null;
 
@@ -304,7 +304,7 @@ export class NpcSound extends AbstractPlayableSound {
         faction = getObjectCommunity(object);
       }
 
-      // Attempt to auto-translate npc goal.
+      // Attempt to auto-translate object goal.
       if (!point) {
         point = object.profile_name() + "_name";
         if (game.translate_string(point) === point) {

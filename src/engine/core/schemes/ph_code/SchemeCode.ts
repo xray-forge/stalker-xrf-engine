@@ -1,4 +1,4 @@
-import { IBaseSchemeLogic } from "@/engine/core/objects/ai/scheme";
+import { IBaseSchemeLogic } from "@/engine/core/database";
 import { AbstractScheme } from "@/engine/core/objects/ai/scheme/AbstractScheme";
 import { CodeManager } from "@/engine/core/schemes/ph_code/CodeManager";
 import { ISchemeCodeState } from "@/engine/core/schemes/ph_code/ISchemeCodeState";
@@ -43,7 +43,7 @@ export class SchemeCode extends AbstractScheme {
       let cc: Optional<IBaseSchemeLogic> = readIniStringAndCondList(ini, section, "on_check_code" + it);
 
       while (cc) {
-        state.on_check_code.set(cc.v1 as TName, cc.condlist);
+        state.on_check_code.set(cc.p1 as TName, cc.condlist);
         it += 1;
         cc = readIniStringAndCondList(ini, section, "on_check_code" + it);
       }

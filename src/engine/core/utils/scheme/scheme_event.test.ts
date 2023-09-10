@@ -1,9 +1,8 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 
-import { registry } from "@/engine/core/database";
-import { ESchemeEvent, IBaseSchemeState } from "@/engine/core/objects/ai/scheme";
+import { IBaseSchemeState, registry } from "@/engine/core/database";
 import { emitSchemeEvent } from "@/engine/core/utils/scheme/scheme_event";
-import { ClientObject, EScheme } from "@/engine/lib/types";
+import { ClientObject, EScheme, ESchemeEvent } from "@/engine/lib/types";
 import { mockSchemeState } from "@/fixtures/engine/mocks";
 import { mockClientGameObject } from "@/fixtures/xray";
 
@@ -15,7 +14,7 @@ describe("'scheme logic' utils", () => {
 
   it("'emitSchemeEvent' should correctly emit events", () => {
     const object: ClientObject = mockClientGameObject();
-    const schemeState: IBaseSchemeState = mockSchemeState(object, EScheme.MEET);
+    const schemeState: IBaseSchemeState = mockSchemeState(EScheme.MEET);
     const mockAction = {
       activate: jest.fn(),
       deactivate: jest.fn(),

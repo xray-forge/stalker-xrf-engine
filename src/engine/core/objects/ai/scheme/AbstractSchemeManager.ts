@@ -1,6 +1,6 @@
-import { IBaseSchemeState, ISchemeEventHandler } from "@/engine/core/objects/ai/scheme/scheme_types";
+import type { IBaseSchemeState } from "@/engine/core/database/types";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { ClientObject, Optional, TCount, TIndex, TName, Vector } from "@/engine/lib/types";
+import type { ClientObject, ISchemeEventHandler, Optional, TCount, TIndex, TName, Vector } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

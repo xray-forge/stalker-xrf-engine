@@ -159,7 +159,7 @@ export function setSquadRelationWithObject(
   object: ClientObject,
   relation: ERelation
 ): void {
-  logger.info("Applying new game relation between squad and npc:", relation, squadId, object?.name());
+  logger.info("Applying new game relation between squad and object:", relation, squadId, object?.name());
 
   const squad: Optional<Squad> =
     type(squadId) === "string" ? getServerObjectByStoryId(squadId as TStringId) : alife().object(squadId as TNumberId);

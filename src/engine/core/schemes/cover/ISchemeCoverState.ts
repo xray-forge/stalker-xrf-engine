@@ -1,4 +1,4 @@
-import { IBaseSchemeState } from "@/engine/core/objects/ai/scheme";
+import type { IBaseSchemeState } from "@/engine/core/database/types";
 import { TConditionList } from "@/engine/core/utils/ini/ini_types";
 import { TDistance, TName } from "@/engine/lib/types";
 

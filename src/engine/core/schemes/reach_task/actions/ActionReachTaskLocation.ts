@@ -3,7 +3,6 @@ import { action_base, alife, anim, clsid, level, look, LuabindClass, move, objec
 import { registry } from "@/engine/core/database";
 import { TSimulationObject } from "@/engine/core/managers/simulation";
 import { SurgeManager } from "@/engine/core/managers/surge/SurgeManager";
-import { ISchemeEventHandler } from "@/engine/core/objects/ai/scheme";
 import { EStalkerState } from "@/engine/core/objects/animation/types";
 import { Squad } from "@/engine/core/objects/server/squad/Squad";
 import { ReachTaskPatrolManager } from "@/engine/core/schemes/reach_task/ReachTaskPatrolManager";
@@ -14,6 +13,7 @@ import {
   ClientObject,
   EClientObjectMovementType,
   EClientObjectPath,
+  ISchemeEventHandler,
   Optional,
   TName,
   TNumberId,

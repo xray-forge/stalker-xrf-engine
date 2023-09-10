@@ -13,10 +13,9 @@ import {
 } from "@/engine/core/database";
 import { loadObjectLogic, saveObjectLogic } from "@/engine/core/database/logic";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
-import { ESchemeEvent } from "@/engine/core/objects/ai/scheme";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { emitSchemeEvent, initializeObjectSchemeLogic } from "@/engine/core/utils/scheme";
-import { NetPacket, Reader, ServerObject, TDuration, TNumberId } from "@/engine/lib/types";
+import { ESchemeEvent, NetPacket, Reader, ServerObject, TDuration, TNumberId } from "@/engine/lib/types";
 import { ESchemeType } from "@/engine/lib/types/scheme";
 
 const logger: LuaLogger = new LuaLogger($filename);

@@ -61,7 +61,7 @@ export class TimerManager extends AbstractSchemeManager<ISchemeTimerState> {
     this.state.timer.TextControl().SetTextST(globalTimeToString(valueTime));
 
     if (this.state.onValue) {
-      const expectedValue: TTimestamp = tonumber(this.state.onValue.v1) as TTimestamp;
+      const expectedValue: TTimestamp = tonumber(this.state.onValue.p1) as TTimestamp;
 
       if (
         (this.state.type === ETimerType.DECREMENT && valueTime <= expectedValue) ||

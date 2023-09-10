@@ -1,4 +1,4 @@
-import type { IBaseSchemeState } from "@/engine/core/objects/ai/scheme/scheme_types";
+import type { IBaseSchemeState } from "@/engine/core/database/types";
 
 /**
  * State representing silence management scheme.

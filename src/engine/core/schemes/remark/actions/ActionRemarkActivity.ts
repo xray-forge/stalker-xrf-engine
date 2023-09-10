@@ -3,7 +3,6 @@ import { action_base, level, LuabindClass, patrol } from "xray16";
 import { getObjectIdByStoryId, registry, setStalkerState } from "@/engine/core/database";
 import { SimulationBoardManager } from "@/engine/core/managers/simulation/SimulationBoardManager";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
-import { ISchemeEventHandler } from "@/engine/core/objects/ai/scheme";
 import {
   EStalkerState,
   ILookTargetDescriptor,
@@ -15,7 +14,7 @@ import { abort } from "@/engine/core/utils/assertion";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/ini_config";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { NIL } from "@/engine/lib/constants/words";
-import { ClientObject, Optional, SoundObject, TNumberId, Vector } from "@/engine/lib/types";
+import { ClientObject, ISchemeEventHandler, Optional, SoundObject, TNumberId, Vector } from "@/engine/lib/types";
 
 const stateInitial = 0;
 const stateAnimation = 1;

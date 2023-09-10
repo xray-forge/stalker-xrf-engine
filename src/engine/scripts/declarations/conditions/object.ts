@@ -285,8 +285,8 @@ extern(
 /**
  * todo;
  */
-extern("xr_conditions.health_le", (actor: ClientObject, npc: ClientObject, params: [number]): boolean => {
-  return params[0] !== null && npc.health < params[0];
+extern("xr_conditions.health_le", (actor: ClientObject, object: ClientObject, params: [number]): boolean => {
+  return params[0] !== null && object.health < params[0];
 });
 
 /**
@@ -301,7 +301,7 @@ extern("xr_conditions.heli_health_le", (actor: ClientObject, object: ClientObjec
  */
 extern(
   "xr_conditions.story_obj_in_zone_by_name",
-  (actor: ClientObject, npc: ClientObject, params: [TStringId, string]): boolean => {
+  (actor: ClientObject, object: ClientObject, params: [TStringId, string]): boolean => {
     const objectId: Optional<TNumberId> = getObjectIdByStoryId(params[0]);
     const zone: Optional<ClientObject> = registry.zones.get(params[1]);
 
@@ -318,20 +318,20 @@ extern(
  */
 extern(
   "xr_conditions.npc_in_zone",
-  (actor: ClientObject, npc: ClientObject | ServerObject, params: [string]): boolean => {
+  (actor: ClientObject, object: ClientObject | ServerObject, params: [string]): boolean => {
     const zone: Optional<ClientObject> = registry.zones.get(params[0]);
     let objectId: Optional<ClientObject> = null;
 
-    if (type(npc.id) !== "function") {
-      objectId = registry.objects.get((npc as ServerObject).id)?.object as Optional<ClientObject>;
+    if (type(object.id) !== "function") {
+      objectId = registry.objects.get((object as ServerObject).id)?.object as Optional<ClientObject>;
 
       if (zone === null) {
         return true;
       } else if (objectId === null) {
-        return zone.inside((npc as ServerObject).position);
+        return zone.inside((object as ServerObject).position);
       }
     } else {
-      objectId = npc as ClientObject;
+      objectId = object as ClientObject;
     }
 
     return isObjectInZone(objectId, zone);
@@ -354,8 +354,8 @@ extern("xr_conditions.heli_see_npc", (actor: ClientObject, object: ClientObject,
 /**
  * todo;
  */
-extern("xr_conditions.enemy_group", (actor: ClientObject, npc: ClientObject, params: LuaTable<number>): boolean => {
-  const enemyId: TNumberId = registry.objects.get(npc.id()).enemy_id as number;
+extern("xr_conditions.enemy_group", (actor: ClientObject, object: ClientObject, params: LuaTable<number>): boolean => {
+  const enemyId: TNumberId = registry.objects.get(object.id()).enemy_id as number;
   const enemy: ClientObject = registry.objects.get(enemyId)?.object as ClientObject;
   const enemyGroup: TNumberId = enemy?.group();
 
@@ -373,8 +373,8 @@ extern("xr_conditions.enemy_group", (actor: ClientObject, npc: ClientObject, par
  */
 extern(
   "xr_conditions.hitted_by",
-  (actor: ClientObject, npc: ClientObject, parameters: LuaTable<TStringId>): boolean => {
-    const state: Optional<ISchemeHitState> = registry.objects.get(npc.id())[EScheme.HIT] as ISchemeHitState;
+  (actor: ClientObject, object: ClientObject, parameters: LuaTable<TStringId>): boolean => {
+    const state: Optional<ISchemeHitState> = registry.objects.get(object.id())[EScheme.HIT] as ISchemeHitState;
 
     if (state !== null) {
       for (const [index, storyId] of parameters) {
@@ -395,11 +395,11 @@ extern(
  */
 extern(
   "xr_conditions.hitted_on_bone",
-  (actor: ClientObject, npc: ClientObject, parameters: LuaArray<TStringId>): boolean => {
-    const boneIndex: TIndex = (registry.objects.get(npc.id())[EScheme.HIT] as ISchemeHitState).bone_index;
+  (actor: ClientObject, object: ClientObject, parameters: LuaArray<TStringId>): boolean => {
+    const boneIndex: TIndex = (registry.objects.get(object.id())[EScheme.HIT] as ISchemeHitState).bone_index;
 
     for (const [index, id] of parameters) {
-      if (npc.get_bone_id(id) === boneIndex) {
+      if (object.get_bone_id(id) === boneIndex) {
         return true;
       }
     }
@@ -418,33 +418,38 @@ extern("xr_conditions.best_pistol", (actor: ClientObject, object: ClientObject):
 /**
  * todo;
  */
-extern("xr_conditions.deadly_hit", (actor: ClientObject, npc: ClientObject): boolean => {
-  return (registry.objects.get(npc.id())[EScheme.HIT] as ISchemeHitState)?.deadly_hit === true;
+extern("xr_conditions.deadly_hit", (actor: ClientObject, object: ClientObject): boolean => {
+  return (registry.objects.get(object.id())[EScheme.HIT] as ISchemeHitState)?.deadly_hit === true;
 });
 
 /**
  * todo;
  */
-extern("xr_conditions.killed_by", (actor: ClientObject, npc: ClientObject, parameters: LuaArray<string>): boolean => {
-  const schemeState: Optional<ISchemeDeathState> = registry.objects.get(npc.id())[EScheme.DEATH] as ISchemeDeathState;
+extern(
+  "xr_conditions.killed_by",
+  (actor: ClientObject, object: ClientObject, parameters: LuaArray<string>): boolean => {
+    const schemeState: Optional<ISchemeDeathState> = registry.objects.get(object.id())[
+      EScheme.DEATH
+    ] as ISchemeDeathState;
 
-  if (schemeState !== null) {
-    for (const [i, v] of parameters) {
-      const object: Optional<ClientObject> = getObjectByStoryId(v);
+    if (schemeState !== null) {
+      for (const [i, v] of parameters) {
+        const object: Optional<ClientObject> = getObjectByStoryId(v);
 
-      if (object && schemeState.killer === object.id()) {
-        return true;
+        if (object && schemeState.killer === object.id()) {
+          return true;
+        }
       }
     }
-  }
 
-  return false;
-});
+    return false;
+  }
+);
 
 /**
  * todo;
  */
-extern("xr_conditions.is_alive_all", (actor: ClientObject, npc: ClientObject, params: LuaArray<string>): boolean => {
+extern("xr_conditions.is_alive_all", (actor: ClientObject, object: ClientObject, params: LuaArray<string>): boolean => {
   for (const [i, v] of params) {
     const npcId: Optional<TNumberId> = getObjectIdByStoryId(v);
 
@@ -465,7 +470,7 @@ extern("xr_conditions.is_alive_all", (actor: ClientObject, npc: ClientObject, pa
 /**
  * todo;
  */
-extern("xr_conditions.is_alive_one", (actor: ClientObject, npc: ClientObject, p: LuaArray<string>): boolean => {
+extern("xr_conditions.is_alive_one", (actor: ClientObject, object: ClientObject, p: LuaArray<string>): boolean => {
   for (const [i, v] of p) {
     const npcId: Optional<TNumberId> = getObjectIdByStoryId(v);
 
@@ -486,15 +491,15 @@ extern("xr_conditions.is_alive_one", (actor: ClientObject, npc: ClientObject, p:
 /**
  * todo;
  */
-extern("xr_conditions.is_alive", (actor: ClientObject, npc: AnyGameObject, params: [string]): boolean => {
+extern("xr_conditions.is_alive", (actor: ClientObject, object: AnyGameObject, params: [string]): boolean => {
   let npc1: Optional<TNumberId> = null;
 
-  if (npc === null || (params && params[0])) {
+  if (object === null || (params && params[0])) {
     npc1 = getObjectIdByStoryId(params[0]);
-  } else if (type(npc.id) === "number") {
-    npc1 = (npc as ServerObject).id;
+  } else if (type(object.id) === "number") {
+    npc1 = (object as ServerObject).id;
   } else {
-    npc1 = (npc as ClientObject).id();
+    npc1 = (object as ClientObject).id();
   }
 
   if (npc1 === null) {
@@ -509,7 +514,7 @@ extern("xr_conditions.is_alive", (actor: ClientObject, npc: AnyGameObject, param
 /**
  * todo;
  */
-extern("xr_conditions.is_dead_all", (actor: ClientObject, npc: ClientObject, params: LuaArray<string>): boolean => {
+extern("xr_conditions.is_dead_all", (actor: ClientObject, object: ClientObject, params: LuaArray<string>): boolean => {
   for (const [index, value] of params) {
     const npc1: Optional<ClientObject> = getObjectByStoryId(value);
 
@@ -526,7 +531,7 @@ extern("xr_conditions.is_dead_all", (actor: ClientObject, npc: ClientObject, par
 /**
  * todo;
  */
-extern("xr_conditions.is_dead_one", (actor: ClientObject, npc: ClientObject, p: LuaArray<string>): boolean => {
+extern("xr_conditions.is_dead_one", (actor: ClientObject, object: ClientObject, p: LuaArray<string>): boolean => {
   for (const [index, value] of p) {
     const npc1: Optional<ClientObject> = getObjectByStoryId(value);
 
@@ -541,7 +546,7 @@ extern("xr_conditions.is_dead_one", (actor: ClientObject, npc: ClientObject, p: 
 /**
  * todo;
  */
-extern("xr_conditions.is_dead", (actor: ClientObject, npc: ClientObject, p: [string]): boolean => {
+extern("xr_conditions.is_dead", (actor: ClientObject, object: ClientObject, p: [string]): boolean => {
   const npc1: Optional<ClientObject> = getObjectByStoryId(p[0]);
 
   return !npc1 || !npc1.alive();
@@ -550,29 +555,29 @@ extern("xr_conditions.is_dead", (actor: ClientObject, npc: ClientObject, p: [str
 /**
  * todo;
  */
-extern("xr_conditions.story_object_exist", (actor: ClientObject, npc: ClientObject, p: [string]): boolean => {
+extern("xr_conditions.story_object_exist", (actor: ClientObject, object: ClientObject, p: [string]): boolean => {
   return getObjectByStoryId(p[0]) !== null;
 });
 
 /**
  * todo;
  */
-extern("xr_conditions.npc_has_item", (actor: ClientObject, npc: ClientObject, p: [string]): boolean => {
-  return p[0] !== null && npc.object(p[0]) !== null;
+extern("xr_conditions.npc_has_item", (actor: ClientObject, object: ClientObject, p: [string]): boolean => {
+  return p[0] !== null && object.object(p[0]) !== null;
 });
 
 /**
  * todo;
  */
-extern("xr_conditions.has_enemy", (actor: ClientObject, npc: ClientObject): boolean => {
-  return npc.best_enemy() !== null;
+extern("xr_conditions.has_enemy", (actor: ClientObject, object: ClientObject): boolean => {
+  return object.best_enemy() !== null;
 });
 
 /**
  * todo;
  */
-extern("xr_conditions.has_actor_enemy", (actor: ClientObject, npc: ClientObject): boolean => {
-  const bestEnemy: Optional<ClientObject> = npc.best_enemy();
+extern("xr_conditions.has_actor_enemy", (actor: ClientObject, object: ClientObject): boolean => {
+  const bestEnemy: Optional<ClientObject> = object.best_enemy();
 
   return bestEnemy !== null && bestEnemy.id() === registry.actor.id();
 });
@@ -580,11 +585,11 @@ extern("xr_conditions.has_actor_enemy", (actor: ClientObject, npc: ClientObject)
 /**
  * todo;
  */
-extern("xr_conditions.see_enemy", (actor: ClientObject, npc: ClientObject): boolean => {
-  const enemy: Optional<ClientObject> = npc.best_enemy();
+extern("xr_conditions.see_enemy", (actor: ClientObject, object: ClientObject): boolean => {
+  const enemy: Optional<ClientObject> = object.best_enemy();
 
   if (enemy !== null) {
-    return npc.see(enemy);
+    return object.see(enemy);
   }
 
   return false;
@@ -600,19 +605,19 @@ extern("xr_conditions.heavy_wounded", (actor: ClientObject, object: ClientObject
 /**
  * todo;
  */
-extern("xr_conditions.mob_has_enemy", (actor: ClientObject, npc: ClientObject): boolean => {
-  if (npc === null) {
+extern("xr_conditions.mob_has_enemy", (actor: ClientObject, object: ClientObject): boolean => {
+  if (object === null) {
     return false;
   }
 
-  return npc.get_enemy() !== null;
+  return object.get_enemy() !== null;
 });
 
 /**
  * todo;
  */
-extern("xr_conditions.mob_was_hit", (actor: ClientObject, npc: ClientObject): boolean => {
-  const h: MonsterHitInfo = npc.get_monster_hit_info();
+extern("xr_conditions.mob_was_hit", (actor: ClientObject, object: ClientObject): boolean => {
+  const h: MonsterHitInfo = object.get_monster_hit_info();
 
   return h.who && h.time !== 0;
 });
@@ -620,7 +625,7 @@ extern("xr_conditions.mob_was_hit", (actor: ClientObject, npc: ClientObject): bo
 /**
  * todo;
  */
-extern("xr_conditions.squad_in_zone", (actor: ClientObject, npc: ClientObject, p: [string, string]) => {
+extern("xr_conditions.squad_in_zone", (actor: ClientObject, object: ClientObject, p: [string, string]) => {
   const storyId: TStringId = p[0];
   let zoneName: TName = p[1];
 
@@ -633,7 +638,7 @@ extern("xr_conditions.squad_in_zone", (actor: ClientObject, npc: ClientObject, p
   }
 
   if (zoneName === null) {
-    zoneName = npc.name();
+    zoneName = object.name();
   }
 
   const squad: Optional<Squad> = getServerObjectByStoryId(storyId);
@@ -662,76 +667,82 @@ extern("xr_conditions.squad_in_zone", (actor: ClientObject, npc: ClientObject, p
 /**
  * todo;
  */
-extern("xr_conditions.squad_has_enemy", (actor: ClientObject, npc: ClientObject, p: [Optional<TStringId>]): boolean => {
-  const storyId: Optional<TStringId> = p[0];
+extern(
+  "xr_conditions.squad_has_enemy",
+  (actor: ClientObject, object: ClientObject, p: [Optional<TStringId>]): boolean => {
+    const storyId: Optional<TStringId> = p[0];
 
-  if (storyId === null) {
-    abort("Insufficient params in squad_has_enemy function. story_id [%s]", tostring(storyId));
-  }
+    if (storyId === null) {
+      abort("Insufficient params in squad_has_enemy function. story_id [%s]", tostring(storyId));
+    }
 
-  const squad: Optional<Squad> = getServerObjectByStoryId(storyId);
+    const squad: Optional<Squad> = getServerObjectByStoryId(storyId);
 
-  if (squad === null) {
-    return false;
-  }
-
-  for (const squadMember of squad.squad_members()) {
-    const npcObject: Optional<ClientObject> = level.object_by_id(squadMember.object.id);
-
-    if (npcObject === null) {
+    if (squad === null) {
       return false;
     }
 
-    if (npcObject.best_enemy() !== null) {
-      return true;
-    }
-  }
+    for (const squadMember of squad.squad_members()) {
+      const npcObject: Optional<ClientObject> = level.object_by_id(squadMember.object.id);
 
-  return false;
-});
+      if (npcObject === null) {
+        return false;
+      }
+
+      if (npcObject.best_enemy() !== null) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+);
 
 /**
  * todo;
  */
-extern("xr_conditions.squad_in_zone_all", (actor: ClientObject, npc: ClientObject, p: [TStringId, TName]): boolean => {
-  const storyId: TStringId = p[0];
-  const zoneName: TName = p[1];
+extern(
+  "xr_conditions.squad_in_zone_all",
+  (actor: ClientObject, object: ClientObject, p: [TStringId, TName]): boolean => {
+    const storyId: TStringId = p[0];
+    const zoneName: TName = p[1];
 
-  if (storyId === null || zoneName === null) {
-    abort(
-      "Insufficient params in squad_in_zone_all function. story_id[%s], zone_name[%s]",
-      tostring(storyId),
-      tostring(zoneName)
-    );
-  }
+    if (storyId === null || zoneName === null) {
+      abort(
+        "Insufficient params in squad_in_zone_all function. story_id[%s], zone_name[%s]",
+        tostring(storyId),
+        tostring(zoneName)
+      );
+    }
 
-  const squad: Optional<Squad> = getServerObjectByStoryId(storyId);
+    const squad: Optional<Squad> = getServerObjectByStoryId(storyId);
 
-  if (squad === null) {
-    return false;
-  }
-
-  const zone: Optional<ClientObject> = registry.zones.get(zoneName);
-
-  if (zone === null) {
-    return false;
-  }
-
-  for (const squadMember of squad.squad_members()) {
-    const position: Vector = registry.objects.get(squadMember.id)?.object?.position() || squadMember.object.position;
-
-    if (!zone.inside(position)) {
+    if (squad === null) {
       return false;
     }
-  }
 
-  return true;
-});
+    const zone: Optional<ClientObject> = registry.zones.get(zoneName);
+
+    if (zone === null) {
+      return false;
+    }
+
+    for (const squadMember of squad.squad_members()) {
+      const position: Vector = registry.objects.get(squadMember.id)?.object?.position() || squadMember.object.position;
+
+      if (!zone.inside(position)) {
+        return false;
+      }
+    }
+
+    return true;
+  }
+);
 
 /**
  * todo;
  */
-extern("xr_conditions.squads_in_zone_b41", (actor: ClientObject, npc: ClientObject): boolean => {
+extern("xr_conditions.squads_in_zone_b41", (actor: ClientObject, object: ClientObject): boolean => {
   const smartTerrain: Optional<SmartTerrain> = SimulationBoardManager.getInstance().getSmartTerrainByName("jup_b41");
   const zone: Optional<ClientObject> = registry.zones.get("jup_b41_sr_light");
 
@@ -798,7 +809,7 @@ extern("xr_conditions.target_smart_name", (actor: ClientObject, smart: ClientObj
  */
 extern(
   "xr_conditions.squad_exist",
-  (actor: ClientObject, npc: ClientObject, [squadStoryId]: [Optional<TStringId>]): boolean => {
+  (actor: ClientObject, object: ClientObject, [squadStoryId]: [Optional<TStringId>]): boolean => {
     assertDefined(squadStoryId, "Wrong parameter story_id[%s] in squad_exist function.", squadStoryId);
 
     return isStoryObjectExisting(squadStoryId);
@@ -808,36 +819,43 @@ extern(
 /**
  * todo;
  */
-extern("xr_conditions.is_squad_commander", (actor: ClientObject, npc: ClientObject | ServerCreatureObject): boolean => {
-  const npcId: TNumberId = type(npc.id) === "number" ? (npc as ServerObject).id : (npc as ClientObject).id();
-  const squad: Optional<Squad> = getObjectSquad(npc);
+extern(
+  "xr_conditions.is_squad_commander",
+  (actor: ClientObject, object: ClientObject | ServerCreatureObject): boolean => {
+    const objectId: TNumberId =
+      type(object.id) === "number" ? (object as ServerObject).id : (object as ClientObject).id();
+    const squad: Optional<Squad> = getObjectSquad(object);
 
-  return squad !== null && squad.commander_id() === npcId;
-});
+    return squad !== null && squad.commander_id() === objectId;
+  }
+);
 
 /**
  * todo;
  */
-extern("xr_conditions.squad_npc_count_ge", (actor: ClientObject, npc: ClientObject, p: [string, string]): boolean => {
-  const storyId: Optional<TStringId> = p[0];
+extern(
+  "xr_conditions.squad_npc_count_ge",
+  (actor: ClientObject, object: ClientObject, p: [string, string]): boolean => {
+    const storyId: Optional<TStringId> = p[0];
 
-  if (storyId === null) {
-    abort("Wrong parameter squad_id[%s] in 'squad_npc_count_ge' function", tostring(storyId));
+    if (storyId === null) {
+      abort("Wrong parameter squad_id[%s] in 'squad_npc_count_ge' function", tostring(storyId));
+    }
+
+    const squad: Optional<Squad> = getServerObjectByStoryId(storyId) as Optional<Squad>;
+
+    if (squad) {
+      return squad.npc_count() > tonumber(p[1])!;
+    } else {
+      return false;
+    }
   }
-
-  const squad: Optional<Squad> = getServerObjectByStoryId(storyId) as Optional<Squad>;
-
-  if (squad) {
-    return squad.npc_count() > tonumber(p[1])!;
-  } else {
-    return false;
-  }
-});
+);
 
 /**
  * todo;
  */
-extern("xr_conditions.quest_npc_enemy_actor", (actor: ClientObject, npc: ClientObject, p: [string]): boolean => {
+extern("xr_conditions.quest_npc_enemy_actor", (actor: ClientObject, object: ClientObject, p: [string]): boolean => {
   if (p[0] === null) {
     abort("wrong story id");
   } else {
@@ -858,65 +876,14 @@ extern("xr_conditions.quest_npc_enemy_actor", (actor: ClientObject, npc: ClientO
 /**
  * todo;
  */
-extern("xr_conditions.distance_to_obj_ge", (actor: ClientObject, npc: ClientObject, p: [string, number]): boolean => {
-  const objectId: Optional<TNumberId> = getObjectIdByStoryId(p[0]);
-  const object: Optional<ServerObject> = objectId ? alife().object(objectId) : null;
-
-  if (object) {
-    return registry.actor.position().distance_to_sqr(object.position) >= p[1] * p[1];
-  }
-
-  return false;
-});
-
-/**
- * todo;
- */
-extern("xr_conditions.distance_to_obj_le", (actor: ClientObject, npc: ClientObject, p: [string, number]): boolean => {
-  const objectId: Optional<TNumberId> = getObjectIdByStoryId(p[0]);
-  const object: Optional<ServerObject> = objectId ? alife().object(objectId) : null;
-
-  if (object) {
-    return registry.actor.position().distance_to_sqr(object.position) < p[1] * p[1];
-  }
-
-  return false;
-});
-
-/**
- * todo;
- */
-extern("xr_conditions.active_item", (actor: ClientObject, npc: ClientObject, params: LuaArray<TSection>): boolean => {
-  if (params && params.has(1)) {
-    for (const [, section] of params) {
-      if (actor.item_in_slot(3) !== null && actor.item_in_slot(3)!.section() === section) {
-        return true;
-      }
-    }
-  }
-
-  return false;
-});
-
-/**
- * todo;
- */
 extern(
-  "xr_conditions.check_bloodsucker_state",
-  (actor: ClientObject, npc: Optional<ClientObject>, p: [string, string]): boolean => {
-    if ((p && p[0]) === null) {
-      abort("Wrong parameters in function 'check_bloodsucker_state'!!!");
-    }
+  "xr_conditions.distance_to_obj_ge",
+  (actor: ClientObject, object: ClientObject, p: [string, number]): boolean => {
+    const objectId: Optional<TNumberId> = getObjectIdByStoryId(p[0]);
+    const targetObject: Optional<ServerObject> = objectId ? alife().object(objectId) : null;
 
-    let state: string = p[0];
-
-    if (p[1] !== null) {
-      state = p[1];
-      npc = getObjectByStoryId(p[1]);
-    }
-
-    if (npc !== null) {
-      return npc.get_visibility_state() === tonumber(state)!;
+    if (targetObject) {
+      return registry.actor.position().distance_to_sqr(targetObject.position) >= p[1] * p[1];
     }
 
     return false;
@@ -926,57 +893,124 @@ extern(
 /**
  * todo;
  */
-extern("xr_conditions.in_dest_smart_cover", (actor: ClientObject, npc: ClientObject): boolean => {
-  return npc.in_smart_cover();
-});
+extern(
+  "xr_conditions.distance_to_obj_le",
+  (actor: ClientObject, object: ClientObject, p: [string, number]): boolean => {
+    const objectId: Optional<TNumberId> = getObjectIdByStoryId(p[0]);
+    const targetObject: Optional<ServerObject> = objectId ? alife().object(objectId) : null;
 
-/**
- * todo;
- */
-extern("xr_conditions.dist_to_story_obj_ge", (actor: ClientObject, npc: ClientObject, p: [string, number]): boolean => {
-  const storyId: TStringId = p && p[0];
-  const storyObjectId: Optional<TNumberId> = getObjectIdByStoryId(storyId);
+    if (targetObject) {
+      return registry.actor.position().distance_to_sqr(targetObject.position) < p[1] * p[1];
+    }
 
-  if (storyObjectId === null) {
-    return true;
+    return false;
   }
+);
 
-  return alife().object(storyObjectId)!.position.distance_to(registry.actor.position()) > p[1];
+/**
+ * todo;
+ */
+extern(
+  "xr_conditions.active_item",
+  (actor: ClientObject, object: ClientObject, params: LuaArray<TSection>): boolean => {
+    if (params && params.has(1)) {
+      for (const [, section] of params) {
+        if (actor.item_in_slot(3) !== null && actor.item_in_slot(3)!.section() === section) {
+          return true;
+        }
+      }
+    }
+
+    return false;
+  }
+);
+
+/**
+ * todo;
+ */
+extern(
+  "xr_conditions.check_bloodsucker_state",
+  (actor: ClientObject, object: Optional<ClientObject>, p: [string, string]): boolean => {
+    if ((p && p[0]) === null) {
+      abort("Wrong parameters in function 'check_bloodsucker_state'!!!");
+    }
+
+    let state: string = p[0];
+
+    if (p[1] !== null) {
+      state = p[1];
+      object = getObjectByStoryId(p[1]);
+    }
+
+    if (object !== null) {
+      return object.get_visibility_state() === tonumber(state)!;
+    }
+
+    return false;
+  }
+);
+
+/**
+ * todo;
+ */
+extern("xr_conditions.in_dest_smart_cover", (actor: ClientObject, object: ClientObject): boolean => {
+  return object.in_smart_cover();
 });
 
 /**
  * todo;
  */
-extern("xr_conditions.has_enemy_in_current_loopholes_fov", (actor: ClientObject, npc: ClientObject): boolean => {
-  return npc.in_smart_cover() && npc.best_enemy() !== null && npc.in_current_loophole_fov(npc.best_enemy()!.position());
+extern(
+  "xr_conditions.dist_to_story_obj_ge",
+  (actor: ClientObject, object: ClientObject, p: [string, number]): boolean => {
+    const storyId: TStringId = p && p[0];
+    const storyObjectId: Optional<TNumberId> = getObjectIdByStoryId(storyId);
+
+    if (storyObjectId === null) {
+      return true;
+    }
+
+    return alife().object(storyObjectId)!.position.distance_to(registry.actor.position()) > p[1];
+  }
+);
+
+/**
+ * todo;
+ */
+extern("xr_conditions.has_enemy_in_current_loopholes_fov", (actor: ClientObject, object: ClientObject): boolean => {
+  return (
+    object.in_smart_cover() &&
+    object.best_enemy() !== null &&
+    object.in_current_loophole_fov(object.best_enemy()!.position())
+  );
 });
 
 /**
  * todo;
  */
-extern("xr_conditions.npc_talking", (actor: ClientObject, npc: ClientObject): boolean => {
-  return npc.is_talking();
+extern("xr_conditions.npc_talking", (actor: ClientObject, object: ClientObject): boolean => {
+  return object.is_talking();
 });
 
 /**
  * todo;
  */
-extern("xr_conditions.see_actor", (actor: ClientObject, npc: ClientObject): boolean => {
-  return npc.alive() && npc.see(actor);
+extern("xr_conditions.see_actor", (actor: ClientObject, object: ClientObject): boolean => {
+  return object.alive() && object.see(actor);
 });
 
 /**
  * todo;
  */
-extern("xr_conditions.object_exist", (actor: ClientObject, npc: ClientObject, params: [string]): boolean => {
+extern("xr_conditions.object_exist", (actor: ClientObject, object: ClientObject, params: [string]): boolean => {
   return getObjectByStoryId(params[0]) !== null;
 });
 
 /**
  * todo;
  */
-extern("xr_conditions.squad_curr_action", (actor: ClientObject, npc: ClientObject, p: [string]): boolean => {
-  return getObjectSquad(npc)!.currentAction?.name === p[0];
+extern("xr_conditions.squad_curr_action", (actor: ClientObject, object: ClientObject, p: [string]): boolean => {
+  return getObjectSquad(object)!.currentAction?.name === p[0];
 });
 
 /**
@@ -989,8 +1023,8 @@ extern("xr_conditions.dead_body_searching", (actor: ClientObject, object: Client
 /**
  * todo;
  */
-extern("xr_conditions.check_enemy_smart", (actor: ClientObject, npc: ClientObject, params: [string]): boolean => {
-  const enemyId: Optional<TNumberId> = registry.objects.get(npc.id()).enemy_id;
+extern("xr_conditions.check_enemy_smart", (actor: ClientObject, object: ClientObject, params: [string]): boolean => {
+  const enemyId: Optional<TNumberId> = registry.objects.get(object.id()).enemy_id;
   const enemy: Optional<ClientObject> = enemyId ? registry.objects.get(enemyId)?.object : null;
 
   if (enemy === null || enemyId === alife().actor().id) {
@@ -1005,29 +1039,29 @@ extern("xr_conditions.check_enemy_smart", (actor: ClientObject, npc: ClientObjec
 /**
  * todo;
  */
-extern("xr_conditions.polter_ignore_actor", (actor: ClientObject, npc: ClientObject): boolean => {
-  return npc.poltergeist_get_actor_ignore();
+extern("xr_conditions.polter_ignore_actor", (actor: ClientObject, object: ClientObject): boolean => {
+  return object.poltergeist_get_actor_ignore();
 });
 
 /**
  * todo;
  */
-extern("xr_conditions.burer_gravi_attack", (actor: ClientObject, npc: ClientObject): boolean => {
-  return npc.burer_get_force_gravi_attack();
+extern("xr_conditions.burer_gravi_attack", (actor: ClientObject, object: ClientObject): boolean => {
+  return object.burer_get_force_gravi_attack();
 });
 
 /**
  * todo;
  */
-extern("xr_conditions.burer_anti_aim", (actor: ClientObject, npc: ClientObject): boolean => {
-  return npc.burer_get_force_anti_aim();
+extern("xr_conditions.burer_anti_aim", (actor: ClientObject, object: ClientObject): boolean => {
+  return object.burer_get_force_anti_aim();
 });
 
 /**
  * todo; probably remove.
  */
-extern("xr_conditions._used", (actor: ClientObject, npc: ClientObject): boolean => {
-  return npc.is_talking();
+extern("xr_conditions._used", (actor: ClientObject, object: ClientObject): boolean => {
+  return object.is_talking();
 });
 
 /**
@@ -1047,10 +1081,10 @@ extern("xr_conditions.is_door_blocked_by_npc", (actor: ClientObject, object: Cli
 /**
  * todo;
  */
-extern("xr_conditions.check_deimos_phase", (actor: ClientObject, npc: ClientObject, params: AnyArgs): boolean => {
+extern("xr_conditions.check_deimos_phase", (actor: ClientObject, object: ClientObject, params: AnyArgs): boolean => {
   if (params[0] && params[1]) {
-    const obj: IRegistryObjectState = registry.objects.get(npc.id());
-    const delta: boolean = SchemeDeimos.checkIntensityDelta(obj);
+    const state: IRegistryObjectState = registry.objects.get(object.id());
+    const delta: boolean = SchemeDeimos.checkIntensityDelta(state);
 
     if (params[1] === "increasing" && delta) {
       return false;
@@ -1060,27 +1094,27 @@ extern("xr_conditions.check_deimos_phase", (actor: ClientObject, npc: ClientObje
 
     if (params[0] === "disable_bound") {
       if (params[1] === "increasing") {
-        if (!SchemeDeimos.checkDisableBound(obj)) {
+        if (!SchemeDeimos.checkDisableBound(state)) {
           return true;
         }
       } else if (params[1] === "decreasing") {
-        return SchemeDeimos.checkDisableBound(obj);
+        return SchemeDeimos.checkDisableBound(state);
       }
     } else if (params[0] === "lower_bound") {
       if (params[1] === "increasing") {
-        if (!SchemeDeimos.checkLowerBound(obj)) {
+        if (!SchemeDeimos.checkLowerBound(state)) {
           return true;
         }
       } else if (params[1] === "decreasing") {
-        return SchemeDeimos.checkLowerBound(obj);
+        return SchemeDeimos.checkLowerBound(state);
       }
     } else if (params[0] === "upper_bound") {
       if (params[1] === "increasing") {
-        if (!SchemeDeimos.checkUpperBound(obj)) {
+        if (!SchemeDeimos.checkUpperBound(state)) {
           return true;
         }
       } else if (params[1] === "decreasing") {
-        return SchemeDeimos.checkUpperBound(obj);
+        return SchemeDeimos.checkUpperBound(state);
       }
     }
   }

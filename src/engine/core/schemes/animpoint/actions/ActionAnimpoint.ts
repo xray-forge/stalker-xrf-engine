@@ -1,10 +1,10 @@
 import { action_base, LuabindClass } from "xray16";
 
 import { setStalkerState } from "@/engine/core/database";
-import { ISchemeEventHandler } from "@/engine/core/objects/ai/scheme";
 import { EStalkerState } from "@/engine/core/objects/animation/types";
 import { ISchemeAnimpointState } from "@/engine/core/schemes/animpoint/types";
 import { LuaLogger } from "@/engine/core/utils/logging";
+import { ISchemeEventHandler } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

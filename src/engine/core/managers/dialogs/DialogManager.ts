@@ -52,7 +52,7 @@ export class DialogManager extends AbstractManager {
 
   // -- temporary table of phrases which have been disabled during a conversation
   public disabledPhrases: LuaTable<TNumberId, LuaTable<string, boolean>> = new LuaTable();
-  // -- temporary table of phrases which have been disabled during a conversation | npc id -> phrase id -> boolean
+  // -- temporary table of phrases which have been disabled during a conversation | object id -> phrase id -> boolean
   public questDisabledPhrases: LuaTable<TNumberId, LuaTable<string, boolean>> = new LuaTable();
 
   public phrasesMap: LuaTable<EGenericDialogCategory, TPHRTable> = $fromObject({
@@ -276,7 +276,7 @@ export class DialogManager extends AbstractManager {
     const objectId: TNumberId = object.id();
 
     if (PRTSubtable.get(objectId) === null) {
-      // -- if (subtable for npc is ! set - create it
+      // -- if (subtable for object is ! set - create it
       PRTSubtable.set(objectId, new LuaTable());
     }
 
@@ -347,10 +347,10 @@ export class DialogManager extends AbstractManager {
     }
 
     if (PTIDSubtable.wounded === TRUE) {
-      // --if (!(ActionWoundManager.is_heavy_wounded_by_id(npc.id())) {
+      // --if (!(ActionWoundManager.is_heavy_wounded_by_id(object.id())) {
       priority = isObjectWounded(object.id()) ? priority + 1 : -1;
     } else {
-      // --if(ActionWoundManager.is_heavy_wounded_by_id(npc.id())) {
+      // --if(ActionWoundManager.is_heavy_wounded_by_id(object.id())) {
       priority = isObjectWounded(object.id()) ? -1 : priority + 1;
     }
 
