@@ -2,6 +2,7 @@ import { game } from "xray16";
 
 import { ITEM_UPGRADES, registry, STALKER_UPGRADE_INFO, SYSTEM_INI } from "@/engine/core/database";
 import { AbstractManager } from "@/engine/core/managers/base/AbstractManager";
+import { TItemUpgradeBranch } from "@/engine/core/managers/interface/item_upgrades_types";
 import {
   parseConditionsList,
   parseStringsList,
@@ -16,11 +17,6 @@ import { ClientObject, LuaArray, Optional, TCount, TLabel, TName, TRate } from "
 import { TSection } from "@/engine/lib/types/scheme";
 
 const logger: LuaLogger = new LuaLogger($filename);
-
-/**
- * todo;
- */
-export type TItemUpgradeBranch = 0 | 1 | 2;
 
 /**
  * todo;

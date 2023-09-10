@@ -1,11 +1,11 @@
 import { level } from "xray16";
 
 import { registry } from "@/engine/core/database";
+import { ActorInputManager } from "@/engine/core/managers/actor";
 import { AbstractManager } from "@/engine/core/managers/base/AbstractManager";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
-import { ActorInputManager } from "@/engine/core/managers/interface";
-import { SurgeManager } from "@/engine/core/managers/world/SurgeManager";
-import { WeatherManager } from "@/engine/core/managers/world/WeatherManager";
+import { SurgeManager } from "@/engine/core/managers/surge/SurgeManager";
+import { WeatherManager } from "@/engine/core/managers/weather/WeatherManager";
 import { SleepDialog } from "@/engine/core/ui/interaction/SleepDialog";
 import { executeConsoleCommand, getConsoleFloatCommand } from "@/engine/core/utils/game/game_console";
 import { LuaLogger } from "@/engine/core/utils/logging";

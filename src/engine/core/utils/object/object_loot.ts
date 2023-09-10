@@ -1,7 +1,7 @@
 import { level } from "xray16";
 
 import { getPortableStoreValue, IRegistryObjectState, registry } from "@/engine/core/database";
-import { IReleaseDescriptor, ReleaseBodyManager } from "@/engine/core/managers/world/ReleaseBodyManager";
+import { IReleaseDescriptor, ReleaseBodyManager } from "@/engine/core/managers/death/ReleaseBodyManager";
 import { isObjectWithValuableLoot } from "@/engine/core/utils/object/object_check";
 import { isLootableItemSection } from "@/engine/core/utils/object/object_section";
 import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";

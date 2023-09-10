@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 
 import { registry } from "@/engine/core/database";
-import { ActorInventoryMenuManager } from "@/engine/core/managers/interface/ActorInventoryMenuManager";
+import { ActorInventoryMenuManager } from "@/engine/core/managers/actor/ActorInventoryMenuManager";
 import { AnyCallable, EActorMenuMode } from "@/engine/lib/types";
 import { gameConsole } from "@/fixtures/xray/mocks/console.mock";
 
@@ -48,4 +48,8 @@ describe("ActorInventoryMenuManager class", () => {
     expect(actorInventoryMenuManager.isActiveMode(EActorMenuMode.UNDEFINED)).toBe(true);
     expect(actorInventoryMenuManager.isActiveMode(EActorMenuMode.TALK_DIALOG)).toBe(false);
   });
+
+  it.todo("should correctly handle open actor menu event");
+
+  it.todo("should correctly handle close actor menu event");
 });

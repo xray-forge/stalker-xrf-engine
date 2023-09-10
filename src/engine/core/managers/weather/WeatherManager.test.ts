@@ -3,7 +3,8 @@ import { level } from "xray16";
 
 import { disposeManager, getManagerInstance, registry } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
-import { IWeatherState, WeatherManager } from "@/engine/core/managers/world/WeatherManager";
+import { IWeatherState } from "@/engine/core/managers/weather/weather_types";
+import { WeatherManager } from "@/engine/core/managers/weather/WeatherManager";
 import { NIL } from "@/engine/lib/constants/words";
 import { mockLuaTable, MockLuaTable } from "@/fixtures/lua/mocks/LuaTable.mock";
 import { getFunctionMock } from "@/fixtures/utils";
@@ -104,4 +105,10 @@ describe("WeatherManager class", () => {
     expect(manager.weatherState).toEqual(newManager.weatherState);
     expect(manager.weatherFx).toEqual(newManager.weatherFx);
   });
+
+  it.todo("should correctly handle period changes");
+
+  it.todo("should correctly force weather change");
+
+  it.todo("should correctly update weather");
 });

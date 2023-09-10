@@ -1,8 +1,8 @@
 import { beforeEach, describe, expect, it } from "@jest/globals";
 
 import { disposeManager, getManagerInstance, registerActor, registry } from "@/engine/core/database";
+import { ActorInputManager } from "@/engine/core/managers/actor/ActorInputManager";
 import { EventsManager } from "@/engine/core/managers/events";
-import { ActorInputManager } from "@/engine/core/managers/interface/ActorInputManager";
 import { replaceFunctionMock } from "@/fixtures/utils/function_mock";
 import { mockClientGameObject } from "@/fixtures/xray";
 import { EPacketDataType, mockNetPacket, mockNetProcessor, MockNetProcessor } from "@/fixtures/xray/mocks/save";
@@ -62,4 +62,20 @@ describe("ActorInputManager class", () => {
     expect(newActorInputManager).not.toBe(actorInputManager);
     expect(newActorInputManager.activeItemSlot).toBe(10);
   });
+
+  it.todo("should correctly toggle inactive input state");
+
+  it.todo("should correctly toggle night vision state");
+
+  it.todo("should correctly toggle torch state");
+
+  it.todo("should correctly enable game ui");
+
+  it.todo("should correctly disable game ui");
+
+  it.todo("should correctly handle update event");
+
+  it.todo("should correctly first update event");
+
+  it.todo("should correctly network spawn event");
 });

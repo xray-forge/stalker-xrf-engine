@@ -8,7 +8,7 @@ import {
   mapNpcMarks,
   primaryMapSpotObjects,
   sleepZones,
-} from "@/engine/core/managers/interface/MapDisplayManagerObjects";
+} from "@/engine/core/managers/map/map_display_marks";
 import type { SmartTerrain, Squad } from "@/engine/core/objects/server";
 import { parseConditionsList, pickSectionFromCondList, readIniString, TConditionList } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";

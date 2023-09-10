@@ -1,7 +1,7 @@
 import { level, patrol } from "xray16";
 
 import { registry } from "@/engine/core/database";
-import { ActorInputManager } from "@/engine/core/managers/interface";
+import { ActorInputManager } from "@/engine/core/managers/actor";
 import { AbstractSchemeManager } from "@/engine/core/schemes";
 import { CamEffectorSet } from "@/engine/core/schemes/sr_cutscene/effectors/CamEffectorSet";
 import {

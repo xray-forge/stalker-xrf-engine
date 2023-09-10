@@ -7,7 +7,7 @@ import {
   registry,
   setPortableStoreValue,
 } from "@/engine/core/database";
-import { MapDisplayManager } from "@/engine/core/managers/interface";
+import { MapDisplayManager } from "@/engine/core/managers/map";
 import { EStalkerState } from "@/engine/core/objects/animation";
 import { showFreeplayDialog } from "@/engine/core/ui/game/FreeplayDialog";
 import { abort } from "@/engine/core/utils/assertion";

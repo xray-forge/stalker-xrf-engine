@@ -8,7 +8,7 @@ import {
   registerZone,
   registry,
 } from "@/engine/core/database";
-import { SurgeManager } from "@/engine/core/managers/world/SurgeManager";
+import { SurgeManager } from "@/engine/core/managers/surge/SurgeManager";
 import { SmartCover, SmartTerrain } from "@/engine/core/objects";
 import { parseConditionsList } from "@/engine/core/utils/ini";
 import { createStalkerAnimpointJobs } from "@/engine/core/utils/job/job_create/job_create_stalker_animpoint";

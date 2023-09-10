@@ -20,7 +20,7 @@ import {
 } from "@/engine/core/database/simulation";
 import { unregisterStoryLinkByObjectId } from "@/engine/core/database/story_objects";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
-import { MapDisplayManager } from "@/engine/core/managers/interface/MapDisplayManager";
+import { MapDisplayManager } from "@/engine/core/managers/map/MapDisplayManager";
 import {
   ESimulationTerrainRole,
   ISimulationActivityDescriptor,

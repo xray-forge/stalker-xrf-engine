@@ -9,14 +9,15 @@ import {
   registry,
   SURGE_MANAGER_LTX,
 } from "@/engine/core/database";
+import { ActorInputManager } from "@/engine/core/managers/actor";
 import { AbstractManager } from "@/engine/core/managers/base/AbstractManager";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
-import { ActorInputManager } from "@/engine/core/managers/interface";
-import { MapDisplayManager } from "@/engine/core/managers/interface/MapDisplayManager";
+import { MapDisplayManager } from "@/engine/core/managers/map/MapDisplayManager";
 import { SimulationBoardManager } from "@/engine/core/managers/simulation/SimulationBoardManager";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
+import { ISurgeCoverDescriptor } from "@/engine/core/managers/surge/surge_types";
 import { TaskManager } from "@/engine/core/managers/tasks";
-import { WeatherManager } from "@/engine/core/managers/world/WeatherManager";
+import { WeatherManager } from "@/engine/core/managers/weather/WeatherManager";
 import type { AnomalyZoneBinder } from "@/engine/core/objects/binders/zones";
 import type { SmartTerrain } from "@/engine/core/objects/server/smart_terrain";
 import { Squad } from "@/engine/core/objects/server/squad/Squad";
@@ -51,7 +52,6 @@ import {
   TDuration,
   Time,
   TLabel,
-  TName,
   TNumberId,
   TRate,
   TSection,
@@ -59,14 +59,6 @@ import {
 } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
-
-/**
- * Surge cover descriptor.
- */
-export interface ISurgeCoverDescriptor {
-  name: TName;
-  conditionList: Optional<TConditionList>;
-}
 
 /**
  * todo: Separate manager to handle artefacts spawn / ownership etc in parallel, do not mix logic.

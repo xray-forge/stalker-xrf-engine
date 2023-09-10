@@ -7,7 +7,7 @@ import {
   registry,
   SYSTEM_INI,
 } from "@/engine/core/database";
-import { ActorInputManager } from "@/engine/core/managers/interface";
+import { ActorInputManager } from "@/engine/core/managers/actor";
 import { ENotificationDirection, NotificationManager, TNotificationIcon } from "@/engine/core/managers/notifications";
 import { SleepManager } from "@/engine/core/managers/sleep/SleepManager";
 import { TaskManager } from "@/engine/core/managers/tasks";

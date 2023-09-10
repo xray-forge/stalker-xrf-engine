@@ -12,6 +12,7 @@ import {
   registry,
 } from "@/engine/core/database";
 import { AbstractManager } from "@/engine/core/managers/base/AbstractManager";
+import { IReleaseDescriptor } from "@/engine/core/managers/death/release_body_types";
 import { abort } from "@/engine/core/utils/assertion";
 import { readIniString } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -38,14 +39,6 @@ import {
 } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
-
-/**
- * todo;
- */
-export interface IReleaseDescriptor {
-  diedAt: Optional<TTimestamp>;
-  id: TNumberId;
-}
 
 /**
  * Manage persisting dead bodies.

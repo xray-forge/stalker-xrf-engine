@@ -12,7 +12,8 @@ import {
 } from "@/engine/core/database";
 import { AbstractManager } from "@/engine/core/managers/base/AbstractManager";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
-import type { SurgeManager } from "@/engine/core/managers/world/SurgeManager";
+import type { SurgeManager } from "@/engine/core/managers/surge/SurgeManager";
+import { IWeatherState } from "@/engine/core/managers/weather/weather_types";
 import { assert } from "@/engine/core/utils/assertion";
 import { executeConsoleCommandsFromSection } from "@/engine/core/utils/game";
 import {
@@ -48,13 +49,6 @@ import {
 } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
-
-export interface IWeatherState {
-  currentState: Optional<TName>;
-  nextState: Optional<TName>;
-  weatherName: TName;
-  weatherGraph: LuaTable<TName, TProbability>;
-}
 
 /**
  * Initialize weather and manage updating of it hourly.

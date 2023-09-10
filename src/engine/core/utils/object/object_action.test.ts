@@ -2,7 +2,7 @@ import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { level } from "xray16";
 
 import { registerActor, registry } from "@/engine/core/database";
-import { ActorInputManager } from "@/engine/core/managers/interface";
+import { ActorInputManager } from "@/engine/core/managers/actor";
 import { objectPunchActor } from "@/engine/core/utils/object/object_action";
 import { animations } from "@/engine/lib/constants/animation";
 import { ClientObject, EActiveItemSlot } from "@/engine/lib/types";

@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { relation_registry } from "xray16";
 
-import { disposeManager, getManagerInstance, registerActor, registry } from "@/engine/core/database";
+import { disposeManager, registerActor, registry } from "@/engine/core/database";
 import { achievementIcons } from "@/engine/core/managers/achievements/achievements_icons";
 import {
   hasAchievedBalanceAdvocate,

@@ -1,6 +1,6 @@
 import { LuabindClass, object_binder } from "xray16";
 
-import { PhantomManager } from "@/engine/core/managers/world/PhantomManager";
+import { PhantomManager } from "@/engine/core/managers/psy/PhantomManager";
 import { ClientObject, Vector } from "@/engine/lib/types";
 
 /**

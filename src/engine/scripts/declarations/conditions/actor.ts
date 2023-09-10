@@ -5,7 +5,7 @@ import {
   hasAchievedInformationDealer,
   hasAchievedWealthy,
 } from "@/engine/core/managers/achievements/achievements_preconditions";
-import { SurgeManager } from "@/engine/core/managers/world/SurgeManager";
+import { SurgeManager } from "@/engine/core/managers/surge/SurgeManager";
 import { ISchemeDeathState } from "@/engine/core/schemes/death";
 import { ISchemeHitState } from "@/engine/core/schemes/hit";
 import { abort, assertDefined } from "@/engine/core/utils/assertion";

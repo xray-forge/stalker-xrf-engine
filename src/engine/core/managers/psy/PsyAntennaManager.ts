@@ -5,9 +5,11 @@ import { getWeakManagerInstance, isManagerInitialized } from "@/engine/core/data
 import { openLoadMarker } from "@/engine/core/database/save_markers";
 import { AbstractManager } from "@/engine/core/managers/base/AbstractManager";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
-import { PhantomManager } from "@/engine/core/managers/world/PhantomManager";
+import { PhantomManager } from "@/engine/core/managers/psy/PhantomManager";
+import { IPsyPostProcessDescriptor } from "@/engine/core/managers/psy/psy_antenna_types";
 import { abort } from "@/engine/core/utils/assertion";
 import { isGameLevelChanging } from "@/engine/core/utils/game";
+import { LuaLogger } from "@/engine/core/utils/logging";
 import { clampNumber } from "@/engine/core/utils/number";
 import { createEmptyVector, createVector, vectorRotateY } from "@/engine/core/utils/vector";
 import {
@@ -28,14 +30,7 @@ import {
   Vector,
 } from "@/engine/lib/types";
 
-/**
- * todo;
- */
-export interface IPsyPostProcessDescriptor {
-  intensityBase: number;
-  intensity: number;
-  idx: number;
-}
+const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * todo;

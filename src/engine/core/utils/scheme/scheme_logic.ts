@@ -1,7 +1,7 @@
 import { callback, clsid, game, time_global } from "xray16";
 
 import { IRegistryObjectState, IStoredOfflineObject, registry } from "@/engine/core/database";
-import { MapDisplayManager } from "@/engine/core/managers/interface/MapDisplayManager";
+import { MapDisplayManager } from "@/engine/core/managers/map/MapDisplayManager";
 import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain";
 import {
   ESchemeEvent,

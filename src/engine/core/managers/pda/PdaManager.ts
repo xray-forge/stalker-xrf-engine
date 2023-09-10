@@ -1,68 +1,36 @@
 import { game } from "xray16";
 
 import { AbstractManager } from "@/engine/core/managers/base/AbstractManager";
+import { EPdaStatSection, killedMonstersDisplay } from "@/engine/core/managers/pda/pda_types";
 import { StatisticsManager } from "@/engine/core/managers/statistics";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { TWeapon, weapons } from "@/engine/lib/constants/items/weapons";
-import { monsters, TMonster } from "@/engine/lib/constants/monsters";
-import { Optional, PartialRecord, TLabel, TName } from "@/engine/lib/types";
+import { TMonster } from "@/engine/lib/constants/monsters";
+import { Optional, TLabel } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
-
-const killedMonsters: PartialRecord<TMonster, { back: TName; icon: TName }> = {
-  [monsters.bloodsucker_weak]: { back: "ui_inGame2_Krovosos", icon: "" },
-  [monsters.bloodsucker_normal]: { back: "ui_inGame2_Krovosos_1", icon: "" },
-  [monsters.bloodsucker_strong]: { back: "ui_inGame2_Krovosos_2", icon: "" },
-  [monsters.boar_weak]: { back: "ui_inGame2_Kaban_1", icon: "" },
-  [monsters.boar_strong]: { back: "ui_inGame2_Kaban", icon: "" },
-  [monsters.burer]: { back: "ui_inGame2_Burer", icon: "" },
-  [monsters.chimera]: { back: "ui_inGame2_Himera", icon: "" },
-  [monsters.controller]: { back: "ui_inGame2_Controller", icon: "" },
-  [monsters.dog]: { back: "ui_inGame2_Blind_Dog", icon: "" },
-  [monsters.flesh_weak]: { back: "ui_inGame2_Flesh", icon: "" },
-  [monsters.flesh_strong]: { back: "ui_inGame2_Flesh_1", icon: "" },
-  [monsters.gigant]: { back: "ui_inGame2_Pseudo_Gigant", icon: "" },
-  [monsters.poltergeist_tele]: { back: "ui_inGame2_Poltergeyst", icon: "" },
-  [monsters.poltergeist_flame]: { back: "ui_inGame2_Poltergeist_1", icon: "" },
-  [monsters.psy_dog_weak]: { back: "ui_inGame2_PseudoDog_1", icon: "" },
-  [monsters.psy_dog_strong]: { back: "ui_inGame2_PseudoDog", icon: "" },
-  [monsters.pseudodog_weak]: { back: "ui_inGame2_PseudoDog_1", icon: "" },
-  [monsters.pseudodog_strong]: { back: "ui_inGame2_PseudoDog", icon: "" },
-  [monsters.snork]: { back: "ui_inGame2_Snork", icon: "" },
-  [monsters.tushkano]: { back: "ui_inGame2_Tushkan", icon: "" },
-};
-
-enum EStatSection {
-  UNKNOWN,
-  SURGES,
-  COMPLETED_QUESTS,
-  KILLED_MONSTERS,
-  KILLED_STALKERS,
-  ARTEFACTS_FOUND,
-  SECRETS_FOUND,
-}
 
 /**
  * todo;
  */
 export class PdaManager extends AbstractManager {
-  public getStat(section: EStatSection): TLabel {
+  public getStat(section: EPdaStatSection): TLabel {
     const statisticsManager: StatisticsManager = StatisticsManager.getInstance();
 
     switch (section) {
-      case EStatSection.UNKNOWN:
+      case EPdaStatSection.UNKNOWN:
         return "00:00:00";
-      case EStatSection.SURGES:
+      case EPdaStatSection.SURGES:
         return tostring(statisticsManager.actorStatistics.surgesCount);
-      case EStatSection.COMPLETED_QUESTS:
+      case EPdaStatSection.COMPLETED_QUESTS:
         return tostring(statisticsManager.actorStatistics.completedTasksCount);
-      case EStatSection.KILLED_MONSTERS:
+      case EPdaStatSection.KILLED_MONSTERS:
         return tostring(statisticsManager.actorStatistics.killedMonstersCount);
-      case EStatSection.KILLED_STALKERS:
+      case EPdaStatSection.KILLED_STALKERS:
         return tostring(statisticsManager.actorStatistics.killedStalkersCount);
-      case EStatSection.ARTEFACTS_FOUND:
+      case EPdaStatSection.ARTEFACTS_FOUND:
         return tostring(statisticsManager.actorStatistics.collectedArtefactsCount);
-      case EStatSection.SECRETS_FOUND:
+      case EPdaStatSection.SECRETS_FOUND:
         return tostring(statisticsManager.actorStatistics.collectedTreasuresCount);
       default:
         return "";
@@ -75,7 +43,9 @@ export class PdaManager extends AbstractManager {
   public getBestKilledMonster() {
     const bestKilledMonster: Optional<TMonster> = StatisticsManager.getInstance().actorStatistics.bestKilledMonster;
 
-    return bestKilledMonster && killedMonsters[bestKilledMonster] ? killedMonsters[bestKilledMonster] : null;
+    return bestKilledMonster && killedMonstersDisplay[bestKilledMonster]
+      ? killedMonstersDisplay[bestKilledMonster]
+      : null;
   }
 
   /**

@@ -9,7 +9,7 @@ import {
   registerOfflineObject,
   registry,
 } from "@/engine/core/database";
-import { MapDisplayManager } from "@/engine/core/managers/interface";
+import { MapDisplayManager } from "@/engine/core/managers/map";
 import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain";
 import { IBaseSchemeState, ObjectRestrictionsManager, TAbstractSchemeConstructor } from "@/engine/core/schemes";
 import { SchemeAbuse } from "@/engine/core/schemes/abuse";

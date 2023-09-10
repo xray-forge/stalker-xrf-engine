@@ -1,8 +1,8 @@
 import { CUIGameCustom, game, get_hud, sound_object } from "xray16";
 
 import { registry } from "@/engine/core/database";
+import { ActorInputManager } from "@/engine/core/managers/actor";
 import { AbstractManager } from "@/engine/core/managers/base/AbstractManager";
-import { ActorInputManager } from "@/engine/core/managers/interface";
 import { getExtern } from "@/engine/core/utils/binding";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { hasAlifeInfo } from "@/engine/core/utils/object/object_info_portion";
