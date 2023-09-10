@@ -1,6 +1,6 @@
 import { jest } from "@jest/globals";
 
-import type { Squad } from "@/engine/core/objects";
+import type { Squad } from "@/engine/core/objects/server/squad";
 import { ServerGroupObject, TClassId } from "@/engine/lib/types";
 import { mockLuaTable } from "@/fixtures/lua/mocks/LuaTable.mock";
 import {

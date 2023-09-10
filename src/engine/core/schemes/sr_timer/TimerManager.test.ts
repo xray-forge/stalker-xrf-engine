@@ -33,7 +33,7 @@ describe("TimerManager class", () => {
 
   it("should correctly activate and deactivate without custom label", () => {
     const object: ClientObject = mockClientGameObject();
-    const state: ISchemeTimerState = mockSchemeState<ISchemeTimerState>(object, EScheme.SR_TIMER, {
+    const state: ISchemeTimerState = mockSchemeState<ISchemeTimerState>(EScheme.SR_TIMER, {
       timerId: "timer-id",
     });
     const timerManager: TimerManager = new TimerManager(object, state);
