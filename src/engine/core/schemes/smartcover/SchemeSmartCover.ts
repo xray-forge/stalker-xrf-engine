@@ -74,7 +74,7 @@ export class SchemeSmartCover extends AbstractScheme {
     const actionSmartCoverActivity: ActionSmartCoverActivity = new ActionSmartCoverActivity(state);
 
     actionSmartCoverActivity.add_precondition(new world_property(EEvaluatorId.ALIVE, true));
-    actionSmartCoverActivity.add_precondition(new world_property(EEvaluatorId.ANONALY, false));
+    actionSmartCoverActivity.add_precondition(new world_property(EEvaluatorId.ANOMALY, false));
     actionSmartCoverActivity.add_precondition(new world_property(EEvaluatorId.IS_SMART_COVER_NEEDED, true));
     actionSmartCoverActivity.add_precondition(new world_property(EEvaluatorId.CAN_USE_SMART_COVER_IN_COMBAT, false));
     actionSmartCoverActivity.add_precondition(new world_property(EEvaluatorId.ENEMY, false));

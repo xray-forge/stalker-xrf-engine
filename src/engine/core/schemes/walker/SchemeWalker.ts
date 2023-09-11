@@ -81,7 +81,7 @@ export class SchemeWalker extends AbstractScheme {
     actionWalkerActivity.add_precondition(new world_property(EEvaluatorId.ALIVE, true));
     actionWalkerActivity.add_precondition(new world_property(EEvaluatorId.DANGER, false));
     actionWalkerActivity.add_precondition(new world_property(EEvaluatorId.ENEMY, false));
-    actionWalkerActivity.add_precondition(new world_property(EEvaluatorId.ANONALY, false));
+    actionWalkerActivity.add_precondition(new world_property(EEvaluatorId.ANOMALY, false));
     actionWalkerActivity.add_precondition(new world_property(EEvaluatorId.NEED_WALKER, true));
 
     addCommonActionPreconditions(actionWalkerActivity);

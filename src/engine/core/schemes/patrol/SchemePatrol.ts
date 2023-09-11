@@ -114,7 +114,7 @@ export class SchemePatrol extends AbstractScheme {
     actionCommander.add_precondition(new world_property(EEvaluatorId.ALIVE, true));
     actionCommander.add_precondition(new world_property(EEvaluatorId.DANGER, false));
     actionCommander.add_precondition(new world_property(EEvaluatorId.ENEMY, false));
-    actionCommander.add_precondition(new world_property(EEvaluatorId.ANONALY, false));
+    actionCommander.add_precondition(new world_property(EEvaluatorId.ANOMALY, false));
     addCommonActionPreconditions(actionCommander);
     actionCommander.add_precondition(new world_property(EEvaluatorId.IS_PATROL_ENDED, false));
     actionCommander.add_precondition(new world_property(EEvaluatorId.IS_PATROL_COMMANDER, true));
@@ -129,7 +129,7 @@ export class SchemePatrol extends AbstractScheme {
     actionPatrol.add_precondition(new world_property(EEvaluatorId.ALIVE, true));
     actionPatrol.add_precondition(new world_property(EEvaluatorId.DANGER, false));
     actionPatrol.add_precondition(new world_property(EEvaluatorId.ENEMY, false));
-    actionPatrol.add_precondition(new world_property(EEvaluatorId.ANONALY, false));
+    actionPatrol.add_precondition(new world_property(EEvaluatorId.ANOMALY, false));
     addCommonActionPreconditions(actionPatrol);
     actionPatrol.add_precondition(new world_property(EEvaluatorId.IS_PATROL_ENDED, false));
     actionPatrol.add_precondition(new world_property(EEvaluatorId.IS_PATROL_COMMANDER, false));

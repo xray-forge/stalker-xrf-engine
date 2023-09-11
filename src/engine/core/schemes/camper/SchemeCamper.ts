@@ -113,7 +113,7 @@ export class SchemeCamper extends AbstractScheme {
     actionPatrol.add_precondition(new world_property(EEvaluatorId.IS_CLOSE_COMBAT, false));
     actionPatrol.add_precondition(new world_property(EEvaluatorId.CAN_FIGHT, true));
     actionPatrol.add_precondition(new world_property(EEvaluatorId.DANGER, false));
-    actionPatrol.add_precondition(new world_property(EEvaluatorId.ANONALY, false));
+    actionPatrol.add_precondition(new world_property(EEvaluatorId.ANOMALY, false));
 
     actionPatrol.add_precondition(new world_property(EEvaluatorId.IS_MEET_CONTACT, false));
     actionPatrol.add_precondition(new world_property(EEvaluatorId.IS_WOUNDED, false));

@@ -36,7 +36,7 @@ export class SchemeCombatCamper extends AbstractScheme {
 
     shootAction.add_precondition(new world_property(EEvaluatorId.ALIVE, true));
     shootAction.add_precondition(new world_property(EEvaluatorId.ENEMY, true));
-    shootAction.add_precondition(new world_property(EEvaluatorId.ANONALY, false));
+    shootAction.add_precondition(new world_property(EEvaluatorId.ANOMALY, false));
     shootAction.add_precondition(new world_property(EEvaluatorId.IS_SCRIPTED_COMBAT, true));
     shootAction.add_precondition(new world_property(EEvaluatorId.IS_COMBAT_CAMPING_ENABLED, true));
     shootAction.add_precondition(new world_property(EEvaluatorId.SEE_BEST_ENEMY, true));
@@ -46,7 +46,7 @@ export class SchemeCombatCamper extends AbstractScheme {
 
     const lookAroundAction: ActionLookAround = new ActionLookAround(state);
 
-    lookAroundAction.add_precondition(new world_property(EEvaluatorId.ANONALY, false));
+    lookAroundAction.add_precondition(new world_property(EEvaluatorId.ANOMALY, false));
     lookAroundAction.add_precondition(new world_property(EEvaluatorId.IS_SCRIPTED_COMBAT, true));
     lookAroundAction.add_precondition(new world_property(EEvaluatorId.IS_COMBAT_CAMPING_ENABLED, true));
     lookAroundAction.add_precondition(new world_property(EEvaluatorId.SEE_BEST_ENEMY, false));

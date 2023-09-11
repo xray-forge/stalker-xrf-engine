@@ -44,7 +44,7 @@ export enum EEvaluatorId {
   COVER_REACHED = stalker_ids.property_cover_reached, // 43
   LOOKED_AROUND = stalker_ids.property_looked_around, // 44
   GRENADE_EXPLODED = stalker_ids.property_grenade_exploded, // 45
-  ANONALY = stalker_ids.property_anomaly, // 46
+  ANOMALY = stalker_ids.property_anomaly, // 46
   INSIDE_ANONALY = stalker_ids.property_inside_anomaly, // 47
   // ...
   SCRIPT = stalker_ids.property_script, // 74

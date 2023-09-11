@@ -80,7 +80,7 @@ export class SchemeAnimpoint extends AbstractScheme {
 
     addCommonActionPreconditions(actionReachAnimpoint);
     actionReachAnimpoint.add_precondition(new world_property(EEvaluatorId.ALIVE, true));
-    actionReachAnimpoint.add_precondition(new world_property(EEvaluatorId.ANONALY, false));
+    actionReachAnimpoint.add_precondition(new world_property(EEvaluatorId.ANOMALY, false));
     actionReachAnimpoint.add_precondition(new world_property(EEvaluatorId.ENEMY, false));
     actionReachAnimpoint.add_precondition(new world_property(EEvaluatorId.IS_ANIMPOINT_NEEDED, true));
     actionReachAnimpoint.add_precondition(new world_property(EEvaluatorId.IS_ANIMPOINT_REACHED, false));
@@ -94,7 +94,7 @@ export class SchemeAnimpoint extends AbstractScheme {
 
     addCommonActionPreconditions(actionAnimpoint);
     actionAnimpoint.add_precondition(new world_property(EEvaluatorId.ALIVE, true));
-    actionAnimpoint.add_precondition(new world_property(EEvaluatorId.ANONALY, false));
+    actionAnimpoint.add_precondition(new world_property(EEvaluatorId.ANOMALY, false));
     actionAnimpoint.add_precondition(new world_property(EEvaluatorId.ENEMY, false));
     actionAnimpoint.add_precondition(new world_property(EEvaluatorId.IS_ANIMPOINT_NEEDED, true));
     actionAnimpoint.add_precondition(new world_property(EEvaluatorId.IS_ANIMPOINT_REACHED, true));

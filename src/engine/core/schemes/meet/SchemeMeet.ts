@@ -53,7 +53,7 @@ export class SchemeMeet extends AbstractScheme {
     actionMeetWait.add_precondition(new world_property(EEvaluatorId.ALIVE, true));
     actionMeetWait.add_precondition(new world_property(EEvaluatorId.ENEMY, false));
     actionMeetWait.add_precondition(new world_property(EEvaluatorId.DANGER, false));
-    actionMeetWait.add_precondition(new world_property(EEvaluatorId.ANONALY, false));
+    actionMeetWait.add_precondition(new world_property(EEvaluatorId.ANOMALY, false));
     actionMeetWait.add_precondition(new world_property(EEvaluatorId.ITEMS, false));
 
     actionMeetWait.add_precondition(new world_property(EEvaluatorId.IS_WOUNDED_EXISTING, false));

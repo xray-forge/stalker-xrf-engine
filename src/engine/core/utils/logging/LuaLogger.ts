@@ -125,6 +125,8 @@ export class LuaLogger {
         args.set(index, it);
       } else if (itType === "boolean") {
         args.set(index, string.format("<boolean: %s>", it === true ? TRUE : FALSE));
+      } else if (itType === "userdata") {
+        args.set(index, "<userdata>");
       } else {
         args.set(index, string.format("<%s: %s>", itType, tostring(it)));
       }

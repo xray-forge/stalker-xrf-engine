@@ -8,7 +8,6 @@ import {
   LuabindClass,
   object_binder,
   patrol,
-  property_evaluator_const,
   time_global,
 } from "xray16";
 
@@ -16,7 +15,6 @@ import {
   closeLoadMarker,
   closeSaveMarker,
   DUMMY_LTX,
-  getStoryIdByObjectId,
   IBaseSchemeState,
   IRegistryObjectState,
   loadObjectLogic,
@@ -179,14 +177,6 @@ export class StalkerBinder extends object_binder {
     this.helicopterEnemyIndex = registerHelicopterEnemy(this.object);
 
     GlobalSoundManager.initializeObjectSounds(this.object);
-
-    // todo: Separate place.
-    if (getStoryIdByObjectId(objectId) === "zat_b53_artefact_hunter_1") {
-      const actionPlanner: ActionPlanner = this.object.motivation_action_manager();
-
-      actionPlanner.remove_evaluator(EActionId.ANOMALY);
-      actionPlanner.add_evaluator(EActionId.ANOMALY, new property_evaluator_const(false));
-    }
 
     SchemeReachTask.addReachTaskSchemeAction(this.object);
 
