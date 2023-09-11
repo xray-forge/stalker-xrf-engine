@@ -9,6 +9,7 @@ export interface IPackParameters {
   verbose?: boolean;
   optimize?: boolean;
   engine?: string;
+  skipEngine: boolean;
   build?: boolean;
   compress?: boolean;
   assetOverrides?: boolean;

@@ -39,6 +39,10 @@ export async function packGame(parameters: IPackParameters): Promise<void> {
       log.info("Using configured engine:", blue(engine));
     }
 
+    if (parameters.skipEngine) {
+      throw new Error("Cannot build game package without engine, unsupported --skip-engine supplied.");
+    }
+
     if (parameters.optimize) {
       log.info("Using build with optimizations");
     } else {

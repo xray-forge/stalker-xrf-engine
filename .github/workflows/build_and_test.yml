@@ -111,7 +111,7 @@ jobs:
 
       - run: npm ci
       - run: npm run setup
-      - run: npm run pack:mod
+      - run: npm run pack:mod -- --ne
 
       - name: Install zip
         uses: montudor/action-zip@v1

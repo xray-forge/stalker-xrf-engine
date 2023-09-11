@@ -69,8 +69,12 @@ export async function packMod(parameters: IPackParameters): Promise<void> {
       log.info("Packaging from already built assets", WARNING_SIGN);
     }
 
-    copyGameEngine(engine);
-    timeTracker.addMark("PACKAGE_GAME_BIN");
+    if (parameters.skipEngine) {
+      log.info("Skip engines in mod package");
+    } else {
+      copyGameEngine(engine);
+      timeTracker.addMark("PACKAGE_GAME_BIN");
+    }
 
     copyGamedataAssets();
     timeTracker.addMark("PACKAGE_GAMEDATA");
