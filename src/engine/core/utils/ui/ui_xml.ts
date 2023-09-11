@@ -1,22 +1,13 @@
-import { CScriptXmlInit, device, get_hud, getFS, level } from "xray16";
+import { CScriptXmlInit, getFS } from "xray16";
 
-import { registry } from "@/engine/core/database";
 import { abort } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
+import { isWideScreen } from "@/engine/core/utils/ui/ui_screen";
 import { gameConfig } from "@/engine/lib/configs/GameConfig";
 import { roots } from "@/engine/lib/constants/roots";
-import { ClientObject, GameHud, TPath, XmlInit } from "@/engine/lib/types";
+import { TPath, XmlInit } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
-
-/**
- * Check whether game is in wide screen mode right now.
- *
- * @returns whether game resolution is wide screen
- */
-export function isWideScreen(): boolean {
-  return device().width / device().height > 1024 / 768 + 0.01;
-}
 
 /**
  * Util to get XML file for current screen resolution.
@@ -49,41 +40,6 @@ export function resolveXmlFormPath(path: TPath, hasWideScreenSupport: boolean = 
   // logger.info("Resolved XML to:", resolved);
 
   return resolved;
-}
-
-/**
- * Set game UI visibility of player.
- *
- * @param isVisible - whether UI should be visible
- */
-export function setUiVisibility(isVisible: boolean): void {
-  const hud: GameHud = get_hud();
-  const actor: ClientObject = registry.actor;
-
-  if (isVisible) {
-    logger.info("[setUiVisibility] Showing UI");
-
-    level.show_indicators();
-
-    actor.disable_hit_marks(false);
-    hud.show_messages();
-  } else {
-    logger.info("[setUiVisibility] Hiding UI");
-
-    if (actor.is_talking()) {
-      actor.stop_talk();
-    }
-
-    level.hide_indicators_safe();
-
-    hud.HideActorMenu();
-    hud.HidePdaMenu();
-    hud.hide_messages();
-
-    actor.disable_hit_marks(true);
-  }
-
-  logger.info("[setUiVisibility] Completed");
 }
 
 /**

@@ -4,7 +4,7 @@ import { level } from "xray16";
 import { registerActor, registry } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { TreasureManager } from "@/engine/core/managers/treasures/TreasureManager";
-import { ITreasureDescriptor } from "@/engine/core/managers/treasures/treasures_types";
+import { ETreasureType, ITreasureDescriptor } from "@/engine/core/managers/treasures/treasures_types";
 import { parseConditionsList } from "@/engine/core/utils/ini";
 import { giveInfo } from "@/engine/core/utils/object";
 import { ClientObject, ServerObject } from "@/engine/lib/types";
@@ -41,9 +41,10 @@ describe("TreasureManager class", () => {
 
     treasureManager.initialize();
 
-    expect(treasureManager.secrets).toEqualLuaTables({
+    expect(treasureManager.treasures).toEqualLuaTables({
       jup_b1_secret: {
         checked: false,
+        type: ETreasureType.RARE,
         empty: parseConditionsList("{+info_b10_first_zone_visited} true, false"),
         given: false,
         refreshing: null,
@@ -67,12 +68,13 @@ describe("TreasureManager class", () => {
       },
       jup_b2_secret: {
         checked: false,
+        type: ETreasureType.EPIC,
         empty: null,
         given: false,
         items: {
           wpn_abakan: {
             "1": {
-              count: 1,
+              count: 2,
               itemsIds: null,
               probability: 1,
             },
@@ -85,6 +87,7 @@ describe("TreasureManager class", () => {
         checked: false,
         empty: null,
         given: false,
+        type: ETreasureType.RARE,
         items: {
           wpn_abakan: {
             "1": {
@@ -149,10 +152,10 @@ describe("TreasureManager class", () => {
 
     const treasureManager: TreasureManager = TreasureManager.getInstance();
 
-    treasureManager.secretsRestrictorByName.set("jup_b1_secret", 1501);
+    treasureManager.treasuresRestrictorByName.set("jup_b1_secret", 1501);
     treasureManager.initialize();
 
-    const descriptor: ITreasureDescriptor = treasureManager.secrets.get("jup_b1_secret");
+    const descriptor: ITreasureDescriptor = treasureManager.treasures.get("jup_b1_secret");
 
     treasureManager.update();
 
@@ -165,7 +168,7 @@ describe("TreasureManager class", () => {
     descriptor.given = true;
     treasureManager.update();
 
-    expect(level.map_remove_object_spot).toHaveBeenCalledWith(1501, "treasure");
+    expect(level.map_remove_object_spot).toHaveBeenCalledWith(1501, "treasure_rare");
     expect(descriptor.empty).toBeNull();
     expect(descriptor.checked).toBe(true);
   });
@@ -177,7 +180,7 @@ describe("TreasureManager class", () => {
 
     treasureManager.initialize();
 
-    const descriptor: ITreasureDescriptor = treasureManager.secrets.get("jup_b2_secret");
+    const descriptor: ITreasureDescriptor = treasureManager.treasures.get("jup_b2_secret");
 
     descriptor.given = true;
     descriptor.checked = true;
@@ -202,17 +205,66 @@ describe("TreasureManager class", () => {
     EventsManager.emitEvent(EGameEvent.RESTRICTOR_ZONE_REGISTERED, notSecret);
 
     expect(treasureManager.onRegisterRestrictor).toHaveBeenCalledWith(notSecret);
-    expect(treasureManager.secretsRestrictorByName.length()).toBe(0);
+    expect(treasureManager.treasuresRestrictorByName.length()).toBe(0);
 
     EventsManager.emitEvent(EGameEvent.RESTRICTOR_ZONE_REGISTERED, secret);
 
     expect(treasureManager.onRegisterRestrictor).toHaveBeenNthCalledWith(2, secret);
-    expect(treasureManager.secretsRestrictorByName.length()).toBe(1);
+    expect(treasureManager.treasuresRestrictorByName.length()).toBe(1);
+  });
+
+  it("should correctly get treasures count", () => {
+    const treasureManager: TreasureManager = TreasureManager.getInstance();
+
+    treasureManager.initialize();
+
+    expect(treasureManager.getTreasuresCount()).toBe(3);
+    expect(treasureManager.treasures.length()).toBe(3);
+  });
+
+  it("should correctly get treasures", () => {
+    const treasureManager: TreasureManager = TreasureManager.getInstance();
+
+    treasureManager.initialize();
+
+    expect(treasureManager.treasures.get("jup_b1_secret")).not.toBeNull();
+    expect(treasureManager.getTreasure("jup_b1_secret")).toBe(treasureManager.treasures.get("jup_b1_secret"));
+  });
+
+  it("should correctly get given treasures count", () => {
+    const treasureManager: TreasureManager = TreasureManager.getInstance();
+
+    treasureManager.initialize();
+    expect(treasureManager.getGivenTreasuresCount()).toBe(0);
+
+    treasureManager.getTreasures().get("jup_b1_secret").given = true;
+    expect(treasureManager.getGivenTreasuresCount()).toBe(1);
+
+    treasureManager.getTreasures().get("jup_b2_secret").given = true;
+    expect(treasureManager.getGivenTreasuresCount()).toBe(2);
+  });
+
+  it("should correctly spawn treasures", () => {
+    const treasureManager: TreasureManager = TreasureManager.getInstance();
+
+    treasureManager.initialize();
+
+    treasureManager["spawnTreasure"] = jest.fn();
+
+    treasureManager["spawnTreasures"]();
+    expect(treasureManager["spawnTreasure"]).toHaveBeenCalledTimes(3);
+
+    treasureManager["spawnTreasures"]();
+    expect(treasureManager["spawnTreasure"]).toHaveBeenCalledTimes(3);
+
+    expect(treasureManager["spawnTreasure"]).toHaveBeenNthCalledWith(1, "jup_b1_secret");
+    expect(treasureManager["spawnTreasure"]).toHaveBeenNthCalledWith(2, "jup_b2_secret");
+    expect(treasureManager["spawnTreasure"]).toHaveBeenNthCalledWith(3, "jup_b3_secret");
   });
 
   it.todo("should correctly register items");
 
-  it.todo("should correctly spawn secrets");
+  it.todo("should correctly spawn treasure");
 
   it.todo("should correctly give actor coordinates");
 

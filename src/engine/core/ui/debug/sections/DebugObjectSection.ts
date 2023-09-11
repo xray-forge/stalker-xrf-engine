@@ -85,7 +85,7 @@ export class DebugObjectSection extends AbstractDebugSection {
     this.owner.Register(this.uiSetWoundedButton, "set_wounded_button");
   }
 
-  public initializeCallBacks(): void {
+  public override initializeCallBacks(): void {
     this.owner.AddCallback("log_state", ui_events.BUTTON_CLICKED, () => this.onPrintState(), this);
     this.owner.AddCallback("log_planner_state", ui_events.BUTTON_CLICKED, () => this.onPrintActionPlannerState(), this);
     this.owner.AddCallback("log_inventory_state", ui_events.BUTTON_CLICKED, () => this.onPrintInventoryState(), this);

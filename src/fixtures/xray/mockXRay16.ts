@@ -15,7 +15,7 @@ import {
 import { MockEntityAction } from "@/fixtures/xray/mocks/actions/entity_action.mock";
 import { MockCGameGraph } from "@/fixtures/xray/mocks/CGameGraph.mock";
 import { mockGetConsole } from "@/fixtures/xray/mocks/console.mock";
-import { mockCallbacks, mockClsid, mockSndType, mockStalkerIds } from "@/fixtures/xray/mocks/constants";
+import { mockCallbacks, mockClsid, mockSndType, mockStalkerIds, mockUiEvents } from "@/fixtures/xray/mocks/constants";
 import { MockCSightParams } from "@/fixtures/xray/mocks/CSightParams.mock";
 import { MockCTime } from "@/fixtures/xray/mocks/CTime.mock";
 import { MockDevice } from "@/fixtures/xray/mocks/device.mock";
@@ -169,6 +169,7 @@ export function mockXRay16({
   system_ini = () => mockIniFile("system.ini"),
   task = MockTask,
   time_global = jest.fn(() => Date.now()),
+  ui_events = mockUiEvents,
   user_name = jest.fn(() => "os_user_name"),
   vector = MockVector,
   world_property = MockWorldProperty,
@@ -261,6 +262,7 @@ export function mockXRay16({
     system_ini,
     task,
     time_global,
+    ui_events,
     user_name,
     vector,
     world_property,

@@ -26,7 +26,7 @@ export class DebugRegistrySection extends AbstractDebugSection {
     this.owner.Register(this.uiLogGeneralReportButton, "log_general_report");
   }
 
-  public initializeCallBacks(): void {
+  public override initializeCallBacks(): void {
     this.owner.AddCallback("log_general_report", ui_events.BUTTON_CLICKED, () => this.onPrintGeneralReport(), this);
   }
 

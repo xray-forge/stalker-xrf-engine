@@ -18,7 +18,7 @@ import { abort, assert, assertDefined } from "@/engine/core/utils/assertion";
 import { readIniString } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getObjectCommunity } from "@/engine/core/utils/object/object_get";
-import { getTableSize, resetTable } from "@/engine/core/utils/table";
+import { resetTable } from "@/engine/core/utils/table";
 import {
   ClientObject,
   NetPacket,
@@ -295,18 +295,18 @@ export class GlobalSoundManager extends AbstractManager {
       playableTheme.save(packet);
     }
 
-    packet.w_u16(getTableSize(registry.sounds.generic));
+    packet.w_u16(table.size(registry.sounds.generic));
 
     for (const [k, v] of registry.sounds.generic) {
       packet.w_u16(k);
       packet.w_stringZ(v.section);
     }
 
-    packet.w_u16(getTableSize(registry.sounds.looped));
+    packet.w_u16(table.size(registry.sounds.looped));
 
     for (const [id] of registry.sounds.looped) {
       packet.w_u16(id);
-      packet.w_u16(getTableSize(registry.sounds.looped.get(id)));
+      packet.w_u16(table.size(registry.sounds.looped.get(id)));
 
       for (const [loopedThemeId] of registry.sounds.looped.get(id)) {
         packet.w_stringZ(loopedThemeId);

@@ -6,20 +6,20 @@ import { TName, XmlInit } from "@/engine/lib/types";
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Abstract debug section to display in debug settings.
  */
 @LuabindClass()
 export abstract class AbstractDebugSection extends CUIWindow {
   public owner: CUIScriptWnd;
   public xml: XmlInit;
 
-  public constructor(owner: CUIScriptWnd, name: TName = AbstractDebugSection.__name) {
+  public constructor(owner: CUIScriptWnd, name?: TName) {
     super();
 
     this.owner = owner;
     this.xml = new CScriptXmlInit();
 
-    this.SetWindowName(name);
+    this.SetWindowName(name || this.__name);
 
     this.initializeControls();
     this.initializeCallBacks();
@@ -27,17 +27,17 @@ export abstract class AbstractDebugSection extends CUIWindow {
   }
 
   /**
-   * todo: Description.
+   * Initialize controls on first render for debug section.
    */
   public abstract initializeControls(): void;
 
   /**
-   * todo: Description.
+   * Initialize controls handlers on first render for debug section.
    */
-  public abstract initializeCallBacks(): void;
+  public initializeCallBacks(): void {}
 
   /**
-   * todo: Description.
+   * Initialize debug form view representation based on data.
    */
   public abstract initializeState(): void;
 }

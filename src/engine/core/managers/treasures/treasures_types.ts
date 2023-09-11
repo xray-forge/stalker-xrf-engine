@@ -17,9 +17,34 @@ export interface ITreasureItemsDescriptor {
 export interface ITreasureDescriptor {
   given: boolean;
   checked: boolean;
+  type: ETreasureType;
   // Condlist to check if secret can be refreshed.
   refreshing: Optional<TConditionList>;
   empty: Optional<TConditionList>;
   itemsToFindRemain: TCount;
   items: LuaTable<TSection, LuaArray<ITreasureItemsDescriptor>>;
 }
+
+/**
+ * Enumeration with possible treasure type.
+ */
+export enum ETreasureType {
+  RARE = "rare",
+  EPIC = "epic",
+  COMMON = "common",
+  UNIQUE = "unique",
+}
+
+/**
+ * Allowed types for treasures.
+ */
+export const allowedTreasureTypes: LuaTable<ETreasureType, boolean> = $fromObject(
+  Object.values(ETreasureType).reduce(
+    (acc, it) => {
+      acc[it] = true;
+
+      return acc;
+    },
+    {} as Record<ETreasureType, boolean>
+  )
+);

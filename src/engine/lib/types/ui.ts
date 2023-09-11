@@ -16,4 +16,6 @@ export interface IRgbColor {
   b: number;
 }
 
-export type TTextAlign = "c" | "l" | "r";
+export type THorizontalTextAlign = "c" | "l" | "r";
+
+export type TVerticalTextAlign = "c" | "t" | "b";

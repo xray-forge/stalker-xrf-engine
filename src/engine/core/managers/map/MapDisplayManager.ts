@@ -9,6 +9,7 @@ import {
   primaryMapSpotObjects,
   sleepZones,
 } from "@/engine/core/managers/map/map_display_marks";
+import { ETreasureType, ITreasureDescriptor } from "@/engine/core/managers/treasures/treasures_types";
 import type { SmartTerrain, Squad } from "@/engine/core/objects/server";
 import { parseConditionsList, pickSectionFromCondList, readIniString, TConditionList } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -368,6 +369,47 @@ export class MapDisplayManager extends AbstractManager {
         "alife_presentation_smart_" + smartTerrain.simulationRole + "_" + smartTerrain.smartTerrainDisplayedMapSpot
       );
       smartTerrain.smartTerrainDisplayedMapSpot = null;
+    }
+  }
+
+  /**
+   * Display map spot for treasure.
+   *
+   * @param id - treasure restrictor ID to display on game map
+   * @param descriptor - treasure descriptor
+   * @param hint - label to display on secret hovering
+   */
+  public showTreasureMapSpot(id: TNumberId, descriptor: ITreasureDescriptor, hint: TLabel = ""): void {
+    level.map_add_object_spot_ser(id, this.getSpotForTreasure(descriptor), hint);
+  }
+
+  /**
+   * Remove treasure spot for treasure descriptor.
+   *
+   * @param id - treasure restrictor ID to remove from game map
+   * @param descriptor - treasure descriptor
+   */
+  public removeTreasureMapSpot(id: TNumberId, descriptor: ITreasureDescriptor): void {
+    level.map_remove_object_spot(id, this.getSpotForTreasure(descriptor));
+  }
+
+  /**
+   * @returns icon name for provided descriptor, based on treasure type
+   */
+  public getSpotForTreasure(descriptor: ITreasureDescriptor): TName {
+    switch (descriptor.type) {
+      case ETreasureType.RARE:
+        return mapMarks.treasure_rare;
+
+      case ETreasureType.EPIC:
+        return mapMarks.treasure_epic;
+
+      case ETreasureType.UNIQUE:
+        return mapMarks.treasure_unique;
+
+      case ETreasureType.COMMON:
+      default:
+        return mapMarks.treasure;
     }
   }
 

@@ -4,7 +4,6 @@ import { AbstractManager } from "@/engine/core/managers/base/AbstractManager";
 import { IIntervalDescriptor, ITimeoutDescriptor } from "@/engine/core/managers/events/events_types";
 import { assert } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { getTableSize } from "@/engine/core/utils/table";
 import { AnyCallable, TCount, TDuration, TTimestamp } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -147,13 +146,13 @@ export class AbstractTimersManager extends AbstractManager {
    * @returns count of active intervals
    */
   public getIntervalsCount(): TCount {
-    return getTableSize(this.intervals);
+    return table.size(this.intervals);
   }
 
   /**
    * @returns count of active timeouts
    */
   public getTimeoutsCount(): TCount {
-    return getTableSize(this.timeouts);
+    return table.size(this.timeouts);
   }
 }

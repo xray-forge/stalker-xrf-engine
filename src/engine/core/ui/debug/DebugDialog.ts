@@ -10,7 +10,7 @@ import {
   ui_events,
 } from "xray16";
 
-import { EDebugSection, sectionsMap } from "@/engine/core/ui/debug/types";
+import { EDebugSection, sectionsMap } from "@/engine/core/ui/debug/debug_types";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { resolveXmlFile } from "@/engine/core/utils/ui";
 import { gameConfig } from "@/engine/lib/configs/GameConfig";
