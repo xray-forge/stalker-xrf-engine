@@ -373,16 +373,23 @@ export class MapDisplayManager extends AbstractManager {
   }
 
   /**
-   * todo: Description.
+   * Display map spot for treasure.
+   *
+   * @param id - treasure restrictor ID to display on game map
+   * @param descriptor - treasure descriptor
+   * @param hint - label to display on secret hovering
    */
-  public showSecretMapSpot(id: TNumberId, descriptor: ITreasureDescriptor, hint: TLabel = ""): void {
+  public showTreasureMapSpot(id: TNumberId, descriptor: ITreasureDescriptor, hint: TLabel = ""): void {
     level.map_add_object_spot_ser(id, this.getSpotForTreasure(descriptor), hint);
   }
 
   /**
-   * todo: Description.
+   * Remove treasure spot for treasure descriptor.
+   *
+   * @param id - treasure restrictor ID to remove from game map
+   * @param descriptor - treasure descriptor
    */
-  public removeSecretMapSpot(id: TNumberId, descriptor: ITreasureDescriptor): void {
+  public removeTreasureMapSpot(id: TNumberId, descriptor: ITreasureDescriptor): void {
     level.map_remove_object_spot(id, this.getSpotForTreasure(descriptor));
   }
 

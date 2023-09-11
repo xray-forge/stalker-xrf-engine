@@ -35,4 +35,5 @@ export const mockLevelInterface = {
   vertex_position: jest.fn(() => MockVector.create(15, 14, 16)),
   set_weather: jest.fn(),
   map_remove_object_spot: jest.fn(),
+  map_add_object_spot_ser: jest.fn(),
 };

@@ -273,7 +273,7 @@ export class TreasureManager extends AbstractManager {
           treasureDescriptor.empty = null;
           treasureDescriptor.checked = true;
 
-          MapDisplayManager.getInstance().removeSecretMapSpot(
+          MapDisplayManager.getInstance().removeTreasureMapSpot(
             this.treasuresRestrictorByName.get(treasureSection),
             treasureDescriptor
           );
@@ -382,7 +382,7 @@ export class TreasureManager extends AbstractManager {
     }
 
     descriptor.given = true;
-    MapDisplayManager.getInstance().showSecretMapSpot(this.treasuresRestrictorByName.get(treasureId), descriptor);
+    MapDisplayManager.getInstance().showTreasureMapSpot(this.treasuresRestrictorByName.get(treasureId), descriptor);
     NotificationManager.getInstance().sendTreasureNotification(ETreasureState.NEW_TREASURE_COORDINATES);
   }
 
@@ -509,7 +509,10 @@ export class TreasureManager extends AbstractManager {
       descriptor.itemsToFindRemain -= 1;
 
       if (this.treasures.get(treasureId).itemsToFindRemain === 0) {
-        MapDisplayManager.getInstance().removeSecretMapSpot(this.treasuresRestrictorByName.get(treasureId), descriptor);
+        MapDisplayManager.getInstance().removeTreasureMapSpot(
+          this.treasuresRestrictorByName.get(treasureId),
+          descriptor
+        );
         EventsManager.emitEvent(EGameEvent.TREASURE_FOUND, descriptor);
         this.treasures.get(treasureId).checked = true;
         NotificationManager.getInstance().sendTreasureNotification(ETreasureState.FOUND_TREASURE);
