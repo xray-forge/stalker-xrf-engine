@@ -5,7 +5,7 @@ import { resolveXmlFile, resolveXmlFormPath } from "@/engine/core/utils/ui/ui_xm
 import { roots } from "@/engine/lib/constants/roots";
 import { MockFileSystem } from "@/fixtures/xray/mocks/fs/FileSystem.mock";
 
-describe("'ui' utils", () => {
+describe("'ui_xml' utils", () => {
   it("'resolveXmlFile' should correctly parse provided path", () => {
     expect(resolveXmlFile("test.xml").ParseFile).toHaveBeenCalledWith("test.xml");
 

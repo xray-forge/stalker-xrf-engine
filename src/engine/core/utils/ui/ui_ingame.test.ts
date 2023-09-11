@@ -2,11 +2,11 @@ import { describe, expect, it, jest } from "@jest/globals";
 import { get_hud, level } from "xray16";
 
 import { registerActor, registry } from "@/engine/core/database";
-import { setUiVisibility } from "@/engine/core/utils/ui/ui_generic";
+import { setUiVisibility } from "@/engine/core/utils/ui/ui_ingame";
 import { GameHud } from "@/engine/lib/types";
 import { mockActorClientGameObject } from "@/fixtures/xray";
 
-describe("'ui' utils", () => {
+describe("'ui_ingame' utils", () => {
   it("'setUiVisibility' should correctly toggle visibility", () => {
     const hud: GameHud = get_hud();
 
