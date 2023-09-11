@@ -72,8 +72,8 @@ export class PsyAntennaManager extends AbstractManager {
     closeSaveMarker(packet, PsyAntennaManager.name + "_static");
   }
 
-  public readonly soundObjectRight: SoundObject = new sound_object("anomaly_psy_voices_1_r");
-  public readonly soundObjectLeft: SoundObject = new sound_object("anomaly_psy_voices_1_l");
+  public readonly soundObjectRight: SoundObject = new sound_object("anomaly\\psy_voices_1_r");
+  public readonly soundObjectLeft: SoundObject = new sound_object("anomaly\\psy_voices_1_l");
 
   public phantomMax: TCount = 8;
   public phantomSpawnProbability: TProbability = 0;
