@@ -9,7 +9,6 @@ import { TaskObject } from "@/engine/core/managers/tasks/TaskObject";
 import { ETaskState } from "@/engine/core/managers/tasks/types";
 import { assert } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { getTableSize } from "@/engine/core/utils/table";
 import { GameTask, NetPacket, NetProcessor, Optional, TCount, TStringId, TTaskState } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -115,7 +114,7 @@ export class TaskManager extends AbstractManager {
   public override save(packet: NetPacket): void {
     openSaveMarker(packet, TaskManager.name);
 
-    const count: TCount = getTableSize(this.tasksList);
+    const count: TCount = table.size(this.tasksList);
 
     packet.w_u16(count);
 

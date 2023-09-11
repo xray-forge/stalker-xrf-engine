@@ -213,13 +213,58 @@ describe("TreasureManager class", () => {
     expect(treasureManager.treasuresRestrictorByName.length()).toBe(1);
   });
 
-  it.todo("should correctly get treasures count");
+  it("should correctly get treasures count", () => {
+    const treasureManager: TreasureManager = TreasureManager.getInstance();
 
-  it.todo("should correctly get given treasures count");
+    treasureManager.initialize();
+
+    expect(treasureManager.getTreasuresCount()).toBe(3);
+    expect(treasureManager.treasures.length()).toBe(3);
+  });
+
+  it("should correctly get treasures", () => {
+    const treasureManager: TreasureManager = TreasureManager.getInstance();
+
+    treasureManager.initialize();
+
+    expect(treasureManager.treasures.get("jup_b1_secret")).not.toBeNull();
+    expect(treasureManager.getTreasure("jup_b1_secret")).toBe(treasureManager.treasures.get("jup_b1_secret"));
+  });
+
+  it("should correctly get given treasures count", () => {
+    const treasureManager: TreasureManager = TreasureManager.getInstance();
+
+    treasureManager.initialize();
+    expect(treasureManager.getGivenTreasuresCount()).toBe(0);
+
+    treasureManager.getTreasures().get("jup_b1_secret").given = true;
+    expect(treasureManager.getGivenTreasuresCount()).toBe(1);
+
+    treasureManager.getTreasures().get("jup_b2_secret").given = true;
+    expect(treasureManager.getGivenTreasuresCount()).toBe(2);
+  });
+
+  it("should correctly spawn treasures", () => {
+    const treasureManager: TreasureManager = TreasureManager.getInstance();
+
+    treasureManager.initialize();
+
+    treasureManager["spawnTreasure"] = jest.fn();
+
+    treasureManager["spawnTreasures"]();
+    expect(treasureManager["spawnTreasure"]).toHaveBeenCalledTimes(3);
+
+    treasureManager["spawnTreasures"]();
+    expect(treasureManager["spawnTreasure"]).toHaveBeenCalledTimes(3);
+
+    expect(treasureManager["spawnTreasure"]).toHaveBeenNthCalledWith(1, "jup_b1_secret");
+    expect(treasureManager["spawnTreasure"]).toHaveBeenNthCalledWith(2, "jup_b2_secret");
+    expect(treasureManager["spawnTreasure"]).toHaveBeenNthCalledWith(3, "jup_b3_secret");
+  });
 
   it.todo("should correctly register items");
 
-  it.todo("should correctly spawn secrets");
+  it.todo("should correctly spawn treasure");
 
   it.todo("should correctly give actor coordinates");
 

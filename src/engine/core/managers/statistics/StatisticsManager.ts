@@ -9,7 +9,6 @@ import type { ITreasureDescriptor } from "@/engine/core/managers/treasures";
 import { assert } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { isArtefact } from "@/engine/core/utils/object";
-import { getTableSize } from "@/engine/core/utils/table";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import { TInventoryItem } from "@/engine/lib/constants/items";
 import { TArtefact } from "@/engine/lib/constants/items/artefacts";
@@ -411,7 +410,7 @@ export class StatisticsManager extends AbstractManager {
     packet.w_stringZ(tostring(this.actorStatistics.bestKilledMonster));
     packet.w_stringZ(tostring(this.actorStatistics.favoriteWeapon));
 
-    const weaponsCount: TCount = getTableSize(this.weaponsStatistics);
+    const weaponsCount: TCount = table.size(this.weaponsStatistics);
 
     packet.w_u8(weaponsCount);
 
@@ -420,7 +419,7 @@ export class StatisticsManager extends AbstractManager {
       packet.w_float(damageDone);
     }
 
-    const artefactsCount: TCount = getTableSize(this.actorStatistics.collectedArtefacts);
+    const artefactsCount: TCount = table.size(this.actorStatistics.collectedArtefacts);
 
     packet.w_u8(artefactsCount);
 
@@ -429,7 +428,7 @@ export class StatisticsManager extends AbstractManager {
       packet.w_bool(isCollected);
     }
 
-    const takenArtefactsCount: TCount = getTableSize(this.takenArtefacts);
+    const takenArtefactsCount: TCount = table.size(this.takenArtefacts);
 
     packet.w_u8(takenArtefactsCount);
     for (const [k, v] of this.takenArtefacts) {

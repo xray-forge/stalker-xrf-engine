@@ -28,7 +28,6 @@ import {
   readIniNumber,
 } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { getTableSize } from "@/engine/core/utils/table";
 import { MAX_U16 } from "@/engine/lib/constants/memory";
 import { SECRET_SECTION } from "@/engine/lib/constants/sections";
 import { TRUE } from "@/engine/lib/constants/words";
@@ -128,7 +127,7 @@ export class TreasureManager extends AbstractManager {
       }
     }
 
-    return 0;
+    return count;
   }
 
   /**
@@ -247,7 +246,7 @@ export class TreasureManager extends AbstractManager {
   }
 
   /**
-   * todo: Description.
+   * Handle update of lifecycle.
    */
   public override update(): void {
     if (!this.areItemsSpawned) {
@@ -307,7 +306,9 @@ export class TreasureManager extends AbstractManager {
   }
 
   /**
-   * todo: Description.
+   * Spawn treasure items if needed and link IDs.
+   *
+   * @param treasureId - section ID of thee treasure to spawn
    */
   protected spawnTreasure(treasureId: TStringId): void {
     // logger.info("Spawn treasure ID:", treasureId);
@@ -531,14 +532,14 @@ export class TreasureManager extends AbstractManager {
     openSaveMarker(packet, TreasureManager.name);
 
     packet.w_bool(this.areItemsSpawned);
-    packet.w_u16(getTableSize(this.treasuresRestrictorByItem));
+    packet.w_u16(table.size(this.treasuresRestrictorByItem));
 
     for (const [k, v] of this.treasuresRestrictorByItem) {
       packet.w_u16(k);
       packet.w_u16(v);
     }
 
-    packet.w_u16(getTableSize(this.treasures));
+    packet.w_u16(table.size(this.treasures));
 
     for (const [treasure, descriptor] of this.treasures) {
       if (!this.treasuresRestrictorByName.get(treasure)) {

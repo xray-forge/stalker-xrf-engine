@@ -2,7 +2,6 @@ import { alife, callback, clsid, LuabindClass, object_binder } from "xray16";
 
 import { closeLoadMarker, closeSaveMarker, openLoadMarker, openSaveMarker, registry } from "@/engine/core/database";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { getTableSize } from "@/engine/core/utils/table";
 import { AlifeSimulator, ClientObject, NetPacket, Reader, ServerObject, TNumberId } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -69,7 +68,7 @@ export class ArenaZoneBinder extends object_binder {
 
     openSaveMarker(packet, ArenaZoneBinder.__name);
 
-    packet.w_u8(getTableSize(this.savedObjects));
+    packet.w_u8(table.size(this.savedObjects));
 
     for (const [k, v] of this.savedObjects) {
       packet.w_u16(k);

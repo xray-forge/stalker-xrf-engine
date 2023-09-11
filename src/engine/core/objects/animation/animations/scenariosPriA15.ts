@@ -3,7 +3,6 @@ import { IAnimationDescriptor, TAnimationSequenceElements } from "@/engine/core/
 import { createSequence } from "@/engine/core/utils/animation";
 import { abort } from "@/engine/core/utils/assertion";
 import { parseStringsList } from "@/engine/core/utils/ini";
-import { getTableSize } from "@/engine/core/utils/table";
 import { infoPortions } from "@/engine/lib/constants/info_portions";
 import { storyNames } from "@/engine/lib/constants/story_names";
 import { ClientObject, LuaArray, Optional, TIndex, TName } from "@/engine/lib/types";
@@ -649,7 +648,7 @@ function check_availability(precondition: LuaArray<string>, existing_npc: string
 function createSequenceForNpc(objectName: TName, existingObject: string): LuaArray<TAnimationSequenceElements> {
   const result: TAnimationSequenceElements = new LuaTable();
 
-  for (const it of $range(1, getTableSize(cutscene as unknown as LuaTable))) {
+  for (const it of $range(1, table.size(cutscene as unknown as LuaTable))) {
     if (check_availability(cutscene[it].precondition as unknown as LuaArray<string>, existingObject)) {
       const anm = cutscene[it].animation[objectName].a;
       const anm2 = cutscene[it].animation[objectName].a2;

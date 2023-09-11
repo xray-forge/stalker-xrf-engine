@@ -38,22 +38,6 @@ export function isEmpty(target: Optional<LuaTable<any>>): target is LuaTable {
 }
 
 /**
- * Get size of table content.
- *
- * @param target - table to check size
- * @returns actual size of the table
- */
-export function getTableSize(target: LuaTable<any, any>): number {
-  let count: TCount = 0;
-
-  for (const [key, value] of target) {
-    count += 1;
-  }
-
-  return count;
-}
-
-/**
  * Copy table values from one table to another.
  * Tables are copied recursively.
  *
