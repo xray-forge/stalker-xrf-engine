@@ -48,7 +48,7 @@ export class SchemeCombatZombied extends AbstractScheme {
 
     const actionZombieGoToDanger: ActionZombieGoToDanger = new ActionZombieGoToDanger(state);
 
-    actionZombieGoToDanger.add_precondition(new world_property(EEvaluatorId.ALIFE, true));
+    actionZombieGoToDanger.add_precondition(new world_property(EEvaluatorId.ALIVE, true));
     actionZombieGoToDanger.add_precondition(new world_property(EEvaluatorId.IS_COMBAT_ZOMBIED_ENABLED, true));
     actionZombieGoToDanger.add_precondition(new world_property(EEvaluatorId.ENEMY, false));
     actionZombieGoToDanger.add_precondition(new world_property(EEvaluatorId.DANGER, true));

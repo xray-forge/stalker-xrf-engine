@@ -22,7 +22,9 @@ import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain/SmartTe
 import { SquadReachTargetAction } from "@/engine/core/objects/server/squad/action";
 import { Squad } from "@/engine/core/objects/server/squad/Squad";
 import { SchemeHear } from "@/engine/core/schemes/hear/SchemeHear";
+import { assert } from "@/engine/core/utils/assertion";
 import { pickSectionFromCondList, TConditionList } from "@/engine/core/utils/ini";
+import { ISmartTerrainJobDescriptor } from "@/engine/core/utils/job";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getObjectSquad } from "@/engine/core/utils/object";
 import {
@@ -183,8 +185,16 @@ export class MonsterBinder extends object_binder {
       const smartTerrain: Optional<SmartTerrain> = alife().object<SmartTerrain>(serverObject.m_smart_terrain_id);
 
       if (smartTerrain !== null && smartTerrain.arrivingObjects.get(serverObject.id) === null) {
-        const smartTask: ALifeSmartTerrainTask = smartTerrain.objectJobDescriptors.get(serverObject.id).job
-          ?.alifeTask as ALifeSmartTerrainTask;
+        const job: Optional<ISmartTerrainJobDescriptor> = smartTerrain.objectJobDescriptors.get(serverObject.id).job;
+        const smartTask: ALifeSmartTerrainTask = job?.alifeTask as ALifeSmartTerrainTask;
+
+        assert(
+          smartTask,
+          "Expected terrain task to exist when spawning in smart terrain: '%s' in '%s', job: '%s'.",
+          this.object.name(),
+          smartTerrain.name(),
+          job?.section
+        );
 
         this.object.set_npc_position(smartTask.position());
       }

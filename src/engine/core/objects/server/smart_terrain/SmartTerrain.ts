@@ -194,6 +194,8 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
   public override on_before_register(): void {
     super.on_before_register();
 
+    jobLogger.info("Before register smart terrain:", this.name(), level.name(), "and");
+
     // Register smart in simulation as first priority, other objects may require it for registering.
     this.simulationBoardManager.registerSmartTerrain(this);
   }
@@ -202,6 +204,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
     super.on_register();
 
     this.isOnLevel = areObjectsOnSameLevel(this, alife().actor());
+    jobLogger.info("Register smart terrain:", this.name(), this.isOnLevel);
 
     registerObjectStoryLinks(this);
     registerSimulationObject(this);
@@ -241,11 +244,13 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
   }
 
   public override register_npc(object: ServerCreatureObject): void {
-    // logger.info("Register object in smart:", this.name(), object.name(), this.population);
+    jobLogger.info("Register object in smart:", this.name(), object.name(), this.population);
 
     this.population += 1;
 
     if (!this.isRegistered) {
+      jobLogger.info("Not registered, delay:", this.name(), object.name(), this.population);
+
       return table.insert(this.objectsToRegister, object);
     }
 
@@ -256,16 +261,19 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
     object.m_smart_terrain_id = this.id;
 
     if (this.isObjectArrived(object)) {
+      jobLogger.info("Assign to job on register:", this.name(), object.name(), this.population);
+
       this.objectJobDescriptors.set(object.id, createObjectJobDescriptor(object));
       this.jobDeadTimeById = new LuaTable();
       this.selectObjectJob(this.objectJobDescriptors.get(object.id));
     } else {
+      jobLogger.info("Mark as arrived:", this.name(), object.name(), this.population);
       this.arrivingObjects.set(object.id, object);
     }
   }
 
   public override unregister_npc(object: ServerCreatureObject): void {
-    // logger.info("Unregister object:", this.name(), object.name(), this.population);
+    jobLogger.info("Unregister object:", this.name(), object.name(), this.population);
 
     this.population -= 1;
 
@@ -692,10 +700,6 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
    * todo: Move into creation handler some parts
    */
   public initializeJobs(): void {
-    if (!this.isOnLevel) {
-      return;
-    }
-
     jobLogger.info("Initialize smart jobs:", this.name());
 
     const [jobsList, jobsConfig, jobsConfigName] = createSmartTerrainJobs(this);
@@ -709,10 +713,6 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
    * todo: Description.
    */
   public updateJobs(): void {
-    if (!this.isOnLevel) {
-      return;
-    }
-
     for (const [id, object] of this.arrivingObjects) {
       if (this.isObjectArrived(object)) {
         this.objectJobDescriptors.set(object.id, createObjectJobDescriptor(object));
@@ -735,10 +735,6 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
    * @param objectJobDescriptor - descriptor of active job for an object
    */
   public selectObjectJob(objectJobDescriptor: IObjectJobDescriptor): void {
-    if (!this.isOnLevel) {
-      return;
-    }
-
     const [selectedJobId, selectedJobLink] = selectSmartTerrainJob(this, this.jobs, objectJobDescriptor);
 
     assertDefined(
@@ -839,10 +835,6 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
    * todo: Description.
    */
   public switchObjectToDesiredJob(objectId: TNumberId): void {
-    if (!this.isOnLevel) {
-      return;
-    }
-
     jobLogger.info("Switch to desired job:", this.name(), objectId);
 
     const objectInfo: IObjectJobDescriptor = this.objectJobDescriptors.get(objectId);
@@ -891,7 +883,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
    * todo: Description.
    */
   public initializeObjectsAfterLoad(): void {
-    // logger.info("Initialize objects after load:", this.name());
+    jobLogger.info("Initialize objects after load:", this.name());
 
     const alifeSimulator: AlifeSimulator = alife();
 
@@ -922,6 +914,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
         newJobDescriptor.isBegun = jobDescriptor.isBegun;
         newJobDescriptor.desiredJob = jobDescriptor.desiredJob;
 
+        // todo: ID is index, probably can find without loop.
         for (const [, job] of this.jobs) {
           if (job.id === newJobDescriptor.jobId) {
             newJobDescriptor.job = job;

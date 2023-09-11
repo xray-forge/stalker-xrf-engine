@@ -48,8 +48,9 @@ import { SchemeHear } from "@/engine/core/schemes/hear/SchemeHear";
 import { activateMeetWithObject, updateObjectInteractionAvailability } from "@/engine/core/schemes/meet/utils";
 import { SchemeReachTask } from "@/engine/core/schemes/reach_task/SchemeReachTask";
 import { ISchemeWoundedState } from "@/engine/core/schemes/wounded";
+import { assert } from "@/engine/core/utils/assertion";
 import { pickSectionFromCondList, readIniString, TConditionList } from "@/engine/core/utils/ini";
-import { IObjectJobDescriptor } from "@/engine/core/utils/job";
+import { ISmartTerrainJobDescriptor } from "@/engine/core/utils/job";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getObjectCommunity, getObjectSquad, isUndergroundLevel } from "@/engine/core/utils/object";
 import { ERelation, setClientObjectRelation, setObjectSympathy } from "@/engine/core/utils/relation";
@@ -122,11 +123,7 @@ export class StalkerBinder extends object_binder {
     const visual: TName = readIniString(SYSTEM_INI, this.object.section(), "set_visual", false, "");
 
     if (visual !== null && visual !== "") {
-      if (visual === "actor_visual") {
-        this.object.set_visual_name(actor.get_visual_name());
-      } else {
-        this.object.set_visual_name(visual);
-      }
+      this.object.set_visual_name(visual === "actor_visual" ? actor.get_visual_name() : visual);
     }
 
     if (!super.net_spawn(object)) {
@@ -195,9 +192,17 @@ export class StalkerBinder extends object_binder {
         const smartTerrain: SmartTerrain = alife().object<SmartTerrain>(serverObject.m_smart_terrain_id)!;
 
         if (smartTerrain.arrivingObjects.get(serverObject.id) === null) {
-          const jobDescriptor: IObjectJobDescriptor = smartTerrain.objectJobDescriptors.get(serverObject.id);
+          const job: Optional<ISmartTerrainJobDescriptor> = smartTerrain.objectJobDescriptors.get(serverObject.id)?.job;
 
-          this.object.set_npc_position(jobDescriptor.job!.alifeTask!.position());
+          assert(
+            job?.alifeTask,
+            "Expected terrain task to exist when spawning in smart terrain: '%s' in '%s', job: '%s'.",
+            this.object.name(),
+            smartTerrain.name(),
+            job?.section
+          );
+
+          this.object.set_npc_position(job.alifeTask.position());
         }
       }
     }
