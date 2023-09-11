@@ -10,7 +10,6 @@ import {
   ITEM_UPGRADES,
   PH_BOX_GENERIC_LTX,
   SCRIPT_SOUND_LTX,
-  SECRETS_LTX,
   SIMULATION_LTX,
   SIMULATION_OBJECTS_PROPS_LTX,
   SMART_TERRAIN_MASKS_LTX,
@@ -21,6 +20,7 @@ import {
   SYSTEM_INI,
   TASK_MANAGER_LTX,
   TRAVEL_MANAGER_LTX,
+  TREASURES_LTX,
 } from "@/engine/core/database/ini_registry";
 import { IniFile } from "@/engine/lib/types";
 import { MockIniFile } from "@/fixtures/xray";
@@ -40,7 +40,7 @@ describe("'ini_registry' database module", () => {
       SCRIPT_SOUND_LTX,
       PH_BOX_GENERIC_LTX,
       DYNAMIC_WEATHER_GRAPHS,
-      SECRETS_LTX,
+      TREASURES_LTX,
       DEATH_GENERIC_LTX,
       ITEM_UPGRADES,
       STALKER_UPGRADE_INFO,

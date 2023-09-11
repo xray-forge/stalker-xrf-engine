@@ -58,7 +58,7 @@ export class DebugTeleportSection extends AbstractDebugSection {
     this.owner.Register(this.uiItemTeleportButton, "teleport_button");
   }
 
-  public initializeCallBacks(): void {
+  public override initializeCallBacks(): void {
     this.owner.AddCallback(
       "coordinates_categories_list",
       ui_events.LIST_ITEM_SELECT,

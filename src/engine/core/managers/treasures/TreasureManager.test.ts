@@ -4,7 +4,7 @@ import { level } from "xray16";
 import { registerActor, registry } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { TreasureManager } from "@/engine/core/managers/treasures/TreasureManager";
-import { ITreasureDescriptor } from "@/engine/core/managers/treasures/treasures_types";
+import { ETreasureType, ITreasureDescriptor } from "@/engine/core/managers/treasures/treasures_types";
 import { parseConditionsList } from "@/engine/core/utils/ini";
 import { giveInfo } from "@/engine/core/utils/object";
 import { ClientObject, ServerObject } from "@/engine/lib/types";
@@ -44,7 +44,7 @@ describe("TreasureManager class", () => {
     expect(treasureManager.treasures).toEqualLuaTables({
       jup_b1_secret: {
         checked: false,
-        cost: 7100,
+        type: ETreasureType.RARE,
         empty: parseConditionsList("{+info_b10_first_zone_visited} true, false"),
         given: false,
         refreshing: null,
@@ -68,13 +68,13 @@ describe("TreasureManager class", () => {
       },
       jup_b2_secret: {
         checked: false,
-        cost: 5000,
+        type: ETreasureType.EPIC,
         empty: null,
         given: false,
         items: {
           wpn_abakan: {
             "1": {
-              count: 1,
+              count: 2,
               itemsIds: null,
               probability: 1,
             },
@@ -87,7 +87,7 @@ describe("TreasureManager class", () => {
         checked: false,
         empty: null,
         given: false,
-        cost: 7100,
+        type: ETreasureType.RARE,
         items: {
           wpn_abakan: {
             "1": {
@@ -168,7 +168,7 @@ describe("TreasureManager class", () => {
     descriptor.given = true;
     treasureManager.update();
 
-    expect(level.map_remove_object_spot).toHaveBeenCalledWith(1501, "treasure");
+    expect(level.map_remove_object_spot).toHaveBeenCalledWith(1501, "treasure_rare");
     expect(descriptor.empty).toBeNull();
     expect(descriptor.checked).toBe(true);
   });

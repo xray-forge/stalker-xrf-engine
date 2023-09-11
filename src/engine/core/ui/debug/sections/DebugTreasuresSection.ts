@@ -1,12 +1,14 @@
-import { CUI3tButton, CUIComboBox, CUIEditBox, CUIStatic, LuabindClass, ui_events } from "xray16";
+import { alife, CUI3tButton, CUIEditBox, CUIListBox, CUIStatic, game, level, LuabindClass, ui_events } from "xray16";
 
+import { registry } from "@/engine/core/database";
 import { StatisticsManager } from "@/engine/core/managers/statistics";
 import { ITreasureDescriptor, TreasureManager } from "@/engine/core/managers/treasures";
 import { AbstractDebugSection } from "@/engine/core/ui/debug/sections/AbstractDebugSection";
 import { isGameStarted } from "@/engine/core/utils/game";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { EElementType, registerUiElement, resolveXmlFile } from "@/engine/core/utils/ui";
-import { Optional, TCount, TIndex, TLabel, TPath, TSection, XmlInit } from "@/engine/lib/types";
+import { isGameVertexFromLevel } from "@/engine/core/utils/object";
+import { EElementType, registerStatics, registerUiElement, resolveXmlFile } from "@/engine/core/utils/ui";
+import { Optional, ServerObject, TCount, TLabel, TNumberId, TPath, TSection, XmlInit } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 const base: TPath = "menu\\debug\\DebugTreasuresSection.component";
@@ -24,11 +26,9 @@ export class DebugTreasuresSection extends AbstractDebugSection {
   public uiGiveTreasuresButton!: CUI3tButton;
   public uiGiveRandomTreasuresButton!: CUI3tButton;
   public uiGiveSpecificTreasureButton!: CUI3tButton;
-  public uiResetTreasuresButton!: CUI3tButton;
-  public uiResetSpecificTreasureButton!: CUI3tButton;
   public uiTeleportToSpecificTreasureButton!: CUI3tButton;
 
-  public uiTreasuresListComboBox!: CUIComboBox;
+  public uiTreasuresList!: CUIListBox;
   public uiTreasuresListEditBox!: CUIEditBox;
 
   public currentFilter: string = "";
@@ -39,6 +39,20 @@ export class DebugTreasuresSection extends AbstractDebugSection {
    */
   public override initializeControls(): void {
     const xml: XmlInit = resolveXmlFile(base, this.xml);
+
+    registerStatics(
+      xml,
+      this,
+      "preview_texture_common",
+      "preview_texture_rare",
+      "preview_texture_epic",
+      "preview_texture_unique"
+    );
+
+    registerUiElement(xml, "treasures_list_frame", {
+      base: this,
+      type: EElementType.FRAME,
+    });
 
     this.uiTotalTreasuresLabel = registerUiElement(xml, "total_treasures_count_label", {
       base: this,
@@ -73,14 +87,6 @@ export class DebugTreasuresSection extends AbstractDebugSection {
         [ui_events.BUTTON_CLICKED]: () => this.onGiveAllTreasuresButtonClicked(),
       },
     });
-    this.uiResetTreasuresButton = registerUiElement(xml, "reset_treasures_button", {
-      type: EElementType.BUTTON,
-      base: this,
-      context: this.owner,
-      handlers: {
-        [ui_events.BUTTON_CLICKED]: () => this.onResetAllTreasuresButtonClicked(),
-      },
-    });
 
     this.uiGiveSpecificTreasureButton = registerUiElement(xml, "give_specific_treasure_button", {
       type: EElementType.BUTTON,
@@ -88,15 +94,6 @@ export class DebugTreasuresSection extends AbstractDebugSection {
       context: this.owner,
       handlers: {
         [ui_events.BUTTON_CLICKED]: () => this.onGiveSpecificTreasureButtonClicked(),
-      },
-    });
-
-    this.uiResetSpecificTreasureButton = registerUiElement(xml, "reset_specific_treasure_button", {
-      type: EElementType.BUTTON,
-      base: this,
-      context: this.owner,
-      handlers: {
-        [ui_events.BUTTON_CLICKED]: () => this.onResetSpecificTreasuresButtonClicked(),
       },
     });
 
@@ -109,8 +106,8 @@ export class DebugTreasuresSection extends AbstractDebugSection {
       },
     });
 
-    this.uiTreasuresListComboBox = registerUiElement(xml, "treasures_combo_box", {
-      type: EElementType.COMBO_BOX,
+    this.uiTreasuresList = registerUiElement(xml, "treasures_list", {
+      type: EElementType.LIST_BOX,
       base: this,
       context: this.owner,
       handlers: {
@@ -118,7 +115,7 @@ export class DebugTreasuresSection extends AbstractDebugSection {
       },
     });
 
-    this.uiTreasuresListEditBox = registerUiElement(xml, "treasures_edit_box", {
+    this.uiTreasuresListEditBox = registerUiElement(xml, "treasures_filter_box", {
       type: EElementType.EDIT_BOX,
       base: this,
       context: this.owner,
@@ -145,15 +142,12 @@ export class DebugTreasuresSection extends AbstractDebugSection {
       .TextControl()
       .SetText(string.format("Found treasures: %s", statisticManager.actorStatistics.collectedTreasuresCount));
 
-    this.uiTreasuresListComboBox.ClearList();
-
-    let index: TIndex = 0;
+    this.uiTreasuresList.RemoveAll();
 
     for (const [section] of treasureManager.getTreasures()) {
-      // Apply secret filtering.
+      // Apply treasure filtering.
       if (this.currentFilter === null || this.currentFilter === "" || section.includes(this.currentFilter)) {
-        this.uiTreasuresListComboBox.AddItem(section, index);
-        index += 1;
+        this.uiTreasuresList.AddTextItem(section);
       }
     }
 
@@ -161,7 +155,8 @@ export class DebugTreasuresSection extends AbstractDebugSection {
   }
 
   /**
-   * todo;
+   * @param section - descriptor section to build label for
+   * @returns label with debug information for the treasure
    */
   public getTreasureDescription(section: Optional<TSection>): TLabel {
     const treasureManager: TreasureManager = TreasureManager.getInstance();
@@ -172,7 +167,7 @@ export class DebugTreasuresSection extends AbstractDebugSection {
       let totalItems: TCount = 0;
       let base: TLabel = `given: ${treasure.given} | checked: ${treasure.checked} | refreshing: ${
         treasure.refreshing !== null
-      } | empty: ${treasure.refreshing !== null} | items remain: ${treasure.itemsToFindRemain} | `;
+      } | empty: ${treasure.refreshing !== null} |\n items remain: ${treasure.itemsToFindRemain} | `;
 
       if (table.size(treasure.items) > 0) {
         for (const [section, list] of treasure.items) {
@@ -184,7 +179,7 @@ export class DebugTreasuresSection extends AbstractDebugSection {
         }
       }
 
-      base += string.format("total items: %s | cost: %s", totalItems, treasure.cost);
+      base += string.format("total items: %s | type: %s", totalItems, treasure.type);
 
       return base;
     }
@@ -193,28 +188,43 @@ export class DebugTreasuresSection extends AbstractDebugSection {
   }
 
   /**
-   * todo;
+   * Changed active treasure in the list.
    */
   public onSelectedTreasureChange(): void {
-    this.currentSection = this.uiTreasuresListComboBox.GetText();
-    this.uiTreasureInfoLabel.TextControl().SetText(this.currentFilter);
+    this.currentSection = this.uiTreasuresList.GetSelectedItem()?.GetTextItem().GetText() as Optional<TLabel>;
+    this.uiTreasureInfoLabel.TextControl().SetText(this.getTreasureDescription(this.currentSection));
   }
 
   /**
-   * todo;
+   * Input with selected treasure filter value changed.
    */
   public onSelectedTreasureFilterChange(): void {
     this.currentSection = null;
     this.currentFilter = this.uiTreasuresListEditBox.GetText();
-    this.uiTreasuresListComboBox.SetCurrentID(0);
     this.initializeState();
   }
 
   /**
-   * todo;
+   * Clicked `teleport to treasure` control.
    */
   public onTeleportToTreasureClicked(): void {
-    logger.info("Teleport to treasure");
+    if (!isGameStarted() || this.currentSection === null) {
+      return;
+    }
+
+    const treasureManager: TreasureManager = TreasureManager.getInstance();
+    const restrictorId: Optional<TNumberId> = treasureManager.treasuresRestrictorByName.get(this.currentSection);
+    const object: Optional<ServerObject> = restrictorId === null ? null : alife().object(restrictorId);
+
+    if (!object) {
+      return;
+    }
+
+    if (isGameVertexFromLevel(level.name(), object.m_game_vertex_id)) {
+      registry.actor.set_actor_position(object.position);
+    } else {
+      game.jump_to_level(object.position, object.m_level_vertex_id, object.m_game_vertex_id);
+    }
   }
 
   /**
@@ -232,21 +242,8 @@ export class DebugTreasuresSection extends AbstractDebugSection {
    * Give random treasures for the actor.
    */
   public onGiveRandomTreasuresButtonClicked(): void {
-    logger.info("onGiveRandomTreasuresButtonClicked");
-
     if (isGameStarted()) {
       TreasureManager.getInstance().giveActorRandomTreasureCoordinates();
-    }
-  }
-
-  /**
-   * Reset all treasures.
-   */
-  public onResetAllTreasuresButtonClicked(): void {
-    logger.info("onResetAllTreasuresButtonClicked");
-
-    if (isGameStarted()) {
-      // todo;
     }
   }
 
@@ -254,13 +251,10 @@ export class DebugTreasuresSection extends AbstractDebugSection {
    * Give specific treasures for the actor.
    */
   public onGiveSpecificTreasureButtonClicked(): void {
-    logger.info("onGiveSpecificTreasureButtonClicked");
-  }
+    if (!isGameStarted() || this.currentSection === null) {
+      return;
+    }
 
-  /**
-   * Reset specific treasure.
-   */
-  public onResetSpecificTreasuresButtonClicked(): void {
-    logger.info("onResetSpecificTreasuresButtonClicked");
+    TreasureManager.getInstance().giveActorTreasureCoordinates(this.currentSection);
   }
 }

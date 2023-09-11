@@ -19,7 +19,7 @@ export class DebugSoundSection extends AbstractDebugSection {
     xml.ParseFile(resolveXmlFormPath(base));
   }
 
-  public initializeCallBacks(): void {}
+  public override initializeCallBacks(): void {}
 
   public initializeState(): void {}
 }

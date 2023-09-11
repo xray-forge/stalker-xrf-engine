@@ -36,6 +36,12 @@ describe("'ini_sections' utils for ini file", () => {
   });
 
   it("'getWeaponSections' utils should correctly get list of sections", () => {
-    expect(getWeaponSections()).toEqualLuaArrays(["wpn_ak74", "wpn_svu", "grenade_f1"]);
+    expect(getWeaponSections()).toEqualLuaArrays([
+      "wpn_ak74",
+      "wpn_svu",
+      "wpn_abakan",
+      "wpn_addon_scope",
+      "grenade_f1",
+    ]);
   });
 });

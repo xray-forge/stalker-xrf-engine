@@ -1,7 +1,7 @@
 import { JSXNode, JSXXML } from "jsx-xml";
 
 /**
- * todo;
+ * Create texture IDs based on file with elements.
  */
 export function create(): JSXNode {
   return (
@@ -25,9 +25,12 @@ export function create(): JSXNode {
         <texture id="ui_inGame2_PDA_icon_Primary_mission" x="4" y="563" width="23" height="23" />
         <texture id="ui_inGame2_PDA_icon_Secondary_mission" x="28" y="563" width="23" height="23" />
 
-        <texture id="ui_inGame2_PDA_icon_secret" x="52" y="563" width="27" height="27" />
-        <texture id="ui_inGame2_PDA_icon_secret_rare" x="8" y="693" width="27" height="27" />
-        <texture id="ui_inGame2_PDA_icon_secret_epic" x="35" y="693" width="27" height="27" />
+        <texture id="ui_inGame2_PDA_icon_secret" x="51" y="562" width="27" height="27" />
+        <texture id="ui_inGame2_PDA_icon_secret_common" x="51" y="5632" width="27" height="27" />
+        <texture id="ui_inGame2_PDA_icon_secret_rare" x="7" y="692" width="27" height="27" />
+        <texture id="ui_inGame2_PDA_icon_secret_epic" x="35" y="692" width="27" height="27" />
+        <texture id="ui_inGame2_PDA_icon_secret_unique" x="63" y="692" width="27" height="27" />
+
         <texture id="ui_inGame2_PDA_icon_location_legend" x="4" y="587" width="41" height="41" />
       </file>
 

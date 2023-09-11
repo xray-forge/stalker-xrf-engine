@@ -153,7 +153,11 @@ export const FILES_MOCKS: Record<TPath, AnyObject> = {
     generic_buy: {},
     generic_sell: {},
   },
-  "misc\\secrets.ltx": {
+  "misc\\treasures.ltx": {
+    config: {
+      rare_cost: 5000,
+      epic_cost: 10000,
+    },
     list: {
       jup_b1_secret: null,
       jup_b2_secret: null,
@@ -166,7 +170,7 @@ export const FILES_MOCKS: Record<TPath, AnyObject> = {
     },
     jup_b2_secret: {
       refreshing: "true",
-      wpn_abakan: "1, 1",
+      wpn_abakan: "2, 1",
     },
     jup_b3_secret: {
       wpn_abakan: "1, 1",

@@ -6,15 +6,20 @@ import {
   openLoadMarker,
   openSaveMarker,
   registry,
-  SECRETS_LTX,
   SYSTEM_INI,
+  TREASURES_LTX,
 } from "@/engine/core/database";
 import { AbstractManager } from "@/engine/core/managers/base/AbstractManager";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { MapDisplayManager } from "@/engine/core/managers/map";
 import { ETreasureState, NotificationManager } from "@/engine/core/managers/notifications";
-import { ITreasureDescriptor, ITreasureItemsDescriptor } from "@/engine/core/managers/treasures/treasures_types";
-import { assert, assertDefined } from "@/engine/core/utils/assertion";
+import {
+  allowedTreasureTypes,
+  ETreasureType,
+  ITreasureDescriptor,
+  ITreasureItemsDescriptor,
+} from "@/engine/core/managers/treasures/treasures_types";
+import { abort, assert, assertDefined } from "@/engine/core/utils/assertion";
 import {
   ISpawnDescriptor,
   parseConditionsList,
@@ -53,6 +58,8 @@ const logger: LuaLogger = new LuaLogger($filename);
  */
 export class TreasureManager extends AbstractManager {
   public static readonly UPDATED_PERIOD: TDuration = 500;
+  public static readonly RARE_COST: TCount = readIniNumber(TREASURES_LTX, "config", "rare_cost", true);
+  public static readonly EPIC_COST: TCount = readIniNumber(TREASURES_LTX, "config", "epic_cost", true);
 
   /**
    * Share treasure coordinates with the actor.
@@ -75,11 +82,31 @@ export class TreasureManager extends AbstractManager {
   public treasuresRestrictorByName: LuaTable<TName, TNumberId> = new LuaTable(); // Restrictor ID by name.
   public treasuresRestrictorByItem: LuaTable<TNumberId, TNumberId> = new LuaTable(); // Restrictor ID by item ID.
 
+  public constructor() {
+    super();
+
+    assert(
+      TreasureManager.EPIC_COST > TreasureManager.RARE_COST,
+      "Epic cost cannot be lower than rare treasure const: '%s' < '%s'.",
+      TreasureManager.EPIC_COST,
+      TreasureManager.RARE_COST
+    );
+  }
+
   /**
    * Return all treasure descriptors.
    */
   public getTreasures(): LuaTable<TSection, ITreasureDescriptor> {
     return this.treasures;
+  }
+  /**
+   * Return treasure by descriptors.
+   *
+   * @params section - treasure section to search for
+   * @returns decriptor for requested section
+   */
+  public getTreasure(section: TSection): ITreasureDescriptor {
+    return this.treasures.get(section);
   }
 
   /**
@@ -121,19 +148,21 @@ export class TreasureManager extends AbstractManager {
    * Initialize secrets descriptors.
    */
   public initializeSecrets(): void {
-    const totalSecretsCount: TCount = SECRETS_LTX.line_count("list");
+    const totalSecretsCount: TCount = TREASURES_LTX.line_count("list");
 
     logger.info("Initialize secrets, expected:", totalSecretsCount);
 
     for (const it of $range(0, totalSecretsCount - 1)) {
-      const [, treasureSection] = SECRETS_LTX.r_line<TStringId>("list", it, "", "");
+      const [, treasureSection] = TREASURES_LTX.r_line<TStringId>("list", it, "", "");
 
-      assert(SECRETS_LTX.section_exist(treasureSection), "There is no section [%s] in secrets.ltx", it);
+      assert(TREASURES_LTX.section_exist(treasureSection), "There is no section '%s' in treasures.ltx.", it);
+
+      let cost: TCount = 0;
 
       const descriptor: ITreasureDescriptor = {
         items: new LuaTable(),
         given: false,
-        cost: 0,
+        type: null as unknown as ETreasureType,
         empty: null,
         refreshing: null,
         checked: false,
@@ -142,10 +171,10 @@ export class TreasureManager extends AbstractManager {
 
       this.treasures.set(treasureSection, descriptor);
 
-      const itemsCount: TCount = SECRETS_LTX.line_count(treasureSection);
+      const itemsCount: TCount = TREASURES_LTX.line_count(treasureSection);
 
       for (const index of $range(0, itemsCount - 1)) {
-        const [, itemSection, itemValue] = SECRETS_LTX.r_line(treasureSection, index, "", "");
+        const [, itemSection, itemValue] = TREASURES_LTX.r_line(treasureSection, index, "", "");
 
         switch (itemSection) {
           case "empty":
@@ -155,6 +184,16 @@ export class TreasureManager extends AbstractManager {
           case "refreshing":
             descriptor.refreshing = parseConditionsList(itemValue);
             break;
+
+          case "type": {
+            if (itemValue === null || allowedTreasureTypes.has(itemValue as ETreasureType)) {
+              descriptor.type = itemValue as ETreasureType;
+            } else {
+              abort("Unexpected type provided for treasure: '%s'.", itemValue);
+            }
+
+            break;
+          }
 
           default: {
             descriptor.items.set(itemSection, new LuaTable());
@@ -172,7 +211,7 @@ export class TreasureManager extends AbstractManager {
               const count: TCount = tonumber(spawnDescriptor.count) ?? 1;
               const probability: TCount = tonumber(spawnDescriptor.probability) ?? 1;
 
-              descriptor.cost += readIniNumber(SYSTEM_INI, itemSection, "cost", false, 0) * count;
+              cost += readIniNumber(SYSTEM_INI, itemSection, "cost", false, 0) * count;
 
               table.insert(descriptor.items.get(itemSection), {
                 count,
@@ -181,6 +220,16 @@ export class TreasureManager extends AbstractManager {
               });
             }
           }
+        }
+      }
+
+      if (descriptor.type === null) {
+        if (cost >= TreasureManager.EPIC_COST) {
+          descriptor.type = ETreasureType.EPIC;
+        } else if (cost >= TreasureManager.RARE_COST) {
+          descriptor.type = ETreasureType.RARE;
+        } else {
+          descriptor.type = ETreasureType.COMMON;
         }
       }
     }

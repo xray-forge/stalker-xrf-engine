@@ -9,7 +9,7 @@ import {
   primaryMapSpotObjects,
   sleepZones,
 } from "@/engine/core/managers/map/map_display_marks";
-import { ITreasureDescriptor } from "@/engine/core/managers/treasures";
+import { ETreasureType, ITreasureDescriptor } from "@/engine/core/managers/treasures/treasures_types";
 import type { SmartTerrain, Squad } from "@/engine/core/objects/server";
 import { parseConditionsList, pickSectionFromCondList, readIniString, TConditionList } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -40,7 +40,6 @@ import {
   TName,
   TNumberId,
   TSection,
-  TStringId,
   TTimestamp,
   Vector,
 } from "@/engine/lib/types";
@@ -376,8 +375,8 @@ export class MapDisplayManager extends AbstractManager {
   /**
    * todo: Description.
    */
-  public showSecretMapSpot(id: TNumberId, descriptor: ITreasureDescriptor): void {
-    level.map_add_object_spot_ser(id, this.getSpotForTreasure(descriptor), "");
+  public showSecretMapSpot(id: TNumberId, descriptor: ITreasureDescriptor, hint: TLabel = ""): void {
+    level.map_add_object_spot_ser(id, this.getSpotForTreasure(descriptor), hint);
   }
 
   /**
@@ -388,16 +387,23 @@ export class MapDisplayManager extends AbstractManager {
   }
 
   /**
-   * todo: Description.
+   * @returns icon name for provided descriptor, based on treasure type
    */
   public getSpotForTreasure(descriptor: ITreasureDescriptor): TName {
-    if (descriptor.cost > 10_000) {
-      return mapMarks.treasureEpic;
-    } else if (descriptor.cost > 5000) {
-      return mapMarks.treasureRare;
-    }
+    switch (descriptor.type) {
+      case ETreasureType.RARE:
+        return mapMarks.treasure_rare;
 
-    return mapMarks.treasure;
+      case ETreasureType.EPIC:
+        return mapMarks.treasure_epic;
+
+      case ETreasureType.UNIQUE:
+        return mapMarks.treasure_unique;
+
+      case ETreasureType.COMMON:
+      default:
+        return mapMarks.treasure;
+    }
   }
 
   /**

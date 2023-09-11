@@ -1,8 +1,11 @@
-import { CUIScriptWnd, CUIStatic, CUIWindow } from "xray16";
+import { CUIScriptWnd, CUIWindow } from "xray16";
 
 import { abort } from "@/engine/core/utils/assertion";
+import { LuaLogger } from "@/engine/core/utils/logging";
 import { EElementType, IUiElementDescriptor } from "@/engine/core/utils/ui/forms/forms_types";
 import { AnyCallable, TStringId, XmlInit } from "@/engine/lib/types";
+
+const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * Register UI element and add callback handlers for it.
@@ -11,6 +14,7 @@ import { AnyCallable, TStringId, XmlInit } from "@/engine/lib/types";
  * @param xml - base xml file with form
  * @param selector - string id of element in base XML for reading
  * @param descriptor - configuration of element registration (events, naming, base etc)
+ * @returns initilized UI element instance
  */
 export function registerUiElement<T extends CUIWindow>(
   xml: XmlInit,
@@ -32,6 +36,14 @@ export function registerUiElement<T extends CUIWindow>(
 
     case EElementType.COMBO_BOX:
       element = xml.InitComboBox(selector, base) as unknown as T;
+      break;
+
+    case EElementType.FRAME:
+      element = xml.InitFrame(selector, base) as unknown as T;
+      break;
+
+    case EElementType.LIST_BOX:
+      element = xml.InitListBox(selector, base) as unknown as T;
       break;
 
     case EElementType.EDIT_BOX:
@@ -58,4 +70,18 @@ export function registerUiElement<T extends CUIWindow>(
   }
 
   return element;
+}
+
+/**
+ * Register statics from XML file.
+ * Shortcut to init many elements in a single call.
+ *
+ * @param xml - file with forms
+ * @param base - base element to init new statics relatively from
+ * @param selectors - variadic selectors list to initialize
+ */
+export function registerStatics(xml: XmlInit, base: CUIWindow, ...selectors: Array<TStringId>): void {
+  for (const selector of selectors) {
+    registerUiElement(xml, selector, { base, type: EElementType.STATIC });
+  }
 }
