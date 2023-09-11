@@ -9,6 +9,7 @@ import {
   primaryMapSpotObjects,
   sleepZones,
 } from "@/engine/core/managers/map/map_display_marks";
+import { ITreasureDescriptor } from "@/engine/core/managers/treasures";
 import type { SmartTerrain, Squad } from "@/engine/core/objects/server";
 import { parseConditionsList, pickSectionFromCondList, readIniString, TConditionList } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -39,6 +40,7 @@ import {
   TName,
   TNumberId,
   TSection,
+  TStringId,
   TTimestamp,
   Vector,
 } from "@/engine/lib/types";
@@ -369,6 +371,33 @@ export class MapDisplayManager extends AbstractManager {
       );
       smartTerrain.smartTerrainDisplayedMapSpot = null;
     }
+  }
+
+  /**
+   * todo: Description.
+   */
+  public showSecretMapSpot(id: TNumberId, descriptor: ITreasureDescriptor): void {
+    level.map_add_object_spot_ser(id, this.getSpotForTreasure(descriptor), "");
+  }
+
+  /**
+   * todo: Description.
+   */
+  public removeSecretMapSpot(id: TNumberId, descriptor: ITreasureDescriptor): void {
+    level.map_remove_object_spot(id, this.getSpotForTreasure(descriptor));
+  }
+
+  /**
+   * todo: Description.
+   */
+  public getSpotForTreasure(descriptor: ITreasureDescriptor): TName {
+    if (descriptor.cost > 10_000) {
+      return mapMarks.treasureEpic;
+    } else if (descriptor.cost > 5000) {
+      return mapMarks.treasureRare;
+    }
+
+    return mapMarks.treasure;
   }
 
   /**

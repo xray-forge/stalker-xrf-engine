@@ -41,9 +41,10 @@ describe("TreasureManager class", () => {
 
     treasureManager.initialize();
 
-    expect(treasureManager.secrets).toEqualLuaTables({
+    expect(treasureManager.treasures).toEqualLuaTables({
       jup_b1_secret: {
         checked: false,
+        cost: 7100,
         empty: parseConditionsList("{+info_b10_first_zone_visited} true, false"),
         given: false,
         refreshing: null,
@@ -67,6 +68,7 @@ describe("TreasureManager class", () => {
       },
       jup_b2_secret: {
         checked: false,
+        cost: 5000,
         empty: null,
         given: false,
         items: {
@@ -85,6 +87,7 @@ describe("TreasureManager class", () => {
         checked: false,
         empty: null,
         given: false,
+        cost: 7100,
         items: {
           wpn_abakan: {
             "1": {
@@ -149,10 +152,10 @@ describe("TreasureManager class", () => {
 
     const treasureManager: TreasureManager = TreasureManager.getInstance();
 
-    treasureManager.secretsRestrictorByName.set("jup_b1_secret", 1501);
+    treasureManager.treasuresRestrictorByName.set("jup_b1_secret", 1501);
     treasureManager.initialize();
 
-    const descriptor: ITreasureDescriptor = treasureManager.secrets.get("jup_b1_secret");
+    const descriptor: ITreasureDescriptor = treasureManager.treasures.get("jup_b1_secret");
 
     treasureManager.update();
 
@@ -177,7 +180,7 @@ describe("TreasureManager class", () => {
 
     treasureManager.initialize();
 
-    const descriptor: ITreasureDescriptor = treasureManager.secrets.get("jup_b2_secret");
+    const descriptor: ITreasureDescriptor = treasureManager.treasures.get("jup_b2_secret");
 
     descriptor.given = true;
     descriptor.checked = true;
@@ -202,13 +205,17 @@ describe("TreasureManager class", () => {
     EventsManager.emitEvent(EGameEvent.RESTRICTOR_ZONE_REGISTERED, notSecret);
 
     expect(treasureManager.onRegisterRestrictor).toHaveBeenCalledWith(notSecret);
-    expect(treasureManager.secretsRestrictorByName.length()).toBe(0);
+    expect(treasureManager.treasuresRestrictorByName.length()).toBe(0);
 
     EventsManager.emitEvent(EGameEvent.RESTRICTOR_ZONE_REGISTERED, secret);
 
     expect(treasureManager.onRegisterRestrictor).toHaveBeenNthCalledWith(2, secret);
-    expect(treasureManager.secretsRestrictorByName.length()).toBe(1);
+    expect(treasureManager.treasuresRestrictorByName.length()).toBe(1);
   });
+
+  it.todo("should correctly get treasures count");
+
+  it.todo("should correctly get given treasures count");
 
   it.todo("should correctly register items");
 

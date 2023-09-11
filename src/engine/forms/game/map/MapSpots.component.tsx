@@ -5,6 +5,7 @@ import { MapRelationSpots } from "@/engine/forms/game/map/spots/MapRelationSpots
 import { SmartTerrainSpots } from "@/engine/forms/game/map/spots/SmartTerrainSpots";
 import { SquadSpots } from "@/engine/forms/game/map/spots/SquadSpots";
 import { TaskSpots } from "@/engine/forms/game/map/spots/TaskSpots";
+import { TreasureSpots } from "@/engine/forms/game/map/spots/TreasureSpots";
 
 /**
  * todo;
@@ -17,6 +18,7 @@ export function MapSpots(): JSXNode {
       <SmartTerrainSpots />
       <SquadSpots />
       <TaskSpots />
+      <TreasureSpots />
 
       <quest_pointer x="0" y="0" width="11" height="24" heading="1" alignment="c">
         <texture a="255" r="255" g="255" b="255">
@@ -346,21 +348,6 @@ export function MapSpots(): JSXNode {
           ui_pda2_exit_point
         </texture>
       </level_changer_left_up_spot>
-
-      <treasure hint="st_ui_pda_secret">
-        <level_map spot="treasure_spot" pointer="quest_pointer" />
-        <mini_map spot="treasure_spot_mini" />
-      </treasure>
-      <treasure_spot width="20" height="20" alignment="c" stretch="1">
-        {/**
-          <!-- scale="1" scale_min="1.1" scale_max="3.1" light_anim="map_spot_secrets" la_cyclic="0"
-         la_texture="1" la_text="0" la_alpha="1"-->
-          */}
-        <texture>ui_inGame2_PDA_icon_secret</texture>
-      </treasure_spot>
-      <treasure_spot_mini width="17" height="17" alignment="c" stretch="1">
-        <texture>ui_inGame2_PDA_icon_secret</texture>
-      </treasure_spot_mini>
 
       <alife_combat_fight>
         <level_map spot="alife_combat_fight_spot" pointer="combat_pointer" />

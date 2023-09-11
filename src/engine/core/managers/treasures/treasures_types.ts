@@ -17,6 +17,7 @@ export interface ITreasureItemsDescriptor {
 export interface ITreasureDescriptor {
   given: boolean;
   checked: boolean;
+  cost: TCount;
   // Condlist to check if secret can be refreshed.
   refreshing: Optional<TConditionList>;
   empty: Optional<TConditionList>;

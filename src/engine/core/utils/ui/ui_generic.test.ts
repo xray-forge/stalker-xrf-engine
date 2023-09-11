@@ -2,7 +2,7 @@ import { describe, expect, it, jest } from "@jest/globals";
 import { CScriptXmlInit, get_hud, level } from "xray16";
 
 import { registerActor, registry } from "@/engine/core/database";
-import { isWideScreen, resolveXmlFile, resolveXmlFormPath, setUiVisibility } from "@/engine/core/utils/ui";
+import { isWideScreen, resolveXmlFile, resolveXmlFormPath, setUiVisibility } from "@/engine/core/utils/ui/ui_generic";
 import { roots } from "@/engine/lib/constants/roots";
 import { GameHud } from "@/engine/lib/types";
 import { mockActorClientGameObject, MockDevice } from "@/fixtures/xray";

@@ -6,7 +6,7 @@ import { XrTextColor } from "@/engine/forms/components/base/XrTextColor.componen
 import { XrTexture } from "@/engine/forms/components/base/XrTexture.component";
 import { BLACK } from "@/engine/lib/constants/colors";
 import { fonts, TFontId } from "@/engine/lib/constants/fonts";
-import { IBaseXmlNode, IRgbColor, TName, TTextAlign } from "@/engine/lib/types";
+import { IBaseXmlNode, IRgbColor, THorizontalTextAlign, TName } from "@/engine/lib/types";
 
 export interface IXrButtonProps extends IBaseXmlNode {
   id?: string;
@@ -18,7 +18,7 @@ export interface IXrButtonProps extends IBaseXmlNode {
   font?: TFontId;
   textColor?: IRgbColor;
   texture?: TName;
-  align?: TTextAlign;
+  align?: THorizontalTextAlign;
   stretch?: boolean;
 }
 
