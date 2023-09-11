@@ -2,7 +2,6 @@ import { registry } from "@/engine/core/database/registry";
 import { IRegistryObjectState } from "@/engine/core/database/types";
 import { abort } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { getTableSize } from "@/engine/core/utils/table";
 import { ClientObject, NetPacket, NetProcessor, Optional, TCount, TName, TNumberId } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -102,7 +101,7 @@ export function savePortableStore(object: ClientObject, packet: NetPacket): void
     registry.objects.get(objectId).portableStore = portableStore;
   }
 
-  packet.w_u32(getTableSize(portableStore));
+  packet.w_u32(table.size(portableStore));
 
   for (const [key, value] of portableStore) {
     packet.w_stringZ(key);

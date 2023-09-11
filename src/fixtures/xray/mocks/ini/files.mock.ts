@@ -1,5 +1,6 @@
 import { ammo } from "@/engine/lib/constants/items/ammo";
 import { detectors } from "@/engine/lib/constants/items/detectors";
+import { weaponAddons } from "@/engine/lib/constants/items/weapon_addons";
 import { weapons } from "@/engine/lib/constants/items/weapons";
 import { AnyObject, TPath } from "@/engine/lib/types";
 
@@ -50,6 +51,13 @@ export const FILES_MOCKS: Record<TPath, AnyObject> = {
     },
     [weapons.wpn_svu]: {
       strap_bone0: "some_bone",
+    },
+    [weapons.wpn_abakan]: {
+      cost: 5000,
+      strap_bone0: "some_bone",
+    },
+    [weaponAddons.wpn_addon_scope]: {
+      cost: 2100,
     },
     [weapons.grenade_f1]: {},
     squad: {},
@@ -145,7 +153,11 @@ export const FILES_MOCKS: Record<TPath, AnyObject> = {
     generic_buy: {},
     generic_sell: {},
   },
-  "misc\\secrets.ltx": {
+  "misc\\treasures.ltx": {
+    config: {
+      rare_cost: 5000,
+      epic_cost: 10000,
+    },
     list: {
       jup_b1_secret: null,
       jup_b2_secret: null,
@@ -158,7 +170,7 @@ export const FILES_MOCKS: Record<TPath, AnyObject> = {
     },
     jup_b2_secret: {
       refreshing: "true",
-      wpn_abakan: "1, 1",
+      wpn_abakan: "2, 1",
     },
     jup_b3_secret: {
       wpn_abakan: "1, 1",

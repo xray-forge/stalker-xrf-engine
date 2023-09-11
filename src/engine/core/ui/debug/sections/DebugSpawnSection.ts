@@ -61,7 +61,7 @@ export class DebugSpawnSection extends AbstractDebugSection {
     this.owner.Register(this.uiItemSpawnButton, "spawn_creature_button");
   }
 
-  public initializeCallBacks(): void {
+  public override initializeCallBacks(): void {
     this.owner.AddCallback(
       "creatures_categories_list",
       ui_events.LIST_ITEM_SELECT,

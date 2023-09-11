@@ -56,7 +56,7 @@ export class DebugGeneralSection extends AbstractDebugSection {
   /**
    * todo: Description.
    */
-  public initializeCallBacks(): void {
+  public override initializeCallBacks(): void {
     this.owner.AddCallback(
       "refresh_memory_button",
       ui_events.BUTTON_CLICKED,

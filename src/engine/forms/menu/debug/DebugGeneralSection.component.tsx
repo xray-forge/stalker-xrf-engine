@@ -5,28 +5,25 @@ import { SECTION_HEIGHT, SECTION_WIDTH } from "@/engine/forms/menu/debug/DebugDi
 import { WHITE } from "@/engine/lib/constants/colors";
 import { fonts } from "@/engine/lib/constants/fonts";
 
-const BASE_WIDTH: number = SECTION_WIDTH;
-const BASE_HEIGHT: number = SECTION_HEIGHT;
-
 /**
- * todo;
+ * Create debug section with generic controls/info.
  */
 export function create(): JSXNode {
   return (
-    <XrRoot width={BASE_WIDTH} height={BASE_HEIGHT}>
-      <XrStatic tag={"lua_version_label"} x={16} y={12} width={60} height={16}>
+    <XrRoot width={SECTION_WIDTH} height={SECTION_HEIGHT}>
+      <XrStatic tag={"lua_version_label"} x={12} y={12} width={80} height={16}>
         <XrText font={fonts.letterica16} align={"c"} vertAlign={"c"} />
       </XrStatic>
 
-      <XrStatic tag={"memory_usage_count"} x={84} y={12} width={60} height={16}>
+      <XrStatic tag={"memory_usage_count"} x={100} y={12} width={60} height={16}>
         <XrText font={fonts.letterica16} align={"c"} vertAlign={"c"} />
       </XrStatic>
 
-      <XrStatic tag={"lua_jit_label"} x={136} y={12} width={60} height={16}>
+      <XrStatic tag={"lua_jit_label"} x={168} y={12} width={60} height={16}>
         <XrText font={fonts.letterica16} align={"c"} vertAlign={"c"} />
       </XrStatic>
 
-      <XrStatic tag={"game_command_line"} x={280} y={12} width={60} height={16}>
+      <XrStatic tag={"game_command_line"} x={300} y={12} width={80} height={16}>
         <XrText font={fonts.letterica16} align={"c"} vertAlign={"c"} />
       </XrStatic>
 

@@ -10,7 +10,6 @@ import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { ISmartCoverLoopholeDescriptor, smartCoversList } from "@/engine/core/objects/animation/smart_covers";
 import { assert } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { getTableSize } from "@/engine/core/utils/table";
 import { NetPacket, Optional, TCount, TLabel, TSection, TStringId } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -89,7 +88,7 @@ export class SmartCover extends cse_smart_cover {
     super.STATE_Write(packet);
 
     packet.w_stringZ(this.lastDescription);
-    packet.w_u8(getTableSize(this.loopholes));
+    packet.w_u8(table.size(this.loopholes));
 
     for (const [id, isEnabled] of this.loopholes) {
       packet.w_stringZ(id);

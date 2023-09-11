@@ -34,7 +34,7 @@ export class DebugCommandsSection extends AbstractDebugSection {
   /**
    * todo: Description.
    */
-  public initializeCallBacks(): void {}
+  public override initializeCallBacks(): void {}
 
   /**
    * todo: Description.

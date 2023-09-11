@@ -4,7 +4,7 @@ import { normalizeBaseNodeProps } from "#/utils";
 
 import { IBaseXmlNode, TName } from "@/engine/lib/types";
 
-export interface IXrRootProps extends IBaseXmlNode {
+export interface IXrElementProps extends IBaseXmlNode {
   tag: TName;
 }
 
@@ -12,8 +12,8 @@ export interface IXrRootProps extends IBaseXmlNode {
  * Basic element to use in forms.
  * Does not bring any component-specific logic.
  */
-export function XrElement(props: IXrRootProps): JSXNode {
-  const { width, height, x, y } = normalizeBaseNodeProps(props);
+export function XrElement(props: IXrElementProps & Record<string, number | string | JSXNode>): JSXNode {
+  const { width, height, x, y, ...rest } = normalizeBaseNodeProps(props);
 
-  return JSXXML(props.tag, { width, height, x, y }, props.children ?? null);
+  return JSXXML(props.tag, { width, height, x, y, ...rest }, props.children ?? null);
 }

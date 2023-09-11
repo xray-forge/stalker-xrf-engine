@@ -12,6 +12,17 @@ export const mockTable = {
       target.set(target.length() + 1, element);
     }
   },
+  size: (target: unknown): number => {
+    if (target instanceof MockLuaTable) {
+      return target.length();
+    } else if (Array.isArray(target)) {
+      return target.length;
+    } else if (target && typeof target === "object") {
+      return Object.keys(target).length;
+    } else {
+      throw new Error("Unexpected data provided for table size check mock.");
+    }
+  },
   concat: (target: AnyObject, char: string) => {
     if (Array.isArray(target)) {
       return target.join(char);

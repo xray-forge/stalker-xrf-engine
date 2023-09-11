@@ -80,7 +80,6 @@ import {
   turnOnSmartTerrainCampfires,
   updateSmartTerrainAlarmStatus,
 } from "@/engine/core/utils/smart_terrain";
-import { getTableSize } from "@/engine/core/utils/table";
 import { toJSON } from "@/engine/core/utils/transform/json";
 import { gameConfig } from "@/engine/lib/configs/GameConfig";
 import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
@@ -318,13 +317,13 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
 
     openSaveMarker(packet, SmartTerrain.__name);
 
-    packet.w_u8(getTableSize(this.arrivingObjects));
+    packet.w_u8(table.size(this.arrivingObjects));
 
     for (const [k, v] of this.arrivingObjects) {
       packet.w_u16(k);
     }
 
-    packet.w_u8(getTableSize(this.objectJobDescriptors));
+    packet.w_u8(table.size(this.objectJobDescriptors));
 
     for (const [id, descriptor] of this.objectJobDescriptors) {
       packet.w_u16(id);
@@ -334,7 +333,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
       packet.w_stringZ(descriptor.desiredJob);
     }
 
-    packet.w_u8(getTableSize(this.jobDeadTimeById));
+    packet.w_u8(table.size(this.jobDeadTimeById));
 
     for (const [id, time] of this.jobDeadTimeById) {
       packet.w_u8(id);
@@ -350,7 +349,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
 
     if (this.isRespawnPoint) {
       packet.w_bool(true);
-      packet.w_u8(getTableSize(this.alreadySpawned));
+      packet.w_u8(table.size(this.alreadySpawned));
 
       for (const [k, v] of this.alreadySpawned) {
         packet.w_stringZ(k);

@@ -3,16 +3,17 @@ import { JSXNode, JSXXML } from "jsx-xml";
 import { normalizeBaseNodeProps } from "#/utils";
 
 import { fonts, TFontId } from "@/engine/lib/constants/fonts";
-import { IBaseXmlNode, IRgbColor, Optional, TTextAlign } from "@/engine/lib/types";
+import { IBaseXmlNode, IRgbColor, Optional, THorizontalTextAlign, TVerticalTextAlign } from "@/engine/lib/types";
 
 export interface IXrTextProps extends IBaseXmlNode {
   tag?: string;
   color?: IRgbColor | string;
   label?: Optional<string>;
   children?: string;
+  complexMode?: boolean;
   font?: TFontId;
-  align?: TTextAlign;
-  vertAlign?: TTextAlign;
+  align?: THorizontalTextAlign;
+  vertAlign?: TVerticalTextAlign;
 }
 
 /**
@@ -27,6 +28,7 @@ export function XrText(props: IXrTextProps): JSXNode {
     x,
     y,
     vertAlign,
+    complexMode,
     label = null,
     children = null,
   } = normalizeBaseNodeProps(props);
@@ -38,6 +40,7 @@ export function XrText(props: IXrTextProps): JSXNode {
       font,
       align,
       vert_align: vertAlign,
+      complex_mode: complexMode,
       x,
       y,
       r: typeof color === "object" ? color.r : undefined,

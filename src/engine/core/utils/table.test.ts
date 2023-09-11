@@ -6,7 +6,6 @@ describe("'table' utils", () => {
   const tableUtils: {
     isEmpty: (target: Optional<LuaTable<any>>) => boolean;
     resetTable: (target: LuaTable<any>) => void;
-    getTableSize: (target: LuaTable<any>) => number;
     copyTable: (first: AnyObject, second: AnyObject) => AnyObject;
     mergeTables: (base: LuaTable, ...rest: Array<LuaTable>) => AnyObject;
   } = jest.requireActual("@/engine/core/utils/table");
@@ -51,14 +50,6 @@ describe("'table' utils", () => {
       c: 3,
     });
     expect(to).toEqualLuaTables({ a: 1, b: 2, c: 3 });
-  });
-
-  it("'getTableSize' should correctly get size of the table", () => {
-    expect(tableUtils.getTableSize($fromObject({ a: 1, b: 2 }))).toBe(2);
-    expect(tableUtils.getTableSize($fromArray(["a", "b", "c", "d", "e"]))).toBe(5);
-    expect(tableUtils.getTableSize(new LuaTable())).toBe(0);
-    expect(tableUtils.getTableSize($fromArray<unknown>([]))).toBe(0);
-    expect(tableUtils.getTableSize($fromObject<string, unknown>({}))).toBe(0);
   });
 
   it("'isEmpty' should correctly check table emptiness", () => {
