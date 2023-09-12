@@ -384,7 +384,7 @@ export class NotificationManager extends AbstractManager {
     showTime: TDuration,
     type: Optional<TNumberId> = null
   ): void {
-    logger.info("Send generic notification: '%s', '%s', '%s'", notificationTitle, notificationText, notificationIcon);
+    logger.format("Send generic notification: '%s', '%s', '%s'", notificationTitle, notificationText, notificationIcon);
 
     if (isFlexible && registry.actor.is_talking()) {
       registry.actor.give_talk_message2(notificationTitle, notificationText, notificationIcon, "iconed_answer_item");
