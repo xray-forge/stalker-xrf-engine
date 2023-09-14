@@ -6,6 +6,7 @@ import { abort } from "@/engine/core/utils/assertion";
 import { IWaypointData, parseConditionsList, pickSectionFromCondList, TConditionList } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { isObjectAtWaypoint } from "@/engine/core/utils/object";
+import { chooseLookPoint } from "@/engine/core/utils/patrol";
 import { TRUE } from "@/engine/lib/constants/words";
 import {
   AnyCallable,
@@ -24,7 +25,7 @@ import {
   Vector,
 } from "@/engine/lib/types";
 
-const logger: LuaLogger = new LuaLogger($filename);
+const logger: LuaLogger = new LuaLogger($filename, { file: "ai_state" });
 
 const DIST_WALK: TDistance = 10;
 const DIST_RUN: TDistance = 2500;
@@ -48,41 +49,6 @@ const sync: LuaTable<string, LuaTable<number, boolean>> = new LuaTable();
  * Responsible for patrolling schemes logic.
  */
 export class StalkerMoveManager {
-  /**
-   * todo: Description.
-   */
-  public static chooseLookPoint(
-    patrolLook: Patrol,
-    pathLookInfo: LuaArray<IWaypointData>,
-    searchFor: Flags32
-  ): LuaMultiReturn<[Optional<number>, number]> {
-    let patrolChosenIdx: Optional<TIndex> = null;
-
-    let ptsFoundTotalWeight = 0;
-    let numEqualPts = 0;
-
-    for (const lookIndex of $range(0, patrolLook.count() - 1)) {
-      const thisVal = pathLookInfo.get(lookIndex).flags;
-
-      if (thisVal.equal(searchFor)) {
-        numEqualPts = numEqualPts + 1;
-
-        const probabilityRaw = pathLookInfo.get(lookIndex)["p"];
-        const pointLookWeight: number = probabilityRaw === null ? 100 : (tonumber(probabilityRaw) as number);
-
-        ptsFoundTotalWeight = ptsFoundTotalWeight + pointLookWeight;
-
-        const r = math.random(1, ptsFoundTotalWeight);
-
-        if (r <= pointLookWeight) {
-          patrolChosenIdx = lookIndex;
-        }
-      }
-    }
-
-    return $multi(patrolChosenIdx, numEqualPts);
-  }
-
   public readonly object: ClientObject;
 
   public state: Optional<ECurrentMovementState> = null;
@@ -124,9 +90,6 @@ export class StalkerMoveManager {
   public defaultStateMoving3!: TConditionList;
   public moveCbInfo: Optional<{ obj: AnyObject; func: AnyCallable }> = null;
 
-  /**
-   * todo: Description.
-   */
   public constructor(object: ClientObject) {
     this.object = object;
   }
@@ -135,7 +98,9 @@ export class StalkerMoveManager {
    * todo: Description.
    */
   public initialize(): StalkerMoveManager {
-    this.object.set_callback(callback.patrol_path_in_point, this.onWaypoint, this as any);
+    logger.format("Initialize move manager for: '%s'", this.object.name());
+
+    this.object.set_callback(callback.patrol_path_in_point, this.onWaypoint, this as any); // todo: update typing of CB
 
     return this;
   }
@@ -149,12 +114,14 @@ export class StalkerMoveManager {
     lookPath: Optional<string> = null,
     lookPathInfo: Optional<LuaArray<IWaypointData>> = null,
     team: Optional<string> = null,
-    suggestedState: Optional<any>,
+    suggestedState: Optional<any>, // todo: fix type
     moveCbInfo: Optional<{ obj: AnyObject; func: AnyCallable }> = null,
-    noValidation: Optional<boolean> = null,
-    fplaceholder: Optional<any> = null,
-    useDefaultSound: Optional<boolean> = null
+    noValidation: Optional<boolean> = null
   ): void {
+    logger.format("Reset move manager for: '%s', at '%s'/'%s'", this.object.name(), walkPath, lookPath);
+
+    const now: TTimestamp = time_global();
+
     this.ptWaitTime = DEFAULT_WAIT_TIME;
     this.suggestedState = suggestedState;
 
@@ -168,7 +135,7 @@ export class StalkerMoveManager {
     this.defaultStateMoving2 = parseConditionsList(defStateMoving2);
     this.defaultStateMoving3 = parseConditionsList(defStateMoving3);
 
-    this.synSignalSetTm = time_global() + 1000;
+    this.synSignalSetTm = now + 1000;
     this.synSignal = null;
 
     this.moveCbInfo = moveCbInfo;
@@ -229,30 +196,36 @@ export class StalkerMoveManager {
 
       this.isOnTerminalWaypoint = false;
 
-      this.currentStateStanding = pickSectionFromCondList(
-        registry.actor,
-        this.object,
-        this.defaultStateStanding as any
-      )!;
-      this.currentStateMoving = pickSectionFromCondList(registry.actor, this.object, this.defaultStateMoving1 as any)!;
+      this.currentStateStanding = pickSectionFromCondList(registry.actor, this.object, this.defaultStateStanding)!;
+      this.currentStateMoving = pickSectionFromCondList(registry.actor, this.object, this.defaultStateMoving1)!;
 
       this.retvalAfterRotation = null;
 
       this.canUseGetCurrentPointIndex = false;
       this.currentPointIndex = null;
-      this.walkUntil = time_global() + WALK_MIN_TIME;
-      this.runUntil = time_global() + WALK_MIN_TIME + RUN_MIN_TIME;
-      this.keepStateUntil = time_global();
+      this.walkUntil = now + WALK_MIN_TIME;
+      this.runUntil = now + WALK_MIN_TIME + RUN_MIN_TIME;
+      this.keepStateUntil = now;
 
       this.lastIndex = null;
       this.lastLookIndex = null;
-
-      this.useDefaultSound = useDefaultSound!;
+      this.useDefaultSound = false;
 
       this.object.patrol_path_make_inactual();
     }
 
     this.setupMovementByPatrolPath();
+  }
+
+  /**
+   * todo: Description.
+   */
+  public finalize(): void {
+    if (this.team) {
+      sync.get(this.team).delete(this.object.id());
+    }
+
+    this.object.set_path_type(EClientObjectPath.LEVEL_PATH);
   }
 
   /**
@@ -266,7 +239,9 @@ export class StalkerMoveManager {
    * todo: Description.
    */
   public update(): void {
-    if (this.synSignal && time_global() >= this.synSignalSetTm) {
+    const now: TTimestamp = time_global();
+
+    if (this.synSignal && now >= this.synSignalSetTm) {
       if (this.isSynchronized()) {
         this.setActiveSchemeSignal(this.synSignal);
         this.synSignal = null;
@@ -274,8 +249,6 @@ export class StalkerMoveManager {
     }
 
     if (this.canUseGetCurrentPointIndex && !this.isArrivedToFirstWaypoint()) {
-      const now: TTimestamp = time_global();
-
       if (now >= this.keepStateUntil) {
         this.keepStateUntil = now + KEEP_STATE_MIN_TIME;
 
@@ -283,23 +256,11 @@ export class StalkerMoveManager {
         const dist: TDistance = this.object.position().distance_to(this.patrolWalk!.point(currentPointIndex));
 
         if (dist <= DIST_WALK || now < this.walkUntil) {
-          this.currentStateMoving = pickSectionFromCondList(
-            registry.actor,
-            this.object,
-            this.defaultStateMoving1 as any
-          )!;
+          this.currentStateMoving = pickSectionFromCondList(registry.actor, this.object, this.defaultStateMoving1)!;
         } else if (dist <= DIST_RUN || now < this.runUntil) {
-          this.currentStateMoving = pickSectionFromCondList(
-            registry.actor,
-            this.object,
-            this.defaultStateMoving2 as any
-          )!;
+          this.currentStateMoving = pickSectionFromCondList(registry.actor, this.object, this.defaultStateMoving2)!;
         } else {
-          this.currentStateMoving = pickSectionFromCondList(
-            registry.actor,
-            this.object,
-            this.defaultStateMoving3 as any
-          )!;
+          this.currentStateMoving = pickSectionFromCondList(registry.actor, this.object, this.defaultStateMoving3)!;
         }
 
         this.updateMovementState();
@@ -334,17 +295,6 @@ export class StalkerMoveManager {
       this.ptWaitTime,
       { lookPosition: lookPosition, lookObjectId: null }
     );
-  }
-
-  /**
-   * todo: Description.
-   */
-  public finalize(): void {
-    if (this.team) {
-      sync.get(this.team).delete(this.object.id());
-    }
-
-    this.object.set_path_type(EClientObjectPath.LEVEL_PATH);
   }
 
   /**
@@ -427,6 +377,8 @@ export class StalkerMoveManager {
    * todo: Description.
    */
   public onAnimationUpdate(): void {
+    logger.format("Animation update for: '%s' at '%s'", this.object.name(), this.lastLookIndex);
+
     const sigtm: Optional<TName> = this.pathLookInfo!.get(this.lastLookIndex!)["sigtm"] as Optional<TName>;
 
     if (sigtm) {
@@ -469,6 +421,8 @@ export class StalkerMoveManager {
    * todo: Description.
    */
   public onAnimationTurnEnd(): void {
+    logger.format("Animation turn end for: '%s' at '%s'", this.object.name(), this.lastLookIndex);
+
     const syn = this.pathLookInfo!.get(this.lastLookIndex!)["syn"];
 
     if (syn) {
@@ -484,11 +438,7 @@ export class StalkerMoveManager {
     } else {
       const sig = this.pathLookInfo!.get(this.lastLookIndex!)["sig"];
 
-      if (sig) {
-        this.setActiveSchemeSignal(sig);
-      } else {
-        this.setActiveSchemeSignal("turn_end");
-      }
+      this.setActiveSchemeSignal(sig ? sig : "turn_end");
     }
 
     if (this.retvalAfterRotation) {
@@ -501,7 +451,7 @@ export class StalkerMoveManager {
         );
       }
 
-      setStalkerState(this.object, this.currentStateStanding, null, null, null, null);
+      setStalkerState(this.object, this.currentStateStanding);
 
       if (!this.moveCbInfo) {
         abort(
@@ -524,6 +474,8 @@ export class StalkerMoveManager {
    * todo: Description.
    */
   public onExtrapolate(object: ClientObject): void {
+    logger.format("Extrapolate for: '%s' at '%s'", this.object.name(), this.lastLookIndex);
+
     this.canUseGetCurrentPointIndex = true;
     this.currentPointInitTime = time_global();
     this.currentPointIndex = this.object.get_current_point_index();
@@ -533,6 +485,14 @@ export class StalkerMoveManager {
    * todo: Description.
    */
   public onWaypoint(object: ClientObject, actionType: Optional<number>, index: Optional<TIndex>): void {
+    logger.format(
+      "Waypoint CB for: '%s' at '%s' / '%s' '%s'",
+      this.object.name(),
+      this.lastLookIndex,
+      actionType,
+      index
+    );
+
     if (index === -1 || index === null) {
       return;
     }
@@ -546,12 +506,12 @@ export class StalkerMoveManager {
     const suggestedStateMoving = this.pathWalkInfo.get(index)["a"];
 
     if (suggestedStateMoving) {
-      this.currentStateMoving = pickSectionFromCondList(registry.actor, this.object, suggestedStateMoving as any)!;
+      this.currentStateMoving = pickSectionFromCondList(registry.actor, this.object, suggestedStateMoving)!;
       if (tostring(this.currentStateMoving) === TRUE) {
         abort("!!!!!");
       }
     } else {
-      this.currentStateMoving = pickSectionFromCondList(registry.actor, this.object, this.defaultStateMoving1 as any)!;
+      this.currentStateMoving = pickSectionFromCondList(registry.actor, this.object, this.defaultStateMoving1)!;
       if (tostring(this.currentStateMoving) === TRUE) {
         abort("!!!!!");
       }
@@ -600,19 +560,15 @@ export class StalkerMoveManager {
       return;
     }
 
-    const [ptChosenIdx, numEqualPts] = StalkerMoveManager.chooseLookPoint(
-      this.patrolLook,
-      this.pathLookInfo!,
-      searchFor
-    );
+    const [ptChosenIdx] = chooseLookPoint(this.patrolLook, this.pathLookInfo!, searchFor);
 
     if (ptChosenIdx) {
-      const suggestedAnimationsSet: Optional<string> = this.pathLookInfo!.get(ptChosenIdx)["a"];
+      const suggestedAnimationsSet: Optional<TConditionList> = this.pathLookInfo!.get(ptChosenIdx)["a"];
 
       this.currentStateStanding = pickSectionFromCondList(
         registry.actor,
         this.object,
-        suggestedAnimationsSet ? suggestedAnimationsSet : (this.defaultStateStanding as any)
+        suggestedAnimationsSet ? suggestedAnimationsSet : this.defaultStateStanding
       )!;
 
       const suggestedWaitTime = this.pathLookInfo!.get(ptChosenIdx)["t"];
@@ -640,7 +596,9 @@ export class StalkerMoveManager {
 
       const retv = this.pathLookInfo!.get(ptChosenIdx)["ret"];
 
-      this.retvalAfterRotation = retv ? tonumber(retv)! : null;
+      this.retvalAfterRotation = retv ? (tonumber(retv) as number) : null;
+
+      logger.format("Last look index set: '%s' -> '%s'", this.object.name(), ptChosenIdx);
 
       this.lastLookIndex = ptChosenIdx;
       this.updateStandingState(this.patrolLook.point(ptChosenIdx));
@@ -652,9 +610,9 @@ export class StalkerMoveManager {
       abort(
         "object '%s': path_walk '%s', index.ts %d: cannot find corresponding point(s) on path_look '%s'",
         this.object.name(),
-        tostring(this.pathWalk),
-        tostring(index),
-        tostring(this.pathLook)
+        this.pathWalk,
+        index,
+        this.pathLook
       );
     }
   }

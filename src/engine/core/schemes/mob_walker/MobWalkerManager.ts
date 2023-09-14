@@ -2,11 +2,11 @@ import { anim, cond, look, move, patrol, sound } from "xray16";
 
 import { registry, setMonsterState } from "@/engine/core/database";
 import { AbstractSchemeManager } from "@/engine/core/objects/ai/scheme";
-import { StalkerMoveManager } from "@/engine/core/objects/ai/state/StalkerMoveManager";
 import { ISchemeMobWalkerState } from "@/engine/core/schemes/mob_walker/ISchemeMobWalkerState";
 import { abort } from "@/engine/core/utils/assertion";
 import { IWaypointData, parseWaypointsData, pickSectionFromCondList } from "@/engine/core/utils/ini";
 import { isObjectAtWaypoint } from "@/engine/core/utils/object";
+import { chooseLookPoint } from "@/engine/core/utils/patrol";
 import { isMonsterScriptCaptured, scriptCaptureMonster, scriptCommandMonster } from "@/engine/core/utils/scheme";
 import { copyVector } from "@/engine/core/utils/vector";
 import { EMonsterState } from "@/engine/lib/constants/monsters";
@@ -183,7 +183,7 @@ export class MobWalkerManager extends AbstractSchemeManager<ISchemeMobWalkerStat
       return;
     }
 
-    const [ptChosenIdx] = StalkerMoveManager.chooseLookPoint(this.patrolLook!, this.pathLookInfo!, searchForFlags);
+    const [ptChosenIdx] = chooseLookPoint(this.patrolLook!, this.pathLookInfo!, searchForFlags);
 
     if (ptChosenIdx) {
       const suggestedWaitTime = this.pathLookInfo!.get(ptChosenIdx)["t"];

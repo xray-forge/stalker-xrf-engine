@@ -28,7 +28,7 @@ import {
   Vector,
 } from "@/engine/lib/types";
 
-const logger: LuaLogger = new LuaLogger($filename);
+const logger: LuaLogger = new LuaLogger($filename, { file: "ai_state" });
 
 /**
  * State manager of any stalker game object.

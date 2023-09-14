@@ -78,13 +78,10 @@ export class ActionCamperPatrol extends action_base implements ISchemeEventHandl
         null,
         null,
         this.state.suggested_state,
-        { obj: this, func: this.processPoint },
-        null,
-        null,
-        null
+        { obj: this, func: this.processPoint }
       );
 
-      const path = new patrol(this.state.path_look);
+      const path: Patrol = new patrol(this.state.path_look);
 
       if (path !== null) {
         for (const k of $range(0, path.count() - 1)) {
@@ -111,10 +108,7 @@ export class ActionCamperPatrol extends action_base implements ISchemeEventHandl
         parseWaypointsData(this.state.path_look),
         null,
         this.state.suggested_state,
-        { obj: this, func: this.processPoint },
-        null,
-        null,
-        null
+        { obj: this, func: this.processPoint }
       );
 
       if (this.object.sniper_update_rate()) {

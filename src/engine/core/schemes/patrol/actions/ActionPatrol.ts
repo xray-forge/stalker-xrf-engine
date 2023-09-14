@@ -74,10 +74,7 @@ export class ActionPatrol extends action_base implements ISchemeEventHandler {
       this.state.path_look_info,
       this.state.team,
       this.state.suggested_state,
-      { obj: this, func: this.formation_callback },
-      null,
-      null,
-      null
+      { obj: this, func: this.formation_callback }
     );
   }
 

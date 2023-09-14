@@ -34,4 +34,6 @@ describe("patrol utils", () => {
     expect(isPatrolInRestrictor("test_restrictor", "test_smart_sleep_1")).toBe(false);
     expect(isPatrolInRestrictor("test_restrictor", "test_smart_surge_1_walk")).toBe(true);
   });
+
+  it.todo("'chooseLookPoint' should correctly choose points");
 });

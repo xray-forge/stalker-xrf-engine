@@ -110,11 +110,7 @@ export class ActionWalkerActivity extends action_base implements ISchemeEventHan
       this.state.path_look,
       this.state.path_look_info,
       this.state.team,
-      this.state.suggested_state,
-      null,
-      null,
-      null,
-      null
+      this.state.suggested_state
     );
   }
 

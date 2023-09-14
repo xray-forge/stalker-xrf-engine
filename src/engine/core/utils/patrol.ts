@@ -1,7 +1,18 @@
 import { patrol } from "xray16";
 
-import { registry } from "@/engine/core/database";
-import { ClientObject, Optional, Patrol, TCount, TName } from "@/engine/lib/types";
+import { registry } from "@/engine/core/database/registry";
+import type { IWaypointData } from "@/engine/core/utils/ini/ini_types";
+import type {
+  ClientObject,
+  Flags32,
+  LuaArray,
+  Optional,
+  Patrol,
+  TCount,
+  TIndex,
+  TName,
+  TRate,
+} from "@/engine/lib/types";
 
 /**
  * Check if all points of patrol are in restrictor.
@@ -33,4 +44,39 @@ export function isPatrolInRestrictor(restrictorName: Optional<TName>, patrolName
   }
 
   return true;
+}
+
+/**
+ * todo: Description.
+ */
+export function chooseLookPoint(
+  patrolLook: Patrol,
+  pathLookInfo: LuaArray<IWaypointData>,
+  searchFor: Flags32
+): LuaMultiReturn<[Optional<number>, number]> {
+  let patrolChosenIdx: Optional<TIndex> = null;
+
+  let ptsFoundTotalWeight = 0;
+  let numEqualPts = 0;
+
+  for (const lookIndex of $range(0, patrolLook.count() - 1)) {
+    const thisVal = pathLookInfo.get(lookIndex).flags;
+
+    if (thisVal.equal(searchFor)) {
+      numEqualPts = numEqualPts + 1;
+
+      const probabilityRaw = pathLookInfo.get(lookIndex)["p"];
+      const pointLookWeight: number = probabilityRaw === null ? 100 : (tonumber(probabilityRaw) as number);
+
+      ptsFoundTotalWeight = ptsFoundTotalWeight + pointLookWeight;
+
+      const weight: TRate = math.random(1, ptsFoundTotalWeight);
+
+      if (weight <= pointLookWeight) {
+        patrolChosenIdx = lookIndex;
+      }
+    }
+  }
+
+  return $multi(patrolChosenIdx, numEqualPts);
 }
