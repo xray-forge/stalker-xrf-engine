@@ -4,9 +4,12 @@ import { getPortableStoreValue, registry, setPortableStoreValue } from "@/engine
 import { PsyAntennaManager } from "@/engine/core/managers/psy/PsyAntennaManager";
 import { AbstractSchemeManager } from "@/engine/core/objects/ai/scheme";
 import { EAntennaState, ISchemePsyAntennaState } from "@/engine/core/schemes/sr_psy_antenna/ISchemePsyAntennaState";
+import { LuaLogger } from "@/engine/core/utils/logging";
 import { trySwitchToAnotherSection } from "@/engine/core/utils/scheme/scheme_switch";
 import { NIL } from "@/engine/lib/constants/words";
 import { ClientObject } from "@/engine/lib/types";
+
+const logger: LuaLogger = new LuaLogger($filename, { file: "psy" });
 
 /**
  * todo;
@@ -19,6 +22,8 @@ export class PsyAntennaSchemaManager extends AbstractSchemeManager<ISchemePsyAnt
    * todo: Description.
    */
   public override activate(loading?: boolean): void {
+    logger.info("Activate antenna manager");
+
     if (loading) {
       this.antennaState = getPortableStoreValue(this.object.id(), "inside")!;
     }
@@ -36,6 +41,8 @@ export class PsyAntennaSchemaManager extends AbstractSchemeManager<ISchemePsyAnt
    * todo: Description.
    */
   public override deactivate(): void {
+    logger.info("Deactivate antenna manager");
+
     if (this.antennaState === EAntennaState.INSIDE) {
       this.onZoneLeave();
     }
@@ -58,15 +65,11 @@ export class PsyAntennaSchemaManager extends AbstractSchemeManager<ISchemePsyAnt
   public switchState(actor: ClientObject): void {
     if (this.antennaState !== EAntennaState.INSIDE) {
       if (this.object.inside(actor.position())) {
-        this.onZoneEnter();
-
-        return;
+        return this.onZoneEnter();
       }
     } else {
       if (!this.object.inside(actor.position())) {
-        this.onZoneLeave();
-
-        return;
+        return this.onZoneLeave();
       }
     }
   }
@@ -75,6 +78,8 @@ export class PsyAntennaSchemaManager extends AbstractSchemeManager<ISchemePsyAnt
    * todo: Description.
    */
   public onZoneEnter(): void {
+    logger.info("Enter psy antenna zone");
+
     this.antennaState = EAntennaState.INSIDE;
 
     get_hud().enable_fake_indicators(true);
@@ -94,7 +99,7 @@ export class PsyAntennaSchemaManager extends AbstractSchemeManager<ISchemePsyAnt
     }
 
     if (!this.antennaManager.postprocess.has(this.state.postprocess)) {
-      this.antennaManager.postprocessCount = this.antennaManager.postprocessCount + 1;
+      this.antennaManager.postprocessCount += 1;
       this.antennaManager.postprocess.set(this.state.postprocess, {
         intensityBase: 0,
         intensity: 0,
@@ -117,23 +122,24 @@ export class PsyAntennaSchemaManager extends AbstractSchemeManager<ISchemePsyAnt
    * todo: Description.
    */
   public onZoneLeave(): void {
+    logger.info("Leave psy antenna zone");
+
     this.antennaState = EAntennaState.OUTSIDE;
 
     get_hud().enable_fake_indicators(false);
 
-    this.antennaManager.soundIntensityBase = this.antennaManager.soundIntensityBase - this.state.intensity;
-    this.antennaManager.muteSoundThreshold = this.antennaManager.muteSoundThreshold - this.state.mute_sound_threshold;
-    this.antennaManager.hitIntensity = this.antennaManager.hitIntensity - this.state.hit_intensity;
+    this.antennaManager.soundIntensityBase -= this.state.intensity;
+    this.antennaManager.muteSoundThreshold -= this.state.mute_sound_threshold;
+    this.antennaManager.hitIntensity -= this.state.hit_intensity;
 
-    this.antennaManager.phantomSpawnProbability = this.antennaManager.phantomSpawnProbability - this.state.phantom_prob;
+    this.antennaManager.phantomSpawnProbability -= this.state.phantom_prob;
 
     if (this.state.postprocess === NIL) {
       return;
     }
 
     if (this.antennaManager.postprocess.has(this.state.postprocess)) {
-      this.antennaManager.postprocess.get(this.state.postprocess).intensityBase =
-        this.antennaManager.postprocess.get(this.state.postprocess).intensityBase - this.state.intensity;
+      this.antennaManager.postprocess.get(this.state.postprocess).intensityBase -= this.state.intensity;
     }
   }
 

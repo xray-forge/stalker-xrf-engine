@@ -237,7 +237,7 @@ export class NotificationManager extends AbstractManager {
    */
   public sendTipNotification(
     caption: TLabel,
-    sender: Optional<TNotificationIcon | ClientObject> = null,
+    sender: Optional<TNotificationIcon | TNotificationIconKey | ClientObject> = null,
     delay: Optional<TDuration> = 0,
     showtime: Optional<TTimestamp> = NotificationManager.DEFAULT_NOTIFICATION_SHOW_DURATION,
     senderId: Optional<TStringId> = null
@@ -272,8 +272,12 @@ export class NotificationManager extends AbstractManager {
 
     // If sender is game object, check sender character icon to display instead of generic one.
     if (sender !== null) {
-      notificationIcon =
-        type(sender) === "string" ? (sender as TNotificationIcon) : (sender as ClientObject).character_icon();
+      // In case of string check if it is name of icon (original schemas use it) or fallback to just string.
+      if (type(sender) === "string") {
+        notificationIcon = notificationsIcons[sender as TNotificationIconKey] || (sender as TNotificationIcon);
+      } else {
+        notificationIcon = (sender as ClientObject).character_icon();
+      }
     }
 
     this.onPlayPdaNotificationSound();

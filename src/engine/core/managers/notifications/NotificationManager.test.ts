@@ -320,6 +320,21 @@ describe("NotificationManager class", () => {
       0
     );
 
+    notificationManager.onPlayPdaNotificationSound = jest.fn();
+    notificationManager.onSendGenericNotification = jest.fn();
+    notificationManager.sendTipNotification("test_simple", "can_resupply", 200, 555, "test");
+
+    expect(notificationManager.onPlayPdaNotificationSound).toHaveBeenCalledTimes(1);
+    expect(notificationManager.onSendGenericNotification).toHaveBeenCalledWith(
+      false,
+      "translated_st_tip",
+      "translated_test_simple",
+      "ui_inGame2_Pered_zadaniyami_voennih",
+      200,
+      555,
+      0
+    );
+
     registerStoryLink(registry.actor.id(), "test-sid");
 
     MockAlifeSimulator.addToRegistry(
