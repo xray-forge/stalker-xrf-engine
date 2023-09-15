@@ -4,7 +4,7 @@ import { StalkerStateManager } from "@/engine/core/objects/ai/state/StalkerState
 import { LuaLogger } from "@/engine/core/utils/logging";
 import {
   getObjectWeaponForAnimationState,
-  getWeaponStateForAnimationState,
+  getWeaponActionForAnimationState,
 } from "@/engine/core/utils/object/object_weapon";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -28,7 +28,7 @@ export class ActionWeaponUnstrap extends action_base {
     super.initialize();
 
     this.object.set_item(
-      getWeaponStateForAnimationState(this.stateManager.targetState),
+      getWeaponActionForAnimationState(this.stateManager.targetState),
       getObjectWeaponForAnimationState(this.object, this.stateManager.targetState)
     );
   }

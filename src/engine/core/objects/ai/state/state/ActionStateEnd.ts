@@ -6,7 +6,7 @@ import { EWeaponAnimation } from "@/engine/core/objects/animation/types";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getObjectSmartCoverStateQueueParams } from "@/engine/core/utils/object";
 import { isStalker, isWeapon } from "@/engine/core/utils/object/object_class";
-import { getWeaponStateForAnimationState } from "@/engine/core/utils/object/object_weapon";
+import { getWeaponActionForAnimationState } from "@/engine/core/utils/object/object_weapon";
 import { ClientObject, EClientObjectRelation, Optional, TDuration, TRate, TTimestamp } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -124,7 +124,7 @@ export class ActionStateEnd extends action_base {
       return;
     } else if (targetWeaponState === EWeaponAnimation.UNSTRAPPED) {
       // Unstrap weapon.
-      this.object.set_item(getWeaponStateForAnimationState(this.stateManager.targetState), this.object.best_weapon());
+      this.object.set_item(getWeaponActionForAnimationState(this.stateManager.targetState), this.object.best_weapon());
     }
   }
 }

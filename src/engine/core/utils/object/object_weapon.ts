@@ -1,4 +1,4 @@
-import { anim, move, object, TXR_object_state } from "xray16";
+import { anim, move, object, TXR_object_action } from "xray16";
 
 import { states } from "@/engine/core/objects/animation/states";
 import { EStalkerState, IStateDescriptor } from "@/engine/core/objects/animation/types";
@@ -43,7 +43,7 @@ export function setObjectBestWeapon(target: ClientObject): void {
 /**
  * todo;
  */
-export function getWeaponStateForAnimationState(targetState: EStalkerState): TXR_object_state {
+export function getWeaponActionForAnimationState(targetState: EStalkerState): TXR_object_action {
   const stateDescriptor: IStateDescriptor = states.get(targetState);
 
   if (
