@@ -205,6 +205,11 @@ export const registry = {
     reachTask: new LuaTable<TNumberId, ReachTaskPatrolManager>(),
   },
   /**
+   * List of synchronization groups for game patrols.
+   * Related to stalkers patrol manager.
+   */
+  patrolSynchronization: new LuaTable<TName, LuaTable<TNumberId, boolean>>(),
+  /**
    * State of active sounds.
    */
   sounds: {

@@ -114,9 +114,11 @@ extern("pda", {
   actor_menu_mode: (...args: AnyArgs): void => {
     logger.info("Pda actor menu mode changed:", ...args);
   },
+  // todo: m_UIPropertiesBox, m_cur_location
   property_box_clicked: (...args: AnyArgs): void => {
     logger.info("Pda box property clicked");
   },
+  // todo: m_UIPropertiesBox, m_cur_location->ObjectID(), (LPCSTR)m_cur_location->GetLevelName().c_str(), m_cur_location
   property_box_add_properties: (...args: AnyArgs): void => {
     logger.info("Pda box property added:", ...args);
   },

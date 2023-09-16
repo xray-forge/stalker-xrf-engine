@@ -1,5 +1,5 @@
 import { ObjectRestrictionsManager } from "@/engine/core/objects/ai/restriction";
-import { StalkerMoveManager } from "@/engine/core/objects/ai/state/StalkerMoveManager";
+import { StalkerPatrolManager } from "@/engine/core/objects/ai/state/StalkerPatrolManager";
 import { StalkerStateManager } from "@/engine/core/objects/ai/state/StalkerStateManager";
 import { ISchemePostCombatIdleState } from "@/engine/core/schemes/combat_idle/ISchemePostCombatIdleState";
 import { IActionSchemeHearState } from "@/engine/core/schemes/hear";
@@ -31,6 +31,12 @@ export interface IBaseSchemeLogic {
 }
 
 /**
+ * List of scheme logics signal.
+ * Used to set / check in some script scenarios.
+ */
+export type TSchemeSignals = LuaTable<TName, boolean>;
+
+/**
  * todo;
  */
 export interface IBaseSchemeState {
@@ -44,7 +50,7 @@ export interface IBaseSchemeState {
    * List of signals in active scheme state.
    * Signals are flags indicating whether some action/thing happened.
    */
-  signals: Optional<LuaTable<TName, boolean>>; // Rework with LuaSet?
+  signals: Optional<TSchemeSignals>;
   scheme: EScheme;
   section: Optional<TSection>;
   actions?: LuaTable<AnyObject, boolean>;
@@ -133,11 +139,13 @@ export interface IRegistryObjectState extends Record<EScheme, Optional<IBaseSche
    */
   portableStore: Optional<LuaTable<TName>>;
   /**
-   * todo;
+   * Patrol manager for stalker objects.
+   * Handles patrols selection/logics/waypoints etc.
    */
-  moveManager: Optional<StalkerMoveManager>;
+  patrolManager: Optional<StalkerPatrolManager>;
   /**
-   * todo;
+   * State manager class for stalker objects.
+   * Handles current animation/animstate logics and adjust stalker object to match required logics.
    */
   stateManager: Optional<StalkerStateManager>;
   /**

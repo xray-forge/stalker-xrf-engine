@@ -28,7 +28,7 @@ import {
   Vector,
 } from "@/engine/lib/types";
 
-const logger: LuaLogger = new LuaLogger($filename);
+const logger: LuaLogger = new LuaLogger($filename, { file: "ai_state" });
 
 /**
  * State manager of any stalker game object.
@@ -159,9 +159,9 @@ export class StalkerStateManager {
     }
 
     // Process additional callback.
-    if (callback) {
-      this.callback = callback;
+    this.callback = callback;
 
+    if (this.callback) {
       if (timeout !== null && timeout >= 0) {
         this.callback.timeout = timeout;
         this.callback.begin = null;

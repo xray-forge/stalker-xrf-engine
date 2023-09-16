@@ -8,6 +8,7 @@ import { TreasureManager } from "@/engine/core/managers/treasures";
 import { AnomalyZoneBinder } from "@/engine/core/objects/binders/zones/AnomalyZoneBinder";
 import { extern, getExtern } from "@/engine/core/utils/binding";
 import { LuaLogger } from "@/engine/core/utils/logging";
+import { isObjectInSmartTerrain } from "@/engine/core/utils/object";
 import { disableInfo, giveInfo, hasAlifeInfo } from "@/engine/core/utils/object/object_info_portion";
 import {
   getNpcSpeaker,
@@ -1666,8 +1667,8 @@ extern(
 /**
  * todo;
  */
-extern("dialogs_jupiter.npc_in_b4_smart", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
-  return getExtern<AnyCallablesModule>("dialogs").is_npc_in_current_smart(firstSpeaker, secondSpeaker, "jup_b4");
+extern("dialogs_jupiter.npc_in_b4_smart", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
+  return isObjectInSmartTerrain(getNpcSpeaker(firstSpeaker, secondSpeaker), "jup_b4");
 });
 
 /**

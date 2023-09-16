@@ -1,5 +1,14 @@
-import { IBaseSchemeState } from "@/engine/core/database";
-import { AnyArgs, AnyContextualCallable, ClientObject, ESchemeEvent } from "@/engine/lib/types";
+import { registry } from "@/engine/core/database/registry";
+import type { IBaseSchemeState, IRegistryObjectState, TSchemeSignals } from "@/engine/core/database/types";
+import type {
+  AnyArgs,
+  AnyContextualCallable,
+  ClientObject,
+  EScheme,
+  ESchemeEvent,
+  Optional,
+  TName,
+} from "@/engine/lib/types";
 
 /**
  * Emit scheme event for active `actions` list in scheme state.
@@ -19,10 +28,25 @@ export function emitSchemeEvent(
     return;
   }
 
-  // todo: Probably it is Set and `isHandlerActive` check is not needed.
+  // todo: Probably it is Set<T> and `isHandlerActive` check is not needed.
   for (const [actionHandler, isHandlerActive] of state.actions) {
     if (isHandlerActive && actionHandler[event]) {
       (actionHandler[event] as AnyContextualCallable).apply(actionHandler, rest);
     }
+  }
+}
+
+/**
+ * Set currently active scheme signal as activated for the object.
+ *
+ * @param object - object to set signal in state for
+ * @param signal - name of the signal to set
+ */
+export function setObjectActiveSchemeSignal(object: ClientObject, signal: TName): void {
+  const state: Optional<IRegistryObjectState> = registry.objects.get(object.id());
+  const signals: Optional<TSchemeSignals> = state?.[state.activeScheme as EScheme]?.signals as Optional<TSchemeSignals>;
+
+  if (signals) {
+    signals.set(signal, true);
   }
 }

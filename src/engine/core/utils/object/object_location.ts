@@ -176,21 +176,6 @@ export function isObjectInActorFrustum(object: ClientObject): boolean {
 }
 
 /**
- * Check whether object reached patrol point with specific index.
- *
- * @param object - target object to check
- * @param patrolPath - target patrol to check
- * @param patrolPointIndex - index of patrol to check
- * @returns whether object reached patrol point
- */
-export function isObjectAtWaypoint(object: ClientObject, patrolPath: Patrol, patrolPointIndex: TIndex): boolean {
-  const objectPosition: Vector = object.position();
-  const distance: TDistance = objectPosition.distance_to_sqr(patrolPath.point(patrolPointIndex));
-
-  return distance <= 0.13;
-}
-
-/**
  * Check whether provided vertex ID is from level.
  *
  * @param levelName - target level to expect

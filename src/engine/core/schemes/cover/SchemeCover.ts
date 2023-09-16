@@ -65,7 +65,7 @@ export class SchemeCover extends AbstractScheme {
     newAction.add_precondition(new world_property(EEvaluatorId.ALIVE, true));
     newAction.add_precondition(new world_property(EEvaluatorId.DANGER, false));
     newAction.add_precondition(new world_property(EEvaluatorId.ENEMY, false));
-    newAction.add_precondition(new world_property(EEvaluatorId.ANONALY, false));
+    newAction.add_precondition(new world_property(EEvaluatorId.ANOMALY, false));
     newAction.add_precondition(new world_property(EEvaluatorId.IS_WOUNDED, false));
     newAction.add_precondition(new world_property(EEvaluatorId.NEED_COVER, true));
     // Mark as cover not needed anymore.

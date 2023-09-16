@@ -1,6 +1,6 @@
 import type { IBaseSchemeState } from "@/engine/core/database/types";
-import { EStalkerState } from "@/engine/core/objects/animation/types";
-import {
+import type { IPatrolSuggestedState } from "@/engine/core/objects/animation/types";
+import type {
   LuaArray,
   Optional,
   TCount,
@@ -40,13 +40,7 @@ export interface ISchemeCamperState extends IBaseSchemeState {
   scandelta: TCount;
   timedelta: TCount;
   time_scan_delta: TCount;
-  suggested_state: {
-    moving: string;
-    moving_fire: string;
-    campering: Optional<EStalkerState>;
-    standing: Optional<string>;
-    campering_fire: Optional<EStalkerState>;
-  };
+  suggested_state: IPatrolSuggestedState;
   scan_table: LuaTable<any, LuaArray<ICampPoint>>;
   cur_look_point: Optional<TIndex>;
   last_look_point: Optional<ICampPoint>;

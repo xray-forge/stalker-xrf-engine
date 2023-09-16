@@ -1,5 +1,5 @@
 import type { IBaseSchemeState } from "@/engine/core/database/types";
-import type { EStalkerState } from "@/engine/core/objects/animation/types";
+import type { EStalkerState, IPatrolSuggestedState } from "@/engine/core/objects/animation/types";
 import type { IAnimpointActionDescriptor } from "@/engine/core/schemes/animpoint/types";
 import type { IWaypointData } from "@/engine/core/utils/ini/ini_types";
 import type { LuaArray, Optional } from "@/engine/lib/types";
@@ -14,10 +14,7 @@ export interface ISchemeWalkerState extends IBaseSchemeState {
   sound_idle: string;
   getConfigBoolean: boolean;
   use_camp: boolean;
-  suggested_state: {
-    standing: string;
-    moving: string;
-  };
+  suggested_state: IPatrolSuggestedState;
   path_walk_info: Optional<LuaArray<IWaypointData>>;
   path_look_info: Optional<LuaArray<IWaypointData>>;
   description: Optional<EStalkerState>;

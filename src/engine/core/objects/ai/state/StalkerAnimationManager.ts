@@ -29,7 +29,7 @@ import {
   Vector,
 } from "@/engine/lib/types";
 
-const logger: LuaLogger = new LuaLogger($filename);
+const logger: LuaLogger = new LuaLogger($filename, { file: "ai_state" });
 
 /**
  * Manager of stalker object animations.
@@ -62,6 +62,8 @@ export class StalkerAnimationManager {
    * Allow animation control based on animation manager.
    */
   public setControl(): void {
+    logger.format("Set control: '%s' - '%s'", this.object.name(), this.type);
+
     this.stateManager.controller = this.type;
 
     this.object.set_callback(callback.script_animation, this.onAnimationCallback, this);

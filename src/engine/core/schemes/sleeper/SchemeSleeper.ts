@@ -65,7 +65,7 @@ export class SchemeSleeper extends AbstractScheme {
     actionSleeper.add_precondition(new world_property(EEvaluatorId.ALIVE, true));
     actionSleeper.add_precondition(new world_property(EEvaluatorId.DANGER, false));
     actionSleeper.add_precondition(new world_property(EEvaluatorId.ENEMY, false));
-    actionSleeper.add_precondition(new world_property(EEvaluatorId.ANONALY, false));
+    actionSleeper.add_precondition(new world_property(EEvaluatorId.ANOMALY, false));
     actionSleeper.add_precondition(new world_property(EEvaluatorId.NEED_SLEEPER, true));
 
     addCommonActionPreconditions(actionSleeper);

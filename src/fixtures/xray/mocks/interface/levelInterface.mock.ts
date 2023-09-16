@@ -28,7 +28,15 @@ export const mockLevelInterface = {
   }),
   map_add_object_spot: jest.fn(),
   name: jest.fn(() => "zaton"),
-  object_by_id: jest.fn((id: TNumberId) => CLIENT_SIDE_REGISTRY.get(id)),
+  object_by_id: jest.fn((id: TNumberId) => {
+    const verifiedId: TNumberId = Number.parseInt(String(id));
+
+    if (Number.isNaN(verifiedId)) {
+      throw new Error("Received NaN for object_by_id getter.");
+    }
+
+    return CLIENT_SIDE_REGISTRY.get(verifiedId);
+  }),
   patrol_path_exists: jest.fn((name: TName) => name in patrols),
   set_snd_volume: jest.fn((volume: number) => {}),
   show_indicators: jest.fn(),

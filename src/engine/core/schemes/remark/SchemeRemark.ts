@@ -71,7 +71,7 @@ export class SchemeRemark extends AbstractScheme {
     actionRemarkActivity.add_precondition(new world_property(EEvaluatorId.ALIVE, true));
     actionRemarkActivity.add_precondition(new world_property(EEvaluatorId.DANGER, false));
     actionRemarkActivity.add_precondition(new world_property(EEvaluatorId.ENEMY, false));
-    actionRemarkActivity.add_precondition(new world_property(EEvaluatorId.ANONALY, false));
+    actionRemarkActivity.add_precondition(new world_property(EEvaluatorId.ANOMALY, false));
     actionRemarkActivity.add_precondition(new world_property(EEvaluatorId.NEED_REMARK, true));
     addCommonActionPreconditions(actionRemarkActivity);
     actionRemarkActivity.add_effect(new world_property(EEvaluatorId.NEED_REMARK, false));

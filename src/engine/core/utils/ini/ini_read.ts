@@ -24,20 +24,20 @@ export function readIniString<D = string>(
   required: boolean,
   prefix: Optional<string> = null,
   defaultValue: D = null as unknown as D
-): string | D {
+): D {
   assertDefined(required, "Section '%s', wrong arguments order in call to 'readIniString'.", section);
 
   // todo: Resolve prefix.
   if (section && ini.section_exist(section) && ini.line_exist(section, field)) {
     if (prefix && prefix !== "") {
-      return prefix + "_" + ini.r_string(section, field);
+      return (prefix + "_" + ini.r_string(section, field)) as D;
     } else {
-      return ini.r_string(section, field);
+      return ini.r_string(section, field) as D;
     }
   }
 
   if (!required) {
-    return defaultValue as string;
+    return defaultValue as D;
   }
 
   return abort("Attempt to read a non-existent string field '%s' in section '%s'.", field, section);

@@ -1,18 +1,18 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 
-import { IBaseSchemeState, registry } from "@/engine/core/database";
-import { emitSchemeEvent } from "@/engine/core/utils/scheme/scheme_event";
+import { IBaseSchemeState, IRegistryObjectState, registerObject, registry } from "@/engine/core/database";
+import { emitSchemeEvent, setObjectActiveSchemeSignal } from "@/engine/core/utils/scheme/scheme_event";
 import { ClientObject, EScheme, ESchemeEvent } from "@/engine/lib/types";
 import { mockSchemeState } from "@/fixtures/engine/mocks";
 import { mockClientGameObject } from "@/fixtures/xray";
 
-describe("'scheme logic' utils", () => {
+describe("scheme logic utils", () => {
   beforeEach(() => {
     registry.schemes = new LuaTable();
     registry.actor = null as unknown as ClientObject;
   });
 
-  it("'emitSchemeEvent' should correctly emit events", () => {
+  it("emitSchemeEvent should correctly emit events", () => {
     const object: ClientObject = mockClientGameObject();
     const schemeState: IBaseSchemeState = mockSchemeState(EScheme.MEET);
     const mockAction = {
@@ -72,5 +72,27 @@ describe("'scheme logic' utils", () => {
 
     emitSchemeEvent(object, schemeState, ESchemeEvent.WAYPOINT);
     expect(mockAction.onWaypoint).toHaveBeenCalledTimes(1);
+  });
+
+  it("setObjectActiveSchemeSignal should correctly set signals", () => {
+    const object: ClientObject = mockClientGameObject();
+
+    expect(() => setObjectActiveSchemeSignal(object, "test")).not.toThrow();
+    expect(registry.objects.get(object.id())).toBeNull();
+
+    const mockMeetState: IBaseSchemeState = mockSchemeState(EScheme.MEET);
+    const state: IRegistryObjectState = registerObject(object);
+
+    expect(() => setObjectActiveSchemeSignal(object, "test")).not.toThrow();
+    expect(state).toEqual({ object });
+
+    state[EScheme.MEET] = mockMeetState;
+    setObjectActiveSchemeSignal(object, "test");
+    expect(state[EScheme.MEET]?.signals).toEqualLuaTables({});
+
+    state.activeScheme = EScheme.MEET;
+    setObjectActiveSchemeSignal(object, "test");
+    setObjectActiveSchemeSignal(object, "another");
+    expect(state[EScheme.MEET]?.signals).toEqualLuaTables({ test: true, another: true });
   });
 });

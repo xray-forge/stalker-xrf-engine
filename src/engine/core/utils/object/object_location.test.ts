@@ -9,7 +9,6 @@ import {
   isDistanceBetweenObjectsGreaterOrEqual,
   isDistanceBetweenObjectsLessOrEqual,
   isGameVertexFromLevel,
-  isObjectAtWaypoint,
   isObjectInActorFrustum,
   isObjectInSmartTerrain,
   isObjectInZone,
@@ -30,7 +29,7 @@ import {
 import { MockVector } from "@/fixtures/xray/mocks/vector.mock";
 
 describe("object location utils", () => {
-  it("'isObjectInSmartTerrain' check object inside smart terrain", () => {
+  it("isObjectInSmartTerrain check object inside smart terrain", () => {
     const smartTerrain = mockServerAlifeSmartZone({ name: <T extends string>() => "test-smart" as T });
     const { actorClientObject } = mockRegisteredActor({}, { m_smart_terrain_id: smartTerrain.id });
 
@@ -39,7 +38,7 @@ describe("object location utils", () => {
     expect(isObjectInSmartTerrain(actorClientObject, "another")).toBe(false);
   });
 
-  it("'isObjectInZone' check object inside", () => {
+  it("isObjectInZone check object inside", () => {
     const object: ClientObject = mockClientGameObject();
     const zone: ClientObject = mockClientGameObject();
 
@@ -50,7 +49,7 @@ describe("object location utils", () => {
     expect(isObjectInZone(null, zone)).toBe(false);
   });
 
-  it("'isObjectOnLevel' check object on level", () => {
+  it("isObjectOnLevel check object on level", () => {
     const object: ServerObject = mockServerAlifeObject();
 
     expect(isObjectOnLevel(null, "zaton")).toBe(false);
@@ -60,7 +59,7 @@ describe("object location utils", () => {
     expect(alife().level_name).toHaveBeenCalledWith(5120);
   });
 
-  it("'areObjectsOnSameLevel' check objects on level", () => {
+  it("areObjectsOnSameLevel check objects on level", () => {
     expect(areObjectsOnSameLevel(mockServerAlifeObject(), mockServerAlifeObject())).toBe(true);
     expect(areObjectsOnSameLevel(mockServerAlifeObject(), mockServerAlifeObject({ m_game_vertex_id: 990 }))).toBe(
       false
@@ -73,7 +72,7 @@ describe("object location utils", () => {
     ).toBe(true);
   });
 
-  it("'isDistanceBetweenObjectsGreaterOrEqual' should correctly check", () => {
+  it("isDistanceBetweenObjectsGreaterOrEqual should correctly check", () => {
     const first: ClientObject = mockClientGameObject();
     const second: ClientObject = mockClientGameObject();
 
@@ -87,7 +86,7 @@ describe("object location utils", () => {
     expect(isDistanceBetweenObjectsGreaterOrEqual(first, second, 1000)).toBe(true);
   });
 
-  it("'isDistanceBetweenObjectsLessOrEqual' should correctly check", () => {
+  it("isDistanceBetweenObjectsLessOrEqual should correctly check", () => {
     const first: ClientObject = mockClientGameObject();
     const second: ClientObject = mockClientGameObject();
 
@@ -101,7 +100,7 @@ describe("object location utils", () => {
     expect(isDistanceBetweenObjectsLessOrEqual(first, second, 1000)).toBe(true);
   });
 
-  it("'getServerDistanceBetween' should correctly get distance for offline objects", () => {
+  it("getServerDistanceBetween should correctly get distance for offline objects", () => {
     const first: ServerObject = mockServerAlifeObject({ m_game_vertex_id: 500 });
 
     jest.spyOn(game_graph().vertex(500).game_point(), "distance_to").mockImplementation(() => 600);
@@ -113,7 +112,7 @@ describe("object location utils", () => {
     expect(getServerDistanceBetween(second, mockServerAlifeObject())).toBe(255);
   });
 
-  it("'getDistanceBetween' should correctly get distance for offline objects", () => {
+  it("getDistanceBetween should correctly get distance for offline objects", () => {
     const first: ClientObject = mockClientGameObject();
     const second: ClientObject = mockClientGameObject();
 
@@ -123,7 +122,7 @@ describe("object location utils", () => {
     expect(getDistanceBetween(first, second)).toBe(600);
   });
 
-  it("'getDistanceBetweenSqr' should correctly get distance for offline objects", () => {
+  it("getDistanceBetweenSqr should correctly get distance for offline objects", () => {
     const first: ClientObject = mockClientGameObject();
     const second: ClientObject = mockClientGameObject();
 
@@ -133,7 +132,7 @@ describe("object location utils", () => {
     expect(getDistanceBetweenSqr(first, second)).toBe(1600);
   });
 
-  it("'sendToNearestAccessibleVertex' should correctly send object to nearest accesible vertex", () => {
+  it("sendToNearestAccessibleVertex should correctly send object to nearest accesible vertex", () => {
     const first: ClientObject = mockClientGameObject();
 
     expect(sendToNearestAccessibleVertex(first, 150)).toBe(150);
@@ -159,7 +158,7 @@ describe("object location utils", () => {
     expect(sendToNearestAccessibleVertex(third, MAX_U32 * 2)).toBe(1442);
   });
 
-  it("'teleportActorWithEffects' should correctly teleport actor", () => {
+  it("teleportActorWithEffects should correctly teleport actor", () => {
     const actor: ClientObject = mockActorClientGameObject();
     const destination: Vector = MockVector.mock(15, 14, 16);
     const direction: Vector = MockVector.mock(3, 5, 4);
@@ -170,26 +169,12 @@ describe("object location utils", () => {
     expect(actor.set_actor_direction).toHaveBeenCalledWith(-direction.getH());
   });
 
-  it("'isGameVertexFromLevel' should correctly check level name", () => {
+  it("isGameVertexFromLevel should correctly check level name", () => {
     expect(isGameVertexFromLevel("pripyat", 50)).toBe(true);
     expect(isGameVertexFromLevel("zaton", 51)).toBe(false);
   });
 
-  it("'isObjectAtWaypoint' should correctly check whether object is at waypoint", () => {
-    const object: ClientObject = mockClientGameObject();
-
-    jest.spyOn(object.position(), "distance_to_sqr").mockImplementation(() => 0.131);
-
-    expect(isObjectAtWaypoint(object, new patrol("test-wp"), 1)).toBe(false);
-    expect(object.position().distance_to_sqr).toHaveBeenCalledWith(patrols["test-wp"].points[1].position);
-
-    jest.spyOn(object.position(), "distance_to_sqr").mockImplementation(() => 0.13);
-
-    expect(isObjectAtWaypoint(object, new patrol("test-wp"), 2)).toBe(true);
-    expect(object.position().distance_to_sqr).toHaveBeenCalledWith(patrols["test-wp"].points[2].position);
-  });
-
-  it("'isObjectInActorFrustum' should correctly check whether object is in actor frustum", () => {
+  it("isObjectInActorFrustum should correctly check whether object is in actor frustum", () => {
     const object: ClientObject = mockClientGameObject();
 
     jest.spyOn(object, "position").mockImplementation(() => MockVector.mock(0.6, 0, 0.6));

@@ -232,15 +232,6 @@ export interface ILookTargetDescriptor {
 }
 
 /**
- * State of stalker movement.
- */
-export enum ECurrentMovementState {
-  NONE = 0,
-  MOVING = 1,
-  STANDING = 2,
-}
-
-/**
  * todo;
  */
 export interface IStateManagerCallbackDescriptor<T extends AnyObject = AnyObject> {

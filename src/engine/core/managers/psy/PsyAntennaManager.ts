@@ -27,10 +27,11 @@ import {
   TProbability,
   TRate,
   TSoundObjectType,
+  TTimestamp,
   Vector,
 } from "@/engine/lib/types";
 
-const logger: LuaLogger = new LuaLogger($filename);
+const logger: LuaLogger = new LuaLogger($filename, { file: "psy" });
 
 /**
  * todo;
@@ -72,8 +73,8 @@ export class PsyAntennaManager extends AbstractManager {
     closeSaveMarker(packet, PsyAntennaManager.name + "_static");
   }
 
-  public readonly soundObjectRight: SoundObject = new sound_object("anomaly_psy_voices_1_r");
-  public readonly soundObjectLeft: SoundObject = new sound_object("anomaly_psy_voices_1_l");
+  public readonly soundObjectRight: SoundObject = new sound_object("anomaly\\psy_voices_1_r");
+  public readonly soundObjectLeft: SoundObject = new sound_object("anomaly\\psy_voices_1_l");
 
   public phantomMax: TCount = 8;
   public phantomSpawnProbability: TProbability = 0;
@@ -82,11 +83,10 @@ export class PsyAntennaManager extends AbstractManager {
   public phantomFov: number = 45;
 
   public hitAmplitude: number = 1.0;
-  public effTime: number = 0;
 
   public hitTime: TDuration = 0;
   public phantomTime: TDuration = 0;
-  public phantomIdle: TDuration = 0;
+  public phantomIdle: TDuration = math.random(2000, 5000);
 
   public intensityInertion: TRate = 0.05;
   public hitIntensity: TRate = 0;
@@ -113,9 +113,6 @@ export class PsyAntennaManager extends AbstractManager {
     this.soundObjectRight.volume = 0;
   }
 
-  /**
-   * todo: Description.
-   */
   public override initialize(): void {
     const eventsManager: EventsManager = EventsManager.getInstance();
 
@@ -123,9 +120,6 @@ export class PsyAntennaManager extends AbstractManager {
     eventsManager.registerCallback(EGameEvent.ACTOR_DESTROY, this.dispose, this);
   }
 
-  /**
-   * todo: Description.
-   */
   public override destroy(): void {
     const eventsManager: EventsManager = EventsManager.getInstance();
 
@@ -134,21 +128,133 @@ export class PsyAntennaManager extends AbstractManager {
 
     this.soundObjectRight.stop();
     this.soundObjectLeft.stop();
+
     level.set_snd_volume(this.sndVolume);
+
     get_hud().enable_fake_indicators(false);
   }
 
   /**
-   * Dispose current instance in registry.
+   * Handle disposal of manager on actor destroy.
    */
   public dispose(): void {
+    logger.info("Dispose psy antenna manager");
     PsyAntennaManager.dispose();
   }
 
   /**
    * todo: Description.
    */
-  public updatePsyHit(dt: number): void {
+  public generatePhantoms(): void {
+    const now: TTimestamp = time_global();
+
+    if (now - this.phantomTime > this.phantomIdle) {
+      logger.info("Generate phantoms");
+
+      this.phantomTime = now;
+      this.phantomIdle = math.random(5000, 10000);
+
+      if (math.random() < this.phantomSpawnProbability) {
+        const actor: ClientObject = registry.actor;
+        const phantomManager: PhantomManager = PhantomManager.getInstance();
+
+        if (phantomManager.phantomsCount < this.phantomMax) {
+          const radius: TDistance = this.phantomSpawnRadius * (math.random() * 0.5 + 0.5);
+          const angle: TRate = this.phantomFov * math.random() - this.phantomFov * 0.5;
+          const direction: Vector = vectorRotateY(actor.direction(), angle);
+
+          phantomManager.spawnPhantom(actor.position().add(direction.mul(radius)));
+        }
+      }
+    }
+  }
+
+  /**
+   * todo: Description.
+   */
+  public override update(delta: TDuration): void {
+    logger.info("Updating psy antenna manager:", delta);
+
+    const updateIntensity = (intensityBase: TRate, intensity: TRate) => {
+      const di = this.intensityInertion * delta * 0.01;
+      let ii = intensityBase;
+
+      if (math.abs(intensityBase - intensity) >= di) {
+        ii = intensityBase < intensity ? intensity - di : intensity + di;
+      }
+
+      return clampNumber(ii, 0.0, 1.0);
+    };
+
+    this.generatePhantoms();
+
+    if (!this.noMumble) {
+      this.soundIntensity = updateIntensity(this.soundIntensityBase, this.soundIntensity);
+      this.updateSound();
+    }
+
+    for (const [k, v] of this.postprocess) {
+      v.intensity = updateIntensity(v.intensityBase, v.intensity);
+
+      if (!this.updatePostprocess(v)) {
+        this.postprocess.delete(k);
+      }
+    }
+
+    this.updatePsyHit(delta);
+  }
+
+  /**
+   * todo: Description.
+   */
+  public updateSound(): void {
+    if (!this.soundInitialized) {
+      logger.info("Initialize sounds");
+
+      this.soundInitialized = true;
+      this.soundObjectLeft.play_at_pos(
+        registry.actor,
+        createVector(-1, 0, 1),
+        0,
+        (ESoundObjectType.S2D + ESoundObjectType.LOOPED) as TSoundObjectType
+      );
+      this.soundObjectRight.play_at_pos(
+        registry.actor,
+        createVector(1, 0, 1),
+        0,
+        (ESoundObjectType.S2D + ESoundObjectType.S3D) as TSoundObjectType
+      );
+    }
+
+    const volume: TRate = 1 - Math.pow(this.soundIntensity, 3) * 0.9;
+    const antennaVolume: TRate = 1 / volume - 1;
+
+    level.set_snd_volume(volume < this.muteSoundThreshold ? this.muteSoundThreshold : volume);
+
+    this.soundObjectLeft.volume = antennaVolume;
+    this.soundObjectRight.volume = antennaVolume;
+  }
+
+  /**
+   * todo: Description.
+   */
+  public updatePostprocess(pp: IPsyPostProcessDescriptor): boolean {
+    if (pp.intensity === 0) {
+      this.postprocessCount -= 1;
+      level.remove_pp_effector(pp.idx);
+
+      return false;
+    } else {
+      level.set_pp_effector_factor(pp.idx, pp.intensity, 0.3);
+
+      return true;
+    }
+  }
+
+  /**
+   * todo: Description.
+   */
+  public updatePsyHit(delta: number): void {
     const hud: GameHud = get_hud();
     const customStatic: Optional<StaticDrawableWrapper> = hud.GetCustomStatic("cs_psy_danger");
 
@@ -196,120 +302,6 @@ export class PsyAntennaManager extends AbstractManager {
     }
   }
 
-  /**
-   * todo: Description.
-   */
-  public generatePhantoms(): void {
-    if (this.phantomIdle === null) {
-      this.phantomIdle = math.random(2000, 5000);
-    }
-
-    if (time_global() - this.phantomTime > this.phantomIdle) {
-      this.phantomTime = time_global();
-      this.phantomIdle = math.random(5000, 10000);
-
-      if (math.random() < this.phantomSpawnProbability) {
-        const actor: ClientObject = registry.actor;
-        const phantomManager: PhantomManager = PhantomManager.getInstance();
-
-        if (phantomManager.phantomsCount < this.phantomMax) {
-          const radius: TDistance = this.phantomSpawnRadius * (math.random() / 2.0 + 0.5);
-          const angle: TRate = this.phantomFov * math.random() - this.phantomFov * 0.5;
-          const dir: Vector = vectorRotateY(actor.direction(), angle);
-
-          phantomManager.spawnPhantom(actor.position().add(dir.mul(radius)));
-        }
-      }
-    }
-  }
-
-  /**
-   * todo: Description.
-   */
-  public updateSound(): void {
-    if (!this.soundInitialized) {
-      this.soundObjectLeft.play_at_pos(
-        registry.actor,
-        createVector(-1, 0, 1),
-        0,
-        (ESoundObjectType.S2D + ESoundObjectType.LOOPED) as TSoundObjectType
-      );
-      this.soundObjectRight.play_at_pos(
-        registry.actor,
-        createVector(1, 0, 1),
-        0,
-        (ESoundObjectType.S2D + ESoundObjectType.S3D) as TSoundObjectType
-      );
-
-      this.soundInitialized = true;
-    }
-
-    const vol = 1 - (this.soundIntensity ^ 3) * 0.9;
-
-    if (vol < this.muteSoundThreshold) {
-      level.set_snd_volume(this.muteSoundThreshold);
-    } else {
-      level.set_snd_volume(vol);
-    }
-
-    this.soundObjectLeft.volume = 1 / vol - 1;
-    this.soundObjectRight.volume = 1 / vol - 1;
-  }
-
-  /**
-   * todo: Description.
-   */
-  public updatePostprocess(pp: IPsyPostProcessDescriptor): boolean {
-    if (pp.intensity === 0) {
-      this.postprocessCount = this.postprocessCount - 1;
-      level.remove_pp_effector(pp.idx);
-
-      return false;
-    }
-
-    level.set_pp_effector_factor(pp.idx, pp.intensity, 0.3);
-
-    return true;
-  }
-
-  /**
-   * todo: Description.
-   */
-  public override update(delta: TDuration): void {
-    this.effTime = this.effTime + delta;
-
-    const updateIntensity = (intensityBase: TRate, intensity: TRate) => {
-      const di = this.intensityInertion * delta * 0.01;
-      let ii = intensityBase;
-
-      if (math.abs(intensityBase - intensity) >= di) {
-        ii = intensityBase < intensity ? intensity - di : intensity + di;
-      }
-
-      return clampNumber(ii, 0.0, 1.0);
-    };
-
-    this.generatePhantoms();
-
-    if (!this.noMumble) {
-      this.soundIntensity = updateIntensity(this.soundIntensityBase, this.soundIntensity);
-      this.updateSound();
-    }
-
-    for (const [k, v] of this.postprocess) {
-      v.intensity = updateIntensity(v.intensityBase, v.intensity);
-
-      if (!this.updatePostprocess(v)) {
-        this.postprocess.delete(k);
-      }
-    }
-
-    this.updatePsyHit(delta);
-  }
-
-  /**
-   * todo: Description.
-   */
   public override save(packet: NetPacket): void {
     openSaveMarker(packet, PsyAntennaManager.name);
 
@@ -334,9 +326,6 @@ export class PsyAntennaManager extends AbstractManager {
     closeSaveMarker(packet, PsyAntennaManager.name);
   }
 
-  /**
-   * todo: Description.
-   */
   public override load(reader: NetProcessor): void {
     openLoadMarker(reader, PsyAntennaManager.name);
 

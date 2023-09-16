@@ -2,15 +2,14 @@ import { anim, cond, look, move, patrol, sound } from "xray16";
 
 import { registry, setMonsterState } from "@/engine/core/database";
 import { AbstractSchemeManager } from "@/engine/core/objects/ai/scheme";
-import { StalkerMoveManager } from "@/engine/core/objects/ai/state/StalkerMoveManager";
 import { ISchemeMobWalkerState } from "@/engine/core/schemes/mob_walker/ISchemeMobWalkerState";
 import { abort } from "@/engine/core/utils/assertion";
 import { IWaypointData, parseWaypointsData, pickSectionFromCondList } from "@/engine/core/utils/ini";
-import { isObjectAtWaypoint } from "@/engine/core/utils/object";
+import { choosePatrolWaypointByFlags, isObjectAtWaypoint } from "@/engine/core/utils/patrol";
 import { isMonsterScriptCaptured, scriptCaptureMonster, scriptCommandMonster } from "@/engine/core/utils/scheme";
 import { copyVector } from "@/engine/core/utils/vector";
 import { EMonsterState } from "@/engine/lib/constants/monsters";
-import { NIL, TRUE } from "@/engine/lib/constants/words";
+import { TRUE } from "@/engine/lib/constants/words";
 import {
   ClientObject,
   EScheme,
@@ -183,7 +182,7 @@ export class MobWalkerManager extends AbstractSchemeManager<ISchemeMobWalkerStat
       return;
     }
 
-    const [ptChosenIdx] = StalkerMoveManager.chooseLookPoint(this.patrolLook!, this.pathLookInfo!, searchForFlags);
+    const [ptChosenIdx] = choosePatrolWaypointByFlags(this.patrolLook!, this.pathLookInfo!, searchForFlags);
 
     if (ptChosenIdx) {
       const suggestedWaitTime = this.pathLookInfo!.get(ptChosenIdx)["t"];
@@ -200,13 +199,9 @@ export class MobWalkerManager extends AbstractSchemeManager<ISchemeMobWalkerStat
         }
       }
 
-      let suggestedAnimSet = this.pathLookInfo!.get(ptChosenIdx)["a"];
+      const suggestedAnimSet = this.pathLookInfo!.get(ptChosenIdx).a;
 
       if (suggestedAnimSet) {
-        if (suggestedAnimSet === NIL) {
-          suggestedAnimSet = null;
-        }
-
         this.curAnimSet = anim[pickSectionFromCondList(registry.actor, this.object, suggestedAnimSet) as TAnimationKey];
       } else {
         this.curAnimSet = DEFAULT_ANIM_STANDING;

@@ -163,7 +163,7 @@ export class HeliFly {
     const currHeliVelocity = heli.GetCurrVelocity();
     const distToDestPoint = heli.GetDistanceToDestPosition();
     const aSpeed = this.heliLAccFW;
-    let destVelocity = ((2 * aSpeed * distToDestPoint + currHeliVelocity) ** 2 / 3) ^ (1 / 2);
+    let destVelocity = Math.pow((2 * aSpeed * distToDestPoint + currHeliVelocity) ** 2 / 3, 1 / 2);
 
     if ((this.maxVelocity * 1000) / 3600 < destVelocity) {
       destVelocity = (this.maxVelocity * 1000) / 3600;

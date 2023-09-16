@@ -125,8 +125,6 @@ export class SmartTerrainControl {
    * All stalkers inside become enemies.
    */
   public onActorAttackSmartTerrain(): void {
-    logger.info("Actor attacked smart:", this.smartTerrain.name());
-
     if (this.status !== ESmartTerrainStatus.ALARM) {
       const sound: Optional<TStringId> = pickSectionFromCondList(
         registry.actor,

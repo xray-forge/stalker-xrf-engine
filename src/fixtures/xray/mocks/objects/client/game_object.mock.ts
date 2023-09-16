@@ -160,6 +160,7 @@ export function mockClientGameObject({
         return mockRelationRegistryInterface.get_general_goodwill_between(id ? id() : idOverride, to.id());
       }),
     get_campfire: rest.get_campfire || jest.fn(() => null),
+    get_current_point_index: rest.get_current_point_index || jest.fn(() => null),
     get_script: rest.get_script || jest.fn(() => false),
     get_script_name: rest.get_script_name || jest.fn(() => null),
     give_game_news,
@@ -283,6 +284,7 @@ export function mockClientGameObject({
     set_nonscript_usable: rest.set_nonscript_usable || jest.fn(),
     set_home: rest.set_home || jest.fn(),
     set_invisible: rest.set_invisible || jest.fn(),
+    set_path_type: rest.set_path_type || jest.fn(),
     set_relation: rest.set_relation || jest.fn(),
     set_sound_mask: rest.set_sound_mask || jest.fn(),
     set_sympathy: rest.set_sympathy || jest.fn(),

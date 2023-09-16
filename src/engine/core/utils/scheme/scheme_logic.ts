@@ -32,7 +32,7 @@ import {
 import { NIL } from "@/engine/lib/constants/words";
 import { ClientObject, EScheme, ESchemeEvent, ESchemeType, IniFile, Optional, TSection } from "@/engine/lib/types";
 
-const logger: LuaLogger = new LuaLogger($filename);
+const logger: LuaLogger = new LuaLogger($filename, { file: "scheme" });
 
 /**
  * Check whether section is active in logics for an object.
@@ -108,7 +108,7 @@ export function activateSchemeBySection(
   additional: Optional<string>,
   isLoading: boolean
 ): void {
-  // logger.info("Activate scheme:", object.name(), section, additional);
+  logger.format("Activate scheme: '%s' %s' %s'", object.name(), section, additional);
 
   assertDefined(isLoading, "scheme/logic: activateBySection: loading field is null, true || false expected.");
 

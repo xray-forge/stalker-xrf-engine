@@ -15,6 +15,7 @@ import { trimString } from "@/engine/core/utils/string";
 import { TInfoPortion } from "@/engine/lib/constants/info_portions";
 import { NIL, TRUE } from "@/engine/lib/constants/words";
 import {
+  AnyObject,
   EScheme,
   Flags32,
   IniFile,
@@ -306,6 +307,11 @@ export function parseFunctionParams(data: string): LuaArray<string | number> {
  */
 export function parseWaypointData(patrolName: TPath, patrolFlags: Flags32, pointName: TName): IWaypointData {
   const waypointData: IWaypointData = {
+    sig: null,
+    p: null,
+    t: null,
+    a: null,
+    ret: null,
     flags: patrolFlags,
   };
 
@@ -339,7 +345,7 @@ export function parseWaypointData(patrolName: TPath, patrolFlags: Flags32, point
         parsed = TRUE;
       }
 
-      waypointData[field as keyof IWaypointData] = field === "a" ? parseConditionsList(parsed) : parsed;
+      (waypointData as unknown as AnyObject)[field] = field === "a" ? parseConditionsList(parsed) : parsed;
     }
 
     index += 1;

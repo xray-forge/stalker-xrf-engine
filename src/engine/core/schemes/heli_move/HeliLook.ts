@@ -46,9 +46,9 @@ export class HeliLook {
         }
       }
 
-      this.lookPoint.x = heliVelocity ^ (2 * (currHeliDirection.x + (newDirection.x / 2) * (2 - delta)));
-      this.lookPoint.y = heliVelocity ^ (2 * (currHeliDirection.y + (newDirection.y / 2) * (2 - delta)));
-      this.lookPoint.z = heliVelocity ^ (2 * (currHeliDirection.z + (newDirection.z / 2) * (2 - delta)));
+      this.lookPoint.x = Math.pow(heliVelocity, 2) * (currHeliDirection.x + (newDirection.x / 2) * (2 - delta));
+      this.lookPoint.y = Math.pow(heliVelocity, 2) * (currHeliDirection.y + (newDirection.y / 2) * (2 - delta));
+      this.lookPoint.z = Math.pow(heliVelocity, 2) * (currHeliDirection.z + (newDirection.z / 2) * (2 - delta));
 
       heli.LookAtPoint(this.lookPoint, lookState);
     }
