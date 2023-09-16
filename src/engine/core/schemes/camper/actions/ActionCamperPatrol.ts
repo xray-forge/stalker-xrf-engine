@@ -79,7 +79,7 @@ export class ActionCamperPatrol extends action_base implements ISchemeEventHandl
         null,
         null,
         this.state.suggested_state,
-        { context: this, callback: this.processPoint }
+        { context: this, callback: this.onProcessPoint }
       );
 
       const path: Patrol = new patrol(this.state.path_look);
@@ -109,7 +109,7 @@ export class ActionCamperPatrol extends action_base implements ISchemeEventHandl
         parseWaypointsData(this.state.path_look),
         null,
         this.state.suggested_state,
-        { context: this, callback: this.processPoint }
+        { context: this, callback: this.onProcessPoint }
       );
 
       if (this.object.sniper_update_rate()) {
@@ -495,7 +495,7 @@ export class ActionCamperPatrol extends action_base implements ISchemeEventHandl
   /**
    * todo: Description.
    */
-  public processPoint(): boolean {
+  public onProcessPoint(): boolean {
     return false;
   }
 

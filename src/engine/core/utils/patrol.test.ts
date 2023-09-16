@@ -1,8 +1,8 @@
 import { describe, expect, it, jest } from "@jest/globals";
 
-import { registerZone } from "@/engine/core/database";
-import { isPatrolInRestrictor } from "@/engine/core/utils/patrol";
-import { ClientObject } from "@/engine/lib/types";
+import { registerZone, registry } from "@/engine/core/database";
+import { isPatrolInRestrictor, isPatrolTeamSynchronized } from "@/engine/core/utils/patrol";
+import { ClientObject, TNumberId } from "@/engine/lib/types";
 import { mockClientGameObject } from "@/fixtures/xray";
 
 describe("patrol utils", () => {
@@ -38,4 +38,46 @@ describe("patrol utils", () => {
   it.todo("'chooseLookPoint' should correctly choose points");
 
   it.todo("'isObjectStandingOnTerminalWaypoint' should correctly check terminal waypoints and object standing");
+
+  it("'isPatrolTeamSynchronized' should correctly check team sync state", () => {
+    const first: ClientObject = mockClientGameObject();
+    const second: ClientObject = mockClientGameObject();
+
+    expect(isPatrolTeamSynchronized(null)).toBe(true); // no team
+    expect(isPatrolTeamSynchronized("not_existing")).toBe(true);
+
+    registry.patrolSynchronization.set("empty", new LuaTable());
+    expect(isPatrolTeamSynchronized("empty")).toBe(true);
+
+    registry.patrolSynchronization.set(
+      "not_sync",
+      $fromObject<TNumberId, boolean>({ [first.id()]: false, [second.id()]: false })
+    );
+    expect(isPatrolTeamSynchronized("not_sync")).toBe(false);
+
+    registry.patrolSynchronization.set(
+      "partial_sync",
+      $fromObject<TNumberId, boolean>({ [first.id()]: false, [second.id()]: true })
+    );
+    expect(isPatrolTeamSynchronized("partial_sync")).toBe(false);
+
+    registry.patrolSynchronization.set(
+      "sync",
+      $fromObject<TNumberId, boolean>({ [first.id()]: true, [second.id()]: true })
+    );
+    expect(isPatrolTeamSynchronized("sync")).toBe(true);
+  });
+
+  it("'isPatrolTeamSynchronized' should correctly check team sync for dead/offline objects", () => {
+    const first: ClientObject = mockClientGameObject({ alive: () => false });
+    const second: ClientObject = mockClientGameObject();
+
+    registry.patrolSynchronization.set(
+      "not_sync_dead",
+      $fromObject<TNumberId, boolean>({ [first.id()]: false, [second.id()]: true, 1: false })
+    );
+    expect(isPatrolTeamSynchronized("not_sync_dead")).toBe(true);
+
+    expect(registry.patrolSynchronization.get("not_sync_dead")).toEqualLuaTables({ [second.id()]: true });
+  });
 });

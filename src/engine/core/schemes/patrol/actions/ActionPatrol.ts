@@ -12,6 +12,7 @@ import {
   ClientObject,
   EClientObjectPath,
   ISchemeEventHandler,
+  Optional,
   TDistance,
   TIndex,
   TNumberId,
@@ -75,7 +76,7 @@ export class ActionPatrol extends action_base implements ISchemeEventHandler {
       this.state.path_look_info,
       this.state.team,
       this.state.suggested_state,
-      { context: this, callback: this.onFormationCallback }
+      { context: this, callback: this.onProcessWaypoint }
     );
   }
 
@@ -125,7 +126,7 @@ export class ActionPatrol extends action_base implements ISchemeEventHandler {
   /**
    * todo: Description.
    */
-  public onFormationCallback(mode: EWaypointArrivalType, patrolRetVal: number, index: TIndex): void {}
+  public onProcessWaypoint(mode: EWaypointArrivalType, patrolRetVal: Optional<number>, index: TIndex): void {}
 
   /**
    * todo: Description.

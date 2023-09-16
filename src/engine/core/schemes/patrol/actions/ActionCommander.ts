@@ -58,7 +58,7 @@ export class ActionCommander extends action_base implements ISchemeEventHandler 
       this.state.path_look_info,
       this.state.team,
       this.state.suggested_state,
-      { context: this, callback: this.onFormationCallback }
+      { context: this, callback: this.onProcessPoint }
     );
 
     registry.patrols.generic
@@ -146,7 +146,7 @@ export class ActionCommander extends action_base implements ISchemeEventHandler 
   /**
    * todo: Description.
    */
-  public onFormationCallback(mode: EWaypointArrivalType, patrolRetVal: number, index: TIndex): void {
+  public onProcessPoint(mode: EWaypointArrivalType, patrolRetVal: Optional<number>, index: TIndex): void {
     if (patrolRetVal === 0) {
       this.state.formation = "line";
     } else if (patrolRetVal === 1) {

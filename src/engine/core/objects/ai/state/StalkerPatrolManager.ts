@@ -12,7 +12,11 @@ import { abort, assert } from "@/engine/core/utils/assertion";
 import { IWaypointData, parseConditionsList, pickSectionFromCondList, TConditionList } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { isObjectAtWaypoint } from "@/engine/core/utils/object";
-import { chooseLookPoint, isObjectStandingOnTerminalWaypoint } from "@/engine/core/utils/patrol";
+import {
+  chooseLookPoint,
+  isObjectStandingOnTerminalWaypoint,
+  isPatrolTeamSynchronized,
+} from "@/engine/core/utils/patrol";
 import { setObjectActiveSchemeSignal } from "@/engine/core/utils/scheme";
 import {
   ClientObject,
@@ -263,7 +267,7 @@ export class StalkerPatrolManager {
     const now: TTimestamp = time_global();
 
     // If sync is needed and time passed, check state and write signal when should.
-    if (this.synchronizationSignal && now >= this.synchronizationSignalTimeout && this.isSynchronized()) {
+    if (this.synchronizationSignal && now >= this.synchronizationSignalTimeout && isPatrolTeamSynchronized(this.team)) {
       setObjectActiveSchemeSignal(this.object, this.synchronizationSignal);
       this.synchronizationSignal = null; // Reset.
     }
@@ -316,31 +320,6 @@ export class StalkerPatrolManager {
   /**
    * todo: Description.
    */
-  public isSynchronized(): boolean {
-    if (this.team) {
-      const state: LuaTable<TNumberId, boolean> = registry.patrolSynchronization.get(this.team);
-
-      for (const [id, isFlagged] of state) {
-        const object: Optional<ClientObject> = level.object_by_id(id);
-
-        // Check sync stat of the object if it is online and alive.
-        if (object && object.alive()) {
-          if (!isFlagged) {
-            return false;
-          }
-        } else {
-          // Delete objects that cannot be synchronized.
-          registry.patrolSynchronization.get(this.team).delete(id);
-        }
-      }
-    }
-
-    return true;
-  }
-
-  /**
-   * todo: Description.
-   */
   public onExtrapolate(object: ClientObject): void {
     this.canUseGetCurrentPointIndex = true;
     this.currentPointInitTime = time_global();
@@ -361,11 +340,11 @@ export class StalkerPatrolManager {
       return;
     }
 
-    const sigTm: Optional<TName> = this.patrolLookWaypoints!.get(this.lastLookIndex!).sigtm as Optional<TName>;
+    const signalOnTime: Optional<TName> = this.patrolLookWaypoints!.get(this.lastLookIndex!).sigtm as Optional<TName>;
 
     // Animation is finished, have signal to set -> set it for activeScheme.
-    if (sigTm) {
-      setObjectActiveSchemeSignal(this.object, sigTm);
+    if (signalOnTime) {
+      setObjectActiveSchemeSignal(this.object, signalOnTime);
     }
 
     // Animation is finished, currently on terminal waypoint -> notify logics about finally reaching the point.
@@ -398,13 +377,16 @@ export class StalkerPatrolManager {
   }
 
   /**
-   * todo: Description.
+   * Handle animation turn end and starting to correctly animate.
+   * Usually means that look point reached and prepared, animation just starting and required signals emit.
+   * Sync requirement may block signals emitting for a while.
    */
   public onAnimationTurnEnd(): void {
     logger.format("Animation turn end for: '%s' at '%s'", this.object.name(), this.lastLookIndex);
 
     const waypoint: IWaypointData = this.patrolLookWaypoints!.get(this.lastLookIndex as TIndex);
 
+    // Sync is required, wait for others.
     if (waypoint.syn) {
       this.synchronizationSignal = waypoint.sig as Optional<TName>;
 
@@ -421,6 +403,7 @@ export class StalkerPatrolManager {
         registry.patrolSynchronization.get(this.team).set(this.object.id(), true);
       }
     } else {
+      // Emit turn signal since not blocked by sync.
       setObjectActiveSchemeSignal(this.object, waypoint.sig ? waypoint.sig : "turn_end");
     }
 
@@ -441,13 +424,12 @@ export class StalkerPatrolManager {
         this.patrolLookName
       );
 
-      // todo: Probably simplify, never return true?
       if (
-        this.patrolCallbackDescriptor.callback(
+        this.patrolCallbackDescriptor.callback.call(
           this.patrolCallbackDescriptor.context,
           EWaypointArrivalType.AFTER_ANIMATION_TURN,
           this.retvalAfterRotation,
-          this.lastWalkIndex
+          this.lastWalkIndex as TIndex
         )
       ) {
         // Nothing to do here.
@@ -496,7 +478,7 @@ export class StalkerPatrolManager {
     const retv = this.patrolWalkWaypoints.get(index).ret;
 
     if (retv) {
-      const retvNum = tonumber(retv);
+      const retvNum: Optional<number> = tonumber(retv) as Optional<number>;
 
       if (!this.patrolCallbackDescriptor) {
         abort(
@@ -507,7 +489,7 @@ export class StalkerPatrolManager {
       }
 
       if (
-        this.patrolCallbackDescriptor.callback(
+        this.patrolCallbackDescriptor.callback.call(
           this.patrolCallbackDescriptor.context,
           EWaypointArrivalType.BEFORE_ANIMATION_TURN,
           retvNum,
