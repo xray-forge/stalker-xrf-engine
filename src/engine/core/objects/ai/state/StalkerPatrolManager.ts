@@ -34,6 +34,8 @@ const logger: LuaLogger = new LuaLogger($filename, { file: "ai_state" });
 /**
  * Manager handling patrol movement of stalker objects.
  * Responsible for patrolling schemes logic and mainly called from related schemes (walker, sleep, patrol).
+ *
+ * {@link https://xray-forge.github.io/stalker-xrf-book/script_engine/patrols.html patrols system}
  */
 export class StalkerPatrolManager {
   public static DEFAULT_PATROL_WAIT_TIME: TDuration = 10_000;
@@ -58,6 +60,7 @@ export class StalkerPatrolManager {
   public currentStateMoving!: EStalkerState;
   public currentStateStanding!: EStalkerState;
   public suggestedState: Optional<IPatrolSuggestedState> = null;
+  public patrolCallbackDescriptor: Optional<IPatrolCallbackDescriptor> = null;
 
   // Next timestamp to check synchronization of run-walk-sprint state.
   public keepStateUntil!: TTimestamp;
@@ -65,9 +68,17 @@ export class StalkerPatrolManager {
 
   public lastWalkIndex: Optional<TIndex> = null;
   public lastLookIndex: Optional<TIndex> = null;
-  public synSignal: Optional<string> = null;
-  public synSignalSetTm!: TDuration;
-  public patrolCallbackDescriptor: Optional<IPatrolCallbackDescriptor> = null;
+  public synchronizationSignal: Optional<TName> = null; // signal to set when team is synchronized
+  public synchronizationSignalTimeout: TTimestamp = 0; // timestamp to block sync check for some time
+
+  public isOnTerminalWaypoint: boolean = false;
+  public canUseGetCurrentPointIndex: Optional<boolean> = null;
+  public currentPointInitTime: Optional<number> = null;
+  public currentPointIndex: Optional<TIndex> = null;
+
+  public walkUntil!: number;
+  public runUntil!: number;
+  public retvalAfterRotation: Optional<number> = null;
 
   public patrolWalk: Optional<Patrol> = null;
   public patrolWalkName: Optional<TName> = null;
@@ -75,17 +86,6 @@ export class StalkerPatrolManager {
   public patrolLook: Optional<Patrol> = null;
   public patrolLookName: Optional<TName> = null;
   public patrolLookWaypoints: Optional<LuaArray<IWaypointData>> = null;
-
-  public isOnTerminalWaypoint: Optional<boolean> = null;
-  public useDefaultSound!: boolean;
-
-  public currentPointInitTime: Optional<number> = null;
-  public currentPointIndex: Optional<TIndex> = null;
-  public canUseGetCurrentPointIndex: Optional<boolean> = null;
-
-  public walkUntil!: number;
-  public runUntil!: number;
-  public retvalAfterRotation: Optional<number> = null;
 
   public defaultStateStanding!: TConditionList;
   public defaultStateMoving1!: TConditionList;
@@ -149,8 +149,8 @@ export class StalkerPatrolManager {
       patrolSuggestedStates?.moving ?? StalkerPatrolManager.DEFAULT_PATROL_STATE_MOVING
     );
 
-    this.synSignalSetTm = now + 1000;
-    this.synSignal = null;
+    this.synchronizationSignalTimeout = now + 1000;
+    this.synchronizationSignal = null;
 
     this.patrolCallbackDescriptor = patrolCallbackDescriptor;
 
@@ -221,7 +221,6 @@ export class StalkerPatrolManager {
       this.currentPointIndex = null;
       this.lastWalkIndex = null;
       this.lastLookIndex = null;
-      this.useDefaultSound = false;
 
       // Reset previous patrols.
       this.object.patrol_path_make_inactual();
@@ -264,9 +263,9 @@ export class StalkerPatrolManager {
     const now: TTimestamp = time_global();
 
     // If sync is needed and time passed, check state and write signal when should.
-    if (this.synSignal && now >= this.synSignalSetTm && this.isSynchronized()) {
-      setObjectActiveSchemeSignal(this.object, this.synSignal);
-      this.synSignal = null; // Reset.
+    if (this.synchronizationSignal && now >= this.synchronizationSignalTimeout && this.isSynchronized()) {
+      setObjectActiveSchemeSignal(this.object, this.synchronizationSignal);
+      this.synchronizationSignal = null; // Reset.
     }
 
     // todo: explain.
@@ -407,11 +406,11 @@ export class StalkerPatrolManager {
     const waypoint: IWaypointData = this.patrolLookWaypoints!.get(this.lastLookIndex as TIndex);
 
     if (waypoint.syn) {
-      this.synSignal = waypoint.sig as Optional<TName>;
+      this.synchronizationSignal = waypoint.sig as Optional<TName>;
 
       // Assert that `syn` signal is set.
       assert(
-        this.synSignal,
+        this.synchronizationSignal,
         "Object '%s': path_look '%s': syn flag used without sig flag.",
         this.object.name(),
         this.patrolLookName
