@@ -2,15 +2,6 @@ import type { EStalkerState } from "@/engine/core/objects/animation/types/state_
 import type { AnyObject, Optional, TIndex } from "@/engine/lib/types";
 
 /**
- * State of stalker movement.
- */
-export enum ECurrentMovementState {
-  NONE = 0,
-  MOVING = 1,
-  STANDING = 2,
-}
-
-/**
  * Waypoint arrival type.
  */
 export enum EWaypointArrivalType {

@@ -5,12 +5,11 @@ import { AbstractSchemeManager } from "@/engine/core/objects/ai/scheme";
 import { ISchemeMobWalkerState } from "@/engine/core/schemes/mob_walker/ISchemeMobWalkerState";
 import { abort } from "@/engine/core/utils/assertion";
 import { IWaypointData, parseWaypointsData, pickSectionFromCondList } from "@/engine/core/utils/ini";
-import { isObjectAtWaypoint } from "@/engine/core/utils/object";
-import { chooseLookPoint } from "@/engine/core/utils/patrol";
+import { choosePatrolWaypointByFlags, isObjectAtWaypoint } from "@/engine/core/utils/patrol";
 import { isMonsterScriptCaptured, scriptCaptureMonster, scriptCommandMonster } from "@/engine/core/utils/scheme";
 import { copyVector } from "@/engine/core/utils/vector";
 import { EMonsterState } from "@/engine/lib/constants/monsters";
-import { NIL, TRUE } from "@/engine/lib/constants/words";
+import { TRUE } from "@/engine/lib/constants/words";
 import {
   ClientObject,
   EScheme,
@@ -183,7 +182,7 @@ export class MobWalkerManager extends AbstractSchemeManager<ISchemeMobWalkerStat
       return;
     }
 
-    const [ptChosenIdx] = chooseLookPoint(this.patrolLook!, this.pathLookInfo!, searchForFlags);
+    const [ptChosenIdx] = choosePatrolWaypointByFlags(this.patrolLook!, this.pathLookInfo!, searchForFlags);
 
     if (ptChosenIdx) {
       const suggestedWaitTime = this.pathLookInfo!.get(ptChosenIdx)["t"];

@@ -7,8 +7,8 @@ import { EStalkerState, ILookTargetDescriptor } from "@/engine/core/objects/anim
 import { ICampPoint, ISchemeCamperState } from "@/engine/core/schemes/camper/ISchemeCamperState";
 import { abort } from "@/engine/core/utils/assertion";
 import { parseWaypointsData } from "@/engine/core/utils/ini";
-import { isObjectAtWaypoint, isObjectFacingDanger } from "@/engine/core/utils/object";
-import { isObjectStandingOnTerminalWaypoint } from "@/engine/core/utils/patrol";
+import { isObjectFacingDanger } from "@/engine/core/utils/object";
+import { isObjectAtTerminalWaypoint, isObjectAtWaypoint } from "@/engine/core/utils/patrol";
 import { createVector } from "@/engine/core/utils/vector";
 import { ClientObject, DangerObject, ISchemeEventHandler, Optional, Patrol, Vector } from "@/engine/lib/types";
 
@@ -135,7 +135,7 @@ export class ActionCamperPatrol extends action_base implements ISchemeEventHandl
     }
 
     if (this.state.shoot === "terminal") {
-      const [isOnTerminalWaypoint] = isObjectStandingOnTerminalWaypoint(
+      const [isOnTerminalWaypoint] = isObjectAtTerminalWaypoint(
         this.patrolManager.object,
         this.patrolManager.patrolWalk as Patrol
       );
@@ -159,12 +159,12 @@ export class ActionCamperPatrol extends action_base implements ISchemeEventHandl
       if (this.state.mem_enemy === null || time_global() - this.state.mem_enemy > this.state.idle) {
         this.enemy = null;
         this.state.mem_enemy = null;
-        this.patrolManager.continue();
+        this.patrolManager.setup();
       }
     } else {
       if (this.state.mem_enemy !== null) {
         this.state.mem_enemy = null;
-        this.patrolManager.continue();
+        this.patrolManager.setup();
       }
     }
 
@@ -280,7 +280,7 @@ export class ActionCamperPatrol extends action_base implements ISchemeEventHandl
               setStalkerState(this.object, EStalkerState.HIDE, null, null, position, null);
             }
           } else {
-            this.patrolManager.continue();
+            this.patrolManager.setup();
             this.patrolManager.update();
           }
         }
@@ -299,7 +299,7 @@ export class ActionCamperPatrol extends action_base implements ISchemeEventHandl
 
     if (this.danger) {
       this.danger = false;
-      this.patrolManager.continue();
+      this.patrolManager.setup();
     }
 
     if (this.state.sniper === true) {
@@ -310,7 +310,7 @@ export class ActionCamperPatrol extends action_base implements ISchemeEventHandl
 
         this.scan(this.state.wp_flag as number);
 
-        const [isOnWaypoint] = isObjectStandingOnTerminalWaypoint(
+        const [isOnWaypoint] = isObjectAtTerminalWaypoint(
           this.patrolManager.object,
           this.patrolManager.patrolWalk as Patrol
         );
@@ -320,7 +320,7 @@ export class ActionCamperPatrol extends action_base implements ISchemeEventHandl
         }
 
         if (this.scantime !== null && time_global() - this.scantime >= this.state.scantime_free) {
-          this.patrolManager.continue();
+          this.patrolManager.setup();
         }
       } else {
         this.scantime = null;

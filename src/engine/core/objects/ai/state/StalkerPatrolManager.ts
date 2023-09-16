@@ -1,8 +1,7 @@
-import { callback, level, move, patrol, time_global } from "xray16";
+import { callback, move, patrol, time_global } from "xray16";
 
 import { registry, setStalkerState } from "@/engine/core/database";
 import {
-  ECurrentMovementState,
   EStalkerState,
   EWaypointArrivalType,
   IPatrolCallbackDescriptor,
@@ -11,10 +10,10 @@ import {
 import { abort, assert } from "@/engine/core/utils/assertion";
 import { IWaypointData, parseConditionsList, pickSectionFromCondList, TConditionList } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { isObjectAtWaypoint } from "@/engine/core/utils/object";
 import {
-  chooseLookPoint,
-  isObjectStandingOnTerminalWaypoint,
+  choosePatrolWaypointByFlags,
+  isObjectAtTerminalWaypoint,
+  isObjectAtWaypoint,
   isPatrolTeamSynchronized,
 } from "@/engine/core/utils/patrol";
 import { setObjectActiveSchemeSignal } from "@/engine/core/utils/scheme";
@@ -53,36 +52,36 @@ export class StalkerPatrolManager {
   // Minimal time to run before checking whether state can switch.
   public static RUN_STATE_DURATION: TDuration = 2000;
 
-  // Distances to coordinate current movement (walk, run, sprint)
-  public static DISTANCE_TO_WALK_SQR: TDistance = 10 * 10;
-  public static DISTANCE_TO_RUN_SQR: TDistance = 50 * 50;
+  public static DISTANCE_TO_WALK_SQR: TDistance = 10 * 10; // Distances to coordinate current walk movement
+  public static DISTANCE_TO_RUN_SQR: TDistance = 50 * 50; // Distances to coordinate current run movement
 
+  // Object linked to the manager.
   public readonly object: ClientObject;
+  public team: Optional<TName> = null;
 
-  public team: Optional<string> = null;
-  public state: Optional<ECurrentMovementState> = null;
+  public suggestedStates: Optional<IPatrolSuggestedState> = null;
   public currentStateMoving!: EStalkerState;
   public currentStateStanding!: EStalkerState;
-  public suggestedState: Optional<IPatrolSuggestedState> = null;
+
+  // Descriptor of callback to call on waypoint update emit.
   public patrolCallbackDescriptor: Optional<IPatrolCallbackDescriptor> = null;
+  public retvalAfterRotation: Optional<number> = null;
 
   // Next timestamp to check synchronization of run-walk-sprint state.
-  public keepStateUntil!: TTimestamp;
+  public keepStateUntil: TTimestamp = 0;
   public patrolWaitTime: Optional<TDuration> = null;
 
-  public lastWalkIndex: Optional<TIndex> = null;
-  public lastLookIndex: Optional<TIndex> = null;
+  public lastWalkPointIndex: Optional<TIndex> = null; // last active point of walk patrol
+  public lastLookPointIndex: Optional<TIndex> = null; // last active point of look patrol
   public synchronizationSignal: Optional<TName> = null; // signal to set when team is synchronized
   public synchronizationSignalTimeout: TTimestamp = 0; // timestamp to block sync check for some time
 
-  public isOnTerminalWaypoint: boolean = false;
-  public canUseGetCurrentPointIndex: Optional<boolean> = null;
-  public currentPointInitTime: Optional<number> = null;
+  public canUseGetCurrentPointIndex: boolean = false;
+  public currentPointInitAt: TTimestamp = 0;
   public currentPointIndex: Optional<TIndex> = null;
 
-  public walkUntil!: number;
-  public runUntil!: number;
-  public retvalAfterRotation: Optional<number> = null;
+  public walkUntil: TTimestamp = 0; // Delay to switch patrols smoothly.
+  public runUntil: TTimestamp = 0; // Delay to switch patrols smoothly.
 
   public patrolWalk: Optional<Patrol> = null;
   public patrolWalkName: Optional<TName> = null;
@@ -138,7 +137,7 @@ export class StalkerPatrolManager {
     const now: TTimestamp = time_global();
 
     this.patrolWaitTime = StalkerPatrolManager.DEFAULT_PATROL_WAIT_TIME;
-    this.suggestedState = patrolSuggestedStates;
+    this.suggestedStates = patrolSuggestedStates;
 
     this.defaultStateStanding = parseConditionsList(
       patrolSuggestedStates?.standing ?? StalkerPatrolManager.DEFAULT_PATROL_STATE_STANDING
@@ -221,17 +220,16 @@ export class StalkerPatrolManager {
       this.keepStateUntil = now;
 
       this.retvalAfterRotation = null;
-      this.isOnTerminalWaypoint = false;
       this.currentPointIndex = null;
-      this.lastWalkIndex = null;
-      this.lastLookIndex = null;
+      this.lastWalkPointIndex = null;
+      this.lastLookPointIndex = null;
 
       // Reset previous patrols.
       this.object.patrol_path_make_inactual();
     }
 
     // Perform movement update based on current paths.
-    this.setupMovementByPatrolPath();
+    this.setup();
   }
 
   /**
@@ -251,13 +249,31 @@ export class StalkerPatrolManager {
     }
 
     this.object.set_path_type(EClientObjectPath.LEVEL_PATH);
+
+    // todo: Should remove callback from init?
   }
 
   /**
    * todo: Description.
    */
-  public continue(): void {
-    this.setupMovementByPatrolPath();
+  public setup(): void {
+    this.object.set_path_type(EClientObjectPath.PATROL_PATH);
+    this.object.set_detail_path_type(move.line);
+
+    if (this.currentPointIndex) {
+      this.object.set_start_point(this.currentPointIndex);
+      this.object.set_patrol_path(this.patrolWalkName as TName, patrol.next, patrol.continue, true);
+    } else {
+      this.object.set_patrol_path(this.patrolWalkName as TName, patrol.nearest, patrol.continue, true);
+    }
+
+    const [isTerminalPoint, terminalPointIndex] = isObjectAtTerminalWaypoint(this.object, this.patrolWalk as Patrol);
+
+    if (isTerminalPoint) {
+      this.onWalkWaypoint(this.object, null, terminalPointIndex);
+    } else {
+      setStalkerState(this.object, this.currentStateMoving);
+    }
   }
 
   /**
@@ -273,7 +289,7 @@ export class StalkerPatrolManager {
     }
 
     // todo: explain.
-    if (this.canUseGetCurrentPointIndex && this.lastWalkIndex === null && now >= this.keepStateUntil) {
+    if (this.canUseGetCurrentPointIndex && this.lastWalkPointIndex === null && now >= this.keepStateUntil) {
       this.keepStateUntil = now + StalkerPatrolManager.KEEP_STATE_DURATION;
 
       const distance: TDistance = this.object
@@ -293,54 +309,19 @@ export class StalkerPatrolManager {
   }
 
   /**
-   * todo: Description.
-   */
-  public setupMovementByPatrolPath(): void {
-    this.object.set_path_type(EClientObjectPath.PATROL_PATH);
-    this.object.set_detail_path_type(move.line);
-
-    if (this.currentPointIndex) {
-      this.object.set_start_point(this.currentPointIndex);
-      this.object.set_patrol_path(this.patrolWalkName as TName, patrol.next, patrol.continue, true);
-    } else {
-      this.object.set_patrol_path(this.patrolWalkName as TName, patrol.nearest, patrol.continue, true);
-    }
-
-    this.state = ECurrentMovementState.MOVING;
-
-    const [isTerminalPoint, index] = isObjectStandingOnTerminalWaypoint(this.object, this.patrolWalk as Patrol);
-
-    if (isTerminalPoint) {
-      this.onWalkWaypoint(this.object, null, index);
-    } else {
-      setStalkerState(this.object, this.currentStateMoving);
-    }
-  }
-
-  /**
-   * todo: Description.
-   */
-  public onExtrapolate(object: ClientObject): void {
-    this.canUseGetCurrentPointIndex = true;
-    this.currentPointInitTime = time_global();
-    this.currentPointIndex = this.object.get_current_point_index();
-
-    logger.format("Extrapolate patrol point for: '%s' at '%s'", this.object.name(), this.currentPointIndex);
-  }
-
-  /**
    * Handle animation update on some path_look point.
    * Fired on timeout or when animation is finished.
    */
   public onAnimationEnd(): void {
-    logger.format("Animation end for: '%s' at '%s'", this.object.name(), this.lastLookIndex);
+    logger.format("Animation end for: '%s' at '%s'", this.object.name(), this.lastLookPointIndex);
 
     // No active scheme for logics update, just skip update.
     if (registry.objects.get(this.object.id()).activeScheme === null) {
       return;
     }
 
-    const signalOnTime: Optional<TName> = this.patrolLookWaypoints!.get(this.lastLookIndex!).sigtm as Optional<TName>;
+    const signalOnTime: Optional<TName> = this.patrolLookWaypoints!.get(this.lastLookPointIndex!)
+      .sigtm as Optional<TName>;
 
     // Animation is finished, have signal to set -> set it for activeScheme.
     if (signalOnTime) {
@@ -348,9 +329,9 @@ export class StalkerPatrolManager {
     }
 
     // Animation is finished, currently on terminal waypoint -> notify logics about finally reaching the point.
-    if (this.lastWalkIndex && (this.patrolWalk as Patrol).terminal(this.lastWalkIndex)) {
-      if (isObjectAtWaypoint(this.object, this.patrolWalk!, this.lastWalkIndex)) {
-        return this.onWalkWaypoint(this.object, null, this.lastWalkIndex);
+    if (this.lastWalkPointIndex && (this.patrolWalk as Patrol).terminal(this.lastWalkPointIndex)) {
+      if (isObjectAtWaypoint(this.object, this.patrolWalk!, this.lastWalkPointIndex)) {
+        return this.onWalkWaypoint(this.object, null, this.lastWalkPointIndex);
       }
 
       this.reset(
@@ -359,7 +340,7 @@ export class StalkerPatrolManager {
         this.patrolLookName,
         this.patrolLookWaypoints,
         this.team,
-        this.suggestedState,
+        this.suggestedStates,
         this.patrolCallbackDescriptor
       );
     } else {
@@ -368,7 +349,7 @@ export class StalkerPatrolManager {
 
       // Still have to reach final point, no way to synchronize before it.
       assert(
-        !this.patrolLookWaypoints!.get(this.lastLookIndex!).syn,
+        !this.patrolLookWaypoints!.get(this.lastLookPointIndex!).syn,
         "Object '%s': path_walk '%s': syn flag used on non-terminal waypoint.",
         this.object.name(),
         this.patrolWalkName
@@ -382,9 +363,9 @@ export class StalkerPatrolManager {
    * Sync requirement may block signals emitting for a while.
    */
   public onAnimationTurnEnd(): void {
-    logger.format("Animation turn end for: '%s' at '%s'", this.object.name(), this.lastLookIndex);
+    logger.format("Animation turn end for: '%s' at '%s'", this.object.name(), this.lastLookPointIndex);
 
-    const waypoint: IWaypointData = this.patrolLookWaypoints!.get(this.lastLookIndex as TIndex);
+    const waypoint: IWaypointData = this.patrolLookWaypoints!.get(this.lastLookPointIndex as TIndex);
 
     // Sync is required, wait for others.
     if (waypoint.syn) {
@@ -429,7 +410,7 @@ export class StalkerPatrolManager {
           this.patrolCallbackDescriptor.context,
           EWaypointArrivalType.AFTER_ANIMATION_TURN,
           this.retvalAfterRotation,
-          this.lastWalkIndex as TIndex
+          this.lastWalkPointIndex as TIndex
         )
       ) {
         // Nothing to do here.
@@ -440,7 +421,7 @@ export class StalkerPatrolManager {
           this.currentStateStanding,
           { context: this, callback: this.onAnimationEnd, turnEndCallback: this.onAnimationTurnEnd },
           this.patrolWaitTime,
-          { lookPosition: (this.patrolLook as Patrol).point(this.lastLookIndex as TIndex), lookObjectId: null }
+          { lookPosition: (this.patrolLook as Patrol).point(this.lastLookPointIndex as TIndex), lookObjectId: null }
         );
       }
     }
@@ -455,7 +436,7 @@ export class StalkerPatrolManager {
       "Waypoint `walk`: '%s' action '%s', '%s' -> '%s'",
       this.object.name(),
       actionType,
-      this.lastWalkIndex,
+      this.lastWalkPointIndex,
       index
     );
 
@@ -464,8 +445,7 @@ export class StalkerPatrolManager {
       return;
     }
 
-    this.lastWalkIndex = index;
-    this.isOnTerminalWaypoint = (this.patrolWalk as Patrol).terminal(index);
+    this.lastWalkPointIndex = index;
 
     logger.format("Walk index set: '%s' -> '%s'", this.object.name(), index);
 
@@ -538,13 +518,13 @@ export class StalkerPatrolManager {
     index: Optional<TIndex>,
     flags: Flags32
   ): void {
-    const [lookPointIndex] = chooseLookPoint(this.patrolLook as Patrol, this.patrolLookWaypoints!, flags);
+    const [lookPointIndex] = choosePatrolWaypointByFlags(this.patrolLook as Patrol, this.patrolLookWaypoints!, flags);
 
     logger.format(
       "Waypoint `look`: '%s' action '%s', '%s' -> '%s', selected '%s'",
       this.object.name(),
       actionType,
-      this.lastWalkIndex,
+      this.lastWalkPointIndex,
       index,
       lookPointIndex
     );
@@ -571,9 +551,9 @@ export class StalkerPatrolManager {
       if (suggestedWaitTime === "*") {
         this.patrolWaitTime = null;
       } else {
-        const tm: TDuration = tonumber(suggestedWaitTime)!;
+        const waitTime: TDuration = tonumber(suggestedWaitTime)!;
 
-        if (tm !== 0 && (tm < 1000 || tm > 45000)) {
+        if (waitTime !== 0 && (waitTime < 1000 || waitTime > 45000)) {
           abort(
             "Object '%s': path_look '%s': flag 't': incorrect time specified " +
               "(* or number in interval [1000, 45000] is expected)",
@@ -582,7 +562,7 @@ export class StalkerPatrolManager {
           );
         }
 
-        this.patrolWaitTime = tm;
+        this.patrolWaitTime = waitTime;
       }
     } else {
       this.patrolWaitTime = StalkerPatrolManager.DEFAULT_PATROL_WAIT_TIME;
@@ -594,18 +574,35 @@ export class StalkerPatrolManager {
 
     logger.format("Look index set: '%s' -> '%s'", this.object.name(), lookPointIndex);
 
-    this.lastLookIndex = lookPointIndex;
+    this.lastLookPointIndex = lookPointIndex;
 
     setStalkerState(
       this.object,
       this.currentStateStanding,
       { context: this, callback: this.onAnimationEnd, turnEndCallback: this.onAnimationTurnEnd },
       this.patrolWaitTime,
-      { lookPosition: (this.patrolLook as Patrol).point(this.lastLookIndex as TIndex), lookObjectId: null }
+      { lookPosition: (this.patrolLook as Patrol).point(this.lastLookPointIndex as TIndex), lookObjectId: null }
     );
 
-    this.state = ECurrentMovementState.STANDING;
-
     this.update();
+  }
+
+  /**
+   * Handle object extrapolate callback.
+   *
+   * @param object - target object callback is called for
+   * @param pointIndex - index of extrapolate point
+   */
+  public onExtrapolate(object: ClientObject, pointIndex: TIndex): void {
+    this.canUseGetCurrentPointIndex = true;
+    this.currentPointInitAt = time_global();
+    this.currentPointIndex = this.object.get_current_point_index();
+
+    logger.format(
+      "Extrapolate patrol point for: '%s' at '%s' | '%s'",
+      this.object.name(),
+      this.currentPointIndex,
+      pointIndex
+    );
   }
 }

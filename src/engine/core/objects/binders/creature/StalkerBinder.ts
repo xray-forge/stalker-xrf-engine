@@ -435,7 +435,7 @@ export class StalkerBinder extends object_binder {
   }
 
   /**
-   * todo: Description.
+   * Setup stalker binder callback on going online.
    */
   public setupCallbacks(): void {
     this.object.set_patrol_extrapolate_callback(this.onPatrolExtrapolate, this);
@@ -446,7 +446,7 @@ export class StalkerBinder extends object_binder {
   }
 
   /**
-   * todo: Description.
+   * Reset callbacks and unsubscribe from events on going offline.
    */
   public resetCallbacks(): void {
     this.object.set_patrol_extrapolate_callback(null);
@@ -550,13 +550,13 @@ export class StalkerBinder extends object_binder {
   /**
    * todo: Description.
    */
-  public onPatrolExtrapolate(currentPoint: TNumberId): boolean {
+  public onPatrolExtrapolate(pointIndex: TIndex): boolean {
     if (this.state.activeSection) {
-      emitSchemeEvent(this.object, this.state[this.state.activeScheme!]!, ESchemeEvent.EXTRAPOLATE);
-      this.state.patrolManager!.onExtrapolate(this.object);
+      emitSchemeEvent(this.object, this.state[this.state.activeScheme!]!, ESchemeEvent.EXTRAPOLATE, pointIndex);
+      (this.state.patrolManager as StalkerPatrolManager).onExtrapolate(this.object, pointIndex);
     }
 
-    return new patrol(this.object.patrol()!).flags(currentPoint).get() === 0;
+    return new patrol(this.object.patrol() as TName).flags(pointIndex).get() === 0;
   }
 
   /**
