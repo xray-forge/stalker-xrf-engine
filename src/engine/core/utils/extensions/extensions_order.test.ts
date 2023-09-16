@@ -25,7 +25,7 @@ describe("'extensions_order' utils", () => {
     saveExtensionsOrder($fromArray([mockExtension("a"), mockExtension("b"), mockExtension("c")]));
 
     expect(lfs.mkdir).toHaveBeenCalledWith("$game_saves$\\");
-    expect(io.open).toHaveBeenCalledWith("$game_saves$\\extensions_order.scop", "wb");
+    expect(io.open).toHaveBeenCalledWith("$game_saves$\\extensions_order.scopo", "wb");
     expect(file.write).toHaveBeenCalledWith(JSON.stringify({ 1: "a", 2: "b", 3: "c" }));
 
     expect(file.content).toBe(JSON.stringify({ 1: "a", 2: "b", 3: "c" }));
@@ -47,7 +47,7 @@ describe("'extensions_order' utils", () => {
     expect(loadExtensionsOrder()).toEqual({ a: 1, b: 33 });
 
     expect(marshal.decode).toHaveBeenCalledWith(file.content);
-    expect(io.open).toHaveBeenCalledWith("$game_saves$\\extensions_order.scop", "rb");
+    expect(io.open).toHaveBeenCalledWith("$game_saves$\\extensions_order.scopo", "rb");
 
     file.content = "";
     expect(loadExtensionsOrder()).toEqualLuaArrays([]);
