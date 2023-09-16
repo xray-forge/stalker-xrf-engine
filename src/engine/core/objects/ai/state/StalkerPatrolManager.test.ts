@@ -14,7 +14,7 @@ describe("StalkerPatrolManager class", () => {
 
     manager.initialize();
 
-    expect(object.set_callback).toHaveBeenCalledWith(callback.patrol_path_in_point, manager.onWaypoint, manager);
+    expect(object.set_callback).toHaveBeenCalledWith(callback.patrol_path_in_point, manager.onWalkWaypoint, manager);
   });
 
   it.todo("should correctly reset");

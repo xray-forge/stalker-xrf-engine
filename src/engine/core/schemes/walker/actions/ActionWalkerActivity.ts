@@ -30,7 +30,7 @@ const ASSOC_TBL = {
 @LuabindClass()
 export class ActionWalkerActivity extends action_base implements ISchemeEventHandler {
   public readonly state: ISchemeWalkerState;
-  public readonly moveManager: StalkerPatrolManager;
+  public readonly patrolManager: StalkerPatrolManager;
 
   public availableActions: LuaTable<number, IAnimpointActionDescriptor>;
 
@@ -41,7 +41,7 @@ export class ActionWalkerActivity extends action_base implements ISchemeEventHan
     super(null, ActionWalkerActivity.__name);
 
     this.state = state;
-    this.moveManager = registry.objects.get(object.id()).patrolManager!;
+    this.patrolManager = registry.objects.get(object.id()).patrolManager!;
 
     this.state.description = EStalkerState.WALKER_CAMP;
     this.availableActions = animpoint_predicates.get(this.state.description);
@@ -74,7 +74,7 @@ export class ActionWalkerActivity extends action_base implements ISchemeEventHan
   public override finalize(): void {
     logger.info("Deactivate walker scheme:", this.object.name());
 
-    this.moveManager.finalize();
+    this.patrolManager.finalize();
 
     if (this.isInCamp === true) {
       this.campStoryManager!.unregisterObject(this.object.id());
@@ -104,7 +104,7 @@ export class ActionWalkerActivity extends action_base implements ISchemeEventHan
       this.state.path_look_info = parseWaypointsData(this.state.path_look);
     }
 
-    this.moveManager.reset(
+    this.patrolManager.reset(
       this.state.path_walk,
       this.state.path_walk_info,
       this.state.path_look,
@@ -120,7 +120,7 @@ export class ActionWalkerActivity extends action_base implements ISchemeEventHan
   public override execute(): void {
     super.execute();
 
-    this.moveManager.update();
+    this.patrolManager.update();
 
     const camp: Optional<CampManager> = getCampZoneForPosition(this.object.position());
 

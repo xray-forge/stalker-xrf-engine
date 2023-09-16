@@ -2,26 +2,50 @@ import type { TInfoPortion } from "@/engine/lib/constants/info_portions";
 import type { Flags32, LuaArray, Optional, TCount, TIndex, TName, TProbability, TSection } from "@/engine/lib/types";
 
 /**
- * Data descriptor describing waypoint.
+ * Data descriptor describing waypoint logics.
  */
 export interface IWaypointData {
-  a?: any;
+  /**
+   * Animation state when moving on waypoint.
+   */
+  a: Optional<TConditionList>;
   s?: string;
   b?: string;
   r?: string;
-  ret?: string;
-  p?: string;
+  /**
+   * todo;
+   */
+  ret: Optional<string>;
+  /**
+   * Probability to stop on walk point when reaching it.
+   * Expected number in range 0-100.
+   */
+  p: Optional<string>;
   d?: string;
   radius?: number;
   state?: string;
-  sigtm?: string;
+  /**
+   * Signal to set on animation termination (callback / finish animation).
+   */
+  sigtm?: TName;
   minr?: string;
   maxr?: string;
   c?: string;
-  sig?: string;
+  /**
+   * Signal to set when reaching `walk` waypoint.
+   */
+  sig: Optional<TName>;
+  /**
+   * Whether patrol should synchronize on the waypoint.
+   * Forces all patrol participants to come to the point before setting the flag.
+   */
   syn?: string;
   count?: number;
-  t?: number | "*";
+  /**
+   * Timeout for `look_point` animation.
+   * Describes time for stopping near `walk_point`.
+   */
+  t: Optional<number | "*">;
   flags: Flags32;
 }
 
@@ -53,6 +77,8 @@ export interface IConfigSwitchCondition {
   readonly infop_check: LuaArray<IConfigCondition>;
   readonly infop_set: LuaArray<IConfigCondition>;
 }
+
+export type TStringConditionList = string;
 
 export type TConditionList = LuaArray<IConfigSwitchCondition>;
 

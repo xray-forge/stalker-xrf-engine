@@ -200,13 +200,9 @@ export class MobWalkerManager extends AbstractSchemeManager<ISchemeMobWalkerStat
         }
       }
 
-      let suggestedAnimSet = this.pathLookInfo!.get(ptChosenIdx)["a"];
+      const suggestedAnimSet = this.pathLookInfo!.get(ptChosenIdx).a;
 
       if (suggestedAnimSet) {
-        if (suggestedAnimSet === NIL) {
-          suggestedAnimSet = null;
-        }
-
         this.curAnimSet = anim[pickSectionFromCondList(registry.actor, this.object, suggestedAnimSet) as TAnimationKey];
       } else {
         this.curAnimSet = DEFAULT_ANIM_STANDING;

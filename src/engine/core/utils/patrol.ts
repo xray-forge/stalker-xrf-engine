@@ -47,12 +47,14 @@ export function isPatrolInRestrictor(restrictorName: Optional<TName>, patrolName
 }
 
 /**
+ * Choose look point for patrol waypoint.
+ * Used to detect where to look when reached some `walk_patrol` point.
  * todo: Description.
  */
 export function chooseLookPoint(
   patrolLook: Patrol,
   pathLookInfo: LuaArray<IWaypointData>,
-  searchFor: Flags32
+  searchForFlags: Flags32
 ): LuaMultiReturn<[Optional<number>, number]> {
   let patrolChosenIdx: Optional<TIndex> = null;
 
@@ -62,10 +64,10 @@ export function chooseLookPoint(
   for (const lookIndex of $range(0, patrolLook.count() - 1)) {
     const thisVal = pathLookInfo.get(lookIndex).flags;
 
-    if (thisVal.equal(searchFor)) {
+    if (thisVal.equal(searchForFlags)) {
       numEqualPts = numEqualPts + 1;
 
-      const probabilityRaw = pathLookInfo.get(lookIndex)["p"];
+      const probabilityRaw = pathLookInfo.get(lookIndex).p;
       const pointLookWeight: number = probabilityRaw === null ? 100 : (tonumber(probabilityRaw) as number);
 
       ptsFoundTotalWeight = ptsFoundTotalWeight + pointLookWeight;

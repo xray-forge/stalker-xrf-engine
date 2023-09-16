@@ -42,7 +42,7 @@ export function emitSchemeEvent(
  * @param object - object to set signal in state for
  * @param signal - name of the signal to set
  */
-export function setActiveSchemeSignal(object: ClientObject, signal: TName): void {
+export function setObjectActiveSchemeSignal(object: ClientObject, signal: TName): void {
   const state: Optional<IRegistryObjectState> = registry.objects.get(object.id());
   const signals: Optional<TSchemeSignals> = state?.[state.activeScheme as EScheme]?.signals as Optional<TSchemeSignals>;
 

@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 
 import { IBaseSchemeState, IRegistryObjectState, registerObject, registry } from "@/engine/core/database";
-import { emitSchemeEvent, setActiveSchemeSignal } from "@/engine/core/utils/scheme/scheme_event";
+import { emitSchemeEvent, setObjectActiveSchemeSignal } from "@/engine/core/utils/scheme/scheme_event";
 import { ClientObject, EScheme, ESchemeEvent } from "@/engine/lib/types";
 import { mockSchemeState } from "@/fixtures/engine/mocks";
 import { mockClientGameObject } from "@/fixtures/xray";
@@ -74,25 +74,25 @@ describe("scheme logic utils", () => {
     expect(mockAction.onWaypoint).toHaveBeenCalledTimes(1);
   });
 
-  it("setActiveSchemeSignal should correctly set signals", () => {
+  it("setObjectActiveSchemeSignal should correctly set signals", () => {
     const object: ClientObject = mockClientGameObject();
 
-    expect(() => setActiveSchemeSignal(object, "test")).not.toThrow();
+    expect(() => setObjectActiveSchemeSignal(object, "test")).not.toThrow();
     expect(registry.objects.get(object.id())).toBeNull();
 
     const mockMeetState: IBaseSchemeState = mockSchemeState(EScheme.MEET);
     const state: IRegistryObjectState = registerObject(object);
 
-    expect(() => setActiveSchemeSignal(object, "test")).not.toThrow();
+    expect(() => setObjectActiveSchemeSignal(object, "test")).not.toThrow();
     expect(state).toEqual({ object });
 
     state[EScheme.MEET] = mockMeetState;
-    setActiveSchemeSignal(object, "test");
+    setObjectActiveSchemeSignal(object, "test");
     expect(state[EScheme.MEET]?.signals).toEqualLuaTables({});
 
     state.activeScheme = EScheme.MEET;
-    setActiveSchemeSignal(object, "test");
-    setActiveSchemeSignal(object, "another");
+    setObjectActiveSchemeSignal(object, "test");
+    setObjectActiveSchemeSignal(object, "another");
     expect(state[EScheme.MEET]?.signals).toEqualLuaTables({ test: true, another: true });
   });
 });

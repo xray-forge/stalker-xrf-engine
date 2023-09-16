@@ -155,8 +155,7 @@ export class ActionSleeperActivity extends action_base implements ISchemeEventHa
       null,
       null,
       // todo: Unsafe this casting, should be avoided later with updates
-      { obj: this, func: this.callback as unknown as AnyCallable },
-      true
+      { obj: this, func: this.callback as unknown as AnyCallable }
     );
     this.wasReset = true;
   }
