@@ -3,6 +3,7 @@ import { level, world_property } from "xray16";
 import { EvaluatorSectionActive } from "@/engine/core/objects/ai/planner/evaluators/EvaluatorSectionActive";
 import { AbstractScheme } from "@/engine/core/objects/ai/scheme";
 import { EActionId, EEvaluatorId } from "@/engine/core/objects/ai/types";
+import { EStalkerState } from "@/engine/core/objects/animation/types";
 import { ActionWalkerActivity } from "@/engine/core/schemes/walker/actions";
 import { ISchemeWalkerState } from "@/engine/core/schemes/walker/ISchemeWalkerState";
 import { assert } from "@/engine/core/utils/assertion";
@@ -51,7 +52,7 @@ export class SchemeWalker extends AbstractScheme {
     state.sound_idle = readIniString(ini, section, "sound_idle", false, "");
     state.use_camp = readIniBoolean(ini, section, "use_camp", false, false);
 
-    const baseMoving: TName = readIniString(ini, section, "def_state_moving1", false, "");
+    const baseMoving: EStalkerState = readIniString(ini, section, "def_state_moving1", false, "");
 
     state.suggested_state = {
       standing: readIniString(ini, section, "def_state_standing", false, ""),

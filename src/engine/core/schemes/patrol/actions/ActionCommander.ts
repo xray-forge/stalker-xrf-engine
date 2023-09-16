@@ -2,7 +2,7 @@ import { action_base, LuabindClass } from "xray16";
 
 import { getStalkerState, registry } from "@/engine/core/database";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
-import { StalkerMoveManager } from "@/engine/core/objects/ai/state/StalkerMoveManager";
+import { StalkerPatrolManager } from "@/engine/core/objects/ai/state/StalkerPatrolManager";
 import { EStalkerState } from "@/engine/core/objects/animation/types";
 import { ISchemePatrolState } from "@/engine/core/schemes/patrol";
 import { parseWaypointsData } from "@/engine/core/utils/ini/ini_parse";
@@ -14,7 +14,7 @@ import { ClientObject, ISchemeEventHandler, Optional } from "@/engine/lib/types"
 @LuabindClass()
 export class ActionCommander extends action_base implements ISchemeEventHandler {
   public readonly state: ISchemePatrolState;
-  public readonly moveManager: StalkerMoveManager;
+  public readonly moveManager: StalkerPatrolManager;
 
   public currentState: EStalkerState = EStalkerState.PATROL;
   public previousState: Optional<EStalkerState> = null;
@@ -22,7 +22,7 @@ export class ActionCommander extends action_base implements ISchemeEventHandler 
   public constructor(state: ISchemePatrolState, object: ClientObject) {
     super(null, ActionCommander.__name);
     this.state = state;
-    this.moveManager = registry.objects.get(object.id()).moveManager!;
+    this.moveManager = registry.objects.get(object.id()).patrolManager!;
   }
 
   /**

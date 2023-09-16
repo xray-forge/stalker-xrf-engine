@@ -347,8 +347,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
     this.invulnerability = parseConditionsList(
       readIniString(SYSTEM_INI, sectionName, "invulnerability", false, "", "")
     );
-    this.relationship =
-      this.relationship || (readIniString(SYSTEM_INI, sectionName, "relationship", false, "", null) as ERelation);
+    this.relationship = this.relationship || readIniString(SYSTEM_INI, sectionName, "relationship", false, "", null);
     this.sympathy = readIniNumber(SYSTEM_INI, sectionName, "sympathy", false, null);
     this.isSpotVisible = parseConditionsList(readIniString(SYSTEM_INI, sectionName, "show_spot", false, "", FALSE));
     this.isAlwaysArrived = readIniBoolean(SYSTEM_INI, sectionName, "always_arrived", false);

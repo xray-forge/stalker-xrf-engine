@@ -1,7 +1,7 @@
 import { action_base, LuabindClass, patrol } from "xray16";
 
 import { registry, setStalkerState } from "@/engine/core/database";
-import { StalkerMoveManager } from "@/engine/core/objects/ai/state/StalkerMoveManager";
+import { StalkerPatrolManager } from "@/engine/core/objects/ai/state/StalkerPatrolManager";
 import { EStalkerState } from "@/engine/core/objects/animation/types";
 import { ISchemeSleeperState } from "@/engine/core/schemes/sleeper";
 import { abort } from "@/engine/core/utils/assertion";
@@ -31,7 +31,7 @@ const STATE_SLEEPING = 1;
 @LuabindClass()
 export class ActionSleeperActivity extends action_base implements ISchemeEventHandler {
   public readonly state: ISchemeSleeperState;
-  public readonly moveManager: StalkerMoveManager;
+  public readonly patrolManager: StalkerPatrolManager;
   public wasReset: boolean = false;
   public sleepingState: 1 | 0 = STATE_WALKING; // todo: use boolean
 
@@ -47,7 +47,7 @@ export class ActionSleeperActivity extends action_base implements ISchemeEventHa
     super(null, ActionSleeperActivity.__name);
 
     this.state = state;
-    this.moveManager = registry.objects.get(object.id()).moveManager!;
+    this.patrolManager = registry.objects.get(object.id()).patrolManager!;
     this.wasReset = false;
   }
 
@@ -75,7 +75,7 @@ export class ActionSleeperActivity extends action_base implements ISchemeEventHa
     }
 
     if (this.sleepingState === STATE_WALKING) {
-      return this.moveManager.update();
+      return this.patrolManager.update();
     }
 
     /*
@@ -92,7 +92,7 @@ export class ActionSleeperActivity extends action_base implements ISchemeEventHa
    */
   public override finalize(): void {
     // --  GlobalSound:set_sound(this.object, null)
-    this.moveManager.finalize();
+    this.patrolManager.finalize();
     super.finalize();
   }
 
@@ -147,7 +147,7 @@ export class ActionSleeperActivity extends action_base implements ISchemeEventHa
       }
     }
 
-    this.moveManager.reset(
+    this.patrolManager.reset(
       this.state.path_walk as string,
       this.state.path_walk_info as LuaArray<IWaypointData>,
       this.state.path_look,

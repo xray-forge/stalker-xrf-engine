@@ -2,7 +2,7 @@ import { action_base, LuabindClass } from "xray16";
 
 import { getCampZoneForPosition, registry, setStalkerState } from "@/engine/core/database";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
-import { StalkerMoveManager } from "@/engine/core/objects/ai/state/StalkerMoveManager";
+import { StalkerPatrolManager } from "@/engine/core/objects/ai/state/StalkerPatrolManager";
 import { animpoint_predicates } from "@/engine/core/objects/animation/predicates/animpoint_predicates";
 import { EStalkerState } from "@/engine/core/objects/animation/types";
 import { CampManager } from "@/engine/core/objects/camp/CampManager";
@@ -30,7 +30,7 @@ const ASSOC_TBL = {
 @LuabindClass()
 export class ActionWalkerActivity extends action_base implements ISchemeEventHandler {
   public readonly state: ISchemeWalkerState;
-  public readonly moveManager: StalkerMoveManager;
+  public readonly moveManager: StalkerPatrolManager;
 
   public availableActions: LuaTable<number, IAnimpointActionDescriptor>;
 
@@ -41,7 +41,7 @@ export class ActionWalkerActivity extends action_base implements ISchemeEventHan
     super(null, ActionWalkerActivity.__name);
 
     this.state = state;
-    this.moveManager = registry.objects.get(object.id()).moveManager!;
+    this.moveManager = registry.objects.get(object.id()).patrolManager!;
 
     this.state.description = EStalkerState.WALKER_CAMP;
     this.availableActions = animpoint_predicates.get(this.state.description);

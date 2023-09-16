@@ -23,8 +23,8 @@ export class SchemeParticle extends AbstractScheme {
     const state: ISchemeParticleState = AbstractScheme.assign(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section);
-    state.name = readIniString(ini, section, "name", true, "", null) as TName;
-    state.path = readIniString(ini, section, "path", true, "", null) as TName;
+    state.name = readIniString(ini, section, "name", true, "");
+    state.path = readIniString(ini, section, "path", true, "");
     state.mode = readIniNumber(ini, section, "mode", true);
     state.looped = readIniBoolean(ini, section, "looped", false);
 

@@ -2,7 +2,7 @@ import { action_base, danger_object, LuabindClass, patrol, stalker_ids, time_glo
 
 import { registry, setStalkerState } from "@/engine/core/database";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
-import { StalkerMoveManager } from "@/engine/core/objects/ai/state/StalkerMoveManager";
+import { StalkerPatrolManager } from "@/engine/core/objects/ai/state/StalkerPatrolManager";
 import { EStalkerState, ILookTargetDescriptor } from "@/engine/core/objects/animation/types";
 import { ICampPoint, ISchemeCamperState } from "@/engine/core/schemes/camper/ISchemeCamperState";
 import { abort } from "@/engine/core/utils/assertion";
@@ -17,7 +17,7 @@ import { ClientObject, DangerObject, ISchemeEventHandler, Optional, Patrol, Vect
 @LuabindClass()
 export class ActionCamperPatrol extends action_base implements ISchemeEventHandler {
   public state: ISchemeCamperState;
-  public moveManager: StalkerMoveManager;
+  public moveManager: StalkerPatrolManager;
 
   public flag: Optional<number> = null;
   public danger: boolean = false;
@@ -37,7 +37,7 @@ export class ActionCamperPatrol extends action_base implements ISchemeEventHandl
     super(null, ActionCamperPatrol.__name);
 
     this.state = state;
-    this.moveManager = registry.objects.get(object.id()).moveManager!;
+    this.moveManager = registry.objects.get(object.id()).patrolManager!;
     this.state.scan_table = new LuaTable();
   }
 

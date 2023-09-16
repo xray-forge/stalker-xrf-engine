@@ -1,7 +1,21 @@
-import { describe, it } from "@jest/globals";
+import { describe, expect, it } from "@jest/globals";
+import { callback } from "xray16";
 
-describe("StalkerMoveManager class", () => {
-  it.todo("should correctly initialize");
+import { StalkerPatrolManager } from "@/engine/core/objects/ai/state/StalkerPatrolManager";
+import { ClientObject } from "@/engine/lib/types";
+import { mockClientGameObject } from "@/fixtures/xray";
+
+describe("StalkerPatrolManager class", () => {
+  it("should correctly initialize", () => {
+    const object: ClientObject = mockClientGameObject();
+    const manager: StalkerPatrolManager = new StalkerPatrolManager(object);
+
+    expect(manager.object).toBe(object);
+
+    manager.initialize();
+
+    expect(object.set_callback).toHaveBeenCalledWith(callback.patrol_path_in_point, manager.onWaypoint, manager);
+  });
 
   it.todo("should correctly reset");
 

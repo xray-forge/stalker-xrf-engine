@@ -39,7 +39,7 @@ import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundMan
 import { TradeManager } from "@/engine/core/managers/trade/TradeManager";
 import { setupStalkerMotivationPlanner, setupStalkerStatePlanner } from "@/engine/core/objects/ai/planner/setup";
 import { StalkerStateManager } from "@/engine/core/objects/ai/state";
-import { StalkerMoveManager } from "@/engine/core/objects/ai/state/StalkerMoveManager";
+import { StalkerPatrolManager } from "@/engine/core/objects/ai/state/StalkerPatrolManager";
 import { EActionId } from "@/engine/core/objects/ai/types";
 import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain/SmartTerrain";
 import { SchemeCombat } from "@/engine/core/schemes/combat/SchemeCombat";
@@ -111,7 +111,7 @@ export class StalkerBinder extends object_binder {
 
     this.state = resetObject(this.object);
     this.state.stateManager = new StalkerStateManager(this.object);
-    this.state.moveManager = new StalkerMoveManager(this.object).initialize();
+    this.state.patrolManager = new StalkerPatrolManager(this.object).initialize();
 
     setupStalkerStatePlanner(this.state.stateManager.planner, this.state.stateManager);
     setupStalkerMotivationPlanner(this.object.motivation_action_manager(), this.state.stateManager);
@@ -553,7 +553,7 @@ export class StalkerBinder extends object_binder {
   public onPatrolExtrapolate(currentPoint: TNumberId): boolean {
     if (this.state.activeSection) {
       emitSchemeEvent(this.object, this.state[this.state.activeScheme!]!, ESchemeEvent.EXTRAPOLATE);
-      this.state.moveManager!.onExtrapolate(this.object);
+      this.state.patrolManager!.onExtrapolate(this.object);
     }
 
     return new patrol(this.object.patrol()!).flags(currentPoint).get() === 0;

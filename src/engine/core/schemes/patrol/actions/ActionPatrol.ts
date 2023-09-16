@@ -1,7 +1,7 @@
 import { action_base, LuabindClass, time_global } from "xray16";
 
 import { registry, setStalkerState } from "@/engine/core/database";
-import { StalkerMoveManager } from "@/engine/core/objects/ai/state/StalkerMoveManager";
+import { StalkerPatrolManager } from "@/engine/core/objects/ai/state/StalkerPatrolManager";
 import { EStalkerState } from "@/engine/core/objects/animation/types";
 import { ISchemePatrolState } from "@/engine/core/schemes/patrol";
 import { parseWaypointsData } from "@/engine/core/utils/ini";
@@ -26,7 +26,7 @@ const logger: LuaLogger = new LuaLogger($filename);
 @LuabindClass()
 export class ActionPatrol extends action_base implements ISchemeEventHandler {
   public readonly state: ISchemePatrolState;
-  public readonly moveManager: StalkerMoveManager;
+  public readonly moveManager: StalkerPatrolManager;
 
   public levelVertexId: TNumberId = -1;
   public dist: TDistance = 0;
@@ -38,7 +38,7 @@ export class ActionPatrol extends action_base implements ISchemeEventHandler {
   public constructor(state: ISchemePatrolState, object: ClientObject) {
     super(null, ActionPatrol.__name);
     this.state = state;
-    this.moveManager = registry.objects.get(object.id()).moveManager!;
+    this.moveManager = registry.objects.get(object.id()).patrolManager!;
   }
 
   /**
