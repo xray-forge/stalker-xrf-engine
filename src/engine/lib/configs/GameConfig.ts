@@ -59,7 +59,7 @@ export const gameConfig = {
   /**
    * Game save file extension for dynamic data.
    */
-  GAME_SAVE_DYNAMIC_EXTENSION: ".scopx",
+  GAME_SAVE_DYNAMIC_EXTENSION: ".scop_a",
   /**
    * Game save preview file extension by default.
    */
@@ -67,5 +67,5 @@ export const gameConfig = {
   /**
    * Game save extensions order file name.
    */
-  GAME_SAVE_EXTENSIONS_ORDER_FILE: "extensions_order.scop",
+  GAME_SAVE_EXTENSIONS_ORDER_FILE: "extensions_order.scop_e",
 };

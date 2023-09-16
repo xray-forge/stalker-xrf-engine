@@ -122,28 +122,9 @@ export class ActionCamperPatrol extends action_base implements ISchemeEventHandl
     this.state.scan_begin = null;
   }
 
-  /**
-   * todo: Description.
-   */
-  public canShoot(): boolean {
-    if (this.state.shoot === "always") {
-      return true;
-    }
-
-    if (this.state.shoot === "none") {
-      return false;
-    }
-
-    if (this.state.shoot === "terminal") {
-      const [isOnTerminalWaypoint] = isObjectAtTerminalWaypoint(
-        this.patrolManager.object,
-        this.patrolManager.patrolWalk as Patrol
-      );
-
-      return isOnTerminalWaypoint;
-    }
-
-    abort("Camper: unrecognized shoot type [%s] for [%s]", tostring(this.state.shoot), this.object.name());
+  public override finalize(): void {
+    this.patrolManager.finalize();
+    super.finalize();
   }
 
   /**
@@ -334,6 +315,30 @@ export class ActionCamperPatrol extends action_base implements ISchemeEventHandl
   /**
    * todo: Description.
    */
+  public canShoot(): boolean {
+    if (this.state.shoot === "always") {
+      return true;
+    }
+
+    if (this.state.shoot === "none") {
+      return false;
+    }
+
+    if (this.state.shoot === "terminal") {
+      const [isOnTerminalWaypoint] = isObjectAtTerminalWaypoint(
+        this.patrolManager.object,
+        this.patrolManager.patrolWalk as Patrol
+      );
+
+      return isOnTerminalWaypoint;
+    }
+
+    abort("Camper: unrecognized shoot type [%s] for [%s]", tostring(this.state.shoot), this.object.name());
+  }
+
+  /**
+   * todo: Description.
+   */
   public processDanger(): boolean {
     if (!isObjectFacingDanger(this.object)) {
       return false;
@@ -495,21 +500,6 @@ export class ActionCamperPatrol extends action_base implements ISchemeEventHandl
   /**
    * todo: Description.
    */
-  public onProcessPoint(): boolean {
-    return false;
-  }
-
-  /**
-   * todo: Description.
-   */
-  public override finalize(): void {
-    this.patrolManager.finalize();
-    super.finalize();
-  }
-
-  /**
-   * todo: Description.
-   */
   public isOnPlace(): boolean {
     if (this.state.no_retreat === true) {
       return false;
@@ -539,6 +529,13 @@ export class ActionCamperPatrol extends action_base implements ISchemeEventHandl
       return false;
     }
 
+    return false;
+  }
+
+  /**
+   * todo: Description.
+   */
+  public onProcessPoint(): boolean {
     return false;
   }
 }

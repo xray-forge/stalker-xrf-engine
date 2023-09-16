@@ -25,6 +25,7 @@ import { LoadItem } from "@/engine/core/ui/menu/load/LoadItem";
 import {
   deleteGameSave,
   getFileDataForGameSave,
+  getGameSavesList,
   isGameSaveFileExist,
   loadGameSave,
 } from "@/engine/core/utils/game/game_save";
@@ -36,6 +37,7 @@ import {
   ClientObject,
   FSFileListEX,
   FSItem,
+  LuaArray,
   Optional,
   TIndex,
   TKeyCode,
@@ -134,17 +136,9 @@ export class LoadDialog extends CUIScriptWnd {
   public fillList(): void {
     this.uiListBox.RemoveAll();
 
-    const fs: FS = getFS();
-    const fileList: FSFileListEX = fs.file_list_open_ex(
-      roots.gameSaves,
-      bit_or(FS.FS_ListFiles, FS.FS_RootOnly),
-      "*" + gameConfig.GAME_SAVE_EXTENSION
-    );
+    const savesList: LuaArray<FSItem> = getGameSavesList();
 
-    fileList.Sort(FS.FS_sort_by_modif_down);
-
-    for (let it = 0; it < fileList.Size(); it += 1) {
-      const file: FSItem = fileList.GetAt(it);
+    for (const [, file] of savesList) {
       const filename: TName = string.sub(
         file.NameFull(),
         0,

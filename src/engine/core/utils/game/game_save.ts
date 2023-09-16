@@ -9,9 +9,44 @@ import { gameConfig } from "@/engine/lib/configs/GameConfig";
 import { consoleCommands } from "@/engine/lib/constants/console_commands";
 import { TGameDifficulty } from "@/engine/lib/constants/game_difficulties";
 import { roots } from "@/engine/lib/constants/roots";
-import { AnyObject, FSFileListEX, Optional, SavedGameWrapper, TCount, TLabel, TName, TPath } from "@/engine/lib/types";
+import {
+  AnyObject,
+  FSFileListEX,
+  FSItem,
+  LuaArray,
+  Optional,
+  SavedGameWrapper,
+  TCount,
+  TLabel,
+  TName,
+  TPath,
+} from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
+
+/**
+ * todo;
+ */
+export function getGameSavesList(): LuaArray<FSItem> {
+  const savesList: LuaArray<FSItem> = new LuaTable();
+  const fsList: FSFileListEX = getFS().file_list_open_ex(
+    roots.gameSaves,
+    bit_or(FS.FS_ListFiles, FS.FS_RootOnly),
+    "*" + gameConfig.GAME_SAVE_EXTENSION
+  );
+
+  fsList.Sort(FS.FS_sort_by_modif_down);
+
+  for (let it = 0; it < fsList.Size(); it += 1) {
+    const file: FSItem = fsList.GetAt(it);
+
+    if (file.NameFull().endsWith(gameConfig.GAME_SAVE_EXTENSION)) {
+      table.insert(savesList, file);
+    }
+  }
+
+  return savesList;
+}
 
 /**
  * Check whether save file exists with provided name.
