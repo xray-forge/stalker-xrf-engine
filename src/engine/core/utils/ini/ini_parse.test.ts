@@ -233,9 +233,20 @@ describe("'ini_data' parsing utils", () => {
   it("'parseWaypointData' should correctly parse generic paths to waypoint data", () => {
     const flags: Flags32 = MockFlags32.mock();
 
-    expect(parseWaypointData("zat_b53_particle_play_point_5", flags, "wp00")).toEqualLuaTables({ flags });
+    expect(parseWaypointData("zat_b53_particle_play_point_5", flags, "wp00")).toEqualLuaTables({
+      flags,
+      a: null,
+      p: null,
+      ret: null,
+      sig: null,
+      t: null,
+    });
     expect(parseWaypointData("zat_b53_particle_play_point_5", flags, "wp02|a=patrol")).toEqualLuaTables({
       flags,
+      p: null,
+      ret: null,
+      sig: null,
+      t: null,
       a: {
         "1": {
           infop_check: {},
@@ -248,11 +259,17 @@ describe("'ini_data' parsing utils", () => {
       flags,
       p: "30",
       t: "10000",
+      a: null,
+      ret: null,
+      sig: null,
     });
     expect(parseWaypointData("zat_b53_particle_play_point_5", flags, "wp09|p=70|t=10000")).toEqualLuaTables({
       flags,
       p: "70",
       t: "10000",
+      a: null,
+      ret: null,
+      sig: null,
     });
     expect(parseWaypointData("zat_b53_particle_play_point_5", flags, "wp10|t=10000|a=search")).toEqualLuaTables({
       flags,
@@ -264,6 +281,9 @@ describe("'ini_data' parsing utils", () => {
         },
       },
       t: "10000",
+      p: null,
+      ret: null,
+      sig: null,
     });
   });
 
@@ -281,6 +301,10 @@ describe("'ini_data' parsing utils", () => {
           },
         },
         flags,
+        p: null,
+        ret: null,
+        sig: null,
+        t: null,
       },
       "1": {
         a: {
@@ -291,6 +315,10 @@ describe("'ini_data' parsing utils", () => {
           },
         },
         flags,
+        p: null,
+        ret: null,
+        sig: null,
+        t: null,
       },
       "2": {
         a: {
@@ -301,28 +329,44 @@ describe("'ini_data' parsing utils", () => {
           },
         },
         flags,
+        p: null,
+        ret: null,
+        sig: null,
+        t: null,
       },
     });
 
     expect(parseWaypointsData("zat_b40_smart_terrain_zat_b40_merc_02_look")).toEqualLuaTables({
       "0": {
+        a: null,
         flags: {},
         p: "30",
+        ret: null,
+        sig: null,
         t: "10000",
       },
       "1": {
+        a: null,
         flags: {},
         p: "70",
+        ret: null,
+        sig: null,
         t: "10000",
       },
       "2": {
+        a: null,
         flags: {},
         p: "30",
+        ret: null,
+        sig: null,
         t: "10000",
       },
       "3": {
+        a: null,
         flags: {},
         p: "50",
+        ret: null,
+        sig: null,
         t: "10000",
       },
       "4": {
@@ -334,6 +378,9 @@ describe("'ini_data' parsing utils", () => {
           },
         },
         flags: {},
+        p: null,
+        ret: null,
+        sig: null,
         t: "10000",
       },
     });
@@ -360,6 +407,10 @@ describe("'ini_data' parsing utils", () => {
           },
         },
         flags,
+        p: null,
+        ret: null,
+        sig: null,
+        t: null,
       },
       {
         a: {
@@ -370,6 +421,10 @@ describe("'ini_data' parsing utils", () => {
           },
         },
         flags,
+        p: null,
+        ret: null,
+        sig: null,
+        t: null,
       },
       {
         a: {
@@ -380,6 +435,10 @@ describe("'ini_data' parsing utils", () => {
           },
         },
         flags,
+        p: null,
+        ret: null,
+        sig: null,
+        t: null,
       },
     ]);
   });
