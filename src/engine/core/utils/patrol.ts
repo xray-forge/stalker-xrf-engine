@@ -2,6 +2,7 @@ import { patrol } from "xray16";
 
 import { registry } from "@/engine/core/database/registry";
 import type { IWaypointData } from "@/engine/core/utils/ini/ini_types";
+import { isObjectAtWaypoint } from "@/engine/core/utils/object";
 import type {
   ClientObject,
   Flags32,
@@ -49,6 +50,7 @@ export function isPatrolInRestrictor(restrictorName: Optional<TName>, patrolName
 /**
  * Choose look point for patrol waypoint.
  * Used to detect where to look when reached some `walk_patrol` point.
+ *
  * todo: Description.
  */
 export function chooseLookPoint(
@@ -68,7 +70,7 @@ export function chooseLookPoint(
       numEqualPts = numEqualPts + 1;
 
       const probabilityRaw = pathLookInfo.get(lookIndex).p;
-      const pointLookWeight: number = probabilityRaw === null ? 100 : (tonumber(probabilityRaw) as number);
+      const pointLookWeight: TRate = probabilityRaw === null ? 100 : (tonumber(probabilityRaw) as TRate);
 
       ptsFoundTotalWeight = ptsFoundTotalWeight + pointLookWeight;
 
@@ -81,4 +83,23 @@ export function chooseLookPoint(
   }
 
   return $multi(patrolChosenIdx, numEqualPts);
+}
+
+/**
+ * Check if object standing on terminal patrol waypoint.
+ *
+ * todo: Description.
+ */
+export function isObjectStandingOnTerminalWaypoint(
+  object: ClientObject,
+  patrol: Patrol
+): LuaMultiReturn<[boolean, Optional<TIndex>]> {
+  for (const index of $range(0, patrol.count() - 1)) {
+    // Check if point is terminal, then compare object position against it.
+    if (patrol.terminal(index) && isObjectAtWaypoint(object, patrol, index)) {
+      return $multi(true, index);
+    }
+  }
+
+  return $multi(false, null);
 }

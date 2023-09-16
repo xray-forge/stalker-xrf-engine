@@ -3,10 +3,10 @@ import { action_base, LuabindClass } from "xray16";
 import { getStalkerState, registry } from "@/engine/core/database";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import { StalkerPatrolManager } from "@/engine/core/objects/ai/state/StalkerPatrolManager";
-import { EStalkerState } from "@/engine/core/objects/animation/types";
+import { EStalkerState, EWaypointArrivalType } from "@/engine/core/objects/animation/types";
 import { ISchemePatrolState } from "@/engine/core/schemes/patrol";
 import { parseWaypointsData } from "@/engine/core/utils/ini/ini_parse";
-import { ClientObject, ISchemeEventHandler, Optional } from "@/engine/lib/types";
+import { ClientObject, ISchemeEventHandler, Optional, TIndex } from "@/engine/lib/types";
 
 /**
  * Action to command patrol/group of stalker on way somewhere.
@@ -14,7 +14,7 @@ import { ClientObject, ISchemeEventHandler, Optional } from "@/engine/lib/types"
 @LuabindClass()
 export class ActionCommander extends action_base implements ISchemeEventHandler {
   public readonly state: ISchemePatrolState;
-  public readonly moveManager: StalkerPatrolManager;
+  public readonly patrolManager: StalkerPatrolManager;
 
   public currentState: EStalkerState = EStalkerState.PATROL;
   public previousState: Optional<EStalkerState> = null;
@@ -22,7 +22,7 @@ export class ActionCommander extends action_base implements ISchemeEventHandler 
   public constructor(state: ISchemePatrolState, object: ClientObject) {
     super(null, ActionCommander.__name);
     this.state = state;
-    this.moveManager = registry.objects.get(object.id()).patrolManager!;
+    this.patrolManager = registry.objects.get(object.id()).patrolManager as StalkerPatrolManager;
   }
 
   /**
@@ -51,14 +51,14 @@ export class ActionCommander extends action_base implements ISchemeEventHandler 
       this.state.path_look_info = parseWaypointsData(this.state.path_look);
     }
 
-    this.moveManager.reset(
+    this.patrolManager.reset(
       this.state.path_walk,
       this.state.path_walk_info!,
       this.state.path_look,
       this.state.path_look_info,
       this.state.team,
       this.state.suggested_state,
-      { obj: this, func: this.formation_callback }
+      { context: this, callback: this.onFormationCallback }
     );
 
     registry.patrols.generic
@@ -72,7 +72,7 @@ export class ActionCommander extends action_base implements ISchemeEventHandler 
   public override execute(): void {
     super.execute();
 
-    this.moveManager.update();
+    this.patrolManager.update();
 
     const nextState: EStalkerState = getStalkerState(this.object) as EStalkerState;
     const previousState: Optional<EStalkerState> = this.previousState;
@@ -116,7 +116,7 @@ export class ActionCommander extends action_base implements ISchemeEventHandler 
       registry.patrols.generic
         .get(this.state.patrol_key)
         .setObjectCommand(this.object, EStalkerState.GUARD, this.state.formation);
-      this.moveManager.finalize();
+      this.patrolManager.finalize();
     }
 
     super.finalize();
@@ -146,12 +146,12 @@ export class ActionCommander extends action_base implements ISchemeEventHandler 
   /**
    * todo: Description.
    */
-  public formation_callback(mode: number, number: number, index: number): void {
-    if (number === 0) {
+  public onFormationCallback(mode: EWaypointArrivalType, patrolRetVal: number, index: TIndex): void {
+    if (patrolRetVal === 0) {
       this.state.formation = "line";
-    } else if (number === 1) {
+    } else if (patrolRetVal === 1) {
       this.state.formation = "around";
-    } else if (number === 2) {
+    } else if (patrolRetVal === 2) {
       this.state.formation = "back";
     }
   }

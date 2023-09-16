@@ -25,7 +25,7 @@ import {
   TTimestamp,
 } from "@/engine/lib/types";
 
-const logger: LuaLogger = new LuaLogger($filename);
+const logger: LuaLogger = new LuaLogger($filename, { file: "scheme" });
 
 /**
  * Cached switcher to check conditions based on scheme logic condition type.
@@ -133,6 +133,8 @@ export function switchObjectSchemeToSection(object: ClientObject, ini: IniFile, 
   if (activeSection === section) {
     return false;
   }
+
+  logger.format("Switch section: '%s', '%s' -> '%s'", object.name(), activeSection, section);
 
   // Notify schemes about deactivation.
   if (activeSection !== null) {

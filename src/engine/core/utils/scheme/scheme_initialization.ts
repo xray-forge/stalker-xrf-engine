@@ -42,7 +42,7 @@ import {
   TSection,
 } from "@/engine/lib/types";
 
-const logger: LuaLogger = new LuaLogger($filename);
+const logger: LuaLogger = new LuaLogger($filename, { file: "scheme" });
 
 /**
  * Configure object schemes and get ini config describing object scripts.
@@ -202,6 +202,8 @@ export function initializeObjectSchemeLogic(
   isLoading: boolean,
   schemeType: ESchemeType
 ): void {
+  logger.format("Initialize object scheme logic: '%s' %s'", object.name(), isLoading);
+
   if (isLoading) {
     const loadingIniFilename: Optional<TName> = state.loadedIniFilename;
 

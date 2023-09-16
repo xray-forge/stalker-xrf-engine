@@ -155,7 +155,7 @@ export class ActionSleeperActivity extends action_base implements ISchemeEventHa
       null,
       null,
       // todo: Unsafe this casting, should be avoided later with updates
-      { obj: this, func: this.callback as unknown as AnyCallable }
+      { context: this, callback: this.onPatrolCallback }
     );
     this.wasReset = true;
   }
@@ -163,17 +163,16 @@ export class ActionSleeperActivity extends action_base implements ISchemeEventHa
   /**
    * todo: Description.
    */
-  public callback(): boolean {
+  public onPatrolCallback(): boolean {
     this.sleepingState = STATE_SLEEPING;
 
     const sleepPatrol: Patrol = new patrol(this.state.path_main);
     const position: Optional<Vector> = sleepPatrol.count() === 2 ? sleepPatrol.point(1) : null;
 
-    if (this.state.wakeable) {
-      setStalkerState(this.object, EStalkerState.SIT, null, null, { lookPosition: position, lookObjectId: null });
-    } else {
-      setStalkerState(this.object, EStalkerState.SLEEP, null, null, { lookPosition: position, lookObjectId: null });
-    }
+    setStalkerState(this.object, this.state.wakeable ? EStalkerState.SIT : EStalkerState.SLEEP, null, null, {
+      lookPosition: position,
+      lookObjectId: null,
+    });
 
     return true;
   }

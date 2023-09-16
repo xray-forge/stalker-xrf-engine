@@ -8,6 +8,7 @@ import { ICampPoint, ISchemeCamperState } from "@/engine/core/schemes/camper/ISc
 import { abort } from "@/engine/core/utils/assertion";
 import { parseWaypointsData } from "@/engine/core/utils/ini";
 import { isObjectAtWaypoint, isObjectFacingDanger } from "@/engine/core/utils/object";
+import { isObjectStandingOnTerminalWaypoint } from "@/engine/core/utils/patrol";
 import { createVector } from "@/engine/core/utils/vector";
 import { ClientObject, DangerObject, ISchemeEventHandler, Optional, Patrol, Vector } from "@/engine/lib/types";
 
@@ -17,7 +18,7 @@ import { ClientObject, DangerObject, ISchemeEventHandler, Optional, Patrol, Vect
 @LuabindClass()
 export class ActionCamperPatrol extends action_base implements ISchemeEventHandler {
   public state: ISchemeCamperState;
-  public moveManager: StalkerPatrolManager;
+  public patrolManager: StalkerPatrolManager;
 
   public flag: Optional<number> = null;
   public danger: boolean = false;
@@ -37,7 +38,7 @@ export class ActionCamperPatrol extends action_base implements ISchemeEventHandl
     super(null, ActionCamperPatrol.__name);
 
     this.state = state;
-    this.moveManager = registry.objects.get(object.id()).patrolManager!;
+    this.patrolManager = registry.objects.get(object.id()).patrolManager!;
     this.state.scan_table = new LuaTable();
   }
 
@@ -71,14 +72,14 @@ export class ActionCamperPatrol extends action_base implements ISchemeEventHandl
     this.state.scan_table = new LuaTable();
 
     if (this.state.sniper === true) {
-      this.moveManager.reset(
+      this.patrolManager.reset(
         this.state.path_walk,
         parseWaypointsData(this.state.path_walk)!,
         null,
         null,
         null,
         this.state.suggested_state,
-        { obj: this, func: this.processPoint }
+        { context: this, callback: this.processPoint }
       );
 
       const path: Patrol = new patrol(this.state.path_look);
@@ -101,14 +102,14 @@ export class ActionCamperPatrol extends action_base implements ISchemeEventHandl
         this.object.sniper_update_rate(true);
       }
     } else {
-      this.moveManager.reset(
+      this.patrolManager.reset(
         this.state.path_walk,
         parseWaypointsData(this.state.path_walk)!,
         this.state.path_look,
         parseWaypointsData(this.state.path_look),
         null,
         this.state.suggested_state,
-        { obj: this, func: this.processPoint }
+        { context: this, callback: this.processPoint }
       );
 
       if (this.object.sniper_update_rate()) {
@@ -134,14 +135,15 @@ export class ActionCamperPatrol extends action_base implements ISchemeEventHandl
     }
 
     if (this.state.shoot === "terminal") {
-      const [isOnTerminalWaypoint] = this.moveManager.isStandingOnTerminalWaypoint();
+      const [isOnTerminalWaypoint] = isObjectStandingOnTerminalWaypoint(
+        this.patrolManager.object,
+        this.patrolManager.patrolWalk as Patrol
+      );
 
       return isOnTerminalWaypoint;
     }
 
     abort("Camper: unrecognized shoot type [%s] for [%s]", tostring(this.state.shoot), this.object.name());
-
-    return true;
   }
 
   /**
@@ -157,12 +159,12 @@ export class ActionCamperPatrol extends action_base implements ISchemeEventHandl
       if (this.state.mem_enemy === null || time_global() - this.state.mem_enemy > this.state.idle) {
         this.enemy = null;
         this.state.mem_enemy = null;
-        this.moveManager.continue();
+        this.patrolManager.continue();
       }
     } else {
       if (this.state.mem_enemy !== null) {
         this.state.mem_enemy = null;
-        this.moveManager.continue();
+        this.patrolManager.continue();
       }
     }
 
@@ -278,8 +280,8 @@ export class ActionCamperPatrol extends action_base implements ISchemeEventHandl
               setStalkerState(this.object, EStalkerState.HIDE, null, null, position, null);
             }
           } else {
-            this.moveManager.continue();
-            this.moveManager.update();
+            this.patrolManager.continue();
+            this.patrolManager.update();
           }
         }
       }
@@ -297,7 +299,7 @@ export class ActionCamperPatrol extends action_base implements ISchemeEventHandl
 
     if (this.danger) {
       this.danger = false;
-      this.moveManager.continue();
+      this.patrolManager.continue();
     }
 
     if (this.state.sniper === true) {
@@ -308,21 +310,24 @@ export class ActionCamperPatrol extends action_base implements ISchemeEventHandl
 
         this.scan(this.state.wp_flag as number);
 
-        const [isOnWaypoint] = this.moveManager.isStandingOnTerminalWaypoint();
+        const [isOnWaypoint] = isObjectStandingOnTerminalWaypoint(
+          this.patrolManager.object,
+          this.patrolManager.patrolWalk as Patrol
+        );
 
         if (isOnWaypoint) {
           return;
         }
 
         if (this.scantime !== null && time_global() - this.scantime >= this.state.scantime_free) {
-          this.moveManager.continue();
+          this.patrolManager.continue();
         }
       } else {
         this.scantime = null;
-        this.moveManager.update();
+        this.patrolManager.update();
       }
     } else {
-      this.moveManager.update();
+      this.patrolManager.update();
     }
   }
 
@@ -498,7 +503,7 @@ export class ActionCamperPatrol extends action_base implements ISchemeEventHandl
    * todo: Description.
    */
   public override finalize(): void {
-    this.moveManager.finalize();
+    this.patrolManager.finalize();
     super.finalize();
   }
 

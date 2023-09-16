@@ -83,7 +83,7 @@ export class EvaluatorDirectionSet extends property_evaluator {
    * todo: Description.
    */
   public onTurnEnd(): void {
-    if (this.stateManager.callback !== null && this.stateManager.callback.turnEndCallback !== null) {
+    if (this.stateManager.callback?.turnEndCallback) {
       (this.stateManager.callback.turnEndCallback as AnyCallable)(this.stateManager.callback.context);
 
       if (this.stateManager.callback !== null) {

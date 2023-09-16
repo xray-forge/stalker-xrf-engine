@@ -4,7 +4,7 @@ import { registry } from "@/engine/core/database/registry";
 
 describe("registry storage", () => {
   it("storage to contain all fields", () => {
-    expect(Object.keys(registry)).toHaveLength(40);
+    expect(Object.keys(registry)).toHaveLength(41);
   });
 
   it("storage to initialize with correct data", () => {
@@ -50,8 +50,8 @@ describe("registry storage", () => {
     expect(registry.saveMarkers instanceof LuaTable).toBeTruthy();
     expect(registry.signalLights instanceof LuaTable).toBeTruthy();
     expect(registry.spawnedVertexes instanceof LuaTable).toBeTruthy();
-    expect(registry.patrols.generic instanceof LuaTable).toBeTruthy();
-    expect(registry.patrols.reachTask instanceof LuaTable).toBeTruthy();
+    expect(registry.patrols).toEqualLuaTables({ generic: {}, reachTask: {} });
+    expect(registry.patrolSynchronization instanceof LuaTable).toBeTruthy();
     expect(registry.sounds.musicVolume).toBe(0);
     expect(registry.sounds.effectsVolume).toBe(0);
     expect(registry.sounds.generic instanceof LuaTable).toBeTruthy();

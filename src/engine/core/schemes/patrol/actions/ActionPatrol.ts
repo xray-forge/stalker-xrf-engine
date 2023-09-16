@@ -2,7 +2,7 @@ import { action_base, LuabindClass, time_global } from "xray16";
 
 import { registry, setStalkerState } from "@/engine/core/database";
 import { StalkerPatrolManager } from "@/engine/core/objects/ai/state/StalkerPatrolManager";
-import { EStalkerState } from "@/engine/core/objects/animation/types";
+import { EStalkerState, EWaypointArrivalType } from "@/engine/core/objects/animation/types";
 import { ISchemePatrolState } from "@/engine/core/schemes/patrol";
 import { parseWaypointsData } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -13,6 +13,7 @@ import {
   EClientObjectPath,
   ISchemeEventHandler,
   TDistance,
+  TIndex,
   TNumberId,
   TTimestamp,
   Vector,
@@ -74,7 +75,7 @@ export class ActionPatrol extends action_base implements ISchemeEventHandler {
       this.state.path_look_info,
       this.state.team,
       this.state.suggested_state,
-      { obj: this, func: this.formation_callback }
+      { context: this, callback: this.onFormationCallback }
     );
   }
 
@@ -124,7 +125,7 @@ export class ActionPatrol extends action_base implements ISchemeEventHandler {
   /**
    * todo: Description.
    */
-  public formation_callback(mode: number, number: number, index: number): void {}
+  public onFormationCallback(mode: EWaypointArrivalType, patrolRetVal: number, index: TIndex): void {}
 
   /**
    * todo: Description.

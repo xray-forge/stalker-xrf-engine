@@ -1,16 +1,20 @@
 import { callback, level, move, patrol, time_global } from "xray16";
 
 import { registry, setStalkerState } from "@/engine/core/database";
-import { ECurrentMovementState, EStalkerState } from "@/engine/core/objects/animation/types";
+import {
+  ECurrentMovementState,
+  EStalkerState,
+  EWaypointArrivalType,
+  IPatrolCallbackDescriptor,
+  IPatrolSuggestedState,
+} from "@/engine/core/objects/animation/types";
 import { abort, assert } from "@/engine/core/utils/assertion";
 import { IWaypointData, parseConditionsList, pickSectionFromCondList, TConditionList } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { isObjectAtWaypoint } from "@/engine/core/utils/object";
-import { chooseLookPoint } from "@/engine/core/utils/patrol";
+import { chooseLookPoint, isObjectStandingOnTerminalWaypoint } from "@/engine/core/utils/patrol";
 import { setObjectActiveSchemeSignal } from "@/engine/core/utils/scheme";
 import {
-  AnyCallable,
-  AnyObject,
   ClientObject,
   EClientObjectPath,
   Flags32,
@@ -23,57 +27,54 @@ import {
   TName,
   TNumberId,
   TTimestamp,
-  Vector,
 } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename, { file: "ai_state" });
-
-const DIST_WALK: TDistance = 10;
-const DIST_RUN: TDistance = 2500;
-const WALK_MIN_TIME: TDuration = 3000;
-const RUN_MIN_TIME: TDuration = 2000;
-const KEEP_STATE_MIN_TIME: TDuration = 1500;
-const DEFAULT_WAIT_TIME: TDuration = 10_000;
-
-const DEFAULT_STATE_STANDING: EStalkerState = EStalkerState.GUARD;
-const DEFAULT_STATE_MOVING1: EStalkerState = EStalkerState.PATROL;
-const DEFAULT_STATE_MOVING2: EStalkerState = EStalkerState.PATROL;
-const DEFAULT_STATE_MOVING3: EStalkerState = EStalkerState.PATROL;
-
-const ARRIVAL_BEFORE_ROTATION: number = 0;
-const ARRIVAL_AFTER_ROTATION: number = 1;
-
-const sync: LuaTable<TName, LuaTable<TNumberId, boolean>> = new LuaTable();
 
 /**
  * Manager handling patrol movement of stalker objects.
  * Responsible for patrolling schemes logic and mainly called from related schemes (walker, sleep, patrol).
  */
 export class StalkerPatrolManager {
+  public static DEFAULT_PATROL_WAIT_TIME: TDuration = 10_000;
+  public static DEFAULT_PATROL_STATE_STANDING: EStalkerState = EStalkerState.GUARD;
+  public static DEFAULT_PATROL_STATE_MOVING: EStalkerState = EStalkerState.PATROL;
+
+  // When cannot keep with patrol state, persist state for a while and then switch walk/run/sprint based on distance.
+  public static KEEP_STATE_DURATION: TDuration = 1500;
+  // Minimal time to walk before checking whether state can switch.
+  public static WALK_STATE_DURATION: TDuration = 3000;
+  // Minimal time to run before checking whether state can switch.
+  public static RUN_STATE_DURATION: TDuration = 2000;
+
+  // Distances to coordinate current movement (walk, run, sprint)
+  public static DISTANCE_TO_WALK_SQR: TDistance = 10 * 10;
+  public static DISTANCE_TO_RUN_SQR: TDistance = 50 * 50;
+
   public readonly object: ClientObject;
 
   public team: Optional<string> = null;
   public state: Optional<ECurrentMovementState> = null;
   public currentStateMoving!: EStalkerState;
   public currentStateStanding!: EStalkerState;
-  public suggestedState!: unknown;
+  public suggestedState: Optional<IPatrolSuggestedState> = null;
 
-  public keepStateUntil!: number;
+  // Next timestamp to check synchronization of run-walk-sprint state.
+  public keepStateUntil!: TTimestamp;
   public patrolWaitTime: Optional<TDuration> = null;
 
   public lastWalkIndex: Optional<TIndex> = null;
   public lastLookIndex: Optional<TIndex> = null;
   public synSignal: Optional<string> = null;
   public synSignalSetTm!: TDuration;
-  public moveCbInfo: Optional<{ obj: AnyObject; func: AnyCallable }> = null;
+  public patrolCallbackDescriptor: Optional<IPatrolCallbackDescriptor> = null;
 
   public patrolWalk: Optional<Patrol> = null;
-  public pathWalk: Optional<string> = null;
-  public pathWalkInfo!: LuaTable<number, IWaypointData>;
-
+  public patrolWalkName: Optional<TName> = null;
+  public patrolWalkWaypoints!: LuaArray<IWaypointData>;
   public patrolLook: Optional<Patrol> = null;
-  public pathLook: Optional<string> = null;
-  public pathLookInfo: Optional<LuaTable<number, IWaypointData>> = null;
+  public patrolLookName: Optional<TName> = null;
+  public patrolLookWaypoints: Optional<LuaArray<IWaypointData>> = null;
 
   public isOnTerminalWaypoint: Optional<boolean> = null;
   public useDefaultSound!: boolean;
@@ -96,12 +97,12 @@ export class StalkerPatrolManager {
   }
 
   /**
-   * Initialize move manager, setup state and callbacks.
+   * Initialize patrol manager, setup state and callbacks.
    *
    * @returns initialized manager reference
    */
   public initialize(): StalkerPatrolManager {
-    logger.format("Initialize move manager for: '%s'", this.object.name());
+    logger.format("Initialize patrol manager for: '%s'", this.object.name());
 
     this.object.set_callback(callback.patrol_path_in_point, this.onWalkWaypoint, this);
 
@@ -114,110 +115,110 @@ export class StalkerPatrolManager {
    * todo;
    */
   public reset(
-    walkPath: TName,
-    walkPathInfo: LuaArray<IWaypointData>,
-    lookPath: Optional<string> = null,
-    lookPathInfo: Optional<LuaArray<IWaypointData>> = null,
-    team: Optional<string> = null,
-    suggestedState: Optional<any>, // todo: fix type
-    moveCbInfo: Optional<{ obj: AnyObject; func: AnyCallable }> = null
+    walkPathName: TName,
+    walkPathWaypoints: LuaArray<IWaypointData>,
+    lookPathName: Optional<TName> = null,
+    lookPathWaypoints: Optional<LuaArray<IWaypointData>> = null,
+    patrolTeam: Optional<TName> = null,
+    patrolSuggestedStates: Optional<IPatrolSuggestedState>,
+    patrolCallbackDescriptor: Optional<IPatrolCallbackDescriptor> = null
   ): void {
     logger.format(
-      "Reset move manager for: '%s', at '%s'/'%s', team - '%s'",
+      "Reset patrol manager for: '%s', walk - '%s' look - '%s', team - '%s'",
       this.object.name(),
-      walkPath,
-      lookPath,
-      team
+      walkPathName,
+      lookPathName,
+      patrolTeam
     );
 
     const now: TTimestamp = time_global();
 
-    this.patrolWaitTime = DEFAULT_WAIT_TIME;
-    this.suggestedState = suggestedState;
+    this.patrolWaitTime = StalkerPatrolManager.DEFAULT_PATROL_WAIT_TIME;
+    this.suggestedState = patrolSuggestedStates;
 
     this.defaultStateStanding = parseConditionsList(
-      suggestedState?.standing ? suggestedState.standing : DEFAULT_STATE_STANDING
+      patrolSuggestedStates?.standing ?? StalkerPatrolManager.DEFAULT_PATROL_STATE_STANDING
     );
     this.defaultStateMoving1 = parseConditionsList(
-      suggestedState?.moving ? suggestedState.moving : DEFAULT_STATE_MOVING1
+      patrolSuggestedStates?.moving ?? StalkerPatrolManager.DEFAULT_PATROL_STATE_MOVING
     );
     this.defaultStateMoving2 = parseConditionsList(
-      suggestedState?.moving ? suggestedState.moving : DEFAULT_STATE_MOVING2
+      patrolSuggestedStates?.moving ?? StalkerPatrolManager.DEFAULT_PATROL_STATE_MOVING
     );
     this.defaultStateMoving3 = parseConditionsList(
-      suggestedState?.moving ? suggestedState.moving : DEFAULT_STATE_MOVING3
+      patrolSuggestedStates?.moving ?? StalkerPatrolManager.DEFAULT_PATROL_STATE_MOVING
     );
 
     this.synSignalSetTm = now + 1000;
     this.synSignal = null;
 
-    this.moveCbInfo = moveCbInfo;
+    this.patrolCallbackDescriptor = patrolCallbackDescriptor;
 
-    if (team !== this.team) {
-      this.team = team;
+    // Initialize sync state if it is changed:
+    if (patrolTeam !== this.team) {
+      this.team = patrolTeam;
 
       if (this.team) {
-        let state: Optional<LuaTable<number, boolean>> = sync.get(this.team);
+        let state: Optional<LuaTable<TNumberId, boolean>> = registry.patrolSynchronization.get(this.team);
 
         if (!state) {
           state = new LuaTable();
-          sync.set(this.team, state);
+          registry.patrolSynchronization.set(this.team, state);
         }
 
         state.set(this.object.id(), false);
       }
     }
 
-    if (this.pathWalk !== walkPath || this.pathLook !== lookPath) {
-      this.pathWalk = walkPath;
-      this.patrolWalk = new patrol(walkPath);
+    // Reset patrol - use new patrol that should be fully re-initialized:
+    if (this.patrolWalkName !== walkPathName || this.patrolLookName !== lookPathName) {
+      this.patrolWalkName = walkPathName;
+      this.patrolWalk = new patrol(walkPathName);
       if (!this.patrolWalk) {
-        abort("object '%s': unable to find path_walk '%s' on the map", this.object.name(), walkPath);
+        abort("object '%s': unable to find path_walk '%s' on the map", this.object.name(), walkPathName);
       }
 
-      if (!walkPathInfo) {
+      if (!walkPathWaypoints) {
         abort(
           "object '%s': path_walk ('%s') field was supplied, but path_walk_info field is null",
           this.object.name(),
-          walkPath
+          walkPathName
         );
       }
 
-      this.pathWalkInfo = walkPathInfo!;
+      this.patrolWalkWaypoints = walkPathWaypoints!;
 
-      if (lookPath !== null) {
-        if (!lookPathInfo) {
+      if (lookPathName !== null) {
+        if (!lookPathWaypoints) {
           abort(
             "object '%s': path_look ('%s') field was supplied, but path_look_info field is null",
             this.object.name(),
-            lookPath
+            lookPathName
           );
         }
 
-        this.patrolLook = new patrol(lookPath);
+        this.patrolLook = new patrol(lookPathName);
         if (!this.patrolLook) {
-          abort("object '%s': unable to find path_look '%s' on the map", this.object.name(), lookPath);
+          abort("object '%s': unable to find path_look '%s' on the map", this.object.name(), lookPathName);
         }
       } else {
         this.patrolLook = null;
       }
 
-      this.pathLook = lookPath;
-      this.pathLookInfo = lookPathInfo;
-
-      this.isOnTerminalWaypoint = false;
+      this.patrolLookName = lookPathName;
+      this.patrolLookWaypoints = lookPathWaypoints;
 
       this.currentStateStanding = pickSectionFromCondList(registry.actor, this.object, this.defaultStateStanding)!;
       this.currentStateMoving = pickSectionFromCondList(registry.actor, this.object, this.defaultStateMoving1)!;
 
-      this.retvalAfterRotation = null;
-
       this.canUseGetCurrentPointIndex = false;
-      this.currentPointIndex = null;
-      this.walkUntil = now + WALK_MIN_TIME;
-      this.runUntil = now + WALK_MIN_TIME + RUN_MIN_TIME;
+      this.walkUntil = now + StalkerPatrolManager.WALK_STATE_DURATION;
+      this.runUntil = now + StalkerPatrolManager.WALK_STATE_DURATION + StalkerPatrolManager.RUN_STATE_DURATION;
       this.keepStateUntil = now;
 
+      this.retvalAfterRotation = null;
+      this.isOnTerminalWaypoint = false;
+      this.currentPointIndex = null;
       this.lastWalkIndex = null;
       this.lastLookIndex = null;
       this.useDefaultSound = false;
@@ -226,6 +227,7 @@ export class StalkerPatrolManager {
       this.object.patrol_path_make_inactual();
     }
 
+    // Perform movement update based on current paths.
     this.setupMovementByPatrolPath();
   }
 
@@ -233,10 +235,16 @@ export class StalkerPatrolManager {
    * Dispose all related data and manager instance.
    */
   public finalize(): void {
-    logger.format("Finalize move manager for: '%s' / '%s'", this.object.name(), this.team);
+    logger.format(
+      "Finalize patrol manager for: '%s', walk '%s' look '%s' , team '%s'",
+      this.object.name(),
+      this.patrolWalkName,
+      this.patrolLookName,
+      this.team
+    );
 
     if (this.team) {
-      sync.get(this.team).delete(this.object.id());
+      registry.patrolSynchronization.get(this.team).delete(this.object.id());
     }
 
     this.object.set_path_type(EClientObjectPath.LEVEL_PATH);
@@ -250,65 +258,35 @@ export class StalkerPatrolManager {
   }
 
   /**
-   * todo: Description.
+   * Handle game object update tick.
    */
   public update(): void {
     const now: TTimestamp = time_global();
 
-    if (this.synSignal && now >= this.synSignalSetTm) {
-      if (this.isSynchronized()) {
-        setObjectActiveSchemeSignal(this.object, this.synSignal);
-        this.synSignal = null;
-      }
+    // If sync is needed and time passed, check state and write signal when should.
+    if (this.synSignal && now >= this.synSignalSetTm && this.isSynchronized()) {
+      setObjectActiveSchemeSignal(this.object, this.synSignal);
+      this.synSignal = null; // Reset.
     }
 
-    if (this.canUseGetCurrentPointIndex && !this.isArrivedToFirstWaypoint()) {
-      if (now >= this.keepStateUntil) {
-        this.keepStateUntil = now + KEEP_STATE_MIN_TIME;
+    // todo: explain.
+    if (this.canUseGetCurrentPointIndex && this.lastWalkIndex === null && now >= this.keepStateUntil) {
+      this.keepStateUntil = now + StalkerPatrolManager.KEEP_STATE_DURATION;
 
-        const currentPointIndex: TIndex = this.currentPointIndex!;
-        const dist: TDistance = this.object.position().distance_to(this.patrolWalk!.point(currentPointIndex));
+      const distance: TDistance = this.object
+        .position()
+        .distance_to_sqr(this.patrolWalk!.point(this.currentPointIndex as TIndex));
 
-        if (dist <= DIST_WALK || now < this.walkUntil) {
-          this.currentStateMoving = pickSectionFromCondList(registry.actor, this.object, this.defaultStateMoving1)!;
-        } else if (dist <= DIST_RUN || now < this.runUntil) {
-          this.currentStateMoving = pickSectionFromCondList(registry.actor, this.object, this.defaultStateMoving2)!;
-        } else {
-          this.currentStateMoving = pickSectionFromCondList(registry.actor, this.object, this.defaultStateMoving3)!;
-        }
-
-        this.updateMovementState();
+      if (distance <= StalkerPatrolManager.DISTANCE_TO_WALK_SQR || now < this.walkUntil) {
+        this.currentStateMoving = pickSectionFromCondList(registry.actor, this.object, this.defaultStateMoving1)!;
+      } else if (distance <= StalkerPatrolManager.DISTANCE_TO_RUN_SQR || now < this.runUntil) {
+        this.currentStateMoving = pickSectionFromCondList(registry.actor, this.object, this.defaultStateMoving2)!;
+      } else {
+        this.currentStateMoving = pickSectionFromCondList(registry.actor, this.object, this.defaultStateMoving3)!;
       }
 
-      return;
+      setStalkerState(this.object, this.currentStateMoving);
     }
-  }
-
-  /**
-   * todo: Description.
-   */
-  public isArrivedToFirstWaypoint(): boolean {
-    return this.lastWalkIndex !== null;
-  }
-
-  /**
-   * todo: Description.
-   */
-  public updateMovementState(): void {
-    setStalkerState(this.object, this.currentStateMoving);
-  }
-
-  /**
-   * todo: Description.
-   */
-  public updateStandingState(lookPosition: Vector): void {
-    setStalkerState(
-      this.object,
-      this.currentStateStanding,
-      { context: this, callback: this.onAnimationEnd, turnEndCallback: this.onAnimationTurnEnd },
-      this.patrolWaitTime,
-      { lookPosition: lookPosition, lookObjectId: null }
-    );
   }
 
   /**
@@ -320,36 +298,20 @@ export class StalkerPatrolManager {
 
     if (this.currentPointIndex) {
       this.object.set_start_point(this.currentPointIndex);
-      this.object.set_patrol_path(this.pathWalk as TName, patrol.next, patrol.continue, true);
+      this.object.set_patrol_path(this.patrolWalkName as TName, patrol.next, patrol.continue, true);
     } else {
-      this.object.set_patrol_path(this.pathWalk as TName, patrol.nearest, patrol.continue, true);
+      this.object.set_patrol_path(this.patrolWalkName as TName, patrol.nearest, patrol.continue, true);
     }
 
     this.state = ECurrentMovementState.MOVING;
 
-    const [isTerminalPoint, index] = this.isStandingOnTerminalWaypoint();
+    const [isTerminalPoint, index] = isObjectStandingOnTerminalWaypoint(this.object, this.patrolWalk as Patrol);
 
     if (isTerminalPoint) {
-      logger.format("Finish patrol, terminal point: '%s', '%s'", this.object.name(), index);
-
       this.onWalkWaypoint(this.object, null, index);
     } else {
-      this.updateMovementState();
+      setStalkerState(this.object, this.currentStateMoving);
     }
-  }
-
-  /**
-   * todo: Description.
-   * todo: Move to patrol utils.
-   */
-  public isStandingOnTerminalWaypoint(): LuaMultiReturn<[boolean, Optional<TIndex>]> {
-    for (const idx of $range(0, this.patrolWalk!.count() - 1)) {
-      if (isObjectAtWaypoint(this.object, this.patrolWalk!, idx) && this.patrolWalk!.terminal(idx)) {
-        return $multi(true, idx);
-      }
-    }
-
-    return $multi(false, null);
   }
 
   /**
@@ -357,7 +319,7 @@ export class StalkerPatrolManager {
    */
   public isSynchronized(): boolean {
     if (this.team) {
-      const state: LuaTable<TNumberId, boolean> = sync.get(this.team);
+      const state: LuaTable<TNumberId, boolean> = registry.patrolSynchronization.get(this.team);
 
       for (const [id, isFlagged] of state) {
         const object: Optional<ClientObject> = level.object_by_id(id);
@@ -369,7 +331,7 @@ export class StalkerPatrolManager {
           }
         } else {
           // Delete objects that cannot be synchronized.
-          sync.get(this.team).delete(id);
+          registry.patrolSynchronization.get(this.team).delete(id);
         }
       }
     }
@@ -400,7 +362,7 @@ export class StalkerPatrolManager {
       return;
     }
 
-    const sigTm: Optional<TName> = this.pathLookInfo!.get(this.lastLookIndex!).sigtm as Optional<TName>;
+    const sigTm: Optional<TName> = this.patrolLookWaypoints!.get(this.lastLookIndex!).sigtm as Optional<TName>;
 
     // Animation is finished, have signal to set -> set it for activeScheme.
     if (sigTm) {
@@ -414,24 +376,24 @@ export class StalkerPatrolManager {
       }
 
       this.reset(
-        this.pathWalk as TName,
-        this.pathWalkInfo,
-        this.pathLook,
-        this.pathLookInfo,
+        this.patrolWalkName as TName,
+        this.patrolWalkWaypoints,
+        this.patrolLookName,
+        this.patrolLookWaypoints,
         this.team,
         this.suggestedState,
-        this.moveCbInfo
+        this.patrolCallbackDescriptor
       );
     } else {
       // Update movement state and continue patrolling.
-      this.updateMovementState();
+      setStalkerState(this.object, this.currentStateMoving);
 
       // Still have to reach final point, no way to synchronize before it.
       assert(
-        !this.pathLookInfo!.get(this.lastLookIndex!).syn,
+        !this.patrolLookWaypoints!.get(this.lastLookIndex!).syn,
         "Object '%s': path_walk '%s': syn flag used on non-terminal waypoint.",
         this.object.name(),
-        this.pathWalk
+        this.patrolWalkName
       );
     }
   }
@@ -442,7 +404,7 @@ export class StalkerPatrolManager {
   public onAnimationTurnEnd(): void {
     logger.format("Animation turn end for: '%s' at '%s'", this.object.name(), this.lastLookIndex);
 
-    const waypoint: IWaypointData = this.pathLookInfo!.get(this.lastLookIndex as TIndex);
+    const waypoint: IWaypointData = this.patrolLookWaypoints!.get(this.lastLookIndex as TIndex);
 
     if (waypoint.syn) {
       this.synSignal = waypoint.sig as Optional<TName>;
@@ -452,12 +414,12 @@ export class StalkerPatrolManager {
         this.synSignal,
         "Object '%s': path_look '%s': syn flag used without sig flag.",
         this.object.name(),
-        this.pathLook
+        this.patrolLookName
       );
 
       // Mark current object as synchronized.
       if (this.team) {
-        sync.get(this.team).set(this.object.id(), true);
+        registry.patrolSynchronization.get(this.team).set(this.object.id(), true);
       }
     } else {
       setObjectActiveSchemeSignal(this.object, waypoint.sig ? waypoint.sig : "turn_end");
@@ -465,28 +427,40 @@ export class StalkerPatrolManager {
 
     if (this.retvalAfterRotation) {
       assert(
-        this.moveCbInfo,
+        this.patrolCallbackDescriptor,
         "Object '%s': path_look '%s': ret flag is set, but callback function wasn't registered in move_mgr.reset()",
         this.object.name(),
-        this.pathLook
+        this.patrolLookName
       );
 
       setStalkerState(this.object, this.currentStateStanding);
 
       assert(
-        this.moveCbInfo,
+        this.patrolCallbackDescriptor,
         "object '%s': path_look '%s': ret flag is set, but callback function wasn't registered in move_mgr.reset()",
         this.object.name(),
-        this.pathLook
+        this.patrolLookName
       );
 
+      // todo: Probably simplify, never return true?
       if (
-        this.moveCbInfo.func(this.moveCbInfo.obj, ARRIVAL_AFTER_ROTATION, this.retvalAfterRotation, this.lastWalkIndex)
+        this.patrolCallbackDescriptor.callback(
+          this.patrolCallbackDescriptor.context,
+          EWaypointArrivalType.AFTER_ANIMATION_TURN,
+          this.retvalAfterRotation,
+          this.lastWalkIndex
+        )
       ) {
         // Nothing to do here.
         return;
       } else {
-        this.updateStandingState(this.patrolLook!.point(this.lastLookIndex!));
+        setStalkerState(
+          this.object,
+          this.currentStateStanding,
+          { context: this, callback: this.onAnimationEnd, turnEndCallback: this.onAnimationTurnEnd },
+          this.patrolWaitTime,
+          { lookPosition: (this.patrolLook as Patrol).point(this.lastLookIndex as TIndex), lookObjectId: null }
+        );
       }
     }
   }
@@ -497,10 +471,10 @@ export class StalkerPatrolManager {
    */
   public onWalkWaypoint(object: ClientObject, actionType: Optional<number>, index: Optional<TIndex>): void {
     logger.format(
-      "Waypoint CB for: '%s' at '%s' / '%s' '%s'",
+      "Waypoint `walk`: '%s' action '%s', '%s' -> '%s'",
       this.object.name(),
-      this.lastLookIndex,
       actionType,
+      this.lastWalkIndex,
       index
     );
 
@@ -512,53 +486,62 @@ export class StalkerPatrolManager {
     this.lastWalkIndex = index;
     this.isOnTerminalWaypoint = (this.patrolWalk as Patrol).terminal(index);
 
+    logger.format("Walk index set: '%s' -> '%s'", this.object.name(), index);
+
     this.currentStateMoving = pickSectionFromCondList(
       registry.actor,
       this.object,
-      this.pathWalkInfo.get(index).a ?? this.defaultStateMoving1
+      this.patrolWalkWaypoints.get(index).a ?? this.defaultStateMoving1
     )!;
 
-    const retv = this.pathWalkInfo.get(index).ret;
+    const retv = this.patrolWalkWaypoints.get(index).ret;
 
     if (retv) {
       const retvNum = tonumber(retv);
 
-      if (!this.moveCbInfo) {
+      if (!this.patrolCallbackDescriptor) {
         abort(
           "object '%s': path_walk '%s': ret flag is set, but callback function wasn't registered in move_mgr:reset()",
           this.object.name(),
-          this.pathWalk
+          this.patrolWalkName
         );
       }
 
-      if (this.moveCbInfo.func(this.moveCbInfo.obj, ARRIVAL_BEFORE_ROTATION, retvNum, index)) {
+      if (
+        this.patrolCallbackDescriptor.callback(
+          this.patrolCallbackDescriptor.context,
+          EWaypointArrivalType.BEFORE_ANIMATION_TURN,
+          retvNum,
+          index
+        )
+      ) {
         return;
       }
     }
 
-    const sig: Optional<TName> = this.pathWalkInfo.get(index).sig;
+    const sig: Optional<TName> = this.patrolWalkWaypoints.get(index).sig;
 
     // todo: Always set signal path end on terminal points?
     if (sig) {
       // Set reach signal if override provided.
       setObjectActiveSchemeSignal(this.object, sig);
-    } else if (index === this.pathWalkInfo.length() - 1) {
+    } else if (index === this.patrolWalkWaypoints.length() - 1) {
       // Set path end if terminal point and no override provided.
       setObjectActiveSchemeSignal(this.object, "path_end");
     }
 
-    const stopProbability = this.pathWalkInfo.get(index).p;
+    const stopProbability = this.patrolWalkWaypoints.get(index).p;
 
     // Not looking right now OR have probability to stop, check against random chance:
     if (!this.patrolLook || (stopProbability && tonumber(stopProbability)! < math.random(1, 100))) {
-      return this.updateMovementState();
+      return setStalkerState(this.object, this.currentStateMoving);
     }
 
-    const flags: Flags32 = this.pathWalkInfo.get(index).flags;
+    const flags: Flags32 = this.patrolWalkWaypoints.get(index).flags;
 
     // Search for check??? todo: probably means that should not search for any look point here.
     if (flags.get() === 0) {
-      return this.updateMovementState();
+      return setStalkerState(this.object, this.currentStateMoving);
     } else {
       this.onLookWaypoint(object, actionType, index, flags);
     }
@@ -574,55 +557,71 @@ export class StalkerPatrolManager {
     index: Optional<TIndex>,
     flags: Flags32
   ): void {
-    const [lookPointIndex] = chooseLookPoint(this.patrolLook as Patrol, this.pathLookInfo!, flags);
+    const [lookPointIndex] = chooseLookPoint(this.patrolLook as Patrol, this.patrolLookWaypoints!, flags);
+
+    logger.format(
+      "Waypoint `look`: '%s' action '%s', '%s' -> '%s', selected '%s'",
+      this.object.name(),
+      actionType,
+      this.lastWalkIndex,
+      index,
+      lookPointIndex
+    );
 
     if (!lookPointIndex) {
       abort(
-        "Object '%s': path_walk '%s', index.ts %d: cannot find corresponding point(s) on path_look '%s'",
+        "Object '%s': path_walk '%s', index.ts %d: cannot find corresponding point(s) on path_look '%s'.",
         this.object.name(),
-        this.pathWalk,
+        this.patrolWalkName,
         index,
-        this.pathLook
+        this.patrolLookName
       );
     }
 
     this.currentStateStanding = pickSectionFromCondList(
       registry.actor,
       this.object,
-      this.pathLookInfo!.get(lookPointIndex).a ?? this.defaultStateStanding
+      this.patrolLookWaypoints!.get(lookPointIndex).a ?? this.defaultStateStanding
     )!;
 
-    const suggestedWaitTime = this.pathLookInfo!.get(lookPointIndex).t;
+    const suggestedWaitTime = this.patrolLookWaypoints!.get(lookPointIndex).t;
 
     if (suggestedWaitTime) {
       if (suggestedWaitTime === "*") {
         this.patrolWaitTime = null;
       } else {
-        const tm: number = tonumber(suggestedWaitTime)!;
+        const tm: TDuration = tonumber(suggestedWaitTime)!;
 
         if (tm !== 0 && (tm < 1000 || tm > 45000)) {
           abort(
-            "object '%s': path_look '%s': flag 't':" +
-              " incorrect time specified (* or number in interval [1000, 45000] is expected)",
+            "Object '%s': path_look '%s': flag 't': incorrect time specified " +
+              "(* or number in interval [1000, 45000] is expected)",
             this.object.name(),
-            this.pathLook
+            this.patrolLookName
           );
         }
 
         this.patrolWaitTime = tm;
       }
     } else {
-      this.patrolWaitTime = DEFAULT_WAIT_TIME;
+      this.patrolWaitTime = StalkerPatrolManager.DEFAULT_PATROL_WAIT_TIME;
     }
 
-    const lookRetv = this.pathLookInfo!.get(lookPointIndex).ret;
+    const retVal: Optional<string> = this.patrolLookWaypoints!.get(lookPointIndex).ret;
 
-    this.retvalAfterRotation = lookRetv ? (tonumber(lookRetv) as number) : null;
+    this.retvalAfterRotation = retVal ? (tonumber(retVal) as number) : null;
 
-    logger.format("Last look index set: '%s' -> '%s'", this.object.name(), lookPointIndex);
+    logger.format("Look index set: '%s' -> '%s'", this.object.name(), lookPointIndex);
 
     this.lastLookIndex = lookPointIndex;
-    this.updateStandingState((this.patrolLook as Patrol).point(lookPointIndex));
+
+    setStalkerState(
+      this.object,
+      this.currentStateStanding,
+      { context: this, callback: this.onAnimationEnd, turnEndCallback: this.onAnimationTurnEnd },
+      this.patrolWaitTime,
+      { lookPosition: (this.patrolLook as Patrol).point(this.lastLookIndex as TIndex), lookObjectId: null }
+    );
 
     this.state = ECurrentMovementState.STANDING;
 

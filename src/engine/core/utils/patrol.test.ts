@@ -36,4 +36,6 @@ describe("patrol utils", () => {
   });
 
   it.todo("'chooseLookPoint' should correctly choose points");
+
+  it.todo("'isObjectStandingOnTerminalWaypoint' should correctly check terminal waypoints and object standing");
 });
