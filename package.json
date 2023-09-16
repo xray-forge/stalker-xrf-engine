@@ -20,7 +20,7 @@
     "help": "ts-node -P ./cli/tsconfig.json cli/run.ts -h"
   },
   "dependencies": {
-    "xray16": "1.0.9"
+    "xray16": "1.0.10"
   },
   "devDependencies": {
     "@jest/globals": "^29.6.4",
@@ -53,7 +53,7 @@
     "ts-node": "^10.9.1",
     "tsconfig-paths": "^4.2.0",
     "typescript": "^5.2.2",
-    "typescript-to-lua": "^1.19.1"
+    "typescript-to-lua": "^1.19.2"
   },
   "bin": {
     "xrf": "./cli/run.ts"
