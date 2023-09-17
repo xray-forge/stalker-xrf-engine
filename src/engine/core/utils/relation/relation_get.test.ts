@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it } from "@jest/globals";
 
 import { registerActor, registerStoryLink, registry } from "@/engine/core/database";
-import { Squad } from "@/engine/core/objects";
+import { Squad } from "@/engine/core/objects/server/squad";
 import {
   getNumberRelationBetweenCommunities,
   getObjectsRelationSafe,
@@ -104,7 +104,7 @@ describe("'relation/get' utils", () => {
       "Squad with story id 'not-existing' was not found."
     );
 
-    mockServerAlifeCreatureActor({ community: () => communities.actor });
+    mockServerAlifeCreatureActor({ community: <T>() => communities.actor as T });
 
     const enemy: ServerGroupObject = mockServerAlifeOnlineOfflineGroup();
     const friend: ServerGroupObject = mockServerAlifeOnlineOfflineGroup();

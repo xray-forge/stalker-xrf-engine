@@ -1,7 +1,7 @@
 import { describe, expect, it, jest } from "@jest/globals";
 import { CTime, game } from "xray16";
 
-import { SmartTerrain } from "@/engine/core/objects";
+import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain";
 import {
   startSmartTerrainAlarm,
   updateSmartTerrainAlarmStatus,

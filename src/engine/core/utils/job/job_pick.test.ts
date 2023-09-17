@@ -1,6 +1,6 @@
 import { beforeAll, describe, expect, it } from "@jest/globals";
 
-import { SmartTerrain } from "@/engine/core/objects";
+import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain";
 import {
   createObjectJobDescriptor,
   EJobType,

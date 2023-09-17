@@ -25,7 +25,7 @@ import type {
 export function isMonster(object: ClientObject): object is ClientObject;
 export function isMonster(object: ServerObject): object is ServerMonsterAbstractObject;
 export function isMonster(object: AnyGameObject): boolean {
-  return object.clsid() in classIds.monster;
+  return classIds.monster.has(object.clsid());
 }
 
 /**
@@ -35,7 +35,9 @@ export function isMonster(object: AnyGameObject): boolean {
  * @returns whether object class id is a stalker
  */
 export function isStalker(object: AnyGameObject): object is ServerHumanObject {
-  return object.clsid() in classIds.stalker;
+  const r = classIds.stalker;
+
+  return classIds.stalker.has(object.clsid());
 }
 
 /**
@@ -45,7 +47,7 @@ export function isStalker(object: AnyGameObject): object is ServerHumanObject {
  * @returns whether object class id is weapon
  */
 export function isWeapon(object: Optional<AnyGameObject>): boolean {
-  return object !== null && object.clsid() in classIds.weapon;
+  return object !== null && classIds.weapon.has(object.clsid());
 }
 
 /**
@@ -71,7 +73,7 @@ export function isGrenade(object: Optional<AnyGameObject>): boolean {
  * @returns whether object class id matches artefact
  */
 export function isArtefact(object: AnyGameObject): object is ServerArtefactItemObject {
-  return object.clsid() in classIds.artefact;
+  return classIds.artefact.has(object.clsid());
 }
 
 /**

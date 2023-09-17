@@ -1,9 +1,10 @@
 import * as path from "path";
 
-import { describe, expect, it, jest } from "@jest/globals";
+import { describe, expect, it } from "@jest/globals";
 
 import { registerSmartCover } from "@/engine/core/database";
-import { SmartCover, SmartTerrain } from "@/engine/core/objects";
+import { SmartCover } from "@/engine/core/objects/server/smart_cover";
+import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain";
 import { EJobPathType, EJobType } from "@/engine/core/utils/job";
 import { createStalkerJobs } from "@/engine/core/utils/job/job_create/job_create_stalker";
 import {

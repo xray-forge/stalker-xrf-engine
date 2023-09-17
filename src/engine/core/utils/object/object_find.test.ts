@@ -212,8 +212,10 @@ describe("object find utils", () => {
     expect(firstList.map((it) => it.id())).toEqual([first.id(), second.id(), third.id()]);
 
     expect(
-      (getClientObjects(clsid.script_stalker as TClassId) as unknown as MockLuaTable<TIndex, ClientObject>).map((it) =>
-        it.id()
+      (getClientObjects(clsid.script_stalker as TClassId) as unknown as MockLuaTable<TIndex, ClientObject>).map(
+        (it) => {
+          return it.id();
+        }
       )
     ).toEqual([first.id()]);
     expect(

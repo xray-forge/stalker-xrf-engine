@@ -1,15 +1,10 @@
 import { describe, expect, it, jest } from "@jest/globals";
 import { level } from "xray16";
 
-import {
-  IRegistryObjectState,
-  registerObject,
-  registerSmartCover,
-  registerZone,
-  registry,
-} from "@/engine/core/database";
+import { registerObject, registerSmartCover, registerZone } from "@/engine/core/database";
 import { SurgeManager } from "@/engine/core/managers/surge/SurgeManager";
-import { SmartCover, SmartTerrain } from "@/engine/core/objects";
+import { SmartCover } from "@/engine/core/objects/server/smart_cover";
+import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain";
 import { parseConditionsList } from "@/engine/core/utils/ini";
 import { createStalkerAnimpointJobs } from "@/engine/core/utils/job/job_create/job_create_stalker_animpoint";
 import { createStalkerCamperJobs } from "@/engine/core/utils/job/job_create/job_create_stalker_camper";

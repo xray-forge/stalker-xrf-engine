@@ -3,7 +3,8 @@ import * as path from "path";
 import { beforeEach, describe, expect, it } from "@jest/globals";
 
 import { registerSmartCover, registry } from "@/engine/core/database";
-import { SmartCover, SmartTerrain, SmartTerrainControl } from "@/engine/core/objects";
+import { SmartCover } from "@/engine/core/objects/server/smart_cover";
+import { SmartTerrain, SmartTerrainControl } from "@/engine/core/objects/server/smart_terrain";
 import { EJobPathType, EJobType } from "@/engine/core/utils/job";
 import { createStalkerAnimpointJobs } from "@/engine/core/utils/job/job_create/job_create_stalker_animpoint";
 import { StringBuilder } from "@/engine/core/utils/string";
