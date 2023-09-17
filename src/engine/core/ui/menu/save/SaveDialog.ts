@@ -25,7 +25,6 @@ import { gameConfig } from "@/engine/lib/configs/GameConfig";
 import { roots } from "@/engine/lib/constants/roots";
 import {
   FSFileList,
-  FSFileListEX,
   FSItem,
   LuaArray,
   Optional,

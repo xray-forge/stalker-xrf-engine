@@ -1,6 +1,5 @@
 import {
   alife,
-  bit_or,
   CScriptXmlInit,
   CUIListBox,
   CUIMessageBoxEx,
@@ -11,8 +10,6 @@ import {
   DIK_keys,
   dik_to_bind,
   Frect,
-  FS,
-  getFS,
   key_bindings,
   LuabindClass,
   ui_events,
@@ -32,10 +29,8 @@ import {
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { resolveXmlFormPath } from "@/engine/core/utils/ui";
 import { gameConfig } from "@/engine/lib/configs/GameConfig";
-import { roots } from "@/engine/lib/constants/roots";
 import {
   ClientObject,
-  FSFileListEX,
   FSItem,
   LuaArray,
   Optional,

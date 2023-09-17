@@ -4,7 +4,7 @@ import { getObjectByStoryId, IBaseSchemeLogic, registry } from "@/engine/core/da
 import { AbstractSchemeManager } from "@/engine/core/objects/ai/scheme";
 import { ISchemeMinigunState } from "@/engine/core/schemes/ph_minigun/ISchemeMinigunState";
 import { abort } from "@/engine/core/utils/assertion";
-import { pickSectionFromCondList, TConditionList } from "@/engine/core/utils/ini";
+import { pickSectionFromCondList } from "@/engine/core/utils/ini";
 import { isObjectWounded } from "@/engine/core/utils/object";
 import {
   isActiveSection,
@@ -15,7 +15,7 @@ import {
 } from "@/engine/core/utils/scheme";
 import { createEmptyVector, createVector, yaw } from "@/engine/core/utils/vector";
 import { ACTOR, NIL } from "@/engine/lib/constants/words";
-import { Car, ClientObject, Optional, TName, TSection, TStringId, TTimestamp, Vector } from "@/engine/lib/types";
+import { Car, ClientObject, Optional, TSection, TStringId, TTimestamp, Vector } from "@/engine/lib/types";
 
 const STATE_CANNON_ROTATE: number = 1;
 const STATE_CANNON_FOLLOW: number = 2;

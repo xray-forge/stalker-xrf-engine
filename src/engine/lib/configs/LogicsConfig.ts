@@ -1,7 +1,5 @@
 import { danger_object } from "xray16";
 
-import { TDuration } from "@/engine/lib/types";
-
 /**
  * Configuration of game logics.
  * todo: move to LTX file once everything is combined here.

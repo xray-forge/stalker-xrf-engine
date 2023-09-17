@@ -1,5 +1,5 @@
 import { describe, expect, it, jest } from "@jest/globals";
-import { alife, game_graph, patrol } from "xray16";
+import { alife, game_graph } from "xray16";
 
 import {
   areObjectsOnSameLevel,
@@ -24,7 +24,6 @@ import {
   mockClientGameObject,
   mockServerAlifeObject,
   mockServerAlifeSmartZone,
-  patrols,
 } from "@/fixtures/xray";
 import { MockVector } from "@/fixtures/xray/mocks/vector.mock";
 

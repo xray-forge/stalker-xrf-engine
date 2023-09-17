@@ -1,4 +1,4 @@
-import { alife, class_info, clsid, level, relation_registry } from "xray16";
+import { alife, class_info, clsid, level } from "xray16";
 
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { ServerMonsterBaseObject } from "@/engine/lib/types";

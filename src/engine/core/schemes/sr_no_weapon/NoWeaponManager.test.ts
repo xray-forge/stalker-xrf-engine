@@ -10,7 +10,7 @@ import { giveInfo } from "@/engine/core/utils/object";
 import { loadSchemeImplementation } from "@/engine/core/utils/scheme";
 import { ClientObject, EScheme, ESchemeCondition } from "@/engine/lib/types";
 import { mockBaseSchemeLogic, mockSchemeState } from "@/fixtures/engine";
-import { mockActorClientGameObject, mockClientGameObject, mockIniFile } from "@/fixtures/xray";
+import { mockActorClientGameObject, mockClientGameObject } from "@/fixtures/xray";
 
 describe("NoWeaponManager class", () => {
   beforeEach(() => {
