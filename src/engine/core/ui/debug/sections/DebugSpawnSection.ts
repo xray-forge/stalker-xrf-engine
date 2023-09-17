@@ -71,7 +71,7 @@ export class DebugSpawnSection extends AbstractDebugSection {
     this.owner.AddCallback("spawn_creature_button", ui_events.BUTTON_CLICKED, () => this.onCreatureSpawn(), this);
   }
 
-  public initializeState(): void {
+  public override initializeState(): void {
     Object.values(ESpawnCategory)
       .sort((a, b) => ((a as unknown as number) > (b as unknown as number) ? 1 : -1))
       .forEach((it, index) => this.uiCategoriesList.AddItem(it, index));

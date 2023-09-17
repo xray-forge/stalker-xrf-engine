@@ -1,36 +1,100 @@
-import { CUI3tButton, LuabindClass, ui_events } from "xray16";
+import { alife, CUI3tButton, CUICheckButton, CUIListBox, CUIStatic, LuabindClass, ui_events } from "xray16";
 
 import { registry } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { AbstractDebugSection } from "@/engine/core/ui/debug/sections/AbstractDebugSection";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { resolveXmlFile } from "@/engine/core/utils/ui";
+import { EElementType, registerUiElement, resolveXmlFile } from "@/engine/core/utils/ui";
 import { NIL } from "@/engine/lib/constants/words";
-import { TPath } from "@/engine/lib/types";
+import { AlifeSimulator, Optional, TCount, TPath } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 const base: TPath = "menu\\debug\\DebugRegistrySection.component";
 
 /**
- * todo;
+ * Debugging of game objects registry / database.
  */
 @LuabindClass()
 export class DebugRegistrySection extends AbstractDebugSection {
   public uiLogGeneralReportButton!: CUI3tButton;
+  public uiRegistryCountLabel!: CUIStatic;
+  public uiRegistryFilterOnline!: CUICheckButton;
+
+  public uiRegistryList!: CUIListBox;
+
+  public filterIsOnline: boolean = false;
 
   public initializeControls(): void {
     resolveXmlFile(base, this.xml);
 
-    this.uiLogGeneralReportButton = this.xml.Init3tButton("log_general_report", this);
+    registerUiElement(this.xml, "registry_list_frame", {
+      base: this,
+      type: EElementType.FRAME,
+    });
 
-    this.owner.Register(this.uiLogGeneralReportButton, "log_general_report");
+    this.uiRegistryCountLabel = registerUiElement(this.xml, "registry_filter_count", {
+      type: EElementType.STATIC,
+      base: this,
+    });
+    this.uiLogGeneralReportButton = registerUiElement(this.xml, "log_general_report", {
+      type: EElementType.BUTTON,
+      base: this,
+      context: this.owner,
+      handlers: {
+        [ui_events.BUTTON_CLICKED]: () => this.onPrintGeneralReport(),
+      },
+    });
+
+    this.uiRegistryFilterOnline = registerUiElement(this.xml, "registry_filter_online", {
+      type: EElementType.CHECK_BOX,
+      base: this,
+      context: this.owner,
+      handlers: {
+        [ui_events.CHECK_BUTTON_RESET]: () => this.onToggleFilterOnline(),
+        [ui_events.CHECK_BUTTON_SET]: () => this.onToggleFilterOnline(),
+      },
+    });
+
+    this.uiRegistryList = registerUiElement(this.xml, "registry_list", {
+      type: EElementType.LIST_BOX,
+      base: this,
+      context: this.owner,
+      handlers: {
+        [ui_events.LIST_ITEM_SELECT]: () => this.onSelectedObjectChange(),
+      },
+    });
   }
 
-  public override initializeCallBacks(): void {
-    this.owner.AddCallback("log_general_report", ui_events.BUTTON_CLICKED, () => this.onPrintGeneralReport(), this);
-  }
+  public override initializeState(): void {
+    const simulator: Optional<AlifeSimulator> = alife();
 
-  public initializeState(): void {}
+    if (simulator !== null) {
+      let total: TCount = 0;
+
+      this.uiRegistryList.Clear();
+
+      alife().iterate_objects((it): void => {
+        const isValid: boolean = this.filterIsOnline ? it.online : true;
+
+        if (isValid) {
+          total += 1;
+
+          this.uiRegistryList.AddTextItem(
+            string.format(
+              "#%s# - %s - %s - %s - %s",
+              it.id,
+              it.clsid(),
+              it.online ? "online" : "offline",
+              it.name(),
+              it.section_name()
+            )
+          );
+        }
+      });
+
+      this.uiRegistryCountLabel.SetText(string.format("Total: %s", total));
+    }
+  }
 
   /**
    * Report state of the registry.
@@ -81,5 +145,16 @@ export class DebugRegistrySection extends AbstractDebugSection {
     });
 
     logger.pushSeparator();
+  }
+
+  public onSelectedObjectChange(): void {
+    logger.info("Selected another item");
+  }
+
+  public onToggleFilterOnline(): void {
+    this.filterIsOnline = this.uiRegistryFilterOnline.GetCheck();
+    this.initializeState();
+
+    logger.info("Changed online filter:", this.filterIsOnline);
   }
 }

@@ -3,7 +3,7 @@ import { alife, clsid } from "xray16";
 import { SYSTEM_INI } from "@/engine/core/database/ini_registry";
 import type { SmartTerrain } from "@/engine/core/objects/server/smart_terrain";
 import type { Squad } from "@/engine/core/objects/server/squad";
-import { artefactClassIds, monsterClassIds, stalkerClassIds, weaponClassIds } from "@/engine/lib/constants/class_ids";
+import { classIds } from "@/engine/lib/constants/class_ids";
 import type {
   AnyGameObject,
   ClientObject,
@@ -25,7 +25,7 @@ import type {
 export function isMonster(object: ClientObject): object is ClientObject;
 export function isMonster(object: ServerObject): object is ServerMonsterAbstractObject;
 export function isMonster(object: AnyGameObject): boolean {
-  return object.clsid() in monsterClassIds;
+  return object.clsid() in classIds.monster;
 }
 
 /**
@@ -35,7 +35,7 @@ export function isMonster(object: AnyGameObject): boolean {
  * @returns whether object class id is a stalker
  */
 export function isStalker(object: AnyGameObject): object is ServerHumanObject {
-  return object.clsid() in stalkerClassIds;
+  return object.clsid() in classIds.stalker;
 }
 
 /**
@@ -45,7 +45,7 @@ export function isStalker(object: AnyGameObject): object is ServerHumanObject {
  * @returns whether object class id is weapon
  */
 export function isWeapon(object: Optional<AnyGameObject>): boolean {
-  return object !== null && object.clsid() in weaponClassIds;
+  return object !== null && object.clsid() in classIds.weapon;
 }
 
 /**
@@ -71,7 +71,7 @@ export function isGrenade(object: Optional<AnyGameObject>): boolean {
  * @returns whether object class id matches artefact
  */
 export function isArtefact(object: AnyGameObject): object is ServerArtefactItemObject {
-  return object.clsid() in artefactClassIds;
+  return object.clsid() in classIds.artefact;
 }
 
 /**

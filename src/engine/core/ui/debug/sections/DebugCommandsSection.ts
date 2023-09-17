@@ -27,24 +27,14 @@ export class DebugCommandsSection extends AbstractDebugSection {
 
     this.uiCommandsList = this.xml.InitScrollView("commands_list", this);
 
-    zeroOneCommands.forEach((it) => this.initEntry(it, console, "numeric"));
-    onOffCommands.forEach((it) => this.initEntry(it, console, "boolean"));
+    zeroOneCommands.forEach((it) => this.initializeEntry(it, console, "numeric"));
+    onOffCommands.forEach((it) => this.initializeEntry(it, console, "boolean"));
   }
 
   /**
    * todo: Description.
    */
-  public override initializeCallBacks(): void {}
-
-  /**
-   * todo: Description.
-   */
-  public initializeState(): void {}
-
-  /**
-   * todo: Description.
-   */
-  public initEntry(command: TConsoleCommand, console: CConsole, type: "numeric" | "boolean"): void {
+  public initializeEntry(command: TConsoleCommand, console: CConsole, type: "numeric" | "boolean"): void {
     const item: CUIStatic = this.xml.InitStatic("command_item", this.uiCommandsList);
     const caption: CUIStatic = this.xml.InitStatic("command_label", item);
     const check: CUICheckButton = this.xml.InitCheck("command_check", item);
@@ -70,7 +60,7 @@ export class DebugCommandsSection extends AbstractDebugSection {
   }
 
   /**
-   * todo: Description.
+   * Handle change of checkbox value.
    */
   public onCheckboxChange(check: CUICheckButton, command: TConsoleCommand, type: "numeric" | "boolean"): void {
     const isEnabled: boolean = check.GetCheck();

@@ -18,8 +18,4 @@ export class DebugPositionSection extends AbstractDebugSection {
 
     xml.ParseFile(resolveXmlFormPath(base));
   }
-
-  public override initializeCallBacks(): void {}
-
-  public initializeState(): void {}
 }

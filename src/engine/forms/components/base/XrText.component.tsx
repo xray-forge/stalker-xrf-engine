@@ -7,10 +7,10 @@ import { IBaseXmlNode, IRgbColor, Optional, THorizontalTextAlign, TVerticalTextA
 
 export interface IXrTextProps extends IBaseXmlNode {
   tag?: string;
-  color?: IRgbColor | string;
   label?: Optional<string>;
   children?: string;
   complexMode?: boolean;
+  color?: IRgbColor | string;
   font?: TFontId;
   align?: THorizontalTextAlign;
   vertAlign?: TVerticalTextAlign;

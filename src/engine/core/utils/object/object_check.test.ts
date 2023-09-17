@@ -1,8 +1,9 @@
 import { describe, expect, it, jest } from "@jest/globals";
+import { clsid } from "xray16";
 
 import { registerActor, registerStoryLink, registry } from "@/engine/core/database";
-import { Squad } from "@/engine/core/objects";
 import { EActionId } from "@/engine/core/objects/ai/types";
+import { Squad } from "@/engine/core/objects/server/squad";
 import { LoopedSound } from "@/engine/core/objects/sounds/playable_sounds";
 import {
   isActorSeenByObject,
@@ -20,7 +21,6 @@ import {
   isSurgeEnabledOnLevel,
   isUndergroundLevel,
 } from "@/engine/core/utils/object/object_check";
-import { classIds } from "@/engine/lib/constants/class_ids";
 import { ammo } from "@/engine/lib/constants/items/ammo";
 import { weapons } from "@/engine/lib/constants/items/weapons";
 import { ClientObject, ServerHumanObject, TClassId } from "@/engine/lib/types";
@@ -158,12 +158,12 @@ describe("'object_check' utils", () => {
   it("'isStalkerAlive' should correctly check stalker alive state", () => {
     const aliveStalkerServerObject: ServerHumanObject = mockServerAlifeHumanStalker({
       alive: () => true,
-      clsid: () => classIds.script_stalker as TClassId,
+      clsid: () => clsid.script_stalker as TClassId,
     });
     const aliveStalkerClientObject: ClientObject = mockClientGameObject({
       idOverride: aliveStalkerServerObject.id,
       alive: () => true,
-      clsid: () => classIds.script_stalker as TClassId,
+      clsid: () => clsid.script_stalker as TClassId,
     });
 
     registerStoryLink(aliveStalkerServerObject.id, "alive-stalker-sid");
@@ -177,7 +177,7 @@ describe("'object_check' utils", () => {
       isStalkerAlive(
         mockServerAlifeHumanStalker({
           alive: () => false,
-          clsid: () => classIds.script_stalker as TClassId,
+          clsid: () => clsid.script_stalker as TClassId,
         })
       )
     ).toBe(false);
@@ -185,7 +185,7 @@ describe("'object_check' utils", () => {
       isStalkerAlive(
         mockServerAlifeHumanStalker({
           alive: () => false,
-          clsid: () => classIds.boar_s as TClassId,
+          clsid: () => clsid.boar_s as TClassId,
         })
       )
     ).toBe(false);
@@ -193,7 +193,7 @@ describe("'object_check' utils", () => {
       isStalkerAlive(
         mockServerAlifeMonsterBase({
           alive: () => true,
-          clsid: () => classIds.boar_s as TClassId,
+          clsid: () => clsid.boar_s as TClassId,
         })
       )
     ).toBe(false);

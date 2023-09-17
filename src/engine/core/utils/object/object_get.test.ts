@@ -1,4 +1,5 @@
 import { describe, expect, it } from "@jest/globals";
+import { clsid } from "xray16";
 
 import {
   getObjectActiveWeaponSlot,
@@ -7,7 +8,6 @@ import {
   getObjectSmartTerrain,
   getObjectSquad,
 } from "@/engine/core/utils/object/object_get";
-import { classIds } from "@/engine/lib/constants/class_ids";
 import {
   ClientObject,
   ServerGroupObject,
@@ -91,9 +91,9 @@ describe("object get utils", () => {
     expect(getObjectCommunity(mockClientGameObject())).toBe("monster");
     expect(getObjectCommunity(mockServerAlifeHumanStalker())).toBe("stalker");
 
-    const clientObject: ClientObject = mockClientGameObject({ clsid: () => classIds.script_stalker as TClassId });
+    const clientObject: ClientObject = mockClientGameObject({ clsid: () => clsid.script_stalker as TClassId });
     const serverObject: ServerHumanObject = mockServerAlifeHumanStalker({
-      clsid: () => classIds.script_stalker as TClassId,
+      clsid: () => clsid.script_stalker as TClassId,
     });
 
     expect(getObjectCommunity(clientObject)).toBe("stalker");

@@ -1,5 +1,5 @@
 import { describe, expect, it, jest } from "@jest/globals";
-import { danger_object } from "xray16";
+import { clsid, danger_object } from "xray16";
 
 import { IRegistryObjectState, registerObject, registry } from "@/engine/core/database";
 import { SimulationBoardManager } from "@/engine/core/managers/simulation/SimulationBoardManager";
@@ -10,7 +10,6 @@ import { ISchemeWoundedState } from "@/engine/core/schemes/wounded";
 import { WoundManager } from "@/engine/core/schemes/wounded/WoundManager";
 import { parseConditionsList } from "@/engine/core/utils/ini";
 import { canObjectSelectAsEnemy, isObjectFacingDanger } from "@/engine/core/utils/object/object_danger";
-import { classIds } from "@/engine/lib/constants/class_ids";
 import { FALSE, TRUE } from "@/engine/lib/constants/words";
 import { ClientObject, EClientObjectRelation, EScheme, ServerSmartZoneObject, TClassId } from "@/engine/lib/types";
 import { mockSchemeState } from "@/fixtures/engine";
@@ -98,7 +97,7 @@ describe("'object_danger' utils", () => {
   });
 
   it("'isObjectFacingDanger' should correctly check grenades", () => {
-    const object: ClientObject = mockClientGameObject({ clsid: () => classIds.script_stalker as TClassId });
+    const object: ClientObject = mockClientGameObject({ clsid: () => clsid.script_stalker as TClassId });
     const bestDanger: MockDangerObject = new MockDangerObject();
     const state: IRegistryObjectState = registerObject(object);
 
@@ -130,7 +129,7 @@ describe("'object_danger' utils", () => {
   });
 
   it("'canObjectSelectAsEnemy' should correctly check enemies selection possibility", () => {
-    const object: ClientObject = mockClientGameObject({ clsid: () => classIds.script_stalker as TClassId });
+    const object: ClientObject = mockClientGameObject({ clsid: () => clsid.script_stalker as TClassId });
     const enemy: ClientObject = mockClientGameObject();
     const state: IRegistryObjectState = registerObject(object);
     const combatIgnoreState: ISchemeCombatIgnoreState = mockSchemeState(EScheme.COMBAT_IGNORE);
@@ -166,7 +165,7 @@ describe("'object_danger' utils", () => {
   });
 
   it("'canObjectSelectAsEnemy' should correctly check enemies in no-combat zones", () => {
-    const object: ClientObject = mockClientGameObject({ clsid: () => classIds.script_stalker as TClassId });
+    const object: ClientObject = mockClientGameObject({ clsid: () => clsid.script_stalker as TClassId });
     const enemy: ClientObject = mockClientGameObject();
     const state: IRegistryObjectState = registerObject(object);
     const combatIgnoreState: ISchemeCombatIgnoreState = mockSchemeState(EScheme.COMBAT_IGNORE);
@@ -191,7 +190,7 @@ describe("'object_danger' utils", () => {
   });
 
   it("'canObjectSelectAsEnemy' should correctly ignore enemies in no-combat smarts", () => {
-    const object: ClientObject = mockClientGameObject({ clsid: () => classIds.script_stalker as TClassId });
+    const object: ClientObject = mockClientGameObject({ clsid: () => clsid.script_stalker as TClassId });
     const enemy: ClientObject = mockClientGameObject();
     const state: IRegistryObjectState = registerObject(object);
     const combatIgnoreState: ISchemeCombatIgnoreState = mockSchemeState(EScheme.COMBAT_IGNORE);

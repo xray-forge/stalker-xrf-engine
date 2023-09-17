@@ -39,5 +39,5 @@ export abstract class AbstractDebugSection extends CUIWindow {
   /**
    * Initialize debug form view representation based on data.
    */
-  public abstract initializeState(): void;
+  public initializeState(): void {}
 }

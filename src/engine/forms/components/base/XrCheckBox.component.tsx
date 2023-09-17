@@ -2,8 +2,10 @@ import { JSXNode, JSXXML } from "jsx-xml";
 
 import { normalizeBaseNodeProps } from "#/utils";
 
+import { XrText } from "@/engine/forms/components/base/XrText.component";
 import { XrTexture } from "@/engine/forms/components/base/XrTexture.component";
-import { IBaseXmlNode, TName } from "@/engine/lib/types";
+import { TFontId } from "@/engine/lib/constants/fonts";
+import { IBaseXmlNode, IRgbColor, THorizontalTextAlign, TLabel, TName, TVerticalTextAlign } from "@/engine/lib/types";
 
 export interface IXrCheckBoxProps extends IBaseXmlNode {
   itemTag?: string;
@@ -11,6 +13,13 @@ export interface IXrCheckBoxProps extends IBaseXmlNode {
   texture?: TName;
   entry?: string;
   group?: string;
+  label?: TLabel;
+  color?: IRgbColor | string;
+  font?: TFontId;
+  align?: THorizontalTextAlign;
+  vertAlign?: TVerticalTextAlign;
+  textX?: number;
+  textY?: number;
 }
 
 /**
@@ -29,11 +38,21 @@ export function XrCheckBox(props: IXrCheckBoxProps): JSXNode {
     entry,
     group,
     children = null,
+    color,
+    font,
+    align,
+    vertAlign,
+    label,
+    textY,
+    textX,
   } = normalizeBaseNodeProps(props);
 
   return JSXXML(tag, { x, y, width, height, stretch: stretch === undefined ? "1" : stretch }, [
     <XrTexture>{texture}</XrTexture>,
     JSXXML(itemTag || tag + "_item", { entry, group }),
+    label ? (
+      <XrText label={label} font={font} color={color} align={align} vertAlign={vertAlign} x={textX} y={textY} />
+    ) : null,
     children,
   ]);
 }

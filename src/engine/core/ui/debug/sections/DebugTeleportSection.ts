@@ -22,7 +22,8 @@ enum ETeleportCategory {
 }
 
 /**
- * todo;
+ * Debug teleporting in game.
+ * Allows teleporting to different game objects/smart terrains etc.
  */
 @LuabindClass()
 export class DebugTeleportSection extends AbstractDebugSection {
@@ -69,7 +70,7 @@ export class DebugTeleportSection extends AbstractDebugSection {
     this.owner.AddCallback("items_list", ui_events.WINDOW_LBUTTON_DB_CLICK, () => this.onTeleport(true), this);
   }
 
-  public initializeState(): void {
+  public override initializeState(): void {
     Object.values(ETeleportCategory)
       .sort((a, b) => ((a as unknown as number) > (b as unknown as number) ? 1 : -1))
       .forEach((it, index) => this.uiCategoriesList.AddItem(it, index));
@@ -150,14 +151,14 @@ export class DebugTeleportSection extends AbstractDebugSection {
       }
 
       if (isInstant) {
-        this.closeMenu();
+        this.onCloseMainMenu();
       }
     } else {
       logger.info("No selected target for teleport");
     }
   }
 
-  public closeMenu(): void {
+  public onCloseMainMenu(): void {
     executeConsoleCommand(consoleCommands.main_menu, "off");
     EventsManager.emitEvent(EGameEvent.MAIN_MENU_OFF);
   }
