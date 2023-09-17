@@ -16,7 +16,17 @@ export const mockTableUtils = {
       return Object.keys(target).length === 0;
     }
   },
-  copyTable: (target: AnyObject, source: AnyObject) => Object.assign(target, source),
+  copyTable: (target: AnyObject, source: AnyObject) => {
+    if (target instanceof MockLuaTable && source instanceof MockLuaTable) {
+      for (const [k, v] of source) {
+        target.set(k, v);
+      }
+
+      return target;
+    }
+
+    return Object.assign(target, source);
+  },
   resetTable: (table: Map<unknown, unknown>) => {
     for (const [k] of table) {
       table.delete(k);

@@ -17,7 +17,7 @@ export class MockPatrol {
     if (patrols[name]) {
       this.patrolMock = patrols[name];
     } else {
-      throw new Error("Not expected patrol provided, expect something defined in list of patrols mocks.");
+      throw new Error(`Not expected patrol '${name}' provided, expect something defined in list of patrols mocks.`);
     }
   }
 

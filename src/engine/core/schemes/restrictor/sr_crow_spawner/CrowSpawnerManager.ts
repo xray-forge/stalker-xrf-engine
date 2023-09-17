@@ -6,77 +6,65 @@ import { ISchemeCrowSpawnerState } from "@/engine/core/schemes/restrictor/sr_cro
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { trySwitchToAnotherSection } from "@/engine/core/utils/scheme/scheme_switch";
 import { copyTable } from "@/engine/core/utils/table";
-import { Optional, Patrol, ServerObject, TCount, TDuration, TIndex, TName } from "@/engine/lib/types";
+import { AlifeSimulator, LuaArray, Patrol, TDuration, TIndex, TName, TTimestamp, Vector } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Manager of crow spawning.
+ * If scheme is active, spawning crows at random paths defined in scheme config.
  */
 export class CrowSpawnerManager extends AbstractSchemeManager<ISchemeCrowSpawnerState> {
-  public spawnTimeConstant: TDuration = 120_000;
-  public timeForSpawn: TDuration = time_global();
-  public spawnPointsIdle: LuaTable = new LuaTable();
-  public spawnedCount: Optional<TCount> = null;
+  public static CROW_UPDATE_THROTTLE: TDuration = 120_000;
 
-  /**
-   * todo: Description.
-   */
+  public nextUpdateAt: TTimestamp = 0;
+  public spawnPointsUpdateAt: LuaTable<TName, TTimestamp> = new LuaTable();
+
   public override activate(): void {
-    for (const [k, v] of this.state.pathsList!) {
-      this.spawnPointsIdle.set(v, time_global());
+    for (const [, pathName] of this.state.pathsList) {
+      this.spawnPointsUpdateAt.set(pathName, 0);
     }
   }
 
-  /**
-   * todo: Description.
-   */
   public update(): void {
-    // -- check for spawn crows on level
-    if (this.timeForSpawn < time_global()) {
-      this.spawnedCount = registry.crows.count;
-      if (this.spawnedCount < this.state.maxCrowsOnLevel!) {
-        // -- need to spawn
-        this.checkForSpawnNewCrow();
+    const now: TTimestamp = time_global();
+
+    if (this.nextUpdateAt < now) {
+      if (registry.crows.count < this.state.maxCrowsOnLevel) {
+        this.spawnCrows();
       } else {
-        // -- now look for spawn later
-        this.timeForSpawn = time_global() + this.spawnTimeConstant;
+        this.nextUpdateAt = now + CrowSpawnerManager.CROW_UPDATE_THROTTLE;
       }
     }
 
-    if (trySwitchToAnotherSection(this.object, this.state)) {
-      return;
-    }
+    trySwitchToAnotherSection(this.object, this.state);
   }
 
   /**
-   * todo: Description.
+   * Spawn random crows for current level.
+   * Check where crows were not spawned recently and add crow objects.
    */
-  public checkForSpawnNewCrow(): void {
-    const pathList: LuaTable<number, string> = new LuaTable();
+  public spawnCrows(): void {
+    const now: TTimestamp = time_global();
+    const simulator: AlifeSimulator = alife();
+    const pathList: LuaArray<TName> = copyTable(new LuaTable(), this.state.pathsList);
+    const actorPosition: Vector = registry.actor.position();
 
-    copyTable(pathList, this.state.pathsList!);
+    for (const it of $range(1, this.state.pathsList.length())) {
+      const index: TIndex = math.random(pathList.length());
+      const selectedPath: TName = pathList.get(index);
 
-    for (const it of $range(1, this.state.pathsList!.length())) {
-      const idx: TIndex = math.random(pathList.length());
-      const selectedPath: TName = pathList.get(idx);
+      table.remove(pathList, index);
 
-      table.remove(pathList, idx);
-      if (this.spawnPointsIdle.get(selectedPath) <= time_global()) {
-        // -- if we have not spawned already in this point
+      if (this.spawnPointsUpdateAt.get(selectedPath) <= now) {
         const crowPatrol: Patrol = new patrol(selectedPath);
+        const spawnPosition: Vector = crowPatrol.point(0);
 
-        if (crowPatrol.point(0).distance_to(registry.actor.position()) > 100) {
-          const object: ServerObject = alife().create(
-            "m_crow",
-            crowPatrol.point(0),
-            crowPatrol.level_vertex_id(0),
-            crowPatrol.game_vertex_id(0)
-          );
+        // Check distance 100*100.
+        if (spawnPosition.distance_to_sqr(actorPosition) > 10_000) {
+          simulator.create("m_crow", spawnPosition, crowPatrol.level_vertex_id(0), crowPatrol.game_vertex_id(0));
 
-          // logger.info("Spawn new crow:", object.id, selectedPath);
-
-          this.spawnPointsIdle.set(selectedPath, time_global() + 10000);
+          this.spawnPointsUpdateAt.set(selectedPath, now + 10_000);
 
           return;
         }
