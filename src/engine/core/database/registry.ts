@@ -9,13 +9,13 @@ import type {
   LabX8DoorBinder,
   SignalLightBinder,
 } from "@/engine/core/objects/binders";
+import type { CampManager } from "@/engine/core/objects/camp";
 import type { SmartCover, SmartTerrain } from "@/engine/core/objects/server";
 import type { AbstractPlayableSound } from "@/engine/core/objects/sounds/playable_sounds";
 import type { StoryManager } from "@/engine/core/objects/sounds/stories";
-import type { CampManager } from "@/engine/core/schemes/camper";
-import type { PatrolManager } from "@/engine/core/schemes/patrol";
-import type { ReachTaskPatrolManager } from "@/engine/core/schemes/reach_task";
-import type { LightManager } from "@/engine/core/schemes/sr_light";
+import type { LightManager } from "@/engine/core/schemes/restrictor/sr_light";
+import type { PatrolManager } from "@/engine/core/schemes/stalker/patrol";
+import type { ReachTaskPatrolManager } from "@/engine/core/schemes/stalker/reach_task";
 import type { IExtensionsDescriptor } from "@/engine/core/utils/extensions";
 import type { TConditionList } from "@/engine/core/utils/ini/ini_types";
 import type { ERelation } from "@/engine/core/utils/relation";

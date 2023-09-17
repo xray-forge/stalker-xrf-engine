@@ -1,7 +1,7 @@
 import { alife, hit, level } from "xray16";
 
 import { getPortableStoreValue, IRegistryObjectState, registry } from "@/engine/core/database";
-import { ISchemeWoundedState } from "@/engine/core/schemes/wounded";
+import { ISchemeWoundedState } from "@/engine/core/schemes/stalker/wounded";
 import { createVector } from "@/engine/core/utils/vector";
 import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
 import { misc } from "@/engine/lib/constants/items/misc";

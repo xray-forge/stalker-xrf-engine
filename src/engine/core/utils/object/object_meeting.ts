@@ -1,5 +1,5 @@
 import { registry } from "@/engine/core/database";
-import { ISchemeAbuseState } from "@/engine/core/schemes/abuse";
+import { ISchemeAbuseState } from "@/engine/core/schemes/stalker/abuse";
 import { ClientObject, EScheme, Optional, TCount } from "@/engine/lib/types";
 
 /**

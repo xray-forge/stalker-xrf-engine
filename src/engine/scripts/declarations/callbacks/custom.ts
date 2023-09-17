@@ -3,7 +3,7 @@ import { AchievementsManager } from "@/engine/core/managers/achievements/Achieve
 import { SleepManager } from "@/engine/core/managers/sleep";
 import { SurgeManager } from "@/engine/core/managers/surge/SurgeManager";
 import { TaskManager } from "@/engine/core/managers/tasks";
-import { SchemeCutscene } from "@/engine/core/schemes/sr_cutscene/SchemeCutscene";
+import { SchemeCutscene } from "@/engine/core/schemes/restrictor/sr_cutscene/SchemeCutscene";
 import { extern } from "@/engine/core/utils/binding";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { AnyCallable, PartialRecord, TStringId } from "@/engine/lib/types";

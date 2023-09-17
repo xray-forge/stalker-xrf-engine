@@ -84,7 +84,7 @@ export function disableObjectBaseSchemes(object: ClientObject, schemeType: ESche
 
       return;
 
-    case ESchemeType.ITEM:
+    case ESchemeType.OBJECT:
       registry.schemes.get(EScheme.PH_ON_HIT).disable(object, EScheme.PH_ON_HIT);
 
       return;

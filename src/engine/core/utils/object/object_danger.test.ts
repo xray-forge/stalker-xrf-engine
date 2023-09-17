@@ -5,9 +5,9 @@ import { IRegistryObjectState, registerObject, registry } from "@/engine/core/da
 import { SimulationBoardManager } from "@/engine/core/managers/simulation/SimulationBoardManager";
 import { SmartTerrain, SmartTerrainControl } from "@/engine/core/objects/server/smart_terrain";
 import { ESmartTerrainStatus } from "@/engine/core/objects/server/smart_terrain/types";
-import { ISchemeCombatIgnoreState } from "@/engine/core/schemes/combat_ignore";
-import { ISchemeWoundedState } from "@/engine/core/schemes/wounded";
-import { WoundManager } from "@/engine/core/schemes/wounded/WoundManager";
+import { ISchemeCombatIgnoreState } from "@/engine/core/schemes/stalker/combat_ignore";
+import { ISchemeWoundedState } from "@/engine/core/schemes/stalker/wounded";
+import { WoundManager } from "@/engine/core/schemes/stalker/wounded/WoundManager";
 import { parseConditionsList } from "@/engine/core/utils/ini";
 import { canObjectSelectAsEnemy, isObjectFacingDanger } from "@/engine/core/utils/object/object_danger";
 import { FALSE, TRUE } from "@/engine/lib/constants/words";

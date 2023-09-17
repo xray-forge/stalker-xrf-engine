@@ -4,7 +4,7 @@ import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { SimulationBoardManager } from "@/engine/core/managers/simulation/SimulationBoardManager";
 import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain";
 import { ESmartTerrainStatus } from "@/engine/core/objects/server/smart_terrain/types";
-import { ISchemeCombatIgnoreState } from "@/engine/core/schemes/combat_ignore";
+import { ISchemeCombatIgnoreState } from "@/engine/core/schemes/stalker/combat_ignore";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini";
 import { getObjectCommunity } from "@/engine/core/utils/object/object_get";
 import { isObjectInZone } from "@/engine/core/utils/object/object_location";

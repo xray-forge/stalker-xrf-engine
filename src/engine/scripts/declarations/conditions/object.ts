@@ -12,10 +12,10 @@ import { ActorInventoryMenuManager } from "@/engine/core/managers/actor/ActorInv
 import { ItemUpgradesManager } from "@/engine/core/managers/interface/ItemUpgradesManager";
 import { SimulationBoardManager } from "@/engine/core/managers/simulation/SimulationBoardManager";
 import type { SmartTerrain, Squad } from "@/engine/core/objects/server";
-import { ISchemeAnimpointState, SchemeAnimpoint } from "@/engine/core/schemes/animpoint";
-import { ISchemeDeathState } from "@/engine/core/schemes/death";
-import { ISchemeHitState } from "@/engine/core/schemes/hit";
-import { SchemeDeimos } from "@/engine/core/schemes/sr_deimos";
+import { SchemeDeimos } from "@/engine/core/schemes/restrictor/sr_deimos";
+import { ISchemeAnimpointState, SchemeAnimpoint } from "@/engine/core/schemes/stalker/animpoint";
+import { ISchemeDeathState } from "@/engine/core/schemes/stalker/death";
+import { ISchemeHitState } from "@/engine/core/schemes/stalker/hit";
 import { abort, assertDefined } from "@/engine/core/utils/assertion";
 import { extern } from "@/engine/core/utils/binding";
 import { LuaLogger } from "@/engine/core/utils/logging";

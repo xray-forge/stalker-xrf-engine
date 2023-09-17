@@ -262,7 +262,7 @@ export function enableObjectBaseSchemes(
       return;
     }
 
-    case ESchemeType.ITEM: {
+    case ESchemeType.OBJECT: {
       const hitSection: Optional<TSection> = readIniString(ini, logicsSection, "on_hit", false, "");
 
       if (hitSection !== null) {
@@ -343,7 +343,7 @@ export function resetObjectGenericSchemesOnSectionSwitch(
       return;
     }
 
-    case ESchemeType.ITEM: {
+    case ESchemeType.OBJECT: {
       object.set_callback(callback.use_object, null);
       object.set_nonscript_usable(true);
 

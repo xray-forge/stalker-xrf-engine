@@ -2,6 +2,7 @@ import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { callback, clsid } from "xray16";
 
 import {
+  IBaseSchemeState,
   IRegistryObjectState,
   IStoredOfflineObject,
   registerActor,
@@ -11,28 +12,28 @@ import {
 } from "@/engine/core/database";
 import { MapDisplayManager } from "@/engine/core/managers/map";
 import { ObjectRestrictionsManager } from "@/engine/core/objects/ai/restriction";
-import { IBaseSchemeState, TAbstractSchemeConstructor } from "@/engine/core/objects/ai/scheme";
+import { TAbstractSchemeConstructor } from "@/engine/core/objects/ai/scheme";
 import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain";
-import { SchemeAbuse } from "@/engine/core/schemes/abuse";
-import { SchemeCombat } from "@/engine/core/schemes/combat";
-import { SchemeCombatIgnore } from "@/engine/core/schemes/combat_ignore";
-import { SchemeCorpseDetection } from "@/engine/core/schemes/corpse_detection";
-import { SchemeDanger } from "@/engine/core/schemes/danger";
-import { SchemeDeath } from "@/engine/core/schemes/death";
-import { SchemeGatherItems } from "@/engine/core/schemes/gather_items";
-import { SchemeHear } from "@/engine/core/schemes/hear";
-import { SchemeHelpWounded } from "@/engine/core/schemes/help_wounded";
-import { SchemeHit } from "@/engine/core/schemes/hit";
-import { HitManager } from "@/engine/core/schemes/hit/HitManager";
-import { SchemeMeet } from "@/engine/core/schemes/meet";
-import { SchemeMobCombat } from "@/engine/core/schemes/mob_combat";
-import { SchemeMobDeath } from "@/engine/core/schemes/mob_death";
-import { SchemePatrol } from "@/engine/core/schemes/patrol";
-import { SchemePhysicalOnHit } from "@/engine/core/schemes/ph_on_hit";
-import { SchemeReachTask } from "@/engine/core/schemes/reach_task";
-import { SchemeIdle } from "@/engine/core/schemes/sr_idle";
-import { IdleManager } from "@/engine/core/schemes/sr_idle/IdleManager";
-import { SchemeWounded } from "@/engine/core/schemes/wounded";
+import { SchemeMobCombat } from "@/engine/core/schemes/monster/mob_combat";
+import { SchemeMobDeath } from "@/engine/core/schemes/monster/mob_death";
+import { SchemePhysicalOnHit } from "@/engine/core/schemes/object/ph_on_hit";
+import { SchemeIdle } from "@/engine/core/schemes/restrictor/sr_idle";
+import { IdleManager } from "@/engine/core/schemes/restrictor/sr_idle/IdleManager";
+import { SchemeHear } from "@/engine/core/schemes/shared/hear";
+import { SchemeAbuse } from "@/engine/core/schemes/stalker/abuse";
+import { SchemeCombat } from "@/engine/core/schemes/stalker/combat";
+import { SchemeCombatIgnore } from "@/engine/core/schemes/stalker/combat_ignore";
+import { SchemeCorpseDetection } from "@/engine/core/schemes/stalker/corpse_detection";
+import { SchemeDanger } from "@/engine/core/schemes/stalker/danger";
+import { SchemeDeath } from "@/engine/core/schemes/stalker/death";
+import { SchemeGatherItems } from "@/engine/core/schemes/stalker/gather_items";
+import { SchemeHelpWounded } from "@/engine/core/schemes/stalker/help_wounded";
+import { SchemeHit } from "@/engine/core/schemes/stalker/hit";
+import { HitManager } from "@/engine/core/schemes/stalker/hit/HitManager";
+import { SchemeMeet } from "@/engine/core/schemes/stalker/meet";
+import { SchemePatrol } from "@/engine/core/schemes/stalker/patrol";
+import { SchemeReachTask } from "@/engine/core/schemes/stalker/reach_task";
+import { SchemeWounded } from "@/engine/core/schemes/stalker/wounded";
 import { ISmartTerrainJobDescriptor } from "@/engine/core/utils/job";
 import { disableInfo, giveInfo } from "@/engine/core/utils/object/object_info_portion";
 import {
@@ -152,8 +153,8 @@ describe("'scheme logic' utils", () => {
     firstState.ini = ini;
     secondState.ini = ini;
 
-    firstState.schemeType = ESchemeType.ITEM;
-    secondState.schemeType = ESchemeType.ITEM;
+    firstState.schemeType = ESchemeType.OBJECT;
+    secondState.schemeType = ESchemeType.OBJECT;
 
     // If initialing.
     activateSchemeBySection(first, ini, NIL, null, false);
@@ -312,10 +313,10 @@ describe("'scheme logic' utils", () => {
 
     loadSchemeImplementation(SchemePhysicalOnHit);
 
-    enableObjectBaseSchemes(object, ini, ESchemeType.ITEM, "sr_idle@first");
+    enableObjectBaseSchemes(object, ini, ESchemeType.OBJECT, "sr_idle@first");
     expect(SchemePhysicalOnHit.activate).not.toHaveBeenCalled();
 
-    enableObjectBaseSchemes(object, ini, ESchemeType.ITEM, "sr_idle@second");
+    enableObjectBaseSchemes(object, ini, ESchemeType.OBJECT, "sr_idle@second");
     expect(SchemePhysicalOnHit.activate).toHaveBeenCalledWith(object, ini, EScheme.PH_ON_HIT, "ph_on_hit@another");
   });
 
@@ -476,7 +477,7 @@ describe("'scheme logic' utils", () => {
 
     stalkerState.schemeType = ESchemeType.STALKER;
     monsterState.schemeType = ESchemeType.MONSTER;
-    itemState.schemeType = ESchemeType.ITEM;
+    itemState.schemeType = ESchemeType.OBJECT;
     restrictorState.schemeType = ESchemeType.RESTRICTOR;
     helicopterState.schemeType = ESchemeType.HELICOPTER;
 

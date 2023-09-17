@@ -6,8 +6,8 @@ import {
   hasAchievedWealthy,
 } from "@/engine/core/managers/achievements/achievements_preconditions";
 import { SurgeManager } from "@/engine/core/managers/surge/SurgeManager";
-import { ISchemeDeathState } from "@/engine/core/schemes/death";
-import { ISchemeHitState } from "@/engine/core/schemes/hit";
+import { ISchemeDeathState } from "@/engine/core/schemes/stalker/death";
+import { ISchemeHitState } from "@/engine/core/schemes/stalker/hit";
 import { abort, assertDefined } from "@/engine/core/utils/assertion";
 import { extern } from "@/engine/core/utils/binding";
 import { LuaLogger } from "@/engine/core/utils/logging";

@@ -15,9 +15,9 @@ import {
 } from "@/engine/core/database";
 import { loadObjectLogic, saveObjectLogic } from "@/engine/core/database/logic";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
-import { getHeliHealth } from "@/engine/core/schemes/heli_move/heli_utils";
-import { HeliCombat } from "@/engine/core/schemes/heli_move/HeliCombat";
-import { getHeliFirer, HeliFire } from "@/engine/core/schemes/heli_move/HeliFire";
+import { getHeliHealth } from "@/engine/core/schemes/helicopter/heli_move/heli_utils";
+import { HeliCombat } from "@/engine/core/schemes/helicopter/heli_move/HeliCombat";
+import { getHeliFirer, HeliFire } from "@/engine/core/schemes/helicopter/heli_move/HeliFire";
 import { readIniNumber, readIniString } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { emitSchemeEvent, initializeObjectSchemeLogic } from "@/engine/core/utils/scheme";

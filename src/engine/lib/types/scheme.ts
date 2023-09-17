@@ -78,8 +78,8 @@ export enum ESchemeType {
   STALKER = 1,
   // Monster object scheme.
   MONSTER = 2,
-  // Item object scheme.
-  ITEM = 3,
+  // Object object scheme.
+  OBJECT = 3,
   // Helicopter object scheme.
   HELICOPTER = 4,
   // Zone / restrictor scheme.

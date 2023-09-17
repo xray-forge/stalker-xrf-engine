@@ -13,10 +13,10 @@ import {
 import { SimulationBoardManager } from "@/engine/core/managers/simulation/SimulationBoardManager";
 import { updateStalkerLogic } from "@/engine/core/objects/binders/creature/StalkerBinder";
 import type { SmartTerrain, Squad } from "@/engine/core/objects/server";
-import { ISchemeCombatState } from "@/engine/core/schemes/combat";
-import { ISchemeCombatIgnoreState } from "@/engine/core/schemes/combat_ignore";
-import { ISchemeMobCombatState } from "@/engine/core/schemes/mob_combat";
-import { initTarget } from "@/engine/core/schemes/remark/actions";
+import { ISchemeMobCombatState } from "@/engine/core/schemes/monster/mob_combat";
+import { ISchemeCombatState } from "@/engine/core/schemes/stalker/combat";
+import { ISchemeCombatIgnoreState } from "@/engine/core/schemes/stalker/combat_ignore";
+import { initTarget } from "@/engine/core/schemes/stalker/remark/actions";
 import { abort, assert, assertDefined } from "@/engine/core/utils/assertion";
 import { extern } from "@/engine/core/utils/binding";
 import {
