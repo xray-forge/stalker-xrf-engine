@@ -2,7 +2,7 @@ import { LuabindClass, property_evaluator } from "xray16";
 
 import { registry } from "@/engine/core/database";
 import { StalkerStateManager } from "@/engine/core/objects/ai/state/StalkerStateManager";
-import { ISchemeSmartCoverState } from "@/engine/core/schemes/smartcover";
+import { ISchemeSmartCoverState } from "@/engine/core/schemes/stalker/smartcover";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { EScheme, Optional } from "@/engine/lib/types";
 

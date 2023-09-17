@@ -1,6 +1,6 @@
 import { getServerObjectByStoryId, registry } from "@/engine/core/database";
 import { Squad } from "@/engine/core/objects/server/squad";
-import { ISchemeDeathState } from "@/engine/core/schemes/death";
+import { ISchemeDeathState } from "@/engine/core/schemes/stalker/death";
 import { abort, assert } from "@/engine/core/utils/assertion";
 import { extern, getExtern } from "@/engine/core/utils/binding";
 import { LuaLogger } from "@/engine/core/utils/logging";

@@ -141,7 +141,7 @@ export class PhysicObjectBinder extends object_binder {
 
     if (!this.initialized) {
       this.initialized = true;
-      initializeObjectSchemeLogic(this.object, this.state, this.loaded, ESchemeType.ITEM);
+      initializeObjectSchemeLogic(this.object, this.state, this.loaded, ESchemeType.OBJECT);
     }
 
     const spawnIni: Optional<IniFile> = this.object.spawn_ini();

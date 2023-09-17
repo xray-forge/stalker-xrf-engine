@@ -5,8 +5,8 @@ import { StalkerAnimationManager } from "@/engine/core/objects/ai/state/StalkerA
 import { StalkerStateManager } from "@/engine/core/objects/ai/state/StalkerStateManager";
 import { EActionId } from "@/engine/core/objects/ai/types";
 import { EAnimationType, EStalkerState } from "@/engine/core/objects/animation/types";
-import { ISchemeWoundedState } from "@/engine/core/schemes/wounded";
-import { WoundManager } from "@/engine/core/schemes/wounded/WoundManager";
+import { ISchemeWoundedState } from "@/engine/core/schemes/stalker/wounded";
+import { WoundManager } from "@/engine/core/schemes/stalker/wounded/WoundManager";
 import { isObjectAsleep, isObjectMeeting, isObjectWounded } from "@/engine/core/utils/object/object_state";
 import { ActionPlanner, ClientObject, EScheme } from "@/engine/lib/types";
 import { mockSchemeState } from "@/fixtures/engine";

@@ -1,9 +1,0 @@
-## remark
-
-description
-
-## ini parameters
-
-```
-
-```

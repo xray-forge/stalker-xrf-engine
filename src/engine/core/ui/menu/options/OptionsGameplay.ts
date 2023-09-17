@@ -22,6 +22,7 @@ export class OptionsGameplay extends CUIWindow {
     this.createSelectItem(xml, "tab_gameplay:cap_difficulty", "tab_gameplay:list_difficulty");
     this.createSelectItem(xml, "tab_gameplay:cap_localization", "tab_gameplay:list_localization");
     this.creatTrackItem(xml, "tab_gameplay:cap_fov", "tab_gameplay:track_fov");
+    this.creatTrackItem(xml, "tab_gameplay:cap_hud_fov", "tab_gameplay:track_hud_fov");
     this.createCheckItem(xml, "tab_gameplay:cap_check_tips", "tab_gameplay:check_tips");
     this.createCheckItem(xml, "tab_gameplay:cap_check_crosshair", "tab_gameplay:check_crosshair");
     this.createCheckItem(xml, "tab_gameplay:cap_check_dyn_crosshair", "tab_gameplay:check_dyn_crosshair");

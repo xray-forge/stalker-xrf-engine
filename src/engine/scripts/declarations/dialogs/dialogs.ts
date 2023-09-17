@@ -6,9 +6,9 @@ import { ENotificationDirection, NotificationManager } from "@/engine/core/manag
 import { SimulationBoardManager } from "@/engine/core/managers/simulation/SimulationBoardManager";
 import { SurgeManager } from "@/engine/core/managers/surge/SurgeManager";
 import { updateStalkerLogic } from "@/engine/core/objects/binders/creature/StalkerBinder";
-import { ISchemeMeetState } from "@/engine/core/schemes/meet";
-import { updateObjectInteractionAvailability } from "@/engine/core/schemes/meet/utils";
-import { ISchemeWoundedState } from "@/engine/core/schemes/wounded";
+import { ISchemeMeetState } from "@/engine/core/schemes/stalker/meet";
+import { updateObjectInteractionAvailability } from "@/engine/core/schemes/stalker/meet/utils";
+import { ISchemeWoundedState } from "@/engine/core/schemes/stalker/wounded";
 import { extern } from "@/engine/core/utils/binding";
 import { createGameAutoSave } from "@/engine/core/utils/game";
 import { LuaLogger } from "@/engine/core/utils/logging";

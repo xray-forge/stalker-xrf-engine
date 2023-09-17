@@ -3,11 +3,11 @@ import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { registry } from "@/engine/core/database";
 import { TAbstractSchemeConstructor } from "@/engine/core/objects/ai/scheme";
 import { EEvaluatorId } from "@/engine/core/objects/ai/types";
-import { SchemeCombat } from "@/engine/core/schemes/combat";
-import { SchemeCombatIgnore } from "@/engine/core/schemes/combat_ignore";
-import { SchemeHit } from "@/engine/core/schemes/hit";
-import { SchemeMobCombat } from "@/engine/core/schemes/mob_combat";
-import { SchemePhysicalOnHit } from "@/engine/core/schemes/ph_on_hit";
+import { SchemeMobCombat } from "@/engine/core/schemes/monster/mob_combat";
+import { SchemePhysicalOnHit } from "@/engine/core/schemes/object/ph_on_hit";
+import { SchemeCombat } from "@/engine/core/schemes/stalker/combat";
+import { SchemeCombatIgnore } from "@/engine/core/schemes/stalker/combat_ignore";
+import { SchemeHit } from "@/engine/core/schemes/stalker/hit";
 import {
   addCommonActionPreconditions,
   disableObjectBaseSchemes,
@@ -55,7 +55,7 @@ describe("'scheme setup' utils", () => {
 
     schemes.forEach((it) => jest.spyOn(it, "disable").mockReset().mockImplementation(jest.fn()));
 
-    disableObjectBaseSchemes(mockClientGameObject(), ESchemeType.ITEM);
+    disableObjectBaseSchemes(mockClientGameObject(), ESchemeType.OBJECT);
 
     expect(SchemeCombat.disable).toHaveBeenCalledTimes(0);
     expect(SchemeCombatIgnore.disable).toHaveBeenCalledTimes(0);

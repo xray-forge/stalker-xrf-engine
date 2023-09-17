@@ -1,7 +1,7 @@
 import { IAnimationDescriptor } from "@/engine/core/objects/animation/types/animation_types";
 import { EStalkerState } from "@/engine/core/objects/animation/types/state_types";
-import { finishCorpseLooting } from "@/engine/core/schemes/corpse_detection/utils";
-import { finishObjectHelpWounded } from "@/engine/core/schemes/help_wounded/utils";
+import { finishCorpseLooting } from "@/engine/core/schemes/stalker/corpse_detection/utils";
+import { finishObjectHelpWounded } from "@/engine/core/schemes/stalker/help_wounded/utils";
 import { createSequence } from "@/engine/core/utils/animation";
 import { getExtern } from "@/engine/core/utils/binding";
 import { startPlayingGuitar, startPlayingHarmonica } from "@/engine/core/utils/camp";

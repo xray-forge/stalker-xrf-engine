@@ -21,7 +21,7 @@ import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundMan
 import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain/SmartTerrain";
 import { SquadReachTargetAction } from "@/engine/core/objects/server/squad/action";
 import { Squad } from "@/engine/core/objects/server/squad/Squad";
-import { SchemeHear } from "@/engine/core/schemes/hear/SchemeHear";
+import { SchemeHear } from "@/engine/core/schemes/shared/hear/SchemeHear";
 import { assert } from "@/engine/core/utils/assertion";
 import { pickSectionFromCondList, TConditionList } from "@/engine/core/utils/ini";
 import { ISmartTerrainJobDescriptor } from "@/engine/core/utils/job";

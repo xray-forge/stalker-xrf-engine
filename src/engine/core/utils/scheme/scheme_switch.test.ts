@@ -9,9 +9,9 @@ import {
   registerObject,
   registerZone,
 } from "@/engine/core/database";
-import { SchemeIdle } from "@/engine/core/schemes/sr_idle";
-import { SchemeTimer } from "@/engine/core/schemes/sr_timer";
-import { TimerManager } from "@/engine/core/schemes/sr_timer/TimerManager";
+import { SchemeIdle } from "@/engine/core/schemes/restrictor/sr_idle";
+import { SchemeTimer } from "@/engine/core/schemes/restrictor/sr_timer";
+import { TimerManager } from "@/engine/core/schemes/restrictor/sr_timer/TimerManager";
 import { addConditionToList } from "@/engine/core/utils/ini/ini_config";
 import { parseConditionsList } from "@/engine/core/utils/ini/ini_parse";
 import { giveInfo } from "@/engine/core/utils/object/object_info_portion";
