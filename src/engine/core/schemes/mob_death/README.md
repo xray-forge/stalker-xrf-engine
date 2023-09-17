@@ -1,9 +1,9 @@
-## scheme
+## mob_death
 
-description
+- todo <br/>
+- todo <br/>
+- todo <br/>
 
-## ini parameters
+## Documentation
 
-```
-
-```
+[Book: mob_death scheme.](https://xray-forge.github.io/stalker-xrf-book/script_engine/schemes/mob_death.html)

@@ -2,11 +2,6 @@
 
 description
 
-## ini parameters
+## Documentation
 
-```
-hit_on_bone - ?
-nonscript_usable - ?
-on_use - ?
-tips - ?
-```
+[Book: ph_idle scheme.](https://xray-forge.github.io/stalker-xrf-book/script_engine/schemes/ph_idle.html)

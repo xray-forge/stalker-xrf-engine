@@ -1,9 +1,9 @@
-## scheme
+# death
 
-description
+- todo <br/>
+- todo <br/>
+- todo <br/>
 
-## ini parameters
+## Documentation
 
-```
-
-```
+[Book: death scheme.](https://xray-forge.github.io/stalker-xrf-book/script_engine/schemes/death.html)

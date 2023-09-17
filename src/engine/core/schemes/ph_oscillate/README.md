@@ -1,4 +1,4 @@
-## ph_oscillate
+# ph_oscillate
 
 description
 
@@ -10,3 +10,7 @@ period - ?
 force - ?
 correct_angle - ?
 ```
+
+## Documentation
+
+[Book: ph_oscillate scheme.](https://xray-forge.github.io/stalker-xrf-book/script_engine/schemes/ph_oscillate.html)

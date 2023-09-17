@@ -1,9 +1,9 @@
-## scheme
+# hit
 
-description
+- todo <br/>
+- todo <br/>
+- todo <br/>
 
-## ini parameters
+## Documentation
 
-```
-
-```
+[Book: hit scheme.](https://xray-forge.github.io/stalker-xrf-book/script_engine/schemes/hit.html)

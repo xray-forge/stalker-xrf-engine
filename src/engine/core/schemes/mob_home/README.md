@@ -1,17 +1,7 @@
 ## mob_home
 
-Scheme is implementing home locatin binding for mobs. <br/>
+Scheme is implementing home location binding for mobs. <br/>
 
-## ini parameters
+## Documentation
 
-```
-state - optional string
-path_home - optional string
-
-gulag_point - optional boolean
-aggressive - optional boolean
-
-home_min_radius - optional number
-home_mid_radius - optional number
-home_max_radius - optional number
-```
+[Book: mob_home scheme.](https://xray-forge.github.io/stalker-xrf-book/script_engine/schemes/mob_home.html)

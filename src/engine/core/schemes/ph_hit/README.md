@@ -1,9 +1,9 @@
-## scheme
+## ph_hit
 
-description
+- todo <br/>
+- todo <br/>
+- todo <br/>
 
-## ini parameters
+## Documentation
 
-```
-
-```
+[Book: ph_hit scheme.](https://xray-forge.github.io/stalker-xrf-book/script_engine/schemes/ph_hit.html)

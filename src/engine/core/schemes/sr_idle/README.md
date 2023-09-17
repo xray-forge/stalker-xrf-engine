@@ -1,9 +1,9 @@
-## scheme
+# sr_idle
 
-description
+- todo <br/>
+- todo <br/>
+- todo <br/>
 
-## ini parameters
+## Documentation
 
-```
-
-```
+[Book: sr_idle scheme.](https://xray-forge.github.io/stalker-xrf-book/script_engine/schemes/sr_idle.html)

@@ -1,9 +1,9 @@
-## scheme
+## ph_minigun
 
-description
+- todo <br/>
+- todo <br/>
+- todo <br/>
 
-## ini parameters
+## Documentation
 
-```
-
-```
+[Book: ph_minigun scheme.](https://xray-forge.github.io/stalker-xrf-book/script_engine/schemes/ph_minigun.html)

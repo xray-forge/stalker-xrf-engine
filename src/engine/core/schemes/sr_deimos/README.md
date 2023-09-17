@@ -1,9 +1,9 @@
-## scheme
+# sr_deimos
 
-description
+- todo <br/>
+- todo <br/>
+- todo <br/>
 
-## ini parameters
+## Documentation
 
-```
-
-```
+[Book: sr_deimos scheme.](https://xray-forge.github.io/stalker-xrf-book/script_engine/schemes/sr_deimos.html)

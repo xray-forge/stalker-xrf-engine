@@ -1,9 +1,9 @@
-## scheme
+# combat_zombied
 
-description
+- todo <br/>
+- todo <br/>
+- todo <br/>
 
-## ini parameters
+## Documentation
 
-```
-
-```
+[Book: combat_zombied scheme.](https://xray-forge.github.io/stalker-xrf-book/script_engine/schemes/combat_zombied.html)

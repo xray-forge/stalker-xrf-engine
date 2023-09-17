@@ -1,9 +1,9 @@
-## scheme
+## mob_walker
 
-description
+- todo <br/>
+- todo <br/>
+- todo <br/>
 
-## ini parameters
+## Documentation
 
-```
-
-```
+[Book: mob_walker scheme.](https://xray-forge.github.io/stalker-xrf-book/script_engine/schemes/mob_walker.html)

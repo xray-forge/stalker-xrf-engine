@@ -1,14 +1,8 @@
-## cover
+# cover
 
 Scheme describing cover points usage. <br/>
 Stalkers can enter smart covers and sit / lay / stand in them.
 
-## ini parameters
+## Documentation
 
-```
-smart - ?
-anim - ?
-sound_idle - ?
-radius_min - ?
-radius_max - ?
-```
+[Book: cover scheme.](https://xray-forge.github.io/stalker-xrf-book/script_engine/schemes/cover.html)

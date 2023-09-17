@@ -1,4 +1,4 @@
-## sr_light
+# sr_light
 
 Scheme to control stalkers torches light mode.
 
@@ -7,3 +7,7 @@ Scheme to control stalkers torches light mode.
 ```
 light_on - ?
 ```
+
+## Documentation
+
+[Book: sr_light scheme.](https://xray-forge.github.io/stalker-xrf-book/script_engine/schemes/sr_light.html)

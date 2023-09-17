@@ -1,9 +1,9 @@
-## scheme
+## patrol
 
-description
+- todo <br/>
+- todo <br/>
+- todo <br/>
 
-## ini parameters
+## Documentation
 
-```
-
-```
+[Book: patrol scheme.](https://xray-forge.github.io/stalker-xrf-book/script_engine/schemes/patrol.html)

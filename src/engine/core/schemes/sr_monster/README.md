@@ -9,3 +9,7 @@ Used for boards in clear sky swamps.
 ```
 
 ```
+
+## Documentation
+
+[Book: sr_monster scheme.](https://xray-forge.github.io/stalker-xrf-book/script_engine/schemes/sr_monster.html)
