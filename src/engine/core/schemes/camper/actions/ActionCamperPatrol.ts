@@ -66,7 +66,7 @@ export class ActionCamperPatrol extends action_base implements ISchemeEventHandl
    * todo: Description.
    */
   public reset(): void {
-    setStalkerState(this.object, EStalkerState.PATROL, null, null, null, null);
+    setStalkerState(this.object, EStalkerState.PATROL);
 
     this.state.signals = new LuaTable();
     this.state.scan_table = new LuaTable();
@@ -370,18 +370,18 @@ export class ActionCamperPatrol extends action_base implements ISchemeEventHandl
       };
 
       if (this.state.suggested_state.campering_fire) {
-        setStalkerState(this.object, this.state.suggested_state.campering_fire, null, null, dangerObjectPosition, null);
+        setStalkerState(this.object, this.state.suggested_state.campering_fire, null, null, dangerObjectPosition);
       } else {
-        setStalkerState(this.object, EStalkerState.HIDE_FIRE, null, null, dangerObjectPosition, null);
+        setStalkerState(this.object, EStalkerState.HIDE_FIRE, null, null, dangerObjectPosition);
       }
     } else {
       if (this.state.suggested_state.campering) {
-        setStalkerState(this.object, this.state.suggested_state.campering, null, null, position, null);
+        setStalkerState(this.object, this.state.suggested_state.campering, null, null, position);
       } else {
         if (this.state.sniper === true) {
-          setStalkerState(this.object, EStalkerState.HIDE_NA, null, null, position, null);
+          setStalkerState(this.object, EStalkerState.HIDE_NA, null, null, position);
         } else {
-          setStalkerState(this.object, EStalkerState.HIDE, null, null, position, null);
+          setStalkerState(this.object, EStalkerState.HIDE, null, null, position);
         }
       }
     }

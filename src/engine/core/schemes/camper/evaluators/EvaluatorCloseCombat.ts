@@ -4,7 +4,7 @@ import { EEvaluatorId } from "@/engine/core/objects/ai/types";
 import { ISchemeCamperState } from "@/engine/core/schemes/camper/ISchemeCamperState";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { isActiveSection } from "@/engine/core/utils/scheme";
-import { ActionPlanner, Optional } from "@/engine/lib/types";
+import { ActionPlanner, Optional, TTimestamp } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -51,7 +51,7 @@ export class EvaluatorCloseCombat extends property_evaluator {
     }
 
     if (this.isCloseCombat) {
-      const memoryTime: number = this.object.memory_time(this.object.best_enemy()!);
+      const memoryTime: TTimestamp = this.object.memory_time(this.object.best_enemy()!);
 
       if (memoryTime !== null) {
         if (time_global() - memoryTime > 20_000) {

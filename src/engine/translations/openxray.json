@@ -239,6 +239,16 @@
     "spa": "Campo visivo",
     "ukr": "Поле зору"
   },
+  "ui_mm_ui_fov": {
+    "eng": null,
+    "fra": null,
+    "ger": null,
+    "ita": null,
+    "pol": null,
+    "rus": null,
+    "spa": null,
+    "ukr": null
+  },
   "st_switch_version_invitation": {
     "eng": "Do you really want to launch another version of the game?",
     "fra": "Voulez-vous vraiment lancer une autre version du jeu?",
