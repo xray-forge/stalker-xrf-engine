@@ -22,7 +22,7 @@ export class DebugRegistrySection extends AbstractDebugSection {
 
   public uiRegistryList!: CUIListBox;
 
-  public filterIsOnline: boolean = false;
+  public filterIsOnline: boolean = true;
 
   public initializeControls(): void {
     resolveXmlFile(base, this.xml);
@@ -67,6 +67,8 @@ export class DebugRegistrySection extends AbstractDebugSection {
 
   public override initializeState(): void {
     const simulator: Optional<AlifeSimulator> = alife();
+
+    this.uiRegistryFilterOnline.SetCheck(this.filterIsOnline);
 
     if (simulator !== null) {
       let total: TCount = 0;
