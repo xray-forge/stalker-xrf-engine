@@ -1,8 +1,11 @@
 import { CSightParams } from "xray16";
 
 import { registry } from "@/engine/core/database";
+import { LuaLogger } from "@/engine/core/utils/logging";
 import { copyVector } from "@/engine/core/utils/vector";
 import { ClientObject, Optional, ServerCreatureObject, TNumberId, TRate, Vector } from "@/engine/lib/types";
+
+const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * Set item condition.
@@ -17,25 +20,25 @@ export function setItemCondition(object: ClientObject, condition: TRate): void {
 /**
  * Change object team/squad/group.
  *
- * @param serverObject - alife server object to change team parameters
+ * @param object - alife server object to change team parameters
  * @param teamId - ?
  * @param squadId - id of the parent squad, bound to spawning smart
  * @param groupId - id of the level group
  */
 export function setObjectTeamSquadGroup(
-  serverObject: ServerCreatureObject,
+  object: ServerCreatureObject,
   teamId: TNumberId,
   squadId: TNumberId,
   groupId: TNumberId
 ): void {
-  const clientObject: Optional<ClientObject> = registry.objects.get(serverObject.id)?.object as Optional<ClientObject>;
+  const clientObject: Optional<ClientObject> = registry.objects.get(object.id)?.object as Optional<ClientObject>;
 
   if (clientObject) {
     clientObject.change_team(teamId, squadId, groupId);
   } else {
-    serverObject.team = teamId;
-    serverObject.squad = squadId;
-    serverObject.group = groupId;
+    object.team = teamId;
+    object.squad = squadId;
+    object.group = groupId;
   }
 }
 

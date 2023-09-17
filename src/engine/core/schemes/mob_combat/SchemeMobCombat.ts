@@ -16,6 +16,8 @@ export class SchemeMobCombat extends AbstractScheme {
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.MONSTER;
 
   public static override activate(object: ClientObject, ini: IniFile, scheme: EScheme, section: TSection): void {
+    logger.info("Activate:", object.name());
+
     const state: ISchemeMobCombatState = AbstractScheme.assign(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section);
