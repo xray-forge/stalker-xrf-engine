@@ -2,7 +2,6 @@ import { describe, expect, it, jest } from "@jest/globals";
 
 import { getObjectIdByStoryId, getServerObjectByStoryId, getStoryIdByObjectId, registry } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
-import { ObjectPhysic } from "@/engine/core/objects/server";
 import { ObjectHangingLamp } from "@/engine/core/objects/server/physic/ObjectHangingLamp";
 import { mockIniFile } from "@/fixtures/xray/mocks/ini";
 

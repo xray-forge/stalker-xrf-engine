@@ -3,7 +3,7 @@ import * as path from "path";
 import { describe, expect, it, jest } from "@jest/globals";
 
 import { registerZone } from "@/engine/core/database";
-import { SmartTerrain, SmartTerrainControl } from "@/engine/core/objects";
+import { SmartTerrain, SmartTerrainControl } from "@/engine/core/objects/server/smart_terrain";
 import { EJobPathType, EJobType } from "@/engine/core/utils/job";
 import { createStalkerPatrolJobs } from "@/engine/core/utils/job/job_create/job_create_stalker_patrol";
 import { jobPreconditionPatrol } from "@/engine/core/utils/job/job_precondition";

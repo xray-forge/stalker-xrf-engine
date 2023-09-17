@@ -1,13 +1,13 @@
-import { describe, expect, it, jest } from "@jest/globals";
-import { CTime, game } from "xray16";
+import { describe, expect, it } from "@jest/globals";
+import { game } from "xray16";
 
-import { SmartTerrain } from "@/engine/core/objects";
+import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain";
 import { areNoStalkersWorkingOnJobs, isJobAvailableToObject } from "@/engine/core/utils/job/job_check";
 import { createObjectJobDescriptor } from "@/engine/core/utils/job/job_create";
 import { IObjectJobDescriptor, ISmartTerrainJobDescriptor } from "@/engine/core/utils/job/job_types";
 import { AnyObject, ServerCreatureObject, ServerMonsterBaseObject } from "@/engine/lib/types";
 import { mockSmartTerrain } from "@/fixtures/engine";
-import { MockCTime, mockServerAlifeHumanStalker, mockServerAlifeMonsterBase } from "@/fixtures/xray";
+import { mockServerAlifeHumanStalker, mockServerAlifeMonsterBase } from "@/fixtures/xray";
 
 describe("job_check utils", () => {
   it("'areNoStalkersWorkingOnJobs' should correctly check whether no stalkers are working", () => {

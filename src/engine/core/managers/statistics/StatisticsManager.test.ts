@@ -4,7 +4,6 @@ import { clsid } from "xray16";
 import { disposeManager, getManagerInstance, registerActor, registry } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { StatisticsManager } from "@/engine/core/managers/statistics";
-import { classIds } from "@/engine/lib/constants/class_ids";
 import { weapons } from "@/engine/lib/constants/items/weapons";
 import { ClientObject, TClassId, TName } from "@/engine/lib/types";
 import { MockLuaTable } from "@/fixtures/lua";
@@ -110,9 +109,9 @@ describe("StatisticsManager class", () => {
 
   it("should correctly handle taking artefacts", () => {
     const manager: StatisticsManager = StatisticsManager.getInstance();
-    const firstClient: ClientObject = mockClientGameObject({ clsid: () => classIds.art_black_drops as TClassId });
-    const secondClient: ClientObject = mockClientGameObject({ clsid: () => classIds.art_bast_artefact as TClassId });
-    const thirdClient: ClientObject = mockClientGameObject({ clsid: () => classIds.art_zuda as TClassId });
+    const firstClient: ClientObject = mockClientGameObject({ clsid: () => clsid.art_black_drops as TClassId });
+    const secondClient: ClientObject = mockClientGameObject({ clsid: () => clsid.art_bast_artefact as TClassId });
+    const thirdClient: ClientObject = mockClientGameObject({ clsid: () => clsid.art_zuda as TClassId });
 
     mockServerAlifeObject({ id: firstClient.id(), sectionOverride: "af_first" });
     mockServerAlifeObject({ id: secondClient.id(), sectionOverride: "af_first" });

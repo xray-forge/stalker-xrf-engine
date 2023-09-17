@@ -54,7 +54,7 @@ import { SchemeTimer } from "@/engine/core/schemes/sr_timer";
 import { SchemeWalker } from "@/engine/core/schemes/walker";
 import { SchemeWounded } from "@/engine/core/schemes/wounded";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { loadSchemeImplementation, loadSchemeImplementations } from "@/engine/core/utils/scheme/scheme_setup";
+import { loadSchemeImplementations } from "@/engine/core/utils/scheme/scheme_setup";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

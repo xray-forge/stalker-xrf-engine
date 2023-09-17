@@ -67,5 +67,5 @@ export const gameConfig = {
   /**
    * Game save extensions order file name.
    */
-  GAME_SAVE_EXTENSIONS_ORDER_FILE: "extensions_order.scop",
+  GAME_SAVE_EXTENSIONS_ORDER_FILE: "extensions_order.scopo",
 };

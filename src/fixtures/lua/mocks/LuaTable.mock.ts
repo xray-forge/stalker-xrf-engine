@@ -3,7 +3,8 @@ import { jest } from "@jest/globals";
 import type { AnyObject, LuaArray, TIndex } from "@/engine/lib/types";
 
 /**
- * todo;
+ * Mock `tstl` table data structure.
+ * In runtime objects, arrays and tables are same, but in test env have to mock them with compat and workarounds.
  */
 export class MockLuaTable<K, V> extends Map<K, V> {
   public static mock<K extends AnyNotNil, V>(): LuaTable<K, V> {
@@ -48,7 +49,14 @@ export class MockLuaTable<K, V> extends Map<K, V> {
   public static fromObject<K extends keyof any, T>(from: Record<K, T>): MockLuaTable<K, T> {
     const mock: MockLuaTable<K, T> = new MockLuaTable();
 
-    Object.entries(from).forEach(([key, value]) => mock.set(key as K, value as T));
+    Object.entries(from).forEach(([key, value]) => {
+      // Lua compatibility since all JS objects have string keys.
+      if (!Number.isNaN(Number.parseInt(key))) {
+        mock.set(Number.parseInt(key) as K, value as T);
+      } else {
+        mock.set(key as K, value as T);
+      }
+    });
 
     return mock;
   }
@@ -119,6 +127,11 @@ export class MockLuaTable<K, V> extends Map<K, V> {
 
     return value;
   });
+
+  public override has(key: K): boolean {
+    // Lua compat -> checks if key is not null.
+    return this.get(key) !== null;
+  }
 
   public length(): number {
     return this.size;

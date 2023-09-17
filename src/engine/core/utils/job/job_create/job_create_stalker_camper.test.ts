@@ -1,15 +1,12 @@
 import * as path from "path";
 
-import { describe, expect, it, jest } from "@jest/globals";
+import { describe, expect, it } from "@jest/globals";
 
-import { IRegistryObjectState, registerObject, registry } from "@/engine/core/database";
-import { SmartTerrain } from "@/engine/core/objects";
+import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain";
 import { EJobPathType, EJobType } from "@/engine/core/utils/job";
 import { createStalkerCamperJobs } from "@/engine/core/utils/job/job_create/job_create_stalker_camper";
 import { StringBuilder } from "@/engine/core/utils/string";
-import { ServerHumanObject } from "@/engine/lib/types";
 import { mockSmartTerrain, readInGameTestLtx } from "@/fixtures/engine";
-import { mockClientGameObject, mockServerAlifeHumanStalker } from "@/fixtures/xray";
 
 describe("should correctly generate stalker camper jobs", () => {
   it("should correctly generate default camper jobs with no camp patrols", async () => {

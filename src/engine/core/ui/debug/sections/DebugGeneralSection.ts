@@ -98,7 +98,7 @@ export class DebugGeneralSection extends AbstractDebugSection {
   /**
    * Initialize section state from current state.
    */
-  public initializeState(): void {
+  public override initializeState(): void {
     const profilingManager: ProfilingManager = ProfilingManager.getInstance();
 
     this.uiMemoryUsageCountLabel.TextControl().SetText(this.getUsedMemoryLabel());

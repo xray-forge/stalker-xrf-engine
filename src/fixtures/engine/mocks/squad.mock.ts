@@ -1,7 +1,7 @@
 import { jest } from "@jest/globals";
 
 import { registerObject } from "@/engine/core/database";
-import { Squad } from "@/engine/core/objects";
+import { Squad } from "@/engine/core/objects/server/squad";
 import { communities } from "@/engine/lib/constants/communities";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import { ServerHumanObject } from "@/engine/lib/types";

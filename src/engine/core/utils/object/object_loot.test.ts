@@ -1,4 +1,4 @@
-import { describe, it } from "@jest/globals";
+import { describe, expect, it } from "@jest/globals";
 
 import { transferLoot } from "@/engine/core/utils/object/object_loot";
 import { ammo } from "@/engine/lib/constants/items/ammo";

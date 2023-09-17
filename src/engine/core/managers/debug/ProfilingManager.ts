@@ -1,18 +1,13 @@
 import { flush, profile_timer } from "xray16";
 
 import { AbstractManager } from "@/engine/core/managers/base/AbstractManager";
+import { IProfileSnapshotDescriptor } from "@/engine/core/managers/debug/debug_types";
 import { abort } from "@/engine/core/utils/assertion";
-import { LuaLogger } from "@/engine/core/utils/logging";
+import { ELuaLoggerMode, LuaLogger } from "@/engine/core/utils/logging";
 import { gameConfig } from "@/engine/lib/configs/GameConfig";
 import { AnyCallable, Optional, ProfileTimer, TCount, TName } from "@/engine/lib/types";
 
-const logger: LuaLogger = new LuaLogger($filename);
-
-export interface IProfileSnapshotDescriptor {
-  count: TCount;
-  currentTimer: ProfileTimer;
-  childTimer: ProfileTimer;
-}
+const logger: LuaLogger = new LuaLogger($filename, { mode: ELuaLoggerMode.DUAL, file: "profiling" });
 
 /**
  * Manager to profile lua methods frequency calls and measure duration of functions execution.
@@ -108,7 +103,7 @@ export class ProfilingManager extends AbstractManager {
   /**
    * Print calls measurement stats.
    */
-  public logCallsCountStats(limit: TCount = 64): void {
+  public logCallsCountStats(limit: TCount = 128): void {
     if (!this.isProfilingStarted) {
       return logger.warn("Profiler hook wasn't setup, no stats found");
     }
@@ -147,7 +142,7 @@ export class ProfilingManager extends AbstractManager {
 
     // Print top stats from list (controlled by limit)
     for (const [idx, stat] of outStats) {
-      if (printedCount <= limit) {
+      if (printedCount < limit) {
         logger.info(
           string.format("[%2d] %6d (%5.2f%%) : %s", idx, stat.count, (stat.count * 100) / totalCallsCount, stat.name)
         );

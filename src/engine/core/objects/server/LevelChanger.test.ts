@@ -3,7 +3,6 @@ import { describe, expect, it, jest } from "@jest/globals";
 import { getObjectIdByStoryId, getServerObjectByStoryId, getStoryIdByObjectId, registry } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { LevelChanger } from "@/engine/core/objects/server/LevelChanger";
-import { ZoneAnomalous } from "@/engine/core/objects/server/zone";
 import { EPacketDataType, mockIniFile, mockNetPacket, MockNetProcessor } from "@/fixtures/xray";
 
 describe("LevelChanger server class", () => {

@@ -18,15 +18,15 @@ import {
 } from "xray16";
 
 import { SaveItem } from "@/engine/core/ui/menu/save/SaveItem";
-import { createGameSave, deleteGameSave } from "@/engine/core/utils/game/game_save";
+import { createGameSave, deleteGameSave, getGameSavesList } from "@/engine/core/utils/game/game_save";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { resolveXmlFile } from "@/engine/core/utils/ui";
 import { gameConfig } from "@/engine/lib/configs/GameConfig";
 import { roots } from "@/engine/lib/constants/roots";
 import {
   FSFileList,
-  FSFileListEX,
   FSItem,
+  LuaArray,
   Optional,
   TKeyCode,
   TLabel,
@@ -121,25 +121,17 @@ export class SaveDialog extends CUIScriptWnd {
   public fillList(): void {
     this.uiListBox.RemoveAll();
 
-    const fileList: FSFileListEX = getFS().file_list_open_ex(
-      roots.gameSaves,
-      FS.FS_ListFiles,
-      "*" + gameConfig.GAME_SAVE_EXTENSION
-    );
+    const savesList: LuaArray<FSItem> = getGameSavesList();
 
-    fileList.Sort(FS.FS_sort_by_modif_down);
-
-    for (let it = 0; it < fileList.Size(); it += 1) {
-      const file: FSItem = fileList.GetAt(it);
-      const fileName: TName = string.sub(
+    for (const [, file] of savesList) {
+      const filename: TName = string.sub(
         file.NameFull(),
         0,
         string.len(file.NameFull()) - string.len(gameConfig.GAME_SAVE_EXTENSION)
       );
-      const dateTime: string = "[" + file.ModifDigitOnly() + "]";
+      const dateTime: TLabel = "[" + file.ModifDigitOnly() + "]";
 
-      // --menu_item =  +
-      this.addItemToList(fileName, dateTime);
+      this.addItemToList(filename, dateTime);
     }
   }
 

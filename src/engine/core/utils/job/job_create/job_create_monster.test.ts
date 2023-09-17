@@ -2,7 +2,7 @@ import * as path from "path";
 
 import { describe, expect, it } from "@jest/globals";
 
-import { SmartTerrain } from "@/engine/core/objects";
+import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain";
 import { EJobPathType, EJobType } from "@/engine/core/utils/job";
 import { createMonsterJobs } from "@/engine/core/utils/job/job_create/job_create_monster";
 import { range } from "@/engine/core/utils/number";

@@ -5,7 +5,7 @@ import { LightManager } from "@/engine/core/schemes/sr_light/LightManager";
 import { getConfigSwitchConditions, readIniBoolean } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { resetTable } from "@/engine/core/utils/table";
-import { ClientObject, EScheme, ESchemeType, IniFile, Optional, TSection } from "@/engine/lib/types";
+import { ClientObject, EScheme, ESchemeType, IniFile, TSection } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

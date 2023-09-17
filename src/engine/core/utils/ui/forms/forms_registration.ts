@@ -34,6 +34,10 @@ export function registerUiElement<T extends CUIWindow>(
       element = xml.InitStatic(selector, base) as unknown as T;
       break;
 
+    case EElementType.CHECK_BOX:
+      element = xml.InitCheck(selector, base) as unknown as T;
+      break;
+
     case EElementType.COMBO_BOX:
       element = xml.InitComboBox(selector, base) as unknown as T;
       break;

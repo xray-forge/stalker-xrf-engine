@@ -119,7 +119,7 @@ export class DebugObjectSection extends AbstractDebugSection {
     this.owner.AddCallback("set_wounded_button", ui_events.BUTTON_CLICKED, () => this.onSetWoundedObject(), this);
   }
 
-  public initializeState(): void {
+  public override initializeState(): void {
     if (isGameStarted()) {
       const nearestStalker: Optional<ClientObject> = getNearestClientObject();
       const targetStalker: Optional<ClientObject> = level.get_target_obj();

@@ -1,4 +1,5 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
+import { clsid } from "xray16";
 
 import { registerActor } from "@/engine/core/database";
 import {
@@ -7,7 +8,6 @@ import {
   getNearestServerObject,
   getServerObjects,
 } from "@/engine/core/utils/object/object_find";
-import { classIds } from "@/engine/lib/constants/class_ids";
 import { AnyObject, ClientObject, ServerObject, TClassId, TIndex } from "@/engine/lib/types";
 import { MockLuaTable } from "@/fixtures/lua";
 import {
@@ -29,15 +29,15 @@ describe("object find utils", () => {
     registerActor(mockActorClientGameObject());
 
     const actor: ServerObject = mockServerAlifeCreatureActor({
-      clsid: () => classIds.actor as TClassId,
+      clsid: () => clsid.actor as TClassId,
       name: <T>() => "actor_name" as T,
     });
     const first: ServerObject = mockServerAlifeObject({
-      clsid: () => classIds.dog_s as TClassId,
+      clsid: () => clsid.dog_s as TClassId,
       name: <T>() => "dog_name" as T,
     });
     const second: ServerObject = mockServerAlifeObject({
-      clsid: () => classIds.dog_red as TClassId,
+      clsid: () => clsid.dog_red as TClassId,
       name: <T>() => "dog_name" as T,
     });
     const third: ServerObject = mockServerAlifeObject();
@@ -52,8 +52,8 @@ describe("object find utils", () => {
     expect(getNearestServerObject()?.id).toBe(third.id);
     expect(getNearestServerObject(null, false)?.id).toBe(third.id);
     expect(getNearestServerObject("dog_", false)?.id).toBe(second.id);
-    expect(getNearestServerObject(classIds.dog_s as TClassId, false)?.id).toBe(first.id);
-    expect(getNearestServerObject((it) => it.name() === "dog_name" && it.clsid() === classIds.dog_s, false)?.id).toBe(
+    expect(getNearestServerObject(clsid.dog_s as TClassId, false)?.id).toBe(first.id);
+    expect(getNearestServerObject((it) => it.name() === "dog_name" && it.clsid() === clsid.dog_s, false)?.id).toBe(
       first.id
     );
 
@@ -72,15 +72,15 @@ describe("object find utils", () => {
 
   it("'getServerObjects' should correctly search for client objects", () => {
     const actor: ServerObject = mockServerAlifeCreatureActor({
-      clsid: () => classIds.actor as TClassId,
+      clsid: () => clsid.actor as TClassId,
       name: <T>() => "actor_name" as T,
     });
     const first: ServerObject = mockServerAlifeObject({
-      clsid: () => classIds.script_stalker as TClassId,
+      clsid: () => clsid.script_stalker as TClassId,
       name: <T>() => "stalker_name" as T,
     });
     const second: ServerObject = mockServerAlifeObject({
-      clsid: () => classIds.pseudodog_s as TClassId,
+      clsid: () => clsid.pseudodog_s as TClassId,
       name: <T>() => "dog_name" as T,
     });
     const third: ServerObject = mockServerAlifeObject();
@@ -100,24 +100,22 @@ describe("object find utils", () => {
     );
 
     expect(
-      (getServerObjects(classIds.script_stalker as TClassId) as unknown as MockLuaTable<TIndex, ServerObject>).map(
+      (getServerObjects(clsid.script_stalker as TClassId) as unknown as MockLuaTable<TIndex, ServerObject>).map(
         (it) => it.id
       )
     ).toEqual([first.id]);
     expect(
-      (
-        getServerObjects(classIds.script_stalker as TClassId, false) as unknown as MockLuaTable<TIndex, ServerObject>
-      ).map((it) => it.id)
+      (getServerObjects(clsid.script_stalker as TClassId, false) as unknown as MockLuaTable<TIndex, ServerObject>).map(
+        (it) => it.id
+      )
     ).toEqual([first.id]);
     expect(
-      (getServerObjects(classIds.pseudodog_s as TClassId) as unknown as MockLuaTable<TIndex, ServerObject>).map(
-        (it) => {
-          return it.id;
-        }
-      )
+      (getServerObjects(clsid.pseudodog_s as TClassId) as unknown as MockLuaTable<TIndex, ServerObject>).map((it) => {
+        return it.id;
+      })
     ).toEqual([second.id]);
     expect(
-      (getServerObjects(classIds.pseudodog_s as TClassId, false) as unknown as MockLuaTable<TIndex, ServerObject>).map(
+      (getServerObjects(clsid.pseudodog_s as TClassId, false) as unknown as MockLuaTable<TIndex, ServerObject>).map(
         (it) => {
           return it.id;
         }
@@ -155,18 +153,18 @@ describe("object find utils", () => {
 
   it("'getNearestClientObject' should correctly search for client objects", () => {
     const actor: ClientObject = mockActorClientGameObject({
-      clsid: () => classIds.actor as TClassId,
+      clsid: () => clsid.actor as TClassId,
       name: () => "actor_name",
     });
 
     registerActor(actor);
 
     const first: ClientObject = mockClientGameObject({
-      clsid: () => classIds.dog_s as TClassId,
+      clsid: () => clsid.dog_s as TClassId,
       name: () => "dog_name",
     });
     const second: ClientObject = mockClientGameObject({
-      clsid: () => classIds.dog_red as TClassId,
+      clsid: () => clsid.dog_red as TClassId,
       name: () => "dog_name",
     });
     const third: ClientObject = mockClientGameObject();
@@ -181,23 +179,23 @@ describe("object find utils", () => {
     expect(getNearestClientObject()?.id()).toBe(third.id());
     expect(getNearestClientObject(null)?.id()).toBe(third.id());
     expect(getNearestClientObject("dog_")?.id()).toBe(second.id());
-    expect(getNearestClientObject(classIds.dog_s as TClassId)?.id()).toBe(first.id());
-    expect(getNearestClientObject((it) => it.name() === "dog_name" && it.clsid() === classIds.dog_red)?.id()).toBe(
+    expect(getNearestClientObject(clsid.dog_s as TClassId)?.id()).toBe(first.id());
+    expect(getNearestClientObject((it) => it.name() === "dog_name" && it.clsid() === clsid.dog_red)?.id()).toBe(
       second.id()
     );
   });
 
   it("'getClientObjects' should correctly search for client objects", () => {
     const actor: ClientObject = mockActorClientGameObject({
-      clsid: () => classIds.actor as TClassId,
+      clsid: () => clsid.actor as TClassId,
       name: () => "actor_name",
     });
     const first: ClientObject = mockClientGameObject({
-      clsid: () => classIds.script_stalker as TClassId,
+      clsid: () => clsid.script_stalker as TClassId,
       name: () => "stalker_name",
     });
     const second: ClientObject = mockClientGameObject({
-      clsid: () => classIds.pseudodog_s as TClassId,
+      clsid: () => clsid.pseudodog_s as TClassId,
       name: () => "dog_name",
     });
     const third: ClientObject = mockClientGameObject();
@@ -214,16 +212,16 @@ describe("object find utils", () => {
     expect(firstList.map((it) => it.id())).toEqual([first.id(), second.id(), third.id()]);
 
     expect(
-      (getClientObjects(classIds.script_stalker as TClassId) as unknown as MockLuaTable<TIndex, ClientObject>).map(
-        (it) => it.id()
-      )
-    ).toEqual([first.id()]);
-    expect(
-      (getClientObjects(classIds.pseudodog_s as TClassId) as unknown as MockLuaTable<TIndex, ClientObject>).map(
+      (getClientObjects(clsid.script_stalker as TClassId) as unknown as MockLuaTable<TIndex, ClientObject>).map(
         (it) => {
           return it.id();
         }
       )
+    ).toEqual([first.id()]);
+    expect(
+      (getClientObjects(clsid.pseudodog_s as TClassId) as unknown as MockLuaTable<TIndex, ClientObject>).map((it) => {
+        return it.id();
+      })
     ).toEqual([second.id()]);
 
     expect(
@@ -239,7 +237,7 @@ describe("object find utils", () => {
     expect(
       (
         getClientObjects(
-          (it) => it.name() === "dog_name" && it.clsid() === classIds.pseudodog_s
+          (it) => it.name() === "dog_name" && it.clsid() === clsid.pseudodog_s
         ) as unknown as MockLuaTable<TIndex, ClientObject>
       ).map((it) => {
         return it.id();

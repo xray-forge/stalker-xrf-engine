@@ -3,7 +3,6 @@ import { describe, expect, it, jest } from "@jest/globals";
 import { getObjectIdByStoryId, getServerObjectByStoryId, getStoryIdByObjectId, registry } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { Helicopter } from "@/engine/core/objects/server/Helicopter";
-import { LevelChanger } from "@/engine/core/objects/server/LevelChanger";
 import { mockIniFile } from "@/fixtures/xray/mocks/ini";
 
 describe("Helicopter server class", () => {

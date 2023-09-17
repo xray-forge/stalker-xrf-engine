@@ -1,9 +1,13 @@
 import { jest } from "@jest/globals";
 
-import { classIds } from "@/engine/lib/constants/class_ids";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import { AlifeSimulator, Optional, ServerObject, TClassId, TNumberId, Vector } from "@/engine/lib/types";
-import { mockServerAlifeHumanStalker, mockServerAlifeObject, mockServerAlifeOnlineOfflineGroup } from "@/fixtures/xray";
+import {
+  mockClsid,
+  mockServerAlifeHumanStalker,
+  mockServerAlifeObject,
+  mockServerAlifeOnlineOfflineGroup,
+} from "@/fixtures/xray";
 import { MockVector } from "@/fixtures/xray/mocks/vector.mock";
 
 /**
@@ -49,7 +53,7 @@ export class MockAlifeSimulator {
   public create = jest.fn((section: string, position: MockVector, lvid: TNumberId, fvid: TNumberId) => {
     if (section === "stalker") {
       return mockServerAlifeHumanStalker({
-        clsid: jest.fn(() => classIds.script_stalker as TClassId),
+        clsid: jest.fn(() => mockClsid.script_stalker as TClassId),
         position: position as unknown as Vector,
         m_level_vertex_id: lvid,
         m_game_vertex_id: fvid,

@@ -44,14 +44,14 @@ describe("'forms_registration' utils", () => {
     expect(context.AddCallback).toHaveBeenNthCalledWith(
       1,
       "edit_box_example",
-      String(ui_events.BUTTON_CLICKED),
+      ui_events.BUTTON_CLICKED,
       first,
       context
     );
     expect(context.AddCallback).toHaveBeenNthCalledWith(
       2,
       "edit_box_example",
-      String(ui_events.EDIT_TEXT_COMMIT),
+      ui_events.EDIT_TEXT_COMMIT,
       second,
       context
     );
