@@ -154,7 +154,7 @@ extern("xr_conditions.is_squad_neutral_to_actor", (actor: ClientObject, object: 
  * todo;
  */
 extern("xr_conditions.fighting_actor", (actor: ClientObject, object: ClientObject): boolean => {
-  const enemyId: TNumberId = registry.objects.get(object.id()).enemy_id!;
+  const enemyId: TNumberId = registry.objects.get(object.id()).enemyId!;
   const enemy: Optional<ClientObject> = registry.objects.get(enemyId)?.object as Optional<ClientObject>;
 
   return enemy !== null && enemy.id() === actor.id();

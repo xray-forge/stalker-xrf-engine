@@ -201,8 +201,8 @@ export class DebugManager extends AbstractManager {
     logger.info("Activation game time:", gameTimeToString(state.activationGameTime));
     logger.info("Portable store:", toJSON(state.portableStore));
     logger.info("State overrides:", toJSON(state.overrides));
-    logger.info("Enemy id:", state.enemy_id);
-    logger.info("Enemy name:", state.enemy_id ? alife().object(state.enemy_id)?.name() : NIL);
+    logger.info("Enemy id:", state.enemyId);
+    logger.info("Enemy name:", state.enemyId ? alife().object(state.enemyId)?.name() : NIL);
     logger.info("Script combat type:", state.script_combat_type);
     logger.info("Registered camp:", state.camp || "none");
 

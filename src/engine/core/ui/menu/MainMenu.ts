@@ -189,6 +189,8 @@ export class MainMenu extends CUIScriptWnd {
    * Clicked load last save.
    */
   public onLoadLastSaveButtonClick(): void {
+    logger.info("Load last save click");
+
     if (alife() === null) {
       return loadLastGameSave();
     }

@@ -136,32 +136,32 @@ describe("'object_danger' utils", () => {
 
     state[EScheme.COMBAT_IGNORE] = combatIgnoreState;
     expect(canObjectSelectAsEnemy(object, enemy)).toBe(true);
-    expect(state.enemy_id).toBe(enemy.id());
+    expect(state.enemyId).toBe(enemy.id());
 
-    state.enemy_id = null;
+    state.enemyId = null;
     jest.spyOn(object, "alive").mockImplementationOnce(() => false);
     expect(canObjectSelectAsEnemy(object, enemy)).toBe(false);
-    expect(state.enemy_id).toBeNull();
+    expect(state.enemyId).toBeNull();
 
     expect(canObjectSelectAsEnemy(mockClientGameObject(), enemy)).toBe(true);
 
-    state.enemy_id = null;
+    state.enemyId = null;
     combatIgnoreState.overrides = {
       combat_ignore: {
         condlist: parseConditionsList(TRUE),
       },
     };
     expect(canObjectSelectAsEnemy(object, enemy)).toBe(false);
-    expect(state.enemy_id).toBe(enemy.id());
+    expect(state.enemyId).toBe(enemy.id());
 
-    state.enemy_id = null;
+    state.enemyId = null;
     combatIgnoreState.overrides = {
       combat_ignore: {
         condlist: parseConditionsList(FALSE),
       },
     };
     expect(canObjectSelectAsEnemy(object, enemy)).toBe(true);
-    expect(state.enemy_id).toBe(enemy.id());
+    expect(state.enemyId).toBe(enemy.id());
   });
 
   it("'canObjectSelectAsEnemy' should correctly check enemies in no-combat zones", () => {
@@ -186,7 +186,7 @@ describe("'object_danger' utils", () => {
     } as SmartTerrainControl;
 
     expect(canObjectSelectAsEnemy(object, enemy)).toBe(false);
-    expect(state.enemy_id).toBe(enemy.id());
+    expect(state.enemyId).toBe(enemy.id());
   });
 
   it("'canObjectSelectAsEnemy' should correctly ignore enemies in no-combat smarts", () => {
@@ -203,6 +203,6 @@ describe("'object_danger' utils", () => {
 
     state[EScheme.COMBAT_IGNORE] = combatIgnoreState;
     expect(canObjectSelectAsEnemy(object, enemy)).toBe(false);
-    expect(state.enemy_id).toBe(enemy.id());
+    expect(state.enemyId).toBe(enemy.id());
   });
 });

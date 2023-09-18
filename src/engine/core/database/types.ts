@@ -179,7 +179,7 @@ export interface IRegistryObjectState extends Record<EScheme, Optional<IBaseSche
   /**
    * todo;
    */
-  enemy_id: Optional<TNumberId>;
+  enemyId: Optional<TNumberId>;
   /**
    * todo;
    */

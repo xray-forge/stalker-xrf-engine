@@ -174,7 +174,7 @@ extern(
 extern(
   "xr_conditions.check_enemy_name",
   (actor: ClientObject, object: ClientObject, params: LuaArray<TName>): boolean => {
-    const enemyId: TNumberId = registry.objects.get(object.id()).enemy_id!;
+    const enemyId: TNumberId = registry.objects.get(object.id()).enemyId!;
     const enemy: Optional<ClientObject> = registry.objects.get(enemyId)?.object;
 
     if (enemy && enemy.alive()) {
@@ -355,7 +355,7 @@ extern("xr_conditions.heli_see_npc", (actor: ClientObject, object: ClientObject,
  * todo;
  */
 extern("xr_conditions.enemy_group", (actor: ClientObject, object: ClientObject, params: LuaTable<number>): boolean => {
-  const enemyId: TNumberId = registry.objects.get(object.id()).enemy_id as number;
+  const enemyId: TNumberId = registry.objects.get(object.id()).enemyId as number;
   const enemy: ClientObject = registry.objects.get(enemyId)?.object as ClientObject;
   const enemyGroup: TNumberId = enemy?.group();
 
@@ -1024,7 +1024,7 @@ extern("xr_conditions.dead_body_searching", (actor: ClientObject, object: Client
  * todo;
  */
 extern("xr_conditions.check_enemy_smart", (actor: ClientObject, object: ClientObject, params: [string]): boolean => {
-  const enemyId: Optional<TNumberId> = registry.objects.get(object.id()).enemy_id;
+  const enemyId: Optional<TNumberId> = registry.objects.get(object.id()).enemyId;
   const enemy: Optional<ClientObject> = enemyId ? registry.objects.get(enemyId)?.object : null;
 
   if (enemy === null || enemyId === alife().actor().id) {

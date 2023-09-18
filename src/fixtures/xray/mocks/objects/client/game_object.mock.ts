@@ -159,6 +159,7 @@ export function mockClientGameObject({
       jest.fn((to: ClientObject) => {
         return mockRelationRegistryInterface.get_general_goodwill_between(id ? id() : idOverride, to.id());
       }),
+    get_visual_name: rest.get_visual_name || jest.fn(() => "some_stalker_visual"),
     get_campfire: rest.get_campfire || jest.fn(() => null),
     get_current_point_index: rest.get_current_point_index || jest.fn(() => null),
     get_script: rest.get_script || jest.fn(() => false),
@@ -288,6 +289,7 @@ export function mockClientGameObject({
     set_relation: rest.set_relation || jest.fn(),
     set_sound_mask: rest.set_sound_mask || jest.fn(),
     set_sympathy: rest.set_sympathy || jest.fn(),
+    set_visual_name: rest.set_visual_name || jest.fn(),
     sight_params:
       rest.sight_params ||
       jest.fn(() => {
@@ -364,5 +366,9 @@ export function mockActorClientGameObject(
     }
   > = {}
 ): ClientObject {
-  return mockClientGameObject({ ...base, idOverride: ACTOR_ID });
+  return mockClientGameObject({
+    ...base,
+    idOverride: ACTOR_ID,
+    get_visual_name: base.get_visual_name || jest.fn(() => "some_actor_visual" as any),
+  });
 }

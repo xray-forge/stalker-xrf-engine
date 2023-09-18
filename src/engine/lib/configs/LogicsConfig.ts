@@ -13,6 +13,7 @@ export const logicsConfig = {
   ARTEFACT_OFFLINE_DISTANCE: 150,
   DANGER_INERTION_TIME: 15_000,
   DANGER_IGNORE_DISTANCE_GENERAL: 150,
+  DANGER_IGNORE_DISTANCE_GENERAL_SQR: 150 * 150,
   DANGER_IGNORE_DISTANCE_BY_TYPE: {
     [danger_object.grenade]: 15,
     [danger_object.entity_corpse]: 10,

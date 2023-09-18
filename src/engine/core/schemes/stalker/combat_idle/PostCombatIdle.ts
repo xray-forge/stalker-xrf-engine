@@ -6,6 +6,8 @@ import { ActionPostCombatIdleWait } from "@/engine/core/schemes/stalker/combat_i
 import { EvaluatorHasEnemy } from "@/engine/core/schemes/stalker/combat_idle/evaluators";
 import { ISchemePostCombatIdleState } from "@/engine/core/schemes/stalker/combat_idle/ISchemePostCombatIdleState";
 import { LuaLogger } from "@/engine/core/utils/logging";
+import { getObjectCommunity } from "@/engine/core/utils/object";
+import { communities } from "@/engine/lib/constants/communities";
 import { ActionBase, ActionPlanner, ClientObject } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -17,9 +19,14 @@ const logger: LuaLogger = new LuaLogger($filename);
 export class PostCombatIdle {
   /**
    * todo: Description.
+   * todo: Generic idle
    */
   public static addPostCombatIdleWait(object: ClientObject): void {
     // logger.info("Add post-combat idle for:", object.name());
+
+    if (getObjectCommunity(object) === communities.zombied) {
+      return;
+    }
 
     const actionPlanner: ActionPlanner = object.motivation_action_manager();
     const combatAction: ActionBase = actionPlanner.action(EActionId.COMBAT);
