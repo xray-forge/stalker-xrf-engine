@@ -7,7 +7,7 @@ import {
   setObjectTeamSquadGroup,
 } from "@/engine/core/utils/object/object_set";
 import { ClientObject, ServerHumanObject } from "@/engine/lib/types";
-import { replaceFunctionMock } from "@/fixtures/utils";
+import { replaceFunctionMock } from "@/fixtures/jest";
 import { mockClientGameObject, mockServerAlifeHumanStalker } from "@/fixtures/xray";
 import { MockVector } from "@/fixtures/xray/mocks/vector.mock";
 

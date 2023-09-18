@@ -6,7 +6,7 @@ import { registerObject, resetObject } from "@/engine/core/database/objects";
 import { getPortableStoreValue, setPortableStoreValue } from "@/engine/core/database/portable_store";
 import { IBaseSchemeState, IRegistryObjectState } from "@/engine/core/database/types";
 import { ClientObject, EScheme } from "@/engine/lib/types";
-import { replaceFunctionMock } from "@/fixtures/utils/function_mock";
+import { replaceFunctionMock } from "@/fixtures/jest";
 import { EPacketDataType, mockClientGameObject, mockNetPacket, MockNetProcessor } from "@/fixtures/xray";
 import { MockCTime } from "@/fixtures/xray/mocks/CTime.mock";
 

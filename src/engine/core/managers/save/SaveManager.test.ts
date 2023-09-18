@@ -17,8 +17,8 @@ import { TaskManager } from "@/engine/core/managers/tasks";
 import { TreasureManager } from "@/engine/core/managers/treasures";
 import { WeatherManager } from "@/engine/core/managers/weather/WeatherManager";
 import { AnyObject } from "@/engine/lib/types";
+import { resetFunctionMock } from "@/fixtures/jest";
 import { MockIoFile } from "@/fixtures/lua";
-import { resetFunctionMock } from "@/fixtures/utils";
 import { mockClientGameObject, mockNetPacket } from "@/fixtures/xray";
 
 describe("SaveManager class", () => {

@@ -6,7 +6,7 @@ import { registerStalker, unregisterStalker } from "@/engine/core/database/stalk
 import { EvaluatorBodyStateStandingNow } from "@/engine/core/objects/ai/state/body_state/EvaluatorBodyStateStandingNow";
 import { StalkerStateManager } from "@/engine/core/objects/ai/state/StalkerStateManager";
 import { StalkerBinder } from "@/engine/core/objects/binders/creature/StalkerBinder";
-import { replaceFunctionMock } from "@/fixtures/utils/function_mock";
+import { replaceFunctionMock } from "@/fixtures/jest";
 import { mockClientGameObject } from "@/fixtures/xray";
 
 describe("EvaluatorBodyStateStandingNow class", () => {

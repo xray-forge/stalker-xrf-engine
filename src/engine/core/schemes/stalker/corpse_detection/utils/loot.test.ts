@@ -10,7 +10,7 @@ import {
 import { loadSchemeImplementation } from "@/engine/core/utils/scheme";
 import { weapons } from "@/engine/lib/constants/items/weapons";
 import { ClientObject, EScheme } from "@/engine/lib/types";
-import { replaceFunctionMock } from "@/fixtures/utils";
+import { replaceFunctionMock } from "@/fixtures/jest";
 import { mockClientGameObject, mockIniFile } from "@/fixtures/xray";
 
 describe("loot utils for corpse_detection scheme", () => {

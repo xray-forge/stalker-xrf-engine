@@ -3,7 +3,7 @@ import { sound_object, time_global } from "xray16";
 
 import { registerActor } from "@/engine/core/database";
 import { StereoSound } from "@/engine/core/objects/sounds/StereoSound";
-import { replaceFunctionMock } from "@/fixtures/utils/function_mock";
+import { replaceFunctionMock } from "@/fixtures/jest";
 import { mockClientGameObject } from "@/fixtures/xray";
 
 describe("StereoSound class", () => {

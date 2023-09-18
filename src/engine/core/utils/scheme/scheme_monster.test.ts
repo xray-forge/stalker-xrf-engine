@@ -9,7 +9,7 @@ import {
   scriptReleaseMonster,
 } from "@/engine/core/utils/scheme/scheme_monster";
 import { ClientObject, Cond, Move } from "@/engine/lib/types";
-import { getFunctionMock, replaceFunctionMock, resetFunctionMock } from "@/fixtures/utils";
+import { getFunctionMock, replaceFunctionMock, resetFunctionMock } from "@/fixtures/jest";
 import { mockClientGameObject, MockEntityAction } from "@/fixtures/xray";
 
 describe("'monster' scheme utils", () => {

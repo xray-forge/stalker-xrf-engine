@@ -14,8 +14,8 @@ import {
   startNewGame,
 } from "@/engine/core/utils/game/game_save";
 import { gameDifficulties } from "@/engine/lib/constants/game_difficulties";
+import { replaceFunctionMockOnce, resetFunctionMock } from "@/fixtures/jest";
 import { MockIoFile } from "@/fixtures/lua";
-import { replaceFunctionMockOnce, resetFunctionMock } from "@/fixtures/utils";
 import { gameConsole, MockFileSystem, MockFileSystemList, mocksConfig } from "@/fixtures/xray";
 
 describe("'game_save' utils", () => {

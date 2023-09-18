@@ -2,7 +2,7 @@ import { describe, expect, it } from "@jest/globals";
 import { alife } from "xray16";
 
 import { isBlackScreen, isGameLevelChanging, isGameStarted } from "@/engine/core/utils/game/game_check";
-import { replaceFunctionMock } from "@/fixtures/utils";
+import { replaceFunctionMock } from "@/fixtures/jest";
 import { MockAlifeSimulator, MockDevice, mockServerAlifeCreatureActor } from "@/fixtures/xray";
 import { MockCGameGraph } from "@/fixtures/xray/mocks/CGameGraph.mock";
 

@@ -5,7 +5,7 @@ import { registry } from "@/engine/core/database";
 import { MapDisplayManager } from "@/engine/core/managers/map/MapDisplayManager";
 import { ETreasureType, ITreasureDescriptor } from "@/engine/core/managers/treasures";
 import { mapMarks } from "@/engine/lib/constants/map_marks";
-import { resetFunctionMock } from "@/fixtures/utils";
+import { resetFunctionMock } from "@/fixtures/jest";
 
 describe("MapDisplayManager class", () => {
   beforeEach(() => {

@@ -7,7 +7,7 @@ import { EvaluatorBodyStateSet } from "@/engine/core/objects/ai/state/body_state
 import { StalkerStateManager } from "@/engine/core/objects/ai/state/StalkerStateManager";
 import { EStalkerState } from "@/engine/core/objects/animation/types";
 import { StalkerBinder } from "@/engine/core/objects/binders/creature/StalkerBinder";
-import { replaceFunctionMock } from "@/fixtures/utils/function_mock";
+import { replaceFunctionMock } from "@/fixtures/jest";
 import { mockClientGameObject } from "@/fixtures/xray";
 
 describe("EvaluatorBodyStateSet class", () => {

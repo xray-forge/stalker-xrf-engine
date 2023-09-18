@@ -6,7 +6,7 @@ import { registry } from "@/engine/core/database/registry";
 import { TradeManager } from "@/engine/core/managers/trade";
 import { parseConditionsList } from "@/engine/core/utils/ini";
 import { ClientObject, IniFile } from "@/engine/lib/types";
-import { replaceFunctionMock } from "@/fixtures/utils";
+import { replaceFunctionMock } from "@/fixtures/jest";
 import { EPacketDataType, mockClientGameObject, MockNetProcessor } from "@/fixtures/xray";
 
 describe("TradeManager class implementation", () => {

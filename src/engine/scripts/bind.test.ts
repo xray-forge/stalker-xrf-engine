@@ -2,7 +2,7 @@ import { describe, expect, it, jest } from "@jest/globals";
 import { alife, clsid } from "xray16";
 
 import { AnyObject, ClientObject } from "@/engine/lib/types";
-import { replaceFunctionMock } from "@/fixtures/utils";
+import { replaceFunctionMock } from "@/fixtures/jest";
 import { mockActorClientGameObject, MockAlifeSimulator, mockClientGameObject, mockIniFile } from "@/fixtures/xray";
 
 describe("'bind' entry point", () => {

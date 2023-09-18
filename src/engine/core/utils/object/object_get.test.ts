@@ -15,7 +15,7 @@ import {
   ServerSmartZoneObject,
   TClassId,
 } from "@/engine/lib/types";
-import { replaceFunctionMock } from "@/fixtures/utils";
+import { replaceFunctionMock } from "@/fixtures/jest";
 import {
   mockClientGameObject,
   mockServerAlifeHumanStalker,

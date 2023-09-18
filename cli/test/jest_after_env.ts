@@ -1,3 +1,3 @@
-import { extendJest } from "@/fixtures/jest/extendJest";
+import { extendJest } from "@/fixtures/jest/extend_jest";
 
 extendJest();

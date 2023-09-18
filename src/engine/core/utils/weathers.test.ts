@@ -8,7 +8,7 @@ import {
   isTransitionWeather,
 } from "@/engine/core/utils/weather";
 import { TName } from "@/engine/lib/types";
-import { replaceFunctionMock } from "@/fixtures/utils";
+import { replaceFunctionMock } from "@/fixtures/jest";
 
 describe("'weather' utils", () => {
   it("'getPossibleWeathersList' should correctly get list of weathers", () => {

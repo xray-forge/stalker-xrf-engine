@@ -4,7 +4,7 @@ import { clsid } from "xray16";
 import { getMonsterState, setMonsterState } from "@/engine/core/database/monster";
 import { EMonsterState } from "@/engine/lib/constants/monsters";
 import { ClientObject } from "@/engine/lib/types";
-import { resetFunctionMock } from "@/fixtures/utils/function_mock";
+import { resetFunctionMock } from "@/fixtures/jest";
 import { mockClientGameObject, mockIniFile } from "@/fixtures/xray";
 
 describe("'monster' database module", () => {
