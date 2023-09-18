@@ -12,7 +12,7 @@ import { giveInfo } from "@/engine/core/utils/object/object_info_portion";
 import { activateSchemeBySection, loadSchemeImplementation } from "@/engine/core/utils/scheme";
 import { ClientObject, EScheme, IniFile } from "@/engine/lib/types";
 import { getSchemeAction } from "@/fixtures/engine";
-import { replaceFunctionMock } from "@/fixtures/utils";
+import { replaceFunctionMock } from "@/fixtures/jest";
 import { mockClientGameObject, mockIniFile, patrols } from "@/fixtures/xray";
 
 describe("TeleportManager class", () => {

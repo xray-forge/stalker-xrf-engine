@@ -19,7 +19,7 @@ import { AbstractPlayableSound } from "@/engine/core/objects/sounds/playable_sou
 import { ActorSound } from "@/engine/core/objects/sounds/playable_sounds/ActorSound";
 import { ISchemeWoundedState } from "@/engine/core/schemes/stalker/wounded";
 import { GameTask } from "@/engine/lib/types";
-import { resetFunctionMock } from "@/fixtures/utils/function_mock";
+import { resetFunctionMock } from "@/fixtures/jest";
 import { mockClientGameObject } from "@/fixtures/xray";
 import { mockServerAlifeCreatureActor } from "@/fixtures/xray/mocks/objects";
 import { MockAlifeSimulator } from "@/fixtures/xray/mocks/objects/AlifeSimulator.mock";

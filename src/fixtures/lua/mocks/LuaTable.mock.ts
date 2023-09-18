@@ -29,18 +29,19 @@ export class MockLuaTable<K, V> extends Map<K, V> {
   /**
    * Create new map from JS array.
    */
-  public static fromArray<T>(from: Array<T>): MockLuaTable<number, T> {
+  public static fromArray<T>(
+    from: Array<T>,
+    into: MockLuaTable<number, T> = new MockLuaTable()
+  ): MockLuaTable<number, T> {
     if (from instanceof MockLuaTable) {
       return from;
     } else if (from === null) {
       return from;
     }
 
-    const mock: MockLuaTable<number, T> = new MockLuaTable();
+    from.forEach((it, index) => into.set(index + 1, it));
 
-    from.forEach((it, index) => mock.set(index + 1, it));
-
-    return mock;
+    return into;
   }
 
   /**

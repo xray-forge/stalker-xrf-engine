@@ -6,8 +6,8 @@ import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { IWeatherState } from "@/engine/core/managers/weather/weather_types";
 import { WeatherManager } from "@/engine/core/managers/weather/WeatherManager";
 import { NIL } from "@/engine/lib/constants/words";
+import { getFunctionMock } from "@/fixtures/jest";
 import { mockLuaTable, MockLuaTable } from "@/fixtures/lua/mocks/LuaTable.mock";
-import { getFunctionMock } from "@/fixtures/utils";
 import { EPacketDataType, mockNetPacket, mockNetProcessor, MockNetProcessor } from "@/fixtures/xray/mocks/save";
 
 describe("WeatherManager class", () => {

@@ -218,7 +218,7 @@ extern("xr_effects.stop_postprocess", (actor: ClientObject, object: ClientObject
  * Expects tutorial name parameter to run.
  */
 extern("xr_effects.run_tutorial", (actor: ClientObject, object: ClientObject, [tutorialName]: [TName]): void => {
-  logger.info("Run tutorial");
+  logger.format("Run tutorial: '%s'", tutorialName);
   game.start_tutorial(tutorialName);
 });
 
@@ -390,7 +390,7 @@ extern(
  * Trigger sleep dialog for actor.
  * Checks if actor is in one of sleep zones and shows UI.
  */
-extern("xr_effects.sleep", (actor: ClientObject): void => {
+extern("xr_effects.sleep", (): void => {
   logger.info("Sleep effect");
 
   // todo: Define sleep zones somewhere in config.
@@ -404,7 +404,8 @@ extern("xr_effects.sleep", (actor: ClientObject): void => {
   ]);
 
   for (const [, zone] of sleepZones) {
-    if (isObjectInZone(actor, registry.zones.get(zone))) {
+    if (isObjectInZone(registry.actor, registry.zones.get(zone))) {
+      logger.format("Actor sleep in: '%s'", zone);
       SleepManager.getInstance().showSleepDialog();
       break;
     }

@@ -13,7 +13,7 @@ import { canObjectSelectAsEnemy, isObjectFacingDanger } from "@/engine/core/util
 import { FALSE, TRUE } from "@/engine/lib/constants/words";
 import { ClientObject, EClientObjectRelation, EScheme, ServerSmartZoneObject, TClassId } from "@/engine/lib/types";
 import { mockSchemeState } from "@/fixtures/engine";
-import { replaceFunctionMock } from "@/fixtures/utils";
+import { replaceFunctionMock } from "@/fixtures/jest";
 import {
   mockClientGameObject,
   MockDangerObject,

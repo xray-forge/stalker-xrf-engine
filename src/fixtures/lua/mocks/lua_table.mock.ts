@@ -23,6 +23,24 @@ export const mockTable = {
       throw new Error("Unexpected data provided for table size check mock.");
     }
   },
+  remove: (target: AnyObject, index: number) => {
+    // Simulate lua behaviour by shifting all elements like with splice.
+    if (target instanceof MockLuaTable) {
+      const array = MockLuaTable.toArray(target);
+
+      array.splice(index - 1, 1);
+
+      target.reset();
+
+      MockLuaTable.fromArray(array, target);
+
+      return;
+    } else if (Array.isArray(target)) {
+      return target.splice(index - 1, 1);
+    }
+
+    throw new Error(`Currently '${typeof target}' is not supported.`);
+  },
   concat: (target: AnyObject, char: string) => {
     if (Array.isArray(target)) {
       return target.join(char);

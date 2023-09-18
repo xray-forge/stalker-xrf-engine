@@ -7,8 +7,8 @@ import {
 } from "@/engine/core/utils/extensions/extensions_order";
 import { IExtensionsDescriptor } from "@/engine/core/utils/extensions/extensions_types";
 import { TName } from "@/engine/lib/types";
+import { resetFunctionMock } from "@/fixtures/jest";
 import { MockIoFile } from "@/fixtures/lua";
-import { resetFunctionMock } from "@/fixtures/utils";
 
 describe("'extensions_order' utils", () => {
   const mockExtension = (name: TName) => ({ name }) as IExtensionsDescriptor;

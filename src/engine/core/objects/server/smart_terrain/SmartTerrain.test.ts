@@ -11,7 +11,7 @@ import { createObjectJobDescriptor, IObjectJobDescriptor } from "@/engine/core/u
 import { TRUE } from "@/engine/lib/constants/words";
 import { ServerHumanObject } from "@/engine/lib/types";
 import { mockSmartTerrain, mockSmartTerrainWithConfiguration } from "@/fixtures/engine";
-import { replaceFunctionMock } from "@/fixtures/utils";
+import { replaceFunctionMock } from "@/fixtures/jest";
 import {
   EPacketDataType,
   MockCALifeSmartTerrainTask,

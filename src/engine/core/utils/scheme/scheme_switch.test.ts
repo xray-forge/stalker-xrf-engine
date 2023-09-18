@@ -20,7 +20,7 @@ import { switchObjectSchemeToSection, trySwitchToAnotherSection } from "@/engine
 import { NIL } from "@/engine/lib/constants/words";
 import { ClientObject, EScheme, ESchemeCondition, IniFile, LuaArray } from "@/engine/lib/types";
 import { getSchemeAction, mockBaseSchemeLogic, mockSchemeState } from "@/fixtures/engine";
-import { replaceFunctionMock } from "@/fixtures/utils";
+import { replaceFunctionMock } from "@/fixtures/jest";
 import { mockClientGameObject, mockIniFile } from "@/fixtures/xray";
 import { MockCTime } from "@/fixtures/xray/mocks/CTime.mock";
 

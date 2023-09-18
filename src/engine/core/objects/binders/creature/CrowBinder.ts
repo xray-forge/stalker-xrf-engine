@@ -34,6 +34,9 @@ const logger: LuaLogger = new LuaLogger($filename);
 export class CrowBinder extends object_binder {
   public diedAt: TTimestamp = 0;
 
+  public override net_save_relevant(): boolean {
+    return true;
+  }
   public override reinit(): void {
     super.reinit();
 
@@ -72,16 +75,12 @@ export class CrowBinder extends object_binder {
     super.net_destroy();
   }
 
-  public override net_save_relevant(): boolean {
-    return true;
-  }
-
   public override update(delta: TDuration): void {
     super.update(delta);
 
     if (
-      !this.object.alive() &&
       this.diedAt !== 0 &&
+      !this.object.alive() &&
       time_global() - logicsConfig.CROW_CORPSE_RELEASE_TIMEOUT >= this.diedAt
     ) {
       const simulator: AlifeSimulator = alife();

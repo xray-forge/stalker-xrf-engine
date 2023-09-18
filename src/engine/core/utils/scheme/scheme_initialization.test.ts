@@ -26,7 +26,7 @@ import {
 } from "@/engine/core/utils/scheme/scheme_initialization";
 import { loadSchemeImplementations } from "@/engine/core/utils/scheme/scheme_setup";
 import { AnyObject, ClientObject, EClientObjectRelation, EScheme, ESchemeType, IniFile } from "@/engine/lib/types";
-import { resetFunctionMock } from "@/fixtures/utils";
+import { resetFunctionMock } from "@/fixtures/jest";
 import { FILES_MOCKS, mockClientGameObject, mockIniFile, mockServerAlifeHumanStalker } from "@/fixtures/xray";
 
 describe("'scheme initialization' utils", () => {

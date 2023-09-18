@@ -6,8 +6,8 @@ import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { StatisticsManager } from "@/engine/core/managers/statistics";
 import { weapons } from "@/engine/lib/constants/items/weapons";
 import { ClientObject, TClassId, TName } from "@/engine/lib/types";
+import { replaceFunctionMock } from "@/fixtures/jest";
 import { MockLuaTable } from "@/fixtures/lua";
-import { replaceFunctionMock } from "@/fixtures/utils";
 import {
   EPacketDataType,
   mockActorClientGameObject,

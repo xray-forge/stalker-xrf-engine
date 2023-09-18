@@ -24,7 +24,7 @@ import {
 import { ammo } from "@/engine/lib/constants/items/ammo";
 import { weapons } from "@/engine/lib/constants/items/weapons";
 import { ClientObject, ServerHumanObject, TClassId } from "@/engine/lib/types";
-import { replaceFunctionMock } from "@/fixtures/utils";
+import { replaceFunctionMock } from "@/fixtures/jest";
 import {
   CLIENT_SIDE_REGISTRY,
   MockActionPlanner,

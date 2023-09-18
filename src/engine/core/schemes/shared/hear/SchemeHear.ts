@@ -105,7 +105,7 @@ export class SchemeHear extends AbstractScheme {
         );
 
         if (nextSection !== null && nextSection !== "") {
-          switchObjectSchemeToSection(object, state.ini!, nextSection);
+          switchObjectSchemeToSection(object, state.ini, nextSection);
         } else if (nextSection === "") {
           state.hearInfo[storyId][soundClassType] = null;
         }

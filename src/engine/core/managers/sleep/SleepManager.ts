@@ -21,20 +21,15 @@ const logger: LuaLogger = new LuaLogger($filename);
  * Manage sleep process of the actor.
  */
 export class SleepManager extends AbstractManager {
-  /**
-   * Sleep dialog UI component.
-   */
   private sleepDialog: Optional<SleepDialog> = null;
-
-  /**
-   * Duration of next sleep.
-   */
   private nextSleepDuration: TDuration = 0;
 
   /**
    * Show sleep dialog.
    */
   public showSleepDialog(): void {
+    logger.info("Show sleep dialog");
+
     if (this.sleepDialog === null) {
       this.sleepDialog = new SleepDialog(this);
     }

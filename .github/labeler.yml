@@ -1,0 +1,48 @@
+cli:
+  - .github/**
+  - cli/**
+
+binaries:
+  - cli/bin/**
+
+test:
+  - src/**/*.test.ts
+  - src/fixtures/**
+
+engine:
+  - src/engine/**
+
+configs:
+  - src/engine/forms/**
+
+managers:
+  - src/engine/core/managers/**
+
+schemes:
+  - src/engine/core/schemes/**
+
+ai:
+  - src/engine/core/objects/ai/**
+
+extensions:
+  - src/engine/forms/**
+
+ui:
+  - src/engine/forms/**
+  - src/engine/core/ui/**
+
+scripts:
+  - src/engine/scripts/**
+
+translations:
+  - src/engine/translations/**
+
+resources:
+  - src/resources/**
+
+typedefs:
+  - src/typedefs/**
+
+dependencies:
+  - package.json
+  - package-lock.json

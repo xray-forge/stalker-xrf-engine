@@ -2,7 +2,7 @@ import { describe, expect, it } from "@jest/globals";
 
 import { stopPlayingObjectSound } from "@/engine/core/utils/object/object_sound";
 import { ClientObject } from "@/engine/lib/types";
-import { replaceFunctionMock } from "@/fixtures/utils";
+import { replaceFunctionMock } from "@/fixtures/jest";
 import { mockClientGameObject } from "@/fixtures/xray";
 
 describe("object_sound utils", () => {

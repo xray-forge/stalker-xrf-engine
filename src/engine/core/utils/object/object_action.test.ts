@@ -6,7 +6,7 @@ import { ActorInputManager } from "@/engine/core/managers/actor";
 import { objectPunchActor } from "@/engine/core/utils/object/object_action";
 import { animations } from "@/engine/lib/constants/animation";
 import { ClientObject, EActiveItemSlot } from "@/engine/lib/types";
-import { resetFunctionMock } from "@/fixtures/utils";
+import { resetFunctionMock } from "@/fixtures/jest";
 import { mockActorClientGameObject, mockClientGameObject } from "@/fixtures/xray";
 
 describe("object_action utils", () => {

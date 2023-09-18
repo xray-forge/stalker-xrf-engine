@@ -9,7 +9,7 @@ import { EStalkerState } from "@/engine/core/objects/animation/types";
 import { StalkerBinder } from "@/engine/core/objects/binders/creature/StalkerBinder";
 import { createEmptyVector, createVector } from "@/engine/core/utils/vector";
 import { ClientObject } from "@/engine/lib/types";
-import { resetFunctionMock } from "@/fixtures/utils/function_mock";
+import { resetFunctionMock } from "@/fixtures/jest";
 import { mockClientGameObject } from "@/fixtures/xray";
 
 describe("ActionDirectionTurn class", () => {

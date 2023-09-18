@@ -7,7 +7,7 @@ import { ActionDirectionSearch } from "@/engine/core/objects/ai/state/direction/
 import { StalkerStateManager } from "@/engine/core/objects/ai/state/StalkerStateManager";
 import { EStalkerState } from "@/engine/core/objects/animation/types";
 import { StalkerBinder } from "@/engine/core/objects/binders/creature/StalkerBinder";
-import { resetFunctionMock } from "@/fixtures/utils/function_mock";
+import { resetFunctionMock } from "@/fixtures/jest";
 import { mockClientGameObject } from "@/fixtures/xray";
 
 describe("ActionDirectionSearch class", () => {

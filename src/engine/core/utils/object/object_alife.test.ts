@@ -7,8 +7,8 @@ import {
   setStableAlifeObjectsUpdate,
   setUnlimitedAlifeObjectsUpdate,
 } from "@/engine/core/utils/object/object_alife";
+import { resetFunctionMock } from "@/fixtures/jest";
 import { mockLuaTable } from "@/fixtures/lua/mocks/LuaTable.mock";
-import { resetFunctionMock } from "@/fixtures/utils";
 import { mockServerAlifeObject } from "@/fixtures/xray/mocks/objects/server/cse_alife_object.mock";
 import { mockSquad } from "@/fixtures/xray/mocks/objects/server/Squad.mock";
 import { MockVector } from "@/fixtures/xray/mocks/vector.mock";

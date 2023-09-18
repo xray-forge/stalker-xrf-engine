@@ -7,7 +7,7 @@ import {
 } from "@/engine/core/utils/game/game_console";
 import { consoleCommands } from "@/engine/lib/constants/console_commands";
 import { gameDifficulties } from "@/engine/lib/constants/game_difficulties";
-import { resetFunctionMock } from "@/fixtures/utils/function_mock";
+import { resetFunctionMock } from "@/fixtures/jest";
 import { mockIniFile } from "@/fixtures/xray";
 import { gameConsole } from "@/fixtures/xray/mocks/console.mock";
 
