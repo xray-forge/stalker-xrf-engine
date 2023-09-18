@@ -19,7 +19,7 @@ export class SchemeCutscene extends AbstractScheme {
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.RESTRICTOR;
 
   public static override activate(object: ClientObject, ini: IniFile, scheme: EScheme, section: TSection): void {
-    logger.info("Activate scheme:", object.name(), scheme, section);
+    logger.info("Activate:", object.name(), scheme, section);
 
     const state: ISchemeCutsceneState = AbstractScheme.assign(object, ini, scheme, section);
 
@@ -41,9 +41,7 @@ export class SchemeCutscene extends AbstractScheme {
     section: TSection,
     state: ISchemeCutsceneState
   ): void {
-    const cutsceneManager: CutsceneManager = new CutsceneManager(object, state);
-
-    SchemeCutscene.subscribe(object, state, cutsceneManager);
+    SchemeCutscene.subscribe(object, state, new CutsceneManager(object, state));
   }
 
   /**

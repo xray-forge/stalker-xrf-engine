@@ -47,8 +47,6 @@ export class CamEffectorSet {
 
   public startEffect(effect: ICamEffectorSetDescriptorItem): void {
     logger.info("Start effect:", effect.anim);
-    // --printf("playing effect [camera_effects\\"..eff.anim..".anm], time [%s]", device():time_global())
-    // --callstack()
 
     if (!effect.global_cameffect) {
       level.add_cam_effector("camera_effects\\" + effect.anim + ".anm", 210408, false, "engine.effector_callback");

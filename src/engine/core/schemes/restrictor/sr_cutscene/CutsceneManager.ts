@@ -44,7 +44,7 @@ export class CutsceneManager extends AbstractSchemeManager<ISchemeCutsceneState>
     this.onZoneEnter();
   }
 
-  public update(delta: number): void {
+  public update(): void {
     if (this.motion) {
       this.motion.update();
       if (this.state.signals!.get("cam_effector_stop") !== null) {

@@ -34,6 +34,7 @@ describe("SchemeCrowSpawner", () => {
 
     const schemeState: ISchemeCrowSpawnerState = state[EScheme.SR_CROW_SPAWNER] as ISchemeCrowSpawnerState;
 
+    expect(schemeState.actions?.length()).toBe(1);
     expect(schemeState.maxCrowsOnLevel).toBe(48);
     expect(schemeState.pathsList).toEqualLuaArrays(["a", "b", "c", "d"]);
     expect(schemeState.logic).toEqualLuaArrays([
@@ -50,6 +51,7 @@ describe("SchemeCrowSpawner", () => {
 
     const schemeState: ISchemeCrowSpawnerState = state[EScheme.SR_CROW_SPAWNER] as ISchemeCrowSpawnerState;
 
+    expect(schemeState.actions?.length()).toBe(1);
     expect(schemeState.maxCrowsOnLevel).toBe(16);
     expect(schemeState.pathsList).toEqualLuaArrays([]);
     expect(schemeState.logic).toBeNull();
