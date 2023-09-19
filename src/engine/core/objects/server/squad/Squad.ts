@@ -764,16 +764,18 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
    * Set squad position in current level by supplied vector.
    */
   public setSquadPosition(position: Vector): void {
+    logger.format("Set squad position: '%s', '%s'", this.name(), this.online);
+
     if (!this.online) {
       this.force_change_position(position);
     }
 
     for (const squadMember of this.squad_members()) {
-      const object: Optional<ClientObject> = level.object_by_id(squadMember.id);
+      const object: Optional<ClientObject> = registry.objects.get(squadMember.id)?.object as Optional<ClientObject>;
 
       registry.offlineObjects.get(squadMember.id).levelVertexId = level.vertex_id(position);
 
-      if (object !== null) {
+      if (object) {
         resetStalkerState(object);
         object.set_npc_position(position);
       } else {

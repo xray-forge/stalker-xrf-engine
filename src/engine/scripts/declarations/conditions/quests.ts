@@ -2,7 +2,7 @@ import { alife, level } from "xray16";
 
 import { getObjectByStoryId, getServerObjectByStoryId, registry } from "@/engine/core/database";
 import { AnomalyZoneBinder } from "@/engine/core/objects/binders";
-import { Squad } from "@/engine/core/objects/server";
+import { Squad } from "@/engine/core/objects/server/squad";
 import { abort } from "@/engine/core/utils/assertion";
 import { extern, getExtern } from "@/engine/core/utils/binding";
 import { LuaLogger } from "@/engine/core/utils/logging";

@@ -10,7 +10,8 @@ import type {
   SignalLightBinder,
 } from "@/engine/core/objects/binders";
 import type { CampManager } from "@/engine/core/objects/camp";
-import type { SmartCover, SmartTerrain } from "@/engine/core/objects/server";
+import type { SmartCover } from "@/engine/core/objects/server/smart_cover";
+import type { SmartTerrain } from "@/engine/core/objects/server/smart_terrain";
 import type { AbstractPlayableSound } from "@/engine/core/objects/sounds/playable_sounds";
 import type { StoryManager } from "@/engine/core/objects/sounds/stories";
 import type { LightManager } from "@/engine/core/schemes/restrictor/sr_light";

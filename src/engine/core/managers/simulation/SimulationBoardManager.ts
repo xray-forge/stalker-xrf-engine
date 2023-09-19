@@ -10,9 +10,9 @@ import {
   TSimulationObject,
 } from "@/engine/core/managers/simulation/simulation_types";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
-import { ESquadActionType } from "@/engine/core/objects/server";
 import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain/SmartTerrain";
-import { Squad } from "@/engine/core/objects/server/squad/Squad";
+import type { Squad } from "@/engine/core/objects/server/squad/Squad";
+import { ESquadActionType } from "@/engine/core/objects/server/squad/squad_types";
 import { abort, assertDefined } from "@/engine/core/utils/assertion";
 import { parseStringsList } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";

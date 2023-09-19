@@ -1,7 +1,7 @@
 import { describe, expect, it, jest } from "@jest/globals";
 
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
-import { SmartCover } from "@/engine/core/objects/server";
+import { SmartCover } from "@/engine/core/objects/server/smart_cover";
 
 describe("SmartCover server object", () => {
   it("should correctly emit lifecycle events", () => {

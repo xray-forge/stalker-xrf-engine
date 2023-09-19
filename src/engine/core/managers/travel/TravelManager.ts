@@ -3,14 +3,13 @@ import { alife, game, level, patrol, time_global } from "xray16";
 import { getStoryIdByObjectId, registry, TRAVEL_MANAGER_LTX } from "@/engine/core/database";
 import { AbstractManager } from "@/engine/core/managers/base/AbstractManager";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
-import { ENotificationDirection } from "@/engine/core/managers/notifications";
-import { NotificationManager } from "@/engine/core/managers/notifications/NotificationManager";
+import { ENotificationDirection, NotificationManager } from "@/engine/core/managers/notifications";
 import { TSimulationObject } from "@/engine/core/managers/simulation";
 import { SimulationBoardManager } from "@/engine/core/managers/simulation/SimulationBoardManager";
 import { SurgeManager } from "@/engine/core/managers/surge/SurgeManager";
 import { ITravelRouteDescriptor } from "@/engine/core/managers/travel/travel_types";
-import { ESquadActionType } from "@/engine/core/objects/server";
 import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain/SmartTerrain";
+import { ESquadActionType } from "@/engine/core/objects/server/squad";
 import { Squad } from "@/engine/core/objects/server/squad/Squad";
 import { abort } from "@/engine/core/utils/assertion";
 import { createGameAutoSave } from "@/engine/core/utils/game/game_save";
@@ -407,6 +406,82 @@ export class TravelManager extends AbstractManager {
   }
 
   /**
+   * Tick of active actor update when teleporting from one place to another.
+   * todo;
+   * todo: Probably add some 'isTraveling' checker with assertion of types.
+   */
+  public override update(): void {
+    if (!this.isTraveling) {
+      return;
+    }
+
+    // Wait till prepare.
+    if (time_global() - this.travelingStartedAt < TravelManager.SMART_TRAVEL_TELEPORT_DELAY) {
+      return;
+    }
+
+    if (!this.isTravelTeleported) {
+      logger.info("Teleporting actor on travel:", this.travelSquadPath, this.travelActorPath);
+
+      this.isTravelTeleported = true;
+
+      const point: Patrol = new patrol(this.travelActorPath!);
+      const direction: TDirection = -point.point(1).sub(point.point(0)).getH();
+      const board: SimulationBoardManager = SimulationBoardManager.getInstance();
+
+      // todo: Why releasing enemies? Probably not needed.
+      for (const [, squad] of board.getSmartTerrainDescriptor(this.travelToSmartId!)!.assignedSquads) {
+        if (getStoryIdByObjectId(squad.id) === null && isAnySquadMemberEnemyToActor(squad)) {
+          board.exitSmartTerrain(squad, this.travelToSmartId);
+          board.releaseSquad(squad);
+        }
+      }
+
+      const currentSmartId: Optional<TNumberId> = this.travelSquad!.assignedSmartTerrainId;
+
+      if (currentSmartId !== null) {
+        board.assignSquadToSmartTerrain(this.travelSquad!, null);
+        board.assignSquadToSmartTerrain(this.travelSquad!, currentSmartId);
+      }
+
+      const position: Vector = new patrol(this.travelSquadPath!).point(0);
+
+      this.travelSquad!.setSquadPosition(position!);
+
+      registry.actor.set_actor_direction(direction);
+      registry.actor.set_actor_position(point.point(0));
+
+      const timeTookInMinutes: TDuration = this.travelDistance! / 10;
+      const hours: TDuration = math.floor(timeTookInMinutes / 60);
+      const minutes: TDuration = timeTookInMinutes - hours * 60;
+
+      level.change_game_time(0, hours, minutes);
+
+      SurgeManager.getInstance().isTimeForwarded = true;
+
+      logger.info("Forwarded time on travel:", this.travelSquadPath, this.travelActorPath);
+    }
+
+    // Wait till resolve.
+    if (time_global() - this.travelingStartedAt < TravelManager.SMART_TRAVEL_RESOLVE_DELAY) {
+      return;
+    }
+
+    this.isTraveling = false;
+
+    this.travelingStartedAt = 0;
+    this.travelActorPath = null;
+    this.travelSquadPath = null;
+    this.travelSquad = null;
+    this.travelDistance = null;
+    this.travelToSmartId = null;
+
+    level.show_weapon(true);
+    level.enable_input();
+    level.show_indicators();
+  }
+
+  /**
    * Travel together with squad to selected squad, pay them and ask to take somewhere.
    * todo;
    */
@@ -484,80 +559,5 @@ export class TravelManager extends AbstractManager {
     this.travelToSmartId = smartTerrain.id;
     this.travelSquad = squad;
     this.travelingStartedAt = time_global();
-  }
-
-  /**
-   * Tick of active actor update when teleporting from one place to another.
-   * todo;
-   * todo: Probably add some 'isTraveling' checker with assertion of types.
-   */
-  public override update(): void {
-    if (!this.isTraveling) {
-      return;
-    }
-
-    // Wait till prepare.
-    if (time_global() - this.travelingStartedAt < TravelManager.SMART_TRAVEL_TELEPORT_DELAY) {
-      return;
-    }
-
-    if (!this.isTravelTeleported) {
-      logger.info("Teleporting actor on travel:", this.travelSquadPath, this.travelActorPath);
-
-      this.isTravelTeleported = true;
-
-      const point: Patrol = new patrol(this.travelActorPath!);
-      const direction: TDirection = -point.point(1).sub(point.point(0)).getH();
-      const board: SimulationBoardManager = SimulationBoardManager.getInstance();
-
-      for (const [, squad] of board.getSmartTerrainDescriptor(this.travelToSmartId!)!.assignedSquads) {
-        if (getStoryIdByObjectId(squad.id) === null && isAnySquadMemberEnemyToActor(squad)) {
-          board.exitSmartTerrain(squad, this.travelToSmartId);
-          board.releaseSquad(squad);
-        }
-      }
-
-      const currentSmartId: Optional<TNumberId> = this.travelSquad!.assignedSmartTerrainId;
-
-      if (currentSmartId !== null) {
-        board.assignSquadToSmartTerrain(this.travelSquad!, null);
-        board.assignSquadToSmartTerrain(this.travelSquad!, currentSmartId);
-      }
-
-      const position: Vector = new patrol(this.travelSquadPath!).point(0);
-
-      this.travelSquad!.setSquadPosition(position!);
-
-      registry.actor.set_actor_direction(direction);
-      registry.actor.set_actor_position(point.point(0));
-
-      const timeTookInMinutes: TDuration = this.travelDistance! / 10;
-      const hours: TDuration = math.floor(timeTookInMinutes / 60);
-      const minutes: TDuration = timeTookInMinutes - hours * 60;
-
-      level.change_game_time(0, hours, minutes);
-
-      SurgeManager.getInstance().isTimeForwarded = true;
-
-      logger.info("Forwarded time on travel:", this.travelSquadPath, this.travelActorPath);
-    }
-
-    // Wait till resolve.
-    if (time_global() - this.travelingStartedAt < TravelManager.SMART_TRAVEL_RESOLVE_DELAY) {
-      return;
-    }
-
-    this.isTraveling = false;
-
-    this.travelingStartedAt = 0;
-    this.travelActorPath = null;
-    this.travelSquadPath = null;
-    this.travelSquad = null;
-    this.travelDistance = null;
-    this.travelToSmartId = null;
-
-    level.show_weapon(true);
-    level.enable_input();
-    level.show_indicators();
   }
 }

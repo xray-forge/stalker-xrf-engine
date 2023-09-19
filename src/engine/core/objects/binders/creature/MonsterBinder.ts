@@ -18,8 +18,8 @@ import {
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { TSimulationObject } from "@/engine/core/managers/simulation";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
-import { ESquadActionType } from "@/engine/core/objects/server";
 import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain/SmartTerrain";
+import { ESquadActionType } from "@/engine/core/objects/server/squad";
 import { Squad } from "@/engine/core/objects/server/squad/Squad";
 import { SchemeHear } from "@/engine/core/schemes/shared/hear/SchemeHear";
 import { assert } from "@/engine/core/utils/assertion";

@@ -12,7 +12,8 @@ import {
 } from "@/engine/core/database";
 import { SimulationBoardManager } from "@/engine/core/managers/simulation/SimulationBoardManager";
 import { updateStalkerLogic } from "@/engine/core/objects/binders/creature/StalkerBinder";
-import type { SmartTerrain, Squad } from "@/engine/core/objects/server";
+import type { SmartTerrain } from "@/engine/core/objects/server/smart_terrain";
+import type { Squad } from "@/engine/core/objects/server/squad";
 import { ISchemeMobCombatState } from "@/engine/core/schemes/monster/mob_combat";
 import { ISchemeCombatState } from "@/engine/core/schemes/stalker/combat";
 import { ISchemeCombatIgnoreState } from "@/engine/core/schemes/stalker/combat_ignore";
