@@ -1,4 +1,4 @@
-import { describe, expect, it } from "@jest/globals";
+import { describe, expect, it, jest } from "@jest/globals";
 
 import { IRegistryObjectState, registerObject } from "@/engine/core/database";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
@@ -30,7 +30,7 @@ describe("loot utils for corpse_detection scheme", () => {
 
     const state: IRegistryObjectState = registerObject(object);
 
-    jest.spyOn(soundManager, "playSound").mockImplementation();
+    jest.spyOn(soundManager, "playSound").mockImplementation(() => null);
     jest.spyOn(math, "random").mockImplementation(() => 0);
     loadSchemeImplementation(SchemeCorpseDetection);
 

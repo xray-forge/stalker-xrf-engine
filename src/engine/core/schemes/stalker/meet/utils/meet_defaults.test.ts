@@ -34,8 +34,7 @@ describe("meet scheme defaults", () => {
       isBreakAllowed: TRUE,
       closeAnimation: "{=is_wounded} nil, {!is_squad_commander} nil, {=actor_has_weapon} threat_na, talk_default",
       closeDistance: "{=is_wounded} 0, {!is_squad_commander} 0, 3",
-      closeSoundBye:
-        "{=is_wounded} nil, {!is_squad_commander} nil, {=actor_enemy} nil, {=actor_has_weapon} nil, meet_hello",
+      closeSoundBye: NIL,
       close_snd_distance: "{=is_wounded} 0, {!is_squad_commander} 0, 3",
       closeSoundHello:
         "{=is_wounded} nil, {!is_squad_commander} nil, {=actor_enemy} nil, {=actor_has_weapon} meet_hide_weapon," +
@@ -50,7 +49,7 @@ describe("meet scheme defaults", () => {
       isMeetOnTalking: TRUE,
       useSound:
         "{=is_wounded} nil, {!is_squad_commander} meet_use_no_talk_leader, {=actor_enemy} nil," +
-        " {=has_enemy} meet_use_no_fight, {=actor_has_weapon} meet_use_no_weapon, {!dist_to_actor_le(3)} nil",
+        " {=has_enemy} meet_use_no_fight, {=actor_has_weapon} meet_use_no_weapon, nil",
       isTradeEnabled: TRUE,
       use:
         "{=is_wounded} false, {!is_squad_commander} false, {=actor_enemy} false, {=has_enemy} false," +

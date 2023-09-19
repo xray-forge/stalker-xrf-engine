@@ -46,6 +46,7 @@ export class SchemeReachTask extends AbstractScheme {
 
   /**
    * todo: Description.
+   * todo: generic init method?
    */
   public static addReachTaskSchemeAction(object: ClientObject): void {
     const actionPlanner: ActionPlanner = object.motivation_action_manager();

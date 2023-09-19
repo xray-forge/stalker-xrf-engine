@@ -6,7 +6,7 @@ import { AbstractSchemeManager } from "@/engine/core/objects/ai/scheme";
 import { EStalkerState } from "@/engine/core/objects/animation/types";
 import { EMeetDistance, ISchemeMeetState } from "@/engine/core/schemes/stalker/meet/ISchemeMeetState";
 import { isBlackScreen } from "@/engine/core/utils/game";
-import { pickSectionFromCondList } from "@/engine/core/utils/ini";
+import { parseStringOptional, pickSectionFromCondList } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { isObjectInCombat, isObjectWounded, setObjectAbuseState } from "@/engine/core/utils/object";
 import { FALSE, NIL, TRUE } from "@/engine/lib/constants/words";
@@ -21,7 +21,7 @@ import {
   TStringId,
 } from "@/engine/lib/types";
 
-const logger: LuaLogger = new LuaLogger($filename);
+const logger: LuaLogger = new LuaLogger($filename, { file: "meet" });
 
 /**
  * Handle meeting interaction between object and actor.
@@ -69,6 +69,8 @@ export class MeetManager extends AbstractSchemeManager<ISchemeMeetState> {
       this.object.is_talking() ||
       (isActorVisible && distance <= tonumber(pickSectionFromCondList(actor, this.object, this.state.closeDistance))!);
 
+    logger.format("Initialize meet manager for: '%s', '%s', '%s'", this.object.name(), isObjectClose, isObjectFar);
+
     if (isObjectClose) {
       this.isHelloPassed = true;
       this.currentDistanceToSpeaker = EMeetDistance.CLOSE;
@@ -86,43 +88,43 @@ export class MeetManager extends AbstractSchemeManager<ISchemeMeetState> {
 
   /**
    * Handles meet state activation.
-   * Called when actor is joining close distance to object.
+   * Called when actor is starting meet and stalker is captured in action.
    */
-  public activateMeetState(): void {
+  public execute(): void {
     const actor: ClientObject = registry.actor;
+
     let state: Optional<EStalkerState> = null;
     let victim: Optional<ClientObject> = null;
     let victimStoryId: Optional<TStringId> = null;
 
     if (this.currentDistanceToSpeaker === EMeetDistance.CLOSE) {
-      state = pickSectionFromCondList(actor, this.object, this.state.closeAnimation);
-      victimStoryId = pickSectionFromCondList(actor, this.object, this.state.closeVictim);
+      state = parseStringOptional(pickSectionFromCondList(actor, this.object, this.state.closeAnimation));
+      victimStoryId = parseStringOptional(pickSectionFromCondList(actor, this.object, this.state.closeVictim));
     } else if (this.currentDistanceToSpeaker === EMeetDistance.FAR) {
-      state = pickSectionFromCondList(actor, this.object, this.state.farAnimation);
-      victimStoryId = pickSectionFromCondList(actor, this.object, this.state.farVictim);
+      state = parseStringOptional(pickSectionFromCondList(actor, this.object, this.state.farAnimation));
+      victimStoryId = parseStringOptional(pickSectionFromCondList(actor, this.object, this.state.farVictim));
     }
 
-    if (tostring(victimStoryId) === NIL) {
-      victimStoryId = null;
-    } else {
-      if (alife() !== null) {
-        victim = getObjectByStoryId(victimStoryId as TStringId);
-      }
+    // Find by SID if defined.
+    if (victimStoryId !== null && registry.simulator !== null) {
+      victim = getObjectByStoryId(victimStoryId as TStringId);
     }
 
-    // Look at speaker.
-    if (tostring(state) !== NIL) {
-      setStalkerState(this.object, state as EStalkerState, null, null, {
+    // Use animation if it is defined.
+    if (state !== null) {
+      setStalkerState(this.object, state, null, null, {
         lookObjectId: victim?.id() as Optional<TNumberId>,
         lookPosition: null,
       });
     }
 
-    // Say hello.
-    const optionalSound: Optional<TSection> = pickSectionFromCondList(actor, this.object, this.state.farSound);
+    const optionalSound: Optional<TSection> = parseStringOptional(
+      pickSectionFromCondList(actor, this.object, this.state.farSound)
+    );
 
-    if (tostring(optionalSound) !== NIL) {
-      GlobalSoundManager.getInstance().playSound(this.object.id(), optionalSound, null, null);
+    if (optionalSound !== null) {
+      logger.format("Execute play sound: '%s', '%s'", this.object.name(), optionalSound);
+      GlobalSoundManager.getInstance().playSound(this.object.id(), optionalSound);
     }
   }
 
@@ -134,33 +136,37 @@ export class MeetManager extends AbstractSchemeManager<ISchemeMeetState> {
     const distance: TDistance = this.object.position().distance_to(actor.position());
     const isActorVisible: boolean = this.object.see(actor);
 
+    // Handle greeting / bye.
     if (isActorVisible) {
-      if (distance <= tonumber(pickSectionFromCondList(actor, this.object, this.state.closeSoundDistance))!) {
-        if (!this.isHelloPassed) {
-          const closeSoundHello: Optional<TSection> = pickSectionFromCondList(
-            actor,
-            this.object,
-            this.state.closeSoundHello
-          );
+      if (
+        !this.isHelloPassed &&
+        distance <= tonumber(pickSectionFromCondList(actor, this.object, this.state.closeSoundDistance))!
+      ) {
+        const sound: Optional<TSection> = parseStringOptional(
+          pickSectionFromCondList(actor, this.object, this.state.closeSoundHello)
+        );
 
-          if (tostring(closeSoundHello) !== NIL && !isObjectInCombat(this.object)) {
-            GlobalSoundManager.getInstance().playSound(this.object.id(), closeSoundHello);
-          }
-
-          this.isHelloPassed = true;
+        if (sound !== null && !isObjectInCombat(this.object)) {
+          logger.format("Execute play sound hello: '%s', '%s'", this.object.name(), sound);
+          GlobalSoundManager.getInstance().playSound(this.object.id(), sound);
         }
-      } else if (distance <= tonumber(pickSectionFromCondList(actor, this.object, this.state.farSoundDistance))!) {
-        if (this.isHelloPassed) {
-          if (!this.isByePassed) {
-            const sound: Optional<TSection> = pickSectionFromCondList(actor, this.object, this.state.closeSoundBye);
 
-            if (tostring(sound) !== NIL && !isObjectInCombat(this.object)) {
-              GlobalSoundManager.getInstance().playSound(this.object.id(), sound, null, null);
-            }
+        this.isHelloPassed = true;
+      } else if (
+        this.isHelloPassed &&
+        !this.isByePassed &&
+        distance <= tonumber(pickSectionFromCondList(actor, this.object, this.state.farSoundDistance))!
+      ) {
+        const sound: Optional<TSection> = parseStringOptional(
+          pickSectionFromCondList(actor, this.object, this.state.closeSoundBye)
+        );
 
-            this.isByePassed = true;
-          }
+        if (sound !== null && !isObjectInCombat(this.object)) {
+          logger.format("Execute play sound bye: '%s', '%s'", this.object.name(), sound);
+          GlobalSoundManager.getInstance().playSound(this.object.id(), sound);
         }
+
+        this.isByePassed = true;
       }
     }
 
@@ -233,11 +239,7 @@ export class MeetManager extends AbstractSchemeManager<ISchemeMeetState> {
     if (meetInteractionText !== NIL) {
       this.object.set_tip_text(meetInteractionText);
     } else {
-      if (this.object.is_talk_enabled()) {
-        this.object.set_tip_text("character_use");
-      } else {
-        this.object.set_tip_text("");
-      }
+      this.object.set_tip_text(this.object.is_talk_enabled() ? "character_use" : "");
     }
 
     this.object.allow_break_talk_dialog(this.isDialogBreakEnabled);

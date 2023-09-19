@@ -3,7 +3,7 @@ import { action_base, LuabindClass } from "xray16";
 import { ISchemeMeetState } from "@/engine/core/schemes/stalker/meet";
 import { LuaLogger } from "@/engine/core/utils/logging";
 
-const logger: LuaLogger = new LuaLogger($filename);
+const logger: LuaLogger = new LuaLogger($filename, { file: "meet" });
 
 /**
  * Action to wait for actor to speak, when actor is close.
@@ -44,6 +44,6 @@ export class ActionMeetWait extends action_base {
   public override execute(): void {
     super.execute();
 
-    this.state.meetManager.activateMeetState();
+    this.state.meetManager.execute();
   }
 }

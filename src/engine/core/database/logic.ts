@@ -29,7 +29,7 @@ import {
 export function saveObjectLogic(object: ClientObject, packet: NetPacket): void {
   const state: IRegistryObjectState = registry.objects.get(object.id());
 
-  openSaveMarker(packet, "object" + object.name());
+  openSaveMarker(packet, object.name());
 
   packet.w_stringZ(state.jobIni ? state.jobIni : "");
   packet.w_stringZ(state.iniFilename ? state.iniFilename : "");
@@ -40,13 +40,12 @@ export function saveObjectLogic(object: ClientObject, packet: NetPacket): void {
   packet.w_s32((state.activationTime || 0) - time_global());
   writeTimeToPacket(packet, state.activationGameTime);
 
-  // todo: Active section or active scheme?
   if (state.activeScheme) {
     emitSchemeEvent(object, state[state.activeScheme] as IBaseSchemeState, ESchemeEvent.SAVE);
   }
 
   savePortableStore(object, packet);
-  closeSaveMarker(packet, "object" + object.name());
+  closeSaveMarker(packet, object.name());
 }
 
 /**
@@ -58,7 +57,7 @@ export function saveObjectLogic(object: ClientObject, packet: NetPacket): void {
 export function loadObjectLogic(object: ClientObject, reader: NetProcessor): void {
   const state: IRegistryObjectState = registry.objects.get(object.id());
 
-  openLoadMarker(reader, "object" + object.name());
+  openLoadMarker(reader, object.name());
 
   const jobIni: Optional<TPath> = reader.r_stringZ();
   const iniFilename: Optional<TName> = reader.r_stringZ();
@@ -77,5 +76,5 @@ export function loadObjectLogic(object: ClientObject, reader: NetProcessor): voi
 
   loadPortableStore(object.id(), reader);
 
-  closeLoadMarker(reader, "object" + object.name());
+  closeLoadMarker(reader, object.name());
 }

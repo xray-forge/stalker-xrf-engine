@@ -12,6 +12,7 @@ export * from "@/engine/core/utils/object/object_loot";
 export * from "@/engine/core/utils/object/object_meeting";
 export * from "@/engine/core/utils/object/object_section";
 export * from "@/engine/core/utils/object/object_set";
+export * from "@/engine/core/utils/object/object_setup";
 export * from "@/engine/core/utils/object/object_smart_cover";
 export * from "@/engine/core/utils/object/object_sound";
 export * from "@/engine/core/utils/object/object_spawn";

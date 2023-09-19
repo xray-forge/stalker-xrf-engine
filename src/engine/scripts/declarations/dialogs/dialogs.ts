@@ -7,7 +7,7 @@ import { SimulationBoardManager } from "@/engine/core/managers/simulation/Simula
 import { SurgeManager } from "@/engine/core/managers/surge/SurgeManager";
 import { updateStalkerLogic } from "@/engine/core/objects/binders/creature/StalkerBinder";
 import { ISchemeMeetState } from "@/engine/core/schemes/stalker/meet";
-import { updateObjectInteractionAvailability } from "@/engine/core/schemes/stalker/meet/utils";
+import { updateObjectMeetAvailability } from "@/engine/core/schemes/stalker/meet/utils";
 import { ISchemeWoundedState } from "@/engine/core/schemes/stalker/wounded";
 import { extern } from "@/engine/core/utils/binding";
 import { createGameAutoSave } from "@/engine/core/utils/game";
@@ -53,7 +53,7 @@ extern("dialogs.update_npc_dialog", (firstSpeaker: ClientObject, secondSpeaker: 
   const object: ClientObject = getNpcSpeaker(firstSpeaker, secondSpeaker);
 
   (registry.objects.get(object.id())[EScheme.MEET] as ISchemeMeetState).meetManager.update();
-  updateObjectInteractionAvailability(object);
+  updateObjectMeetAvailability(object);
   updateStalkerLogic(object);
 });
 

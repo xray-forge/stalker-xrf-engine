@@ -87,7 +87,7 @@ export function isObjectFacingDanger(object: ClientObject): boolean {
   const ignoreDistanceByType: Optional<TDistance> = logicsConfig.DANGER_IGNORE_DISTANCE_BY_TYPE[bestDangerType];
   const ignoreDistance: TDistance =
     ignoreDistanceByType === null
-      ? logicsConfig.DANGER_IGNORE_DISTANCE_GENERAL * logicsConfig.DANGER_IGNORE_DISTANCE_GENERAL
+      ? logicsConfig.DANGER_IGNORE_DISTANCE_GENERAL_SQR
       : ignoreDistanceByType * ignoreDistanceByType;
 
   // Verify danger distance.
@@ -135,7 +135,8 @@ export function canObjectSelectAsEnemy(object: ClientObject, enemy: ClientObject
   ] as Optional<ISchemeCombatIgnoreState>;
 
   // todo: Probably also clean it up? And set only when 'true'
-  objectState.enemy_id = enemy.id();
+  objectState.enemyId = enemy.id();
+  objectState.enemy = enemy;
 
   // Combat ignoring is explicitly disabled.
   if (combatIgnoreState?.enabled === false) {
@@ -154,7 +155,7 @@ export function canObjectSelectAsEnemy(object: ClientObject, enemy: ClientObject
     return true;
   }
 
-  if (enemy.id() !== ACTOR_ID) {
+  if (objectState.enemyId !== ACTOR_ID) {
     // If enemy of object is in no-combat zone.
     for (const [name, storyId] of registry.noCombatZones) {
       const zone: Optional<ClientObject> = registry.zones.get(name);

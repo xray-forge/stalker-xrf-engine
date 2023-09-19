@@ -21,6 +21,7 @@ import type { TConditionList } from "@/engine/core/utils/ini/ini_types";
 import type { ERelation } from "@/engine/core/utils/relation";
 import { storyNames, TStoryName } from "@/engine/lib/constants/story_names";
 import type {
+  AlifeSimulator,
   ClientObject,
   EScheme,
   IniFile,
@@ -36,6 +37,10 @@ import type {
  * Stores up-to-date game state.
  */
 export const registry = {
+  /**
+   * Current simulator, injected on game start.
+   */
+  simulator: null as unknown as AlifeSimulator,
   /**
    * Current actor, injected on game start.
    */

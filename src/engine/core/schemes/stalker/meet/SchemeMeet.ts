@@ -13,7 +13,7 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 import { NIL } from "@/engine/lib/constants/words";
 import { ActionPlanner, ClientObject, EScheme, ESchemeType, IniFile, TSection } from "@/engine/lib/types";
 
-const logger: LuaLogger = new LuaLogger($filename);
+const logger: LuaLogger = new LuaLogger($filename, { file: "meet" });
 
 /**
  * Scheme describing logics of `meet` state.
@@ -65,8 +65,10 @@ export class SchemeMeet extends AbstractScheme {
     actionMeetWait.add_effect(new world_property(EEvaluatorId.IS_MEET_CONTACT, false));
     planner.add_action(EActionId.MEET_WAITING_ACTIVITY, actionMeetWait);
 
+    // Block alife when meeting.
     planner.action(EActionId.ALIFE).add_precondition(new world_property(EEvaluatorId.IS_MEET_CONTACT, false));
 
+    // Block state reset for alife when meeting.
     planner
       .action(EActionId.STATE_TO_IDLE_ALIFE)
       .add_precondition(new world_property(EEvaluatorId.IS_MEET_CONTACT, false));
@@ -88,8 +90,8 @@ export class SchemeMeet extends AbstractScheme {
     // Read meet configuration from current logics section or from provided section, if it is valid.
     const meetSection: TSection =
       scheme === null || scheme === NIL
-        ? readIniString(state.ini, state.sectionLogic, SchemeMeet.SCHEME_SECTION, false, "")
-        : readIniString(state.ini, section, SchemeMeet.SCHEME_SECTION, false, "");
+        ? readIniString(state.ini, state.sectionLogic, SchemeMeet.SCHEME_SECTION, false)
+        : readIniString(state.ini, section, SchemeMeet.SCHEME_SECTION, false);
 
     initializeMeetScheme(object, state.ini, meetSection, state.meet as ISchemeMeetState);
   }

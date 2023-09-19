@@ -146,7 +146,6 @@ jobs:
 
       - name: Update nightly tag
         uses: EndBug/latest-tag@latest
-        if: github.ref_name == 'dev'
         id: update-nightly-tag
         with:
           ref: nightly

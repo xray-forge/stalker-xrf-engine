@@ -1,4 +1,4 @@
-import { clsid } from "xray16";
+import { alife, clsid } from "xray16";
 
 import { SIMULATION_OBJECTS_PROPS_LTX } from "@/engine/core/database/ini_registry";
 import { registry } from "@/engine/core/database/registry";
@@ -7,6 +7,13 @@ import { parseConditionsList } from "@/engine/core/utils/ini/ini_parse";
 import { isSquad } from "@/engine/core/utils/object/object_class";
 import { ACTOR, DEFAULT } from "@/engine/lib/constants/words";
 import { TCount, TSection } from "@/engine/lib/types";
+
+/**
+ * Register simulator instance in the registry.
+ */
+export function registerSimulator(): void {
+  registry.simulator = alife();
+}
 
 /**
  * Register simulation object in registries for participation in game events.

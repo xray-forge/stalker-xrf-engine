@@ -1,4 +1,4 @@
-import { NetPacket, NetProcessor } from "@/engine/lib/types";
+import { NetPacket, NetProcessor, Reader } from "@/engine/lib/types";
 import { EPacketDataType } from "@/fixtures/xray/mocks/save/types";
 
 /**
@@ -151,4 +151,11 @@ export function mockNetProcessor(packet: MockNetProcessor = new MockNetProcessor
  */
 export function mockNetPacket(packet: MockNetProcessor = new MockNetProcessor()): NetPacket {
   return packet as unknown as NetPacket;
+}
+
+/**
+ * Mock reader instance.
+ */
+export function mockNetReader(packet: MockNetProcessor = new MockNetProcessor()): Reader {
+  return packet as unknown as Reader;
 }

@@ -64,6 +64,15 @@ export const FILES_MOCKS: Record<TPath, AnyObject> = {
     "test-squad": {
       faction: "stalker",
     },
+    stalker_none_1: {
+      set_visual: "",
+    },
+    stalker_freedom_1: {
+      set_visual: "actors\\stalker_neutral\\stalker_neutral_2",
+    },
+    stalker_actor_1: {
+      set_visual: "actor_visual",
+    },
   },
   "spawn.ini": {
     story_object: {

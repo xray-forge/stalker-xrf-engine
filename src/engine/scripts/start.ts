@@ -1,5 +1,4 @@
-import { time_global } from "xray16";
-
+import { registerSimulator } from "@/engine/core/database/simulation";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { extern } from "@/engine/core/utils/binding";
 import { updateClassIds } from "@/engine/core/utils/class_ids";
@@ -23,9 +22,8 @@ extern("start", {
   callback: (): void => {
     logger.info("Start new game");
 
-    math.randomseed(time_global());
-
     updateClassIds(classIds);
+    registerSimulator();
 
     unlockSystemIniOverriding();
 
