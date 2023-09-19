@@ -42,7 +42,7 @@ import {
 } from "@/engine/core/managers/simulation";
 import { SmartTerrainControl } from "@/engine/core/objects/server/smart_terrain/SmartTerrainControl";
 import { ESmartTerrainStatus } from "@/engine/core/objects/server/smart_terrain/types";
-import { Squad, SquadReachTargetAction, SquadStayOnTargetAction } from "@/engine/core/objects/server/squad";
+import { ESquadActionType, Squad } from "@/engine/core/objects/server/squad";
 import { abort, assert, assertDefined } from "@/engine/core/utils/assertion";
 import { readTimeFromPacket, writeTimeToPacket } from "@/engine/core/utils/game/game_time";
 import {
@@ -1125,7 +1125,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
       const squad: Squad = this.simulationBoardManager.getSquads().get(object.group_id);
 
       if (squad !== null && squad.currentAction) {
-        if (squad.currentAction.name === SquadReachTargetAction.ACTION_NAME) {
+        if (squad.currentAction.type === ESquadActionType.REACH_TARGET) {
           const squadTarget: Optional<TSimulationObject> = registry.simulationObjects.get(squad.assignedTargetId!);
 
           if (squadTarget !== null) {
@@ -1133,7 +1133,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
           } else {
             return alife().object<SmartTerrain>(squad.assignedTargetId!)!.isReachedBySquad(squad);
           }
-        } else if (squad.currentAction.name === SquadStayOnTargetAction.ACTION_NAME) {
+        } else if (squad.currentAction.type === ESquadActionType.STAY_ON_TARGET) {
           return true;
         }
       }

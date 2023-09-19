@@ -1,17 +1,15 @@
 import { game } from "xray16";
 
 import { Squad } from "@/engine/core/objects/server/squad/Squad";
-import { ISquadAction } from "@/engine/core/objects/server/squad/squad_types";
+import { ESquadActionType, ISquadAction } from "@/engine/core/objects/server/squad/squad_types";
 import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
-import { Optional, TDuration, Time, TName } from "@/engine/lib/types";
+import { Optional, TDuration, Time } from "@/engine/lib/types";
 
 /**
  * Implement alife action to stay on target.
  */
 export class SquadStayOnTargetAction implements ISquadAction {
-  public static readonly ACTION_NAME: TName = "stay_on_target";
-
-  public readonly name: TName = SquadStayOnTargetAction.ACTION_NAME;
+  public readonly type: ESquadActionType = ESquadActionType.STAY_ON_TARGET;
   public readonly squad: Squad;
 
   public constructor(squad: Squad) {

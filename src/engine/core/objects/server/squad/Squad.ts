@@ -32,8 +32,8 @@ import {
 import { SimulationBoardManager } from "@/engine/core/managers/simulation/SimulationBoardManager";
 import type { SmartTerrain } from "@/engine/core/objects/server/smart_terrain/SmartTerrain";
 import { ESmartTerrainStatus } from "@/engine/core/objects/server/smart_terrain/types";
-import { ISquadAction } from "@/engine/core/objects/server/squad";
 import { SquadReachTargetAction, SquadStayOnTargetAction } from "@/engine/core/objects/server/squad/action";
+import { ESquadActionType, ISquadAction } from "@/engine/core/objects/server/squad/squad_types";
 import { StoryManager } from "@/engine/core/objects/sounds/stories";
 import { abort } from "@/engine/core/utils/assertion";
 import {
@@ -196,13 +196,13 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
         simulationLogger.format(
           "Finished task, search for new: '%s' '%s' '%s'",
           this.name(),
-          this.currentAction.name,
+          this.currentAction.type,
           this.assignedTargetId
         );
 
         this.currentAction.finalize();
 
-        if (this.currentAction.name === SquadStayOnTargetAction.ACTION_NAME || this.assignedTargetId === null) {
+        if (this.currentAction.type === ESquadActionType.STAY_ON_TARGET || this.assignedTargetId === null) {
           this.assignedTargetId = this.simulationBoardManager.getSquadSimulationTarget(this)!.id;
         }
 
@@ -227,7 +227,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
 
     if (this.assignedTargetId !== null && this.assignedTargetId === scriptTarget) {
       if (this.currentAction !== null) {
-        if (this.currentAction.name === SquadStayOnTargetAction.ACTION_NAME) {
+        if (this.currentAction.type === ESquadActionType.STAY_ON_TARGET) {
           if (this.isSquadOnPoint()) {
             isNewActionNeeded = true;
           } else {
@@ -805,10 +805,10 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
         tostring(this.assignedTargetId && alife().object(this.assignedTargetId)?.name()),
         tostring(this.assignedSmartTerrainId && alife().object(this.assignedSmartTerrainId)?.name()),
         tostring(this.nextTargetId && alife().object(this.nextTargetId)?.name()),
-        tostring(this.currentAction?.name)
+        tostring(this.currentAction?.type)
       );
 
-      if (this.currentAction?.name === SquadStayOnTargetAction.ACTION_NAME) {
+      if (this.currentAction?.type === ESquadActionType.STAY_ON_TARGET) {
         hint += string.format(
           "stay_on_target_for = [%.2f]",
           (this.currentAction as SquadStayOnTargetAction).getStayIdleDuration()

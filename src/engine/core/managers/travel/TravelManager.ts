@@ -9,8 +9,8 @@ import { TSimulationObject } from "@/engine/core/managers/simulation";
 import { SimulationBoardManager } from "@/engine/core/managers/simulation/SimulationBoardManager";
 import { SurgeManager } from "@/engine/core/managers/surge/SurgeManager";
 import { ITravelRouteDescriptor } from "@/engine/core/managers/travel/travel_types";
+import { ESquadActionType } from "@/engine/core/objects/server";
 import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain/SmartTerrain";
-import { SquadStayOnTargetAction } from "@/engine/core/objects/server/squad/action";
 import { Squad } from "@/engine/core/objects/server/squad/Squad";
 import { abort } from "@/engine/core/utils/assertion";
 import { createGameAutoSave } from "@/engine/core/utils/game/game_save";
@@ -90,13 +90,13 @@ export class TravelManager extends AbstractManager {
     eventsManager.registerCallback(EGameEvent.ACTOR_UPDATE, this.update, this);
 
     for (const it of $range(0, TRAVEL_MANAGER_LTX.line_count(TravelManager.LOCATIONS_LTX_SECTION) - 1)) {
-      const [temp1, id, value] = TRAVEL_MANAGER_LTX.r_line(TravelManager.LOCATIONS_LTX_SECTION, it, "", "");
+      const [, id, value] = TRAVEL_MANAGER_LTX.r_line(TravelManager.LOCATIONS_LTX_SECTION, it, "", "");
 
       this.smartDescriptionsByName.set(id, value);
     }
 
     for (const it of $range(0, TRAVEL_MANAGER_LTX.line_count(TravelManager.TRAVELER_LTX_SECTION) - 1)) {
-      const [temp1, name, value] = TRAVEL_MANAGER_LTX.r_line(TravelManager.TRAVELER_LTX_SECTION, it, "", "");
+      const [, name] = TRAVEL_MANAGER_LTX.r_line(TravelManager.TRAVELER_LTX_SECTION, it, "", "");
       const phraseId: TStringId = tostring(1000 + it);
 
       this.smartNamesByPhraseId.set(phraseId, name);
@@ -188,12 +188,11 @@ export class TravelManager extends AbstractManager {
    */
   public canStartTravelingDialogs(actor: ClientObject, object: ClientObject): boolean {
     const squad: Optional<Squad> = getObjectSquad(object);
+    const objectCommunity: TCommunity = object.character_community();
 
     if (squad !== null && squad.commander_id() !== object.id()) {
       return false;
-    } else if (object.character_community() === communities.bandit) {
-      return false;
-    } else if (object.character_community() === communities.army) {
+    } else if (objectCommunity === communities.bandit || objectCommunity === communities.army) {
       return false;
     } else if (getObjectSmartTerrain(object)?.name() === "jup_b41") {
       return false;
@@ -214,14 +213,14 @@ export class TravelManager extends AbstractManager {
     const squad: Squad = getObjectSquad(object)!;
     const squadTargetId: Optional<TNumberId> = squad.assignedTargetId;
 
-    if (squad.currentAction === null || squad.currentAction.name === SquadStayOnTargetAction.ACTION_NAME) {
+    if (squad.currentAction === null || squad.currentAction.type === ESquadActionType.STAY_ON_TARGET) {
       return "dm_" + "stalker" + "_doing_nothing_" + tostring(math.random(1, 3)); // -- object:character_community()
     }
 
     const targetSquadObject: Optional<TSimulationObject> = alife().object(squadTargetId!);
 
     if (targetSquadObject === null) {
-      abort("SIM TARGET NOT EXIST %s, action_name %s", tostring(squadTargetId), tostring(squad.currentAction.name));
+      abort("SIM TARGET NOT EXIST %s, action_name %s", tostring(squadTargetId), tostring(squad.currentAction.type));
     }
 
     const targetClsId: TClassId = targetSquadObject.clsid();
@@ -253,9 +252,7 @@ export class TravelManager extends AbstractManager {
     dialogId?: TStringId,
     phraseId?: TStringId
   ): boolean {
-    const squad: Squad = getObjectSquad(object)!;
-
-    return !(squad.currentAction === null || squad.currentAction.name === SquadStayOnTargetAction.ACTION_NAME);
+    return getObjectSquad(object)!.currentAction?.type === ESquadActionType.REACH_TARGET;
   }
 
   /**

@@ -12,6 +12,7 @@ import { ActorInventoryMenuManager } from "@/engine/core/managers/actor/ActorInv
 import { ItemUpgradesManager } from "@/engine/core/managers/interface/ItemUpgradesManager";
 import { SimulationBoardManager } from "@/engine/core/managers/simulation/SimulationBoardManager";
 import type { SmartTerrain, Squad } from "@/engine/core/objects/server";
+import { ESquadActionType } from "@/engine/core/objects/server/squad/squad_types";
 import { SchemeDeimos } from "@/engine/core/schemes/restrictor/sr_deimos";
 import { ISchemeAnimpointState, SchemeAnimpoint } from "@/engine/core/schemes/stalker/animpoint";
 import { ISchemeDeathState } from "@/engine/core/schemes/stalker/death";
@@ -1009,9 +1010,12 @@ extern("xr_conditions.object_exist", (actor: ClientObject, object: ClientObject,
 /**
  * todo;
  */
-extern("xr_conditions.squad_curr_action", (actor: ClientObject, object: ClientObject, p: [string]): boolean => {
-  return getObjectSquad(object)!.currentAction?.name === p[0];
-});
+extern(
+  "xr_conditions.squad_curr_action",
+  (actor: ClientObject, object: ClientObject, [squadActionType]: [ESquadActionType]): boolean => {
+    return getObjectSquad(object)!.currentAction?.type === squadActionType;
+  }
+);
 
 /**
  * @returns whether actor is currently searching dead body

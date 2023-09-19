@@ -1,14 +1,19 @@
-import { TName } from "@/engine/lib/types";
+/**
+ * todo;
+ */
+export enum ESquadActionType {
+  STAY_ON_TARGET = "stay_on_target",
+  REACH_TARGET = "reach_target",
+}
 
 /**
  * Generic squad action interface.
  */
 export interface ISquadAction {
   /**
-   * Action name.
-   * Unique identifier of action type.
+   * Action type.
    */
-  name: TName;
+  type: ESquadActionType;
   /**
    * Initialize action.
    *

@@ -1,7 +1,7 @@
 import { alife, LuabindClass, property_evaluator } from "xray16";
 
 import { TSimulationObject } from "@/engine/core/managers/simulation";
-import { SquadReachTargetAction } from "@/engine/core/objects/server/squad/action";
+import { ESquadActionType } from "@/engine/core/objects/server";
 import type { Squad } from "@/engine/core/objects/server/squad/Squad";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getObjectSquad } from "@/engine/core/utils/object";
@@ -24,7 +24,7 @@ export class EvaluatorReachedTaskLocation extends property_evaluator {
   public override evaluate(): boolean {
     const squad: Optional<Squad> = getObjectSquad(this.object);
 
-    if (squad?.currentAction?.name !== SquadReachTargetAction.ACTION_NAME) {
+    if (squad?.currentAction?.type !== ESquadActionType.REACH_TARGET) {
       return false;
     }
 
