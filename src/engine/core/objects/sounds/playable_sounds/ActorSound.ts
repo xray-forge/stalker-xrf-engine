@@ -65,21 +65,21 @@ export class ActorSound extends AbstractPlayableSound {
 
     this.isStereo = readIniBoolean(ini, section, "actor_stereo", false, false);
     this.isPrefixed = readIniBoolean(ini, section, "npc_prefix", false, false);
-    this.shuffle = readIniString(ini, section, "shuffle", false, "", ESoundPlaylistType.RANDOM) as ESoundPlaylistType;
+    this.shuffle = readIniString(ini, section, "shuffle", false, null, ESoundPlaylistType.RANDOM) as ESoundPlaylistType;
     this.shouldPlayAlways = readIniBoolean(ini, section, "play_always", false, false);
 
     if (this.isPrefixed) {
       this.path = "characters_voice\\" + this.path;
     }
 
-    const interval = parseStringsList(readIniString(ini, section, "idle", false, "", "3,5,100"));
+    const interval = parseStringsList(readIniString(ini, section, "idle", false, null, "3,5,100"));
 
     this.minIdle = tonumber(interval.get(1))!;
     this.maxIdle = tonumber(interval.get(2))!;
     this.random = tonumber(interval.get(3))!;
-    this.faction = readIniString(ini, section, "faction", false, "", "");
-    this.point = readIniString(ini, section, "point", false, "", "");
-    this.message = readIniString(ini, section, "message", false, "", "");
+    this.faction = readIniString(ini, section, "faction", false, null, "");
+    this.point = readIniString(ini, section, "point", false, null, "");
+    this.message = readIniString(ini, section, "message", false, null, "");
 
     const fs: FS = getFS();
 

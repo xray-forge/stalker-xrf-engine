@@ -24,12 +24,12 @@ export class SchemeOscillate extends AbstractScheme {
     ini: IniFile,
     scheme: EScheme,
     section: TSection,
-    gulagName: TName
+    smartTerrainName: TName
   ): void {
     const state: ISchemeOscillateState = AbstractScheme.assign(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section);
-    state.joint = readIniString(ini, section, "joint", true, gulagName);
+    state.joint = readIniString(ini, section, "joint", true, smartTerrainName);
 
     if (state.joint === null) {
       abort("Invalid joint definition for object %s", object.name());

@@ -64,47 +64,51 @@ export function initializeMeetScheme(
     const defaults = relation === EClientObjectRelation.ENEMY ? meetEnemyDefaults : meetNeutralDefaults;
 
     state.closeDistance = parseConditionsList(
-      readIniString(ini, section, "close_distance", false, "", defaults.closeDistance)
+      readIniString(ini, section, "close_distance", false, null, defaults.closeDistance)
     );
     state.closeAnimation = parseConditionsList(
-      readIniString(ini, section, "close_anim", false, "", defaults.closeAnimation)
+      readIniString(ini, section, "close_anim", false, null, defaults.closeAnimation)
     );
     state.closeSoundDistance = parseConditionsList(
-      readIniString(ini, section, "close_snd_distance", false, "", defaults.closeDistance)
+      readIniString(ini, section, "close_snd_distance", false, null, defaults.closeDistance)
     );
     state.closeSoundHello = parseConditionsList(
-      readIniString(ini, section, "close_snd_hello", false, "", defaults.closeSoundHello)
+      readIniString(ini, section, "close_snd_hello", false, null, defaults.closeSoundHello)
     );
     state.closeSoundBye = parseConditionsList(
-      readIniString(ini, section, "close_snd_bye", false, "", defaults.closeSoundBye)
+      readIniString(ini, section, "close_snd_bye", false, null, defaults.closeSoundBye)
     );
     state.closeVictim = parseConditionsList(
-      readIniString(ini, section, "close_victim", false, "", defaults.closeVictim)
+      readIniString(ini, section, "close_victim", false, null, defaults.closeVictim)
     );
 
     state.farDistance = parseConditionsList(
-      readIniString(ini, section, "far_distance", false, "", defaults.farDistance)
+      readIniString(ini, section, "far_distance", false, null, defaults.farDistance)
     );
-    state.farAnimation = parseConditionsList(readIniString(ini, section, "far_anim", false, "", defaults.farAnimation));
+    state.farAnimation = parseConditionsList(
+      readIniString(ini, section, "far_anim", false, null, defaults.farAnimation)
+    );
     state.farSoundDistance = parseConditionsList(
-      readIniString(ini, section, "far_snd_distance", false, "", defaults.farSoundDistance)
+      readIniString(ini, section, "far_snd_distance", false, null, defaults.farSoundDistance)
     );
-    state.farSound = parseConditionsList(readIniString(ini, section, "far_snd", false, "", defaults.farSound));
-    state.farVictim = parseConditionsList(readIniString(ini, section, "far_victim", false, "", defaults.farVictim));
+    state.farSound = parseConditionsList(readIniString(ini, section, "far_snd", false, null, defaults.farSound));
+    state.farVictim = parseConditionsList(readIniString(ini, section, "far_victim", false, null, defaults.farVictim));
 
-    state.useSound = parseConditionsList(readIniString(ini, section, "snd_on_use", false, "", defaults.useSound));
-    state.use = parseConditionsList(readIniString(ini, section, "use", false, "", defaults.use));
-    state.meetDialog = parseConditionsList(readIniString(ini, section, "meet_dialog", false, "", defaults.meetDialog));
-    state.abuse = parseConditionsList(readIniString(ini, section, "abuse", false, "", defaults.abuse));
+    state.useSound = parseConditionsList(readIniString(ini, section, "snd_on_use", false, null, defaults.useSound));
+    state.use = parseConditionsList(readIniString(ini, section, "use", false, null, defaults.use));
+    state.meetDialog = parseConditionsList(
+      readIniString(ini, section, "meet_dialog", false, null, defaults.meetDialog)
+    );
+    state.abuse = parseConditionsList(readIniString(ini, section, "abuse", false, null, defaults.abuse));
     state.isTradeEnabled = parseConditionsList(
-      readIniString(ini, section, "trade_enable", false, "", defaults.isTradeEnabled)
+      readIniString(ini, section, "trade_enable", false, null, defaults.isTradeEnabled)
     );
     state.isBreakAllowed = parseConditionsList(
-      readIniString(ini, section, "allow_break", false, "", defaults.isBreakAllowed)
+      readIniString(ini, section, "allow_break", false, null, defaults.isBreakAllowed)
     );
     state.isMeetOnTalking =
-      readIniString(ini, section, "meet_on_talking", false, "", defaults.isMeetOnTalking) === TRUE;
-    state.useText = parseConditionsList(readIniString(ini, section, "use_text", false, "", defaults.useText));
+      readIniString(ini, section, "meet_on_talking", false, null, defaults.isMeetOnTalking) === TRUE;
+    state.useText = parseConditionsList(readIniString(ini, section, "use_text", false, null, defaults.useText));
 
     state.resetDistance = logicsConfig.MEET_RESET_DISTANCE;
     state.isMeetOnlyAtPathEnabled = true;

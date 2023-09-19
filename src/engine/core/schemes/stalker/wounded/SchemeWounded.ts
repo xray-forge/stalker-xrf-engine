@@ -73,8 +73,8 @@ export class SchemeWounded extends AbstractScheme {
   ): void {
     const woundedSection: TSection =
       scheme === null || scheme === EScheme.NIL
-        ? readIniString(state.ini, state.sectionLogic, "wounded", false, "")
-        : readIniString(state.ini, section, "wounded", false, "");
+        ? readIniString(state.ini, state.sectionLogic, "wounded", false)
+        : readIniString(state.ini, section, "wounded", false);
 
     SchemeWounded.initialize(object, state.ini, woundedSection, state.wounded as ISchemeWoundedState, scheme);
 
@@ -165,20 +165,20 @@ export class SchemeWounded extends AbstractScheme {
       state.enable_talk = true;
       state.notForHelp = defaults.not_for_help;
     } else {
-      state.hp_state = SchemeWounded.parseData(readIniString(ini, section, "hp_state", false, "", defaults.hp_state));
+      state.hp_state = SchemeWounded.parseData(readIniString(ini, section, "hp_state", false, null, defaults.hp_state));
       state.hp_state_see = SchemeWounded.parseData(
-        readIniString(ini, section, "hp_state_see", false, "", defaults.hp_state_see)
+        readIniString(ini, section, "hp_state_see", false, null, defaults.hp_state_see)
       );
       state.psy_state = SchemeWounded.parseData(
-        readIniString(ini, section, "psy_state", false, "", defaults.psy_state)
+        readIniString(ini, section, "psy_state", false, null, defaults.psy_state)
       );
       state.hp_victim = SchemeWounded.parseData(
-        readIniString(ini, section, "hp_victim", false, "", defaults.hp_victim)
+        readIniString(ini, section, "hp_victim", false, null, defaults.hp_victim)
       );
-      state.hp_cover = SchemeWounded.parseData(readIniString(ini, section, "hp_cover", false, "", defaults.hp_cover));
-      state.hp_fight = SchemeWounded.parseData(readIniString(ini, section, "hp_fight", false, "", defaults.hp_fight));
-      state.help_dialog = readIniString(ini, section, "help_dialog", false, "", defaults.help_dialog);
-      state.help_start_dialog = readIniString(ini, section, "help_start_dialog", false, "", null);
+      state.hp_cover = SchemeWounded.parseData(readIniString(ini, section, "hp_cover", false, null, defaults.hp_cover));
+      state.hp_fight = SchemeWounded.parseData(readIniString(ini, section, "hp_fight", false, null, defaults.hp_fight));
+      state.help_dialog = readIniString(ini, section, "help_dialog", false, null, defaults.help_dialog);
+      state.help_start_dialog = readIniString(ini, section, "help_start_dialog", false, null, null);
       state.use_medkit = readIniBoolean(ini, section, "use_medkit", false, defaults.use_medkit);
       state.autoheal = readIniBoolean(ini, section, "autoheal", false, true);
       state.enable_talk = readIniBoolean(ini, section, "enable_talk", false, true);

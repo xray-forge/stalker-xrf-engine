@@ -24,10 +24,10 @@ export class SchemePhysicalIdle extends AbstractScheme {
     const state: ISchemePhysicalIdleState = AbstractScheme.assign(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section);
-    state.bonesHitCondlists = parseBoneStateDescriptors(readIniString(ini, section, "hit_on_bone", false, ""));
+    state.bonesHitCondlists = parseBoneStateDescriptors(readIniString(ini, section, "hit_on_bone", false));
     state.isNonscriptUsable = readIniBoolean(ini, section, "nonscript_usable", false);
     state.onUse = readIniConditionList(ini, section, "on_use");
-    state.tip = readIniString(ini, section, "tips", false, "", "");
+    state.tip = readIniString(ini, section, "tips", false, null, "");
 
     object.set_tip_text(state.tip);
   }

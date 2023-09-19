@@ -63,7 +63,7 @@ export class ObjectRestrictionsManager {
     // logger.info("Activate restrictions:", objectName, section);
 
     // Update OUT restrictors based on active / ini restrictors.
-    const outRestrictorString: string = readIniString(ini, section, "out_restr", false, "", "");
+    const outRestrictorString: string = readIniString(ini, section, "out_restr", false, null, "");
     const newOutRestrictors: LuaArray<TName> = parseStringsList(outRestrictorString);
     const oldOutRestrictors: LuaArray<TName> = parseStringsList(this.object.out_restrictions());
 
@@ -114,7 +114,7 @@ export class ObjectRestrictionsManager {
     }
 
     // Update IN restrictors based on active / ini restrictors.
-    const inRestrictorString: string = readIniString(ini, section, "in_restr", false, "", "");
+    const inRestrictorString: string = readIniString(ini, section, "in_restr", false, null, "");
     const newInRestrictor: LuaArray<TName> = parseStringsList(inRestrictorString);
     const oldInRestrictor: LuaArray<TName> = parseStringsList(this.object.in_restrictions());
 

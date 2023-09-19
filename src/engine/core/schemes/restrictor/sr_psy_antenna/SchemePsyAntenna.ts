@@ -24,13 +24,13 @@ export class SchemePsyAntenna extends AbstractScheme {
 
     state.logic = getConfigSwitchConditions(ini, section);
     state.intensity = readIniNumber(ini, section, "eff_intensity", true) * 0.01;
-    state.postprocess = readIniString(ini, section, "postprocess", false, "", postProcessors.psy_antenna);
+    state.postprocess = readIniString(ini, section, "postprocess", false, null, postProcessors.psy_antenna);
     state.hit_intensity = readIniNumber(ini, section, "hit_intensity", true) * 0.01;
     state.phantom_prob = readIniNumber(ini, section, "phantom_prob", false, 0) * 0.01;
     state.mute_sound_threshold = readIniNumber(ini, section, "mute_sound_threshold", false, 0);
     state.no_static = readIniBoolean(ini, section, "no_static", false, false);
     state.no_mumble = readIniBoolean(ini, section, "no_mumble", false, false);
-    state.hit_type = readIniString(ini, section, "hit_type", false, "", "wound");
+    state.hit_type = readIniString(ini, section, "hit_type", false, null, "wound");
     state.hit_freq = readIniNumber(ini, section, "hit_freq", false, 5000);
   }
 

@@ -29,7 +29,7 @@ export abstract class AbstractPlayableSound {
    * todo: Description.
    */
   public constructor(ini: IniFile, section: TSection) {
-    this.path = readIniString(ini, section, "path", true, "");
+    this.path = readIniString(ini, section, "path", true);
     this.section = section;
   }
 

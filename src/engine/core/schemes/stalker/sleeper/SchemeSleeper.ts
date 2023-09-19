@@ -9,7 +9,7 @@ import { getConfigSwitchConditions } from "@/engine/core/utils/ini/ini_config";
 import { readIniBoolean, readIniString } from "@/engine/core/utils/ini/ini_read";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { addCommonActionPreconditions } from "@/engine/core/utils/scheme/scheme_setup";
-import { ActionPlanner, ClientObject, IniFile } from "@/engine/lib/types";
+import { ActionPlanner, ClientObject, IniFile, TName } from "@/engine/lib/types";
 import { EScheme, ESchemeType, TSection } from "@/engine/lib/types/scheme";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -29,12 +29,12 @@ export class SchemeSleeper extends AbstractScheme {
     ini: IniFile,
     scheme: EScheme,
     section: TSection,
-    additional: string
+    smartTerrainName: TName
   ): void {
     const state: ISchemeSleeperState = AbstractScheme.assign(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section);
-    state.path_main = readIniString(ini, section, "path_main", true, additional);
+    state.path_main = readIniString(ini, section, "path_main", true, smartTerrainName);
     state.wakeable = readIniBoolean(ini, section, "wakeable", false);
     state.path_walk = null;
     state.path_walk_info = null;

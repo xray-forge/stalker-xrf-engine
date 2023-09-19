@@ -25,7 +25,7 @@ export class SchemeCrowSpawner extends AbstractScheme {
 
     state.logic = getConfigSwitchConditions(ini, section);
     state.maxCrowsOnLevel = readIniNumber(ini, section, "max_crows_on_level", false, 16);
-    state.pathsList = parseStringsList(readIniString<TName>(ini, section, "spawn_path", false, "", ""));
+    state.pathsList = parseStringsList(readIniString<TName>(ini, section, "spawn_path", false, null, ""));
   }
 
   /**

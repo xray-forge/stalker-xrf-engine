@@ -20,25 +20,19 @@ export class SchemeMobRemark extends AbstractScheme {
   /**
    * todo: Description.
    */
-  public static override activate(
-    object: ClientObject,
-    ini: IniFile,
-    scheme: EScheme,
-    section: TSection,
-    additional: string
-  ): void {
+  public static override activate(object: ClientObject, ini: IniFile, scheme: EScheme, section: TSection): void {
     const state: ISchemeMobRemarkState = AbstractScheme.assign(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section);
     state.state = getMonsterState(ini, section);
     state.dialog_cond = readIniConditionList(ini, section, "dialog_cond");
     state.no_reset = true;
-    state.anim = readIniString(ini, section, "anim", false, "");
+    state.anim = readIniString(ini, section, "anim", false);
     state.anim_movement = readIniBoolean(ini, section, "anim_movement", false, false);
-    state.anim_head = readIniString(ini, section, "anim_head", false, "");
-    state.tip = readIniString(ini, section, "tip", false, "");
-    state.snd = readIniString(ini, section, "snd", false, "");
-    state.time = readIniString(ini, section, "time", false, "");
+    state.anim_head = readIniString(ini, section, "anim_head", false);
+    state.tip = readIniString(ini, section, "tip", false);
+    state.snd = readIniString(ini, section, "snd", false);
+    state.time = readIniString(ini, section, "time", false);
   }
 
   /**

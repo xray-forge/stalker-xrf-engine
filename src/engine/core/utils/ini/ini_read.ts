@@ -25,22 +25,24 @@ export function readIniString<D = string>(
   prefix: Optional<string> = null,
   defaultValue: D = null as unknown as D
 ): D {
-  assertDefined(required, "Section '%s', wrong arguments order in call to 'readIniString'.", section);
+  if (required === null) {
+    abort("Section '%s', wrong arguments order in call to 'readIniString'.", section);
+  }
 
-  // todo: Resolve prefix.
   if (section && ini.section_exist(section) && ini.line_exist(section, field)) {
+    // todo: Resolve prefix. Probably should change order of default value and prefix.
     if (prefix && prefix !== "") {
-      return (prefix + "_" + ini.r_string(section, field)) as D;
+      return string.format("%s_%s", prefix, ini.r_string(section, field)) as D;
     } else {
       return ini.r_string(section, field) as D;
     }
   }
 
-  if (!required) {
-    return defaultValue as D;
+  if (required) {
+    return abort("Attempt to read a non-existent string field '%s' in section '%s'.", field, section);
   }
 
-  return abort("Attempt to read a non-existent string field '%s' in section '%s'.", field, section);
+  return defaultValue as D;
 }
 
 /**
@@ -143,7 +145,7 @@ export function readIniTwoNumbers(
  * @returns logics scheme object
  */
 export function readIniConditionList(ini: IniFile, section: TSection, field: TName): Optional<IBaseSchemeLogic> {
-  const data: Optional<string> = readIniString(ini, section, field, false, "");
+  const data: Optional<string> = readIniString(ini, section, field, false);
 
   if (!data) {
     return null;
@@ -172,7 +174,7 @@ export function readIniConditionList(ini: IniFile, section: TSection, field: TNa
  * @returns logics scheme object
  */
 export function readIniStringAndCondList(ini: IniFile, section: TSection, field: TName): Optional<IBaseSchemeLogic> {
-  const data: string = readIniString(ini, section, field, false, "");
+  const data: string = readIniString(ini, section, field, false);
 
   if (!data) {
     return null;
@@ -205,7 +207,7 @@ export function readIniNumberAndConditionList(
   section: TSection,
   field: TName
 ): Optional<IBaseSchemeLogic> {
-  const data: Optional<string> = readIniString(ini, section, field, false, "");
+  const data: Optional<string> = readIniString(ini, section, field, false);
 
   if (!data) {
     return null;
@@ -238,7 +240,7 @@ export function readIniTwoStringsAndConditionsList(
   section: TSection,
   field: TName
 ): Optional<IBaseSchemeLogic> {
-  const data: string = readIniString(ini, section, field, false, "");
+  const data: string = readIniString(ini, section, field, false);
 
   if (!data) {
     return null;

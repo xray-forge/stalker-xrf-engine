@@ -339,17 +339,17 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
   public initialize(): void {
     const sectionName: TSection = this.section_name();
 
-    this.faction = readIniString(SYSTEM_INI, sectionName, "faction", true, "") as TCommunity;
+    this.faction = readIniString(SYSTEM_INI, sectionName, "faction", true) as TCommunity;
     this.actionConditionList = parseConditionsList(
-      readIniString(SYSTEM_INI, sectionName, "target_smart", false, "", "")
+      readIniString(SYSTEM_INI, sectionName, "target_smart", false, null, "")
     );
-    this.deathConditionList = parseConditionsList(readIniString(SYSTEM_INI, sectionName, "on_death", false, "", ""));
+    this.deathConditionList = parseConditionsList(readIniString(SYSTEM_INI, sectionName, "on_death", false, null, ""));
     this.invulnerability = parseConditionsList(
-      readIniString(SYSTEM_INI, sectionName, "invulnerability", false, "", "")
+      readIniString(SYSTEM_INI, sectionName, "invulnerability", false, null, "")
     );
-    this.relationship = this.relationship || readIniString(SYSTEM_INI, sectionName, "relationship", false, "", null);
+    this.relationship = this.relationship || readIniString(SYSTEM_INI, sectionName, "relationship", false);
     this.sympathy = readIniNumber(SYSTEM_INI, sectionName, "sympathy", false, null);
-    this.isSpotVisible = parseConditionsList(readIniString(SYSTEM_INI, sectionName, "show_spot", false, "", FALSE));
+    this.isSpotVisible = parseConditionsList(readIniString(SYSTEM_INI, sectionName, "show_spot", false, null, FALSE));
     this.isAlwaysArrived = readIniBoolean(SYSTEM_INI, sectionName, "always_arrived", false);
 
     this.setLocationTypesMaskFromSection("stalker_terrain");
@@ -362,7 +362,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
       this.section_name(),
       "behaviour",
       false,
-      "",
+      null,
       this.faction
     );
 
@@ -638,7 +638,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
       spawnSection,
       "custom_data",
       false,
-      "",
+      null,
       "misc\\default_custom_data.ltx"
     );
 
@@ -673,11 +673,11 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
     const sectionName: TName = this.section_name();
 
     const spawnSections: LuaArray<TSection> = parseStringsList(
-      readIniString(SYSTEM_INI, sectionName, "npc", false, "", "")
+      readIniString(SYSTEM_INI, sectionName, "npc", false, null, "")
     );
     const spawnPointData =
-      readIniString(SYSTEM_INI, sectionName, "spawn_point", false, "", "self") ||
-      readIniString(spawnSmartTerrain.ini, SMART_TERRAIN_SECTION, "spawn_point", false, "", "self");
+      readIniString(SYSTEM_INI, sectionName, "spawn_point", false, null, "self") ||
+      readIniString(spawnSmartTerrain.ini, SMART_TERRAIN_SECTION, "spawn_point", false, null, "self");
 
     const spawnPoint: Optional<TName> = pickSectionFromCondList(
       registry.actor,
@@ -715,7 +715,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
       }
     }
 
-    const randomSpawnConfig: Optional<string> = readIniString(SYSTEM_INI, sectionName, "npc_random", false, "", null);
+    const randomSpawnConfig: Optional<string> = readIniString(SYSTEM_INI, sectionName, "npc_random", false);
 
     if (randomSpawnConfig !== null) {
       const randomSpawn: LuaArray<string> = parseStringsList(randomSpawnConfig)!;

@@ -15,7 +15,7 @@ import { Squad } from "@/engine/core/objects/server/squad/Squad";
 import { abort } from "@/engine/core/utils/assertion";
 import { createGameAutoSave } from "@/engine/core/utils/game/game_save";
 import { parseConditionsList, pickSectionFromCondList } from "@/engine/core/utils/ini";
-import { LuaLogger } from "@/engine/core/utils/logging";
+import { ELuaLoggerMode, LuaLogger } from "@/engine/core/utils/logging";
 import {
   getObjectCommunity,
   getObjectSmartTerrain,
@@ -48,7 +48,7 @@ import {
   Vector,
 } from "@/engine/lib/types";
 
-const logger: LuaLogger = new LuaLogger($filename);
+const logger: LuaLogger = new LuaLogger($filename, { file: "travel", mode: ELuaLoggerMode.DUAL });
 
 /**
  * Manager to handle fast traveling of actor.

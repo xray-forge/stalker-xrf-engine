@@ -91,7 +91,7 @@ export class NpcSound extends AbstractPlayableSound {
       section,
       "shuffle",
       false,
-      "",
+      null,
       ESoundPlaylistType.RANDOM
     ) as ESoundPlaylistType;
     this.isGroupSound = readIniBoolean(soundIni, section, "group_snd", false, false);
@@ -100,16 +100,16 @@ export class NpcSound extends AbstractPlayableSound {
     this.delay = readIniNumber(soundIni, section, "delay_sound", false, 0);
 
     const interval: LuaTable<number, string> = parseStringsList(
-      readIniString(soundIni, section, "idle", false, "", "3,5,100")
+      readIniString(soundIni, section, "idle", false, null, "3,5,100")
     );
 
     this.minIdle = tonumber(interval.get(1))!;
     this.maxIdle = tonumber(interval.get(2))!;
     this.random = tonumber(interval.get(3))!;
 
-    this.faction = readIniString(soundIni, section, "faction", false, "", "");
-    this.point = readIniString(soundIni, section, "point", false, "", "");
-    this.message = readIniString(soundIni, section, "message", false, "", "");
+    this.faction = readIniString(soundIni, section, "faction", false, null, "");
+    this.point = readIniString(soundIni, section, "point", false, null, "");
+    this.message = readIniString(soundIni, section, "message", false, null, "");
 
     const availableCommunities: LuaArray<TCommunity> = parseStringsList<TCommunity>(
       readIniString(
@@ -117,7 +117,7 @@ export class NpcSound extends AbstractPlayableSound {
         section,
         "avail_communities",
         false,
-        "",
+        null,
         string.format(
           "%s, %s, %s, %s, %s, %s, %s, %s, %s",
           communities.stalker,

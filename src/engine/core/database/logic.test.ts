@@ -34,7 +34,7 @@ describe("'logic' database module", () => {
     state.iniFilename = "test2.ltx";
     state.sectionLogic = "section_ex";
     state.activeSection = "active_sect_ex";
-    state.smartTerrainName = "gulag_name_ex";
+    state.smartTerrainName = "smart_terrain_name_ex";
     state.activeScheme = EScheme.COMBAT;
     state.activationTime = 15_000;
     state.activationGameTime = time;
@@ -51,7 +51,7 @@ describe("'logic' database module", () => {
       "test2.ltx",
       "section_ex",
       "active_sect_ex",
-      "gulag_name_ex",
+      "smart_terrain_name_ex",
       10000,
       15,
       5,
@@ -126,7 +126,7 @@ describe("'logic' database module", () => {
     expect(nextState.loadedIniFilename).toBe("test2.ltx");
     expect(nextState.loadedSectionLogic).toBe("section_ex");
     expect(nextState.loadedActiveSection).toBe("active_sect_ex");
-    expect(nextState.loadedSmartTerrainName).toBe("gulag_name_ex");
+    expect(nextState.loadedSmartTerrainName).toBe("smart_terrain_name_ex");
     expect(nextState.activationTime).toBe(15_000);
     expect(nextState.activationGameTime.toString()).toBe(time.toString());
 

@@ -29,7 +29,7 @@ export class SchemePhysicalForce extends AbstractScheme {
     state.time = readIniNumber(ini, section, "time", true, 0);
     state.delay = readIniNumber(ini, section, "delay", false, 0);
 
-    const path_name = readIniString(ini, section, "point", true, "");
+    const path_name = readIniString(ini, section, "point", true);
     const index = readIniNumber(ini, section, "point_index", false, 0);
 
     if (state.force === null || state.force <= 0) {

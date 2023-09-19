@@ -94,9 +94,9 @@ export class MapDisplayManager extends AbstractManager {
     let spotSection;
 
     if (scheme === null || scheme === NIL) {
-      spotSection = readIniString(state.ini, state.sectionLogic, "show_spot", false, "");
+      spotSection = readIniString(state.ini, state.sectionLogic, "show_spot", false);
     } else {
-      spotSection = readIniString(state.ini, section, "show_spot", false, "");
+      spotSection = readIniString(state.ini, section, "show_spot", false);
     }
 
     if (spotSection === null) {
@@ -108,12 +108,11 @@ export class MapDisplayManager extends AbstractManager {
       state.ini,
       state.sectionLogic,
       "level_spot",
-      false,
-      ""
+      false
     ) as EMapMarkType;
 
     if (mapSpot === null) {
-      mapSpot = readIniString(state.ini!, section, "level_spot", false, "") as EMapMarkType;
+      mapSpot = readIniString(state.ini!, section, "level_spot", false) as EMapMarkType;
     }
 
     if (mapSpot !== null) {
@@ -169,13 +168,12 @@ export class MapDisplayManager extends AbstractManager {
       state.ini,
       state.sectionLogic,
       "level_spot",
-      false,
-      ""
+      false
     ) as EMapMarkType;
 
     // todo: Retry, probably not needed at all.
     if (mapSpot === null) {
-      mapSpot = readIniString<EMapMarkType>(state.ini, state.activeSection, "level_spot", false, "") as EMapMarkType;
+      mapSpot = readIniString<EMapMarkType>(state.ini, state.activeSection, "level_spot", false) as EMapMarkType;
     }
 
     if (mapSpot !== null) {

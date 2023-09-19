@@ -43,13 +43,11 @@ export class SmartTerrainControl {
   public constructor(smartTerrain: SmartTerrain, ini: IniFile, section: TSection) {
     this.smartTerrain = smartTerrain;
 
-    this.noWeaponZone = readIniString(ini, section, "noweap_zone", true, "");
-    this.ignoreZone = readIniString(ini, section, "ignore_zone", false, "");
+    this.noWeaponZone = readIniString(ini, section, "noweap_zone", true);
+    this.ignoreZone = readIniString(ini, section, "ignore_zone", false);
 
-    this.alarmStartSoundConditionList = parseConditionsList(
-      readIniString(ini, section, "alarm_start_sound", false, "")
-    );
-    this.alarmStopSoundConditionList = parseConditionsList(readIniString(ini, section, "alarm_stop_sound", false, ""));
+    this.alarmStartSoundConditionList = parseConditionsList(readIniString(ini, section, "alarm_start_sound", false));
+    this.alarmStopSoundConditionList = parseConditionsList(readIniString(ini, section, "alarm_stop_sound", false));
   }
 
   /**

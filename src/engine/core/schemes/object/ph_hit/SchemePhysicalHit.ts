@@ -24,8 +24,8 @@ export class SchemePhysicalHit extends AbstractScheme {
     state.logic = getConfigSwitchConditions(ini, section);
     state.power = readIniNumber(ini, section, "power", false, 0);
     state.impulse = readIniNumber(ini, section, "impulse", false, 1000);
-    state.bone = readIniString(ini, section, "bone", true, "");
-    state.dir_path = readIniString(ini, section, "dir_path", true, "");
+    state.bone = readIniString(ini, section, "bone", true);
+    state.dir_path = readIniString(ini, section, "dir_path", true);
   }
 
   /**

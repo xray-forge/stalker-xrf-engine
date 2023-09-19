@@ -75,9 +75,9 @@ export class CampManager {
     this.object = object;
     this.ini = ini;
 
-    const stories: string = readIniString(ini, "camp", "stories", false, "", "test_story");
-    const guitars: string = readIniString(ini, "camp", "guitar_themes", false, "", "test_guitar");
-    const harmonicas: string = readIniString(ini, "camp", "harmonica_themes", false, "", "test_harmonica");
+    const stories: string = readIniString(ini, "camp", "stories", false, null, "test_story");
+    const guitars: string = readIniString(ini, "camp", "guitar_themes", false, null, "test_guitar");
+    const harmonicas: string = readIniString(ini, "camp", "harmonica_themes", false, null, "test_harmonica");
 
     this.storyTable = parseStringsList(stories);
     this.guitarTable = parseStringsList(guitars);

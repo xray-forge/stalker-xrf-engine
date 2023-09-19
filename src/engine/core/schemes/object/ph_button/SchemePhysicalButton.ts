@@ -23,7 +23,7 @@ export class SchemePhysicalButton extends AbstractScheme {
 
     state.logic = getConfigSwitchConditions(ini, section);
     state.on_press = readIniConditionList(ini, section, "on_press");
-    state.tooltip = readIniString(ini, section, "tooltip", false, "");
+    state.tooltip = readIniString(ini, section, "tooltip", false);
 
     if (state.tooltip) {
       object.set_tip_text(state.tooltip);
@@ -31,7 +31,7 @@ export class SchemePhysicalButton extends AbstractScheme {
       object.set_tip_text("");
     }
 
-    state.anim = readIniString(ini, section, "anim", true, "");
+    state.anim = readIniString(ini, section, "anim", true);
     state.blending = readIniBoolean(ini, section, "anim_blend", false, true);
     if (state.blending === null) {
       state.blending = true;

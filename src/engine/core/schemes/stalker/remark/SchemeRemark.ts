@@ -36,15 +36,15 @@ export class SchemeRemark extends AbstractScheme {
 
     state.logic = getConfigSwitchConditions(ini, section);
     state.snd_anim_sync = readIniBoolean(ini, section, "snd_anim_sync", false);
-    state.snd = readIniString(ini, section, "snd", false, "", null);
-    state.anim = parseConditionsList(readIniString(ini, section, "anim", false, "", "wait"));
-    state.tips_id = readIniString(ini, section, "tips", false, "");
+    state.snd = readIniString(ini, section, "snd", false);
+    state.anim = parseConditionsList(readIniString(ini, section, "anim", false, null, "wait"));
+    state.tips_id = readIniString(ini, section, "tips", false);
 
     if (state.tips_id !== null) {
-      state.sender = readIniString(ini, section, "tips_sender", false, "");
+      state.sender = readIniString(ini, section, "tips_sender", false);
     }
 
-    state.target = readIniString(ini, section, "target", false, "", NIL);
+    state.target = readIniString(ini, section, "target", false, null, NIL);
     state.target_id = null;
     state.target_position = null;
   }

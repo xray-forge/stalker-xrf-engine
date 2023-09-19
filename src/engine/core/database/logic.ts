@@ -63,13 +63,13 @@ export function loadObjectLogic(object: ClientObject, reader: NetProcessor): voi
   const iniFilename: Optional<TName> = reader.r_stringZ();
   const sectionLogic: Optional<TSection> = reader.r_stringZ();
   const activeSection: StringOptional = reader.r_stringZ();
-  const gulagName: TName = reader.r_stringZ();
+  const smartTerrainName: TName = reader.r_stringZ();
 
   state.jobIni = jobIni === "" ? null : jobIni;
   state.loadedIniFilename = iniFilename === "" ? null : iniFilename;
   state.loadedSectionLogic = sectionLogic === "" ? null : sectionLogic;
   state.loadedActiveSection = activeSection === "" ? NIL : activeSection;
-  state.loadedSmartTerrainName = gulagName;
+  state.loadedSmartTerrainName = smartTerrainName;
 
   state.activationTime = reader.r_s32() + time_global();
   state.activationGameTime = readTimeFromPacket(reader) as Time;

@@ -61,15 +61,15 @@ export class ObjectSound extends AbstractPlayableSound {
   public constructor(ini: IniFile, section: TSection) {
     super(ini, section);
 
-    const interval: LuaArray<string> = parseStringsList(readIniString(ini, section, "idle", false, "", "3,5,100"));
+    const interval: LuaArray<string> = parseStringsList(readIniString(ini, section, "idle", false, null, "3,5,100"));
 
-    this.shuffle = readIniString(ini, section, "shuffle", false, "", ESoundPlaylistType.RANDOM) as ESoundPlaylistType;
+    this.shuffle = readIniString(ini, section, "shuffle", false, null, ESoundPlaylistType.RANDOM) as ESoundPlaylistType;
     this.minIdle = tonumber(interval.get(1))!;
     this.maxIdle = tonumber(interval.get(2))!;
     this.rnd = tonumber(interval.get(3))!;
-    this.faction = readIniString(ini, section, "faction", false, "", "");
-    this.point = readIniString(ini, section, "point", false, "", "");
-    this.message = readIniString(ini, section, "message", false, "", "");
+    this.faction = readIniString(ini, section, "faction", false, null, "");
+    this.point = readIniString(ini, section, "point", false, null, "");
+    this.message = readIniString(ini, section, "message", false, null, "");
 
     const fs: FS = getFS();
 

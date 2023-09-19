@@ -551,7 +551,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
 
     assert(this.ini.section_exist(SMART_TERRAIN_SECTION), "Smart terrain '%s' no configuration.", this.name());
 
-    const filename: Optional<TName> = readIniString(this.ini, SMART_TERRAIN_SECTION, "cfg", false, "");
+    const filename: Optional<TName> = readIniString(this.ini, SMART_TERRAIN_SECTION, "cfg", false);
 
     if (filename !== null) {
       if (getFS().exist(roots.gameConfig, filename)) {
@@ -566,7 +566,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
       SMART_TERRAIN_SECTION,
       "sim_type",
       false,
-      "",
+      null,
       ESimulationTerrainRole.DEFAULT
     ) as ESimulationTerrainRole;
 
@@ -577,13 +577,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
 
     this.squadId = readIniNumber(this.ini, SMART_TERRAIN_SECTION, "squad_id", false, 0);
 
-    let respawnSectorData: Optional<string> = readIniString(
-      this.ini,
-      SMART_TERRAIN_SECTION,
-      "respawn_sector",
-      false,
-      ""
-    );
+    let respawnSectorData: Optional<string> = readIniString(this.ini, SMART_TERRAIN_SECTION, "respawn_sector", false);
 
     if (respawnSectorData !== null) {
       if (respawnSectorData === "default") {
@@ -602,35 +596,33 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
       logger.info("Found no mutant point:", this.name());
     }
 
-    this.forbiddenPoint = readIniString(this.ini, SMART_TERRAIN_SECTION, "forbidden_point", false, "");
-    this.defendRestrictor = readIniString(this.ini, SMART_TERRAIN_SECTION, "def_restr", false, "", null);
-    this.attackRestrictor = readIniString(this.ini, SMART_TERRAIN_SECTION, "att_restr", false, "", null);
-    this.safeRestrictor = readIniString(this.ini, SMART_TERRAIN_SECTION, "safe_restr", false, "", null);
-    this.spawnPointName = readIniString(this.ini, SMART_TERRAIN_SECTION, "spawn_point", false, "");
+    this.forbiddenPoint = readIniString(this.ini, SMART_TERRAIN_SECTION, "forbidden_point", false);
+    this.defendRestrictor = readIniString(this.ini, SMART_TERRAIN_SECTION, "def_restr", false);
+    this.attackRestrictor = readIniString(this.ini, SMART_TERRAIN_SECTION, "att_restr", false);
+    this.safeRestrictor = readIniString(this.ini, SMART_TERRAIN_SECTION, "safe_restr", false);
+    this.spawnPointName = readIniString(this.ini, SMART_TERRAIN_SECTION, "spawn_point", false);
     this.arrivalDistance = readIniNumber(this.ini, SMART_TERRAIN_SECTION, "arrive_dist", false, 30);
 
-    const maxPopulationData: string = readIniString(this.ini, SMART_TERRAIN_SECTION, "max_population", false, "", "0");
+    const maxPopulationData: string = readIniString(
+      this.ini,
+      SMART_TERRAIN_SECTION,
+      "max_population",
+      false,
+      null,
+      "0"
+    );
     const parsedConditionsList: LuaArray<IConfigSwitchCondition> = parseConditionsList(maxPopulationData);
 
     this.maxPopulation = tonumber(pickSectionFromCondList(registry.actor, null, parsedConditionsList)) as TCount;
 
     this.isRespawnOnlySmart = readIniBoolean(this.ini, SMART_TERRAIN_SECTION, "respawn_only_smart", false, false);
 
-    const respawnSection: Optional<TSection> = readIniString(
-      this.ini,
-      SMART_TERRAIN_SECTION,
-      "respawn_params",
-      false,
-      "",
-      null
-    );
+    const respawnSection: Optional<TSection> = readIniString(this.ini, SMART_TERRAIN_SECTION, "respawn_params", false);
     const smartControlSection: Optional<TSection> = readIniString(
       this.ini,
       SMART_TERRAIN_SECTION,
       "smart_control",
-      false,
-      "",
-      null
+      false
     );
 
     if (smartControlSection !== null) {
@@ -1013,8 +1005,8 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
         );
       }
 
-      const squadsCount: Optional<string> = readIniString(this.ini, sectionName, "spawn_num", false, "", null);
-      const squadsToSpawn: Optional<string> = readIniString(this.ini, sectionName, "spawn_squads", false, "", null);
+      const squadsCount: Optional<string> = readIniString(this.ini, sectionName, "spawn_num", false);
+      const squadsToSpawn: Optional<string> = readIniString(this.ini, sectionName, "spawn_squads", false);
 
       if (squadsToSpawn === null) {
         abort(

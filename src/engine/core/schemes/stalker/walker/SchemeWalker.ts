@@ -49,17 +49,17 @@ export class SchemeWalker extends AbstractScheme {
     );
 
     state.team = readIniString(ini, section, "team", false, smartTerrain);
-    state.sound_idle = readIniString(ini, section, "sound_idle", false, "");
+    state.sound_idle = readIniString(ini, section, "sound_idle", false);
     state.use_camp = readIniBoolean(ini, section, "use_camp", false, false);
 
-    const baseMoving: EStalkerState = readIniString(ini, section, "def_state_moving1", false, "");
+    const baseMoving: EStalkerState = readIniString(ini, section, "def_state_moving1", false);
 
     state.suggested_state = {
       campering: null,
       campering_fire: null,
       moving_fire: null,
-      standing: readIniString(ini, section, "def_state_standing", false, ""),
-      moving: readIniString(ini, section, "def_state_moving", false, "", baseMoving),
+      standing: readIniString(ini, section, "def_state_standing", false),
+      moving: readIniString(ini, section, "def_state_moving", false, null, baseMoving),
     };
 
     state.path_walk_info = null;

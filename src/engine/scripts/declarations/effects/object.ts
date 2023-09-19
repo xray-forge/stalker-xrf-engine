@@ -362,7 +362,7 @@ extern(
       let spawnPoint: TStringId;
 
       if (params[2] === "simulation_point") {
-        const data: string = readIniString(SYSTEM_INI, squad.section_name(), "spawn_point", false, "");
+        const data: string = readIniString(SYSTEM_INI, squad.section_name(), "spawn_point", false);
         const condlist: LuaArray<IConfigSwitchCondition> =
           data === "" || data === null
             ? parseConditionsList(squadSmartTerrain.spawnPointName as string)

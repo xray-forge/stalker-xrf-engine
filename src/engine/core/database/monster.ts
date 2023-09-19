@@ -16,7 +16,7 @@ const logger: LuaLogger = new LuaLogger($filename);
  * @returns monster state from ini config or null
  */
 export function getMonsterState(ini: IniFile, section: TSection): Optional<EMonsterState> {
-  const state: EMonsterState = readIniString(ini, section, "state", false, "", "") as EMonsterState;
+  const state: EMonsterState = readIniString(ini, section, "state", false, null, "") as EMonsterState;
 
   return state === EMonsterState.NONE ? null : state;
 }

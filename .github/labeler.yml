@@ -9,9 +9,6 @@ test:
   - src/**/*.test.ts
   - src/fixtures/**
 
-engine:
-  - src/engine/**
-
 configs:
   - src/engine/forms/**
 

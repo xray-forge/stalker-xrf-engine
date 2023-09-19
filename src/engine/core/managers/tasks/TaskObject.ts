@@ -132,16 +132,16 @@ export class TaskObject {
     this.id = id;
     this.ini = ini;
 
-    this.title = readIniString(ini, id, "title", false, "", "TITLE_DOESNT_EXIST");
-    this.titleGetterFunctorName = readIniString(ini, id, "title_functor", false, "", "condlist");
+    this.title = readIniString(ini, id, "title", false, null, "TITLE_DOESNT_EXIST");
+    this.titleGetterFunctorName = readIniString(ini, id, "title_functor", false, null, "condlist");
 
-    this.description = readIniString(ini, id, "descr", false, "", "DESCR_DOESNT_EXIST");
-    this.descriptionGetterFunctorName = readIniString(ini, id, "descr_functor", false, "", "condlist");
+    this.description = readIniString(ini, id, "descr", false, null, "DESCR_DOESNT_EXIST");
+    this.descriptionGetterFunctorName = readIniString(ini, id, "descr_functor", false, null, "condlist");
 
-    this.target = readIniString(ini, id, "target", false, "", "DESCR_DOESNT_EXIST");
-    this.targetGetterFunctorName = readIniString(ini, id, "target_functor", false, "", "target_condlist");
+    this.target = readIniString(ini, id, "target", false, null, "DESCR_DOESNT_EXIST");
+    this.targetGetterFunctorName = readIniString(ini, id, "target_functor", false, null, "target_condlist");
 
-    this.icon = readIniString(ini, id, "icon", false, "", "ui_pda2_mtask_overlay");
+    this.icon = readIniString(ini, id, "icon", false, null, "ui_pda2_mtask_overlay");
     this.priority = readIniNumber(ini, id, "prior", false, 0);
     this.isStorylineTask = readIniBoolean(ini, id, "storyline", false, true);
 
@@ -155,12 +155,12 @@ export class TaskObject {
       it = it + 1;
     }
 
-    this.onInit = parseConditionsList(readIniString(ini, id, "on_init", false, "", ""));
-    this.onComplete = parseConditionsList(readIniString(ini, id, "on_complete", false, "", ""));
-    this.onReversed = parseConditionsList(readIniString(ini, id, "on_reversed", false, "", ""));
+    this.onInit = parseConditionsList(readIniString(ini, id, "on_init", false, null, ""));
+    this.onComplete = parseConditionsList(readIniString(ini, id, "on_complete", false, null, ""));
+    this.onReversed = parseConditionsList(readIniString(ini, id, "on_reversed", false, null, ""));
 
-    this.rewardMoneyConditionList = parseConditionsList(readIniString(ini, id, "reward_money", false, "", ""));
-    this.rewardItemsConditionList = parseConditionsList(readIniString(ini, id, "reward_item", false, "", ""));
+    this.rewardMoneyConditionList = parseConditionsList(readIniString(ini, id, "reward_money", false, null, ""));
+    this.rewardItemsConditionList = parseConditionsList(readIniString(ini, id, "reward_item", false, null, ""));
 
     this.communityRelationDeltaFail = readIniNumber(ini, id, "community_relation_delta_fail", false, 0);
     this.communityRelationDeltaComplete = readIniNumber(ini, id, "community_relation_delta_complete", false, 0);
