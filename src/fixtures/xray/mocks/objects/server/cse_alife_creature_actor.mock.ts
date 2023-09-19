@@ -42,7 +42,7 @@ export function mockServerAlifeCreatureActor({
   return mockServerAlifeDynamicObjectVisual({
     ...base,
     id,
-    clsid: () => mockClsid.actor,
+    clsid: () => mockClsid.script_actor,
     m_level_vertex_id: base.m_level_vertex_id || 255,
     m_game_vertex_id: base.m_game_vertex_id || 512,
     force_set_goodwill: base.force_set_goodwill || jest.fn(),

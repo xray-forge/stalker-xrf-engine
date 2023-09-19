@@ -77,7 +77,7 @@ extern("travel_callbacks", {
   canSquadTakeActor: (actor: ClientObject, object: ClientObject) =>
     TravelManager.getInstance().canSquadTakeActor(actor, object),
   cannotSquadTakeActor: (object: ClientObject, actor: ClientObject, dialogId: TStringId, phraseId: TStringId) =>
-    TravelManager.getInstance().cannotSquadTakeActor(object, actor, dialogId, phraseId),
+    !TravelManager.getInstance().canSquadTakeActor(object, actor, dialogId, phraseId),
   onTravelTogetherWithSquad: (object: ClientObject, actor: ClientObject, dialogId: TStringId, phraseId: TStringId) =>
     TravelManager.getInstance().onTravelTogetherWithSquad(object, actor, dialogId, phraseId),
   onTravelToSpecificSmartWithSquad: (
@@ -88,6 +88,8 @@ extern("travel_callbacks", {
   ) => TravelManager.getInstance().onTravelToSpecificSmartWithSquad(actor, object, dialogId, phraseId),
   canSquadTravel: (object: ClientObject, actor: ClientObject, dialogId: TStringId, phraseId: TStringId) =>
     TravelManager.getInstance().canSquadTravel(object, actor, dialogId, phraseId),
+  cannotSquadTravel: (object: ClientObject, actor: ClientObject, dialogId: TStringId, phraseId: TStringId) =>
+    !TravelManager.getInstance().canSquadTravel(object, actor, dialogId, phraseId),
   canNegotiateTravelToSmart: (
     actor: ClientObject,
     object: ClientObject,
@@ -96,11 +98,9 @@ extern("travel_callbacks", {
     phraseId: TStringId
   ) => TravelManager.getInstance().canNegotiateTravelToSmart(actor, object, dialogId, prevPhraseId, phraseId),
   getTravelConst: (actor: ClientObject, object: ClientObject, dialogId: TStringId, phraseId: TStringId): TLabel =>
-    TravelManager.getInstance().getTravelCost(actor, object, dialogId, phraseId),
+    TravelManager.getInstance().getTravelCostLabel(actor, object, dialogId, phraseId),
   isEnoughMoneyToTravel: (actor: ClientObject, object: ClientObject, dialogId: TStringId, phraseId: TStringId) =>
     TravelManager.getInstance().isEnoughMoneyToTravel(actor, object, dialogId, phraseId),
   isNotEnoughMoneyToTravel: (actor: ClientObject, object: ClientObject, dialogId: TStringId, phraseId: TStringId) =>
-    TravelManager.getInstance().isNotEnoughMoneyToTravel(actor, object, dialogId, phraseId),
-  cannotSquadTravel: (object: ClientObject, actor: ClientObject, dialogId: TStringId, phraseId: TStringId) =>
-    TravelManager.getInstance().cannotSquadTravel(object, actor, dialogId, phraseId),
+    !TravelManager.getInstance().isEnoughMoneyToTravel(actor, object, dialogId, phraseId),
 });

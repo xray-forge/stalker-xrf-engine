@@ -3,7 +3,7 @@ import { describe, expect, it } from "@jest/globals";
 import { LuaArray } from "@/engine/lib/types";
 import { MockLuaTable } from "@/fixtures/lua/mocks/LuaTable.mock";
 
-describe("'lua' VM mocks to test libraries", () => {
+describe("lua VM mocks to test libraries", () => {
   it("string gmatch mock should be applied", () => {
     expect(string.gmatch("55", "%d+")).toEqual(["55"]);
     expect(string.gmatch("11 2 33 4", "%d+")).toEqual(["11", "2", "33", "4"]);

@@ -35,8 +35,6 @@ export function isMonster(object: AnyGameObject): boolean {
  * @returns whether object class id is a stalker
  */
 export function isStalker(object: AnyGameObject): object is ServerHumanObject {
-  const r = classIds.stalker;
-
   return classIds.stalker.has(object.clsid());
 }
 
@@ -87,7 +85,8 @@ export function isStrappableWeapon(object: Optional<ClientObject>): object is Cl
 }
 
 /**
- * todo;
+ * @param objectId - object id to check
+ * @returns whether provided id is squad object id
  */
 export function isSquadId(objectId: TNumberId): boolean {
   const serverObject: Optional<ServerObject> = alife().object(objectId);
@@ -96,21 +95,32 @@ export function isSquadId(objectId: TNumberId): boolean {
 }
 
 /**
- * todo;
+ * @param object - object to check
+ * @returns whether provided object is actor class
+ */
+export function isActor(object: ServerObject): object is Squad {
+  return object.clsid() === clsid.script_actor;
+}
+
+/**
+ * @param object - object to check
+ * @returns whether provided object is squad class
  */
 export function isSquad(object: ServerObject): object is Squad {
   return object.clsid() === clsid.online_offline_group_s;
 }
 
 /**
- * todo;
+ * @param object - object to check
+ * @returns whether provided object is smart terrain class
  */
 export function isSmartTerrain(object: ServerObject): object is SmartTerrain {
   return object.clsid() === clsid.smart_terrain;
 }
 
 /**
- * todo;
+ * @param squad - squad object to check
+ * @returns whether provided squad is assigned with monsters
  */
 export function isMonsterSquad(squad: Squad): boolean {
   return isMonster(alife().object(squad.commander_id()) as ServerObject);
