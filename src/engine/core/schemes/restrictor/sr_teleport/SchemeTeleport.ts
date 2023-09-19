@@ -31,8 +31,8 @@ export class SchemeTeleport extends AbstractScheme {
 
     for (const it of $range(1, 10)) {
       const teleportPoint: ITeleportPoint = {
-        point: readIniString(ini, section, "point" + tostring(it), false, "", "none"),
-        look: readIniString(ini, section, "look" + tostring(it), false, "", "none"),
+        point: readIniString(ini, section, "point" + tostring(it), false, null, "none"),
+        look: readIniString(ini, section, "look" + tostring(it), false, null, "none"),
         probability: readIniNumber(ini, section, "prob" + tostring(it), false, 100),
       };
 

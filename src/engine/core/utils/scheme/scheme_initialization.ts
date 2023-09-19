@@ -75,7 +75,7 @@ export function configureObjectSchemes(
 
   if (ini.section_exist(logicsSection)) {
     // Read target configuration object in a recursive way and then `configureObjectSchemes` with final ini file.
-    const filename: Optional<TName> = readIniString(ini, logicsSection, "cfg", false, "");
+    const filename: Optional<TName> = readIniString(ini, logicsSection, "cfg", false);
 
     // Read ini file if section `cfg` exists and load it.
     if (filename) {
@@ -135,7 +135,7 @@ export function configureObjectSchemes(
       logicsSection,
       "trade",
       false,
-      "",
+      null,
       logicsConfig.TRADE.DEFAULT_TRADE_LTX_PATH
     );
 
@@ -239,7 +239,7 @@ export function initializeObjectSchemeLogic(
 
     activateSchemeBySection(object, iniFile, section, state.smartTerrainName, false);
 
-    const relation: Optional<ERelation> = readIniString(iniFile, "logic", "relation", false, "") as ERelation;
+    const relation: Optional<ERelation> = readIniString(iniFile, "logic", "relation", false) as ERelation;
 
     switch (relation) {
       case ERelation.NEUTRAL:
@@ -269,7 +269,7 @@ export function initializeObjectSchemeLogic(
  * @param state - object registry state
  */
 export function initializeObjectSectionItems(object: ClientObject, state: IRegistryObjectState): void {
-  const spawnItemsSection: Optional<TSection> = readIniString(state.ini, state.sectionLogic, "spawn", false, "", null);
+  const spawnItemsSection: Optional<TSection> = readIniString(state.ini, state.sectionLogic, "spawn", false);
 
   if (spawnItemsSection === null) {
     return;

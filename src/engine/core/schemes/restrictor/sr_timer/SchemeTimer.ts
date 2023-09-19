@@ -26,7 +26,7 @@ export class SchemeTimer extends AbstractScheme {
     const state: ISchemeTimerState = AbstractScheme.assign(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section);
-    state.type = readIniString<ETimerType>(ini, section, "type", false, "", ETimerType.INCREMENT) as ETimerType;
+    state.type = readIniString<ETimerType>(ini, section, "type", false, null, ETimerType.INCREMENT) as ETimerType;
 
     assert(
       state.type === ETimerType.INCREMENT || state.type === ETimerType.DECREMENT,
@@ -42,8 +42,8 @@ export class SchemeTimer extends AbstractScheme {
     }
 
     state.onValue = readIniNumberAndConditionList(ini, section, "on_value");
-    state.timerId = readIniString(ini, section, "timer_id", false, "", "hud_timer");
-    state.string = readIniString(ini, section, "string", false, "");
+    state.timerId = readIniString(ini, section, "timer_id", false, null, "hud_timer");
+    state.string = readIniString(ini, section, "string", false);
   }
 
   /**

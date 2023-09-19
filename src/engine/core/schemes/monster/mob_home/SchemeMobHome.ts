@@ -21,7 +21,7 @@ export class SchemeMobHome extends AbstractScheme {
     ini: IniFile,
     scheme: EScheme,
     section: TSection,
-    pathPrefix: TName
+    smartTerrainName: TName
   ): void {
     logger.info("Activate scheme:", object.name(), scheme, section);
 
@@ -30,7 +30,7 @@ export class SchemeMobHome extends AbstractScheme {
     state.logic = getConfigSwitchConditions(ini, section);
 
     state.monsterState = getMonsterState(ini, section);
-    state.homeWayPoint = readIniString(ini, section, "path_home", false, pathPrefix, null);
+    state.homeWayPoint = readIniString(ini, section, "path_home", false, smartTerrainName);
 
     state.isSmartTerrainPoint = readIniBoolean(ini, section, "gulag_point", false, false);
     state.isAggressive = readIniBoolean(ini, section, "aggressive", false, false);

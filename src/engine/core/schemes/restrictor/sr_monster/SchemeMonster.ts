@@ -24,12 +24,12 @@ export class SchemeMonster extends AbstractScheme {
     const state: ISchemeMonsterState = AbstractScheme.assign(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section);
-    state.snd_obj = readIniString(ini, section, "snd", false, "", null);
+    state.snd_obj = readIniString(ini, section, "snd", false);
     state.delay = readIniNumber(ini, section, "delay", false, 0);
     state.idle = readIniNumber(ini, section, "idle", false, 30) * 10000;
 
-    state.path_table = parseStringsList(readIniString(ini, section, "sound_path", false, "", null)!);
-    state.monster = readIniString(ini, section, "monster_section", false, "", null);
+    state.path_table = parseStringsList(readIniString(ini, section, "sound_path", false)!);
+    state.monster = readIniString(ini, section, "monster_section", false);
     state.sound_slide_vel = readIniNumber(ini, section, "slide_velocity", false, 7);
   }
 

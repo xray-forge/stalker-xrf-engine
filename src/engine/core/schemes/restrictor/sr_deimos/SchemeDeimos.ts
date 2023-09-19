@@ -28,11 +28,11 @@ export class SchemeDeimos extends AbstractScheme {
     state.growing_koef = readIniNumber(ini, section, "growing_koef", false, 0.1);
     state.lowering_koef = readIniNumber(ini, section, "lowering_koef", false, state.growing_koef);
     state.pp_effector = readIniString(ini, section, "pp_effector", false, null);
-    state.cam_effector = readIniString(ini, section, "cam_effector", false, "");
-    state.pp_effector2 = readIniString(ini, section, "pp_effector2", false, "");
+    state.cam_effector = readIniString(ini, section, "cam_effector", false);
+    state.pp_effector2 = readIniString(ini, section, "pp_effector2", false);
     state.cam_effector_repeating_time = readIniNumber(ini, section, "cam_effector_repeating_time", false, 10) * 1000;
-    state.noise_sound = readIniString(ini, section, "noise_sound", false, "");
-    state.heartbeet_sound = readIniString(ini, section, "heartbeet_sound", false, "");
+    state.noise_sound = readIniString(ini, section, "noise_sound", false);
+    state.heartbeet_sound = readIniString(ini, section, "heartbeet_sound", false);
     state.health_lost = readIniNumber(ini, section, "health_lost", false, 0.01);
     state.disable_bound = readIniNumber(ini, section, "disable_bound", false, 0.1);
     state.switch_lower_bound = readIniNumber(ini, section, "switch_lower_bound", false, 0.5);

@@ -72,7 +72,7 @@ export class LabX8DoorBinder extends object_binder {
       return;
     }
 
-    const filename: Optional<TName> = readIniString(ini, ANIMATED_OBJECT_SECT, "cfg", false, "", null);
+    const filename: Optional<TName> = readIniString(ini, ANIMATED_OBJECT_SECT, "cfg", false);
 
     if (filename) {
       ini = new ini_file(filename);
@@ -85,7 +85,7 @@ export class LabX8DoorBinder extends object_binder {
       ANIMATED_OBJECT_SECT,
       "idle_snd",
       false,
-      "",
+      null,
       "device\\airtight_door_idle"
     );
     const startSound: TPath = readIniString(
@@ -93,7 +93,7 @@ export class LabX8DoorBinder extends object_binder {
       ANIMATED_OBJECT_SECT,
       "start_snd",
       false,
-      "",
+      null,
       "device\\airtight_door_start"
     );
     const stopSound: TPath = readIniString(
@@ -101,7 +101,7 @@ export class LabX8DoorBinder extends object_binder {
       ANIMATED_OBJECT_SECT,
       "stop_snd",
       false,
-      "",
+      null,
       "device\\airtight_door_stop"
     );
 
@@ -117,7 +117,7 @@ export class LabX8DoorBinder extends object_binder {
       this.stopSound = new sound_object(stopSound);
     }
 
-    this.tip = parseConditionsList(readIniString(ini, ANIMATED_OBJECT_SECT, "tip", false, "", "none"));
+    this.tip = parseConditionsList(readIniString(ini, ANIMATED_OBJECT_SECT, "tip", false, null, "none"));
 
     let onUse: string = TRUE;
     let onStart: string = TRUE;

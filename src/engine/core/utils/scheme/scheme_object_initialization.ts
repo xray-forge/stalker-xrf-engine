@@ -18,14 +18,7 @@ import { ClientObject, EScheme, IniFile, LuaArray, Optional, TDistance, TNumberI
  */
 export function initializeObjectInvulnerability(object: ClientObject): void {
   const state: IRegistryObjectState = registry.objects.get(object.id());
-  const invulnerability: Optional<string> = readIniString(
-    state.ini,
-    state.activeSection,
-    "invulnerable",
-    false,
-    "",
-    null
-  );
+  const invulnerability: Optional<string> = readIniString(state.ini, state.activeSection, "invulnerable", false);
 
   const nextInvulnerabilityState: boolean =
     invulnerability === null
@@ -51,10 +44,10 @@ export function initializeObjectCanSelectWeaponState(
   state: IRegistryObjectState,
   section: TSection
 ): void {
-  let data: string = readIniString(state.ini, section, "can_select_weapon", false, "", "");
+  let data: string = readIniString(state.ini, section, "can_select_weapon", false, null, "");
 
   if (data === "") {
-    data = readIniString(state.ini, state.sectionLogic, "can_select_weapon", false, "", TRUE);
+    data = readIniString(state.ini, state.sectionLogic, "can_select_weapon", false, null, TRUE);
   }
 
   const canSelectSection: Optional<TSection> = pickSectionFromCondList(
@@ -116,11 +109,11 @@ export function initializeObjectGroup(object: ClientObject, ini: IniFile, sectio
 export function initializeObjectInfo(object: ClientObject, ini: IniFile, section: TSection): void {
   const inInfosList: LuaArray<TInfoPortion> = getSectionsFromConditionLists(
     object,
-    readIniString(ini, section, "in", false, "")
+    readIniString(ini, section, "in", false)
   );
   const outInfosList: LuaArray<TInfoPortion> = getSectionsFromConditionLists(
     object,
-    readIniString(ini, section, "out", false, "")
+    readIniString(ini, section, "out", false)
   );
 
   for (const [, infoPortion] of inInfosList) {
@@ -148,8 +141,8 @@ export function initializeObjectIgnoreThreshold(
 ): void {
   const thresholdSection: Optional<TSection> =
     scheme === null || scheme === NIL
-      ? readIniString(state.ini, state.sectionLogic, "threshold", false, "")
-      : readIniString(state.ini, section, "threshold", false, "");
+      ? readIniString(state.ini, state.sectionLogic, "threshold", false)
+      : readIniString(state.ini, section, "threshold", false);
 
   if (thresholdSection) {
     const maxIgnoreDistance: Optional<TDistance> = readIniNumber(

@@ -50,7 +50,7 @@ export class CampZoneBinder extends object_binder {
 
     // If camp logic description present, try to read it from spawn ini or from defined `cfg` file.
     if (ini.section_exist("camp")) {
-      const filename: Optional<TName> = readIniString(ini, "camp", "cfg", false, "", null);
+      const filename: Optional<TName> = readIniString(ini, "camp", "cfg", false);
       const manager: CampManager = new CampManager(this.object, filename === null ? ini : new ini_file(filename));
 
       registerCampZone(this.object, manager);

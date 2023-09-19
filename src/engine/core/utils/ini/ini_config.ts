@@ -217,7 +217,7 @@ export function getConfigObjectAndZone(ini: IniFile, section: TSection, field: T
  */
 export function getObjectConfigOverrides(ini: IniFile, section: TSection, object: ClientObject): AnyObject {
   const overrides: AnyObject = {};
-  const heliHunter: Optional<string> = readIniString(ini, section, "heli_hunter", false, "");
+  const heliHunter: Optional<string> = readIniString(ini, section, "heli_hunter", false);
 
   if (heliHunter !== null) {
     overrides.heli_hunter = parseConditionsList(heliHunter);
@@ -256,14 +256,14 @@ export function getObjectConfigOverrides(ini: IniFile, section: TSection, object
   }
 
   if (ini.line_exist(section, "on_offline")) {
-    overrides.on_offline_condlist = parseConditionsList(readIniString(ini, section, "on_offline", false, "", NIL));
+    overrides.on_offline_condlist = parseConditionsList(readIniString(ini, section, "on_offline", false, null, NIL));
   } else {
     overrides.on_offline_condlist = parseConditionsList(
-      readIniString(ini, state.sectionLogic, "on_offline", false, "", NIL)
+      readIniString(ini, state.sectionLogic, "on_offline", false, null, NIL)
     );
   }
 
-  overrides.soundgroup = readIniString(ini, section, "soundgroup", false, "");
+  overrides.soundgroup = readIniString(ini, section, "soundgroup", false);
 
   return overrides;
 }

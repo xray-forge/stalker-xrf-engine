@@ -23,10 +23,10 @@ export class SchemeHelicopterMove extends AbstractScheme {
     const state: ISchemeHelicopterMoveState = AbstractScheme.assign(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section);
-    state.path_move = readIniString(ini, section, "path_move", true, "");
-    state.path_look = readIniString(ini, section, "path_look", false, "");
-    state.enemy_ = readIniString(ini, section, "enemy", false, "");
-    state.fire_point = readIniString(ini, section, "fire_point", false, "");
+    state.path_move = readIniString(ini, section, "path_move", true);
+    state.path_look = readIniString(ini, section, "path_look", false);
+    state.enemy_ = readIniString(ini, section, "enemy", false);
+    state.fire_point = readIniString(ini, section, "fire_point", false);
     state.max_velocity = readIniNumber(ini, section, "max_velocity", true, null) as number; // todo: Assert?
     state.max_mgun_dist = readIniNumber(ini, section, "max_mgun_attack_dist", false);
     state.max_rocket_dist = readIniNumber(ini, section, "max_rocket_attack_dist", false);

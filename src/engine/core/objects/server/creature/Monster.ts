@@ -59,7 +59,7 @@ export class Monster extends cse_alife_monster_base {
     this.brain().can_choose_alife_tasks(false);
 
     const objectIni: IniFile = this.spawn_ini();
-    const smartName: TName = readIniString(objectIni, "logic", "smart_terrain", false, "", "");
+    const smartName: TName = readIniString(objectIni, "logic", "smart_terrain", false, null, "");
     const smartTerrain: Optional<SmartTerrain> = simulationBoardManager.getSmartTerrainByName(smartName);
 
     if (smartTerrain !== null) {

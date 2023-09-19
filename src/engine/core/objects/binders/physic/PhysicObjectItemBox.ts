@@ -142,7 +142,7 @@ export class PhysicObjectItemBox {
     const currentBoxItems = PhysicObjectItemBox.readBoxItemList(ini, "drop_box", "items", this.object);
 
     if (currentBoxItems === null) {
-      const community = readIniString(ini, "drop_box", "community", false, "", "def_box");
+      const community = readIniString(ini, "drop_box", "community", false, null, "def_box");
       const boxItemsToSpawn: LuaTable<TInventoryItem, TProbability> =
         itemByCommunity.get(community) ?? itemByCommunity.get("def_box");
 

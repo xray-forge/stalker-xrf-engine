@@ -34,14 +34,14 @@ export class SchemePatrol extends AbstractScheme {
     ini: IniFile,
     scheme: EScheme,
     section: TSection,
-    gulagName: TName
+    smartTerrainName: TName
   ): void {
     const state: ISchemePatrolState = AbstractScheme.assign(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section);
-    state.path_name = readIniString(ini, section, "path_walk", true, gulagName);
+    state.path_name = readIniString(ini, section, "path_walk", true, smartTerrainName);
     state.path_walk = state.path_name;
-    state.path_look = readIniString(ini, section, "path_look", false, gulagName);
+    state.path_look = readIniString(ini, section, "path_look", false, smartTerrainName);
 
     if (state.path_walk === state.path_look) {
       abort(
@@ -51,26 +51,26 @@ export class SchemePatrol extends AbstractScheme {
       );
     }
 
-    state.formation = readIniString(ini, section, "formation", false, "");
+    state.formation = readIniString(ini, section, "formation", false);
     state.silent = readIniBoolean(ini, section, "silent", false, false);
     if (state.formation === null) {
       state.formation = "back";
     }
 
-    state.move_type = readIniString(ini, section, "move_type", false, "");
+    state.move_type = readIniString(ini, section, "move_type", false);
     if (state.move_type === null) {
       state.move_type = "patrol";
     }
 
     state.suggested_state = {} as any;
-    state.suggested_state.standing = readIniString(ini, section, "def_state_standing", false, "");
-    state.suggested_state.moving = readIniString(ini, section, "def_state_moving1", false, "");
+    state.suggested_state.standing = readIniString(ini, section, "def_state_standing", false);
+    state.suggested_state.moving = readIniString(ini, section, "def_state_moving1", false);
     state.suggested_state.moving = readIniString(
       ini,
       section,
       "def_state_moving",
       false,
-      "",
+      null,
       state.suggested_state.moving
     );
     state.path_walk_info = null;

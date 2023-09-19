@@ -51,7 +51,7 @@ export class TradeManager extends AbstractManager {
       "trader",
       "buy_item_condition_factor",
       false,
-      "",
+      null,
       "0.7"
     );
 
@@ -156,7 +156,7 @@ export class TradeManager extends AbstractManager {
    */
   public getBuyDiscountForObject(objectId: TNumberId): TRate {
     const tradeDescriptor: ITradeManagerDescriptor = registry.trade.get(objectId);
-    const data: string = readIniString(tradeDescriptor.config, "trader", "discounts", false, "", "");
+    const data: string = readIniString(tradeDescriptor.config, "trader", "discounts", false, null, "");
 
     if (data === "") {
       return 1;

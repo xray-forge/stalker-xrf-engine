@@ -174,7 +174,7 @@ export class WeatherManager extends AbstractManager {
       level.name() + "_surge_settings",
       "surge_state",
       false,
-      "",
+      null,
       "0"
     );
 
@@ -381,7 +381,7 @@ export class WeatherManager extends AbstractManager {
     logger.info("Initialize weather on network spawn");
 
     const levelName: TName = level.name();
-    const levelWeather: TName = readIniString(GAME_LTX, levelName, "weathers", false, "", "[default]");
+    const levelWeather: TName = readIniString(GAME_LTX, levelName, "weathers", false, null, "[default]");
 
     this.weatherSection = levelWeather;
     this.weatherConditionList = parseConditionsList(levelWeather);

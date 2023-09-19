@@ -7,7 +7,7 @@ import { parseStringsList } from "@/engine/core/utils/ini/ini_parse";
 import { readIniNumber, readIniString } from "@/engine/core/utils/ini/ini_read";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { createVector } from "@/engine/core/utils/vector";
-import { ClientObject, EScheme, ESchemeType, IniFile, LuaArray, TSection } from "@/engine/lib/types";
+import { ClientObject, EScheme, ESchemeType, IniFile, LuaArray, TName, TSection } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -26,15 +26,15 @@ export class SchemeMobJump extends AbstractScheme {
     ini: IniFile,
     scheme: EScheme,
     section: TSection,
-    additional: string
+    smartTerrainName: TName
   ): void {
     const state: ISchemeMobJumpState = AbstractScheme.assign(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section);
-    state.jump_path_name = readIniString(ini, section, "path_jump", false, additional);
+    state.jump_path_name = readIniString(ini, section, "path_jump", false, smartTerrainName);
     state.ph_jump_factor = readIniNumber(ini, section, "ph_jump_factor", false, 1.8);
 
-    const offsetsData: string = readIniString(ini, section, "offset", true, "");
+    const offsetsData: string = readIniString(ini, section, "offset", true);
     const offsets: LuaArray<string> = parseStringsList(offsetsData);
 
     state.offset = createVector(tonumber(offsets.get(1))!, tonumber(offsets.get(2))!, tonumber(offsets.get(3))!);

@@ -72,7 +72,7 @@ export function createExclusiveJob(
 ): TSmartTerrainJobsList {
   logger.format("Add exclusive job: '%s' - '%s'", section, field);
 
-  const workScriptPath: Optional<TPath> = readIniString(ini, section, field, false, "", null);
+  const workScriptPath: Optional<TPath> = readIniString(ini, section, field, false);
 
   // Field with work path does not exist, nothing to load.
   if (workScriptPath === null) {
@@ -84,11 +84,11 @@ export function createExclusiveJob(
   assert(getFS().exist(roots.gameConfig, iniPath), "There is no job configuration file '%s'.", iniPath);
 
   const jobIniFile: Optional<IniFile> = new ini_file(iniPath);
-  const jobOnline: Optional<string> = readIniString(jobIniFile, "logic@" + field, "job_online", false, "", null);
+  const jobOnline: Optional<string> = readIniString(jobIniFile, "logic@" + field, "job_online", false);
   const jobPriority: TRate = readIniNumber(jobIniFile, "logic@" + field, "prior", false, 45);
-  const jobSuitableCondlist: Optional<string> = readIniString(jobIniFile, "logic@" + field, "suitable", false, "");
+  const jobSuitableCondlist: Optional<string> = readIniString(jobIniFile, "logic@" + field, "suitable", false);
   const isMonster: boolean = readIniBoolean(jobIniFile, "logic@" + field, "monster_job", false, false);
-  const activeSection: TSection = readIniString(jobIniFile, "logic@" + field, "active", false, "");
+  const activeSection: TSection = readIniString(jobIniFile, "logic@" + field, "active", false);
   const scheme: Optional<EScheme> = getSchemeFromSection(activeSection) as EScheme;
 
   let pathType: Optional<EJobPathType> = (JobPathTypeByScheme[scheme] as EJobPathType) || null;

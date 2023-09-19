@@ -35,21 +35,21 @@ export class SchemeAnimpoint extends AbstractScheme {
     const state: ISchemeAnimpointState = AbstractScheme.assign(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section);
-    state.coverName = readIniString(ini, section, "cover_name", false, "", "$script_id$_cover");
+    state.coverName = readIniString(ini, section, "cover_name", false, null, "$script_id$_cover");
     state.useCamp = readIniBoolean(ini, section, "use_camp", false, true);
     state.reachMovement = readIniString<EStalkerState>(
       ini,
       section,
       "reach_movement",
       false,
-      "",
+      null,
       EStalkerState.WALK
     ) as EStalkerState;
 
     state.reachDistanceSqr = readIniNumber(ini, section, "reach_distance", false, 0.75);
     state.reachDistanceSqr *= state.reachDistanceSqr; // Calculate for sqr comparison.
 
-    const rawAvailableAnimations: Optional<string> = readIniString(ini, section, "avail_animations", false, "", null);
+    const rawAvailableAnimations: Optional<string> = readIniString(ini, section, "avail_animations", false);
 
     state.availableAnimations = rawAvailableAnimations === null ? null : parseStringsList(rawAvailableAnimations);
   }

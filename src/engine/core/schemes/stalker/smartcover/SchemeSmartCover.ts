@@ -34,20 +34,20 @@ export class SchemeSmartCover extends AbstractScheme {
     const state: ISchemeSmartCoverState = AbstractScheme.assign(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section);
-    state.cover_name = readIniString(ini, section, "cover_name", false, "", "$script_id$_cover");
-    state.loophole_name = readIniString(ini, section, "loophole_name", false, "", null);
-    state.cover_state = readIniString(ini, section, "cover_state", false, "", "default_behaviour");
-    state.target_enemy = readIniString(ini, section, "target_enemy", false, "", null);
-    state.target_path = readIniString(ini, section, "target_path", false, "", NIL);
+    state.cover_name = readIniString(ini, section, "cover_name", false, null, "$script_id$_cover");
+    state.loophole_name = readIniString(ini, section, "loophole_name", false);
+    state.cover_state = readIniString(ini, section, "cover_state", false, null, "default_behaviour");
+    state.target_enemy = readIniString(ini, section, "target_enemy", false);
+    state.target_path = readIniString(ini, section, "target_path", false, null, NIL);
     state.idle_min_time = readIniNumber(ini, section, "idle_min_time", false, 6);
     state.idle_max_time = readIniNumber(ini, section, "idle_max_time", false, 10);
     state.lookout_min_time = readIniNumber(ini, section, "lookout_min_time", false, 6);
     state.lookout_max_time = readIniNumber(ini, section, "lookout_max_time", false, 10);
-    state.exit_body_state = readIniString(ini, section, "exit_body_state", false, "", "stand");
+    state.exit_body_state = readIniString(ini, section, "exit_body_state", false, null, "stand");
     state.use_precalc_cover = readIniBoolean(ini, section, "use_precalc_cover", false, false);
     state.use_in_combat = readIniBoolean(ini, section, "use_in_combat", false, false);
     state.weapon_type = readIniString(ini, section, "weapon_type", false);
-    state.moving = readIniString(ini, section, "def_state_moving", false, "", "sneak");
+    state.moving = readIniString(ini, section, "def_state_moving", false, null, "sneak");
     state.sound_idle = readIniString(ini, section, "sound_idle", false);
   }
 

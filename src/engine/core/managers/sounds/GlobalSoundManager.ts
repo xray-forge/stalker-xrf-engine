@@ -75,8 +75,7 @@ export class GlobalSoundManager extends AbstractManager {
         SCRIPT_SOUND_LTX,
         section,
         "type",
-        true,
-        ""
+        true
       ) as EPlayableSound;
 
       switch (type) {

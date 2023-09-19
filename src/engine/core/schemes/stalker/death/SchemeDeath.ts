@@ -50,9 +50,7 @@ export class SchemeDeath extends AbstractScheme {
       objectState.ini!,
       objectState.sectionLogic,
       "on_death",
-      false,
-      "",
-      null
+      false
     );
 
     if (deathSection !== null) {
@@ -63,13 +61,13 @@ export class SchemeDeath extends AbstractScheme {
       }
 
       const state: ISchemeDeathState = objectState[SchemeDeath.SCHEME_SECTION] as ISchemeDeathState;
-      const onInfo: Optional<string> = readIniString(objectState.ini!, deathSection, "on_info", false, "", null);
+      const onInfo: Optional<string> = readIniString(objectState.ini!, deathSection, "on_info", false);
 
       if (onInfo !== null) {
         state!.info = parseConditionsList(onInfo);
       }
 
-      const onInfo2: Optional<string> = readIniString(objectState.ini!, deathSection, "on_info2", false, "", null);
+      const onInfo2: Optional<string> = readIniString(objectState.ini!, deathSection, "on_info2", false);
 
       if (onInfo2 !== null) {
         state!.info2 = parseConditionsList(onInfo2);

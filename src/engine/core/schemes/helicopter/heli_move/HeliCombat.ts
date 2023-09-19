@@ -148,7 +148,7 @@ export class HeliCombat {
     this.combatUseRocket = readIniBoolean(ini, section, "combat_use_rocket", false, true);
     this.combatUseMgun = readIniBoolean(ini, section, "combat_use_mgun", false, true);
 
-    const combatIgnore: Optional<string> = readIniString(ini, section, "combat_ignore", false, "", null);
+    const combatIgnore: Optional<string> = readIniString(ini, section, "combat_ignore", false);
 
     if (combatIgnore !== null) {
       this.combatIgnore = parseConditionsList(combatIgnore);
@@ -156,7 +156,7 @@ export class HeliCombat {
       this.combatIgnore = null;
     }
 
-    const combaEnemy: Optional<string> = readIniString(ini, section, "combat_enemy", false, "", null);
+    const combaEnemy: Optional<string> = readIniString(ini, section, "combat_enemy", false);
 
     this.setEnemyFromCustomData(combaEnemy);
     this.maxVelocity = readIniNumber(ini, section, "combat_velocity", false, this.defaultVelocity);

@@ -9,7 +9,7 @@ import {
   readIniStringAndCondList,
 } from "@/engine/core/utils/ini/ini_read";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { ClientObject, EScheme, ESchemeType, IniFile, TSection } from "@/engine/lib/types";
+import { ClientObject, EScheme, ESchemeType, IniFile, TName, TSection } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -33,17 +33,17 @@ export class SchemeMinigun extends AbstractScheme {
     ini: IniFile,
     scheme: EScheme,
     section: TSection,
-    additional: string
+    smartTerrainName: TName
   ): void {
     const state: ISchemeMinigunState = AbstractScheme.assign(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section);
-    state.path_fire = readIniString(ini, section, "path_fire", false, additional, null);
+    state.path_fire = readIniString(ini, section, "path_fire", false, smartTerrainName);
     state.auto_fire = readIniBoolean(ini, section, "auto_fire", false, false);
     state.fire_time = readIniNumber(ini, section, "fire_time", false, DEF_MIN_FIRE_TIME);
     state.fire_rep = readIniNumber(ini, section, "fire_repeat", false, DEF_FIRE_REP);
     state.fire_range = readIniNumber(ini, section, "fire_range", false, DEF_FIRE_RANGE);
-    state.fire_target = readIniString(ini, section, "target", false, additional, "points");
+    state.fire_target = readIniString(ini, section, "target", false, smartTerrainName, "points");
     state.fire_track_target = readIniBoolean(ini, section, "track_target", false, false);
     state.fire_angle = readIniNumber(ini, section, "fire_angle", false, DEF_FIRE_ANGLE);
     state.shoot_only_on_visible = readIniBoolean(ini, section, "shoot_only_on_visible", false, true);

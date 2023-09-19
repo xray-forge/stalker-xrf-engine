@@ -33,9 +33,9 @@ export class SchemeCover extends AbstractScheme {
     const state: ISchemeCoverState = AbstractScheme.assign(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section);
-    state.smartTerrainName = readIniString(ini, section, "smart", false, "");
-    state.animationConditionList = parseConditionsList(readIniString(ini, section, "anim", false, "", "hide"));
-    state.soundIdle = readIniString(ini, section, "sound_idle", false, "");
+    state.smartTerrainName = readIniString(ini, section, "smart", false);
+    state.animationConditionList = parseConditionsList(readIniString(ini, section, "anim", false, null, "hide"));
+    state.soundIdle = readIniString(ini, section, "sound_idle", false);
 
     assertDefined(state.smartTerrainName, "There is no path_walk and smart in ActionCover.");
 

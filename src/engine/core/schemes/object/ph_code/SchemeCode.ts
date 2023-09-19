@@ -28,7 +28,7 @@ export class SchemeCode extends AbstractScheme {
     const state: ISchemeCodeState = AbstractScheme.assign(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section);
-    state.tips = readIniString(ini, section, "tips", false, "", "st_codelock");
+    state.tips = readIniString(ini, section, "tips", false, null, "st_codelock");
 
     object.set_tip_text(state.tips);
 

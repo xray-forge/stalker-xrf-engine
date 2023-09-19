@@ -23,7 +23,7 @@ export function updateSquadInvulnerabilityState(squad: Squad): void {
 
       if (
         object.invulnerable() !== invulnerability &&
-        readIniString(objectState.ini, objectState.activeSection, "invulnerable", false, "", null) === null
+        readIniString(objectState.ini, objectState.activeSection, "invulnerable", false) === null
       ) {
         object.invulnerable(invulnerability);
       }

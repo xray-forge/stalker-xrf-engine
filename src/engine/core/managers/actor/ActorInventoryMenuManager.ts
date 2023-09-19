@@ -19,10 +19,10 @@ export class ActorInventoryMenuManager extends AbstractManager {
   public override initialize(): void {
     const ini: IniFile = SYSTEM_INI;
 
-    executeConsoleCommand(consoleCommands.slot_0, readIniString(ini, ACTOR, "quick_item_1", false, "", ""));
-    executeConsoleCommand(consoleCommands.slot_1, readIniString(ini, ACTOR, "quick_item_2", false, "", ""));
-    executeConsoleCommand(consoleCommands.slot_2, readIniString(ini, ACTOR, "quick_item_3", false, "", ""));
-    executeConsoleCommand(consoleCommands.slot_3, readIniString(ini, ACTOR, "quick_item_4", false, "", ""));
+    executeConsoleCommand(consoleCommands.slot_0, readIniString(ini, ACTOR, "quick_item_1", false, null, ""));
+    executeConsoleCommand(consoleCommands.slot_1, readIniString(ini, ACTOR, "quick_item_2", false, null, ""));
+    executeConsoleCommand(consoleCommands.slot_2, readIniString(ini, ACTOR, "quick_item_3", false, null, ""));
+    executeConsoleCommand(consoleCommands.slot_3, readIniString(ini, ACTOR, "quick_item_4", false, null, ""));
   }
 
   /**

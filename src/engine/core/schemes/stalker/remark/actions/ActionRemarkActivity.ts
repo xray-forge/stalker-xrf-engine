@@ -255,8 +255,8 @@ export function initTarget(
       isTargetInitialized = true;
     }
   } else if (targetType === "job") {
-    const [job, gulag] = parseTarget(target);
-    const smartTerrain: SmartTerrain = SimulationBoardManager.getInstance().getSmartTerrainByName(gulag!)!;
+    const [job, smartTerrainName] = parseTarget(target);
+    const smartTerrain: SmartTerrain = SimulationBoardManager.getInstance().getSmartTerrainByName(smartTerrainName!)!;
 
     targetId = smartTerrain.getObjectIdByJobSection(job!);
     isTargetInitialized = targetId !== null && true;

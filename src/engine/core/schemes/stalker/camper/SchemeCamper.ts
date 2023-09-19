@@ -49,8 +49,8 @@ export class SchemeCamper extends AbstractScheme {
 
     state.sniper = readIniBoolean(ini, section, "sniper", false);
     state.no_retreat = readIniBoolean(ini, section, "no_retreat", false);
-    state.shoot = readIniString(ini, section, "shoot", false, "", "always");
-    state.sniper_anim = readIniString(ini, section, "sniper_anim", false, "hide_na");
+    state.shoot = readIniString(ini, section, "shoot", false, null, "always");
+    state.sniper_anim = readIniString(ini, section, "sniper_anim", false, null, "hide_na");
 
     if (state.sniper === true && state.no_retreat === true) {
       abort("ERROR: NPC [%s] Section [%s]. No_retreat not available for SNIPER.", object.name(), section);
@@ -69,12 +69,12 @@ export class SchemeCamper extends AbstractScheme {
       moving: readIniString(ini, section, "def_state_moving", false),
       moving_fire: readIniString(ini, section, "def_state_moving_fire", false),
       campering: campering,
-      standing: readIniString(ini, section, "def_state_standing", false, "", campering),
+      standing: readIniString(ini, section, "def_state_standing", false, null, campering),
       campering_fire: readIniString(ini, section, "def_state_campering_fire", false) as EStalkerState,
     };
 
     state.scantime_free = readIniNumber(ini, section, "scantime_free", false, 60_000);
-    state.attack_sound = readIniString(ini, section, "attack_sound", false, "", "fight_attack");
+    state.attack_sound = readIniString(ini, section, "attack_sound", false, null, "fight_attack");
 
     if (state.attack_sound === FALSE) {
       state.attack_sound = null;

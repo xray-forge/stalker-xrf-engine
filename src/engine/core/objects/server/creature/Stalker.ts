@@ -59,7 +59,7 @@ export class Stalker extends cse_alife_human_stalker {
 
     this.brain().can_choose_alife_tasks(false);
 
-    const smartName: TName = readIniString(objectIni, "logic", "smart_terrain", false, "", "");
+    const smartName: TName = readIniString(objectIni, "logic", "smart_terrain", false, null, "");
     const smartTerrain: Optional<SmartTerrain> = simulationBoardManager.getSmartTerrainByName(smartName);
 
     if (smartTerrain) {

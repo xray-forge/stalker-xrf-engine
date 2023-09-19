@@ -187,25 +187,25 @@ export function enableObjectBaseSchemes(
       registry.schemes.get(EScheme.DANGER).activate(object, ini, EScheme.DANGER, "danger");
       registry.schemes.get(EScheme.GATHER_ITEMS).activate(object, ini, EScheme.GATHER_ITEMS, "gather_items");
 
-      const combatSection: TSection = readIniString(ini, logicsSection, "on_combat", false, "");
+      const combatSection: TSection = readIniString(ini, logicsSection, "on_combat", false);
 
       registry.schemes.get(EScheme.COMBAT).activate(object, ini, EScheme.COMBAT, combatSection);
 
       initializeObjectInvulnerability(object);
 
-      const infoSection: Optional<TSection> = readIniString(ini, logicsSection, "info", false, "");
+      const infoSection: Optional<TSection> = readIniString(ini, logicsSection, "info", false);
 
       if (infoSection !== null) {
         initializeObjectInfo(object, ini, infoSection);
       }
 
-      const hitSection: Optional<string> = readIniString(ini, logicsSection, "on_hit", false, "");
+      const hitSection: Optional<string> = readIniString(ini, logicsSection, "on_hit", false);
 
       if (hitSection !== null) {
         registry.schemes.get(EScheme.HIT).activate(object, ini, EScheme.HIT, hitSection);
       }
 
-      const woundedSection: TSection = readIniString(ini, logicsSection, "wounded", false, "");
+      const woundedSection: TSection = readIniString(ini, logicsSection, "wounded", false);
 
       // todo: null can be replaced with actual section.
       registry.schemes.get(EScheme.WOUNDED).activate(object, ini, EScheme.WOUNDED, woundedSection);
@@ -217,11 +217,11 @@ export function enableObjectBaseSchemes(
         .get(EScheme.CORPSE_DETECTION)
         .activate(object, ini, EScheme.CORPSE_DETECTION, null as unknown as TSection);
 
-      const meetSection: TSection = readIniString(ini, logicsSection, "meet", false, "");
+      const meetSection: TSection = readIniString(ini, logicsSection, "meet", false);
 
       registry.schemes.get(EScheme.MEET).activate(object, ini, EScheme.MEET, meetSection);
 
-      const deathSection: TSection = readIniString(ini, logicsSection, "on_death", false, "");
+      const deathSection: TSection = readIniString(ini, logicsSection, "on_death", false);
 
       registry.schemes.get(EScheme.DEATH).activate(object, ini, EScheme.DEATH, deathSection);
       // todo: null can be replaced with actual section.
@@ -235,13 +235,13 @@ export function enableObjectBaseSchemes(
     }
 
     case ESchemeType.MONSTER: {
-      const combatSection: Optional<TSection> = readIniString(ini, logicsSection, "on_combat", false, "");
+      const combatSection: Optional<TSection> = readIniString(ini, logicsSection, "on_combat", false);
 
       if (combatSection !== null) {
         registry.schemes.get(EScheme.MOB_COMBAT).activate(object, ini, EScheme.MOB_COMBAT, combatSection);
       }
 
-      const deathSection: Optional<TSection> = readIniString(ini, logicsSection, "on_death", false, "");
+      const deathSection: Optional<TSection> = readIniString(ini, logicsSection, "on_death", false);
 
       if (deathSection !== null) {
         registry.schemes.get(EScheme.MOB_DEATH).activate(object, ini, EScheme.MOB_DEATH, deathSection);
@@ -249,7 +249,7 @@ export function enableObjectBaseSchemes(
 
       initializeObjectInvulnerability(object);
 
-      const hitSection: Optional<TSection> = readIniString(ini, logicsSection, "on_hit", false, "");
+      const hitSection: Optional<TSection> = readIniString(ini, logicsSection, "on_hit", false);
 
       if (hitSection !== null) {
         registry.schemes.get(EScheme.HIT).activate(object, ini, EScheme.HIT, hitSection);
@@ -263,7 +263,7 @@ export function enableObjectBaseSchemes(
     }
 
     case ESchemeType.OBJECT: {
-      const hitSection: Optional<TSection> = readIniString(ini, logicsSection, "on_hit", false, "");
+      const hitSection: Optional<TSection> = readIniString(ini, logicsSection, "on_hit", false);
 
       if (hitSection !== null) {
         registry.schemes.get(EScheme.PH_ON_HIT).activate(object, ini, EScheme.PH_ON_HIT, hitSection);
@@ -273,7 +273,7 @@ export function enableObjectBaseSchemes(
     }
 
     case ESchemeType.HELICOPTER: {
-      const hitSection: Optional<TSection> = readIniString(ini, logicsSection, "on_hit", false, "");
+      const hitSection: Optional<TSection> = readIniString(ini, logicsSection, "on_hit", false);
 
       if (hitSection !== null) {
         registry.schemes.get(EScheme.HIT).activate(object, ini, EScheme.HIT, hitSection);

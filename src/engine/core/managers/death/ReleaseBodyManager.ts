@@ -155,7 +155,7 @@ export class ReleaseBodyManager extends AbstractManager {
     let characterIni: Optional<IniFile> = null;
     const objectSpawnIni: Optional<IniFile> = object.spawn_ini();
     const filename: Optional<TName> =
-      objectSpawnIni === null ? null : readIniString(objectSpawnIni, "logic", "cfg", false, "");
+      objectSpawnIni === null ? null : readIniString(objectSpawnIni, "logic", "cfg", false);
 
     if (filename !== null) {
       if (!getFS().exist(roots.gameConfig, filename)) {
@@ -168,8 +168,7 @@ export class ReleaseBodyManager extends AbstractManager {
     }
 
     const state: IRegistryObjectState = registry.objects.get(object.id());
-    const knownInfo: TSection =
-      readIniString(characterIni, state.sectionLogic, "known_info", false, "", null) || "known_info";
+    const knownInfo: TSection = readIniString(characterIni, state.sectionLogic, "known_info", false) || "known_info";
 
     return characterIni.section_exist(knownInfo);
   }
