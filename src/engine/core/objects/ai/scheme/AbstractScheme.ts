@@ -47,6 +47,11 @@ export abstract class AbstractScheme {
 
   /**
    * Assign some scheme state to an object and prepare shared constants in it in a correct way.
+   * Initializes base state in object registry.
+   *
+   * todo;
+   *
+   * @returns base scheme state for provided `scheme`
    */
   protected static assign<T extends IBaseSchemeState>(
     object: ClientObject,

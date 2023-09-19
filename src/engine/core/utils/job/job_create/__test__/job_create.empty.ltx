@@ -2,14 +2,14 @@
 close_distance = {=is_wounded} 0, 2
 close_anim = {=is_wounded} nil, {!is_squad_commander} nil, {=actor_has_weapon} threat_na, talk_default
 close_snd_hello = {=is_wounded} nil, {!is_squad_commander} nil, {=actor_enemy} nil, {=actor_has_weapon} meet_hide_weapon, meet_hello
-close_snd_bye = {=is_wounded} nil, {!is_squad_commander} nil, {=actor_enemy} nil, {=actor_has_weapon} nil, meet_hello
+close_snd_bye = nil
 close_victim = {=is_wounded} nil, {!is_squad_commander} nil, actor
 far_distance = 0
 far_anim = nil
 far_snd = nil
 far_victim = nil
 use = {=is_wounded} false, {!is_squad_commander} false, {=actor_enemy} false, {=has_enemy} false, {=actor_has_weapon} false, {=dist_to_actor_le(3)} true, false
-snd_on_use = {=is_wounded} nil, {=actor_enemy} nil, {!is_squad_commander} meet_use_no_talk_leader, {=actor_has_weapon} meet_use_no_weapon, {=has_enemy} meet_use_no_fight, {=dist_to_actor_le(3)} meet_use_no_default, nil
+snd_on_use = {=is_wounded} nil, {=actor_enemy} nil, {!is_squad_commander} meet_use_no_talk_leader, {=actor_has_weapon} meet_use_no_weapon, {=has_enemy} meet_use_no_fight, nil
 meet_dialog = nil
 abuse = {=has_enemy} false, true
 trade_enable = true
@@ -17,16 +17,16 @@ allow_break = true
 use_text = nil
 [meet@generic_animpoint]
 close_distance = 0
-close_anim = {!is_squad_commander} nil, nil
-close_snd_hello = {!is_squad_commander} nil, nil
-close_snd_bye = {!is_squad_commander} nil, nil
-close_victim = {!is_squad_commander} nil, nil
+close_anim = nil
+close_snd_hello = nil
+close_snd_bye = nil
+close_victim = nil
 far_distance = 0
 far_anim = nil
 far_snd = nil
 far_victim = nil
 use = {=is_wounded} false, {!is_squad_commander} false, {=actor_enemy} false, {=has_enemy} false, {=actor_has_weapon} false, {=dist_to_actor_le(3)} true, false
-snd_on_use = {=is_wounded} nil, {=actor_enemy} nil, {!is_squad_commander} meet_use_no_talk_leader, {=actor_has_weapon} meet_use_no_weapon, {=has_enemy} meet_use_no_fight, {=dist_to_actor_le(3)} meet_use_no_default, nil
+snd_on_use = {=is_wounded} nil, {=actor_enemy} nil, {!is_squad_commander} meet_use_no_talk_leader, {=actor_has_weapon} meet_use_no_weapon, {=has_enemy} meet_use_no_fight, nil
 meet_dialog = nil
 abuse = {=has_enemy} false, true
 trade_enable = true

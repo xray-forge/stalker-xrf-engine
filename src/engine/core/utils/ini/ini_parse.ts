@@ -486,7 +486,7 @@ export function parseAllSectionToTable<T = string>(ini: IniFile, section: TSecti
  * @param value - value to check
  * @returns value or null in case of `nil` string
  */
-export function parseStringOptional<T extends StringOptional>(value: T): Optional<T> {
+export function parseStringOptional<T extends StringOptional>(value: Optional<T>): Optional<T> {
   return value === NIL ? null : value;
 }
 

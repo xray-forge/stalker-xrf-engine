@@ -75,6 +75,7 @@ describe("StalkerBinder class", () => {
       EPacketDataType.STRING,
       EPacketDataType.STRING,
       EPacketDataType.STRING,
+      EPacketDataType.STRING,
       EPacketDataType.I32,
       EPacketDataType.U8,
       EPacketDataType.U8,
@@ -88,6 +89,7 @@ describe("StalkerBinder class", () => {
       EPacketDataType.U16,
     ]);
     expect(netProcessor.dataList).toEqual([
+      "save_from_StalkerBinder",
       "job_ini.ltx",
       "ini.ltx",
       "logic",
@@ -103,7 +105,7 @@ describe("StalkerBinder class", () => {
       500,
       0,
       14,
-      15,
+      16,
     ]);
 
     binder.load(mockNetReader(netProcessor));

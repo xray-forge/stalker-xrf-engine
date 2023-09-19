@@ -8,7 +8,7 @@ import { isObjectWounded } from "@/engine/core/utils/object";
 import { FALSE } from "@/engine/lib/constants/words";
 import { ActionPlanner, Optional } from "@/engine/lib/types";
 
-const logger: LuaLogger = new LuaLogger($filename);
+const logger: LuaLogger = new LuaLogger($filename, { file: "meet" });
 
 /**
  * Evaluator to check if object is ready to communicate.

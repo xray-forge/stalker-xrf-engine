@@ -130,6 +130,7 @@ export function mockClientGameObject({
     clear_animations: rest.clear_animations || jest.fn(),
     command: rest.command || jest.fn(),
     critically_wounded: rest.critically_wounded || jest.fn(() => false),
+    debug_planner: rest.debug_planner || jest.fn(),
     direction: rest.direction || jest.fn(() => objectDirection),
     disable_hit_marks: rest.disable_hit_marks || jest.fn(),
     disable_info_portion:

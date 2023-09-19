@@ -15,12 +15,12 @@ import { getObjectsRelationSafe } from "@/engine/core/utils/relation";
 import { FALSE, NIL, TRUE } from "@/engine/lib/constants/words";
 import { ClientObject, EClientObjectRelation, EScheme, Optional, TName } from "@/engine/lib/types";
 
-const logger: LuaLogger = new LuaLogger($filename);
+const logger: LuaLogger = new LuaLogger($filename, { file: "meet" });
 
 /**
  * todo: Description.
  */
-export function updateObjectInteractionAvailability(object: ClientObject): void {
+export function updateObjectMeetAvailability(object: ClientObject): void {
   if (isObjectWounded(object.id())) {
     if (object.relation(registry.actor) === EClientObjectRelation.ENEMY) {
       object.disable_talk();
@@ -58,6 +58,8 @@ export function updateObjectInteractionAvailability(object: ClientObject): void 
 }
 
 /**
+ * Handle meet interaction with object.
+ *
  * todo: Description.
  */
 export function activateMeetWithObject(object: ClientObject): void {
@@ -71,12 +73,13 @@ export function activateMeetWithObject(object: ClientObject): void {
     return;
   }
 
-  logger.info("Activate meet interaction:", object.name());
+  logger.format("Activate meet interaction: '%s'", object.name());
 
   const actor: ClientObject = registry.actor;
   const sound: Optional<TName> = pickSectionFromCondList(actor, object, state.useSound);
 
   if (tostring(sound) !== NIL) {
+    logger.format("Play meet sound: '%s' - '%s'", object.name(), sound);
     GlobalSoundManager.getInstance().playSound(object.id(), sound);
   }
 

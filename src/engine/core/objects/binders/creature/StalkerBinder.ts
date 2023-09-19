@@ -42,7 +42,7 @@ import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain/SmartTe
 import { SchemeHear } from "@/engine/core/schemes/shared/hear/SchemeHear";
 import { SchemeCombat } from "@/engine/core/schemes/stalker/combat/SchemeCombat";
 import { PostCombatIdle } from "@/engine/core/schemes/stalker/combat_idle/PostCombatIdle";
-import { activateMeetWithObject, updateObjectInteractionAvailability } from "@/engine/core/schemes/stalker/meet/utils";
+import { activateMeetWithObject, updateObjectMeetAvailability } from "@/engine/core/schemes/stalker/meet/utils";
 import { SchemeReachTask } from "@/engine/core/schemes/stalker/reach_task/SchemeReachTask";
 import { ISchemeWoundedState } from "@/engine/core/schemes/stalker/wounded";
 import { assert } from "@/engine/core/utils/assertion";
@@ -118,6 +118,11 @@ export class StalkerBinder extends object_binder {
 
     setupStalkerStatePlanner(this.state.stateManager.planner, this.state.stateManager);
     setupStalkerMotivationPlanner(this.object.motivation_action_manager(), this.state.stateManager);
+
+    // Expose state planner for in-game debugging tools.
+    if (this.object.debug_planner !== null) {
+      this.object.debug_planner(this.state.stateManager.planner);
+    }
   }
 
   public override net_spawn(object: ServerCreatureObject): boolean {
@@ -286,7 +291,7 @@ export class StalkerBinder extends object_binder {
 
     if (isObjectAlive) {
       GlobalSoundManager.getInstance().update(object.id());
-      updateObjectInteractionAvailability(object);
+      updateObjectMeetAvailability(object);
       initializeObjectInvulnerability(this.object);
     }
 

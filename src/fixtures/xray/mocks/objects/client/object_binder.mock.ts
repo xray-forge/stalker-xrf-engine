@@ -1,15 +1,14 @@
 import { ClientObject } from "@/engine/lib/types";
 import { MockLuabindClass } from "@/fixtures/xray/mocks/luabind.mock";
+import { MockNetProcessor } from "@/fixtures/xray/mocks/save";
 
 /**
- * todo;
+ * Mocking binder object that wraps client objects lifecycle.
  */
 export class MockObjectBinder extends MockLuabindClass {
   public constructor(public object: ClientObject) {
     super();
   }
-
-  public load(): void {}
 
   public net_Relcase(): void {}
 
@@ -31,7 +30,13 @@ export class MockObjectBinder extends MockLuabindClass {
 
   public reload(): void {}
 
-  public save(): void {}
+  public save(packet: MockNetProcessor): void {
+    packet.w_stringZ("save_from_" + this.constructor.name);
+  }
+
+  public load(packet: MockNetProcessor): void {
+    packet.r_stringZ();
+  }
 
   public update(): void {}
 }
