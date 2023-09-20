@@ -50,6 +50,7 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 import { areObjectsOnSameLevel, isSmartTerrain, isSquad, isSquadId } from "@/engine/core/utils/object";
 import { areCommunitiesEnemies, ERelation, setObjectSympathy } from "@/engine/core/utils/relation";
 import { canSquadHelpActor, updateSquadInvulnerabilityState } from "@/engine/core/utils/squad";
+import { vectorToString } from "@/engine/core/utils/vector";
 import { gameConfig } from "@/engine/lib/configs/GameConfig";
 import { squadCommunityByBehaviour } from "@/engine/lib/constants/behaviours";
 import { TCommunity } from "@/engine/lib/constants/communities";
@@ -764,7 +765,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
    * Set squad position in current level by supplied vector.
    */
   public setSquadPosition(position: Vector): void {
-    logger.format("Set squad position: '%s', '%s'", this.name(), this.online);
+    logger.format("Set squad position: '%s', '%s', '%s'", this.name(), this.online, vectorToString(position));
 
     if (!this.online) {
       this.force_change_position(position);
@@ -776,9 +777,13 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
       registry.offlineObjects.get(squadMember.id).levelVertexId = level.vertex_id(position);
 
       if (object) {
+        logger.format("Set client squad member position: '%s'", object.name());
+
         resetStalkerState(object);
         object.set_npc_position(position);
       } else {
+        logger.format("Set server squad member position: '%s'", squadMember.object.name());
+
         squadMember.object.position = position;
       }
     }
