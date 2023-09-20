@@ -11,8 +11,8 @@ import {
 } from "@/engine/core/managers/simulation/simulation_types";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain/SmartTerrain";
-import { SquadReachTargetAction } from "@/engine/core/objects/server/squad/action";
-import { Squad } from "@/engine/core/objects/server/squad/Squad";
+import type { Squad } from "@/engine/core/objects/server/squad/Squad";
+import { ESquadActionType } from "@/engine/core/objects/server/squad/squad_types";
 import { abort, assertDefined } from "@/engine/core/utils/assertion";
 import { parseStringsList } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -426,7 +426,7 @@ export class SimulationBoardManager extends AbstractManager {
 
     let smartTerrain: Optional<SmartTerrain> = null;
 
-    if (squad.currentAction !== null && squad.currentAction.name === SquadReachTargetAction.ACTION_NAME) {
+    if (squad.currentAction !== null && squad.currentAction.type === ESquadActionType.REACH_TARGET) {
       smartTerrain = alife().object<SmartTerrain>(squad.assignedTargetId!);
     } else if (squad.assignedSmartTerrainId !== null) {
       smartTerrain = alife().object<SmartTerrain>(squad.assignedSmartTerrainId);
@@ -520,7 +520,7 @@ export class SimulationBoardManager extends AbstractManager {
     }
 
     if (this.factions !== null) {
-      for (const [index, faction] of this.factions) {
+      for (const [, faction] of this.factions) {
         GlobalSoundManager.getInstance().stopSoundByObjectId(faction.id);
       }
     }

@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { time_global } from "xray16";
 
-import { registry } from "@/engine/core/database";
+import { registerSimulator, registry } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { ESimulationTerrainRole } from "@/engine/core/managers/simulation";
 import { SmartTerrain, SmartTerrainControl } from "@/engine/core/objects/server/smart_terrain";
@@ -30,6 +30,7 @@ describe("SmartTerrain class generic logic", () => {
     registry.storyLink.idBySid = new LuaTable();
 
     mockServerAlifeCreatureActor();
+    registerSimulator();
   });
 
   it("should correctly init default fields", () => {

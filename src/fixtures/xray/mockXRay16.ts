@@ -19,6 +19,7 @@ import { mockCallbacks, mockClsid, mockSndType, mockStalkerIds, mockUiEvents } f
 import { MockCSightParams } from "@/fixtures/xray/mocks/CSightParams.mock";
 import { MockCTime } from "@/fixtures/xray/mocks/CTime.mock";
 import { MockDevice } from "@/fixtures/xray/mocks/device.mock";
+import { MockPhraseDialog } from "@/fixtures/xray/mocks/dialogs";
 import { MockEffector } from "@/fixtures/xray/mocks/effector.mock";
 import { MockCSavedGameWrapper, MockFileSystem } from "@/fixtures/xray/mocks/fs";
 import { mockCreateIniFile, MockIniFile, mockIniFile } from "@/fixtures/xray/mocks/ini";
@@ -86,6 +87,7 @@ import { MockVector } from "@/fixtures/xray/mocks/vector.mock";
 export function mockXRay16({
   CALifeSmartTerrainTask = MockCALifeSmartTerrainTask,
   CGameTask = MockCGameTask,
+  CPhraseDialog = MockPhraseDialog,
   CSavedGameWrapper = MockCSavedGameWrapper,
   CScriptXmlInit = MockCScriptXmlInit,
   CSightParams = MockCSightParams,
@@ -178,6 +180,7 @@ export function mockXRay16({
   jest.mock("xray16", () => ({
     CALifeSmartTerrainTask,
     CGameTask,
+    CPhraseDialog,
     CScriptXmlInit,
     CSightParams,
     CTime,

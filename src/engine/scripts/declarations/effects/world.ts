@@ -6,7 +6,7 @@ import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundMan
 import { SurgeManager } from "@/engine/core/managers/surge/SurgeManager";
 import { WeatherManager } from "@/engine/core/managers/weather/WeatherManager";
 import { AnomalyZoneBinder } from "@/engine/core/objects/binders";
-import { SmartTerrain } from "@/engine/core/objects/server";
+import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain";
 import { abort } from "@/engine/core/utils/assertion";
 import { extern } from "@/engine/core/utils/binding";
 import { LuaLogger } from "@/engine/core/utils/logging";

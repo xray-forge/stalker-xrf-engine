@@ -2,7 +2,8 @@ import { alife, clsid, game, level, patrol } from "xray16";
 
 import { registry, SYSTEM_INI } from "@/engine/core/database";
 import { SimulationBoardManager } from "@/engine/core/managers/simulation/SimulationBoardManager";
-import type { SmartTerrain, Squad } from "@/engine/core/objects/server";
+import type { SmartTerrain } from "@/engine/core/objects/server/smart_terrain";
+import type { Squad } from "@/engine/core/objects/server/squad";
 import { assert, assertDefined } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { isStalker } from "@/engine/core/utils/object/object_class";

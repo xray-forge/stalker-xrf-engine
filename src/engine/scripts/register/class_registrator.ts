@@ -1,8 +1,8 @@
 import { editor } from "xray16";
 
+import { Actor, Monster, Stalker } from "@/engine/core/objects/server/creature";
+import { Helicopter } from "@/engine/core/objects/server/Helicopter";
 import {
-  Actor,
-  Helicopter,
   InventoryBox,
   Item,
   ItemAmmo,
@@ -20,19 +20,13 @@ import {
   ItemWeaponMagazined,
   ItemWeaponMagazinedWGl,
   ItemWeaponShotgun,
-  LevelChanger,
-  Monster,
-  ObjectHangingLamp,
-  ObjectPhysic,
-  SmartCover,
-  SmartTerrain,
-  Squad,
-  Stalker,
-  ZoneAnomalous,
-  ZoneRestrictor,
-  ZoneTorrid,
-  ZoneVisual,
-} from "@/engine/core/objects/server";
+} from "@/engine/core/objects/server/item";
+import { LevelChanger } from "@/engine/core/objects/server/LevelChanger";
+import { ObjectHangingLamp, ObjectPhysic } from "@/engine/core/objects/server/physic";
+import { SmartCover } from "@/engine/core/objects/server/smart_cover";
+import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain";
+import { Squad } from "@/engine/core/objects/server/squad";
+import { ZoneAnomalous, ZoneRestrictor, ZoneTorrid, ZoneVisual } from "@/engine/core/objects/server/zone";
 import { MainMenu } from "@/engine/core/ui/menu";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { EClientObjectClass, EConfigClassId, EScriptClassId } from "@/engine/lib/constants/class_ids";

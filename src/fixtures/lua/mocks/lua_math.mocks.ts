@@ -7,6 +7,7 @@ export const mockMath = {
   abs: (value: number) => Math.abs(value),
   sqrt: (value: number) => Math.sqrt(value),
   cos: (value: number) => Math.cos(value),
+  ceil: (value: number) => Math.ceil(value),
   sin: (value: number) => Math.sin(value),
   mod: (value: number, base: number) => value % base,
   random: (max?: number) => {

@@ -1,6 +1,6 @@
 import { game } from "xray16";
 
-import { SmartTerrain } from "@/engine/core/objects/server";
+import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain";
 import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
 
 /**

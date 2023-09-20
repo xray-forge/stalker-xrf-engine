@@ -1,5 +1,6 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 
+import { registerSimulator } from "@/engine/core/database";
 import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain/SmartTerrain";
 import { EJobPathType, EJobType } from "@/engine/core/utils/job/job_types";
 import { MAX_U16 } from "@/engine/lib/constants/memory";
@@ -9,6 +10,7 @@ import { mockServerAlifeCreatureActor, mockServerAlifeHumanStalker, mockServerAl
 describe("SmartTerrain class jobs logic", () => {
   beforeEach(() => {
     mockServerAlifeCreatureActor();
+    registerSimulator();
   });
 
   it("should correctly create jobs on register", () => {

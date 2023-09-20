@@ -42,7 +42,7 @@ import {
 } from "@/engine/core/managers/simulation";
 import { SmartTerrainControl } from "@/engine/core/objects/server/smart_terrain/SmartTerrainControl";
 import { ESmartTerrainStatus } from "@/engine/core/objects/server/smart_terrain/types";
-import { Squad, SquadReachTargetAction, SquadStayOnTargetAction } from "@/engine/core/objects/server/squad";
+import { ESquadActionType, Squad } from "@/engine/core/objects/server/squad";
 import { abort, assert, assertDefined } from "@/engine/core/utils/assertion";
 import { readTimeFromPacket, writeTimeToPacket } from "@/engine/core/utils/game/game_time";
 import {
@@ -203,7 +203,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
   public override on_register(): void {
     super.on_register();
 
-    this.isOnLevel = areObjectsOnSameLevel(this, alife().actor());
+    this.isOnLevel = areObjectsOnSameLevel(this, registry.simulator.actor());
     jobLogger.info("Register smart terrain:", this.name(), this.isOnLevel);
 
     registerObjectStoryLinks(this);
@@ -481,8 +481,8 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
     const now: TTimestamp = time_global();
 
     // todo: use sqr distance
-    if (areObjectsOnSameLevel(this, alife().actor())) {
-      const distanceToActor: TDistance = this.position.distance_to(alife().actor()!.position);
+    if (areObjectsOnSameLevel(this, registry.simulator.actor())) {
+      const distanceToActor: TDistance = this.position.distance_to(registry.simulator.actor()!.position);
       const previousDistanceToActor: TDistance =
         registry.smartTerrainNearest.id === null
           ? registry.smartTerrainNearest.distance
@@ -877,7 +877,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
   public initializeObjectsAfterLoad(): void {
     jobLogger.info("Initialize objects after load:", this.name());
 
-    const alifeSimulator: AlifeSimulator = alife();
+    const alifeSimulator: AlifeSimulator = registry.simulator;
 
     for (const [id] of this.arrivingObjects) {
       const serverObject: Optional<ServerCreatureObject> = alifeSimulator.object(id);
@@ -1090,7 +1090,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
       }
 
       if (
-        alife().actor().position.distance_to_sqr(this.position) <
+        registry.simulator.actor().position.distance_to_sqr(this.position) <
         logicsConfig.SMART_TERRAIN.RESPAWN_RADIUS_RESTRICTION_SQR
       ) {
         return;
@@ -1125,15 +1125,15 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
       const squad: Squad = this.simulationBoardManager.getSquads().get(object.group_id);
 
       if (squad !== null && squad.currentAction) {
-        if (squad.currentAction.name === SquadReachTargetAction.ACTION_NAME) {
+        if (squad.currentAction.type === ESquadActionType.REACH_TARGET) {
           const squadTarget: Optional<TSimulationObject> = registry.simulationObjects.get(squad.assignedTargetId!);
 
           if (squadTarget !== null) {
             return squadTarget.isReachedBySquad(squad);
           } else {
-            return alife().object<SmartTerrain>(squad.assignedTargetId!)!.isReachedBySquad(squad);
+            return registry.simulator.object<SmartTerrain>(squad.assignedTargetId!)!.isReachedBySquad(squad);
           }
-        } else if (squad.currentAction.name === SquadStayOnTargetAction.ACTION_NAME) {
+        } else if (squad.currentAction.type === ESquadActionType.STAY_ON_TARGET) {
           return true;
         }
       }

@@ -3,9 +3,9 @@ import { alife } from "xray16";
 import { registry } from "@/engine/core/database";
 import { TSimulationObject } from "@/engine/core/managers/simulation";
 import type { Squad } from "@/engine/core/objects/server/squad/Squad";
-import type { ISquadAction } from "@/engine/core/objects/server/squad/squad_types";
+import { ESquadActionType, ISquadAction } from "@/engine/core/objects/server/squad/squad_types";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { Optional, TName, TNumberId } from "@/engine/lib/types";
+import { Optional, TNumberId } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -13,9 +13,7 @@ const logger: LuaLogger = new LuaLogger($filename);
  * Implement movement to target action.
  */
 export class SquadReachTargetAction implements ISquadAction {
-  public static readonly ACTION_NAME: TName = "reach_target";
-
-  public readonly name: TName = SquadReachTargetAction.ACTION_NAME;
+  public readonly type: ESquadActionType = ESquadActionType.REACH_TARGET;
   public readonly squad: Squad;
 
   public constructor(squad: Squad) {

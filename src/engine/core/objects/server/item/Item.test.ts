@@ -2,7 +2,7 @@ import { describe, expect, it, jest } from "@jest/globals";
 
 import { getObjectIdByStoryId, getServerObjectByStoryId, getStoryIdByObjectId, registry } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
-import { InventoryBox } from "@/engine/core/objects/server";
+import { InventoryBox } from "@/engine/core/objects/server/item/InventoryBox";
 import { Item } from "@/engine/core/objects/server/item/Item";
 import { mockIniFile } from "@/fixtures/xray/mocks/ini";
 

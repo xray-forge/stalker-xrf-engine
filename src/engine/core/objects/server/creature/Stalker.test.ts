@@ -1,7 +1,7 @@
 import { describe, expect, it, jest } from "@jest/globals";
 
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
-import { Stalker } from "@/engine/core/objects/server";
+import { Stalker } from "@/engine/core/objects/server/creature/Stalker";
 
 describe("Stalker server object", () => {
   it("should correctly emit lifecycle events", () => {

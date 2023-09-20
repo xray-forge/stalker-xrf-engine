@@ -22,7 +22,7 @@ ai:
   - src/engine/core/objects/ai/**
 
 extensions:
-  - src/engine/forms/**
+  - src/engine/extensions/**
 
 ui:
   - src/engine/forms/**

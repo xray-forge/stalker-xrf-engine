@@ -1,4 +1,4 @@
-import { alife, cse_alife_human_stalker, level, LuabindClass } from "xray16";
+import { cse_alife_human_stalker, level, LuabindClass } from "xray16";
 
 import {
   IStoredOfflineObject,
@@ -9,7 +9,8 @@ import {
 } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { SimulationBoardManager } from "@/engine/core/managers/simulation/SimulationBoardManager";
-import type { SmartTerrain, Squad } from "@/engine/core/objects/server";
+import type { SmartTerrain } from "@/engine/core/objects/server/smart_terrain";
+import type { Squad } from "@/engine/core/objects/server/squad";
 import { assert } from "@/engine/core/utils/assertion";
 import { parseNumberOptional, parseStringOptional } from "@/engine/core/utils/ini/ini_parse";
 import { readIniString } from "@/engine/core/utils/ini/ini_read";
@@ -63,7 +64,7 @@ export class Stalker extends cse_alife_human_stalker {
     const smartTerrain: Optional<SmartTerrain> = simulationBoardManager.getSmartTerrainByName(smartName);
 
     if (smartTerrain) {
-      alife().object<SmartTerrain>(smartTerrain.id)!.register_npc(this);
+      registry.simulator.object<SmartTerrain>(smartTerrain.id)!.register_npc(this);
     }
 
     EventsManager.emitEvent(EGameEvent.STALKER_REGISTER, this);
@@ -75,7 +76,7 @@ export class Stalker extends cse_alife_human_stalker {
     const smartTerrainId: TNumberId = this.smart_terrain_id();
 
     if (smartTerrainId !== MAX_U16) {
-      const smartTerrain: Optional<SmartTerrain> = alife().object(smartTerrainId);
+      const smartTerrain: Optional<SmartTerrain> = registry.simulator.object(smartTerrainId);
 
       if (smartTerrain !== null) {
         smartTerrain.unregister_npc(this);
@@ -97,12 +98,12 @@ export class Stalker extends cse_alife_human_stalker {
     const smartTerrainId: TNumberId = this.smart_terrain_id();
 
     if (smartTerrainId !== MAX_U16) {
-      (alife().object(smartTerrainId) as SmartTerrain).onObjectDeath(this);
+      (registry.simulator.object(smartTerrainId) as SmartTerrain).onObjectDeath(this);
     }
 
     // Notify assigned squad about abject death.
     if (this.group_id !== MAX_U16) {
-      const squad: Optional<Squad> = alife().object(this.group_id);
+      const squad: Optional<Squad> = registry.simulator.object(this.group_id);
 
       assert(squad, "There is no squad with ID [%s]", this.group_id);
 

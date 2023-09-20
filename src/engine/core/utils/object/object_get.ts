@@ -1,6 +1,7 @@
 import { alife } from "xray16";
 
-import type { SmartTerrain, Squad } from "@/engine/core/objects/server";
+import type { SmartTerrain } from "@/engine/core/objects/server/smart_terrain";
+import type { Squad } from "@/engine/core/objects/server/squad";
 import { assertDefined } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { isStalker } from "@/engine/core/utils/object/object_class";
