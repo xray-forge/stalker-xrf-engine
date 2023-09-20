@@ -1,11 +1,17 @@
 import { describe, expect, it } from "@jest/globals";
 
-import { registerActor, unregisterActor } from "@/engine/core/database/actor";
+import {
+  registerActor,
+  registerActorServer,
+  unregisterActor,
+  unregisterActorServer,
+} from "@/engine/core/database/actor";
 import { registry } from "@/engine/core/database/registry";
+import { Actor } from "@/engine/core/objects/server/creature";
 import { ClientObject } from "@/engine/lib/types";
 import { mockClientGameObject } from "@/fixtures/xray";
 
-describe("'actor' module of the database", () => {
+describe("actor module of the database", () => {
   it("should correctly register actor", () => {
     expect(registry.actor).toBeNull();
 
@@ -23,5 +29,21 @@ describe("'actor' module of the database", () => {
 
     expect(registry.actor).toBeNull();
     expect(registry.objects.length()).toBe(0);
+  });
+
+  it("should correctly register actor server", () => {
+    expect(registry.actor).toBeNull();
+
+    const actor: Actor = new Actor("actor");
+
+    expect(actor.id).toBe(0);
+
+    registerActorServer(actor);
+
+    expect(registry.actorServer).toBe(actor);
+
+    unregisterActorServer();
+
+    expect(registry.actorServer).toBeNull();
   });
 });

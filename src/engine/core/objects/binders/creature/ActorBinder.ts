@@ -1,4 +1,4 @@
-import { alife, callback, level, LuabindClass, object_binder } from "xray16";
+import { callback, level, LuabindClass, object_binder } from "xray16";
 
 import {
   closeLoadMarker,
@@ -17,7 +17,6 @@ import { updateSimulationObjectAvailability } from "@/engine/core/database/simul
 import { EGameEvent } from "@/engine/core/managers/events/events_types";
 import { EventsManager } from "@/engine/core/managers/events/EventsManager";
 import { SaveManager } from "@/engine/core/managers/save/SaveManager";
-import { Actor } from "@/engine/core/objects/server/creature/Actor";
 import { ISchemeDeimosState } from "@/engine/core/schemes/restrictor/sr_deimos";
 import { SchemeDeimos } from "@/engine/core/schemes/restrictor/sr_deimos/SchemeDeimos";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -142,7 +141,7 @@ export class ActorBinder extends object_binder {
     this.eventsManager.tick();
 
     // todo: Probably part of sim manager?
-    updateSimulationObjectAvailability(alife().actor<Actor>());
+    updateSimulationObjectAvailability(registry.actorServer);
   }
 
   public override save(packet: NetPacket): void {

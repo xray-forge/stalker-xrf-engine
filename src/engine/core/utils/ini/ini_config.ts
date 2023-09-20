@@ -70,6 +70,8 @@ export function getSectionsFromConditionLists(object: ClientObject, data: Option
  * Pick resulting scheme based on info portions and xr_conditions requirements.
  * Process side effects of such checks and give needed infos and call effects on switch.
  *
+ * todo: Implement static condlists and check performance without parsing etc.
+ *
  * @param actor - actor client object
  * @param object - target client object
  * @param condlist - target condlist to process

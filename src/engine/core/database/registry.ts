@@ -10,6 +10,7 @@ import type {
   SignalLightBinder,
 } from "@/engine/core/objects/binders";
 import type { CampManager } from "@/engine/core/objects/camp";
+import type { Actor } from "@/engine/core/objects/server/creature/Actor";
 import type { SmartCover } from "@/engine/core/objects/server/smart_cover";
 import type { SmartTerrain } from "@/engine/core/objects/server/smart_terrain";
 import type { AbstractPlayableSound } from "@/engine/core/objects/sounds/playable_sounds";
@@ -46,6 +47,10 @@ export const registry = {
    * Current actor, injected on game start.
    */
   actor: null as unknown as ClientObject,
+  /**
+   * Current actor, server object representation.
+   */
+  actorServer: null as unknown as Actor,
   /**
    * Currently active speaker in dialogs.
    */
