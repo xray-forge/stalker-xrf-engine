@@ -1,11 +1,13 @@
-import { flush, profile_timer } from "xray16";
+import { profile_timer } from "xray16";
 
 import { AbstractManager } from "@/engine/core/managers/base/AbstractManager";
 import { IProfileSnapshotDescriptor } from "@/engine/core/managers/debug/debug_types";
 import { abort } from "@/engine/core/utils/assertion";
+import { executeConsoleCommand } from "@/engine/core/utils/game/game_console";
 import { ELuaLoggerMode, LuaLogger } from "@/engine/core/utils/logging";
 import { gameConfig } from "@/engine/lib/configs/GameConfig";
-import { AnyCallable, Optional, ProfileTimer, TCount, TName } from "@/engine/lib/types";
+import { consoleCommands } from "@/engine/lib/constants/console_commands";
+import { AnyCallable, LuaArray, Optional, ProfileTimer, TCount, TDuration, TName } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename, { mode: ELuaLoggerMode.DUAL, file: "profiling" });
 
@@ -13,6 +15,9 @@ const logger: LuaLogger = new LuaLogger($filename, { mode: ELuaLoggerMode.DUAL, 
  * Manager to profile lua methods frequency calls and measure duration of functions execution.
  */
 export class ProfilingManager extends AbstractManager {
+  // Store of manually created profiling portion durations. Stores time in `microseconds`.
+  public profilingPortions: LuaTable<AnyCallable, LuaArray<TDuration>> = new LuaTable();
+
   public countersMap: LuaTable<AnyCallable, IProfileSnapshotDescriptor> = new LuaTable();
   public namesMap: LuaTable<AnyCallable, debug.FunctionInfo> = new LuaTable();
   public callsCountMap: LuaTable<AnyCallable, { info: debug.FunctionInfo; count: number }> = new LuaTable();
@@ -83,7 +88,18 @@ export class ProfilingManager extends AbstractManager {
    * @returns function name descriptor based on debug information
    */
   public getFunctionName(info: debug.FunctionInfo): string {
-    return string.format("[%s]:%s (%s:%s)", info.short_src, info.linedefined, info.what, info.name);
+    if (info === null) {
+      return "[unknown]";
+    }
+
+    return string.format(
+      "[%s]:%s-%s (%s:%s)",
+      info.short_src,
+      info.linedefined,
+      info.lastlinedefined,
+      info.what,
+      info.name
+    );
   }
 
   /**
@@ -98,72 +114,6 @@ export class ProfilingManager extends AbstractManager {
     this.countersMap = new LuaTable();
     this.namesMap = new LuaTable();
     this.profilingTimer = new profile_timer();
-  }
-
-  /**
-   * Print calls measurement stats.
-   */
-  public logCallsCountStats(limit: TCount = 128): void {
-    if (!this.isProfilingStarted) {
-      return logger.warn("Profiler hook wasn't setup, no stats found");
-    }
-
-    this.clearHook();
-
-    const sortedStats: LuaTable<TName, TCount> = new LuaTable();
-
-    for (const [func, funcDetails] of this.callsCountMap) {
-      const name: TName = this.getFunctionName(funcDetails.info);
-      const count: Optional<TCount> = sortedStats.get(name);
-
-      sortedStats.set(name, count === null ? funcDetails.count : count + funcDetails.count);
-    }
-
-    let totalCallsCount: number = 0;
-    const outStats: LuaTable<number, { name: TName; count: TCount }> = new LuaTable();
-
-    for (const [name, count] of sortedStats) {
-      table.insert(outStats, { name: name === "[[C]]:-1" ? "#uncrecognized C/C++ stuff" : name, count: count });
-      totalCallsCount = totalCallsCount + count;
-    }
-
-    table.sort(outStats, (left, right) => left.count > right.count);
-
-    /**
-     * Print summary of profiled calls count data:
-     */
-
-    logger.pushEmptyLine();
-    logger.info("==================================================================================================");
-    logger.info("Total calls stat, limit:", limit, "JIT:", jit !== null);
-    logger.info("==================================================================================================");
-
-    let printedCount: TCount = 0;
-
-    // Print top stats from list (controlled by limit)
-    for (const [idx, stat] of outStats) {
-      if (printedCount < limit) {
-        logger.info(
-          string.format("[%2d] %6d (%5.2f%%) : %s", idx, stat.count, (stat.count * 100) / totalCallsCount, stat.name)
-        );
-        printedCount++;
-      } else {
-        break;
-      }
-    }
-
-    logger.info("==================================================================================================");
-    logger.info("Total function calls count:", totalCallsCount);
-    logger.info("Total function calls / sec:", totalCallsCount / (this.profilingTimer.time() / 1000 / 1000));
-    logger.info("Total unique LUA functions called:", outStats.length());
-    logger.info("Profiling time:", this.profilingTimer.time() / 1000);
-    logger.info("RAM used:", this.getLuaMemoryUsed() / 1024, "MB");
-    logger.info("==================================================================================================");
-    logger.pushEmptyLine();
-
-    flush();
-
-    this.setupHook(this.mode, true);
   }
 
   /**
@@ -300,5 +250,170 @@ export class ProfilingManager extends AbstractManager {
         return;
       }
     }
+  }
+
+  /**
+   * Print calls measurement stats based on automated hook profiling observation.
+   *
+   * @param limit - count of captured call stats to print
+   */
+  public logHookedCallsCountStats(limit: TCount = 128): void {
+    if (!this.isProfilingStarted) {
+      return logger.warn("Profiler hook wasn't setup, no stats found");
+    }
+
+    this.clearHook();
+
+    const sortedStats: LuaTable<TName, TCount> = new LuaTable();
+
+    for (const [func, funcDetails] of this.callsCountMap) {
+      const name: TName = this.getFunctionName(funcDetails.info);
+      const count: Optional<TCount> = sortedStats.get(name);
+
+      sortedStats.set(name, count === null ? funcDetails.count : count + funcDetails.count);
+    }
+
+    let totalCallsCount: number = 0;
+    const outStats: LuaTable<number, { name: TName; count: TCount }> = new LuaTable();
+
+    for (const [name, count] of sortedStats) {
+      table.insert(outStats, { name: name === "[[C]]:-1" ? "#uncrecognized C/C++ stuff" : name, count: count });
+      totalCallsCount = totalCallsCount + count;
+    }
+
+    table.sort(outStats, (left, right) => left.count > right.count);
+
+    /**
+     * Print summary of profiled calls count data:
+     */
+
+    logger.pushEmptyLine();
+    logger.info("==================================================================================================");
+    logger.info("Total calls stat, limit:", limit, "JIT:", jit !== null);
+    logger.info("==================================================================================================");
+
+    let printedCount: TCount = 0;
+
+    // Print top stats from list (controlled by limit)
+    for (const [idx, stat] of outStats) {
+      if (printedCount < limit) {
+        logger.info(
+          string.format("[%2d] %6d (%5.2f%%) : %s", idx, stat.count, (stat.count * 100) / totalCallsCount, stat.name)
+        );
+        printedCount++;
+      } else {
+        break;
+      }
+    }
+
+    logger.info("==================================================================================================");
+    logger.info("Total function calls count:", totalCallsCount);
+    logger.info("Total function calls / sec:", totalCallsCount / (this.profilingTimer.time() / 1000 / 1000));
+    logger.info("Total unique LUA functions called:", outStats.length());
+    logger.info("Profiling time:", this.profilingTimer.time() / 1000);
+    logger.info("RAM used:", this.getLuaMemoryUsed() / 1024, "MB");
+    logger.info("==================================================================================================");
+    logger.pushEmptyLine();
+
+    executeConsoleCommand(consoleCommands.flush);
+
+    this.setupHook(this.mode, true);
+  }
+
+  /**
+   * Print manual measurement stats based on pushed profiling portions.
+   *
+   * @param limit - count of captured call stats to print
+   */
+  public logProfilingPortionsStats(limit: TCount = 128): void {
+    let totalCalls: TCount = 0;
+    let totalDuration: TDuration = 0;
+
+    const stats: LuaTable<TName, { min: TDuration; max: TDuration; avg: TDuration; sum: TDuration; count: TCount }> =
+      new LuaTable();
+
+    for (const [func, calls] of this.profilingPortions) {
+      const name: TName = this.getFunctionName(debug.getinfo(func));
+      const summary = {
+        count: 0,
+        avg: 0,
+        min: Infinity,
+        max: -Infinity,
+        sum: 0,
+      };
+
+      for (const [, duration] of calls) {
+        summary.count += 1;
+        summary.sum += duration;
+
+        if (summary.min > duration) {
+          summary.min = duration;
+        }
+
+        if (summary.max < duration) {
+          summary.max = duration;
+        }
+      }
+
+      summary.avg = summary.sum / summary.count;
+
+      totalCalls += summary.count;
+      totalDuration += summary.sum;
+
+      stats.set(name, summary);
+    }
+
+    table.sort(stats, (left, right) => left.sum > right.sum);
+
+    if (table.size(stats) === 0) {
+      logger.pushEmptyLine();
+      logger.info("==================================================================================================");
+      logger.info("No custom profiling portions captured yet");
+      logger.info("==================================================================================================");
+
+      return;
+    }
+
+    /**
+     * Print summary of profiled calls count data:
+     */
+
+    logger.pushEmptyLine();
+    logger.info("==================================================================================================");
+    logger.info("Total portions calls stat, limit:", limit, "JIT:", jit !== null);
+    logger.info("==================================================================================================");
+
+    let printedCount: TCount = 0;
+
+    // Print top stats from list (controlled by limit)
+    for (const [name, stat] of stats) {
+      if (printedCount < limit) {
+        logger.info(
+          string.format(
+            "[%3d] [%5.f | %8.3f | %10.f] %12d (%5.2f%%) %8d (%5.2f%%): %s",
+            printedCount + 1,
+            stat.min,
+            stat.avg,
+            stat.max,
+            stat.sum,
+            (stat.sum * 100) / totalDuration,
+            stat.count,
+            (stat.count * 100) / totalCalls,
+            name
+          )
+        );
+        printedCount++;
+      } else {
+        break;
+      }
+    }
+
+    logger.info("==================================================================================================");
+    logger.info("Total function calls count:", totalCalls);
+    logger.info("RAM used:", this.getLuaMemoryUsed() / 1024, "MB");
+    logger.info("==================================================================================================");
+    logger.pushEmptyLine();
+
+    executeConsoleCommand(consoleCommands.flush);
   }
 }

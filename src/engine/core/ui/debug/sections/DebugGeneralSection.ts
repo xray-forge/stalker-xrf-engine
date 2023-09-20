@@ -1,10 +1,10 @@
 import { command_line, CUI3tButton, CUIStatic, LuabindClass, ui_events } from "xray16";
 
 import { SYSTEM_INI } from "@/engine/core/database";
-import { ProfilingManager } from "@/engine/core/managers/debug/ProfilingManager";
+import { ProfilingManager } from "@/engine/core/managers/debug/profiling";
 import { AbstractDebugSection } from "@/engine/core/ui/debug/sections/AbstractDebugSection";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { resolveXmlFile } from "@/engine/core/utils/ui";
+import { EElementType, registerUiElement, resolveXmlFile } from "@/engine/core/utils/ui";
 import { gameConfig } from "@/engine/lib/configs/GameConfig";
 import { TPath, XmlInit } from "@/engine/lib/types";
 
@@ -21,13 +21,9 @@ export class DebugGeneralSection extends AbstractDebugSection {
   public uiProfilingToggleButton!: CUI3tButton;
   public uiSimulationDebugToggleButton!: CUI3tButton;
   public uiProfilingReportButton!: CUI3tButton;
-  public uiDumpSystemIniButton!: CUI3tButton;
 
   public uiLuaJitLabel!: CUIStatic;
 
-  /**
-   * todo: Description.
-   */
   public initializeControls(): void {
     const xml: XmlInit = resolveXmlFile(base, this.xml);
 
@@ -37,62 +33,81 @@ export class DebugGeneralSection extends AbstractDebugSection {
       .TextControl()
       .SetText("Command line args:" + (command_line() || "unknown"));
 
-    this.uiMemoryUsageCountLabel = xml.InitStatic("memory_usage_count", this);
-    this.uiLuaVersionLabel = xml.InitStatic("lua_version_label", this);
-    this.uiLuaJitLabel = xml.InitStatic("lua_jit_label", this);
-    this.uiProfilingToggleButton = xml.Init3tButton("profiling_toggle_button", this);
-    this.uiProfilingReportButton = xml.Init3tButton("profiling_log_button", this);
-    this.uiSimulationDebugToggleButton = xml.Init3tButton("debug_simulation_toggle_button", this);
-    this.uiDumpSystemIniButton = xml.Init3tButton("dump_system_ini_button", this);
+    this.uiMemoryUsageCountLabel = registerUiElement(xml, "memory_usage_count", {
+      type: EElementType.STATIC,
+      base: this,
+    });
+    this.uiLuaVersionLabel = registerUiElement(xml, "lua_version_label", {
+      type: EElementType.STATIC,
+      base: this,
+    });
+    this.uiLuaJitLabel = registerUiElement(xml, "lua_jit_label", {
+      type: EElementType.STATIC,
+      base: this,
+    });
 
-    this.owner.Register(xml.Init3tButton("refresh_memory_button", this), "refresh_memory_button");
-    this.owner.Register(xml.Init3tButton("collect_memory_button", this), "collect_memory_button");
-    this.owner.Register(this.uiProfilingToggleButton, "profiling_toggle_button");
-    this.owner.Register(this.uiProfilingReportButton, "profiling_log_button");
-    this.owner.Register(this.uiSimulationDebugToggleButton, "debug_simulation_toggle_button");
-    this.owner.Register(this.uiDumpSystemIniButton, "dump_system_ini_button");
-  }
+    this.uiProfilingToggleButton = registerUiElement(xml, "profiling_toggle_button", {
+      type: EElementType.BUTTON,
+      base: this,
+      context: this.owner,
+      handlers: {
+        [ui_events.BUTTON_CLICKED]: () => this.onToggleProfilingButtonClick(),
+      },
+    });
 
-  /**
-   * todo: Description.
-   */
-  public override initializeCallBacks(): void {
-    this.owner.AddCallback(
-      "refresh_memory_button",
-      ui_events.BUTTON_CLICKED,
-      () => this.onRefreshMemoryButtonClick(),
-      this
-    );
+    this.uiSimulationDebugToggleButton = registerUiElement(xml, "debug_simulation_toggle_button", {
+      type: EElementType.BUTTON,
+      base: this,
+      context: this.owner,
+      handlers: {
+        [ui_events.BUTTON_CLICKED]: () => this.onToggleSimulationDebugButtonClick(),
+      },
+    });
 
-    this.owner.AddCallback(
-      "collect_memory_button",
-      ui_events.BUTTON_CLICKED,
-      () => this.onCollectMemoryButtonClick(),
-      this
-    );
+    registerUiElement(xml, "refresh_memory_button", {
+      type: EElementType.BUTTON,
+      base: this,
+      context: this.owner,
+      handlers: {
+        [ui_events.BUTTON_CLICKED]: () => this.onRefreshMemoryButtonClick(),
+      },
+    });
 
-    this.owner.AddCallback(
-      "profiling_toggle_button",
-      ui_events.BUTTON_CLICKED,
-      () => this.onToggleProfilingButtonClick(),
-      this
-    );
+    registerUiElement(xml, "collect_memory_button", {
+      type: EElementType.BUTTON,
+      base: this,
+      context: this.owner,
+      handlers: {
+        [ui_events.BUTTON_CLICKED]: () => this.onCollectMemoryButtonClick(),
+      },
+    });
 
-    this.owner.AddCallback(
-      "profiling_log_button",
-      ui_events.BUTTON_CLICKED,
-      () => this.onLogProfilingStatsButtonClick(),
-      this
-    );
+    registerUiElement(xml, "dump_system_ini_button", {
+      type: EElementType.BUTTON,
+      base: this,
+      context: this.owner,
+      handlers: {
+        [ui_events.BUTTON_CLICKED]: () => this.onDumpSystemIni(),
+      },
+    });
 
-    this.owner.AddCallback(
-      "debug_simulation_toggle_button",
-      ui_events.BUTTON_CLICKED,
-      () => this.onToggleSimulationDebugButtonClick(),
-      this
-    );
+    this.uiProfilingReportButton = registerUiElement(xml, "profiling_log_button", {
+      base: this,
+      type: EElementType.BUTTON,
+      context: this.owner,
+      handlers: {
+        [ui_events.BUTTON_CLICKED]: () => this.onLogProfilingStatsButtonClick(),
+      },
+    });
 
-    this.owner.AddCallback("dump_system_ini_button", ui_events.BUTTON_CLICKED, () => this.onDumpSystemIni(), this);
+    registerUiElement(xml, "portions_log_button", {
+      base: this,
+      type: EElementType.BUTTON,
+      context: this.owner,
+      handlers: {
+        [ui_events.BUTTON_CLICKED]: () => this.onLogPortionsStatsButtonClick(),
+      },
+    });
   }
 
   /**
@@ -147,10 +162,17 @@ export class DebugGeneralSection extends AbstractDebugSection {
     const profilingManager: ProfilingManager = ProfilingManager.getInstance();
 
     if (profilingManager.isProfilingStarted) {
-      profilingManager.logCallsCountStats();
+      profilingManager.logHookedCallsCountStats();
     } else {
-      logger.info("Profiler manager is disabled");
+      logger.info("Profiling manager is disabled");
     }
+  }
+
+  /**
+   * todo: Description.
+   */
+  public onLogPortionsStatsButtonClick(): void {
+    ProfilingManager.getInstance().logProfilingPortionsStats();
   }
 
   /**

@@ -76,6 +76,18 @@ export function create(): JSXNode {
       />
 
       <Xr3tButton
+        tag={"portions_log_button"}
+        x={166}
+        y={52}
+        height={16}
+        width={72}
+        label={"Log portions report"}
+        font={fonts.letterica16}
+        textColor={WHITE}
+        texture={"ui_inGame2_Mp_bigbuttone"}
+      />
+
+      <Xr3tButton
         tag={"debug_simulation_toggle_button"}
         x={12}
         y={72}

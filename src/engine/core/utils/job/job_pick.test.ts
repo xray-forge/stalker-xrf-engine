@@ -1,5 +1,6 @@
 import { beforeAll, describe, expect, it } from "@jest/globals";
 
+import { registerSimulator } from "@/engine/core/database";
 import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain";
 import {
   createObjectJobDescriptor,
@@ -16,6 +17,7 @@ import { mockServerAlifeCreatureActor, mockServerAlifeHumanStalker, mockServerAl
 describe("'job_pick' utils", () => {
   beforeAll(() => {
     mockServerAlifeCreatureActor();
+    registerSimulator();
   });
 
   it("'selectSmartTerrainJob' should correctly get jobs for stalkers", () => {
