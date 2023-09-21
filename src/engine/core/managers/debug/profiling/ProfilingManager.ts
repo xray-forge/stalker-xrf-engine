@@ -7,7 +7,7 @@ import { executeConsoleCommand } from "@/engine/core/utils/game/game_console";
 import { ELuaLoggerMode, LuaLogger } from "@/engine/core/utils/logging";
 import { gameConfig } from "@/engine/lib/configs/GameConfig";
 import { consoleCommands } from "@/engine/lib/constants/console_commands";
-import { AnyCallable, LuaArray, Optional, ProfileTimer, TCount, TDuration, TName } from "@/engine/lib/types";
+import { AnyCallable, LuaArray, Optional, ProfileTimer, TCount, TDuration, TIndex, TName } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename, { mode: ELuaLoggerMode.DUAL, file: "profiling" });
 
@@ -98,7 +98,7 @@ export class ProfilingManager extends AbstractManager {
       info.linedefined,
       info.lastlinedefined,
       info.what,
-      info.name
+      info.name ?? "???"
     );
   }
 
@@ -329,12 +329,18 @@ export class ProfilingManager extends AbstractManager {
     let totalCalls: TCount = 0;
     let totalDuration: TDuration = 0;
 
-    const stats: LuaTable<TName, { min: TDuration; max: TDuration; avg: TDuration; sum: TDuration; count: TCount }> =
-      new LuaTable();
+    const stats: LuaArray<{
+      min: TDuration;
+      max: TDuration;
+      avg: TDuration;
+      sum: TDuration;
+      count: TCount;
+      src: TName;
+    }> = new LuaTable();
 
     for (const [func, calls] of this.profilingPortions) {
-      const name: TName = typeof func === "string" ? func : this.getFunctionName(debug.getinfo(func));
       const summary = {
+        src: typeof func === "string" ? func : this.getFunctionName(debug.getinfo(func)),
         count: 0,
         avg: 0,
         min: Infinity,
@@ -360,7 +366,7 @@ export class ProfilingManager extends AbstractManager {
       totalCalls += summary.count;
       totalDuration += summary.sum;
 
-      stats.set(name, summary);
+      table.insert(stats, summary);
     }
 
     table.sort(stats, (left, right) => left.sum > right.sum);
@@ -386,7 +392,7 @@ export class ProfilingManager extends AbstractManager {
     let printedCount: TCount = 0;
 
     // Print top stats from list (controlled by limit)
-    for (const [name, stat] of stats) {
+    for (const [, stat] of stats) {
       if (printedCount < limit) {
         logger.info(
           string.format(
@@ -399,7 +405,7 @@ export class ProfilingManager extends AbstractManager {
             (stat.sum * 100) / totalDuration,
             stat.count,
             (stat.count * 100) / totalCalls,
-            name
+            stat.src
           )
         );
         printedCount++;

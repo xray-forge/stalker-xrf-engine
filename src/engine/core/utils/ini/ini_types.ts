@@ -1,4 +1,3 @@
-import type { TInfoPortion } from "@/engine/lib/constants/info_portions";
 import type { Flags32, LuaArray, Optional, TCount, TIndex, TName, TProbability, TSection } from "@/engine/lib/types";
 
 /**
@@ -61,7 +60,7 @@ export interface ISpawnDescriptor {
  * Descriptor describing parsed condition in one conditions list.
  */
 export interface IConfigCondition {
-  name?: TInfoPortion;
+  name?: TName;
   func?: TName;
   required?: boolean;
   expected?: boolean;

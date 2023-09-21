@@ -4,7 +4,7 @@ import { registry, SYSTEM_INI } from "@/engine/core/database";
 import { SimulationBoardManager } from "@/engine/core/managers/simulation/SimulationBoardManager";
 import type { SmartTerrain } from "@/engine/core/objects/server/smart_terrain";
 import type { Squad } from "@/engine/core/objects/server/squad";
-import { assert, assertDefined } from "@/engine/core/utils/assertion";
+import { abort, assert, assertDefined } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { isStalker } from "@/engine/core/utils/object/object_class";
 import { getObjectPositioning } from "@/engine/core/utils/object/object_get";
@@ -227,12 +227,15 @@ export function spawnObjectInObject<T extends ServerObject>(
 ): T {
   // logger.info("Spawn in object:", section, targetId);
 
-  assertDefined(section, "Wrong spawn section for 'spawnObjectInObject' function '%s'.", section);
-  assertDefined(targetId, "Wrong spawn targetId for 'spawnObjectInObject' function '%s'.", section);
+  if (!section || !targetId) {
+    abort("Wrong spawn configuration for 'spawnObjectInObject', '%s' and '%s'.", section, targetId);
+  }
 
   const box: Optional<ServerObject> = registry.simulator.object(targetId);
 
-  assertDefined(box, "Wrong spawn target object for 'spawnObjectInObject' function '%s'.", section);
+  if (!box) {
+    abort("Wrong spawn target object for 'spawnObjectInObject' function '%s'.", section);
+  }
 
   return registry.simulator.create(section, createEmptyVector(), 0, 0, targetId);
 }

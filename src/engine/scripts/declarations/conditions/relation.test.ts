@@ -16,7 +16,6 @@ describe("'relation' conditions declaration", () => {
     checkXrCondition("is_faction_neutral_to_actor");
     checkXrCondition("is_squad_friend_to_actor");
     checkXrCondition("is_squad_enemy_to_actor");
-    checkXrCondition("is_squad_neutral_to_actor");
     checkXrCondition("fighting_actor");
     checkXrCondition("actor_enemy");
     checkXrCondition("actor_friend");

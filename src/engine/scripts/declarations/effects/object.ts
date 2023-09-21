@@ -262,39 +262,42 @@ extern(
 );
 
 /**
- * todo;
+ * Spawn corpse of provided section.
+ * Spawn location is based on provided patrol name and patrol index.
  */
-extern("xr_effects.spawn_corpse", (actor: ClientObject, obj: ClientObject, params: [string, string, number]): void => {
-  // logger.info("Spawn corpse:", params[0]);
+extern(
+  "xr_effects.spawn_corpse",
+  (
+    actor: ClientObject,
+    object: ClientObject,
+    [spawnSection, pathName, index]: [TSection, TName, Optional<TIndex>]
+  ): void => {
+    // logger.info("Spawn corpse:", params[0]);
 
-  const spawnSection: TSection = params[0];
+    if (spawnSection === null) {
+      abort("Wrong spawn section for 'spawn_corpse' function %s. For object %s", tostring(spawnSection), object.name());
+    }
 
-  if (spawnSection === null) {
-    abort("Wrong spawn section for 'spawn_corpse' function %s. For object %s", tostring(spawnSection), obj.name());
+    if (pathName === null) {
+      abort("Wrong path_name for 'spawn_corpse' function %s. For object %s", tostring(pathName), object.name());
+    }
+
+    if (!level.patrol_path_exists(pathName)) {
+      abort("Path %s doesnt exist. Function 'spawn_corpse' for object %s ", tostring(pathName), object.name());
+    }
+
+    const patrolObject: patrol = new patrol(pathName);
+
+    const serverObject: ServerCreatureObject = registry.simulator.create(
+      spawnSection,
+      patrolObject.point(index ?? 0),
+      patrolObject.level_vertex_id(0),
+      patrolObject.game_vertex_id(0)
+    );
+
+    serverObject.kill();
   }
-
-  const pathName: Optional<TName> = params[1];
-
-  if (pathName === null) {
-    abort("Wrong path_name for 'spawn_corpse' function %s. For object %s", tostring(pathName), obj.name());
-  }
-
-  if (!level.patrol_path_exists(pathName)) {
-    abort("Path %s doesnt exist. Function 'spawn_corpse' for object %s ", tostring(pathName), obj.name());
-  }
-
-  const patrolObject: patrol = new patrol(pathName);
-  const index: TIndex = params[2] || 0;
-
-  const serverObject: ServerCreatureObject = registry.simulator.create(
-    spawnSection,
-    patrolObject.point(index),
-    patrolObject.level_vertex_id(0),
-    patrolObject.game_vertex_id(0)
-  );
-
-  serverObject.kill();
-});
+);
 
 /**
  * todo;
@@ -744,19 +747,20 @@ extern("xr_effects.switch_to_desired_job", (actor: ClientObject, object: ClientO
 /**
  * todo;
  */
-extern("xr_effects.spawn_item_to_npc", (actor: ClientObject, object: ClientObject, p: [Optional<string>]): void => {
-  const newItem: Optional<TSection> = p[0];
-
-  if (newItem) {
-    registry.simulator.create(
-      newItem,
-      object.position(),
-      object.level_vertex_id(),
-      object.game_vertex_id(),
-      object.id()
-    );
+extern(
+  "xr_effects.spawn_item_to_npc",
+  (actor: ClientObject, object: ClientObject, [section]: [Optional<TSection>]): void => {
+    if (section) {
+      registry.simulator.create(
+        section,
+        object.position(),
+        object.level_vertex_id(),
+        object.game_vertex_id(),
+        object.id()
+      );
+    }
   }
-});
+);
 
 /**
  * todo;

@@ -126,8 +126,6 @@ extern(
 extern(
   "xr_conditions.is_squad_enemy_to_actor",
   (actor: ClientObject, object: ClientObject, params: Array<TStringId>): boolean => {
-    assert(params, "Not enough arguments in 'is_squad_enemy_to_actor' function.");
-
     for (const squadStoryId of params) {
       const squad: Optional<Squad> = getServerObjectByStoryId(squadStoryId);
 
@@ -139,16 +137,6 @@ extern(
     return false;
   }
 );
-
-/**
- * todo;
- */
-extern("xr_conditions.is_squad_neutral_to_actor", (actor: ClientObject, object: ClientObject, p: [string]): boolean => {
-  return !(
-    getExtern<AnyCallable>("is_squad_enemy_to_actor", getExtern("xr_conditions"))(actor, object, p) ||
-    getExtern<AnyCallable>("is_squad_friend_to_actor", getExtern("xr_conditions"))(actor, object, p)
-  );
-});
 
 /**
  * todo;

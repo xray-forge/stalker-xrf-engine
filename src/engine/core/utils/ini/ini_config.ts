@@ -1,5 +1,5 @@
 import { registry } from "@/engine/core/database/registry";
-import { getObjectIdByStoryId } from "@/engine/core/database/story_objects";
+import { getServerObjectByStoryId } from "@/engine/core/database/story_objects";
 import { IBaseSchemeLogic, IRegistryObjectState } from "@/engine/core/database/types";
 import { abort } from "@/engine/core/utils/assertion";
 import { parseConditionsList } from "@/engine/core/utils/ini/ini_parse";
@@ -19,7 +19,6 @@ import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
 import { TInfoPortion } from "@/engine/lib/constants/info_portions";
 import { NEVER, NIL } from "@/engine/lib/constants/words";
 import {
-  AlifeSimulator,
   AnyCallable,
   AnyObject,
   ClientObject,
@@ -102,32 +101,18 @@ export function pickSectionFromCondList<T extends TSection>(
           );
         }
 
-        if (configCondition.params) {
-          if (condition(actor, object, configCondition.params)) {
-            if (!configCondition.expected) {
-              areInfoPortionConditionsMet = false;
-              break;
-            }
-          } else {
-            if (configCondition.expected) {
-              areInfoPortionConditionsMet = false;
-              break;
-            }
+        if (condition(actor, object, configCondition.params)) {
+          if (!configCondition.expected) {
+            areInfoPortionConditionsMet = false;
+            break;
           }
         } else {
-          if (condition(actor, object)) {
-            if (!configCondition.expected) {
-              areInfoPortionConditionsMet = false;
-              break;
-            }
-          } else {
-            if (configCondition.expected) {
-              areInfoPortionConditionsMet = false;
-              break;
-            }
+          if (configCondition.expected) {
+            areInfoPortionConditionsMet = false;
+            break;
           }
         }
-      } else if (hasAlifeInfo(configCondition.name)) {
+      } else if (configCondition.name && hasAlifeInfo(configCondition.name)) {
         if (!configCondition.required) {
           areInfoPortionConditionsMet = false;
           break;
@@ -159,11 +144,11 @@ export function pickSectionFromCondList<T extends TSection>(
 
           effect(actor, object, configCondition.params);
         } else if (configCondition.required) {
-          if (!hasAlifeInfo(configCondition.name)) {
-            giveInfo(configCondition.name);
+          if (configCondition.name && !hasAlifeInfo(configCondition.name)) {
+            giveInfo(configCondition.name as TName);
           }
         } else {
-          if (hasAlifeInfo(configCondition.name)) {
+          if (configCondition.name && hasAlifeInfo(configCondition.name)) {
             disableInfo(configCondition.name);
           }
         }
@@ -189,10 +174,8 @@ export function getConfigObjectAndZone(ini: IniFile, section: TSection, field: T
   const target: Optional<IBaseSchemeLogic> = readIniTwoStringsAndConditionsList(ini, section, field);
 
   if (target) {
-    const simulator: Optional<AlifeSimulator> = registry.simulator;
-
-    if (simulator !== null) {
-      const serverObject: Optional<ServerObject> = simulator.object(getObjectIdByStoryId(target.p1 as string)!);
+    if (registry.simulator !== null) {
+      const serverObject: Optional<ServerObject> = getServerObjectByStoryId(target.p1 as string);
 
       if (serverObject) {
         target.objectId = serverObject.id;

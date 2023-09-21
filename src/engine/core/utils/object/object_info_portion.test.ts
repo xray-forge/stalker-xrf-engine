@@ -49,16 +49,6 @@ describe("info_portion utils", () => {
     expect(registry.actor.give_info_portion).toHaveBeenCalledTimes(1);
   });
 
-  it("giveInfo should correctly ignore invalid info portions", () => {
-    registry.actor = mockActorClientGameObject();
-
-    giveInfo(null);
-    giveInfo(undefined);
-    giveInfo();
-
-    expect(registry.actor.give_info_portion).toHaveBeenCalledTimes(0);
-  });
-
   it("hasAlifeInfo should correctly check info", () => {
     expect(hasAlifeInfo(infoPortions.info_up_ac_mp5)).toBe(true);
     expect(hasAlifeInfo(infoPortions.pri_a15_lights_off)).toBe(true);
@@ -69,9 +59,6 @@ describe("info_portion utils", () => {
   });
 
   it("disableInfo should correctly turn off info", () => {
-    disableInfo(null);
-    disableInfo();
-
     expect(registry.actor.disable_info_portion).toHaveBeenCalledTimes(0);
 
     expect(hasAlifeInfo(infoPortions.info_up_ac_mp5)).toBe(true);
