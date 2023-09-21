@@ -29,6 +29,7 @@ import {
   isDistanceBetweenObjectsLessOrEqual,
   isMonster,
   isObjectInZone,
+  isObjectSquadCommander,
   isObjectWounded,
   isPlayingSound,
   isStalker,
@@ -161,8 +162,8 @@ extern(
       return false;
     }
 
-    for (const [k, v] of params) {
-      if (string.find(objectName, v)[0] !== null) {
+    for (const [, name] of params) {
+      if (string.find(objectName, name)[0] !== null) {
         return true;
       }
     }
@@ -181,10 +182,10 @@ extern(
     const enemy: Optional<ClientObject> = registry.objects.get(enemyId)?.object;
 
     if (enemy && enemy.alive()) {
-      const name: TName = enemy.name();
+      const enemyName: TName = enemy.name();
 
-      for (const [i, v] of params) {
-        if (string.find(name, v)[0] !== null) {
+      for (const [, name] of params) {
+        if (string.find(enemyName, name)[0] !== null) {
           return true;
         }
       }
@@ -774,27 +775,28 @@ extern("xr_conditions.squads_in_zone_b41", (actor: ClientObject, object: ClientO
 /**
  * todo;
  */
-extern("xr_conditions.target_squad_name", (actor: ClientObject, object: ServerCreatureObject, p: [string]): boolean => {
-  if (p[0] === null) {
-    abort("Wrong parameters for 'target_squad_name'.");
-  }
-
-  if (!object) {
-    return false;
-  }
-
-  if (isStalker(object) || isMonster(object)) {
-    if (registry.simulator.object(object.group_id) === null) {
+extern(
+  "xr_conditions.target_squad_name",
+  (actor: ClientObject, object: ServerCreatureObject, [name]: [TName]): boolean => {
+    if (!object || !name) {
       return false;
     }
 
-    if (string.find(registry.simulator.object(object.group_id)!.section_name(), p[0])[0] !== null) {
-      return true;
-    }
-  }
+    if (isStalker(object) || isMonster(object)) {
+      const squad: Optional<Squad> = registry.simulator.object(object.group_id);
 
-  return object.section_name() === p[0];
-});
+      if (squad === null) {
+        return false;
+      }
+
+      if (string.find(squad.section_name(), name)[0] !== null) {
+        return true;
+      }
+    }
+
+    return object.section_name() === name;
+  }
+);
 
 /**
  * todo;
@@ -822,16 +824,9 @@ extern(
 /**
  * todo;
  */
-extern(
-  "xr_conditions.is_squad_commander",
-  (actor: ClientObject, object: ClientObject | ServerCreatureObject): boolean => {
-    const objectId: TNumberId =
-      type(object.id) === "number" ? (object as ServerObject).id : (object as ClientObject).id();
-    const squad: Optional<Squad> = getObjectSquad(object);
-
-    return squad !== null && squad.commander_id() === objectId;
-  }
-);
+extern("xr_conditions.is_squad_commander", (actor: ClientObject, object: AnyGameObject): boolean => {
+  return isObjectSquadCommander(object);
+});
 
 /**
  * todo;

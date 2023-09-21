@@ -50,9 +50,7 @@ export function getObjectPositioning(object: AnyGameObject): LuaMultiReturn<[TNu
  * @param object - server or client object
  * @return object squad server object or null
  */
-export function getObjectSquad(object: ClientObject | ServerCreatureObject): Optional<Squad> {
-  assertDefined(object, "Attempt to get squad object from null value.");
-
+export function getObjectSquad(object: AnyGameObject): Optional<Squad> {
   // Get for client object.
   if (type(object.id) === "function") {
     const serverObject: Optional<ServerCreatureObject> = registry.simulator.object((object as ClientObject).id());

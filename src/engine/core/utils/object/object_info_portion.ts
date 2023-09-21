@@ -10,12 +10,10 @@ const logger: LuaLogger = new LuaLogger($filename, { file: "info_portions", mode
  *
  * @param infoId - info portion to give to actor
  */
-export function giveInfo(infoId?: Optional<TName>): void {
+export function giveInfo(infoId: TName): void {
   logger.info("Give alife info:", infoId);
 
-  if (infoId) {
-    registry.actor.give_info_portion(infoId);
-  }
+  registry.actor.give_info_portion(infoId);
 }
 
 /**
@@ -23,10 +21,10 @@ export function giveInfo(infoId?: Optional<TName>): void {
  *
  * @param infoId - info portion to disable
  */
-export function disableInfo(infoId?: Optional<TName>): void {
+export function disableInfo(infoId: TName): void {
   logger.info("Disable alife info:", infoId);
 
-  if (infoId && hasAlifeInfo(infoId)) {
+  if (registry.actor?.has_info(infoId)) {
     registry.actor.disable_info_portion(infoId);
   }
 }
@@ -37,8 +35,8 @@ export function disableInfo(infoId?: Optional<TName>): void {
  *
  * @returns whether actor has info portion set already
  */
-export function hasAlifeInfo(infoId?: Optional<TName>): infoId is TInfoPortion {
-  if (!infoId || !registry.actor) {
+export function hasAlifeInfo(infoId: TName): infoId is TInfoPortion {
+  if (registry.actor === null) {
     return false;
   }
 

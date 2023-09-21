@@ -114,7 +114,7 @@ extern("xr_conditions.actor_health_le", (actor: ClientObject, object: ClientObje
 /**
  * todo;
  */
-extern("xr_conditions.actor_in_zone", (actor: ClientObject, object: ClientObject, params: [string]): boolean => {
+extern("xr_conditions.actor_in_zone", (actor: ClientObject, object: ClientObject, params: [TName]): boolean => {
   return isObjectInZone(registry.actor, registry.zones.get(params[0]));
 });
 
