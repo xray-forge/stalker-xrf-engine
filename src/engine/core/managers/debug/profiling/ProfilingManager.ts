@@ -16,7 +16,7 @@ const logger: LuaLogger = new LuaLogger($filename, { mode: ELuaLoggerMode.DUAL, 
  */
 export class ProfilingManager extends AbstractManager {
   // Store of manually created profiling portion durations. Stores time in `microseconds`.
-  public profilingPortions: LuaTable<AnyCallable, LuaArray<TDuration>> = new LuaTable();
+  public profilingPortions: LuaTable<AnyCallable | TName, LuaArray<TDuration>> = new LuaTable();
 
   public countersMap: LuaTable<AnyCallable, IProfileSnapshotDescriptor> = new LuaTable();
   public namesMap: LuaTable<AnyCallable, debug.FunctionInfo> = new LuaTable();
@@ -333,7 +333,7 @@ export class ProfilingManager extends AbstractManager {
       new LuaTable();
 
     for (const [func, calls] of this.profilingPortions) {
-      const name: TName = this.getFunctionName(debug.getinfo(func));
+      const name: TName = typeof func === "string" ? func : this.getFunctionName(debug.getinfo(func));
       const summary = {
         count: 0,
         avg: 0,

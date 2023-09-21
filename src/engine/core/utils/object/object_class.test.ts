@@ -1,6 +1,7 @@
-import { describe, expect, it } from "@jest/globals";
+import { beforeEach, describe, expect, it } from "@jest/globals";
 import { clsid } from "xray16";
 
+import { registerSimulator } from "@/engine/core/database";
 import {
   isActor,
   isArtefact,
@@ -32,6 +33,8 @@ describe("object_class utils", () => {
   const mockClassIdServerObject = (classId: number) => {
     return mockServerAlifeObject({ clsid: () => classId as TClassId });
   };
+
+  beforeEach(() => registerSimulator());
 
   it("isArtefact should correctly check if object is an artefact", () => {
     expect(isArtefact(mockClassIdClientObject(clsid.artefact))).toBe(true);

@@ -1,4 +1,4 @@
-import { alife, callback, clsid, cond, hit, level, LuabindClass, move, object_binder } from "xray16";
+import { callback, clsid, cond, hit, level, LuabindClass, move, object_binder } from "xray16";
 
 import {
   closeLoadMarker,
@@ -104,7 +104,7 @@ export class MonsterBinder extends object_binder {
       squad.update();
     }
 
-    if (alife().object(this.object.id()) === null) {
+    if (registry.simulator.object(this.object.id()) === null) {
       return;
     }
 
@@ -130,7 +130,7 @@ export class MonsterBinder extends object_binder {
       if (squad.commander_id() === this.object.id()) {
         scriptCommandMonster(this.object, new move(move.walk_with_leader, targetPosition), new cond(cond.move_end));
       } else {
-        const commanderPosition: Vector = alife().object(squad.commander_id())!.position;
+        const commanderPosition: Vector = registry.simulator.object(squad.commander_id())!.position;
 
         if (commanderPosition.distance_to_sqr(this.object.position()) > 100) {
           scriptCommandMonster(this.object, new move(move.run_with_leader, targetPosition), new cond(cond.move_end));
@@ -165,14 +165,14 @@ export class MonsterBinder extends object_binder {
     }
 
     // todo: Is it possible?
-    if (alife().object(this.object.id()) === null) {
+    if (registry.simulator.object(this.object.id()) === null) {
       return false;
     }
 
     registerObject(this.object);
 
     // todo: Just use parameter?
-    const serverObject: ServerCreatureObject = alife().object(this.object.id())!;
+    const serverObject: ServerCreatureObject = registry.simulator.object(this.object.id())!;
 
     if (registry.spawnedVertexes.has(serverObject.id)) {
       this.object.set_npc_position(level.vertex_position(registry.spawnedVertexes.get(serverObject.id)));
@@ -182,7 +182,9 @@ export class MonsterBinder extends object_binder {
         level.vertex_position(registry.offlineObjects.get(serverObject.id).levelVertexId as TNumberId)
       );
     } else if (serverObject.m_smart_terrain_id !== MAX_U16) {
-      const smartTerrain: Optional<SmartTerrain> = alife().object<SmartTerrain>(serverObject.m_smart_terrain_id);
+      const smartTerrain: Optional<SmartTerrain> = registry.simulator.object<SmartTerrain>(
+        serverObject.m_smart_terrain_id
+      );
 
       if (smartTerrain !== null && smartTerrain.arrivingObjects.get(serverObject.id) === null) {
         const job: Optional<ISmartTerrainJobDescriptor> = smartTerrain.objectJobDescriptors.get(serverObject.id).job;
@@ -305,10 +307,10 @@ export class MonsterBinder extends object_binder {
     if (objectClsId === clsid.poltergeist_s) {
       logger.info("Releasing poltergeist_s:", this.object.name());
 
-      const targetServerObject: Optional<ServerCreatureObject> = alife().object(this.object.id());
+      const targetServerObject: Optional<ServerCreatureObject> = registry.simulator.object(this.object.id());
 
       if (targetServerObject !== null) {
-        alife().release(targetServerObject, true);
+        registry.simulator.release(targetServerObject, true);
       }
     }
 

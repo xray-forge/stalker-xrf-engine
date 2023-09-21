@@ -1,4 +1,4 @@
-import { alife, command_line, LuabindClass, object_binder } from "xray16";
+import { command_line, LuabindClass, object_binder } from "xray16";
 
 import {
   closeLoadMarker,
@@ -6,6 +6,7 @@ import {
   openLoadMarker,
   openSaveMarker,
   registerObject,
+  registry,
   resetObject,
   unregisterObject,
 } from "@/engine/core/database";
@@ -39,7 +40,7 @@ export class LevelChangerBinder extends object_binder {
 
     registerObject(this.object);
 
-    const serverObject: LevelChanger = alife().object(this.object.id()) as LevelChanger;
+    const serverObject: LevelChanger = registry.simulator.object(this.object.id()) as LevelChanger;
 
     this.object.enable_level_changer(serverObject.isEnabled);
     this.object.set_level_changer_invitation(serverObject.invitationHint);

@@ -10,7 +10,7 @@ describe("LuaLogger class", () => {
   const logging: { LuaLogger: typeof LuaLogger } = jest.requireActual("@/engine/core/utils/logging/LuaLogger");
   const Logger: typeof LuaLogger = logging.LuaLogger;
 
-  it("'LuaLogger' should correctly initialize", () => {
+  it("LuaLogger should correctly initialize", () => {
     const logger: LuaLogger = new Logger("tst");
 
     expect(logger.prefix).toBe("[tst]");
@@ -19,7 +19,7 @@ describe("LuaLogger class", () => {
     expect(new Logger("another", { isEnabled: false }).isEnabled).toBe(false);
   });
 
-  it("'LuaLogger' should correctly handle enabled-disabled state", () => {
+  it("LuaLogger should correctly handle enabled-disabled state", () => {
     const logger: LuaLogger = new Logger("tst");
 
     jest.spyOn(logger, "logAs").mockImplementation(() => {});
@@ -41,7 +41,7 @@ describe("LuaLogger class", () => {
     expect(logger.logAs).toHaveBeenCalled();
   });
 
-  it("'LuaLogger' should correctly call log", () => {
+  it("LuaLogger should correctly call log", () => {
     const logger: LuaLogger = new Logger("tst");
 
     resetFunctionMock(log);
@@ -61,19 +61,19 @@ describe("LuaLogger class", () => {
     expect(log).toHaveBeenNthCalledWith(5, "[1000][tst][info] =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-");
   });
 
-  it("'LuaLogger' should correctly generate prefix", () => {
+  it("LuaLogger should correctly generate prefix", () => {
     replaceFunctionMock(time_global, () => 1000);
 
     expect(new Logger("tst").getFullPrefix()).toBe("[1000][tst]");
     expect(new Logger("another").getFullPrefix()).toBe("[1000][another]");
   });
 
-  it("'LuaLogger' should correctly print stack", () => {
+  it("LuaLogger should correctly print stack", () => {
     new Logger("tst").printStack();
     expect(print_stack).toHaveBeenCalledTimes(1);
   });
 
-  it("'LuaLogger' should correctly print table", () => {
+  it("LuaLogger should correctly print table", () => {
     const logger: LuaLogger = new Logger("tst");
 
     jest.spyOn(logger, "logAs").mockImplementation(() => {});
@@ -83,7 +83,7 @@ describe("LuaLogger class", () => {
     expect(logger.logAs).toHaveBeenCalledWith("[table]", "[tst]", $fromArray([toJSON({ test: true, another: 10 })]));
   });
 
-  it("'LuaLogger' should correctly print with logAs", () => {
+  it("LuaLogger should correctly print with logAs", () => {
     resetFunctionMock(log);
 
     const logger: LuaLogger = new Logger("tst");

@@ -1,4 +1,4 @@
-import { alife, level } from "xray16";
+import { level } from "xray16";
 
 import { registry } from "@/engine/core/database";
 import { ActorInputManager } from "@/engine/core/managers/actor";
@@ -95,7 +95,7 @@ extern("dialogs.transfer_medkit", (firstSpeaker: ClientObject, secondSpeaker: Cl
     transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), availableMedkit);
   }
 
-  alife().create(
+  registry.simulator.create(
     misc.medkit_script,
     secondSpeaker.position(),
     secondSpeaker.level_vertex_id(),

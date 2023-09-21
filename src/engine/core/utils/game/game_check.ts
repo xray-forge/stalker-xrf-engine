@@ -1,6 +1,6 @@
-import { alife, device, game_graph } from "xray16";
+import { device, game_graph } from "xray16";
 
-import { AlifeSimulator, Optional } from "@/engine/lib/types";
+import { registry } from "@/engine/core/database/registry";
 
 /**
  * Check whether game started.
@@ -8,7 +8,7 @@ import { AlifeSimulator, Optional } from "@/engine/lib/types";
  * @returns whether game is started and simulator is initialized
  */
 export function isGameStarted(): boolean {
-  return alife() !== null;
+  return registry.simulator !== null;
 }
 
 /**
@@ -22,9 +22,7 @@ export function isBlackScreen(): boolean {
  * @returns whether current game level is changing.
  */
 export function isGameLevelChanging(): boolean {
-  const simulator: Optional<AlifeSimulator> = alife();
-
-  return simulator === null
+  return registry.simulator === null
     ? false
-    : game_graph().vertex(simulator.actor().m_game_vertex_id).level_id() !== simulator.level_id();
+    : game_graph().vertex(registry.actorServer.m_game_vertex_id).level_id() !== registry.simulator.level_id();
 }

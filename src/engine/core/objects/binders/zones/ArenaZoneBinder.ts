@@ -1,4 +1,4 @@
-import { alife, callback, clsid, LuabindClass, object_binder } from "xray16";
+import { callback, clsid, LuabindClass, object_binder } from "xray16";
 
 import { closeLoadMarker, closeSaveMarker, openLoadMarker, openSaveMarker, registry } from "@/engine/core/database";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -51,7 +51,7 @@ export class ArenaZoneBinder extends object_binder {
    * todo: Description.
    */
   public purge_items(): void {
-    const simulator: AlifeSimulator = alife();
+    const simulator: AlifeSimulator = registry.simulator;
 
     for (const [k, v] of this.savedObjects) {
       const object = simulator.object(k);

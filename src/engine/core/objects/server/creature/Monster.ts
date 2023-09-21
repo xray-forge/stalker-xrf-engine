@@ -1,4 +1,4 @@
-import { alife, cse_alife_monster_base, level, LuabindClass } from "xray16";
+import { cse_alife_monster_base, level, LuabindClass } from "xray16";
 
 import {
   hardResetOfflineObject,
@@ -63,7 +63,7 @@ export class Monster extends cse_alife_monster_base {
     const smartTerrain: Optional<SmartTerrain> = simulationBoardManager.getSmartTerrainByName(smartName);
 
     if (smartTerrain !== null) {
-      alife().object<SmartTerrain>(smartTerrain.id)!.register_npc(this);
+      registry.simulator.object<SmartTerrain>(smartTerrain.id)!.register_npc(this);
     }
 
     EventsManager.emitEvent(EGameEvent.MONSTER_REGISTER, this);
@@ -75,7 +75,7 @@ export class Monster extends cse_alife_monster_base {
     const smartTerrainId: TNumberId = this.smart_terrain_id();
 
     if (smartTerrainId !== MAX_U16) {
-      const smartTerrain: Optional<SmartTerrain> = alife().object(smartTerrainId);
+      const smartTerrain: Optional<SmartTerrain> = registry.simulator.object(smartTerrainId);
 
       if (smartTerrain !== null) {
         smartTerrain.unregister_npc(this);
@@ -97,12 +97,12 @@ export class Monster extends cse_alife_monster_base {
     const smartTerrainId: TNumberId = this.smart_terrain_id();
 
     if (smartTerrainId !== MAX_U16) {
-      (alife().object(smartTerrainId) as SmartTerrain).onObjectDeath(this);
+      (registry.simulator.object(smartTerrainId) as SmartTerrain).onObjectDeath(this);
     }
 
     // Notify assigned squad about death.
     if (this.group_id !== MAX_U16) {
-      const squad: Optional<Squad> = alife().object(this.group_id);
+      const squad: Optional<Squad> = registry.simulator.object(this.group_id);
 
       assert(squad, "There is no squad with ID [%s]", this.group_id);
 

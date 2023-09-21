@@ -1,4 +1,4 @@
-import { alife, danger_object } from "xray16";
+import { danger_object } from "xray16";
 
 import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { SimulationBoardManager } from "@/engine/core/managers/simulation/SimulationBoardManager";
@@ -176,7 +176,7 @@ export function canObjectSelectAsEnemy(object: ClientObject, enemy: ClientObject
     }
   }
 
-  const serverObject: Optional<ServerCreatureObject> = alife().object(enemy.id());
+  const serverObject: Optional<ServerCreatureObject> = registry.simulator.object(enemy.id());
 
   // Check if server object is in no-combat zone.
   if (
@@ -184,7 +184,7 @@ export function canObjectSelectAsEnemy(object: ClientObject, enemy: ClientObject
     serverObject.m_smart_terrain_id !== null &&
     serverObject.m_smart_terrain_id !== MAX_U16
   ) {
-    const enemySmartTerrain: SmartTerrain = alife().object<SmartTerrain>(
+    const enemySmartTerrain: SmartTerrain = registry.simulator.object<SmartTerrain>(
       serverObject.m_smart_terrain_id
     ) as SmartTerrain;
 

@@ -1,4 +1,4 @@
-import { alife, CGameTask, game, game_graph, level, task, time_global } from "xray16";
+import { CGameTask, game, game_graph, level, task, time_global } from "xray16";
 
 import {
   closeLoadMarker,
@@ -315,7 +315,7 @@ export class TaskObject {
       return;
     }
 
-    const simulator: AlifeSimulator = alife();
+    const simulator: AlifeSimulator = registry.simulator;
     const alifeObject: Optional<ServerObject> = simulator.object(target);
 
     if (alifeObject !== null) {

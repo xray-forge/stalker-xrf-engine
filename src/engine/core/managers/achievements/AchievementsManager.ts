@@ -1,6 +1,6 @@
-import { alife, game } from "xray16";
+import { game } from "xray16";
 
-import { getObjectIdByStoryId } from "@/engine/core/database";
+import { getObjectIdByStoryId, registry } from "@/engine/core/database";
 import {
   hasAchievedBalanceAdvocate,
   hasAchievedBattleSystemsMaster,
@@ -137,7 +137,7 @@ export class AchievementsManager extends AbstractManager {
       achievementRewards.ACHIEVEMENT_REWARD_SPAWN_PERIOD
     ) {
       spawnItemsForObjectFromList(
-        alife().object(getObjectIdByStoryId(achievementRewards.REWARD_BOXES.ZATON)!)!,
+        registry.simulator.object(getObjectIdByStoryId(achievementRewards.REWARD_BOXES.ZATON)!)!,
         achievementRewards.ITEMS[EAchievement.DETECTIVE],
         4
       );
@@ -167,7 +167,7 @@ export class AchievementsManager extends AbstractManager {
       achievementRewards.ACHIEVEMENT_REWARD_SPAWN_PERIOD
     ) {
       spawnItemsForObjectFromList(
-        alife().object(getObjectIdByStoryId(achievementRewards.REWARD_BOXES.JUPITER)!)!,
+        registry.simulator.object(getObjectIdByStoryId(achievementRewards.REWARD_BOXES.JUPITER)!)!,
         achievementRewards.ITEMS[EAchievement.MUTANT_HUNTER],
         5
       );

@@ -1,4 +1,4 @@
-import { alife, patrol, time_global } from "xray16";
+import { patrol, time_global } from "xray16";
 
 import { registry } from "@/engine/core/database";
 import { AbstractSchemeManager } from "@/engine/core/objects/ai/scheme";
@@ -46,7 +46,7 @@ export class CrowSpawnerManager extends AbstractSchemeManager<ISchemeCrowSpawner
    */
   public spawnCrows(): void {
     const now: TTimestamp = time_global();
-    const simulator: AlifeSimulator = alife();
+    const simulator: AlifeSimulator = registry.simulator;
     const pathList: LuaArray<TName> = copyTable(new LuaTable(), this.state.pathsList);
     const actorPosition: Vector = registry.actor.position();
 

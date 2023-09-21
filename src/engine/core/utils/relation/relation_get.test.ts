@@ -1,6 +1,12 @@
 import { beforeEach, describe, expect, it } from "@jest/globals";
 
-import { registerActor, registerStoryLink, registry } from "@/engine/core/database";
+import {
+  registerActor,
+  registerActorServer,
+  registerSimulator,
+  registerStoryLink,
+  registry,
+} from "@/engine/core/database";
 import { Squad } from "@/engine/core/objects/server/squad";
 import {
   getNumberRelationBetweenCommunities,
@@ -29,6 +35,7 @@ describe("'relation/get' utils", () => {
     registry.storyLink.sidById = new LuaTable();
     registry.storyLink.idBySid = new LuaTable();
     MockAlifeSimulator.removeFromRegistry(ACTOR_ID);
+    registerSimulator();
   });
 
   it("'getObjectsRelationSafe' should correctly check relation", () => {
@@ -104,7 +111,7 @@ describe("'relation/get' utils", () => {
       "Squad with story id 'not-existing' was not found."
     );
 
-    mockServerAlifeCreatureActor({ community: <T>() => communities.actor as T });
+    registerActorServer(mockServerAlifeCreatureActor({ community: <T>() => communities.actor as T }));
 
     const enemy: ServerGroupObject = mockServerAlifeOnlineOfflineGroup();
     const friend: ServerGroupObject = mockServerAlifeOnlineOfflineGroup();
@@ -136,7 +143,7 @@ describe("'relation/get' utils", () => {
     const { emptyMonolithSquad, emptyArmySquad, neutralSquad, friendlySquad, mixedSquad, enemySquad } =
       mockRelationsSquads();
 
-    mockServerAlifeCreatureActor();
+    registerActorServer(mockServerAlifeCreatureActor());
 
     expect(() => getSquadRelationToActorById(10002000)).toThrow("Squad with id '10002000' is not found.");
     expect(getSquadRelationToActorById(emptyMonolithSquad.id)).toBe(ERelation.ENEMY);

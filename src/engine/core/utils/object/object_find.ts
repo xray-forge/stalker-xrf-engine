@@ -1,4 +1,4 @@
-import { alife, level } from "xray16";
+import { level } from "xray16";
 
 import { registry } from "@/engine/core/database";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -30,7 +30,7 @@ export function getNearestServerObject(
   pattern: Optional<TName | TClassId | ((object: ServerObject) => boolean)> = null,
   searchOffline: boolean = true
 ): Optional<ServerObject> {
-  const simulator: Optional<AlifeSimulator> = alife();
+  const simulator: Optional<AlifeSimulator> = registry.simulator;
   const actorPosition: Vector = registry.actor.position();
   const hasFilter: boolean = pattern !== null;
 
@@ -92,7 +92,7 @@ export function getServerObjects<T extends ServerObject>(
   pattern: Optional<TName | TClassId | ((object: ServerObject) => boolean)> = null,
   searchOffline: boolean = true
 ): LuaArray<T> {
-  const simulator: Optional<AlifeSimulator> = alife();
+  const simulator: Optional<AlifeSimulator> = registry.simulator;
   const list: LuaArray<T> = new LuaTable();
 
   if (simulator === null) {

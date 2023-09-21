@@ -1,7 +1,8 @@
-import { describe, expect, it } from "@jest/globals";
+import { beforeEach, describe, expect, it } from "@jest/globals";
 
 import { registerObject, unregisterObject } from "@/engine/core/database/objects";
 import { registry } from "@/engine/core/database/registry";
+import { registerSimulator } from "@/engine/core/database/simulation";
 import {
   getObjectByStoryId,
   getObjectIdByStoryId,
@@ -23,6 +24,10 @@ describe("'story_objects' module of the database", () => {
 
   MockAlifeSimulator.addToRegistry(firstObject);
   MockAlifeSimulator.addToRegistry(secondObject);
+
+  beforeEach(() => {
+    registerSimulator();
+  });
 
   it("should correctly register object story links", () => {
     expect(registry.storyLink.idBySid.length()).toBe(0);

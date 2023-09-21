@@ -1,6 +1,7 @@
-import { describe, expect, it } from "@jest/globals";
+import { beforeEach, describe, expect, it } from "@jest/globals";
 import { clsid } from "xray16";
 
+import { registerSimulator } from "@/engine/core/database";
 import {
   getObjectActiveWeaponSlot,
   getObjectCommunity,
@@ -24,7 +25,9 @@ import {
 } from "@/fixtures/xray";
 
 describe("object get utils", () => {
-  it("'getObjectPositioning' should correctly get positioning", () => {
+  beforeEach(() => registerSimulator());
+
+  it("getObjectPositioning should correctly get positioning", () => {
     expect(getObjectPositioning(mockClientGameObject())).toEqual([
       1000,
       512,
@@ -47,7 +50,7 @@ describe("object get utils", () => {
     ]);
   });
 
-  it("'getObjectSquad' should correctly get squad of an object", () => {
+  it("getObjectSquad should correctly get squad of an object", () => {
     expect(getObjectSquad(mockClientGameObject())).toBeNull();
     expect(getObjectSquad(mockServerAlifeHumanStalker())).toBeNull();
 
@@ -67,7 +70,7 @@ describe("object get utils", () => {
     expect(getObjectSquad(serverObject)).toBeNull();
   });
 
-  it("'getObjectSmartTerrain' should correctly get smart terrain of an object", () => {
+  it("getObjectSmartTerrain should correctly get smart terrain of an object", () => {
     expect(getObjectSmartTerrain(mockClientGameObject())).toBeNull();
     expect(getObjectSmartTerrain(mockServerAlifeHumanStalker())).toBeNull();
 
@@ -87,7 +90,7 @@ describe("object get utils", () => {
     expect(getObjectSmartTerrain(serverObject)).toBeNull();
   });
 
-  it("'getObjectCommunity' should correctly get community", () => {
+  it("getObjectCommunity should correctly get community", () => {
     expect(getObjectCommunity(mockClientGameObject())).toBe("monster");
     expect(getObjectCommunity(mockServerAlifeHumanStalker())).toBe("stalker");
 
@@ -106,7 +109,7 @@ describe("object get utils", () => {
     expect(getObjectCommunity(serverObject)).toBe("army");
   });
 
-  it("'getObjectActiveWeaponSlot' should correctly get slot", () => {
+  it("getObjectActiveWeaponSlot should correctly get slot", () => {
     const object: ClientObject = mockClientGameObject();
 
     replaceFunctionMock(object.active_item, () => null);

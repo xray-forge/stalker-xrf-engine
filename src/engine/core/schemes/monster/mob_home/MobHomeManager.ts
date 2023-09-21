@@ -1,6 +1,6 @@
-import { alife, patrol } from "xray16";
+import { patrol } from "xray16";
 
-import { setMonsterState } from "@/engine/core/database";
+import { registry, setMonsterState } from "@/engine/core/database";
 import { AbstractSchemeManager } from "@/engine/core/objects/ai/scheme";
 import type { SmartTerrain } from "@/engine/core/objects/server/smart_terrain";
 import { ISchemeMobHomeState } from "@/engine/core/schemes/monster/mob_home/ISchemeMobHomeState";
@@ -96,8 +96,8 @@ export class MobHomeManager extends AbstractSchemeManager<ISchemeMobHomeState> {
 
     // Assign mob home.
     if (this.state.isSmartTerrainPoint) {
-      const smartTerrain: Optional<SmartTerrain> = alife().object(
-        alife().object<ServerCreatureObject>(this.object.id())!.m_smart_terrain_id
+      const smartTerrain: Optional<SmartTerrain> = registry.simulator.object(
+        registry.simulator.object<ServerCreatureObject>(this.object.id())!.m_smart_terrain_id
       );
       const vertexId: Optional<TNumberId> = smartTerrain ? smartTerrain.m_level_vertex_id : null;
 

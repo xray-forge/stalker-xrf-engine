@@ -1,5 +1,4 @@
-import { alife } from "xray16";
-
+import { registry } from "@/engine/core/database";
 import type { SmartTerrain } from "@/engine/core/objects/server/smart_terrain";
 import type { Squad } from "@/engine/core/objects/server/squad";
 import { assertDefined } from "@/engine/core/utils/assertion";
@@ -56,14 +55,16 @@ export function getObjectSquad(object: ClientObject | ServerCreatureObject): Opt
 
   // Get for client object.
   if (type(object.id) === "function") {
-    const serverObject: Optional<ServerCreatureObject> = alife().object((object as ClientObject).id());
+    const serverObject: Optional<ServerCreatureObject> = registry.simulator.object((object as ClientObject).id());
 
-    return !serverObject || serverObject.group_id === MAX_U16 ? null : alife().object<Squad>(serverObject.group_id);
+    return !serverObject || serverObject.group_id === MAX_U16
+      ? null
+      : registry.simulator.object<Squad>(serverObject.group_id);
   } else {
     // Get for server object.
     return (object as ServerCreatureObject).group_id === MAX_U16
       ? null
-      : alife().object<Squad>((object as ServerCreatureObject).group_id);
+      : registry.simulator.object<Squad>((object as ServerCreatureObject).group_id);
   }
 }
 
@@ -74,7 +75,7 @@ export function getObjectSquad(object: ClientObject | ServerCreatureObject): Opt
  * @returns object smart terrain server object or null
  */
 export function getObjectSmartTerrain(object: ClientObject | ServerCreatureObject): Optional<SmartTerrain> {
-  const simulator: AlifeSimulator = alife();
+  const simulator: AlifeSimulator = registry.simulator;
 
   if (type(object.id) === "function") {
     const serverObject: Optional<ServerCreatureObject> = simulator.object((object as ClientObject).id());

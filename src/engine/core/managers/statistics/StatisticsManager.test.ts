@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it } from "@jest/globals";
 import { clsid } from "xray16";
 
-import { disposeManager, getManagerInstance, registerActor, registry } from "@/engine/core/database";
+import { disposeManager, getManagerInstance, registerActor, registerSimulator, registry } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { StatisticsManager } from "@/engine/core/managers/statistics";
 import { weapons } from "@/engine/lib/constants/items/weapons";
@@ -21,6 +21,7 @@ import { MockVector } from "@/fixtures/xray/mocks/vector.mock";
 describe("StatisticsManager class", () => {
   beforeEach(() => {
     registry.managers = new LuaTable();
+    registerSimulator();
   });
 
   it("should correctly initialize and destroy", () => {

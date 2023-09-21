@@ -1,6 +1,12 @@
-import { describe, expect, it } from "@jest/globals";
+import { beforeEach, describe, expect, it } from "@jest/globals";
 
-import { IBaseSchemeLogic, registerActor, registerObject, registerStoryLink } from "@/engine/core/database";
+import {
+  IBaseSchemeLogic,
+  registerActor,
+  registerObject,
+  registerSimulator,
+  registerStoryLink,
+} from "@/engine/core/database";
 import {
   addConditionToList,
   getConfigObjectAndZone,
@@ -16,6 +22,8 @@ import { mockBaseSchemeLogic } from "@/fixtures/engine";
 import { mockActorClientGameObject, mockClientGameObject, mockIniFile, mockServerAlifeObject } from "@/fixtures/xray";
 
 describe("'config' utils for ini file", () => {
+  beforeEach(() => registerSimulator());
+
   it("getInfosFromData should correctly parse data list of condition lists", () => {
     registerActor(mockActorClientGameObject());
     giveInfo("test");

@@ -1,4 +1,4 @@
-import { alife, hit, level } from "xray16";
+import { hit, level } from "xray16";
 
 import { getPortableStoreValue, IRegistryObjectState, registry } from "@/engine/core/database";
 import { ISchemeWoundedState } from "@/engine/core/schemes/stalker/wounded";
@@ -25,7 +25,13 @@ import {
  */
 export function giveWoundedObjectMedkit(object: ClientObject): void {
   // Give script medkit to heal up for an object.
-  alife().create(misc.medkit_script, object.position(), object.level_vertex_id(), object.game_vertex_id(), object.id());
+  registry.simulator.create(
+    misc.medkit_script,
+    object.position(),
+    object.level_vertex_id(),
+    object.game_vertex_id(),
+    object.id()
+  );
 }
 
 /**

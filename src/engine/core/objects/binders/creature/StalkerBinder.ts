@@ -1,6 +1,5 @@
 import {
   actor_stats,
-  alife,
   callback,
   game_graph,
   level,
@@ -554,7 +553,7 @@ export class StalkerBinder extends object_binder {
 
           if (smartTerrain.smartTerrainActorControl !== null) {
             const levelId: TNumberId = game_graph().vertex(smartTerrain.m_game_vertex_id).level_id();
-            const actorLevelId: TNumberId = game_graph().vertex(alife().actor().m_game_vertex_id).level_id();
+            const actorLevelId: TNumberId = game_graph().vertex(registry.actorServer.m_game_vertex_id).level_id();
 
             if (levelId === actorLevelId && actor.position().distance_to_sqr(smartTerrain.position) <= 6400) {
               if (this.object.relation(actor) !== EClientObjectRelation.ENEMY) {

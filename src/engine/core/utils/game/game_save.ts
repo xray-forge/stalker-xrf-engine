@@ -1,5 +1,6 @@
-import { alife, bit_or, CSavedGameWrapper, device, FS, game, getFS, IsImportantSave, user_name } from "xray16";
+import { bit_or, CSavedGameWrapper, device, FS, game, getFS, IsImportantSave, user_name } from "xray16";
 
+import { registry } from "@/engine/core/database/registry";
 import { assert } from "@/engine/core/utils/assertion";
 import { loadObjectFromFile, saveObjectToFile } from "@/engine/core/utils/fs";
 import { executeConsoleCommand } from "@/engine/core/utils/game/game_console";
@@ -203,7 +204,7 @@ export function loadLastGameSave(): void {
 export function loadGameSave(name: Optional<TName>): void {
   assert(name, "You are trying to load without name.");
 
-  if (alife() === null) {
+  if (registry.simulator === null) {
     executeConsoleCommand(consoleCommands.disconnect);
     executeConsoleCommand(consoleCommands.start, string.format("server(%s/single/alife/load) client(localhost)", name));
   } else {
@@ -221,7 +222,7 @@ export function startNewGame(difficulty: Optional<TGameDifficulty> = null): void
     executeConsoleCommand(consoleCommands.g_game_difficulty, difficulty);
   }
 
-  if (alife() !== null) {
+  if (registry.simulator !== null) {
     executeConsoleCommand(consoleCommands.disconnect);
   }
 

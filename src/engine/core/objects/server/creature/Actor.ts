@@ -1,12 +1,14 @@
-import { alife, CALifeSmartTerrainTask, cse_alife_creature_actor, level, LuabindClass } from "xray16";
+import { CALifeSmartTerrainTask, cse_alife_creature_actor, level, LuabindClass } from "xray16";
 
 import {
   closeLoadMarker,
   closeSaveMarker,
   openSaveMarker,
+  registerActorServer,
   registerStoryLink,
   registry,
   softResetOfflineObject,
+  unregisterActorServer,
   unregisterStoryLinkByObjectId,
 } from "@/engine/core/database";
 import { openLoadMarker } from "@/engine/core/database/save_markers";
@@ -49,6 +51,7 @@ export class Actor extends cse_alife_creature_actor implements ISimulationTarget
 
     logger.info("Register actor:", this.id, this.name(), this.section_name());
 
+    registerActorServer(this);
     registerStoryLink(this.id, ACTOR);
     registerSimulationObject(this);
 
@@ -62,6 +65,7 @@ export class Actor extends cse_alife_creature_actor implements ISimulationTarget
 
     EventsManager.emitEvent(EGameEvent.ACTOR_UNREGISTER, this);
 
+    unregisterActorServer();
     unregisterStoryLinkByObjectId(this.id);
     unregisterSimulationObject(this);
 
@@ -126,9 +130,10 @@ export class Actor extends cse_alife_creature_actor implements ISimulationTarget
       const zone: ClientObject = registry.zones.get(zoneName);
 
       if (zone !== null && zone.inside(this.position)) {
-        const smart: Optional<SmartTerrain> = SimulationBoardManager.getInstance().getSmartTerrainByName(smartName);
+        const smartTerrain: Optional<SmartTerrain> =
+          SimulationBoardManager.getInstance().getSmartTerrainByName(smartName);
 
-        if (smart !== null && smart.smartTerrainActorControl?.status !== ESmartTerrainStatus.ALARM) {
+        if (smartTerrain !== null && smartTerrain.smartTerrainActorControl?.status !== ESmartTerrainStatus.ALARM) {
           return false;
         }
       }
@@ -138,7 +143,7 @@ export class Actor extends cse_alife_creature_actor implements ISimulationTarget
       return true;
     }
 
-    const activeSmartTerrain: SmartTerrain = alife().object<SmartTerrain>(
+    const activeSmartTerrain: SmartTerrain = registry.simulator.object<SmartTerrain>(
       registry.activeSmartTerrainId
     ) as SmartTerrain;
 

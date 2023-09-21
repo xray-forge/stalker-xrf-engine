@@ -1,7 +1,7 @@
-import { describe, expect, it, jest } from "@jest/globals";
+import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { clsid } from "xray16";
 
-import { registerActor, registerStoryLink, registry } from "@/engine/core/database";
+import { registerActor, registerSimulator, registerStoryLink, registry } from "@/engine/core/database";
 import { EActionId } from "@/engine/core/objects/ai/types";
 import { Squad } from "@/engine/core/objects/server/squad";
 import { LoopedSound } from "@/engine/core/objects/sounds/playable_sounds";
@@ -34,8 +34,10 @@ import {
   mockServerAlifeMonsterBase,
 } from "@/fixtures/xray";
 
-describe("'object_check' utils", () => {
-  it("'isObjectInCombat' should correctly check object combat state", () => {
+describe("object_check utils", () => {
+  beforeEach(() => registerSimulator());
+
+  it("isObjectInCombat should correctly check object combat state", () => {
     const object: ClientObject = mockClientGameObject();
     const planner: MockActionPlanner = object.motivation_action_manager() as unknown as MockActionPlanner;
 
@@ -57,7 +59,7 @@ describe("'object_check' utils", () => {
     expect(isObjectInCombat(object)).toBe(false);
   });
 
-  it("'isObjectSearchingCorpse' should correctly check object searching corpse state", () => {
+  it("isObjectSearchingCorpse should correctly check object searching corpse state", () => {
     const object: ClientObject = mockClientGameObject();
     const planner: MockActionPlanner = object.motivation_action_manager() as unknown as MockActionPlanner;
 
@@ -79,7 +81,7 @@ describe("'object_check' utils", () => {
     expect(isObjectSearchingCorpse(object)).toBe(false);
   });
 
-  it("'isObjectHelpingWounded' should correctly check object helping wounded state", () => {
+  it("isObjectHelpingWounded should correctly check object helping wounded state", () => {
     const object: ClientObject = mockClientGameObject();
     const planner: MockActionPlanner = object.motivation_action_manager() as unknown as MockActionPlanner;
 
@@ -101,7 +103,7 @@ describe("'object_check' utils", () => {
     expect(isObjectHelpingWounded(object)).toBe(false);
   });
 
-  it("'isObjectWithValuableLoot' should correctly check object valuable loot", () => {
+  it("isObjectWithValuableLoot should correctly check object valuable loot", () => {
     expect(isObjectWithValuableLoot(mockClientGameObject())).toBe(false);
     expect(
       isObjectWithValuableLoot(
@@ -135,7 +137,7 @@ describe("'object_check' utils", () => {
     ).toBe(true);
   });
 
-  it("'isObjectStrappingWeapon' should correctly check weapon strap state", () => {
+  it("isObjectStrappingWeapon should correctly check weapon strap state", () => {
     const object: ClientObject = mockClientGameObject();
 
     replaceFunctionMock(object.weapon_strapped, () => true);
@@ -155,7 +157,7 @@ describe("'object_check' utils", () => {
     expect(isObjectStrappingWeapon(object)).toBe(true);
   });
 
-  it("'isStalkerAlive' should correctly check stalker alive state", () => {
+  it("isStalkerAlive should correctly check stalker alive state", () => {
     const aliveStalkerServerObject: ServerHumanObject = mockServerAlifeHumanStalker({
       alive: () => true,
       clsid: () => clsid.script_stalker as TClassId,
@@ -199,7 +201,7 @@ describe("'object_check' utils", () => {
     ).toBe(false);
   });
 
-  it("'isObjectInjured' should correctly check objects", () => {
+  it("isObjectInjured should correctly check objects", () => {
     expect(isObjectInjured(mockClientGameObject())).toBe(false);
     expect(isObjectInjured(mockClientGameObject({ radiation: -1, health: 100, bleeding: -1 }))).toBe(false);
     expect(isObjectInjured(mockClientGameObject({ radiation: 0.01 }))).toBe(true);
@@ -210,7 +212,7 @@ describe("'object_check' utils", () => {
     expect(isObjectInjured(mockClientGameObject({ health: 0.5 }))).toBe(true);
   });
 
-  it("'isObjectSeenByActor' should correctly check objects visibility", () => {
+  it("isObjectSeenByActor should correctly check objects visibility", () => {
     expect(() => isObjectSeenByActor(mockClientGameObject())).toThrow();
 
     const actor: ClientObject = mockClientGameObject();
@@ -234,7 +236,7 @@ describe("'object_check' utils", () => {
     expect(isObjectSeenByActor(mockClientGameObject())).toBe(false);
   });
 
-  it("'isActorSeenByObject' should correctly check actor visibility", () => {
+  it("isActorSeenByObject should correctly check actor visibility", () => {
     const object: ClientObject = mockClientGameObject();
 
     registerActor(mockClientGameObject());
@@ -256,7 +258,7 @@ describe("'object_check' utils", () => {
     expect(isActorSeenByObject(object)).toBe(false);
   });
 
-  it("'isObjectOnline' should correctly check object online", () => {
+  it("isObjectOnline should correctly check object online", () => {
     const first: ClientObject = mockClientGameObject();
     const second: ClientObject = mockClientGameObject();
 
@@ -271,7 +273,7 @@ describe("'object_check' utils", () => {
     expect(isObjectOnline(second.id())).toBe(false);
   });
 
-  it("'isImmuneToSurgeObject' should correctly check that objects are immune to surge", () => {
+  it("isImmuneToSurgeObject should correctly check that objects are immune to surge", () => {
     expect(isImmuneToSurgeObject({ faction: "monster_predatory_day" } as unknown as Squad)).toBe(true);
     expect(isImmuneToSurgeObject({ faction: "monster_vegetarian" } as unknown as Squad)).toBe(true);
     expect(isImmuneToSurgeObject({ faction: "monster_special" } as unknown as Squad)).toBe(true);
@@ -284,21 +286,21 @@ describe("'object_check' utils", () => {
     expect(isImmuneToSurgeObject({ faction: "army" } as unknown as Squad)).toBe(false);
   });
 
-  it("'isSurgeEnabledOnLevel' should correctly check if surge is enabled for level", () => {
+  it("isSurgeEnabledOnLevel should correctly check if surge is enabled for level", () => {
     expect(isSurgeEnabledOnLevel("zaton")).toBe(true);
     expect(isSurgeEnabledOnLevel("jupiter")).toBe(true);
     expect(isSurgeEnabledOnLevel("labx8")).toBe(false);
     expect(isSurgeEnabledOnLevel("jupiter_underground")).toBe(false);
   });
 
-  it("'isUndergroundLevel' should correctly check if level is undeground", () => {
+  it("isUndergroundLevel should correctly check if level is undeground", () => {
     expect(isUndergroundLevel("zaton")).toBe(false);
     expect(isUndergroundLevel("jupiter")).toBe(false);
     expect(isUndergroundLevel("labx8")).toBe(true);
     expect(isUndergroundLevel("jupiter_underground")).toBe(true);
   });
 
-  it("'isPlayingSound' should correctly check sound play state", () => {
+  it("isPlayingSound should correctly check sound play state", () => {
     const object: ClientObject = mockClientGameObject();
 
     expect(isPlayingSound(object)).toBe(false);

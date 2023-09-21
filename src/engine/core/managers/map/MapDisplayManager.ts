@@ -1,4 +1,4 @@
-import { alife, game, level, time_global } from "xray16";
+import { game, level, time_global } from "xray16";
 
 import { getObjectIdByStoryId, IRegistryObjectState, registry } from "@/engine/core/database";
 import { AbstractManager } from "@/engine/core/managers/base/AbstractManager";
@@ -86,7 +86,7 @@ export class MapDisplayManager extends AbstractManager {
     // logger.info("Update object spot:", object.name());
 
     const objectId: TNumberId = object.id();
-    const simulator: AlifeSimulator = alife();
+    const simulator: AlifeSimulator = registry.simulator;
 
     if (!simulator) {
       return;
@@ -158,7 +158,7 @@ export class MapDisplayManager extends AbstractManager {
   public removeObjectMapSpot(object: ClientObject, state: IRegistryObjectState): void {
     logger.info("Remove object spot:", object.name());
 
-    const simulator: AlifeSimulator = alife();
+    const simulator: AlifeSimulator = registry.simulator;
 
     if (!simulator) {
       return;

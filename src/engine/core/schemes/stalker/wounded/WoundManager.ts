@@ -1,4 +1,4 @@
-import { alife, time_global } from "xray16";
+import { time_global } from "xray16";
 
 import { registry } from "@/engine/core/database";
 import { getPortableStoreValue, setPortableStoreValue } from "@/engine/core/database/portable_store";
@@ -86,7 +86,7 @@ export class WoundManager extends AbstractSchemeManager<ISchemeWoundedState> {
         this.object.eat(this.object.object(misc.medkit_script) as ClientObject);
       }
 
-      const simulator: AlifeSimulator = alife();
+      const simulator: AlifeSimulator = registry.simulator;
 
       if (this.object.object(drugs.medkit) !== null) {
         simulator.release(simulator.object(this.object.object(drugs.medkit)!.id()), true);

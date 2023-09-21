@@ -1,4 +1,4 @@
-import { alife, CALifeSmartTerrainTask, cse_alife_online_offline_group, level, LuabindClass, patrol } from "xray16";
+import { CALifeSmartTerrainTask, cse_alife_online_offline_group, level, LuabindClass, patrol } from "xray16";
 
 import {
   closeLoadMarker,
@@ -50,6 +50,7 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 import { areObjectsOnSameLevel, isSmartTerrain, isSquad, isSquadId } from "@/engine/core/utils/object";
 import { areCommunitiesEnemies, ERelation, setObjectSympathy } from "@/engine/core/utils/relation";
 import { canSquadHelpActor, updateSquadInvulnerabilityState } from "@/engine/core/utils/squad";
+import { vectorToString } from "@/engine/core/utils/vector";
 import { gameConfig } from "@/engine/lib/configs/GameConfig";
 import { squadCommunityByBehaviour } from "@/engine/lib/constants/behaviours";
 import { TCommunity } from "@/engine/lib/constants/communities";
@@ -321,7 +322,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
 
     // todo: Method for smart terrain onSpawnedSquadKilled.
     if (this.respawnPointId !== null) {
-      const smartTerrain: Optional<SmartTerrain> = alife().object(this.respawnPointId)!;
+      const smartTerrain: Optional<SmartTerrain> = registry.simulator.object(this.respawnPointId)!;
 
       if (smartTerrain === null) {
         return;
@@ -473,7 +474,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
    */
   public isAssignedTargetAvailable(): boolean {
     return this.assignedTargetId
-      ? alife().object<TSimulationObject>(this.assignedTargetId)?.isValidSquadTarget(this, true) === true
+      ? registry.simulator.object<TSimulationObject>(this.assignedTargetId)?.isValidSquadTarget(this, true) === true
       : false;
   }
 
@@ -481,7 +482,9 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
    * todo: Description.
    */
   public updateNextSquadAction(isUnderSimulation: boolean): void {
-    const squadTarget: Optional<TSimulationObject> = alife().object<TSimulationObject>(this.assignedTargetId!);
+    const squadTarget: Optional<TSimulationObject> = registry.simulator.object<TSimulationObject>(
+      this.assignedTargetId!
+    );
 
     if (this.currentTargetId === null) {
       if (squadTarget === null || squadTarget.isReachedBySquad(this)) {
@@ -546,7 +549,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
     smartTerrain: Optional<SmartTerrain>,
     oldSmartTerrainId: Optional<TNumberId>
   ): void {
-    const object: Optional<ServerCreatureObject> = alife().object(memberId);
+    const object: Optional<ServerCreatureObject> = registry.simulator.object(memberId);
 
     if (object !== null) {
       if (object.m_smart_terrain_id === this.assignedSmartTerrainId) {
@@ -600,10 +603,11 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
 
     this.clear_location_types();
 
-    if (isSmartTerrain(alife().object(this.assignedTargetId as TNumberId) as ServerObject)) {
+    if (isSmartTerrain(registry.simulator.object(this.assignedTargetId as TNumberId) as ServerObject)) {
       this.setLocationTypesMaskFromSection(defaultLocation);
 
-      const oldSmartName = this.assignedSmartTerrainId !== null && alife().object(this.assignedSmartTerrainId)?.name();
+      const oldSmartName =
+        this.assignedSmartTerrainId !== null && registry.simulator.object(this.assignedSmartTerrainId)?.name();
 
       if (oldSmartName) {
         this.setLocationTypesMaskFromSection(oldSmartName);
@@ -616,7 +620,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
       this.setLocationTypesMaskFromSection("squad_terrain");
 
       for (const [id] of registry.simulationObjects) {
-        const smartTerrain: ServerObject = alife().object(id) as ServerObject;
+        const smartTerrain: ServerObject = registry.simulator.object(id) as ServerObject;
 
         if (isSmartTerrain(smartTerrain)) {
           const propertiesBase = smartTerrain.simulationProperties[ESimulationTerrainRole.BASE];
@@ -649,14 +653,15 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
       );
     }
 
-    const serverObject: ServerObject = alife().create(spawnSection, spawnPosition, lvi, gvi);
+    const serverObject: ServerObject = registry.simulator.create(spawnSection, spawnPosition, lvi, gvi);
 
     this.register_member(serverObject.id);
     this.soundManager.registerObject(serverObject.id);
 
     if (
-      areObjectsOnSameLevel(serverObject, alife().actor()) &&
-      spawnPosition.distance_to_sqr(alife().actor().position) <= alife().switch_distance() * alife().switch_distance()
+      areObjectsOnSameLevel(serverObject, registry.actorServer) &&
+      spawnPosition.distance_to_sqr(registry.actorServer.position) <=
+        registry.simulator.switch_distance() * registry.simulator.switch_distance()
     ) {
       registry.spawnedVertexes.set(serverObject.id, lvi);
     }
@@ -764,7 +769,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
    * Set squad position in current level by supplied vector.
    */
   public setSquadPosition(position: Vector): void {
-    logger.format("Set squad position: '%s', '%s'", this.name(), this.online);
+    logger.format("Set squad position: '%s', '%s', '%s'", this.name(), this.online, vectorToString(position));
 
     if (!this.online) {
       this.force_change_position(position);
@@ -776,9 +781,13 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
       registry.offlineObjects.get(squadMember.id).levelVertexId = level.vertex_id(position);
 
       if (object) {
+        logger.format("Set client squad member position: '%s'", object.name());
+
         resetStalkerState(object);
         object.set_npc_position(position);
       } else {
+        logger.format("Set server squad member position: '%s'", squadMember.object.name());
+
         squadMember.object.position = position;
       }
     }
@@ -803,10 +812,10 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
           "\\nassigned_smartTerrain = [%s]\\nnext_target = [%s]\\ncurrent_action = [%s]\\n",
         this.name(),
         this.online,
-        tostring(this.currentTargetId && alife().object(this.currentTargetId)?.name()),
-        tostring(this.assignedTargetId && alife().object(this.assignedTargetId)?.name()),
-        tostring(this.assignedSmartTerrainId && alife().object(this.assignedSmartTerrainId)?.name()),
-        tostring(this.nextTargetId && alife().object(this.nextTargetId)?.name()),
+        tostring(this.currentTargetId && registry.simulator.object(this.currentTargetId)?.name()),
+        tostring(this.assignedTargetId && registry.simulator.object(this.assignedTargetId)?.name()),
+        tostring(this.assignedSmartTerrainId && registry.simulator.object(this.assignedSmartTerrainId)?.name()),
+        tostring(this.nextTargetId && registry.simulator.object(this.nextTargetId)?.name()),
         tostring(this.currentAction?.type)
       );
 
@@ -837,11 +846,11 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
     const currentCommunity: TCommunity = this.getCommunity();
 
     for (const [id, v] of registry.actorCombat) {
-      const enemySquadId: Optional<TNumberId> = alife().object<ServerCreatureObject>(id)
+      const enemySquadId: Optional<TNumberId> = registry.simulator.object<ServerCreatureObject>(id)
         ?.group_id as Optional<TNumberId>;
 
       if (enemySquadId !== null) {
-        const targetSquad: Optional<Squad> = alife().object<Squad>(enemySquadId);
+        const targetSquad: Optional<Squad> = registry.simulator.object<Squad>(enemySquadId);
 
         if (
           targetSquad &&
@@ -861,7 +870,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
    */
   public override get_current_task(): CALifeSmartTerrainTask {
     const smartTerrain: Optional<SmartTerrain> =
-      this.assignedTargetId === null ? null : alife().object<SmartTerrain>(this.assignedTargetId);
+      this.assignedTargetId === null ? null : registry.simulator.object<SmartTerrain>(this.assignedTargetId);
 
     if (smartTerrain) {
       const commanderId: TNumberId = this.commander_id();
@@ -944,7 +953,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
       return true;
     }
 
-    const assignedSmartTerrain: SmartTerrain = alife().object(this.assignedSmartTerrainId) as SmartTerrain;
+    const assignedSmartTerrain: SmartTerrain = registry.simulator.object(this.assignedSmartTerrainId) as SmartTerrain;
     const smartTerrainBaseProperties =
       assignedSmartTerrain!.simulationProperties &&
       assignedSmartTerrain!.simulationProperties[ESimulationTerrainRole.BASE];

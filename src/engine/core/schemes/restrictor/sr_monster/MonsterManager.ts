@@ -1,4 +1,4 @@
-import { alife, cond, game, move, patrol, sound_object } from "xray16";
+import { cond, game, move, patrol, sound_object } from "xray16";
 
 import { registry } from "@/engine/core/database";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
@@ -94,7 +94,7 @@ export class MonsterManager extends AbstractSchemeManager<ISchemeMonsterState> {
         scriptReleaseMonster(this.monsterObject as ClientObject);
       }
 
-      alife().release(this.monster, true);
+      registry.simulator.release(this.monster, true);
 
       this.monster = null;
       this.monsterObject = null;
@@ -194,7 +194,7 @@ export class MonsterManager extends AbstractSchemeManager<ISchemeMonsterState> {
   public setPositions(): void {
     if (this.getNextPoint() === 0) {
       if (this.monster === null && this.state.monster !== null) {
-        this.monster = alife().create<ServerMonsterAbstractObject>(
+        this.monster = registry.simulator.create<ServerMonsterAbstractObject>(
           this.state.monster,
           this.current,
           this.object.level_vertex_id(),

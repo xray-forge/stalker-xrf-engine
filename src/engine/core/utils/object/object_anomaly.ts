@@ -1,5 +1,3 @@
-import { alife } from "xray16";
-
 import { registry } from "@/engine/core/database";
 import { AnomalyZoneBinder } from "@/engine/core/objects/binders/zones/AnomalyZoneBinder";
 import { LuaArray, Optional, ServerObject, TName, TSection } from "@/engine/lib/types";
@@ -17,7 +15,7 @@ export function anomalyHasArtefact(anomalyZoneName: TName, artefactSection: TSec
   }
 
   for (const [artefactId] of anomalyZone.artefactWaysByArtefactId) {
-    const object: Optional<ServerObject> = alife().object(artefactId);
+    const object: Optional<ServerObject> = registry.simulator.object(artefactId);
 
     if (object && object.section_name() === artefactSection) {
       return true;
@@ -40,7 +38,7 @@ export function getAnomalyArtefacts(anomalyZoneName: TName): LuaArray<TSection> 
   }
 
   for (const [artefactId] of anomalyZone.artefactWaysByArtefactId) {
-    const artefactObject: Optional<ServerObject> = alife().object(artefactId);
+    const artefactObject: Optional<ServerObject> = registry.simulator.object(artefactId);
 
     if (artefactObject) {
       table.insert(artefactsList, artefactObject.section_name());

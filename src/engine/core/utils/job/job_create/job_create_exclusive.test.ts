@@ -8,14 +8,14 @@ import { EJobPathType, EJobType, TSmartTerrainJobsList } from "@/engine/core/uti
 import { IniFile } from "@/engine/lib/types";
 import { mockIniFile, registerIniFileMock } from "@/fixtures/xray";
 
-describe("'job_create_exclusive' utils", () => {
-  it("'createExclusiveJob' should correctly handle empty ini", () => {
+describe("job_create_exclusive utils", () => {
+  it("createExclusiveJob should correctly handle empty ini", () => {
     const list: TSmartTerrainJobsList = createExclusiveJob(mockIniFile("text.ltx", {}), "a", "b", new LuaTable());
 
     expect(list).toEqualLuaArrays([]);
   });
 
-  it("'createExclusiveJob' should correctly throw if script does not exist", () => {
+  it("createExclusiveJob should correctly throw if script does not exist", () => {
     const ini: IniFile = mockIniFile("text.ltx", {
       smart_terrain: {
         work1: "some_file.ltx",
@@ -26,7 +26,7 @@ describe("'job_create_exclusive' utils", () => {
     expect(() => createExclusiveJob(ini, "smart_terrain", "work1", new LuaTable())).toThrow();
   });
 
-  it("'createExclusiveJob' should correctly read if script does exist", () => {
+  it("createExclusiveJob should correctly read if script does exist", () => {
     const list: TSmartTerrainJobsList = new LuaTable();
     const ini: IniFile = mockIniFile("text.ltx", {
       smart_terrain: {
@@ -54,7 +54,7 @@ describe("'job_create_exclusive' utils", () => {
     ]);
   });
 
-  it("'createExclusiveJob' should correctly read configured jobs without condlist", () => {
+  it("createExclusiveJob should correctly read configured jobs without condlist", () => {
     const list: TSmartTerrainJobsList = new LuaTable();
     const ini: IniFile = mockIniFile("text.ltx", {
       smart_terrain: {
@@ -90,7 +90,7 @@ describe("'job_create_exclusive' utils", () => {
     ]);
   });
 
-  it("'createExclusiveJob' should correctly read configured jobs with condlist", () => {
+  it("createExclusiveJob should correctly read configured jobs with condlist", () => {
     const list: TSmartTerrainJobsList = new LuaTable();
     const ini: IniFile = mockIniFile("text.ltx", {
       smart_terrain: {

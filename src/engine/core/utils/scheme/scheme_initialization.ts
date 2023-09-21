@@ -1,4 +1,4 @@
-import { alife, ini_file } from "xray16";
+import { ini_file } from "xray16";
 
 import {
   CUSTOM_DATA,
@@ -165,8 +165,8 @@ export function setupObjectSmartJobsAndLogicOnSpawn(
 ): void {
   // logger.info("Setup smart terrain logic on spawn:", object.name(), schemeType);
 
-  const alifeSimulator: Optional<AlifeSimulator> = alife();
-  const serverObject: Optional<ServerCreatureObject> = alife()!.object(object.id());
+  const alifeSimulator: Optional<AlifeSimulator> = registry.simulator;
+  const serverObject: Optional<ServerCreatureObject> = registry.simulator!.object(object.id());
 
   if (
     alifeSimulator === null ||

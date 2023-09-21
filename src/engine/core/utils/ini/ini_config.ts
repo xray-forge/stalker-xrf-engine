@@ -1,5 +1,3 @@
-import { alife } from "xray16";
-
 import { registry } from "@/engine/core/database/registry";
 import { getObjectIdByStoryId } from "@/engine/core/database/story_objects";
 import { IBaseSchemeLogic, IRegistryObjectState } from "@/engine/core/database/types";
@@ -69,6 +67,8 @@ export function getSectionsFromConditionLists(object: ClientObject, data: Option
 /**
  * Pick resulting scheme based on info portions and xr_conditions requirements.
  * Process side effects of such checks and give needed infos and call effects on switch.
+ *
+ * todo: Implement static condlists and check performance without parsing etc.
  *
  * @param actor - actor client object
  * @param object - target client object
@@ -189,7 +189,7 @@ export function getConfigObjectAndZone(ini: IniFile, section: TSection, field: T
   const target: Optional<IBaseSchemeLogic> = readIniTwoStringsAndConditionsList(ini, section, field);
 
   if (target) {
-    const simulator: Optional<AlifeSimulator> = alife();
+    const simulator: Optional<AlifeSimulator> = registry.simulator;
 
     if (simulator !== null) {
       const serverObject: Optional<ServerObject> = simulator.object(getObjectIdByStoryId(target.p1 as string)!);

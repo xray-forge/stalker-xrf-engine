@@ -1,9 +1,9 @@
 jest.mock("@/engine/core/utils/scheme/scheme_switch", () => ({ trySwitchToAnotherSection: jest.fn() }));
 
-import { describe, expect, it, jest } from "@jest/globals";
-import { alife, patrol } from "xray16";
+import { beforeEach, describe, expect, it, jest } from "@jest/globals";
+import { patrol } from "xray16";
 
-import { registerActor } from "@/engine/core/database";
+import { registerActor, registerSimulator, registry } from "@/engine/core/database";
 import { CrowSpawnerManager } from "@/engine/core/schemes/restrictor/sr_crow_spawner/CrowSpawnerManager";
 import { ISchemeCrowSpawnerState } from "@/engine/core/schemes/restrictor/sr_crow_spawner/ISchemeCrowSpawnerState";
 import { range } from "@/engine/core/utils/number";
@@ -14,6 +14,8 @@ import { mockActorClientGameObject, mockClientGameObject } from "@/fixtures/xray
 import { MockVector } from "@/fixtures/xray/mocks/vector.mock";
 
 describe("CrowSpawnerManager class", () => {
+  beforeEach(() => registerSimulator());
+
   it("should correctly initialize", () => {
     const object: ClientObject = mockClientGameObject();
     const state: ISchemeCrowSpawnerState = mockSchemeState(EScheme.SR_CROW_SPAWNER);
@@ -53,7 +55,7 @@ describe("CrowSpawnerManager class", () => {
   });
 
   it("should correctly handle crow spawn", () => {
-    const simulator: AlifeSimulator = alife();
+    const simulator: AlifeSimulator = registry.simulator;
     const object: ClientObject = mockClientGameObject();
     const state: ISchemeCrowSpawnerState = mockSchemeState(EScheme.SR_CROW_SPAWNER);
     const manager: CrowSpawnerManager = new CrowSpawnerManager(object, state);

@@ -1,5 +1,3 @@
-import { alife } from "xray16";
-
 import { getObjectByStoryId, registry, setStalkerState } from "@/engine/core/database";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import { AbstractSchemeManager } from "@/engine/core/objects/ai/scheme";

@@ -1,4 +1,4 @@
-import { alife, particles_object, patrol, sound_object } from "xray16";
+import { particles_object, patrol, sound_object } from "xray16";
 
 import {
   getObjectByStoryId,
@@ -238,10 +238,10 @@ extern("xr_effects.jup_b219_save_pos", (): void => {
     return;
   }
 
-  const serverObject: Optional<ServerObject> = alife().object(object.id());
+  const serverObject: Optional<ServerObject> = registry.simulator.object(object.id());
 
   if (serverObject) {
-    alife().release(serverObject, true);
+    registry.simulator.release(serverObject, true);
   }
 });
 
@@ -253,7 +253,7 @@ extern("xr_effects.jup_b219_restore_gate", () => {
   const spawnSection: TSection = "jup_b219_gate";
 
   if (jupB219Position) {
-    const serverObject: ServerPhysicObject = alife().create(
+    const serverObject: ServerPhysicObject = registry.simulator.create(
       spawnSection,
       copyVector(jupB219Position),
       jupB219LVId!,
@@ -392,7 +392,13 @@ extern("xr_effects.relocate_item_b29", (actor: ClientObject, object: ClientObjec
     if (fromObject !== null && fromObject.object(item!) !== null) {
       fromObject.transfer_item(fromObject.object(item!)!, toObject);
     } else {
-      alife().create(item!, toObject.position(), toObject.level_vertex_id(), toObject.game_vertex_id(), toObject.id());
+      registry.simulator.create(
+        item!,
+        toObject.position(),
+        toObject.level_vertex_id(),
+        toObject.game_vertex_id(),
+        toObject.id()
+      );
     }
   } else {
     abort("Couldn't relocate item to NULL");
@@ -482,14 +488,14 @@ extern(
         const targetObjectId: Optional<TNumberId> = getObjectIdByStoryId(params[0]);
 
         if (targetObjectId !== null) {
-          const box: Optional<ServerObject> = alife().object(targetObjectId);
+          const box: Optional<ServerObject> = registry.simulator.object(targetObjectId);
 
           if (box === null) {
             abort("There is no such object %s", params[0]);
           }
 
           for (const i of $range(1, v)) {
-            alife().create(k, createEmptyVector(), 0, 0, targetObjectId);
+            registry.simulator.create(k, createEmptyVector(), 0, 0, targetObjectId);
           }
         } else {
           abort("object is null %s", tostring(params[0]));
@@ -498,7 +504,13 @@ extern(
     } else {
       for (const [k, v] of itemsAll) {
         for (const i of $range(1, v)) {
-          alife().create(k, object.position(), object.level_vertex_id(), object.game_vertex_id(), object.id());
+          registry.simulator.create(
+            k,
+            object.position(),
+            object.level_vertex_id(),
+            object.game_vertex_id(),
+            object.id()
+          );
         }
       }
     }
@@ -988,7 +1000,7 @@ extern("xr_effects.pri_a28_check_zones", (): void => {
     const storyObjectId: Optional<TNumberId> = getObjectIdByStoryId(it);
 
     if (storyObjectId) {
-      const serverObject: Optional<ServerObject> = alife().object(storyObjectId)!;
+      const serverObject: Optional<ServerObject> = registry.simulator.object(storyObjectId)!;
       const distance: TDistance = serverObject.position.distance_to(actor.position());
 
       if (index === 0) {

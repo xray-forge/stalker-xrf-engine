@@ -1,4 +1,4 @@
-import { alife, clsid, level, MonsterHitInfo } from "xray16";
+import { clsid, level, MonsterHitInfo } from "xray16";
 
 import {
   getObjectByStoryId,
@@ -33,6 +33,7 @@ import {
   isPlayingSound,
   isStalker,
 } from "@/engine/core/utils/object";
+import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import { infoPortions } from "@/engine/lib/constants/info_portions";
 import { FALSE } from "@/engine/lib/constants/words";
 import {
@@ -255,7 +256,7 @@ extern("xr_conditions.is_obj_on_job", (actor: ClientObject, object: ClientObject
  * todo;
  */
 extern("xr_conditions.obj_in_zone", (actor: ClientObject, zone: ClientObject, params: LuaTable): boolean => {
-  const simulator: AlifeSimulator = alife();
+  const simulator: AlifeSimulator = registry.simulator;
 
   for (const [i, v] of params) {
     const objectId: Optional<TNumberId> = getObjectIdByStoryId(v);
@@ -277,7 +278,7 @@ extern(
     const object: Optional<TNumberId> = getObjectIdByStoryId(params[0]);
 
     if (object) {
-      return zone.inside(alife().object(object)!.position);
+      return zone.inside(registry.simulator.object(object)!.position);
     } else {
       return params[1] !== FALSE;
     }
@@ -308,7 +309,7 @@ extern(
     const zone: Optional<ClientObject> = registry.zones.get(params[1]);
 
     if (objectId && zone) {
-      return zone.inside(alife().object(objectId)!.position);
+      return zone.inside(registry.simulator.object(objectId)!.position);
     }
 
     return false;
@@ -459,7 +460,7 @@ extern("xr_conditions.is_alive_all", (actor: ClientObject, object: ClientObject,
       return false;
     }
 
-    const npcCseObject: Optional<ServerObject> = alife().object(npcId);
+    const npcCseObject: Optional<ServerObject> = registry.simulator.object(npcId);
 
     if (npcCseObject && (!isStalker(npcCseObject) || !npcCseObject.alive())) {
       return false;
@@ -480,7 +481,7 @@ extern("xr_conditions.is_alive_one", (actor: ClientObject, object: ClientObject,
       return false;
     }
 
-    const object: Optional<ServerObject> = alife().object(npcId);
+    const object: Optional<ServerObject> = registry.simulator.object(npcId);
 
     if (object && isStalker(object) && object.alive()) {
       return true;
@@ -508,7 +509,7 @@ extern("xr_conditions.is_alive", (actor: ClientObject, object: AnyGameObject, pa
     return false;
   }
 
-  const serverObject: Optional<ServerObject> = alife().object(npc1);
+  const serverObject: Optional<ServerObject> = registry.simulator.object(npc1);
 
   return serverObject !== null && isStalker(serverObject) && serverObject.alive();
 });
@@ -783,11 +784,11 @@ extern("xr_conditions.target_squad_name", (actor: ClientObject, object: ServerCr
   }
 
   if (isStalker(object) || isMonster(object)) {
-    if (alife().object(object.group_id) === null) {
+    if (registry.simulator.object(object.group_id) === null) {
       return false;
     }
 
-    if (string.find(alife().object(object.group_id)!.section_name(), p[0])[0] !== null) {
+    if (string.find(registry.simulator.object(object.group_id)!.section_name(), p[0])[0] !== null) {
       return true;
     }
   }
@@ -882,7 +883,7 @@ extern(
   "xr_conditions.distance_to_obj_ge",
   (actor: ClientObject, object: ClientObject, p: [string, number]): boolean => {
     const objectId: Optional<TNumberId> = getObjectIdByStoryId(p[0]);
-    const targetObject: Optional<ServerObject> = objectId ? alife().object(objectId) : null;
+    const targetObject: Optional<ServerObject> = objectId ? registry.simulator.object(objectId) : null;
 
     if (targetObject) {
       return registry.actor.position().distance_to_sqr(targetObject.position) >= p[1] * p[1];
@@ -899,7 +900,7 @@ extern(
   "xr_conditions.distance_to_obj_le",
   (actor: ClientObject, object: ClientObject, p: [string, number]): boolean => {
     const objectId: Optional<TNumberId> = getObjectIdByStoryId(p[0]);
-    const targetObject: Optional<ServerObject> = objectId ? alife().object(objectId) : null;
+    const targetObject: Optional<ServerObject> = objectId ? registry.simulator.object(objectId) : null;
 
     if (targetObject) {
       return registry.actor.position().distance_to_sqr(targetObject.position) < p[1] * p[1];
@@ -972,7 +973,7 @@ extern(
       return true;
     }
 
-    return alife().object(storyObjectId)!.position.distance_to(registry.actor.position()) > p[1];
+    return registry.simulator.object(storyObjectId)!.position.distance_to(registry.actor.position()) > p[1];
   }
 );
 
@@ -1032,7 +1033,7 @@ extern("xr_conditions.check_enemy_smart", (actor: ClientObject, object: ClientOb
   const enemyId: Optional<TNumberId> = registry.objects.get(object.id()).enemyId;
   const enemy: Optional<ClientObject> = enemyId ? registry.objects.get(enemyId)?.object : null;
 
-  if (enemy === null || enemyId === alife().actor().id) {
+  if (enemy === null || enemyId === ACTOR_ID) {
     return false;
   }
 

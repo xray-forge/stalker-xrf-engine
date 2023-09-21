@@ -1,4 +1,4 @@
-import { alife, clsid, game } from "xray16";
+import { clsid, game } from "xray16";
 
 import { getObjectIdByStoryId, registry } from "@/engine/core/database";
 import { AbstractManager } from "@/engine/core/managers/base/AbstractManager";
@@ -247,7 +247,7 @@ export class NotificationManager extends AbstractManager {
     // Verify whether sender can send notifications.
     // todo: Probably here check ID from sender object if it is provided?
     if (senderId !== null) {
-      const simulator: Optional<AlifeSimulator> = alife();
+      const simulator: Optional<AlifeSimulator> = registry.simulator;
 
       if (simulator !== null) {
         const serverObject: Stalker = simulator.object(getObjectIdByStoryId(senderId)!) as Stalker;

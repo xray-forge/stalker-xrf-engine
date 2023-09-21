@@ -1,4 +1,4 @@
-import { alife, level, patrol } from "xray16";
+import { level, patrol } from "xray16";
 
 import { getObjectByStoryId, getObjectIdByStoryId, IRegistryObjectState, registry } from "@/engine/core/database";
 import { SimulationBoardManager } from "@/engine/core/managers/simulation/SimulationBoardManager";
@@ -209,7 +209,7 @@ extern(
         abort("Couldn't relocate item to NULL in function 'pick_artefact_from_anomaly!'");
       }
 
-      object = alife().object(objectId) as ServerHumanObject;
+      object = registry.simulator.object(objectId) as ServerHumanObject;
 
       if (object && (!isStalker(object) || !object.alive())) {
         abort("Couldn't relocate item to NULL (dead || ! stalker) in function 'pick_artefact_from_anomaly!'");
@@ -228,15 +228,18 @@ extern(
     let artefactObject: Optional<ServerArtefactItemObject> = null;
 
     for (const [k, v] of anomalyZone.artefactWaysByArtefactId) {
-      if (alife().object(tonumber(k)!) && artefactSection === alife().object(tonumber(k)!)!.section_name()) {
+      if (
+        registry.simulator.object(tonumber(k)!) &&
+        artefactSection === registry.simulator.object(tonumber(k)!)!.section_name()
+      ) {
         artefactId = tonumber(k)!;
-        artefactObject = alife().object(tonumber(k)!);
+        artefactObject = registry.simulator.object(tonumber(k)!);
         break;
       }
 
       if (artefactSection === null) {
         artefactId = tonumber(k)!;
-        artefactObject = alife().object(tonumber(k)!);
+        artefactObject = registry.simulator.object(tonumber(k)!);
         artefactSection = artefactObject!.section_name();
         break;
       }
@@ -248,7 +251,7 @@ extern(
 
     anomalyZone.onArtefactTaken(artefactObject as ServerArtefactItemObject);
 
-    alife().release(artefactObject!, true);
+    registry.simulator.release(artefactObject!, true);
     spawnItemsForObject(object as ClientObject, artefactSection);
   }
 );
@@ -539,7 +542,7 @@ extern(
     const index: TIndex = params[2] || 0;
     const yaw: TRate = params[3] || 0;
 
-    const serverObject: ServerObject = alife().create(
+    const serverObject: ServerObject = registry.simulator.create(
       spawnSection,
       ptr.point(index),
       ptr.level_vertex_id(0),
@@ -578,7 +581,7 @@ extern(
       }
     }
 
-    const actorWeapon: ServerWeaponObject = alife().object(activeItem!.id()) as ServerWeaponObject;
+    const actorWeapon: ServerWeaponObject = registry.simulator.object(activeItem!.id()) as ServerWeaponObject;
     let sectionName: TName = actorWeapon.section_name();
 
     if (sectionName === questItems.pri_a17_gauss_rifle) {
@@ -586,7 +589,7 @@ extern(
     }
 
     if (activeItem) {
-      const newWeapon: ServerWeaponObject = alife().create<ServerWeaponObject>(
+      const newWeapon: ServerWeaponObject = registry.simulator.create<ServerWeaponObject>(
         sectionName,
         ptr.point(index),
         ptr.level_vertex_id(0),

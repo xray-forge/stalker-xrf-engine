@@ -1,4 +1,4 @@
-import { alife, game, level, patrol, time_global } from "xray16";
+import { game, level, patrol, time_global } from "xray16";
 
 import { getStoryIdByObjectId, registry, TRAVEL_MANAGER_LTX } from "@/engine/core/database";
 import { AbstractManager } from "@/engine/core/managers/base/AbstractManager";
@@ -24,6 +24,7 @@ import {
   isSquad,
 } from "@/engine/core/utils/object";
 import { isAnySquadMemberEnemyToActor } from "@/engine/core/utils/relation";
+import { vectorToString } from "@/engine/core/utils/vector";
 import { postProcessors } from "@/engine/lib/constants/animation";
 import { communities, TCommunity } from "@/engine/lib/constants/communities";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
@@ -122,12 +123,13 @@ export class TravelManager extends AbstractManager {
     let actorPhrase: Phrase;
     let actorScript: PhraseScript;
 
+    dialog.AddPhrase("dm_traveler_what_are_you_doing", "0", "", -10000);
+
     let npcPhrase: Phrase = dialog.AddPhrase("if you see this - this is bad", "1", "0", -10000);
     let npcPhraseScript: PhraseScript = npcPhrase.GetPhraseScript();
 
     npcPhraseScript.SetScriptText("travel_callbacks.getSquadCurrentActionDescription");
 
-    dialog.AddPhrase("dm_traveler_what_are_you_doing", "0", "", -10000);
     actorPhrase = dialog.AddPhrase("dm_traveler_can_i_go_with_you", "11", "1", -10000);
     actorScript = actorPhrase.GetPhraseScript();
     actorScript.AddPrecondition("travel_callbacks.canActorMoveWithSquad");
@@ -238,7 +240,7 @@ export class TravelManager extends AbstractManager {
       return "dm_stalker_doing_nothing_" + tostring(math.random(1, 3)); // -- object:character_community()
     }
 
-    const targetSquadObject: Optional<TSimulationObject> = alife().object(squadTargetId!);
+    const targetSquadObject: Optional<TSimulationObject> = registry.simulator.object(squadTargetId!);
 
     if (targetSquadObject === null) {
       abort("Simulation target not existing '%s', action_name '%s'.", squadTargetId, squad.currentAction.type);
@@ -399,10 +401,7 @@ export class TravelManager extends AbstractManager {
     dialogId: TStringId,
     phraseId: TStringId
   ): boolean {
-    const smartName: TName = this.smartNamesByPhraseId.get(string.sub(phraseId, 1, string.len(phraseId) - 2));
-    const price: TCount = this.getTravelPriceByObjectPhrase(object, smartName);
-
-    return price <= registry.actor.money();
+    return this.getTravelPriceByObjectPhrase(object, phraseId) <= registry.actor.money();
   }
 
   /**
@@ -440,13 +439,17 @@ export class TravelManager extends AbstractManager {
       const currentSmartId: Optional<TNumberId> = this.travelSquad!.assignedSmartTerrainId;
 
       if (currentSmartId !== null) {
+        logger.format("Leave smart on traveling: '%s' from '%s'", this.travelSquad!.name(), currentSmartId);
+
         board.assignSquadToSmartTerrain(this.travelSquad!, null);
         board.assignSquadToSmartTerrain(this.travelSquad!, currentSmartId);
       }
 
       const position: Vector = new patrol(this.travelSquadPath!).point(0);
 
-      this.travelSquad!.setSquadPosition(position!);
+      logger.format("Set squad position: '%s' -> '%s'", this.travelSquad!.name(), vectorToString(position));
+
+      this.travelSquad!.setSquadPosition(position);
 
       registry.actor.set_actor_direction(direction);
       registry.actor.set_actor_position(point.point(0));
@@ -459,13 +462,21 @@ export class TravelManager extends AbstractManager {
 
       SurgeManager.getInstance().isTimeForwarded = true;
 
-      logger.info("Forwarded time on travel:", this.travelSquadPath, this.travelActorPath);
+      logger.format(
+        "Forwarded time on travel: '%s', '%s', '%s:%s'",
+        this.travelSquadPath,
+        this.travelActorPath,
+        hours,
+        minutes
+      );
     }
 
     // Wait till resolve.
     if (time_global() - this.travelingStartedAt < TravelManager.SMART_TRAVEL_RESOLVE_DELAY) {
       return;
     }
+
+    logger.info("Finish traveling");
 
     this.isTraveling = false;
 

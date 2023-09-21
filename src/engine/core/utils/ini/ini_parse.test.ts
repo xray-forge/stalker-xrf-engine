@@ -25,8 +25,8 @@ import { NIL } from "@/engine/lib/constants/words";
 import { ClientObject, Flags32, IniFile, LuaArray } from "@/engine/lib/types";
 import { mockActorClientGameObject, mockClientGameObject, MockFlags32, mockIniFile } from "@/fixtures/xray";
 
-describe("'ini_data' parsing utils", () => {
-  it("'parseStringsList' should correctly parse names array", () => {
+describe("ini_data parsing utils", () => {
+  it("parseStringsList should correctly parse names array", () => {
     expect(parseStringsList("a, b, c")).toEqualLuaArrays(["a", "b", "c"]);
     expect(parseStringsList("a b c")).toEqualLuaArrays(["a", "b", "c"]);
     expect(parseStringsList("name_1, example_b, name_complex_here")).toEqualLuaArrays([
@@ -40,7 +40,7 @@ describe("'ini_data' parsing utils", () => {
     expect(parseStringsList("a_b, c_d")).toEqualLuaArrays(["a_b", "c_d"]);
   });
 
-  it("'parseNumbersList' should correctly parse numbers array", () => {
+  it("parseNumbersList should correctly parse numbers array", () => {
     expect(parseNumbersList("1, 2, 3, 4")).toEqualLuaArrays([1, 2, 3, 4]);
     expect(parseNumbersList("1.5, 2.33, 3.0")).toEqualLuaArrays([1.5, 2.33, 3.0]);
     expect(parseNumbersList("1.5 2.33 3.0")).toEqualLuaArrays([1.5, 2.33, 3.0]);
@@ -49,7 +49,7 @@ describe("'ini_data' parsing utils", () => {
     expect(parseNumbersList("15 0 -43 9999")).toEqualLuaArrays([15, 0, -43, 9999]);
   });
 
-  it("'parseSpawnDetails' should correctly parse spawn details", () => {
+  it("parseSpawnDetails should correctly parse spawn details", () => {
     expect(parseSpawnDetails("")).toEqualLuaArrays([]);
     expect(parseSpawnDetails("1,1")).toEqualLuaArrays([
       {
@@ -75,7 +75,7 @@ describe("'ini_data' parsing utils", () => {
     ]);
   });
 
-  it("'parseParameters' should correctly parse call parameters", () => {
+  it("parseParameters should correctly parse call parameters", () => {
     expect(parseParameters(NIL)).toEqualLuaArrays([NIL]);
     expect(parseParameters("abcd")).toEqualLuaArrays(["abcd"]);
     expect(parseParameters("a|b|c|d")).toEqualLuaArrays(["a", "b", "c", "d"]);
@@ -85,7 +85,7 @@ describe("'ini_data' parsing utils", () => {
     ]);
   });
 
-  it("'parseConditionsList' should correctly parse condition lists", () => {
+  it("parseConditionsList should correctly parse condition lists", () => {
     // Memo check.
     expect(parseConditionsList("{+zat_b104_task_end}4,0")).toBe(parseConditionsList("{+zat_b104_task_end}4,0"));
     expect(parseConditionsList("{+zat_b104_task_end}4,0")).toStrictEqualLuaArrays([
@@ -166,7 +166,7 @@ describe("'ini_data' parsing utils", () => {
     ]);
   });
 
-  it("'parseInfoPortions' should correctly parse info", () => {
+  it("parseInfoPortions should correctly parse info", () => {
     const first: LuaArray<IConfigCondition> = parseInfoPortions(
       new LuaTable(),
       "=spawn_corpse(zat_b42_mayron:zat_b42_mayron_walk)+zat_b42_mayron_spawn"
@@ -221,7 +221,7 @@ describe("'ini_data' parsing utils", () => {
     expect(parseInfoPortions(third, null)).toEqualLuaTables({});
   });
 
-  it("'parseFunctionParams' should correctly parse list of parameters for condlists", () => {
+  it("parseFunctionParams should correctly parse list of parameters for condlists", () => {
     expect(parseFunctionParams("zat_b42_mayron:zat_b42_mayron_walk")).toEqualLuaArrays([
       "zat_b42_mayron",
       "zat_b42_mayron_walk",
@@ -230,7 +230,7 @@ describe("'ini_data' parsing utils", () => {
     expect(parseFunctionParams("1:-2:3.5:-5.5:-2.3a:c")).toEqualLuaArrays([1, -2, 3.5, -5.5, "-2.3a", "c"]);
   });
 
-  it("'parseWaypointData' should correctly parse generic paths to waypoint data", () => {
+  it("parseWaypointData should correctly parse generic paths to waypoint data", () => {
     const flags: Flags32 = MockFlags32.mock();
 
     expect(parseWaypointData("zat_b53_particle_play_point_5", flags, "wp00")).toEqualLuaTables({
@@ -287,7 +287,7 @@ describe("'ini_data' parsing utils", () => {
     });
   });
 
-  it("'parseWaypointData' should correctly parse generic paths to waypoint data", () => {
+  it("parseWaypointData should correctly parse generic paths to waypoint data", () => {
     const flags: Flags32 = MockFlags32.mock();
 
     expect(parseWaypointsData(null)).toBeNull();
@@ -386,7 +386,7 @@ describe("'ini_data' parsing utils", () => {
     });
   });
 
-  it("'parseWaypointsDataFromList' should correctly parse generic paths to waypoint data", () => {
+  it("parseWaypointsDataFromList should correctly parse generic paths to waypoint data", () => {
     const flags: Flags32 = MockFlags32.mock();
 
     expect(
@@ -443,7 +443,7 @@ describe("'ini_data' parsing utils", () => {
     ]);
   });
 
-  it("'parseBoneStateDescriptors' should correctly parse bones data", () => {
+  it("parseBoneStateDescriptors should correctly parse bones data", () => {
     expect(
       parseBoneStateDescriptors(
         "4|ph_door@open_2 %+lx8_toilet_door_open_again%|2|ph_door@open_2 %+lx8_toilet_door_open_again%"
@@ -458,7 +458,7 @@ describe("'ini_data' parsing utils", () => {
     ]);
   });
 
-  it("'pickSectionFromCondList' should correctly throw on unexpected callbacks", () => {
+  it("pickSectionFromCondList should correctly throw on unexpected callbacks", () => {
     const actor: ClientObject = mockActorClientGameObject();
     const target: ClientObject = mockClientGameObject();
 
@@ -489,7 +489,7 @@ describe("'ini_data' parsing utils", () => {
     expect(pickSectionFromCondList(actor, target, parseConditionsList("{~60}a,{~50}b, {~75}c, d"))).toBe("c");
   });
 
-  it("'pickSectionFromCondList' should correctly check condition callbacks and call effects", () => {
+  it("pickSectionFromCondList should correctly check condition callbacks and call effects", () => {
     const actor: ClientObject = mockActorClientGameObject();
     const target: ClientObject = mockClientGameObject();
 
@@ -523,7 +523,7 @@ describe("'ini_data' parsing utils", () => {
     expect(thirdEffect).not.toHaveBeenCalled();
   });
 
-  it("'pickSectionFromCondList' should correctly pick and process info from list", () => {
+  it("pickSectionFromCondList should correctly pick and process info from list", () => {
     const actor: ClientObject = mockActorClientGameObject();
     const target: ClientObject = mockClientGameObject();
 
@@ -567,7 +567,7 @@ describe("'ini_data' parsing utils", () => {
     expect(hasAlifeInfo("available_info")).toBe(false);
   });
 
-  it("'pickSectionFromCondList' should correctly handle combination of all factors", () => {
+  it("pickSectionFromCondList should correctly handle combination of all factors", () => {
     const actor: ClientObject = mockActorClientGameObject();
     const target: ClientObject = mockClientGameObject();
 
@@ -596,7 +596,7 @@ describe("'ini_data' parsing utils", () => {
     ).toBe("d");
   });
 
-  it("'parseAllSectionToTable' should correctly parse ini section to matching lua table", () => {
+  it("parseAllSectionToTable should correctly parse ini section to matching lua table", () => {
     const ini: IniFile = mockIniFile("example.ltx", {
       section1: {
         a: "a1",
@@ -627,7 +627,7 @@ describe("'ini_data' parsing utils", () => {
     expect(parseAllSectionToTable(ini, "section4")).toBeNull();
   });
 
-  it("'parseStringOptional' should correctly handle values", () => {
+  it("parseStringOptional should correctly handle values", () => {
     expect(parseStringOptional(NIL)).toBeNull();
     expect(parseStringOptional("nil")).toBeNull();
     expect(parseStringOptional("null")).toBe("null");
@@ -635,7 +635,7 @@ describe("'ini_data' parsing utils", () => {
     expect(parseStringOptional("12345")).toBe("12345");
   });
 
-  it("'getSchemeFromSection' should correctly return scheme", () => {
+  it("getSchemeFromSection should correctly return scheme", () => {
     expect(getSchemeFromSection("test")).toBe("test");
     expect(getSchemeFromSection("test@example")).toBe("test");
     expect(getSchemeFromSection("combat@first")).toBe("combat");

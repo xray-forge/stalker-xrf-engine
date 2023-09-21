@@ -1,13 +1,26 @@
-import { describe, expect, it, jest } from "@jest/globals";
+import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 
-import { getObjectIdByStoryId, getServerObjectByStoryId, getStoryIdByObjectId, registry } from "@/engine/core/database";
+import {
+  getObjectIdByStoryId,
+  getServerObjectByStoryId,
+  getStoryIdByObjectId,
+  registerActorServer,
+  registerSimulator,
+  registry,
+} from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
+import { Actor } from "@/engine/core/objects/server/creature";
 import { ItemArtefact } from "@/engine/core/objects/server/item/ItemArtefact";
 import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
-import { MockAlifeCreatureActor, MockAlifeSimulator } from "@/fixtures/xray";
+import { mockRegisteredActor } from "@/fixtures/engine";
 import { mockIniFile } from "@/fixtures/xray/mocks/ini";
 
 describe("ItemArtefact server class", () => {
+  beforeEach(() => {
+    registerSimulator();
+    registerActorServer(null as unknown as Actor);
+  });
+
   it("should correctly create generic objects without story links", () => {
     const itemArtefact: ItemArtefact = new ItemArtefact("test-section");
 
@@ -53,19 +66,18 @@ describe("ItemArtefact server class", () => {
   });
 
   it("should respect distance for offline switch", () => {
-    const actor: MockAlifeCreatureActor = new MockAlifeCreatureActor("actor-test");
     const itemArtefact: ItemArtefact = new ItemArtefact("test-section");
 
     expect(itemArtefact.can_switch_offline()).toBe(true);
 
-    MockAlifeSimulator.addToRegistry(actor.asMock());
+    const { actorServerObject } = mockRegisteredActor();
 
     jest
-      .spyOn(actor.position, "distance_to")
-      .mockImplementationOnce(() => logicsConfig.ARTEFACT_OFFLINE_DISTANCE - 1)
-      .mockImplementationOnce(() => logicsConfig.ARTEFACT_OFFLINE_DISTANCE)
-      .mockImplementationOnce(() => logicsConfig.ARTEFACT_OFFLINE_DISTANCE + 1)
-      .mockImplementationOnce(() => logicsConfig.ARTEFACT_OFFLINE_DISTANCE + 1000);
+      .spyOn(actorServerObject.position, "distance_to_sqr")
+      .mockImplementationOnce(() => logicsConfig.ARTEFACT_OFFLINE_DISTANCE_SQR - 1)
+      .mockImplementationOnce(() => logicsConfig.ARTEFACT_OFFLINE_DISTANCE_SQR)
+      .mockImplementationOnce(() => logicsConfig.ARTEFACT_OFFLINE_DISTANCE_SQR + 1)
+      .mockImplementationOnce(() => logicsConfig.ARTEFACT_OFFLINE_DISTANCE_SQR + 1000);
 
     expect(itemArtefact.can_switch_offline()).toBe(false);
     expect(itemArtefact.can_switch_offline()).toBe(false);

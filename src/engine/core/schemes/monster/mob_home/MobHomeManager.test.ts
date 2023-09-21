@@ -1,5 +1,6 @@
-import { describe, expect, it, jest } from "@jest/globals";
+import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 
+import { registerSimulator } from "@/engine/core/database";
 import { ISchemeMobHomeState } from "@/engine/core/schemes/monster/mob_home/ISchemeMobHomeState";
 import { MobHomeManager } from "@/engine/core/schemes/monster/mob_home/MobHomeManager";
 import { EMonsterState } from "@/engine/lib/constants/monsters";
@@ -20,6 +21,8 @@ import {
 } from "@/fixtures/xray";
 
 describe("MobHomeManager functionality", () => {
+  beforeEach(() => registerSimulator());
+
   it("should correctly call set home", () => {
     const object: ClientObject = mockClientGameObject();
     const state: ISchemeMobHomeState = mockSchemeState<ISchemeMobHomeState>(EScheme.MOB_HOME, {

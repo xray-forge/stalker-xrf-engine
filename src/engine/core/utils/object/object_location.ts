@@ -1,4 +1,4 @@
-import { alife, CGameGraph, device, game_graph, level, sound_object } from "xray16";
+import { CGameGraph, device, game_graph, level, sound_object } from "xray16";
 
 import { registry } from "@/engine/core/database";
 import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain";
@@ -53,7 +53,10 @@ export function isObjectInZone(object: Optional<ClientObject>, zone: Optional<Cl
  * @returns whether provided object is on a level
  */
 export function isObjectOnLevel(object: Optional<ServerObject>, levelName: TName): boolean {
-  return object !== null && alife().level_name(game_graph().vertex(object.m_game_vertex_id).level_id()) === levelName;
+  return (
+    object !== null &&
+    registry.simulator.level_name(game_graph().vertex(object.m_game_vertex_id).level_id()) === levelName
+  );
 }
 
 /**
@@ -181,7 +184,7 @@ export function isObjectInActorFrustum(object: ClientObject): boolean {
  * @returns whether gameVertexId is part of level with name `levelName`
  */
 export function isGameVertexFromLevel(levelName: TName, gameVertexId: TNumberId): boolean {
-  return levelName === alife().level_name(game_graph().vertex(gameVertexId).level_id());
+  return levelName === registry.simulator.level_name(game_graph().vertex(gameVertexId).level_id());
 }
 
 /**

@@ -1,6 +1,7 @@
-import { alife, clsid } from "xray16";
+import { clsid } from "xray16";
 
 import { SYSTEM_INI } from "@/engine/core/database/ini_registry";
+import { registry } from "@/engine/core/database/registry";
 import type { SmartTerrain } from "@/engine/core/objects/server/smart_terrain";
 import type { Squad } from "@/engine/core/objects/server/squad";
 import { classIds } from "@/engine/lib/constants/class_ids";
@@ -89,7 +90,7 @@ export function isStrappableWeapon(object: Optional<ClientObject>): object is Cl
  * @returns whether provided id is squad object id
  */
 export function isSquadId(objectId: TNumberId): boolean {
-  const serverObject: Optional<ServerObject> = alife().object(objectId);
+  const serverObject: Optional<ServerObject> = registry.simulator.object(objectId);
 
   return serverObject !== null && serverObject.clsid() === clsid.online_offline_group_s;
 }
@@ -123,5 +124,5 @@ export function isSmartTerrain(object: ServerObject): object is SmartTerrain {
  * @returns whether provided squad is assigned with monsters
  */
 export function isMonsterSquad(squad: Squad): boolean {
-  return isMonster(alife().object(squad.commander_id()) as ServerObject);
+  return isMonster(registry.simulator.object(squad.commander_id()) as ServerObject);
 }

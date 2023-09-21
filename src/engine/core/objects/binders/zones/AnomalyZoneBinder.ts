@@ -1,4 +1,4 @@
-import { alife, ini_file, LuabindClass, object_binder, patrol } from "xray16";
+import { ini_file, LuabindClass, object_binder, patrol } from "xray16";
 
 import {
   closeLoadMarker,
@@ -260,7 +260,7 @@ export class AnomalyZoneBinder extends object_binder {
     this.disableAnomalyFields();
 
     for (const [artefactId, artefactWay] of this.artefactWaysByArtefactId) {
-      alife().release(alife().object(tonumber(artefactId) as number), true);
+      registry.simulator.release(registry.simulator.object(tonumber(artefactId) as number), true);
       registry.artefacts.ways.delete(artefactId);
       registry.artefacts.points.delete(artefactId);
       registry.artefacts.parentZones.delete(artefactId);
@@ -444,7 +444,7 @@ export class AnomalyZoneBinder extends object_binder {
     const randomPath: Patrol = new patrol(randomPathName);
     const randomPathPoint: TIndex = math.random(0, randomPath.count() - 1);
 
-    const artefactObject: ServerObject = alife().create(
+    const artefactObject: ServerObject = registry.simulator.create(
       randomArtefact,
       randomPath.point(randomPathPoint),
       this.object.level_vertex_id(),

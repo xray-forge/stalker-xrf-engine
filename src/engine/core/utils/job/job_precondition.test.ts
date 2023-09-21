@@ -34,7 +34,7 @@ import { mockSmartCover, mockSmartTerrain } from "@/fixtures/engine";
 import { mockClientGameObject, MockCTime, mockServerAlifeHumanStalker } from "@/fixtures/xray";
 
 describe("job_precondition utilities", () => {
-  it("'jobPreconditionWalker' should correctly check", () => {
+  it("jobPreconditionWalker should correctly check", () => {
     const smartTerrain: SmartTerrain = mockSmartTerrain();
     const stalker: ServerHumanObject = mockServerAlifeHumanStalker();
 
@@ -63,7 +63,7 @@ describe("job_precondition utilities", () => {
     expect(jobPreconditionWalker(stalker, smartTerrain, { ...parameters, isSafeJob: null })).toBe(true);
   });
 
-  it("'jobPreconditionSurge' should correctly check with", () => {
+  it("jobPreconditionSurge should correctly check with", () => {
     const smartTerrain: SmartTerrain = mockSmartTerrain();
     const stalker: ServerHumanObject = mockServerAlifeHumanStalker();
 
@@ -77,7 +77,7 @@ describe("job_precondition utilities", () => {
     expect(jobPreconditionSurge(stalker, smartTerrain, parameters)).toBe(false);
   });
 
-  it("'jobPreconditionSniper' should correctly check sniper jobs preconditions with", async () => {
+  it("jobPreconditionSniper should correctly check sniper jobs preconditions with", async () => {
     const smartTerrain: SmartTerrain = mockSmartTerrain();
     const stalker: ServerHumanObject = mockServerAlifeHumanStalker();
 
@@ -93,7 +93,7 @@ describe("job_precondition utilities", () => {
     expect(jobPreconditionSniper(stalker, smartTerrain, parameters)).toBe(true);
   });
 
-  it("'jobPreconditionAnimpoint' should correctly check animpoint preconditions", () => {
+  it("jobPreconditionAnimpoint should correctly check animpoint preconditions", () => {
     const smartTerrain: SmartTerrain = mockSmartTerrain();
     const smartCover: SmartCover = mockSmartCover("test_smart_animpoint_1");
     const stalker: ServerHumanObject = mockServerAlifeHumanStalker();
@@ -112,7 +112,7 @@ describe("job_precondition utilities", () => {
     expect(jobPreconditionAnimpoint(stalker, smartTerrain, parameters)).toBe(true);
   });
 
-  it("'jobPreconditionCamper' should correctly check camper jobs preconditions", async () => {
+  it("jobPreconditionCamper should correctly check camper jobs preconditions", async () => {
     const smartTerrain: SmartTerrain = mockSmartTerrain();
     const stalker: ServerHumanObject = mockServerAlifeHumanStalker();
 
@@ -122,7 +122,7 @@ describe("job_precondition utilities", () => {
     expect(jobPreconditionCamper(stalker, smartTerrain, parameters)).toBe(true);
   });
 
-  it("'jobPreconditionCollector' should correctly check collector jobs preconditions", async () => {
+  it("jobPreconditionCollector should correctly check collector jobs preconditions", async () => {
     const smartTerrain: SmartTerrain = mockSmartTerrain();
     const stalker: ServerHumanObject = mockServerAlifeHumanStalker();
 
@@ -145,7 +145,7 @@ describe("job_precondition utilities", () => {
     expect(jobPreconditionCollector(stalker, smartTerrain, parameters)).toBe(false);
   });
 
-  it("'parameters' should correctly check guard jobs preconditions", async () => {
+  it("parameters should correctly check guard jobs preconditions", async () => {
     const smartTerrain: SmartTerrain = mockSmartTerrain();
     const stalker: ServerHumanObject = mockServerAlifeHumanStalker();
 
@@ -170,7 +170,7 @@ describe("job_precondition utilities", () => {
     expect(jobPreconditionGuard(stalker, smartTerrain, { ...parameters, isSafeJob: null })).toBe(false);
   });
 
-  it("'jobPreconditionGuardFollower' should correctly check guard follower jobs preconditions", async () => {
+  it("jobPreconditionGuardFollower should correctly check guard follower jobs preconditions", async () => {
     const smartTerrain: SmartTerrain = mockSmartTerrain();
     const stalker: ServerHumanObject = mockServerAlifeHumanStalker();
 
@@ -203,7 +203,7 @@ describe("job_precondition utilities", () => {
     ).toBe(true);
   });
 
-  it("'jobPreconditionPatrol' should correctly check patrol jobs preconditions", async () => {
+  it("jobPreconditionPatrol should correctly check patrol jobs preconditions", async () => {
     const smartTerrain: SmartTerrain = mockSmartTerrain();
     const stalker: ServerHumanObject = mockServerAlifeHumanStalker();
 
@@ -228,7 +228,7 @@ describe("job_precondition utilities", () => {
     expect(jobPreconditionPatrol(stalker, smartTerrain, { ...parameters, isSafeJob: null })).toBe(true);
   });
 
-  it("'jobPreconditionSleep' should correctly use sleep preconditions", () => {
+  it("jobPreconditionSleep should correctly use sleep preconditions", () => {
     const smartTerrain: SmartTerrain = mockSmartTerrain();
     const stalker: ServerHumanObject = mockServerAlifeHumanStalker();
 
@@ -259,7 +259,7 @@ describe("job_precondition utilities", () => {
     expect(jobPreconditionSleep(stalker, smartTerrain, { ...parameters, isSafeJob: false })).toBe(false);
   });
 
-  it("'jobPreconditionExclusive' should correctly use condlist preconditions", () => {
+  it("jobPreconditionExclusive should correctly use condlist preconditions", () => {
     const smartTerrain: SmartTerrain = mockSmartTerrain();
     const stalker: ServerHumanObject = mockServerAlifeHumanStalker();
 

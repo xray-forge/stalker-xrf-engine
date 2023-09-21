@@ -1,4 +1,4 @@
-import { alife, level } from "xray16";
+import { level } from "xray16";
 
 import { DEATH_GENERIC_LTX, IRegistryObjectState, registry } from "@/engine/core/database";
 import { AbstractManager } from "@/engine/core/managers/base/AbstractManager";
@@ -170,7 +170,7 @@ export class DropManager extends AbstractManager {
   public createCorpseReleaseItems(object: ClientObject): void {
     // logger.info("Create corpse release items:", object.name());
 
-    const alifeObject: Optional<Stalker> = alife().object<Stalker>(object.id());
+    const alifeObject: Optional<Stalker> = registry.simulator.object<Stalker>(object.id());
 
     if (alifeObject === null || alifeObject.isCorpseLootDropped) {
       return;
@@ -228,7 +228,7 @@ export class DropManager extends AbstractManager {
     }
 
     if (isExcludedFromLootDropItemSection(section)) {
-      alife().release(alife().object(item.id()), true);
+      registry.simulator.release(registry.simulator.object(item.id()), true);
 
       return;
     }
@@ -270,7 +270,7 @@ export class DropManager extends AbstractManager {
     }
 
     // logger.info("Release loot item:", object.name(), item.name(), section);
-    alife().release(alife().object(item.id()), true);
+    registry.simulator.release(registry.simulator.object(item.id()), true);
   }
 
   /**

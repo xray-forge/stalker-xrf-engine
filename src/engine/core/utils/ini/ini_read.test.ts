@@ -13,8 +13,8 @@ import {
 import { IniFile, Optional } from "@/engine/lib/types";
 import { mockIniFile } from "@/fixtures/xray/mocks/ini";
 
-describe("'read' utils for ini file", () => {
-  it("'readIniString' utils should correctly get data from ini files", () => {
+describe("read utils for ini file", () => {
+  it("readIniString utils should correctly get data from ini files", () => {
     const ini: IniFile = mockIniFile("example.ltx", {
       section1: {
         a: "a1",
@@ -33,7 +33,7 @@ describe("'read' utils for ini file", () => {
     expect(() => readIniString(ini, "section2", "a", false)).not.toThrow();
   });
 
-  it("'readIniNumber' utils should correctly get data from ini files", () => {
+  it("readIniNumber utils should correctly get data from ini files", () => {
     const ini: IniFile = mockIniFile("example.ltx", {
       section1: {
         a: 1,
@@ -48,7 +48,7 @@ describe("'read' utils for ini file", () => {
     expect(readIniNumber(ini, "section1", "c", false, 3)).toBe(3);
   });
 
-  it("'readIniBoolean' utils should correctly get data from ini files", () => {
+  it("readIniBoolean utils should correctly get data from ini files", () => {
     const ini: IniFile = mockIniFile("example.ltx", {
       section1: {
         a: true,
@@ -65,7 +65,7 @@ describe("'read' utils for ini file", () => {
     expect(() => readIniBoolean(ini, "section2", "a", false)).not.toThrow();
   });
 
-  it("'readIniTwoNumbers' util should get two numbers correctly", () => {
+  it("readIniTwoNumbers util should get two numbers correctly", () => {
     const ini: IniFile = mockIniFile("example.ltx", {
       section1: {
         a: "-4.3, 2",
@@ -82,7 +82,7 @@ describe("'read' utils for ini file", () => {
     expect(readIniTwoNumbers(ini, "section1", "e", 1, 1)).toEqual([1, 1]);
   });
 
-  it("'readIniConditionList' should correctly parse data", () => {
+  it("readIniConditionList should correctly parse data", () => {
     const ini: IniFile = mockIniFile("example.ltx", {
       section1: {
         a:
@@ -131,7 +131,7 @@ describe("'read' utils for ini file", () => {
     });
   });
 
-  it("'readIniNumberAndConditionList' should correctly parse data", () => {
+  it("readIniNumberAndConditionList should correctly parse data", () => {
     const ini: IniFile = mockIniFile("example.ltx", {
       section1: {
         a: "5 | {-jup_b19_actor_damaged_zombied} %+jup_b19_actor_damaged_zombied%",
@@ -223,7 +223,7 @@ describe("'read' utils for ini file", () => {
     });
   });
 
-  it("'readIniStringAndCondList' should correctly parse data", () => {
+  it("readIniStringAndCondList should correctly parse data", () => {
     const ini: IniFile = mockIniFile("example.ltx", {
       section1: {
         a: "lx8_sr_lab | sr_idle@two %+lx8_lab_tushkano_spawn =create_squad(lx8_tushkano_lab_squad:lx8_smart_terrain)%",
@@ -273,7 +273,7 @@ describe("'read' utils for ini file", () => {
     });
   });
 
-  it("'readIniConditionList' should correctly parse data", () => {
+  it("readIniConditionList should correctly parse data", () => {
     const ini: IniFile = mockIniFile("example.ltx", {
       section1: {
         a: "sr_idle@two %+lx8_lab_tushkano_spawn =create_squad(lx8_tushkano_lab_squad:lx8_smart_terrain)%",
