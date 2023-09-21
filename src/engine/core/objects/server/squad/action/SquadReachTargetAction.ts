@@ -1,5 +1,3 @@
-import { alife } from "xray16";
-
 import { registry } from "@/engine/core/database";
 import { TSimulationObject } from "@/engine/core/managers/simulation";
 import type { Squad } from "@/engine/core/objects/server/squad/Squad";
@@ -26,7 +24,7 @@ export class SquadReachTargetAction implements ISquadAction {
   public initialize(isUnderSimulation: boolean): void {
     const target: Optional<TSimulationObject> = isUnderSimulation
       ? registry.simulationObjects.get(this.squad.assignedTargetId!)
-      : alife().object(this.squad.assignedTargetId!);
+      : registry.simulator.object(this.squad.assignedTargetId!);
 
     if (target !== null) {
       target.onStartedBeingReachedBySquad(this.squad);
@@ -53,7 +51,7 @@ export class SquadReachTargetAction implements ISquadAction {
      */
     const squadTarget: Optional<TSimulationObject> = isUnderSimulation
       ? registry.simulationObjects.get(this.squad.assignedTargetId as TNumberId)
-      : alife().object(this.squad.assignedTargetId as TNumberId);
+      : registry.simulator.object(this.squad.assignedTargetId as TNumberId);
 
     /**
      * Target object stopped existing.

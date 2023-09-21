@@ -1,4 +1,4 @@
-import { alife, game, hit, level } from "xray16";
+import { game, hit, level } from "xray16";
 
 import {
   closeLoadMarker,
@@ -842,7 +842,7 @@ export class SurgeManager extends AbstractManager {
       return;
     }
 
-    const serverObject: Optional<ServerObject> = alife().object(object.id());
+    const serverObject: Optional<ServerObject> = registry.simulator.object(object.id());
     const serverItemSection: Optional<TInventoryItem> = serverObject?.section_name() as Optional<TInventoryItem>;
 
     if (serverItemSection === drugs.drug_anabiotic) {

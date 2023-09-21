@@ -1,4 +1,4 @@
-import { alife, CUI3tButton, CUIEditBox, CUIListBox, CUIStatic, game, level, LuabindClass, ui_events } from "xray16";
+import { CUI3tButton, CUIEditBox, CUIListBox, CUIStatic, game, level, LuabindClass, ui_events } from "xray16";
 
 import { registry } from "@/engine/core/database";
 import { StatisticsManager } from "@/engine/core/managers/statistics";
@@ -214,7 +214,7 @@ export class DebugTreasuresSection extends AbstractDebugSection {
 
     const treasureManager: TreasureManager = TreasureManager.getInstance();
     const restrictorId: Optional<TNumberId> = treasureManager.treasuresRestrictorByName.get(this.currentSection);
-    const object: Optional<ServerObject> = restrictorId === null ? null : alife().object(restrictorId);
+    const object: Optional<ServerObject> = restrictorId === null ? null : registry.simulator.object(restrictorId);
 
     if (!object) {
       return;

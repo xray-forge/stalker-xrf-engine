@@ -13,7 +13,7 @@ import { infoPortions, TInfoPortion } from "@/engine/lib/constants/info_portions
 import { ClientObject } from "@/engine/lib/types";
 import { mockActorClientGameObject, mockClientGameObject } from "@/fixtures/xray";
 
-describe("'info_portion' utils", () => {
+describe("info_portion utils", () => {
   beforeEach(() => {
     let availableInfos: Array<TInfoPortion> = [
       infoPortions.info_up_ac_mp5,
@@ -40,7 +40,7 @@ describe("'info_portion' utils", () => {
     registry.actor = null as unknown as ClientObject;
   });
 
-  it("'giveInfo' should correctly give info portion for actor", () => {
+  it("giveInfo should correctly give info portion for actor", () => {
     registry.actor = mockActorClientGameObject();
 
     giveInfo(infoPortions.info_up_ac_mp5);
@@ -49,7 +49,7 @@ describe("'info_portion' utils", () => {
     expect(registry.actor.give_info_portion).toHaveBeenCalledTimes(1);
   });
 
-  it("'giveInfo' should correctly ignore invalid info portions", () => {
+  it("giveInfo should correctly ignore invalid info portions", () => {
     registry.actor = mockActorClientGameObject();
 
     giveInfo(null);
@@ -59,7 +59,7 @@ describe("'info_portion' utils", () => {
     expect(registry.actor.give_info_portion).toHaveBeenCalledTimes(0);
   });
 
-  it("'hasAlifeInfo' should correctly check info", () => {
+  it("hasAlifeInfo should correctly check info", () => {
     expect(hasAlifeInfo(infoPortions.info_up_ac_mp5)).toBe(true);
     expect(hasAlifeInfo(infoPortions.pri_a15_lights_off)).toBe(true);
     expect(hasAlifeInfo(infoPortions.zat_a2_linker_b14_quest_strange_item_lost_artefact)).toBe(false);
@@ -68,7 +68,7 @@ describe("'info_portion' utils", () => {
     expect(registry.actor.has_info).toHaveBeenCalledTimes(4);
   });
 
-  it("'disableInfo' should correctly turn off info", () => {
+  it("disableInfo should correctly turn off info", () => {
     disableInfo(null);
     disableInfo();
 
@@ -82,7 +82,7 @@ describe("'info_portion' utils", () => {
     expect(registry.actor.has_info).toHaveBeenCalledTimes(3);
   });
 
-  it("'hasAlifeInfos' should correctly check whole list of info portions", () => {
+  it("hasAlifeInfos should correctly check whole list of info portions", () => {
     expect(hasAlifeInfos([infoPortions.info_up_ac_mp5])).toBe(true);
     expect(hasAlifeInfos([infoPortions.info_up_ac_mp5, infoPortions.pri_a15_lights_off])).toBe(true);
     expect(hasAlifeInfos([infoPortions.info_up_ac_mp5, infoPortions.device_pda_port_bandit_leader_sold])).toBe(true);
@@ -96,7 +96,7 @@ describe("'info_portion' utils", () => {
     expect(hasAlifeInfos([infoPortions.pri_a15_lights_off, infoPortions.info_up_fh_scientific_outfit])).toBe(false);
   });
 
-  it("'hasAtLeastOneAlifeInfo' should correctly check one of list", () => {
+  it("hasAtLeastOneAlifeInfo should correctly check one of list", () => {
     expect(hasAtLeastOneAlifeInfo([infoPortions.info_up_ac_mp5])).toBe(true);
     expect(hasAtLeastOneAlifeInfo([infoPortions.info_up_ac_mp5, infoPortions.pri_a15_lights_off])).toBe(true);
     expect(hasAtLeastOneAlifeInfo([])).toBe(false);
@@ -107,7 +107,7 @@ describe("'info_portion' utils", () => {
     );
   });
 
-  it("'hasAtLeastOneAlifeInfo' should correctly check one of list", () => {
+  it("hasAtLeastOneAlifeInfo should correctly check one of list", () => {
     expect(hasFewAlifeInfos([infoPortions.info_up_ac_mp5], 1)).toBe(true);
     expect(hasFewAlifeInfos([infoPortions.info_up_ac_mp5], 2)).toBe(false);
     expect(hasFewAlifeInfos([infoPortions.info_up_ac_mp5, infoPortions.pri_a15_lights_off], 1)).toBe(true);

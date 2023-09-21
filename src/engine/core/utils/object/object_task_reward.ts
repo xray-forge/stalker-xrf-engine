@@ -1,5 +1,3 @@
-import { alife } from "xray16";
-
 import { registry, SYSTEM_INI } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import {
@@ -147,12 +145,24 @@ export function transferItemsToActor(from: ClientObject, itemSection: TSection, 
   } else if (from.object(itemSection) !== null) {
     from.transfer_item(from.object(itemSection) as ClientObject, actor);
   } else {
-    alife().create(itemSection, actor.position(), actor.level_vertex_id(), actor.game_vertex_id(), actor.id());
+    registry.simulator.create(
+      itemSection,
+      actor.position(),
+      actor.level_vertex_id(),
+      actor.game_vertex_id(),
+      actor.id()
+    );
   }
 
   if (remaining !== 0) {
     for (const it of $range(1, remaining)) {
-      alife().create(itemSection, actor.position(), actor.level_vertex_id(), actor.game_vertex_id(), actor.id());
+      registry.simulator.create(
+        itemSection,
+        actor.position(),
+        actor.level_vertex_id(),
+        actor.game_vertex_id(),
+        actor.id()
+      );
     }
   }
 
@@ -196,7 +206,7 @@ export function takeItemFromActor(itemSection: TSection): void {
 
   assertDefined(inventoryItem, "Actor has no item '%s' to take.", itemSection);
 
-  alife().release(alife().object(inventoryItem.id()), true);
+  registry.simulator.release(registry.simulator.object(inventoryItem.id()), true);
 
   EventsManager.emitEvent<IItemRelocatedNotification>(EGameEvent.NOTIFICATION, {
     type: ENotificationType.ITEM,

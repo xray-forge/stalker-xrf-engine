@@ -1,4 +1,4 @@
-import { alife, game, level, patrol, time_global } from "xray16";
+import { game, level, patrol, time_global } from "xray16";
 
 import { getStoryIdByObjectId, registry, TRAVEL_MANAGER_LTX } from "@/engine/core/database";
 import { AbstractManager } from "@/engine/core/managers/base/AbstractManager";
@@ -240,7 +240,7 @@ export class TravelManager extends AbstractManager {
       return "dm_stalker_doing_nothing_" + tostring(math.random(1, 3)); // -- object:character_community()
     }
 
-    const targetSquadObject: Optional<TSimulationObject> = alife().object(squadTargetId!);
+    const targetSquadObject: Optional<TSimulationObject> = registry.simulator.object(squadTargetId!);
 
     if (targetSquadObject === null) {
       abort("Simulation target not existing '%s', action_name '%s'.", squadTargetId, squad.currentAction.type);

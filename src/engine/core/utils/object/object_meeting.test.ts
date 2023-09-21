@@ -7,7 +7,7 @@ import { mockSchemeState } from "@/fixtures/engine";
 import { mockClientGameObject } from "@/fixtures/xray";
 
 describe("object_meeting utils", () => {
-  it("'addObjectAbuse' should correctly add abuse values to the manager", () => {
+  it("addObjectAbuse should correctly add abuse values to the manager", () => {
     const object: ClientObject = mockClientGameObject();
     const state: IRegistryObjectState = registerObject(object);
     const manager = { addAbuse: jest.fn() };
@@ -23,7 +23,7 @@ describe("object_meeting utils", () => {
     expect(manager.addAbuse).toHaveBeenCalledTimes(2);
   });
 
-  it("'clearObjectAbuse' should correctly clear abuse state from the manager", () => {
+  it("clearObjectAbuse should correctly clear abuse state from the manager", () => {
     const object: ClientObject = mockClientGameObject();
     const state: IRegistryObjectState = registerObject(object);
     const manager = { clearAbuse: jest.fn() };
@@ -39,7 +39,7 @@ describe("object_meeting utils", () => {
     expect(manager.clearAbuse).toHaveBeenCalledTimes(2);
   });
 
-  it("'setObjectAbuseState' should correctly set abuse state for the manager", () => {
+  it("setObjectAbuseState should correctly set abuse state for the manager", () => {
     const object: ClientObject = mockClientGameObject();
     const state: IRegistryObjectState = registerObject(object);
     const manager = { enableAbuse: jest.fn(), disableAbuse: jest.fn() };

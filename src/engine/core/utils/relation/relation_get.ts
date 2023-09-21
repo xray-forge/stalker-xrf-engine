@@ -1,4 +1,4 @@
-import { alife, relation_registry } from "xray16";
+import { relation_registry } from "xray16";
 
 import { getServerObjectByStoryId, registry } from "@/engine/core/database";
 import type { Squad } from "@/engine/core/objects/server/squad/Squad";
@@ -141,7 +141,10 @@ export function getSquadCommunityRelationToActor(squadStoryId: TStringId): ERela
     return squad.relationship;
   }
 
-  const goodwill: EGoodwill = relation_registry.community_relation(squad.getCommunity(), alife().actor().community());
+  const goodwill: EGoodwill = relation_registry.community_relation(
+    squad.getCommunity(),
+    registry.actorServer.community()
+  );
 
   if (goodwill >= EGoodwill.FRIENDS) {
     return ERelation.FRIEND;
@@ -159,14 +162,17 @@ export function getSquadCommunityRelationToActor(squadStoryId: TStringId): ERela
  * @returns relation type of squad to actor based on community
  */
 export function getSquadRelationToActorById(squadId: TNumberId): ERelation {
-  const squad: Optional<Squad> = alife().object<Squad>(squadId);
+  const squad: Optional<Squad> = registry.simulator.object<Squad>(squadId);
 
   assert(squad, "Squad with id '%s' is not found.", squadId);
 
   if (squad.relationship) {
     return squad.relationship;
   } else {
-    const goodwill: TCount = relation_registry.community_relation(squad.getCommunity(), alife().actor().community());
+    const goodwill: TCount = relation_registry.community_relation(
+      squad.getCommunity(),
+      registry.actorServer.community()
+    );
 
     if (goodwill >= EGoodwill.FRIENDS) {
       return ERelation.FRIEND;

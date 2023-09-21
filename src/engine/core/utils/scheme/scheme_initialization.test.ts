@@ -1,7 +1,13 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
-import { alife } from "xray16";
 
-import { CUSTOM_DATA, IRegistryObjectState, registerActor, registerObject, registry } from "@/engine/core/database";
+import {
+  CUSTOM_DATA,
+  IRegistryObjectState,
+  registerActor,
+  registerObject,
+  registerSimulator,
+  registry,
+} from "@/engine/core/database";
 import { TAbstractSchemeConstructor } from "@/engine/core/objects/ai/scheme";
 import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain";
 import { SchemeMobCombat } from "@/engine/core/schemes/monster/mob_combat";
@@ -33,6 +39,7 @@ describe("'scheme initialization' utils", () => {
   beforeEach(() => {
     registry.schemes = new LuaTable();
     registry.actor = null as unknown as ClientObject;
+    registerSimulator();
   });
 
   it("'configureObjectSchemes' should correctly configure scheme for objects if section does not exist", () => {
@@ -62,7 +69,7 @@ describe("'scheme initialization' utils", () => {
       jest.spyOn(it, "reset").mockImplementation(() => {});
     });
 
-    resetFunctionMock(alife().create);
+    resetFunctionMock(registry.simulator.create);
 
     loadSchemeImplementations($fromArray(schemes));
 
@@ -89,7 +96,7 @@ describe("'scheme initialization' utils", () => {
     expect(SchemeReachTask.activate).toHaveBeenCalled();
 
     expect(registry.trade.get(object.id())).toBeDefined();
-    expect(alife().create).not.toHaveBeenCalled();
+    expect(registry.simulator.create).not.toHaveBeenCalled();
   });
 
   it("'configureObjectSchemes' should correctly configure scheme for objects if cfg section exists", () => {
@@ -141,7 +148,7 @@ describe("'scheme initialization' utils", () => {
       .spyOn(smartTerrain, "getJobByObjectId")
       .mockImplementation(() => ({ iniPath: "job_test.ltx" }) as ISmartTerrainJobDescriptor);
 
-    resetFunctionMock(alife().create);
+    resetFunctionMock(registry.simulator.create);
 
     loadSchemeImplementations($fromArray(schemes));
 
@@ -168,7 +175,7 @@ describe("'scheme initialization' utils", () => {
     expect(SchemeReachTask.activate).toHaveBeenCalled();
 
     expect(registry.trade.get(object.id())).toBeDefined();
-    expect(alife().create).toHaveBeenCalledTimes(2);
+    expect(registry.simulator.create).toHaveBeenCalledTimes(2);
   });
 
   it("'initializeObjectSchemeLogic' should correctly initialize scheme logic on init", () => {
@@ -274,9 +281,9 @@ describe("'scheme initialization' utils", () => {
       logics: {},
     });
 
-    resetFunctionMock(alife().create);
+    resetFunctionMock(registry.simulator.create);
     initializeObjectSectionItems(object, state);
-    expect(alife().create).not.toHaveBeenCalled();
+    expect(registry.simulator.create).not.toHaveBeenCalled();
   });
 
   it("'initializeObjectSectionItems' should correctly spawn items on scheme activation", () => {
@@ -294,11 +301,11 @@ describe("'scheme initialization' utils", () => {
       },
     });
 
-    resetFunctionMock(alife().create);
+    resetFunctionMock(registry.simulator.create);
     initializeObjectSectionItems(object, state);
 
-    expect(alife().create).toHaveBeenCalledTimes(2);
-    expect(alife().create).toHaveBeenNthCalledWith(
+    expect(registry.simulator.create).toHaveBeenCalledTimes(2);
+    expect(registry.simulator.create).toHaveBeenNthCalledWith(
       1,
       "augA3",
       object.position(),
@@ -306,7 +313,7 @@ describe("'scheme initialization' utils", () => {
       object.game_vertex_id(),
       object.id()
     );
-    expect(alife().create).toHaveBeenNthCalledWith(
+    expect(registry.simulator.create).toHaveBeenNthCalledWith(
       2,
       "AR15",
       object.position(),

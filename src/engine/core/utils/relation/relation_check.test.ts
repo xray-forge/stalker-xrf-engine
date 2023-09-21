@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it } from "@jest/globals";
 
-import { registerStoryLink, registry } from "@/engine/core/database";
+import { registerActorServer, registerSimulator, registerStoryLink, registry } from "@/engine/core/database";
 import { Squad } from "@/engine/core/objects/server/squad";
 import {
   areCommunitiesEnemies,
@@ -19,15 +19,19 @@ import { ServerGroupObject } from "@/engine/lib/types";
 import { mockRegisteredActor, mockRelationsSquads } from "@/fixtures/engine";
 import { MockAlifeSimulator, mockServerAlifeCreatureActor, mockServerAlifeOnlineOfflineGroup } from "@/fixtures/xray";
 
-describe("'relation/check' utils", () => {
+describe("relation/check utils", () => {
   beforeEach(() => {
     registry.actor = null as any;
+    registry.actorServer = null as any;
     registry.storyLink.sidById = new LuaTable();
     registry.storyLink.idBySid = new LuaTable();
+
     MockAlifeSimulator.removeFromRegistry(ACTOR_ID);
+
+    registerSimulator();
   });
 
-  it("'isActorEnemyWithFaction' should check object faction relation", () => {
+  it("isActorEnemyWithFaction should check object faction relation", () => {
     mockRegisteredActor();
 
     expect(isActorEnemyWithFaction(communities.army)).toBe(false);
@@ -37,7 +41,7 @@ describe("'relation/check' utils", () => {
     expect(isActorEnemyWithFaction(communities.monster)).toBe(true);
   });
 
-  it("'isActorFriendWithFaction' should check object faction relation", () => {
+  it("isActorFriendWithFaction should check object faction relation", () => {
     mockRegisteredActor();
 
     expect(isActorFriendWithFaction(communities.actor)).toBe(true);
@@ -48,7 +52,7 @@ describe("'relation/check' utils", () => {
     expect(isActorFriendWithFaction(communities.monster)).toBe(false);
   });
 
-  it("'isActorNeutralWithFaction' should check object faction relation", () => {
+  it("isActorNeutralWithFaction should check object faction relation", () => {
     mockRegisteredActor();
 
     expect(isActorNeutralWithFaction(communities.army)).toBe(false);
@@ -58,12 +62,12 @@ describe("'relation/check' utils", () => {
     expect(isActorNeutralWithFaction(communities.monster)).toBe(false);
   });
 
-  it("'isSquadCommunityEnemyToActor' should correctly check relation", () => {
+  it("isSquadCommunityEnemyToActor should correctly check relation", () => {
     expect(() => getSquadCommunityRelationToActor("not-existing")).toThrow(
       "Squad with story id 'not-existing' was not found."
     );
 
-    mockServerAlifeCreatureActor({ community: () => communities.actor });
+    registerActorServer(mockServerAlifeCreatureActor({ community: <T>() => communities.actor as T }));
 
     const enemy: ServerGroupObject = mockServerAlifeOnlineOfflineGroup();
 
@@ -73,12 +77,12 @@ describe("'relation/check' utils", () => {
     expect(getSquadCommunityRelationToActor("existing-enemy")).toBe(ERelation.ENEMY);
   });
 
-  it("'isSquadCommunityFriendToActor' should correctly check relation", () => {
+  it("isSquadCommunityFriendToActor should correctly check relation", () => {
     expect(() => getSquadCommunityRelationToActor("not-existing")).toThrow(
       "Squad with story id 'not-existing' was not found."
     );
 
-    mockServerAlifeCreatureActor({ community: () => communities.actor });
+    registerActorServer(mockServerAlifeCreatureActor({ community: <T>() => communities.actor as T }));
 
     const friend: ServerGroupObject = mockServerAlifeOnlineOfflineGroup();
 
@@ -88,12 +92,12 @@ describe("'relation/check' utils", () => {
     expect(getSquadCommunityRelationToActor("existing-friend")).toBe(ERelation.FRIEND);
   });
 
-  it("'isSquadCommunityNeutralToActor' should correctly check neutral relation", () => {
+  it("isSquadCommunityNeutralToActor should correctly check neutral relation", () => {
     expect(() => getSquadCommunityRelationToActor("not-existing")).toThrow(
       "Squad with story id 'not-existing' was not found."
     );
 
-    mockServerAlifeCreatureActor({ community: () => communities.actor });
+    registerActorServer(mockServerAlifeCreatureActor({ community: <T>() => communities.actor as T }));
 
     const neutral: ServerGroupObject = mockServerAlifeOnlineOfflineGroup();
 
@@ -103,7 +107,7 @@ describe("'relation/check' utils", () => {
     expect(getSquadCommunityRelationToActor("existing-neutral")).toBe(ERelation.NEUTRAL);
   });
 
-  it("'areCommunitiesFriendly' should correctly check communities friendly state", () => {
+  it("areCommunitiesFriendly should correctly check communities friendly state", () => {
     expect(areCommunitiesFriendly(communities.actor, communities.army)).toBe(true);
     expect(areCommunitiesFriendly(communities.army, communities.actor)).toBe(true);
     expect(areCommunitiesFriendly(communities.bandit, communities.bandit)).toBe(true);
@@ -114,7 +118,7 @@ describe("'relation/check' utils", () => {
     expect(areCommunitiesFriendly(communities.stalker, communities.actor)).toBe(false);
   });
 
-  it("'areCommunitiesEnemies' should correctly check communities enemy state", () => {
+  it("areCommunitiesEnemies should correctly check communities enemy state", () => {
     expect(areCommunitiesEnemies(communities.actor, communities.monolith)).toBe(true);
     expect(areCommunitiesEnemies(communities.monolith, communities.stalker)).toBe(true);
     expect(areCommunitiesEnemies(communities.monster, communities.actor)).toBe(true);
@@ -125,7 +129,7 @@ describe("'relation/check' utils", () => {
     expect(areCommunitiesEnemies(communities.stalker, communities.actor)).toBe(false);
   });
 
-  it("'isAnySquadMemberEnemyToActor' should correctly check relation of squad members", () => {
+  it("isAnySquadMemberEnemyToActor should correctly check relation of squad members", () => {
     const { emptyMonolithSquad, neutralSquad, enemySquad, friendlySquad, mixedSquad } = mockRelationsSquads();
 
     expect(isAnySquadMemberEnemyToActor(emptyMonolithSquad)).toBeFalsy();
@@ -135,7 +139,7 @@ describe("'relation/check' utils", () => {
     expect(isAnySquadMemberEnemyToActor(mixedSquad)).toBeTruthy();
   });
 
-  it("'isAnySquadMemberFriendToActor' should correctly check relation of squad members", () => {
+  it("isAnySquadMemberFriendToActor should correctly check relation of squad members", () => {
     const { emptyMonolithSquad, neutralSquad, enemySquad, friendlySquad, mixedSquad } = mockRelationsSquads();
 
     expect(isAnySquadMemberFriendToActor(emptyMonolithSquad)).toBeFalsy();

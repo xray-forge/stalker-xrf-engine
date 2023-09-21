@@ -5,8 +5,8 @@ import { resolveXmlFile, resolveXmlFormPath } from "@/engine/core/utils/ui/ui_xm
 import { roots } from "@/engine/lib/constants/roots";
 import { MockFileSystem } from "@/fixtures/xray/mocks/fs/FileSystem.mock";
 
-describe("'ui_xml' utils", () => {
-  it("'resolveXmlFile' should correctly parse provided path", () => {
+describe("ui_xml utils", () => {
+  it("resolveXmlFile should correctly parse provided path", () => {
     expect(resolveXmlFile("test.xml").ParseFile).toHaveBeenCalledWith("test.xml");
 
     const example: CScriptXmlInit = new CScriptXmlInit();
@@ -15,7 +15,7 @@ describe("'ui_xml' utils", () => {
     expect(example.ParseFile).toHaveBeenCalledWith("another.xml");
   });
 
-  it("'resolveXmlFormPath' should fail on non-windows paths", () => {
+  it("resolveXmlFormPath should fail on non-windows paths", () => {
     expect(() => resolveXmlFormPath("a/b/c.xml")).toThrow();
     expect(() => resolveXmlFormPath("a/c.xml")).toThrow();
     expect(() => resolveXmlFormPath("/another.xml")).toThrow();
@@ -24,7 +24,7 @@ describe("'ui_xml' utils", () => {
     expect(() => resolveXmlFormPath("\\another.xml")).not.toThrow();
   });
 
-  it("'resolveXmlFormPath' should normalize path", () => {
+  it("resolveXmlFormPath should normalize path", () => {
     expect(resolveXmlFormPath("a")).toBe("a.xml");
     expect(resolveXmlFormPath("a.xml")).toBe("a.xml");
     expect(resolveXmlFormPath("a\\b")).toBe("a\\b.xml");

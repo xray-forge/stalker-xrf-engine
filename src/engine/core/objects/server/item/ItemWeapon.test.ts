@@ -1,11 +1,19 @@
-import { describe, expect, it, jest } from "@jest/globals";
+import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 
-import { getObjectIdByStoryId, getServerObjectByStoryId, getStoryIdByObjectId, registry } from "@/engine/core/database";
+import {
+  getObjectIdByStoryId,
+  getServerObjectByStoryId,
+  getStoryIdByObjectId,
+  registerSimulator,
+  registry,
+} from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { ItemWeapon } from "@/engine/core/objects/server/item/ItemWeapon";
 import { mockIniFile } from "@/fixtures/xray/mocks/ini";
 
 describe("ItemWeapon server class", () => {
+  beforeEach(() => registerSimulator());
+
   it("should correctly create generic objects without story links", () => {
     const itemWeapon: ItemWeapon = new ItemWeapon("test-section");
 

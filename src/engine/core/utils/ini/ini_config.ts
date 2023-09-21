@@ -1,5 +1,3 @@
-import { alife } from "xray16";
-
 import { registry } from "@/engine/core/database/registry";
 import { getObjectIdByStoryId } from "@/engine/core/database/story_objects";
 import { IBaseSchemeLogic, IRegistryObjectState } from "@/engine/core/database/types";
@@ -191,7 +189,7 @@ export function getConfigObjectAndZone(ini: IniFile, section: TSection, field: T
   const target: Optional<IBaseSchemeLogic> = readIniTwoStringsAndConditionsList(ini, section, field);
 
   if (target) {
-    const simulator: Optional<AlifeSimulator> = alife();
+    const simulator: Optional<AlifeSimulator> = registry.simulator;
 
     if (simulator !== null) {
       const serverObject: Optional<ServerObject> = simulator.object(getObjectIdByStoryId(target.p1 as string)!);

@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { clsid } from "xray16";
 
-import { registerActor } from "@/engine/core/database";
+import { registerActor, registerSimulator } from "@/engine/core/database";
 import {
   getClientObjects,
   getNearestClientObject,
@@ -23,6 +23,7 @@ describe("object find utils", () => {
   beforeEach(() => {
     CLIENT_SIDE_REGISTRY.reset();
     MockAlifeSimulator.reset();
+    registerSimulator();
   });
 
   it("'getNearestServerObject' should correctly search for client objects", () => {

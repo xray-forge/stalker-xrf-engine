@@ -1,21 +1,22 @@
 import { describe, expect, it } from "@jest/globals";
-import { alife } from "xray16";
 
+import { registerActorServer, registerSimulator, registry } from "@/engine/core/database";
+import { Actor } from "@/engine/core/objects/server/creature";
 import { isBlackScreen, isGameLevelChanging, isGameStarted } from "@/engine/core/utils/game/game_check";
-import { replaceFunctionMock } from "@/fixtures/jest";
-import { MockAlifeSimulator, MockDevice, mockServerAlifeCreatureActor } from "@/fixtures/xray";
+import { AlifeSimulator } from "@/engine/lib/types";
+import { MockDevice, mockServerAlifeCreatureActor } from "@/fixtures/xray";
 import { MockCGameGraph } from "@/fixtures/xray/mocks/CGameGraph.mock";
 
 describe("game_check utils", () => {
-  it("'isGameStarted' should check alife", () => {
-    replaceFunctionMock(alife, () => null);
+  it("isGameStarted should check alife", () => {
+    registry.simulator = null as unknown as AlifeSimulator;
     expect(isGameStarted()).toBe(false);
 
-    replaceFunctionMock(alife, MockAlifeSimulator.mock);
+    registerSimulator();
     expect(isGameStarted()).toBe(true);
   });
 
-  it("'isBlackScreen' should check whether black screen is visible now", () => {
+  it("isBlackScreen should check whether black screen is visible now", () => {
     expect(isBlackScreen()).toBe(false);
 
     const device: MockDevice = MockDevice.getInstance();
@@ -30,26 +31,26 @@ describe("game_check utils", () => {
     expect(isBlackScreen()).toBe(false);
   });
 
-  it("'isGameLevelChanging' should check whether level is changing now", () => {
+  it("isGameLevelChanging should check whether level is changing now", () => {
     const gameGraph: MockCGameGraph = MockCGameGraph.getInstance();
 
-    replaceFunctionMock(alife, () => null);
-
-    mockServerAlifeCreatureActor({ m_game_vertex_id: 3 });
+    registry.simulator = null as unknown as AlifeSimulator;
+    registerActorServer(mockServerAlifeCreatureActor({ m_game_vertex_id: 3 }) as Actor);
     expect(isGameLevelChanging()).toBe(false);
 
-    replaceFunctionMock(alife, MockAlifeSimulator.mock);
-
     gameGraph.vertex(10).level_id.mockImplementation(() => 5);
-    mockServerAlifeCreatureActor({ m_game_vertex_id: 10 });
+    registerActorServer(mockServerAlifeCreatureActor({ m_game_vertex_id: 10 }) as Actor);
+    registerSimulator();
     expect(isGameLevelChanging()).toBe(true);
 
     gameGraph.vertex(15).level_id.mockImplementation(() => 3);
-    mockServerAlifeCreatureActor({ m_game_vertex_id: 15 });
+    registerActorServer(mockServerAlifeCreatureActor({ m_game_vertex_id: 15 }) as Actor);
+    registerSimulator();
     expect(isGameLevelChanging()).toBe(false);
 
     gameGraph.vertex(20).level_id.mockImplementation(() => 10);
-    mockServerAlifeCreatureActor({ m_game_vertex_id: 20 });
+    registerActorServer(mockServerAlifeCreatureActor({ m_game_vertex_id: 20 }) as Actor);
+    registerSimulator();
     expect(isGameLevelChanging()).toBe(true);
   });
 });

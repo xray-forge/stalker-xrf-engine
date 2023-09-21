@@ -1,6 +1,7 @@
-import { alife, LuabindClass, property_evaluator } from "xray16";
+import { LuabindClass, property_evaluator } from "xray16";
 
-import { TSimulationObject } from "@/engine/core/managers/simulation";
+import { registry } from "@/engine/core/database";
+import type { TSimulationObject } from "@/engine/core/managers/simulation";
 import type { Squad } from "@/engine/core/objects/server/squad/Squad";
 import { ESquadActionType } from "@/engine/core/objects/server/squad/squad_types";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -28,7 +29,7 @@ export class EvaluatorReachedTaskLocation extends property_evaluator {
       return false;
     }
 
-    const simulationTarget: Optional<TSimulationObject> = alife().object(squad.assignedTargetId!);
+    const simulationTarget: Optional<TSimulationObject> = registry.simulator.object(squad.assignedTargetId!);
 
     return simulationTarget !== null && !simulationTarget.isReachedBySquad(squad);
   }

@@ -1,4 +1,4 @@
-import { alife, level, particles_object, patrol } from "xray16";
+import { level, particles_object, patrol } from "xray16";
 
 import { getObjectIdByStoryId, getServerObjectByStoryId, registry, resetStalkerState } from "@/engine/core/database";
 import { Squad } from "@/engine/core/objects/server/squad";
@@ -66,7 +66,7 @@ extern(
       resetStalkerState(clientObject);
       clientObject.set_npc_position(position);
     } else {
-      alife().object(objectId)!.position = position;
+      registry.simulator.object(objectId)!.position = position;
     }
   }
 );

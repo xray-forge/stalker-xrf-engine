@@ -1,4 +1,4 @@
-import { alife, level } from "xray16";
+import { level } from "xray16";
 
 import { SYSTEM_INI } from "@/engine/core/database/ini_registry";
 import { registry } from "@/engine/core/database/registry";
@@ -51,8 +51,10 @@ export function registerObjectStoryLinks(serverObject: ServerObject): void {
 export function registerStoryLink(objectId: TNumberId, storyObjectId: TStringId): void {
   if (registry.storyLink.idBySid.get(storyObjectId) !== null) {
     if (objectId !== registry.storyLink.idBySid.get(storyObjectId)) {
-      const existingObjectName: TName = alife().object(registry.storyLink.idBySid.get(storyObjectId))?.name() as TName;
-      const newObjectName: TName = alife().object(objectId)?.name() as TName;
+      const existingObjectName: TName = registry.simulator
+        .object(registry.storyLink.idBySid.get(storyObjectId))
+        ?.name() as TName;
+      const newObjectName: TName = registry.simulator.object(objectId)?.name() as TName;
 
       abort(
         "You are trying to spawn two or more objects with the same story_id: [%s] --> [%s] try to add: [%s]",
@@ -118,7 +120,7 @@ export function isStoryObject(object: AnyGameObject): boolean {
 export function isStoryObjectExisting(storyId: TStringId): boolean {
   const objectId: Optional<TNumberId> = registry.storyLink.idBySid.get(storyId);
 
-  return objectId === null ? false : alife().object(objectId) !== null;
+  return objectId === null ? false : registry.simulator.object(objectId) !== null;
 }
 
 /**
@@ -150,7 +152,7 @@ export function getObjectIdByStoryId(storyId: TStringId): Optional<TNumberId> {
 export function getServerObjectByStoryId<T extends ServerObject>(storyId: TStringId): Optional<T> {
   const objectId: Optional<TNumberId> = registry.storyLink.idBySid.get(storyId);
 
-  return objectId === null ? null : alife().object<T>(objectId);
+  return objectId === null ? null : registry.simulator.object<T>(objectId);
 }
 
 /**
@@ -179,5 +181,5 @@ export function getObjectByStoryId(storyId: TStringId): Optional<ClientObject> {
  * todo: Probably remove, is it working at all? Used with heli only.
  */
 export function getIdBySid(sid: TNumberId): Optional<TNumberId> {
-  return alife()?.story_object(sid)?.id;
+  return registry.simulator.story_object(sid)?.id;
 }

@@ -1,7 +1,5 @@
 /* eslint @typescript-eslint/explicit-function-return-type: "error" */
 
-import { alife } from "xray16";
-
 import { registry } from "@/engine/core/database";
 import { getPortableStoreValue } from "@/engine/core/database/portable_store";
 import { TreasureManager } from "@/engine/core/managers/treasures";
@@ -1545,17 +1543,17 @@ extern(
   "dialogs_jupiter.jup_b6_stalker_dialog_precond",
   (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
     const object: ClientObject = getNpcSpeaker(firstSpeaker, secondSpeaker);
-    const npcAlife: Optional<ServerCreatureObject> = alife().object(object.id());
+    const npcAlife: Optional<ServerCreatureObject> = registry.simulator.object(object.id());
 
     if (!npcAlife) {
       return false;
     }
 
-    if (alife().object(npcAlife.group_id) === null) {
+    if (registry.simulator.object(npcAlife.group_id) === null) {
       return false;
     }
 
-    const squadName: TName = alife().object(npcAlife.group_id)!.section_name();
+    const squadName: TName = registry.simulator.object(npcAlife.group_id)!.section_name();
 
     if (squadName !== null && squadName !== "") {
       if (!hasAlifeInfo(infoPortions.jup_b1_squad_is_dead) && squadName === infoPortions.jup_b1_stalker_squad) {

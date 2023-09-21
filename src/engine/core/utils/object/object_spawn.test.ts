@@ -1,7 +1,6 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
-import { alife } from "xray16";
 
-import { registerActor } from "@/engine/core/database";
+import { registerActor, registerSimulator, registry } from "@/engine/core/database";
 import { SimulationBoardManager } from "@/engine/core/managers/simulation/SimulationBoardManager";
 import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain";
 import { Squad } from "@/engine/core/objects/server/squad";
@@ -40,11 +39,12 @@ import { MockVector } from "@/fixtures/xray/mocks/vector.mock";
 describe("object spawning utils", () => {
   beforeEach(() => {
     MockAlifeSimulator.reset();
+    registerSimulator();
   });
 
-  it("'spawnItemsForObject' should correctly spawn items and ammo", () => {
+  it("spawnItemsForObject should correctly spawn items and ammo", () => {
     const object: ClientObject = mockClientGameObject();
-    const simulator: AlifeSimulator = alife();
+    const simulator: AlifeSimulator = registry.simulator;
 
     expect(spawnItemsForObject(object, "item_test", 0)).toBe(0);
     expect(spawnItemsForObject(object, "item_test", -10)).toBe(0);
@@ -83,9 +83,9 @@ describe("object spawning utils", () => {
     );
   });
 
-  it("'spawnAmmoForObject' should correctly spawn ammo for an object", () => {
+  it("spawnAmmoForObject should correctly spawn ammo for an object", () => {
     const object: ClientObject = mockClientGameObject();
-    const simulator: AlifeSimulator = alife();
+    const simulator: AlifeSimulator = registry.simulator;
 
     expect(spawnAmmoForObject(object, "ammo_5.45x39_ap", 0)).toBe(0);
     expect(spawnAmmoForObject(object, "ammo_5.45x39_ap", -10)).toBe(0);
@@ -114,9 +114,9 @@ describe("object spawning utils", () => {
     );
   });
 
-  it("'spawnItemsForObjectFromList' should spawn desired count of random items from list", () => {
+  it("spawnItemsForObjectFromList should spawn desired count of random items from list", () => {
     const object: ClientObject = mockClientGameObject();
-    const simulator: AlifeSimulator = alife();
+    const simulator: AlifeSimulator = registry.simulator;
 
     spawnItemsForObjectFromList(object, $fromArray<TSection>([]), 3);
     spawnItemsForObjectFromList(object, $fromArray<TSection>(["test"]), 0);
@@ -146,12 +146,12 @@ describe("object spawning utils", () => {
     );
   });
 
-  it("'getInventoryNameForItemSection' should correctly search for translation", () => {
+  it("getInventoryNameForItemSection should correctly search for translation", () => {
     expect(getInventoryNameForItemSection("wpn_not_existing")).toBe("translated_wpn_not_existing");
     expect(getInventoryNameForItemSection("wpn_ak74")).toBe("translated_AK-74");
   });
 
-  it("'spawnSquadInSmart' should correctly spawn squad in smart terrain", () => {
+  it("spawnSquadInSmart should correctly spawn squad in smart terrain", () => {
     expect(() => spawnSquadInSmart(null, null)).toThrow();
     expect(() => spawnSquadInSmart("abc", null)).toThrow();
     expect(() => spawnSquadInSmart(null, "abc")).toThrow();
@@ -182,7 +182,7 @@ describe("object spawning utils", () => {
     expect(simulationManager.setupObjectSquadAndGroup).toHaveBeenCalledTimes(2);
   });
 
-  it("'spawnObject' should correctly spawn objects", () => {
+  it("spawnObject should correctly spawn objects", () => {
     expect(() => spawnObject("spawn_sect", "test", 1, 25)).toThrow();
     expect(() => spawnObject(null, "test", 1, 25)).toThrow();
     expect(() => spawnObject("test", null)).toThrow();
@@ -190,7 +190,7 @@ describe("object spawning utils", () => {
 
     const object: ServerHumanObject = spawnObject("stalker", "test-wp", 1, 55);
 
-    expect(alife().create).toHaveBeenLastCalledWith(
+    expect(registry.simulator.create).toHaveBeenLastCalledWith(
       "stalker",
       object.position,
       object.m_level_vertex_id,
@@ -199,36 +199,36 @@ describe("object spawning utils", () => {
     expect(object.o_torso).toHaveBeenCalledTimes(1);
   });
 
-  it("'spawnObjectInObject' should correctly create objects", () => {
+  it("spawnObjectInObject should correctly create objects", () => {
     expect(() => spawnObjectInObject("test", 55)).toThrow();
 
     mockServerAlifeObject({ id: 55 });
     spawnObjectInObject("test", 55);
 
-    expect(alife().create).toHaveBeenLastCalledWith("test", createEmptyVector(), 0, 0, 55);
+    expect(registry.simulator.create).toHaveBeenLastCalledWith("test", createEmptyVector(), 0, 0, 55);
 
     expect(() => spawnObjectInObject(null, 55)).toThrow();
     expect(() => spawnObjectInObject("test", null)).toThrow();
     expect(() => spawnObjectInObject(null, null)).toThrow();
   });
 
-  it("'releaseObject' should release object", () => {
+  it("releaseObject should release object", () => {
     const actor: ServerActorObject = mockServerAlifeCreatureActor();
 
     releaseObject(255);
-    expect(alife().release).not.toHaveBeenCalled();
+    expect(registry.simulator.release).not.toHaveBeenCalled();
 
     releaseObject(actor.id);
-    expect(alife().release).toHaveBeenCalledWith(actor, true);
+    expect(registry.simulator.release).toHaveBeenCalledWith(actor, true);
   });
 
-  it("'spawnCreatureNearActor' should create objects", () => {
+  it("spawnCreatureNearActor should create objects", () => {
     const actor: ClientObject = mockActorClientGameObject();
 
     registerActor(actor);
 
     spawnCreatureNearActor("test_section", 33);
 
-    expect(alife().create).toHaveBeenCalledWith("test_section", { x: 33.25, y: 33.25, z: 33.25 }, 255, 512);
+    expect(registry.simulator.create).toHaveBeenCalledWith("test_section", { x: 33.25, y: 33.25, z: 33.25 }, 255, 512);
   });
 });

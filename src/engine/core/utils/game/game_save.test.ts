@@ -1,6 +1,7 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
-import { alife, device } from "xray16";
+import { device } from "xray16";
 
+import { registerSimulator, registry } from "@/engine/core/database";
 import {
   createGameAutoSave,
   createGameSave,
@@ -14,18 +15,20 @@ import {
   startNewGame,
 } from "@/engine/core/utils/game/game_save";
 import { gameDifficulties } from "@/engine/lib/constants/game_difficulties";
-import { replaceFunctionMockOnce, resetFunctionMock } from "@/fixtures/jest";
+import { AlifeSimulator } from "@/engine/lib/types";
+import { resetFunctionMock } from "@/fixtures/jest";
 import { MockIoFile } from "@/fixtures/lua";
 import { gameConsole, MockFileSystem, MockFileSystemList, mocksConfig } from "@/fixtures/xray";
 
-describe("'game_save' utils", () => {
+describe("game_save utils", () => {
   beforeEach(() => {
     resetFunctionMock(gameConsole.execute);
     resetFunctionMock(gameConsole.get_float);
     resetFunctionMock(io.open);
+    registerSimulator();
   });
 
-  it("'getFileDataForGameSave' should correctly get save data", () => {
+  it("getFileDataForGameSave should correctly get save data", () => {
     expect(getFileDataForGameSave("test")).toBe("no file data");
 
     MockFileSystem.getInstance().file_list_open_ex.mockImplementation(() => new MockFileSystemList(["a"]));
@@ -36,7 +39,7 @@ describe("'game_save' utils", () => {
     );
   });
 
-  it("'isGameSaveFileExist' should correctly check if save file exists", () => {
+  it("isGameSaveFileExist should correctly check if save file exists", () => {
     const fileSystem: MockFileSystem = MockFileSystem.getInstance();
 
     fileSystem.file_list_open_ex.mockImplementation(() => new MockFileSystemList());
@@ -46,7 +49,7 @@ describe("'game_save' utils", () => {
     expect(isGameSaveFileExist("test")).toBe(true);
   });
 
-  it("'deleteGameSave' should correctly delete file exists", () => {
+  it("deleteGameSave should correctly delete file exists", () => {
     const fileSystem: MockFileSystem = MockFileSystem.getInstance();
 
     fileSystem.file_list_open_ex.mockImplementation(() => new MockFileSystemList());
@@ -61,7 +64,7 @@ describe("'game_save' utils", () => {
     expect(fileSystem.file_delete).toHaveBeenNthCalledWith(3, "$game_saves$", "another.dds");
   });
 
-  it("'createSave' should correctly generate commands", () => {
+  it("createSave should correctly generate commands", () => {
     createGameSave("test");
     expect(gameConsole.execute).toHaveBeenCalledWith("save test");
 
@@ -76,7 +79,7 @@ describe("'game_save' utils", () => {
     expect(() => createGameSave(null)).toThrow();
   });
 
-  it("'createAutoSave' should correctly generate commands", () => {
+  it("createAutoSave should correctly generate commands", () => {
     // When auto-save disabled.
     mocksConfig.isAutoSavingEnabled = false;
 
@@ -103,7 +106,7 @@ describe("'game_save' utils", () => {
     expect(() => createGameSave(null)).toThrow();
   });
 
-  it("'saveDynamicGameSave' should correctly create dynamic file saves", () => {
+  it("saveDynamicGameSave should correctly create dynamic file saves", () => {
     const file: MockIoFile = new MockIoFile("test", "wb");
 
     jest.spyOn(io, "open").mockImplementation(() => $multi(file.asMock()));
@@ -125,7 +128,7 @@ describe("'game_save' utils", () => {
     expect(file.close).toHaveBeenCalledTimes(1);
   });
 
-  it("'loadDynamicGameSave' should correctly load dynamic file saves", () => {
+  it("loadDynamicGameSave should correctly load dynamic file saves", () => {
     const file: MockIoFile = new MockIoFile("test", "wb");
 
     file.content = JSON.stringify({ a: 1, b: 33 });
@@ -150,7 +153,7 @@ describe("'game_save' utils", () => {
     expect(loadDynamicGameSave("F:\\\\parent\\\\example.scop")).toBeNull();
   });
 
-  it("'loadLastGameSave' should correctly save last game and turn off menu", () => {
+  it("loadLastGameSave should correctly save last game and turn off menu", () => {
     loadLastGameSave();
 
     expect(gameConsole.execute).toHaveBeenCalledTimes(2);
@@ -158,7 +161,7 @@ describe("'game_save' utils", () => {
     expect(gameConsole.execute).toHaveBeenNthCalledWith(2, "load_last_save");
   });
 
-  it("'startNewGame' should correctly create new server, set difficulty and disconnect from previous one", () => {
+  it("startNewGame should correctly create new server, set difficulty and disconnect from previous one", () => {
     startNewGame(gameDifficulties.gd_master);
 
     expect(gameConsole.execute).toHaveBeenCalledTimes(4);
@@ -169,8 +172,8 @@ describe("'game_save' utils", () => {
     expect(device().pause).toHaveBeenCalledWith(false);
   });
 
-  it("'startNewGame' should correctly be called when not started", () => {
-    replaceFunctionMockOnce(alife, () => null);
+  it("startNewGame should correctly be called when not started", () => {
+    registry.simulator = null as unknown as AlifeSimulator;
 
     startNewGame();
 
@@ -180,7 +183,7 @@ describe("'game_save' utils", () => {
     expect(device().pause).toHaveBeenCalledWith(false);
   });
 
-  it("'loadGameSave' should correctly be called when started", () => {
+  it("loadGameSave should correctly be called when started", () => {
     expect(() => loadGameSave(null)).toThrow();
 
     loadGameSave("text_example");
@@ -189,8 +192,8 @@ describe("'game_save' utils", () => {
     expect(gameConsole.execute).toHaveBeenNthCalledWith(1, "load text_example");
   });
 
-  it("'loadGameSave' should correctly be called when not started", () => {
-    replaceFunctionMockOnce(alife, () => null);
+  it("loadGameSave should correctly be called when not started", () => {
+    registry.simulator = null as unknown as AlifeSimulator;
 
     loadGameSave("text_example");
 

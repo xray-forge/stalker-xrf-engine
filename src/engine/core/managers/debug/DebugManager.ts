@@ -1,4 +1,4 @@
-import { alife, cast_planner, relation_registry } from "xray16";
+import { cast_planner, relation_registry } from "xray16";
 
 import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { AbstractManager } from "@/engine/core/managers/base/AbstractManager";
@@ -114,7 +114,7 @@ export class DebugManager extends AbstractManager {
       logger.info("Target state:", stateManager.targetState);
       logger.info(
         "Look object:",
-        stateManager.lookObjectId ? alife().object(stateManager.lookObjectId)?.name() || NIL : NIL
+        stateManager.lookObjectId ? registry.simulator.object(stateManager.lookObjectId)?.name() || NIL : NIL
       );
       logger.info("Look type:", stateManager.getObjectLookPositionType());
       logger.info("Current animation slot:", getObjectActiveWeaponSlot(object));
@@ -202,7 +202,7 @@ export class DebugManager extends AbstractManager {
     logger.info("Portable store:", toJSON(state.portableStore));
     logger.info("State overrides:", toJSON(state.overrides));
     logger.info("Enemy id:", state.enemyId);
-    logger.info("Enemy name:", state.enemyId ? alife().object(state.enemyId)?.name() : NIL);
+    logger.info("Enemy name:", state.enemyId ? registry.simulator.object(state.enemyId)?.name() : NIL);
     logger.info("Script combat type:", state.script_combat_type);
     logger.info("Registered camp:", state.camp || "none");
 

@@ -8,6 +8,7 @@ import {
   registerActor,
   registerObject,
   registerOfflineObject,
+  registerSimulator,
   registry,
 } from "@/engine/core/database";
 import { MapDisplayManager } from "@/engine/core/managers/map";
@@ -50,7 +51,7 @@ import { getSchemeAction } from "@/fixtures/engine/mocks";
 import { MockAlifeSimulator, mockClientGameObject, mockIniFile, mockServerAlifeHumanStalker } from "@/fixtures/xray";
 import { MockCTime } from "@/fixtures/xray/mocks/CTime.mock";
 
-describe("'scheme logic' utils", () => {
+describe("scheme logic utils", () => {
   /**
    * todo;
    */
@@ -78,9 +79,10 @@ describe("'scheme logic' utils", () => {
   beforeEach(() => {
     registry.schemes = new LuaTable();
     registry.actor = null as unknown as ClientObject;
+    registerSimulator();
   });
 
-  it("'isActiveSection' should correctly check active scheme state", () => {
+  it("isActiveSection should correctly check active scheme state", () => {
     const object: ClientObject = mockClientGameObject();
     const state: IRegistryObjectState = registerObject(object);
 
@@ -94,7 +96,7 @@ describe("'scheme logic' utils", () => {
     expect(isActiveSection(object, "another@test")).toBe(true);
   });
 
-  it("'getSectionToActivate' should correctly determine active section", () => {
+  it("getSectionToActivate should correctly determine active section", () => {
     const actor: ClientObject = mockClientGameObject();
     const object: ClientObject = mockClientGameObject();
 
@@ -138,7 +140,7 @@ describe("'scheme logic' utils", () => {
     expect(registry.offlineObjects.get(object.id()).activeSection).toBeNull();
   });
 
-  it("'activateSchemeBySection' should correctly activate NIL scheme", () => {
+  it("activateSchemeBySection should correctly activate NIL scheme", () => {
     const first: ClientObject = mockClientGameObject();
     const firstState: IRegistryObjectState = registerObject(first);
     const second: ClientObject = mockClientGameObject();
@@ -169,7 +171,7 @@ describe("'scheme logic' utils", () => {
     expect(first.set_nonscript_usable).toHaveBeenCalled();
   });
 
-  it("'activateSchemeBySection' should correctly assign smart terrain jobs", () => {
+  it("activateSchemeBySection should correctly assign smart terrain jobs", () => {
     const object: ClientObject = mockClientGameObject();
     const serverObject: ServerHumanObject = mockServerAlifeHumanStalker({ id: object.id() });
     const state: IRegistryObjectState = registerObject(object);
@@ -207,7 +209,7 @@ describe("'scheme logic' utils", () => {
     expect(state.activeScheme).toBe(EScheme.PATROL);
   });
 
-  it("'activateSchemeBySection' should correctly activate schemes for restrictors", () => {
+  it("activateSchemeBySection should correctly activate schemes for restrictors", () => {
     const object: ClientObject = mockClientGameObject();
     const state: IRegistryObjectState = registerObject(object);
     const ini: IniFile = mockIniFile("test.ltx", {
@@ -236,7 +238,7 @@ describe("'scheme logic' utils", () => {
     expect(getSchemeAction(state[EScheme.SR_IDLE] as IBaseSchemeState).activate).toHaveBeenCalledWith(false, object);
   });
 
-  it("'activateSchemeBySection' should correctly change generic sections", () => {
+  it("activateSchemeBySection should correctly change generic sections", () => {
     const object: ClientObject = mockClientGameObject();
     const state: IRegistryObjectState = registerObject(object);
     const ini: IniFile = mockIniFile("test.ltx", {
@@ -280,7 +282,7 @@ describe("'scheme logic' utils", () => {
     });
   });
 
-  it("'enableObjectBaseSchemes' should correctly enables schemes for heli", () => {
+  it("enableObjectBaseSchemes should correctly enables schemes for heli", () => {
     const object: ClientObject = mockClientGameObject();
     const ini: IniFile = mockIniFile("test.ltx", {
       "sr_idle@first": {},
@@ -300,7 +302,7 @@ describe("'scheme logic' utils", () => {
     expect(SchemeHit.activate).toHaveBeenCalledWith(object, ini, EScheme.HIT, "hit@another");
   });
 
-  it("'enableObjectBaseSchemes' should correctly enables schemes for items", () => {
+  it("enableObjectBaseSchemes should correctly enables schemes for items", () => {
     const object: ClientObject = mockClientGameObject();
     const ini: IniFile = mockIniFile("test.ltx", {
       "sr_idle@first": {},
@@ -320,7 +322,7 @@ describe("'scheme logic' utils", () => {
     expect(SchemePhysicalOnHit.activate).toHaveBeenCalledWith(object, ini, EScheme.PH_ON_HIT, "ph_on_hit@another");
   });
 
-  it("'enableObjectBaseSchemes' should correctly enables schemes for monsters", () => {
+  it("enableObjectBaseSchemes should correctly enables schemes for monsters", () => {
     const object: ClientObject = mockClientGameObject();
     const state: IRegistryObjectState = registerObject(object);
     const ini: IniFile = mockIniFile("test.ltx", {
@@ -362,7 +364,7 @@ describe("'scheme logic' utils", () => {
     expect(object.invulnerable).toHaveBeenNthCalledWith(3, true);
   });
 
-  it("'enableObjectBaseSchemes' should correctly enables schemes for stalkers", () => {
+  it("enableObjectBaseSchemes should correctly enables schemes for stalkers", () => {
     const object: ClientObject = mockClientGameObject();
     const state: IRegistryObjectState = registerObject(object);
     const ini: IniFile = mockIniFile("test.ltx", {
@@ -438,7 +440,7 @@ describe("'scheme logic' utils", () => {
     expect(object.disable_info_portion).toHaveBeenNthCalledWith(2, "d");
   });
 
-  it("'resetObjectGenericSchemesOnSectionSwitch' should correctly reset base schemes", () => {
+  it("resetObjectGenericSchemesOnSectionSwitch should correctly reset base schemes", () => {
     registerActor(mockClientGameObject());
 
     const stalker: ClientObject = mockClientGameObject();
@@ -541,7 +543,7 @@ describe("'scheme logic' utils", () => {
     resetObjectGenericSchemesOnSectionSwitch(helicopter, EScheme.SR_IDLE, "sr_idle@test");
   });
 
-  it("'resetObjectGenericSchemesOnSectionSwitch' should correctly reset bloodsucker state", () => {
+  it("resetObjectGenericSchemesOnSectionSwitch should correctly reset bloodsucker state", () => {
     const monster: ClientObject = mockClientGameObject({
       clsid: () => clsid.bloodsucker_s,
     });

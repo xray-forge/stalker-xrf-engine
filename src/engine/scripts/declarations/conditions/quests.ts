@@ -1,4 +1,4 @@
-import { alife, level } from "xray16";
+import { level } from "xray16";
 
 import { getObjectByStoryId, getServerObjectByStoryId, registry } from "@/engine/core/database";
 import { AnomalyZoneBinder } from "@/engine/core/objects/binders";
@@ -46,7 +46,10 @@ extern(
     }
 
     for (const [artefactId] of registry.artefacts.ways) {
-      if (alife().object(tonumber(artefactId)!) && afName === alife().object(tonumber(artefactId)!)!.section_name()) {
+      if (
+        registry.simulator.object(tonumber(artefactId)!) &&
+        afName === registry.simulator.object(tonumber(artefactId)!)!.section_name()
+      ) {
         registry.actor.give_info_portion(azName);
 
         return true;
@@ -136,7 +139,9 @@ extern("xr_conditions.pas_b400_actor_far_forward", (actor: ClientObject, object:
     return false;
   }
 
-  const squad: Squad = alife().object(alife().object<ServerCreatureObject>(object.id())!.group_id)!;
+  const squad: Squad = registry.simulator.object(
+    registry.simulator.object<ServerCreatureObject>(object.id())!.group_id
+  )!;
 
   for (const squadMember of squad.squad_members()) {
     const otherDistance: TDistance = squadMember.object.position.distance_to_sqr(actor.position());
@@ -170,7 +175,7 @@ extern("xr_conditions.pas_b400_actor_far_backward", (actor: ClientObject, object
     return false;
   }
 
-  const sim: AlifeSimulator = alife();
+  const sim: AlifeSimulator = registry.simulator;
   const squad: Squad = sim.object<Squad>(sim.object<ServerCreatureObject>(object.id())!.group_id)!;
 
   for (const squadMember of squad.squad_members()) {
@@ -261,7 +266,11 @@ extern("xr_conditions.zat_b29_rivals_dialog_precond", (actor: ClientObject, obje
   let isSquad: boolean = false;
 
   for (const [k, v] of squadsList) {
-    if (alife().object(alife().object<ServerCreatureObject>(object.id())!.group_id)!.section_name() === v) {
+    if (
+      registry.simulator
+        .object(registry.simulator.object<ServerCreatureObject>(object.id())!.group_id)!
+        .section_name() === v
+    ) {
       isSquad = true;
       break;
     }
@@ -304,7 +313,7 @@ extern("xr_conditions.jup_b47_npc_online", (actor: ClientObject, object: ClientO
     return false;
   }
 
-  return alife().object(storyObject.id()) !== null;
+  return registry.simulator.object(storyObject.id()) !== null;
 });
 
 /**

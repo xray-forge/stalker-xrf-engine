@@ -1,4 +1,4 @@
-import { alife, clsid, game, level, patrol } from "xray16";
+import { clsid, game, level, patrol } from "xray16";
 
 import { registry, SYSTEM_INI } from "@/engine/core/database";
 import { SimulationBoardManager } from "@/engine/core/managers/simulation/SimulationBoardManager";
@@ -56,7 +56,7 @@ export function spawnItemsForObject(
 
   let itemsSpawned: TCount = 0;
 
-  const simulator: AlifeSimulator = alife();
+  const simulator: AlifeSimulator = registry.simulator;
   const [id, gvid, lvid, position] = getObjectPositioning(object);
 
   for (const it of $range(1, count)) {
@@ -99,13 +99,13 @@ export function spawnAmmoForObject(
    */
   if (math.random(100) <= probability) {
     while (count > countInBox) {
-      alife().create_ammo(ammoSection, position, lvid, gvid, id, countInBox);
+      registry.simulator.create_ammo(ammoSection, position, lvid, gvid, id, countInBox);
 
       count -= countInBox;
       ammoSpawned += countInBox;
     }
 
-    alife().create_ammo(ammoSection, position, lvid, gvid, id, count);
+    registry.simulator.create_ammo(ammoSection, position, lvid, gvid, id, count);
     ammoSpawned += count;
   }
 
@@ -198,7 +198,7 @@ export function spawnObject<T extends ServerObject>(
 
   const objectPatrol: Patrol = new patrol(pathName);
 
-  const serverObject: ServerObject = alife().create(
+  const serverObject: ServerObject = registry.simulator.create(
     section,
     objectPatrol.point(index),
     objectPatrol.level_vertex_id(0),
@@ -230,11 +230,11 @@ export function spawnObjectInObject<T extends ServerObject>(
   assertDefined(section, "Wrong spawn section for 'spawnObjectInObject' function '%s'.", section);
   assertDefined(targetId, "Wrong spawn targetId for 'spawnObjectInObject' function '%s'.", section);
 
-  const box: Optional<ServerObject> = alife().object(targetId);
+  const box: Optional<ServerObject> = registry.simulator.object(targetId);
 
   assertDefined(box, "Wrong spawn target object for 'spawnObjectInObject' function '%s'.", section);
 
-  return alife().create(section, createEmptyVector(), 0, 0, targetId);
+  return registry.simulator.create(section, createEmptyVector(), 0, 0, targetId);
 }
 
 /**
@@ -244,7 +244,7 @@ export function spawnObjectInObject<T extends ServerObject>(
  * @param objectId - object id to release
  */
 export function releaseObject(objectId: TNumberId): void {
-  const simulator: AlifeSimulator = alife();
+  const simulator: AlifeSimulator = registry.simulator;
   const serverObject: Optional<ServerObject> = simulator.object(objectId);
 
   logger.info("Destroying object:", objectId);
@@ -264,7 +264,7 @@ export function releaseObject(objectId: TNumberId): void {
  * @returns newly created server object
  */
 export function spawnCreatureNearActor<T extends ServerObject>(section: TSection, distance: TDistance): T {
-  const simulator: AlifeSimulator = alife();
+  const simulator: AlifeSimulator = registry.simulator;
   const direction: Vector = registry.actor.direction();
   const position: Vector = registry.actor.position().add(direction.mul(distance));
 

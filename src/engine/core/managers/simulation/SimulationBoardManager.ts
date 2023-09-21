@@ -1,4 +1,4 @@
-import { actor_stats, alife, clsid, game_graph, level } from "xray16";
+import { actor_stats, clsid, game_graph, level } from "xray16";
 
 import { registry, SIMULATION_LTX } from "@/engine/core/database";
 import { AbstractManager } from "@/engine/core/managers/base/AbstractManager";
@@ -177,7 +177,9 @@ export class SimulationBoardManager extends AbstractManager {
       return mostPriorityTask;
     } else {
       // Return already assigned target or squad itself.
-      return (squad.assignedSmartTerrainId && alife().object<SmartTerrain>(squad.assignedSmartTerrainId)) || squad;
+      return (
+        (squad.assignedSmartTerrainId && registry.simulator.object<SmartTerrain>(squad.assignedSmartTerrainId)) || squad
+      );
     }
   }
 
@@ -271,7 +273,7 @@ export class SimulationBoardManager extends AbstractManager {
   public createSquad(smartTerrain: SmartTerrain, section: TStringId): Squad {
     simulationLogger.format("Create squad: '%s' -> '%s'.", smartTerrain.name(), section);
 
-    const squad: Squad = alife().create<Squad>(
+    const squad: Squad = registry.simulator.create<Squad>(
       section,
       smartTerrain.position,
       smartTerrain.m_level_vertex_id,
@@ -317,11 +319,11 @@ export class SimulationBoardManager extends AbstractManager {
 
     // Second loop is to prevent iteration breaking when iterating + mutating?
     for (const [id] of squadMembers) {
-      const object: Optional<ServerObject> = alife().object(id);
+      const object: Optional<ServerObject> = registry.simulator.object(id);
 
       if (object !== null) {
         squad.unregister_member(id);
-        alife().release(object, true);
+        registry.simulator.release(object, true);
       }
     }
 
@@ -413,12 +415,12 @@ export class SimulationBoardManager extends AbstractManager {
     const groupId: TNumberId = groupIdByLevelName.get(levelName) || 0;
 
     // Reload, probably not needed.
-    object = alife().object(object.id)!;
+    object = registry.simulator.object(object.id)!;
 
     // todo: Check, probably magic or unused code with duplicated changeTeam calls.
     setObjectTeamSquadGroup(object, object.team, object.squad, groupId);
 
-    const squad: Optional<Squad> = alife().object<Squad>(object.group_id);
+    const squad: Optional<Squad> = registry.simulator.object<Squad>(object.group_id);
 
     if (squad === null) {
       return setObjectTeamSquadGroup(object, object.team, 0, object.group);
@@ -427,9 +429,9 @@ export class SimulationBoardManager extends AbstractManager {
     let smartTerrain: Optional<SmartTerrain> = null;
 
     if (squad.currentAction !== null && squad.currentAction.type === ESquadActionType.REACH_TARGET) {
-      smartTerrain = alife().object<SmartTerrain>(squad.assignedTargetId!);
+      smartTerrain = registry.simulator.object<SmartTerrain>(squad.assignedTargetId!);
     } else if (squad.assignedSmartTerrainId !== null) {
-      smartTerrain = alife().object<SmartTerrain>(squad.assignedSmartTerrainId);
+      smartTerrain = registry.simulator.object<SmartTerrain>(squad.assignedSmartTerrainId);
     }
 
     if (smartTerrain === null) {
@@ -483,7 +485,7 @@ export class SimulationBoardManager extends AbstractManager {
     simulationLogger.info("Spawn default simulation squads");
 
     for (const serverLevel of game_graph().levels()) {
-      const levelSectionName: TSection = "start_position_" + alife().level_name(serverLevel.id);
+      const levelSectionName: TSection = "start_position_" + registry.simulator.level_name(serverLevel.id);
 
       // No definitions for the level section.
       if (!SIMULATION_LTX.section_exist(levelSectionName)) {

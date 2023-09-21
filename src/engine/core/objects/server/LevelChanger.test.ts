@@ -1,11 +1,19 @@
-import { describe, expect, it, jest } from "@jest/globals";
+import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 
-import { getObjectIdByStoryId, getServerObjectByStoryId, getStoryIdByObjectId, registry } from "@/engine/core/database";
+import {
+  getObjectIdByStoryId,
+  getServerObjectByStoryId,
+  getStoryIdByObjectId,
+  registerSimulator,
+  registry,
+} from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { LevelChanger } from "@/engine/core/objects/server/LevelChanger";
 import { EPacketDataType, mockIniFile, mockNetPacket, MockNetProcessor } from "@/fixtures/xray";
 
 describe("LevelChanger server class", () => {
+  beforeEach(() => registerSimulator());
+
   it("should correctly create generic objects without story links", () => {
     const levelChanger: LevelChanger = new LevelChanger("test-section");
 

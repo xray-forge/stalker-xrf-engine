@@ -203,7 +203,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
   public override on_register(): void {
     super.on_register();
 
-    this.isOnLevel = areObjectsOnSameLevel(this, registry.simulator.actor());
+    this.isOnLevel = areObjectsOnSameLevel(this, registry.actorServer);
     jobLogger.info("Register smart terrain:", this.name(), this.isOnLevel);
 
     registerObjectStoryLinks(this);
@@ -481,12 +481,14 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
     const now: TTimestamp = time_global();
 
     // todo: use sqr distance
-    if (areObjectsOnSameLevel(this, registry.simulator.actor())) {
-      const distanceToActor: TDistance = this.position.distance_to(registry.simulator.actor()!.position);
+    if (areObjectsOnSameLevel(this, registry.actorServer)) {
+      const distanceToActor: TDistance = this.position.distance_to(registry.actorServer.position);
       const previousDistanceToActor: TDistance =
         registry.smartTerrainNearest.id === null
           ? registry.smartTerrainNearest.distance
-          : alife().object(registry.smartTerrainNearest.id)!.position.distance_to(alife().actor().position);
+          : registry.simulator
+            .object(registry.smartTerrainNearest.id)!
+            .position.distance_to(registry.actorServer.position);
 
       if (distanceToActor < previousDistanceToActor) {
         registry.smartTerrainNearest.id = this.id;
@@ -1090,7 +1092,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
       }
 
       if (
-        registry.simulator.actor().position.distance_to_sqr(this.position) <
+        registry.actorServer.position.distance_to_sqr(this.position) <
         logicsConfig.SMART_TERRAIN.RESPAWN_RADIUS_RESTRICTION_SQR
       ) {
         return;

@@ -1,4 +1,4 @@
-import { alife, level } from "xray16";
+import { level } from "xray16";
 
 import { getObjectIdByStoryId, registry } from "@/engine/core/database";
 import { EActionId } from "@/engine/core/objects/ai/types";
@@ -112,7 +112,7 @@ export function isStalkerAlive(targetObject: ClientObject | ServerObject | TStri
   }
 
   if (targetId) {
-    const object: Optional<ServerHumanObject> = alife().object(targetId);
+    const object: Optional<ServerHumanObject> = registry.simulator.object(targetId);
 
     return object !== null && isStalker(object) && object.alive();
   } else {

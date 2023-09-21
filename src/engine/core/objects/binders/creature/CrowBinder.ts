@@ -1,4 +1,4 @@
-import { alife, callback, LuabindClass, object_binder, time_global } from "xray16";
+import { callback, LuabindClass, object_binder, time_global } from "xray16";
 
 import {
   closeLoadMarker,
@@ -83,7 +83,7 @@ export class CrowBinder extends object_binder {
       !this.object.alive() &&
       time_global() - logicsConfig.CROW_CORPSE_RELEASE_TIMEOUT >= this.diedAt
     ) {
-      const simulator: AlifeSimulator = alife();
+      const simulator: AlifeSimulator = registry.simulator;
 
       logger.info("Release dead crow");
       simulator.release(simulator.object(this.object.id()), true);

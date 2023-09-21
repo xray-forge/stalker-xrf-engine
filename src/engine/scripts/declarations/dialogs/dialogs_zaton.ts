@@ -1,6 +1,6 @@
 /* eslint @typescript-eslint/explicit-function-return-type: "error" */
 
-import { alife, game, level } from "xray16";
+import { game, level } from "xray16";
 
 import { isStoryObjectExisting, registry } from "@/engine/core/database";
 import { getPortableStoreValue, setPortableStoreValue } from "@/engine/core/database/portable_store";
@@ -2289,7 +2289,7 @@ extern(
       return;
     }
 
-    alife().release(alife().object(actor.object(section)!.id()), true);
+    registry.simulator.release(registry.simulator.object(actor.object(section)!.id()), true);
     NotificationManager.getInstance().sendItemRelocatedNotification(ENotificationDirection.OUT, section, 1);
     actor.change_character_reputation(10);
   }

@@ -1,5 +1,3 @@
-import { alife } from "xray16";
-
 import { registry } from "@/engine/core/database";
 import { AbstractSchemeManager } from "@/engine/core/objects/ai/scheme";
 import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain/SmartTerrain";
@@ -29,13 +27,13 @@ export class CombatProcessEnemyManager extends AbstractSchemeManager<ISchemeComb
     const canSelectEnemy: boolean = canObjectSelectAsEnemy(object, enemy);
 
     if (canSelectEnemy) {
-      const serverObject: Optional<ServerCreatureObject> = alife().object(object.id());
+      const serverObject: Optional<ServerCreatureObject> = registry.simulator.object(object.id());
 
       /**
        * Set alarm if object is in smart zone.
        */
       if (serverObject && serverObject.m_smart_terrain_id !== MAX_U16) {
-        const smartTerrain: SmartTerrain = alife().object<SmartTerrain>(serverObject.m_smart_terrain_id)!;
+        const smartTerrain: SmartTerrain = registry.simulator.object<SmartTerrain>(serverObject.m_smart_terrain_id)!;
 
         startSmartTerrainAlarm(smartTerrain);
 
@@ -44,7 +42,7 @@ export class CombatProcessEnemyManager extends AbstractSchemeManager<ISchemeComb
         }
       }
 
-      const serverEnemyObject: Optional<ServerCreatureObject> = alife().object(enemy.id());
+      const serverEnemyObject: Optional<ServerCreatureObject> = registry.simulator.object(enemy.id());
 
       // todo: Do timer based.
       if (serverObject && serverEnemyObject) {

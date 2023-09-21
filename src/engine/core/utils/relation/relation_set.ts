@@ -1,6 +1,6 @@
-import { alife, level, relation_registry } from "xray16";
+import { level, relation_registry } from "xray16";
 
-import { getServerObjectByStoryId } from "@/engine/core/database";
+import { getServerObjectByStoryId, registry } from "@/engine/core/database";
 import type { Squad } from "@/engine/core/objects/server/squad/Squad";
 import { assert } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -8,15 +8,7 @@ import { clampNumber } from "@/engine/core/utils/number";
 import { EGoodwill, ERelation, mapRelationToGoodwill } from "@/engine/core/utils/relation/relation_types";
 import { communities, TCommunity } from "@/engine/lib/constants/communities";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
-import {
-  AlifeSimulator,
-  ClientObject,
-  Optional,
-  ServerCreatureObject,
-  TCount,
-  TNumberId,
-  TStringId,
-} from "@/engine/lib/types";
+import { ClientObject, Optional, ServerCreatureObject, TCount, TNumberId, TStringId } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -131,7 +123,7 @@ export function setSquadRelationToCommunity(squadId: TNumberId | TStringId, to: 
   const squad: Optional<Squad> =
     type(squadId) === "string"
       ? getServerObjectByStoryId<Squad>(squadId as TStringId)
-      : alife().object(squadId as TNumberId);
+      : registry.simulator.object(squadId as TNumberId);
 
   assert(squad, "There is no squad with id '%s'.", squadId);
 
@@ -162,7 +154,9 @@ export function setSquadRelationWithObject(
   logger.info("Applying new game relation between squad and object:", relation, squadId, object?.name());
 
   const squad: Optional<Squad> =
-    type(squadId) === "string" ? getServerObjectByStoryId(squadId as TStringId) : alife().object(squadId as TNumberId);
+    type(squadId) === "string"
+      ? getServerObjectByStoryId(squadId as TStringId)
+      : registry.simulator.object(squadId as TNumberId);
 
   assert(squad, "There is no squad with id '%s'.", squadId);
 
@@ -171,7 +165,7 @@ export function setSquadRelationWithObject(
   for (const squadMember of squad.squad_members()) {
     // Update two sides relations.
     squadMember.object.force_set_goodwill(goodwill, object.id());
-    alife().object<ServerCreatureObject>(object.id())!.force_set_goodwill(goodwill, squadMember.id);
+    registry.simulator.object<ServerCreatureObject>(object.id())!.force_set_goodwill(goodwill, squadMember.id);
   }
 }
 
@@ -189,7 +183,7 @@ export function updateSquadIdRelationToActor(
   const squad: Optional<Squad> =
     type(squadId) === "string"
       ? getServerObjectByStoryId<Squad>(squadId as TStringId)
-      : alife().object(squadId as TNumberId);
+      : registry.simulator.object(squadId as TNumberId);
 
   assert(squad, "There is no squad with id '%s'.", squadId);
 
@@ -209,8 +203,6 @@ export function updateSquadIdRelationToActor(
  * @param relation - relation type to set
  */
 export function setSquadRelationToActor(squad: Squad, relation: ERelation): void {
-  const simulator: AlifeSimulator = alife();
-
   for (const squadMember of squad.squad_members()) {
     const object: Optional<ClientObject> = level.object_by_id(squadMember.id);
 
@@ -218,7 +210,7 @@ export function setSquadRelationToActor(squad: Squad, relation: ERelation): void
     if (object) {
       setClientObjectRelation(object, level.object_by_id(ACTOR_ID), relation);
     } else {
-      setServerObjectRelation(simulator.object(squadMember.id), simulator.actor(), relation);
+      setServerObjectRelation(registry.simulator.object(squadMember.id), registry.actorServer, relation);
     }
   }
 }

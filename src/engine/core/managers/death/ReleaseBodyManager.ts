@@ -1,4 +1,4 @@
-import { alife, game_graph, getFS, ini_file, time_global } from "xray16";
+import { game_graph, getFS, ini_file, time_global } from "xray16";
 
 import {
   closeLoadMarker,
@@ -103,7 +103,9 @@ export class ReleaseBodyManager extends AbstractManager {
         return;
       }
 
-      const releaseObject: Optional<ServerObject> = alife().object(this.releaseObjectRegistry.get(positionInList).id);
+      const releaseObject: Optional<ServerObject> = registry.simulator.object(
+        this.releaseObjectRegistry.get(positionInList).id
+      );
 
       if (releaseObject !== null) {
         logger.info("Releasing object:", releaseObject.name());
@@ -112,7 +114,7 @@ export class ReleaseBodyManager extends AbstractManager {
           if (releaseObject.alive()) {
             logger.warn("Detected alive object in release table:", releaseObject.name());
           } else {
-            alife().release(releaseObject, true);
+            registry.simulator.release(releaseObject, true);
           }
         }
       }
@@ -183,7 +185,7 @@ export class ReleaseBodyManager extends AbstractManager {
     let maximalDistance: number = ReleaseBodyManager.MAX_DISTANCE_SQR;
 
     for (const [index, releaseDescriptor] of releaseObjectsRegistry) {
-      const object: Optional<ServerObject> = alife().object(releaseDescriptor.id);
+      const object: Optional<ServerObject> = registry.simulator.object(releaseDescriptor.id);
 
       // May also contain objects that are being registered after game load.
       if (object) {
@@ -217,7 +219,7 @@ export class ReleaseBodyManager extends AbstractManager {
       packet.w_u16(v.id);
     }
 
-    const levelId: TNumberId = game_graph().vertex(alife().actor().m_game_vertex_id).level_id();
+    const levelId: TNumberId = game_graph().vertex(registry.actorServer.m_game_vertex_id).level_id();
 
     packet.w_u16(levelId);
 
@@ -244,7 +246,7 @@ export class ReleaseBodyManager extends AbstractManager {
     const levelId: TNumberId = reader.r_u16();
 
     // Is not same level, reset corpses list.
-    if (levelId !== game_graph().vertex(alife().actor().m_game_vertex_id).level_id()) {
+    if (levelId !== game_graph().vertex(registry.actorServer.m_game_vertex_id).level_id()) {
       resetTable(this.releaseObjectRegistry);
     }
 

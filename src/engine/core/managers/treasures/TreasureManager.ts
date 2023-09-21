@@ -1,4 +1,4 @@
-import { alife, time_global } from "xray16";
+import { time_global } from "xray16";
 
 import {
   closeLoadMarker,
@@ -319,7 +319,7 @@ export class TreasureManager extends AbstractManager {
       return logger.info("Spawned secret is already given:", treasureId);
     }
 
-    const simulator: AlifeSimulator = alife();
+    const simulator: AlifeSimulator = registry.simulator;
     const secret: ITreasureDescriptor = this.treasures.get(treasureId);
 
     for (const [itemSection, itemParameters] of secret.items) {

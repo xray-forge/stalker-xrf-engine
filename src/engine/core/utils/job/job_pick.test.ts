@@ -1,6 +1,6 @@
 import { beforeAll, describe, expect, it } from "@jest/globals";
 
-import { registerSimulator } from "@/engine/core/database";
+import { registerActorServer, registerSimulator } from "@/engine/core/database";
 import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain";
 import {
   createObjectJobDescriptor,
@@ -14,13 +14,13 @@ import { ServerHumanObject, ServerMonsterBaseObject, TNumberId } from "@/engine/
 import { mockSmartTerrain } from "@/fixtures/engine";
 import { mockServerAlifeCreatureActor, mockServerAlifeHumanStalker, mockServerAlifeMonsterBase } from "@/fixtures/xray";
 
-describe("'job_pick' utils", () => {
+describe("job_pick utils", () => {
   beforeAll(() => {
-    mockServerAlifeCreatureActor();
     registerSimulator();
+    registerActorServer(mockServerAlifeCreatureActor());
   });
 
-  it("'selectSmartTerrainJob' should correctly get jobs for stalkers", () => {
+  it("selectSmartTerrainJob should correctly get jobs for stalkers", () => {
     const smartTerrain: SmartTerrain = mockSmartTerrain();
     const object: ServerHumanObject = mockServerAlifeHumanStalker();
     const job: IObjectJobDescriptor = createObjectJobDescriptor(object);
@@ -110,7 +110,7 @@ describe("'job_pick' utils", () => {
     expect(fourthJob).toBe(thirdJob);
   });
 
-  it("'selectSmartTerrainJob' should correctly get jobs for monsters", () => {
+  it("selectSmartTerrainJob should correctly get jobs for monsters", () => {
     const smartTerrain: SmartTerrain = mockSmartTerrain();
     const object: ServerMonsterBaseObject = mockServerAlifeMonsterBase();
     const job: IObjectJobDescriptor = createObjectJobDescriptor(object);

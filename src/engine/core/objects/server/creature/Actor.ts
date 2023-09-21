@@ -1,4 +1,4 @@
-import { alife, CALifeSmartTerrainTask, cse_alife_creature_actor, level, LuabindClass } from "xray16";
+import { CALifeSmartTerrainTask, cse_alife_creature_actor, level, LuabindClass } from "xray16";
 
 import {
   closeLoadMarker,
@@ -143,7 +143,7 @@ export class Actor extends cse_alife_creature_actor implements ISimulationTarget
       return true;
     }
 
-    const activeSmartTerrain: SmartTerrain = alife().object<SmartTerrain>(
+    const activeSmartTerrain: SmartTerrain = registry.simulator.object<SmartTerrain>(
       registry.activeSmartTerrainId
     ) as SmartTerrain;
 

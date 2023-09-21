@@ -1,4 +1,4 @@
-import { alife, CUI3tButton, CUICheckButton, CUIListBox, CUIStatic, LuabindClass, ui_events } from "xray16";
+import { CUI3tButton, CUICheckButton, CUIListBox, CUIStatic, LuabindClass, ui_events } from "xray16";
 
 import { registry } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
@@ -66,7 +66,7 @@ export class DebugRegistrySection extends AbstractDebugSection {
   }
 
   public override initializeState(): void {
-    const simulator: Optional<AlifeSimulator> = alife();
+    const simulator: Optional<AlifeSimulator> = registry.simulator;
 
     this.uiRegistryFilterOnline.SetCheck(this.filterIsOnline);
 
@@ -75,7 +75,7 @@ export class DebugRegistrySection extends AbstractDebugSection {
 
       this.uiRegistryList.Clear();
 
-      alife().iterate_objects((it): void => {
+      simulator.iterate_objects((it): void => {
         const isValid: boolean = this.filterIsOnline ? it.online : true;
 
         if (isValid) {

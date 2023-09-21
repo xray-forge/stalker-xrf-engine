@@ -1,4 +1,4 @@
-import { alife, clsid } from "xray16";
+import { clsid } from "xray16";
 
 import { getPortableStoreValue, registry, setPortableStoreValue } from "@/engine/core/database";
 import { AbstractManager } from "@/engine/core/managers/base/AbstractManager";
@@ -186,7 +186,7 @@ export class StatisticsManager extends AbstractManager {
       this.takenArtefacts.set(artefactId, artefactId);
 
       // todo: Probably section vs section name should be checked and simplified.
-      const serverObject: Optional<ServerObject> = alife().object(artefactId);
+      const serverObject: Optional<ServerObject> = registry.simulator.object(artefactId);
 
       if (serverObject && serverObject.section_name()) {
         this.actorStatistics.collectedArtefacts.set(serverObject.section_name(), true);
@@ -241,7 +241,7 @@ export class StatisticsManager extends AbstractManager {
     const activeActorItem: Optional<ClientObject> = registry.actor.active_item();
 
     if (activeActorItem) {
-      const serverObject: Optional<ServerObject> = alife().object(activeActorItem.id());
+      const serverObject: Optional<ServerObject> = registry.simulator.object(activeActorItem.id());
 
       if (serverObject) {
         const sectionName: TName = serverObject.section_name();
@@ -297,7 +297,7 @@ export class StatisticsManager extends AbstractManager {
       tostring(object.clsid())
     );
 
-    const serverObject: Optional<ServerCreatureObject> = alife().object(object.id());
+    const serverObject: Optional<ServerCreatureObject> = registry.simulator.object(object.id());
 
     // Increment count.
     this.actorStatistics.killedMonstersCount += 1;

@@ -1,5 +1,6 @@
-import { alife, level } from "xray16";
+import { level } from "xray16";
 
+import { registry } from "@/engine/core/database/registry";
 import { EStalkerState } from "@/engine/core/objects/animation/types";
 import { Squad } from "@/engine/core/objects/server/squad";
 import { abort, assertDefined } from "@/engine/core/utils/assertion";
@@ -129,7 +130,7 @@ export class ReachTaskPatrolManager {
     let index = 1;
 
     for (const [key, data] of this.objectsList) {
-      const serverObject: Optional<ServerCreatureObject> = alife().object(data.soldier)!;
+      const serverObject: Optional<ServerCreatureObject> = registry.simulator.object(data.soldier)!;
       const squad: Optional<Squad> = serverObject && getObjectSquad(serverObject);
 
       if (squad === null) {

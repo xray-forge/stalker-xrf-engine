@@ -1,6 +1,6 @@
-import { alife, LuabindClass, object_binder } from "xray16";
+import { LuabindClass, object_binder } from "xray16";
 
-import { registerSmartTerrain, unregisterSmartTerrain } from "@/engine/core/database";
+import { registerSmartTerrain, registry, unregisterSmartTerrain } from "@/engine/core/database";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain/SmartTerrain";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -23,7 +23,7 @@ export class SmartTerrainBinder extends object_binder {
       return false;
     }
 
-    this.serverObject = alife().object(object.id) as SmartTerrain;
+    this.serverObject = registry.simulator.object(object.id) as SmartTerrain;
 
     registerSmartTerrain(this.object, this.serverObject);
 

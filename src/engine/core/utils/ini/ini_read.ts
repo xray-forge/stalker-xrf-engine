@@ -1,5 +1,4 @@
 import type { IBaseSchemeLogic } from "@/engine/core/database/types";
-import { ProfilingPortion } from "@/engine/core/managers/debug/profiling";
 import { abort, assert, assertDefined } from "@/engine/core/utils/assertion";
 import { parseConditionsList, parseNumbersList, parseParameters } from "@/engine/core/utils/ini/ini_parse";
 import { LuaLogger } from "@/engine/core/utils/logging";

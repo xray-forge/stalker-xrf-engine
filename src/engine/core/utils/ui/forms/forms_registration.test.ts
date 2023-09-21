@@ -5,8 +5,8 @@ import { EElementType, registerUiElement } from "@/engine/core/utils/ui/forms";
 import { XmlInit } from "@/engine/lib/types";
 import { MockCScriptXmlInit, MockCUIScriptWnd, MockCUIWindow } from "@/fixtures/xray";
 
-describe("'forms_registration' utils", () => {
-  it("'registerUiElement' should correctly register elements", () => {
+describe("forms_registration utils", () => {
+  it("registerUiElement should correctly register elements", () => {
     const xml: XmlInit = MockCScriptXmlInit.mock();
     const base: CUIWindow = MockCUIWindow.mock();
 
@@ -20,7 +20,7 @@ describe("'forms_registration' utils", () => {
     expect(xml.InitListBox).toHaveBeenCalledWith("test_selector", base);
   });
 
-  it("'registerUiElement' should correctly register elements with callbacks", () => {
+  it("registerUiElement should correctly register elements with callbacks", () => {
     const xml: XmlInit = MockCScriptXmlInit.mock();
     const base: CUIWindow = MockCUIWindow.mock();
     const context: CUIScriptWnd = MockCUIScriptWnd.mock();
@@ -57,7 +57,7 @@ describe("'forms_registration' utils", () => {
     );
   });
 
-  it("'registerUiElement' should correctly not register elements without callbacks", () => {
+  it("registerUiElement should correctly not register elements without callbacks", () => {
     const xml: XmlInit = MockCScriptXmlInit.mock();
     const base: CUIWindow = MockCUIWindow.mock();
     const context: CUIScriptWnd = MockCUIScriptWnd.mock();

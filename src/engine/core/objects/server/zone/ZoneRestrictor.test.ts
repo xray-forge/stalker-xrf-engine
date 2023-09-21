@@ -1,11 +1,19 @@
-import { describe, expect, it, jest } from "@jest/globals";
+import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 
-import { getObjectIdByStoryId, getServerObjectByStoryId, getStoryIdByObjectId, registry } from "@/engine/core/database";
+import {
+  getObjectIdByStoryId,
+  getServerObjectByStoryId,
+  getStoryIdByObjectId,
+  registerSimulator,
+  registry,
+} from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { ZoneRestrictor } from "@/engine/core/objects/server/zone/ZoneRestrictor";
 import { mockIniFile } from "@/fixtures/xray/mocks/ini";
 
 describe("ZoneRestrictor server class", () => {
+  beforeEach(() => registerSimulator());
+
   it("should correctly create generic objects without story links", () => {
     const zoneRestrictor: ZoneRestrictor = new ZoneRestrictor("test-section");
 

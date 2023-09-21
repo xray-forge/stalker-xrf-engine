@@ -10,7 +10,7 @@ import { mockSmartTerrain } from "@/fixtures/engine";
 import { mockServerAlifeHumanStalker, mockServerAlifeMonsterBase } from "@/fixtures/xray";
 
 describe("job_check utils", () => {
-  it("'areNoStalkersWorkingOnJobs' should correctly check whether no stalkers are working", () => {
+  it("areNoStalkersWorkingOnJobs should correctly check whether no stalkers are working", () => {
     expect(areNoStalkersWorkingOnJobs($fromArray<IObjectJobDescriptor>([]))).toBe(true);
     expect(
       areNoStalkersWorkingOnJobs(
@@ -38,7 +38,7 @@ describe("job_check utils", () => {
     ).toBe(false);
   });
 
-  it("'isJobAvailableToObject' should correctly check job accessibility for creatures", () => {
+  it("isJobAvailableToObject should correctly check job accessibility for creatures", () => {
     const smartTerrain: SmartTerrain = mockSmartTerrain();
     const monster: ServerMonsterBaseObject = mockServerAlifeMonsterBase();
     const stalker: ServerMonsterBaseObject = mockServerAlifeHumanStalker();
@@ -73,7 +73,7 @@ describe("job_check utils", () => {
     ).toBe(false);
   });
 
-  it("'isJobAvailableToObject' should wait sometime if job worker died", () => {
+  it("isJobAvailableToObject should wait sometime if job worker died", () => {
     const smartTerrain: SmartTerrain = mockSmartTerrain();
     const deadStalker: ServerMonsterBaseObject = mockServerAlifeHumanStalker();
 
@@ -112,7 +112,7 @@ describe("job_check utils", () => {
     ).toBe(true);
   });
 
-  it("'isJobAvailableToObject' should correctly check job accessibility with precondition call", () => {
+  it("isJobAvailableToObject should correctly check job accessibility with precondition call", () => {
     const smartTerrain: SmartTerrain = mockSmartTerrain();
     const monster: ServerMonsterBaseObject = mockServerAlifeMonsterBase();
     const job: IObjectJobDescriptor = createObjectJobDescriptor(monster);

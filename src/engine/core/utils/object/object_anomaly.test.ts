@@ -1,12 +1,14 @@
-import { describe, expect, it } from "@jest/globals";
+import { beforeEach, describe, expect, it } from "@jest/globals";
 
-import { registry } from "@/engine/core/database";
+import { registerSimulator, registry } from "@/engine/core/database";
 import { AnomalyZoneBinder } from "@/engine/core/objects/binders/zones/AnomalyZoneBinder";
 import { anomalyHasArtefact, getAnomalyArtefacts } from "@/engine/core/utils/object/object_anomaly";
 import { mockClientGameObject, mockServerAlifeObject } from "@/fixtures/xray";
 
-describe("'object_anomaly' utils", () => {
-  it("'anomalyHasArtefact' should correctly check if anomaly has artefact", () => {
+describe("object_anomaly utils", () => {
+  beforeEach(() => registerSimulator());
+
+  it("anomalyHasArtefact should correctly check if anomaly has artefact", () => {
     expect(anomalyHasArtefact("another", "")).toBe(false);
     expect(anomalyHasArtefact("test-anomaly", "")).toBe(false);
     expect(anomalyHasArtefact("test-anomaly", "sect_1")).toBe(false);
@@ -32,7 +34,7 @@ describe("'object_anomaly' utils", () => {
     expect(anomalyHasArtefact("test-anomaly", "sect_3")).toBe(false);
   });
 
-  it("'getAnomalyArtefacts' should correctly get anomaly artefacts list", () => {
+  it("getAnomalyArtefacts should correctly get anomaly artefacts list", () => {
     expect(getAnomalyArtefacts("another")).toEqualLuaArrays([]);
     expect(getAnomalyArtefacts("another-anomaly")).toEqualLuaArrays([]);
     expect(getAnomalyArtefacts("another-anomaly")).toEqualLuaArrays([]);

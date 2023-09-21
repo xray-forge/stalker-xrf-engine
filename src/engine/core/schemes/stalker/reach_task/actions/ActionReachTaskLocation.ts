@@ -1,4 +1,4 @@
-import { action_base, alife, anim, clsid, level, look, LuabindClass, move, object, time_global } from "xray16";
+import { action_base, anim, clsid, level, look, LuabindClass, move, object, time_global } from "xray16";
 
 import { registry } from "@/engine/core/database";
 import { TSimulationObject } from "@/engine/core/managers/simulation";
@@ -75,7 +75,7 @@ export class ActionReachTaskLocation extends action_base implements ISchemeEvent
     this.object.set_mental_state(anim.free);
     this.object.set_movement_type(move.walk);
 
-    const reachTarget: TSimulationObject = alife().object(this.reachTargetId)!;
+    const reachTarget: TSimulationObject = registry.simulator.object(this.reachTargetId)!;
 
     this.object.set_dest_game_vertex_id(reachTarget.m_game_vertex_id);
     this.object.set_path_type(EClientObjectPath.GAME_PATH);
@@ -114,7 +114,7 @@ export class ActionReachTaskLocation extends action_base implements ISchemeEvent
     let squadTarget: Optional<TSimulationObject> = registry.simulationObjects.get(objectSquad.assignedTargetId!);
 
     if (squadTarget === null && objectSquad.getLogicsScriptTarget() !== null) {
-      squadTarget = alife().object(objectSquad.assignedTargetId!);
+      squadTarget = registry.simulator.object(objectSquad.assignedTargetId!);
     }
 
     if (this.object.id() === (getObjectSquad(this.object) as Squad).commander_id()) {

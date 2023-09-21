@@ -11,13 +11,13 @@ import { resetFunctionMock } from "@/fixtures/jest";
 import { mockIniFile } from "@/fixtures/xray";
 import { gameConsole } from "@/fixtures/xray/mocks/console.mock";
 
-describe("'console' utils", () => {
+describe("console utils", () => {
   beforeEach(() => {
     resetFunctionMock(gameConsole.execute);
     resetFunctionMock(gameConsole.get_float);
   });
 
-  it("'executeConsoleCommand' should correctly generate commands", () => {
+  it("executeConsoleCommand should correctly generate commands", () => {
     executeConsoleCommand(consoleCommands.g_game_difficulty, gameDifficulties.gd_master);
     expect(gameConsole.execute).toHaveBeenCalledWith("g_game_difficulty gd_master");
 
@@ -30,7 +30,7 @@ describe("'console' utils", () => {
     expect(gameConsole.execute).toHaveBeenCalledWith("start server(all/single/alife/new) client(localhost)");
   });
 
-  it("'executeConsoleCommandsFromSection' should correctly execute commands from ini section", () => {
+  it("executeConsoleCommandsFromSection should correctly execute commands from ini section", () => {
     executeConsoleCommandsFromSection("test");
     expect(gameConsole.execute).not.toHaveBeenCalled();
 
@@ -66,7 +66,7 @@ describe("'console' utils", () => {
     expect(gameConsole.execute).toHaveBeenCalledWith("c b a");
   });
 
-  it("'getConsoleFloatCommand' should correctly generate commands", () => {
+  it("getConsoleFloatCommand should correctly generate commands", () => {
     gameConsole.get_float = jest.fn((cmd: string) => (cmd.startsWith("snd_volume_eff") ? 50.4 : -1));
 
     expect(getConsoleFloatCommand(consoleCommands.snd_volume_eff)).toBe(50.4);

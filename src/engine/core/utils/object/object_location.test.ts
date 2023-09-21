@@ -1,6 +1,7 @@
-import { describe, expect, it, jest } from "@jest/globals";
-import { alife, game_graph } from "xray16";
+import { beforeEach, describe, expect, it, jest } from "@jest/globals";
+import { game_graph } from "xray16";
 
+import { registerSimulator, registry } from "@/engine/core/database";
 import {
   areObjectsOnSameLevel,
   getDistanceBetween,
@@ -28,6 +29,10 @@ import {
 import { MockVector } from "@/fixtures/xray/mocks/vector.mock";
 
 describe("object location utils", () => {
+  beforeEach(() => {
+    registerSimulator();
+  });
+
   it("isObjectInSmartTerrain check object inside smart terrain", () => {
     const smartTerrain = mockServerAlifeSmartZone({ name: <T extends string>() => "test-smart" as T });
     const { actorClientObject } = mockRegisteredActor({}, { m_smart_terrain_id: smartTerrain.id });
@@ -55,7 +60,7 @@ describe("object location utils", () => {
     expect(isObjectOnLevel(object, "pripyat")).toBe(true);
 
     expect(game_graph().vertex(object.m_game_vertex_id).level_id()).toBe(5120);
-    expect(alife().level_name).toHaveBeenCalledWith(5120);
+    expect(registry.simulator.level_name).toHaveBeenCalledWith(5120);
   });
 
   it("areObjectsOnSameLevel check objects on level", () => {

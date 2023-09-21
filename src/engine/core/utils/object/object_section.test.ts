@@ -7,8 +7,8 @@ import {
   isSquadMonsterCommunity,
 } from "@/engine/core/utils/object/object_section";
 
-describe("'object_section' utils", () => {
-  it("'isAmmoSection' should correctly check ammo section", () => {
+describe("object_section utils", () => {
+  it("isAmmoSection should correctly check ammo section", () => {
     expect(isAmmoSection("another-section")).toBe(false);
     expect(isAmmoSection("ammo_not_existing")).toBe(false);
     expect(isAmmoSection("ammo_11.43x23_fmj")).toBe(true);
@@ -17,7 +17,7 @@ describe("'object_section' utils", () => {
     expect(isAmmoSection("ammo_gauss")).toBe(true);
   });
 
-  it("'isSquadMonsterCommunity' should correctly check if community matches squad monsters", () => {
+  it("isSquadMonsterCommunity should correctly check if community matches squad monsters", () => {
     expect(isSquadMonsterCommunity("monster_predatory_day")).toBe(true);
     expect(isSquadMonsterCommunity("monster_predatory_night")).toBe(true);
     expect(isSquadMonsterCommunity("monster_special")).toBe(true);
@@ -32,7 +32,7 @@ describe("'object_section' utils", () => {
     expect(isSquadMonsterCommunity("actor")).toBe(false);
   });
 
-  it("'isLootableItemSection' should correctly check objects that are lootable", () => {
+  it("isLootableItemSection should correctly check objects that are lootable", () => {
     expect(isLootableItemSection("")).toBe(false);
     expect(isLootableItemSection("wpn_ak74")).toBe(true);
     expect(isLootableItemSection("grenade_f1")).toBe(true);
@@ -44,7 +44,7 @@ describe("'object_section' utils", () => {
     expect(isLootableItemSection("device_torch")).toBe(false);
   });
 
-  it("'isExcludedFromLootDropItemSection' should correctly check objects that are not lootable", () => {
+  it("isExcludedFromLootDropItemSection should correctly check objects that are not lootable", () => {
     expect(isExcludedFromLootDropItemSection("")).toBe(false);
     expect(isExcludedFromLootDropItemSection("wpn_ak74")).toBe(false);
     expect(isExcludedFromLootDropItemSection("grenade_f1")).toBe(false);

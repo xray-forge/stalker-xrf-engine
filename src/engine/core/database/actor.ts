@@ -2,7 +2,7 @@ import { registerObject, unregisterObject } from "@/engine/core/database/objects
 import { registry } from "@/engine/core/database/registry";
 import type { IRegistryObjectState } from "@/engine/core/database/types";
 import type { Actor } from "@/engine/core/objects/server/creature/Actor";
-import type { ClientObject } from "@/engine/lib/types";
+import type { ClientObject, ServerActorObject } from "@/engine/lib/types";
 
 /**
  * Register new actor entry in db.
@@ -31,9 +31,12 @@ export function unregisterActor(): void {
  * Register new actor server entry in db.
  *
  * @param object - server object to register as actor
+ * @returns registered object
  */
-export function registerActorServer(object: Actor): void {
-  registry.actorServer = object;
+export function registerActorServer(object: ServerActorObject): Actor {
+  registry.actorServer = object as Actor;
+
+  return object as Actor;
 }
 
 /**

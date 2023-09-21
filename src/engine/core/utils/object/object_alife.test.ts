@@ -1,6 +1,6 @@
-import { describe, expect, it } from "@jest/globals";
-import { alife } from "xray16";
+import { beforeEach, describe, expect, it } from "@jest/globals";
 
+import { registerSimulator, registry } from "@/engine/core/database";
 import {
   evaluateSimulationPriority,
   evaluateSimulationPriorityByDistance,
@@ -13,8 +13,10 @@ import { mockServerAlifeObject } from "@/fixtures/xray/mocks/objects/server/cse_
 import { mockSquad } from "@/fixtures/xray/mocks/objects/server/Squad.mock";
 import { MockVector } from "@/fixtures/xray/mocks/vector.mock";
 
-describe("'alife' utils", () => {
-  it("'evaluateSimulationPriorityByDistance' utils should correctly evaluate priority by distance", () => {
+describe("alife utils", () => {
+  beforeEach(() => registerSimulator());
+
+  it("evaluateSimulationPriorityByDistance utils should correctly evaluate priority by distance", () => {
     MockVector.DEFAULT_DISTANCE = 20;
     expect(evaluateSimulationPriorityByDistance(mockServerAlifeObject(), mockServerAlifeObject())).toBe(1.05);
 
@@ -25,7 +27,7 @@ describe("'alife' utils", () => {
     expect(evaluateSimulationPriorityByDistance(mockServerAlifeObject(), mockServerAlifeObject())).toBe(1.2);
   });
 
-  it("'evaluateSimulationPriority' utils should correctly evaluate priority", () => {
+  it("evaluateSimulationPriority utils should correctly evaluate priority", () => {
     MockVector.DEFAULT_DISTANCE = 20;
 
     expect(evaluateSimulationPriority(mockSquad(), mockSquad())).toBe(13.65);
@@ -40,17 +42,17 @@ describe("'alife' utils", () => {
     ).toBe(29.700000000000003);
   });
 
-  it("'setUnlimitedAlifeObjectsUpdate' should correctly set high updates limits", () => {
-    resetFunctionMock(alife().set_objects_per_update);
+  it("setUnlimitedAlifeObjectsUpdate should correctly set high updates limits", () => {
+    resetFunctionMock(registry.simulator.set_objects_per_update);
     setUnlimitedAlifeObjectsUpdate();
 
-    expect(alife().set_objects_per_update).toHaveBeenCalledWith(2_147_483_647);
+    expect(registry.simulator.set_objects_per_update).toHaveBeenCalledWith(2_147_483_647);
   });
 
-  it("'setStableAlifeObjectsUpdate' should correctly set high updates limits", () => {
-    resetFunctionMock(alife().set_objects_per_update);
+  it("setStableAlifeObjectsUpdate should correctly set high updates limits", () => {
+    resetFunctionMock(registry.simulator.set_objects_per_update);
     setStableAlifeObjectsUpdate();
 
-    expect(alife().set_objects_per_update).toHaveBeenCalledWith(20);
+    expect(registry.simulator.set_objects_per_update).toHaveBeenCalledWith(20);
   });
 });

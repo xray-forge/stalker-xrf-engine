@@ -1,7 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it, jest } from "@jest/globals";
-import { alife } from "xray16";
 
-import { disposeManager, registerActor, registry } from "@/engine/core/database";
+import { disposeManager, registerActor, registerSimulator, registry } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import {
   ENotificationDirection,
@@ -37,7 +36,7 @@ import {
   mockServerAlifeObject,
 } from "@/fixtures/xray";
 
-describe("'task_reward' utils", () => {
+describe("task_reward utils", () => {
   const createObjectWithItems = () =>
     mockClientGameObject({
       inventory: [
@@ -65,13 +64,14 @@ describe("'task_reward' utils", () => {
 
   beforeEach(() => {
     registerActor(mockActorClientGameObject());
+    registerSimulator();
   });
 
   afterEach(() => {
     disposeManager(EventsManager);
   });
 
-  it("'giveMoneyToActor' should correctly transfer money", () => {
+  it("giveMoneyToActor should correctly transfer money", () => {
     const eventsManager: EventsManager = EventsManager.getInstance();
 
     const mock = jest.fn((notification: IMoneyRelocatedNotification) => {
@@ -88,7 +88,7 @@ describe("'task_reward' utils", () => {
     expect(mock).toHaveBeenCalledTimes(1);
   });
 
-  it("'takeMoneyFromActor' should correctly transfer money", () => {
+  it("takeMoneyFromActor should correctly transfer money", () => {
     const eventsManager: EventsManager = EventsManager.getInstance();
 
     const mock = jest.fn((notification: IMoneyRelocatedNotification) => {
@@ -107,7 +107,7 @@ describe("'task_reward' utils", () => {
     expect(mock).toHaveBeenCalledTimes(1);
   });
 
-  it("'transferItemsFromActor' should take items from actor", () => {
+  it("transferItemsFromActor should take items from actor", () => {
     const eventsManager: EventsManager = EventsManager.getInstance();
     const mock = jest.fn((notification: IItemRelocatedNotification) => {
       expect(notification.type).toBe(ENotificationType.ITEM);
@@ -137,7 +137,7 @@ describe("'task_reward' utils", () => {
     expect(mock).toHaveBeenCalledTimes(1);
   });
 
-  it("'transferItemsFromActor' should take ammo from object", () => {
+  it("transferItemsFromActor should take ammo from object", () => {
     const eventsManager: EventsManager = EventsManager.getInstance();
     const mock = jest.fn((notification: IItemRelocatedNotification) => {
       expect(notification.type).toBe(ENotificationType.ITEM);
@@ -159,7 +159,7 @@ describe("'task_reward' utils", () => {
     expect(mock).toHaveBeenCalledTimes(2);
   });
 
-  it("'transferItemsFromActor' should take ALL from object", () => {
+  it("transferItemsFromActor should take ALL from object", () => {
     const eventsManager: EventsManager = EventsManager.getInstance();
     const mock = jest.fn((notification: IItemRelocatedNotification) => {
       expect(notification.type).toBe(ENotificationType.ITEM);
@@ -180,7 +180,7 @@ describe("'task_reward' utils", () => {
     expect(mock).toHaveBeenCalledTimes(1);
   });
 
-  it("'transferItemsFromActor' should fail on bad attempts", () => {
+  it("transferItemsFromActor should fail on bad attempts", () => {
     registerActor(createObjectWithItems());
 
     const to: ClientObject = mockClientGameObject();
@@ -192,7 +192,7 @@ describe("'task_reward' utils", () => {
     expect(() => transferItemsFromActor(to, weapons.wpn_svd, 10)).toThrow();
   });
 
-  it("'transferItemsToActor' should take items from object", () => {
+  it("transferItemsToActor should take items from object", () => {
     const eventsManager: EventsManager = EventsManager.getInstance();
     const from: ClientObject = createObjectWithItems();
     const mock = jest.fn((notification: IItemRelocatedNotification) => {
@@ -210,7 +210,7 @@ describe("'task_reward' utils", () => {
     expect(mock).toHaveBeenCalledTimes(1);
   });
 
-  it("'giveItemsToActor' should correctly create items and then notify", () => {
+  it("giveItemsToActor should correctly create items and then notify", () => {
     const eventsManager: EventsManager = EventsManager.getInstance();
     const mock = jest.fn((notification: IItemRelocatedNotification) => {
       expect(notification.type).toBe(ENotificationType.ITEM);
@@ -225,7 +225,7 @@ describe("'task_reward' utils", () => {
     expect(mock).toHaveBeenCalledTimes(1);
   });
 
-  it("'takeItemFromActor' should correctly delete items and then notify", () => {
+  it("takeItemFromActor should correctly delete items and then notify", () => {
     const eventsManager: EventsManager = EventsManager.getInstance();
     const itemToTake: ClientObject = mockClientGameObject();
     const mock = jest.fn((notification: IItemRelocatedNotification) => {
@@ -240,16 +240,16 @@ describe("'task_reward' utils", () => {
 
     MockAlifeSimulator.addToRegistry(mockServerAlifeObject({ id: itemToTake.id() }));
 
-    expect(alife().object(itemToTake.id())).not.toBeNull();
+    expect(registry.simulator.object(itemToTake.id())).not.toBeNull();
 
     registerActor(mockClientGameObject({ object: () => itemToTake }));
     takeItemFromActor("test_section");
 
-    expect(alife().object(itemToTake.id())).toBeNull();
+    expect(registry.simulator.object(itemToTake.id())).toBeNull();
     expect(mock).toHaveBeenCalledTimes(1);
   });
 
-  it("'getNpcSpeaker' should correctly pick speaker", () => {
+  it("getNpcSpeaker should correctly pick speaker", () => {
     const first: ClientObject = mockClientGameObject();
     const second: ClientObject = mockClientGameObject();
 
@@ -260,7 +260,7 @@ describe("'task_reward' utils", () => {
     expect(getNpcSpeaker(second, registry.actor)).toBe(second);
   });
 
-  it("'isObjectName' should correctly check name", () => {
+  it("isObjectName should correctly check name", () => {
     const object: ClientObject = mockClientGameObject({ name: () => "test_complex_name" } as Partial<ClientObject>);
 
     expect(object.name()).toBe("test_complex_name");
@@ -273,7 +273,7 @@ describe("'task_reward' utils", () => {
     expect(isObjectName(object, "name")).toBeTruthy();
   });
 
-  it("'objectHasItem' should correctly check if object has item", () => {
+  it("objectHasItem should correctly check if object has item", () => {
     const object: ClientObject = createObjectWithItems();
 
     expect(objectHasItem(object, weapons.wpn_svd)).toBeTruthy();
@@ -292,7 +292,7 @@ describe("'task_reward' utils", () => {
     expect(objectHasItem(object, 100)).toBeFalsy();
   });
 
-  it("'actorHasAtLeastOneItem' should correctly check if object has item", () => {
+  it("actorHasAtLeastOneItem should correctly check if object has item", () => {
     registerActor(createObjectWithItems());
 
     expect(
@@ -313,7 +313,7 @@ describe("'task_reward' utils", () => {
     expect(actorHasAtLeastOneItem(MockLuaTable.mockFromArray([weapons.wpn_svd, 400]))).toBeTruthy();
   });
 
-  it("'actorHasItems' should correctly check if object has items", () => {
+  it("actorHasItems should correctly check if object has items", () => {
     registerActor(createObjectWithItems());
 
     expect(
@@ -338,7 +338,7 @@ describe("'task_reward' utils", () => {
     expect(actorHasItems(MockLuaTable.mockFromArray([weapons.wpn_svd, 40]))).toBeTruthy();
   });
 
-  it("'actorHasItem' should correctly check if object has item", () => {
+  it("actorHasItem should correctly check if object has item", () => {
     registerActor(createObjectWithItems());
 
     expect(actorHasItem(weapons.wpn_svd)).toBeTruthy();
@@ -363,7 +363,7 @@ describe("'task_reward' utils", () => {
     expect(actorHasItem(61)).toBeFalsy();
   });
 
-  it("'actorHasMedKit' should correctly check if object has any medkit", () => {
+  it("actorHasMedKit should correctly check if object has any medkit", () => {
     registerActor(createObjectWithItems());
 
     expect(actorHasMedKit(MockLuaTable.mockFromArray(Object.values(medkits)))).toBeTruthy();
@@ -376,7 +376,7 @@ describe("'task_reward' utils", () => {
     expect(actorHasMedKit(MockLuaTable.mockFromArray([medkits.medkit]), mockClientGameObject())).toBeFalsy();
   });
 
-  it("'getActorAvailableMedKit' should correctly check medkit", () => {
+  it("getActorAvailableMedKit should correctly check medkit", () => {
     registerActor(createObjectWithItems());
 
     expect(getActorAvailableMedKit(MockLuaTable.mockFromArray(Object.values(medkits)))).toBe(medkits.medkit);

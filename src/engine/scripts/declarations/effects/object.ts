@@ -1,4 +1,4 @@
-import { alife, hit, level, patrol } from "xray16";
+import { hit, level, patrol } from "xray16";
 
 import {
   getObjectByStoryId,
@@ -200,7 +200,7 @@ extern("xr_effects.remove_npc", (actor: ClientObject, object: ClientObject, p: [
   }
 
   if (objectId !== null) {
-    alife().release(alife().object(objectId), true);
+    registry.simulator.release(registry.simulator.object(objectId), true);
   }
 });
 
@@ -286,7 +286,7 @@ extern("xr_effects.spawn_corpse", (actor: ClientObject, obj: ClientObject, param
   const patrolObject: patrol = new patrol(pathName);
   const index: TIndex = params[2] || 0;
 
-  const serverObject: ServerCreatureObject = alife().create(
+  const serverObject: ServerCreatureObject = registry.simulator.create(
     spawnSection,
     patrolObject.point(index),
     patrolObject.level_vertex_id(0),
@@ -380,7 +380,7 @@ extern(
       levelVertexId = point.level_vertex_id(0);
       gameVertexId = point.game_vertex_id(0);
     } else {
-      const commander: ServerHumanObject = alife().object(squad.commander_id()) as ServerHumanObject;
+      const commander: ServerHumanObject = registry.simulator.object(squad.commander_id()) as ServerHumanObject;
 
       position = commander.position;
       levelVertexId = commander.m_level_vertex_id;
@@ -390,7 +390,9 @@ extern(
     const newSquadMemberId: TNumberId = squad.addSquadMember(squadMemberSection, position, levelVertexId, gameVertexId);
 
     squad.assignSquadMemberToSmartTerrain(newSquadMemberId, squadSmartTerrain, null);
-    simulationBoardManager.setupObjectSquadAndGroup(alife().object(newSquadMemberId) as ServerCreatureObject);
+    simulationBoardManager.setupObjectSquadAndGroup(
+      registry.simulator.object(newSquadMemberId) as ServerCreatureObject
+    );
     // --squad_smart.refresh()
     squad.update();
   }
@@ -441,7 +443,7 @@ extern("xr_effects.kill_squad", (actor: ClientObject, obj: ClientObject, p: [Opt
     const clientObject: Optional<ClientObject> = registry.objects.get(k)?.object;
 
     if (clientObject === null) {
-      alife().object<ServerHumanObject>(tonumber(k)!)!.kill();
+      registry.simulator.object<ServerHumanObject>(tonumber(k)!)!.kill();
     } else {
       clientObject.kill(clientObject);
     }
@@ -676,7 +678,7 @@ extern(
 
     logger.info("Give item to object:", objectId, section);
 
-    spawnItemsForObject(alife().object(objectId)!, section);
+    spawnItemsForObject(registry.simulator.object(objectId)!, section);
   }
 );
 
@@ -746,7 +748,13 @@ extern("xr_effects.spawn_item_to_npc", (actor: ClientObject, object: ClientObjec
   const newItem: Optional<TSection> = p[0];
 
   if (newItem) {
-    alife().create(newItem, object.position(), object.level_vertex_id(), object.game_vertex_id(), object.id());
+    registry.simulator.create(
+      newItem,
+      object.position(),
+      object.level_vertex_id(),
+      object.game_vertex_id(),
+      object.id()
+    );
   }
 });
 
@@ -832,7 +840,7 @@ extern("xr_effects.clear_box", (actor: ClientObject, object: ClientObject, p: [s
   }, inventoryBox);
 
   for (const [, item] of itemsList) {
-    alife().release(alife().object(item.id()), true);
+    registry.simulator.release(registry.simulator.object(item.id()), true);
   }
 });
 

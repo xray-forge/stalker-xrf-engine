@@ -1,7 +1,7 @@
-import { describe, expect, it } from "@jest/globals";
-import { alife, level, relation_registry } from "xray16";
+import { beforeEach, describe, expect, it } from "@jest/globals";
+import { level, relation_registry } from "xray16";
 
-import { registerStoryLink } from "@/engine/core/database";
+import { registerSimulator, registerStoryLink, registry } from "@/engine/core/database";
 import {
   increaseCommunityGoodwillToId,
   setClientObjectRelation,
@@ -17,7 +17,7 @@ import {
 import { ERelation } from "@/engine/core/utils/relation/relation_types";
 import { communities } from "@/engine/lib/constants/communities";
 import { ClientObject, ServerActorObject, ServerCreatureObject, ServerHumanObject, TIndex } from "@/engine/lib/types";
-import { mockRelationsSquads } from "@/fixtures/engine";
+import { mockRegisteredActor, mockRelationsSquads } from "@/fixtures/engine";
 import {
   CLIENT_SIDE_REGISTRY,
   mockActorClientGameObject,
@@ -26,8 +26,10 @@ import {
   mockServerAlifeCreatureActor,
 } from "@/fixtures/xray";
 
-describe("'relation/set' utils", () => {
-  it("'setClientObjectRelation' should correctly set objects relation", () => {
+describe("relation/set utils", () => {
+  beforeEach(() => registerSimulator());
+
+  it("setClientObjectRelation should correctly set objects relation", () => {
     expect(() => setClientObjectRelation(null, null, ERelation.ENEMY)).toThrow();
     expect(() => setClientObjectRelation(mockClientGameObject(), null, ERelation.ENEMY)).toThrow();
     expect(() => setClientObjectRelation(null, mockClientGameObject(), ERelation.ENEMY)).toThrow();
@@ -46,7 +48,7 @@ describe("'relation/set' utils", () => {
     expect(third.force_set_goodwill).toHaveBeenCalledWith(0, first);
   });
 
-  it("'setServerObjectRelation' should correctly set objects relation", () => {
+  it("setServerObjectRelation should correctly set objects relation", () => {
     expect(() => setServerObjectRelation(null, null, ERelation.ENEMY)).toThrow();
     expect(() => setServerObjectRelation(mockServerAlifeCreatureAbstract(), null, ERelation.ENEMY)).toThrow();
     expect(() => setServerObjectRelation(null, mockServerAlifeCreatureAbstract(), ERelation.ENEMY)).toThrow();
@@ -65,7 +67,7 @@ describe("'relation/set' utils", () => {
     expect(third.force_set_goodwill).toHaveBeenCalledWith(0, first.id);
   });
 
-  it("'setGoodwillBetweenCommunities' should correctly set community goodwill", () => {
+  it("setGoodwillBetweenCommunities should correctly set community goodwill", () => {
     setGoodwillFromCommunityToCommunity(null, communities.actor, 500);
     expect(relation_registry.set_community_relation).not.toHaveBeenCalled();
 
@@ -83,7 +85,7 @@ describe("'relation/set' utils", () => {
     );
   });
 
-  it("'setRelationFromCommunityToCommunity' should correctly check relation", () => {
+  it("setRelationFromCommunityToCommunity should correctly check relation", () => {
     setRelationFromCommunityToCommunity(null, communities.actor, ERelation.FRIEND);
     expect(relation_registry.set_community_relation).not.toHaveBeenCalled();
 
@@ -101,7 +103,7 @@ describe("'relation/set' utils", () => {
     );
   });
 
-  it("'increaseNumberRelationBetweenCommunityAndId' should correctly check relation", () => {
+  it("increaseNumberRelationBetweenCommunityAndId should correctly check relation", () => {
     increaseCommunityGoodwillToId(null, 400, 500);
     expect(relation_registry.change_community_goodwill).not.toHaveBeenCalled();
 
@@ -115,7 +117,7 @@ describe("'relation/set' utils", () => {
     expect(relation_registry.change_community_goodwill).toHaveBeenCalledWith(communities.monolith, 400, -500);
   });
 
-  it("'setObjectSympathy' should correctly set sympathy", () => {
+  it("setObjectSympathy should correctly set sympathy", () => {
     const object: ClientObject = mockClientGameObject();
 
     setObjectSympathy(object, -10);
@@ -139,7 +141,7 @@ describe("'relation/set' utils", () => {
     expect(object.set_sympathy).toHaveBeenNthCalledWith(9, 1);
   });
 
-  it("'setSquadRelationToCommunity' should correctly set squad members relation", () => {
+  it("setSquadRelationToCommunity should correctly set squad members relation", () => {
     const { neutralSquad, mixedSquad } = mockRelationsSquads();
 
     expect(() => setSquadRelationToCommunity(55, communities.bandit, ERelation.ENEMY)).toThrow();
@@ -159,7 +161,7 @@ describe("'relation/set' utils", () => {
     }
   });
 
-  it("'setSquadRelationWithObject' should correctly set relation", () => {
+  it("setSquadRelationWithObject should correctly set relation", () => {
     const { neutralSquad, mixedSquad, enemy } = mockRelationsSquads();
 
     setSquadRelationWithObject(neutralSquad.id, level.object_by_id(enemy.id) as ClientObject, ERelation.FRIEND);
@@ -168,7 +170,7 @@ describe("'relation/set' utils", () => {
 
     for (const it of neutralSquad.squad_members()) {
       expect(it.object.force_set_goodwill).toHaveBeenCalledWith(1000, enemy.id);
-      expect(alife().object<ServerHumanObject>(enemy.id)?.force_set_goodwill).toHaveBeenNthCalledWith(
+      expect(registry.simulator.object<ServerHumanObject>(enemy.id)?.force_set_goodwill).toHaveBeenNthCalledWith(
         index++,
         1000,
         it.object.id
@@ -177,10 +179,9 @@ describe("'relation/set' utils", () => {
 
     registerStoryLink(mixedSquad.id, "test-sid-mixed");
 
-    const actor: ClientObject = mockActorClientGameObject();
-    const actorServerObject: ServerActorObject = mockServerAlifeCreatureActor();
+    const { actorClientObject, actorServerObject } = mockRegisteredActor();
 
-    setSquadRelationWithObject("test-sid-mixed", actor, ERelation.ENEMY);
+    setSquadRelationWithObject("test-sid-mixed", actorClientObject, ERelation.ENEMY);
 
     index = 1;
 
@@ -190,10 +191,8 @@ describe("'relation/set' utils", () => {
     }
   });
 
-  it("'updateSquadIdRelationToActor' should correctly update relation", () => {
-    const actor: ClientObject = mockActorClientGameObject();
-
-    mockServerAlifeCreatureActor();
+  it("updateSquadIdRelationToActor should correctly update relation", () => {
+    const { actorClientObject } = mockRegisteredActor();
 
     expect(() => updateSquadIdRelationToActor(55, ERelation.ENEMY)).toThrow();
     expect(() => updateSquadIdRelationToActor("test", ERelation.ENEMY)).toThrow();
@@ -203,7 +202,7 @@ describe("'relation/set' utils", () => {
     updateSquadIdRelationToActor(neutralSquad.id, ERelation.FRIEND);
 
     for (const it of neutralSquad.squad_members()) {
-      expect(level.object_by_id(it.id)?.force_set_goodwill).toHaveBeenCalledWith(1000, actor);
+      expect(level.object_by_id(it.id)?.force_set_goodwill).toHaveBeenCalledWith(1000, actorClientObject);
     }
 
     // Remove from level, force offline.
@@ -216,14 +215,12 @@ describe("'relation/set' utils", () => {
     updateSquadIdRelationToActor("another-sid");
 
     for (const it of mixedSquad.squad_members()) {
-      expect(it.object.force_set_goodwill).toHaveBeenCalledWith(-1000, actor.id());
+      expect(it.object.force_set_goodwill).toHaveBeenCalledWith(-1000, actorClientObject.id());
     }
   });
 
-  it("'setSquadRelationToActor' should correctly update relation", () => {
-    const actor: ClientObject = mockActorClientGameObject();
-
-    mockServerAlifeCreatureActor();
+  it("setSquadRelationToActor should correctly update relation", () => {
+    const { actorClientObject } = mockRegisteredActor();
 
     expect(() => updateSquadIdRelationToActor(55, ERelation.ENEMY)).toThrow();
     expect(() => updateSquadIdRelationToActor("test", ERelation.ENEMY)).toThrow();
@@ -233,7 +230,7 @@ describe("'relation/set' utils", () => {
     setSquadRelationToActor(neutralSquad, ERelation.FRIEND);
 
     for (const it of neutralSquad.squad_members()) {
-      expect(level.object_by_id(it.id)?.force_set_goodwill).toHaveBeenCalledWith(1000, actor);
+      expect(level.object_by_id(it.id)?.force_set_goodwill).toHaveBeenCalledWith(1000, actorClientObject);
     }
 
     // Remove from level, force offline.
@@ -244,7 +241,7 @@ describe("'relation/set' utils", () => {
     setSquadRelationToActor(mixedSquad, ERelation.ENEMY);
 
     for (const it of mixedSquad.squad_members()) {
-      expect(it.object.force_set_goodwill).toHaveBeenCalledWith(-1000, actor.id());
+      expect(it.object.force_set_goodwill).toHaveBeenCalledWith(-1000, actorClientObject.id());
     }
   });
 });

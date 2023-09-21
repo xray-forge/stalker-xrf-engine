@@ -1,4 +1,4 @@
-import { alife, device, game, level, patrol } from "xray16";
+import { device, game, level, patrol } from "xray16";
 
 import {
   getObjectByStoryId,
@@ -247,7 +247,7 @@ extern("xr_effects.remove_item", (actor: ClientObject, object: ClientObject, p: 
   const inventoryItem: Optional<ClientObject> = actor.object(section);
 
   if (inventoryItem !== null) {
-    alife().release(alife().object(inventoryItem.id()), true);
+    registry.simulator.release(registry.simulator.object(inventoryItem.id()), true);
   } else {
     abort("Actor has no such item!");
   }
@@ -282,7 +282,13 @@ extern("xr_effects.relocate_item", (actor: ClientObject, object: ClientObject, p
     if (fromObject !== null && fromObject.object(item) !== null) {
       fromObject.transfer_item(fromObject.object(item)!, toObject);
     } else {
-      alife().create(item, toObject.position(), toObject.level_vertex_id(), toObject.game_vertex_id(), toObject.id());
+      registry.simulator.create(
+        item,
+        toObject.position(),
+        toObject.level_vertex_id(),
+        toObject.game_vertex_id(),
+        toObject.id()
+      );
     }
   } else {
     abort("Couldn't relocate item to NULL");

@@ -1,5 +1,4 @@
 import {
-  alife,
   CScriptXmlInit,
   CUIListBox,
   CUIMessageBoxEx,
@@ -261,7 +260,7 @@ export class LoadDialog extends CUIScriptWnd {
       return;
     }
 
-    if (alife() === null) {
+    if (registry.simulator === null) {
       this.loadGameInternal();
 
       return;

@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it } from "@jest/globals";
 
-import { registry } from "@/engine/core/database";
+import { registerSimulator, registry } from "@/engine/core/database";
 import { EventsManager } from "@/engine/core/managers/events";
 import { TravelManager } from "@/engine/core/managers/travel/TravelManager";
 import { parseConditionsList } from "@/engine/core/utils/ini";
@@ -18,6 +18,7 @@ import {
 describe("TravelManager class", () => {
   beforeEach(() => {
     registry.managers = new LuaTable();
+    registerSimulator();
   });
 
   it("should correctly initialize callbacks", () => {

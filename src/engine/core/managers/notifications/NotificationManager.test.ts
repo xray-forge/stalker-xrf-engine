@@ -1,6 +1,14 @@
 import { afterEach, beforeEach, describe, expect, it, jest } from "@jest/globals";
 
-import { disposeManager, initializeManager, registerActor, registerStoryLink, registry } from "@/engine/core/database";
+import {
+  disposeManager,
+  initializeManager,
+  registerActor,
+  registerObject,
+  registerSimulator,
+  registerStoryLink,
+  registry,
+} from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import {
   ENotificationDirection,
@@ -18,16 +26,16 @@ import { ETaskState } from "@/engine/core/managers/tasks";
 import { AbstractPlayableSound } from "@/engine/core/objects/sounds/playable_sounds/AbstractPlayableSound";
 import { ActorSound } from "@/engine/core/objects/sounds/playable_sounds/ActorSound";
 import { ISchemeWoundedState } from "@/engine/core/schemes/stalker/wounded";
-import { GameTask } from "@/engine/lib/types";
+import { ClientObject, GameTask } from "@/engine/lib/types";
 import { resetFunctionMock } from "@/fixtures/jest";
-import { mockClientGameObject } from "@/fixtures/xray";
-import { mockServerAlifeCreatureActor } from "@/fixtures/xray/mocks/objects";
+import { mockClientGameObject, mockServerAlifeHumanStalker } from "@/fixtures/xray";
 import { MockAlifeSimulator } from "@/fixtures/xray/mocks/objects/AlifeSimulator.mock";
 import { mockCGameTask } from "@/fixtures/xray/mocks/objects/task";
 import { MockVector } from "@/fixtures/xray/mocks/vector.mock";
 
 describe("NotificationManager class", () => {
   beforeEach(() => {
+    registerSimulator();
     registerActor(mockClientGameObject());
     initializeManager(NotificationManager);
   });
@@ -289,6 +297,9 @@ describe("NotificationManager class", () => {
 
   it("should correctly send generic tips", () => {
     const notificationManager: NotificationManager = NotificationManager.getInstance();
+    const sender: ClientObject = mockClientGameObject();
+
+    registerObject(sender);
 
     notificationManager.onPlayPdaNotificationSound = jest.fn();
     notificationManager.onSendGenericNotification = jest.fn();
@@ -335,15 +346,13 @@ describe("NotificationManager class", () => {
       0
     );
 
-    registerStoryLink(registry.actor.id(), "test-sid");
+    registerStoryLink(sender.id(), "test-sid");
 
-    MockAlifeSimulator.addToRegistry(
-      mockServerAlifeCreatureActor({ id: registry.actor.id(), online: true, alive: () => true })
-    );
+    MockAlifeSimulator.addToRegistry(mockServerAlifeHumanStalker({ id: sender.id(), online: true, alive: () => true }));
 
     notificationManager.onPlayPdaNotificationSound = jest.fn();
     notificationManager.onSendGenericNotification = jest.fn();
-    notificationManager.sendTipNotification("another", registry.actor, 1024, 50, "test-sid");
+    notificationManager.sendTipNotification("another", sender, 1024, 50, "test-sid");
 
     expect(notificationManager.onPlayPdaNotificationSound).toHaveBeenCalledTimes(1);
     expect(notificationManager.onSendGenericNotification).toHaveBeenCalledWith(
@@ -358,28 +367,26 @@ describe("NotificationManager class", () => {
 
     // No sending for not alive objects.
     MockAlifeSimulator.addToRegistry(
-      mockServerAlifeCreatureActor({ id: registry.actor.id(), online: true, alive: () => false })
+      mockServerAlifeHumanStalker({ id: sender.id(), online: true, alive: () => false })
     );
 
     notificationManager.onPlayPdaNotificationSound = jest.fn();
     notificationManager.onSendGenericNotification = jest.fn();
-    notificationManager.sendTipNotification("another", registry.actor, 1024, 50, "test-sid");
+    notificationManager.sendTipNotification("another", sender, 1024, 50, "test-sid");
 
     expect(notificationManager.onPlayPdaNotificationSound).toHaveBeenCalledTimes(0);
     expect(notificationManager.onSendGenericNotification).toHaveBeenCalledTimes(0);
 
     // No sending for heavy wounded objects.
-    MockAlifeSimulator.addToRegistry(
-      mockServerAlifeCreatureActor({ id: registry.actor.id(), online: true, alive: () => true })
-    );
+    MockAlifeSimulator.addToRegistry(mockServerAlifeHumanStalker({ id: sender.id(), online: true, alive: () => true }));
 
-    registry.objects.get(registry.actor.id()).wounded = {
+    registry.objects.get(sender.id()).wounded = {
       woundManager: {
         woundState: "heavy",
       },
     } as ISchemeWoundedState;
 
-    notificationManager.sendTipNotification("another", registry.actor, 1024, 50, "test-sid");
+    notificationManager.sendTipNotification("another", sender, 1024, 50, "test-sid");
 
     expect(notificationManager.onPlayPdaNotificationSound).toHaveBeenCalledTimes(0);
     expect(notificationManager.onSendGenericNotification).toHaveBeenCalledTimes(0);
