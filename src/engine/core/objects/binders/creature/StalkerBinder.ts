@@ -1,6 +1,5 @@
 import {
   actor_stats,
-  alife,
   callback,
   game_graph,
   level,

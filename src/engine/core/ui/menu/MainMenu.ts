@@ -1,5 +1,4 @@
 import {
-  alife,
   CMainMenu,
   CScriptXmlInit,
   CUIMessageBoxEx,

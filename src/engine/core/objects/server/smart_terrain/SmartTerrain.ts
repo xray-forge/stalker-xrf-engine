@@ -1,5 +1,4 @@
 import {
-  alife,
   CALifeSmartTerrainTask,
   cse_alife_smart_zone,
   editor,

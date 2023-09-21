@@ -16,14 +16,12 @@ import {
 } from "@/engine/core/utils/relation/relation_set";
 import { ERelation } from "@/engine/core/utils/relation/relation_types";
 import { communities } from "@/engine/lib/constants/communities";
-import { ClientObject, ServerActorObject, ServerCreatureObject, ServerHumanObject, TIndex } from "@/engine/lib/types";
+import { ClientObject, ServerCreatureObject, ServerHumanObject, TIndex } from "@/engine/lib/types";
 import { mockRegisteredActor, mockRelationsSquads } from "@/fixtures/engine";
 import {
   CLIENT_SIDE_REGISTRY,
-  mockActorClientGameObject,
   mockClientGameObject,
   mockServerAlifeCreatureAbstract,
-  mockServerAlifeCreatureActor,
 } from "@/fixtures/xray";
 
 describe("relation/set utils", () => {
