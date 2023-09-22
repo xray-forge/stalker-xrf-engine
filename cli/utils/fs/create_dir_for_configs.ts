@@ -7,6 +7,9 @@ import { NodeLogger, Optional, TFolderReplicationDescriptor } from "#/utils";
 
 /**
  * Sync way for folder creation when needed.
+ *
+ * @param configs - replication configs to create directory
+ * @param log - optional log to print verbose information
  */
 export function createDirForConfigs(
   configs: Array<TFolderReplicationDescriptor>,
