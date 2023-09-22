@@ -9,7 +9,7 @@ describe("normalize_parameter_path utils", () => {
 
   it("should correctly normalize with separator", () => {
     expect(normalizeParameterPath("test1")).toBe("test1");
-    expect(normalizeParameterPath("test1\\nested")).toBe(`test1${sep}nested`);
-    expect(normalizeParameterPath("test1\\nested\\something")).toBe(`test1${sep}nested${sep}something`);
+    expect(normalizeParameterPath("..\\test1")).toBe(`..${sep}test1`);
+    expect(normalizeParameterPath(".\\test1")).toBe(`.${sep}test1`);
   });
 });
