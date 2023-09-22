@@ -12,7 +12,7 @@ describe("parse_externals utility", () => {
     const docs: Array<IExternFileDescriptor> = getExternDocs([SAMPLE_TS_FILE]);
 
     expect(docs).toHaveLength(1);
-    expect(docs[0].extern).toHaveLength(4);
+    expect(docs[0].extern).toHaveLength(6);
 
     expect(docs[0].extern[0]).toEqual({
       doc: "",
@@ -45,7 +45,7 @@ describe("parse_externals utility", () => {
       doc: `Docblock 2.
 
 [param] c - some array
-[param] d - another array
+[param] d 
 [returns] some boolean value`,
       file: SAMPLE_TS_FILE,
       name: "module_two.callback_name_two",
@@ -60,6 +60,22 @@ describe("parse_externals utility", () => {
       file: SAMPLE_TS_FILE,
       name: "module_two.callback_name_three",
       parameters: [{ parameterName: "[e, f]", parameterTypeName: "[number, string, SomeAlias]" }],
+    });
+
+    expect(docs[0].extern[4]).toEqual({
+      doc: "",
+      file: SAMPLE_TS_FILE,
+      name: "module_two.callback_name_four",
+      parameters: [{ parameterName: "[e, f]", parameterTypeName: "[null, unknown]" }],
+    });
+
+    expect(docs[0].extern[5]).toEqual({
+      doc: "",
+      file: SAMPLE_TS_FILE,
+      name: "module_two.callback_name_five",
+      parameters: [
+        { parameterName: "[e, f, g, h]", parameterTypeName: '["a" | "b", 1 | 2, true | false, SomeClass | SomeAlias]' },
+      ],
     });
   });
 });

@@ -1,11 +1,19 @@
 import { describe, expect, it, jest } from "@jest/globals";
 import { CUIScriptWnd, CUIWindow, ui_events } from "xray16";
 
-import { EElementType, registerUiElement } from "@/engine/core/utils/ui/forms";
+import { EElementType, registerStatics, registerUiElement } from "@/engine/core/utils/ui/forms";
 import { XmlInit } from "@/engine/lib/types";
 import { MockCScriptXmlInit, MockCUIScriptWnd, MockCUIWindow } from "@/fixtures/xray";
 
 describe("forms_registration utils", () => {
+  it("registerStatics should correctly create statics as shortcut", () => {
+    const xml: XmlInit = MockCScriptXmlInit.mock();
+    const base: CUIWindow = MockCUIWindow.mock();
+
+    registerStatics(xml, base, "test_selector");
+    expect(xml.InitStatic).toHaveBeenCalledWith("test_selector", base);
+  });
+
   it("registerUiElement should correctly register elements", () => {
     const xml: XmlInit = MockCScriptXmlInit.mock();
     const base: CUIWindow = MockCUIWindow.mock();
@@ -62,6 +70,15 @@ describe("forms_registration utils", () => {
     const base: CUIWindow = MockCUIWindow.mock();
     const context: CUIScriptWnd = MockCUIScriptWnd.mock();
 
+    registerUiElement(xml, "check_box_example", {
+      type: EElementType.CHECK_BOX,
+      base,
+      context,
+    });
+
+    expect(xml.InitCheck).toHaveBeenCalledWith("check_box_example", base);
+    expect(context.Register).not.toHaveBeenCalled();
+
     registerUiElement(xml, "edit_box_example", {
       type: EElementType.EDIT_BOX,
       base,
@@ -70,5 +87,46 @@ describe("forms_registration utils", () => {
 
     expect(xml.InitEditBox).toHaveBeenCalledWith("edit_box_example", base);
     expect(context.Register).not.toHaveBeenCalled();
+
+    registerUiElement(xml, "combo_box_example", {
+      type: EElementType.COMBO_BOX,
+      base,
+      context,
+    });
+
+    expect(xml.InitComboBox).toHaveBeenCalledWith("combo_box_example", base);
+    expect(context.Register).not.toHaveBeenCalled();
+
+    registerUiElement(xml, "frame_example", {
+      type: EElementType.FRAME,
+      base,
+      context,
+    });
+
+    expect(xml.InitFrame).toHaveBeenCalledWith("frame_example", base);
+    expect(context.Register).not.toHaveBeenCalled();
+
+    registerUiElement(xml, "label_example", {
+      type: EElementType.LABEL,
+      base,
+      context,
+    });
+
+    expect(xml.InitLabel).toHaveBeenCalledWith("label_example", base);
+    expect(context.Register).not.toHaveBeenCalled();
+  });
+
+  it("registerUiElement should throw on unexpected", () => {
+    const xml: XmlInit = MockCScriptXmlInit.mock();
+    const base: CUIWindow = MockCUIWindow.mock();
+    const context: CUIScriptWnd = MockCUIScriptWnd.mock();
+
+    expect(() => {
+      registerUiElement(xml, "example", {
+        type: "unexpected" as unknown as EElementType,
+        base,
+        context,
+      });
+    }).toThrow();
   });
 });
