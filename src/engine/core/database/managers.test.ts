@@ -4,6 +4,7 @@ import {
   disposeManager,
   disposeManagers,
   getManagerInstance,
+  getManagerInstanceByName,
   getWeakManagerInstance,
   initializeManager,
   isManagerInitialized,
@@ -135,5 +136,16 @@ describe("managers module of the database", () => {
 
     disposeManagers();
     expect(registry.managers.length()).toBe(0);
+  });
+
+  it("getManagerInstance should correctly get managers by name", () => {
+    assertRegistryIsClean();
+
+    expect(getManagerInstanceByName("ExampleManagerOne")).toBeNull();
+    getManagerInstance(ExampleManagerOne);
+    expect(getManagerInstanceByName("ExampleManagerOne")).toBe(getManagerInstance(ExampleManagerOne));
+    expect(getManagerInstanceByName("ExampleManagerTwo")).toBeNull();
+    getManagerInstance(ExampleManagerTwo);
+    expect(getManagerInstanceByName("ExampleManagerTwo")).toBe(getManagerInstance(ExampleManagerTwo));
   });
 });

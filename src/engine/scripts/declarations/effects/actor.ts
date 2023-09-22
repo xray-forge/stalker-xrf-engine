@@ -45,14 +45,14 @@ const logger: LuaLogger = new LuaLogger($filename);
  * Disable game UI for actor and reset active item slot.
  */
 extern("xr_effects.disable_ui", (actor: ClientObject, object: ClientObject, parameters: [string]): void => {
-  ActorInputManager.getInstance().disableGameUi(actor, !parameters || (parameters && parameters[0] !== TRUE));
+  ActorInputManager.getInstance().disableGameUi(!parameters || (parameters && parameters[0] !== TRUE));
 });
 
 /**
  * Disable game UI for actor.
  */
 extern("xr_effects.disable_ui_only", (actor: ClientObject, object: ClientObject): void => {
-  ActorInputManager.getInstance().disableGameUiOnly(actor);
+  ActorInputManager.getInstance().disableGameUiOnly();
 });
 
 /**
@@ -104,28 +104,28 @@ extern("xr_effects.stop_cam_effector", (actor: ClientObject, object: ClientObjec
  * Disable actor night vision tools.
  */
 extern("xr_effects.disable_actor_nightvision", (actor: ClientObject): void => {
-  ActorInputManager.getInstance().disableActorNightVision(actor);
+  ActorInputManager.getInstance().disableActorNightVision();
 });
 
 /**
  * Enable actor night vision tools.
  */
 extern("xr_effects.enable_actor_nightvision", (actor: ClientObject): void => {
-  ActorInputManager.getInstance().enableActorNightVision(actor);
+  ActorInputManager.getInstance().enableActorNightVision();
 });
 
 /**
  * Disable actor torch.
  */
 extern("xr_effects.disable_actor_torch", (actor: ClientObject): void => {
-  ActorInputManager.getInstance().disableActorTorch(actor);
+  ActorInputManager.getInstance().disableActorTorch();
 });
 
 /**
  * Enable actor torch.
  */
 extern("xr_effects.enable_actor_torch", (actor: ClientObject): void => {
-  ActorInputManager.getInstance().enableActorTorch(actor);
+  ActorInputManager.getInstance().enableActorTorch();
 });
 
 /**

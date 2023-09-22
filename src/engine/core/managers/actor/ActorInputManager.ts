@@ -90,8 +90,8 @@ export class ActorInputManager extends AbstractManager {
   /**
    * todo;
    */
-  public disableActorNightVision(actor: ClientObject = registry.actor): void {
-    const nightVision: Optional<ClientObject> = actor.object(misc.device_torch);
+  public disableActorNightVision(): void {
+    const nightVision: Optional<ClientObject> = registry.actor.object(misc.device_torch);
 
     if (nightVision !== null && nightVision.night_vision_enabled()) {
       nightVision.enable_night_vision(false);
@@ -102,8 +102,8 @@ export class ActorInputManager extends AbstractManager {
   /**
    * todo;
    */
-  public enableActorNightVision(actor: ClientObject = registry.actor): void {
-    const nightVision: Optional<ClientObject> = actor.object(misc.device_torch);
+  public enableActorNightVision(): void {
+    const nightVision: Optional<ClientObject> = registry.actor.object(misc.device_torch);
 
     if (nightVision !== null && !nightVision.night_vision_enabled() && !this.isActorNightVisionEnabled) {
       nightVision.enable_night_vision(true);
@@ -114,8 +114,8 @@ export class ActorInputManager extends AbstractManager {
   /**
    * todo;
    */
-  public disableActorTorch(actor: ClientObject = registry.actor): void {
-    const torch: Optional<ClientObject> = actor.object(misc.device_torch);
+  public disableActorTorch(): void {
+    const torch: Optional<ClientObject> = registry.actor.object(misc.device_torch);
 
     if (torch !== null && torch.torch_enabled()) {
       torch.enable_torch(false);
@@ -126,8 +126,8 @@ export class ActorInputManager extends AbstractManager {
   /**
    * todo;
    */
-  public enableActorTorch(actor: ClientObject = registry.actor): void {
-    const torch: Optional<ClientObject> = actor.object(misc.device_torch);
+  public enableActorTorch(): void {
+    const torch: Optional<ClientObject> = registry.actor.object(misc.device_torch);
 
     if (torch !== null && !torch.torch_enabled() && !this.isActorTorchEnabled) {
       torch.enable_torch(true);
@@ -138,8 +138,10 @@ export class ActorInputManager extends AbstractManager {
   /**
    * todo;
    */
-  public disableGameUi(actor: ClientObject, resetSlot: boolean = false): void {
+  public disableGameUi(resetSlot: boolean = false): void {
     logger.info("Disable game UI");
+
+    const actor: ClientObject = registry.actor;
 
     if (actor.is_talking()) {
       actor.stop_talk();
@@ -164,8 +166,8 @@ export class ActorInputManager extends AbstractManager {
     hud.HideActorMenu();
     hud.HidePdaMenu();
 
-    this.disableActorNightVision(actor);
-    this.disableActorTorch(actor);
+    this.disableActorNightVision();
+    this.disableActorTorch();
   }
 
   /**
@@ -189,15 +191,17 @@ export class ActorInputManager extends AbstractManager {
     level.enable_input();
     level.show_indicators();
 
-    this.enableActorNightVision(registry.actor);
-    this.enableActorTorch(registry.actor);
+    this.enableActorNightVision();
+    this.enableActorTorch();
   }
 
   /**
    * todo;
    */
-  public disableGameUiOnly(actor: ClientObject): void {
+  public disableGameUiOnly(): void {
     logger.info("Disable game UI only");
+
+    const actor: ClientObject = registry.actor;
 
     if (actor.is_talking()) {
       actor.stop_talk();

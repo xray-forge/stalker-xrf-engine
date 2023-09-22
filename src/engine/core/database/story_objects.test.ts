@@ -61,6 +61,28 @@ describe("story_objects module of the database", () => {
     expect(registry.storyLink.sidById.length()).toBe(0);
   });
 
+  it("should correctly register object story links from system ini", () => {
+    expect(registry.storyLink.idBySid.length()).toBe(0);
+    expect(registry.storyLink.sidById.length()).toBe(0);
+
+    const object: ServerObject = mockServerAlifeObject({
+      section_name: <T extends string>(): T => "test_sid_section" as T,
+    });
+
+    delete FILES_MOCKS["spawn.ini"].story_object;
+
+    FILES_MOCKS["system.ini"].test_sid_section = {
+      story_id: "test_sid_system_ini",
+    };
+
+    registerObjectStoryLinks(object);
+
+    expect(registry.storyLink.idBySid.length()).toBe(1);
+    expect(registry.storyLink.sidById.length()).toBe(1);
+    expect(registry.storyLink.sidById.get(object.id)).toBe("test_sid_system_ini");
+    expect(registry.storyLink.idBySid.get("test_sid_system_ini")).toBe(object.id);
+  });
+
   it("should correctly handle lifecycle and get links with utils", () => {
     const clientObject: ClientObject = mockClientGameObject({ idOverride: 12 });
 

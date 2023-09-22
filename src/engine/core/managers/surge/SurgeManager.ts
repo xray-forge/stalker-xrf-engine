@@ -527,7 +527,7 @@ export class SurgeManager extends AbstractManager {
           EventsManager.emitEvent(EGameEvent.SURGE_SURVIVED_WITH_ANABIOTIC);
         }
 
-        ActorInputManager.getInstance().disableGameUiOnly(registry.actor);
+        ActorInputManager.getInstance().disableGameUiOnly();
 
         /**
          * Whether actor should survive surge.
@@ -612,7 +612,7 @@ export class SurgeManager extends AbstractManager {
    * todo: Description.
    */
   public processAnabioticItemUsage(): void {
-    ActorInputManager.getInstance().disableGameUiOnly(registry.actor);
+    ActorInputManager.getInstance().disableGameUiOnly();
 
     level.add_cam_effector(animations.camera_effects_surge_02, 10, false, "engine.on_anabiotic_sleep");
     level.add_pp_effector(postProcessors.surge_fade, 11, false);
