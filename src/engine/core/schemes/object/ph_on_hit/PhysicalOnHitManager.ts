@@ -3,8 +3,7 @@ import { AbstractSchemeManager } from "@/engine/core/objects/ai/scheme";
 import { ISchemePhysicalOnHitState } from "@/engine/core/schemes/object/ph_on_hit/ISchemePhysicalOnHitState";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { trySwitchToAnotherSection } from "@/engine/core/utils/scheme/scheme_switch";
-import { NIL } from "@/engine/lib/constants/words";
-import { ClientObject, Optional, TCount, TIndex, TName, Vector } from "@/engine/lib/types";
+import { ClientObject, Optional, TCount, TIndex, Vector } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -19,9 +18,7 @@ export class PhysicalOnHitManager extends AbstractSchemeManager<ISchemePhysicalO
     who: Optional<ClientObject>,
     boneIndex: TIndex
   ): void {
-    const whoName: TName = who ? who.name() : NIL;
-
-    logger.info("Physical object hit:", object.name(), "<-", whoName, amount);
+    logger.format("Physical object hit: '%s' '%s' '%s'", object.name(), boneIndex, amount);
 
     if (registry.objects.get(this.object.id()).activeScheme) {
       trySwitchToAnotherSection(object, this.state);

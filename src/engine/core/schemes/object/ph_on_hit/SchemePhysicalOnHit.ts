@@ -1,6 +1,5 @@
 import { registry } from "@/engine/core/database";
 import { AbstractScheme } from "@/engine/core/objects/ai/scheme/AbstractScheme";
-import { SchemePhysicalHit } from "@/engine/core/schemes/object/ph_hit";
 import { ISchemePhysicalOnHitState } from "@/engine/core/schemes/object/ph_on_hit/ISchemePhysicalOnHitState";
 import { PhysicalOnHitManager } from "@/engine/core/schemes/object/ph_on_hit/PhysicalOnHitManager";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini/ini_config";
@@ -23,7 +22,6 @@ export class SchemePhysicalOnHit extends AbstractScheme {
     const state: ISchemePhysicalOnHitState = AbstractScheme.assign(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section);
-    SchemePhysicalHit.subscribe(object, state, state.action);
   }
 
   /**
@@ -37,6 +35,7 @@ export class SchemePhysicalOnHit extends AbstractScheme {
     state: ISchemePhysicalOnHitState
   ): void {
     state.action = new PhysicalOnHitManager(object, state);
+    AbstractScheme.subscribe(object, state, state.action);
   }
 
   /**
@@ -45,9 +44,9 @@ export class SchemePhysicalOnHit extends AbstractScheme {
   public static override disable(object: ClientObject, scheme: EScheme): void {
     const state: Optional<ISchemePhysicalOnHitState> = registry.objects.get(object.id())[
       scheme
-    ] as ISchemePhysicalOnHitState;
+    ] as Optional<ISchemePhysicalOnHitState>;
 
-    if (state !== null) {
+    if (state) {
       AbstractScheme.unsubscribe(object, state, state.action);
     }
   }
