@@ -2,7 +2,7 @@ import { beforeAll, describe, it } from "@jest/globals";
 
 import { checkXrCondition } from "@/fixtures/engine";
 
-describe("'game' conditions declaration", () => {
+describe("game conditions declaration", () => {
   beforeAll(() => {
     require("@/engine/scripts/declarations/conditions/game");
   });

@@ -29,7 +29,7 @@ import {
   mockServerAlifeOnlineOfflineGroup,
 } from "@/fixtures/xray";
 
-describe("'relation/get' utils", () => {
+describe("relation/get utils", () => {
   beforeEach(() => {
     registry.actor = null as any;
     registry.storyLink.sidById = new LuaTable();
@@ -38,7 +38,7 @@ describe("'relation/get' utils", () => {
     registerSimulator();
   });
 
-  it("'getObjectsRelationSafe' should correctly check relation", () => {
+  it("getObjectsRelationSafe should correctly check relation", () => {
     expect(getObjectsRelationSafe(mockClientGameObject(), null)).toBeNull();
     expect(getObjectsRelationSafe(null, mockClientGameObject())).toBeNull();
     expect(getObjectsRelationSafe(null, null)).toBeNull();
@@ -54,7 +54,7 @@ describe("'relation/get' utils", () => {
     expect(getObjectsRelationSafe(fourth, second)).toBe(3);
   });
 
-  it("'getSquadMembersRelationToActorSafe' should correctly check relation", () => {
+  it("getSquadMembersRelationToActorSafe should correctly check relation", () => {
     const { emptyMonolithSquad, emptyArmySquad, neutralSquad, friendlySquad, mixedSquad, enemySquad } =
       mockRelationsSquads();
 
@@ -73,7 +73,7 @@ describe("'relation/get' utils", () => {
     expect(getSquadMembersRelationToActorSafe(enemySquad)).toBe(ERelation.ENEMY);
   });
 
-  it("'getSquadMembersRelationToActor' should correctly check relation", () => {
+  it("getSquadMembersRelationToActor should correctly check relation", () => {
     const { emptyMonolithSquad, emptyArmySquad, neutralSquad, friendlySquad, mixedSquad, enemySquad } =
       mockRelationsSquads();
 
@@ -92,7 +92,7 @@ describe("'relation/get' utils", () => {
     expect(getSquadMembersRelationToActor(enemySquad)).toBe(ERelation.ENEMY);
   });
 
-  it("'getNumberRelationBetweenCommunities' should correctly check relation", () => {
+  it("getNumberRelationBetweenCommunities should correctly check relation", () => {
     expect(getNumberRelationBetweenCommunities(null, null)).toBeNull();
     expect(getNumberRelationBetweenCommunities(null, communities.stalker)).toBeNull();
     expect(getNumberRelationBetweenCommunities(communities.stalker, null)).toBeNull();
@@ -106,9 +106,9 @@ describe("'relation/get' utils", () => {
     expect(getNumberRelationBetweenCommunities(communities.monster, communities.bandit)).toBe(-5000);
   });
 
-  it("'getSquadCommunityRelationToActor' should correctly get realation of squad community", () => {
+  it("getSquadCommunityRelationToActor should correctly get realation of squad community", () => {
     expect(() => getSquadCommunityRelationToActor("not-existing")).toThrow(
-      "Squad with story id 'not-existing' was not found."
+      "Squad with story id not-existing was not found."
     );
 
     registerActorServer(mockServerAlifeCreatureActor({ community: <T>() => communities.actor as T }));
@@ -139,13 +139,13 @@ describe("'relation/get' utils", () => {
     expect(getSquadCommunityRelationToActor("existing-enemy")).toBe(ERelation.ENEMY);
   });
 
-  it("'getSquadRelationToActorById' should correctly check relation", () => {
+  it("getSquadRelationToActorById should correctly check relation", () => {
     const { emptyMonolithSquad, emptyArmySquad, neutralSquad, friendlySquad, mixedSquad, enemySquad } =
       mockRelationsSquads();
 
     registerActorServer(mockServerAlifeCreatureActor());
 
-    expect(() => getSquadRelationToActorById(10002000)).toThrow("Squad with id '10002000' is not found.");
+    expect(() => getSquadRelationToActorById(10002000)).toThrow("Squad with id 10002000 is not found.");
     expect(getSquadRelationToActorById(emptyMonolithSquad.id)).toBe(ERelation.ENEMY);
     expect(getSquadRelationToActorById(emptyArmySquad.id)).toBe(ERelation.FRIEND);
     expect(getSquadRelationToActorById(friendlySquad.id)).toBe(ERelation.FRIEND);

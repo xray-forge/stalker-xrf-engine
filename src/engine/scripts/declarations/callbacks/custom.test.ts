@@ -2,7 +2,7 @@ import { beforeAll, describe, it } from "@jest/globals";
 
 import { checkNestedBinding } from "@/fixtures/engine";
 
-describe("'custom' external callbacks", () => {
+describe("custom external callbacks", () => {
   beforeAll(() => {
     require("@/engine/scripts/declarations/callbacks/custom");
   });

@@ -14,7 +14,7 @@ import { replaceFunctionMock } from "@/fixtures/jest";
 import { mockClientGameObject, mockIniFile } from "@/fixtures/xray";
 
 describe("loot utils for corpse_detection scheme", () => {
-  it("'finishCorpseLooting' should correctly finish looting", () => {
+  it("finishCorpseLooting should correctly finish looting", () => {
     const soundManager: GlobalSoundManager = GlobalSoundManager.getInstance();
 
     const ak74: ClientObject = mockClientGameObject({ sectionOverride: weapons.wpn_ak74 });

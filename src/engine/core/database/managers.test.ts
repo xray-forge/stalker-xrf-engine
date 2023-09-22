@@ -11,7 +11,7 @@ import {
 import { registry } from "@/engine/core/database/registry";
 import { AbstractManager } from "@/engine/core/managers/base/AbstractManager";
 
-describe("'managers' module of the database", () => {
+describe("managers module of the database", () => {
   class ExampleManagerOne extends AbstractManager {
     public override initialize = jest.fn();
     public override destroy = jest.fn();

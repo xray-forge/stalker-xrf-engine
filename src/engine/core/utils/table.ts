@@ -1,4 +1,3 @@
-import { assert } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { Optional } from "@/engine/lib/types";
 
@@ -15,16 +14,6 @@ export function isEmpty(target: Optional<LuaTable<any>>): target is LuaTable {
   if (target === null) {
     return true;
   }
-
-  if (type(target) === "function") {
-    for (const [k] of target) {
-      return false;
-    }
-
-    return true;
-  }
-
-  assert(type(target) === "table", "Received not table type for emptiness check.");
 
   if (1 in target) {
     return false;

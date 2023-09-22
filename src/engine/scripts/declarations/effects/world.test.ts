@@ -2,7 +2,7 @@ import { beforeAll, describe, it } from "@jest/globals";
 
 import { checkXrEffect } from "@/fixtures/engine";
 
-describe("'world' effects declaration", () => {
+describe("world effects declaration", () => {
   beforeAll(() => {
     require("@/engine/scripts/declarations/effects/world");
   });

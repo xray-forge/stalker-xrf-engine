@@ -26,7 +26,7 @@ describe("object find utils", () => {
     registerSimulator();
   });
 
-  it("'getNearestServerObject' should correctly search for client objects", () => {
+  it("getNearestServerObject should correctly search for client objects", () => {
     registerActor(mockActorClientGameObject());
 
     const actor: ServerObject = mockServerAlifeCreatureActor({
@@ -71,7 +71,7 @@ describe("object find utils", () => {
     expect(getNearestServerObject(null, false)).toBeNull();
   });
 
-  it("'getServerObjects' should correctly search for client objects", () => {
+  it("getServerObjects should correctly search for client objects", () => {
     const actor: ServerObject = mockServerAlifeCreatureActor({
       clsid: () => clsid.actor as TClassId,
       name: <T>() => "actor_name" as T,
@@ -152,7 +152,7 @@ describe("object find utils", () => {
     ).toEqual([first.id, second.id]);
   });
 
-  it("'getNearestClientObject' should correctly search for client objects", () => {
+  it("getNearestClientObject should correctly search for client objects", () => {
     const actor: ClientObject = mockActorClientGameObject({
       clsid: () => clsid.actor as TClassId,
       name: () => "actor_name",
@@ -186,7 +186,7 @@ describe("object find utils", () => {
     );
   });
 
-  it("'getClientObjects' should correctly search for client objects", () => {
+  it("getClientObjects should correctly search for client objects", () => {
     const actor: ClientObject = mockActorClientGameObject({
       clsid: () => clsid.actor as TClassId,
       name: () => "actor_name",

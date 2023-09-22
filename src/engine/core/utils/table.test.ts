@@ -2,7 +2,7 @@ import { describe, expect, it, jest } from "@jest/globals";
 
 import { AnyObject, LuaArray, Optional } from "@/engine/lib/types";
 
-describe("'table' utils", () => {
+describe("table utils", () => {
   const tableUtils: {
     isEmpty: (target: Optional<LuaTable<any>>) => boolean;
     resetTable: (target: LuaTable<any>) => void;
@@ -10,7 +10,7 @@ describe("'table' utils", () => {
     mergeTables: (base: LuaTable, ...rest: Array<LuaTable>) => AnyObject;
   } = jest.requireActual("@/engine/core/utils/table");
 
-  it("'resetTable' should correctly empty provided table", () => {
+  it("resetTable should correctly empty provided table", () => {
     const first: LuaArray<number> = $fromArray([1, 2, 3, 4]);
     const second: LuaTable<string, string> = $fromObject<string, string>({ a: "1", b: "2" });
 
@@ -21,7 +21,7 @@ describe("'table' utils", () => {
     expect(second).toEqualLuaTables({});
   });
 
-  it("'copyTable' should correctly copy table", () => {
+  it("copyTable should correctly copy table", () => {
     const from: LuaTable<any> = new LuaTable();
     const to: LuaTable<any> = $fromObject({ a: 1, b: 2, c: 3, d: { a: "a" } });
 
@@ -39,7 +39,7 @@ describe("'table' utils", () => {
     expect(to).toEqualLuaTables({ a: 1, b: 2, c: 3, d: { a: "a" }, x: 10 });
   });
 
-  it("'mergeTables' should correctly merge tables", () => {
+  it("mergeTables should correctly merge tables", () => {
     const to: LuaTable<any> = $fromObject({ a: 1 });
 
     expect(
@@ -52,7 +52,7 @@ describe("'table' utils", () => {
     expect(to).toEqualLuaTables({ a: 1, b: 2, c: 3 });
   });
 
-  it("'isEmpty' should correctly check table emptiness", () => {
+  it("isEmpty should correctly check table emptiness", () => {
     expect(tableUtils.isEmpty($fromObject({ a: 1, b: 2 }))).toBe(false);
     expect(tableUtils.isEmpty($fromArray(["a", "b", "c", "d", "e"]))).toBe(false);
     expect(tableUtils.isEmpty($fromArray([1, 2, 3]))).toBe(false);

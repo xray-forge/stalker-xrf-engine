@@ -10,7 +10,7 @@ import { registry } from "@/engine/core/database/registry";
 import { AnomalyFieldBinder, AnomalyZoneBinder } from "@/engine/core/objects/binders/zones";
 import { mockClientGameObject } from "@/fixtures/xray";
 
-describe("'anomalies' module of the database", () => {
+describe("anomalies module of the database", () => {
   it("should correctly register anomaly zones", () => {
     expect(registry.actor).toBeNull();
 

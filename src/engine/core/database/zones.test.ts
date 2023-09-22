@@ -14,7 +14,7 @@ import { ClientObject, Vector } from "@/engine/lib/types";
 import { mockClientGameObject } from "@/fixtures/xray";
 import { MockVector } from "@/fixtures/xray/mocks/vector.mock";
 
-describe("'zones' module of the database", () => {
+describe("zones module of the database", () => {
   it("should correctly register zones", () => {
     expect(registry.zones.length()).toBe(0);
     expect(registry.objects.length()).toBe(0);

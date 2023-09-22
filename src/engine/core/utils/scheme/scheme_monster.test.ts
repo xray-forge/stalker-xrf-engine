@@ -12,7 +12,7 @@ import { ClientObject, Cond, Move } from "@/engine/lib/types";
 import { getFunctionMock, replaceFunctionMock, resetFunctionMock } from "@/fixtures/jest";
 import { mockClientGameObject, MockEntityAction } from "@/fixtures/xray";
 
-describe("'monster' scheme utils", () => {
+describe("monster scheme utils", () => {
   it("should correctly check if monster object is captured", () => {
     const object: ClientObject = mockClientGameObject();
 
@@ -21,7 +21,7 @@ describe("'monster' scheme utils", () => {
     expect(isMonsterScriptCaptured(object)).toBe(true);
   });
 
-  it("'resetMonsterAction' should correctly reset action", () => {
+  it("resetMonsterAction should correctly reset action", () => {
     const object: ClientObject = mockClientGameObject();
 
     replaceFunctionMock(object.get_script, () => true);
@@ -56,6 +56,7 @@ describe("'monster' scheme utils", () => {
     scriptCaptureMonster(object, true);
     expect(object.script).toHaveBeenCalledWith(true, "xrf");
   });
+
   it("should correctly capture monster script logic when not resetting", () => {
     const object: ClientObject = mockClientGameObject();
 
@@ -86,7 +87,7 @@ describe("'monster' scheme utils", () => {
     expect(object.script).toHaveBeenCalledWith(false, "test_name");
   });
 
-  it("'scriptCommandMonster' should correctly assign actions", () => {
+  it("scriptCommandMonster should correctly assign actions", () => {
     const object: ClientObject = mockClientGameObject();
     const moveAction: Move = new move(move.run_with_leader, new vector().set(1, 2, 3));
     const condAction: Cond = new cond(cond.move_end);

@@ -2,7 +2,7 @@ import { describe, it } from "@jest/globals";
 
 import { EEvaluatorId } from "@/engine/core/objects/ai/types";
 
-describe("'motivator_evaluators' constants integrity", () => {
+describe("motivator_evaluators constants integrity", () => {
   it("should contain only unique identifier values", () => {
     const existing: Set<unknown> = new Set();
 

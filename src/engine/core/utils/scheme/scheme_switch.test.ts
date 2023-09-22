@@ -25,14 +25,14 @@ import { mockClientGameObject, mockIniFile } from "@/fixtures/xray";
 import { MockCTime } from "@/fixtures/xray/mocks/CTime.mock";
 
 // todo: Complex logic switch
-describe("'switch logic' utils", () => {
+describe("switch logic utils", () => {
   const originalTime: MockCTime = MockCTime.nowTime.copy();
 
   afterAll(() => {
     MockCTime.nowTime = originalTime;
   });
 
-  it("'trySwitchToAnotherSection' should throw if no logic present / logic is not expected", () => {
+  it("trySwitchToAnotherSection should throw if no logic present / logic is not expected", () => {
     const object: ClientObject = mockClientGameObject();
 
     const firstState: IBaseSchemeState = mockSchemeState(EScheme.SR_IDLE, {
@@ -57,7 +57,7 @@ describe("'switch logic' utils", () => {
     expect(() => trySwitchToAnotherSection(object, thirdState)).toThrow();
   });
 
-  it("'trySwitchToAnotherSection' should correctly check ON_ACTOR_DISTANCE_LESS_THAN", () => {
+  it("trySwitchToAnotherSection should correctly check ON_ACTOR_DISTANCE_LESS_THAN", () => {
     const actor: ClientObject = mockClientGameObject();
     const object: ClientObject = mockClientGameObject();
     const objectState: IRegistryObjectState = registerObject(object);
@@ -101,7 +101,7 @@ describe("'switch logic' utils", () => {
     expect(objectState.activeSection).toBe("sr_idle@next");
   });
 
-  it("'trySwitchToAnotherSection' should correctly check ON_ACTOR_DISTANCE_LESS_THAN_NOT_VISIBLE", () => {
+  it("trySwitchToAnotherSection should correctly check ON_ACTOR_DISTANCE_LESS_THAN_NOT_VISIBLE", () => {
     const actor: ClientObject = mockClientGameObject();
     const object: ClientObject = mockClientGameObject();
     const objectState: IRegistryObjectState = registerObject(object);
@@ -137,7 +137,7 @@ describe("'switch logic' utils", () => {
     expect(objectState.activeSection).toBe("sr_idle@next");
   });
 
-  it("'trySwitchToAnotherSection' should correctly check ON_ACTOR_DISTANCE_GREATER_THAN", () => {
+  it("trySwitchToAnotherSection should correctly check ON_ACTOR_DISTANCE_GREATER_THAN", () => {
     const actor: ClientObject = mockClientGameObject();
     const object: ClientObject = mockClientGameObject();
     const objectState: IRegistryObjectState = registerObject(object);
@@ -181,7 +181,7 @@ describe("'switch logic' utils", () => {
     expect(objectState.activeSection).toBe("sr_idle@next");
   });
 
-  it("'trySwitchToAnotherSection' should correctly check ON_ACTOR_DISTANCE_GREATER_THAN_NOT_VISIBLE", () => {
+  it("trySwitchToAnotherSection should correctly check ON_ACTOR_DISTANCE_GREATER_THAN_NOT_VISIBLE", () => {
     const actor: ClientObject = mockClientGameObject();
     const object: ClientObject = mockClientGameObject();
     const objectState: IRegistryObjectState = registerObject(object);
@@ -217,7 +217,7 @@ describe("'switch logic' utils", () => {
     expect(objectState.activeSection).toBe("sr_idle@next");
   });
 
-  it("'trySwitchToAnotherSection' should correctly check ON_ACTOR_INSIDE", () => {
+  it("trySwitchToAnotherSection should correctly check ON_ACTOR_INSIDE", () => {
     const actor: ClientObject = mockClientGameObject();
     const object: ClientObject = mockClientGameObject();
     const objectState: IRegistryObjectState = registerObject(object);
@@ -250,7 +250,7 @@ describe("'switch logic' utils", () => {
     expect(objectState.activeSection).toBe("sr_idle@next");
   });
 
-  it("'trySwitchToAnotherSection' should correctly check ON_ACTOR_OUTSIDE", () => {
+  it("trySwitchToAnotherSection should correctly check ON_ACTOR_OUTSIDE", () => {
     const actor: ClientObject = mockClientGameObject();
     const object: ClientObject = mockClientGameObject();
     const objectState: IRegistryObjectState = registerObject(object);
@@ -284,7 +284,7 @@ describe("'switch logic' utils", () => {
     expect(objectState.activeSection).toBe("sr_idle@next");
   });
 
-  it("'trySwitchToAnotherSection' should correctly check ON_SIGNAL", () => {
+  it("trySwitchToAnotherSection should correctly check ON_SIGNAL", () => {
     const actor: ClientObject = mockClientGameObject();
     const object: ClientObject = mockClientGameObject();
     const objectState: IRegistryObjectState = registerObject(object);
@@ -322,7 +322,7 @@ describe("'switch logic' utils", () => {
     expect(objectState.activeSection).toBe("sr_idle@next");
   });
 
-  it("'trySwitchToAnotherSection' should correctly check ON_INFO", () => {
+  it("trySwitchToAnotherSection should correctly check ON_INFO", () => {
     const actor: ClientObject = mockClientGameObject();
     const object: ClientObject = mockClientGameObject();
     const objectState: IRegistryObjectState = registerObject(object);
@@ -357,7 +357,7 @@ describe("'switch logic' utils", () => {
     expect(objectState.activeSection).toBe("sr_idle@next");
   });
 
-  it("'trySwitchToAnotherSection' should correctly check ON_TIMER", () => {
+  it("trySwitchToAnotherSection should correctly check ON_TIMER", () => {
     const actor: ClientObject = mockClientGameObject();
     const object: ClientObject = mockClientGameObject();
     const objectState: IRegistryObjectState = registerObject(object);
@@ -396,7 +396,7 @@ describe("'switch logic' utils", () => {
     expect(objectState.activeSection).toBe("sr_idle@next");
   });
 
-  it("'trySwitchToAnotherSection' should correctly check ON_GAME_TIMER", () => {
+  it("trySwitchToAnotherSection should correctly check ON_GAME_TIMER", () => {
     const actor: ClientObject = mockClientGameObject();
     const object: ClientObject = mockClientGameObject();
     const objectState: IRegistryObjectState = registerObject(object);
@@ -435,7 +435,7 @@ describe("'switch logic' utils", () => {
     expect(objectState.activeSection).toBe("sr_idle@next");
   });
 
-  it("'trySwitchToAnotherSection' should correctly check ON_ACTOR_IN_ZONE", () => {
+  it("trySwitchToAnotherSection should correctly check ON_ACTOR_IN_ZONE", () => {
     const actor: ClientObject = mockClientGameObject();
     const object: ClientObject = mockClientGameObject();
     const objectState: IRegistryObjectState = registerObject(object);
@@ -473,7 +473,7 @@ describe("'switch logic' utils", () => {
     expect(objectState.activeSection).toBe("sr_idle@next");
   });
 
-  it("'trySwitchToAnotherSection' should correctly check ON_ACTOR_NOT_IN_ZONE", () => {
+  it("trySwitchToAnotherSection should correctly check ON_ACTOR_NOT_IN_ZONE", () => {
     const actor: ClientObject = mockClientGameObject();
     const object: ClientObject = mockClientGameObject();
     const objectState: IRegistryObjectState = registerObject(object);
@@ -512,7 +512,7 @@ describe("'switch logic' utils", () => {
     expect(objectState.activeSection).toBe("sr_idle@next");
   });
 
-  it("'trySwitchToAnotherSection' should correctly check ON_NPC_IN_ZONE", () => {
+  it("trySwitchToAnotherSection should correctly check ON_NPC_IN_ZONE", () => {
     const actor: ClientObject = mockClientGameObject();
     const object: ClientObject = mockClientGameObject();
     const objectState: IRegistryObjectState = registerObject(object);
@@ -554,7 +554,7 @@ describe("'switch logic' utils", () => {
     expect(objectState.activeSection).toBe("sr_idle@next");
   });
 
-  it("'trySwitchToAnotherSection' should correctly check ON_NPC_NOT_IN_ZONE", () => {
+  it("trySwitchToAnotherSection should correctly check ON_NPC_NOT_IN_ZONE", () => {
     const actor: ClientObject = mockClientGameObject();
     const object: ClientObject = mockClientGameObject();
     const objectState: IRegistryObjectState = registerObject(object);
@@ -596,7 +596,7 @@ describe("'switch logic' utils", () => {
     expect(objectState.activeSection).toBe("sr_idle@next");
   });
 
-  it("'trySwitchToAnotherSection' should correctly handle multiple conditions", () => {
+  it("trySwitchToAnotherSection should correctly handle multiple conditions", () => {
     const actor: ClientObject = mockClientGameObject();
     const object: ClientObject = mockClientGameObject();
     const objectState: IRegistryObjectState = registerObject(object);
@@ -639,7 +639,7 @@ describe("'switch logic' utils", () => {
     expect(objectState.activeSection).toBe("sr_idle@first");
   });
 
-  it("'switchObjectSchemeToSection' should correctly reset base schemes", () => {
+  it("switchObjectSchemeToSection should correctly reset base schemes", () => {
     const object: ClientObject = mockClientGameObject();
     const state: IRegistryObjectState = registerObject(object);
     const schemeState: IBaseSchemeState = mockSchemeState(EScheme.SR_IDLE, {

@@ -86,7 +86,6 @@ const simulationLogger: LuaLogger = new LuaLogger($filename, { file: "simulation
 @LuabindClass()
 export class Squad extends cse_alife_online_offline_group implements ISimulationTarget {
   public isItemListSpawned: Optional<boolean> = null;
-  public isSquadOnline: boolean = false;
   public isSimulationAvailableConditionList: TConditionList = parseConditionsList(TRUE);
   public isMapDisplayHidden: boolean = false;
   public isAlwaysArrived: boolean = false;

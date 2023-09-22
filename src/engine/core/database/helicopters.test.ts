@@ -11,7 +11,7 @@ import { HelicopterBinder } from "@/engine/core/objects/binders/HelicopterBinder
 import { ClientObject, TIndex } from "@/engine/lib/types";
 import { mockClientGameObject, mockIniFile } from "@/fixtures/xray";
 
-describe("'helicopters' module of the database", () => {
+describe("helicopters module of the database", () => {
   it("should correctly register helicopter binders", () => {
     const helicopter: HelicopterBinder = new HelicopterBinder(mockClientGameObject(), mockIniFile("test.ini"));
 

@@ -6,7 +6,7 @@ import { replaceFunctionMock } from "@/fixtures/jest";
 import { mockClientGameObject } from "@/fixtures/xray";
 
 describe("object_sound utils", () => {
-  it("'stopPlayingObjectSound' should correctly reset object sound play", () => {
+  it("stopPlayingObjectSound should correctly reset object sound play", () => {
     const object: ClientObject = mockClientGameObject();
 
     replaceFunctionMock(object.alive, () => false);

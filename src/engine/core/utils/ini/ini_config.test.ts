@@ -21,7 +21,7 @@ import { ClientObject, LuaArray, ServerObject, TIndex } from "@/engine/lib/types
 import { mockBaseSchemeLogic } from "@/fixtures/engine";
 import { mockActorClientGameObject, mockClientGameObject, mockIniFile, mockServerAlifeObject } from "@/fixtures/xray";
 
-describe("'config' utils for ini file", () => {
+describe("config utils for ini file", () => {
   beforeEach(() => registerSimulator());
 
   it("getInfosFromData should correctly parse data list of condition lists", () => {

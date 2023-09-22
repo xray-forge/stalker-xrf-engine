@@ -5,7 +5,7 @@ import { getExtern } from "@/engine/core/utils/binding";
 import { AnyCallablesModule } from "@/engine/lib/types";
 import { checkBinding, checkNestedBinding } from "@/fixtures/engine";
 
-describe("'interface' external callbacks", () => {
+describe("interface external callbacks", () => {
   beforeAll(() => {
     require("@/engine/scripts/declarations/callbacks/interface");
   });

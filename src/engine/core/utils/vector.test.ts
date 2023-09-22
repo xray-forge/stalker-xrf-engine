@@ -26,19 +26,19 @@ import {
 import { Vector, Vertex } from "@/engine/lib/types";
 import { MockVector } from "@/fixtures/xray/mocks/vector.mock";
 
-describe("'vector' utils", () => {
-  it("'createEmptyVector' should correctly create empty vectors", () => {
+describe("vector utils", () => {
+  it("createEmptyVector should correctly create empty vectors", () => {
     expect(areSameVectors(new vector().set(0, 0, 0), createEmptyVector())).toBeTruthy();
     expect(areSameVectors(new vector().set(1, 0, 0), createEmptyVector())).not.toBeTruthy();
   });
 
-  it("'createVector' should correctly create vectors", () => {
+  it("createVector should correctly create vectors", () => {
     expect(areSameVectors(new vector().set(0, 0, 0), createVector(0, 0, 0))).toBeTruthy();
     expect(areSameVectors(new vector().set(1, 0, 1), createVector(1, 0, 1))).toBeTruthy();
     expect(areSameVectors(new vector().set(55, -5, 25), createVector(55, -5, 25))).toBeTruthy();
   });
 
-  it("'addVectors' should correctly add vectors", () => {
+  it("addVectors should correctly add vectors", () => {
     const first: Vector = createVector(1, 2, 4);
     const second: Vector = createVector(3, 6, 9);
     const result: Vector = addVectors(first, second);
@@ -48,7 +48,7 @@ describe("'vector' utils", () => {
     expect(second).not.toBe(result);
   });
 
-  it("'subVectors' should correctly sub vectors", () => {
+  it("subVectors should correctly sub vectors", () => {
     const first: Vector = createVector(25, 50, 100);
     const second: Vector = createVector(12, 15, 25);
     const result: Vector = subVectors(first, second);
@@ -58,7 +58,7 @@ describe("'vector' utils", () => {
     expect(second).not.toBe(result);
   });
 
-  it("'copyVector' should correctly copy vectors", () => {
+  it("copyVector should correctly copy vectors", () => {
     const first: Vector = createVector(1, 2, 3);
     const second: Vector = createVector(-1, -2, -3);
 
@@ -72,7 +72,7 @@ describe("'vector' utils", () => {
     expect(copy.z).toBe(-3);
   });
 
-  it("'areSameVectors' should correctly compare same vectors by value", () => {
+  it("areSameVectors should correctly compare same vectors by value", () => {
     expect(areSameVectors(createEmptyVector(), createEmptyVector())).toBeTruthy();
     expect(areSameVectors(MockVector.mock(1, 2, 3), MockVector.mock(1, 2, 3))).toBeTruthy();
     expect(areSameVectors(MockVector.mock(1, 2, 3), createEmptyVector())).toBeFalsy();
@@ -80,7 +80,7 @@ describe("'vector' utils", () => {
     expect(areSameVectors(MockVector.mock(1, 1, 0.3), MockVector.mock(1, 1, 0.2 + 0.1))).toBeFalsy();
   });
 
-  it("'areSameVectorsByPrecision' should correctly compare same vectors by precision rate", () => {
+  it("areSameVectorsByPrecision should correctly compare same vectors by precision rate", () => {
     expect(areSameVectorsByPrecision(createEmptyVector(), createEmptyVector(), 0.001)).toBeTruthy();
     expect(areSameVectorsByPrecision(MockVector.mock(1, 2, 3), MockVector.mock(1, 2, 3), 0.001)).toBeTruthy();
     expect(areSameVectorsByPrecision(MockVector.mock(1, 2, 3), createEmptyVector(), 0.001)).toBeFalsy();
@@ -89,7 +89,7 @@ describe("'vector' utils", () => {
     expect(areSameVectorsByPrecision(MockVector.mock(1, 1, 0.3), MockVector.mock(1, 1, 0.2 + 0.1), 0.001)).toBeTruthy();
   });
 
-  it("'distanceBetween2d' should correctly check 2d distance", () => {
+  it("distanceBetween2d should correctly check 2d distance", () => {
     expect(distanceBetween2d(createEmptyVector(), createEmptyVector())).toBe(0);
     expect(distanceBetween2d(MockVector.mock(1, 1, 1), MockVector.mock(-1, -1, -1))).toBe(2.8284271247461903);
     expect(distanceBetween2d(MockVector.mock(1, 1, 0), MockVector.mock(-1, -1, -1))).toBe(2.23606797749979);
@@ -99,7 +99,7 @@ describe("'vector' utils", () => {
     expect(distanceBetween2d(MockVector.mock(1000, 1, 0), MockVector.mock(0, -1, 0))).toBe(1000);
   });
 
-  it("'yaw' should correctly calculate yaw", () => {
+  it("yaw should correctly calculate yaw", () => {
     expect(yaw(MockVector.mock(1, 0.25, 0.33), MockVector.mock(0.2, 0.2, 0.1))).toBe(0.1449000485801625);
     expect(yaw(MockVector.mock(0.5, 0.25, 0.1), MockVector.mock(0.05, 0.1, 0.8))).toBe(1.3109819569490586);
     expect(yaw(MockVector.mock(0.1, 0.1, 0.1), MockVector.mock(0.9, 0.9, 0.9))).toBe(0);
@@ -110,7 +110,7 @@ describe("'vector' utils", () => {
     expect(yaw(MockVector.mock(0, 0, 0), MockVector.mock(0, 0, 0))).toBeNaN();
   });
 
-  it("'yawDegree' should correctly calculate yaw degree", () => {
+  it("yawDegree should correctly calculate yaw degree", () => {
     expect(yawDegree(MockVector.mock(1, 0.25, 0.33), MockVector.mock(0.2, 0.2, 0.1))).toBe(8.302149713434416);
     expect(yawDegree(MockVector.mock(0.5, 0.25, 0.1), MockVector.mock(0.05, 0.1, 0.8))).toBe(75.11362891076617);
     expect(yawDegree(MockVector.mock(0.1, 0.1, 0.1), MockVector.mock(0.9, 0.9, 0.9))).toBe(0);
@@ -121,7 +121,7 @@ describe("'vector' utils", () => {
     expect(yawDegree(MockVector.mock(0, 0, 0), MockVector.mock(0, 0, 0))).toBeNaN();
   });
 
-  it("'yawDegree3d' should correctly calculate yaw degree 3d", () => {
+  it("yawDegree3d should correctly calculate yaw degree 3d", () => {
     expect(yawDegree3d(MockVector.mock(1, 0.25, 0.33), MockVector.mock(0.2, 0.2, 0.1))).toBe(29.355944608609963);
     expect(yawDegree3d(MockVector.mock(0.5, 0.25, 0.1), MockVector.mock(0.05, 0.1, 0.8))).toBe(73.53711801923248);
     expect(yawDegree3d(MockVector.mock(0.1, 0.1, 0.1), MockVector.mock(0.9, 0.9, 0.9))).toBe(0);
@@ -132,7 +132,7 @@ describe("'vector' utils", () => {
     expect(yawDegree3d(MockVector.mock(0, 0, 0), MockVector.mock(0, 0, 0))).toBeNaN();
   });
 
-  it("'vectorCross' should correctly calculate cross multiplication", () => {
+  it("vectorCross should correctly calculate cross multiplication", () => {
     expect(vectorCross(MockVector.mock(1, -0.1, 0.25), MockVector.mock(0.2, -1, -1))).toEqual(
       MockVector.create(0.35, 1.05, -0.98)
     );
@@ -150,7 +150,7 @@ describe("'vector' utils", () => {
     expect(vectorCross(MockVector.mock(0, 0, 0), MockVector.mock(0, 0, 0))).toEqual(MockVector.create(0, 0, 0));
   });
 
-  it("'vectorRotateY' should correctly rotate y", () => {
+  it("vectorRotateY should correctly rotate y", () => {
     expect(vectorRotateY(MockVector.mock(1, 0.5, 0.25), 45)).toEqual(
       MockVector.create(0.5303300858899107, 0.5, 0.8838834764831843)
     );
@@ -159,13 +159,13 @@ describe("'vector' utils", () => {
     );
   });
 
-  it("'angleDiff' should correctly get angle diff", () => {
+  it("angleDiff should correctly get angle diff", () => {
     expect(angleDiff(MockVector.mock(1, 0.5, 0.25), MockVector.mock(1, 0.5, 0.25))).toBe(0.0000012074182697257333);
     expect(angleDiff(MockVector.mock(0, 0, 0.5), MockVector.mock(1, 1, 0.5))).toBe(70.52877936550931);
     expect(angleDiff(MockVector.mock(0, 1.5, 0), MockVector.mock(1, 1, 0.5))).toBe(48.189685104221404);
   });
 
-  it("'angleToDirection' should correctly create new vector based on provided values", () => {
+  it("angleToDirection should correctly create new vector based on provided values", () => {
     expect(angleToDirection(MockVector.mock(1, 0.5, 0.25))).toEqual(
       MockVector.mock(-0.2590347239999257, 0.8414709848078965, 0.4741598817790379)
     );
@@ -174,7 +174,7 @@ describe("'vector' utils", () => {
     );
   });
 
-  it("'graphDistance' should correctly get graph distance", () => {
+  it("graphDistance should correctly get graph distance", () => {
     expect(graphDistance(1, 2)).toBe(20);
 
     const vertex: Vertex = game_graph().vertex(500);
@@ -186,7 +186,7 @@ describe("'vector' utils", () => {
     expect(graphDistance(500, 256)).toBe(888);
   });
 
-  it("'graphDistanceSqr' should correctly get graph distance sqr", () => {
+  it("graphDistanceSqr should correctly get graph distance sqr", () => {
     expect(graphDistanceSqr(1, 2)).toBe(400);
 
     const vertex: Vertex = game_graph().vertex(500);
@@ -198,28 +198,28 @@ describe("'vector' utils", () => {
     expect(graphDistanceSqr(500, 256)).toBe(788_544);
   });
 
-  it("'radianToDegree' should correctly convert", () => {
+  it("radianToDegree should correctly convert", () => {
     expect(radianToDegree(1)).toBe(57.29577951308232);
     expect(radianToDegree(1000)).toBe(57295.77951308232);
     expect(radianToDegree(math.pi)).toBe(180);
     expect(radianToDegree(math.pi * 5)).toBe(900);
   });
 
-  it("'distanceBetween2d' should correctly get distance", () => {
+  it("distanceBetween2d should correctly get distance", () => {
     expect(distanceBetween2d(MockVector.mock(0, 0, 0), MockVector.mock(1, 1, 1))).toBe(1.4142135623730951);
     expect(distanceBetween2d(MockVector.mock(0, 0, 0), MockVector.mock(1, 500, 1))).toBe(1.4142135623730951);
     expect(distanceBetween2d(MockVector.mock(0, 0, 0), MockVector.mock(55, 500, 0))).toBe(55);
     expect(distanceBetween2d(MockVector.mock(0, 0, 0), MockVector.mock(-55, 0, 0))).toBe(55);
   });
 
-  it("'degreeToRadian' should correctly convert", () => {
+  it("degreeToRadian should correctly convert", () => {
     expect(degreeToRadian(57.29577951308232)).toBe(1);
     expect(degreeToRadian(57295.77951308232)).toBe(1000);
     expect(degreeToRadian(180)).toBe(math.pi);
     expect(degreeToRadian(900)).toBe(math.pi * 5);
   });
 
-  it("'vectorToString' should correctly transform to string", () => {
+  it("vectorToString should correctly transform to string", () => {
     expect(vectorToString(null)).toBe("nil");
     expect(vectorToString(createEmptyVector())).toBe("[0:0:0]");
     expect(vectorToString(createVector(1, 2, 3))).toBe("[1:2:3]");

@@ -14,7 +14,7 @@ import { replaceFunctionMock } from "@/fixtures/jest";
 import { mockClientGameObject } from "@/fixtures/xray";
 
 describe("object state utils", () => {
-  it("'isObjectAsleep' should check state correctly", () => {
+  it("isObjectAsleep should check state correctly", () => {
     const object: ClientObject = mockClientGameObject();
 
     expect(isObjectAsleep(object.id())).toBe(false);
@@ -36,7 +36,7 @@ describe("object state utils", () => {
     expect(isObjectAsleep(object.id())).toBe(false);
   });
 
-  it("'isObjectWounded' should correctly check wounded state", () => {
+  it("isObjectWounded should correctly check wounded state", () => {
     const object: ClientObject = mockClientGameObject();
 
     expect(isObjectWounded(object.id())).toBe(false);
@@ -63,7 +63,7 @@ describe("object state utils", () => {
     expect(isObjectWounded(object.id())).toBe(false);
   });
 
-  it("'isObjectMeeting' should correctly check meeting state", () => {
+  it("isObjectMeeting should correctly check meeting state", () => {
     const object: ClientObject = mockClientGameObject();
 
     expect(isObjectMeeting(object)).toBe(false);

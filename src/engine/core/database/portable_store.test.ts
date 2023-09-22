@@ -21,7 +21,7 @@ import {
   mockNetProcessor,
 } from "@/fixtures/xray";
 
-describe("'portable_store' functionality", () => {
+describe("portable_store functionality", () => {
   it("should correctly validate value type", () => {
     expect(isValidPortableStoreValue(1)).toBeTruthy();
     expect(isValidPortableStoreValue(0)).toBeTruthy();

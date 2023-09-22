@@ -18,7 +18,7 @@ import {
 import { ClientObject, ServerObject } from "@/engine/lib/types";
 import { FILES_MOCKS, MockAlifeSimulator, mockClientGameObject, mockServerAlifeObject } from "@/fixtures/xray";
 
-describe("'story_objects' module of the database", () => {
+describe("story_objects module of the database", () => {
   const firstObject: ServerObject = mockServerAlifeObject({ id: 12 });
   const secondObject: ServerObject = mockServerAlifeObject({ id: 36 });
 
@@ -76,7 +76,7 @@ describe("'story_objects' module of the database", () => {
     unregisterStoryLinkByStoryId("test-sid");
   });
 
-  it("'isStoryObjectExisting' should correctly check if object is existing", () => {
+  it("isStoryObjectExisting should correctly check if object is existing", () => {
     expect(isStoryObjectExisting("test-sid")).toBe(false);
 
     const serverObject: ServerObject = mockServerAlifeObject();
@@ -86,7 +86,7 @@ describe("'story_objects' module of the database", () => {
     expect(isStoryObjectExisting("test-sid")).toBe(true);
   });
 
-  it("'isStoryObject' should correctly check if object is existing", () => {
+  it("isStoryObject should correctly check if object is existing", () => {
     const serverObject: ServerObject = mockServerAlifeObject();
     const clientObject: ClientObject = mockClientGameObject({ id: () => serverObject.id });
 

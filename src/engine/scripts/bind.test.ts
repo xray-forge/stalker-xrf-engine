@@ -5,7 +5,7 @@ import { registerSimulator, registry } from "@/engine/core/database";
 import { AlifeSimulator, AnyObject, ClientObject } from "@/engine/lib/types";
 import { mockActorClientGameObject, mockClientGameObject, mockIniFile } from "@/fixtures/xray";
 
-describe("'bind' entry point", () => {
+describe("bind entry point", () => {
   const checkBinding = (name: string, container: AnyObject = global) => {
     expect(container["bind"]).toBeDefined();
     expect(typeof container["bind"]).toBe("object");

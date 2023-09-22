@@ -5,7 +5,7 @@ import { registry } from "@/engine/core/database/registry";
 import { LabX8DoorBinder } from "@/engine/core/objects/binders/physic/LabX8DoorBinder";
 import { mockClientGameObject } from "@/fixtures/xray";
 
-describe("'doors' module of the database", () => {
+describe("doors module of the database", () => {
   it("should correctly register doors", () => {
     const door: LabX8DoorBinder = new LabX8DoorBinder(mockClientGameObject());
 

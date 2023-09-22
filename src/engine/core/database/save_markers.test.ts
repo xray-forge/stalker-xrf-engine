@@ -5,7 +5,7 @@ import { closeLoadMarker, closeSaveMarker, openLoadMarker, openSaveMarker } from
 import { MAX_I32 } from "@/engine/lib/constants/memory";
 import { EPacketDataType, mockNetPacket, MockNetProcessor } from "@/fixtures/xray";
 
-describe("'save_markers' databse module", () => {
+describe("save_markers databse module", () => {
   it("should correctly create save markers", () => {
     const netProcessor: MockNetProcessor = new MockNetProcessor();
 

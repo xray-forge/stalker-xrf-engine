@@ -8,7 +8,7 @@ import { IRegistryObjectState } from "@/engine/core/database/types";
 import { ClientObject, IniFile } from "@/engine/lib/types";
 import { mockClientGameObject, MockIniFile } from "@/fixtures/xray";
 
-describe("'ini' module of database", () => {
+describe("ini module of database", () => {
   beforeEach(() => {
     registry.ini = new LuaTable();
   });

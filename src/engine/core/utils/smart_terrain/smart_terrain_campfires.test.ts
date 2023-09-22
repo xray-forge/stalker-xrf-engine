@@ -10,7 +10,7 @@ import { ZoneCampfire } from "@/engine/lib/types";
 import { mockSmartTerrain } from "@/fixtures/engine";
 import { mockClientGameObject, MockCZoneCampfire } from "@/fixtures/xray";
 
-describe("'smart_terrain_campfires' utils", () => {
+describe("smart_terrain_campfires utils", () => {
   beforeEach(() => {
     registry.smartTerrainsCampfires = new LuaTable();
   });

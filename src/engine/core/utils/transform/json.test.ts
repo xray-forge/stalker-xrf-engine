@@ -4,8 +4,8 @@ import { quoted } from "#/utils";
 
 import { stringifyKey, toJSON } from "@/engine/core/utils/transform/json";
 
-describe("'json' util", () => {
-  it("'toJSON' should correctly stringify simple types", () => {
+describe("json util", () => {
+  it("toJSON should correctly stringify simple types", () => {
     expect(toJSON("abc")).toBe(quoted("abc"));
     expect(toJSON("bca")).toBe(quoted("bca"));
     expect(toJSON(123)).toBe("123");
@@ -16,7 +16,7 @@ describe("'json' util", () => {
     expect(toJSON(undefined)).toBe("<nil>");
   });
 
-  it("'toJSON' should correctly stringify tables", () => {
+  it("toJSON should correctly stringify tables", () => {
     expect(toJSON({})).toBe("{}");
     expect(toJSON({ a: 10 })).toBe(`{${quoted("a")}: 10}`);
     expect(toJSON({ b: "ab", c: 5, d: false, e: null })).toBe(
@@ -25,7 +25,7 @@ describe("'json' util", () => {
     expect(toJSON({ a: 10, b: { c: 1234 } })).toBe(`{${quoted("a")}: 10, "b": {"c": 1234}}`);
   });
 
-  it("'toJSON' should correctly stringify circular references", () => {
+  it("toJSON should correctly stringify circular references", () => {
     const base = { nested: { circular: {} } };
 
     base.nested.circular = base;
@@ -33,7 +33,7 @@ describe("'json' util", () => {
     expect(toJSON(base)).toBe(`{${quoted("nested")}: {"circular": <circular_reference>}}`);
   });
 
-  it("'toJSON' should correctly limit depth", () => {
+  it("toJSON should correctly limit depth", () => {
     const base = { nested: { nested: { nested: { nested: {} } } } };
 
     expect(toJSON(base, " ", 0, 3)).toBe(`{${quoted("nested")}: {"nested": {"nested": {"nested": <depth_limit>}}}}`);
@@ -42,7 +42,7 @@ describe("'json' util", () => {
     expect(toJSON(base, " ", 0, 0)).toBe(`{${quoted("nested")}: <depth_limit>}`);
   });
 
-  it("'toJSON' should correctly transform unusual non-table values", () => {
+  it("toJSON should correctly transform unusual non-table values", () => {
     expect(toJSON(() => {})).toBe("<function>");
 
     jest.spyOn(global, "type").mockReturnValueOnce("userdata");
@@ -52,7 +52,7 @@ describe("'json' util", () => {
     expect(toJSON({})).toBe("<unknown>");
   });
 
-  it("'stringifyKey' should correctly stringify json keys", () => {
+  it("stringifyKey should correctly stringify json keys", () => {
     expect(stringifyKey(123)).toBe("123");
     expect(stringifyKey("abc")).toBe("abc");
     expect(stringifyKey(true)).toBe("<k_boolean>");

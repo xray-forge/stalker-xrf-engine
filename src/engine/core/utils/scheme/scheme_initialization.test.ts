@@ -35,14 +35,14 @@ import { AnyObject, ClientObject, EClientObjectRelation, EScheme, ESchemeType, I
 import { resetFunctionMock } from "@/fixtures/jest";
 import { FILES_MOCKS, mockClientGameObject, mockIniFile, mockServerAlifeHumanStalker } from "@/fixtures/xray";
 
-describe("'scheme initialization' utils", () => {
+describe("scheme initialization utils", () => {
   beforeEach(() => {
     registry.schemes = new LuaTable();
     registry.actor = null as unknown as ClientObject;
     registerSimulator();
   });
 
-  it("'configureObjectSchemes' should correctly configure scheme for objects if section does not exist", () => {
+  it("configureObjectSchemes should correctly configure scheme for objects if section does not exist", () => {
     const object: ClientObject = mockClientGameObject();
     const state: IRegistryObjectState = registerObject(object);
     const ini: IniFile = mockIniFile("test.ltx", {});
@@ -99,7 +99,7 @@ describe("'scheme initialization' utils", () => {
     expect(registry.simulator.create).not.toHaveBeenCalled();
   });
 
-  it("'configureObjectSchemes' should correctly configure scheme for objects if cfg section exists", () => {
+  it("configureObjectSchemes should correctly configure scheme for objects if cfg section exists", () => {
     const object: ClientObject = mockClientGameObject();
     const smartTerrain: SmartTerrain = new SmartTerrain("smart_terrain");
 
@@ -178,7 +178,7 @@ describe("'scheme initialization' utils", () => {
     expect(registry.simulator.create).toHaveBeenCalledTimes(2);
   });
 
-  it("'initializeObjectSchemeLogic' should correctly initialize scheme logic on init", () => {
+  it("initializeObjectSchemeLogic should correctly initialize scheme logic on init", () => {
     const ini: IniFile = mockIniFile("object-test.ltx", {
       logic: {
         active: "mob_combat@test",
@@ -229,7 +229,7 @@ describe("'scheme initialization' utils", () => {
     expect(SchemeMobCombat.activate).toHaveBeenCalled();
   });
 
-  it("'initializeObjectSchemeLogic' should correctly initialize scheme logic on load", () => {
+  it("initializeObjectSchemeLogic should correctly initialize scheme logic on load", () => {
     const object: ClientObject = mockClientGameObject();
     const state: IRegistryObjectState = registerObject(object);
 
@@ -272,7 +272,7 @@ describe("'scheme initialization' utils", () => {
     expect(SchemeMobCombat.activate).toHaveBeenCalled();
   });
 
-  it("'initializeObjectSectionItems' should correctly skip spawn if section does not exist", () => {
+  it("initializeObjectSectionItems should correctly skip spawn if section does not exist", () => {
     const object: ClientObject = mockClientGameObject();
     const state: IRegistryObjectState = registerObject(object);
 
@@ -286,7 +286,7 @@ describe("'scheme initialization' utils", () => {
     expect(registry.simulator.create).not.toHaveBeenCalled();
   });
 
-  it("'initializeObjectSectionItems' should correctly spawn items on scheme activation", () => {
+  it("initializeObjectSectionItems should correctly spawn items on scheme activation", () => {
     const object: ClientObject = mockClientGameObject();
     const state: IRegistryObjectState = registerObject(object);
 

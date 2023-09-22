@@ -17,12 +17,12 @@ import {
 import { ActionBase, EScheme, ESchemeType } from "@/engine/lib/types";
 import { MockActionBase, mockClientGameObject } from "@/fixtures/xray";
 
-describe("'scheme setup' utils", () => {
+describe("scheme setup utils", () => {
   beforeEach(() => {
     registry.schemes = new LuaTable();
   });
 
-  it("'disableObjectGenericSchemes' should correctly call disable based on scheme type", () => {
+  it("disableObjectGenericSchemes should correctly call disable based on scheme type", () => {
     const schemes: Array<TAbstractSchemeConstructor> = [
       SchemeCombat,
       SchemeCombatIgnore,
@@ -74,7 +74,7 @@ describe("'scheme setup' utils", () => {
     expect(SchemePhysicalOnHit.disable).toHaveBeenCalledTimes(0);
   });
 
-  it("'loadSchemeImplementation' should correctly load scheme and validate it", () => {
+  it("loadSchemeImplementation should correctly load scheme and validate it", () => {
     const firstMock: TAbstractSchemeConstructor = {} as unknown as TAbstractSchemeConstructor;
     const secondMock: TAbstractSchemeConstructor = {
       SCHEME_SECTION: EScheme.SR_TIMER,
@@ -96,7 +96,7 @@ describe("'scheme setup' utils", () => {
     expect(registry.schemes.get(EScheme.MEET)).toBe(thirdMock);
   });
 
-  it("'loadSchemeImplementations' should correctly load schemes list", () => {
+  it("loadSchemeImplementations should correctly load schemes list", () => {
     const firstMock: TAbstractSchemeConstructor = {} as unknown as TAbstractSchemeConstructor;
     const secondMock: TAbstractSchemeConstructor = {
       SCHEME_SECTION: EScheme.SR_TIMER,
@@ -123,7 +123,7 @@ describe("'scheme setup' utils", () => {
     expect(registry.schemes.get(EScheme.COMBAT)).toBe(fourthMock);
   });
 
-  it("'addCommonActionPreconditions' should add generic base conditions", () => {
+  it("addCommonActionPreconditions should add generic base conditions", () => {
     const action: MockActionBase = new MockActionBase(mockClientGameObject(), "test");
 
     expect(action.preconditions).toHaveLength(0);
