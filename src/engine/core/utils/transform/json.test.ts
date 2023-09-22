@@ -1,6 +1,6 @@
 import { describe, expect, it, jest } from "@jest/globals";
 
-import { quoted } from "#/utils";
+import { quoted } from "#/utils/string";
 
 import { stringifyKey, toJSON } from "@/engine/core/utils/transform/json";
 

@@ -4,7 +4,9 @@ import * as path from "path";
 import { yellowBright } from "chalk";
 
 import { GAME_DATA_LTX_CONFIGS_DIR } from "#/globals";
-import { EAssetExtension, NodeLogger, readDirContent, TFolderFiles } from "#/utils";
+import { readDirContent } from "#/utils/fs";
+import { NodeLogger } from "#/utils/logging";
+import { EAssetExtension, TFolderFiles } from "#/utils/types";
 
 const log: NodeLogger = new NodeLogger("FORMAT_LTX");
 

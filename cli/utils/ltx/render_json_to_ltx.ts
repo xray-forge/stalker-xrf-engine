@@ -1,12 +1,5 @@
-import {
-  ILtxConfigDescriptor,
-  ILtxFieldDescriptor,
-  LTX_EXTEND,
-  LTX_INCLUDE,
-  LTX_ROOT,
-  Optional,
-  renderField,
-} from "#/utils";
+import { ILtxConfigDescriptor, ILtxFieldDescriptor, LTX_EXTEND, LTX_INCLUDE, LTX_ROOT, renderField } from "#/utils/ltx";
+import { Optional } from "#/utils/types";
 
 type TPossibleFieldDescriptorBase = Record<string, ILtxFieldDescriptor<unknown>> | Array<ILtxFieldDescriptor<unknown>>;
 type TPossibleFieldDescriptorFull = TPossibleFieldDescriptorBase | (() => TPossibleFieldDescriptorBase);

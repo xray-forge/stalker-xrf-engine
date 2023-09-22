@@ -1,6 +1,7 @@
 import { green } from "chalk";
 
-import { Optional, stringifyValue } from "#/utils";
+import { stringifyValue } from "#/utils/logging/stringify_value";
+import { Optional } from "#/utils/types";
 
 /**
  * DebugLogger file that logs only in dev/flagged environment.

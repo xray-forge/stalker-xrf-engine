@@ -1,5 +1,5 @@
 import { default as assert } from "assert";
-import { cpSync, existsSync, rmSync } from "fs";
+import * as fs from "fs";
 import * as path from "path";
 
 import { blue, yellow, yellowBright } from "chalk";
@@ -17,7 +17,9 @@ import {
   WARNING_SIGN,
 } from "#/globals";
 import { IPackParameters } from "#/pack/pack";
-import { createDirIfNoExisting, NodeLogger, TimeTracker } from "#/utils";
+import { createDirIfNoExisting } from "#/utils/fs";
+import { NodeLogger } from "#/utils/logging";
+import { TimeTracker } from "#/utils/timing";
 
 const log: NodeLogger = new NodeLogger("PACK_GAME");
 
@@ -57,7 +59,7 @@ export async function packGame(parameters: IPackParameters): Promise<void> {
 
     if (parameters.clean) {
       log.info("Perform package cleanup:", yellowBright(TARGET_GAME_PACKAGE_DIR));
-      rmSync(TARGET_GAME_PACKAGE_DIR, { recursive: true, force: true });
+      fs.rmSync(TARGET_GAME_PACKAGE_DIR, { recursive: true, force: true });
       timeTracker.addMark("PACKAGE_CLEANUP");
     } else {
       log.info("Skip package cleanup:", WARNING_SIGN);
@@ -129,16 +131,16 @@ function copyGameEngine(engine: string): void {
   log.info("Using game engine:", blue(config.package.engine));
   log.info("Engine path:", yellowBright(enginePath));
 
-  assert(existsSync(enginePath), "Expected engine directory to exist.");
+  assert(fs.existsSync(enginePath), "Expected engine directory to exist.");
 
   createDirIfNoExisting(destinationPath);
-  cpSync(enginePath, destinationPath, { recursive: true });
+  fs.cpSync(enginePath, destinationPath, { recursive: true });
 
   /**
    * Remove bin.json with engine description.
    */
-  if (existsSync(engineDescriptorPath)) {
-    rmSync(engineDescriptorPath);
+  if (fs.existsSync(engineDescriptorPath)) {
+    fs.rmSync(engineDescriptorPath);
   }
 }
 
@@ -159,17 +161,17 @@ function copyGamedataAssets(isFiltered: boolean = true): void {
     isFiltered ? "filtered" : "all"
   );
 
-  assert(existsSync(TARGET_GAME_DATA_DIR), "Expected gamedata directory to exist.");
+  assert(fs.existsSync(TARGET_GAME_DATA_DIR), "Expected gamedata directory to exist.");
 
   createDirIfNoExisting(destinationPath);
 
   if (isFiltered) {
     config.package.gamedata.forEach((it) => {
       log.debug("CP:", it);
-      cpSync(path.resolve(TARGET_GAME_DATA_DIR, it), path.resolve(destinationPath, it), { recursive: true });
+      fs.cpSync(path.resolve(TARGET_GAME_DATA_DIR, it), path.resolve(destinationPath, it), { recursive: true });
     });
   } else {
-    cpSync(TARGET_GAME_DATA_DIR, destinationPath, { recursive: true });
+    fs.cpSync(TARGET_GAME_DATA_DIR, destinationPath, { recursive: true });
   }
 }
 
@@ -182,14 +184,14 @@ function copyDatabaseAssets(): void {
   log.info("Copy game archives:", yellow(TARGET_DATABASE_DIR), "->", yellowBright(destinationPath));
 
   assert(
-    existsSync(TARGET_DATABASE_DIR),
+    fs.existsSync(TARGET_DATABASE_DIR),
     "Expected compressed db directory to exist. Did you forget to run compress step?"
   );
 
   createDirIfNoExisting(destinationPath);
 
   log.debug("CP:", TARGET_DATABASE_DIR);
-  cpSync(TARGET_DATABASE_DIR, destinationPath, { recursive: true });
+  fs.cpSync(TARGET_DATABASE_DIR, destinationPath, { recursive: true });
 }
 
 /**
@@ -205,9 +207,9 @@ function copyRootAssets(): void {
 
     log.info("Copy game root asset:", yellow(fromPath), "->", yellowBright(toPath));
 
-    assert(existsSync(fromPath), `Expected '${asset}' to exist at '${fromPath}'.`);
+    assert(fs.existsSync(fromPath), `Expected '${asset}' to exist at '${fromPath}'.`);
 
     log.debug("CP:", toPath);
-    cpSync(fromPath, toPath);
+    fs.cpSync(fromPath, toPath);
   }
 }

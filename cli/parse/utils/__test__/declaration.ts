@@ -13,6 +13,7 @@ interface IAbstractInterface {
 /**
  * Mock `extern` method for testing.
  */
+function extern(...args: Array<unknown>): void;
 function extern(name: string, cb: (...args: Array<unknown>) => void): void {}
 
 /**
@@ -36,11 +37,25 @@ extern("module_two.callback_name_two", (a: SomeClass, b: IAbstractInterface): bo
  * Docblock 2.
  *
  * @param c - some array
- * @param d - another array
+ * @param d
  * @returns some boolean value
  */
 extern("module_two.callback_name_two", (c: Array<string>, d: [number, string]): boolean => true);
 
 extern("module_two.callback_name_three", ([e, f]: [number, string, SomeAlias]): boolean => true);
 
+extern("module_two.callback_name_four", ([e, f]: [null, unknown]): boolean => true);
+
+extern(
+  "module_two.callback_name_five",
+  ([e, f, g, h]: ["a" | "b", 1 | 2, true | false, SomeClass | SomeAlias]): boolean => true
+);
+
 another("another_module.another_callback_name", (a: number, b: string): boolean => false);
+
+// Invalid.
+extern("test");
+// Invalid.
+extern(1, 1);
+// Invalid.
+extern("test", 1);

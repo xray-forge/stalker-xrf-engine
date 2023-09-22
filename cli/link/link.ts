@@ -2,9 +2,17 @@ import * as fsp from "fs/promises";
 
 import { blue, red, yellow, yellowBright } from "chalk";
 
-import { PLUS_SIGN, SKIP_SIGN, WARNING_SIGN } from "#/globals";
-import { TARGET_GAME_DATA_DIR, TARGET_GAME_LINK_DIR, TARGET_LOGS_LINK_DIR } from "#/globals/paths";
-import { exists, getGamePaths, isSamePath, NodeLogger, Optional } from "#/utils";
+import {
+  PLUS_SIGN,
+  SKIP_SIGN,
+  TARGET_GAME_DATA_DIR,
+  TARGET_GAME_LINK_DIR,
+  TARGET_LOGS_LINK_DIR,
+  WARNING_SIGN,
+} from "#/globals";
+import { exists, getGamePaths, isSamePath } from "#/utils/fs";
+import { NodeLogger } from "#/utils/logging";
+import { Optional } from "#/utils/types";
 
 const log: NodeLogger = new NodeLogger("LINK");
 

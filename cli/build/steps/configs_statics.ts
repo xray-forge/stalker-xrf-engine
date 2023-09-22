@@ -6,7 +6,9 @@ import { blueBright, yellow, yellowBright } from "chalk";
 
 import { IBuildCommandParameters } from "#/build/build";
 import { GAME_DATA_LTX_CONFIGS_DIR, TARGET_GAME_DATA_CONFIGS_DIR } from "#/globals/paths";
-import { EAssetExtension, NodeLogger, readDirContent, TFolderFiles, TFolderReplicationDescriptor } from "#/utils";
+import { readDirContent } from "#/utils/fs";
+import { NodeLogger } from "#/utils/logging";
+import { EAssetExtension, TFolderFiles, TFolderReplicationDescriptor } from "#/utils/types";
 
 const log: NodeLogger = new NodeLogger("BUILD_CONFIGS_STATICS");
 

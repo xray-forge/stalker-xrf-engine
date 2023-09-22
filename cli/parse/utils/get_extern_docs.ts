@@ -12,7 +12,10 @@ import {
   isStringLiteral,
   JSDoc,
   JSDocTag,
+  LiteralLikeNode,
+  LiteralTypeNode,
   NamedDeclaration,
+  NullLiteral,
   ParameterDeclaration,
   ScriptTarget,
   SourceFile,
@@ -21,10 +24,11 @@ import {
   TupleTypeNode,
   TypeNode,
   TypeReferenceNode,
+  UnionTypeNode,
 } from "typescript";
 
 import { IExternCallbackParameterDescriptor, IExternFileDescriptor } from "#/parse/utils/types";
-import { Optional } from "#/utils";
+import { Optional } from "#/utils/types";
 
 /**
  * Method name used for externals declaration.
@@ -99,7 +103,7 @@ export function getExternDocs(files: Array<string>): Array<IExternFileDescriptor
 /**
  * Get matching type label for provided AST node.
  */
-function getNodeTypeLabel(node: TypeNode): string {
+function getNodeTypeLabel(node: TypeNode | NullLiteral): string {
   switch (node.kind) {
     case SyntaxKind.NumberKeyword:
       return "number";
@@ -110,8 +114,26 @@ function getNodeTypeLabel(node: TypeNode): string {
     case SyntaxKind.BooleanKeyword:
       return "boolean";
 
+    case SyntaxKind.TrueKeyword:
+      return "true";
+
+    case SyntaxKind.FalseKeyword:
+      return "false";
+
     case SyntaxKind.NullKeyword:
       return "null";
+
+    case SyntaxKind.NumericLiteral:
+      return (node as unknown as LiteralLikeNode).text;
+
+    case SyntaxKind.StringLiteral:
+      return `"${(node as unknown as LiteralLikeNode).text}"`;
+
+    case SyntaxKind.UnionType:
+      return (node as UnionTypeNode).types.map((it) => getNodeTypeLabel(it)).join(" | ");
+
+    case SyntaxKind.LiteralType:
+      return getNodeTypeLabel((node as LiteralTypeNode).literal as NullLiteral);
 
     case SyntaxKind.TypeReference:
       return ((node as TypeReferenceNode).typeName as Identifier)?.escapedText as string;
@@ -119,6 +141,7 @@ function getNodeTypeLabel(node: TypeNode): string {
     case SyntaxKind.TupleType:
       return `[${(node as TupleTypeNode).elements.map((it) => getNodeTypeLabel(it)).join(", ")}]`;
 
+    case SyntaxKind.UnknownKeyword:
     default:
       return "unknown";
   }

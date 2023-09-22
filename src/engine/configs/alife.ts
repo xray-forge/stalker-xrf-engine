@@ -1,4 +1,4 @@
-import { newFloatField, newIntegerField, newStringField } from "#/utils";
+import { newFloatField, newIntegerField, newStringField } from "#/utils/ltx";
 
 /**
  * Configuration of game alife processing.

@@ -5,7 +5,8 @@ import { green, greenBright, red, yellow, yellowBright } from "chalk";
 
 import { default as config } from "#/config.json";
 import { CLI_CONFIG, CLI_DIR, TARGET_GAME_DATA_DIR, TARGET_GAME_LINK_DIR, TARGET_LOGS_LINK_DIR } from "#/globals/paths";
-import { exists, getGamePaths, NodeLogger } from "#/utils";
+import { exists, getGamePaths } from "#/utils/fs";
+import { NodeLogger } from "#/utils/logging";
 
 const log: NodeLogger = new NodeLogger("VERIFY");
 

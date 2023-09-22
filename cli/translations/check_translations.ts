@@ -4,7 +4,9 @@ import * as path from "path";
 import { green, red, yellow } from "chalk";
 
 import { GAME_DATA_TRANSLATIONS_DIR } from "#/globals";
-import { AnyObject, EAssetExtension, exists, NodeLogger, readDirContentFlat } from "#/utils";
+import { exists, readDirContentFlat } from "#/utils/fs";
+import { NodeLogger } from "#/utils/logging";
+import { AnyObject, EAssetExtension } from "#/utils/types";
 
 const log: NodeLogger = new NodeLogger("CHECK_TRANSLATIONS");
 

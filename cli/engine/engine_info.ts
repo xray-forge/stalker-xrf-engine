@@ -1,6 +1,7 @@
 import { blue, yellow } from "chalk";
 
-import { exists, getGamePaths, NodeLogger } from "#/utils";
+import { exists, getGamePaths } from "#/utils/fs";
+import { NodeLogger } from "#/utils/logging";
 
 const log: NodeLogger = new NodeLogger("ENGINE_INFO");
 

@@ -5,7 +5,9 @@ import { blue, green, yellow, yellowBright } from "chalk";
 
 import { getEnginesList, isValidEngine } from "#/engine/list_engines";
 import { OPEN_XRAY_ENGINES_DIR } from "#/globals";
-import { exists, getGamePaths, NodeLogger, Optional } from "#/utils";
+import { exists, getGamePaths } from "#/utils/fs";
+import { NodeLogger } from "#/utils/logging";
+import { Optional } from "#/utils/types";
 
 const log: NodeLogger = new NodeLogger("USE_ENGINE");
 

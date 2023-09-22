@@ -6,7 +6,9 @@ import { blue, green, red, yellowBright } from "chalk";
 
 import { default as config } from "#/config.json";
 import { ROOT_DIR } from "#/globals";
-import { deleteDirIfExists, NodeLogger, Optional } from "#/utils";
+import { deleteDirIfExists } from "#/utils/fs";
+import { NodeLogger } from "#/utils/logging";
+import { Optional } from "#/utils/types";
 
 const log: NodeLogger = new NodeLogger("CLONE_REPOSITORY");
 

@@ -1,4 +1,5 @@
-import { ELtxFieldType, ILtxFieldDescriptor, Optional } from "#/utils";
+import { ELtxFieldType, ILtxFieldDescriptor } from "#/utils/ltx/types";
+import { Optional } from "#/utils/types";
 
 /**
  * Assert whether provided value is number.

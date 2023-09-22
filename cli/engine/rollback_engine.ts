@@ -1,8 +1,9 @@
-import fsPromises from "fs/promises";
+import fsp from "fs/promises";
 
 import { yellow } from "chalk";
 
-import { exists, getGamePaths, NodeLogger } from "#/utils";
+import { exists, getGamePaths } from "#/utils/fs";
+import { NodeLogger } from "#/utils/logging";
 
 const log: NodeLogger = new NodeLogger("ROLLBACK_ENGINE");
 
@@ -23,8 +24,8 @@ export async function rollbackEngine(): Promise<void> {
     if (isLinkedEngine) {
       log.info("Perform rollback operation");
 
-      await fsPromises.unlink(bin);
-      await fsPromises.rename(binXrfBackup, bin);
+      await fsp.unlink(bin);
+      await fsp.rename(binXrfBackup, bin);
 
       log.info("Rollback performed");
     } else {

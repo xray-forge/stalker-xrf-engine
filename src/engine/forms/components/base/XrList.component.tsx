@@ -1,6 +1,6 @@
 import { JSXNode, JSXXML } from "jsx-xml";
 
-import { normalizeBaseNodeProps } from "#/utils";
+import { normalizeBaseNodeProps } from "#/utils/xml";
 
 import { fonts, TFontId } from "@/engine/lib/constants/fonts";
 import { IBaseXmlNode } from "@/engine/lib/types";

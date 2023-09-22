@@ -7,8 +7,10 @@ import { blue, blueBright, yellow, yellowBright } from "chalk";
 
 import { default as config } from "#/compress/configs/compress.json";
 import { TARGET_DATABASE_DIR, TARGET_DIR, TARGET_GAME_DATA_DIR, TARGET_LOGS_DIR, XR_COMPRESS_PATH } from "#/globals";
-import { createDirIfNoExisting, NodeLogger, TimeTracker } from "#/utils";
+import { createDirIfNoExisting } from "#/utils/fs/create_dir_if_no_existing";
 import { deleteFileIfExists } from "#/utils/fs/delete_file_if_exists";
+import { NodeLogger } from "#/utils/logging";
+import { TimeTracker } from "#/utils/timing";
 
 const log: NodeLogger = new NodeLogger("COMPRESS");
 

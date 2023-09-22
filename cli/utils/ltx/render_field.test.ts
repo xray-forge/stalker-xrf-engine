@@ -10,7 +10,7 @@ import {
   newIntegersField,
   newStringField,
   newStringsField,
-} from "#/utils";
+} from "#/utils/ltx";
 import { addInfo, checkChance, checkHasInfo, checkNoInfo } from "#/utils/ltx/condlist";
 import { renderField } from "#/utils/ltx/render_field";
 

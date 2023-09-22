@@ -1,21 +1,14 @@
-import * as fsPromises from "fs/promises";
+import * as fsp from "fs/promises";
 import * as path from "path";
 
 import { blue, blueBright } from "chalk";
 
 import { IBuildCommandParameters } from "#/build/build";
 import { GAME_DATA_LTX_CONFIGS_DIR, TARGET_GAME_DATA_CONFIGS_DIR } from "#/globals/paths";
-import {
-  createDirForConfigs,
-  EAssetExtension,
-  ILtxConfigDescriptor,
-  NodeLogger,
-  Optional,
-  readDirContent,
-  renderJsonToLtx,
-  TFolderFiles,
-  TFolderReplicationDescriptor,
-} from "#/utils";
+import { createDirForConfigs, readDirContent } from "#/utils/fs";
+import { NodeLogger } from "#/utils/logging";
+import { ILtxConfigDescriptor, renderJsonToLtx } from "#/utils/ltx";
+import { EAssetExtension, Optional, TFolderFiles, TFolderReplicationDescriptor } from "#/utils/types";
 
 const log: NodeLogger = new NodeLogger("BUILD_CONFIGS_DYNAMIC");
 
@@ -47,7 +40,7 @@ export async function buildDynamicConfigs(parameters: IBuildCommandParameters): 
 
           const filename: string = path.parse(to).base;
 
-          await fsPromises.writeFile(to, renderJsonToLtx(filename, ltxContent));
+          await fsp.writeFile(to, renderJsonToLtx(filename, ltxContent));
           processedXmlConfigs += 1;
         } else {
           log.debug("SKIP, not valid LTX source:", blue(from));

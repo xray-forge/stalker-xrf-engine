@@ -3,10 +3,14 @@ import * as path from "path";
 
 import { blueBright } from "chalk";
 
-import { NodeLogger, Optional, TFolderReplicationDescriptor } from "#/utils";
+import { NodeLogger } from "#/utils/logging";
+import { Optional, TFolderReplicationDescriptor } from "#/utils/types";
 
 /**
  * Sync way for folder creation when needed.
+ *
+ * @param configs - replication configs to create directory
+ * @param log - optional log to print verbose information
  */
 export function createDirForConfigs(
   configs: Array<TFolderReplicationDescriptor>,

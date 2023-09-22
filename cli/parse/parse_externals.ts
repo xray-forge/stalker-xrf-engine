@@ -7,8 +7,11 @@ import { GAME_DATA_SCRIPTS_DIR, TARGET_PARSED_DIR } from "#/globals";
 import { getExternDocs } from "#/parse/utils/get_extern_docs";
 import { renderExternals } from "#/parse/utils/render_externals";
 import { IExternFileDescriptor, IExternFunction } from "#/parse/utils/types";
-import { createDirIfNoExisting, NodeLogger, readDirContent, renderJsxToXmlText, TFolderFiles } from "#/utils";
+import { createDirIfNoExisting, readDirContent } from "#/utils/fs";
 import { getPathParentFolder } from "#/utils/fs/get_path_parent_folder";
+import { NodeLogger } from "#/utils/logging";
+import { TFolderFiles } from "#/utils/types";
+import { renderJsxToXmlText } from "#/utils/xml";
 
 const log: NodeLogger = new NodeLogger("PARSE_DIR_AS_JSON");
 

@@ -13,6 +13,7 @@ export class MockCScriptXmlInit {
 
   public ParseFile = jest.fn();
   public Init3tButton = jest.fn();
+  public InitCheck = jest.fn();
   public InitStatic = jest.fn();
   public InitComboBox = jest.fn();
   public InitFrame = jest.fn();

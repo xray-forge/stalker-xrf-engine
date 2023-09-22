@@ -1,6 +1,6 @@
 import { Fragment, JSXNode, JSXXML } from "jsx-xml";
 
-import { includeXmlFile } from "#/utils";
+import { includeXmlFile } from "#/utils/xml";
 
 import {
   GameCutScenes,

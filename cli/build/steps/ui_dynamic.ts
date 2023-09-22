@@ -5,14 +5,9 @@ import { blue, blueBright } from "chalk";
 
 import { IBuildCommandParameters } from "#/build/build";
 import { GAME_DATA_UI_DIR, TARGET_GAME_DATA_UI_DIR } from "#/globals/paths";
-import {
-  createDirForConfigs,
-  EAssetExtension,
-  NodeLogger,
-  readDirContent,
-  TFolderFiles,
-  TFolderReplicationDescriptor,
-} from "#/utils";
+import { createDirForConfigs, readDirContent } from "#/utils/fs";
+import { NodeLogger } from "#/utils/logging";
+import { EAssetExtension, TFolderFiles, TFolderReplicationDescriptor } from "#/utils/types";
 import { renderJsxToXmlText } from "#/utils/xml";
 
 const log: NodeLogger = new NodeLogger("BUILD_UI_DYNAMIC");
