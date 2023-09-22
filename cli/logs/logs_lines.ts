@@ -4,8 +4,10 @@ import * as path from "path";
 
 import { yellow } from "chalk";
 
-import { getGamePaths, NodeLogger, Optional } from "#/utils";
+import { getGamePaths } from "#/utils/fs";
 import { readLastLinesOfFile } from "#/utils/fs/read_last_lines_of_file";
+import { NodeLogger } from "#/utils/logging";
+import { Optional } from "#/utils/types";
 
 const log: NodeLogger = new NodeLogger("LOGS");
 

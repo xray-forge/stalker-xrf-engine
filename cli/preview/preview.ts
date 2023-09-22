@@ -6,15 +6,11 @@ import { blue, blueBright, yellow } from "chalk";
 
 import { GAME_DATA_UI_DIR, TARGET_PREVIEW_DIR } from "#/globals/paths";
 import { generateHTMLPreviewFromXMLString } from "#/preview/utils/generate_preview";
-import {
-  EAssetExtension,
-  NodeLogger,
-  readDirContent,
-  renderJsxToXmlText,
-  TFolderFiles,
-  TFolderReplicationDescriptor,
-  TimeTracker,
-} from "#/utils";
+import { readDirContent } from "#/utils/fs";
+import { NodeLogger } from "#/utils/logging";
+import { TimeTracker } from "#/utils/timing";
+import { EAssetExtension, TFolderFiles, TFolderReplicationDescriptor } from "#/utils/types";
+import { renderJsxToXmlText } from "#/utils/xml";
 
 const log: NodeLogger = new NodeLogger("PREVIEW");
 const EXPECTED_XML_EXTENSIONS: Array<EAssetExtension> = [EAssetExtension.TSX, EAssetExtension.TS, EAssetExtension.XML];

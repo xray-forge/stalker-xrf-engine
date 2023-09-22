@@ -3,7 +3,7 @@ import * as path from "path";
 import { getAppPath } from "steam-path";
 
 import { default as config } from "#/config.json";
-import { exists } from "#/utils";
+import { exists } from "#/utils/fs/exists";
 
 const GAME_PATHS = {
   root: "",

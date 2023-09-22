@@ -1,6 +1,8 @@
 import { red, yellow } from "chalk";
 
-import { getGamePaths, NodeLogger, openFolderInExplorer } from "#/utils";
+import { getGamePaths } from "#/utils/fs/get_game_paths";
+import { openFolderInExplorer } from "#/utils/fs/open_folder_in_explorer";
+import { NodeLogger } from "#/utils/logging";
 
 const log: NodeLogger = new NodeLogger("OPEN_GAME_FOLDER");
 

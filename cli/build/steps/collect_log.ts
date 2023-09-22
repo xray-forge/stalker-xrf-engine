@@ -5,7 +5,7 @@ import * as path from "path";
 import { blueBright, yellowBright } from "chalk";
 
 import { TARGET_DIR } from "#/globals/paths";
-import { NodeLogger } from "#/utils";
+import { NodeLogger } from "#/utils/logging";
 
 const log: NodeLogger = new NodeLogger("BUILD_COLLECT_LOG");
 

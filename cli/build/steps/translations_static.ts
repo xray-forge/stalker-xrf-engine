@@ -6,7 +6,9 @@ import { blueBright, yellow, yellowBright } from "chalk";
 
 import { default as config } from "#/config.json";
 import { GAME_DATA_TRANSLATIONS_DIR, TARGET_GAME_DATA_TRANSLATIONS_DIR } from "#/globals";
-import { EAssetExtension, NodeLogger, readDirContent, TFolderFiles, TFolderReplicationDescriptor } from "#/utils";
+import { readDirContent } from "#/utils/fs";
+import { NodeLogger } from "#/utils/logging";
+import { EAssetExtension, TFolderFiles, TFolderReplicationDescriptor } from "#/utils/types";
 
 const log: NodeLogger = new NodeLogger("BUILD_TRANSLATIONS_DYNAMIC");
 

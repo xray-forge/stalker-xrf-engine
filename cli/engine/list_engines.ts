@@ -3,7 +3,7 @@ import * as fs from "fs";
 import { yellowBright } from "chalk";
 
 import { OPEN_XRAY_ENGINES_DIR } from "#/globals";
-import { NodeLogger } from "#/utils";
+import { NodeLogger } from "#/utils/logging";
 
 const log: NodeLogger = new NodeLogger("LIST_ENGINES");
 

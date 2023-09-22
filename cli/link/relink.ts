@@ -2,7 +2,7 @@ import { red } from "chalk";
 
 import { linkFolders } from "#/link/link";
 import { unlinkFolders } from "#/link/unlink";
-import { NodeLogger } from "#/utils";
+import { NodeLogger } from "#/utils/logging";
 
 const log: NodeLogger = new NodeLogger("RELINK");
 

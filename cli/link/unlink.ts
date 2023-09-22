@@ -4,7 +4,9 @@ import { red, yellow, yellowBright } from "chalk";
 
 import { PLUS_SIGN, SKIP_SIGN, WARNING_SIGN } from "#/globals";
 import { TARGET_GAME_LINK_DIR, TARGET_LOGS_LINK_DIR } from "#/globals/paths";
-import { getGamePaths, NodeLogger, Optional } from "#/utils";
+import { getGamePaths } from "#/utils/fs";
+import { NodeLogger } from "#/utils/logging";
+import { Optional } from "#/utils/types";
 
 const log: NodeLogger = new NodeLogger("UNLINK");
 

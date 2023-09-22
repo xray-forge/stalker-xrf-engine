@@ -3,7 +3,7 @@ import * as fsp from "fs/promises";
 
 import { describe, expect, it, jest } from "@jest/globals";
 
-import { isDirectory } from "#/utils";
+import { isDirectory } from "#/utils/fs/is_directory";
 
 jest.mock("fs/promises");
 

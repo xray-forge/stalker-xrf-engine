@@ -1,4 +1,4 @@
-import { Optional } from "#/utils";
+import { Optional } from "#/utils/types";
 
 /**
  * Generic primitive type used in LTX configs.

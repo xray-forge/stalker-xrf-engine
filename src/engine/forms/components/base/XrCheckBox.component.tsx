@@ -1,6 +1,6 @@
 import { JSXNode, JSXXML } from "jsx-xml";
 
-import { normalizeBaseNodeProps } from "#/utils";
+import { normalizeBaseNodeProps } from "#/utils/xml";
 
 import { XrText } from "@/engine/forms/components/base/XrText.component";
 import { XrTexture } from "@/engine/forms/components/base/XrTexture.component";

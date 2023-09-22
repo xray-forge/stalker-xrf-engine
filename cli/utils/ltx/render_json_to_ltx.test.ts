@@ -15,7 +15,7 @@ import {
   newStringField,
   newStringsField,
   renderJsonToLtx,
-} from "#/utils";
+} from "#/utils/ltx";
 import { addInfo, callEffect, checkHasInfo, checkNoCondition, checkNoInfo } from "#/utils/ltx/condlist";
 
 const NOW: string = "Sun May 28 2023 19:25:38 GMT+0300 (Eastern European Summer Time)";

@@ -2,7 +2,8 @@ import { exec } from "child_process";
 
 import { green, yellowBright } from "chalk";
 
-import { getGamePaths, NodeLogger } from "#/utils";
+import { getGamePaths } from "#/utils/fs";
+import { NodeLogger } from "#/utils/logging";
 
 const log: NodeLogger = new NodeLogger("START_GAME");
 

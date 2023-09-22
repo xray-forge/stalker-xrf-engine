@@ -2,7 +2,7 @@ import { blueBright, red, yellow, yellowBright } from "chalk";
 import * as tstl from "typescript-to-lua";
 
 import { BUILD_LUA_TSCONFIG } from "#/globals/paths";
-import { NodeLogger } from "#/utils";
+import { NodeLogger } from "#/utils/logging";
 
 const log: NodeLogger = new NodeLogger("BUILD_LUA_SCRIPTS");
 

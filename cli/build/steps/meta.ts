@@ -6,7 +6,10 @@ import * as path from "path";
 import { blueBright, yellow, yellowBright } from "chalk";
 
 import { TARGET_GAME_DATA_DIR, TARGET_GAME_DATA_METADATA_FILE } from "#/globals/paths";
-import { getCommitHash, NodeLogger, readDirContent, TDirectoryFilesTree, TimeTracker } from "#/utils";
+import { readDirContent, TDirectoryFilesTree } from "#/utils/fs";
+import { getCommitHash } from "#/utils/git";
+import { NodeLogger } from "#/utils/logging";
+import { TimeTracker } from "#/utils/timing";
 
 const log: NodeLogger = new NodeLogger("META");
 

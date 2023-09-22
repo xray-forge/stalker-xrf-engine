@@ -8,19 +8,16 @@ import { decode, encodingExists } from "iconv-lite";
 
 import { default as config } from "#/config.json";
 import { TARGET_PARSED_DIR, WINDOWS_1251_LOCALES } from "#/globals";
+import { createDirIfNoExisting, exists, isDirectory, readDirContentFlat } from "#/utils/fs";
+import { NodeLogger } from "#/utils/logging";
 import {
   AnyObject,
-  createDirIfNoExisting,
   EAssetExtension,
   EEncoding,
-  exists,
   IJsonTranslationSchema,
-  isDirectory,
   IXmlTranslationSchema,
-  NodeLogger,
   Optional,
-  readDirContentFlat,
-} from "#/utils";
+} from "#/utils/types";
 
 const log: NodeLogger = new NodeLogger("PARSE_TRANSLATION_AS_JSON");
 

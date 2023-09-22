@@ -1,6 +1,6 @@
 import { Fragment, JSXNode, JSXXML } from "jsx-xml";
 
-import { normalizeBaseNodeProps } from "#/utils";
+import { normalizeBaseNodeProps } from "#/utils/xml";
 
 import { XrStatic } from "@/engine/forms/components/base/XrStatic.component";
 import { XrTabButton } from "@/engine/forms/components/base/XrTabButton.component";

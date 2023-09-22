@@ -7,7 +7,9 @@ import { blueBright, yellowBright } from "chalk";
 import { IBuildCommandParameters } from "#/build/build";
 import { default as config } from "#/config.json";
 import { CLI_DIR, TARGET_GAME_DATA_DIR } from "#/globals/paths";
-import { getDiffs, IDiffs, NodeLogger, normalizeParameterPath, Optional, readFolderGen } from "#/utils";
+import { getDiffs, IDiffs, normalizeParameterPath, readFolderGen } from "#/utils/fs";
+import { NodeLogger } from "#/utils/logging";
+import { Optional } from "#/utils/types";
 
 const log: NodeLogger = new NodeLogger("BUILD_ASSET_STATICS");
 

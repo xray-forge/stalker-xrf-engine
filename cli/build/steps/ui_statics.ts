@@ -1,12 +1,14 @@
 import * as fs from "fs";
-import * as fsPromises from "fs/promises";
+import * as fsp from "fs/promises";
 import * as path from "path";
 
 import { blueBright, yellow, yellowBright } from "chalk";
 
 import { IBuildCommandParameters } from "#/build/build";
 import { GAME_DATA_UI_DIR, TARGET_GAME_DATA_UI_DIR } from "#/globals/paths";
-import { EAssetExtension, NodeLogger, readDirContent, TFolderReplicationDescriptor } from "#/utils";
+import { readDirContent } from "#/utils/fs";
+import { NodeLogger } from "#/utils/logging";
+import { EAssetExtension, TFolderReplicationDescriptor } from "#/utils/types";
 
 const log: NodeLogger = new NodeLogger("BUILD_UI_STATIC");
 
@@ -37,7 +39,7 @@ export async function buildStaticUi(parameters: IBuildCommandParameters): Promis
       xmlConfigs.map(([from, to]) => {
         log.debug("CP:", yellow(to));
 
-        return fsPromises.copyFile(from, to);
+        return fsp.copyFile(from, to);
       })
     );
 

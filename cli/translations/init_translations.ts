@@ -4,15 +4,9 @@ import * as path from "path";
 import { red, yellow } from "chalk";
 
 import { default as config } from "#/config.json";
-import {
-  AnyObject,
-  EAssetExtension,
-  exists,
-  IJsonTranslationSchema,
-  isDirectory,
-  NodeLogger,
-  readDirContentFlat,
-} from "#/utils";
+import { exists, isDirectory, readDirContentFlat } from "#/utils/fs";
+import { NodeLogger } from "#/utils/logging";
+import { AnyObject, EAssetExtension, IJsonTranslationSchema } from "#/utils/types";
 
 const log: NodeLogger = new NodeLogger("INIT_TRANSLATIONS");
 

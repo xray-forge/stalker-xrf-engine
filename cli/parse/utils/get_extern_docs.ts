@@ -28,7 +28,7 @@ import {
 } from "typescript";
 
 import { IExternCallbackParameterDescriptor, IExternFileDescriptor } from "#/parse/utils/types";
-import { Optional } from "#/utils";
+import { Optional } from "#/utils/types";
 
 /**
  * Method name used for externals declaration.
