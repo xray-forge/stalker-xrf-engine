@@ -268,6 +268,7 @@ export function mockClientGameObject({
       }),
     restore_ignore_monster_threshold: rest.restore_max_ignore_monster_distance || jest.fn(),
     restore_max_ignore_monster_distance: rest.restore_max_ignore_monster_distance || jest.fn(),
+    set_tip_text: rest.set_tip_text || jest.fn(),
     sell_condition: rest.sell_condition || jest.fn(),
     script: rest.script || jest.fn(),
     section: section || jest.fn(() => sectionOverride),
