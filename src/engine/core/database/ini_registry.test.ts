@@ -25,7 +25,7 @@ import {
 import { IniFile } from "@/engine/lib/types";
 import { MockIniFile } from "@/fixtures/xray";
 
-describe("'ini_registry' database module", () => {
+describe("ini_registry database module", () => {
   it("should have correct prefix for RAM ini files", () => {
     expect(DYNAMIC_LTX_PREFIX).toBe("*");
   });

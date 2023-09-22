@@ -4,8 +4,8 @@ import { snd_type } from "xray16";
 import { isSoundType, mapSoundMaskToSoundType } from "@/engine/core/utils/sound";
 import { ESoundType } from "@/engine/lib/constants/sound";
 
-describe("'sound' utils", () => {
-  it("'mapSoundMaskToSoundType' should correctly convert mask to enum", () => {
+describe("sound utils", () => {
+  it("mapSoundMaskToSoundType should correctly convert mask to enum", () => {
     expect(mapSoundMaskToSoundType(snd_type.weapon)).toBe(ESoundType.WPN);
     expect(mapSoundMaskToSoundType(snd_type.weapon_shoot)).toBe(ESoundType.WPN_shoot);
     expect(mapSoundMaskToSoundType(snd_type.weapon_empty)).toBe(ESoundType.WPN_empty);
@@ -32,7 +32,7 @@ describe("'sound' utils", () => {
     expect(mapSoundMaskToSoundType(snd_type.hide)).toBe(ESoundType.NIL);
   });
 
-  it("'isSoundType' should correctly check if sound is matching", () => {
+  it("isSoundType should correctly check if sound is matching", () => {
     expect(isSoundType(snd_type.item_drop, snd_type.item_drop)).toBeTruthy();
     expect(isSoundType(snd_type.item_drop, snd_type.item)).toBeTruthy();
     expect(isSoundType(snd_type.item_pick_up, snd_type.item)).toBeTruthy();

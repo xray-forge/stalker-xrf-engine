@@ -12,7 +12,7 @@ import { mockClientGameObject, mockServerAlifeHumanStalker } from "@/fixtures/xr
 import { MockVector } from "@/fixtures/xray/mocks/vector.mock";
 
 describe("object_set utils", () => {
-  it("'setItemCondition' should correctly set condition", () => {
+  it("setItemCondition should correctly set condition", () => {
     const object: ClientObject = mockClientGameObject();
 
     setItemCondition(object, 25);
@@ -25,7 +25,7 @@ describe("object_set utils", () => {
     expect(object.set_condition).toHaveBeenNthCalledWith(3, 0);
   });
 
-  it("'setObjectTeamSquadGroup' should correctly set object group details", () => {
+  it("setObjectTeamSquadGroup should correctly set object group details", () => {
     const firstObject: ClientObject = mockClientGameObject();
     const firstServerObject: ServerHumanObject = mockServerAlifeHumanStalker({ id: firstObject.id() });
 
@@ -50,7 +50,7 @@ describe("object_set utils", () => {
     expect(secondObject.change_team).toHaveBeenCalledWith(443, 444, 445);
   });
 
-  it("'objectLookAtAnotherObject' should correctly look at another object", () => {
+  it("objectLookAtAnotherObject should correctly look at another object", () => {
     const firstObject: ClientObject = mockClientGameObject();
     const secondObject: ClientObject = mockClientGameObject();
 

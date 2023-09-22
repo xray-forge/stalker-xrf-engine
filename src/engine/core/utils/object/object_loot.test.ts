@@ -7,7 +7,7 @@ import { ClientObject, LuaArray } from "@/engine/lib/types";
 import { mockClientGameObject } from "@/fixtures/xray";
 
 describe("object_loot utils", () => {
-  it("'transferLoot' should correctly transfer lootable items", () => {
+  it("transferLoot should correctly transfer lootable items", () => {
     const ak74: ClientObject = mockClientGameObject({ sectionOverride: weapons.wpn_ak74u });
     const akAmmo: ClientObject = mockClientGameObject({ sectionOverride: ammo["ammo_5.45x39_ap"] });
     const questItem: ClientObject = mockClientGameObject({ sectionOverride: "secret_quest_container" });

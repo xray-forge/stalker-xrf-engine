@@ -6,8 +6,8 @@ import { setUiVisibility } from "@/engine/core/utils/ui/ui_ingame";
 import { GameHud } from "@/engine/lib/types";
 import { mockActorClientGameObject } from "@/fixtures/xray";
 
-describe("'ui_ingame' utils", () => {
-  it("'setUiVisibility' should correctly toggle visibility", () => {
+describe("ui_ingame utils", () => {
+  it("setUiVisibility should correctly toggle visibility", () => {
     const hud: GameHud = get_hud();
 
     registerActor(mockActorClientGameObject());

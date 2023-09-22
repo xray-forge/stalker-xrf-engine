@@ -13,7 +13,7 @@ import { registerExtensions } from "@/engine/scripts/register/extensions_registr
 import { registerManagers } from "@/engine/scripts/register/managers_registrator";
 import { registerSchemes } from "@/engine/scripts/register/schemes_registrator";
 
-describe("'start' entry point", () => {
+describe("start entry point", () => {
   const checkBinding = (name: string, container: AnyObject = global) => {
     expect(container["start"]).toBeDefined();
     expect(typeof container["start"]).toBe("object");

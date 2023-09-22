@@ -6,7 +6,7 @@ import { MAX_I32 } from "@/engine/lib/constants/memory";
 import { ClientObject } from "@/engine/lib/types";
 import { mockClientGameObject } from "@/fixtures/xray";
 
-describe("'offline' database module", () => {
+describe("offline database module", () => {
   it("should correctly register offline objects state", () => {
     const object: ClientObject = mockClientGameObject();
 

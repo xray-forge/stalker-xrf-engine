@@ -2,7 +2,7 @@ import { beforeAll, describe, it } from "@jest/globals";
 
 import { checkNestedBinding } from "@/fixtures/engine";
 
-describe("'task_functors' external callbacks", () => {
+describe("task_functors external callbacks", () => {
   const checkTaskBinding = (name: string) => checkNestedBinding("task_functors", name);
 
   beforeAll(() => {

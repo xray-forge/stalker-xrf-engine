@@ -26,12 +26,12 @@ import { WeatherManager } from "@/engine/core/managers/weather";
 import { AnyObject } from "@/engine/lib/types";
 import { registerManagers } from "@/engine/scripts/register/managers_registrator";
 
-describe("'managers_registrator' entry point", () => {
+describe("managers_registrator entry point", () => {
   beforeEach(() => {
     registry.managers = new LuaTable();
   });
 
-  it("'registerSchemeModules' should correctly re-register required managers", () => {
+  it("registerSchemeModules should correctly re-register required managers", () => {
     registerManagers();
 
     expect((registry.managers as AnyObject).size).toBe(25);

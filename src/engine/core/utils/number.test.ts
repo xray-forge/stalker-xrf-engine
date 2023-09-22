@@ -2,8 +2,8 @@ import { describe, expect, it } from "@jest/globals";
 
 import { clampNumber, range, round } from "@/engine/core/utils/number";
 
-describe("'number' utils", () => {
-  it("'clamp' should correctly limit numbers", () => {
+describe("number utils", () => {
+  it("clamp should correctly limit numbers", () => {
     expect(clampNumber(100, 10, 50)).toBe(50);
     expect(clampNumber(50, 10, 50)).toBe(50);
     expect(clampNumber(0, 10, 50)).toBe(10);
@@ -11,7 +11,7 @@ describe("'number' utils", () => {
     expect(clampNumber(25, 10, 50)).toBe(25);
   });
 
-  it("'round' should correctly round value", () => {
+  it("round should correctly round value", () => {
     expect(round(1.5)).toBe(2);
     expect(round(1.1)).toBe(1);
     expect(round(1.155)).toBe(1);
@@ -25,7 +25,7 @@ describe("'number' utils", () => {
     expect(round(-1.1)).toBe(-1);
   });
 
-  it("'range' should correctly generate number ranges", () => {
+  it("range should correctly generate number ranges", () => {
     expect(range(3)).toEqual([0, 1, 2]);
     expect(range(5)).toEqual([0, 1, 2, 3, 4]);
     expect(range(3, 2)).toEqual([2, 3, 4]);

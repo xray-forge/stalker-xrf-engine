@@ -7,7 +7,10 @@ import { communities } from "@/engine/lib/constants/communities";
 import { infoPortions } from "@/engine/lib/constants/info_portions";
 
 /**
- * todo;
+ * Precondition checker to verify if squad can help actor in case of attack by another squad / monsters etc.
+ *
+ * @param squad - target squad to check help state
+ * @returns whether squad can assist actor in fighting
  */
 export function canSquadHelpActor(squad: Squad): boolean {
   if (isEmpty(registry.actorCombat) || !areObjectsOnSameLevel(squad, registry.actorServer)) {

@@ -11,31 +11,29 @@ import {
 } from "@/engine/core/utils/assertion";
 import { mockDebug } from "@/fixtures/lua/mocks/lua_debug.mock";
 
-describe("'debug' utils", () => {
-  it("'abort' should correctly throw exceptions", () => {
+describe("debug utils", () => {
+  it("abort should correctly throw exceptions", () => {
     expect(() => abort("Basic.")).toThrow("Basic.");
     expect(print_stack).toHaveBeenCalledTimes(1);
 
-    expect(() => abort("Basic: '%s'.", "reason")).toThrow("Basic: 'reason'.");
+    expect(() => abort("Basic: %s.", "reason")).toThrow("Basic: reason.");
     expect(print_stack).toHaveBeenCalledTimes(2);
 
-    expect(() => abort("Complex: '%s', '%s', '%s'.", "reason", 1, true)).toThrow("Complex: 'reason', '1', 'true'.");
+    expect(() => abort("Complex: %s, %s, %s.", "reason", 1, true)).toThrow("Complex: reason, 1, true.");
     expect(print_stack).toHaveBeenCalledTimes(3);
   });
 
-  it("'assert' should correctly check and throw exceptions", () => {
+  it("assert should correctly check and throw exceptions", () => {
     expect(() => assert(false, "Basic.")).toThrow("Basic.");
-    expect(() => assert(2 + 2 === 5, "Basic: '%s'.", "reason")).toThrow("Basic: 'reason'.");
-    expect(() => assert(false, "Complex: '%s', '%s', '%s'.", "reason", 1, true)).toThrow(
-      "Complex: 'reason', '1', 'true'."
-    );
+    expect(() => assert(2 + 2 === 5, "Basic: %s.", "reason")).toThrow("Basic: reason.");
+    expect(() => assert(false, "Complex: %s, %s, %s.", "reason", 1, true)).toThrow("Complex: reason, 1, true.");
 
     expect(() => assert(true, "Basic.")).not.toThrow();
-    expect(() => assert(1 === 1, "Basic: '%s'.")).not.toThrow();
-    expect(() => assert("a" === "a", "Complex: '%s', '%s', '%s'.", "reason", 1, true)).not.toThrow();
+    expect(() => assert(1 === 1, "Basic: %s.")).not.toThrow();
+    expect(() => assert("a" === "a", "Complex: %s, %s, %s.", "reason", 1, true)).not.toThrow();
   });
 
-  it("'assertDefined' should correctly check and throw exceptions", () => {
+  it("assertDefined should correctly check and throw exceptions", () => {
     expect(() => assertDefined(null)).toThrow();
     expect(() => assertDefined("abc")).not.toThrow();
     expect(() => assertDefined(123)).not.toThrow();
@@ -44,7 +42,7 @@ describe("'debug' utils", () => {
     expect(() => assertDefined([])).not.toThrow();
   });
 
-  it("'assertBoolean' should correctly check and throw exceptions", () => {
+  it("assertBoolean should correctly check and throw exceptions", () => {
     expect(() => assertBoolean(null)).toThrow();
     expect(() => assertBoolean({})).toThrow();
     expect(() => assertBoolean("abc")).toThrow();
@@ -54,7 +52,7 @@ describe("'debug' utils", () => {
     expect(() => assertDefined(false)).not.toThrow();
   });
 
-  it("'assertNonEmptyString' should correctly check and throw exceptions", () => {
+  it("assertNonEmptyString should correctly check and throw exceptions", () => {
     expect(() => assertNonEmptyString(null)).toThrow();
     expect(() => assertNonEmptyString("")).toThrow();
     expect(() => assertNonEmptyString("a")).not.toThrow();
@@ -63,7 +61,7 @@ describe("'debug' utils", () => {
     expect(() => assertNonEmptyString("abcdefg")).not.toThrow();
   });
 
-  it("'callstack' should correctly print debug stack", () => {
+  it("callstack should correctly print debug stack", () => {
     callstack();
     callstack(6);
     callstack(4);

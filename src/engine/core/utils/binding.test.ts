@@ -2,8 +2,8 @@ import { describe, expect, it } from "@jest/globals";
 
 import { extern, getExtern } from "@/engine/core/utils/binding";
 
-describe("'binding' utils", () => {
-  it("'binding' utils should correctly work in pair with simple examples", () => {
+describe("binding utils", () => {
+  it("binding utils should correctly work in pair with simple examples", () => {
     extern("sample1", 10);
     expect(getExtern("sample1")).toBe(10);
 
@@ -14,7 +14,7 @@ describe("'binding' utils", () => {
     expect(getExtern("sample3")).toStrictEqual({ a: 1, b: 2, c: 3 });
   });
 
-  it("'binding' utils should correctly work in pair with complex examples", () => {
+  it("binding utils should correctly work in pair with complex examples", () => {
     extern("sample4.deep.nested", 10);
     expect(getExtern("nested", getExtern("deep", getExtern("sample4")))).toBe(10);
 

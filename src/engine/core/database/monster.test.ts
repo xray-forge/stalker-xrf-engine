@@ -7,7 +7,7 @@ import { ClientObject } from "@/engine/lib/types";
 import { resetFunctionMock } from "@/fixtures/jest";
 import { mockClientGameObject, mockIniFile } from "@/fixtures/xray";
 
-describe("'monster' database module", () => {
+describe("monster database module", () => {
   it("should correctly read monster state from ini", () => {
     expect(getMonsterState(mockIniFile("test.ltx", { a: { state: EMonsterState.INVISIBLE } }), "a")).toBe(
       EMonsterState.INVISIBLE

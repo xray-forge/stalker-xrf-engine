@@ -3,7 +3,7 @@ import { beforeAll, describe, it } from "@jest/globals";
 import { TName } from "@/engine/lib/types";
 import { checkNestedBinding } from "@/fixtures/engine";
 
-describe("'dialogs_pripyat' external callbacks", () => {
+describe("dialogs_pripyat external callbacks", () => {
   const checkDialogsBinding = (name: TName) => checkNestedBinding("dialogs_pripyat", name);
 
   beforeAll(() => {

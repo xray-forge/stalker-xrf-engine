@@ -10,7 +10,7 @@ import { replaceFunctionMock } from "@/fixtures/jest";
 import { EPacketDataType, mockClientGameObject, mockNetPacket, MockNetProcessor } from "@/fixtures/xray";
 import { MockCTime } from "@/fixtures/xray/mocks/CTime.mock";
 
-describe("'logic' database module", () => {
+describe("logic database module", () => {
   beforeAll(() => {
     replaceFunctionMock(time_global, () => 5_000);
   });

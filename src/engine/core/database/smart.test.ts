@@ -15,7 +15,7 @@ import { ClientObject, ZoneCampfire } from "@/engine/lib/types";
 import { mockSmartTerrain } from "@/fixtures/engine";
 import { mockClientGameObject, MockCZoneCampfire } from "@/fixtures/xray";
 
-describe("'smart' module of the database", () => {
+describe("smart module of the database", () => {
   beforeEach(() => {
     registry.objects = new LuaTable();
   });

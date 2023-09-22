@@ -1,6 +1,7 @@
 import { jest } from "@jest/globals";
 
 import type { Squad } from "@/engine/core/objects/server/squad";
+import type { TConditionList } from "@/engine/core/utils/ini";
 import { communities, TCommunity } from "@/engine/lib/constants/communities";
 import { ServerCreatureObject, ServerGroupObject, ServerSquadMemberDescriptor, TNumberId } from "@/engine/lib/types";
 import { mockClsid } from "@/fixtures/xray/mocks/constants";
@@ -14,6 +15,8 @@ import {
  */
 export class MockAlifeOnlineOfflineGroup extends MockAlifeDynamicObject {
   public members: Array<ServerSquadMemberDescriptor> = [];
+  public invulnerable!: TConditionList;
+  public online: boolean = true;
 
   public clsid(): TNumberId {
     return mockClsid.online_offline_group_s;
@@ -49,7 +52,7 @@ export class MockAlifeOnlineOfflineGroup extends MockAlifeDynamicObject {
 }
 
 /**
- * todo;
+ * Mock alife group server object for testing.
  */
 export function mockServerAlifeOnlineOfflineGroup(base: Partial<ServerGroupObject> = {}): ServerGroupObject {
   const members: Array<ServerSquadMemberDescriptor> = [];
@@ -60,6 +63,7 @@ export function mockServerAlifeOnlineOfflineGroup(base: Partial<ServerGroupObjec
     assignSmartTerrain: jest.fn(),
     update: jest.fn(),
     createSquadMembers: jest.fn(),
+    getCommunity: jest.fn(() => "stalker"),
     squad_members: jest.fn((): Array<ServerSquadMemberDescriptor> => {
       return members;
     }),

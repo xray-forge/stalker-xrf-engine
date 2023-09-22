@@ -2,7 +2,7 @@ import { describe, expect, it } from "@jest/globals";
 
 import { decamelize } from "@/engine/core/utils/transform/decamelize";
 
-describe("'decamelize' util", () => {
+describe("decamelize util", () => {
   it("decamelize", () => {
     expect(decamelize("")).toBe("");
     expect(decamelize("A")).toBe("a");

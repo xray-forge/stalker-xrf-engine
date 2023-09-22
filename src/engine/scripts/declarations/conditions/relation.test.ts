@@ -2,7 +2,7 @@ import { beforeAll, describe, it } from "@jest/globals";
 
 import { checkXrCondition } from "@/fixtures/engine";
 
-describe("'relation' conditions declaration", () => {
+describe("relation conditions declaration", () => {
   beforeAll(() => {
     require("@/engine/scripts/declarations/conditions/relation");
   });

@@ -15,7 +15,7 @@ import { StalkerBinder } from "@/engine/core/objects/binders/creature/StalkerBin
 import { createEmptyVector } from "@/engine/core/utils/vector";
 import { mockClientGameObject } from "@/fixtures/xray";
 
-describe("'stalker' module of the database", () => {
+describe("stalker module of the database", () => {
   it("should correctly register actor", () => {
     const stalker: StalkerBinder = new StalkerBinder(mockClientGameObject());
 

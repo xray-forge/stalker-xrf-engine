@@ -3,8 +3,8 @@ import { describe, expect, it } from "@jest/globals";
 import { getExtern } from "@/engine/core/utils/binding";
 import { registerExternals } from "@/engine/scripts/register/externals_registrator";
 
-describe("'extrnals_registrator' entry point", () => {
-  it("'registerExternals' should correctly register globals and mark as called", () => {
+describe("extrnals_registrator entry point", () => {
+  it("registerExternals should correctly register globals and mark as called", () => {
     expect(getExtern("areExternalsRegistered")).toBeFalsy();
     registerExternals();
 

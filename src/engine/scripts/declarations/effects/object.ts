@@ -627,7 +627,7 @@ extern(
     const storyObject: Optional<ClientObject> = getObjectByStoryId(p[0]);
 
     if (!storyObject) {
-      abort("'force_obj' Target object does ! exist");
+      abort("Effect 'force_obj' target object does not exist.");
     }
 
     if (p[1] === null) {

@@ -4,7 +4,7 @@ import { getExtern } from "@/engine/core/utils/binding";
 import { AnyCallablesModule } from "@/engine/lib/types";
 import { checkXrCondition } from "@/fixtures/engine";
 
-describe("'static' conditions declaration", () => {
+describe("static conditions declaration", () => {
   beforeAll(() => {
     require("@/engine/scripts/declarations/conditions/static");
   });

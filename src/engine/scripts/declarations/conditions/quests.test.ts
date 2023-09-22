@@ -1,7 +1,7 @@
 import { beforeAll, describe, it } from "@jest/globals";
 
 import { checkXrCondition } from "@/fixtures/engine";
-describe("'quests' conditions declaration", () => {
+describe("quests conditions declaration", () => {
   beforeAll(() => {
     require("@/engine/scripts/declarations/conditions/quests");
   });

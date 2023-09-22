@@ -2,7 +2,7 @@ import { describe, it } from "@jest/globals";
 
 import { checkXrCondition } from "@/fixtures/engine";
 
-describe("'world' conditions declaration", () => {
+describe("world conditions declaration", () => {
   it("should correctly inject external methods for game", () => {
     require("@/engine/scripts/declarations/conditions/world");
 

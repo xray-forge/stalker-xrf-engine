@@ -4,7 +4,7 @@ import { haveExtensions, registerExtension } from "@/engine/core/database/extens
 import { registry } from "@/engine/core/database/registry";
 import { IExtensionsDescriptor } from "@/engine/core/utils/extensions";
 
-describe("'extensions' module of the database", () => {
+describe("extensions module of the database", () => {
   beforeEach(() => {
     registry.extensions = new LuaTable();
   });

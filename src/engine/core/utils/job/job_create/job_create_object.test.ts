@@ -5,8 +5,8 @@ import { NIL } from "@/engine/lib/constants/words";
 import { ESchemeType, ServerHumanObject, ServerMonsterBaseObject } from "@/engine/lib/types";
 import { mockServerAlifeHumanStalker, mockServerAlifeMonsterBase } from "@/fixtures/xray";
 
-describe("'job_crete_object' utils", () => {
-  it("'createObjectJobDescriptor' should correctly create descriptor objects for stalkers", () => {
+describe("job_crete_object utils", () => {
+  it("createObjectJobDescriptor should correctly create descriptor objects for stalkers", () => {
     const object: ServerHumanObject = mockServerAlifeHumanStalker();
 
     expect(createObjectJobDescriptor(object)).toEqual({
@@ -21,7 +21,7 @@ describe("'job_crete_object' utils", () => {
     });
   });
 
-  it("'createObjectJobDescriptor' should correctly create descriptor objects for monsters", () => {
+  it("createObjectJobDescriptor should correctly create descriptor objects for monsters", () => {
     const object: ServerMonsterBaseObject = mockServerAlifeMonsterBase();
 
     expect(createObjectJobDescriptor(object)).toEqual({

@@ -14,7 +14,7 @@ import {
 import { addInfo, checkChance, checkHasInfo, checkNoInfo } from "#/utils/ltx/condlist";
 import { renderField } from "#/utils/ltx/render_field";
 
-describe("'render_field' function", () => {
+describe("render_field function", () => {
   const comment: string = "some text";
 
   it("should correctly generate primitive fields", () => {

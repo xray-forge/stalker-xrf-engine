@@ -5,8 +5,8 @@ import { registerGameClasses } from "@/engine/scripts/register/class_registrator
 import { getFunctionMock } from "@/fixtures/jest";
 import { mockObjectFactory } from "@/fixtures/xray/mocks/objects/ObjectFactory.mock";
 
-describe("'class_registrator' entry point", () => {
-  it("'registerGameClasses' should correctly link script and engine classes for all object classes", () => {
+describe("class_registrator entry point", () => {
+  it("registerGameClasses should correctly link script and engine classes for all object classes", () => {
     const [factory, factoryStore] = mockObjectFactory();
 
     registerGameClasses(factory);
@@ -16,7 +16,7 @@ describe("'class_registrator' entry point", () => {
     });
   });
 
-  it("'registerGameClasses' should correctly register links", () => {
+  it("registerGameClasses should correctly register links", () => {
     const [factory] = mockObjectFactory();
 
     jest.spyOn(factory, "register").mockImplementation(() => {});

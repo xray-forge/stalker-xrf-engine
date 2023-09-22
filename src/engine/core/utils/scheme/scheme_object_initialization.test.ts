@@ -12,8 +12,8 @@ import {
 import { ClientObject, EScheme } from "@/engine/lib/types";
 import { mockClientGameObject, mockIniFile } from "@/fixtures/xray";
 
-describe("'scheme_object_initialization' utils", () => {
-  it("'initializeObjectInvulnerability' should correctly initialize", () => {
+describe("scheme_object_initialization utils", () => {
+  it("initializeObjectInvulnerability should correctly initialize", () => {
     const object: ClientObject = mockClientGameObject();
     const state: IRegistryObjectState = registerObject(object);
 
@@ -38,7 +38,7 @@ describe("'scheme_object_initialization' utils", () => {
     expect(object.invulnerable).toHaveBeenNthCalledWith(4, false);
   });
 
-  it("'initializeObjectCanSelectWeaponState' should correctly initialize", () => {
+  it("initializeObjectCanSelectWeaponState should correctly initialize", () => {
     const object: ClientObject = mockClientGameObject();
     const state: IRegistryObjectState = registerObject(object);
 
@@ -74,7 +74,7 @@ describe("'scheme_object_initialization' utils", () => {
     expect(object.can_select_weapon).toHaveBeenNthCalledWith(3, false);
   });
 
-  it("'initializeObjectTakeItemsEnabledState' should correctly initialize", () => {
+  it("initializeObjectTakeItemsEnabledState should correctly initialize", () => {
     const object: ClientObject = mockClientGameObject();
     const state: IRegistryObjectState = registerObject(object);
 
@@ -110,7 +110,7 @@ describe("'scheme_object_initialization' utils", () => {
     expect(object.take_items_enabled).toHaveBeenNthCalledWith(3, false);
   });
 
-  it("'initializeObjectGroup' should correctly initialize", () => {
+  it("initializeObjectGroup should correctly initialize", () => {
     const object: ClientObject = mockClientGameObject();
 
     initializeObjectGroup(object, mockIniFile("example.ltx", {}), "not-existing");
@@ -128,7 +128,7 @@ describe("'scheme_object_initialization' utils", () => {
     expect(object.change_team).toHaveBeenCalledWith(140, 150, 10);
   });
 
-  it("'initializeObjectInfo' should correctly initialize", () => {
+  it("initializeObjectInfo should correctly initialize", () => {
     const object: ClientObject = mockClientGameObject();
 
     initializeObjectInfo(object, mockIniFile("example.ltx", {}), "not-existing");
@@ -154,7 +154,7 @@ describe("'scheme_object_initialization' utils", () => {
     expect(object.disable_info_portion).toHaveBeenNthCalledWith(2, "d");
   });
 
-  it("'initializeObjectIgnoreThreshold' should correctly initialize", () => {
+  it("initializeObjectIgnoreThreshold should correctly initialize", () => {
     const object: ClientObject = mockClientGameObject();
     const state: IRegistryObjectState = registerObject(object);
 
