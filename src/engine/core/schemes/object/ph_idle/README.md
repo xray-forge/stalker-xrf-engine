@@ -1,6 +1,7 @@
 ## ph_idle
 
-description
+Scheme to add idle logics for physical objects. <br/>
+Allows handling `use` or `hit` events.
 
 ## Documentation
 
