@@ -108,7 +108,7 @@ describe("relation/get utils", () => {
 
   it("getSquadCommunityRelationToActor should correctly get realation of squad community", () => {
     expect(() => getSquadCommunityRelationToActor("not-existing")).toThrow(
-      "Squad with story id not-existing was not found."
+      "Squad with story id 'not-existing' was not found."
     );
 
     registerActorServer(mockServerAlifeCreatureActor({ community: <T>() => communities.actor as T }));
@@ -145,7 +145,7 @@ describe("relation/get utils", () => {
 
     registerActorServer(mockServerAlifeCreatureActor());
 
-    expect(() => getSquadRelationToActorById(10002000)).toThrow("Squad with id 10002000 is not found.");
+    expect(() => getSquadRelationToActorById(10002000)).toThrow("Squad with id '10002000' is not found.");
     expect(getSquadRelationToActorById(emptyMonolithSquad.id)).toBe(ERelation.ENEMY);
     expect(getSquadRelationToActorById(emptyArmySquad.id)).toBe(ERelation.FRIEND);
     expect(getSquadRelationToActorById(friendlySquad.id)).toBe(ERelation.FRIEND);
