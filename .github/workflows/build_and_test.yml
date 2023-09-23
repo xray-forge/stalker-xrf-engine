@@ -52,6 +52,32 @@ jobs:
           path: /tmp/jest_rt
           key: ${{ steps.cache-jest-restore.outputs.cache-primary-key }}
 
+      - run: mv target/coverage_report/coverage-final.json target/coverage_report/${{matrix.shard}}.json
+
+      - uses: actions/upload-artifact@v3
+        with:
+          name: coverage-artifacts
+          path: target/coverage_report/${{matrix.shard}}.json
+
+  report-coverage:
+    runs-on: ubuntu-latest
+    needs: [test]
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/download-artifact@v3
+        with:
+          name: coverage-artifacts
+          path: target/coverage_report
+
+      - name: Merge code coverage
+        run: npx nyc merge target/coverage_report/ target/coverage-report/coverage-final.json
+
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v3
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+          files: ./target/coverage_report/coverage-final.json
+
   check:
     runs-on: ubuntu-latest
 

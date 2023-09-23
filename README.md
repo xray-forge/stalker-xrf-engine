@@ -6,6 +6,7 @@
 [![license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)](https://github.com/Neloreck/dreamstate/blob/master/LICENSE)
 <br/>
 ![status](https://github.com/xray-forge/stalker-xrf-engine/actions/workflows/build_and_test.yml/badge.svg)
+[![codecov](https://codecov.io/gh/xray-forge/stalker-xrf-engine/graph/badge.svg?token=4D1ZLNG8YJ)](https://codecov.io/gh/xray-forge/stalker-xrf-engine)
 
 <p>
 Fully rewritten stalker script engine with typescript. <br/>

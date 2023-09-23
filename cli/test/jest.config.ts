@@ -23,7 +23,7 @@ module.exports = {
   roots: ["<rootDir>"],
   collectCoverage: true,
   coverageReporters: ["json", "html"],
-  coverageDirectory: "<rootDir>/target/test/coverage",
+  coverageDirectory: "<rootDir>/target/coverage_report",
   coveragePathIgnorePatterns: ["/node_modules/"],
   moduleNameMapper: {
     "^#/(.*)": "<rootDir>/cli/$1",
