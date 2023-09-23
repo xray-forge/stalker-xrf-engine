@@ -96,7 +96,7 @@ extern("xr_effects.anim_obj_stop", (actor: ClientObject, object: ClientObject, p
  */
 extern(
   "xr_effects.hit_obj",
-  (actor: ClientObject, object: ClientObject, params: [string, string, number, number, string, string]) => {
+  (actor: ClientObject, object: ClientObject, params: [string, string, number, number, string, string]): void => {
     const h: hit = new hit();
     const storyObject: Optional<ClientObject> = getObjectByStoryId(params[0]);
 
@@ -179,7 +179,7 @@ extern("xr_effects.sniper_fire_mode", (actor: ClientObject, object: ClientObject
 /**
  * todo;
  */
-extern("xr_effects.kill_npc", (actor: ClientObject, object: Optional<ClientObject>, p: [Optional<TStringId>]) => {
+extern("xr_effects.kill_npc", (actor: ClientObject, object: Optional<ClientObject>, p: [Optional<TStringId>]): void => {
   if (p && p[0]) {
     object = getObjectByStoryId(p[0]);
   }
@@ -192,7 +192,7 @@ extern("xr_effects.kill_npc", (actor: ClientObject, object: Optional<ClientObjec
 /**
  * todo;
  */
-extern("xr_effects.remove_npc", (actor: ClientObject, object: ClientObject, p: [Optional<TStringId>]) => {
+extern("xr_effects.remove_npc", (actor: ClientObject, object: ClientObject, p: [Optional<TStringId>]): void => {
   let objectId: Optional<TNumberId> = null;
 
   if (p && p[0]) {
@@ -207,7 +207,7 @@ extern("xr_effects.remove_npc", (actor: ClientObject, object: ClientObject, p: [
 /**
  * Clear abuse for provided object.
  */
-extern("xr_effects.clear_abuse", (actor: ClientObject, object: ClientObject) => {
+extern("xr_effects.clear_abuse", (actor: ClientObject, object: ClientObject): void => {
   clearObjectAbuse(object);
 });
 
@@ -456,7 +456,7 @@ extern("xr_effects.kill_squad", (actor: ClientObject, obj: ClientObject, p: [Opt
 /**
  * todo;
  */
-extern("xr_effects.heal_squad", (actor: ClientObject, obj: ClientObject, params: [TStringId, number]) => {
+extern("xr_effects.heal_squad", (actor: ClientObject, obj: ClientObject, params: [TStringId, number]): void => {
   const storyId: Optional<TStringId> = params[0];
   let healthMod: TRate = 1;
 
@@ -486,7 +486,7 @@ extern("xr_effects.heal_squad", (actor: ClientObject, obj: ClientObject, params:
 /**
  * todo;
  */
-extern("xr_effects.clear_smart_terrain", (actor: ClientObject, object: ClientObject, p: [string, string]) => {
+extern("xr_effects.clear_smart_terrain", (actor: ClientObject, object: ClientObject, p: [string, string]): void => {
   logger.info("Clear smart terrain");
 
   const smartTerrainname: TName = p[0];
@@ -621,7 +621,7 @@ extern("xr_effects.restore_health", (actor: ClientObject, object: ClientObject):
  */
 extern(
   "xr_effects.force_obj",
-  (actor: ClientObject, object: ClientObject, p: [string, Optional<number>, Optional<number>]) => {
+  (actor: ClientObject, object: ClientObject, p: [string, Optional<number>, Optional<number>]): void => {
     logger.info("Force object");
 
     const storyObject: Optional<ClientObject> = getObjectByStoryId(p[0]);
@@ -699,7 +699,7 @@ extern("xr_effects.disable_memory_object", (actor: ClientObject, object: ClientO
 /**
  * todo;
  */
-extern("xr_effects.set_force_sleep_animation", (actor: ClientObject, object: ClientObject, p: [number]) => {
+extern("xr_effects.set_force_sleep_animation", (actor: ClientObject, object: ClientObject, p: [number]): void => {
   object.force_stand_sleep_animation(tonumber(p[0])!);
 });
 
@@ -722,7 +722,7 @@ extern("xr_effects.set_visual_memory_enabled", (actor: ClientObject, object: Cli
 /**
  * todo;
  */
-extern("xr_effects.set_monster_animation", (actor: ClientObject, object: ClientObject, p: [string]) => {
+extern("xr_effects.set_monster_animation", (actor: ClientObject, object: ClientObject, p: [string]): void => {
   if (!(p && p[0])) {
     abort("Wrong parameters in function 'set_monster_animation'!!!");
   }
@@ -826,7 +826,7 @@ extern("xr_effects.set_bloodsucker_state", (actor: ClientObject, object: ClientO
 /**
  * todo;
  */
-extern("xr_effects.clear_box", (actor: ClientObject, object: ClientObject, p: [string]) => {
+extern("xr_effects.clear_box", (actor: ClientObject, object: ClientObject, p: [string]): void => {
   logger.info("Clear box");
 
   if ((p && p[0]) === null) {
@@ -839,7 +839,7 @@ extern("xr_effects.clear_box", (actor: ClientObject, object: ClientObject, p: [s
 
   const itemsList: LuaArray<ClientObject> = new LuaTable();
 
-  inventoryBox.iterate_inventory_box((box: ClientObject, item: ClientObject) => {
+  inventoryBox.iterate_inventory_box((box: ClientObject, item: ClientObject): void => {
     table.insert(itemsList, item);
   }, inventoryBox);
 
@@ -851,7 +851,7 @@ extern("xr_effects.clear_box", (actor: ClientObject, object: ClientObject, p: [s
 /**
  * todo;
  */
-extern("xr_effects.polter_actor_ignore", (actor: ClientObject, object: ClientObject, [ignore]: [string]) => {
+extern("xr_effects.polter_actor_ignore", (actor: ClientObject, object: ClientObject, [ignore]: [string]): void => {
   if (ignore === TRUE) {
     object.poltergeist_set_actor_ignore(true);
   } else if (ignore === FALSE) {

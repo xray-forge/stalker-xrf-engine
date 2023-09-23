@@ -8,46 +8,44 @@ import { createGameAutoSave } from "@/engine/core/utils/game/game_save";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { consoleCommands } from "@/engine/lib/constants/console_commands";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
-import { ClientObject, GameHud, LuaArray, Optional, TLabel, TName } from "@/engine/lib/types";
+import { ClientObject, GameHud, LuaArray, Optional, TCount, TLabel, TName } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Increment counter in pstore.
  */
-extern("xr_effects.inc_counter", (actor: ClientObject, object: ClientObject, p: [Optional<string>, number]) => {
-  if (p[0]) {
-    const incValue: number = p[1] || 1;
-    const newValue: number = getPortableStoreValue(ACTOR_ID, p[0], 0) + incValue;
-
-    setPortableStoreValue(ACTOR_ID, p[0], newValue);
+extern(
+  "xr_effects.inc_counter",
+  (actor: ClientObject, object: ClientObject, [name, count]: [Optional<TName>, TCount]): void => {
+    if (name) {
+      setPortableStoreValue(ACTOR_ID, name, getPortableStoreValue(ACTOR_ID, name, 0) + (count ?? 1));
+    }
   }
-});
+);
 
 /**
  * todo;
  */
-extern("xr_effects.dec_counter", (actor: ClientObject, object: ClientObject, p: [Optional<string>, number]) => {
-  if (p[0]) {
-    const decValue: number = p[1] || 1;
-    let newValue: number = getPortableStoreValue(ACTOR_ID, p[0], 0) - decValue;
+extern(
+  "xr_effects.dec_counter",
+  (actor: ClientObject, object: ClientObject, [name, count]: [Optional<TName>, TCount]): void => {
+    if (name) {
+      const newValue: TCount = getPortableStoreValue(ACTOR_ID, name, 0) - (count ?? 1);
 
-    if (newValue < 0) {
-      newValue = 0;
+      setPortableStoreValue(ACTOR_ID, name, newValue < 0 ? 0 : newValue);
     }
-
-    setPortableStoreValue(ACTOR_ID, p[0], newValue);
   }
-});
+);
 
 /**
  * todo;
  */
 extern(
   "xr_effects.set_counter",
-  (actor: ClientObject, object: ClientObject, params: [Optional<string>, Optional<number>]): void => {
-    if (params[0]) {
-      setPortableStoreValue(ACTOR_ID, params[0], params[1] || 0);
+  (actor: ClientObject, object: ClientObject, [name, count]: [Optional<TName>, TCount]): void => {
+    if (name) {
+      setPortableStoreValue(ACTOR_ID, name, count ?? 0);
     }
   }
 );
@@ -102,14 +100,14 @@ extern("xr_effects.before_credits", (): void => {
 /**
  * todo;
  */
-extern("xr_effects.on_tutor_gameover_stop", () => {
+extern("xr_effects.on_tutor_gameover_stop", (): void => {
   executeConsoleCommand(consoleCommands.main_menu, "on");
 });
 
 /**
  * todo; extern
  */
-extern("xr_effects.on_tutor_gameover_quickload", () => {
+extern("xr_effects.on_tutor_gameover_quickload", (): void => {
   executeConsoleCommand(consoleCommands.load_last_save);
 });
 
@@ -131,7 +129,7 @@ extern("xr_effects.scenario_autosave", (actor: ClientObject, object: ClientObjec
 /**
  * todo;
  */
-extern("xr_effects.mech_discount", (actor: ClientObject, object: ClientObject, p: [string]) => {
+extern("xr_effects.mech_discount", (actor: ClientObject, object: ClientObject, p: [string]): void => {
   if (p[0]) {
     ItemUpgradesManager.getInstance().setCurrentPriceDiscount(tonumber(p[0])!);
   }
@@ -152,7 +150,7 @@ extern(
 /**
  * todo;
  */
-extern("xr_effects.add_cs_text", (actor: ClientObject, object: ClientObject, [label]: [Optional<TLabel>]) => {
+extern("xr_effects.add_cs_text", (actor: ClientObject, object: ClientObject, [label]: [Optional<TLabel>]): void => {
   if (label) {
     const hud: GameHud = get_hud();
     let customText: Optional<StaticDrawableWrapper> = hud.GetCustomStatic("text_on_screen_center");
@@ -170,7 +168,7 @@ extern("xr_effects.add_cs_text", (actor: ClientObject, object: ClientObject, [la
 /**
  * Delete custom text on screen center.
  */
-extern("xr_effects.del_cs_text", () => {
+extern("xr_effects.del_cs_text", (): void => {
   const gameHud: GameHud = get_hud();
   const csText: Optional<StaticDrawableWrapper> = gameHud.GetCustomStatic("text_on_screen_center");
 
