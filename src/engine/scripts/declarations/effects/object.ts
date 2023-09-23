@@ -4,6 +4,7 @@ import {
   getObjectByStoryId,
   getObjectIdByStoryId,
   getServerObjectByStoryId,
+  getStoryIdByObjectId,
   IBaseSchemeState,
   IRegistryObjectState,
   registry,
@@ -486,32 +487,40 @@ extern("xr_effects.heal_squad", (actor: ClientObject, obj: ClientObject, params:
 /**
  * todo;
  */
-extern("xr_effects.clear_smart_terrain", (actor: ClientObject, object: ClientObject, p: [string, string]): void => {
-  logger.info("Clear smart terrain");
+extern(
+  "xr_effects.clear_smart_terrain",
+  (
+    actor: ClientObject,
+    object: ClientObject,
+    [smartTerrainName, clearStory]: [Optional<TName>, Optional<"false">]
+  ): void => {
+    logger.format("Clear smart terrain: '%s', '%s'", smartTerrainName, clearStory);
 
-  const smartTerrainname: TName = p[0];
+    if (smartTerrainName === null) {
+      abort("Wrong squad id [NIL] in clear_smart_terrain function");
+    }
 
-  if (smartTerrainname === null) {
-    abort("Wrong squad identificator [NIL] in clear_smart_terrain function");
-  }
+    const simulationBoardManager: SimulationBoardManager = SimulationBoardManager.getInstance();
+    const smartTerrain: SmartTerrain = simulationBoardManager.getSmartTerrainByName(smartTerrainName) as SmartTerrain;
+    const smartTerrainId: TNumberId = smartTerrain.id;
 
-  const simulationBoardManager: SimulationBoardManager = SimulationBoardManager.getInstance();
-  const smartTerrain: SmartTerrain = simulationBoardManager.getSmartTerrainByName(smartTerrainname) as SmartTerrain;
-  const smartTerrainId: TNumberId = smartTerrain.id;
+    for (const [, squad] of simulationBoardManager.getSmartTerrainDescriptor(smartTerrainId)!.assignedSquads) {
+      if (clearStory === FALSE) {
+        if (!getStoryIdByObjectId(squad.id)) {
+          logger.format("Remove smart terrain squads on effect: '%s', '%s', '%s'", smartTerrainName, squad.name());
 
-  for (const [k, squad] of simulationBoardManager.getSmartTerrainDescriptor(smartTerrainId)!.assignedSquads) {
-    if (p[1] && p[1] === FALSE) {
-      // todo: Probably unreachable condition / cast
-      if (!getObjectIdByStoryId(squad.id as unknown as string)) {
+          simulationBoardManager.exitSmartTerrain(squad, smartTerrainId);
+          simulationBoardManager.releaseSquad(squad);
+        }
+      } else {
+        logger.format("Remove smart terrain squads on effect: '%s', '%s', '%s'", smartTerrainName, squad.name());
+
         simulationBoardManager.exitSmartTerrain(squad, smartTerrainId);
         simulationBoardManager.releaseSquad(squad);
       }
-    } else {
-      simulationBoardManager.exitSmartTerrain(squad, smartTerrainId);
-      simulationBoardManager.releaseSquad(squad);
     }
   }
-});
+);
 
 /**
  * todo;

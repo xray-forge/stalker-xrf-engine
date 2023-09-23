@@ -80,9 +80,11 @@ export class ActorInputManager extends AbstractManager {
   /**
    * Disable game input for delta duration.
    */
-  public setInactiveInputTime(delta: TDuration): void {
+  public setInactiveInputTime(duration: TDuration): void {
+    logger.format("Deactivate actor input: '%s'", duration);
+
     this.disableInputAt = game.get_game_time();
-    this.disableInputDuration = delta;
+    this.disableInputDuration = duration;
 
     level.disable_input();
   }
@@ -91,6 +93,8 @@ export class ActorInputManager extends AbstractManager {
    * todo;
    */
   public disableActorNightVision(): void {
+    logger.info("Disable actor night vision");
+
     const nightVision: Optional<ClientObject> = registry.actor.object(misc.device_torch);
 
     if (nightVision !== null && nightVision.night_vision_enabled()) {
@@ -103,6 +107,8 @@ export class ActorInputManager extends AbstractManager {
    * todo;
    */
   public enableActorNightVision(): void {
+    logger.info("Enable actor night vision");
+
     const nightVision: Optional<ClientObject> = registry.actor.object(misc.device_torch);
 
     if (nightVision !== null && !nightVision.night_vision_enabled() && !this.isActorNightVisionEnabled) {
@@ -115,6 +121,8 @@ export class ActorInputManager extends AbstractManager {
    * todo;
    */
   public disableActorTorch(): void {
+    logger.info("Disable actor torch");
+
     const torch: Optional<ClientObject> = registry.actor.object(misc.device_torch);
 
     if (torch !== null && torch.torch_enabled()) {
@@ -127,6 +135,8 @@ export class ActorInputManager extends AbstractManager {
    * todo;
    */
   public enableActorTorch(): void {
+    logger.info("Enable actor torch");
+
     const torch: Optional<ClientObject> = registry.actor.object(misc.device_torch);
 
     if (torch !== null && !torch.torch_enabled() && !this.isActorTorchEnabled) {
@@ -235,6 +245,7 @@ export class ActorInputManager extends AbstractManager {
       this.disableInputAt !== null &&
       game.get_game_time().diffSec(this.disableInputAt) >= (this.disableInputDuration as number)
     ) {
+      logger.info("Enabling actor game input");
       level.enable_input();
       this.disableInputAt = null;
     }
@@ -272,7 +283,7 @@ export class ActorInputManager extends AbstractManager {
    * Handle first update from actor input perspective.
    */
   public onFirstUpdate(delta: TDuration): void {
-    // logger.info("Apply active item slot:", this.activeItemSlot);
+    logger.info("Apply active item slot:", this.activeItemSlot);
     registry.actor.activate_slot(this.activeItemSlot);
   }
 

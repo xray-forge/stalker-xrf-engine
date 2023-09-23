@@ -201,8 +201,9 @@ export class AnimpointManager extends AbstractSchemeManager<ISchemeAnimpointStat
       return false;
     }
 
+    const direction: Vector = object.direction();
     const v1: TRate = -math.deg(math.atan2(this.smartCoverDirection!.x, this.smartCoverDirection!.z));
-    const v2: TRate = -math.deg(math.atan2(object.direction().x, object.direction().z));
+    const v2: TRate = -math.deg(math.atan2(direction.x, direction.z));
     const rotY: TRate = math.min(math.abs(v1 - v2), 360 - math.abs(v1) - math.abs(v2));
 
     const isDistanceReached: boolean =

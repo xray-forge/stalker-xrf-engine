@@ -125,7 +125,7 @@ export class StalkerBinder extends object_binder {
     const objectId: TNumberId = this.object.id();
     const actor: ClientObject = registry.actor;
 
-    logger.info("Net spawn:", object.name());
+    logger.info("Go online:", object.name());
 
     registerStalker(this);
 
@@ -201,7 +201,7 @@ export class StalkerBinder extends object_binder {
   }
 
   public override net_destroy(): void {
-    logger.info("Stalker net destroy:", this.object.name());
+    logger.info("Go offline:", this.object.name());
 
     const objectId: TNumberId = this.object.id();
 

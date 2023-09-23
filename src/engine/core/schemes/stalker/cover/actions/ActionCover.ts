@@ -6,7 +6,8 @@ import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundMan
 import { EStalkerState } from "@/engine/core/objects/animation/types";
 import { ISchemeCoverState } from "@/engine/core/schemes/stalker/cover";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/ini_config";
-import { areSameVectors, createEmptyVector, createVector, subVectors } from "@/engine/core/utils/vector";
+import { areSameVectors, createVector, subVectors } from "@/engine/core/utils/vector";
+import { ZERO_VECTOR } from "@/engine/lib/constants/vectors";
 import {
   CoverPoint,
   EClientObjectPath,
@@ -102,13 +103,12 @@ export class ActionCover extends action_base implements ISchemeEventHandler {
     }
 
     if (!this.object.accessible(this.coverPosition)) {
-      this.coverVertexId = this.object.accessible_nearest(this.coverPosition, createEmptyVector());
-      this.coverPosition = level.vertex_position(this.coverVertexId);
+      [this.coverVertexId, this.coverPosition] = this.object.accessible_nearest(this.coverPosition, ZERO_VECTOR);
     }
 
     const desiredDirection: Vector = subVectors(this.coverPosition, this.enemyRandomPosition);
 
-    if (desiredDirection !== null && !areSameVectors(desiredDirection, createEmptyVector())) {
+    if (desiredDirection !== null && !areSameVectors(desiredDirection, ZERO_VECTOR)) {
       desiredDirection.normalize();
       this.object.set_desired_direction(desiredDirection);
     }

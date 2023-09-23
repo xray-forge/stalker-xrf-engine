@@ -26,11 +26,11 @@ export abstract class AbstractSchemeManager<T extends IBaseSchemeState> implemen
   }
 
   public onSwitchOnline(object: ClientObject): void {
-    logger.info("Net spawn:", this.state?.scheme, object.name());
+    // logger.info("Net spawn:", this.state?.scheme, object.name());
   }
 
   public onSwitchOffline(object: ClientObject): void {
-    logger.info("Net destroy:", this.state?.scheme, object.name());
+    // logger.info("Net destroy:", this.state?.scheme, object.name());
   }
 
   public onHit(

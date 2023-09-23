@@ -160,7 +160,7 @@ export class ActionReachTaskLocation extends action_base implements ISchemeEvent
       this.object.set_path_type(EClientObjectPath.LEVEL_PATH);
 
       if (!this.object.accessible(position)) {
-        lvi = this.object.accessible_nearest(position, createEmptyVector());
+        [lvi] = this.object.accessible_nearest(position, createEmptyVector());
         position = level.vertex_position(lvi);
       }
 
