@@ -96,8 +96,8 @@ export class StalkerStateManager {
     assert(states.get(state), "Invalid set state called: '%s' fo '%s'.", state, this.object.name());
 
     if (target) {
-      this.lookPosition = target.lookPosition;
-      this.lookObjectId = target.lookObjectId;
+      this.lookPosition = target.lookPosition ?? null;
+      this.lookObjectId = target.lookObjectId ?? null;
     } else {
       this.lookPosition = null;
       this.lookObjectId = null;

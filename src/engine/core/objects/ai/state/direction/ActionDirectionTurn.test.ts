@@ -1,6 +1,7 @@
 import { describe, expect, it } from "@jest/globals";
 import { CSightParams, property_storage } from "xray16";
 
+import { registerObject } from "@/engine/core/database";
 import { registry } from "@/engine/core/database/registry";
 import { registerStalker, setStalkerState, unregisterStalker } from "@/engine/core/database/stalker";
 import { ActionDirectionTurn } from "@/engine/core/objects/ai/state/direction/ActionDirectionTurn";
@@ -24,9 +25,10 @@ describe("ActionDirectionTurn class", () => {
     const action: ActionDirectionTurn = new ActionDirectionTurn(manager);
     const lookObject: ClientObject = mockClientGameObject();
 
+    registerObject(lookObject);
+
     setStalkerState(stalker.object, EStalkerState.IDLE, null, null, {
       lookObjectId: lookObject.id(),
-      lookPosition: null,
     });
 
     action.setup(stalker.object, new property_storage());

@@ -227,8 +227,8 @@ export interface IStateDescriptor {
  * Descriptor of loop position for state animation.
  */
 export interface ILookTargetDescriptor {
-  lookObjectId: Optional<TNumberId>;
-  lookPosition: Optional<Vector>;
+  lookObjectId?: Optional<TNumberId>;
+  lookPosition?: Optional<Vector>;
 }
 
 /**
