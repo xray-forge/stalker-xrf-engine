@@ -105,3 +105,21 @@ export type TWeapons = typeof weapons;
  * Type definition of single weapon section.
  */
 export type TWeapon = TWeapons[keyof TWeapons];
+
+/**
+ * Set of nimble weapons.
+ */
+export const nimbleWeapons: LuaTable<TWeapon, boolean> = $fromObject({
+  wpn_desert_eagle_nimble: true,
+  wpn_fn2000_nimble: true,
+  wpn_g36_nimble: true,
+  wpn_groza_nimble: true,
+  wpn_mp5_nimble: true,
+  wpn_protecta_nimble: true,
+  wpn_sig220_nimble: true,
+  wpn_spas12_nimble: true,
+  wpn_svd_nimble: true,
+  wpn_svu_nimble: true,
+  wpn_usp_nimble: true,
+  wpn_vintorez_nimble: true,
+} as Record<TWeapon, boolean>);

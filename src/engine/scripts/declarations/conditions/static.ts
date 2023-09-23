@@ -1,11 +1,11 @@
 import { extern } from "@/engine/core/utils/binding";
 
 /**
- * todo;
+ * Always returns `true`.
  */
-extern("xr_conditions.always", () => true);
+extern("xr_conditions.always", (): boolean => true);
 
 /**
- * todo;
+ * Always returns `false`.
  */
-extern("xr_conditions.never", () => false);
+extern("xr_conditions.never", (): boolean => false);
