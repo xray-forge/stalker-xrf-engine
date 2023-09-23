@@ -22,6 +22,7 @@ describe("scheme logic utils", () => {
       update: jest.fn(),
       onDeath: jest.fn(),
       onCutscene: jest.fn(),
+      onCombat: jest.fn(),
       onExtrapolate: jest.fn(),
       onSwitchOnline: jest.fn(),
       onSwitchOffline: jest.fn(),
@@ -48,6 +49,9 @@ describe("scheme logic utils", () => {
 
     emitSchemeEvent(object, schemeState, ESchemeEvent.CUTSCENE);
     expect(mockAction.onCutscene).toHaveBeenCalledTimes(1);
+
+    emitSchemeEvent(object, schemeState, ESchemeEvent.COMBAT);
+    expect(mockAction.onCombat).toHaveBeenCalledTimes(1);
 
     emitSchemeEvent(object, schemeState, ESchemeEvent.EXTRAPOLATE);
     expect(mockAction.onExtrapolate).toHaveBeenCalledTimes(1);

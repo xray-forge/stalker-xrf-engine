@@ -58,4 +58,8 @@ export abstract class AbstractSchemeManager<T extends IBaseSchemeState> implemen
   public onCutscene(): void {
     logger.info("Cutscene:", this.state?.scheme, this.object.name());
   }
+
+  public onCombat(): void {
+    logger.info("On combat:", this.state?.scheme, this.object.name());
+  }
 }

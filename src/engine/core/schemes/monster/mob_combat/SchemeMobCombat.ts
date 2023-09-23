@@ -9,15 +9,13 @@ import { ClientObject, EScheme, ESchemeType, IniFile, Optional, TSection } from 
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo
+ * Scheme linking monster logics and monster combat.
  */
 export class SchemeMobCombat extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.MOB_COMBAT;
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.MONSTER;
 
   public static override activate(object: ClientObject, ini: IniFile, scheme: EScheme, section: TSection): void {
-    logger.info("Activate:", object.name());
-
     const state: ISchemeMobCombatState = AbstractScheme.assign(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section);
@@ -31,11 +29,11 @@ export class SchemeMobCombat extends AbstractScheme {
     section: TSection,
     state: ISchemeMobCombatState
   ): void {
-    const newAction: MobCombatManager = new MobCombatManager(object, state);
+    const manager: MobCombatManager = new MobCombatManager(object, state);
 
-    state.action = newAction;
+    state.action = manager;
 
-    SchemeMobCombat.subscribe(object, state, newAction);
+    SchemeMobCombat.subscribe(object, state, manager);
   }
 
   public static override disable(object: ClientObject, scheme: EScheme): void {

@@ -2,7 +2,7 @@ import type { IBaseSchemeState } from "@/engine/core/database/types";
 import type { MobCombatManager } from "@/engine/core/schemes/monster/mob_combat/MobCombatManager";
 
 /**
- * todo;
+ * Combat scheme state for monster.
  */
 export interface ISchemeMobCombatState extends IBaseSchemeState {
   enabled: boolean;

@@ -11,7 +11,7 @@ describe("MobDeathManager", () => {
   it("should correctly handle death without killer", () => {
     const object: ClientObject = mockClientGameObject();
     const state: IRegistryObjectState = registerObject(object);
-    const schemeState: ISchemeMobDeathState = mockSchemeState<ISchemeMobDeathState>(EScheme.MOB_HOME, {});
+    const schemeState: ISchemeMobDeathState = mockSchemeState<ISchemeMobDeathState>(EScheme.MOB_HOME);
     const manager: MobDeathManager = new MobDeathManager(object, schemeState);
 
     manager.onDeath(object, null);
@@ -25,7 +25,7 @@ describe("MobDeathManager", () => {
   it("should correctly handle death with killer", () => {
     const object: ClientObject = mockClientGameObject();
     const state: IRegistryObjectState = registerObject(object);
-    const schemeState: ISchemeMobDeathState = mockSchemeState<ISchemeMobDeathState>(EScheme.MOB_HOME, {});
+    const schemeState: ISchemeMobDeathState = mockSchemeState<ISchemeMobDeathState>(EScheme.MOB_HOME);
     const manager: MobDeathManager = new MobDeathManager(object, schemeState);
 
     const killer: ClientObject = mockClientGameObject();

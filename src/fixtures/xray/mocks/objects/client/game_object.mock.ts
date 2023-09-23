@@ -165,6 +165,7 @@ export function mockClientGameObject({
     get_visual_name: rest.get_visual_name || jest.fn(() => "some_stalker_visual"),
     get_campfire: rest.get_campfire || jest.fn(() => null),
     get_current_point_index: rest.get_current_point_index || jest.fn(() => null),
+    get_enemy: rest.get_enemy || jest.fn(() => null),
     get_script: rest.get_script || jest.fn(() => false),
     get_script_name: rest.get_script_name || jest.fn(() => null),
     give_game_news,
