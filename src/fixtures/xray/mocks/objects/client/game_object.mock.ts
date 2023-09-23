@@ -95,6 +95,7 @@ export function mockClientGameObject({
     ...rest,
     accessible: rest.accessible || jest.fn(() => true),
     active_item: rest.active_item || jest.fn(() => null),
+    activate_slot: rest.activate_slot || jest.fn(),
     add_animation: rest.add_animation || jest.fn(),
     animation_count,
     animation_slot: rest.animation_slot || jest.fn(() => 1),
@@ -153,6 +154,7 @@ export function mockClientGameObject({
           inventoryMap.delete(it.section());
         }
       }),
+    enable_night_vision: rest.enable_night_vision || jest.fn(),
     force_set_goodwill: rest.force_set_goodwill || jest.fn(),
     game_vertex_id,
     general_goodwill:
@@ -197,6 +199,7 @@ export function mockClientGameObject({
         return actionManager;
       }),
     name: name || jest.fn(() => `${sectionOverride}_${idOverride}`),
+    night_vision_enabled: rest.night_vision_enabled || jest.fn(),
     object:
       object ||
       jest.fn((key: string | number) => {
@@ -265,6 +268,7 @@ export function mockClientGameObject({
       }),
     restore_ignore_monster_threshold: rest.restore_max_ignore_monster_distance || jest.fn(),
     restore_max_ignore_monster_distance: rest.restore_max_ignore_monster_distance || jest.fn(),
+    set_tip_text: rest.set_tip_text || jest.fn(),
     sell_condition: rest.sell_condition || jest.fn(),
     script: rest.script || jest.fn(),
     section: section || jest.fn(() => sectionOverride),

@@ -392,14 +392,14 @@ extern("dialogs.have_actor_any_pistol", (firstSpeaker: ClientObject, secondSpeak
  * todo;
  */
 extern("dialogs.disable_ui", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
-  ActorInputManager.getInstance().disableGameUi(firstSpeaker, false);
+  ActorInputManager.getInstance().disableGameUi(false);
 });
 
 /**
  * todo;
  */
 extern("dialogs.disable_ui_only", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
-  ActorInputManager.getInstance().disableGameUi(firstSpeaker, false);
+  ActorInputManager.getInstance().disableGameUi(false);
 });
 
 /**

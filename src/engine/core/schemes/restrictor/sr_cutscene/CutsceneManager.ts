@@ -75,7 +75,7 @@ export class CutsceneManager extends AbstractSchemeManager<ISchemeCutsceneState>
       level.add_pp_effector(this.state.ppEffector, 234, false);
     }
 
-    ActorInputManager.getInstance().disableGameUi(actor, false);
+    ActorInputManager.getInstance().disableGameUi(false);
     this.isUiDisabled = true;
 
     const timeHours: number = level.get_time_hours();

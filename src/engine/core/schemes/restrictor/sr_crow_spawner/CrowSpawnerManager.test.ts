@@ -1,5 +1,3 @@
-jest.mock("@/engine/core/utils/scheme/scheme_switch", () => ({ trySwitchToAnotherSection: jest.fn() }));
-
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { patrol } from "xray16";
 
@@ -12,6 +10,8 @@ import { AlifeSimulator, ClientObject, EScheme, Patrol } from "@/engine/lib/type
 import { mockSchemeState } from "@/fixtures/engine";
 import { mockActorClientGameObject, mockClientGameObject } from "@/fixtures/xray";
 import { MockVector } from "@/fixtures/xray/mocks/vector.mock";
+
+jest.mock("@/engine/core/utils/scheme/scheme_switch", () => ({ trySwitchToAnotherSection: jest.fn() }));
 
 describe("CrowSpawnerManager class", () => {
   beforeEach(() => registerSimulator());

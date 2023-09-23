@@ -17,12 +17,12 @@ export class PhysicalIdleManager extends AbstractSchemeManager<ISchemePhysicalId
     this.object.set_nonscript_usable(this.state.isNonscriptUsable);
   }
 
-  public update(): void {
-    trySwitchToAnotherSection(this.object, this.state);
-  }
-
   public override deactivate(): void {
     this.object.set_tip_text("");
+  }
+
+  public update(): void {
+    trySwitchToAnotherSection(this.object, this.state);
   }
 
   public override onHit(
@@ -35,13 +35,15 @@ export class PhysicalIdleManager extends AbstractSchemeManager<ISchemePhysicalId
     logger.info("Idle physical object hit:", this.object.name());
 
     if (this.state.bonesHitCondlists.has(boneIndex)) {
-      const section: TSection = pickSectionFromCondList(
-        registry.actor,
-        this.object,
-        this.state.bonesHitCondlists.get(boneIndex).state as TConditionList
-      )!;
-
-      switchObjectSchemeToSection(object, this.state.ini, section);
+      switchObjectSchemeToSection(
+        object,
+        this.state.ini,
+        pickSectionFromCondList(
+          registry.actor,
+          this.object,
+          this.state.bonesHitCondlists.get(boneIndex).state as TConditionList
+        )
+      );
     }
   }
 

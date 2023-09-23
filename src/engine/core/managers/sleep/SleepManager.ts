@@ -46,7 +46,7 @@ export class SleepManager extends AbstractManager {
 
     this.nextSleepDuration = hours;
 
-    ActorInputManager.getInstance().disableGameUi(registry.actor);
+    ActorInputManager.getInstance().disableGameUi();
 
     level.add_cam_effector(animations.camera_effects_sleep, 10, false, "engine.on_start_sleeping");
     level.add_pp_effector(postProcessors.sleep_fade, 11, false);

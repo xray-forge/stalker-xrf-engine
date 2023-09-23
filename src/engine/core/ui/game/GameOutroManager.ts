@@ -1,6 +1,5 @@
 import { CUIGameCustom, game, get_hud, sound_object } from "xray16";
 
-import { registry } from "@/engine/core/database";
 import { ActorInputManager } from "@/engine/core/managers/actor";
 import { AbstractManager } from "@/engine/core/managers/base/AbstractManager";
 import { getExtern } from "@/engine/core/utils/binding";
@@ -166,7 +165,7 @@ export class GameOutroManager extends AbstractManager {
     const hud: CUIGameCustom = get_hud();
 
     hud.AddCustomStatic("blackscreen", true);
-    ActorInputManager.getInstance().disableGameUiOnly(registry.actor);
+    ActorInputManager.getInstance().disableGameUiOnly();
   }
 
   public stopBkSound(): void {
