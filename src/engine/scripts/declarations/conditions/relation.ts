@@ -1,8 +1,8 @@
 import { getServerObjectByStoryId, registry } from "@/engine/core/database";
 import { Squad } from "@/engine/core/objects/server/squad";
 import { ISchemeDeathState } from "@/engine/core/schemes/stalker/death";
-import { abort, assert } from "@/engine/core/utils/assertion";
-import { extern, getExtern } from "@/engine/core/utils/binding";
+import { abort } from "@/engine/core/utils/assertion";
+import { extern } from "@/engine/core/utils/binding";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getObjectCommunity } from "@/engine/core/utils/object";
 import {
@@ -15,35 +15,31 @@ import {
   isAnySquadMemberFriendToActor,
 } from "@/engine/core/utils/relation";
 import { TCommunity } from "@/engine/lib/constants/communities";
+import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import {
-  AnyCallable,
+  AnyGameObject,
   ClientObject,
   EClientObjectRelation,
   EScheme,
   Optional,
-  ServerHumanObject,
-  TNumberId,
+  ServerObject,
   TStringId,
 } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * Check whether actor faction is enemy with provided parameter.
+ * Check whether actor faction is enemy with provided parameter community.
  */
 extern(
   "xr_conditions.is_factions_enemies",
-  (actor: ClientObject, object: ClientObject, [community]: [TCommunity]): boolean => {
-    if (community === null) {
-      return false;
-    } else {
-      return areCommunitiesEnemies(getObjectCommunity(actor), community);
-    }
+  (actor: ClientObject, object: ClientObject, [community]: [Optional<TCommunity>]): boolean => {
+    return community === null ? false : areCommunitiesEnemies(getObjectCommunity(actor), community);
   }
 );
 
 /**
- * todo;
+ * Check whether actor faction is neutral with provided parameter community.
  */
 extern(
   "xr_conditions.is_factions_neutrals",
@@ -60,43 +56,42 @@ extern(
 );
 
 /**
- * todo;
+ * Check whether actor faction is friendly with provided parameter community.
  */
-extern("xr_conditions.is_factions_friends", (actor: ClientObject, object: ClientObject, p: [TCommunity]): boolean => {
-  if (p[0] !== null) {
-    return areCommunitiesFriendly(getObjectCommunity(actor), p[0]);
-  } else {
-    return false;
+extern(
+  "xr_conditions.is_factions_friends",
+  (actor: ClientObject, object: ClientObject, [community]: [Optional<TCommunity>]): boolean => {
+    return community === null ? false : areCommunitiesFriendly(getObjectCommunity(actor), community);
   }
-});
+);
 
 /**
- * todo;
+ * Check whether provided community has enemy relation to actor.
  */
 extern(
   "xr_conditions.is_faction_enemy_to_actor",
-  (actor: ClientObject, object: ClientObject, p: [TCommunity]): boolean => {
-    return p[0] === null ? false : isActorEnemyWithFaction(p[0]);
+  (actor: ClientObject, object: ClientObject, [community]: [Optional<TCommunity>]): boolean => {
+    return community === null ? false : isActorEnemyWithFaction(community);
   }
 );
 
 /**
- * todo;
+ * Check whether provided community has friendly relation to actor.
  */
 extern(
   "xr_conditions.is_faction_friend_to_actor",
-  (actor: ClientObject, object: ClientObject, p: [TCommunity]): boolean => {
-    return p[0] === null ? false : isActorFriendWithFaction(p[0]);
+  (actor: ClientObject, object: ClientObject, [community]: [Optional<TCommunity>]): boolean => {
+    return community === null ? false : isActorFriendWithFaction(community);
   }
 );
 
 /**
- * todo;
+ * Check whether provided community has neutral relation to actor.
  */
 extern(
   "xr_conditions.is_faction_neutral_to_actor",
-  (actor: ClientObject, object: ClientObject, p: [TCommunity]): boolean => {
-    return p[0] === null ? false : isActorNeutralWithFaction(p[0]);
+  (actor: ClientObject, object: ClientObject, [community]: [Optional<TCommunity>]): boolean => {
+    return community === null ? false : isActorNeutralWithFaction(community);
   }
 );
 
@@ -139,61 +134,51 @@ extern(
 );
 
 /**
- * todo;
+ * Check if object is in combat and fighting actor.
  */
 extern("xr_conditions.fighting_actor", (actor: ClientObject, object: ClientObject): boolean => {
-  const enemyId: TNumberId = registry.objects.get(object.id()).enemyId!;
-  const enemy: Optional<ClientObject> = registry.objects.get(enemyId)?.object as Optional<ClientObject>;
-
-  return enemy !== null && enemy.id() === actor.id();
+  return registry.objects.get(object.id()).enemyId === ACTOR_ID;
 });
 
 /**
- * todo;
+ * Checks if object has enemy relations with actor.
  */
 extern("xr_conditions.actor_enemy", (actor: ClientObject, object: ClientObject): boolean => {
   const state: Optional<ISchemeDeathState> = registry.objects.get(object.id())[EScheme.DEATH] as ISchemeDeathState;
 
-  return object.relation(actor) === EClientObjectRelation.ENEMY || state?.killer === actor.id();
+  return object.relation(actor) === EClientObjectRelation.ENEMY || state?.killerId === actor.id();
 });
 
 /**
- * todo;
+ * Checks if object has friendly relations with actor.
  */
 extern("xr_conditions.actor_friend", (actor: ClientObject, object: ClientObject): boolean => {
   return object.relation(actor) === EClientObjectRelation.FRIEND;
 });
 
 /**
- * todo;
+ * Checks if object has neutral relations with actor.
  */
 extern("xr_conditions.actor_neutral", (actor: ClientObject, object: ClientObject): boolean => {
   return object.relation(actor) === EClientObjectRelation.NEUTRAL;
 });
 
 /**
- * todo;
- * todo; use only one signature without server objects
+ * Check if object community matches provided parameter.
  */
 extern(
   "xr_conditions.npc_community",
-  (actor: ClientObject, object: ClientObject | ServerHumanObject, params: [TCommunity]): boolean => {
-    if (params[0] === null) {
+  (actor: ClientObject, object: AnyGameObject, [community]: [Optional<TCommunity>]): boolean => {
+    if (community === null) {
       abort("Wrong number of params in npc_community");
     }
 
-    let targetObject: Optional<ClientObject> = null;
-
-    if (type(object.id) !== "function") {
-      targetObject = registry.objects.get((object as ServerHumanObject).id)?.object as ClientObject;
-
-      if (targetObject === null) {
-        return (object as ServerHumanObject).community() === params[0];
-      }
-    } else {
-      targetObject = object as ClientObject;
+    // Just verify client object.
+    if (type(object.id) === "function") {
+      return getObjectCommunity(object as ClientObject) === community;
     }
 
-    return getObjectCommunity(targetObject) === params[0];
+    // Try to use registry client object or fallback to server object check.
+    return getObjectCommunity(registry.objects.get((object as ServerObject).id)?.object ?? object) === community;
   }
 );

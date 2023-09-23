@@ -1,8 +1,8 @@
 import type { IBaseSchemeState } from "@/engine/core/database/types";
 
 /**
- * todo;
+ * State of monster death scheme.
  */
 export interface ISchemeMobDeathState extends IBaseSchemeState {
-  // todo;
+  // Stores only switch logics info.
 }

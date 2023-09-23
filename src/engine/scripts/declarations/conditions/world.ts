@@ -80,19 +80,22 @@ extern("xr_conditions.surge_kill_all", (): boolean => {
 /**
  * todo;
  */
-extern("xr_conditions.signal_rocket_flying", (actor: ClientObject, object: ClientObject, p: [string]): boolean => {
-  if (p === null) {
-    abort("Signal rocket name is !set!");
-  }
+extern(
+  "xr_conditions.signal_rocket_flying",
+  (actor: ClientObject, object: ClientObject, [name]: [Optional<TName>]): boolean => {
+    if (name === null) {
+      abort("Signal rocket name is !set!");
+    }
 
-  if (registry.signalLights.get(p[0]) !== null) {
-    return registry.signalLights.get(p[0]).isFlying();
-  } else {
-    abort("No such signal rocket: [%s] on level", tostring(p[0]));
-  }
+    if (registry.signalLights.get(name) !== null) {
+      return registry.signalLights.get(name).isFlying();
+    } else {
+      abort("No such signal rocket: [%s] on the level.", tostring(name));
+    }
 
-  return false;
-});
+    return false;
+  }
+);
 
 /**
  * todo;

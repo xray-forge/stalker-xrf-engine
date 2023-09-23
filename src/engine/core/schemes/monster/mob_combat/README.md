@@ -1,8 +1,6 @@
 ## mob_combat
 
-- todo <br/>
-- todo <br/>
-- todo <br/>
+Scheme to handle switching of logics when combat starts for monsters.
 
 ## Documentation
 

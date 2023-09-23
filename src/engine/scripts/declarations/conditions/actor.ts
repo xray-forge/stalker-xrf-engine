@@ -8,13 +8,13 @@ import {
 import { SurgeManager } from "@/engine/core/managers/surge/SurgeManager";
 import { ISchemeDeathState } from "@/engine/core/schemes/stalker/death";
 import { ISchemeHitState } from "@/engine/core/schemes/stalker/hit";
-import { abort, assertDefined } from "@/engine/core/utils/assertion";
+import { abort } from "@/engine/core/utils/assertion";
 import { extern } from "@/engine/core/utils/binding";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { isObjectInActorFrustum, isObjectInZone, isWeapon } from "@/engine/core/utils/object";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
+import { nimbleWeapons, TWeapon } from "@/engine/lib/constants/items/weapons";
 import {
-  AnyArgs,
   ClientObject,
   EScheme,
   LuaArray,
@@ -22,6 +22,7 @@ import {
   TCount,
   TDistance,
   TName,
+  TRate,
   TSection,
 } from "@/engine/lib/types";
 
@@ -44,7 +45,7 @@ extern("xr_conditions.information_dealer_functor", (): boolean => {
 /**
  * todo;
  */
-extern("xr_conditions.actor_in_surge_cover", (actor: ClientObject, object: ClientObject): boolean => {
+extern("xr_conditions.actor_in_surge_cover", (): boolean => {
   return SurgeManager.getInstance().isActorInCover();
 });
 
@@ -57,10 +58,10 @@ extern("xr_conditions.is_enemy_actor", (object: ClientObject): boolean => {
 });
 
 /**
- * todo;
+ * Check whether actor is alive at the moment.
  */
-extern("xr_conditions.actor_alive", (): boolean => {
-  return registry.actor.alive();
+extern("xr_conditions.actor_alive", (actor: ClientObject): boolean => {
+  return actor.alive();
 });
 
 /**
@@ -85,7 +86,9 @@ extern("xr_conditions.npc_in_actor_frustum", (actor: ClientObject, object: Clien
 extern(
   "xr_conditions.dist_to_actor_le",
   (actor: ClientObject, object: ClientObject, [distance]: [Optional<TDistance>]): boolean => {
-    assertDefined(distance, "Wrong parameter in 'dist_to_actor_le' function: %s.", distance);
+    if (!distance) {
+      abort("Wrong parameter in 'dist_to_actor_le' function: %s.", distance);
+    }
 
     return object.position().distance_to_sqr(actor.position()) <= distance * distance;
   }
@@ -94,28 +97,29 @@ extern(
 /**
  * todo;
  */
-extern("xr_conditions.dist_to_actor_ge", (actor: ClientObject, object: ClientObject, params: AnyArgs): boolean => {
-  const distance: Optional<number> = params[0];
+extern(
+  "xr_conditions.dist_to_actor_ge",
+  (actor: ClientObject, object: ClientObject, [distance]: [Optional<TDistance>]): boolean => {
+    if (!distance) {
+      abort("Wrong parameter in 'dist_to_actor_ge' function: %s.", distance);
+    }
 
-  if (distance === null) {
-    abort("Wrong parameter in 'dist_to_actor_ge' function: %s.", distance);
+    return object.position().distance_to_sqr(actor.position()) >= distance * distance;
   }
+);
 
-  return object.position().distance_to_sqr(actor.position()) >= distance * distance;
+/**
+ * todo;
+ */
+extern("xr_conditions.actor_health_le", (actor: ClientObject, object: ClientObject, [health]: [TRate]): boolean => {
+  return health !== null && actor.health < health;
 });
 
 /**
  * todo;
  */
-extern("xr_conditions.actor_health_le", (actor: ClientObject, object: ClientObject, params: [number]): boolean => {
-  return params[0] !== null && actor.health < params[0];
-});
-
-/**
- * todo;
- */
-extern("xr_conditions.actor_in_zone", (actor: ClientObject, object: ClientObject, params: [TName]): boolean => {
-  return isObjectInZone(registry.actor, registry.zones.get(params[0]));
+extern("xr_conditions.actor_in_zone", (actor: ClientObject, object: ClientObject, [zoneName]: [TName]): boolean => {
+  return isObjectInZone(registry.actor, registry.zones.get(zoneName));
 });
 
 /**
@@ -130,53 +134,57 @@ extern("xr_conditions.heli_see_actor", (actor: ClientObject, object: ClientObjec
  */
 extern(
   "xr_conditions.actor_has_item",
-  (actor: ClientObject, object: ClientObject, params: [Optional<string>]): boolean => {
-    const storyActor: ClientObject = registry.actor;
-
-    return params[0] !== null && storyActor !== null && storyActor.object(params[0]) !== null;
+  (actor: ClientObject, object: ClientObject, [item]: [Optional<TSection>]): boolean => {
+    return item !== null && actor !== null && actor.object(item) !== null;
   }
 );
 
 /**
  * todo;
  */
-extern("xr_conditions.actor_has_item_count", (actor: ClientObject, object: ClientObject, p: [string, string]) => {
-  const itemSection: TSection = p[0];
-  const neededCount: TCount = tonumber(p[1])!;
-  let hasCount: TCount = 0;
+extern(
+  "xr_conditions.actor_has_item_count",
+  (actor: ClientObject, object: ClientObject, [itemSection, count]: [TSection, string]) => {
+    const neededCount: TCount = tonumber(count) as TCount;
+    let hasCount: TCount = 0;
 
-  actor.iterate_inventory((temp, item) => {
-    if (item.section() === itemSection) {
-      hasCount = hasCount + 1;
-    }
-  }, actor);
+    actor.iterate_inventory((owner, item) => {
+      // Count desired section.
+      if (item.section() === itemSection) {
+        hasCount += 1;
+      }
 
-  return hasCount >= neededCount;
-});
+      // Stop iterating when conditions are met.
+      if (hasCount === neededCount) {
+        return true;
+      }
+    }, actor);
+
+    return hasCount >= neededCount;
+  }
+);
 
 /**
- * todo;
+ * Check if object is hit by actor.
  */
 extern("xr_conditions.hit_by_actor", (actor: ClientObject, object: ClientObject): boolean => {
   const state: Optional<ISchemeHitState> = registry.objects.get(object.id())[EScheme.HIT] as ISchemeHitState;
 
-  return state !== null && state.who === actor.id();
+  return state !== null && state.who === ACTOR_ID;
 });
 
 /**
- * todo;
+ * Check if object is killed by actor.
  */
 extern("xr_conditions.killed_by_actor", (actor: ClientObject, object: ClientObject): boolean => {
-  return (registry.objects.get(object.id())[EScheme.DEATH] as ISchemeDeathState)?.killer === actor.id();
+  return (registry.objects.get(object.id())[EScheme.DEATH] as ISchemeDeathState)?.killerId === ACTOR_ID;
 });
 
 /**
- * todo;
+ * Check if actor has any active weapon.
  */
 extern("xr_conditions.actor_has_weapon", (actor: ClientObject): boolean => {
-  const object: Optional<ClientObject> = actor.active_item();
-
-  return object !== null && isWeapon(object);
+  return isWeapon(actor.active_item());
 });
 
 /**
@@ -214,40 +222,26 @@ extern(
 );
 
 /**
- * todo;
+ * Check whether actor is talking right now (dialog window is active).
  */
 extern("xr_conditions.talking", (actor: ClientObject): boolean => {
   return actor.is_talking();
 });
 
 /**
- * todo;
+ * Check if actor has no weapon or is currently talking.
  */
 extern("xr_conditions.actor_nomove_nowpn", (): boolean => {
   return !isWeapon(registry.actor.active_item()) || registry.actor.is_talking();
 });
 
 /**
- * todo;
+ * Check if actor has one of nimble weapons.
+ * todo: Probably should be optimized.
  */
-extern("xr_conditions.actor_has_nimble_weapon", (actor: ClientObject, object: ClientObject): boolean => {
-  const neededItems: LuaTable<string, boolean> = {
-    wpn_groza_nimble: true,
-    wpn_desert_eagle_nimble: true,
-    wpn_fn2000_nimble: true,
-    wpn_g36_nimble: true,
-    wpn_protecta_nimble: true,
-    wpn_mp5_nimble: true,
-    wpn_sig220_nimble: true,
-    wpn_spas12_nimble: true,
-    wpn_usp_nimble: true,
-    wpn_vintorez_nimble: true,
-    wpn_svu_nimble: true,
-    wpn_svd_nimble: true,
-  } as unknown as LuaTable<string, boolean>;
-
-  for (const [k, v] of neededItems) {
-    if (actor.object(k) !== null) {
+extern("xr_conditions.actor_has_nimble_weapon", (actor: ClientObject): boolean => {
+  for (const [weapon] of pairs(nimbleWeapons)) {
+    if (actor.object(weapon) !== null) {
       return true;
     }
   }
@@ -256,27 +250,18 @@ extern("xr_conditions.actor_has_nimble_weapon", (actor: ClientObject, object: Cl
 });
 
 /**
- * todo;
+ * Check if nimble weapon is in one of active actor slots.
  */
 extern("xr_conditions.actor_has_active_nimble_weapon", (actor: ClientObject, object: ClientObject): boolean => {
-  const neededItems: Record<string, boolean> = {
-    wpn_groza_nimble: true,
-    wpn_desert_eagle_nimble: true,
-    wpn_fn2000_nimble: true,
-    wpn_g36_nimble: true,
-    wpn_protecta_nimble: true,
-    wpn_mp5_nimble: true,
-    wpn_sig220_nimble: true,
-    wpn_spas12_nimble: true,
-    wpn_usp_nimble: true,
-    wpn_vintorez_nimble: true,
-    wpn_svu_nimble: true,
-    wpn_svd_nimble: true,
-  };
+  const first: Optional<ClientObject> = actor.item_in_slot(2);
 
-  if (actor.item_in_slot(2) !== null && neededItems[actor.item_in_slot(2)!.section()] === true) {
+  if (first && nimbleWeapons[first.section() as TWeapon]) {
     return true;
-  } else if (actor.item_in_slot(3) !== null && neededItems[actor.item_in_slot(3)!.section()] === true) {
+  }
+
+  const second: Optional<ClientObject> = actor.item_in_slot(3);
+
+  if (second && nimbleWeapons[second.section()]) {
     return true;
   }
 

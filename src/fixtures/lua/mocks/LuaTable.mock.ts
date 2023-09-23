@@ -6,7 +6,7 @@ import type { AnyObject, LuaArray, TIndex } from "@/engine/lib/types";
  * Mock `tstl` table data structure.
  * In runtime objects, arrays and tables are same, but in test env have to mock them with compat and workarounds.
  */
-export class MockLuaTable<K, V> extends Map<K, V> {
+export class MockLuaTable<K = unknown, V = unknown> extends Map<K, V> {
   public static mock<K extends AnyNotNil, V>(): LuaTable<K, V> {
     return new MockLuaTable() as unknown as LuaTable<K, V>;
   }

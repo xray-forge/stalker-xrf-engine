@@ -18,7 +18,7 @@ import { extern } from "@/engine/core/utils/binding";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { isObjectInZone, objectPunchActor } from "@/engine/core/utils/object";
 import { giveItemsToActor } from "@/engine/core/utils/object/object_task_reward";
-import { detectors, TDetector } from "@/engine/lib/constants/items/detectors";
+import { detectorsOrder } from "@/engine/lib/constants/items/detectors";
 import { helmets } from "@/engine/lib/constants/items/helmets";
 import { misc } from "@/engine/lib/constants/items/misc";
 import { outfits } from "@/engine/lib/constants/items/outfits";
@@ -26,6 +26,7 @@ import { weapons } from "@/engine/lib/constants/items/weapons";
 import { TRUE } from "@/engine/lib/constants/words";
 import {
   ClientObject,
+  EActiveItemSlot,
   GameTask,
   LuaArray,
   Optional,
@@ -298,10 +299,14 @@ extern("xr_effects.relocate_item", (actor: ClientObject, object: ClientObject, p
 /**
  * todo;
  */
-extern("xr_effects.activate_weapon_slot", (actor: ClientObject, object: ClientObject, [index]: [TIndex]): void => {
-  actor.activate_slot(index);
-});
+extern(
+  "xr_effects.activate_weapon_slot",
+  (actor: ClientObject, object: ClientObject, [slot]: [EActiveItemSlot]): void => {
+    actor.activate_slot(slot);
+  }
+);
 
+// todo: Move to input manager.
 let actorPositionForRestore: Optional<Vector> = null;
 
 /**
@@ -326,7 +331,7 @@ extern("xr_effects.actor_punch", (actor: ClientObject, object: ClientObject): vo
 });
 
 /**
- * todo;
+ * Show tip in bottom left of game interface.
  */
 extern(
   "xr_effects.send_tip",
@@ -343,7 +348,7 @@ extern(
 /**
  * todo;
  */
-extern("xr_effects.give_task", (actor: ClientObject, object: ClientObject, [taskId]: [Optional<TStringId>]) => {
+extern("xr_effects.give_task", (actor: ClientObject, object: ClientObject, [taskId]: [Optional<TStringId>]): void => {
   assertDefined(taskId, "No parameter in give_task effect.");
   TaskManager.getInstance().giveTask(taskId);
 });
@@ -367,7 +372,7 @@ extern("xr_effects.set_active_task", (actor: ClientObject, object: ClientObject,
  * Kill actor instantly.
  */
 extern("xr_effects.kill_actor", (actor: ClientObject, object: ClientObject): void => {
-  logger.info("Kill actor");
+  logger.info("Kill actor effect");
   actor.kill(actor);
 });
 
@@ -431,14 +436,12 @@ extern("xr_effects.damage_actor_items_on_start", (actor: ClientObject): void => 
 /**
  * todo;
  */
-extern("xr_effects.activate_weapon", (actor: ClientObject, object: ClientObject, p: [string]) => {
-  const inventoryItem: Optional<ClientObject> = actor.object(p[0]);
+extern("xr_effects.activate_weapon", (actor: ClientObject, object: ClientObject, [section]: [TSection]) => {
+  const inventoryItem: Optional<ClientObject> = actor.object(section);
 
-  assertDefined(inventoryItem, "Actor has no such weapon! [%s]", p[0]);
+  assertDefined(inventoryItem, "Actor has no such weapon - '%s'.", section);
 
-  if (inventoryItem !== null) {
-    actor.make_item_active(inventoryItem);
-  }
+  actor.make_item_active(inventoryItem);
 });
 
 /**
@@ -448,7 +451,7 @@ extern("xr_effects.activate_weapon", (actor: ClientObject, object: ClientObject,
 extern(
   "xr_effects.give_treasure",
   (actor: ClientObject, object: ClientObject, treasures: LuaArray<TStringId>): void => {
-    logger.info("Give treasures");
+    logger.info("Give treasures for actor");
 
     assertDefined(treasures, "Required parameter is 'NIL'.");
 
@@ -460,18 +463,11 @@ extern(
   }
 );
 
-const detectorsOrder: LuaArray<TDetector> = $fromArray<TDetector>([
-  detectors.detector_simple,
-  detectors.detector_advanced,
-  detectors.detector_elite,
-  detectors.detector_scientific,
-]);
-
 /**
  * Force actor to use detector if any exists in inventory.
  */
 extern("xr_effects.get_best_detector", (actor: ClientObject): void => {
-  for (const [, detector] of detectorsOrder) {
+  for (const [, detector] of ipairs(detectorsOrder)) {
     const item: Optional<ClientObject> = actor.object(detector);
 
     if (item !== null) {
@@ -486,7 +482,7 @@ extern("xr_effects.get_best_detector", (actor: ClientObject): void => {
  * Hide actor detector if it is active item.
  */
 extern("xr_effects.hide_best_detector", (actor: ClientObject): void => {
-  for (const [, detector] of detectorsOrder) {
+  for (const [, detector] of ipairs(detectorsOrder)) {
     const item: Optional<ClientObject> = actor.object(detector);
 
     if (item !== null) {

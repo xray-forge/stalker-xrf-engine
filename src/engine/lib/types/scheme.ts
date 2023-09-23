@@ -135,6 +135,7 @@ export enum ESchemeEvent {
   SWITCH_OFFLINE = "onSwitchOffline",
   HIT = "onHit",
   USE = "onUse",
+  COMBAT = "onCombat",
   WAYPOINT = "onWaypoint",
 }
 
@@ -198,4 +199,8 @@ export interface ISchemeEventHandler {
    * todo: Description.
    */
   onCutscene?(): void;
+  /**
+   * todo: Description.
+   */
+  onCombat?(): void;
 }

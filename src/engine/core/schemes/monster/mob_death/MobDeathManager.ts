@@ -3,33 +3,38 @@ import { AbstractSchemeManager } from "@/engine/core/objects/ai/scheme";
 import { ISchemeMobDeathState } from "@/engine/core/schemes/monster/mob_death/ISchemeMobDeathState";
 import { ISchemeDeathState } from "@/engine/core/schemes/stalker/death";
 import { trySwitchToAnotherSection } from "@/engine/core/utils/scheme/scheme_switch";
-import { ClientObject, EScheme, Optional } from "@/engine/lib/types";
+import { ClientObject, EScheme, Optional, TNumberId } from "@/engine/lib/types";
 
 /**
- * todo;
+ * Handler to manage monster death events.
  */
 export class MobDeathManager extends AbstractSchemeManager<ISchemeMobDeathState> {
   /**
-   * todo: Description.
+   * When monster was killed.
+   *
+   * @param victim - monster who has been killed
+   * @param who - target who killed the monster
    */
   public override onDeath(victim: ClientObject, who: Optional<ClientObject>): void {
-    let deathState: ISchemeDeathState = registry.objects.get(victim.id())[EScheme.DEATH] as ISchemeDeathState;
+    const victimId: TNumberId = victim.id();
+    let deathState: Optional<ISchemeDeathState> = registry.objects.get(victimId)[
+      EScheme.DEATH
+    ] as Optional<ISchemeDeathState>;
 
-    if (deathState === null) {
+    // todo: Probably always true for monsters since we init different state in this scheme.
+    if (!deathState) {
       deathState = {} as ISchemeDeathState;
-      registry.objects.get(victim.id()).death = deathState;
+      registry.objects.get(victimId)[EScheme.DEATH] = deathState;
     }
 
-    if (who !== null) {
-      deathState.killer = who.id();
-      deathState.killer_name = who.name();
+    if (who === null) {
+      deathState.killerId = -1;
+      deathState.killerName = null;
     } else {
-      deathState.killer = -1;
-      deathState.killer_name = null;
+      deathState.killerId = who.id();
+      deathState.killerName = who.name();
     }
 
-    if (trySwitchToAnotherSection(victim, this.state)) {
-      return;
-    }
+    trySwitchToAnotherSection(victim, this.state);
   }
 }

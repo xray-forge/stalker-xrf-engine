@@ -12,7 +12,7 @@ export class DeathManager extends AbstractSchemeManager<ISchemeDeathState> {
    * todo: Description.
    */
   public override onDeath(victim: ClientObject, who: Optional<ClientObject>): void {
-    (registry.objects.get(victim.id())[EScheme.DEATH] as ISchemeDeathState).killer = who === null ? -1 : who.id();
+    (registry.objects.get(victim.id())[EScheme.DEATH] as ISchemeDeathState).killerId = who === null ? -1 : who.id();
 
     if (this.state.info) {
       pickSectionFromCondList(registry.actor, this.object, this.state.info);

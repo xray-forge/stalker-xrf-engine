@@ -19,3 +19,13 @@ export type TDetectors = typeof detectors;
  * One of detectors typing.
  */
 export type TDetector = TDetectors[keyof TDetectors];
+
+/**
+ * Order of detectors from worse to best.
+ */
+export const detectorsOrder = {
+  1: detectors.detector_simple,
+  2: detectors.detector_advanced,
+  3: detectors.detector_elite,
+  4: detectors.detector_scientific,
+} as const;

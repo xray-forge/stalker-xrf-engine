@@ -440,7 +440,7 @@ extern(
       for (const [i, v] of parameters) {
         const object: Optional<ClientObject> = getObjectByStoryId(v);
 
-        if (object && schemeState.killer === object.id()) {
+        if (object && schemeState.killerId === object.id()) {
           return true;
         }
       }

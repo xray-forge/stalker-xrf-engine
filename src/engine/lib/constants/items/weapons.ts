@@ -1,5 +1,7 @@
 /* eslint sort-keys-fix/sort-keys-fix: "error" */
 
+import type { TName } from "@/engine/lib/types";
+
 /**
  * List of available pistol sections.
  */
@@ -105,3 +107,21 @@ export type TWeapons = typeof weapons;
  * Type definition of single weapon section.
  */
 export type TWeapon = TWeapons[keyof TWeapons];
+
+/**
+ * Set of nimble weapons.
+ */
+export const nimbleWeapons = {
+  [weapons.wpn_desert_eagle_nimble]: true,
+  [weapons.wpn_fn2000_nimble]: true,
+  [weapons.wpn_g36_nimble]: true,
+  [weapons.wpn_groza_nimble]: true,
+  [weapons.wpn_mp5_nimble]: true,
+  [weapons.wpn_protecta_nimble]: true,
+  [weapons.wpn_sig220_nimble]: true,
+  [weapons.wpn_spas12_nimble]: true,
+  [weapons.wpn_svd_nimble]: true,
+  [weapons.wpn_svu_nimble]: true,
+  [weapons.wpn_usp_nimble]: true,
+  [weapons.wpn_vintorez_nimble]: true,
+} as Record<TName, boolean>;
