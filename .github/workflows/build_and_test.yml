@@ -18,7 +18,7 @@ jobs:
     strategy:
       matrix:
         node-version: [19.x]
-        shard: [1, 2, 3, 4]
+        shard: [1, 2, 3, 4, 5]
 
     steps:
       - uses: actions/checkout@v4
@@ -67,7 +67,7 @@ jobs:
       - uses: actions/download-artifact@v3
         with:
           name: coverage-artifacts
-          path: coverage/
+          path: target/coverage_report
 
       - name: Merge code coverage
         run: npx nyc merge target/coverage_report/ target/coverage-report/coverage-final.json
