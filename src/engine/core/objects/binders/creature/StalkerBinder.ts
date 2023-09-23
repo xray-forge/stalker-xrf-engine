@@ -1,13 +1,4 @@
-import {
-  actor_stats,
-  callback,
-  game_graph,
-  level,
-  LuabindClass,
-  object_binder,
-  patrol,
-  time_global,
-} from "xray16";
+import { actor_stats, callback, game_graph, level, LuabindClass, object_binder, patrol, time_global } from "xray16";
 
 import {
   closeLoadMarker,
