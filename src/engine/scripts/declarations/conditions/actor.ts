@@ -179,7 +179,7 @@ extern("xr_conditions.hit_by_actor", (actor: ClientObject, object: ClientObject)
  * Check if object is killed by actor.
  */
 extern("xr_conditions.killed_by_actor", (actor: ClientObject, object: ClientObject): boolean => {
-  return (registry.objects.get(object.id())[EScheme.DEATH] as ISchemeDeathState)?.killer === ACTOR_ID;
+  return (registry.objects.get(object.id())[EScheme.DEATH] as ISchemeDeathState)?.killerId === ACTOR_ID;
 });
 
 /**

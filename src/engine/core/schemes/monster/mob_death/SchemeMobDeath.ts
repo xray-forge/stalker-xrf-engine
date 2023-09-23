@@ -8,7 +8,7 @@ import { ClientObject, EScheme, ESchemeType, IniFile, TSection } from "@/engine/
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Scheme to handle monster death and record information about who killed them.
  */
 export class SchemeMobDeath extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.MOB_DEATH;

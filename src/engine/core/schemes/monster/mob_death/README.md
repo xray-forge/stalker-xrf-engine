@@ -1,8 +1,7 @@
 ## mob_death
 
-- todo <br/>
-- todo <br/>
-- todo <br/>
+Scheme to handle death of monsters. <br/>
+Listens to death events and records all the information needed for logics processing later.
 
 ## Documentation
 

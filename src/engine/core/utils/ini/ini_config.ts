@@ -276,9 +276,11 @@ export function getConfigSwitchConditions(ini: IniFile, section: TSection): Opti
     func: (ini: IniFile, section: TSection, id: TStringId) => Optional<IBaseSchemeLogic>,
     cond: ESchemeCondition
   ): void {
+    const mask: string = "^" + cond + "%d*$";
+
     for (const lineNumber of $range(0, linesCount - 1)) {
       const [, key] = ini.r_line(section, lineNumber, "", "");
-      const [searchIndex] = string.find(key, "^" + cond + "%d*$");
+      const [searchIndex] = string.find(key, mask);
 
       if (searchIndex !== null) {
         index = addConditionToList(conditionsList, index, func(ini, section, key));

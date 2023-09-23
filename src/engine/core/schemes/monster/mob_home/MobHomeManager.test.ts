@@ -33,9 +33,9 @@ describe("MobHomeManager functionality", () => {
       monsterState: EMonsterState.NONE,
       isSmartTerrainPoint: false,
     });
-    const mobHomeManager: MobHomeManager = new MobHomeManager(object, state);
+    const manager: MobHomeManager = new MobHomeManager(object, state);
 
-    jest.spyOn(mobHomeManager, "getHomeParameters").mockImplementation(() => {
+    jest.spyOn(manager, "getHomeParameters").mockImplementation(() => {
       return $multi(
         state.homeWayPoint as TName,
         state.homeMinRadius as TDistance,
@@ -45,9 +45,9 @@ describe("MobHomeManager functionality", () => {
       );
     });
 
-    mobHomeManager.activate();
+    manager.activate();
 
-    expect(mobHomeManager.getHomeParameters).toHaveBeenCalledTimes(1);
+    expect(manager.getHomeParameters).toHaveBeenCalledTimes(1);
     expect(object.set_home).toHaveBeenCalledWith(
       state.homeWayPoint,
       state.homeMinRadius,
@@ -56,7 +56,7 @@ describe("MobHomeManager functionality", () => {
       state.homeMidRadius
     );
 
-    mobHomeManager.deactivate();
+    manager.deactivate();
 
     expect(object.remove_home).toHaveBeenCalledTimes(1);
   });
@@ -71,9 +71,9 @@ describe("MobHomeManager functionality", () => {
       monsterState: EMonsterState.NONE,
       isSmartTerrainPoint: false,
     });
-    const mobHomeManager: MobHomeManager = new MobHomeManager(object, state);
+    const manager: MobHomeManager = new MobHomeManager(object, state);
 
-    const [name, minRadius, maxRadius, isAggressive, midRadius] = mobHomeManager.getHomeParameters();
+    const [name, minRadius, maxRadius, isAggressive, midRadius] = manager.getHomeParameters();
 
     expect(name).toBe("test-wp");
     expect(minRadius).toBe(100);
@@ -87,9 +87,9 @@ describe("MobHomeManager functionality", () => {
     const state: ISchemeMobHomeState = mockSchemeState<ISchemeMobHomeState>(EScheme.MOB_HOME, {
       homeWayPoint: "test-wp",
     });
-    const mobHomeManager: MobHomeManager = new MobHomeManager(object, state);
+    const manager: MobHomeManager = new MobHomeManager(object, state);
 
-    const [name, minRadius, maxRadius, isAggressive, midRadius] = mobHomeManager.getHomeParameters();
+    const [name, minRadius, maxRadius, isAggressive, midRadius] = manager.getHomeParameters();
 
     expect(name).toBe("test-wp");
     expect(minRadius).toBe(10);
@@ -113,9 +113,9 @@ describe("MobHomeManager functionality", () => {
       homeWayPoint: "test-wp",
       isSmartTerrainPoint: true,
     });
-    const mobHomeManager: MobHomeManager = new MobHomeManager(object, state);
+    const manager: MobHomeManager = new MobHomeManager(object, state);
 
-    const [name, minRadius, maxRadius, isAggressive, midRadius] = mobHomeManager.getHomeParameters();
+    const [name, minRadius, maxRadius, isAggressive, midRadius] = manager.getHomeParameters();
 
     expect(name).toBe(333);
     expect(minRadius).toBe(10);

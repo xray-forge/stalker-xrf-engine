@@ -146,7 +146,7 @@ extern("xr_conditions.fighting_actor", (actor: ClientObject, object: ClientObjec
 extern("xr_conditions.actor_enemy", (actor: ClientObject, object: ClientObject): boolean => {
   const state: Optional<ISchemeDeathState> = registry.objects.get(object.id())[EScheme.DEATH] as ISchemeDeathState;
 
-  return object.relation(actor) === EClientObjectRelation.ENEMY || state?.killer === actor.id();
+  return object.relation(actor) === EClientObjectRelation.ENEMY || state?.killerId === actor.id();
 });
 
 /**
