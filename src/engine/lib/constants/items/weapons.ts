@@ -1,5 +1,7 @@
 /* eslint sort-keys-fix/sort-keys-fix: "error" */
 
+import type { TName } from "@/engine/lib/types";
+
 /**
  * List of available pistol sections.
  */
@@ -122,4 +124,4 @@ export const nimbleWeapons = {
   [weapons.wpn_svu_nimble]: true,
   [weapons.wpn_usp_nimble]: true,
   [weapons.wpn_vintorez_nimble]: true,
-} as const;
+} as Record<TName, boolean>;

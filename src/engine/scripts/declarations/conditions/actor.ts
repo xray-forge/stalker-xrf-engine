@@ -8,16 +8,14 @@ import {
 import { SurgeManager } from "@/engine/core/managers/surge/SurgeManager";
 import { ISchemeDeathState } from "@/engine/core/schemes/stalker/death";
 import { ISchemeHitState } from "@/engine/core/schemes/stalker/hit";
-import { abort, assertDefined } from "@/engine/core/utils/assertion";
+import { abort } from "@/engine/core/utils/assertion";
 import { extern } from "@/engine/core/utils/binding";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { isObjectInActorFrustum, isObjectInZone, isWeapon } from "@/engine/core/utils/object";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
-import { nimbleWeapons } from "@/engine/lib/constants/items/weapons";
+import { nimbleWeapons, TWeapon } from "@/engine/lib/constants/items/weapons";
 import {
-  AnyArgs,
   ClientObject,
-  EActiveItemSlot,
   EScheme,
   LuaArray,
   Optional,
@@ -242,7 +240,7 @@ extern("xr_conditions.actor_nomove_nowpn", (): boolean => {
  * todo: Probably should be optimized.
  */
 extern("xr_conditions.actor_has_nimble_weapon", (actor: ClientObject): boolean => {
-  for (const [weapon] of nimbleWeapons) {
+  for (const [weapon] of pairs(nimbleWeapons)) {
     if (actor.object(weapon) !== null) {
       return true;
     }
@@ -257,13 +255,13 @@ extern("xr_conditions.actor_has_nimble_weapon", (actor: ClientObject): boolean =
 extern("xr_conditions.actor_has_active_nimble_weapon", (actor: ClientObject, object: ClientObject): boolean => {
   const first: Optional<ClientObject> = actor.item_in_slot(2);
 
-  if (first && nimbleWeapons.get(first.section())) {
+  if (first && nimbleWeapons[first.section() as TWeapon]) {
     return true;
   }
 
   const second: Optional<ClientObject> = actor.item_in_slot(3);
 
-  if (second && nimbleWeapons.get(second.section())) {
+  if (second && nimbleWeapons[second.section()]) {
     return true;
   }
 

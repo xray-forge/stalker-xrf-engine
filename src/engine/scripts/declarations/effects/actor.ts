@@ -467,7 +467,7 @@ extern(
  * Force actor to use detector if any exists in inventory.
  */
 extern("xr_effects.get_best_detector", (actor: ClientObject): void => {
-  for (const [, detector] of detectorsOrder) {
+  for (const [, detector] of ipairs(detectorsOrder)) {
     const item: Optional<ClientObject> = actor.object(detector);
 
     if (item !== null) {
@@ -482,7 +482,7 @@ extern("xr_effects.get_best_detector", (actor: ClientObject): void => {
  * Hide actor detector if it is active item.
  */
 extern("xr_effects.hide_best_detector", (actor: ClientObject): void => {
-  for (const [, detector] of detectorsOrder) {
+  for (const [, detector] of ipairs(detectorsOrder)) {
     const item: Optional<ClientObject> = actor.object(detector);
 
     if (item !== null) {
