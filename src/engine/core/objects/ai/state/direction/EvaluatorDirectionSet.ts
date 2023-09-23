@@ -24,17 +24,19 @@ export class EvaluatorDirectionSet extends property_evaluator {
    * todo: Description.
    */
   public override evaluate(): boolean {
-    if (this.stateManager.targetState === EStalkerState.SMART_COVER) {
+    const manager: StalkerStateManager = this.stateManager;
+
+    if (manager.targetState === EStalkerState.SMART_COVER) {
       return true;
     }
 
     const objectSightType: CSightParams = this.object.sight_params();
 
-    if (this.stateManager.lookObjectId !== null) {
+    if (manager.lookObjectId) {
       if (
         objectSightType.m_object === null ||
-        objectSightType.m_object.id() !== this.stateManager.lookObjectId ||
-        this.stateManager.isObjectPointDirectionLook !== this.stateManager.getLookObjectType()
+        objectSightType.m_object.id() !== manager.lookObjectId ||
+        manager.isObjectPointDirectionLook !== manager.isLookObjectType()
       ) {
         return false;
       }
@@ -44,16 +46,16 @@ export class EvaluatorDirectionSet extends property_evaluator {
       return true;
     }
 
-    if (this.stateManager.lookPosition !== null) {
-      if (objectSightType.m_sight_type !== this.stateManager.getObjectLookPositionType()) {
+    if (manager.lookPosition) {
+      if (objectSightType.m_sight_type !== manager.getObjectLookPositionType()) {
         return false;
       } else if ((objectSightType.m_sight_type as TSightType) === CSightParams.eSightTypeAnimationDirection) {
         return true;
       }
 
-      const direction: Vector = subVectors(this.stateManager.lookPosition!, this.object.position());
+      const direction: Vector = subVectors(manager.lookPosition!, this.object.position());
 
-      if (this.stateManager.getLookObjectType()) {
+      if (manager.isLookObjectType()) {
         direction.y = 0;
       }
 
@@ -70,13 +72,13 @@ export class EvaluatorDirectionSet extends property_evaluator {
 
     if (objectSightType.m_object !== null) {
       return false;
-    } else if (objectSightType.m_sight_type !== this.stateManager.getObjectLookPositionType()) {
+    } else if (objectSightType.m_sight_type !== manager.getObjectLookPositionType()) {
       return false;
+    } else {
+      this.onTurnEnd();
+
+      return true;
     }
-
-    this.onTurnEnd();
-
-    return true;
   }
 
   /**
@@ -85,10 +87,7 @@ export class EvaluatorDirectionSet extends property_evaluator {
   public onTurnEnd(): void {
     if (this.stateManager.callback?.turnEndCallback) {
       (this.stateManager.callback.turnEndCallback as AnyCallable)(this.stateManager.callback.context);
-
-      if (this.stateManager.callback !== null) {
-        this.stateManager.callback.turnEndCallback = null;
-      }
+      this.stateManager.callback.turnEndCallback = null;
     }
   }
 }

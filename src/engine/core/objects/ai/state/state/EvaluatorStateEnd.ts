@@ -25,22 +25,21 @@ export class EvaluatorStateEnd extends property_evaluator {
    * todo: Description.
    */
   public override evaluate(): boolean {
-    this.actionPlanner = this.actionPlanner || this.object.motivation_action_manager();
+    this.actionPlanner = this.actionPlanner ?? this.object.motivation_action_manager();
 
-    if (!this.actionPlanner.initialized()) {
-      return false;
+    if (this.actionPlanner.initialized()) {
+      const currentActionId: TNumberId = this.actionPlanner.current_action_id();
+
+      if (!COMBAT_ACTION_IDS[currentActionId]) {
+        this.stateManager.isCombat = false;
+      }
+
+      if (currentActionId !== EActionId.ALIFE) {
+        this.stateManager.isAlife = false;
+      }
     }
 
-    const currentActionId: TNumberId = this.actionPlanner.current_action_id();
-
-    if (!COMBAT_ACTION_IDS[currentActionId]) {
-      this.stateManager.isCombat = false;
-    }
-
-    if (currentActionId !== EActionId.ALIFE) {
-      this.stateManager.isAlife = false;
-    }
-
+    // State never ends.
     return false;
   }
 }

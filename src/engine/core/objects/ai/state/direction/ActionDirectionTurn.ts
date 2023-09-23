@@ -1,9 +1,11 @@
-import { action_base, CSightParams, level, look, LuabindClass } from "xray16";
+import { action_base, CSightParams, look, LuabindClass } from "xray16";
 
+import { registry } from "@/engine/core/database";
 import { StalkerStateManager } from "@/engine/core/objects/ai/state/StalkerStateManager";
 import { states } from "@/engine/core/objects/animation/states";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { areSameVectors, createEmptyVector, createVector, subVectors } from "@/engine/core/utils/vector";
+import { areSameVectors, createVector, subVectors } from "@/engine/core/utils/vector";
+import { ZERO_VECTOR } from "@/engine/lib/constants/vectors";
 import { Vector } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -40,11 +42,11 @@ export class ActionDirectionTurn extends action_base {
    * Perform directional turn based on state manager parameters.
    */
   public turn(): void {
-    this.stateManager.isObjectPointDirectionLook = this.stateManager.getLookObjectType();
+    this.stateManager.isObjectPointDirectionLook = this.stateManager.isLookObjectType();
 
-    if (this.stateManager.lookObjectId !== null && level.object_by_id(this.stateManager.lookObjectId) !== null) {
+    if (this.stateManager.lookObjectId && registry.objects.get(this.stateManager.lookObjectId)?.object) {
       this.stateManager.lookAtObject();
-    } else if (this.stateManager.lookPosition !== null) {
+    } else if (this.stateManager.lookPosition) {
       if (states.get(this.stateManager.targetState).direction) {
         this.object.set_sight(CSightParams.eSightTypeAnimationDirection, false, false);
 
@@ -60,7 +62,7 @@ export class ActionDirectionTurn extends action_base {
 
       direction.normalize();
 
-      if (areSameVectors(direction, createEmptyVector())) {
+      if (areSameVectors(direction, ZERO_VECTOR)) {
         const objectDirection: Vector = this.object.direction();
 
         // todo: just sum vectors?
