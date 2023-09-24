@@ -29,7 +29,7 @@ export function updateObjectMeetAvailability(object: ClientObject): void {
         EScheme.WOUNDED
       ] as ISchemeWoundedState;
 
-      if (state.enable_talk) {
+      if (state.isTalkEnabled) {
         object.enable_talk();
       } else {
         object.disable_talk();

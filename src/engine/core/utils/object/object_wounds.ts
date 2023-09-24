@@ -121,7 +121,7 @@ export function findObjectNearestWoundedToHelp(
       // Not enemies.
       woundedObject.relation(object) !== EClientObjectRelation.ENEMY &&
       // Is not marked as excluded.
-      (woundedObjectState[EScheme.WOUNDED] as ISchemeWoundedState).notForHelp !== true
+      (woundedObjectState[EScheme.WOUNDED] as ISchemeWoundedState).isNotForHelp !== true
     ) {
       const visibleObjectPosition: Vector = woundedObject.position();
       const distanceBetweenObjects: TDistance = currentObjectPosition.distance_to_sqr(visibleObjectPosition);

@@ -5,6 +5,7 @@ import { getPortableStoreValue, setPortableStoreValue } from "@/engine/core/data
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import { AbstractSchemeManager } from "@/engine/core/objects/ai/scheme";
 import { ISchemeWoundedState } from "@/engine/core/schemes/stalker/wounded/ISchemeWoundedState";
+import { TConditionList } from "@/engine/core/utils/ini";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/ini_config";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { drugs } from "@/engine/lib/constants/items/drugs";
@@ -114,11 +115,13 @@ export class WoundManager extends AbstractSchemeManager<ISchemeWoundedState> {
    * todo: Description.
    */
   public processFight(hp: TRate): string {
-    const key: Optional<TIndex> = this.getKeyFromDistance(this.state.hp_fight, hp);
+    const key: Optional<TIndex> = this.getKeyFromDistance(this.state.hpFight, hp);
 
     if (key !== null) {
-      if (this.state.hp_fight.get(key).state) {
-        return tostring(pickSectionFromCondList(registry.actor, this.object, this.state.hp_fight.get(key).state));
+      if (this.state.hpFight.get(key).state) {
+        return tostring(
+          pickSectionFromCondList(registry.actor, this.object, this.state.hpFight.get(key).state as TConditionList)
+        );
       }
     }
 
@@ -129,11 +132,13 @@ export class WoundManager extends AbstractSchemeManager<ISchemeWoundedState> {
    * todo: Description.
    */
   public processVictim(hp: TRate): string {
-    const key: Optional<TIndex> = this.getKeyFromDistance(this.state.hp_victim, hp);
+    const key: Optional<TIndex> = this.getKeyFromDistance(this.state.hpVictim, hp);
 
     if (key !== null) {
-      if (this.state.hp_victim.get(key).state) {
-        return tostring(pickSectionFromCondList(registry.actor, this.object, this.state.hp_victim.get(key).state));
+      if (this.state.hpVictim.get(key).state) {
+        return tostring(
+          pickSectionFromCondList(registry.actor, this.object, this.state.hpVictim.get(key).state as TConditionList)
+        );
       }
     }
 
@@ -144,27 +149,43 @@ export class WoundManager extends AbstractSchemeManager<ISchemeWoundedState> {
    * todo: Description.
    */
   public processHPWound(hp: TRate): LuaMultiReturn<[string, string]> {
-    const key: Optional<TIndex> = this.getKeyFromDistance(this.state.hp_state, hp);
+    const key: Optional<TIndex> = this.getKeyFromDistance(this.state.hpState, hp);
 
     if (key !== null) {
       let r1: Optional<string> = null;
       let r2: Optional<string> = null;
 
       if (this.object.see(registry.actor)) {
-        if (this.state.hp_state_see.get(key).state) {
-          r1 = pickSectionFromCondList(registry.actor, this.object, this.state.hp_state_see.get(key).state);
+        if (this.state.hpStateSee.get(key).state) {
+          r1 = pickSectionFromCondList(
+            registry.actor,
+            this.object,
+            this.state.hpStateSee.get(key).state as TConditionList
+          );
         }
 
-        if (this.state.hp_state_see.get(key).sound) {
-          r2 = pickSectionFromCondList(registry.actor, this.object, this.state.hp_state_see.get(key).sound);
+        if (this.state.hpStateSee.get(key).sound) {
+          r2 = pickSectionFromCondList(
+            registry.actor,
+            this.object,
+            this.state.hpStateSee.get(key).sound as TConditionList
+          );
         }
       } else {
-        if (this.state.hp_state.get(key).state) {
-          r1 = pickSectionFromCondList(registry.actor, this.object, this.state.hp_state.get(key).state);
+        if (this.state.hpState.get(key).state) {
+          r1 = pickSectionFromCondList(
+            registry.actor,
+            this.object,
+            this.state.hpState.get(key).state as TConditionList
+          );
         }
 
-        if (this.state.hp_state.get(key).sound) {
-          r2 = pickSectionFromCondList(registry.actor, this.object, this.state.hp_state.get(key).sound);
+        if (this.state.hpState.get(key).sound) {
+          r2 = pickSectionFromCondList(
+            registry.actor,
+            this.object,
+            this.state.hpState.get(key).sound as TConditionList
+          );
         }
       }
 
@@ -178,18 +199,18 @@ export class WoundManager extends AbstractSchemeManager<ISchemeWoundedState> {
    * todo: Description.
    */
   public processPsyWound(hp: TCount): LuaMultiReturn<[string, string]> {
-    const key: Optional<TIndex> = this.getKeyFromDistance(this.state.psy_state, hp);
+    const key: Optional<TIndex> = this.getKeyFromDistance(this.state.psyState, hp);
 
     if (key !== null) {
       let r1: Optional<string> = null;
       let r2: Optional<string> = null;
 
-      if (this.state.psy_state.get(key).state) {
-        r1 = pickSectionFromCondList(registry.actor, this.object, this.state.psy_state.get(key).state);
+      if (this.state.psyState.get(key).state) {
+        r1 = pickSectionFromCondList(registry.actor, this.object, this.state.psyState.get(key).state as TConditionList);
       }
 
-      if (this.state.psy_state.get(key).sound) {
-        r2 = pickSectionFromCondList(registry.actor, this.object, this.state.psy_state.get(key).sound);
+      if (this.state.psyState.get(key).sound) {
+        r2 = pickSectionFromCondList(registry.actor, this.object, this.state.psyState.get(key).sound as TConditionList);
       }
 
       return $multi(tostring(r1), tostring(r2));

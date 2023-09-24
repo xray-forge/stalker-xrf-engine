@@ -27,7 +27,7 @@ export class EvaluatorWounded extends property_evaluator {
    */
   public override evaluate(): boolean {
     // If scheme is not activated or object is in smart cover (animation state is captured).
-    if (!this.state.wounded_set || this.object.in_smart_cover()) {
+    if (!this.state.isWoundedInitialized || this.object.in_smart_cover()) {
       return false;
     }
 

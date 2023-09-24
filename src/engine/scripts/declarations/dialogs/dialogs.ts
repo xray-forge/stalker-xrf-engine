@@ -138,7 +138,7 @@ extern("dialogs.kill_yourself", (actor: ClientObject, object: ClientObject): voi
  * todo;
  */
 extern("dialogs.allow_wounded_dialog", (object: ClientObject, victim: ClientObject, id: TNumberId): boolean => {
-  return (registry.objects.get(victim.id())[EScheme.WOUNDED] as ISchemeWoundedState)?.help_dialog === id;
+  return (registry.objects.get(victim.id())[EScheme.WOUNDED] as ISchemeWoundedState)?.helpDialog === id;
 });
 
 /**
