@@ -32,4 +32,6 @@ describe("Stalker server object", () => {
   it.todo("should correctly switch online and offline");
 
   it.todo("should correctly save and load data");
+
+  it.todo("should correctly overwrite current vertex only if it is not null on load");
 });

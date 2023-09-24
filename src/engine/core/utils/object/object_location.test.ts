@@ -18,6 +18,7 @@ import {
   teleportActorWithEffects,
 } from "@/engine/core/utils/object/object_location";
 import { MAX_U32 } from "@/engine/lib/constants/memory";
+import { ZERO_VECTOR } from "@/engine/lib/constants/vectors";
 import { ClientObject, ServerObject, Vector } from "@/engine/lib/types";
 import { mockRegisteredActor } from "@/fixtures/engine";
 import {
@@ -145,7 +146,7 @@ describe("object location utils", () => {
 
     const second: ClientObject = mockClientGameObject({
       accessible: jest.fn(() => false),
-      accessible_nearest: jest.fn(() => 14325),
+      accessible_nearest: jest.fn(() => $multi(14325, ZERO_VECTOR)),
     });
 
     expect(sendToNearestAccessibleVertex(second, 150)).toBe(14325);

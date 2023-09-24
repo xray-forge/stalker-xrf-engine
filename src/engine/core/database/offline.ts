@@ -18,9 +18,8 @@ export function registerOfflineObject(
 ): IStoredOfflineObject {
   let offlineRecord: Optional<IStoredOfflineObject> = registry.offlineObjects.get(objectId);
 
-  if (offlineRecord === null) {
+  if (!offlineRecord) {
     offlineRecord = state;
-
     registry.offlineObjects.set(objectId, offlineRecord);
   }
 

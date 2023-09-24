@@ -79,7 +79,7 @@ async function validateResources(folderPath: string): Promise<Array<string>> {
     if (dirent.isDirectory()) {
       // Do not allow copy of folders that overlap with auto-generated code.
       if (UNEXPECTED_DIRECTORIES.includes(name)) {
-        throw new Error("Provided not expected directory for resources copy.");
+        throw new Error(`Provided not expected directory for resources copy: '${name}'.`);
       }
 
       // Do not copy hidden folders.

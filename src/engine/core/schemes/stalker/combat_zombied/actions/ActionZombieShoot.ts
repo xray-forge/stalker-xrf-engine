@@ -6,7 +6,8 @@ import { EStalkerState, ILookTargetDescriptor } from "@/engine/core/objects/anim
 import { EZombieCombatAction, ISchemeCombatState } from "@/engine/core/schemes/stalker/combat/ISchemeCombatState";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { chance } from "@/engine/core/utils/random";
-import { copyVector, createEmptyVector } from "@/engine/core/utils/vector";
+import { copyVector } from "@/engine/core/utils/vector";
+import { ZERO_VECTOR } from "@/engine/lib/constants/vectors";
 import {
   ClientObject,
   EClientObjectPath,
@@ -94,11 +95,10 @@ export class ActionZombieShoot extends action_base {
       this.isValidPath = false;
 
       if (!this.object.accessible(this.enemyLastSeenVertexId)) {
-        this.enemyLastAccessibleVertexId = this.object.accessible_nearest(
+        [this.enemyLastAccessibleVertexId, this.enemyLastAccessiblePosition] = this.object.accessible_nearest(
           level.vertex_position(this.enemyLastSeenVertexId),
-          createEmptyVector()
+          ZERO_VECTOR
         );
-        this.enemyLastAccessiblePosition = null;
       } else {
         this.enemyLastAccessibleVertexId = this.enemyLastSeenVertexId;
         this.enemyLastAccessiblePosition = this.enemyLastSeenPosition;

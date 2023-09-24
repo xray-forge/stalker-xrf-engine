@@ -155,7 +155,7 @@ export function sendToNearestAccessibleVertex(object: ClientObject, vertexId: Op
   }
 
   if (!object.accessible(vertexId)) {
-    vertexId = object.accessible_nearest(level.vertex_position(vertexId), ZERO_VECTOR);
+    [vertexId] = object.accessible_nearest(level.vertex_position(vertexId), ZERO_VECTOR);
   }
 
   object.set_dest_level_vertex_id(vertexId);

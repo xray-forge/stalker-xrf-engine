@@ -1,5 +1,6 @@
 import { action_planner, level, look, object, time_global } from "xray16";
 
+import { registry } from "@/engine/core/database";
 import { StalkerAnimationManager } from "@/engine/core/objects/ai/state/StalkerAnimationManager";
 import { EStateActionId, EStateEvaluatorId } from "@/engine/core/objects/ai/types";
 import { states } from "@/engine/core/objects/animation/states";
@@ -95,8 +96,8 @@ export class StalkerStateManager {
     assert(states.get(state), "Invalid set state called: '%s' fo '%s'.", state, this.object.name());
 
     if (target) {
-      this.lookPosition = target.lookPosition;
-      this.lookObjectId = target.lookObjectId;
+      this.lookPosition = target.lookPosition ?? null;
+      this.lookObjectId = target.lookObjectId ?? null;
     } else {
       this.lookPosition = null;
       this.lookObjectId = null;
@@ -229,19 +230,19 @@ export class StalkerStateManager {
    * Applies look type / direction / object.
    */
   public lookAtObject(): void {
-    this.isObjectPointDirectionLook = this.getLookObjectType();
+    this.isObjectPointDirectionLook = this.isLookObjectType();
 
     if (this.isObjectPointDirectionLook) {
-      this.object.set_sight(level.object_by_id(this.lookObjectId!)!, true, false, false);
+      this.object.set_sight(registry.objects.get(this.lookObjectId!).object, true, false, false);
     } else {
-      this.object.set_sight(level.object_by_id(this.lookObjectId!)!, true, true);
+      this.object.set_sight(registry.objects.get(this.lookObjectId!).object, true, true);
     }
   }
 
   /**
    * todo;
    */
-  public getLookObjectType(): boolean {
+  public isLookObjectType(): boolean {
     if (LOOK_DIRECTION_STATES.get(this.targetState)) {
       return true;
     }
@@ -270,7 +271,7 @@ export class StalkerStateManager {
    * todo;
    */
   public turn(): void {
-    this.isObjectPointDirectionLook = this.getLookObjectType();
+    this.isObjectPointDirectionLook = this.isLookObjectType();
 
     if (this.lookObjectId !== null && level.object_by_id(this.lookObjectId) !== null) {
       this.lookAtObject();

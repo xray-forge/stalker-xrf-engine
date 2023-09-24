@@ -105,7 +105,7 @@ export class ActionStateEnd extends action_base {
         }
       }
 
-      if (this.stateManager.lookPosition !== null && this.stateManager.lookObjectId === null) {
+      if (this.stateManager.lookPosition && !this.stateManager.lookObjectId) {
         if (targetWeaponState === EWeaponAnimation.SNIPER_FIRE) {
           this.object.set_item(object.fire1, this.object.best_weapon(), 1, sniperAimDuration);
         } else {

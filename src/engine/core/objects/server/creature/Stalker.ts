@@ -16,7 +16,7 @@ import { parseNumberOptional, parseStringOptional } from "@/engine/core/utils/in
 import { readIniString } from "@/engine/core/utils/ini/ini_read";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { MAX_U16 } from "@/engine/lib/constants/memory";
-import { IniFile, NetPacket, Optional, ServerCreatureObject, TName, TNumberId, TSection } from "@/engine/lib/types";
+import { NetPacket, Optional, ServerCreatureObject, TName, TNumberId, TSection } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -54,13 +54,12 @@ export class Stalker extends cse_alife_human_stalker {
     registerObjectStoryLinks(this);
 
     const simulationBoardManager: SimulationBoardManager = SimulationBoardManager.getInstance();
-    const objectIni: IniFile = this.spawn_ini();
 
     registerOfflineObject(this.id);
 
     this.brain().can_choose_alife_tasks(false);
 
-    const smartName: TName = readIniString(objectIni, "logic", "smart_terrain", false, null, "");
+    const smartName: TName = readIniString(this.spawn_ini(), "logic", "smart_terrain", false, null, "");
     const smartTerrain: Optional<SmartTerrain> = simulationBoardManager.getSmartTerrainByName(smartName);
 
     if (smartTerrain) {
@@ -132,9 +131,10 @@ export class Stalker extends cse_alife_human_stalker {
     super.STATE_Read(packet, size);
 
     const offlineObject: IStoredOfflineObject = registerOfflineObject(this.id);
+    const oldVertexId: Optional<TNumberId> = parseNumberOptional(packet.r_stringZ());
 
-    offlineObject.levelVertexId = parseNumberOptional(packet.r_stringZ());
     offlineObject.activeSection = parseStringOptional(packet.r_stringZ());
+    offlineObject.levelVertexId = oldVertexId ? oldVertexId : offlineObject.levelVertexId;
 
     this.isCorpseLootDropped = packet.r_bool();
   }

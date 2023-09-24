@@ -730,13 +730,18 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
   public selectObjectJob(objectJobDescriptor: IObjectJobDescriptor): void {
     const [selectedJobId, selectedJobLink] = selectSmartTerrainJob(this, this.jobs, objectJobDescriptor);
 
-    assertDefined(
-      selectedJobId,
-      "Insufficient smart terrain jobs: %s, %s, %s",
-      this.name(),
-      objectJobDescriptor.object.id,
-      this.simulationRole
-    );
+    if (selectedJobId === null) {
+      abort(
+        "Insufficient smart terrain jobs: %s, %s @ '%s' '%s' %s/%s",
+        this.name(),
+        objectJobDescriptor.object.name(),
+        this.simulationRole,
+        table.size(this.jobs),
+        objectJobDescriptor.jobId,
+        this.population,
+        this.maxPopulation
+      );
+    }
 
     const state: Optional<IRegistryObjectState> = registry.objects.get(objectJobDescriptor.object.id);
 
