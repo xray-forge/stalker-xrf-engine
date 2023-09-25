@@ -30,9 +30,9 @@ export class ActionWounded extends action_base {
   public readonly state: ISchemeWoundedState;
   public nextSoundPlayAt: TTimestamp = 0;
 
-  public constructor(storage: ISchemeWoundedState) {
+  public constructor(state: ISchemeWoundedState) {
     super(null, ActionWounded.__name);
-    this.state = storage;
+    this.state = state;
   }
 
   public override initialize(): void {

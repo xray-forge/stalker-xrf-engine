@@ -23,6 +23,8 @@ export class MockActionBase extends MockLuabindClass {
 
   public execute(): void {}
 
+  public finalize(): void {}
+
   public setup(object: ClientObject): void {
     this.object = object;
   }

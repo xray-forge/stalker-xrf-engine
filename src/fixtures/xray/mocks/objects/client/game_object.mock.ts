@@ -147,6 +147,8 @@ export function mockClientGameObject({
           return false;
         }
       }),
+    disable_talk: rest.disable_talk ?? jest.fn(),
+    disable_trade: rest.disable_trade ?? jest.fn(),
     drop_item:
       rest.drop_item ||
       jest.fn((it: ClientObject) => {
@@ -155,6 +157,7 @@ export function mockClientGameObject({
         }
       }),
     enable_night_vision: rest.enable_night_vision ?? jest.fn(),
+    enable_trade: rest.enable_trade ?? jest.fn(),
     force_set_goodwill: rest.force_set_goodwill ?? jest.fn(),
     game_vertex_id,
     general_goodwill:
@@ -200,6 +203,7 @@ export function mockClientGameObject({
 
         return actionManager;
       }),
+    movement_enabled: rest.movement_enabled ?? jest.fn(),
     name: name ?? jest.fn(() => `${sectionOverride}_${idOverride}`),
     night_vision_enabled: rest.night_vision_enabled ?? jest.fn(),
     object:
@@ -270,6 +274,9 @@ export function mockClientGameObject({
       }),
     restore_ignore_monster_threshold: rest.restore_max_ignore_monster_distance ?? jest.fn(),
     restore_max_ignore_monster_distance: rest.restore_max_ignore_monster_distance ?? jest.fn(),
+    set_desired_direction: rest.set_desired_direction ?? jest.fn(),
+    set_desired_position: rest.set_desired_position ?? jest.fn(),
+    set_start_dialog: rest.set_start_dialog ?? jest.fn(),
     set_tip_text: rest.set_tip_text ?? jest.fn(),
     sell_condition: rest.sell_condition ?? jest.fn(),
     script: rest.script ?? jest.fn(),
@@ -353,6 +360,7 @@ export function mockClientGameObject({
       }),
     weapon_unstrapped,
     weapon_strapped: rest.weapon_strapped ?? jest.fn(() => true),
+    wounded: rest.wounded ?? jest.fn(),
   };
 
   CLIENT_SIDE_REGISTRY.set(gameObject.id(), gameObject as ClientObject);
