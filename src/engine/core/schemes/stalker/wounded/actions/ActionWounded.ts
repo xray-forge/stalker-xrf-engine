@@ -17,7 +17,7 @@ import { abort } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { giveWoundedObjectMedkit } from "@/engine/core/utils/object";
 import { NIL, TRUE } from "@/engine/lib/constants/words";
-import { Hit, TTimestamp } from "@/engine/lib/types";
+import { Hit, TName, TTimestamp } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -92,7 +92,7 @@ export class ActionWounded extends action_base {
     }
 
     const woundManagerState: EStalkerState = getPortableStoreValue<EStalkerState>(this.object.id(), "wounded_state")!;
-    const woundManagerSound: string = getPortableStoreValue(this.object.id(), "wounded_sound")!;
+    const woundManagerSound: TName = getPortableStoreValue(this.object.id(), "wounded_sound")!;
 
     if (woundManagerState === TRUE) {
       const hitObject: Hit = new hit();
