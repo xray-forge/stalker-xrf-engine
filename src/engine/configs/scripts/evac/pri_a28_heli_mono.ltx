@@ -15,11 +15,11 @@ combat_ignore_cond = {=check_enemy_name(actor)} true, {=check_enemy_name(cutscen
 in_restr = pri_a28_scene_end_zone
 
 [wounded@no_wound]
-hp_state = 0 | wounded_heavy@help_heavy
-hp_state_see = 0 | wounded_heavy@help_heavy
-hp_victim = 0 | nil
-hp_cover = 0 | false
-hp_fight = 0 | false
+hp_state = 0|wounded_heavy@help_heavy
+hp_state_see = 0|wounded_heavy@help_heavy
+hp_victim = 0|nil
+hp_cover = 0|false
+hp_fight = 0|false
 
 [logic@pri_a28_heli_mono_def]
 suitable = {-pri_a28_cutscenes_end =target_squad_name(pri_a28_heli_mono_default) +pri_b305_fifth_cam_end} true

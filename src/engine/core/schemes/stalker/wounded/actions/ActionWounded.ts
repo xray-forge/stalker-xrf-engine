@@ -11,12 +11,13 @@ import {
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import { EStalkerState } from "@/engine/core/objects/animation/types";
 import { ISchemeWoundedState } from "@/engine/core/schemes/stalker/wounded";
+import { schemeWoundedConfig } from "@/engine/core/schemes/stalker/wounded/SchemeWoundedConfig";
 import { WoundManager } from "@/engine/core/schemes/stalker/wounded/WoundManager";
 import { abort } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { giveWoundedObjectMedkit } from "@/engine/core/utils/object";
 import { NIL, TRUE } from "@/engine/lib/constants/words";
-import { Hit, TTimestamp } from "@/engine/lib/types";
+import { Hit, TName, TTimestamp } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -29,9 +30,9 @@ export class ActionWounded extends action_base {
   public readonly state: ISchemeWoundedState;
   public nextSoundPlayAt: TTimestamp = 0;
 
-  public constructor(storage: ISchemeWoundedState) {
+  public constructor(state: ISchemeWoundedState) {
     super(null, ActionWounded.__name);
-    this.state = storage;
+    this.state = state;
   }
 
   public override initialize(): void {
@@ -42,8 +43,8 @@ export class ActionWounded extends action_base {
     this.object.set_desired_position();
     this.object.set_desired_direction();
 
-    if (this.state.help_start_dialog) {
-      this.object.set_start_dialog(this.state.help_start_dialog);
+    if (this.state.helpStartDialog) {
+      this.object.set_start_dialog(this.state.helpStartDialog);
     }
 
     this.object.movement_enabled(false);
@@ -51,7 +52,7 @@ export class ActionWounded extends action_base {
     this.object.wounded(true);
 
     // Give some time to fall before calling for help.
-    this.nextSoundPlayAt = time_global() + 5_000;
+    this.nextSoundPlayAt = time_global() + schemeWoundedConfig.CALL_FOR_HELP_DELAY;
 
     registerWoundedObject(this.object);
   }
@@ -84,14 +85,14 @@ export class ActionWounded extends action_base {
 
       if (woundedAt === null) {
         setPortableStoreValue(this.object.id(), "begin_wounded", now);
-      } else if (now - woundedAt > 60_000) {
+      } else if (now - woundedAt > schemeWoundedConfig.WOUNDED_TIMEOUT) {
         giveWoundedObjectMedkit(this.object);
         woundManager.unlockMedkit();
       }
     }
 
     const woundManagerState: EStalkerState = getPortableStoreValue<EStalkerState>(this.object.id(), "wounded_state")!;
-    const woundManagerSound: string = getPortableStoreValue(this.object.id(), "wounded_sound")!;
+    const woundManagerSound: TName = getPortableStoreValue(this.object.id(), "wounded_sound")!;
 
     if (woundManagerState === TRUE) {
       const hitObject: Hit = new hit();
@@ -105,7 +106,7 @@ export class ActionWounded extends action_base {
 
       this.object.hit(hitObject);
     } else {
-      if (this.state.use_medkit === true) {
+      if (this.state.useMedkit === true) {
         woundManager.eatMedkit();
       }
 
@@ -123,7 +124,7 @@ export class ActionWounded extends action_base {
         woundManagerSound === NIL ? null : woundManagerSound
       );
 
-      this.nextSoundPlayAt = now + 5_000;
+      this.nextSoundPlayAt = now + schemeWoundedConfig.CALL_FOR_HELP_PERIOD;
     }
   }
 }

@@ -14,6 +14,10 @@ import { MockLuabindClass } from "@/fixtures/xray/mocks/luabind.mock";
 import { MockPropertyEvaluator } from "@/fixtures/xray/mocks/PropertyEvaluator.mock";
 
 export class MockActionPlanner extends MockLuabindClass {
+  public static mock(): ActionPlanner {
+    return new MockActionPlanner() as unknown as ActionPlanner;
+  }
+
   public object!: ClientObject;
   public storage!: PropertyStorage;
 
@@ -72,6 +76,10 @@ export class MockActionPlanner extends MockLuabindClass {
 
   public evaluator(id: TNumberId): Optional<MockPropertyEvaluator> {
     return (this.evaluators[id] as unknown as MockPropertyEvaluator) || null;
+  }
+
+  public asMock(): ActionPlanner {
+    return this as unknown as ActionPlanner;
   }
 }
 

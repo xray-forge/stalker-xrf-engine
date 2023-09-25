@@ -1,6 +1,16 @@
 import type { IBaseSchemeState } from "@/engine/core/database/types";
 import type { WoundManager } from "@/engine/core/schemes/stalker/wounded/WoundManager";
-import type { LuaArray, Optional, TNumberId } from "@/engine/lib/types";
+import type { TConditionList } from "@/engine/core/utils/ini";
+import type { LuaArray, Optional, TDistance, TNumberId, TSection } from "@/engine/lib/types";
+
+/**
+ * Descriptor of wounded state configuration parameters.
+ */
+export interface IWoundedStateDescriptor {
+  dist: Optional<TDistance>;
+  state: Optional<TConditionList>;
+  sound: Optional<TConditionList>;
+}
 
 /**
  * State of object wounded scheme.
@@ -8,19 +18,19 @@ import type { LuaArray, Optional, TNumberId } from "@/engine/lib/types";
  */
 export interface ISchemeWoundedState extends IBaseSchemeState {
   woundManager: WoundManager;
-  wounded_set: boolean;
-  wounded_section: string;
-  hp_state: LuaArray<any>;
-  hp_state_see: LuaArray<any>;
-  psy_state: LuaArray<any>;
-  hp_victim: LuaArray<any>;
-  hp_cover: LuaArray<any>;
-  hp_fight: LuaArray<any>;
-  help_start_dialog: Optional<string>;
-  use_medkit: Optional<boolean>;
-  help_dialog: TNumberId;
+  isWoundedInitialized: boolean;
+  isTalkEnabled: boolean;
   // Whether object should not be helped by other stalkers.
-  notForHelp: Optional<boolean>;
+  isNotForHelp: Optional<boolean>;
+  woundedSection: TSection;
+  hpState: LuaArray<IWoundedStateDescriptor>;
+  hpStateSee: LuaArray<IWoundedStateDescriptor>;
+  hpVictim: LuaArray<IWoundedStateDescriptor>;
+  hpCover: LuaArray<IWoundedStateDescriptor>;
+  hpFight: LuaArray<IWoundedStateDescriptor>;
+  helpStartDialog: Optional<string>;
+  psyState: LuaArray<IWoundedStateDescriptor>;
+  useMedkit: Optional<boolean>;
+  helpDialog: TNumberId;
   autoheal: boolean;
-  enable_talk: boolean;
 }
