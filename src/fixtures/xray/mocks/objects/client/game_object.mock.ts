@@ -185,6 +185,7 @@ export function mockClientGameObject({
     group: rest.group ?? jest.fn(),
     has_info: has_info ?? jest.fn((it: string) => internalInfos.includes(it)),
     health,
+    hit: rest.hit ?? jest.fn(),
     id: id ?? jest.fn(() => idOverride),
     ignore_monster_threshold: rest.ignore_monster_threshold ?? jest.fn(),
     infoPortions,

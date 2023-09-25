@@ -22,6 +22,7 @@ import { MockDevice } from "@/fixtures/xray/mocks/device.mock";
 import { MockPhraseDialog } from "@/fixtures/xray/mocks/dialogs";
 import { MockEffector } from "@/fixtures/xray/mocks/effector.mock";
 import { MockCSavedGameWrapper, MockFileSystem } from "@/fixtures/xray/mocks/fs";
+import { MockHit } from "@/fixtures/xray/mocks/hit.mock";
 import { mockCreateIniFile, MockIniFile, mockIniFile } from "@/fixtures/xray/mocks/ini";
 import { mockGameInterface } from "@/fixtures/xray/mocks/interface/gameInterface.mock";
 import { mockGetGameHud } from "@/fixtures/xray/mocks/interface/globalInteraface.mock";
@@ -152,6 +153,7 @@ export function mockXRay16({
   getFS = () => MockFileSystem.getInstance(),
   get_console = mockGetConsole,
   get_hud = mockGetGameHud,
+  hit = MockHit,
   ini_file = MockIniFile,
   level = mockLevelInterface,
   log = jest.fn(),
@@ -246,6 +248,7 @@ export function mockXRay16({
     getFS,
     get_console,
     get_hud,
+    hit,
     ini_file,
     level,
     log,

@@ -2,10 +2,10 @@ import { hit, level } from "xray16";
 
 import { getPortableStoreValue, IRegistryObjectState, registry } from "@/engine/core/database";
 import { ISchemeWoundedState } from "@/engine/core/schemes/stalker/wounded";
-import { createVector } from "@/engine/core/utils/vector";
 import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
 import { misc } from "@/engine/lib/constants/items/misc";
 import { HELPING_WOUNDED_OBJECT_KEY } from "@/engine/lib/constants/portable_store_keys";
+import { MZ_VECTOR } from "@/engine/lib/constants/vectors";
 import {
   ClientObject,
   EClientObjectRelation,
@@ -14,6 +14,7 @@ import {
   Maybe,
   Optional,
   TDistance,
+  TName,
   TNumberId,
   Vector,
 } from "@/engine/lib/types";
@@ -46,7 +47,7 @@ export function setObjectWounded(object: ClientObject): void {
   hitObject.type = hit.fire_wound;
   hitObject.power = math.max(object.health - 0.01, 0);
   hitObject.impulse = 0.0;
-  hitObject.direction = createVector(0, 0, -1);
+  hitObject.direction = MZ_VECTOR;
   hitObject.draftsman = object;
 
   object.hit(hitObject);
@@ -65,14 +66,15 @@ export function enableObjectWoundedHealing(object: ClientObject): void {
 }
 
 /**
- * todo: Description.
+ * @param object - target client object to check
+ * @returns whether object is wounded with physical damage
  */
 export function isObjectPsyWounded(object: ClientObject): boolean {
   const state: Optional<IRegistryObjectState> = registry.objects.get(object.id());
 
-  if (state.wounded !== null) {
-    const woundState: Optional<string> = (state?.wounded as Maybe<ISchemeWoundedState>)?.woundManager
-      .woundState as Optional<string>;
+  if (state.wounded) {
+    const woundState: Optional<TName> = (state?.wounded as Maybe<ISchemeWoundedState>)?.woundManager
+      .woundState as Optional<TName>;
 
     return (
       woundState === "psy_pain" ||
