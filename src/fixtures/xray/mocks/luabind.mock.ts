@@ -1,4 +1,3 @@
-import { jest } from "@jest/globals";
 import type { EngineBinding } from "xray16";
 
 /**
@@ -6,10 +5,6 @@ import type { EngineBinding } from "xray16";
  */
 interface IXR_EngineBinding {
   __name: string;
-  __init: () => void;
-  __finalize: () => void;
-  __call: (...args: Array<any>) => void;
-  __tostring: () => string;
 }
 
 /**
@@ -19,23 +14,17 @@ export class MockLuabindClass {
   public static get __name(): string {
     return this.name;
   }
+
+  public get __name(): string {
+    return this.constructor.name;
+  }
 }
 
 /**
  * todo;
  */
-export function mockLuabindBase({
-  __name = "EngineBindingTest",
-  __init = jest.fn(),
-  __finalize = jest.fn(),
-  __call = jest.fn(),
-  __tostring = jest.fn(() => "TestBaseToString"),
-}: Partial<EngineBinding> = {}): IXR_EngineBinding {
+export function mockLuabindBase({ __name = "EngineBindingTest" }: Partial<EngineBinding> = {}): IXR_EngineBinding {
   return {
     __name,
-    __init,
-    __finalize,
-    __call,
-    __tostring,
   };
 }

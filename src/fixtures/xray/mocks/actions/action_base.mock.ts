@@ -16,7 +16,7 @@ export class MockActionBase extends MockLuabindClass {
     super();
 
     this.object = object;
-    this.name = name || this.constructor.name;
+    this.name = name ?? this.constructor.name;
   }
 
   public initialize(): void {}

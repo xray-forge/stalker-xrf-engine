@@ -52,7 +52,7 @@ export class ActionWounded extends action_base {
     this.object.wounded(true);
 
     // Give some time to fall before calling for help.
-    this.nextSoundPlayAt = time_global() + +schemeWoundedConfig.CALL_FOR_HELP_DELAY;
+    this.nextSoundPlayAt = time_global() + schemeWoundedConfig.CALL_FOR_HELP_DELAY;
 
     registerWoundedObject(this.object);
   }

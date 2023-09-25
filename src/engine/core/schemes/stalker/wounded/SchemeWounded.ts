@@ -19,7 +19,7 @@ import { EScheme, ESchemeType, TSection } from "@/engine/lib/types/scheme";
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Scheme to capture stalker logic and lay wounded / call for help.
  */
 export class SchemeWounded extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.WOUNDED;
@@ -73,7 +73,7 @@ export class SchemeWounded extends AbstractScheme {
         ? readIniString(state.ini, state.sectionLogic, "wounded", false)
         : readIniString(state.ini, section, "wounded", false);
 
-    SchemeWounded.initialize(object, state.ini, woundedSection, state.wounded as ISchemeWoundedState, scheme);
+    SchemeWounded.initialize(object, state.ini, woundedSection, state[EScheme.WOUNDED] as ISchemeWoundedState);
 
     (state[SchemeWounded.SCHEME_SECTION] as ISchemeWoundedState).woundManager.onHit();
   }
@@ -81,13 +81,7 @@ export class SchemeWounded extends AbstractScheme {
   /**
    * todo: Description.
    */
-  public static initialize(
-    object: ClientObject,
-    ini: IniFile,
-    section: TSection,
-    state: ISchemeWoundedState,
-    scheme: EScheme
-  ): void {
+  public static initialize(object: ClientObject, ini: IniFile, section: TSection, state: ISchemeWoundedState): void {
     // logger.info("Init wounded:", object.name(), section, scheme);
 
     if (tostring(section) === state.woundedSection && tostring(section) !== NIL) {
