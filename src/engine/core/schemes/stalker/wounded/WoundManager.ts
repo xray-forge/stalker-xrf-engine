@@ -4,7 +4,10 @@ import { registry } from "@/engine/core/database";
 import { getPortableStoreValue, setPortableStoreValue } from "@/engine/core/database/portable_store";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import { AbstractSchemeManager } from "@/engine/core/objects/ai/scheme";
-import { ISchemeWoundedState } from "@/engine/core/schemes/stalker/wounded/ISchemeWoundedState";
+import {
+  ISchemeWoundedState,
+  IWoundedStateDescriptor,
+} from "@/engine/core/schemes/stalker/wounded/ISchemeWoundedState";
 import { TConditionList } from "@/engine/core/utils/ini";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/ini_config";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -17,6 +20,7 @@ import {
   LuaArray,
   Optional,
   TCount,
+  TDistance,
   TIndex,
   TRate,
   TTimestamp,
@@ -222,18 +226,18 @@ export class WoundManager extends AbstractSchemeManager<ISchemeWoundedState> {
   /**
    * todo: Description.
    */
-  public getKeyFromDistance(list: LuaArray<any>, hp: TRate): Optional<number> {
-    let key: Optional<number> = null;
+  public getKeyFromDistance(list: LuaArray<IWoundedStateDescriptor>, hp: TRate): Optional<number> {
+    let result: Optional<number> = null;
 
-    for (const [k, v] of list) {
-      if (v.dist >= hp) {
-        key = k;
+    for (const [key, value] of list) {
+      if ((value.dist as TDistance) >= hp) {
+        result = key;
       } else {
-        return key;
+        return result;
       }
     }
 
-    return key;
+    return result;
   }
 
   /**
