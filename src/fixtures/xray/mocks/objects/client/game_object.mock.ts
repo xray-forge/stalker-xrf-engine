@@ -187,6 +187,7 @@ export function mockClientGameObject({
     infoPortions,
     inside: rest.inside ?? jest.fn(() => false),
     inventory: inventoryMap,
+    in_smart_cover: rest.in_smart_cover ?? jest.fn(() => false),
     is_talking,
     is_there_items_to_pickup: rest.is_there_items_to_pickup ?? jest.fn(() => false),
     level_vertex_id: rest.level_vertex_id ?? jest.fn(() => 255),
