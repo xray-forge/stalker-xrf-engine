@@ -1,3 +1,5 @@
+import { expect } from "@jest/globals";
+
 import type { IBaseSchemeState } from "@/engine/core/database/types";
 import type { AnyObject, IConstructor } from "@/engine/lib/types";
 
@@ -15,4 +17,15 @@ export function assertSchemeSubscribedToManager(state: IBaseSchemeState, action:
   }
 
   throw new Error(`Expected '${action.name}' to be subscribed to '${state.scheme}' scheme state.`);
+}
+
+/**
+ * Check if scheme manager is not subscribed to actions.
+ *
+ * @param state - base state to check
+ */
+export function assertSchemeNotToBeSubscribed(state: IBaseSchemeState): void {
+  if (state.actions) {
+    expect(state.actions?.length()).toBe(0);
+  }
 }

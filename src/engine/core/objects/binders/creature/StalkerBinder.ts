@@ -159,7 +159,7 @@ export class StalkerBinder extends object_binder {
     this.helicopterEnemyIndex = registerHelicopterEnemy(this.object);
 
     GlobalSoundManager.initializeObjectSounds(this.object);
-    SchemeReachTask.addReachTaskSchemeAction(this.object);
+    SchemeReachTask.setup(this.object);
 
     // todo: Why? Already same ref in parameter?
     const serverObject: Optional<ServerHumanObject> = registry.simulator.object(objectId);
