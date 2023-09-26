@@ -19,9 +19,6 @@ export class MobJumpManager extends AbstractSchemeManager<ISchemeMobJumpState> {
   public point: Optional<Vector> = null;
   public stateCurrent: Optional<number> = null;
 
-  /**
-   * todo: Description.
-   */
   public override activate(): void {
     scriptCaptureMonster(this.object, true, MobJumpManager.name);
 
@@ -45,9 +42,6 @@ export class MobJumpManager extends AbstractSchemeManager<ISchemeMobJumpState> {
     this.stateCurrent = STATE_START_LOOK;
   }
 
-  /**
-   * todo: Description.
-   */
   public update(delta: number): void {
     if (this.stateCurrent === STATE_START_LOOK) {
       if (!this.object.action()) {

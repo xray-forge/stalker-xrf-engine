@@ -7,7 +7,7 @@ import { SchemeHelicopterMove } from "@/engine/core/schemes/helicopter/heli_move
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini";
 import { loadSchemeImplementation } from "@/engine/core/utils/scheme";
 import { ClientObject, EScheme, IniFile } from "@/engine/lib/types";
-import { MockLuaTable } from "@/fixtures/lua";
+import { assertSchemeSubscribedToManager } from "@/fixtures/engine";
 import { mockClientGameObject, mockIniFile } from "@/fixtures/xray";
 
 describe("SchemeHelicopterMove", () => {
@@ -30,9 +30,7 @@ describe("SchemeHelicopterMove", () => {
       "heli_move@test"
     );
 
-    expect((schemeState.actions as unknown as MockLuaTable<any, any>).getKeysArray()[0]).toBeInstanceOf(
-      HelicopterMoveManager
-    );
+    assertSchemeSubscribedToManager(schemeState, HelicopterMoveManager);
 
     expect(state.invulnerable).toBe(false);
     expect(state.immortal).toBe(false);

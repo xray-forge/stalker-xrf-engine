@@ -2,11 +2,13 @@ import { describe, expect, it } from "@jest/globals";
 
 import { registerObject } from "@/engine/core/database";
 import { ISchemeMobJumpState } from "@/engine/core/schemes/monster/mob_jump/ISchemeMobJumpState";
+import { MobJumpManager } from "@/engine/core/schemes/monster/mob_jump/MobJumpManager";
 import { SchemeMobJump } from "@/engine/core/schemes/monster/mob_jump/SchemeMobJump";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini";
 import { loadSchemeImplementation } from "@/engine/core/utils/scheme";
 import { ZERO_VECTOR } from "@/engine/lib/constants/vectors";
 import { ClientObject, EScheme, IniFile } from "@/engine/lib/types";
+import { assertSchemeSubscribedToManager } from "@/fixtures/engine";
 import { mockClientGameObject, mockIniFile } from "@/fixtures/xray";
 import { MockVector } from "@/fixtures/xray/mocks/vector.mock";
 
@@ -35,6 +37,8 @@ describe("SchemeMobJump", () => {
     expect(state.phJumpFactor).toBe(1.8);
     expect(state.jumpPathName).toBeNull();
     expect(state.offset).toEqualLuaTables(ZERO_VECTOR);
+
+    assertSchemeSubscribedToManager(state, MobJumpManager);
   });
 
   it("should correctly activate scheme with custom values", () => {
@@ -63,6 +67,8 @@ describe("SchemeMobJump", () => {
     expect(state.phJumpFactor).toBe(15);
     expect(state.jumpPathName).toBe("test_smart_test_jump");
     expect(state.offset).toEqualLuaTables(MockVector.mock(1, 2, 3));
+
+    assertSchemeSubscribedToManager(state, MobJumpManager);
   });
 
   it("should correctly throw if no on_signal supplied", () => {

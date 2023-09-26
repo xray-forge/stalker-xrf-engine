@@ -1,10 +1,12 @@
 import { describe, expect, it } from "@jest/globals";
 
-import { IRegistryObjectState, registerObject, registry } from "@/engine/core/database";
+import { registerObject } from "@/engine/core/database";
 import { ISchemeMobHomeState } from "@/engine/core/schemes/monster/mob_home/ISchemeMobHomeState";
+import { MobHomeManager } from "@/engine/core/schemes/monster/mob_home/MobHomeManager";
 import { SchemeMobHome } from "@/engine/core/schemes/monster/mob_home/SchemeMobHome";
 import { loadSchemeImplementation } from "@/engine/core/utils/scheme/scheme_setup";
 import { ClientObject, EScheme, ESchemeType, IniFile } from "@/engine/lib/types";
+import { assertSchemeSubscribedToManager } from "@/fixtures/engine";
 import { mockClientGameObject, mockIniFile } from "@/fixtures/xray";
 
 describe("SchemeMobHome functionality", () => {
@@ -32,22 +34,27 @@ describe("SchemeMobHome functionality", () => {
     registerObject(object);
     loadSchemeImplementation(SchemeMobHome);
 
-    SchemeMobHome.activate(object, ini, SchemeMobHome.SCHEME_SECTION, `${SchemeMobHome.SCHEME_SECTION}@test`, "prefix");
+    const state: ISchemeMobHomeState = SchemeMobHome.activate(
+      object,
+      ini,
+      SchemeMobHome.SCHEME_SECTION,
+      `${SchemeMobHome.SCHEME_SECTION}@test`,
+      "prefix"
+    );
 
-    const state: IRegistryObjectState = registry.objects.get(object.id());
-    const schemeState: ISchemeMobHomeState = state[EScheme.MOB_HOME] as ISchemeMobHomeState;
+    expect(state.ini).toBe(ini);
+    expect(state.scheme).toBe("mob_home");
+    expect(state.section).toBe("mob_home@test");
+    expect(state.logic?.length()).toBe(2);
+    expect(state.actions?.length()).toBe(1);
 
-    expect(schemeState.ini).toBe(ini);
-    expect(schemeState.scheme).toBe("mob_home");
-    expect(schemeState.section).toBe("mob_home@test");
-    expect(schemeState.logic?.length()).toBe(2);
-    expect(schemeState.actions?.length()).toBe(1);
+    expect(state.homeWayPoint).toBe("prefix_test-name");
+    expect(state.monsterState).toBeNull();
+    expect(state.isSmartTerrainPoint).toBe(true);
+    expect(state.homeMinRadius).toBe(13);
+    expect(state.homeMidRadius).toBe(15);
+    expect(state.homeMaxRadius).toBe(18);
 
-    expect(schemeState.homeWayPoint).toBe("prefix_test-name");
-    expect(schemeState.monsterState).toBeNull();
-    expect(schemeState.isSmartTerrainPoint).toBe(true);
-    expect(schemeState.homeMinRadius).toBe(13);
-    expect(schemeState.homeMidRadius).toBe(15);
-    expect(schemeState.homeMaxRadius).toBe(18);
+    assertSchemeSubscribedToManager(state, MobHomeManager);
   });
 });
