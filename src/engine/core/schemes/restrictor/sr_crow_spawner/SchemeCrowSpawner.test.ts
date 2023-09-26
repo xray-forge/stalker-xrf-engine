@@ -1,19 +1,16 @@
-import { beforeEach, describe, expect, it } from "@jest/globals";
+import { describe, expect, it } from "@jest/globals";
 
-import { IRegistryObjectState, registerObject } from "@/engine/core/database";
+import { registerObject } from "@/engine/core/database";
+import { CrowSpawnerManager } from "@/engine/core/schemes/restrictor/sr_crow_spawner/CrowSpawnerManager";
 import { ISchemeCrowSpawnerState } from "@/engine/core/schemes/restrictor/sr_crow_spawner/ISchemeCrowSpawnerState";
 import { SchemeCrowSpawner } from "@/engine/core/schemes/restrictor/sr_crow_spawner/SchemeCrowSpawner";
-import { parseConditionsList } from "@/engine/core/utils/ini";
+import { getConfigSwitchConditions } from "@/engine/core/utils/ini";
 import { loadSchemeImplementation } from "@/engine/core/utils/scheme";
 import { ClientObject, EScheme, ESchemeType, IniFile } from "@/engine/lib/types";
-import { mockBaseSchemeLogic } from "@/fixtures/engine";
+import { assertSchemeSubscribedToManager } from "@/fixtures/engine";
 import { mockClientGameObject, mockIniFile } from "@/fixtures/xray";
 
 describe("SchemeCrowSpawner", () => {
-  beforeEach(() => {
-    loadSchemeImplementation(SchemeCrowSpawner);
-  });
-
   it("should be correctly defined", () => {
     expect(SchemeCrowSpawner.SCHEME_SECTION).toBe("sr_crow_spawner");
     expect(SchemeCrowSpawner.SCHEME_TYPE).toBe(ESchemeType.RESTRICTOR);
@@ -21,7 +18,6 @@ describe("SchemeCrowSpawner", () => {
 
   it("should correctly read ini configuration", () => {
     const object: ClientObject = mockClientGameObject();
-    const state: IRegistryObjectState = registerObject(object);
     const ini: IniFile = mockIniFile("example.ltx", {
       "sr_crow_spawner@test": {
         on_info: "{+test_info} another@section",
@@ -30,30 +26,41 @@ describe("SchemeCrowSpawner", () => {
       },
     });
 
-    SchemeCrowSpawner.activate(object, ini, EScheme.SR_CROW_SPAWNER, "sr_crow_spawner@test");
+    registerObject(object);
+    loadSchemeImplementation(SchemeCrowSpawner);
 
-    const schemeState: ISchemeCrowSpawnerState = state[EScheme.SR_CROW_SPAWNER] as ISchemeCrowSpawnerState;
+    const state: ISchemeCrowSpawnerState = SchemeCrowSpawner.activate(
+      object,
+      ini,
+      EScheme.SR_CROW_SPAWNER,
+      "sr_crow_spawner@test"
+    );
 
-    expect(schemeState.actions?.length()).toBe(1);
-    expect(schemeState.maxCrowsOnLevel).toBe(48);
-    expect(schemeState.pathsList).toEqualLuaArrays(["a", "b", "c", "d"]);
-    expect(schemeState.logic).toEqualLuaArrays([
-      mockBaseSchemeLogic({ name: "on_info", condlist: parseConditionsList("{+test_info} another@section") }),
-    ]);
+    expect(state.maxCrowsOnLevel).toBe(48);
+    expect(state.pathsList).toEqualLuaArrays(["a", "b", "c", "d"]);
+    expect(state.logic).toEqualLuaTables(getConfigSwitchConditions(ini, "sr_crow_spawner@test"));
+
+    assertSchemeSubscribedToManager(state, CrowSpawnerManager);
   });
 
   it("should correctly read empty configuration", () => {
     const object: ClientObject = mockClientGameObject();
-    const state: IRegistryObjectState = registerObject(object);
     const ini: IniFile = mockIniFile("another.ltx", {});
 
-    SchemeCrowSpawner.activate(object, ini, EScheme.SR_CROW_SPAWNER, "sr_crow_spawner@another");
+    registerObject(object);
+    loadSchemeImplementation(SchemeCrowSpawner);
 
-    const schemeState: ISchemeCrowSpawnerState = state[EScheme.SR_CROW_SPAWNER] as ISchemeCrowSpawnerState;
+    const state: ISchemeCrowSpawnerState = SchemeCrowSpawner.activate(
+      object,
+      ini,
+      EScheme.SR_CROW_SPAWNER,
+      "sr_crow_spawner@another"
+    );
 
-    expect(schemeState.actions?.length()).toBe(1);
-    expect(schemeState.maxCrowsOnLevel).toBe(16);
-    expect(schemeState.pathsList).toEqualLuaArrays([]);
-    expect(schemeState.logic).toBeNull();
+    expect(state.maxCrowsOnLevel).toBe(16);
+    expect(state.pathsList).toEqualLuaArrays([]);
+    expect(state.logic).toBeNull();
+
+    assertSchemeSubscribedToManager(state, CrowSpawnerManager);
   });
 });

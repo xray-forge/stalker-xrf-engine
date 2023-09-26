@@ -39,6 +39,6 @@ export class SchemeCrowSpawner extends AbstractScheme {
     section: TSection,
     state: ISchemeCrowSpawnerState
   ): void {
-    SchemeCrowSpawner.subscribe(object, state, new CrowSpawnerManager(object, state));
+    AbstractScheme.subscribe(object, state, new CrowSpawnerManager(object, state));
   }
 }
