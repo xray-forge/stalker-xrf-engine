@@ -107,13 +107,7 @@ describe("SchemeWalker", () => {
     loadSchemeImplementation(SchemeWalker);
     registerObject(object);
 
-    const state: ISchemeWalkerState = SchemeWalker.activate(
-      object,
-      ini,
-      EScheme.WALKER,
-      "walker@test",
-      "zat_b40_smart_terrain"
-    );
+    SchemeWalker.activate(object, ini, EScheme.WALKER, "walker@test", "zat_b40_smart_terrain");
 
     const planner: ActionPlanner = object.motivation_action_manager();
 

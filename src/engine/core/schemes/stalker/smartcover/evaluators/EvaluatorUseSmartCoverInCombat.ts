@@ -22,6 +22,6 @@ export class EvaluatorUseSmartCoverInCombat extends property_evaluator {
    * Verify if currently smart cover section is active and usage in combat is enabled.
    */
   public override evaluate(): boolean {
-    return isActiveSection(this.object, this.state.section) ? this.state.use_in_combat : false;
+    return isActiveSection(this.object, this.state.section) ? this.state.useInCombat : false;
   }
 }
