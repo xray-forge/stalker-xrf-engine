@@ -14,6 +14,7 @@ import {
 } from "@/fixtures/xray/mocks/actions";
 import { MockEntityAction } from "@/fixtures/xray/mocks/actions/entity_action.mock";
 import { MockCGameGraph } from "@/fixtures/xray/mocks/CGameGraph.mock";
+import { MockColor } from "@/fixtures/xray/mocks/color.mock";
 import { mockGetConsole } from "@/fixtures/xray/mocks/console.mock";
 import { mockCallbacks, mockClsid, mockSndType, mockStalkerIds, mockUiEvents } from "@/fixtures/xray/mocks/constants";
 import { MockCSightParams } from "@/fixtures/xray/mocks/CSightParams.mock";
@@ -29,6 +30,7 @@ import { mockGetGameHud } from "@/fixtures/xray/mocks/interface/globalInteraface
 import { mockLevelInterface } from "@/fixtures/xray/mocks/interface/levelInterface.mock";
 import { mockRelationRegistryInterface } from "@/fixtures/xray/mocks/interface/relationRegistryInterface.mock";
 import { mocksConfig } from "@/fixtures/xray/mocks/MocksConfig";
+import { MockNoise } from "@/fixtures/xray/mocks/noise.mock";
 import {
   MockAlifeCreatureActor,
   MockAlifeDynamicObject,
@@ -107,6 +109,7 @@ export function mockXRay16({
   bit_or = jest.fn((first: number, second: number) => first | second),
   callback = mockCallbacks,
   clsid = mockClsid,
+  color = MockColor,
   cond = MockCond,
   create_ini_file = mockCreateIniFile,
   cse_alife_creature_actor = MockAlifeCreatureActor,
@@ -159,6 +162,7 @@ export function mockXRay16({
   log = jest.fn(),
   look = MockLook,
   move = MockMove,
+  noise = MockNoise,
   object_binder = MockObjectBinder,
   patrol = MockPatrol,
   print_stack = jest.fn(),
@@ -201,6 +205,7 @@ export function mockXRay16({
     bit_or,
     callback,
     clsid,
+    color,
     cond,
     create_ini_file,
     CSavedGameWrapper,
@@ -254,6 +259,7 @@ export function mockXRay16({
     log,
     look,
     move,
+    noise,
     object_binder,
     patrol,
     print_stack,
