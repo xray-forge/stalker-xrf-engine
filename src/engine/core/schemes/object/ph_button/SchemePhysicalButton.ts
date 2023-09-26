@@ -36,6 +36,7 @@ export class SchemePhysicalButton extends AbstractScheme {
     state.anim = readIniString(ini, section, "anim", true);
     state.blending = readIniBoolean(ini, section, "anim_blend", false, true);
 
+    // todo: Probably not needed.
     if (state.blending === null) {
       state.blending = true;
     }
