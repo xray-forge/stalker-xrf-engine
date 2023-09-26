@@ -75,12 +75,9 @@ export class SchemeWalker extends AbstractScheme {
     section: TSection,
     state: ISchemeWalkerState
   ): void {
-    const actionPlanner: ActionPlanner = object.motivation_action_manager();
+    const planner: ActionPlanner = object.motivation_action_manager();
 
-    actionPlanner.add_evaluator(
-      EEvaluatorId.NEED_WALKER,
-      new EvaluatorSectionActive(state, "EvaluatorWalkerSectionActive")
-    );
+    planner.add_evaluator(EEvaluatorId.NEED_WALKER, new EvaluatorSectionActive(state, "EvaluatorWalkerSectionActive"));
 
     const actionWalkerActivity: ActionWalkerActivity = new ActionWalkerActivity(state, object);
 
@@ -95,10 +92,10 @@ export class SchemeWalker extends AbstractScheme {
     actionWalkerActivity.add_effect(new world_property(EEvaluatorId.NEED_WALKER, false));
     actionWalkerActivity.add_effect(new world_property(EEvaluatorId.IS_STATE_LOGIC_ACTIVE, false));
 
-    actionPlanner.add_action(EActionId.WALKER_ACTIVITY, actionWalkerActivity);
+    planner.add_action(EActionId.WALKER_ACTIVITY, actionWalkerActivity);
 
-    SchemeWalker.subscribe(object, state, actionWalkerActivity);
+    planner.action(EActionId.ALIFE).add_precondition(new world_property(EEvaluatorId.NEED_WALKER, false));
 
-    actionPlanner.action(EActionId.ALIFE).add_precondition(new world_property(EEvaluatorId.NEED_WALKER, false));
+    AbstractScheme.subscribe(object, state, actionWalkerActivity);
   }
 }

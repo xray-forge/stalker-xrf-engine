@@ -36,7 +36,7 @@ export type AnyCallablesModule = Record<string, (this: void, ...args: AnyArgs) =
 
 export interface IConstructor<T> {
   prototype: T;
-  new (): T;
+  new (...args: AnyArgs): T;
 }
 
 export type LuaArray<T> = LuaTable<TIndex, T>;

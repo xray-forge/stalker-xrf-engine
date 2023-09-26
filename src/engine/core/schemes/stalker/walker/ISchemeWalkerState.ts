@@ -12,7 +12,6 @@ export interface ISchemeWalkerState extends IBaseSchemeState {
   path_look: string;
   team: string;
   sound_idle: string;
-  getConfigBoolean: boolean;
   use_camp: boolean;
   suggested_state: IPatrolSuggestedState;
   path_walk_info: Optional<LuaArray<IWaypointData>>;
