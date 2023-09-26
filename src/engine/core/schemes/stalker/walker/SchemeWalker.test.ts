@@ -31,11 +31,11 @@ describe("SchemeWalker", () => {
       "zat_b40_smart_terrain"
     );
 
-    expect(state.path_walk).toBe("zat_b40_smart_terrain_zat_b40_merc_01_walk");
-    expect(state.path_look).toBeNull();
+    expect(state.pathWalk).toBe("zat_b40_smart_terrain_zat_b40_merc_01_walk");
+    expect(state.pathLook).toBeNull();
     expect(state.team).toBeNull();
-    expect(state.sound_idle).toBeNull();
-    expect(state.use_camp).toBe(false);
+    expect(state.soundIdle).toBeNull();
+    expect(state.useCamp).toBe(false);
     expect(state.suggested_state).toEqualLuaTables({
       campering: null,
       campering_fire: null,
@@ -43,8 +43,8 @@ describe("SchemeWalker", () => {
       moving_fire: null,
       standing: null,
     });
-    expect(state.path_walk_info).toBeNull();
-    expect(state.path_look_info).toBeNull();
+    expect(state.pathWalkInfo).toBeNull();
+    expect(state.pathLookInfo).toBeNull();
     expect(state.description).toBe("walker_camp");
     expect(state.approvedActions).toEqualLuaTables({});
 
@@ -76,11 +76,11 @@ describe("SchemeWalker", () => {
       "zat_b40_smart_terrain"
     );
 
-    expect(state.path_walk).toBe("zat_b40_smart_terrain_zat_b40_merc_01_walk");
-    expect(state.path_look).toBe("zat_b40_smart_terrain_zat_b40_merc_01_look");
+    expect(state.pathWalk).toBe("zat_b40_smart_terrain_zat_b40_merc_01_walk");
+    expect(state.pathLook).toBe("zat_b40_smart_terrain_zat_b40_merc_01_look");
     expect(state.team).toBe("zat_b40_smart_terrain_test_team");
-    expect(state.sound_idle).toBe("test_sound");
-    expect(state.use_camp).toBe(true);
+    expect(state.soundIdle).toBe("test_sound");
+    expect(state.useCamp).toBe(true);
     expect(state.suggested_state).toEqualLuaTables({
       campering: null,
       campering_fire: null,
@@ -88,8 +88,8 @@ describe("SchemeWalker", () => {
       moving_fire: null,
       standing: "idle",
     });
-    expect(state.path_walk_info).toBeNull();
-    expect(state.path_look_info).toBeNull();
+    expect(state.pathWalkInfo).toBeNull();
+    expect(state.pathLookInfo).toBeNull();
     expect(state.description).toBe("walker_camp");
     expect(state.approvedActions).toEqualLuaTables({});
 
