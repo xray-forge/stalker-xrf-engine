@@ -1,5 +1,5 @@
 import type { IBaseSchemeState } from "@/engine/core/database/types";
-import { TRate } from "@/engine/lib/types";
+import type { TName, TRate } from "@/engine/lib/types";
 
 /**
  * State describing physical hit scheme.
@@ -7,6 +7,6 @@ import { TRate } from "@/engine/lib/types";
 export interface ISchemePhysicalHitState extends IBaseSchemeState {
   power: TRate;
   impulse: TRate;
-  bone: string;
+  bone: TName;
   dir_path: string;
 }

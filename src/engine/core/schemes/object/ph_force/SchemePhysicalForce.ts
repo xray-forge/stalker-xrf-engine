@@ -57,9 +57,6 @@ export class SchemePhysicalForce extends AbstractScheme {
     return state;
   }
 
-  /**
-   * todo: Description.
-   */
   public static override add(
     object: ClientObject,
     ini: IniFile,
