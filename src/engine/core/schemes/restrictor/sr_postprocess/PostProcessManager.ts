@@ -12,7 +12,7 @@ import { ClientObject, Color, Hit, Noise, TDuration, TTimestamp } from "@/engine
 /**
  * todo;
  */
-export class SchemePostProcessManager extends AbstractSchemeManager<ISchemePostProcessState> {
+export class PostProcessManager extends AbstractSchemeManager<ISchemePostProcessState> {
   public isActorInside: boolean = false;
   public gray: number = 1;
   public grayAmplitude: number = 1.0;
@@ -42,7 +42,7 @@ export class SchemePostProcessManager extends AbstractSchemeManager<ISchemePostP
     this.intensity = 0;
     this.intensityBase = this.state.intensity;
     this.hitPower = 0;
-    this.intensityInertion = this.intensityBase < 0.0 ? -this.state.intensity_speed : this.state.intensity_speed;
+    this.intensityInertion = this.intensityBase < 0.0 ? -this.state.intensitySpeed : this.state.intensitySpeed;
 
     this.postProcessEffector = new PostProcessEffector(this.object.id() + 2000);
     this.postProcessEffector.params.noise = new noise();
@@ -125,7 +125,7 @@ export class SchemePostProcessManager extends AbstractSchemeManager<ISchemePostP
 
     const now: TTimestamp = time_global();
 
-    this.hitPower = this.hitPower + delta * 0.001 * this.state.hit_intensity;
+    this.hitPower = this.hitPower + delta * 0.001 * this.state.hitIntensity;
 
     if (now - this.hitTime < 1000) {
       return;

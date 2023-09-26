@@ -16,18 +16,19 @@ export class SchemeIdle extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.SR_IDLE;
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.RESTRICTOR;
 
-  /**
-   * todo: Description.
-   */
-  public static override activate(object: ClientObject, ini: IniFile, scheme: EScheme, section: TSection): void {
+  public static override activate(
+    object: ClientObject,
+    ini: IniFile,
+    scheme: EScheme,
+    section: TSection
+  ): ISchemeIdleState {
     const state: ISchemeIdleState = AbstractScheme.assign(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section);
+
+    return state;
   }
 
-  /**
-   * todo: Description.
-   */
   public static override add(
     object: ClientObject,
     ini: IniFile,

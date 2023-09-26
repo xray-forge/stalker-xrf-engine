@@ -16,16 +16,13 @@ export class SchemeOscillate extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.PH_OSCILLATE;
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.OBJECT;
 
-  /**
-   * todo: Description.
-   */
   public static override activate(
     object: ClientObject,
     ini: IniFile,
     scheme: EScheme,
     section: TSection,
     smartTerrainName: TName
-  ): void {
+  ): ISchemeOscillateState {
     const state: ISchemeOscillateState = AbstractScheme.assign(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section);
@@ -49,11 +46,10 @@ export class SchemeOscillate extends AbstractScheme {
     if (state.angle === null) {
       state.angle = 0;
     }
+
+    return state;
   }
 
-  /**
-   * Add scheme related handlers and subscribe them.
-   */
   public static override add(
     object: ClientObject,
     ini: IniFile,

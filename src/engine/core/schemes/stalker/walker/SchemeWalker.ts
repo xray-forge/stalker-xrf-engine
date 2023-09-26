@@ -29,28 +29,28 @@ export class SchemeWalker extends AbstractScheme {
     scheme: EScheme,
     section: TSection,
     smartTerrain: TName
-  ): void {
+  ): ISchemeWalkerState {
     logger.info("Activate scheme:", object.name());
 
     const state: ISchemeWalkerState = AbstractScheme.assign(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section);
-    state.path_walk = readIniString(ini, section, "path_walk", true, smartTerrain);
+    state.pathWalk = readIniString(ini, section, "path_walk", true, smartTerrain);
 
-    assert(level.patrol_path_exists(state.path_walk), "There is no patrol path %s", state.path_walk);
+    assert(level.patrol_path_exists(state.pathWalk), "There is no patrol path %s", state.pathWalk);
 
-    state.path_look = readIniString(ini, section, "path_look", false, smartTerrain);
+    state.pathLook = readIniString(ini, section, "path_look", false, smartTerrain);
 
     assert(
-      state.path_walk !== state.path_look,
+      state.pathWalk !== state.pathLook,
       "You are trying to set 'path_look' equal to 'path_walk' in section [%s] for object [%s]",
       section,
       object.name()
     );
 
     state.team = readIniString(ini, section, "team", false, smartTerrain);
-    state.sound_idle = readIniString(ini, section, "sound_idle", false);
-    state.use_camp = readIniBoolean(ini, section, "use_camp", false, false);
+    state.soundIdle = readIniString(ini, section, "sound_idle", false);
+    state.useCamp = readIniBoolean(ini, section, "use_camp", false, false);
 
     const baseMoving: EStalkerState = readIniString(ini, section, "def_state_moving1", false);
 
@@ -62,8 +62,10 @@ export class SchemeWalker extends AbstractScheme {
       moving: readIniString(ini, section, "def_state_moving", false, null, baseMoving),
     };
 
-    state.path_walk_info = null;
-    state.path_look_info = null;
+    state.pathWalkInfo = null;
+    state.pathLookInfo = null;
+
+    return state;
   }
 
   public static override add(
@@ -73,12 +75,9 @@ export class SchemeWalker extends AbstractScheme {
     section: TSection,
     state: ISchemeWalkerState
   ): void {
-    const actionPlanner: ActionPlanner = object.motivation_action_manager();
+    const planner: ActionPlanner = object.motivation_action_manager();
 
-    actionPlanner.add_evaluator(
-      EEvaluatorId.NEED_WALKER,
-      new EvaluatorSectionActive(state, "EvaluatorWalkerSectionActive")
-    );
+    planner.add_evaluator(EEvaluatorId.NEED_WALKER, new EvaluatorSectionActive(state, "EvaluatorWalkerSectionActive"));
 
     const actionWalkerActivity: ActionWalkerActivity = new ActionWalkerActivity(state, object);
 
@@ -93,10 +92,10 @@ export class SchemeWalker extends AbstractScheme {
     actionWalkerActivity.add_effect(new world_property(EEvaluatorId.NEED_WALKER, false));
     actionWalkerActivity.add_effect(new world_property(EEvaluatorId.IS_STATE_LOGIC_ACTIVE, false));
 
-    actionPlanner.add_action(EActionId.WALKER_ACTIVITY, actionWalkerActivity);
+    planner.add_action(EActionId.WALKER_ACTIVITY, actionWalkerActivity);
 
-    SchemeWalker.subscribe(object, state, actionWalkerActivity);
+    planner.action(EActionId.ALIFE).add_precondition(new world_property(EEvaluatorId.NEED_WALKER, false));
 
-    actionPlanner.action(EActionId.ALIFE).add_precondition(new world_property(EEvaluatorId.NEED_WALKER, false));
+    AbstractScheme.subscribe(object, state, actionWalkerActivity);
   }
 }

@@ -17,20 +17,21 @@ export class SchemeCrowSpawner extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.SR_CROW_SPAWNER;
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.RESTRICTOR;
 
-  /**
-   * Activate scheme for restrictor.
-   */
-  public static override activate(object: ClientObject, ini: IniFile, scheme: EScheme, section: TSection): void {
+  public static override activate(
+    object: ClientObject,
+    ini: IniFile,
+    scheme: EScheme,
+    section: TSection
+  ): ISchemeCrowSpawnerState {
     const state: ISchemeCrowSpawnerState = AbstractScheme.assign(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section);
     state.maxCrowsOnLevel = readIniNumber(ini, section, "max_crows_on_level", false, 16);
     state.pathsList = parseStringsList(readIniString<TName>(ini, section, "spawn_path", false, null, ""));
+
+    return state;
   }
 
-  /**
-   * Add scheme handlers and subscribe them to events.
-   */
   public static override add(
     object: ClientObject,
     ini: IniFile,
@@ -38,6 +39,6 @@ export class SchemeCrowSpawner extends AbstractScheme {
     section: TSection,
     state: ISchemeCrowSpawnerState
   ): void {
-    SchemeCrowSpawner.subscribe(object, state, new CrowSpawnerManager(object, state));
+    AbstractScheme.subscribe(object, state, new CrowSpawnerManager(object, state));
   }
 }

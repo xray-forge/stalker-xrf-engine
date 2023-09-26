@@ -1,6 +1,6 @@
 import { describe, expect, it } from "@jest/globals";
 
-import { IRegistryObjectState, registerObject, registry } from "@/engine/core/database";
+import { registerObject } from "@/engine/core/database";
 import { ISchemeTeleportState } from "@/engine/core/schemes/restrictor/sr_teleport/ISchemeTeleportState";
 import { SchemeTeleport } from "@/engine/core/schemes/restrictor/sr_teleport/SchemeTeleport";
 import { loadSchemeImplementation } from "@/engine/core/utils/scheme/scheme_setup";
@@ -34,21 +34,23 @@ describe("SchemeTeleport functionality", () => {
     registerObject(object);
     loadSchemeImplementation(SchemeTeleport);
 
-    SchemeTeleport.activate(object, ini, SchemeTeleport.SCHEME_SECTION, "sr_teleport@test");
+    const state: ISchemeTeleportState = SchemeTeleport.activate(
+      object,
+      ini,
+      SchemeTeleport.SCHEME_SECTION,
+      "sr_teleport@test"
+    );
 
-    const state: IRegistryObjectState = registry.objects.get(object.id());
-    const schemeState: ISchemeTeleportState = state[EScheme.SR_TELEPORT] as ISchemeTeleportState;
+    expect(state.ini).toBe(ini);
+    expect(state.scheme).toBe("sr_teleport");
+    expect(state.section).toBe("sr_teleport@test");
+    expect(state.logic?.length()).toBe(0);
+    expect(state.actions?.length()).toBe(1);
 
-    expect(schemeState.ini).toBe(ini);
-    expect(schemeState.scheme).toBe("sr_teleport");
-    expect(schemeState.section).toBe("sr_teleport@test");
-    expect(schemeState.logic?.length()).toBe(0);
-    expect(schemeState.actions?.length()).toBe(1);
-
-    expect(schemeState.timeout).toBe(500);
-    expect(schemeState.maxTotalProbability).toBe(2);
-    expect(schemeState.points.length()).toBe(3);
-    expect(schemeState.points).toEqualLuaArrays([
+    expect(state.timeout).toBe(500);
+    expect(state.maxTotalProbability).toBe(2);
+    expect(state.points.length()).toBe(3);
+    expect(state.points).toEqualLuaArrays([
       {
         look: "al",
         point: "ap",

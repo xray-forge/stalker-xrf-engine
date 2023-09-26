@@ -15,10 +15,12 @@ export class SchemePhysicalHit extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.PH_HIT;
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.OBJECT;
 
-  /**
-   * todo: Description.
-   */
-  public static override activate(object: ClientObject, ini: IniFile, scheme: EScheme, section: TSection): void {
+  public static override activate(
+    object: ClientObject,
+    ini: IniFile,
+    scheme: EScheme,
+    section: TSection
+  ): ISchemePhysicalHitState {
     const state: ISchemePhysicalHitState = AbstractScheme.assign(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section);
@@ -26,11 +28,10 @@ export class SchemePhysicalHit extends AbstractScheme {
     state.impulse = readIniNumber(ini, section, "impulse", false, 1000);
     state.bone = readIniString(ini, section, "bone", true);
     state.dir_path = readIniString(ini, section, "dir_path", true);
+
+    return state;
   }
 
-  /**
-   * todo: Description.
-   */
   public static override add(
     object: ClientObject,
     ini: IniFile,

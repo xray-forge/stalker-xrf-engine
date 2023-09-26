@@ -16,10 +16,12 @@ export class SchemeParticle extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.SR_PARTICLE;
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.RESTRICTOR;
 
-  /**
-   * todo: Description.
-   */
-  public static override activate(object: ClientObject, ini: IniFile, scheme: EScheme, section: TSection): void {
+  public static override activate(
+    object: ClientObject,
+    ini: IniFile,
+    scheme: EScheme,
+    section: TSection
+  ): ISchemeParticleState {
     const state: ISchemeParticleState = AbstractScheme.assign(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section);
@@ -35,11 +37,10 @@ export class SchemeParticle extends AbstractScheme {
     if (state.mode !== 1 && state.mode !== 2) {
       abort("Scheme sr_particle: invalid mode");
     }
+
+    return state;
   }
 
-  /**
-   * Add scheme handler and subscribe it to events.
-   */
   public static override add(
     object: ClientObject,
     ini: IniFile,
@@ -47,6 +48,6 @@ export class SchemeParticle extends AbstractScheme {
     section: TSection,
     state: ISchemeParticleState
   ): void {
-    SchemeParticle.subscribe(object, state, new ParticleManager(object, state));
+    AbstractScheme.subscribe(object, state, new ParticleManager(object, state));
   }
 }

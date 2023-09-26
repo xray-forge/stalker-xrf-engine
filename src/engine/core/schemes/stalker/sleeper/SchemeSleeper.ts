@@ -21,30 +21,26 @@ export class SchemeSleeper extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.SLEEPER;
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.STALKER;
 
-  /**
-   * todo: Description.
-   */
   public static override activate(
     object: ClientObject,
     ini: IniFile,
     scheme: EScheme,
     section: TSection,
     smartTerrainName: TName
-  ): void {
+  ): ISchemeSleeperState {
     const state: ISchemeSleeperState = AbstractScheme.assign(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section);
-    state.path_main = readIniString(ini, section, "path_main", true, smartTerrainName);
+    state.pathMain = readIniString(ini, section, "path_main", true, smartTerrainName);
     state.wakeable = readIniBoolean(ini, section, "wakeable", false);
-    state.path_walk = null;
-    state.path_walk_info = null;
-    state.path_look = null;
-    state.path_look_info = null;
+    state.pathWalk = null;
+    state.pathWalkInfo = null;
+    state.pathLook = null;
+    state.pathLookInfo = null;
+
+    return state;
   }
 
-  /**
-   * Add scheme handlers and subscribe them to events.
-   */
   public static override add(
     object: ClientObject,
     ini: IniFile,
@@ -52,13 +48,10 @@ export class SchemeSleeper extends AbstractScheme {
     section: TSection,
     state: ISchemeSleeperState
   ): void {
-    const actionPlanner: ActionPlanner = object.motivation_action_manager();
+    const planner: ActionPlanner = object.motivation_action_manager();
 
     // Add evaluator to check if sleep is needed.
-    actionPlanner.add_evaluator(
-      EEvaluatorId.NEED_SLEEPER,
-      new EvaluatorSectionActive(state, "EvaluatorSleepSectionActive")
-    );
+    planner.add_evaluator(EEvaluatorId.NEED_SLEEPER, new EvaluatorSectionActive(state, "EvaluatorSleepSectionActive"));
 
     const actionSleeper: ActionSleeperActivity = new ActionSleeperActivity(state, object);
 
@@ -73,11 +66,11 @@ export class SchemeSleeper extends AbstractScheme {
     actionSleeper.add_effect(new world_property(EEvaluatorId.NEED_SLEEPER, false));
     actionSleeper.add_effect(new world_property(EEvaluatorId.IS_STATE_LOGIC_ACTIVE, false));
 
-    actionPlanner.add_action(EActionId.SLEEP_ACTIVITY, actionSleeper);
+    planner.add_action(EActionId.SLEEP_ACTIVITY, actionSleeper);
 
     // Cannot use alife activity when need to sleep.
-    actionPlanner.action(EActionId.ALIFE).add_precondition(new world_property(EEvaluatorId.NEED_SLEEPER, false));
+    planner.action(EActionId.ALIFE).add_precondition(new world_property(EEvaluatorId.NEED_SLEEPER, false));
 
-    SchemeSleeper.subscribe(object, state, actionSleeper);
+    AbstractScheme.subscribe(object, state, actionSleeper);
   }
 }

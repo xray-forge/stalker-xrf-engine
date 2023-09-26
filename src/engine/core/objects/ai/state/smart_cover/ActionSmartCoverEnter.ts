@@ -34,10 +34,10 @@ export class ActionSmartCoverEnter extends action_base {
 
     this.object.use_smart_covers_only(true);
     this.object.set_movement_type(move.run);
-    this.object.set_dest_smart_cover(smartCoverState.cover_name as TName);
+    this.object.set_dest_smart_cover(smartCoverState.coverName as TName);
 
-    if (smartCoverState.loophole_name !== null) {
-      this.object.set_dest_loophole(smartCoverState.loophole_name);
+    if (smartCoverState.loopholeName !== null) {
+      this.object.set_dest_loophole(smartCoverState.loopholeName);
     }
   }
 }

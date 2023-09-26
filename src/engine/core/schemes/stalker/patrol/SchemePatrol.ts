@@ -26,16 +26,13 @@ export class SchemePatrol extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.PATROL;
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.STALKER;
 
-  /**
-   * todo: Description.
-   */
   public static override activate(
     object: ClientObject,
     ini: IniFile,
     scheme: EScheme,
     section: TSection,
     smartTerrainName: TName
-  ): void {
+  ): ISchemePatrolState {
     const state: ISchemePatrolState = AbstractScheme.assign(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section);
@@ -89,11 +86,10 @@ export class SchemePatrol extends AbstractScheme {
     }
 
     registry.patrols.generic.get(state.patrol_key).addObject(object, state.commander);
+
+    return state;
   }
 
-  /**
-   * todo: Description.
-   */
   public static override add(
     object: ClientObject,
     ini: IniFile,
@@ -101,13 +97,13 @@ export class SchemePatrol extends AbstractScheme {
     section: TSection,
     state: ISchemePatrolState
   ): void {
-    const actionPlanner: ActionPlanner = object.motivation_action_manager();
+    const planner: ActionPlanner = object.motivation_action_manager();
 
-    actionPlanner.add_evaluator(
+    planner.add_evaluator(
       EEvaluatorId.IS_PATROL_ENDED,
       new EvaluatorSectionEnded(state, "EvaluatorPatrolSectionEnded")
     );
-    actionPlanner.add_evaluator(EEvaluatorId.IS_PATROL_COMMANDER, new EvaluatorPatrolCommander(state));
+    planner.add_evaluator(EEvaluatorId.IS_PATROL_COMMANDER, new EvaluatorPatrolCommander(state));
 
     const actionCommander: ActionCommander = new ActionCommander(state, object);
 
@@ -120,9 +116,9 @@ export class SchemePatrol extends AbstractScheme {
     actionCommander.add_precondition(new world_property(EEvaluatorId.IS_PATROL_COMMANDER, true));
     actionCommander.add_effect(new world_property(EEvaluatorId.IS_PATROL_ENDED, true));
     actionCommander.add_effect(new world_property(EEvaluatorId.IS_STATE_LOGIC_ACTIVE, false));
-    actionPlanner.add_action(EActionId.COMMAND_SQUAD, actionCommander);
+    planner.add_action(EActionId.COMMAND_SQUAD, actionCommander);
 
-    SchemePatrol.subscribe(object, state, actionCommander);
+    AbstractScheme.subscribe(object, state, actionCommander);
 
     const actionPatrol: ActionPatrol = new ActionPatrol(state, object);
 
@@ -135,10 +131,10 @@ export class SchemePatrol extends AbstractScheme {
     actionPatrol.add_precondition(new world_property(EEvaluatorId.IS_PATROL_COMMANDER, false));
     actionPatrol.add_effect(new world_property(EEvaluatorId.IS_PATROL_ENDED, true));
     actionPatrol.add_effect(new world_property(EEvaluatorId.IS_STATE_LOGIC_ACTIVE, false));
-    actionPlanner.add_action(EActionId.PATROL_ACTIVITY, actionPatrol);
+    planner.add_action(EActionId.PATROL_ACTIVITY, actionPatrol);
 
-    SchemePatrol.subscribe(object, state, actionPatrol);
+    AbstractScheme.subscribe(object, state, actionPatrol);
 
-    actionPlanner.action(EActionId.ALIFE).add_precondition(new world_property(EEvaluatorId.IS_PATROL_ENDED, true));
+    planner.action(EActionId.ALIFE).add_precondition(new world_property(EEvaluatorId.IS_PATROL_ENDED, true));
   }
 }

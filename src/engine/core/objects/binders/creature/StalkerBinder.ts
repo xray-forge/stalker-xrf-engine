@@ -159,7 +159,7 @@ export class StalkerBinder extends object_binder {
     this.helicopterEnemyIndex = registerHelicopterEnemy(this.object);
 
     GlobalSoundManager.initializeObjectSounds(this.object);
-    SchemeReachTask.addReachTaskSchemeAction(this.object);
+    SchemeReachTask.setup(this.object);
 
     // todo: Why? Already same ref in parameter?
     const serverObject: Optional<ServerHumanObject> = registry.simulator.object(objectId);
@@ -193,7 +193,7 @@ export class StalkerBinder extends object_binder {
 
     setupObjectSmartJobsAndLogicOnSpawn(this.object, this.state, ESchemeType.STALKER, this.isLoaded);
 
-    PostCombatIdle.addPostCombatIdleWait(this.object);
+    PostCombatIdle.setup(this.object);
 
     this.object.group_throw_time_interval(2_000); // todo: Interval to check danger from group objects?
 

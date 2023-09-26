@@ -21,39 +21,34 @@ export class SchemeSmartCover extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.SMARTCOVER;
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.STALKER;
 
-  /**
-   * todo: Description.
-   */
   public static override activate(
     object: ClientObject,
     ini: IniFile,
     scheme: EScheme,
-    section: TSection,
-    additional: string
-  ): void {
+    section: TSection
+  ): ISchemeSmartCoverState {
     const state: ISchemeSmartCoverState = AbstractScheme.assign(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section);
-    state.cover_name = readIniString(ini, section, "cover_name", false, null, "$script_id$_cover");
-    state.loophole_name = readIniString(ini, section, "loophole_name", false);
-    state.cover_state = readIniString(ini, section, "cover_state", false, null, "default_behaviour");
-    state.target_enemy = readIniString(ini, section, "target_enemy", false);
-    state.target_path = readIniString(ini, section, "target_path", false, null, NIL);
-    state.idle_min_time = readIniNumber(ini, section, "idle_min_time", false, 6);
-    state.idle_max_time = readIniNumber(ini, section, "idle_max_time", false, 10);
-    state.lookout_min_time = readIniNumber(ini, section, "lookout_min_time", false, 6);
-    state.lookout_max_time = readIniNumber(ini, section, "lookout_max_time", false, 10);
-    state.exit_body_state = readIniString(ini, section, "exit_body_state", false, null, "stand");
-    state.use_precalc_cover = readIniBoolean(ini, section, "use_precalc_cover", false, false);
-    state.use_in_combat = readIniBoolean(ini, section, "use_in_combat", false, false);
-    state.weapon_type = readIniString(ini, section, "weapon_type", false);
+    state.coverName = readIniString(ini, section, "cover_name", false, null, "$script_id$_cover");
+    state.loopholeName = readIniString(ini, section, "loophole_name", false);
+    state.coverState = readIniString(ini, section, "cover_state", false, null, "default_behaviour");
+    state.targetEnemy = readIniString(ini, section, "target_enemy", false);
+    state.targetPath = readIniString(ini, section, "target_path", false, null, NIL);
+    state.idleMinTime = readIniNumber(ini, section, "idle_min_time", false, 6);
+    state.idleMaxTime = readIniNumber(ini, section, "idle_max_time", false, 10);
+    state.lookoutMinTime = readIniNumber(ini, section, "lookout_min_time", false, 6);
+    state.lookoutMaxTime = readIniNumber(ini, section, "lookout_max_time", false, 10);
+    state.exitBodyState = readIniString(ini, section, "exit_body_state", false, null, "stand");
+    state.usePrecalcCover = readIniBoolean(ini, section, "use_precalc_cover", false, false);
+    state.useInCombat = readIniBoolean(ini, section, "use_in_combat", false, false);
+    state.weaponType = readIniString(ini, section, "weapon_type", false);
     state.moving = readIniString(ini, section, "def_state_moving", false, null, "sneak");
-    state.sound_idle = readIniString(ini, section, "sound_idle", false);
+    state.soundIdle = readIniString(ini, section, "sound_idle", false);
+
+    return state;
   }
 
-  /**
-   * todo: Description.
-   */
   public static override add(
     object: ClientObject,
     ini: IniFile,
@@ -61,14 +56,14 @@ export class SchemeSmartCover extends AbstractScheme {
     section: TSection,
     state: ISchemeSmartCoverState
   ): void {
-    const actionPlanner: ActionPlanner = object.motivation_action_manager();
+    const planner: ActionPlanner = object.motivation_action_manager();
 
     // Add new evaluators to check smart cover state.
-    actionPlanner.add_evaluator(
+    planner.add_evaluator(
       EEvaluatorId.IS_SMART_COVER_NEEDED,
       new EvaluatorSectionActive(state, "EvaluatorSmartCoverSectionActive")
     );
-    actionPlanner.add_evaluator(EEvaluatorId.CAN_USE_SMART_COVER_IN_COMBAT, new EvaluatorUseSmartCoverInCombat(state));
+    planner.add_evaluator(EEvaluatorId.CAN_USE_SMART_COVER_IN_COMBAT, new EvaluatorUseSmartCoverInCombat(state));
 
     // Action to handle hiding in smart cover.
     const actionSmartCoverActivity: ActionSmartCoverActivity = new ActionSmartCoverActivity(state);
@@ -86,18 +81,16 @@ export class SchemeSmartCover extends AbstractScheme {
     actionSmartCoverActivity.add_effect(new world_property(EEvaluatorId.IS_SMART_COVER_NEEDED, false));
     actionSmartCoverActivity.add_effect(new world_property(EEvaluatorId.IS_STATE_LOGIC_ACTIVE, false));
     // --new_action.add_effect (new world_property(EEvaluatorId.DANGER, false))
-    actionPlanner.add_action(EActionId.SMART_COVER_ACTIVITY, actionSmartCoverActivity);
+    planner.add_action(EActionId.SMART_COVER_ACTIVITY, actionSmartCoverActivity);
 
     // Cannot continue alife when smart cover is needed.
-    actionPlanner
-      .action(EActionId.ALIFE)
-      .add_precondition(new world_property(EEvaluatorId.IS_SMART_COVER_NEEDED, false));
+    planner.action(EActionId.ALIFE).add_precondition(new world_property(EEvaluatorId.IS_SMART_COVER_NEEDED, false));
     // Cannot participate in combat directly if is active smart cover scheme.
-    actionPlanner
+    planner
       .action(EActionId.COMBAT)
       .add_precondition(new world_property(EEvaluatorId.CAN_USE_SMART_COVER_IN_COMBAT, false));
 
     // Subscribe to scheme events.
-    SchemeSmartCover.subscribe(object, state, actionSmartCoverActivity);
+    AbstractScheme.subscribe(object, state, actionSmartCoverActivity);
   }
 }

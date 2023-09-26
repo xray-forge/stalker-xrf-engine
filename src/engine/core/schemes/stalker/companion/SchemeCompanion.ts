@@ -19,25 +19,20 @@ export class SchemeCompanion extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.COMPANION;
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.STALKER;
 
-  /**
-   * todo: Description.
-   */
   public static override activate(
     object: ClientObject,
     ini: IniFile,
     scheme: EScheme,
-    section: TSection,
-    additional: string
-  ): void {
+    section: TSection
+  ): ISchemeCompanionState {
     const state: ISchemeCompanionState = AbstractScheme.assign(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section);
     state.behavior = 0; // beh_walk_simple
+
+    return state;
   }
 
-  /**
-   * todo: Description.
-   */
   public static override add(
     object: ClientObject,
     ini: IniFile,

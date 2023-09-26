@@ -38,6 +38,6 @@ export class EvaluatorSmartCover extends property_evaluator {
       return true;
     }
 
-    return destinationSmartCoverName === (stateDescription.cover_name || "");
+    return destinationSmartCoverName === (stateDescription.coverName || "");
   }
 }

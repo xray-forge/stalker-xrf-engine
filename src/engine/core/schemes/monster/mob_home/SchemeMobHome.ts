@@ -22,7 +22,7 @@ export class SchemeMobHome extends AbstractScheme {
     scheme: EScheme,
     section: TSection,
     smartTerrainName: TName
-  ): void {
+  ): ISchemeMobHomeState {
     logger.info("Activate scheme:", object.name(), scheme, section);
 
     const state: ISchemeMobHomeState = AbstractScheme.assign(object, ini, scheme, section);
@@ -38,6 +38,8 @@ export class SchemeMobHome extends AbstractScheme {
     state.homeMinRadius = readIniNumber(ini, section, "home_min_radius", false); // --, 20)
     state.homeMidRadius = readIniNumber(ini, section, "home_mid_radius", false); // --, 0)
     state.homeMaxRadius = readIniNumber(ini, section, "home_max_radius", false); // --, 40)
+
+    return state;
   }
 
   public static override add(

@@ -19,9 +19,6 @@ export class MobJumpManager extends AbstractSchemeManager<ISchemeMobJumpState> {
   public point: Optional<Vector> = null;
   public stateCurrent: Optional<number> = null;
 
-  /**
-   * todo: Description.
-   */
   public override activate(): void {
     scriptCaptureMonster(this.object, true, MobJumpManager.name);
 
@@ -31,23 +28,20 @@ export class MobJumpManager extends AbstractSchemeManager<ISchemeMobJumpState> {
     // -- initialize jump point
     this.jumpPath = null;
 
-    if (this.state.jump_path_name) {
-      this.jumpPath = new patrol(this.state.jump_path_name);
+    if (this.state.jumpPathName) {
+      this.jumpPath = new patrol(this.state.jumpPathName);
     } else {
-      this.state.jump_path_name = "[not defined]";
+      this.state.jumpPathName = "[not defined]";
     }
 
     if (!this.jumpPath) {
-      abort("object '%s': unable to find jump_path '%s' on the map", this.object.name(), this.state.jump_path_name);
+      abort("object '%s': unable to find jump_path '%s' on the map", this.object.name(), this.state.jumpPathName);
     }
 
     this.point = addVectors(this.jumpPath.point(0), this.state.offset);
     this.stateCurrent = STATE_START_LOOK;
   }
 
-  /**
-   * todo: Description.
-   */
   public update(delta: number): void {
     if (this.stateCurrent === STATE_START_LOOK) {
       if (!this.object.action()) {
@@ -62,7 +56,7 @@ export class MobJumpManager extends AbstractSchemeManager<ISchemeMobJumpState> {
     }
 
     if (this.stateCurrent === STATE_JUMP) {
-      this.object.jump(this.point!, this.state.ph_jump_factor);
+      this.object.jump(this.point!, this.state.phJumpFactor);
       this.state.signals!.set("jumped", true);
       scriptReleaseMonster(this.object);
     }

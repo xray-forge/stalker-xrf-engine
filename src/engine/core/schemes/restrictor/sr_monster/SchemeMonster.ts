@@ -20,7 +20,12 @@ export class SchemeMonster extends AbstractScheme {
   /**
    * Activate scheme and apply configuration.
    */
-  public static override activate(object: ClientObject, ini: IniFile, scheme: EScheme, section: TSection): void {
+  public static override activate(
+    object: ClientObject,
+    ini: IniFile,
+    scheme: EScheme,
+    section: TSection
+  ): ISchemeMonsterState {
     const state: ISchemeMonsterState = AbstractScheme.assign(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section);
@@ -31,6 +36,8 @@ export class SchemeMonster extends AbstractScheme {
     state.path_table = parseStringsList(readIniString(ini, section, "sound_path", false)!);
     state.monster = readIniString(ini, section, "monster_section", false);
     state.sound_slide_vel = readIniNumber(ini, section, "slide_velocity", false, 7);
+
+    return state;
   }
 
   /**

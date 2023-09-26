@@ -96,19 +96,19 @@ export class ActionWalkerActivity extends action_base implements ISchemeEventHan
    * todo: Description.
    */
   public reset(isLoading: boolean, object: ClientObject): void {
-    if (this.state.path_walk_info === null) {
-      this.state.path_walk_info = parseWaypointsData(this.state.path_walk);
+    if (this.state.pathWalkInfo === null) {
+      this.state.pathWalkInfo = parseWaypointsData(this.state.pathWalk);
     }
 
-    if (this.state.path_look_info === null) {
-      this.state.path_look_info = parseWaypointsData(this.state.path_look);
+    if (this.state.pathLookInfo === null) {
+      this.state.pathLookInfo = parseWaypointsData(this.state.pathLook);
     }
 
     this.patrolManager.reset(
-      this.state.path_walk,
-      this.state.path_walk_info,
-      this.state.path_look,
-      this.state.path_look_info,
+      this.state.pathWalk,
+      this.state.pathWalkInfo,
+      this.state.pathLook,
+      this.state.pathLookInfo,
       this.state.team,
       this.state.suggested_state
     );
@@ -124,7 +124,7 @@ export class ActionWalkerActivity extends action_base implements ISchemeEventHan
 
     const camp: Optional<CampManager> = getCampZoneForPosition(this.object.position());
 
-    if (camp !== null && this.state.use_camp === true) {
+    if (camp !== null && this.state.useCamp === true) {
       this.campStoryManager = camp;
       this.campStoryManager.registerObject(this.object.id());
       this.isInCamp = true;
@@ -135,8 +135,8 @@ export class ActionWalkerActivity extends action_base implements ISchemeEventHan
       }
     }
 
-    if (!this.isInCamp && this.state.sound_idle !== null) {
-      GlobalSoundManager.getInstance().playSound(this.object.id(), this.state.sound_idle);
+    if (!this.isInCamp && this.state.soundIdle !== null) {
+      GlobalSoundManager.getInstance().playSound(this.object.id(), this.state.soundIdle);
     }
   }
 

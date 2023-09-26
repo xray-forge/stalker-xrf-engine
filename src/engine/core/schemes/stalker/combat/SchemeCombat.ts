@@ -34,7 +34,12 @@ export class SchemeCombat extends AbstractScheme {
     }
   }
 
-  public static override activate(object: ClientObject, ini: IniFile, scheme: EScheme, section: TSection): void {
+  public static override activate(
+    object: ClientObject,
+    ini: IniFile,
+    scheme: EScheme,
+    section: TSection
+  ): ISchemeCombatState {
     const isZombied: boolean = getObjectCommunity(object) === communities.zombied;
 
     if (section || isZombied) {
@@ -58,12 +63,13 @@ export class SchemeCombat extends AbstractScheme {
       if (state.combat_type) {
         SchemeCombat.setCombatType(object, registry.actor, state);
       }
+
+      return state;
     }
+
+    return registry.objects.get(object.id())[EScheme.COMBAT] as ISchemeCombatState;
   }
 
-  /**
-   * todo: Description.
-   */
   public static override add(
     object: ClientObject,
     ini: IniFile,

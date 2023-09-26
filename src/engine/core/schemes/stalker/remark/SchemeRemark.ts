@@ -22,36 +22,31 @@ export class SchemeRemark extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.REMARK;
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.STALKER;
 
-  /**
-   * todo: Description.
-   */
   public static override activate(
     object: ClientObject,
     ini: IniFile,
     scheme: EScheme,
-    section: TSection,
-    additional: string
-  ): void {
+    section: TSection
+  ): ISchemeRemarkState {
     const state: ISchemeRemarkState = AbstractScheme.assign(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section);
-    state.snd_anim_sync = readIniBoolean(ini, section, "snd_anim_sync", false);
+    state.sndAnimSync = readIniBoolean(ini, section, "snd_anim_sync", false);
     state.snd = readIniString(ini, section, "snd", false);
     state.anim = parseConditionsList(readIniString(ini, section, "anim", false, null, "wait"));
-    state.tips_id = readIniString(ini, section, "tips", false);
+    state.tipsId = readIniString(ini, section, "tips", false);
 
-    if (state.tips_id !== null) {
+    if (state.tipsId !== null) {
       state.sender = readIniString(ini, section, "tips_sender", false);
     }
 
     state.target = readIniString(ini, section, "target", false, null, NIL);
-    state.target_id = null;
-    state.target_position = null;
+    state.targetId = null;
+    state.targetPosition = null;
+
+    return state;
   }
 
-  /**
-   * todo: Description.
-   */
   public static override add(
     object: ClientObject,
     ini: IniFile,
@@ -59,12 +54,9 @@ export class SchemeRemark extends AbstractScheme {
     section: TSection,
     state: ISchemeRemarkState
   ): void {
-    const actionPlanner: ActionPlanner = object.motivation_action_manager();
+    const planner: ActionPlanner = object.motivation_action_manager();
 
-    actionPlanner.add_evaluator(
-      EEvaluatorId.NEED_REMARK,
-      new EvaluatorSectionActive(state, "EvaluatorRemarkSectionActive")
-    );
+    planner.add_evaluator(EEvaluatorId.NEED_REMARK, new EvaluatorSectionActive(state, "EvaluatorRemarkSectionActive"));
 
     const actionRemarkActivity: ActionRemarkActivity = new ActionRemarkActivity(state);
 
@@ -74,11 +66,14 @@ export class SchemeRemark extends AbstractScheme {
     actionRemarkActivity.add_precondition(new world_property(EEvaluatorId.ANOMALY, false));
     actionRemarkActivity.add_precondition(new world_property(EEvaluatorId.NEED_REMARK, true));
     addCommonActionPreconditions(actionRemarkActivity);
+
     actionRemarkActivity.add_effect(new world_property(EEvaluatorId.NEED_REMARK, false));
     actionRemarkActivity.add_effect(new world_property(EEvaluatorId.IS_STATE_LOGIC_ACTIVE, false));
-    actionPlanner.add_action(EActionId.REMARK_ACTIVITY, actionRemarkActivity);
 
-    SchemeRemark.subscribe(object, state, actionRemarkActivity);
-    actionPlanner.action(EActionId.ALIFE).add_precondition(new world_property(EEvaluatorId.NEED_REMARK, false));
+    planner.add_action(EActionId.REMARK_ACTIVITY, actionRemarkActivity);
+
+    planner.action(EActionId.ALIFE).add_precondition(new world_property(EEvaluatorId.NEED_REMARK, false));
+
+    AbstractScheme.subscribe(object, state, actionRemarkActivity);
   }
 }

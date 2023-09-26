@@ -12,39 +12,34 @@ import { ClientObject, EScheme, ESchemeType, IniFile, LuaArray, TName, TSection 
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Scheme to force monsters jumping.
  */
 export class SchemeMobJump extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.MOB_JUMP;
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.MONSTER;
 
-  /**
-   * todo: Description.
-   */
   public static override activate(
     object: ClientObject,
     ini: IniFile,
     scheme: EScheme,
     section: TSection,
     smartTerrainName: TName
-  ): void {
+  ): ISchemeMobJumpState {
     const state: ISchemeMobJumpState = AbstractScheme.assign(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section);
-    state.jump_path_name = readIniString(ini, section, "path_jump", false, smartTerrainName);
-    state.ph_jump_factor = readIniNumber(ini, section, "ph_jump_factor", false, 1.8);
+    state.jumpPathName = readIniString(ini, section, "path_jump", false, smartTerrainName);
+    state.phJumpFactor = readIniNumber(ini, section, "ph_jump_factor", false, 1.8);
 
-    const offsetsData: string = readIniString(ini, section, "offset", true);
-    const offsets: LuaArray<string> = parseStringsList(offsetsData);
+    const offsets: LuaArray<string> = parseStringsList(readIniString(ini, section, "offset", true));
 
     state.offset = createVector(tonumber(offsets.get(1))!, tonumber(offsets.get(2))!, tonumber(offsets.get(3))!);
 
     assert(ini.line_exist(section, "on_signal"), "Bad jump scheme usage! 'on_signal' line must be specified.");
+
+    return state;
   }
 
-  /**
-   * todo: Description.
-   */
   public static override add(
     object: ClientObject,
     ini: IniFile,

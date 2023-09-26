@@ -17,10 +17,12 @@ export class SchemeTimer extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.SR_TIMER;
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.RESTRICTOR;
 
-  /**
-   * Activate scheme logics.
-   */
-  public static override activate(object: ClientObject, ini: IniFile, scheme: EScheme, section: TSection): void {
+  public static override activate(
+    object: ClientObject,
+    ini: IniFile,
+    scheme: EScheme,
+    section: TSection
+  ): ISchemeTimerState {
     logger.info("Activate scheme:", object.name());
 
     const state: ISchemeTimerState = AbstractScheme.assign(object, ini, scheme, section);
@@ -44,11 +46,10 @@ export class SchemeTimer extends AbstractScheme {
     state.onValue = readIniNumberAndConditionList(ini, section, "on_value");
     state.timerId = readIniString(ini, section, "timer_id", false, null, "hud_timer");
     state.string = readIniString(ini, section, "string", false);
+
+    return state;
   }
 
-  /**
-   * Add scheme state handlers / subscribe them.
-   */
   public static override add(
     object: ClientObject,
     ini: IniFile,

@@ -21,10 +21,12 @@ export class SchemeCode extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.PH_CODE;
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.OBJECT;
 
-  /**
-   * todo: Description.
-   */
-  public static override activate(object: ClientObject, ini: IniFile, scheme: EScheme, section: TSection): void {
+  public static override activate(
+    object: ClientObject,
+    ini: IniFile,
+    scheme: EScheme,
+    section: TSection
+  ): ISchemeCodeState {
     const state: ISchemeCodeState = AbstractScheme.assign(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section);
@@ -48,11 +50,10 @@ export class SchemeCode extends AbstractScheme {
         cc = readIniStringAndCondList(ini, section, "on_check_code" + it);
       }
     }
+
+    return state;
   }
 
-  /**
-   * todo: Description.
-   */
   public static override add(
     object: ClientObject,
     ini: IniFile,
@@ -60,6 +61,6 @@ export class SchemeCode extends AbstractScheme {
     section: TSection,
     state: ISchemeCodeState
   ): void {
-    SchemeCode.subscribe(object, state, new CodeManager(object, state));
+    AbstractScheme.subscribe(object, state, new CodeManager(object, state));
   }
 }

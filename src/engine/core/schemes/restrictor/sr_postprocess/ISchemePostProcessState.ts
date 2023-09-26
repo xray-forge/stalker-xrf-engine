@@ -6,6 +6,6 @@ import type { TRate } from "@/engine/lib/types";
  */
 export interface ISchemePostProcessState extends IBaseSchemeState {
   intensity: TRate;
-  intensity_speed: TRate;
-  hit_intensity: TRate;
+  intensitySpeed: TRate;
+  hitIntensity: TRate;
 }

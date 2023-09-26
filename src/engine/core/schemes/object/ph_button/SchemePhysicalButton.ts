@@ -15,10 +15,12 @@ export class SchemePhysicalButton extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.PH_BUTTON;
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.OBJECT;
 
-  /**
-   * todo: Description.
-   */
-  public static override activate(object: ClientObject, ini: IniFile, scheme: EScheme, section: TSection): void {
+  public static override activate(
+    object: ClientObject,
+    ini: IniFile,
+    scheme: EScheme,
+    section: TSection
+  ): ISchemePhysicalButtonState {
     const state: ISchemePhysicalButtonState = AbstractScheme.assign(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section);
@@ -33,14 +35,15 @@ export class SchemePhysicalButton extends AbstractScheme {
 
     state.anim = readIniString(ini, section, "anim", true);
     state.blending = readIniBoolean(ini, section, "anim_blend", false, true);
+
+    // todo: Probably not needed.
     if (state.blending === null) {
       state.blending = true;
     }
+
+    return state;
   }
 
-  /**
-   * todo: Description.
-   */
   public static override add(
     object: ClientObject,
     ini: IniFile,

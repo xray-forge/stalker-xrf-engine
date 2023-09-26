@@ -35,7 +35,7 @@ export class EvaluatorSmartCoverLocked extends property_evaluator {
     const isSmartCover: boolean = this.object.in_smart_cover();
 
     return (
-      (isSmartCover && smartCoverState.cover_name === null) || (!isSmartCover && smartCoverState.cover_name !== null)
+      (isSmartCover && smartCoverState.coverName === null) || (!isSmartCover && smartCoverState.coverName !== null)
     );
   }
 }

@@ -1,30 +1,30 @@
 import { describe, expect, it } from "@jest/globals";
 
-import { IRegistryObjectState, registerObject } from "@/engine/core/database";
+import { registerObject } from "@/engine/core/database";
 import { ISchemePhysicalIdleState } from "@/engine/core/schemes/object/ph_idle/ISchemePhysicalIdleState";
 import { PhysicalIdleManager } from "@/engine/core/schemes/object/ph_idle/PhysicalIdleManager";
 import { SchemePhysicalIdle } from "@/engine/core/schemes/object/ph_idle/SchemePhysicalIdle";
 import { getConfigSwitchConditions, parseBoneStateDescriptors, readIniConditionList } from "@/engine/core/utils/ini";
 import { loadSchemeImplementation } from "@/engine/core/utils/scheme";
 import { ClientObject, EScheme, IniFile } from "@/engine/lib/types";
-import { MockLuaTable } from "@/fixtures/lua";
+import { assertSchemeSubscribedToManager } from "@/fixtures/engine";
 import { mockClientGameObject, mockIniFile } from "@/fixtures/xray";
 
 describe("SchemePhysicalIdle", () => {
   it("should correctly initialize", () => {
-    loadSchemeImplementation(SchemePhysicalIdle);
-
     const object: ClientObject = mockClientGameObject();
-    const state: IRegistryObjectState = registerObject(object);
     const ini: IniFile = mockIniFile("test.ltx", {
       "ph_idle@test": {},
     });
 
-    SchemePhysicalIdle.activate(object, ini, EScheme.PH_IDLE, "ph_idle@test");
+    loadSchemeImplementation(SchemePhysicalIdle);
+    registerObject(object);
 
-    const schemeState: ISchemePhysicalIdleState = state[EScheme.PH_IDLE] as ISchemePhysicalIdleState;
+    const state: ISchemePhysicalIdleState = SchemePhysicalIdle.activate(object, ini, EScheme.PH_IDLE, "ph_idle@test");
 
-    expect(schemeState).toEqualLuaTables({
+    expect(object.set_tip_text).toHaveBeenCalled();
+
+    expect(state).toEqualLuaTables({
       ini,
       onUse: null,
       tip: "",
@@ -37,17 +37,12 @@ describe("SchemePhysicalIdle", () => {
       section: "ph_idle@test",
       logic: {},
     });
-    expect((schemeState.actions as unknown as MockLuaTable<any, any>).getKeysArray()[0]).toBeInstanceOf(
-      PhysicalIdleManager
-    );
-    expect(object.set_tip_text).toHaveBeenCalled();
+
+    assertSchemeSubscribedToManager(state, PhysicalIdleManager);
   });
 
   it("should correctly initialize with custom values", () => {
-    loadSchemeImplementation(SchemePhysicalIdle);
-
     const object: ClientObject = mockClientGameObject();
-    const state: IRegistryObjectState = registerObject(object);
     const ini: IniFile = mockIniFile("test.ltx", {
       "ph_idle@test": {
         on_info: "{+test} a, b",
@@ -58,11 +53,14 @@ describe("SchemePhysicalIdle", () => {
       },
     });
 
-    SchemePhysicalIdle.activate(object, ini, EScheme.PH_IDLE, "ph_idle@test");
+    registerObject(object);
+    loadSchemeImplementation(SchemePhysicalIdle);
 
-    const schemeState: ISchemePhysicalIdleState = state[EScheme.PH_IDLE] as ISchemePhysicalIdleState;
+    const state: ISchemePhysicalIdleState = SchemePhysicalIdle.activate(object, ini, EScheme.PH_IDLE, "ph_idle@test");
 
-    expect(schemeState).toEqualLuaTables({
+    expect(object.set_tip_text).toHaveBeenCalled();
+
+    expect(state).toEqualLuaTables({
       ini,
       onUse: readIniConditionList(ini, "ph_idle@test", "on_use"),
       tip: "test-tips",
@@ -75,6 +73,7 @@ describe("SchemePhysicalIdle", () => {
       section: "ph_idle@test",
       logic: getConfigSwitchConditions(ini, "ph_idle@test"),
     });
-    expect(object.set_tip_text).toHaveBeenCalled();
+
+    assertSchemeSubscribedToManager(state, PhysicalIdleManager);
   });
 });

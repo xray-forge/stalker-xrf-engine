@@ -83,7 +83,7 @@ export class ActionRemarkActivity extends action_base implements ISchemeEventHan
     this.animEndSignalled = false;
     this.animScheduled = true;
 
-    if (this.st.snd_anim_sync === false && this.st.snd !== null) {
+    if (this.st.sndAnimSync === false && this.st.snd !== null) {
       this.sndScheduled = true;
     } else {
       this.sndScheduled = false;
@@ -106,21 +106,21 @@ export class ActionRemarkActivity extends action_base implements ISchemeEventHan
 
     const [targetPosition, targetId, targetInit] = initTarget(this.object, this.st.target);
 
-    this.st.target_position = targetPosition;
-    this.st.target_id = targetId;
-    this.st.target_init = targetInit;
+    this.st.targetPosition = targetPosition;
+    this.st.targetId = targetId;
+    this.st.targetInit = targetInit;
 
-    if (this.st.target_init === false) {
+    if (this.st.targetInit === false) {
       // --printf("target_is_ni!!!l")
       return null;
     }
 
-    if (this.st.target_id) {
-      lookTargetDescriptor.lookObjectId = level.object_by_id(this.st.target_id)?.id() as Optional<TNumberId>;
+    if (this.st.targetId) {
+      lookTargetDescriptor.lookObjectId = level.object_by_id(this.st.targetId)?.id() as Optional<TNumberId>;
     }
 
-    if (this.st.target_position) {
-      lookTargetDescriptor.lookPosition = this.st.target_position;
+    if (this.st.targetPosition) {
+      lookTargetDescriptor.lookPosition = this.st.targetPosition;
     }
 
     return lookTargetDescriptor;

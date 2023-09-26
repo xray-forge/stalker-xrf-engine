@@ -21,7 +21,12 @@ export class SchemeTeleport extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.SR_TELEPORT;
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.RESTRICTOR;
 
-  public static override activate(object: ClientObject, ini: IniFile, scheme: EScheme, section: TSection): void {
+  public static override activate(
+    object: ClientObject,
+    ini: IniFile,
+    scheme: EScheme,
+    section: TSection
+  ): ISchemeTeleportState {
     const state: ISchemeTeleportState = AbstractScheme.assign(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section);
@@ -46,6 +51,8 @@ export class SchemeTeleport extends AbstractScheme {
     }
 
     assert(state.points.length() > 0, "Wrong point in teleport scheme: [%s].", tostring(section));
+
+    return state;
   }
 
   public static override add(

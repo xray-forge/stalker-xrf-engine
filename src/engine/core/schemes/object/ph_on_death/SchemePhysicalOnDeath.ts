@@ -15,18 +15,19 @@ export class SchemePhysicalOnDeath extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.PH_ON_DEATH;
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.OBJECT;
 
-  /**
-   * Activate scheme to handle death event as part of logics.
-   */
-  public static override activate(object: ClientObject, ini: IniFile, scheme: EScheme, section: TSection): void {
+  public static override activate(
+    object: ClientObject,
+    ini: IniFile,
+    scheme: EScheme,
+    section: TSection
+  ): ISchemePhysicalOnDeathState {
     const state: ISchemePhysicalOnDeathState = AbstractScheme.assign(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section);
+
+    return state;
   }
 
-  /**
-   * Add handlers for scheme and subscribe to events.
-   */
   public static override add(
     object: ClientObject,
     ini: IniFile,
@@ -41,9 +42,6 @@ export class SchemePhysicalOnDeath extends AbstractScheme {
     SchemePhysicalOnDeath.subscribe(object, storage, action);
   }
 
-  /**
-   * Disable death handling scheme.
-   */
   public static override disable(object: ClientObject, scheme: EScheme): void {
     // todo: unsubscribe from actions? Was not issue because death happens only once
     // ---  object:set_callback(callback.death, nil)

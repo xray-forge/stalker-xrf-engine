@@ -15,11 +15,18 @@ export class SchemeMobCombat extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.MOB_COMBAT;
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.MONSTER;
 
-  public static override activate(object: ClientObject, ini: IniFile, scheme: EScheme, section: TSection): void {
+  public static override activate(
+    object: ClientObject,
+    ini: IniFile,
+    scheme: EScheme,
+    section: TSection
+  ): ISchemeMobCombatState {
     const state: ISchemeMobCombatState = AbstractScheme.assign(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section);
     state.enabled = true;
+
+    return state;
   }
 
   public static override add(

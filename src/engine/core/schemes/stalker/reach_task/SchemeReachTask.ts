@@ -17,16 +17,10 @@ export class SchemeReachTask extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.REACH_TASK;
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.STALKER;
 
-  /**
-   * todo: Description.
-   */
-  public static override activate(object: ClientObject, ini: IniFile, scheme: EScheme): void {
-    const state: ISchemeReachTaskState = AbstractScheme.assign(object, ini, scheme, null);
+  public static override activate(object: ClientObject, ini: IniFile, scheme: EScheme): ISchemeReachTaskState {
+    return AbstractScheme.assign(object, ini, scheme, null);
   }
 
-  /**
-   * todo: Description.
-   */
   public static override add(
     object: ClientObject,
     ini: IniFile,
@@ -34,21 +28,21 @@ export class SchemeReachTask extends AbstractScheme {
     section: TSection,
     state: ISchemeReachTaskState
   ): void {
-    const manager: ActionPlanner = object.motivation_action_manager();
-    const alifeAction: ActionBase = manager.action(EActionId.ALIFE);
-    const alifeActionPlanner: ActionPlanner = cast_planner(alifeAction);
-    const smartTerrainTaskAction: ActionReachTaskLocation = alifeActionPlanner.action(
+    const planner: ActionPlanner = object.motivation_action_manager();
+    const alifePlanner: ActionPlanner = cast_planner(planner.action(EActionId.ALIFE));
+
+    const smartTerrainTaskAction: ActionReachTaskLocation = alifePlanner.action(
       EActionId.SMART_TERRAIN_TASK
     ) as ActionReachTaskLocation;
 
-    SchemeReachTask.subscribe(object, state, smartTerrainTaskAction);
+    AbstractScheme.subscribe(object, state, smartTerrainTaskAction);
   }
 
   /**
    * todo: Description.
    * todo: generic init method?
    */
-  public static addReachTaskSchemeAction(object: ClientObject): void {
+  public static setup(object: ClientObject): void {
     const actionPlanner: ActionPlanner = object.motivation_action_manager();
     const alifeAction: ActionBase = actionPlanner.action(EActionId.ALIFE);
     const alifeActionPlanner: ActionPlanner = cast_planner(alifeAction);

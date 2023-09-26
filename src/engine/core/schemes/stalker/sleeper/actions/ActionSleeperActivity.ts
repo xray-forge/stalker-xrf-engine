@@ -117,40 +117,40 @@ export class ActionSleeperActivity extends action_base implements ISchemeEventHa
     this.state.signals = new LuaTable();
     this.sleepingState = STATE_WALKING;
 
-    if (this.state.path_walk_info === null) {
-      const patrolMain: Patrol = new patrol(this.state.path_main);
+    if (this.state.pathWalkInfo === null) {
+      const patrolMain: Patrol = new patrol(this.state.pathMain);
 
       if (!patrolMain) {
-        abort("object '%s': unable to find path_main '%s' on the map", this.object.name(), this.state.path_main);
+        abort("object '%s': unable to find path_main '%s' on the map", this.object.name(), this.state.pathMain);
       }
 
       const numWayp: TCount = patrolMain.count();
 
       if (numWayp === 1) {
-        this.state.path_walk = this.state.path_main;
-        this.state.path_walk_info = parseWaypointsDataFromList(this.state.path_main, 1, [0, "wp00|ret=1"]);
-        this.state.path_look = null;
-        this.state.path_look_info = null;
+        this.state.pathWalk = this.state.pathMain;
+        this.state.pathWalkInfo = parseWaypointsDataFromList(this.state.pathMain, 1, [0, "wp00|ret=1"]);
+        this.state.pathLook = null;
+        this.state.pathLookInfo = null;
       } else if (numWayp === 2) {
-        this.state.path_walk = this.state.path_main;
-        this.state.path_walk_info = parseWaypointsDataFromList(this.state.path_main, 2, [1, "wp00"], [0, "wp01"]);
-        this.state.path_look = this.state.path_main;
-        this.state.path_look_info = parseWaypointsDataFromList(this.state.path_main, 2, [0, "wp00"], [1, "wp01|ret=1"]);
+        this.state.pathWalk = this.state.pathMain;
+        this.state.pathWalkInfo = parseWaypointsDataFromList(this.state.pathMain, 2, [1, "wp00"], [0, "wp01"]);
+        this.state.pathLook = this.state.pathMain;
+        this.state.pathLookInfo = parseWaypointsDataFromList(this.state.pathMain, 2, [0, "wp00"], [1, "wp01|ret=1"]);
       } else {
         abort(
           "object '%s': path_main '%s' contains %d waypoints, while 1 or 2 were expected",
           this.object.name(),
-          this.state.path_main,
+          this.state.pathMain,
           numWayp
         );
       }
     }
 
     this.patrolManager.reset(
-      this.state.path_walk as string,
-      this.state.path_walk_info as LuaArray<IWaypointData>,
-      this.state.path_look,
-      this.state.path_look_info,
+      this.state.pathWalk as string,
+      this.state.pathWalkInfo as LuaArray<IWaypointData>,
+      this.state.pathLook,
+      this.state.pathLookInfo,
       null,
       null,
       // todo: Unsafe this casting, should be avoided later with updates
@@ -165,7 +165,7 @@ export class ActionSleeperActivity extends action_base implements ISchemeEventHa
   public onPatrolCallback(): boolean {
     this.sleepingState = STATE_SLEEPING;
 
-    const sleepPatrol: Patrol = new patrol(this.state.path_main);
+    const sleepPatrol: Patrol = new patrol(this.state.pathMain);
     const position: Optional<Vector> = sleepPatrol.count() === 2 ? sleepPatrol.point(1) : null;
 
     setStalkerState(this.object, this.state.wakeable ? EStalkerState.SIT : EStalkerState.SLEEP, null, null, {

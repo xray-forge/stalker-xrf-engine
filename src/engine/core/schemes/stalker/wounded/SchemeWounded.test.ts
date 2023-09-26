@@ -21,29 +21,26 @@ describe("SchemeWounded class", () => {
       "wounded@test": {},
     });
 
-    const state: IRegistryObjectState = registerObject(object);
-
+    registerObject(object);
     loadSchemeImplementation(SchemeWounded);
 
-    SchemeWounded.activate(object, ini, EScheme.WOUNDED, "wounded@test");
+    const state: ISchemeWoundedState = SchemeWounded.activate(object, ini, EScheme.WOUNDED, "wounded@test");
 
-    const schemeState: ISchemeWoundedState = state[EScheme.WOUNDED] as ISchemeWoundedState;
-
-    expect(schemeState.woundManager).toBeInstanceOf(WoundManager);
-    expect(schemeState.isWoundedInitialized).toBeUndefined();
-    expect(schemeState.isTalkEnabled).toBeUndefined();
-    expect(schemeState.isNotForHelp).toBeUndefined();
-    expect(schemeState.woundedSection).toBeUndefined();
-    expect(schemeState.hpState).toBeUndefined();
-    expect(schemeState.hpStateSee).toBeUndefined();
-    expect(schemeState.hpVictim).toBeUndefined();
-    expect(schemeState.hpCover).toBeUndefined();
-    expect(schemeState.hpFight).toBeUndefined();
-    expect(schemeState.helpStartDialog).toBeUndefined();
-    expect(schemeState.psyState).toBeUndefined();
-    expect(schemeState.useMedkit).toBeUndefined();
-    expect(schemeState.helpDialog).toBeUndefined();
-    expect(schemeState.autoheal).toBeUndefined();
+    expect(state.woundManager).toBeInstanceOf(WoundManager);
+    expect(state.isWoundedInitialized).toBeUndefined();
+    expect(state.isTalkEnabled).toBeUndefined();
+    expect(state.isNotForHelp).toBeUndefined();
+    expect(state.woundedSection).toBeUndefined();
+    expect(state.hpState).toBeUndefined();
+    expect(state.hpStateSee).toBeUndefined();
+    expect(state.hpVictim).toBeUndefined();
+    expect(state.hpCover).toBeUndefined();
+    expect(state.hpFight).toBeUndefined();
+    expect(state.helpStartDialog).toBeUndefined();
+    expect(state.psyState).toBeUndefined();
+    expect(state.useMedkit).toBeUndefined();
+    expect(state.helpDialog).toBeUndefined();
+    expect(state.autoheal).toBeUndefined();
 
     const planner: ActionPlanner = object.motivation_action_manager();
 

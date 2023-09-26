@@ -8,7 +8,7 @@ import { ISchemePostCombatIdleState } from "@/engine/core/schemes/stalker/combat
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getObjectCommunity } from "@/engine/core/utils/object";
 import { communities } from "@/engine/lib/constants/communities";
-import { ActionBase, ActionPlanner, ClientObject } from "@/engine/lib/types";
+import { ActionPlanner, ClientObject } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -21,16 +21,15 @@ export class PostCombatIdle {
    * todo: Description.
    * todo: Generic idle
    */
-  public static addPostCombatIdleWait(object: ClientObject): void {
+  public static setup(object: ClientObject): void {
     // logger.info("Add post-combat idle for:", object.name());
 
     if (getObjectCommunity(object) === communities.zombied) {
       return;
     }
 
-    const actionPlanner: ActionPlanner = object.motivation_action_manager();
-    const combatAction: ActionBase = actionPlanner.action(EActionId.COMBAT);
-    const combatActionPlanner: ActionPlanner = cast_planner(combatAction);
+    const planner: ActionPlanner = object.motivation_action_manager();
+    const combatPlanner: ActionPlanner = cast_planner(planner.action(EActionId.COMBAT));
 
     const state: ISchemePostCombatIdleState = {
       timer: null,
@@ -41,12 +40,12 @@ export class PostCombatIdle {
 
     registry.objects.get(object.id()).post_combat_wait = state;
 
-    actionPlanner.remove_evaluator(EEvaluatorId.ENEMY);
-    actionPlanner.add_evaluator(EEvaluatorId.ENEMY, new EvaluatorHasEnemy(state));
+    planner.remove_evaluator(EEvaluatorId.ENEMY);
+    planner.add_evaluator(EEvaluatorId.ENEMY, new EvaluatorHasEnemy(state));
 
-    combatActionPlanner.remove_evaluator(EEvaluatorId.ENEMY);
-    combatActionPlanner.add_evaluator(EEvaluatorId.ENEMY, new EvaluatorHasEnemy(state));
-    combatActionPlanner.remove_action(EActionId.POST_COMBAT_WAIT);
+    combatPlanner.remove_evaluator(EEvaluatorId.ENEMY);
+    combatPlanner.add_evaluator(EEvaluatorId.ENEMY, new EvaluatorHasEnemy(state));
+    combatPlanner.remove_action(EActionId.POST_COMBAT_WAIT);
 
     const actionPostCombatIdleWait: ActionPostCombatIdleWait = new ActionPostCombatIdleWait(state);
 
@@ -56,6 +55,6 @@ export class PostCombatIdle {
     actionPostCombatIdleWait.add_precondition(new world_property(EEvaluatorId.DANGER_GRENADE, false));
     actionPostCombatIdleWait.add_effect(new world_property(EEvaluatorId.ENEMY, false));
 
-    combatActionPlanner.add_action(EActionId.POST_COMBAT_WAIT, actionPostCombatIdleWait);
+    combatPlanner.add_action(EActionId.POST_COMBAT_WAIT, actionPostCombatIdleWait);
   }
 }

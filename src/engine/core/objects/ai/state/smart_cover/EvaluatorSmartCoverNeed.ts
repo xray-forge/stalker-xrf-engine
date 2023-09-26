@@ -33,6 +33,6 @@ export class EvaluatorSmartCoverNeed extends property_evaluator {
       EScheme.SMARTCOVER
     ] as ISchemeSmartCoverState;
 
-    return smartCoverState !== null && smartCoverState.cover_name !== null;
+    return smartCoverState !== null && smartCoverState.coverName !== null;
   }
 }

@@ -3,7 +3,6 @@ import { action_base, level, LuabindClass, patrol } from "xray16";
 import { getObjectByStoryId, registry, setStalkerState } from "@/engine/core/database";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import { ESmartCoverState, EStalkerState } from "@/engine/core/objects/animation/types/state_types";
-import { ActionSleeperActivity } from "@/engine/core/schemes/stalker/sleeper/actions";
 import {
   COVER_SUBSTATE_TABLE,
   ISchemeSmartCoverState,
@@ -43,7 +42,7 @@ export class ActionSmartCoverActivity extends action_base implements ISchemeEven
   public targetPath!: string;
 
   public constructor(state: ISchemeSmartCoverState) {
-    super(null, ActionSleeperActivity.__name);
+    super(null, ActionSmartCoverActivity.__name);
     this.state = state;
   }
 
@@ -94,7 +93,7 @@ export class ActionSmartCoverActivity extends action_base implements ISchemeEven
     // --object.set_smart_cover_target_selector()
     this.targetEnemyId = null;
 
-    this.coverName = this.state.cover_name as string;
+    this.coverName = this.state.coverName as string;
 
     if (registry.smartCovers.get(this.coverName) === null) {
       abort("There is no smart_cover with name [%s]", this.coverName);
@@ -102,18 +101,18 @@ export class ActionSmartCoverActivity extends action_base implements ISchemeEven
 
     setStalkerState(this.object, EStalkerState.SMART_COVER, null, null, null, null);
 
-    this.targetPathCondlist = parseConditionsList(this.state.target_path);
+    this.targetPathCondlist = parseConditionsList(this.state.targetPath);
     this.checkTarget();
 
-    this.coverСondlist = parseConditionsList(this.state.cover_state);
+    this.coverСondlist = parseConditionsList(this.state.coverState);
     this.coverState = pickSectionFromCondList(registry.actor, this.object, this.coverСondlist) as ESmartCoverState;
     this.targetSelector(this.object);
     this.checkTargetSelector();
 
-    this.object.idle_min_time(this.state.idle_min_time);
-    this.object.idle_max_time(this.state.idle_max_time);
-    this.object.lookout_min_time(this.state.lookout_min_time);
-    this.object.lookout_max_time(this.state.lookout_max_time);
+    this.object.idle_min_time(this.state.idleMinTime);
+    this.object.idle_max_time(this.state.idleMaxTime);
+    this.object.lookout_min_time(this.state.lookoutMinTime);
+    this.object.lookout_max_time(this.state.lookoutMaxTime);
   }
 
   /**
@@ -159,8 +158,8 @@ export class ActionSmartCoverActivity extends action_base implements ISchemeEven
           abort("There is no patrol path [%s] for object [%s].", this.targetPath, object.name());
         }
       }
-    } else if (this.state.target_enemy !== null) {
-      const storyObject: Optional<ClientObject> = getObjectByStoryId(this.state.target_enemy);
+    } else if (this.state.targetEnemy !== null) {
+      const storyObject: Optional<ClientObject> = getObjectByStoryId(this.state.targetEnemy);
 
       this.targetEnemyId = storyObject?.id() as Optional<TNumberId>;
 
@@ -170,9 +169,9 @@ export class ActionSmartCoverActivity extends action_base implements ISchemeEven
 
         return true;
       }
-    } else if (this.state.target_position !== null) {
-      object.set_smart_cover_target(this.state.target_position);
-      this.firePosition = this.state.target_position;
+    } else if (this.state.targetPosition !== null) {
+      object.set_smart_cover_target(this.state.targetPosition);
+      this.firePosition = this.state.targetPosition;
 
       return true;
     }
@@ -214,8 +213,8 @@ export class ActionSmartCoverActivity extends action_base implements ISchemeEven
       }
     }
 
-    if (this.state.sound_idle !== null) {
-      GlobalSoundManager.getInstance().playSound(this.object.id(), this.state.sound_idle, null, null);
+    if (this.state.soundIdle !== null) {
+      GlobalSoundManager.getInstance().playSound(this.object.id(), this.state.soundIdle, null, null);
     }
   }
 
@@ -238,7 +237,7 @@ export class ActionSmartCoverActivity extends action_base implements ISchemeEven
    * todo: Description.
    */
   public deactivate(): void {
-    this.state.cover_name = null;
-    this.state.loophole_name = null;
+    this.state.coverName = null;
+    this.state.loopholeName = null;
   }
 }

@@ -41,7 +41,7 @@ export abstract class AbstractScheme {
     scheme: EScheme,
     section: TSection,
     smartTerrainName?: Optional<TName>
-  ): void {
+  ): IBaseSchemeState {
     abort("Called not implemented 'activate' method: %s, %s", object.name(), scheme);
   }
 

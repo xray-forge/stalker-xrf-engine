@@ -5,9 +5,9 @@ export * from "expect";
  */
 declare module "expect" {
   export interface Matchers<R extends void | Promise<void>> {
-    toEqualLuaTables(expected: Record<string, any> | LuaTable): ExpectationResult;
-    toStrictEqualLuaTables(expected: Record<string, any> | LuaTable): ExpectationResult;
-    toEqualLuaArrays(expected: Array<unknown> | LuaTable<number, unknown>): ExpectationResult;
-    toStrictEqualLuaArrays(expected: Array<unknown> | LuaTable<number, unknown>): ExpectationResult;
+    toEqualLuaTables(expected: Record<string, any> | LuaTable | null): ExpectationResult;
+    toStrictEqualLuaTables(expected: Record<string, any> | LuaTable | null): ExpectationResult;
+    toEqualLuaArrays(expected: Array<unknown> | LuaTable<number, unknown> | null): ExpectationResult;
+    toStrictEqualLuaArrays(expected: Array<unknown> | LuaTable<number, unknown> | null): ExpectationResult;
   }
 }
