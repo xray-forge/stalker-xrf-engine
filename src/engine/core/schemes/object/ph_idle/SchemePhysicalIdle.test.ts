@@ -2,8 +2,8 @@ import { describe, expect, it } from "@jest/globals";
 
 import { registerObject } from "@/engine/core/database";
 import { ISchemePhysicalIdleState } from "@/engine/core/schemes/object/ph_idle/ISchemePhysicalIdleState";
+import { PhysicalIdleManager } from "@/engine/core/schemes/object/ph_idle/PhysicalIdleManager";
 import { SchemePhysicalIdle } from "@/engine/core/schemes/object/ph_idle/SchemePhysicalIdle";
-import { PhysicalOnHitManager } from "@/engine/core/schemes/object/ph_on_hit/PhysicalOnHitManager";
 import { getConfigSwitchConditions, parseBoneStateDescriptors, readIniConditionList } from "@/engine/core/utils/ini";
 import { loadSchemeImplementation } from "@/engine/core/utils/scheme";
 import { ClientObject, EScheme, IniFile } from "@/engine/lib/types";
@@ -38,7 +38,7 @@ describe("SchemePhysicalIdle", () => {
       logic: {},
     });
 
-    assertSchemeSubscribedToManager(state, PhysicalOnHitManager);
+    assertSchemeSubscribedToManager(state, PhysicalIdleManager);
   });
 
   it("should correctly initialize with custom values", () => {
@@ -74,6 +74,6 @@ describe("SchemePhysicalIdle", () => {
       logic: getConfigSwitchConditions(ini, "ph_idle@test"),
     });
 
-    assertSchemeSubscribedToManager(state, PhysicalOnHitManager);
+    assertSchemeSubscribedToManager(state, PhysicalIdleManager);
   });
 });
