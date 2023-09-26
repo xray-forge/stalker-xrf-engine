@@ -75,7 +75,7 @@ export class SchemeAnimpoint extends AbstractScheme {
 
     schemeState.animpointManager = new AnimpointManager(object, schemeState);
 
-    SchemeAnimpoint.subscribe(object, schemeState, schemeState.animpointManager);
+    AbstractScheme.subscribe(object, schemeState, schemeState.animpointManager);
 
     const actionReachAnimpoint: ActionReachAnimpoint = new ActionReachAnimpoint(schemeState);
 
@@ -103,7 +103,7 @@ export class SchemeAnimpoint extends AbstractScheme {
     actionAnimpoint.add_effect(new world_property(EEvaluatorId.IS_STATE_LOGIC_ACTIVE, false));
     planner.add_action(EActionId.ANIMPOINT_ACTIVITY, actionAnimpoint);
 
-    SchemeAnimpoint.subscribe(object, schemeState, actionAnimpoint);
+    AbstractScheme.subscribe(object, schemeState, actionAnimpoint);
 
     // Cannot go to alife simulation if animation is defined.
     planner.action(EActionId.ALIFE).add_precondition(new world_property(EEvaluatorId.IS_ANIMPOINT_NEEDED, false));

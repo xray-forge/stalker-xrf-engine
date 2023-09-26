@@ -18,9 +18,6 @@ export class SchemeSilence extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.SR_SILENCE;
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.RESTRICTOR;
 
-  /**
-   * Activate scheme and register object as silence zone, if it is configured to be one of them.
-   */
   public static override activate(
     object: ClientObject,
     ini: IniFile,
@@ -36,9 +33,6 @@ export class SchemeSilence extends AbstractScheme {
     return state;
   }
 
-  /**
-   * Add event handlers for scheme.
-   */
   public static override add(
     object: ClientObject,
     ini: IniFile,
@@ -46,6 +40,6 @@ export class SchemeSilence extends AbstractScheme {
     section: TSection,
     state: ISchemeSilenceState
   ): void {
-    SchemeSilence.subscribe(object, state, new SilenceManager(object, state));
+    AbstractScheme.subscribe(object, state, new SilenceManager(object, state));
   }
 }

@@ -45,6 +45,6 @@ export class SchemePsyAntenna extends AbstractScheme {
     section: TSection,
     state: ISchemePsyAntennaState
   ): void {
-    SchemePsyAntenna.subscribe(object, state, new PsyAntennaSchemaManager(object, state));
+    AbstractScheme.subscribe(object, state, new PsyAntennaSchemaManager(object, state));
   }
 }

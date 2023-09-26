@@ -193,7 +193,7 @@ export class StalkerBinder extends object_binder {
 
     setupObjectSmartJobsAndLogicOnSpawn(this.object, this.state, ESchemeType.STALKER, this.isLoaded);
 
-    PostCombatIdle.addPostCombatIdleWait(this.object);
+    PostCombatIdle.setup(this.object);
 
     this.object.group_throw_time_interval(2_000); // todo: Interval to check danger from group objects?
 
