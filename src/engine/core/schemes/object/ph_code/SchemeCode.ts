@@ -61,6 +61,6 @@ export class SchemeCode extends AbstractScheme {
     section: TSection,
     state: ISchemeCodeState
   ): void {
-    SchemeCode.subscribe(object, state, new CodeManager(object, state));
+    AbstractScheme.subscribe(object, state, new CodeManager(object, state));
   }
 }
