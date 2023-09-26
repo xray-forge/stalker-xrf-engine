@@ -1,8 +1,7 @@
 ## mob_jump
 
-- todo <br/>
-- todo <br/>
-- todo <br/>
+Scheme to force monsters jump on certain scripts / positions. <br/>
+Used for snorks mainly.
 
 ## Documentation
 
