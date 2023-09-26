@@ -26,10 +26,12 @@ export class SchemeAnimpoint extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.ANIMPOINT;
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.STALKER;
 
-  /**
-   * Activate animation scheme.
-   */
-  public static override activate(object: ClientObject, ini: IniFile, scheme: EScheme, section: TSection): void {
+  public static override activate(
+    object: ClientObject,
+    ini: IniFile,
+    scheme: EScheme,
+    section: TSection
+  ): ISchemeAnimpointState {
     logger.info("Activate scheme:", object.name(), scheme, section);
 
     const state: ISchemeAnimpointState = AbstractScheme.assign(object, ini, scheme, section);
@@ -52,11 +54,10 @@ export class SchemeAnimpoint extends AbstractScheme {
     const rawAvailableAnimations: Optional<string> = readIniString(ini, section, "avail_animations", false);
 
     state.availableAnimations = rawAvailableAnimations === null ? null : parseStringsList(rawAvailableAnimations);
+
+    return state;
   }
 
-  /**
-   * Add animation state to object state.
-   */
   public static override add(
     object: ClientObject,
     ini: IniFile,

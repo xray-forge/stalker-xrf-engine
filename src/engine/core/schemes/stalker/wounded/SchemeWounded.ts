@@ -27,10 +27,17 @@ export class SchemeWounded extends AbstractScheme {
 
   public static WOUNDED_STATES: LuaArray<TName> = $fromArray(["wounded_heavy", "wounded_heavy_2", "wounded_heavy_3"]);
 
-  public static override activate(object: ClientObject, ini: IniFile, scheme: EScheme, section: TSection): void {
+  public static override activate(
+    object: ClientObject,
+    ini: IniFile,
+    scheme: EScheme,
+    section: TSection
+  ): ISchemeWoundedState {
     const state: ISchemeWoundedState = AbstractScheme.assign(object, ini, scheme, section);
 
     state.woundManager = new WoundManager(object, state);
+
+    return state;
   }
 
   public static override add(

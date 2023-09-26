@@ -18,8 +18,13 @@ export class SchemeDanger extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.DANGER;
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.STALKER;
 
-  public static override activate(object: ClientObject, ini: IniFile, scheme: EScheme, section: TSection): void {
-    AbstractScheme.assign(object, ini, scheme, section);
+  public static override activate(
+    object: ClientObject,
+    ini: IniFile,
+    scheme: EScheme,
+    section: TSection
+  ): ISchemeDangerState {
+    return AbstractScheme.assign(object, ini, scheme, section);
   }
 
   public static override add(

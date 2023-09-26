@@ -7,7 +7,7 @@ import { abort } from "@/engine/core/utils/assertion";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini/ini_config";
 import { readIniNumber, readIniString } from "@/engine/core/utils/ini/ini_read";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { ClientObject, EScheme, ESchemeType, IniFile, TSection } from "@/engine/lib/types";
+import { ClientObject, EScheme, ESchemeType, IniFile, Patrol, TIndex, TName, TSection } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -18,10 +18,12 @@ export class SchemePhysicalForce extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.PH_FORCE;
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.OBJECT;
 
-  /**
-   * todo: Description.
-   */
-  public static override activate(object: ClientObject, ini: IniFile, scheme: EScheme, section: TSection): void {
+  public static override activate(
+    object: ClientObject,
+    ini: IniFile,
+    scheme: EScheme,
+    section: TSection
+  ): ISchemePhysicalForceState {
     const state: ISchemePhysicalForceState = AbstractScheme.assign(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section);
@@ -29,8 +31,8 @@ export class SchemePhysicalForce extends AbstractScheme {
     state.time = readIniNumber(ini, section, "time", true, 0);
     state.delay = readIniNumber(ini, section, "delay", false, 0);
 
-    const path_name = readIniString(ini, section, "point", true);
-    const index = readIniNumber(ini, section, "point_index", false, 0);
+    const pathName: TName = readIniString(ini, section, "point", true);
+    const index: TIndex = readIniNumber(ini, section, "point_index", false, 0);
 
     if (state.force === null || state.force <= 0) {
       abort("PH_FORCE : invalid force !");
@@ -40,17 +42,19 @@ export class SchemePhysicalForce extends AbstractScheme {
       abort("PH_FORCE : invalid time !");
     }
 
-    if (path_name === null || path_name === "") {
+    if (pathName === null || pathName === "") {
       abort("PH_FORCE : invalid waypoint name !");
     }
 
-    const path = new patrol(path_name);
+    const path: Patrol = new patrol(pathName);
 
     if (index >= path.count()) {
       abort("PH_FORCE : invalid waypoint index.ts !");
     }
 
     state.point = path.point(index);
+
+    return state;
   }
 
   /**

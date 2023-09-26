@@ -15,22 +15,22 @@ export class SchemePostProcess extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.SR_POSTPROCESS;
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.RESTRICTOR;
 
-  /**
-   * Handle activation of scheme and initialization of new scheme state.
-   */
-  public static override activate(object: ClientObject, ini: IniFile, scheme: EScheme, section: TSection): void {
+  public static override activate(
+    object: ClientObject,
+    ini: IniFile,
+    scheme: EScheme,
+    section: TSection
+  ): ISchemePostProcessState {
     const state: ISchemePostProcessState = AbstractScheme.assign(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section);
     state.intensity = readIniNumber(ini, section, "intensity", true) * 0.01;
     state.intensity_speed = readIniNumber(ini, section, "intensity_speed", true) * 0.01;
     state.hit_intensity = readIniNumber(ini, section, "hit_intensity", true);
+
+    return state;
   }
 
-  /**
-   * Add scheme logics into the flow.
-   * Creates handling manager and subscribes it to events.
-   */
   public static override add(
     object: ClientObject,
     ini: IniFile,
@@ -38,6 +38,6 @@ export class SchemePostProcess extends AbstractScheme {
     section: TSection,
     state: ISchemePostProcessState
   ): void {
-    SchemePostProcess.subscribe(object, state, new SchemePostProcessManager(object, state));
+    AbstractScheme.subscribe(object, state, new SchemePostProcessManager(object, state));
   }
 }

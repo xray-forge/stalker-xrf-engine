@@ -17,10 +17,12 @@ export class SchemePhysicalDoor extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.PH_DOOR;
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.OBJECT;
 
-  /**
-   * todo: Description.
-   */
-  public static override activate(object: ClientObject, ini: IniFile, scheme: EScheme, section: TSection): void {
+  public static override activate(
+    object: ClientObject,
+    ini: IniFile,
+    scheme: EScheme,
+    section: TSection
+  ): ISchemePhysicalDoorState {
     const state: ISchemePhysicalDoorState = AbstractScheme.assign(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section);
@@ -50,11 +52,10 @@ export class SchemePhysicalDoor extends AbstractScheme {
     }
 
     state.hit_on_bone = parseBoneStateDescriptors(readIniString(ini, section, "hit_on_bone", false));
+
+    return state;
   }
 
-  /**
-   * todo: Description.
-   */
   public static override add(
     object: ClientObject,
     ini: IniFile,

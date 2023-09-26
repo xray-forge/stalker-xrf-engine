@@ -35,7 +35,7 @@ export class SchemePatrol extends AbstractScheme {
     scheme: EScheme,
     section: TSection,
     smartTerrainName: TName
-  ): void {
+  ): ISchemePatrolState {
     const state: ISchemePatrolState = AbstractScheme.assign(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section);
@@ -89,6 +89,8 @@ export class SchemePatrol extends AbstractScheme {
     }
 
     registry.patrols.generic.get(state.patrol_key).addObject(object, state.commander);
+
+    return state;
   }
 
   /**

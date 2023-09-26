@@ -23,7 +23,7 @@ export class SchemeMobWalker extends AbstractScheme {
     scheme: EScheme,
     section: TSection,
     smartTerrainName: TName
-  ): void {
+  ): ISchemeMobWalkerState {
     const state: ISchemeMobWalkerState = AbstractScheme.assign(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section);
@@ -42,6 +42,8 @@ export class SchemeMobWalker extends AbstractScheme {
 
     state.path_walk_info = null;
     state.path_look_info = null;
+
+    return state;
   }
 
   public static override add(

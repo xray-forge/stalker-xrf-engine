@@ -16,9 +16,6 @@ export class SchemeHit extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.HIT;
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.STALKER;
 
-  /**
-   * todo: Description.
-   */
   public static override disable(object: ClientObject, scheme: EScheme): void {
     const state: Optional<ISchemeHitState> = registry.objects.get(object.id())[scheme] as ISchemeHitState;
 
@@ -27,10 +24,12 @@ export class SchemeHit extends AbstractScheme {
     }
   }
 
-  /**
-   * todo: Description.
-   */
-  public static override activate(object: ClientObject, ini: IniFile, scheme: EScheme, section: TSection): void {
+  public static override activate(
+    object: ClientObject,
+    ini: IniFile,
+    scheme: EScheme,
+    section: TSection
+  ): ISchemeHitState {
     const state: ISchemeHitState = AbstractScheme.assign(object, ini, scheme, section);
 
     if (!ini.section_exist(section)) {
@@ -39,19 +38,20 @@ export class SchemeHit extends AbstractScheme {
 
     state.logic = getConfigSwitchConditions(ini, section);
 
-    SchemeHit.subscribe(object, state, state.action);
+    return state;
   }
 
-  /**
-   * todo: Description.
-   */
   public static override add(
     object: ClientObject,
     ini: IniFile,
     scheme: EScheme,
     section: TSection,
-    storage: ISchemeHitState
+    state: ISchemeHitState
   ): void {
-    storage.action = new HitManager(object, storage);
+    const manager: HitManager = new HitManager(object, state);
+
+    state.action = manager;
+
+    AbstractScheme.subscribe(object, state, manager);
   }
 }

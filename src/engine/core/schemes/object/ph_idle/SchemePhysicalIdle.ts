@@ -17,10 +17,12 @@ export class SchemePhysicalIdle extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.PH_IDLE;
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.OBJECT;
 
-  /**
-   * Activate scheme and read ini configuration.
-   */
-  public static override activate(object: ClientObject, ini: IniFile, scheme: EScheme, section: TSection): void {
+  public static override activate(
+    object: ClientObject,
+    ini: IniFile,
+    scheme: EScheme,
+    section: TSection
+  ): ISchemePhysicalIdleState {
     const state: ISchemePhysicalIdleState = AbstractScheme.assign(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section);
@@ -30,11 +32,10 @@ export class SchemePhysicalIdle extends AbstractScheme {
     state.tip = readIniString(ini, section, "tips", false, null, "");
 
     object.set_tip_text(state.tip);
+
+    return state;
   }
 
-  /**
-   * Add scheme events listeners and subscribe them to events.
-   */
   public static override add(
     object: ClientObject,
     ini: IniFile,
@@ -42,6 +43,6 @@ export class SchemePhysicalIdle extends AbstractScheme {
     section: TSection,
     state: ISchemePhysicalIdleState
   ): void {
-    SchemePhysicalIdle.subscribe(object, state, new PhysicalIdleManager(object, state));
+    AbstractScheme.subscribe(object, state, new PhysicalIdleManager(object, state));
   }
 }

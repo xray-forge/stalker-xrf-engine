@@ -10,7 +10,7 @@ import { getConfigSwitchConditions } from "@/engine/core/utils/ini/ini_config";
 import { readIniBoolean, readIniNumber, readIniString } from "@/engine/core/utils/ini/ini_read";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { NIL } from "@/engine/lib/constants/words";
-import { ActionPlanner, ClientObject, EScheme, ESchemeType, IniFile, TSection } from "@/engine/lib/types";
+import { ActionPlanner, ClientObject, EScheme, ESchemeType, IniFile, TName, TSection } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -29,8 +29,8 @@ export class SchemeSmartCover extends AbstractScheme {
     ini: IniFile,
     scheme: EScheme,
     section: TSection,
-    additional: string
-  ): void {
+    smartTerrainName: TName
+  ): ISchemeSmartCoverState {
     const state: ISchemeSmartCoverState = AbstractScheme.assign(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section);
@@ -49,6 +49,8 @@ export class SchemeSmartCover extends AbstractScheme {
     state.weapon_type = readIniString(ini, section, "weapon_type", false);
     state.moving = readIniString(ini, section, "def_state_moving", false, null, "sneak");
     state.sound_idle = readIniString(ini, section, "sound_idle", false);
+
+    return state;
   }
 
   /**

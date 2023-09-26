@@ -25,16 +25,15 @@ export class SchemeMeet extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.MEET;
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.STALKER;
 
-  /**
-   * Activate meet scheme.
-   */
-  public static override activate(object: ClientObject, ini: IniFile, scheme: EScheme, section: TSection): void {
-    AbstractScheme.assign(object, ini, scheme, section);
+  public static override activate(
+    object: ClientObject,
+    ini: IniFile,
+    scheme: EScheme,
+    section: TSection
+  ): ISchemeMeetState {
+    return AbstractScheme.assign(object, ini, scheme, section);
   }
 
-  /**
-   * Add meet scheme related actions / evaluators and state.
-   */
   public static override add(
     object: ClientObject,
     ini: IniFile,
@@ -78,9 +77,6 @@ export class SchemeMeet extends AbstractScheme {
     SchemeMeet.subscribe(object, state, state.meetManager);
   }
 
-  /**
-   * Reset scheme state and read new ini configuration based on current logics.
-   */
   public static override reset(
     object: ClientObject,
     scheme: EScheme,

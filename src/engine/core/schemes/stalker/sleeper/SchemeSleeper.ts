@@ -30,7 +30,7 @@ export class SchemeSleeper extends AbstractScheme {
     scheme: EScheme,
     section: TSection,
     smartTerrainName: TName
-  ): void {
+  ): ISchemeSleeperState {
     const state: ISchemeSleeperState = AbstractScheme.assign(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section);
@@ -40,6 +40,8 @@ export class SchemeSleeper extends AbstractScheme {
     state.path_walk_info = null;
     state.path_look = null;
     state.path_look_info = null;
+
+    return state;
   }
 
   /**

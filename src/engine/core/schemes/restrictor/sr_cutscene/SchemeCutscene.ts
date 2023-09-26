@@ -18,7 +18,12 @@ export class SchemeCutscene extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.SR_CUTSCENE;
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.RESTRICTOR;
 
-  public static override activate(object: ClientObject, ini: IniFile, scheme: EScheme, section: TSection): void {
+  public static override activate(
+    object: ClientObject,
+    ini: IniFile,
+    scheme: EScheme,
+    section: TSection
+  ): ISchemeCutsceneState {
     logger.info("Activate:", object.name(), scheme, section);
 
     const state: ISchemeCutsceneState = AbstractScheme.assign(object, ini, scheme, section);
@@ -32,6 +37,8 @@ export class SchemeCutscene extends AbstractScheme {
     state.fov = readIniNumber(ini, section, "fov", false);
     state.shouldEnableUiOnEnd = readIniBoolean(ini, section, "enable_ui_on_end", false, true);
     state.isOutdoor = readIniBoolean(ini, section, "outdoor", false, false);
+
+    return state;
   }
 
   public static override add(
@@ -41,7 +48,7 @@ export class SchemeCutscene extends AbstractScheme {
     section: TSection,
     state: ISchemeCutsceneState
   ): void {
-    SchemeCutscene.subscribe(object, state, new CutsceneManager(object, state));
+    AbstractScheme.subscribe(object, state, new CutsceneManager(object, state));
   }
 
   /**

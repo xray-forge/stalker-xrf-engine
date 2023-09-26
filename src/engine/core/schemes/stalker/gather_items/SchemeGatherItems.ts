@@ -19,8 +19,13 @@ export class SchemeGatherItems extends AbstractScheme {
   /**
    * Activate scheme for an object - add to object state.
    */
-  public static override activate(object: ClientObject, ini: IniFile, scheme: EScheme, section: TSection): void {
-    AbstractScheme.assign(object, ini, scheme, section);
+  public static override activate(
+    object: ClientObject,
+    ini: IniFile,
+    scheme: EScheme,
+    section: TSection
+  ): ISchemeGatherItemsState {
+    return AbstractScheme.assign(object, ini, scheme, section);
   }
 
   /**

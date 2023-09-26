@@ -25,16 +25,13 @@ export class SchemeMinigun extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.PH_MINIGUN;
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.OBJECT;
 
-  /**
-   * todo: Description.
-   */
   public static override activate(
     object: ClientObject,
     ini: IniFile,
     scheme: EScheme,
     section: TSection,
     smartTerrainName: TName
-  ): void {
+  ): ISchemeMinigunState {
     const state: ISchemeMinigunState = AbstractScheme.assign(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section);
@@ -49,11 +46,10 @@ export class SchemeMinigun extends AbstractScheme {
     state.shoot_only_on_visible = readIniBoolean(ini, section, "shoot_only_on_visible", false, true);
     state.on_target_vis = readIniStringAndCondList(ini, section, "on_target_vis");
     state.on_target_nvis = readIniStringAndCondList(ini, section, "on_target_nvis");
+
+    return state;
   }
 
-  /**
-   * todo: Description.
-   */
   public static override add(
     object: ClientObject,
     ini: IniFile,

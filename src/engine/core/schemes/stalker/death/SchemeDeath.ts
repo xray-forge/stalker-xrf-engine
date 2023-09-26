@@ -17,16 +17,15 @@ export class SchemeDeath extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.DEATH;
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.STALKER;
 
-  /**
-   * todo: Description.
-   */
-  public static override activate(object: ClientObject, ini: IniFile, scheme: EScheme, section: TSection): void {
-    AbstractScheme.assign(object, ini, scheme, section);
+  public static override activate(
+    object: ClientObject,
+    ini: IniFile,
+    scheme: EScheme,
+    section: TSection
+  ): ISchemeDeathState {
+    return AbstractScheme.assign(object, ini, scheme, section);
   }
 
-  /**
-   * todo: Description.
-   */
   public static override add(
     object: ClientObject,
     ini: IniFile,
@@ -34,12 +33,9 @@ export class SchemeDeath extends AbstractScheme {
     section: TSection,
     state: ISchemeDeathState
   ): void {
-    SchemeDeath.subscribe(object, state, new DeathManager(object, state));
+    AbstractScheme.subscribe(object, state, new DeathManager(object, state));
   }
 
-  /**
-   * todo: Description.
-   */
   public static override reset(
     object: ClientObject,
     scheme: EScheme,
@@ -47,7 +43,7 @@ export class SchemeDeath extends AbstractScheme {
     section: TSection
   ): void {
     const deathSection: Optional<TSection> = readIniString(
-      objectState.ini!,
+      objectState.ini,
       objectState.sectionLogic,
       "on_death",
       false
@@ -56,18 +52,18 @@ export class SchemeDeath extends AbstractScheme {
     if (deathSection !== null) {
       logger.info("Reset death:", object.name());
 
-      if (!objectState.ini!.section_exist(deathSection)) {
+      if (!objectState.ini.section_exist(deathSection)) {
         abort("There is no section [%s] for object [%s]", deathSection, object.name());
       }
 
       const state: ISchemeDeathState = objectState[SchemeDeath.SCHEME_SECTION] as ISchemeDeathState;
-      const onInfo: Optional<string> = readIniString(objectState.ini!, deathSection, "on_info", false);
+      const onInfo: Optional<string> = readIniString(objectState.ini, deathSection, "on_info", false);
 
       if (onInfo !== null) {
         state!.info = parseConditionsList(onInfo);
       }
 
-      const onInfo2: Optional<string> = readIniString(objectState.ini!, deathSection, "on_info2", false);
+      const onInfo2: Optional<string> = readIniString(objectState.ini, deathSection, "on_info2", false);
 
       if (onInfo2 !== null) {
         state!.info2 = parseConditionsList(onInfo2);

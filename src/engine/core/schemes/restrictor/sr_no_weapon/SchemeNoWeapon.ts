@@ -17,10 +17,17 @@ export class SchemeNoWeapon extends AbstractScheme {
   /**
    * Activate scheme logics and create matching states.
    */
-  public static override activate(object: ClientObject, ini: IniFile, scheme: EScheme, section: TSection): void {
+  public static override activate(
+    object: ClientObject,
+    ini: IniFile,
+    scheme: EScheme,
+    section: TSection
+  ): ISchemeNoWeaponState {
     const state: ISchemeNoWeaponState = AbstractScheme.assign(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section);
+
+    return state;
   }
 
   /**
@@ -33,6 +40,6 @@ export class SchemeNoWeapon extends AbstractScheme {
     section: TSection,
     state: ISchemeNoWeaponState
   ): void {
-    SchemeNoWeapon.subscribe(object, state, new NoWeaponManager(object, state));
+    AbstractScheme.subscribe(object, state, new NoWeaponManager(object, state));
   }
 }

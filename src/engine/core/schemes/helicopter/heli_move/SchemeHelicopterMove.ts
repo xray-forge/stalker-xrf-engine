@@ -16,10 +16,12 @@ export class SchemeHelicopterMove extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.HELI_MOVE;
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.HELICOPTER;
 
-  /**
-   * todo
-   */
-  public static override activate(object: ClientObject, ini: IniFile, scheme: EScheme, section: TSection): void {
+  public static override activate(
+    object: ClientObject,
+    ini: IniFile,
+    scheme: EScheme,
+    section: TSection
+  ): ISchemeHelicopterMoveState {
     const state: ISchemeHelicopterMoveState = AbstractScheme.assign(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section);
@@ -45,11 +47,10 @@ export class SchemeHelicopterMove extends AbstractScheme {
     objectState.invulnerable = readIniBoolean(ini, section, "invulnerable", false, false);
     objectState.immortal = readIniBoolean(ini, section, "immortal", false, false);
     objectState.mute = readIniBoolean(ini, section, "mute", false, false);
+
+    return state;
   }
 
-  /**
-   * todo
-   */
   public static override add(
     object: ClientObject,
     ini: IniFile,

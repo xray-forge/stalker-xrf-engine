@@ -26,8 +26,8 @@ export class SchemeCombatIgnore extends AbstractScheme {
     }
   }
 
-  public static override activate(object: ClientObject, ini: IniFile, scheme: EScheme): void {
-    AbstractScheme.assign(object, ini, scheme, null);
+  public static override activate(object: ClientObject, ini: IniFile, scheme: EScheme): ISchemeCombatIgnoreState {
+    return AbstractScheme.assign(object, ini, scheme, null);
   }
 
   public static override add(

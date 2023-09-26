@@ -17,16 +17,10 @@ export class SchemeReachTask extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.REACH_TASK;
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.STALKER;
 
-  /**
-   * todo: Description.
-   */
-  public static override activate(object: ClientObject, ini: IniFile, scheme: EScheme): void {
-    const state: ISchemeReachTaskState = AbstractScheme.assign(object, ini, scheme, null);
+  public static override activate(object: ClientObject, ini: IniFile, scheme: EScheme): ISchemeReachTaskState {
+    return AbstractScheme.assign(object, ini, scheme, null);
   }
 
-  /**
-   * todo: Description.
-   */
   public static override add(
     object: ClientObject,
     ini: IniFile,

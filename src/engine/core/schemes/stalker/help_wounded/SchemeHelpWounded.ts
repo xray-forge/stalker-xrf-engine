@@ -6,6 +6,7 @@ import { EActionId, EEvaluatorId } from "@/engine/core/objects/ai/types";
 import { ActionHelpWounded } from "@/engine/core/schemes/stalker/help_wounded/actions";
 import { EvaluatorWoundedExist } from "@/engine/core/schemes/stalker/help_wounded/evaluators";
 import { ISchemeHelpWoundedState } from "@/engine/core/schemes/stalker/help_wounded/ISchemeHelpWoundedState";
+import { ISchemeWoundedState } from "@/engine/core/schemes/stalker/wounded";
 import { readIniBoolean } from "@/engine/core/utils/ini/ini_read";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { ActionPlanner, ClientObject, IniFile, Optional } from "@/engine/lib/types";
@@ -21,21 +22,15 @@ export class SchemeHelpWounded extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.HELP_WOUNDED;
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.STALKER;
 
-  /**
-   * Activate section with help wounded for the object.
-   */
   public static override activate(
     object: ClientObject,
     ini: IniFile,
     scheme: EScheme,
     section: Optional<TSection>
-  ): void {
-    AbstractScheme.assign(object, ini, scheme, section);
+  ): ISchemeWoundedState {
+    return AbstractScheme.assign(object, ini, scheme, section);
   }
 
-  /**
-   * Add scheme generic states / evaluators / actions for the object.
-   */
   public static override add(
     object: ClientObject,
     ini: IniFile,
@@ -77,9 +72,6 @@ export class SchemeHelpWounded extends AbstractScheme {
       .add_precondition(new world_property(EEvaluatorId.IS_WOUNDED_EXISTING, false));
   }
 
-  /**
-   * Reset scheme state and read configuration from current logics section for the object.
-   */
   public static override reset(
     object: ClientObject,
     scheme: EScheme,

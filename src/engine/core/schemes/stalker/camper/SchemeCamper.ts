@@ -12,7 +12,17 @@ import { readIniBoolean, readIniNumber, readIniString } from "@/engine/core/util
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { RADIAN } from "@/engine/lib/constants/math";
 import { FALSE } from "@/engine/lib/constants/words";
-import { ActionBase, ClientObject, EScheme, ESchemeType, IniFile, Optional, TName, TSection } from "@/engine/lib/types";
+import {
+  ActionBase,
+  ActionPlanner,
+  ClientObject,
+  EScheme,
+  ESchemeType,
+  IniFile,
+  Optional,
+  TName,
+  TSection,
+} from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -23,16 +33,13 @@ export class SchemeCamper extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.CAMPER;
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.STALKER;
 
-  /**
-   * todo: Description.
-   */
   public static override activate(
     object: ClientObject,
     ini: IniFile,
     scheme: EScheme,
     section: TSection,
     smartTerrainName: TName
-  ): void {
+  ): ISchemeCamperState {
     const state: ISchemeCamperState = AbstractScheme.assign(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section);
@@ -87,10 +94,10 @@ export class SchemeCamper extends AbstractScheme {
     state.scandelta = 30;
     state.timedelta = 4000;
     state.time_scan_delta = state.timedelta / state.scandelta;
+
+    return state;
   }
-  /**
-   * todo: Description.
-   */
+
   public static override add(
     object: ClientObject,
     ini: IniFile,
@@ -98,13 +105,13 @@ export class SchemeCamper extends AbstractScheme {
     section: TSection,
     state: ISchemeCamperState
   ): void {
-    const manager = object.motivation_action_manager();
+    const planner: ActionPlanner = object.motivation_action_manager();
 
-    manager.add_evaluator(
+    planner.add_evaluator(
       EEvaluatorId.IS_CAMPING_ENDED,
       new EvaluatorSectionEnded(state, "EvaluatorCamperSectionEnded")
     );
-    manager.add_evaluator(EEvaluatorId.IS_CLOSE_COMBAT, new EvaluatorCloseCombat(state));
+    planner.add_evaluator(EEvaluatorId.IS_CLOSE_COMBAT, new EvaluatorCloseCombat(state));
 
     const actionPatrol: ActionCamperPatrol = new ActionCamperPatrol(state, object);
 
@@ -122,19 +129,19 @@ export class SchemeCamper extends AbstractScheme {
     actionPatrol.add_effect(new world_property(EEvaluatorId.IS_CAMPING_ENDED, true));
     actionPatrol.add_effect(new world_property(EEvaluatorId.ENEMY, false));
     actionPatrol.add_effect(new world_property(EEvaluatorId.IS_STATE_LOGIC_ACTIVE, false));
-    manager.add_action(EActionId.CAMP_PATROL, actionPatrol);
+    planner.add_action(EActionId.CAMP_PATROL, actionPatrol);
     SchemeCamper.subscribe(object, state, actionPatrol);
 
-    manager.action(EActionId.ALIFE).add_precondition(new world_property(EEvaluatorId.IS_CAMPING_ENDED, true));
-    manager.action(EActionId.GATHER_ITEMS).add_precondition(new world_property(EEvaluatorId.IS_CAMPING_ENDED, true));
-    manager.action(EActionId.SEARCH_CORPSE).add_precondition(new world_property(EEvaluatorId.IS_CAMPING_ENDED, true));
-    manager.action(EActionId.HELP_WOUNDED).add_precondition(new world_property(EEvaluatorId.IS_CAMPING_ENDED, true));
+    planner.action(EActionId.ALIFE).add_precondition(new world_property(EEvaluatorId.IS_CAMPING_ENDED, true));
+    planner.action(EActionId.GATHER_ITEMS).add_precondition(new world_property(EEvaluatorId.IS_CAMPING_ENDED, true));
+    planner.action(EActionId.SEARCH_CORPSE).add_precondition(new world_property(EEvaluatorId.IS_CAMPING_ENDED, true));
+    planner.action(EActionId.HELP_WOUNDED).add_precondition(new world_property(EEvaluatorId.IS_CAMPING_ENDED, true));
 
-    const actionCombatPlanner: ActionBase = manager.action(EActionId.COMBAT);
+    const combatPlanner: ActionBase = planner.action(EActionId.COMBAT);
 
-    actionCombatPlanner.add_precondition(new world_property(EEvaluatorId.IS_CLOSE_COMBAT, true));
-    actionCombatPlanner.add_effect(new world_property(EEvaluatorId.IS_CLOSE_COMBAT, false));
-    actionCombatPlanner.add_effect(new world_property(EEvaluatorId.IS_STATE_LOGIC_ACTIVE, false));
-    actionCombatPlanner.add_effect(new world_property(EEvaluatorId.IS_CAMPING_ENDED, true));
+    combatPlanner.add_precondition(new world_property(EEvaluatorId.IS_CLOSE_COMBAT, true));
+    combatPlanner.add_effect(new world_property(EEvaluatorId.IS_CLOSE_COMBAT, false));
+    combatPlanner.add_effect(new world_property(EEvaluatorId.IS_STATE_LOGIC_ACTIVE, false));
+    combatPlanner.add_effect(new world_property(EEvaluatorId.IS_CAMPING_ENDED, true));
   }
 }

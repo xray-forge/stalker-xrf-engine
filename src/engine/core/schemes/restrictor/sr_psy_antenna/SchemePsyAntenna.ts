@@ -16,10 +16,12 @@ export class SchemePsyAntenna extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.SR_PSY_ANTENNA;
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.RESTRICTOR;
 
-  /**
-   * todo: Description.
-   */
-  public static override activate(object: ClientObject, ini: IniFile, scheme: EScheme, section: TSection): void {
+  public static override activate(
+    object: ClientObject,
+    ini: IniFile,
+    scheme: EScheme,
+    section: TSection
+  ): ISchemePsyAntennaState {
     const state: ISchemePsyAntennaState = AbstractScheme.assign(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section);
@@ -32,11 +34,10 @@ export class SchemePsyAntenna extends AbstractScheme {
     state.no_mumble = readIniBoolean(ini, section, "no_mumble", false, false);
     state.hit_type = readIniString(ini, section, "hit_type", false, null, "wound");
     state.hit_freq = readIniNumber(ini, section, "hit_freq", false, 5000);
+
+    return state;
   }
 
-  /**
-   * Add scheme to object binder for initialization.
-   */
   public static override add(
     object: ClientObject,
     ini: IniFile,

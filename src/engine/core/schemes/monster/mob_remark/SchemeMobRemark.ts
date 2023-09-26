@@ -17,10 +17,12 @@ export class SchemeMobRemark extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.MOB_REMARK;
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.MONSTER;
 
-  /**
-   * todo: Description.
-   */
-  public static override activate(object: ClientObject, ini: IniFile, scheme: EScheme, section: TSection): void {
+  public static override activate(
+    object: ClientObject,
+    ini: IniFile,
+    scheme: EScheme,
+    section: TSection
+  ): ISchemeMobRemarkState {
     const state: ISchemeMobRemarkState = AbstractScheme.assign(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section);
@@ -33,11 +35,10 @@ export class SchemeMobRemark extends AbstractScheme {
     state.tip = readIniString(ini, section, "tip", false);
     state.snd = readIniString(ini, section, "snd", false);
     state.time = readIniString(ini, section, "time", false);
+
+    return state;
   }
 
-  /**
-   * todo: Description.
-   */
   public static override add(
     object: ClientObject,
     ini: IniFile,

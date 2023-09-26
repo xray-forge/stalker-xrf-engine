@@ -15,18 +15,19 @@ export class SchemePhysicalOnHit extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.PH_ON_HIT;
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.OBJECT;
 
-  /**
-   * Activate hit handling scheme.
-   */
-  public static override activate(object: ClientObject, ini: IniFile, scheme: EScheme, section: TSection): void {
+  public static override activate(
+    object: ClientObject,
+    ini: IniFile,
+    scheme: EScheme,
+    section: TSection
+  ): ISchemePhysicalOnHitState {
     const state: ISchemePhysicalOnHitState = AbstractScheme.assign(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section);
+
+    return state;
   }
 
-  /**
-   * Add scheme handlers and subscribe to events.
-   */
   public static override add(
     object: ClientObject,
     ini: IniFile,
@@ -34,8 +35,10 @@ export class SchemePhysicalOnHit extends AbstractScheme {
     section: TSection,
     state: ISchemePhysicalOnHitState
   ): void {
-    state.action = new PhysicalOnHitManager(object, state);
-    AbstractScheme.subscribe(object, state, state.action);
+    const manager: PhysicalOnHitManager = new PhysicalOnHitManager(object, state);
+
+    state.action = manager;
+    AbstractScheme.subscribe(object, state, manager);
   }
 
   /**

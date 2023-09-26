@@ -27,9 +27,8 @@ export class SchemeCover extends AbstractScheme {
     object: ClientObject,
     ini: IniFile,
     scheme: EScheme,
-    section: TSection,
-    additional: string
-  ): void {
+    section: TSection
+  ): ISchemeCoverState {
     const state: ISchemeCoverState = AbstractScheme.assign(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section);
@@ -43,6 +42,8 @@ export class SchemeCover extends AbstractScheme {
 
     state.radiusMin = readIniNumber(ini, section, "radius_min", false, 3);
     state.radiusMax = readIniNumber(ini, section, "radius_max", false, 5);
+
+    return state;
   }
 
   public static override add(

@@ -29,7 +29,7 @@ export class SchemeWalker extends AbstractScheme {
     scheme: EScheme,
     section: TSection,
     smartTerrain: TName
-  ): void {
+  ): ISchemeWalkerState {
     logger.info("Activate scheme:", object.name());
 
     const state: ISchemeWalkerState = AbstractScheme.assign(object, ini, scheme, section);
@@ -64,6 +64,8 @@ export class SchemeWalker extends AbstractScheme {
 
     state.path_walk_info = null;
     state.path_look_info = null;
+
+    return state;
   }
 
   public static override add(

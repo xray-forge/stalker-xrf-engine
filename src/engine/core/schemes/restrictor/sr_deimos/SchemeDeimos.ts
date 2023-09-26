@@ -17,10 +17,12 @@ export class SchemeDeimos extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.SR_DEIMOS;
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.RESTRICTOR;
 
-  /**
-   * todo: Description.
-   */
-  public static override activate(object: ClientObject, ini: IniFile, scheme: EScheme, section: TSection): void {
+  public static override activate(
+    object: ClientObject,
+    ini: IniFile,
+    scheme: EScheme,
+    section: TSection
+  ): ISchemeDeimosState {
     const state: ISchemeDeimosState = AbstractScheme.assign(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section);
@@ -37,11 +39,10 @@ export class SchemeDeimos extends AbstractScheme {
     state.disable_bound = readIniNumber(ini, section, "disable_bound", false, 0.1);
     state.switch_lower_bound = readIniNumber(ini, section, "switch_lower_bound", false, 0.5);
     state.switch_upper_bound = readIniNumber(ini, section, "switch_upper_bound", false, 0.75);
+
+    return state;
   }
 
-  /**
-   * todo: Description.
-   */
   public static override add(
     object: ClientObject,
     ini: IniFile,

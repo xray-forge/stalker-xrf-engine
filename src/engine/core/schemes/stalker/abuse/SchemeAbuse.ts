@@ -20,16 +20,15 @@ export class SchemeAbuse extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.ABUSE;
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.STALKER;
 
-  /**
-   * Activate abuse scheme.
-   */
-  public static override activate(object: ClientObject, ini: IniFile, scheme: EScheme, section: TSection): void {
-    AbstractScheme.assign(object, ini, scheme, section);
+  public static override activate(
+    object: ClientObject,
+    ini: IniFile,
+    scheme: EScheme,
+    section: TSection
+  ): ISchemeAbuseState {
+    return AbstractScheme.assign(object, ini, scheme, section);
   }
 
-  /**
-   * Add scheme to object state.
-   */
   public static override add(
     object: ClientObject,
     ini: IniFile,
@@ -37,9 +36,9 @@ export class SchemeAbuse extends AbstractScheme {
     section: TSection,
     state: ISchemeAbuseState
   ): void {
-    const actionPlanner: ActionPlanner = object.motivation_action_manager();
+    const planner: ActionPlanner = object.motivation_action_manager();
 
-    actionPlanner.add_evaluator(EEvaluatorId.IS_ABUSED, new EvaluatorAbuse(state));
+    planner.add_evaluator(EEvaluatorId.IS_ABUSED, new EvaluatorAbuse(state));
 
     const action: ActionAbuseHit = new ActionAbuseHit(state);
 
@@ -49,16 +48,13 @@ export class SchemeAbuse extends AbstractScheme {
     action.add_precondition(new world_property(EEvaluatorId.IS_ABUSED, true));
     action.add_effect(new world_property(EEvaluatorId.IS_ABUSED, false));
 
-    actionPlanner.add_action(EActionId.ABUSE, action);
+    planner.add_action(EActionId.ABUSE, action);
 
-    actionPlanner.action(EActionId.ALIFE).add_precondition(new world_property(EEvaluatorId.IS_ABUSED, false));
+    planner.action(EActionId.ALIFE).add_precondition(new world_property(EEvaluatorId.IS_ABUSED, false));
 
     state.abuseManager = new AbuseManager(object, state);
   }
 
-  /**
-   * Reset scheme for an object.
-   */
   public static override reset(
     object: ClientObject,
     scheme: EScheme,

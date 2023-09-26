@@ -29,8 +29,8 @@ export class SchemeCorpseDetection extends AbstractScheme {
     ini: IniFile,
     scheme: EScheme,
     section: Optional<TSection>
-  ): void {
-    AbstractScheme.assign(object, ini, scheme, section);
+  ): ISchemeCorpseDetectionState {
+    return AbstractScheme.assign(object, ini, scheme, section);
   }
 
   /**

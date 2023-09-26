@@ -11,7 +11,7 @@ import { readIniBoolean, readIniString } from "@/engine/core/utils/ini/ini_read"
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { addCommonActionPreconditions } from "@/engine/core/utils/scheme/scheme_setup";
 import { NIL } from "@/engine/lib/constants/words";
-import { ActionPlanner, ClientObject, EScheme, ESchemeType, IniFile, TSection } from "@/engine/lib/types";
+import { ActionPlanner, ClientObject, EScheme, ESchemeType, IniFile, TName, TSection } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -30,8 +30,8 @@ export class SchemeRemark extends AbstractScheme {
     ini: IniFile,
     scheme: EScheme,
     section: TSection,
-    additional: string
-  ): void {
+    smartTerrainName: TName
+  ): ISchemeRemarkState {
     const state: ISchemeRemarkState = AbstractScheme.assign(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section);
@@ -47,6 +47,8 @@ export class SchemeRemark extends AbstractScheme {
     state.target = readIniString(ini, section, "target", false, null, NIL);
     state.target_id = null;
     state.target_position = null;
+
+    return state;
   }
 
   /**

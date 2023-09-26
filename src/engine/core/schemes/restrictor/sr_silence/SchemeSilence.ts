@@ -21,12 +21,19 @@ export class SchemeSilence extends AbstractScheme {
   /**
    * Activate scheme and register object as silence zone, if it is configured to be one of them.
    */
-  public static override activate(object: ClientObject, ini: IniFile, scheme: EScheme, section: TSection): void {
+  public static override activate(
+    object: ClientObject,
+    ini: IniFile,
+    scheme: EScheme,
+    section: TSection
+  ): ISchemeSilenceState {
     const state: ISchemeSilenceState = AbstractScheme.assign(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section);
 
     registry.silenceZones.set(object.id(), object.name());
+
+    return state;
   }
 
   /**
