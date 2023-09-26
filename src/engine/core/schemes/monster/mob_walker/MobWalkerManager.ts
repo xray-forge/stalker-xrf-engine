@@ -61,29 +61,29 @@ export class MobWalkerManager extends AbstractSchemeManager<ISchemeMobWalkerStat
     this.state.signals = new LuaTable();
     scriptCaptureMonster(this.object, true);
 
-    this.patrolWalk = new patrol(this.state.path_walk);
+    this.patrolWalk = new patrol(this.state.pathWalk);
 
     if (!this.patrolWalk) {
-      abort("object '%s': unable to find path_walk '%s' on the map", this.object.name(), this.state.path_walk);
+      abort("object '%s': unable to find path_walk '%s' on the map", this.object.name(), this.state.pathWalk);
     }
 
-    if (this.state.path_look) {
-      this.patrolLook = new patrol(this.state.path_look);
+    if (this.state.pathLook) {
+      this.patrolLook = new patrol(this.state.pathLook);
       if (!this.patrolLook) {
-        abort("object '%s': unable to find path_look '%s' on the map", this.object.name(), this.state.path_look);
+        abort("object '%s': unable to find path_look '%s' on the map", this.object.name(), this.state.pathLook);
       }
     } else {
       this.patrolLook = null;
     }
 
-    if (this.state.path_walk_info === null) {
-      this.state.path_walk_info = parseWaypointsData(this.state.path_walk);
-      this.pathWalkInfo = this.state.path_walk_info;
+    if (this.state.pathWalkInfo === null) {
+      this.state.pathWalkInfo = parseWaypointsData(this.state.pathWalk);
+      this.pathWalkInfo = this.state.pathWalkInfo;
     }
 
-    if (this.state.path_look_info === null && this.state.path_look !== null) {
-      this.state.path_look_info = parseWaypointsData(this.state.path_look);
-      this.pathLookInfo = this.state.path_look_info;
+    if (this.state.pathLookInfo === null && this.state.pathLook !== null) {
+      this.state.pathLookInfo = parseWaypointsData(this.state.pathLook);
+      this.pathLookInfo = this.state.pathLookInfo;
     }
 
     this.mobState = STATE_MOVING;
@@ -97,7 +97,7 @@ export class MobWalkerManager extends AbstractSchemeManager<ISchemeMobWalkerStat
 
     scriptCommandMonster(
       this.object,
-      new move(move.walk_fwd, new patrol(this.state.path_walk, patrol.next, patrol.continue)),
+      new move(move.walk_fwd, new patrol(this.state.pathWalk, patrol.next, patrol.continue)),
       new cond(cond.move_end)
     );
   }
@@ -243,7 +243,7 @@ export class MobWalkerManager extends AbstractSchemeManager<ISchemeMobWalkerStat
     if (this.scheduledSound) {
       scriptCommandMonster(
         this.object,
-        new move(m, new patrol(this.state.path_walk, patrol.next, patrol.continue)),
+        new move(m, new patrol(this.state.pathWalk, patrol.next, patrol.continue)),
         new sound(sound[this.scheduledSound]),
         new cond(cond.move_end)
       );
@@ -251,7 +251,7 @@ export class MobWalkerManager extends AbstractSchemeManager<ISchemeMobWalkerStat
     } else {
       scriptCommandMonster(
         this.object,
-        new move(m, new patrol(this.state.path_walk, patrol.next, patrol.continue)),
+        new move(m, new patrol(this.state.pathWalk, patrol.next, patrol.continue)),
         new cond(cond.move_end)
       );
     }

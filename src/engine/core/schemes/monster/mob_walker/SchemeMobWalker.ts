@@ -28,11 +28,11 @@ export class SchemeMobWalker extends AbstractScheme {
 
     state.logic = getConfigSwitchConditions(ini, section);
     state.state = getMonsterState(ini, section);
-    state.no_reset = readIniBoolean(ini, section, "no_reset", false);
-    state.path_walk = readIniString(ini, section, "path_walk", true, smartTerrainName);
-    state.path_look = readIniString(ini, section, "path_look", false, smartTerrainName);
+    state.noReset = readIniBoolean(ini, section, "no_reset", false);
+    state.pathWalk = readIniString(ini, section, "path_walk", true, smartTerrainName);
+    state.pathLook = readIniString(ini, section, "path_look", false, smartTerrainName);
 
-    if (state.path_walk === state.path_look) {
+    if (state.pathWalk === state.pathLook) {
       abort(
         "You are trying to set 'path_look' equal to 'path_walk' in section [%s] for object [%s]",
         section,
@@ -40,8 +40,8 @@ export class SchemeMobWalker extends AbstractScheme {
       );
     }
 
-    state.path_walk_info = null;
-    state.path_look_info = null;
+    state.pathWalkInfo = null;
+    state.pathLookInfo = null;
 
     return state;
   }
