@@ -6,13 +6,13 @@ import type { LuaArray, Optional, StringOptional, TName, TNumberId, TStringId, V
  * todo;
  */
 export interface ISchemeRemarkState extends IBaseSchemeState {
-  snd_anim_sync: boolean;
+  sndAnimSync: boolean;
   snd: Optional<TName>;
   anim: LuaArray<IConfigSwitchCondition>;
-  tips_id: TStringId;
+  tipsId: TStringId;
   sender: Optional<TStringId>;
   target: StringOptional;
-  target_id: Optional<TNumberId>;
-  target_position: Optional<Vector>;
-  target_init: Optional<boolean>;
+  targetId: Optional<TNumberId>;
+  targetPosition: Optional<Vector>;
+  targetInit: Optional<boolean>;
 }
