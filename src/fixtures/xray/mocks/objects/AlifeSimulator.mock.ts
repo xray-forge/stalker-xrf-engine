@@ -76,6 +76,16 @@ export class MockAlifeSimulator {
 
   public level_id = jest.fn(() => 3);
 
+  public story_object = jest.fn((sid: number) => {
+    for (const it of Object.values(MockAlifeSimulator.registry)) {
+      if (it.m_story_id === sid) {
+        return it;
+      }
+    }
+
+    return null;
+  });
+
   public set_objects_per_update = jest.fn(() => {});
 
   public switch_distance = jest.fn(() => 150);

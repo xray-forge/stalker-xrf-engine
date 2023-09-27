@@ -123,4 +123,12 @@ describe("stalker module of the database", () => {
 
     unregisterStalker(stalker);
   });
+
+  it("should correctly reset state when state manager does not exist", () => {
+    const stalker: StalkerBinder = new StalkerBinder(mockClientGameObject());
+
+    registerStalker(stalker);
+
+    expect(() => resetStalkerState(stalker.object)).not.toThrow();
+  });
 });

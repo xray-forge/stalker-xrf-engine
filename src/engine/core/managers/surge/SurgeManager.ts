@@ -13,6 +13,7 @@ import { ActorInputManager } from "@/engine/core/managers/actor";
 import { AbstractManager } from "@/engine/core/managers/base/AbstractManager";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { MapDisplayManager } from "@/engine/core/managers/map/MapDisplayManager";
+import { ESimulationTerrainRole } from "@/engine/core/managers/simulation/simulation_types";
 import { SimulationBoardManager } from "@/engine/core/managers/simulation/SimulationBoardManager";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import { ISurgeCoverDescriptor } from "@/engine/core/managers/surge/surge_types";
@@ -271,7 +272,7 @@ export class SurgeManager extends AbstractManager {
     const smartTerrain: Optional<SmartTerrain> = boardManager.getSmartTerrainDescriptor(squad.assignedSmartTerrainId)
       ?.smartTerrain as Optional<SmartTerrain>;
 
-    return smartTerrain !== null && tonumber(smartTerrain.simulationProperties["surge"])! <= 0;
+    return smartTerrain !== null && tonumber(smartTerrain.simulationProperties.get(ESimulationTerrainRole.SURGE))! <= 0;
   }
 
   /**

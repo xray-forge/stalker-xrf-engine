@@ -34,6 +34,11 @@ export const OFF = "off" as const;
 export const DEFAULT = "default" as const;
 
 /**
+ * Constant string for squad configuration default.
+ */
+export const DEFAULT_SQUAD = "default_squad" as const;
+
+/**
  * Constant string for actor.
  */
 export const ACTOR = "actor" as const;

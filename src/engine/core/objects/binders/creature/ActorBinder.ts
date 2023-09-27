@@ -149,7 +149,7 @@ export class ActorBinder extends object_binder {
 
     super.save(packet);
 
-    savePortableStore(this.object, packet);
+    savePortableStore(this.object.id(), packet);
     SaveManager.getInstance().clientSave(packet);
 
     // todo: Move out deimos logic. Probably store in pstore?

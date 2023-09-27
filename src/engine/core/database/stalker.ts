@@ -84,9 +84,9 @@ export function getStalkerState(object: ClientObject): Optional<EStalkerState> {
  * @param object - target stalker object to reset state
  */
 export function resetStalkerState(object: ClientObject): void {
-  const stateManager: StalkerStateManager = registry.objects.get(object.id()).stateManager!;
+  const stateManager: Optional<StalkerStateManager> = registry.objects.get(object.id()).stateManager;
 
-  if (stateManager === null) {
+  if (!stateManager) {
     return;
   }
 

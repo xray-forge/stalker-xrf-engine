@@ -47,9 +47,6 @@ export class AchievementsManager extends AbstractManager {
   public lastDetectiveAchievementSpawnTime: Optional<Time> = null;
   public lastMutantHunterAchievementSpawnTime: Optional<Time> = null;
 
-  /**
-   * todo: Description.
-   */
   public override initialize(): void {
     const eventsManager: EventsManager = EventsManager.getInstance();
 
@@ -62,8 +59,14 @@ export class AchievementsManager extends AbstractManager {
     eventsManager.unregisterCallback(EGameEvent.ACTOR_UPDATE, this.update);
   }
 
+  public override update(): void {
+    this.updateDetectiveAchievementRewardSpawn();
+    this.updateMutantHunterAchievementSpawn();
+  }
+
   /**
    * todo: Description.
+   * todo: create map for matching instead of switch/ifs
    */
   public checkAchieved(achievement: EAchievement): boolean {
     switch (achievement) {
@@ -117,18 +120,10 @@ export class AchievementsManager extends AbstractManager {
   /**
    * todo: Description.
    */
-  public override update(): void {
-    this.updateDetectiveAchievementRewardSpawn();
-    this.updateMutantHunterAchievementSpawn();
-  }
-
-  /**
-   * todo: Description.
-   */
   protected updateDetectiveAchievementRewardSpawn(): void {
     if (!hasAlifeInfo(infoPortions.detective_achievement_gained)) {
       return;
-    } else if (this.lastDetectiveAchievementSpawnTime === null) {
+    } else if (!this.lastDetectiveAchievementSpawnTime) {
       this.lastDetectiveAchievementSpawnTime = game.get_game_time();
     }
 
@@ -158,7 +153,7 @@ export class AchievementsManager extends AbstractManager {
   protected updateMutantHunterAchievementSpawn(): void {
     if (!hasAlifeInfo(infoPortions.mutant_hunter_achievement_gained)) {
       return;
-    } else if (this.lastMutantHunterAchievementSpawnTime === null) {
+    } else if (!this.lastMutantHunterAchievementSpawnTime) {
       this.lastMutantHunterAchievementSpawnTime = game.get_game_time();
     }
 
@@ -182,10 +177,6 @@ export class AchievementsManager extends AbstractManager {
     }
   }
 
-  /**
-   * todo;
-   * todo: Probably named section.
-   */
   public override save(packet: NetPacket): void {
     if (this.lastDetectiveAchievementSpawnTime === null) {
       packet.w_bool(false);
@@ -202,9 +193,6 @@ export class AchievementsManager extends AbstractManager {
     }
   }
 
-  /**
-   * todo: Description.
-   */
   public override load(reader: NetProcessor): void {
     const hasSpawnedDetectiveLoot: boolean = reader.r_bool();
 

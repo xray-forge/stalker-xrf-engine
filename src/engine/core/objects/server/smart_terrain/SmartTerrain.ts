@@ -183,7 +183,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
    */
   public jobDeadTimeById: LuaTable<TNumberId, Time> = new LuaTable(); // job id -> time
 
-  public simulationProperties!: AnyObject;
+  public simulationProperties!: LuaTable<TName, string>;
   public simulationBoardManager: SimulationBoardManager = SimulationBoardManager.getInstance();
   public mapDisplayManager: MapDisplayManager = MapDisplayManager.getInstance();
 
@@ -1192,7 +1192,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
       return false;
     }
 
-    if ((tonumber(this.simulationProperties[ESimulationTerrainRole.RESOURCE]) as number) > 0) {
+    if ((tonumber(this.simulationProperties.get(ESimulationTerrainRole.RESOURCE)) as number) > 0) {
       const simulationProperties: Optional<TSimulationActivityPrecondition> = squadParameters.smart
         .resource as Optional<TSimulationActivityPrecondition>;
 
@@ -1201,25 +1201,25 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
       }
     }
 
-    if ((tonumber(this.simulationProperties[ESimulationTerrainRole.BASE]) as number) > 0) {
+    if ((tonumber(this.simulationProperties.get(ESimulationTerrainRole.BASE)) as number) > 0) {
       if (squadParameters.smart.base?.(squad, this)) {
         return true;
       }
     }
 
-    if ((tonumber(this.simulationProperties[ESimulationTerrainRole.LAIR]) as number) > 0) {
+    if ((tonumber(this.simulationProperties.get(ESimulationTerrainRole.LAIR)) as number) > 0) {
       if (squadParameters.smart.lair?.(squad, this)) {
         return true;
       }
     }
 
-    if ((tonumber(this.simulationProperties[ESimulationTerrainRole.TERRITORY]) as number) > 0) {
+    if ((tonumber(this.simulationProperties.get(ESimulationTerrainRole.TERRITORY)) as number) > 0) {
       if (squadParameters.smart.territory?.(squad, this)) {
         return true;
       }
     }
 
-    if ((tonumber(this.simulationProperties[ESimulationTerrainRole.SURGE]) as number) > 0) {
+    if ((tonumber(this.simulationProperties.get(ESimulationTerrainRole.SURGE)) as number) > 0) {
       if (squadParameters.smart.surge?.(squad, this)) {
         return true;
       }

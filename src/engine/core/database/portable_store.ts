@@ -45,7 +45,7 @@ export function isValidPortableStoreValue(value: unknown): boolean {
  */
 export function setPortableStoreValue<T extends TPortableStoreValue>(objectId: TNumberId, key: TName, value: T): void {
   if (!isValidPortableStoreValue(value)) {
-    abort("database/portable store: not registered type tried to set: [%s]:[%s].", key, type(value));
+    abort("Portable store received not registered type to set: '%s' - '%s'.", key, type(value));
   }
 
   let portableStore: Optional<LuaTable<TName>> = registry.objects.get(objectId).portableStore;
@@ -89,11 +89,10 @@ export function getPortableStoreValue<T extends TPortableStoreValue>(
 /**
  * Save object portable store data into net packet.
  *
- * @param object - game object to save portable store for
+ * @param objectId - game object id to save portable store for
  * @param packet - net packet to save data in
  */
-export function savePortableStore(object: ClientObject, packet: NetPacket): void {
-  const objectId: TNumberId = object.id();
+export function savePortableStore(objectId: TNumberId, packet: NetPacket): void {
   let portableStore: Optional<LuaTable<string>> = registry.objects.get(objectId).portableStore;
 
   if (!portableStore) {
@@ -125,7 +124,7 @@ export function savePortableStore(object: ClientObject, packet: NetPacket): void
         break;
 
       default:
-        abort("database/portable store: not registered type tried to save: [%s]:[%s].", key, type(value));
+        abort("Portable store: not registered type tried to save '%s' - '%s'.", key, type(value));
     }
   }
 }
@@ -164,7 +163,7 @@ export function loadPortableStore(objectId: TNumberId, reader: NetProcessor): vo
         break;
 
       default:
-        abort("database/portable store: not registered type tried to load: [%s]:[%s].", key, type);
+        abort("Portable store: not registered type tried to load: '%s' - '%s'.", key, type);
     }
   }
 }

@@ -5,7 +5,7 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 import { areObjectsOnSameLevel, getServerDistanceBetween } from "@/engine/core/utils/object/object_location";
 import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
 import { MAX_I32 } from "@/engine/lib/constants/memory";
-import { ServerObject, TDistance, TRate } from "@/engine/lib/types";
+import { Optional, ServerObject, TDistance, TRate } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -58,11 +58,11 @@ export function evaluateSimulationPriority(object: TSimulationObject, squad: Squ
     const squadCoefficient: TRate = tonumber(rate) as TRate;
     let targetCoefficient: TRate = 0;
 
-    if (object.simulationProperties[property] !== null) {
-      targetCoefficient = tonumber(object.simulationProperties[property])!;
+    if (object.simulationProperties.get(property) as Optional<string>) {
+      targetCoefficient = tonumber(object.simulationProperties.get(property))!;
     }
 
-    priority = priority + squadCoefficient * targetCoefficient;
+    priority += squadCoefficient * targetCoefficient;
   }
 
   return priority * evaluateSimulationPriorityByDistance(object, squad);

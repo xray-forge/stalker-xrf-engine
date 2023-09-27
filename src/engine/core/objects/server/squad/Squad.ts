@@ -103,7 +103,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
   public readonly simulationBoardManager: SimulationBoardManager = SimulationBoardManager.getInstance();
   public readonly soundManager: StoryManager = StoryManager.getStoryManagerForId("squad_" + this.section_name());
 
-  public simulationProperties!: AnyObject;
+  public simulationProperties!: LuaTable<TName, string>;
 
   /**
    * Meta-info about spawn point of the squad.
@@ -622,7 +622,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
         const smartTerrain: ServerObject = registry.simulator.object(id) as ServerObject;
 
         if (isSmartTerrain(smartTerrain)) {
-          const propertiesBase = smartTerrain.simulationProperties[ESimulationTerrainRole.BASE];
+          const propertiesBase: TName = smartTerrain.simulationProperties.get(ESimulationTerrainRole.BASE);
 
           if (propertiesBase && tonumber(propertiesBase) === 0) {
             this.setLocationTypesMaskFromSection(smartTerrain.name());
@@ -955,7 +955,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
     const assignedSmartTerrain: SmartTerrain = registry.simulator.object(this.assignedSmartTerrainId) as SmartTerrain;
     const smartTerrainBaseProperties =
       assignedSmartTerrain!.simulationProperties &&
-      assignedSmartTerrain!.simulationProperties[ESimulationTerrainRole.BASE];
+      assignedSmartTerrain!.simulationProperties.get(ESimulationTerrainRole.BASE);
 
     // Squad is in base.
     if (smartTerrainBaseProperties !== null && tonumber(smartTerrainBaseProperties)! > 0) {

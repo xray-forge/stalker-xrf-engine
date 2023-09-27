@@ -25,7 +25,7 @@ function renderSectionName(name: string | typeof LTX_ROOT, descriptorRaw: TPossi
 /**
  * Render list of imports for LTX file.
  */
-function renderLtxImports(descriptorRaw: TPossibleFieldDescriptorFull): string {
+export function renderLtxImports(descriptorRaw: TPossibleFieldDescriptorFull): string {
   if (!Array.isArray(descriptorRaw)) {
     throw new Error(`Expected array of files to import, received '${typeof descriptorRaw}' instead.`);
   }

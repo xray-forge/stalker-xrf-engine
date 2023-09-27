@@ -73,14 +73,14 @@ export function spawnItemsForObject(
  * Spawn ammo objects for provided object.
  *
  * @param object - target object to spawn items for
- * @param ammoSection - section of ammo item
+ * @param section - section of ammo item
  * @param count - count of ammo to spawn
  * @param probability - probability to spawn item, 100% by default
  * @returns count of spawned ammo
  */
 export function spawnAmmoForObject(
   object: AnyGameObject,
-  ammoSection: TSection,
+  section: TSection,
   count: TCount,
   probability: TProbability = 100
 ): TCount {
@@ -89,7 +89,7 @@ export function spawnAmmoForObject(
   }
 
   const [id, gvid, lvid, position] = getObjectPositioning(object);
-  const countInBox: TCount = SYSTEM_INI.r_u32(ammoSection, "box_size");
+  const countInBox: TCount = SYSTEM_INI.r_u32(section, "box_size");
 
   let ammoSpawned: TCount = 0;
 
@@ -99,13 +99,13 @@ export function spawnAmmoForObject(
    */
   if (math.random(100) <= probability) {
     while (count > countInBox) {
-      registry.simulator.create_ammo(ammoSection, position, lvid, gvid, id, countInBox);
+      registry.simulator.create_ammo(section, position, lvid, gvid, id, countInBox);
 
       count -= countInBox;
       ammoSpawned += countInBox;
     }
 
-    registry.simulator.create_ammo(ammoSection, position, lvid, gvid, id, count);
+    registry.simulator.create_ammo(section, position, lvid, gvid, id, count);
     ammoSpawned += count;
   }
 

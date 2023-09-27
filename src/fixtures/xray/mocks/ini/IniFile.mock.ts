@@ -18,7 +18,14 @@ export class MockIniFile<T extends AnyObject> {
   }
 
   public r_float = jest.fn((section: TSection, field: TName) => this.data[section][field]);
-  public r_u32 = jest.fn((section: TSection, field: TName) => this.data[section][field]);
+  public r_u32 = jest.fn((section: TSection, field: TName) => {
+    if (!(section in this.data)) {
+      throw new Error(`Section '${section}' does not exist in '${this.path}'.`);
+    }
+
+    return this.data[section][field];
+  });
+
   public r_s32 = jest.fn((section: TSection, field: TName) => this.data[section][field]);
   public r_string = jest.fn((section: TSection, field: TName) => this.data[section][field]);
   public r_bool = jest.fn((section: TSection, field: TName) => this.data[section][field]);

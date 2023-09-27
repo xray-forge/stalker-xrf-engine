@@ -150,9 +150,9 @@ export function getObjectIdByStoryId(storyId: TStringId): Optional<TNumberId> {
  * @returns existing server object instance or null
  */
 export function getServerObjectByStoryId<T extends ServerObject>(storyId: TStringId): Optional<T> {
-  const objectId: Optional<TNumberId> = registry.storyLink.idBySid.get(storyId);
+  const objectId: Optional<TNumberId> = registry.storyLink.idBySid.get(storyId) as Optional<TNumberId>;
 
-  return objectId === null ? null : registry.simulator.object<T>(objectId);
+  return objectId ? registry.simulator.object<T>(objectId) : null;
 }
 
 /**
@@ -169,7 +169,7 @@ export function getObjectByStoryId(storyId: TStringId): Optional<ClientObject> {
 
   if (possibleObject) {
     return possibleObject;
-  } else if (level && objectId !== null) {
+  } else if (level !== null && objectId) {
     return level.object_by_id(objectId);
   }
 
@@ -181,5 +181,7 @@ export function getObjectByStoryId(storyId: TStringId): Optional<ClientObject> {
  * todo: Probably remove, is it working at all? Used with heli only.
  */
 export function getIdBySid(sid: TNumberId): Optional<TNumberId> {
-  return registry.simulator.story_object(sid)?.id;
+  const object: Optional<ServerObject> = registry.simulator.story_object(sid) as Optional<ServerObject>;
+
+  return object ? object.id : null;
 }
