@@ -7,6 +7,7 @@ import {
   setStableAlifeObjectsUpdate,
   setUnlimitedAlifeObjectsUpdate,
 } from "@/engine/core/utils/object/object_alife";
+import { TName } from "@/engine/lib/types";
 import { resetFunctionMock } from "@/fixtures/jest";
 import { mockLuaTable } from "@/fixtures/lua/mocks/LuaTable.mock";
 import { mockServerAlifeObject } from "@/fixtures/xray/mocks/objects/server/cse_alife_object.mock";
@@ -36,7 +37,10 @@ describe("alife utils", () => {
 
     expect(
       evaluateSimulationPriority(
-        mockSquad({ behaviour: mockLuaTable([["a", "5"]]), simulationProperties: { a: 6 } }),
+        mockSquad({
+          behaviour: mockLuaTable([["a", "5"]]),
+          simulationProperties: $fromObject<TName, string>({ a: "6" }),
+        }),
         mockSquad()
       )
     ).toBe(29.700000000000003);

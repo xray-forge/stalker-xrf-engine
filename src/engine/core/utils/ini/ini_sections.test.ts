@@ -28,7 +28,13 @@ describe("ini_sections utils for ini file", () => {
   });
 
   it("getAmmoSections utils should correctly get list of sections", () => {
-    expect(getAmmoSections()).toEqualLuaArrays(["ammo_9x18_pmm", "ammo_5.45x39_ap"]);
+    expect(getAmmoSections()).toEqualLuaArrays([
+      "ammo_9x18_pmm",
+      "ammo_5.45x39_ap",
+      "ammo_9x39_ap",
+      "ammo_5.56x45_ap",
+      "ammo_12x76_zhekan",
+    ]);
   });
 
   it("getHelmetsSections utils should correctly get list of sections", () => {

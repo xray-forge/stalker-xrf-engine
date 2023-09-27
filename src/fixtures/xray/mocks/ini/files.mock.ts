@@ -60,6 +60,15 @@ export const FILES_MOCKS: Record<TPath, AnyObject> = {
       cost: 2100,
     },
     [weapons.grenade_f1]: {},
+    ammo_9x39_ap: {
+      box_size: 30,
+    },
+    "ammo_5.56x45_ap": {
+      box_size: 30,
+    },
+    ammo_12x76_zhekan: {
+      box_size: 20,
+    },
     squad: {},
     "test-squad": {
       faction: "stalker",
@@ -218,6 +227,13 @@ export const FILES_MOCKS: Record<TPath, AnyObject> = {
       level: "zaton",
       name: "st_zat_b100_name",
       condlist: true,
+    },
+  },
+  "misc\\simulation_objects_props.ltx": {
+    default_squad: {
+      sim_avail: "{+test_squad} true, false",
+      first: "a",
+      second: "b",
     },
   },
 };

@@ -1,20 +1,34 @@
-import { beforeEach, describe, expect, it } from "@jest/globals";
+import { beforeEach, describe, expect, it, jest } from "@jest/globals";
+import { CTime, game } from "xray16";
 
-import { disposeManager, getManagerInstance, registerActor } from "@/engine/core/database";
+import {
+  disposeManager,
+  getManagerInstance,
+  registerActor,
+  registerSimulator,
+  registerStoryLink,
+  registry,
+} from "@/engine/core/database";
+import { achievementRewards } from "@/engine/core/managers/achievements/achievements_rewards";
 import { EAchievement } from "@/engine/core/managers/achievements/achievements_types";
 import { AchievementsManager } from "@/engine/core/managers/achievements/AchievementsManager";
-import { EventsManager } from "@/engine/core/managers/events";
+import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
+import { ENotificationType, notificationsIcons } from "@/engine/core/managers/notifications";
 import { WeatherManager } from "@/engine/core/managers/weather/WeatherManager";
 import { giveInfo } from "@/engine/core/utils/object/object_info_portion";
 import { infoPortions } from "@/engine/lib/constants/info_portions";
-import { mockActorClientGameObject } from "@/fixtures/xray";
+import { ServerObject } from "@/engine/lib/types";
+import { replaceFunctionMock, resetFunctionMock } from "@/fixtures/jest";
+import { mockActorClientGameObject, mockServerAlifeObject } from "@/fixtures/xray";
 import { MockCTime } from "@/fixtures/xray/mocks/CTime.mock";
 import { EPacketDataType, mockNetPacket, mockNetProcessor, MockNetProcessor } from "@/fixtures/xray/mocks/save";
 
 describe("AchievementManager class", () => {
   beforeEach(() => {
-    disposeManager(EventsManager);
+    registry.managers = new LuaTable();
+
     registerActor(mockActorClientGameObject());
+    registerSimulator();
   });
 
   it("should correctly initialize and destroy", () => {
@@ -110,5 +124,90 @@ describe("AchievementManager class", () => {
 
     expect(() => achievementsManager.checkAchieved("unknown" as unknown as EAchievement)).toThrow();
     Object.values(EAchievement).forEach((it) => expect(() => achievementsManager.checkAchieved(it)).not.toThrow());
+  });
+
+  it("should correctly handle update with no achievements", () => {
+    const achievementsManager: AchievementsManager = getManagerInstance(AchievementsManager);
+
+    resetFunctionMock(registry.simulator.create);
+    resetFunctionMock(registry.simulator.create_ammo);
+
+    achievementsManager.update();
+
+    expect(achievementsManager.lastMutantHunterAchievementSpawnTime).toBeNull();
+    expect(achievementsManager.lastDetectiveAchievementSpawnTime).toBeNull();
+    expect(registry.simulator.create).not.toHaveBeenCalled();
+    expect(registry.simulator.create_ammo).not.toHaveBeenCalled();
+  });
+
+  it("should correctly handle update with detective", () => {
+    const eventsManager: EventsManager = getManagerInstance(EventsManager);
+    const achievementsManager: AchievementsManager = getManagerInstance(AchievementsManager);
+    const box: ServerObject = mockServerAlifeObject();
+
+    jest.spyOn(eventsManager, "emitEvent").mockImplementation(jest.fn());
+
+    resetFunctionMock(registry.simulator.create);
+    resetFunctionMock(registry.simulator.create_ammo);
+    replaceFunctionMock(game.get_game_time, () => MockCTime.mock(2012, 6, 25, 12, 35, 30, 500));
+
+    registerStoryLink(box.id, achievementRewards.REWARD_BOXES.ZATON);
+    giveInfo(infoPortions.detective_achievement_gained);
+
+    achievementsManager.update();
+
+    expect(String(achievementsManager.lastDetectiveAchievementSpawnTime)).toBe(String(game.get_game_time()));
+    expect(registry.simulator.create).not.toHaveBeenCalled();
+    expect(registry.simulator.create_ammo).not.toHaveBeenCalled();
+
+    const newTime: CTime = MockCTime.mock(2020, 6, 25, 12, 35, 30, 500);
+
+    replaceFunctionMock(game.get_game_time, () => newTime);
+
+    achievementsManager.update();
+
+    expect(eventsManager.emitEvent).toHaveBeenCalledWith(EGameEvent.NOTIFICATION, {
+      type: ENotificationType.TIP,
+      caption: "st_detective_news",
+      senderId: notificationsIcons.got_medicine,
+    });
+    expect(registry.simulator.create).toHaveBeenCalledTimes(4);
+    expect(registry.simulator.create_ammo).toHaveBeenCalledTimes(0);
+    expect(achievementsManager.lastDetectiveAchievementSpawnTime).toBe(newTime);
+  });
+
+  it("should correctly handle update with monster hunter", () => {
+    const eventsManager: EventsManager = getManagerInstance(EventsManager);
+    const achievementsManager: AchievementsManager = getManagerInstance(AchievementsManager);
+    const box: ServerObject = mockServerAlifeObject();
+
+    jest.spyOn(eventsManager, "emitEvent").mockImplementation(jest.fn());
+
+    resetFunctionMock(registry.simulator.create);
+    resetFunctionMock(registry.simulator.create_ammo);
+    replaceFunctionMock(game.get_game_time, () => MockCTime.mock(2012, 6, 25, 12, 35, 30, 500));
+
+    registerStoryLink(box.id, achievementRewards.REWARD_BOXES.JUPITER);
+    giveInfo(infoPortions.mutant_hunter_achievement_gained);
+
+    achievementsManager.update();
+
+    expect(String(achievementsManager.lastMutantHunterAchievementSpawnTime)).toBe(String(game.get_game_time()));
+    expect(registry.simulator.create).not.toHaveBeenCalled();
+
+    const newTime: CTime = MockCTime.mock(2020, 6, 25, 12, 35, 30, 500);
+
+    replaceFunctionMock(game.get_game_time, () => newTime);
+
+    achievementsManager.update();
+
+    expect(eventsManager.emitEvent).toHaveBeenCalledWith(EGameEvent.NOTIFICATION, {
+      type: ENotificationType.TIP,
+      caption: "st_mutant_hunter_news",
+      senderId: notificationsIcons.got_ammo,
+    });
+    expect(registry.simulator.create).not.toHaveBeenCalled();
+    expect(registry.simulator.create_ammo).toHaveBeenCalledTimes(5);
+    expect(achievementsManager.lastMutantHunterAchievementSpawnTime).toBe(newTime);
   });
 });

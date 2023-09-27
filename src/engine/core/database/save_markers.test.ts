@@ -2,6 +2,7 @@ import { describe, expect, it, jest } from "@jest/globals";
 
 import { registry } from "@/engine/core/database/registry";
 import { closeLoadMarker, closeSaveMarker, openLoadMarker, openSaveMarker } from "@/engine/core/database/save_markers";
+import { LuaLogger } from "@/engine/core/utils/logging";
 import { MAX_I32 } from "@/engine/lib/constants/memory";
 import { EPacketDataType, mockNetPacket, MockNetProcessor } from "@/fixtures/xray";
 
@@ -57,5 +58,23 @@ describe("save_markers databse module", () => {
     expect(closeLoadMarker(mockNetPacket(netProcessor), "test-5")).toBe(50);
     expect(netProcessor.readDataOrder).toEqual([EPacketDataType.U16, EPacketDataType.U16]);
     expect(netProcessor.dataList).toEqual([]);
+  });
+
+  it("should correctly warn when size limits are reached", () => {
+    const netProcessor: MockNetProcessor = new MockNetProcessor();
+
+    // First breakpoint with warn, no error.
+    jest.spyOn(netProcessor, "w_tell").mockImplementationOnce(() => 0);
+    openSaveMarker(mockNetPacket(netProcessor), "test-size");
+
+    jest.spyOn(netProcessor, "w_tell").mockImplementationOnce(() => 9_000);
+    closeSaveMarker(mockNetPacket(netProcessor), "test-size");
+
+    // Second breakpoint with warn, no error.
+    jest.spyOn(netProcessor, "w_tell").mockImplementationOnce(() => 0);
+    openSaveMarker(mockNetPacket(netProcessor), "test-size");
+
+    jest.spyOn(netProcessor, "w_tell").mockImplementationOnce(() => 11_000);
+    closeSaveMarker(mockNetPacket(netProcessor), "test-size");
   });
 });

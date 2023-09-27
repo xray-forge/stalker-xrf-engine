@@ -1,6 +1,7 @@
 import { beforeAll, describe, expect, it, jest } from "@jest/globals";
 
 import {
+  ILtxFieldDescriptor,
   LTX_EXTEND,
   LTX_INCLUDE,
   LTX_ROOT,
@@ -15,6 +16,7 @@ import {
   newStringField,
   newStringsField,
   renderJsonToLtx,
+  renderLtxImports,
 } from "#/utils/ltx";
 import { addInfo, callEffect, checkHasInfo, checkNoCondition, checkNoInfo } from "#/utils/ltx/condlist";
 
@@ -84,6 +86,19 @@ describe("render_json_to_ltx utility should transform correctly", () => {
 
   it("should render empty ltx with imports", () => {
     expect(renderJsonToLtx("test.ltx", {})).toBe(EMPTY);
+  });
+
+  it("renderLtxImports should render imports to valid ini", () => {
+    expect(renderLtxImports(["a.ltx"] as unknown as Record<string, ILtxFieldDescriptor<unknown>>)).toBe(`
+#include "a.ltx"
+`);
+    expect(renderLtxImports(["b.ltx", "c.ltx"] as unknown as Record<string, ILtxFieldDescriptor<unknown>>)).toBe(`
+#include "b.ltx"
+#include "c.ltx"
+`);
+    expect(() => renderLtxImports({} as unknown as Record<string, ILtxFieldDescriptor<unknown>>)).toThrow();
+    expect(() => renderLtxImports("test" as unknown as Record<string, ILtxFieldDescriptor<unknown>>)).toThrow();
+    expect(() => renderLtxImports(null as unknown as Record<string, ILtxFieldDescriptor<unknown>>)).toThrow();
   });
 
   it("should render ltx with imports", () => {

@@ -4,6 +4,7 @@ import { registerObject, unregisterObject } from "@/engine/core/database/objects
 import { registry } from "@/engine/core/database/registry";
 import { registerSimulator } from "@/engine/core/database/simulation";
 import {
+  getIdBySid,
   getObjectByStoryId,
   getObjectIdByStoryId,
   getServerObjectByStoryId,
@@ -27,12 +28,12 @@ describe("story_objects module of the database", () => {
 
   beforeEach(() => {
     registerSimulator();
+
+    registry.storyLink.idBySid = new LuaTable();
+    registry.storyLink.sidById = new LuaTable();
   });
 
   it("should correctly register object story links", () => {
-    expect(registry.storyLink.idBySid.length()).toBe(0);
-    expect(registry.storyLink.sidById.length()).toBe(0);
-
     FILES_MOCKS["spawn.ini"].story_object["story_id"] = "SID_1";
     registerObjectStoryLinks(firstObject);
 
@@ -62,9 +63,6 @@ describe("story_objects module of the database", () => {
   });
 
   it("should correctly register object story links from system ini", () => {
-    expect(registry.storyLink.idBySid.length()).toBe(0);
-    expect(registry.storyLink.sidById.length()).toBe(0);
-
     const object: ServerObject = mockServerAlifeObject({
       section_name: <T extends string>(): T => "test_sid_section" as T,
     });
@@ -84,18 +82,30 @@ describe("story_objects module of the database", () => {
   });
 
   it("should correctly handle lifecycle and get links with utils", () => {
-    const clientObject: ClientObject = mockClientGameObject({ idOverride: 12 });
+    const object: ClientObject = mockClientGameObject({ idOverride: 12 });
 
-    registerObject(clientObject);
+    registerObject(object);
     registerStoryLink(12, "test-sid");
 
-    expect(getObjectByStoryId("test-sid")).toBe(clientObject);
+    expect(getObjectByStoryId("test-sid")).toBe(object);
     expect(getServerObjectByStoryId("test-sid")).toBe(firstObject);
     expect(getObjectIdByStoryId("test-sid")).toBe(12);
     expect(getStoryIdByObjectId(12)).toBe("test-sid");
 
-    unregisterObject(clientObject);
+    expect(getObjectByStoryId("not-defined")).toBeNull();
+    expect(getServerObjectByStoryId("not-defined")).toBeNull();
+    expect(getStoryIdByObjectId(5555)).toBeNull();
+
+    unregisterObject(object);
     unregisterStoryLinkByStoryId("test-sid");
+  });
+
+  it("getObjectByStoryId should correctly fallback to level check", () => {
+    const object: ClientObject = mockClientGameObject({ idOverride: 12 });
+
+    registerStoryLink(object.id(), "test-level-check");
+
+    expect(getObjectByStoryId("test-level-check")).toBe(object);
   });
 
   it("isStoryObjectExisting should correctly check if object is existing", () => {
@@ -110,7 +120,7 @@ describe("story_objects module of the database", () => {
 
   it("isStoryObject should correctly check if object is existing", () => {
     const serverObject: ServerObject = mockServerAlifeObject();
-    const clientObject: ClientObject = mockClientGameObject({ id: () => serverObject.id });
+    const clientObject: ClientObject = mockClientGameObject({ idOverride: serverObject.id });
 
     expect(isStoryObject(serverObject)).toBe(false);
     expect(isStoryObject(clientObject)).toBe(false);
@@ -119,5 +129,27 @@ describe("story_objects module of the database", () => {
 
     expect(isStoryObject(serverObject)).toBe(true);
     expect(isStoryObject(clientObject)).toBe(true);
+  });
+
+  it("registerStoryLink should correctly handle register duplicates", () => {
+    const first: ServerObject = mockServerAlifeObject();
+    const second: ServerObject = mockServerAlifeObject();
+
+    registerStoryLink(first.id, "register-test-duplicate");
+    expect(() => registerStoryLink(second.id, "register-test-duplicate")).toThrow();
+  });
+
+  it("registerStoryLink should correctly handle register twice as different", () => {
+    const first: ServerObject = mockServerAlifeObject();
+
+    registerStoryLink(first.id, "register-test-twice-first");
+    expect(() => registerStoryLink(first.id, "register-test-twice-second")).toThrow();
+  });
+
+  it("getIdBySid should correctly get objects by SID", () => {
+    const object: ServerObject = mockServerAlifeObject({ m_story_id: 400 });
+
+    expect(getIdBySid(500)).toBeNull();
+    expect(getIdBySid(400)).toBe(object.id);
   });
 });

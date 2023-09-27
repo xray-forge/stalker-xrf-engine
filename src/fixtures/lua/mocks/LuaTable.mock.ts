@@ -117,6 +117,13 @@ export class MockLuaTable<K = unknown, V = unknown> extends Map<K, V> {
   }
 
   /**
+   * Check if table is empty.
+   */
+  public isEmpty(): boolean {
+    return this.size === 0;
+  }
+
+  /**
    * Mock to get rid of undefined and copy lua behaviour.
    */
   public override get = jest.fn((key: K): V | undefined => {

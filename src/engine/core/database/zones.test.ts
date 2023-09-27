@@ -121,7 +121,7 @@ describe("zones module of the database", () => {
     });
     const secondManager: CampManager = new CampManager(secondZone, secondZone.spawn_ini());
 
-    expect(null).toBeNull();
+    expect(getCampZoneForPosition(null)).toBeNull();
     expect(getCampZoneForPosition(position)).toBeNull();
     expect(getCampZoneForPosition(MockVector.mock())).toBeNull();
     expect(getCampZoneForPosition(MockVector.mock(1, 2, 3))).toBeNull();

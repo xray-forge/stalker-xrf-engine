@@ -32,6 +32,7 @@ import {
   NetPacket,
   Optional,
   ServerObject,
+  TName,
   TSize,
 } from "@/engine/lib/types";
 
@@ -44,7 +45,7 @@ const logger: LuaLogger = new LuaLogger($filename);
 @LuabindClass()
 export class Actor extends cse_alife_creature_actor implements ISimulationTarget {
   public isSimulationAvailableConditionList: TConditionList = parseConditionsList(TRUE);
-  public simulationProperties!: AnyObject;
+  public simulationProperties!: LuaTable<TName, string>;
 
   public override on_register(): void {
     super.on_register();

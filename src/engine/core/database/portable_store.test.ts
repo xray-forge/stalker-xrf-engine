@@ -85,6 +85,14 @@ describe("portable_store functionality", () => {
 
     setPortableStoreValue(object.id(), "string", null);
     expect(getPortableStoreValue(object.id(), "string")).toBeNull();
+
+    // Unexpected.
+    expect(() => setPortableStoreValue(object.id(), "key", {} as unknown as string)).toThrow(
+      "Portable store received not registered type to set: 'key' - 'table'."
+    );
+    expect(() => setPortableStoreValue(object.id(), "key", [] as unknown as string)).toThrow(
+      "Portable store received not registered type to set: 'key' - 'table'."
+    );
   });
 
   it("should correctly save and load values", () => {
@@ -98,7 +106,7 @@ describe("portable_store functionality", () => {
 
     const netProcessor: MockNetProcessor = new MockNetProcessor();
 
-    savePortableStore(object, mockNetPacket(netProcessor));
+    savePortableStore(object.id(), mockNetPacket(netProcessor));
 
     expect(netProcessor.writeDataOrder).toEqual([
       EPacketDataType.U32,
@@ -137,5 +145,27 @@ describe("portable_store functionality", () => {
     expect(getPortableStoreValue(object.id(), "number_test")).toBe(1000);
     expect(getPortableStoreValue(object.id(), "boolean_test")).toBe(true);
     expect(getPortableStoreValue(object.id(), "string_test")).toBe("example");
+  });
+
+  it("should correctly save and load with invalid data", () => {
+    const object: ClientObject = mockClientGameObject();
+
+    registerObject(object);
+
+    setPortableStoreValue(object.id(), "valid", 1);
+    registry.objects.get(object.id()).portableStore?.set("invalid", {});
+
+    const netProcessor: MockNetProcessor = new MockNetProcessor();
+
+    expect(() => savePortableStore(object.id(), mockNetPacket(netProcessor))).toThrow(
+      "Portable store: not registered type tried to save 'invalid' - 'table'."
+    );
+
+    netProcessor.w_stringZ("key");
+    netProcessor.w_u8(3);
+
+    expect(() => loadPortableStore(object.id(), mockNetPacket(netProcessor))).toThrow(
+      "Portable store: not registered type tried to load: 'invalid' - 'key'."
+    );
   });
 });

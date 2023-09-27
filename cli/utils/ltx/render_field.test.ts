@@ -144,4 +144,9 @@ describe("render_field function", () => {
     expect(renderField(null, newStringField("another text", { isBinding: true }))).toBe("another text");
     expect(renderField("", newStringField("another"))).toBe("another");
   });
+
+  it("should correctly fail with unknown", () => {
+    expect(() => renderField(null, {})).toThrow();
+    expect(() => renderField("test", { type: "unknown" })).toThrow();
+  });
 });

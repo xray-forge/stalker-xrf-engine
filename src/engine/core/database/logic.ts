@@ -44,7 +44,7 @@ export function saveObjectLogic(object: ClientObject, packet: NetPacket): void {
     emitSchemeEvent(object, state[state.activeScheme] as IBaseSchemeState, ESchemeEvent.SAVE);
   }
 
-  savePortableStore(object, packet);
+  savePortableStore(object.id(), packet);
   closeSaveMarker(packet, object.name());
 }
 
