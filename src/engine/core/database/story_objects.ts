@@ -150,7 +150,7 @@ export function getObjectIdByStoryId(storyId: TStringId): Optional<TNumberId> {
  * @returns existing server object instance or null
  */
 export function getServerObjectByStoryId<T extends ServerObject>(storyId: TStringId): Optional<T> {
-  const objectId: Optional<TNumberId> = registry.storyLink.idBySid.get(storyId);
+  const objectId: Optional<TNumberId> = registry.storyLink.idBySid.get(storyId) as Optional<TNumberId>;
 
   return objectId ? registry.simulator.object<T>(objectId) : null;
 }
