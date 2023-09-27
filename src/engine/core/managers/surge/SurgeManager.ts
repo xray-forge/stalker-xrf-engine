@@ -7,7 +7,6 @@ import {
   openLoadMarker,
   openSaveMarker,
   registry,
-  SURGE_MANAGER_LTX,
 } from "@/engine/core/database";
 import { ActorInputManager } from "@/engine/core/managers/actor";
 import { AbstractManager } from "@/engine/core/managers/base/AbstractManager";
@@ -17,7 +16,7 @@ import { ESimulationTerrainRole } from "@/engine/core/managers/simulation/simula
 import { SimulationBoardManager } from "@/engine/core/managers/simulation/SimulationBoardManager";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import { ISurgeCoverDescriptor } from "@/engine/core/managers/surge/surge_types";
-import { surgeConfig } from "@/engine/core/managers/surge/SurgeConfig";
+import { SURGE_MANAGER_CONFIG_LTX, surgeConfig } from "@/engine/core/managers/surge/SurgeConfig";
 import { TaskManager } from "@/engine/core/managers/tasks";
 import { WeatherManager } from "@/engine/core/managers/weather/WeatherManager";
 import type { AnomalyZoneBinder } from "@/engine/core/objects/binders/zones";
@@ -111,17 +110,13 @@ export class SurgeManager extends AbstractManager {
     eventsManager.registerCallback(EGameEvent.ACTOR_USE_ITEM, this.onActorUseItem, this);
     eventsManager.registerCallback(EGameEvent.ACTOR_ITEM_TAKE, this.onActorItemTake, this);
 
-    if (SURGE_MANAGER_LTX.line_exist("settings", "condlist")) {
-      this.surgeManagerConditionList = parseConditionsList(SURGE_MANAGER_LTX.r_string("settings", "condlist"));
-    } else {
-      this.surgeManagerConditionList = parseConditionsList(TRUE);
-    }
+    this.surgeManagerConditionList = SURGE_MANAGER_CONFIG_LTX.line_exist("config", "condlist")
+      ? parseConditionsList(SURGE_MANAGER_CONFIG_LTX.r_string("config", "condlist"))
+      : parseConditionsList(TRUE);
 
-    if (SURGE_MANAGER_LTX.line_exist("settings", "survive")) {
-      this.surgeSurviveConditionList = parseConditionsList(SURGE_MANAGER_LTX.r_string("settings", "survive"));
-    } else {
-      this.surgeSurviveConditionList = parseConditionsList(FALSE);
-    }
+    this.surgeSurviveConditionList = SURGE_MANAGER_CONFIG_LTX.line_exist("config", "survive")
+      ? parseConditionsList(SURGE_MANAGER_CONFIG_LTX.r_string("config", "survive"))
+      : parseConditionsList(FALSE);
   }
 
   public override destroy(): void {
@@ -142,19 +137,19 @@ export class SurgeManager extends AbstractManager {
 
     const levelName: TLevel = level.name();
 
-    if (!SURGE_MANAGER_LTX.section_exist(levelName)) {
+    if (!SURGE_MANAGER_CONFIG_LTX.section_exist(levelName)) {
       return logger.info("No surge covers for current level:", levelName);
     }
 
     // Read list of possible surge covers for current level.
-    for (const index of $range(0, SURGE_MANAGER_LTX.line_count(levelName) - 1)) {
-      const [_, name] = SURGE_MANAGER_LTX.r_line(levelName, index, "", "");
+    for (const index of $range(0, SURGE_MANAGER_CONFIG_LTX.line_count(levelName) - 1)) {
+      const [_, name] = SURGE_MANAGER_CONFIG_LTX.r_line(levelName, index, "", "");
 
       // Collect covers names + condition lists if declared.
       table.insert(this.surgeCovers, {
         name,
-        conditionList: SURGE_MANAGER_LTX.line_exist(name, "condlist")
-          ? parseConditionsList(SURGE_MANAGER_LTX.r_string(name, "condlist"))
+        conditionList: SURGE_MANAGER_CONFIG_LTX.line_exist(name, "condlist")
+          ? parseConditionsList(SURGE_MANAGER_CONFIG_LTX.r_string(name, "condlist"))
           : null,
       });
     }

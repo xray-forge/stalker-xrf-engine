@@ -17,7 +17,7 @@ import { TAbstractSchemeConstructor } from "@/engine/core/objects/ai/scheme";
 import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain";
 import { SchemeMobCombat } from "@/engine/core/schemes/monster/mob_combat";
 import { SchemeMobDeath } from "@/engine/core/schemes/monster/mob_death";
-import { SchemePhysicalOnHit } from "@/engine/core/schemes/object/ph_on_hit";
+import { SchemePhysicalOnHit } from "@/engine/core/schemes/physical/ph_on_hit";
 import { SchemeIdle } from "@/engine/core/schemes/restrictor/sr_idle";
 import { IdleManager } from "@/engine/core/schemes/restrictor/sr_idle/IdleManager";
 import { SchemeHear } from "@/engine/core/schemes/shared/hear";

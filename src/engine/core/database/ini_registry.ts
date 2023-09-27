@@ -23,7 +23,6 @@ export const SMART_TERRAIN_MASKS_LTX: IniFile = new ini_file("misc\\smart_terrai
 export const SOUND_STORIES_LTX: IniFile = new ini_file("misc\\sound_stories.ltx");
 export const SQUAD_BEHAVIOURS_LTX: IniFile = new ini_file("misc\\squad_behaviours.ltx");
 export const STALKER_UPGRADE_INFO: IniFile = new ini_file("misc\\stalkers_upgrade_info.ltx");
-export const SURGE_MANAGER_LTX: IniFile = new ini_file("misc\\surge_manager.ltx");
 export const TASK_MANAGER_LTX: IniFile = new ini_file("misc\\task_manager.ltx");
 export const TRAVEL_MANAGER_LTX: IniFile = new ini_file("misc\\travel_manager.ltx");
 export const TREASURES_LTX: IniFile = new ini_file("misc\\treasures.ltx");
