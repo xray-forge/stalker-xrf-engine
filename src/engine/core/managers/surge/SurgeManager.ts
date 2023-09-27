@@ -17,6 +17,7 @@ import { ESimulationTerrainRole } from "@/engine/core/managers/simulation/simula
 import { SimulationBoardManager } from "@/engine/core/managers/simulation/SimulationBoardManager";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import { ISurgeCoverDescriptor } from "@/engine/core/managers/surge/surge_types";
+import { surgeConfig } from "@/engine/core/managers/surge/SurgeConfig";
 import { TaskManager } from "@/engine/core/managers/tasks";
 import { WeatherManager } from "@/engine/core/managers/weather/WeatherManager";
 import type { AnomalyZoneBinder } from "@/engine/core/objects/binders/zones";
@@ -31,7 +32,6 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 import { isArtefact, isImmuneToSurgeObject, isObjectOnLevel, isSurgeEnabledOnLevel } from "@/engine/core/utils/object";
 import { disableInfo, giveInfo, hasAlifeInfo } from "@/engine/core/utils/object/object_info_portion";
 import { createVector } from "@/engine/core/utils/vector";
-import { surgeConfig } from "@/engine/lib/configs/SurgeConfig";
 import { animations, postProcessors } from "@/engine/lib/constants/animation";
 import { consoleCommands } from "@/engine/lib/constants/console_commands";
 import { infoPortions } from "@/engine/lib/constants/info_portions";
@@ -53,7 +53,6 @@ import {
   TDuration,
   Time,
   TLabel,
-  TNumberId,
   TRate,
   TSection,
   TTimestamp,
@@ -65,20 +64,12 @@ const logger: LuaLogger = new LuaLogger($filename);
  * todo: Separate manager to handle artefacts spawn / ownership etc in parallel, do not mix logic.
  */
 export class SurgeManager extends AbstractManager {
-  public static readonly SURGE_SHOCK_PP_EFFECTOR_ID: TNumberId = 1;
-  public static readonly EARTHQUAKE_CAM_EFFECTOR_ID: TNumberId = 2;
-  public static readonly SLEEP_CAM_EFFECTOR_ID: TNumberId = 3;
-  public static readonly SLEEP_FADE_PP_EFFECTOR_ID: TNumberId = 4;
-
-  public static IS_STARTED: boolean = false;
-  public static IS_FINISHED: boolean = true;
-
   public respawnArtefactsByLevel: PartialRecord<TLevel, boolean> = {
     [levels.zaton]: false,
     [levels.jupiter]: false,
     [levels.pripyat]: false,
   };
-  public isTimeForwarded: boolean = false;
+
   public isEffectorSet: boolean = false;
   public isAfterGameLoad: boolean = false;
   public isUiDisabled: boolean = false;
@@ -97,8 +88,8 @@ export class SurgeManager extends AbstractManager {
    * Next surge is timestamp is `lastTimestamp + delay`.
    */
   public nextScheduledSurgeDelay: TDuration = math.random(
-    surgeConfig.INTERVAL_BETWEEN_SURGES.MIN_ON_FIRST_TIME,
-    surgeConfig.INTERVAL_BETWEEN_SURGES.MAX_ON_FIRST_TIME
+    surgeConfig.INTERVAL_MIN_FIRST_TIME,
+    surgeConfig.INTERVAL_MAX_FIRST_TIME
   );
 
   public surgeManagerConditionList: TConditionList = new LuaTable();
@@ -186,7 +177,7 @@ export class SurgeManager extends AbstractManager {
      * - Quest conditions
      * - Blocked by different conditions
      */
-    for (const [index, descriptor] of this.surgeCovers) {
+    for (const [, descriptor] of this.surgeCovers) {
       const object: Optional<ClientObject> = registry.zones.get(descriptor.name);
 
       if (object !== null) {
@@ -259,7 +250,7 @@ export class SurgeManager extends AbstractManager {
    * todo: Description.
    */
   public isKillingAll(): boolean {
-    return SurgeManager.IS_STARTED && this.isUiDisabled;
+    return surgeConfig.IS_STARTED && this.isUiDisabled;
   }
 
   private canReleaseSquad(squad: Squad): boolean {
@@ -311,7 +302,7 @@ export class SurgeManager extends AbstractManager {
   public requestSurgeStop(): void {
     logger.info("Request surge stop");
 
-    if (SurgeManager.IS_STARTED) {
+    if (surgeConfig.IS_STARTED) {
       this.endSurge(true);
     }
   }
@@ -346,8 +337,8 @@ export class SurgeManager extends AbstractManager {
 
       this.skipSurge();
     } else {
-      SurgeManager.IS_STARTED = true;
-      SurgeManager.IS_FINISHED = false;
+      surgeConfig.IS_STARTED = true;
+      surgeConfig.IS_FINISHED = false;
 
       if (!hasAlifeInfo(infoPortions.pri_b305_fifth_cam_end) || hasAlifeInfo(infoPortions.pri_a28_actor_in_zone_stay)) {
         createGameAutoSave("st_save_uni_surge_start");
@@ -365,14 +356,11 @@ export class SurgeManager extends AbstractManager {
 
     this.lastSurgeAt.set(Y, M, D, h, m, s + surgeConfig.DURATION, ms);
 
-    SurgeManager.IS_STARTED = false;
-    SurgeManager.IS_FINISHED = true;
+    surgeConfig.IS_STARTED = false;
+    surgeConfig.IS_FINISHED = true;
 
     this.respawnArtefactsByLevel = { zaton: true, jupiter: true, pripyat: true };
-    this.nextScheduledSurgeDelay = math.random(
-      surgeConfig.INTERVAL_BETWEEN_SURGES.MIN,
-      surgeConfig.INTERVAL_BETWEEN_SURGES.MAX
-    );
+    this.nextScheduledSurgeDelay = math.random(surgeConfig.INTERVAL_MIN, surgeConfig.INTERVAL_MAX);
     this.surgeMessage = "";
     this.surgeTaskSection = "";
     this.isTaskGiven = false;
@@ -396,15 +384,12 @@ export class SurgeManager extends AbstractManager {
   public endSurge(manual?: boolean): void {
     logger.info("Ending surge:", manual);
 
-    SurgeManager.IS_STARTED = false;
-    SurgeManager.IS_FINISHED = true;
+    surgeConfig.IS_STARTED = false;
+    surgeConfig.IS_FINISHED = true;
 
     this.respawnArtefactsByLevel = { zaton: true, jupiter: true, pripyat: true };
     this.lastSurgeAt = game.get_game_time();
-    this.nextScheduledSurgeDelay = math.random(
-      surgeConfig.INTERVAL_BETWEEN_SURGES.MIN,
-      surgeConfig.INTERVAL_BETWEEN_SURGES.MAX
-    );
+    this.nextScheduledSurgeDelay = math.random(surgeConfig.INTERVAL_MIN, surgeConfig.INTERVAL_MAX);
     this.surgeMessage = "";
     this.surgeTaskSection = "";
     this.isTaskGiven = false;
@@ -419,10 +404,10 @@ export class SurgeManager extends AbstractManager {
       globalSoundManager.stopLoopedSound(registry.actor.id(), "surge_earthquake_sound_looped");
     }
 
-    level.remove_pp_effector(SurgeManager.SURGE_SHOCK_PP_EFFECTOR_ID);
-    level.remove_cam_effector(SurgeManager.EARTHQUAKE_CAM_EFFECTOR_ID);
+    level.remove_pp_effector(surgeConfig.SURGE_SHOCK_PP_EFFECTOR_ID);
+    level.remove_cam_effector(surgeConfig.EARTHQUAKE_CAM_EFFECTOR_ID);
 
-    if (manual || (this.isTimeForwarded && WeatherManager.getInstance().weatherFx)) {
+    if (manual || (surgeConfig.IS_TIME_FORWARDED && WeatherManager.getInstance().weatherFx)) {
       level.stop_weather_fx();
       WeatherManager.getInstance().forceWeatherChange();
     }
@@ -536,11 +521,11 @@ export class SurgeManager extends AbstractManager {
         if (pickSectionFromCondList(registry.actor, null, this.surgeSurviveConditionList) === TRUE) {
           level.add_cam_effector(
             animations.camera_effects_surge_02,
-            SurgeManager.SLEEP_CAM_EFFECTOR_ID,
+            surgeConfig.SLEEP_CAM_EFFECTOR_ID,
             false,
             "engine.surge_survive_start"
           );
-          level.add_pp_effector(postProcessors.surge_fade, SurgeManager.SLEEP_FADE_PP_EFFECTOR_ID, false);
+          level.add_pp_effector(postProcessors.surge_fade, surgeConfig.SLEEP_FADE_PP_EFFECTOR_ID, false);
           registry.actor.health -= 0.05;
         } else {
           this.killAllUnhidedAfterActorDeath();
@@ -664,22 +649,22 @@ export class SurgeManager extends AbstractManager {
       this.respawnArtefactsAndReplaceAnomalyZones();
     }
 
-    if (!SurgeManager.IS_STARTED) {
+    if (!surgeConfig.IS_STARTED) {
       const currentGameTime: Time = game.get_game_time();
 
-      if (this.isTimeForwarded) {
+      if (surgeConfig.IS_TIME_FORWARDED) {
         const diff = math.abs(this.nextScheduledSurgeDelay - currentGameTime.diffSec(this.lastSurgeAt));
 
-        if (diff < surgeConfig.INTERVAL_BETWEEN_SURGES.POST_TF_DELAY_MIN) {
+        if (diff < surgeConfig.INTERVAL_MIN_AFTER_TIME_FORWARD) {
           logger.info("Time forward, reschedule from:", this.nextScheduledSurgeDelay);
 
           this.nextScheduledSurgeDelay =
-            surgeConfig.INTERVAL_BETWEEN_SURGES.POST_TF_DELAY_MAX + currentGameTime.diffSec(this.lastSurgeAt);
+            surgeConfig.INTERVAL_MAX_AFTER_TIME_FORWARD + currentGameTime.diffSec(this.lastSurgeAt);
 
           logger.info("Time forward, reschedule to:", this.nextScheduledSurgeDelay);
         }
 
-        this.isTimeForwarded = false;
+        surgeConfig.IS_TIME_FORWARDED = false;
       }
 
       if (currentGameTime.diffSec(this.lastSurgeAt) < this.nextScheduledSurgeDelay) {
@@ -733,14 +718,14 @@ export class SurgeManager extends AbstractManager {
           }
 
           if (this.isEffectorSet) {
-            level.add_pp_effector(postProcessors.surge_shock, SurgeManager.SURGE_SHOCK_PP_EFFECTOR_ID, true);
+            level.add_pp_effector(postProcessors.surge_shock, surgeConfig.SURGE_SHOCK_PP_EFFECTOR_ID, true);
           }
 
           if (this.isSecondMessageGiven) {
             globalSoundManager.playLoopedSound(registry.actor.id(), "surge_earthquake_sound_looped");
             level.add_cam_effector(
               animations.camera_effects_earthquake,
-              SurgeManager.EARTHQUAKE_CAM_EFFECTOR_ID,
+              surgeConfig.EARTHQUAKE_CAM_EFFECTOR_ID,
               true,
               ""
             );
@@ -751,7 +736,7 @@ export class SurgeManager extends AbstractManager {
 
         this.launchSignalRockets();
         if (this.isEffectorSet) {
-          level.set_pp_effector_factor(SurgeManager.SURGE_SHOCK_PP_EFFECTOR_ID, surgeDuration / 90, 0.1);
+          level.set_pp_effector_factor(surgeConfig.SURGE_SHOCK_PP_EFFECTOR_ID, surgeDuration / 90, 0.1);
         }
 
         if (this.isBlowoutSoundEnabled) {
@@ -804,13 +789,13 @@ export class SurgeManager extends AbstractManager {
           globalSoundManager.playLoopedSound(registry.actor.id(), "surge_earthquake_sound_looped");
           level.add_cam_effector(
             animations.camera_effects_earthquake,
-            SurgeManager.EARTHQUAKE_CAM_EFFECTOR_ID,
+            surgeConfig.EARTHQUAKE_CAM_EFFECTOR_ID,
             true,
             ""
           );
           this.isSecondMessageGiven = true;
         } else if (surgeDuration >= 100 && !this.isEffectorSet) {
-          level.add_pp_effector(postProcessors.surge_shock, SurgeManager.SURGE_SHOCK_PP_EFFECTOR_ID, true);
+          level.add_pp_effector(postProcessors.surge_shock, surgeConfig.SURGE_SHOCK_PP_EFFECTOR_ID, true);
           // --                level.set_pp_effector_factor(surge_shock_pp_eff, 0, 10)
           this.isEffectorSet = true;
         } else if (surgeDuration >= 35 && !this.isBlowoutSoundEnabled) {
@@ -884,7 +869,7 @@ export class SurgeManager extends AbstractManager {
   public onSurgeSurviveStart(): void {
     level.add_cam_effector(
       animations.camera_effects_surge_01,
-      SurgeManager.SLEEP_CAM_EFFECTOR_ID,
+      surgeConfig.SLEEP_CAM_EFFECTOR_ID,
       false,
       "engine.surge_survive_end"
     );
@@ -906,14 +891,14 @@ export class SurgeManager extends AbstractManager {
     const random: number = math.random(35, 45);
     const surgeManager: SurgeManager = SurgeManager.getInstance();
 
-    if (SurgeManager.IS_STARTED) {
+    if (surgeConfig.IS_STARTED) {
       const timeFactor: TRate = level.get_time_factor();
       const timeDiffInSeconds: TDuration = math.ceil(
         game.get_game_time().diffSec(surgeManager.initializedAt) / timeFactor
       );
 
       if (random > ((surgeConfig.DURATION - timeDiffInSeconds) * timeFactor) / 60) {
-        surgeManager.isTimeForwarded = true;
+        surgeConfig.IS_TIME_FORWARDED = true;
         surgeManager.isUiDisabled = true;
         surgeManager.killAllUnhided();
         surgeManager.endSurge();
@@ -945,11 +930,11 @@ export class SurgeManager extends AbstractManager {
   public override save(packet: NetPacket): void {
     openSaveMarker(packet, SurgeManager.name);
 
-    packet.w_bool(SurgeManager.IS_FINISHED);
-    packet.w_bool(SurgeManager.IS_STARTED);
+    packet.w_bool(surgeConfig.IS_FINISHED);
+    packet.w_bool(surgeConfig.IS_STARTED);
     writeTimeToPacket(packet, this.lastSurgeAt);
 
-    if (SurgeManager.IS_STARTED) {
+    if (surgeConfig.IS_STARTED) {
       writeTimeToPacket(packet, this.initializedAt);
 
       packet.w_bool(this.respawnArtefactsByLevel.zaton as boolean);
@@ -977,11 +962,12 @@ export class SurgeManager extends AbstractManager {
   public override load(reader: NetProcessor): void {
     openLoadMarker(reader, SurgeManager.name);
 
-    SurgeManager.IS_FINISHED = reader.r_bool();
-    SurgeManager.IS_STARTED = reader.r_bool();
+    surgeConfig.IS_FINISHED = reader.r_bool();
+    surgeConfig.IS_STARTED = reader.r_bool();
+
     this.lastSurgeAt = readTimeFromPacket(reader)!;
 
-    if (SurgeManager.IS_STARTED) {
+    if (surgeConfig.IS_STARTED) {
       this.initializedAt = readTimeFromPacket(reader)!;
 
       this.respawnArtefactsByLevel.zaton = reader.r_bool();

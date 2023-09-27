@@ -10,7 +10,7 @@ import {
   simulationPreconditionSurge,
 } from "@/engine/core/managers/simulation/simulation_preconditions";
 import { ESimulationRole, ISimulationActivityDescriptor } from "@/engine/core/managers/simulation/simulation_types";
-import { SurgeManager } from "@/engine/core/managers/surge/SurgeManager";
+import { surgeConfig } from "@/engine/core/managers/surge/SurgeConfig";
 import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain";
 import { Squad } from "@/engine/core/objects/server/squad/Squad";
 import { isInTimeInterval } from "@/engine/core/utils/game/game_time";
@@ -40,21 +40,21 @@ export const simulationActivities: LuaTable<TCommunity, ISimulationActivityDescr
       base: (squad: Squad, target: SmartTerrain) => {
         return (
           isInTimeInterval(18, 8) &&
-          !SurgeManager.IS_STARTED &&
+          !surgeConfig.IS_STARTED &&
           !isAnySquadMemberEnemyToActor(squad) &&
           registry.baseSmartTerrains.get(target.name()) !== null
         );
       },
       surge: simulationPreconditionSurge,
-      territory: () => isInTimeInterval(8, 18) && !SurgeManager.IS_STARTED,
-      resource: () => isInTimeInterval(8, 18) && !SurgeManager.IS_STARTED,
+      territory: () => isInTimeInterval(8, 18) && !surgeConfig.IS_STARTED,
+      resource: () => isInTimeInterval(8, 18) && !surgeConfig.IS_STARTED,
     },
     [ESimulationRole.SQUAD]: null,
   },
   [communities.bandit]: {
     [ESimulationRole.SQUAD]: {
       stalker: (squad: Squad, target: ServerObject) =>
-        isInTimeInterval(8, 21) && !SurgeManager.IS_STARTED && getServerDistanceBetween(squad, target) <= 150,
+        isInTimeInterval(8, 21) && !surgeConfig.IS_STARTED && getServerDistanceBetween(squad, target) <= 150,
     },
     [ESimulationRole.SMART_TERRAIN]: {
       base: (squad: Squad, target: ServerObject) => {
@@ -62,12 +62,12 @@ export const simulationActivities: LuaTable<TCommunity, ISimulationActivityDescr
 
         return (
           isInTimeInterval(21, 8) &&
-          !SurgeManager.IS_STARTED &&
+          !surgeConfig.IS_STARTED &&
           !isAnySquadMemberEnemyToActor(squad) &&
           (smartName === storyNames.zat_stalker_base_smart || smartName === storyNames.jup_a10_smart_terrain)
         );
       },
-      territory: () => isInTimeInterval(8, 21) && !SurgeManager.IS_STARTED,
+      territory: () => isInTimeInterval(8, 21) && !surgeConfig.IS_STARTED,
       surge: simulationPreconditionSurge,
       resource: null,
     },
@@ -77,27 +77,27 @@ export const simulationActivities: LuaTable<TCommunity, ISimulationActivityDescr
   [communities.dolg]: {
     [ESimulationRole.SQUAD]: {
       freedom: (squad: Squad, target: ServerObject) =>
-        isInTimeInterval(8, 19) && !SurgeManager.IS_STARTED && getServerDistanceBetween(squad, target) <= 150,
+        isInTimeInterval(8, 19) && !surgeConfig.IS_STARTED && getServerDistanceBetween(squad, target) <= 150,
       monster_predatory_day: (squad: Squad, target: ServerObject) =>
-        isInTimeInterval(8, 19) && !SurgeManager.IS_STARTED && getServerDistanceBetween(squad, target) <= 150,
+        isInTimeInterval(8, 19) && !surgeConfig.IS_STARTED && getServerDistanceBetween(squad, target) <= 150,
       monster_predatory_night: (squad: Squad, target: ServerObject) =>
-        isInTimeInterval(8, 19) && !SurgeManager.IS_STARTED && getServerDistanceBetween(squad, target) <= 150,
+        isInTimeInterval(8, 19) && !surgeConfig.IS_STARTED && getServerDistanceBetween(squad, target) <= 150,
       monster_vegetarian: (squad: Squad, target: ServerObject) =>
-        isInTimeInterval(8, 19) && !SurgeManager.IS_STARTED && getServerDistanceBetween(squad, target) <= 150,
+        isInTimeInterval(8, 19) && !surgeConfig.IS_STARTED && getServerDistanceBetween(squad, target) <= 150,
       monster_zombied_day: (squad: Squad, target: ServerObject) =>
-        isInTimeInterval(8, 19) && !SurgeManager.IS_STARTED && getServerDistanceBetween(squad, target) <= 150,
+        isInTimeInterval(8, 19) && !surgeConfig.IS_STARTED && getServerDistanceBetween(squad, target) <= 150,
       monster_special: (squad: Squad, target: ServerObject) =>
-        isInTimeInterval(8, 19) && !SurgeManager.IS_STARTED && getServerDistanceBetween(squad, target) <= 150,
+        isInTimeInterval(8, 19) && !surgeConfig.IS_STARTED && getServerDistanceBetween(squad, target) <= 150,
     },
     [ESimulationRole.SMART_TERRAIN]: {
       base: (squad: Squad, target: ServerObject) =>
         isInTimeInterval(19, 8) &&
-        !SurgeManager.IS_STARTED &&
+        !surgeConfig.IS_STARTED &&
         !isAnySquadMemberEnemyToActor(squad) &&
         (target.name() === storyNames.zat_stalker_base_smart ||
           target.name() === storyNames.jup_a6 ||
           target.name() === storyNames.pri_a16),
-      territory: () => isInTimeInterval(8, 19) && !SurgeManager.IS_STARTED,
+      territory: () => isInTimeInterval(8, 19) && !surgeConfig.IS_STARTED,
       surge: simulationPreconditionSurge,
       resource: null,
     },
@@ -106,17 +106,17 @@ export const simulationActivities: LuaTable<TCommunity, ISimulationActivityDescr
   [communities.freedom]: {
     [ESimulationRole.SQUAD]: {
       dolg: (squad: Squad, target: ServerObject) =>
-        isInTimeInterval(8, 19) && !SurgeManager.IS_STARTED && getServerDistanceBetween(squad, target) <= 150,
+        isInTimeInterval(8, 19) && !surgeConfig.IS_STARTED && getServerDistanceBetween(squad, target) <= 150,
     },
     [ESimulationRole.SMART_TERRAIN]: {
       base: (squad: Squad, target: ServerObject) =>
         isInTimeInterval(19, 8) &&
-        !SurgeManager.IS_STARTED &&
+        !surgeConfig.IS_STARTED &&
         !isAnySquadMemberEnemyToActor(squad) &&
         (target.name() === storyNames.zat_stalker_base_smart ||
           target.name() === storyNames.jup_a6 ||
           target.name() === storyNames.pri_a16),
-      territory: () => isInTimeInterval(8, 19) && !SurgeManager.IS_STARTED,
+      territory: () => isInTimeInterval(8, 19) && !surgeConfig.IS_STARTED,
       surge: simulationPreconditionSurge,
       resource: null,
     },
@@ -230,30 +230,30 @@ export const simulationActivities: LuaTable<TCommunity, ISimulationActivityDescr
   [communities.army]: {
     [ESimulationRole.SQUAD]: null,
     [ESimulationRole.SMART_TERRAIN]: {
-      base: () => isInTimeInterval(18, 8) && !SurgeManager.IS_STARTED,
+      base: () => isInTimeInterval(18, 8) && !surgeConfig.IS_STARTED,
       surge: simulationPreconditionSurge,
-      territory: () => isInTimeInterval(8, 18) && !SurgeManager.IS_STARTED,
-      resource: () => isInTimeInterval(8, 18) && !SurgeManager.IS_STARTED,
+      territory: () => isInTimeInterval(8, 18) && !surgeConfig.IS_STARTED,
+      resource: () => isInTimeInterval(8, 18) && !surgeConfig.IS_STARTED,
     },
     [ESimulationRole.ACTOR]: null,
   },
   [communities.ecolog]: {
     [ESimulationRole.SQUAD]: null,
     [ESimulationRole.SMART_TERRAIN]: {
-      base: () => isInTimeInterval(18, 8) && !SurgeManager.IS_STARTED,
+      base: () => isInTimeInterval(18, 8) && !surgeConfig.IS_STARTED,
       surge: simulationPreconditionSurge,
-      territory: () => isInTimeInterval(8, 18) && !SurgeManager.IS_STARTED,
-      resource: () => isInTimeInterval(8, 18) && !SurgeManager.IS_STARTED,
+      territory: () => isInTimeInterval(8, 18) && !surgeConfig.IS_STARTED,
+      resource: () => isInTimeInterval(8, 18) && !surgeConfig.IS_STARTED,
     },
     [ESimulationRole.ACTOR]: null,
   },
   [communities.monolith]: {
     [ESimulationRole.SQUAD]: null,
     [ESimulationRole.SMART_TERRAIN]: {
-      base: () => isInTimeInterval(18, 8) && !SurgeManager.IS_STARTED,
+      base: () => isInTimeInterval(18, 8) && !surgeConfig.IS_STARTED,
       surge: simulationPreconditionSurge,
-      territory: () => isInTimeInterval(8, 18) && !SurgeManager.IS_STARTED,
-      resource: () => isInTimeInterval(8, 18) && !SurgeManager.IS_STARTED,
+      territory: () => isInTimeInterval(8, 18) && !surgeConfig.IS_STARTED,
+      resource: () => isInTimeInterval(8, 18) && !surgeConfig.IS_STARTED,
     },
     [ESimulationRole.ACTOR]: null,
   },

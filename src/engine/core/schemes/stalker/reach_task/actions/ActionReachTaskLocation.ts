@@ -2,7 +2,7 @@ import { action_base, anim, clsid, level, look, LuabindClass, move, object, time
 
 import { registry } from "@/engine/core/database";
 import { TSimulationObject } from "@/engine/core/managers/simulation";
-import { SurgeManager } from "@/engine/core/managers/surge/SurgeManager";
+import { surgeConfig } from "@/engine/core/managers/surge/SurgeConfig";
 import { EStalkerState } from "@/engine/core/objects/animation/types";
 import { Squad } from "@/engine/core/objects/server/squad/Squad";
 import { ReachTaskPatrolManager } from "@/engine/core/schemes/stalker/reach_task/ReachTaskPatrolManager";
@@ -193,7 +193,7 @@ export class ActionReachTaskLocation extends action_base implements ISchemeEvent
 
     this.object.set_path_type(EClientObjectPath.LEVEL_PATH);
 
-    if (squadTarget === null || isSquad(squadTarget) || SurgeManager.IS_STARTED) {
+    if (squadTarget === null || isSquad(squadTarget) || surgeConfig.IS_STARTED) {
       this.object.set_movement_type(level.object_by_id(objectSquad.commander_id())!.movement_type());
       this.object.set_mental_state(level.object_by_id(objectSquad.commander_id())!.mental_state());
 
@@ -234,7 +234,7 @@ export class ActionReachTaskLocation extends action_base implements ISchemeEvent
  */
 function updateObjectMovement(object: ClientObject, target: Optional<TSimulationObject>): void {
   if (target !== null && !object.is_talking()) {
-    if (SurgeManager.IS_STARTED) {
+    if (surgeConfig.IS_STARTED) {
       object.set_movement_type(move.run);
       object.set_mental_state(anim.free);
 

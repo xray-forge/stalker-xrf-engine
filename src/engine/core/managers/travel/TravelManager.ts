@@ -6,7 +6,7 @@ import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { ENotificationDirection, NotificationManager } from "@/engine/core/managers/notifications";
 import { TSimulationObject } from "@/engine/core/managers/simulation";
 import { SimulationBoardManager } from "@/engine/core/managers/simulation/SimulationBoardManager";
-import { SurgeManager } from "@/engine/core/managers/surge/SurgeManager";
+import { surgeConfig } from "@/engine/core/managers/surge/SurgeConfig";
 import { ITravelRouteDescriptor } from "@/engine/core/managers/travel/travel_types";
 import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain/SmartTerrain";
 import { ESquadActionType } from "@/engine/core/objects/server/squad";
@@ -460,7 +460,7 @@ export class TravelManager extends AbstractManager {
 
       level.change_game_time(0, hours, minutes);
 
-      SurgeManager.getInstance().isTimeForwarded = true;
+      surgeConfig.IS_TIME_FORWARDED = true;
 
       logger.format(
         "Forwarded time on travel: '%s', '%s', '%s:%s'",

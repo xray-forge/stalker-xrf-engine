@@ -80,7 +80,7 @@ export function pickSectionFromCondList<T extends TSection>(
   condlist: TConditionList
 ): Optional<T> {
   for (const [, switchCondition] of condlist) {
-    let areInfoPortionConditionsMet = true;
+    let areInfoPortionConditionsMet: boolean = true;
 
     for (const [, configCondition] of switchCondition.infop_check) {
       if (configCondition.prob) {

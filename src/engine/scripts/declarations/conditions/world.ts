@@ -2,6 +2,7 @@ import { level } from "xray16";
 
 import { registry } from "@/engine/core/database";
 import { SimulationBoardManager } from "@/engine/core/managers/simulation/SimulationBoardManager";
+import { surgeConfig } from "@/engine/core/managers/surge/SurgeConfig";
 import { SurgeManager } from "@/engine/core/managers/surge/SurgeManager";
 import { SmartTerrain, SmartTerrainControl } from "@/engine/core/objects/server/smart_terrain";
 import { ESmartTerrainStatus } from "@/engine/core/objects/server/smart_terrain/types";
@@ -60,14 +61,14 @@ extern(
  * @returns whether surge is completed
  */
 extern("xr_conditions.surge_complete", (): boolean => {
-  return SurgeManager.IS_FINISHED;
+  return surgeConfig.IS_FINISHED;
 });
 
 /**
  * @returns whether surge is started
  */
 extern("xr_conditions.surge_started", (): boolean => {
-  return SurgeManager.IS_STARTED;
+  return surgeConfig.IS_STARTED;
 });
 
 /**

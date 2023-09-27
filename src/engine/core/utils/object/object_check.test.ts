@@ -2,6 +2,7 @@ import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { clsid } from "xray16";
 
 import { registerActor, registerSimulator, registerStoryLink, registry } from "@/engine/core/database";
+import { surgeConfig } from "@/engine/core/managers/surge/SurgeConfig";
 import { EActionId } from "@/engine/core/objects/ai/types";
 import { Squad } from "@/engine/core/objects/server/squad";
 import { LoopedSound } from "@/engine/core/objects/sounds/playable_sounds";
@@ -21,10 +22,12 @@ import {
   isSurgeEnabledOnLevel,
   isUndergroundLevel,
 } from "@/engine/core/utils/object/object_check";
+import { communities } from "@/engine/lib/constants/communities";
 import { ammo } from "@/engine/lib/constants/items/ammo";
 import { weapons } from "@/engine/lib/constants/items/weapons";
-import { ClientObject, ServerHumanObject, TClassId } from "@/engine/lib/types";
+import { ClientObject, ServerHumanObject, TClassId, TName } from "@/engine/lib/types";
 import { replaceFunctionMock } from "@/fixtures/jest";
+import { MockLuaTable } from "@/fixtures/lua";
 import {
   CLIENT_SIDE_REGISTRY,
   MockActionPlanner,
@@ -276,6 +279,17 @@ describe("object_check utils", () => {
   });
 
   it("isImmuneToSurgeObject should correctly check that objects are immune to surge", () => {
+    surgeConfig.IMMUNE_SQUAD_COMMUNITIES = MockLuaTable.mockFromObject<TName, boolean>({
+      [communities.monster_predatory_day]: true,
+      [communities.monster_predatory_night]: true,
+      [communities.monster_vegetarian]: true,
+      [communities.monster_zombied_day]: true,
+      [communities.monster_zombied_night]: true,
+      [communities.monster_special]: true,
+      [communities.monster]: true,
+      [communities.zombied]: true,
+    });
+
     expect(isImmuneToSurgeObject({ faction: "monster_predatory_day" } as unknown as Squad)).toBe(true);
     expect(isImmuneToSurgeObject({ faction: "monster_vegetarian" } as unknown as Squad)).toBe(true);
     expect(isImmuneToSurgeObject({ faction: "monster_special" } as unknown as Squad)).toBe(true);
@@ -289,13 +303,25 @@ describe("object_check utils", () => {
   });
 
   it("isSurgeEnabledOnLevel should correctly check if surge is enabled for level", () => {
+    surgeConfig.SURGE_DISABLED_LEVELS = MockLuaTable.mockFromObject<TName, boolean>({
+      labx8: true,
+      jupiter_underground: true,
+    });
+
     expect(isSurgeEnabledOnLevel("zaton")).toBe(true);
     expect(isSurgeEnabledOnLevel("jupiter")).toBe(true);
     expect(isSurgeEnabledOnLevel("labx8")).toBe(false);
     expect(isSurgeEnabledOnLevel("jupiter_underground")).toBe(false);
   });
 
-  it("isUndergroundLevel should correctly check if level is undeground", () => {
+  it("isUndergroundLevel should correctly check if level is underground", () => {
+    surgeConfig.UNDERGROUND_LEVELS = MockLuaTable.mockFromObject<TName, boolean>({
+      zaton: false,
+      jupiter: false,
+      labx8: true,
+      jupiter_underground: true,
+    });
+
     expect(isUndergroundLevel("zaton")).toBe(false);
     expect(isUndergroundLevel("jupiter")).toBe(false);
     expect(isUndergroundLevel("labx8")).toBe(true);

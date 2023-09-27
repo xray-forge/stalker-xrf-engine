@@ -6,6 +6,7 @@ import { EGameEvent } from "@/engine/core/managers/events/events_types";
 import { EventsManager } from "@/engine/core/managers/events/EventsManager";
 import { dynamicMusicThemes } from "@/engine/core/managers/sounds/dynamic_music";
 import { EDynamicMusicState } from "@/engine/core/managers/sounds/sounds_types";
+import { surgeConfig } from "@/engine/core/managers/surge/SurgeConfig";
 import { SurgeManager } from "@/engine/core/managers/surge/SurgeManager";
 import { StereoSound } from "@/engine/core/objects/sounds/StereoSound";
 import { abort } from "@/engine/core/utils/assertion";
@@ -392,7 +393,7 @@ export class DynamicMusicManager extends AbstractManager {
 
     const surgeManager: SurgeManager = SurgeManager.getInstance();
 
-    if (SurgeManager.IS_STARTED && surgeManager.isBlowoutSoundEnabled) {
+    if (surgeConfig.IS_STARTED && surgeManager.isBlowoutSoundEnabled) {
       if (surgeManager.isKillingAll()) {
         this.forceFade = true;
         this.fadeToAmbientVolume = this.gameAmbientVolume;
