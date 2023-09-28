@@ -6,10 +6,12 @@ import {
   readIniConditionList,
   readIniNumber,
   readIniNumberAndConditionList,
-  readIniSet,
+  readIniSectionAsSet,
+  readIniSectionAsStringMap,
+  readIniSectionsAsList,
+  readIniSectionsAsSet,
   readIniString,
   readIniStringAndCondList,
-  readIniStringMap,
   readIniTwoNumbers,
 } from "@/engine/core/utils/ini/ini_read";
 import { IniFile, Optional } from "@/engine/lib/types";
@@ -325,7 +327,7 @@ describe("read utils for ini file", () => {
     });
   });
 
-  it("readIniSet should correctly transform section to set", () => {
+  it("readIniSectionAsSet should correctly transform section to set", () => {
     const ini: IniFile = mockIniFile("example.ltx", {
       section1: ["a", "b", "c"],
       section2: ["d", "e"],
@@ -335,22 +337,60 @@ describe("read utils for ini file", () => {
       },
     });
 
-    expect(readIniSet(ini, "section1")).toEqualLuaTables({
+    expect(readIniSectionAsSet(ini, "section1")).toEqualLuaTables({
       a: true,
       b: true,
       c: true,
     });
-    expect(readIniSet(ini, "section2")).toEqualLuaTables({
+    expect(readIniSectionAsSet(ini, "section2")).toEqualLuaTables({
       d: true,
       e: true,
     });
-    expect(readIniSet(ini, "section3")).toEqualLuaTables({
+    expect(readIniSectionAsSet(ini, "section3")).toEqualLuaTables({
       x: true,
       y: true,
     });
   });
 
-  it("readIniStringMap should correctly transform section to string based map", () => {
+  it("readIniSectionsAsSet should correctly transform section to set", () => {
+    expect(readIniSectionsAsSet(mockIniFile("test.ltx", {}))).toEqualLuaTables({});
+    expect(
+      readIniSectionsAsSet(
+        mockIniFile("example.ltx", {
+          section1: ["a", "b", "c"],
+          section2: ["d", "e"],
+          section3: {
+            x: 1,
+            y: false,
+          },
+        })
+      )
+    ).toEqualLuaTables({
+      section1: true,
+      section2: true,
+      section3: true,
+    });
+  });
+
+  it("readIniSectionsAsList should correctly transform section to set", () => {
+    const ini: IniFile = mockIniFile("example.ltx", {
+      section1: ["a", "b", "c"],
+      section2: ["d", "e"],
+      section3: {
+        x: 1,
+        y: false,
+      },
+    });
+
+    expect(readIniSectionsAsList(mockIniFile("test.ltx", {}))).toEqualLuaTables({});
+    expect(readIniSectionsAsList(ini)).toEqualLuaTables({
+      1: "section1",
+      2: "section2",
+      3: "section3",
+    });
+  });
+
+  it("readIniSectionAsStringMap should correctly transform section to string based map", () => {
     const ini: IniFile = mockIniFile("example.ltx", {
       section1: ["a", "b", "c"],
       section2: { a: "b", c: "d", e: "f" },
@@ -360,17 +400,17 @@ describe("read utils for ini file", () => {
       },
     });
 
-    expect(readIniStringMap(ini, "section1")).toEqualLuaTables({
+    expect(readIniSectionAsStringMap(ini, "section1")).toEqualLuaTables({
       a: null,
       b: null,
       c: null,
     });
-    expect(readIniStringMap(ini, "section2")).toEqualLuaTables({
+    expect(readIniSectionAsStringMap(ini, "section2")).toEqualLuaTables({
       a: "b",
       c: "d",
       e: "f",
     });
-    expect(readIniStringMap(ini, "section3")).toEqualLuaTables({
+    expect(readIniSectionAsStringMap(ini, "section3")).toEqualLuaTables({
       x: 1,
       y: false,
     });
