@@ -108,9 +108,6 @@ export class TaskManager extends AbstractManager {
     }
   }
 
-  /**
-   * todo: Description.
-   */
   public override save(packet: NetPacket): void {
     openSaveMarker(packet, TaskManager.name);
 
@@ -126,9 +123,6 @@ export class TaskManager extends AbstractManager {
     closeSaveMarker(packet, TaskManager.name);
   }
 
-  /**
-   * todo: Description.
-   */
   public override load(reader: NetProcessor): void {
     openLoadMarker(reader, TaskManager.name);
 

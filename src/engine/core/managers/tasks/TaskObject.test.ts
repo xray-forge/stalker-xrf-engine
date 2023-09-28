@@ -1,7 +1,8 @@
 import { beforeAll, describe, expect, it } from "@jest/globals";
 import { CTime } from "xray16";
 
-import { disposeManager, registerActor, registry, TASK_MANAGER_LTX } from "@/engine/core/database";
+import { disposeManager, registerActor, registry } from "@/engine/core/database";
+import { TASK_MANAGER_CONFIG_LTX } from "@/engine/core/managers/tasks/TaskConfig";
 import { TaskManager } from "@/engine/core/managers/tasks/TaskManager";
 import { TaskObject } from "@/engine/core/managers/tasks/TaskObject";
 import { ETaskStatus } from "@/engine/core/managers/tasks/types";
@@ -19,13 +20,13 @@ describe("TaskObject class", () => {
 
   it("should correctly initialize", () => {
     const sampleTaskId: string = "zat_b28_heli_3_crash";
-    const taskObject: TaskObject = new TaskObject(TASK_MANAGER_LTX, sampleTaskId);
+    const taskObject: TaskObject = new TaskObject(TASK_MANAGER_CONFIG_LTX, sampleTaskId);
 
     taskObject.giveTask();
 
     expect(registry.actor.give_task).toHaveBeenCalledTimes(1);
 
-    expect(taskObject.ini).toBe(TASK_MANAGER_LTX);
+    expect(taskObject.ini).toBe(TASK_MANAGER_CONFIG_LTX);
     expect(taskObject.id).toBe(sampleTaskId);
     expect(taskObject.status).toBe(ETaskStatus.SELECTED);
     expect(taskObject.state).toBeNull();
@@ -58,7 +59,7 @@ describe("TaskObject class", () => {
 
   it("should correctly load and save data", () => {
     const sampleTaskId: string = "hide_from_surge";
-    const taskObject: TaskObject = new TaskObject(TASK_MANAGER_LTX, sampleTaskId);
+    const taskObject: TaskObject = new TaskObject(TASK_MANAGER_CONFIG_LTX, sampleTaskId);
     const netProcessor: MockNetProcessor = new MockNetProcessor();
 
     taskObject.giveTask();
@@ -95,7 +96,7 @@ describe("TaskObject class", () => {
 
     disposeManager(TaskManager);
 
-    const newTaskObject: TaskObject = new TaskObject(TASK_MANAGER_LTX, sampleTaskId);
+    const newTaskObject: TaskObject = new TaskObject(TASK_MANAGER_CONFIG_LTX, sampleTaskId);
 
     newTaskObject.load(mockNetProcessor(netProcessor));
 

@@ -1,5 +1,4 @@
 import { SYSTEM_INI } from "@/engine/core/database";
-import { TREASURE_MANAGER_CONFIG_LTX } from "@/engine/core/managers/treasures/TreasureConfig";
 import {
   ALLOWED_TREASURE_TYPES,
   ETreasureType,
@@ -22,8 +21,8 @@ export function readIniTreasuresList(ini: IniFile): LuaTable<TSection, ITreasure
   const secrets: LuaTable<TSection, ITreasureDescriptor> = new LuaTable();
   const totalSecretsCount: TCount = ini.line_count("list");
 
-  const rareCost: TCount = readIniNumber(TREASURE_MANAGER_CONFIG_LTX, "config", "rare_cost", false, 5_000);
-  const epicCost: TCount = readIniNumber(TREASURE_MANAGER_CONFIG_LTX, "config", "epic_cost", false, 10_000);
+  const rareCost: TCount = readIniNumber(ini, "config", "rare_cost", false, 5_000);
+  const epicCost: TCount = readIniNumber(ini, "config", "epic_cost", false, 10_000);
 
   logger.info("Initialize secrets, expected:", totalSecretsCount);
 

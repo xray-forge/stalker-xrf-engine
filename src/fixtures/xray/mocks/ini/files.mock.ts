@@ -136,7 +136,7 @@ export const FILES_MOCKS: Record<TPath, AnyObject> = {
       cloudy5: 0.2,
     },
   },
-  "misc\\task_manager.ltx": {
+  "managers\\task_manager.ltx": {
     hide_from_surge: {
       icon: "ui_inGame2_Vibros",
       prior: 200,
