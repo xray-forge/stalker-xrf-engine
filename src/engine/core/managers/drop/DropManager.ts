@@ -5,16 +5,14 @@ import { AbstractManager } from "@/engine/core/managers/base/AbstractManager";
 import { IItemDropAmountDescriptor } from "@/engine/core/managers/drop/drop_types";
 import { Stalker } from "@/engine/core/objects/server/creature/Stalker";
 import { abort } from "@/engine/core/utils/assertion";
+import { isArtefact, isGrenade, isWeapon } from "@/engine/core/utils/class_ids";
 import { parseNumbersList, parseStringsList } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import {
   getObjectCommunity,
   isAmmoSection,
-  isArtefact,
   isExcludedFromLootDropItemSection,
-  isGrenade,
   isLootableItemSection,
-  isWeapon,
   setItemCondition,
   spawnItemsForObject,
 } from "@/engine/core/utils/object";

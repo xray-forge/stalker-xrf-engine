@@ -6,8 +6,9 @@ import { surgeConfig } from "@/engine/core/managers/surge/SurgeConfig";
 import { EStalkerState } from "@/engine/core/objects/animation/types";
 import { Squad } from "@/engine/core/objects/server/squad/Squad";
 import { ReachTaskPatrolManager } from "@/engine/core/schemes/stalker/reach_task/ReachTaskPatrolManager";
+import { isSquad } from "@/engine/core/utils/class_ids";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { getObjectSquad, isSquad, sendToNearestAccessibleVertex } from "@/engine/core/utils/object";
+import { getObjectSquad, sendToNearestAccessibleVertex } from "@/engine/core/utils/object";
 import { areSameVectors, createEmptyVector, createVector } from "@/engine/core/utils/vector";
 import {
   ClientObject,

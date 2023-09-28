@@ -20,6 +20,7 @@ import { ISchemeDeathState } from "@/engine/core/schemes/stalker/death";
 import { ISchemeHitState } from "@/engine/core/schemes/stalker/hit";
 import { abort, assertDefined } from "@/engine/core/utils/assertion";
 import { extern } from "@/engine/core/utils/binding";
+import { isMonster, isStalker } from "@/engine/core/utils/class_ids";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import {
   getObjectSmartTerrain,
@@ -27,12 +28,10 @@ import {
   hasAlifeInfo,
   isDistanceBetweenObjectsGreaterOrEqual,
   isDistanceBetweenObjectsLessOrEqual,
-  isMonster,
   isObjectInZone,
   isObjectSquadCommander,
   isObjectWounded,
   isPlayingSound,
-  isStalker,
 } from "@/engine/core/utils/object";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import { infoPortions } from "@/engine/lib/constants/info_portions";

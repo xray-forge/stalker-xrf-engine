@@ -14,9 +14,9 @@ import {
 import { AbstractManager } from "@/engine/core/managers/base/AbstractManager";
 import { IReleaseDescriptor } from "@/engine/core/managers/death/release_body_types";
 import { abort } from "@/engine/core/utils/assertion";
+import { isMonster, isStalker } from "@/engine/core/utils/class_ids";
 import { readIniString } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { isMonster, isStalker } from "@/engine/core/utils/object/object_class";
 import { resetTable } from "@/engine/core/utils/table";
 import { roots } from "@/engine/lib/constants/roots";
 import {

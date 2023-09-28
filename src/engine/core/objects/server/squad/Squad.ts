@@ -36,6 +36,7 @@ import { SquadReachTargetAction, SquadStayOnTargetAction } from "@/engine/core/o
 import { ESquadActionType, ISquadAction } from "@/engine/core/objects/server/squad/squad_types";
 import { StoryManager } from "@/engine/core/objects/sounds/stories";
 import { abort } from "@/engine/core/utils/assertion";
+import { isSmartTerrain, isSquad, isSquadId } from "@/engine/core/utils/class_ids";
 import {
   parseConditionsList,
   parseStringsList,
@@ -47,7 +48,7 @@ import {
   TConditionList,
 } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { areObjectsOnSameLevel, isSmartTerrain, isSquad, isSquadId } from "@/engine/core/utils/object";
+import { areObjectsOnSameLevel } from "@/engine/core/utils/object";
 import { areCommunitiesEnemies, ERelation, setObjectSympathy } from "@/engine/core/utils/relation";
 import { canSquadHelpActor, updateSquadInvulnerabilityState } from "@/engine/core/utils/squad";
 import { vectorToString } from "@/engine/core/utils/vector";

@@ -1,6 +1,6 @@
 import { describe, expect, it, jest } from "@jest/globals";
 
-import { updateClassIds } from "@/engine/core/utils/class_ids";
+import { updateClassIds } from "@/engine/core/utils/class_ids_list";
 import { unlockSystemIniOverriding } from "@/engine/core/utils/ini";
 import { AnyObject } from "@/engine/lib/types";
 import { registerExtensions } from "@/engine/scripts/register/extensions_registrator";

@@ -13,7 +13,7 @@ import {
   isStalker,
   isStrappableWeapon,
   isWeapon,
-} from "@/engine/core/utils/object/object_class";
+} from "@/engine/core/utils/class_ids";
 import { ServerActorObject, ServerGroupObject, ServerHumanObject, TClassId, TSection } from "@/engine/lib/types";
 import {
   mockClientGameObject,
@@ -23,7 +23,7 @@ import {
   mockServerAlifeOnlineOfflineGroup,
 } from "@/fixtures/xray";
 
-describe("object_class utils", () => {
+describe("class_ids utils", () => {
   const mockSectionClientObject = (section: TSection) => {
     return mockClientGameObject({ section: <T>() => section as T });
   };

@@ -2,8 +2,8 @@ import { registry } from "@/engine/core/database";
 import type { SmartTerrain } from "@/engine/core/objects/server/smart_terrain";
 import type { Squad } from "@/engine/core/objects/server/squad";
 import { assertDefined } from "@/engine/core/utils/assertion";
+import { isStalker } from "@/engine/core/utils/class_ids";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { isStalker } from "@/engine/core/utils/object/object_class";
 import { communities, TCommunity } from "@/engine/lib/constants/communities";
 import { MAX_U16 } from "@/engine/lib/constants/memory";
 import {

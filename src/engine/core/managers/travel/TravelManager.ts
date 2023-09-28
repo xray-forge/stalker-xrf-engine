@@ -12,10 +12,10 @@ import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain/SmartTe
 import type { Squad } from "@/engine/core/objects/server/squad/Squad";
 import { ESquadActionType } from "@/engine/core/objects/server/squad/squad_types";
 import { abort } from "@/engine/core/utils/assertion";
+import { isSmartTerrain, isSquad } from "@/engine/core/utils/class_ids";
 import { createGameAutoSave } from "@/engine/core/utils/game/game_save";
 import { parseConditionsList, pickSectionFromCondList } from "@/engine/core/utils/ini";
 import { ELuaLoggerMode, LuaLogger } from "@/engine/core/utils/logging";
-import { isSmartTerrain, isSquad } from "@/engine/core/utils/object/object_class";
 import { getObjectCommunity, getObjectSmartTerrain, getObjectSquad } from "@/engine/core/utils/object/object_get";
 import { getServerDistanceBetween } from "@/engine/core/utils/object/object_location";
 import { isAnySquadMemberEnemyToActor } from "@/engine/core/utils/relation";

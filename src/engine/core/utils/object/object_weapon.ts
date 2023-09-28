@@ -2,7 +2,7 @@ import { anim, move, object, TXR_object_action } from "xray16";
 
 import { states } from "@/engine/core/objects/animation/states";
 import { EStalkerState, IStateDescriptor } from "@/engine/core/objects/animation/types";
-import { isWeapon } from "@/engine/core/utils/object/object_class";
+import { isWeapon } from "@/engine/core/utils/class_ids";
 import { ClientObject, Optional, TIndex } from "@/engine/lib/types";
 
 /**

@@ -43,6 +43,7 @@ import { SmartTerrainControl } from "@/engine/core/objects/server/smart_terrain/
 import { ESmartTerrainStatus } from "@/engine/core/objects/server/smart_terrain/types";
 import { ESquadActionType, Squad } from "@/engine/core/objects/server/squad";
 import { abort, assert, assertDefined } from "@/engine/core/utils/assertion";
+import { isMonsterSquad, isStalker } from "@/engine/core/utils/class_ids";
 import { readTimeFromPacket, writeTimeToPacket } from "@/engine/core/utils/game/game_time";
 import {
   getSchemeFromSection,
@@ -65,7 +66,7 @@ import {
   TSmartTerrainJobsList,
 } from "@/engine/core/utils/job";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { areObjectsOnSameLevel, isMonsterSquad, isStalker } from "@/engine/core/utils/object";
+import { areObjectsOnSameLevel } from "@/engine/core/utils/object";
 import { ERelation } from "@/engine/core/utils/relation";
 import {
   activateSchemeBySection,
@@ -486,8 +487,8 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
         registry.smartTerrainNearest.id === null
           ? registry.smartTerrainNearest.distance
           : registry.simulator
-            .object(registry.smartTerrainNearest.id)!
-            .position.distance_to(registry.actorServer.position);
+              .object(registry.smartTerrainNearest.id)!
+              .position.distance_to(registry.actorServer.position);
 
       if (distanceToActor < previousDistanceToActor) {
         registry.smartTerrainNearest.id = this.id;

@@ -4,8 +4,8 @@ import { getObjectIdByStoryId, registry } from "@/engine/core/database";
 import { surgeConfig } from "@/engine/core/managers/surge/SurgeConfig";
 import { EActionId } from "@/engine/core/objects/ai/types";
 import { Squad } from "@/engine/core/objects/server/squad";
+import { isStalker } from "@/engine/core/utils/class_ids";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { isStalker } from "@/engine/core/utils/object/object_class";
 import { getObjectSquad } from "@/engine/core/utils/object/object_get";
 import { lootableTable } from "@/engine/lib/constants/items/lootable_table";
 import { TLevel } from "@/engine/lib/constants/levels";
@@ -16,7 +16,6 @@ import {
   Optional,
   ServerHumanObject,
   ServerObject,
-  TName,
   TNumberId,
   TStringId,
 } from "@/engine/lib/types";
@@ -181,16 +180,6 @@ export function isObjectInjured(object: ClientObject): boolean {
 }
 
 /**
- * Check whether squad is immune to surge damage.
- *
- * @param object - squad object to check
- * @returns whether provided community squad is immune to surge.
- */
-export function isImmuneToSurgeObject(object: Squad): boolean {
-  return surgeConfig.IMMUNE_SQUAD_COMMUNITIES.get(object.faction) === true;
-}
-
-/**
  * Check whether is playing sound.
  *
  * @param object - client object to check playing
@@ -208,13 +197,4 @@ export function isPlayingSound(object: ClientObject): boolean {
  */
 export function isUndergroundLevel(levelName: TLevel): boolean {
   return surgeConfig.UNDERGROUND_LEVELS.get(levelName) === true;
-}
-
-/**
- * Check whether surge is enabled on the level.
- *
- * @returns whether surge can be started on provided level.
- */
-export function isSurgeEnabledOnLevel(levelName: TName): boolean {
-  return surgeConfig.SURGE_DISABLED_LEVELS.get(levelName) !== true;
 }

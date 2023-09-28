@@ -9,6 +9,7 @@ import { surgeConfig } from "@/engine/core/managers/surge/SurgeConfig";
 import {
   getNearestAvailableSurgeCover,
   initializeSurgeCovers,
+  isSurgeEnabledOnLevel,
   killAllSurgeUnhidden,
   launchSurgeSignalRockets,
   playSurgeEndedSound,
@@ -18,12 +19,12 @@ import {
 import { TaskManager } from "@/engine/core/managers/tasks";
 import { WeatherManager } from "@/engine/core/managers/weather/WeatherManager";
 import type { AnomalyZoneBinder } from "@/engine/core/objects/binders/zones";
+import { isArtefact } from "@/engine/core/utils/class_ids";
 import { isBlackScreen } from "@/engine/core/utils/game";
 import { createGameAutoSave } from "@/engine/core/utils/game/game_save";
 import { readTimeFromPacket, writeTimeToPacket } from "@/engine/core/utils/game/game_time";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { isArtefact, isSurgeEnabledOnLevel } from "@/engine/core/utils/object";
 import { hasAlifeInfo } from "@/engine/core/utils/object/object_info_portion";
 import { createVector } from "@/engine/core/utils/vector";
 import { animations, postProcessors } from "@/engine/lib/constants/animation";

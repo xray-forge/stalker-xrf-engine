@@ -5,8 +5,8 @@ import { SimulationBoardManager } from "@/engine/core/managers/simulation/Simula
 import type { SmartTerrain } from "@/engine/core/objects/server/smart_terrain";
 import type { Squad } from "@/engine/core/objects/server/squad";
 import { abort, assert, assertDefined } from "@/engine/core/utils/assertion";
+import { isStalker } from "@/engine/core/utils/class_ids";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { isStalker } from "@/engine/core/utils/object/object_class";
 import { getObjectPositioning } from "@/engine/core/utils/object/object_get";
 import { isAmmoSection } from "@/engine/core/utils/object/object_section";
 import { createEmptyVector } from "@/engine/core/utils/vector";

@@ -1,8 +1,8 @@
 import { action_base, LuabindClass, object } from "xray16";
 
 import { StalkerStateManager } from "@/engine/core/objects/ai/state/StalkerStateManager";
+import { isStrappableWeapon } from "@/engine/core/utils/class_ids";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { isStrappableWeapon } from "@/engine/core/utils/object";
 import { getObjectWeaponForAnimationState } from "@/engine/core/utils/object/object_weapon";
 import { ClientObject, Optional } from "@/engine/lib/types";
 
