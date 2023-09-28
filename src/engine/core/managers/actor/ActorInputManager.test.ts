@@ -134,11 +134,11 @@ describe("ActorInputManager class", () => {
     const manager: ActorInputManager = ActorInputManager.getInstance();
 
     manager.disableInputAt = MockCTime.mock(2012, 12, 1, 12, 30, 5, 500);
-    manager.onNetworkSpawn();
+    manager.onActorGoOnline();
     expect(level.enable_input).toHaveBeenCalledTimes(0);
 
     manager.disableInputAt = null;
-    manager.onNetworkSpawn();
+    manager.onActorGoOnline();
     expect(level.enable_input).toHaveBeenCalledTimes(1);
   });
 });

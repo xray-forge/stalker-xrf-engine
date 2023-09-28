@@ -1,7 +1,6 @@
 import { game, hit, level } from "xray16";
 
 import { closeLoadMarker, closeSaveMarker, openLoadMarker, openSaveMarker, registry } from "@/engine/core/database";
-import { ActorInputManager } from "@/engine/core/managers/actor";
 import { AbstractManager } from "@/engine/core/managers/base/AbstractManager";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { MapDisplayManager } from "@/engine/core/managers/map/MapDisplayManager";
@@ -20,21 +19,17 @@ import { TaskManager } from "@/engine/core/managers/tasks";
 import { WeatherManager } from "@/engine/core/managers/weather/WeatherManager";
 import type { AnomalyZoneBinder } from "@/engine/core/objects/binders/zones";
 import { isBlackScreen } from "@/engine/core/utils/game";
-import { executeConsoleCommand, getConsoleFloatCommand } from "@/engine/core/utils/game/game_console";
 import { createGameAutoSave } from "@/engine/core/utils/game/game_save";
 import { readTimeFromPacket, writeTimeToPacket } from "@/engine/core/utils/game/game_time";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { isArtefact, isSurgeEnabledOnLevel } from "@/engine/core/utils/object";
-import { disableInfo, giveInfo, hasAlifeInfo } from "@/engine/core/utils/object/object_info_portion";
+import { hasAlifeInfo } from "@/engine/core/utils/object/object_info_portion";
 import { createVector } from "@/engine/core/utils/vector";
 import { animations, postProcessors } from "@/engine/lib/constants/animation";
-import { consoleCommands } from "@/engine/lib/constants/console_commands";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import { infoPortions } from "@/engine/lib/constants/info_portions";
-import { TInventoryItem } from "@/engine/lib/constants/items";
-import { drugs } from "@/engine/lib/constants/items/drugs";
-import { levels, TLevel } from "@/engine/lib/constants/levels";
+import { TLevel } from "@/engine/lib/constants/levels";
 import { TRUE } from "@/engine/lib/constants/words";
 import {
   ClientObject,
@@ -42,13 +37,11 @@ import {
   NetPacket,
   NetProcessor,
   Optional,
-  ServerObject,
   TCount,
   TDuration,
   Time,
   TLabel,
   TName,
-  TRate,
   TSection,
   TTimestamp,
 } from "@/engine/lib/types";
@@ -69,7 +62,7 @@ export class SurgeManager extends AbstractManager {
   public isTaskGiven: boolean = false;
   public isSecondMessageGiven: boolean = false;
   public isSkipMessageToggled: boolean = false;
-  public isBlowoutSoundEnabled: boolean = false;
+  public isBlowoutSoundStarted: boolean = false;
 
   public initializedAt: Time = game.get_game_time();
   public lastSurgeAt: Time = game.get_game_time();
@@ -89,18 +82,16 @@ export class SurgeManager extends AbstractManager {
   public override initialize(): void {
     const eventsManager: EventsManager = EventsManager.getInstance();
 
-    eventsManager.registerCallback(EGameEvent.ACTOR_GO_ONLINE, this.onActorNetworkSpawn, this);
+    eventsManager.registerCallback(EGameEvent.ACTOR_GO_ONLINE, this.onActorGoOnline, this);
     eventsManager.registerCallback(EGameEvent.ACTOR_UPDATE, this.update, this);
-    eventsManager.registerCallback(EGameEvent.ACTOR_USE_ITEM, this.onActorUseItem, this);
     eventsManager.registerCallback(EGameEvent.ACTOR_ITEM_TAKE, this.onActorItemTake, this);
   }
 
   public override destroy(): void {
     const eventsManager: EventsManager = EventsManager.getInstance();
 
-    eventsManager.unregisterCallback(EGameEvent.ACTOR_GO_ONLINE, this.onActorNetworkSpawn);
+    eventsManager.unregisterCallback(EGameEvent.ACTOR_GO_ONLINE, this.onActorGoOnline);
     eventsManager.unregisterCallback(EGameEvent.ACTOR_UPDATE, this.update);
-    eventsManager.unregisterCallback(EGameEvent.ACTOR_USE_ITEM, this.onActorUseItem);
     eventsManager.unregisterCallback(EGameEvent.ACTOR_ITEM_TAKE, this.onActorItemTake);
   }
 
@@ -151,7 +142,7 @@ export class SurgeManager extends AbstractManager {
     if (getNearestAvailableSurgeCover(registry.actor)) {
       this.start(true);
     } else {
-      logger.info("Surge covers are not set! Can't manually start");
+      logger.info("Surge covers are not set, cannot start surge");
     }
   }
 
@@ -230,7 +221,7 @@ export class SurgeManager extends AbstractManager {
     this.isEffectorSet = false;
     this.isSecondMessageGiven = false;
     this.isUiDisabled = false;
-    this.isBlowoutSoundEnabled = false;
+    this.isBlowoutSoundStarted = false;
     this.currentDuration = 0;
 
     this.respawnArtefactsAndReplaceAnomalyZones();
@@ -280,7 +271,7 @@ export class SurgeManager extends AbstractManager {
     this.isEffectorSet = false;
     this.isSecondMessageGiven = false;
     this.isUiDisabled = false;
-    this.isBlowoutSoundEnabled = false;
+    this.isBlowoutSoundStarted = false;
     this.currentDuration = 0;
 
     for (const [, signalLight] of registry.signalLights) {
@@ -318,24 +309,6 @@ export class SurgeManager extends AbstractManager {
   /**
    * todo: Description.
    */
-  public processAnabioticItemUsage(): void {
-    ActorInputManager.getInstance().disableGameUiOnly();
-
-    level.add_cam_effector(animations.camera_effects_surge_02, 10, false, "engine.on_anabiotic_sleep");
-    level.add_pp_effector(postProcessors.surge_fade, 11, false);
-
-    giveInfo(infoPortions.anabiotic_in_process);
-
-    registry.sounds.musicVolume = getConsoleFloatCommand(consoleCommands.snd_volume_music);
-    registry.sounds.effectsVolume = getConsoleFloatCommand(consoleCommands.snd_volume_eff);
-
-    executeConsoleCommand(consoleCommands.snd_volume_music, 0);
-    executeConsoleCommand(consoleCommands.snd_volume_eff, 0);
-  }
-
-  /**
-   * todo: Description.
-   */
   public override update(): void {
     if (isBlackScreen()) {
       return;
@@ -363,15 +336,11 @@ export class SurgeManager extends AbstractManager {
         surgeConfig.IS_TIME_FORWARDED = false;
       }
 
-      if (currentGameTime.diffSec(this.lastSurgeAt) < this.nextScheduledSurgeDelay) {
-        return;
-      }
-
-      if (pickSectionFromCondList(registry.actor, null, surgeConfig.CAN_START_SURGE) !== TRUE) {
-        return;
-      }
-
-      if (!getNearestAvailableSurgeCover(registry.actor)) {
+      if (
+        currentGameTime.diffSec(this.lastSurgeAt) < this.nextScheduledSurgeDelay ||
+        pickSectionFromCondList(registry.actor, null, surgeConfig.CAN_START_SURGE) !== TRUE ||
+        !getNearestAvailableSurgeCover(registry.actor)
+      ) {
         return;
       }
 
@@ -399,8 +368,10 @@ export class SurgeManager extends AbstractManager {
         playSurgeEndedSound();
         this.endSurge();
       } else {
+        launchSurgeSignalRockets();
+
         if (this.isAfterGameLoad) {
-          if (this.isBlowoutSoundEnabled) {
+          if (this.isBlowoutSoundStarted) {
             globalSoundManager.playLoopedSound(ACTOR_ID, "blowout_rumble");
           }
 
@@ -421,13 +392,11 @@ export class SurgeManager extends AbstractManager {
           this.isAfterGameLoad = false;
         }
 
-        launchSurgeSignalRockets();
-
         if (this.isEffectorSet) {
           level.set_pp_effector_factor(surgeConfig.SURGE_SHOCK_PP_EFFECTOR_ID, surgeDuration / 90, 0.1);
         }
 
-        if (this.isBlowoutSoundEnabled) {
+        if (this.isBlowoutSoundStarted) {
           globalSoundManager.setLoopedSoundVolume(ACTOR_ID, "blowout_rumble", surgeDuration / 180);
         }
 
@@ -478,35 +447,18 @@ export class SurgeManager extends AbstractManager {
           level.add_pp_effector(postProcessors.surge_shock, surgeConfig.SURGE_SHOCK_PP_EFFECTOR_ID, true);
           // --                level.set_pp_effector_factor(surge_shock_pp_eff, 0, 10)
           this.isEffectorSet = true;
-        } else if (surgeDuration >= 35 && !this.isBlowoutSoundEnabled) {
+        } else if (surgeDuration >= 35 && !this.isBlowoutSoundStarted) {
           globalSoundManager.playSound(ACTOR_ID, "blowout_begin");
           globalSoundManager.playLoopedSound(ACTOR_ID, "blowout_rumble");
           globalSoundManager.setLoopedSoundVolume(ACTOR_ID, "blowout_rumble", 0.25);
-          this.isBlowoutSoundEnabled = true;
+
+          this.isBlowoutSoundStarted = true;
         } else if (surgeDuration >= 0 && !this.isTaskGiven) {
           playSurgeStartingSound();
           level.set_weather_fx("fx_surge_day_3");
           this.giveSurgeHideTask();
         }
       }
-    }
-  }
-
-  /**
-   * Handle actor item use.
-   * Mainly to intercept and properly handle anabiotic.
-   */
-  public onActorUseItem(object: Optional<ClientObject>): void {
-    if (object === null) {
-      return;
-    }
-
-    const serverObject: Optional<ServerObject> = registry.simulator.object(object.id());
-    const serverItemSection: Optional<TInventoryItem> = serverObject?.section_name() as Optional<TInventoryItem>;
-
-    if (serverItemSection === drugs.drug_anabiotic) {
-      logger.info("On actor anabiotic use:", object.name());
-      this.processAnabioticItemUsage();
     }
   }
 
@@ -532,69 +484,8 @@ export class SurgeManager extends AbstractManager {
   /**
    * On actor network spawn initialize covers for related location.
    */
-  public onActorNetworkSpawn(): void {
+  public onActorGoOnline(): void {
     initializeSurgeCovers();
-  }
-
-  /**
-   * todo: Description.
-   */
-  public onSurgeSurviveStart(): void {
-    level.add_cam_effector(
-      animations.camera_effects_surge_01,
-      surgeConfig.SLEEP_CAM_EFFECTOR_ID,
-      false,
-      "engine.surge_survive_end"
-    );
-  }
-
-  /**
-   * todo: Description.
-   */
-  public onSurgeSurviveEnd(): void {
-    ActorInputManager.getInstance().enableGameUi();
-  }
-
-  /**
-   * todo: Description.
-   */
-  public onAnabioticSleep(): void {
-    level.add_cam_effector(animations.camera_effects_surge_01, 10, false, "engine.on_anabiotic_wake_up");
-
-    const random: number = math.random(35, 45);
-    const surgeManager: SurgeManager = SurgeManager.getInstance();
-
-    if (surgeConfig.IS_STARTED) {
-      const timeFactor: TRate = level.get_time_factor();
-      const timeDiffInSeconds: TDuration = math.ceil(
-        game.get_game_time().diffSec(surgeManager.initializedAt) / timeFactor
-      );
-
-      if (random > ((surgeConfig.DURATION - timeDiffInSeconds) * timeFactor) / 60) {
-        surgeConfig.IS_TIME_FORWARDED = true;
-        surgeManager.isUiDisabled = true;
-        killAllSurgeUnhidden();
-        surgeManager.endSurge();
-      }
-    }
-
-    level.change_game_time(0, 0, random);
-    WeatherManager.getInstance().forceWeatherChange();
-  }
-
-  /**
-   * todo: Description.
-   */
-  public onAnabioticWakeUp(): void {
-    ActorInputManager.getInstance().enableGameUi();
-
-    executeConsoleCommand(consoleCommands.snd_volume_music, registry.sounds.musicVolume);
-    executeConsoleCommand(consoleCommands.snd_volume_eff, registry.sounds.effectsVolume);
-
-    registry.sounds.effectsVolume = 0;
-    registry.sounds.musicVolume = 0;
-
-    disableInfo(infoPortions.anabiotic_in_process);
   }
 
   public override save(packet: NetPacket): void {
@@ -611,7 +502,7 @@ export class SurgeManager extends AbstractManager {
       packet.w_bool(this.isEffectorSet);
       packet.w_bool(this.isSecondMessageGiven);
       packet.w_bool(this.isUiDisabled);
-      packet.w_bool(this.isBlowoutSoundEnabled);
+      packet.w_bool(this.isBlowoutSoundStarted);
 
       packet.w_stringZ(this.surgeMessage);
       packet.w_stringZ(this.surgeTaskSection);
@@ -643,7 +534,7 @@ export class SurgeManager extends AbstractManager {
       this.isEffectorSet = reader.r_bool();
       this.isSecondMessageGiven = reader.r_bool();
       this.isUiDisabled = reader.r_bool();
-      this.isBlowoutSoundEnabled = reader.r_bool();
+      this.isBlowoutSoundStarted = reader.r_bool();
 
       this.surgeMessage = reader.r_stringZ();
       this.surgeTaskSection = reader.r_stringZ();
