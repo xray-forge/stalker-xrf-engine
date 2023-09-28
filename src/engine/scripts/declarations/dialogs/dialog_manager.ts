@@ -7,6 +7,7 @@ import {
   TPHRTable,
   TPRTTable,
 } from "@/engine/core/managers/dialogs";
+import { dialogConfig } from "@/engine/core/managers/dialogs/DialogConfig";
 import type { SmartTerrain } from "@/engine/core/objects/server/smart_terrain";
 import { extern } from "@/engine/core/utils/binding";
 import { getObjectCommunity } from "@/engine/core/utils/community";
@@ -184,7 +185,7 @@ export function preconditionNoMore(object: ClientObject, category: EGenericDialo
   const dialogManager: DialogManager = DialogManager.getInstance();
 
   const [priority, id] = getHighestPriorityPhrase(
-    dialogManager.phrasesMap.get(category),
+    dialogConfig.PHRASES.get(category),
     dialogManager.priorityTable.get(category),
     object
   );
@@ -223,7 +224,7 @@ extern(
 
     dialogManager.fillPriorityTable(
       object,
-      dialogManager.phrasesMap.get(EGenericDialogCategory.HELLO),
+      dialogConfig.PHRASES.get(EGenericDialogCategory.HELLO),
       dialogManager.priorityTable.get(EGenericDialogCategory.HELLO)
     );
   }
@@ -239,7 +240,7 @@ extern(
 
     dialogManager.fillPriorityTable(
       object,
-      dialogManager.phrasesMap.get(EGenericDialogCategory.JOB),
+      dialogConfig.PHRASES.get(EGenericDialogCategory.JOB),
       dialogManager.priorityTable.get(EGenericDialogCategory.JOB)
     );
   }
@@ -255,7 +256,7 @@ extern(
 
     dialogManager.fillPriorityTable(
       object,
-      dialogManager.phrasesMap.get(EGenericDialogCategory.ANOMALIES),
+      dialogConfig.PHRASES.get(EGenericDialogCategory.ANOMALIES),
       dialogManager.priorityTable.get(EGenericDialogCategory.ANOMALIES)
     );
   }
@@ -271,7 +272,7 @@ extern(
 
     dialogManager.fillPriorityTable(
       object,
-      dialogManager.phrasesMap.get(EGenericDialogCategory.INFORMATION),
+      dialogConfig.PHRASES.get(EGenericDialogCategory.INFORMATION),
       dialogManager.priorityTable.get(EGenericDialogCategory.INFORMATION)
     );
   }
@@ -287,7 +288,7 @@ extern(
 
     return precondition(
       object,
-      dialogManager.phrasesMap.get(EGenericDialogCategory.HELLO),
+      dialogConfig.PHRASES.get(EGenericDialogCategory.HELLO),
       dialogManager.priorityTable.get(EGenericDialogCategory.HELLO),
       id
     );
@@ -303,7 +304,7 @@ extern(
     const dialogManager: DialogManager = DialogManager.getInstance();
 
     action(
-      dialogManager.phrasesMap.get(EGenericDialogCategory.HELLO),
+      dialogConfig.PHRASES.get(EGenericDialogCategory.HELLO),
       dialogManager.priorityTable.get(EGenericDialogCategory.HELLO),
       id,
       object
@@ -343,7 +344,7 @@ extern(
 
     return precondition(
       object,
-      dialogManager.phrasesMap.get(EGenericDialogCategory.JOB),
+      dialogConfig.PHRASES.get(EGenericDialogCategory.JOB),
       dialogManager.priorityTable.get(EGenericDialogCategory.JOB),
       id
     );
@@ -359,7 +360,7 @@ extern(
     const dialogManager: DialogManager = DialogManager.getInstance();
 
     action(
-      dialogManager.phrasesMap.get(EGenericDialogCategory.JOB),
+      dialogConfig.PHRASES.get(EGenericDialogCategory.JOB),
       dialogManager.priorityTable.get(EGenericDialogCategory.JOB),
       id,
       object
@@ -401,7 +402,7 @@ extern(
 
     if (
       smartTerrain !== null &&
-      tostring(smartTerrain.name()) === dialogManager.phrasesMap.get(EGenericDialogCategory.ANOMALIES).get(id).smart
+      tostring(smartTerrain.name()) === dialogConfig.PHRASES.get(EGenericDialogCategory.ANOMALIES).get(id).smart
     ) {
       dialogManager.priorityTable.get(EGenericDialogCategory.ANOMALIES).get(object.id()).id = -1;
 
@@ -410,7 +411,7 @@ extern(
 
     return precondition(
       object,
-      dialogManager.phrasesMap.get(EGenericDialogCategory.ANOMALIES),
+      dialogConfig.PHRASES.get(EGenericDialogCategory.ANOMALIES),
       dialogManager.priorityTable.get(EGenericDialogCategory.ANOMALIES),
       id
     );
@@ -426,7 +427,7 @@ extern(
     const dialogManager: DialogManager = DialogManager.getInstance();
 
     action(
-      dialogManager.phrasesMap.get(EGenericDialogCategory.ANOMALIES),
+      dialogConfig.PHRASES.get(EGenericDialogCategory.ANOMALIES),
       dialogManager.priorityTable.get(EGenericDialogCategory.ANOMALIES),
       id,
       object
@@ -466,7 +467,7 @@ extern(
 
     return precondition(
       object,
-      dialogManager.phrasesMap.get(EGenericDialogCategory.INFORMATION),
+      dialogConfig.PHRASES.get(EGenericDialogCategory.INFORMATION),
       dialogManager.priorityTable.get(EGenericDialogCategory.INFORMATION),
       id
     );
@@ -482,7 +483,7 @@ extern(
     const dialogManager: DialogManager = DialogManager.getInstance();
 
     action(
-      dialogManager.phrasesMap.get(EGenericDialogCategory.INFORMATION),
+      dialogConfig.PHRASES.get(EGenericDialogCategory.INFORMATION),
       dialogManager.priorityTable.get(EGenericDialogCategory.INFORMATION),
       id,
       object

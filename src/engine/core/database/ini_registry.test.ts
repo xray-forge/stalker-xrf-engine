@@ -2,7 +2,6 @@ import { describe, expect, it } from "@jest/globals";
 
 import {
   DEATH_GENERIC_LTX,
-  DIALOG_MANAGER_LTX,
   DUMMY_LTX,
   DYNAMIC_LTX_PREFIX,
   DYNAMIC_WEATHER_GRAPHS,
@@ -17,9 +16,6 @@ import {
   SQUAD_BEHAVIOURS_LTX,
   STALKER_UPGRADE_INFO,
   SYSTEM_INI,
-  TASK_MANAGER_LTX,
-  TRAVEL_MANAGER_LTX,
-  TREASURES_LTX,
 } from "@/engine/core/database/ini_registry";
 import { IniFile } from "@/engine/lib/types";
 import { MockIniFile } from "@/fixtures/xray";
@@ -35,18 +31,14 @@ describe("ini_registry database module", () => {
       DUMMY_LTX,
       GAME_LTX,
       SIMULATION_LTX,
-      DIALOG_MANAGER_LTX,
       SCRIPT_SOUND_LTX,
       PH_BOX_GENERIC_LTX,
       DYNAMIC_WEATHER_GRAPHS,
-      TREASURES_LTX,
       DEATH_GENERIC_LTX,
       ITEM_UPGRADES,
       STALKER_UPGRADE_INFO,
       SQUAD_BEHAVIOURS_LTX,
       SMART_TERRAIN_MASKS_LTX,
-      TASK_MANAGER_LTX,
-      TRAVEL_MANAGER_LTX,
       SIMULATION_OBJECTS_PROPS_LTX,
       SOUND_STORIES_LTX,
     ];

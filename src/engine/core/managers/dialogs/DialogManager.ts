@@ -1,13 +1,6 @@
 import { CPhraseScript, level } from "xray16";
 
-import {
-  closeLoadMarker,
-  closeSaveMarker,
-  DIALOG_MANAGER_LTX,
-  openLoadMarker,
-  openSaveMarker,
-  registry,
-} from "@/engine/core/database";
+import { closeLoadMarker, closeSaveMarker, openLoadMarker, openSaveMarker, registry } from "@/engine/core/database";
 import { AbstractManager } from "@/engine/core/managers/base/AbstractManager";
 import {
   EGenericDialogCategory,
@@ -15,20 +8,18 @@ import {
   TPHRTable,
   TPRTTable,
 } from "@/engine/core/managers/dialogs/dialog_types";
+import { dialogConfig } from "@/engine/core/managers/dialogs/DialogConfig";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
-import { assert } from "@/engine/core/utils/assertion";
 import { getObjectCommunity } from "@/engine/core/utils/community";
 import { hasInfoPortion } from "@/engine/core/utils/info_portion";
-import { parseInfoPortions, parseStringsList } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { isObjectWounded } from "@/engine/core/utils/planner";
-import { FALSE, TRUE } from "@/engine/lib/constants/words";
+import { TRUE } from "@/engine/lib/constants/words";
 import {
   ClientObject,
   LuaArray,
   NetPacket,
   NetProcessor,
-  Optional,
   Phrase,
   PhraseDialog,
   PhraseScript,
@@ -45,24 +36,10 @@ const logger: LuaLogger = new LuaLogger($filename);
  * todo;
  */
 export class DialogManager extends AbstractManager {
-  private static ID_COUNTER: TNumberId = 5;
-
-  private getNextPhraseId(): TNumberId {
-    return ++DialogManager.ID_COUNTER;
-  }
-
   // -- temporary table of phrases which have been disabled during a conversation
   public disabledPhrases: LuaTable<TNumberId, LuaTable<string, boolean>> = new LuaTable();
   // -- temporary table of phrases which have been disabled during a conversation | object id -> phrase id -> boolean
   public questDisabledPhrases: LuaTable<TNumberId, LuaTable<string, boolean>> = new LuaTable();
-
-  public phrasesMap: LuaTable<EGenericDialogCategory, TPHRTable> = $fromObject({
-    hello: new LuaTable(),
-    job: new LuaTable(),
-    anomalies: new LuaTable(),
-    place: new LuaTable(),
-    information: new LuaTable(),
-  } as Record<EGenericDialogCategory, TPHRTable>);
 
   public priorityTable: LuaTable<EGenericDialogCategory, TPRTTable> = $fromObject({
     hello: new LuaTable(),
@@ -72,67 +49,16 @@ export class DialogManager extends AbstractManager {
     information: new LuaTable(),
   } as Record<EGenericDialogCategory, TPRTTable>);
 
-  /**
-   * todo;
-   */
   public override initialize(): void {
-    logger.info("Fill phrases table");
-
     const eventsManager: EventsManager = EventsManager.getInstance();
 
     eventsManager.registerCallback(EGameEvent.STALKER_INTERACTION, this.onInteractWithObject, this);
+  }
 
-    for (const it of $range(0, DIALOG_MANAGER_LTX.line_count("list") - 1)) {
-      const [, id] = DIALOG_MANAGER_LTX.r_line("list", it, "", "");
+  public override destroy(): void {
+    const eventsManager: EventsManager = EventsManager.getInstance();
 
-      assert(DIALOG_MANAGER_LTX.line_exist(id, "category"), "Dialog manager error. ! categoried section [%s].", id);
-
-      let category: EGenericDialogCategory = DIALOG_MANAGER_LTX.r_string(id, "category") as EGenericDialogCategory;
-
-      switch (category) {
-        case EGenericDialogCategory.HELLO:
-        case EGenericDialogCategory.ANOMALIES:
-        case EGenericDialogCategory.PLACE:
-        case EGenericDialogCategory.JOB:
-        case EGenericDialogCategory.INFORMATION:
-          // nothing
-          break;
-
-        default:
-          category = EGenericDialogCategory.DEFAULT;
-          break;
-      }
-
-      if (category !== EGenericDialogCategory.DEFAULT) {
-        const phrases: IPhrasesDescriptor = {
-          id: tostring(this.getNextPhraseId()),
-          name: id,
-          npc_community: DIALOG_MANAGER_LTX.line_exist(id, "npc_community")
-            ? parseStringsList(DIALOG_MANAGER_LTX.r_string(id, "npc_community"))
-            : "not_set",
-          level: DIALOG_MANAGER_LTX.line_exist(id, "level")
-            ? parseStringsList(DIALOG_MANAGER_LTX.r_string(id, "level"))
-            : "not_set",
-          actor_community: DIALOG_MANAGER_LTX.line_exist(id, "actor_community")
-            ? parseStringsList(DIALOG_MANAGER_LTX.r_string(id, "actor_community"))
-            : "not_set",
-          wounded: DIALOG_MANAGER_LTX.line_exist(id, "wounded") ? DIALOG_MANAGER_LTX.r_string(id, "wounded") : FALSE,
-          once: DIALOG_MANAGER_LTX.line_exist(id, "once") ? DIALOG_MANAGER_LTX.r_string(id, "once") : "always",
-          info: new LuaTable(),
-          smart: null as Optional<TName>,
-        };
-
-        if (DIALOG_MANAGER_LTX.line_exist(id, "info") && DIALOG_MANAGER_LTX.r_string(id, "info") !== "") {
-          parseInfoPortions(phrases.info, DIALOG_MANAGER_LTX.r_string(id, "info"));
-        }
-
-        if (category === EGenericDialogCategory.ANOMALIES || category === EGenericDialogCategory.PLACE) {
-          phrases.smart = DIALOG_MANAGER_LTX.line_exist(id, "smart") ? DIALOG_MANAGER_LTX.r_string(id, "smart") : "";
-        }
-
-        this.phrasesMap.get(category).set(phrases.id, phrases);
-      }
-    }
+    eventsManager.unregisterCallback(EGameEvent.STALKER_INTERACTION, this.onInteractWithObject);
   }
 
   public initializeNewDialog(dialog: PhraseDialog): void {
@@ -170,7 +96,7 @@ export class DialogManager extends AbstractManager {
       npcPhraseScript.AddPrecondition(precondTable.get(j));
 
       for (const it of $range(1, actorTable.length())) {
-        const index: TIndex = this.getNextPhraseId();
+        const index: TIndex = dialogConfig.NEXT_PHRASE_ID();
         const str: string = actorTable.get(it);
         let phrase: Phrase = dialog.AddPhrase("dm_" + str + "_general", tostring(index), tostring(j), -10000);
         let script: PhraseScript = phrase.GetPhraseScript();
@@ -186,7 +112,7 @@ export class DialogManager extends AbstractManager {
         for (const k of $range(1, 3)) {
           const answerNoMore: Phrase = dialog.AddPhrase(
             "dm_" + str + "_no_more_" + tostring(k),
-            tostring(this.getNextPhraseId()),
+            tostring(dialogConfig.NEXT_PHRASE_ID()),
             tostring(index),
             -10000
           );
@@ -196,7 +122,7 @@ export class DialogManager extends AbstractManager {
 
           const answerDoNotKnow: Phrase = dialog.AddPhrase(
             "dm_" + str + "_do_not_know_" + tostring(k),
-            tostring(this.getNextPhraseId()),
+            tostring(dialogConfig.NEXT_PHRASE_ID()),
             tostring(index),
             -10000
           );
@@ -205,7 +131,7 @@ export class DialogManager extends AbstractManager {
           scriptDoNotKnow.AddPrecondition("dialog_manager.precondition_" + str + "_dialogs_do_not_know");
         }
 
-        for (const [, phraseDescriptor] of this.phrasesMap.get(str as EGenericDialogCategory)) {
+        for (const [, phraseDescriptor] of dialogConfig.PHRASES.get(str as EGenericDialogCategory)) {
           phrase = dialog.AddPhrase(phraseDescriptor.name, tostring(phraseDescriptor.id), tostring(index), -10000);
 
           // todo: Unreal condition?
@@ -217,7 +143,7 @@ export class DialogManager extends AbstractManager {
         }
       }
 
-      dialog.AddPhrase("dm_universal_actor_exit", tostring(this.getNextPhraseId()), tostring(j), -10000);
+      dialog.AddPhrase("dm_universal_actor_exit", tostring(dialogConfig.NEXT_PHRASE_ID()), tostring(j), -10000);
     }
   }
 
@@ -236,7 +162,7 @@ export class DialogManager extends AbstractManager {
 
     let ph: boolean = false;
 
-    for (const [, phraseDescriptor] of this.phrasesMap.get(data)) {
+    for (const [, phraseDescriptor] of dialogConfig.PHRASES.get(data)) {
       ph = true;
 
       phrase = dialog.AddPhrase(phraseDescriptor.name, tostring(phraseDescriptor.id), tostring(1), -10000);
@@ -248,8 +174,8 @@ export class DialogManager extends AbstractManager {
       if (phraseDescriptor.wounded === TRUE) {
         script.AddPrecondition("dialogs.is_wounded");
 
-        const medkitId: TNumberId = this.getNextPhraseId();
-        const sorryId: TNumberId = this.getNextPhraseId();
+        const medkitId: TNumberId = dialogConfig.NEXT_PHRASE_ID();
+        const sorryId: TNumberId = dialogConfig.NEXT_PHRASE_ID();
 
         phrase = dialog.AddPhrase("dm_wounded_medkit", tostring(medkitId), tostring(phraseDescriptor.id), -10000);
         script = phrase.GetPhraseScript();

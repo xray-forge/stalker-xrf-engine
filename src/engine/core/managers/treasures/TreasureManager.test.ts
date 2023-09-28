@@ -3,8 +3,10 @@ import { level } from "xray16";
 
 import { registerActor, registry } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
+import { TREASURE_MANAGER_CONFIG_LTX, treasureConfig } from "@/engine/core/managers/treasures/TreasureConfig";
 import { TreasureManager } from "@/engine/core/managers/treasures/TreasureManager";
 import { ETreasureType, ITreasureDescriptor } from "@/engine/core/managers/treasures/treasures_types";
+import { readIniTreasuresList } from "@/engine/core/managers/treasures/utils/treasures_init";
 import { giveInfoPortion } from "@/engine/core/utils/info_portion";
 import { parseConditionsList } from "@/engine/core/utils/ini";
 import { ClientObject, ServerObject } from "@/engine/lib/types";
@@ -14,34 +16,11 @@ describe("TreasureManager class", () => {
   beforeEach(() => {
     registry.actor = null as unknown as ClientObject;
     registry.managers = new LuaTable();
+    treasureConfig.TREASURES = readIniTreasuresList(TREASURE_MANAGER_CONFIG_LTX);
   });
 
-  it("should correctly initialize and destroy", () => {
-    const treasureManager: TreasureManager = TreasureManager.getInstance();
-    const eventsManager: EventsManager = EventsManager.getInstance();
-
-    jest.spyOn(treasureManager, "initializeSecrets").mockImplementation(() => {});
-
-    treasureManager.initialize();
-
-    expect(eventsManager.getEventSubscribersCount(EGameEvent.ACTOR_UPDATE)).toBe(1);
-    expect(eventsManager.getEventSubscribersCount(EGameEvent.ACTOR_ITEM_TAKE)).toBe(1);
-    expect(eventsManager.getEventSubscribersCount(EGameEvent.RESTRICTOR_ZONE_REGISTERED)).toBe(1);
-    expect(treasureManager.initializeSecrets).toHaveBeenCalled();
-
-    treasureManager.destroy();
-
-    expect(eventsManager.getEventSubscribersCount(EGameEvent.ACTOR_UPDATE)).toBe(0);
-    expect(eventsManager.getEventSubscribersCount(EGameEvent.ACTOR_ITEM_TAKE)).toBe(0);
-    expect(eventsManager.getEventSubscribersCount(EGameEvent.RESTRICTOR_ZONE_REGISTERED)).toBe(0);
-  });
-
-  it("should correctly initialize list of secrets", () => {
-    const treasureManager: TreasureManager = TreasureManager.getInstance();
-
-    treasureManager.initialize();
-
-    expect(treasureManager.treasures).toEqualLuaTables({
+  it("should have proper configuration", () => {
+    expect(treasureConfig.TREASURES).toEqualLuaTables({
       jup_b1_secret: {
         checked: false,
         type: ETreasureType.RARE,
@@ -110,6 +89,25 @@ describe("TreasureManager class", () => {
     });
   });
 
+  it("should correctly initialize and destroy", () => {
+    const treasureManager: TreasureManager = TreasureManager.getInstance();
+    const eventsManager: EventsManager = EventsManager.getInstance();
+
+    treasureManager.initialize();
+
+    expect(eventsManager.getEventSubscribersCount(EGameEvent.ACTOR_UPDATE)).toBe(1);
+    expect(eventsManager.getEventSubscribersCount(EGameEvent.ACTOR_ITEM_TAKE)).toBe(1);
+    expect(eventsManager.getEventSubscribersCount(EGameEvent.RESTRICTOR_ZONE_REGISTERED)).toBe(1);
+    expect(eventsManager.getSubscribersCount()).toBe(3);
+
+    treasureManager.destroy();
+
+    expect(eventsManager.getEventSubscribersCount(EGameEvent.ACTOR_UPDATE)).toBe(0);
+    expect(eventsManager.getEventSubscribersCount(EGameEvent.ACTOR_ITEM_TAKE)).toBe(0);
+    expect(eventsManager.getEventSubscribersCount(EGameEvent.RESTRICTOR_ZONE_REGISTERED)).toBe(0);
+    expect(eventsManager.getSubscribersCount()).toBe(0);
+  });
+
   it("should correctly handle statics shortcuts", () => {
     const treasureManager: TreasureManager = TreasureManager.getInstance();
 
@@ -155,7 +153,7 @@ describe("TreasureManager class", () => {
     treasureManager.treasuresRestrictorByName.set("jup_b1_secret", 1501);
     treasureManager.initialize();
 
-    const descriptor: ITreasureDescriptor = treasureManager.treasures.get("jup_b1_secret");
+    const descriptor: ITreasureDescriptor = treasureConfig.TREASURES.get("jup_b1_secret");
 
     treasureManager.update();
 
@@ -180,7 +178,7 @@ describe("TreasureManager class", () => {
 
     treasureManager.initialize();
 
-    const descriptor: ITreasureDescriptor = treasureManager.treasures.get("jup_b2_secret");
+    const descriptor: ITreasureDescriptor = treasureConfig.TREASURES.get("jup_b2_secret");
 
     descriptor.given = true;
     descriptor.checked = true;
@@ -219,7 +217,7 @@ describe("TreasureManager class", () => {
     treasureManager.initialize();
 
     expect(treasureManager.getTreasuresCount()).toBe(3);
-    expect(treasureManager.treasures.length()).toBe(3);
+    expect(treasureConfig.TREASURES.length()).toBe(3);
   });
 
   it("should correctly get treasures", () => {
@@ -227,8 +225,8 @@ describe("TreasureManager class", () => {
 
     treasureManager.initialize();
 
-    expect(treasureManager.treasures.get("jup_b1_secret")).not.toBeNull();
-    expect(treasureManager.getTreasure("jup_b1_secret")).toBe(treasureManager.treasures.get("jup_b1_secret"));
+    expect(treasureConfig.TREASURES.get("jup_b1_secret")).not.toBeNull();
+    expect(treasureConfig.TREASURES.get("jup_b1_secret")).toBe(treasureConfig.TREASURES.get("jup_b1_secret"));
   });
 
   it("should correctly get given treasures count", () => {
@@ -237,10 +235,10 @@ describe("TreasureManager class", () => {
     treasureManager.initialize();
     expect(treasureManager.getGivenTreasuresCount()).toBe(0);
 
-    treasureManager.getTreasures().get("jup_b1_secret").given = true;
+    treasureConfig.TREASURES.get("jup_b1_secret").given = true;
     expect(treasureManager.getGivenTreasuresCount()).toBe(1);
 
-    treasureManager.getTreasures().get("jup_b2_secret").given = true;
+    treasureConfig.TREASURES.get("jup_b2_secret").given = true;
     expect(treasureManager.getGivenTreasuresCount()).toBe(2);
   });
 

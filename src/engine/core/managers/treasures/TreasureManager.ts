@@ -1,32 +1,14 @@
 import { time_global } from "xray16";
 
-import {
-  closeLoadMarker,
-  closeSaveMarker,
-  openLoadMarker,
-  openSaveMarker,
-  registry,
-  SYSTEM_INI,
-  TREASURES_LTX,
-} from "@/engine/core/database";
+import { closeLoadMarker, closeSaveMarker, openLoadMarker, openSaveMarker, registry } from "@/engine/core/database";
 import { AbstractManager } from "@/engine/core/managers/base/AbstractManager";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { MapDisplayManager } from "@/engine/core/managers/map";
 import { ETreasureState, NotificationManager } from "@/engine/core/managers/notifications";
-import {
-  allowedTreasureTypes,
-  ETreasureType,
-  ITreasureDescriptor,
-  ITreasureItemsDescriptor,
-} from "@/engine/core/managers/treasures/treasures_types";
-import { abort, assert, assertDefined } from "@/engine/core/utils/assertion";
-import {
-  ISpawnDescriptor,
-  parseConditionsList,
-  parseSpawnDetails,
-  pickSectionFromCondList,
-  readIniNumber,
-} from "@/engine/core/utils/ini";
+import { treasureConfig } from "@/engine/core/managers/treasures/TreasureConfig";
+import { ITreasureDescriptor, ITreasureItemsDescriptor } from "@/engine/core/managers/treasures/treasures_types";
+import { assert, assertDefined } from "@/engine/core/utils/assertion";
+import { pickSectionFromCondList } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { MAX_U16 } from "@/engine/lib/constants/memory";
 import { SECRET_SECTION } from "@/engine/lib/constants/sections";
@@ -41,7 +23,6 @@ import {
   Optional,
   ServerObject,
   TCount,
-  TDuration,
   TName,
   TNumberId,
   TProbability,
@@ -56,10 +37,6 @@ const logger: LuaLogger = new LuaLogger($filename);
  * Manager to handle treasures indication, giving and completion for actor.
  */
 export class TreasureManager extends AbstractManager {
-  public static readonly UPDATED_PERIOD: TDuration = 500;
-  public static readonly RARE_COST: TCount = readIniNumber(TREASURES_LTX, "config", "rare_cost", true);
-  public static readonly EPIC_COST: TCount = readIniNumber(TREASURES_LTX, "config", "epic_cost", true);
-
   /**
    * Share treasure coordinates with the actor.
    */
@@ -77,42 +54,14 @@ export class TreasureManager extends AbstractManager {
   public areItemsSpawned: boolean = false;
   public lastUpdatedAt: TTimestamp = -Infinity;
 
-  public treasures: LuaTable<TSection, ITreasureDescriptor> = new LuaTable();
   public treasuresRestrictorByName: LuaTable<TName, TNumberId> = new LuaTable(); // Restrictor ID by name.
   public treasuresRestrictorByItem: LuaTable<TNumberId, TNumberId> = new LuaTable(); // Restrictor ID by item ID.
-
-  public constructor() {
-    super();
-
-    assert(
-      TreasureManager.EPIC_COST > TreasureManager.RARE_COST,
-      "Epic cost cannot be lower than rare treasure const: '%s' < '%s'.",
-      TreasureManager.EPIC_COST,
-      TreasureManager.RARE_COST
-    );
-  }
-
-  /**
-   * Return all treasure descriptors.
-   */
-  public getTreasures(): LuaTable<TSection, ITreasureDescriptor> {
-    return this.treasures;
-  }
-  /**
-   * Return treasure by descriptors.
-   *
-   * @params section - treasure section to search for
-   * @returns decriptor for requested section
-   */
-  public getTreasure(section: TSection): ITreasureDescriptor {
-    return this.treasures.get(section);
-  }
 
   /**
    * @returns count of all in-game treasures.
    */
   public getTreasuresCount(): TCount {
-    return table.size(this.treasures);
+    return table.size(treasureConfig.TREASURES);
   }
 
   /**
@@ -121,7 +70,7 @@ export class TreasureManager extends AbstractManager {
   public getGivenTreasuresCount(): TCount {
     let count: TCount = 0;
 
-    for (const [, descriptor] of this.treasures) {
+    for (const [, descriptor] of treasureConfig.TREASURES) {
       if (descriptor.given) {
         count += 1;
       }
@@ -139,99 +88,6 @@ export class TreasureManager extends AbstractManager {
     eventsManager.registerCallback(EGameEvent.ACTOR_UPDATE, this.update, this);
     eventsManager.registerCallback(EGameEvent.ACTOR_ITEM_TAKE, this.onActorItemTake, this);
     eventsManager.registerCallback(EGameEvent.RESTRICTOR_ZONE_REGISTERED, this.onRegisterRestrictor, this);
-
-    this.initializeSecrets();
-  }
-
-  /**
-   * Initialize secrets descriptors.
-   */
-  public initializeSecrets(): void {
-    const totalSecretsCount: TCount = TREASURES_LTX.line_count("list");
-
-    logger.info("Initialize secrets, expected:", totalSecretsCount);
-
-    for (const it of $range(0, totalSecretsCount - 1)) {
-      const [, treasureSection] = TREASURES_LTX.r_line<TStringId>("list", it, "", "");
-
-      assert(TREASURES_LTX.section_exist(treasureSection), "There is no section '%s' in treasures.ltx.", it);
-
-      let cost: TCount = 0;
-
-      const descriptor: ITreasureDescriptor = {
-        items: new LuaTable(),
-        given: false,
-        type: null as unknown as ETreasureType,
-        empty: null,
-        refreshing: null,
-        checked: false,
-        itemsToFindRemain: 0,
-      };
-
-      this.treasures.set(treasureSection, descriptor);
-
-      const itemsCount: TCount = TREASURES_LTX.line_count(treasureSection);
-
-      for (const index of $range(0, itemsCount - 1)) {
-        const [, itemSection, itemValue] = TREASURES_LTX.r_line(treasureSection, index, "", "");
-
-        switch (itemSection) {
-          case "empty":
-            descriptor.empty = parseConditionsList(itemValue);
-            break;
-
-          case "refreshing":
-            descriptor.refreshing = parseConditionsList(itemValue);
-            break;
-
-          case "type": {
-            if (itemValue === null || allowedTreasureTypes.has(itemValue as ETreasureType)) {
-              descriptor.type = itemValue as ETreasureType;
-            } else {
-              abort("Unexpected type provided for treasure: '%s'.", itemValue);
-            }
-
-            break;
-          }
-
-          default: {
-            descriptor.items.set(itemSection, new LuaTable());
-
-            const spawnDetails: LuaArray<ISpawnDescriptor> = parseSpawnDetails(itemValue);
-
-            assert(
-              spawnDetails.length() !== 0,
-              "There is no items count set for treasure [%s], item [%s]",
-              treasureSection,
-              itemSection
-            );
-
-            for (const [, spawnDescriptor] of spawnDetails) {
-              const count: TCount = tonumber(spawnDescriptor.count) ?? 1;
-              const probability: TCount = tonumber(spawnDescriptor.probability) ?? 1;
-
-              cost += readIniNumber(SYSTEM_INI, itemSection, "cost", false, 0) * count;
-
-              table.insert(descriptor.items.get(itemSection), {
-                count,
-                probability,
-                itemsIds: null,
-              });
-            }
-          }
-        }
-      }
-
-      if (descriptor.type === null) {
-        if (cost >= TreasureManager.EPIC_COST) {
-          descriptor.type = ETreasureType.EPIC;
-        } else if (cost >= TreasureManager.RARE_COST) {
-          descriptor.type = ETreasureType.RARE;
-        } else {
-          descriptor.type = ETreasureType.COMMON;
-        }
-      }
-    }
   }
 
   /**
@@ -255,14 +111,14 @@ export class TreasureManager extends AbstractManager {
 
     const now: TTimestamp = time_global();
 
-    if (now - this.lastUpdatedAt >= TreasureManager.UPDATED_PERIOD) {
+    if (now - this.lastUpdatedAt >= treasureConfig.UPDATED_PERIOD) {
       this.lastUpdatedAt = now;
     } else {
       return;
     }
 
     // Handle treasure refreshing and emptying by condition with each tick.
-    for (const [treasureSection, treasureDescriptor] of this.treasures) {
+    for (const [treasureSection, treasureDescriptor] of treasureConfig.TREASURES) {
       if (treasureDescriptor.given) {
         if (
           treasureDescriptor.empty &&
@@ -298,7 +154,7 @@ export class TreasureManager extends AbstractManager {
 
     logger.info("Spawning game treasures");
 
-    for (const [treasureId] of this.treasures) {
+    for (const [treasureId] of treasureConfig.TREASURES) {
       this.spawnTreasure(treasureId);
     }
 
@@ -313,14 +169,14 @@ export class TreasureManager extends AbstractManager {
   protected spawnTreasure(treasureId: TStringId): void {
     // logger.info("Spawn treasure ID:", treasureId);
 
-    assertDefined(this.treasures.get(treasureId), "There is no stored secret with id:", treasureId);
+    assertDefined(treasureConfig.TREASURES.get(treasureId), "There is no stored secret with id:", treasureId);
 
-    if (this.treasures.get(treasureId).given) {
+    if (treasureConfig.TREASURES.get(treasureId).given) {
       return logger.info("Spawned secret is already given:", treasureId);
     }
 
     const simulator: AlifeSimulator = registry.simulator;
-    const secret: ITreasureDescriptor = this.treasures.get(treasureId);
+    const secret: ITreasureDescriptor = treasureConfig.TREASURES.get(treasureId);
 
     for (const [itemSection, itemParameters] of secret.items) {
       for (const secretIndex of $range(1, itemParameters.length())) {
@@ -361,9 +217,9 @@ export class TreasureManager extends AbstractManager {
   public giveActorTreasureCoordinates(treasureId: TStringId, spawn: boolean = false): void {
     logger.info("Give treasure:", treasureId, spawn);
 
-    assertDefined(this.treasures.get(treasureId), "There is no stored secret: [%s]", tostring(treasureId));
+    assertDefined(treasureConfig.TREASURES.get(treasureId), "There is no stored secret: [%s]", tostring(treasureId));
 
-    const descriptor: ITreasureDescriptor = this.treasures.get(treasureId);
+    const descriptor: ITreasureDescriptor = treasureConfig.TREASURES.get(treasureId);
 
     // Nothing to do here.
     if (descriptor.given) {
@@ -395,7 +251,7 @@ export class TreasureManager extends AbstractManager {
 
     const availableTreasures: LuaArray<TStringId> = new LuaTable();
 
-    for (const [id, descriptor] of this.treasures) {
+    for (const [id, descriptor] of treasureConfig.TREASURES) {
       if (!descriptor.given) {
         table.insert(availableTreasures, id);
       }
@@ -416,7 +272,7 @@ export class TreasureManager extends AbstractManager {
 
     let count: TCount = 0;
 
-    for (const [id, descriptor] of this.treasures) {
+    for (const [id, descriptor] of treasureConfig.TREASURES) {
       if (!descriptor.given) {
         count += 1;
         this.giveActorTreasureCoordinates(id);
@@ -443,13 +299,15 @@ export class TreasureManager extends AbstractManager {
     assert(section === "name", "There is no 'name' field in [secret] section for object [%s].", object.name());
     assert(value !== "", "Field 'name' in [secret] section got no value for object [%s].", object.name());
     assert(
-      this.treasures.get(value) !== null,
-      "Attempt to register item [%s] in unexistent secret [%s].",
+      treasureConfig.TREASURES.get(value) !== null,
+      "Attempt to register item '%s' in not existing treasure '%s'.",
       object.name(),
       value
     );
 
-    const item: LuaArray<ITreasureItemsDescriptor> = this.treasures.get(value).items.get(object.section_name());
+    const item: LuaArray<ITreasureItemsDescriptor> = treasureConfig.TREASURES.get(value).items.get(
+      object.section_name()
+    );
 
     assert(item !== null, "Attempt to register unknown item [%s] in secret [%s].", object.section_name(), value);
 
@@ -505,17 +363,17 @@ export class TreasureManager extends AbstractManager {
     if (treasureId) {
       logger.info("Treasure item taken:", objectId);
 
-      const descriptor: ITreasureDescriptor = this.treasures.get(treasureId);
+      const descriptor: ITreasureDescriptor = treasureConfig.TREASURES.get(treasureId);
 
       descriptor.itemsToFindRemain -= 1;
 
-      if (this.treasures.get(treasureId).itemsToFindRemain === 0) {
+      if (treasureConfig.TREASURES.get(treasureId).itemsToFindRemain === 0) {
         MapDisplayManager.getInstance().removeTreasureMapSpot(
           this.treasuresRestrictorByName.get(treasureId),
           descriptor
         );
         EventsManager.emitEvent(EGameEvent.TREASURE_FOUND, descriptor);
-        this.treasures.get(treasureId).checked = true;
+        treasureConfig.TREASURES.get(treasureId).checked = true;
         NotificationManager.getInstance().sendTreasureNotification(ETreasureState.FOUND_TREASURE);
 
         logger.info("Secret now is empty:", treasureId);
@@ -539,9 +397,9 @@ export class TreasureManager extends AbstractManager {
       packet.w_u16(v);
     }
 
-    packet.w_u16(table.size(this.treasures));
+    packet.w_u16(table.size(treasureConfig.TREASURES));
 
-    for (const [treasure, descriptor] of this.treasures) {
+    for (const [treasure, descriptor] of treasureConfig.TREASURES) {
       if (!this.treasuresRestrictorByName.get(treasure)) {
         packet.w_u16(-1);
       } else {
@@ -590,8 +448,8 @@ export class TreasureManager extends AbstractManager {
       const isChecked: boolean = reader.r_bool();
       const isToFind: number = reader.r_u8();
 
-      if (id !== MAX_U16 && this.treasures.get(id as any)) {
-        const secret: ITreasureDescriptor = this.treasures.get(id as any);
+      if (id !== MAX_U16 && treasureConfig.TREASURES.has(id as TSection)) {
+        const secret: ITreasureDescriptor = treasureConfig.TREASURES.get(id as TSection);
 
         secret.given = isGiven;
         secret.checked = isChecked;

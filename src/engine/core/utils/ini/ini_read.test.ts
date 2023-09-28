@@ -9,6 +9,7 @@ import {
   readIniSet,
   readIniString,
   readIniStringAndCondList,
+  readIniStringMap,
   readIniTwoNumbers,
 } from "@/engine/core/utils/ini/ini_read";
 import { IniFile, Optional } from "@/engine/lib/types";
@@ -346,6 +347,32 @@ describe("read utils for ini file", () => {
     expect(readIniSet(ini, "section3")).toEqualLuaTables({
       x: true,
       y: true,
+    });
+  });
+
+  it("readIniStringMap should correctly transform section to string based map", () => {
+    const ini: IniFile = mockIniFile("example.ltx", {
+      section1: ["a", "b", "c"],
+      section2: { a: "b", c: "d", e: "f" },
+      section3: {
+        x: 1,
+        y: false,
+      },
+    });
+
+    expect(readIniStringMap(ini, "section1")).toEqualLuaTables({
+      a: null,
+      b: null,
+      c: null,
+    });
+    expect(readIniStringMap(ini, "section2")).toEqualLuaTables({
+      a: "b",
+      c: "d",
+      e: "f",
+    });
+    expect(readIniStringMap(ini, "section3")).toEqualLuaTables({
+      x: 1,
+      y: false,
     });
   });
 });

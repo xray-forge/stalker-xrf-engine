@@ -136,7 +136,7 @@ export const FILES_MOCKS: Record<TPath, AnyObject> = {
       cloudy5: 0.2,
     },
   },
-  "misc\\task_manager.ltx": {
+  "managers\\task_manager.ltx": {
     hide_from_surge: {
       icon: "ui_inGame2_Vibros",
       prior: 200,
@@ -171,7 +171,7 @@ export const FILES_MOCKS: Record<TPath, AnyObject> = {
     generic_buy: {},
     generic_sell: {},
   },
-  "misc\\treasures.ltx": {
+  "managers\\treasure_manager.ltx": {
     config: {
       rare_cost: 5000,
       epic_cost: 10000,
@@ -206,7 +206,7 @@ export const FILES_MOCKS: Record<TPath, AnyObject> = {
       squad: 0,
     },
   },
-  "misc\\travel_manager.ltx": {
+  "managers\\travel_manager.ltx": {
     locations: {
       zat_sim_1: "st_stalker_zat_sim_1",
       zat_sim_2: "st_stalker_zat_sim_2",
