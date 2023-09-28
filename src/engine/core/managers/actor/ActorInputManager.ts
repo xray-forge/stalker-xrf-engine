@@ -14,7 +14,7 @@ import { surgeConfig } from "@/engine/core/managers/surge/SurgeConfig";
 import type { SurgeManager } from "@/engine/core/managers/surge/SurgeManager";
 import { killAllSurgeUnhidden } from "@/engine/core/managers/surge/utils/surge_kill";
 import { WeatherManager } from "@/engine/core/managers/weather";
-import { executeConsoleCommand, getConsoleFloatCommand } from "@/engine/core/utils/game";
+import { executeConsoleCommand, getConsoleFloatCommand } from "@/engine/core/utils/console";
 import { disableInfoPortion, giveInfoPortion } from "@/engine/core/utils/info_portion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { isActorInNoWeaponZone } from "@/engine/core/utils/position";

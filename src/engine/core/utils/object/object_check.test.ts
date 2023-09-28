@@ -1,49 +1,20 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { clsid } from "xray16";
 
-import { registerActor, registerSimulator, registerStoryLink, registry } from "@/engine/core/database";
+import { registerActor, registerSimulator, registerStoryLink } from "@/engine/core/database";
 import { surgeConfig } from "@/engine/core/managers/surge/SurgeConfig";
-import { EActionId } from "@/engine/core/objects/ai/types";
 import {
   isActorSeenByObject,
   isObjectInjured,
   isObjectSeenByActor,
-  isObjectStrappingWeapon,
   isStalkerAlive,
-  isUndergroundLevel,
 } from "@/engine/core/utils/object/object_check";
 import { ClientObject, ServerHumanObject, TClassId, TName } from "@/engine/lib/types";
-import { replaceFunctionMock } from "@/fixtures/jest";
 import { MockLuaTable } from "@/fixtures/lua";
-import {
-  MockActionPlanner,
-  mockClientGameObject,
-  mockServerAlifeHumanStalker,
-  mockServerAlifeMonsterBase,
-} from "@/fixtures/xray";
+import { mockClientGameObject, mockServerAlifeHumanStalker, mockServerAlifeMonsterBase } from "@/fixtures/xray";
 
 describe("object_check utils", () => {
   beforeEach(() => registerSimulator());
-
-  it("isObjectStrappingWeapon should correctly check weapon strap state", () => {
-    const object: ClientObject = mockClientGameObject();
-
-    replaceFunctionMock(object.weapon_strapped, () => true);
-    replaceFunctionMock(object.weapon_unstrapped, () => false);
-    expect(isObjectStrappingWeapon(object)).toBe(false);
-
-    replaceFunctionMock(object.weapon_strapped, () => false);
-    replaceFunctionMock(object.weapon_unstrapped, () => true);
-    expect(isObjectStrappingWeapon(object)).toBe(false);
-
-    replaceFunctionMock(object.weapon_strapped, () => true);
-    replaceFunctionMock(object.weapon_unstrapped, () => true);
-    expect(isObjectStrappingWeapon(object)).toBe(false);
-
-    replaceFunctionMock(object.weapon_strapped, () => false);
-    replaceFunctionMock(object.weapon_unstrapped, () => false);
-    expect(isObjectStrappingWeapon(object)).toBe(true);
-  });
 
   it("isStalkerAlive should correctly check stalker alive state", () => {
     const aliveStalkerServerObject: ServerHumanObject = mockServerAlifeHumanStalker({
@@ -144,19 +115,5 @@ describe("object_check utils", () => {
     jest.spyOn(object, "alive").mockImplementation(() => false);
     jest.spyOn(object, "see").mockImplementation(() => false);
     expect(isActorSeenByObject(object)).toBe(false);
-  });
-
-  it("isUndergroundLevel should correctly check if level is underground", () => {
-    surgeConfig.UNDERGROUND_LEVELS = MockLuaTable.mockFromObject<TName, boolean>({
-      zaton: false,
-      jupiter: false,
-      labx8: true,
-      jupiter_underground: true,
-    });
-
-    expect(isUndergroundLevel("zaton")).toBe(false);
-    expect(isUndergroundLevel("jupiter")).toBe(false);
-    expect(isUndergroundLevel("labx8")).toBe(true);
-    expect(isUndergroundLevel("jupiter_underground")).toBe(true);
   });
 });

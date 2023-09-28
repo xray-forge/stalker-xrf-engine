@@ -21,7 +21,7 @@ import { MultiplayerDemoLoadItem } from "@/engine/core/ui/menu/multiplayer/Multi
 import { MultiplayerDemoPlayerInfo } from "@/engine/core/ui/menu/multiplayer/MultiplayerDemoPlayerInfo";
 import { MultiplayerDemoPlayerStatItem } from "@/engine/core/ui/menu/multiplayer/MultiplayerDemoPlayerStatItem";
 import { MultiplayerMenu } from "@/engine/core/ui/menu/multiplayer/MultiplayerMenu";
-import { executeConsoleCommand } from "@/engine/core/utils/game/game_console";
+import { executeConsoleCommand } from "@/engine/core/utils/console";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { consoleCommands } from "@/engine/lib/constants/console_commands";
 import { roots } from "@/engine/lib/constants/roots";

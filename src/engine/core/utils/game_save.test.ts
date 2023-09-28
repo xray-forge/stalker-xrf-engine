@@ -13,7 +13,7 @@ import {
   loadLastGameSave,
   saveDynamicGameSave,
   startNewGame,
-} from "@/engine/core/utils/game/game_save";
+} from "@/engine/core/utils/game_save";
 import { gameDifficulties } from "@/engine/lib/constants/game_difficulties";
 import { AlifeSimulator } from "@/engine/lib/types";
 import { resetFunctionMock } from "@/fixtures/jest";

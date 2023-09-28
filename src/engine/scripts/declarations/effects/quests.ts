@@ -12,7 +12,7 @@ import { EStalkerState } from "@/engine/core/objects/animation/types";
 import { showFreeplayDialog } from "@/engine/core/ui/game/FreeplayDialog";
 import { abort } from "@/engine/core/utils/assertion";
 import { extern, getExtern } from "@/engine/core/utils/binding";
-import { createGameAutoSave } from "@/engine/core/utils/game/game_save";
+import { createGameAutoSave } from "@/engine/core/utils/game_save";
 import { disableInfoPortion, giveInfoPortion, hasInfoPortion } from "@/engine/core/utils/info_portion";
 import { isObjectInZone } from "@/engine/core/utils/position";
 import { giveItemsToActor, takeItemFromActor } from "@/engine/core/utils/reward";

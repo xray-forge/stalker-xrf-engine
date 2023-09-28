@@ -1,30 +1,9 @@
 import { getObjectIdByStoryId, registry } from "@/engine/core/database";
-import { surgeConfig } from "@/engine/core/managers/surge/SurgeConfig";
-import { EActionId } from "@/engine/core/objects/ai/types";
 import { isStalker } from "@/engine/core/utils/class_ids";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { TLevel } from "@/engine/lib/constants/levels";
-import {
-  ActionPlanner,
-  ClientObject,
-  Optional,
-  ServerHumanObject,
-  ServerObject,
-  TNumberId,
-  TStringId,
-} from "@/engine/lib/types";
+import { ClientObject, Optional, ServerHumanObject, ServerObject, TNumberId, TStringId } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
-
-/**
- * Check whether object is strapping weapon.
- *
- * @param object - target client object to check
- * @returns whether strapping/unstrapping weapon is in process
- */
-export function isObjectStrappingWeapon(object: ClientObject): boolean {
-  return !(object.weapon_unstrapped() || object.weapon_strapped());
-}
 
 /**
  * Is provided target stalker and alive.
@@ -80,14 +59,4 @@ export function isObjectSeenByActor(object: ClientObject): boolean {
  */
 export function isObjectInjured(object: ClientObject): boolean {
   return object.health < 1 || object.radiation > 0 || object.bleeding > 0;
-}
-
-/**
- * Check whether level is underground.
- *
- * @param levelName - level name to check
- * @returns whether level is fully indoor.
- */
-export function isUndergroundLevel(levelName: TLevel): boolean {
-  return surgeConfig.UNDERGROUND_LEVELS.get(levelName) === true;
 }

@@ -22,7 +22,7 @@ import {
 } from "@/engine/core/managers/weather/utils";
 import { IWeatherState } from "@/engine/core/managers/weather/weather_types";
 import { assert } from "@/engine/core/utils/assertion";
-import { executeConsoleCommandsFromSection } from "@/engine/core/utils/game";
+import { executeConsoleCommandsFromSection } from "@/engine/core/utils/console";
 import {
   parseAllSectionToTable,
   parseConditionsList,

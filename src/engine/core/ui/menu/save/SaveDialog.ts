@@ -18,7 +18,7 @@ import {
 } from "xray16";
 
 import { SaveItem } from "@/engine/core/ui/menu/save/SaveItem";
-import { createGameSave, deleteGameSave, getGameSavesList } from "@/engine/core/utils/game/game_save";
+import { createGameSave, deleteGameSave, getGameSavesList } from "@/engine/core/utils/game_save";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { resolveXmlFile } from "@/engine/core/utils/ui";
 import { gameConfig } from "@/engine/lib/configs/GameConfig";

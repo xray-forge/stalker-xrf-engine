@@ -2,8 +2,8 @@ import { bit_or, CSavedGameWrapper, device, FS, game, getFS, IsImportantSave, us
 
 import { registry } from "@/engine/core/database/registry";
 import { assert } from "@/engine/core/utils/assertion";
+import { executeConsoleCommand } from "@/engine/core/utils/console";
 import { loadObjectFromFile, saveObjectToFile } from "@/engine/core/utils/fs";
-import { executeConsoleCommand } from "@/engine/core/utils/game/game_console";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { gameTimeToString } from "@/engine/core/utils/time";
 import { gameConfig } from "@/engine/lib/configs/GameConfig";

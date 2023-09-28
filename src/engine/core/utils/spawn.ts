@@ -151,6 +151,10 @@ export function getInventoryNameForItemSection(section: TSection): TLabel {
 
 /**
  * Spawn new squad with provided story id in a smart terrain.
+ *
+ * @param section - squad section to spawn
+ * @param smartTerrainName - name of smart terrain to spawn in
+ * @returns spawned squad
  */
 export function spawnSquadInSmart(section: Optional<TStringId>, smartTerrainName: Optional<TName>): Squad {
   assertDefined(section, "Wrong squad identifier in spawnSquad function.");

@@ -2,7 +2,7 @@ import { level } from "xray16";
 
 import { closeLoadMarker, closeSaveMarker, openLoadMarker, openSaveMarker } from "@/engine/core/database";
 import { AbstractManager } from "@/engine/core/managers/base";
-import { executeConsoleCommand } from "@/engine/core/utils/game/game_console";
+import { executeConsoleCommand } from "@/engine/core/utils/console";
 import { consoleCommands } from "@/engine/lib/constants/console_commands";
 import { EGameDifficulty, gameDifficultiesByNumber } from "@/engine/lib/constants/game_difficulties";
 import { NetPacket, NetProcessor } from "@/engine/lib/types";

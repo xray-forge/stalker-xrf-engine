@@ -14,7 +14,7 @@ import { ESquadActionType } from "@/engine/core/objects/server/squad/squad_types
 import { abort } from "@/engine/core/utils/assertion";
 import { isSmartTerrain, isSquad } from "@/engine/core/utils/class_ids";
 import { getObjectCommunity } from "@/engine/core/utils/community";
-import { createGameAutoSave } from "@/engine/core/utils/game/game_save";
+import { createGameAutoSave } from "@/engine/core/utils/game_save";
 import { parseConditionsList, pickSectionFromCondList } from "@/engine/core/utils/ini";
 import { ELuaLoggerMode, LuaLogger } from "@/engine/core/utils/logging";
 import { getObjectSmartTerrain, getServerDistanceBetween } from "@/engine/core/utils/position";

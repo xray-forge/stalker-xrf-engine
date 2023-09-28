@@ -3,7 +3,7 @@ import { profile_timer } from "xray16";
 import { AbstractManager } from "@/engine/core/managers/base/AbstractManager";
 import { IProfileSnapshotDescriptor } from "@/engine/core/managers/debug/debug_types";
 import { abort } from "@/engine/core/utils/assertion";
-import { executeConsoleCommand } from "@/engine/core/utils/game/game_console";
+import { executeConsoleCommand } from "@/engine/core/utils/console";
 import { ELuaLoggerMode, LuaLogger } from "@/engine/core/utils/logging";
 import { gameConfig } from "@/engine/lib/configs/GameConfig";
 import { consoleCommands } from "@/engine/lib/constants/console_commands";

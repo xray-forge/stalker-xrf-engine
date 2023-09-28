@@ -21,7 +21,7 @@ import { WeatherManager } from "@/engine/core/managers/weather/WeatherManager";
 import type { AnomalyZoneBinder } from "@/engine/core/objects/binders/zones";
 import { isArtefact } from "@/engine/core/utils/class_ids";
 import { isBlackScreen } from "@/engine/core/utils/game";
-import { createGameAutoSave } from "@/engine/core/utils/game/game_save";
+import { createGameAutoSave } from "@/engine/core/utils/game_save";
 import { hasInfoPortion } from "@/engine/core/utils/info_portion";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";

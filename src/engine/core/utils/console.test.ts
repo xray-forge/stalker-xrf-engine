@@ -4,7 +4,7 @@ import {
   executeConsoleCommand,
   executeConsoleCommandsFromSection,
   getConsoleFloatCommand,
-} from "@/engine/core/utils/game/game_console";
+} from "@/engine/core/utils/console";
 import { consoleCommands } from "@/engine/lib/constants/console_commands";
 import { gameDifficulties } from "@/engine/lib/constants/game_difficulties";
 import { resetFunctionMock } from "@/fixtures/jest";

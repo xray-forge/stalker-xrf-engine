@@ -12,7 +12,7 @@ const logger: LuaLogger = new LuaLogger($filename);
  * @param object - object to execute look command
  * @param objectToLook - target object to look at
  */
-export function objectLookAtAnotherObject(object: ClientObject, objectToLook: ClientObject): void {
+export function setObjectLookAtAnotherObject(object: ClientObject, objectToLook: ClientObject): void {
   const lookPoint: Vector = copyVector(objectToLook.position().sub(object.position()));
 
   object.set_sight(CSightParams.eSightTypeDirection, lookPoint, 0);
