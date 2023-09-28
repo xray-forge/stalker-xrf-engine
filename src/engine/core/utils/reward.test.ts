@@ -14,7 +14,6 @@ import {
   actorHasItems,
   actorHasMedKit,
   getActorAvailableMedKit,
-  getNpcSpeaker,
   giveItemsToActor,
   giveMoneyToActor,
   isObjectName,
@@ -23,7 +22,7 @@ import {
   transferItemsFromActor,
   transferItemsToActor,
   transferMoneyFromActor,
-} from "@/engine/core/utils/object/object_task_reward";
+} from "@/engine/core/utils/reward";
 import { ammo } from "@/engine/lib/constants/items/ammo";
 import { medkits } from "@/engine/lib/constants/items/drugs";
 import { weapons } from "@/engine/lib/constants/items/weapons";
@@ -36,7 +35,7 @@ import {
   mockServerAlifeObject,
 } from "@/fixtures/xray";
 
-describe("task_reward utils", () => {
+describe("reward utils", () => {
   const createObjectWithItems = () =>
     mockClientGameObject({
       inventory: [
@@ -247,17 +246,6 @@ describe("task_reward utils", () => {
 
     expect(registry.simulator.object(itemToTake.id())).toBeNull();
     expect(mock).toHaveBeenCalledTimes(1);
-  });
-
-  it("getNpcSpeaker should correctly pick speaker", () => {
-    const first: ClientObject = mockClientGameObject();
-    const second: ClientObject = mockClientGameObject();
-
-    expect(getNpcSpeaker(registry.actor, first)).toBe(first);
-    expect(getNpcSpeaker(registry.actor, second)).toBe(second);
-
-    expect(getNpcSpeaker(first, registry.actor)).toBe(first);
-    expect(getNpcSpeaker(second, registry.actor)).toBe(second);
   });
 
   it("isObjectName should correctly check name", () => {

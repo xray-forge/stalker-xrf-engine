@@ -15,7 +15,7 @@ import { extern, getExtern } from "@/engine/core/utils/binding";
 import { createGameAutoSave } from "@/engine/core/utils/game/game_save";
 import { disableInfo, giveInfo, hasAlifeInfo } from "@/engine/core/utils/info_portion";
 import { isObjectInZone } from "@/engine/core/utils/object";
-import { giveItemsToActor, takeItemFromActor } from "@/engine/core/utils/object/object_task_reward";
+import { giveItemsToActor, takeItemFromActor } from "@/engine/core/utils/reward";
 import { spawnObject, spawnObjectInObject, spawnSquadInSmart } from "@/engine/core/utils/spawn";
 import { copyVector, createEmptyVector, createVector } from "@/engine/core/utils/vector";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";

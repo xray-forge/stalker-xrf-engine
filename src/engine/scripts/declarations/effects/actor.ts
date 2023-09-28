@@ -17,7 +17,7 @@ import { abort, assert, assertDefined } from "@/engine/core/utils/assertion";
 import { extern } from "@/engine/core/utils/binding";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { isObjectInZone, objectPunchActor } from "@/engine/core/utils/object";
-import { giveItemsToActor } from "@/engine/core/utils/object/object_task_reward";
+import { giveItemsToActor } from "@/engine/core/utils/reward";
 import { detectorsOrder } from "@/engine/lib/constants/items/detectors";
 import { helmets } from "@/engine/lib/constants/items/helmets";
 import { misc } from "@/engine/lib/constants/items/misc";
