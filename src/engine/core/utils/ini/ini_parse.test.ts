@@ -2,7 +2,7 @@ import { describe, expect, it, jest } from "@jest/globals";
 
 import { registerActor } from "@/engine/core/database";
 import { extern } from "@/engine/core/utils/binding";
-import { disableInfo, giveInfo, hasAlifeInfo } from "@/engine/core/utils/info_portion";
+import { disableInfoPortion, giveInfoPortion, hasInfoPortion } from "@/engine/core/utils/info_portion";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/ini_config";
 import {
   getSchemeFromSection,
@@ -538,9 +538,9 @@ describe("ini_data parsing utils", () => {
       )
     ).toBe("fallback");
 
-    giveInfo("available_info");
-    giveInfo("test_info");
-    giveInfo("unexpected_info");
+    giveInfoPortion("available_info");
+    giveInfoPortion("test_info");
+    giveInfoPortion("unexpected_info");
 
     expect(
       pickSectionFromCondList(
@@ -550,11 +550,11 @@ describe("ini_data parsing utils", () => {
       )
     ).toBe("fallback");
 
-    disableInfo("unexpected_info");
+    disableInfoPortion("unexpected_info");
 
-    expect(hasAlifeInfo("test_info")).toBe(true);
-    expect(hasAlifeInfo("unexpected_info")).toBe(false);
-    expect(hasAlifeInfo("available_info")).toBe(true);
+    expect(hasInfoPortion("test_info")).toBe(true);
+    expect(hasInfoPortion("unexpected_info")).toBe(false);
+    expect(hasInfoPortion("available_info")).toBe(true);
     expect(
       pickSectionFromCondList(
         actor,
@@ -563,8 +563,8 @@ describe("ini_data parsing utils", () => {
       )
     ).toBe("simple ");
 
-    expect(hasAlifeInfo("another_info")).toBe(true);
-    expect(hasAlifeInfo("available_info")).toBe(false);
+    expect(hasInfoPortion("another_info")).toBe(true);
+    expect(hasInfoPortion("available_info")).toBe(false);
   });
 
   it("pickSectionFromCondList should correctly handle combination of all factors", () => {
@@ -572,7 +572,7 @@ describe("ini_data parsing utils", () => {
     const target: ClientObject = mockClientGameObject();
 
     registerActor(actor);
-    giveInfo("test_info");
+    giveInfoPortion("test_info");
 
     jest.spyOn(math, "random").mockImplementation(() => 50);
 

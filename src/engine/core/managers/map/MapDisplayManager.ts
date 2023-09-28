@@ -13,7 +13,7 @@ import { ETreasureType, ITreasureDescriptor } from "@/engine/core/managers/treas
 import type { SmartTerrain } from "@/engine/core/objects/server/smart_terrain";
 import type { Squad } from "@/engine/core/objects/server/squad";
 import { getAnomalyArtefacts } from "@/engine/core/utils/anomaly";
-import { hasAlifeInfo } from "@/engine/core/utils/info_portion";
+import { hasInfoPortion } from "@/engine/core/utils/info_portion";
 import { parseConditionsList, pickSectionFromCondList, readIniString, TConditionList } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import {
@@ -468,9 +468,9 @@ export class MapDisplayManager extends AbstractManager {
    * todo: Description.
    */
   public updateAnomalyZonesDisplay(): void {
-    if (hasAlifeInfo(infoPortions.jup_b32_scanner_reward)) {
+    if (hasInfoPortion(infoPortions.jup_b32_scanner_reward)) {
       for (const [index, scanner] of anomalyScannerObjects) {
-        scanner.enabled = hasAlifeInfo(scanner.group);
+        scanner.enabled = hasInfoPortion(scanner.group);
       }
     }
 

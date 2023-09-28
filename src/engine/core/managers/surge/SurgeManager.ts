@@ -23,7 +23,7 @@ import { isArtefact } from "@/engine/core/utils/class_ids";
 import { isBlackScreen } from "@/engine/core/utils/game";
 import { createGameAutoSave } from "@/engine/core/utils/game/game_save";
 import { readTimeFromPacket, writeTimeToPacket } from "@/engine/core/utils/game/game_time";
-import { hasAlifeInfo } from "@/engine/core/utils/info_portion";
+import { hasInfoPortion } from "@/engine/core/utils/info_portion";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { createVector } from "@/engine/core/utils/vector";
@@ -192,7 +192,10 @@ export class SurgeManager extends AbstractManager {
       surgeConfig.IS_STARTED = true;
       surgeConfig.IS_FINISHED = false;
 
-      if (!hasAlifeInfo(infoPortions.pri_b305_fifth_cam_end) || hasAlifeInfo(infoPortions.pri_a28_actor_in_zone_stay)) {
+      if (
+        !hasInfoPortion(infoPortions.pri_b305_fifth_cam_end) ||
+        hasInfoPortion(infoPortions.pri_a28_actor_in_zone_stay)
+      ) {
         createGameAutoSave("st_save_uni_surge_start");
       }
     }

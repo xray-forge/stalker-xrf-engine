@@ -1,7 +1,7 @@
 import { registry } from "@/engine/core/database";
 import { extern, getExtern } from "@/engine/core/utils/binding";
 import { getNpcSpeaker } from "@/engine/core/utils/dialog";
-import { disableInfo, giveInfo, hasAlifeInfo } from "@/engine/core/utils/info_portion";
+import { disableInfoPortion, giveInfoPortion, hasInfoPortion } from "@/engine/core/utils/info_portion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import {
   giveMoneyToActor,
@@ -36,11 +36,11 @@ extern("dialogs_pripyat.pri_b301_zulus_reward", (firstSpeaker: ClientObject, sec
  * todo;
  */
 extern("dialogs_pripyat.pri_a17_reward", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
-  if (hasAlifeInfo(infoPortions.pri_a17_reward_well)) {
+  if (hasInfoPortion(infoPortions.pri_a17_reward_well)) {
     giveMoneyToActor(7500);
-  } else if (hasAlifeInfo(infoPortions.pri_a17_reward_norm)) {
+  } else if (hasInfoPortion(infoPortions.pri_a17_reward_norm)) {
     giveMoneyToActor(4000);
-  } else if (hasAlifeInfo(infoPortions.pri_a17_reward_bad)) {
+  } else if (hasInfoPortion(infoPortions.pri_a17_reward_bad)) {
     giveMoneyToActor(3000);
   }
 });
@@ -84,7 +84,7 @@ extern(
 extern(
   "dialogs_pripyat.pay_cost_to_guide_to_zaton",
   (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
-    if (hasAlifeInfo(infoPortions.zat_b215_gave_maps)) {
+    if (hasInfoPortion(infoPortions.zat_b215_gave_maps)) {
       transferMoneyFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), 1000);
     } else {
       transferMoneyFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), 3000);
@@ -98,7 +98,7 @@ extern(
 extern(
   "dialogs_pripyat.jup_b43_actor_has_10000_money",
   (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
-    if (hasAlifeInfo(infoPortions.zat_b215_gave_maps)) {
+    if (hasInfoPortion(infoPortions.zat_b215_gave_maps)) {
       return registry.actor.money() >= 3000;
     }
 
@@ -161,7 +161,7 @@ extern("dialogs_pripyat.pri_b35_transfer_svd", (firstSpeaker: ClientObject, seco
  * todo;
  */
 extern("dialogs_pripyat.pri_b35_give_actor_reward", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
-  const amount: TCount = hasAlifeInfo(infoPortions.pri_b35_secondary) ? 3 : 1;
+  const amount: TCount = hasInfoPortion(infoPortions.pri_b35_secondary) ? 3 : 1;
 
   transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), ammo["ammo_7.62x54_7h1"], amount);
 });
@@ -196,9 +196,9 @@ const medicItemsTable = {
 extern("dialogs_pripyat.pri_a25_medic_give_kit", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
   let kit = "basic";
 
-  if (hasAlifeInfo(infoPortions.pri_a25_actor_needs_medikit_advanced_supply)) {
+  if (hasInfoPortion(infoPortions.pri_a25_actor_needs_medikit_advanced_supply)) {
     kit = "advanced";
-  } else if (hasAlifeInfo(infoPortions.pri_a25_actor_needs_medikit_elite_supply)) {
+  } else if (hasInfoPortion(infoPortions.pri_a25_actor_needs_medikit_elite_supply)) {
     kit = "elite";
   }
 
@@ -208,7 +208,7 @@ extern("dialogs_pripyat.pri_a25_medic_give_kit", (firstSpeaker: ClientObject, se
         transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), section, count);
       }
 
-      disableInfo(key);
+      disableInfoPortion(key);
     }
   }
 });
@@ -232,12 +232,12 @@ extern(
   "dialogs_pripyat.pri_a22_army_signaller_supply",
   (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
     for (const [name, itemsList] of suppliesList) {
-      if (hasAlifeInfo(name)) {
+      if (hasInfoPortion(name)) {
         for (const [section, amount] of itemsList) {
           transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), section, amount);
         }
 
-        disableInfo(name);
+        disableInfoPortion(name);
       }
     }
   }
@@ -389,7 +389,7 @@ extern(
 
     if (amount > 2) {
       transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), artefacts.af_glass);
-      giveInfo(infoPortions.pri_b305_all_strelok_notes_given);
+      giveInfoPortion(infoPortions.pri_b305_all_strelok_notes_given);
     }
   }
 );
@@ -400,6 +400,6 @@ extern(
 extern(
   "dialogs_pripyat.pri_a17_sokolov_is_not_at_base",
   (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
-    return hasAlifeInfo(infoPortions.pri_a15_sokolov_out) && hasAlifeInfo(infoPortions.pas_b400_sokolov_dead);
+    return hasInfoPortion(infoPortions.pri_a15_sokolov_out) && hasInfoPortion(infoPortions.pas_b400_sokolov_dead);
   }
 );

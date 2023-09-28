@@ -13,7 +13,7 @@ import { showFreeplayDialog } from "@/engine/core/ui/game/FreeplayDialog";
 import { abort } from "@/engine/core/utils/assertion";
 import { extern, getExtern } from "@/engine/core/utils/binding";
 import { createGameAutoSave } from "@/engine/core/utils/game/game_save";
-import { disableInfo, giveInfo, hasAlifeInfo } from "@/engine/core/utils/info_portion";
+import { disableInfoPortion, giveInfoPortion, hasInfoPortion } from "@/engine/core/utils/info_portion";
 import { isObjectInZone } from "@/engine/core/utils/position";
 import { giveItemsToActor, takeItemFromActor } from "@/engine/core/utils/reward";
 import { spawnObject, spawnObjectInObject, spawnSquadInSmart } from "@/engine/core/utils/spawn";
@@ -76,10 +76,10 @@ extern("xr_effects.jup_b32_place_scanner", (actor: ClientObject): void => {
   for (const i of $range(1, 5)) {
     if (
       isObjectInZone(actor, registry.zones.get("jup_b32_sr_scanner_place_" + i)) &&
-      !hasAlifeInfo(("jup_b32_scanner_" + i + "_placed") as TInfoPortion)
+      !hasInfoPortion(("jup_b32_scanner_" + i + "_placed") as TInfoPortion)
     ) {
-      giveInfo(("jup_b32_scanner_" + i + "_placed") as TInfoPortion);
-      giveInfo(infoPortions.jup_b32_tutorial_done);
+      giveInfoPortion(("jup_b32_scanner_" + i + "_placed") as TInfoPortion);
+      giveInfoPortion(infoPortions.jup_b32_tutorial_done);
 
       takeItemFromActor(questItems.jup_b32_scanner_device);
       spawnObject("jup_b32_ph_scanner", "jup_b32_scanner_place_" + i);
@@ -99,7 +99,7 @@ extern("xr_effects.jup_b32_pda_check", (actor: ClientObject): void => {
  */
 extern("xr_effects.pri_b306_generator_start", (actor: ClientObject): void => {
   if (isObjectInZone(actor, registry.zones.get("pri_b306_sr_generator"))) {
-    giveInfo(infoPortions.pri_b306_lift_generator_used);
+    giveInfoPortion(infoPortions.pri_b306_lift_generator_used);
   }
 });
 
@@ -108,7 +108,7 @@ extern("xr_effects.pri_b306_generator_start", (actor: ClientObject): void => {
  */
 extern("xr_effects.jup_b206_get_plant", (actor: ClientObject, object: ClientObject): void => {
   if (isObjectInZone(actor, registry.zones.get("jup_b206_sr_quest_line"))) {
-    giveInfo(infoPortions.jup_b206_anomalous_grove_has_plant);
+    giveInfoPortion(infoPortions.jup_b206_anomalous_grove_has_plant);
     giveItemsToActor(questItems.jup_b206_plant);
 
     getExtern<AnyCallable>("destroy_object", getExtern("xr_effects"))(actor, object, [
@@ -124,7 +124,7 @@ extern("xr_effects.jup_b206_get_plant", (actor: ClientObject, object: ClientObje
  */
 extern("xr_effects.pas_b400_switcher", (actor: ClientObject, object: ClientObject): void => {
   if (isObjectInZone(actor, registry.zones.get("pas_b400_sr_switcher"))) {
-    giveInfo(infoPortions.pas_b400_switcher_use);
+    giveInfoPortion(infoPortions.pas_b400_switcher_use);
   }
 });
 
@@ -134,7 +134,7 @@ extern("xr_effects.pas_b400_switcher", (actor: ClientObject, object: ClientObjec
 extern("xr_effects.jup_b209_place_scanner", (actor: ClientObject, object: ClientObject): void => {
   if (isObjectInZone(actor, registry.zones.get("jup_b209_hypotheses"))) {
     createGameAutoSave("st_save_jup_b209_placed_mutant_scanner");
-    giveInfo(infoPortions.jup_b209_scanner_placed);
+    giveInfoPortion(infoPortions.jup_b209_scanner_placed);
     takeItemFromActor(questItems.jup_b209_monster_scanner);
     spawnObject("jup_b209_ph_scanner", "jup_b209_scanner_place_point");
   }
@@ -145,7 +145,7 @@ extern("xr_effects.jup_b209_place_scanner", (actor: ClientObject, object: Client
  */
 extern("xr_effects.jup_b9_heli_1_searching", (actor: ClientObject, object: ClientObject): void => {
   if (isObjectInZone(actor, registry.zones.get("jup_b9_heli_1"))) {
-    giveInfo(infoPortions.jup_b9_heli_1_searching);
+    giveInfoPortion(infoPortions.jup_b9_heli_1_searching);
   }
 });
 
@@ -154,7 +154,7 @@ extern("xr_effects.jup_b9_heli_1_searching", (actor: ClientObject, object: Clien
  */
 extern("xr_effects.pri_a18_use_idol", (actor: ClientObject, object: ClientObject): void => {
   if (isObjectInZone(actor, registry.zones.get("pri_a18_use_idol_restrictor"))) {
-    giveInfo(infoPortions.pri_a18_run_cam);
+    giveInfoPortion(infoPortions.pri_a18_run_cam);
   }
 });
 
@@ -163,7 +163,7 @@ extern("xr_effects.pri_a18_use_idol", (actor: ClientObject, object: ClientObject
  */
 extern("xr_effects.jup_b8_heli_4_searching", (actor: ClientObject, object: ClientObject): void => {
   if (isObjectInZone(actor, registry.zones.get("jup_b8_heli_4"))) {
-    giveInfo(infoPortions.jup_b8_heli_4_searching);
+    giveInfoPortion(infoPortions.jup_b8_heli_4_searching);
   }
 });
 
@@ -172,7 +172,7 @@ extern("xr_effects.jup_b8_heli_4_searching", (actor: ClientObject, object: Clien
  */
 extern("xr_effects.jup_b10_ufo_searching", (actor: ClientObject, object: ClientObject): void => {
   if (isObjectInZone(actor, registry.zones.get("jup_b10_ufo_restrictor"))) {
-    giveInfo(infoPortions.jup_b10_ufo_memory_started);
+    giveInfoPortion(infoPortions.jup_b10_ufo_memory_started);
     giveItemsToActor(questItems.jup_b10_ufo_memory);
   }
 });
@@ -182,7 +182,7 @@ extern("xr_effects.jup_b10_ufo_searching", (actor: ClientObject, object: ClientO
  */
 extern("xr_effects.zat_b101_heli_5_searching", (actor: ClientObject, object: ClientObject): void => {
   if (isObjectInZone(actor, registry.zones.get("zat_b101_heli_5"))) {
-    giveInfo(infoPortions.zat_b101_heli_5_searching);
+    giveInfoPortion(infoPortions.zat_b101_heli_5_searching);
   }
 });
 
@@ -191,7 +191,7 @@ extern("xr_effects.zat_b101_heli_5_searching", (actor: ClientObject, object: Cli
  */
 extern("xr_effects.zat_b28_heli_3_searching", (actor: ClientObject, object: ClientObject): void => {
   if (isObjectInZone(actor, registry.zones.get("zat_b28_heli_3"))) {
-    giveInfo(infoPortions.zat_b28_heli_3_searching);
+    giveInfoPortion(infoPortions.zat_b28_heli_3_searching);
   }
 });
 
@@ -200,7 +200,7 @@ extern("xr_effects.zat_b28_heli_3_searching", (actor: ClientObject, object: Clie
  */
 extern("xr_effects.zat_b100_heli_2_searching", (actor: ClientObject, object: ClientObject): void => {
   if (isObjectInZone(actor, registry.zones.get("zat_b100_heli_2"))) {
-    giveInfo(infoPortions.zat_b100_heli_2_searching);
+    giveInfoPortion(infoPortions.zat_b100_heli_2_searching);
   }
 });
 
@@ -315,7 +315,7 @@ extern(
     for (const [index, infoPortion] of parameters) {
       if (index > 1) {
         totalInfop = totalInfop + 1;
-        disableInfo(infoPortion);
+        disableInfoPortion(infoPortion);
       }
     }
 
@@ -327,8 +327,8 @@ extern(
       currentInfop = math.random(1, totalInfop);
       for (const [k, v] of parameters) {
         if (k > 1) {
-          if (k === currentInfop + 1 && !hasAlifeInfo(v)) {
-            giveInfo(v);
+          if (k === currentInfop + 1 && !hasInfoPortion(v)) {
+            giveInfoPortion(v);
             break;
           }
         }
@@ -351,13 +351,13 @@ extern("xr_effects.give_item_b29", (actor: ClientObject, object: ClientObject, p
   ] as unknown as LuaArray<TName>;
 
   for (const it of $range(16, 23)) {
-    if (hasAlifeInfo(zatB29InfopBringTable.get(it))) {
+    if (hasInfoPortion(zatB29InfopBringTable.get(it))) {
       let anomalyZoneName: Optional<TName> = null;
 
       for (const [index, name] of anomalyZonesList) {
-        if (hasAlifeInfo(name as TInfoPortion)) {
+        if (hasInfoPortion(name as TInfoPortion)) {
           anomalyZoneName = name;
-          disableInfo(anomalyZoneName as TInfoPortion);
+          disableInfoPortion(anomalyZoneName as TInfoPortion);
           break;
         }
       }
@@ -379,7 +379,7 @@ extern("xr_effects.relocate_item_b29", (actor: ClientObject, object: ClientObjec
   let item: Optional<string> = null;
 
   for (const it of $range(16, 23)) {
-    if (hasAlifeInfo(zatB29InfopBringTable.get(it))) {
+    if (hasInfoPortion(zatB29InfopBringTable.get(it))) {
       item = zatB29AfTable.get(it);
       break;
     }
@@ -642,7 +642,7 @@ extern("xr_effects.jup_b221_play_main", (actor: ClientObject, object: ClientObje
   }
 
   for (const [k, v] of infoPortionsList) {
-    if (hasAlifeInfo(v) && !hasAlifeInfo((mainTheme + tostring(k) + "_played") as TInfoPortion)) {
+    if (hasInfoPortion(v) && !hasInfoPortion((mainTheme + tostring(k) + "_played") as TInfoPortion)) {
       table.insert(reachableTheme, k);
     }
   }
@@ -650,9 +650,9 @@ extern("xr_effects.jup_b221_play_main", (actor: ClientObject, object: ClientObje
   if (reachableTheme.length() !== 0) {
     const themeToPlay = reachableTheme.get(math.random(1, reachableTheme.length()));
 
-    disableInfo(infoNeedReply);
+    disableInfoPortion(infoNeedReply);
     setPortableStoreValue(ACTOR_ID, "jup_b221_played_main_theme", tostring(themeToPlay));
-    giveInfo((mainTheme + tostring(themeToPlay) + "_played") as TInfoPortion);
+    giveInfoPortion((mainTheme + tostring(themeToPlay) + "_played") as TInfoPortion);
 
     if (themeToPlay !== 0) {
       getExtern<AnyCallable>("play_sound", getExtern("xr_effects"))(actor, object, [
@@ -666,7 +666,7 @@ extern("xr_effects.jup_b221_play_main", (actor: ClientObject, object: ClientObje
   } else {
     const themeToPlay: TIndex = tonumber(getPortableStoreValue(ACTOR_ID, "jup_b221_played_main_theme", 0)) as TIndex;
 
-    giveInfo(infoNeedReply);
+    giveInfoPortion(infoNeedReply);
 
     if (themeToPlay !== 0) {
       getExtern<AnyCallable>("play_sound", getExtern("xr_effects"))(actor, object, [
@@ -687,7 +687,7 @@ extern("xr_effects.jup_b221_play_main", (actor: ClientObject, object: ClientObje
  */
 extern("xr_effects.zat_a1_tutorial_end_give", (actor: ClientObject, object: ClientObject): void => {
   // --	level.add_pp_effector("black.ppe", 1313, true) //---{ ! stop on r1 !
-  giveInfo(infoPortions.zat_a1_tutorial_end);
+  giveInfoPortion(infoPortions.zat_a1_tutorial_end);
 });
 
 // todo: Fix if used, should increment values probably with +=.
@@ -772,140 +772,140 @@ extern("xr_effects.jup_b217_hard_animation_reset", (actor: ClientObject, object:
  * todo;
  */
 extern("xr_effects.pri_a18_radio_start", (actor: ClientObject, object: ClientObject): void => {
-  giveInfo(infoPortions.pri_a18_radio_start);
+  giveInfoPortion(infoPortions.pri_a18_radio_start);
 });
 
 /**
  * todo;
  */
 extern("xr_effects.pri_a17_ice_climb_end", (actor: ClientObject, object: ClientObject): void => {
-  giveInfo(infoPortions.pri_a17_ice_climb_end);
+  giveInfoPortion(infoPortions.pri_a17_ice_climb_end);
 });
 
 /**
  * todo;
  */
 extern("xr_effects.jup_b219_opening", (actor: ClientObject, object: ClientObject): void => {
-  giveInfo(infoPortions.jup_b219_opening);
+  giveInfoPortion(infoPortions.jup_b219_opening);
 });
 
 /**
  * todo;
  */
 extern("xr_effects.jup_b219_entering_underpass", (actor: ClientObject, object: ClientObject): void => {
-  giveInfo(infoPortions.jup_b219_entering_underpass);
+  giveInfoPortion(infoPortions.jup_b219_entering_underpass);
 });
 
 /**
  * todo;
  */
 extern("xr_effects.pri_a17_pray_start", (actor: ClientObject, object: ClientObject): void => {
-  giveInfo(infoPortions.pri_a17_pray_start);
+  giveInfoPortion(infoPortions.pri_a17_pray_start);
 });
 
 /**
  * todo;
  */
 extern("xr_effects.zat_b38_open_info", (actor: ClientObject, object: ClientObject): void => {
-  giveInfo(infoPortions.zat_b38_open_info);
+  giveInfoPortion(infoPortions.zat_b38_open_info);
 });
 
 /**
  * todo;
  */
 extern("xr_effects.zat_b38_switch_info", (actor: ClientObject, object: ClientObject): void => {
-  giveInfo(infoPortions.zat_b38_switch_info);
+  giveInfoPortion(infoPortions.zat_b38_switch_info);
 });
 
 /**
  * todo;
  */
 extern("xr_effects.zat_b38_cop_dead", (actor: ClientObject, object: ClientObject): void => {
-  giveInfo(infoPortions.zat_b38_cop_dead);
+  giveInfoPortion(infoPortions.zat_b38_cop_dead);
 });
 
 /**
  * todo;
  */
 extern("xr_effects.jup_b15_zulus_drink_anim_info", (actor: ClientObject, object: ClientObject): void => {
-  giveInfo(infoPortions.jup_b15_zulus_drink_anim_info);
+  giveInfoPortion(infoPortions.jup_b15_zulus_drink_anim_info);
 });
 
 /**
  * todo;
  */
 extern("xr_effects.pri_a17_preacher_death", (actor: ClientObject, object: ClientObject): void => {
-  giveInfo(infoPortions.pri_a17_preacher_death);
+  giveInfoPortion(infoPortions.pri_a17_preacher_death);
 });
 
 /**
  * todo;
  */
 extern("xr_effects.zat_b3_tech_surprise_anim_end", (actor: ClientObject, object: ClientObject): void => {
-  giveInfo(infoPortions.zat_b3_tech_surprise_anim_end);
+  giveInfoPortion(infoPortions.zat_b3_tech_surprise_anim_end);
 });
 
 /**
  * todo;
  */
 extern("xr_effects.zat_b3_tech_waked_up", (actor: ClientObject, object: ClientObject): void => {
-  giveInfo(infoPortions.zat_b3_tech_waked_up);
+  giveInfoPortion(infoPortions.zat_b3_tech_waked_up);
 });
 
 /**
  * todo;
  */
 extern("xr_effects.zat_b3_tech_drinked_out", (actor: ClientObject, object: ClientObject): void => {
-  giveInfo(infoPortions.zat_b3_tech_drinked_out);
+  giveInfoPortion(infoPortions.zat_b3_tech_drinked_out);
 });
 
 /**
  * todo;
  */
 extern("xr_effects.pri_a28_kirillov_hq_online", (actor: ClientObject, object: ClientObject): void => {
-  giveInfo(infoPortions.pri_a28_kirillov_hq_online);
+  giveInfoPortion(infoPortions.pri_a28_kirillov_hq_online);
 });
 
 /**
  * todo;
  */
 extern("xr_effects.pri_a20_radio_start", (actor: ClientObject, object: ClientObject): void => {
-  giveInfo(infoPortions.pri_a20_radio_start);
+  giveInfoPortion(infoPortions.pri_a20_radio_start);
 });
 
 /**
  * todo;
  */
 extern("xr_effects.pri_a22_kovalski_speak", (actor: ClientObject, object: ClientObject): void => {
-  giveInfo(infoPortions.pri_a22_kovalski_speak);
+  giveInfoPortion(infoPortions.pri_a22_kovalski_speak);
 });
 
 /**
  * todo;
  */
 extern("xr_effects.zat_b38_underground_door_open", (actor: ClientObject, object: ClientObject): void => {
-  giveInfo(infoPortions.zat_b38_underground_door_open);
+  giveInfoPortion(infoPortions.zat_b38_underground_door_open);
 });
 
 /**
  * todo;
  */
 extern("xr_effects.zat_b38_jump_tonnel_info", (actor: ClientObject, object: ClientObject): void => {
-  giveInfo(infoPortions.zat_b38_jump_tonnel_info);
+  giveInfoPortion(infoPortions.zat_b38_jump_tonnel_info);
 });
 
 /**
  * todo;
  */
 extern("xr_effects.jup_a9_cam1_actor_anim_end", (actor: ClientObject, object: ClientObject): void => {
-  giveInfo(infoPortions.jup_a9_cam1_actor_anim_end);
+  giveInfoPortion(infoPortions.jup_a9_cam1_actor_anim_end);
 });
 
 /**
  * todo;
  */
 extern("xr_effects.pri_a28_talk_ssu_video_end", (actor: ClientObject, object: ClientObject): void => {
-  giveInfo(infoPortions.pri_a28_talk_ssu_video_end);
+  giveInfoPortion(infoPortions.pri_a28_talk_ssu_video_end);
 });
 
 /**
@@ -914,10 +914,10 @@ extern("xr_effects.pri_a28_talk_ssu_video_end", (actor: ClientObject, object: Cl
 extern("xr_effects.zat_b33_pic_snag_container", (actor: ClientObject, object: ClientObject): void => {
   if (isObjectInZone(actor, registry.zones.get("zat_b33_tutor"))) {
     giveItemsToActor(questItems.zat_b33_safe_container);
-    giveInfo(infoPortions.zat_b33_find_package);
+    giveInfoPortion(infoPortions.zat_b33_find_package);
 
     // todo: use shared util instead of effect
-    if (!hasAlifeInfo(infoPortions.zat_b33_safe_container)) {
+    if (!hasInfoPortion(infoPortions.zat_b33_safe_container)) {
       getExtern<AnyCallable>("play_sound", getExtern("xr_effects"))(actor, registry.zones.get("zat_b33_tutor"), [
         "pda_news",
         null,
@@ -962,7 +962,7 @@ extern("xr_effects.zat_b202_spawn_b33_loot", (actor: ClientObject, object: Clien
   for (const [index, infoPortion] of infoPortionsList) {
     const objectId: TStringId = index === 1 || index === 3 ? "jup_b202_stalker_snag" : "jup_b202_snag_treasure";
 
-    if (!hasAlifeInfo(infoPortion)) {
+    if (!hasInfoPortion(infoPortion)) {
       for (const [it, itemSection] of rewardItems.get(index)) {
         spawnObjectInObject(tostring(itemSection), getObjectIdByStoryId(tostring(objectId)));
       }
@@ -1017,14 +1017,14 @@ extern("xr_effects.pri_a28_check_zones", (): void => {
     abort("Found no distance || zones in func 'pri_a28_check_zones'");
   }
 
-  if (hasAlifeInfo(infoList.get(index))) {
+  if (hasInfoPortion(infoList.get(index))) {
     for (const [k, v] of infoList) {
-      if (!hasAlifeInfo(infoList.get(k))) {
-        giveInfo(infoList.get(k));
+      if (!hasInfoPortion(infoList.get(k))) {
+        giveInfoPortion(infoList.get(k));
       }
     }
   } else {
-    giveInfo(infoList.get(index));
+    giveInfoPortion(infoList.get(index));
   }
 
   spawnSquadInSmart(squadsList.get(index), "pri_a28_heli");

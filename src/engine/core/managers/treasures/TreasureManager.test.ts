@@ -5,7 +5,7 @@ import { registerActor, registry } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { TreasureManager } from "@/engine/core/managers/treasures/TreasureManager";
 import { ETreasureType, ITreasureDescriptor } from "@/engine/core/managers/treasures/treasures_types";
-import { giveInfo } from "@/engine/core/utils/info_portion";
+import { giveInfoPortion } from "@/engine/core/utils/info_portion";
 import { parseConditionsList } from "@/engine/core/utils/ini";
 import { ClientObject, ServerObject } from "@/engine/lib/types";
 import { mockActorClientGameObject, mockIniFile, mockServerAlifeObject } from "@/fixtures/xray";
@@ -148,7 +148,7 @@ describe("TreasureManager class", () => {
 
   it("should correctly handle empty state in updates", () => {
     registerActor(mockActorClientGameObject());
-    giveInfo("info_b10_first_zone_visited");
+    giveInfoPortion("info_b10_first_zone_visited");
 
     const treasureManager: TreasureManager = TreasureManager.getInstance();
 

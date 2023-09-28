@@ -21,7 +21,7 @@ import { ISchemeHitState } from "@/engine/core/schemes/stalker/hit";
 import { abort, assertDefined } from "@/engine/core/utils/assertion";
 import { extern } from "@/engine/core/utils/binding";
 import { isMonster, isStalker } from "@/engine/core/utils/class_ids";
-import { hasAlifeInfo } from "@/engine/core/utils/info_portion";
+import { hasInfoPortion } from "@/engine/core/utils/info_portion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { isObjectWounded, isPlayingSound } from "@/engine/core/utils/object";
 import {
@@ -1143,20 +1143,20 @@ extern("xr_conditions.upgrade_hint_kardan", (actor: ClientObject, object: Client
   const toolsCount: TCount = (params && tonumber(params[0])) || 0;
   let canUpgrade: number = 0;
 
-  if (!hasAlifeInfo(infoPortions.zat_b3_all_instruments_brought)) {
-    if (!hasAlifeInfo(infoPortions.zat_b3_tech_instrument_1_brought) && (toolsCount === 0 || toolsCount === 1)) {
+  if (!hasInfoPortion(infoPortions.zat_b3_all_instruments_brought)) {
+    if (!hasInfoPortion(infoPortions.zat_b3_tech_instrument_1_brought) && (toolsCount === 0 || toolsCount === 1)) {
       table.insert(itemUpgradeHints, "st_upgr_toolkit_1");
     } else if (toolsCount === 1) {
       canUpgrade = canUpgrade + 1;
     }
 
-    if (!hasAlifeInfo(infoPortions.zat_b3_tech_instrument_2_brought) && (toolsCount === 0 || toolsCount === 2)) {
+    if (!hasInfoPortion(infoPortions.zat_b3_tech_instrument_2_brought) && (toolsCount === 0 || toolsCount === 2)) {
       table.insert(itemUpgradeHints, "st_upgr_toolkit_2");
     } else if (toolsCount === 2) {
       canUpgrade = canUpgrade + 1;
     }
 
-    if (!hasAlifeInfo(infoPortions.zat_b3_tech_instrument_3_brought) && (toolsCount === 0 || toolsCount === 3)) {
+    if (!hasInfoPortion(infoPortions.zat_b3_tech_instrument_3_brought) && (toolsCount === 0 || toolsCount === 3)) {
       table.insert(itemUpgradeHints, "st_upgr_toolkit_3");
     } else if (toolsCount === 3) {
       canUpgrade = canUpgrade + 1;
@@ -1165,10 +1165,10 @@ extern("xr_conditions.upgrade_hint_kardan", (actor: ClientObject, object: Client
     canUpgrade = canUpgrade + 1;
   }
 
-  if (!hasAlifeInfo(infoPortions.zat_b3_tech_see_produce_62)) {
-    if (toolsCount === 1 && !hasAlifeInfo(infoPortions.zat_b3_tech_have_one_dose)) {
+  if (!hasInfoPortion(infoPortions.zat_b3_tech_see_produce_62)) {
+    if (toolsCount === 1 && !hasInfoPortion(infoPortions.zat_b3_tech_have_one_dose)) {
       table.insert(itemUpgradeHints, "st_upgr_vodka");
-    } else if (toolsCount !== 1 && !hasAlifeInfo(infoPortions.zat_b3_tech_have_couple_dose)) {
+    } else if (toolsCount !== 1 && !hasInfoPortion(infoPortions.zat_b3_tech_have_couple_dose)) {
       table.insert(itemUpgradeHints, "st_upgr_vodka");
     } else {
       canUpgrade = canUpgrade + 1;

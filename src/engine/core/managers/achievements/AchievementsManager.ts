@@ -31,7 +31,7 @@ import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { ENotificationType, ITipNotification, notificationsIcons } from "@/engine/core/managers/notifications";
 import { abort } from "@/engine/core/utils/assertion";
 import { readTimeFromPacket, writeTimeToPacket } from "@/engine/core/utils/game/game_time";
-import { hasAlifeInfo } from "@/engine/core/utils/info_portion";
+import { hasInfoPortion } from "@/engine/core/utils/info_portion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { spawnItemsForObjectFromList } from "@/engine/core/utils/spawn";
 import { infoPortions } from "@/engine/lib/constants/info_portions/info_portions";
@@ -121,7 +121,7 @@ export class AchievementsManager extends AbstractManager {
    * todo: Description.
    */
   protected updateDetectiveAchievementRewardSpawn(): void {
-    if (!hasAlifeInfo(infoPortions.detective_achievement_gained)) {
+    if (!hasInfoPortion(infoPortions.detective_achievement_gained)) {
       return;
     } else if (!this.lastDetectiveAchievementSpawnTime) {
       this.lastDetectiveAchievementSpawnTime = game.get_game_time();
@@ -151,7 +151,7 @@ export class AchievementsManager extends AbstractManager {
    * todo: Description.
    */
   protected updateMutantHunterAchievementSpawn(): void {
-    if (!hasAlifeInfo(infoPortions.mutant_hunter_achievement_gained)) {
+    if (!hasInfoPortion(infoPortions.mutant_hunter_achievement_gained)) {
       return;
     } else if (!this.lastMutantHunterAchievementSpawnTime) {
       this.lastMutantHunterAchievementSpawnTime = game.get_game_time();

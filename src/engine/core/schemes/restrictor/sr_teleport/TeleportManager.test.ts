@@ -8,7 +8,7 @@ import {
   SchemeTeleport,
   TeleportManager,
 } from "@/engine/core/schemes/restrictor/sr_teleport";
-import { giveInfo } from "@/engine/core/utils/info_portion";
+import { giveInfoPortion } from "@/engine/core/utils/info_portion";
 import { activateSchemeBySection, loadSchemeImplementation } from "@/engine/core/utils/scheme";
 import { ClientObject, EScheme, IniFile } from "@/engine/lib/types";
 import { getSchemeAction } from "@/fixtures/engine";
@@ -74,7 +74,7 @@ describe("TeleportManager class", () => {
     expect(state.activeSection).toBe("sr_teleport@test");
 
     jest.spyOn(Date, "now").mockImplementation(() => 100_000);
-    giveInfo("finish");
+    giveInfoPortion("finish");
 
     teleportManager.update();
     expect(state.activeSection).toBeNull();

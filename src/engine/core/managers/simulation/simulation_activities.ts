@@ -14,7 +14,7 @@ import { surgeConfig } from "@/engine/core/managers/surge/SurgeConfig";
 import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain";
 import { Squad } from "@/engine/core/objects/server/squad/Squad";
 import { isInTimeInterval } from "@/engine/core/utils/game/game_time";
-import { hasAlifeInfo } from "@/engine/core/utils/info_portion";
+import { hasInfoPortion } from "@/engine/core/utils/info_portion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getServerDistanceBetween } from "@/engine/core/utils/position";
 import { isAnySquadMemberEnemyToActor } from "@/engine/core/utils/relation";
@@ -72,7 +72,7 @@ export const simulationActivities: LuaTable<TCommunity, ISimulationActivityDescr
       resource: null,
     },
     [ESimulationRole.ACTOR]: (squad: Squad, target: ServerObject) =>
-      hasAlifeInfo(infoPortions.sim_bandit_attack_harder) && getServerDistanceBetween(squad, target) <= 150,
+      hasInfoPortion(infoPortions.sim_bandit_attack_harder) && getServerDistanceBetween(squad, target) <= 150,
   },
   [communities.dolg]: {
     [ESimulationRole.SQUAD]: {

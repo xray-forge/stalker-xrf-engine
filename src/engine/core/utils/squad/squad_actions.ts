@@ -1,6 +1,6 @@
 import { registry } from "@/engine/core/database";
 import type { Squad } from "@/engine/core/objects/server/squad";
-import { hasAlifeInfo } from "@/engine/core/utils/info_portion";
+import { hasInfoPortion } from "@/engine/core/utils/info_portion";
 import { areObjectsOnSameLevel } from "@/engine/core/utils/position";
 import { getObjectSquad } from "@/engine/core/utils/squad/squad_get";
 import { isEmpty } from "@/engine/core/utils/table";
@@ -21,13 +21,13 @@ export function canSquadHelpActor(squad: Squad): boolean {
 
   switch (squad.getCommunity()) {
     case communities.stalker:
-      return hasAlifeInfo(infoPortions.sim_stalker_help_harder);
+      return hasInfoPortion(infoPortions.sim_stalker_help_harder);
 
     case communities.dolg:
-      return hasAlifeInfo(infoPortions.sim_duty_help_harder);
+      return hasInfoPortion(infoPortions.sim_duty_help_harder);
 
     case communities.freedom:
-      return hasAlifeInfo(infoPortions.sim_freedom_help_harder);
+      return hasInfoPortion(infoPortions.sim_freedom_help_harder);
 
     default:
       return false;

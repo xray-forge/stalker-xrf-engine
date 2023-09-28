@@ -1,7 +1,7 @@
 import { level } from "xray16";
 
 import { GlobalSoundManager } from "@/engine/core/managers/sounds";
-import { hasAlifeInfo } from "@/engine/core/utils/info_portion";
+import { hasInfoPortion } from "@/engine/core/utils/info_portion";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import { infoPortions } from "@/engine/lib/constants/info_portions";
 import { levels } from "@/engine/lib/constants/levels";
@@ -30,7 +30,7 @@ export function playSurgeStartingSound(): void {
 
     case levels.pripyat:
       // After game end no one is on radio.
-      if (!hasAlifeInfo(infoPortions.pri_b305_fifth_cam_end)) {
+      if (!hasInfoPortion(infoPortions.pri_b305_fifth_cam_end)) {
         globalSoundManager.playSound(ACTOR_ID, "pri_a17_kovalsky_surge_phase_1");
       }
 
@@ -61,7 +61,7 @@ export function playSurgeWillHappenSoonSound(): void {
 
     case levels.pripyat:
       // After game end no one is on radio.
-      if (!hasAlifeInfo(infoPortions.pri_b305_fifth_cam_end)) {
+      if (!hasInfoPortion(infoPortions.pri_b305_fifth_cam_end)) {
         globalSoundManager.playSound(ACTOR_ID, "pri_a17_kovalsky_surge_phase_2");
       }
 
@@ -92,7 +92,7 @@ export function playSurgeEndedSound(): void {
 
     case levels.pripyat:
       // After game end no one is on radio.
-      if (!hasAlifeInfo(infoPortions.pri_b305_fifth_cam_end)) {
+      if (!hasInfoPortion(infoPortions.pri_b305_fifth_cam_end)) {
         globalSoundManager.playSound(ACTOR_ID, "pri_a17_kovalsky_after_surge");
       }
 

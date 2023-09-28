@@ -12,7 +12,7 @@ import {
 import { SchemeIdle } from "@/engine/core/schemes/restrictor/sr_idle";
 import { SchemeTimer } from "@/engine/core/schemes/restrictor/sr_timer";
 import { TimerManager } from "@/engine/core/schemes/restrictor/sr_timer/TimerManager";
-import { giveInfo } from "@/engine/core/utils/info_portion";
+import { giveInfoPortion } from "@/engine/core/utils/info_portion";
 import { addConditionToList } from "@/engine/core/utils/ini/ini_config";
 import { parseConditionsList } from "@/engine/core/utils/ini/ini_parse";
 import { loadSchemeImplementation } from "@/engine/core/utils/scheme/scheme_setup";
@@ -348,11 +348,11 @@ describe("switch logic utils", () => {
     trySwitchToAnotherSection(object, schemeState);
     expect(objectState.activeSection).toBe("sr_idle@default");
 
-    giveInfo("expected_info");
+    giveInfoPortion("expected_info");
     trySwitchToAnotherSection(object, schemeState);
     expect(objectState.activeSection).toBe("sr_idle@default");
 
-    giveInfo("additional_info");
+    giveInfoPortion("additional_info");
     trySwitchToAnotherSection(object, schemeState);
     expect(objectState.activeSection).toBe("sr_idle@next");
   });
@@ -630,7 +630,7 @@ describe("switch logic utils", () => {
     trySwitchToAnotherSection(object, schemeState);
     expect(objectState.activeSection).toBe("sr_idle@default");
 
-    giveInfo("expected_info");
+    giveInfoPortion("expected_info");
     trySwitchToAnotherSection(object, schemeState);
     expect(objectState.activeSection).toBe("sr_idle@second");
 

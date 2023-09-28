@@ -6,7 +6,7 @@ import { TreasureManager } from "@/engine/core/managers/treasures";
 import { AnomalyZoneBinder } from "@/engine/core/objects/binders/zones/AnomalyZoneBinder";
 import { extern, getExtern } from "@/engine/core/utils/binding";
 import { getNpcSpeaker } from "@/engine/core/utils/dialog";
-import { disableInfo, giveInfo, hasAlifeInfo } from "@/engine/core/utils/info_portion";
+import { disableInfoPortion, giveInfoPortion, hasInfoPortion } from "@/engine/core/utils/info_portion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { isObjectInSmartTerrain } from "@/engine/core/utils/position";
 import { getObjectsRelationSafe, isActorEnemyWithFaction } from "@/engine/core/utils/relation";
@@ -250,7 +250,7 @@ extern(
   (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
     transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), questItems.jup_a9_evacuation_info);
     giveMoneyToActor(750);
-    giveInfo(infoPortions.jup_a9_evacuation_info_sold);
+    giveInfoPortion(infoPortions.jup_a9_evacuation_info_sold);
   }
 );
 
@@ -262,7 +262,7 @@ extern(
   (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
     transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), questItems.jup_a9_meeting_info);
     giveMoneyToActor(750);
-    giveInfo(infoPortions.jup_a9_meeting_info_sold);
+    giveInfoPortion(infoPortions.jup_a9_meeting_info_sold);
   }
 );
 
@@ -274,7 +274,7 @@ extern(
   (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
     transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), questItems.jup_a9_losses_info);
     giveMoneyToActor(750);
-    giveInfo(infoPortions.jup_a9_losses_info_sold);
+    giveInfoPortion(infoPortions.jup_a9_losses_info_sold);
   }
 );
 
@@ -286,7 +286,7 @@ extern(
   (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
     transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), questItems.jup_a9_delivery_info);
     giveMoneyToActor(750);
-    giveInfo(infoPortions.jup_a9_delivery_info_sold);
+    giveInfoPortion(infoPortions.jup_a9_delivery_info_sold);
   }
 );
 
@@ -527,7 +527,7 @@ extern(
   "dialogs_jupiter.actor_relocate_meeting_info",
   (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
     transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), questItems.jup_a9_meeting_info);
-    giveInfo(infoPortions.jup_a9_meeting_info_sold);
+    giveInfoPortion(infoPortions.jup_a9_meeting_info_sold);
   }
 );
 
@@ -584,7 +584,7 @@ extern(
   "dialogs_jupiter.actor_relocate_evacuation_info",
   (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
     transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), questItems.jup_a9_evacuation_info);
-    giveInfo(infoPortions.jup_a9_evacuation_info_sold);
+    giveInfoPortion(infoPortions.jup_a9_evacuation_info_sold);
   }
 );
 
@@ -595,7 +595,7 @@ extern(
   "dialogs_jupiter.actor_relocate_delivery_info",
   (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
     transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), questItems.jup_a9_delivery_info);
-    giveInfo(infoPortions.jup_a9_delivery_info_sold);
+    giveInfoPortion(infoPortions.jup_a9_delivery_info_sold);
   }
 );
 
@@ -629,7 +629,7 @@ extern(
   "dialogs_jupiter.actor_relocate_losses_info",
   (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
     transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), questItems.jup_a9_losses_info);
-    giveInfo(infoPortions.jup_a9_losses_info_sold);
+    giveInfoPortion(infoPortions.jup_a9_losses_info_sold);
   }
 );
 
@@ -661,7 +661,7 @@ extern(
  * todo;
  */
 extern("dialogs_jupiter.zat_b106_trapper_reward", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
-  if (hasAlifeInfo(infoPortions.zat_b106_one_hit)) {
+  if (hasInfoPortion(infoPortions.zat_b106_one_hit)) {
     giveMoneyToActor(3000);
   } else {
     giveMoneyToActor(2000);
@@ -727,7 +727,7 @@ extern(
   (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
     const actor: ClientObject = registry.actor;
 
-    if (hasAlifeInfo(infoPortions.jup_a10_debt_wo_percent)) {
+    if (hasInfoPortion(infoPortions.jup_a10_debt_wo_percent)) {
       return actor.money() >= 5000;
     } else {
       return actor.money() >= 7000;
@@ -752,12 +752,12 @@ extern(
  * todo;
  */
 extern("dialogs_jupiter.jup_a10_actor_give_money", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
-  if (hasAlifeInfo(infoPortions.jup_a10_debt_wo_percent)) {
+  if (hasInfoPortion(infoPortions.jup_a10_debt_wo_percent)) {
     transferMoneyFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), 5000);
-    giveInfo(infoPortions.jup_a10_bandit_take_money);
+    giveInfoPortion(infoPortions.jup_a10_bandit_take_money);
   } else {
     transferMoneyFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), 7000);
-    giveInfo(infoPortions.jup_a10_bandit_take_all_money);
+    giveInfoPortion(infoPortions.jup_a10_bandit_take_all_money);
   }
 });
 
@@ -951,7 +951,7 @@ extern(
 extern(
   "dialogs_jupiter.jup_a12_transfer_ransom_from_actor",
   (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
-    if (hasAlifeInfo(infoPortions.jup_a12_ransom_by_money)) {
+    if (hasInfoPortion(infoPortions.jup_a12_ransom_by_money)) {
       transferMoneyFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), 15000);
 
       return;
@@ -965,7 +965,7 @@ extern(
     ]);
 
     for (const i of $range(1, 4)) {
-      if (hasAlifeInfo(jupA12InfoTable.get(i))) {
+      if (hasInfoPortion(jupA12InfoTable.get(i))) {
         transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), jupA12AfTable.get(i));
 
         return;
@@ -996,7 +996,7 @@ extern(
   (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
     transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), artefacts.af_gold_fish);
 
-    if (hasAlifeInfo(infoPortions.jup_a12_stalker_prisoner_free_dialog_done)) {
+    if (hasInfoPortion(infoPortions.jup_a12_stalker_prisoner_free_dialog_done)) {
       const treasureManager: TreasureManager = TreasureManager.getInstance();
 
       treasureManager.giveActorTreasureCoordinates("jup_hiding_place_40");
@@ -1072,11 +1072,11 @@ extern(
 extern(
   "dialogs_jupiter.jup_b6_scientist_nuclear_physicist_scan_anomaly_precond",
   (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
-    if (!hasAlifeInfo(infoPortions.jup_b6_b32_quest_active)) {
+    if (!hasInfoPortion(infoPortions.jup_b6_b32_quest_active)) {
       return false;
-    } else if (hasAlifeInfo(infoPortions.jup_b6_give_task) && hasAlifeInfo(infoPortions.jup_b32_task_addon_start)) {
+    } else if (hasInfoPortion(infoPortions.jup_b6_give_task) && hasInfoPortion(infoPortions.jup_b32_task_addon_start)) {
       return false;
-    } else if (hasAlifeInfo(infoPortions.jup_b6_task_fail) && hasAlifeInfo(infoPortions.jup_b32_task_addon_start)) {
+    } else if (hasInfoPortion(infoPortions.jup_b6_task_fail) && hasInfoPortion(infoPortions.jup_b32_task_addon_start)) {
       return false;
     }
 
@@ -1090,7 +1090,7 @@ extern(
 extern(
   "dialogs_jupiter.jup_b32_task_give_dialog_precond",
   (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
-    return !(hasAlifeInfo(infoPortions.jup_b32_task_start) && !hasAlifeInfo("jup_b32_task_end"));
+    return !(hasInfoPortion(infoPortions.jup_b32_task_start) && !hasInfoPortion("jup_b32_task_end"));
   }
 );
 
@@ -1147,8 +1147,8 @@ extern(
 extern(
   "dialogs_jupiter.jup_b32_anomaly_do_not_has_af",
   (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
-    if (hasAlifeInfo("jup_b32_anomaly_true")) {
-      disableInfo("jup_b32_anomaly_true");
+    if (hasInfoPortion("jup_b32_anomaly_true")) {
+      disableInfoPortion("jup_b32_anomaly_true");
 
       return false;
     }
@@ -1171,7 +1171,7 @@ extern(
     let index: TIndex = 0;
 
     for (const it of $range(1, infoPortionsTable.length())) {
-      if (hasAlifeInfo(infoPortionsTable.get(it))) {
+      if (hasInfoPortion(infoPortionsTable.get(it))) {
         index = it;
         break;
       }
@@ -1184,7 +1184,7 @@ extern(
     const anomalyZone: AnomalyZoneBinder = registry.anomalyZones.get(azTable.get(index));
 
     if (anomalyZone === null) {
-      disableInfo(infoPortionsTable.get(index));
+      disableInfoPortion(infoPortionsTable.get(index));
 
       return true;
     }
@@ -1193,7 +1193,7 @@ extern(
       return false;
     }
 
-    disableInfo(infoPortionsTable.get(index));
+    disableInfoPortion(infoPortionsTable.get(index));
 
     return true;
   }
@@ -1235,7 +1235,7 @@ extern(
 extern("dialogs_jupiter.jup_b207_sell_dealers_pda", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
   transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), "device_pda_zat_b5_dealer");
   giveMoneyToActor(4_000);
-  giveInfo(infoPortions.jup_b207_dealers_pda_sold);
+  giveInfoPortion(infoPortions.jup_b207_dealers_pda_sold);
 });
 
 /**
@@ -1265,7 +1265,7 @@ extern(
 
     transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), "jup_b207_merc_pda_with_contract");
     giveMoneyToActor(amount);
-    giveInfo("jup_b207_merc_pda_with_contract_sold");
+    giveInfoPortion("jup_b207_merc_pda_with_contract_sold");
   }
 );
 
@@ -1461,12 +1461,12 @@ extern(
  */
 extern("dialogs_jupiter.jup_b6_actor_can_start", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
   if (
-    hasAlifeInfo(infoPortions.jup_b1_squad_is_dead) &&
+    hasInfoPortion(infoPortions.jup_b1_squad_is_dead) &&
     !(
-      hasAlifeInfo(infoPortions.jup_b6_freedom_employed) ||
-      hasAlifeInfo(infoPortions.jup_b6_duty_employed) ||
-      hasAlifeInfo(infoPortions.jup_b6_gonta_employed) ||
-      hasAlifeInfo(infoPortions.jup_b6_exprisoner_work_on_sci)
+      hasInfoPortion(infoPortions.jup_b6_freedom_employed) ||
+      hasInfoPortion(infoPortions.jup_b6_duty_employed) ||
+      hasInfoPortion(infoPortions.jup_b6_gonta_employed) ||
+      hasInfoPortion(infoPortions.jup_b6_exprisoner_work_on_sci)
     )
   ) {
     return false;
@@ -1516,8 +1516,8 @@ extern(
     const object: ClientObject = getNpcSpeaker(firstSpeaker, secondSpeaker);
     const actor: ClientObject = registry.actor;
 
-    giveInfo(infoPortions.jup_b202_bandit_hited);
-    giveInfo(infoPortions.jup_b202_bandit_hited_by_actor);
+    giveInfoPortion(infoPortions.jup_b202_bandit_hited);
+    giveInfoPortion(infoPortions.jup_b202_bandit_hited_by_actor);
     getExtern<AnyCallablesModule>("xr_effects").set_squad_goodwill(actor, object, ["jup_b202_bandit_squad", "enemy"]);
   }
 );
@@ -1528,10 +1528,10 @@ extern(
 extern(
   "dialogs_jupiter.jup_b202_medic_dialog_precondition",
   (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
-    if (hasAlifeInfo(infoPortions.jup_b218_gather_squad_complete)) {
-      return !hasAlifeInfo(infoPortions.jup_b202_polustanok);
+    if (hasInfoPortion(infoPortions.jup_b218_gather_squad_complete)) {
+      return !hasInfoPortion(infoPortions.jup_b202_polustanok);
     } else {
-      return !hasAlifeInfo(infoPortions.jup_b52_medic_testimony);
+      return !hasInfoPortion(infoPortions.jup_b52_medic_testimony);
     }
   }
 );
@@ -1556,25 +1556,25 @@ extern(
     const squadName: TName = registry.simulator.object(npcAlife.group_id)!.section_name();
 
     if (squadName !== null && squadName !== "") {
-      if (!hasAlifeInfo(infoPortions.jup_b1_squad_is_dead) && squadName === infoPortions.jup_b1_stalker_squad) {
+      if (!hasInfoPortion(infoPortions.jup_b1_squad_is_dead) && squadName === infoPortions.jup_b1_stalker_squad) {
         return true;
       } else if (
-        hasAlifeInfo(infoPortions.jup_b6_freedom_employed) &&
+        hasInfoPortion(infoPortions.jup_b6_freedom_employed) &&
         squadName === infoPortions.jup_b6_stalker_freedom_squad
       ) {
         return true;
       } else if (
-        hasAlifeInfo(infoPortions.jup_b6_duty_employed) &&
+        hasInfoPortion(infoPortions.jup_b6_duty_employed) &&
         squadName === infoPortions.jup_b6_stalker_duty_squad
       ) {
         return true;
       } else if (
-        hasAlifeInfo(infoPortions.jup_b6_gonta_employed) &&
+        hasInfoPortion(infoPortions.jup_b6_gonta_employed) &&
         squadName === infoPortions.jup_b6_stalker_gonta_squad
       ) {
         return true;
       } else if (
-        hasAlifeInfo(infoPortions.jup_b6_exprisoner_work_on_sci) &&
+        hasInfoPortion(infoPortions.jup_b6_exprisoner_work_on_sci) &&
         squadName === infoPortions.jup_b6_stalker_exprisoner_squad
       ) {
         return true;
@@ -1597,9 +1597,9 @@ extern(
       const section: TSection = item.section();
 
       if (
-        (section === misc.toolkit_1 && !hasAlifeInfo(infoPortions.jup_b217_tech_instrument_1_brought)) ||
-        (section === misc.toolkit_2 && !hasAlifeInfo(infoPortions.jup_b217_tech_instrument_2_brought)) ||
-        (section === misc.toolkit_3 && !hasAlifeInfo(infoPortions.jup_b217_tech_instrument_3_brought))
+        (section === misc.toolkit_1 && !hasInfoPortion(infoPortions.jup_b217_tech_instrument_1_brought)) ||
+        (section === misc.toolkit_2 && !hasInfoPortion(infoPortions.jup_b217_tech_instrument_2_brought)) ||
+        (section === misc.toolkit_3 && !hasInfoPortion(infoPortions.jup_b217_tech_instrument_3_brought))
       ) {
         (actor as AnyObject).toolkit = section;
 
@@ -1691,11 +1691,11 @@ extern(
   "dialogs_jupiter.jupiter_b220_all_hunted",
   (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
     if (
-      hasAlifeInfo(infoPortions.jup_b220_trapper_bloodsucker_lair_hunted_told) &&
-      hasAlifeInfo(infoPortions.jup_b220_trapper_zaton_chimera_hunted_told) &&
-      hasAlifeInfo(infoPortions.jup_b211_swamp_bloodsuckers_hunt_done) &&
-      hasAlifeInfo(infoPortions.jup_b208_burers_hunt_done) &&
-      hasAlifeInfo(infoPortions.jup_b212_jupiter_chimera_hunt_done)
+      hasInfoPortion(infoPortions.jup_b220_trapper_bloodsucker_lair_hunted_told) &&
+      hasInfoPortion(infoPortions.jup_b220_trapper_zaton_chimera_hunted_told) &&
+      hasInfoPortion(infoPortions.jup_b211_swamp_bloodsuckers_hunt_done) &&
+      hasInfoPortion(infoPortions.jup_b208_burers_hunt_done) &&
+      hasInfoPortion(infoPortions.jup_b212_jupiter_chimera_hunt_done)
     ) {
       return false;
     }
@@ -1711,29 +1711,29 @@ extern(
   "dialogs_jupiter.jupiter_b220_no_one_hunted",
   (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
     if (
-      hasAlifeInfo(infoPortions.jup_b220_trapper_about_himself_told) &&
-      hasAlifeInfo(infoPortions.zat_b57_den_of_the_bloodsucker_tell_stalkers_about_destroy_lair_give) &&
-      !hasAlifeInfo(infoPortions.jup_b220_trapper_bloodsucker_lair_hunted_told)
+      hasInfoPortion(infoPortions.jup_b220_trapper_about_himself_told) &&
+      hasInfoPortion(infoPortions.zat_b57_den_of_the_bloodsucker_tell_stalkers_about_destroy_lair_give) &&
+      !hasInfoPortion(infoPortions.jup_b220_trapper_bloodsucker_lair_hunted_told)
     ) {
       return false;
     } else if (
-      hasAlifeInfo(infoPortions.zat_b106_chimera_dead) &&
-      !hasAlifeInfo(infoPortions.jup_b220_trapper_zaton_chimera_hunted_told)
+      hasInfoPortion(infoPortions.zat_b106_chimera_dead) &&
+      !hasInfoPortion(infoPortions.jup_b220_trapper_zaton_chimera_hunted_told)
     ) {
       return false;
     } else if (
-      hasAlifeInfo(infoPortions.jup_b6_all_hunters_are_dead) &&
-      !hasAlifeInfo(infoPortions.jup_b211_swamp_bloodsuckers_hunt_done)
+      hasInfoPortion(infoPortions.jup_b6_all_hunters_are_dead) &&
+      !hasInfoPortion(infoPortions.jup_b211_swamp_bloodsuckers_hunt_done)
     ) {
       return false;
     } else if (
-      hasAlifeInfo(infoPortions.jup_b208_burers_dead) &&
-      !hasAlifeInfo(infoPortions.jup_b208_burers_hunt_done)
+      hasInfoPortion(infoPortions.jup_b208_burers_dead) &&
+      !hasInfoPortion(infoPortions.jup_b208_burers_hunt_done)
     ) {
       return false;
     } else if (
-      hasAlifeInfo(infoPortions.jup_b212_jupiter_chimera_dead) &&
-      !hasAlifeInfo(infoPortions.jup_b212_jupiter_chimera_hunt_done)
+      hasInfoPortion(infoPortions.jup_b212_jupiter_chimera_dead) &&
+      !hasInfoPortion(infoPortions.jup_b212_jupiter_chimera_hunt_done)
     ) {
       return false;
     }
@@ -1754,7 +1754,7 @@ extern("dialogs_jupiter.jup_b9_actor_has_money", (firstSpeaker: ClientObject, se
   let moneyCount: TCount = 0;
 
   for (const it of $range(1, 9)) {
-    if (hasAlifeInfo(("jup_b200_tech_materials_brought_counter_" + it) as TInfoPortion)) {
+    if (hasInfoPortion(("jup_b200_tech_materials_brought_counter_" + it) as TInfoPortion)) {
       moneyCount = moneyCountTable.get(it);
     }
   }
@@ -1769,7 +1769,7 @@ extern("dialogs_jupiter.jupiter_b9_relocate_money", (firstSpeaker: ClientObject,
   let moneyCount: TCount = 0;
 
   for (const it of $range(1, 9)) {
-    if (hasAlifeInfo(("jup_b200_tech_materials_brought_counter_" + it) as TInfoPortion)) {
+    if (hasInfoPortion(("jup_b200_tech_materials_brought_counter_" + it) as TInfoPortion)) {
       moneyCount = moneyCountTable.get(it);
     }
   }
@@ -1859,11 +1859,11 @@ extern("dialogs_jupiter.jup_b15_dec_counter", (firstSpeaker: ClientObject, secon
 extern(
   "dialogs_jupiter.jup_b46_sell_duty_founder_pda",
   (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
-    if (hasAlifeInfo(infoPortions.jup_b46_duty_founder_pda_to_freedom)) {
+    if (hasInfoPortion(infoPortions.jup_b46_duty_founder_pda_to_freedom)) {
       giveMoneyToActor(4000);
       giveItemsToActor(weapons.wpn_sig550, 1);
       giveItemsToActor(ammo["ammo_5.56x45_ss190"], 150);
-    } else if (hasAlifeInfo(infoPortions.jup_b46_duty_founder_pda_to_duty)) {
+    } else if (hasInfoPortion(infoPortions.jup_b46_duty_founder_pda_to_duty)) {
       giveMoneyToActor(4000);
       giveItemsToActor(weapons.wpn_groza, 1);
       giveItemsToActor(ammo.ammo_9x39_ap, 60);
@@ -1892,8 +1892,8 @@ extern(
   (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
     transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), questItems.jup_b46_duty_founder_pda);
     giveMoneyToActor(2500);
-    giveInfo(infoPortions.jup_b46_duty_founder_pda_sold);
-    giveInfo(infoPortions.jup_b46_duty_founder_pda_to_stalkers);
+    giveInfoPortion(infoPortions.jup_b46_duty_founder_pda_sold);
+    giveInfoPortion(infoPortions.jup_b46_duty_founder_pda_to_stalkers);
   }
 );
 
@@ -1935,9 +1935,9 @@ extern(
     }
 
     const b: boolean =
-      !hasAlifeInfo(infoPortions.jup_b47_jupiter_products_start) &&
+      !hasInfoPortion(infoPortions.jup_b47_jupiter_products_start) &&
       actor.object(infoPortions.jup_b47_jupiter_products_info) !== null;
-    const c: boolean = hasAlifeInfo(infoPortions.jup_b6_scientist_nuclear_physicist_jupiter_docs_talked);
+    const c: boolean = hasInfoPortion(infoPortions.jup_b6_scientist_nuclear_physicist_jupiter_docs_talked);
 
     return (a || b) && !c;
   }
@@ -2069,7 +2069,7 @@ extern("dialogs_jupiter.jup_b32_anomaly_has_af", (firstSpeaker: ClientObject, se
   let index: TIndex = 0;
 
   for (const it of $range(1, infopTable.length())) {
-    if (hasAlifeInfo(infopTable.get(it))) {
+    if (hasInfoPortion(infopTable.get(it))) {
       index = it;
       break;
     }
@@ -2086,8 +2086,8 @@ extern("dialogs_jupiter.jup_b32_anomaly_has_af", (firstSpeaker: ClientObject, se
   }
 
   if (anomalZone.spawnedArtefactsCount > 0) {
-    disableInfo(infopTable.get(index));
-    giveInfo(infoPortions.jup_b32_anomaly_true);
+    disableInfoPortion(infopTable.get(index));
+    giveInfoPortion(infoPortions.jup_b32_anomaly_true);
 
     return true;
   }
@@ -2255,8 +2255,8 @@ extern("dialogs_jupiter.jup_b47_merc_pda_revard", (firstSpeaker: ClientObject, s
 extern(
   "dialogs_jupiter.jup_b47_actor_can_take_task",
   (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
-    const a: boolean = hasAlifeInfo(infoPortions.jup_b6_task_done) && !hasAlifeInfo(infoPortions.jup_b6_task_fail);
-    const b: boolean = hasAlifeInfo(infoPortions.jup_b6_task_fail) && !hasAlifeInfo(infoPortions.jup_b6_task_done);
+    const a: boolean = hasInfoPortion(infoPortions.jup_b6_task_done) && !hasInfoPortion(infoPortions.jup_b6_task_fail);
+    const b: boolean = hasInfoPortion(infoPortions.jup_b6_task_fail) && !hasInfoPortion(infoPortions.jup_b6_task_done);
 
     return a || b;
   }
@@ -2267,9 +2267,10 @@ extern(
  */
 extern("dialogs_jupiter.jup_b47_employ_squad", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
   const a: boolean =
-    hasAlifeInfo(infoPortions.jup_b47_bunker_guards_started) && !hasAlifeInfo(infoPortions.jup_b47_bunker_guards_done);
+    hasInfoPortion(infoPortions.jup_b47_bunker_guards_started) &&
+    !hasInfoPortion(infoPortions.jup_b47_bunker_guards_done);
   const b: boolean =
-    hasAlifeInfo(infoPortions.jup_b6_employ_stalker) && !hasAlifeInfo(infoPortions.jup_b6_employed_stalker);
+    hasInfoPortion(infoPortions.jup_b6_employ_stalker) && !hasInfoPortion(infoPortions.jup_b6_employed_stalker);
 
   return a || b;
 });

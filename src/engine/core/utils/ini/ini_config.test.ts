@@ -7,7 +7,7 @@ import {
   registerSimulator,
   registerStoryLink,
 } from "@/engine/core/database";
-import { giveInfo } from "@/engine/core/utils/info_portion";
+import { giveInfoPortion } from "@/engine/core/utils/info_portion";
 import {
   addConditionToList,
   getConfigObjectAndZone,
@@ -26,7 +26,7 @@ describe("config utils for ini file", () => {
 
   it("getInfosFromData should correctly parse data list of condition lists", () => {
     registerActor(mockActorClientGameObject());
-    giveInfo("test");
+    giveInfoPortion("test");
 
     expect(getSectionsFromConditionLists(mockClientGameObject(), "a|b|c")).toEqualLuaArrays(["a", "b", "c"]);
     expect(getSectionsFromConditionLists(mockClientGameObject(), "a|{+not_existing}b,c|{+test}d,e")).toEqualLuaArrays([

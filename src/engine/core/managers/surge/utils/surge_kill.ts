@@ -11,7 +11,7 @@ import {
   getOnlineSurgeCoversList,
 } from "@/engine/core/managers/surge/utils/surge_cover";
 import { isImmuneToSurgeObject } from "@/engine/core/managers/surge/utils/surge_generic";
-import { hasAlifeInfo } from "@/engine/core/utils/info_portion";
+import { hasInfoPortion } from "@/engine/core/utils/info_portion";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { isObjectOnLevel } from "@/engine/core/utils/position";
@@ -142,7 +142,7 @@ export function killAllSurgeUnhidden(): void {
     const surgeCoverObject: Optional<ClientObject> = getNearestAvailableSurgeCover(actor);
 
     if (!surgeCoverObject?.inside(actor.position())) {
-      if (hasAlifeInfo(infoPortions.anabiotic_in_process)) {
+      if (hasInfoPortion(infoPortions.anabiotic_in_process)) {
         EventsManager.emitEvent(EGameEvent.SURGE_SURVIVED_WITH_ANABIOTIC);
       }
 

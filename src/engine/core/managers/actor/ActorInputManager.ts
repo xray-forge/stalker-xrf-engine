@@ -16,7 +16,7 @@ import { killAllSurgeUnhidden } from "@/engine/core/managers/surge/utils/surge_k
 import { WeatherManager } from "@/engine/core/managers/weather";
 import { executeConsoleCommand, getConsoleFloatCommand } from "@/engine/core/utils/game";
 import { readTimeFromPacket, writeTimeToPacket } from "@/engine/core/utils/game/game_time";
-import { disableInfo, giveInfo } from "@/engine/core/utils/info_portion";
+import { disableInfoPortion, giveInfoPortion } from "@/engine/core/utils/info_portion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { isActorInNoWeaponZone } from "@/engine/core/utils/object/object_zone";
 import { animations, postProcessors } from "@/engine/lib/constants/animation";
@@ -266,7 +266,7 @@ export class ActorInputManager extends AbstractManager {
     level.add_cam_effector(animations.camera_effects_surge_02, 10, false, "engine.on_anabiotic_sleep");
     level.add_pp_effector(postProcessors.surge_fade, 11, false);
 
-    giveInfo(infoPortions.anabiotic_in_process);
+    giveInfoPortion(infoPortions.anabiotic_in_process);
 
     registry.sounds.musicVolume = getConsoleFloatCommand(consoleCommands.snd_volume_music);
     registry.sounds.effectsVolume = getConsoleFloatCommand(consoleCommands.snd_volume_eff);
@@ -393,7 +393,7 @@ export class ActorInputManager extends AbstractManager {
     registry.sounds.effectsVolume = 0;
     registry.sounds.musicVolume = 0;
 
-    disableInfo(infoPortions.anabiotic_in_process);
+    disableInfoPortion(infoPortions.anabiotic_in_process);
   }
 
   /**

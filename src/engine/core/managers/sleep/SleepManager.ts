@@ -9,7 +9,7 @@ import { SurgeManager } from "@/engine/core/managers/surge/SurgeManager";
 import { WeatherManager } from "@/engine/core/managers/weather/WeatherManager";
 import { SleepDialog } from "@/engine/core/ui/interaction/SleepDialog";
 import { executeConsoleCommand, getConsoleFloatCommand } from "@/engine/core/utils/game/game_console";
-import { disableInfo, giveInfo } from "@/engine/core/utils/info_portion";
+import { disableInfoPortion, giveInfoPortion } from "@/engine/core/utils/info_portion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { animations, postProcessors } from "@/engine/lib/constants/animation";
 import { consoleCommands } from "@/engine/lib/constants/console_commands";
@@ -52,7 +52,7 @@ export class SleepManager extends AbstractManager {
     level.add_cam_effector(animations.camera_effects_sleep, 10, false, "engine.on_start_sleeping");
     level.add_pp_effector(postProcessors.sleep_fade, 11, false);
 
-    giveInfo(infoPortions.actor_is_sleeping);
+    giveInfoPortion(infoPortions.actor_is_sleeping);
 
     registry.sounds.musicVolume = getConsoleFloatCommand(consoleCommands.snd_volume_music);
     registry.sounds.effectsVolume = getConsoleFloatCommand(consoleCommands.snd_volume_eff);
@@ -102,9 +102,9 @@ export class SleepManager extends AbstractManager {
     registry.sounds.musicVolume = 0;
     registry.sounds.effectsVolume = 0;
 
-    giveInfo(infoPortions.tutorial_sleep);
-    disableInfo(infoPortions.actor_is_sleeping);
-    disableInfo(infoPortions.sleep_active);
+    giveInfoPortion(infoPortions.tutorial_sleep);
+    disableInfoPortion(infoPortions.actor_is_sleeping);
+    disableInfoPortion(infoPortions.sleep_active);
 
     EventsManager.emitEvent(EGameEvent.ACTOR_FINISH_SLEEP);
   }

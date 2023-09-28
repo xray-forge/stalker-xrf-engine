@@ -2,7 +2,7 @@ import { registry } from "@/engine/core/database/registry";
 import { getServerObjectByStoryId } from "@/engine/core/database/story_objects";
 import { IBaseSchemeLogic, IRegistryObjectState } from "@/engine/core/database/types";
 import { abort } from "@/engine/core/utils/assertion";
-import { disableInfo, giveInfo, hasAlifeInfo } from "@/engine/core/utils/info_portion";
+import { disableInfoPortion, giveInfoPortion, hasInfoPortion } from "@/engine/core/utils/info_portion";
 import { parseConditionsList } from "@/engine/core/utils/ini/ini_parse";
 import {
   readIniBoolean,
@@ -112,7 +112,7 @@ export function pickSectionFromCondList<T extends TSection>(
             break;
           }
         }
-      } else if (configCondition.name && hasAlifeInfo(configCondition.name)) {
+      } else if (configCondition.name && hasInfoPortion(configCondition.name)) {
         if (!configCondition.required) {
           areInfoPortionConditionsMet = false;
           break;
@@ -144,12 +144,12 @@ export function pickSectionFromCondList<T extends TSection>(
 
           effect(actor, object, configCondition.params);
         } else if (configCondition.required) {
-          if (configCondition.name && !hasAlifeInfo(configCondition.name)) {
-            giveInfo(configCondition.name as TName);
+          if (configCondition.name && !hasInfoPortion(configCondition.name)) {
+            giveInfoPortion(configCondition.name as TName);
           }
         } else {
-          if (configCondition.name && hasAlifeInfo(configCondition.name)) {
-            disableInfo(configCondition.name);
+          if (configCondition.name && hasInfoPortion(configCondition.name)) {
+            disableInfoPortion(configCondition.name);
           }
         }
       }

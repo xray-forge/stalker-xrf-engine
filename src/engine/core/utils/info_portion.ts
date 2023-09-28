@@ -1,7 +1,7 @@
 import { registry } from "@/engine/core/database/registry";
 import { ELuaLoggerMode, LuaLogger } from "@/engine/core/utils/logging";
 import { TInfoPortion } from "@/engine/lib/constants/info_portions/info_portions";
-import { Optional, TCount, TName } from "@/engine/lib/types";
+import { TCount, TName } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename, { file: "info_portions", mode: ELuaLoggerMode.DUAL });
 
@@ -10,7 +10,7 @@ const logger: LuaLogger = new LuaLogger($filename, { file: "info_portions", mode
  *
  * @param infoId - info portion to give to actor
  */
-export function giveInfo(infoId: TName): void {
+export function giveInfoPortion(infoId: TName): void {
   logger.info("Give alife info:", infoId);
 
   registry.actor.give_info_portion(infoId);
@@ -21,7 +21,7 @@ export function giveInfo(infoId: TName): void {
  *
  * @param infoId - info portion to disable
  */
-export function disableInfo(infoId: TName): void {
+export function disableInfoPortion(infoId: TName): void {
   logger.info("Disable alife info:", infoId);
 
   if (registry.actor?.has_info(infoId)) {
@@ -35,7 +35,7 @@ export function disableInfo(infoId: TName): void {
  *
  * @returns whether actor has info portion set already
  */
-export function hasAlifeInfo(infoId: TName): infoId is TInfoPortion {
+export function hasInfoPortion(infoId: TName): infoId is TInfoPortion {
   if (registry.actor === null) {
     return false;
   }
@@ -49,8 +49,8 @@ export function hasAlifeInfo(infoId: TName): infoId is TInfoPortion {
  * @param infoIds - array of infos to check
  * @returns whether actor has info portions active
  */
-export function hasAlifeInfos(infoIds: Array<TName>): boolean {
-  return hasFewAlifeInfos(infoIds, infoIds.length);
+export function hasInfoPortions(infoIds: Array<TName>): boolean {
+  return hasFewInfoPortions(infoIds, table.size(infoIds));
 }
 
 /**
@@ -59,8 +59,8 @@ export function hasAlifeInfos(infoIds: Array<TName>): boolean {
  * @param infoIds - array of infos to check
  * @returns whether actor has at least one info portion from list
  */
-export function hasAtLeastOneAlifeInfo(infoIds: Array<TName>): boolean {
-  return hasFewAlifeInfos(infoIds, 1);
+export function hasAtLeastOneInfoPortion(infoIds: Array<TName>): boolean {
+  return hasFewInfoPortions(infoIds, 1);
 }
 
 /**
@@ -70,7 +70,7 @@ export function hasAtLeastOneAlifeInfo(infoIds: Array<TName>): boolean {
  * @param count - count of infos required to satisfy conditions
  * @returns whether actor has few of required info portions
  */
-export function hasFewAlifeInfos(infoIds: Array<TName>, count: TCount): boolean {
+export function hasFewInfoPortions(infoIds: Array<TName>, count: TCount): boolean {
   let activeInfos: TCount = 0;
 
   for (let it = 0; it < infoIds.length; it++) {
