@@ -60,27 +60,6 @@ export function isObjectHelpingWounded(object: ClientObject): boolean {
 }
 
 /**
- * Check if object has valuable loot.
- *
- * @param object - target client object to check
- * @returns whether object has any valuables to loot
- */
-export function isObjectWithValuableLoot(object: ClientObject): boolean {
-  let hasValuableLoot: boolean = false;
-
-  object.iterate_inventory((object: ClientObject, item: ClientObject) => {
-    if (item.section() in lootableTable) {
-      hasValuableLoot = true;
-
-      // Stop iterations, one is enough.
-      return true;
-    }
-  }, object);
-
-  return hasValuableLoot;
-}
-
-/**
  * Check whether object is strapping weapon.
  *
  * @param object - target client object to check
@@ -144,16 +123,6 @@ export function isObjectSeenByActor(object: ClientObject): boolean {
  */
 export function isObjectInjured(object: ClientObject): boolean {
   return object.health < 1 || object.radiation > 0 || object.bleeding > 0;
-}
-
-/**
- * Check whether is playing sound.
- *
- * @param object - client object to check playing
- * @returns whether currently sound is playing.
- */
-export function isPlayingSound(object: ClientObject): boolean {
-  return registry.sounds.generic.has(object.id());
 }
 
 /**

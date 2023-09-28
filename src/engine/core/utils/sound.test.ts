@@ -1,11 +1,18 @@
 import { describe, expect, it } from "@jest/globals";
 import { snd_type } from "xray16";
 
-import { isSoundType, mapSoundMaskToSoundType, stopPlayingObjectSound } from "@/engine/core/utils/sound";
+import { registry } from "@/engine/core/database";
+import { LoopedSound } from "@/engine/core/objects/sounds/playable_sounds";
+import {
+  isPlayingSound,
+  isSoundType,
+  mapSoundMaskToSoundType,
+  stopPlayingObjectSound,
+} from "@/engine/core/utils/sound";
 import { ESoundType } from "@/engine/lib/constants/sound";
 import { ClientObject } from "@/engine/lib/types";
 import { replaceFunctionMock } from "@/fixtures/jest";
-import { mockClientGameObject } from "@/fixtures/xray";
+import { mockClientGameObject, mockIniFile } from "@/fixtures/xray";
 
 describe("sound utils", () => {
   it("mapSoundMaskToSoundType should correctly convert mask to enum", () => {
@@ -63,5 +70,24 @@ describe("sound utils", () => {
     expect(object.set_sound_mask).toHaveBeenCalledTimes(2);
     expect(object.set_sound_mask).toHaveBeenNthCalledWith(1, -1);
     expect(object.set_sound_mask).toHaveBeenNthCalledWith(2, 0);
+  });
+
+  it("isPlayingSound should correctly check sound play state", () => {
+    const object: ClientObject = mockClientGameObject();
+
+    expect(isPlayingSound(object)).toBe(false);
+
+    registry.sounds.generic.set(
+      object.id(),
+      new LoopedSound(
+        mockIniFile("test.ltx", {
+          test: {
+            path: "test_sound.ogg",
+          },
+        }),
+        "test"
+      )
+    );
+    expect(isPlayingSound(object)).toBe(true);
   });
 });

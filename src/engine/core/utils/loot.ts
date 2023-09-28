@@ -2,11 +2,32 @@ import { level } from "xray16";
 
 import { getPortableStoreValue, IRegistryObjectState, registry } from "@/engine/core/database";
 import { IReleaseDescriptor, ReleaseBodyManager } from "@/engine/core/managers/death";
-import { isObjectWithValuableLoot } from "@/engine/core/utils/object/object_check";
 import { isLootableItemSection } from "@/engine/core/utils/section";
 import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
+import { lootableTable } from "@/engine/lib/constants/items/lootable_table";
 import { LOOTING_DEAD_OBJECT_KEY } from "@/engine/lib/constants/portable_store_keys";
 import { ClientObject, LuaArray, Optional, TDistance, TNumberId, Vector } from "@/engine/lib/types";
+
+/**
+ * Check if object has valuable loot.
+ *
+ * @param object - target client object to check
+ * @returns whether object has any valuables to loot
+ */
+export function isObjectWithValuableLoot(object: ClientObject): boolean {
+  let hasValuableLoot: boolean = false;
+
+  object.iterate_inventory((object: ClientObject, item: ClientObject) => {
+    if (item.section() in lootableTable) {
+      hasValuableLoot = true;
+
+      // Stop iterations, one is enough.
+      return true;
+    }
+  }, object);
+
+  return hasValuableLoot;
+}
 
 /**
  * Transfer all lootable items from one object to another.
@@ -31,7 +52,7 @@ export function transferLoot(from: ClientObject, to: ClientObject): LuaArray<Cli
 /**
  * todo;
  */
-export function findNearestCorpseToLoot(
+export function getNearestCorpseToLoot(
   object: ClientObject
 ): LuaMultiReturn<[ClientObject, TNumberId, Vector] | [null, null, null]> {
   const corpses: LuaArray<IReleaseDescriptor> = ReleaseBodyManager.getInstance().releaseObjectRegistry;

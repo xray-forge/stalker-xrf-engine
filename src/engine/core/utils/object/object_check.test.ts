@@ -13,18 +13,13 @@ import {
   isObjectSearchingCorpse,
   isObjectSeenByActor,
   isObjectStrappingWeapon,
-  isObjectWithValuableLoot,
-  isPlayingSound,
   isStalkerAlive,
   isUndergroundLevel,
 } from "@/engine/core/utils/object/object_check";
-import { ammo } from "@/engine/lib/constants/items/ammo";
-import { weapons } from "@/engine/lib/constants/items/weapons";
 import { ClientObject, ServerHumanObject, TClassId, TName } from "@/engine/lib/types";
 import { replaceFunctionMock } from "@/fixtures/jest";
 import { MockLuaTable } from "@/fixtures/lua";
 import {
-  CLIENT_SIDE_REGISTRY,
   MockActionPlanner,
   mockClientGameObject,
   mockIniFile,
@@ -99,40 +94,6 @@ describe("object_check utils", () => {
 
     planner.currentActionId = EActionId.CRITICALLY_WOUNDED;
     expect(isObjectHelpingWounded(object)).toBe(false);
-  });
-
-  it("isObjectWithValuableLoot should correctly check object valuable loot", () => {
-    expect(isObjectWithValuableLoot(mockClientGameObject())).toBe(false);
-    expect(
-      isObjectWithValuableLoot(
-        mockClientGameObject({
-          inventory: [
-            ["grenade_f2", mockClientGameObject({ sectionOverride: "grenade_f2" })],
-            ["grenade_f3", mockClientGameObject({ sectionOverride: "grenade_f3" })],
-          ],
-        })
-      )
-    ).toBe(false);
-    expect(
-      isObjectWithValuableLoot(
-        mockClientGameObject({
-          inventory: [
-            ["grenade_f2", mockClientGameObject({ sectionOverride: "grenade_f2" })],
-            [weapons.wpn_ak74u, mockClientGameObject({ sectionOverride: weapons.wpn_ak74u })],
-          ],
-        })
-      )
-    ).toBe(true);
-    expect(
-      isObjectWithValuableLoot(
-        mockClientGameObject({
-          inventory: [
-            [weapons.wpn_ak74u, mockClientGameObject({ sectionOverride: weapons.wpn_ak74u })],
-            [ammo["ammo_5.45x39_fmj"], mockClientGameObject({ sectionOverride: ammo["ammo_5.45x39_fmj"] })],
-          ],
-        })
-      )
-    ).toBe(true);
   });
 
   it("isObjectStrappingWeapon should correctly check weapon strap state", () => {
@@ -268,24 +229,5 @@ describe("object_check utils", () => {
     expect(isUndergroundLevel("jupiter")).toBe(false);
     expect(isUndergroundLevel("labx8")).toBe(true);
     expect(isUndergroundLevel("jupiter_underground")).toBe(true);
-  });
-
-  it("isPlayingSound should correctly check sound play state", () => {
-    const object: ClientObject = mockClientGameObject();
-
-    expect(isPlayingSound(object)).toBe(false);
-
-    registry.sounds.generic.set(
-      object.id(),
-      new LoopedSound(
-        mockIniFile("test.ltx", {
-          test: {
-            path: "test_sound.ogg",
-          },
-        }),
-        "test"
-      )
-    );
-    expect(isPlayingSound(object)).toBe(true);
   });
 });

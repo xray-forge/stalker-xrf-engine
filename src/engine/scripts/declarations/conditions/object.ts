@@ -23,13 +23,14 @@ import { extern } from "@/engine/core/utils/binding";
 import { isMonster, isStalker } from "@/engine/core/utils/class_ids";
 import { hasInfoPortion } from "@/engine/core/utils/info_portion";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { isObjectWounded, isPlayingSound } from "@/engine/core/utils/object";
+import { isObjectWounded } from "@/engine/core/utils/object";
 import {
   getObjectSmartTerrain,
   isDistanceBetweenObjectsGreaterOrEqual,
   isDistanceBetweenObjectsLessOrEqual,
   isObjectInZone,
 } from "@/engine/core/utils/position";
+import { isPlayingSound } from "@/engine/core/utils/sound";
 import { getObjectSquad, isObjectSquadCommander } from "@/engine/core/utils/squad";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import { infoPortions } from "@/engine/lib/constants/info_portions";
