@@ -15,7 +15,7 @@ import { AchievementsManager } from "@/engine/core/managers/achievements/Achieve
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { ENotificationType, notificationsIcons } from "@/engine/core/managers/notifications";
 import { WeatherManager } from "@/engine/core/managers/weather/WeatherManager";
-import { giveInfo } from "@/engine/core/utils/object/object_info_portion";
+import { giveInfo } from "@/engine/core/utils/info_portion";
 import { infoPortions } from "@/engine/lib/constants/info_portions";
 import { ServerObject } from "@/engine/lib/types";
 import { replaceFunctionMock, resetFunctionMock } from "@/fixtures/jest";

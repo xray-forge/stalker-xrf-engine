@@ -6,9 +6,9 @@ import { surgeConfig } from "@/engine/core/managers/surge/SurgeConfig";
 import { SurgeManager } from "@/engine/core/managers/surge/SurgeManager";
 import { SmartTerrain, SmartTerrainControl } from "@/engine/core/objects/server/smart_terrain";
 import { ESmartTerrainStatus } from "@/engine/core/objects/server/smart_terrain/types";
+import { anomalyHasArtefact } from "@/engine/core/utils/anomaly";
 import { abort } from "@/engine/core/utils/assertion";
 import { extern } from "@/engine/core/utils/binding";
-import { anomalyHasArtefact } from "@/engine/core/utils/object/object_anomaly";
 import { ClientObject, Optional, TName, TSection, TTimestamp } from "@/engine/lib/types";
 
 /**

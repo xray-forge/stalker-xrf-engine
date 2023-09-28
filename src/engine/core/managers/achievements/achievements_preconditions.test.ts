@@ -32,7 +32,7 @@ import { AchievementsManager } from "@/engine/core/managers/achievements/Achieve
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { ENotificationType, ITipNotification } from "@/engine/core/managers/notifications";
 import { StatisticsManager } from "@/engine/core/managers/statistics";
-import { disableInfo, giveInfo, hasAlifeInfo } from "@/engine/core/utils/object/object_info_portion";
+import { disableInfo, giveInfo, hasAlifeInfo } from "@/engine/core/utils/info_portion";
 import { communities } from "@/engine/lib/constants/communities";
 import { infoPortions, TInfoPortion } from "@/engine/lib/constants/info_portions";
 import { artefacts } from "@/engine/lib/constants/items/artefacts";

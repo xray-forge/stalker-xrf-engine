@@ -12,10 +12,10 @@ import {
 import { ETreasureType, ITreasureDescriptor } from "@/engine/core/managers/treasures/treasures_types";
 import type { SmartTerrain } from "@/engine/core/objects/server/smart_terrain";
 import type { Squad } from "@/engine/core/objects/server/squad";
+import { getAnomalyArtefacts } from "@/engine/core/utils/anomaly";
+import { hasAlifeInfo } from "@/engine/core/utils/info_portion";
 import { parseConditionsList, pickSectionFromCondList, readIniString, TConditionList } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { getAnomalyArtefacts } from "@/engine/core/utils/object/object_anomaly";
-import { hasAlifeInfo } from "@/engine/core/utils/object/object_info_portion";
 import { isSquadMonsterCommunity } from "@/engine/core/utils/object/object_section";
 import {
   ERelation,

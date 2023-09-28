@@ -1,7 +1,7 @@
 import { registry } from "@/engine/core/database";
 import { extern, getExtern } from "@/engine/core/utils/binding";
+import { disableInfo, giveInfo, hasAlifeInfo } from "@/engine/core/utils/info_portion";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { disableInfo, giveInfo, hasAlifeInfo } from "@/engine/core/utils/object/object_info_portion";
 import {
   getNpcSpeaker,
   giveMoneyToActor,

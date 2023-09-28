@@ -3,10 +3,10 @@ import { game } from "xray16";
 import { getObjectIdByStoryId, registry } from "@/engine/core/database";
 import { getActorTargetSurgeCover, isActorInSurgeCover } from "@/engine/core/managers/surge/utils/surge_cover";
 import { extern } from "@/engine/core/utils/binding";
+import { hasAlifeInfo } from "@/engine/core/utils/info_portion";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/ini_config";
 import { parseConditionsList } from "@/engine/core/utils/ini/ini_parse";
 import { TConditionList } from "@/engine/core/utils/ini/ini_types";
-import { hasAlifeInfo } from "@/engine/core/utils/object/object_info_portion";
 import { ClientObject, Optional, TLabel, TNumberId, TRate, TSection, TStringId } from "@/engine/lib/types";
 import { zatB29AfTable, zatB29InfopBringTable } from "@/engine/scripts/declarations/dialogs/dialogs_zaton";
 

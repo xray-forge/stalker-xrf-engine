@@ -5,9 +5,9 @@ import { getPortableStoreValue } from "@/engine/core/database/portable_store";
 import { TreasureManager } from "@/engine/core/managers/treasures";
 import { AnomalyZoneBinder } from "@/engine/core/objects/binders/zones/AnomalyZoneBinder";
 import { extern, getExtern } from "@/engine/core/utils/binding";
+import { disableInfo, giveInfo, hasAlifeInfo } from "@/engine/core/utils/info_portion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { isObjectInSmartTerrain } from "@/engine/core/utils/object";
-import { disableInfo, giveInfo, hasAlifeInfo } from "@/engine/core/utils/object/object_info_portion";
 import {
   getNpcSpeaker,
   giveItemsToActor,

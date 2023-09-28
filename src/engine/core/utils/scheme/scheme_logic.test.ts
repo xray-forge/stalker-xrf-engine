@@ -35,8 +35,8 @@ import { SchemeMeet } from "@/engine/core/schemes/stalker/meet";
 import { SchemePatrol } from "@/engine/core/schemes/stalker/patrol";
 import { SchemeReachTask } from "@/engine/core/schemes/stalker/reach_task";
 import { SchemeWounded } from "@/engine/core/schemes/stalker/wounded";
+import { disableInfo, giveInfo } from "@/engine/core/utils/info_portion";
 import { ISmartTerrainJobDescriptor } from "@/engine/core/utils/job";
-import { disableInfo, giveInfo } from "@/engine/core/utils/object/object_info_portion";
 import {
   activateSchemeBySection,
   enableObjectBaseSchemes,

@@ -21,11 +21,11 @@ import { ISchemeHitState } from "@/engine/core/schemes/stalker/hit";
 import { abort, assertDefined } from "@/engine/core/utils/assertion";
 import { extern } from "@/engine/core/utils/binding";
 import { isMonster, isStalker } from "@/engine/core/utils/class_ids";
+import { hasAlifeInfo } from "@/engine/core/utils/info_portion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import {
   getObjectSmartTerrain,
   getObjectSquad,
-  hasAlifeInfo,
   isDistanceBetweenObjectsGreaterOrEqual,
   isDistanceBetweenObjectsLessOrEqual,
   isObjectInZone,

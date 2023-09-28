@@ -1,7 +1,7 @@
 import { level } from "xray16";
 
 import { GlobalSoundManager } from "@/engine/core/managers/sounds";
-import { hasAlifeInfo } from "@/engine/core/utils/object";
+import { hasAlifeInfo } from "@/engine/core/utils/info_portion";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import { infoPortions } from "@/engine/lib/constants/info_portions";
 import { levels } from "@/engine/lib/constants/levels";

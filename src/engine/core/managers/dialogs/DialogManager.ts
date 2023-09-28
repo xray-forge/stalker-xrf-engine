@@ -17,10 +17,10 @@ import {
 } from "@/engine/core/managers/dialogs/dialog_types";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { assert } from "@/engine/core/utils/assertion";
+import { hasAlifeInfo } from "@/engine/core/utils/info_portion";
 import { parseInfoPortions, parseStringsList } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getObjectCommunity, isObjectWounded } from "@/engine/core/utils/object";
-import { hasAlifeInfo } from "@/engine/core/utils/object/object_info_portion";
 import { FALSE, TRUE } from "@/engine/lib/constants/words";
 import {
   ClientObject,

@@ -11,9 +11,9 @@ import {
   getOnlineSurgeCoversList,
 } from "@/engine/core/managers/surge/utils/surge_cover";
 import { isImmuneToSurgeObject } from "@/engine/core/managers/surge/utils/surge_generic";
+import { hasAlifeInfo } from "@/engine/core/utils/info_portion";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { hasAlifeInfo } from "@/engine/core/utils/object/object_info_portion";
 import { isObjectOnLevel } from "@/engine/core/utils/object/object_location";
 import { animations, postProcessors } from "@/engine/lib/constants/animation";
 import { infoPortions } from "@/engine/lib/constants/info_portions";

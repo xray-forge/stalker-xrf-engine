@@ -16,8 +16,8 @@ import { killAllSurgeUnhidden } from "@/engine/core/managers/surge/utils/surge_k
 import { WeatherManager } from "@/engine/core/managers/weather";
 import { executeConsoleCommand, getConsoleFloatCommand } from "@/engine/core/utils/game";
 import { readTimeFromPacket, writeTimeToPacket } from "@/engine/core/utils/game/game_time";
+import { disableInfo, giveInfo } from "@/engine/core/utils/info_portion";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { disableInfo, giveInfo } from "@/engine/core/utils/object/object_info_portion";
 import { isActorInNoWeaponZone } from "@/engine/core/utils/object/object_zone";
 import { animations, postProcessors } from "@/engine/lib/constants/animation";
 import { consoleCommands } from "@/engine/lib/constants/console_commands";

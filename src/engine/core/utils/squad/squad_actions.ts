@@ -1,6 +1,6 @@
 import { registry } from "@/engine/core/database";
 import { Squad } from "@/engine/core/objects/server/squad";
-import { hasAlifeInfo } from "@/engine/core/utils/object/object_info_portion";
+import { hasAlifeInfo } from "@/engine/core/utils/info_portion";
 import { areObjectsOnSameLevel } from "@/engine/core/utils/object/object_location";
 import { isEmpty } from "@/engine/core/utils/table";
 import { communities } from "@/engine/lib/constants/communities";

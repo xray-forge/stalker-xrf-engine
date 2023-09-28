@@ -2,6 +2,7 @@ import { describe, expect, it, jest } from "@jest/globals";
 
 import { registerActor } from "@/engine/core/database";
 import { extern } from "@/engine/core/utils/binding";
+import { disableInfo, giveInfo, hasAlifeInfo } from "@/engine/core/utils/info_portion";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/ini_config";
 import {
   getSchemeFromSection,
@@ -20,7 +21,6 @@ import {
   parseWaypointsDataFromList,
 } from "@/engine/core/utils/ini/ini_parse";
 import { IConfigCondition } from "@/engine/core/utils/ini/ini_types";
-import { disableInfo, giveInfo, hasAlifeInfo } from "@/engine/core/utils/object/object_info_portion";
 import { NIL } from "@/engine/lib/constants/words";
 import { ClientObject, Flags32, IniFile, LuaArray } from "@/engine/lib/types";
 import { mockActorClientGameObject, mockClientGameObject, MockFlags32, mockIniFile } from "@/fixtures/xray";

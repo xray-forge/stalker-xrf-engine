@@ -11,6 +11,7 @@ import { updateObjectMeetAvailability } from "@/engine/core/schemes/stalker/meet
 import { ISchemeWoundedState } from "@/engine/core/schemes/stalker/wounded";
 import { extern } from "@/engine/core/utils/binding";
 import { createGameAutoSave } from "@/engine/core/utils/game";
+import { giveInfo, hasAlifeInfo } from "@/engine/core/utils/info_portion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import {
   actorHasMedKit,
@@ -18,8 +19,6 @@ import {
   getActorAvailableMedKit,
   getNpcSpeaker,
   getObjectCommunity,
-  giveInfo,
-  hasAlifeInfo,
   isObjectInjured,
   isObjectInSmartTerrain,
   isObjectWounded,

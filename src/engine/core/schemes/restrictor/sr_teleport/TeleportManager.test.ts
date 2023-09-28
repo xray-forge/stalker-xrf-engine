@@ -8,7 +8,7 @@ import {
   SchemeTeleport,
   TeleportManager,
 } from "@/engine/core/schemes/restrictor/sr_teleport";
-import { giveInfo } from "@/engine/core/utils/object/object_info_portion";
+import { giveInfo } from "@/engine/core/utils/info_portion";
 import { activateSchemeBySection, loadSchemeImplementation } from "@/engine/core/utils/scheme";
 import { ClientObject, EScheme, IniFile } from "@/engine/lib/types";
 import { getSchemeAction } from "@/fixtures/engine";

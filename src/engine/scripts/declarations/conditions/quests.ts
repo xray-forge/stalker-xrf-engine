@@ -5,8 +5,8 @@ import { AnomalyZoneBinder } from "@/engine/core/objects/binders";
 import { Squad } from "@/engine/core/objects/server/squad";
 import { abort } from "@/engine/core/utils/assertion";
 import { extern, getExtern } from "@/engine/core/utils/binding";
+import { hasAlifeInfo } from "@/engine/core/utils/info_portion";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { hasAlifeInfo } from "@/engine/core/utils/object/object_info_portion";
 import { getDistanceBetween, isObjectInZone } from "@/engine/core/utils/object/object_location";
 import { infoPortions, TInfoPortion } from "@/engine/lib/constants/info_portions";
 import {

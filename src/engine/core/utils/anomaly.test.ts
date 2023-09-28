@@ -2,10 +2,10 @@ import { beforeEach, describe, expect, it } from "@jest/globals";
 
 import { registerSimulator, registry } from "@/engine/core/database";
 import { AnomalyZoneBinder } from "@/engine/core/objects/binders/zones/AnomalyZoneBinder";
-import { anomalyHasArtefact, getAnomalyArtefacts } from "@/engine/core/utils/object/object_anomaly";
+import { anomalyHasArtefact, getAnomalyArtefacts } from "@/engine/core/utils/anomaly";
 import { mockClientGameObject, mockServerAlifeObject } from "@/fixtures/xray";
 
-describe("object_anomaly utils", () => {
+describe("anomaly utils", () => {
   beforeEach(() => registerSimulator());
 
   it("anomalyHasArtefact should correctly check if anomaly has artefact", () => {
