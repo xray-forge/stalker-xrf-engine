@@ -8,7 +8,7 @@ import { extern, getExtern } from "@/engine/core/utils/binding";
 import { getNpcSpeaker } from "@/engine/core/utils/dialog";
 import { disableInfo, giveInfo, hasAlifeInfo } from "@/engine/core/utils/info_portion";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { isObjectInSmartTerrain } from "@/engine/core/utils/object";
+import { isObjectInSmartTerrain } from "@/engine/core/utils/position";
 import { getObjectsRelationSafe, isActorEnemyWithFaction } from "@/engine/core/utils/relation";
 import {
   giveItemsToActor,

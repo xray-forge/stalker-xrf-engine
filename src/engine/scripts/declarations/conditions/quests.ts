@@ -7,7 +7,7 @@ import { abort } from "@/engine/core/utils/assertion";
 import { extern, getExtern } from "@/engine/core/utils/binding";
 import { hasAlifeInfo } from "@/engine/core/utils/info_portion";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { getDistanceBetween, isObjectInZone } from "@/engine/core/utils/object/object_location";
+import { getDistanceBetween, isObjectInZone } from "@/engine/core/utils/position";
 import { infoPortions, TInfoPortion } from "@/engine/lib/constants/info_portions";
 import {
   AlifeSimulator,

@@ -17,7 +17,7 @@ import { createGameAutoSave } from "@/engine/core/utils/game/game_save";
 import { parseConditionsList, pickSectionFromCondList } from "@/engine/core/utils/ini";
 import { ELuaLoggerMode, LuaLogger } from "@/engine/core/utils/logging";
 import { getObjectCommunity, getObjectSquad } from "@/engine/core/utils/object/object_get";
-import { getObjectSmartTerrain, getServerDistanceBetween } from "@/engine/core/utils/object/object_location";
+import { getObjectSmartTerrain, getServerDistanceBetween } from "@/engine/core/utils/position";
 import { isAnySquadMemberEnemyToActor } from "@/engine/core/utils/relation";
 import { vectorToString } from "@/engine/core/utils/vector";
 import { postProcessors } from "@/engine/lib/constants/animation";

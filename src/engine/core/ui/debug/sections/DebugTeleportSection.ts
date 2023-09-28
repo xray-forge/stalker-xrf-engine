@@ -7,7 +7,8 @@ import { AbstractDebugSection } from "@/engine/core/ui/debug/sections/AbstractDe
 import { DebugTeleportListEntry } from "@/engine/core/ui/debug/sections/DebugTeleportListEntry";
 import { executeConsoleCommand, isGameStarted } from "@/engine/core/utils/game";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { getServerObjects, isGameVertexFromLevel } from "@/engine/core/utils/object";
+import { getServerObjects } from "@/engine/core/utils/object/object_find";
+import { isGameVertexFromLevel } from "@/engine/core/utils/position";
 import { resolveXmlFile } from "@/engine/core/utils/ui";
 import { vectorToString } from "@/engine/core/utils/vector";
 import { postProcessors } from "@/engine/lib/constants/animation";

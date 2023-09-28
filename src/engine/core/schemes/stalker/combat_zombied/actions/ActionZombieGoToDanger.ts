@@ -4,7 +4,7 @@ import { setStalkerState } from "@/engine/core/database";
 import { EStalkerState, ILookTargetDescriptor } from "@/engine/core/objects/animation/types";
 import { EZombieCombatAction, ISchemeCombatState } from "@/engine/core/schemes/stalker/combat/ISchemeCombatState";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { sendToNearestAccessibleVertex } from "@/engine/core/utils/object/object_location";
+import { sendToNearestAccessibleVertex } from "@/engine/core/utils/position";
 import {
   ClientObject,
   DangerObject,

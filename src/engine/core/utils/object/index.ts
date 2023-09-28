@@ -3,7 +3,6 @@ export * from "@/engine/core/utils/object/object_check";
 export * from "@/engine/core/utils/object/object_danger";
 export * from "@/engine/core/utils/object/object_find";
 export * from "@/engine/core/utils/object/object_get";
-export * from "@/engine/core/utils/object/object_location";
 export * from "@/engine/core/utils/object/object_loot";
 export * from "@/engine/core/utils/object/object_meeting";
 export * from "@/engine/core/utils/object/object_set";

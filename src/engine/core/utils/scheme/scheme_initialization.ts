@@ -13,7 +13,7 @@ import { assert } from "@/engine/core/utils/assertion";
 import { readIniNumber, readIniString } from "@/engine/core/utils/ini";
 import { ISmartTerrainJobDescriptor } from "@/engine/core/utils/job";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { getObjectSmartTerrain } from "@/engine/core/utils/object/object_location";
+import { getObjectSmartTerrain } from "@/engine/core/utils/position";
 import { ERelation } from "@/engine/core/utils/relation";
 import { emitSchemeEvent } from "@/engine/core/utils/scheme/scheme_event";
 import {

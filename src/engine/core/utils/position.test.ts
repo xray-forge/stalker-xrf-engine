@@ -17,7 +17,7 @@ import {
   isObjectOnLevel,
   sendToNearestAccessibleVertex,
   teleportActorWithEffects,
-} from "@/engine/core/utils/object/object_location";
+} from "@/engine/core/utils/position";
 import { MAX_U32 } from "@/engine/lib/constants/memory";
 import { ZERO_VECTOR } from "@/engine/lib/constants/vectors";
 import { ClientObject, ServerHumanObject, ServerObject, ServerSmartZoneObject, Vector } from "@/engine/lib/types";
@@ -31,7 +31,7 @@ import {
 } from "@/fixtures/xray";
 import { MockVector } from "@/fixtures/xray/mocks/vector.mock";
 
-describe("object location utils", () => {
+describe("position utils", () => {
   beforeEach(() => {
     registerSimulator();
   });

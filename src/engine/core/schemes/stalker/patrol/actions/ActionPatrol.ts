@@ -6,7 +6,7 @@ import { EStalkerState, EWaypointArrivalType } from "@/engine/core/objects/anima
 import { ISchemePatrolState } from "@/engine/core/schemes/stalker/patrol";
 import { parseWaypointsData } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { sendToNearestAccessibleVertex } from "@/engine/core/utils/object/object_location";
+import { sendToNearestAccessibleVertex } from "@/engine/core/utils/position";
 import { areSameVectors, createEmptyVector, createVector } from "@/engine/core/utils/vector";
 import {
   ClientObject,

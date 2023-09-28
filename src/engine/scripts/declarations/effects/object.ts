@@ -28,8 +28,8 @@ import {
   readIniString,
 } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { getObjectSmartTerrain } from "@/engine/core/utils/object";
 import { clearObjectAbuse } from "@/engine/core/utils/object/object_meeting";
+import { getObjectSmartTerrain } from "@/engine/core/utils/position";
 import { trySwitchToAnotherSection } from "@/engine/core/utils/scheme/scheme_switch";
 import {
   releaseObject,

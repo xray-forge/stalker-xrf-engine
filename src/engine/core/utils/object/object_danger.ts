@@ -7,8 +7,8 @@ import { ESmartTerrainStatus } from "@/engine/core/objects/server/smart_terrain/
 import { ISchemeCombatIgnoreState } from "@/engine/core/schemes/stalker/combat_ignore";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini";
 import { getObjectCommunity } from "@/engine/core/utils/object/object_get";
-import { isObjectInZone } from "@/engine/core/utils/object/object_location";
 import { isObjectWounded } from "@/engine/core/utils/object/object_state";
+import { isObjectInZone } from "@/engine/core/utils/position";
 import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
 import { communities } from "@/engine/lib/constants/communities";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";

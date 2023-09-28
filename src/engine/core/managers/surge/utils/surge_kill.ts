@@ -14,7 +14,7 @@ import { isImmuneToSurgeObject } from "@/engine/core/managers/surge/utils/surge_
 import { hasAlifeInfo } from "@/engine/core/utils/info_portion";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { isObjectOnLevel } from "@/engine/core/utils/object/object_location";
+import { isObjectOnLevel } from "@/engine/core/utils/position";
 import { animations, postProcessors } from "@/engine/lib/constants/animation";
 import { infoPortions } from "@/engine/lib/constants/info_portions";
 import { TLevel } from "@/engine/lib/constants/levels";

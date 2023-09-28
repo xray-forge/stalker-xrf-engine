@@ -2,7 +2,7 @@ import { level } from "xray16";
 
 import { registry } from "@/engine/core/database";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { areObjectsOnSameLevel } from "@/engine/core/utils/object/object_location";
+import { areObjectsOnSameLevel } from "@/engine/core/utils/position";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import {
   AlifeSimulator,

@@ -66,7 +66,7 @@ import {
   TSmartTerrainJobsList,
 } from "@/engine/core/utils/job";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { areObjectsOnSameLevel } from "@/engine/core/utils/object";
+import { areObjectsOnSameLevel } from "@/engine/core/utils/position";
 import { ERelation } from "@/engine/core/utils/relation";
 import {
   activateSchemeBySection,
@@ -487,8 +487,8 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
         registry.smartTerrainNearest.id === null
           ? registry.smartTerrainNearest.distance
           : registry.simulator
-            .object(registry.smartTerrainNearest.id)!
-            .position.distance_to(registry.actorServer.position);
+              .object(registry.smartTerrainNearest.id)!
+              .position.distance_to(registry.actorServer.position);
 
       if (distanceToActor < previousDistanceToActor) {
         registry.smartTerrainNearest.id = this.id;

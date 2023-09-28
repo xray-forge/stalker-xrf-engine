@@ -18,10 +18,10 @@ import {
   enableObjectWoundedHealing,
   getObjectCommunity,
   isObjectInjured,
-  isObjectInSmartTerrain,
   isObjectWounded,
   isStalkerAlive,
 } from "@/engine/core/utils/object";
+import { isObjectInSmartTerrain } from "@/engine/core/utils/position";
 import { actorHasMedKit, getActorAvailableMedKit, transferItemsFromActor } from "@/engine/core/utils/reward";
 import { communities } from "@/engine/lib/constants/communities";
 import { infoPortions } from "@/engine/lib/constants/info_portions";
