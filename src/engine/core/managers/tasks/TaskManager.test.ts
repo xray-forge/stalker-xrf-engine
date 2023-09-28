@@ -3,6 +3,8 @@ import { beforeAll, beforeEach, describe, expect, it } from "@jest/globals";
 import { disposeManager, getManagerInstance, registerActor, registry } from "@/engine/core/database";
 import { EventsManager } from "@/engine/core/managers/events";
 import { TaskManager } from "@/engine/core/managers/tasks/TaskManager";
+import { TaskObject } from "@/engine/core/managers/tasks/TaskObject";
+import { ETaskState } from "@/engine/core/managers/tasks/types";
 import { NIL } from "@/engine/lib/constants/words";
 import { MockLuaTable } from "@/fixtures/lua/mocks/LuaTable.mock";
 import { mockClientGameObject } from "@/fixtures/xray";
@@ -110,6 +112,24 @@ describe("TaskManager class", () => {
   });
 
   it.todo("should correctly give tasks");
+
+  it("should correctly check if tasks are active", () => {
+    const taskManager: TaskManager = TaskManager.getInstance();
+
+    expect(taskManager.isTaskActive("test_task")).toBeFalsy();
+
+    taskManager.tasksList.set("test_task", { state: ETaskState.COMPLETED } as TaskObject);
+    expect(taskManager.isTaskActive("test_task")).toBeFalsy();
+
+    taskManager.tasksList.set("test_task", { state: ETaskState.FAIL } as TaskObject);
+    expect(taskManager.isTaskActive("test_task")).toBeFalsy();
+
+    taskManager.tasksList.set("test_task", { state: ETaskState.REVERSED } as TaskObject);
+    expect(taskManager.isTaskActive("test_task")).toBeFalsy();
+
+    taskManager.tasksList.set("test_task", { state: ETaskState.NEW } as TaskObject);
+    expect(taskManager.isTaskActive("test_task")).toBeTruthy();
+  });
 
   it.todo("should correctly check if tasks are completed");
 

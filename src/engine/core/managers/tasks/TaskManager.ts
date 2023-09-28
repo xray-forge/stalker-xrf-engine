@@ -74,6 +74,9 @@ export class TaskManager extends AbstractManager {
 
   /**
    * Check if task by ID is active.
+   *
+   * @param taskId - identifier of task to check
+   * @returns if task is active in list
    */
   public isTaskActive(taskId: TStringId): boolean {
     const task: Optional<TaskObject> = this.tasksList.get(taskId) as Optional<TaskObject>;

@@ -35,6 +35,6 @@ export function isSurgeEnabledOnLevel(levelName: TName): boolean {
  * @param object - squad object to check
  * @returns whether provided community squad is immune to surge.
  */
-export function isImmuneToSurgeObject(object: Squad): boolean {
+export function isImmuneToSurgeSquad(object: Squad): boolean {
   return surgeConfig.IMMUNE_SQUAD_COMMUNITIES.get(object.faction) === true;
 }

@@ -2,7 +2,7 @@ import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 
 import { surgeConfig } from "@/engine/core/managers/surge/SurgeConfig";
 import {
-  isImmuneToSurgeObject,
+  isImmuneToSurgeSquad,
   isSurgeEnabledOnLevel,
   launchSurgeSignalRockets,
 } from "@/engine/core/managers/surge/utils/surge_generic";
@@ -70,15 +70,15 @@ describe("surge_generic utils", () => {
       [communities.zombied]: true,
     });
 
-    expect(isImmuneToSurgeObject({ faction: "monster_predatory_day" } as unknown as Squad)).toBe(true);
-    expect(isImmuneToSurgeObject({ faction: "monster_vegetarian" } as unknown as Squad)).toBe(true);
-    expect(isImmuneToSurgeObject({ faction: "monster_special" } as unknown as Squad)).toBe(true);
-    expect(isImmuneToSurgeObject({ faction: "monster" } as unknown as Squad)).toBe(true);
-    expect(isImmuneToSurgeObject({ faction: "zombied" } as unknown as Squad)).toBe(true);
-    expect(isImmuneToSurgeObject({ faction: "monster_zombied_day" } as unknown as Squad)).toBe(true);
-    expect(isImmuneToSurgeObject({ faction: "stalker" } as unknown as Squad)).toBe(false);
-    expect(isImmuneToSurgeObject({ faction: "bandit" } as unknown as Squad)).toBe(false);
-    expect(isImmuneToSurgeObject({ faction: "monolith" } as unknown as Squad)).toBe(false);
-    expect(isImmuneToSurgeObject({ faction: "army" } as unknown as Squad)).toBe(false);
+    expect(isImmuneToSurgeSquad({ faction: "monster_predatory_day" } as unknown as Squad)).toBe(true);
+    expect(isImmuneToSurgeSquad({ faction: "monster_vegetarian" } as unknown as Squad)).toBe(true);
+    expect(isImmuneToSurgeSquad({ faction: "monster_special" } as unknown as Squad)).toBe(true);
+    expect(isImmuneToSurgeSquad({ faction: "monster" } as unknown as Squad)).toBe(true);
+    expect(isImmuneToSurgeSquad({ faction: "zombied" } as unknown as Squad)).toBe(true);
+    expect(isImmuneToSurgeSquad({ faction: "monster_zombied_day" } as unknown as Squad)).toBe(true);
+    expect(isImmuneToSurgeSquad({ faction: "stalker" } as unknown as Squad)).toBe(false);
+    expect(isImmuneToSurgeSquad({ faction: "bandit" } as unknown as Squad)).toBe(false);
+    expect(isImmuneToSurgeSquad({ faction: "monolith" } as unknown as Squad)).toBe(false);
+    expect(isImmuneToSurgeSquad({ faction: "army" } as unknown as Squad)).toBe(false);
   });
 });
