@@ -14,6 +14,7 @@ import { abort } from "@/engine/core/utils/assertion";
 import { extern, getExtern } from "@/engine/core/utils/binding";
 import { createGameAutoSave } from "@/engine/core/utils/game_save";
 import { disableInfoPortion, giveInfoPortion, hasInfoPortion } from "@/engine/core/utils/info_portion";
+import { LuaLogger } from "@/engine/core/utils/logging";
 import { isObjectInZone } from "@/engine/core/utils/position";
 import { giveItemsToActor, takeItemFromActor } from "@/engine/core/utils/reward";
 import { spawnObject, spawnObjectInObject, spawnSquadInSmart } from "@/engine/core/utils/spawn";
@@ -52,6 +53,8 @@ import {
 } from "@/engine/lib/types";
 import { zatB29AfTable, zatB29InfopBringTable } from "@/engine/scripts/declarations/dialogs/dialogs_zaton";
 
+const logger: LuaLogger = new LuaLogger($filename);
+
 /**
  * Show freeplay dialog in the end of game.
  *
@@ -72,10 +75,10 @@ extern(
 /**
  * todo;
  */
-extern("xr_effects.jup_b32_place_scanner", (actor: ClientObject): void => {
+extern("xr_effects.jup_b32_place_scanner", (): void => {
   for (const i of $range(1, 5)) {
     if (
-      isObjectInZone(actor, registry.zones.get("jup_b32_sr_scanner_place_" + i)) &&
+      isObjectInZone(registry.actor, registry.zones.get("jup_b32_sr_scanner_place_" + i)) &&
       !hasInfoPortion(("jup_b32_scanner_" + i + "_placed") as TInfoPortion)
     ) {
       giveInfoPortion(("jup_b32_scanner_" + i + "_placed") as TInfoPortion);
@@ -90,15 +93,15 @@ extern("xr_effects.jup_b32_place_scanner", (actor: ClientObject): void => {
 /**
  * todo;
  */
-extern("xr_effects.jup_b32_pda_check", (actor: ClientObject): void => {
+extern("xr_effects.jup_b32_pda_check", (): void => {
   MapDisplayManager.getInstance().updateAnomalyZonesDisplay();
 });
 
 /**
  * todo;
  */
-extern("xr_effects.pri_b306_generator_start", (actor: ClientObject): void => {
-  if (isObjectInZone(actor, registry.zones.get("pri_b306_sr_generator"))) {
+extern("xr_effects.pri_b306_generator_start", (): void => {
+  if (isObjectInZone(registry.actor, registry.zones.get("pri_b306_sr_generator"))) {
     giveInfoPortion(infoPortions.pri_b306_lift_generator_used);
   }
 });
@@ -107,11 +110,11 @@ extern("xr_effects.pri_b306_generator_start", (actor: ClientObject): void => {
  * todo;
  */
 extern("xr_effects.jup_b206_get_plant", (actor: ClientObject, object: ClientObject): void => {
-  if (isObjectInZone(actor, registry.zones.get("jup_b206_sr_quest_line"))) {
+  if (isObjectInZone(registry.actor, registry.zones.get("jup_b206_sr_quest_line"))) {
     giveInfoPortion(infoPortions.jup_b206_anomalous_grove_has_plant);
     giveItemsToActor(questItems.jup_b206_plant);
 
-    getExtern<AnyCallable>("destroy_object", getExtern("xr_effects"))(actor, object, [
+    getExtern<AnyCallable>("destroy_object", getExtern("xr_effects"))(registry.actor, object, [
       "story",
       "jup_b206_plant_ph",
       null,
@@ -122,8 +125,8 @@ extern("xr_effects.jup_b206_get_plant", (actor: ClientObject, object: ClientObje
 /**
  * todo;
  */
-extern("xr_effects.pas_b400_switcher", (actor: ClientObject, object: ClientObject): void => {
-  if (isObjectInZone(actor, registry.zones.get("pas_b400_sr_switcher"))) {
+extern("xr_effects.pas_b400_switcher", (): void => {
+  if (isObjectInZone(registry.actor, registry.zones.get("pas_b400_sr_switcher"))) {
     giveInfoPortion(infoPortions.pas_b400_switcher_use);
   }
 });
@@ -131,8 +134,8 @@ extern("xr_effects.pas_b400_switcher", (actor: ClientObject, object: ClientObjec
 /**
  * todo;
  */
-extern("xr_effects.jup_b209_place_scanner", (actor: ClientObject, object: ClientObject): void => {
-  if (isObjectInZone(actor, registry.zones.get("jup_b209_hypotheses"))) {
+extern("xr_effects.jup_b209_place_scanner", (): void => {
+  if (isObjectInZone(registry.actor, registry.zones.get("jup_b209_hypotheses"))) {
     createGameAutoSave("st_save_jup_b209_placed_mutant_scanner");
     giveInfoPortion(infoPortions.jup_b209_scanner_placed);
     takeItemFromActor(questItems.jup_b209_monster_scanner);
@@ -143,8 +146,8 @@ extern("xr_effects.jup_b209_place_scanner", (actor: ClientObject, object: Client
 /**
  * todo;
  */
-extern("xr_effects.jup_b9_heli_1_searching", (actor: ClientObject, object: ClientObject): void => {
-  if (isObjectInZone(actor, registry.zones.get("jup_b9_heli_1"))) {
+extern("xr_effects.jup_b9_heli_1_searching", (): void => {
+  if (isObjectInZone(registry.actor, registry.zones.get("jup_b9_heli_1"))) {
     giveInfoPortion(infoPortions.jup_b9_heli_1_searching);
   }
 });
@@ -152,8 +155,8 @@ extern("xr_effects.jup_b9_heli_1_searching", (actor: ClientObject, object: Clien
 /**
  * todo;
  */
-extern("xr_effects.pri_a18_use_idol", (actor: ClientObject, object: ClientObject): void => {
-  if (isObjectInZone(actor, registry.zones.get("pri_a18_use_idol_restrictor"))) {
+extern("xr_effects.pri_a18_use_idol", (): void => {
+  if (isObjectInZone(registry.actor, registry.zones.get("pri_a18_use_idol_restrictor"))) {
     giveInfoPortion(infoPortions.pri_a18_run_cam);
   }
 });
@@ -161,8 +164,8 @@ extern("xr_effects.pri_a18_use_idol", (actor: ClientObject, object: ClientObject
 /**
  * todo;
  */
-extern("xr_effects.jup_b8_heli_4_searching", (actor: ClientObject, object: ClientObject): void => {
-  if (isObjectInZone(actor, registry.zones.get("jup_b8_heli_4"))) {
+extern("xr_effects.jup_b8_heli_4_searching", (): void => {
+  if (isObjectInZone(registry.actor, registry.zones.get("jup_b8_heli_4"))) {
     giveInfoPortion(infoPortions.jup_b8_heli_4_searching);
   }
 });
@@ -170,8 +173,8 @@ extern("xr_effects.jup_b8_heli_4_searching", (actor: ClientObject, object: Clien
 /**
  * todo;
  */
-extern("xr_effects.jup_b10_ufo_searching", (actor: ClientObject, object: ClientObject): void => {
-  if (isObjectInZone(actor, registry.zones.get("jup_b10_ufo_restrictor"))) {
+extern("xr_effects.jup_b10_ufo_searching", (): void => {
+  if (isObjectInZone(registry.actor, registry.zones.get("jup_b10_ufo_restrictor"))) {
     giveInfoPortion(infoPortions.jup_b10_ufo_memory_started);
     giveItemsToActor(questItems.jup_b10_ufo_memory);
   }
@@ -180,8 +183,8 @@ extern("xr_effects.jup_b10_ufo_searching", (actor: ClientObject, object: ClientO
 /**
  * todo;
  */
-extern("xr_effects.zat_b101_heli_5_searching", (actor: ClientObject, object: ClientObject): void => {
-  if (isObjectInZone(actor, registry.zones.get("zat_b101_heli_5"))) {
+extern("xr_effects.zat_b101_heli_5_searching", (): void => {
+  if (isObjectInZone(registry.actor, registry.zones.get("zat_b101_heli_5"))) {
     giveInfoPortion(infoPortions.zat_b101_heli_5_searching);
   }
 });
@@ -189,8 +192,8 @@ extern("xr_effects.zat_b101_heli_5_searching", (actor: ClientObject, object: Cli
 /**
  * todo;
  */
-extern("xr_effects.zat_b28_heli_3_searching", (actor: ClientObject, object: ClientObject): void => {
-  if (isObjectInZone(actor, registry.zones.get("zat_b28_heli_3"))) {
+extern("xr_effects.zat_b28_heli_3_searching", (): void => {
+  if (isObjectInZone(registry.actor, registry.zones.get("zat_b28_heli_3"))) {
     giveInfoPortion(infoPortions.zat_b28_heli_3_searching);
   }
 });
@@ -198,8 +201,10 @@ extern("xr_effects.zat_b28_heli_3_searching", (actor: ClientObject, object: Clie
 /**
  * todo;
  */
-extern("xr_effects.zat_b100_heli_2_searching", (actor: ClientObject, object: ClientObject): void => {
-  if (isObjectInZone(actor, registry.zones.get("zat_b100_heli_2"))) {
+extern("xr_effects.zat_b100_heli_2_searching", (): void => {
+  logger.info("Searching helicopter #2");
+
+  if (isObjectInZone(registry.actor, registry.zones.get("zat_b100_heli_2"))) {
     giveInfoPortion(infoPortions.zat_b100_heli_2_searching);
   }
 });
@@ -911,18 +916,18 @@ extern("xr_effects.pri_a28_talk_ssu_video_end", (actor: ClientObject, object: Cl
 /**
  * todo;
  */
-extern("xr_effects.zat_b33_pic_snag_container", (actor: ClientObject, object: ClientObject): void => {
-  if (isObjectInZone(actor, registry.zones.get("zat_b33_tutor"))) {
+extern("xr_effects.zat_b33_pic_snag_container", (): void => {
+  if (isObjectInZone(registry.actor, registry.zones.get("zat_b33_tutor"))) {
     giveItemsToActor(questItems.zat_b33_safe_container);
     giveInfoPortion(infoPortions.zat_b33_find_package);
 
     // todo: use shared util instead of effect
     if (!hasInfoPortion(infoPortions.zat_b33_safe_container)) {
-      getExtern<AnyCallable>("play_sound", getExtern("xr_effects"))(actor, registry.zones.get("zat_b33_tutor"), [
-        "pda_news",
-        null,
-        null,
-      ]);
+      getExtern<AnyCallable>("play_sound", getExtern("xr_effects"))(
+        registry.actor,
+        registry.zones.get("zat_b33_tutor"),
+        ["pda_news", null, null]
+      );
     }
   }
 });

@@ -11,7 +11,7 @@ const logger: LuaLogger = new LuaLogger($filename, { file: "info_portions", mode
  * @param infoId - info portion to give to actor
  */
 export function giveInfoPortion(infoId: TName): void {
-  logger.info("Give alife info:", infoId);
+  logger.info("Give info portion:", infoId);
 
   registry.actor.give_info_portion(infoId);
 }
