@@ -145,7 +145,7 @@ extern("xr_conditions.enemy_in_zone", (actor: ClientObject, object: ClientObject
     abort("Wrong zone name '%s' in enemy_in_zone function.", tostring(params[0]));
   }
 
-  return isObjectInZone(actor, zone);
+  return isObjectInZone(registry.actor, zone);
 });
 
 /**

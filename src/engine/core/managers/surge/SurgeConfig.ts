@@ -1,7 +1,7 @@
 import { ini_file } from "xray16";
 
 import { ISurgeCoverDescriptor } from "@/engine/core/managers/surge/surge_types";
-import { parseConditionsList, readIniNumber, readIniSet } from "@/engine/core/utils/ini";
+import { parseConditionsList, readIniNumber, readIniSectionAsSet } from "@/engine/core/utils/ini";
 import { FALSE, TRUE } from "@/engine/lib/constants/words";
 import { IniFile, TIndex } from "@/engine/lib/types";
 
@@ -44,8 +44,8 @@ export const surgeConfig = {
   SLEEP_FADE_PP_EFFECTOR_ID: 4,
   // Detailed.
   SURGE_COVERS: new LuaTable<TIndex, ISurgeCoverDescriptor>(),
-  IMMUNE_SQUAD_COMMUNITIES: readIniSet(SURGE_MANAGER_CONFIG_LTX, "immune_squad_communities"),
-  SURGE_DISABLED_LEVELS: readIniSet(SURGE_MANAGER_CONFIG_LTX, "surge_disabled_levels"),
-  UNDERGROUND_LEVELS: readIniSet(SURGE_MANAGER_CONFIG_LTX, "surge_underground_levels"),
-  RESPAWN_ARTEFACTS_LEVELS: readIniSet(SURGE_MANAGER_CONFIG_LTX, "surge_respawn_artefacts_levels"),
+  IMMUNE_SQUAD_COMMUNITIES: readIniSectionAsSet(SURGE_MANAGER_CONFIG_LTX, "immune_squad_communities"),
+  SURGE_DISABLED_LEVELS: readIniSectionAsSet(SURGE_MANAGER_CONFIG_LTX, "surge_disabled_levels"),
+  UNDERGROUND_LEVELS: readIniSectionAsSet(SURGE_MANAGER_CONFIG_LTX, "surge_underground_levels"),
+  RESPAWN_ARTEFACTS_LEVELS: readIniSectionAsSet(SURGE_MANAGER_CONFIG_LTX, "surge_respawn_artefacts_levels"),
 };

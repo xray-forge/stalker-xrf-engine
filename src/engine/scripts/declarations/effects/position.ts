@@ -104,12 +104,12 @@ extern("xr_effects.teleport_actor", (actor: ClientObject, object: ClientObject, 
     const look: Patrol = new patrol(params[1]);
     const dir: TRate = -look.point(0).sub(point.point(0)).getH();
 
-    actor.set_actor_direction(dir);
+    registry.actor.set_actor_direction(dir);
   }
 
   // todo: probably should check after teleport
   for (const [id] of registry.noWeaponZones) {
-    if (isObjectInZone(actor, registry.objects.get(id).object)) {
+    if (isObjectInZone(registry.actor, registry.objects.get(id).object)) {
       registry.noWeaponZones.set(id, true);
     }
   }
@@ -118,7 +118,7 @@ extern("xr_effects.teleport_actor", (actor: ClientObject, object: ClientObject, 
     logger.info("Teleporting actor from:", tostring(object.name()));
   }
 
-  actor.set_actor_position(point.point(0));
+  registry.actor.set_actor_position(point.point(0));
 });
 
 /**

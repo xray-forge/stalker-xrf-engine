@@ -9,6 +9,7 @@ import { DebugPositionSection } from "@/engine/core/ui/debug/sections/DebugPosit
 import { DebugRegistrySection } from "@/engine/core/ui/debug/sections/DebugRegistrySection";
 import { DebugSoundSection } from "@/engine/core/ui/debug/sections/DebugSoundSection";
 import { DebugSpawnSection } from "@/engine/core/ui/debug/sections/DebugSpawnSection";
+import { DebugTaskSection } from "@/engine/core/ui/debug/sections/DebugTaskSection";
 import { DebugTeleportSection } from "@/engine/core/ui/debug/sections/DebugTeleportSection";
 import { DebugTreasuresSection } from "@/engine/core/ui/debug/sections/DebugTreasuresSection";
 
@@ -25,6 +26,7 @@ export enum EDebugSection {
   REGISTRY = "registry",
   SOUND = "sound",
   SPAWN = "spawn",
+  TASK = "task",
   TELEPORT = "teleport",
   TREASURES = "treasures",
 }
@@ -39,6 +41,7 @@ export const sectionsMap = {
   [EDebugSection.REGISTRY]: (owner: CUIScriptWnd) => new DebugRegistrySection(owner),
   [EDebugSection.SOUND]: (owner: CUIScriptWnd) => new DebugSoundSection(owner),
   [EDebugSection.SPAWN]: (owner: CUIScriptWnd) => new DebugSpawnSection(owner),
+  [EDebugSection.TASK]: (owner: CUIScriptWnd) => new DebugTaskSection(owner),
   [EDebugSection.TELEPORT]: (owner: CUIScriptWnd) => new DebugTeleportSection(owner),
   [EDebugSection.TREASURES]: (owner: CUIScriptWnd) => new DebugTreasuresSection(owner),
 };

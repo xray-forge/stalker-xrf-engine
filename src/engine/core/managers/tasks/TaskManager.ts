@@ -63,6 +63,8 @@ export class TaskManager extends AbstractManager {
         task.giveTaskReward();
         EventsManager.emitEvent(EGameEvent.TASK_COMPLETED, task);
 
+        logger.info("Task completed:", taskId);
+
         return true;
       } else {
         return false;
@@ -71,7 +73,24 @@ export class TaskManager extends AbstractManager {
   }
 
   /**
+   * Check if task by ID is active.
+   *
+   * @param taskId - identifier of task to check
+   * @returns if task is active in list
+   */
+  public isTaskActive(taskId: TStringId): boolean {
+    const task: Optional<TaskObject> = this.tasksList.get(taskId) as Optional<TaskObject>;
+
+    return task
+      ? task.state !== ETaskState.COMPLETED && task.state !== ETaskState.FAIL && task.state !== ETaskState.REVERSED
+      : false;
+  }
+
+  /**
    * Check if task by id is failed.
+   *
+   * @param taskId - identifier of task to check
+   * @returns if task is failed
    */
   public isTaskFailed(taskId: TStringId): boolean {
     const task: Optional<TaskObject> = this.tasksList.get(taskId);

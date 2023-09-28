@@ -10,7 +10,7 @@ import {
   getNearestAvailableSurgeCover,
   getOnlineSurgeCoversList,
 } from "@/engine/core/managers/surge/utils/surge_cover";
-import { isImmuneToSurgeObject } from "@/engine/core/managers/surge/utils/surge_generic";
+import { isImmuneToSurgeSquad } from "@/engine/core/managers/surge/utils/surge_generic";
 import { hasInfoPortion } from "@/engine/core/utils/info_portion";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -33,7 +33,7 @@ export function killAllSurgeUnhiddenAfterActorDeath(): void {
   const levelName: TLevel = level.name();
 
   for (const [, squad] of simulationBoardManager.getSquads()) {
-    if (isObjectOnLevel(squad, levelName) && !isImmuneToSurgeObject(squad)) {
+    if (isObjectOnLevel(squad, levelName) && !isImmuneToSurgeSquad(squad)) {
       for (const member of squad.squad_members()) {
         let isInSurgeCover: boolean = false;
 
@@ -97,7 +97,7 @@ export function killAllSurgeUnhidden(): void {
   logger.info("Killing squads");
 
   for (const [, squad] of simulationBoardManager.getSquads()) {
-    if (isObjectOnLevel(squad, levelName) && !isImmuneToSurgeObject(squad) && !isStoryObject(squad)) {
+    if (isObjectOnLevel(squad, levelName) && !isImmuneToSurgeSquad(squad) && !isStoryObject(squad)) {
       for (const member of squad.squad_members()) {
         if (!isStoryObject(member.object)) {
           if (canSurgeKillSquad(squad)) {

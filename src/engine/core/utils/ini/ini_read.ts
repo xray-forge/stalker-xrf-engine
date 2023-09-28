@@ -266,7 +266,7 @@ export function readIniTwoStringsAndConditionsList(
  * @param section - config section to read
  * @returns set transformed from ini section
  */
-export function readIniSet<T extends string = string>(ini: IniFile, section: TSection): LuaTable<T, boolean> {
+export function readIniSectionAsSet<T extends string = string>(ini: IniFile, section: TSection): LuaTable<T, boolean> {
   const set: LuaTable<T, boolean> = new LuaTable();
 
   if (ini.section_exist(section)) {
@@ -283,13 +283,41 @@ export function readIniSet<T extends string = string>(ini: IniFile, section: TSe
 }
 
 /**
+ * Read sections list from ini file.
+ *
+ * @param ini - config file to read
+ * @returns list of sections from ini file
+ */
+export function readIniSectionsAsList<T extends TSection = TSection>(ini: IniFile): LuaArray<T> {
+  const list: LuaArray<T> = new LuaTable();
+
+  ini.section_for_each((it) => table.insert(list, it as T));
+
+  return list;
+}
+
+/**
+ * Read sections set from ini file.
+ *
+ * @param ini - config file to read
+ * @returns set of sections from ini file
+ */
+export function readIniSectionsAsSet<T extends TSection = TSection>(ini: IniFile): LuaTable<T, boolean> {
+  const list: LuaTable<T, boolean> = new LuaTable();
+
+  ini.section_for_each((it) => list.set(it as T, true));
+
+  return list;
+}
+
+/**
  * Read section fields and transform to string based map.
  *
  * @param ini - config file to read
  * @param section - config section to read
  * @returns map transformed from ini section
  */
-export function readIniStringMap<K extends string = string, V extends string = string>(
+export function readIniSectionAsStringMap<K extends string = string, V extends string = string>(
   ini: IniFile,
   section: TSection
 ): LuaTable<K, V> {

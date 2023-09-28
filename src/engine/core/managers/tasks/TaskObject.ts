@@ -14,6 +14,8 @@ import { assertDefined } from "@/engine/core/utils/assertion";
 import { getExtern } from "@/engine/core/utils/binding";
 import {
   parseConditionsList,
+  parseNumberOptional,
+  parseStringOptional,
   parseStringsList,
   pickSectionFromCondList,
   readIniBoolean,
@@ -26,7 +28,6 @@ import { giveMoneyToActor, transferItemsToActor } from "@/engine/core/utils/rewa
 import { readTimeFromPacket, writeTimeToPacket } from "@/engine/core/utils/time";
 import { levels, TLevel } from "@/engine/lib/constants/levels";
 import { storyNames } from "@/engine/lib/constants/story_names";
-import { NIL } from "@/engine/lib/constants/words";
 import {
   AlifeSimulator,
   AnyCallablesModule,
@@ -38,7 +39,6 @@ import {
   NetProcessor,
   Optional,
   ServerObject,
-  StringOptional,
   TCount,
   TDuration,
   Time,
@@ -452,8 +452,8 @@ export class TaskObject {
 
     packet.w_u8(this.status);
     writeTimeToPacket(packet, this.initializedAt);
-    packet.w_stringZ(this.currentTitle);
-    packet.w_stringZ(this.currentDescription);
+    packet.w_stringZ(tostring(this.currentTitle));
+    packet.w_stringZ(tostring(this.currentDescription));
     packet.w_stringZ(tostring(this.currentTargetId));
 
     closeSaveMarker(packet, TaskObject.name);
@@ -467,12 +467,9 @@ export class TaskObject {
 
     this.status = reader.r_u8();
     this.initializedAt = readTimeFromPacket(reader);
-    this.currentTitle = reader.r_stringZ();
-    this.currentDescription = reader.r_stringZ();
-
-    const currentTarget: StringOptional = reader.r_stringZ();
-
-    this.currentTargetId = currentTarget === NIL ? null : (tonumber(currentTarget) as TNumberId);
+    this.currentTitle = parseStringOptional(reader.r_stringZ());
+    this.currentDescription = parseStringOptional(reader.r_stringZ()) as TLabel;
+    this.currentTargetId = parseNumberOptional(reader.r_stringZ());
 
     closeLoadMarker(reader, TaskObject.name);
   }
