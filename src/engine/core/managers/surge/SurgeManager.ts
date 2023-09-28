@@ -12,6 +12,9 @@ import {
   initializeSurgeCovers,
   killAllSurgeUnhidden,
   launchSurgeSignalRockets,
+  playSurgeEndedSound,
+  playSurgeStartingSound,
+  playSurgeWillHappenSoonSound,
 } from "@/engine/core/managers/surge/utils";
 import { TaskManager } from "@/engine/core/managers/tasks";
 import { WeatherManager } from "@/engine/core/managers/weather/WeatherManager";
@@ -393,16 +396,7 @@ export class SurgeManager extends AbstractManager {
       const globalSoundManager: GlobalSoundManager = GlobalSoundManager.getInstance();
 
       if (surgeDuration >= surgeConfig.DURATION) {
-        if (level !== null) {
-          if (level.name() === levels.zaton) {
-            globalSoundManager.playSound(ACTOR_ID, "zat_a2_stalker_barmen_after_surge");
-          } else if (level.name() === levels.jupiter) {
-            globalSoundManager.playSound(ACTOR_ID, "jup_a6_stalker_medik_after_surge");
-          } else if (!hasAlifeInfo(infoPortions.pri_b305_fifth_cam_end)) {
-            globalSoundManager.playSound(ACTOR_ID, "pri_a17_kovalsky_after_surge");
-          }
-        }
-
+        playSurgeEndedSound();
         this.endSurge();
       } else {
         if (this.isAfterGameLoad) {
@@ -470,15 +464,7 @@ export class SurgeManager extends AbstractManager {
           killAllSurgeUnhidden();
           this.isUiDisabled = true;
         } else if (surgeDuration >= 140 && !this.isSecondMessageGiven) {
-          if (level !== null) {
-            if (level.name() === levels.zaton) {
-              globalSoundManager.playSound(ACTOR_ID, "zat_a2_stalker_barmen_surge_phase_2");
-            } else if (level.name() === levels.jupiter) {
-              globalSoundManager.playSound(ACTOR_ID, "jup_a6_stalker_medik_phase_2");
-            } else if (!hasAlifeInfo(infoPortions.pri_b305_fifth_cam_end)) {
-              globalSoundManager.playSound(ACTOR_ID, "pri_a17_kovalsky_surge_phase_2");
-            }
-          }
+          playSurgeWillHappenSoonSound();
 
           globalSoundManager.playLoopedSound(ACTOR_ID, "surge_earthquake_sound_looped");
           level.add_cam_effector(
@@ -498,14 +484,7 @@ export class SurgeManager extends AbstractManager {
           globalSoundManager.setLoopedSoundVolume(ACTOR_ID, "blowout_rumble", 0.25);
           this.isBlowoutSoundEnabled = true;
         } else if (surgeDuration >= 0 && !this.isTaskGiven) {
-          if (level.name() === levels.zaton) {
-            globalSoundManager.playSound(ACTOR_ID, "zat_a2_stalker_barmen_surge_phase_1");
-          } else if (level.name() === levels.jupiter) {
-            globalSoundManager.playSound(ACTOR_ID, "jup_a6_stalker_medik_phase_1");
-          } else if (!hasAlifeInfo(infoPortions.pri_b305_fifth_cam_end)) {
-            globalSoundManager.playSound(ACTOR_ID, "pri_a17_kovalsky_surge_phase_1");
-          }
-
+          playSurgeStartingSound();
           level.set_weather_fx("fx_surge_day_3");
           this.giveSurgeHideTask();
         }
