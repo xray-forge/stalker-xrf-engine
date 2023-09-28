@@ -19,8 +19,8 @@ import { EventsManager } from "@/engine/core/managers/events/EventsManager";
 import { SaveManager } from "@/engine/core/managers/save/SaveManager";
 import { ISchemeDeimosState } from "@/engine/core/schemes/restrictor/sr_deimos";
 import { SchemeDeimos } from "@/engine/core/schemes/restrictor/sr_deimos/SchemeDeimos";
+import { setStableAlifeObjectsUpdate, setUnlimitedAlifeObjectsUpdate } from "@/engine/core/utils/alife";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { setStableAlifeObjectsUpdate, setUnlimitedAlifeObjectsUpdate } from "@/engine/core/utils/object/object_alife";
 import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import {

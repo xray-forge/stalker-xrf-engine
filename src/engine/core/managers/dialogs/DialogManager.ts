@@ -17,10 +17,11 @@ import {
 } from "@/engine/core/managers/dialogs/dialog_types";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { assert } from "@/engine/core/utils/assertion";
+import { getObjectCommunity } from "@/engine/core/utils/community";
+import { hasInfoPortion } from "@/engine/core/utils/info_portion";
 import { parseInfoPortions, parseStringsList } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { getObjectCommunity, isObjectWounded } from "@/engine/core/utils/object";
-import { hasAlifeInfo } from "@/engine/core/utils/object/object_info_portion";
+import { isObjectWounded } from "@/engine/core/utils/planner";
 import { FALSE, TRUE } from "@/engine/lib/constants/words";
 import {
   ClientObject,
@@ -371,12 +372,12 @@ export class DialogManager extends AbstractManager {
     for (const [k, condition] of PTIDSubtable.info) {
       if (condition.name) {
         if (condition.required === true) {
-          if (!hasAlifeInfo(condition.name)) {
+          if (!hasInfoPortion(condition.name)) {
             priority = -1;
             break;
           }
         } else {
-          if (hasAlifeInfo(condition.name)) {
+          if (hasInfoPortion(condition.name)) {
             priority = -1;
             break;
           }

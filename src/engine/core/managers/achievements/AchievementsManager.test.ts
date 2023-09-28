@@ -15,7 +15,7 @@ import { AchievementsManager } from "@/engine/core/managers/achievements/Achieve
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { ENotificationType, notificationsIcons } from "@/engine/core/managers/notifications";
 import { WeatherManager } from "@/engine/core/managers/weather/WeatherManager";
-import { giveInfo } from "@/engine/core/utils/object/object_info_portion";
+import { giveInfoPortion } from "@/engine/core/utils/info_portion";
 import { infoPortions } from "@/engine/lib/constants/info_portions";
 import { ServerObject } from "@/engine/lib/types";
 import { replaceFunctionMock, resetFunctionMock } from "@/fixtures/jest";
@@ -111,9 +111,9 @@ describe("AchievementManager class", () => {
     expect(achievementsManager.checkAchieved(EAchievement.DETECTIVE)).toBeFalsy();
     expect(achievementsManager.checkAchieved(EAchievement.ONE_OF_THE_LADS)).toBeFalsy();
 
-    giveInfo(infoPortions.zat_b22_barmen_gave_reward);
-    giveInfo(infoPortions.zat_b30_sultan_loose);
-    giveInfo(infoPortions.zat_b7_actor_help_stalkers);
+    giveInfoPortion(infoPortions.zat_b22_barmen_gave_reward);
+    giveInfoPortion(infoPortions.zat_b30_sultan_loose);
+    giveInfoPortion(infoPortions.zat_b7_actor_help_stalkers);
 
     expect(achievementsManager.checkAchieved(EAchievement.DETECTIVE)).toBeTruthy();
     expect(achievementsManager.checkAchieved(EAchievement.ONE_OF_THE_LADS)).toBeTruthy();
@@ -152,7 +152,7 @@ describe("AchievementManager class", () => {
     replaceFunctionMock(game.get_game_time, () => MockCTime.mock(2012, 6, 25, 12, 35, 30, 500));
 
     registerStoryLink(box.id, achievementRewards.REWARD_BOXES.ZATON);
-    giveInfo(infoPortions.detective_achievement_gained);
+    giveInfoPortion(infoPortions.detective_achievement_gained);
 
     achievementsManager.update();
 
@@ -188,7 +188,7 @@ describe("AchievementManager class", () => {
     replaceFunctionMock(game.get_game_time, () => MockCTime.mock(2012, 6, 25, 12, 35, 30, 500));
 
     registerStoryLink(box.id, achievementRewards.REWARD_BOXES.JUPITER);
-    giveInfo(infoPortions.mutant_hunter_achievement_gained);
+    giveInfoPortion(infoPortions.mutant_hunter_achievement_gained);
 
     achievementsManager.update();
 

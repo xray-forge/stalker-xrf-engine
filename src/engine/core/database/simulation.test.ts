@@ -1,5 +1,4 @@
 import { beforeEach, describe, expect, it } from "@jest/globals";
-import { clsid } from "xray16";
 
 import { registry } from "@/engine/core/database/registry";
 import {

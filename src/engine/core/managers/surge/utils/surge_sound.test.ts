@@ -8,7 +8,7 @@ import {
   playSurgeStartingSound,
   playSurgeWillHappenSoonSound,
 } from "@/engine/core/managers/surge/utils/surge_sound";
-import { giveInfo } from "@/engine/core/utils/object";
+import { giveInfoPortion } from "@/engine/core/utils/info_portion";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import { infoPortions } from "@/engine/lib/constants/info_portions";
 import { mockRegisteredActor } from "@/fixtures/engine";
@@ -36,7 +36,7 @@ describe("surge_sound utils", () => {
     playSurgeStartingSound();
     expect(manager.playSound).toHaveBeenCalledWith(ACTOR_ID, "pri_a17_kovalsky_surge_phase_1");
 
-    giveInfo(infoPortions.pri_b305_fifth_cam_end);
+    giveInfoPortion(infoPortions.pri_b305_fifth_cam_end);
     playSurgeStartingSound();
     expect(manager.playSound).toHaveBeenCalledTimes(3);
   });
@@ -58,7 +58,7 @@ describe("surge_sound utils", () => {
     playSurgeWillHappenSoonSound();
     expect(manager.playSound).toHaveBeenCalledWith(ACTOR_ID, "pri_a17_kovalsky_surge_phase_2");
 
-    giveInfo(infoPortions.pri_b305_fifth_cam_end);
+    giveInfoPortion(infoPortions.pri_b305_fifth_cam_end);
     playSurgeWillHappenSoonSound();
     expect(manager.playSound).toHaveBeenCalledTimes(3);
   });
@@ -80,7 +80,7 @@ describe("surge_sound utils", () => {
     playSurgeEndedSound();
     expect(manager.playSound).toHaveBeenCalledWith(ACTOR_ID, "pri_a17_kovalsky_after_surge");
 
-    giveInfo(infoPortions.pri_b305_fifth_cam_end);
+    giveInfoPortion(infoPortions.pri_b305_fifth_cam_end);
     playSurgeEndedSound();
     expect(manager.playSound).toHaveBeenCalledTimes(3);
   });

@@ -94,7 +94,7 @@ export function isObjectPsyWounded(object: ClientObject): boolean {
  * @param object - target object to search wounded from its perspective
  * @returns tuple of optional object, vertex id and position vector
  */
-export function findObjectNearestWoundedToHelp(
+export function getNearestWoundedToHelp(
   object: Readonly<ClientObject>
 ): LuaMultiReturn<[ClientObject, TNumberId, Vector] | [null, null, null]> {
   const currentObjectId: TNumberId = object.id();

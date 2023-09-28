@@ -2,10 +2,10 @@ import { level } from "xray16";
 
 import { registry } from "@/engine/core/database/registry";
 import { EStalkerState } from "@/engine/core/objects/animation/types";
-import { Squad } from "@/engine/core/objects/server/squad";
+import type { Squad } from "@/engine/core/objects/server/squad";
 import { abort, assertDefined } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { getObjectSquad } from "@/engine/core/utils/object";
+import { getObjectSquad } from "@/engine/core/utils/squad";
 import { createEmptyVector, createVector, vectorCross, vectorRotateY, yawDegree } from "@/engine/core/utils/vector";
 import {
   ClientObject,

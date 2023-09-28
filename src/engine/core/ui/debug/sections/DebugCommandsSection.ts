@@ -1,7 +1,7 @@
 import { CConsole, CUICheckButton, CUIScrollView, CUIStatic, get_console, LuabindClass, ui_events } from "xray16";
 
 import { AbstractDebugSection } from "@/engine/core/ui/debug/sections/AbstractDebugSection";
-import { executeConsoleCommand } from "@/engine/core/utils/game/game_console";
+import { executeConsoleCommand } from "@/engine/core/utils/console";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { resolveXmlFile } from "@/engine/core/utils/ui";
 import { onOffCommands, TConsoleCommand, zeroOneCommands } from "@/engine/lib/constants/console_commands";

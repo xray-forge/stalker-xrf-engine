@@ -43,7 +43,7 @@ import { SmartTerrainControl } from "@/engine/core/objects/server/smart_terrain/
 import { ESmartTerrainStatus } from "@/engine/core/objects/server/smart_terrain/types";
 import { ESquadActionType, Squad } from "@/engine/core/objects/server/squad";
 import { abort, assert, assertDefined } from "@/engine/core/utils/assertion";
-import { readTimeFromPacket, writeTimeToPacket } from "@/engine/core/utils/game/game_time";
+import { isMonsterSquad, isStalker } from "@/engine/core/utils/class_ids";
 import {
   getSchemeFromSection,
   IConfigSwitchCondition,
@@ -65,7 +65,7 @@ import {
   TSmartTerrainJobsList,
 } from "@/engine/core/utils/job";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { areObjectsOnSameLevel, isMonsterSquad, isStalker } from "@/engine/core/utils/object";
+import { areObjectsOnSameLevel } from "@/engine/core/utils/position";
 import { ERelation } from "@/engine/core/utils/relation";
 import {
   activateSchemeBySection,
@@ -79,6 +79,7 @@ import {
   turnOnSmartTerrainCampfires,
   updateSmartTerrainAlarmStatus,
 } from "@/engine/core/utils/smart_terrain";
+import { readTimeFromPacket, writeTimeToPacket } from "@/engine/core/utils/time";
 import { toJSON } from "@/engine/core/utils/transform/json";
 import { gameConfig } from "@/engine/lib/configs/GameConfig";
 import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
@@ -89,7 +90,6 @@ import { NIL, TRUE } from "@/engine/lib/constants/words";
 import {
   AlifeSimulator,
   ALifeSmartTerrainTask,
-  AnyObject,
   ClientObject,
   ESchemeType,
   GameGraphVertex,

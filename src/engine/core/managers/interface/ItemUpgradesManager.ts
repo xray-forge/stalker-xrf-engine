@@ -85,7 +85,7 @@ export class ItemUpgradesManager extends AbstractManager {
     let hintsLabel: TLabel = "";
 
     if (this.upgradeHints !== null) {
-      for (const [index, caption] of this.upgradeHints) {
+      for (const [, caption] of this.upgradeHints) {
         hintsLabel = hintsLabel + "\\n - " + game.translate_string(caption);
       }
     }

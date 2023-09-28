@@ -14,9 +14,9 @@ import {
 import { AbstractManager } from "@/engine/core/managers/base/AbstractManager";
 import { IReleaseDescriptor } from "@/engine/core/managers/death/release_body_types";
 import { abort } from "@/engine/core/utils/assertion";
+import { isMonster, isStalker } from "@/engine/core/utils/class_ids";
 import { readIniString } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { isMonster, isStalker } from "@/engine/core/utils/object/object_class";
 import { resetTable } from "@/engine/core/utils/table";
 import { roots } from "@/engine/lib/constants/roots";
 import {
@@ -96,7 +96,7 @@ export class ReleaseBodyManager extends AbstractManager {
 
     const overflowCount: TCount = this.releaseObjectRegistry.length() - ReleaseBodyManager.MAX_BODY_COUNT;
 
-    for (const it of $range(1, overflowCount)) {
+    for (const _ of $range(1, overflowCount)) {
       const positionInList: Optional<TIndex> = this.findNearestObjectToRelease(this.releaseObjectRegistry);
 
       if (positionInList === null) {
@@ -139,7 +139,7 @@ export class ReleaseBodyManager extends AbstractManager {
       return false;
     }
 
-    for (const [k, v] of this.keepItemsRegistry) {
+    for (const [k] of this.keepItemsRegistry) {
       if (object.object(this.keepItemsRegistry.get(k)) !== null) {
         // logger.info("Ignore corpse release, contains keep item:", object.name(), k);
 
@@ -215,7 +215,7 @@ export class ReleaseBodyManager extends AbstractManager {
 
     packet.w_u16(count);
 
-    for (const [k, v] of this.releaseObjectRegistry) {
+    for (const [, v] of this.releaseObjectRegistry) {
       packet.w_u16(v.id);
     }
 

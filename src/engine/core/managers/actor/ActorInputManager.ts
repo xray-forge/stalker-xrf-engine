@@ -14,11 +14,11 @@ import { surgeConfig } from "@/engine/core/managers/surge/SurgeConfig";
 import type { SurgeManager } from "@/engine/core/managers/surge/SurgeManager";
 import { killAllSurgeUnhidden } from "@/engine/core/managers/surge/utils/surge_kill";
 import { WeatherManager } from "@/engine/core/managers/weather";
-import { executeConsoleCommand, getConsoleFloatCommand } from "@/engine/core/utils/game";
-import { readTimeFromPacket, writeTimeToPacket } from "@/engine/core/utils/game/game_time";
+import { executeConsoleCommand, getConsoleFloatCommand } from "@/engine/core/utils/console";
+import { disableInfoPortion, giveInfoPortion } from "@/engine/core/utils/info_portion";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { disableInfo, giveInfo } from "@/engine/core/utils/object/object_info_portion";
-import { isActorInNoWeaponZone } from "@/engine/core/utils/object/object_zone";
+import { isActorInNoWeaponZone } from "@/engine/core/utils/position";
+import { readTimeFromPacket, writeTimeToPacket } from "@/engine/core/utils/time";
 import { animations, postProcessors } from "@/engine/lib/constants/animation";
 import { consoleCommands } from "@/engine/lib/constants/console_commands";
 import { infoPortions } from "@/engine/lib/constants/info_portions";
@@ -266,7 +266,7 @@ export class ActorInputManager extends AbstractManager {
     level.add_cam_effector(animations.camera_effects_surge_02, 10, false, "engine.on_anabiotic_sleep");
     level.add_pp_effector(postProcessors.surge_fade, 11, false);
 
-    giveInfo(infoPortions.anabiotic_in_process);
+    giveInfoPortion(infoPortions.anabiotic_in_process);
 
     registry.sounds.musicVolume = getConsoleFloatCommand(consoleCommands.snd_volume_music);
     registry.sounds.effectsVolume = getConsoleFloatCommand(consoleCommands.snd_volume_eff);
@@ -322,7 +322,7 @@ export class ActorInputManager extends AbstractManager {
   /**
    * Handle first update from actor input perspective.
    */
-  public onFirstUpdate(delta: TDuration): void {
+  public onFirstUpdate(): void {
     logger.info("Apply active item slot:", this.activeItemSlot);
     registry.actor.activate_slot(this.activeItemSlot);
   }
@@ -393,7 +393,7 @@ export class ActorInputManager extends AbstractManager {
     registry.sounds.effectsVolume = 0;
     registry.sounds.musicVolume = 0;
 
-    disableInfo(infoPortions.anabiotic_in_process);
+    disableInfoPortion(infoPortions.anabiotic_in_process);
   }
 
   /**

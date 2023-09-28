@@ -14,8 +14,8 @@ import {
 } from "@/engine/core/objects/animation/types/animation_types";
 import type { EStalkerState } from "@/engine/core/objects/animation/types/state_types";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { getObjectActiveWeaponSlot } from "@/engine/core/utils/object/object_get";
 import { createVector, vectorRotateY } from "@/engine/core/utils/vector";
+import { getObjectActiveWeaponSlot } from "@/engine/core/utils/weapon";
 import {
   AnyCallable,
   ClientObject,

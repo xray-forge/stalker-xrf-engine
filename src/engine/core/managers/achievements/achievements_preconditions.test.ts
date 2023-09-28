@@ -32,7 +32,7 @@ import { AchievementsManager } from "@/engine/core/managers/achievements/Achieve
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { ENotificationType, ITipNotification } from "@/engine/core/managers/notifications";
 import { StatisticsManager } from "@/engine/core/managers/statistics";
-import { disableInfo, giveInfo, hasAlifeInfo } from "@/engine/core/utils/object/object_info_portion";
+import { disableInfoPortion, giveInfoPortion, hasInfoPortion } from "@/engine/core/utils/info_portion";
 import { communities } from "@/engine/lib/constants/communities";
 import { infoPortions, TInfoPortion } from "@/engine/lib/constants/info_portions";
 import { artefacts } from "@/engine/lib/constants/items/artefacts";
@@ -70,17 +70,17 @@ describe("AchievementManager class", () => {
   }) => {
     const onNotification = mockNotificationListener(notificationCaption, notificationIcon);
 
-    giveInfo(achievementInfo);
+    giveInfoPortion(achievementInfo);
     expect(check()).toBeTruthy();
 
-    disableInfo(achievementInfo);
+    disableInfoPortion(achievementInfo);
     expect(check()).toBeFalsy();
 
-    requiredInfos.forEach((it) => giveInfo(it));
+    requiredInfos.forEach((it) => giveInfoPortion(it));
 
     expect(check()).toBeTruthy();
     expect(onNotification).toHaveBeenCalledTimes(1);
-    expect(hasAlifeInfo(achievementInfo)).toBeTruthy();
+    expect(hasInfoPortion(achievementInfo)).toBeTruthy();
   };
 
   beforeEach(() => {
@@ -195,8 +195,6 @@ describe("AchievementManager class", () => {
   });
 
   it("should correctly check leader achievement", () => {
-    const achievementsManager: AchievementsManager = AchievementsManager.getInstance();
-
     checkGenericAchievement({
       check: hasAchievedLeader,
       notificationCaption: "st_ach_leader",
@@ -385,10 +383,10 @@ describe("AchievementManager class", () => {
   it("should correctly check wealthy achievement", () => {
     const onNotification = mockNotificationListener("st_ach_wealthy", achievementIcons[EAchievement.WEALTHY]);
 
-    giveInfo(infoPortions.actor_wealthy);
+    giveInfoPortion(infoPortions.actor_wealthy);
     expect(hasAchievedWealthy()).toBeTruthy();
 
-    disableInfo(infoPortions.actor_wealthy);
+    disableInfoPortion(infoPortions.actor_wealthy);
     expect(hasAchievedWealthy()).toBeFalsy();
 
     registry.actor.give_money(25_000);
@@ -397,17 +395,17 @@ describe("AchievementManager class", () => {
     registry.actor.give_money(75_000);
     expect(hasAchievedWealthy()).toBeTruthy();
     expect(onNotification).toHaveBeenCalledTimes(1);
-    expect(hasAlifeInfo(infoPortions.actor_wealthy)).toBeTruthy();
+    expect(hasInfoPortion(infoPortions.actor_wealthy)).toBeTruthy();
   });
 
   it("should correctly check seeker achievement", () => {
     const statisticsManager: StatisticsManager = StatisticsManager.getInstance();
     const onNotification = mockNotificationListener("st_ach_seeker", achievementIcons[EAchievement.SEEKER]);
 
-    giveInfo(infoPortions.sim_bandit_attack_harder);
+    giveInfoPortion(infoPortions.sim_bandit_attack_harder);
     expect(hasAchievedSeeker()).toBeTruthy();
 
-    disableInfo(infoPortions.sim_bandit_attack_harder);
+    disableInfoPortion(infoPortions.sim_bandit_attack_harder);
 
     StatisticsManager.getInstance().actorStatistics.collectedArtefacts = MockLuaTable.mockFromObject({
       [artefacts.af_baloon]: true,
@@ -424,7 +422,7 @@ describe("AchievementManager class", () => {
 
     expect(hasAchievedSeeker()).toBeTruthy();
     expect(onNotification).toHaveBeenCalledTimes(1);
-    expect(hasAlifeInfo(infoPortions.sim_bandit_attack_harder)).toBeTruthy();
+    expect(hasInfoPortion(infoPortions.sim_bandit_attack_harder)).toBeTruthy();
 
     expect(relation_registry.change_community_goodwill).toHaveBeenCalledWith(
       communities.stalker,
@@ -435,16 +433,15 @@ describe("AchievementManager class", () => {
 
   it("should correctly check marked by zone achievement", () => {
     const statisticsManager: StatisticsManager = StatisticsManager.getInstance();
-    const achievementsManager: AchievementsManager = AchievementsManager.getInstance();
     const onNotification = mockNotificationListener(
       "st_ach_marked_by_zone",
       achievementIcons[EAchievement.MARKED_BY_ZONE]
     );
 
-    giveInfo(infoPortions.actor_marked_by_zone_3_times);
+    giveInfoPortion(infoPortions.actor_marked_by_zone_3_times);
     expect(hasAchievedMarkedByZone()).toBeTruthy();
 
-    disableInfo(infoPortions.actor_marked_by_zone_3_times);
+    disableInfoPortion(infoPortions.actor_marked_by_zone_3_times);
     expect(hasAchievedMarkedByZone()).toBeFalsy();
 
     statisticsManager.onSurvivedSurgeWithAnabiotic();
@@ -454,6 +451,6 @@ describe("AchievementManager class", () => {
     statisticsManager.onSurvivedSurgeWithAnabiotic();
     expect(hasAchievedMarkedByZone()).toBeTruthy();
     expect(onNotification).toHaveBeenCalledTimes(1);
-    expect(hasAlifeInfo(infoPortions.actor_marked_by_zone_3_times)).toBeTruthy();
+    expect(hasInfoPortion(infoPortions.actor_marked_by_zone_3_times)).toBeTruthy();
   });
 });

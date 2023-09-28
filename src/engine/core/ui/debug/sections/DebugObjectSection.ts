@@ -2,18 +2,19 @@ import { CUI3tButton, CUICheckButton, CUIStatic, level, LuabindClass, ui_events 
 
 import { registry } from "@/engine/core/database";
 import { DebugManager } from "@/engine/core/managers/debug/DebugManager";
-import { Squad } from "@/engine/core/objects/server/squad";
+import type { Squad } from "@/engine/core/objects/server/squad";
 import { AbstractDebugSection } from "@/engine/core/ui/debug/sections/AbstractDebugSection";
 import { isGameStarted } from "@/engine/core/utils/game";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { getObjectSquad, setObjectWounded } from "@/engine/core/utils/object";
-import { getNearestClientObject } from "@/engine/core/utils/object/object_find";
+import { setObjectWounded } from "@/engine/core/utils/object";
+import { getNearestClientObject } from "@/engine/core/utils/registry";
 import {
   ERelation,
   getObjectsRelationSafe,
   getSquadMembersRelationToActorSafe,
   setClientObjectRelation,
 } from "@/engine/core/utils/relation";
+import { getObjectSquad } from "@/engine/core/utils/squad";
 import { resolveXmlFile } from "@/engine/core/utils/ui";
 import { NIL } from "@/engine/lib/constants/words";
 import { ClientObject, Optional, TPath } from "@/engine/lib/types";

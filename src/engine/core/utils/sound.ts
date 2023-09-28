@@ -1,8 +1,9 @@
 import { bit_and, snd_type } from "xray16";
 
+import { registry } from "@/engine/core/database";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { ESoundType } from "@/engine/lib/constants/sound";
-import { TSoundType } from "@/engine/lib/types";
+import { ClientObject, TSoundType } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -69,4 +70,26 @@ export function mapSoundMaskToSoundType(soundMask: TSoundType): ESoundType {
  */
 export function isSoundType(heard: TSoundType, expected: TSoundType): boolean {
   return bit_and(heard, expected) === expected;
+}
+
+/**
+ * Check whether is playing sound.
+ *
+ * @param object - client object to check playing
+ * @returns whether currently sound is playing.
+ */
+export function isPlayingSound(object: ClientObject): boolean {
+  return registry.sounds.generic.has(object.id());
+}
+
+/**
+ * Stop playing sound for client game object.
+ *
+ * @param object - target object to stop playing
+ */
+export function stopPlayingObjectSound(object: ClientObject): void {
+  if (object.alive()) {
+    object.set_sound_mask(-1);
+    object.set_sound_mask(0);
+  }
 }

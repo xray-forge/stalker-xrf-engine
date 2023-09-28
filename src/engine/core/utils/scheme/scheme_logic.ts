@@ -17,8 +17,7 @@ import { getSchemeFromSection } from "@/engine/core/utils/ini/ini_parse";
 import { readIniConditionList, readIniString } from "@/engine/core/utils/ini/ini_read";
 import { ISmartTerrainJobDescriptor } from "@/engine/core/utils/job";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { getObjectSmartTerrain } from "@/engine/core/utils/object/object_get";
-import { sendToNearestAccessibleVertex } from "@/engine/core/utils/object/object_location";
+import { getObjectSmartTerrain, sendToNearestAccessibleVertex } from "@/engine/core/utils/position";
 import { emitSchemeEvent } from "@/engine/core/utils/scheme/scheme_event";
 import { scriptReleaseMonster } from "@/engine/core/utils/scheme/scheme_monster";
 import {

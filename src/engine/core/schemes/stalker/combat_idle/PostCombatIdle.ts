@@ -5,8 +5,8 @@ import { EActionId, EEvaluatorId } from "@/engine/core/objects/ai/types";
 import { ActionPostCombatIdleWait } from "@/engine/core/schemes/stalker/combat_idle/actions";
 import { EvaluatorHasEnemy } from "@/engine/core/schemes/stalker/combat_idle/evaluators";
 import { ISchemePostCombatIdleState } from "@/engine/core/schemes/stalker/combat_idle/ISchemePostCombatIdleState";
+import { getObjectCommunity } from "@/engine/core/utils/community";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { getObjectCommunity } from "@/engine/core/utils/object";
 import { communities } from "@/engine/lib/constants/communities";
 import { ActionPlanner, ClientObject } from "@/engine/lib/types";
 

@@ -5,9 +5,9 @@ import { AnomalyZoneBinder } from "@/engine/core/objects/binders";
 import { Squad } from "@/engine/core/objects/server/squad";
 import { abort } from "@/engine/core/utils/assertion";
 import { extern, getExtern } from "@/engine/core/utils/binding";
+import { hasInfoPortion } from "@/engine/core/utils/info_portion";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { hasAlifeInfo } from "@/engine/core/utils/object/object_info_portion";
-import { getDistanceBetween, isObjectInZone } from "@/engine/core/utils/object/object_location";
+import { getDistanceBetween, isObjectInZone } from "@/engine/core/utils/position";
 import { infoPortions, TInfoPortion } from "@/engine/lib/constants/info_portions";
 import {
   AlifeSimulator,
@@ -39,7 +39,7 @@ extern(
     }
 
     for (const i of $range(16, 23)) {
-      if (hasAlifeInfo(zatB29InfopBringTable.get(i))) {
+      if (hasInfoPortion(zatB29InfopBringTable.get(i))) {
         afName = zatB29AfTable.get(i);
         break;
       }
@@ -92,8 +92,8 @@ extern("xr_conditions.jup_b221_who_will_start", (actor: ClientObject, object: Cl
     }
 
     if (
-      hasAlifeInfo(v) &&
-      !hasAlifeInfo(
+      hasInfoPortion(v) &&
+      !hasInfoPortion(
         ("jup_b221_" +
           factionsList.get(1) +
           "_main_" +
@@ -216,11 +216,11 @@ extern("xr_conditions.pri_a28_actor_is_far", (actor: ClientObject, object: Clien
  */
 extern("xr_conditions.jup_b25_senya_spawn_condition", (): boolean => {
   return (
-    (hasAlifeInfo(infoPortions.jup_b16_oasis_found) ||
-      hasAlifeInfo(infoPortions.zat_b57_bloodsucker_lair_clear) ||
-      hasAlifeInfo(infoPortions.jup_b6_complete_end) ||
-      hasAlifeInfo(infoPortions.zat_b215_gave_maps)) &&
-    hasAlifeInfo(infoPortions.zat_b106_search_soroka)
+    (hasInfoPortion(infoPortions.jup_b16_oasis_found) ||
+      hasInfoPortion(infoPortions.zat_b57_bloodsucker_lair_clear) ||
+      hasInfoPortion(infoPortions.jup_b6_complete_end) ||
+      hasInfoPortion(infoPortions.zat_b215_gave_maps)) &&
+    hasInfoPortion(infoPortions.zat_b106_search_soroka)
   );
 });
 
@@ -229,9 +229,9 @@ extern("xr_conditions.jup_b25_senya_spawn_condition", (): boolean => {
  */
 extern("xr_conditions.jup_b25_flint_gone_condition", (): boolean => {
   return (
-    hasAlifeInfo(infoPortions.jup_b25_flint_blame_done_to_duty) ||
-    hasAlifeInfo(infoPortions.jup_b25_flint_blame_done_to_freedom) ||
-    hasAlifeInfo(infoPortions.zat_b106_found_soroka_done)
+    hasInfoPortion(infoPortions.jup_b25_flint_blame_done_to_duty) ||
+    hasInfoPortion(infoPortions.jup_b25_flint_blame_done_to_freedom) ||
+    hasInfoPortion(infoPortions.zat_b106_found_soroka_done)
   );
 });
 
@@ -241,7 +241,7 @@ extern("xr_conditions.jup_b25_flint_gone_condition", (): boolean => {
 extern("xr_conditions.zat_b103_actor_has_needed_food", (actor: ClientObject, object: ClientObject): boolean => {
   return (
     getExtern<AnyCallablesModule>("dialogs_zaton").zat_b103_actor_has_needed_food(actor, object) ||
-    hasAlifeInfo(infoPortions.zat_b103_merc_task_done)
+    hasInfoPortion(infoPortions.zat_b103_merc_task_done)
   );
 });
 
@@ -294,11 +294,11 @@ extern("xr_conditions.zat_b29_rivals_dialog_precond", (actor: ClientObject, obje
  */
 extern("xr_conditions.jup_b202_actor_treasure_not_in_steal", (actor: ClientObject, object: ClientObject) => {
   const before: boolean =
-    !hasAlifeInfo(infoPortions.jup_b52_actor_items_can_be_stolen) &&
-    !hasAlifeInfo(infoPortions.jup_b202_actor_items_returned);
+    !hasInfoPortion(infoPortions.jup_b52_actor_items_can_be_stolen) &&
+    !hasInfoPortion(infoPortions.jup_b202_actor_items_returned);
   const after: boolean =
-    hasAlifeInfo(infoPortions.jup_b52_actor_items_can_be_stolen) &&
-    hasAlifeInfo(infoPortions.jup_b202_actor_items_returned);
+    hasInfoPortion(infoPortions.jup_b52_actor_items_can_be_stolen) &&
+    hasInfoPortion(infoPortions.jup_b202_actor_items_returned);
 
   return before || after;
 });
@@ -341,7 +341,7 @@ extern("xr_conditions.jup_b202_inventory_box_empty", (actor: ClientObject, objec
  * todo;
  */
 extern("xr_conditions.jup_b16_is_zone_active", (actor: ClientObject, object: ClientObject): boolean => {
-  return hasAlifeInfo(object.name() as TInfoPortion);
+  return hasInfoPortion(object.name() as TInfoPortion);
 });
 
 /**

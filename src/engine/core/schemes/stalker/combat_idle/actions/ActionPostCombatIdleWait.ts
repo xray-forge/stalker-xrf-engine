@@ -5,7 +5,7 @@ import { StalkerAnimationManager } from "@/engine/core/objects/ai/state/StalkerA
 import { EAnimationType, EStalkerState } from "@/engine/core/objects/animation/types";
 import { ISchemePostCombatIdleState } from "@/engine/core/schemes/stalker/combat_idle/ISchemePostCombatIdleState";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { isObjectWeaponLocked, setObjectBestWeapon } from "@/engine/core/utils/object/object_weapon";
+import { isObjectWeaponLocked, setObjectBestWeapon } from "@/engine/core/utils/weapon";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

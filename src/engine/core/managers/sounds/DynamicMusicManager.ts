@@ -10,7 +10,7 @@ import { surgeConfig } from "@/engine/core/managers/surge/SurgeConfig";
 import type { SurgeManager } from "@/engine/core/managers/surge/SurgeManager";
 import { StereoSound } from "@/engine/core/objects/sounds/StereoSound";
 import { abort } from "@/engine/core/utils/assertion";
-import { executeConsoleCommand, getConsoleFloatCommand } from "@/engine/core/utils/game/game_console";
+import { executeConsoleCommand, getConsoleFloatCommand } from "@/engine/core/utils/console";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { clampNumber } from "@/engine/core/utils/number";
 import { consoleCommands } from "@/engine/lib/constants/console_commands";

@@ -2,7 +2,7 @@ import { IRegistryObjectState, registry, setPortableStoreValue } from "@/engine/
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import { ISchemeCorpseDetectionState } from "@/engine/core/schemes/stalker/corpse_detection";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { transferLoot } from "@/engine/core/utils/object/object_loot";
+import { transferLoot } from "@/engine/core/utils/loot";
 import { chance } from "@/engine/core/utils/random";
 import { LOOTING_DEAD_OBJECT_KEY } from "@/engine/lib/constants/portable_store_keys";
 import { ClientObject, EScheme, LuaArray, Optional, TNumberId } from "@/engine/lib/types";

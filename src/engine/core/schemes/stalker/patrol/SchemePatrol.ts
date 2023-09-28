@@ -12,8 +12,8 @@ import { PatrolManager } from "@/engine/core/schemes/stalker/patrol/PatrolManage
 import { abort } from "@/engine/core/utils/assertion";
 import { getConfigSwitchConditions, readIniBoolean, readIniString } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { getObjectSquad } from "@/engine/core/utils/object";
 import { addCommonActionPreconditions } from "@/engine/core/utils/scheme/scheme_setup";
+import { getObjectSquad } from "@/engine/core/utils/squad";
 import { ActionPlanner, ClientObject, IniFile, Optional, TName } from "@/engine/lib/types";
 import { EScheme, ESchemeType, TSection } from "@/engine/lib/types/scheme";
 

@@ -1,7 +1,7 @@
 import { surgeConfig } from "@/engine/core/managers/surge/SurgeConfig";
 import type { Squad } from "@/engine/core/objects/server/squad";
-import { isInTimeInterval } from "@/engine/core/utils/game";
-import { getServerDistanceBetween } from "@/engine/core/utils/object/object_location";
+import { getServerDistanceBetween } from "@/engine/core/utils/position";
+import { isInTimeInterval } from "@/engine/core/utils/time";
 import { ServerObject } from "@/engine/lib/types";
 
 /**

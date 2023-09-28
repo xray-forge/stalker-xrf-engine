@@ -3,10 +3,11 @@ import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundMan
 import { AbstractSchemeManager } from "@/engine/core/objects/ai/scheme";
 import { EStalkerState } from "@/engine/core/objects/animation/types";
 import { EMeetDistance, ISchemeMeetState } from "@/engine/core/schemes/stalker/meet/ISchemeMeetState";
+import { setObjectAbuseState } from "@/engine/core/schemes/stalker/meet/utils";
 import { isBlackScreen } from "@/engine/core/utils/game";
 import { parseStringOptional, pickSectionFromCondList } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { isObjectInCombat, isObjectWounded, setObjectAbuseState } from "@/engine/core/utils/object";
+import { isObjectInCombat, isObjectWounded } from "@/engine/core/utils/planner";
 import { FALSE, NIL, TRUE } from "@/engine/lib/constants/words";
 import {
   ClientObject,

@@ -1,8 +1,17 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 
-import { launchSurgeSignalRockets } from "@/engine/core/managers/surge/utils/surge_generic";
+import { surgeConfig } from "@/engine/core/managers/surge/SurgeConfig";
+import {
+  isImmuneToSurgeObject,
+  isSurgeEnabledOnLevel,
+  launchSurgeSignalRockets,
+} from "@/engine/core/managers/surge/utils/surge_generic";
 import { SignalLightBinder } from "@/engine/core/objects/binders";
+import { Squad } from "@/engine/core/objects/server/squad";
+import { communities } from "@/engine/lib/constants/communities";
+import { TName } from "@/engine/lib/types";
 import { mockRegisteredActor } from "@/fixtures/engine";
+import { MockLuaTable } from "@/fixtures/lua";
 import { mockClientGameObject } from "@/fixtures/xray";
 
 describe("surge_generic utils", () => {
@@ -35,5 +44,41 @@ describe("surge_generic utils", () => {
 
     expect(first.launch).toHaveBeenCalledTimes(1);
     expect(first.launch).toHaveBeenCalledTimes(1);
+  });
+
+  it("isSurgeEnabledOnLevel should correctly check if surge is enabled for level", () => {
+    surgeConfig.SURGE_DISABLED_LEVELS = MockLuaTable.mockFromObject<TName, boolean>({
+      labx8: true,
+      jupiter_underground: true,
+    });
+
+    expect(isSurgeEnabledOnLevel("zaton")).toBe(true);
+    expect(isSurgeEnabledOnLevel("jupiter")).toBe(true);
+    expect(isSurgeEnabledOnLevel("labx8")).toBe(false);
+    expect(isSurgeEnabledOnLevel("jupiter_underground")).toBe(false);
+  });
+
+  it("isImmuneToSurgeObject should correctly check that objects are immune to surge", () => {
+    surgeConfig.IMMUNE_SQUAD_COMMUNITIES = MockLuaTable.mockFromObject<TName, boolean>({
+      [communities.monster_predatory_day]: true,
+      [communities.monster_predatory_night]: true,
+      [communities.monster_vegetarian]: true,
+      [communities.monster_zombied_day]: true,
+      [communities.monster_zombied_night]: true,
+      [communities.monster_special]: true,
+      [communities.monster]: true,
+      [communities.zombied]: true,
+    });
+
+    expect(isImmuneToSurgeObject({ faction: "monster_predatory_day" } as unknown as Squad)).toBe(true);
+    expect(isImmuneToSurgeObject({ faction: "monster_vegetarian" } as unknown as Squad)).toBe(true);
+    expect(isImmuneToSurgeObject({ faction: "monster_special" } as unknown as Squad)).toBe(true);
+    expect(isImmuneToSurgeObject({ faction: "monster" } as unknown as Squad)).toBe(true);
+    expect(isImmuneToSurgeObject({ faction: "zombied" } as unknown as Squad)).toBe(true);
+    expect(isImmuneToSurgeObject({ faction: "monster_zombied_day" } as unknown as Squad)).toBe(true);
+    expect(isImmuneToSurgeObject({ faction: "stalker" } as unknown as Squad)).toBe(false);
+    expect(isImmuneToSurgeObject({ faction: "bandit" } as unknown as Squad)).toBe(false);
+    expect(isImmuneToSurgeObject({ faction: "monolith" } as unknown as Squad)).toBe(false);
+    expect(isImmuneToSurgeObject({ faction: "army" } as unknown as Squad)).toBe(false);
   });
 });

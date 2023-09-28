@@ -1,10 +1,10 @@
 import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { surgeConfig } from "@/engine/core/managers/surge/SurgeConfig";
 import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain";
-import { isInTimeInterval } from "@/engine/core/utils/game";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini";
 import { IObjectJobDescriptor } from "@/engine/core/utils/job/job_types";
 import { isPatrolInRestrictor } from "@/engine/core/utils/patrol";
+import { isInTimeInterval } from "@/engine/core/utils/time";
 import { communities } from "@/engine/lib/constants/communities";
 import { detectors } from "@/engine/lib/constants/items/detectors";
 import { FALSE } from "@/engine/lib/constants/words";

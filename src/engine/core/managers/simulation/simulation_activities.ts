@@ -13,11 +13,11 @@ import { ESimulationRole, ISimulationActivityDescriptor } from "@/engine/core/ma
 import { surgeConfig } from "@/engine/core/managers/surge/SurgeConfig";
 import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain";
 import { Squad } from "@/engine/core/objects/server/squad/Squad";
-import { isInTimeInterval } from "@/engine/core/utils/game/game_time";
+import { hasInfoPortion } from "@/engine/core/utils/info_portion";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { hasAlifeInfo } from "@/engine/core/utils/object/object_info_portion";
-import { getServerDistanceBetween } from "@/engine/core/utils/object/object_location";
+import { getServerDistanceBetween } from "@/engine/core/utils/position";
 import { isAnySquadMemberEnemyToActor } from "@/engine/core/utils/relation";
+import { isInTimeInterval } from "@/engine/core/utils/time";
 import { communities, TCommunity } from "@/engine/lib/constants/communities";
 import { infoPortions } from "@/engine/lib/constants/info_portions";
 import { storyNames } from "@/engine/lib/constants/story_names";
@@ -72,7 +72,7 @@ export const simulationActivities: LuaTable<TCommunity, ISimulationActivityDescr
       resource: null,
     },
     [ESimulationRole.ACTOR]: (squad: Squad, target: ServerObject) =>
-      hasAlifeInfo(infoPortions.sim_bandit_attack_harder) && getServerDistanceBetween(squad, target) <= 150,
+      hasInfoPortion(infoPortions.sim_bandit_attack_harder) && getServerDistanceBetween(squad, target) <= 150,
   },
   [communities.dolg]: {
     [ESimulationRole.SQUAD]: {

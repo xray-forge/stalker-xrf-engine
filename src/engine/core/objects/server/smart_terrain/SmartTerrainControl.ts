@@ -5,11 +5,11 @@ import { SimulationBoardManager } from "@/engine/core/managers/simulation/Simula
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain/SmartTerrain";
 import { ESmartTerrainStatus } from "@/engine/core/objects/server/smart_terrain/types";
-import { readTimeFromPacket, writeTimeToPacket } from "@/engine/core/utils/game/game_time";
+import { isWeapon } from "@/engine/core/utils/class_ids";
 import { parseConditionsList, pickSectionFromCondList, readIniString, TConditionList } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { isWeapon } from "@/engine/core/utils/object";
 import { ERelation, updateSquadIdRelationToActor } from "@/engine/core/utils/relation";
+import { readTimeFromPacket, writeTimeToPacket } from "@/engine/core/utils/time";
 import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
 import {
   ClientObject,

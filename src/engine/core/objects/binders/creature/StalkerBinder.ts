@@ -36,17 +36,12 @@ import { activateMeetWithObject, updateObjectMeetAvailability } from "@/engine/c
 import { SchemeReachTask } from "@/engine/core/schemes/stalker/reach_task/SchemeReachTask";
 import { ISchemeWoundedState } from "@/engine/core/schemes/stalker/wounded";
 import { assert } from "@/engine/core/utils/assertion";
+import { getObjectCommunity } from "@/engine/core/utils/community";
 import { pickSectionFromCondList, readIniString, TConditionList } from "@/engine/core/utils/ini";
 import { ISmartTerrainJobDescriptor } from "@/engine/core/utils/job";
+import { isUndergroundLevel } from "@/engine/core/utils/level";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import {
-  getObjectCommunity,
-  getObjectSquad,
-  getObjectStalkerIni,
-  isUndergroundLevel,
-  setupObjectInfoPortions,
-  setupObjectStalkerVisual,
-} from "@/engine/core/utils/object";
+import { getObjectStalkerIni, setupObjectInfoPortions, setupObjectStalkerVisual } from "@/engine/core/utils/object";
 import { ERelation, setClientObjectRelation, setObjectSympathy } from "@/engine/core/utils/relation";
 import {
   emitSchemeEvent,
@@ -54,6 +49,7 @@ import {
   setupObjectSmartJobsAndLogicOnSpawn,
   trySwitchToAnotherSection,
 } from "@/engine/core/utils/scheme";
+import { getObjectSquad } from "@/engine/core/utils/squad";
 import { createEmptyVector } from "@/engine/core/utils/vector";
 import { communities, TCommunity } from "@/engine/lib/constants/communities";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";

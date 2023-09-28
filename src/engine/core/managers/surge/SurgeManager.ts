@@ -9,6 +9,7 @@ import { surgeConfig } from "@/engine/core/managers/surge/SurgeConfig";
 import {
   getNearestAvailableSurgeCover,
   initializeSurgeCovers,
+  isSurgeEnabledOnLevel,
   killAllSurgeUnhidden,
   launchSurgeSignalRockets,
   playSurgeEndedSound,
@@ -18,13 +19,13 @@ import {
 import { TaskManager } from "@/engine/core/managers/tasks";
 import { WeatherManager } from "@/engine/core/managers/weather/WeatherManager";
 import type { AnomalyZoneBinder } from "@/engine/core/objects/binders/zones";
+import { isArtefact } from "@/engine/core/utils/class_ids";
 import { isBlackScreen } from "@/engine/core/utils/game";
-import { createGameAutoSave } from "@/engine/core/utils/game/game_save";
-import { readTimeFromPacket, writeTimeToPacket } from "@/engine/core/utils/game/game_time";
+import { createGameAutoSave } from "@/engine/core/utils/game_save";
+import { hasInfoPortion } from "@/engine/core/utils/info_portion";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { isArtefact, isSurgeEnabledOnLevel } from "@/engine/core/utils/object";
-import { hasAlifeInfo } from "@/engine/core/utils/object/object_info_portion";
+import { readTimeFromPacket, writeTimeToPacket } from "@/engine/core/utils/time";
 import { createVector } from "@/engine/core/utils/vector";
 import { animations, postProcessors } from "@/engine/lib/constants/animation";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
@@ -191,7 +192,10 @@ export class SurgeManager extends AbstractManager {
       surgeConfig.IS_STARTED = true;
       surgeConfig.IS_FINISHED = false;
 
-      if (!hasAlifeInfo(infoPortions.pri_b305_fifth_cam_end) || hasAlifeInfo(infoPortions.pri_a28_actor_in_zone_stay)) {
+      if (
+        !hasInfoPortion(infoPortions.pri_b305_fifth_cam_end) ||
+        hasInfoPortion(infoPortions.pri_a28_actor_in_zone_stay)
+      ) {
         createGameAutoSave("st_save_uni_surge_start");
       }
     }

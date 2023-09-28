@@ -4,7 +4,8 @@ import { setPortableStoreValue } from "@/engine/core/database";
 import { ISchemeCorpseDetectionState } from "@/engine/core/schemes/stalker/corpse_detection/ISchemeCorpseDetectionState";
 import { freeSelectedLootedObjectSpot } from "@/engine/core/schemes/stalker/corpse_detection/utils";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { findNearestCorpseToLoot, isObjectWounded } from "@/engine/core/utils/object";
+import { getNearestCorpseToLoot } from "@/engine/core/utils/loot";
+import { isObjectWounded } from "@/engine/core/utils/planner";
 import { communities } from "@/engine/lib/constants/communities";
 import { LOOTING_DEAD_OBJECT_KEY } from "@/engine/lib/constants/portable_store_keys";
 import { ACTOR_VISUAL_STALKER } from "@/engine/lib/constants/sections";
@@ -52,7 +53,7 @@ export class EvaluatorCorpseDetect extends property_evaluator {
    * @returns whether any corpse nearby exists
    */
   public hasCorpseToLoot(): boolean {
-    const [corpseObject, corpseVertexId, corpsePosition] = findNearestCorpseToLoot(this.object);
+    const [corpseObject, corpseVertexId, corpsePosition] = getNearestCorpseToLoot(this.object);
 
     if (corpseVertexId !== null) {
       const corpseId: TNumberId = corpseObject.id();

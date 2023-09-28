@@ -27,8 +27,8 @@ import { ETaskState } from "@/engine/core/managers/tasks/types";
 import { Stalker } from "@/engine/core/objects/server/creature/Stalker";
 import { abort, assert } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { getInventoryNameForItemSection } from "@/engine/core/utils/object/object_spawn";
-import { isObjectWounded } from "@/engine/core/utils/object/object_state";
+import { isObjectWounded } from "@/engine/core/utils/planner";
+import { getInventoryNameForItemSection } from "@/engine/core/utils/spawn";
 import {
   AlifeSimulator,
   ClientObject,

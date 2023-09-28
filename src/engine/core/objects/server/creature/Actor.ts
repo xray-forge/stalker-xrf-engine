@@ -27,7 +27,6 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 import { ACTOR, TRUE } from "@/engine/lib/constants/words";
 import {
   ALifeSmartTerrainTask,
-  AnyObject,
   ClientObject,
   NetPacket,
   Optional,

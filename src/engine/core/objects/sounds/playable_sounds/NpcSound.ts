@@ -6,12 +6,12 @@ import { ENotificationType, ISoundNotification } from "@/engine/core/managers/no
 import { AbstractPlayableSound } from "@/engine/core/objects/sounds/playable_sounds/AbstractPlayableSound";
 import { EPlayableSound, ESoundPlaylistType } from "@/engine/core/objects/sounds/sounds_types";
 import { abort } from "@/engine/core/utils/assertion";
+import { getObjectCommunity } from "@/engine/core/utils/community";
 import { parseStringsList, readIniBoolean, readIniNumber, readIniString } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { getObjectCommunity } from "@/engine/core/utils/object/object_get";
-import { createEmptyVector } from "@/engine/core/utils/vector";
 import { communities, TCommunity } from "@/engine/lib/constants/communities";
 import { roots } from "@/engine/lib/constants/roots";
+import { ZERO_VECTOR } from "@/engine/lib/constants/vectors";
 import { NIL } from "@/engine/lib/constants/words";
 import {
   ClientObject,
@@ -287,7 +287,7 @@ export class NpcSound extends AbstractPlayableSound {
       }
 
       this.pdaSoundObject = new sound_object(soundPath + "_pda");
-      this.pdaSoundObject.play_at_pos(registry.actor, createEmptyVector(), this.delay, sound_object.s2d);
+      this.pdaSoundObject.play_at_pos(registry.actor, ZERO_VECTOR, this.delay, sound_object.s2d);
       this.pdaSoundObject.volume = 0.8;
     }
 

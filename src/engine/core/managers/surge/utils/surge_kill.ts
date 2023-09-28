@@ -10,11 +10,11 @@ import {
   getNearestAvailableSurgeCover,
   getOnlineSurgeCoversList,
 } from "@/engine/core/managers/surge/utils/surge_cover";
+import { isImmuneToSurgeObject } from "@/engine/core/managers/surge/utils/surge_generic";
+import { hasInfoPortion } from "@/engine/core/utils/info_portion";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { isImmuneToSurgeObject } from "@/engine/core/utils/object/object_check";
-import { hasAlifeInfo } from "@/engine/core/utils/object/object_info_portion";
-import { isObjectOnLevel } from "@/engine/core/utils/object/object_location";
+import { isObjectOnLevel } from "@/engine/core/utils/position";
 import { animations, postProcessors } from "@/engine/lib/constants/animation";
 import { infoPortions } from "@/engine/lib/constants/info_portions";
 import { TLevel } from "@/engine/lib/constants/levels";
@@ -142,7 +142,7 @@ export function killAllSurgeUnhidden(): void {
     const surgeCoverObject: Optional<ClientObject> = getNearestAvailableSurgeCover(actor);
 
     if (!surgeCoverObject?.inside(actor.position())) {
-      if (hasAlifeInfo(infoPortions.anabiotic_in_process)) {
+      if (hasInfoPortion(infoPortions.anabiotic_in_process)) {
         EventsManager.emitEvent(EGameEvent.SURGE_SURVIVED_WITH_ANABIOTIC);
       }
 

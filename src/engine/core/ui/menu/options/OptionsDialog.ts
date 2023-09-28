@@ -25,7 +25,7 @@ import { OptionsSound } from "@/engine/core/ui/menu/options/OptionsSound";
 import { OptionsVideo } from "@/engine/core/ui/menu/options/OptionsVideo";
 import { OptionsVideoAdvanced } from "@/engine/core/ui/menu/options/OptionsVideoAdvanced";
 import { EGameRenderer, EOptionGroup, optionGroupsMessages } from "@/engine/core/ui/menu/options/types";
-import { executeConsoleCommand } from "@/engine/core/utils/game/game_console";
+import { executeConsoleCommand } from "@/engine/core/utils/console";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { resolveXmlFormPath } from "@/engine/core/utils/ui";
 import { gameConfig } from "@/engine/lib/configs/GameConfig";

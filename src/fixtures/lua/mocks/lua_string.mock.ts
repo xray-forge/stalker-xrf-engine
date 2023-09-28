@@ -1,6 +1,6 @@
 import { ILuaState, ILuaString, lauxlib, lua, lualib, to_jsstring, to_luastring } from "fengari";
 
-import { Optional } from "@/engine/lib/types";
+import type { Optional } from "@/engine/lib/types";
 
 /**
  * todo;

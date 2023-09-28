@@ -6,19 +6,17 @@ import {
   openLoadMarker,
   openSaveMarker,
   registerObjectStoryLinks,
+  registerSimulationObject,
   registry,
   resetStalkerState,
   SMART_TERRAIN_MASKS_LTX,
   softResetOfflineObject,
   SQUAD_BEHAVIOURS_LTX,
   SYSTEM_INI,
-} from "@/engine/core/database";
-import {
-  registerSimulationObject,
   unregisterSimulationObject,
+  unregisterStoryLinkByObjectId,
   updateSimulationObjectAvailability,
-} from "@/engine/core/database/simulation";
-import { unregisterStoryLinkByObjectId } from "@/engine/core/database/story_objects";
+} from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { MapDisplayManager } from "@/engine/core/managers/map/MapDisplayManager";
 import {
@@ -36,6 +34,7 @@ import { SquadReachTargetAction, SquadStayOnTargetAction } from "@/engine/core/o
 import { ESquadActionType, ISquadAction } from "@/engine/core/objects/server/squad/squad_types";
 import { StoryManager } from "@/engine/core/objects/sounds/stories";
 import { abort } from "@/engine/core/utils/assertion";
+import { isSmartTerrain, isSquad, isSquadId } from "@/engine/core/utils/class_ids";
 import {
   parseConditionsList,
   parseStringsList,
@@ -47,7 +46,7 @@ import {
   TConditionList,
 } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { areObjectsOnSameLevel, isSmartTerrain, isSquad, isSquadId } from "@/engine/core/utils/object";
+import { areObjectsOnSameLevel } from "@/engine/core/utils/position";
 import { areCommunitiesEnemies, ERelation, setObjectSympathy } from "@/engine/core/utils/relation";
 import { canSquadHelpActor, updateSquadInvulnerabilityState } from "@/engine/core/utils/squad";
 import { vectorToString } from "@/engine/core/utils/vector";
@@ -59,7 +58,6 @@ import { SMART_TERRAIN_SECTION } from "@/engine/lib/constants/sections";
 import { FALSE, NIL, TRUE } from "@/engine/lib/constants/words";
 import {
   ALifeSmartTerrainTask,
-  AnyObject,
   ClientObject,
   LuaArray,
   NetPacket,

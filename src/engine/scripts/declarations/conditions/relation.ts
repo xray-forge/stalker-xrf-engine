@@ -3,8 +3,8 @@ import { Squad } from "@/engine/core/objects/server/squad";
 import { ISchemeDeathState } from "@/engine/core/schemes/stalker/death";
 import { abort } from "@/engine/core/utils/assertion";
 import { extern } from "@/engine/core/utils/binding";
+import { getObjectCommunity } from "@/engine/core/utils/community";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { getObjectCommunity } from "@/engine/core/utils/object";
 import {
   areCommunitiesEnemies,
   areCommunitiesFriendly,

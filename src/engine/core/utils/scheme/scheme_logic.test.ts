@@ -35,8 +35,8 @@ import { SchemeMeet } from "@/engine/core/schemes/stalker/meet";
 import { SchemePatrol } from "@/engine/core/schemes/stalker/patrol";
 import { SchemeReachTask } from "@/engine/core/schemes/stalker/reach_task";
 import { SchemeWounded } from "@/engine/core/schemes/stalker/wounded";
+import { disableInfoPortion, giveInfoPortion } from "@/engine/core/utils/info_portion";
 import { ISmartTerrainJobDescriptor } from "@/engine/core/utils/job";
-import { disableInfo, giveInfo } from "@/engine/core/utils/object/object_info_portion";
 import {
   activateSchemeBySection,
   enableObjectBaseSchemes,
@@ -120,10 +120,10 @@ describe("scheme logic utils", () => {
 
     expect(() => getSectionToActivate(object, ini, "sr_idle@bad")).toThrow();
 
-    giveInfo("test_condition");
+    giveInfoPortion("test_condition");
     expect(getSectionToActivate(object, ini, "sr_idle@desired")).toBe("sr_idle@desired");
 
-    disableInfo("test_condition");
+    disableInfoPortion("test_condition");
     expect(getSectionToActivate(object, ini, "sr_idle@desired")).toBe("sr_idle@fallback");
 
     const offlineState: IStoredOfflineObject = registerOfflineObject(object.id(), {

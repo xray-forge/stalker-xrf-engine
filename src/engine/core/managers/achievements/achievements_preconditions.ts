@@ -5,12 +5,7 @@ import { EAchievement } from "@/engine/core/managers/achievements/achievements_t
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { ENotificationType, ITipNotification } from "@/engine/core/managers/notifications";
 import { StatisticsManager } from "@/engine/core/managers/statistics";
-import {
-  giveInfo,
-  hasAlifeInfo,
-  hasAlifeInfos,
-  hasFewAlifeInfos,
-} from "@/engine/core/utils/object/object_info_portion";
+import { giveInfoPortion, hasFewInfoPortions, hasInfoPortion, hasInfoPortions } from "@/engine/core/utils/info_portion";
 import { increaseCommunityGoodwillToId } from "@/engine/core/utils/relation";
 import { communities } from "@/engine/lib/constants/communities";
 import { infoPortions } from "@/engine/lib/constants/info_portions";
@@ -20,15 +15,15 @@ import { TNumberId } from "@/engine/lib/types";
  * todo: Description.
  */
 export function hasAchievedPioneer(): boolean {
-  if (!hasAlifeInfo(infoPortions.pioneer_achievement_gained)) {
+  if (!hasInfoPortion(infoPortions.pioneer_achievement_gained)) {
     if (
-      hasAlifeInfos([
+      hasInfoPortions([
         infoPortions.zat_b14_give_item_linker,
         infoPortions.jup_b1_complete_end,
         infoPortions.jup_b206_anomalous_grove_done,
       ])
     ) {
-      giveInfo(infoPortions.pioneer_achievement_gained);
+      giveInfoPortion(infoPortions.pioneer_achievement_gained);
 
       EventsManager.emitEvent<ITipNotification>(EGameEvent.NOTIFICATION, {
         type: ENotificationType.TIP,
@@ -38,22 +33,22 @@ export function hasAchievedPioneer(): boolean {
     }
   }
 
-  return hasAlifeInfo(infoPortions.pioneer_achievement_gained);
+  return hasInfoPortion(infoPortions.pioneer_achievement_gained);
 }
 
 /**
  * todo: Description.
  */
 export function hasAchievedMutantHunter(): boolean {
-  if (!hasAlifeInfo(infoPortions.mutant_hunter_achievement_gained)) {
+  if (!hasInfoPortion(infoPortions.mutant_hunter_achievement_gained)) {
     if (
-      hasAlifeInfos([
+      hasInfoPortions([
         infoPortions.jup_b208_burers_hunt_done,
         infoPortions.jup_b211_scene_done,
         infoPortions.jup_b212_jupiter_chimera_hunt_done,
       ])
     ) {
-      giveInfo(infoPortions.mutant_hunter_achievement_gained);
+      giveInfoPortion(infoPortions.mutant_hunter_achievement_gained);
 
       EventsManager.emitEvent<ITipNotification>(EGameEvent.NOTIFICATION, {
         type: ENotificationType.TIP,
@@ -63,16 +58,16 @@ export function hasAchievedMutantHunter(): boolean {
     }
   }
 
-  return hasAlifeInfo(infoPortions.mutant_hunter_achievement_gained);
+  return hasInfoPortion(infoPortions.mutant_hunter_achievement_gained);
 }
 
 /**
  * todo: Description.
  */
 export function hasAchievedDetective(): boolean {
-  if (!hasAlifeInfo(infoPortions.detective_achievement_gained)) {
-    if (hasAlifeInfo(infoPortions.zat_b22_barmen_gave_reward)) {
-      giveInfo(infoPortions.detective_achievement_gained);
+  if (!hasInfoPortion(infoPortions.detective_achievement_gained)) {
+    if (hasInfoPortion(infoPortions.zat_b22_barmen_gave_reward)) {
+      giveInfoPortion(infoPortions.detective_achievement_gained);
 
       EventsManager.emitEvent<ITipNotification>(EGameEvent.NOTIFICATION, {
         type: ENotificationType.TIP,
@@ -82,16 +77,16 @@ export function hasAchievedDetective(): boolean {
     }
   }
 
-  return hasAlifeInfo(infoPortions.detective_achievement_gained);
+  return hasInfoPortion(infoPortions.detective_achievement_gained);
 }
 
 /**
  * todo: Description.
  */
 export function hasAchievedOneOfLads(): boolean {
-  if (!hasAlifeInfo(infoPortions.one_of_the_lads_gained)) {
-    if (hasAlifeInfos([infoPortions.zat_b30_sultan_loose, infoPortions.zat_b7_actor_help_stalkers])) {
-      giveInfo(infoPortions.one_of_the_lads_gained);
+  if (!hasInfoPortion(infoPortions.one_of_the_lads_gained)) {
+    if (hasInfoPortions([infoPortions.zat_b30_sultan_loose, infoPortions.zat_b7_actor_help_stalkers])) {
+      giveInfoPortion(infoPortions.one_of_the_lads_gained);
 
       EventsManager.emitEvent<ITipNotification>(EGameEvent.NOTIFICATION, {
         type: ENotificationType.TIP,
@@ -101,16 +96,16 @@ export function hasAchievedOneOfLads(): boolean {
     }
   }
 
-  return hasAlifeInfo(infoPortions.one_of_the_lads_gained);
+  return hasInfoPortion(infoPortions.one_of_the_lads_gained);
 }
 
 /**
  * todo: Description.
  */
 export function hasAchievedKingpin(): boolean {
-  if (!hasAlifeInfo(infoPortions.kingpin_gained)) {
-    if (hasAlifeInfos([infoPortions.zat_b30_barmen_under_sultan, infoPortions.zat_b7_actor_help_bandits])) {
-      giveInfo(infoPortions.kingpin_gained);
+  if (!hasInfoPortion(infoPortions.kingpin_gained)) {
+    if (hasInfoPortions([infoPortions.zat_b30_barmen_under_sultan, infoPortions.zat_b7_actor_help_bandits])) {
+      giveInfoPortion(infoPortions.kingpin_gained);
 
       EventsManager.emitEvent<ITipNotification>(EGameEvent.NOTIFICATION, {
         type: ENotificationType.TIP,
@@ -120,22 +115,22 @@ export function hasAchievedKingpin(): boolean {
     }
   }
 
-  return hasAlifeInfo(infoPortions.kingpin_gained);
+  return hasInfoPortion(infoPortions.kingpin_gained);
 }
 
 /**
  * todo: Description.
  */
 export function hasAchievedHeraldOfJustice(): boolean {
-  if (!hasAlifeInfo(infoPortions.herald_of_justice_achievement_gained)) {
+  if (!hasInfoPortion(infoPortions.herald_of_justice_achievement_gained)) {
     if (
-      hasAlifeInfos([
+      hasInfoPortions([
         infoPortions.jup_b25_flint_blame_done_to_duty,
         infoPortions.jup_b25_flint_blame_done_to_freedom,
         infoPortions.zat_b106_found_soroka_done,
       ])
     ) {
-      giveInfo(infoPortions.herald_of_justice_achievement_gained);
+      giveInfoPortion(infoPortions.herald_of_justice_achievement_gained);
 
       EventsManager.emitEvent<ITipNotification>(EGameEvent.NOTIFICATION, {
         type: ENotificationType.TIP,
@@ -145,7 +140,7 @@ export function hasAchievedHeraldOfJustice(): boolean {
     }
   }
 
-  return hasAlifeInfo(infoPortions.herald_of_justice_achievement_gained);
+  return hasInfoPortion(infoPortions.herald_of_justice_achievement_gained);
 }
 
 /**
@@ -154,7 +149,7 @@ export function hasAchievedHeraldOfJustice(): boolean {
  * By default, in COP there are 22 unique artefact sections.
  */
 export function hasAchievedSeeker(): boolean {
-  if (hasAlifeInfo(infoPortions.sim_bandit_attack_harder)) {
+  if (hasInfoPortion(infoPortions.sim_bandit_attack_harder)) {
     return true;
   }
 
@@ -166,7 +161,7 @@ export function hasAchievedSeeker(): boolean {
     return false;
   }
 
-  giveInfo(infoPortions.sim_bandit_attack_harder);
+  giveInfoPortion(infoPortions.sim_bandit_attack_harder);
   increaseCommunityGoodwillToId(communities.stalker, registry.actor.id(), 200);
 
   EventsManager.emitEvent<ITipNotification>(EGameEvent.NOTIFICATION, {
@@ -182,9 +177,9 @@ export function hasAchievedSeeker(): boolean {
  * todo: Description.
  */
 export function hasAchievedBattleSystemsMaster(): boolean {
-  if (!hasAlifeInfo(infoPortions.battle_systems_master_achievement_gained)) {
-    if (hasAlifeInfo(infoPortions.zat_b3_all_instruments_brought)) {
-      giveInfo(infoPortions.battle_systems_master_achievement_gained);
+  if (!hasInfoPortion(infoPortions.battle_systems_master_achievement_gained)) {
+    if (hasInfoPortion(infoPortions.zat_b3_all_instruments_brought)) {
+      giveInfoPortion(infoPortions.battle_systems_master_achievement_gained);
 
       EventsManager.emitEvent<ITipNotification>(EGameEvent.NOTIFICATION, {
         type: ENotificationType.TIP,
@@ -194,22 +189,22 @@ export function hasAchievedBattleSystemsMaster(): boolean {
     }
   }
 
-  return hasAlifeInfo(infoPortions.battle_systems_master_achievement_gained);
+  return hasInfoPortion(infoPortions.battle_systems_master_achievement_gained);
 }
 
 /**
  * Check whether high-tech master achievement is completed.
  */
 export function hasAchievedHighTechMaster(): boolean {
-  if (!hasAlifeInfo(infoPortions.high_tech_master_achievement_gained)) {
+  if (!hasInfoPortion(infoPortions.high_tech_master_achievement_gained)) {
     if (
-      hasAlifeInfos([
+      hasInfoPortions([
         infoPortions.jup_b217_tech_instrument_1_brought,
         infoPortions.jup_b217_tech_instrument_2_brought,
         infoPortions.jup_b217_tech_instrument_3_brought,
       ])
     ) {
-      giveInfo(infoPortions.high_tech_master_achievement_gained);
+      giveInfoPortion(infoPortions.high_tech_master_achievement_gained);
 
       EventsManager.emitEvent<ITipNotification>(EGameEvent.NOTIFICATION, {
         type: ENotificationType.TIP,
@@ -219,16 +214,16 @@ export function hasAchievedHighTechMaster(): boolean {
     }
   }
 
-  return hasAlifeInfo(infoPortions.high_tech_master_achievement_gained);
+  return hasInfoPortion(infoPortions.high_tech_master_achievement_gained);
 }
 
 /**
  * todo: Description.
  */
 export function hasAchievedSkilledStalker(): boolean {
-  if (!hasAlifeInfo(infoPortions.skilled_stalker_achievement_gained)) {
-    if (hasAlifeInfo(infoPortions.actor_was_in_many_bad_places)) {
-      giveInfo(infoPortions.skilled_stalker_achievement_gained);
+  if (!hasInfoPortion(infoPortions.skilled_stalker_achievement_gained)) {
+    if (hasInfoPortion(infoPortions.actor_was_in_many_bad_places)) {
+      giveInfoPortion(infoPortions.skilled_stalker_achievement_gained);
 
       EventsManager.emitEvent<ITipNotification>(EGameEvent.NOTIFICATION, {
         type: ENotificationType.TIP,
@@ -238,22 +233,22 @@ export function hasAchievedSkilledStalker(): boolean {
     }
   }
 
-  return hasAlifeInfo(infoPortions.skilled_stalker_achievement_gained);
+  return hasInfoPortion(infoPortions.skilled_stalker_achievement_gained);
 }
 
 /**
  * todo: Description.
  */
 export function hasAchievedLeader(): boolean {
-  if (!hasAlifeInfo(infoPortions.leader_achievement_gained)) {
+  if (!hasInfoPortion(infoPortions.leader_achievement_gained)) {
     if (
-      hasAlifeInfos([
+      hasInfoPortions([
         infoPortions.jup_a10_vano_agree_go_und,
         infoPortions.jup_b218_soldier_hired,
         infoPortions.jup_b218_monolith_hired,
       ])
     ) {
-      giveInfo(infoPortions.leader_achievement_gained);
+      giveInfoPortion(infoPortions.leader_achievement_gained);
 
       EventsManager.emitEvent<ITipNotification>(EGameEvent.NOTIFICATION, {
         type: ENotificationType.TIP,
@@ -263,16 +258,16 @@ export function hasAchievedLeader(): boolean {
     }
   }
 
-  return hasAlifeInfo(infoPortions.leader_achievement_gained);
+  return hasInfoPortion(infoPortions.leader_achievement_gained);
 }
 
 /**
  * todo: Description.
  */
 export function hasAchievedDiplomat(): boolean {
-  if (!hasAlifeInfo(infoPortions.diplomat_achievement_gained)) {
+  if (!hasInfoPortion(infoPortions.diplomat_achievement_gained)) {
     if (
-      hasFewAlifeInfos(
+      hasFewInfoPortions(
         [
           infoPortions.jup_a12_wo_shooting,
           infoPortions.jup_a10_bandit_take_all_money,
@@ -281,7 +276,7 @@ export function hasAchievedDiplomat(): boolean {
         2
       )
     ) {
-      giveInfo(infoPortions.diplomat_achievement_gained);
+      giveInfoPortion(infoPortions.diplomat_achievement_gained);
 
       const actorId: TNumberId = registry.actor.id();
 
@@ -298,16 +293,16 @@ export function hasAchievedDiplomat(): boolean {
     }
   }
 
-  return hasAlifeInfo(infoPortions.diplomat_achievement_gained);
+  return hasInfoPortion(infoPortions.diplomat_achievement_gained);
 }
 
 /**
  * todo: Description.
  */
 export function hasAchievedResearchMan(): boolean {
-  if (!hasAlifeInfo(infoPortions.research_man_gained)) {
+  if (!hasInfoPortion(infoPortions.research_man_gained)) {
     if (
-      hasFewAlifeInfos(
+      hasFewInfoPortions(
         [
           infoPortions.jup_b16_task_done,
           infoPortions.jup_b1_task_done,
@@ -321,7 +316,7 @@ export function hasAchievedResearchMan(): boolean {
         4
       )
     ) {
-      giveInfo(infoPortions.research_man_gained);
+      giveInfoPortion(infoPortions.research_man_gained);
 
       EventsManager.emitEvent<ITipNotification>(EGameEvent.NOTIFICATION, {
         type: ENotificationType.TIP,
@@ -331,23 +326,23 @@ export function hasAchievedResearchMan(): boolean {
     }
   }
 
-  return hasAlifeInfo(infoPortions.research_man_gained);
+  return hasInfoPortion(infoPortions.research_man_gained);
 }
 
 /**
  * todo: Description.
  */
 export function hasAchievedFriendOfDuty(): boolean {
-  if (!hasAlifeInfo(infoPortions.sim_duty_help_harder)) {
+  if (!hasInfoPortion(infoPortions.sim_duty_help_harder)) {
     if (
-      hasAlifeInfos([
+      hasInfoPortions([
         infoPortions.jup_b4_monolith_squad_in_duty,
         infoPortions.jup_b46_duty_founder_pda_to_duty,
         infoPortions.jup_b207_sell_dealers_pda_duty,
         infoPortions.jup_b25_flint_blame_done_to_duty,
       ])
     ) {
-      giveInfo(infoPortions.sim_duty_help_harder);
+      giveInfoPortion(infoPortions.sim_duty_help_harder);
 
       EventsManager.emitEvent<ITipNotification>(EGameEvent.NOTIFICATION, {
         type: ENotificationType.TIP,
@@ -357,23 +352,23 @@ export function hasAchievedFriendOfDuty(): boolean {
     }
   }
 
-  return hasAlifeInfo(infoPortions.sim_duty_help_harder);
+  return hasInfoPortion(infoPortions.sim_duty_help_harder);
 }
 
 /**
  * todo: Description.
  */
 export function hasAchievedFriendOfFreedom(): boolean {
-  if (!hasAlifeInfo(infoPortions.sim_freedom_help_harder)) {
+  if (!hasInfoPortion(infoPortions.sim_freedom_help_harder)) {
     if (
-      hasAlifeInfos([
+      hasInfoPortions([
         infoPortions.jup_b4_monolith_squad_in_freedom,
         infoPortions.jup_b46_duty_founder_pda_to_freedom,
         infoPortions.jup_b207_sell_dealers_pda_freedom,
         infoPortions.jup_b25_flint_blame_done_to_freedom,
       ])
     ) {
-      giveInfo(infoPortions.sim_freedom_help_harder);
+      giveInfoPortion(infoPortions.sim_freedom_help_harder);
 
       EventsManager.emitEvent<ITipNotification>(EGameEvent.NOTIFICATION, {
         type: ENotificationType.TIP,
@@ -383,22 +378,22 @@ export function hasAchievedFriendOfFreedom(): boolean {
     }
   }
 
-  return hasAlifeInfo(infoPortions.sim_freedom_help_harder);
+  return hasInfoPortion(infoPortions.sim_freedom_help_harder);
 }
 
 /**
  * todo: Description.
  */
 export function hasAchievedBalanceAdvocate(): boolean {
-  if (!hasAlifeInfo(infoPortions.balance_advocate_gained)) {
+  if (!hasInfoPortion(infoPortions.balance_advocate_gained)) {
     if (
-      hasAlifeInfos([
+      hasInfoPortions([
         infoPortions.jup_b46_duty_founder_pda_to_owl,
         infoPortions.jup_b207_dealers_pda_sold_owl,
         infoPortions.zat_b106_found_soroka_done,
       ])
     ) {
-      giveInfo(infoPortions.balance_advocate_gained);
+      giveInfoPortion(infoPortions.balance_advocate_gained);
 
       EventsManager.emitEvent<ITipNotification>(EGameEvent.NOTIFICATION, {
         type: ENotificationType.TIP,
@@ -408,15 +403,15 @@ export function hasAchievedBalanceAdvocate(): boolean {
     }
   }
 
-  return hasAlifeInfo(infoPortions.balance_advocate_gained);
+  return hasInfoPortion(infoPortions.balance_advocate_gained);
 }
 
 /**
  * todo: Description.
  */
 export function hasAchievedWealthy(): boolean {
-  if (!hasAlifeInfo(infoPortions.actor_wealthy) && registry.actor.money() >= 100_000) {
-    giveInfo(infoPortions.actor_wealthy);
+  if (!hasInfoPortion(infoPortions.actor_wealthy) && registry.actor.money() >= 100_000) {
+    giveInfoPortion(infoPortions.actor_wealthy);
 
     EventsManager.emitEvent<ITipNotification>(EGameEvent.NOTIFICATION, {
       type: ENotificationType.TIP,
@@ -425,16 +420,16 @@ export function hasAchievedWealthy(): boolean {
     });
   }
 
-  return hasAlifeInfo(infoPortions.actor_wealthy);
+  return hasInfoPortion(infoPortions.actor_wealthy);
 }
 
 /**
  * todo: Description.
  */
 export function hasAchievedKeeperOfSecrets(): boolean {
-  if (!hasAlifeInfo(infoPortions.keeper_of_secrets_achievement_gained)) {
-    if (hasAlifeInfo(infoPortions.pri_b305_all_strelok_notes_given)) {
-      giveInfo(infoPortions.keeper_of_secrets_achievement_gained);
+  if (!hasInfoPortion(infoPortions.keeper_of_secrets_achievement_gained)) {
+    if (hasInfoPortion(infoPortions.pri_b305_all_strelok_notes_given)) {
+      giveInfoPortion(infoPortions.keeper_of_secrets_achievement_gained);
 
       EventsManager.emitEvent<ITipNotification>(EGameEvent.NOTIFICATION, {
         type: ENotificationType.TIP,
@@ -444,19 +439,19 @@ export function hasAchievedKeeperOfSecrets(): boolean {
     }
   }
 
-  return hasAlifeInfo(infoPortions.keeper_of_secrets_achievement_gained);
+  return hasInfoPortion(infoPortions.keeper_of_secrets_achievement_gained);
 }
 
 /**
  * todo: Description.
  */
 export function hasAchievedMarkedByZone(): boolean {
-  if (hasAlifeInfo(infoPortions.actor_marked_by_zone_3_times)) {
+  if (hasInfoPortion(infoPortions.actor_marked_by_zone_3_times)) {
     return true;
   }
 
   if (StatisticsManager.getInstance().getUsedAnabioticsCount() >= 3) {
-    giveInfo(infoPortions.actor_marked_by_zone_3_times);
+    giveInfoPortion(infoPortions.actor_marked_by_zone_3_times);
 
     EventsManager.emitEvent<ITipNotification>(EGameEvent.NOTIFICATION, {
       type: ENotificationType.TIP,
@@ -474,9 +469,9 @@ export function hasAchievedMarkedByZone(): boolean {
  * todo: Description.
  */
 export function hasAchievedInformationDealer(): boolean {
-  if (!hasAlifeInfo(infoPortions.actor_information_dealer)) {
+  if (!hasInfoPortion(infoPortions.actor_information_dealer)) {
     if (
-      hasFewAlifeInfos(
+      hasFewInfoPortions(
         [
           infoPortions.zat_b40_pda_1_saled,
           infoPortions.zat_b40_pda_2_saled,
@@ -498,7 +493,7 @@ export function hasAchievedInformationDealer(): boolean {
         10
       )
     ) {
-      giveInfo(infoPortions.actor_information_dealer);
+      giveInfoPortion(infoPortions.actor_information_dealer);
 
       EventsManager.emitEvent<ITipNotification>(EGameEvent.NOTIFICATION, {
         type: ENotificationType.TIP,
@@ -508,16 +503,16 @@ export function hasAchievedInformationDealer(): boolean {
     }
   }
 
-  return hasAlifeInfo(infoPortions.actor_information_dealer);
+  return hasInfoPortion(infoPortions.actor_information_dealer);
 }
 
 /**
  * todo: Description.
  */
 export function hasAchievedFriendOfStalkers(): boolean {
-  if (!hasAlifeInfo(infoPortions.sim_stalker_help_harder)) {
+  if (!hasInfoPortion(infoPortions.sim_stalker_help_harder)) {
     if (
-      hasAlifeInfos([
+      hasInfoPortions([
         infoPortions.jup_b220_trapper_zaton_chimera_hunted_told,
         infoPortions.jup_a12_stalker_prisoner_helped,
         infoPortions.jup_a10_vano_give_task_end,
@@ -525,7 +520,7 @@ export function hasAchievedFriendOfStalkers(): boolean {
         infoPortions.zat_b7_task_end,
       ])
     ) {
-      giveInfo(infoPortions.sim_stalker_help_harder);
+      giveInfoPortion(infoPortions.sim_stalker_help_harder);
       increaseCommunityGoodwillToId(communities.stalker, registry.actor.id(), 100);
 
       EventsManager.emitEvent<ITipNotification>(EGameEvent.NOTIFICATION, {
@@ -536,5 +531,5 @@ export function hasAchievedFriendOfStalkers(): boolean {
     }
   }
 
-  return hasAlifeInfo(infoPortions.sim_stalker_help_harder);
+  return hasInfoPortion(infoPortions.sim_stalker_help_harder);
 }

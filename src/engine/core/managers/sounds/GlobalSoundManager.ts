@@ -15,9 +15,9 @@ import { NpcSound } from "@/engine/core/objects/sounds/playable_sounds/NpcSound"
 import { ObjectSound } from "@/engine/core/objects/sounds/playable_sounds/ObjectSound";
 import { EPlayableSound } from "@/engine/core/objects/sounds/sounds_types";
 import { abort, assert, assertDefined } from "@/engine/core/utils/assertion";
+import { getObjectCommunity } from "@/engine/core/utils/community";
 import { readIniString } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { getObjectCommunity } from "@/engine/core/utils/object/object_get";
 import { resetTable } from "@/engine/core/utils/table";
 import {
   ClientObject,

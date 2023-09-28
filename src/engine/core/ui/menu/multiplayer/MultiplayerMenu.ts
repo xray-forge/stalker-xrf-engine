@@ -38,7 +38,7 @@ import { MultiplayerOptions } from "@/engine/core/ui/menu/multiplayer/Multiplaye
 import { MultiplayerProfile } from "@/engine/core/ui/menu/multiplayer/MultiplayerProfile";
 import { MultiplayerServer } from "@/engine/core/ui/menu/multiplayer/MultiplayerServer";
 import { EOptionGroup } from "@/engine/core/ui/menu/options/types";
-import { executeConsoleCommand } from "@/engine/core/utils/game/game_console";
+import { executeConsoleCommand } from "@/engine/core/utils/console";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { resolveXmlFormPath } from "@/engine/core/utils/ui";
 import { gameConfig } from "@/engine/lib/configs/GameConfig";

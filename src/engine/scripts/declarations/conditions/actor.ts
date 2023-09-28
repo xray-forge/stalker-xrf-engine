@@ -10,8 +10,9 @@ import { ISchemeDeathState } from "@/engine/core/schemes/stalker/death";
 import { ISchemeHitState } from "@/engine/core/schemes/stalker/hit";
 import { abort } from "@/engine/core/utils/assertion";
 import { extern } from "@/engine/core/utils/binding";
+import { isWeapon } from "@/engine/core/utils/class_ids";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { isObjectInActorFrustum, isObjectInZone, isWeapon } from "@/engine/core/utils/object";
+import { isObjectInActorFrustum, isObjectInZone } from "@/engine/core/utils/position";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import { nimbleWeapons, TWeapon } from "@/engine/lib/constants/items/weapons";
 import {
@@ -211,8 +212,10 @@ extern(
 extern(
   "xr_conditions.actor_on_level",
   (actor: ClientObject, object: ClientObject, levels: LuaArray<TName>): boolean => {
+    const currentLevelName: TName = level.name();
+
     for (const [, levelName] of levels) {
-      if (levelName === level.name()) {
+      if (levelName === currentLevelName) {
         return true;
       }
     }

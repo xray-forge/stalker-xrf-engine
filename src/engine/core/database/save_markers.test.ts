@@ -2,7 +2,6 @@ import { describe, expect, it, jest } from "@jest/globals";
 
 import { registry } from "@/engine/core/database/registry";
 import { closeLoadMarker, closeSaveMarker, openLoadMarker, openSaveMarker } from "@/engine/core/database/save_markers";
-import { LuaLogger } from "@/engine/core/utils/logging";
 import { MAX_I32 } from "@/engine/lib/constants/memory";
 import { EPacketDataType, mockNetPacket, MockNetProcessor } from "@/fixtures/xray";
 

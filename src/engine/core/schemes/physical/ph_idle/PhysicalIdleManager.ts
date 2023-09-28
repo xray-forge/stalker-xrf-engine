@@ -5,7 +5,7 @@ import { pickSectionFromCondList } from "@/engine/core/utils/ini/ini_config";
 import { TConditionList } from "@/engine/core/utils/ini/ini_types";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { switchObjectSchemeToSection, trySwitchToAnotherSection } from "@/engine/core/utils/scheme/scheme_switch";
-import { ClientObject, Optional, TCount, TIndex, TSection, Vector } from "@/engine/lib/types";
+import { ClientObject, Optional, TCount, TIndex, Vector } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

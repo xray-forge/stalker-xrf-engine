@@ -3,8 +3,8 @@ import { alife, clsid } from "xray16";
 import { SIMULATION_OBJECTS_PROPS_LTX } from "@/engine/core/database/ini_registry";
 import { registry } from "@/engine/core/database/registry";
 import { TSimulationObject } from "@/engine/core/managers/simulation";
+import { isSquad } from "@/engine/core/utils/class_ids";
 import { parseConditionsList } from "@/engine/core/utils/ini/ini_parse";
-import { isSquad } from "@/engine/core/utils/object/object_class";
 import { ACTOR, DEFAULT, DEFAULT_SQUAD } from "@/engine/lib/constants/words";
 import { TCount, TSection } from "@/engine/lib/types";
 

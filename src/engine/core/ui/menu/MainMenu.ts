@@ -26,8 +26,8 @@ import { MultiplayerGameSpy } from "@/engine/core/ui/menu/multiplayer_login/Mult
 import { MultiplayerLocalnet } from "@/engine/core/ui/menu/multiplayer_login/MultiplayerLocalnet";
 import { OptionsDialog } from "@/engine/core/ui/menu/options/OptionsDialog";
 import { SaveDialog } from "@/engine/core/ui/menu/save/SaveDialog";
-import { loadLastGameSave, startNewGame } from "@/engine/core/utils/game";
-import { executeConsoleCommand } from "@/engine/core/utils/game/game_console";
+import { executeConsoleCommand } from "@/engine/core/utils/console";
+import { loadLastGameSave, startNewGame } from "@/engine/core/utils/game_save";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { resolveXmlFile, resolveXmlFormPath } from "@/engine/core/utils/ui";
 import { gameConfig } from "@/engine/lib/configs/GameConfig";

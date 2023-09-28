@@ -104,5 +104,5 @@ describe("object_wounds utils", () => {
     expect(isObjectPsyWounded(object)).toBe(true);
   });
 
-  it.todo("findObjectNearestWoundedToHelp should correctly find nearest wounded to heal");
+  it.todo("getNearestWoundedToHelp should correctly find nearest wounded to heal");
 });

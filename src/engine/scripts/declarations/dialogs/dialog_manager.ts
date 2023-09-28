@@ -9,9 +9,10 @@ import {
 } from "@/engine/core/managers/dialogs";
 import type { SmartTerrain } from "@/engine/core/objects/server/smart_terrain";
 import { extern } from "@/engine/core/utils/binding";
+import { getObjectCommunity } from "@/engine/core/utils/community";
+import { getNpcSpeaker } from "@/engine/core/utils/dialog";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { getObjectCommunity, getObjectSmartTerrain } from "@/engine/core/utils/object";
-import { getNpcSpeaker } from "@/engine/core/utils/object/object_task_reward";
+import { getObjectSmartTerrain } from "@/engine/core/utils/position";
 import { communities, TCommunity } from "@/engine/lib/constants/communities";
 import { TRUE } from "@/engine/lib/constants/words";
 import { ClientObject, Optional, PhraseDialog, TName, TNumberId, TRate, TStringId } from "@/engine/lib/types";

@@ -6,12 +6,8 @@ import { DebugItemListEntry } from "@/engine/core/ui/debug/sections/DebugItemLis
 import { isGameStarted } from "@/engine/core/utils/game";
 import { getSimulationGroupSections, getStalkerSections } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { getNearestServerObject } from "@/engine/core/utils/object";
-import {
-  getInventoryNameForItemSection,
-  spawnCreatureNearActor,
-  spawnSquadInSmart,
-} from "@/engine/core/utils/object/object_spawn";
+import { getNearestServerObject } from "@/engine/core/utils/registry";
+import { getInventoryNameForItemSection, spawnCreatureNearActor, spawnSquadInSmart } from "@/engine/core/utils/spawn";
 import { resolveXmlFile } from "@/engine/core/utils/ui";
 import { TInventoryItem } from "@/engine/lib/constants/items";
 import { LuaArray, Optional, ServerObject, TPath, TSection, Vector2D } from "@/engine/lib/types";

@@ -14,8 +14,8 @@ import {
 } from "@/engine/core/objects/animation/types/state_types";
 import { assert } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { getObjectWeaponForAnimationState } from "@/engine/core/utils/object/object_weapon";
 import { areSameVectors, createVector, subVectors } from "@/engine/core/utils/vector";
+import { getObjectWeaponForAnimationState } from "@/engine/core/utils/weapon";
 import { ZERO_VECTOR } from "@/engine/lib/constants/vectors";
 import {
   ActionPlanner,

@@ -10,22 +10,16 @@ import { ISchemeMeetState } from "@/engine/core/schemes/stalker/meet";
 import { updateObjectMeetAvailability } from "@/engine/core/schemes/stalker/meet/utils";
 import { ISchemeWoundedState } from "@/engine/core/schemes/stalker/wounded";
 import { extern } from "@/engine/core/utils/binding";
-import { createGameAutoSave } from "@/engine/core/utils/game";
+import { getObjectCommunity } from "@/engine/core/utils/community";
+import { getActorAvailableMedKit, getNpcSpeaker } from "@/engine/core/utils/dialog";
+import { createGameAutoSave } from "@/engine/core/utils/game_save";
+import { giveInfoPortion, hasInfoPortion } from "@/engine/core/utils/info_portion";
+import { actorHasMedKit } from "@/engine/core/utils/item";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import {
-  actorHasMedKit,
-  enableObjectWoundedHealing,
-  getActorAvailableMedKit,
-  getNpcSpeaker,
-  getObjectCommunity,
-  giveInfo,
-  hasAlifeInfo,
-  isObjectInjured,
-  isObjectInSmartTerrain,
-  isObjectWounded,
-  isStalkerAlive,
-  transferItemsFromActor,
-} from "@/engine/core/utils/object";
+import { enableObjectWoundedHealing, isObjectInjured, isStalkerAlive } from "@/engine/core/utils/object";
+import { isObjectWounded } from "@/engine/core/utils/planner";
+import { isObjectInSmartTerrain } from "@/engine/core/utils/position";
+import { transferItemsFromActor } from "@/engine/core/utils/reward";
 import { communities } from "@/engine/lib/constants/communities";
 import { infoPortions } from "@/engine/lib/constants/info_portions";
 import { drugs, TMedkit } from "@/engine/lib/constants/items/drugs";
@@ -421,12 +415,12 @@ extern("dialogs.is_surge_not_running", (firstSpeaker: ClientObject, secondSpeake
  */
 extern("dialogs.quest_dialog_heli_precond", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
   return !(
-    (hasAlifeInfo(infoPortions.jup_b9_heli_1_searched) &&
-      hasAlifeInfo(infoPortions.zat_b100_heli_2_searched) &&
-      hasAlifeInfo(infoPortions.zat_b28_heli_3_searched) &&
-      hasAlifeInfo(infoPortions.jup_b8_heli_4_searched) &&
-      hasAlifeInfo(infoPortions.zat_b101_heli_5_searched)) ||
-    hasAlifeInfo(infoPortions.pri_b305_actor_wondered_done)
+    (hasInfoPortion(infoPortions.jup_b9_heli_1_searched) &&
+      hasInfoPortion(infoPortions.zat_b100_heli_2_searched) &&
+      hasInfoPortion(infoPortions.zat_b28_heli_3_searched) &&
+      hasInfoPortion(infoPortions.jup_b8_heli_4_searched) &&
+      hasInfoPortion(infoPortions.zat_b101_heli_5_searched)) ||
+    hasInfoPortion(infoPortions.pri_b305_actor_wondered_done)
   );
 });
 
@@ -434,8 +428,10 @@ extern("dialogs.quest_dialog_heli_precond", (firstSpeaker: ClientObject, secondS
  * todo;
  */
 extern("dialogs.quest_dialog_military_precond", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
-  if (hasAlifeInfo(infoPortions.zat_b28_heli_3_searched) || hasAlifeInfo(infoPortions.jup_b9_blackbox_decrypted)) {
-    if (!(hasAlifeInfo(infoPortions.zat_b28_heli_3_searched) && hasAlifeInfo(infoPortions.jup_b9_blackbox_decrypted))) {
+  if (hasInfoPortion(infoPortions.zat_b28_heli_3_searched) || hasInfoPortion(infoPortions.jup_b9_blackbox_decrypted)) {
+    if (
+      !(hasInfoPortion(infoPortions.zat_b28_heli_3_searched) && hasInfoPortion(infoPortions.jup_b9_blackbox_decrypted))
+    ) {
       return true;
     }
   }
@@ -448,9 +444,9 @@ extern("dialogs.quest_dialog_military_precond", (firstSpeaker: ClientObject, sec
  */
 extern("dialogs.quest_dialog_squad_precond", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
   return !(
-    hasAlifeInfo(infoPortions.jup_b218_monolith_hired) &&
-    hasAlifeInfo(infoPortions.jup_b218_soldier_hired) &&
-    hasAlifeInfo(infoPortions.jup_a10_vano_agree_go_und)
+    hasInfoPortion(infoPortions.jup_b218_monolith_hired) &&
+    hasInfoPortion(infoPortions.jup_b218_soldier_hired) &&
+    hasInfoPortion(infoPortions.jup_a10_vano_agree_go_und)
   );
 });
 
@@ -458,11 +454,11 @@ extern("dialogs.quest_dialog_squad_precond", (firstSpeaker: ClientObject, second
  * todo;
  */
 extern("dialogs.quest_dialog_toolkits_precond", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
-  if (hasAlifeInfo(infoPortions.zat_a2_mechanic_toolkit_search) && !hasAlifeInfo(infoPortions.zat_b3_task_end)) {
+  if (hasInfoPortion(infoPortions.zat_a2_mechanic_toolkit_search) && !hasInfoPortion(infoPortions.zat_b3_task_end)) {
     return true;
   } else if (
-    hasAlifeInfo(infoPortions.jup_b217_tech_instruments_start) &&
-    !hasAlifeInfo(infoPortions.jup_b217_task_end)
+    hasInfoPortion(infoPortions.jup_b217_tech_instruments_start) &&
+    !hasInfoPortion(infoPortions.jup_b217_task_end)
   ) {
     return true;
   }
@@ -476,16 +472,16 @@ extern("dialogs.quest_dialog_toolkits_precond", (firstSpeaker: ClientObject, sec
 extern("dialogs.monolith_leader_is_alive", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
   if (
     !(
-      hasAlifeInfo(infoPortions.jup_b4_monolith_squad_in_freedom) ||
-      hasAlifeInfo(infoPortions.jup_b4_monolith_squad_in_duty)
+      hasInfoPortion(infoPortions.jup_b4_monolith_squad_in_freedom) ||
+      hasInfoPortion(infoPortions.jup_b4_monolith_squad_in_duty)
     )
   ) {
     return isStalkerAlive("jup_b4_monolith_squad_leader_monolith_skin");
   }
 
-  if (hasAlifeInfo(infoPortions.jup_b4_monolith_squad_in_freedom)) {
+  if (hasInfoPortion(infoPortions.jup_b4_monolith_squad_in_freedom)) {
     return isStalkerAlive("jup_b4_monolith_squad_leader_freedom_skin");
-  } else if (hasAlifeInfo(infoPortions.jup_b4_monolith_squad_in_duty)) {
+  } else if (hasInfoPortion(infoPortions.jup_b4_monolith_squad_in_duty)) {
     return isStalkerAlive("jup_b4_monolith_squad_leader_duty_skin");
   }
 
@@ -496,22 +492,22 @@ extern("dialogs.monolith_leader_is_alive", (firstSpeaker: ClientObject, secondSp
  * todo;
  */
 extern("dialogs.monolith_leader_dead_or_hired", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
-  if (hasAlifeInfo(infoPortions.jup_b218_soldier_hired)) {
+  if (hasInfoPortion(infoPortions.jup_b218_soldier_hired)) {
     return true;
   }
 
   if (
     !(
-      hasAlifeInfo(infoPortions.jup_b4_monolith_squad_in_freedom) ||
-      hasAlifeInfo(infoPortions.jup_b4_monolith_squad_in_duty)
+      hasInfoPortion(infoPortions.jup_b4_monolith_squad_in_freedom) ||
+      hasInfoPortion(infoPortions.jup_b4_monolith_squad_in_duty)
     )
   ) {
     return !isStalkerAlive("jup_b4_monolith_squad_leader_monolith_skin");
   }
 
-  if (hasAlifeInfo(infoPortions.jup_b4_monolith_squad_in_freedom)) {
+  if (hasInfoPortion(infoPortions.jup_b4_monolith_squad_in_freedom)) {
     return !isStalkerAlive("jup_b4_monolith_squad_leader_freedom_skin");
-  } else if (hasAlifeInfo(infoPortions.jup_b4_monolith_squad_in_duty)) {
+  } else if (hasInfoPortion(infoPortions.jup_b4_monolith_squad_in_duty)) {
     return !isStalkerAlive("jup_b4_monolith_squad_leader_duty_skin");
   }
 
@@ -522,22 +518,22 @@ extern("dialogs.monolith_leader_dead_or_hired", (firstSpeaker: ClientObject, sec
  * todo;
  */
 extern("dialogs.monolith_leader_dead_or_dolg", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
-  if (hasAlifeInfo(infoPortions.jup_b218_soldier_hired)) {
+  if (hasInfoPortion(infoPortions.jup_b218_soldier_hired)) {
     return true;
   }
 
   if (
     !(
-      hasAlifeInfo(infoPortions.jup_b4_monolith_squad_in_freedom) ||
-      hasAlifeInfo(infoPortions.jup_b4_monolith_squad_in_duty)
+      hasInfoPortion(infoPortions.jup_b4_monolith_squad_in_freedom) ||
+      hasInfoPortion(infoPortions.jup_b4_monolith_squad_in_duty)
     )
   ) {
     return !isStalkerAlive("jup_b4_monolith_squad_leader_monolith_skin");
   }
 
-  if (hasAlifeInfo(infoPortions.jup_b4_monolith_squad_in_freedom)) {
+  if (hasInfoPortion(infoPortions.jup_b4_monolith_squad_in_freedom)) {
     return true;
-  } else if (hasAlifeInfo(infoPortions.jup_b4_monolith_squad_in_duty)) {
+  } else if (hasInfoPortion(infoPortions.jup_b4_monolith_squad_in_duty)) {
     return !isStalkerAlive("jup_b4_monolith_squad_leader_duty_skin");
   }
 
@@ -675,8 +671,8 @@ extern("dialogs.mityay_is_alive", (firstSpeaker: ClientObject, secondSpeaker: Cl
  */
 extern("dialogs.dolg_can_work_for_sci", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
   return !(
-    hasAlifeInfo(infoPortions.jup_a6_freedom_leader_bunker_guards_work) ||
-    hasAlifeInfo(infoPortions.jup_a6_freedom_leader_bunker_scan_work)
+    hasInfoPortion(infoPortions.jup_a6_freedom_leader_bunker_guards_work) ||
+    hasInfoPortion(infoPortions.jup_a6_freedom_leader_bunker_scan_work)
   );
 });
 
@@ -685,8 +681,8 @@ extern("dialogs.dolg_can_work_for_sci", (firstSpeaker: ClientObject, secondSpeak
  */
 extern("dialogs.dolg_can_not_work_for_sci", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
   return (
-    hasAlifeInfo(infoPortions.jup_a6_freedom_leader_bunker_guards_work) ||
-    hasAlifeInfo(infoPortions.jup_a6_freedom_leader_bunker_scan_work)
+    hasInfoPortion(infoPortions.jup_a6_freedom_leader_bunker_guards_work) ||
+    hasInfoPortion(infoPortions.jup_a6_freedom_leader_bunker_scan_work)
   );
 });
 
@@ -695,8 +691,8 @@ extern("dialogs.dolg_can_not_work_for_sci", (firstSpeaker: ClientObject, secondS
  */
 extern("dialogs.freedom_can_work_for_sci", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
   return !(
-    hasAlifeInfo(infoPortions.jup_a6_duty_leader_bunker_guards_work) ||
-    hasAlifeInfo(infoPortions.jup_a6_duty_leader_bunker_scan_work)
+    hasInfoPortion(infoPortions.jup_a6_duty_leader_bunker_guards_work) ||
+    hasInfoPortion(infoPortions.jup_a6_duty_leader_bunker_scan_work)
   );
 });
 
@@ -705,8 +701,8 @@ extern("dialogs.freedom_can_work_for_sci", (firstSpeaker: ClientObject, secondSp
  */
 extern("dialogs.freedom_can_not_work_for_sci", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
   return (
-    hasAlifeInfo(infoPortions.jup_a6_duty_leader_bunker_guards_work) ||
-    hasAlifeInfo(infoPortions.jup_a6_duty_leader_bunker_scan_work)
+    hasInfoPortion(infoPortions.jup_a6_duty_leader_bunker_guards_work) ||
+    hasInfoPortion(infoPortions.jup_a6_duty_leader_bunker_scan_work)
   );
 });
 
@@ -716,22 +712,22 @@ extern("dialogs.freedom_can_not_work_for_sci", (firstSpeaker: ClientObject, seco
 extern(
   "dialogs.monolith_leader_dead_or_freedom",
   (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
-    if (hasAlifeInfo(infoPortions.jup_b218_soldier_hired)) {
+    if (hasInfoPortion(infoPortions.jup_b218_soldier_hired)) {
       return true;
     }
 
     if (
       !(
-        hasAlifeInfo(infoPortions.jup_b4_monolith_squad_in_freedom) ||
-        hasAlifeInfo(infoPortions.jup_b4_monolith_squad_in_duty)
+        hasInfoPortion(infoPortions.jup_b4_monolith_squad_in_freedom) ||
+        hasInfoPortion(infoPortions.jup_b4_monolith_squad_in_duty)
       )
     ) {
       return !isStalkerAlive("jup_b4_monolith_squad_leader_monolith_skin");
     }
 
-    if (hasAlifeInfo(infoPortions.jup_b4_monolith_squad_in_freedom)) {
+    if (hasInfoPortion(infoPortions.jup_b4_monolith_squad_in_freedom)) {
       return !isStalkerAlive("jup_b4_monolith_squad_leader_freedom_skin");
-    } else if (hasAlifeInfo(infoPortions.jup_b4_monolith_squad_in_duty)) {
+    } else if (hasInfoPortion(infoPortions.jup_b4_monolith_squad_in_duty)) {
       return true;
     }
 
@@ -832,9 +828,9 @@ extern("dialogs.save_pri_a17_hospital_start", (firstSpeaker: ClientObject, secon
  * todo;
  */
 extern("dialogs.save_jup_a10_gonna_return_debt", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
-  if (!hasAlifeInfo(infoPortions.jup_a10_avtosave)) {
+  if (!hasInfoPortion(infoPortions.jup_a10_avtosave)) {
     createGameAutoSave("st_save_jup_a10_gonna_return_debt");
-    giveInfo(infoPortions.jup_a10_avtosave);
+    giveInfoPortion(infoPortions.jup_a10_avtosave);
   }
 });
 

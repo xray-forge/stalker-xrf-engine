@@ -26,7 +26,7 @@ export async function buildStaticUi(parameters: IBuildCommandParameters): Promis
     /**
      * Sync way for folder creation when needed.
      */
-    xmlConfigs.forEach(([from, to]) => {
+    xmlConfigs.forEach(([, to]) => {
       const targetDir: string = path.dirname(to);
 
       if (!fs.existsSync(targetDir)) {
