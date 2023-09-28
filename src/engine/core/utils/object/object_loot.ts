@@ -3,7 +3,7 @@ import { level } from "xray16";
 import { getPortableStoreValue, IRegistryObjectState, registry } from "@/engine/core/database";
 import { IReleaseDescriptor, ReleaseBodyManager } from "@/engine/core/managers/death";
 import { isObjectWithValuableLoot } from "@/engine/core/utils/object/object_check";
-import { isLootableItemSection } from "@/engine/core/utils/object/object_section";
+import { isLootableItemSection } from "@/engine/core/utils/section";
 import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
 import { LOOTING_DEAD_OBJECT_KEY } from "@/engine/lib/constants/portable_store_keys";
 import { ClientObject, LuaArray, Optional, TDistance, TNumberId, Vector } from "@/engine/lib/types";

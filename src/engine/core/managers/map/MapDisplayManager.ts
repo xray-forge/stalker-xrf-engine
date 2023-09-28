@@ -16,12 +16,12 @@ import { getAnomalyArtefacts } from "@/engine/core/utils/anomaly";
 import { hasAlifeInfo } from "@/engine/core/utils/info_portion";
 import { parseConditionsList, pickSectionFromCondList, readIniString, TConditionList } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { isSquadMonsterCommunity } from "@/engine/core/utils/object/object_section";
 import {
   ERelation,
   getSquadMembersRelationToActor,
   getSquadMembersRelationToActorSafe,
 } from "@/engine/core/utils/relation";
+import { isSquadMonsterCommunity } from "@/engine/core/utils/section";
 import { gameConfig } from "@/engine/lib/configs/GameConfig";
 import { infoPortions } from "@/engine/lib/constants/info_portions/info_portions";
 import { levels } from "@/engine/lib/constants/levels";

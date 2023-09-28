@@ -8,14 +8,8 @@ import { abort } from "@/engine/core/utils/assertion";
 import { isArtefact, isGrenade, isWeapon } from "@/engine/core/utils/class_ids";
 import { parseNumbersList, parseStringsList } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import {
-  getObjectCommunity,
-  isAmmoSection,
-  isExcludedFromLootDropItemSection,
-  isLootableItemSection,
-  setItemCondition,
-  spawnItemsForObject,
-} from "@/engine/core/utils/object";
+import { getObjectCommunity, setItemCondition, spawnItemsForObject } from "@/engine/core/utils/object";
+import { isAmmoSection, isExcludedFromLootDropItemSection, isLootableItemSection } from "@/engine/core/utils/section";
 import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
 import { communities, TCommunity } from "@/engine/lib/constants/communities";
 import { TInventoryItem } from "@/engine/lib/constants/items";

@@ -5,9 +5,9 @@ import {
   isExcludedFromLootDropItemSection,
   isLootableItemSection,
   isSquadMonsterCommunity,
-} from "@/engine/core/utils/object/object_section";
+} from "@/engine/core/utils/section";
 
-describe("object_section utils", () => {
+describe("section utils", () => {
   it("isAmmoSection should correctly check ammo section", () => {
     expect(isAmmoSection("another-section")).toBe(false);
     expect(isAmmoSection("ammo_not_existing")).toBe(false);

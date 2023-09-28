@@ -8,7 +8,7 @@ import { abort, assert, assertDefined } from "@/engine/core/utils/assertion";
 import { isStalker } from "@/engine/core/utils/class_ids";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getObjectPositioning } from "@/engine/core/utils/object/object_get";
-import { isAmmoSection } from "@/engine/core/utils/object/object_section";
+import { isAmmoSection } from "@/engine/core/utils/section";
 import { createEmptyVector } from "@/engine/core/utils/vector";
 import {
   AlifeSimulator,
