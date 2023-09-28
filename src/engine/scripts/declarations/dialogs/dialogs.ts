@@ -11,14 +11,15 @@ import { updateObjectMeetAvailability } from "@/engine/core/schemes/stalker/meet
 import { ISchemeWoundedState } from "@/engine/core/schemes/stalker/wounded";
 import { extern } from "@/engine/core/utils/binding";
 import { getObjectCommunity } from "@/engine/core/utils/community";
-import { getNpcSpeaker } from "@/engine/core/utils/dialog";
+import { getActorAvailableMedKit, getNpcSpeaker } from "@/engine/core/utils/dialog";
 import { createGameAutoSave } from "@/engine/core/utils/game_save";
 import { giveInfoPortion, hasInfoPortion } from "@/engine/core/utils/info_portion";
+import { actorHasMedKit } from "@/engine/core/utils/item";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { enableObjectWoundedHealing, isObjectInjured, isStalkerAlive } from "@/engine/core/utils/object";
 import { isObjectWounded } from "@/engine/core/utils/planner";
 import { isObjectInSmartTerrain } from "@/engine/core/utils/position";
-import { actorHasMedKit, getActorAvailableMedKit, transferItemsFromActor } from "@/engine/core/utils/reward";
+import { transferItemsFromActor } from "@/engine/core/utils/reward";
 import { communities } from "@/engine/lib/constants/communities";
 import { infoPortions } from "@/engine/lib/constants/info_portions";
 import { drugs, TMedkit } from "@/engine/lib/constants/items/drugs";

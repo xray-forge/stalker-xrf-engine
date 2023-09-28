@@ -7,16 +7,13 @@ import { getPortableStoreValue, setPortableStoreValue } from "@/engine/core/data
 import { ENotificationDirection, NotificationManager } from "@/engine/core/managers/notifications";
 import { TreasureManager } from "@/engine/core/managers/treasures";
 import { extern, getExtern } from "@/engine/core/utils/binding";
-import { getNpcSpeaker } from "@/engine/core/utils/dialog";
+import { getNpcSpeaker, isObjectName } from "@/engine/core/utils/dialog";
 import { disableInfoPortion, giveInfoPortion, hasInfoPortion } from "@/engine/core/utils/info_portion";
+import { actorHasAtLeastOneItem, actorHasItem, objectHasItem } from "@/engine/core/utils/item";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import {
-  actorHasAtLeastOneItem,
-  actorHasItem,
   giveItemsToActor,
   giveMoneyToActor,
-  isObjectName,
-  objectHasItem,
   transferItemsFromActor,
   transferItemsToActor,
   transferMoneyFromActor,

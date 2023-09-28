@@ -5,7 +5,7 @@ import { getPortableStoreValue } from "@/engine/core/database/portable_store";
 import { TreasureManager } from "@/engine/core/managers/treasures";
 import { AnomalyZoneBinder } from "@/engine/core/objects/binders/zones/AnomalyZoneBinder";
 import { extern, getExtern } from "@/engine/core/utils/binding";
-import { getNpcSpeaker } from "@/engine/core/utils/dialog";
+import { getNpcSpeaker, isObjectName } from "@/engine/core/utils/dialog";
 import { disableInfoPortion, giveInfoPortion, hasInfoPortion } from "@/engine/core/utils/info_portion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { isObjectInSmartTerrain } from "@/engine/core/utils/position";
@@ -13,7 +13,6 @@ import { getObjectsRelationSafe, isActorEnemyWithFaction } from "@/engine/core/u
 import {
   giveItemsToActor,
   giveMoneyToActor,
-  isObjectName,
   transferItemsFromActor,
   transferItemsToActor,
   transferMoneyFromActor,
