@@ -12,7 +12,6 @@ import { NotificationManager } from "@/engine/core/managers/notifications";
 import { ETaskState, ETaskStatus, POSSIBLE_STATES } from "@/engine/core/managers/tasks/types";
 import { assertDefined } from "@/engine/core/utils/assertion";
 import { getExtern } from "@/engine/core/utils/binding";
-import { readTimeFromPacket, writeTimeToPacket } from "@/engine/core/utils/game/game_time";
 import {
   parseConditionsList,
   parseStringsList,
@@ -24,6 +23,7 @@ import {
 } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { giveMoneyToActor, transferItemsToActor } from "@/engine/core/utils/reward";
+import { readTimeFromPacket, writeTimeToPacket } from "@/engine/core/utils/time";
 import { levels, TLevel } from "@/engine/lib/constants/levels";
 import { storyNames } from "@/engine/lib/constants/story_names";
 import { NIL } from "@/engine/lib/constants/words";

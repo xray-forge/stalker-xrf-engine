@@ -5,8 +5,8 @@ import { states } from "@/engine/core/objects/animation/states";
 import { EWeaponAnimation } from "@/engine/core/objects/animation/types";
 import { isStalker, isWeapon } from "@/engine/core/utils/class_ids";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { getWeaponActionForAnimationState } from "@/engine/core/utils/object/object_weapon";
 import { getObjectSmartCoverStateQueueParams } from "@/engine/core/utils/smart_cover";
+import { getWeaponActionForAnimationState } from "@/engine/core/utils/weapon";
 import { ClientObject, EClientObjectRelation, Optional, TDuration, TRate, TTimestamp } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);

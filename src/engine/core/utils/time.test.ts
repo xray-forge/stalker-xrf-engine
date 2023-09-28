@@ -8,7 +8,7 @@ import {
   readTimeFromPacket,
   toTimeDigit,
   writeTimeToPacket,
-} from "@/engine/core/utils/game/game_time";
+} from "@/engine/core/utils/time";
 import { MAX_I32, MAX_U8, MIN_I32 } from "@/engine/lib/constants/memory";
 import { Optional, Time } from "@/engine/lib/types";
 import { replaceFunctionMock } from "@/fixtures/jest";

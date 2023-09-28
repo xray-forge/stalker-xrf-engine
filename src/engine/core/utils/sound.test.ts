@@ -1,8 +1,11 @@
 import { describe, expect, it } from "@jest/globals";
 import { snd_type } from "xray16";
 
-import { isSoundType, mapSoundMaskToSoundType } from "@/engine/core/utils/sound";
+import { isSoundType, mapSoundMaskToSoundType, stopPlayingObjectSound } from "@/engine/core/utils/sound";
 import { ESoundType } from "@/engine/lib/constants/sound";
+import { ClientObject } from "@/engine/lib/types";
+import { replaceFunctionMock } from "@/fixtures/jest";
+import { mockClientGameObject } from "@/fixtures/xray";
 
 describe("sound utils", () => {
   it("mapSoundMaskToSoundType should correctly convert mask to enum", () => {
@@ -46,5 +49,19 @@ describe("sound utils", () => {
     expect(isSoundType(snd_type.item, snd_type.weapon)).toBeFalsy();
     expect(isSoundType(snd_type.item_pick_up, snd_type.weapon)).toBeFalsy();
     expect(isSoundType(snd_type.ambient, snd_type.weapon)).toBeFalsy();
+  });
+
+  it("stopPlayingObjectSound should correctly reset object sound play", () => {
+    const object: ClientObject = mockClientGameObject();
+
+    replaceFunctionMock(object.alive, () => false);
+    stopPlayingObjectSound(object);
+    expect(object.set_sound_mask).not.toHaveBeenCalled();
+
+    replaceFunctionMock(object.alive, () => true);
+    stopPlayingObjectSound(object);
+    expect(object.set_sound_mask).toHaveBeenCalledTimes(2);
+    expect(object.set_sound_mask).toHaveBeenNthCalledWith(1, -1);
+    expect(object.set_sound_mask).toHaveBeenNthCalledWith(2, 0);
   });
 });

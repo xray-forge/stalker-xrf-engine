@@ -251,4 +251,6 @@ describe("position utils", () => {
       },
     ]);
   });
+
+  it.todo("isActorInNoWeaponZone should correctly check if actor is in no weapon zone");
 });

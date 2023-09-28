@@ -10,7 +10,6 @@ import {
   isObjectHelpingWounded,
   isObjectInCombat,
   isObjectInjured,
-  isObjectOnline,
   isObjectSearchingCorpse,
   isObjectSeenByActor,
   isObjectStrappingWeapon,
@@ -255,21 +254,6 @@ describe("object_check utils", () => {
     jest.spyOn(object, "alive").mockImplementation(() => false);
     jest.spyOn(object, "see").mockImplementation(() => false);
     expect(isActorSeenByObject(object)).toBe(false);
-  });
-
-  it("isObjectOnline should correctly check object online", () => {
-    const first: ClientObject = mockClientGameObject();
-    const second: ClientObject = mockClientGameObject();
-
-    expect(isObjectOnline(first.id())).toBe(true);
-    expect(isObjectOnline(second.id())).toBe(true);
-    expect(isObjectOnline(1_000_001)).toBe(false);
-    expect(isObjectOnline(1_000_002)).toBe(false);
-
-    CLIENT_SIDE_REGISTRY.reset();
-
-    expect(isObjectOnline(first.id())).toBe(false);
-    expect(isObjectOnline(second.id())).toBe(false);
   });
 
   it("isUndergroundLevel should correctly check if level is underground", () => {

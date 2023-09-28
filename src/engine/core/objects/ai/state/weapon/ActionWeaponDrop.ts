@@ -4,7 +4,7 @@ import { StalkerStateManager } from "@/engine/core/objects/ai/state/StalkerState
 import { isStrappableWeapon } from "@/engine/core/utils/class_ids";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { setItemCondition } from "@/engine/core/utils/object";
-import { getObjectWeaponForAnimationState } from "@/engine/core/utils/object/object_weapon";
+import { getObjectWeaponForAnimationState } from "@/engine/core/utils/weapon";
 import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
 import { ClientObject, Optional } from "@/engine/lib/types";
 

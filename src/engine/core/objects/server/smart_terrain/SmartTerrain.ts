@@ -44,7 +44,6 @@ import { ESmartTerrainStatus } from "@/engine/core/objects/server/smart_terrain/
 import { ESquadActionType, Squad } from "@/engine/core/objects/server/squad";
 import { abort, assert, assertDefined } from "@/engine/core/utils/assertion";
 import { isMonsterSquad, isStalker } from "@/engine/core/utils/class_ids";
-import { readTimeFromPacket, writeTimeToPacket } from "@/engine/core/utils/game/game_time";
 import {
   getSchemeFromSection,
   IConfigSwitchCondition,
@@ -80,6 +79,7 @@ import {
   turnOnSmartTerrainCampfires,
   updateSmartTerrainAlarmStatus,
 } from "@/engine/core/utils/smart_terrain";
+import { readTimeFromPacket, writeTimeToPacket } from "@/engine/core/utils/time";
 import { toJSON } from "@/engine/core/utils/transform/json";
 import { gameConfig } from "@/engine/lib/configs/GameConfig";
 import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
@@ -487,8 +487,8 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
         registry.smartTerrainNearest.id === null
           ? registry.smartTerrainNearest.distance
           : registry.simulator
-            .object(registry.smartTerrainNearest.id)!
-            .position.distance_to(registry.actorServer.position);
+              .object(registry.smartTerrainNearest.id)!
+              .position.distance_to(registry.actorServer.position);
 
       if (distanceToActor < previousDistanceToActor) {
         registry.smartTerrainNearest.id = this.id;

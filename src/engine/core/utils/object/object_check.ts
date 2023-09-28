@@ -1,17 +1,12 @@
-import { level } from "xray16";
-
 import { getObjectIdByStoryId, registry } from "@/engine/core/database";
 import { surgeConfig } from "@/engine/core/managers/surge/SurgeConfig";
 import { EActionId } from "@/engine/core/objects/ai/types";
-import { Squad } from "@/engine/core/objects/server/squad";
 import { isStalker } from "@/engine/core/utils/class_ids";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { getObjectSquad } from "@/engine/core/utils/squad/squad_get";
 import { lootableTable } from "@/engine/lib/constants/items/lootable_table";
 import { TLevel } from "@/engine/lib/constants/levels";
 import {
   ActionPlanner,
-  AnyGameObject,
   ClientObject,
   Optional,
   ServerHumanObject,
@@ -119,16 +114,6 @@ export function isStalkerAlive(targetObject: ClientObject | ServerObject | TStri
   } else {
     return false;
   }
-}
-
-/**
- * Check whether provided object ID is online.
- *
- * @param objectId - object identifier
- * @returns whether object is online
- */
-export function isObjectOnline(objectId: TNumberId): boolean {
-  return level.object_by_id(objectId) !== null;
 }
 
 /**

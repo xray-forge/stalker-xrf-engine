@@ -6,8 +6,5 @@ export * from "@/engine/core/utils/object/object_loot";
 export * from "@/engine/core/utils/object/object_meeting";
 export * from "@/engine/core/utils/object/object_set";
 export * from "@/engine/core/utils/object/object_setup";
-export * from "@/engine/core/utils/object/object_sound";
 export * from "@/engine/core/utils/object/object_state";
-export * from "@/engine/core/utils/object/object_weapon";
 export * from "@/engine/core/utils/object/object_wounds";
-export * from "@/engine/core/utils/object/object_zone";

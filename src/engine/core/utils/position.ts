@@ -248,3 +248,18 @@ export function getObjectPositioning(object: AnyGameObject): LuaMultiReturn<[TNu
     );
   }
 }
+
+/**
+ * todo;
+ * todo;
+ * todo;
+ */
+export function isActorInNoWeaponZone(): boolean {
+  for (const [, isActive] of registry.noWeaponZones) {
+    if (isActive) {
+      return true;
+    }
+  }
+
+  return false;
+}

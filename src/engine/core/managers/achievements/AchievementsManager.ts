@@ -30,10 +30,10 @@ import { AbstractManager } from "@/engine/core/managers/base/AbstractManager";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { ENotificationType, ITipNotification, notificationsIcons } from "@/engine/core/managers/notifications";
 import { abort } from "@/engine/core/utils/assertion";
-import { readTimeFromPacket, writeTimeToPacket } from "@/engine/core/utils/game/game_time";
 import { hasInfoPortion } from "@/engine/core/utils/info_portion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { spawnItemsForObjectFromList } from "@/engine/core/utils/spawn";
+import { readTimeFromPacket, writeTimeToPacket } from "@/engine/core/utils/time";
 import { infoPortions } from "@/engine/lib/constants/info_portions/info_portions";
 import { NetPacket, NetProcessor, Optional, Time } from "@/engine/lib/types";
 
