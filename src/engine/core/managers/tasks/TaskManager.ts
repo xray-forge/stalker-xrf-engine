@@ -88,6 +88,9 @@ export class TaskManager extends AbstractManager {
 
   /**
    * Check if task by id is failed.
+   *
+   * @param taskId - identifier of task to check
+   * @returns if task is failed
    */
   public isTaskFailed(taskId: TStringId): boolean {
     const task: Optional<TaskObject> = this.tasksList.get(taskId);
