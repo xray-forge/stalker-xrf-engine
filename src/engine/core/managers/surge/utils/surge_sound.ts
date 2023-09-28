@@ -8,7 +8,8 @@ import { levels } from "@/engine/lib/constants/levels";
 import { TName } from "@/engine/lib/types";
 
 /**
- * todo;
+ * Play surge starting sound.
+ * In original game some stalker from main location base does announcement.
  */
 export function playSurgeStartingSound(): void {
   if (level === null) {
@@ -38,7 +39,8 @@ export function playSurgeStartingSound(): void {
 }
 
 /**
- * todo;
+ * Play surge will happen in a minute sound.
+ * In original game some stalker from main location base does announcement.
  */
 export function playSurgeWillHappenSoonSound(): void {
   if (level === null) {
@@ -68,7 +70,8 @@ export function playSurgeWillHappenSoonSound(): void {
 }
 
 /**
- * todo;
+ * Play surge just ended.
+ * In original game some stalker from main location base does announcement.
  */
 export function playSurgeEndedSound(): void {
   if (level === null) {

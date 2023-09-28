@@ -30,6 +30,7 @@ import { animations, postProcessors } from "@/engine/lib/constants/animation";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import { infoPortions } from "@/engine/lib/constants/info_portions";
 import { TLevel } from "@/engine/lib/constants/levels";
+import { Z_VECTOR } from "@/engine/lib/constants/vectors";
 import { TRUE } from "@/engine/lib/constants/words";
 import {
   ClientObject,
@@ -354,8 +355,6 @@ export class SurgeManager extends AbstractManager {
     if (this.currentDuration !== surgeDuration) {
       this.currentDuration = surgeDuration;
 
-      const coverObject: Optional<ClientObject> = getNearestAvailableSurgeCover(registry.actor);
-
       if (!isSurgeEnabledOnLevel(level.name())) {
         this.endSurge();
 
@@ -400,6 +399,8 @@ export class SurgeManager extends AbstractManager {
           globalSoundManager.setLoopedSoundVolume(ACTOR_ID, "blowout_rumble", surgeDuration / 180);
         }
 
+        const coverObject: Optional<ClientObject> = getNearestAvailableSurgeCover(registry.actor);
+
         if (
           surgeDuration >= 140 &&
           !this.isUiDisabled &&
@@ -414,7 +415,7 @@ export class SurgeManager extends AbstractManager {
           surgeHit.type = hit.telepatic;
           surgeHit.power = att;
           surgeHit.impulse = 0.0;
-          surgeHit.direction = createVector(0, 0, 1);
+          surgeHit.direction = Z_VECTOR;
           surgeHit.draftsman = registry.actor;
 
           if (pickSectionFromCondList(registry.actor, null, surgeConfig.CAN_SURVIVE_SURGE) === TRUE) {
