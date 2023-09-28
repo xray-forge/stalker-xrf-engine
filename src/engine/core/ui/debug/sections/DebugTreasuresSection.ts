@@ -2,7 +2,7 @@ import { CUI3tButton, CUIEditBox, CUIListBox, CUIStatic, game, level, LuabindCla
 
 import { registry } from "@/engine/core/database";
 import { StatisticsManager } from "@/engine/core/managers/statistics";
-import { ITreasureDescriptor, TreasureManager, treasuresConfig } from "@/engine/core/managers/treasures";
+import { ITreasureDescriptor, treasureConfig, TreasureManager } from "@/engine/core/managers/treasures";
 import { AbstractDebugSection } from "@/engine/core/ui/debug/sections/AbstractDebugSection";
 import { isGameStarted } from "@/engine/core/utils/game";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -144,7 +144,7 @@ export class DebugTreasuresSection extends AbstractDebugSection {
 
     this.uiTreasuresList.RemoveAll();
 
-    for (const [section] of treasuresConfig.TREASURES) {
+    for (const [section] of treasureConfig.TREASURES) {
       // Apply treasure filtering.
       if (this.currentFilter === null || this.currentFilter === "" || section.includes(this.currentFilter)) {
         this.uiTreasuresList.AddTextItem(section);
@@ -162,7 +162,7 @@ export class DebugTreasuresSection extends AbstractDebugSection {
     const treasureManager: TreasureManager = TreasureManager.getInstance();
 
     if (section !== null) {
-      const treasure: ITreasureDescriptor = treasuresConfig.TREASURES.get(section);
+      const treasure: ITreasureDescriptor = treasureConfig.TREASURES.get(section);
 
       let totalItems: TCount = 0;
       let base: TLabel = `given: ${treasure.given} | checked: ${treasure.checked} | refreshing: ${

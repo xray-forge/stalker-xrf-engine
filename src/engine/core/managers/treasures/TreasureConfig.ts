@@ -6,7 +6,7 @@ import { IniFile } from "@/engine/lib/types";
 
 export const TREASURE_MANAGER_CONFIG_LTX: IniFile = new ini_file("managers\\treasure_manager.ltx");
 
-export const treasuresConfig = {
+export const treasureConfig = {
   UPDATED_PERIOD: readIniNumber(TREASURE_MANAGER_CONFIG_LTX, "config", "update_period", false, 500),
   TREASURES: readIniTreasuresList(TREASURE_MANAGER_CONFIG_LTX),
 };

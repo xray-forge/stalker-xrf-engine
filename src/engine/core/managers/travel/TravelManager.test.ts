@@ -2,6 +2,7 @@ import { beforeEach, describe, expect, it } from "@jest/globals";
 
 import { registerSimulator, registry } from "@/engine/core/database";
 import { EventsManager } from "@/engine/core/managers/events";
+import { travelConfig } from "@/engine/core/managers/travel/TravelConfig";
 import { TravelManager } from "@/engine/core/managers/travel/TravelManager";
 import { parseConditionsList } from "@/engine/core/utils/ini";
 import { TRUE } from "@/engine/lib/constants/words";
@@ -32,25 +33,17 @@ describe("TravelManager class", () => {
     expect(eventsManager.getSubscribersCount()).toBe(0);
   });
 
-  it("should correctly initialize and destroy", () => {
-    const manager: TravelManager = TravelManager.getInstance();
+  it("should correctly have correct configuration", () => {
+    expect(travelConfig.TRAVEL_DISTANCE_MIN_THRESHOLD).toBe(50);
+    expect(travelConfig.TRAVEL_TELEPORT_DELAY).toBe(3000);
+    expect(travelConfig.TRAVEL_RESOLVE_DELAY).toBe(6000);
 
-    manager.initialize();
-
-    expect(TravelManager.SMART_TRAVEL_DISTANCE_MIN_THRESHOLD).toBe(50);
-    expect(TravelManager.SMART_TRAVEL_TELEPORT_DELAY).toBe(3000);
-    expect(TravelManager.SMART_TRAVEL_RESOLVE_DELAY).toBe(6000);
-
-    expect(manager.isTraveling).toBe(false);
-    expect(manager.isTravelTeleported).toBe(false);
-    expect(manager.travelingStartedAt).toBe(0);
-
-    expect(manager.smartDescriptionsByName).toEqualLuaTables({
+    expect(travelConfig.TRAVEL_LOCATIONS).toEqualLuaTables({
       zat_a1: "st_stalker_zat_a1",
       zat_sim_1: "st_stalker_zat_sim_1",
       zat_sim_2: "st_stalker_zat_sim_2",
     });
-    expect(manager.smartTravelDescriptorsByName).toEqualLuaTables({
+    expect(travelConfig.TRAVEL_DESCRIPTORS_BY_NAME).toEqualLuaTables({
       zat_b100: {
         condlist: parseConditionsList(TRUE),
         level: "zaton",
@@ -70,11 +63,21 @@ describe("TravelManager class", () => {
         phraseId: "1000",
       },
     });
-    expect(manager.smartNamesByPhraseId).toEqualLuaTables({
+    expect(travelConfig.TRAVEL_DESCRIPTORS_BY_PHRASE).toEqualLuaTables({
       "1000": "zat_stalker_base_smart",
       "1001": "zat_b55",
       "1002": "zat_b100",
     });
+  });
+
+  it("should correctly initialize and destroy", () => {
+    const manager: TravelManager = TravelManager.getInstance();
+
+    manager.initialize();
+
+    expect(manager.isTraveling).toBe(false);
+    expect(manager.isTravelTeleported).toBe(false);
+    expect(manager.travelingStartedAt).toBe(0);
   });
 
   it("should correctly initialize travel dialog phrases", () => {

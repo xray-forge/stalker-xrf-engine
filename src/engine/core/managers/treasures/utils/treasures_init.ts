@@ -1,10 +1,10 @@
 import { SYSTEM_INI } from "@/engine/core/database";
+import { TREASURE_MANAGER_CONFIG_LTX } from "@/engine/core/managers/treasures/TreasureConfig";
 import {
   ALLOWED_TREASURE_TYPES,
   ETreasureType,
   ITreasureDescriptor,
 } from "@/engine/core/managers/treasures/treasures_types";
-import { TREASURE_MANAGER_CONFIG_LTX } from "@/engine/core/managers/treasures/TreasuresConfig";
 import { abort, assert } from "@/engine/core/utils/assertion";
 import { ISpawnDescriptor, parseConditionsList, parseSpawnDetails, readIniNumber } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";

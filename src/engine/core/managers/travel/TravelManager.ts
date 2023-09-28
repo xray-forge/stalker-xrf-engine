@@ -1,6 +1,6 @@
 import { game, level, patrol, time_global } from "xray16";
 
-import { getStoryIdByObjectId, registry, TRAVEL_MANAGER_LTX } from "@/engine/core/database";
+import { getStoryIdByObjectId, registry } from "@/engine/core/database";
 import { AbstractManager } from "@/engine/core/managers/base/AbstractManager";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { ENotificationDirection, NotificationManager } from "@/engine/core/managers/notifications";
@@ -8,6 +8,7 @@ import { TSimulationObject } from "@/engine/core/managers/simulation";
 import { SimulationBoardManager } from "@/engine/core/managers/simulation/SimulationBoardManager";
 import { surgeConfig } from "@/engine/core/managers/surge/SurgeConfig";
 import { ITravelRouteDescriptor } from "@/engine/core/managers/travel/travel_types";
+import { travelConfig } from "@/engine/core/managers/travel/TravelConfig";
 import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain/SmartTerrain";
 import type { Squad } from "@/engine/core/objects/server/squad/Squad";
 import { ESquadActionType } from "@/engine/core/objects/server/squad/squad_types";
@@ -15,7 +16,7 @@ import { abort } from "@/engine/core/utils/assertion";
 import { isSmartTerrain, isSquad } from "@/engine/core/utils/class_ids";
 import { getObjectCommunity } from "@/engine/core/utils/community";
 import { createGameAutoSave } from "@/engine/core/utils/game_save";
-import { parseConditionsList, pickSectionFromCondList } from "@/engine/core/utils/ini";
+import { pickSectionFromCondList } from "@/engine/core/utils/ini";
 import { ELuaLoggerMode, LuaLogger } from "@/engine/core/utils/logging";
 import { getObjectSmartTerrain, getServerDistanceBetween } from "@/engine/core/utils/position";
 import { isAnySquadMemberEnemyToActor } from "@/engine/core/utils/relation";
@@ -24,7 +25,6 @@ import { vectorToString } from "@/engine/core/utils/vector";
 import { postProcessors } from "@/engine/lib/constants/animation";
 import { communities, TCommunity } from "@/engine/lib/constants/communities";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
-import { TLevel } from "@/engine/lib/constants/levels";
 import { TRUE } from "@/engine/lib/constants/words";
 import {
   ClientObject,
@@ -55,17 +55,6 @@ const logger: LuaLogger = new LuaLogger($filename, { file: "travel", mode: ELuaL
  * todo: Fix faction-specific labels and answers. Originally commented and hardcoded to stalkers?
  */
 export class TravelManager extends AbstractManager {
-  // Distance considered too close to travel with group of stalkers.
-  public static readonly SMART_TRAVEL_DISTANCE_MIN_THRESHOLD: TDistance = 50;
-
-  // Duration to delay UI visibility after fast travel.
-  public static readonly SMART_TRAVEL_TELEPORT_DELAY: TDuration = 3_000;
-  public static readonly SMART_TRAVEL_RESOLVE_DELAY: TDuration = 6_000;
-
-  public readonly smartDescriptionsByName: LuaTable<TName, TLabel> = new LuaTable();
-  public readonly smartTravelDescriptorsByName: LuaTable<TName, ITravelRouteDescriptor> = new LuaTable();
-  public readonly smartNamesByPhraseId: LuaTable<TName, TStringId> = new LuaTable();
-
   public isTraveling: boolean = false;
   public isTravelTeleported: boolean = false;
   public travelingStartedAt: TTimestamp = 0;
@@ -80,26 +69,6 @@ export class TravelManager extends AbstractManager {
     const eventsManager: EventsManager = EventsManager.getInstance();
 
     eventsManager.registerCallback(EGameEvent.ACTOR_UPDATE, this.update, this);
-
-    for (const it of $range(0, TRAVEL_MANAGER_LTX.line_count("locations") - 1)) {
-      const [, id, value] = TRAVEL_MANAGER_LTX.r_line("locations", it, "", "");
-
-      this.smartDescriptionsByName.set(id, value);
-    }
-
-    for (const it of $range(0, TRAVEL_MANAGER_LTX.line_count("traveler") - 1)) {
-      const [, name] = TRAVEL_MANAGER_LTX.r_line("traveler", it, "", "");
-      const phraseId: TStringId = tostring(1000 + it);
-
-      this.smartNamesByPhraseId.set(phraseId, name);
-
-      this.smartTravelDescriptorsByName.set(name, {
-        phraseId: phraseId,
-        name: TRAVEL_MANAGER_LTX.r_string(name, "name"),
-        level: TRAVEL_MANAGER_LTX.r_string(name, "level") as TLevel,
-        condlist: parseConditionsList(TRAVEL_MANAGER_LTX.r_string(name, "condlist")),
-      });
-    }
   }
 
   public override destroy(): void {
@@ -150,7 +119,7 @@ export class TravelManager extends AbstractManager {
     npcPhraseScript = npcPhrase.GetPhraseScript();
     npcPhraseScript.AddPrecondition("travel_callbacks.canSquadTravel");
 
-    for (const [, descriptor] of this.smartTravelDescriptorsByName) {
+    for (const [, descriptor] of travelConfig.TRAVEL_DESCRIPTORS_BY_NAME) {
       actorPhrase = dialog.AddPhrase(game.translate_string(descriptor.name) + ".", descriptor.phraseId, "121", -10000);
       actorScript = actorPhrase.GetPhraseScript();
       actorScript.AddPrecondition("travel_callbacks.canNegotiateTravelToSmart");
@@ -245,7 +214,7 @@ export class TravelManager extends AbstractManager {
     const targetClsId: TClassId = targetSquadObject.clsid();
 
     if (isSmartTerrain(targetSquadObject)) {
-      const smartDescription: TLabel = this.smartDescriptionsByName.get(targetSquadObject.name());
+      const smartDescription: TLabel = travelConfig.TRAVEL_LOCATIONS.get(targetSquadObject.name());
 
       if (smartDescription === null) {
         abort("wrong smart name '%s' in travel_manager.ltx", targetSquadObject.name());
@@ -309,7 +278,7 @@ export class TravelManager extends AbstractManager {
 
     return (
       pickSectionFromCondList(registry.actor, smartTerrain, descriptor.condlist) === TRUE &&
-      getServerDistanceBetween(squad, smartTerrain) > TravelManager.SMART_TRAVEL_DISTANCE_MIN_THRESHOLD
+      getServerDistanceBetween(squad, smartTerrain) > travelConfig.TRAVEL_DISTANCE_MIN_THRESHOLD
     );
   }
 
@@ -320,7 +289,7 @@ export class TravelManager extends AbstractManager {
     const squad: Squad = getObjectSquad(object)!;
 
     // todo: Filter all squads to current level, do not check other locations.
-    for (const [id, descriptor] of this.smartTravelDescriptorsByName) {
+    for (const [id, descriptor] of travelConfig.TRAVEL_DESCRIPTORS_BY_NAME) {
       if (this.isSmartAvailableToReach(id, descriptor, squad)) {
         return true;
       }
@@ -339,7 +308,7 @@ export class TravelManager extends AbstractManager {
     prevPhraseId: TStringId,
     phraseId: TStringId
   ): boolean {
-    const smartName: Optional<TName> = this.smartNamesByPhraseId.get(phraseId);
+    const smartName: Optional<TName> = travelConfig.TRAVEL_DESCRIPTORS_BY_PHRASE.get(phraseId);
 
     if (smartName === null) {
       abort("Error in travel manager, not available smart name: '%s'.", tostring(phraseId));
@@ -347,7 +316,7 @@ export class TravelManager extends AbstractManager {
 
     return this.isSmartAvailableToReach(
       smartName,
-      this.smartTravelDescriptorsByName.get(smartName),
+      travelConfig.TRAVEL_DESCRIPTORS_BY_NAME.get(smartName),
       getObjectSquad(object)!
     );
   }
@@ -365,7 +334,9 @@ export class TravelManager extends AbstractManager {
    */
   public getTravelPriceByObjectPhrase(object: ClientObject, phraseId: TStringId): TCount {
     const simulationBoardManager: SimulationBoardManager = SimulationBoardManager.getInstance();
-    const smartTerrainName: TName = this.smartNamesByPhraseId.get(string.sub(phraseId, 1, string.len(phraseId) - 2));
+    const smartTerrainName: TName = travelConfig.TRAVEL_DESCRIPTORS_BY_PHRASE.get(
+      string.sub(phraseId, 1, string.len(phraseId) - 2)
+    );
 
     return this.getTravelPriceByDistance(
       object.position().distance_to(simulationBoardManager.getSmartTerrainByName(smartTerrainName)!.position)
@@ -411,7 +382,7 @@ export class TravelManager extends AbstractManager {
     }
 
     // Wait till prepare.
-    if (time_global() - this.travelingStartedAt < TravelManager.SMART_TRAVEL_TELEPORT_DELAY) {
+    if (time_global() - this.travelingStartedAt < travelConfig.TRAVEL_TELEPORT_DELAY) {
       return;
     }
 
@@ -468,7 +439,7 @@ export class TravelManager extends AbstractManager {
     }
 
     // Wait till resolve.
-    if (time_global() - this.travelingStartedAt < TravelManager.SMART_TRAVEL_RESOLVE_DELAY) {
+    if (time_global() - this.travelingStartedAt < travelConfig.TRAVEL_RESOLVE_DELAY) {
       return;
     }
 
@@ -500,7 +471,7 @@ export class TravelManager extends AbstractManager {
   ): void {
     const simulationBoardManager: SimulationBoardManager = SimulationBoardManager.getInstance();
     const travelPhraseId: TStringId = string.sub(phraseId, 1, string.len(phraseId) - 3);
-    const smartName: TName = this.smartNamesByPhraseId.get(travelPhraseId);
+    const smartName: TName = travelConfig.TRAVEL_DESCRIPTORS_BY_PHRASE.get(travelPhraseId);
     const smartTerrain: Optional<SmartTerrain> = simulationBoardManager.getSmartTerrainByName(smartName)!;
     const squad: Squad = getObjectSquad(object) as Squad;
 

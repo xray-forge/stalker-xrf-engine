@@ -2,7 +2,7 @@ import type { IBaseSchemeLogic } from "@/engine/core/database/types";
 import { abort, assert, assertDefined } from "@/engine/core/utils/assertion";
 import { parseConditionsList, parseNumbersList, parseParameters } from "@/engine/core/utils/ini/ini_parse";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { IniFile, LuaArray, Optional, TCount, TName, TSection } from "@/engine/lib/types";
+import { IniFile, LuaArray, Optional, TCount, TLabel, TName, TSection } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -264,7 +264,7 @@ export function readIniTwoStringsAndConditionsList(
  *
  * @param ini - config file to read
  * @param section - config section to read
- * @returns set transformed from lua section
+ * @returns set transformed from ini section
  */
 export function readIniSet<T extends string = string>(ini: IniFile, section: TSection): LuaTable<T, boolean> {
   const set: LuaTable<T, boolean> = new LuaTable();
@@ -272,14 +272,38 @@ export function readIniSet<T extends string = string>(ini: IniFile, section: TSe
   if (ini.section_exist(section)) {
     const count: TCount = ini.line_count(section);
 
-    for (const it of $range(0, count - 1)) {
-      const [, field] = ini.r_line(section, it, "", "");
+    for (const index of $range(0, count - 1)) {
+      const [, field] = ini.r_line(section, index, "", "");
 
       set.set(field as T, true);
     }
-
-    return set;
-  } else {
-    return set;
   }
+
+  return set;
+}
+
+/**
+ * Read section fields and transform to string based map.
+ *
+ * @param ini - config file to read
+ * @param section - config section to read
+ * @returns map transformed from ini section
+ */
+export function readIniStringMap<K extends string = string, V extends string = string>(
+  ini: IniFile,
+  section: TSection
+): LuaTable<K, V> {
+  const list: LuaTable<K, V> = new LuaTable();
+
+  if (ini.section_exist(section)) {
+    const count: TCount = ini.line_count(section);
+
+    for (const index of $range(0, count - 1)) {
+      const [, key, value] = ini.r_line(section, index, "", "");
+
+      list.set(key as K, value as V);
+    }
+  }
+
+  return list;
 }

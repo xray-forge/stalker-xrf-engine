@@ -206,7 +206,7 @@ export const FILES_MOCKS: Record<TPath, AnyObject> = {
       squad: 0,
     },
   },
-  "misc\\travel_manager.ltx": {
+  "managers\\travel_manager.ltx": {
     locations: {
       zat_sim_1: "st_stalker_zat_sim_1",
       zat_sim_2: "st_stalker_zat_sim_2",
