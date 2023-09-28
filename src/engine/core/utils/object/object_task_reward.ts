@@ -8,7 +8,7 @@ import {
 } from "@/engine/core/managers/notifications/notifications_types";
 import { abort, assert, assertDefined } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { spawnItemsForObject } from "@/engine/core/utils/object/object_spawn";
+import { spawnItemsForObject } from "@/engine/core/utils/spawn";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import { ammo, TAmmoItem } from "@/engine/lib/constants/items/ammo";
 import { medkits, TMedkit } from "@/engine/lib/constants/items/drugs";

@@ -33,7 +33,7 @@ import { abort } from "@/engine/core/utils/assertion";
 import { readTimeFromPacket, writeTimeToPacket } from "@/engine/core/utils/game/game_time";
 import { hasAlifeInfo } from "@/engine/core/utils/info_portion";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { spawnItemsForObjectFromList } from "@/engine/core/utils/object/object_spawn";
+import { spawnItemsForObjectFromList } from "@/engine/core/utils/spawn";
 import { infoPortions } from "@/engine/lib/constants/info_portions/info_portions";
 import { NetPacket, NetProcessor, Optional, Time } from "@/engine/lib/types";
 

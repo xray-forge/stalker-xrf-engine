@@ -14,7 +14,7 @@ import {
   spawnObject,
   spawnObjectInObject,
   spawnSquadInSmart,
-} from "@/engine/core/utils/object/object_spawn";
+} from "@/engine/core/utils/spawn";
 import { createEmptyVector } from "@/engine/core/utils/vector";
 import {
   AlifeSimulator,
@@ -36,7 +36,7 @@ import {
 } from "@/fixtures/xray";
 import { MockVector } from "@/fixtures/xray/mocks/vector.mock";
 
-describe("object spawning utils", () => {
+describe("spawning utils", () => {
   beforeEach(() => {
     MockAlifeSimulator.reset();
     registerSimulator();

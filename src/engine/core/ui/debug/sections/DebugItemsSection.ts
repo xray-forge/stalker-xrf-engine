@@ -12,8 +12,8 @@ import {
   getWeaponSections,
 } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { getInventoryNameForItemSection, spawnItemsForObject } from "@/engine/core/utils/object";
 import { isAmmoSection } from "@/engine/core/utils/section";
+import { getInventoryNameForItemSection, spawnItemsForObject } from "@/engine/core/utils/spawn";
 import { resolveXmlFile } from "@/engine/core/utils/ui";
 import { TInventoryItem } from "@/engine/lib/constants/items";
 import { drugs } from "@/engine/lib/constants/items/drugs";

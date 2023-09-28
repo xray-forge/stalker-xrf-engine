@@ -12,7 +12,7 @@ import { abort } from "@/engine/core/utils/assertion";
 import { extern } from "@/engine/core/utils/binding";
 import { isStalker } from "@/engine/core/utils/class_ids";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { spawnItemsForObject } from "@/engine/core/utils/object";
+import { spawnItemsForObject } from "@/engine/core/utils/spawn";
 import { createVector } from "@/engine/core/utils/vector";
 import { TCommunity } from "@/engine/lib/constants/communities";
 import { questItems } from "@/engine/lib/constants/items/quest_items";

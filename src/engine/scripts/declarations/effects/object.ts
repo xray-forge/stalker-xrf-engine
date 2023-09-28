@@ -30,14 +30,14 @@ import {
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getObjectSmartTerrain } from "@/engine/core/utils/object";
 import { clearObjectAbuse } from "@/engine/core/utils/object/object_meeting";
+import { trySwitchToAnotherSection } from "@/engine/core/utils/scheme/scheme_switch";
 import {
   releaseObject,
   spawnItemsForObject,
   spawnObject,
   spawnObjectInObject,
   spawnSquadInSmart,
-} from "@/engine/core/utils/object/object_spawn";
-import { trySwitchToAnotherSection } from "@/engine/core/utils/scheme/scheme_switch";
+} from "@/engine/core/utils/spawn";
 import { createVector, subVectors } from "@/engine/core/utils/vector";
 import { FALSE, TRUE } from "@/engine/lib/constants/words";
 import {
