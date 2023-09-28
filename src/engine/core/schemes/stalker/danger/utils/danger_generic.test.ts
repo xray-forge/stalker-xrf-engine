@@ -6,10 +6,13 @@ import { SimulationBoardManager } from "@/engine/core/managers/simulation/Simula
 import { SmartTerrain, SmartTerrainControl } from "@/engine/core/objects/server/smart_terrain";
 import { ESmartTerrainStatus } from "@/engine/core/objects/server/smart_terrain/types";
 import { ISchemeCombatIgnoreState } from "@/engine/core/schemes/stalker/combat_ignore";
+import {
+  canObjectSelectAsEnemy,
+  isObjectFacingDanger,
+} from "@/engine/core/schemes/stalker/danger/utils/danger_generic";
 import { ISchemeWoundedState } from "@/engine/core/schemes/stalker/wounded";
 import { WoundManager } from "@/engine/core/schemes/stalker/wounded/WoundManager";
 import { parseConditionsList } from "@/engine/core/utils/ini";
-import { canObjectSelectAsEnemy, isObjectFacingDanger } from "@/engine/core/utils/object/object_danger";
 import { FALSE, TRUE } from "@/engine/lib/constants/words";
 import { ClientObject, EClientObjectRelation, EScheme, ServerSmartZoneObject, TClassId } from "@/engine/lib/types";
 import { mockSchemeState } from "@/fixtures/engine";
@@ -21,7 +24,7 @@ import {
   mockServerAlifeSmartZone,
 } from "@/fixtures/xray";
 
-describe("object_danger utils", () => {
+describe("danger generic utils", () => {
   beforeEach(() => registerSimulator());
 
   it("isObjectFacingDanger should correctly check generic danger", () => {

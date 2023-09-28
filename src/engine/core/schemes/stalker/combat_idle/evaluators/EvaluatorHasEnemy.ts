@@ -2,8 +2,8 @@ import { LuabindClass, property_evaluator, time_global } from "xray16";
 
 import { registry } from "@/engine/core/database";
 import { ISchemePostCombatIdleState } from "@/engine/core/schemes/stalker/combat_idle/ISchemePostCombatIdleState";
+import { canObjectSelectAsEnemy } from "@/engine/core/schemes/stalker/danger/utils";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { canObjectSelectAsEnemy } from "@/engine/core/utils/object";
 import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
 import { ClientObject, Optional, TDistance, TTimestamp } from "@/engine/lib/types";
 

@@ -5,9 +5,9 @@ import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundMan
 import { StalkerPatrolManager } from "@/engine/core/objects/ai/state/StalkerPatrolManager";
 import { EStalkerState, ILookTargetDescriptor } from "@/engine/core/objects/animation/types";
 import { ICampPoint, ISchemeCamperState } from "@/engine/core/schemes/stalker/camper/ISchemeCamperState";
+import { isObjectFacingDanger } from "@/engine/core/schemes/stalker/danger/utils";
 import { abort } from "@/engine/core/utils/assertion";
 import { parseWaypointsData } from "@/engine/core/utils/ini";
-import { isObjectFacingDanger } from "@/engine/core/utils/object";
 import { isObjectAtTerminalWaypoint, isObjectAtWaypoint } from "@/engine/core/utils/patrol";
 import { createVector } from "@/engine/core/utils/vector";
 import { ClientObject, DangerObject, ISchemeEventHandler, Optional, Patrol, Vector } from "@/engine/lib/types";
