@@ -22,7 +22,7 @@ describe("ActorInputManager class", () => {
     const actorInputManager: ActorInputManager = getManagerInstance(ActorInputManager);
     const eventsManager: EventsManager = getManagerInstance(EventsManager);
 
-    expect(eventsManager.getSubscribersCount()).toBe(3);
+    expect(eventsManager.getSubscribersCount()).toBe(4);
     expect(actorInputManager.activeItemSlot).toBe(3);
     expect(actorInputManager.isWeaponHidden).toBe(false);
     expect(actorInputManager.isWeaponHiddenInDialog).toBe(false);
@@ -134,11 +134,11 @@ describe("ActorInputManager class", () => {
     const manager: ActorInputManager = ActorInputManager.getInstance();
 
     manager.disableInputAt = MockCTime.mock(2012, 12, 1, 12, 30, 5, 500);
-    manager.onNetworkSpawn();
+    manager.onActorGoOnline();
     expect(level.enable_input).toHaveBeenCalledTimes(0);
 
     manager.disableInputAt = null;
-    manager.onNetworkSpawn();
+    manager.onActorGoOnline();
     expect(level.enable_input).toHaveBeenCalledTimes(1);
   });
 });

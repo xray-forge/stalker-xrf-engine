@@ -1,6 +1,13 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 
-import { disposeManagers, initializeManager, registerActor, registry } from "@/engine/core/database";
+import {
+  disposeManager,
+  disposeManagers,
+  initializeManager,
+  isManagerInitialized,
+  registerActor,
+  registry,
+} from "@/engine/core/database";
 import { AchievementsManager } from "@/engine/core/managers/achievements";
 import { ActorInputManager } from "@/engine/core/managers/actor";
 import { TAbstractCoreManagerConstructor } from "@/engine/core/managers/base/AbstractManager";
@@ -41,6 +48,35 @@ describe("SaveManager class", () => {
   beforeEach(() => {
     disposeManagers();
     resetFunctionMock(io.open);
+  });
+
+  it("should correctly initialize", () => {
+    const eventsManager: EventsManager = EventsManager.getInstance();
+
+    expect(eventsManager.getSubscribersCount()).toBe(0);
+
+    initializeManager(SaveManager);
+    expect(eventsManager.getSubscribersCount()).toBe(1);
+
+    disposeManager(SaveManager);
+    expect(eventsManager.getSubscribersCount()).toBe(0);
+  });
+
+  it("should correctly force init of surge manager on actor init", () => {
+    const eventsManager: EventsManager = EventsManager.getInstance();
+
+    expect(isManagerInitialized(SaveManager)).toBe(false);
+    expect(isManagerInitialized(SurgeManager)).toBe(false);
+
+    initializeManager(SaveManager);
+
+    expect(isManagerInitialized(SaveManager)).toBe(true);
+    expect(isManagerInitialized(SurgeManager)).toBe(false);
+
+    eventsManager.emitEvent(EGameEvent.ACTOR_REINIT, null);
+
+    expect(isManagerInitialized(SaveManager)).toBe(true);
+    expect(isManagerInitialized(SurgeManager)).toBe(true);
   });
 
   it("should save and load data from managers in a strict order", () => {

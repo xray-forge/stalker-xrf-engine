@@ -3,6 +3,7 @@ import { level, patrol } from "xray16";
 import { getObjectByStoryId, getObjectIdByStoryId, IRegistryObjectState, registry } from "@/engine/core/database";
 import { SimulationBoardManager } from "@/engine/core/managers/simulation/SimulationBoardManager";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
+import { surgeConfig } from "@/engine/core/managers/surge/SurgeConfig";
 import { SurgeManager } from "@/engine/core/managers/surge/SurgeManager";
 import { WeatherManager } from "@/engine/core/managers/weather/WeatherManager";
 import { AnomalyZoneBinder } from "@/engine/core/objects/binders";
@@ -162,7 +163,7 @@ extern("xr_effects.set_game_time", (actor: ClientObject, object: ClientObject, p
 
   level.change_game_time(0, hoursToChange, minutesToChange);
   WeatherManager.getInstance().forceWeatherChange();
-  SurgeManager.getInstance().isTimeForwarded = true;
+  surgeConfig.IS_TIME_FORWARDED = true;
 });
 
 /**
@@ -184,7 +185,7 @@ extern("xr_effects.forward_game_time", (actor: ClientObject, object: ClientObjec
 
   level.change_game_time(0, hours, minutes);
   WeatherManager.getInstance().forceWeatherChange();
-  SurgeManager.getInstance().isTimeForwarded = true;
+  surgeConfig.IS_TIME_FORWARDED = true;
 });
 
 // todo: Rework, looks bad

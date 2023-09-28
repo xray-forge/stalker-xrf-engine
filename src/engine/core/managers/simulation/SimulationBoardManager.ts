@@ -56,14 +56,14 @@ export class SimulationBoardManager extends AbstractManager {
     const eventsManager: EventsManager = EventsManager.getInstance();
 
     eventsManager.registerCallback(EGameEvent.ACTOR_REGISTER, this.onActorRegister, this);
-    eventsManager.registerCallback(EGameEvent.ACTOR_DESTROY, this.onActorDestroy, this);
+    eventsManager.registerCallback(EGameEvent.ACTOR_GO_OFFLINE, this.onActorDestroy, this);
   }
 
   public override destroy(): void {
     const eventsManager: EventsManager = EventsManager.getInstance();
 
     eventsManager.unregisterCallback(EGameEvent.ACTOR_REGISTER, this.onActorRegister);
-    eventsManager.unregisterCallback(EGameEvent.ACTOR_DESTROY, this.onActorDestroy);
+    eventsManager.unregisterCallback(EGameEvent.ACTOR_GO_OFFLINE, this.onActorDestroy);
   }
 
   /**

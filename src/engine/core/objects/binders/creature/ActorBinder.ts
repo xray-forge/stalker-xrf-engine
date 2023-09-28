@@ -22,6 +22,7 @@ import { SchemeDeimos } from "@/engine/core/schemes/restrictor/sr_deimos/SchemeD
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { setStableAlifeObjectsUpdate, setUnlimitedAlifeObjectsUpdate } from "@/engine/core/utils/object/object_alife";
 import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
+import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import {
   ClientObject,
   GameTask,
@@ -48,7 +49,7 @@ export class ActorBinder extends object_binder {
   public deimosIntensity: Optional<number> = null;
 
   public override net_spawn(data: ServerActorObject): boolean {
-    logger.info("Net spawn");
+    logger.info("Actor go online");
 
     level.show_indicators();
 
@@ -64,13 +65,13 @@ export class ActorBinder extends object_binder {
 
     this.deimosIntensity = null;
 
-    this.eventsManager.emitEvent(EGameEvent.ACTOR_SPAWN, this);
+    this.eventsManager.emitEvent(EGameEvent.ACTOR_GO_ONLINE, this);
 
     return true;
   }
 
   public override net_destroy(): void {
-    logger.info("Net destroy");
+    logger.info("Actor go offline");
 
     level.show_weapon(true);
 
@@ -84,7 +85,7 @@ export class ActorBinder extends object_binder {
     this.object.set_callback(callback.take_item_from_box, null);
     this.object.set_callback(callback.use_object, null);
 
-    this.eventsManager.emitEvent(EGameEvent.ACTOR_DESTROY, this);
+    this.eventsManager.emitEvent(EGameEvent.ACTOR_GO_OFFLINE, this);
 
     unregisterActor();
 
@@ -92,12 +93,12 @@ export class ActorBinder extends object_binder {
   }
 
   public override reinit(): void {
-    logger.info("Re-init");
+    logger.info("Re-init actor");
 
     super.reinit();
 
     registerActor(this.object);
-    destroyPortableStore(this.object.id());
+    destroyPortableStore(ACTOR_ID);
 
     this.object.set_callback(callback.inventory_info, (object: ClientObject, info: string) => {
       this.eventsManager.emitEvent(EGameEvent.ACTOR_INFO_UPDATE, object, info);
@@ -127,6 +128,8 @@ export class ActorBinder extends object_binder {
       () => setStableAlifeObjectsUpdate(),
       logicsConfig.ALIFE.OBJECT_INITIAL_SPAWN_BUFFER_TIME
     );
+
+    this.eventsManager.emitEvent(EGameEvent.ACTOR_REINIT, this);
   }
 
   public override update(delta: TDuration): void {

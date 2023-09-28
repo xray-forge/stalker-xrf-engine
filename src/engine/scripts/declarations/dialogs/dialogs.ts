@@ -4,7 +4,7 @@ import { registry } from "@/engine/core/database";
 import { ActorInputManager } from "@/engine/core/managers/actor";
 import { ENotificationDirection, NotificationManager } from "@/engine/core/managers/notifications";
 import { SimulationBoardManager } from "@/engine/core/managers/simulation/SimulationBoardManager";
-import { SurgeManager } from "@/engine/core/managers/surge/SurgeManager";
+import { surgeConfig } from "@/engine/core/managers/surge/SurgeConfig";
 import { updateStalkerLogic } from "@/engine/core/objects/binders/creature/StalkerBinder";
 import { ISchemeMeetState } from "@/engine/core/schemes/stalker/meet";
 import { updateObjectMeetAvailability } from "@/engine/core/schemes/stalker/meet/utils";
@@ -406,14 +406,14 @@ extern("dialogs.disable_ui_only", (firstSpeaker: ClientObject, secondSpeaker: Cl
  * todo;
  */
 extern("dialogs.is_surge_running", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
-  return SurgeManager.IS_STARTED;
+  return surgeConfig.IS_STARTED;
 });
 
 /**
  * todo;
  */
 extern("dialogs.is_surge_not_running", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
-  return SurgeManager.IS_FINISHED;
+  return surgeConfig.IS_FINISHED;
 });
 
 /**

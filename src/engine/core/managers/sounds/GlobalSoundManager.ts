@@ -61,7 +61,7 @@ export class GlobalSoundManager extends AbstractManager {
 
     const eventsManager: EventsManager = EventsManager.getInstance();
 
-    eventsManager.registerCallback(EGameEvent.ACTOR_DESTROY, this.onActorNetworkDestroy, this);
+    eventsManager.registerCallback(EGameEvent.ACTOR_GO_OFFLINE, this.onActorNetworkDestroy, this);
     eventsManager.registerCallback(EGameEvent.ACTOR_UPDATE, this.onActorUpdate, this);
 
     const linesCount: TCount = SCRIPT_SOUND_LTX.line_count("list");
@@ -104,7 +104,7 @@ export class GlobalSoundManager extends AbstractManager {
   public override destroy(): void {
     const eventsManager: EventsManager = EventsManager.getInstance();
 
-    eventsManager.unregisterCallback(EGameEvent.ACTOR_DESTROY, this.onActorNetworkDestroy);
+    eventsManager.unregisterCallback(EGameEvent.ACTOR_GO_OFFLINE, this.onActorNetworkDestroy);
     eventsManager.unregisterCallback(EGameEvent.ACTOR_UPDATE, this.onActorUpdate);
   }
 

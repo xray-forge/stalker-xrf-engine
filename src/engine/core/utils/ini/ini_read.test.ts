@@ -6,6 +6,7 @@ import {
   readIniConditionList,
   readIniNumber,
   readIniNumberAndConditionList,
+  readIniSet,
   readIniString,
   readIniStringAndCondList,
   readIniTwoNumbers,
@@ -320,6 +321,31 @@ describe("read utils for ini file", () => {
       objectId: null,
       p1: null,
       p2: null,
+    });
+  });
+
+  it("readIniSet should correctly transform section to set", () => {
+    const ini: IniFile = mockIniFile("example.ltx", {
+      section1: ["a", "b", "c"],
+      section2: ["d", "e"],
+      section3: {
+        x: 1,
+        y: false,
+      },
+    });
+
+    expect(readIniSet(ini, "section1")).toEqualLuaTables({
+      a: true,
+      b: true,
+      c: true,
+    });
+    expect(readIniSet(ini, "section2")).toEqualLuaTables({
+      d: true,
+      e: true,
+    });
+    expect(readIniSet(ini, "section3")).toEqualLuaTables({
+      x: true,
+      y: true,
     });
   });
 });

@@ -2,7 +2,7 @@ import { describe, expect, it, jest } from "@jest/globals";
 import { level } from "xray16";
 
 import { registerObject, registerSmartCover, registerZone } from "@/engine/core/database";
-import { SurgeManager } from "@/engine/core/managers/surge/SurgeManager";
+import { surgeConfig } from "@/engine/core/managers/surge/SurgeConfig";
 import { SmartCover } from "@/engine/core/objects/server/smart_cover";
 import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain";
 import { parseConditionsList } from "@/engine/core/utils/ini";
@@ -70,10 +70,10 @@ describe("job_precondition utilities", () => {
     const [jobs] = createStalkerWalkerJobs(smartTerrain, new LuaTable(), new StringBuilder());
     const parameters: AnyObject = jobs.get(1).preconditionParameters as AnyObject;
 
-    SurgeManager.IS_STARTED = true;
+    surgeConfig.IS_STARTED = true;
     expect(jobPreconditionSurge(stalker, smartTerrain, parameters)).toBe(true);
 
-    SurgeManager.IS_STARTED = false;
+    surgeConfig.IS_STARTED = false;
     expect(jobPreconditionSurge(stalker, smartTerrain, parameters)).toBe(false);
   });
 

@@ -4,6 +4,7 @@ import { registry } from "@/engine/core/database";
 import { ActorInputManager } from "@/engine/core/managers/actor";
 import { AbstractManager } from "@/engine/core/managers/base/AbstractManager";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
+import { surgeConfig } from "@/engine/core/managers/surge/SurgeConfig";
 import { SurgeManager } from "@/engine/core/managers/surge/SurgeManager";
 import { WeatherManager } from "@/engine/core/managers/weather/WeatherManager";
 import { SleepDialog } from "@/engine/core/ui/interaction/SleepDialog";
@@ -71,14 +72,13 @@ export class SleepManager extends AbstractManager {
     level.add_cam_effector(animations.camera_effects_sleep, 10, false, "engine.on_finish_sleeping");
 
     const weatherManager: WeatherManager = WeatherManager.getInstance();
-    const surgeManager: SurgeManager = SurgeManager.getInstance();
 
     level.change_game_time(0, this.nextSleepDuration, 0);
 
     weatherManager.forceWeatherChange();
-    surgeManager.isTimeForwarded = true;
+    surgeConfig.IS_TIME_FORWARDED = true;
 
-    if (SurgeManager.IS_STARTED && weatherManager.weatherFx) {
+    if (surgeConfig.IS_STARTED && weatherManager.weatherFx) {
       level.stop_weather_fx();
       weatherManager.forceWeatherChange();
     }

@@ -7,19 +7,23 @@ export enum EGameEvent {
   /**
    * Actor registered.
    */
-  ACTOR_REGISTER,
+  ACTOR_REGISTER = 1,
   /**
    * Actor unregistered.
    */
   ACTOR_UNREGISTER,
   /**
+   * Actor re-initialize.
+   */
+  ACTOR_REINIT,
+  /**
    * Actor spawned after start / load in level and become online.
    */
-  ACTOR_SPAWN = 1,
+  ACTOR_GO_ONLINE,
   /**
    * Actor object destroyed and gone offline.
    */
-  ACTOR_DESTROY,
+  ACTOR_GO_OFFLINE,
   /**
    * Actor update iteration.
    */

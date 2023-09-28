@@ -8,7 +8,7 @@ import type { TaskObject } from "@/engine/core/managers/tasks";
 import type { ITreasureDescriptor } from "@/engine/core/managers/treasures";
 import { assert } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { isArtefact } from "@/engine/core/utils/object";
+import { isArtefact } from "@/engine/core/utils/object/object_class";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import { TInventoryItem } from "@/engine/lib/constants/items";
 import { TArtefact } from "@/engine/lib/constants/items/artefacts";

@@ -1,12 +1,12 @@
 import { level } from "xray16";
 
 import { getObjectIdByStoryId, registry } from "@/engine/core/database";
+import { surgeConfig } from "@/engine/core/managers/surge/SurgeConfig";
 import { EActionId } from "@/engine/core/objects/ai/types";
 import { Squad } from "@/engine/core/objects/server/squad";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { isStalker } from "@/engine/core/utils/object/object_class";
 import { getObjectSquad } from "@/engine/core/utils/object/object_get";
-import { surgeConfig } from "@/engine/lib/configs/SurgeConfig";
 import { lootableTable } from "@/engine/lib/constants/items/lootable_table";
 import { TLevel } from "@/engine/lib/constants/levels";
 import {
@@ -187,7 +187,7 @@ export function isObjectInjured(object: ClientObject): boolean {
  * @returns whether provided community squad is immune to surge.
  */
 export function isImmuneToSurgeObject(object: Squad): boolean {
-  return object.faction in surgeConfig.IMMUNE_SQUDS;
+  return surgeConfig.IMMUNE_SQUAD_COMMUNITIES.get(object.faction) === true;
 }
 
 /**
@@ -207,7 +207,7 @@ export function isPlayingSound(object: ClientObject): boolean {
  * @returns whether level is fully indoor.
  */
 export function isUndergroundLevel(levelName: TLevel): boolean {
-  return levelName in surgeConfig.UNDERGROUND_LEVELS;
+  return surgeConfig.UNDERGROUND_LEVELS.get(levelName) === true;
 }
 
 /**
@@ -216,5 +216,5 @@ export function isUndergroundLevel(levelName: TLevel): boolean {
  * @returns whether surge can be started on provided level.
  */
 export function isSurgeEnabledOnLevel(levelName: TName): boolean {
-  return !(levelName in surgeConfig.SURGE_DISABLED_LEVELS);
+  return surgeConfig.SURGE_DISABLED_LEVELS.get(levelName) !== true;
 }

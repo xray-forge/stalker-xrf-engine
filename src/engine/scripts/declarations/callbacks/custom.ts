@@ -1,7 +1,7 @@
 import { EAchievement } from "@/engine/core/managers/achievements/achievements_types";
 import { AchievementsManager } from "@/engine/core/managers/achievements/AchievementsManager";
+import { ActorInputManager } from "@/engine/core/managers/actor";
 import { SleepManager } from "@/engine/core/managers/sleep";
-import { SurgeManager } from "@/engine/core/managers/surge/SurgeManager";
 import { TaskManager } from "@/engine/core/managers/tasks";
 import { SchemeCutscene } from "@/engine/core/schemes/restrictor/sr_cutscene/SchemeCutscene";
 import { extern } from "@/engine/core/utils/binding";
@@ -25,22 +25,22 @@ extern("engine.on_finish_sleeping", () => SleepManager.getInstance().onFinishSle
 /**
  * On anabiotic used and start sleeping.
  */
-extern("engine.on_anabiotic_sleep", () => SurgeManager.getInstance().onAnabioticSleep());
+extern("engine.on_anabiotic_sleep", () => ActorInputManager.getInstance().onAnabioticSleep());
 
 /**
  * On anabiotic used and stop sleeping.
  */
-extern("engine.on_anabiotic_wake_up", () => SurgeManager.getInstance().onAnabioticWakeUp());
+extern("engine.on_anabiotic_wake_up", () => ActorInputManager.getInstance().onAnabioticWakeUp());
 
 /**
  * On surviving surge start sleeping.
  */
-extern("engine.surge_survive_start", () => SurgeManager.getInstance().onSurgeSurviveStart());
+extern("engine.surge_survive_start", () => ActorInputManager.getInstance().onSurgeSurviveStart());
 
 /**
  * On surviving surge stop sleeping.
  */
-extern("engine.surge_survive_end", () => SurgeManager.getInstance().onSurgeSurviveEnd());
+extern("engine.surge_survive_end", () => ActorInputManager.getInstance().onSurgeSurviveEnd());
 
 /**
  * Check whether task with provided ID is completed.

@@ -1,5 +1,5 @@
 import { IRegistryObjectState, registry } from "@/engine/core/database";
-import { SurgeManager } from "@/engine/core/managers/surge/SurgeManager";
+import { surgeConfig } from "@/engine/core/managers/surge/SurgeConfig";
 import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain";
 import { isInTimeInterval } from "@/engine/core/utils/game";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini";
@@ -160,7 +160,7 @@ export function jobPreconditionSurge(
   smartTerrain: SmartTerrain,
   parameters: AnyObject
 ): boolean {
-  return SurgeManager.IS_STARTED;
+  return surgeConfig.IS_STARTED;
 }
 
 /**

@@ -2,7 +2,7 @@ import type { IBaseSchemeLogic } from "@/engine/core/database/types";
 import { abort, assert, assertDefined } from "@/engine/core/utils/assertion";
 import { parseConditionsList, parseNumbersList, parseParameters } from "@/engine/core/utils/ini/ini_parse";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { IniFile, LuaArray, Optional, TName, TSection } from "@/engine/lib/types";
+import { IniFile, LuaArray, Optional, TCount, TName, TSection } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -257,4 +257,29 @@ export function readIniTwoStringsAndConditionsList(
     p1: parameters.get(1),
     p2: parameters.get(2),
   };
+}
+
+/**
+ * Read section fields and transform to set.
+ *
+ * @param ini - config file to read
+ * @param section - config section to read
+ * @returns set transformed from lua section
+ */
+export function readIniSet<T extends string = string>(ini: IniFile, section: TSection): LuaTable<T, boolean> {
+  const set: LuaTable<T, boolean> = new LuaTable();
+
+  if (ini.section_exist(section)) {
+    const count: TCount = ini.line_count(section);
+
+    for (const it of $range(0, count - 1)) {
+      const [, field] = ini.r_line(section, it, "", "");
+
+      set.set(field as T, true);
+    }
+
+    return set;
+  } else {
+    return set;
+  }
 }

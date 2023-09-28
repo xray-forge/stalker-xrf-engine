@@ -1,12 +1,13 @@
 import { IsDynamicMusic, level, time_global } from "xray16";
 
-import { registry } from "@/engine/core/database";
+import { getManagerInstanceByName, registry } from "@/engine/core/database";
 import { AbstractManager } from "@/engine/core/managers/base/AbstractManager";
 import { EGameEvent } from "@/engine/core/managers/events/events_types";
 import { EventsManager } from "@/engine/core/managers/events/EventsManager";
 import { dynamicMusicThemes } from "@/engine/core/managers/sounds/dynamic_music";
 import { EDynamicMusicState } from "@/engine/core/managers/sounds/sounds_types";
-import { SurgeManager } from "@/engine/core/managers/surge/SurgeManager";
+import { surgeConfig } from "@/engine/core/managers/surge/SurgeConfig";
+import type { SurgeManager } from "@/engine/core/managers/surge/SurgeManager";
 import { StereoSound } from "@/engine/core/objects/sounds/StereoSound";
 import { abort } from "@/engine/core/utils/assertion";
 import { executeConsoleCommand, getConsoleFloatCommand } from "@/engine/core/utils/game/game_console";
@@ -66,7 +67,7 @@ export class DynamicMusicManager extends AbstractManager {
     const eventsManager: EventsManager = EventsManager.getInstance();
 
     eventsManager.registerCallback(EGameEvent.ACTOR_UPDATE, this.onActorUpdate, this);
-    eventsManager.registerCallback(EGameEvent.ACTOR_DESTROY, this.onActorNetworkDestroy, this);
+    eventsManager.registerCallback(EGameEvent.ACTOR_GO_OFFLINE, this.onActorNetworkDestroy, this);
     eventsManager.registerCallback(EGameEvent.MAIN_MENU_ON, this.onMainMenuOn, this);
     eventsManager.registerCallback(EGameEvent.MAIN_MENU_OFF, this.onMainMenuOff, this);
   }
@@ -75,7 +76,7 @@ export class DynamicMusicManager extends AbstractManager {
     const eventsManager: EventsManager = EventsManager.getInstance();
 
     eventsManager.unregisterCallback(EGameEvent.ACTOR_UPDATE, this.onActorUpdate);
-    eventsManager.unregisterCallback(EGameEvent.ACTOR_DESTROY, this.onActorNetworkDestroy);
+    eventsManager.unregisterCallback(EGameEvent.ACTOR_GO_OFFLINE, this.onActorNetworkDestroy);
     eventsManager.unregisterCallback(EGameEvent.MAIN_MENU_ON, this.onMainMenuOn);
     eventsManager.unregisterCallback(EGameEvent.MAIN_MENU_OFF, this.onMainMenuOff);
   }
@@ -390,9 +391,9 @@ export class DynamicMusicManager extends AbstractManager {
       return;
     }
 
-    const surgeManager: SurgeManager = SurgeManager.getInstance();
+    const surgeManager: Optional<SurgeManager> = getManagerInstanceByName<SurgeManager>("SurgeManager");
 
-    if (SurgeManager.IS_STARTED && surgeManager.isBlowoutSoundEnabled) {
+    if (surgeConfig.IS_STARTED && surgeManager?.isBlowoutSoundStarted) {
       if (surgeManager.isKillingAll()) {
         this.forceFade = true;
         this.fadeToAmbientVolume = this.gameAmbientVolume;

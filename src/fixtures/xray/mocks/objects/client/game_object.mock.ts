@@ -276,6 +276,7 @@ export function mockClientGameObject({
       }),
     restore_ignore_monster_threshold: rest.restore_max_ignore_monster_distance ?? jest.fn(),
     restore_max_ignore_monster_distance: rest.restore_max_ignore_monster_distance ?? jest.fn(),
+    set_const_force: rest.set_const_force ?? jest.fn(),
     set_desired_direction: rest.set_desired_direction ?? jest.fn(),
     set_desired_position: rest.set_desired_position ?? jest.fn(),
     set_start_dialog: rest.set_start_dialog ?? jest.fn(),

@@ -6,23 +6,18 @@ import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { ENotificationDirection, NotificationManager } from "@/engine/core/managers/notifications";
 import { TSimulationObject } from "@/engine/core/managers/simulation";
 import { SimulationBoardManager } from "@/engine/core/managers/simulation/SimulationBoardManager";
-import { SurgeManager } from "@/engine/core/managers/surge/SurgeManager";
+import { surgeConfig } from "@/engine/core/managers/surge/SurgeConfig";
 import { ITravelRouteDescriptor } from "@/engine/core/managers/travel/travel_types";
 import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain/SmartTerrain";
-import { ESquadActionType } from "@/engine/core/objects/server/squad";
-import { Squad } from "@/engine/core/objects/server/squad/Squad";
+import type { Squad } from "@/engine/core/objects/server/squad/Squad";
+import { ESquadActionType } from "@/engine/core/objects/server/squad/squad_types";
 import { abort } from "@/engine/core/utils/assertion";
 import { createGameAutoSave } from "@/engine/core/utils/game/game_save";
 import { parseConditionsList, pickSectionFromCondList } from "@/engine/core/utils/ini";
 import { ELuaLoggerMode, LuaLogger } from "@/engine/core/utils/logging";
-import {
-  getObjectCommunity,
-  getObjectSmartTerrain,
-  getObjectSquad,
-  getServerDistanceBetween,
-  isSmartTerrain,
-  isSquad,
-} from "@/engine/core/utils/object";
+import { isSmartTerrain, isSquad } from "@/engine/core/utils/object/object_class";
+import { getObjectCommunity, getObjectSmartTerrain, getObjectSquad } from "@/engine/core/utils/object/object_get";
+import { getServerDistanceBetween } from "@/engine/core/utils/object/object_location";
 import { isAnySquadMemberEnemyToActor } from "@/engine/core/utils/relation";
 import { vectorToString } from "@/engine/core/utils/vector";
 import { postProcessors } from "@/engine/lib/constants/animation";
@@ -460,7 +455,7 @@ export class TravelManager extends AbstractManager {
 
       level.change_game_time(0, hours, minutes);
 
-      SurgeManager.getInstance().isTimeForwarded = true;
+      surgeConfig.IS_TIME_FORWARDED = true;
 
       logger.format(
         "Forwarded time on travel: '%s', '%s', '%s:%s'",
