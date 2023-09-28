@@ -1,12 +1,16 @@
 import { describe, expect, it, jest } from "@jest/globals";
 
 import { IRegistryObjectState, registerObject } from "@/engine/core/database";
-import { addObjectAbuse, clearObjectAbuse, setObjectAbuseState } from "@/engine/core/utils/object/object_meeting";
+import {
+  addObjectAbuse,
+  clearObjectAbuse,
+  setObjectAbuseState,
+} from "@/engine/core/schemes/stalker/meet/utils/meet_handling";
 import { AnyObject, ClientObject, EScheme } from "@/engine/lib/types";
 import { mockSchemeState } from "@/fixtures/engine";
 import { mockClientGameObject } from "@/fixtures/xray";
 
-describe("object_meeting utils", () => {
+describe("meet handling utils", () => {
   it("addObjectAbuse should correctly add abuse values to the manager", () => {
     const object: ClientObject = mockClientGameObject();
     const state: IRegistryObjectState = registerObject(object);

@@ -18,6 +18,7 @@ import type { Squad } from "@/engine/core/objects/server/squad";
 import { ISchemeMobCombatState } from "@/engine/core/schemes/monster/mob_combat";
 import { ISchemeCombatState } from "@/engine/core/schemes/stalker/combat";
 import { ISchemeCombatIgnoreState } from "@/engine/core/schemes/stalker/combat_ignore";
+import { clearObjectAbuse } from "@/engine/core/schemes/stalker/meet/utils";
 import { initTarget } from "@/engine/core/schemes/stalker/remark/actions";
 import { abort, assert, assertDefined } from "@/engine/core/utils/assertion";
 import { extern } from "@/engine/core/utils/binding";
@@ -28,7 +29,6 @@ import {
   readIniString,
 } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { clearObjectAbuse } from "@/engine/core/utils/object/object_meeting";
 import { getObjectSmartTerrain } from "@/engine/core/utils/position";
 import { trySwitchToAnotherSection } from "@/engine/core/utils/scheme/scheme_switch";
 import {

@@ -8,16 +8,6 @@ import { ClientObject, Optional, ServerCreatureObject, TNumberId, TRate, Vector 
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * Set item condition.
- *
- * @param object - client object to change condition
- * @param condition - value from 0 to 100, percents
- */
-export function setItemCondition(object: ClientObject, condition: TRate): void {
-  object.set_condition(condition / 100);
-}
-
-/**
  * Change object team/squad/group.
  *
  * @param object - alife server object to change team parameters

@@ -1,30 +1,13 @@
 import { describe, expect, it } from "@jest/globals";
 
 import { registerObject } from "@/engine/core/database";
-import {
-  objectLookAtAnotherObject,
-  setItemCondition,
-  setObjectTeamSquadGroup,
-} from "@/engine/core/utils/object/object_set";
+import { objectLookAtAnotherObject, setObjectTeamSquadGroup } from "@/engine/core/utils/object/object_set";
 import { ClientObject, ServerHumanObject } from "@/engine/lib/types";
 import { replaceFunctionMock } from "@/fixtures/jest";
 import { mockClientGameObject, mockServerAlifeHumanStalker } from "@/fixtures/xray";
 import { MockVector } from "@/fixtures/xray/mocks/vector.mock";
 
 describe("object_set utils", () => {
-  it("setItemCondition should correctly set condition", () => {
-    const object: ClientObject = mockClientGameObject();
-
-    setItemCondition(object, 25);
-    expect(object.set_condition).toHaveBeenCalledWith(0.25);
-
-    setItemCondition(object, 100);
-    expect(object.set_condition).toHaveBeenNthCalledWith(2, 1);
-
-    setItemCondition(object, 0);
-    expect(object.set_condition).toHaveBeenNthCalledWith(3, 0);
-  });
-
   it("setObjectTeamSquadGroup should correctly set object group details", () => {
     const firstObject: ClientObject = mockClientGameObject();
     const firstServerObject: ServerHumanObject = mockServerAlifeHumanStalker({ id: firstObject.id() });
