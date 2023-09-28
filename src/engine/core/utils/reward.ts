@@ -10,8 +10,7 @@ import { abort, assert, assertDefined } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { spawnItemsForObject } from "@/engine/core/utils/spawn";
 import { ammo, TAmmoItem } from "@/engine/lib/constants/items/ammo";
-import { medkits, TMedkit } from "@/engine/lib/constants/items/drugs";
-import { ClientObject, LuaArray, Optional, TCount, TName, TNumberId, TSection } from "@/engine/lib/types";
+import { ClientObject, Optional, TCount, TSection } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -202,113 +201,4 @@ export function takeItemFromActor(itemSection: TSection): void {
     itemSection,
     amount: 1,
   });
-}
-
-/**
- * Get available medkit or null.
- *
- * @param list - list of medical kits to check in inventory
- * @param actor - target object to get medkit, gets actor from registry by default
- * @returns get medkit or null
- */
-export function getActorAvailableMedKit(
-  list: LuaArray<TSection | TNumberId> = $fromObject(medkits) as unknown as LuaArray<TSection | TNumberId>,
-  actor: ClientObject = registry.actor
-): Optional<TMedkit> {
-  for (const [key, medkit] of list) {
-    if (actor.object(medkit) !== null) {
-      return medkit as TMedkit;
-    }
-  }
-
-  return null;
-}
-
-/**
- * Check whether actor has at least one med kit.
- *
- * @param list - list of medical kits to check in inventory
- * @param actor - target object to check, gets actor from registry by default
- * @returns whether actor has at least one med kit
- */
-export function actorHasMedKit(
-  list: LuaArray<TSection | TNumberId> = medkits as unknown as LuaArray<TSection | TNumberId>,
-  actor: ClientObject = registry.actor
-): boolean {
-  return actorHasAtLeastOneItem(list, actor);
-}
-
-/**
- * Check whether actor has item in inventory.
- *
- * @param itemSection - list of item sections to check in the inventory
- * @param actor - target object to check, gets actor from registry by default
- * @returns whether actor has all of provided items
- */
-export function actorHasItem(itemSection: TSection | TNumberId, actor: ClientObject = registry.actor): boolean {
-  return actor.object(itemSection) !== null;
-}
-
-/**
- * Check whether actor has all items from provided list.
- *
- * @param itemSections - list of item sections to check in the inventory
- * @param actor - target object to check, gets actor from registry by default
- * @returns whether actor has all of provided items
- */
-export function actorHasItems(
-  itemSections: LuaArray<TSection | TNumberId> | Array<TSection | TNumberId>,
-  actor: ClientObject = registry.actor
-): boolean {
-  for (const [, section] of itemSections as LuaArray<TSection | TNumberId>) {
-    if (actor.object(section) === null) {
-      return false;
-    }
-  }
-
-  return true;
-}
-
-/**
- * Check whether actor has at least one item from the list.
- *
- * @param itemSections - list of item sections to check in the inventory
- * @param actor - target object to check, gets actor from registry by default
- * @returns whether actor has at least one of provided items
- */
-export function actorHasAtLeastOneItem(
-  itemSections: LuaArray<TSection | TNumberId> | Array<TSection | TNumberId>,
-  actor: ClientObject = registry.actor
-): boolean {
-  for (const [index, section] of itemSections as LuaArray<TSection | TNumberId>) {
-    if (actor.object(section) !== null) {
-      return true;
-    }
-  }
-
-  return false;
-}
-
-/**
- * Check whether object has item in inventory.
- *
- * @param object - target object to check inventory
- * @param itemSectionOrId - item section or ID to check in inventory
- * @returns whether object has item in inventory
- */
-export function objectHasItem(object: ClientObject, itemSectionOrId: TSection | TNumberId): boolean {
-  return object.object(itemSectionOrId) !== null;
-}
-
-/**
- * Check whether NPC name matches provided parameter.
- *
- * @param object - target object to check name
- * @param name - target name to check
- * @returns whether object name is matching provided string
- */
-export function isObjectName(object: ClientObject, name: TName): boolean {
-  const objectName: Optional<string> = object.name();
-
-  return objectName !== null && string.find(objectName, name)[0] !== null;
 }
