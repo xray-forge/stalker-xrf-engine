@@ -41,7 +41,7 @@ export class ActorInputManager extends AbstractManager {
 
     eventsManager.registerCallback(EGameEvent.ACTOR_UPDATE, this.onUpdate, this);
     eventsManager.registerCallback(EGameEvent.ACTOR_FIRST_UPDATE, this.onFirstUpdate, this);
-    eventsManager.registerCallback(EGameEvent.ACTOR_SPAWN, this.onNetworkSpawn, this);
+    eventsManager.registerCallback(EGameEvent.ACTOR_GO_ONLINE, this.onNetworkSpawn, this);
   }
 
   public override destroy(): void {
@@ -49,7 +49,7 @@ export class ActorInputManager extends AbstractManager {
 
     eventsManager.unregisterCallback(EGameEvent.ACTOR_UPDATE, this.onUpdate);
     eventsManager.unregisterCallback(EGameEvent.ACTOR_FIRST_UPDATE, this.onFirstUpdate);
-    eventsManager.unregisterCallback(EGameEvent.ACTOR_SPAWN, this.onNetworkSpawn);
+    eventsManager.unregisterCallback(EGameEvent.ACTOR_GO_ONLINE, this.onNetworkSpawn);
   }
 
   public override save(packet: NetPacket): void {

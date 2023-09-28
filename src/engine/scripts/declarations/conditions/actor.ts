@@ -5,7 +5,7 @@ import {
   hasAchievedInformationDealer,
   hasAchievedWealthy,
 } from "@/engine/core/managers/achievements/achievements_preconditions";
-import { SurgeManager } from "@/engine/core/managers/surge/SurgeManager";
+import { isActorInSurgeCover } from "@/engine/core/managers/surge/utils/surge_cover";
 import { ISchemeDeathState } from "@/engine/core/schemes/stalker/death";
 import { ISchemeHitState } from "@/engine/core/schemes/stalker/hit";
 import { abort } from "@/engine/core/utils/assertion";
@@ -46,7 +46,7 @@ extern("xr_conditions.information_dealer_functor", (): boolean => {
  * todo;
  */
 extern("xr_conditions.actor_in_surge_cover", (): boolean => {
-  return SurgeManager.getInstance().isActorInCover();
+  return isActorInSurgeCover();
 });
 
 /**

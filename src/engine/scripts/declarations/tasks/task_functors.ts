@@ -1,7 +1,7 @@
 import { game } from "xray16";
 
 import { getObjectIdByStoryId, registry } from "@/engine/core/database";
-import { SurgeManager } from "@/engine/core/managers/surge/SurgeManager";
+import { getActorTargetSurgeCover, isActorInSurgeCover } from "@/engine/core/managers/surge/utils/surge_cover";
 import { extern } from "@/engine/core/utils/binding";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/ini_config";
 import { parseConditionsList } from "@/engine/core/utils/ini/ini_parse";
@@ -108,14 +108,14 @@ extern("task_functors.zat_b29_adv_descr", (id: TStringId, field: string, p: stri
  * todo;
  */
 extern("task_functors.surge_task_title", (): string => {
-  return SurgeManager.getInstance().isActorInCover() ? "hide_from_surge_name_2" : "hide_from_surge_name_1";
+  return isActorInSurgeCover() ? "hide_from_surge_name_2" : "hide_from_surge_name_1";
 });
 
 /**
  * todo;
  */
 extern("task_functors.surge_task_descr", (): Optional<string> => {
-  return SurgeManager.getInstance().isActorInCover()
+  return isActorInSurgeCover()
     ? game.translate_string("hide_from_surge_descr_2_a")
     : game.translate_string("hide_from_surge_descr_1_a");
 });
@@ -191,8 +191,9 @@ extern("task_functors.zat_b29_adv_target", (id: TStringId, field: string, p: str
 });
 
 /**
- * todo;
+ * Get target surge cover ID for actor to navigate to.
+ * Returns nearest cover id if it exists or null if none found / actor in one currently.
  */
-extern("task_functors.surge_task_target", (id: TStringId, field: string, p: string): Optional<TNumberId> => {
-  return SurgeManager.getInstance().getTargetCover()?.id() as Optional<TNumberId>;
+extern("task_functors.surge_task_target", (): Optional<TNumberId> => {
+  return getActorTargetSurgeCover()?.id() as Optional<TNumberId>;
 });

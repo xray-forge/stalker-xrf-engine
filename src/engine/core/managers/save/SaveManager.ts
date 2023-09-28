@@ -1,9 +1,11 @@
+import { initializeManager } from "@/engine/core/database";
 import { AchievementsManager } from "@/engine/core/managers/achievements";
 import { ActorInputManager } from "@/engine/core/managers/actor";
 import { AbstractManager } from "@/engine/core/managers/base/AbstractManager";
 import { ReleaseBodyManager } from "@/engine/core/managers/death/ReleaseBodyManager";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { PsyAntennaManager } from "@/engine/core/managers/psy/PsyAntennaManager";
+import { IDynamicSaveData } from "@/engine/core/managers/save/save_types";
 import { GameSettingsManager } from "@/engine/core/managers/settings";
 import { SimulationBoardManager } from "@/engine/core/managers/simulation/SimulationBoardManager";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
@@ -14,20 +16,27 @@ import { TreasureManager } from "@/engine/core/managers/treasures";
 import { WeatherManager } from "@/engine/core/managers/weather/WeatherManager";
 import { loadDynamicGameSave, saveDynamicGameSave } from "@/engine/core/utils/game";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { AnyObject, NetPacket, NetProcessor, Optional, TName } from "@/engine/lib/types";
+import { NetPacket, NetProcessor, Optional, TName } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
-
-export interface IDynamicSaveData {
-  generic: AnyObject;
-  store: AnyObject;
-}
 
 /**
  * Manage game saves for other managers / parts.
  */
 export class SaveManager extends AbstractManager {
   public dynamicData: IDynamicSaveData = { generic: {}, store: {} };
+
+  public override initialize(): void {
+    const eventsManager: EventsManager = EventsManager.getInstance();
+
+    eventsManager.registerCallback(EGameEvent.ACTOR_REINIT, this.onActorReinit, this);
+  }
+
+  public override destroy(): void {
+    const eventsManager: EventsManager = EventsManager.getInstance();
+
+    eventsManager.unregisterCallback(EGameEvent.ACTOR_REINIT, this.onActorReinit);
+  }
 
   /**
    * Save core managers data.
@@ -129,5 +138,12 @@ export class SaveManager extends AbstractManager {
    */
   public onGameLoad(saveName: TName): void {
     logger.info("On game load:", saveName);
+  }
+
+  /**
+   * When actor created and re-initialized.
+   */
+  public onActorReinit(): void {
+    initializeManager(SurgeManager);
   }
 }

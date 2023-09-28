@@ -1,7 +1,9 @@
 import { ini_file } from "xray16";
 
-import { readIniNumber, readIniSet } from "@/engine/core/utils/ini";
-import { IniFile } from "@/engine/lib/types";
+import { ISurgeCoverDescriptor } from "@/engine/core/managers/surge/surge_types";
+import { parseConditionsList, readIniNumber, readIniSet } from "@/engine/core/utils/ini";
+import { FALSE, TRUE } from "@/engine/lib/constants/words";
+import { IniFile, TIndex } from "@/engine/lib/types";
 
 export const SURGE_MANAGER_CONFIG_LTX: IniFile = new ini_file("managers\\surge_manager.ltx");
 
@@ -10,6 +12,12 @@ export const surgeConfig = {
   IS_FINISHED: true,
   IS_TIME_FORWARDED: false,
   // General.
+  CAN_START_SURGE: SURGE_MANAGER_CONFIG_LTX.line_exist("config", "condlist")
+    ? parseConditionsList(SURGE_MANAGER_CONFIG_LTX.r_string("config", "condlist"))
+    : parseConditionsList(TRUE),
+  CAN_SURVIVE_SURGE: SURGE_MANAGER_CONFIG_LTX.line_exist("config", "survive")
+    ? parseConditionsList(SURGE_MANAGER_CONFIG_LTX.r_string("config", "survive"))
+    : parseConditionsList(FALSE),
   DURATION: readIniNumber(SURGE_MANAGER_CONFIG_LTX, "config", "duration", false, 190),
   INTERVAL_MIN: readIniNumber(SURGE_MANAGER_CONFIG_LTX, "config", "interval_min", false, 43_200),
   INTERVAL_MAX: readIniNumber(SURGE_MANAGER_CONFIG_LTX, "config", "interval_max", false, 86_400),
@@ -35,6 +43,7 @@ export const surgeConfig = {
   SLEEP_CAM_EFFECTOR_ID: 3,
   SLEEP_FADE_PP_EFFECTOR_ID: 4,
   // Detailed.
+  SURGE_COVERS: new LuaTable<TIndex, ISurgeCoverDescriptor>(),
   IMMUNE_SQUAD_COMMUNITIES: readIniSet(SURGE_MANAGER_CONFIG_LTX, "immune_squad_communities"),
   SURGE_DISABLED_LEVELS: readIniSet(SURGE_MANAGER_CONFIG_LTX, "surge_disabled_levels"),
   UNDERGROUND_LEVELS: readIniSet(SURGE_MANAGER_CONFIG_LTX, "surge_underground_levels"),
