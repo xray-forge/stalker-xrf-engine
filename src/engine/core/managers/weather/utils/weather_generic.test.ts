@@ -6,7 +6,7 @@ import {
   isIndoorWeather,
   isPreBlowoutWeather,
   isTransitionWeather,
-} from "@/engine/core/utils/weather";
+} from "@/engine/core/managers/weather/utils/weather_generic";
 import { TName } from "@/engine/lib/types";
 import { replaceFunctionMock } from "@/fixtures/jest";
 

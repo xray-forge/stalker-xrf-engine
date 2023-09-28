@@ -13,6 +13,13 @@ import {
 import { AbstractManager } from "@/engine/core/managers/base/AbstractManager";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import type { SurgeManager } from "@/engine/core/managers/surge/SurgeManager";
+import {
+  canUsePeriodsForWeather,
+  getNextWeatherFromGraph,
+  isIndoorWeather,
+  isPreBlowoutWeather,
+  isTransitionWeather,
+} from "@/engine/core/managers/weather/utils";
 import { IWeatherState } from "@/engine/core/managers/weather/weather_types";
 import { assert } from "@/engine/core/utils/assertion";
 import { executeConsoleCommandsFromSection } from "@/engine/core/utils/game";
@@ -25,13 +32,6 @@ import {
   TConditionList,
 } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import {
-  canUsePeriodsForWeather,
-  getNextWeatherFromGraph,
-  isIndoorWeather,
-  isPreBlowoutWeather,
-  isTransitionWeather,
-} from "@/engine/core/utils/weather";
 import { NIL } from "@/engine/lib/constants/words";
 import {
   LuaArray,
