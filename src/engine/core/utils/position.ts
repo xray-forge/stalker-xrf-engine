@@ -3,12 +3,13 @@ import { CGameGraph, device, game_graph, level, sound_object } from "xray16";
 import { registry } from "@/engine/core/database";
 import type { SmartTerrain } from "@/engine/core/objects/server/smart_terrain";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { createEmptyVector, graphDistance, vectorToString, yawDegree3d } from "@/engine/core/utils/vector";
+import { graphDistance, vectorToString, yawDegree3d } from "@/engine/core/utils/vector";
 import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
 import { MAX_U16, MAX_U32 } from "@/engine/lib/constants/memory";
 import { ZERO_VECTOR } from "@/engine/lib/constants/vectors";
 import {
   AlifeSimulator,
+  AnyGameObject,
   ClientObject,
   ESoundObjectType,
   Optional,
@@ -223,5 +224,27 @@ export function teleportActorWithEffects(actor: ClientObject, position: Vector, 
   actor.set_actor_position(position);
   actor.set_actor_direction(-direction.getH());
 
-  new sound_object("affects_tinnitus3a").play_no_feedback(actor, ESoundObjectType.S2D, 0, createEmptyVector(), 1.0);
+  new sound_object("affects_tinnitus3a").play_no_feedback(actor, ESoundObjectType.S2D, 0, ZERO_VECTOR, 1.0);
+}
+
+/**
+ * @param object - any game object used by the game engine.
+ * @returns tuple of object position details: id, gvi, lvi, position.
+ */
+export function getObjectPositioning(object: AnyGameObject): LuaMultiReturn<[TNumberId, TNumberId, TNumberId, Vector]> {
+  if (type(object.id) === "number") {
+    return $multi(
+      (object as ServerObject).id,
+      (object as ServerObject).m_game_vertex_id,
+      (object as ServerObject).m_level_vertex_id,
+      (object as ServerObject).position
+    );
+  } else {
+    return $multi(
+      (object as ClientObject).id(),
+      (object as ClientObject).game_vertex_id(),
+      (object as ClientObject).level_vertex_id(),
+      (object as ClientObject).position()
+    );
+  }
 }

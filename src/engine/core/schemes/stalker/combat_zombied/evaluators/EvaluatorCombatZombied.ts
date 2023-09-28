@@ -1,8 +1,8 @@
 import { LuabindClass, property_evaluator } from "xray16";
 
 import { ISchemeCombatState } from "@/engine/core/schemes/stalker/combat";
+import { getObjectCommunity } from "@/engine/core/utils/community";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { getObjectCommunity } from "@/engine/core/utils/object";
 import { communities } from "@/engine/lib/constants/communities";
 
 const logger: LuaLogger = new LuaLogger($filename);

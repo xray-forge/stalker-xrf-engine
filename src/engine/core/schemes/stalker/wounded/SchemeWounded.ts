@@ -8,9 +8,9 @@ import { EvaluatorCanFight, EvaluatorWounded } from "@/engine/core/schemes/stalk
 import { ISchemeWoundedState } from "@/engine/core/schemes/stalker/wounded/ISchemeWoundedState";
 import { parseWoundedData } from "@/engine/core/schemes/stalker/wounded/utils";
 import { WoundManager } from "@/engine/core/schemes/stalker/wounded/WoundManager";
+import { getObjectCommunity } from "@/engine/core/utils/community";
 import { readIniBoolean, readIniString } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { getObjectCommunity } from "@/engine/core/utils/object/object_get";
 import { communities, TCommunity } from "@/engine/lib/constants/communities";
 import { NIL } from "@/engine/lib/constants/words";
 import { ActionPlanner, AnyObject, ClientObject, IniFile, LuaArray, TName } from "@/engine/lib/types";

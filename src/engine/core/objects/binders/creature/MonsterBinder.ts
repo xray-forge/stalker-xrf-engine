@@ -26,7 +26,6 @@ import { assert } from "@/engine/core/utils/assertion";
 import { pickSectionFromCondList, TConditionList } from "@/engine/core/utils/ini";
 import { ISmartTerrainJobDescriptor } from "@/engine/core/utils/job";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { getObjectSquad } from "@/engine/core/utils/object";
 import {
   emitSchemeEvent,
   isMonsterScriptCaptured,
@@ -36,6 +35,7 @@ import {
   setupObjectSmartJobsAndLogicOnSpawn,
   trySwitchToAnotherSection,
 } from "@/engine/core/utils/scheme";
+import { getObjectSquad } from "@/engine/core/utils/squad";
 import { createEmptyVector } from "@/engine/core/utils/vector";
 import { MAX_U16 } from "@/engine/lib/constants/memory";
 import {

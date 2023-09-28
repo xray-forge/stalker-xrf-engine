@@ -2,7 +2,7 @@ import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 
 import { registry } from "@/engine/core/database";
 import type { Squad } from "@/engine/core/objects/server/squad";
-import { giveInfo } from "@/engine/core/utils/object";
+import { giveInfo } from "@/engine/core/utils/info_portion";
 import { canSquadHelpActor } from "@/engine/core/utils/squad/squad_actions";
 import { mockRegisteredActor } from "@/fixtures/engine";
 import { MockAlifeOnlineOfflineGroup, mockServerAlifeOnlineOfflineGroup } from "@/fixtures/xray";
@@ -49,4 +49,6 @@ describe("squad_actions utils", () => {
     registry.actorCombat = new LuaTable();
     expect(canSquadHelpActor(squad)).toBe(false);
   });
+
+  it.todo("isObjectSquadCommander should correctly check if object commanding squad");
 });

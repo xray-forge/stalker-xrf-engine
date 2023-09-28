@@ -7,11 +7,10 @@ import { EvaluatorCheckCombat } from "@/engine/core/schemes/stalker/combat/evalu
 import { ISchemeCombatState } from "@/engine/core/schemes/stalker/combat/ISchemeCombatState";
 import { SchemeCombatCamper } from "@/engine/core/schemes/stalker/combat_camper/SchemeCombatCamper";
 import { SchemeCombatZombied } from "@/engine/core/schemes/stalker/combat_zombied/SchemeCombatZombied";
+import { getObjectCommunity } from "@/engine/core/utils/community";
+import { parseConditionsList, readIniConditionList } from "@/engine/core/utils/ini";
 import { getConfigSwitchConditions, pickSectionFromCondList } from "@/engine/core/utils/ini/ini_config";
-import { parseConditionsList } from "@/engine/core/utils/ini/ini_parse";
-import { readIniConditionList } from "@/engine/core/utils/ini/ini_read";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { getObjectCommunity } from "@/engine/core/utils/object";
 import { communities } from "@/engine/lib/constants/communities";
 import { NIL } from "@/engine/lib/constants/words";
 import { ActionBase, ActionPlanner, AnyObject, ClientObject, IniFile, Optional, TName } from "@/engine/lib/types";

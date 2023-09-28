@@ -8,8 +8,8 @@ import { Squad } from "@/engine/core/objects/server/squad/Squad";
 import { ReachTaskPatrolManager } from "@/engine/core/schemes/stalker/reach_task/ReachTaskPatrolManager";
 import { isSquad } from "@/engine/core/utils/class_ids";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { getObjectSquad } from "@/engine/core/utils/object/object_get";
 import { sendToNearestAccessibleVertex } from "@/engine/core/utils/position";
+import { getObjectSquad } from "@/engine/core/utils/squad/squad_get";
 import { areSameVectors, createEmptyVector, createVector } from "@/engine/core/utils/vector";
 import {
   ClientObject,

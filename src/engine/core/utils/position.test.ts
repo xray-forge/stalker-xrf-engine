@@ -6,6 +6,7 @@ import {
   areObjectsOnSameLevel,
   getDistanceBetween,
   getDistanceBetweenSqr,
+  getObjectPositioning,
   getObjectSmartTerrain,
   getServerDistanceBetween,
   isDistanceBetweenObjectsGreaterOrEqual,
@@ -221,5 +222,28 @@ describe("position utils", () => {
 
     expect(getObjectSmartTerrain(clientObject)).toBeNull();
     expect(getObjectSmartTerrain(serverObject)).toBeNull();
+  });
+
+  it("getObjectPositioning should correctly get positioning", () => {
+    expect(getObjectPositioning(mockClientGameObject())).toEqual([
+      1000,
+      512,
+      255,
+      {
+        x: 0.25,
+        y: 0.25,
+        z: 0.25,
+      },
+    ]);
+    expect(getObjectPositioning(mockServerAlifeHumanStalker())).toEqual([
+      100000,
+      512,
+      255,
+      {
+        x: 0.25,
+        y: 0.25,
+        z: 0.25,
+      },
+    ]);
   });
 });

@@ -36,8 +36,6 @@ import {
 describe("object_check utils", () => {
   beforeEach(() => registerSimulator());
 
-  it.todo("isObjectSquadCommander should correctly check if object commanding squad");
-
   it("isObjectInCombat should correctly check object combat state", () => {
     const object: ClientObject = mockClientGameObject();
     const planner: MockActionPlanner = object.motivation_action_manager() as unknown as MockActionPlanner;

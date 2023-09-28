@@ -10,13 +10,13 @@ import { ISchemeMeetState } from "@/engine/core/schemes/stalker/meet";
 import { updateObjectMeetAvailability } from "@/engine/core/schemes/stalker/meet/utils";
 import { ISchemeWoundedState } from "@/engine/core/schemes/stalker/wounded";
 import { extern } from "@/engine/core/utils/binding";
+import { getObjectCommunity } from "@/engine/core/utils/community";
 import { getNpcSpeaker } from "@/engine/core/utils/dialog";
 import { createGameAutoSave } from "@/engine/core/utils/game";
 import { giveInfo, hasAlifeInfo } from "@/engine/core/utils/info_portion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import {
   enableObjectWoundedHealing,
-  getObjectCommunity,
   isObjectInjured,
   isObjectWounded,
   isStalkerAlive,

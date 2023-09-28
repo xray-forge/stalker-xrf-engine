@@ -6,7 +6,7 @@ import { EActionId } from "@/engine/core/objects/ai/types";
 import { Squad } from "@/engine/core/objects/server/squad";
 import { isStalker } from "@/engine/core/utils/class_ids";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { getObjectSquad } from "@/engine/core/utils/object/object_get";
+import { getObjectSquad } from "@/engine/core/utils/squad/squad_get";
 import { lootableTable } from "@/engine/lib/constants/items/lootable_table";
 import { TLevel } from "@/engine/lib/constants/levels";
 import {
@@ -21,24 +21,6 @@ import {
 } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
-
-/**
- * Check whether provided object is commander of squad.
- *
- * @param object - target game object to check
- * @returns whether object is commanding squad
- */
-export function isObjectSquadCommander(object: AnyGameObject): boolean {
-  const squad: Optional<Squad> = getObjectSquad(object);
-
-  if (squad) {
-    const id: TNumberId = type(object.id) === "function" ? (object as ClientObject).id() : (object as ServerObject).id;
-
-    return squad.commander_id() === id;
-  } else {
-    return false;
-  }
-}
 
 /**
  * Check whether provided object is in combat.
