@@ -90,7 +90,6 @@ import { NIL, TRUE } from "@/engine/lib/constants/words";
 import {
   AlifeSimulator,
   ALifeSmartTerrainTask,
-  AnyObject,
   ClientObject,
   ESchemeType,
   GameGraphVertex,

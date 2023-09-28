@@ -96,7 +96,7 @@ export class ReleaseBodyManager extends AbstractManager {
 
     const overflowCount: TCount = this.releaseObjectRegistry.length() - ReleaseBodyManager.MAX_BODY_COUNT;
 
-    for (const it of $range(1, overflowCount)) {
+    for (const _ of $range(1, overflowCount)) {
       const positionInList: Optional<TIndex> = this.findNearestObjectToRelease(this.releaseObjectRegistry);
 
       if (positionInList === null) {
@@ -139,7 +139,7 @@ export class ReleaseBodyManager extends AbstractManager {
       return false;
     }
 
-    for (const [k, v] of this.keepItemsRegistry) {
+    for (const [k] of this.keepItemsRegistry) {
       if (object.object(this.keepItemsRegistry.get(k)) !== null) {
         // logger.info("Ignore corpse release, contains keep item:", object.name(), k);
 
@@ -215,7 +215,7 @@ export class ReleaseBodyManager extends AbstractManager {
 
     packet.w_u16(count);
 
-    for (const [k, v] of this.releaseObjectRegistry) {
+    for (const [, v] of this.releaseObjectRegistry) {
       packet.w_u16(v.id);
     }
 

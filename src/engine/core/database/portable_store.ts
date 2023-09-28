@@ -2,7 +2,7 @@ import { registry } from "@/engine/core/database/registry";
 import { IRegistryObjectState } from "@/engine/core/database/types";
 import { abort } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { ClientObject, NetPacket, NetProcessor, Optional, TCount, TName, TNumberId } from "@/engine/lib/types";
+import { NetPacket, NetProcessor, Optional, TCount, TName, TNumberId } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -145,7 +145,7 @@ export function loadPortableStore(objectId: TNumberId, reader: NetProcessor): vo
 
   const count: TCount = reader.r_u32();
 
-  for (const it of $range(1, count)) {
+  for (const _ of $range(1, count)) {
     const key: TName = reader.r_stringZ();
     const type: EPortableStoreType = reader.r_u8();
 

@@ -322,7 +322,7 @@ export class ActorInputManager extends AbstractManager {
   /**
    * Handle first update from actor input perspective.
    */
-  public onFirstUpdate(delta: TDuration): void {
+  public onFirstUpdate(): void {
     logger.info("Apply active item slot:", this.activeItemSlot);
     registry.actor.activate_slot(this.activeItemSlot);
   }

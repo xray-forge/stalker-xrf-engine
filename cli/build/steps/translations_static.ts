@@ -29,7 +29,7 @@ export async function buildStaticTranslations(): Promise<void> {
     /**
      * Sync way for folder creation when needed.
      */
-    translations.forEach(([from, to]) => {
+    translations.forEach(([, to]) => {
       const targetDir: string = path.dirname(to);
 
       if (!fs.existsSync(targetDir)) {

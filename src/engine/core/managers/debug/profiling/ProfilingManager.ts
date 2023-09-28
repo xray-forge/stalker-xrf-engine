@@ -7,7 +7,7 @@ import { executeConsoleCommand } from "@/engine/core/utils/console";
 import { ELuaLoggerMode, LuaLogger } from "@/engine/core/utils/logging";
 import { gameConfig } from "@/engine/lib/configs/GameConfig";
 import { consoleCommands } from "@/engine/lib/constants/console_commands";
-import { AnyCallable, LuaArray, Optional, ProfileTimer, TCount, TDuration, TIndex, TName } from "@/engine/lib/types";
+import { AnyCallable, LuaArray, Optional, ProfileTimer, TCount, TDuration, TName } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename, { mode: ELuaLoggerMode.DUAL, file: "profiling" });
 

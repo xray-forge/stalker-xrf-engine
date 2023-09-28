@@ -195,8 +195,6 @@ describe("AchievementManager class", () => {
   });
 
   it("should correctly check leader achievement", () => {
-    const achievementsManager: AchievementsManager = AchievementsManager.getInstance();
-
     checkGenericAchievement({
       check: hasAchievedLeader,
       notificationCaption: "st_ach_leader",
@@ -435,7 +433,6 @@ describe("AchievementManager class", () => {
 
   it("should correctly check marked by zone achievement", () => {
     const statisticsManager: StatisticsManager = StatisticsManager.getInstance();
-    const achievementsManager: AchievementsManager = AchievementsManager.getInstance();
     const onNotification = mockNotificationListener(
       "st_ach_marked_by_zone",
       achievementIcons[EAchievement.MARKED_BY_ZONE]

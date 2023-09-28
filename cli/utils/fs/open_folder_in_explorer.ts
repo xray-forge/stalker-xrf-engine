@@ -20,7 +20,7 @@ export function openFolderInExplorer(path: string): Promise<void> {
       cmd = "xdg-open";
     }
 
-    cp.exec(`${cmd} "${path}"`, (error, out) => {
+    cp.exec(`${cmd} "${path}"`, (error) => {
       if (error) {
         reject(error);
       } else {

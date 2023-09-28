@@ -2,15 +2,13 @@ import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { clsid } from "xray16";
 
 import { registerActor, registerSimulator, registerStoryLink } from "@/engine/core/database";
-import { surgeConfig } from "@/engine/core/managers/surge/SurgeConfig";
 import {
   isActorSeenByObject,
   isObjectInjured,
   isObjectSeenByActor,
   isStalkerAlive,
 } from "@/engine/core/utils/object/object_check";
-import { ClientObject, ServerHumanObject, TClassId, TName } from "@/engine/lib/types";
-import { MockLuaTable } from "@/fixtures/lua";
+import { ClientObject, ServerHumanObject, TClassId } from "@/engine/lib/types";
 import { mockClientGameObject, mockServerAlifeHumanStalker, mockServerAlifeMonsterBase } from "@/fixtures/xray";
 
 describe("object_check utils", () => {
