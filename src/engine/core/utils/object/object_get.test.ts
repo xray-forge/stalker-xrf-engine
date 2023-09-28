@@ -6,7 +6,6 @@ import {
   getObjectActiveWeaponSlot,
   getObjectCommunity,
   getObjectPositioning,
-  getObjectSmartTerrain,
   getObjectSquad,
 } from "@/engine/core/utils/object/object_get";
 import {
@@ -68,26 +67,6 @@ describe("object get utils", () => {
 
     expect(getObjectSquad(clientObject)).toBeNull();
     expect(getObjectSquad(serverObject)).toBeNull();
-  });
-
-  it("getObjectSmartTerrain should correctly get smart terrain of an object", () => {
-    expect(getObjectSmartTerrain(mockClientGameObject())).toBeNull();
-    expect(getObjectSmartTerrain(mockServerAlifeHumanStalker())).toBeNull();
-
-    const clientObject: ClientObject = mockClientGameObject();
-    const smartTerrainObject: ServerSmartZoneObject = mockServerAlifeSmartZone();
-    const serverObject: ServerHumanObject = mockServerAlifeHumanStalker({
-      id: clientObject.id(),
-      m_smart_terrain_id: smartTerrainObject.id,
-    });
-
-    expect(getObjectSmartTerrain(clientObject)).toBe(smartTerrainObject);
-    expect(getObjectSmartTerrain(serverObject)).toBe(smartTerrainObject);
-
-    serverObject.m_smart_terrain_id = 99_999;
-
-    expect(getObjectSmartTerrain(clientObject)).toBeNull();
-    expect(getObjectSmartTerrain(serverObject)).toBeNull();
   });
 
   it("getObjectCommunity should correctly get community", () => {

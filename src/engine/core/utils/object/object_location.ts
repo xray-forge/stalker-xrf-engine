@@ -1,17 +1,18 @@
 import { CGameGraph, device, game_graph, level, sound_object } from "xray16";
 
 import { registry } from "@/engine/core/database";
-import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain";
+import type { SmartTerrain } from "@/engine/core/objects/server/smart_terrain";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { getObjectSmartTerrain } from "@/engine/core/utils/object/object_get";
 import { createEmptyVector, graphDistance, vectorToString, yawDegree3d } from "@/engine/core/utils/vector";
 import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
-import { MAX_U32 } from "@/engine/lib/constants/memory";
+import { MAX_U16, MAX_U32 } from "@/engine/lib/constants/memory";
 import { ZERO_VECTOR } from "@/engine/lib/constants/vectors";
 import {
+  AlifeSimulator,
   ClientObject,
   ESoundObjectType,
   Optional,
+  ServerCreatureObject,
   ServerObject,
   TDistance,
   TName,
@@ -20,6 +21,28 @@ import {
 } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
+
+/**
+ * Get smart terrain linked to object.
+ *
+ * @param object - server or client object
+ * @returns object smart terrain server object or null
+ */
+export function getObjectSmartTerrain(object: ClientObject | ServerCreatureObject): Optional<SmartTerrain> {
+  const simulator: AlifeSimulator = registry.simulator;
+
+  if (type(object.id) === "function") {
+    const serverObject: Optional<ServerCreatureObject> = simulator.object((object as ClientObject).id());
+
+    return serverObject === null || serverObject.m_smart_terrain_id === MAX_U16
+      ? null
+      : simulator.object(serverObject.m_smart_terrain_id);
+  } else {
+    return (object as ServerCreatureObject).m_smart_terrain_id === MAX_U16
+      ? null
+      : simulator.object((object as ServerCreatureObject).m_smart_terrain_id);
+  }
+}
 
 /**
  * Check whether object is in provided smart terrain (name).

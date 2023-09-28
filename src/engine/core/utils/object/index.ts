@@ -1,5 +1,4 @@
 export * from "@/engine/core/utils/object/object_action";
-export * from "@/engine/core/utils/object/object_alife";
 export * from "@/engine/core/utils/object/object_anomaly";
 export * from "@/engine/core/utils/object/object_check";
 export * from "@/engine/core/utils/object/object_danger";

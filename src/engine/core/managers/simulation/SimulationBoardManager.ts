@@ -9,6 +9,7 @@ import {
   ISmartTerrainDescriptor,
   TSimulationObject,
 } from "@/engine/core/managers/simulation/simulation_types";
+import { evaluateSimulationPriority } from "@/engine/core/managers/simulation/utils";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain/SmartTerrain";
 import type { Squad } from "@/engine/core/objects/server/squad/Squad";
@@ -16,7 +17,6 @@ import { ESquadActionType } from "@/engine/core/objects/server/squad/squad_types
 import { abort, assertDefined } from "@/engine/core/utils/assertion";
 import { parseStringsList } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { evaluateSimulationPriority } from "@/engine/core/utils/object/object_alife";
 import { setObjectTeamSquadGroup } from "@/engine/core/utils/object/object_set";
 import { setSquadRelationToActor } from "@/engine/core/utils/relation";
 import { TLevel } from "@/engine/lib/constants/levels";

@@ -1,14 +1,11 @@
 import { beforeEach, describe, expect, it } from "@jest/globals";
 
-import { registerSimulator, registry } from "@/engine/core/database";
+import { registerSimulator } from "@/engine/core/database";
 import {
   evaluateSimulationPriority,
   evaluateSimulationPriorityByDistance,
-  setStableAlifeObjectsUpdate,
-  setUnlimitedAlifeObjectsUpdate,
-} from "@/engine/core/utils/object/object_alife";
+} from "@/engine/core/managers/simulation/utils/simulation_priority";
 import { TName } from "@/engine/lib/types";
-import { resetFunctionMock } from "@/fixtures/jest";
 import { mockLuaTable } from "@/fixtures/lua/mocks/LuaTable.mock";
 import { mockServerAlifeObject } from "@/fixtures/xray/mocks/objects/server/cse_alife_object.mock";
 import { mockSquad } from "@/fixtures/xray/mocks/objects/server/Squad.mock";
@@ -44,19 +41,5 @@ describe("alife utils", () => {
         mockSquad()
       )
     ).toBe(29.700000000000003);
-  });
-
-  it("setUnlimitedAlifeObjectsUpdate should correctly set high updates limits", () => {
-    resetFunctionMock(registry.simulator.set_objects_per_update);
-    setUnlimitedAlifeObjectsUpdate();
-
-    expect(registry.simulator.set_objects_per_update).toHaveBeenCalledWith(2_147_483_647);
-  });
-
-  it("setStableAlifeObjectsUpdate should correctly set high updates limits", () => {
-    resetFunctionMock(registry.simulator.set_objects_per_update);
-    setStableAlifeObjectsUpdate();
-
-    expect(registry.simulator.set_objects_per_update).toHaveBeenCalledWith(20);
   });
 });

@@ -6,6 +6,7 @@ import {
   areObjectsOnSameLevel,
   getDistanceBetween,
   getDistanceBetweenSqr,
+  getObjectSmartTerrain,
   getServerDistanceBetween,
   isDistanceBetweenObjectsGreaterOrEqual,
   isDistanceBetweenObjectsLessOrEqual,
@@ -19,11 +20,12 @@ import {
 } from "@/engine/core/utils/object/object_location";
 import { MAX_U32 } from "@/engine/lib/constants/memory";
 import { ZERO_VECTOR } from "@/engine/lib/constants/vectors";
-import { ClientObject, ServerObject, Vector } from "@/engine/lib/types";
+import { ClientObject, ServerHumanObject, ServerObject, ServerSmartZoneObject, Vector } from "@/engine/lib/types";
 import { mockRegisteredActor } from "@/fixtures/engine";
 import {
   mockActorClientGameObject,
   mockClientGameObject,
+  mockServerAlifeHumanStalker,
   mockServerAlifeObject,
   mockServerAlifeSmartZone,
 } from "@/fixtures/xray";
@@ -199,5 +201,25 @@ describe("object location utils", () => {
 
     jest.spyOn(object, "position").mockImplementation(() => MockVector.mock(0, 0, 0));
     expect(isObjectInActorFrustum(object)).toBe(false);
+  });
+
+  it("getObjectSmartTerrain should correctly get smart terrain of an object", () => {
+    expect(getObjectSmartTerrain(mockClientGameObject())).toBeNull();
+    expect(getObjectSmartTerrain(mockServerAlifeHumanStalker())).toBeNull();
+
+    const clientObject: ClientObject = mockClientGameObject();
+    const smartTerrainObject: ServerSmartZoneObject = mockServerAlifeSmartZone();
+    const serverObject: ServerHumanObject = mockServerAlifeHumanStalker({
+      id: clientObject.id(),
+      m_smart_terrain_id: smartTerrainObject.id,
+    });
+
+    expect(getObjectSmartTerrain(clientObject)).toBe(smartTerrainObject);
+    expect(getObjectSmartTerrain(serverObject)).toBe(smartTerrainObject);
+
+    serverObject.m_smart_terrain_id = 99_999;
+
+    expect(getObjectSmartTerrain(clientObject)).toBeNull();
+    expect(getObjectSmartTerrain(serverObject)).toBeNull();
   });
 });

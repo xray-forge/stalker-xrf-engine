@@ -67,28 +67,6 @@ export function getObjectSquad(object: AnyGameObject): Optional<Squad> {
 }
 
 /**
- * Get smart terrain linked to object.
- *
- * @param object - server or client object
- * @returns object smart terrain server object or null
- */
-export function getObjectSmartTerrain(object: ClientObject | ServerCreatureObject): Optional<SmartTerrain> {
-  const simulator: AlifeSimulator = registry.simulator;
-
-  if (type(object.id) === "function") {
-    const serverObject: Optional<ServerCreatureObject> = simulator.object((object as ClientObject).id());
-
-    return serverObject === null || serverObject.m_smart_terrain_id === MAX_U16
-      ? null
-      : simulator.object(serverObject.m_smart_terrain_id);
-  } else {
-    return (object as ServerCreatureObject).m_smart_terrain_id === MAX_U16
-      ? null
-      : simulator.object((object as ServerCreatureObject).m_smart_terrain_id);
-  }
-}
-
-/**
  * Returns community of provided object.
  *
  * @param object - client object or server stalker/group
