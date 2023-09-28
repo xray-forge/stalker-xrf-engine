@@ -1,10 +1,15 @@
-import { describe, expect, it } from "@jest/globals";
+import { beforeEach, describe, expect, it } from "@jest/globals";
 
+import { registerSimulator } from "@/engine/core/database";
 import { getObjectSquad } from "@/engine/core/utils/squad/squad_get";
 import { ClientObject, ServerGroupObject, ServerHumanObject } from "@/engine/lib/types";
 import { mockClientGameObject, mockServerAlifeHumanStalker, mockServerAlifeOnlineOfflineGroup } from "@/fixtures/xray";
 
 describe("squad utils", () => {
+  beforeEach(() => {
+    registerSimulator();
+  });
+
   it("getObjectSquad should correctly get squad of an object", () => {
     expect(getObjectSquad(mockClientGameObject())).toBeNull();
     expect(getObjectSquad(mockServerAlifeHumanStalker())).toBeNull();

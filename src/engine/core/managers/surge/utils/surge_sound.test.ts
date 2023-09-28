@@ -8,7 +8,7 @@ import {
   playSurgeStartingSound,
   playSurgeWillHappenSoonSound,
 } from "@/engine/core/managers/surge/utils/surge_sound";
-import { giveInfo } from "@/engine/core/utils/object";
+import { giveInfo } from "@/engine/core/utils/info_portion";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import { infoPortions } from "@/engine/lib/constants/info_portions";
 import { mockRegisteredActor } from "@/fixtures/engine";

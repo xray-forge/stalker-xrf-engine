@@ -225,8 +225,10 @@ describe("position utils", () => {
   });
 
   it("getObjectPositioning should correctly get positioning", () => {
-    expect(getObjectPositioning(mockClientGameObject())).toEqual([
-      1000,
+    const clientObject: ClientObject = mockClientGameObject();
+
+    expect(getObjectPositioning(clientObject)).toEqual([
+      clientObject.id(),
       512,
       255,
       {
@@ -235,8 +237,11 @@ describe("position utils", () => {
         z: 0.25,
       },
     ]);
-    expect(getObjectPositioning(mockServerAlifeHumanStalker())).toEqual([
-      100000,
+
+    const serverObject: ServerHumanObject = mockServerAlifeHumanStalker();
+
+    expect(getObjectPositioning(serverObject)).toEqual([
+      serverObject.id,
       512,
       255,
       {
