@@ -494,6 +494,7 @@ export class SurgeManager extends AbstractManager {
 
     packet.w_bool(surgeConfig.IS_FINISHED);
     packet.w_bool(surgeConfig.IS_STARTED);
+
     writeTimeToPacket(packet, this.lastSurgeAt);
 
     if (surgeConfig.IS_STARTED) {
