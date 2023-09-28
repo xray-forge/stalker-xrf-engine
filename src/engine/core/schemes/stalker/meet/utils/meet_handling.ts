@@ -6,7 +6,7 @@ import { MeetManager } from "@/engine/core/schemes/stalker/meet/MeetManager";
 import { ISchemeWoundedState } from "@/engine/core/schemes/stalker/wounded";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { isObjectHelpingWounded, isObjectSearchingCorpse, isObjectWounded } from "@/engine/core/utils/object";
+import { isObjectHelpingWounded, isObjectSearchingCorpse, isObjectWounded } from "@/engine/core/utils/planner";
 import { getObjectsRelationSafe } from "@/engine/core/utils/relation";
 import { FALSE, NIL, TRUE } from "@/engine/lib/constants/words";
 import { ClientObject, EClientObjectRelation, EScheme, Optional, TCount, TName } from "@/engine/lib/types";

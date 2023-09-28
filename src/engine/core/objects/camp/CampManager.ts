@@ -12,7 +12,7 @@ import { MeetManager } from "@/engine/core/schemes/stalker/meet/MeetManager";
 import { abort } from "@/engine/core/utils/assertion";
 import { parseStringsList, readIniString } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { isObjectMeeting } from "@/engine/core/utils/object";
+import { isObjectMeeting } from "@/engine/core/utils/planner";
 import { emitSchemeEvent } from "@/engine/core/utils/scheme";
 import {
   ClientObject,

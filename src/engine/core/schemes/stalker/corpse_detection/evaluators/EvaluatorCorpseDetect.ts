@@ -5,7 +5,7 @@ import { ISchemeCorpseDetectionState } from "@/engine/core/schemes/stalker/corps
 import { freeSelectedLootedObjectSpot } from "@/engine/core/schemes/stalker/corpse_detection/utils";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getNearestCorpseToLoot } from "@/engine/core/utils/loot";
-import { isObjectWounded } from "@/engine/core/utils/object";
+import { isObjectWounded } from "@/engine/core/utils/planner";
 import { communities } from "@/engine/lib/constants/communities";
 import { LOOTING_DEAD_OBJECT_KEY } from "@/engine/lib/constants/portable_store_keys";
 import { ACTOR_VISUAL_STALKER } from "@/engine/lib/constants/sections";

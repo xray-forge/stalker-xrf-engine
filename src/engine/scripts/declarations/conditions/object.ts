@@ -23,7 +23,7 @@ import { extern } from "@/engine/core/utils/binding";
 import { isMonster, isStalker } from "@/engine/core/utils/class_ids";
 import { hasInfoPortion } from "@/engine/core/utils/info_portion";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { isObjectWounded } from "@/engine/core/utils/object";
+import { isObjectWounded } from "@/engine/core/utils/planner";
 import {
   getObjectSmartTerrain,
   isDistanceBetweenObjectsGreaterOrEqual,

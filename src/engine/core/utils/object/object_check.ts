@@ -3,7 +3,6 @@ import { surgeConfig } from "@/engine/core/managers/surge/SurgeConfig";
 import { EActionId } from "@/engine/core/objects/ai/types";
 import { isStalker } from "@/engine/core/utils/class_ids";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { lootableTable } from "@/engine/lib/constants/items/lootable_table";
 import { TLevel } from "@/engine/lib/constants/levels";
 import {
   ActionPlanner,
@@ -16,48 +15,6 @@ import {
 } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
-
-/**
- * Check whether provided object is in combat.
- *
- * @param object - target client object to check
- * @returns whether object is in combat
- */
-export function isObjectInCombat(object: ClientObject): boolean {
-  const actionPlanner: ActionPlanner = object.motivation_action_manager();
-
-  if (!actionPlanner.initialized()) {
-    return false;
-  }
-
-  const currentActionId: Optional<TNumberId> = actionPlanner.current_action_id();
-
-  return currentActionId === EActionId.COMBAT || currentActionId === EActionId.POST_COMBAT_WAIT;
-}
-
-/**
- * Check whether provided object is searching corpse.
- *
- * @param object - target client object to check
- * @returns whether object is searching corpse
- */
-export function isObjectSearchingCorpse(object: ClientObject): boolean {
-  const manager: ActionPlanner = object.motivation_action_manager();
-
-  return manager.initialized() && manager.current_action_id() === EActionId.SEARCH_CORPSE;
-}
-
-/**
- * Check whether provided object is helping wounded.
- *
- * @param object - target client object to check
- * @returns whether object is helping wounded
- */
-export function isObjectHelpingWounded(object: ClientObject): boolean {
-  const actionManager: ActionPlanner = object.motivation_action_manager();
-
-  return actionManager.initialized() && actionManager.current_action_id() === EActionId.HELP_WOUNDED;
-}
 
 /**
  * Check whether object is strapping weapon.

@@ -3,13 +3,13 @@ import { level } from "xray16";
 
 import { registerActor, registry } from "@/engine/core/database";
 import { ActorInputManager } from "@/engine/core/managers/actor";
-import { objectPunchActor } from "@/engine/core/utils/object/object_action";
+import { objectPunchActor } from "@/engine/core/utils/action";
 import { animations } from "@/engine/lib/constants/animation";
 import { ClientObject, EActiveItemSlot } from "@/engine/lib/types";
 import { resetFunctionMock } from "@/fixtures/jest";
 import { mockActorClientGameObject, mockClientGameObject } from "@/fixtures/xray";
 
-describe("object_action utils", () => {
+describe("action utils", () => {
   beforeEach(() => {
     resetFunctionMock(level.add_cam_effector);
     registry.managers = new LuaTable();

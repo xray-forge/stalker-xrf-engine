@@ -7,7 +7,7 @@ import {
   getNearestClientObject,
   getNearestServerObject,
   getServerObjects,
-} from "@/engine/core/utils/object/object_find";
+} from "@/engine/core/utils/registry";
 import { AnyObject, ClientObject, ServerObject, TClassId, TIndex } from "@/engine/lib/types";
 import { MockLuaTable } from "@/fixtures/lua";
 import {
@@ -19,7 +19,7 @@ import {
   mockServerAlifeObject,
 } from "@/fixtures/xray";
 
-describe("object find utils", () => {
+describe("registry find utils", () => {
   beforeEach(() => {
     CLIENT_SIDE_REGISTRY.reset();
     MockAlifeSimulator.reset();

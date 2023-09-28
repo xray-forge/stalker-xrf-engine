@@ -7,7 +7,7 @@ import { AbstractDebugSection } from "@/engine/core/ui/debug/sections/AbstractDe
 import { isGameStarted } from "@/engine/core/utils/game";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { setObjectWounded } from "@/engine/core/utils/object";
-import { getNearestClientObject } from "@/engine/core/utils/object/object_find";
+import { getNearestClientObject } from "@/engine/core/utils/registry";
 import {
   ERelation,
   getObjectsRelationSafe,

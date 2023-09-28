@@ -4,7 +4,7 @@ import { registry } from "@/engine/core/database";
 import { EEvaluatorId } from "@/engine/core/objects/ai/types";
 import { ISchemeMeetState } from "@/engine/core/schemes/stalker/meet";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { isObjectWounded } from "@/engine/core/utils/object";
+import { isObjectWounded } from "@/engine/core/utils/planner";
 import { FALSE } from "@/engine/lib/constants/words";
 import { ActionPlanner, Optional } from "@/engine/lib/types";
 

@@ -3,10 +3,10 @@ import { EStalkerState } from "@/engine/core/objects/animation/types/state_types
 import { finishCorpseLooting } from "@/engine/core/schemes/stalker/corpse_detection/utils";
 import { finishObjectHelpWounded } from "@/engine/core/schemes/stalker/help_wounded/utils";
 import { clearObjectAbuse } from "@/engine/core/schemes/stalker/meet/utils";
+import { objectPunchActor } from "@/engine/core/utils/action";
 import { createSequence } from "@/engine/core/utils/animation";
 import { getExtern } from "@/engine/core/utils/binding";
 import { startPlayingGuitar, startPlayingHarmonica } from "@/engine/core/utils/camp";
-import { objectPunchActor } from "@/engine/core/utils/object";
 import { misc } from "@/engine/lib/constants/items/misc";
 import { AnyCallablesModule, ClientObject, TName } from "@/engine/lib/types";
 

@@ -7,7 +7,7 @@ import { ESmartTerrainStatus } from "@/engine/core/objects/server/smart_terrain/
 import { ISchemeCombatIgnoreState } from "@/engine/core/schemes/stalker/combat_ignore";
 import { getObjectCommunity } from "@/engine/core/utils/community";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini";
-import { isObjectWounded } from "@/engine/core/utils/object/object_state";
+import { isObjectWounded } from "@/engine/core/utils/planner";
 import { isObjectInZone } from "@/engine/core/utils/position";
 import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
 import { communities } from "@/engine/lib/constants/communities";

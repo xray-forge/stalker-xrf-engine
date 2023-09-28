@@ -21,7 +21,7 @@ import { getObjectCommunity } from "@/engine/core/utils/community";
 import { hasInfoPortion } from "@/engine/core/utils/info_portion";
 import { parseInfoPortions, parseStringsList } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { isObjectWounded } from "@/engine/core/utils/object";
+import { isObjectWounded } from "@/engine/core/utils/planner";
 import { FALSE, TRUE } from "@/engine/lib/constants/words";
 import {
   ClientObject,

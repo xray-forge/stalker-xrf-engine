@@ -1,38 +1,12 @@
 import { describe, expect, it } from "@jest/globals";
 
-import { registerObject } from "@/engine/core/database";
-import { objectLookAtAnotherObject, setObjectTeamSquadGroup } from "@/engine/core/utils/object/object_set";
-import { ClientObject, ServerHumanObject } from "@/engine/lib/types";
+import { objectLookAtAnotherObject } from "@/engine/core/utils/object/object_set";
+import { ClientObject } from "@/engine/lib/types";
 import { replaceFunctionMock } from "@/fixtures/jest";
-import { mockClientGameObject, mockServerAlifeHumanStalker } from "@/fixtures/xray";
+import { mockClientGameObject } from "@/fixtures/xray";
 import { MockVector } from "@/fixtures/xray/mocks/vector.mock";
 
 describe("object_set utils", () => {
-  it("setObjectTeamSquadGroup should correctly set object group details", () => {
-    const firstObject: ClientObject = mockClientGameObject();
-    const firstServerObject: ServerHumanObject = mockServerAlifeHumanStalker({ id: firstObject.id() });
-
-    setObjectTeamSquadGroup(firstServerObject, 432, 543, 654);
-
-    expect(firstServerObject.team).toBe(432);
-    expect(firstServerObject.squad).toBe(543);
-    expect(firstServerObject.group).toBe(654);
-
-    expect(firstObject.change_team).not.toHaveBeenCalled();
-
-    const secondObject: ClientObject = mockClientGameObject();
-    const secondServerObject: ServerHumanObject = mockServerAlifeHumanStalker({ id: secondObject.id() });
-
-    registerObject(secondObject);
-    setObjectTeamSquadGroup(secondServerObject, 443, 444, 445);
-
-    expect(secondServerObject.team).not.toBe(443);
-    expect(secondServerObject.squad).not.toBe(444);
-    expect(secondServerObject.group).not.toBe(445);
-
-    expect(secondObject.change_team).toHaveBeenCalledWith(443, 444, 445);
-  });
-
   it("objectLookAtAnotherObject should correctly look at another object", () => {
     const firstObject: ClientObject = mockClientGameObject();
     const secondObject: ClientObject = mockClientGameObject();

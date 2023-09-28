@@ -7,11 +7,18 @@ import { EActionId } from "@/engine/core/objects/ai/types";
 import { EAnimationType, EStalkerState } from "@/engine/core/objects/animation/types";
 import { ISchemeWoundedState } from "@/engine/core/schemes/stalker/wounded";
 import { WoundManager } from "@/engine/core/schemes/stalker/wounded/WoundManager";
-import { isObjectAsleep, isObjectMeeting, isObjectWounded } from "@/engine/core/utils/object/object_state";
+import {
+  isObjectAsleep,
+  isObjectHelpingWounded,
+  isObjectInCombat,
+  isObjectMeeting,
+  isObjectSearchingCorpse,
+  isObjectWounded,
+} from "@/engine/core/utils/planner";
 import { ActionPlanner, ClientObject, EScheme } from "@/engine/lib/types";
 import { mockSchemeState } from "@/fixtures/engine";
 import { replaceFunctionMock } from "@/fixtures/jest";
-import { mockClientGameObject } from "@/fixtures/xray";
+import { MockActionPlanner, mockClientGameObject } from "@/fixtures/xray";
 
 describe("object state utils", () => {
   it("isObjectAsleep should check state correctly", () => {
@@ -82,5 +89,71 @@ describe("object state utils", () => {
 
     replaceFunctionMock(object.motivation_action_manager, () => null);
     expect(isObjectMeeting(object)).toBe(false);
+  });
+
+  it("isObjectInCombat should correctly check object combat state", () => {
+    const object: ClientObject = mockClientGameObject();
+    const planner: MockActionPlanner = object.motivation_action_manager() as unknown as MockActionPlanner;
+
+    expect(isObjectInCombat(object)).toBe(false);
+
+    planner.isInitialized = true;
+    expect(isObjectInCombat(object)).toBe(false);
+
+    planner.currentActionId = EActionId.MEET_WAITING_ACTIVITY;
+    expect(isObjectInCombat(object)).toBe(false);
+
+    planner.currentActionId = EActionId.COMBAT;
+    expect(isObjectInCombat(object)).toBe(true);
+
+    planner.currentActionId = EActionId.POST_COMBAT_WAIT;
+    expect(isObjectInCombat(object)).toBe(true);
+
+    planner.currentActionId = EActionId.CRITICALLY_WOUNDED;
+    expect(isObjectInCombat(object)).toBe(false);
+  });
+
+  it("isObjectSearchingCorpse should correctly check object searching corpse state", () => {
+    const object: ClientObject = mockClientGameObject();
+    const planner: MockActionPlanner = object.motivation_action_manager() as unknown as MockActionPlanner;
+
+    expect(isObjectSearchingCorpse(object)).toBe(false);
+
+    planner.isInitialized = true;
+    expect(isObjectSearchingCorpse(object)).toBe(false);
+
+    planner.currentActionId = EActionId.MEET_WAITING_ACTIVITY;
+    expect(isObjectSearchingCorpse(object)).toBe(false);
+
+    planner.currentActionId = EActionId.SEARCH_CORPSE;
+    expect(isObjectSearchingCorpse(object)).toBe(true);
+
+    planner.currentActionId = EActionId.POST_COMBAT_WAIT;
+    expect(isObjectSearchingCorpse(object)).toBe(false);
+
+    planner.currentActionId = EActionId.CRITICALLY_WOUNDED;
+    expect(isObjectSearchingCorpse(object)).toBe(false);
+  });
+
+  it("isObjectHelpingWounded should correctly check object helping wounded state", () => {
+    const object: ClientObject = mockClientGameObject();
+    const planner: MockActionPlanner = object.motivation_action_manager() as unknown as MockActionPlanner;
+
+    expect(isObjectHelpingWounded(object)).toBe(false);
+
+    planner.isInitialized = true;
+    expect(isObjectHelpingWounded(object)).toBe(false);
+
+    planner.currentActionId = EActionId.MEET_WAITING_ACTIVITY;
+    expect(isObjectHelpingWounded(object)).toBe(false);
+
+    planner.currentActionId = EActionId.HELP_WOUNDED;
+    expect(isObjectHelpingWounded(object)).toBe(true);
+
+    planner.currentActionId = EActionId.POST_COMBAT_WAIT;
+    expect(isObjectHelpingWounded(object)).toBe(false);
+
+    planner.currentActionId = EActionId.CRITICALLY_WOUNDED;
+    expect(isObjectHelpingWounded(object)).toBe(false);
   });
 });

@@ -15,12 +15,8 @@ import { getNpcSpeaker } from "@/engine/core/utils/dialog";
 import { createGameAutoSave } from "@/engine/core/utils/game";
 import { giveInfoPortion, hasInfoPortion } from "@/engine/core/utils/info_portion";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import {
-  enableObjectWoundedHealing,
-  isObjectInjured,
-  isObjectWounded,
-  isStalkerAlive,
-} from "@/engine/core/utils/object";
+import { enableObjectWoundedHealing, isObjectInjured, isStalkerAlive } from "@/engine/core/utils/object";
+import { isObjectWounded } from "@/engine/core/utils/planner";
 import { isObjectInSmartTerrain } from "@/engine/core/utils/position";
 import { actorHasMedKit, getActorAvailableMedKit, transferItemsFromActor } from "@/engine/core/utils/reward";
 import { communities } from "@/engine/lib/constants/communities";
