@@ -22,7 +22,7 @@ describe("ActorInputManager class", () => {
     const actorInputManager: ActorInputManager = getManagerInstance(ActorInputManager);
     const eventsManager: EventsManager = getManagerInstance(EventsManager);
 
-    expect(eventsManager.getSubscribersCount()).toBe(3);
+    expect(eventsManager.getSubscribersCount()).toBe(4);
     expect(actorInputManager.activeItemSlot).toBe(3);
     expect(actorInputManager.isWeaponHidden).toBe(false);
     expect(actorInputManager.isWeaponHiddenInDialog).toBe(false);

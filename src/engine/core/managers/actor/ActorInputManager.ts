@@ -1,16 +1,23 @@
 import { game, get_hud, level } from "xray16";
 
-import { closeLoadMarker, closeSaveMarker, openLoadMarker, openSaveMarker, registry } from "@/engine/core/database";
+import {
+  closeLoadMarker,
+  closeSaveMarker,
+  getManagerInstanceByName,
+  openLoadMarker,
+  openSaveMarker,
+  registry,
+} from "@/engine/core/database";
 import { AbstractManager } from "@/engine/core/managers/base";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
-import { SurgeManager } from "@/engine/core/managers/surge";
 import { surgeConfig } from "@/engine/core/managers/surge/SurgeConfig";
-import { killAllSurgeUnhidden } from "@/engine/core/managers/surge/utils";
+import type { SurgeManager } from "@/engine/core/managers/surge/SurgeManager";
+import { killAllSurgeUnhidden } from "@/engine/core/managers/surge/utils/surge_kill";
 import { WeatherManager } from "@/engine/core/managers/weather";
 import { executeConsoleCommand, getConsoleFloatCommand } from "@/engine/core/utils/game";
 import { readTimeFromPacket, writeTimeToPacket } from "@/engine/core/utils/game/game_time";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { disableInfo, giveInfo } from "@/engine/core/utils/object";
+import { disableInfo, giveInfo } from "@/engine/core/utils/object/object_info_portion";
 import { isActorInNoWeaponZone } from "@/engine/core/utils/object/object_zone";
 import { animations, postProcessors } from "@/engine/lib/constants/animation";
 import { consoleCommands } from "@/engine/lib/constants/console_commands";
@@ -354,7 +361,7 @@ export class ActorInputManager extends AbstractManager {
     level.add_cam_effector(animations.camera_effects_surge_01, 10, false, "engine.on_anabiotic_wake_up");
 
     const random: number = math.random(35, 45);
-    const surgeManager: SurgeManager = SurgeManager.getInstance();
+    const surgeManager: SurgeManager = getManagerInstanceByName("SurgeManager") as SurgeManager;
 
     if (surgeConfig.IS_STARTED) {
       const timeFactor: TRate = level.get_time_factor();

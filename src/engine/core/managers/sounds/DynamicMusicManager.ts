@@ -1,13 +1,13 @@
 import { IsDynamicMusic, level, time_global } from "xray16";
 
-import { registry } from "@/engine/core/database";
+import { getManagerInstanceByName, registry } from "@/engine/core/database";
 import { AbstractManager } from "@/engine/core/managers/base/AbstractManager";
 import { EGameEvent } from "@/engine/core/managers/events/events_types";
 import { EventsManager } from "@/engine/core/managers/events/EventsManager";
 import { dynamicMusicThemes } from "@/engine/core/managers/sounds/dynamic_music";
 import { EDynamicMusicState } from "@/engine/core/managers/sounds/sounds_types";
 import { surgeConfig } from "@/engine/core/managers/surge/SurgeConfig";
-import { SurgeManager } from "@/engine/core/managers/surge/SurgeManager";
+import type { SurgeManager } from "@/engine/core/managers/surge/SurgeManager";
 import { StereoSound } from "@/engine/core/objects/sounds/StereoSound";
 import { abort } from "@/engine/core/utils/assertion";
 import { executeConsoleCommand, getConsoleFloatCommand } from "@/engine/core/utils/game/game_console";
@@ -391,9 +391,9 @@ export class DynamicMusicManager extends AbstractManager {
       return;
     }
 
-    const surgeManager: SurgeManager = SurgeManager.getInstance();
+    const surgeManager: Optional<SurgeManager> = getManagerInstanceByName<SurgeManager>("SurgeManager");
 
-    if (surgeConfig.IS_STARTED && surgeManager.isBlowoutSoundStarted) {
+    if (surgeConfig.IS_STARTED && surgeManager?.isBlowoutSoundStarted) {
       if (surgeManager.isKillingAll()) {
         this.forceFade = true;
         this.fadeToAmbientVolume = this.gameAmbientVolume;

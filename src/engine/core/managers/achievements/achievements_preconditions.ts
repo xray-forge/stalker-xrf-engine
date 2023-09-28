@@ -5,7 +5,12 @@ import { EAchievement } from "@/engine/core/managers/achievements/achievements_t
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { ENotificationType, ITipNotification } from "@/engine/core/managers/notifications";
 import { StatisticsManager } from "@/engine/core/managers/statistics";
-import { giveInfo, hasAlifeInfo, hasAlifeInfos, hasFewAlifeInfos } from "@/engine/core/utils/object";
+import {
+  giveInfo,
+  hasAlifeInfo,
+  hasAlifeInfos,
+  hasFewAlifeInfos,
+} from "@/engine/core/utils/object/object_info_portion";
 import { increaseCommunityGoodwillToId } from "@/engine/core/utils/relation";
 import { communities } from "@/engine/lib/constants/communities";
 import { infoPortions } from "@/engine/lib/constants/info_portions";

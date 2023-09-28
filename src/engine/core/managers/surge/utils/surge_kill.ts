@@ -1,7 +1,7 @@
 import { hit, level } from "xray16";
 
-import { isStoryObject, registry } from "@/engine/core/database";
-import { ActorInputManager } from "@/engine/core/managers/actor";
+import { getManagerInstanceByName, isStoryObject, registry } from "@/engine/core/database";
+import type { ActorInputManager } from "@/engine/core/managers/actor/ActorInputManager";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { SimulationBoardManager } from "@/engine/core/managers/simulation";
 import { surgeConfig } from "@/engine/core/managers/surge/SurgeConfig";
@@ -12,7 +12,9 @@ import {
 } from "@/engine/core/managers/surge/utils/surge_cover";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { hasAlifeInfo, isImmuneToSurgeObject, isObjectOnLevel } from "@/engine/core/utils/object";
+import { isImmuneToSurgeObject } from "@/engine/core/utils/object/object_check";
+import { hasAlifeInfo } from "@/engine/core/utils/object/object_info_portion";
+import { isObjectOnLevel } from "@/engine/core/utils/object/object_location";
 import { animations, postProcessors } from "@/engine/lib/constants/animation";
 import { infoPortions } from "@/engine/lib/constants/info_portions";
 import { TLevel } from "@/engine/lib/constants/levels";
@@ -27,36 +29,35 @@ const logger: LuaLogger = new LuaLogger($filename);
  */
 export function killAllSurgeUnhiddenAfterActorDeath(): void {
   const simulationBoardManager: SimulationBoardManager = SimulationBoardManager.getInstance();
+  const surgeCovers: LuaArray<ClientObject> = getOnlineSurgeCoversList();
   const levelName: TLevel = level.name();
-
-  const activeCovers: LuaArray<ClientObject> = getOnlineSurgeCoversList();
 
   for (const [, squad] of simulationBoardManager.getSquads()) {
     if (isObjectOnLevel(squad, levelName) && !isImmuneToSurgeObject(squad)) {
       for (const member of squad.squad_members()) {
-        let isInCover: boolean = false;
+        let isInSurgeCover: boolean = false;
 
-        for (const [, coverObject] of activeCovers) {
+        for (const [, coverObject] of surgeCovers) {
           if (coverObject.inside(member.object.position)) {
-            isInCover = true;
+            isInSurgeCover = true;
             break;
           }
         }
 
-        if (!isInCover) {
+        if (!isInSurgeCover) {
           logger.info(
             "Releasing object from squad after actors death because of surge:",
             member.object.name(),
             squad.name()
           );
 
-          const clientObject: Optional<ClientObject> = level.object_by_id(member.object.id);
+          const object: Optional<ClientObject> = registry.objects.get(member.object.id)?.object;
 
           // todo: What is the difference here?
-          if (clientObject === null) {
+          if (object === null) {
             member.object.kill();
           } else {
-            clientObject.kill(clientObject);
+            object.kill(object);
           }
         }
       }
@@ -90,10 +91,10 @@ export function killAllSurgeUnhidden(): void {
   }
 
   const simulationBoardManager: SimulationBoardManager = SimulationBoardManager.getInstance();
-  const levelName: TLevel = level.name();
   const surgeCovers: LuaArray<ClientObject> = getOnlineSurgeCoversList();
+  const levelName: TLevel = level.name();
 
-  logger.info("Releasing squads");
+  logger.info("Killing squads");
 
   for (const [, squad] of simulationBoardManager.getSquads()) {
     if (isObjectOnLevel(squad, levelName) && !isImmuneToSurgeObject(squad) && !isStoryObject(squad)) {
@@ -102,12 +103,12 @@ export function killAllSurgeUnhidden(): void {
           if (canSurgeKillSquad(squad)) {
             logger.info("Releasing object from squad because of surge:", member.object.name(), squad.name());
 
-            const clientObject: Optional<ClientObject> = level.object_by_id(member.object.id);
+            const object: Optional<ClientObject> = registry.objects.get(member.object.id)?.object;
 
-            if (clientObject === null) {
+            if (object === null) {
               member.object.kill();
             } else {
-              clientObject.kill(clientObject);
+              object.kill(object);
             }
           } else {
             let release = true;
@@ -123,10 +124,10 @@ export function killAllSurgeUnhidden(): void {
             if (release) {
               logger.info("Releasing object from squad because of surge:", member.object.name(), squad.name());
 
-              const clientObject = level.object_by_id(member.object.id);
+              const object: Optional<ClientObject> = registry.objects.get(member.object.id)?.object;
 
-              if (clientObject !== null) {
-                clientObject.kill(clientObject);
+              if (object !== null) {
+                object.kill(object);
               } else {
                 member.object.kill();
               }
@@ -138,14 +139,14 @@ export function killAllSurgeUnhidden(): void {
   }
 
   if (actor.alive()) {
-    const coverObject: Optional<ClientObject> = getNearestAvailableSurgeCover(actor);
+    const surgeCoverObject: Optional<ClientObject> = getNearestAvailableSurgeCover(actor);
 
-    if (!coverObject?.inside(actor.position())) {
+    if (!surgeCoverObject?.inside(actor.position())) {
       if (hasAlifeInfo(infoPortions.anabiotic_in_process)) {
         EventsManager.emitEvent(EGameEvent.SURGE_SURVIVED_WITH_ANABIOTIC);
       }
 
-      ActorInputManager.getInstance().disableGameUiOnly();
+      getManagerInstanceByName<ActorInputManager>("ActorInputManager")?.disableGameUiOnly();
 
       /**
        * Whether actor should survive surge.
@@ -160,8 +161,8 @@ export function killAllSurgeUnhidden(): void {
         level.add_pp_effector(postProcessors.surge_fade, surgeConfig.SLEEP_FADE_PP_EFFECTOR_ID, false);
         actor.health -= 0.05;
       } else {
-        killAllSurgeUnhiddenAfterActorDeath();
         actor.kill(actor);
+        killAllSurgeUnhiddenAfterActorDeath();
       }
     }
   }
