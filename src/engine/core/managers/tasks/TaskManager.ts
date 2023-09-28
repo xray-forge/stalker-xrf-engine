@@ -1,10 +1,10 @@
 import { task } from "xray16";
 
-import { closeLoadMarker, closeSaveMarker, openSaveMarker, TASK_MANAGER_LTX } from "@/engine/core/database";
-import { openLoadMarker } from "@/engine/core/database/save_markers";
+import { closeLoadMarker, closeSaveMarker, openLoadMarker, openSaveMarker } from "@/engine/core/database";
 import { AbstractManager } from "@/engine/core/managers/base/AbstractManager";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { NotificationManager } from "@/engine/core/managers/notifications";
+import { TASK_MANAGER_CONFIG_LTX } from "@/engine/core/managers/tasks/TaskConfig";
 import { TaskObject } from "@/engine/core/managers/tasks/TaskObject";
 import { ETaskState } from "@/engine/core/managers/tasks/types";
 import { assert } from "@/engine/core/utils/assertion";
@@ -41,12 +41,12 @@ export class TaskManager extends AbstractManager {
     logger.info("Give task:", taskId);
 
     assert(
-      TASK_MANAGER_LTX.section_exist(taskId),
+      TASK_MANAGER_CONFIG_LTX.section_exist(taskId),
       "There is no task [%s] in task ini_file or ini_file is not included.",
       taskId
     );
 
-    this.tasksList.set(taskId, new TaskObject(TASK_MANAGER_LTX, taskId));
+    this.tasksList.set(taskId, new TaskObject(TASK_MANAGER_CONFIG_LTX, taskId));
     this.tasksList.get(taskId).giveTask();
   }
 
@@ -136,7 +136,7 @@ export class TaskManager extends AbstractManager {
 
     for (const it of $range(1, count)) {
       const id: TStringId = reader.r_stringZ();
-      const object: TaskObject = new TaskObject(TASK_MANAGER_LTX, id);
+      const object: TaskObject = new TaskObject(TASK_MANAGER_CONFIG_LTX, id);
 
       object.load(reader);
       this.tasksList.set(id, object);

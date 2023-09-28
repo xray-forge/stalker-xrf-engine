@@ -4,13 +4,14 @@ import { TLevel } from "@/engine/lib/constants/levels";
 import { IniFile, TCount, TName, TStringId } from "@/engine/lib/types";
 
 /**
- * todo;
+ * Read list of travel routes descriptors / phrases configuration
  *
- * @param ini
+ * @param ini - target file to read from
+ * @returns tuple with descriptors by name and names by dialog phrase id
  */
 export function readIniTravelDialogs(
   ini: IniFile
-): LuaMultiReturn<[LuaTable<TName, ITravelRouteDescriptor>, LuaTable<TName, TStringId>]> {
+): LuaMultiReturn<[LuaTable<TName, ITravelRouteDescriptor>, LuaTable<TStringId, TName>]> {
   const travelDescriptorsByName: LuaTable<TName, ITravelRouteDescriptor> = new LuaTable();
   const travelDescriptorsByPhraseId: LuaTable<TStringId, TName> = new LuaTable();
   const count: TCount = ini.line_count("traveler");
