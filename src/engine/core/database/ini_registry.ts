@@ -25,4 +25,3 @@ export const SQUAD_BEHAVIOURS_LTX: IniFile = new ini_file("misc\\squad_behaviour
 export const STALKER_UPGRADE_INFO: IniFile = new ini_file("misc\\stalkers_upgrade_info.ltx");
 export const TASK_MANAGER_LTX: IniFile = new ini_file("misc\\task_manager.ltx");
 export const TRAVEL_MANAGER_LTX: IniFile = new ini_file("misc\\travel_manager.ltx");
-export const TREASURES_LTX: IniFile = new ini_file("misc\\treasures.ltx");

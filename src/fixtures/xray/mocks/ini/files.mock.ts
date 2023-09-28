@@ -171,7 +171,7 @@ export const FILES_MOCKS: Record<TPath, AnyObject> = {
     generic_buy: {},
     generic_sell: {},
   },
-  "misc\\treasures.ltx": {
+  "managers\\treasure_manager.ltx": {
     config: {
       rare_cost: 5000,
       epic_cost: 10000,
