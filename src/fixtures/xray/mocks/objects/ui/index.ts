@@ -1,4 +1,5 @@
 export * from "@/fixtures/xray/mocks/objects/ui/CScriptXmlInit.mock";
+export * from "@/fixtures/xray/mocks/objects/ui/CUICheckButton.mock";
 export * from "@/fixtures/xray/mocks/objects/ui/CUIGameCustom.mock";
 export * from "@/fixtures/xray/mocks/objects/ui/CUILines.mock";
 export * from "@/fixtures/xray/mocks/objects/ui/CUIListBoxItem.mock";

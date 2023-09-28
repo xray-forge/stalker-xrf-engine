@@ -1,6 +1,7 @@
 import { jest } from "@jest/globals";
 import type { CScriptXmlInit } from "xray16";
 
+import { MockCUICheckButton } from "@/fixtures/xray";
 import { MockCUIEditBox } from "@/fixtures/xray/mocks/objects/ui/CUIEditBox.mock";
 
 /**
@@ -13,7 +14,7 @@ export class MockCScriptXmlInit {
 
   public ParseFile = jest.fn();
   public Init3tButton = jest.fn();
-  public InitCheck = jest.fn();
+  public InitCheck = jest.fn(() => MockCUICheckButton.mock());
   public InitStatic = jest.fn();
   public InitComboBox = jest.fn();
   public InitFrame = jest.fn();
