@@ -1,4 +1,4 @@
-import { CMainMenu } from "xray16";
+import type { CMainMenu } from "xray16";
 
 import { Optional } from "@/engine/lib/types";
 import { MockLoginManager } from "@/fixtures/xray/mocks/managers/LoginManager.mock";

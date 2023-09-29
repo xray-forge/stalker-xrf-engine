@@ -1,5 +1,5 @@
 import { jest } from "@jest/globals";
-import { IXR_relation_registry } from "xray16";
+import type { IXR_relation_registry } from "xray16";
 
 import { Optional, ServerHumanObject, TName, TNumberId } from "@/engine/lib/types";
 import { MockAlifeSimulator } from "@/fixtures/xray/mocks/objects/AlifeSimulator.mock";

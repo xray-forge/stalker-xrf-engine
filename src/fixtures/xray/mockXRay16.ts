@@ -26,11 +26,13 @@ import { MockFrect } from "@/fixtures/xray/mocks/frect.mock";
 import { MockCSavedGameWrapper, MockFileSystem } from "@/fixtures/xray/mocks/fs";
 import { MockHit } from "@/fixtures/xray/mocks/hit.mock";
 import { mockCreateIniFile, MockIniFile, mockIniFile } from "@/fixtures/xray/mocks/ini";
-import { mockMainMenuInterface } from "@/fixtures/xray/mocks/interface";
-import { mockGameInterface } from "@/fixtures/xray/mocks/interface/gameInterface.mock";
-import { mockGetGameHud } from "@/fixtures/xray/mocks/interface/globalInteraface.mock";
-import { mockLevelInterface } from "@/fixtures/xray/mocks/interface/levelInterface.mock";
-import { mockRelationRegistryInterface } from "@/fixtures/xray/mocks/interface/relationRegistryInterface.mock";
+import {
+  mockGameInterface,
+  mockGetGameHud,
+  mockLevelInterface,
+  mockMainMenuInterface,
+  mockRelationRegistryInterface,
+} from "@/fixtures/xray/mocks/interface";
 import { mocksConfig } from "@/fixtures/xray/mocks/MocksConfig";
 import { MockNoise } from "@/fixtures/xray/mocks/noise.mock";
 import {
