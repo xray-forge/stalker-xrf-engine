@@ -36,7 +36,7 @@ describe("TaskObject class", () => {
     expect(taskObject.isStorylineTask).toBe(true);
     expect(taskObject.isNotificationOnUpdateMuted).toBe(false);
     expect(taskObject.initializedAt).toBeInstanceOf(CTime);
-    expect(taskObject.nextUpdateAt).toBeNull();
+    expect(taskObject.nextUpdateAt).toBe(0);
     expect(taskObject.onInit).toEqual(parseConditionsList(""));
     expect(taskObject.onComplete).toEqual(parseConditionsList(""));
     expect(taskObject.onReversed).toEqual(parseConditionsList(""));

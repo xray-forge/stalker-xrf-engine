@@ -162,15 +162,19 @@ describe("TaskManager class", () => {
     taskConfig.ACTIVE_TASKS.set("test_task", task);
 
     jest.spyOn(task, "update").mockImplementation(() => ETaskState.NEW);
+    task.state = ETaskState.NEW;
     expect(taskManager.isTaskCompleted("test_task")).toBeFalsy();
 
     jest.spyOn(task, "update").mockImplementation(() => ETaskState.FAIL);
+    task.state = ETaskState.FAIL;
     expect(taskManager.isTaskCompleted("test_task")).toBeFalsy();
 
     jest.spyOn(task, "update").mockImplementation(() => ETaskState.REVERSED);
+    task.state = ETaskState.REVERSED;
     expect(taskManager.isTaskCompleted("test_task")).toBeFalsy();
 
     jest.spyOn(task, "update").mockImplementation(() => ETaskState.COMPLETED);
+    task.state = ETaskState.COMPLETED;
     expect(taskManager.isTaskCompleted("test_task")).toBeTruthy();
   });
 
