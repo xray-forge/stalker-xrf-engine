@@ -21,6 +21,34 @@ export function OptionsVideoAdvanced(): JSXNode {
 
       <templ_item width="360" height="30" />
 
+      <cap_fov x="16" y="3" width="108" height="24">
+        <text r="170" g="170" b="170" font="letterica16" align="r" vert_align="c">
+          ui_mm_fov
+        </text>
+      </cap_fov>
+      <track_fov x="144" y="5" width="160" height="20" min="55.0" max="115.0" step="1.0">
+        <options_item entry="fov" group="mm_opt_gameplay" />
+        <output_wnd x="165" y="0" width="20" height="20" format="%.0f">
+          <text r="170" g="170" b="170" font="letterica16" align="r" vert_align="c">
+            0
+          </text>
+        </output_wnd>
+      </track_fov>
+
+      <cap_hud_fov x="16" y="3" width="108" height="24">
+        <text r="170" g="170" b="170" font="letterica16" align="r" vert_align="c">
+          ui_mm_hud_fov
+        </text>
+      </cap_hud_fov>
+      <track_hud_fov x="144" y="5" width="160" height="20" min="0.40" max="1" step="0.01">
+        <options_item entry="hud_fov" group="mm_opt_gameplay" />
+        <output_wnd x="165" y="0" width="20" height="20" format="%.2f">
+          <text r="170" g="170" b="170" font="letterica16" align="r" vert_align="c">
+            0
+          </text>
+        </output_wnd>
+      </track_hud_fov>
+
       <cap_fps_limit x="16" y="3" width="108" height="24">
         <text r="170" g="170" b="170" font="letterica16" align="r" vert_align="c">
           ui_mm_fps_limit

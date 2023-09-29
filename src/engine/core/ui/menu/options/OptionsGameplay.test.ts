@@ -2,24 +2,24 @@ import { describe, expect, it } from "@jest/globals";
 import { CScriptXmlInit, CUIScriptWnd } from "xray16";
 
 import { OptionsDialog } from "@/engine/core/ui/menu/options/OptionsDialog";
-import { OptionsVideoAdvanced } from "@/engine/core/ui/menu/options/OptionsVideoAdvanced";
+import { OptionsGameplay } from "@/engine/core/ui/menu/options/OptionsGameplay";
 import { MockCScriptXmlInit, MockCUIScriptWnd } from "@/fixtures/xray";
 
 describe("OptionsVideoAdvanced", () => {
   it("should correctly create", () => {
-    const advanced: OptionsVideoAdvanced = new OptionsVideoAdvanced();
+    const gameplay: OptionsGameplay = new OptionsGameplay();
 
-    expect(advanced.WindowName()).toBe(OptionsVideoAdvanced.name);
+    expect(gameplay.WindowName()).toBe(OptionsGameplay.name);
   });
 
   it("should correctly initialize", () => {
     const owner: CUIScriptWnd = MockCUIScriptWnd.mock();
     const options: OptionsDialog = new OptionsDialog(owner);
-    const advanced: OptionsVideoAdvanced = new OptionsVideoAdvanced();
+    const gameplay: OptionsGameplay = new OptionsGameplay();
     const xml: CScriptXmlInit = MockCScriptXmlInit.mock();
 
-    advanced.initialize(1, 1, xml, options);
+    gameplay.initialize(1, 1, xml, options);
 
-    expect(options.preconditions.length()).toBe(23);
+    expect(options.preconditions.length()).toBe(12);
   });
 });

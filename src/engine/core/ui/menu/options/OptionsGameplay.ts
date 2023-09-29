@@ -6,7 +6,7 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Gameplay section from option menu.
  */
 @LuabindClass()
 export class OptionsGameplay extends CUIWindow {
@@ -18,16 +18,14 @@ export class OptionsGameplay extends CUIWindow {
   }
 
   public initialize(x: number, y: number, xml: CScriptXmlInit, owner: OptionsDialog): void {
-    this.uiScrollView = xml.InitScrollView("tab_gameplay:scroll_v", this);
-
     this.SetWndPos(new vector2().set(x, y));
     this.SetWndSize(new vector2().set(738, 416));
     this.SetAutoDelete(true);
 
+    this.uiScrollView = xml.InitScrollView("tab_gameplay:scroll_v", this);
+
     this.createSelectItem(xml, "tab_gameplay:cap_difficulty", "tab_gameplay:list_difficulty");
     this.createSelectItem(xml, "tab_gameplay:cap_localization", "tab_gameplay:list_localization");
-    this.creatTrackItem(xml, "tab_gameplay:cap_fov", "tab_gameplay:track_fov");
-    this.creatTrackItem(xml, "tab_gameplay:cap_hud_fov", "tab_gameplay:track_hud_fov");
     this.createCheckItem(xml, "tab_gameplay:cap_check_tips", "tab_gameplay:check_tips");
     this.createCheckItem(xml, "tab_gameplay:cap_check_crosshair", "tab_gameplay:check_crosshair");
     this.createCheckItem(xml, "tab_gameplay:cap_check_dyn_crosshair", "tab_gameplay:check_dyn_crosshair");
@@ -47,27 +45,19 @@ export class OptionsGameplay extends CUIWindow {
     owner.Register(xml.Init3tButton("tab_gameplay:btn_check_updates", this), "btn_check_updates");
   }
 
-  private creatTrackItem(xml: CScriptXmlInit, captionSelector: string, controlSelector: string): void {
+  private createSelectItem(xml: CScriptXmlInit, caption: string, control: string): void {
     const item: CUIStatic = xml.InitStatic("tab_gameplay:templ_item", null);
 
-    xml.InitStatic(captionSelector, item);
-    xml.InitTrackBar(controlSelector, item);
+    xml.InitStatic(caption, item);
+    xml.InitComboBox(control, item);
     this.uiScrollView.AddWindow(item, true);
   }
 
-  private createSelectItem(xml: CScriptXmlInit, captionSelector: string, controlSelector: string): void {
+  private createCheckItem(xml: CScriptXmlInit, caption: string, control: string): void {
     const item: CUIStatic = xml.InitStatic("tab_gameplay:templ_item", null);
 
-    xml.InitStatic(captionSelector, item);
-    xml.InitComboBox(controlSelector, item);
-    this.uiScrollView.AddWindow(item, true);
-  }
-
-  private createCheckItem(xml: CScriptXmlInit, captionSelector: string, controlSelector: string): void {
-    const item: CUIStatic = xml.InitStatic("tab_gameplay:templ_item", null);
-
-    xml.InitStatic(captionSelector, item);
-    xml.InitCheck(controlSelector, item);
+    xml.InitStatic(caption, item);
+    xml.InitCheck(control, item);
     this.uiScrollView.AddWindow(item, true);
   }
 }

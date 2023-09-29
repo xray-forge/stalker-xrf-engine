@@ -44,6 +44,8 @@ export class OptionsVideoAdvanced extends CUIWindow {
 
     this.scrollView = xml.InitScrollView("video_adv:scroll_v", this);
 
+    this.createTrackBar(xml, this.scrollView, "video_adv:cap_fov", "video_adv:track_fov");
+    this.createTrackBar(xml, this.scrollView, "video_adv:cap_hud_fov", "video_adv:track_hud_fov");
     this.createTrackBar(xml, this.scrollView, "video_adv:cap_fps_limit", "video_adv:track_fps_limit");
     this.createTrackBar(xml, this.scrollView, "video_adv:cap_fps_limit_in_menu", "video_adv:track_fps_limit_in_menu");
     this.createTrackBar(xml, this.scrollView, "video_adv:cap_vis_dist", "video_adv:track_vis_dist");
