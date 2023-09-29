@@ -26,6 +26,7 @@ import { MockFrect } from "@/fixtures/xray/mocks/frect.mock";
 import { MockCSavedGameWrapper, MockFileSystem } from "@/fixtures/xray/mocks/fs";
 import { MockHit } from "@/fixtures/xray/mocks/hit.mock";
 import { mockCreateIniFile, MockIniFile, mockIniFile } from "@/fixtures/xray/mocks/ini";
+import { mockMainMenuInterface } from "@/fixtures/xray/mocks/interface";
 import { mockGameInterface } from "@/fixtures/xray/mocks/interface/gameInterface.mock";
 import { mockGetGameHud } from "@/fixtures/xray/mocks/interface/globalInteraface.mock";
 import { mockLevelInterface } from "@/fixtures/xray/mocks/interface/levelInterface.mock";
@@ -168,6 +169,7 @@ export function mockXRay16({
   level = mockLevelInterface,
   log = jest.fn(),
   look = MockLook,
+  main_menu = mockMainMenuInterface,
   move = MockMove,
   noise = MockNoise,
   object_binder = MockObjectBinder,
@@ -269,6 +271,7 @@ export function mockXRay16({
     level,
     log,
     look,
+    main_menu,
     move,
     noise,
     object_binder,

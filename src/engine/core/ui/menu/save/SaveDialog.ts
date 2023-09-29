@@ -14,13 +14,13 @@ import {
   key_bindings,
   LuabindClass,
   ui_events,
-  vector2,
 } from "xray16";
 
 import { SaveItem } from "@/engine/core/ui/menu/save/SaveItem";
 import { createGameSave, deleteGameSave, getGameSavesList } from "@/engine/core/utils/game_save";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { resolveXmlFile } from "@/engine/core/utils/ui";
+import { create2dVector } from "@/engine/core/utils/vector";
 import { gameConfig } from "@/engine/lib/configs/GameConfig";
 import { roots } from "@/engine/lib/constants/roots";
 import {
@@ -79,13 +79,13 @@ export class SaveDialog extends CUIScriptWnd {
 
     xml.InitWindow("file_item:main", 0, ctrl);
 
-    this.fileItemMainSize = new vector2().set(ctrl.GetWidth(), ctrl.GetHeight());
+    this.fileItemMainSize = create2dVector(ctrl.GetWidth(), ctrl.GetHeight());
 
     xml.InitWindow("file_item:fn", 0, ctrl);
-    this.fileItemFnSize = new vector2().set(ctrl.GetWidth(), ctrl.GetHeight());
+    this.fileItemFnSize = create2dVector(ctrl.GetWidth(), ctrl.GetHeight());
 
     xml.InitWindow("file_item:fd", 0, ctrl);
-    this.fileItemFdSize = new vector2().set(ctrl.GetWidth(), ctrl.GetHeight());
+    this.fileItemFdSize = create2dVector(ctrl.GetWidth(), ctrl.GetHeight());
 
     this.uiForm = xml.InitStatic("form", this);
     xml.InitTextWnd("form:caption", this.uiForm);
@@ -280,10 +280,10 @@ export class SaveDialog extends CUIScriptWnd {
 
     saveItem.SetWndSize(this.fileItemMainSize);
 
-    saveItem.uiInnerNameText.SetWndPos(new vector2().set(0, 0));
+    saveItem.uiInnerNameText.SetWndPos(create2dVector(0, 0));
     saveItem.uiInnerNameText.SetWndSize(this.fileItemFnSize);
     saveItem.uiInnerNameText.SetText(filename);
-    saveItem.uiInnerAgeText.SetWndPos(new vector2().set(this.fileItemFnSize.x + 4, 0));
+    saveItem.uiInnerAgeText.SetWndPos(create2dVector(this.fileItemFnSize.x + 4, 0));
 
     this.uiListBox.AddExistingItem(saveItem);
   }

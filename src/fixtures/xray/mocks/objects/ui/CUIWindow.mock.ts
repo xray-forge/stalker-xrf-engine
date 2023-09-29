@@ -36,6 +36,10 @@ export class MockCUIWindow extends MockLuabindClass {
     return this.windowSize?.y ?? -1;
   }
 
+  public GetHeight(): number {
+    return this.windowSize?.x ?? -1;
+  }
+
   public SetAutoDelete(isAutoDelete: boolean): void {
     this.isAutoDelete = isAutoDelete;
   }

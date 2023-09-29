@@ -21,6 +21,7 @@ import { EventsManager } from "@/engine/core/managers/events/EventsManager";
 import { DebugDialog } from "@/engine/core/ui/debug/DebugDialog";
 import { ExtensionsDialog } from "@/engine/core/ui/menu/extensions/ExtensionsDialog";
 import { LoadDialog } from "@/engine/core/ui/menu/load/LoadDialog";
+import { EMainMenuModalMode } from "@/engine/core/ui/menu/menu_types";
 import { MultiplayerMenu } from "@/engine/core/ui/menu/multiplayer/MultiplayerMenu";
 import { MultiplayerGameSpy } from "@/engine/core/ui/menu/multiplayer_login/MultiplayerGamespy";
 import { MultiplayerLocalnet } from "@/engine/core/ui/menu/multiplayer_login/MultiplayerLocalnet";
@@ -51,12 +52,6 @@ import {
 const logger: LuaLogger = new LuaLogger($filename);
 
 export const base: TPath = "menu\\MainMenu.component";
-
-enum EMainMenuModalMode {
-  OFF,
-  ON,
-  CONFIRM_LOAD_SAVE,
-}
 
 /**
  * Main game menu component implementation.

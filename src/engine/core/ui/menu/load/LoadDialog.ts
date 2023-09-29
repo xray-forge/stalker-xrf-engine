@@ -13,7 +13,6 @@ import {
   LuabindClass,
   ui_events,
   valid_saved_game,
-  vector2,
 } from "xray16";
 
 import { registry } from "@/engine/core/database";
@@ -27,6 +26,7 @@ import {
 } from "@/engine/core/utils/game_save";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { resolveXmlFormPath } from "@/engine/core/utils/ui";
+import { create2dVector } from "@/engine/core/utils/vector";
 import { gameConfig } from "@/engine/lib/configs/GameConfig";
 import {
   ClientObject,
@@ -84,13 +84,13 @@ export class LoadDialog extends CUIScriptWnd {
     const window: CUIWindow = new CUIWindow();
 
     xml.InitWindow("file_item:main", 0, window);
-    this.fileItemMainSize = new vector2().set(window.GetWidth(), window.GetHeight());
+    this.fileItemMainSize = create2dVector(window.GetWidth(), window.GetHeight());
 
     xml.InitWindow("file_item:fn", 0, window);
-    this.fileItemInnerNameTextSize = new vector2().set(window.GetWidth(), window.GetHeight());
+    this.fileItemInnerNameTextSize = create2dVector(window.GetWidth(), window.GetHeight());
 
     xml.InitWindow("file_item:fd", 0, window);
-    this.fileItemDdSize = new vector2().set(window.GetWidth(), window.GetHeight());
+    this.fileItemDdSize = create2dVector(window.GetWidth(), window.GetHeight());
 
     this.uiForm = xml.InitStatic("form", this);
     xml.InitStatic("form:caption", this.uiForm);
@@ -332,10 +332,10 @@ export class LoadDialog extends CUIScriptWnd {
     const loadItem: LoadItem = new LoadItem(this.fileItemMainSize.y, this.fileItemDdSize.x, datetime);
 
     loadItem.SetWndSize(this.fileItemMainSize);
-    loadItem.uiInnerNameText.SetWndPos(new vector2().set(0, 0));
+    loadItem.uiInnerNameText.SetWndPos(create2dVector(0, 0));
     loadItem.uiInnerNameText.SetWndSize(this.fileItemInnerNameTextSize);
     loadItem.uiInnerNameText.SetText(filename);
-    loadItem.uiInnerAgeText.SetWndPos(new vector2().set(this.fileItemInnerNameTextSize.x + 4, 0));
+    loadItem.uiInnerAgeText.SetWndPos(create2dVector(this.fileItemInnerNameTextSize.x + 4, 0));
     loadItem.uiInnerAgeText.SetWndSize(this.fileItemDdSize);
 
     this.uiListBox.AddExistingItem(loadItem);

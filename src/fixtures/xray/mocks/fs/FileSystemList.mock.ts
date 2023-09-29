@@ -13,4 +13,6 @@ export class MockFileSystemList {
   public Size(): TCount {
     return this.list.length;
   }
+
+  public Sort(): void {}
 }
