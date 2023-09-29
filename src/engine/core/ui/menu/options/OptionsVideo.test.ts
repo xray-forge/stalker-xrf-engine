@@ -1,7 +1,7 @@
 import { describe, expect, it } from "@jest/globals";
 import { CScriptXmlInit, CUIScriptWnd } from "xray16";
 
-import { OptionsDialog } from "@/engine/core/ui/menu/options/OptionsDialog";
+import { Options } from "@/engine/core/ui/menu/options/Options";
 import { OptionsVideo } from "@/engine/core/ui/menu/options/OptionsVideo";
 import { MockCScriptXmlInit, MockCUIScriptWnd } from "@/fixtures/xray";
 
@@ -14,7 +14,7 @@ describe("OptionsVideo", () => {
 
   it("should correctly initialize", () => {
     const owner: CUIScriptWnd = MockCUIScriptWnd.mock();
-    const options: OptionsDialog = new OptionsDialog(owner);
+    const options: Options = new Options(owner);
     const advanced: OptionsVideo = new OptionsVideo();
     const xml: CScriptXmlInit = MockCScriptXmlInit.mock();
 

@@ -143,7 +143,6 @@ export type NetProcessor = TXR_net_processor;
 export type Noise = noise;
 export type ObjectFactory = object_factory;
 export type ParticlesObject = particles_object;
-export type PatchDownloadProgress = Patch_Dawnload_Progress;
 export type Patrol = patrol;
 export type Phrase = CPhrase;
 export type PhraseDialog = CPhraseDialog;

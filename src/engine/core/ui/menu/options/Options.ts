@@ -1,11 +1,8 @@
 import {
-  CMainMenu,
   COptionsManager,
   CScriptXmlInit,
-  CUI3tButton,
   CUIComboBox,
   CUIMessageBoxEx,
-  CUIProgressBar,
   CUIScriptWnd,
   CUIStatic,
   CUITabControl,
@@ -15,43 +12,36 @@ import {
   Frect,
   is_enough_address_space_available,
   LuabindClass,
-  main_menu,
   ui_events,
 } from "xray16";
 
+import { EGameRenderer, EOptionGroup, optionGroupsMessages } from "@/engine/core/ui/menu/options/options_types";
 import { OptionsControls } from "@/engine/core/ui/menu/options/OptionsControls";
 import { OptionsGameplay } from "@/engine/core/ui/menu/options/OptionsGameplay";
 import { OptionsSound } from "@/engine/core/ui/menu/options/OptionsSound";
 import { OptionsVideo } from "@/engine/core/ui/menu/options/OptionsVideo";
 import { OptionsVideoAdvanced } from "@/engine/core/ui/menu/options/OptionsVideoAdvanced";
-import { EGameRenderer, EOptionGroup, optionGroupsMessages } from "@/engine/core/ui/menu/options/types";
 import { executeConsoleCommand } from "@/engine/core/utils/console";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { resolveXmlFormPath } from "@/engine/core/utils/ui";
+import { resolveXmlFile } from "@/engine/core/utils/ui";
 import { gameConfig } from "@/engine/lib/configs/GameConfig";
 import { consoleCommands } from "@/engine/lib/constants/console_commands";
-import { PatchDownloadProgress, TKeyCode, TName, TPath, TRate, TUIEvent } from "@/engine/lib/types";
+import { TKeyCode, TPath, TUIEvent } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 const base: TPath = "menu\\OptionsDialog.component";
 
 @LuabindClass()
-export class OptionsDialog extends CUIScriptWnd {
+export class Options extends CUIScriptWnd {
   public isRestartSystemShown: boolean = false;
 
   public owner: CUIScriptWnd;
-  /**
-   * Store map of settings checker to verify whether renderer is correct.
-   */
+  // Store map of settings checker to verify whether renderer is correct.
   public preconditions: LuaTable<CUIWindow, (control: CUIWindow, renderer: EGameRenderer) => void> = new LuaTable();
 
   public uiTab!: CUITabControl;
   public uiDialog!: CUIStatic;
   public uiMessageBox!: CUIMessageBoxEx;
-  public uiDownloadCaption!: CUIStatic;
-  public uiDownloadText!: CUIStatic;
-  public uiDownloadProgress!: CUIProgressBar;
-  public uiDownloadCancelButton!: CUI3tButton;
 
   public uiDialogVideoSettings!: OptionsVideo;
   public uiDialogVideoAdvancedSettings!: OptionsVideoAdvanced;
@@ -83,9 +73,7 @@ export class OptionsDialog extends CUIScriptWnd {
     this.SetWndRect(new Frect().set(0, 0, gameConfig.UI.BASE_WIDTH, gameConfig.UI.BASE_HEIGHT));
     this.Enable(true);
 
-    const xml: CScriptXmlInit = new CScriptXmlInit();
-
-    xml.ParseFile(resolveXmlFormPath(base));
+    const xml: CScriptXmlInit = resolveXmlFile(base);
 
     xml.InitStatic("background", this);
     this.uiDialog = xml.InitStatic("main_dialog:dialog", this);
@@ -129,12 +117,6 @@ export class OptionsDialog extends CUIScriptWnd {
     this.Register(this.uiTab, "tab");
 
     this.uiMessageBox = new CUIMessageBoxEx();
-
-    this.uiDownloadCaption = xml.InitStatic("download_static", this);
-    this.uiDownloadText = xml.InitStatic("download_text", this);
-    this.uiDownloadProgress = xml.InitProgressBar("progress_download", this);
-    this.uiDownloadCancelButton = xml.Init3tButton("btn_cancel_download", this);
-    this.Register(this.uiDownloadCancelButton, "btn_cancel_download");
   }
 
   public initializeState(): void {
@@ -188,9 +170,7 @@ export class OptionsDialog extends CUIScriptWnd {
     this.AddCallback("combo_preset", ui_events.LIST_ITEM_SELECT, () => this.onPresetChanged(), this);
     this.AddCallback("btn_simply_graphic", ui_events.BUTTON_CLICKED, () => this.onShowSimpleGraphicsClicked(), this);
     this.AddCallback("btn_keyb_default", ui_events.BUTTON_CLICKED, () => this.onDefaultKeybindsButtonClicked(), this);
-    this.AddCallback("btn_check_updates", ui_events.BUTTON_CLICKED, () => this.onCheckUpdatesButtonClicked(), this);
     this.AddCallback("combo_renderer", ui_events.LIST_ITEM_SELECT, () => this.updateControls(), this);
-    this.AddCallback("btn_cancel_download", ui_events.BUTTON_CLICKED, () => this.onCancelDownloadClicked(), this);
     this.AddCallback("trb_ssample", ui_events.BUTTON_CLICKED, () => this.updateControls(), this);
     this.AddCallback("cb_ssample", ui_events.LIST_ITEM_SELECT, () => this.updateControls(), this);
   }
@@ -215,35 +195,6 @@ export class OptionsDialog extends CUIScriptWnd {
     }
 
     this.uiTextureLodTrackBar.SetOptIBounds(minTextureLod, maxTextureLod);
-  }
-
-  public override Update(): void {
-    super.Update();
-
-    const mainMenu: CMainMenu = main_menu.get_main_menu();
-    const patchDownload: PatchDownloadProgress = mainMenu.GetPatchProgress();
-    const patchProgress: TRate = patchDownload.GetProgress();
-    const filename: TName = patchDownload.GetFlieName();
-
-    if (filename && patchProgress && patchProgress >= 0 && patchProgress <= 100) {
-      this.uiDownloadProgress.Show(true);
-      this.uiDownloadProgress.SetProgressPos(patchProgress);
-      this.uiDownloadCancelButton.Show(true);
-      this.uiDownloadCaption.Show(true);
-      this.uiDownloadText.Show(true);
-      this.uiDownloadText
-        .TextControl()
-        .SetText(string.format("%.0f%%(%s)", patchProgress, patchDownload.GetFlieName()));
-    } else {
-      this.uiDownloadText.Show(false);
-      this.uiDownloadCaption.Show(false);
-      this.uiDownloadProgress.Show(false);
-      this.uiDownloadCancelButton.Show(false);
-    }
-  }
-
-  public onCheckUpdatesButtonClicked(): void {
-    executeConsoleCommand(consoleCommands.check_for_updates, 1);
   }
 
   public onDefaultKeybindsButtonClicked(): void {
@@ -338,11 +289,6 @@ export class OptionsDialog extends CUIScriptWnd {
       case "controls":
         return this.uiDialogControlsSettings.Show(true);
     }
-  }
-
-  public onCancelDownloadClicked(): void {
-    logger.info("Cancel patch download");
-    main_menu.get_main_menu().CancelDownload();
   }
 
   public onShowAdvancedGraphicsClicked(): void {

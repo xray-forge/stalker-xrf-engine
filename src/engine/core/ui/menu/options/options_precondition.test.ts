@@ -10,7 +10,7 @@ import {
   preconditionOnly3andMoreMode,
   preconditionOnly3andMoreModeVisible,
 } from "@/engine/core/ui/menu/options/options_preconditions";
-import { EGameRenderer } from "@/engine/core/ui/menu/options/types";
+import { EGameRenderer } from "@/engine/core/ui/menu/options/options_types";
 import { MockCUIWindow } from "@/fixtures/xray";
 
 describe("options_precondition.test.ts class", () => {

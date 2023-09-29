@@ -1,6 +1,6 @@
 import { CUIWindow } from "xray16";
 
-import { EGameRenderer } from "@/engine/core/ui/menu/options/types";
+import { EGameRenderer } from "@/engine/core/ui/menu/options/options_types";
 
 /**
  * Checks if renderer is in `1` mode and sets control enabled state accordingly.

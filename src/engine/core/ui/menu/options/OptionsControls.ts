@@ -1,6 +1,6 @@
 import { CScriptXmlInit, CUIWindow, LuabindClass, vector2 } from "xray16";
 
-import { OptionsDialog } from "@/engine/core/ui/menu/options/OptionsDialog";
+import { Options } from "@/engine/core/ui/menu/options/Options";
 import { LuaLogger } from "@/engine/core/utils/logging";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -15,7 +15,7 @@ export class OptionsControls extends CUIWindow {
     this.SetWindowName(this.__name);
   }
 
-  public initialize(x: number, y: number, xml: CScriptXmlInit, owner: OptionsDialog): void {
+  public initialize(x: number, y: number, xml: CScriptXmlInit, owner: Options): void {
     this.SetWndPos(new vector2().set(x, y));
     this.SetWndSize(new vector2().set(738, 416));
     this.SetAutoDelete(true);

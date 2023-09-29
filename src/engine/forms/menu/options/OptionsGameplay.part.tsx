@@ -169,16 +169,6 @@ export function OptionsGameplay(): JSXNode {
         <texture>ui_inGame2_checkbox</texture>
         <options_item entry="g_unload_ammo_after_pick_up" group="mm_opt_gameplay" is_integer="1" />
       </unload_after_pickup>
-
-      <btn_check_updates x="270" y="322" width="86" height="24" stretch="1">
-        <text align="c" font="letterica16">
-          ui_mm_check_updates
-        </text>
-        <texture>ui_inGame2_button</texture>
-        <text_color>
-          <e r="210" g="210" b="210" />
-        </text_color>
-      </btn_check_updates>
     </tab_gameplay>
   );
 }

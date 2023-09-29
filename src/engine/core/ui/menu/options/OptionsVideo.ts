@@ -1,6 +1,6 @@
 import { CScriptXmlInit, CUIWindow, LuabindClass, vector2 } from "xray16";
 
-import { OptionsDialog } from "@/engine/core/ui/menu/options/OptionsDialog";
+import { Options } from "@/engine/core/ui/menu/options/Options";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { create2dVector } from "@/engine/core/utils/vector";
 
@@ -16,7 +16,7 @@ export class OptionsVideo extends CUIWindow {
     this.SetWindowName(this.__name);
   }
 
-  public initialize(x: number, y: number, xml: CScriptXmlInit, owner: OptionsDialog): void {
+  public initialize(x: number, y: number, xml: CScriptXmlInit, owner: Options): void {
     this.SetWndPos(create2dVector(x, y));
     this.SetWndSize(create2dVector(738, 416));
     this.SetAutoDelete(true);
