@@ -1,9 +1,9 @@
-import { game_graph, vector } from "xray16";
+import { game_graph, vector, vector2 } from "xray16";
 
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { PI_DEGREE, RADIAN } from "@/engine/lib/constants/math";
 import { NIL } from "@/engine/lib/constants/words";
-import { Optional, TDistance, TNumberId, TRate, Vector } from "@/engine/lib/types";
+import { Optional, TDistance, TNumberId, TRate, Vector, Vector2D } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -17,6 +17,15 @@ export function createEmptyVector(): Vector {
 }
 
 /**
+ * Create empty 2d vector filled with 0 values.
+ *
+ * @returns new empty vector filled with zeroes
+ */
+export function createEmpty2dVector(): Vector2D {
+  return new vector2().set(0, 0);
+}
+
+/**
  * Create vector filled with provided values.
  *
  * @param x - initial x value
@@ -26,6 +35,17 @@ export function createEmptyVector(): Vector {
  */
 export function createVector(x: number, y: number, z: number): Vector {
   return new vector().set(x, y, z);
+}
+
+/**
+ * Create 2d vector filled with provided values.
+ *
+ * @param x - initial x value
+ * @param y - initial y value
+ * @returns new vector with desired values
+ */
+export function create2dVector(x: number, y: number): Vector2D {
+  return new vector2().set(x, y);
 }
 
 /**
@@ -227,6 +247,18 @@ export function distanceBetween2d(first: Vector, second: Vector): TDistance {
  */
 export function areSameVectors(first: Vector, second: Vector): boolean {
   return first.x === second.x && first.y === second.y && first.z === second.z;
+}
+
+/**
+ * Check if vectors are same by value.
+ * Matches all dimensions with '==='.
+ *
+ * @param first - vector to compare
+ * @param second - vector to compare
+ * @returns whether vector coordinates are equal
+ */
+export function areSame2dVectors(first: Vector2D, second: Vector2D): boolean {
+  return first.x === second.x && first.y === second.y;
 }
 
 /**

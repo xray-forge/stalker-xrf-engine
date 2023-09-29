@@ -1,13 +1,16 @@
 import { describe, expect, it, jest } from "@jest/globals";
-import { game_graph, vector } from "xray16";
+import { game_graph, vector, vector2 } from "xray16";
 
 import {
   addVectors,
   angleDiff,
   angleToDirection,
+  areSame2dVectors,
   areSameVectors,
   areSameVectorsByPrecision,
   copyVector,
+  create2dVector,
+  createEmpty2dVector,
   createEmptyVector,
   createVector,
   degreeToRadian,
@@ -24,7 +27,7 @@ import {
   yawDegree3d,
 } from "@/engine/core/utils/vector";
 import { Vector, Vertex } from "@/engine/lib/types";
-import { MockVector } from "@/fixtures/xray/mocks/vector.mock";
+import { MockVector, MockVector2D } from "@/fixtures/xray";
 
 describe("vector utils", () => {
   it("createEmptyVector should correctly create empty vectors", () => {
@@ -32,10 +35,21 @@ describe("vector utils", () => {
     expect(areSameVectors(new vector().set(1, 0, 0), createEmptyVector())).not.toBeTruthy();
   });
 
+  it("createEmpty2dVector should correctly create empty vectors", () => {
+    expect(areSame2dVectors(new vector2().set(0, 0), createEmpty2dVector())).toBeTruthy();
+    expect(areSame2dVectors(new vector2().set(1, 0), createEmpty2dVector())).not.toBeTruthy();
+  });
+
   it("createVector should correctly create vectors", () => {
     expect(areSameVectors(new vector().set(0, 0, 0), createVector(0, 0, 0))).toBeTruthy();
     expect(areSameVectors(new vector().set(1, 0, 1), createVector(1, 0, 1))).toBeTruthy();
     expect(areSameVectors(new vector().set(55, -5, 25), createVector(55, -5, 25))).toBeTruthy();
+  });
+
+  it("create2dVector should correctly create vectors", () => {
+    expect(areSame2dVectors(new vector2().set(0, 0), create2dVector(0, 0))).toBeTruthy();
+    expect(areSame2dVectors(new vector2().set(1, 0), create2dVector(1, 0))).toBeTruthy();
+    expect(areSame2dVectors(new vector2().set(55, -5), create2dVector(55, -5))).toBeTruthy();
   });
 
   it("addVectors should correctly add vectors", () => {
@@ -78,6 +92,14 @@ describe("vector utils", () => {
     expect(areSameVectors(MockVector.mock(1, 2, 3), createEmptyVector())).toBeFalsy();
     // Not precision based.
     expect(areSameVectors(MockVector.mock(1, 1, 0.3), MockVector.mock(1, 1, 0.2 + 0.1))).toBeFalsy();
+  });
+
+  it("areSameVectors should correctly compare same 2d vectors by value", () => {
+    expect(areSame2dVectors(createEmpty2dVector(), createEmpty2dVector())).toBeTruthy();
+    expect(areSame2dVectors(MockVector2D.mock(1, 2), MockVector2D.mock(1, 2))).toBeTruthy();
+    expect(areSame2dVectors(MockVector2D.mock(1, 2), createEmpty2dVector())).toBeFalsy();
+    // Not precision based.
+    expect(areSame2dVectors(MockVector2D.mock(1, 0.3), MockVector2D.mock(1, 0.2 + 0.1))).toBeFalsy();
   });
 
   it("areSameVectorsByPrecision should correctly compare same vectors by precision rate", () => {

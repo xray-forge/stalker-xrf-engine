@@ -22,6 +22,7 @@ import { MockCTime } from "@/fixtures/xray/mocks/CTime.mock";
 import { MockDevice } from "@/fixtures/xray/mocks/device.mock";
 import { MockPhraseDialog } from "@/fixtures/xray/mocks/dialogs";
 import { MockEffector } from "@/fixtures/xray/mocks/effector.mock";
+import { MockFrect } from "@/fixtures/xray/mocks/frect.mock";
 import { MockCSavedGameWrapper, MockFileSystem } from "@/fixtures/xray/mocks/fs";
 import { MockHit } from "@/fixtures/xray/mocks/hit.mock";
 import { mockCreateIniFile, MockIniFile, mockIniFile } from "@/fixtures/xray/mocks/ini";
@@ -67,7 +68,9 @@ import {
   MockCScriptXmlInit,
   MockCUIListBoxItem,
   MockCUIListBoxItemMsgChain,
+  MockCUIMessageBoxEx,
   MockCUIScriptWnd,
+  MockCUIScrollView,
   MockCUIWindow,
   MockCZoneCampfire,
   MockDangerObject,
@@ -83,6 +86,7 @@ import {
 import { MockProfileTimer } from "@/fixtures/xray/mocks/ProfileTimer.mock";
 import { MockPropertyEvaluator } from "@/fixtures/xray/mocks/PropertyEvaluator.mock";
 import { MockVector } from "@/fixtures/xray/mocks/vector.mock";
+import { MockVector2D } from "@/fixtures/xray/mocks/vector2.mock";
 
 /**
  * Mock whole xray16 game libraries for testing environment and replace with testable mocks.
@@ -97,9 +101,13 @@ export function mockXRay16({
   CTime = MockCTime,
   CUIListBoxItem = MockCUIListBoxItem,
   CUIListBoxItemMsgChain = MockCUIListBoxItemMsgChain,
+  CUIMessageBoxEx = MockCUIMessageBoxEx,
   CUIScriptWnd = MockCUIScriptWnd,
+  CUIScrollView = MockCUIScrollView,
   CUIWindow = MockCUIWindow,
   CZoneCampfire = MockCZoneCampfire,
+  FS = MockFileSystem,
+  Frect = MockFrect,
   IsImportantSave = jest.fn(() => mocksConfig.isAutoSavingEnabled),
   action_base = MockActionBase,
   action_planner = MockActionPlanner,
@@ -113,9 +121,9 @@ export function mockXRay16({
   cond = MockCond,
   create_ini_file = mockCreateIniFile,
   cse_alife_creature_actor = MockAlifeCreatureActor,
-  cse_alife_helicopter = MockAlifeHelicopter,
   cse_alife_dynamic_object = MockAlifeDynamicObject,
   cse_alife_dynamic_object_visual = MockAlifeDynamicObjectVisual,
+  cse_alife_helicopter = MockAlifeHelicopter,
   cse_alife_human_stalker = MockAlifeHumanStalker,
   cse_alife_inventory_box = MockAlifeInventoryBox,
   cse_alife_item = MockAlifeItem,
@@ -150,7 +158,6 @@ export function mockXRay16({
   effector = MockEffector,
   entity_action = MockEntityAction,
   flags32 = MockFlags32,
-  FS = MockFileSystem,
   game = mockGameInterface,
   game_graph = () => MockCGameGraph.getInstance(),
   getFS = () => MockFileSystem.getInstance(),
@@ -170,9 +177,9 @@ export function mockXRay16({
   property_evaluator = MockPropertyEvaluator,
   property_storage = MockPropertyStorage,
   relation_registry = mockRelationRegistryInterface,
-  sound_object = MockSoundObject,
   sight_params = MockSightParameters,
   snd_type = mockSndType,
+  sound_object = MockSoundObject,
   stalker_ids = mockStalkerIds,
   system_ini = () => mockIniFile("system.ini"),
   task = MockTask,
@@ -180,6 +187,7 @@ export function mockXRay16({
   ui_events = mockUiEvents,
   user_name = jest.fn(() => "os_user_name"),
   vector = MockVector,
+  vector2 = MockVector2D,
   world_property = MockWorldProperty,
   world_state = MockWorldState,
 } = {}): void {
@@ -187,14 +195,19 @@ export function mockXRay16({
     CALifeSmartTerrainTask,
     CGameTask,
     CPhraseDialog,
+    CSavedGameWrapper,
     CScriptXmlInit,
     CSightParams,
     CTime,
     CUIListBoxItem,
     CUIListBoxItemMsgChain,
+    CUIMessageBoxEx,
     CUIScriptWnd,
+    CUIScrollView,
     CUIWindow,
     CZoneCampfire,
+    FS,
+    Frect,
     IsImportantSave,
     LuabindClass: () => {},
     action_base,
@@ -208,7 +221,6 @@ export function mockXRay16({
     color,
     cond,
     create_ini_file,
-    CSavedGameWrapper,
     cse_alife_creature_actor,
     cse_alife_dynamic_object,
     cse_alife_dynamic_object_visual,
@@ -247,7 +259,6 @@ export function mockXRay16({
     effector,
     entity_action,
     flags32,
-    FS,
     game,
     game_graph,
     getFS,
@@ -277,6 +288,7 @@ export function mockXRay16({
     ui_events,
     user_name,
     vector,
+    vector2,
     world_property,
     world_state,
   }));

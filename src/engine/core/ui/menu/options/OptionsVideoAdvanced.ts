@@ -1,13 +1,32 @@
-import { CScriptXmlInit, CUIScrollView, CUIStatic, CUIWindow, LuabindClass, vector2 } from "xray16";
+import {
+  CScriptXmlInit,
+  CUIComboBox,
+  CUIScrollView,
+  CUIStatic,
+  CUITrackBar,
+  CUIWindow,
+  LuabindClass,
+  vector2,
+} from "xray16";
 
+import {
+  only1mode,
+  only25andMoreMode,
+  only2aAndMoreMode,
+  only2andMoreMode,
+  only3andMoreMode,
+  only3andMoreModeInvisible,
+  only3andMoreModeVisible,
+} from "@/engine/core/ui/menu/options/options_preconditions";
 import { OptionsDialog } from "@/engine/core/ui/menu/options/OptionsDialog";
-import { EGameRenderer } from "@/engine/core/ui/menu/options/types";
 import { LuaLogger } from "@/engine/core/utils/logging";
+import { create2dVector } from "@/engine/core/utils/vector";
+import { TName } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Advanced section from video option menu.
  */
 @LuabindClass()
 export class OptionsVideoAdvanced extends CUIWindow {
@@ -19,95 +38,68 @@ export class OptionsVideoAdvanced extends CUIWindow {
   }
 
   public initialize(x: number, y: number, xml: CScriptXmlInit, owner: OptionsDialog): void {
-    this.SetWndPos(new vector2().set(x, y));
-    this.SetWndSize(new vector2().set(738, 416));
-
+    this.SetWndPos(create2dVector(x, y));
+    this.SetWndSize(create2dVector(738, 416));
     this.SetAutoDelete(true);
 
     this.scrollView = xml.InitScrollView("video_adv:scroll_v", this);
 
-    const fpsLimitInGame: CUIStatic = xml.InitStatic("video_adv:templ_item", this.scrollView);
+    this.createTrackBar(xml, this.scrollView, "video_adv:cap_fps_limit", "video_adv:track_fps_limit");
+    this.createTrackBar(xml, this.scrollView, "video_adv:cap_fps_limit_in_menu", "video_adv:track_fps_limit_in_menu");
+    this.createTrackBar(xml, this.scrollView, "video_adv:cap_vis_dist", "video_adv:track_vis_dist");
+    this.createTrackBar(xml, this.scrollView, "video_adv:cap_geometry_lod", "video_adv:track_geometry_lod");
 
-    xml.InitStatic("video_adv:cap_fps_limit", fpsLimitInGame);
-    xml.InitTrackBar("video_adv:track_fps_limit", fpsLimitInGame);
-
-    const fpsLimitInMenu: CUIStatic = xml.InitStatic("video_adv:templ_item", this.scrollView);
-
-    xml.InitStatic("video_adv:cap_fps_limit_in_menu", fpsLimitInMenu);
-    xml.InitTrackBar("video_adv:track_fps_limit_in_menu", fpsLimitInMenu);
-
-    const visibilityDistance = xml.InitStatic("video_adv:templ_item", this.scrollView);
-
-    xml.InitStatic("video_adv:cap_vis_dist", visibilityDistance);
-    xml.InitTrackBar("video_adv:track_vis_dist", visibilityDistance);
-
-    const geometryLod = xml.InitStatic("video_adv:templ_item", this.scrollView);
-
-    xml.InitStatic("video_adv:cap_geometry_lod", geometryLod);
-    xml.InitTrackBar("video_adv:track_geometry_lod", geometryLod);
-
-    const textureLod = xml.InitStatic("video_adv:templ_item", this.scrollView);
+    const textureLod: CUIStatic = xml.InitStatic("video_adv:templ_item", this.scrollView);
 
     xml.InitStatic("video_adv:cap_texture_lod", textureLod);
     owner.uiTextureLodTrackBar = xml.InitTrackBar("video_adv:track_texture_lod", textureLod);
 
-    const anisotropicFiltering = xml.InitStatic("video_adv:templ_item", this.scrollView);
+    this.createTrackBar(xml, this.scrollView, "video_adv:cap_aniso", "video_adv:track_aniso");
 
-    xml.InitStatic("video_adv:cap_aniso", anisotropicFiltering);
-    xml.InitTrackBar("video_adv:track_aniso", anisotropicFiltering);
-
-    const sSampling = xml.InitStatic("video_adv:templ_item", this.scrollView);
+    const sSampling: CUIStatic = xml.InitStatic("video_adv:templ_item", this.scrollView);
 
     xml.InitStatic("video_adv:cap_ssample", sSampling);
 
-    const sSamplingTrack = xml.InitTrackBar("video_adv:track_ssample", sSampling);
+    const sSamplingTrack: CUITrackBar = xml.InitTrackBar("video_adv:track_ssample", sSampling);
 
     owner.uiSSamplingTrackBar = sSamplingTrack;
     owner.Register(sSamplingTrack, "trb_ssample");
     owner.preconditions.set(sSamplingTrack, only3andMoreModeInvisible);
 
-    const sSamplingComboBox = xml.InitComboBox("video_adv:combo_ssample", sSampling);
+    const sSamplingComboBox: CUIComboBox = xml.InitComboBox("video_adv:combo_ssample", sSampling);
 
     owner.uiSSamplingComboBox = sSamplingComboBox;
     owner.Register(sSamplingComboBox, "cb_ssample");
     owner.preconditions.set(sSamplingComboBox, only3andMoreModeVisible);
 
-    const detailDensity = xml.InitStatic("video_adv:templ_item", this.scrollView);
+    this.createTrackBar(xml, this.scrollView, "video_adv:cap_detail_density", "video_adv:track_detail_density");
+    this.createTrackBar(xml, this.scrollView, "video_adv:cap_detail_height", "video_adv:track_detail_height");
+    this.createTrackBar(xml, this.scrollView, "video_adv:cap_detail_radius", "video_adv:track_detail_radius");
 
-    xml.InitStatic("video_adv:cap_detail_density", detailDensity);
-    xml.InitTrackBar("video_adv:track_detail_density", detailDensity);
-
-    const detailHeight = xml.InitStatic("video_adv:templ_item", this.scrollView);
-
-    xml.InitStatic("video_adv:cap_detail_height", detailHeight);
-    xml.InitTrackBar("video_adv:track_detail_height", detailHeight);
-
-    const detailRadius = xml.InitStatic("video_adv:templ_item", this.scrollView);
-
-    xml.InitStatic("video_adv:cap_detail_radius", detailRadius);
-    xml.InitTrackBar("video_adv:track_detail_radius", detailRadius);
-
-    const r2Sun = xml.InitStatic("video_adv:templ_item", this.scrollView);
+    const r2Sun: CUIStatic = xml.InitStatic("video_adv:templ_item", this.scrollView);
 
     xml.InitStatic("video_adv:cap_r2_sun", r2Sun);
 
-    const r2SunCheck = xml.InitCheck("video_adv:check_r2_sun", r2Sun);
+    const r2SunCheck: CUIStatic = xml.InitCheck("video_adv:check_r2_sun", r2Sun);
 
     owner.preconditions.set(r2SunCheck, only2andMoreMode);
 
-    const lightDistance = xml.InitStatic("video_adv:templ_item", this.scrollView);
+    const lightDistance: CUIStatic = xml.InitStatic("video_adv:templ_item", this.scrollView);
 
     xml.InitStatic("video_adv:cap_light_distance", lightDistance);
 
-    const lightDistanceTrack = xml.InitTrackBar("video_adv:track_light_distance", lightDistance);
+    const lightDistanceTrack: CUITrackBar = xml.InitTrackBar("video_adv:track_light_distance", lightDistance);
 
     owner.preconditions.set(lightDistanceTrack, only2aAndMoreMode);
 
-    const particlesDistance = xml.InitStatic("video_adv:templ_item", this.scrollView);
+    const particlesDistance: CUIStatic = xml.InitStatic("video_adv:templ_item", this.scrollView);
 
     xml.InitStatic("video_adv:cap_particles_distance", particlesDistance);
 
-    const particlesDistanceTrackBar = xml.InitTrackBar("video_adv:track_particles_distance", particlesDistance);
+    const particlesDistanceTrackBar: CUITrackBar = xml.InitTrackBar(
+      "video_adv:track_particles_distance",
+      particlesDistance
+    );
 
     owner.preconditions.set(particlesDistanceTrackBar, only2aAndMoreMode);
 
@@ -124,7 +116,7 @@ export class OptionsVideoAdvanced extends CUIWindow {
     xml.InitCheck("video_adv:check_npc_torch", npcTorch);
 
     // -- r1_detail_textures	r1 only
-    const detailedTextures = xml.InitStatic("video_adv:templ_item", this.scrollView);
+    const detailedTextures: CUIStatic = xml.InitStatic("video_adv:templ_item", this.scrollView);
 
     xml.InitStatic("video_adv:cap_r1_detail_textures", detailedTextures);
 
@@ -278,77 +270,11 @@ export class OptionsVideoAdvanced extends CUIWindow {
 
     owner.Register(xml.Init3tButton("video_adv:btn_to_simply", this), "btn_simply_graphic");
   }
-}
 
-/**
- * todo;
- */
-function only1mode(control: CUIWindow, id: EGameRenderer): void {
-  control.Enable(id === EGameRenderer.R1);
-}
+  protected createTrackBar(xml: CScriptXmlInit, base: CUIWindow, caption: TName, track: TName): void {
+    const wrapper: CUIStatic = xml.InitStatic("video_adv:templ_item", base);
 
-// -- >=R2a
-/**
- * todo;
- */
-function only2aAndMoreMode(control: CUIWindow, id: EGameRenderer): void {
-  control.Enable(id >= EGameRenderer.R2A);
-}
-
-// -- >=R2
-/**
- * todo;
- */
-function only2andMoreMode(control: CUIWindow, id: EGameRenderer): void {
-  control.Enable(id >= EGameRenderer.R2);
-}
-
-// -- >=R2.5
-/**
- * todo;
- */
-function only25andMoreMode(control: CUIWindow, id: EGameRenderer): void {
-  control.Enable(id >= EGameRenderer.R25);
-}
-
-// -- >=R3
-/**
- * todo;
- */
-function only3andMoreMode(control: CUIWindow, id: EGameRenderer): void {
-  control.Enable(id >= EGameRenderer.R3);
-}
-
-/**
- * todo;
- */
-function only3andMoreModeVisible(control: CUIWindow, id: EGameRenderer): void {
-  const isEnabled: boolean = id >= EGameRenderer.R3;
-
-  control.Enable(isEnabled);
-  control.Show(isEnabled);
-}
-
-/**
- * todo;
- */
-function only3andMoreModeInvisible(control: CUIWindow, id: EGameRenderer): void {
-  const isEnabled: boolean = id < EGameRenderer.R3;
-
-  control.Enable(isEnabled);
-  control.Show(isEnabled);
-}
-
-/**
- * todo;
- */
-function only4(control: CUIWindow, id: EGameRenderer) {
-  return id === EGameRenderer.R4;
-}
-
-/**
- * todo;
- */
-function only4andMore(control: CUIWindow, id: EGameRenderer) {
-  return id >= EGameRenderer.R4;
+    xml.InitStatic(caption, wrapper);
+    xml.InitTrackBar(track, wrapper);
+  }
 }
