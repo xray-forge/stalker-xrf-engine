@@ -172,6 +172,7 @@ export function mockClientGameObject({
     get_helicopter: rest.get_helicopter ?? jest.fn(() => null),
     get_script: rest.get_script ?? jest.fn(() => false),
     get_script_name: rest.get_script_name ?? jest.fn(() => null),
+    get_task: rest.get_task ?? jest.fn(() => null),
     give_game_news,
     give_info_portion:
       give_info_portion ||

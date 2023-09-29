@@ -365,6 +365,10 @@ export enum EGameEvent {
    */
   SURGE_SURVIVED_WITH_ANABIOTIC,
   /**
+   * Task activated.
+   */
+  TASK_ACTIVATED,
+  /**
    * Task state updated.
    */
   TASK_STATE_UPDATE,
@@ -372,6 +376,14 @@ export enum EGameEvent {
    * Task completed.
    */
   TASK_COMPLETED,
+  /**
+   * Task reversed.
+   */
+  TASK_REVERSED,
+  /**
+   * Task failed.
+   */
+  TASK_FAILED,
   /**
    * Actor found treasure.
    */

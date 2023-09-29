@@ -1,36 +1,40 @@
 import { beforeAll, beforeEach, describe, expect, it, jest } from "@jest/globals";
 
-import { disposeManager, getManagerInstance, registerActor, registry } from "@/engine/core/database";
+import { disposeManager, getManagerInstance, registry } from "@/engine/core/database";
 import { EventsManager } from "@/engine/core/managers/events";
+import { taskConfig } from "@/engine/core/managers/tasks/TaskConfig";
 import { TaskManager } from "@/engine/core/managers/tasks/TaskManager";
 import { TaskObject } from "@/engine/core/managers/tasks/TaskObject";
 import { ETaskState } from "@/engine/core/managers/tasks/types";
 import { NIL } from "@/engine/lib/constants/words";
+import { TSection } from "@/engine/lib/types";
+import { mockRegisteredActor } from "@/fixtures/engine";
 import { MockLuaTable } from "@/fixtures/lua/mocks/LuaTable.mock";
-import { mockClientGameObject } from "@/fixtures/xray";
+import { mockIniFile } from "@/fixtures/xray";
 import { EPacketDataType, mockNetPacket, mockNetProcessor, MockNetProcessor } from "@/fixtures/xray/mocks/save";
 
 describe("TaskManager class", () => {
   beforeAll(() => {
     require("@/engine/scripts/declarations/tasks");
-    registerActor(mockClientGameObject());
+    mockRegisteredActor();
   });
 
   beforeEach(() => {
     registry.managers = new LuaTable();
+    taskConfig.ACTIVE_TASKS = new LuaTable();
   });
 
   it("should correctly initialize and destroy", () => {
     const taskManager: TaskManager = getManagerInstance(TaskManager);
     const eventsManager: EventsManager = getManagerInstance(EventsManager);
 
-    expect(MockLuaTable.getMockSize(taskManager.tasksList)).toBe(0);
+    expect(MockLuaTable.getMockSize(taskConfig.ACTIVE_TASKS)).toBe(0);
     expect(eventsManager.getSubscribersCount()).toBe(1);
 
     disposeManager(TaskManager);
 
     expect(eventsManager.getSubscribersCount()).toBe(0);
-    expect(MockLuaTable.getMockSize(taskManager.tasksList)).toBe(0);
+    expect(MockLuaTable.getMockSize(taskConfig.ACTIVE_TASKS)).toBe(0);
   });
 
   it("should correctly save and load empty list data", () => {
@@ -44,6 +48,7 @@ describe("TaskManager class", () => {
 
     disposeManager(TaskManager);
 
+    const tasksBefore: LuaTable<TSection, TaskObject> = taskConfig.ACTIVE_TASKS;
     const newTaskManager: TaskManager = getManagerInstance(TaskManager);
 
     newTaskManager.load(mockNetProcessor(netProcessor));
@@ -51,7 +56,7 @@ describe("TaskManager class", () => {
     expect(netProcessor.readDataOrder).toEqual(netProcessor.writeDataOrder);
     expect(netProcessor.dataList).toHaveLength(0);
     expect(newTaskManager).not.toBe(taskManager);
-    expect(taskManager.tasksList).toEqual(newTaskManager.tasksList);
+    expect(taskConfig.ACTIVE_TASKS).toEqual(tasksBefore);
   });
 
   it("should correctly save and load with tasks data", () => {
@@ -107,8 +112,7 @@ describe("TaskManager class", () => {
     expect(netProcessor.dataList).toHaveLength(0);
 
     expect(newTaskManager).not.toBe(taskManager);
-    expect(MockLuaTable.getMockSize(taskManager.tasksList)).toBe(1);
-    expect(MockLuaTable.getMockSize(newTaskManager.tasksList)).toBe(1);
+    expect(MockLuaTable.getMockSize(taskConfig.ACTIVE_TASKS)).toBe(1);
   });
 
   it.todo("should correctly give tasks");
@@ -118,59 +122,60 @@ describe("TaskManager class", () => {
 
     expect(taskManager.isTaskActive("test_task")).toBeFalsy();
 
-    taskManager.tasksList.set("test_task", { state: ETaskState.COMPLETED } as TaskObject);
-    expect(taskManager.isTaskActive("test_task")).toBeFalsy();
+    expect(taskManager.isTaskActive("another_task")).toBeFalsy();
 
-    taskManager.tasksList.set("test_task", { state: ETaskState.FAIL } as TaskObject);
-    expect(taskManager.isTaskActive("test_task")).toBeFalsy();
+    taskConfig.ACTIVE_TASKS.set("test_task", { state: ETaskState.COMPLETED } as TaskObject);
+    expect(taskManager.isTaskActive("test_task")).toBeTruthy();
 
-    taskManager.tasksList.set("test_task", { state: ETaskState.REVERSED } as TaskObject);
-    expect(taskManager.isTaskActive("test_task")).toBeFalsy();
-
-    taskManager.tasksList.set("test_task", { state: ETaskState.NEW } as TaskObject);
+    taskConfig.ACTIVE_TASKS.set("test_task", { state: ETaskState.NEW } as TaskObject);
     expect(taskManager.isTaskActive("test_task")).toBeTruthy();
   });
 
   it("should correctly check if tasks are failed", () => {
     const taskManager: TaskManager = TaskManager.getInstance();
+    const task: TaskObject = new TaskObject("test", mockIniFile("test.ltx", { test: {} }));
 
     expect(taskManager.isTaskFailed("test_task")).toBeFalsy();
 
-    taskManager.tasksList.set("test_task", { checkTaskState: () => ETaskState.COMPLETED } as TaskObject);
+    taskConfig.ACTIVE_TASKS.set("test_task", task);
+
+    jest.spyOn(task, "update").mockImplementation(() => ETaskState.COMPLETED);
     expect(taskManager.isTaskFailed("test_task")).toBeFalsy();
 
-    taskManager.tasksList.set("test_task", { checkTaskState: () => ETaskState.NEW } as TaskObject);
+    jest.spyOn(task, "update").mockImplementation(() => ETaskState.NEW);
     expect(taskManager.isTaskFailed("test_task")).toBeFalsy();
 
-    taskManager.tasksList.set("test_task", { checkTaskState: () => ETaskState.FAIL } as TaskObject);
+    task.state = ETaskState.FAIL;
+    jest.spyOn(task, "update").mockImplementation(() => ETaskState.FAIL);
     expect(taskManager.isTaskFailed("test_task")).toBeTruthy();
 
-    taskManager.tasksList.set("test_task", { checkTaskState: () => ETaskState.REVERSED } as TaskObject);
+    jest.spyOn(task, "update").mockImplementation(() => ETaskState.REVERSED);
     expect(taskManager.isTaskFailed("test_task")).toBeTruthy();
   });
 
   it("should correctly check if tasks are completed", () => {
     const taskManager: TaskManager = TaskManager.getInstance();
+    const task: TaskObject = new TaskObject("test", mockIniFile("test.ltx", { test: {} }));
 
     expect(taskManager.isTaskCompleted("test_task")).toBeFalsy();
 
-    taskManager.tasksList.set("test_task", { checkTaskState: () => ETaskState.NEW } as TaskObject);
+    taskConfig.ACTIVE_TASKS.set("test_task", task);
+
+    jest.spyOn(task, "update").mockImplementation(() => ETaskState.NEW);
+    task.state = ETaskState.NEW;
     expect(taskManager.isTaskCompleted("test_task")).toBeFalsy();
 
-    taskManager.tasksList.set("test_task", { checkTaskState: () => ETaskState.FAIL } as TaskObject);
+    jest.spyOn(task, "update").mockImplementation(() => ETaskState.FAIL);
+    task.state = ETaskState.FAIL;
     expect(taskManager.isTaskCompleted("test_task")).toBeFalsy();
 
-    taskManager.tasksList.set("test_task", { checkTaskState: () => ETaskState.REVERSED } as TaskObject);
+    jest.spyOn(task, "update").mockImplementation(() => ETaskState.REVERSED);
+    task.state = ETaskState.REVERSED;
     expect(taskManager.isTaskCompleted("test_task")).toBeFalsy();
 
-    taskManager.tasksList.set("test_task", {
-      checkTaskState: () => ETaskState.COMPLETED,
-      giveTaskReward: jest.fn(),
-    } as unknown as TaskObject);
-    jest.spyOn(taskManager.tasksList.get("test_task"), "giveTaskReward");
-
+    jest.spyOn(task, "update").mockImplementation(() => ETaskState.COMPLETED);
+    task.state = ETaskState.COMPLETED;
     expect(taskManager.isTaskCompleted("test_task")).toBeTruthy();
-    expect(taskManager.tasksList.get("test_task").giveTaskReward).toHaveBeenCalled();
   });
 
   it.todo("should correctly handle task updates");

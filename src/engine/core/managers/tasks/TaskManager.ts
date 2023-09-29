@@ -4,7 +4,7 @@ import { closeLoadMarker, closeSaveMarker, openLoadMarker, openSaveMarker } from
 import { AbstractManager } from "@/engine/core/managers/base/AbstractManager";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { NotificationManager } from "@/engine/core/managers/notifications";
-import { TASK_MANAGER_CONFIG_LTX } from "@/engine/core/managers/tasks/TaskConfig";
+import { TASK_MANAGER_CONFIG_LTX, taskConfig } from "@/engine/core/managers/tasks/TaskConfig";
 import { TaskObject } from "@/engine/core/managers/tasks/TaskObject";
 import { ETaskState } from "@/engine/core/managers/tasks/types";
 import { assert } from "@/engine/core/utils/assertion";
@@ -17,11 +17,6 @@ const logger: LuaLogger = new LuaLogger($filename);
  * Management of current tasks lists, states, rewards and progression.
  */
 export class TaskManager extends AbstractManager {
-  /**
-   * List of currently tracked tasks in the game.
-   */
-  public readonly tasksList: LuaTable<TStringId, TaskObject> = new LuaTable();
-
   public override initialize(): void {
     const eventsManager: EventsManager = EventsManager.getInstance();
 
@@ -35,77 +30,52 @@ export class TaskManager extends AbstractManager {
   }
 
   /**
-   * todo: Description.
-   */
-  public giveTask(taskId: TStringId): void {
-    logger.info("Give task:", taskId);
-
-    assert(
-      TASK_MANAGER_CONFIG_LTX.section_exist(taskId),
-      "There is no task [%s] in task ini_file or ini_file is not included.",
-      taskId
-    );
-
-    this.tasksList.set(taskId, new TaskObject(TASK_MANAGER_CONFIG_LTX, taskId));
-    this.tasksList.get(taskId).giveTask();
-  }
-
-  /**
-   * Check if task by ID is completed.
-   */
-  public isTaskCompleted(taskId: TStringId): boolean {
-    const task: Optional<TaskObject> = this.tasksList.get(taskId);
-
-    if (task === null) {
-      return false;
-    } else {
-      if (task.checkTaskState() === ETaskState.COMPLETED) {
-        task.giveTaskReward();
-        EventsManager.emitEvent(EGameEvent.TASK_COMPLETED, task);
-
-        logger.info("Task completed:", taskId);
-
-        return true;
-      } else {
-        return false;
-      }
-    }
-  }
-
-  /**
-   * Check if task by ID is active.
-   *
-   * @param taskId - identifier of task to check
-   * @returns if task is active in list
+   * @param taskId - id of the task to check
+   * @returns if task is active
    */
   public isTaskActive(taskId: TStringId): boolean {
-    const task: Optional<TaskObject> = this.tasksList.get(taskId) as Optional<TaskObject>;
-
-    return task
-      ? task.state !== ETaskState.COMPLETED && task.state !== ETaskState.FAIL && task.state !== ETaskState.REVERSED
-      : false;
+    return taskConfig.ACTIVE_TASKS.has(taskId);
   }
 
   /**
-   * Check if task by id is failed.
-   *
-   * @param taskId - identifier of task to check
+   * @param taskId - id of the task to check
    * @returns if task is failed
    */
   public isTaskFailed(taskId: TStringId): boolean {
-    const task: Optional<TaskObject> = this.tasksList.get(taskId);
+    return taskConfig.ACTIVE_TASKS.get(taskId)?.isFailed() === true;
+  }
 
-    if (task === null) {
-      return false;
-    } else {
-      const taskState: Optional<ETaskState> = task.checkTaskState();
+  /**
+   * @param taskId - id of the task to check
+   * @returns if task is completed
+   */
+  public isTaskCompleted(taskId: TStringId): boolean {
+    return taskConfig.ACTIVE_TASKS.get(taskId)?.isCompleted() === true;
+  }
 
-      return taskState === ETaskState.FAIL || taskState === ETaskState.REVERSED;
-    }
+  /**
+   * Give actor task and put it in the tasks list.
+   *
+   * @param taskId - id of the tasks to give for the actor
+   */
+  public giveTask(taskId: TStringId): void {
+    assert(
+      taskConfig.AVAILABLE_TASKS.has(taskId),
+      "There is no task '%s' in task_manager config or ini file is not included.",
+      taskId
+    );
+
+    const task: TaskObject = new TaskObject(taskId, TASK_MANAGER_CONFIG_LTX);
+
+    taskConfig.ACTIVE_TASKS.set(taskId, task);
+
+    task.onActivate();
   }
 
   /**
    * todo: Description.
+   *
+   * Fired from game callback event.
    */
   public onTaskStateUpdate(taskObject: GameTask, state: TTaskState): void {
     const taskId: TStringId = taskObject.get_id();
@@ -120,9 +90,11 @@ export class TaskManager extends AbstractManager {
     }
 
     if (state === task.fail || state === task.completed) {
-      if (this.tasksList.has(taskId)) {
-        this.tasksList.get(taskId).deactivateTask(taskObject);
-        this.tasksList.delete(taskId);
+      const activeTask: Optional<TaskObject> = taskConfig.ACTIVE_TASKS.get(taskId) as Optional<TaskObject>;
+
+      if (activeTask) {
+        activeTask.onDeactivate(taskObject);
+        taskConfig.ACTIVE_TASKS.delete(taskId);
       }
     }
   }
@@ -130,13 +102,13 @@ export class TaskManager extends AbstractManager {
   public override save(packet: NetPacket): void {
     openSaveMarker(packet, TaskManager.name);
 
-    const count: TCount = table.size(this.tasksList);
+    const count: TCount = table.size(taskConfig.ACTIVE_TASKS);
 
     packet.w_u16(count);
 
-    for (const [k, v] of this.tasksList) {
-      packet.w_stringZ(k);
-      this.tasksList.get(k).save(packet);
+    for (const [section, task] of taskConfig.ACTIVE_TASKS) {
+      packet.w_stringZ(section);
+      task.save(packet);
     }
 
     closeSaveMarker(packet, TaskManager.name);
@@ -145,14 +117,18 @@ export class TaskManager extends AbstractManager {
   public override load(reader: NetProcessor): void {
     openLoadMarker(reader, TaskManager.name);
 
+    // Clean up tasks list since loading new info.
+    taskConfig.ACTIVE_TASKS = new LuaTable();
+
     const count: TCount = reader.r_u16();
 
-    for (const it of $range(1, count)) {
+    for (const _ of $range(1, count)) {
       const id: TStringId = reader.r_stringZ();
-      const object: TaskObject = new TaskObject(TASK_MANAGER_CONFIG_LTX, id);
+      const object: TaskObject = new TaskObject(id, TASK_MANAGER_CONFIG_LTX);
 
       object.load(reader);
-      this.tasksList.set(id, object);
+
+      taskConfig.ACTIVE_TASKS.set(id, object);
     }
 
     closeLoadMarker(reader, TaskManager.name);
