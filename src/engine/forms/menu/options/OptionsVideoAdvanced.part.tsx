@@ -21,6 +21,32 @@ export function OptionsVideoAdvanced(): JSXNode {
 
       <templ_item width="360" height="30" />
 
+      <cap_fps_limit x="16" y="3" width="108" height="24">
+        <text r="170" g="170" b="170" font="letterica16" align="r" vert_align="c">
+          ui_mm_fps_limit
+        </text>
+      </cap_fps_limit>
+
+      <track_fps_limit x="144" y="5" width="160" height="20" min="30" max="501" step="1" is_integer="1">
+        <options_item entry="rs_fps_limit" group="mm_opt_video" />
+        <output_wnd x="165" y="0" width="20" height="20">
+          <text r="170" g="170" b="170" font="letterica16" align="r" vert_align="c"></text>
+        </output_wnd>
+      </track_fps_limit>
+
+      <cap_fps_limit_in_menu x="16" y="3" width="108" height="24">
+        <text r="170" g="170" b="170" font="letterica16" align="r" vert_align="c">
+          ui_mm_fps_limit_in_menu
+        </text>
+      </cap_fps_limit_in_menu>
+
+      <track_fps_limit_in_menu x="144" y="5" width="160" height="20" min="30" max="501" step="1" is_integer="1">
+        <options_item entry="rs_fps_limit_in_menu" group="mm_opt_video" />
+        <output_wnd x="165" y="0" width="20" height="20">
+          <text r="170" g="170" b="170" font="letterica16" align="r" vert_align="c"></text>
+        </output_wnd>
+      </track_fps_limit_in_menu>
+
       <cap_vis_dist x="16" y="3" width="108" height="24">
         <text r="170" g="170" b="170" font="letterica16" align="r" vert_align="c">
           ui_mm_vis_distance
@@ -44,9 +70,30 @@ export function OptionsVideoAdvanced(): JSXNode {
           ui_mm_detail_density
         </text>
       </cap_detail_density>
-      <track_detail_density x="144" y="6" width="188" height="16" step="0.02" invert="1">
-        <options_item entry="r__detail_density" group="mm_opt_video_adv" />
+      <track_detail_density x="144" y="6" width="188" height="16" step={0.02} min={0.1} max={0.99} invert={1}>
+        <options_item entry="r__detail_density" group="mm_opt_video_adv" depend="vid" />
       </track_detail_density>
+
+      <cap_detail_height x="16" y="3" width="108" height="24">
+        <text r="170" g="170" b="170" font="letterica16" align="r" vert_align="c">
+          ui_mm_detail_height
+        </text>
+      </cap_detail_height>
+      <track_detail_height x="144" y="6" width="188" height="16" step={0.1} min={1} max={2}>
+        <options_item entry="r__detail_height" group="mm_opt_video_adv" depend="vid" />
+      </track_detail_height>
+
+      <cap_detail_radius x="16" y="3" width="108" height="24">
+        <text r="170" g="170" b="170" font="letterica16" align="r" vert_align="c">
+          ui_mm_detail_radius
+        </text>
+      </cap_detail_radius>
+      <track_detail_radius x="144" y="5" width="160" height="20" step={1} min={50} max={300} is_integer={1}>
+        <options_item entry="r__detail_radius" group="mm_opt_video_adv" depend="vid" />
+        <output_wnd x="165" y="0" width="20" height="20">
+          <text r="170" g="170" b="170" font="letterica16" align="r" vert_align="c"></text>
+        </output_wnd>
+      </track_detail_radius>
 
       <cap_texture_lod x="16" y="3" width="108" height="24">
         <text r="170" g="170" b="170" font="letterica16" align="r" vert_align="c">
@@ -194,32 +241,6 @@ export function OptionsVideoAdvanced(): JSXNode {
         <texture>ui_inGame2_checkbox</texture>
         <options_item entry="rs_v_sync" group="mm_opt_video_adv" depend="vid" />
       </check_vsync>
-
-      <cap_fps_limit x="16" y="3" width="108" height="24">
-        <text r="170" g="170" b="170" font="letterica16" align="r" vert_align="c">
-          ui_mm_fps_limit
-        </text>
-      </cap_fps_limit>
-
-      <track_fps_limit x="144" y="5" width="160" height="20" min="30" max="501" step="1" is_integer="1">
-        <options_item entry="rs_fps_limit" group="mm_opt_video" />
-        <output_wnd x="165" y="0" width="20" height="20">
-          <text r="170" g="170" b="170" font="letterica16" align="r" vert_align="c"></text>
-        </output_wnd>
-      </track_fps_limit>
-
-      <cap_fps_limit_in_menu x="16" y="3" width="108" height="24">
-        <text r="170" g="170" b="170" font="letterica16" align="r" vert_align="c">
-          ui_mm_fps_limit_in_menu
-        </text>
-      </cap_fps_limit_in_menu>
-
-      <track_fps_limit_in_menu x="144" y="5" width="160" height="20" min="30" max="501" step="1" is_integer="1">
-        <options_item entry="rs_fps_limit_in_menu" group="mm_opt_video" />
-        <output_wnd x="165" y="0" width="20" height="20">
-          <text r="170" g="170" b="170" font="letterica16" align="r" vert_align="c"></text>
-        </output_wnd>
-      </track_fps_limit_in_menu>
 
       <cap_sun_shafts x="16" y="3" width="108" height="24">
         <text r="170" g="170" b="170" font="letterica16" align="r" vert_align="c">

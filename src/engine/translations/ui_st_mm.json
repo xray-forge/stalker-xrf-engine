@@ -1589,6 +1589,26 @@
     "spa": "Detalle de la hierba",
     "ukr": "Щільність трави"
   },
+  "ui_mm_detail_height": {
+    "eng": "Grass detail height",
+    "fra": "Hauteur de détail de l'herbe",
+    "ger": "Höhe der Grasdetails",
+    "ita": "Altezza dettaglio erba",
+    "pol": "Wysokość szczegółów trawy",
+    "rus": "Высота детализации травы",
+    "spa": "Altura del detalle del césped",
+    "ukr": "Висота деталізації трави"
+  },
+  "ui_mm_detail_radius": {
+    "eng": "Grass detail radius",
+    "fra": "Rayon de détail de l'herbe",
+    "ger": "Grasdetailradius",
+    "ita": "Raggio dettaglio erba",
+    "pol": "Odlegіoњж rys. trawy",
+    "rus": "Дальность прор. травы",
+    "spa": "Radio de detalle del césped",
+    "ukr": "Дальність деталізації трави"
+  },
   "ui_mm_difficulty": {
     "eng": "Difficulty",
     "fra": "Difficulté",

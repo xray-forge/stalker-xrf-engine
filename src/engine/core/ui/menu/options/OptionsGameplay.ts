@@ -12,6 +12,11 @@ const logger: LuaLogger = new LuaLogger($filename);
 export class OptionsGameplay extends CUIWindow {
   public uiScrollView!: CUIScrollView;
 
+  public constructor() {
+    super();
+    this.SetWindowName(this.__name);
+  }
+
   public initialize(x: number, y: number, xml: CScriptXmlInit, owner: OptionsDialog): void {
     this.uiScrollView = xml.InitScrollView("tab_gameplay:scroll_v", this);
 

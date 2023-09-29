@@ -69,6 +69,8 @@ export class OptionsDialog extends CUIScriptWnd {
   public constructor(owner: CUIScriptWnd) {
     super();
 
+    this.SetWindowName(this.__name);
+
     this.owner = owner;
 
     this.initializeControls();

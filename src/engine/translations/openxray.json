@@ -99,16 +99,6 @@
     "spa": "Siempre activo",
     "ukr": "Завжди активний"
   },
-  "ui_mm_detail_radius": {
-    "eng": "Grass detail radius",
-    "fra": "Rayon de détail de l'herbe",
-    "ger": "Grasdetailradius",
-    "ita": "Raggio dettaglio erba",
-    "pol": "Odlegіoњж rys. trawy",
-    "rus": "Дальность прор. травы",
-    "spa": "Radio de detalle del césped",
-    "ukr": "Дальность деталізації трави"
-  },
   "ui_mm_ui_style": {
     "eng": "Interface style",
     "fra": "Style d'interface",

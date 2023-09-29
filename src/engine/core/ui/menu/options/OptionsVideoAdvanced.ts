@@ -13,6 +13,11 @@ const logger: LuaLogger = new LuaLogger($filename);
 export class OptionsVideoAdvanced extends CUIWindow {
   public scrollView!: CUIScrollView;
 
+  public constructor() {
+    super();
+    this.SetWindowName(this.__name);
+  }
+
   public initialize(x: number, y: number, xml: CScriptXmlInit, owner: OptionsDialog): void {
     this.SetWndPos(new vector2().set(x, y));
     this.SetWndSize(new vector2().set(738, 416));
@@ -20,6 +25,16 @@ export class OptionsVideoAdvanced extends CUIWindow {
     this.SetAutoDelete(true);
 
     this.scrollView = xml.InitScrollView("video_adv:scroll_v", this);
+
+    const fpsLimitInGame: CUIStatic = xml.InitStatic("video_adv:templ_item", this.scrollView);
+
+    xml.InitStatic("video_adv:cap_fps_limit", fpsLimitInGame);
+    xml.InitTrackBar("video_adv:track_fps_limit", fpsLimitInGame);
+
+    const fpsLimitInMenu: CUIStatic = xml.InitStatic("video_adv:templ_item", this.scrollView);
+
+    xml.InitStatic("video_adv:cap_fps_limit_in_menu", fpsLimitInMenu);
+    xml.InitTrackBar("video_adv:track_fps_limit_in_menu", fpsLimitInMenu);
 
     const visibilityDistance = xml.InitStatic("video_adv:templ_item", this.scrollView);
 
@@ -61,6 +76,16 @@ export class OptionsVideoAdvanced extends CUIWindow {
 
     xml.InitStatic("video_adv:cap_detail_density", detailDensity);
     xml.InitTrackBar("video_adv:track_detail_density", detailDensity);
+
+    const detailHeight = xml.InitStatic("video_adv:templ_item", this.scrollView);
+
+    xml.InitStatic("video_adv:cap_detail_height", detailHeight);
+    xml.InitTrackBar("video_adv:track_detail_height", detailHeight);
+
+    const detailRadius = xml.InitStatic("video_adv:templ_item", this.scrollView);
+
+    xml.InitStatic("video_adv:cap_detail_radius", detailRadius);
+    xml.InitTrackBar("video_adv:track_detail_radius", detailRadius);
 
     const r2Sun = xml.InitStatic("video_adv:templ_item", this.scrollView);
 
@@ -243,16 +268,6 @@ export class OptionsVideoAdvanced extends CUIWindow {
 
     xml.InitStatic("video_adv:cap_vsync", vSyncSetting);
     xml.InitCheck("video_adv:check_vsync", vSyncSetting);
-
-    const fpsLimitInGame: CUIStatic = xml.InitStatic("video_adv:templ_item", this.scrollView);
-
-    xml.InitStatic("video_adv:cap_fps_limit", fpsLimitInGame);
-    xml.InitTrackBar("video_adv:track_fps_limit", fpsLimitInGame);
-
-    const fpsLimitInMenu: CUIStatic = xml.InitStatic("video_adv:templ_item", this.scrollView);
-
-    xml.InitStatic("video_adv:cap_fps_limit_in_menu", fpsLimitInMenu);
-    xml.InitTrackBar("video_adv:track_fps_limit_in_menu", fpsLimitInMenu);
 
     /*
      *  _st = xml:InitStatic("video_adv:templ_item", nil)

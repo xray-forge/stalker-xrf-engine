@@ -10,6 +10,11 @@ const logger: LuaLogger = new LuaLogger($filename);
  */
 @LuabindClass()
 export class OptionsControls extends CUIWindow {
+  public constructor() {
+    super();
+    this.SetWindowName(this.__name);
+  }
+
   public initialize(x: number, y: number, xml: CScriptXmlInit, owner: OptionsDialog): void {
     this.SetWndPos(new vector2().set(x, y));
     this.SetWndSize(new vector2().set(738, 416));
