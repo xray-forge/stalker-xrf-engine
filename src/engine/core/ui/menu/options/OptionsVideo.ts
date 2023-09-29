@@ -23,9 +23,6 @@ export class OptionsVideo extends CUIWindow {
 
     // --	this.bk = xml.InitFrame			("frame", this)
 
-    xml.InitStatic("tab_video:cap_fullscreen", this);
-    xml.InitCheck("tab_video:check_fullscreen", this);
-
     xml.InitStatic("tab_video:cap_brightness", this);
     xml.InitTrackBar("tab_video:track_brightness", this);
 
@@ -34,6 +31,9 @@ export class OptionsVideo extends CUIWindow {
 
     xml.InitStatic("tab_video:cap_gamma", this);
     xml.InitTrackBar("tab_video:track_gamma", this);
+
+    xml.InitStatic("tab_video:cap_window_mode", this);
+    xml.InitComboBox("tab_video:list_window_mode", this);
 
     xml.InitStatic("tab_video:cap_resolution", this);
     xml.InitComboBox("tab_video:list_resolution", this);

@@ -1689,6 +1689,56 @@
     "spa": "Pantalla completa",
     "ukr": "Повний екран"
   },
+  "ui_mm_window_mode": {
+    "eng": "Window mode",
+    "fra": null,
+    "ger": null,
+    "ita": null,
+    "pol": null,
+    "rus": null,
+    "spa": null,
+    "ukr": null
+  },
+  "st_opt_windowed": {
+    "eng": "Windowed",
+    "fra": null,
+    "ger": null,
+    "ita": null,
+    "pol": null,
+    "rus": null,
+    "spa": null,
+    "ukr": null
+  },
+  "st_opt_windowed_borderless": {
+    "eng": "Windowed borderless",
+    "fra": null,
+    "ger": null,
+    "ita": null,
+    "pol": null,
+    "rus": null,
+    "spa": null,
+    "ukr": null
+  },
+  "st_opt_fullscreen": {
+    "eng": "Fullscreen",
+    "fra": null,
+    "ger": null,
+    "ita": null,
+    "pol": null,
+    "rus": null,
+    "spa": null,
+    "ukr": null
+  },
+  "st_opt_fullscreen_borderless": {
+    "eng": "Fullscreen (fast Alt+Tab)",
+    "fra": null,
+    "ger": null,
+    "ita": null,
+    "pol": null,
+    "rus": null,
+    "spa": null,
+    "ukr": null
+  },
   "ui_mm_gameplay": {
     "eng": "Game",
     "fra": "Partie",
