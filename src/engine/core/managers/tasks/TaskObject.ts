@@ -35,6 +35,7 @@ import {
   TLabel,
   TName,
   TNumberId,
+  TRate,
   TStringId,
   TTimestamp,
 } from "@/engine/lib/types";
@@ -42,20 +43,19 @@ import {
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Task object representation containing all the logics built over C task.
+ * Handles rewards / conditions / side effects from tasks.
  */
 export class TaskObject {
   public readonly id: TStringId;
 
   public task: Optional<GameTask> = null;
-  /**
-   * Task state in list: selected or not.
-   */
+  // Task state in list: selected or not.
   public status: ETaskStatus;
   public state: Optional<ETaskState> = null;
 
   public initializedAt: Optional<Time> = null;
-  public lastCheckedAt: Optional<TTimestamp> = null;
+  public nextUpdateAt: TTimestamp = 0;
 
   public title: TLabel;
   public currentTitle: Optional<TLabel> = null;
@@ -79,8 +79,8 @@ export class TaskObject {
   public communityRelationDeltaComplete: number;
 
   public icon: TName;
-  public priority: number;
-  public spot: string;
+  public priority: TRate;
+  public spot: TLabel;
 
   public conditionLists: LuaArray<TConditionList>;
 
@@ -140,7 +140,9 @@ export class TaskObject {
    * @returns whether task is completed
    */
   public isCompleted(): boolean {
-    return this.update() === ETaskState.COMPLETED;
+    this.update();
+
+    return this.state === ETaskState.COMPLETED;
   }
 
   /**
@@ -167,11 +169,7 @@ export class TaskObject {
   public update(): Optional<ETaskState> {
     const now: TTimestamp = time_global();
 
-    if (
-      this.lastCheckedAt !== null &&
-      this.state !== null &&
-      now - this.lastCheckedAt <= taskConfig.UPDATE_CHECK_PERIOD
-    ) {
+    if (this.state && this.nextUpdateAt <= now) {
       return this.state;
     }
 
@@ -181,7 +179,7 @@ export class TaskObject {
       return this.state;
     }
 
-    this.lastCheckedAt = now;
+    this.nextUpdateAt = now + taskConfig.UPDATE_CHECK_PERIOD;
 
     const taskFunctors: AnyCallablesModule = getExtern<AnyCallablesModule>("task_functors");
     const nextTitle: TLabel = taskFunctors[this.titleGetterFunctorName](this.id, "title", this.title);
@@ -203,12 +201,11 @@ export class TaskObject {
       if (this.currentTargetId === null) {
         isTaskUpdated = true;
         this.task.change_map_location(this.spot, nextTargetId);
-
-        if (this.isStorylineTask) {
-          level.map_add_object_spot(nextTargetId, "ui_storyline_task_blink", "");
-        } else {
-          level.map_add_object_spot(nextTargetId, "ui_secondary_task_blink", "");
-        }
+        level.map_add_object_spot(
+          nextTargetId,
+          this.isStorylineTask ? "ui_storyline_task_blink" : "ui_secondary_task_blink",
+          ""
+        );
       } else {
         if (nextTargetId === null) {
           this.task.remove_map_locations(false);
@@ -252,14 +249,17 @@ export class TaskObject {
   }
 
   /**
-   * todo: Description.
+   * Update direction guiding based on current level and quest target.
+   * If quest target is on another level, point to guider to navigate over location.
+   *
+   * @param targetId - task object target id, used for getting direction
    */
-  public updateLevelDirection(target: Optional<TNumberId>): void {
-    if (!target || !registry.actor.is_active_task(this.task as GameTask)) {
+  public updateLevelDirection(targetId: Optional<TNumberId>): void {
+    if (!targetId || !registry.actor.is_active_task(this.task as GameTask)) {
       return;
     }
 
-    const alifeObject: Optional<ServerObject> = registry.simulator.object(target);
+    const alifeObject: Optional<ServerObject> = registry.simulator.object(targetId);
 
     if (alifeObject !== null) {
       const levelName: TLevel = level.name();
@@ -323,7 +323,6 @@ export class TaskObject {
    */
   public onDeactivate(task: GameTask): void {
     logger.info("Deactivate task:", this.title, this.state);
-    this.lastCheckedAt = null;
 
     switch (this.state) {
       case ETaskState.FAIL:
@@ -344,6 +343,7 @@ export class TaskObject {
         break;
     }
 
+    this.nextUpdateAt = 0;
     this.state = null;
     this.status = ETaskStatus.NORMAL;
   }
