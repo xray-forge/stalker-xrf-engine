@@ -10,13 +10,13 @@ import {
 } from "xray16";
 
 import {
-  only1mode,
-  only25andMoreMode,
-  only2aAndMoreMode,
-  only2andMoreMode,
-  only3andMoreMode,
-  only3andMoreModeInvisible,
-  only3andMoreModeVisible,
+  preconditionOnly1mode,
+  preconditionOnly25andLessModeVisible,
+  preconditionOnly25andMoreMode,
+  preconditionOnly2aAndMoreMode,
+  preconditionOnly2andMoreMode,
+  preconditionOnly3andMoreMode,
+  preconditionOnly3andMoreModeVisible,
 } from "@/engine/core/ui/menu/options/options_preconditions";
 import { OptionsDialog } from "@/engine/core/ui/menu/options/OptionsDialog";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -66,13 +66,13 @@ export class OptionsVideoAdvanced extends CUIWindow {
 
     owner.uiSSamplingTrackBar = sSamplingTrack;
     owner.Register(sSamplingTrack, "trb_ssample");
-    owner.preconditions.set(sSamplingTrack, only3andMoreModeInvisible);
+    owner.preconditions.set(sSamplingTrack, preconditionOnly25andLessModeVisible);
 
     const sSamplingComboBox: CUIComboBox = xml.InitComboBox("video_adv:combo_ssample", sSampling);
 
     owner.uiSSamplingComboBox = sSamplingComboBox;
     owner.Register(sSamplingComboBox, "cb_ssample");
-    owner.preconditions.set(sSamplingComboBox, only3andMoreModeVisible);
+    owner.preconditions.set(sSamplingComboBox, preconditionOnly3andMoreModeVisible);
 
     this.createTrackBar(xml, this.scrollView, "video_adv:cap_detail_density", "video_adv:track_detail_density");
     this.createTrackBar(xml, this.scrollView, "video_adv:cap_detail_height", "video_adv:track_detail_height");
@@ -84,7 +84,7 @@ export class OptionsVideoAdvanced extends CUIWindow {
 
     const r2SunCheck: CUIStatic = xml.InitCheck("video_adv:check_r2_sun", r2Sun);
 
-    owner.preconditions.set(r2SunCheck, only2andMoreMode);
+    owner.preconditions.set(r2SunCheck, preconditionOnly2andMoreMode);
 
     const lightDistance: CUIStatic = xml.InitStatic("video_adv:templ_item", this.scrollView);
 
@@ -92,7 +92,7 @@ export class OptionsVideoAdvanced extends CUIWindow {
 
     const lightDistanceTrack: CUITrackBar = xml.InitTrackBar("video_adv:track_light_distance", lightDistance);
 
-    owner.preconditions.set(lightDistanceTrack, only2aAndMoreMode);
+    owner.preconditions.set(lightDistanceTrack, preconditionOnly2aAndMoreMode);
 
     const particlesDistance: CUIStatic = xml.InitStatic("video_adv:templ_item", this.scrollView);
 
@@ -103,7 +103,7 @@ export class OptionsVideoAdvanced extends CUIWindow {
       particlesDistance
     );
 
-    owner.preconditions.set(particlesDistanceTrackBar, only2aAndMoreMode);
+    owner.preconditions.set(particlesDistanceTrackBar, preconditionOnly2aAndMoreMode);
 
     /*
      *  _st = xml:InitStatic("video_adv:templ_item", nil)
@@ -124,7 +124,7 @@ export class OptionsVideoAdvanced extends CUIWindow {
 
     const detailedTexturesCheck = xml.InitCheck("video_adv:check_r1_detail_textures", detailedTextures);
 
-    owner.preconditions.set(detailedTexturesCheck, only1mode);
+    owner.preconditions.set(detailedTexturesCheck, preconditionOnly1mode);
 
     // -- r2_detail_bump			=>r2
     const detailedBump = xml.InitStatic("video_adv:templ_item", this.scrollView);
@@ -133,7 +133,7 @@ export class OptionsVideoAdvanced extends CUIWindow {
 
     const detailedBumpCheck = xml.InitCheck("video_adv:check_r2_detail_bump", detailedBump);
 
-    owner.preconditions.set(detailedBumpCheck, only2andMoreMode);
+    owner.preconditions.set(detailedBumpCheck, preconditionOnly2andMoreMode);
 
     // -- r2_steep_parallax		>r2
     const steepParallax = xml.InitStatic("video_adv:templ_item", this.scrollView);
@@ -142,7 +142,7 @@ export class OptionsVideoAdvanced extends CUIWindow {
 
     const steepParallaxCheck = xml.InitCheck("video_adv:check_r2_steep_parallax", steepParallax);
 
-    owner.preconditions.set(steepParallaxCheck, only25andMoreMode);
+    owner.preconditions.set(steepParallaxCheck, preconditionOnly25andMoreMode);
 
     const sunQuality = xml.InitStatic("video_adv:templ_item", this.scrollView);
 
@@ -150,7 +150,7 @@ export class OptionsVideoAdvanced extends CUIWindow {
 
     const sunQualitySelect = xml.InitComboBox("video_adv:list_r2_sun_quality", sunQuality);
 
-    owner.preconditions.set(sunQualitySelect, only25andMoreMode);
+    owner.preconditions.set(sunQualitySelect, preconditionOnly25andMoreMode);
 
     const sunShafts = xml.InitStatic("video_adv:templ_item", this.scrollView);
 
@@ -158,7 +158,7 @@ export class OptionsVideoAdvanced extends CUIWindow {
 
     const sunShaftsSelect = xml.InitComboBox("video_adv:combo_sun_shafts", sunShafts);
 
-    owner.preconditions.set(sunShaftsSelect, only25andMoreMode);
+    owner.preconditions.set(sunShaftsSelect, preconditionOnly25andMoreMode);
 
     const ao = xml.InitStatic("video_adv:templ_item", this.scrollView);
 
@@ -167,7 +167,7 @@ export class OptionsVideoAdvanced extends CUIWindow {
 
     const aoTab = xml.InitTab("video_adv:radio_tab_ao_options", ao);
 
-    owner.preconditions.set(aoTab, only25andMoreMode);
+    owner.preconditions.set(aoTab, preconditionOnly25andMoreMode);
 
     const ssao = xml.InitStatic("video_adv:templ_item", this.scrollView);
 
@@ -175,7 +175,7 @@ export class OptionsVideoAdvanced extends CUIWindow {
 
     const ssaoSelect = xml.InitComboBox("video_adv:combo_ssao", ssao);
 
-    owner.preconditions.set(ssaoSelect, only25andMoreMode);
+    owner.preconditions.set(ssaoSelect, preconditionOnly25andMoreMode);
 
     const softWater = xml.InitStatic("video_adv:templ_item", this.scrollView);
 
@@ -183,7 +183,7 @@ export class OptionsVideoAdvanced extends CUIWindow {
 
     const softWaterCheck = xml.InitCheck("video_adv:check_soft_water", softWater);
 
-    owner.preconditions.set(softWaterCheck, only25andMoreMode);
+    owner.preconditions.set(softWaterCheck, preconditionOnly25andMoreMode);
 
     const softParticles = xml.InitStatic("video_adv:templ_item", this.scrollView);
 
@@ -191,7 +191,7 @@ export class OptionsVideoAdvanced extends CUIWindow {
 
     const softParticlesCheck = xml.InitCheck("video_adv:check_soft_particles", softParticles);
 
-    owner.preconditions.set(softParticlesCheck, only25andMoreMode);
+    owner.preconditions.set(softParticlesCheck, preconditionOnly25andMoreMode);
 
     const dof = xml.InitStatic("video_adv:templ_item", this.scrollView);
 
@@ -199,7 +199,7 @@ export class OptionsVideoAdvanced extends CUIWindow {
 
     const dofCheck = xml.InitCheck("video_adv:check_dof", dof);
 
-    owner.preconditions.set(dofCheck, only25andMoreMode);
+    owner.preconditions.set(dofCheck, preconditionOnly25andMoreMode);
 
     const volumetricLight = xml.InitStatic("video_adv:templ_item", this.scrollView);
 
@@ -207,7 +207,7 @@ export class OptionsVideoAdvanced extends CUIWindow {
 
     const volumetricLightCheck = xml.InitCheck("video_adv:check_volumetric_light", volumetricLight);
 
-    owner.preconditions.set(volumetricLightCheck, only25andMoreMode);
+    owner.preconditions.set(volumetricLightCheck, preconditionOnly25andMoreMode);
 
     // -- r3_dynamic_wet_surfaces	>r25
     const wetSurfaces = xml.InitStatic("video_adv:templ_item", this.scrollView);
@@ -216,7 +216,7 @@ export class OptionsVideoAdvanced extends CUIWindow {
 
     const wetSurfacesCheck = xml.InitCheck("video_adv:check_r3_dynamic_wet_surfaces", wetSurfaces);
 
-    owner.preconditions.set(wetSurfacesCheck, only3andMoreMode);
+    owner.preconditions.set(wetSurfacesCheck, preconditionOnly3andMoreMode);
 
     /*
      *
@@ -240,7 +240,7 @@ export class OptionsVideoAdvanced extends CUIWindow {
 
     const volumetricSmokeCheck = xml.InitCheck("video_adv:check_r3_volumetric_smoke", volumetricSmoke);
 
-    owner.preconditions.set(volumetricSmokeCheck, only3andMoreMode);
+    owner.preconditions.set(volumetricSmokeCheck, preconditionOnly3andMoreMode);
 
     /*
      *  _st = xml:InitStatic("video_adv:templ_item", nil)

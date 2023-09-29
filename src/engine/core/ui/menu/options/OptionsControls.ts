@@ -6,7 +6,7 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Controls section from option menu.
  */
 @LuabindClass()
 export class OptionsControls extends CUIWindow {

@@ -1,11 +1,12 @@
-import { CScriptXmlInit, CUIWindow, LuabindClass, vector2 } from "xray16";
+import { CScriptXmlInit, CUIWindow, LuabindClass } from "xray16";
 
 import { LuaLogger } from "@/engine/core/utils/logging";
+import { create2dVector } from "@/engine/core/utils/vector";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Sound section from option menu.
  */
 @LuabindClass()
 export class OptionsSound extends CUIWindow {
@@ -15,8 +16,8 @@ export class OptionsSound extends CUIWindow {
   }
 
   public initialize(x: number, y: number, xml: CScriptXmlInit): void {
-    this.SetWndPos(new vector2().set(x, y));
-    this.SetWndSize(new vector2().set(738, 416));
+    this.SetWndPos(create2dVector(x, y));
+    this.SetWndSize(create2dVector(738, 416));
     this.SetAutoDelete(true);
 
     // -- this.bk = xml.InitFrame("frame", this)
