@@ -12,7 +12,6 @@ All commands are using `ts-node` and simply can be called with `npm run cli $NAM
 - [open](open/README.md)
 - [pack](pack/README.md)
 - [parse](parse/README.md)
-- [preview](preview/README.md)
 - [start](start/README.md)
 - [test](test/README.md)
 - [utils](utils/README.md)
