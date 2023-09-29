@@ -1,7 +1,7 @@
 import { jest } from "@jest/globals";
 
 import { Optional } from "@/engine/lib/types";
-import { MockCUIGameCustom } from "@/fixtures/xray";
+import { MockCUIGameCustom } from "@/fixtures/xray/mocks/objects/ui/CUIGameCustom.mock";
 
 let mockHudSingleton: Optional<MockCUIGameCustom> = null;
 

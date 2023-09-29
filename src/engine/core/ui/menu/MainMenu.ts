@@ -21,10 +21,11 @@ import { EventsManager } from "@/engine/core/managers/events/EventsManager";
 import { DebugDialog } from "@/engine/core/ui/debug/DebugDialog";
 import { ExtensionsDialog } from "@/engine/core/ui/menu/extensions/ExtensionsDialog";
 import { LoadDialog } from "@/engine/core/ui/menu/load/LoadDialog";
+import { EMainMenuModalMode } from "@/engine/core/ui/menu/menu_types";
 import { MultiplayerMenu } from "@/engine/core/ui/menu/multiplayer/MultiplayerMenu";
 import { MultiplayerGameSpy } from "@/engine/core/ui/menu/multiplayer_login/MultiplayerGamespy";
 import { MultiplayerLocalnet } from "@/engine/core/ui/menu/multiplayer_login/MultiplayerLocalnet";
-import { OptionsDialog } from "@/engine/core/ui/menu/options/OptionsDialog";
+import { Options } from "@/engine/core/ui/menu/options/Options";
 import { SaveDialog } from "@/engine/core/ui/menu/save/SaveDialog";
 import { executeConsoleCommand } from "@/engine/core/utils/console";
 import { loadLastGameSave, startNewGame } from "@/engine/core/utils/game_save";
@@ -52,12 +53,6 @@ const logger: LuaLogger = new LuaLogger($filename);
 
 export const base: TPath = "menu\\MainMenu.component";
 
-enum EMainMenuModalMode {
-  OFF,
-  ON,
-  CONFIRM_LOAD_SAVE,
-}
-
 /**
  * Main game menu component implementation.
  */
@@ -75,7 +70,7 @@ export class MainMenu extends CUIScriptWnd {
   public modalBoxMode: EMainMenuModalMode = EMainMenuModalMode.OFF;
 
   public uiMultiplayerMenuDialog: Optional<MultiplayerMenu> = null;
-  public uiGameOptionsDialog: Optional<OptionsDialog> = null;
+  public uiGameOptionsDialog: Optional<Options> = null;
   public uiGameSavesSaveDialog: Optional<SaveDialog> = null;
   public uiGameSavesLoadDialog: Optional<LoadDialog> = null;
   public uiLocalnetDialog: Optional<MultiplayerLocalnet> = null;
@@ -285,7 +280,7 @@ export class MainMenu extends CUIScriptWnd {
    */
   public onOptionsButtonClick(): void {
     if (this.uiGameOptionsDialog === null) {
-      this.uiGameOptionsDialog = new OptionsDialog(this);
+      this.uiGameOptionsDialog = new Options(this);
     }
 
     this.uiGameOptionsDialog.initializeState();

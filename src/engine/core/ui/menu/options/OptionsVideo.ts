@@ -1,7 +1,8 @@
 import { CScriptXmlInit, CUIWindow, LuabindClass, vector2 } from "xray16";
 
-import { OptionsDialog } from "@/engine/core/ui/menu/options/OptionsDialog";
+import { Options } from "@/engine/core/ui/menu/options/Options";
 import { LuaLogger } from "@/engine/core/utils/logging";
+import { create2dVector } from "@/engine/core/utils/vector";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -10,15 +11,17 @@ const logger: LuaLogger = new LuaLogger($filename);
  */
 @LuabindClass()
 export class OptionsVideo extends CUIWindow {
-  public initialize(x: number, y: number, xml: CScriptXmlInit, owner: OptionsDialog): void {
-    this.SetWndPos(new vector2().set(x, y));
-    this.SetWndSize(new vector2().set(738, 416));
+  public constructor() {
+    super();
+    this.SetWindowName(this.__name);
+  }
+
+  public initialize(x: number, y: number, xml: CScriptXmlInit, owner: Options): void {
+    this.SetWndPos(create2dVector(x, y));
+    this.SetWndSize(create2dVector(738, 416));
     this.SetAutoDelete(true);
 
     // --	this.bk = xml.InitFrame			("frame", this)
-
-    xml.InitStatic("tab_video:cap_fullscreen", this);
-    xml.InitCheck("tab_video:check_fullscreen", this);
 
     xml.InitStatic("tab_video:cap_brightness", this);
     xml.InitTrackBar("tab_video:track_brightness", this);
@@ -28,6 +31,9 @@ export class OptionsVideo extends CUIWindow {
 
     xml.InitStatic("tab_video:cap_gamma", this);
     xml.InitTrackBar("tab_video:track_gamma", this);
+
+    xml.InitStatic("tab_video:cap_window_mode", this);
+    xml.InitComboBox("tab_video:list_window_mode", this);
 
     xml.InitStatic("tab_video:cap_resolution", this);
     xml.InitComboBox("tab_video:list_resolution", this);

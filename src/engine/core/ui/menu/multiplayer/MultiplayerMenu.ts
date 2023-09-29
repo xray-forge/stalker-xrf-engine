@@ -11,7 +11,6 @@ import {
   CUIEditBoxEx,
   CUIMapList,
   CUIMessageBoxEx,
-  CUIProgressBar,
   CUIScriptWnd,
   CUISpinFlt,
   CUISpinNum,
@@ -37,13 +36,13 @@ import { MultiplayerJoin } from "@/engine/core/ui/menu/multiplayer/MultiplayerJo
 import { MultiplayerOptions } from "@/engine/core/ui/menu/multiplayer/MultiplayerOptions";
 import { MultiplayerProfile } from "@/engine/core/ui/menu/multiplayer/MultiplayerProfile";
 import { MultiplayerServer } from "@/engine/core/ui/menu/multiplayer/MultiplayerServer";
-import { EOptionGroup } from "@/engine/core/ui/menu/options/types";
+import { EOptionGroup } from "@/engine/core/ui/menu/options/options_types";
 import { executeConsoleCommand } from "@/engine/core/utils/console";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { resolveXmlFormPath } from "@/engine/core/utils/ui";
 import { gameConfig } from "@/engine/lib/configs/GameConfig";
 import { consoleCommands } from "@/engine/lib/constants/console_commands";
-import { Optional, PatchDownloadProgress, Profile, TKeyCode, TPath, TUIEvent } from "@/engine/lib/types";
+import { Optional, Profile, TKeyCode, TPath, TUIEvent } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 const baseOnline: TPath = "menu\\multiplayer\\MultiplayerOnline.component";
@@ -110,10 +109,6 @@ export class MultiplayerMenu extends CUIScriptWnd {
   public uiTabRespawn!: CUITabControl;
   public uiEditServerName!: CUIEditBoxEx;
   public uiEditPassword!: CUIEditBox;
-  public uiCapDownload!: CUIStatic;
-  public uiTextDownload!: CUIStatic;
-  public uiDownloadProgress!: CUIProgressBar;
-  public uiCancelDownloadButton!: CUI3tButton;
   public uiCreateButton!: CUI3tButton;
   public uiPlayDemoButton!: CUI3tButton;
   public uiJoinButton!: CUI3tButton;
@@ -214,12 +209,6 @@ export class MultiplayerMenu extends CUIScriptWnd {
     this.messageBox = new CUIMessageBoxEx();
     this.Register(this.messageBox, "msg_box");
 
-    this.uiCapDownload = xml.InitStatic("download_static", workArea);
-    this.uiTextDownload = xml.InitStatic("download_text", workArea);
-    this.uiDownloadProgress = xml.InitProgressBar("progress_download", workArea);
-    this.uiCancelDownloadButton = xml.Init3tButton("btn_cancel_download", workArea);
-    this.Register(this.uiCancelDownloadButton, "btn_cancel_download");
-
     const version: CUIStatic = xml.InitStatic("static_version", this);
     const mm: CMainMenu = main_menu.get_main_menu();
 
@@ -304,7 +293,6 @@ export class MultiplayerMenu extends CUIScriptWnd {
     this.AddCallback("edit_cd_key", ui_events.EDIT_TEXT_COMMIT, () => this.onCDKeyChanged(), this);
     this.AddCallback("edit_player_name", ui_events.EDIT_TEXT_COMMIT, () => this.onPlayerNameChanged(), this);
 
-    this.AddCallback("btn_cancel_download", ui_events.BUTTON_CLICKED, () => this.onDownloadCancelButtonClicked(), this);
     // -- demo playing
 
     this.AddCallback(
@@ -824,12 +812,6 @@ export class MultiplayerMenu extends CUIScriptWnd {
     this.uiServerList.ConnectToSelected();
   }
 
-  public onDownloadCancelButtonClicked(): void {
-    logger.info("Cancel download");
-
-    main_menu.get_main_menu().CancelDownload();
-  }
-
   public override OnKeyboard(key: TKeyCode, action: TUIEvent): boolean {
     super.OnKeyboard(key, action);
 
@@ -842,31 +824,5 @@ export class MultiplayerMenu extends CUIScriptWnd {
     }
 
     return true;
-  }
-
-  public override Update(): void {
-    super.Update();
-
-    const patchDownload: PatchDownloadProgress = main_menu.get_main_menu().GetPatchProgress();
-
-    if (patchDownload.GetInProgress()) {
-      this.uiTextDownload.Show(true);
-      this.uiCapDownload.Show(true);
-      this.uiDownloadProgress.Show(true);
-
-      const _progr: number = patchDownload.GetProgress();
-
-      this.uiDownloadProgress.SetProgressPos(_progr);
-
-      const str: string = string.format("%.0f%%(%s)", _progr, patchDownload.GetFlieName());
-
-      this.uiTextDownload.TextControl().SetText(str);
-      this.uiCancelDownloadButton.Show(true);
-    } else {
-      this.uiTextDownload.Show(false);
-      this.uiCapDownload.Show(false);
-      this.uiDownloadProgress.Show(false);
-      this.uiCancelDownloadButton.Show(false);
-    }
   }
 }
