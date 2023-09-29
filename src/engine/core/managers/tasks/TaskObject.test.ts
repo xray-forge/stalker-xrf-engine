@@ -22,7 +22,7 @@ describe("TaskObject class", () => {
     const sampleTaskId: string = "zat_b28_heli_3_crash";
     const taskObject: TaskObject = new TaskObject(sampleTaskId, TASK_MANAGER_CONFIG_LTX);
 
-    taskObject.onGive();
+    taskObject.onActivate();
 
     expect(registry.actor.give_task).toHaveBeenCalledTimes(1);
 
@@ -46,14 +46,14 @@ describe("TaskObject class", () => {
     expect(MockLuaTable.getMockSize(taskObject.conditionLists)).toBe(1);
     expect(taskObject.conditionLists.get(0)).toEqual(parseConditionsList("{+zat_b28_heli_3_searched} complete"));
 
-    expect(taskObject.gameTask).toBeDefined();
-    expect(taskObject.gameTask?.get_id()).toBe(sampleTaskId);
-    expect(taskObject.gameTask?.get_priority()).toBe(103);
-    expect(taskObject.gameTask?.get_title()).toBe("zat_b28_heli_3_crash_name");
-    expect(taskObject.gameTask?.get_description()).toBe("zat_b28_heli_3_crash_text");
-    expect(taskObject.gameTask?.get_icon_name()).toBe("ui_inGame2_Skat_3");
-    expect(taskObject.gameTask?.add_complete_func).toHaveBeenCalledWith("engine.is_task_completed");
-    expect(taskObject.gameTask?.add_fail_func).toHaveBeenCalledWith("engine.is_task_failed");
+    expect(taskObject.task).toBeDefined();
+    expect(taskObject.task?.get_id()).toBe(sampleTaskId);
+    expect(taskObject.task?.get_priority()).toBe(103);
+    expect(taskObject.task?.get_title()).toBe("zat_b28_heli_3_crash_name");
+    expect(taskObject.task?.get_description()).toBe("zat_b28_heli_3_crash_text");
+    expect(taskObject.task?.get_icon_name()).toBe("ui_inGame2_Skat_3");
+    expect(taskObject.task?.add_complete_func).toHaveBeenCalledWith("engine.is_task_completed");
+    expect(taskObject.task?.add_fail_func).toHaveBeenCalledWith("engine.is_task_failed");
   });
 
   it("should correctly load and save data", () => {
@@ -61,7 +61,7 @@ describe("TaskObject class", () => {
     const taskObject: TaskObject = new TaskObject(sampleTaskId, TASK_MANAGER_CONFIG_LTX);
     const netProcessor: MockNetProcessor = new MockNetProcessor();
 
-    taskObject.onGive();
+    taskObject.onActivate();
     taskObject.save(mockNetPacket(netProcessor));
 
     expect(netProcessor.writeDataOrder).toEqual([

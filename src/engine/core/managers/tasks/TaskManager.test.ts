@@ -139,16 +139,17 @@ describe("TaskManager class", () => {
 
     taskConfig.ACTIVE_TASKS.set("test_task", task);
 
-    jest.spyOn(task, "checkState").mockImplementation(() => ETaskState.COMPLETED);
+    jest.spyOn(task, "update").mockImplementation(() => ETaskState.COMPLETED);
     expect(taskManager.isTaskFailed("test_task")).toBeFalsy();
 
-    jest.spyOn(task, "checkState").mockImplementation(() => ETaskState.NEW);
+    jest.spyOn(task, "update").mockImplementation(() => ETaskState.NEW);
     expect(taskManager.isTaskFailed("test_task")).toBeFalsy();
 
-    jest.spyOn(task, "checkState").mockImplementation(() => ETaskState.FAIL);
+    task.state = ETaskState.FAIL;
+    jest.spyOn(task, "update").mockImplementation(() => ETaskState.FAIL);
     expect(taskManager.isTaskFailed("test_task")).toBeTruthy();
 
-    jest.spyOn(task, "checkState").mockImplementation(() => ETaskState.REVERSED);
+    jest.spyOn(task, "update").mockImplementation(() => ETaskState.REVERSED);
     expect(taskManager.isTaskFailed("test_task")).toBeTruthy();
   });
 
@@ -160,16 +161,16 @@ describe("TaskManager class", () => {
 
     taskConfig.ACTIVE_TASKS.set("test_task", task);
 
-    jest.spyOn(task, "checkState").mockImplementation(() => ETaskState.NEW);
+    jest.spyOn(task, "update").mockImplementation(() => ETaskState.NEW);
     expect(taskManager.isTaskCompleted("test_task")).toBeFalsy();
 
-    jest.spyOn(task, "checkState").mockImplementation(() => ETaskState.FAIL);
+    jest.spyOn(task, "update").mockImplementation(() => ETaskState.FAIL);
     expect(taskManager.isTaskCompleted("test_task")).toBeFalsy();
 
-    jest.spyOn(task, "checkState").mockImplementation(() => ETaskState.REVERSED);
+    jest.spyOn(task, "update").mockImplementation(() => ETaskState.REVERSED);
     expect(taskManager.isTaskCompleted("test_task")).toBeFalsy();
 
-    jest.spyOn(task, "checkState").mockImplementation(() => ETaskState.COMPLETED);
+    jest.spyOn(task, "update").mockImplementation(() => ETaskState.COMPLETED);
     expect(taskManager.isTaskCompleted("test_task")).toBeTruthy();
   });
 

@@ -1,10 +1,11 @@
 import { CGameTask, game, game_graph, level, task, time_global } from "xray16";
 
 import { closeLoadMarker, closeSaveMarker, openLoadMarker, openSaveMarker, registry } from "@/engine/core/database";
+import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { NotificationManager } from "@/engine/core/managers/notifications";
 import { taskConfig } from "@/engine/core/managers/tasks/TaskConfig";
 import { ETaskState, ETaskStatus, POSSIBLE_STATES } from "@/engine/core/managers/tasks/types";
-import { addGuiderSpot, removeGuiderSpot } from "@/engine/core/managers/tasks/utils";
+import { addGuiderSpot, giveTaskReward, removeGuiderSpot } from "@/engine/core/managers/tasks/utils";
 import { assertDefined } from "@/engine/core/utils/assertion";
 import { getExtern } from "@/engine/core/utils/binding";
 import {
@@ -46,7 +47,7 @@ const logger: LuaLogger = new LuaLogger($filename);
 export class TaskObject {
   public readonly id: TStringId;
 
-  public gameTask: Optional<GameTask> = null;
+  public task: Optional<GameTask> = null;
   /**
    * Task state in list: selected or not.
    */
@@ -136,9 +137,34 @@ export class TaskObject {
   }
 
   /**
-   * todo: Description.
+   * @returns whether task is completed
    */
-  public checkState(): Optional<ETaskState> {
+  public isCompleted(): boolean {
+    return this.update() === ETaskState.COMPLETED;
+  }
+
+  /**
+   * @returns whether task is failed
+   */
+  public isFailed(): boolean {
+    this.update();
+
+    return this.state === ETaskState.FAIL || this.state === ETaskState.REVERSED;
+  }
+
+  /**
+   * Reverse task from script.
+   * Sets state as reversed and lets other checks to do the job.
+   */
+  public reverse(): void {
+    this.state = ETaskState.REVERSED;
+  }
+
+  /**
+   * Update task state based on current game state.
+   * Throttles it because game engine does a lot of calls for tasks.
+   */
+  public update(): Optional<ETaskState> {
     const now: TTimestamp = time_global();
 
     if (
@@ -149,8 +175,8 @@ export class TaskObject {
       return this.state;
     }
 
-    if (this.gameTask === null) {
-      this.gameTask = registry.actor.get_task(this.id, true) as GameTask;
+    if (this.task === null) {
+      this.task = registry.actor.get_task(this.id, true) as GameTask;
 
       return this.state;
     }
@@ -164,7 +190,7 @@ export class TaskObject {
     if (this.currentTitle !== nextTitle) {
       isTaskUpdated = true;
       this.currentTitle = nextTitle;
-      this.gameTask.set_title(game.translate_string(nextTitle));
+      this.task.set_title(game.translate_string(nextTitle));
     }
 
     const nextTargetId: TNumberId = taskFunctors[this.targetGetterFunctorName](this.id, "target", this.target);
@@ -176,7 +202,7 @@ export class TaskObject {
 
       if (this.currentTargetId === null) {
         isTaskUpdated = true;
-        this.gameTask.change_map_location(this.spot, nextTargetId);
+        this.task.change_map_location(this.spot, nextTargetId);
 
         if (this.isStorylineTask) {
           level.map_add_object_spot(nextTargetId, "ui_storyline_task_blink", "");
@@ -185,7 +211,7 @@ export class TaskObject {
         }
       } else {
         if (nextTargetId === null) {
-          this.gameTask.remove_map_locations(false);
+          this.task.remove_map_locations(false);
           isTaskUpdated = true;
         } else {
           level.map_add_object_spot(
@@ -194,7 +220,7 @@ export class TaskObject {
             ""
           );
 
-          this.gameTask.change_map_location(this.spot, nextTargetId);
+          this.task.change_map_location(this.spot, nextTargetId);
           isTaskUpdated = true;
         }
       }
@@ -203,7 +229,7 @@ export class TaskObject {
     }
 
     if (isTaskUpdated && !this.isNotificationOnUpdateMuted) {
-      NotificationManager.getInstance().sendTaskNotification(ETaskState.UPDATED, this.gameTask);
+      NotificationManager.getInstance().sendTaskNotification(ETaskState.UPDATED, this.task);
     }
 
     for (const [, conditionList] of this.conditionLists) {
@@ -229,7 +255,7 @@ export class TaskObject {
    * todo: Description.
    */
   public updateLevelDirection(target: Optional<TNumberId>): void {
-    if (!target || !registry.actor.is_active_task(this.gameTask as GameTask)) {
+    if (!target || !registry.actor.is_active_task(this.task as GameTask)) {
       return;
     }
 
@@ -250,27 +276,16 @@ export class TaskObject {
   }
 
   /**
-   * todo: Description.
+   * Handle task activation - addition to current tasks list.
    */
-  public reverse(): void {
-    this.state = ETaskState.REVERSED;
-  }
+  public onActivate(): void {
+    logger.info("Activate task:", this.id);
 
-  /**
-   * todo: Description.
-   */
-  public onGive(): void {
     const gameTask: GameTask = new CGameTask();
 
     gameTask.set_id(tostring(this.id));
-
-    if (this.isStorylineTask) {
-      gameTask.set_type(task.storyline);
-    } else {
-      gameTask.set_type(task.additional);
-    }
-
-    gameTask.set_title(this.currentTitle!);
+    gameTask.set_type(this.isStorylineTask ? task.storyline : task.additional);
+    gameTask.set_title(this.currentTitle as TLabel);
     gameTask.set_description(this.currentDescription);
     gameTask.set_priority(this.priority);
     gameTask.set_icon_name(this.icon);
@@ -285,32 +300,48 @@ export class TaskObject {
       gameTask.set_map_location(this.spot);
       gameTask.set_map_object_id(this.currentTargetId);
 
-      if (this.isStorylineTask) {
-        level.map_add_object_spot(this.currentTargetId, "ui_storyline_task_blink", "");
-      } else {
-        level.map_add_object_spot(this.currentTargetId, "ui_secondary_task_blink", "");
-      }
+      level.map_add_object_spot(
+        this.currentTargetId,
+        this.isStorylineTask ? "ui_storyline_task_blink" : "ui_secondary_task_blink",
+        ""
+      );
     }
 
+    registry.actor.give_task(gameTask, 0, false, 0);
+
+    this.task = gameTask;
     this.status = ETaskStatus.SELECTED;
     this.initializedAt = game.get_game_time();
 
-    registry.actor.give_task(gameTask, 0, false, 0);
-    this.gameTask = gameTask;
+    EventsManager.emitEvent(EGameEvent.TASK_ACTIVATED, this);
   }
 
   /**
-   * todo: Description.
+   * Handle task deactivation based on current state.
+   *
+   * @param task - C game task object linked to current one
    */
   public onDeactivate(task: GameTask): void {
-    logger.info("Deactivate task:", this.title);
+    logger.info("Deactivate task:", this.title, this.state);
     this.lastCheckedAt = null;
 
-    if (this.state === ETaskState.FAIL) {
-      NotificationManager.getInstance().sendTaskNotification(ETaskState.FAIL, task);
-    } else if (this.state === ETaskState.REVERSED) {
-      pickSectionFromCondList(registry.actor, registry.actor, this.onReversed);
-      NotificationManager.getInstance().sendTaskNotification(ETaskState.REVERSED, task);
+    switch (this.state) {
+      case ETaskState.FAIL:
+        NotificationManager.getInstance().sendTaskNotification(ETaskState.FAIL, task);
+        EventsManager.emitEvent(EGameEvent.TASK_FAILED, this);
+        break;
+
+      case ETaskState.REVERSED:
+        pickSectionFromCondList(registry.actor, registry.actor, this.onReversed);
+        NotificationManager.getInstance().sendTaskNotification(ETaskState.REVERSED, task);
+        EventsManager.emitEvent(EGameEvent.TASK_REVERSED, this);
+        break;
+
+      case ETaskState.COMPLETED:
+        pickSectionFromCondList(registry.actor, registry.actor, this.onComplete);
+        giveTaskReward(this);
+        EventsManager.emitEvent(EGameEvent.TASK_COMPLETED, this);
+        break;
     }
 
     this.state = null;
