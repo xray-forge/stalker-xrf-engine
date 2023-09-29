@@ -29,7 +29,7 @@ Template for stalker mods and modded game packages. <br/>
 
 ## 📍 Purpose
 
-- Provide shared template for mods development
+- Provide shared up-to-date template and tools for mod development
 - Produce documented and readable code, document xray SDK
 - Simplify development and building process, involve more people
 
@@ -51,10 +51,14 @@ Template for stalker mods and modded game packages. <br/>
 - [Fengari Lua VM](https://github.com/fengari-lua/fengari)
 - [Open-X-Ray](https://github.com/OpenXRay/xray-16)
 
-## 📦 Main differences from original
+## 📦 Changes / differences from original
+
+Full changes list: [changelist](https://xray-forge.github.io/stalker-xrf-book/changes/changes.html)
 
 The intention of this engine template is to allow easier mod development without introducing breaking changes to the original plot. <br/>
 Optimizations, quality and logics updates are welcome.
+
+Breaking / radical changes should be implemented as custom extensions.
 
 ## 🌓 TODOs / tasks
 
