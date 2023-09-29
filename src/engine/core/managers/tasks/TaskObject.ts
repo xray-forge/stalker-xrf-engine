@@ -1,22 +1,16 @@
 import { CGameTask, game, game_graph, level, task, time_global } from "xray16";
 
-import {
-  closeLoadMarker,
-  closeSaveMarker,
-  getObjectIdByStoryId,
-  openLoadMarker,
-  openSaveMarker,
-  registry,
-} from "@/engine/core/database";
+import { closeLoadMarker, closeSaveMarker, openLoadMarker, openSaveMarker, registry } from "@/engine/core/database";
 import { NotificationManager } from "@/engine/core/managers/notifications";
+import { taskConfig } from "@/engine/core/managers/tasks/TaskConfig";
 import { ETaskState, ETaskStatus, POSSIBLE_STATES } from "@/engine/core/managers/tasks/types";
+import { addGuiderSpot, removeGuiderSpot } from "@/engine/core/managers/tasks/utils";
 import { assertDefined } from "@/engine/core/utils/assertion";
 import { getExtern } from "@/engine/core/utils/binding";
 import {
   parseConditionsList,
   parseNumberOptional,
   parseStringOptional,
-  parseStringsList,
   pickSectionFromCondList,
   readIniBoolean,
   readIniNumber,
@@ -24,14 +18,10 @@ import {
   TConditionList,
 } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { giveMoneyToActor, transferItemsToActor } from "@/engine/core/utils/reward";
 import { readTimeFromPacket, writeTimeToPacket } from "@/engine/core/utils/time";
-import { levels, TLevel } from "@/engine/lib/constants/levels";
-import { storyNames } from "@/engine/lib/constants/story_names";
+import { TLevel } from "@/engine/lib/constants/levels";
 import {
-  AlifeSimulator,
   AnyCallablesModule,
-  ClientObject,
   GameTask,
   IniFile,
   LuaArray,
@@ -39,8 +29,6 @@ import {
   NetProcessor,
   Optional,
   ServerObject,
-  TCount,
-  TDuration,
   Time,
   TIndex,
   TLabel,
@@ -52,40 +40,11 @@ import {
 
 const logger: LuaLogger = new LuaLogger($filename);
 
-const guidersByLevel: LuaTable<TLevel, LuaTable<TLevel, TName>> = {
-  [levels.zaton]: {
-    [levels.jupiter]: storyNames.zat_b215_stalker_guide_zaton,
-    [levels.pripyat]: storyNames.zat_b215_stalker_guide_zaton,
-  },
-  [levels.jupiter]: {
-    [levels.zaton]: storyNames.zat_b215_stalker_guide_zaton,
-    [levels.pripyat]: storyNames.jup_b43_stalker_assistant_pri,
-  },
-  [levels.pripyat]: {
-    [levels.zaton]: storyNames.jup_b43_stalker_assistant_pri,
-    [levels.jupiter]: storyNames.jup_b43_stalker_assistant_pri,
-  },
-} as any;
-
 /**
  * todo;
  */
 export class TaskObject {
-  protected static readonly UPDATE_CHECK_PERIOD: TDuration = 50;
-
-  protected static getGuiderIdByTargetLevel(targetLevel: TLevel): Optional<TNumberId> {
-    const levelName: TLevel = level.name() as TLevel;
-    const target: string = guidersByLevel.get(levelName) && guidersByLevel.get(levelName).get(targetLevel);
-
-    if (target !== null) {
-      return getObjectIdByStoryId(target);
-    }
-
-    return null;
-  }
-
   public readonly id: TStringId;
-  public readonly ini: IniFile;
 
   public gameTask: Optional<GameTask> = null;
   /**
@@ -128,9 +87,8 @@ export class TaskObject {
   public onComplete: TConditionList;
   public onReversed: TConditionList;
 
-  public constructor(ini: IniFile, id: TStringId) {
+  public constructor(id: TStringId, ini: IniFile) {
     this.id = id;
-    this.ini = ini;
 
     this.title = readIniString(ini, id, "title", false, null, "TITLE_DOESNT_EXIST");
     this.titleGetterFunctorName = readIniString(ini, id, "title_functor", false, null, "condlist");
@@ -152,7 +110,7 @@ export class TaskObject {
     while (ini.line_exist(id, "condlist_" + it)) {
       this.conditionLists.set(it, parseConditionsList(ini.r_string(id, "condlist_" + it)));
 
-      it = it + 1;
+      it += 1;
     }
 
     this.onInit = parseConditionsList(readIniString(ini, id, "on_init", false, null, ""));
@@ -180,7 +138,128 @@ export class TaskObject {
   /**
    * todo: Description.
    */
-  public giveTask(): void {
+  public checkState(): Optional<ETaskState> {
+    const now: TTimestamp = time_global();
+
+    if (
+      this.lastCheckedAt !== null &&
+      this.state !== null &&
+      now - this.lastCheckedAt <= taskConfig.UPDATE_CHECK_PERIOD
+    ) {
+      return this.state;
+    }
+
+    if (this.gameTask === null) {
+      this.gameTask = registry.actor.get_task(this.id, true) as GameTask;
+
+      return this.state;
+    }
+
+    this.lastCheckedAt = now;
+
+    const taskFunctors: AnyCallablesModule = getExtern<AnyCallablesModule>("task_functors");
+    const nextTitle: TLabel = taskFunctors[this.titleGetterFunctorName](this.id, "title", this.title);
+    let isTaskUpdated: boolean = false;
+
+    if (this.currentTitle !== nextTitle) {
+      isTaskUpdated = true;
+      this.currentTitle = nextTitle;
+      this.gameTask.set_title(game.translate_string(nextTitle));
+    }
+
+    const nextTargetId: TNumberId = taskFunctors[this.targetGetterFunctorName](this.id, "target", this.target);
+
+    this.updateLevelDirection(nextTargetId);
+
+    if (this.currentTargetId !== nextTargetId) {
+      logger.info("Updated task due to target change:", this.id, this.currentTargetId, nextTargetId);
+
+      if (this.currentTargetId === null) {
+        isTaskUpdated = true;
+        this.gameTask.change_map_location(this.spot, nextTargetId);
+
+        if (this.isStorylineTask) {
+          level.map_add_object_spot(nextTargetId, "ui_storyline_task_blink", "");
+        } else {
+          level.map_add_object_spot(nextTargetId, "ui_secondary_task_blink", "");
+        }
+      } else {
+        if (nextTargetId === null) {
+          this.gameTask.remove_map_locations(false);
+          isTaskUpdated = true;
+        } else {
+          level.map_add_object_spot(
+            nextTargetId,
+            this.isStorylineTask ? "ui_storyline_task_blink" : "ui_secondary_task_blink",
+            ""
+          );
+
+          this.gameTask.change_map_location(this.spot, nextTargetId);
+          isTaskUpdated = true;
+        }
+      }
+
+      this.currentTargetId = nextTargetId;
+    }
+
+    if (isTaskUpdated && !this.isNotificationOnUpdateMuted) {
+      NotificationManager.getInstance().sendTaskNotification(ETaskState.UPDATED, this.gameTask);
+    }
+
+    for (const [, conditionList] of this.conditionLists) {
+      const taskState: ETaskState = pickSectionFromCondList(
+        registry.actor,
+        registry.actor,
+        conditionList
+      ) as ETaskState;
+
+      if (taskState !== null) {
+        assertDefined(POSSIBLE_STATES[taskState], "Invalid task status [%s] for task [%s]", taskState, this.title);
+
+        this.state = taskState;
+
+        return this.state;
+      }
+    }
+
+    return this.state;
+  }
+
+  /**
+   * todo: Description.
+   */
+  public updateLevelDirection(target: Optional<TNumberId>): void {
+    if (!target || !registry.actor.is_active_task(this.gameTask as GameTask)) {
+      return;
+    }
+
+    const alifeObject: Optional<ServerObject> = registry.simulator.object(target);
+
+    if (alifeObject !== null) {
+      const levelName: TLevel = level.name();
+      const targetLevel: TLevel = registry.simulator.level_name(
+        game_graph().vertex(alifeObject.m_game_vertex_id).level_id()
+      );
+
+      if (levelName === targetLevel) {
+        removeGuiderSpot(levelName);
+      } else {
+        addGuiderSpot(levelName, targetLevel, this.isStorylineTask);
+      }
+    }
+  }
+
+  /**
+   * todo: Description.
+   */
+  public reverse(): void {
+    this.state = ETaskState.REVERSED;
+  }
+
+  /**
+   * todo: Description.
+   */
+  public onGive(): void {
     const gameTask: GameTask = new CGameTask();
 
     gameTask.set_id(tostring(this.id));
@@ -223,166 +302,7 @@ export class TaskObject {
   /**
    * todo: Description.
    */
-  public checkTaskState(): Optional<ETaskState> {
-    const now: TTimestamp = time_global();
-    let isTaskUpdated: boolean = false;
-
-    if (
-      this.lastCheckedAt !== null &&
-      this.state !== null &&
-      now - this.lastCheckedAt <= TaskObject.UPDATE_CHECK_PERIOD
-    ) {
-      return this.state;
-    }
-
-    if (this.gameTask === null) {
-      this.gameTask = registry.actor?.get_task(this.id, true) as GameTask;
-
-      return this.state;
-    }
-
-    this.lastCheckedAt = now;
-
-    const taskFunctors: AnyCallablesModule = getExtern<AnyCallablesModule>("task_functors");
-
-    const nextTitle: TLabel = taskFunctors[this.titleGetterFunctorName](this.id, "title", this.title);
-
-    if (this.currentTitle !== nextTitle) {
-      isTaskUpdated = true;
-      this.currentTitle = nextTitle;
-      this.gameTask.set_title(game.translate_string(nextTitle));
-    }
-
-    const nextTargetId: TNumberId = taskFunctors[this.targetGetterFunctorName](this.id, "target", this.target);
-
-    this.checkTaskLevelDirection(nextTargetId);
-
-    if (this.currentTargetId !== nextTargetId) {
-      logger.info("Updated task due to target change:", this.id, this.currentTargetId, nextTargetId);
-
-      if (this.currentTargetId === null) {
-        isTaskUpdated = true;
-        this.gameTask.change_map_location(this.spot, nextTargetId);
-
-        if (this.isStorylineTask) {
-          level.map_add_object_spot(nextTargetId, "ui_storyline_task_blink", "");
-        } else {
-          level.map_add_object_spot(nextTargetId, "ui_secondary_task_blink", "");
-        }
-      } else {
-        if (nextTargetId === null) {
-          this.gameTask.remove_map_locations(false);
-          isTaskUpdated = true;
-        } else {
-          if (this.isStorylineTask) {
-            level.map_add_object_spot(nextTargetId, "ui_storyline_task_blink", "");
-          } else {
-            level.map_add_object_spot(nextTargetId, "ui_secondary_task_blink", "");
-          }
-
-          this.gameTask.change_map_location(this.spot, nextTargetId);
-          isTaskUpdated = true;
-        }
-      }
-
-      this.currentTargetId = nextTargetId;
-    }
-
-    if (isTaskUpdated && !this.isNotificationOnUpdateMuted) {
-      NotificationManager.getInstance().sendTaskNotification(ETaskState.UPDATED, this.gameTask);
-    }
-
-    for (const [k, v] of this.conditionLists) {
-      const taskState: ETaskState = pickSectionFromCondList(registry.actor, registry.actor, v) as ETaskState;
-
-      if (taskState !== null) {
-        assertDefined(POSSIBLE_STATES[taskState], "Invalid task status [%s] for task [%s]", taskState, this.title);
-
-        this.state = taskState;
-
-        return this.state;
-      }
-    }
-
-    return this.state;
-  }
-
-  /**
-   * todo: Description.
-   */
-  public checkTaskLevelDirection(target: Optional<TNumberId>): void {
-    if (!target || !level || registry.actor.is_active_task(this.gameTask as GameTask)) {
-      return;
-    }
-
-    const simulator: AlifeSimulator = registry.simulator;
-    const alifeObject: Optional<ServerObject> = simulator.object(target);
-
-    if (alifeObject !== null) {
-      const targetLevel: TLevel = simulator.level_name(game_graph().vertex(alifeObject.m_game_vertex_id).level_id());
-      const levelName: TLevel = level.name();
-
-      if (levelName === targetLevel) {
-        this.removeGuiderSpot();
-      } else {
-        this.addGuiderSpot(targetLevel);
-      }
-    }
-  }
-
-  /**
-   * Give possible task rewards.
-   * - money
-   * - items list based on task config
-   */
-  public giveTaskReward(): void {
-    pickSectionFromCondList(registry.actor, registry.actor, this.onComplete);
-
-    const money: Optional<string> = pickSectionFromCondList(
-      registry.actor,
-      registry.actor,
-      this.rewardMoneyConditionList
-    );
-    const itemsList: Optional<string> = pickSectionFromCondList(
-      registry.actor,
-      registry.actor,
-      this.rewardItemsConditionList
-    );
-
-    logger.info("Give task rewards:", this.id, money, itemsList);
-
-    if (money !== null) {
-      giveMoneyToActor(tonumber(money) as TCount);
-    }
-
-    if (itemsList !== null) {
-      const rewardItems: LuaTable<TName, TCount> = new LuaTable();
-
-      for (const [index, name] of parseStringsList(itemsList)) {
-        if (rewardItems.has(name)) {
-          rewardItems.set(name, rewardItems.get(name) + 1);
-        } else {
-          rewardItems.set(name, 1);
-        }
-      }
-
-      for (const [item, count] of rewardItems) {
-        transferItemsToActor(registry.activeSpeaker as ClientObject, item, count);
-      }
-    }
-  }
-
-  /**
-   * todo: Description.
-   */
-  public reverseTask(): void {
-    this.state = ETaskState.REVERSED;
-  }
-
-  /**
-   * todo: Description.
-   */
-  public deactivateTask(task: GameTask): void {
+  public onDeactivate(task: GameTask): void {
     logger.info("Deactivate task:", this.title);
     this.lastCheckedAt = null;
 
@@ -397,56 +317,6 @@ export class TaskObject {
     this.status = ETaskStatus.NORMAL;
   }
 
-  /**
-   * todo: Description.
-   */
-  public addGuiderSpot(targetLevel: TLevel): void {
-    const guiderId: Optional<TNumberId> = TaskObject.getGuiderIdByTargetLevel(targetLevel);
-
-    if (guiderId === null) {
-      return;
-    }
-
-    const guiderSpot: TName = this.isStorylineTask ? "storyline_task_on_guider" : "secondary_task_on_guider";
-    const guiderSpot2: TName = this.isStorylineTask ? "secondary_task_on_guider" : "storyline_task_on_guider";
-
-    if (level.map_has_object_spot(guiderId, guiderSpot2) !== 0) {
-      level.map_remove_object_spot(guiderId, guiderSpot2);
-    }
-
-    if (guiderId && level.map_has_object_spot(guiderId, guiderSpot) === 0) {
-      level.map_add_object_spot(guiderId, guiderSpot, "");
-    }
-  }
-
-  /**
-   * todo: Description.
-   */
-  public removeGuiderSpot(): void {
-    const levelName: TLevel = level.name();
-
-    if (!guidersByLevel.get(levelName)) {
-      return;
-    }
-
-    for (const [, guiderStoryId] of guidersByLevel.get(levelName)) {
-      const guiderId: Optional<TNumberId> = getObjectIdByStoryId(guiderStoryId);
-
-      if (guiderId !== null) {
-        if (level.map_has_object_spot(guiderId, "storyline_task_on_guider") !== 0) {
-          level.map_remove_object_spot(guiderId, "storyline_task_on_guider");
-        }
-
-        if (level.map_has_object_spot(guiderId, "secondary_task_on_guider") !== 0) {
-          level.map_remove_object_spot(guiderId, "secondary_task_on_guider");
-        }
-      }
-    }
-  }
-
-  /**
-   * Save task object state.
-   */
   public save(packet: NetPacket): void {
     openSaveMarker(packet, TaskObject.name);
 
@@ -459,9 +329,6 @@ export class TaskObject {
     closeSaveMarker(packet, TaskObject.name);
   }
 
-  /**
-   * Load task object state.
-   */
   public load(reader: NetProcessor): void {
     openLoadMarker(reader, TaskObject.name);
 
