@@ -66,12 +66,12 @@ export class MobWalkerManager extends AbstractSchemeManager<ISchemeMobWalkerStat
       this.patrolLook = null;
     }
 
-    if (this.state.pathWalkInfo === null) {
+    if (!this.state.pathWalkInfo) {
       this.state.pathWalkInfo = parseWaypointsData(this.state.pathWalk);
       this.pathWalkInfo = this.state.pathWalkInfo;
     }
 
-    if (this.state.pathLookInfo === null && this.state.pathLook !== null) {
+    if (!this.state.pathLookInfo && this.state.pathLook) {
       this.state.pathLookInfo = parseWaypointsData(this.state.pathLook);
       this.pathLookInfo = this.state.pathLookInfo;
     }

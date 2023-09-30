@@ -28,7 +28,7 @@ export function getMonsterState(ini: IniFile, section: TSection): Optional<EMons
  * @param state - target state to set
  */
 export function setMonsterState(object: ClientObject, state: Optional<EMonsterState>): void {
-  if (state === null || state === EMonsterState.NONE) {
+  if (!state === null || state === EMonsterState.NONE) {
     return;
   }
 
