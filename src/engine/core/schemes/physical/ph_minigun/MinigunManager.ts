@@ -285,7 +285,7 @@ export class MinigunManager extends AbstractSchemeManager<ISchemeMinigunState> {
 
     const now: number = time_global();
 
-    if (this.fcUpdNum < minigunConfig.DEF_MAX_FC_UPD_NUM) {
+    if (this.fcUpdNum < minigunConfig.DEFAULT_MAX_FC_UPD_NUM) {
       const lastUpdate: TTimestamp = this.fcLastUpdTm;
 
       if (lastUpdate !== -1) {

@@ -166,6 +166,7 @@ export function mockClientGameObject({
       jest.fn((to: ClientObject) => {
         return mockRelationRegistryInterface.get_general_goodwill_between(id ? id() : idOverride, to.id());
       }),
+    get_car: rest.get_car ?? jest.fn(() => null),
     get_visual_name: rest.get_visual_name ?? jest.fn(() => "some_stalker_visual"),
     get_campfire: rest.get_campfire ?? jest.fn(() => null),
     get_current_point_index: rest.get_current_point_index ?? jest.fn(() => null),
