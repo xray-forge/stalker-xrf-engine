@@ -21,9 +21,9 @@ export enum EZombieCombatAction {
  */
 export interface ISchemeCombatState extends IBaseSchemeState {
   enabled: boolean;
-  combat_type: Optional<AnyObject>;
+  combatType: Optional<AnyObject>;
   isCamperCombatAction: Optional<boolean>;
   lastSeenEnemyAtPosition: Optional<Vector>;
-  script_combat_type: Optional<EScriptCombatType>;
+  scriptCombatType: Optional<EScriptCombatType>;
   currentAction: Optional<EZombieCombatAction>;
 }

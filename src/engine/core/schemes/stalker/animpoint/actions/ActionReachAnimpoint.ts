@@ -1,7 +1,7 @@
 import { action_base, LuabindClass } from "xray16";
 
 import { setStalkerState } from "@/engine/core/database";
-import { ISchemeAnimpointState } from "@/engine/core/schemes/stalker/animpoint/types";
+import { ISchemeAnimpointState } from "@/engine/core/schemes/stalker/animpoint/animpoint_types";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { EClientObjectPath } from "@/engine/lib/types";
 

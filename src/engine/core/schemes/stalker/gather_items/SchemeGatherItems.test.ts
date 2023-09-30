@@ -2,7 +2,7 @@ import { describe, expect, it } from "@jest/globals";
 
 import { IRegistryObjectState, registerObject } from "@/engine/core/database";
 import { EvaluatorGatherItems } from "@/engine/core/schemes/stalker/gather_items/evaluators";
-import { ISchemeGatherItemsState } from "@/engine/core/schemes/stalker/gather_items/ISchemeGatherItemsState";
+import { ISchemeGatherItemsState } from "@/engine/core/schemes/stalker/gather_items/gather_items_types";
 import { SchemeGatherItems } from "@/engine/core/schemes/stalker/gather_items/SchemeGatherItems";
 import { loadSchemeImplementation } from "@/engine/core/utils/scheme/scheme_setup";
 import { ActionPlanner, ClientObject, EScheme, IniFile } from "@/engine/lib/types";

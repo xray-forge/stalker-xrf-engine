@@ -4,7 +4,7 @@ import { EvaluatorSectionActive } from "@/engine/core/objects/ai/planner/evaluat
 import { AbstractScheme } from "@/engine/core/objects/ai/scheme";
 import { EActionId, EEvaluatorId } from "@/engine/core/objects/ai/types";
 import { ActionCompanionActivity } from "@/engine/core/schemes/stalker/companion/actions";
-import { ISchemeCompanionState } from "@/engine/core/schemes/stalker/companion/ISchemeCompanionState";
+import { ISchemeCompanionState } from "@/engine/core/schemes/stalker/companion/companion_types";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini/ini_config";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { addCommonActionPreconditions } from "@/engine/core/utils/scheme/scheme_setup";
@@ -40,9 +40,9 @@ export class SchemeCompanion extends AbstractScheme {
     section: TSection,
     state: ISchemeCompanionState
   ): void {
-    const actionPlanner: ActionPlanner = object.motivation_action_manager();
+    const planner: ActionPlanner = object.motivation_action_manager();
 
-    actionPlanner.add_evaluator(
+    planner.add_evaluator(
       EEvaluatorId.NEED_COMPANION,
       new EvaluatorSectionActive(state, "EvaluatorCompanionSectionActive")
     );
@@ -55,8 +55,8 @@ export class SchemeCompanion extends AbstractScheme {
     addCommonActionPreconditions(actionCompanionActivity);
     actionCompanionActivity.add_effect(new world_property(EEvaluatorId.NEED_COMPANION, false));
     actionCompanionActivity.add_effect(new world_property(EEvaluatorId.IS_STATE_LOGIC_ACTIVE, false));
-    actionPlanner.add_action(EActionId.COMPANION_ACTIVITY, actionCompanionActivity);
+    planner.add_action(EActionId.COMPANION_ACTIVITY, actionCompanionActivity);
 
-    actionPlanner.action(EActionId.ALIFE).add_precondition(new world_property(EEvaluatorId.NEED_COMPANION, false));
+    planner.action(EActionId.ALIFE).add_precondition(new world_property(EEvaluatorId.NEED_COMPANION, false));
   }
 }

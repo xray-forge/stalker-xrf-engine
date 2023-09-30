@@ -2,10 +2,10 @@ import { describe, expect, it } from "@jest/globals";
 
 import { registerObject } from "@/engine/core/database";
 import { EActionId, EEvaluatorId } from "@/engine/core/objects/ai/types";
+import { ISchemeAbuseState } from "@/engine/core/schemes/stalker/abuse/abuse_types";
 import { AbuseManager } from "@/engine/core/schemes/stalker/abuse/AbuseManager";
 import { ActionAbuseHit } from "@/engine/core/schemes/stalker/abuse/actions";
 import { EvaluatorAbuse } from "@/engine/core/schemes/stalker/abuse/evaluators";
-import { ISchemeAbuseState } from "@/engine/core/schemes/stalker/abuse/ISchemeAbuseState";
 import { SchemeAbuse } from "@/engine/core/schemes/stalker/abuse/SchemeAbuse";
 import { loadSchemeImplementation } from "@/engine/core/utils/scheme";
 import { ActionPlanner, ClientObject, EScheme, IniFile } from "@/engine/lib/types";

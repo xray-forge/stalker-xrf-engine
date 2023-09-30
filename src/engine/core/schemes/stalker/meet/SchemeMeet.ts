@@ -5,7 +5,7 @@ import { AbstractScheme } from "@/engine/core/objects/ai/scheme";
 import { EActionId, EEvaluatorId } from "@/engine/core/objects/ai/types";
 import { ActionMeetWait } from "@/engine/core/schemes/stalker/meet/actions";
 import { EvaluatorContact } from "@/engine/core/schemes/stalker/meet/evaluators";
-import { ISchemeMeetState } from "@/engine/core/schemes/stalker/meet/ISchemeMeetState";
+import { ISchemeMeetState } from "@/engine/core/schemes/stalker/meet/meet_types";
 import { MeetManager } from "@/engine/core/schemes/stalker/meet/MeetManager";
 import { initializeMeetScheme } from "@/engine/core/schemes/stalker/meet/utils";
 import { readIniString } from "@/engine/core/utils/ini";

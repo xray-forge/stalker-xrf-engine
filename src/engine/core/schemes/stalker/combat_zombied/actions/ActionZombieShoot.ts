@@ -3,7 +3,7 @@ import { action_base, level, LuabindClass, move, time_global } from "xray16";
 import { setStalkerState } from "@/engine/core/database";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import { EStalkerState, ILookTargetDescriptor } from "@/engine/core/objects/animation/types";
-import { EZombieCombatAction, ISchemeCombatState } from "@/engine/core/schemes/stalker/combat/ISchemeCombatState";
+import { EZombieCombatAction, ISchemeCombatState } from "@/engine/core/schemes/stalker/combat/combat_types";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { chance } from "@/engine/core/utils/random";
 import { copyVector } from "@/engine/core/utils/vector";

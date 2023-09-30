@@ -1,6 +1,6 @@
 import { describe, expect, it, jest } from "@jest/globals";
 
-import { ISchemeWoundedState } from "@/engine/core/schemes/stalker/wounded/ISchemeWoundedState";
+import { ISchemeWoundedState } from "@/engine/core/schemes/stalker/wounded/wounded_types";
 import { WoundManager } from "@/engine/core/schemes/stalker/wounded/WoundManager";
 import { ClientObject, EScheme } from "@/engine/lib/types";
 import { mockSchemeState } from "@/fixtures/engine";

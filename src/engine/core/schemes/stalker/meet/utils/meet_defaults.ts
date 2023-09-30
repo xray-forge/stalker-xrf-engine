@@ -1,5 +1,7 @@
 import { FALSE, NIL, TRUE } from "@/engine/lib/constants/words";
 
+// todo: Move to config (ltx + ts pair).
+
 /**
  * Meet scheme defaults for enemies.
  */

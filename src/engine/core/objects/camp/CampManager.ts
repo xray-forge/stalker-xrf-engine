@@ -6,7 +6,10 @@ import { WEAPON_POSTFIX } from "@/engine/core/objects/animation/types";
 import { CAMP_ACTIVITIES } from "@/engine/core/objects/camp/camp_logic";
 import { EObjectCampActivity, EObjectCampRole, ICampObjectState } from "@/engine/core/objects/camp/camp_types";
 import { StoryManager } from "@/engine/core/objects/sounds/stories";
-import { IAnimpointActionDescriptor, ISchemeAnimpointState } from "@/engine/core/schemes/stalker/animpoint/types";
+import {
+  IAnimpointActionDescriptor,
+  ISchemeAnimpointState,
+} from "@/engine/core/schemes/stalker/animpoint/animpoint_types";
 import { ISchemeMeetState } from "@/engine/core/schemes/stalker/meet";
 import { MeetManager } from "@/engine/core/schemes/stalker/meet/MeetManager";
 import { abort } from "@/engine/core/utils/assertion";

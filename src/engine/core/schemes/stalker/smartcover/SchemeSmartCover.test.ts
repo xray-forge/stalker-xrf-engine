@@ -5,8 +5,8 @@ import { EvaluatorSectionActive } from "@/engine/core/objects/ai/planner/evaluat
 import { EActionId, EEvaluatorId } from "@/engine/core/objects/ai/types";
 import { ActionSmartCoverActivity } from "@/engine/core/schemes/stalker/smartcover/actions";
 import { EvaluatorUseSmartCoverInCombat } from "@/engine/core/schemes/stalker/smartcover/evaluators";
-import { ISchemeSmartCoverState } from "@/engine/core/schemes/stalker/smartcover/ISchemeSmartCoverState";
 import { SchemeSmartCover } from "@/engine/core/schemes/stalker/smartcover/SchemeSmartCover";
+import { ISchemeSmartCoverState } from "@/engine/core/schemes/stalker/smartcover/smartcover_types";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini";
 import { loadSchemeImplementation } from "@/engine/core/utils/scheme";
 import { ActionPlanner, ClientObject, EScheme, IniFile } from "@/engine/lib/types";

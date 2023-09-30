@@ -2,7 +2,7 @@ import { ObjectRestrictionsManager } from "@/engine/core/objects/ai/restriction"
 import { StalkerPatrolManager } from "@/engine/core/objects/ai/state/StalkerPatrolManager";
 import { StalkerStateManager } from "@/engine/core/objects/ai/state/StalkerStateManager";
 import { IActionSchemeHearState } from "@/engine/core/schemes/shared/hear";
-import { ISchemePostCombatIdleState } from "@/engine/core/schemes/stalker/combat_idle/ISchemePostCombatIdleState";
+import { ISchemePostCombatIdleState } from "@/engine/core/schemes/stalker/combat_idle/combat_idle_types";
 import { TConditionList } from "@/engine/core/utils/ini";
 import {
   AnyObject,

@@ -23,7 +23,7 @@ export class EvaluatorCheckCombat extends property_evaluator {
    */
   public override evaluate(): boolean {
     if (this.state.enabled && this.object.best_enemy()) {
-      return registry.actor !== null && this.state.script_combat_type !== null;
+      return registry.actor !== null && this.state.scriptCombatType !== null;
     }
 
     return false;

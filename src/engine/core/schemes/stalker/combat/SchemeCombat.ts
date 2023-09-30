@@ -3,8 +3,8 @@ import { world_property } from "xray16";
 import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { AbstractScheme } from "@/engine/core/objects/ai/scheme";
 import { EActionId, EEvaluatorId } from "@/engine/core/objects/ai/types";
+import { ISchemeCombatState } from "@/engine/core/schemes/stalker/combat/combat_types";
 import { EvaluatorCheckCombat } from "@/engine/core/schemes/stalker/combat/evaluators/EvaluatorCheckCombat";
-import { ISchemeCombatState } from "@/engine/core/schemes/stalker/combat/ISchemeCombatState";
 import { SchemeCombatCamper } from "@/engine/core/schemes/stalker/combat_camper/SchemeCombatCamper";
 import { SchemeCombatZombied } from "@/engine/core/schemes/stalker/combat_zombied/SchemeCombatZombied";
 import { getObjectCommunity } from "@/engine/core/utils/community";
@@ -49,17 +49,17 @@ export class SchemeCombat extends AbstractScheme {
       state.logic = getConfigSwitchConditions(ini, section);
       state.enabled = true;
 
-      state.combat_type = readIniConditionList(ini, section, "combat_type");
+      state.combatType = readIniConditionList(ini, section, "combat_type");
 
-      if ((state.combat_type as unknown as string) === communities.monolith) {
-        state.combat_type = null;
+      if ((state.combatType as unknown as string) === communities.monolith) {
+        state.combatType = null;
       }
 
-      if (!state.combat_type && isZombied) {
-        state.combat_type = { condlist: parseConditionsList(communities.zombied) };
+      if (!state.combatType && isZombied) {
+        state.combatType = { condlist: parseConditionsList(communities.zombied) };
       }
 
-      if (state.combat_type) {
+      if (state.combatType) {
         SchemeCombat.setCombatType(object, registry.actor, state);
       }
 

@@ -5,7 +5,7 @@ import { AbstractScheme } from "@/engine/core/objects/ai/scheme";
 import { EActionId, EEvaluatorId } from "@/engine/core/objects/ai/types";
 import { EStalkerState } from "@/engine/core/objects/animation/types";
 import { ActionWalkerActivity } from "@/engine/core/schemes/stalker/walker/actions";
-import { ISchemeWalkerState } from "@/engine/core/schemes/stalker/walker/ISchemeWalkerState";
+import { ISchemeWalkerState } from "@/engine/core/schemes/stalker/walker/walker_types";
 import { assert } from "@/engine/core/utils/assertion";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini/ini_config";
 import { readIniBoolean, readIniString } from "@/engine/core/utils/ini/ini_read";

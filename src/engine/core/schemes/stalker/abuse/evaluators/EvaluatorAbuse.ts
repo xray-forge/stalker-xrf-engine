@@ -1,6 +1,6 @@
 import { LuabindClass, property_evaluator } from "xray16";
 
-import { ISchemeAbuseState } from "@/engine/core/schemes/stalker/abuse/ISchemeAbuseState";
+import { ISchemeAbuseState } from "@/engine/core/schemes/stalker/abuse/abuse_types";
 
 /**
  * Checker of abuse state.

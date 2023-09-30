@@ -4,7 +4,7 @@ import { registerObject } from "@/engine/core/database";
 import { EvaluatorSectionActive } from "@/engine/core/objects/ai/planner/evaluators/EvaluatorSectionActive";
 import { EActionId, EEvaluatorId } from "@/engine/core/objects/ai/types";
 import { ActionRemarkActivity } from "@/engine/core/schemes/stalker/remark/actions";
-import { ISchemeRemarkState } from "@/engine/core/schemes/stalker/remark/ISchemeRemarkState";
+import { ISchemeRemarkState } from "@/engine/core/schemes/stalker/remark/remark_types";
 import { SchemeRemark } from "@/engine/core/schemes/stalker/remark/SchemeRemark";
 import { getConfigSwitchConditions, parseConditionsList } from "@/engine/core/utils/ini";
 import { loadSchemeImplementation } from "@/engine/core/utils/scheme";

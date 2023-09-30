@@ -6,8 +6,8 @@ import { TIndex, TNumberId } from "@/engine/lib/types";
  * todo;
  */
 export interface ISchemeHitState extends ISchemeAbuseState {
-  action: HitManager;
-  bone_index: TIndex;
+  isDeadlyHit: boolean;
   who: TNumberId;
-  deadly_hit: boolean;
+  action: HitManager;
+  boneIndex: TIndex;
 }

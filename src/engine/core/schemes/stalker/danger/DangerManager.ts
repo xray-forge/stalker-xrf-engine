@@ -1,7 +1,7 @@
 import { level, snd_type, time_global } from "xray16";
 
 import { AbstractSchemeManager } from "@/engine/core/objects/ai/scheme";
-import { ISchemeDangerState } from "@/engine/core/schemes/stalker/danger/ISchemeDangerState";
+import { ISchemeDangerState } from "@/engine/core/schemes/stalker/danger/danger_types";
 import { canObjectSelectAsEnemy } from "@/engine/core/schemes/stalker/danger/utils";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { isSoundType } from "@/engine/core/utils/sound";

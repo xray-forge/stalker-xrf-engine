@@ -43,26 +43,26 @@ export class ActionCommander extends action_base implements ISchemeEventHandler 
   public activate(): void {
     this.state.signals = new LuaTable();
 
-    if (this.state.path_walk_info === null) {
-      this.state.path_walk_info = parseWaypointsData(this.state.path_walk);
+    if (this.state.pathWalkInfo === null) {
+      this.state.pathWalkInfo = parseWaypointsData(this.state.pathWalk);
     }
 
-    if (this.state.path_look_info === null) {
-      this.state.path_look_info = parseWaypointsData(this.state.path_look);
+    if (this.state.pathLookInfo === null) {
+      this.state.pathLookInfo = parseWaypointsData(this.state.pathLook);
     }
 
     this.patrolManager.reset(
-      this.state.path_walk,
-      this.state.path_walk_info!,
-      this.state.path_look,
-      this.state.path_look_info,
+      this.state.pathWalk,
+      this.state.pathWalkInfo!,
+      this.state.pathLook,
+      this.state.pathLookInfo,
       this.state.team,
-      this.state.suggested_state,
+      this.state.suggestedState,
       { context: this, callback: this.onProcessPoint }
     );
 
     registry.patrols.generic
-      .get(this.state.patrol_key)
+      .get(this.state.patrolKey)
       .setObjectCommand(this.object, this.currentState, this.state.formation);
   }
 
@@ -105,7 +105,7 @@ export class ActionCommander extends action_base implements ISchemeEventHandler 
       this.previousState = nextState;
     }
 
-    registry.patrols.generic.get(this.state.patrol_key).setObjectCommand(this.object, nextState, this.state.formation);
+    registry.patrols.generic.get(this.state.patrolKey).setObjectCommand(this.object, nextState, this.state.formation);
   }
 
   /**
@@ -114,7 +114,7 @@ export class ActionCommander extends action_base implements ISchemeEventHandler 
   public override finalize(): void {
     if (this.object.alive() === true) {
       registry.patrols.generic
-        .get(this.state.patrol_key)
+        .get(this.state.patrolKey)
         .setObjectCommand(this.object, EStalkerState.GUARD, this.state.formation);
       this.patrolManager.finalize();
     }
@@ -126,14 +126,14 @@ export class ActionCommander extends action_base implements ISchemeEventHandler 
    * todo: Description.
    */
   public deactivate(object: ClientObject): void {
-    registry.patrols.generic.get(this.state.patrol_key).removeObject(object);
+    registry.patrols.generic.get(this.state.patrolKey).removeObject(object);
   }
 
   /**
    * todo: Description.
    */
   public onDeath(object: ClientObject): void {
-    registry.patrols.generic.get(this.state.patrol_key).removeObject(object);
+    registry.patrols.generic.get(this.state.patrolKey).removeObject(object);
   }
 
   /**

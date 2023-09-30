@@ -6,7 +6,7 @@ import { ESmartCoverState, EStalkerState } from "@/engine/core/objects/animation
 import {
   COVER_SUBSTATE_TABLE,
   ISchemeSmartCoverState,
-} from "@/engine/core/schemes/stalker/smartcover/ISchemeSmartCoverState";
+} from "@/engine/core/schemes/stalker/smartcover/smartcover_types";
 import { abort } from "@/engine/core/utils/assertion";
 import { parseConditionsList, pickSectionFromCondList, TConditionList } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";

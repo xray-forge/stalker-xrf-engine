@@ -7,7 +7,7 @@ import { EActionId, EEvaluatorId } from "@/engine/core/objects/ai/types";
 import { Squad } from "@/engine/core/objects/server/squad/Squad";
 import { ActionCommander, ActionPatrol } from "@/engine/core/schemes/stalker/patrol/actions";
 import { EvaluatorPatrolCommander } from "@/engine/core/schemes/stalker/patrol/evaluators";
-import { ISchemePatrolState } from "@/engine/core/schemes/stalker/patrol/ISchemePatrolState";
+import { ISchemePatrolState } from "@/engine/core/schemes/stalker/patrol/patrol_types";
 import { PatrolManager } from "@/engine/core/schemes/stalker/patrol/PatrolManager";
 import { abort } from "@/engine/core/utils/assertion";
 import { getConfigSwitchConditions, readIniBoolean, readIniString } from "@/engine/core/utils/ini";
@@ -36,11 +36,11 @@ export class SchemePatrol extends AbstractScheme {
     const state: ISchemePatrolState = AbstractScheme.assign(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section);
-    state.path_name = readIniString(ini, section, "path_walk", true, smartTerrainName);
-    state.path_walk = state.path_name;
-    state.path_look = readIniString(ini, section, "path_look", false, smartTerrainName);
+    state.pathName = readIniString(ini, section, "path_walk", true, smartTerrainName);
+    state.pathWalk = state.pathName;
+    state.pathLook = readIniString(ini, section, "path_look", false, smartTerrainName);
 
-    if (state.path_walk === state.path_look) {
+    if (state.pathWalk === state.pathLook) {
       abort(
         "You are trying to set 'path_look' equal to 'path_walk' in section [%s] for object [%s]",
         section,
@@ -54,38 +54,38 @@ export class SchemePatrol extends AbstractScheme {
       state.formation = "back";
     }
 
-    state.move_type = readIniString(ini, section, "move_type", false);
-    if (state.move_type === null) {
-      state.move_type = "patrol";
+    state.moveType = readIniString(ini, section, "move_type", false);
+    if (state.moveType === null) {
+      state.moveType = "patrol";
     }
 
-    state.suggested_state = {} as any;
-    state.suggested_state.standing = readIniString(ini, section, "def_state_standing", false);
-    state.suggested_state.moving = readIniString(ini, section, "def_state_moving1", false);
-    state.suggested_state.moving = readIniString(
+    state.suggestedState = {} as any;
+    state.suggestedState.standing = readIniString(ini, section, "def_state_standing", false);
+    state.suggestedState.moving = readIniString(ini, section, "def_state_moving1", false);
+    state.suggestedState.moving = readIniString(
       ini,
       section,
       "def_state_moving",
       false,
       null,
-      state.suggested_state.moving
+      state.suggestedState.moving
     );
-    state.path_walk_info = null;
-    state.path_look_info = null;
+    state.pathWalkInfo = null;
+    state.pathLookInfo = null;
     state.commander = readIniBoolean(ini, section, "commander", false, false);
-    state.patrol_key = state.path_name;
+    state.patrolKey = state.pathName;
 
     const squad: Optional<Squad> = getObjectSquad(object);
 
     if (squad !== null) {
-      state.patrol_key = state.patrol_key + tostring(squad.id);
+      state.patrolKey = state.patrolKey + tostring(squad.id);
     }
 
-    if (registry.patrols.generic.get(state.patrol_key) === null) {
-      registry.patrols.generic.set(state.patrol_key, new PatrolManager(state.path_name));
+    if (registry.patrols.generic.get(state.patrolKey) === null) {
+      registry.patrols.generic.set(state.patrolKey, new PatrolManager(state.pathName));
     }
 
-    registry.patrols.generic.get(state.patrol_key).addObject(object, state.commander);
+    registry.patrols.generic.get(state.patrolKey).addObject(object, state.commander);
 
     return state;
   }

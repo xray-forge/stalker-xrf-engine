@@ -1,8 +1,8 @@
 import { describe, expect, it } from "@jest/globals";
 
 import { registerObject } from "@/engine/core/database";
+import { ISchemeHitState } from "@/engine/core/schemes/stalker/hit/hit_types";
 import { HitManager } from "@/engine/core/schemes/stalker/hit/HitManager";
-import { ISchemeHitState } from "@/engine/core/schemes/stalker/hit/ISchemeHitState";
 import { SchemeHit } from "@/engine/core/schemes/stalker/hit/SchemeHit";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini";
 import { loadSchemeImplementation } from "@/engine/core/utils/scheme";
