@@ -94,6 +94,7 @@ export function mockClientGameObject({
   const gameObject = {
     ...rest,
     accessible: rest.accessible ?? jest.fn(() => true),
+    action: rest.action ?? jest.fn(() => null),
     active_item: rest.active_item ?? jest.fn(() => null),
     activate_slot: rest.activate_slot ?? jest.fn(),
     add_animation: rest.add_animation ?? jest.fn(),
@@ -196,6 +197,7 @@ export function mockClientGameObject({
     in_smart_cover: rest.in_smart_cover ?? jest.fn(() => false),
     is_talking,
     is_there_items_to_pickup: rest.is_there_items_to_pickup ?? jest.fn(() => false),
+    jump: rest.jump ?? jest.fn(),
     level_vertex_id: rest.level_vertex_id ?? jest.fn(() => 255),
     max_ignore_monster_distance: rest.max_ignore_monster_distance ?? jest.fn(),
     money: money ?? jest.fn(() => objectMoney),

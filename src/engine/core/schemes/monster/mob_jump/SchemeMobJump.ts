@@ -25,6 +25,8 @@ export class SchemeMobJump extends AbstractScheme {
     section: TSection,
     smartTerrainName: TName
   ): ISchemeMobJumpState {
+    assert(ini.line_exist(section, "on_signal"), "Bad jump scheme usage! 'on_signal' line must be specified.");
+
     const state: ISchemeMobJumpState = AbstractScheme.assign(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section);
@@ -34,8 +36,6 @@ export class SchemeMobJump extends AbstractScheme {
     const offsets: LuaArray<string> = parseStringsList(readIniString(ini, section, "offset", true));
 
     state.offset = createVector(tonumber(offsets.get(1))!, tonumber(offsets.get(2))!, tonumber(offsets.get(3))!);
-
-    assert(ini.line_exist(section, "on_signal"), "Bad jump scheme usage! 'on_signal' line must be specified.");
 
     return state;
   }
