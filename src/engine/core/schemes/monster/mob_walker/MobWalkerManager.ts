@@ -20,8 +20,10 @@ import {
   Patrol,
   TAnimationKey,
   TAnimationType,
+  TCount,
   TIndex,
   TName,
+  TNumberId,
   TSoundKey,
   Vector,
 } from "@/engine/lib/types";
@@ -99,14 +101,12 @@ export class MobWalkerManager extends AbstractSchemeManager<ISchemeMobWalkerStat
 
   public update(): void {
     if (!isMonsterScriptCaptured(this.object)) {
-      this.activate();
-
-      return;
+      return this.activate();
     }
 
     if (this.mobState === EMobWalkerState.STANDING) {
       if (!this.object.action()) {
-        const patrolWalkCount = this.patrolWalk!.count();
+        const patrolWalkCount: TCount = this.patrolWalk!.count();
 
         if (patrolWalkCount === 1 && isObjectAtWaypoint(this.object, this.patrolWalk!, 0)) {
           this.mobState = EMobWalkerState.MOVING;
@@ -127,7 +127,7 @@ export class MobWalkerManager extends AbstractSchemeManager<ISchemeMobWalkerStat
 
     this.lastIndex = index;
 
-    const suggestedSound = this.pathWalkInfo!.get(index)["s"] as Optional<TSoundKey>;
+    const suggestedSound: Optional<TSoundKey> = this.pathWalkInfo!.get(index)["s"] as Optional<TSoundKey>;
 
     if (suggestedSound) {
       this.scheduledSound = suggestedSound;
@@ -140,18 +140,18 @@ export class MobWalkerManager extends AbstractSchemeManager<ISchemeMobWalkerStat
 
     if (signal !== null) {
       // -- HACK, fixme:
-      const objectId = this.object.id();
-      const scheme: EScheme = registry.objects.get(objectId)["activeScheme"]!;
+      const objectId: TNumberId = this.object.id();
+      const scheme: EScheme = registry.objects.get(objectId).activeScheme!;
       const signals: LuaTable<TName, boolean> = registry.objects.get(objectId)[scheme!]!.signals!;
 
       signals.set(signal, true);
     }
 
-    const beh: Optional<EMonsterState> = this.pathWalkInfo!.get(index)["b"] as Optional<EMonsterState>;
+    const beh: Optional<EMonsterState> = this.pathWalkInfo!.get(index).b as Optional<EMonsterState>;
 
     setMonsterState(this.object, beh ? beh : this.state.state);
 
-    const searchForFlags: Flags32 = this.pathWalkInfo!.get(index)["flags"] as Flags32;
+    const searchForFlags: Flags32 = this.pathWalkInfo!.get(index).flags as Flags32;
 
     if (searchForFlags.get() === 0) {
       return this.updateMovementState();
@@ -160,7 +160,7 @@ export class MobWalkerManager extends AbstractSchemeManager<ISchemeMobWalkerStat
     const [ptChosenIdx] = choosePatrolWaypointByFlags(this.patrolLook!, this.pathLookInfo!, searchForFlags);
 
     if (ptChosenIdx) {
-      const suggestedWaitTime = this.pathLookInfo!.get(ptChosenIdx)["t"];
+      const suggestedWaitTime = this.pathLookInfo!.get(ptChosenIdx).t;
 
       if (suggestedWaitTime) {
         this.ptWaitTime = tonumber(suggestedWaitTime)!;
@@ -182,7 +182,7 @@ export class MobWalkerManager extends AbstractSchemeManager<ISchemeMobWalkerStat
         this.curAnimSet = mobWalkerConfig.DEFAULT_ANIM_STANDING;
       }
 
-      const beh = this.pathWalkInfo!.get(index)["b"];
+      const beh = this.pathWalkInfo!.get(index).b;
 
       setMonsterState(this.object, (beh ? beh : this.state.state) as EMonsterState);
 

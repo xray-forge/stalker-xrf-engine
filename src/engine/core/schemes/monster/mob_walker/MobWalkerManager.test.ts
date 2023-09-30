@@ -1,4 +1,4 @@
-import { describe, expect, it } from "@jest/globals";
+import { describe, expect, it, jest } from "@jest/globals";
 import { clsid, patrol } from "xray16";
 
 import { EMobWalkerState, ISchemeMobWalkerState } from "@/engine/core/schemes/monster/mob_walker/mob_walker_types";
@@ -37,5 +37,58 @@ describe("MobWalkerManager", () => {
 
     expect(object.script).toHaveBeenCalledWith(true, "xrf");
     expect(object.command).toHaveBeenCalledTimes(1);
+  });
+
+  it("should correctly deactivate", () => {
+    const object: ClientObject = mockClientGameObject({ clsid: () => clsid.bloodsucker_s });
+    const state: ISchemeMobWalkerState = mockSchemeState<ISchemeMobWalkerState>(EScheme.MOB_REMARK, {
+      signals: $fromObject<TName, boolean>({ a: true }),
+      state: EMonsterState.NONE,
+      pathWalk: "test-wp",
+      pathLook: "test-wp-2",
+    });
+    const manager: MobWalkerManager = new MobWalkerManager(object, state);
+
+    manager.activate();
+    manager.deactivate();
+
+    expect(object.script).toHaveBeenCalledWith(true, "xrf");
+    expect(object.script).toHaveBeenCalledTimes(2);
+    expect(object.command).toHaveBeenCalledTimes(2);
+  });
+
+  it("should correctly update", () => {
+    const object: ClientObject = mockClientGameObject({ clsid: () => clsid.bloodsucker_s });
+    const state: ISchemeMobWalkerState = mockSchemeState<ISchemeMobWalkerState>(EScheme.MOB_REMARK, {
+      signals: $fromObject<TName, boolean>({ a: true }),
+      state: EMonsterState.NONE,
+      pathWalk: "test-wp",
+      pathLook: "test-wp-2",
+    });
+    const manager: MobWalkerManager = new MobWalkerManager(object, state);
+
+    jest.spyOn(manager, "updateMovementState").mockImplementation(jest.fn());
+
+    manager.activate();
+
+    jest.spyOn(manager, "activate").mockImplementation(jest.fn());
+    jest.spyOn(object, "get_script").mockImplementation(() => true);
+
+    manager.update();
+    expect(manager.activate).toHaveBeenCalledTimes(0);
+    expect(manager.updateMovementState).toHaveBeenCalledTimes(0);
+
+    jest.spyOn(object, "get_script").mockImplementation(() => false);
+
+    manager.update();
+    expect(manager.activate).toHaveBeenCalledTimes(1);
+    expect(manager.updateMovementState).toHaveBeenCalledTimes(0);
+
+    jest.spyOn(object, "get_script").mockImplementation(() => true);
+    manager.mobState = EMobWalkerState.STANDING;
+
+    manager.update();
+    expect(manager.mobState).toBe(EMobWalkerState.MOVING);
+    expect(manager.updateMovementState).toHaveBeenCalledTimes(1);
   });
 });
