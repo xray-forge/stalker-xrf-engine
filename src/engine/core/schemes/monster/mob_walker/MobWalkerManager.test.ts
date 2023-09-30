@@ -118,7 +118,7 @@ describe("MobWalkerManager", () => {
     expect(manager.lastIndex).toBe(1);
 
     expect(object.set_invisible).toHaveBeenCalledTimes(1);
-    expect(object.set_invisible).toHaveBeenCalledWith(true);
+    expect(object.set_invisible).toHaveBeenCalledWith(false);
     expect(manager.updateMovementState).toHaveBeenCalledTimes(1);
   });
 
