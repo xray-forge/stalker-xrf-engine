@@ -1,6 +1,6 @@
 import { AbstractScheme } from "@/engine/core/objects/ai/scheme/AbstractScheme";
 import { IdleManager } from "@/engine/core/schemes/restrictor/sr_idle/IdleManager";
-import { ISchemeIdleState } from "@/engine/core/schemes/restrictor/sr_idle/ISchemeIdleState";
+import { ISchemeIdleState } from "@/engine/core/schemes/restrictor/sr_idle/sr_idle_types";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini/ini_config";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { ClientObject, IniFile } from "@/engine/lib/types";

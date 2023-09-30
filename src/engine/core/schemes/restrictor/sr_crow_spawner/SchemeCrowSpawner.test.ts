@@ -2,8 +2,8 @@ import { describe, expect, it } from "@jest/globals";
 
 import { registerObject } from "@/engine/core/database";
 import { CrowSpawnerManager } from "@/engine/core/schemes/restrictor/sr_crow_spawner/CrowSpawnerManager";
-import { ISchemeCrowSpawnerState } from "@/engine/core/schemes/restrictor/sr_crow_spawner/ISchemeCrowSpawnerState";
 import { SchemeCrowSpawner } from "@/engine/core/schemes/restrictor/sr_crow_spawner/SchemeCrowSpawner";
+import { ISchemeCrowSpawnerState } from "@/engine/core/schemes/restrictor/sr_crow_spawner/sr_crow_spawner_types";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini";
 import { loadSchemeImplementation } from "@/engine/core/utils/scheme";
 import { ClientObject, EScheme, ESchemeType, IniFile } from "@/engine/lib/types";

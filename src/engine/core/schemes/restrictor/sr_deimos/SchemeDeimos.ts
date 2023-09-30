@@ -1,7 +1,7 @@
 import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { AbstractScheme } from "@/engine/core/objects/ai/scheme";
 import { DeimosManager } from "@/engine/core/schemes/restrictor/sr_deimos/DeimosManager";
-import { ISchemeDeimosState } from "@/engine/core/schemes/restrictor/sr_deimos/ISchemeDeimosState";
+import { ISchemeDeimosState } from "@/engine/core/schemes/restrictor/sr_deimos/sr_deimos_types";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini/ini_config";
 import { readIniNumber, readIniString } from "@/engine/core/utils/ini/ini_read";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -26,19 +26,19 @@ export class SchemeDeimos extends AbstractScheme {
     const state: ISchemeDeimosState = AbstractScheme.assign(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section);
-    state.movement_speed = readIniNumber(ini, section, "movement_speed", false, 100);
-    state.growing_koef = readIniNumber(ini, section, "growing_koef", false, 0.1);
-    state.lowering_koef = readIniNumber(ini, section, "lowering_koef", false, state.growing_koef);
-    state.pp_effector = readIniString(ini, section, "pp_effector", false, null);
-    state.cam_effector = readIniString(ini, section, "cam_effector", false);
-    state.pp_effector2 = readIniString(ini, section, "pp_effector2", false);
-    state.cam_effector_repeating_time = readIniNumber(ini, section, "cam_effector_repeating_time", false, 10) * 1000;
-    state.noise_sound = readIniString(ini, section, "noise_sound", false);
-    state.heartbeet_sound = readIniString(ini, section, "heartbeet_sound", false);
-    state.health_lost = readIniNumber(ini, section, "health_lost", false, 0.01);
-    state.disable_bound = readIniNumber(ini, section, "disable_bound", false, 0.1);
-    state.switch_lower_bound = readIniNumber(ini, section, "switch_lower_bound", false, 0.5);
-    state.switch_upper_bound = readIniNumber(ini, section, "switch_upper_bound", false, 0.75);
+    state.movementSpeed = readIniNumber(ini, section, "movement_speed", false, 100);
+    state.growingKoef = readIniNumber(ini, section, "growing_koef", false, 0.1);
+    state.loweringKoef = readIniNumber(ini, section, "lowering_koef", false, state.growingKoef);
+    state.ppEffector = readIniString(ini, section, "pp_effector", false, null);
+    state.camEffector = readIniString(ini, section, "cam_effector", false);
+    state.ppEffector2 = readIniString(ini, section, "pp_effector2", false);
+    state.camEffectorRepeatingTime = readIniNumber(ini, section, "cam_effector_repeating_time", false, 10) * 1000;
+    state.noiseSound = readIniString(ini, section, "noise_sound", false);
+    state.heartbeetSound = readIniString(ini, section, "heartbeet_sound", false);
+    state.healthLost = readIniNumber(ini, section, "health_lost", false, 0.01);
+    state.disableBound = readIniNumber(ini, section, "disable_bound", false, 0.1);
+    state.switchLowerBound = readIniNumber(ini, section, "switch_lower_bound", false, 0.5);
+    state.switchUpperBound = readIniNumber(ini, section, "switch_upper_bound", false, 0.75);
 
     return state;
   }
@@ -63,7 +63,7 @@ export class SchemeDeimos extends AbstractScheme {
       const currentSpeed: TRate = math.sqrt(
         speedVector.x * speedVector.x + speedVector.y * speedVector.y + speedVector.z * speedVector.z
       );
-      const intensityDelta: TRate = deimosState.growing_koef * (deimosState.movement_speed - currentSpeed) * 0.005;
+      const intensityDelta: TRate = deimosState.growingKoef * (deimosState.movementSpeed - currentSpeed) * 0.005;
 
       return intensityDelta < 0;
     }
@@ -78,7 +78,7 @@ export class SchemeDeimos extends AbstractScheme {
     if (state.activeScheme === SchemeDeimos.SCHEME_SECTION) {
       const deimosState: ISchemeDeimosState = state[state.activeScheme] as ISchemeDeimosState;
 
-      return deimosState.intensity < deimosState.disable_bound;
+      return deimosState.intensity < deimosState.disableBound;
     }
 
     return false;
@@ -91,7 +91,7 @@ export class SchemeDeimos extends AbstractScheme {
     if (state.activeScheme === SchemeDeimos.SCHEME_SECTION) {
       const deimosState: ISchemeDeimosState = state[state.activeScheme] as ISchemeDeimosState;
 
-      return deimosState.intensity < deimosState.switch_lower_bound;
+      return deimosState.intensity < deimosState.switchLowerBound;
     }
 
     return false;
@@ -104,7 +104,7 @@ export class SchemeDeimos extends AbstractScheme {
     if (state.activeScheme === SchemeDeimos.SCHEME_SECTION) {
       const deimosState: ISchemeDeimosState = state[state.activeScheme] as ISchemeDeimosState;
 
-      return deimosState.intensity < deimosState.switch_upper_bound;
+      return deimosState.intensity < deimosState.switchUpperBound;
     }
 
     return false;

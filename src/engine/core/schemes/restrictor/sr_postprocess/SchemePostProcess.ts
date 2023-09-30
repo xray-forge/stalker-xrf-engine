@@ -1,6 +1,6 @@
 import { AbstractScheme } from "@/engine/core/objects/ai/scheme";
-import { ISchemePostProcessState } from "@/engine/core/schemes/restrictor/sr_postprocess/ISchemePostProcessState";
 import { PostProcessManager } from "@/engine/core/schemes/restrictor/sr_postprocess/PostProcessManager";
+import { ISchemePostProcessState } from "@/engine/core/schemes/restrictor/sr_postprocess/sr_postprocess_types";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini/ini_config";
 import { readIniNumber } from "@/engine/core/utils/ini/ini_read";
 import { LuaLogger } from "@/engine/core/utils/logging";

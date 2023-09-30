@@ -1,9 +1,9 @@
 import { describe, expect, it } from "@jest/globals";
 
 import { registerObject } from "@/engine/core/database";
-import { ISchemePostProcessState } from "@/engine/core/schemes/restrictor/sr_postprocess/ISchemePostProcessState";
 import { PostProcessManager } from "@/engine/core/schemes/restrictor/sr_postprocess/PostProcessManager";
 import { SchemePostProcess } from "@/engine/core/schemes/restrictor/sr_postprocess/SchemePostProcess";
+import { ISchemePostProcessState } from "@/engine/core/schemes/restrictor/sr_postprocess/sr_postprocess_types";
 import { loadSchemeImplementation } from "@/engine/core/utils/scheme";
 import { ClientObject, EScheme, IniFile } from "@/engine/lib/types";
 import { assertSchemeSubscribedToManager } from "@/fixtures/engine";

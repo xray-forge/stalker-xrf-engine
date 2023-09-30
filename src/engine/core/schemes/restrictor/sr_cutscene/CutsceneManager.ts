@@ -12,7 +12,7 @@ import {
   EEffectorState,
   ESceneState,
   ISchemeCutsceneState,
-} from "@/engine/core/schemes/restrictor/sr_cutscene/ISchemeCutsceneState";
+} from "@/engine/core/schemes/restrictor/sr_cutscene/sr_cutscene_types";
 import { getExtern } from "@/engine/core/utils/binding";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { trySwitchToAnotherSection } from "@/engine/core/utils/scheme/scheme_switch";
@@ -35,7 +35,7 @@ export class CutsceneManager extends AbstractSchemeManager<ISchemeCutsceneState>
   public sceneState: ESceneState = ESceneState.NONE;
 
   public override activate(): void {
-    logger.info("Reset scheme");
+    logger.info("Activate scheme");
 
     this.sceneState = ESceneState.NONE;
     this.state.signals = new LuaTable();

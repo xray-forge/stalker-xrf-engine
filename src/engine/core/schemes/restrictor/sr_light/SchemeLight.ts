@@ -1,7 +1,7 @@
 import { registry } from "@/engine/core/database";
 import { AbstractScheme } from "@/engine/core/objects/ai/scheme/AbstractScheme";
-import { ISchemeLightState } from "@/engine/core/schemes/restrictor/sr_light/ISchemeLightState";
 import { LightManager } from "@/engine/core/schemes/restrictor/sr_light/LightManager";
+import { ISchemeLightState } from "@/engine/core/schemes/restrictor/sr_light/sr_light_types";
 import { getConfigSwitchConditions, readIniBoolean } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { resetTable } from "@/engine/core/utils/table";

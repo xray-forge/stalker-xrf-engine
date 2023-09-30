@@ -2,8 +2,8 @@ import { describe, expect, it, jest } from "@jest/globals";
 import { CUIGameCustom, get_hud } from "xray16";
 
 import { IRegistryObjectState, registerActor, registerObject } from "@/engine/core/database";
-import { ETimerType, ISchemeTimerState } from "@/engine/core/schemes/restrictor/sr_timer/ISchemeTimerState";
 import { SchemeTimer } from "@/engine/core/schemes/restrictor/sr_timer/SchemeTimer";
+import { ETimerType, ISchemeTimerState } from "@/engine/core/schemes/restrictor/sr_timer/sr_timer_types";
 import { TimerManager } from "@/engine/core/schemes/restrictor/sr_timer/TimerManager";
 import { activateSchemeBySection, loadSchemeImplementation } from "@/engine/core/utils/scheme";
 import { ClientObject, EScheme, IniFile } from "@/engine/lib/types";

@@ -1,4 +1,4 @@
-import { EEffectorState } from "@/engine/core/schemes/restrictor/sr_cutscene/ISchemeCutsceneState";
+import { EEffectorState } from "@/engine/core/schemes/restrictor/sr_cutscene/sr_cutscene_types";
 import { TAnimation } from "@/engine/lib/constants/animation";
 import { FALSE } from "@/engine/lib/constants/words";
 

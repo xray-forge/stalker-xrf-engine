@@ -4,7 +4,7 @@ import { AbstractSchemeManager } from "@/engine/core/objects/ai/scheme";
 import {
   EActorZoneState,
   ISchemeNoWeaponState,
-} from "@/engine/core/schemes/restrictor/sr_no_weapon/ISchemeNoWeaponState";
+} from "@/engine/core/schemes/restrictor/sr_no_weapon/sr_no_weapon_types";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { trySwitchToAnotherSection } from "@/engine/core/utils/scheme/scheme_switch";
 

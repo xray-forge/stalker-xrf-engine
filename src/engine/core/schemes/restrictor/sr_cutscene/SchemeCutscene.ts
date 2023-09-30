@@ -1,6 +1,6 @@
 import { AbstractScheme } from "@/engine/core/objects/ai/scheme";
 import { CutsceneManager } from "@/engine/core/schemes/restrictor/sr_cutscene/CutsceneManager";
-import { ISchemeCutsceneState } from "@/engine/core/schemes/restrictor/sr_cutscene/ISchemeCutsceneState";
+import { ISchemeCutsceneState } from "@/engine/core/schemes/restrictor/sr_cutscene/sr_cutscene_types";
 import { getConfigSwitchConditions, parseStringsList } from "@/engine/core/utils/ini";
 import { readIniBoolean, readIniNumber, readIniString } from "@/engine/core/utils/ini/ini_read";
 import { LuaLogger } from "@/engine/core/utils/logging";
