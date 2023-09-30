@@ -24,11 +24,11 @@ describe("SchemeMobRemark", () => {
 
     expect(state.logic).toEqualLuaTables({});
     expect(state.state).toBeNull();
-    expect(state.dialog_cond).toBeNull();
-    expect(state.no_reset).toBe(true);
+    expect(state.dialogCondition).toBeNull();
+    expect(state.noReset).toBe(true);
     expect(state.anim).toBeNull();
-    expect(state.anim_movement).toBe(false);
-    expect(state.anim_head).toBeNull();
+    expect(state.animationMovement).toBe(false);
+    expect(state.animationHead).toBeNull();
     expect(state.tip).toBeNull();
     expect(state.snd).toBeNull();
     expect(state.time).toBeNull();
@@ -60,14 +60,14 @@ describe("SchemeMobRemark", () => {
     expect(state.logic).toEqualLuaTables(getConfigSwitchConditions(ini, "mob_remark@test"));
     expect(state.state).toBe("invis");
 
-    expect(state.no_reset).toBe(true);
+    expect(state.noReset).toBe(true);
     expect(state.anim).toBe("test_anim");
-    expect(state.anim_movement).toBe(true);
-    expect(state.anim_head).toBe("test_anim_head");
+    expect(state.animationMovement).toBe(true);
+    expect(state.animationHead).toBe("test_anim_head");
     expect(state.tip).toBe("test_tip");
     expect(state.snd).toBe("test_snd");
     expect(state.time).toBe("test_time");
-    expect(state.dialog_cond).toEqualLuaTables({
+    expect(state.dialogCondition).toEqualLuaTables({
       name: "dialog_cond",
       condlist: parseConditionsList("{+test} first, second"),
       objectId: null,

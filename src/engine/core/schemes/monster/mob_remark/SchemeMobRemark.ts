@@ -27,11 +27,11 @@ export class SchemeMobRemark extends AbstractScheme {
 
     state.logic = getConfigSwitchConditions(ini, section);
     state.state = getMonsterState(ini, section);
-    state.dialog_cond = readIniConditionList(ini, section, "dialog_cond");
-    state.no_reset = true;
+    state.dialogCondition = readIniConditionList(ini, section, "dialog_cond");
+    state.noReset = true;
     state.anim = readIniString(ini, section, "anim", false);
-    state.anim_movement = readIniBoolean(ini, section, "anim_movement", false, false);
-    state.anim_head = readIniString(ini, section, "anim_head", false);
+    state.animationMovement = readIniBoolean(ini, section, "anim_movement", false, false);
+    state.animationHead = readIniString(ini, section, "anim_head", false);
     state.tip = readIniString(ini, section, "tip", false);
     state.snd = readIniString(ini, section, "snd", false);
     state.time = readIniString(ini, section, "time", false);

@@ -22,7 +22,7 @@ export class MobRemarkManager extends AbstractSchemeManager<ISchemeMobRemarkStat
 
     this.object.disable_talk();
 
-    scriptCaptureMonster(this.object, !this.state.no_reset);
+    scriptCaptureMonster(this.object, !this.state.noReset);
 
     const animationsList: LuaArray<TName> = parseStringsList(this.state.anim);
 
@@ -73,15 +73,15 @@ export class MobRemarkManager extends AbstractSchemeManager<ISchemeMobRemarkStat
           cnd = new cond(cond.time_end, tm);
         }
 
-        if (this.state.anim_head) {
+        if (this.state.animationHead) {
           scriptCommandMonster(
             this.object,
             new anim(an),
-            new sound(snd, "bip01_head", MonsterSpace[this.state.anim_head as MonsterBodyStateKey]),
+            new sound(snd, "bip01_head", MonsterSpace[this.state.animationHead as MonsterBodyStateKey]),
             cnd
           );
         } else {
-          if (this.state.anim_movement === true) {
+          if (this.state.animationMovement === true) {
             scriptCommandMonster(this.object, new anim(an, true), new sound(snd, "bip01_head"), cnd);
           } else {
             scriptCommandMonster(this.object, new anim(an), new sound(snd, "bip01_head"), cnd);
@@ -94,7 +94,7 @@ export class MobRemarkManager extends AbstractSchemeManager<ISchemeMobRemarkStat
           cnd = new cond(cond.time_end, tm);
         }
 
-        if (this.state.anim_movement === true) {
+        if (this.state.animationMovement === true) {
           scriptCommandMonster(this.object, new anim(an, true), cnd);
         } else {
           scriptCommandMonster(this.object, new anim(an), cnd);
@@ -110,8 +110,8 @@ export class MobRemarkManager extends AbstractSchemeManager<ISchemeMobRemarkStat
 
   public update(): void {
     if (
-      this.state.dialog_cond &&
-      pickSectionFromCondList(registry.actor, this.object, this.state.dialog_cond.condlist) !== null
+      this.state.dialogCondition &&
+      pickSectionFromCondList(registry.actor, this.object, this.state.dialogCondition.condlist) !== null
     ) {
       if (!this.object.is_talk_enabled()) {
         this.object.enable_talk();
