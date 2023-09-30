@@ -31,9 +31,6 @@ export class PhysicalDoorManager extends AbstractSchemeManager<ISchemePhysicalDo
   public lowLimits: number = 0;
   public hiLimits: number = 0;
 
-  /**
-   * todo: Description.
-   */
   public override activate(loading?: boolean): void {
     this.state.signals = new LuaTable();
 
@@ -76,9 +73,10 @@ export class PhysicalDoorManager extends AbstractSchemeManager<ISchemePhysicalDo
     this.isInitialized = true;
   }
 
-  /**
-   * todo: Description.
-   */
+  public override deactivate(): void {
+    this.object.set_tip_text("");
+  }
+
   public update(): void {
     if (!this.isInitialized) {
       abort("object '%s': door failed to initialize", this.object.name());
@@ -267,9 +265,6 @@ export class PhysicalDoorManager extends AbstractSchemeManager<ISchemePhysicalDo
     return false;
   }
 
-  /**
-   * todo: Description.
-   */
   public override onUse(target: ClientObject, who: Optional<ClientObject>): void {
     if (this.state.locked) {
       if (this.state.sndOpenStart) {
@@ -280,9 +275,6 @@ export class PhysicalDoorManager extends AbstractSchemeManager<ISchemePhysicalDo
     this.trySwitch();
   }
 
-  /**
-   * todo: Description.
-   */
   public override onHit(
     object: ClientObject,
     amount: TCount,
@@ -297,12 +289,5 @@ export class PhysicalDoorManager extends AbstractSchemeManager<ISchemePhysicalDo
 
       return;
     }
-  }
-
-  /**
-   * todo: Description.
-   */
-  public override deactivate(): void {
-    this.object.set_tip_text("");
   }
 }

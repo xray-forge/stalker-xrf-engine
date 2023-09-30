@@ -12,9 +12,6 @@ export class PhysicalForceManager extends AbstractSchemeManager<ISchemePhysicalF
   public time: number = 0;
   public process: boolean = false;
 
-  /**
-   * todo: Description.
-   */
   public override activate(): void {
     if (this.state.delay !== 0) {
       this.time = time_global() + this.state.delay;
@@ -23,9 +20,6 @@ export class PhysicalForceManager extends AbstractSchemeManager<ISchemePhysicalF
     this.process = false;
   }
 
-  /**
-   * todo: Description.
-   */
   public update(): void {
     if (trySwitchToAnotherSection(this.object, this.state)) {
       return;

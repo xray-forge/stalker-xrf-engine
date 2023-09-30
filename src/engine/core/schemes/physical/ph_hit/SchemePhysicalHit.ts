@@ -39,6 +39,6 @@ export class SchemePhysicalHit extends AbstractScheme {
     section: TSection,
     state: ISchemePhysicalHitState
   ): void {
-    SchemePhysicalHit.subscribe(object, state, new PhysicalHitManager(object, state));
+    AbstractScheme.subscribe(object, state, new PhysicalHitManager(object, state));
   }
 }

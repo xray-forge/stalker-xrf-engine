@@ -27,28 +27,6 @@ export class PhysicalButtonManager extends AbstractSchemeManager<ISchemePhysical
     trySwitchToAnotherSection(this.object, this.state);
   }
 
-  /**
-   * todo: Description.
-   */
-  public trySwitch(): boolean {
-    if (isActiveSection(this.object, this.state.section) && this.state.onPress) {
-      if (
-        switchObjectSchemeToSection(
-          this.object,
-          this.state.ini!,
-          pickSectionFromCondList(registry.actor, this.object, this.state.onPress.condlist)!
-        )
-      ) {
-        return true;
-      }
-    }
-
-    return false;
-  }
-
-  /**
-   * todo: Description.
-   */
   public override onHit(
     object: ClientObject,
     amount: TRate,
@@ -56,7 +34,6 @@ export class PhysicalButtonManager extends AbstractSchemeManager<ISchemePhysical
     who: Optional<ClientObject>,
     boneIndex: TIndex
   ): void {
-    return;
     /* --[[    const who_name
       if who then
         who_name = who:name()
@@ -76,12 +53,15 @@ export class PhysicalButtonManager extends AbstractSchemeManager<ISchemePhysical
     */
   }
 
-  /**
-   * todo: Description.
-   */
   public override onUse(object: ClientObject, who: Optional<ClientObject>): void {
     logger.info("Button used:", object.name(), type(who));
 
-    this.trySwitch();
+    if (isActiveSection(this.object, this.state.section) && this.state.onPress) {
+      switchObjectSchemeToSection(
+        this.object,
+        this.state.ini,
+        pickSectionFromCondList(registry.actor, this.object, this.state.onPress.condlist)
+      );
+    }
   }
 }

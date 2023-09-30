@@ -41,9 +41,6 @@ export class SchemePhysicalOnHit extends AbstractScheme {
     AbstractScheme.subscribe(object, state, manager);
   }
 
-  /**
-   * Handle disabling of the scheme.
-   */
   public static override disable(object: ClientObject, scheme: EScheme): void {
     const state: Optional<ISchemePhysicalOnHitState> = registry.objects.get(object.id())[
       scheme

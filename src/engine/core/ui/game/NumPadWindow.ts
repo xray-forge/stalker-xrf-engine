@@ -6,7 +6,7 @@ import { Optional, TKeyCode, TLabel, TUIEvent, XmlInit } from "@/engine/lib/type
 const logger: LuaLogger = new LuaLogger($filename);
 
 export interface INumPadWindowOwner {
-  OnNumberReceive(text: string): void;
+  onNumberReceive(text: string): void;
 }
 
 /**
@@ -108,7 +108,7 @@ export class NumPadWindow extends CUIScriptWnd {
     logger.info("Cancel clicked");
 
     if (this.owner) {
-      this.owner.OnNumberReceive("");
+      this.owner.onNumberReceive("");
     }
 
     this.HideDialog();
@@ -122,7 +122,7 @@ export class NumPadWindow extends CUIScriptWnd {
     const text: TLabel = this.uiEditBox.TextControl().GetText();
 
     if (this.owner) {
-      this.owner.OnNumberReceive(text);
+      this.owner.onNumberReceive(text);
     }
   }
 

@@ -57,6 +57,6 @@ export class SchemeOscillate extends AbstractScheme {
     section: TSection,
     state: ISchemeOscillateState
   ): void {
-    SchemeOscillate.subscribe(object, state, new OscillateManager(object, state));
+    AbstractScheme.subscribe(object, state, new OscillateManager(object, state));
   }
 }

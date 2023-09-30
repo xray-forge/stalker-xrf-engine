@@ -15,9 +15,6 @@ export class OscillateManager extends AbstractSchemeManager<ISchemeOscillateStat
   public joint: Optional<PhysicsJoint> = null;
   public pause: boolean = false;
 
-  /**
-   * todo: Description.
-   */
   public override activate(): void {
     this.time = time_global();
     this.dir = createVector(math.random(), 0, math.random()).normalize();
@@ -26,9 +23,6 @@ export class OscillateManager extends AbstractSchemeManager<ISchemeOscillateStat
     this.pause = false;
   }
 
-  /**
-   * Handle periodic force applications.
-   */
   public update(): void {
     const now: TTimestamp = time_global();
 
