@@ -2,7 +2,8 @@ import { anim, cond, look, move, patrol, sound } from "xray16";
 
 import { registry, setMonsterState } from "@/engine/core/database";
 import { AbstractSchemeManager } from "@/engine/core/objects/ai/scheme";
-import { ISchemeMobWalkerState } from "@/engine/core/schemes/monster/mob_walker/ISchemeMobWalkerState";
+import { EMobWalkerState, ISchemeMobWalkerState } from "@/engine/core/schemes/monster/mob_walker/mob_walker_types";
+import { mobWalkerConfig } from "@/engine/core/schemes/monster/mob_walker/MobWalkerConfig";
 import { abort } from "@/engine/core/utils/assertion";
 import { IWaypointData, parseWaypointsData, pickSectionFromCondList } from "@/engine/core/utils/ini";
 import { choosePatrolWaypointByFlags, isObjectAtWaypoint } from "@/engine/core/utils/patrol";
@@ -19,18 +20,11 @@ import {
   Patrol,
   TAnimationKey,
   TAnimationType,
-  TDuration,
   TIndex,
   TName,
   TSoundKey,
   Vector,
 } from "@/engine/lib/types";
-
-const DEFAULT_WAIT_TIME: TDuration = 5000;
-const DEFAULT_ANIM_STANDING: TAnimationType = anim.stand_idle;
-
-const STATE_MOVING: number = 0;
-const STATE_STANDING: number = 1;
 
 /**
  * todo;
@@ -52,9 +46,6 @@ export class MobWalkerManager extends AbstractSchemeManager<ISchemeMobWalkerStat
 
   public pathLookInfo: Optional<LuaTable<number, IWaypointData>> = null;
 
-  /**
-   * todo: Description.
-   */
   public override activate(): void {
     setMonsterState(this.object, this.state.state);
 
@@ -86,11 +77,11 @@ export class MobWalkerManager extends AbstractSchemeManager<ISchemeMobWalkerStat
       this.pathLookInfo = this.state.pathLookInfo;
     }
 
-    this.mobState = STATE_MOVING;
+    this.mobState = EMobWalkerState.MOVING;
     this.crouch = false;
     this.running = false;
-    this.curAnimSet = DEFAULT_ANIM_STANDING;
-    this.ptWaitTime = DEFAULT_WAIT_TIME;
+    this.curAnimSet = mobWalkerConfig.DEFAULT_ANIM_STANDING;
+    this.ptWaitTime = mobWalkerConfig.DEFAULT_WAIT_TIME;
     this.scheduledSound = null;
     this.lastIndex = null;
     this.lastLookIndex = null;
@@ -102,9 +93,11 @@ export class MobWalkerManager extends AbstractSchemeManager<ISchemeMobWalkerStat
     );
   }
 
-  /**
-   * todo: Description.
-   */
+  public override deactivate(): void {
+    scriptCaptureMonster(this.object, true);
+    scriptCommandMonster(this.object, new move(move.steal, this.patrolWalk!.point(0)), new cond(cond.move_end));
+  }
+
   public update(): void {
     if (!isMonsterScriptCaptured(this.object)) {
       this.activate();
@@ -112,32 +105,22 @@ export class MobWalkerManager extends AbstractSchemeManager<ISchemeMobWalkerStat
       return;
     }
 
-    if (this.mobState === STATE_STANDING) {
+    if (this.mobState === EMobWalkerState.STANDING) {
       if (!this.object.action()) {
         const patrolWalkCount = this.patrolWalk!.count();
 
         if (patrolWalkCount === 1 && isObjectAtWaypoint(this.object, this.patrolWalk!, 0)) {
-          this.mobState = STATE_MOVING;
+          this.mobState = EMobWalkerState.MOVING;
           this.onWaypoint(this.object, null, this.lastIndex);
         } else {
           this.lastLookIndex = null;
-          this.mobState = STATE_MOVING;
+          this.mobState = EMobWalkerState.MOVING;
           this.updateMovementState();
         }
       }
     }
   }
 
-  /**
-   * todo: Description.
-   */
-  public arrivedToFirstWaypoint(): boolean {
-    return this.lastIndex !== null;
-  }
-
-  /**
-   * todo: Description.
-   */
   public override onWaypoint(object: ClientObject, actionType: Optional<TName>, index: Optional<TIndex>): void {
     if (index === -1 || index === null) {
       return;
@@ -195,7 +178,7 @@ export class MobWalkerManager extends AbstractSchemeManager<ISchemeMobWalkerStat
         if (patrolWalkCount === 1 && isObjectAtWaypoint(this.object, this.patrolWalk!, 0)) {
           this.ptWaitTime = 100_000_000;
         } else {
-          this.ptWaitTime = DEFAULT_WAIT_TIME;
+          this.ptWaitTime = mobWalkerConfig.DEFAULT_WAIT_TIME;
         }
       }
 
@@ -204,7 +187,7 @@ export class MobWalkerManager extends AbstractSchemeManager<ISchemeMobWalkerStat
       if (suggestedAnimSet) {
         this.curAnimSet = anim[pickSectionFromCondList(registry.actor, this.object, suggestedAnimSet) as TAnimationKey];
       } else {
-        this.curAnimSet = DEFAULT_ANIM_STANDING;
+        this.curAnimSet = mobWalkerConfig.DEFAULT_ANIM_STANDING;
       }
 
       const beh = this.pathWalkInfo!.get(index)["b"];
@@ -215,7 +198,7 @@ export class MobWalkerManager extends AbstractSchemeManager<ISchemeMobWalkerStat
         this.lookAtWaypoint(ptChosenIdx);
       }
 
-      this.mobState = STATE_STANDING;
+      this.mobState = EMobWalkerState.STANDING;
       this.updateStandingState();
 
       this.update();
@@ -279,20 +262,12 @@ export class MobWalkerManager extends AbstractSchemeManager<ISchemeMobWalkerStat
   /**
    * todo: Description.
    */
-  public override deactivate(): void {
-    scriptCaptureMonster(this.object, true);
-    scriptCommandMonster(this.object, new move(move.steal, this.patrolWalk!.point(0)), new cond(cond.move_end));
-  }
-
-  /**
-   * todo: Description.
-   */
-  public lookAtWaypoint(pt: number): void {
+  public lookAtWaypoint(index: TIndex): void {
     if (!this.patrolLook) {
       return;
     }
 
-    const lookPoint: Vector = copyVector(this.patrolLook.point(pt)).sub(this.object.position());
+    const lookPoint: Vector = copyVector(this.patrolLook.point(index)).sub(this.object.position());
 
     lookPoint.normalize();
     // --this.object:set_sight(look.direction, look_pt, 0)
@@ -300,6 +275,6 @@ export class MobWalkerManager extends AbstractSchemeManager<ISchemeMobWalkerStat
     scriptCaptureMonster(this.object, true);
     scriptCommandMonster(this.object, new look(look.direction, lookPoint), new cond(cond.look_end));
 
-    this.lastLookIndex = pt;
+    this.lastLookIndex = index;
   }
 }

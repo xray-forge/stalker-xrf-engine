@@ -14,3 +14,11 @@ export interface ISchemeMobWalkerState extends IBaseSchemeState {
   pathWalkInfo: Optional<LuaArray<IWaypointData>>;
   pathLookInfo: Optional<LuaArray<IWaypointData>>;
 }
+
+/**
+ * todo;
+ */
+export enum EMobWalkerState {
+  MOVING = 0,
+  STANDING = 1,
+}

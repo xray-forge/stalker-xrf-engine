@@ -1,15 +1,11 @@
 import { cond, look, patrol } from "xray16";
 
 import { AbstractSchemeManager } from "@/engine/core/objects/ai/scheme";
-import { ISchemeMobJumpState } from "@/engine/core/schemes/monster/mob_jump/ISchemeMobJumpState";
+import { EMobJumpState, ISchemeMobJumpState } from "@/engine/core/schemes/monster/mob_jump/mob_jump_types";
 import { abort } from "@/engine/core/utils/assertion";
 import { scriptCaptureMonster, scriptCommandMonster, scriptReleaseMonster } from "@/engine/core/utils/scheme";
 import { addVectors } from "@/engine/core/utils/vector";
 import { Optional, Patrol, Vector } from "@/engine/lib/types";
-
-const STATE_START_LOOK = 1;
-const STATE_WAIT_LOOK_END = 2;
-const STATE_JUMP = 3;
 
 /**
  * todo;
@@ -39,23 +35,23 @@ export class MobJumpManager extends AbstractSchemeManager<ISchemeMobJumpState> {
     }
 
     this.point = addVectors(this.jumpPath.point(0), this.state.offset);
-    this.stateCurrent = STATE_START_LOOK;
+    this.stateCurrent = EMobJumpState.START_LOOK;
   }
 
-  public update(delta: number): void {
-    if (this.stateCurrent === STATE_START_LOOK) {
+  public update(): void {
+    if (this.stateCurrent === EMobJumpState.START_LOOK) {
       if (!this.object.action()) {
         scriptCommandMonster(this.object, new look(look.point, this.point!), new cond(cond.look_end));
 
-        this.stateCurrent = STATE_WAIT_LOOK_END;
+        this.stateCurrent = EMobJumpState.WAIT_LOOK_END;
       }
-    } else if (this.stateCurrent === STATE_WAIT_LOOK_END) {
+    } else if (this.stateCurrent === EMobJumpState.WAIT_LOOK_END) {
       if (!this.object.action()) {
-        this.stateCurrent = STATE_JUMP;
+        this.stateCurrent = EMobJumpState.JUMP;
       }
     }
 
-    if (this.stateCurrent === STATE_JUMP) {
+    if (this.stateCurrent === EMobJumpState.JUMP) {
       this.object.jump(this.point!, this.state.phJumpFactor);
       this.state.signals!.set("jumped", true);
       scriptReleaseMonster(this.object);

@@ -3,7 +3,7 @@ import { anim, cond, MonsterSpace, sound } from "xray16";
 import { registry, setMonsterState } from "@/engine/core/database";
 import { NotificationManager } from "@/engine/core/managers/notifications";
 import { AbstractSchemeManager } from "@/engine/core/objects/ai/scheme";
-import { ISchemeMobRemarkState } from "@/engine/core/schemes/monster/mob_remark/ISchemeMobRemarkState";
+import { ISchemeMobRemarkState } from "@/engine/core/schemes/monster/mob_remark/mob_remark_types";
 import { abort } from "@/engine/core/utils/assertion";
 import { getExtern } from "@/engine/core/utils/binding";
 import { parseStringsList, pickSectionFromCondList } from "@/engine/core/utils/ini";
@@ -17,9 +17,6 @@ export class MobRemarkManager extends AbstractSchemeManager<ISchemeMobRemarkStat
   public isTipSent: Optional<boolean> = null;
   public isActionEndSignalled: Optional<boolean> = null;
 
-  /**
-   * todo: Description.
-   */
   public override activate(): void {
     setMonsterState(this.object, this.state.state);
 
@@ -111,9 +108,6 @@ export class MobRemarkManager extends AbstractSchemeManager<ISchemeMobRemarkStat
     this.isActionEndSignalled = false;
   }
 
-  /**
-   * todo: Description.
-   */
   public update(): void {
     if (
       this.state.dialog_cond &&

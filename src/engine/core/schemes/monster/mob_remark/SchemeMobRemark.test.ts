@@ -1,7 +1,7 @@
 import { describe, expect, it } from "@jest/globals";
 
 import { registerObject } from "@/engine/core/database";
-import { ISchemeMobRemarkState } from "@/engine/core/schemes/monster/mob_remark/ISchemeMobRemarkState";
+import { ISchemeMobRemarkState } from "@/engine/core/schemes/monster/mob_remark/mob_remark_types";
 import { MobRemarkManager } from "@/engine/core/schemes/monster/mob_remark/MobRemarkManager";
 import { SchemeMobRemark } from "@/engine/core/schemes/monster/mob_remark/SchemeMobRemark";
 import { getConfigSwitchConditions, parseConditionsList } from "@/engine/core/utils/ini";
