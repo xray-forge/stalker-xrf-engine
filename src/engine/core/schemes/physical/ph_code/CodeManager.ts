@@ -4,10 +4,10 @@ import { ISchemeCodeState } from "@/engine/core/schemes/physical/ph_code/ph_code
 import { NumPadWindow } from "@/engine/core/ui/game/NumPadWindow";
 import { TConditionList } from "@/engine/core/utils/ini";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/ini_config";
-import { ClientObject, Optional, TLabel } from "@/engine/lib/types";
+import { Optional, TLabel } from "@/engine/lib/types";
 
 /**
- * todo;
+ * Manager of prompting and checking logics.
  */
 export class CodeManager extends AbstractSchemeManager<ISchemeCodeState> {
   public override activate(): void {
@@ -18,21 +18,21 @@ export class CodeManager extends AbstractSchemeManager<ISchemeCodeState> {
     this.object.set_tip_text("");
   }
 
-  public override onUse(object: ClientObject, who: ClientObject): void {
-    const numPadWindow: NumPadWindow = new NumPadWindow(this);
+  public override onUse(): void {
+    const window: NumPadWindow = new NumPadWindow(this);
 
-    numPadWindow.ShowDialog(true);
+    window.ShowDialog(true);
   }
 
   /**
-   * todo: Description.
+   * Handle received number from modal input.
+   *
+   * @param text - input text from the modal sent by player
    */
   public onNumberReceive(text: TLabel): void {
     if (this.state.code) {
-      if (tonumber(text) === this.state.code) {
-        if (this.state.onCode) {
-          pickSectionFromCondList(registry.actor, this.object, this.state.onCode.condlist);
-        }
+      if (tonumber(text) === this.state.code && this.state.onCode) {
+        pickSectionFromCondList(registry.actor, this.object, this.state.onCode.condlist);
       }
     } else {
       const condlist: Optional<TConditionList> = this.state.onCheckCode.get(text) as Optional<TConditionList>;

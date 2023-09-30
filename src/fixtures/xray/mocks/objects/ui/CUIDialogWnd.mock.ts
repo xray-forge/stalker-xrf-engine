@@ -6,5 +6,8 @@ export class MockCUIDialogWnd extends MockCUIWindow {
   public static override mock(): CUIDialogWnd {
     return new MockCUIDialogWnd() as unknown as CUIDialogWnd;
   }
+
   public HideDialog(): void {}
+
+  public ShowDialog(): void {}
 }

@@ -38,20 +38,18 @@ export class MobWalkerManager extends AbstractSchemeManager<ISchemeMobWalkerStat
   public scheduledSound: Optional<TSoundKey> = null;
   public ptWaitTime: Optional<number> = null;
 
-  public pathWalkInfo!: Optional<LuaArray<IWaypointData>>;
-
   public crouch: Optional<boolean> = null;
   public running: Optional<boolean> = null;
   public mobState: Optional<number> = null;
 
-  public pathLookInfo: Optional<LuaTable<number, IWaypointData>> = null;
+  public pathWalkInfo!: Optional<LuaArray<IWaypointData>>;
+  public pathLookInfo: Optional<LuaArray<IWaypointData>> = null;
 
   public override activate(): void {
     setMonsterState(this.object, this.state.state);
-
-    this.state.signals = new LuaTable();
     scriptCaptureMonster(this.object, true);
 
+    this.state.signals = new LuaTable();
     this.patrolWalk = new patrol(this.state.pathWalk);
 
     if (!this.patrolWalk) {
@@ -60,6 +58,7 @@ export class MobWalkerManager extends AbstractSchemeManager<ISchemeMobWalkerStat
 
     if (this.state.pathLook) {
       this.patrolLook = new patrol(this.state.pathLook);
+
       if (!this.patrolLook) {
         abort("object '%s': unable to find path_look '%s' on the map", this.object.name(), this.state.pathLook);
       }
@@ -134,13 +133,8 @@ export class MobWalkerManager extends AbstractSchemeManager<ISchemeMobWalkerStat
       this.scheduledSound = suggestedSound;
     }
 
-    const suggestedCrouch = this.pathWalkInfo!.get(index)["c"];
-
-    this.crouch = suggestedCrouch === TRUE;
-
-    const suggestedRunning = this.pathWalkInfo!.get(index)["r"];
-
-    this.running = suggestedRunning === TRUE;
+    this.crouch = this.pathWalkInfo!.get(index)["c"] === TRUE;
+    this.running = this.pathWalkInfo!.get(index)["r"] === TRUE;
 
     const signal: Optional<TName> = this.pathWalkInfo!.get(index)["sig"] as TName;
 
@@ -157,12 +151,10 @@ export class MobWalkerManager extends AbstractSchemeManager<ISchemeMobWalkerStat
 
     setMonsterState(this.object, beh ? beh : this.state.state);
 
-    const searchForFlags = this.pathWalkInfo!.get(index)["flags"] as Flags32;
+    const searchForFlags: Flags32 = this.pathWalkInfo!.get(index)["flags"] as Flags32;
 
     if (searchForFlags.get() === 0) {
-      this.updateMovementState();
-
-      return;
+      return this.updateMovementState();
     }
 
     const [ptChosenIdx] = choosePatrolWaypointByFlags(this.patrolLook!, this.pathLookInfo!, searchForFlags);
@@ -270,7 +262,6 @@ export class MobWalkerManager extends AbstractSchemeManager<ISchemeMobWalkerStat
     const lookPoint: Vector = copyVector(this.patrolLook.point(index)).sub(this.object.position());
 
     lookPoint.normalize();
-    // --this.object:set_sight(look.direction, look_pt, 0)
 
     scriptCaptureMonster(this.object, true);
     scriptCommandMonster(this.object, new look(look.direction, lookPoint), new cond(cond.look_end));

@@ -31,6 +31,8 @@ export class SchemeMobWalker extends AbstractScheme {
     state.noReset = readIniBoolean(ini, section, "no_reset", false);
     state.pathWalk = readIniString(ini, section, "path_walk", true, smartTerrainName);
     state.pathLook = readIniString(ini, section, "path_look", false, smartTerrainName);
+    state.pathWalkInfo = null;
+    state.pathLookInfo = null;
 
     if (state.pathWalk === state.pathLook) {
       abort(
@@ -39,9 +41,6 @@ export class SchemeMobWalker extends AbstractScheme {
         object.name()
       );
     }
-
-    state.pathWalkInfo = null;
-    state.pathLookInfo = null;
 
     return state;
   }
@@ -53,6 +52,6 @@ export class SchemeMobWalker extends AbstractScheme {
     section: TSection,
     state: ISchemeMobWalkerState
   ): void {
-    SchemeMobWalker.subscribe(object, state, new MobWalkerManager(object, state));
+    AbstractScheme.subscribe(object, state, new MobWalkerManager(object, state));
   }
 }
