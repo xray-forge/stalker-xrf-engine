@@ -1,7 +1,7 @@
 import { describe, expect, it } from "@jest/globals";
 
 import { registerObject } from "@/engine/core/database";
-import { ISchemePhysicalButtonState } from "@/engine/core/schemes/physical/ph_button/ISchemePhysicalButtonState";
+import { ISchemePhysicalButtonState } from "@/engine/core/schemes/physical/ph_button/ph_button_types";
 import { PhysicalButtonManager } from "@/engine/core/schemes/physical/ph_button/PhysicalButtonManager";
 import { SchemePhysicalButton } from "@/engine/core/schemes/physical/ph_button/SchemePhysicalButton";
 import { getConfigSwitchConditions, parseConditionsList } from "@/engine/core/utils/ini";
@@ -31,7 +31,7 @@ describe("SchemePhysicalButton", () => {
 
     expect(object.set_tip_text).toHaveBeenCalledWith("");
     expect(state.logic).toEqualLuaTables({});
-    expect(state.on_press).toBeNull();
+    expect(state.onPress).toBeNull();
     expect(state.tooltip).toBeNull();
     expect(state.anim).toBe("anim_test");
     expect(state.blending).toBe(true);
@@ -63,7 +63,7 @@ describe("SchemePhysicalButton", () => {
 
     expect(object.set_tip_text).toHaveBeenCalledWith("test_tip");
     expect(state.logic).toEqualLuaTables(getConfigSwitchConditions(ini, "ph_button@test"));
-    expect(state.on_press).toEqualLuaTables({
+    expect(state.onPress).toEqualLuaTables({
       name: "on_press",
       condlist: parseConditionsList("{+test} a, b"),
       objectId: null,

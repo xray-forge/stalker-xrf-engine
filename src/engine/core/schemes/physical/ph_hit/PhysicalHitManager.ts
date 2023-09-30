@@ -1,7 +1,7 @@
 import { hit, patrol } from "xray16";
 
 import { AbstractSchemeManager } from "@/engine/core/objects/ai/scheme";
-import { ISchemePhysicalHitState } from "@/engine/core/schemes/physical/ph_hit/ISchemePhysicalHitState";
+import { ISchemePhysicalHitState } from "@/engine/core/schemes/physical/ph_hit/ph_hit_types";
 import { trySwitchToAnotherSection } from "@/engine/core/utils/scheme/scheme_switch";
 import { copyVector } from "@/engine/core/utils/vector";
 import { Hit, Vector } from "@/engine/lib/types";
@@ -11,7 +11,7 @@ import { Hit, Vector } from "@/engine/lib/types";
  */
 export class PhysicalHitManager extends AbstractSchemeManager<ISchemePhysicalHitState> {
   public override activate(): void {
-    const patrolPoint: Vector = new patrol(this.state.dir_path).point(0);
+    const patrolPoint: Vector = new patrol(this.state.dirPath).point(0);
     const objectPosition: Vector = this.object.position();
 
     const objectHit: Hit = new hit();

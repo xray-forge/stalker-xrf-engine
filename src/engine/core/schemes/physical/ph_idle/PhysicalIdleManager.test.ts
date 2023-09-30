@@ -1,6 +1,6 @@
 import { describe, expect, it, jest } from "@jest/globals";
 
-import { ISchemePhysicalIdleState } from "@/engine/core/schemes/physical/ph_idle/ISchemePhysicalIdleState";
+import { ISchemePhysicalIdleState } from "@/engine/core/schemes/physical/ph_idle/ph_idle_types";
 import { PhysicalIdleManager } from "@/engine/core/schemes/physical/ph_idle/PhysicalIdleManager";
 import { parseBoneStateDescriptors, parseConditionsList } from "@/engine/core/utils/ini";
 import { switchObjectSchemeToSection, trySwitchToAnotherSection } from "@/engine/core/utils/scheme";

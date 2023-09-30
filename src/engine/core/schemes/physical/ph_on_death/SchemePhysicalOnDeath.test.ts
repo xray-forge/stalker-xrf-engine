@@ -1,7 +1,7 @@
 import { describe, expect, it } from "@jest/globals";
 
 import { registerObject } from "@/engine/core/database";
-import { ISchemePhysicalOnDeathState } from "@/engine/core/schemes/physical/ph_on_death/ISchemePhysicalOnDeathState";
+import { ISchemePhysicalOnDeathState } from "@/engine/core/schemes/physical/ph_on_death/ph_on_death_types";
 import { PhysicalDeathManager } from "@/engine/core/schemes/physical/ph_on_death/PhysicalDeathManager";
 import { SchemePhysicalOnDeath } from "@/engine/core/schemes/physical/ph_on_death/SchemePhysicalOnDeath";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini";

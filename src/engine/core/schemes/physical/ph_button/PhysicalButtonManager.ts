@@ -2,7 +2,7 @@ import { time_global } from "xray16";
 
 import { registry } from "@/engine/core/database";
 import { AbstractSchemeManager } from "@/engine/core/objects/ai/scheme";
-import { ISchemePhysicalButtonState } from "@/engine/core/schemes/physical/ph_button/ISchemePhysicalButtonState";
+import { ISchemePhysicalButtonState } from "@/engine/core/schemes/physical/ph_button/ph_button_types";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { isActiveSection } from "@/engine/core/utils/scheme";
@@ -31,12 +31,12 @@ export class PhysicalButtonManager extends AbstractSchemeManager<ISchemePhysical
    * todo: Description.
    */
   public trySwitch(): boolean {
-    if (isActiveSection(this.object, this.state.section) && this.state.on_press) {
+    if (isActiveSection(this.object, this.state.section) && this.state.onPress) {
       if (
         switchObjectSchemeToSection(
           this.object,
           this.state.ini!,
-          pickSectionFromCondList(registry.actor, this.object, this.state.on_press.condlist)!
+          pickSectionFromCondList(registry.actor, this.object, this.state.onPress.condlist)!
         )
       ) {
         return true;

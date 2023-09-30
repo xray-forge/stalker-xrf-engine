@@ -1,7 +1,7 @@
 import { describe, expect, it, jest } from "@jest/globals";
 
 import { IRegistryObjectState, registerObject } from "@/engine/core/database";
-import { ISchemePhysicalOnHitState } from "@/engine/core/schemes/physical/ph_on_hit/ISchemePhysicalOnHitState";
+import { ISchemePhysicalOnHitState } from "@/engine/core/schemes/physical/ph_on_hit/ph_on_hit_types";
 import { PhysicalOnHitManager } from "@/engine/core/schemes/physical/ph_on_hit/PhysicalOnHitManager";
 import { trySwitchToAnotherSection } from "@/engine/core/utils/scheme";
 import { ClientObject, EScheme } from "@/engine/lib/types";

@@ -1,7 +1,7 @@
 import { registry } from "@/engine/core/database";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import { AbstractSchemeManager } from "@/engine/core/objects/ai/scheme";
-import { ISchemePhysicalDoorState } from "@/engine/core/schemes/physical/ph_door/ISchemePhysicalDoorState";
+import { ISchemePhysicalDoorState } from "@/engine/core/schemes/physical/ph_door/ph_door_types";
 import { abort } from "@/engine/core/utils/assertion";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/ini_config";
 import { switchObjectSchemeToSection, trySwitchToAnotherSection } from "@/engine/core/utils/scheme/scheme_switch";
@@ -52,13 +52,13 @@ export class PhysicalDoorManager extends AbstractSchemeManager<ISchemePhysicalDo
     this.block = false;
     this.soundlessBlock = false;
 
-    this.showTips = this.state.show_tips;
+    this.showTips = this.state.showTips;
 
     let isSoundDisabled: boolean = false;
 
-    if (!this.state.script_used_more_than_once) {
+    if (!this.state.scriptUsedMoreThanOnce) {
       isSoundDisabled = true;
-      this.state.script_used_more_than_once = true;
+      this.state.scriptUsedMoreThanOnce = true;
     }
 
     if (this.state.closed) {
@@ -129,7 +129,7 @@ export class PhysicalDoorManager extends AbstractSchemeManager<ISchemePhysicalDo
    * todo: Description.
    */
   public closeAction(): void {
-    if (this.state.no_force === true) {
+    if (this.state.noForce === true) {
       this.joint!.set_max_force_and_velocity(0, 0, 0);
     } else {
       this.joint!.set_max_force_and_velocity(10000, 1, 0);
@@ -148,8 +148,8 @@ export class PhysicalDoorManager extends AbstractSchemeManager<ISchemePhysicalDo
     this.object.get_physics_object().unset_door_ignore_dynamics();
     this.block = false;
 
-    if (!this.soundlessBlock && this.state.snd_close_stop) {
-      GlobalSoundManager.getInstance().playSound(this.object.id(), this.state.snd_close_stop, null, null);
+    if (!this.soundlessBlock && this.state.sndCloseStop) {
+      GlobalSoundManager.getInstance().playSound(this.object.id(), this.state.sndCloseStop, null, null);
     }
   }
 
@@ -158,8 +158,8 @@ export class PhysicalDoorManager extends AbstractSchemeManager<ISchemePhysicalDo
    */
   public openDoor(disableSound?: boolean): void {
     if (!disableSound) {
-      if (this.state.snd_open_start) {
-        GlobalSoundManager.getInstance().playSound(this.object.id(), this.state.snd_open_start, null, null);
+      if (this.state.sndOpenStart) {
+        GlobalSoundManager.getInstance().playSound(this.object.id(), this.state.sndOpenStart, null, null);
       }
     }
 
@@ -179,7 +179,7 @@ export class PhysicalDoorManager extends AbstractSchemeManager<ISchemePhysicalDo
       }
     }
 
-    if (this.state.no_force === true) {
+    if (this.state.noForce === true) {
       this.joint!.set_max_force_and_velocity(0, 0, 0);
     } else {
       this.joint!.set_max_force_and_velocity(2100, -3, 0);
@@ -187,8 +187,8 @@ export class PhysicalDoorManager extends AbstractSchemeManager<ISchemePhysicalDo
 
     this.block = false;
 
-    if (this.showTips && this.state.tip_close) {
-      this.object.set_tip_text(this.state.tip_close);
+    if (this.showTips && this.state.tipClose) {
+      this.object.set_tip_text(this.state.tipClose);
     }
   }
 
@@ -215,14 +215,14 @@ export class PhysicalDoorManager extends AbstractSchemeManager<ISchemePhysicalDo
    */
   public closeDoor(disableSound: boolean): void {
     if (!disableSound) {
-      if (this.state.snd_close_start !== null) {
-        GlobalSoundManager.getInstance().playSound(this.object.id(), this.state.snd_close_start, null, null);
+      if (this.state.sndCloseStart !== null) {
+        GlobalSoundManager.getInstance().playSound(this.object.id(), this.state.sndCloseStart, null, null);
       }
     }
 
     this.object.set_fastcall(this.fastcall, this);
 
-    if (this.state.no_force === true) {
+    if (this.state.noForce === true) {
       this.joint!.set_max_force_and_velocity(0, 0, 0);
     } else {
       this.joint!.set_max_force_and_velocity(200, 3, 0);
@@ -236,14 +236,14 @@ export class PhysicalDoorManager extends AbstractSchemeManager<ISchemePhysicalDo
     physicObject.set_door_ignore_dynamics();
 
     if (this.showTips) {
-      if (this.state.locked === true && this.state.tip_unlock) {
-        this.object.set_tip_text(this.state.tip_unlock);
+      if (this.state.locked === true && this.state.tipUnlock) {
+        this.object.set_tip_text(this.state.tipUnlock);
 
         return;
       }
 
-      if (this.state.tip_open) {
-        this.object.set_tip_text(this.state.tip_open);
+      if (this.state.tipOpen) {
+        this.object.set_tip_text(this.state.tipOpen);
       }
     }
   }
@@ -252,12 +252,12 @@ export class PhysicalDoorManager extends AbstractSchemeManager<ISchemePhysicalDo
    * todo: Description.
    */
   public trySwitch(): boolean {
-    if (this.state.on_use) {
+    if (this.state.onUse) {
       if (
         switchObjectSchemeToSection(
           this.object,
           this.state.ini!,
-          pickSectionFromCondList(registry.actor, this.object, this.state.on_use.condlist)!
+          pickSectionFromCondList(registry.actor, this.object, this.state.onUse.condlist)!
         )
       ) {
         return true;
@@ -272,8 +272,8 @@ export class PhysicalDoorManager extends AbstractSchemeManager<ISchemePhysicalDo
    */
   public override onUse(target: ClientObject, who: Optional<ClientObject>): void {
     if (this.state.locked) {
-      if (this.state.snd_open_start) {
-        GlobalSoundManager.getInstance().playSound(this.object.id(), this.state.snd_open_start, null, null);
+      if (this.state.sndOpenStart) {
+        GlobalSoundManager.getInstance().playSound(this.object.id(), this.state.sndOpenStart, null, null);
       }
     }
 
@@ -290,12 +290,8 @@ export class PhysicalDoorManager extends AbstractSchemeManager<ISchemePhysicalDo
     who: Optional<ClientObject>,
     boneIndex: TIndex
   ): void {
-    if (this.state.hit_on_bone.has(boneIndex)) {
-      const section = pickSectionFromCondList(
-        registry.actor,
-        this.object,
-        this.state.hit_on_bone.get(boneIndex).state!
-      );
+    if (this.state.hitOnBone.has(boneIndex)) {
+      const section = pickSectionFromCondList(registry.actor, this.object, this.state.hitOnBone.get(boneIndex).state!);
 
       switchObjectSchemeToSection(object, this.state.ini!, section!);
 

@@ -8,5 +8,5 @@ export interface ISchemePhysicalHitState extends IBaseSchemeState {
   power: TRate;
   impulse: TRate;
   bone: TName;
-  dir_path: string;
+  dirPath: TName;
 }

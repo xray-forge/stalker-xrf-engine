@@ -1,6 +1,6 @@
 import { AbstractScheme } from "@/engine/core/objects/ai/scheme/AbstractScheme";
-import { ISchemeOscillateState } from "@/engine/core/schemes/physical/ph_oscillate/ISchemeOscillateState";
 import { OscillateManager } from "@/engine/core/schemes/physical/ph_oscillate/OscillateManager";
+import { ISchemeOscillateState } from "@/engine/core/schemes/physical/ph_oscillate/ph_oscillate_types";
 import { abort } from "@/engine/core/utils/assertion";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini/ini_config";
 import { readIniNumber, readIniString } from "@/engine/core/utils/ini/ini_read";
