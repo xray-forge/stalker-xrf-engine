@@ -26,6 +26,13 @@ export const patrols: Record<string, IPatrolMock> = {
       { name: "wp02|a=patrol", gvid: 222, lvid: 2120, position: MockVector.create(5, 1, 2) },
     ],
   },
+  "test-wp-advanced": {
+    points: [
+      { name: "wp00|a=patrol", gvid: 310, lvid: 3000, position: MockVector.create(5, 1, 3) },
+      { name: "wp01|a=patrol", gvid: 311, lvid: 3110, position: MockVector.create(5, 1, 1) },
+      { name: "wp02|a=patrol", gvid: 312, lvid: 3120, position: MockVector.create(2, 6, 3) },
+    ],
+  },
   "test-teleport": {
     points: [{ name: "wp00", gvid: 110, lvid: 1000, position: MockVector.create(2, 1, 3) }],
   },

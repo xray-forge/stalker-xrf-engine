@@ -9,4 +9,8 @@ export class MockFlags32 {
   }
 
   public assign(value: number): void {}
+
+  public get(): number {
+    return 0;
+  }
 }

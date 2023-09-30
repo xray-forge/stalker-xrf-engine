@@ -91,4 +91,38 @@ describe("MobWalkerManager", () => {
     expect(manager.mobState).toBe(EMobWalkerState.MOVING);
     expect(manager.updateMovementState).toHaveBeenCalledTimes(1);
   });
+
+  it("should correctly handle waypoints when search flags are not set", () => {
+    const object: ClientObject = mockClientGameObject({ clsid: () => clsid.bloodsucker_s });
+    const state: ISchemeMobWalkerState = mockSchemeState<ISchemeMobWalkerState>(EScheme.MOB_REMARK, {
+      signals: $fromObject<TName, boolean>({ a: true }),
+      state: EMonsterState.NONE,
+      pathWalk: "test-wp-advanced",
+      pathLook: "test-wp-2",
+    });
+    const manager: MobWalkerManager = new MobWalkerManager(object, state);
+
+    manager.activate();
+
+    jest.spyOn(manager, "updateMovementState").mockImplementation(jest.fn());
+
+    state.state = EMonsterState.VISIBLE;
+
+    manager.onWaypoint(object, "test", -1);
+    expect(manager.lastIndex).toBeNull();
+
+    manager.onWaypoint(object, "test", null);
+    expect(manager.lastIndex).toBeNull();
+
+    manager.onWaypoint(object, "test", 1);
+    expect(manager.lastIndex).toBe(1);
+
+    expect(object.set_invisible).toHaveBeenCalledTimes(1);
+    expect(object.set_invisible).toHaveBeenCalledWith(true);
+    expect(manager.updateMovementState).toHaveBeenCalledTimes(1);
+  });
+
+  it.todo("should correctly handle waypoints when search signal is set");
+
+  it.todo("should correctly handle waypoints when search flags are set");
 });

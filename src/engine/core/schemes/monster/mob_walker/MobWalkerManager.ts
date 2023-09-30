@@ -127,16 +127,16 @@ export class MobWalkerManager extends AbstractSchemeManager<ISchemeMobWalkerStat
 
     this.lastIndex = index;
 
-    const suggestedSound: Optional<TSoundKey> = this.pathWalkInfo!.get(index)["s"] as Optional<TSoundKey>;
+    const suggestedSound: Optional<TSoundKey> = this.pathWalkInfo!.get(index).s as Optional<TSoundKey>;
 
     if (suggestedSound) {
       this.scheduledSound = suggestedSound;
     }
 
-    this.crouch = this.pathWalkInfo!.get(index)["c"] === TRUE;
-    this.running = this.pathWalkInfo!.get(index)["r"] === TRUE;
+    this.crouch = this.pathWalkInfo!.get(index).c === TRUE;
+    this.running = this.pathWalkInfo!.get(index).r === TRUE;
 
-    const signal: Optional<TName> = this.pathWalkInfo!.get(index)["sig"] as TName;
+    const signal: Optional<TName> = this.pathWalkInfo!.get(index).sig as TName;
 
     if (signal !== null) {
       // -- HACK, fixme:
@@ -165,7 +165,7 @@ export class MobWalkerManager extends AbstractSchemeManager<ISchemeMobWalkerStat
       if (suggestedWaitTime) {
         this.ptWaitTime = tonumber(suggestedWaitTime)!;
       } else {
-        const patrolWalkCount = this.patrolWalk!.count();
+        const patrolWalkCount: TCount = this.patrolWalk!.count();
 
         if (patrolWalkCount === 1 && isObjectAtWaypoint(this.object, this.patrolWalk!, 0)) {
           this.ptWaitTime = 100_000_000;
@@ -182,7 +182,7 @@ export class MobWalkerManager extends AbstractSchemeManager<ISchemeMobWalkerStat
         this.curAnimSet = mobWalkerConfig.DEFAULT_ANIM_STANDING;
       }
 
-      const beh = this.pathWalkInfo!.get(index).b;
+      const beh: Optional<TName> = this.pathWalkInfo!.get(index).b as Optional<TName>;
 
       setMonsterState(this.object, (beh ? beh : this.state.state) as EMonsterState);
 
@@ -195,7 +195,7 @@ export class MobWalkerManager extends AbstractSchemeManager<ISchemeMobWalkerStat
 
       this.update();
     } else {
-      abort("object '%s': cannot find corresponding point(s) on path_look '%s'", this.object.name(), index);
+      abort("Object '%s': cannot find corresponding point(s) on path_look '%s'.", this.object.name(), index);
     }
   }
 
