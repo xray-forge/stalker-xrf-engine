@@ -1,12 +1,12 @@
 import { jest } from "@jest/globals";
-import { CUIScriptWnd } from "xray16";
+import type { CUIScriptWnd } from "xray16";
 
-import { MockCUIWindow } from "@/fixtures/xray/mocks/objects/ui/CUIWindow.mock";
+import { MockCUIDialogWnd } from "@/fixtures/xray/mocks/objects/ui/CUIDialogWnd.mock";
 
 /**
  * Mocking script window for testing.
  */
-export class MockCUIScriptWnd extends MockCUIWindow {
+export class MockCUIScriptWnd extends MockCUIDialogWnd {
   public static override mock(): CUIScriptWnd {
     return new MockCUIScriptWnd() as unknown as CUIScriptWnd;
   }

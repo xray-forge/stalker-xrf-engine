@@ -16,7 +16,14 @@ import { MockEntityAction } from "@/fixtures/xray/mocks/actions/entity_action.mo
 import { MockCGameGraph } from "@/fixtures/xray/mocks/CGameGraph.mock";
 import { MockColor } from "@/fixtures/xray/mocks/color.mock";
 import { mockGetConsole } from "@/fixtures/xray/mocks/console.mock";
-import { mockCallbacks, mockClsid, mockSndType, mockStalkerIds, mockUiEvents } from "@/fixtures/xray/mocks/constants";
+import {
+  mockCallbacks,
+  mockClsid,
+  mockDikKeys,
+  mockSndType,
+  mockStalkerIds,
+  mockUiEvents,
+} from "@/fixtures/xray/mocks/constants";
 import { MockCSightParams } from "@/fixtures/xray/mocks/CSightParams.mock";
 import { MockCTime } from "@/fixtures/xray/mocks/CTime.mock";
 import { MockDevice } from "@/fixtures/xray/mocks/device.mock";
@@ -109,6 +116,7 @@ export function mockXRay16({
   CUIScrollView = MockCUIScrollView,
   CUIWindow = MockCUIWindow,
   CZoneCampfire = MockCZoneCampfire,
+  DIK_keys = mockDikKeys,
   FS = MockFileSystem,
   Frect = MockFrect,
   IsImportantSave = jest.fn(() => mocksConfig.isAutoSavingEnabled),
@@ -210,6 +218,7 @@ export function mockXRay16({
     CUIScrollView,
     CUIWindow,
     CZoneCampfire,
+    DIK_keys,
     FS,
     Frect,
     IsImportantSave,

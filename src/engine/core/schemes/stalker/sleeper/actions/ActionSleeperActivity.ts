@@ -3,7 +3,7 @@ import { action_base, LuabindClass, patrol } from "xray16";
 import { registry, setStalkerState } from "@/engine/core/database";
 import { StalkerPatrolManager } from "@/engine/core/objects/ai/state/StalkerPatrolManager";
 import { EStalkerState } from "@/engine/core/objects/animation/types";
-import { ESleeperState, ISchemeSleeperState } from "@/engine/core/schemes/stalker/sleeper";
+import { ESleeperState, ISchemeSleeperState } from "@/engine/core/schemes/stalker/sleeper/sleeper_types";
 import { abort } from "@/engine/core/utils/assertion";
 import { parseWaypointsDataFromList } from "@/engine/core/utils/ini/ini_parse";
 import { IWaypointData } from "@/engine/core/utils/ini/ini_types";
