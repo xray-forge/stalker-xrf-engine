@@ -55,14 +55,14 @@ export class MobWalkerManager extends AbstractSchemeManager<ISchemeMobWalkerStat
     this.patrolWalk = new patrol(this.state.pathWalk);
 
     if (!this.patrolWalk) {
-      abort("object '%s': unable to find path_walk '%s' on the map", this.object.name(), this.state.pathWalk);
+      abort("%s - unable to find pathWalk '%s' on the map.", MobWalkerManager.name, this.state.pathWalk);
     }
 
     if (this.state.pathLook) {
       this.patrolLook = new patrol(this.state.pathLook);
 
       if (!this.patrolLook) {
-        abort("object '%s': unable to find path_look '%s' on the map", this.object.name(), this.state.pathLook);
+        abort("object '%s': unable to find pathLook '%s' on the map", this.object.name(), this.state.pathLook);
       }
     } else {
       this.patrolLook = null;

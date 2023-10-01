@@ -3,12 +3,51 @@ import { clsid, patrol } from "xray16";
 
 import { EMobWalkerState, ISchemeMobWalkerState } from "@/engine/core/schemes/monster/mob_walker/mob_walker_types";
 import { MobWalkerManager } from "@/engine/core/schemes/monster/mob_walker/MobWalkerManager";
+import { isObjectAtWaypoint } from "@/engine/core/utils/patrol";
 import { EMonsterState } from "@/engine/lib/constants/monsters";
 import { ClientObject, EScheme, TName } from "@/engine/lib/types";
 import { mockSchemeState } from "@/fixtures/engine";
+import { replaceFunctionMock } from "@/fixtures/jest";
 import { mockClientGameObject } from "@/fixtures/xray";
 
+jest.mock("@/engine/core/utils/patrol", () => ({
+  isObjectAtWaypoint: jest.fn(() => false),
+}));
+
 describe("MobWalkerManager", () => {
+  it("should fail if walk patrol is missing", () => {
+    const object: ClientObject = mockClientGameObject();
+    const state: ISchemeMobWalkerState = mockSchemeState<ISchemeMobWalkerState>(EScheme.MOB_REMARK, {
+      state: EMonsterState.NONE,
+    });
+    const manager: MobWalkerManager = new MobWalkerManager(object, state);
+
+    expect(() => manager.activate()).toThrow();
+  });
+
+  it("should fail if walk patrol is not existing", () => {
+    const object: ClientObject = mockClientGameObject();
+    const state: ISchemeMobWalkerState = mockSchemeState<ISchemeMobWalkerState>(EScheme.MOB_REMARK, {
+      state: EMonsterState.NONE,
+      pathWalk: "test-wp",
+      pathLook: "test-wp-not-existing",
+    });
+    const manager: MobWalkerManager = new MobWalkerManager(object, state);
+
+    expect(() => manager.activate()).toThrow();
+  });
+
+  it("should activate without look patrol", () => {
+    const object: ClientObject = mockClientGameObject();
+    const state: ISchemeMobWalkerState = mockSchemeState<ISchemeMobWalkerState>(EScheme.MOB_REMARK, {
+      state: EMonsterState.NONE,
+      pathWalk: "test-wp",
+    });
+    const manager: MobWalkerManager = new MobWalkerManager(object, state);
+
+    expect(() => manager.activate()).not.toThrow();
+  });
+
   it("should correctly activate", () => {
     const object: ClientObject = mockClientGameObject({ clsid: () => clsid.bloodsucker_s });
     const state: ISchemeMobWalkerState = mockSchemeState<ISchemeMobWalkerState>(EScheme.MOB_REMARK, {
@@ -90,6 +129,31 @@ describe("MobWalkerManager", () => {
     manager.update();
     expect(manager.mobState).toBe(EMobWalkerState.MOVING);
     expect(manager.updateMovementState).toHaveBeenCalledTimes(1);
+  });
+
+  it("should correctly update with single point patrol", () => {
+    const object: ClientObject = mockClientGameObject({ clsid: () => clsid.bloodsucker_s });
+    const state: ISchemeMobWalkerState = mockSchemeState<ISchemeMobWalkerState>(EScheme.MOB_REMARK, {
+      signals: $fromObject<TName, boolean>({ a: true }),
+      state: EMonsterState.NONE,
+      pathWalk: "test-wp-single",
+    });
+    const manager: MobWalkerManager = new MobWalkerManager(object, state);
+
+    jest.spyOn(manager, "updateMovementState").mockImplementation(jest.fn());
+    jest.spyOn(manager, "onWaypoint").mockImplementation(jest.fn());
+    jest.spyOn(object, "get_script").mockImplementation(() => true);
+
+    replaceFunctionMock(isObjectAtWaypoint, () => true);
+
+    manager.activate();
+    manager.mobState = EMobWalkerState.STANDING;
+    manager.update();
+
+    expect(manager.mobState).toBe(EMobWalkerState.MOVING);
+    expect(manager.onWaypoint).toHaveBeenCalledTimes(1);
+
+    replaceFunctionMock(isObjectAtWaypoint, () => false);
   });
 
   it("should correctly handle waypoints when search flags are not set", () => {

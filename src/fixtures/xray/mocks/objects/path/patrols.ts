@@ -12,6 +12,9 @@ export interface IPatrolMock {
  * Mocks of patrols for testing.
  */
 export const patrols: Record<string, IPatrolMock> = {
+  "test-wp-single": {
+    points: [{ name: "wp00|a=patrol", gvid: 110, lvid: 1000, position: MockVector.create(1, 1, 1) }],
+  },
   "test-wp": {
     points: [
       { name: "wp00|a=patrol", gvid: 110, lvid: 1000, position: MockVector.create(1, 1, 1) },
