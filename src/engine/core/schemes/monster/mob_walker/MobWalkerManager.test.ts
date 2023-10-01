@@ -189,4 +189,28 @@ describe("MobWalkerManager", () => {
   it.todo("should correctly handle waypoints when search signal is set");
 
   it.todo("should correctly handle waypoints when search flags are set");
+
+  it("should correctly look at waypoints", () => {
+    const object: ClientObject = mockClientGameObject({ clsid: () => clsid.bloodsucker_s });
+    const state: ISchemeMobWalkerState = mockSchemeState<ISchemeMobWalkerState>(EScheme.MOB_REMARK, {
+      signals: $fromObject<TName, boolean>({ a: true }),
+      state: EMonsterState.NONE,
+      pathWalk: "test-wp",
+      pathLook: "test-wp-2",
+    });
+    const manager: MobWalkerManager = new MobWalkerManager(object, state);
+
+    expect(manager.lastIndex).toBeNull();
+    manager.lookAtWaypoint(1);
+    expect(manager.lastIndex).toBeNull();
+    expect(object.command).toHaveBeenCalledTimes(0);
+
+    manager.activate();
+
+    manager.lookAtWaypoint(1);
+    expect(manager.lastLookIndex).toBe(1);
+    expect(object.command).toHaveBeenCalledTimes(2);
+    expect(object.script).toHaveBeenCalledTimes(2);
+    expect(object.script).toHaveBeenCalledWith(true, "xrf");
+  });
 });
