@@ -13,6 +13,7 @@ import {
   MockWorldState,
 } from "@/fixtures/xray/mocks/actions";
 import { MockEntityAction } from "@/fixtures/xray/mocks/actions/entity_action.mock";
+import { MockSound } from "@/fixtures/xray/mocks/actions/sound.mock";
 import { MockCGameGraph } from "@/fixtures/xray/mocks/CGameGraph.mock";
 import { MockColor } from "@/fixtures/xray/mocks/color.mock";
 import { mockGetConsole } from "@/fixtures/xray/mocks/console.mock";
@@ -191,6 +192,7 @@ export function mockXRay16({
   relation_registry = mockRelationRegistryInterface,
   sight_params = MockSightParameters,
   snd_type = mockSndType,
+  sound = MockSound,
   sound_object = MockSoundObject,
   stalker_ids = mockStalkerIds,
   system_ini = () => mockIniFile("system.ini"),
@@ -294,6 +296,7 @@ export function mockXRay16({
     relation_registry,
     sight_params,
     snd_type,
+    sound,
     sound_object,
     stalker_ids,
     system_ini,

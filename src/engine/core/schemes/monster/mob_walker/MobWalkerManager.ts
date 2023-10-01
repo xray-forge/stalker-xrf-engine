@@ -21,7 +21,9 @@ import {
   TAnimationKey,
   TAnimationType,
   TCount,
+  TDuration,
   TIndex,
+  TMoveType,
   TName,
   TNumberId,
   TSoundKey,
@@ -205,20 +207,20 @@ export class MobWalkerManager extends AbstractSchemeManager<ISchemeMobWalkerStat
   public updateMovementState(): void {
     scriptCaptureMonster(this.object, true);
 
-    let m;
+    let movementType: TMoveType;
 
     if (this.running) {
-      m = move.run_fwd;
+      movementType = move.run_fwd;
     } else if (this.crouch) {
-      m = move.steal;
+      movementType = move.steal;
     } else {
-      m = move.walk_fwd;
+      movementType = move.walk_fwd;
     }
 
     if (this.scheduledSound) {
       scriptCommandMonster(
         this.object,
-        new move(m, new patrol(this.state.pathWalk, patrol.next, patrol.continue)),
+        new move(movementType, new patrol(this.state.pathWalk, patrol.next, patrol.continue)),
         new sound(sound[this.scheduledSound]),
         new cond(cond.move_end)
       );
@@ -226,7 +228,7 @@ export class MobWalkerManager extends AbstractSchemeManager<ISchemeMobWalkerStat
     } else {
       scriptCommandMonster(
         this.object,
-        new move(m, new patrol(this.state.pathWalk, patrol.next, patrol.continue)),
+        new move(movementType, new patrol(this.state.pathWalk, patrol.next, patrol.continue)),
         new cond(cond.move_end)
       );
     }
@@ -241,13 +243,17 @@ export class MobWalkerManager extends AbstractSchemeManager<ISchemeMobWalkerStat
     if (this.scheduledSound) {
       scriptCommandMonster(
         this.object,
-        new anim(this.curAnimSet!, 0),
+        new anim(this.curAnimSet as TAnimationType, 0),
         new sound(sound[this.scheduledSound]),
-        new cond(cond.time_end, this.ptWaitTime!)
+        new cond(cond.time_end, this.ptWaitTime as TDuration)
       );
       this.scheduledSound = null;
     } else {
-      scriptCommandMonster(this.object, new anim(this.curAnimSet!, 0), new cond(cond.time_end, this.ptWaitTime!));
+      scriptCommandMonster(
+        this.object,
+        new anim(this.curAnimSet as TAnimationType, 0),
+        new cond(cond.time_end, this.ptWaitTime as TDuration)
+      );
     }
   }
 

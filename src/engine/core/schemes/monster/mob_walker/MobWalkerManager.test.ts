@@ -190,8 +190,43 @@ describe("MobWalkerManager", () => {
 
   it.todo("should correctly handle waypoints when search flags are set");
 
+  it("should correctly update look state without sound", () => {
+    const object: ClientObject = mockClientGameObject();
+    const state: ISchemeMobWalkerState = mockSchemeState<ISchemeMobWalkerState>(EScheme.MOB_REMARK, {
+      signals: $fromObject<TName, boolean>({ a: true }),
+      state: EMonsterState.NONE,
+      pathWalk: "test-wp",
+      pathLook: "test-wp-2",
+    });
+    const manager: MobWalkerManager = new MobWalkerManager(object, state);
+
+    manager.activate();
+    manager.updateStandingState();
+
+    expect(object.script).toHaveBeenCalledTimes(2);
+    expect(object.command).toHaveBeenCalledTimes(2);
+  });
+
+  it("should correctly update look state with sound", () => {
+    const object: ClientObject = mockClientGameObject();
+    const state: ISchemeMobWalkerState = mockSchemeState<ISchemeMobWalkerState>(EScheme.MOB_REMARK, {
+      signals: $fromObject<TName, boolean>({ a: true }),
+      state: EMonsterState.NONE,
+      pathWalk: "test-wp",
+      pathLook: "test-wp-2",
+    });
+    const manager: MobWalkerManager = new MobWalkerManager(object, state);
+
+    manager.activate();
+    manager.scheduledSound = "attack";
+    manager.updateStandingState();
+
+    expect(object.script).toHaveBeenCalledTimes(2);
+    expect(object.command).toHaveBeenCalledTimes(2);
+  });
+
   it("should correctly look at waypoints", () => {
-    const object: ClientObject = mockClientGameObject({ clsid: () => clsid.bloodsucker_s });
+    const object: ClientObject = mockClientGameObject();
     const state: ISchemeMobWalkerState = mockSchemeState<ISchemeMobWalkerState>(EScheme.MOB_REMARK, {
       signals: $fromObject<TName, boolean>({ a: true }),
       state: EMonsterState.NONE,
