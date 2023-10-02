@@ -17,7 +17,7 @@ jest.mock("@/engine/core/utils/patrol", () => ({
 describe("MobWalkerManager", () => {
   it("should fail if walk patrol is missing", () => {
     const object: ClientObject = mockClientGameObject();
-    const state: ISchemeMobWalkerState = mockSchemeState<ISchemeMobWalkerState>(EScheme.MOB_REMARK, {
+    const state: ISchemeMobWalkerState = mockSchemeState<ISchemeMobWalkerState>(EScheme.MOB_WALKER, {
       state: EMonsterState.NONE,
     });
     const manager: MobWalkerManager = new MobWalkerManager(object, state);
@@ -27,7 +27,7 @@ describe("MobWalkerManager", () => {
 
   it("should fail if walk patrol is not existing", () => {
     const object: ClientObject = mockClientGameObject();
-    const state: ISchemeMobWalkerState = mockSchemeState<ISchemeMobWalkerState>(EScheme.MOB_REMARK, {
+    const state: ISchemeMobWalkerState = mockSchemeState<ISchemeMobWalkerState>(EScheme.MOB_WALKER, {
       state: EMonsterState.NONE,
       pathWalk: "test-wp",
       pathLook: "test-wp-not-existing",
@@ -39,7 +39,7 @@ describe("MobWalkerManager", () => {
 
   it("should activate without look patrol", () => {
     const object: ClientObject = mockClientGameObject();
-    const state: ISchemeMobWalkerState = mockSchemeState<ISchemeMobWalkerState>(EScheme.MOB_REMARK, {
+    const state: ISchemeMobWalkerState = mockSchemeState<ISchemeMobWalkerState>(EScheme.MOB_WALKER, {
       state: EMonsterState.NONE,
       pathWalk: "test-wp",
     });
@@ -50,7 +50,7 @@ describe("MobWalkerManager", () => {
 
   it("should correctly activate", () => {
     const object: ClientObject = mockClientGameObject({ clsid: () => clsid.bloodsucker_s });
-    const state: ISchemeMobWalkerState = mockSchemeState<ISchemeMobWalkerState>(EScheme.MOB_REMARK, {
+    const state: ISchemeMobWalkerState = mockSchemeState<ISchemeMobWalkerState>(EScheme.MOB_WALKER, {
       signals: $fromObject<TName, boolean>({ a: true }),
       state: EMonsterState.NONE,
       pathWalk: "test-wp",
@@ -80,7 +80,7 @@ describe("MobWalkerManager", () => {
 
   it("should correctly deactivate", () => {
     const object: ClientObject = mockClientGameObject({ clsid: () => clsid.bloodsucker_s });
-    const state: ISchemeMobWalkerState = mockSchemeState<ISchemeMobWalkerState>(EScheme.MOB_REMARK, {
+    const state: ISchemeMobWalkerState = mockSchemeState<ISchemeMobWalkerState>(EScheme.MOB_WALKER, {
       signals: $fromObject<TName, boolean>({ a: true }),
       state: EMonsterState.NONE,
       pathWalk: "test-wp",
@@ -98,7 +98,7 @@ describe("MobWalkerManager", () => {
 
   it("should correctly update", () => {
     const object: ClientObject = mockClientGameObject({ clsid: () => clsid.bloodsucker_s });
-    const state: ISchemeMobWalkerState = mockSchemeState<ISchemeMobWalkerState>(EScheme.MOB_REMARK, {
+    const state: ISchemeMobWalkerState = mockSchemeState<ISchemeMobWalkerState>(EScheme.MOB_WALKER, {
       signals: $fromObject<TName, boolean>({ a: true }),
       state: EMonsterState.NONE,
       pathWalk: "test-wp",
@@ -133,7 +133,7 @@ describe("MobWalkerManager", () => {
 
   it("should correctly update with single point patrol", () => {
     const object: ClientObject = mockClientGameObject({ clsid: () => clsid.bloodsucker_s });
-    const state: ISchemeMobWalkerState = mockSchemeState<ISchemeMobWalkerState>(EScheme.MOB_REMARK, {
+    const state: ISchemeMobWalkerState = mockSchemeState<ISchemeMobWalkerState>(EScheme.MOB_WALKER, {
       signals: $fromObject<TName, boolean>({ a: true }),
       state: EMonsterState.NONE,
       pathWalk: "test-wp-single",
@@ -158,7 +158,7 @@ describe("MobWalkerManager", () => {
 
   it("should correctly handle waypoints when search flags are not set", () => {
     const object: ClientObject = mockClientGameObject({ clsid: () => clsid.bloodsucker_s });
-    const state: ISchemeMobWalkerState = mockSchemeState<ISchemeMobWalkerState>(EScheme.MOB_REMARK, {
+    const state: ISchemeMobWalkerState = mockSchemeState<ISchemeMobWalkerState>(EScheme.MOB_WALKER, {
       signals: $fromObject<TName, boolean>({ a: true }),
       state: EMonsterState.NONE,
       pathWalk: "test-wp-advanced",
@@ -192,7 +192,7 @@ describe("MobWalkerManager", () => {
 
   it("should correctly update look state without sound", () => {
     const object: ClientObject = mockClientGameObject();
-    const state: ISchemeMobWalkerState = mockSchemeState<ISchemeMobWalkerState>(EScheme.MOB_REMARK, {
+    const state: ISchemeMobWalkerState = mockSchemeState<ISchemeMobWalkerState>(EScheme.MOB_WALKER, {
       signals: $fromObject<TName, boolean>({ a: true }),
       state: EMonsterState.NONE,
       pathWalk: "test-wp",
@@ -209,7 +209,7 @@ describe("MobWalkerManager", () => {
 
   it("should correctly update look state with sound", () => {
     const object: ClientObject = mockClientGameObject();
-    const state: ISchemeMobWalkerState = mockSchemeState<ISchemeMobWalkerState>(EScheme.MOB_REMARK, {
+    const state: ISchemeMobWalkerState = mockSchemeState<ISchemeMobWalkerState>(EScheme.MOB_WALKER, {
       signals: $fromObject<TName, boolean>({ a: true }),
       state: EMonsterState.NONE,
       pathWalk: "test-wp",
@@ -227,7 +227,7 @@ describe("MobWalkerManager", () => {
 
   it("should correctly look at waypoints", () => {
     const object: ClientObject = mockClientGameObject();
-    const state: ISchemeMobWalkerState = mockSchemeState<ISchemeMobWalkerState>(EScheme.MOB_REMARK, {
+    const state: ISchemeMobWalkerState = mockSchemeState<ISchemeMobWalkerState>(EScheme.MOB_WALKER, {
       signals: $fromObject<TName, boolean>({ a: true }),
       state: EMonsterState.NONE,
       pathWalk: "test-wp",

@@ -22,7 +22,7 @@ import {
  * todo;
  */
 export class PhysicalDoorManager extends AbstractSchemeManager<ISchemePhysicalDoorState> {
-  public isInitialized: Optional<boolean> = null;
+  public isInitialized: boolean = false;
   public block: boolean = false;
   public soundlessBlock: boolean = false;
   public showTips: boolean = false;
@@ -31,9 +31,8 @@ export class PhysicalDoorManager extends AbstractSchemeManager<ISchemePhysicalDo
   public lowLimits: number = 0;
   public hiLimits: number = 0;
 
-  public override activate(loading?: boolean): void {
+  public override activate(): void {
     this.state.signals = new LuaTable();
-
     this.isInitialized = false;
 
     const physicsShell: Optional<PhysicsShell> = this.object.get_physics_shell();
@@ -79,12 +78,10 @@ export class PhysicalDoorManager extends AbstractSchemeManager<ISchemePhysicalDo
 
   public update(): void {
     if (!this.isInitialized) {
-      abort("object '%s': door failed to initialize", this.object.name());
+      abort("Object '%s' door was not initialized.", this.object.name());
     }
 
-    if (trySwitchToAnotherSection(this.object, this.state)) {
-      return;
-    }
+    trySwitchToAnotherSection(this.object, this.state);
   }
 
   /**
@@ -251,15 +248,11 @@ export class PhysicalDoorManager extends AbstractSchemeManager<ISchemePhysicalDo
    */
   public trySwitch(): boolean {
     if (this.state.onUse) {
-      if (
-        switchObjectSchemeToSection(
-          this.object,
-          this.state.ini!,
-          pickSectionFromCondList(registry.actor, this.object, this.state.onUse.condlist)!
-        )
-      ) {
-        return true;
-      }
+      return switchObjectSchemeToSection(
+        this.object,
+        this.state.ini,
+        pickSectionFromCondList(registry.actor, this.object, this.state.onUse.condlist)
+      );
     }
 
     return false;
@@ -285,7 +278,7 @@ export class PhysicalDoorManager extends AbstractSchemeManager<ISchemePhysicalDo
     if (this.state.hitOnBone.has(boneIndex)) {
       const section = pickSectionFromCondList(registry.actor, this.object, this.state.hitOnBone.get(boneIndex).state!);
 
-      switchObjectSchemeToSection(object, this.state.ini!, section!);
+      switchObjectSchemeToSection(object, this.state.ini, section!);
 
       return;
     }

@@ -172,6 +172,7 @@ export function mockClientGameObject({
     get_current_point_index: rest.get_current_point_index ?? jest.fn(() => null),
     get_enemy: rest.get_enemy ?? jest.fn(() => null),
     get_helicopter: rest.get_helicopter ?? jest.fn(() => null),
+    get_physics_shell: rest.get_physics_shell ?? jest.fn(() => null),
     get_script: rest.get_script ?? jest.fn(() => false),
     get_script_name: rest.get_script_name ?? jest.fn(() => null),
     get_task: rest.get_task ?? jest.fn(() => null),
@@ -336,6 +337,7 @@ export function mockClientGameObject({
         objectDirection = objectDirection.set(it, objectDirection.y, objectDirection.z);
       }),
     set_community_goodwill: rest.set_community_goodwill ?? jest.fn(),
+    set_fastcall: rest.set_fastcall ?? jest.fn(),
     spawn_ini: rest.spawn_ini ?? jest.fn(() => spawnIni),
     stop_talk: rest.stop_talk ?? jest.fn(),
     squad: rest.squad ?? jest.fn(() => 150),
