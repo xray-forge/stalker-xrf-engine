@@ -15,6 +15,7 @@ import {
   TCount,
   TIndex,
   TRate,
+  TSection,
   Vector,
 } from "@/engine/lib/types";
 
@@ -105,6 +106,24 @@ export class PhysicalDoorManager extends AbstractSchemeManager<ISchemePhysicalDo
   /**
    * todo: Description.
    */
+  public isClosed(): boolean {
+    const angle: TRate = this.state.slider ? -this.joint!.get_axis_angle(0) : this.joint!.get_axis_angle(90);
+
+    return angle <= this.lowLimits + 0.02;
+  }
+
+  /**
+   * todo: Description.
+   */
+  public isOpen(): boolean {
+    const angle: TRate = this.state.slider ? -this.joint!.get_axis_angle(0) : this.joint!.get_axis_angle(90);
+
+    return angle >= this.hiLimits - 0.02;
+  }
+
+  /**
+   * todo: Description.
+   */
   public openFastcall(): boolean {
     if (!this.isInitialized) {
       return false;
@@ -190,24 +209,6 @@ export class PhysicalDoorManager extends AbstractSchemeManager<ISchemePhysicalDo
   /**
    * todo: Description.
    */
-  public isClosed(): boolean {
-    const angle: TRate = this.state.slider ? -this.joint!.get_axis_angle(0) : this.joint!.get_axis_angle(90);
-
-    return angle <= this.lowLimits + 0.02;
-  }
-
-  /**
-   * todo: Description.
-   */
-  public isOpen(): boolean {
-    const angle: TRate = this.state.slider ? -this.joint!.get_axis_angle(0) : this.joint!.get_axis_angle(90);
-
-    return angle >= this.hiLimits - 0.02;
-  }
-
-  /**
-   * todo: Description.
-   */
   public closeDoor(disableSound: boolean): void {
     if (!disableSound) {
       if (this.state.sndCloseStart !== null) {
@@ -243,29 +244,18 @@ export class PhysicalDoorManager extends AbstractSchemeManager<ISchemePhysicalDo
     }
   }
 
-  /**
-   * todo: Description.
-   */
-  public trySwitch(): boolean {
+  public override onUse(target: ClientObject, who: Optional<ClientObject>): void {
+    if (this.state.locked && this.state.sndOpenStart) {
+      GlobalSoundManager.getInstance().playSound(this.object.id(), this.state.sndOpenStart);
+    }
+
     if (this.state.onUse) {
-      return switchObjectSchemeToSection(
+      switchObjectSchemeToSection(
         this.object,
         this.state.ini,
         pickSectionFromCondList(registry.actor, this.object, this.state.onUse.condlist)
       );
     }
-
-    return false;
-  }
-
-  public override onUse(target: ClientObject, who: Optional<ClientObject>): void {
-    if (this.state.locked) {
-      if (this.state.sndOpenStart) {
-        GlobalSoundManager.getInstance().playSound(this.object.id(), this.state.sndOpenStart, null, null);
-      }
-    }
-
-    this.trySwitch();
   }
 
   public override onHit(
@@ -276,7 +266,11 @@ export class PhysicalDoorManager extends AbstractSchemeManager<ISchemePhysicalDo
     boneIndex: TIndex
   ): void {
     if (this.state.hitOnBone.has(boneIndex)) {
-      const section = pickSectionFromCondList(registry.actor, this.object, this.state.hitOnBone.get(boneIndex).state!);
+      const section: Optional<TSection> = pickSectionFromCondList(
+        registry.actor,
+        this.object,
+        this.state.hitOnBone.get(boneIndex).state!
+      );
 
       switchObjectSchemeToSection(object, this.state.ini, section!);
 
