@@ -3,9 +3,12 @@ import { physics_joint } from "xray16";
 
 import { ISchemePhysicalDoorState } from "@/engine/core/schemes/physical/ph_door/ph_door_types";
 import { PhysicalDoorManager } from "@/engine/core/schemes/physical/ph_door/PhysicalDoorManager";
+import { trySwitchToAnotherSection } from "@/engine/core/utils/scheme";
 import { ClientObject, EScheme } from "@/engine/lib/types";
 import { mockSchemeState } from "@/fixtures/engine";
 import { mockClientGameObject, MockPhysicsShell } from "@/fixtures/xray";
+
+jest.mock("@/engine/core/utils/scheme/scheme_switch", () => ({ trySwitchToAnotherSection: jest.fn() }));
 
 describe("PhysicalDoorManager", () => {
   it("should correctly activate without shell object", () => {
@@ -53,5 +56,27 @@ describe("PhysicalDoorManager", () => {
     manager.deactivate();
 
     expect(object.set_tip_text).toHaveBeenCalledWith("");
+  });
+
+  it("should throw on updates without initialization", () => {
+    const object: ClientObject = mockClientGameObject();
+    const state: ISchemePhysicalDoorState = mockSchemeState<ISchemePhysicalDoorState>(EScheme.PH_DOOR, {});
+    const manager: PhysicalDoorManager = new PhysicalDoorManager(object, state);
+
+    manager.isInitialized = false;
+
+    expect(() => manager.update()).toThrow();
+  });
+
+  it("should correctly update", () => {
+    const object: ClientObject = mockClientGameObject();
+    const state: ISchemePhysicalDoorState = mockSchemeState<ISchemePhysicalDoorState>(EScheme.PH_DOOR, {});
+    const manager: PhysicalDoorManager = new PhysicalDoorManager(object, state);
+
+    manager.isInitialized = true;
+
+    manager.update();
+
+    expect(trySwitchToAnotherSection).toHaveBeenCalledWith(object, state);
   });
 });
