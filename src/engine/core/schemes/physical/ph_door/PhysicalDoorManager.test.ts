@@ -41,7 +41,7 @@ describe("PhysicalDoorManager", () => {
     expect(manager.soundlessBlock).toBe(false);
     expect(manager.showTips).toBe(true);
     expect(object.set_nonscript_usable).toHaveBeenCalledWith(false);
-    expect(manager.closeDoor).toHaveBeenCalledWith(false);
+    expect(manager.closeDoor).toHaveBeenCalledWith(true);
   });
 
   it("should correctly deactivate", () => {
