@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 
 import { registerSimulator } from "@/engine/core/database";
-import { ISchemeMobHomeState } from "@/engine/core/schemes/monster/mob_home/ISchemeMobHomeState";
+import { ISchemeMobHomeState } from "@/engine/core/schemes/monster/mob_home/mob_home_types";
 import { MobHomeManager } from "@/engine/core/schemes/monster/mob_home/MobHomeManager";
 import { EMonsterState } from "@/engine/lib/constants/monsters";
 import {

@@ -3,7 +3,7 @@ import { action_base, anim, look, LuabindClass, move } from "xray16";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import { StalkerAnimationManager } from "@/engine/core/objects/ai/state/StalkerAnimationManager";
 import { EAnimationType, EStalkerState } from "@/engine/core/objects/animation/types";
-import { ISchemePostCombatIdleState } from "@/engine/core/schemes/stalker/combat_idle/ISchemePostCombatIdleState";
+import { ISchemePostCombatIdleState } from "@/engine/core/schemes/stalker/combat_idle/combat_idle_types";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { isObjectWeaponLocked, setObjectBestWeapon } from "@/engine/core/utils/weapon";
 

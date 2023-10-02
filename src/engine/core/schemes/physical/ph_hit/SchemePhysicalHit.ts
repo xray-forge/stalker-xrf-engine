@@ -1,5 +1,5 @@
 import { AbstractScheme } from "@/engine/core/objects/ai/scheme";
-import { ISchemePhysicalHitState } from "@/engine/core/schemes/physical/ph_hit/ISchemePhysicalHitState";
+import { ISchemePhysicalHitState } from "@/engine/core/schemes/physical/ph_hit/ph_hit_types";
 import { PhysicalHitManager } from "@/engine/core/schemes/physical/ph_hit/PhysicalHitManager";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini/ini_config";
 import { readIniNumber, readIniString } from "@/engine/core/utils/ini/ini_read";
@@ -27,7 +27,7 @@ export class SchemePhysicalHit extends AbstractScheme {
     state.power = readIniNumber(ini, section, "power", false, 0);
     state.impulse = readIniNumber(ini, section, "impulse", false, 1000);
     state.bone = readIniString(ini, section, "bone", true);
-    state.dir_path = readIniString(ini, section, "dir_path", true);
+    state.dirPath = readIniString(ini, section, "dir_path", true);
 
     return state;
   }
@@ -39,6 +39,6 @@ export class SchemePhysicalHit extends AbstractScheme {
     section: TSection,
     state: ISchemePhysicalHitState
   ): void {
-    SchemePhysicalHit.subscribe(object, state, new PhysicalHitManager(object, state));
+    AbstractScheme.subscribe(object, state, new PhysicalHitManager(object, state));
   }
 }

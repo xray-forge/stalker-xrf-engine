@@ -1,5 +1,5 @@
 import { AbstractScheme } from "@/engine/core/objects/ai/scheme/AbstractScheme";
-import { ISchemePhysicalButtonState } from "@/engine/core/schemes/physical/ph_button/ISchemePhysicalButtonState";
+import { ISchemePhysicalButtonState } from "@/engine/core/schemes/physical/ph_button/ph_button_types";
 import { PhysicalButtonManager } from "@/engine/core/schemes/physical/ph_button/PhysicalButtonManager";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini/ini_config";
 import { readIniBoolean, readIniConditionList, readIniString } from "@/engine/core/utils/ini/ini_read";
@@ -24,7 +24,7 @@ export class SchemePhysicalButton extends AbstractScheme {
     const state: ISchemePhysicalButtonState = AbstractScheme.assign(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section);
-    state.on_press = readIniConditionList(ini, section, "on_press");
+    state.onPress = readIniConditionList(ini, section, "on_press");
     state.tooltip = readIniString(ini, section, "tooltip", false);
 
     if (state.tooltip) {

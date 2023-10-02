@@ -3,8 +3,8 @@ import { cast_planner, world_property } from "xray16";
 import { registry } from "@/engine/core/database";
 import { EActionId, EEvaluatorId } from "@/engine/core/objects/ai/types";
 import { ActionPostCombatIdleWait } from "@/engine/core/schemes/stalker/combat_idle/actions";
+import { ISchemePostCombatIdleState } from "@/engine/core/schemes/stalker/combat_idle/combat_idle_types";
 import { EvaluatorHasEnemy } from "@/engine/core/schemes/stalker/combat_idle/evaluators";
-import { ISchemePostCombatIdleState } from "@/engine/core/schemes/stalker/combat_idle/ISchemePostCombatIdleState";
 import { getObjectCommunity } from "@/engine/core/utils/community";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { communities } from "@/engine/lib/constants/communities";
@@ -34,8 +34,8 @@ export class PostCombatIdle {
     const state: ISchemePostCombatIdleState = {
       timer: null,
       animation: null,
-      last_best_enemy_id: null,
-      last_best_enemy_name: null,
+      lastBestEnemyId: null,
+      lastBestEnemyName: null,
     };
 
     registry.objects.get(object.id()).post_combat_wait = state;

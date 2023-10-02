@@ -53,7 +53,6 @@ export function mockClientGameObject({
   idOverride = ID_COUNTER++,
   infoPortions = [],
   inventory = [],
-  is_talking = jest.fn(() => false),
   money,
   motivation_action_manager,
   name,
@@ -94,6 +93,7 @@ export function mockClientGameObject({
   const gameObject = {
     ...rest,
     accessible: rest.accessible ?? jest.fn(() => true),
+    action: rest.action ?? jest.fn(() => null),
     active_item: rest.active_item ?? jest.fn(() => null),
     activate_slot: rest.activate_slot ?? jest.fn(),
     add_animation: rest.add_animation ?? jest.fn(),
@@ -157,6 +157,7 @@ export function mockClientGameObject({
         }
       }),
     enable_night_vision: rest.enable_night_vision ?? jest.fn(),
+    enable_talk: rest.enable_talk ?? jest.fn(),
     enable_trade: rest.enable_trade ?? jest.fn(),
     force_set_goodwill: rest.force_set_goodwill ?? jest.fn(),
     game_vertex_id,
@@ -165,11 +166,13 @@ export function mockClientGameObject({
       jest.fn((to: ClientObject) => {
         return mockRelationRegistryInterface.get_general_goodwill_between(id ? id() : idOverride, to.id());
       }),
+    get_car: rest.get_car ?? jest.fn(() => null),
     get_visual_name: rest.get_visual_name ?? jest.fn(() => "some_stalker_visual"),
     get_campfire: rest.get_campfire ?? jest.fn(() => null),
     get_current_point_index: rest.get_current_point_index ?? jest.fn(() => null),
     get_enemy: rest.get_enemy ?? jest.fn(() => null),
     get_helicopter: rest.get_helicopter ?? jest.fn(() => null),
+    get_physics_shell: rest.get_physics_shell ?? jest.fn(() => null),
     get_script: rest.get_script ?? jest.fn(() => false),
     get_script_name: rest.get_script_name ?? jest.fn(() => null),
     get_task: rest.get_task ?? jest.fn(() => null),
@@ -194,8 +197,10 @@ export function mockClientGameObject({
     inside: rest.inside ?? jest.fn(() => false),
     inventory: inventoryMap,
     in_smart_cover: rest.in_smart_cover ?? jest.fn(() => false),
-    is_talking,
+    is_talking: rest.is_talking ?? jest.fn(() => false),
+    is_talk_enabled: rest.is_talk_enabled ?? jest.fn(() => false),
     is_there_items_to_pickup: rest.is_there_items_to_pickup ?? jest.fn(() => false),
+    jump: rest.jump ?? jest.fn(),
     level_vertex_id: rest.level_vertex_id ?? jest.fn(() => 255),
     max_ignore_monster_distance: rest.max_ignore_monster_distance ?? jest.fn(),
     money: money ?? jest.fn(() => objectMoney),
@@ -332,6 +337,7 @@ export function mockClientGameObject({
         objectDirection = objectDirection.set(it, objectDirection.y, objectDirection.z);
       }),
     set_community_goodwill: rest.set_community_goodwill ?? jest.fn(),
+    set_fastcall: rest.set_fastcall ?? jest.fn(),
     spawn_ini: rest.spawn_ini ?? jest.fn(() => spawnIni),
     stop_talk: rest.stop_talk ?? jest.fn(),
     squad: rest.squad ?? jest.fn(() => 150),

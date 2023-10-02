@@ -3,7 +3,7 @@ import { patrol } from "xray16";
 
 import { registerActor, registerSimulator, registry } from "@/engine/core/database";
 import { CrowSpawnerManager } from "@/engine/core/schemes/restrictor/sr_crow_spawner/CrowSpawnerManager";
-import { ISchemeCrowSpawnerState } from "@/engine/core/schemes/restrictor/sr_crow_spawner/ISchemeCrowSpawnerState";
+import { ISchemeCrowSpawnerState } from "@/engine/core/schemes/restrictor/sr_crow_spawner/sr_crow_spawner_types";
 import { range } from "@/engine/core/utils/number";
 import { trySwitchToAnotherSection } from "@/engine/core/utils/scheme";
 import { AlifeSimulator, ClientObject, EScheme, Patrol } from "@/engine/lib/types";

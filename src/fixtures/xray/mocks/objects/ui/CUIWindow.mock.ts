@@ -67,4 +67,8 @@ export class MockCUIWindow extends MockLuabindClass {
   public WindowName(): Optional<TName> {
     return this.windowName;
   }
+
+  public OnKeyboard(): boolean {
+    return true;
+  }
 }

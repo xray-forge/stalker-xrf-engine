@@ -4,8 +4,8 @@ import { AbstractScheme } from "@/engine/core/objects/ai/scheme";
 import { EActionId, EEvaluatorId } from "@/engine/core/objects/ai/types";
 import { EStalkerState } from "@/engine/core/objects/animation/types";
 import { ActionCamperPatrol } from "@/engine/core/schemes/stalker/camper/actions";
+import { ISchemeCamperState } from "@/engine/core/schemes/stalker/camper/camper_types";
 import { EvaluatorCloseCombat, EvaluatorSectionEnded } from "@/engine/core/schemes/stalker/camper/evaluators";
-import { ISchemeCamperState } from "@/engine/core/schemes/stalker/camper/ISchemeCamperState";
 import { abort } from "@/engine/core/utils/assertion";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini/ini_config";
 import { readIniBoolean, readIniNumber, readIniString } from "@/engine/core/utils/ini/ini_read";
@@ -43,10 +43,10 @@ export class SchemeCamper extends AbstractScheme {
     const state: ISchemeCamperState = AbstractScheme.assign(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section);
-    state.path_walk = readIniString(ini, section, "path_walk", true, smartTerrainName);
-    state.path_look = readIniString(ini, section, "path_look", true, smartTerrainName);
+    state.pathWalk = readIniString(ini, section, "path_walk", true, smartTerrainName);
+    state.pathLook = readIniString(ini, section, "path_look", true, smartTerrainName);
 
-    if (state.path_walk === state.path_look) {
+    if (state.pathWalk === state.pathLook) {
       abort(
         "You are trying to set 'path_look' equal to 'path_walk' in section [%s] for object [%s]",
         section,
@@ -55,11 +55,11 @@ export class SchemeCamper extends AbstractScheme {
     }
 
     state.sniper = readIniBoolean(ini, section, "sniper", false);
-    state.no_retreat = readIniBoolean(ini, section, "no_retreat", false);
+    state.noRetreat = readIniBoolean(ini, section, "no_retreat", false);
     state.shoot = readIniString(ini, section, "shoot", false, null, "always");
-    state.sniper_anim = readIniString(ini, section, "sniper_anim", false, null, "hide_na");
+    state.sniperAnim = readIniString(ini, section, "sniper_anim", false, null, "hide_na");
 
-    if (state.sniper === true && state.no_retreat === true) {
+    if (state.sniper === true && state.noRetreat === true) {
       abort("ERROR: NPC [%s] Section [%s]. No_retreat not available for SNIPER.", object.name(), section);
     }
 
@@ -72,7 +72,7 @@ export class SchemeCamper extends AbstractScheme {
       false
     ) as EStalkerState;
 
-    state.suggested_state = {
+    state.suggestedState = {
       moving: readIniString(ini, section, "def_state_moving", false),
       moving_fire: readIniString(ini, section, "def_state_moving_fire", false),
       campering: campering,
@@ -80,20 +80,20 @@ export class SchemeCamper extends AbstractScheme {
       campering_fire: readIniString(ini, section, "def_state_campering_fire", false) as EStalkerState,
     };
 
-    state.scantime_free = readIniNumber(ini, section, "scantime_free", false, 60_000);
-    state.attack_sound = readIniString(ini, section, "attack_sound", false, null, "fight_attack");
+    state.scantimeFree = readIniNumber(ini, section, "scantime_free", false, 60_000);
+    state.attackSound = readIniString(ini, section, "attack_sound", false, null, "fight_attack");
 
-    if (state.attack_sound === FALSE) {
-      state.attack_sound = null;
+    if (state.attackSound === FALSE) {
+      state.attackSound = null;
     }
 
     state.idle = readIniNumber(ini, section, "enemy_idle", false, 60_000);
-    state.post_enemy_wait = 5_000;
-    state.enemy_disp = 7 / RADIAN;
+    state.postEnemyWait = 5_000;
+    state.enemyDisp = 7 / RADIAN;
 
     state.scandelta = 30;
     state.timedelta = 4000;
-    state.time_scan_delta = state.timedelta / state.scandelta;
+    state.timeScanDelta = state.timedelta / state.scandelta;
 
     return state;
   }

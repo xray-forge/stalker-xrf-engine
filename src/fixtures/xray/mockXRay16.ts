@@ -13,10 +13,18 @@ import {
   MockWorldState,
 } from "@/fixtures/xray/mocks/actions";
 import { MockEntityAction } from "@/fixtures/xray/mocks/actions/entity_action.mock";
+import { MockSound } from "@/fixtures/xray/mocks/actions/sound.mock";
 import { MockCGameGraph } from "@/fixtures/xray/mocks/CGameGraph.mock";
 import { MockColor } from "@/fixtures/xray/mocks/color.mock";
 import { mockGetConsole } from "@/fixtures/xray/mocks/console.mock";
-import { mockCallbacks, mockClsid, mockSndType, mockStalkerIds, mockUiEvents } from "@/fixtures/xray/mocks/constants";
+import {
+  mockCallbacks,
+  mockClsid,
+  mockDikKeys,
+  mockSndType,
+  mockStalkerIds,
+  mockUiEvents,
+} from "@/fixtures/xray/mocks/constants";
 import { MockCSightParams } from "@/fixtures/xray/mocks/CSightParams.mock";
 import { MockCTime } from "@/fixtures/xray/mocks/CTime.mock";
 import { MockDevice } from "@/fixtures/xray/mocks/device.mock";
@@ -80,6 +88,8 @@ import {
   MockFlags32,
   MockObjectBinder,
   MockPatrol,
+  MockPhysicsJoint,
+  MockPhysicsShell,
   MockSoundObject,
   MockSpaceRestrictor,
   MockTask,
@@ -109,6 +119,7 @@ export function mockXRay16({
   CUIScrollView = MockCUIScrollView,
   CUIWindow = MockCUIWindow,
   CZoneCampfire = MockCZoneCampfire,
+  DIK_keys = mockDikKeys,
   FS = MockFileSystem,
   Frect = MockFrect,
   IsImportantSave = jest.fn(() => mocksConfig.isAutoSavingEnabled),
@@ -176,6 +187,8 @@ export function mockXRay16({
   noise = MockNoise,
   object_binder = MockObjectBinder,
   patrol = MockPatrol,
+  physics_joint = MockPhysicsJoint,
+  physics_shell = MockPhysicsShell,
   print_stack = jest.fn(),
   profile_timer = MockProfileTimer,
   property_evaluator = MockPropertyEvaluator,
@@ -183,6 +196,7 @@ export function mockXRay16({
   relation_registry = mockRelationRegistryInterface,
   sight_params = MockSightParameters,
   snd_type = mockSndType,
+  sound = MockSound,
   sound_object = MockSoundObject,
   stalker_ids = mockStalkerIds,
   system_ini = () => mockIniFile("system.ini"),
@@ -210,6 +224,7 @@ export function mockXRay16({
     CUIScrollView,
     CUIWindow,
     CZoneCampfire,
+    DIK_keys,
     FS,
     Frect,
     IsImportantSave,
@@ -278,6 +293,8 @@ export function mockXRay16({
     noise,
     object_binder,
     patrol,
+    physics_joint,
+    physics_shell,
     print_stack,
     profile_timer,
     property_evaluator,
@@ -285,6 +302,7 @@ export function mockXRay16({
     relation_registry,
     sight_params,
     snd_type,
+    sound,
     sound_object,
     stalker_ids,
     system_ini,

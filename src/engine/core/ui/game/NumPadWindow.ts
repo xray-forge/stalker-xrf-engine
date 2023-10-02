@@ -1,16 +1,20 @@
-import { CScriptXmlInit, CUIScriptWnd, CUIStatic, DIK_keys, LuabindClass, ui_events, vector2 } from "xray16";
+import { CUIScriptWnd, CUIStatic, DIK_keys, LuabindClass, ui_events } from "xray16";
 
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { Optional, TKeyCode, TLabel, TUIEvent, XmlInit } from "@/engine/lib/types";
+import { EElementType, registerUiElement, resolveXmlFile } from "@/engine/core/utils/ui";
+import { create2dVector } from "@/engine/core/utils/vector";
+import { Optional, TKeyCode, TLabel, TPath, TUIEvent, XmlInit } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
+const BASE: TPath = "game\\NumPadWindow.component";
 
 export interface INumPadWindowOwner {
-  OnNumberReceive(text: string): void;
+  onNumberReceive(text: string): void;
 }
 
 /**
- * todo;
+ * Custom window to enter password.
+ * Shown to open locks/doors etc. when custom password scheme logics is active.
  */
 @LuabindClass()
 export class NumPadWindow extends CUIScriptWnd {
@@ -25,95 +29,177 @@ export class NumPadWindow extends CUIScriptWnd {
 
     this.owner = owner;
 
-    this.initControls();
-    this.initCallBacks();
+    this.initialize();
   }
 
-  public initControls(): void {
-    this.SetWndPos(new vector2().set(342, 199));
-    this.SetWndSize(new vector2().set(339, 369));
+  /**
+   * Initialize UI and positioning.
+   * Subscribe to UI events.
+   */
+  public initialize(): void {
+    this.SetWndPos(create2dVector(342, 199));
+    this.SetWndSize(create2dVector(339, 369));
 
-    const xml: XmlInit = new CScriptXmlInit();
+    const xml: XmlInit = resolveXmlFile(BASE);
 
-    xml.ParseFile("ui_numpad_wnd.xml");
     xml.InitStatic("background", this);
 
     this.uiEditBox = xml.InitStatic("edit_box", this);
-    this.uiEditBox.SetWindowName("edit_window");
+    this.uiEditBox.SetWindowName(NumPadWindow.__name);
 
-    this.Register(xml.Init3tButton("btn_0", this), "btn_0");
-    this.Register(xml.Init3tButton("btn_1", this), "btn_1");
-    this.Register(xml.Init3tButton("btn_2", this), "btn_2");
-    this.Register(xml.Init3tButton("btn_3", this), "btn_3");
-    this.Register(xml.Init3tButton("btn_4", this), "btn_4");
-    this.Register(xml.Init3tButton("btn_5", this), "btn_5");
-    this.Register(xml.Init3tButton("btn_6", this), "btn_6");
-    this.Register(xml.Init3tButton("btn_7", this), "btn_7");
-    this.Register(xml.Init3tButton("btn_8", this), "btn_8");
-    this.Register(xml.Init3tButton("btn_9", this), "btn_9");
+    registerUiElement(xml, "btn_0", {
+      base: this,
+      type: EElementType.BUTTON,
+      handlers: {
+        [ui_events.BUTTON_CLICKED]: () => this.addNumber(0),
+      },
+    });
+    registerUiElement(xml, "btn_1", {
+      base: this,
+      type: EElementType.BUTTON,
+      handlers: {
+        [ui_events.BUTTON_CLICKED]: () => this.addNumber(1),
+      },
+    });
+    registerUiElement(xml, "btn_2", {
+      base: this,
+      type: EElementType.BUTTON,
+      handlers: {
+        [ui_events.BUTTON_CLICKED]: () => this.addNumber(2),
+      },
+    });
+    registerUiElement(xml, "btn_3", {
+      base: this,
+      type: EElementType.BUTTON,
+      handlers: {
+        [ui_events.BUTTON_CLICKED]: () => this.addNumber(3),
+      },
+    });
+    registerUiElement(xml, "btn_4", {
+      base: this,
+      type: EElementType.BUTTON,
+      handlers: {
+        [ui_events.BUTTON_CLICKED]: () => this.addNumber(4),
+      },
+    });
+    registerUiElement(xml, "btn_5", {
+      base: this,
+      type: EElementType.BUTTON,
+      handlers: {
+        [ui_events.BUTTON_CLICKED]: () => this.addNumber(5),
+      },
+    });
+    registerUiElement(xml, "btn_6", {
+      base: this,
+      type: EElementType.BUTTON,
+      handlers: {
+        [ui_events.BUTTON_CLICKED]: () => this.addNumber(6),
+      },
+    });
+    registerUiElement(xml, "btn_7", {
+      base: this,
+      type: EElementType.BUTTON,
+      handlers: {
+        [ui_events.BUTTON_CLICKED]: () => this.addNumber(7),
+      },
+    });
+    registerUiElement(xml, "btn_8", {
+      base: this,
+      type: EElementType.BUTTON,
+      handlers: {
+        [ui_events.BUTTON_CLICKED]: () => this.addNumber(8),
+      },
+    });
+    registerUiElement(xml, "btn_9", {
+      base: this,
+      type: EElementType.BUTTON,
+      handlers: {
+        [ui_events.BUTTON_CLICKED]: () => this.addNumber(9),
+      },
+    });
 
-    this.Register(xml.Init3tButton("btn_c", this), "btn_c");
-    this.Register(xml.Init3tButton("btn_backspase", this), "btn_backspase");
-    this.Register(xml.Init3tButton("btn_enter", this), "btn_enter");
-    this.Register(xml.Init3tButton("btn_cancel", this), "btn_cancel");
+    registerUiElement(xml, "btn_c", {
+      base: this,
+      type: EElementType.BUTTON,
+      handlers: {
+        [ui_events.BUTTON_CLICKED]: () => this.onOkButtonClicked(),
+      },
+    });
+    registerUiElement(xml, "btn_cancel", {
+      base: this,
+      type: EElementType.BUTTON,
+      handlers: {
+        [ui_events.BUTTON_CLICKED]: () => this.onCancelButtonClicked(),
+      },
+    });
+    registerUiElement(xml, "btn_enter", {
+      base: this,
+      type: EElementType.BUTTON,
+      handlers: {
+        [ui_events.BUTTON_CLICKED]: () => this.onOkButtonClicked(),
+      },
+    });
+    registerUiElement(xml, "btn_backspase", {
+      base: this,
+      type: EElementType.BUTTON,
+      handlers: {
+        [ui_events.BUTTON_CLICKED]: () => this.onBackspaceButtonClicked(),
+      },
+    });
   }
 
-  public initCallBacks(): void {
-    this.AddCallback("btn_enter", ui_events.BUTTON_CLICKED, () => this.onOkButtonClicked(), this);
-    this.AddCallback("btn_cancel", ui_events.BUTTON_CLICKED, () => this.onCancelButtonClicked(), this);
-
-    this.AddCallback("btn_0", ui_events.BUTTON_CLICKED, () => this.addNumber(0), this);
-    this.AddCallback("btn_1", ui_events.BUTTON_CLICKED, () => this.addNumber(1), this);
-    this.AddCallback("btn_2", ui_events.BUTTON_CLICKED, () => this.addNumber(2), this);
-    this.AddCallback("btn_3", ui_events.BUTTON_CLICKED, () => this.addNumber(3), this);
-    this.AddCallback("btn_4", ui_events.BUTTON_CLICKED, () => this.addNumber(4), this);
-    this.AddCallback("btn_5", ui_events.BUTTON_CLICKED, () => this.addNumber(5), this);
-    this.AddCallback("btn_6", ui_events.BUTTON_CLICKED, () => this.addNumber(6), this);
-    this.AddCallback("btn_7", ui_events.BUTTON_CLICKED, () => this.addNumber(7), this);
-    this.AddCallback("btn_8", ui_events.BUTTON_CLICKED, () => this.addNumber(8), this);
-    this.AddCallback("btn_9", ui_events.BUTTON_CLICKED, () => this.addNumber(9), this);
-
-    this.AddCallback("btn_c", ui_events.BUTTON_CLICKED, () => this.onCButtonClicked(), this);
-    this.AddCallback("btn_backspase", ui_events.BUTTON_CLICKED, () => this.onBackspaceButtonClicked(), this);
-  }
-
+  /**
+   * Handle input of number value from input window.
+   *
+   * @param number - value to add as input
+   */
   public addNumber(number: number): void {
-    const text: TLabel = this.uiEditBox.TextControl().GetText() || "";
+    const text: TLabel = this.uiEditBox.TextControl().GetText() ?? "";
 
-    if (string.len(text) > 12) {
-      return;
-    } else {
+    if (string.len(text) < 12) {
       this.uiEditBox.TextControl().SetText(text + number);
     }
   }
 
+  /**
+   * Clear last input from end.
+   */
   public onBackspaceButtonClicked(): void {
-    const text: TLabel = this.uiEditBox.TextControl().GetText();
+    const text: Optional<TLabel> = this.uiEditBox.TextControl().GetText() as Optional<TLabel>;
 
-    if (text === null) {
+    if (!text) {
       return;
     }
 
-    const b: number = 1;
-    const e: number = string.len(text) - 1;
+    const start: number = 1;
+    const end: number = string.len(text) - 1;
 
-    this.uiEditBox.TextControl().SetText(string.sub(text, b, e));
+    this.uiEditBox.TextControl().SetText(string.sub(text, start, end));
   }
 
+  /**
+   * Clear password entry.
+   */
   public onCButtonClicked(): void {
     this.uiEditBox.TextControl().SetText("");
   }
 
+  /**
+   * Clear number and close entry window.
+   */
   public onCancelButtonClicked(): void {
     logger.info("Cancel clicked");
 
     if (this.owner) {
-      this.owner.OnNumberReceive("");
+      this.owner.onNumberReceive("");
     }
 
     this.HideDialog();
   }
 
+  /**
+   * Confirm number and fire callbacks to handle verification.
+   */
   public onOkButtonClicked(): void {
     logger.info("OK clicked");
 
@@ -122,44 +208,87 @@ export class NumPadWindow extends CUIScriptWnd {
     const text: TLabel = this.uiEditBox.TextControl().GetText();
 
     if (this.owner) {
-      this.owner.OnNumberReceive(text);
+      this.owner.onNumberReceive(text);
     }
   }
 
+  /**
+   * Handle keyboard events for custom password window.
+   *
+   * @param key - key code
+   * @param event - game event
+   */
   public override OnKeyboard(key: TKeyCode, event: TUIEvent): boolean {
     super.OnKeyboard(key, event);
 
     if (event === ui_events.WINDOW_KEY_PRESSED) {
-      if (key === DIK_keys.DIK_ESCAPE) {
-        this.HideDialog();
-      }
+      switch (key) {
+        case DIK_keys.DIK_ESCAPE:
+          this.HideDialog();
+          break;
 
-      if (key === DIK_keys.DIK_0 || key === DIK_keys.DIK_NUMPAD0) {
-        this.addNumber(0);
-      } else if (key === DIK_keys.DIK_1 || key === DIK_keys.DIK_NUMPAD1) {
-        this.addNumber(1);
-      } else if (key === DIK_keys.DIK_2 || key === DIK_keys.DIK_NUMPAD2) {
-        this.addNumber(2);
-      } else if (key === DIK_keys.DIK_3 || key === DIK_keys.DIK_NUMPAD3) {
-        this.addNumber(3);
-      } else if (key === DIK_keys.DIK_4 || key === DIK_keys.DIK_NUMPAD4) {
-        this.addNumber(4);
-      } else if (key === DIK_keys.DIK_5 || key === DIK_keys.DIK_NUMPAD5) {
-        this.addNumber(5);
-      } else if (key === DIK_keys.DIK_6 || key === DIK_keys.DIK_NUMPAD6) {
-        this.addNumber(6);
-      } else if (key === DIK_keys.DIK_7 || key === DIK_keys.DIK_NUMPAD7) {
-        this.addNumber(7);
-      } else if (key === DIK_keys.DIK_8 || key === DIK_keys.DIK_NUMPAD8) {
-        this.addNumber(8);
-      } else if (key === DIK_keys.DIK_9 || key === DIK_keys.DIK_NUMPAD9) {
-        this.addNumber(9);
-      } else if (key === DIK_keys.DIK_BACK) {
-        this.onBackspaceButtonClicked();
-      } else if (key === DIK_keys.DIK_RETURN || key === DIK_keys.DIK_NUMPADENTER) {
-        this.onOkButtonClicked();
-      } else if (key === DIK_keys.DIK_DELETE || key === DIK_keys.DIK_NUMPADCOMMA) {
-        this.onCButtonClicked();
+        case DIK_keys.DIK_0:
+        case DIK_keys.DIK_NUMPAD0:
+          this.addNumber(0);
+          break;
+
+        case DIK_keys.DIK_1:
+        case DIK_keys.DIK_NUMPAD1:
+          this.addNumber(1);
+          break;
+
+        case DIK_keys.DIK_2:
+        case DIK_keys.DIK_NUMPAD2:
+          this.addNumber(2);
+          break;
+
+        case DIK_keys.DIK_3:
+        case DIK_keys.DIK_NUMPAD3:
+          this.addNumber(3);
+          break;
+
+        case DIK_keys.DIK_4:
+        case DIK_keys.DIK_NUMPAD4:
+          this.addNumber(4);
+          break;
+
+        case DIK_keys.DIK_5:
+        case DIK_keys.DIK_NUMPAD5:
+          this.addNumber(5);
+          break;
+
+        case DIK_keys.DIK_6:
+        case DIK_keys.DIK_NUMPAD6:
+          this.addNumber(6);
+          break;
+
+        case DIK_keys.DIK_7:
+        case DIK_keys.DIK_NUMPAD7:
+          this.addNumber(7);
+          break;
+        case DIK_keys.DIK_8:
+        case DIK_keys.DIK_NUMPAD8:
+          this.addNumber(8);
+          break;
+
+        case DIK_keys.DIK_9:
+        case DIK_keys.DIK_NUMPAD9:
+          this.addNumber(9);
+          break;
+
+        case DIK_keys.DIK_BACK:
+          this.onBackspaceButtonClicked();
+          break;
+
+        case DIK_keys.DIK_RETURN:
+        case DIK_keys.DIK_NUMPADENTER:
+          this.onOkButtonClicked();
+          break;
+
+        case DIK_keys.DIK_DELETE:
+        case DIK_keys.DIK_NUMPADCOMMA:
+          this.onCButtonClicked();
+          break;
       }
     }
 

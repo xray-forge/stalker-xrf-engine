@@ -1,8 +1,5 @@
 import { AbstractScheme } from "@/engine/core/objects/ai/scheme/AbstractScheme";
-import {
-  ISchemeTeleportState,
-  ITeleportPoint,
-} from "@/engine/core/schemes/restrictor/sr_teleport/ISchemeTeleportState";
+import { ISchemeTeleportState, ITeleportPoint } from "@/engine/core/schemes/restrictor/sr_teleport/sr_teleport_types";
 import { TeleportManager } from "@/engine/core/schemes/restrictor/sr_teleport/TeleportManager";
 import { assert } from "@/engine/core/utils/assertion";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini/ini_config";
@@ -62,6 +59,6 @@ export class SchemeTeleport extends AbstractScheme {
     section: TSection,
     state: ISchemeTeleportState
   ): void {
-    SchemeTeleport.subscribe(object, state, new TeleportManager(object, state));
+    AbstractScheme.subscribe(object, state, new TeleportManager(object, state));
   }
 }

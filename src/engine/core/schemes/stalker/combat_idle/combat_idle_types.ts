@@ -1,12 +1,12 @@
 import { StalkerAnimationManager } from "@/engine/core/objects/ai/state/StalkerAnimationManager";
-import { Optional, TName, TNumberId } from "@/engine/lib/types";
+import { Optional, TDuration, TName, TNumberId } from "@/engine/lib/types";
 
 /**
  * todo;
  */
 export interface ISchemePostCombatIdleState {
-  timer: Optional<number>;
+  timer: Optional<TDuration>;
   animation: Optional<StalkerAnimationManager>;
-  last_best_enemy_id: Optional<TNumberId>;
-  last_best_enemy_name: Optional<TName>;
+  lastBestEnemyId: Optional<TNumberId>;
+  lastBestEnemyName: Optional<TName>;
 }

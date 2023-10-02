@@ -2,7 +2,7 @@ import { describe, expect, it } from "@jest/globals";
 
 import { registerObject } from "@/engine/core/database";
 import { CodeManager } from "@/engine/core/schemes/physical/ph_code/CodeManager";
-import { ISchemeCodeState } from "@/engine/core/schemes/physical/ph_code/ISchemeCodeState";
+import { ISchemeCodeState } from "@/engine/core/schemes/physical/ph_code/ph_code_types";
 import { SchemeCode } from "@/engine/core/schemes/physical/ph_code/SchemeCode";
 import { getConfigSwitchConditions, parseConditionsList } from "@/engine/core/utils/ini";
 import { loadSchemeImplementation } from "@/engine/core/utils/scheme";
@@ -27,7 +27,7 @@ describe("SchemeCode", () => {
     expect(state.logic).toEqualLuaTables({});
     expect(state.tips).toBe("st_codelock");
     expect(state.code).toBeNull();
-    expect(state.on_check_code).toEqualLuaTables({});
+    expect(state.onCheckCode).toEqualLuaTables({});
 
     assertSchemeSubscribedToManager(state, CodeManager);
   });
@@ -53,8 +53,8 @@ describe("SchemeCode", () => {
     expect(state.logic).toEqualLuaTables(getConfigSwitchConditions(ini, "ph_code@test"));
     expect(state.tips).toBe("test_tips");
     expect(state.code).toBe(5534);
-    expect(state.on_check_code).toBeUndefined();
-    expect(state.on_code).toEqualLuaTables({
+    expect(state.onCheckCode).toBeUndefined();
+    expect(state.onCode).toEqualLuaTables({
       name: "on_code",
       condlist: parseConditionsList("{+test} a, b"),
       objectId: null,
@@ -86,8 +86,8 @@ describe("SchemeCode", () => {
     expect(state.logic).toEqualLuaTables(getConfigSwitchConditions(ini, "ph_code@test"));
     expect(state.tips).toBe("test_tips");
     expect(state.code).toBeNull();
-    expect(state.on_code).toBeUndefined();
-    expect(state.on_check_code).toEqualLuaTables({
+    expect(state.onCode).toBeUndefined();
+    expect(state.onCheckCode).toEqualLuaTables({
       123: parseConditionsList("{+test} a, b"),
       456: parseConditionsList("{+test2} c, d"),
     });

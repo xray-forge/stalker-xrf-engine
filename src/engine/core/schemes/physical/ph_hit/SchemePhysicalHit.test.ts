@@ -1,7 +1,7 @@
 import { describe, expect, it } from "@jest/globals";
 
 import { registerObject } from "@/engine/core/database";
-import { ISchemePhysicalHitState } from "@/engine/core/schemes/physical/ph_hit/ISchemePhysicalHitState";
+import { ISchemePhysicalHitState } from "@/engine/core/schemes/physical/ph_hit/ph_hit_types";
 import { PhysicalHitManager } from "@/engine/core/schemes/physical/ph_hit/PhysicalHitManager";
 import { SchemePhysicalHit } from "@/engine/core/schemes/physical/ph_hit/SchemePhysicalHit";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini";
@@ -29,7 +29,7 @@ describe("SchemePhysicalHit", () => {
     expect(state.power).toBe(0);
     expect(state.impulse).toBe(1000);
     expect(state.bone).toBe("test_bone");
-    expect(state.dir_path).toBe("test_path");
+    expect(state.dirPath).toBe("test_path");
 
     assertSchemeSubscribedToManager(state, PhysicalHitManager);
   });
@@ -55,7 +55,7 @@ describe("SchemePhysicalHit", () => {
     expect(state.power).toBe(5);
     expect(state.impulse).toBe(466);
     expect(state.bone).toBe("test_bone2");
-    expect(state.dir_path).toBe("test_path2");
+    expect(state.dirPath).toBe("test_path2");
 
     assertSchemeSubscribedToManager(state, PhysicalHitManager);
   });

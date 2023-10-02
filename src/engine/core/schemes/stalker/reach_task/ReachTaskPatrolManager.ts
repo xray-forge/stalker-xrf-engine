@@ -3,6 +3,7 @@ import { level } from "xray16";
 import { registry } from "@/engine/core/database/registry";
 import { EStalkerState } from "@/engine/core/objects/animation/types";
 import type { Squad } from "@/engine/core/objects/server/squad";
+import { reachTaskConfig } from "@/engine/core/schemes/stalker/reach_task/ReachTaskConfig";
 import { abort, assertDefined } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getObjectSquad } from "@/engine/core/utils/squad";
@@ -20,30 +21,6 @@ import {
 } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
-
-/**
- * todo;
- */
-const formations = {
-  back: [
-    { dir: createVector(0.7, 0, -0.5), dist: 1.2 },
-    { dir: createVector(-0.7, 0, -0.5), dist: 1.2 },
-    { dir: createVector(0.4, 0, -1), dist: 2.4 },
-    { dir: createVector(-0.4, 0, -1), dist: 2.4 },
-    { dir: createVector(0.7, 0, -1), dist: 3.6 },
-    { dir: createVector(-0.7, 0, -1), dist: 3.6 },
-    { dir: createVector(0.7, 0, -1), dist: 4.8 },
-    { dir: createVector(-0.7, 0, -1), dist: 4.8 },
-    { dir: createVector(0.7, 0, -1), dist: 6 },
-    { dir: createVector(-0.7, 0, -1), dist: 6 },
-    { dir: createVector(0.7, 0, -1), dist: 7.2 },
-    { dir: createVector(-0.7, 0, -1), dist: 7.2 },
-    { dir: createVector(0.7, 0, -1), dist: 8.4 },
-    { dir: createVector(-0.7, 0, -1), dist: 8.4 },
-    { dir: createVector(0.7, 0, -1), dist: 9.6 },
-    { dir: createVector(-0.7, 0, -1), dist: 9.6 },
-  ],
-};
 
 /**
  * todo;
@@ -126,7 +103,7 @@ export class ReachTaskPatrolManager {
   public resetPositions(): void {
     // logger.info("Reset formation positions:", this.targetId, this.commanderId, this.objectsCount);
 
-    const form_ = formations[this.formation as "back"];
+    const form_ = reachTaskConfig.FORMATIONS[this.formation as "back"];
     let index = 1;
 
     for (const [key, data] of this.objectsList) {

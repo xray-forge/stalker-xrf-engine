@@ -6,7 +6,7 @@ import { Optional, TLabel } from "@/engine/lib/types";
  * todo;
  */
 export interface ISchemePhysicalButtonState extends IBaseSchemeState {
-  on_press: Optional<IConfigSwitchConditionsDescriptor>;
+  onPress: Optional<IConfigSwitchConditionsDescriptor>;
   tooltip: Optional<TLabel>;
   anim: TLabel;
   blending: boolean;

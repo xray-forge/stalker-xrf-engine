@@ -7,13 +7,13 @@ import type { TName, TProbability, TRate } from "@/engine/lib/types";
 export interface ISchemePsyAntennaState extends IBaseSchemeState {
   intensity: TRate;
   postprocess: TName;
-  hit_intensity: TRate;
-  phantom_prob: TProbability;
-  mute_sound_threshold: TRate;
-  no_static: boolean;
-  no_mumble: boolean;
-  hit_type: string;
-  hit_freq: TRate;
+  hitIntensity: TRate;
+  phantomProb: TProbability;
+  muteSoundThreshold: TRate;
+  noStatic: boolean;
+  noMumble: boolean;
+  hitType: string;
+  hitFreq: TRate;
 }
 
 /**

@@ -5,7 +5,7 @@ import { AbstractScheme } from "@/engine/core/objects/ai/scheme";
 import { EActionId, EEvaluatorId } from "@/engine/core/objects/ai/types";
 import { ActionHelpWounded } from "@/engine/core/schemes/stalker/help_wounded/actions";
 import { EvaluatorWoundedExist } from "@/engine/core/schemes/stalker/help_wounded/evaluators";
-import { ISchemeHelpWoundedState } from "@/engine/core/schemes/stalker/help_wounded/ISchemeHelpWoundedState";
+import { ISchemeHelpWoundedState } from "@/engine/core/schemes/stalker/help_wounded/help_wounded_types";
 import { ISchemeWoundedState } from "@/engine/core/schemes/stalker/wounded";
 import { readIniBoolean } from "@/engine/core/utils/ini/ini_read";
 import { LuaLogger } from "@/engine/core/utils/logging";

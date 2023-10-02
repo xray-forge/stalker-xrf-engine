@@ -7,11 +7,11 @@ import type { Optional } from "@/engine/lib/types";
  */
 export interface ISchemeMobRemarkState extends IBaseSchemeState {
   state: Optional<EMonsterState>;
-  dialog_cond: Optional<IBaseSchemeLogic>;
-  no_reset: boolean;
+  dialogCondition: Optional<IBaseSchemeLogic>;
+  noReset: boolean;
   anim: string;
-  anim_movement: boolean;
-  anim_head: Optional<string>;
+  animationMovement: boolean;
+  animationHead: Optional<string>;
   tip: Optional<string>;
   snd: Optional<string>;
   time: Optional<string>;

@@ -1,7 +1,7 @@
 import { LuabindClass, property_evaluator, time_global } from "xray16";
 
 import { registry } from "@/engine/core/database";
-import { ISchemePostCombatIdleState } from "@/engine/core/schemes/stalker/combat_idle/ISchemePostCombatIdleState";
+import { ISchemePostCombatIdleState } from "@/engine/core/schemes/stalker/combat_idle/combat_idle_types";
 import { canObjectSelectAsEnemy } from "@/engine/core/schemes/stalker/danger/utils";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
@@ -37,8 +37,8 @@ export class EvaluatorHasEnemy extends property_evaluator {
     }
 
     if (bestEnemy !== null && this.state.timer !== null) {
-      this.state.last_best_enemy_id = bestEnemy.id();
-      this.state.last_best_enemy_name = bestEnemy.name();
+      this.state.lastBestEnemyId = bestEnemy.id();
+      this.state.lastBestEnemyName = bestEnemy.name();
       this.state.timer = null;
 
       return true;
@@ -51,7 +51,7 @@ export class EvaluatorHasEnemy extends property_evaluator {
       const min: TDistance = (overrides && overrides.min_post_combat_time * 1000) || logicsConfig.POST_COMBAT_IDLE.MIN;
       const max: TDistance = (overrides && overrides.max_post_combat_time * 1000) || logicsConfig.POST_COMBAT_IDLE.MAX;
 
-      if (this.state.last_best_enemy_id === registry.actor.id()) {
+      if (this.state.lastBestEnemyId === registry.actor.id()) {
         this.state.timer = now;
       } else {
         this.state.timer = now + math.random(min, max);

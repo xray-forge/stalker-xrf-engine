@@ -3,7 +3,8 @@ import { patrol } from "xray16";
 import { registry, setMonsterState } from "@/engine/core/database";
 import { AbstractSchemeManager } from "@/engine/core/objects/ai/scheme";
 import type { SmartTerrain } from "@/engine/core/objects/server/smart_terrain";
-import { ISchemeMobHomeState } from "@/engine/core/schemes/monster/mob_home/ISchemeMobHomeState";
+import { ISchemeMobHomeState } from "@/engine/core/schemes/monster/mob_home/mob_home_types";
+import { mobHomeConfig } from "@/engine/core/schemes/monster/mob_home/MobHomeConfig";
 import { assert } from "@/engine/core/utils/assertion";
 import { parseWaypointData } from "@/engine/core/utils/ini/ini_parse";
 import { IWaypointData } from "@/engine/core/utils/ini/ini_types";
@@ -16,10 +17,6 @@ const logger: LuaLogger = new LuaLogger($filename);
  * Manager to assign home locations for mobs and guard them.
  */
 export class MobHomeManager extends AbstractSchemeManager<ISchemeMobHomeState> {
-  public static readonly DEFAULT_MIN_RADIUS: TDistance = 10;
-  public static readonly DEFAULT_MID_RADIUS: TDistance = 20;
-  public static readonly DEFAULT_MAX_RADIUS: TDistance = 70;
-
   public override activate(): void {
     setMonsterState(this.object, this.state.monsterState);
 
@@ -41,9 +38,9 @@ export class MobHomeManager extends AbstractSchemeManager<ISchemeMobHomeState> {
   public getHomeParameters(): LuaMultiReturn<[TNumberId | TName, TDistance, TDistance, boolean, TDistance]> {
     const isAggressive: boolean = this.state.isAggressive || false;
 
-    let minRadius: TDistance = MobHomeManager.DEFAULT_MIN_RADIUS;
-    let maxRadius: TDistance = MobHomeManager.DEFAULT_MAX_RADIUS;
-    let midRadius: TDistance = MobHomeManager.DEFAULT_MID_RADIUS;
+    let minRadius: TDistance = mobHomeConfig.DEFAULT_MIN_RADIUS;
+    let maxRadius: TDistance = mobHomeConfig.DEFAULT_MAX_RADIUS;
+    let midRadius: TDistance = mobHomeConfig.DEFAULT_MID_RADIUS;
 
     let waypointData: Partial<IWaypointData> = {};
     let radius: TDistance = 0;

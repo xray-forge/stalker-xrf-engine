@@ -1,7 +1,7 @@
 import { IBaseSchemeLogic } from "@/engine/core/database";
 import { AbstractScheme } from "@/engine/core/objects/ai/scheme/AbstractScheme";
 import { CodeManager } from "@/engine/core/schemes/physical/ph_code/CodeManager";
-import { ISchemeCodeState } from "@/engine/core/schemes/physical/ph_code/ISchemeCodeState";
+import { ISchemeCodeState } from "@/engine/core/schemes/physical/ph_code/ph_code_types";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini/ini_config";
 import {
   readIniConditionList,
@@ -37,15 +37,15 @@ export class SchemeCode extends AbstractScheme {
     state.code = readIniNumber(ini, section, "code", false);
 
     if (state.code) {
-      state.on_code = readIniConditionList(ini, section, "on_code");
+      state.onCode = readIniConditionList(ini, section, "on_code");
     } else {
-      state.on_check_code = new LuaTable();
+      state.onCheckCode = new LuaTable();
 
       let it: TIndex = 1;
       let cc: Optional<IBaseSchemeLogic> = readIniStringAndCondList(ini, section, "on_check_code" + it);
 
       while (cc) {
-        state.on_check_code.set(cc.p1 as TName, cc.condlist);
+        state.onCheckCode.set(cc.p1 as TName, cc.condlist);
         it += 1;
         cc = readIniStringAndCondList(ini, section, "on_check_code" + it);
       }

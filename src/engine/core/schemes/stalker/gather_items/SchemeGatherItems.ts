@@ -2,7 +2,7 @@ import { IRegistryObjectState } from "@/engine/core/database";
 import { AbstractScheme } from "@/engine/core/objects/ai/scheme";
 import { EEvaluatorId } from "@/engine/core/objects/ai/types";
 import { EvaluatorGatherItems } from "@/engine/core/schemes/stalker/gather_items/evaluators";
-import { ISchemeGatherItemsState } from "@/engine/core/schemes/stalker/gather_items/ISchemeGatherItemsState";
+import { ISchemeGatherItemsState } from "@/engine/core/schemes/stalker/gather_items/gather_items_types";
 import { readIniBoolean } from "@/engine/core/utils/ini/ini_read";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { ActionPlanner, ClientObject, EScheme, ESchemeType, IniFile, TSection } from "@/engine/lib/types";
@@ -16,9 +16,6 @@ export class SchemeGatherItems extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.GATHER_ITEMS;
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.STALKER;
 
-  /**
-   * Activate scheme for an object - add to object state.
-   */
   public static override activate(
     object: ClientObject,
     ini: IniFile,
@@ -28,9 +25,6 @@ export class SchemeGatherItems extends AbstractScheme {
     return AbstractScheme.assign(object, ini, scheme, section);
   }
 
-  /**
-   * Add custom gather items state logics for an object.
-   */
   public static override add(
     object: ClientObject,
     ini: IniFile,
@@ -44,9 +38,6 @@ export class SchemeGatherItems extends AbstractScheme {
     planner.add_evaluator(EEvaluatorId.ITEMS, new EvaluatorGatherItems(state));
   }
 
-  /**
-   * Reset state for object.
-   */
   public static override reset(
     object: ClientObject,
     scheme: EScheme,

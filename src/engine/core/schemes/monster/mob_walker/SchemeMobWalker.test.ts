@@ -1,7 +1,7 @@
 import { describe, expect, it } from "@jest/globals";
 
 import { registerObject } from "@/engine/core/database";
-import { ISchemeMobWalkerState } from "@/engine/core/schemes/monster/mob_walker/ISchemeMobWalkerState";
+import { ISchemeMobWalkerState } from "@/engine/core/schemes/monster/mob_walker/mob_walker_types";
 import { MobWalkerManager } from "@/engine/core/schemes/monster/mob_walker/MobWalkerManager";
 import { SchemeMobWalker } from "@/engine/core/schemes/monster/mob_walker/SchemeMobWalker";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini";

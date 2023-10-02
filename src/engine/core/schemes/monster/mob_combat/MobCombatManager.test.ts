@@ -1,7 +1,7 @@
 import { describe, expect, it, jest } from "@jest/globals";
 
 import { IRegistryObjectState, registerObject } from "@/engine/core/database";
-import { ISchemeMobCombatState } from "@/engine/core/schemes/monster/mob_combat/ISchemeMobCombatState";
+import { ISchemeMobCombatState } from "@/engine/core/schemes/monster/mob_combat/mob_combat_types";
 import { MobCombatManager } from "@/engine/core/schemes/monster/mob_combat/MobCombatManager";
 import { trySwitchToAnotherSection } from "@/engine/core/utils/scheme";
 import { ClientObject, EScheme } from "@/engine/lib/types";

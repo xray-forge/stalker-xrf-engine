@@ -2,7 +2,13 @@ import { CCar, level, move, patrol, time_global } from "xray16";
 
 import { getObjectByStoryId, IBaseSchemeLogic, registry } from "@/engine/core/database";
 import { AbstractSchemeManager } from "@/engine/core/objects/ai/scheme";
-import { ISchemeMinigunState } from "@/engine/core/schemes/physical/ph_minigun/ISchemeMinigunState";
+import { minigunConfig } from "@/engine/core/schemes/physical/ph_minigun/MinigunConfig";
+import {
+  EMinigunCannonState,
+  EMinigunFireTargetState,
+  EMinigunState,
+  ISchemeMinigunState,
+} from "@/engine/core/schemes/physical/ph_minigun/ph_minigun_types";
 import { abort } from "@/engine/core/utils/assertion";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini";
 import { isObjectWounded } from "@/engine/core/utils/planner";
@@ -17,16 +23,6 @@ import { createEmptyVector, createVector, yaw } from "@/engine/core/utils/vector
 import { ACTOR, NIL } from "@/engine/lib/constants/words";
 import { Car, ClientObject, Optional, TSection, TStringId, TTimestamp, Vector } from "@/engine/lib/types";
 
-const STATE_CANNON_ROTATE: number = 1;
-const STATE_CANNON_FOLLOW: number = 2;
-const STATE_CANNON_DELAY: number = 3;
-const STATE_CANNON_STOP: number = 4;
-const STATE_SHOOTING_ON: number = 1;
-const STATE_NONE: number = 0;
-const STATE_FIRETARGET_POINTS: number = 1;
-const STATE_FIRETARGET_ENEMY: number = 2;
-const DEF_MAX_FC_UPD_NUM: number = 1;
-
 /**
  * todo;
  */
@@ -36,9 +32,9 @@ export class MinigunManager extends AbstractSchemeManager<ISchemeMinigunState> {
   public startLookPos: Vector;
 
   public destroyed: boolean = false;
-  public stateCannon: number = -1;
-  public stateFiretarget: number = -1;
-  public stateShooting: number = -1;
+  public stateCannon: EMinigunCannonState = EMinigunCannonState.NONE;
+  public stateFiretarget: EMinigunFireTargetState = EMinigunFireTargetState.NONE;
+  public stateShooting: EMinigunState = EMinigunState.NONE;
 
   public startDelayingTime: number = 0;
   public startShootingTime: number = 0;
@@ -76,9 +72,6 @@ export class MinigunManager extends AbstractSchemeManager<ISchemeMinigunState> {
     this.startLookPos.y = this.object.position().y;
   }
 
-  /**
-   * todo: Description.
-   */
   public override activate(): void {
     this.startDelayingTime = time_global();
     this.startShootingTime = time_global();
@@ -104,9 +97,9 @@ export class MinigunManager extends AbstractSchemeManager<ISchemeMinigunState> {
       this.hasWeapon = false;
     }
 
-    this.stateFiretarget = STATE_NONE;
-    this.stateCannon = STATE_NONE;
-    this.stateShooting = STATE_NONE;
+    this.stateFiretarget = EMinigunFireTargetState.NONE;
+    this.stateCannon = EMinigunCannonState.NONE;
+    this.stateShooting = EMinigunState.NONE;
 
     this.targetFirePt = null;
     this.targetFirePtIdx = 0;
@@ -118,30 +111,30 @@ export class MinigunManager extends AbstractSchemeManager<ISchemeMinigunState> {
     const actor: ClientObject = registry.actor;
 
     if (this.hasWeapon) {
-      if (this.state.fire_target === "points") {
-        this.stateFiretarget = STATE_FIRETARGET_POINTS;
+      if (this.state.fireTarget === "points") {
+        this.stateFiretarget = EMinigunFireTargetState.POINTS;
       } else {
-        if (this.state.fire_target === ACTOR && actor.alive()) {
+        if (this.state.fireTarget === ACTOR && actor.alive()) {
           this.targetObject = actor;
-          this.stateFiretarget = STATE_FIRETARGET_ENEMY;
+          this.stateFiretarget = EMinigunFireTargetState.ENEMY;
         } else {
-          const n = this.state.fire_target;
+          const n = this.state.fireTarget;
 
           if (n !== null) {
             const obj = getObjectByStoryId(n);
 
             if (obj && obj.alive()) {
               this.targetObject = obj;
-              this.stateFiretarget = STATE_FIRETARGET_ENEMY;
+              this.stateFiretarget = EMinigunFireTargetState.ENEMY;
             }
           }
         }
       }
 
-      this.fireTrackTarget = this.state.fire_track_target;
+      this.fireTrackTarget = this.state.fireTrackTarget;
 
-      if (this.state.on_target_vis) {
-        const vis = this.state.on_target_vis;
+      if (this.state.onTargetVis) {
+        const vis = this.state.onTargetVis;
 
         if (vis.p1 !== null) {
           const storyObject = getObjectByStoryId(vis.p1 as TStringId);
@@ -153,8 +146,8 @@ export class MinigunManager extends AbstractSchemeManager<ISchemeMinigunState> {
         }
       }
 
-      if (this.state.on_target_nvis) {
-        const nvis = this.state.on_target_nvis;
+      if (this.state.onTargetNvis) {
+        const nvis = this.state.onTargetNvis;
 
         if (nvis.p1 !== null) {
           const storyObject = getObjectByStoryId(nvis.p1 as TStringId);
@@ -166,7 +159,7 @@ export class MinigunManager extends AbstractSchemeManager<ISchemeMinigunState> {
         }
       }
 
-      this.pathFire = this.state.path_fire;
+      this.pathFire = this.state.pathFire;
       this.pathFirePoint = null;
 
       if (this.pathFire !== null) {
@@ -177,28 +170,41 @@ export class MinigunManager extends AbstractSchemeManager<ISchemeMinigunState> {
         }
       }
 
-      this.defFireTime = this.state.fire_time;
-      this.defFireRep = this.state.fire_rep;
+      this.defFireTime = this.state.fireTime;
+      this.defFireRep = this.state.fireRep;
       this.fireRep = this.defFireRep;
 
-      this.fireRangeSqr = this.state.fire_range * this.state.fire_range;
+      this.fireRangeSqr = this.state.fireRange * this.state.fireRange;
 
-      if (this.stateFiretarget === STATE_FIRETARGET_POINTS && this.pathFire) {
-        this.stateCannon = STATE_CANNON_FOLLOW;
-        this.stateShooting = STATE_NONE;
-      } else if (this.stateFiretarget === STATE_FIRETARGET_ENEMY) {
-        this.stateShooting = STATE_NONE;
-        this.stateCannon = STATE_CANNON_FOLLOW;
+      if (this.stateFiretarget === EMinigunFireTargetState.POINTS && this.pathFire) {
+        this.stateCannon = EMinigunCannonState.FOLLOW;
+        this.stateShooting = EMinigunState.NONE;
+      } else if (this.stateFiretarget === EMinigunFireTargetState.ENEMY) {
+        this.stateShooting = EMinigunState.NONE;
+        this.stateCannon = EMinigunCannonState.FOLLOW;
       } else {
-        this.stateFiretarget = STATE_NONE;
-        this.stateCannon = STATE_NONE;
-        this.stateShooting = STATE_NONE;
+        this.stateFiretarget = EMinigunFireTargetState.NONE;
+        this.stateCannon = EMinigunCannonState.NONE;
+        this.stateShooting = EMinigunState.NONE;
       }
     }
 
     this.object.set_fastcall(this.fastcall, this);
   }
 
+  public update(): void {
+    if (trySwitchToAnotherSection(this.object, this.state)) {
+      return;
+    }
+
+    if (this.destroyed) {
+      switchObjectSchemeToSection(this.object, this.state.ini, NIL);
+
+      return;
+    }
+
+    this.checkFireTime();
+  }
   /**
    * todo: Description.
    */
@@ -210,20 +216,20 @@ export class MinigunManager extends AbstractSchemeManager<ISchemeMinigunState> {
    * todo: Description.
    */
   public checkFireTime(): void {
-    if (this.state.fire_rep === -1) {
+    if (this.state.fireRep === -1) {
       return;
     }
 
-    if (1000 * this.state.fire_time + this.startShootingTime >= time_global() && this.stateDelaying === false) {
+    if (1000 * this.state.fireTime + this.startShootingTime >= time_global() && this.stateDelaying === false) {
       this.stateDelaying = false;
-      this.startDelayingTime = time_global() + math.random(-0.2, 0.2) * 1000 * this.state.fire_time;
+      this.startDelayingTime = time_global() + math.random(-0.2, 0.2) * 1000 * this.state.fireTime;
 
       return;
     } else {
       this.stateDelaying = true;
     }
 
-    if (this.startDelayingTime + 1000 * this.state.fire_rep >= time_global() && this.stateDelaying === true) {
+    if (this.startDelayingTime + 1000 * this.state.fireRep >= time_global() && this.stateDelaying === true) {
       this.stateDelaying = true;
       this.startShootingTime = time_global();
     } else {
@@ -270,23 +276,6 @@ export class MinigunManager extends AbstractSchemeManager<ISchemeMinigunState> {
   /**
    * todo: Description.
    */
-  public update(): void {
-    if (trySwitchToAnotherSection(this.object, this.state)) {
-      return;
-    }
-
-    if (this.destroyed) {
-      switchObjectSchemeToSection(this.object, this.state.ini, NIL);
-
-      return;
-    }
-
-    this.checkFireTime();
-  }
-
-  /**
-   * todo: Description.
-   */
   public fastUpdate(): boolean {
     if (this.mgun.GetfHealth() <= 0) {
       this.destroyCar();
@@ -296,7 +285,7 @@ export class MinigunManager extends AbstractSchemeManager<ISchemeMinigunState> {
 
     const now: number = time_global();
 
-    if (this.fcUpdNum < DEF_MAX_FC_UPD_NUM) {
+    if (this.fcUpdNum < minigunConfig.DEFAULT_MAX_FC_UPD_NUM) {
       const lastUpdate: TTimestamp = this.fcLastUpdTm;
 
       if (lastUpdate !== -1) {
@@ -313,7 +302,7 @@ export class MinigunManager extends AbstractSchemeManager<ISchemeMinigunState> {
       this.fcLastUpdTm = now;
     }
 
-    if (this.stateCannon === STATE_CANNON_STOP && this.stateFiretarget === STATE_NONE) {
+    if (this.stateCannon === EMinigunCannonState.STOP && this.stateFiretarget === EMinigunFireTargetState.NONE) {
       if (isMonsterScriptCaptured(this.object) && !this.object.action()) {
         this.destroyCar();
 
@@ -356,33 +345,30 @@ export class MinigunManager extends AbstractSchemeManager<ISchemeMinigunState> {
         }
       }
 
-      if (this.stateFiretarget === STATE_FIRETARGET_POINTS) {
+      if (this.stateFiretarget === EMinigunFireTargetState.POINTS) {
         const fireAngle = this.getAngleXZ(this.object, this.pathFirePoint!, this.startDirection);
         const canRotate =
-          fireAngle <= (this.state.fire_angle * math.pi) / 360 &&
-          fireAngle >= -((this.state.fire_angle * math.pi) / 360);
+          fireAngle <= (this.state.fireAngle * math.pi) / 360 && fireAngle >= -((this.state.fireAngle * math.pi) / 360);
 
         if (canRotate) {
           this.rotToFirepoint(this.pathFirePoint);
           if (this.stateDelaying) {
-            if (this.stateShooting !== STATE_NONE && this.state.auto_fire === true) {
-              this.stateShooting = STATE_NONE;
+            if (this.stateShooting !== EMinigunState.NONE && this.state.autoFire === true) {
+              this.stateShooting = EMinigunState.NONE;
               this.setShooting(this.stateShooting);
             }
           } else {
-            if (this.stateShooting === STATE_NONE) {
-              this.stateShooting = STATE_SHOOTING_ON;
+            if (this.stateShooting === EMinigunState.NONE) {
+              this.stateShooting = EMinigunState.SHOOTING_ON;
               this.setShooting(this.stateShooting);
             }
           }
         }
-      } else if (this.stateFiretarget === STATE_FIRETARGET_ENEMY) {
+      } else if (this.stateFiretarget === EMinigunFireTargetState.ENEMY) {
         const fireAngle = this.getAngleXZ(this.object, this.targetObject!.position(), this.startDirection);
         const canRotate =
-          fireAngle <= (this.state.fire_angle * math.pi) / 360 &&
-          fireAngle >= -((this.state.fire_angle * math.pi) / 360);
-        const objectVisible =
-          this.mgun.IsObjectVisible(this.targetObject!) || this.state.shoot_only_on_visible === false;
+          fireAngle <= (this.state.fireAngle * math.pi) / 360 && fireAngle >= -((this.state.fireAngle * math.pi) / 360);
+        const objectVisible = this.mgun.IsObjectVisible(this.targetObject!) || this.state.shootOnlyOnVisible === false;
 
         if (
           this.targetObject!.alive() &&
@@ -407,23 +393,23 @@ export class MinigunManager extends AbstractSchemeManager<ISchemeMinigunState> {
             this.rotToFirepoint(this.targetFirePt);
 
             if (this.mgun.CanHit()) {
-              if (this.stateShooting === STATE_NONE && this.state.auto_fire === true) {
-                this.stateShooting = STATE_SHOOTING_ON;
+              if (this.stateShooting === EMinigunState.NONE && this.state.autoFire === true) {
+                this.stateShooting = EMinigunState.SHOOTING_ON;
                 this.setShooting(this.stateShooting);
               }
             } else {
-              if (this.stateShooting !== STATE_NONE) {
-                this.stateShooting = STATE_NONE;
+              if (this.stateShooting !== EMinigunState.NONE) {
+                this.stateShooting = EMinigunState.NONE;
                 this.setShooting(this.stateShooting);
               }
             }
           } else {
-            this.stateShooting = STATE_NONE;
+            this.stateShooting = EMinigunState.NONE;
             this.setShooting(this.stateShooting);
           }
         } else {
-          if (this.stateShooting !== STATE_NONE || !canRotate || this.stateDelaying) {
-            this.stateShooting = STATE_NONE;
+          if (this.stateShooting !== EMinigunState.NONE || !canRotate || this.stateDelaying) {
+            this.stateShooting = EMinigunState.NONE;
             this.setShooting(this.stateShooting);
             this.rotToFiredir(this.startLookPos);
           }
@@ -444,16 +430,16 @@ export class MinigunManager extends AbstractSchemeManager<ISchemeMinigunState> {
    * todo: Description.
    */
   public destroyCar(): void {
-    this.stateCannon = STATE_NONE;
-    this.stateFiretarget = STATE_NONE;
-    this.stateShooting = STATE_NONE;
+    this.stateCannon = EMinigunCannonState.NONE;
+    this.stateFiretarget = EMinigunFireTargetState.NONE;
+    this.stateShooting = EMinigunState.NONE;
     this.mgun.Action(CCar.eWpnAutoFire, 0);
     this.setShooting(this.stateShooting);
 
     scriptReleaseMonster(this.object);
 
-    if (this.state.on_death_info !== null) {
-      registry.actor.give_info_portion(this.state.on_death_info);
+    if (this.state.onDeathInfo !== null) {
+      registry.actor.give_info_portion(this.state.onDeathInfo);
     }
 
     this.destroyed = true;

@@ -6,7 +6,7 @@ import { AbstractSchemeManager } from "@/engine/core/objects/ai/scheme";
 import {
   EAntennaState,
   ISchemePsyAntennaState,
-} from "@/engine/core/schemes/restrictor/sr_psy_antenna/ISchemePsyAntennaState";
+} from "@/engine/core/schemes/restrictor/sr_psy_antenna/sr_psy_antenna_types";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { trySwitchToAnotherSection } from "@/engine/core/utils/scheme/scheme_switch";
 import { NIL } from "@/engine/lib/constants/words";
@@ -21,9 +21,6 @@ export class PsyAntennaSchemaManager extends AbstractSchemeManager<ISchemePsyAnt
   public antennaState: EAntennaState = EAntennaState.VOID;
   public antennaManager: PsyAntennaManager = PsyAntennaManager.getInstance();
 
-  /**
-   * todo: Description.
-   */
   public override activate(loading?: boolean): void {
     logger.info("Activate antenna manager");
 
@@ -40,9 +37,6 @@ export class PsyAntennaSchemaManager extends AbstractSchemeManager<ISchemePsyAnt
     this.switchState(registry.actor);
   }
 
-  /**
-   * todo: Description.
-   */
   public override deactivate(): void {
     logger.info("Deactivate antenna manager");
 
@@ -51,9 +45,6 @@ export class PsyAntennaSchemaManager extends AbstractSchemeManager<ISchemePsyAnt
     }
   }
 
-  /**
-   * todo: Description.
-   */
   public update(): void {
     if (trySwitchToAnotherSection(this.object, this.state)) {
       return;
@@ -88,14 +79,14 @@ export class PsyAntennaSchemaManager extends AbstractSchemeManager<ISchemePsyAnt
     get_hud().enable_fake_indicators(true);
 
     this.antennaManager.soundIntensityBase = this.antennaManager.soundIntensityBase + this.state.intensity;
-    this.antennaManager.muteSoundThreshold = this.antennaManager.muteSoundThreshold + this.state.mute_sound_threshold;
-    this.antennaManager.hitIntensity = this.antennaManager.hitIntensity + this.state.hit_intensity;
-    this.antennaManager.phantomSpawnProbability = this.antennaManager.phantomSpawnProbability + this.state.phantom_prob;
+    this.antennaManager.muteSoundThreshold = this.antennaManager.muteSoundThreshold + this.state.muteSoundThreshold;
+    this.antennaManager.hitIntensity = this.antennaManager.hitIntensity + this.state.hitIntensity;
+    this.antennaManager.phantomSpawnProbability = this.antennaManager.phantomSpawnProbability + this.state.phantomProb;
 
-    this.antennaManager.noStatic = this.state.no_static;
-    this.antennaManager.noMumble = this.state.no_mumble;
-    this.antennaManager.hitType = this.state.hit_type;
-    this.antennaManager.hitFreq = this.state.hit_freq;
+    this.antennaManager.noStatic = this.state.noStatic;
+    this.antennaManager.noMumble = this.state.noMumble;
+    this.antennaManager.hitType = this.state.hitType;
+    this.antennaManager.hitFreq = this.state.hitFreq;
 
     if (this.state.postprocess === NIL) {
       return;
@@ -132,10 +123,10 @@ export class PsyAntennaSchemaManager extends AbstractSchemeManager<ISchemePsyAnt
     get_hud().enable_fake_indicators(false);
 
     this.antennaManager.soundIntensityBase -= this.state.intensity;
-    this.antennaManager.muteSoundThreshold -= this.state.mute_sound_threshold;
-    this.antennaManager.hitIntensity -= this.state.hit_intensity;
+    this.antennaManager.muteSoundThreshold -= this.state.muteSoundThreshold;
+    this.antennaManager.hitIntensity -= this.state.hitIntensity;
 
-    this.antennaManager.phantomSpawnProbability -= this.state.phantom_prob;
+    this.antennaManager.phantomSpawnProbability -= this.state.phantomProb;
 
     if (this.state.postprocess === NIL) {
       return;

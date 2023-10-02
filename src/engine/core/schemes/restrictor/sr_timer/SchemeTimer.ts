@@ -1,5 +1,5 @@
 import { AbstractScheme } from "@/engine/core/objects/ai/scheme/AbstractScheme";
-import { ETimerType, ISchemeTimerState } from "@/engine/core/schemes/restrictor/sr_timer/ISchemeTimerState";
+import { ETimerType, ISchemeTimerState } from "@/engine/core/schemes/restrictor/sr_timer/sr_timer_types";
 import { TimerManager } from "@/engine/core/schemes/restrictor/sr_timer/TimerManager";
 import { assert } from "@/engine/core/utils/assertion";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini/ini_config";

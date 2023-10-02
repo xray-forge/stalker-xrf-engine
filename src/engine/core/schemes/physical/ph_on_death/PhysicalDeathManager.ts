@@ -1,6 +1,6 @@
 import { registry } from "@/engine/core/database";
 import { AbstractSchemeManager } from "@/engine/core/objects/ai/scheme";
-import { ISchemePhysicalOnDeathState } from "@/engine/core/schemes/physical/ph_on_death/ISchemePhysicalOnDeathState";
+import { ISchemePhysicalOnDeathState } from "@/engine/core/schemes/physical/ph_on_death/ph_on_death_types";
 import { trySwitchToAnotherSection } from "@/engine/core/utils/scheme/scheme_switch";
 import { ClientObject, Optional } from "@/engine/lib/types";
 

@@ -1,7 +1,7 @@
 import { time_global } from "xray16";
 
 import { AbstractSchemeManager } from "@/engine/core/objects/ai/scheme";
-import { ISchemeOscillateState } from "@/engine/core/schemes/physical/ph_oscillate/ISchemeOscillateState";
+import { ISchemeOscillateState } from "@/engine/core/schemes/physical/ph_oscillate/ph_oscillate_types";
 import { createVector, vectorRotateY } from "@/engine/core/utils/vector";
 import { Optional, PhysicsJoint, TRate, TTimestamp, Vector } from "@/engine/lib/types";
 
@@ -15,9 +15,6 @@ export class OscillateManager extends AbstractSchemeManager<ISchemeOscillateStat
   public joint: Optional<PhysicsJoint> = null;
   public pause: boolean = false;
 
-  /**
-   * todo: Description.
-   */
   public override activate(): void {
     this.time = time_global();
     this.dir = createVector(math.random(), 0, math.random()).normalize();
@@ -26,9 +23,6 @@ export class OscillateManager extends AbstractSchemeManager<ISchemeOscillateStat
     this.pause = false;
   }
 
-  /**
-   * Handle periodic force applications.
-   */
   public update(): void {
     const now: TTimestamp = time_global();
 

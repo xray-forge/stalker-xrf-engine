@@ -1,7 +1,7 @@
 import { describe, expect, it } from "@jest/globals";
 
 import { IRegistryObjectState, registerObject } from "@/engine/core/database";
-import { ISchemeMobDeathState } from "@/engine/core/schemes/monster/mob_death/ISchemeMobDeathState";
+import { ISchemeMobDeathState } from "@/engine/core/schemes/monster/mob_death/mob_death_types";
 import { MobDeathManager } from "@/engine/core/schemes/monster/mob_death/MobDeathManager";
 import { ClientObject, EScheme } from "@/engine/lib/types";
 import { mockSchemeState } from "@/fixtures/engine";

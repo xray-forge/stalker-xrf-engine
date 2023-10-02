@@ -6,7 +6,7 @@ import { StalkerPatrolManager } from "@/engine/core/objects/ai/state/StalkerPatr
 import { animpoint_predicates } from "@/engine/core/objects/animation/predicates/animpoint_predicates";
 import { EStalkerState } from "@/engine/core/objects/animation/types";
 import { CampManager } from "@/engine/core/objects/camp/CampManager";
-import { IAnimpointActionDescriptor } from "@/engine/core/schemes/stalker/animpoint/types";
+import { IAnimpointActionDescriptor } from "@/engine/core/schemes/stalker/animpoint/animpoint_types";
 import { ISchemeWalkerState } from "@/engine/core/schemes/stalker/walker";
 import { parseWaypointsData } from "@/engine/core/utils/ini/ini_parse";
 import { LuaLogger } from "@/engine/core/utils/logging";

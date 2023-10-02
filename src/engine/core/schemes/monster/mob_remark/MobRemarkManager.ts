@@ -1,123 +1,50 @@
-import { anim, cond, MonsterSpace, sound } from "xray16";
+import { anim, cond } from "xray16";
 
 import { registry, setMonsterState } from "@/engine/core/database";
 import { NotificationManager } from "@/engine/core/managers/notifications";
 import { AbstractSchemeManager } from "@/engine/core/objects/ai/scheme";
-import { ISchemeMobRemarkState } from "@/engine/core/schemes/monster/mob_remark/ISchemeMobRemarkState";
-import { abort } from "@/engine/core/utils/assertion";
-import { getExtern } from "@/engine/core/utils/binding";
+import { ISchemeMobRemarkState } from "@/engine/core/schemes/monster/mob_remark/mob_remark_types";
 import { parseStringsList, pickSectionFromCondList } from "@/engine/core/utils/ini";
 import { scriptCaptureMonster, scriptCommandMonster } from "@/engine/core/utils/scheme";
-import { AnyCallablesModule, LuaArray, MonsterBodyStateKey, Optional, TName } from "@/engine/lib/types";
+import { Cond, LuaArray, TDuration, TName } from "@/engine/lib/types";
 
 /**
  * todo;
  */
 export class MobRemarkManager extends AbstractSchemeManager<ISchemeMobRemarkState> {
-  public isTipSent: Optional<boolean> = null;
-  public isActionEndSignalled: Optional<boolean> = null;
+  public isTipSent: boolean = false;
+  public isActionEndSignalled: boolean = false;
 
-  /**
-   * todo: Description.
-   */
   public override activate(): void {
-    setMonsterState(this.object, this.state.state);
+    this.state.signals = new LuaTable();
+    this.isTipSent = false;
+    this.isActionEndSignalled = false;
 
     this.object.disable_talk();
 
-    scriptCaptureMonster(this.object, !this.state.no_reset);
+    setMonsterState(this.object, this.state.state);
+    scriptCaptureMonster(this.object, !this.state.noReset);
 
     const animationsList: LuaArray<TName> = parseStringsList(this.state.anim);
+    const timesList: LuaArray<TName> = this.state.time ? parseStringsList(this.state.time) : new LuaTable();
 
-    let snds;
+    for (const [index, animation] of animationsList) {
+      const timeout: TDuration = timesList.get(index) !== null ? tonumber(timesList.get(index))! : 0;
+      const condition: Cond = timeout === 0 ? new cond(cond.anim_end) : new cond(cond.time_end, timeout);
 
-    if (this.state.snd) {
-      snds = parseStringsList(this.state.snd);
-    } else {
-      snds = new LuaTable();
-    }
-
-    let sndset;
-    let times;
-
-    if (this.state.time) {
-      times = parseStringsList(this.state.time);
-    } else {
-      times = new LuaTable();
-    }
-
-    let tm: number;
-    let cnd: cond;
-
-    for (const [num, an] of animationsList) {
-      sndset = snds.get(num);
-      if (times.get(num) !== null) {
-        tm = tonumber(times.get(num))!;
+      if (this.state.animationMovement) {
+        scriptCommandMonster(this.object, new anim(animation, true), condition);
       } else {
-        tm = 0;
-      }
-
-      if (sndset && an) {
-        // todo: Never defined anywhere. Probably remove?
-        const snd = getExtern<AnyCallablesModule>("mob_sound").pick_sound_from_set(this.object, sndset, {});
-
-        if (!snd) {
-          abort(
-            "mobile '%s': section '%s': sound set '%s' does !exist",
-            this.object.name(),
-            this.state.section,
-            sndset
-          );
-        }
-
-        if (tm === 0) {
-          cnd = new cond(cond.sound_end);
-        } else {
-          cnd = new cond(cond.time_end, tm);
-        }
-
-        if (this.state.anim_head) {
-          scriptCommandMonster(
-            this.object,
-            new anim(an),
-            new sound(snd, "bip01_head", MonsterSpace[this.state.anim_head as MonsterBodyStateKey]),
-            cnd
-          );
-        } else {
-          if (this.state.anim_movement === true) {
-            scriptCommandMonster(this.object, new anim(an, true), new sound(snd, "bip01_head"), cnd);
-          } else {
-            scriptCommandMonster(this.object, new anim(an), new sound(snd, "bip01_head"), cnd);
-          }
-        }
-      } else if (an !== null) {
-        if (tm === 0) {
-          cnd = new cond(cond.anim_end);
-        } else {
-          cnd = new cond(cond.time_end, tm);
-        }
-
-        if (this.state.anim_movement === true) {
-          scriptCommandMonster(this.object, new anim(an, true), cnd);
-        } else {
-          scriptCommandMonster(this.object, new anim(an), cnd);
-        }
+        scriptCommandMonster(this.object, new anim(animation), condition);
       }
     }
-
-    this.isTipSent = false;
-
-    this.state.signals = new LuaTable();
-    this.isActionEndSignalled = false;
   }
 
-  /**
-   * todo: Description.
-   */
   public update(): void {
+    // Sync dialog / speaking state.
     if (
-      this.state.dialog_cond &&
-      pickSectionFromCondList(registry.actor, this.object, this.state.dialog_cond.condlist) !== null
+      this.state.dialogCondition &&
+      pickSectionFromCondList(registry.actor, this.object, this.state.dialogCondition.condlist) !== null
     ) {
       if (!this.object.is_talk_enabled()) {
         this.object.enable_talk();
@@ -128,18 +55,18 @@ export class MobRemarkManager extends AbstractSchemeManager<ISchemeMobRemarkStat
       }
     }
 
+    // Send tip notification it needed.
     if (!this.isTipSent) {
       this.isTipSent = true;
+
       if (this.state.tip) {
         NotificationManager.getInstance().sendTipNotification(this.state.tip);
       }
     }
 
-    if (this.object.get_script() && !this.object.action()) {
-      if (!this.isActionEndSignalled) {
-        this.isActionEndSignalled = true;
-        this.state.signals!.set("action_end", true);
-      }
+    if (!this.isActionEndSignalled && this.object.get_script() && !this.object.action()) {
+      this.isActionEndSignalled = true;
+      this.state.signals!.set("action_end", true);
     }
   }
 }

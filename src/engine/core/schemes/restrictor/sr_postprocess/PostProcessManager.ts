@@ -2,11 +2,11 @@ import { color, hit, noise, time_global } from "xray16";
 
 import { registry } from "@/engine/core/database";
 import { AbstractSchemeManager } from "@/engine/core/objects/ai/scheme";
-import { ISchemePostProcessState } from "@/engine/core/schemes/restrictor/sr_postprocess/ISchemePostProcessState";
 import { PostProcessEffector } from "@/engine/core/schemes/restrictor/sr_postprocess/PostProcessEffector";
+import { ISchemePostProcessState } from "@/engine/core/schemes/restrictor/sr_postprocess/sr_postprocess_types";
 import { abort } from "@/engine/core/utils/assertion";
 import { trySwitchToAnotherSection } from "@/engine/core/utils/scheme/scheme_switch";
-import { createEmptyVector } from "@/engine/core/utils/vector";
+import { ZERO_VECTOR } from "@/engine/lib/constants/vectors";
 import { ClientObject, Color, Hit, Noise, TDuration, TTimestamp } from "@/engine/lib/types";
 
 /**
@@ -30,9 +30,6 @@ export class PostProcessManager extends AbstractSchemeManager<ISchemePostProcess
   public hitPower: number = 0;
   public intensityInertion: number = 0;
 
-  /**
-   * Handle reset event to play anew.
-   */
   public override activate(): void {
     this.isActorInside = false;
 
@@ -52,16 +49,10 @@ export class PostProcessManager extends AbstractSchemeManager<ISchemePostProcess
     this.noise = new noise(1.0, 0.3, 30);
   }
 
-  /**
-   * todo: Description.
-   */
   public override deactivate(): void {
     abort("Called not expected method, not implemented originally");
   }
 
-  /**
-   * todo: Description.
-   */
   public update(delta: TDuration): void {
     const actor: ClientObject = registry.actor;
 
@@ -137,7 +128,7 @@ export class PostProcessManager extends AbstractSchemeManager<ISchemePostProcess
     const actorHit: Hit = new hit();
 
     actorHit.power = this.hitPower;
-    actorHit.direction = createEmptyVector();
+    actorHit.direction = ZERO_VECTOR;
     actorHit.impulse = 0;
     actorHit.draftsman = actor;
 

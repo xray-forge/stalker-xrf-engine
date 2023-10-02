@@ -4,7 +4,7 @@ import { EvaluatorSectionActive } from "@/engine/core/objects/ai/planner/evaluat
 import { AbstractScheme } from "@/engine/core/objects/ai/scheme";
 import { EActionId, EEvaluatorId } from "@/engine/core/objects/ai/types";
 import { ActionSleeperActivity } from "@/engine/core/schemes/stalker/sleeper/actions/ActionSleeperActivity";
-import { ISchemeSleeperState } from "@/engine/core/schemes/stalker/sleeper/ISchemeSleeperState";
+import { ISchemeSleeperState } from "@/engine/core/schemes/stalker/sleeper/sleeper_types";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini/ini_config";
 import { readIniBoolean, readIniString } from "@/engine/core/utils/ini/ini_read";
 import { LuaLogger } from "@/engine/core/utils/logging";

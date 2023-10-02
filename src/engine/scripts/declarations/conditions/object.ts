@@ -398,7 +398,7 @@ extern(
 extern(
   "xr_conditions.hitted_on_bone",
   (actor: ClientObject, object: ClientObject, parameters: LuaArray<TStringId>): boolean => {
-    const boneIndex: TIndex = (registry.objects.get(object.id())[EScheme.HIT] as ISchemeHitState).bone_index;
+    const boneIndex: TIndex = (registry.objects.get(object.id())[EScheme.HIT] as ISchemeHitState).boneIndex;
 
     for (const [index, id] of parameters) {
       if (object.get_bone_id(id) === boneIndex) {
@@ -421,7 +421,7 @@ extern("xr_conditions.best_pistol", (actor: ClientObject, object: ClientObject):
  * todo;
  */
 extern("xr_conditions.deadly_hit", (actor: ClientObject, object: ClientObject): boolean => {
-  return (registry.objects.get(object.id())[EScheme.HIT] as ISchemeHitState)?.deadly_hit === true;
+  return (registry.objects.get(object.id())[EScheme.HIT] as ISchemeHitState)?.isDeadlyHit === true;
 });
 
 /**

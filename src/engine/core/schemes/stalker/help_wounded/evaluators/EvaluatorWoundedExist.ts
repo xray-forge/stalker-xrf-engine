@@ -1,7 +1,7 @@
 import { LuabindClass, property_evaluator } from "xray16";
 
 import { setPortableStoreValue } from "@/engine/core/database";
-import { ISchemeHelpWoundedState } from "@/engine/core/schemes/stalker/help_wounded/ISchemeHelpWoundedState";
+import { ISchemeHelpWoundedState } from "@/engine/core/schemes/stalker/help_wounded/help_wounded_types";
 import { freeSelectedWoundedStalkerSpot } from "@/engine/core/schemes/stalker/help_wounded/utils";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getNearestWoundedToHelp } from "@/engine/core/utils/object";

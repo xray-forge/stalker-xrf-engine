@@ -1,6 +1,6 @@
 import { getStoryIdByObjectId, IRegistryObjectState, registry } from "@/engine/core/database";
 import { AbstractScheme } from "@/engine/core/objects/ai/scheme";
-import { IActionSchemeHearState } from "@/engine/core/schemes/shared/hear/IActionSchemeHearState";
+import { IActionSchemeHearState } from "@/engine/core/schemes/shared/hear/hear_types";
 import { ISchemeDangerState } from "@/engine/core/schemes/stalker/danger";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/ini_config";
 import { parseConditionsList, parseParameters } from "@/engine/core/utils/ini/ini_parse";
@@ -33,9 +33,6 @@ export class SchemeHear extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.HEAR;
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.STALKER; // And monsters.
 
-  /**
-   * todo: Description.
-   */
   public static override reset(
     object: ClientObject,
     scheme: EScheme,

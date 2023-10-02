@@ -1,9 +1,9 @@
 import { describe, expect, it } from "@jest/globals";
 
 import { registerObject } from "@/engine/core/database";
-import { ISchemePsyAntennaState } from "@/engine/core/schemes/restrictor/sr_psy_antenna/ISchemePsyAntennaState";
 import { PsyAntennaSchemaManager } from "@/engine/core/schemes/restrictor/sr_psy_antenna/PsyAntennaSchemaManager";
 import { SchemePsyAntenna } from "@/engine/core/schemes/restrictor/sr_psy_antenna/SchemePsyAntenna";
+import { ISchemePsyAntennaState } from "@/engine/core/schemes/restrictor/sr_psy_antenna/sr_psy_antenna_types";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini";
 import { loadSchemeImplementation } from "@/engine/core/utils/scheme";
 import { ClientObject, EScheme, IniFile } from "@/engine/lib/types";
@@ -33,13 +33,13 @@ describe("SchemePsyAntenna", () => {
     expect(state.logic).toEqualLuaTables({});
     expect(state.intensity).toBe(1);
     expect(state.postprocess).toBe("psy_antenna.ppe");
-    expect(state.hit_intensity).toBe(10);
-    expect(state.phantom_prob).toBe(0);
-    expect(state.mute_sound_threshold).toBe(0);
-    expect(state.no_static).toBe(false);
-    expect(state.no_mumble).toBe(false);
-    expect(state.hit_type).toBe("wound");
-    expect(state.hit_freq).toBe(5000);
+    expect(state.hitIntensity).toBe(10);
+    expect(state.phantomProb).toBe(0);
+    expect(state.muteSoundThreshold).toBe(0);
+    expect(state.noStatic).toBe(false);
+    expect(state.noMumble).toBe(false);
+    expect(state.hitType).toBe("wound");
+    expect(state.hitFreq).toBe(5000);
 
     assertSchemeSubscribedToManager(state, PsyAntennaSchemaManager);
   });
@@ -74,13 +74,13 @@ describe("SchemePsyAntenna", () => {
     expect(state.logic).toEqualLuaTables(getConfigSwitchConditions(ini, "sr_psy_antenna@test"));
     expect(state.intensity).toBe(5);
     expect(state.postprocess).toBe("test.ppe");
-    expect(state.hit_intensity).toBe(40);
-    expect(state.phantom_prob).toBe(4.3);
-    expect(state.mute_sound_threshold).toBe(5);
-    expect(state.no_static).toBe(true);
-    expect(state.no_mumble).toBe(true);
-    expect(state.hit_type).toBe("fire");
-    expect(state.hit_freq).toBe(2000);
+    expect(state.hitIntensity).toBe(40);
+    expect(state.phantomProb).toBe(4.3);
+    expect(state.muteSoundThreshold).toBe(5);
+    expect(state.noStatic).toBe(true);
+    expect(state.noMumble).toBe(true);
+    expect(state.hitType).toBe("fire");
+    expect(state.hitFreq).toBe(2000);
 
     assertSchemeSubscribedToManager(state, PsyAntennaSchemaManager);
   });

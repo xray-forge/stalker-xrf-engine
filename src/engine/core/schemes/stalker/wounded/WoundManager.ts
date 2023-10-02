@@ -4,10 +4,7 @@ import { registry } from "@/engine/core/database";
 import { getPortableStoreValue, setPortableStoreValue } from "@/engine/core/database/portable_store";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import { AbstractSchemeManager } from "@/engine/core/objects/ai/scheme";
-import {
-  ISchemeWoundedState,
-  IWoundedStateDescriptor,
-} from "@/engine/core/schemes/stalker/wounded/ISchemeWoundedState";
+import { ISchemeWoundedState, IWoundedStateDescriptor } from "@/engine/core/schemes/stalker/wounded/wounded_types";
 import { TConditionList } from "@/engine/core/utils/ini";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/ini_config";
 import { LuaLogger } from "@/engine/core/utils/logging";

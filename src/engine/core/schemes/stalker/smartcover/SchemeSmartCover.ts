@@ -5,7 +5,7 @@ import { AbstractScheme } from "@/engine/core/objects/ai/scheme/AbstractScheme";
 import { EActionId, EEvaluatorId } from "@/engine/core/objects/ai/types";
 import { ActionSmartCoverActivity } from "@/engine/core/schemes/stalker/smartcover/actions";
 import { EvaluatorUseSmartCoverInCombat } from "@/engine/core/schemes/stalker/smartcover/evaluators";
-import { ISchemeSmartCoverState } from "@/engine/core/schemes/stalker/smartcover/ISchemeSmartCoverState";
+import { ISchemeSmartCoverState } from "@/engine/core/schemes/stalker/smartcover/smartcover_types";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini/ini_config";
 import { readIniBoolean, readIniNumber, readIniString } from "@/engine/core/utils/ini/ini_read";
 import { LuaLogger } from "@/engine/core/utils/logging";

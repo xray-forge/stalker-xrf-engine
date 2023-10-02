@@ -1,7 +1,7 @@
 import { particles_object, patrol, time_global } from "xray16";
 
 import { AbstractSchemeManager } from "@/engine/core/objects/ai/scheme";
-import { ISchemeParticleState } from "@/engine/core/schemes/restrictor/sr_particle/ISchemeParticleState";
+import { ISchemeParticleState } from "@/engine/core/schemes/restrictor/sr_particle/sr_particale_types";
 import { parseWaypointsData } from "@/engine/core/utils/ini/ini_parse";
 import { IWaypointData } from "@/engine/core/utils/ini/ini_types";
 import { trySwitchToAnotherSection } from "@/engine/core/utils/scheme/scheme_switch";
@@ -18,9 +18,6 @@ export class ParticleManager extends AbstractSchemeManager<ISchemeParticleState>
 
   public isFirstPlayed: boolean = false;
 
-  /**
-   * todo: Description.
-   */
   public override activate(): void {
     if (this.state.mode === 2) {
       this.path = new patrol(this.state.path);
@@ -63,11 +60,28 @@ export class ParticleManager extends AbstractSchemeManager<ISchemeParticleState>
     this.isFirstPlayed = false;
   }
 
-  /**
-   * todo: Description.
-   */
+  public override deactivate(): void {
+    const size: TCount = this.particles.length();
+
+    for (const it of $range(1, size)) {
+      const particle = this.particles.get(it);
+
+      if (particle.particle.playing() === true) {
+        particle.particle.stop();
+      }
+
+      particle.particle = null;
+
+      if (particle.snd !== null && particle.snd.playing() === true) {
+        particle.snd.stop();
+      }
+
+      particle.snd = null;
+    }
+  }
+
   public update(): void {
-    const time: number = time_global();
+    const time: TTimestamp = time_global();
 
     if (this.lastUpdate !== 0) {
       if (time - this.lastUpdate < 50) {
@@ -176,29 +190,6 @@ export class ParticleManager extends AbstractSchemeManager<ISchemeParticleState>
           }
         }
       }
-    }
-  }
-
-  /**
-   * todo: Description.
-   */
-  public override deactivate(): void {
-    const size: TCount = this.particles.length();
-
-    for (const it of $range(1, size)) {
-      const particle = this.particles.get(it);
-
-      if (particle.particle.playing() === true) {
-        particle.particle.stop();
-      }
-
-      particle.particle = null;
-
-      if (particle.snd !== null && particle.snd.playing() === true) {
-        particle.snd.stop();
-      }
-
-      particle.snd = null;
     }
   }
 }

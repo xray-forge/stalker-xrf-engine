@@ -61,21 +61,21 @@ export class ActionPatrol extends action_base implements ISchemeEventHandler {
   public activate(): void {
     this.state.signals = new LuaTable();
 
-    if (this.state.path_walk_info === null) {
-      this.state.path_walk_info = parseWaypointsData(this.state.path_walk);
+    if (this.state.pathWalkInfo === null) {
+      this.state.pathWalkInfo = parseWaypointsData(this.state.pathWalk);
     }
 
-    if (this.state.path_look_info === null) {
-      this.state.path_look_info = parseWaypointsData(this.state.path_look);
+    if (this.state.pathLookInfo === null) {
+      this.state.pathLookInfo = parseWaypointsData(this.state.pathLook);
     }
 
     this.moveManager.reset(
-      this.state.path_walk,
-      this.state.path_walk_info!,
-      this.state.path_look,
-      this.state.path_look_info,
+      this.state.pathWalk,
+      this.state.pathWalkInfo!,
+      this.state.pathLook,
+      this.state.pathLookInfo,
       this.state.team,
-      this.state.suggested_state,
+      this.state.suggestedState,
       { context: this, callback: this.onProcessWaypoint }
     );
   }
@@ -92,7 +92,7 @@ export class ActionPatrol extends action_base implements ISchemeEventHandler {
 
     this.timeToUpdate = time_global() + 1000;
 
-    const [lvid, dir, currentState] = registry.patrols.generic.get(this.state.patrol_key).getObjectCommand(this.object);
+    const [lvid, dir, currentState] = registry.patrols.generic.get(this.state.patrolKey).getObjectCommand(this.object);
 
     this.levelVertexId = lvid;
     this.dir = dir;
@@ -132,14 +132,14 @@ export class ActionPatrol extends action_base implements ISchemeEventHandler {
    * todo: Description.
    */
   public onDeath(object: ClientObject): void {
-    registry.patrols.generic.get(this.state.patrol_key).removeObject(object);
+    registry.patrols.generic.get(this.state.patrolKey).removeObject(object);
   }
 
   /**
    * todo: Description.
    */
   public deactivate(object: ClientObject): void {
-    registry.patrols.generic.get(this.state.patrol_key).removeObject(object);
+    registry.patrols.generic.get(this.state.patrolKey).removeObject(object);
   }
 
   /**

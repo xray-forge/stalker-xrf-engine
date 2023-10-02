@@ -1,5 +1,5 @@
 import { AbstractScheme } from "@/engine/core/objects/ai/scheme";
-import { ISchemeMobJumpState } from "@/engine/core/schemes/monster/mob_jump/ISchemeMobJumpState";
+import { ISchemeMobJumpState } from "@/engine/core/schemes/monster/mob_jump/mob_jump_types";
 import { MobJumpManager } from "@/engine/core/schemes/monster/mob_jump/MobJumpManager";
 import { assert } from "@/engine/core/utils/assertion";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini/ini_config";
@@ -25,6 +25,8 @@ export class SchemeMobJump extends AbstractScheme {
     section: TSection,
     smartTerrainName: TName
   ): ISchemeMobJumpState {
+    assert(ini.line_exist(section, "on_signal"), "Bad jump scheme usage! 'on_signal' line must be specified.");
+
     const state: ISchemeMobJumpState = AbstractScheme.assign(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section);
@@ -34,8 +36,6 @@ export class SchemeMobJump extends AbstractScheme {
     const offsets: LuaArray<string> = parseStringsList(readIniString(ini, section, "offset", true));
 
     state.offset = createVector(tonumber(offsets.get(1))!, tonumber(offsets.get(2))!, tonumber(offsets.get(3))!);
-
-    assert(ini.line_exist(section, "on_signal"), "Bad jump scheme usage! 'on_signal' line must be specified.");
 
     return state;
   }

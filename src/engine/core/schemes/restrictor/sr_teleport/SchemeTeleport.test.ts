@@ -1,8 +1,8 @@
 import { describe, expect, it } from "@jest/globals";
 
 import { registerObject } from "@/engine/core/database";
-import { ISchemeTeleportState } from "@/engine/core/schemes/restrictor/sr_teleport/ISchemeTeleportState";
 import { SchemeTeleport } from "@/engine/core/schemes/restrictor/sr_teleport/SchemeTeleport";
+import { ISchemeTeleportState } from "@/engine/core/schemes/restrictor/sr_teleport/sr_teleport_types";
 import { loadSchemeImplementation } from "@/engine/core/utils/scheme/scheme_setup";
 import { ClientObject, EScheme, ESchemeType, IniFile } from "@/engine/lib/types";
 import { mockClientGameObject, mockIniFile } from "@/fixtures/xray";

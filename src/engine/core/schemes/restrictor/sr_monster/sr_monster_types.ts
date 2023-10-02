@@ -5,12 +5,12 @@ import type { LuaArray, Optional, Patrol, TDuration, TName, TRate, TTimestamp } 
  * todo
  */
 export interface ISchemeMonsterState extends IBaseSchemeState {
-  snd_obj: Optional<string>;
+  soundObject: Optional<string>;
   delay: TDuration;
   idle: TDuration;
-  idle_end: TTimestamp;
+  idleEnd: TTimestamp;
   path: Patrol;
-  path_table: LuaArray<TName>;
+  pathTable: LuaArray<TName>;
   monster: Optional<string>;
-  sound_slide_vel: TRate;
+  soundSlideVel: TRate;
 }

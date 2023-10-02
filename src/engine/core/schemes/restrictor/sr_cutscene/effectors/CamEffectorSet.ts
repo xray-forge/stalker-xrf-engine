@@ -5,15 +5,11 @@ import {
   ICamEffectorSetDescriptorItem,
   TCamEffectorSetDescriptor,
 } from "@/engine/core/schemes/restrictor/sr_cutscene/effectors/camera_effector_sets";
-import {
-  EEffectorState,
-  ISchemeCutsceneState,
-} from "@/engine/core/schemes/restrictor/sr_cutscene/ISchemeCutsceneState";
+import { EEffectorState, ISchemeCutsceneState } from "@/engine/core/schemes/restrictor/sr_cutscene/sr_cutscene_types";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/ini_config";
 import { parseConditionsList } from "@/engine/core/utils/ini/ini_parse";
 import { TConditionList } from "@/engine/core/utils/ini/ini_types";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { toJSON } from "@/engine/core/utils/transform/json";
 import { FALSE } from "@/engine/lib/constants/words";
 import { ClientObject, Optional, TIndex, TSection } from "@/engine/lib/types";
 
@@ -34,8 +30,6 @@ export class CamEffectorSet {
   public condlist!: TConditionList;
 
   public constructor(set: TCamEffectorSetDescriptor, storage: ISchemeCutsceneState) {
-    logger.info("Init new set:", toJSON(set));
-
     this.set = set;
     this.state = EEffectorState.START;
     this.currentEffect = 0;
@@ -179,6 +173,7 @@ export class CamEffectorSet {
         this.state = EEffectorState.RELEASE;
         this.currentEffect = 0;
 
+        // todo: FIX
         // eslint-disable-next-line @typescript-eslint/no-var-requires
         const { SchemeCutscene } = require("@/engine/core/schemes/restrictor/sr_cutscene/SchemeCutscene");
 

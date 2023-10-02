@@ -4,7 +4,7 @@ import { EvaluatorSectionActive } from "@/engine/core/objects/ai/planner/evaluat
 import { AbstractScheme } from "@/engine/core/objects/ai/scheme";
 import { EActionId, EEvaluatorId } from "@/engine/core/objects/ai/types";
 import { ActionCover } from "@/engine/core/schemes/stalker/cover/actions";
-import { ISchemeCoverState } from "@/engine/core/schemes/stalker/cover/ISchemeCoverState";
+import { ISchemeCoverState } from "@/engine/core/schemes/stalker/cover/cover_types";
 import { assertDefined } from "@/engine/core/utils/assertion";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini/ini_config";
 import { parseConditionsList } from "@/engine/core/utils/ini/ini_parse";

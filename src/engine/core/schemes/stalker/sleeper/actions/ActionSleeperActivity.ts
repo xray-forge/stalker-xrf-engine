@@ -3,7 +3,7 @@ import { action_base, LuabindClass, patrol } from "xray16";
 import { registry, setStalkerState } from "@/engine/core/database";
 import { StalkerPatrolManager } from "@/engine/core/objects/ai/state/StalkerPatrolManager";
 import { EStalkerState } from "@/engine/core/objects/animation/types";
-import { ISchemeSleeperState } from "@/engine/core/schemes/stalker/sleeper";
+import { ESleeperState, ISchemeSleeperState } from "@/engine/core/schemes/stalker/sleeper/sleeper_types";
 import { abort } from "@/engine/core/utils/assertion";
 import { parseWaypointsDataFromList } from "@/engine/core/utils/ini/ini_parse";
 import { IWaypointData } from "@/engine/core/utils/ini/ini_types";
@@ -21,9 +21,6 @@ import {
 
 const logger: LuaLogger = new LuaLogger($filename);
 
-const STATE_WALKING = 0;
-const STATE_SLEEPING = 1;
-
 /**
  * todo;
  */
@@ -32,7 +29,7 @@ export class ActionSleeperActivity extends action_base implements ISchemeEventHa
   public readonly state: ISchemeSleeperState;
   public readonly patrolManager: StalkerPatrolManager;
   public wasReset: boolean = false;
-  public sleepingState: 1 | 0 = STATE_WALKING; // todo: use boolean
+  public sleepingState: ESleeperState = ESleeperState.WALKING; // todo: use boolean?
 
   public timer!: {
     begin: Optional<number>;
@@ -73,7 +70,7 @@ export class ActionSleeperActivity extends action_base implements ISchemeEventHa
       this.reset();
     }
 
-    if (this.sleepingState === STATE_WALKING) {
+    if (this.sleepingState === ESleeperState.WALKING) {
       return this.patrolManager.update();
     }
 
@@ -115,7 +112,7 @@ export class ActionSleeperActivity extends action_base implements ISchemeEventHa
     };
 
     this.state.signals = new LuaTable();
-    this.sleepingState = STATE_WALKING;
+    this.sleepingState = ESleeperState.WALKING;
 
     if (this.state.pathWalkInfo === null) {
       const patrolMain: Patrol = new patrol(this.state.pathMain);
@@ -163,14 +160,13 @@ export class ActionSleeperActivity extends action_base implements ISchemeEventHa
    * todo: Description.
    */
   public onPatrolCallback(): boolean {
-    this.sleepingState = STATE_SLEEPING;
+    this.sleepingState = ESleeperState.SLEEPING;
 
     const sleepPatrol: Patrol = new patrol(this.state.pathMain);
     const position: Optional<Vector> = sleepPatrol.count() === 2 ? sleepPatrol.point(1) : null;
 
     setStalkerState(this.object, this.state.wakeable ? EStalkerState.SIT : EStalkerState.SLEEP, null, null, {
       lookPosition: position,
-      lookObjectId: null,
     });
 
     return true;

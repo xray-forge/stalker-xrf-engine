@@ -1,6 +1,6 @@
 import { LuabindClass, property_evaluator } from "xray16";
 
-import { ISchemeAnimpointState } from "@/engine/core/schemes/stalker/animpoint/types";
+import { ISchemeAnimpointState } from "@/engine/core/schemes/stalker/animpoint/animpoint_types";
 import { LuaLogger } from "@/engine/core/utils/logging";
 
 const logger: LuaLogger = new LuaLogger($filename);

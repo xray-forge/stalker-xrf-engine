@@ -1,6 +1,6 @@
 import { AbstractScheme } from "@/engine/core/objects/ai/scheme";
-import { ISchemeParticleState } from "@/engine/core/schemes/restrictor/sr_particle/ISchemeParticleState";
 import { ParticleManager } from "@/engine/core/schemes/restrictor/sr_particle/ParticleManager";
+import { ISchemeParticleState } from "@/engine/core/schemes/restrictor/sr_particle/sr_particale_types";
 import { abort } from "@/engine/core/utils/assertion";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini/ini_config";
 import { readIniBoolean, readIniNumber, readIniString } from "@/engine/core/utils/ini/ini_read";

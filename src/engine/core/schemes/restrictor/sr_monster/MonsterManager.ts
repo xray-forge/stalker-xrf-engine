@@ -3,7 +3,7 @@ import { cond, game, move, patrol, sound_object } from "xray16";
 import { registry } from "@/engine/core/database";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import { AbstractSchemeManager } from "@/engine/core/objects/ai/scheme";
-import { ISchemeMonsterState } from "@/engine/core/schemes/restrictor/sr_monster/ISchemeMonsterState";
+import { ISchemeMonsterState } from "@/engine/core/schemes/restrictor/sr_monster/sr_monster_types";
 import {
   scriptCaptureMonster,
   scriptCommandMonster,
@@ -42,13 +42,10 @@ export class MonsterManager extends AbstractSchemeManager<ISchemeMonsterState> {
   public soundObject: Optional<SoundObject> = null;
   public appearSound!: SoundObject;
 
-  /**
-   * todo: Description.
-   */
   public override activate(): void {
     this.isActorInside = false;
 
-    this.state.idle_end = 0;
+    this.state.idleEnd = 0;
     this.state.signals = new LuaTable();
     this.soundObject = null;
     this.finalAction = false;
@@ -58,14 +55,11 @@ export class MonsterManager extends AbstractSchemeManager<ISchemeMonsterState> {
     this.monsterObject = null;
   }
 
-  /**
-   * todo: Description.
-   */
   public update(delta: number): void {
     const actor: ClientObject = registry.actor;
 
     if (this.idleState) {
-      if (this.state.idle_end <= game.time()) {
+      if (this.state.idleEnd <= game.time()) {
         this.idleState = false;
       }
 
@@ -100,7 +94,7 @@ export class MonsterManager extends AbstractSchemeManager<ISchemeMonsterState> {
       this.monsterObject = null;
       this.finalAction = false;
       this.idleState = true;
-      this.state.idle_end = game.time() + this.state.idle;
+      this.state.idleEnd = game.time() + this.state.idle;
       this.isActorInside = false;
       this.resetPath();
 
@@ -110,7 +104,7 @@ export class MonsterManager extends AbstractSchemeManager<ISchemeMonsterState> {
     if (this.isActorInside === true && this.monster === null) {
       const targetPosition: Vector = copyVector(this.current);
 
-      targetPosition.mad(this.dir, (this.state.sound_slide_vel * delta) / 1000);
+      targetPosition.mad(this.dir, (this.state.soundSlideVel * delta) / 1000);
       if (targetPosition.distance_to(this.current) > this.current.distance_to(this.target)) {
         this.curPoint = this.getNextPoint();
         this.setPositions();
@@ -118,7 +112,12 @@ export class MonsterManager extends AbstractSchemeManager<ISchemeMonsterState> {
         this.current = copyVector(targetPosition);
       }
 
-      this.soundObject = GlobalSoundManager.getInstance().playSound(this.object.id(), this.state.snd_obj, null, null);
+      this.soundObject = GlobalSoundManager.getInstance().playSound(
+        this.object.id(),
+        this.state.soundObject,
+        null,
+        null
+      );
       if (this.soundObject && this.soundObject.playing()) {
         this.soundObject.set_position(this.current);
       }
@@ -157,10 +156,10 @@ export class MonsterManager extends AbstractSchemeManager<ISchemeMonsterState> {
   public resetPath(): void {
     this.curPoint = 0;
 
-    const pathCount: TCount = this.state.path_table!.length();
+    const pathCount: TCount = this.state.pathTable!.length();
 
     if (pathCount === 1) {
-      this.pathName = this.state.path_table!.get(1);
+      this.pathName = this.state.pathTable!.get(1);
       this.state.path = new patrol(this.pathName);
 
       return;
@@ -170,7 +169,7 @@ export class MonsterManager extends AbstractSchemeManager<ISchemeMonsterState> {
 
     // todo: WTF?
     while (this.pathName === pathNameNew) {
-      pathNameNew = this.state.path_table!.get(math.random(1, pathCount));
+      pathNameNew = this.state.pathTable!.get(math.random(1, pathCount));
     }
 
     this.pathName = pathNameNew;

@@ -1,7 +1,7 @@
 import { describe, expect, it } from "@jest/globals";
 
 import { registerObject } from "@/engine/core/database";
-import { ISchemeMobJumpState } from "@/engine/core/schemes/monster/mob_jump/ISchemeMobJumpState";
+import { ISchemeMobJumpState } from "@/engine/core/schemes/monster/mob_jump/mob_jump_types";
 import { MobJumpManager } from "@/engine/core/schemes/monster/mob_jump/MobJumpManager";
 import { SchemeMobJump } from "@/engine/core/schemes/monster/mob_jump/SchemeMobJump";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini";

@@ -1,5 +1,5 @@
 import { AbstractScheme } from "@/engine/core/objects/ai/scheme";
-import { ISchemePhysicalIdleState } from "@/engine/core/schemes/physical/ph_idle/ISchemePhysicalIdleState";
+import { ISchemePhysicalIdleState } from "@/engine/core/schemes/physical/ph_idle/ph_idle_types";
 import { PhysicalIdleManager } from "@/engine/core/schemes/physical/ph_idle/PhysicalIdleManager";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini/ini_config";
 import { parseBoneStateDescriptors } from "@/engine/core/utils/ini/ini_parse";

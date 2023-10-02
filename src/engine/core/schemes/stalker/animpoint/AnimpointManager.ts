@@ -12,7 +12,10 @@ import { EObjectCampActivity } from "@/engine/core/objects/camp";
 import { CAMP_ACTIVITY_ANIMATION } from "@/engine/core/objects/camp/camp_logic";
 import { CampManager } from "@/engine/core/objects/camp/CampManager";
 import { SmartCover } from "@/engine/core/objects/server/smart_cover";
-import { IAnimpointActionDescriptor, ISchemeAnimpointState } from "@/engine/core/schemes/stalker/animpoint/types";
+import {
+  IAnimpointActionDescriptor,
+  ISchemeAnimpointState,
+} from "@/engine/core/schemes/stalker/animpoint/animpoint_types";
 import { assert } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { angleToDirection, createVector } from "@/engine/core/utils/vector";

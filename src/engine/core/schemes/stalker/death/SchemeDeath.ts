@@ -1,7 +1,7 @@
 import { IRegistryObjectState } from "@/engine/core/database";
 import { AbstractScheme } from "@/engine/core/objects/ai/scheme";
+import { ISchemeDeathState } from "@/engine/core/schemes/stalker/death/death_types";
 import { DeathManager } from "@/engine/core/schemes/stalker/death/DeathManager";
-import { ISchemeDeathState } from "@/engine/core/schemes/stalker/death/ISchemeDeathState";
 import { abort } from "@/engine/core/utils/assertion";
 import { parseConditionsList } from "@/engine/core/utils/ini/ini_parse";
 import { readIniString } from "@/engine/core/utils/ini/ini_read";
@@ -60,13 +60,13 @@ export class SchemeDeath extends AbstractScheme {
       const onInfo: Optional<string> = readIniString(objectState.ini, deathSection, "on_info", false);
 
       if (onInfo !== null) {
-        state!.info = parseConditionsList(onInfo);
+        state.info = parseConditionsList(onInfo);
       }
 
       const onInfo2: Optional<string> = readIniString(objectState.ini, deathSection, "on_info2", false);
 
       if (onInfo2 !== null) {
-        state!.info2 = parseConditionsList(onInfo2);
+        state.info2 = parseConditionsList(onInfo2);
       }
     }
   }

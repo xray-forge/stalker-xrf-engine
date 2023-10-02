@@ -12,11 +12,28 @@ export interface IPatrolMock {
  * Mocks of patrols for testing.
  */
 export const patrols: Record<string, IPatrolMock> = {
+  "test-wp-single": {
+    points: [{ name: "wp00|a=patrol", gvid: 110, lvid: 1000, position: MockVector.create(1, 1, 1) }],
+  },
   "test-wp": {
     points: [
       { name: "wp00|a=patrol", gvid: 110, lvid: 1000, position: MockVector.create(1, 1, 1) },
       { name: "wp01|a=patrol", gvid: 111, lvid: 1110, position: MockVector.create(5, 2, 1) },
       { name: "wp02|a=patrol", gvid: 112, lvid: 1120, position: MockVector.create(4, 1, 3) },
+    ],
+  },
+  "test-wp-2": {
+    points: [
+      { name: "wp00|a=patrol", gvid: 220, lvid: 2000, position: MockVector.create(4, 2, 1) },
+      { name: "wp01|a=patrol", gvid: 221, lvid: 2110, position: MockVector.create(7, 3, 1) },
+      { name: "wp02|a=patrol", gvid: 222, lvid: 2120, position: MockVector.create(5, 1, 2) },
+    ],
+  },
+  "test-wp-advanced": {
+    points: [
+      { name: "wp00|a=patrol", gvid: 310, lvid: 3000, position: MockVector.create(5, 1, 3) },
+      { name: "wp01|a=patrol", gvid: 311, lvid: 3110, position: MockVector.create(5, 1, 1) },
+      { name: "wp02|a=patrol", gvid: 312, lvid: 3120, position: MockVector.create(2, 6, 3) },
     ],
   },
   "test-teleport": {

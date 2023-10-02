@@ -24,27 +24,27 @@ export interface ICampPoint {
  * todo;
  */
 export interface ISchemeCamperState extends IBaseSchemeState {
-  path_walk: TName;
-  path_look: TName;
+  pathWalk: TName;
+  pathLook: TName;
   shoot: TName;
-  sniper_aim: string;
-  sniper_anim: string;
+  sniperAim: string;
+  sniperAnim: string;
   radius: TDistance;
   sniper: boolean;
-  no_retreat: boolean;
-  scantime_free: TDuration;
-  attack_sound: Optional<TName>;
+  noRetreat: boolean;
+  scantimeFree: TDuration;
+  attackSound: Optional<TName>;
   idle: TDuration;
-  post_enemy_wait: TDuration;
-  enemy_disp: number;
+  postEnemyWait: TDuration;
+  enemyDisp: number;
   scandelta: TCount;
   timedelta: TCount;
-  time_scan_delta: TCount;
-  suggested_state: IPatrolSuggestedState;
-  scan_table: LuaTable<any, LuaArray<ICampPoint>>;
-  cur_look_point: Optional<TIndex>;
-  last_look_point: Optional<ICampPoint>;
-  scan_begin: Optional<TTimestamp>;
-  mem_enemy: Optional<TTimestamp>;
-  wp_flag: Optional<number>;
+  timeScanDelta: TCount;
+  suggestedState: IPatrolSuggestedState;
+  scanTable: LuaTable<any, LuaArray<ICampPoint>>;
+  curLookPoint: Optional<TIndex>;
+  lastLookPoint: Optional<ICampPoint>;
+  scanBegin: Optional<TTimestamp>;
+  memEnemy: Optional<TTimestamp>;
+  wpFlag: Optional<number>;
 }

@@ -8,6 +8,6 @@ import type { Optional, TLabel, TName } from "@/engine/lib/types";
 export interface ISchemeCodeState extends IBaseSchemeState {
   tips: TLabel;
   code: Optional<number>;
-  on_code: Optional<IConfigSwitchConditionsDescriptor>;
-  on_check_code: LuaTable<TName, TConditionList>;
+  onCode: Optional<IConfigSwitchConditionsDescriptor>;
+  onCheckCode: LuaTable<TName, TConditionList>;
 }

@@ -2,7 +2,7 @@ import { action_base, LuabindClass } from "xray16";
 
 import { setStalkerState } from "@/engine/core/database";
 import { EStalkerState } from "@/engine/core/objects/animation/types";
-import { ISchemeAnimpointState } from "@/engine/core/schemes/stalker/animpoint/types";
+import { ISchemeAnimpointState } from "@/engine/core/schemes/stalker/animpoint/animpoint_types";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { ISchemeEventHandler } from "@/engine/lib/types";
 
@@ -58,7 +58,7 @@ export class ActionAnimpoint extends action_base implements ISchemeEventHandler 
       this.state.animpointManager.getCurrentAction() as EStalkerState,
       null,
       null,
-      { lookPosition: this.state.animpointManager.lookPosition, lookObjectId: null },
+      { lookPosition: this.state.animpointManager.lookPosition },
       { animationPosition: position, animationDirection: direction }
     );
   }

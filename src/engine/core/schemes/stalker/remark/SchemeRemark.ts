@@ -4,7 +4,7 @@ import { EvaluatorSectionActive } from "@/engine/core/objects/ai/planner/evaluat
 import { AbstractScheme } from "@/engine/core/objects/ai/scheme";
 import { EActionId, EEvaluatorId } from "@/engine/core/objects/ai/types";
 import { ActionRemarkActivity } from "@/engine/core/schemes/stalker/remark/actions/ActionRemarkActivity";
-import { ISchemeRemarkState } from "@/engine/core/schemes/stalker/remark/ISchemeRemarkState";
+import { ISchemeRemarkState } from "@/engine/core/schemes/stalker/remark/remark_types";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini/ini_config";
 import { parseConditionsList } from "@/engine/core/utils/ini/ini_parse";
 import { readIniBoolean, readIniString } from "@/engine/core/utils/ini/ini_read";

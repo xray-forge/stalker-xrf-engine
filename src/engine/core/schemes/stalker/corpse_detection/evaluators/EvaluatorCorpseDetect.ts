@@ -1,7 +1,7 @@
 import { LuabindClass, property_evaluator } from "xray16";
 
 import { setPortableStoreValue } from "@/engine/core/database";
-import { ISchemeCorpseDetectionState } from "@/engine/core/schemes/stalker/corpse_detection/ISchemeCorpseDetectionState";
+import { ISchemeCorpseDetectionState } from "@/engine/core/schemes/stalker/corpse_detection/corpse_detection_types";
 import { freeSelectedLootedObjectSpot } from "@/engine/core/schemes/stalker/corpse_detection/utils";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getNearestCorpseToLoot } from "@/engine/core/utils/loot";

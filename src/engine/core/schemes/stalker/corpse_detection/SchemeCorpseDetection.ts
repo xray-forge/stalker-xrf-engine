@@ -4,8 +4,8 @@ import { IRegistryObjectState } from "@/engine/core/database";
 import { AbstractScheme } from "@/engine/core/objects/ai/scheme";
 import { EActionId, EEvaluatorId } from "@/engine/core/objects/ai/types";
 import { ActionSearchCorpse } from "@/engine/core/schemes/stalker/corpse_detection/actions";
+import { ISchemeCorpseDetectionState } from "@/engine/core/schemes/stalker/corpse_detection/corpse_detection_types";
 import { EvaluatorCorpseDetect } from "@/engine/core/schemes/stalker/corpse_detection/evaluators";
-import { ISchemeCorpseDetectionState } from "@/engine/core/schemes/stalker/corpse_detection/ISchemeCorpseDetectionState";
 import { readIniBoolean } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { ActionPlanner, ClientObject, IniFile, Optional } from "@/engine/lib/types";
@@ -21,9 +21,6 @@ export class SchemeCorpseDetection extends AbstractScheme {
   public static override SCHEME_SECTION: EScheme = EScheme.CORPSE_DETECTION;
   public static override SCHEME_TYPE: ESchemeType = ESchemeType.STALKER;
 
-  /**
-   * Activate section with corpse detection for the object.
-   */
   public static override activate(
     object: ClientObject,
     ini: IniFile,
@@ -33,9 +30,6 @@ export class SchemeCorpseDetection extends AbstractScheme {
     return AbstractScheme.assign(object, ini, scheme, section);
   }
 
-  /**
-   * Add scheme generic states / evaluators / actions for the object.
-   */
   public static override add(
     object: ClientObject,
     ini: IniFile,
@@ -71,10 +65,6 @@ export class SchemeCorpseDetection extends AbstractScheme {
       .add_precondition(new world_property(EEvaluatorId.IS_CORPSE_EXISTING, false));
   }
 
-  /**
-   * Reset scheme state for the object.
-   * Read configuration from current active logics.
-   */
   public static override reset(
     object: ClientObject,
     scheme: EScheme,

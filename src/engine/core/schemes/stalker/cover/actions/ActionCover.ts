@@ -50,7 +50,6 @@ export class ActionCover extends action_base implements ISchemeEventHandler {
 
       setStalkerState(this.object, targetState!, null, null, {
         lookPosition: this.enemyRandomPosition,
-        lookObjectId: null,
       });
 
       // Play idle state sounds from stalkers like complaining etc.

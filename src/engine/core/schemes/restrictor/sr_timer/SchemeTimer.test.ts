@@ -1,8 +1,8 @@
 import { describe, expect, it } from "@jest/globals";
 
 import { registerObject } from "@/engine/core/database";
-import { ETimerType, ISchemeTimerState } from "@/engine/core/schemes/restrictor/sr_timer/ISchemeTimerState";
 import { SchemeTimer } from "@/engine/core/schemes/restrictor/sr_timer/SchemeTimer";
+import { ETimerType, ISchemeTimerState } from "@/engine/core/schemes/restrictor/sr_timer/sr_timer_types";
 import { parseConditionsList } from "@/engine/core/utils/ini";
 import { loadSchemeImplementation } from "@/engine/core/utils/scheme/scheme_setup";
 import { ClientObject, EScheme, ESchemeType, IniFile } from "@/engine/lib/types";
