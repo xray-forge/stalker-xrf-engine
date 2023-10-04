@@ -22,10 +22,18 @@ export class MockAlifeHumanStalker extends MockServerAlifeCreatureAbstract {
   public clsid = jest.fn(() => mockClsid.script_stalker);
 
   public brain = jest.fn(() => this.aiBrain);
+
+  public override can_switch_online(): boolean {
+    return false;
+  }
+
+  public override can_switch_offline(): boolean {
+    return false;
+  }
 }
 
 /**
- * todo;
+ * Mock generic stalker server object.
  */
 export function mockServerAlifeHumanStalker(base: Partial<ServerHumanObject> = {}): ServerHumanObject {
   return mockServerAlifeCreatureAbstract({

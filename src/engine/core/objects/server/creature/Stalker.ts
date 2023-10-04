@@ -48,6 +48,12 @@ export class Stalker extends cse_alife_human_stalker {
     return super.can_switch_online();
   }
 
+  public override on_spawn(): void {
+    super.on_spawn();
+
+    EventsManager.emitEvent(EGameEvent.STALKER_SPAWN, this);
+  }
+
   public override on_register(): void {
     super.on_register();
 

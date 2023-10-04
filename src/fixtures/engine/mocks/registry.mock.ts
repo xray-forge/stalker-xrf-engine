@@ -1,4 +1,4 @@
-import { IRegistryObjectState, registerActor, registerActorServer } from "@/engine/core/database";
+import { IRegistryObjectState, registerActor, registerActorServer, registry } from "@/engine/core/database";
 import { ClientObject, ServerActorObject } from "@/engine/lib/types";
 import { mockActorClientGameObject, mockServerAlifeCreatureActor } from "@/fixtures/xray/mocks/objects";
 
@@ -20,4 +20,18 @@ export function mockRegisteredActor(
   const actorState: IRegistryObjectState = registerActor(actorClientObject);
 
   return { actorClientObject, actorServerObject, actorState };
+}
+
+/**
+ * Reset managers registry state.
+ */
+export function resetManagers(): void {
+  registry.managers = new LuaTable();
+}
+
+/**
+ * Reset offline objects registry state.
+ */
+export function resetOfflineObjects(): void {
+  registry.offlineObjects = new LuaTable();
 }

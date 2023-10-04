@@ -77,6 +77,10 @@ export enum EGameEvent {
    */
   ACTOR_FIRST_UPDATE,
   /**
+   * On stalker object spawn.
+   */
+  STALKER_SPAWN,
+  /**
    * On stalker object registered.
    */
   STALKER_REGISTER,
