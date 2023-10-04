@@ -65,6 +65,7 @@ describe("offline database module", () => {
     });
 
     unregisterOfflineObject(object.id());
+    unregisterOfflineObject(MAX_I32);
 
     expect(registry.offlineObjects.length()).toBe(0);
   });
