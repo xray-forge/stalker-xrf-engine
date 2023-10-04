@@ -1,0 +1,631 @@
+<!--  merc novice  -->
+
+<specific_character id="sim_default_killer_0_default_0" team_default = "1">
+  <name>GENERATE_NAME_stalker</name>
+  <icon>ui_inGame2_merc_2</icon>
+  <map_icon x="1" y="0"></map_icon>
+  <bio>Опытный сталкер. Детальная информация отсутствует.</bio>
+
+  <class>sim_default_killer_0</class>
+  <community>killer</community> <terrain_sect>stalker_terrain</terrain_sect>
+  <snd_config>characters_voice\human_03\killer\</snd_config>
+
+  <rank>35</rank>
+  <money min="250" max="1750" infinitive="0"/>
+  <reputation>0</reputation>
+
+  <visual>actors\stalker_merc\stalker_merc_2</visual>
+  <supplies>
+    [spawn] \n
+
+    wpn_mp5 \n
+    wpn_hpsa \n
+    ammo_9x19_fmj = 1 \n
+
+#include "gameplay\loadouts\character_items_nd.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs.xml"
+  </supplies>
+#include "gameplay\loadouts\character_criticals_4.xml"
+#include "gameplay\character_dialogs.xml"
+</specific_character>
+
+<specific_character id="sim_default_killer_0_default_1" team_default = "1">
+<name>GENERATE_NAME_stalker</name>
+<icon>ui_inGame2_merc_2</icon>
+<map_icon x="1" y="0"></map_icon>
+<bio>Опытный сталкер. Детальная информация отсутствует.</bio>
+
+<class>sim_default_killer_0</class>
+<community>killer</community> <terrain_sect>stalker_terrain</terrain_sect>
+<snd_config>characters_voice\human_03\killer\</snd_config>
+
+<rank>35</rank>
+<money min="250" max="1750" infinitive="0"/>
+<reputation>0</reputation>
+
+<visual>actors\stalker_merc\stalker_merc_2</visual>
+<supplies>
+  [spawn] \n
+
+  wpn_ak74 \n
+  ammo_5.45x39_fmj  = 1 \n
+  wpn_hpsa \n
+  ammo_9x19_fmj = 1 \n
+
+#include "gameplay\loadouts\character_items_nd.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs.xml"
+</supplies>
+#include "gameplay\loadouts\character_criticals_4.xml"
+#include "gameplay\character_dialogs.xml"
+</specific_character>
+
+    <!--  merc expirienced  -->
+
+<specific_character id="sim_default_killer_1_default_0" team_default = "1">
+<name>GENERATE_NAME_stalker</name>
+<icon>ui_inGame2_merc_2</icon>
+<map_icon x="1" y="0"></map_icon>
+<bio>Опытный сталкер. Детальная информация отсутствует.</bio>
+
+<class>sim_default_killer_1</class>
+<community>killer</community> <terrain_sect>stalker_terrain</terrain_sect>
+<snd_config>characters_voice\human_03\killer\</snd_config>
+
+<rank>40</rank>
+<money min="500" max="1750" infinitive="0"/>
+<reputation>0</reputation>
+
+<visual>actors\stalker_merc\stalker_merc_2</visual>
+<supplies>
+  [spawn] \n
+
+  wpn_mp5 = 1 \n
+  ammo_9x19_pbp = 1 \n
+  wpn_hpsa \n
+  grenade_rgd5 = 1 \n
+
+#include "gameplay\loadouts\character_items_nd.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_2.xml"
+</supplies>
+#include "gameplay\loadouts\character_criticals_4.xml"
+#include "gameplay\character_dialogs.xml"
+</specific_character>
+
+<specific_character id="sim_default_killer_1_default_1" team_default = "1">
+<name>GENERATE_NAME_stalker</name>
+<icon>ui_inGame2_merc_2</icon>
+<map_icon x="1" y="0"></map_icon>
+<bio>Опытный сталкер. Детальная информация отсутствует.</bio>
+
+<class>sim_default_killer_1</class>
+<community>killer</community> <terrain_sect>stalker_terrain</terrain_sect>
+<snd_config>characters_voice\human_03\killer\</snd_config>
+
+<rank>40</rank>
+<money min="500" max="1750" infinitive="0"/>
+<reputation>0</reputation>
+
+<visual>actors\stalker_merc\stalker_merc_2</visual>
+<supplies>
+  [spawn] \n
+
+  wpn_ak74 \n
+  ammo_5.45x39_fmj = 1 \n
+  wpn_hpsa \n
+  ammo_9x19_fmj = 1 \n
+  grenade_rgd5 = 1 \n
+
+#include "gameplay\loadouts\character_items_nd.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_2.xml"
+</supplies>
+#include "gameplay\loadouts\character_criticals_4.xml"
+#include "gameplay\character_dialogs.xml"
+</specific_character>
+
+<specific_character id="sim_default_killer_1_default_2" team_default = "1">
+<name>GENERATE_NAME_stalker</name>
+<icon>ui_inGame2_merc_2</icon>
+<map_icon x="1" y="0"></map_icon>
+<bio>Опытный сталкер. Детальная информация отсутствует.</bio>
+
+<class>sim_default_killer_1</class>
+<community>killer</community> <terrain_sect>stalker_terrain</terrain_sect>
+<snd_config>characters_voice\human_03\killer\</snd_config>
+
+<rank>40</rank>
+<money min="500" max="1750" infinitive="0"/>
+<reputation>0</reputation>
+
+<visual>actors\stalker_merc\stalker_merc_2</visual>
+<supplies>
+  [spawn] \n
+
+  wpn_ak74 = 1 \n
+  ammo_5.45x39_fmj = 1 \n
+  wpn_beretta \n
+  ammo_9x19_fmj = 1 \n
+  grenade_rgd5 = 1 \n
+
+#include "gameplay\loadouts\character_items_nd.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_2.xml"
+</supplies>
+#include "gameplay\loadouts\character_criticals_4.xml"
+#include "gameplay\character_dialogs.xml"
+</specific_character>
+
+    <!--  merc expirienced 2  -->
+
+<specific_character id="sim_default_killer_2_default_0" team_default = "1">
+<name>GENERATE_NAME_stalker</name>
+<icon>ui_inGame2_merc_2</icon>
+<map_icon x="1" y="0"></map_icon>
+<bio>Опытный сталкер. Детальная информация отсутствует.</bio>
+
+<class>sim_default_killer_2</class>
+<community>killer</community> <terrain_sect>stalker_terrain</terrain_sect>
+<snd_config>characters_voice\human_03\killer\</snd_config>
+
+<rank>45</rank>
+<money min="1500" max="2500" infinitive="0"/>
+<reputation>0</reputation>
+
+<visual>actors\stalker_merc\stalker_merc_2</visual>
+<supplies>
+  [spawn] \n
+
+  wpn_ak74 \n
+  ammo_5.45x39_fmj = 1 \n
+  wpn_colt1911 \n
+  ammo_11.43x23_fmj  = 1 \n
+  grenade_rgd5 = 2 \n
+
+#include "gameplay\loadouts\character_items_nd.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_3.xml"
+</supplies>
+#include "gameplay\loadouts\character_criticals_4.xml"
+#include "gameplay\character_dialogs.xml"
+</specific_character>
+
+<specific_character id="sim_default_killer_2_default_1" team_default = "1">
+<name>GENERATE_NAME_stalker</name>
+<icon>ui_inGame2_merc_2</icon>
+<map_icon x="1" y="0"></map_icon>
+<bio>Опытный сталкер. Детальная информация отсутствует.</bio>
+
+<class>sim_default_killer_2</class>
+<community>killer</community> <terrain_sect>stalker_terrain</terrain_sect>
+<snd_config>characters_voice\human_03\killer\</snd_config>
+
+<rank>45</rank>
+<money min="1500" max="2500" infinitive="0"/>
+<reputation>0</reputation>
+
+<visual>actors\stalker_merc\stalker_merc_2</visual>
+<supplies>
+  [spawn] \n
+
+  wpn_wincheaster1300  \n
+  ammo_12x76_zhekan = 1 \n
+  wpn_hpsa \n
+  ammo_9x19_pbp = 1 \n
+  grenade_rgd5 = 2 \n
+
+#include "gameplay\loadouts\character_items_nd.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_3.xml"
+</supplies>
+#include "gameplay\loadouts\character_criticals_4.xml"
+#include "gameplay\character_dialogs.xml"
+</specific_character>
+
+<specific_character id="sim_default_killer_2_default_2" team_default = "1">
+<name>GENERATE_NAME_stalker</name>
+<icon>ui_inGame2_merc_2</icon>
+<map_icon x="1" y="0"></map_icon>
+<bio>Опытный сталкер. Детальная информация отсутствует.</bio>
+
+<class>sim_default_killer_2</class>
+<community>killer</community> <terrain_sect>stalker_terrain</terrain_sect>
+<snd_config>characters_voice\human_03\killer\</snd_config>
+
+<rank>45</rank>
+<money min="1500" max="2500" infinitive="0"/>
+<reputation>0</reputation>
+
+<visual>actors\stalker_merc\stalker_merc_2</visual>
+<supplies>
+  [spawn] \n
+
+  wpn_l85 \n
+  ammo_5.56x45_ss190 = 1 \n
+  wpn_beretta \n
+  ammo_9x19_pbp = 1 \n
+  grenade_rgd5 = 2 \n
+
+#include "gameplay\loadouts\character_items_nd.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_3.xml"
+</supplies>
+#include "gameplay\loadouts\character_criticals_4.xml"
+#include "gameplay\character_dialogs.xml"
+</specific_character>
+
+<specific_character id="sim_default_killer_2_default_3" team_default = "1">
+<name>GENERATE_NAME_stalker</name>
+<icon>ui_inGame2_merc_2</icon>
+<map_icon x="1" y="0"></map_icon>
+<bio>Опытный сталкер. Детальная информация отсутствует.</bio>
+
+<class>sim_default_killer_2</class>
+<community>killer</community> <terrain_sect>stalker_terrain</terrain_sect>
+<snd_config>characters_voice\human_03\killer\</snd_config>
+
+<rank>45</rank>
+<money min="1500" max="2500" infinitive="0"/>
+<reputation>0</reputation>
+
+<visual>actors\stalker_merc\stalker_merc_2</visual>
+<supplies>
+  [spawn] \n
+
+  wpn_lr300 = 1, scope \n
+  ammo_5.56x45_ss190 = 1 \n
+  wpn_colt1911 = 1 \n
+  ammo_11.43x23_fmj  = 1 \n
+  grenade_rgd5 = 2 \n
+
+#include "gameplay\loadouts\character_items_nd.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_3.xml"
+</supplies>
+#include "gameplay\loadouts\character_criticals_4.xml"
+#include "gameplay\character_dialogs.xml"
+</specific_character>
+
+<specific_character id="sim_default_killer_2_default_4" team_default = "1">
+<name>GENERATE_NAME_stalker</name>
+<icon>ui_inGame2_merc_2</icon>
+<map_icon x="1" y="0"></map_icon>
+<bio>Опытный сталкер. Детальная информация отсутствует.</bio>
+
+<class>sim_default_killer_2</class>
+<community>killer</community> <terrain_sect>stalker_terrain</terrain_sect>
+<snd_config>characters_voice\human_03\killer\</snd_config>
+
+<rank>45</rank>
+<money min="1500" max="2500" infinitive="0"/>
+<reputation>0</reputation>
+
+<visual>actors\stalker_merc\stalker_merc_2</visual>
+<supplies>
+  [spawn] \n
+
+  wpn_lr300 = 1, scope, silencer \n
+  ammo_5.56x45_ss190 = 1 \n
+  wpn_sig220 = 1, silencer \n
+  ammo_11.43x23_fmj  = 1 \n
+
+#include "gameplay\loadouts\character_items_nd.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_3.xml"
+</supplies>
+#include "gameplay\loadouts\character_criticals_4.xml"
+#include "gameplay\character_dialogs.xml"
+</specific_character>
+
+
+<specific_character id="sim_default_killer_2_default_5" team_default = "1">
+<name>GENERATE_NAME_stalker</name>
+<icon>ui_inGame2_merc_2</icon>
+<map_icon x="1" y="0"></map_icon>
+<bio>Опытный сталкер. Детальная информация отсутствует.</bio>
+
+<class>sim_default_killer_2</class>
+<community>killer</community> <terrain_sect>stalker_terrain</terrain_sect>
+<snd_config>characters_voice\human_03\killer\</snd_config>
+
+<rank>45</rank>
+<money min="1500" max="2500" infinitive="0"/>
+<reputation>0</reputation>
+
+<visual>actors\stalker_merc\stalker_merc_2</visual>
+<supplies>
+  [spawn] \n
+
+  wpn_l85 = 1 \n
+  ammo_5.56x45_ss190 = 1 \n
+  wpn_usp \n
+  ammo_11.43x23_fmj  = 1 \n
+  grenade_rgd5 = 2 \n
+
+#include "gameplay\loadouts\character_items_nd.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_3.xml"
+</supplies>
+#include "gameplay\loadouts\character_criticals_4.xml"
+#include "gameplay\character_dialogs.xml"
+</specific_character>
+
+    <!--  merc veteran  -->
+
+<specific_character id="sim_default_killer_3_default_0" team_default = "1">
+<name>GENERATE_NAME_stalker</name>
+<icon>ui_inGame2_merc_2</icon>
+<map_icon x="1" y="0"></map_icon>
+<bio>Опытный сталкер. Детальная информация отсутствует.</bio>
+
+<class>sim_default_killer_3</class>
+<community>killer</community> <terrain_sect>stalker_terrain</terrain_sect>
+<snd_config>characters_voice\human_03\killer\</snd_config>
+
+<rank>55</rank>
+<money min="2500" max="5000" infinitive="0"/>
+<reputation>0</reputation>
+
+<visual>actors\stalker_merc\stalker_merc_2</visual>
+<supplies>
+  [spawn] \n
+
+  wpn_g36 \n
+  ammo_5.56x45_ap = 1 \n
+  wpn_sig220 = 1 \n
+  ammo_11.43x23_hydro = 1 \n
+  grenade_f1 = 3 \n
+
+#include "gameplay\loadouts\character_items_nd.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_3.xml"
+#include "gameplay\loadouts\character_drugs_sci.xml"
+#include "gameplay\loadouts\character_drugs_mil.xml"
+</supplies>
+#include "gameplay\loadouts\character_criticals_4.xml"
+#include "gameplay\character_dialogs.xml"
+</specific_character>
+
+<specific_character id="sim_default_killer_3_default_1" team_default = "1">
+<name>GENERATE_NAME_stalker</name>
+<icon>ui_inGame2_merc_2</icon>
+<map_icon x="1" y="0"></map_icon>
+<bio>Опытный сталкер. Детальная информация отсутствует.</bio>
+
+<class>sim_default_killer_3</class>
+<community>killer</community> <terrain_sect>stalker_terrain</terrain_sect>
+<snd_config>characters_voice\human_03\killer\</snd_config>
+
+<rank>55</rank>
+<money min="2500" max="5000" infinitive="0"/>
+<reputation>0</reputation>
+
+<visual>actors\stalker_merc\stalker_merc_2</visual>
+<supplies>
+  [spawn] \n
+
+  wpn_sig550 = 1 \n
+  ammo_5.56x45_ap = 1 \n
+  wpn_usp = 1 \n
+  ammo_11.43x23_fmj = 1 \n
+  grenade_f1 = 3 \n
+
+#include "gameplay\loadouts\character_items_nd.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_3.xml"
+#include "gameplay\loadouts\character_drugs_sci.xml"
+#include "gameplay\loadouts\character_drugs_mil.xml"
+</supplies>
+#include "gameplay\loadouts\character_criticals_4.xml"
+#include "gameplay\character_dialogs.xml"
+</specific_character>
+
+
+<specific_character id="sim_default_killer_3_default_2" team_default = "1">
+<name>GENERATE_NAME_stalker</name>
+<icon>ui_inGame2_merc_4</icon>
+<map_icon x="1" y="0"></map_icon>
+<bio>Опытный сталкер. Детальная информация отсутствует.</bio>
+
+<class>sim_default_killer_3</class>
+<community>killer</community> <terrain_sect>stalker_terrain</terrain_sect>
+<snd_config>characters_voice\human_03\killer\</snd_config>
+
+<rank>55</rank>
+<money min="2500" max="5000" infinitive="0"/>
+<reputation>0</reputation>
+
+<visual>actors\stalker_merc\stalker_merc_4</visual>
+<supplies>
+  [spawn] \n
+
+  wpn_sig550 = 1 \n
+  ammo_5.56x45_ap = 1 \n
+  wpn_usp = 1 \n
+  ammo_11.43x23_hydro = 1 \n
+  grenade_f1 = 3 \n
+
+#include "gameplay\loadouts\character_items_nd.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_3.xml"
+#include "gameplay\loadouts\character_drugs_sci.xml"
+#include "gameplay\loadouts\character_drugs_mil.xml"
+</supplies>
+#include "gameplay\loadouts\character_criticals_4.xml"
+#include "gameplay\character_dialogs.xml"
+</specific_character>
+
+<specific_character id="sim_default_killer_3_default_3" team_default = "1">
+<name>GENERATE_NAME_stalker</name>
+<icon>ui_inGame2_merc_4</icon>
+<map_icon x="1" y="0"></map_icon>
+<bio>Опытный сталкер. Детальная информация отсутствует.</bio>
+
+<class>sim_default_killer_3</class>
+<community>killer</community> <terrain_sect>stalker_terrain</terrain_sect>
+<snd_config>characters_voice\human_03\killer\</snd_config>
+
+<rank>55</rank>
+<money min="2500" max="5000" infinitive="0"/>
+<reputation>0</reputation>
+
+<visual>actors\stalker_merc\stalker_merc_4</visual>
+<supplies>
+  [spawn] \n
+
+  wpn_g36 \n
+  ammo_5.56x45_ap = 1 \n
+  wpn_sig220 = 1 \n
+  ammo_11.43x23_hydro = 1 \n
+  grenade_f1 = 3 \n
+
+#include "gameplay\loadouts\character_items_nd.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_3.xml"
+#include "gameplay\loadouts\character_drugs_sci.xml"
+#include "gameplay\loadouts\character_drugs_mil.xml"
+</supplies>
+#include "gameplay\loadouts\character_criticals_4.xml"
+#include "gameplay\character_dialogs.xml"
+</specific_character>
+
+<specific_character id="sim_default_killer_4_default_4" team_default = "1">
+<name>GENERATE_NAME_stalker</name>
+<icon>ui_inGame2_merc_4</icon>
+<map_icon x="1" y="0"></map_icon>
+<bio>Опытный сталкер. Детальная информация отсутствует.</bio>
+
+<class>sim_default_killer_3</class>
+<community>killer</community> <terrain_sect>stalker_terrain</terrain_sect>
+<snd_config>characters_voice\human_03\killer\</snd_config>
+
+<rank>55</rank>
+<money min="2500" max="5000" infinitive="0"/>
+<reputation>0</reputation>
+
+<visual>actors\stalker_merc\stalker_merc_4</visual>
+<supplies>
+  [spawn] \n
+
+  wpn_protecta \n
+  ammo_12x76_zhekan = 1 \n
+  wpn_usp = 1 \n
+  ammo_11.43x23_hydro = 1 \n
+  grenade_f1 = 3 \n
+
+#include "gameplay\loadouts\character_items_nd.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_3.xml"
+#include "gameplay\loadouts\character_drugs_sci.xml"
+#include "gameplay\loadouts\character_drugs_mil.xml"
+</supplies>
+#include "gameplay\loadouts\character_criticals_4.xml"
+#include "gameplay\character_dialogs.xml"
+</specific_character>
+
+<specific_character id="sim_default_killer_4_default_5" team_default = "1">
+<name>GENERATE_NAME_stalker</name>
+<icon>ui_inGame2_merc_4</icon>
+<map_icon x="1" y="0"></map_icon>
+<bio>Опытный сталкер. Детальная информация отсутствует.</bio>
+
+<class>sim_default_killer_3</class>
+<community>killer</community> <terrain_sect>stalker_terrain</terrain_sect>
+<snd_config>characters_voice\human_03\killer\</snd_config>
+
+<rank>55</rank>
+<money min="2500" max="5000" infinitive="0"/>
+<reputation>0</reputation>
+
+<visual>actors\stalker_merc\stalker_merc_4</visual>
+<supplies>
+  [spawn] \n
+
+  wpn_protecta \n
+  ammo_12x76_zhekan = 1 \n
+  wpn_sig220 = 1 \n
+  ammo_11.43x23_hydro = 1 \n
+  grenade_f1 = 3 \n
+
+#include "gameplay\loadouts\character_items_nd.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_3.xml"
+#include "gameplay\loadouts\character_drugs_sci.xml"
+#include "gameplay\loadouts\character_drugs_mil.xml"
+</supplies>
+#include "gameplay\loadouts\character_criticals_4.xml"
+#include "gameplay\character_dialogs.xml"
+</specific_character>
+
+    <!--  merc master  -->
+
+<specific_character id="sim_default_killer_4_default_0" team_default = "1">
+<name>GENERATE_NAME_stalker</name>
+<icon>ui_inGame2_merc_4</icon>
+<map_icon x="1" y="0"></map_icon>
+<bio>Опытный сталкер. Детальная информация отсутствует.</bio>
+
+<class>sim_default_killer_4</class>
+<community>killer</community> <terrain_sect>stalker_terrain</terrain_sect>
+<snd_config>characters_voice\human_03\killer\</snd_config>
+
+<rank>60</rank>
+<money min="5000" max="10000" infinitive="0"/>
+<reputation>0</reputation>
+
+<visual>actors\stalker_merc\stalker_merc_4</visual>
+<supplies>
+  [spawn] \n
+
+  wpn_fn2000 \n
+  ammo_5.56x45_ap = 1 \n
+  wpn_usp \n
+  ammo_11.43x23_hydro = 1 \n
+  grenade_f1 = 4 \n
+
+#include "gameplay\loadouts\character_items_nd.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_4.xml"
+#include "gameplay\loadouts\character_drugs_sci.xml"
+#include "gameplay\loadouts\character_drugs_mil.xml"
+</supplies>
+#include "gameplay\loadouts\character_criticals_4.xml"
+#include "gameplay\character_dialogs.xml"
+</specific_character>
+
+<specific_character id="sim_default_killer_4_default_1" team_default = "1">
+<name>GENERATE_NAME_stalker</name>
+<icon>ui_inGame2_merc_4</icon>
+<map_icon x="1" y="0"></map_icon>
+<bio>Опытный сталкер. Детальная информация отсутствует.</bio>
+
+<class>sim_default_killer_4</class>
+<community>killer</community> <terrain_sect>stalker_terrain</terrain_sect>
+<snd_config>characters_voice\human_03\killer\</snd_config>
+
+<rank>60</rank>
+<money min="5000" max="10000" infinitive="0"/>
+<reputation>0</reputation>
+
+<visual>actors\stalker_merc\stalker_merc_4</visual>
+<supplies>
+  [spawn] \n
+
+  wpn_fn2000 \n
+  ammo_5.56x45_ap = 1 \n
+  wpn_sig220 = 1 \n
+  ammo_11.43x23_hydro = 1 \n
+  grenade_f1 = 4 \n
+
+#include "gameplay\loadouts\character_items_nd.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_4.xml"
+#include "gameplay\loadouts\character_drugs_sci.xml"
+#include "gameplay\loadouts\character_drugs_mil.xml"
+</supplies>
+#include "gameplay\loadouts\character_criticals_4.xml"
+#include "gameplay\character_dialogs.xml"
+</specific_character>
+
