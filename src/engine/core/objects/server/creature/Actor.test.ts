@@ -58,10 +58,10 @@ describe("Actor server object", () => {
     actor.STATE_Write(mockNetPacket(netProcessor));
 
     expect(saveManager.serverSave).toHaveBeenCalledWith(netProcessor);
-    expect(netProcessor.writeDataOrder).toEqual([EPacketDataType.U16]);
-    expect(netProcessor.dataList).toEqual([0]);
+    expect(netProcessor.writeDataOrder).toEqual([EPacketDataType.STRING, EPacketDataType.U16]);
+    expect(netProcessor.dataList).toEqual(["cse_alife_object", 0]);
 
-    actor.STATE_Read(mockNetPacket(netProcessor), 1);
+    actor.STATE_Read(mockNetPacket(netProcessor), 0);
 
     expect(saveManager.serverLoad).toHaveBeenCalledWith(netProcessor);
     expect(netProcessor.readDataOrder).toEqual(netProcessor.writeDataOrder);

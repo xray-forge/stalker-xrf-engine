@@ -1,4 +1,8 @@
-import type { IRegistryObjectState, IStoredOfflineObject } from "@/engine/core/database/types";
+import type {
+  IRankDescriptor,
+  IRegistryObjectState,
+  IStoredOfflineObject,
+} from "@/engine/core/database/database_types";
 import type { AbstractManager, TAbstractCoreManagerConstructor } from "@/engine/core/managers/base/AbstractManager";
 import type { TSimulationObject } from "@/engine/core/managers/simulation";
 import type { ITradeManagerDescriptor } from "@/engine/core/managers/trade";
@@ -27,7 +31,9 @@ import type {
   ClientObject,
   EScheme,
   IniFile,
+  LuaArray,
   Optional,
+  TIndex,
   TName,
   TNumberId,
   TStringId,
@@ -82,6 +88,31 @@ export const registry = {
    * List of active objects.
    */
   objects: new LuaTable<TNumberId, IRegistryObjectState>(),
+  /**
+   * Game ranks.
+   */
+  ranks: {
+    /**
+     * Whether ranks were initialized from game ini files.
+     */
+    isInitialized: false,
+    /**
+     * Memoized stalker ranks list.
+     */
+    stalker: new LuaTable<TIndex, IRankDescriptor>(),
+    /**
+     * Memoized monster ranks list.
+     */
+    monster: new LuaTable<TIndex, IRankDescriptor>(),
+    /**
+     * Max rank for stalkers.
+     */
+    maxStalkerRank: null as unknown as IRankDescriptor,
+    /**
+     * Max rank for monsters.
+     */
+    maxMonsterRank: null as unknown as IRankDescriptor,
+  },
   /**
    * List of offline objects.
    */

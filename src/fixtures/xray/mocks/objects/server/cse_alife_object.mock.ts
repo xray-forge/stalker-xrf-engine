@@ -1,6 +1,6 @@
 import { jest } from "@jest/globals";
 
-import { AnyObject, ServerObject, TClassId, TNumberId, TSection, Vector } from "@/engine/lib/types";
+import { AnyObject, NetPacket, ServerObject, TClassId, TNumberId, TSection, Vector } from "@/engine/lib/types";
 import { MockIniFile, mockIniFile } from "@/fixtures/xray/mocks/ini";
 import { MockLuabindClass } from "@/fixtures/xray/mocks/luabind.mock";
 import { MockAlifeSimulator } from "@/fixtures/xray/mocks/objects/AlifeSimulator.mock";
@@ -34,6 +34,8 @@ export class MockAlifeObject extends MockLuabindClass {
     return this.section;
   }
 
+  public on_spawn(): void {}
+
   public on_before_register(): void {}
 
   public on_register(): void {}
@@ -56,9 +58,13 @@ export class MockAlifeObject extends MockLuabindClass {
     return new MockIniFile<AnyObject>("object_spawn.ini");
   }
 
-  public STATE_Write(): void {}
+  public STATE_Write(packet: NetPacket): void {
+    packet.w_stringZ("cse_alife_object");
+  }
 
-  public STATE_Read(): void {}
+  public STATE_Read(packet: NetPacket, size: number): void {
+    packet.r_stringZ();
+  }
 }
 
 /**

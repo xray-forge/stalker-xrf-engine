@@ -1,4 +1,4 @@
-import { IBaseSchemeState } from "@/engine/core/database/types";
+import { IBaseSchemeState } from "@/engine/core/database/database_types";
 import { ESmartCoverState, EStalkerState } from "@/engine/core/objects/animation/types/state_types";
 import { Optional, StringOptional, TDuration, TName, Vector } from "@/engine/lib/types";
 

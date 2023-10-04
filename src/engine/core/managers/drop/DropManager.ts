@@ -81,7 +81,7 @@ export class DropManager extends AbstractManager {
         const communityDropItemsCount: TCount = DEATH_GENERIC_LTX.line_count(community);
 
         for (const it of $range(0, communityDropItemsCount - 1)) {
-          const [result, id, value] = DEATH_GENERIC_LTX.r_line(community, it, "", "");
+          const [, id, value] = DEATH_GENERIC_LTX.r_line(community, it, "", "");
 
           communityDrop.set(id as TInventoryItem, 100 * tonumber(value)!);
         }
@@ -94,7 +94,7 @@ export class DropManager extends AbstractManager {
     const dependentItemsCount: number = DEATH_GENERIC_LTX.line_count(DropManager.DEPENDENT_ITEMS_LTX_SECTION);
 
     for (const it of $range(0, dependentItemsCount - 1)) {
-      const [result, id, value] = DEATH_GENERIC_LTX.r_line(DropManager.DEPENDENT_ITEMS_LTX_SECTION, it, "", "");
+      const [, id, value] = DEATH_GENERIC_LTX.r_line(DropManager.DEPENDENT_ITEMS_LTX_SECTION, it, "", "");
       const itemDependencies: LuaTable<TStringId, boolean> = new LuaTable();
 
       const dependantItems: LuaArray<TStringId> = parseStringsList(value);
@@ -112,7 +112,7 @@ export class DropManager extends AbstractManager {
     const levelSpecificDropsCount: number = DEATH_GENERIC_LTX.line_count(currentLevelNameSection);
 
     for (const it of $range(0, levelSpecificDropsCount - 1)) {
-      const [result, id, value] = DEATH_GENERIC_LTX.r_line(currentLevelNameSection, it, "", "");
+      const [, id, value] = DEATH_GENERIC_LTX.r_line(currentLevelNameSection, it, "", "");
 
       this.itemsLevelDropMultiplayer.set(id as TLevel, tonumber(value)!);
     }
@@ -148,7 +148,7 @@ export class DropManager extends AbstractManager {
     const keepItemsSectionItemsCount: TCount = DEATH_GENERIC_LTX.line_count(DropManager.KEEP_ITEMS_LTX_SECTION);
 
     for (const it of $range(0, keepItemsSectionItemsCount - 1)) {
-      const [result, id, value] = DEATH_GENERIC_LTX.r_line(DropManager.KEEP_ITEMS_LTX_SECTION, it, "", "");
+      const [, id, value] = DEATH_GENERIC_LTX.r_line(DropManager.KEEP_ITEMS_LTX_SECTION, it, "", "");
 
       if (value === TRUE) {
         this.itemsAlwaysKept.set(id, true);

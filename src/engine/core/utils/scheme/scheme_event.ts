@@ -1,5 +1,5 @@
+import type { IBaseSchemeState, IRegistryObjectState, TSchemeSignals } from "@/engine/core/database/database_types";
 import { registry } from "@/engine/core/database/registry";
-import type { IBaseSchemeState, IRegistryObjectState, TSchemeSignals } from "@/engine/core/database/types";
 import type {
   AnyArgs,
   AnyContextualCallable,

@@ -1,3 +1,4 @@
+import { registerRanks } from "@/engine/core/database/ranks";
 import { registerSimulator } from "@/engine/core/database/simulation";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { extern } from "@/engine/core/utils/binding";
@@ -23,7 +24,9 @@ extern("start", {
     logger.info("Start new game");
 
     updateClassIds(classIds);
+
     registerSimulator();
+    registerRanks();
 
     unlockSystemIniOverriding();
 

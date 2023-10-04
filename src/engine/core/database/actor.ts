@@ -1,6 +1,6 @@
+import type { IRegistryObjectState } from "@/engine/core/database/database_types";
 import { registerObject, unregisterObject } from "@/engine/core/database/objects";
 import { registry } from "@/engine/core/database/registry";
-import type { IRegistryObjectState } from "@/engine/core/database/types";
 import type { Actor } from "@/engine/core/objects/server/creature/Actor";
 import type { ClientObject, ServerActorObject } from "@/engine/lib/types";
 

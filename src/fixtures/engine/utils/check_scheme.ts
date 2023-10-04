@@ -1,6 +1,6 @@
 import { expect } from "@jest/globals";
 
-import type { IBaseSchemeState } from "@/engine/core/database/types";
+import type { IBaseSchemeState } from "@/engine/core/database/database_types";
 import type { AnyObject, IConstructor } from "@/engine/lib/types";
 
 /**

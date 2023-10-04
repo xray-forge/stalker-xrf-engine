@@ -82,6 +82,10 @@ export const FILES_MOCKS: Record<TPath, AnyObject> = {
     stalker_actor_1: {
       set_visual: "actor_visual",
     },
+    game_relations: {
+      rating: "novice, 300, experienced, 600, veteran, 900, master",
+      monster_rating: "weak, 400, normal, 800, strong",
+    },
   },
   "spawn.ini": {
     story_object: {

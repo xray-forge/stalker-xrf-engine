@@ -15,6 +15,7 @@ import {
   Time,
   TName,
   TNumberId,
+  TRate,
   TSection,
   TTimestamp,
 } from "@/engine/lib/types";
@@ -201,4 +202,13 @@ export interface IRegistryObjectState extends Record<EScheme, Optional<IBaseSche
 export interface IStoredOfflineObject {
   levelVertexId: Optional<TNumberId>;
   activeSection: Optional<TSection>;
+}
+
+/**
+ * Descriptor of game object rank.
+ */
+export interface IRankDescriptor {
+  min: TRate;
+  max: TRate;
+  name: TName;
 }

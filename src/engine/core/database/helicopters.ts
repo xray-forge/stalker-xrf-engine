@@ -1,6 +1,6 @@
+import { IRegistryObjectState } from "@/engine/core/database/database_types";
 import { registerObject, unregisterObject } from "@/engine/core/database/objects";
 import { registry } from "@/engine/core/database/registry";
-import { IRegistryObjectState } from "@/engine/core/database/types";
 import { HelicopterBinder } from "@/engine/core/objects/binders/HelicopterBinder";
 import { ClientObject, TIndex } from "@/engine/lib/types";
 

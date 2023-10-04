@@ -1,5 +1,5 @@
+import { IStoredOfflineObject } from "@/engine/core/database/database_types";
 import { registry } from "@/engine/core/database/registry";
-import { IStoredOfflineObject } from "@/engine/core/database/types";
 import { Optional, TNumberId } from "@/engine/lib/types";
 
 /**
@@ -54,4 +54,13 @@ export function softResetOfflineObject(
   if (registry.offlineObjects.has(objectId)) {
     registry.offlineObjects.set(objectId, state);
   }
+}
+
+/**
+ * Unregister offline object representation in database.
+ *
+ * @param objectId - game object ID to unregister offline representation
+ */
+export function unregisterOfflineObject(objectId: TNumberId): void {
+  registry.offlineObjects.delete(objectId);
 }

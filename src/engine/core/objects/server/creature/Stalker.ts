@@ -5,6 +5,7 @@ import {
   registerObjectStoryLinks,
   registerOfflineObject,
   registry,
+  unregisterOfflineObject,
   unregisterStoryLinkByObjectId,
 } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
@@ -48,22 +49,27 @@ export class Stalker extends cse_alife_human_stalker {
     return super.can_switch_online();
   }
 
+  public override on_spawn(): void {
+    super.on_spawn();
+
+    EventsManager.emitEvent(EGameEvent.STALKER_SPAWN, this);
+  }
+
   public override on_register(): void {
     super.on_register();
 
     registerObjectStoryLinks(this);
-
-    const simulationBoardManager: SimulationBoardManager = SimulationBoardManager.getInstance();
-
     registerOfflineObject(this.id);
 
     this.brain().can_choose_alife_tasks(false);
+
+    const simulationBoardManager: SimulationBoardManager = SimulationBoardManager.getInstance();
 
     const smartName: TName = readIniString(this.spawn_ini(), "logic", "smart_terrain", false, null, "");
     const smartTerrain: Optional<SmartTerrain> = simulationBoardManager.getSmartTerrainByName(smartName);
 
     if (smartTerrain) {
-      registry.simulator.object<SmartTerrain>(smartTerrain.id)!.register_npc(this);
+      smartTerrain.register_npc(this);
     }
 
     EventsManager.emitEvent(EGameEvent.STALKER_REGISTER, this);
@@ -73,16 +79,14 @@ export class Stalker extends cse_alife_human_stalker {
     EventsManager.emitEvent(EGameEvent.STALKER_UNREGISTER, this);
 
     const smartTerrainId: TNumberId = this.smart_terrain_id();
+    const smartTerrain: Optional<SmartTerrain> =
+      smartTerrainId === MAX_U16 ? null : registry.simulator.object(smartTerrainId);
 
-    if (smartTerrainId !== MAX_U16) {
-      const smartTerrain: Optional<SmartTerrain> = registry.simulator.object(smartTerrainId);
-
-      if (smartTerrain !== null) {
-        smartTerrain.unregister_npc(this);
-      }
+    if (smartTerrain) {
+      smartTerrain.unregister_npc(this);
     }
 
-    registry.offlineObjects.delete(this.id);
+    unregisterOfflineObject(this.id);
     unregisterStoryLinkByObjectId(this.id);
 
     super.on_unregister();
@@ -91,20 +95,24 @@ export class Stalker extends cse_alife_human_stalker {
   public override on_death(killer: ServerCreatureObject): void {
     super.on_death(killer);
 
-    logger.info("On stalker death:", this.name(), killer.id, killer?.name());
+    logger.info("Stalker death:", this.name(), killer.id, killer?.name());
 
     // Notify assigned smart terrain about abject death.
     const smartTerrainId: TNumberId = this.smart_terrain_id();
 
     if (smartTerrainId !== MAX_U16) {
-      (registry.simulator.object(smartTerrainId) as SmartTerrain).onObjectDeath(this);
+      const smartTerrain: Optional<SmartTerrain> = registry.simulator.object(smartTerrainId);
+
+      assert(smartTerrain, "Smart terrain with ID '%s' not found.", this.group_id);
+
+      smartTerrain.onObjectDeath(this);
     }
 
     // Notify assigned squad about abject death.
     if (this.group_id !== MAX_U16) {
       const squad: Optional<Squad> = registry.simulator.object(this.group_id);
 
-      assert(squad, "There is no squad with ID [%s]", this.group_id);
+      assert(squad, "Squad with ID '%s' not found.", this.group_id);
 
       squad.onSquadObjectDeath(this);
     }

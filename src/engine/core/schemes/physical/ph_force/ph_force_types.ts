@@ -1,4 +1,4 @@
-import type { IBaseSchemeState } from "@/engine/core/database/types";
+import type { IBaseSchemeState } from "@/engine/core/database/database_types";
 import type { TDuration, TIndex, TName, TRate, Vector } from "@/engine/lib/types";
 
 /**

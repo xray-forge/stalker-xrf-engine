@@ -28,8 +28,6 @@ const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * Register game managers and dispose existing ones.
- *
- * todo: Check why game time cannot be accessed when managers initialize (surge manager)
  */
 export function registerManagers(): void {
   const managers: Array<TAbstractCoreManagerConstructor> = [

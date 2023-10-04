@@ -2,6 +2,7 @@ import { clsid } from "xray16";
 
 import { SYSTEM_INI } from "@/engine/core/database/ini_registry";
 import { registry } from "@/engine/core/database/registry";
+import type { Stalker } from "@/engine/core/objects/server/creature";
 import type { SmartTerrain } from "@/engine/core/objects/server/smart_terrain";
 import type { Squad } from "@/engine/core/objects/server/squad";
 import { classIds } from "@/engine/lib/constants/class_ids";
@@ -33,10 +34,22 @@ export function isMonster(object: AnyGameObject): boolean {
  * Check whether object is matching stalker class id.
  *
  * @param object - any game object to check
+ * @param classId - class id to check
  * @returns whether object class id is a stalker
  */
-export function isStalker(object: AnyGameObject): object is ServerHumanObject {
-  return classIds.stalker.has(object.clsid());
+export function isStalker(object: AnyGameObject, classId: TClassId = object.clsid()): object is Stalker {
+  return classIds.stalker.has(classId);
+}
+
+/**
+ * Check whether object is matching trader class id.
+ *
+ * @param object - any game object to check
+ * @param classId - class id to check
+ * @returns whether object class id is a trader
+ */
+export function isTrader(object: AnyGameObject, classId: TClassId = object.clsid()): object is ServerHumanObject {
+  return classId === clsid.trader;
 }
 
 /**

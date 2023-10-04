@@ -46,6 +46,6 @@ export class SchemeMobRemark extends AbstractScheme {
     section: TSection,
     state: ISchemeMobRemarkState
   ): void {
-    SchemeMobRemark.subscribe(object, state, new MobRemarkManager(object, state));
+    AbstractScheme.subscribe(object, state, new MobRemarkManager(object, state));
   }
 }

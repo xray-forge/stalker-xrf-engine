@@ -1,6 +1,6 @@
+import { IRegistryObjectState } from "@/engine/core/database/database_types";
 import { setPortableStoreValue } from "@/engine/core/database/portable_store";
 import { registry } from "@/engine/core/database/registry";
-import { IRegistryObjectState } from "@/engine/core/database/types";
 import { HELPING_WOUNDED_OBJECT_KEY } from "@/engine/lib/constants/portable_store_keys";
 import { ClientObject, Optional, TNumberId } from "@/engine/lib/types";
 
