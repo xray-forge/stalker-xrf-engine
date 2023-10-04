@@ -38,7 +38,6 @@ let ID_COUNTER: TNumberId = 1000;
 export function mockClientGameObject({
   animation_count = jest.fn(() => 0),
   bleeding = 0,
-  character_icon = jest.fn(() => "test_character_icon") as <T>() => T,
   clsid = jest.fn(() => -1 as TClassId),
   disable_info_portion,
   game_vertex_id = jest.fn(() => 512),
@@ -126,7 +125,8 @@ export function mockClientGameObject({
     center: rest.center ?? jest.fn(() => objectCenter),
     change_team: rest.change_team ?? jest.fn(),
     character_community: rest.character_community ?? jest.fn(() => "stalker"),
-    character_icon,
+    character_icon: rest.character_icon ?? (jest.fn(() => "test_character_icon") as <T>() => T),
+    character_rank: rest.character_rank ?? jest.fn(() => null),
     clsid,
     clear_animations: rest.clear_animations ?? jest.fn(),
     command: rest.command ?? jest.fn(),
@@ -250,6 +250,7 @@ export function mockClientGameObject({
     parent: rest.parent ?? jest.fn(() => null),
     position: rest.position ?? jest.fn(() => objectPosition),
     radiation,
+    rank: rest.rank ?? jest.fn(() => null),
     relation:
       rest.relation ||
       jest.fn(() => {

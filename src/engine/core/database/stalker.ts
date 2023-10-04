@@ -1,8 +1,8 @@
 import { anim, move } from "xray16";
 
+import type { IRegistryObjectState } from "@/engine/core/database/database_types";
 import { registerObject, unregisterObject } from "@/engine/core/database/objects";
 import { registry } from "@/engine/core/database/registry";
-import type { IRegistryObjectState } from "@/engine/core/database/types";
 import type { StalkerStateManager } from "@/engine/core/objects/ai/state/StalkerStateManager";
 import {
   EStalkerState,

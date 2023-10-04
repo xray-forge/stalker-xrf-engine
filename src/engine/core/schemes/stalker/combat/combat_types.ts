@@ -1,4 +1,4 @@
-import { IBaseSchemeState } from "@/engine/core/database/types";
+import { IBaseSchemeState } from "@/engine/core/database/database_types";
 import { AnyObject, Optional, Vector } from "@/engine/lib/types";
 
 /**

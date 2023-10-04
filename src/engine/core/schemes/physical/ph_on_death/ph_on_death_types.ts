@@ -1,4 +1,4 @@
-import type { IBaseSchemeState } from "@/engine/core/database/types";
+import type { IBaseSchemeState } from "@/engine/core/database/database_types";
 import type { PhysicalDeathManager } from "@/engine/core/schemes/physical/ph_on_death/PhysicalDeathManager";
 
 /**

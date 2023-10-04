@@ -1,5 +1,6 @@
 import { describe, expect, it, jest } from "@jest/globals";
 
+import { registry } from "@/engine/core/database";
 import { updateClassIds } from "@/engine/core/utils/class_ids_list";
 import { unlockSystemIniOverriding } from "@/engine/core/utils/ini";
 import { AnyObject } from "@/engine/lib/types";
@@ -36,5 +37,7 @@ describe("start entry point", () => {
     expect(registerExtensions).toHaveBeenCalledTimes(1);
     expect(registerManagers).toHaveBeenCalledTimes(1);
     expect(registerSchemes).toHaveBeenCalledTimes(1);
+    expect(registry.simulator).not.toBeNull();
+    expect(registry.ranks.isInitialized).toBe(true);
   });
 });

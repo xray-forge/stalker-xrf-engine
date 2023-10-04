@@ -1,6 +1,6 @@
+import { IRegistryObjectState } from "@/engine/core/database/database_types";
 import { registerObject, unregisterObject } from "@/engine/core/database/objects";
 import { registry } from "@/engine/core/database/registry";
-import { IRegistryObjectState } from "@/engine/core/database/types";
 import { registerZone, unregisterZone } from "@/engine/core/database/zones";
 import { SmartCover } from "@/engine/core/objects/server/smart_cover";
 import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain/SmartTerrain";

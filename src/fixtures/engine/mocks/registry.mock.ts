@@ -1,4 +1,7 @@
-import { IRegistryObjectState, registerActor, registerActorServer, registry } from "@/engine/core/database";
+import { registerActor, registerActorServer } from "@/engine/core/database/actor";
+import { IRegistryObjectState } from "@/engine/core/database/database_types";
+import { registerRanks } from "@/engine/core/database/ranks";
+import { registry } from "@/engine/core/database/registry";
 import { ClientObject, ServerActorObject } from "@/engine/lib/types";
 import { mockActorClientGameObject, mockServerAlifeCreatureActor } from "@/fixtures/xray/mocks/objects";
 
@@ -25,8 +28,27 @@ export function mockRegisteredActor(
 /**
  * Reset managers registry state.
  */
+export function resetRegistry(): void {
+  registry.actor = null as unknown as ClientObject;
+  registry.managers = new LuaTable();
+  registry.offlineObjects = new LuaTable();
+  registry.storyLink = { sidById: new LuaTable(), idBySid: new LuaTable() };
+
+  registerRanks();
+}
+
+/**
+ * Reset managers registry state.
+ */
 export function resetManagers(): void {
   registry.managers = new LuaTable();
+}
+
+/**
+ * Reset managers registry state.
+ */
+export function resetRanks(): void {
+  registerRanks();
 }
 
 /**

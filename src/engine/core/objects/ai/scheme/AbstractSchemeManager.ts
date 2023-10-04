@@ -1,4 +1,4 @@
-import type { IBaseSchemeState } from "@/engine/core/database/types";
+import type { IBaseSchemeState } from "@/engine/core/database/database_types";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import type { ClientObject, ISchemeEventHandler, Optional, TCount, TIndex, TName, Vector } from "@/engine/lib/types";
 

@@ -1,5 +1,5 @@
+import { IStoredOfflineObject } from "@/engine/core/database/database_types";
 import { registry } from "@/engine/core/database/registry";
-import { IStoredOfflineObject } from "@/engine/core/database/types";
 import { Optional, TNumberId } from "@/engine/lib/types";
 
 /**

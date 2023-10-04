@@ -1,4 +1,4 @@
-import type { IBaseSchemeState } from "@/engine/core/database/types";
+import type { IBaseSchemeState } from "@/engine/core/database/database_types";
 import { EStalkerState } from "@/engine/core/objects/animation/types";
 import { AnimpointManager } from "@/engine/core/schemes/stalker/animpoint/AnimpointManager";
 import { ClientObject, LuaArray, Optional, TDistance, TName } from "@/engine/lib/types";

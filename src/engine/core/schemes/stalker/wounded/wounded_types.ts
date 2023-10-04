@@ -1,4 +1,4 @@
-import type { IBaseSchemeState } from "@/engine/core/database/types";
+import type { IBaseSchemeState } from "@/engine/core/database/database_types";
 import type { WoundManager } from "@/engine/core/schemes/stalker/wounded/WoundManager";
 import type { TConditionList } from "@/engine/core/utils/ini";
 import type { LuaArray, Optional, TDistance, TNumberId, TSection } from "@/engine/lib/types";

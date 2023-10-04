@@ -1,18 +1,19 @@
 import { beforeEach, describe, expect, it } from "@jest/globals";
 import { level } from "xray16";
 
-import { disposeManager, getManagerInstance, registry } from "@/engine/core/database";
+import { disposeManager, getManagerInstance } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { IWeatherState } from "@/engine/core/managers/weather/weather_types";
 import { WeatherManager } from "@/engine/core/managers/weather/WeatherManager";
 import { NIL } from "@/engine/lib/constants/words";
+import { resetRegistry } from "@/fixtures/engine";
 import { getFunctionMock } from "@/fixtures/jest";
 import { mockLuaTable, MockLuaTable } from "@/fixtures/lua/mocks/LuaTable.mock";
 import { EPacketDataType, mockNetPacket, mockNetProcessor, MockNetProcessor } from "@/fixtures/xray/mocks/save";
 
 describe("WeatherManager class", () => {
   beforeEach(() => {
-    registry.managers = new LuaTable();
+    resetRegistry();
   });
 
   it("should correctly initialize and destroy", () => {

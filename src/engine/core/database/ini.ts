@@ -1,8 +1,8 @@
 import { create_ini_file, ini_file } from "xray16";
 
+import { IRegistryObjectState } from "@/engine/core/database/database_types";
 import { DUMMY_LTX, DYNAMIC_LTX_PREFIX } from "@/engine/core/database/ini_registry";
 import { registry } from "@/engine/core/database/registry";
-import { IRegistryObjectState } from "@/engine/core/database/types";
 import { assertDefined } from "@/engine/core/utils/assertion";
 import { ClientObject, IniFile, Optional, TName } from "@/engine/lib/types";
 

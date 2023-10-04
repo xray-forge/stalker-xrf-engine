@@ -1,4 +1,4 @@
-import type { IBaseSchemeState } from "@/engine/core/database/types";
+import type { IBaseSchemeState } from "@/engine/core/database/database_types";
 import type { IPatrolSuggestedState } from "@/engine/core/objects/animation/types";
 import type { IWaypointData } from "@/engine/core/utils/ini/ini_types";
 import type { LuaArray, Optional } from "@/engine/lib/types";

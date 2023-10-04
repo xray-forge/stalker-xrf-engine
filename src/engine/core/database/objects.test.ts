@@ -1,5 +1,6 @@
 import { describe, expect, it } from "@jest/globals";
 
+import { IRegistryObjectState } from "@/engine/core/database/database_types";
 import {
   registerObject,
   registerWoundedObject,
@@ -8,7 +9,6 @@ import {
   unRegisterWoundedObject,
 } from "@/engine/core/database/objects";
 import { registry } from "@/engine/core/database/registry";
-import { IRegistryObjectState } from "@/engine/core/database/types";
 import { ClientObject } from "@/engine/lib/types";
 import { mockClientGameObject, MockIniFile } from "@/fixtures/xray";
 

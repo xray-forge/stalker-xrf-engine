@@ -1,13 +1,14 @@
 import { beforeEach, describe, expect, it } from "@jest/globals";
 
-import { disposeManager, getManagerInstance, registry } from "@/engine/core/database";
+import { disposeManager, getManagerInstance } from "@/engine/core/database";
 import { surgeConfig } from "@/engine/core/managers/surge/SurgeConfig";
 import { SurgeManager } from "@/engine/core/managers/surge/SurgeManager";
+import { resetRegistry } from "@/fixtures/engine";
 import { EPacketDataType, mockNetPacket, mockNetProcessor, MockNetProcessor } from "@/fixtures/xray";
 
 describe("SurgeManager class", () => {
   beforeEach(() => {
-    registry.managers = new LuaTable();
+    resetRegistry();
   });
 
   it.todo("should correctly initialize and destroy");

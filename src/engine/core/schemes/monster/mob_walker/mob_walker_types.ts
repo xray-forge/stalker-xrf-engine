@@ -1,4 +1,4 @@
-import type { IBaseSchemeState } from "@/engine/core/database/types";
+import type { IBaseSchemeState } from "@/engine/core/database/database_types";
 import type { IWaypointData } from "@/engine/core/utils/ini/ini_types";
 import type { EMonsterState } from "@/engine/lib/constants/monsters";
 import type { LuaArray, Optional, TName } from "@/engine/lib/types";

@@ -12,6 +12,7 @@ import {
   isSquadId,
   isStalker,
   isStrappableWeapon,
+  isTrader,
   isWeapon,
 } from "@/engine/core/utils/class_ids";
 import { ServerActorObject, ServerGroupObject, ServerHumanObject, TClassId, TSection } from "@/engine/lib/types";
@@ -110,13 +111,34 @@ describe("class_ids utils", () => {
 
   it("isStalker should correctly check if object is a stalker", () => {
     expect(isStalker(mockClassIdClientObject(clsid.script_actor))).toBe(true);
+    expect(isStalker(mockClientGameObject(), clsid.script_actor)).toBe(true);
     expect(isStalker(mockClassIdClientObject(clsid.script_stalker))).toBe(true);
+    expect(isStalker(mockClientGameObject(), clsid.script_stalker)).toBe(true);
     expect(isStalker(mockClassIdServerObject(clsid.script_actor))).toBe(true);
     expect(isStalker(mockClassIdServerObject(clsid.script_stalker))).toBe(true);
+    expect(isStalker(mockClassIdServerObject(clsid.trader))).toBe(false);
+    expect(isStalker(mockClientGameObject(), clsid.trader)).toBe(false);
 
+    expect(isStalker(mockClientGameObject(), clsid.zone_mbald_s)).toBe(false);
     expect(isStalker(mockClassIdClientObject(clsid.zone_mbald_s))).toBe(false);
     expect(isStalker(mockClassIdServerObject(clsid.wpn_ak74_s))).toBe(false);
     expect(isStalker(mockClassIdServerObject(clsid.boar_s))).toBe(false);
+  });
+
+  it("isTrader should correctly check if object is a stalker", () => {
+    expect(isTrader(mockClassIdServerObject(clsid.trader))).toBe(true);
+    expect(isTrader(mockClientGameObject(), clsid.trader)).toBe(true);
+
+    expect(isTrader(mockClassIdClientObject(clsid.script_actor))).toBe(false);
+    expect(isTrader(mockClientGameObject(), clsid.script_actor)).toBe(false);
+    expect(isTrader(mockClassIdClientObject(clsid.script_stalker))).toBe(false);
+    expect(isTrader(mockClientGameObject(), clsid.script_stalker)).toBe(false);
+    expect(isTrader(mockClassIdServerObject(clsid.script_actor))).toBe(false);
+    expect(isTrader(mockClassIdServerObject(clsid.script_stalker))).toBe(false);
+    expect(isTrader(mockClientGameObject(), clsid.zone_mbald_s)).toBe(false);
+    expect(isTrader(mockClassIdClientObject(clsid.zone_mbald_s))).toBe(false);
+    expect(isTrader(mockClassIdServerObject(clsid.wpn_ak74_s))).toBe(false);
+    expect(isTrader(mockClassIdServerObject(clsid.boar_s))).toBe(false);
   });
 
   it("isStrappableWeapon should correctly check if object can be strapped", () => {
