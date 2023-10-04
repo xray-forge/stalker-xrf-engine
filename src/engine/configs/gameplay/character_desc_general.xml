@@ -100,11 +100,11 @@
 	ammo_og-7b = 1 \n
 	ammo_vog-25 = 1 \n
 
-#include "gameplay\character_items.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs.xml"
+#include "gameplay\loadouts\character_items.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
 	</specific_character>
 
@@ -133,12 +133,12 @@
       ammo_9x19_fmj = 1 \n
       grenade_rgd5 = 1 \n
 
-#include "gameplay\character_items.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs.xml"
+#include "gameplay\loadouts\character_items.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs.xml"
     </supplies>
 
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 
 #include "gameplay\character_dialogs.xml"
 	</specific_character>
@@ -166,12 +166,12 @@
       ammo_9x19_fmj = 1 \n
       grenade_rgd5 = 1 \n
       wpn_binoc = 1 \n
-#include "gameplay\character_items.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs.xml"
+#include "gameplay\loadouts\character_items.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs.xml"
     </supplies>
 
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 
 #include "gameplay\character_dialogs.xml"
 	</specific_character>
@@ -198,12 +198,12 @@
       ammo_5.56x45_ss190 = 1 \n
       ammo_9x19_fmj = 1 \n
       grenade_rgd5 = 1 \n
-#include "gameplay\character_items.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs.xml"
+#include "gameplay\loadouts\character_items.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs.xml"
     </supplies>
 
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 
 #include "gameplay\character_dialogs.xml"
 	</specific_character>
@@ -230,12 +230,12 @@
       ammo_5.56x45_ss190 = 1 \n
       ammo_9x19_fmj = 1 \n
       grenade_rgd5 = 1 \n
-#include "gameplay\character_items.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs.xml"
+#include "gameplay\loadouts\character_items.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs.xml"
     </supplies>
 
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 
 #include "gameplay\character_dialogs.xml"
   </specific_character>
@@ -262,12 +262,12 @@
       ammo_5.56x45_ss190 = 1 \n
       ammo_9x19_fmj = 1 \n
       grenade_rgd5 = 1 \n
-#include "gameplay\character_items.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs.xml"
+#include "gameplay\loadouts\character_items.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs.xml"
     </supplies>
 
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 
 #include "gameplay\character_dialogs.xml"
 	</specific_character>
@@ -293,11 +293,11 @@
       ammo_5.45x39_fmj = 1 \n
       wpn_fort \n
       ammo_9x18_fmj = 1 \n
-#include "gameplay\character_items.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs.xml"
+#include "gameplay\loadouts\character_items.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -327,11 +327,11 @@
       ammo_5.45x39_fmj = 1 \n
       wpn_fort \n
       ammo_9x18_fmj = 1 \n
-#include "gameplay\character_items.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs.xml"
+#include "gameplay\loadouts\character_items.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -355,11 +355,11 @@
       ammo_5.45x39_fmj = 1 \n
       wpn_pm \n
       ammo_9x18_fmj = 1 \n
-#include "gameplay\character_items.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs.xml"
+#include "gameplay\loadouts\character_items.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -383,11 +383,11 @@
       ammo_5.45x39_fmj = 1 \n
       wpn_fort \n
       ammo_9x18_fmj = 1 \n
-#include "gameplay\character_items.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs.xml"
+#include "gameplay\loadouts\character_items.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -411,11 +411,11 @@
       ammo_5.45x39_fmj = 1 \n
       wpn_pm \n
       ammo_9x18_fmj = 1 \n
-#include "gameplay\character_items.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs.xml"
+#include "gameplay\loadouts\character_items.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -443,11 +443,11 @@
       wpn_fort = 1 \n
       ammo_9x18_fmj = 1 \n
       grenade_rgd5 = 1 \n
-#include "gameplay\character_items.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_2.xml"
+#include "gameplay\loadouts\character_items.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_2.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -473,11 +473,11 @@
       wpn_pm = 1 \n
       ammo_9x18_fmj = 1 \n
       grenade_rgd5 = 1 \n
-#include "gameplay\character_items.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_2.xml"
+#include "gameplay\loadouts\character_items.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_2.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -503,11 +503,11 @@
       wpn_pm = 1 \n
       ammo_9x18_fmj = 1 \n
       grenade_rgd5 = 1 \n
-#include "gameplay\character_items.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_2.xml"
+#include "gameplay\loadouts\character_items.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_2.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -533,11 +533,11 @@
       wpn_fort = 1 \n
       ammo_9x18_fmj = 1 \n
       grenade_rgd5 = 1 \n
-#include "gameplay\character_items.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_2.xml"
+#include "gameplay\loadouts\character_items.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_2.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -565,12 +565,12 @@
       wpn_pm = 1 \n
       ammo_9x18_fmj = 1 \n
       grenade_rgd5 = 2 \n
-#include "gameplay\character_items_2.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_2.xml"
-#include "gameplay\character_sell_weapons.xml"
+#include "gameplay\loadouts\character_items_2.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_2.xml"
+#include "gameplay\loadouts\character_sell_weapons.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -596,11 +596,11 @@
       wpn_fort = 1 \n
       ammo_9x18_fmj = 1 \n
       grenade_rgd5 = 2 \n
-#include "gameplay\character_items_2.xml"
-#include "gameplay\character_drugs_2.xml"
-#include "gameplay\character_sell_weapons.xml"
+#include "gameplay\loadouts\character_items_2.xml"
+#include "gameplay\loadouts\character_drugs_2.xml"
+#include "gameplay\loadouts\character_sell_weapons.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -626,13 +626,13 @@
 	  wpn_fort = 1 \n
       ammo_9x18_fmj = 1 \n
       grenade_rgd5 = 2 \n
-#include "gameplay\character_items_2.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_2.xml"
+#include "gameplay\loadouts\character_items_2.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_2.xml"
 
-#include "gameplay\character_sell_weapons.xml"
+#include "gameplay\loadouts\character_sell_weapons.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -659,13 +659,13 @@
       ammo_9x19_fmj = 1 \n
       grenade_rgd5 = 2 \n
 
-#include "gameplay\character_items_2.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_2.xml"
+#include "gameplay\loadouts\character_items_2.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_2.xml"
 
-#include "gameplay\character_sell_weapons.xml"
+#include "gameplay\loadouts\character_sell_weapons.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -692,12 +692,12 @@
       ammo_9x18_fmj = 1 \n
       grenade_rgd5 = 2 \n
 
-#include "gameplay\character_items_2.xml"
-#include "gameplay\character_drugs_2.xml"
+#include "gameplay\loadouts\character_items_2.xml"
+#include "gameplay\loadouts\character_drugs_2.xml"
 
-#include "gameplay\character_sell_weapons.xml"
+#include "gameplay\loadouts\character_sell_weapons.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -723,13 +723,13 @@
       wpn_pm = 1 \n
       ammo_9x18_fmj = 1 \n
       grenade_rgd5 = 2 \n
-#include "gameplay\character_items_2.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_2.xml"
+#include "gameplay\loadouts\character_items_2.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_2.xml"
 
-#include "gameplay\character_sell_weapons.xml"
+#include "gameplay\loadouts\character_sell_weapons.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -756,13 +756,13 @@
       ammo_9x19_pbp = 1 \n
       grenade_rgd5 = 2 \n
 
-#include "gameplay\character_items_2.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_2.xml"
+#include "gameplay\loadouts\character_items_2.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_2.xml"
 
-#include "gameplay\character_sell_weapons.xml"
+#include "gameplay\loadouts\character_sell_weapons.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -789,13 +789,13 @@
       ammo_9x19_pbp = 1 \n
       grenade_rgd5 = 2 \n
 
-#include "gameplay\character_items_2.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_2.xml"
+#include "gameplay\loadouts\character_items_2.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_2.xml"
 
-#include "gameplay\character_sell_weapons.xml"
+#include "gameplay\loadouts\character_sell_weapons.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -824,14 +824,14 @@
       ammo_9x19_pbp = 1 \n
       grenade_f1 = 3 \n
 
-#include "gameplay\character_items_2.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_3.xml"
-#include "gameplay\character_drugs_mil.xml"
+#include "gameplay\loadouts\character_items_2.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_3.xml"
+#include "gameplay\loadouts\character_drugs_mil.xml"
 
-#include "gameplay\character_sell_weapons.xml"
+#include "gameplay\loadouts\character_sell_weapons.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -858,14 +858,14 @@
       ammo_11.43x23_fmj  = 1 \n
       grenade_f1 = 3 \n
 
-#include "gameplay\character_items_2.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_3.xml"
-#include "gameplay\character_drugs_mil.xml"
+#include "gameplay\loadouts\character_items_2.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_3.xml"
+#include "gameplay\loadouts\character_drugs_mil.xml"
 
-#include "gameplay\character_sell_weapons.xml"
+#include "gameplay\loadouts\character_sell_weapons.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -892,14 +892,14 @@
       ammo_9x19_pbp = 1 \n
       grenade_f1 = 3 \n
 
-#include "gameplay\character_items_2.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_3.xml"
-#include "gameplay\character_drugs_mil.xml"
+#include "gameplay\loadouts\character_items_2.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_3.xml"
+#include "gameplay\loadouts\character_drugs_mil.xml"
 
-#include "gameplay\character_sell_weapons.xml"
+#include "gameplay\loadouts\character_sell_weapons.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -926,14 +926,14 @@
       ammo_9x18_pmm = 1 \n
       grenade_f1 = 3 \n
 
-#include "gameplay\character_items_2.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_3.xml"
-#include "gameplay\character_drugs_mil.xml"
+#include "gameplay\loadouts\character_items_2.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_3.xml"
+#include "gameplay\loadouts\character_drugs_mil.xml"
 
-#include "gameplay\character_sell_weapons.xml"
+#include "gameplay\loadouts\character_sell_weapons.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -960,14 +960,14 @@
       ammo_11.43x23_fmj  = 1 \n
       grenade_f1 = 3 \n
 
-#include "gameplay\character_items_2.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_3.xml"
-#include "gameplay\character_drugs_mil.xml"
+#include "gameplay\loadouts\character_items_2.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_3.xml"
+#include "gameplay\loadouts\character_drugs_mil.xml"
 
-#include "gameplay\character_sell_weapons.xml"
+#include "gameplay\loadouts\character_sell_weapons.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -995,14 +995,14 @@
       wpn_sig220 = 1 \n
       ammo_11.43x23_hydro  = 1 \n
       grenade_f1 = 4 \n
-#include "gameplay\character_items_3.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_4.xml"
-#include "gameplay\character_drugs_mil.xml"
+#include "gameplay\loadouts\character_items_3.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_4.xml"
+#include "gameplay\loadouts\character_drugs_mil.xml"
 
-#include "gameplay\character_sell_weapons.xml"
+#include "gameplay\loadouts\character_sell_weapons.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -1028,14 +1028,14 @@
       wpn_usp = 1 \n
       ammo_11.43x23_hydro  = 1 \n
       grenade_f1 = 1 \n
-#include "gameplay\character_items_3.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_4.xml"
-#include "gameplay\character_drugs_mil.xml"
+#include "gameplay\loadouts\character_items_3.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_4.xml"
+#include "gameplay\loadouts\character_drugs_mil.xml"
 
-#include "gameplay\character_sell_weapons.xml"
+#include "gameplay\loadouts\character_sell_weapons.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -1062,14 +1062,14 @@
       ammo_11.43x23_hydro  = 1 \n
       grenade_f1 = 4 \n
 
-#include "gameplay\character_items_3.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_4.xml"
-#include "gameplay\character_drugs_mil.xml"
+#include "gameplay\loadouts\character_items_3.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_4.xml"
+#include "gameplay\loadouts\character_drugs_mil.xml"
 
-#include "gameplay\character_sell_weapons.xml"
+#include "gameplay\loadouts\character_sell_weapons.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -1095,14 +1095,14 @@
       wpn_usp = 1 \n
       ammo_11.43x23_hydro  = 1 \n
 
-#include "gameplay\character_items_3.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_4.xml"
-#include "gameplay\character_drugs_mil.xml"
+#include "gameplay\loadouts\character_items_3.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_4.xml"
+#include "gameplay\loadouts\character_drugs_mil.xml"
 
-#include "gameplay\character_sell_weapons.xml"
+#include "gameplay\loadouts\character_sell_weapons.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -1130,14 +1130,14 @@
       ammo_11.43x23_hydro  = 1 \n
       grenade_f1 = 4 \n
 
-#include "gameplay\character_items_3.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_4.xml"
-#include "gameplay\character_drugs_mil.xml"
+#include "gameplay\loadouts\character_items_3.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_4.xml"
+#include "gameplay\loadouts\character_drugs_mil.xml"
 
-#include "gameplay\character_sell_weapons.xml"
+#include "gameplay\loadouts\character_sell_weapons.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -1164,14 +1164,14 @@
       ammo_11.43x23_hydro  = 1 \n
       grenade_f1 = 4 \n
 
-#include "gameplay\character_items_3.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_4.xml"
-#include "gameplay\character_drugs_mil.xml"
+#include "gameplay\loadouts\character_items_3.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_4.xml"
+#include "gameplay\loadouts\character_drugs_mil.xml"
 
-#include "gameplay\character_sell_weapons.xml"
+#include "gameplay\loadouts\character_sell_weapons.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -1203,11 +1203,11 @@
       wpn_hpsa \n
       ammo_9x19_fmj = 1 \n
 
-#include "gameplay\character_items.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs.xml"
+#include "gameplay\loadouts\character_items.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -1233,11 +1233,11 @@
       ammo_9x19_fmj = 1 \n
       ammo_9x18_fmj = 1 \n
 
-#include "gameplay\character_items.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs.xml"
+#include "gameplay\loadouts\character_items.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -1263,11 +1263,11 @@
 	  ammo_5.56x45_ss190 = 1 \n
       ammo_9x18_fmj = 1 \n
 
-#include "gameplay\character_items.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs.xml"
+#include "gameplay\loadouts\character_items.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -1291,11 +1291,11 @@
       wpn_hpsa \n
       ammo_9x19_fmj = 1 \n
 
-#include "gameplay\character_items.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs.xml"
+#include "gameplay\loadouts\character_items.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -1321,11 +1321,11 @@
       ammo_9x19_fmj = 1 \n
       ammo_9x18_fmj = 1 \n
 
-#include "gameplay\character_items.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs.xml"
+#include "gameplay\loadouts\character_items.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -1351,11 +1351,11 @@
       wpn_pm \n
       ammo_9x18_fmj = 1 \n
 
-#include "gameplay\character_items.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs.xml"
+#include "gameplay\loadouts\character_items.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -1384,11 +1384,11 @@
       ammo_9x19_fmj = 1 \n
       grenade_rgd5 = 1 \n
 
-#include "gameplay\character_items.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_2.xml"
+#include "gameplay\loadouts\character_items.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_2.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -1415,11 +1415,11 @@
       ammo_9x19_fmj = 1 \n
       grenade_rgd5 = 1 \n
 
-#include "gameplay\character_items.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_2.xml"
+#include "gameplay\loadouts\character_items.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_2.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -1446,11 +1446,11 @@
       ammo_11.43x23_fmj  = 1 \n
       grenade_rgd5 = 1 \n
 
-#include "gameplay\character_items.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_2.xml"
+#include "gameplay\loadouts\character_items.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_2.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -1477,11 +1477,11 @@
       ammo_9x19_fmj = 1 \n
       grenade_rgd5 = 1 \n
 
-#include "gameplay\character_items.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_2.xml"
+#include "gameplay\loadouts\character_items.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_2.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -1508,11 +1508,11 @@
       ammo_9x19_fmj = 1 \n
       grenade_rgd5 = 1 \n
 
-#include "gameplay\character_items.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_2.xml"
+#include "gameplay\loadouts\character_items.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_2.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -1539,11 +1539,11 @@
       ammo_9x19_fmj = 1 \n
       grenade_rgd5 = 1 \n
 
-#include "gameplay\character_items.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_2.xml"
+#include "gameplay\loadouts\character_items.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_2.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -1569,11 +1569,11 @@
       wpn_colt1911 \n
       ammo_11.43x23_fmj  = 1 \n
       grenade_rgd5 = 1 \n
-#include "gameplay\character_items.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_2.xml"
+#include "gameplay\loadouts\character_items.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_2.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -1600,11 +1600,11 @@
       ammo_9x19_fmj = 1 \n
       grenade_rgd5 = 1 \n
 
-#include "gameplay\character_items.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_2.xml"
+#include "gameplay\loadouts\character_items.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_2.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -1633,13 +1633,13 @@
       ammo_11.43x23_fmj  = 1 \n
       grenade_rgd5 = 2 \n
 
-#include "gameplay\character_items_2.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_2.xml"
+#include "gameplay\loadouts\character_items_2.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_2.xml"
 
-#include "gameplay\character_sell_weapons.xml"
+#include "gameplay\loadouts\character_sell_weapons.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -1666,11 +1666,11 @@
       ammo_9x19_pbp = 1 \n
       grenade_rgd5 = 2 \n
 
-#include "gameplay\character_items_2.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_2.xml"
+#include "gameplay\loadouts\character_items_2.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_2.xml"
 	</supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -1697,13 +1697,13 @@
       ammo_9x19_pbp = 1 \n
       grenade_rgd5 = 2 \n
 
-#include "gameplay\character_items_2.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_2.xml"
+#include "gameplay\loadouts\character_items_2.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_2.xml"
 
-#include "gameplay\character_sell_weapons.xml"
+#include "gameplay\loadouts\character_sell_weapons.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -1729,12 +1729,12 @@
       wpn_hpsa \n
       grenade_rgd5 = 2 \n
 
-#include "gameplay\character_items_2.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_2.xml"
+#include "gameplay\loadouts\character_items_2.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_2.xml"
 
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -1761,11 +1761,11 @@
       ammo_9x19_pbp = 1 \n
       grenade_rgd5 = 2 \n
 
-#include "gameplay\character_items_2.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_2.xml"
+#include "gameplay\loadouts\character_items_2.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_2.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -1792,11 +1792,11 @@
       ammo_11.43x23_fmj  = 1 \n
       grenade_rgd5 = 2 \n
 
-#include "gameplay\character_items_2.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_2.xml"
+#include "gameplay\loadouts\character_items_2.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_2.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -1824,14 +1824,14 @@
       wpn_colt1911 = 1 \n
       ammo_11.43x23_fmj = 1 \n
 
-#include "gameplay\character_items_2.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_3.xml"
-#include "gameplay\character_drugs_sci.xml"
+#include "gameplay\loadouts\character_items_2.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_3.xml"
+#include "gameplay\loadouts\character_drugs_sci.xml"
 
-#include "gameplay\character_sell_weapons.xml"
+#include "gameplay\loadouts\character_sell_weapons.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -1858,14 +1858,14 @@
       ammo_11.43x23_fmj = 1 \n
       grenade_f1 = 3 \n
 
-#include "gameplay\character_items_2.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_3.xml"
-#include "gameplay\character_drugs_sci.xml"
+#include "gameplay\loadouts\character_items_2.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_3.xml"
+#include "gameplay\loadouts\character_drugs_sci.xml"
 
-#include "gameplay\character_sell_weapons.xml"
+#include "gameplay\loadouts\character_sell_weapons.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -1892,14 +1892,14 @@
       ammo_9x19_pbp = 1 \n
       grenade_f1 = 3 \n
 
-#include "gameplay\character_items_2.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_3.xml"
-#include "gameplay\character_drugs_sci.xml"
+#include "gameplay\loadouts\character_items_2.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_3.xml"
+#include "gameplay\loadouts\character_drugs_sci.xml"
 
-#include "gameplay\character_sell_weapons.xml"
+#include "gameplay\loadouts\character_sell_weapons.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -1926,14 +1926,14 @@
       ammo_11.43x23_fmj = 1 \n
       grenade_f1 = 3 \n
 
-#include "gameplay\character_items_2.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_3.xml"
-#include "gameplay\character_drugs_sci.xml"
+#include "gameplay\loadouts\character_items_2.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_3.xml"
+#include "gameplay\loadouts\character_drugs_sci.xml"
 
-#include "gameplay\character_sell_weapons.xml"
+#include "gameplay\loadouts\character_sell_weapons.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -1959,14 +1959,14 @@
       wpn_mp5 = 1, silencer \n
       ammo_9x19_pbp = 1 \n
 
-#include "gameplay\character_items_2.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_3.xml"
-#include "gameplay\character_drugs_sci.xml"
+#include "gameplay\loadouts\character_items_2.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_3.xml"
+#include "gameplay\loadouts\character_drugs_sci.xml"
 
-#include "gameplay\character_sell_weapons.xml"
+#include "gameplay\loadouts\character_sell_weapons.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -1992,14 +1992,14 @@
       wpn_colt1911 = 1 \n
       ammo_11.43x23_fmj = 1 \n
 
-#include "gameplay\character_items_2.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_3.xml"
-#include "gameplay\character_drugs_sci.xml"
+#include "gameplay\loadouts\character_items_2.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_3.xml"
+#include "gameplay\loadouts\character_drugs_sci.xml"
 
-#include "gameplay\character_sell_weapons.xml"
+#include "gameplay\loadouts\character_sell_weapons.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -2027,14 +2027,14 @@
       wpn_sig220 = 1, silencer \n
       ammo_11.43x23_hydro = 1 \n
 
-#include "gameplay\character_items_3.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_4.xml"
-#include "gameplay\character_drugs_sci.xml"
+#include "gameplay\loadouts\character_items_3.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_4.xml"
+#include "gameplay\loadouts\character_drugs_sci.xml"
 
-#include "gameplay\character_sell_weapons.xml"
+#include "gameplay\loadouts\character_sell_weapons.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -2060,14 +2060,14 @@
 	  wpn_walther \n
       ammo_9x19_pbp = 1 \n
 
-#include "gameplay\character_items_3.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_4.xml"
-#include "gameplay\character_drugs_sci.xml"
+#include "gameplay\loadouts\character_items_3.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_4.xml"
+#include "gameplay\loadouts\character_drugs_sci.xml"
 
-#include "gameplay\character_sell_weapons.xml"
+#include "gameplay\loadouts\character_sell_weapons.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -2094,14 +2094,14 @@
       ammo_11.43x23_hydro = 1 \n
       grenade_f1 = 4 \n
 
-#include "gameplay\character_items_3.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_4.xml"
-#include "gameplay\character_drugs_sci.xml"
+#include "gameplay\loadouts\character_items_3.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_4.xml"
+#include "gameplay\loadouts\character_drugs_sci.xml"
 
-#include "gameplay\character_sell_weapons.xml"
+#include "gameplay\loadouts\character_sell_weapons.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -2128,14 +2128,14 @@
       ammo_11.43x23_hydro = 1 \n
       grenade_f1 = 1 \n
 
-#include "gameplay\character_items_3.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_4.xml"
-#include "gameplay\character_drugs_sci.xml"
+#include "gameplay\loadouts\character_items_3.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_4.xml"
+#include "gameplay\loadouts\character_drugs_sci.xml"
 
-#include "gameplay\character_sell_weapons.xml"
+#include "gameplay\loadouts\character_sell_weapons.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -2162,14 +2162,14 @@
       ammo_11.43x23_hydro = 1 \n
       grenade_f1 = 1 \n
 
-#include "gameplay\character_items_3.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_4.xml"
-#include "gameplay\character_drugs_sci.xml"
+#include "gameplay\loadouts\character_items_3.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_4.xml"
+#include "gameplay\loadouts\character_drugs_sci.xml"
 
-#include "gameplay\character_sell_weapons.xml"
+#include "gameplay\loadouts\character_sell_weapons.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -2196,14 +2196,14 @@
       ammo_11.43x23_hydro = 1 \n
       grenade_f1 = 1 \n
 
-#include "gameplay\character_items_3.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_4.xml"
-#include "gameplay\character_drugs_sci.xml"
+#include "gameplay\loadouts\character_items_3.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_4.xml"
+#include "gameplay\loadouts\character_drugs_sci.xml"
 
-#include "gameplay\character_sell_weapons.xml"
+#include "gameplay\loadouts\character_sell_weapons.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -2234,11 +2234,11 @@
 	  wpn_pm  \n
       ammo_9x18_fmj = 1 \n
 
-#include "gameplay\character_items_nd.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs.xml"
+#include "gameplay\loadouts\character_items_nd.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -2264,11 +2264,11 @@
       wpn_fort \n
       ammo_9x18_fmj = 1 \n
 
-#include "gameplay\character_items_nd.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs.xml"
+#include "gameplay\loadouts\character_items_nd.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -2293,11 +2293,11 @@
 	  wpn_pm  \n
       ammo_9x18_fmj = 1 \n
 
-#include "gameplay\character_items_nd.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs.xml"
+#include "gameplay\loadouts\character_items_nd.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -2326,11 +2326,11 @@
       ammo_9x19_fmj = 1 \n
       grenade_rgd5 = 1 \n
 
-#include "gameplay\character_items_nd.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs.xml"
+#include "gameplay\loadouts\character_items_nd.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -2357,11 +2357,11 @@
       ammo_9x19_fmj = 1 \n
       grenade_rgd5 = 1 \n
 
-#include "gameplay\character_items_nd.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs.xml"
+#include "gameplay\loadouts\character_items_nd.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -2388,11 +2388,11 @@
       ammo_9x18_fmj = 1 \n
       grenade_rgd5 = 1 \n
 
-#include "gameplay\character_items_nd.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs.xml"
+#include "gameplay\loadouts\character_items_nd.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -2419,11 +2419,11 @@
       ammo_9x18_fmj = 1 \n
       grenade_rgd5 = 1 \n
 
-#include "gameplay\character_items_nd.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs.xml"
+#include "gameplay\loadouts\character_items_nd.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -2450,11 +2450,11 @@
       ammo_9x19_fmj = 1 \n
       grenade_rgd5 = 1 \n
 
-#include "gameplay\character_items_nd.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs.xml"
+#include "gameplay\loadouts\character_items_nd.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -2481,11 +2481,11 @@
       ammo_9x18_fmj = 1 \n
       grenade_rgd5 = 1 \n
 
-#include "gameplay\character_items_nd.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs.xml"
+#include "gameplay\loadouts\character_items_nd.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -2513,12 +2513,12 @@
       ammo_9x19_fmj = 1 \n
       grenade_rgd5 = 2 \n
 
-#include "gameplay\character_items_nd.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_2.xml"
+#include "gameplay\loadouts\character_items_nd.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_2.xml"
 
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -2545,12 +2545,12 @@
       ammo_9x19_fmj = 1 \n
       grenade_rgd5 = 2 \n
 
-#include "gameplay\character_items_nd.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_2.xml"
+#include "gameplay\loadouts\character_items_nd.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_2.xml"
 
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -2576,12 +2576,12 @@
 	  wpn_beretta \n
       grenade_rgd5 = 2 \n
 
-#include "gameplay\character_items_nd.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_2.xml"
+#include "gameplay\loadouts\character_items_nd.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_2.xml"
 
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -2608,12 +2608,12 @@
       ammo_9x19_pbp = 1 \n
       grenade_rgd5 = 2 \n
 
-#include "gameplay\character_items_nd.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_2.xml"
+#include "gameplay\loadouts\character_items_nd.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_2.xml"
 
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -2640,12 +2640,12 @@
 	  ammo_11.43x23_fmj  = 1 \n
       grenade_rgd5 = 2 \n
 
-#include "gameplay\character_items_nd.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_2.xml"
+#include "gameplay\loadouts\character_items_nd.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_2.xml"
 
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -2672,12 +2672,12 @@
       ammo_9x19_pbp = 1 \n
       grenade_rgd5 = 2 \n
 
-#include "gameplay\character_items_nd.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_2.xml"
+#include "gameplay\loadouts\character_items_nd.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_2.xml"
 
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -2705,13 +2705,13 @@
       ammo_11.43x23_fmj  = 1 \n
       grenade_f1 = 3 \n
 
-#include "gameplay\character_items_nd.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_2.xml"
+#include "gameplay\loadouts\character_items_nd.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_2.xml"
 
-#include "gameplay\character_sell_weapons.xml"
+#include "gameplay\loadouts\character_sell_weapons.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -2738,13 +2738,13 @@
       ammo_9x19_pbp  = 1 \n
       grenade_f1 = 3 \n
 
-#include "gameplay\character_items_nd.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_2.xml"
+#include "gameplay\loadouts\character_items_nd.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_2.xml"
 
-#include "gameplay\character_sell_weapons.xml"
+#include "gameplay\loadouts\character_sell_weapons.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -2771,13 +2771,13 @@
       ammo_9x19_pbp = 1 \n
       grenade_f1 = 3 \n
 
-#include "gameplay\character_items_nd.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_2.xml"
+#include "gameplay\loadouts\character_items_nd.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_2.xml"
 
-#include "gameplay\character_sell_weapons.xml"
+#include "gameplay\loadouts\character_sell_weapons.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -2804,13 +2804,13 @@
       ammo_11.43x23_fmj  = 1 \n
       grenade_f1 = 3 \n
 
-#include "gameplay\character_items_nd.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_2.xml"
+#include "gameplay\loadouts\character_items_nd.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_2.xml"
 
-#include "gameplay\character_sell_weapons.xml"
+#include "gameplay\loadouts\character_sell_weapons.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -2837,13 +2837,13 @@
       ammo_9x19_pbp = 1 \n
       grenade_f1 = 3 \n
 
-#include "gameplay\character_items_nd.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_2.xml"
+#include "gameplay\loadouts\character_items_nd.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_2.xml"
 
-#include "gameplay\character_sell_weapons.xml"
+#include "gameplay\loadouts\character_sell_weapons.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -2872,13 +2872,13 @@
       ammo_11.43x23_fmj = 1 \n
       grenade_f1 = 4 \n
 
-#include "gameplay\character_items_nd.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_2.xml"
+#include "gameplay\loadouts\character_items_nd.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_2.xml"
 
-#include "gameplay\character_sell_weapons.xml"
+#include "gameplay\loadouts\character_sell_weapons.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -2905,13 +2905,13 @@
       ammo_11.43x23_hydro = 1 \n
       grenade_f1 = 4 \n
 
-#include "gameplay\character_items_nd.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_2.xml"
+#include "gameplay\loadouts\character_items_nd.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_2.xml"
 
-#include "gameplay\character_sell_weapons.xml"
+#include "gameplay\loadouts\character_sell_weapons.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
  </specific_character>
 
@@ -2938,13 +2938,13 @@
       ammo_11.43x23_fmj = 1 \n
       grenade_f1 = 4 \n
 
-#include "gameplay\character_items_nd.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_2.xml"
+#include "gameplay\loadouts\character_items_nd.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_2.xml"
 
-#include "gameplay\character_sell_weapons.xml"
+#include "gameplay\loadouts\character_sell_weapons.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
 </specific_character>
 
@@ -2971,13 +2971,13 @@
       ammo_11.43x23_hydro = 1 \n
       grenade_f1 = 4 \n
 
-#include "gameplay\character_items_nd.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_2.xml"
+#include "gameplay\loadouts\character_items_nd.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_2.xml"
 
-#include "gameplay\character_sell_weapons.xml"
+#include "gameplay\loadouts\character_sell_weapons.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
 </specific_character>
 
@@ -3004,13 +3004,13 @@
       ammo_11.43x23_hydro = 1 \n
       grenade_f1 = 4 \n
 
-#include "gameplay\character_items_nd.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_2.xml"
+#include "gameplay\loadouts\character_items_nd.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_2.xml"
 
-#include "gameplay\character_sell_weapons.xml"
+#include "gameplay\loadouts\character_sell_weapons.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -3042,11 +3042,11 @@
       wpn_hpsa \n
       ammo_9x19_fmj = 1 \n
 
-#include "gameplay\character_items_nd.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs.xml"
+#include "gameplay\loadouts\character_items_nd.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -3073,11 +3073,11 @@
       wpn_hpsa \n
       ammo_9x19_fmj = 1 \n
 
-#include "gameplay\character_items_nd.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs.xml"
+#include "gameplay\loadouts\character_items_nd.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -3106,11 +3106,11 @@
       wpn_hpsa \n
       grenade_rgd5 = 1 \n
 
-#include "gameplay\character_items_nd.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_2.xml"
+#include "gameplay\loadouts\character_items_nd.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_2.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -3138,11 +3138,11 @@
       ammo_9x19_fmj = 1 \n
       grenade_rgd5 = 1 \n
 
-#include "gameplay\character_items_nd.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_2.xml"
+#include "gameplay\loadouts\character_items_nd.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_2.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -3170,11 +3170,11 @@
       ammo_9x19_fmj = 1 \n
       grenade_rgd5 = 1 \n
 
-#include "gameplay\character_items_nd.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_2.xml"
+#include "gameplay\loadouts\character_items_nd.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_2.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -3204,11 +3204,11 @@
       ammo_11.43x23_fmj  = 1 \n
       grenade_rgd5 = 2 \n
 
-#include "gameplay\character_items_nd.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_3.xml"
+#include "gameplay\loadouts\character_items_nd.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_3.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -3236,11 +3236,11 @@
       ammo_9x19_pbp = 1 \n
       grenade_rgd5 = 2 \n
 
-#include "gameplay\character_items_nd.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_3.xml"
+#include "gameplay\loadouts\character_items_nd.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_3.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -3268,11 +3268,11 @@
       ammo_9x19_pbp = 1 \n
       grenade_rgd5 = 2 \n
 
-#include "gameplay\character_items_nd.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_3.xml"
+#include "gameplay\loadouts\character_items_nd.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_3.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -3300,11 +3300,11 @@
       ammo_11.43x23_fmj  = 1 \n
 	  grenade_rgd5 = 2 \n
 
-#include "gameplay\character_items_nd.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_3.xml"
+#include "gameplay\loadouts\character_items_nd.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_3.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -3331,11 +3331,11 @@
       wpn_sig220 = 1, silencer \n
       ammo_11.43x23_fmj  = 1 \n
 
-#include "gameplay\character_items_nd.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_3.xml"
+#include "gameplay\loadouts\character_items_nd.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_3.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -3364,11 +3364,11 @@
       ammo_11.43x23_fmj  = 1 \n
       grenade_rgd5 = 2 \n
 
-#include "gameplay\character_items_nd.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_3.xml"
+#include "gameplay\loadouts\character_items_nd.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_3.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -3398,13 +3398,13 @@
       ammo_11.43x23_hydro = 1 \n
       grenade_f1 = 3 \n
 
-#include "gameplay\character_items_nd.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_3.xml"
-#include "gameplay\character_drugs_sci.xml"
-#include "gameplay\character_drugs_mil.xml"
+#include "gameplay\loadouts\character_items_nd.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_3.xml"
+#include "gameplay\loadouts\character_drugs_sci.xml"
+#include "gameplay\loadouts\character_drugs_mil.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -3432,13 +3432,13 @@
       ammo_11.43x23_fmj = 1 \n
       grenade_f1 = 3 \n
 
-#include "gameplay\character_items_nd.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_3.xml"
-#include "gameplay\character_drugs_sci.xml"
-#include "gameplay\character_drugs_mil.xml"
+#include "gameplay\loadouts\character_items_nd.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_3.xml"
+#include "gameplay\loadouts\character_drugs_sci.xml"
+#include "gameplay\loadouts\character_drugs_mil.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -3467,13 +3467,13 @@
       ammo_11.43x23_hydro = 1 \n
       grenade_f1 = 3 \n
 
-#include "gameplay\character_items_nd.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_3.xml"
-#include "gameplay\character_drugs_sci.xml"
-#include "gameplay\character_drugs_mil.xml"
+#include "gameplay\loadouts\character_items_nd.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_3.xml"
+#include "gameplay\loadouts\character_drugs_sci.xml"
+#include "gameplay\loadouts\character_drugs_mil.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -3501,13 +3501,13 @@
       ammo_11.43x23_hydro = 1 \n
       grenade_f1 = 3 \n
 
-#include "gameplay\character_items_nd.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_3.xml"
-#include "gameplay\character_drugs_sci.xml"
-#include "gameplay\character_drugs_mil.xml"
+#include "gameplay\loadouts\character_items_nd.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_3.xml"
+#include "gameplay\loadouts\character_drugs_sci.xml"
+#include "gameplay\loadouts\character_drugs_mil.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -3535,13 +3535,13 @@
       ammo_11.43x23_hydro = 1 \n
       grenade_f1 = 3 \n
 
-#include "gameplay\character_items_nd.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_3.xml"
-#include "gameplay\character_drugs_sci.xml"
-#include "gameplay\character_drugs_mil.xml"
+#include "gameplay\loadouts\character_items_nd.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_3.xml"
+#include "gameplay\loadouts\character_drugs_sci.xml"
+#include "gameplay\loadouts\character_drugs_mil.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -3569,13 +3569,13 @@
       ammo_11.43x23_hydro = 1 \n
       grenade_f1 = 3 \n
 
-#include "gameplay\character_items_nd.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_3.xml"
-#include "gameplay\character_drugs_sci.xml"
-#include "gameplay\character_drugs_mil.xml"
+#include "gameplay\loadouts\character_items_nd.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_3.xml"
+#include "gameplay\loadouts\character_drugs_sci.xml"
+#include "gameplay\loadouts\character_drugs_mil.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -3605,13 +3605,13 @@
       ammo_11.43x23_hydro = 1 \n
       grenade_f1 = 4 \n
 
-#include "gameplay\character_items_nd.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_4.xml"
-#include "gameplay\character_drugs_sci.xml"
-#include "gameplay\character_drugs_mil.xml"
+#include "gameplay\loadouts\character_items_nd.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_4.xml"
+#include "gameplay\loadouts\character_drugs_sci.xml"
+#include "gameplay\loadouts\character_drugs_mil.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -3639,13 +3639,13 @@
       ammo_11.43x23_hydro = 1 \n
       grenade_f1 = 4 \n
 
-#include "gameplay\character_items_nd.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_4.xml"
-#include "gameplay\character_drugs_sci.xml"
-#include "gameplay\character_drugs_mil.xml"
+#include "gameplay\loadouts\character_items_nd.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_4.xml"
+#include "gameplay\loadouts\character_drugs_sci.xml"
+#include "gameplay\loadouts\character_drugs_mil.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -3679,11 +3679,11 @@
       wpn_pm = 1 \n
       ammo_9x18_fmj = 1 \n
 
-#include "gameplay\character_items.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs.xml"
+#include "gameplay\loadouts\character_items.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -3710,11 +3710,11 @@
       wpn_pm = 1 \n
       ammo_9x18_fmj = 1 \n
 
-#include "gameplay\character_items.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs.xml"
+#include "gameplay\loadouts\character_items.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -3741,11 +3741,11 @@
       wpn_fort = 1 \n
       ammo_9x18_fmj = 1 \n
 
-#include "gameplay\character_items.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs.xml"
+#include "gameplay\loadouts\character_items.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -3772,11 +3772,11 @@
       wpn_pm = 1 \n
       ammo_9x18_fmj = 1 \n
 
-#include "gameplay\character_items.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs.xml"
+#include "gameplay\loadouts\character_items.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -3806,11 +3806,11 @@
       ammo_9x18_fmj = 1 \n
       grenade_rgd5 = 1 \n
 
-#include "gameplay\character_items.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_2.xml"
+#include "gameplay\loadouts\character_items.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_2.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -3838,11 +3838,11 @@
       ammo_9x19_fmj = 1 \n
       grenade_rgd5 = 2 \n
 
-#include "gameplay\character_items.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_2.xml"
+#include "gameplay\loadouts\character_items.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_2.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -3870,11 +3870,11 @@
       ammo_9x18_fmj = 1 \n
       grenade_rgd5 = 1 \n
 
-#include "gameplay\character_items.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_2.xml"
+#include "gameplay\loadouts\character_items.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_2.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -3902,11 +3902,11 @@
       ammo_9x18_fmj = 1 \n
       grenade_rgd5 = 1 \n
 
-#include "gameplay\character_items.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_2.xml"
+#include "gameplay\loadouts\character_items.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_2.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -3935,11 +3935,11 @@
       ammo_9x18_fmj = 1 \n
       grenade_rgd5 = 1 \n
 
-#include "gameplay\character_items.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_2.xml"
+#include "gameplay\loadouts\character_items.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_2.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -3967,11 +3967,11 @@
       ammo_9x19_fmj = 1 \n
       grenade_rgd5 = 1 \n
 
-#include "gameplay\character_items.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_2.xml"
+#include "gameplay\loadouts\character_items.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_2.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -3998,11 +3998,11 @@
       wpn_hpsa \n
       grenade_rgd5 = 1 \n
 
-#include "gameplay\character_items.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_2.xml"
+#include "gameplay\loadouts\character_items.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_2.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -4030,11 +4030,11 @@
       ammo_9x18_fmj = 1 \n
       grenade_rgd5 = 1 \n
 
-#include "gameplay\character_items.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_2.xml"
+#include "gameplay\loadouts\character_items.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_2.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -4062,11 +4062,11 @@
       ammo_9x19_fmj = 1 \n
       grenade_rgd5 = 1 \n
 
-#include "gameplay\character_items.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_2.xml"
+#include "gameplay\loadouts\character_items.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_2.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -4094,11 +4094,11 @@
       ammo_9x19_fmj = 1 \n
       grenade_rgd5 = 1 \n
 
-#include "gameplay\character_items.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_2.xml"
+#include "gameplay\loadouts\character_items.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_2.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -4128,12 +4128,12 @@
       ammo_9x19_fmj = 1 \n
       grenade_rgd5 = 2 \n
 
-#include "gameplay\character_items_2.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_2.xml"
+#include "gameplay\loadouts\character_items_2.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_2.xml"
 
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -4161,12 +4161,12 @@
       ammo_11.43x23_fmj = 1 \n
       grenade_rgd5 = 2 \n
 
-#include "gameplay\character_items_2.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_2.xml"
+#include "gameplay\loadouts\character_items_2.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_2.xml"
 
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -4194,12 +4194,12 @@
       ammo_9x19_fmj = 1 \n
       grenade_rgd5 = 2 \n
 
-#include "gameplay\character_items_2.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_2.xml"
+#include "gameplay\loadouts\character_items_2.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_2.xml"
 
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -4227,12 +4227,12 @@
       ammo_9x18_fmj = 1 \n
       grenade_rgd5 = 2 \n
 
-#include "gameplay\character_items_2.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_2.xml"
+#include "gameplay\loadouts\character_items_2.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_2.xml"
 
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -4260,12 +4260,12 @@
       ammo_9x19_pbp = 1 \n
       grenade_rgd5 = 2 \n
 
-#include "gameplay\character_items_2.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_2.xml"
+#include "gameplay\loadouts\character_items_2.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_2.xml"
 
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -4293,12 +4293,12 @@
       ammo_9x19_pbp = 1 \n
       grenade_rgd5 = 2 \n
 
-#include "gameplay\character_items_2.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_2.xml"
+#include "gameplay\loadouts\character_items_2.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_2.xml"
 
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -4326,12 +4326,12 @@
       ammo_11.43x23_fmj = 1 \n
       grenade_rgd5 = 2 \n
 
-#include "gameplay\character_items_2.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_2.xml"
+#include "gameplay\loadouts\character_items_2.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_2.xml"
 
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -4359,12 +4359,12 @@
       ammo_9x19_pbp = 1 \n
       grenade_rgd5 = 2 \n
 
-#include "gameplay\character_items_2.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_2.xml"
+#include "gameplay\loadouts\character_items_2.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_2.xml"
 
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -4395,12 +4395,12 @@
       ammo_11.43x23_fmj = 1 \n
       grenade_rgd5 = 2 \n
 
-#include "gameplay\character_items_2.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_2.xml"
+#include "gameplay\loadouts\character_items_2.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_2.xml"
 
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -4428,12 +4428,12 @@
       ammo_12x76_zhekan = 1 \n
 	  grenade_rgd5 = 2 \n
 
-#include "gameplay\character_items_2.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_2.xml"
+#include "gameplay\loadouts\character_items_2.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_2.xml"
 
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -4463,14 +4463,14 @@
       ammo_11.43x23_fmj = 1 \n
       grenade_f1 = 3 \n
 
-#include "gameplay\character_items_2.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_3.xml"
-#include "gameplay\character_drugs_sci.xml"
+#include "gameplay\loadouts\character_items_2.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_3.xml"
+#include "gameplay\loadouts\character_drugs_sci.xml"
 
-#include "gameplay\character_sell_weapons.xml"
+#include "gameplay\loadouts\character_sell_weapons.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -4498,14 +4498,14 @@
       ammo_11.43x23_hydro = 1 \n
       grenade_f1 = 3 \n
 
-#include "gameplay\character_items_2.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_3.xml"
-#include "gameplay\character_drugs_sci.xml"
+#include "gameplay\loadouts\character_items_2.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_3.xml"
+#include "gameplay\loadouts\character_drugs_sci.xml"
 
-#include "gameplay\character_sell_weapons.xml"
+#include "gameplay\loadouts\character_sell_weapons.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -4533,14 +4533,14 @@
       ammo_11.43x23_hydro = 1 \n
       grenade_f1 = 3 \n
 
-#include "gameplay\character_items_2.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_3.xml"
-#include "gameplay\character_drugs_sci.xml"
+#include "gameplay\loadouts\character_items_2.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_3.xml"
+#include "gameplay\loadouts\character_drugs_sci.xml"
 
-#include "gameplay\character_sell_weapons.xml"
+#include "gameplay\loadouts\character_sell_weapons.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -4570,14 +4570,14 @@
       ammo_11.43x23_fmj = 1 \n
       grenade_f1 = 2 \n
 
-#include "gameplay\character_items_2.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_3.xml"
-#include "gameplay\character_drugs_sci.xml"
+#include "gameplay\loadouts\character_items_2.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_3.xml"
+#include "gameplay\loadouts\character_drugs_sci.xml"
 
-#include "gameplay\character_sell_weapons.xml"
+#include "gameplay\loadouts\character_sell_weapons.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -4605,14 +4605,14 @@
       ammo_11.43x23_hydro = 1 \n
       grenade_f1 = 3 \n
 
-#include "gameplay\character_items_2.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_3.xml"
-#include "gameplay\character_drugs_sci.xml"
+#include "gameplay\loadouts\character_items_2.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_3.xml"
+#include "gameplay\loadouts\character_drugs_sci.xml"
 
-#include "gameplay\character_sell_weapons.xml"
+#include "gameplay\loadouts\character_sell_weapons.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -4640,14 +4640,14 @@
       ammo_11.43x23_fmj = 1 \n
       grenade_f1 = 3 \n
 
-#include "gameplay\character_items_2.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_3.xml"
-#include "gameplay\character_drugs_sci.xml"
+#include "gameplay\loadouts\character_items_2.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_3.xml"
+#include "gameplay\loadouts\character_drugs_sci.xml"
 
-#include "gameplay\character_sell_weapons.xml"
+#include "gameplay\loadouts\character_sell_weapons.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -4675,14 +4675,14 @@
       ammo_11.43x23_hydro = 1 \n
       grenade_f1 = 3 \n
 
-#include "gameplay\character_items_2.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_3.xml"
-#include "gameplay\character_drugs_sci.xml"
+#include "gameplay\loadouts\character_items_2.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_3.xml"
+#include "gameplay\loadouts\character_drugs_sci.xml"
 
-#include "gameplay\character_sell_weapons.xml"
+#include "gameplay\loadouts\character_sell_weapons.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -4710,14 +4710,14 @@
       ammo_11.43x23_hydro = 1 \n
       grenade_f1 = 3 \n
 
-#include "gameplay\character_items_2.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_3.xml"
-#include "gameplay\character_drugs_sci.xml"
+#include "gameplay\loadouts\character_items_2.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_3.xml"
+#include "gameplay\loadouts\character_drugs_sci.xml"
 
-#include "gameplay\character_sell_weapons.xml"
+#include "gameplay\loadouts\character_sell_weapons.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -4745,14 +4745,14 @@
       ammo_11.43x23_hydro = 1 \n
       grenade_f1 = 3 \n
 
-#include "gameplay\character_items_2.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_3.xml"
-#include "gameplay\character_drugs_sci.xml"
+#include "gameplay\loadouts\character_items_2.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_3.xml"
+#include "gameplay\loadouts\character_drugs_sci.xml"
 
-#include "gameplay\character_sell_weapons.xml"
+#include "gameplay\loadouts\character_sell_weapons.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -4780,14 +4780,14 @@
       ammo_11.43x23_hydro = 1 \n
       grenade_f1 = 3 \n
 
-#include "gameplay\character_items_2.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_3.xml"
-#include "gameplay\character_drugs_sci.xml"
+#include "gameplay\loadouts\character_items_2.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_3.xml"
+#include "gameplay\loadouts\character_drugs_sci.xml"
 
-#include "gameplay\character_sell_weapons.xml"
+#include "gameplay\loadouts\character_sell_weapons.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -4817,14 +4817,14 @@
       ammo_11.43x23_hydro = 1 \n
       grenade_f1 = 4 \n
 
-#include "gameplay\character_items_3.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_4.xml"
-#include "gameplay\character_drugs_sci.xml"
+#include "gameplay\loadouts\character_items_3.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_4.xml"
+#include "gameplay\loadouts\character_drugs_sci.xml"
 
-#include "gameplay\character_sell_weapons.xml"
+#include "gameplay\loadouts\character_sell_weapons.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -4852,14 +4852,14 @@
       ammo_11.43x23_hydro = 1 \n
       grenade_f1 = 4 \n
 
-#include "gameplay\character_items_3.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_4.xml"
-#include "gameplay\character_drugs_sci.xml"
+#include "gameplay\loadouts\character_items_3.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_4.xml"
+#include "gameplay\loadouts\character_drugs_sci.xml"
 
-#include "gameplay\character_sell_weapons.xml"
+#include "gameplay\loadouts\character_sell_weapons.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -4888,14 +4888,14 @@
       ammo_11.43x23_hydro = 1 \n
       grenade_f1 = 4 \n
 
-#include "gameplay\character_items_3.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_4.xml"
-#include "gameplay\character_drugs_sci.xml"
+#include "gameplay\loadouts\character_items_3.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_4.xml"
+#include "gameplay\loadouts\character_drugs_sci.xml"
 
-#include "gameplay\character_sell_weapons.xml"
+#include "gameplay\loadouts\character_sell_weapons.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -4925,14 +4925,14 @@
       ammo_12x76_zhekan = 1 \n
       grenade_f1 = 4 \n
 
-#include "gameplay\character_items_3.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_4.xml"
-#include "gameplay\character_drugs_sci.xml"
+#include "gameplay\loadouts\character_items_3.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_4.xml"
+#include "gameplay\loadouts\character_drugs_sci.xml"
 
-#include "gameplay\character_sell_weapons.xml"
+#include "gameplay\loadouts\character_sell_weapons.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -4961,11 +4961,11 @@
       wpn_pm \n
       ammo_9x18_fmj = 1 \n
 
-#include "gameplay\character_items_nd.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs.xml"
+#include "gameplay\loadouts\character_items_nd.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -4992,11 +4992,11 @@
       ammo_9x18_fmj = 1 \n
       grenade_rgd5 = 1 \n
 
-#include "gameplay\character_items_nd.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs.xml"
+#include "gameplay\loadouts\character_items_nd.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -5025,11 +5025,11 @@
       ammo_9x18_fmj = 1 \n
       grenade_rgd5 = 2 \n
 
-#include "gameplay\character_items_nd.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs.xml"
+#include "gameplay\loadouts\character_items_nd.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -5056,11 +5056,11 @@
       ammo_9x18_fmj = 1 \n
       grenade_rgd5 = 2 \n
 
-#include "gameplay\character_items_nd.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs.xml"
+#include "gameplay\loadouts\character_items_nd.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -5089,11 +5089,11 @@
       ammo_9x18_fmj = 1 \n
       grenade_f1 = 3 \n
 
-#include "gameplay\character_items_nd.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs.xml"
+#include "gameplay\loadouts\character_items_nd.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -5122,11 +5122,11 @@
       ammo_9x18_fmj = 1 \n
       grenade_f1 = 4 \n
 
-#include "gameplay\character_items_nd.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs.xml"
+#include "gameplay\loadouts\character_items_nd.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -5153,11 +5153,11 @@
       ammo_9x18_fmj = 1 \n
       grenade_f1 = 4 \n
 
-#include "gameplay\character_items_nd.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs.xml"
+#include "gameplay\loadouts\character_items_nd.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -5184,11 +5184,11 @@
       ammo_9x18_fmj = 1 \n
       grenade_f1 = 4 \n
 
-#include "gameplay\character_items_nd.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs.xml"
+#include "gameplay\loadouts\character_items_nd.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -5216,11 +5216,11 @@
       wpn_fort = 1 \n
       ammo_9x18_fmj = 1 \n
 
-#include "gameplay\character_items_nd.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs.xml"
+#include "gameplay\loadouts\character_items_nd.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -5252,11 +5252,11 @@
 	  wpn_fort \n
       ammo_9x18_fmj = 1 \n
 
-#include "gameplay\character_items_monolith.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs.xml"
+#include "gameplay\loadouts\character_items_monolith.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 
 #include "gameplay\character_dialogs.xml"
   </specific_character>
@@ -5283,11 +5283,11 @@
 	  wpn_pm \n
       ammo_9x18_fmj = 1 \n
 
-#include "gameplay\character_items_monolith.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs.xml"
+#include "gameplay\loadouts\character_items_monolith.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 
 #include "gameplay\character_dialogs.xml"
   </specific_character>
@@ -5314,11 +5314,11 @@
 	  wpn_fort \n
       ammo_9x18_fmj = 1 \n
 
-#include "gameplay\character_items_monolith.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs.xml"
+#include "gameplay\loadouts\character_items_monolith.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 
 #include "gameplay\character_dialogs.xml"
   </specific_character>
@@ -5348,11 +5348,11 @@
       ammo_9x18_fmj = 1 \n
 	  grenade_rgd5 = 1 \n
 
-#include "gameplay\character_items_monolith.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_2.xml"
+#include "gameplay\loadouts\character_items_monolith.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_2.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -5379,11 +5379,11 @@
       ammo_9x18_fmj = 1 \n
 	  grenade_rgd5 = 1 \n
 
-#include "gameplay\character_items_monolith.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_2.xml"
+#include "gameplay\loadouts\character_items_monolith.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_2.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -5410,11 +5410,11 @@
       ammo_9x18_fmj = 1 \n
 	  grenade_rgd5 = 1 \n
 
-#include "gameplay\character_items_monolith.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_2.xml"
+#include "gameplay\loadouts\character_items_monolith.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_2.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -5441,11 +5441,11 @@
       ammo_9x18_fmj = 1 \n
 	  grenade_rgd5 = 1 \n
 
-#include "gameplay\character_items_monolith.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_2.xml"
+#include "gameplay\loadouts\character_items_monolith.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_2.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -5474,11 +5474,11 @@
       ammo_9x19_fmj = 1 \n
       grenade_rgd5 = 2 \n
 
-#include "gameplay\character_items_monolith.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_3.xml"
+#include "gameplay\loadouts\character_items_monolith.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_3.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
 	</specific_character>
 
@@ -5505,11 +5505,11 @@
       ammo_9x18_pmm = 1 \n
       grenade_rgd5 = 2 \n
 
-#include "gameplay\character_items_monolith.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_3.xml"
+#include "gameplay\loadouts\character_items_monolith.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_3.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
 	</specific_character>
 
@@ -5536,11 +5536,11 @@
       ammo_9x18_fmj = 1 \n
       grenade_rgd5 = 2 \n
 
-#include "gameplay\character_items_monolith.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_3.xml"
+#include "gameplay\loadouts\character_items_monolith.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_3.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
 	</specific_character>
 
@@ -5567,11 +5567,11 @@
       ammo_9x19_fmj = 1 \n
       grenade_rgd5 = 2 \n
 
-#include "gameplay\character_items_monolith.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_2.xml"
+#include "gameplay\loadouts\character_items_monolith.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_2.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
 	</specific_character>
 
@@ -5598,11 +5598,11 @@
       ammo_9x19_fmj = 1 \n
       grenade_rgd5 = 2 \n
 
-#include "gameplay\character_items_monolith.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_2.xml"
+#include "gameplay\loadouts\character_items_monolith.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_2.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
 	</specific_character>
 
@@ -5629,11 +5629,11 @@
       ammo_9x18_pmm = 1 \n
       grenade_rgd5 = 2 \n
 
-#include "gameplay\character_items_monolith.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_2.xml"
+#include "gameplay\loadouts\character_items_monolith.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_2.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
 	</specific_character>
 
@@ -5660,11 +5660,11 @@
       ammo_9x18_pmm = 1 \n
       grenade_rgd5 = 2 \n
 
-#include "gameplay\character_items_monolith.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_2.xml"
+#include "gameplay\loadouts\character_items_monolith.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_2.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
 	</specific_character>
 
@@ -5691,11 +5691,11 @@
       ammo_9x18_pmm = 1 \n
       grenade_rgd5 = 2 \n
 
-#include "gameplay\character_items_monolith.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_2.xml"
+#include "gameplay\loadouts\character_items_monolith.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_2.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
 	</specific_character>
 
@@ -5724,13 +5724,13 @@
       ammo_9x19_pbp = 1 \n
       grenade_f1 = 3 \n
 
-#include "gameplay\character_items_monolith.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_3.xml"
-#include "gameplay\character_drugs_sci.xml"
-#include "gameplay\character_drugs_mil.xml"
+#include "gameplay\loadouts\character_items_monolith.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_3.xml"
+#include "gameplay\loadouts\character_drugs_sci.xml"
+#include "gameplay\loadouts\character_drugs_mil.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -5757,13 +5757,13 @@
       ammo_11.43x23_fmj = 1 \n
       grenade_f1 = 3 \n
 
-#include "gameplay\character_items_monolith.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_3.xml"
-#include "gameplay\character_drugs_sci.xml"
-#include "gameplay\character_drugs_mil.xml"
+#include "gameplay\loadouts\character_items_monolith.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_3.xml"
+#include "gameplay\loadouts\character_drugs_sci.xml"
+#include "gameplay\loadouts\character_drugs_mil.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -5790,13 +5790,13 @@
       ammo_11.43x23_hydro = 1 \n
       grenade_f1 = 3 \n
 
-#include "gameplay\character_items_monolith.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_3.xml"
-#include "gameplay\character_drugs_sci.xml"
-#include "gameplay\character_drugs_mil.xml"
+#include "gameplay\loadouts\character_items_monolith.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_3.xml"
+#include "gameplay\loadouts\character_drugs_sci.xml"
+#include "gameplay\loadouts\character_drugs_mil.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -5822,13 +5822,13 @@
       wpn_usp = 1 \n
       ammo_11.43x23_fmj = 1 \n
 
-#include "gameplay\character_items_monolith.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_3.xml"
-#include "gameplay\character_drugs_sci.xml"
-#include "gameplay\character_drugs_mil.xml"
+#include "gameplay\loadouts\character_items_monolith.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_3.xml"
+#include "gameplay\loadouts\character_drugs_sci.xml"
+#include "gameplay\loadouts\character_drugs_mil.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -5855,13 +5855,13 @@
       ammo_11.43x23_hydro = 1 \n
       grenade_f1 = 3 \n
 
-#include "gameplay\character_items_monolith.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_3.xml"
-#include "gameplay\character_drugs_sci.xml"
-#include "gameplay\character_drugs_mil.xml"
+#include "gameplay\loadouts\character_items_monolith.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_3.xml"
+#include "gameplay\loadouts\character_drugs_sci.xml"
+#include "gameplay\loadouts\character_drugs_mil.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -5889,13 +5889,13 @@
       wpn_sig220 = 1, silencer \n
       ammo_11.43x23_hydro = 1 \n
 
-#include "gameplay\character_items_monolith.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_4.xml"
-#include "gameplay\character_drugs_sci.xml"
-#include "gameplay\character_drugs_mil.xml"
+#include "gameplay\loadouts\character_items_monolith.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_4.xml"
+#include "gameplay\loadouts\character_drugs_sci.xml"
+#include "gameplay\loadouts\character_drugs_mil.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -5922,13 +5922,13 @@
       ammo_11.43x23_hydro = 1 \n
       grenade_f1 = 4 \n
 
-#include "gameplay\character_items_monolith.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_4.xml"
-#include "gameplay\character_drugs_sci.xml"
-#include "gameplay\character_drugs_mil.xml"
+#include "gameplay\loadouts\character_items_monolith.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_4.xml"
+#include "gameplay\loadouts\character_drugs_sci.xml"
+#include "gameplay\loadouts\character_drugs_mil.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -5955,13 +5955,13 @@
       ammo_11.43x23_hydro = 1 \n
       grenade_f1 = 4 \n
 
-#include "gameplay\character_items_monolith.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_4.xml"
-#include "gameplay\character_drugs_sci.xml"
-#include "gameplay\character_drugs_mil.xml"
+#include "gameplay\loadouts\character_items_monolith.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_4.xml"
+#include "gameplay\loadouts\character_drugs_sci.xml"
+#include "gameplay\loadouts\character_drugs_mil.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -5988,13 +5988,13 @@
       ammo_11.43x23_hydro = 1 \n
       grenade_f1 = 4 \n
 
-#include "gameplay\character_items_monolith.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_4.xml"
-#include "gameplay\character_drugs_sci.xml"
-#include "gameplay\character_drugs_mil.xml"
+#include "gameplay\loadouts\character_items_monolith.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_4.xml"
+#include "gameplay\loadouts\character_drugs_sci.xml"
+#include "gameplay\loadouts\character_drugs_mil.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -6027,11 +6027,11 @@
       		wpn_fort \n
       		ammo_9x18_fmj = 1 \n
 
-#include "gameplay\character_items_nl.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs.xml"
+#include "gameplay\loadouts\character_items_nl.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs.xml"
     </supplies>
-#include "gameplay\character_criticals_1.xml"
+#include "gameplay\loadouts\character_criticals_1.xml"
 #include "gameplay\character_dialogs.xml"
 </specific_character>
 
@@ -6058,11 +6058,11 @@
       		wpn_pm \n
       		ammo_9x18_fmj = 1 \n
 
-#include "gameplay\character_items_nl.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs.xml"
+#include "gameplay\loadouts\character_items_nl.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs.xml"
     </supplies>
-#include "gameplay\character_criticals_1.xml"
+#include "gameplay\loadouts\character_criticals_1.xml"
 #include "gameplay\character_dialogs.xml"
 </specific_character>
 
@@ -6089,11 +6089,11 @@
       		wpn_pm \n
       		ammo_9x18_fmj = 1 \n
 
-#include "gameplay\character_items_nl.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs.xml"
+#include "gameplay\loadouts\character_items_nl.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs.xml"
     </supplies>
-#include "gameplay\character_criticals_1.xml"
+#include "gameplay\loadouts\character_criticals_1.xml"
 #include "gameplay\character_dialogs.xml"
 </specific_character>
 
@@ -6121,11 +6121,11 @@
       		wpn_fort \n
       		ammo_9x18_fmj = 1 \n
 
-#include "gameplay\character_items_nl.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_2.xml"
+#include "gameplay\loadouts\character_items_nl.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_2.xml"
     </supplies>
-#include "gameplay\character_criticals_1.xml"
+#include "gameplay\loadouts\character_criticals_1.xml"
 #include "gameplay\character_dialogs.xml"
 </specific_character>
 
@@ -6152,11 +6152,11 @@
       		wpn_hpsa \n
       		ammo_9x19_fmj = 1 \n
 
-#include "gameplay\character_items_nl.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_2.xml"
+#include "gameplay\loadouts\character_items_nl.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_2.xml"
     </supplies>
-#include "gameplay\character_criticals_1.xml"
+#include "gameplay\loadouts\character_criticals_1.xml"
 #include "gameplay\character_dialogs.xml"
 </specific_character>
 
@@ -6182,11 +6182,11 @@
       		ammo_9x19_pbp = 1 \n
       		wpn_hpsa \n
 
-#include "gameplay\character_items_2_nl.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_2.xml"
+#include "gameplay\loadouts\character_items_2_nl.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_2.xml"
     </supplies>
-#include "gameplay\character_criticals_1.xml"
+#include "gameplay\loadouts\character_criticals_1.xml"
 #include "gameplay\character_dialogs.xml"
 </specific_character>
 
@@ -6213,11 +6213,11 @@
 			wpn_colt1911 \n
       		ammo_11.43x23_fmj = 1 \n
 
-#include "gameplay\character_items_2_nl.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_2.xml"
+#include "gameplay\loadouts\character_items_2_nl.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_2.xml"
     </supplies>
-#include "gameplay\character_criticals_1.xml"
+#include "gameplay\loadouts\character_criticals_1.xml"
 #include "gameplay\character_dialogs.xml"
 </specific_character>
 
@@ -6246,12 +6246,12 @@
 	  wpn_fort \n
       ammo_9x18_fmj = 1 \n
 
-#include "gameplay\character_items_nd_nl.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs.xml"
-#include "gameplay\character_drugs_mil.xml"
+#include "gameplay\loadouts\character_items_nd_nl.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs.xml"
+#include "gameplay\loadouts\character_drugs_mil.xml"
     </supplies>
-#include "gameplay\character_criticals_1.xml"
+#include "gameplay\loadouts\character_criticals_1.xml"
 #include "gameplay\character_dialogs.xml"
 </specific_character>
 
@@ -6278,12 +6278,12 @@
 	 	wpn_fort \n
      	ammo_9x18_pmm = 1 \n
 
-#include "gameplay\character_items_nd_nl.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs.xml"
-#include "gameplay\character_drugs_mil.xml"
+#include "gameplay\loadouts\character_items_nd_nl.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs.xml"
+#include "gameplay\loadouts\character_drugs_mil.xml"
     </supplies>
-#include "gameplay\character_criticals_1.xml"
+#include "gameplay\loadouts\character_criticals_1.xml"
 #include "gameplay\character_dialogs.xml"
 </specific_character>
 
@@ -6310,12 +6310,12 @@
 	wpn_fort \n
     ammo_9x18_pmm = 1 \n
 
-#include "gameplay\character_items_nd_nl.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs.xml"
-#include "gameplay\character_drugs_mil.xml"
+#include "gameplay\loadouts\character_items_nd_nl.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs.xml"
+#include "gameplay\loadouts\character_drugs_mil.xml"
     </supplies>
-#include "gameplay\character_criticals_1.xml"
+#include "gameplay\loadouts\character_criticals_1.xml"
 #include "gameplay\character_dialogs.xml"
 </specific_character>
 
@@ -6342,12 +6342,12 @@
 	 	wpn_fort \n
      	ammo_9x18_pmm = 1 \n
 
-#include "gameplay\character_items_nd_nl.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs.xml"
-#include "gameplay\character_drugs_mil.xml"
+#include "gameplay\loadouts\character_items_nd_nl.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs.xml"
+#include "gameplay\loadouts\character_drugs_mil.xml"
     </supplies>
-#include "gameplay\character_criticals_1.xml"
+#include "gameplay\loadouts\character_criticals_1.xml"
 #include "gameplay\character_dialogs.xml"
 </specific_character>
 
@@ -6376,13 +6376,13 @@
       wpn_walther \n
       ammo_9x19_pbp = 1 \n
 
-#include "gameplay\character_items_3_nl.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_4.xml"
-#include "gameplay\character_drugs_sci.xml"
+#include "gameplay\loadouts\character_items_3_nl.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_4.xml"
+#include "gameplay\loadouts\character_drugs_sci.xml"
 
     </supplies>
-#include "gameplay\character_criticals_1.xml"
+#include "gameplay\loadouts\character_criticals_1.xml"
 #include "gameplay\character_dialogs.xml"
 </specific_character>
 
@@ -6410,13 +6410,13 @@
       wpn_usp = 1 \n
       ammo_11.43x23_hydro = 1 \n
 
-#include "gameplay\character_items_3_nl.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_4.xml"
-#include "gameplay\character_drugs_sci.xml"
+#include "gameplay\loadouts\character_items_3_nl.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_4.xml"
+#include "gameplay\loadouts\character_drugs_sci.xml"
 
     </supplies>
-#include "gameplay\character_criticals_1.xml"
+#include "gameplay\loadouts\character_criticals_1.xml"
 #include "gameplay\character_dialogs.xml"
 </specific_character>
 
@@ -6444,13 +6444,13 @@
       wpn_sig220  \n
       ammo_11.43x23_fmj = 1 \n
 
-#include "gameplay\character_items_3_nl.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_4.xml"
-#include "gameplay\character_drugs_sci.xml"
+#include "gameplay\loadouts\character_items_3_nl.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_4.xml"
+#include "gameplay\loadouts\character_drugs_sci.xml"
 
     </supplies>
-#include "gameplay\character_criticals_1.xml"
+#include "gameplay\loadouts\character_criticals_1.xml"
 #include "gameplay\character_dialogs.xml"
 </specific_character>
 
@@ -6478,69 +6478,14 @@
       wpn_colt1911 \n
       ammo_11.43x23_hydro = 1 \n
 
-#include "gameplay\character_items_3_nl.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_4.xml"
-#include "gameplay\character_drugs_sci.xml"
+#include "gameplay\loadouts\character_items_3_nl.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_4.xml"
+#include "gameplay\loadouts\character_drugs_sci.xml"
 
     </supplies>
-#include "gameplay\character_criticals_1.xml"
+#include "gameplay\loadouts\character_criticals_1.xml"
 #include "gameplay\character_dialogs.xml"
 </specific_character>
-
-		<!--  test_killer  -->
-
-  <specific_character id="test_killer" team_default = "1">
-    <name>GENERATE_NAME_stalker</name>
-    <icon>ui_inGame2_merc_2</icon>
-    <map_icon x="1" y="0"></map_icon>
-    <bio>Опытный сталкер. Детальная информация отсутствует.</bio>
-
-    <class>test_killer</class>
-    <community>killer</community> <terrain_sect>stalker_terrain</terrain_sect>
-    <snd_config>characters_voice\human_01\stalker\</snd_config>
-
-    <rank>60</rank>
-	<money min="1500" max="2500" infinitive="0"/>
-    <reputation>0</reputation>
-
-    <visual>actors\stalker_merc\stalker_merc_2</visual>
-    <supplies>
-      [spawn] \n
-
-    </supplies>
-#include "gameplay\character_criticals_4.xml"
-#include "gameplay\character_dialogs.xml"
-  </specific_character>
-
-  <specific_character id="test_silencer_character" team_default = "1">
-    <name>GENERATE_NAME_stalker</name>
-    <icon>ui_inGame2_merc_2</icon>
-    <map_icon x="1" y="0"></map_icon>
-    <bio>Опытный сталкер. Детальная информация отсутствует.</bio>
-
-    <class>test_silencer_character</class>
-    <community>killer</community> <terrain_sect>stalker_terrain</terrain_sect>
-    <snd_config>characters_voice\human_01\stalker\</snd_config>
-
-    <rank>35</rank>
-    <reputation>0</reputation>
-	<money min="1000" max="2000" infinitive="0"/>
-    <visual>actors\stalker_merc\stalker_merc_2</visual>
-    <supplies>
-      [spawn] \n
-
-      wpn_lr300 = 1, silencer \n
-      ammo_5.56x45_ss190 = 1 \n
-      wpn_colt1911 \n
-      ammo_11.43x23_fmj  = 1 \n
-      grenade_rgd5 = 1 \n
-#include "gameplay\character_items.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_2.xml"
-    </supplies>
-#include "gameplay\character_criticals_4.xml"
-#include "gameplay\character_dialogs.xml"
-  </specific_character>
 
 </xml>
