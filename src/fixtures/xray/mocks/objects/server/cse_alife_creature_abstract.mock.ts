@@ -12,8 +12,12 @@ import {
  */
 export class MockServerAlifeCreatureAbstract extends MockAlifeDynamicObjectVisual {
   public m_smart_terrain_id = MAX_U16;
+
   public force_set_goodwill = jest.fn();
+
   public smart_terrain_task_activate = jest.fn();
+
+  public on_death(): void {}
 }
 
 /**

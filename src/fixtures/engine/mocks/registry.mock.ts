@@ -35,3 +35,10 @@ export function resetManagers(): void {
 export function resetOfflineObjects(): void {
   registry.offlineObjects = new LuaTable();
 }
+
+/**
+ * Reset story objects registry state.
+ */
+export function resetStoryObjects(): void {
+  registry.storyLink = { sidById: new LuaTable(), idBySid: new LuaTable() };
+}

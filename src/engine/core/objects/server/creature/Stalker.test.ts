@@ -1,18 +1,31 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 
-import { IStoredOfflineObject, registry } from "@/engine/core/database";
+import { IStoredOfflineObject, registerSimulator, registry } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
+import { SimulationBoardManager } from "@/engine/core/managers/simulation";
 import { Stalker } from "@/engine/core/objects/server/creature/Stalker";
+import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain";
+import { Squad } from "@/engine/core/objects/server/squad";
 import { MAX_U16 } from "@/engine/lib/constants/memory";
 import { NIL } from "@/engine/lib/constants/words";
 import { AnyObject } from "@/engine/lib/types";
-import { resetManagers, resetOfflineObjects } from "@/fixtures/engine";
-import { EPacketDataType, mockClientGameObject, MockNetProcessor } from "@/fixtures/xray";
+import { resetManagers, resetOfflineObjects, resetStoryObjects } from "@/fixtures/engine";
+import {
+  EPacketDataType,
+  mockClientGameObject,
+  mockIniFile,
+  MockNetProcessor,
+  mockServerAlifeHumanStalker,
+  mockServerAlifeOnlineOfflineGroup,
+  mockServerAlifeSmartZone,
+} from "@/fixtures/xray";
 
 describe("Stalker server object", () => {
   beforeEach(() => {
     resetManagers();
+    resetStoryObjects();
     resetOfflineObjects();
+    registerSimulator();
   });
 
   it("should correctly check can switch online", () => {
@@ -53,12 +66,30 @@ describe("Stalker server object", () => {
     const stalker: Stalker = new Stalker("stalker");
     const fn = jest.fn();
 
+    registry.offlineObjects = new LuaTable();
+
+    jest.spyOn(stalker, "spawn_ini").mockImplementation(() => {
+      return mockIniFile("test.ltx", {
+        story_object: {
+          story_id: "test_sid",
+        },
+      });
+    });
+
     eventsManager.registerCallback(EGameEvent.STALKER_REGISTER, fn);
 
     stalker.on_register();
 
     expect(fn).toHaveBeenCalledTimes(1);
     expect(fn).toHaveBeenCalledWith(stalker);
+
+    expect(registry.storyLink.sidById.get(stalker.id)).toBe("test_sid");
+    expect(registry.storyLink.idBySid.get("test_sid")).toBe(stalker.id);
+    expect(stalker.brain().can_choose_alife_tasks).toHaveBeenCalledWith(false);
+    expect(registry.offlineObjects.get(stalker.id)).toEqualLuaTables({
+      activeSection: null,
+      levelVertexId: null,
+    });
   });
 
   it("should correctly handle unregister", () => {
@@ -66,12 +97,51 @@ describe("Stalker server object", () => {
     const stalker: Stalker = new Stalker("stalker");
     const fn = jest.fn();
 
+    jest.spyOn(stalker, "spawn_ini").mockImplementation(() => {
+      return mockIniFile("test.ltx", {
+        story_object: {
+          story_id: "test_stalker_sid",
+        },
+      });
+    });
     eventsManager.registerCallback(EGameEvent.STALKER_UNREGISTER, fn);
 
+    stalker.on_register();
     stalker.on_unregister();
 
     expect(fn).toHaveBeenCalledTimes(1);
     expect(fn).toHaveBeenCalledWith(stalker);
+    expect(registry.offlineObjects.length()).toBe(0);
+    expect(registry.storyLink.sidById.length()).toBe(0);
+    expect(registry.storyLink.idBySid.length()).toBe(0);
+  });
+
+  it("should correctly handle register/unregister with smart terrain", () => {
+    const stalker: Stalker = new Stalker("stalker");
+    const smartTerrain: SmartTerrain = mockServerAlifeSmartZone({
+      name: <T>() => "test_smart_name" as T,
+    }) as SmartTerrain;
+
+    jest.spyOn(stalker, "spawn_ini").mockImplementation(() => {
+      return mockIniFile("test.ltx", {
+        logic: {
+          smart_terrain: "test_smart_name",
+        },
+      });
+    });
+
+    stalker.m_smart_terrain_id = smartTerrain.id;
+
+    smartTerrain.register_npc = jest.fn();
+    smartTerrain.unregister_npc = jest.fn();
+
+    SimulationBoardManager.getInstance().registerSmartTerrain(smartTerrain);
+
+    stalker.on_register();
+    stalker.on_unregister();
+
+    expect(smartTerrain.register_npc).toHaveBeenCalledWith(stalker);
+    expect(smartTerrain.unregister_npc).toHaveBeenCalledWith(stalker);
   });
 
   it("should correctly handle spawn", () => {
@@ -87,7 +157,44 @@ describe("Stalker server object", () => {
     expect(fn).toHaveBeenCalledWith(stalker);
   });
 
-  it.todo("should correctly handle death callback");
+  it("should correctly handle death callback", () => {
+    const stalker: Stalker = new Stalker("stalker");
+    const squad: Squad = mockServerAlifeOnlineOfflineGroup() as Squad;
+    const smartTerrain: SmartTerrain = mockServerAlifeSmartZone() as SmartTerrain;
+
+    smartTerrain.onObjectDeath = jest.fn();
+    squad.onSquadObjectDeath = jest.fn();
+
+    stalker.m_smart_terrain_id = smartTerrain.id;
+    stalker.group_id = squad.id;
+
+    stalker.on_death(mockServerAlifeHumanStalker());
+
+    expect(smartTerrain.onObjectDeath).toHaveBeenCalledTimes(1);
+    expect(smartTerrain.onObjectDeath).toHaveBeenCalledWith(stalker);
+    expect(squad.onSquadObjectDeath).toHaveBeenCalledTimes(1);
+    expect(squad.onSquadObjectDeath).toHaveBeenCalledWith(stalker);
+  });
+
+  it("should correctly handle death callback if squad or smart does not exist", () => {
+    const stalker: Stalker = new Stalker("stalker");
+    const squad: Squad = mockServerAlifeOnlineOfflineGroup() as Squad;
+    const smartTerrain: SmartTerrain = mockServerAlifeSmartZone() as SmartTerrain;
+
+    smartTerrain.onObjectDeath = jest.fn();
+    squad.onSquadObjectDeath = jest.fn();
+
+    stalker.m_smart_terrain_id = 65000;
+    stalker.group_id = 65001;
+
+    expect(() => stalker.on_death(mockServerAlifeHumanStalker())).toThrow("a");
+
+    stalker.m_smart_terrain_id = smartTerrain.id;
+    expect(() => stalker.on_death(mockServerAlifeHumanStalker())).toThrow("a");
+
+    stalker.group_id = squad.id;
+    expect(() => stalker.on_death(mockServerAlifeHumanStalker())).not.toThrow("a");
+  });
 
   it.todo("should correctly handle registration events with smart terrains");
 

@@ -55,3 +55,12 @@ export function softResetOfflineObject(
     registry.offlineObjects.set(objectId, state);
   }
 }
+
+/**
+ * Unregister offline object representation in database.
+ *
+ * @param objectId - game object ID to unregister offline representation
+ */
+export function unregisterOfflineObject(objectId: TNumberId): void {
+  registry.offlineObjects.delete(objectId);
+}
