@@ -68,8 +68,13 @@ describe("LevelChanger server class", () => {
 
     levelChanger.STATE_Write(mockNetPacket(netProcessor));
 
-    expect(netProcessor.writeDataOrder).toEqual([EPacketDataType.BOOLEAN, EPacketDataType.STRING, EPacketDataType.U16]);
-    expect(netProcessor.dataList).toEqual([false, "another", 2]);
+    expect(netProcessor.writeDataOrder).toEqual([
+      EPacketDataType.STRING,
+      EPacketDataType.BOOLEAN,
+      EPacketDataType.STRING,
+      EPacketDataType.U16,
+    ]);
+    expect(netProcessor.dataList).toEqual(["cse_alife_object", false, "another", 2]);
 
     const anotherLevelChanger: LevelChanger = new LevelChanger("test-section");
 

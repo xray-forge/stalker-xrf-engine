@@ -97,7 +97,7 @@ export class Stalker extends cse_alife_human_stalker {
   public override on_death(killer: ServerCreatureObject): void {
     super.on_death(killer);
 
-    logger.info("On stalker death:", this.name(), killer.id, killer?.name());
+    logger.info("Stalker death:", this.name(), killer.id, killer?.name());
 
     // Notify assigned smart terrain about abject death.
     const smartTerrainId: TNumberId = this.smart_terrain_id();
@@ -110,7 +110,7 @@ export class Stalker extends cse_alife_human_stalker {
     if (this.group_id !== MAX_U16) {
       const squad: Optional<Squad> = registry.simulator.object(this.group_id);
 
-      assert(squad, "There is no squad with ID [%s]", this.group_id);
+      assert(squad, "There is no squad with ID '%s'.", this.group_id);
 
       squad.onSquadObjectDeath(this);
     }
