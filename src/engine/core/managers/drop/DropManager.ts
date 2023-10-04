@@ -1,8 +1,9 @@
 import { level } from "xray16";
 
-import { DEATH_GENERIC_LTX, IRegistryObjectState, registry } from "@/engine/core/database";
+import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { AbstractManager } from "@/engine/core/managers/base/AbstractManager";
 import { IItemDropAmountDescriptor } from "@/engine/core/managers/drop/drop_types";
+import { DROP_MANAGER_CONFIG_LTX } from "@/engine/core/managers/drop/DropConfig";
 import { Stalker } from "@/engine/core/objects/server/creature/Stalker";
 import { abort } from "@/engine/core/utils/assertion";
 import { isArtefact, isGrenade, isWeapon } from "@/engine/core/utils/class_ids";
@@ -77,11 +78,11 @@ export class DropManager extends AbstractManager {
     for (const [community] of pairs(communities)) {
       const communityDrop: LuaTable<TInventoryItem, TProbability> = new LuaTable();
 
-      if (DEATH_GENERIC_LTX.section_exist(community)) {
-        const communityDropItemsCount: TCount = DEATH_GENERIC_LTX.line_count(community);
+      if (DROP_MANAGER_CONFIG_LTX.section_exist(community)) {
+        const communityDropItemsCount: TCount = DROP_MANAGER_CONFIG_LTX.line_count(community);
 
         for (const it of $range(0, communityDropItemsCount - 1)) {
-          const [, id, value] = DEATH_GENERIC_LTX.r_line(community, it, "", "");
+          const [, id, value] = DROP_MANAGER_CONFIG_LTX.r_line(community, it, "", "");
 
           communityDrop.set(id as TInventoryItem, 100 * tonumber(value)!);
         }
@@ -91,10 +92,10 @@ export class DropManager extends AbstractManager {
     }
 
     // Initialize dependent items relation.
-    const dependentItemsCount: number = DEATH_GENERIC_LTX.line_count(DropManager.DEPENDENT_ITEMS_LTX_SECTION);
+    const dependentItemsCount: number = DROP_MANAGER_CONFIG_LTX.line_count(DropManager.DEPENDENT_ITEMS_LTX_SECTION);
 
     for (const it of $range(0, dependentItemsCount - 1)) {
-      const [, id, value] = DEATH_GENERIC_LTX.r_line(DropManager.DEPENDENT_ITEMS_LTX_SECTION, it, "", "");
+      const [, id, value] = DROP_MANAGER_CONFIG_LTX.r_line(DropManager.DEPENDENT_ITEMS_LTX_SECTION, it, "", "");
       const itemDependencies: LuaTable<TStringId, boolean> = new LuaTable();
 
       const dependantItems: LuaArray<TStringId> = parseStringsList(value);
@@ -108,11 +109,13 @@ export class DropManager extends AbstractManager {
 
     // Initialize setting and multipliers based on level.
     // Enables level-based controls of current location drops and making some parts of the zone better in terms of drop.
-    const currentLevelNameSection: TSection = DEATH_GENERIC_LTX.section_exist(level.name()) ? level.name() : "default";
-    const levelSpecificDropsCount: number = DEATH_GENERIC_LTX.line_count(currentLevelNameSection);
+    const currentLevelNameSection: TSection = DROP_MANAGER_CONFIG_LTX.section_exist(level.name())
+      ? level.name()
+      : "default";
+    const levelSpecificDropsCount: number = DROP_MANAGER_CONFIG_LTX.line_count(currentLevelNameSection);
 
     for (const it of $range(0, levelSpecificDropsCount - 1)) {
-      const [, id, value] = DEATH_GENERIC_LTX.r_line(currentLevelNameSection, it, "", "");
+      const [, id, value] = DROP_MANAGER_CONFIG_LTX.r_line(currentLevelNameSection, it, "", "");
 
       this.itemsLevelDropMultiplayer.set(id as TLevel, tonumber(value)!);
     }
@@ -120,10 +123,10 @@ export class DropManager extends AbstractManager {
     // Initialize items drop count by selected game difficulty.
     const itemsDropSectionByDifficulty: TSection =
       DropManager.ITEM_COUNT_LTX_SECTION_BASE + level.get_game_difficulty();
-    const itemsDropCountByDifficulty: TCount = DEATH_GENERIC_LTX.line_count(itemsDropSectionByDifficulty);
+    const itemsDropCountByDifficulty: TCount = DROP_MANAGER_CONFIG_LTX.line_count(itemsDropSectionByDifficulty);
 
     for (const it of $range(0, itemsDropCountByDifficulty - 1)) {
-      const [, key, value] = DEATH_GENERIC_LTX.r_line(itemsDropSectionByDifficulty, it, "", "");
+      const [, key, value] = DROP_MANAGER_CONFIG_LTX.r_line(itemsDropSectionByDifficulty, it, "", "");
       const sectionDropCount: LuaArray<TProbability> = parseNumbersList(value);
 
       if (!sectionDropCount.has(1)) {
@@ -145,10 +148,10 @@ export class DropManager extends AbstractManager {
     }
 
     // Register items that should be kept.
-    const keepItemsSectionItemsCount: TCount = DEATH_GENERIC_LTX.line_count(DropManager.KEEP_ITEMS_LTX_SECTION);
+    const keepItemsSectionItemsCount: TCount = DROP_MANAGER_CONFIG_LTX.line_count(DropManager.KEEP_ITEMS_LTX_SECTION);
 
     for (const it of $range(0, keepItemsSectionItemsCount - 1)) {
-      const [, id, value] = DEATH_GENERIC_LTX.r_line(DropManager.KEEP_ITEMS_LTX_SECTION, it, "", "");
+      const [, id, value] = DROP_MANAGER_CONFIG_LTX.r_line(DropManager.KEEP_ITEMS_LTX_SECTION, it, "", "");
 
       if (value === TRUE) {
         this.itemsAlwaysKept.set(id, true);
