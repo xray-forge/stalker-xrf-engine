@@ -9,7 +9,6 @@ export const DYNAMIC_LTX_PREFIX: TLabel = "*";
 
 export const SYSTEM_INI: IniFile = system_ini();
 
-export const DEATH_GENERIC_LTX: IniFile = new ini_file("misc\\death_generic.ltx");
 export const DUMMY_LTX: IniFile = new ini_file("scripts\\dummy.ltx");
 export const DYNAMIC_WEATHER_GRAPHS: IniFile = new ini_file("environment\\dynamic_weather_graphs.ltx");
 export const GAME_LTX: IniFile = new ini_file("game.ltx");

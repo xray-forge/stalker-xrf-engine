@@ -3,7 +3,6 @@ import { game_graph, getFS, ini_file, time_global } from "xray16";
 import {
   closeLoadMarker,
   closeSaveMarker,
-  DEATH_GENERIC_LTX,
   DUMMY_LTX,
   getStoryIdByObjectId,
   IRegistryObjectState,
@@ -12,7 +11,9 @@ import {
   registry,
 } from "@/engine/core/database";
 import { AbstractManager } from "@/engine/core/managers/base/AbstractManager";
+import { deathConfig } from "@/engine/core/managers/death/DeathConfig";
 import { IReleaseDescriptor } from "@/engine/core/managers/death/release_body_types";
+import { dropConfig } from "@/engine/core/managers/drop/DropConfig";
 import { abort } from "@/engine/core/utils/assertion";
 import { isMonster, isStalker } from "@/engine/core/utils/class_ids";
 import { readIniString } from "@/engine/core/utils/ini";
@@ -33,7 +34,6 @@ import {
   TName,
   TNumberId,
   TSection,
-  TStringId,
   Vector,
 } from "@/engine/lib/types";
 
@@ -44,38 +44,14 @@ const logger: LuaLogger = new LuaLogger($filename);
  * Release the most further of them from time to time to keep up with limits.
  */
 export class ReleaseBodyManager extends AbstractManager {
-  public static readonly KEEP_ITEMS_LTX_SECTION: TSection = "keep_items";
-
-  public static readonly MAX_DISTANCE_SQR: number = 4_900; // 70 * 70
-  public static readonly IDLE_AFTER_DEATH: number = 40_000; // time to ignore clean up
-  public static readonly MAX_BODY_COUNT: number = 15;
-
   public readonly releaseObjectRegistry: LuaArray<IReleaseDescriptor> = new LuaTable();
-  public readonly keepItemsRegistry: LuaArray<TStringId> = new LuaTable();
-
-  /**
-   * todo: Description.
-   */
-  public override initialize(): void {
-    if (!DEATH_GENERIC_LTX.section_exist(ReleaseBodyManager.KEEP_ITEMS_LTX_SECTION)) {
-      abort("There is no section [keep_items] in death_generic.ltx");
-    }
-
-    const keepItemsSectionLinesCount: TCount = DEATH_GENERIC_LTX.line_count(ReleaseBodyManager.KEEP_ITEMS_LTX_SECTION);
-
-    for (const it of $range(0, keepItemsSectionLinesCount - 1)) {
-      const [result, section, value] = DEATH_GENERIC_LTX.r_line(ReleaseBodyManager.KEEP_ITEMS_LTX_SECTION, it, "", "");
-
-      table.insert(this.keepItemsRegistry, section);
-    }
-  }
 
   /**
    * todo: Description.
    */
   public addDeadBody(object: ClientObject): void {
     if (this.inspectionResult(object)) {
-      if (this.releaseObjectRegistry.length() > ReleaseBodyManager.MAX_BODY_COUNT) {
+      if (this.releaseObjectRegistry.length() > deathConfig.MAX_BODY_COUNT) {
         this.tryToReleaseCorpses();
       }
 
@@ -92,9 +68,9 @@ export class ReleaseBodyManager extends AbstractManager {
    * todo: Description.
    */
   public tryToReleaseCorpses(): void {
-    logger.info("Try to release dead bodies:", this.releaseObjectRegistry.length(), ReleaseBodyManager.MAX_BODY_COUNT);
+    logger.info("Try to release dead bodies:", this.releaseObjectRegistry.length(), deathConfig.MAX_BODY_COUNT);
 
-    const overflowCount: TCount = this.releaseObjectRegistry.length() - ReleaseBodyManager.MAX_BODY_COUNT;
+    const overflowCount: TCount = this.releaseObjectRegistry.length() - deathConfig.MAX_BODY_COUNT;
 
     for (const _ of $range(1, overflowCount)) {
       const positionInList: Optional<TIndex> = this.findNearestObjectToRelease(this.releaseObjectRegistry);
@@ -139,8 +115,8 @@ export class ReleaseBodyManager extends AbstractManager {
       return false;
     }
 
-    for (const [k] of this.keepItemsRegistry) {
-      if (object.object(this.keepItemsRegistry.get(k)) !== null) {
+    for (const [section] of dropConfig.ITEMS_KEEP) {
+      if (object.object(section)) {
         // logger.info("Ignore corpse release, contains keep item:", object.name(), k);
 
         return false;
@@ -182,7 +158,7 @@ export class ReleaseBodyManager extends AbstractManager {
     const actorPosition: Vector = registry.actor.position();
 
     let releaseObjectIndex: Optional<TIndex> = null;
-    let maximalDistance: number = ReleaseBodyManager.MAX_DISTANCE_SQR;
+    let maximalDistance: number = deathConfig.MAX_DISTANCE_SQR;
 
     for (const [index, releaseDescriptor] of releaseObjectsRegistry) {
       const object: Optional<ServerObject> = registry.simulator.object(releaseDescriptor.id);
@@ -194,7 +170,7 @@ export class ReleaseBodyManager extends AbstractManager {
         if (
           distanceToCorpse > maximalDistance &&
           (releaseDescriptor.diedAt === null ||
-            time_global() >= releaseDescriptor.diedAt + ReleaseBodyManager.IDLE_AFTER_DEATH)
+            time_global() >= releaseDescriptor.diedAt + deathConfig.IDLE_AFTER_DEATH)
         ) {
           maximalDistance = distanceToCorpse;
           releaseObjectIndex = index;
@@ -205,9 +181,6 @@ export class ReleaseBodyManager extends AbstractManager {
     return releaseObjectIndex;
   }
 
-  /**
-   * todo: Description.
-   */
   public override save(packet: NetPacket): void {
     openSaveMarker(packet, ReleaseBodyManager.name);
 
@@ -226,9 +199,6 @@ export class ReleaseBodyManager extends AbstractManager {
     closeSaveMarker(packet, ReleaseBodyManager.name);
   }
 
-  /**
-   * todo: Description.
-   */
   public override load(reader: NetProcessor): void {
     openLoadMarker(reader, ReleaseBodyManager.name);
 
