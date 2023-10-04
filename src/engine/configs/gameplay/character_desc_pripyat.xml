@@ -28,15 +28,15 @@
       grenade_f1 = 3 \n
 	  wpn_binoc = 1 \n
 
-#include "gameplay\character_food_army.xml"
-#include "gameplay\character_drugs_4.xml"
-#include "gameplay\character_drugs_mil.xml"
+#include "gameplay\loadouts\character_food_army.xml"
+#include "gameplay\loadouts\character_drugs_4.xml"
+#include "gameplay\loadouts\character_drugs_mil.xml"
 
     </supplies>
 		<actor_dialog>pri_a17_military_recon_squad_ambush_actor_ready</actor_dialog>
 		<actor_dialog>actor_break_dialog</actor_dialog>
 
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
   </specific_character>
 
 
@@ -67,14 +67,14 @@
       grenade_f1 = 2 \n
 	  wpn_binoc = 1 \n
 
-#include "gameplay\character_food_army.xml"
-#include "gameplay\character_drugs_4.xml"
-#include "gameplay\character_drugs_mil.xml"
+#include "gameplay\loadouts\character_food_army.xml"
+#include "gameplay\loadouts\character_drugs_4.xml"
+#include "gameplay\loadouts\character_drugs_mil.xml"
     </supplies>
 
 		<actor_dialog>actor_break_dialog</actor_dialog>
 
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
   </specific_character>
 
 
@@ -105,14 +105,14 @@
       grenade_f1 = 1 \n
 	  wpn_binoc = 1 \n
 
-#include "gameplay\character_food_army.xml"
-#include "gameplay\character_drugs_2.xml"
-#include "gameplay\character_drugs_mil.xml"
+#include "gameplay\loadouts\character_food_army.xml"
+#include "gameplay\loadouts\character_drugs_2.xml"
+#include "gameplay\loadouts\character_drugs_mil.xml"
     </supplies>
 
 		<actor_dialog>actor_break_dialog</actor_dialog>
 
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
   </specific_character>
 
 
@@ -143,14 +143,14 @@
       grenade_f1 = 2 \n
 	  wpn_binoc = 1 \n
 
-#include "gameplay\character_food_army.xml"
-#include "gameplay\character_drugs_2.xml"
-#include "gameplay\character_drugs_mil.xml"
+#include "gameplay\loadouts\character_food_army.xml"
+#include "gameplay\loadouts\character_drugs_2.xml"
+#include "gameplay\loadouts\character_drugs_mil.xml"
     </supplies>
 
 		<actor_dialog>actor_break_dialog</actor_dialog>
 
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
   </specific_character>
 
 	<!-- pri_a17_military_colonel_kovalski -->
@@ -181,11 +181,11 @@
 	  hand_radio \n
 	  wpn_binoc = 1 \n
 
-#include "gameplay\character_food_army.xml"
-#include "gameplay\character_drugs_2.xml"
-#include "gameplay\character_drugs_mil.xml"
+#include "gameplay\loadouts\character_food_army.xml"
+#include "gameplay\loadouts\character_drugs_2.xml"
+#include "gameplay\loadouts\character_drugs_mil.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 
 	<start_dialog>pri_a17_military_base_commander_start</start_dialog>
 
@@ -233,12 +233,12 @@
       ammo_11.43x23_fmj = 1 \n
       grenade_f1 = 1 \n
 
-#include "gameplay\character_items_nd.xml"
-#include "gameplay\character_food_army.xml"
-#include "gameplay\character_drugs_4.xml"
-#include "gameplay\character_drugs_sci.xml"
+#include "gameplay\loadouts\character_items_nd.xml"
+#include "gameplay\loadouts\character_food_army.xml"
+#include "gameplay\loadouts\character_drugs_4.xml"
+#include "gameplay\loadouts\character_drugs_sci.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
   </specific_character>
 
 	<!-- pri_a15_sokolov -->
@@ -268,11 +268,11 @@
       grenade_f1 = 1 \n
 	  wpn_binoc = 1 \n
 
-#include "gameplay\character_food_army.xml"
-#include "gameplay\character_drugs_2.xml"
-#include "gameplay\character_drugs_mil.xml"
+#include "gameplay\loadouts\character_food_army.xml"
+#include "gameplay\loadouts\character_drugs_2.xml"
+#include "gameplay\loadouts\character_drugs_mil.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 
 		<start_dialog>pri_a15_sokolov_start_dialog</start_dialog>
 		<actor_dialog>pri_a15_sokolov_where_from</actor_dialog>
@@ -317,11 +317,11 @@
       ammo_9x18_pmm = 1 \n
       grenade_f1 = 1 \n
 
-#include "gameplay\character_food_army.xml"
-#include "gameplay\character_drugs_2.xml"
-#include "gameplay\character_drugs_mil.xml"
+#include "gameplay\loadouts\character_food_army.xml"
+#include "gameplay\loadouts\character_drugs_2.xml"
+#include "gameplay\loadouts\character_drugs_mil.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 		<start_dialog>pri_a15_sokolov_start_dialog</start_dialog>
 		<actor_dialog>pri_a15_sokolov_pripyat_ready</actor_dialog>
 
@@ -358,11 +358,11 @@
       grenade_f1 = 1 \n
 	  wpn_binoc = 1 \n
 
-#include "gameplay\character_food_army.xml"
-#include "gameplay\character_drugs_2.xml"
-#include "gameplay\character_drugs_mil.xml"
+#include "gameplay\loadouts\character_food_army.xml"
+#include "gameplay\loadouts\character_drugs_2.xml"
+#include "gameplay\loadouts\character_drugs_mil.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 		<start_dialog>pri_a15_sokolov_start_dialog</start_dialog>
 		<actor_dialog>pri_a15_sokolov_pripyat_ready</actor_dialog>
 
@@ -402,14 +402,14 @@
       grenade_f1 = 1 \n
 	  wpn_binoc = 1 \n
 
-#include "gameplay\character_food_army.xml"
-#include "gameplay\character_drugs_2.xml"
-#include "gameplay\character_drugs_mil.xml"
+#include "gameplay\loadouts\character_food_army.xml"
+#include "gameplay\loadouts\character_drugs_2.xml"
+#include "gameplay\loadouts\character_drugs_mil.xml"
     </supplies>
 
 		<actor_dialog>actor_break_dialog</actor_dialog>
 
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 	</specific_character>
 
 	<specific_character id="pri_a22_military_skelja" team_default = "1">
@@ -438,14 +438,14 @@
       grenade_f1 = 1 \n
 	  wpn_binoc = 1 \n
 
-#include "gameplay\character_food_army.xml"
-#include "gameplay\character_drugs_2.xml"
-#include "gameplay\character_drugs_mil.xml"
+#include "gameplay\loadouts\character_food_army.xml"
+#include "gameplay\loadouts\character_drugs_2.xml"
+#include "gameplay\loadouts\character_drugs_mil.xml"
     </supplies>
 
 	<actor_dialog>actor_break_dialog</actor_dialog>
 
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 	</specific_character>
 
 	<specific_character id="pri_a22_military_yarmoshuk" team_default = "1">
@@ -475,14 +475,14 @@
 	  pri_a25_explosive_charge_item = 1 \n
 	  wpn_binoc = 1 \n
 
-#include "gameplay\character_food_army.xml"
-#include "gameplay\character_drugs.xml"
-#include "gameplay\character_drugs_mil.xml"
+#include "gameplay\loadouts\character_food_army.xml"
+#include "gameplay\loadouts\character_drugs.xml"
+#include "gameplay\loadouts\character_drugs_mil.xml"
     </supplies>
 
 	<actor_dialog>actor_break_dialog</actor_dialog>
 
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 	</specific_character>
 
 
@@ -512,14 +512,14 @@
       ammo_9x18_pmm = 1 \n
       grenade_f1 = 1 \n
 
-#include "gameplay\character_items.xml"
-#include "gameplay\character_food_army.xml"
-#include "gameplay\character_drugs.xml"
+#include "gameplay\loadouts\character_items.xml"
+#include "gameplay\loadouts\character_food_army.xml"
+#include "gameplay\loadouts\character_drugs.xml"
     </supplies>
 
 	<actor_dialog>actor_break_dialog</actor_dialog>
 
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
   </specific_character>
 
 	<!-- pri_a15_military_recon_1 -->
@@ -548,13 +548,13 @@
       ammo_9x18_pmm = 1 \n
       grenade_f1 = 2 \n
 
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs.xml"
     </supplies>
 
 	<actor_dialog>actor_break_dialog</actor_dialog>
 
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
   </specific_character>
 
 	<!-- pri_a15_military_recon_2 -->
@@ -583,13 +583,13 @@
       ammo_9x18_pmm = 1 \n
       grenade_f1 = 2 \n
 
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs.xml"
     </supplies>
 
 	<actor_dialog>actor_break_dialog</actor_dialog>
 
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
   </specific_character>
 
 	<!-- pri_a15_military_recon_3 -->
@@ -617,13 +617,13 @@
 	  wpn_fort \n
       ammo_9x18_pmm = 1 \n
 
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs.xml"
     </supplies>
 
 	<actor_dialog>actor_break_dialog</actor_dialog>
 
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
   </specific_character>
 
 	<specific_character id="pri_a21_sentry_lieutenant_stecenko" team_default = "1">
@@ -650,14 +650,14 @@
 	  wpn_binoc = 1 \n
 	  device_torch = 1
 
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs.xml"
-#include "gameplay\character_drugs_mil.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs.xml"
+#include "gameplay\loadouts\character_drugs_mil.xml"
     </supplies>
 
 	<actor_dialog>actor_break_dialog</actor_dialog>
 
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
   </specific_character>
 
 	<specific_character id="pri_a25_army_medic" team_default = "1">
@@ -686,12 +686,12 @@
       grenade_f1 = 2 \n
 	  wpn_binoc = 1 \n
 
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_4.xml"
-#include "gameplay\character_drugs_mil.xml"
-#include "gameplay\character_drugs_sci.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_4.xml"
+#include "gameplay\loadouts\character_drugs_mil.xml"
+#include "gameplay\loadouts\character_drugs_sci.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 		<start_dialog>pri_a25_army_medic_start_dialog</start_dialog>
 
 		<actor_dialog>pri_a25_army_medic_rescued</actor_dialog>
@@ -723,12 +723,12 @@
       [spawn] \n
       pri_b306_envoy_pda \n
 
-#include "gameplay\character_items_nd.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_4.xml"
-#include "gameplay\character_drugs_sci.xml"
+#include "gameplay\loadouts\character_items_nd.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_4.xml"
+#include "gameplay\loadouts\character_drugs_sci.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -754,11 +754,11 @@
 	  pri_a15_wpn_ak74 \n
 	  pri_a15_documents \n
 
-#include "gameplay\character_items.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs.xml"
+#include "gameplay\loadouts\character_items.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
   </specific_character>
 
   <specific_character id="pri_a15_vano" team_default = "1">
@@ -782,11 +782,11 @@
       device_torch \n
       pri_a15_wpn_wincheaster1300 \n
 
-#include "gameplay\character_items.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs.xml"
+#include "gameplay\loadouts\character_items.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
   </specific_character>
 
 	<specific_character id="pri_a15_sokolov_scene" team_default = "1">
@@ -811,11 +811,11 @@
       device_torch \n
 	  pri_a15_wpn_ak74u \n
 
-#include "gameplay\character_items.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs.xml"
+#include "gameplay\loadouts\character_items.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
   </specific_character>
 
 	<specific_character id="pri_a15_zulus" team_default = "1">
@@ -841,11 +841,11 @@
       wpn_pkm_zulus = 1 \n
       ammo_pkm_100 = 1 \n
 
-#include "gameplay\character_items.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs.xml"
+#include "gameplay\loadouts\character_items.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
   </specific_character>
 
 	<specific_character id="pri_a15_wanderer" team_default="1">
@@ -869,11 +869,11 @@
       device_torch \n
       pri_a15_wpn_svu \n
 
-#include "gameplay\character_items.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs.xml"
+#include "gameplay\loadouts\character_items.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
   </specific_character>
 
 	<specific_character id="pri_a15_military_tarasov" team_default = "1">
@@ -898,11 +898,11 @@
       wpn_ak74 \n
       ammo_5.45x39_fmj = 1 \n
 
-#include "gameplay\character_items.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs.xml"
+#include "gameplay\loadouts\character_items.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
   </specific_character>
 
 	<specific_character id="pri_a15_military_2" team_default = "1">
@@ -927,11 +927,11 @@
       wpn_ak74 \n
       ammo_5.45x39_fmj = 1 \n
 
-#include "gameplay\character_items.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs.xml"
+#include "gameplay\loadouts\character_items.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
   </specific_character>
 
 	<specific_character id="pri_a15_military_3" team_default = "1">
@@ -956,11 +956,11 @@
       wpn_ak74 \n
       ammo_5.45x39_fmj = 1 \n
 
-#include "gameplay\character_items.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs.xml"
+#include "gameplay\loadouts\character_items.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
   </specific_character>
 
 	<specific_character id="pri_a15_military_4" team_default = "1">
@@ -985,11 +985,11 @@
       wpn_ak74 \n
       ammo_5.45x39_fmj = 1 \n
 
-#include "gameplay\character_items.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs.xml"
+#include "gameplay\loadouts\character_items.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
   </specific_character>
 
 	<!--- Pripyat B35 -->
@@ -1022,12 +1022,12 @@
 	  hand_radio \n
 	  wpn_binoc = 1 \n
 
-#include "gameplay\character_food_army.xml"
-#include "gameplay\character_drugs_2.xml"
-#include "gameplay\character_drugs_mil.xml"
+#include "gameplay\loadouts\character_food_army.xml"
+#include "gameplay\loadouts\character_drugs_2.xml"
+#include "gameplay\loadouts\character_drugs_mil.xml"
 
     			</supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 	<start_dialog>pri_a22_army_signaller_start_dialog</start_dialog>
 
 	<actor_dialog>pri_a22_army_signaller_about_rfi_source</actor_dialog>
@@ -1065,12 +1065,12 @@
       ammo_11.43x23_hydro = 1 \n
       grenade_f1 = 1 \n
 
-#include "gameplay\character_items_nd.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_4.xml"
-#include "gameplay\character_drugs_sci.xml"
+#include "gameplay\loadouts\character_items_nd.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_4.xml"
+#include "gameplay\loadouts\character_drugs_sci.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -1097,12 +1097,12 @@
       ammo_11.43x23_fmj = 1 \n
       grenade_rgd5 = 1 \n
 
-#include "gameplay\character_items_nd.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_3.xml"
-#include "gameplay\character_drugs_sci.xml"
+#include "gameplay\loadouts\character_items_nd.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_3.xml"
+#include "gameplay\loadouts\character_drugs_sci.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -1130,12 +1130,12 @@
       ammo_11.43x23_fmj = 1 \n
       grenade_rgd5 = 1 \n
 
-#include "gameplay\character_items_nd.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_3.xml"
-#include "gameplay\character_drugs_sci.xml"
+#include "gameplay\loadouts\character_items_nd.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_3.xml"
+#include "gameplay\loadouts\character_drugs_sci.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -1162,12 +1162,12 @@
       ammo_11.43x23_fmj = 1 \n
 	  pri_b35_lab_x8_key \n
 
-#include "gameplay\character_items_nd.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_4.xml"
-#include "gameplay\character_drugs_sci.xml"
+#include "gameplay\loadouts\character_items_nd.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_4.xml"
+#include "gameplay\loadouts\character_drugs_sci.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -1195,12 +1195,12 @@
       wpn_usp = 1 \n
       ammo_11.43x23_fmj = 1 \n
 
-#include "gameplay\character_items_nd.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_4.xml"
-#include "gameplay\character_drugs_sci.xml"
+#include "gameplay\loadouts\character_items_nd.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_4.xml"
+#include "gameplay\loadouts\character_drugs_sci.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -1228,12 +1228,12 @@
       wpn_usp = 1 \n
       ammo_11.43x23_fmj = 1 \n
 
-#include "gameplay\character_items_nd.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_4.xml"
-#include "gameplay\character_drugs_sci.xml"
+#include "gameplay\loadouts\character_items_nd.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_4.xml"
+#include "gameplay\loadouts\character_drugs_sci.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -1263,11 +1263,11 @@
       ammo_11.43x23_fmj = 1 \n
       grenade_f1 = 1 \n
 
-#include "gameplay\character_items_nd.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_2.xml"
+#include "gameplay\loadouts\character_items_nd.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_2.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
   </specific_character>
 
 	<specific_character id="pri_b36_monolith_master_hiding_place" team_default = "1">
@@ -1296,11 +1296,11 @@
       grenade_f1 = 1 \n
 	  pri_b36_monolith_hiding_place_pda = 1 \n
 
-#include "gameplay\character_items_nd.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_3.xml"
+#include "gameplay\loadouts\character_items_nd.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_3.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
   </specific_character>
 
 	<specific_character id="pri_b36_monolith_marine_sniper" team_default = "1">
@@ -1328,11 +1328,11 @@
       ammo_11.43x23_hydro = 1 \n
       grenade_f1 = 1 \n
 
-#include "gameplay\character_items_nd.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_3.xml"
+#include "gameplay\loadouts\character_items_nd.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_3.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
   </specific_character>
 
 <!-- ----------------------- Стрелок !!! ------------------------------->
@@ -1364,12 +1364,12 @@
 	  ammo_5.45x39_ap = 3 \n
       grenade_f1 = 1 \n
 
-#include "gameplay\character_food_army.xml"
-#include "gameplay\character_drugs_4.xml"
-#include "gameplay\character_drugs_sci.xml"
-#include "gameplay\character_drugs_mil.xml"
+#include "gameplay\loadouts\character_food_army.xml"
+#include "gameplay\loadouts\character_drugs_4.xml"
+#include "gameplay\loadouts\character_drugs_sci.xml"
+#include "gameplay\loadouts\character_drugs_mil.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 	<start_dialog>pri_b305_strelok_dialog</start_dialog>
 	<actor_dialog>pri_b305_strelok_about_information</actor_dialog>
 	<actor_dialog>pri_b305_strelok_about_station</actor_dialog>
@@ -1405,15 +1405,15 @@
       ammo_9x18_pmm = 1 \n
       grenade_f1 = 2 \n
 
-#include "gameplay\character_items_nd.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_4.xml"
-#include "gameplay\character_drugs_mil.xml"
+#include "gameplay\loadouts\character_items_nd.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_4.xml"
+#include "gameplay\loadouts\character_drugs_mil.xml"
     </supplies>
 
 	<actor_dialog>actor_break_dialog</actor_dialog>
 
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
   </specific_character>
 
   <specific_character id="sim_default_stalker_pri_a16" team_default = "1">
@@ -1442,15 +1442,14 @@
       ammo_12x76_zhekan = 1 \n
       grenade_f1 = 4 \n
 
-#include "gameplay\character_items_3.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_4.xml"
-#include "gameplay\character_drugs_sci.xml"
+#include "gameplay\loadouts\character_items_3.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_4.xml"
+#include "gameplay\loadouts\character_drugs_sci.xml"
 
-#include "gameplay\character_sell_weapons.xml"
+#include "gameplay\loadouts\character_sell_weapons.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs_no_guide.xml"
   </specific_character>
-
 </xml>

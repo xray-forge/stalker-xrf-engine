@@ -28,10 +28,10 @@
         ammo_11.43x23_fmj = 1 \n
         grenade_rgd5 = 1 \n
 
-#include "gameplay\character_items_2.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_3.xml"
-#include "gameplay\character_drugs_mil.xml"
+#include "gameplay\loadouts\character_items_2.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_3.xml"
+#include "gameplay\loadouts\character_drugs_mil.xml"
 
     			</supplies>
 
@@ -48,7 +48,7 @@
 
 		<actor_dialog>actor_break_dialog</actor_dialog>
 
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
         </specific_character>
 
 	<specific_character id="jup_a12_stalker_diplomat" team_default = "1">
@@ -74,10 +74,10 @@
      	ammo_11.43x23_fmj = 1 \n
      	grenade_rgd5 = 1 \n
 
-#include "gameplay\character_items_2.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_3.xml"
-#include "gameplay\character_drugs_sci.xml"
+#include "gameplay\loadouts\character_items_2.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_3.xml"
+#include "gameplay\loadouts\character_drugs_sci.xml"
     			</supplies>
 
 		<actor_dialog>jup_b1_stalker_about_scrutiny</actor_dialog>
@@ -87,7 +87,7 @@
 
 		<actor_dialog>actor_break_dialog</actor_dialog>
 
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
         </specific_character>
 
 	<specific_character id="jup_a12_stalker_prisoner" team_default = "1">
@@ -118,7 +118,7 @@
 
 		<actor_dialog>actor_break_dialog</actor_dialog>
 
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
        </specific_character>
 
 	<specific_character id="jup_a12_bandit_chief" team_default = "1">
@@ -141,9 +141,9 @@
       	wpn_hpsa \n
       	ammo_9x19_pbp = 1 \n
 
-#include "gameplay\character_items_nd.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_3.xml"
+#include "gameplay\loadouts\character_items_nd.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_3.xml"
     			</supplies>
 
 		<start_dialog>jup_a12_bandit_chief_dialog</start_dialog>
@@ -151,7 +151,7 @@
 
 		<actor_dialog>actor_break_dialog</actor_dialog>
 
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
         </specific_character>
 
 	<specific_character id="jup_a12_bandit_guard" team_default = "1">
@@ -177,9 +177,9 @@
       ammo_9x18_fmj = 1 \n
       grenade_rgd5 = 1 \n
 
-#include "gameplay\character_items_nd.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_2.xml"
+#include "gameplay\loadouts\character_items_nd.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_2.xml"
     			</supplies>
 
 		<start_dialog>jup_a12_bandit_guard_start</start_dialog>
@@ -187,7 +187,7 @@
 
 		<actor_dialog>actor_break_dialog</actor_dialog>
 
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
         </specific_character>
 
 	<specific_character id="jup_a12_bandit_cashier" team_default = "1">
@@ -213,14 +213,14 @@
       ammo_9x18_fmj = 1 \n
       grenade_rgd5 = 1 \n
 
-#include "gameplay\character_items_nd.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs.xml"
+#include "gameplay\loadouts\character_items_nd.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs.xml"
     			</supplies>
 
 		<actor_dialog>actor_break_dialog</actor_dialog>
 
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
         </specific_character>
 
 	<specific_character id="jup_a12_merc_cover" team_default = "1">
@@ -246,9 +246,9 @@
       wpn_sig220 = 1, silencer \n
       ammo_11.43x23_fmj = 1 \n
 
-#include "gameplay\character_items_2.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_3.xml"
+#include "gameplay\loadouts\character_items_2.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_3.xml"
     </supplies>
 
 		<start_dialog>jup_a12_stalker_give_art_dialog</start_dialog>
@@ -256,7 +256,7 @@
 
 		<actor_dialog>actor_break_dialog</actor_dialog>
 
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
         </specific_character>
 
 	<!----------------------------------- B207 --------------------------------->
@@ -284,13 +284,13 @@
       ammo_11.43x23_hydro = 1 \n
       jup_b207_merc_pda_with_contract = 1 \n
 
-#include "gameplay\character_items_3.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_4.xml"
-#include "gameplay\character_drugs_mil.xml"
+#include "gameplay\loadouts\character_items_3.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_4.xml"
+#include "gameplay\loadouts\character_drugs_mil.xml"
 
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
         </specific_character>
 
@@ -317,12 +317,12 @@
       ammo_11.43x23_fmj = 1 \n
       grenade_f1 = 1 \n
 
-#include "gameplay\character_items_nd.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_3.xml"
-#include "gameplay\character_drugs_mil.xml"
+#include "gameplay\loadouts\character_items_nd.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_3.xml"
+#include "gameplay\loadouts\character_drugs_mil.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -349,12 +349,12 @@
       ammo_11.43x23_hydro = 1 \n
       grenade_f1 = 2 \n
 
-#include "gameplay\character_items_nd.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_3.xml"
-#include "gameplay\character_drugs_mil.xml"
+#include "gameplay\loadouts\character_items_nd.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_3.xml"
+#include "gameplay\loadouts\character_drugs_mil.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs_no_guide.xml"
   </specific_character>
 
@@ -381,12 +381,12 @@
       ammo_9x19_pbp = 1 \n
       grenade_rgd5 = 2 \n
 
-#include "gameplay\character_items_3.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_3.xml"
-#include "gameplay\character_drugs_sci.xml"
+#include "gameplay\loadouts\character_items_3.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_3.xml"
+#include "gameplay\loadouts\character_drugs_sci.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs_no_guide.xml"
   </specific_character>
 
@@ -413,12 +413,12 @@
       ammo_11.43x23_fmj = 1 \n
       grenade_f1 = 3 \n
 
-#include "gameplay\character_items_3.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_3.xml"
-#include "gameplay\character_drugs_sci.xml"
+#include "gameplay\loadouts\character_items_3.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_3.xml"
+#include "gameplay\loadouts\character_drugs_sci.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs_no_guide.xml"
   </specific_character>
 
@@ -451,16 +451,16 @@
       ammo_11.43x23_fmj  = 1 \n
       grenade_f1 = 3 \n
 
-#include "gameplay\character_items_nd.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_3.xml"
+#include "gameplay\loadouts\character_items_nd.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_3.xml"
     </supplies>
 		<start_dialog>jup_a10_stalkers_dialog</start_dialog>
 		<actor_dialog>jup_a10_stalkers_dialog_debt</actor_dialog>
 
 		<actor_dialog>actor_break_dialog</actor_dialog>
 
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
   </specific_character>
 
 	<!-- Сталкер Вано   -->
@@ -492,8 +492,8 @@
 		grenade_rgd5 = 3 \n
 		detector_elite \n
 
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_4.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_4.xml"
     </supplies>
 		<start_dialog>jup_a10_vano_help_dialog</start_dialog>
 		<!------------ <actor_dialog>jup_a10_vano_go_to_underground_dialog</actor_dialog> ----------------------------------->
@@ -511,7 +511,7 @@
 
 		<actor_dialog>actor_break_dialog</actor_dialog>
 
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
   </specific_character>
 	<!---------------------------------------- B4 ------------------------------------------------->
 
@@ -540,8 +540,8 @@
 		wpn_colt1911 \n
 		ammo_11.43x23_fmj \n
 
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_4.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_4.xml"
     </supplies>
 		<start_dialog>jup_b4_monolith_squad_leader_start</start_dialog>
 		<actor_dialog>jup_b4_monolith_squad_leader_need_help</actor_dialog>
@@ -550,7 +550,7 @@
 		<actor_dialog>jup_b4_monolith_squad_leader_pripyat_how_are_you</actor_dialog>
 		<actor_dialog>actor_break_dialog</actor_dialog>
 
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
   </specific_character>
 
 	<specific_character id="jup_b4_monolith_squad_leader_duty_skin" team_default="1">
@@ -578,8 +578,8 @@
 		wpn_colt1911 \n
 		ammo_11.43x23_fmj \n
 
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_4.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_4.xml"
     </supplies>
 		<start_dialog>jup_b4_monolith_squad_leader_start</start_dialog>
 		<actor_dialog>jup_b4_monolith_squad_leader_wassup</actor_dialog>
@@ -591,7 +591,7 @@
 
 		<actor_dialog>actor_break_dialog</actor_dialog>
 
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
   </specific_character>
 
   <specific_character id="jup_b4_monolith_squad_leader_freedom_skin" team_default = "1">
@@ -617,8 +617,8 @@
 		wpn_colt1911 \n
 		ammo_11.43x23_fmj \n
 
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_4.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_4.xml"
     </supplies>
 		<start_dialog>jup_b4_monolith_squad_leader_start</start_dialog>
 		<actor_dialog>jup_b4_monolith_squad_leader_wassup</actor_dialog>
@@ -630,7 +630,7 @@
 
 		<actor_dialog>actor_break_dialog</actor_dialog>
 
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
   </specific_character>
 
 	<specific_character id="jup_b4_monolith_squad_leader_duty_mon_skin" team_default="1">
@@ -658,8 +658,8 @@
 		wpn_colt1911 \n
 		ammo_11.43x23_fmj \n
 
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_4.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_4.xml"
     </supplies>
 		<start_dialog>jup_b4_monolith_squad_leader_start</start_dialog>
 		<actor_dialog>jup_b4_monolith_squad_leader_wassup</actor_dialog>
@@ -671,7 +671,7 @@
 
 		<actor_dialog>actor_break_dialog</actor_dialog>
 
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
   </specific_character>
 
   <specific_character id="jup_b4_monolith_squad_leader_freedom_mon_skin" team_default = "1">
@@ -697,8 +697,8 @@
 		wpn_colt1911 \n
 		ammo_11.43x23_fmj \n
 
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_4.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_4.xml"
     </supplies>
 		<start_dialog>jup_b4_monolith_squad_leader_start</start_dialog>
 		<actor_dialog>jup_b4_monolith_squad_leader_wassup</actor_dialog>
@@ -710,7 +710,7 @@
 
 		<actor_dialog>actor_break_dialog</actor_dialog>
 
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
   </specific_character>
 
 
@@ -739,14 +739,14 @@
       ammo_9x19_fmj = 1 \n
       grenade_rgd5 = 1 \n
 
-#include "gameplay\character_items_nd.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_2.xml"
+#include "gameplay\loadouts\character_items_nd.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_2.xml"
     </supplies>
 
 		<actor_dialog>actor_break_dialog</actor_dialog>
 
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
   </specific_character>
 
 	<specific_character id="jup_b4_monolith_squad_soldier_1_duty_skin" team_default="1">
@@ -774,14 +774,14 @@
       ammo_9x19_fmj = 1 \n
       grenade_rgd5 = 1 \n
 
-#include "gameplay\character_items_2.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_2.xml"
+#include "gameplay\loadouts\character_items_2.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_2.xml"
     </supplies>
 		<actor_dialog>jup_b4_duty_go_home</actor_dialog>
 		<actor_dialog>actor_break_dialog</actor_dialog>
 
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -808,14 +808,14 @@
       ammo_11.43x23_fmj = 1 \n
       grenade_rgd5 = 1 \n
 
-#include "gameplay\character_items_2.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_2.xml"
+#include "gameplay\loadouts\character_items_2.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_2.xml"
     </supplies>
 		<actor_dialog>jup_b4_freedom_go_home</actor_dialog>
 		<actor_dialog>actor_break_dialog</actor_dialog>
 
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -844,14 +844,14 @@
       ammo_11.43x23_fmj  = 1 \n
       grenade_rgd5 = 1 \n
 
-#include "gameplay\character_items_nd.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_2.xml"
+#include "gameplay\loadouts\character_items_nd.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_2.xml"
     </supplies>
 
 		<actor_dialog>actor_break_dialog</actor_dialog>
 
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
   </specific_character>
 
 	<specific_character id="jup_b4_monolith_squad_soldier_2_duty_skin" team_default="1">
@@ -879,14 +879,14 @@
       ammo_9x18_fmj = 1 \n
       grenade_rgd5 = 1 \n
 
-#include "gameplay\character_items_2.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_2.xml"
+#include "gameplay\loadouts\character_items_2.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_2.xml"
     </supplies>
 		<actor_dialog>jup_b4_duty_go_home</actor_dialog>
 		<actor_dialog>actor_break_dialog</actor_dialog>
 
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -913,14 +913,14 @@
       ammo_11.43x23_fmj  = 1 \n
       grenade_rgd5 = 1 \n
 
-#include "gameplay\character_items_2.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_2.xml"
+#include "gameplay\loadouts\character_items_2.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_2.xml"
     </supplies>
 		<actor_dialog>jup_b4_freedom_go_home</actor_dialog>
 		<actor_dialog>actor_break_dialog</actor_dialog>
 
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -949,14 +949,14 @@
       ammo_9x18_fmj = 1 \n
 	  grenade_rgd5 = 2 \n
 
-#include "gameplay\character_items_nd.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_2.xml"
+#include "gameplay\loadouts\character_items_nd.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_2.xml"
     </supplies>
 
 		<actor_dialog>actor_break_dialog</actor_dialog>
 
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
   </specific_character>
 
 	<specific_character id="jup_b4_monolith_squad_soldier_3_duty_skin" team_default="1">
@@ -984,14 +984,14 @@
       ammo_9x18_fmj = 1 \n
 	  grenade_rgd5 = 2 \n
 
-#include "gameplay\character_items_2.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_2.xml"
+#include "gameplay\loadouts\character_items_2.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_2.xml"
     </supplies>
 		<actor_dialog>jup_b4_duty_go_home</actor_dialog>
 		<actor_dialog>actor_break_dialog</actor_dialog>
 
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -1018,14 +1018,14 @@
       ammo_9x18_fmj = 1 \n
 	  grenade_rgd5 = 2 \n
 
-#include "gameplay\character_items_2.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_2.xml"
+#include "gameplay\loadouts\character_items_2.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_2.xml"
     </supplies>
 		<actor_dialog>jup_b4_freedom_go_home</actor_dialog>
 		<actor_dialog>actor_break_dialog</actor_dialog>
 
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -1054,14 +1054,14 @@
       ammo_9x18_fmj = 1 \n
 	  grenade_rgd5 = 2 \n
 
-#include "gameplay\character_items_nd.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_2.xml"
+#include "gameplay\loadouts\character_items_nd.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_2.xml"
     </supplies>
 
 		<actor_dialog>actor_break_dialog</actor_dialog>
 
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
   </specific_character>
 
 	<specific_character id="jup_b4_monolith_squad_soldier_4_duty_skin" team_default="1">
@@ -1089,14 +1089,14 @@
       ammo_9x18_fmj = 1 \n
 	  grenade_rgd5 = 2 \n
 
-#include "gameplay\character_items_2.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_2.xml"
+#include "gameplay\loadouts\character_items_2.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_2.xml"
     </supplies>
 		<actor_dialog>jup_b4_duty_go_home</actor_dialog>
 		<actor_dialog>actor_break_dialog</actor_dialog>
 
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -1122,14 +1122,14 @@
 	  wpn_hpsa \n
 	  grenade_rgd5 = 2 \n
 
-#include "gameplay\character_items_2.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_2.xml"
+#include "gameplay\loadouts\character_items_2.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_2.xml"
     </supplies>
 		<actor_dialog>jup_b4_freedom_go_home</actor_dialog>
 		<actor_dialog>actor_break_dialog</actor_dialog>
 
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -1158,14 +1158,14 @@
       ammo_9x19_fmj = 1 \n
 	  grenade_rgd5 = 2 \n
 
-#include "gameplay\character_items_nd.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_2.xml"
+#include "gameplay\loadouts\character_items_nd.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_2.xml"
     </supplies>
 
 		<actor_dialog>actor_break_dialog</actor_dialog>
 
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
   </specific_character>
 
 	<specific_character id="jup_b4_monolith_squad_soldier_5_duty_skin" team_default="1">
@@ -1193,14 +1193,14 @@
       ammo_9x18_pmm = 1 \n
 	  grenade_rgd5 = 2 \n
 
-#include "gameplay\character_items_2.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_2.xml"
+#include "gameplay\loadouts\character_items_2.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_2.xml"
     </supplies>
 		<actor_dialog>jup_b4_duty_go_home</actor_dialog>
 		<actor_dialog>actor_break_dialog</actor_dialog>
 
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -1227,14 +1227,14 @@
       ammo_9x19_fmj = 1 \n
 	  grenade_rgd5 = 2 \n
 
-#include "gameplay\character_items_2.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_2.xml"
+#include "gameplay\loadouts\character_items_2.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_2.xml"
     </supplies>
 		<actor_dialog>jup_b4_freedom_go_home</actor_dialog>
 		<actor_dialog>actor_break_dialog</actor_dialog>
 
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -1261,15 +1261,15 @@
       ammo_9x19_fmj = 1 \n
       grenade_rgd5 = 2 \n
 
-#include "gameplay\character_items_2.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_2.xml"
+#include "gameplay\loadouts\character_items_2.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_2.xml"
     </supplies>
 		<actor_dialog>jup_b4_freedom_go_home</actor_dialog>
 
 		<actor_dialog>actor_break_dialog</actor_dialog>
 
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
   </specific_character>
 
   <specific_character id="jup_b4_duty_help" team_default = "1">
@@ -1295,15 +1295,15 @@
       ammo_9x18_pmm = 1 \n
       grenade_rgd5 = 2 \n
 
-#include "gameplay\character_items_2.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_2.xml"
+#include "gameplay\loadouts\character_items_2.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_2.xml"
     </supplies>
 		<actor_dialog>jup_b4_duty_go_home</actor_dialog>
 
 		<actor_dialog>actor_break_dialog</actor_dialog>
 
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
   </specific_character>
 
   <specific_character id="jup_b4_freedom_leader" team_default = "1">
@@ -1330,16 +1330,16 @@
       ammo_9x19_pbp = 1 \n
       grenade_f1 = 3 \n
 
-#include "gameplay\character_items_3.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_3.xml"
-#include "gameplay\character_drugs_sci.xml"
+#include "gameplay\loadouts\character_items_3.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_3.xml"
+#include "gameplay\loadouts\character_drugs_sci.xml"
     </supplies>
 		<actor_dialog>jup_b4_freedom_go_home</actor_dialog>
 
 		<actor_dialog>actor_break_dialog</actor_dialog>
 
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
   </specific_character>
 
   <specific_character id="jup_b4_duty_leader" team_default = "1">
@@ -1365,16 +1365,16 @@
       ammo_9x18_fmj = 1 \n
       grenade_f1 = 3 \n
 
-#include "gameplay\character_items_3.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_3.xml"
-#include "gameplay\character_drugs_mil.xml"
+#include "gameplay\loadouts\character_items_3.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_3.xml"
+#include "gameplay\loadouts\character_drugs_mil.xml"
     </supplies>
 		<actor_dialog>jup_b4_duty_go_home</actor_dialog>
 
 		<actor_dialog>actor_break_dialog</actor_dialog>
 
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
   </specific_character>
 
 	<!---------------------------------------- B16 ------------------------------------------------->
@@ -1426,7 +1426,7 @@
 
 		<actor_dialog>actor_break_dialog</actor_dialog>
 
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
   </specific_character>
 
 	<!-- Сталкер Ядерный Физик   -->
@@ -1477,7 +1477,7 @@
 
 		<actor_dialog>actor_break_dialog</actor_dialog>
 
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
   </specific_character>
 	<!----------------------------------- B9 --------------------------------->
 
@@ -1505,12 +1505,12 @@
       ammo_9x18_fmj = 1 \n
       grenade_rgd5 = 2 \n
 
-#include "gameplay\character_items_nd.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_2.xml"
-#include "gameplay\character_drugs_mil.xml"
+#include "gameplay\loadouts\character_items_nd.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_2.xml"
+#include "gameplay\loadouts\character_drugs_mil.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
   </specific_character>
 
 <!----------------------------------- B10 --------------------------------->
@@ -1539,11 +1539,11 @@
       vodka = 3 \n
       conserva \n
 
-#include "gameplay\character_items.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs.xml"
+#include "gameplay\loadouts\character_items.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -1595,9 +1595,9 @@
       ammo_9x18_pmm = 1 \n
       grenade_f1 = 1 \n
 
-#include "gameplay\character_items_2.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_3.xml"
+#include "gameplay\loadouts\character_items_2.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_3.xml"
     </supplies>
 
 		<start_dialog>jup_b217_stalker_tech_start</start_dialog>
@@ -1627,7 +1627,7 @@
 
 		<actor_dialog>actor_break_dialog</actor_dialog>
 
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
   </specific_character>
 
 	<!----------------------------------- B220 --------------------------------->
@@ -1658,11 +1658,11 @@
 	  wpn_colt1911 \n
       ammo_11.43x23_fmj = 1 \n
 
-#include "gameplay\character_items_3.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_4.xml"
+#include "gameplay\loadouts\character_items_3.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_4.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 
 		<start_dialog>jup_b220_trapper_start</start_dialog>
 
@@ -1708,7 +1708,7 @@
       [spawn] \n
 
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 
 		<start_dialog>jup_b6_scientist_medic_start</start_dialog>
 
@@ -1759,10 +1759,10 @@
       grenade_f1 = 1 \n
 	  detector_elite \n
 
-#include "gameplay\character_items_nd.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_4.xml"
-#include "gameplay\character_drugs_sci.xml"
+#include "gameplay\loadouts\character_items_nd.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_4.xml"
+#include "gameplay\loadouts\character_drugs_sci.xml"
     </supplies>
 
 		<start_dialog>jup_b1_stalkers_about_tunnel_dialog</start_dialog>
@@ -1780,7 +1780,7 @@
 
 		<actor_dialog>actor_break_dialog</actor_dialog>
 
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
   	</specific_character>
 
 	<!-- Сталкер 2 -->
@@ -1811,10 +1811,10 @@
       ammo_9x19_fmj = 1 \n
       grenade_rgd5 = 1 \n
 
-#include "gameplay\character_items_nd.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_4.xml"
-#include "gameplay\character_drugs_sci.xml"
+#include "gameplay\loadouts\character_items_nd.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_4.xml"
+#include "gameplay\loadouts\character_drugs_sci.xml"
     </supplies>
 
 		<actor_dialog>jup_b1_stalkers_about_tunnel_dialog_ab_tu_2</actor_dialog>
@@ -1825,7 +1825,7 @@
 		<actor_dialog>jup_b1_stalker_about_scrutiny_3</actor_dialog>
 		<actor_dialog>actor_break_dialog</actor_dialog>
 
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs_no_guide.xml"
   </specific_character>
 
@@ -1857,10 +1857,10 @@
       ammo_9x18_fmj = 1 \n
       grenade_rgd5 = 1 \n
 
-#include "gameplay\character_items_nd.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_4.xml"
-#include "gameplay\character_drugs_sci.xml"
+#include "gameplay\loadouts\character_items_nd.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_4.xml"
+#include "gameplay\loadouts\character_drugs_sci.xml"
     </supplies>
 
 		<actor_dialog>jup_b1_stalkers_about_tunnel_dialog_ab_tu_3</actor_dialog>
@@ -1871,7 +1871,7 @@
 		<actor_dialog>jup_b1_stalker_about_scrutiny_3</actor_dialog>
 		<actor_dialog>actor_break_dialog</actor_dialog>
 
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs_no_guide.xml"
   </specific_character>
 
@@ -1902,10 +1902,10 @@
       ammo_9x18_fmj = 1 \n
       grenade_rgd5 = 1 \n
 
-#include "gameplay\character_items_nd.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_4.xml"
-#include "gameplay\character_drugs_sci.xml"
+#include "gameplay\loadouts\character_items_nd.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_4.xml"
+#include "gameplay\loadouts\character_drugs_sci.xml"
     </supplies>
 
 		<actor_dialog>jup_b1_stalkers_about_tunnel_dialog_ab_tu_4</actor_dialog>
@@ -1916,7 +1916,7 @@
 		<actor_dialog>jup_b1_stalker_about_scrutiny_3</actor_dialog>
 		<actor_dialog>actor_break_dialog</actor_dialog>
 
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs_no_guide.xml"
   </specific_character>
 
@@ -1947,10 +1947,10 @@
       grenade_f1 = 1 \n
 	  detector_scientific \n
 
-#include "gameplay\character_items_nd.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_4.xml"
-#include "gameplay\character_drugs_sci.xml"
+#include "gameplay\loadouts\character_items_nd.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_4.xml"
+#include "gameplay\loadouts\character_drugs_sci.xml"
     </supplies>
 
 		<start_dialog>jup_b1_stalkers_about_tunnel_dialog</start_dialog>
@@ -1961,7 +1961,7 @@
 		<actor_dialog>jup_b1_stalker_1_come_with_me</actor_dialog>
 		<actor_dialog>actor_break_dialog</actor_dialog>
 
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
   	</specific_character>
 
 	<!-- Сталкер 2 Опытный -->
@@ -1991,15 +1991,15 @@
       ammo_11.43x23_fmj = 1 \n
       grenade_f1 = 2 \n
 
-#include "gameplay\character_items_nd.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_4.xml"
-#include "gameplay\character_drugs_sci.xml"
+#include "gameplay\loadouts\character_items_nd.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_4.xml"
+#include "gameplay\loadouts\character_drugs_sci.xml"
     </supplies>
 
 		<actor_dialog>actor_break_dialog</actor_dialog>
 
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
   </specific_character>
 
 	<!-- Сталкер 3 Опытный -->
@@ -2029,15 +2029,15 @@
       ammo_9x19_pbp = 1 \n
       grenade_f1 = 1 \n
 
-#include "gameplay\character_items_nd.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_4.xml"
-#include "gameplay\character_drugs_sci.xml"
+#include "gameplay\loadouts\character_items_nd.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_4.xml"
+#include "gameplay\loadouts\character_drugs_sci.xml"
     </supplies>
 
 		<actor_dialog>actor_break_dialog</actor_dialog>
 
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
   </specific_character>
 
 	<!-- Сталкер 4 Опытный-->
@@ -2067,15 +2067,15 @@
       ammo_9x19_pbp = 1 \n
       grenade_f1 = 1 \n
 
-#include "gameplay\character_items_nd.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_4.xml"
-#include "gameplay\character_drugs_sci.xml"
+#include "gameplay\loadouts\character_items_nd.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_4.xml"
+#include "gameplay\loadouts\character_drugs_sci.xml"
     </supplies>
 
 		<actor_dialog>actor_break_dialog</actor_dialog>
 
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
   </specific_character>
 
 	<!-- Наемные Сталкеры из Группировок для Б6-->
@@ -2106,10 +2106,10 @@
         grenade_rgd5 = 2 \n
         detector_advanced \n
 
-#include "gameplay\character_items_nd.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_3.xml"
-#include "gameplay\character_drugs_mil.xml"
+#include "gameplay\loadouts\character_items_nd.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_3.xml"
+#include "gameplay\loadouts\character_drugs_mil.xml"
 
     			</supplies>
 
@@ -2120,7 +2120,7 @@
 
 		<actor_dialog>actor_break_dialog</actor_dialog>
 
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs_no_guide.xml"
         </specific_character>
 
@@ -2149,10 +2149,10 @@
      	grenade_rgd5 = 1 \n
         detector_advanced \n
 
-#include "gameplay\character_items_nd.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_3.xml"
-#include "gameplay\character_drugs_sci.xml"
+#include "gameplay\loadouts\character_items_nd.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_3.xml"
+#include "gameplay\loadouts\character_drugs_sci.xml"
     			</supplies>
 
 		<actor_dialog>jup_b1_stalker_about_scrutiny</actor_dialog>
@@ -2163,7 +2163,7 @@
 
 		<actor_dialog>actor_break_dialog</actor_dialog>
 
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs_no_guide.xml"
         </specific_character>
 
@@ -2192,10 +2192,10 @@
       grenade_rgd5 = 1 \n
       detector_elite \n
 
-#include "gameplay\character_items_nd.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_3.xml"
-#include "gameplay\character_drugs_sci.xml"
+#include "gameplay\loadouts\character_items_nd.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_3.xml"
+#include "gameplay\loadouts\character_drugs_sci.xml"
 		</supplies>
 
 		<actor_dialog>jup_a12_stalker_prisoner_employ_stalkers</actor_dialog>
@@ -2206,7 +2206,7 @@
 
 		<actor_dialog>actor_break_dialog</actor_dialog>
 
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
        </specific_character>
 
 	<specific_character id="jup_b6_stalker_gonta" team_default="1">
@@ -2234,9 +2234,9 @@
       ammo_9x19_fmj = 1 \n
       detector_elite \n
 
-#include "gameplay\character_items_nd.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_2.xml"
+#include "gameplay\loadouts\character_items_nd.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_2.xml"
     </supplies>
 
 		<start_dialog>zat_b106_stalker_gonta_start</start_dialog>
@@ -2259,7 +2259,7 @@
 
 		<actor_dialog>actor_break_dialog</actor_dialog>
 
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 	</specific_character>
 
 	<specific_character id="jup_b6_stalker_garmata" team_default="1">
@@ -2287,9 +2287,9 @@
       ammo_11.43x23_fmj = 1 \n
       detector_advanced \n
 
-#include "gameplay\character_items_nd.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_2.xml"
+#include "gameplay\loadouts\character_items_nd.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_2.xml"
     </supplies>
 
 		<actor_dialog>jup_b1_stalker_about_scrutiny</actor_dialog>
@@ -2298,7 +2298,7 @@
 
 		<actor_dialog>actor_break_dialog</actor_dialog>
 
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs_no_guide.xml"
         </specific_character>
 
@@ -2326,9 +2326,9 @@
       ammo_9x18_fmj = 1 \n
       detector_advanced \n
 
-#include "gameplay\character_items_nd.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs.xml"
+#include "gameplay\loadouts\character_items_nd.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs.xml"
     </supplies>
 
 		<actor_dialog>jup_b1_stalker_about_scrutiny</actor_dialog>
@@ -2337,7 +2337,7 @@
 
 		<actor_dialog>actor_break_dialog</actor_dialog>
 
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs_no_guide.xml"
         </specific_character>
 
@@ -2365,11 +2365,11 @@
       grenade_f1 = 1 \n
       detector_elite \n
 
-#include "gameplay\character_items_nd.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_3.xml"
-#include "gameplay\character_drugs_sci.xml"
-#include "gameplay\character_sell_weapons.xml"
+#include "gameplay\loadouts\character_items_nd.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_3.xml"
+#include "gameplay\loadouts\character_drugs_sci.xml"
+#include "gameplay\loadouts\character_sell_weapons.xml"
     </supplies>
 
 		<actor_dialog>jup_b1_stalker_about_scrutiny</actor_dialog>
@@ -2377,7 +2377,7 @@
 		<actor_dialog>jup_b1_stalker_about_scrutiny_3</actor_dialog>
 		<actor_dialog>actor_break_dialog</actor_dialog>
 
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
   </specific_character>
 
 
@@ -2405,10 +2405,10 @@
       grenade_rgd5 = 1 \n
       detector_advanced \n
 
-#include "gameplay\character_items_nd.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_2.xml"
-#include "gameplay\character_sell_weapons.xml"
+#include "gameplay\loadouts\character_items_nd.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_2.xml"
+#include "gameplay\loadouts\character_sell_weapons.xml"
     </supplies>
 
 		<actor_dialog>jup_b1_stalker_about_scrutiny</actor_dialog>
@@ -2416,7 +2416,7 @@
 		<actor_dialog>jup_b1_stalker_about_scrutiny_3</actor_dialog>
 		<actor_dialog>actor_break_dialog</actor_dialog>
 
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs_no_guide.xml"
   </specific_character>
 
@@ -2444,10 +2444,10 @@
       grenade_rgd5 = 1 \n
       detector_advanced \n
 
-#include "gameplay\character_items_nd.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_2.xml"
-#include "gameplay\character_sell_weapons.xml"
+#include "gameplay\loadouts\character_items_nd.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_2.xml"
+#include "gameplay\loadouts\character_sell_weapons.xml"
     </supplies>
 
 		<actor_dialog>jup_b1_stalker_about_scrutiny</actor_dialog>
@@ -2455,7 +2455,7 @@
 		<actor_dialog>jup_b1_stalker_about_scrutiny_3</actor_dialog>
 		<actor_dialog>actor_break_dialog</actor_dialog>
 
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs_no_guide.xml"
   </specific_character>
 
@@ -2483,9 +2483,9 @@
       grenade_rgd5 = 1 \n
       detector_advanced \n
 
-#include "gameplay\character_items_nd.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_2.xml"
+#include "gameplay\loadouts\character_items_nd.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_2.xml"
     </supplies>
 
 		<actor_dialog>jup_b1_stalker_about_scrutiny</actor_dialog>
@@ -2493,7 +2493,7 @@
 		<actor_dialog>jup_b1_stalker_about_scrutiny_3</actor_dialog>
 		<actor_dialog>actor_break_dialog</actor_dialog>
 
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs_no_guide.xml"
   </specific_character>
 
@@ -2521,11 +2521,11 @@
       grenade_f1 = 1 \n
       detector_elite \n
 
-#include "gameplay\character_items_nd.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_3.xml"
-#include "gameplay\character_drugs_mil.xml"
-#include "gameplay\character_sell_weapons.xml"
+#include "gameplay\loadouts\character_items_nd.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_3.xml"
+#include "gameplay\loadouts\character_drugs_mil.xml"
+#include "gameplay\loadouts\character_sell_weapons.xml"
     </supplies>
 
 		<actor_dialog>jup_b1_stalker_about_scrutiny</actor_dialog>
@@ -2533,7 +2533,7 @@
 		<actor_dialog>jup_b1_stalker_about_scrutiny_3</actor_dialog>
 		<actor_dialog>actor_break_dialog</actor_dialog>
 
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
   </specific_character>
 
   <specific_character id="jup_b6_duty_stalker_2" team_default = "1">
@@ -2560,9 +2560,9 @@
       grenade_rgd5 = 1 \n
       detector_advanced \n
 
-#include "gameplay\character_items_nd.xml"
-#include "gameplay\character_drugs_2.xml"
-#include "gameplay\character_sell_weapons.xml"
+#include "gameplay\loadouts\character_items_nd.xml"
+#include "gameplay\loadouts\character_drugs_2.xml"
+#include "gameplay\loadouts\character_sell_weapons.xml"
     </supplies>
 
 		<actor_dialog>jup_b1_stalker_about_scrutiny</actor_dialog>
@@ -2570,7 +2570,7 @@
 		<actor_dialog>jup_b1_stalker_about_scrutiny_3</actor_dialog>
 		<actor_dialog>actor_break_dialog</actor_dialog>
 
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs_no_guide.xml"
   </specific_character>
 
@@ -2598,10 +2598,10 @@
       grenade_rgd5 = 1 \n
       detector_advanced \n
 
-#include "gameplay\character_items_nd.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_2.xml"
-#include "gameplay\character_sell_weapons.xml"
+#include "gameplay\loadouts\character_items_nd.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_2.xml"
+#include "gameplay\loadouts\character_sell_weapons.xml"
     </supplies>
 
 		<actor_dialog>jup_b1_stalker_about_scrutiny</actor_dialog>
@@ -2609,7 +2609,7 @@
 		<actor_dialog>jup_b1_stalker_about_scrutiny_3</actor_dialog>
 		<actor_dialog>actor_break_dialog</actor_dialog>
 
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs_no_guide.xml"
   </specific_character>
 
@@ -2637,9 +2637,9 @@
       grenade_rgd5 = 1 \n
       detector_advanced \n
 
-#include "gameplay\character_items_nd.xml"
-#include "gameplay\character_drugs_2.xml"
-#include "gameplay\character_sell_weapons.xml"
+#include "gameplay\loadouts\character_items_nd.xml"
+#include "gameplay\loadouts\character_drugs_2.xml"
+#include "gameplay\loadouts\character_sell_weapons.xml"
     </supplies>
 
 		<actor_dialog>jup_b1_stalker_about_scrutiny</actor_dialog>
@@ -2647,7 +2647,7 @@
 		<actor_dialog>jup_b1_stalker_about_scrutiny_3</actor_dialog>
 		<actor_dialog>actor_break_dialog</actor_dialog>
 
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs_no_guide.xml"
   </specific_character>
 
@@ -2681,12 +2681,12 @@
       grenade_rgd5 = 1 \n
 	  detector_advanced \n
 
-#include "gameplay\character_food.xml"
+#include "gameplay\loadouts\character_food.xml"
     </supplies>
 
 		<actor_dialog>actor_break_dialog</actor_dialog>
 
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
   </specific_character>
 
 	<!-- Сталкер "Флинт"   -->
@@ -2715,8 +2715,8 @@
       ammo_9x19_fmj = 1 \n
       grenade_rgd5 = 1 \n
 
-#include "gameplay\character_items.xml"
-#include "gameplay\character_food.xml"
+#include "gameplay\loadouts\character_items.xml"
+#include "gameplay\loadouts\character_food.xml"
     </supplies>
 
 		<start_dialog>jup_b25_flint_start</start_dialog>
@@ -2731,7 +2731,7 @@
 
 		<actor_dialog>actor_break_dialog</actor_dialog>
 
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
   </specific_character>
 
 	<!---------------------------------------------------------------------------------------------->
@@ -2763,9 +2763,9 @@
         ammo_9x19_fmj = 1 \n
         grenade_rgd5 = 1 \n
 
-#include "gameplay\character_items.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_4.xml"
+#include "gameplay\loadouts\character_items.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_4.xml"
     </supplies>
 
 		<start_dialog>jup_a6_stalker_medik_start_dialog</start_dialog>
@@ -2780,7 +2780,7 @@
 
 		<actor_dialog>actor_break_dialog</actor_dialog>
 
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
   </specific_character>
 
 	<!-- Сталкер "Зулус"   -->
@@ -2813,9 +2813,9 @@
 		grenade_f1 = 3 \n
 		vodka = 1 \n
 
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_4.xml"
-#include "gameplay\character_drugs_mil.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_4.xml"
+#include "gameplay\loadouts\character_drugs_mil.xml"
     </supplies>
 
 		<start_dialog>jup_b15_zulus_about_dialog</start_dialog>
@@ -2830,7 +2830,7 @@
 
 		<actor_dialog>actor_break_dialog</actor_dialog>
 
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
   </specific_character>
 
 	<!-- Сталкер "Коряга" на Юпитере   -->
@@ -2860,16 +2860,16 @@
       ammo_9x18_fmj = 1 \n
       device_flash_snag = 1 \n
 
-#include "gameplay\character_items.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs.xml"
+#include "gameplay\loadouts\character_items.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs.xml"
     </supplies>
 
 		<start_dialog>jup_b202_snag_b202_about_stole</start_dialog>
 
 		<actor_dialog>actor_break_dialog</actor_dialog>
 
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
   </specific_character>
 
 	<!-- Сталкер бармен "Гаваец"   -->
@@ -2897,9 +2897,9 @@
         ammo_9x19_pbp = 1 \n
         grenade_rgd5 = 1 \n
 
-#include "gameplay\character_items_3.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_4.xml"
+#include "gameplay\loadouts\character_items_3.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_4.xml"
     </supplies>
 
 		<start_dialog>jup_a6_stalker_barmen_start_dialog</start_dialog>
@@ -2916,7 +2916,7 @@
 
 		<actor_dialog>actor_break_dialog</actor_dialog>
 
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
   </specific_character>
 
 	<!-- Бандит раневшый Корягу  -->
@@ -2944,15 +2944,15 @@
       ammo_11.43x23_hydro = 1 \n
       jup_b202_bandit_pda = 1 \n
 
-#include "gameplay\character_items_nd.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_2.xml"
+#include "gameplay\loadouts\character_items_nd.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_2.xml"
     </supplies>
 
 		<actor_dialog>actor_break_dialog</actor_dialog>
 
 #include "gameplay\character_dialogs_no_guide.xml"
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
   </specific_character>
 
 	<specific_character id="jup_b19_freedom_yar" team_default = "1">
@@ -2981,10 +2981,10 @@
       ammo_9x19_pbp = 1 \n
       grenade_f1 = 2 \n
 
-#include "gameplay\character_items_3.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_3.xml"
-#include "gameplay\character_drugs_sci.xml"
+#include "gameplay\loadouts\character_items_3.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_3.xml"
+#include "gameplay\loadouts\character_drugs_sci.xml"
     </supplies>
 
 		<start_dialog>jup_b19_freedom_yar_base_start</start_dialog>
@@ -3004,7 +3004,7 @@
 
 		<!--<actor_dialog>actor_break_dialog</actor_dialog>-->
 
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
   </specific_character>
 
 	<specific_character id="jup_b19_merc_1" team_default = "1">
@@ -3032,12 +3032,12 @@
       ammo_11.43x23_hydro = 1 \n
       grenade_rgd5 = 1 \n
 
-#include "gameplay\character_items_nd.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_3.xml"
-#include "gameplay\character_drugs_mil.xml"
+#include "gameplay\loadouts\character_items_nd.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_3.xml"
+#include "gameplay\loadouts\character_drugs_mil.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -3066,12 +3066,12 @@
       ammo_11.43x23_fmj = 1 \n
       grenade_f1 = 1 \n
 
-#include "gameplay\character_items_nd.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_3.xml"
-#include "gameplay\character_drugs_mil.xml"
+#include "gameplay\loadouts\character_items_nd.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_3.xml"
+#include "gameplay\loadouts\character_drugs_mil.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -3100,12 +3100,12 @@
       ammo_11.43x23_fmj = 1 \n
       grenade_rgd5 = 1 \n
 
-#include "gameplay\character_items_nd.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_3.xml"
-#include "gameplay\character_drugs_mil.xml"
+#include "gameplay\loadouts\character_items_nd.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_3.xml"
+#include "gameplay\loadouts\character_drugs_mil.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -3133,12 +3133,12 @@
       ammo_11.43x23_fmj = 1 \n
       grenade_f1 = 1 \n
 
-#include "gameplay\character_items_nd.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_3.xml"
-#include "gameplay\character_drugs_mil.xml"
+#include "gameplay\loadouts\character_items_nd.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_3.xml"
+#include "gameplay\loadouts\character_drugs_mil.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -3167,12 +3167,12 @@
       ammo_11.43x23_fmj = 1 \n
       grenade_rgd5 = 1 \n
 
-#include "gameplay\character_items_nd.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_3.xml"
-#include "gameplay\character_drugs_mil.xml"
+#include "gameplay\loadouts\character_items_nd.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_3.xml"
+#include "gameplay\loadouts\character_drugs_mil.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -3203,11 +3203,11 @@
       ammo_11.43x23_fmj = 1 \n
       grenade_f1 = 2 \n
 
-#include "gameplay\character_items_3.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_4.xml"
+#include "gameplay\loadouts\character_items_3.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_4.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 
 		<start_dialog>jup_b43_stalker_assistant_bunker_start</start_dialog>
 
@@ -3341,12 +3341,12 @@
       ammo_11.43x23_hydro = 1 \n
       grenade_f1 = 1 \n
 
-#include "gameplay\character_items_3.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_4.xml"
-#include "gameplay\character_drugs_sci.xml"
+#include "gameplay\loadouts\character_items_3.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_4.xml"
+#include "gameplay\loadouts\character_drugs_sci.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 
 		<start_dialog>jup_a6_freedom_leader_start_dialog</start_dialog>
 
@@ -3389,12 +3389,12 @@
       ammo_11.43x23_fmj = 1 \n
       grenade_f1 = 1 \n
 
-#include "gameplay\character_items_3.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_4.xml"
-#include "gameplay\character_drugs_sci.xml"
+#include "gameplay\loadouts\character_items_3.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_4.xml"
+#include "gameplay\loadouts\character_drugs_sci.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 
 		<start_dialog>jup_a6_duty_leader_start_dialog</start_dialog>
 
@@ -3438,11 +3438,11 @@
 		grenade_rgd5 = 3 \n
 		detector_elite \n
 
-#include "gameplay\character_items_nd.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_4.xml"
+#include "gameplay\loadouts\character_items_nd.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_4.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 
 	<start_dialog>jup_a10_vano_help_dialog</start_dialog>
 	<actor_dialog>jup_a10_stalker_vano_pripyat_ready</actor_dialog>
@@ -3479,13 +3479,13 @@
       ammo_11.43x23_fmj  = 1 \n
       grenade_rgd5 = 1 \n
 
-#include "gameplay\character_items_nd.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_2.xml"
-#include "gameplay\character_drugs_sci.xml"
+#include "gameplay\loadouts\character_items_nd.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_2.xml"
+#include "gameplay\loadouts\character_drugs_sci.xml"
     </supplies>
 		<start_dialog>jup_b47_merc_guards_start</start_dialog>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs_no_guide.xml"
   </specific_character>
 
@@ -3514,13 +3514,13 @@
       ammo_9x19_pbp = 1 \n
       grenade_rgd5 = 1 \n
 
-#include "gameplay\character_items_nd.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_2.xml"
-#include "gameplay\character_drugs_sci.xml"
+#include "gameplay\loadouts\character_items_nd.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_2.xml"
+#include "gameplay\loadouts\character_drugs_sci.xml"
     </supplies>
 		<start_dialog>jup_b47_merc_guards_start</start_dialog>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs_no_guide.xml"
   </specific_character>
 
@@ -3549,13 +3549,13 @@
       ammo_9x19_pbp = 1 \n
       grenade_rgd5 = 1 \n
 
-#include "gameplay\character_items_nd.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_2.xml"
-#include "gameplay\character_drugs_sci.xml"
+#include "gameplay\loadouts\character_items_nd.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_2.xml"
+#include "gameplay\loadouts\character_drugs_sci.xml"
     </supplies>
 		<start_dialog>jup_b47_merc_guards_start</start_dialog>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs_no_guide.xml"
   </specific_character>
 
@@ -3584,13 +3584,13 @@
       ammo_9x19_pbp = 1 \n
       grenade_rgd5 = 1 \n
 
-#include "gameplay\character_items_nd.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_2.xml"
-#include "gameplay\character_drugs_sci.xml"
+#include "gameplay\loadouts\character_items_nd.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_2.xml"
+#include "gameplay\loadouts\character_drugs_sci.xml"
     </supplies>
 		<start_dialog>jup_b47_merc_guards_start</start_dialog>
-#include "gameplay\character_criticals_3.xml"
+#include "gameplay\loadouts\character_criticals_3.xml"
 #include "gameplay\character_dialogs_no_guide.xml"
   </specific_character>
 
@@ -3619,13 +3619,13 @@
       ammo_11.43x23_fmj  = 1 \n
       grenade_f1 = 1 \n
 
-#include "gameplay\character_items_nd.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_3.xml"
-#include "gameplay\character_drugs_sci.xml"
+#include "gameplay\loadouts\character_items_nd.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_3.xml"
+#include "gameplay\loadouts\character_drugs_sci.xml"
     </supplies>
 		<start_dialog>jup_b47_merc_guards_start</start_dialog>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs_no_guide.xml"
   </specific_character>
 
@@ -3653,13 +3653,13 @@
       ammo_11.43x23_fmj  = 1 \n
       grenade_f1 = 1 \n
 
-#include "gameplay\character_items_nd.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_4.xml"
-#include "gameplay\character_drugs_sci.xml"
+#include "gameplay\loadouts\character_items_nd.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_4.xml"
+#include "gameplay\loadouts\character_drugs_sci.xml"
     </supplies>
 		<start_dialog>jup_b47_merc_guards_start</start_dialog>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs_no_guide.xml"
   </specific_character>
 
@@ -3688,12 +3688,12 @@
       ammo_11.43x23_fmj = 1 \n
       grenade_f1 = 1 \n
 
-#include "gameplay\character_items.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs.xml"
+#include "gameplay\loadouts\character_items.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs.xml"
     </supplies>
 		<start_dialog>jup_b47_merc_guards_start</start_dialog>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 #include "gameplay\character_dialogs_no_guide.xml"
   </specific_character>
 
@@ -3724,11 +3724,11 @@
       ammo_9x18_pmm = 1 \n
       grenade_f1 = 1 \n
 
-#include "gameplay\character_items_2.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_3.xml"
+#include "gameplay\loadouts\character_items_2.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_3.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 
 		<actor_dialog>actor_break_dialog</actor_dialog>
 
@@ -3757,14 +3757,14 @@
 		ammo_11.43x23_fmj \n
 		grenade_f1 = 2 \n
 
-#include "gameplay\character_items_nd.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_4.xml"
+#include "gameplay\loadouts\character_items_nd.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_4.xml"
     </supplies>
 
 		<actor_dialog>actor_break_dialog</actor_dialog>
 
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
   </specific_character>
 
 	<specific_character id="jup_b219_vano" team_default = "1">
@@ -3792,11 +3792,11 @@
 		grenade_rgd5 = 3 \n
 		detector_elite \n
 
-#include "gameplay\character_items_nd.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_4.xml"
+#include "gameplay\loadouts\character_items_nd.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_4.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 
 	<actor_dialog>jup_a10_stalker_vano_pripyat_ready</actor_dialog>
 
@@ -3829,12 +3829,12 @@
 		ammo_9x18_pmm \n
 		grenade_rgd5 = 3 \n
 
-#include "gameplay\character_items_nd.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_2.xml"
-#include "gameplay\character_drugs_mil.xml"
+#include "gameplay\loadouts\character_items_nd.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_2.xml"
+#include "gameplay\loadouts\character_drugs_mil.xml"
     </supplies>
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
 
 		<actor_dialog>actor_break_dialog</actor_dialog>
 
@@ -3865,15 +3865,15 @@
 		ammo_11.43x23_hydro \n
 		grenade_f1 = 3 \n
 
-#include "gameplay\character_items_nd.xml"
-#include "gameplay\character_food.xml"
-#include "gameplay\character_drugs_4.xml"
-#include "gameplay\character_drugs_mil.xml"
+#include "gameplay\loadouts\character_items_nd.xml"
+#include "gameplay\loadouts\character_food.xml"
+#include "gameplay\loadouts\character_drugs_4.xml"
+#include "gameplay\loadouts\character_drugs_mil.xml"
     </supplies>
 
 		<actor_dialog>actor_break_dialog</actor_dialog>
 
-#include "gameplay\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals_4.xml"
   </specific_character>
 
 </xml>
