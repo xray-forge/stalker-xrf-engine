@@ -13,7 +13,7 @@ import {
 import { AbstractManager } from "@/engine/core/managers/base/AbstractManager";
 import { deathConfig } from "@/engine/core/managers/death/DeathConfig";
 import { IReleaseDescriptor } from "@/engine/core/managers/death/release_body_types";
-import { DROP_MANAGER_CONFIG_LTX } from "@/engine/core/managers/drop/DropConfig";
+import { dropConfig } from "@/engine/core/managers/drop/DropConfig";
 import { abort } from "@/engine/core/utils/assertion";
 import { isMonster, isStalker } from "@/engine/core/utils/class_ids";
 import { readIniString } from "@/engine/core/utils/ini";
@@ -34,7 +34,6 @@ import {
   TName,
   TNumberId,
   TSection,
-  TStringId,
   Vector,
 } from "@/engine/lib/types";
 
@@ -46,21 +45,6 @@ const logger: LuaLogger = new LuaLogger($filename);
  */
 export class ReleaseBodyManager extends AbstractManager {
   public readonly releaseObjectRegistry: LuaArray<IReleaseDescriptor> = new LuaTable();
-  public readonly keepItemsRegistry: LuaArray<TStringId> = new LuaTable();
-
-  public override initialize(): void {
-    if (!DROP_MANAGER_CONFIG_LTX.section_exist("keep_items")) {
-      abort("There is no section [keep_items] in death_generic.ltx");
-    }
-
-    const keepItemsSectionLinesCount: TCount = DROP_MANAGER_CONFIG_LTX.line_count("keep_items");
-
-    for (const it of $range(0, keepItemsSectionLinesCount - 1)) {
-      const [, section] = DROP_MANAGER_CONFIG_LTX.r_line("keep_items", it, "", "");
-
-      table.insert(this.keepItemsRegistry, section);
-    }
-  }
 
   /**
    * todo: Description.
@@ -131,8 +115,8 @@ export class ReleaseBodyManager extends AbstractManager {
       return false;
     }
 
-    for (const [k] of this.keepItemsRegistry) {
-      if (object.object(this.keepItemsRegistry.get(k)) !== null) {
+    for (const [section] of dropConfig.ITEMS_KEEP) {
+      if (object.object(section)) {
         // logger.info("Ignore corpse release, contains keep item:", object.name(), k);
 
         return false;

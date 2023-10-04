@@ -4,6 +4,8 @@ import { IBaseSchemeLogic } from "@/engine/core/database";
 import {
   readIniBoolean,
   readIniConditionList,
+  readIniFieldsAsList,
+  readIniFieldsAsSet,
   readIniNumber,
   readIniNumberAndConditionList,
   readIniSectionAsSet,
@@ -372,7 +374,7 @@ describe("read utils for ini file", () => {
     });
   });
 
-  it("readIniSectionsAsList should correctly transform section to set", () => {
+  it("readIniSectionsAsList should correctly transform section to list", () => {
     const ini: IniFile = mockIniFile("example.ltx", {
       section1: ["a", "b", "c"],
       section2: ["d", "e"],
@@ -387,6 +389,48 @@ describe("read utils for ini file", () => {
       1: "section1",
       2: "section2",
       3: "section3",
+    });
+  });
+
+  it("readIniFieldsAsList should correctly transform section fields to list", () => {
+    const ini: IniFile = mockIniFile("example.ltx", {
+      section1: ["a", "b", "c"],
+      section2: {
+        x: 1,
+        y: false,
+      },
+    });
+
+    expect(readIniFieldsAsList(mockIniFile("test.ltx", {}), "section1")).toEqualLuaTables({});
+    expect(readIniFieldsAsList(ini, "section1")).toEqualLuaTables({
+      1: "a",
+      2: "b",
+      3: "c",
+    });
+    expect(readIniFieldsAsList(ini, "section2")).toEqualLuaTables({
+      1: "x",
+      2: "y",
+    });
+  });
+
+  it("readIniFieldsAsSet should correctly transform section fields to list", () => {
+    const ini: IniFile = mockIniFile("example.ltx", {
+      section1: ["a", "b", "c"],
+      section2: {
+        x: 1,
+        y: false,
+      },
+    });
+
+    expect(readIniFieldsAsSet(mockIniFile("test.ltx", {}), "section1")).toEqualLuaTables({});
+    expect(readIniFieldsAsSet(ini, "section1")).toEqualLuaTables({
+      a: true,
+      b: true,
+      c: true,
+    });
+    expect(readIniFieldsAsSet(ini, "section2")).toEqualLuaTables({
+      x: true,
+      y: true,
     });
   });
 

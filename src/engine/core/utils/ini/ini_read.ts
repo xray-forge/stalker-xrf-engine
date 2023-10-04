@@ -2,7 +2,7 @@ import type { IBaseSchemeLogic } from "@/engine/core/database/database_types";
 import { abort, assert, assertDefined } from "@/engine/core/utils/assertion";
 import { parseConditionsList, parseNumbersList, parseParameters } from "@/engine/core/utils/ini/ini_parse";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { IniFile, LuaArray, Optional, TCount, TLabel, TName, TSection } from "@/engine/lib/types";
+import { IniFile, LuaArray, Optional, TCount, TName, TSection } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -292,6 +292,46 @@ export function readIniSectionsAsList<T extends TSection = TSection>(ini: IniFil
   const list: LuaArray<T> = new LuaTable();
 
   ini.section_for_each((it) => table.insert(list, it as T));
+
+  return list;
+}
+
+/**
+ * Read section fields list from ini file.
+ *
+ * @param ini - config file to read data from
+ * @param section - section to read fields from
+ * @returns list of section fields from ini file
+ */
+export function readIniFieldsAsList<T extends string = string>(ini: IniFile, section: TSection): LuaArray<T> {
+  const list: LuaArray<T> = new LuaTable();
+  const count: TCount = ini.line_count(section);
+
+  for (const it of $range(0, count - 1)) {
+    const [, field] = ini.r_line(section, it, "", "");
+
+    table.insert(list, field as T);
+  }
+
+  return list;
+}
+
+/**
+ * Read section fields list from ini file.
+ *
+ * @param ini - config file to read data from
+ * @param section - section to read fields from
+ * @returns set of section fields from ini file
+ */
+export function readIniFieldsAsSet<T extends string = string>(ini: IniFile, section: TSection): LuaTable<T, boolean> {
+  const list: LuaTable<T, boolean> = new LuaTable();
+  const count: TCount = ini.line_count(section);
+
+  for (const it of $range(0, count - 1)) {
+    const [, field] = ini.r_line(section, it, "", "");
+
+    list.set(field as T, true);
+  }
 
   return list;
 }
