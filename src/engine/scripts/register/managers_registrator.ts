@@ -7,7 +7,6 @@ import { ProfilingManager } from "@/engine/core/managers/debug/profiling";
 import { DialogManager } from "@/engine/core/managers/dialogs";
 import { EventsManager } from "@/engine/core/managers/events";
 import { ItemUpgradesManager, LoadScreenManager } from "@/engine/core/managers/interface";
-import { LoadoutManager } from "@/engine/core/managers/loadout";
 import { MapDisplayManager } from "@/engine/core/managers/map";
 import { NotificationManager } from "@/engine/core/managers/notifications";
 import { PdaManager } from "@/engine/core/managers/pda";
@@ -42,7 +41,6 @@ export function registerManagers(): void {
     GlobalSoundManager,
     ItemUpgradesManager,
     LoadScreenManager,
-    LoadoutManager,
     MapDisplayManager,
     NotificationManager,
     PdaManager,
