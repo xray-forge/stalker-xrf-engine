@@ -1,7 +1,6 @@
 import { describe, expect, it } from "@jest/globals";
 
 import {
-  DEATH_GENERIC_LTX,
   DUMMY_LTX,
   DYNAMIC_LTX_PREFIX,
   DYNAMIC_WEATHER_GRAPHS,
@@ -34,7 +33,6 @@ describe("ini_registry database module", () => {
       SCRIPT_SOUND_LTX,
       PH_BOX_GENERIC_LTX,
       DYNAMIC_WEATHER_GRAPHS,
-      DEATH_GENERIC_LTX,
       ITEM_UPGRADES,
       STALKER_UPGRADE_INFO,
       SQUAD_BEHAVIOURS_LTX,
