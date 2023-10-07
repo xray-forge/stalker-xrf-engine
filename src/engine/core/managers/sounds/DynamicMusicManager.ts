@@ -13,6 +13,7 @@ import { abort } from "@/engine/core/utils/assertion";
 import { executeConsoleCommand, getConsoleFloatCommand } from "@/engine/core/utils/console";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { clampNumber } from "@/engine/core/utils/number";
+import { isObjectInSilenceZone } from "@/engine/core/utils/position";
 import { consoleCommands } from "@/engine/lib/constants/console_commands";
 import {
   ClientObject,
@@ -98,21 +99,6 @@ export class DynamicMusicManager extends AbstractManager {
   /**
    * todo: Description.
    */
-  public isActorInSilenceZone(): boolean {
-    const actorPosition: Vector = registry.actor.position();
-
-    for (const [zoneId, zoneName] of registry.silenceZones) {
-      if (registry.zones.get(zoneName).inside(actorPosition)) {
-        return true;
-      }
-    }
-
-    return false;
-  }
-
-  /**
-   * todo: Description.
-   */
   public selectNextTrack(): void {
     logger.info("Select next track for playback");
 
@@ -174,7 +160,7 @@ export class DynamicMusicManager extends AbstractManager {
     this.forceFade = false;
 
     if (actor.alive()) {
-      if (!this.isActorInSilenceZone()) {
+      if (!isObjectInSilenceZone(registry.actor)) {
         const actorPosition: Vector = actor.position();
         const actorId: TNumberId = actor.id();
 

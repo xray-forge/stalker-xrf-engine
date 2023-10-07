@@ -70,6 +70,24 @@ export function isObjectInZone(object: Optional<ClientObject>, zone: Optional<Cl
 }
 
 /**
+ * Check whether object is inside silence zone.
+ *
+ * @param object - target client object to check
+ * @returns whether object is inside silence zone
+ */
+export function isObjectInSilenceZone(object: ClientObject): boolean {
+  const position: Vector = object.position();
+
+  for (const [, zoneName] of registry.silenceZones) {
+    if (registry.zones.get(zoneName).inside(position)) {
+      return true;
+    }
+  }
+
+  return false;
+}
+
+/**
  * Check whether object is on matching level.
  *
  * @param object - target object to check

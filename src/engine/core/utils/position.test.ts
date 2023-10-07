@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { game_graph } from "xray16";
 
-import { registerSimulator, registry } from "@/engine/core/database";
+import { registerSimulator, registerZone, registry } from "@/engine/core/database";
 import {
   areObjectsOnSameLevel,
   getDistanceBetween,
@@ -9,10 +9,12 @@ import {
   getObjectPositioning,
   getObjectSmartTerrain,
   getServerDistanceBetween,
+  isActorInNoWeaponZone,
   isDistanceBetweenObjectsGreaterOrEqual,
   isDistanceBetweenObjectsLessOrEqual,
   isGameVertexFromLevel,
   isObjectInActorFrustum,
+  isObjectInSilenceZone,
   isObjectInSmartTerrain,
   isObjectInZone,
   isObjectOnLevel,
@@ -55,6 +57,22 @@ describe("position utils", () => {
     expect(isObjectInZone(null, null)).toBe(false);
     expect(isObjectInZone(object, null)).toBe(false);
     expect(isObjectInZone(null, zone)).toBe(false);
+  });
+
+  it("isObjectInSilenceZone should check if object is in silence zone", () => {
+    const object: ClientObject = mockClientGameObject();
+    const zone: ClientObject = mockClientGameObject({ inside: () => true });
+
+    expect(isObjectInSilenceZone(object)).toBe(false);
+
+    registerZone(zone);
+    registry.silenceZones.set(zone.id(), zone.name());
+
+    expect(isObjectInSilenceZone(object)).toBe(true);
+
+    jest.spyOn(zone, "inside").mockImplementation(() => false);
+
+    expect(isObjectInSilenceZone(object)).toBe(false);
   });
 
   it("isObjectOnLevel check object on level", () => {
@@ -252,5 +270,15 @@ describe("position utils", () => {
     ]);
   });
 
-  it.todo("isActorInNoWeaponZone should correctly check if actor is in no weapon zone");
+  it("isActorInNoWeaponZone should correctly check if actor is in no weapon zone", () => {
+    const zone: ClientObject = mockClientGameObject();
+
+    expect(isActorInNoWeaponZone()).toBe(false);
+
+    registry.noWeaponZones.set(zone.id(), true);
+    expect(isActorInNoWeaponZone()).toBe(true);
+
+    registry.noWeaponZones.set(zone.id(), false);
+    expect(isActorInNoWeaponZone()).toBe(false);
+  });
 });
