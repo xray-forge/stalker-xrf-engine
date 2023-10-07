@@ -432,16 +432,15 @@ describe("NotificationManager class", () => {
   });
 
   it("should correctly play PDA notification sounds", () => {
-    const notificationManager: NotificationManager = NotificationManager.getInstance();
-
-    expect(soundsConfig.themes.get("pda_task")).toBeNull();
-
-    notificationManager.onPlayPdaNotificationSound();
-
     const notificationSound: AbstractPlayableSound = soundsConfig.themes.get("pda_task");
 
     expect(notificationSound).toBeDefined();
     expect(notificationSound).toBeInstanceOf(ActorSound);
+
+    const notificationManager: NotificationManager = NotificationManager.getInstance();
+
+    notificationManager.onPlayPdaNotificationSound();
+
     expect((notificationSound as ActorSound).soundObject?.play_at_pos).toHaveBeenCalledTimes(1);
     expect((notificationSound as ActorSound).soundObject?.play_at_pos).toHaveBeenCalledWith(
       registry.actor,
