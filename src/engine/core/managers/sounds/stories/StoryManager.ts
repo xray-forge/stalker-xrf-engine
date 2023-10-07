@@ -2,8 +2,9 @@ import { time_global } from "xray16";
 
 import { registry } from "@/engine/core/database";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
-import { ESoundStoryParticipant, IReplicDescriptor } from "@/engine/core/objects/sounds/sounds_types";
-import { SoundStory } from "@/engine/core/objects/sounds/stories/SoundStory";
+import { ESoundStoryParticipant, IReplicDescriptor } from "@/engine/core/managers/sounds/sounds_types";
+import { soundsConfig } from "@/engine/core/managers/sounds/SoundsConfig";
+import { SoundStory } from "@/engine/core/managers/sounds/stories/SoundStory";
 import { NIL } from "@/engine/lib/constants/words";
 import { LuaArray, Optional, TCount, TDuration, TNumberId, TStringId, TTimestamp } from "@/engine/lib/types";
 
@@ -16,11 +17,11 @@ export class StoryManager {
    * Get manager singleton for provided object ID.
    */
   public static getStoryManagerForId(id: TStringId): StoryManager {
-    if (registry.sounds.managers.get(id) === null) {
-      registry.sounds.managers.set(id, new StoryManager(id));
+    if (soundsConfig.managers.get(id) === null) {
+      soundsConfig.managers.set(id, new StoryManager(id));
     }
 
-    return registry.sounds.managers.get(id);
+    return soundsConfig.managers.get(id);
   }
 
   public readonly id: TStringId;
@@ -82,9 +83,9 @@ export class StoryManager {
    * todo: Description.
    */
   public unregisterObject(objectId: TNumberId): void {
-    if (this.lastPlayingObjectId === objectId && registry.sounds.generic.get(this.lastPlayingObjectId)) {
+    if (this.lastPlayingObjectId === objectId && soundsConfig.playing.get(this.lastPlayingObjectId)) {
       this.story = null;
-      registry.sounds.generic.get(this.lastPlayingObjectId).stop(objectId);
+      soundsConfig.playing.get(this.lastPlayingObjectId).stop(objectId);
     }
 
     if (this.storyteller === objectId) {
@@ -113,10 +114,10 @@ export class StoryManager {
       return;
     }
 
-    if (registry.sounds.generic.get(this.lastPlayingObjectId!) !== null) {
+    if (soundsConfig.playing.get(this.lastPlayingObjectId!) !== null) {
       if (registry.objects.get(this.lastPlayingObjectId!)?.object?.best_enemy() !== null) {
         this.story = null;
-        registry.sounds.generic.get(this.lastPlayingObjectId!).stop(this.lastPlayingObjectId);
+        soundsConfig.playing.get(this.lastPlayingObjectId!).stop(this.lastPlayingObjectId);
       }
 
       return;
@@ -197,10 +198,10 @@ export class StoryManager {
 
     if (
       registry.objects.get(nextSpeakerObjectId).object!.best_enemy() !== null &&
-      registry.sounds.generic.get(nextSpeakerObjectId) !== null
+      soundsConfig.playing.get(nextSpeakerObjectId) !== null
     ) {
       this.story = null;
-      registry.sounds.generic.get(nextSpeakerObjectId).stop(nextSpeakerObjectId);
+      soundsConfig.playing.get(nextSpeakerObjectId).stop(nextSpeakerObjectId);
 
       return;
     }

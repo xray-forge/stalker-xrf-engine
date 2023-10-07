@@ -1,6 +1,6 @@
 import { sound_object, time_global } from "xray16";
 
-import { registry } from "@/engine/core/database";
+import { registry } from "@/engine/core/database/registry";
 import { assert } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { Optional, SoundObject, TPath, TRate, TStringId, TTimestamp } from "@/engine/lib/types";

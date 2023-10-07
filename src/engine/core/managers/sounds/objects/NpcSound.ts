@@ -3,8 +3,8 @@ import { FS, game, get_hud, getFS, snd_type, sound_object, stalker_ids, time_glo
 import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { ENotificationType, ISoundNotification } from "@/engine/core/managers/notifications/notifications_types";
-import { AbstractPlayableSound } from "@/engine/core/objects/sounds/playable_sounds/AbstractPlayableSound";
-import { EPlayableSound, ESoundPlaylistType } from "@/engine/core/objects/sounds/sounds_types";
+import { AbstractPlayableSound } from "@/engine/core/managers/sounds/objects/AbstractPlayableSound";
+import { EPlayableSound, ESoundPlaylistType } from "@/engine/core/managers/sounds/sounds_types";
 import { abort } from "@/engine/core/utils/assertion";
 import { getObjectCommunity } from "@/engine/core/utils/community";
 import { parseStringsList, readIniBoolean, readIniNumber, readIniString } from "@/engine/core/utils/ini";
@@ -186,10 +186,10 @@ export class NpcSound extends AbstractPlayableSound {
     this.objects.set(objectId, objectDescriptor);
     this.soundPaths.set(objectId, new LuaTable());
 
-    let character_prefix: string = "";
+    let characterPrefix: string = "";
 
     if (this.prefix === false) {
-      character_prefix = object.sound_prefix();
+      characterPrefix = object.sound_prefix();
       object.sound_prefix("characters_voice\\");
     }
 
@@ -218,7 +218,7 @@ export class NpcSound extends AbstractPlayableSound {
     }
 
     if (this.prefix === false) {
-      object.sound_prefix(character_prefix);
+      object.sound_prefix(characterPrefix);
     }
 
     if (this.isGroupSound) {

@@ -102,14 +102,30 @@ export const FILES_MOCKS: Record<TPath, AnyObject> = {
     "sr_no_weapon@another": {},
   },
   "object_spawn.ini": {},
-  "misc\\script_sound.ltx": {
-    list: ["pda_task"],
+  "sounds\\script_sound.ltx": {
+    list: ["pda_task", "attack_begin", "attack_begin_reply"],
     pda_task: {
       type: "actor",
       npc_prefix: false,
       path: "device\\pda\\pda_objective",
       shuffle: "rnd",
       idle: "1,1,100",
+    },
+    attack_begin: {
+      type: "npc",
+      avail_communities: "stalker, bandit, dolg, freedom, army",
+      npc_prefix: true,
+      path: "alife\\attack\\attack_begin_",
+      shuffle: "rnd",
+      idle: "0,0,100",
+    },
+    attack_begin_reply: {
+      type: "npc",
+      avail_communities: "stalker, bandit",
+      npc_prefix: true,
+      path: "alife\\attack\\begin_reply_",
+      shuffle: "rnd",
+      idle: "0,0,100",
     },
   },
   "managers\\drop_manager.ltx": {

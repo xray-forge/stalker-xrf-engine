@@ -3,6 +3,7 @@ import { level, patrol } from "xray16";
 import { getObjectByStoryId, getObjectIdByStoryId, IRegistryObjectState, registry } from "@/engine/core/database";
 import { SimulationBoardManager } from "@/engine/core/managers/simulation/SimulationBoardManager";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
+import { soundsConfig } from "@/engine/core/managers/sounds/SoundsConfig";
 import { surgeConfig } from "@/engine/core/managers/surge/SurgeConfig";
 import { SurgeManager } from "@/engine/core/managers/surge/SurgeManager";
 import { WeatherManager } from "@/engine/core/managers/weather/WeatherManager";
@@ -115,8 +116,8 @@ extern(
 extern("xr_effects.reset_sound_npc", (actor: ClientObject, object: ClientObject): void => {
   const objectId: TNumberId = object.id();
 
-  if (registry.sounds.generic.get(objectId) !== null) {
-    registry.sounds.generic.get(objectId).reset(objectId);
+  if (soundsConfig.playing.get(objectId) !== null) {
+    soundsConfig.playing.get(objectId).reset(objectId);
   }
 });
 

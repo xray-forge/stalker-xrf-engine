@@ -17,8 +17,6 @@ import type { CampManager } from "@/engine/core/objects/camp";
 import type { Actor } from "@/engine/core/objects/server/creature/Actor";
 import type { SmartCover } from "@/engine/core/objects/server/smart_cover";
 import type { SmartTerrain } from "@/engine/core/objects/server/smart_terrain";
-import type { AbstractPlayableSound } from "@/engine/core/objects/sounds/playable_sounds";
-import type { StoryManager } from "@/engine/core/objects/sounds/stories";
 import type { LightManager } from "@/engine/core/schemes/restrictor/sr_light";
 import type { PatrolManager } from "@/engine/core/schemes/stalker/patrol";
 import type { ReachTaskPatrolManager } from "@/engine/core/schemes/stalker/reach_task";
@@ -31,7 +29,6 @@ import type {
   ClientObject,
   EScheme,
   IniFile,
-  LuaArray,
   Optional,
   TIndex,
   TName,
@@ -45,6 +42,8 @@ import type {
  * Stores up-to-date game state.
  */
 export const registry = {
+  musicVolume: 0,
+  effectsVolume: 0,
   /**
    * Current simulator, injected on game start.
    */
@@ -251,17 +250,6 @@ export const registry = {
    * Related to stalkers patrol manager.
    */
   patrolSynchronization: new LuaTable<TName, LuaTable<TNumberId, boolean>>(),
-  /**
-   * State of active sounds.
-   */
-  sounds: {
-    musicVolume: 0,
-    effectsVolume: 0,
-    generic: new LuaTable<TNumberId, AbstractPlayableSound>(),
-    looped: new LuaTable<TNumberId, LuaTable<TName, AbstractPlayableSound>>(),
-    themes: new LuaTable<TName, AbstractPlayableSound>(),
-    managers: new LuaTable<TStringId, StoryManager>(),
-  },
   /**
    * Map of no assault zones.
    * - key is name of no assault zone

@@ -1,6 +1,7 @@
 import { bit_and, snd_type } from "xray16";
 
 import { registry } from "@/engine/core/database";
+import { soundsConfig } from "@/engine/core/managers/sounds/SoundsConfig";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { ESoundType } from "@/engine/lib/constants/sound";
 import { ClientObject, TSoundType } from "@/engine/lib/types";
@@ -79,7 +80,7 @@ export function isSoundType(heard: TSoundType, expected: TSoundType): boolean {
  * @returns whether currently sound is playing.
  */
 export function isPlayingSound(object: ClientObject): boolean {
-  return registry.sounds.generic.has(object.id());
+  return soundsConfig.playing.has(object.id());
 }
 
 /**

@@ -1,8 +1,8 @@
 import { getFS, sound_object } from "xray16";
 
 import { registry } from "@/engine/core/database";
-import { AbstractPlayableSound } from "@/engine/core/objects/sounds/playable_sounds/AbstractPlayableSound";
-import { EPlayableSound } from "@/engine/core/objects/sounds/sounds_types";
+import { AbstractPlayableSound } from "@/engine/core/managers/sounds/objects/AbstractPlayableSound";
+import { EPlayableSound } from "@/engine/core/managers/sounds/sounds_types";
 import { assert } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { roots } from "@/engine/lib/constants/roots";

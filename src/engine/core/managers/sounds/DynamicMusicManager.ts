@@ -4,15 +4,16 @@ import { getManagerInstanceByName, registry } from "@/engine/core/database";
 import { AbstractManager } from "@/engine/core/managers/base/AbstractManager";
 import { EGameEvent } from "@/engine/core/managers/events/events_types";
 import { EventsManager } from "@/engine/core/managers/events/EventsManager";
-import { dynamicMusicThemes } from "@/engine/core/managers/sounds/dynamic_music";
+import { StereoSound } from "@/engine/core/managers/sounds/objects";
 import { EDynamicMusicState } from "@/engine/core/managers/sounds/sounds_types";
+import { soundsConfig } from "@/engine/core/managers/sounds/SoundsConfig";
 import { surgeConfig } from "@/engine/core/managers/surge/SurgeConfig";
 import type { SurgeManager } from "@/engine/core/managers/surge/SurgeManager";
-import { StereoSound } from "@/engine/core/objects/sounds/StereoSound";
 import { abort } from "@/engine/core/utils/assertion";
 import { executeConsoleCommand, getConsoleFloatCommand } from "@/engine/core/utils/console";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { clampNumber } from "@/engine/core/utils/number";
+import { isObjectInSilenceZone } from "@/engine/core/utils/position";
 import { consoleCommands } from "@/engine/lib/constants/console_commands";
 import {
   ClientObject,
@@ -98,21 +99,6 @@ export class DynamicMusicManager extends AbstractManager {
   /**
    * todo: Description.
    */
-  public isActorInSilenceZone(): boolean {
-    const actorPosition: Vector = registry.actor.position();
-
-    for (const [zoneId, zoneName] of registry.silenceZones) {
-      if (registry.zones.get(zoneName).inside(actorPosition)) {
-        return true;
-      }
-    }
-
-    return false;
-  }
-
-  /**
-   * todo: Description.
-   */
   public selectNextTrack(): void {
     logger.info("Select next track for playback");
 
@@ -145,7 +131,7 @@ export class DynamicMusicManager extends AbstractManager {
 
     logger.info("Initialize level themes:", levelName);
 
-    for (const [, themeDescriptor] of dynamicMusicThemes) {
+    for (const [, themeDescriptor] of soundsConfig.dynamicMusicThemes) {
       if (!themeDescriptor.maps || themeDescriptor.maps === "" || string.find(themeDescriptor.maps, levelName)) {
         table.insert(newThemesList, themeDescriptor.files);
       }
@@ -174,7 +160,7 @@ export class DynamicMusicManager extends AbstractManager {
     this.forceFade = false;
 
     if (actor.alive()) {
-      if (!this.isActorInSilenceZone()) {
+      if (!isObjectInSilenceZone(registry.actor)) {
         const actorPosition: Vector = actor.position();
         const actorId: TNumberId = actor.id();
 
@@ -365,14 +351,14 @@ export class DynamicMusicManager extends AbstractManager {
   public onActorNetworkDestroy(): void {
     this.stopTheme();
 
-    if (registry.sounds.effectsVolume !== 0) {
-      executeConsoleCommand(consoleCommands.snd_volume_eff, tostring(registry.sounds.effectsVolume));
-      registry.sounds.effectsVolume = 0;
+    if (registry.effectsVolume !== 0) {
+      executeConsoleCommand(consoleCommands.snd_volume_eff, tostring(registry.effectsVolume));
+      registry.effectsVolume = 0;
     }
 
-    if (registry.sounds.musicVolume !== 0) {
-      executeConsoleCommand(consoleCommands.snd_volume_music, tostring(registry.sounds.musicVolume));
-      registry.sounds.musicVolume = 0;
+    if (registry.musicVolume !== 0) {
+      executeConsoleCommand(consoleCommands.snd_volume_music, tostring(registry.musicVolume));
+      registry.musicVolume = 0;
     }
 
     logger.info("Toggle ambient volume:", this.gameAmbientVolume);

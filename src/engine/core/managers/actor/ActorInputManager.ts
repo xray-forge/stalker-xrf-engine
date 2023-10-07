@@ -268,8 +268,8 @@ export class ActorInputManager extends AbstractManager {
 
     giveInfoPortion(infoPortions.anabiotic_in_process);
 
-    registry.sounds.musicVolume = getConsoleFloatCommand(consoleCommands.snd_volume_music);
-    registry.sounds.effectsVolume = getConsoleFloatCommand(consoleCommands.snd_volume_eff);
+    registry.musicVolume = getConsoleFloatCommand(consoleCommands.snd_volume_music);
+    registry.effectsVolume = getConsoleFloatCommand(consoleCommands.snd_volume_eff);
 
     executeConsoleCommand(consoleCommands.snd_volume_music, 0);
     executeConsoleCommand(consoleCommands.snd_volume_eff, 0);
@@ -387,11 +387,11 @@ export class ActorInputManager extends AbstractManager {
   public onAnabioticWakeUp(): void {
     ActorInputManager.getInstance().enableGameUi();
 
-    executeConsoleCommand(consoleCommands.snd_volume_music, registry.sounds.musicVolume);
-    executeConsoleCommand(consoleCommands.snd_volume_eff, registry.sounds.effectsVolume);
+    executeConsoleCommand(consoleCommands.snd_volume_music, registry.musicVolume);
+    executeConsoleCommand(consoleCommands.snd_volume_eff, registry.effectsVolume);
 
-    registry.sounds.effectsVolume = 0;
-    registry.sounds.musicVolume = 0;
+    registry.effectsVolume = 0;
+    registry.musicVolume = 0;
 
     disableInfoPortion(infoPortions.anabiotic_in_process);
   }
