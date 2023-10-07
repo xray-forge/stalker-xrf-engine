@@ -132,12 +132,6 @@ export class DebugRegistrySection extends AbstractDebugSection {
     logger.info("Spawned vertexes registered:", Object.keys(registry.spawnedVertexes).length);
     logger.info("Patrols registered:", Object.keys(registry.patrols.generic).length);
     logger.info("Reach tasks registered:", Object.keys(registry.patrols.reachTask).length);
-    logger.info("Sound managers registered:", Object.keys(registry.sounds.managers).length);
-    logger.info("Sound generic registered:", Object.keys(registry.sounds.generic).length);
-    logger.info("Sound themes registered:", Object.keys(registry.sounds.themes).length);
-    logger.info("Sound looped registered:", Object.keys(registry.sounds.looped).length);
-    logger.info("Sound music volume registered:", registry.sounds.musicVolume);
-    logger.info("Sound effects volume registered:", registry.sounds.effectsVolume);
 
     const eventsManager: EventsManager = EventsManager.getInstance();
 

@@ -13,6 +13,7 @@ import {
 } from "@/engine/core/database";
 import { loadObjectLogic, saveObjectLogic } from "@/engine/core/database/logic";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
+import { soundsConfig } from "@/engine/core/managers/sounds/SoundsConfig";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { emitSchemeEvent, initializeObjectSchemeLogic } from "@/engine/core/utils/scheme";
 import { ESchemeEvent, NetPacket, Reader, ServerObject, TDuration, TNumberId } from "@/engine/lib/types";
@@ -44,8 +45,8 @@ export class RestrictorBinder extends object_binder {
     const objectId: TNumberId = this.object.id();
     const globalSoundManager: GlobalSoundManager = GlobalSoundManager.getInstance();
 
-    if (registry.sounds.looped.get(objectId) !== null) {
-      for (const [k, v] of registry.sounds.looped.get(objectId)) {
+    if (soundsConfig.looped.get(objectId) !== null) {
+      for (const [k, v] of soundsConfig.looped.get(objectId)) {
         globalSoundManager.playLoopedSound(objectId, k);
       }
     }

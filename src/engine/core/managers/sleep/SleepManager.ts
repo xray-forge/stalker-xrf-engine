@@ -54,8 +54,8 @@ export class SleepManager extends AbstractManager {
 
     giveInfoPortion(infoPortions.actor_is_sleeping);
 
-    registry.sounds.musicVolume = getConsoleFloatCommand(consoleCommands.snd_volume_music);
-    registry.sounds.effectsVolume = getConsoleFloatCommand(consoleCommands.snd_volume_eff);
+    registry.musicVolume = getConsoleFloatCommand(consoleCommands.snd_volume_music);
+    registry.effectsVolume = getConsoleFloatCommand(consoleCommands.snd_volume_eff);
 
     executeConsoleCommand(consoleCommands.snd_volume_music, 0);
     executeConsoleCommand(consoleCommands.snd_volume_eff, 0);
@@ -96,11 +96,11 @@ export class SleepManager extends AbstractManager {
 
     ActorInputManager.getInstance().enableGameUi();
 
-    executeConsoleCommand(consoleCommands.snd_volume_music, registry.sounds.musicVolume);
-    executeConsoleCommand(consoleCommands.snd_volume_eff, registry.sounds.effectsVolume);
+    executeConsoleCommand(consoleCommands.snd_volume_music, registry.musicVolume);
+    executeConsoleCommand(consoleCommands.snd_volume_eff, registry.effectsVolume);
 
-    registry.sounds.musicVolume = 0;
-    registry.sounds.effectsVolume = 0;
+    registry.musicVolume = 0;
+    registry.effectsVolume = 0;
 
     giveInfoPortion(infoPortions.tutorial_sleep);
     disableInfoPortion(infoPortions.actor_is_sleeping);

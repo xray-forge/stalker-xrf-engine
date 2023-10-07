@@ -365,14 +365,14 @@ export class DynamicMusicManager extends AbstractManager {
   public onActorNetworkDestroy(): void {
     this.stopTheme();
 
-    if (registry.sounds.effectsVolume !== 0) {
-      executeConsoleCommand(consoleCommands.snd_volume_eff, tostring(registry.sounds.effectsVolume));
-      registry.sounds.effectsVolume = 0;
+    if (registry.effectsVolume !== 0) {
+      executeConsoleCommand(consoleCommands.snd_volume_eff, tostring(registry.effectsVolume));
+      registry.effectsVolume = 0;
     }
 
-    if (registry.sounds.musicVolume !== 0) {
-      executeConsoleCommand(consoleCommands.snd_volume_music, tostring(registry.sounds.musicVolume));
-      registry.sounds.musicVolume = 0;
+    if (registry.musicVolume !== 0) {
+      executeConsoleCommand(consoleCommands.snd_volume_music, tostring(registry.musicVolume));
+      registry.musicVolume = 0;
     }
 
     logger.info("Toggle ambient volume:", this.gameAmbientVolume);
