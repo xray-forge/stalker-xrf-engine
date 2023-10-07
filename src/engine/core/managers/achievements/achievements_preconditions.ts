@@ -8,6 +8,7 @@ import { StatisticsManager } from "@/engine/core/managers/statistics";
 import { giveInfoPortion, hasFewInfoPortions, hasInfoPortion, hasInfoPortions } from "@/engine/core/utils/info_portion";
 import { increaseCommunityGoodwillToId } from "@/engine/core/utils/relation";
 import { communities } from "@/engine/lib/constants/communities";
+import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import { infoPortions } from "@/engine/lib/constants/info_portions";
 import { TNumberId } from "@/engine/lib/types";
 
@@ -162,7 +163,7 @@ export function hasAchievedSeeker(): boolean {
   }
 
   giveInfoPortion(infoPortions.sim_bandit_attack_harder);
-  increaseCommunityGoodwillToId(communities.stalker, registry.actor.id(), 200);
+  increaseCommunityGoodwillToId(communities.stalker, ACTOR_ID, 200);
 
   EventsManager.emitEvent<ITipNotification>(EGameEvent.NOTIFICATION, {
     type: ENotificationType.TIP,
@@ -278,12 +279,10 @@ export function hasAchievedDiplomat(): boolean {
     ) {
       giveInfoPortion(infoPortions.diplomat_achievement_gained);
 
-      const actorId: TNumberId = registry.actor.id();
-
-      increaseCommunityGoodwillToId(communities.stalker, actorId, 200);
-      increaseCommunityGoodwillToId(communities.freedom, actorId, 200);
-      increaseCommunityGoodwillToId(communities.dolg, actorId, 200);
-      increaseCommunityGoodwillToId(communities.bandit, actorId, 200);
+      increaseCommunityGoodwillToId(communities.stalker, ACTOR_ID, 200);
+      increaseCommunityGoodwillToId(communities.freedom, ACTOR_ID, 200);
+      increaseCommunityGoodwillToId(communities.dolg, ACTOR_ID, 200);
+      increaseCommunityGoodwillToId(communities.bandit, ACTOR_ID, 200);
 
       EventsManager.emitEvent<ITipNotification>(EGameEvent.NOTIFICATION, {
         type: ENotificationType.TIP,
@@ -521,7 +520,7 @@ export function hasAchievedFriendOfStalkers(): boolean {
       ])
     ) {
       giveInfoPortion(infoPortions.sim_stalker_help_harder);
-      increaseCommunityGoodwillToId(communities.stalker, registry.actor.id(), 100);
+      increaseCommunityGoodwillToId(communities.stalker, ACTOR_ID, 100);
 
       EventsManager.emitEvent<ITipNotification>(EGameEvent.NOTIFICATION, {
         type: ENotificationType.TIP,

@@ -1,5 +1,10 @@
-import { describe, it } from "@jest/globals";
+import { describe, expect, it } from "@jest/globals";
+
+import { SmartCoverBinder } from "@/engine/core/objects/binders";
+import { mockClientGameObject } from "@/fixtures/xray";
 
 describe("SmartCoverBinder class", () => {
-  it.todo("should correctly initialize");
+  it("should correctly initialize", () => {
+    expect(() => new SmartCoverBinder(mockClientGameObject())).not.toThrow();
+  });
 });

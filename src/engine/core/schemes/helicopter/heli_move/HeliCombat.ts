@@ -23,6 +23,7 @@ import {
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { pickRandom } from "@/engine/core/utils/random";
 import { copyVector, createEmptyVector, createVector, distanceBetween2d } from "@/engine/core/utils/vector";
+import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import { ACTOR, NIL } from "@/engine/lib/constants/words";
 import { ClientObject, IniFile, NetPacket, Optional, Reader, TNumberId, TRate, Vector } from "@/engine/lib/types";
 
@@ -172,7 +173,7 @@ export class HeliCombat {
     } else {
       if (combatEnemy === ACTOR) {
         if (registry.actor !== null) {
-          this.enemyId = registry.actor.id();
+          this.enemyId = ACTOR_ID;
         } else {
           this.forgetEnemy();
         }

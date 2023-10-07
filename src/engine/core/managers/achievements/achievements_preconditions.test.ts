@@ -34,6 +34,7 @@ import { ENotificationType, ITipNotification } from "@/engine/core/managers/noti
 import { StatisticsManager } from "@/engine/core/managers/statistics";
 import { disableInfoPortion, giveInfoPortion, hasInfoPortion } from "@/engine/core/utils/info_portion";
 import { communities } from "@/engine/lib/constants/communities";
+import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import { infoPortions, TInfoPortion } from "@/engine/lib/constants/info_portions";
 import { artefacts } from "@/engine/lib/constants/items/artefacts";
 import { TName } from "@/engine/lib/types";
@@ -373,11 +374,7 @@ describe("AchievementManager class", () => {
       ],
     });
 
-    expect(relation_registry.change_community_goodwill).toHaveBeenCalledWith(
-      communities.stalker,
-      registry.actor.id(),
-      100
-    );
+    expect(relation_registry.change_community_goodwill).toHaveBeenCalledWith(communities.stalker, ACTOR_ID, 100);
   });
 
   it("should correctly check wealthy achievement", () => {
@@ -424,11 +421,7 @@ describe("AchievementManager class", () => {
     expect(onNotification).toHaveBeenCalledTimes(1);
     expect(hasInfoPortion(infoPortions.sim_bandit_attack_harder)).toBeTruthy();
 
-    expect(relation_registry.change_community_goodwill).toHaveBeenCalledWith(
-      communities.stalker,
-      registry.actor.id(),
-      200
-    );
+    expect(relation_registry.change_community_goodwill).toHaveBeenCalledWith(communities.stalker, ACTOR_ID, 200);
   });
 
   it("should correctly check marked by zone achievement", () => {

@@ -296,7 +296,7 @@ export const FILES_MOCKS: Record<TPath, AnyObject> = {
       condlist: true,
     },
   },
-  "misc\\simulation_objects_props.ltx": {
+  "managers\\simulation\\simulation_objects_props.ltx": {
     default_squad: {
       sim_avail: "{+test_squad} true, false",
       first: "a",

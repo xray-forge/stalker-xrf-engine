@@ -1,6 +1,6 @@
 import { actor_stats, clsid, game_graph, level } from "xray16";
 
-import { registry, SIMULATION_LTX } from "@/engine/core/database";
+import { registry } from "@/engine/core/database";
 import { AbstractManager } from "@/engine/core/managers/base/AbstractManager";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import {
@@ -9,16 +9,18 @@ import {
   ISmartTerrainDescriptor,
   TSimulationObject,
 } from "@/engine/core/managers/simulation/simulation_types";
+import { SIMULATION_LTX } from "@/engine/core/managers/simulation/SimulationConfig";
 import { evaluateSimulationPriority } from "@/engine/core/managers/simulation/utils";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain/SmartTerrain";
 import type { Squad } from "@/engine/core/objects/server/squad/Squad";
 import { ESquadActionType } from "@/engine/core/objects/server/squad/squad_types";
-import { abort, assertDefined } from "@/engine/core/utils/assertion";
+import { abort, assert } from "@/engine/core/utils/assertion";
 import { setObjectTeamSquadGroup } from "@/engine/core/utils/community";
 import { parseStringsList } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { setSquadRelationToActor } from "@/engine/core/utils/relation";
+import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import { TLevel } from "@/engine/lib/constants/levels";
 import {
   LuaArray,
@@ -501,7 +503,7 @@ export class SimulationBoardManager extends AbstractManager {
         for (const [, name] of smartTerrainsNames) {
           const smartTerrain: Optional<SmartTerrain> = this.smartTerrainsByName.get(name);
 
-          assertDefined(smartTerrain, "Wrong smart name '%s' in start position spawning.", tostring(name));
+          assert(smartTerrain, "Wrong smart name '%s' in start position spawning.", name);
 
           this.enterSmartTerrain(this.createSquad(smartTerrain, field), smartTerrain.id);
         }
@@ -518,7 +520,7 @@ export class SimulationBoardManager extends AbstractManager {
     simulationLogger.format("Actor network destroy");
 
     if (actor_stats.remove_from_ranking !== null) {
-      actor_stats.remove_from_ranking(registry.actor.id());
+      actor_stats.remove_from_ranking(ACTOR_ID);
     }
 
     if (this.factions !== null) {
