@@ -2,7 +2,7 @@ import { describe, expect, it, jest } from "@jest/globals";
 import { sound_object, time_global } from "xray16";
 
 import { registerActor } from "@/engine/core/database";
-import { StereoSound } from "@/engine/core/objects/sounds/StereoSound";
+import { StereoSound } from "@/engine/core/managers/sounds/objects/StereoSound";
 import { replaceFunctionMock } from "@/fixtures/jest";
 import { mockClientGameObject } from "@/fixtures/xray";
 

@@ -23,6 +23,7 @@ import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { MapDisplayManager } from "@/engine/core/managers/map/MapDisplayManager";
 import { SimulationBoardManager } from "@/engine/core/managers/simulation/SimulationBoardManager";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
+import { initializeObjectSounds } from "@/engine/core/managers/sounds/utils";
 import { TradeManager } from "@/engine/core/managers/trade/TradeManager";
 import { setupStalkerMotivationPlanner, setupStalkerStatePlanner } from "@/engine/core/objects/ai/planner/setup";
 import { StalkerStateManager } from "@/engine/core/objects/ai/state";
@@ -154,7 +155,7 @@ export class StalkerBinder extends object_binder {
 
     this.helicopterEnemyIndex = registerHelicopterEnemy(this.object);
 
-    GlobalSoundManager.initializeObjectSounds(this.object);
+    initializeObjectSounds(this.object);
     SchemeReachTask.setup(this.object);
 
     // todo: Why? Already same ref in parameter?

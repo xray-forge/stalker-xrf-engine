@@ -3,10 +3,10 @@ import { time_global } from "xray16";
 import { IBaseSchemeState, IRegistryObjectState, registry } from "@/engine/core/database";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import { soundsConfig } from "@/engine/core/managers/sounds/SoundsConfig";
+import { StoryManager } from "@/engine/core/managers/sounds/stories";
 import { WEAPON_POSTFIX } from "@/engine/core/objects/animation/types";
 import { CAMP_ACTIVITIES } from "@/engine/core/objects/camp/camp_logic";
 import { EObjectCampActivity, EObjectCampRole, ICampObjectState } from "@/engine/core/objects/camp/camp_types";
-import { StoryManager } from "@/engine/core/objects/sounds/stories";
 import {
   IAnimpointActionDescriptor,
   ISchemeAnimpointState,
@@ -108,7 +108,7 @@ export class CampManager {
 
     // Check idle talker and reset if it is not speaking anymore.
     if (this.idleTalkerId) {
-      if (soundsConfig.generic.get(this.idleTalkerId) !== null) {
+      if (soundsConfig.playing.get(this.idleTalkerId) !== null) {
         return;
       } else {
         this.idleTalkerId = null;

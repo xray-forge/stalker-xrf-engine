@@ -116,8 +116,8 @@ extern(
 extern("xr_effects.reset_sound_npc", (actor: ClientObject, object: ClientObject): void => {
   const objectId: TNumberId = object.id();
 
-  if (soundsConfig.generic.get(objectId) !== null) {
-    soundsConfig.generic.get(objectId).reset(objectId);
+  if (soundsConfig.playing.get(objectId) !== null) {
+    soundsConfig.playing.get(objectId).reset(objectId);
   }
 });
 

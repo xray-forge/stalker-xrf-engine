@@ -4,11 +4,11 @@ import { getManagerInstanceByName, registry } from "@/engine/core/database";
 import { AbstractManager } from "@/engine/core/managers/base/AbstractManager";
 import { EGameEvent } from "@/engine/core/managers/events/events_types";
 import { EventsManager } from "@/engine/core/managers/events/EventsManager";
-import { dynamicMusicThemes } from "@/engine/core/managers/sounds/dynamic_music";
+import { StereoSound } from "@/engine/core/managers/sounds/objects";
 import { EDynamicMusicState } from "@/engine/core/managers/sounds/sounds_types";
+import { soundsConfig } from "@/engine/core/managers/sounds/SoundsConfig";
 import { surgeConfig } from "@/engine/core/managers/surge/SurgeConfig";
 import type { SurgeManager } from "@/engine/core/managers/surge/SurgeManager";
-import { StereoSound } from "@/engine/core/objects/sounds/StereoSound";
 import { abort } from "@/engine/core/utils/assertion";
 import { executeConsoleCommand, getConsoleFloatCommand } from "@/engine/core/utils/console";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -145,7 +145,7 @@ export class DynamicMusicManager extends AbstractManager {
 
     logger.info("Initialize level themes:", levelName);
 
-    for (const [, themeDescriptor] of dynamicMusicThemes) {
+    for (const [, themeDescriptor] of soundsConfig.dynamicMusicThemes) {
       if (!themeDescriptor.maps || themeDescriptor.maps === "" || string.find(themeDescriptor.maps, levelName)) {
         table.insert(newThemesList, themeDescriptor.files);
       }

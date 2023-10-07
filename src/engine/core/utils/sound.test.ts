@@ -2,7 +2,8 @@ import { describe, expect, it } from "@jest/globals";
 import { snd_type } from "xray16";
 
 import { registry } from "@/engine/core/database";
-import { LoopedSound } from "@/engine/core/objects/sounds/playable_sounds";
+import { LoopedSound } from "@/engine/core/managers/sounds/objects";
+import { soundsConfig } from "@/engine/core/managers/sounds/SoundsConfig";
 import {
   isPlayingSound,
   isSoundType,
@@ -77,7 +78,7 @@ describe("sound utils", () => {
 
     expect(isPlayingSound(object)).toBe(false);
 
-    registry.sounds.generic.set(
+    soundsConfig.playing.set(
       object.id(),
       new LoopedSound(
         mockIniFile("test.ltx", {

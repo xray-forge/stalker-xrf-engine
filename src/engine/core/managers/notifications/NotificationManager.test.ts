@@ -22,9 +22,10 @@ import {
   ITreasureNotification,
   NotificationManager,
 } from "@/engine/core/managers/notifications";
+import { AbstractPlayableSound } from "@/engine/core/managers/sounds/objects/AbstractPlayableSound";
+import { ActorSound } from "@/engine/core/managers/sounds/objects/ActorSound";
+import { soundsConfig } from "@/engine/core/managers/sounds/SoundsConfig";
 import { ETaskState } from "@/engine/core/managers/tasks";
-import { AbstractPlayableSound } from "@/engine/core/objects/sounds/playable_sounds/AbstractPlayableSound";
-import { ActorSound } from "@/engine/core/objects/sounds/playable_sounds/ActorSound";
 import { ISchemeWoundedState } from "@/engine/core/schemes/stalker/wounded";
 import { ClientObject, GameTask } from "@/engine/lib/types";
 import { resetFunctionMock } from "@/fixtures/jest";
@@ -433,11 +434,11 @@ describe("NotificationManager class", () => {
   it("should correctly play PDA notification sounds", () => {
     const notificationManager: NotificationManager = NotificationManager.getInstance();
 
-    expect(registry.sounds.themes.get("pda_task")).toBeNull();
+    expect(soundsConfig.themes.get("pda_task")).toBeNull();
 
     notificationManager.onPlayPdaNotificationSound();
 
-    const notificationSound: AbstractPlayableSound = registry.sounds.themes.get("pda_task");
+    const notificationSound: AbstractPlayableSound = soundsConfig.themes.get("pda_task");
 
     expect(notificationSound).toBeDefined();
     expect(notificationSound).toBeInstanceOf(ActorSound);

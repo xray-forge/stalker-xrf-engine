@@ -80,7 +80,7 @@ export function isSoundType(heard: TSoundType, expected: TSoundType): boolean {
  * @returns whether currently sound is playing.
  */
 export function isPlayingSound(object: ClientObject): boolean {
-  return soundsConfig.generic.has(object.id());
+  return soundsConfig.playing.has(object.id());
 }
 
 /**

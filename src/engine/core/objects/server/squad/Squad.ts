@@ -28,11 +28,11 @@ import {
   TSimulationObject,
 } from "@/engine/core/managers/simulation";
 import { SimulationBoardManager } from "@/engine/core/managers/simulation/SimulationBoardManager";
+import { StoryManager } from "@/engine/core/managers/sounds/stories";
 import type { SmartTerrain } from "@/engine/core/objects/server/smart_terrain/SmartTerrain";
 import { ESmartTerrainStatus } from "@/engine/core/objects/server/smart_terrain/types";
 import { SquadReachTargetAction, SquadStayOnTargetAction } from "@/engine/core/objects/server/squad/action";
 import { ESquadActionType, ISquadAction } from "@/engine/core/objects/server/squad/squad_types";
-import { StoryManager } from "@/engine/core/objects/sounds/stories";
 import { abort } from "@/engine/core/utils/assertion";
 import { isSmartTerrain, isSquad, isSquadId } from "@/engine/core/utils/class_ids";
 import {
