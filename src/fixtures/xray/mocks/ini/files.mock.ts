@@ -103,7 +103,7 @@ export const FILES_MOCKS: Record<TPath, AnyObject> = {
   },
   "object_spawn.ini": {},
   "sounds\\script_sound.ltx": {
-    list: ["pda_task", "attack_begin"],
+    list: ["pda_task", "attack_begin", "attack_begin_reply"],
     pda_task: {
       type: "actor",
       npc_prefix: false,
