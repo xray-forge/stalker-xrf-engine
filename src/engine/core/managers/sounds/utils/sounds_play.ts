@@ -1,15 +1,19 @@
+import { EPlayableSound } from "@/engine/core/managers/sounds";
 import { NpcSound } from "@/engine/core/managers/sounds/objects";
 import { soundsConfig } from "@/engine/core/managers/sounds/SoundsConfig";
 import { getObjectCommunity } from "@/engine/core/utils/community";
+import { TCommunity } from "@/engine/lib/constants/communities";
 import { ClientObject } from "@/engine/lib/types";
 
 /**
  * todo;
  */
-export function initializeObjectSounds(object: ClientObject): void {
+export function initializeObjectThemes(object: ClientObject): void {
+  const objectCommunity: TCommunity = getObjectCommunity(object);
+
   for (const [, sound] of soundsConfig.themes) {
-    if (sound.type === NpcSound.type) {
-      if ((sound as NpcSound).availableCommunities.has(getObjectCommunity(object))) {
+    if (sound.type === EPlayableSound.NPC) {
+      if ((sound as NpcSound).availableCommunities.has(objectCommunity)) {
         (sound as NpcSound).initializeObject(object);
       }
     }

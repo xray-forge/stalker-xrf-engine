@@ -186,10 +186,10 @@ export class NpcSound extends AbstractPlayableSound {
     this.objects.set(objectId, objectDescriptor);
     this.soundPaths.set(objectId, new LuaTable());
 
-    let character_prefix: string = "";
+    let characterPrefix: string = "";
 
     if (this.prefix === false) {
-      character_prefix = object.sound_prefix();
+      characterPrefix = object.sound_prefix();
       object.sound_prefix("characters_voice\\");
     }
 
@@ -218,7 +218,7 @@ export class NpcSound extends AbstractPlayableSound {
     }
 
     if (this.prefix === false) {
-      object.sound_prefix(character_prefix);
+      object.sound_prefix(characterPrefix);
     }
 
     if (this.isGroupSound) {
