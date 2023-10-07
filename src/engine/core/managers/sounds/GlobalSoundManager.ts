@@ -60,7 +60,7 @@ export class GlobalSoundManager extends AbstractManager {
     assert(playableTheme.type !== LoopedSound.type, "You trying to play sound [%s] which type is looped.", sound);
 
     if (soundItem === null || playableTheme.shouldPlayAlways) {
-      if (soundItem) {
+      if (soundItem !== null) {
         logger.info("Reset sound before forced play:", objectId, sound, faction, point);
         soundsConfig.playing.get(objectId).reset(objectId);
       }
