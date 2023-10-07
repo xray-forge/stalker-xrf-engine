@@ -14,13 +14,13 @@ import { IniFile, TCount, TName } from "@/engine/lib/types";
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Initialize list of available themes from ini config file.
  *
  * @param ini - target ini file to read list from
  * @returns list of sound themes from ini file
  */
 export function readIniThemesList(ini: IniFile): LuaTable<TName, AbstractPlayableSound> {
-  assert(ini.section_exist("list"), "There is no section [list] in themes list ini file.");
+  assert(ini.section_exist("list"), "There is no section 'list' in provided ini file.");
 
   const themes: LuaTable<TName, AbstractPlayableSound> = new LuaTable();
   const themesCount: TCount = ini.line_count("list");
