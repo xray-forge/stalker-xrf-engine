@@ -1,10 +1,10 @@
 import { registerExtension } from "@/engine/core/database";
 import { getAvailableExtensions, IExtensionsDescriptor } from "@/engine/core/utils/extensions";
 import {
-  loadExtensionsOrder,
-  saveExtensionsOrder,
-  syncExtensionsOrder,
-} from "@/engine/core/utils/extensions/extensions_order";
+  loadExtensionsState,
+  saveExtensionsState,
+  syncExtensionsState,
+} from "@/engine/core/utils/extensions/extensions_state";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { AnyCallablesModule, LuaArray } from "@/engine/lib/types";
 
@@ -21,7 +21,7 @@ export function registerExtensions(): void {
   }
 
   const extensions: LuaArray<IExtensionsDescriptor> = getAvailableExtensions();
-  const sortedExtensions: LuaArray<IExtensionsDescriptor> = syncExtensionsOrder(extensions, loadExtensionsOrder());
+  const sortedExtensions: LuaArray<IExtensionsDescriptor> = syncExtensionsState(extensions, loadExtensionsState());
 
   if (extensions.length() > 0) {
     logger.info("Registering extensions:", extensions.length());
@@ -32,10 +32,12 @@ export function registerExtensions(): void {
   }
 
   for (const [, extension] of sortedExtensions) {
-    registerExtension(extension);
-    (extension.module as AnyCallablesModule).register(extension);
+    if (extension.isEnabled) {
+      registerExtension(extension);
+      (extension.module as AnyCallablesModule).register(extension);
+    }
   }
 
   logger.info("Saving current extensions order");
-  saveExtensionsOrder(sortedExtensions);
+  saveExtensionsState(sortedExtensions);
 }
