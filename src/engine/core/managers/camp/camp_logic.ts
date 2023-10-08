@@ -1,10 +1,10 @@
-import { WEAPON_POSTFIX } from "@/engine/core/objects/animation/types";
 import {
   EObjectCampActivity,
   ICampTransitionDescriptor,
   IStoryAnimationDescriptor,
-} from "@/engine/core/objects/camp/camp_types";
-import type { CampManager } from "@/engine/core/objects/camp/CampManager";
+} from "@/engine/core/managers/camp/camp_types";
+import type { CampManager } from "@/engine/core/managers/camp/CampManager";
+import { WEAPON_POSTFIX } from "@/engine/core/objects/animation/types";
 import { canPlayCampGuitar, canPlayCampHarmonica, canTellCampStory } from "@/engine/core/utils/camp";
 import type { TProbability } from "@/engine/lib/types";
 
