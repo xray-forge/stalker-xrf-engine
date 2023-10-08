@@ -1,4 +1,5 @@
 import { jest } from "@jest/globals";
+import { set_start_position } from "xray16";
 
 import {
   MockActionBase,
@@ -194,6 +195,8 @@ export function mockXRay16({
   property_evaluator = MockPropertyEvaluator,
   property_storage = MockPropertyStorage,
   relation_registry = mockRelationRegistryInterface,
+  set_start_game_vertex_id = jest.fn(),
+  set_start_position = jest.fn(),
   sight_params = MockSightParameters,
   snd_type = mockSndType,
   sound = MockSound,
@@ -300,6 +303,8 @@ export function mockXRay16({
     property_evaluator,
     property_storage,
     relation_registry,
+    set_start_game_vertex_id,
+    set_start_position,
     sight_params,
     snd_type,
     sound,
