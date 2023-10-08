@@ -34,8 +34,8 @@ export function getAvailableExtensions(): LuaArray<IExtensionsDescriptor> {
 
         if (module && type(module.register) === "function") {
           table.insert(list, {
-            isEnabled: true,
-            name: directoryItem,
+            isEnabled: type(module.enabled) === "boolean" ? module.enabled : true,
+            name: type(module.name) === "string" ? module.name : directoryItem,
             path: extensionPath,
             entry: extensionEntryPath,
             module: module,

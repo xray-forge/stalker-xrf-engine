@@ -58,6 +58,7 @@ export function create(): JSXNode {
         <btn name={"btn_net_game"} caption={"ui_mm_network_game"} />
         <btn name={"btn_options"} caption={"ui_mm_options_n"} />
         <btn name={"btn_credits"} caption={"ui_mm_credits"} />
+        <btn name={"btn_extensions"} caption={"ui_mm_extensions"} />
         <btn name={"btn_quit"} caption={"ui_mm_quit2windows"} />
       </menu_main_last_save>
 

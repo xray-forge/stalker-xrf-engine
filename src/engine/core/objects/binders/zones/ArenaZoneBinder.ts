@@ -2,6 +2,7 @@ import { callback, clsid, LuabindClass, object_binder } from "xray16";
 
 import { closeLoadMarker, closeSaveMarker, openLoadMarker, openSaveMarker, registry } from "@/engine/core/database";
 import { LuaLogger } from "@/engine/core/utils/logging";
+import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import { AlifeSimulator, ClientObject, NetPacket, Reader, ServerObject, TNumberId } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -99,7 +100,7 @@ export class ArenaZoneBinder extends object_binder {
    */
   public on_enter(zone: ClientObject, object: ClientObject): void {
     if (
-      object.id() === registry.actor.id() ||
+      object.id() === ACTOR_ID ||
       object.clsid() === clsid.obj_physic ||
       object.clsid() === clsid.hanging_lamp ||
       object.clsid() === clsid.obj_phys_destroyable
@@ -115,7 +116,7 @@ export class ArenaZoneBinder extends object_binder {
    */
   public on_exit(zone: ClientObject, object: ClientObject): void {
     if (
-      object.id() === registry.actor.id() ||
+      object.id() === ACTOR_ID ||
       object.clsid() === clsid.obj_physic ||
       object.clsid() === clsid.hanging_lamp ||
       object.clsid() === clsid.obj_phys_destroyable

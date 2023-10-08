@@ -29,6 +29,7 @@ import { abort, assert } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { isObjectWounded } from "@/engine/core/utils/planner";
 import { getInventoryNameForItemSection } from "@/engine/core/utils/spawn";
+import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import {
   AlifeSimulator,
   ClientObject,
@@ -363,7 +364,7 @@ export class NotificationManager extends AbstractManager {
    * Play default sound notification of PDA updates.
    */
   public onPlayPdaNotificationSound(): void {
-    GlobalSoundManager.getInstance().playSound(registry.actor.id(), "pda_task", null, null);
+    GlobalSoundManager.getInstance().playSound(ACTOR_ID, "pda_task");
   }
 
   /**

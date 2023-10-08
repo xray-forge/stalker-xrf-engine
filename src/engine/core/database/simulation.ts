@@ -1,12 +1,12 @@
 import { alife, clsid } from "xray16";
 
-import { SIMULATION_OBJECTS_PROPS_LTX } from "@/engine/core/database/ini_registry";
 import { registry } from "@/engine/core/database/registry";
 import { TSimulationObject } from "@/engine/core/managers/simulation";
+import { SIMULATION_OBJECTS_PROPERTIES_LTX } from "@/engine/core/managers/simulation/SimulationConfig";
 import { isSquad } from "@/engine/core/utils/class_ids";
 import { parseConditionsList } from "@/engine/core/utils/ini/ini_parse";
 import { ACTOR, DEFAULT, DEFAULT_SQUAD } from "@/engine/lib/constants/words";
-import { TCount, TSection } from "@/engine/lib/types";
+import { IniFile, TCount, TSection } from "@/engine/lib/types";
 
 /**
  * Register simulator instance in the registry.
@@ -52,13 +52,17 @@ export function updateSimulationObjectAvailability(object: TSimulationObject): v
  * Initialize simulation object properties.
  *
  * @param object - simulation object to initialize simulation configuration
+ * @param ini - ini configuration file to read properties from
  */
-export function initializeSimulationObjectProperties(object: TSimulationObject): void {
+export function initializeSimulationObjectProperties(
+  object: TSimulationObject,
+  ini: IniFile = SIMULATION_OBJECTS_PROPERTIES_LTX
+): void {
   object.simulationProperties = new LuaTable();
 
   let section: TSection = isSquad(object) ? object.section_name() : object.name();
 
-  if (!SIMULATION_OBJECTS_PROPS_LTX.section_exist(section)) {
+  if (!ini.section_exist(section)) {
     switch (object.clsid()) {
       case clsid.online_offline_group_s:
         section = DEFAULT_SQUAD;
@@ -74,10 +78,10 @@ export function initializeSimulationObjectProperties(object: TSimulationObject):
     }
   }
 
-  const count: TCount = SIMULATION_OBJECTS_PROPS_LTX.line_count(section);
+  const count: TCount = ini.line_count(section);
 
   for (const it of $range(0, count - 1)) {
-    const [, name, value] = SIMULATION_OBJECTS_PROPS_LTX.r_line(section, it, "", "");
+    const [, name, value] = ini.r_line(section, it, "", "");
 
     // todo: Once configs are updated, make some shared / full constant name.
     if (name === "sim_avail") {

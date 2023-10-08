@@ -5,7 +5,7 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Binder class for interception of client-side lifecycle for smart cover objects.
  */
 @LuabindClass()
 export class SmartCoverBinder extends object_binder {}

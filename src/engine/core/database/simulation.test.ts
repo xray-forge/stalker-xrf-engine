@@ -11,7 +11,12 @@ import {
 import { TSimulationObject } from "@/engine/core/managers/simulation";
 import { parseConditionsList } from "@/engine/core/utils/ini";
 import { AlifeSimulator, ServerActorObject } from "@/engine/lib/types";
-import { MockAlifeSimulator, mockServerAlifeCreatureActor, mockServerAlifeOnlineOfflineGroup } from "@/fixtures/xray";
+import {
+  MockAlifeSimulator,
+  mockIniFile,
+  mockServerAlifeCreatureActor,
+  mockServerAlifeOnlineOfflineGroup,
+} from "@/fixtures/xray";
 
 describe("simulation module of the database", () => {
   beforeEach(() => {
@@ -79,6 +84,18 @@ describe("simulation module of the database", () => {
 
     simulationObject.isSimulationAvailable = () => true;
 
-    initializeSimulationObjectProperties(simulationObject);
+    initializeSimulationObjectProperties(
+      simulationObject,
+      mockIniFile("test.ltx", {
+        actor: {
+          sim_avail: "{+test} a, b",
+          a: 1,
+          b: 2,
+        },
+      })
+    );
+
+    expect(simulationObject.isSimulationAvailableConditionList).toEqualLuaTables(parseConditionsList("{+test} a, b"));
+    expect(simulationObject.simulationProperties).toEqualLuaTables({ a: 1, b: 2 });
   });
 });

@@ -5,31 +5,31 @@ import { loadObjectFromFile, saveObjectToFile } from "@/engine/core/utils/fs";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { gameConfig } from "@/engine/lib/configs/GameConfig";
 import { roots } from "@/engine/lib/constants/roots";
-import { LuaArray, Optional, TName, TPath } from "@/engine/lib/types";
+import { LuaArray, Optional, TPath } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * Create dynamic save of extensions order preference.
+ * Create dynamic save of extensions order and other state preferences.
  *
  * @param extensions - list of extensions to save order
  */
-export function saveExtensionsOrder(extensions: LuaArray<IExtensionsDescriptor>): void {
+export function saveExtensionsState(extensions: LuaArray<IExtensionsDescriptor>): void {
   const fs: FS = getFS();
   const savesFolder: TPath = fs.update_path(roots.gameSaves, "");
   const orderFile: TPath = fs.update_path(roots.gameSaves, gameConfig.GAME_SAVE_EXTENSIONS_ORDER_FILE);
 
-  saveObjectToFile(savesFolder, orderFile, $fromArray($fromLuaArray(extensions).map((it) => it.name)));
+  saveObjectToFile(savesFolder, orderFile, $fromArray($fromLuaArray(extensions).map(({ module, ...rest }) => rest)));
 }
 
 /**
- * Create dynamic game save based on stringified binary data.
+ * Load synchronized state of game extension modules.
  *
  * @returns order preferences
  */
-export function loadExtensionsOrder(): LuaArray<TName> {
+export function loadExtensionsState(): LuaArray<IExtensionsDescriptor> {
   const orderFile: TPath = getFS().update_path(roots.gameSaves, gameConfig.GAME_SAVE_EXTENSIONS_ORDER_FILE);
-  const order: Optional<LuaArray<TName>> = loadObjectFromFile(orderFile);
+  const order: Optional<LuaArray<IExtensionsDescriptor>> = loadObjectFromFile(orderFile);
 
   return order ? order : new LuaTable();
 }
@@ -37,20 +37,21 @@ export function loadExtensionsOrder(): LuaArray<TName> {
 /**
  * Synchronize extensions order and return new one based on existing extensions and saved preferences.
  */
-export function syncExtensionsOrder(
+export function syncExtensionsState(
   extensions: LuaArray<IExtensionsDescriptor>,
-  order: LuaArray<TName>
+  stored: LuaArray<IExtensionsDescriptor>
 ): LuaArray<IExtensionsDescriptor> {
   const list: LuaArray<IExtensionsDescriptor> = new LuaTable();
   const unordered: LuaArray<IExtensionsDescriptor> = new LuaTable();
 
   // Filter sorted first.
-  for (const [, name] of order) {
+  for (const [, descriptor] of stored) {
     const existing: Optional<IExtensionsDescriptor> = $fromLuaArray(extensions).find(
-      (it) => it.name === name
+      (it) => it.name === descriptor.name
     ) as Optional<IExtensionsDescriptor>;
 
     if (existing) {
+      existing.isEnabled = descriptor.isEnabled;
       table.insert(list, existing);
     }
   }

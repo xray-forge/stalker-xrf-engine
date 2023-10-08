@@ -11,6 +11,7 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 import { ERelation, updateSquadIdRelationToActor } from "@/engine/core/utils/relation";
 import { readTimeFromPacket, writeTimeToPacket } from "@/engine/core/utils/time";
 import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
+import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import {
   ClientObject,
   IniFile,
@@ -66,7 +67,7 @@ export class SmartTerrainControl {
       );
 
       if (sound !== null) {
-        GlobalSoundManager.getInstance().playSound(registry.actor.id(), sound, null, null);
+        GlobalSoundManager.getInstance().playSound(ACTOR_ID, sound);
       }
 
       for (const [id, squad] of SimulationBoardManager.getInstance().getSmartTerrainDescriptor(this.smartTerrain.id)!
@@ -131,7 +132,7 @@ export class SmartTerrainControl {
       );
 
       if (sound !== null) {
-        GlobalSoundManager.getInstance().playSound(registry.actor.id(), sound, null, null);
+        GlobalSoundManager.getInstance().playSound(ACTOR_ID, sound);
       }
 
       for (const [squadId] of SimulationBoardManager.getInstance().getSmartTerrainDescriptor(this.smartTerrain.id)!

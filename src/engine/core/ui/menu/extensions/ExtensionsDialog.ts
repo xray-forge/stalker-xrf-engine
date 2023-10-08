@@ -3,7 +3,6 @@ import {
   CUI3tButton,
   CUIListBox,
   CUIScriptWnd,
-  CUIStatic,
   CUIWindow,
   DIK_keys,
   Frect,
@@ -15,14 +14,15 @@ import {
 import { ExtensionItemListEntry } from "@/engine/core/ui/menu/extensions/ExtensionItemListEntry";
 import { getAvailableExtensions, IExtensionsDescriptor } from "@/engine/core/utils/extensions";
 import {
-  loadExtensionsOrder,
-  saveExtensionsOrder,
-  syncExtensionsOrder,
-} from "@/engine/core/utils/extensions/extensions_order";
+  loadExtensionsState,
+  saveExtensionsState,
+  syncExtensionsState,
+} from "@/engine/core/utils/extensions/extensions_state";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { resolveXmlFile } from "@/engine/core/utils/ui";
+import { EElementType, registerUiElement, resolveXmlFile } from "@/engine/core/utils/ui";
+import { create2dVector } from "@/engine/core/utils/vector";
 import { gameConfig } from "@/engine/lib/configs/GameConfig";
-import { LuaArray, TIndex, TKeyCode, TPath, TUIEvent, Vector2D } from "@/engine/lib/types";
+import { LuaArray, Optional, TIndex, TKeyCode, TPath, TUIEvent, Vector2D } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 const base: TPath = "menu\\ExtensionsDialog.component";
@@ -32,11 +32,10 @@ const base: TPath = "menu\\ExtensionsDialog.component";
  */
 @LuabindClass()
 export class ExtensionsDialog extends CUIScriptWnd {
-  public xml!: CScriptXmlInit;
+  public xml: CScriptXmlInit = resolveXmlFile(base);
 
   public readonly owner: CUIScriptWnd;
 
-  public uiDialog!: CUIStatic;
   public uiItemsList!: CUIListBox<ExtensionItemListEntry>;
   public uiUpButton!: CUI3tButton;
   public uiDownButton!: CUI3tButton;
@@ -51,12 +50,11 @@ export class ExtensionsDialog extends CUIScriptWnd {
     super();
 
     this.owner = owner;
-    this.extensions = syncExtensionsOrder(getAvailableExtensions(), loadExtensionsOrder());
+    this.extensions = syncExtensionsState(getAvailableExtensions(), loadExtensionsState());
 
     this.SetWindowName(ExtensionsDialog.__name);
 
     this.initControls();
-    this.initCallBacks();
     this.initState();
   }
 
@@ -67,43 +65,64 @@ export class ExtensionsDialog extends CUIScriptWnd {
     this.SetWndRect(new Frect().set(0, 0, gameConfig.UI.BASE_WIDTH, gameConfig.UI.BASE_HEIGHT));
     this.Enable(true);
 
-    this.xml = resolveXmlFile(base);
-    this.xml.InitStatic("background", this);
+    registerUiElement(this.xml, "background", { base: this, type: EElementType.STATIC });
+    registerUiElement(this.xml, "frame", { base: this, type: EElementType.STATIC });
+    registerUiElement(this.xml, "items_list_frame", { base: this, type: EElementType.FRAME });
 
-    this.uiDialog = this.xml.InitStatic("main_dialog:dialog", this);
-    this.Register(this.xml.Init3tButton("main_dialog:btn_accept", this.uiDialog), "accept_button");
-    this.Register(this.xml.Init3tButton("main_dialog:btn_cancel", this.uiDialog), "cancel_button");
+    registerUiElement(this.xml, "accept_button", {
+      base: this,
+      type: EElementType.BUTTON,
+      handlers: {
+        [ui_events.BUTTON_CLICKED]: () => this.onAcceptButtonClick(),
+      },
+    });
+    registerUiElement(this.xml, "cancel_button", {
+      base: this,
+      type: EElementType.BUTTON,
+      handlers: {
+        [ui_events.BUTTON_CLICKED]: () => this.onCancelButtonClick(),
+      },
+    });
 
-    this.uiUpButton = this.xml.Init3tButton("up_button", this);
-    this.uiDownButton = this.xml.Init3tButton("down_button", this);
+    this.uiUpButton = registerUiElement(this.xml, "toggle_button", {
+      base: this,
+      type: EElementType.BUTTON,
+      handlers: {
+        [ui_events.BUTTON_CLICKED]: () => this.onToggleButtonClick(),
+      },
+    });
+    this.uiUpButton = registerUiElement(this.xml, "up_button", {
+      base: this,
+      type: EElementType.BUTTON,
+      handlers: {
+        [ui_events.BUTTON_CLICKED]: () => this.onUpButtonClick(),
+      },
+    });
+    this.uiDownButton = registerUiElement(this.xml, "down_button", {
+      base: this,
+      type: EElementType.BUTTON,
+      handlers: {
+        [ui_events.BUTTON_CLICKED]: () => this.onDownButtonClick(),
+      },
+    });
 
-    this.Register(this.uiUpButton, "up_button");
-    this.Register(this.uiDownButton, "down_button");
-
-    this.xml.InitFrame("items_list_frame", this);
-    this.uiItemsList = this.xml.InitListBox("items_list", this);
+    this.uiItemsList = registerUiElement(this.xml, "items_list", {
+      base: this,
+      type: EElementType.LIST_BOX,
+      handlers: {
+        [ui_events.LIST_ITEM_SELECT]: () => this.onActiveExtensionChange(),
+      },
+    });
     this.uiItemsList.ShowSelectedItem(true);
-    this.Register(this.uiItemsList, "items_list");
 
     const window: CUIWindow = new CUIWindow();
 
     this.xml.InitWindow("extension_item:main", 0, window);
-    this.uiItemListMainSize = new vector2().set(window.GetWidth(), window.GetHeight());
+    this.uiItemListMainSize = create2dVector(window.GetWidth(), window.GetHeight());
     this.xml.InitWindow("extension_item:fn", 0, window);
-    this.uiItemListNameSize = new vector2().set(window.GetWidth(), window.GetHeight());
+    this.uiItemListNameSize = create2dVector(window.GetWidth(), window.GetHeight());
     this.xml.InitWindow("extension_item:fd", 0, window);
-    this.uiItemListDdSize = new vector2().set(window.GetWidth(), window.GetHeight());
-  }
-
-  /**
-   * Initialize forms callbacks.
-   */
-  public initCallBacks(): void {
-    this.AddCallback("items_list", ui_events.LIST_ITEM_SELECT, () => this.onActiveExtensionChange(), this);
-    this.AddCallback("up_button", ui_events.BUTTON_CLICKED, () => this.onUpButtonClick(), this);
-    this.AddCallback("down_button", ui_events.BUTTON_CLICKED, () => this.onDownButtonClick(), this);
-    this.AddCallback("accept_button", ui_events.BUTTON_CLICKED, () => this.onAcceptButtonClick(), this);
-    this.AddCallback("cancel_button", ui_events.BUTTON_CLICKED, () => this.onCancelButtonClick(), this);
+    this.uiItemListDdSize = create2dVector(window.GetWidth(), window.GetHeight());
   }
 
   /**
@@ -132,7 +151,7 @@ export class ExtensionsDialog extends CUIScriptWnd {
         this.uiItemListMainSize.y,
         this.uiItemListDdSize.x,
         index,
-        extension.name
+        extension
       );
 
       extensionItem.SetWndSize(this.uiItemListMainSize);
@@ -208,12 +227,28 @@ export class ExtensionsDialog extends CUIScriptWnd {
   }
 
   /**
+   * Toggle extension enabled state.
+   */
+  public onToggleButtonClick(): void {
+    const activeIndex: TIndex = this.uiItemsList.GetSelectedIndex() + 1;
+    const extension: Optional<IExtensionsDescriptor> = this.extensions.get(
+      activeIndex
+    ) as Optional<IExtensionsDescriptor>;
+
+    if (extension) {
+      extension.isEnabled = !extension.isEnabled;
+
+      this.fillItemsList();
+      this.uiItemsList.SetSelectedIndex(activeIndex - 1);
+    }
+  }
+  /**
    * Handle accept and go back to main menu.
    */
   public onAcceptButtonClick(): void {
     logger.info("Saving extensions order preferences");
 
-    saveExtensionsOrder(this.extensions);
+    saveExtensionsState(this.extensions);
 
     this.owner.ShowDialog(true);
     this.owner.Show(true);
@@ -227,7 +262,7 @@ export class ExtensionsDialog extends CUIScriptWnd {
   public onCancelButtonClick(): void {
     logger.info("Discard extensions order changes");
 
-    this.extensions = syncExtensionsOrder(getAvailableExtensions(), loadExtensionsOrder());
+    this.extensions = syncExtensionsState(getAvailableExtensions(), loadExtensionsState());
     this.fillItemsList();
 
     this.owner.ShowDialog(true);

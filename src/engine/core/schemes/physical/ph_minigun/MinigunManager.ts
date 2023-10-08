@@ -20,6 +20,7 @@ import {
   trySwitchToAnotherSection,
 } from "@/engine/core/utils/scheme";
 import { createEmptyVector, createVector, yaw } from "@/engine/core/utils/vector";
+import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import { ACTOR, NIL } from "@/engine/lib/constants/words";
 import { Car, ClientObject, Optional, TSection, TStringId, TTimestamp, Vector } from "@/engine/lib/types";
 
@@ -378,7 +379,7 @@ export class MinigunManager extends AbstractSchemeManager<ISchemeMinigunState> {
         ) {
           if (!this.stateDelaying) {
             this.targetFirePt = this.targetObject!.position();
-            if (this.targetObject!.id() !== registry.actor.id()) {
+            if (this.targetObject!.id() !== ACTOR_ID) {
               if (this.targetObject!.target_body_state() === move.crouch) {
                 this.targetFirePt.y = this.targetFirePt.y + 0.5;
               } else if (!isObjectWounded(this.targetObject!.id())) {

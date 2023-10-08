@@ -581,7 +581,7 @@ extern("xr_conditions.has_enemy", (actor: ClientObject, object: ClientObject): b
 extern("xr_conditions.has_actor_enemy", (actor: ClientObject, object: ClientObject): boolean => {
   const bestEnemy: Optional<ClientObject> = object.best_enemy();
 
-  return bestEnemy !== null && bestEnemy.id() === registry.actor.id();
+  return bestEnemy !== null && bestEnemy.id() === ACTOR_ID;
 });
 
 /**

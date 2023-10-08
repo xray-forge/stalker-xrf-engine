@@ -5,6 +5,7 @@ import { ISchemePostCombatIdleState } from "@/engine/core/schemes/stalker/combat
 import { canObjectSelectAsEnemy } from "@/engine/core/schemes/stalker/danger/utils";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
+import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import { ClientObject, Optional, TDistance, TTimestamp } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -51,7 +52,7 @@ export class EvaluatorHasEnemy extends property_evaluator {
       const min: TDistance = (overrides && overrides.min_post_combat_time * 1000) || logicsConfig.POST_COMBAT_IDLE.MIN;
       const max: TDistance = (overrides && overrides.max_post_combat_time * 1000) || logicsConfig.POST_COMBAT_IDLE.MAX;
 
-      if (this.state.lastBestEnemyId === registry.actor.id()) {
+      if (this.state.lastBestEnemyId === ACTOR_ID) {
         this.state.timer = now;
       } else {
         this.state.timer = now + math.random(min, max);

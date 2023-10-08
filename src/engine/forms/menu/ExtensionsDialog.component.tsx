@@ -12,7 +12,7 @@ export function create(): JSXNode {
   return (
     <XrRoot>
       <ExtensionsBackground />
-      <OptionsBody />
+      <ExtensionsBody />
     </XrRoot>
   );
 }
@@ -44,34 +44,12 @@ function ExtensionsBackground(): JSXNode {
 /**
  * Main body frame of extensions dialog.
  */
-function OptionsBody(): JSXNode {
+function ExtensionsBody(): JSXNode {
   return (
     <Fragment>
-      <main_dialog>
-        <dialog x="484" y="274" width="389" height="462" stretch="1">
-          <texture>ui_inGame2_opt_main_window</texture>
-        </dialog>
-
-        <btn_accept x="84" y="431" width="108" height="26" stretch="1">
-          <text font="letterica18" align="c">
-            ui_mm_apply
-          </text>
-          <texture>ui_inGame2_Mp_bigbuttone</texture>
-          <text_color>
-            <e r="170" g="170" b="170" />
-          </text_color>
-        </btn_accept>
-
-        <btn_cancel x="196" y="431" width="108" height="26" stretch="1">
-          <text font="letterica18" align="c">
-            ui_mm_cancel
-          </text>
-          <texture>ui_inGame2_Mp_bigbuttone</texture>
-          <text_color>
-            <e r="170" g="170" b="170" />
-          </text_color>
-        </btn_cancel>
-      </main_dialog>
+      <frame x="484" y="274" width="389" height="462" stretch="1">
+        <texture>ui_inGame2_opt_main_window</texture>
+      </frame>
 
       <XrStatic
         tag={"items_list_frame"}
@@ -90,8 +68,36 @@ function OptionsBody(): JSXNode {
         <XrComponent tag={"fd"} width={49} height={18} />
       </XrComponent>
 
-      <Xr3tButton tag={"up_button"} x={494} y={664} width={28} height={16} label={"ui_mm_up"} textColor={WHITE} />
-      <Xr3tButton tag={"down_button"} x={530} y={664} width={28} height={16} label={"ui_mm_down"} textColor={WHITE} />
+      <Xr3tButton
+        tag={"toggle_button"}
+        x={720}
+        y={664}
+        width={60}
+        height={16}
+        label={"ui_mm_toggle"}
+        textColor={WHITE}
+      />
+      <Xr3tButton tag={"up_button"} x={800} y={664} width={28} height={16} label={"ui_mm_up"} textColor={WHITE} />
+      <Xr3tButton tag={"down_button"} x={835} y={664} width={28} height={16} label={"ui_mm_down"} textColor={WHITE} />
+
+      <Xr3tButton
+        tag={"accept_button"}
+        x={794}
+        y={707}
+        width={60}
+        height={20}
+        label={"ui_mm_apply"}
+        textColor={WHITE}
+      />
+      <Xr3tButton
+        tag={"cancel_button"}
+        x={724}
+        y={707}
+        width={60}
+        height={20}
+        label={"ui_mm_cancel"}
+        textColor={WHITE}
+      />
     </Fragment>
   );
 }
