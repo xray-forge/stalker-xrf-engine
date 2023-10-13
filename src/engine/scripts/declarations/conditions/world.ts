@@ -5,7 +5,7 @@ import { SimulationBoardManager } from "@/engine/core/managers/simulation/Simula
 import { surgeConfig } from "@/engine/core/managers/surge/SurgeConfig";
 import { SurgeManager } from "@/engine/core/managers/surge/SurgeManager";
 import { SmartTerrain, SmartTerrainControl } from "@/engine/core/objects/server/smart_terrain";
-import { ESmartTerrainStatus } from "@/engine/core/objects/server/smart_terrain/types";
+import { ESmartTerrainStatus } from "@/engine/core/objects/server/smart_terrain/smart_terrain_types";
 import { anomalyHasArtefact } from "@/engine/core/utils/anomaly";
 import { abort } from "@/engine/core/utils/assertion";
 import { extern } from "@/engine/core/utils/binding";

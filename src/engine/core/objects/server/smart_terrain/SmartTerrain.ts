@@ -39,9 +39,18 @@ import {
   TSimulationObject,
   VALID_SMART_TERRAINS_SIMULATION_ROLES,
 } from "@/engine/core/managers/simulation";
+import {
+  areNoStalkersWorkingOnJobs,
+  createObjectJobDescriptor,
+  createSmartTerrainJobs,
+  IObjectJobDescriptor,
+  ISmartTerrainJobDescriptor,
+  selectSmartTerrainJob,
+  TSmartTerrainJobsList,
+} from "@/engine/core/objects/server/smart_terrain/job";
+import { ESmartTerrainStatus } from "@/engine/core/objects/server/smart_terrain/smart_terrain_types";
 import { smartTerrainConfig } from "@/engine/core/objects/server/smart_terrain/SmartTerrainConfig";
 import { SmartTerrainControl } from "@/engine/core/objects/server/smart_terrain/SmartTerrainControl";
-import { ESmartTerrainStatus } from "@/engine/core/objects/server/smart_terrain/types";
 import { ESquadActionType, Squad } from "@/engine/core/objects/server/squad";
 import { abort, assert, assertDefined } from "@/engine/core/utils/assertion";
 import { isMonsterSquad, isStalker } from "@/engine/core/utils/class_ids";
@@ -56,15 +65,6 @@ import {
   readIniString,
   TConditionList,
 } from "@/engine/core/utils/ini";
-import {
-  areNoStalkersWorkingOnJobs,
-  createObjectJobDescriptor,
-  createSmartTerrainJobs,
-  IObjectJobDescriptor,
-  ISmartTerrainJobDescriptor,
-  selectSmartTerrainJob,
-  TSmartTerrainJobsList,
-} from "@/engine/core/utils/job";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { areObjectsOnSameLevel } from "@/engine/core/utils/position";
 import { ERelation } from "@/engine/core/utils/relation";

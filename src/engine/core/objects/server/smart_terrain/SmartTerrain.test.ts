@@ -5,10 +5,10 @@ import { registerActorServer, registerSimulator, registry } from "@/engine/core/
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { ESimulationTerrainRole } from "@/engine/core/managers/simulation";
 import { Actor } from "@/engine/core/objects/server/creature";
-import { SmartTerrain, SmartTerrainControl } from "@/engine/core/objects/server/smart_terrain";
-import { ESmartTerrainStatus } from "@/engine/core/objects/server/smart_terrain/types";
+import { IObjectJobDescriptor, SmartTerrain, SmartTerrainControl } from "@/engine/core/objects/server/smart_terrain";
+import { createObjectJobDescriptor } from "@/engine/core/objects/server/smart_terrain/job/job_create";
+import { ESmartTerrainStatus } from "@/engine/core/objects/server/smart_terrain/smart_terrain_types";
 import { parseConditionsList } from "@/engine/core/utils/ini";
-import { createObjectJobDescriptor, IObjectJobDescriptor } from "@/engine/core/utils/job";
 import { TRUE } from "@/engine/lib/constants/words";
 import { ServerHumanObject } from "@/engine/lib/types";
 import { mockSmartTerrain, mockSmartTerrainWithConfiguration } from "@/fixtures/engine";
