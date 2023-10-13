@@ -1,7 +1,7 @@
 import { IRegistryObjectState } from "@/engine/core/database/database_types";
 import { setPortableStoreValue } from "@/engine/core/database/portable_store";
 import { registry } from "@/engine/core/database/registry";
-import { HELPING_WOUNDED_OBJECT_KEY } from "@/engine/lib/constants/portable_store_keys";
+import { helpWoundedConfig } from "@/engine/core/schemes/stalker/help_wounded/HelpWoundedConfig";
 import { ClientObject, Optional, TNumberId } from "@/engine/lib/types";
 
 /**
@@ -48,25 +48,4 @@ export function resetObject(object: ClientObject, state: Partial<IRegistryObject
   registry.objects.set(object.id(), state as IRegistryObjectState);
 
   return state as IRegistryObjectState;
-}
-
-/**
- * Register object as wounded so others can detect it for searching and helping.
- *
- * @param object - client object to register as wounded
- */
-export function registerWoundedObject(object: ClientObject): void {
-  const objectId: TNumberId = object.id();
-
-  registry.objectsWounded.set(objectId, registry.objects.get(objectId));
-}
-
-/**
- * Unregister object as wounded so others will not detect it for helping.
- *
- * @param object - client object to unregister
- */
-export function unRegisterWoundedObject(object: ClientObject): void {
-  setPortableStoreValue(object.id(), HELPING_WOUNDED_OBJECT_KEY, null);
-  registry.objectsWounded.delete(object.id());
 }

@@ -6,10 +6,10 @@ import {
   IRegistryObjectState,
   registerObject,
   registerSimulator,
-  registerWoundedObject,
   registry,
   setPortableStoreValue,
 } from "@/engine/core/database";
+import { registerWoundedObject } from "@/engine/core/database/wounded";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds";
 import { StalkerStateManager } from "@/engine/core/objects/ai/state";
 import { ISchemeWoundedState } from "@/engine/core/schemes/stalker/wounded";

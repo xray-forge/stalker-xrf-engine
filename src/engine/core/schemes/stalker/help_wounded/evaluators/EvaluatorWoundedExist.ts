@@ -2,12 +2,12 @@ import { LuabindClass, property_evaluator } from "xray16";
 
 import { setPortableStoreValue } from "@/engine/core/database";
 import { ISchemeHelpWoundedState } from "@/engine/core/schemes/stalker/help_wounded/help_wounded_types";
+import { helpWoundedConfig } from "@/engine/core/schemes/stalker/help_wounded/HelpWoundedConfig";
 import { freeSelectedWoundedStalkerSpot } from "@/engine/core/schemes/stalker/help_wounded/utils";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getNearestWoundedToHelp } from "@/engine/core/utils/object";
 import { isObjectWounded } from "@/engine/core/utils/planner";
 import { communities } from "@/engine/lib/constants/communities";
-import { HELPING_WOUNDED_OBJECT_KEY } from "@/engine/lib/constants/portable_store_keys";
 import { ACTOR_VISUAL_STALKER } from "@/engine/lib/constants/sections";
 import { ClientObject, Optional, TNumberId } from "@/engine/lib/types";
 
@@ -69,7 +69,7 @@ export class EvaluatorWoundedExist extends property_evaluator {
     }
 
     // Block others from healing current target.
-    setPortableStoreValue(nearestObjectId, HELPING_WOUNDED_OBJECT_KEY, this.object.id());
+    setPortableStoreValue(nearestObjectId, helpWoundedConfig.HELPING_WOUNDED_OBJECT_KEY, this.object.id());
 
     this.state.selectedWoundedId = nearestObjectId;
     this.state.selectedWoundedVertexId = nearestVertexId;
