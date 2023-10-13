@@ -19,7 +19,7 @@ export class MockObjectBinder extends MockLuabindClass {
   public net_import(): void {}
 
   public net_save_relevant(): boolean {
-    return true;
+    return false;
   }
 
   public net_spawn(): boolean {

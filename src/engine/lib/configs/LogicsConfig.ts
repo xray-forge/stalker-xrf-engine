@@ -26,10 +26,6 @@ export const logicsConfig = {
     [danger_object.entity_death]: 10,
   },
   /**
-   * Timeout to release crow corpse after death.
-   */
-  CROW_CORPSE_RELEASE_TIMEOUT: 120_000,
-  /**
    * Distance to travel from object to forget about meeting state and say hello again.
    */
   MEET_RESET_DISTANCE: 30,

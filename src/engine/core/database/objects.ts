@@ -5,7 +5,7 @@ import { HELPING_WOUNDED_OBJECT_KEY } from "@/engine/lib/constants/portable_stor
 import { ClientObject, Optional, TNumberId } from "@/engine/lib/types";
 
 /**
- * Register client object in RAM registry.
+ * Register client object in lua in-memory registry.
  *
  * @param object - client game object to register
  * @returns registry object for provided game object
@@ -27,7 +27,7 @@ export function registerObject(object: ClientObject): IRegistryObjectState {
 }
 
 /**
- * Unregister client object from RAM registry.
+ * Unregister client object from lya in-memory registry.
  *
  * @param object - client game object to unregister
  */
