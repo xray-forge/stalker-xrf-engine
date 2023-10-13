@@ -48,10 +48,6 @@ export const logicsConfig = {
     SEARCH_DIRECTION_ROTATION_RANGE: { MIN: -120, MAX: 120 }, // min-max angle to change when searching for target.
     SEARCH_DIRECTION_CHANGE_PERIOD: { MIN: 2000, MAX: 4000 },
   },
-  SEARCH_CORPSE: {
-    DISTANCE_TO_SEARCH: 20,
-    DISTANCE_TO_SEARCH_SQR: 400,
-  },
   POST_COMBAT_IDLE: {
     MIN: 5_000,
     MAX: 10_000,

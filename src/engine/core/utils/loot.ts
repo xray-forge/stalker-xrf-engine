@@ -2,8 +2,8 @@ import { level } from "xray16";
 
 import { getPortableStoreValue, IRegistryObjectState, registry } from "@/engine/core/database";
 import { IReleaseDescriptor, ReleaseBodyManager } from "@/engine/core/managers/death";
+import { corpseDetectionConfig } from "@/engine/core/schemes/stalker/corpse_detection/CorpseDetectionConfig";
 import { isLootableItemSection } from "@/engine/core/utils/section";
-import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
 import { lootableTable } from "@/engine/lib/constants/items/lootable_table";
 import { LOOTING_DEAD_OBJECT_KEY } from "@/engine/lib/constants/portable_store_keys";
 import { ClientObject, LuaArray, Optional, TDistance, TNumberId, Vector } from "@/engine/lib/types";
@@ -57,7 +57,7 @@ export function getNearestCorpseToLoot(
 ): LuaMultiReturn<[ClientObject, TNumberId, Vector] | [null, null, null]> {
   const corpses: LuaArray<IReleaseDescriptor> = ReleaseBodyManager.getInstance().releaseObjectRegistry;
 
-  let nearestCorpseDistSqr: TDistance = logicsConfig.SEARCH_CORPSE.DISTANCE_TO_SEARCH_SQR;
+  let nearestCorpseDistSqr: TDistance = corpseDetectionConfig.DISTANCE_TO_SEARCH_SQR;
   let nearestCorpseVertex: Optional<TNumberId> = null;
   let nearestCorpsePosition: Optional<Vector> = null;
   let nearestCorpseObject: Optional<ClientObject> = null;
