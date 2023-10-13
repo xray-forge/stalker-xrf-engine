@@ -1,10 +1,9 @@
 import { hit, level } from "xray16";
 
 import { getPortableStoreValue, IRegistryObjectState, registry } from "@/engine/core/database";
+import { helpWoundedConfig } from "@/engine/core/schemes/stalker/help_wounded/HelpWoundedConfig";
 import { ISchemeWoundedState } from "@/engine/core/schemes/stalker/wounded";
-import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
 import { misc } from "@/engine/lib/constants/items/misc";
-import { HELPING_WOUNDED_OBJECT_KEY } from "@/engine/lib/constants/portable_store_keys";
 import { MZ_VECTOR } from "@/engine/lib/constants/vectors";
 import {
   ClientObject,
@@ -100,7 +99,7 @@ export function getNearestWoundedToHelp(
   const currentObjectId: TNumberId = object.id();
   const currentObjectPosition: Vector = object.position();
 
-  let nearestDistance: TDistance = logicsConfig.HELP_WOUNDED.DISTANCE_TO_HELP_SQR; // sqr -> 30*30
+  let nearestDistance: TDistance = helpWoundedConfig.DISTANCE_TO_HELP_SQR;
   let nearestVertexId: Optional<TNumberId> = null;
   let nearestPosition: Optional<Vector> = null;
   let nearestObject: Optional<ClientObject> = null;
@@ -109,7 +108,7 @@ export function getNearestWoundedToHelp(
   for (const [, woundedObjectState] of registry.objectsWounded) {
     const woundedObject: Optional<ClientObject> = woundedObjectState.object;
     const objectHealedBy: Optional<TNumberId> =
-      woundedObject && getPortableStoreValue(woundedObject.id(), HELPING_WOUNDED_OBJECT_KEY);
+      woundedObject && getPortableStoreValue(woundedObject.id(), helpWoundedConfig.HELPING_WOUNDED_OBJECT_KEY);
 
     if (
       // Do not check self.

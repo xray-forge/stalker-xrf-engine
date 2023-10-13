@@ -11,7 +11,7 @@ import {
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { Actor } from "@/engine/core/objects/server/creature";
 import { ItemArtefact } from "@/engine/core/objects/server/item/ItemArtefact";
-import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
+import { alifeConfig } from "@/engine/lib/configs/AlifeConfig";
 import { mockRegisteredActor } from "@/fixtures/engine";
 import { mockIniFile } from "@/fixtures/xray/mocks/ini";
 
@@ -74,10 +74,10 @@ describe("ItemArtefact server class", () => {
 
     jest
       .spyOn(actorServerObject.position, "distance_to_sqr")
-      .mockImplementationOnce(() => logicsConfig.ARTEFACT_OFFLINE_DISTANCE_SQR - 1)
-      .mockImplementationOnce(() => logicsConfig.ARTEFACT_OFFLINE_DISTANCE_SQR)
-      .mockImplementationOnce(() => logicsConfig.ARTEFACT_OFFLINE_DISTANCE_SQR + 1)
-      .mockImplementationOnce(() => logicsConfig.ARTEFACT_OFFLINE_DISTANCE_SQR + 1000);
+      .mockImplementationOnce(() => alifeConfig.SWITCH_DISTANCE_SQR - 1)
+      .mockImplementationOnce(() => alifeConfig.SWITCH_DISTANCE_SQR)
+      .mockImplementationOnce(() => alifeConfig.SWITCH_DISTANCE_SQR + 1)
+      .mockImplementationOnce(() => alifeConfig.SWITCH_DISTANCE_SQR + 1000);
 
     expect(itemArtefact.can_switch_offline()).toBe(false);
     expect(itemArtefact.can_switch_offline()).toBe(false);

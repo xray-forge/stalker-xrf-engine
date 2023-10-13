@@ -1,9 +1,9 @@
 import { IRegistryObjectState, registry, setPortableStoreValue } from "@/engine/core/database";
 import { ISchemeHelpWoundedState } from "@/engine/core/schemes/stalker/help_wounded";
+import { helpWoundedConfig } from "@/engine/core/schemes/stalker/help_wounded/HelpWoundedConfig";
 import { ISchemeWoundedState } from "@/engine/core/schemes/stalker/wounded";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { giveWoundedObjectMedkit } from "@/engine/core/utils/object";
-import { HELPING_WOUNDED_OBJECT_KEY } from "@/engine/lib/constants/portable_store_keys";
 import { ClientObject, EScheme, Optional, TNumberId } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -34,6 +34,6 @@ export function finishObjectHelpWounded(object: ClientObject): void {
  */
 export function freeSelectedWoundedStalkerSpot(helpingId: Optional<TNumberId>): void {
   if (helpingId !== null) {
-    setPortableStoreValue(helpingId, HELPING_WOUNDED_OBJECT_KEY, null);
+    setPortableStoreValue(helpingId, helpWoundedConfig.HELPING_WOUNDED_OBJECT_KEY, null);
   }
 }

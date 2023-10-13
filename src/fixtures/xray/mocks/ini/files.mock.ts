@@ -1,3 +1,5 @@
+import { config as alifeConfig } from "@/engine/configs/alife";
+import { config as forgeConfig } from "@/engine/configs/forge";
 import { ammo } from "@/engine/lib/constants/items/ammo";
 import { detectors } from "@/engine/lib/constants/items/detectors";
 import { weaponAddons } from "@/engine/lib/constants/items/weapon_addons";
@@ -296,6 +298,12 @@ export const FILES_MOCKS: Record<TPath, AnyObject> = {
       condlist: true,
     },
   },
+  "managers\\trade_manager.ltx": {
+    config: {
+      update_period: 3_600_000,
+      resupply_period: 24 * 3_600_000,
+    },
+  },
   "managers\\simulation\\simulation_objects_props.ltx": {
     default_squad: {
       sim_avail: "{+test_squad} true, false",
@@ -303,4 +311,6 @@ export const FILES_MOCKS: Record<TPath, AnyObject> = {
       second: "b",
     },
   },
+  "alife.ltx": alifeConfig,
+  "forge.ltx": forgeConfig,
 };

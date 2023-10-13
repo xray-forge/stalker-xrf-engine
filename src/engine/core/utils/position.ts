@@ -4,7 +4,6 @@ import { registry } from "@/engine/core/database";
 import type { SmartTerrain } from "@/engine/core/objects/server/smart_terrain";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { graphDistance, vectorToString, yawDegree3d } from "@/engine/core/utils/vector";
-import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
 import { MAX_U16, MAX_U32 } from "@/engine/lib/constants/memory";
 import { ZERO_VECTOR } from "@/engine/lib/constants/vectors";
 import {
@@ -215,7 +214,7 @@ export function isObjectInActorFrustum(object: ClientObject): boolean {
   const actorDirection: Vector = device().cam_dir;
   const objectDirection: Vector = object.position().sub(registry.actor.position());
 
-  return yawDegree3d(actorDirection, objectDirection) < logicsConfig.ACTOR_VISIBILITY_FRUSTUM;
+  return yawDegree3d(actorDirection, objectDirection) < 35;
 }
 
 /**

@@ -31,7 +31,10 @@ export function mockRegisteredActor(
 export function resetRegistry(): void {
   registry.actor = null as unknown as ClientObject;
   registry.managers = new LuaTable();
+  registry.objects = new LuaTable();
   registry.offlineObjects = new LuaTable();
+  registry.crows.storage = new LuaTable();
+  registry.crows.count = 0;
   registry.storyLink = { sidById: new LuaTable(), idBySid: new LuaTable() };
 
   registerRanks();

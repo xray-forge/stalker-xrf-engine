@@ -1,9 +1,6 @@
-import { print_stack } from "xray16";
+import { log, print_stack } from "xray16";
 
-import { LuaLogger } from "@/engine/core/utils/logging";
-import { AnyArgs, Optional, TCount } from "@/engine/lib/types";
-
-const logger: LuaLogger = new LuaLogger($filename);
+import type { AnyArgs, Optional, TCount } from "@/engine/lib/types";
 
 /**
  * Call game abort and print reason.
@@ -14,8 +11,6 @@ const logger: LuaLogger = new LuaLogger($filename);
  */
 export function abort(format: string, ...rest: AnyArgs): never {
   const reason: string = string.format(format, ...rest);
-
-  logger.error("Aborting:", reason);
 
   print_stack();
   error(reason, 2);
@@ -93,6 +88,6 @@ export function assertNonEmptyString(
  */
 export function callstack(level: TCount = 5): void {
   if (debug !== null) {
-    logger.info("[callstack][traceback]", debug.traceback(level));
+    log("[callstack][traceback]" + debug.traceback(level));
   }
 }

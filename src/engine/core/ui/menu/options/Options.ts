@@ -24,7 +24,7 @@ import { OptionsVideoAdvanced } from "@/engine/core/ui/menu/options/OptionsVideo
 import { executeConsoleCommand } from "@/engine/core/utils/console";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { resolveXmlFile } from "@/engine/core/utils/ui";
-import { gameConfig } from "@/engine/lib/configs/GameConfig";
+import { screenConfig } from "@/engine/lib/configs/ScreenConfig";
 import { consoleCommands } from "@/engine/lib/constants/console_commands";
 import { TKeyCode, TPath, TUIEvent } from "@/engine/lib/types";
 
@@ -70,7 +70,7 @@ export class Options extends CUIScriptWnd {
   }
 
   public initializeControls(): void {
-    this.SetWndRect(new Frect().set(0, 0, gameConfig.UI.BASE_WIDTH, gameConfig.UI.BASE_HEIGHT));
+    this.SetWndRect(new Frect().set(0, 0, screenConfig.BASE_WIDTH, screenConfig.BASE_HEIGHT));
     this.Enable(true);
 
     const xml: CScriptXmlInit = resolveXmlFile(base);

@@ -1,6 +1,7 @@
 import { level } from "xray16";
 
 import { getCampZoneForPosition, registry } from "@/engine/core/database";
+import { CAMP_ACTIVITY_ANIMATION, CampManager, EObjectCampActivity } from "@/engine/core/managers/camp";
 import { AbstractSchemeManager } from "@/engine/core/objects/ai/scheme";
 import {
   animpoint_predicates,
@@ -8,9 +9,6 @@ import {
 } from "@/engine/core/objects/animation/predicates/animpoint_predicates";
 import { states } from "@/engine/core/objects/animation/states";
 import { EStalkerState, WEAPON_POSTFIX } from "@/engine/core/objects/animation/types";
-import { EObjectCampActivity } from "@/engine/core/objects/camp";
-import { CAMP_ACTIVITY_ANIMATION } from "@/engine/core/objects/camp/camp_logic";
-import { CampManager } from "@/engine/core/objects/camp/CampManager";
 import { SmartCover } from "@/engine/core/objects/server/smart_cover";
 import {
   IAnimpointActionDescriptor,

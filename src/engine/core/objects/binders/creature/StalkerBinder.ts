@@ -29,7 +29,7 @@ import { setupStalkerMotivationPlanner, setupStalkerStatePlanner } from "@/engin
 import { StalkerStateManager } from "@/engine/core/objects/ai/state";
 import { StalkerPatrolManager } from "@/engine/core/objects/ai/state/StalkerPatrolManager";
 import { EActionId } from "@/engine/core/objects/ai/types";
-import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain/SmartTerrain";
+import type { ISmartTerrainJobDescriptor, SmartTerrain } from "@/engine/core/objects/server/smart_terrain";
 import { SchemeHear } from "@/engine/core/schemes/shared/hear/SchemeHear";
 import { SchemeCombat } from "@/engine/core/schemes/stalker/combat/SchemeCombat";
 import { PostCombatIdle } from "@/engine/core/schemes/stalker/combat_idle/PostCombatIdle";
@@ -39,7 +39,6 @@ import { ISchemeWoundedState } from "@/engine/core/schemes/stalker/wounded";
 import { assert } from "@/engine/core/utils/assertion";
 import { getObjectCommunity } from "@/engine/core/utils/community";
 import { pickSectionFromCondList, readIniString, TConditionList } from "@/engine/core/utils/ini";
-import { ISmartTerrainJobDescriptor } from "@/engine/core/utils/job";
 import { isUndergroundLevel } from "@/engine/core/utils/level";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getObjectStalkerIni, setupObjectInfoPortions, setupObjectStalkerVisual } from "@/engine/core/utils/object";

@@ -6,7 +6,7 @@ import { executeConsoleCommand } from "@/engine/core/utils/console";
 import { loadObjectFromFile, saveObjectToFile } from "@/engine/core/utils/fs";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { gameTimeToString } from "@/engine/core/utils/time";
-import { gameConfig } from "@/engine/lib/configs/GameConfig";
+import { forgeConfig } from "@/engine/lib/configs/ForgeConfig";
 import { consoleCommands } from "@/engine/lib/constants/console_commands";
 import { TGameDifficulty } from "@/engine/lib/constants/game_difficulties";
 import { roots } from "@/engine/lib/constants/roots";
@@ -33,7 +33,7 @@ export function getGameSavesList(): LuaArray<FSItem> {
   const fsList: FSFileListEX = getFS().file_list_open_ex(
     roots.gameSaves,
     bit_or(FS.FS_ListFiles, FS.FS_RootOnly),
-    "*" + gameConfig.GAME_SAVE_EXTENSION
+    "*" + forgeConfig.SAVE.GAME_SAVE_EXTENSION
   );
 
   fsList.Sort(FS.FS_sort_by_modif_down);
@@ -41,7 +41,7 @@ export function getGameSavesList(): LuaArray<FSItem> {
   for (let it = 0; it < fsList.Size(); it += 1) {
     const file: FSItem = fsList.GetAt(it);
 
-    if (file.NameFull().endsWith(gameConfig.GAME_SAVE_EXTENSION)) {
+    if (file.NameFull().endsWith(forgeConfig.SAVE.GAME_SAVE_EXTENSION)) {
       table.insert(savesList, file);
     }
   }
@@ -71,9 +71,9 @@ export function isGameSaveFileExist(filename: TName): boolean {
  * @param filename - target name to delete from saves folder
  */
 export function deleteGameSave(filename: TName): void {
-  const saveBaseFile: TName = filename + gameConfig.GAME_SAVE_EXTENSION;
-  const saveDynamicFile: TName = filename + gameConfig.GAME_SAVE_DYNAMIC_EXTENSION;
-  const savePreviewFile: TName = filename + gameConfig.GAME_SAVE_PREVIEW_EXTENSION;
+  const saveBaseFile: TName = filename + forgeConfig.SAVE.GAME_SAVE_EXTENSION;
+  const saveDynamicFile: TName = filename + forgeConfig.SAVE.GAME_SAVE_DYNAMIC_EXTENSION;
+  const savePreviewFile: TName = filename + forgeConfig.SAVE.GAME_SAVE_PREVIEW_EXTENSION;
 
   const fs: FS = getFS();
 
@@ -101,7 +101,7 @@ export function deleteGameSave(filename: TName): void {
 export function saveDynamicGameSave(filename: TName, data: AnyObject): void {
   const savesFolder: TPath = getFS().update_path(roots.gameSaves, "");
   const saveFile: TPath =
-    savesFolder + string.lower(string.sub(filename, 0, -6)) + gameConfig.GAME_SAVE_DYNAMIC_EXTENSION;
+    savesFolder + string.lower(string.sub(filename, 0, -6)) + forgeConfig.SAVE.GAME_SAVE_DYNAMIC_EXTENSION;
 
   saveObjectToFile(savesFolder, saveFile, data);
 }
@@ -113,7 +113,7 @@ export function saveDynamicGameSave(filename: TName, data: AnyObject): void {
  * @returns stringified binary data or null
  */
 export function loadDynamicGameSave<T extends AnyObject>(filename: TName): Optional<T> {
-  const saveFile: TPath = string.sub(filename, 0, -6) + gameConfig.GAME_SAVE_DYNAMIC_EXTENSION;
+  const saveFile: TPath = string.sub(filename, 0, -6) + forgeConfig.SAVE.GAME_SAVE_DYNAMIC_EXTENSION;
 
   return loadObjectFromFile(saveFile);
 }
@@ -128,7 +128,7 @@ export function getFileDataForGameSave(name: TName): TLabel {
   const fileList: FSFileListEX = getFS().file_list_open_ex(
     roots.gameSaves,
     bit_or(FS.FS_ListFiles, FS.FS_RootOnly),
-    name + gameConfig.GAME_SAVE_EXTENSION
+    name + forgeConfig.SAVE.GAME_SAVE_EXTENSION
   );
   const filesCount: TCount = fileList.Size();
 

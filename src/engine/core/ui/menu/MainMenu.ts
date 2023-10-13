@@ -31,7 +31,8 @@ import { executeConsoleCommand } from "@/engine/core/utils/console";
 import { loadLastGameSave, startNewGame } from "@/engine/core/utils/game_save";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { resolveXmlFile, resolveXmlFormPath } from "@/engine/core/utils/ui";
-import { gameConfig } from "@/engine/lib/configs/GameConfig";
+import { forgeConfig } from "@/engine/lib/configs/ForgeConfig";
+import { screenConfig } from "@/engine/lib/configs/ScreenConfig";
 import { consoleCommands } from "@/engine/lib/constants/console_commands";
 import { gameDifficulties } from "@/engine/lib/constants/game_difficulties";
 import { gameTutorials } from "@/engine/lib/constants/game_tutorials";
@@ -96,7 +97,7 @@ export class MainMenu extends CUIScriptWnd {
    * Initialize UI controls.
    */
   public initControls(): void {
-    this.SetWndRect(new Frect().set(0, 0, gameConfig.UI.BASE_WIDTH, gameConfig.UI.BASE_HEIGHT));
+    this.SetWndRect(new Frect().set(0, 0, screenConfig.BASE_WIDTH, screenConfig.BASE_HEIGHT));
 
     const xml: CScriptXmlInit = resolveXmlFile(base);
 
@@ -109,7 +110,7 @@ export class MainMenu extends CUIScriptWnd {
 
     const versionLabel: CUIStatic = xml.InitStatic("static_version", this);
 
-    versionLabel.TextControl().SetText(string.format(gameConfig.VERSION, this.xrMenuController.GetGSVer()));
+    versionLabel.TextControl().SetText(string.format(forgeConfig.VERSION, this.xrMenuController.GetGSVer()));
 
     // Reset magnifier mode.
     if (this.xrGameSpyProfile && !level.present()) {
@@ -294,7 +295,7 @@ export class MainMenu extends CUIScriptWnd {
    * Clicked debug button.
    */
   public onDevelopmentDebugButtonClick(): void {
-    if (gameConfig.DEBUG.IS_ENABLED) {
+    if (forgeConfig.DEBUG.IS_ENABLED) {
       logger.info("Activating debug settings view");
     } else {
       logger.info("Debug settings are disabled");

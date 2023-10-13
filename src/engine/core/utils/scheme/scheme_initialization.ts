@@ -7,11 +7,11 @@ import {
   IRegistryObjectState,
   registry,
 } from "@/engine/core/database";
+import { tradeConfig } from "@/engine/core/managers/trade/TradeConfig";
 import { TradeManager } from "@/engine/core/managers/trade/TradeManager";
-import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain";
+import type { SmartTerrain } from "@/engine/core/objects/server/smart_terrain";
 import { assert } from "@/engine/core/utils/assertion";
 import { readIniNumber, readIniString } from "@/engine/core/utils/ini";
-import { ISmartTerrainJobDescriptor } from "@/engine/core/utils/job";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getObjectSmartTerrain } from "@/engine/core/utils/position";
 import { ERelation } from "@/engine/core/utils/relation";
@@ -23,7 +23,6 @@ import {
 } from "@/engine/core/utils/scheme/scheme_logic";
 import { disableObjectBaseSchemes } from "@/engine/core/utils/scheme/scheme_setup";
 import { spawnItemsForObject } from "@/engine/core/utils/spawn";
-import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
 import { TInventoryItem } from "@/engine/lib/constants/items";
 import { MAX_U16 } from "@/engine/lib/constants/memory";
 import {
@@ -95,9 +94,7 @@ export function configureObjectSchemes(
         const currentSmart: Optional<SmartTerrain> = getObjectSmartTerrain(object);
 
         if (currentSmart) {
-          const job: Optional<ISmartTerrainJobDescriptor> = currentSmart.getJobByObjectId(object.id());
-
-          state.jobIni = job?.iniPath as Optional<TPath>;
+          state.jobIni = currentSmart.getJobByObjectId(object.id())?.iniPath as Optional<TPath>;
         }
       }
 
@@ -136,7 +133,7 @@ export function configureObjectSchemes(
       "trade",
       false,
       null,
-      logicsConfig.TRADE.DEFAULT_TRADE_LTX_PATH
+      tradeConfig.DEFAULT_TRADE_LTX_PATH
     );
 
     TradeManager.getInstance().initializeForObject(object, tradeIniPath);

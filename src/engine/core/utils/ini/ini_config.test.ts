@@ -2,6 +2,7 @@ import { beforeEach, describe, expect, it } from "@jest/globals";
 
 import {
   IBaseSchemeLogic,
+  IRegistryObjectState,
   registerActor,
   registerObject,
   registerSimulator,
@@ -62,15 +63,14 @@ describe("config utils for ini file", () => {
 
   it("getObjectConfigOverrides should correctly parse overrides", () => {
     const object: ClientObject = mockClientGameObject();
-
-    registerObject(object);
+    const state: IRegistryObjectState = registerObject(object);
 
     expect(getObjectConfigOverrides(mockIniFile("test.ltx", { empty: {} }), "empty", object)).toEqualLuaTables({
       combat_ignore: null,
       combat_ignore_keep_when_attacked: false,
       combat_type: null,
-      max_post_combat_time: 10,
-      min_post_combat_time: 5,
+      maxPostCombatTime: 10,
+      minPostCombatTime: 5,
       on_combat: null,
       on_offline_condlist: parseConditionsList(NIL),
       soundgroup: null,
@@ -110,8 +110,8 @@ describe("config utils for ini file", () => {
         p2: null,
       },
       heli_hunter: parseConditionsList("first"),
-      max_post_combat_time: 50,
-      min_post_combat_time: 10,
+      maxPostCombatTime: 50,
+      minPostCombatTime: 10,
       on_combat: {
         condlist: parseConditionsList("fifth"),
         name: "on_combat",
@@ -121,6 +121,30 @@ describe("config utils for ini file", () => {
       },
       on_offline_condlist: parseConditionsList("sixth"),
       soundgroup: "seventh",
+    });
+
+    state.sectionLogic = "logic";
+
+    expect(
+      getObjectConfigOverrides(
+        mockIniFile("test.ltx", {
+          empty: {},
+          logic: {
+            post_combat_time: "15, 54",
+          },
+        }),
+        "empty",
+        object
+      )
+    ).toEqualLuaTables({
+      combat_ignore: null,
+      combat_ignore_keep_when_attacked: false,
+      combat_type: null,
+      maxPostCombatTime: 54,
+      minPostCombatTime: 15,
+      on_combat: null,
+      on_offline_condlist: parseConditionsList(NIL),
+      soundgroup: null,
     });
   });
 

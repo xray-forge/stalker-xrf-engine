@@ -40,7 +40,7 @@ import { EOptionGroup } from "@/engine/core/ui/menu/options/options_types";
 import { executeConsoleCommand } from "@/engine/core/utils/console";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { resolveXmlFormPath } from "@/engine/core/utils/ui";
-import { gameConfig } from "@/engine/lib/configs/GameConfig";
+import { forgeConfig } from "@/engine/lib/configs/ForgeConfig";
 import { consoleCommands } from "@/engine/lib/constants/console_commands";
 import { Optional, Profile, TKeyCode, TPath, TUIEvent } from "@/engine/lib/types";
 
@@ -212,7 +212,7 @@ export class MultiplayerMenu extends CUIScriptWnd {
     const version: CUIStatic = xml.InitStatic("static_version", this);
     const mm: CMainMenu = main_menu.get_main_menu();
 
-    version.TextControl().SetText(string.format(gameConfig.VERSION, mm.GetGSVer()));
+    version.TextControl().SetText(string.format(forgeConfig.VERSION, mm.GetGSVer()));
 
     if (this.online) {
       this.cdkey.SetText(mm.GetCDKey());

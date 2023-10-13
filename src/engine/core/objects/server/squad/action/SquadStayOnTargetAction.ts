@@ -2,7 +2,7 @@ import { game } from "xray16";
 
 import { Squad } from "@/engine/core/objects/server/squad/Squad";
 import { ESquadActionType, ISquadAction } from "@/engine/core/objects/server/squad/squad_types";
-import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
+import { squadConfig } from "@/engine/core/objects/server/squad/SquadConfig";
 import { Optional, TDuration, Time } from "@/engine/lib/types";
 
 /**
@@ -17,10 +17,7 @@ export class SquadStayOnTargetAction implements ISquadAction {
   }
 
   public actionStartTime: Optional<Time> = null;
-  public actionIdleTime: TDuration = math.random(
-    logicsConfig.SQUAD.STAY_POINT_IDLE_MIN,
-    logicsConfig.SQUAD.STAY_POINT_IDLE_MAX
-  );
+  public actionIdleTime: TDuration = math.random(squadConfig.STAY_POINT_IDLE_MIN, squadConfig.STAY_POINT_IDLE_MAX);
 
   /**
    * Stay on target, initialize action.

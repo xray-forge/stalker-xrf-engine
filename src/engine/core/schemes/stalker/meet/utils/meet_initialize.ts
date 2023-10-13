@@ -1,10 +1,9 @@
 import { registry } from "@/engine/core/database";
 import { ISchemeMeetState } from "@/engine/core/schemes/stalker/meet";
-import { meetEnemyDefaults, meetNeutralDefaults } from "@/engine/core/schemes/stalker/meet/utils/meet_defaults";
+import { meetConfig } from "@/engine/core/schemes/stalker/meet/MeetConfig";
 import { parseConditionsList, readIniString } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getObjectsRelationSafe } from "@/engine/core/utils/relation";
-import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
 import { NO_MEET_SECTION } from "@/engine/lib/constants/sections";
 import { FALSE, NIL, TRUE } from "@/engine/lib/constants/words";
 import { ClientObject, EClientObjectRelation, IniFile, Optional, TSection } from "@/engine/lib/types";
@@ -58,10 +57,10 @@ export function initializeMeetScheme(
     state.isMeetOnTalking = false;
     state.useText = parseConditionsList(NIL);
 
-    state.resetDistance = logicsConfig.MEET_RESET_DISTANCE;
+    state.resetDistance = meetConfig.MEET_RESET_DISTANCE;
     state.isMeetOnlyAtPathEnabled = true;
   } else {
-    const defaults = relation === EClientObjectRelation.ENEMY ? meetEnemyDefaults : meetNeutralDefaults;
+    const defaults = relation === EClientObjectRelation.ENEMY ? meetConfig.ENEMY_DEFAULTS : meetConfig.NEUTRAL_DEFAULTS;
 
     state.closeDistance = parseConditionsList(
       readIniString(ini, section, "close_distance", false, null, defaults.closeDistance)
@@ -110,7 +109,7 @@ export function initializeMeetScheme(
       readIniString(ini, section, "meet_on_talking", false, null, defaults.isMeetOnTalking) === TRUE;
     state.useText = parseConditionsList(readIniString(ini, section, "use_text", false, null, defaults.useText));
 
-    state.resetDistance = logicsConfig.MEET_RESET_DISTANCE;
+    state.resetDistance = meetConfig.MEET_RESET_DISTANCE;
     state.isMeetOnlyAtPathEnabled = true;
   }
 

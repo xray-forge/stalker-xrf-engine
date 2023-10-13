@@ -1,6 +1,6 @@
 import { entity_action } from "xray16";
 
-import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
+import { alifeConfig } from "@/engine/lib/configs/AlifeConfig";
 import { ClientObject, EntityAction, TEntityActionType, TName } from "@/engine/lib/types";
 
 /**
@@ -35,7 +35,7 @@ export function resetMonsterAction(object: ClientObject, scriptName: TName): voi
 export function scriptCaptureMonster(
   object: ClientObject,
   resetActions: boolean,
-  scriptName: TName = logicsConfig.MONSTER_CAPTURE_SCRIPT_NAME
+  scriptName: TName = alifeConfig.OBJECT_CAPTURE_SCRIPT_NAME
 ): void {
   if (resetActions) {
     resetMonsterAction(object, scriptName);

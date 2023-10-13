@@ -101,7 +101,7 @@ export function setCurrentTime(hour: number, min: number, sec: number): void {
  * @param packet - target packet to write data
  * @param time - time object to write
  */
-export function writeTimeToPacket(packet: NetPacket, time: Optional<Time>): void {
+export function writeTimeToPacket(packet: NetPacket, time: Optional<Time> = null): void {
   if (time === null) {
     return packet.w_u8(MAX_U8);
   }

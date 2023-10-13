@@ -3,7 +3,7 @@ import { log, print_stack, time_global } from "xray16";
 
 import { LuaLogger } from "@/engine/core/utils/logging/LuaLogger";
 import { toJSON } from "@/engine/core/utils/transform/json";
-import { gameConfig } from "@/engine/lib/configs/GameConfig";
+import { forgeConfig } from "@/engine/lib/configs/ForgeConfig";
 import { replaceFunctionMock, resetFunctionMock } from "@/fixtures/jest";
 
 describe("LuaLogger class", () => {
@@ -25,7 +25,7 @@ describe("LuaLogger class", () => {
     jest.spyOn(logger, "logAs").mockImplementation(() => {});
 
     logger.isEnabled = false;
-    gameConfig.DEBUG.IS_LOG_ENABLED = false;
+    forgeConfig.DEBUG.IS_LOG_ENABLED = false;
 
     logger.info("test");
     expect(logger.logAs).not.toHaveBeenCalled();
@@ -35,7 +35,7 @@ describe("LuaLogger class", () => {
     logger.info("test");
     expect(logger.logAs).not.toHaveBeenCalled();
 
-    gameConfig.DEBUG.IS_LOG_ENABLED = true;
+    forgeConfig.DEBUG.IS_LOG_ENABLED = true;
 
     logger.info("test");
     expect(logger.logAs).toHaveBeenCalled();

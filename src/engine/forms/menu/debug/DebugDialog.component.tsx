@@ -4,13 +4,13 @@ import { Xr3tButton, XrBackground, XrRoot, XrStatic } from "@/engine/forms/compo
 import { XrComponent } from "@/engine/forms/components/base/XrComponent.component";
 import { XrScrollView } from "@/engine/forms/components/base/XrScrollView.component";
 import { XrTexture } from "@/engine/forms/components/base/XrTexture.component";
-import { gameConfig } from "@/engine/lib/configs/GameConfig";
+import { screenConfig } from "@/engine/lib/configs/ScreenConfig";
 import { WHITE } from "@/engine/lib/constants/colors";
 import { fonts } from "@/engine/lib/constants/fonts";
 import { IRgbColor } from "@/engine/lib/types";
 
-const BASE_WIDTH: number = gameConfig.UI.BASE_WIDTH;
-const BASE_HEIGHT: number = gameConfig.UI.BASE_HEIGHT;
+const BASE_WIDTH: number = screenConfig.BASE_WIDTH;
+const BASE_HEIGHT: number = screenConfig.BASE_HEIGHT;
 
 export const SECTION_WIDTH: number = BASE_WIDTH - 132;
 export const SECTION_HEIGHT: number = BASE_HEIGHT - 16;

@@ -1,6 +1,7 @@
 import { IBaseSchemeLogic, IRegistryObjectState } from "@/engine/core/database/database_types";
 import { registry } from "@/engine/core/database/registry";
 import { getServerObjectByStoryId } from "@/engine/core/database/story_objects";
+import { combatConfig } from "@/engine/core/schemes/stalker/combat/CombatConfig";
 import { abort } from "@/engine/core/utils/assertion";
 import { disableInfoPortion, giveInfoPortion, hasInfoPortion } from "@/engine/core/utils/info_portion";
 import { parseConditionsList } from "@/engine/core/utils/ini/ini_parse";
@@ -14,8 +15,6 @@ import {
   readIniTwoStringsAndConditionsList,
 } from "@/engine/core/utils/ini/ini_read";
 import { TConditionList } from "@/engine/core/utils/ini/ini_types";
-import { LuaLogger } from "@/engine/core/utils/logging";
-import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
 import { TInfoPortion } from "@/engine/lib/constants/info_portions";
 import { NEVER, NIL } from "@/engine/lib/constants/words";
 import {
@@ -34,8 +33,6 @@ import {
   TSection,
   TStringId,
 } from "@/engine/lib/types";
-
-const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * Parse array of `|` separated condition lists.
@@ -213,30 +210,16 @@ export function getObjectConfigOverrides(ini: IniFile, section: TSection, object
 
   const state: IRegistryObjectState = registry.objects.get(object.id());
 
-  // todo: use ternary for state.section_logic
-  if (ini.line_exist(state.sectionLogic, "post_combat_time")) {
-    const [minPostCombatTime, maxPostCombatTime] = readIniTwoNumbers(
-      ini,
-      state.sectionLogic,
-      "post_combat_time",
-      logicsConfig.POST_COMBAT_IDLE.MIN / 1000,
-      logicsConfig.POST_COMBAT_IDLE.MAX / 1000
-    );
+  const [minPostCombatTime, maxPostCombatTime] = readIniTwoNumbers(
+    ini,
+    ini.line_exist(state.sectionLogic, "post_combat_time") ? state.sectionLogic : section,
+    "post_combat_time",
+    combatConfig.POST_COMBAT_IDLE.MIN / 1000,
+    combatConfig.POST_COMBAT_IDLE.MAX / 1000
+  );
 
-    overrides.min_post_combat_time = minPostCombatTime;
-    overrides.max_post_combat_time = maxPostCombatTime;
-  } else {
-    const [min_post_combat_time, max_post_combat_time] = readIniTwoNumbers(
-      ini,
-      section,
-      "post_combat_time",
-      logicsConfig.POST_COMBAT_IDLE.MIN / 1000,
-      logicsConfig.POST_COMBAT_IDLE.MAX / 1000
-    );
-
-    overrides.min_post_combat_time = min_post_combat_time;
-    overrides.max_post_combat_time = max_post_combat_time;
-  }
+  overrides.minPostCombatTime = minPostCombatTime;
+  overrides.maxPostCombatTime = maxPostCombatTime;
 
   if (ini.line_exist(section, "on_offline")) {
     overrides.on_offline_condlist = parseConditionsList(readIniString(ini, section, "on_offline", false, null, NIL));

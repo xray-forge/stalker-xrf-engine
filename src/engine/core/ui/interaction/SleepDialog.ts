@@ -18,7 +18,8 @@ import { SleepManager } from "@/engine/core/managers/sleep";
 import { disableInfoPortion, giveInfoPortion } from "@/engine/core/utils/info_portion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { isWideScreen, resolveXmlFormPath } from "@/engine/core/utils/ui";
-import { gameConfig } from "@/engine/lib/configs/GameConfig";
+import { create2dVector } from "@/engine/core/utils/vector";
+import { screenConfig } from "@/engine/lib/configs/ScreenConfig";
 import { infoPortions } from "@/engine/lib/constants/info_portions/info_portions";
 import { ClientObject, TPath, TTimestamp, Vector2D } from "@/engine/lib/types";
 
@@ -58,7 +59,7 @@ export class SleepDialog extends CUIScriptWnd {
    * Initialize UI control elements.
    */
   public initControls(): void {
-    this.SetWndRect(new Frect().set(0, 0, gameConfig.UI.BASE_WIDTH, gameConfig.UI.BASE_HEIGHT));
+    this.SetWndRect(new Frect().set(0, 0, screenConfig.BASE_WIDTH, screenConfig.BASE_HEIGHT));
 
     const xml: CScriptXmlInit = new CScriptXmlInit();
 
@@ -190,7 +191,7 @@ export class SleepDialog extends CUIScriptWnd {
       x = x * 0.8;
     }
 
-    this.uiStMarker.SetWndPos(new vector2().set(x, 0));
+    this.uiStMarker.SetWndPos(create2dVector(x, 0));
   }
 
   public onButtonCancel(): void {

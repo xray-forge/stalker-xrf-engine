@@ -3,7 +3,7 @@ import { FS, getFS } from "xray16";
 import { IExtensionsDescriptor } from "@/engine/core/utils/extensions/extensions_types";
 import { loadObjectFromFile, saveObjectToFile } from "@/engine/core/utils/fs";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { gameConfig } from "@/engine/lib/configs/GameConfig";
+import { forgeConfig } from "@/engine/lib/configs/ForgeConfig";
 import { roots } from "@/engine/lib/constants/roots";
 import { LuaArray, Optional, TPath } from "@/engine/lib/types";
 
@@ -17,7 +17,7 @@ const logger: LuaLogger = new LuaLogger($filename);
 export function saveExtensionsState(extensions: LuaArray<IExtensionsDescriptor>): void {
   const fs: FS = getFS();
   const savesFolder: TPath = fs.update_path(roots.gameSaves, "");
-  const orderFile: TPath = fs.update_path(roots.gameSaves, gameConfig.GAME_SAVE_EXTENSIONS_ORDER_FILE);
+  const orderFile: TPath = fs.update_path(roots.gameSaves, forgeConfig.EXTENSIONS.ORDER_FILE);
 
   saveObjectToFile(savesFolder, orderFile, $fromArray($fromLuaArray(extensions).map(({ module, ...rest }) => rest)));
 }
@@ -28,7 +28,7 @@ export function saveExtensionsState(extensions: LuaArray<IExtensionsDescriptor>)
  * @returns order preferences
  */
 export function loadExtensionsState(): LuaArray<IExtensionsDescriptor> {
-  const orderFile: TPath = getFS().update_path(roots.gameSaves, gameConfig.GAME_SAVE_EXTENSIONS_ORDER_FILE);
+  const orderFile: TPath = getFS().update_path(roots.gameSaves, forgeConfig.EXTENSIONS.ORDER_FILE);
   const order: Optional<LuaArray<IExtensionsDescriptor>> = loadObjectFromFile(orderFile);
 
   return order ? order : new LuaTable();

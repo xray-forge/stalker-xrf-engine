@@ -22,7 +22,7 @@ import {
   getSquadMembersRelationToActorSafe,
 } from "@/engine/core/utils/relation";
 import { isSquadMonsterCommunity } from "@/engine/core/utils/section";
-import { gameConfig } from "@/engine/lib/configs/GameConfig";
+import { forgeConfig } from "@/engine/lib/configs/ForgeConfig";
 import { infoPortions } from "@/engine/lib/constants/info_portions/info_portions";
 import { levels } from "@/engine/lib/constants/levels";
 import { EMapMarkType, mapMarks } from "@/engine/lib/constants/map_marks";
@@ -231,7 +231,7 @@ export class MapDisplayManager extends AbstractManager {
     /**
      * In case of debug use map display like in clear sky.
      */
-    if (gameConfig.DEBUG.IS_SIMULATION_DEBUG_ENABLED) {
+    if (forgeConfig.DEBUG.IS_SIMULATION_ENABLED) {
       if (isSquadMonsterCommunity(squad.faction)) {
         spot = mapMarks.alife_presentation_squad_monster_debug;
       } else {
@@ -312,7 +312,7 @@ export class MapDisplayManager extends AbstractManager {
     /**
      * If debug enabled, render map spots.
      */
-    if (gameConfig.DEBUG.IS_SIMULATION_DEBUG_ENABLED) {
+    if (forgeConfig.DEBUG.IS_SIMULATION_ENABLED) {
       let spot: ERelation = ERelation.NEUTRAL;
 
       if (

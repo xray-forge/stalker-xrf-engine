@@ -3,7 +3,7 @@ import { log, print_stack, time_global } from "xray16";
 import { openLogFile } from "@/engine/core/utils/logging/logging_files";
 import { ELuaLoggerMode, ILuaLoggerConfig } from "@/engine/core/utils/logging/logging_types";
 import { toJSON } from "@/engine/core/utils/transform/json";
-import { gameConfig } from "@/engine/lib/configs/GameConfig";
+import { forgeConfig } from "@/engine/lib/configs/ForgeConfig";
 import { FALSE, NIL, TRUE } from "@/engine/lib/constants/words";
 import { AnyArgs, AnyObject, Optional, TLabel, TName } from "@/engine/lib/types";
 
@@ -29,7 +29,7 @@ export class LuaLogger {
     this.loggerFile = file ? openLogFile(file) : null;
     this.luaFile = openLogFile("lua");
 
-    if (gameConfig.DEBUG.IS_RESOLVE_LOG_ENABLED) {
+    if (forgeConfig.DEBUG.IS_RESOLVE_LOG_ENABLED) {
       this.info("Declared logger: '" + prefix + "'");
     }
   }
@@ -38,7 +38,7 @@ export class LuaLogger {
    * Print warn info level message.
    */
   public warn(...args: AnyArgs): void {
-    if (gameConfig.DEBUG.IS_LOG_ENABLED && this.isEnabled) {
+    if (forgeConfig.DEBUG.IS_LOG_ENABLED && this.isEnabled) {
       this.logAs("[warn]", this.prefix, $fromArray(args));
     }
   }
@@ -47,7 +47,7 @@ export class LuaLogger {
    * Print generic info level message.
    */
   public info(...args: AnyArgs): void {
-    if (gameConfig.DEBUG.IS_LOG_ENABLED && this.isEnabled) {
+    if (forgeConfig.DEBUG.IS_LOG_ENABLED && this.isEnabled) {
       this.logAs("[info]", this.prefix, $fromArray(args));
     }
   }
@@ -56,7 +56,7 @@ export class LuaLogger {
    * Print generic info level message.
    */
   public format(base: string, ...args: AnyArgs): void {
-    if (gameConfig.DEBUG.IS_LOG_ENABLED && this.isEnabled) {
+    if (forgeConfig.DEBUG.IS_LOG_ENABLED && this.isEnabled) {
       this.logAs("[info]", this.prefix, $fromArray([string.format(base, ...args)]));
     }
   }
@@ -65,7 +65,7 @@ export class LuaLogger {
    * Print generic error level message.
    */
   public error(...args: AnyArgs): void {
-    if (gameConfig.DEBUG.IS_LOG_ENABLED && this.isEnabled) {
+    if (forgeConfig.DEBUG.IS_LOG_ENABLED && this.isEnabled) {
       this.logAs("[error]", this.prefix, $fromArray(args));
     }
   }
@@ -75,7 +75,7 @@ export class LuaLogger {
    */
   public table(table: AnyObject): void;
   public table(table: LuaTable): void {
-    if (gameConfig.DEBUG.IS_LOG_ENABLED && this.isEnabled) {
+    if (forgeConfig.DEBUG.IS_LOG_ENABLED && this.isEnabled) {
       this.logAs("[table]", this.prefix, $fromArray([toJSON(table)]));
     }
   }
@@ -143,7 +143,7 @@ export class LuaLogger {
     // Write into shared game console if no file defined/dual mode enabled.
     if (this.loggerFile === null || this.mode === ELuaLoggerMode.DUAL) {
       // Write into custom file if it is defined for current logger.
-      if (gameConfig.DEBUG.IS_SEPARATE_LUA_LOG_ENABLED) {
+      if (forgeConfig.DEBUG.IS_SEPARATE_LUA_LOG_ENABLED) {
         this.luaFile.write(result);
         this.luaFile.write("\n");
       }

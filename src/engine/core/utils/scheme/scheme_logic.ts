@@ -11,11 +11,11 @@ import { MapDisplayManager } from "@/engine/core/managers/map/MapDisplayManager"
 import { ObjectRestrictionsManager } from "@/engine/core/objects/ai/restriction";
 import { TAbstractSchemeConstructor } from "@/engine/core/objects/ai/scheme";
 import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain";
+import { ISmartTerrainJobDescriptor } from "@/engine/core/objects/server/smart_terrain/job/job_types";
 import { assert, assertDefined } from "@/engine/core/utils/assertion";
 import { getObjectConfigOverrides, pickSectionFromCondList } from "@/engine/core/utils/ini/ini_config";
 import { getSchemeFromSection } from "@/engine/core/utils/ini/ini_parse";
 import { readIniConditionList, readIniString } from "@/engine/core/utils/ini/ini_read";
-import { ISmartTerrainJobDescriptor } from "@/engine/core/utils/job";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getObjectSmartTerrain, sendToNearestAccessibleVertex } from "@/engine/core/utils/position";
 import { emitSchemeEvent } from "@/engine/core/utils/scheme/scheme_event";
@@ -135,9 +135,7 @@ export function activateSchemeBySection(
 
     assert(currentSmartTerrain, "scheme/logic: activate_by_section: section is NIL && NPC !in smart.");
 
-    const job: Optional<ISmartTerrainJobDescriptor> = currentSmartTerrain.getJobByObjectId(object.id());
-
-    section = job?.section as TSection;
+    section = currentSmartTerrain.getJobByObjectId(object.id())?.section as TSection;
   }
 
   const scheme: Optional<EScheme> = getSchemeFromSection(section);

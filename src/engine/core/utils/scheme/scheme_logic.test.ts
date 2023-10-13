@@ -47,14 +47,11 @@ import {
 import { loadSchemeImplementation, loadSchemeImplementations } from "@/engine/core/utils/scheme/scheme_setup";
 import { NIL } from "@/engine/lib/constants/words";
 import { ClientObject, EScheme, ESchemeType, IniFile, ServerHumanObject } from "@/engine/lib/types";
-import { getSchemeAction } from "@/fixtures/engine/mocks";
+import { getSchemeAction, mockSchemeState } from "@/fixtures/engine/mocks";
 import { MockAlifeSimulator, mockClientGameObject, mockIniFile, mockServerAlifeHumanStalker } from "@/fixtures/xray";
 import { MockCTime } from "@/fixtures/xray/mocks/CTime.mock";
 
 describe("scheme logic utils", () => {
-  /**
-   * todo;
-   */
   function loadGenericSchemes(): Array<TAbstractSchemeConstructor> {
     const schemes: Array<TAbstractSchemeConstructor> = [
       SchemeMeet,
@@ -187,7 +184,7 @@ describe("scheme logic utils", () => {
     loadGenericSchemes();
     loadSchemeImplementation(SchemePatrol);
 
-    jest.spyOn(SchemePatrol, "activate").mockImplementation(() => {});
+    jest.spyOn(SchemePatrol, "activate").mockImplementation(() => mockSchemeState(EScheme.PATROL));
     jest.spyOn(smartTerrain, "getJobByObjectId").mockImplementation(
       () =>
         ({
@@ -268,8 +265,8 @@ describe("scheme logic utils", () => {
       combat_ignore: null,
       combat_ignore_keep_when_attacked: false,
       combat_type: null,
-      max_post_combat_time: 10,
-      min_post_combat_time: 5,
+      maxPostCombatTime: 10,
+      minPostCombatTime: 5,
       on_combat: null,
       on_offline_condlist: {
         "1": {
@@ -291,7 +288,7 @@ describe("scheme logic utils", () => {
       },
     });
 
-    jest.spyOn(SchemeHit, "activate").mockImplementation(() => {});
+    jest.spyOn(SchemeHit, "activate").mockImplementation(() => mockSchemeState(EScheme.HIT));
 
     loadSchemeImplementation(SchemeHit);
 
@@ -311,7 +308,7 @@ describe("scheme logic utils", () => {
       },
     });
 
-    jest.spyOn(SchemePhysicalOnHit, "activate").mockImplementation(() => {});
+    jest.spyOn(SchemePhysicalOnHit, "activate").mockImplementation(() => mockSchemeState(EScheme.PH_ON_HIT));
 
     loadSchemeImplementation(SchemePhysicalOnHit);
 
@@ -337,10 +334,10 @@ describe("scheme logic utils", () => {
 
     state.ini = ini;
 
-    jest.spyOn(SchemeHit, "activate").mockImplementation(() => {});
-    jest.spyOn(SchemeMobCombat, "activate").mockImplementation(() => {});
-    jest.spyOn(SchemeMobDeath, "activate").mockImplementation(() => {});
-    jest.spyOn(SchemeCombatIgnore, "activate").mockImplementation(() => {});
+    jest.spyOn(SchemeHit, "activate").mockImplementation(() => mockSchemeState(EScheme.HIT));
+    jest.spyOn(SchemeMobCombat, "activate").mockImplementation(() => mockSchemeState(EScheme.MOB_COMBAT));
+    jest.spyOn(SchemeMobDeath, "activate").mockImplementation(() => mockSchemeState(EScheme.MOB_DEATH));
+    jest.spyOn(SchemeCombatIgnore, "activate").mockImplementation(() => mockSchemeState(EScheme.COMBAT_IGNORE));
 
     loadSchemeImplementations(
       $fromArray<TAbstractSchemeConstructor>([SchemeMobCombat, SchemeMobDeath, SchemeHit, SchemeCombatIgnore])
@@ -400,7 +397,7 @@ describe("scheme logic utils", () => {
       SchemeWounded,
     ];
 
-    schemes.forEach((it) => jest.spyOn(it, "activate").mockImplementation(() => {}));
+    schemes.forEach((it) => jest.spyOn(it, "activate").mockImplementation(() => mockSchemeState(it.SCHEME_SECTION)));
     loadSchemeImplementations($fromArray<TAbstractSchemeConstructor>(schemes));
     registerActor(mockClientGameObject());
 

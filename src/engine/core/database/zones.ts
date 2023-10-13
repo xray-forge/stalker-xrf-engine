@@ -1,7 +1,7 @@
 import { IRegistryObjectState } from "@/engine/core/database/database_types";
 import { registerObject, resetObject, unregisterObject } from "@/engine/core/database/objects";
 import { registry } from "@/engine/core/database/registry";
-import { CampManager } from "@/engine/core/objects/camp";
+import { CampManager } from "@/engine/core/managers/camp";
 import { ClientObject, Optional, Vector } from "@/engine/lib/types";
 
 /**

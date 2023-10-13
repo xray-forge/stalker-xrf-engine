@@ -4,9 +4,9 @@ import { registry } from "@/engine/core/database";
 import { EActionId } from "@/engine/core/objects/ai/types";
 import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain";
 import { ISchemeDangerState } from "@/engine/core/schemes/stalker/danger";
+import { dangerConfig } from "@/engine/core/schemes/stalker/danger/DangerConfig";
 import { isObjectFacingDanger } from "@/engine/core/schemes/stalker/danger/utils";
 import { startSmartTerrainAlarm } from "@/engine/core/utils/smart_terrain";
-import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
 import { MAX_U16 } from "@/engine/lib/constants/memory";
 import { ActionPlanner, DangerObject, Optional, ServerCreatureObject } from "@/engine/lib/types";
 
@@ -54,7 +54,7 @@ export class EvaluatorDanger extends property_evaluator {
       if (
         bestDanger !== null &&
         this.state.dangerTime !== null &&
-        time_global() - this.state.dangerTime < logicsConfig.DANGER_INERTION_TIME
+        time_global() - this.state.dangerTime < dangerConfig.INERTIA_TIME
       ) {
         return true;
       }

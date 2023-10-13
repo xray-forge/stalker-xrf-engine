@@ -39,8 +39,18 @@ import {
   TSimulationObject,
   VALID_SMART_TERRAINS_SIMULATION_ROLES,
 } from "@/engine/core/managers/simulation";
+import {
+  areNoStalkersWorkingOnJobs,
+  createObjectJobDescriptor,
+  createSmartTerrainJobs,
+  IObjectJobDescriptor,
+  ISmartTerrainJobDescriptor,
+  selectSmartTerrainJob,
+  TSmartTerrainJobsList,
+} from "@/engine/core/objects/server/smart_terrain/job";
+import { ESmartTerrainStatus } from "@/engine/core/objects/server/smart_terrain/smart_terrain_types";
+import { smartTerrainConfig } from "@/engine/core/objects/server/smart_terrain/SmartTerrainConfig";
 import { SmartTerrainControl } from "@/engine/core/objects/server/smart_terrain/SmartTerrainControl";
-import { ESmartTerrainStatus } from "@/engine/core/objects/server/smart_terrain/types";
 import { ESquadActionType, Squad } from "@/engine/core/objects/server/squad";
 import { abort, assert, assertDefined } from "@/engine/core/utils/assertion";
 import { isMonsterSquad, isStalker } from "@/engine/core/utils/class_ids";
@@ -55,15 +65,6 @@ import {
   readIniString,
   TConditionList,
 } from "@/engine/core/utils/ini";
-import {
-  areNoStalkersWorkingOnJobs,
-  createObjectJobDescriptor,
-  createSmartTerrainJobs,
-  IObjectJobDescriptor,
-  ISmartTerrainJobDescriptor,
-  selectSmartTerrainJob,
-  TSmartTerrainJobsList,
-} from "@/engine/core/utils/job";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { areObjectsOnSameLevel } from "@/engine/core/utils/position";
 import { ERelation } from "@/engine/core/utils/relation";
@@ -81,8 +82,7 @@ import {
 } from "@/engine/core/utils/smart_terrain";
 import { readTimeFromPacket, writeTimeToPacket } from "@/engine/core/utils/time";
 import { toJSON } from "@/engine/core/utils/transform/json";
-import { gameConfig } from "@/engine/lib/configs/GameConfig";
-import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
+import { forgeConfig } from "@/engine/lib/configs/ForgeConfig";
 import { MAX_U8 } from "@/engine/lib/constants/memory";
 import { roots } from "@/engine/lib/constants/roots";
 import { SMART_TERRAIN_SECTION } from "@/engine/lib/constants/sections";
@@ -145,7 +145,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
    */
   public alarmStartedAt: Optional<Time> = null;
 
-  public arrivalDistance: TNumberId = logicsConfig.SMART_TERRAIN.DEFAULT_ARRIVAL_DISTANCE;
+  public arrivalDistance: TNumberId = smartTerrainConfig.DEFAULT_ARRIVAL_DISTANCE;
 
   public population: TCount = 0;
   public maxPopulation: TCount = -1;
@@ -208,7 +208,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
     registerObjectStoryLinks(this);
     registerSimulationObject(this);
 
-    if (gameConfig.DEBUG.IS_SIMULATION_DEBUG_ENABLED) {
+    if (forgeConfig.DEBUG.IS_SIMULATION_ENABLED) {
       this.mapDisplayManager.updateSmartTerrainMapSpot(this);
     }
 
@@ -473,7 +473,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
   public override update(): void {
     super.update();
 
-    if (this.smartTerrainDisplayedMapSpot !== null || gameConfig.DEBUG.IS_SIMULATION_DEBUG_ENABLED) {
+    if (this.smartTerrainDisplayedMapSpot !== null || forgeConfig.DEBUG.IS_SIMULATION_ENABLED) {
       this.mapDisplayManager.updateSmartTerrainMapSpot(this);
     }
 
@@ -481,13 +481,11 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
 
     // todo: use sqr distance
     if (areObjectsOnSameLevel(this, registry.actorServer)) {
-      const distanceToActor: TDistance = this.position.distance_to(registry.actorServer.position);
-      const previousDistanceToActor: TDistance =
-        registry.smartTerrainNearest.id === null
-          ? registry.smartTerrainNearest.distance
-          : registry.simulator
-            .object(registry.smartTerrainNearest.id)!
-            .position.distance_to(registry.actorServer.position);
+      const actorPosition: Vector = registry.actorServer.position;
+      const distanceToActor: TDistance = this.position.distance_to(actorPosition);
+      const previousDistanceToActor: TDistance = registry.smartTerrainNearest.id
+        ? registry.simulator.object(registry.smartTerrainNearest.id)!.position.distance_to(actorPosition)
+        : registry.smartTerrainNearest.distance;
 
       if (distanceToActor < previousDistanceToActor) {
         registry.smartTerrainNearest.id = this.id;
@@ -521,7 +519,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
     const currentGameTime: Time = game.get_game_time();
 
     for (const [id, time] of this.jobDeadTimeById) {
-      if (currentGameTime.diffSec(time) >= logicsConfig.SMART_TERRAIN.DEATH_IDLE_TIME) {
+      if (currentGameTime.diffSec(time) >= smartTerrainConfig.DEATH_IDLE_TIME) {
         this.jobDeadTimeById.delete(id);
       }
     }
@@ -935,7 +933,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
    * todo: Description.
    */
   public getMapDisplayHint(): TLabel {
-    if (gameConfig.DEBUG.IS_SIMULATION_DEBUG_ENABLED) {
+    if (forgeConfig.DEBUG.IS_SIMULATION_ENABLED) {
       let caption: TLabel = string.format(
         "%s (%s) \\nonline = %s\\nsimulation_type = %s\\nsquad_id = %s\\ncapacity = %s\\%s\\n",
         game.translate_string(this.getNameCaption()),
@@ -962,7 +960,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
         if (this.lastRespawnUpdatedAt) {
           caption += string.format(
             "\ntime_to_spawn: %.2f\n\n",
-            logicsConfig.SMART_TERRAIN.RESPAWN_IDLE - game.get_game_time().diffSec(this.lastRespawnUpdatedAt)
+            smartTerrainConfig.RESPAWN_IDLE - game.get_game_time().diffSec(this.lastRespawnUpdatedAt)
           );
         }
       } else {
@@ -1081,7 +1079,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
 
     if (
       this.lastRespawnUpdatedAt === null ||
-      currentTime.diffSec(this.lastRespawnUpdatedAt) > logicsConfig.SMART_TERRAIN.RESPAWN_IDLE
+      currentTime.diffSec(this.lastRespawnUpdatedAt) > smartTerrainConfig.RESPAWN_IDLE
     ) {
       this.lastRespawnUpdatedAt = currentTime;
 
@@ -1096,8 +1094,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
       }
 
       if (
-        registry.actorServer.position.distance_to_sqr(this.position) <
-        logicsConfig.SMART_TERRAIN.RESPAWN_RADIUS_RESTRICTION_SQR
+        registry.actorServer.position.distance_to_sqr(this.position) < smartTerrainConfig.RESPAWN_RADIUS_RESTRICTION_SQR
       ) {
         return;
       }
@@ -1237,7 +1234,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
     }
 
     if (isMonsterSquad(squad) && squad.getLogicsScriptTarget() === null) {
-      return squad.position.distance_to_sqr(this.position) <= logicsConfig.SMART_TERRAIN.DEFAULT_ARRIVAL_DISTANCE;
+      return squad.position.distance_to_sqr(this.position) <= smartTerrainConfig.DEFAULT_ARRIVAL_DISTANCE;
     }
 
     return (

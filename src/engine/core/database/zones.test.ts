@@ -9,7 +9,7 @@ import {
   unregisterCampZone,
   unregisterZone,
 } from "@/engine/core/database/zones";
-import { CampManager } from "@/engine/core/objects/camp";
+import { CampManager } from "@/engine/core/managers/camp";
 import { ClientObject, Vector } from "@/engine/lib/types";
 import { mockClientGameObject } from "@/fixtures/xray";
 import { MockVector } from "@/fixtures/xray/mocks/vector.mock";
