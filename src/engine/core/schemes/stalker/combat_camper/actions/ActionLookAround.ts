@@ -3,10 +3,10 @@ import { action_base, LuabindClass, time_global } from "xray16";
 import { setStalkerState } from "@/engine/core/database";
 import { EStalkerState } from "@/engine/core/objects/animation/types";
 import { ISchemeCombatState } from "@/engine/core/schemes/stalker/combat";
+import { combatConfig } from "@/engine/core/schemes/stalker/combat/CombatConfig";
 import { assertDefined } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { copyVector, vectorRotateY } from "@/engine/core/utils/vector";
-import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
 import { ClientObject, Optional, TCount, TTimestamp, Vector } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -42,8 +42,8 @@ export class ActionLookAround extends action_base {
     const now: TTimestamp = time_global();
     const bestEnemy: Optional<ClientObject> = this.object.best_enemy();
 
-    this.forgetTime = now + logicsConfig.COMBAT_SEARCH.LAST_SEEN_POSITION_TIMEOUT;
-    this.changeDirTime = now + logicsConfig.COMBAT_SEARCH.SEARCH_DIRECTION_CHANGE_TIMEOUT;
+    this.forgetTime = now + combatConfig.LAST_SEEN_POSITION_TIMEOUT;
+    this.changeDirTime = now + combatConfig.SEARCH_DIRECTION_CHANGE_TIMEOUT;
 
     if (!this.state.lastSeenEnemyAtPosition && bestEnemy) {
       this.state.lastSeenEnemyAtPosition = bestEnemy.position();
@@ -81,10 +81,7 @@ export class ActionLookAround extends action_base {
 
       const direction: Vector = vectorRotateY(
         copyVector(this.state.lastSeenEnemyAtPosition).sub(this.object.position()),
-        math.random(
-          logicsConfig.COMBAT_SEARCH.SEARCH_DIRECTION_ROTATION_RANGE.MIN,
-          logicsConfig.COMBAT_SEARCH.SEARCH_DIRECTION_ROTATION_RANGE.MAX
-        )
+        math.random(combatConfig.SEARCH_DIRECTION_ROTATION_RANGE.MIN, combatConfig.SEARCH_DIRECTION_ROTATION_RANGE.MAX)
       );
 
       setStalkerState(this.object, EStalkerState.HIDE, null, null, {

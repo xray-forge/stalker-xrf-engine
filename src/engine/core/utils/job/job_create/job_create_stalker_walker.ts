@@ -1,11 +1,11 @@
 import { level } from "xray16";
 
-import type { SmartTerrain } from "@/engine/core/objects/server/smart_terrain";
+import type { SmartTerrain } from "@/engine/core/objects/server/smart_terrain/SmartTerrain";
+import { smartTerrainConfig } from "@/engine/core/objects/server/smart_terrain/SmartTerrainConfig";
 import { jobPreconditionWalker } from "@/engine/core/utils/job/job_precondition";
 import { EJobPathType, EJobType, TSmartTerrainJobsList } from "@/engine/core/utils/job/job_types";
 import { isPatrolInRestrictor } from "@/engine/core/utils/patrol";
 import { StringBuilder } from "@/engine/core/utils/string";
-import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
 import { TIndex, TName } from "@/engine/lib/types";
 
 /**
@@ -25,15 +25,15 @@ export function createStalkerWalkerJobs(
   let index: TIndex = 1;
 
   while (level.patrol_path_exists(string.format("%s_walker_%s_walk", smartTerrainName, index))) {
-    const wayName: TName = string.format("%s_walker_%s_walk", smartTerrainName, index);
+    const patrolName: TName = string.format("%s_walker_%s_walk", smartTerrainName, index);
 
     table.insert(jobs, {
       type: EJobType.WALKER,
       isMonsterJob: false,
-      priority: logicsConfig.JOBS.STALKER_WALKER.PRIORITY,
-      section: string.format("logic@%s", wayName),
+      priority: smartTerrainConfig.JOBS.STALKER_WALKER.PRIORITY,
+      section: string.format("logic@%s", patrolName),
       pathType: EJobPathType.PATH,
-      preconditionParameters: { wayName },
+      preconditionParameters: { wayName: patrolName },
       preconditionFunction: jobPreconditionWalker,
     });
 
@@ -48,9 +48,9 @@ path_walk = walker_%s_walk
 def_state_standing = guard
 def_state_moving = patrol
 `,
-        wayName,
-        wayName,
-        wayName,
+        patrolName,
+        patrolName,
+        patrolName,
         index
       )
     );
@@ -59,7 +59,7 @@ def_state_moving = patrol
       builder.append(string.format("path_look = walker_%s_look\n", index));
     }
 
-    if (smartTerrain.safeRestrictor !== null && isPatrolInRestrictor(smartTerrain.safeRestrictor, wayName)) {
+    if (smartTerrain.safeRestrictor !== null && isPatrolInRestrictor(smartTerrain.safeRestrictor, patrolName)) {
       // todo: Incorrect param, should be injected?
       builder.append("invulnerable = {=npc_in_zone(smart.safe_restr)} true\n");
     }
@@ -71,7 +71,7 @@ def_state_moving = patrol
     if (
       smartTerrain.smartTerrainActorControl !== null &&
       smartTerrain.smartTerrainActorControl.ignoreZone !== null &&
-      isPatrolInRestrictor(smartTerrain.smartTerrainActorControl.ignoreZone, wayName)
+      isPatrolInRestrictor(smartTerrain.smartTerrainActorControl.ignoreZone, patrolName)
     ) {
       builder.append(
         `combat_ignore_cond = {=npc_in_zone(smart.base_on_actor_control.ignore_zone)} true

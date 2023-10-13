@@ -1,7 +1,7 @@
 import type { SmartTerrain } from "@/engine/core/objects/server/smart_terrain";
+import { smartTerrainConfig } from "@/engine/core/objects/server/smart_terrain/SmartTerrainConfig";
 import { EJobPathType, EJobType, TSmartTerrainJobsList } from "@/engine/core/utils/job/job_types";
 import { StringBuilder } from "@/engine/core/utils/string";
-import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
 import { TName } from "@/engine/lib/types";
 
 /**
@@ -24,13 +24,13 @@ export function createMonsterJobs(
   // = Mob home
   // ===================================================================================================================
 
-  for (const it of $range(1, logicsConfig.JOBS.MOB_HOME.COUNT)) {
+  for (const it of $range(1, smartTerrainConfig.JOBS.MOB_HOME.COUNT)) {
     const name: TName = string.format("%s_home_%s", smartTerrainName, it);
 
     table.insert(jobsList, {
       type: EJobType.MONSTER_HOME,
       isMonsterJob: true,
-      priority: logicsConfig.JOBS.MOB_HOME.PRIORITY,
+      priority: smartTerrainConfig.JOBS.MOB_HOME.PRIORITY,
       section: string.format("logic@%s", name),
       pathType: EJobPathType.POINT,
     });
@@ -48,9 +48,9 @@ home_max_radius = %s
         name,
         name,
         name,
-        logicsConfig.JOBS.MOB_HOME.MIN_RADIUS,
-        logicsConfig.JOBS.MOB_HOME.MID_RADIUS,
-        logicsConfig.JOBS.MOB_HOME.MAX_RADIUS
+        smartTerrainConfig.JOBS.MOB_HOME.MIN_RADIUS,
+        smartTerrainConfig.JOBS.MOB_HOME.MID_RADIUS,
+        smartTerrainConfig.JOBS.MOB_HOME.MAX_RADIUS
       )
     );
 

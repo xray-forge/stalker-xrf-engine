@@ -1,12 +1,12 @@
 import { level, patrol } from "xray16";
 
 import { EStalkerState } from "@/engine/core/objects/animation/types";
-import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain";
+import type { SmartTerrain } from "@/engine/core/objects/server/smart_terrain/SmartTerrain";
+import { smartTerrainConfig } from "@/engine/core/objects/server/smart_terrain/SmartTerrainConfig";
 import { IWaypointData, parseWaypointData } from "@/engine/core/utils/ini";
 import { jobPreconditionSniper } from "@/engine/core/utils/job/job_precondition";
 import { EJobPathType, EJobType, TSmartTerrainJobsList } from "@/engine/core/utils/job/job_types";
 import { StringBuilder } from "@/engine/core/utils/string";
-import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
 import { Patrol, TIndex, TName } from "@/engine/lib/types";
 
 /**
@@ -26,14 +26,15 @@ export function createStalkerSniperJobs(
   let index: TIndex = 1;
 
   while (level.patrol_path_exists(string.format("%s_sniper_%s_walk", smartTerrainName, index))) {
-    const wayName: TName = string.format("%s_sniper_%s_walk", smartTerrainName, index);
-    const ptr: Patrol = new patrol(wayName);
-    const wpProp: IWaypointData = parseWaypointData(wayName, ptr.flags(0), ptr.name(0));
+    const patrolName: TName = string.format("%s_sniper_%s_walk", smartTerrainName, index);
+    const jobPatrol: Patrol = new patrol(patrolName);
+    const waypointData: IWaypointData = parseWaypointData(patrolName, jobPatrol.flags(0), jobPatrol.name(0));
+
     let state: TName = EStalkerState.HIDE;
 
-    if (wpProp.state !== null) {
+    if (waypointData.state !== null) {
       // todo: Add stand state?
-      if (wpProp.state === "stand") {
+      if (waypointData.state === "stand") {
         state = EStalkerState.THREAT;
       }
     }
@@ -41,10 +42,10 @@ export function createStalkerSniperJobs(
     table.insert(jobs, {
       type: EJobType.SNIPER,
       isMonsterJob: false,
-      priority: logicsConfig.JOBS.STALKER_SNIPER.PRIORITY,
-      section: string.format("logic@%s", wayName),
+      priority: smartTerrainConfig.JOBS.STALKER_SNIPER.PRIORITY,
+      section: string.format("logic@%s", patrolName),
       pathType: EJobPathType.PATH,
-      preconditionParameters: { wayName: wayName },
+      preconditionParameters: { wayName: patrolName },
       preconditionFunction: jobPreconditionSniper,
     });
 
@@ -60,9 +61,9 @@ sniper = true
 def_state_campering = %s
 def_state_campering_fire = %s_fire
 `,
-        wayName,
-        wayName,
-        wayName,
+        patrolName,
+        patrolName,
+        patrolName,
         index,
         index,
         state,

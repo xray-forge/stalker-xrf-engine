@@ -1,11 +1,11 @@
 import { describe, expect, it } from "@jest/globals";
 
-import { meetEnemyDefaults, meetNeutralDefaults } from "@/engine/core/schemes/stalker/meet/utils/meet_defaults";
+import { meetConfig } from "@/engine/core/schemes/stalker/meet/MeetConfig";
 import { FALSE, NIL, TRUE } from "@/engine/lib/constants/words";
 
-describe("meet scheme defaults", () => {
+describe("meet scheme config", () => {
   it("should have correct defaults fields for enemies", () => {
-    expect(meetEnemyDefaults).toEqual({
+    expect(meetConfig.ENEMY_DEFAULTS).toEqual({
       abuse: FALSE,
       isBreakAllowed: TRUE,
       closeAnimation: NIL,
@@ -29,7 +29,7 @@ describe("meet scheme defaults", () => {
   });
 
   it("should have correct defaults fields for neutrals", () => {
-    expect(meetNeutralDefaults).toEqual({
+    expect(meetConfig.NEUTRAL_DEFAULTS).toEqual({
       abuse: "{=has_enemy} false, true",
       isBreakAllowed: TRUE,
       closeAnimation: "{=is_wounded} nil, {!is_squad_commander} nil, {=actor_has_weapon} threat_na, talk_default",

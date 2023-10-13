@@ -3,14 +3,14 @@ import { game } from "xray16";
 import { closeLoadMarker, closeSaveMarker, openLoadMarker, openSaveMarker, registry } from "@/engine/core/database";
 import { SimulationBoardManager } from "@/engine/core/managers/simulation/SimulationBoardManager";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
-import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain/SmartTerrain";
+import type { SmartTerrain } from "@/engine/core/objects/server/smart_terrain/SmartTerrain";
+import { smartTerrainConfig } from "@/engine/core/objects/server/smart_terrain/SmartTerrainConfig";
 import { ESmartTerrainStatus } from "@/engine/core/objects/server/smart_terrain/types";
 import { isWeapon } from "@/engine/core/utils/class_ids";
 import { parseConditionsList, pickSectionFromCondList, readIniString, TConditionList } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { ERelation, updateSquadIdRelationToActor } from "@/engine/core/utils/relation";
 import { readTimeFromPacket, writeTimeToPacket } from "@/engine/core/utils/time";
-import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import {
   ClientObject,
@@ -56,7 +56,7 @@ export class SmartTerrainControl {
    */
   public update(): void {
     if (this.status === ESmartTerrainStatus.ALARM) {
-      if (game.get_game_time().diffSec(this.alarmStartedAt!) < logicsConfig.SMART_TERRAIN.ALARM_SMART_TERRAIN_BASE) {
+      if (game.get_game_time().diffSec(this.alarmStartedAt!) < smartTerrainConfig.ALARM_SMART_TERRAIN_BASE) {
         return;
       }
 

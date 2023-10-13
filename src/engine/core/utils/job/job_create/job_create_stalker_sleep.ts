@@ -1,11 +1,11 @@
 import { level } from "xray16";
 
-import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain";
+import type { SmartTerrain } from "@/engine/core/objects/server/smart_terrain/SmartTerrain";
+import { smartTerrainConfig } from "@/engine/core/objects/server/smart_terrain/SmartTerrainConfig";
 import { jobPreconditionSleep } from "@/engine/core/utils/job/job_precondition";
 import { EJobPathType, EJobType, TSmartTerrainJobsList } from "@/engine/core/utils/job/job_types";
 import { isPatrolInRestrictor } from "@/engine/core/utils/patrol";
 import { StringBuilder } from "@/engine/core/utils/string";
-import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
 import { TIndex, TName } from "@/engine/lib/types";
 
 /**
@@ -23,18 +23,18 @@ export function createStalkerSleepJobs(
 ): LuaMultiReturn<[TSmartTerrainJobsList, StringBuilder]> {
   const smartTerrainName: TName = smartTerrain.name();
 
-  let it: TIndex = 1;
+  let index: TIndex = 1;
 
-  while (level.patrol_path_exists(string.format("%s_sleep_%s", smartTerrainName, it))) {
-    const wayName: TName = string.format("%s_sleep_%s", smartTerrainName, it);
+  while (level.patrol_path_exists(string.format("%s_sleep_%s", smartTerrainName, index))) {
+    const patrolName: TName = string.format("%s_sleep_%s", smartTerrainName, index);
 
     table.insert(jobs, {
       type: EJobType.SLEEP,
       isMonsterJob: false,
-      priority: logicsConfig.JOBS.STALKER_SLEEP.PRIORITY,
-      section: string.format("logic@%s", wayName),
+      priority: smartTerrainConfig.JOBS.STALKER_SLEEP.PRIORITY,
+      section: string.format("logic@%s", patrolName),
       pathType: EJobPathType.PATH,
-      preconditionParameters: { wayName },
+      preconditionParameters: { wayName: patrolName },
       preconditionFunction: jobPreconditionSleep,
     });
 
@@ -45,14 +45,14 @@ active = sleeper@%s
 [sleeper@%s]
 path_main = sleep_%s
 `,
-        wayName,
-        wayName,
-        wayName,
-        it
+        patrolName,
+        patrolName,
+        patrolName,
+        index
       )
     );
 
-    if (smartTerrain.safeRestrictor !== null && isPatrolInRestrictor(smartTerrain.safeRestrictor, wayName)) {
+    if (smartTerrain.safeRestrictor !== null && isPatrolInRestrictor(smartTerrain.safeRestrictor, patrolName)) {
       builder.append("invulnerable = {=npc_in_zone(smart.safe_restr)} true\n");
     }
 
@@ -63,7 +63,7 @@ path_main = sleep_%s
     if (
       smartTerrain.smartTerrainActorControl !== null &&
       smartTerrain.smartTerrainActorControl.ignoreZone !== null &&
-      isPatrolInRestrictor(smartTerrain.smartTerrainActorControl.ignoreZone, wayName)
+      isPatrolInRestrictor(smartTerrain.smartTerrainActorControl.ignoreZone, patrolName)
     ) {
       builder.append(
         `combat_ignore_cond = {=npc_in_zone(smart.base_on_actor_control.ignore_zone)} true
@@ -72,7 +72,7 @@ combat_ignore_keep_when_attacked = true
       );
     }
 
-    it += 1;
+    index += 1;
   }
 
   return $multi(jobs, builder);

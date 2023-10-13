@@ -5,11 +5,11 @@ import { SimulationBoardManager } from "@/engine/core/managers/simulation/Simula
 import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain";
 import { ESmartTerrainStatus } from "@/engine/core/objects/server/smart_terrain/types";
 import { ISchemeCombatIgnoreState } from "@/engine/core/schemes/stalker/combat_ignore";
+import { dangerConfig } from "@/engine/core/schemes/stalker/danger/DangerConfig";
 import { getObjectCommunity } from "@/engine/core/utils/community";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini";
 import { isObjectWounded } from "@/engine/core/utils/planner";
 import { isObjectInZone } from "@/engine/core/utils/position";
-import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
 import { communities } from "@/engine/lib/constants/communities";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import { MAX_U16 } from "@/engine/lib/constants/memory";
@@ -84,10 +84,10 @@ export function isObjectFacingDanger(object: ClientObject): boolean {
   }
 
   const dangerDistanceSqrt: TDistance = bestDanger.position().distance_to_sqr(object.position());
-  const ignoreDistanceByType: Optional<TDistance> = logicsConfig.DANGER_IGNORE_DISTANCE_BY_TYPE[bestDangerType];
+  const ignoreDistanceByType: Optional<TDistance> = dangerConfig.IGNORE_DISTANCE_BY_TYPE[bestDangerType];
   const ignoreDistance: TDistance =
     ignoreDistanceByType === null
-      ? logicsConfig.DANGER_IGNORE_DISTANCE_GENERAL_SQR
+      ? dangerConfig.IGNORE_DISTANCE_GENERAL_SQR
       : ignoreDistanceByType * ignoreDistanceByType;
 
   // Verify danger distance.

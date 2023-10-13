@@ -1,11 +1,11 @@
 import { level } from "xray16";
 
-import type { SmartTerrain } from "@/engine/core/objects/server/smart_terrain";
+import type { SmartTerrain } from "@/engine/core/objects/server/smart_terrain/SmartTerrain";
+import { smartTerrainConfig } from "@/engine/core/objects/server/smart_terrain/SmartTerrainConfig";
 import { jobPreconditionGuard, jobPreconditionGuardFollower } from "@/engine/core/utils/job/job_precondition";
 import { EJobPathType, EJobType, TSmartTerrainJobsList } from "@/engine/core/utils/job/job_types";
 import { isPatrolInRestrictor } from "@/engine/core/utils/patrol";
 import { StringBuilder } from "@/engine/core/utils/string";
-import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
 import { TIndex, TName } from "@/engine/lib/types";
 
 /**
@@ -25,16 +25,16 @@ export function createStalkerGuardJobs(
   let index: TIndex = 1;
 
   while (level.patrol_path_exists(string.format("%s_guard_%s_walk", smartTerrainName, index))) {
-    const wayName: TName = string.format("%s_guard_%s_walk", smartTerrainName, index);
+    const patrolName: TName = string.format("%s_guard_%s_walk", smartTerrainName, index);
 
     table.insert(jobs, {
       type: EJobType.GUARD,
-      priority: logicsConfig.JOBS.STALKER_GUARD.PRIORITY,
-      section: string.format("logic@%s", wayName),
+      priority: smartTerrainConfig.JOBS.STALKER_GUARD.PRIORITY,
+      section: string.format("logic@%s", patrolName),
       pathType: EJobPathType.PATH,
       isMonsterJob: false,
       preconditionParameters: {
-        wayName: wayName,
+        wayName: patrolName,
       },
       preconditionFunction: jobPreconditionGuard,
     });
@@ -48,15 +48,15 @@ meet = meet@generic_lager
 path_walk = guard_%s_walk
 path_look = guard_%s_look
 `,
-        wayName,
-        wayName,
-        wayName,
+        patrolName,
+        patrolName,
+        patrolName,
         index,
         index
       )
     );
 
-    if (smartTerrain.safeRestrictor !== null && isPatrolInRestrictor(smartTerrain.safeRestrictor, wayName)) {
+    if (smartTerrain.safeRestrictor !== null && isPatrolInRestrictor(smartTerrain.safeRestrictor, patrolName)) {
       builder.append("invulnerable = {=npc_in_zone(smart.safe_restr)} true\n");
     }
 
@@ -74,17 +74,17 @@ def_state_standing = wait_na
 on_info = {!is_obj_on_job(logic@follower_%s:3)} walker@%s
 on_info2 = {=distance_to_obj_on_job_le(logic@follower_%s:3)} remark@%s
 `,
-        wayName,
+        patrolName,
         index,
         index,
-        wayName,
-        wayName,
-        wayName,
-        wayName
+        patrolName,
+        patrolName,
+        patrolName,
+        patrolName
       )
     );
 
-    if (smartTerrain.safeRestrictor !== null && isPatrolInRestrictor(smartTerrain.safeRestrictor, wayName)) {
+    if (smartTerrain.safeRestrictor !== null && isPatrolInRestrictor(smartTerrain.safeRestrictor, patrolName)) {
       builder.append("invulnerable = {=npc_in_zone(smart.safe_restr)} true\n");
     }
 
@@ -98,8 +98,8 @@ on_info2 = {=distance_to_obj_on_job_le(logic@follower_%s:3)} remark@%s
 anim = wait_na
 target = logic@follower_%s
 `,
-        wayName,
-        wayName
+        patrolName,
+        patrolName
       )
     );
 
@@ -109,11 +109,11 @@ target = logic@follower_%s
 
     table.insert(jobs, {
       type: EJobType.GUARD_FOLLOWER,
-      priority: logicsConfig.JOBS.STALKER_GUARD.PRIORITY_FOLLOWER,
-      section: string.format("logic@follower_%s", wayName),
+      priority: smartTerrainConfig.JOBS.STALKER_GUARD.PRIORITY_FOLLOWER,
+      section: string.format("logic@follower_%s", patrolName),
       pathType: EJobPathType.PATH,
       isMonsterJob: false,
-      preconditionParameters: { nextDesiredJob: string.format("logic@%s", wayName) },
+      preconditionParameters: { nextDesiredJob: string.format("logic@%s", patrolName) },
       preconditionFunction: jobPreconditionGuardFollower,
     });
 
@@ -127,13 +127,13 @@ path_walk = guard_%s_walk
 path_look = guard_%s_look
 on_info = {=distance_to_obj_on_job_le(logic@%s:3)} remark@follower_%s
 `,
-        wayName,
-        wayName,
-        wayName,
+        patrolName,
+        patrolName,
+        patrolName,
         index,
         index,
-        wayName,
-        wayName
+        patrolName,
+        patrolName
       )
     );
 
@@ -148,8 +148,8 @@ anim = wait_na
 target = logic@%s
 on_timer = 2000 | %%=switch_to_desired_job%%
 `,
-        wayName,
-        wayName
+        patrolName,
+        patrolName
       )
     );
 

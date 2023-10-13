@@ -1,11 +1,11 @@
 import { level } from "xray16";
 
-import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain";
+import type { SmartTerrain } from "@/engine/core/objects/server/smart_terrain/SmartTerrain";
+import { smartTerrainConfig } from "@/engine/core/objects/server/smart_terrain/SmartTerrainConfig";
 import { jobPreconditionCollector } from "@/engine/core/utils/job/job_precondition";
 import { EJobPathType, EJobType, TSmartTerrainJobsList } from "@/engine/core/utils/job/job_types";
 import { isPatrolInRestrictor } from "@/engine/core/utils/patrol";
 import { StringBuilder } from "@/engine/core/utils/string";
-import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
 import { TIndex, TName } from "@/engine/lib/types";
 
 /**
@@ -30,7 +30,7 @@ export function createStalkerCollectorJobs(
     table.insert(jobs, {
       type: EJobType.COLLECTOR,
       isMonsterJob: false,
-      priority: logicsConfig.JOBS.STALKER_COLLECTOR.PRIORITY,
+      priority: smartTerrainConfig.JOBS.STALKER_COLLECTOR.PRIORITY,
       section: string.format("logic@%s", wayName),
       pathType: EJobPathType.PATH,
       preconditionParameters: {},

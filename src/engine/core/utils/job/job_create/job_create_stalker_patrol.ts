@@ -1,12 +1,12 @@
 import { level, patrol } from "xray16";
 
-import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain";
+import type { SmartTerrain } from "@/engine/core/objects/server/smart_terrain/SmartTerrain";
+import { smartTerrainConfig } from "@/engine/core/objects/server/smart_terrain/SmartTerrainConfig";
 import { IWaypointData, parseWaypointData } from "@/engine/core/utils/ini";
 import { jobPreconditionPatrol } from "@/engine/core/utils/job/job_precondition";
 import { EJobPathType, EJobType, TSmartTerrainJobsList } from "@/engine/core/utils/job/job_types";
 import { isPatrolInRestrictor } from "@/engine/core/utils/patrol";
 import { StringBuilder } from "@/engine/core/utils/string";
-import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
 import { Patrol, TCount, TIndex, TName } from "@/engine/lib/types";
 
 /**
@@ -27,24 +27,24 @@ export function createStalkerPatrolJobs(
   let index: TIndex = 1;
 
   while (level.patrol_path_exists(string.format("%s_patrol_%s_walk", smartTerrainName, index))) {
-    const wayName: TName = string.format("%s_patrol_%s_walk", smartTerrainName, index);
-    const ptr: Patrol = new patrol(wayName);
-    const wpProp: IWaypointData = parseWaypointData(wayName, ptr.flags(0), ptr.name(0));
+    const patrolName: TName = string.format("%s_patrol_%s_walk", smartTerrainName, index);
+    const jobPatrol: Patrol = new patrol(patrolName);
+    const waypointData: IWaypointData = parseWaypointData(patrolName, jobPatrol.flags(0), jobPatrol.name(0));
     let jobCount: TCount = 3;
 
-    if (wpProp.count) {
-      jobCount = wpProp.count as TCount;
+    if (waypointData.count) {
+      jobCount = waypointData.count as TCount;
     }
 
     for (const i of $range(1, jobCount)) {
       table.insert(jobs, {
         type: EJobType.PATROL,
         isMonsterJob: false,
-        priority: logicsConfig.JOBS.STALKER_PATROL.PRIORITY,
-        section: string.format("logic@%s", wayName),
+        priority: smartTerrainConfig.JOBS.STALKER_PATROL.PRIORITY,
+        section: string.format("logic@%s", patrolName),
         pathType: EJobPathType.PATH,
         preconditionParameters: {
-          wayName,
+          wayName: patrolName,
         },
         preconditionFunction: jobPreconditionPatrol,
       });
@@ -60,9 +60,9 @@ formation = back
 path_walk = patrol_%s_walk
 on_signal = end|%%=search_gulag_job%%
 `,
-        wayName,
-        wayName,
-        wayName,
+        patrolName,
+        patrolName,
+        patrolName,
         index
       )
     );
@@ -71,7 +71,7 @@ on_signal = end|%%=search_gulag_job%%
       builder.append(string.format("path_look = patrol_%s_look\n", index));
     }
 
-    if (smartTerrain.safeRestrictor !== null && isPatrolInRestrictor(smartTerrain.safeRestrictor, wayName)) {
+    if (smartTerrain.safeRestrictor !== null && isPatrolInRestrictor(smartTerrain.safeRestrictor, patrolName)) {
       builder.append("invulnerable = {=npc_in_zone(smart.safe_restr)} true\n");
     }
 

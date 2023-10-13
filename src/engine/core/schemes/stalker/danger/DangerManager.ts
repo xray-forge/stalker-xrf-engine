@@ -1,11 +1,11 @@
 import { level, snd_type, time_global } from "xray16";
 
 import { AbstractSchemeManager } from "@/engine/core/objects/ai/scheme";
+import { combatConfig } from "@/engine/core/schemes/stalker/combat/CombatConfig";
 import { ISchemeDangerState } from "@/engine/core/schemes/stalker/danger/danger_types";
 import { canObjectSelectAsEnemy } from "@/engine/core/schemes/stalker/danger/utils";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { isSoundType } from "@/engine/core/utils/sound";
-import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
 import {
   ClientObject,
   EClientObjectRelation,
@@ -53,7 +53,7 @@ export class DangerManager extends AbstractSchemeManager<ISchemeDangerState> {
     // Set danger state by hearing weapon bullets.
     if (isEnemySound && isSoundType(soundType, snd_type.weapon_bullet_hit)) {
       const isSoundNear: boolean =
-        object.position().distance_to_sqr(soundPosition) <= logicsConfig.COMBAT.BULLET_REACT_DISTANCE_SQR;
+        object.position().distance_to_sqr(soundPosition) <= combatConfig.BULLET_REACT_DISTANCE_SQR;
 
       /**
        * If sound is near:
@@ -69,7 +69,7 @@ export class DangerManager extends AbstractSchemeManager<ISchemeDangerState> {
       // If hear others shooting at enemy OR enemy shooting in range, try to help
       if (
         ((shootingAt && object.relation(shootingAt) === EClientObjectRelation.ENEMY) || isEnemySound) &&
-        object.position().distance_to_sqr(soundPosition) <= logicsConfig.COMBAT.ALLIES_SHOOTING_ASSIST_DISTANCE_SQR
+        object.position().distance_to_sqr(soundPosition) <= combatConfig.ALLIES_SHOOTING_ASSIST_DISTANCE_SQR
       ) {
         this.state.dangerTime = time_global();
         object.set_dest_level_vertex_id(who.level_vertex_id());

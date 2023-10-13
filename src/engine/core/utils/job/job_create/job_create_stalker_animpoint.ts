@@ -1,5 +1,6 @@
 import { registry } from "@/engine/core/database";
-import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain";
+import type { SmartTerrain } from "@/engine/core/objects/server/smart_terrain/SmartTerrain";
+import { smartTerrainConfig } from "@/engine/core/objects/server/smart_terrain/SmartTerrainConfig";
 import { jobPreconditionAnimpoint } from "@/engine/core/utils/job/job_precondition";
 import { EJobPathType, EJobType, TSmartTerrainJobsList } from "@/engine/core/utils/job/job_types";
 import { isPatrolInRestrictor } from "@/engine/core/utils/patrol";
@@ -30,7 +31,7 @@ export function createStalkerAnimpointJobs(
     table.insert(jobs, {
       type: EJobType.ANIMPOINT,
       isMonsterJob: false,
-      priority: logicsConfig.JOBS.STALKER_ANIMPOINT.PRIORITY,
+      priority: smartTerrainConfig.JOBS.STALKER_ANIMPOINT.PRIORITY,
       section: string.format("logic@%s", smartCoverName),
       pathType: EJobPathType.SMART_COVER,
       preconditionParameters: {},

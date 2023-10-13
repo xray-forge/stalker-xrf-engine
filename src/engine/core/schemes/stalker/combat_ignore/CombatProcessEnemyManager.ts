@@ -1,11 +1,11 @@
 import { registry } from "@/engine/core/database";
 import { AbstractSchemeManager } from "@/engine/core/objects/ai/scheme";
 import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain/SmartTerrain";
+import { combatConfig } from "@/engine/core/schemes/stalker/combat/CombatConfig";
 import { ISchemeCombatIgnoreState } from "@/engine/core/schemes/stalker/combat_ignore/index";
 import { canObjectSelectAsEnemy } from "@/engine/core/schemes/stalker/danger/utils";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { startSmartTerrainAlarm } from "@/engine/core/utils/smart_terrain";
-import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import { MAX_U16 } from "@/engine/lib/constants/memory";
 import { AnyObject, ClientObject, Optional, ServerCreatureObject, TCount, TNumberId, Vector } from "@/engine/lib/types";
@@ -46,9 +46,7 @@ export class CombatProcessEnemyManager extends AbstractSchemeManager<ISchemeComb
 
       // todo: Do timer based.
       if (serverObject && serverEnemyObject) {
-        if (
-          serverObject.position.distance_to_sqr(serverEnemyObject.position) > logicsConfig.COMBAT.ATTACK_DISTANCE_SQR
-        ) {
+        if (serverObject.position.distance_to_sqr(serverEnemyObject.position) > combatConfig.ATTACK_DISTANCE_SQR) {
           return false;
         }
       }

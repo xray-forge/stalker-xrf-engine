@@ -1,7 +1,7 @@
 import { game } from "xray16";
 
-import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain";
-import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
+import type { SmartTerrain } from "@/engine/core/objects/server/smart_terrain/SmartTerrain";
+import { smartTerrainConfig } from "@/engine/core/objects/server/smart_terrain/SmartTerrainConfig";
 
 /**
  * Start alarm for smart terrain.
@@ -20,7 +20,7 @@ export function startSmartTerrainAlarm(smartTerrain: SmartTerrain): void {
 export function updateSmartTerrainAlarmStatus(smartTerrain: SmartTerrain): void {
   if (
     smartTerrain.alarmStartedAt !== null &&
-    game.get_game_time().diffSec(smartTerrain.alarmStartedAt) >= logicsConfig.SMART_TERRAIN.ALARM_SMART_TERRAIN_GENERIC
+    game.get_game_time().diffSec(smartTerrain.alarmStartedAt) >= smartTerrainConfig.ALARM_SMART_TERRAIN_GENERIC
   ) {
     smartTerrain.alarmStartedAt = null;
   }
