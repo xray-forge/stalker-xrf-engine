@@ -13,7 +13,7 @@ import {
 import { EDebugSection, sectionsMap } from "@/engine/core/ui/debug/debug_types";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { resolveXmlFile } from "@/engine/core/utils/ui";
-import { gameConfig } from "@/engine/lib/configs/GameConfig";
+import { screenConfig } from "@/engine/lib/configs/ScreenConfig";
 import { TKeyCode, TPath, TUIEvent } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -48,7 +48,7 @@ export class DebugDialog extends CUIScriptWnd {
    * Initialize UI controls related to debug sections switching.
    */
   public initControls(): void {
-    this.SetWndRect(new Frect().set(0, 0, gameConfig.UI.BASE_WIDTH, gameConfig.UI.BASE_HEIGHT));
+    this.SetWndRect(new Frect().set(0, 0, screenConfig.BASE_WIDTH, screenConfig.BASE_HEIGHT));
     this.Enable(true);
 
     this.xml = resolveXmlFile(base);

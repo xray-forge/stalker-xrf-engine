@@ -82,7 +82,7 @@ import {
 } from "@/engine/core/utils/smart_terrain";
 import { readTimeFromPacket, writeTimeToPacket } from "@/engine/core/utils/time";
 import { toJSON } from "@/engine/core/utils/transform/json";
-import { gameConfig } from "@/engine/lib/configs/GameConfig";
+import { forgeConfig } from "@/engine/lib/configs/ForgeConfig";
 import { MAX_U8 } from "@/engine/lib/constants/memory";
 import { roots } from "@/engine/lib/constants/roots";
 import { SMART_TERRAIN_SECTION } from "@/engine/lib/constants/sections";
@@ -208,7 +208,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
     registerObjectStoryLinks(this);
     registerSimulationObject(this);
 
-    if (gameConfig.DEBUG.IS_SIMULATION_DEBUG_ENABLED) {
+    if (forgeConfig.DEBUG.IS_SIMULATION_ENABLED) {
       this.mapDisplayManager.updateSmartTerrainMapSpot(this);
     }
 
@@ -473,7 +473,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
   public override update(): void {
     super.update();
 
-    if (this.smartTerrainDisplayedMapSpot !== null || gameConfig.DEBUG.IS_SIMULATION_DEBUG_ENABLED) {
+    if (this.smartTerrainDisplayedMapSpot !== null || forgeConfig.DEBUG.IS_SIMULATION_ENABLED) {
       this.mapDisplayManager.updateSmartTerrainMapSpot(this);
     }
 
@@ -933,7 +933,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
    * todo: Description.
    */
   public getMapDisplayHint(): TLabel {
-    if (gameConfig.DEBUG.IS_SIMULATION_DEBUG_ENABLED) {
+    if (forgeConfig.DEBUG.IS_SIMULATION_ENABLED) {
       let caption: TLabel = string.format(
         "%s (%s) \\nonline = %s\\nsimulation_type = %s\\nsquad_id = %s\\ncapacity = %s\\%s\\n",
         game.translate_string(this.getNameCaption()),

@@ -5,7 +5,7 @@ import { ProfilingManager } from "@/engine/core/managers/debug/profiling";
 import { AbstractDebugSection } from "@/engine/core/ui/debug/sections/AbstractDebugSection";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { EElementType, registerUiElement, resolveXmlFile } from "@/engine/core/utils/ui";
-import { gameConfig } from "@/engine/lib/configs/GameConfig";
+import { forgeConfig } from "@/engine/lib/configs/ForgeConfig";
 import { TPath, XmlInit } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -126,7 +126,7 @@ export class DebugGeneralSection extends AbstractDebugSection {
 
     this.uiSimulationDebugToggleButton
       .TextControl()
-      .SetText(gameConfig.DEBUG.IS_SIMULATION_DEBUG_ENABLED ? "Disable simulation debug" : "Enable simulation debug");
+      .SetText(forgeConfig.DEBUG.IS_SIMULATION_ENABLED ? "Disable simulation debug" : "Enable simulation debug");
   }
 
   /**
@@ -179,7 +179,7 @@ export class DebugGeneralSection extends AbstractDebugSection {
    * Toggle simulation debug with squad / smarts display on map with stats.
    */
   public onToggleSimulationDebugButtonClick(): void {
-    gameConfig.DEBUG.IS_SIMULATION_DEBUG_ENABLED = !gameConfig.DEBUG.IS_SIMULATION_DEBUG_ENABLED;
+    forgeConfig.DEBUG.IS_SIMULATION_ENABLED = !forgeConfig.DEBUG.IS_SIMULATION_ENABLED;
 
     this.initializeState();
   }

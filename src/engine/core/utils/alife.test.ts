@@ -11,7 +11,7 @@ describe("alife utils", () => {
     resetFunctionMock(registry.simulator.set_objects_per_update);
     setUnlimitedAlifeObjectsUpdate();
 
-    expect(registry.simulator.set_objects_per_update).toHaveBeenCalledWith(2_147_483_647);
+    expect(registry.simulator.set_objects_per_update).toHaveBeenCalledWith(65_535);
   });
 
   it("setStableAlifeObjectsUpdate should correctly set high updates limits", () => {

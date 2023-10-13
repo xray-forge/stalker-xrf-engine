@@ -11,7 +11,6 @@ import { setItemCondition } from "@/engine/core/utils/item";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { isAmmoSection, isExcludedFromLootDropItemSection, isLootableItemSection } from "@/engine/core/utils/section";
 import { spawnItemsForObject } from "@/engine/core/utils/spawn";
-import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
 import { TInventoryItem } from "@/engine/lib/constants/items";
 import { misc } from "@/engine/lib/constants/items/misc";
 import { ClientObject, IniFile, Optional, TCount, TProbability, TSection } from "@/engine/lib/types";
@@ -117,10 +116,7 @@ export class DropManager extends AbstractManager {
       if (!isGrenade(item)) {
         setItemCondition(
           item,
-          math.random(
-            logicsConfig.ITEMS.DROPPED_WEAPON_STATE_DEGRADATION.MIN,
-            logicsConfig.ITEMS.DROPPED_WEAPON_STATE_DEGRADATION.MAX
-          )
+          math.random(dropConfig.DROPPED_WEAPON_STATE_DEGRADATION.MIN, dropConfig.DROPPED_WEAPON_STATE_DEGRADATION.MAX)
         );
       }
 

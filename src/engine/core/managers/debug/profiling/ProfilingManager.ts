@@ -5,7 +5,7 @@ import { IProfileSnapshotDescriptor } from "@/engine/core/managers/debug/debug_t
 import { abort } from "@/engine/core/utils/assertion";
 import { executeConsoleCommand } from "@/engine/core/utils/console";
 import { ELuaLoggerMode, LuaLogger } from "@/engine/core/utils/logging";
-import { gameConfig } from "@/engine/lib/configs/GameConfig";
+import { forgeConfig } from "@/engine/lib/configs/ForgeConfig";
 import { consoleCommands } from "@/engine/lib/constants/console_commands";
 import { AnyCallable, LuaArray, Optional, ProfileTimer, TCount, TDuration, TName } from "@/engine/lib/types";
 
@@ -36,7 +36,7 @@ export class ProfilingManager extends AbstractManager {
    * Print warnings about state of 'debug', 'jit' and profiling.
    */
   public override initialize(): void {
-    if (!gameConfig.DEBUG.IS_PROFILING_ENABLED) {
+    if (!forgeConfig.DEBUG.IS_PROFILING_ENABLED) {
       return;
     }
 

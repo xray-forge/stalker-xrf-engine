@@ -1,11 +1,11 @@
 import { action_base, LuabindClass, object } from "xray16";
 
+import { dropConfig } from "@/engine/core/managers/drop/DropConfig";
 import { StalkerStateManager } from "@/engine/core/objects/ai/state/StalkerStateManager";
 import { isStrappableWeapon } from "@/engine/core/utils/class_ids";
 import { setItemCondition } from "@/engine/core/utils/item";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getObjectWeaponForAnimationState } from "@/engine/core/utils/weapon";
-import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
 import { ClientObject, Optional } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -38,10 +38,7 @@ export class ActionWeaponDrop extends action_base {
       // todo: Is it needed?
       setItemCondition(
         weapon,
-        math.random(
-          logicsConfig.ITEMS.DROPPED_WEAPON_STATE_DEGRADATION.MIN,
-          logicsConfig.ITEMS.DROPPED_WEAPON_STATE_DEGRADATION.MAX
-        )
+        math.random(dropConfig.DROPPED_WEAPON_STATE_DEGRADATION.MIN, dropConfig.DROPPED_WEAPON_STATE_DEGRADATION.MAX)
       );
     } else {
       this.object.set_item(object.idle, null);

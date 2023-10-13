@@ -27,7 +27,7 @@ import {
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { resolveXmlFormPath } from "@/engine/core/utils/ui";
 import { create2dVector } from "@/engine/core/utils/vector";
-import { gameConfig } from "@/engine/lib/configs/GameConfig";
+import { forgeConfig } from "@/engine/lib/configs/ForgeConfig";
 import {
   ClientObject,
   FSItem,
@@ -136,7 +136,7 @@ export class LoadDialog extends CUIScriptWnd {
       const filename: TName = string.sub(
         file.NameFull(),
         0,
-        string.len(file.NameFull()) - string.len(gameConfig.GAME_SAVE_EXTENSION)
+        string.len(file.NameFull()) - string.len(forgeConfig.SAVE.GAME_SAVE_EXTENSION)
       );
       const datetime: TLabel = "[" + file.ModifDigitOnly() + "]";
 
@@ -171,7 +171,7 @@ export class LoadDialog extends CUIScriptWnd {
     this.uiFileCaption.SetEllipsis(true);
     this.uiFileData.SetText(getFileDataForGameSave(itemText));
 
-    if (!isGameSaveFileExist(itemText + gameConfig.GAME_SAVE_EXTENSION)) {
+    if (!isGameSaveFileExist(itemText + forgeConfig.SAVE.GAME_SAVE_EXTENSION)) {
       this.uiListBox.RemoveItem(item);
 
       return;
@@ -297,7 +297,7 @@ export class LoadDialog extends CUIScriptWnd {
       return;
     }
 
-    const index = this.uiListBox.GetSelectedIndex();
+    const index: TIndex = this.uiListBox.GetSelectedIndex();
 
     if (index === -1) {
       return;

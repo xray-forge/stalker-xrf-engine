@@ -3,7 +3,7 @@ import { CScriptXmlInit, getFS } from "xray16";
 import { abort } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { isWideScreen } from "@/engine/core/utils/ui/ui_screen";
-import { gameConfig } from "@/engine/lib/configs/GameConfig";
+import { forgeConfig } from "@/engine/lib/configs/ForgeConfig";
 import { roots } from "@/engine/lib/constants/roots";
 import { TPath, XmlInit } from "@/engine/lib/types";
 
@@ -27,7 +27,7 @@ export function resolveXmlFormPath(path: TPath, hasWideScreenSupport: boolean = 
   /**
    * Warn about bad path in dev mode.
    */
-  if (gameConfig.DEBUG.IS_ENABLED) {
+  if (forgeConfig.DEBUG.IS_ENABLED) {
     const [hasNonWindowsChars] = string.find(path, "/");
 
     if (hasNonWindowsChars !== null) {

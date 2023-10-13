@@ -21,4 +21,8 @@ export const dropConfig = {
   ITEMS_DEPENDENCIES: readIniDropDependentItems(DROP_MANAGER_CONFIG_LTX),
   ITEMS_DROP_COUNT_BY_LEVEL: readIniDropCountByLevel(DROP_MANAGER_CONFIG_LTX),
   ITEMS_KEEP: readIniFieldsAsSet(DROP_MANAGER_CONFIG_LTX, "keep_items"),
+  DROPPED_WEAPON_STATE_DEGRADATION: {
+    MIN: 40,
+    MAX: 80,
+  },
 };

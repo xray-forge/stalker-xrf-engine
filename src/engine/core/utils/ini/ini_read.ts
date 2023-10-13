@@ -1,10 +1,7 @@
 import type { IBaseSchemeLogic } from "@/engine/core/database/database_types";
 import { abort, assert, assertDefined } from "@/engine/core/utils/assertion";
 import { parseConditionsList, parseNumbersList, parseParameters } from "@/engine/core/utils/ini/ini_parse";
-import { LuaLogger } from "@/engine/core/utils/logging";
 import { IniFile, LuaArray, Optional, TCount, TName, TSection } from "@/engine/lib/types";
-
-const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * Read string field from provided ini file section.

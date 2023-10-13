@@ -21,7 +21,7 @@ import { createGameSave, deleteGameSave, getGameSavesList } from "@/engine/core/
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { resolveXmlFile } from "@/engine/core/utils/ui";
 import { create2dVector } from "@/engine/core/utils/vector";
-import { gameConfig } from "@/engine/lib/configs/GameConfig";
+import { forgeConfig } from "@/engine/lib/configs/ForgeConfig";
 import { roots } from "@/engine/lib/constants/roots";
 import {
   FSFileList,
@@ -127,7 +127,7 @@ export class SaveDialog extends CUIScriptWnd {
       const filename: TName = string.sub(
         file.NameFull(),
         0,
-        string.len(file.NameFull()) - string.len(gameConfig.GAME_SAVE_EXTENSION)
+        string.len(file.NameFull()) - string.len(forgeConfig.SAVE.GAME_SAVE_EXTENSION)
       );
       const dateTime: TLabel = "[" + file.ModifDigitOnly() + "]";
 
@@ -226,7 +226,7 @@ export class SaveDialog extends CUIScriptWnd {
 
     const fs: FS = getFS();
     const fileList: FSFileList = fs.file_list_open(roots.gameSaves, FS.FS_ListFiles);
-    const fileExists: Optional<number> = fs.exist(roots.gameSaves, this.newSave + gameConfig.GAME_SAVE_EXTENSION);
+    const fileExists: Optional<number> = fs.exist(roots.gameSaves, this.newSave + forgeConfig.SAVE.GAME_SAVE_EXTENSION);
 
     if (fileExists !== null) {
       logger.info("File already exists");

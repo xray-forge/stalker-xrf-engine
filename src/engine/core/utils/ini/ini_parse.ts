@@ -10,7 +10,6 @@ import {
   IWaypointData,
   TConditionList,
 } from "@/engine/core/utils/ini/ini_types";
-import { LuaLogger } from "@/engine/core/utils/logging";
 import { trimString } from "@/engine/core/utils/string";
 import { TInfoPortion } from "@/engine/lib/constants/info_portions";
 import { NIL, TRUE } from "@/engine/lib/constants/words";
@@ -30,8 +29,6 @@ import {
   TProbability,
   TSection,
 } from "@/engine/lib/types";
-
-const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * Parse list of strings separated by commas and whitespaces.

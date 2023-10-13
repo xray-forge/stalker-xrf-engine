@@ -1,12 +1,12 @@
 import { JSXNode, JSXXML } from "jsx-xml";
 
-import { gameConfig } from "@/engine/lib/configs/GameConfig";
+import { config as forgeConfig } from "@/engine/configs/forge";
 
 /**
  * todo;
  */
 export function GameVendorsIntro(): JSXNode {
-  if (gameConfig.UI.ARE_INTRO_VIDEOS_ENABLED) {
+  if (forgeConfig.config.intro_videos_enabled) {
     return (
       <intro_logo>
         <global_wnd width="1024" height="768">

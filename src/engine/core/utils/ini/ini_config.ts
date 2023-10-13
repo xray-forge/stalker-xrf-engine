@@ -15,8 +15,6 @@ import {
   readIniTwoStringsAndConditionsList,
 } from "@/engine/core/utils/ini/ini_read";
 import { TConditionList } from "@/engine/core/utils/ini/ini_types";
-import { LuaLogger } from "@/engine/core/utils/logging";
-import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
 import { TInfoPortion } from "@/engine/lib/constants/info_portions";
 import { NEVER, NIL } from "@/engine/lib/constants/words";
 import {
@@ -35,8 +33,6 @@ import {
   TSection,
   TStringId,
 } from "@/engine/lib/types";
-
-const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * Parse array of `|` separated condition lists.

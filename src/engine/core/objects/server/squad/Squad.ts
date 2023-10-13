@@ -50,7 +50,7 @@ import { areObjectsOnSameLevel } from "@/engine/core/utils/position";
 import { areCommunitiesEnemies, ERelation, setObjectSympathy } from "@/engine/core/utils/relation";
 import { canSquadHelpActor, updateSquadInvulnerabilityState } from "@/engine/core/utils/squad";
 import { vectorToString } from "@/engine/core/utils/vector";
-import { gameConfig } from "@/engine/lib/configs/GameConfig";
+import { forgeConfig } from "@/engine/lib/configs/ForgeConfig";
 import { squadCommunityByBehaviour } from "@/engine/lib/constants/behaviours";
 import { TCommunity } from "@/engine/lib/constants/communities";
 import { MAX_U16 } from "@/engine/lib/constants/memory";
@@ -803,7 +803,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
    * @returns hint to show when hovering over in PDA map
    */
   public getMapDisplayHint(): TLabel {
-    if (gameConfig.DEBUG.IS_SIMULATION_DEBUG_ENABLED) {
+    if (forgeConfig.DEBUG.IS_SIMULATION_ENABLED) {
       let hint: TLabel = string.format(
         "[%s]\\nonline = %s\\ncurrent_target = [%s]\\nassigned_target = [%s]" +
           "\\nassigned_smartTerrain = [%s]\\nnext_target = [%s]\\ncurrent_action = [%s]\\n",

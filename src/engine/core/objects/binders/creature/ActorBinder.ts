@@ -21,7 +21,7 @@ import { ISchemeDeimosState } from "@/engine/core/schemes/restrictor/sr_deimos";
 import { SchemeDeimos } from "@/engine/core/schemes/restrictor/sr_deimos/SchemeDeimos";
 import { setStableAlifeObjectsUpdate, setUnlimitedAlifeObjectsUpdate } from "@/engine/core/utils/alife";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
+import { alifeConfig } from "@/engine/lib/configs/AlifeConfig";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import {
   ClientObject,
@@ -37,7 +37,8 @@ import {
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Binder of actor game object.
+ * Intercepts and handles lifecycle of actor client object.
  */
 @LuabindClass()
 export class ActorBinder extends object_binder {
@@ -126,7 +127,7 @@ export class ActorBinder extends object_binder {
     setUnlimitedAlifeObjectsUpdate();
     this.eventsManager.registerGameTimeout(
       () => setStableAlifeObjectsUpdate(),
-      logicsConfig.ALIFE.OBJECT_INITIAL_SPAWN_BUFFER_TIME
+      alifeConfig.OBJECT_INITIAL_SPAWN_BUFFER_TIME
     );
 
     this.eventsManager.emitEvent(EGameEvent.ACTOR_REINIT, this);

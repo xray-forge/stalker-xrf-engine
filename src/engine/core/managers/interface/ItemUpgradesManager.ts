@@ -10,7 +10,7 @@ import {
   TConditionList,
 } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { gameSettingConfig } from "@/engine/lib/configs/GameSettingConfig";
+import { gameConfig } from "@/engine/lib/configs/GameConfig";
 import { questItems } from "@/engine/lib/constants/items/quest_items";
 import { FALSE, TRUE } from "@/engine/lib/constants/words";
 import { ClientObject, LuaArray, Optional, TCount, TLabel, TName, TRate } from "@/engine/lib/types";
@@ -157,7 +157,7 @@ export class ItemUpgradesManager extends AbstractManager {
         price,
         game.translate_string("ui_inv_not_enought_money"),
         price - registry.actor.money(),
-        gameSettingConfig.CURRENCY
+        gameConfig.CURRENCY
       );
     }
 
@@ -166,7 +166,7 @@ export class ItemUpgradesManager extends AbstractManager {
       "%s %s %s. %s?",
       game.translate_string("st_upgr_cost"),
       price,
-      gameSettingConfig.CURRENCY,
+      gameConfig.CURRENCY,
       game.translate_string("ui_inv_repair")
     );
   }
