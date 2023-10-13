@@ -10,11 +10,11 @@ import {
 } from "@/engine/core/database";
 import { AbstractManager } from "@/engine/core/managers/base/AbstractManager";
 import { ITradeManagerDescriptor } from "@/engine/core/managers/trade/trade_types";
+import { tradeConfig } from "@/engine/core/managers/trade/TradeConfig";
 import { TAnimationSequenceElement } from "@/engine/core/objects/animation/types";
 import { abort, assertNonEmptyString } from "@/engine/core/utils/assertion";
 import { parseConditionsList, pickSectionFromCondList, readIniNumber, readIniString } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
 import {
   ClientObject,
   IniFile,
@@ -88,7 +88,7 @@ export class TradeManager extends AbstractManager {
       return;
     }
 
-    tradeDescriptor.updateAt = now + logicsConfig.TRADE.UPDATE_PERIOD;
+    tradeDescriptor.updateAt = now + tradeConfig.UPDATE_PERIOD;
 
     logger.format("Updating trade state for: '%s', next at '%s'", object.name(), tradeDescriptor.updateAt);
 
@@ -146,7 +146,7 @@ export class TradeManager extends AbstractManager {
       logger.info("Change object buy supplies condition:", object.name(), sellCondition);
       object.buy_supplies(tradeDescriptor.config, buySupplies);
       tradeDescriptor.currentBuySupplies = buySupplies;
-      tradeDescriptor.resupplyAt = now + logicsConfig.TRADE.RESUPPLY_PERIOD;
+      tradeDescriptor.resupplyAt = now + tradeConfig.RESUPPLY_PERIOD;
     }
   }
 

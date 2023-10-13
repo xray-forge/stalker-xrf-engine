@@ -7,6 +7,7 @@ import {
   IRegistryObjectState,
   registry,
 } from "@/engine/core/database";
+import { tradeConfig } from "@/engine/core/managers/trade/TradeConfig";
 import { TradeManager } from "@/engine/core/managers/trade/TradeManager";
 import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain";
 import { assert } from "@/engine/core/utils/assertion";
@@ -136,7 +137,7 @@ export function configureObjectSchemes(
       "trade",
       false,
       null,
-      logicsConfig.TRADE.DEFAULT_TRADE_LTX_PATH
+      tradeConfig.DEFAULT_TRADE_LTX_PATH
     );
 
     TradeManager.getInstance().initializeForObject(object, tradeIniPath);
