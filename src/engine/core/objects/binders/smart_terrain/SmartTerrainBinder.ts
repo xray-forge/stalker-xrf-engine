@@ -7,7 +7,6 @@ import {
   openSaveMarker,
   registerSmartTerrain,
   registry,
-  saveObjectLogic,
   unregisterSmartTerrain,
 } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
@@ -72,7 +71,6 @@ export class SmartTerrainBinder extends object_binder {
     openSaveMarker(packet, SmartTerrainBinder.__name);
 
     super.save(packet);
-    saveObjectLogic(this.object, packet);
 
     packet.w_bool(this.isVisited);
 

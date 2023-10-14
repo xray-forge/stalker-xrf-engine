@@ -5,7 +5,7 @@ import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds";
 import { AbstractPlayableSound } from "@/engine/core/managers/sounds/objects";
 import { soundsConfig } from "@/engine/core/managers/sounds/SoundsConfig";
-import { RestrictorBinder } from "@/engine/core/objects/binders";
+import { RestrictorBinder } from "@/engine/core/objects/binders/zones/RestrictorBinder";
 import { hasInfoPortion } from "@/engine/core/utils/info_portion";
 import { emitSchemeEvent, initializeObjectSchemeLogic } from "@/engine/core/utils/scheme";
 import { AnyObject, EScheme, ESchemeEvent, ESchemeType, ServerObject, TName } from "@/engine/lib/types";
@@ -133,7 +133,11 @@ describe("RestrictorBinder class", () => {
 
     expect(binder.isVisited).toBe(true);
     expect(hasInfoPortion(binder.object.name() + "_visited")).toBe(true);
+    expect(onVisit).toHaveBeenCalledTimes(1);
     expect(onVisit).toHaveBeenCalledWith(binder.object, binder);
+
+    binder.update(2555);
+    expect(onVisit).toHaveBeenCalledTimes(1);
   });
 
   it("should correctly handle save/load", () => {
