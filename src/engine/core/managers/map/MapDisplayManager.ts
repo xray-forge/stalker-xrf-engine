@@ -5,6 +5,7 @@ import { AbstractManager } from "@/engine/core/managers/base/AbstractManager";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { IMapMarkDescriptor } from "@/engine/core/managers/map/map_types";
 import { mapDisplayConfig } from "@/engine/core/managers/map/MapDisplayConfig";
+import { treasureConfig } from "@/engine/core/managers/treasures/TreasureConfig";
 import { ETreasureType, ITreasureDescriptor } from "@/engine/core/managers/treasures/treasures_types";
 import type { SmartTerrain } from "@/engine/core/objects/server/smart_terrain";
 import type { Squad } from "@/engine/core/objects/server/squad";
@@ -378,6 +379,10 @@ export class MapDisplayManager extends AbstractManager {
    * @returns icon name for provided descriptor, based on treasure type
    */
   public getSpotForTreasure(descriptor: ITreasureDescriptor): TName {
+    if (!treasureConfig.ENHANCED_MODE_ENABLED) {
+      return mapMarks.treasure;
+    }
+
     switch (descriptor.type) {
       case ETreasureType.RARE:
         return mapMarks.treasure_rare;

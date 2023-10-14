@@ -10,12 +10,16 @@ import { readIniTreasuresList } from "@/engine/core/managers/treasures/utils/tre
 import { giveInfoPortion } from "@/engine/core/utils/info_portion";
 import { parseConditionsList } from "@/engine/core/utils/ini";
 import { ClientObject, ServerObject } from "@/engine/lib/types";
+import { resetManagers } from "@/fixtures/engine";
 import { mockActorClientGameObject, mockIniFile, mockServerAlifeObject } from "@/fixtures/xray";
 
 describe("TreasureManager class", () => {
   beforeEach(() => {
     registry.actor = null as unknown as ClientObject;
-    registry.managers = new LuaTable();
+
+    resetManagers();
+
+    treasureConfig.ENHANCED_MODE_ENABLED = true;
     treasureConfig.TREASURES = readIniTreasuresList(TREASURE_MANAGER_CONFIG_LTX);
   });
 

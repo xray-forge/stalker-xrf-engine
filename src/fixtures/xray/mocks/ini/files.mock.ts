@@ -244,6 +244,7 @@ export const FILES_MOCKS: Record<TPath, AnyObject> = {
   },
   "managers\\treasure_manager.ltx": {
     config: {
+      enhanced_mode_enabled: false,
       rare_cost: 5000,
       epic_cost: 10000,
     },

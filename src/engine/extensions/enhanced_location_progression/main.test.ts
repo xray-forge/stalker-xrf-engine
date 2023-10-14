@@ -1,9 +1,9 @@
 import { describe, expect, it } from "@jest/globals";
 
 import { mapDisplayConfig } from "@/engine/core/managers/map/MapDisplayConfig";
-import { register } from "@/engine/extensions/require_zones_visit/main";
+import { register } from "@/engine/extensions/enhanced_location_progression/main";
 
-describe("extensions_list utils", () => {
+describe("enhanced location progression", () => {
   it("should correctly change config of map display", () => {
     expect(mapDisplayConfig.REQUIRE_SMART_TERRAIN_VISIT).toBe(false);
 

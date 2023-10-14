@@ -1,15 +1,16 @@
 import { beforeEach, describe, expect, it } from "@jest/globals";
 import { level } from "xray16";
 
-import { registry } from "@/engine/core/database";
 import { MapDisplayManager } from "@/engine/core/managers/map/MapDisplayManager";
-import { ETreasureType, ITreasureDescriptor } from "@/engine/core/managers/treasures";
+import { ETreasureType, ITreasureDescriptor, treasureConfig } from "@/engine/core/managers/treasures";
 import { mapMarks } from "@/engine/lib/constants/map_marks";
+import { resetManagers } from "@/fixtures/engine";
 import { resetFunctionMock } from "@/fixtures/jest";
 
 describe("MapDisplayManager class", () => {
   beforeEach(() => {
-    registry.managers = new LuaTable();
+    resetManagers();
+    treasureConfig.ENHANCED_MODE_ENABLED = true;
   });
 
   it.todo("should correctly initialize and destroy");
@@ -35,6 +36,8 @@ describe("MapDisplayManager class", () => {
   it("should correctly get icon from treasure descriptor", () => {
     const mapDisplayManager: MapDisplayManager = MapDisplayManager.getInstance();
 
+    treasureConfig.ENHANCED_MODE_ENABLED = true;
+
     expect(mapDisplayManager.getSpotForTreasure({ type: ETreasureType.COMMON } as ITreasureDescriptor)).toBe(
       mapMarks.treasure
     );
@@ -46,6 +49,14 @@ describe("MapDisplayManager class", () => {
     );
     expect(mapDisplayManager.getSpotForTreasure({ type: ETreasureType.UNIQUE } as ITreasureDescriptor)).toBe(
       mapMarks.treasure_unique
+    );
+
+    treasureConfig.ENHANCED_MODE_ENABLED = false;
+    expect(mapDisplayManager.getSpotForTreasure({ type: ETreasureType.EPIC } as ITreasureDescriptor)).toBe(
+      mapMarks.treasure
+    );
+    expect(mapDisplayManager.getSpotForTreasure({ type: ETreasureType.UNIQUE } as ITreasureDescriptor)).toBe(
+      mapMarks.treasure
     );
   });
 
