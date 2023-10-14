@@ -56,8 +56,8 @@ export class SchemeWalker extends AbstractScheme {
 
     state.suggested_state = {
       campering: null,
-      campering_fire: null,
-      moving_fire: null,
+      camperingFire: null,
+      movingFire: null,
       standing: readIniString(ini, section, "def_state_standing", false),
       moving: readIniString(ini, section, "def_state_moving", false, null, baseMoving),
     };

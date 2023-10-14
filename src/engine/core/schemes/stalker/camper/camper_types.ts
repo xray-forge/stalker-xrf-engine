@@ -8,6 +8,7 @@ import type {
   TDuration,
   TIndex,
   TName,
+  TRate,
   TTimestamp,
   Vector,
 } from "@/engine/lib/types";
@@ -36,7 +37,7 @@ export interface ISchemeCamperState extends IBaseSchemeState {
   attackSound: Optional<TName>;
   idle: TDuration;
   postEnemyWait: TDuration;
-  enemyDisp: number;
+  enemyDisp: TRate;
   scandelta: TCount;
   timedelta: TCount;
   timeScanDelta: TCount;

@@ -1,4 +1,4 @@
-import { CUIScriptWnd, CUIWindow } from "xray16";
+import { CUIMessageBox, CUIMessageBoxEx, CUIScriptWnd, CUIWindow } from "xray16";
 
 import { abort } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -56,6 +56,18 @@ export function registerUiElement<T extends CUIWindow>(
 
     case EElementType.LABEL:
       element = xml.InitLabel(selector, base) as unknown as T;
+      break;
+
+    case EElementType.TEXT_WINDOW:
+      element = xml.InitTextWnd(selector, base) as unknown as T;
+      break;
+
+    case EElementType.MESSAGE_BOX:
+      element = new CUIMessageBox() as unknown as T;
+      break;
+
+    case EElementType.MESSAGE_BOX_EX:
+      element = new CUIMessageBoxEx() as unknown as T;
       break;
 
     default:

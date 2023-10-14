@@ -7,5 +7,14 @@ export class MockCUICheckButton {
   public static mock(): CUICheckButton {
     return new MockCUICheckButton() as unknown as CUICheckButton;
   }
-  public SetCheck(): void {}
+
+  public isChecked: boolean = false;
+
+  public SetCheck(isChecked: boolean): void {
+    this.isChecked = isChecked;
+  }
+
+  public GetCheck(): boolean {
+    return this.isChecked;
+  }
 }

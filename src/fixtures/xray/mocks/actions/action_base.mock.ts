@@ -6,13 +6,17 @@ import { MockLuabindClass } from "@/fixtures/xray/mocks/luabind.mock";
  * todo;
  */
 export class MockActionBase extends MockLuabindClass {
+  public static mock(object: Optional<ClientObject> = null, name?: string): ActionBase {
+    return new MockActionBase(object, name) as unknown as ActionBase;
+  }
+
   public object: Optional<ClientObject>;
   public name: string;
 
   public preconditions: Array<MockWorldProperty> = [];
   public effects: Array<MockWorldProperty> = [];
 
-  public constructor(object: Optional<ClientObject> = null, name: string) {
+  public constructor(object: Optional<ClientObject> = null, name?: string) {
     super();
 
     this.object = object;

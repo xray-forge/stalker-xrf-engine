@@ -1,23 +1,25 @@
 /**
- * Mock rectangle class filled with floating points.
+ * Mock rectangle class filled with coordinates.
  */
 export class MockFrect {
-  public x: number;
-  public y: number;
-  public width: number;
-  public height: number;
+  public x1: number;
+  public y1: number;
+  public x2: number;
+  public y2: number;
 
-  public constructor(x: number, y: number, width: number, height: number) {
-    this.x = x;
-    this.y = y;
-    this.width = width;
-    this.height = height;
+  public constructor(x1: number, y1: number, x2: number, y2: number) {
+    this.x1 = x1;
+    this.y1 = y1;
+    this.x2 = x2;
+    this.y2 = y2;
   }
 
-  public set(x: number, y: number, width: number, height: number): void {
-    this.x = x;
-    this.y = y;
-    this.width = width;
-    this.height = height;
+  public set(x1: number, y1: number, x2: number, y2: number): MockFrect {
+    this.x1 = x1;
+    this.y1 = y1;
+    this.x2 = x2;
+    this.y2 = y2;
+
+    return this;
   }
 }
