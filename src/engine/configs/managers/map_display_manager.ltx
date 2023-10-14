@@ -4,6 +4,39 @@ distance_to_open = 60
 distance_to_display = 75
 display_update_throttle = 5000
 
+[map_marks]
+trader
+mechanic
+guider
+quest_npc
+medic
+
+[trader]
+icon = ui_pda2_trader_location
+hint = st_ui_pda_legend_trader
+
+[mechanic]
+icon = ui_pda2_mechanic_location
+hint = st_ui_pda_legend_mechanic
+
+[guider]
+icon = ui_pda2_scout_location
+hint = st_ui_pda_legend_scout
+
+[quest_npc]
+icon = ui_pda2_quest_npc_location
+hint = st_ui_pda_legend_vip
+
+[medic]
+icon = ui_pda2_medic_location
+hint = st_ui_pda_legend_medic
+
+; List of spots to display as sleep zones
+[sleep_spots]
+zat_a2_sr_sleep_id = st_ui_pda_sleep_place
+jup_a6_sr_sleep_id = st_ui_pda_sleep_place
+pri_a16_sr_sleep_id = st_ui_pda_sleep_place
+
 ; List of spots to display in PDA as circles
 [map_spots]
 ; zat
@@ -63,3 +96,40 @@ pri_b35_spot = st_pri_b35_name
 pri_a21_spot = st_pri_a21_name
 pri_b304_spot = st_pri_b304_name
 pri_a18_spot = st_pri_a18_name
+
+[scanner_spots]
+scanner_jup_b32
+scanner_jup_b201
+scanner_jup_b209
+scanner_jup_b211
+scanner_jup_b1
+
+[scanner_jup_b32]
+target = jup_b32_spot
+hint = st_jup_b32_name
+zone = jup_b32_anomal_zone
+group = jup_b32_scanner_1_placed
+
+[scanner_jup_b201]
+target = jup_b201_spot
+hint = st_jup_b201_name
+zone = jup_b201_anomal_zone
+group = jup_b32_scanner_2_placed
+
+[scanner_jup_b209]
+target = jup_b209_spot
+hint = st_jup_b209_name
+zone = jup_b209_anomal_zone
+group = jup_b32_scanner_3_placed
+
+[scanner_jup_b211]
+target = st_jup_b211_name
+hint = jup_b211_anomal_zone
+zone = jup_b209_anomal_zone
+group = jup_b32_scanner_4_placed
+
+[scanner_jup_b1]
+target = jup_b1_spot
+hint = st_jup_b1_name
+zone = jup_b10_anomal_zone
+group = jup_b32_scanner_5_placed
