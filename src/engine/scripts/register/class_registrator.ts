@@ -43,10 +43,7 @@ const logger: LuaLogger = new LuaLogger($filename);
 export function registerGameClasses(factory: ObjectFactory): void {
   logger.info("Registering game classes bindings");
 
-  if (!editor()) {
-    logger.info("Registering main menu:", MainMenu.__name);
-    factory.register(MainMenu.__name, EConfigClassId.MAIN_MNU, EScriptClassId.MAIN_MENU);
-  }
+  factory.register(MainMenu.__name, EConfigClassId.MAIN_MNU, EScriptClassId.MAIN_MENU);
 
   factory.register(Squad.__name, EConfigClassId.ON_OFF_S, EScriptClassId.ONLINE_OFFLINE_GROUP_S);
 

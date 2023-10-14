@@ -1,5 +1,6 @@
-import { level, snd_type, time_global } from "xray16";
+import { snd_type, time_global } from "xray16";
 
+import { registry } from "@/engine/core/database";
 import { AbstractSchemeManager } from "@/engine/core/objects/ai/scheme";
 import { combatConfig } from "@/engine/core/schemes/stalker/combat/CombatConfig";
 import { ISchemeDangerState } from "@/engine/core/schemes/stalker/danger/danger_types";
@@ -36,7 +37,7 @@ export class DangerManager extends AbstractSchemeManager<ISchemeDangerState> {
     soundPosition: Vector,
     soundPower: TRate
   ): void {
-    const who: Optional<ClientObject> = level.object_by_id(whoId);
+    const who: Optional<ClientObject> = registry.objects.get(whoId)?.object;
 
     // If already in combat or no client object 'who'.
     if (!who || object.best_enemy()) {
@@ -48,10 +49,8 @@ export class DangerManager extends AbstractSchemeManager<ISchemeDangerState> {
       return;
     }
 
-    const isEnemySound: boolean = object.relation(who) === EClientObjectRelation.ENEMY;
-
     // Set danger state by hearing weapon bullets.
-    if (isEnemySound && isSoundType(soundType, snd_type.weapon_bullet_hit)) {
+    if (isSoundType(soundType, snd_type.weapon_bullet_hit) && object.relation(who) === EClientObjectRelation.ENEMY) {
       const isSoundNear: boolean =
         object.position().distance_to_sqr(soundPosition) <= combatConfig.BULLET_REACT_DISTANCE_SQR;
 
@@ -68,7 +67,8 @@ export class DangerManager extends AbstractSchemeManager<ISchemeDangerState> {
 
       // If hear others shooting at enemy OR enemy shooting in range, try to help
       if (
-        ((shootingAt && object.relation(shootingAt) === EClientObjectRelation.ENEMY) || isEnemySound) &&
+        ((shootingAt && object.relation(shootingAt) === EClientObjectRelation.ENEMY) ||
+          object.relation(who) === EClientObjectRelation.ENEMY) &&
         object.position().distance_to_sqr(soundPosition) <= combatConfig.ALLIES_SHOOTING_ASSIST_DISTANCE_SQR
       ) {
         this.state.dangerTime = time_global();

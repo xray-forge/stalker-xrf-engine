@@ -153,6 +153,14 @@ export enum EGameEvent {
    */
   SMART_TERRAIN_UNREGISTER,
   /**
+   * Nearest smart terrain changed.
+   */
+  SMART_TERRAIN_NEAREST_CHANGED,
+  /**
+   * Mark smart terrain as visited.
+   */
+  SMART_TERRAIN_VISITED,
+  /**
    * Registered physic object.
    */
   OBJECT_PHYSIC_REGISTER,
@@ -200,6 +208,10 @@ export enum EGameEvent {
    * Unregistered restrictor zone server object.
    */
   RESTRICTOR_ZONE_UNREGISTERED,
+  /**
+   * Restrictor zone visited for first time.
+   */
+  RESTRICTOR_ZONE_VISITED,
   /**
    * Registered torrid zone server object.
    */

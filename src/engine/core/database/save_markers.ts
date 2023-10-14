@@ -66,7 +66,7 @@ export function closeLoadMarker(reader: NetProcessor, markerName: TName): TCount
 
   assert(
     expectedDiff === actualDiff,
-    "Incorrect load '%s': <dif: %s>, <cdif: %s>.",
+    "Incorrect load '%s': <expected: %s>, <actual: %s>.",
     markerName,
     expectedDiff,
     actualDiff

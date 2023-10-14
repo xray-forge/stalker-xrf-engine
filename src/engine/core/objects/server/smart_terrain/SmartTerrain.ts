@@ -1,7 +1,6 @@
 import {
   CALifeSmartTerrainTask,
   cse_alife_smart_zone,
-  editor,
   game,
   game_graph,
   getFS,
@@ -65,7 +64,7 @@ import {
   readIniString,
   TConditionList,
 } from "@/engine/core/utils/ini";
-import { LuaLogger } from "@/engine/core/utils/logging";
+import { ELuaLoggerMode, LuaLogger } from "@/engine/core/utils/logging";
 import { areObjectsOnSameLevel } from "@/engine/core/utils/position";
 import { ERelation } from "@/engine/core/utils/relation";
 import {
@@ -111,11 +110,12 @@ import {
   Vector,
 } from "@/engine/lib/types";
 
-const logger: LuaLogger = new LuaLogger($filename);
+const logger: LuaLogger = new LuaLogger($filename, { file: "smart_terrain", mode: ELuaLoggerMode.DUAL });
 const jobLogger: LuaLogger = new LuaLogger($filename, { file: "job" });
 
 /**
- * todo;
+ * Smart terrain server representation.
+ * Handles logics of alife, spawning and jobs simulation.
  */
 @LuabindClass()
 export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTarget {
@@ -385,10 +385,6 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
   public override STATE_Read(packet: NetPacket, size: number): void {
     super.STATE_Read(packet, size);
 
-    if (editor()) {
-      return;
-    }
-
     openLoadMarker(packet, SmartTerrain.__name);
     this.initialize();
 
@@ -479,17 +475,17 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
 
     const now: TTimestamp = time_global();
 
-    // todo: use sqr distance
+    // Check smart terrain which is nearest / manage visited state.
     if (areObjectsOnSameLevel(this, registry.actorServer)) {
-      const actorPosition: Vector = registry.actorServer.position;
-      const distanceToActor: TDistance = this.position.distance_to(actorPosition);
-      const previousDistanceToActor: TDistance = registry.smartTerrainNearest.id
-        ? registry.simulator.object(registry.smartTerrainNearest.id)!.position.distance_to(actorPosition)
-        : registry.smartTerrainNearest.distance;
+      const distanceToActorSqr: TDistance = this.position.distance_to_sqr(registry.actorServer.position);
 
-      if (distanceToActor < previousDistanceToActor) {
+      if (registry.smartTerrainNearest.id === this.id) {
+        registry.smartTerrainNearest.distanceSqr = distanceToActorSqr;
+      } else if (distanceToActorSqr < registry.smartTerrainNearest.distanceSqr) {
         registry.smartTerrainNearest.id = this.id;
-        registry.smartTerrainNearest.distance = distanceToActor;
+        registry.smartTerrainNearest.distanceSqr = distanceToActorSqr;
+
+        EventsManager.emitEvent(EGameEvent.SMART_TERRAIN_NEAREST_CHANGED, this, distanceToActorSqr);
       }
     }
 

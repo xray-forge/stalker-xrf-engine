@@ -215,7 +215,7 @@ export const registry = {
    */
   smartTerrainNearest: {
     id: null as Optional<TNumberId>,
-    distance: math.huge,
+    distanceSqr: math.huge,
   },
   /**
    * List of active smart covers.

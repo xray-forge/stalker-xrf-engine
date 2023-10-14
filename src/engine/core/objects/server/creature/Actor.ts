@@ -120,7 +120,7 @@ export class Actor extends cse_alife_creature_actor implements ISimulationTarget
     }
 
     if (
-      registry.smartTerrainNearest.distance < 50 &&
+      registry.smartTerrainNearest.distanceSqr < 2_500 && // 50*50
       !registry.simulationObjects.has(registry.smartTerrainNearest.id!)
     ) {
       return false;

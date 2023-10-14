@@ -3,12 +3,8 @@ import { game, level, time_global } from "xray16";
 import { getObjectIdByStoryId, IRegistryObjectState, registry } from "@/engine/core/database";
 import { AbstractManager } from "@/engine/core/managers/base/AbstractManager";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
-import {
-  anomalyScannerObjects,
-  mapNpcMarks,
-  primaryMapSpotObjects,
-  sleepZones,
-} from "@/engine/core/managers/map/map_display_marks";
+import { anomalyScannerObjects, mapNpcMarks, sleepZones } from "@/engine/core/managers/map/map_display_marks";
+import { mapDisplayConfig } from "@/engine/core/managers/map/MapDisplayConfig";
 import { ETreasureType, ITreasureDescriptor } from "@/engine/core/managers/treasures/treasures_types";
 import type { SmartTerrain } from "@/engine/core/objects/server/smart_terrain";
 import type { Squad } from "@/engine/core/objects/server/squad";
@@ -36,7 +32,6 @@ import {
   Optional,
   ServerObject,
   TDistance,
-  TDuration,
   TLabel,
   TName,
   TNumberId,
@@ -51,9 +46,6 @@ const logger: LuaLogger = new LuaLogger($filename);
  * Manager handling display of objects on game map in PDA.
  */
 export class MapDisplayManager extends AbstractManager {
-  public static readonly DISTANCE_TO_SHOW_MAP_MARKS: TDistance = 75;
-  public static readonly UPDATES_THROTTLE: TDuration = 5_000;
-
   public isInitialized: boolean = false;
   public lastUpdateAt: TTimestamp = 0;
 
@@ -415,17 +407,21 @@ export class MapDisplayManager extends AbstractManager {
   /**
    * todo: Description.
    */
-  public updatePrimaryObjectsDisplay(): void {
-    primaryMapSpotObjects.forEach((it) => {
-      const objectId: Optional<TNumberId> = getObjectIdByStoryId(it.target);
+  public updateSmartTerrainsDisplay(): void {
+    for (const [, descriptor] of mapDisplayConfig.DISPLAY_SPOTS) {
+      if (
+        !descriptor.isVisible &&
+        (!mapDisplayConfig.REQUIRE_SMART_TERRAIN_VISIT ||
+          hasInfoPortion(string.format("%s_visited", descriptor.target)))
+      ) {
+        const objectId: Optional<TNumberId> = getObjectIdByStoryId(descriptor.target);
 
-      if (objectId) {
-        level.map_add_object_spot(objectId, "primary_object", it.hint);
+        if (objectId) {
+          descriptor.isVisible = true;
+          level.map_add_object_spot(objectId, "primary_object", descriptor.hint);
+        }
       }
-    });
-
-    this.updateAnomalyZonesDisplay();
-    this.updateSleepZonesDisplay();
+    }
   }
 
   /**
@@ -446,7 +442,7 @@ export class MapDisplayManager extends AbstractManager {
    * todo: Description.
    */
   public updateSleepZonesDisplay(): void {
-    for (const [index, sleepZone] of sleepZones) {
+    for (const [, sleepZone] of sleepZones) {
       const objectId: Optional<TNumberId> = getObjectIdByStoryId(sleepZone.target);
       const storedObject: Optional<IRegistryObjectState> = objectId ? registry.objects.get(objectId) : null;
 
@@ -455,9 +451,9 @@ export class MapDisplayManager extends AbstractManager {
         const distanceFromActor: TDistance = storedObject.object.position().distance_to(actorPosition);
         const hasSleepSpot: boolean = level.map_has_object_spot(objectId, mapMarks.ui_pda2_actor_sleep_location) !== 0;
 
-        if (distanceFromActor <= MapDisplayManager.DISTANCE_TO_SHOW_MAP_MARKS && !hasSleepSpot) {
+        if (distanceFromActor <= mapDisplayConfig.DISTANCE_TO_DISPLAY && !hasSleepSpot) {
           level.map_add_object_spot(objectId, mapMarks.ui_pda2_actor_sleep_location, sleepZone.hint);
-        } else if (distanceFromActor > MapDisplayManager.DISTANCE_TO_SHOW_MAP_MARKS && hasSleepSpot) {
+        } else if (distanceFromActor > mapDisplayConfig.DISTANCE_TO_DISPLAY && hasSleepSpot) {
           level.map_remove_object_spot(objectId, mapMarks.ui_pda2_actor_sleep_location);
         }
       }
@@ -469,7 +465,7 @@ export class MapDisplayManager extends AbstractManager {
    */
   public updateAnomalyZonesDisplay(): void {
     if (hasInfoPortion(infoPortions.jup_b32_scanner_reward)) {
-      for (const [index, scanner] of anomalyScannerObjects) {
+      for (const [, scanner] of anomalyScannerObjects) {
         scanner.enabled = hasInfoPortion(scanner.group);
       }
     }
@@ -479,7 +475,7 @@ export class MapDisplayManager extends AbstractManager {
      * Works for jupiter only.
      */
     if (level.name() === levels.jupiter) {
-      for (const [index, scanner] of anomalyScannerObjects) {
+      for (const [, scanner] of anomalyScannerObjects) {
         if (scanner.enabled) {
           const objectId: Optional<number> = getObjectIdByStoryId(scanner.target);
 
@@ -514,13 +510,14 @@ export class MapDisplayManager extends AbstractManager {
     const now: TTimestamp = time_global();
 
     if (!this.isInitialized) {
-      this.updatePrimaryObjectsDisplay();
       this.isInitialized = true;
-    }
-
-    if (now - this.lastUpdateAt >= MapDisplayManager.UPDATES_THROTTLE) {
+      this.updateAnomalyZonesDisplay();
       this.updateSleepZonesDisplay();
+      this.updateSmartTerrainsDisplay();
+    } else if (now - this.lastUpdateAt >= mapDisplayConfig.DISPLAY_UPDATE_THROTTLE) {
       this.lastUpdateAt = now;
+      this.updateSmartTerrainsDisplay();
+      this.updateSleepZonesDisplay();
     }
   }
 }

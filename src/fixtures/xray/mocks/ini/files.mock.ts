@@ -304,6 +304,19 @@ export const FILES_MOCKS: Record<TPath, AnyObject> = {
       resupply_period: 24 * 3_600_000,
     },
   },
+  "managers\\map_display_manager.ltx": {
+    config: {
+      require_smart_terrain_visit: false,
+      distance_to_open: 50,
+      distance_to_display: 75,
+      display_update_throttle: 5000,
+    },
+    map_spots: {
+      zat_b55_spot: "st_zat_b55_name",
+      jup_b1_spot: "st_jup_b1_name",
+      pri_a28_spot: "st_pri_a28_name",
+    },
+  },
   "managers\\simulation\\simulation_objects_props.ltx": {
     default_squad: {
       sim_avail: "{+test_squad} true, false",
