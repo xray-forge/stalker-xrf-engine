@@ -32,6 +32,7 @@ export function resetRegistry(): void {
   registry.actor = null as unknown as ClientObject;
   registry.managers = new LuaTable();
   registry.objects = new LuaTable();
+  registry.zones = new LuaTable();
   registry.offlineObjects = new LuaTable();
   registry.crows.storage = new LuaTable();
   registry.crows.count = 0;

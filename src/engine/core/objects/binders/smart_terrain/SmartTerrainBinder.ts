@@ -3,7 +3,6 @@ import { LuabindClass, object_binder } from "xray16";
 import {
   closeLoadMarker,
   closeSaveMarker,
-  loadObjectLogic,
   openLoadMarker,
   openSaveMarker,
   registerSmartTerrain,
