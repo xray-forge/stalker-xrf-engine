@@ -13,7 +13,10 @@ export enum EElementType {
   LIST_BOX,
   EDIT_BOX,
   LABEL,
+  TEXT_WINDOW,
   STATIC,
+  MESSAGE_BOX,
+  MESSAGE_BOX_EX,
 }
 
 /**

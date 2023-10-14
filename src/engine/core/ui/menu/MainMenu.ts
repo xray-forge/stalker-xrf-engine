@@ -62,9 +62,9 @@ export class MainMenu extends CUIScriptWnd {
   public readonly xrMenuController: CMainMenu = main_menu.get_main_menu();
   public xrMenuPageController!: CUIMMShniaga;
 
-  public readonly xrAccountManager: AccountManager;
-  public readonly xrProfileStore: ProfileStore;
-  public readonly xrLoginManager: LoginManager;
+  public xrAccountManager: AccountManager;
+  public xrProfileStore: ProfileStore;
+  public xrLoginManager: LoginManager;
   public xrGameSpyProfile: Optional<Profile>;
 
   public uiModalBox!: CUIMessageBoxEx;
@@ -398,8 +398,8 @@ export class MainMenu extends CUIScriptWnd {
   public onLocalnetButtonClick(): void {
     if (!this.uiLocalnetDialog) {
       this.uiLocalnetDialog = new MultiplayerLocalnet(this);
-      this.uiLocalnetDialog.uiLpNickname.SetText(this.xrLoginManager.get_nick_from_registry());
-      this.uiLocalnetDialog.uiLpCheckRememberMe.SetCheck(this.xrLoginManager.get_remember_me_from_registry());
+      this.uiLocalnetDialog.uiNicknameEditBox.SetText(this.xrLoginManager.get_nick_from_registry());
+      this.uiLocalnetDialog.uiRememberMeCheck.SetCheck(this.xrLoginManager.get_remember_me_from_registry());
     }
 
     this.uiLocalnetDialog.ShowDialog(true);
