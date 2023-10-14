@@ -5,10 +5,11 @@ import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundMan
 import { StalkerPatrolManager } from "@/engine/core/objects/ai/state/StalkerPatrolManager";
 import { EStalkerState, ILookTargetDescriptor } from "@/engine/core/objects/animation/types";
 import { ICampPoint, ISchemeCamperState } from "@/engine/core/schemes/stalker/camper/camper_types";
+import { getNextCampPatrolPoint, isOnCampPatrolPlace } from "@/engine/core/schemes/stalker/camper/utils/camper_utils";
 import { isObjectFacingDanger } from "@/engine/core/schemes/stalker/danger/utils";
 import { abort } from "@/engine/core/utils/assertion";
 import { parseWaypointsData } from "@/engine/core/utils/ini";
-import { isObjectAtTerminalWaypoint, isObjectAtWaypoint } from "@/engine/core/utils/patrol";
+import { isObjectAtTerminalWaypoint } from "@/engine/core/utils/patrol";
 import { createVector } from "@/engine/core/utils/vector";
 import {
   ClientObject,
@@ -16,7 +17,7 @@ import {
   ISchemeEventHandler,
   Optional,
   Patrol,
-  TDangerType,
+  TTimestamp,
   Vector,
 } from "@/engine/lib/types";
 
@@ -24,14 +25,14 @@ import {
  * todo;
  */
 @LuabindClass()
-export class ActionCamperPatrol extends action_base implements ISchemeEventHandler {
+export class ActionCloseCombat extends action_base implements ISchemeEventHandler {
   public state: ISchemeCamperState;
   public patrolManager: StalkerPatrolManager;
 
   public flag: Optional<number> = null;
   public danger: boolean = false;
   public nextPoint: Optional<ICampPoint> = null;
-  public scantime: Optional<number> = null;
+  public scantime: Optional<TTimestamp> = null;
   public direction: Optional<Vector> = null;
   public position: Optional<Vector> = null;
   public lookPosition: Optional<Vector> = null;
@@ -43,7 +44,7 @@ export class ActionCamperPatrol extends action_base implements ISchemeEventHandl
   public enemyPosition: Optional<Vector> = null;
 
   public constructor(state: ISchemeCamperState, object: ClientObject) {
-    super(null, ActionCamperPatrol.__name);
+    super(null, ActionCloseCombat.__name);
 
     this.state = state;
     this.patrolManager = registry.objects.get(object.id()).patrolManager!;
@@ -87,20 +88,20 @@ export class ActionCamperPatrol extends action_base implements ISchemeEventHandl
         null,
         null,
         this.state.suggestedState,
-        { context: this, callback: this.onProcessPoint }
+        { context: this, callback: () => false }
       );
 
-      const path: Patrol = new patrol(this.state.pathLook);
+      const lookPatrol: Patrol = new patrol(this.state.pathLook);
 
-      if (path !== null) {
-        for (const k of $range(0, path.count() - 1)) {
+      if (lookPatrol !== null) {
+        for (const k of $range(0, lookPatrol.count() - 1)) {
           for (const i of $range(0, 31)) {
-            if (path.flag(k, i)) {
+            if (lookPatrol.flag(k, i)) {
               if (this.state.scanTable.get(i) === null) {
                 this.state.scanTable.set(i, new LuaTable());
               }
 
-              table.insert(this.state.scanTable.get(i), { key: k, pos: path.point(k) });
+              table.insert(this.state.scanTable.get(i), { key: k, pos: lookPatrol.point(k) });
             }
           }
         }
@@ -117,7 +118,7 @@ export class ActionCamperPatrol extends action_base implements ISchemeEventHandl
         parseWaypointsData(this.state.pathLook),
         null,
         this.state.suggestedState,
-        { context: this, callback: this.onProcessPoint }
+        { context: this, callback: () => false }
       );
 
       if (this.object.sniper_update_rate()) {
@@ -157,51 +158,19 @@ export class ActionCamperPatrol extends action_base implements ISchemeEventHandl
       }
     }
 
-    if (this.enemy !== null) {
+    if (this.enemy) {
       if (this.object.see(this.enemy) === true && this.canShoot()) {
-        if (this.state.sniper === true) {
-          if (this.state.suggestedState.campering_fire) {
-            setStalkerState(
-              this.object,
-              this.state.suggestedState.campering_fire,
-              null,
-              null,
-              { lookObjectId: this.enemy.id(), lookPosition: this.enemy.position() },
-              { animation: true }
-            );
-          } else {
-            setStalkerState(
-              this.object,
-              EStalkerState.HIDE_SNIPER_FIRE,
-              null,
-              null,
-              { lookObjectId: this.enemy.id(), lookPosition: this.enemy.position() },
-              { animation: true }
-            );
-          }
-        } else {
-          if (this.state.suggestedState.campering_fire) {
-            setStalkerState(
-              this.object,
-              this.state.suggestedState.campering_fire,
-              null,
-              null,
-              { lookObjectId: this.enemy.id(), lookPosition: this.enemy.position() },
-              { animation: true }
-            );
-          } else {
-            setStalkerState(
-              this.object,
-              EStalkerState.HIDE_FIRE,
-              null,
-              null,
-              { lookObjectId: this.enemy.id(), lookPosition: this.enemy.position() },
-              { animation: true }
-            );
-          }
-        }
+        setStalkerState(
+          this.object,
+          this.state.suggestedState.camperingFire ??
+            (this.state.sniper ? EStalkerState.HIDE_SNIPER_FIRE : EStalkerState.HIDE_FIRE),
+          null,
+          null,
+          { lookObjectId: this.enemy.id(), lookPosition: this.enemy.position() },
+          { animation: true }
+        );
 
-        GlobalSoundManager.getInstance().playSound(this.object.id(), this.state.attackSound, null, null);
+        GlobalSoundManager.getInstance().playSound(this.object.id(), this.state.attackSound);
       } else {
         const memoryPosition: Vector = this.object.memory_position(this.enemy);
 
@@ -248,26 +217,30 @@ export class ActionCamperPatrol extends action_base implements ISchemeEventHandl
         if (this.state.sniper === true) {
           if (time_global() - this.state.memEnemy! < this.state.postEnemyWait) {
             const position: Optional<ILookTargetDescriptor> =
-              this.enemyPosition !== null ? { lookPosition: this.enemyPosition, lookObjectId: null } : null;
+              this.enemyPosition !== null ? { lookPosition: this.enemyPosition } : null;
 
-            if (this.state.suggestedState.campering) {
-              setStalkerState(this.object, this.state.suggestedState.campering, null, null, position, null);
-            } else {
-              setStalkerState(this.object, EStalkerState.HIDE_NA, null, null, position, null);
-            }
+            setStalkerState(
+              this.object,
+              this.state.suggestedState.campering ?? EStalkerState.HIDE_NA,
+              null,
+              null,
+              position
+            );
           } else {
             this.scan(-1);
           }
         } else {
-          if (this.isOnPlace()) {
+          if (isOnCampPatrolPlace(this.object, this.state)) {
             const position: Optional<ILookTargetDescriptor> =
               this.enemyPosition !== null ? { lookPosition: this.enemyPosition, lookObjectId: null } : null;
 
-            if (this.state.suggestedState.campering) {
-              setStalkerState(this.object, this.state.suggestedState.campering, null, null, position, null);
-            } else {
-              setStalkerState(this.object, EStalkerState.HIDE, null, null, position, null);
-            }
+            setStalkerState(
+              this.object,
+              this.state.suggestedState.campering ?? EStalkerState.HIDE,
+              null,
+              null,
+              position
+            );
           } else {
             this.patrolManager.setup();
             this.patrolManager.update();
@@ -278,9 +251,7 @@ export class ActionCamperPatrol extends action_base implements ISchemeEventHandl
       return;
     }
 
-    const danger = this.processDanger();
-
-    if (danger) {
+    if (this.processDanger()) {
       this.danger = true;
 
       return;
@@ -292,7 +263,7 @@ export class ActionCamperPatrol extends action_base implements ISchemeEventHandl
     }
 
     if (this.state.sniper === true) {
-      if (this.isOnPlace()) {
+      if (isOnCampPatrolPlace(this.object, this.state)) {
         if (this.scantime === null) {
           this.scantime = time_global();
         }
@@ -324,24 +295,30 @@ export class ActionCamperPatrol extends action_base implements ISchemeEventHandl
    * todo: Description.
    */
   public canShoot(): boolean {
-    if (this.state.shoot === "always") {
-      return true;
+    switch (this.state.shoot) {
+      case "always":
+        return true;
+
+      case "none":
+        return false;
+
+      case "terminal": {
+        const [isOnTerminalWaypoint] = isObjectAtTerminalWaypoint(
+          this.patrolManager.object,
+          this.patrolManager.patrolWalk as Patrol
+        );
+
+        return isOnTerminalWaypoint;
+      }
+
+      default:
+        abort(
+          "%s: unrecognized shoot type '%s' for '%s'.",
+          ActionCloseCombat.__name,
+          this.state.shoot,
+          this.object.name()
+        );
     }
-
-    if (this.state.shoot === "none") {
-      return false;
-    }
-
-    if (this.state.shoot === "terminal") {
-      const [isOnTerminalWaypoint] = isObjectAtTerminalWaypoint(
-        this.patrolManager.object,
-        this.patrolManager.patrolWalk as Patrol
-      );
-
-      return isOnTerminalWaypoint;
-    }
-
-    abort("Camper: unrecognized shoot type [%s] for [%s]", tostring(this.state.shoot), this.object.name());
   }
 
   /**
@@ -359,39 +336,28 @@ export class ActionCamperPatrol extends action_base implements ISchemeEventHandl
     }
 
     const bestDangerObject: ClientObject = bestDanger.object();
-    const bestDangerType: TDangerType = bestDanger.type();
-    const position: ILookTargetDescriptor = { lookPosition: bestDanger.position(), lookObjectId: null };
 
     if (!this.danger) {
       this.object.play_sound(stalker_ids.sound_alarm, 1, 0, 1, 0);
     }
 
-    const isUrgentDanger =
+    const isUrgentDanger: boolean =
       bestDangerObject !== null &&
-      bestDangerType === danger_object.attacked &&
+      bestDanger.type() === danger_object.attacked &&
       time_global() - bestDanger.time() < 5000;
 
-    if (isUrgentDanger === true) {
-      const dangerObjectPosition: ILookTargetDescriptor = {
+    if (isUrgentDanger) {
+      setStalkerState(this.object, this.state.suggestedState.camperingFire ?? EStalkerState.HIDE_FIRE, null, null, {
         lookPosition: bestDangerObject.position(),
-        lookObjectId: null,
-      };
-
-      if (this.state.suggestedState.campering_fire) {
-        setStalkerState(this.object, this.state.suggestedState.campering_fire, null, null, dangerObjectPosition);
-      } else {
-        setStalkerState(this.object, EStalkerState.HIDE_FIRE, null, null, dangerObjectPosition);
-      }
+      });
     } else {
-      if (this.state.suggestedState.campering) {
-        setStalkerState(this.object, this.state.suggestedState.campering, null, null, position);
-      } else {
-        if (this.state.sniper === true) {
-          setStalkerState(this.object, EStalkerState.HIDE_NA, null, null, position);
-        } else {
-          setStalkerState(this.object, EStalkerState.HIDE, null, null, position);
-        }
-      }
+      setStalkerState(
+        this.object,
+        this.state.suggestedState.campering ?? (this.state.sniper ? EStalkerState.HIDE_NA : EStalkerState.HIDE),
+        null,
+        null,
+        { lookPosition: bestDanger.position() }
+      );
     }
 
     return true;
@@ -405,6 +371,8 @@ export class ActionCamperPatrol extends action_base implements ISchemeEventHandl
       return;
     }
 
+    const now: TTimestamp = time_global();
+
     if (this.flag !== flag) {
       this.flag = flag;
       this.state.scanBegin = null;
@@ -412,8 +380,8 @@ export class ActionCamperPatrol extends action_base implements ISchemeEventHandl
       this.state.lastLookPoint = null;
     }
 
-    if (this.state.scanBegin === null || time_global() - this.state.scanBegin > this.state.timeScanDelta) {
-      this.nextPoint = this.getNextPoint(flag);
+    if (this.state.scanBegin === null || now - this.state.scanBegin > this.state.timeScanDelta) {
+      this.nextPoint = getNextCampPatrolPoint(flag, this.state);
       if (this.state.curLookPoint === null) {
         this.state.curLookPoint = 1;
       }
@@ -432,117 +400,19 @@ export class ActionCamperPatrol extends action_base implements ISchemeEventHandl
         this.lookPosition!.z +
           (this.state.curLookPoint * (this.destPosition.z - this.lookPosition!.z)) / this.state.scandelta
       );
-      if (this.state.suggestedState.campering) {
-        setStalkerState(
-          this.object,
-          this.state.suggestedState.campering,
-          null,
-          null,
-          { lookPosition: this.lookPoint },
-          null
-        );
-      } else {
-        setStalkerState(this.object, EStalkerState.HIDE_NA, null, null, {
-          lookPosition: this.lookPoint,
-        });
-      }
+
+      setStalkerState(this.object, this.state.suggestedState.campering ?? EStalkerState.HIDE_NA, null, null, {
+        lookPosition: this.lookPoint,
+      });
 
       if (this.state.curLookPoint >= this.state.scandelta) {
         this.state.curLookPoint = null;
         this.state.lastLookPoint = this.nextPoint;
       } else {
-        if (this.state.scanBegin !== null) {
-          this.state.curLookPoint =
-            this.state.curLookPoint + (time_global() - this.state.scanBegin) / this.state.timeScanDelta;
-        } else {
-          this.state.curLookPoint = this.state.curLookPoint + 1;
-        }
+        this.state.curLookPoint += this.state.scanBegin ? (now - this.state.scanBegin) / this.state.timeScanDelta : 1;
       }
 
-      this.state.scanBegin = time_global();
+      this.state.scanBegin = now;
     }
-  }
-
-  /**
-   * todo: Description.
-   */
-  public getNextPoint(flag: number): ICampPoint {
-    let isNext: boolean = false;
-
-    if (this.state.lastLookPoint === null) {
-      table.sort(this.state.scanTable!.get(flag), (a, b) => {
-        return a.key < b.key;
-      });
-    }
-
-    for (const [k, v] of this.state.scanTable!.get(flag)) {
-      if (this.state.lastLookPoint === null) {
-        return v;
-      }
-
-      if (isNext === true) {
-        return v;
-      }
-
-      if (this.state.lastLookPoint.key === v.key) {
-        isNext = true;
-      }
-    }
-
-    if (isNext === true) {
-      if (this.state.lastLookPoint!.key === 0) {
-        table.sort(this.state.scanTable!.get(flag), (a, b) => {
-          return a.key < b.key;
-        });
-      } else {
-        table.sort(this.state.scanTable!.get(flag), (a, b) => {
-          return a.key > b.key;
-        });
-      }
-    }
-
-    return this.state.lastLookPoint!;
-  }
-
-  /**
-   * todo: Description.
-   */
-  public isOnPlace(): boolean {
-    if (this.state.noRetreat === true) {
-      return false;
-    }
-
-    const path: Patrol = new patrol(this.state.pathWalk);
-
-    if (path !== null) {
-      for (const k of $range(0, path.count() - 1)) {
-        if (isObjectAtWaypoint(this.object, new patrol(this.state.pathWalk), k)) {
-          for (const i of $range(0, 31)) {
-            if (path.flag(k, i)) {
-              this.state.wpFlag = i;
-
-              return true;
-            }
-          }
-
-          this.state.wpFlag = null;
-
-          return false;
-        }
-      }
-
-      this.state.wpFlag = null;
-
-      return false;
-    }
-
-    return false;
-  }
-
-  /**
-   * todo: Description.
-   */
-  public onProcessPoint(): boolean {
-    return false;
   }
 }

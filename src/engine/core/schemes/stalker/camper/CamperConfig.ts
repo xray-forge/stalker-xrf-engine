@@ -1,0 +1,12 @@
+import { RADIAN } from "@/engine/lib/constants/math";
+
+export const camperConfig = {
+  SCAN_FREE_TIME: 60_000,
+  DEFAULT_IDLE_TIME: 60_000,
+  DEFAULT_POST_ENEMY_WAIT_TIME: 5_000,
+  DEFAULT_ENEMY_DISPERSION: 7 / RADIAN,
+  DEFAULT_ATTACK_SOUND: "fight_attack",
+  DEFAULT_CLOSE_RADIUS: 20,
+  DEFAULT_SCAN_DELTA: 30,
+  DEFAULT_TIME_DELTA: 4000,
+};

@@ -38,9 +38,9 @@ describe("SchemeWalker", () => {
     expect(state.useCamp).toBe(false);
     expect(state.suggested_state).toEqualLuaTables({
       campering: null,
-      campering_fire: null,
+      camperingFire: null,
       moving: null,
-      moving_fire: null,
+      movingFire: null,
       standing: null,
     });
     expect(state.pathWalkInfo).toBeNull();
@@ -83,9 +83,9 @@ describe("SchemeWalker", () => {
     expect(state.useCamp).toBe(true);
     expect(state.suggested_state).toEqualLuaTables({
       campering: null,
-      campering_fire: null,
+      camperingFire: null,
       moving: "idle_1",
-      moving_fire: null,
+      movingFire: null,
       standing: "idle",
     });
     expect(state.pathWalkInfo).toBeNull();

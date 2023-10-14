@@ -15,9 +15,9 @@ export enum EWaypointArrivalType {
 export interface IPatrolSuggestedState {
   standing: Optional<EStalkerState>;
   moving: Optional<EStalkerState>;
-  moving_fire: Optional<EStalkerState>;
+  movingFire: Optional<EStalkerState>;
   campering: Optional<EStalkerState>;
-  campering_fire: Optional<EStalkerState>;
+  camperingFire: Optional<EStalkerState>;
 }
 
 /**
