@@ -114,7 +114,7 @@ export class MultiplayerMenu extends CUIScriptWnd {
     this.dialogMultiplayerOptions.Show(false);
     workArea.AttachChild(this.dialogMultiplayerOptions);
 
-    this.dialogMultiplayerServer = new MultiplayerServer();
+    this.dialogMultiplayerServer = new MultiplayerServer(this);
     this.dialogMultiplayerServer.initialize(0, 0, xml, this);
     this.dialogMultiplayerServer.Show(false);
     workArea.AttachChild(this.dialogMultiplayerServer);
@@ -198,7 +198,7 @@ export class MultiplayerMenu extends CUIScriptWnd {
       this.playerNameEditBox.SetText(mainMenu.GetPlayerName());
     }
 
-    this.onGameModeChange();
+    this.dialogMultiplayerServer.onGameModeChange();
 
     if (level.present()) {
       this.uiCreateButton.Enable(false);
@@ -223,9 +223,6 @@ export class MultiplayerMenu extends CUIScriptWnd {
     this.AddCallback("check_listen_servers", ui_events.BUTTON_CLICKED, () => this.onFilterChange(), this);
 
     this.AddCallback("btn_direct_ip", ui_events.BUTTON_CLICKED, () => this.onDirectIPButtonClicked(), this);
-
-    // -- ui_mm_mp_options
-    this.AddCallback("spin_game_mode", ui_events.LIST_ITEM_SELECT, () => this.onGameModeChange(), this);
 
     this.AddCallback("tab", ui_events.TAB_CHANGED, () => this.onTabChange(), this);
     // -- ui_mm_mp_join
@@ -342,13 +339,6 @@ export class MultiplayerMenu extends CUIScriptWnd {
     logger.info("Server info");
 
     this.uiServerList.ShowServerInfo();
-  }
-
-  public onGameModeChange(): void {
-    logger.info("Game mode change");
-
-    this.dialogMultiplayerServer.uiMapList.OnModeChange();
-    this.dialogMultiplayerOptions.setGameMode(this.dialogMultiplayerServer.uiMapList.GetCurGameType());
   }
 
   public onFilterChange(): void {

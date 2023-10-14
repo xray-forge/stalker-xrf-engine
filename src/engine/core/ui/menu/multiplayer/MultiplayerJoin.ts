@@ -35,10 +35,10 @@ export class MultiplayerJoin extends CUIWindow {
     // --    xml.InitStatic("tab_client:rust_00",this)
     // --    xml.InitStatic("tab_client:rust_01",this)
 
-    const btn = xml.Init3tButton("tab_client:btn_direct_ip", this);
+    const button = xml.Init3tButton("tab_client:btn_direct_ip", this);
 
-    owner.Register(btn, "btn_direct_ip");
-    this.uiDirectIPButton = btn;
+    owner.Register(button, "btn_direct_ip");
+    this.uiDirectIPButton = button;
     this.uiFilters = {};
 
     const checkEmpty = xml.InitCheck("tab_client:check_empty", this);

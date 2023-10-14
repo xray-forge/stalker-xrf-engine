@@ -46,6 +46,10 @@ export function registerUiElement<T extends CUIWindow>(
       element = xml.InitFrame(selector, base) as unknown as T;
       break;
 
+    case EElementType.FRAME_LINE:
+      element = xml.InitFrameLine(selector, base) as unknown as T;
+      break;
+
     case EElementType.LIST_BOX:
       element = xml.InitListBox(selector, base) as unknown as T;
       break;
@@ -56,6 +60,18 @@ export function registerUiElement<T extends CUIWindow>(
 
     case EElementType.LABEL:
       element = xml.InitLabel(selector, base) as unknown as T;
+      break;
+
+    case EElementType.SPIN_NUM:
+      element = xml.InitSpinNum(selector, base) as unknown as T;
+      break;
+
+    case EElementType.MAP_LIST:
+      element = xml.InitMapList(selector, base) as unknown as T;
+      break;
+
+    case EElementType.MAP_INFO:
+      element = xml.InitMapInfo(selector, base) as unknown as T;
       break;
 
     case EElementType.TEXT_WINDOW:
