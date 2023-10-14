@@ -1,7 +1,17 @@
-import { CScriptXmlInit, CUI3tButton, CUICheckButton, CUIWindow, LuabindClass } from "xray16";
+import {
+  CScriptXmlInit,
+  CServerList,
+  CUI3tButton,
+  CUICheckButton,
+  CUIWindow,
+  LuabindClass,
+  SServerFilters,
+  ui_events,
+} from "xray16";
 
 import { MultiplayerMenu } from "@/engine/core/ui/menu/multiplayer/MultiplayerMenu";
 import { LuaLogger } from "@/engine/core/utils/logging";
+import { EElementType, initializeElement, initializeStatics } from "@/engine/core/utils/ui";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -10,69 +20,164 @@ const logger: LuaLogger = new LuaLogger($filename);
  */
 @LuabindClass()
 export class MultiplayerJoin extends CUIWindow {
+  public owner: MultiplayerMenu;
   public isOnlineMode: boolean;
-  public uiFilters!: Record<string, CUICheckButton>;
-  public uiDirectIPButton!: CUI3tButton;
 
-  public constructor(isOnlineMode: boolean) {
+  public uiServerList!: CServerList;
+  public uiJoinDirectIPButton!: CUI3tButton;
+  public uiFilterEmptyCheckButton!: CUICheckButton;
+  public uiFilterFullCheckButton!: CUICheckButton;
+  public uiFilterWithPasswordCheckButton!: CUICheckButton;
+  public uiFilterWithoutPasswordCheckButton!: CUICheckButton;
+  public uiFilterFFCheckButton!: CUICheckButton;
+  public uiFilterListenServersCheckButton!: CUICheckButton;
+
+  public constructor(owner: MultiplayerMenu, isOnlineMode: boolean) {
     super();
+    this.owner = owner;
     this.isOnlineMode = isOnlineMode;
   }
 
   public initialize(x: number, y: number, xml: CScriptXmlInit, owner: MultiplayerMenu): void {
     this.SetAutoDelete(true);
 
+    initializeStatics(xml, this, "tab_client:cap_server_list", "tab_client:cap_filters");
+
     xml.InitWindow("tab_client:main", 0, this);
 
-    owner.uiServerList = xml.InitServerList("tab_client:server_list", this);
+    this.uiServerList = xml.InitServerList("tab_client:server_list", this);
 
-    xml.InitStatic("tab_client:cap_server_list", this);
-    xml.InitStatic("tab_client:cap_filters", this);
+    this.uiJoinDirectIPButton = initializeElement(xml, "tab_client:btn_direct_ip", {
+      type: EElementType.BUTTON,
+      base: this,
+      context: owner,
+      handlers: {
+        [ui_events.BUTTON_CLICKED]: () => this.onDirectIPButtonClicked(),
+      },
+    });
 
-    const button = xml.Init3tButton("tab_client:btn_direct_ip", this);
+    this.uiFilterEmptyCheckButton = initializeElement(xml, "tab_client:check_empty", {
+      type: EElementType.CHECK_BUTTON,
+      base: this,
+      context: owner,
+      handlers: {
+        [ui_events.BUTTON_CLICKED]: () => this.onFiltersChange(),
+      },
+    });
+    this.uiFilterEmptyCheckButton.SetCheck(true);
 
-    owner.Register(button, "btn_direct_ip");
-    this.uiDirectIPButton = button;
-    this.uiFilters = {};
+    this.uiFilterFullCheckButton = initializeElement(xml, "tab_client:check_full", {
+      type: EElementType.CHECK_BUTTON,
+      base: this,
+      context: owner,
+      handlers: {
+        [ui_events.BUTTON_CLICKED]: () => this.onFiltersChange(),
+      },
+    });
+    this.uiFilterFullCheckButton.SetCheck(true);
 
-    const checkEmpty = xml.InitCheck("tab_client:check_empty", this);
+    this.uiFilterWithPasswordCheckButton = initializeElement(xml, "tab_client:check_with_pass", {
+      type: EElementType.CHECK_BUTTON,
+      base: this,
+      context: owner,
+      handlers: {
+        [ui_events.BUTTON_CLICKED]: () => this.onFiltersChange(),
+      },
+    });
+    this.uiFilterWithPasswordCheckButton.SetCheck(true);
 
-    owner.Register(checkEmpty, "check_empty");
-    this.uiFilters.btn_check_empty = checkEmpty;
-    checkEmpty.SetCheck(true);
+    this.uiFilterWithoutPasswordCheckButton = initializeElement(xml, "tab_client:check_without_pass", {
+      type: EElementType.CHECK_BUTTON,
+      base: this,
+      context: owner,
+      handlers: {
+        [ui_events.BUTTON_CLICKED]: () => this.onFiltersChange(),
+      },
+    });
+    this.uiFilterWithoutPasswordCheckButton.SetCheck(true);
 
-    const checkFull = xml.InitCheck("tab_client:check_full", this);
+    this.uiFilterFFCheckButton = initializeElement(xml, "tab_client:check_without_ff", {
+      type: EElementType.CHECK_BUTTON,
+      base: this,
+      context: owner,
+      handlers: {
+        [ui_events.BUTTON_CLICKED]: () => this.onFiltersChange(),
+      },
+    });
+    this.uiFilterFFCheckButton.SetCheck(true);
 
-    owner.Register(checkFull, "check_full");
-    this.uiFilters.btn_check_full = checkFull;
-    checkFull.SetCheck(true);
+    this.uiFilterListenServersCheckButton = initializeElement(xml, "tab_client:check_listen_servers", {
+      type: EElementType.CHECK_BUTTON,
+      base: this,
+      context: owner,
+      handlers: {
+        [ui_events.BUTTON_CLICKED]: () => this.onFiltersChange(),
+      },
+    });
+    this.uiFilterListenServersCheckButton.SetCheck(true);
 
-    const checkWithPass = xml.InitCheck("tab_client:check_with_pass", this);
+    initializeElement(xml, "tab_client:btn_refresh", {
+      type: EElementType.BUTTON,
+      base: this,
+      context: owner,
+      handlers: {
+        [ui_events.BUTTON_CLICKED]: () => this.onRefreshButtonClicked(),
+      },
+    });
 
-    owner.Register(checkWithPass, "check_with_pass");
-    this.uiFilters.btn_check_with_pass = checkWithPass;
-    checkWithPass.SetCheck(true);
+    initializeElement(xml, "tab_client:btn_quick_refresh", {
+      type: EElementType.BUTTON,
+      base: this,
+      context: owner,
+      handlers: {
+        [ui_events.BUTTON_CLICKED]: () => this.onQuickRefreshButtonClicked(),
+      },
+    });
 
-    const checkWithoutPass = xml.InitCheck("tab_client:check_without_pass", this);
+    initializeElement(xml, "tab_client:btn_server_info", {
+      type: EElementType.BUTTON,
+      base: this,
+      context: owner,
+      handlers: {
+        [ui_events.BUTTON_CLICKED]: () => this.onServerInfoButtonClicked(),
+      },
+    });
+  }
 
-    owner.Register(checkWithoutPass, "check_without_pass");
-    this.uiFilters.btn_check_without_pass = checkWithoutPass;
-    checkWithoutPass.SetCheck(true);
+  public getFilters(): SServerFilters {
+    const filters: SServerFilters = new SServerFilters();
 
-    const checkWithoutFf = xml.InitCheck("tab_client:check_without_ff", this);
+    filters.empty = this.uiFilterEmptyCheckButton.GetCheck();
+    filters.full = this.uiFilterFullCheckButton.GetCheck();
+    filters.with_pass = this.uiFilterWithPasswordCheckButton.GetCheck();
+    filters.without_pass = this.uiFilterWithoutPasswordCheckButton.GetCheck();
+    filters.without_ff = this.uiFilterFFCheckButton.GetCheck();
+    filters.listen_servers = this.uiFilterListenServersCheckButton.GetCheck();
 
-    owner.Register(checkWithoutFf, "check_without_ff");
-    this.uiFilters.btn_check_without_ff = checkWithoutFf;
-    checkWithoutFf.SetCheck(true);
+    return filters;
+  }
 
-    const checkListenServers = xml.InitCheck("tab_client:check_listen_servers", this);
+  public onDirectIPButtonClicked(): void {
+    this.owner.messageBox.InitMessageBox("message_box_direct_ip");
+    this.owner.messageBox.ShowDialog(true);
+  }
 
-    owner.Register(checkListenServers, "check_listen_servers");
-    this.uiFilters.btn_check_listen_servers = checkListenServers;
-    checkListenServers.SetCheck(true);
+  public onFiltersChange(): void {
+    logger.info("Filters change");
 
-    owner.Register(xml.Init3tButton("tab_client:btn_refresh", this), "btn_refresh");
-    owner.Register(xml.Init3tButton("tab_client:btn_quick_refresh", this), "btn_quick_refresh");
-    owner.Register(xml.Init3tButton("tab_client:btn_server_info", this), "btn_server_info");
+    this.uiServerList.SetFilters(this.getFilters());
+  }
+
+  public onRefreshButtonClicked(): void {
+    this.uiServerList.RefreshList(!this.isOnlineMode);
+    this.onFiltersChange();
+  }
+
+  public onQuickRefreshButtonClicked(): void {
+    this.uiServerList.RefreshQuick();
+  }
+
+  public onServerInfoButtonClicked(): void {
+    this.uiServerList.ShowServerInfo();
   }
 }

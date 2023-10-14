@@ -102,7 +102,7 @@ export class MultiplayerLocalnet extends CUIScriptWnd {
     this.uiRememberMeCheck = initializeElement(xml, "login_page:check_remember_me", {
       base: uiLoginPage,
       context: this,
-      type: EElementType.CHECK_BOX,
+      type: EElementType.CHECK_BUTTON,
       handlers: {
         [ui_events.BUTTON_CLICKED]: () => this.onRememberMeButtonClick(),
       },

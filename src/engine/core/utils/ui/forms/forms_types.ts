@@ -7,7 +7,7 @@ import { AnyCallable, PartialRecord, TUIEvent } from "@/engine/lib/types";
  */
 export enum EElementType {
   BUTTON,
-  CHECK_BOX,
+  CHECK_BUTTON,
   FRAME,
   FRAME_LINE,
   COMBO_BOX,

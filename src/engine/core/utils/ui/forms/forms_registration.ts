@@ -34,7 +34,7 @@ export function initializeElement<T extends CUIWindow>(
       element = xml.InitStatic(selector, base) as unknown as T;
       break;
 
-    case EElementType.CHECK_BOX:
+    case EElementType.CHECK_BUTTON:
       element = xml.InitCheck(selector, base) as unknown as T;
       break;
 

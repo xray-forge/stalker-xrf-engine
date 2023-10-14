@@ -72,7 +72,7 @@ export class MultiplayerServer extends CUIWindow {
     });
 
     this.uiDedicatedCheck = initializeElement(xml, "tab_server:check_dedicated", {
-      type: EElementType.CHECK_BOX,
+      type: EElementType.CHECK_BUTTON,
       base: this,
     });
 

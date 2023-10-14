@@ -342,7 +342,7 @@ export class MainMenu extends CUIScriptWnd {
       this.uiMultiplayerMenuDialog = new MultiplayerMenu(this, this.xrGameSpyProfile?.online() === true);
       this.uiMultiplayerMenuDialog.onRadioNetChanged();
 
-      if (this.uiMultiplayerMenuDialog.online) {
+      if (this.uiMultiplayerMenuDialog.isOnlineMode) {
         this.uiMultiplayerMenuDialog.dialogMultiplayerProfile.initializeBestScores();
         this.uiMultiplayerMenuDialog.dialogMultiplayerProfile.initializeRewardsTable();
       }

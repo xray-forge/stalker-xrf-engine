@@ -46,7 +46,7 @@ export class DebugRegistrySection extends AbstractDebugSection {
     });
 
     this.uiRegistryFilterOnline = initializeElement(this.xml, "registry_filter_online", {
-      type: EElementType.CHECK_BOX,
+      type: EElementType.CHECK_BUTTON,
       base: this,
       context: this.owner,
       handlers: {

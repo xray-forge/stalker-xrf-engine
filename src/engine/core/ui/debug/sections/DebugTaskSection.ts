@@ -58,7 +58,7 @@ export class DebugTaskSection extends AbstractDebugSection {
     });
 
     this.uiTaskFilterActive = initializeElement(this.xml, "task_filter_active", {
-      type: EElementType.CHECK_BOX,
+      type: EElementType.CHECK_BUTTON,
       base: this,
       context: this.owner,
       handlers: {

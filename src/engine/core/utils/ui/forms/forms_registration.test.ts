@@ -71,7 +71,7 @@ describe("forms_registration utils", () => {
     const context: CUIScriptWnd = MockCUIScriptWnd.mock();
 
     initializeElement(xml, "check_box_example", {
-      type: EElementType.CHECK_BOX,
+      type: EElementType.CHECK_BUTTON,
       base,
       context,
     });

@@ -3,7 +3,6 @@ import {
   connect_error_cb,
   COptionsManager,
   CScriptXmlInit,
-  CServerList,
   CUI3tButton,
   CUIEditBox,
   CUIMessageBoxEx,
@@ -18,7 +17,6 @@ import {
   login_operation_cb,
   LuabindClass,
   main_menu,
-  SServerFilters,
   ui_events,
 } from "xray16";
 
@@ -49,7 +47,7 @@ const baseOffline: TPath = "menu\\multiplayer\\MultiplayerOffline.component";
 @LuabindClass()
 export class MultiplayerMenu extends CUIScriptWnd {
   public owner: MainMenu;
-  public online: boolean;
+  public isOnlineMode: boolean;
 
   public tab!: CUITabControl;
   public messageBox!: CUIMessageBoxEx;
@@ -62,7 +60,6 @@ export class MultiplayerMenu extends CUIScriptWnd {
   public dialogMultiplayerProfile!: MultiplayerProfile;
   public dialogMultiplayerOptions!: MultiplayerOptions;
 
-  public uiServerList!: CServerList;
   public uiCreateButton!: CUI3tButton;
   public uiPlayDemoButton!: CUI3tButton;
   public uiJoinButton!: CUI3tButton;
@@ -71,7 +68,7 @@ export class MultiplayerMenu extends CUIScriptWnd {
     super();
 
     this.owner = owner;
-    this.online = isOnlineMode;
+    this.isOnlineMode = isOnlineMode;
 
     this.initControls();
     this.initCallBacks();
@@ -82,7 +79,7 @@ export class MultiplayerMenu extends CUIScriptWnd {
   public initControls(): void {
     this.SetWndRect(createRectangle(0, 0, screenConfig.BASE_WIDTH, screenConfig.BASE_HEIGHT));
 
-    const xml: CScriptXmlInit = resolveXmlFile(this.online ? baseOnline : baseOffline);
+    const xml: CScriptXmlInit = resolveXmlFile(this.isOnlineMode ? baseOnline : baseOffline);
 
     xml.InitStatic("background", this);
 
@@ -94,7 +91,7 @@ export class MultiplayerMenu extends CUIScriptWnd {
     workArea.SetAutoDelete(true);
     this.AttachChild(workArea);
 
-    if (this.online) {
+    if (this.isOnlineMode) {
       xml.InitMPPlayerName("edit_player_name", workArea);
       xml.InitStatic("cap_cd_key", workArea);
       this.cdkey = xml.InitCDkey("edit_cd_key", workArea);
@@ -107,11 +104,11 @@ export class MultiplayerMenu extends CUIScriptWnd {
 
     xml.InitStatic("cap_mode", workArea);
 
-    this.dialogMultiplayerJoin = new MultiplayerJoin(this.online);
+    this.dialogMultiplayerJoin = new MultiplayerJoin(this, this.isOnlineMode);
     this.dialogMultiplayerJoin.initialize(0, 0, xml, this);
     workArea.AttachChild(this.dialogMultiplayerJoin);
 
-    this.dialogMultiplayerOptions = new MultiplayerOptions(this.online);
+    this.dialogMultiplayerOptions = new MultiplayerOptions(this.isOnlineMode);
     this.dialogMultiplayerOptions.InitControls(0, 0, xml, this);
     this.dialogMultiplayerOptions.Show(false);
     workArea.AttachChild(this.dialogMultiplayerOptions);
@@ -126,7 +123,7 @@ export class MultiplayerMenu extends CUIScriptWnd {
     this.dialogMultiplayerDemo.Show(false);
     workArea.AttachChild(this.dialogMultiplayerDemo);
 
-    if (this.online) {
+    if (this.isOnlineMode) {
       this.dialogMultiplayerProfile = new MultiplayerProfile(this);
       this.dialogMultiplayerProfile.initControls(0, 0, xml, this);
       this.dialogMultiplayerProfile.Show(false);
@@ -162,13 +159,13 @@ export class MultiplayerMenu extends CUIScriptWnd {
 
     version.TextControl().SetText(string.format(forgeConfig.VERSION, mainMenu.GetGSVer()));
 
-    if (this.online) {
+    if (this.isOnlineMode) {
       this.cdkey.SetText(mainMenu.GetCDKey());
     } else {
       this.playerNameEditBox.SetText(mainMenu.GetPlayerName());
     }
 
-    this.uiServerList.SetConnectionErrCb(
+    this.dialogMultiplayerJoin.uiServerList.SetConnectionErrCb(
       new connect_error_cb(this, (code, description) => this.onConnectError(code, description))
     );
   }
@@ -190,7 +187,7 @@ export class MultiplayerMenu extends CUIScriptWnd {
 
     const mainMenu: CMainMenu = main_menu.get_main_menu();
 
-    if (this.online) {
+    if (this.isOnlineMode) {
       this.cdkey.SetText(mainMenu.GetCDKey());
     } else {
       this.playerNameEditBox.SetText(mainMenu.GetPlayerName());
@@ -201,7 +198,7 @@ export class MultiplayerMenu extends CUIScriptWnd {
     if (level.present()) {
       this.uiCreateButton.Enable(false);
       this.uiJoinButton.Enable(false);
-      this.dialogMultiplayerJoin.uiDirectIPButton.Enable(false);
+      this.dialogMultiplayerJoin.uiJoinDirectIPButton.Enable(false);
       this.tab.Enable(false);
       this.cdkey.Enable(false);
     }
@@ -212,20 +209,7 @@ export class MultiplayerMenu extends CUIScriptWnd {
     this.AddCallback("btn_create", ui_events.BUTTON_CLICKED, () => this.onCreateButtonClicked(), this);
     this.AddCallback("btn_join", ui_events.BUTTON_CLICKED, () => this.onJoinButtonClicked(), this);
 
-    this.AddCallback("check_empty", ui_events.BUTTON_CLICKED, () => this.onFilterChange(), this);
-    this.AddCallback("check_full", ui_events.BUTTON_CLICKED, () => this.onFilterChange(), this);
-    this.AddCallback("check_with_pass", ui_events.BUTTON_CLICKED, () => this.onFilterChange(), this);
-    this.AddCallback("check_without_pass", ui_events.BUTTON_CLICKED, () => this.onFilterChange(), this);
-    this.AddCallback("check_without_ff", ui_events.BUTTON_CLICKED, () => this.onFilterChange(), this);
-    this.AddCallback("check_listen_servers", ui_events.BUTTON_CLICKED, () => this.onFilterChange(), this);
-
-    this.AddCallback("btn_direct_ip", ui_events.BUTTON_CLICKED, () => this.onDirectIPButtonClicked(), this);
-
     this.AddCallback("tab", ui_events.TAB_CHANGED, () => this.onTabChange(), this);
-    // -- ui_mm_mp_join
-    this.AddCallback("btn_refresh", ui_events.BUTTON_CLICKED, () => this.onRefreshButtonClicked(), this);
-    this.AddCallback("btn_quick_refresh", ui_events.BUTTON_CLICKED, () => this.onQuickRefreshButtonClicked(), this);
-    this.AddCallback("btn_server_info", ui_events.BUTTON_CLICKED, () => this.onServerInfoButtonClicked(), this);
 
     // -- msg_box
     this.AddCallback("msg_box", ui_events.MESSAGE_BOX_YES_CLICKED, () => this.onDirectIPConfirmationClicked(), this);
@@ -276,13 +260,8 @@ export class MultiplayerMenu extends CUIScriptWnd {
     this.AddCallback("check_demosave", ui_events.BUTTON_CLICKED, () => this.onDemoSaveChange(), this);
   }
 
-  public onDirectIPButtonClicked(): void {
-    this.messageBox.InitMessageBox("message_box_direct_ip");
-    this.messageBox.ShowDialog(true);
-  }
-
   public onDirectIPConfirmationClicked(): void {
-    logger.info("On direct API confirm");
+    logger.info("On direct API confirmed");
 
     if (string.len(this.messageBox.GetHost()) !== 0) {
       executeConsoleCommand(
@@ -323,28 +302,13 @@ export class MultiplayerMenu extends CUIScriptWnd {
   }
 
   public onChangeNickOperationResult(error: unknown, description: string): void {
-    // -- assert(profile)
-  }
-
-  public onServerInfoButtonClicked(): void {
-    logger.info("Server info");
-
-    this.uiServerList.ShowServerInfo();
+    // Nothing.
   }
 
   public onFilterChange(): void {
-    logger.info("Filter change");
+    logger.info("Filters change");
 
-    const filters: SServerFilters = new SServerFilters();
-
-    filters.empty = this.dialogMultiplayerJoin.uiFilters.btn_check_empty.GetCheck();
-    filters.full = this.dialogMultiplayerJoin.uiFilters.btn_check_full.GetCheck();
-    filters.with_pass = this.dialogMultiplayerJoin.uiFilters.btn_check_with_pass.GetCheck();
-    filters.without_pass = this.dialogMultiplayerJoin.uiFilters.btn_check_without_pass.GetCheck();
-    filters.without_ff = this.dialogMultiplayerJoin.uiFilters.btn_check_without_ff.GetCheck();
-    filters.listen_servers = this.dialogMultiplayerJoin.uiFilters.btn_check_listen_servers.GetCheck();
-
-    this.uiServerList.SetFilters(filters);
+    this.dialogMultiplayerJoin.uiServerList.SetFilters(this.dialogMultiplayerJoin.getFilters());
   }
 
   public onDemoSaveChange(): void {
@@ -356,73 +320,10 @@ export class MultiplayerMenu extends CUIScriptWnd {
     );
   }
 
-  public onTabChange(): void {
-    const id: EMultiplayerMenuTab = this.tab.GetActiveId() as EMultiplayerMenuTab;
-
-    logger.info("Active multiplayer tab changed:", id);
-
-    this.dialogMultiplayerJoin.Show(false);
-    this.dialogMultiplayerOptions.Show(false);
-    this.dialogMultiplayerServer.Show(false);
-    this.dialogMultiplayerDemo.Show(false);
-
-    if (this.online) {
-      this.dialogMultiplayerProfile.Show(false);
-    }
-
-    this.uiJoinButton.Show(false);
-    this.uiCreateButton.Show(false);
-    this.uiPlayDemoButton.Show(false);
-
-    switch (id) {
-      case EMultiplayerMenuTab.CLIENT: {
-        this.dialogMultiplayerJoin.Show(true);
-        this.uiJoinButton.Show(true);
-        break;
-      }
-
-      case EMultiplayerMenuTab.OPTIONS: {
-        this.dialogMultiplayerOptions.Show(true);
-        this.uiCreateButton.Show(true);
-        break;
-      }
-
-      case EMultiplayerMenuTab.SERVER: {
-        this.dialogMultiplayerServer.uiMapList.LoadMapList();
-        this.dialogMultiplayerServer.uiMapList.OnModeChange();
-        this.dialogMultiplayerServer.Show(true);
-        this.uiCreateButton.Show(true);
-        break;
-      }
-
-      case EMultiplayerMenuTab.DEMO: {
-        this.dialogMultiplayerDemo.fillList();
-        this.dialogMultiplayerDemo.Show(true);
-        this.uiPlayDemoButton.Show(true);
-        break;
-      }
-
-      case EMultiplayerMenuTab.PROFILE: {
-        this.dialogMultiplayerProfile.Show(true);
-        this.dialogMultiplayerProfile.uiUniqueNickEditBox.SetText(this.owner.xrGameSpyProfile!.unique_nick());
-        break;
-      }
-    }
-  }
-
   public onRadioNetChanged(): void {
-    this.uiServerList.NetRadioChanged(!this.online);
-    this.uiServerList.RefreshList(!this.online);
+    this.dialogMultiplayerJoin.uiServerList.NetRadioChanged(!this.isOnlineMode);
+    this.dialogMultiplayerJoin.uiServerList.RefreshList(!this.isOnlineMode);
     this.onFilterChange();
-  }
-
-  public onRefreshButtonClicked(): void {
-    this.uiServerList.RefreshList(!this.online);
-    this.onFilterChange();
-  }
-
-  public onQuickRefreshButtonClicked(): void {
-    this.uiServerList.RefreshQuick();
   }
 
   public onCancelButtonClicked(): void {
@@ -435,6 +336,19 @@ export class MultiplayerMenu extends CUIScriptWnd {
     this.HideDialog();
     this.owner.ShowDialog(true);
     this.owner.Show(true);
+  }
+
+  public onJoinButtonClicked(): void {
+    logger.info("Join server from list");
+
+    const optionsManager: COptionsManager = new COptionsManager();
+
+    optionsManager.SaveValues(EOptionGroup.MULTIPLAYER_CLIENT);
+    optionsManager.SaveValues(EOptionGroup.MULTIPLAYER_SERVER);
+    optionsManager.SaveValues(EOptionGroup.MULTIPLAYER_SERVER_FILTER);
+
+    this.dialogMultiplayerJoin.uiServerList.SetPlayerName(this.owner.xrGameSpyProfile!.unique_nick());
+    this.dialogMultiplayerJoin.uiServerList.ConnectToSelected();
   }
 
   public onCreateButtonClicked(): void {
@@ -498,7 +412,7 @@ export class MultiplayerMenu extends CUIScriptWnd {
     }
 
     // -- public server ----------------------------------------------------------------
-    if (this.online === true) {
+    if (this.isOnlineMode === true) {
       commandString = commandString + "/public=1";
     }
 
@@ -733,17 +647,58 @@ export class MultiplayerMenu extends CUIScriptWnd {
     this.messageBox.ShowDialog(true);
   }
 
-  public onJoinButtonClicked(): void {
-    logger.info("Join server from list");
+  public onTabChange(): void {
+    const id: EMultiplayerMenuTab = this.tab.GetActiveId() as EMultiplayerMenuTab;
 
-    const optionsManager: COptionsManager = new COptionsManager();
+    logger.info("Active multiplayer tab changed:", id);
 
-    optionsManager.SaveValues(EOptionGroup.MULTIPLAYER_CLIENT);
-    optionsManager.SaveValues(EOptionGroup.MULTIPLAYER_SERVER);
-    optionsManager.SaveValues(EOptionGroup.MULTIPLAYER_SERVER_FILTER);
+    this.dialogMultiplayerJoin.Show(false);
+    this.dialogMultiplayerOptions.Show(false);
+    this.dialogMultiplayerServer.Show(false);
+    this.dialogMultiplayerDemo.Show(false);
 
-    this.uiServerList.SetPlayerName(this.owner.xrGameSpyProfile!.unique_nick());
-    this.uiServerList.ConnectToSelected();
+    if (this.isOnlineMode) {
+      this.dialogMultiplayerProfile.Show(false);
+    }
+
+    this.uiJoinButton.Show(false);
+    this.uiCreateButton.Show(false);
+    this.uiPlayDemoButton.Show(false);
+
+    switch (id) {
+      case EMultiplayerMenuTab.CLIENT: {
+        this.dialogMultiplayerJoin.Show(true);
+        this.uiJoinButton.Show(true);
+        break;
+      }
+
+      case EMultiplayerMenuTab.OPTIONS: {
+        this.dialogMultiplayerOptions.Show(true);
+        this.uiCreateButton.Show(true);
+        break;
+      }
+
+      case EMultiplayerMenuTab.SERVER: {
+        this.dialogMultiplayerServer.uiMapList.LoadMapList();
+        this.dialogMultiplayerServer.uiMapList.OnModeChange();
+        this.dialogMultiplayerServer.Show(true);
+        this.uiCreateButton.Show(true);
+        break;
+      }
+
+      case EMultiplayerMenuTab.DEMO: {
+        this.dialogMultiplayerDemo.fillList();
+        this.dialogMultiplayerDemo.Show(true);
+        this.uiPlayDemoButton.Show(true);
+        break;
+      }
+
+      case EMultiplayerMenuTab.PROFILE: {
+        this.dialogMultiplayerProfile.Show(true);
+        this.dialogMultiplayerProfile.uiUniqueNickEditBox.SetText(this.owner.xrGameSpyProfile!.unique_nick());
+        break;
+      }
+    }
   }
 
   public override OnKeyboard(key: TKeyCode, action: TUIEvent): boolean {
