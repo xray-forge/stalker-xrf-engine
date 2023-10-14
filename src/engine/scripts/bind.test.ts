@@ -212,28 +212,16 @@ describe("bind entry point", () => {
     callBinding("smartTerrain", thirdSmartTerrain);
     expect(thirdSmartTerrain.bind_object).not.toHaveBeenCalled();
 
-    jest.spyOn(firstSmartTerrain, "spawn_ini").mockImplementation(() => {
-      return mockIniFile("test.ltx", {
-        gulag1: {},
-      });
-    });
     jest.spyOn(secondSmartTerrain, "spawn_ini").mockImplementation(() => {
       return mockIniFile("test.ltx", {
         smart_terrain: {},
       });
     });
 
-    registry.simulator = null as unknown as AlifeSimulator;
-
-    callBinding("smartTerrain", firstSmartTerrain);
-    expect(firstSmartTerrain.bind_object).not.toHaveBeenCalled();
-    callBinding("smartTerrain", secondSmartTerrain);
-    expect(secondSmartTerrain.bind_object).not.toHaveBeenCalled();
-
     registerSimulator();
 
     callBinding("smartTerrain", firstSmartTerrain);
-    expect(firstSmartTerrain.bind_object).toHaveBeenCalled();
+    expect(firstSmartTerrain.bind_object).not.toHaveBeenCalled();
     callBinding("smartTerrain", secondSmartTerrain);
     expect(secondSmartTerrain.bind_object).toHaveBeenCalled();
   });

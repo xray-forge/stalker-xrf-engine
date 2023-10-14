@@ -1,29 +1,20 @@
 export const smartTerrainConfig = {
-  /**
-   * Timeout for smart terrain controlled base (like Yanov).
-   */
+  // Timeout for smart terrain controlled base (like Yanov).
   ALARM_SMART_TERRAIN_BASE: 2 * 60 * 60,
-  /**
-   * Timeout for smart terrain generic alarm.
-   */
+  // Timeout for smart terrain generic alarm.
   ALARM_SMART_TERRAIN_GENERIC: 6 * 60 * 60,
-  /**
-   * Throttle updates on death.
-   */
+  // Throttle updates on death.
   DEATH_IDLE_TIME: 600,
-  /**
-   * Time between respawn attempts for smart terrain.
-   */
+  // Time between respawn attempts for smart terrain.
   RESPAWN_IDLE: 1_000,
-  /**
-   * Restrict spawn of objects in radius.
-   */
+  // Distance to consider smart as visited.
+  VISITED_DISTANCE: 50,
+  VISITED_DISTANCE_SQR: 2_500, // 50 * 50
+  // Restrict spawn of objects in radius.
   RESPAWN_RADIUS_RESTRICTION: 150,
   RESPAWN_RADIUS_RESTRICTION_SQR: 150 * 150,
   DEFAULT_ARRIVAL_DISTANCE: 25,
-  /**
-   * Configuration of possible smart terrain jobs.
-   */
+  // Configuration of possible smart terrain jobs.
   JOBS: {
     MOB_HOME: {
       PRIORITY: 10,

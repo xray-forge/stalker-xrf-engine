@@ -12,6 +12,7 @@ export const mapMarks = {
   alife_presentation_squad_monster_debug: "alife_presentation_squad_monster_debug",
   alife_presentation_squad_neutral: "alife_presentation_squad_neutral",
   alife_presentation_squad_neutral_debug: "alife_presentation_squad_neutral_debug",
+  primary_object: "primary_object",
   treasure: "treasure",
   treasure_epic: "treasure_epic",
   treasure_rare: "treasure_rare",
@@ -23,15 +24,3 @@ export const mapMarks = {
   ui_pda2_scout_location: "ui_pda2_scout_location",
   ui_pda2_trader_location: "ui_pda2_trader_location",
 } as const;
-
-/**
- * Type of map mark with category of object.
- * Example: all the traders/medics/mechanics in game bases.
- */
-export enum EMapMarkType {
-  GUIDER = "guider",
-  MECHANIC = "mechanic",
-  MEDIC = "medic",
-  QUEST_NPC = "quest_npc",
-  TRADER = "trader",
-}

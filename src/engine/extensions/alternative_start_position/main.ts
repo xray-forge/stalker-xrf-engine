@@ -7,7 +7,7 @@ import { TName } from "@/engine/lib/types";
 const logger: LuaLogger = new LuaLogger($filename);
 
 export const name: TName = "Alternative start position";
-export const enabled: boolean = false;
+export const enabled: boolean = true;
 
 export function register(): void {
   logger.info("Alternative start extension register");

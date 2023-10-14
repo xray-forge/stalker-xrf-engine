@@ -22,11 +22,7 @@ import {
   StalkerBinder,
 } from "@/engine/core/objects/binders";
 import { extern } from "@/engine/core/utils/binding";
-import { isGameStarted } from "@/engine/core/utils/game";
-import { LuaLogger } from "@/engine/core/utils/logging";
 import { ClientObject, IniFile, Optional } from "@/engine/lib/types";
-
-const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * Register binders of engine client side objects.
@@ -65,14 +61,8 @@ extern("bind", {
   signalLight: (object: ClientObject) => object.bind_object(new SignalLightBinder(object)),
   smartCover: (object: ClientObject) => object.bind_object(new SmartCoverBinder(object)),
   smartTerrain: (object: ClientObject) => {
-    const ini: Optional<IniFile> = object.spawn_ini();
-
-    if (ini && (ini.section_exist("gulag1") || ini.section_exist("smart_terrain"))) {
-      if (isGameStarted()) {
-        object.bind_object(new SmartTerrainBinder(object));
-      } else {
-        logger.info("No simulation, smart terrain will not be enabled:", object.name());
-      }
+    if (object.spawn_ini()?.section_exist("smart_terrain")) {
+      object.bind_object(new SmartTerrainBinder(object));
     }
   },
   stalker: (object: ClientObject) => object.bind_object(new StalkerBinder(object)),

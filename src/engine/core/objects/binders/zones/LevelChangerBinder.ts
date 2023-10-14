@@ -45,13 +45,13 @@ export class LevelChangerBinder extends object_binder {
     this.object.enable_level_changer(serverObject.isEnabled);
     this.object.set_level_changer_invitation(serverObject.invitationHint);
 
-    logger.info("Net spawned level changer:", this.object.id(), serverObject.isEnabled, serverObject.invitationHint);
+    logger.info("Go online:", this.object.name(), serverObject.isEnabled, serverObject.invitationHint);
 
     return true;
   }
 
   public override net_destroy(): void {
-    logger.info("Net destroy:", this.object.name());
+    logger.info("Go offline:", this.object.name());
     unregisterObject(this.object);
     super.net_destroy();
   }

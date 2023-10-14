@@ -3,6 +3,7 @@ import { game, level, patrol, time_global } from "xray16";
 import { getStoryIdByObjectId, registry } from "@/engine/core/database";
 import { AbstractManager } from "@/engine/core/managers/base/AbstractManager";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
+import { mapDisplayConfig } from "@/engine/core/managers/map/MapDisplayConfig";
 import { ENotificationDirection, NotificationManager } from "@/engine/core/managers/notifications";
 import { TSimulationObject } from "@/engine/core/managers/simulation";
 import { SimulationBoardManager } from "@/engine/core/managers/simulation/SimulationBoardManager";
@@ -16,6 +17,7 @@ import { abort } from "@/engine/core/utils/assertion";
 import { isSmartTerrain, isSquad } from "@/engine/core/utils/class_ids";
 import { getObjectCommunity } from "@/engine/core/utils/community";
 import { createGameAutoSave } from "@/engine/core/utils/game_save";
+import { hasInfoPortion } from "@/engine/core/utils/info_portion";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini";
 import { ELuaLoggerMode, LuaLogger } from "@/engine/core/utils/logging";
 import { getObjectSmartTerrain, getServerDistanceBetween } from "@/engine/core/utils/position";
@@ -267,6 +269,10 @@ export class TravelManager extends AbstractManager {
    */
   public isSmartAvailableToReach(smartName: TName, descriptor: ITravelRouteDescriptor, squad: Squad): boolean {
     if (descriptor.level !== level.name()) {
+      return false;
+    }
+
+    if (mapDisplayConfig.REQUIRE_SMART_TERRAIN_VISIT && !hasInfoPortion(string.format("%s_visited", smartName))) {
       return false;
     }
 

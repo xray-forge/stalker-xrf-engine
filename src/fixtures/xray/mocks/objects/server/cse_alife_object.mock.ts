@@ -87,10 +87,11 @@ export function mockServerAlifeObject({
     clsid,
     m_level_vertex_id,
     m_game_vertex_id,
-    name: name || jest.fn(() => `${sectionOverride}_${id}`),
-    section_name: section_name || jest.fn(() => sectionOverride),
-    position: rest.position || MockVector.mock(0.25, 0.25, 0.25),
+    name: name ?? jest.fn(() => `${sectionOverride}_${id}`),
+    section_name: section_name ?? jest.fn(() => sectionOverride),
+    position: rest.position ?? MockVector.mock(0.25, 0.25, 0.25),
     spawn_ini,
+    update: rest.update ?? jest.fn(),
   } as unknown as ServerObject;
 
   MockAlifeSimulator.addToRegistry(object);
