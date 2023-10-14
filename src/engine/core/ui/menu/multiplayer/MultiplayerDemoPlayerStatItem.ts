@@ -6,8 +6,9 @@ import {
   GetARGB,
   GetFontLetterica16Russian,
   LuabindClass,
-  vector2,
 } from "xray16";
+
+import { create2dVector } from "@/engine/core/utils/vector";
 
 /**
  * todo;
@@ -27,7 +28,7 @@ export class MultiplayerDemoPlayerStatItem extends CUIListBoxItem {
     this.SetTextColor(GetARGB(255, 255, 255, 255));
 
     this.uiName = this.GetTextItem();
-    this.uiName.SetWndSize(new vector2().set(w1, height));
+    this.uiName.SetWndSize(create2dVector(w1, height));
     this.uiName.SetFont(GetFontLetterica16Russian());
     this.uiName.SetEllipsis(true);
 
@@ -50,9 +51,9 @@ export class MultiplayerDemoPlayerStatItem extends CUIListBoxItem {
     this.uiRank = this.AddIconField(w2);
     this.uiRank.SetStretchTexture(true);
 
-    this.uiRank.SetWndSize(new vector2().set(16, 16));
+    this.uiRank.SetWndSize(create2dVector(16, 16));
 
     // -- aligning rank icon to center
-    this.uiRank.SetWndPos(new vector2().set(this.uiRank.GetWndPos().x + (w2 - 16) / 2, 0));
+    this.uiRank.SetWndPos(create2dVector(this.uiRank.GetWndPos().x + (w2 - 16) / 2, 0));
   }
 }

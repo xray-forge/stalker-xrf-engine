@@ -61,9 +61,9 @@ export class MultiplayerDemo extends CUIWindow {
   /**
    * todo: Description.
    */
-  public initControls(x: number, y: number, xml: CScriptXmlInit, handler: MultiplayerMenu): void {
+  public initControls(x: number, y: number, xml: CScriptXmlInit, owner: MultiplayerMenu): void {
     this.SetAutoDelete(true);
-    this.owner = handler;
+    this.owner = owner;
     this.xml = xml;
 
     xml.InitWindow("tab_demo:main", 0, this);
@@ -79,17 +79,17 @@ export class MultiplayerDemo extends CUIWindow {
     this.uiDemoList = xml.InitListBox("tab_demo:list", this);
     this.uiDemoList.ShowSelectedItem(true);
 
-    const ctrl: CUIWindow = new CUIWindow();
+    const window: CUIWindow = new CUIWindow();
 
-    xml.InitWindow("tab_demo:file_item_main", 0, ctrl);
+    xml.InitWindow("tab_demo:file_item_main", 0, window);
 
-    this.fileItemMainSz = new vector2().set(ctrl.GetWidth(), ctrl.GetHeight());
+    this.fileItemMainSz = new vector2().set(window.GetWidth(), window.GetHeight());
 
-    xml.InitWindow("tab_demo:file_item_name", 0, ctrl);
-    this.fileItemFnSz = new vector2().set(ctrl.GetWidth(), ctrl.GetHeight());
+    xml.InitWindow("tab_demo:file_item_name", 0, window);
+    this.fileItemFnSz = new vector2().set(window.GetWidth(), window.GetHeight());
 
-    xml.InitWindow("tab_demo:file_item_date", 0, ctrl);
-    this.fileItemFdSz = new vector2().set(ctrl.GetWidth(), ctrl.GetHeight());
+    xml.InitWindow("tab_demo:file_item_date", 0, window);
+    this.fileItemFdSz = new vector2().set(window.GetWidth(), window.GetHeight());
 
     this.uiMessageBox = new CUIMessageBoxEx();
 
@@ -108,20 +108,20 @@ export class MultiplayerDemo extends CUIWindow {
 
     this.uiPlayersList = xml.InitListBox("tab_demo:players_list", this);
 
-    xml.InitWindow("tab_demo:player_item_main", 0, ctrl);
-    this.playerItemMainSz = new vector2().set(ctrl.GetWidth(), ctrl.GetHeight());
+    xml.InitWindow("tab_demo:player_item_main", 0, window);
+    this.playerItemMainSz = new vector2().set(window.GetWidth(), window.GetHeight());
 
-    xml.InitWindow("tab_demo:player_item_name", 0, ctrl);
-    this.playerItemNameSz = new vector2().set(ctrl.GetWidth(), ctrl.GetHeight());
+    xml.InitWindow("tab_demo:player_item_name", 0, window);
+    this.playerItemNameSz = new vector2().set(window.GetWidth(), window.GetHeight());
 
-    xml.InitWindow("tab_demo:player_item_column", 0, ctrl);
-    this.playerItemColumnSz = new vector2().set(ctrl.GetWidth(), ctrl.GetHeight());
+    xml.InitWindow("tab_demo:player_item_column", 0, window);
+    this.playerItemColumnSz = new vector2().set(window.GetWidth(), window.GetHeight());
 
     // --    handlers
-    handler.Register(this.uiDemoList, "demo_list_window");
-    handler.Register(this.uiMessageBox, "demo_message_box");
-    handler.Register(this.uiFileNameEdit, "demo_file_name");
-    handler.Register(this.uiDemoList, "demo_list_window");
+    owner.Register(this.uiDemoList, "demo_list_window");
+    owner.Register(this.uiMessageBox, "demo_message_box");
+    owner.Register(this.uiFileNameEdit, "demo_file_name");
+    owner.Register(this.uiDemoList, "demo_list_window");
   }
 
   /**
@@ -429,7 +429,6 @@ export class MultiplayerDemo extends CUIWindow {
     this.uiTeamStats.SetText(tmpDemoinfo.get_game_score());
     this.uiFileNameEdit.SetText(fileName);
 
-    // -- calling C++ method
     for (let it = 0; it < playersCount; it + 1) {
       const playerInfo: MultiplayerDemoPlayerInfo = new MultiplayerDemoPlayerInfo();
       const tmpPlayer = tmpDemoinfo.get_player(it);
@@ -442,6 +441,7 @@ export class MultiplayerDemo extends CUIWindow {
       playerInfo.spots = tmpPlayer.get_spots();
       playerInfo.team = tmpPlayer.get_team();
       playerInfo.rank = tmpPlayer.get_rank();
+
       this.addPlayerToStats(playerInfo);
     }
   }

@@ -5,16 +5,9 @@ import {
   CScriptXmlInit,
   CServerList,
   CUI3tButton,
-  CUICheckButton,
-  CUIComboBox,
   CUIEditBox,
-  CUIEditBoxEx,
-  CUIMapList,
   CUIMessageBoxEx,
   CUIScriptWnd,
-  CUISpinFlt,
-  CUISpinNum,
-  CUISpinText,
   CUIStatic,
   CUITabControl,
   CUIWindow,
@@ -39,7 +32,7 @@ import { MultiplayerServer } from "@/engine/core/ui/menu/multiplayer/Multiplayer
 import { EOptionGroup } from "@/engine/core/ui/menu/options/options_types";
 import { executeConsoleCommand } from "@/engine/core/utils/console";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { resolveXmlFormPath } from "@/engine/core/utils/ui";
+import { resolveXmlFile } from "@/engine/core/utils/ui";
 import { forgeConfig } from "@/engine/lib/configs/ForgeConfig";
 import { consoleCommands } from "@/engine/lib/constants/console_commands";
 import { Optional, Profile, TKeyCode, TPath, TUIEvent } from "@/engine/lib/types";
@@ -62,53 +55,12 @@ export class MultiplayerMenu extends CUIScriptWnd {
   public playerNameEditBox!: CUIEditBox;
 
   public dialogMultiplayerJoin!: MultiplayerJoin;
-  public dialogMultiplayerOptions!: MultiplayerOptions;
   public dialogMultiplayerServer!: MultiplayerServer;
   public dialogMultiplayerDemo!: MultiplayerDemo;
   public dialogMultiplayerProfile!: MultiplayerProfile;
+  public dialogMultiplayerOptions!: MultiplayerOptions;
 
   public uiServerList!: CServerList;
-  public uiMapList!: CUIMapList;
-  public uiDirectIPButton!: CUI3tButton;
-  public uiFilters!: Record<string, CUICheckButton>;
-  public uiSpinMaxPing!: CUISpinText;
-  public uiSpinSpectator!: CUISpinNum;
-  public uiCheckDedicated!: CUICheckButton;
-  public uiCheckDemosave!: CUICheckButton;
-  public uiCheckSpectator!: CUICheckButton;
-  public uiCheckSpecFreefly!: CUICheckButton;
-  public uiCheckSpecFirsteye!: CUICheckButton;
-  public uiCheckSpecLookat!: CUICheckButton;
-  public uiCheckSpecFreelook!: CUICheckButton;
-  public uiCheckSpecTeamonly!: CUICheckButton;
-  public uiCheckAllowVoting!: CUICheckButton;
-  public uiCheckAutoTeamBalance!: CUICheckButton;
-  public uiCheckAutoTeamSwap!: CUICheckButton;
-  public uiCheckDamageBlock!: CUICheckButton;
-  public uiCheckFriendlyIndicators!: CUICheckButton;
-  public uiCheckFriendlyNames!: CUICheckButton;
-  public uiCheckNoAnmalies!: CUICheckButton;
-  public uiCheckDdaHunt!: CUICheckButton;
-  public uiCheckActivatedReturn!: CUICheckButton;
-  public uiSpinArtreturnTime!: CUISpinNum;
-  public uiSpinAnomalyTime!: CUISpinNum;
-  public uiSpinWarmUpTime!: CUISpinNum;
-  public uiSpinRateOfChange!: CUISpinFlt;
-  public uiSpinDamageBlock!: CUISpinNum;
-  public uiSpinFragLimit!: CUISpinNum;
-  public uiSpinTimeLimit!: CUISpinNum;
-  public uiSpinFriendlyFire!: CUISpinFlt;
-  public uiSpinForceRespawn!: CUISpinNum;
-  public uiSpinMaxPlayers!: CUISpinNum;
-  public uiSpinArtefactsNum!: CUISpinNum;
-  public uiSpinArtefactDelay!: CUISpinNum;
-  public uiSpinArtefactStay!: CUISpinNum;
-  public uiSpinReinforcement!: CUISpinNum;
-  public uiSpinMode!: CUISpinText;
-  public uiSpinWeather!: CUIComboBox;
-  public uiTabRespawn!: CUITabControl;
-  public uiEditServerName!: CUIEditBoxEx;
-  public uiEditPassword!: CUIEditBox;
   public uiCreateButton!: CUI3tButton;
   public uiPlayDemoButton!: CUI3tButton;
   public uiJoinButton!: CUI3tButton;
@@ -128,13 +80,7 @@ export class MultiplayerMenu extends CUIScriptWnd {
   public initControls(): void {
     this.SetWndRect(new Frect().set(0, 0, 1024, 768));
 
-    const xml: CScriptXmlInit = new CScriptXmlInit();
-
-    if (this.online) {
-      xml.ParseFile(resolveXmlFormPath(baseOnline));
-    } else {
-      xml.ParseFile(resolveXmlFormPath(baseOffline));
-    }
+    const xml: CScriptXmlInit = resolveXmlFile(this.online ? baseOnline : baseOffline);
 
     xml.InitStatic("background", this);
 
@@ -160,7 +106,7 @@ export class MultiplayerMenu extends CUIScriptWnd {
     xml.InitStatic("cap_mode", workArea);
 
     this.dialogMultiplayerJoin = new MultiplayerJoin(this.online);
-    this.dialogMultiplayerJoin.InitControls(0, 0, xml, this);
+    this.dialogMultiplayerJoin.initialize(0, 0, xml, this);
     workArea.AttachChild(this.dialogMultiplayerJoin);
 
     this.dialogMultiplayerOptions = new MultiplayerOptions(this.online);
@@ -221,7 +167,7 @@ export class MultiplayerMenu extends CUIScriptWnd {
     }
 
     this.uiServerList.SetConnectionErrCb(
-      new connect_error_cb(this, (code, description) => this.OnConnectError(code, description))
+      new connect_error_cb(this, (code, description) => this.onConnectError(code, description))
     );
   }
 
@@ -236,20 +182,20 @@ export class MultiplayerMenu extends CUIScriptWnd {
     optionsManager.SaveBackupValues(EOptionGroup.MULTIPLAYER_SERVER);
     optionsManager.SaveBackupValues(EOptionGroup.MULTIPLAYER_SERVER_FILTER);
 
-    this.uiMapList.ClearList();
-    this.uiMapList.OnModeChange();
-    this.dialogMultiplayerOptions.SetGameMode(this.uiMapList.GetCurGameType(), this);
+    this.dialogMultiplayerServer.uiMapList.ClearList();
+    this.dialogMultiplayerServer.uiMapList.OnModeChange();
+    this.dialogMultiplayerOptions.setGameMode(this.dialogMultiplayerServer.uiMapList.GetCurGameType());
 
     if (this.online) {
       this.dialogMultiplayerProfile.updateControls();
     }
 
-    const mm: CMainMenu = main_menu.get_main_menu();
+    const mainMenu: CMainMenu = main_menu.get_main_menu();
 
     if (this.online) {
-      this.cdkey.SetText(mm.GetCDKey());
+      this.cdkey.SetText(mainMenu.GetCDKey());
     } else {
-      this.playerNameEditBox.SetText(mm.GetPlayerName());
+      this.playerNameEditBox.SetText(mainMenu.GetPlayerName());
     }
 
     this.onGameModeChange();
@@ -257,7 +203,7 @@ export class MultiplayerMenu extends CUIScriptWnd {
     if (level.present()) {
       this.uiCreateButton.Enable(false);
       this.uiJoinButton.Enable(false);
-      this.uiDirectIPButton.Enable(false);
+      this.dialogMultiplayerJoin.uiDirectIPButton.Enable(false);
       this.tab.Enable(false);
       this.cdkey.Enable(false);
       // --        this.player_name.Enable    (false)
@@ -276,7 +222,7 @@ export class MultiplayerMenu extends CUIScriptWnd {
     this.AddCallback("check_without_ff", ui_events.BUTTON_CLICKED, () => this.onFilterChange(), this);
     this.AddCallback("check_listen_servers", ui_events.BUTTON_CLICKED, () => this.onFilterChange(), this);
 
-    this.AddCallback("btn_direct_ip", ui_events.BUTTON_CLICKED, () => this.onDirrectIPButtonClicked(), this);
+    this.AddCallback("btn_direct_ip", ui_events.BUTTON_CLICKED, () => this.onDirectIPButtonClicked(), this);
 
     // -- ui_mm_mp_options
     this.AddCallback("spin_game_mode", ui_events.LIST_ITEM_SELECT, () => this.onGameModeChange(), this);
@@ -336,7 +282,7 @@ export class MultiplayerMenu extends CUIScriptWnd {
     this.AddCallback("check_demosave", ui_events.BUTTON_CLICKED, () => this.onDemoSaveChange(), this);
   }
 
-  public onDirrectIPButtonClicked(): void {
+  public onDirectIPButtonClicked(): void {
     logger.info("Button direct IP");
 
     this.messageBox.InitMessageBox("message_box_direct_ip");
@@ -401,29 +347,32 @@ export class MultiplayerMenu extends CUIScriptWnd {
   public onGameModeChange(): void {
     logger.info("Game mode change");
 
-    this.uiMapList.OnModeChange();
-    this.dialogMultiplayerOptions.SetGameMode(this.uiMapList.GetCurGameType(), this);
+    this.dialogMultiplayerServer.uiMapList.OnModeChange();
+    this.dialogMultiplayerOptions.setGameMode(this.dialogMultiplayerServer.uiMapList.GetCurGameType());
   }
 
   public onFilterChange(): void {
     logger.info("Filter change");
 
-    const sf: SServerFilters = new SServerFilters();
+    const filters: SServerFilters = new SServerFilters();
 
-    sf.empty = this.uiFilters.btn_check_empty.GetCheck();
-    sf.full = this.uiFilters.btn_check_full.GetCheck();
-    sf.with_pass = this.uiFilters.btn_check_with_pass.GetCheck();
-    sf.without_pass = this.uiFilters.btn_check_without_pass.GetCheck();
-    sf.without_ff = this.uiFilters.btn_check_without_ff.GetCheck();
-    sf.listen_servers = this.uiFilters.btn_check_listen_servers.GetCheck();
+    filters.empty = this.dialogMultiplayerJoin.uiFilters.btn_check_empty.GetCheck();
+    filters.full = this.dialogMultiplayerJoin.uiFilters.btn_check_full.GetCheck();
+    filters.with_pass = this.dialogMultiplayerJoin.uiFilters.btn_check_with_pass.GetCheck();
+    filters.without_pass = this.dialogMultiplayerJoin.uiFilters.btn_check_without_pass.GetCheck();
+    filters.without_ff = this.dialogMultiplayerJoin.uiFilters.btn_check_without_ff.GetCheck();
+    filters.listen_servers = this.dialogMultiplayerJoin.uiFilters.btn_check_listen_servers.GetCheck();
 
-    this.uiServerList.SetFilters(sf);
+    this.uiServerList.SetFilters(filters);
   }
 
   public onDemoSaveChange(): void {
     logger.info("Demo save change");
 
-    executeConsoleCommand(consoleCommands.cl_mpdemosave, this.uiCheckDemosave.GetCheck() ? 1 : 0);
+    executeConsoleCommand(
+      consoleCommands.cl_mpdemosave,
+      this.dialogMultiplayerOptions.uiCheckDemosave.GetCheck() ? 1 : 0
+    );
   }
 
   public onTabChange(): void {
@@ -451,8 +400,8 @@ export class MultiplayerMenu extends CUIScriptWnd {
       this.dialogMultiplayerOptions.Show(true);
       this.uiCreateButton.Show(true);
     } else if (id === "server") {
-      this.uiMapList.LoadMapList();
-      this.uiMapList.OnModeChange();
+      this.dialogMultiplayerServer.uiMapList.LoadMapList();
+      this.dialogMultiplayerServer.uiMapList.OnModeChange();
       this.dialogMultiplayerServer.Show(true);
       this.uiCreateButton.Show(true);
     } else if (id === "demo") {
@@ -502,7 +451,7 @@ export class MultiplayerMenu extends CUIScriptWnd {
   public onCreateButtonClicked(): void {
     logger.info("Button create");
 
-    if (this.uiMapList.IsEmpty()) {
+    if (this.dialogMultiplayerServer.uiMapList.IsEmpty()) {
       this.messageBox.InitMessageBox("select_map");
       this.messageBox.ShowDialog(true);
 
@@ -521,13 +470,15 @@ export class MultiplayerMenu extends CUIScriptWnd {
     opt.SaveValues("mm_mp_server");
     opt.SaveValues("mm_mp_client");
     opt.SaveValues("mm_mp_srv_filter");
-    this.uiMapList.SaveMapList();
+    this.dialogMultiplayerServer.uiMapList.SaveMapList();
     this.gatherServerData();
-    if (this.uiCheckDedicated.GetCheck()) {
-      this.uiMapList.StartDedicatedServer();
+    if (this.dialogMultiplayerServer.uiCheckDedicated.GetCheck()) {
+      this.dialogMultiplayerServer.uiMapList.StartDedicatedServer();
     } else {
       executeConsoleCommand(consoleCommands.main_menu, "off");
-      executeConsoleCommand(this.uiMapList.GetCommandLine(this.owner.xrGameSpyProfile!.unique_nick()));
+      executeConsoleCommand(
+        this.dialogMultiplayerServer.uiMapList.GetCommandLine(this.owner.xrGameSpyProfile!.unique_nick())
+      );
     }
   }
 
@@ -538,19 +489,19 @@ export class MultiplayerMenu extends CUIScriptWnd {
     let tmpStr: string;
 
     // -- server name ------------------------------------------------------------------
-    tmpStr = this.uiEditServerName.GetText();
+    tmpStr = this.dialogMultiplayerServer.uiEditServerName.GetText();
     if (string.len(tmpStr) > 0) {
       cmdstr = "/hname=" + tmpStr;
     }
 
     // -- password ---------------------------------------------------------------------
-    tmpStr = this.uiEditPassword.GetText();
+    tmpStr = this.dialogMultiplayerServer.uiEditPassword.GetText();
     if (string.len(tmpStr) > 0) {
       cmdstr = cmdstr + "/psw=" + tmpStr;
     }
 
     // -- max players ------------------------------------------------------------------
-    tmpStr = this.uiSpinMaxPlayers.GetText();
+    tmpStr = this.dialogMultiplayerServer.uiSpinMaxPlayers.GetText();
     if (string.len(tmpStr) > 0) {
       cmdstr = cmdstr + "/maxplayers=" + tmpStr;
     }
@@ -560,14 +511,14 @@ export class MultiplayerMenu extends CUIScriptWnd {
       cmdstr = cmdstr + "/public=1";
     }
 
-    tmpStr = this.uiSpinMaxPing.GetText();
+    tmpStr = this.dialogMultiplayerOptions.uiSpinMaxPing.GetText();
     if (string.len(tmpStr) > 0) {
       cmdstr = cmdstr + "/maxping=" + tmpStr;
     }
 
     // -- spectator --------------------------------------------------------------------
-    if (this.uiCheckSpectator.GetCheck()) {
-      tmpStr = this.uiSpinSpectator.GetText();
+    if (this.dialogMultiplayerOptions.uiCheckSpectator.GetCheck()) {
+      tmpStr = this.dialogMultiplayerOptions.uiSpinSpectator.GetText();
       if (string.len(tmpStr) > 0) {
         cmdstr = cmdstr + "/spectr=" + tmpStr;
       }
@@ -576,76 +527,76 @@ export class MultiplayerMenu extends CUIScriptWnd {
     // -- spectator options --
     let tmpNum: number = 0;
 
-    if (this.uiCheckSpecFreefly.GetCheck()) {
+    if (this.dialogMultiplayerOptions.uiCheckSpecFreefly.GetCheck()) {
       tmpNum = tmpNum + 1;
     }
 
-    if (this.uiCheckSpecFirsteye.GetCheck()) {
+    if (this.dialogMultiplayerOptions.uiCheckSpecFirsteye.GetCheck()) {
       tmpNum = tmpNum + 2;
     }
 
-    if (this.uiCheckSpecLookat.GetCheck()) {
+    if (this.dialogMultiplayerOptions.uiCheckSpecLookat.GetCheck()) {
       tmpNum = tmpNum + 4;
     }
 
-    if (this.uiCheckSpecFreelook.GetCheck()) {
+    if (this.dialogMultiplayerOptions.uiCheckSpecFreelook.GetCheck()) {
       tmpNum = tmpNum + 8;
     }
 
-    if (this.uiCheckSpecTeamonly.GetCheck()) {
+    if (this.dialogMultiplayerOptions.uiCheckSpecTeamonly.GetCheck()) {
       tmpNum = tmpNum + 16;
     }
 
     cmdstr = cmdstr + "/spectrmds=" + tmpNum;
 
     // -- allow voting ------------------------------------------------------------------
-    const tmpBool: boolean = this.uiCheckAllowVoting.GetCheck();
+    const tmpBool: boolean = this.dialogMultiplayerOptions.uiCheckAllowVoting.GetCheck();
 
     if (tmpBool === true) {
       cmdstr = cmdstr + "/vote=1";
     }
 
     // -- damage block ------------------------------------------------------------------
-    tmpStr = this.uiSpinDamageBlock.GetText();
+    tmpStr = this.dialogMultiplayerOptions.uiSpinDamageBlock.GetText();
     if (string.len(tmpStr) > 0) {
       cmdstr = cmdstr + "/dmgblock=" + tmpStr;
     }
 
-    if (this.uiCheckDamageBlock.GetCheck()) {
+    if (this.dialogMultiplayerOptions.uiCheckDamageBlock.GetCheck()) {
       cmdstr = cmdstr + "/dmbi=1";
     }
 
     // -- frag limit ---------------------------------------------------------------------
-    tmpStr = this.uiSpinFragLimit.GetText();
+    tmpStr = this.dialogMultiplayerOptions.uiSpinFragLimit.GetText();
     if (string.len(tmpStr) > 0) {
       cmdstr = cmdstr + "/fraglimit=" + tmpStr;
     }
 
     // -- time limit ---------------------------------------------------------------------
-    tmpStr = this.uiSpinTimeLimit.GetText();
+    tmpStr = this.dialogMultiplayerOptions.uiSpinTimeLimit.GetText();
     if (string.len(tmpStr) > 0) {
       cmdstr = cmdstr + "/timelimit=" + tmpStr;
     }
 
     // -- friendly fire ------------------------------------------------------------------
-    tmpStr = this.uiSpinFriendlyFire.GetText();
+    tmpStr = this.dialogMultiplayerOptions.uiSpinFriendlyFire.GetText();
     if (string.len(tmpStr) > 0) {
       cmdstr = cmdstr + "/ffire=" + tmpStr;
     }
 
     // -- auto team balance --------------------------------------------------------------
-    if (this.uiCheckAutoTeamBalance.GetCheck()) {
+    if (this.dialogMultiplayerOptions.uiCheckAutoTeamBalance.GetCheck()) {
       cmdstr = cmdstr + "/abalance=1";
     }
 
     // -- auto team swap --------------------------------------------------------------
-    if (this.uiCheckAutoTeamSwap.GetCheck()) {
+    if (this.dialogMultiplayerOptions.uiCheckAutoTeamSwap.GetCheck()) {
       cmdstr = cmdstr + "/aswap=1";
     }
 
     // -- Force respawn --------------------------------------------------------------
-    if (this.uiTabRespawn.GetActiveId() === "reinforcement") {
-      tmpStr = this.uiSpinForceRespawn.GetText();
+    if (this.dialogMultiplayerOptions.uiTabRespawn.GetActiveId() === "reinforcement") {
+      tmpStr = this.dialogMultiplayerOptions.uiSpinForceRespawn.GetText();
       if (string.len(tmpStr) > 0) {
         cmdstr = cmdstr + "/frcrspwn=" + tmpStr;
       }
@@ -653,30 +604,30 @@ export class MultiplayerMenu extends CUIScriptWnd {
 
     // todo: Unepxeted condition? -- ARTEFACTHUNT only ----------------------------------------------
     if ((GAME_TYPE.GAME_UNKNOWN as number) !== 0) {
-      if (this.uiMapList.GetCurGameType() === GAME_TYPE.eGameIDArtefactHunt) {
+      if (this.dialogMultiplayerServer.uiMapList.GetCurGameType() === GAME_TYPE.eGameIDArtefactHunt) {
         // -- number of artefacts ---------------------------------------------------------
-        tmpStr = this.uiSpinArtefactsNum.GetText();
+        tmpStr = this.dialogMultiplayerOptions.uiSpinArtefactsNum.GetText();
         if (string.len(tmpStr) > 0) {
           cmdstr = cmdstr + "/anum=" + tmpStr;
         }
 
         // -- aretefact delay --------------------------------------------------------------
-        tmpStr = this.uiSpinArtefactDelay.GetText();
+        tmpStr = this.dialogMultiplayerOptions.uiSpinArtefactDelay.GetText();
         if (string.len(tmpStr) > 0) {
           cmdstr = cmdstr + "/ardelta=" + tmpStr;
         }
 
         // -- artefact stay ----------------------------------------------------------------
-        tmpStr = this.uiSpinArtefactStay.GetText();
+        tmpStr = this.dialogMultiplayerOptions.uiSpinArtefactStay.GetText();
         if (string.len(tmpStr) > 0) {
           cmdstr = cmdstr + "/astime=" + tmpStr;
         }
 
-        if (this.uiTabRespawn.GetActiveId() === "artefactcapture") {
+        if (this.dialogMultiplayerOptions.uiTabRespawn.GetActiveId() === "artefactcapture") {
           // -- artefact capture selected
           cmdstr = cmdstr + "/reinf=-1";
         } else {
-          tmpStr = this.uiSpinReinforcement.GetText();
+          tmpStr = this.dialogMultiplayerOptions.uiSpinReinforcement.GetText();
           if (string.len(tmpStr) > 0) {
             cmdstr = cmdstr + "/reinf=" + tmpStr;
           }
@@ -684,52 +635,52 @@ export class MultiplayerMenu extends CUIScriptWnd {
       }
 
       // -- CAPTURETHEARTEFACT only ----------------------------------------------
-      if (this.uiMapList.GetCurGameType() === GAME_TYPE.eGameIDCaptureTheArtefact) {
+      if (this.dialogMultiplayerServer.uiMapList.GetCurGameType() === GAME_TYPE.eGameIDCaptureTheArtefact) {
         // -- number of artefacts ---------------------------------------------------------
-        tmpStr = this.uiSpinArtefactsNum.GetText();
+        tmpStr = this.dialogMultiplayerOptions.uiSpinArtefactsNum.GetText();
         if (string.len(tmpStr) > 0) {
           cmdstr = cmdstr + "/anum=" + tmpStr;
         }
 
-        tmpStr = this.uiSpinReinforcement.GetText();
+        tmpStr = this.dialogMultiplayerOptions.uiSpinReinforcement.GetText();
         if (string.len(tmpStr) > 0) {
           cmdstr = cmdstr + "/reinf=" + tmpStr;
         }
 
-        tmpStr = this.uiSpinArtreturnTime.GetText();
+        tmpStr = this.dialogMultiplayerOptions.uiSpinArtreturnTime.GetText();
         if (string.len(tmpStr) > 0) {
           cmdstr = cmdstr + "/artrettime=" + tmpStr;
         }
 
-        if (this.uiCheckActivatedReturn.GetCheck()) {
+        if (this.dialogMultiplayerOptions.uiCheckActivatedReturn.GetCheck()) {
           cmdstr = cmdstr + "/actret=1";
         }
       }
     } else if ((GAME_TYPE.GAME_UNKNOWN as number) === 0) {
-      if (this.uiMapList.GetCurGameType() === GAME_TYPE.GAME_ARTEFACTHUNT) {
+      if (this.dialogMultiplayerServer.uiMapList.GetCurGameType() === GAME_TYPE.GAME_ARTEFACTHUNT) {
         // -- number of artefacts ---------------------------------------------------------
-        tmpStr = this.uiSpinArtefactsNum.GetText();
+        tmpStr = this.dialogMultiplayerOptions.uiSpinArtefactsNum.GetText();
         if (string.len(tmpStr) > 0) {
           cmdstr = cmdstr + "/anum=" + tmpStr;
         }
 
         // -- aretefact delay --------------------------------------------------------------
-        tmpStr = this.uiSpinArtefactDelay.GetText();
+        tmpStr = this.dialogMultiplayerOptions.uiSpinArtefactDelay.GetText();
         if (string.len(tmpStr) > 0) {
           cmdstr = cmdstr + "/ardelta=" + tmpStr;
         }
 
         // -- artefact stay ----------------------------------------------------------------
-        tmpStr = this.uiSpinArtefactStay.GetText();
+        tmpStr = this.dialogMultiplayerOptions.uiSpinArtefactStay.GetText();
         if (string.len(tmpStr) > 0) {
           cmdstr = cmdstr + "/astime=" + tmpStr;
         }
 
-        if (this.uiTabRespawn.GetActiveId() === "artefactcapture") {
+        if (this.dialogMultiplayerOptions.uiTabRespawn.GetActiveId() === "artefactcapture") {
           // -- artefact capture selected
           cmdstr = cmdstr + "/reinf=-1";
         } else {
-          tmpStr = this.uiSpinReinforcement.GetText();
+          tmpStr = this.dialogMultiplayerOptions.uiSpinReinforcement.GetText();
           if (string.len(tmpStr) > 0) {
             cmdstr = cmdstr + "/reinf=" + tmpStr;
           }
@@ -738,18 +689,18 @@ export class MultiplayerMenu extends CUIScriptWnd {
     }
 
     // -- friendly indicators --------------------------------------------------------------
-    if (this.uiCheckFriendlyIndicators.GetCheck()) {
+    if (this.dialogMultiplayerOptions.uiCheckFriendlyIndicators.GetCheck()) {
       cmdstr = cmdstr + "/fi=1" + tmpStr;
     }
 
     // -- friendly indicators --------------------------------------------------------------
-    if (this.uiCheckFriendlyNames.GetCheck()) {
+    if (this.dialogMultiplayerOptions.uiCheckFriendlyNames.GetCheck()) {
       cmdstr = cmdstr + "/fn=1" + tmpStr;
     }
 
     // -- anomaly time ---------------------------------------------------------------------
-    if (this.uiCheckNoAnmalies.GetCheck() === false) {
-      tmpStr = this.uiSpinAnomalyTime.GetText();
+    if (this.dialogMultiplayerOptions.uiCheckNoAnmalies.GetCheck() === false) {
+      tmpStr = this.dialogMultiplayerOptions.uiSpinAnomalyTime.GetText();
       if (string.len(tmpStr) > 0) {
         cmdstr = cmdstr + "/ans=1/anslen=" + tmpStr;
       }
@@ -758,23 +709,23 @@ export class MultiplayerMenu extends CUIScriptWnd {
     }
 
     // -- pda hunt -------------------------------------------------------------------------
-    if (this.uiCheckDdaHunt.GetCheck()) {
+    if (this.dialogMultiplayerOptions.uiCheckDdaHunt.GetCheck()) {
       cmdstr = cmdstr + "/pdahunt=1";
     }
 
     // -- warm up time ---------------------------------------------------------------------
-    tmpStr = this.uiSpinWarmUpTime.GetText();
+    tmpStr = this.dialogMultiplayerOptions.uiSpinWarmUpTime.GetText();
     if (string.len(tmpStr) > 0) {
       cmdstr = cmdstr + "/warmup=" + tmpStr;
     }
 
     // -- rate of weather change -----------------------------------------------------------
-    tmpStr = this.uiSpinRateOfChange.GetText();
+    tmpStr = this.dialogMultiplayerOptions.uiSpinRateOfChange.GetText();
     if (string.len(tmpStr) > 0) {
       cmdstr = cmdstr + "/etimef=" + tmpStr;
     }
 
-    this.uiMapList.SetServerParams(cmdstr);
+    this.dialogMultiplayerServer.uiMapList.SetServerParams(cmdstr);
   }
 
   public GoToProfileTab(): void {
@@ -782,7 +733,7 @@ export class MultiplayerMenu extends CUIScriptWnd {
     this.tab.SetActiveTab("profile");
   }
 
-  public OnConnectError(code: number, description: string): void {
+  public onConnectError(code: number, description: string): void {
     logger.info("Connection error:", code, description);
 
     this.messageBox.InitMessageBox("message_box_error");

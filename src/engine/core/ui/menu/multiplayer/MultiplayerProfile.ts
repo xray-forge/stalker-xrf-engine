@@ -14,19 +14,18 @@ import {
   profile,
   suggest_nicks_cb,
   ui_events,
-  vector2,
 } from "xray16";
 
 import { MultiplayerMenu } from "@/engine/core/ui/menu/multiplayer/MultiplayerMenu";
 import { abort } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { isWideScreen, resolveXmlFormPath } from "@/engine/core/utils/ui";
+import { isWideScreen, resolveXmlFile } from "@/engine/core/utils/ui";
+import { create2dVector } from "@/engine/core/utils/vector";
 import { Optional, TName, TPath, Vector2D } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
 const base: TPath = "menu\\multiplayer\\MultiplayerAwards.component";
-const awardsXml: CScriptXmlInit = new CScriptXmlInit();
 
 /**
  * todo;
@@ -47,20 +46,16 @@ export class MultiplayerProfile extends CUIWindow {
   public uiComboAvalUniqueNick!: CUIComboBox;
   public uiAwardsList!: CUIScrollView;
 
-  public constructor() {
-    super();
-    awardsXml.ParseFile(resolveXmlFormPath(base));
-  }
-
-  public initControls(x: number, y: number, xml: CScriptXmlInit, handler: MultiplayerMenu): void {
-    this.owner = handler;
+  public initControls(x: number, y: number, xml: CScriptXmlInit, owner: MultiplayerMenu): void {
+    this.owner = owner;
     this.xml = xml;
     this.awards = new LuaTable();
 
     this.SetAutoDelete(true);
-    xml.InitWindow("tab_profile:main", 0, this);
 
+    xml.InitWindow("tab_profile:main", 0, this);
     xml.InitStatic("tab_profile:cap_unique_nick", this);
+
     this.uiEditUniqueNick = xml.InitEditBox("tab_profile:edit_unique_nick", this);
     this.owner.Register(this.uiEditUniqueNick, "edit_unique_nick");
     this.owner.AddCallback("edit_unique_nick", ui_events.EDIT_TEXT_COMMIT, () => this.onEditUniqueNickChanged(), this);
@@ -89,8 +84,6 @@ export class MultiplayerProfile extends CUIWindow {
     xml.InitFrame("tab_profile:awards_list:frame", this.uiAwardsWindow);
 
     this.uiAwardsList = xml.InitScrollView("tab_profile:awards_list:list", this.uiAwardsWindow);
-
-    // -- this.hint_wnd = xml.InitHint("tab_profile:hint_wnd", this)
 
     this.uiBestResultsList = new CUIWindow();
     xml.InitWindow("tab_profile:best_results_list", 0, this.uiBestResultsList);
@@ -123,7 +116,7 @@ export class MultiplayerProfile extends CUIWindow {
     this.uiGsChangeNicMb.InitMessageBox("message_box_ok");
   }
 
-  public InitBestScores(): void {
+  public initializeBestScores(): void {
     logger.info("Init best scores");
 
     if (this.owner.owner.xrProfileStore !== null) {
@@ -224,9 +217,10 @@ export class MultiplayerProfile extends CUIWindow {
     this.uiGsChangeNicMb.ShowDialog(true);
   }
 
-  public fillRewardsTable() {
+  public initializeRewardsTable(): void {
     if (this.owner.owner.xrProfileStore !== null) {
-      const pos: Vector2D = new vector2().set(0, 0);
+      const xml: CScriptXmlInit = resolveXmlFile(base);
+      const position: Vector2D = create2dVector(0, 0);
 
       let field: number = 1;
       let index: number = 1;
@@ -251,11 +245,9 @@ export class MultiplayerProfile extends CUIWindow {
         if (it.second.m_count > 0) {
           awardXmlName = "award_" + it.first + "_active";
           // --                award_xml_name        = "award_0_active"
-          this.awards
-            .get(field)
-            .set(awardName, awardsXml.InitStatic(awardXmlName, this.awards.get(field).get("field")));
+          this.awards.get(field).set(awardName, xml.InitStatic(awardXmlName, this.awards.get(field).get("field")));
 
-          const rewardsCount: CUITextWnd = awardsXml.InitTextWnd(
+          const rewardsCount: CUITextWnd = xml.InitTextWnd(
             awardXmlName + ".cap_count",
             this.awards.get(field).get(awardName)
           );
@@ -264,9 +256,7 @@ export class MultiplayerProfile extends CUIWindow {
         } else {
           awardXmlName = "award_" + it.first + "_inactive";
           // --                award_xml_name        = "award_0_inactive"
-          this.awards
-            .get(field)
-            .set(awardName, awardsXml.InitStatic(awardXmlName, this.awards.get(field).get("field")));
+          this.awards.get(field).set(awardName, xml.InitStatic(awardXmlName, this.awards.get(field).get("field")));
         }
 
         let tmp: number = 0;
@@ -278,12 +268,12 @@ export class MultiplayerProfile extends CUIWindow {
         }
 
         if (k === 0) {
-          pos.x = tmp * (3 - 1);
+          position.x = tmp * (3 - 1);
         } else {
-          pos.x = tmp * (k - 1);
+          position.x = tmp * (k - 1);
         }
 
-        this.awards.get(field).get(awardName).SetWndPos(pos);
+        this.awards.get(field).get(awardName).SetWndPos(position);
         index += 1;
       }
     } else {

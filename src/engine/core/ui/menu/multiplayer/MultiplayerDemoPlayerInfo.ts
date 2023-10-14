@@ -1,7 +1,7 @@
 import { LuabindClass } from "xray16";
 
 /**
- * todo;
+ * UI list item describing recorded player.
  */
 @LuabindClass()
 export class MultiplayerDemoPlayerInfo {

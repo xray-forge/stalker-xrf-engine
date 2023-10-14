@@ -27,7 +27,7 @@ export class MultiplayerDemoLoadItem extends CUIListBoxItemMsgChain {
   public constructor(owner: MultiplayerDemo, height: number, w1: number, w2: number) {
     super(height);
 
-    const handler: MultiplayerMenu = owner.owner;
+    const multiplayerMenu: MultiplayerMenu = owner.owner;
 
     this.filename = "filename";
     this.SetTextColor(GetARGB(255, 255, 255, 255));
@@ -45,7 +45,12 @@ export class MultiplayerDemoLoadItem extends CUIListBoxItemMsgChain {
     // --this.AttachChild                        (del_btn)
     this.uiDeleteButton = owner.xml.Init3tButton("delete_demo_button", this);
 
-    handler.Register(this.uiDeleteButton, "delete_demo_button");
-    handler.AddCallback("delete_demo_button", ui_events.BUTTON_CLICKED, () => owner.deleteSelectedDemo(), owner);
+    multiplayerMenu.Register(this.uiDeleteButton, "delete_demo_button");
+    multiplayerMenu.AddCallback(
+      "delete_demo_button",
+      ui_events.BUTTON_CLICKED,
+      () => owner.deleteSelectedDemo(),
+      owner
+    );
   }
 }

@@ -343,8 +343,8 @@ export class MainMenu extends CUIScriptWnd {
       this.uiMultiplayerMenuDialog.onRadioNetChanged();
 
       if (this.uiMultiplayerMenuDialog.online) {
-        this.uiMultiplayerMenuDialog.dialogMultiplayerProfile.InitBestScores();
-        this.uiMultiplayerMenuDialog.dialogMultiplayerProfile.fillRewardsTable();
+        this.uiMultiplayerMenuDialog.dialogMultiplayerProfile.initializeBestScores();
+        this.uiMultiplayerMenuDialog.dialogMultiplayerProfile.initializeRewardsTable();
       }
     }
 
