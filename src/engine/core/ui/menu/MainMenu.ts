@@ -353,8 +353,6 @@ export class MainMenu extends CUIScriptWnd {
 
     this.HideDialog();
     this.Show(false);
-
-    executeConsoleCommand(consoleCommands.check_for_updates, 0);
   }
 
   /**
@@ -388,8 +386,6 @@ export class MainMenu extends CUIScriptWnd {
 
     this.HideDialog();
     this.Show(false);
-
-    executeConsoleCommand(consoleCommands.check_for_updates, 0);
   }
 
   /**
@@ -406,8 +402,6 @@ export class MainMenu extends CUIScriptWnd {
 
     this.HideDialog();
     this.Show(false);
-
-    executeConsoleCommand(consoleCommands.check_for_updates, 0);
   }
 
   /**

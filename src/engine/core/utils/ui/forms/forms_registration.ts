@@ -58,6 +58,10 @@ export function initializeElement<T extends CUIWindow>(
       element = xml.InitEditBox(selector, base) as unknown as T;
       break;
 
+    case EElementType.SCROLL_VIEW:
+      element = xml.InitScrollView(selector, base) as unknown as T;
+      break;
+
     case EElementType.LABEL:
       element = xml.InitLabel(selector, base) as unknown as T;
       break;

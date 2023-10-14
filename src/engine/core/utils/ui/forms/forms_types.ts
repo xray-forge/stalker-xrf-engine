@@ -19,6 +19,7 @@ export enum EElementType {
   SPIN_NUM,
   MAP_LIST,
   MAP_INFO,
+  SCROLL_VIEW,
   MESSAGE_BOX,
   MESSAGE_BOX_EX,
 }

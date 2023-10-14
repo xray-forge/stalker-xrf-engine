@@ -23,17 +23,11 @@ export class MultiplayerJoin extends CUIWindow {
     this.SetAutoDelete(true);
 
     xml.InitWindow("tab_client:main", 0, this);
-    // --    this.bk = xml.InitFrame    ("frame", this)
-    // --    xml.InitFrameLine        ("tab_client:vert_separator",this)
 
     owner.uiServerList = xml.InitServerList("tab_client:server_list", this);
 
-    // --    xml.InitStatic("tab_client:cap_network_connection", this)
     xml.InitStatic("tab_client:cap_server_list", this);
     xml.InitStatic("tab_client:cap_filters", this);
-
-    // --    xml.InitStatic("tab_client:rust_00",this)
-    // --    xml.InitStatic("tab_client:rust_01",this)
 
     const button = xml.Init3tButton("tab_client:btn_direct_ip", this);
 

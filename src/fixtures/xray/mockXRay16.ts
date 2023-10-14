@@ -107,6 +107,7 @@ import {
   MockTorridZone,
   MockZoneVisual,
 } from "@/fixtures/xray/mocks/objects";
+import { MockCUI3tButton } from "@/fixtures/xray/mocks/objects/ui/CUI3tButton.mock";
 import { MockProfileTimer } from "@/fixtures/xray/mocks/ProfileTimer.mock";
 import { MockPropertyEvaluator } from "@/fixtures/xray/mocks/PropertyEvaluator.mock";
 import { MockVector } from "@/fixtures/xray/mocks/vector.mock";
@@ -123,6 +124,7 @@ export function mockXRay16({
   CScriptXmlInit = MockCScriptXmlInit,
   CSightParams = MockCSightParams,
   CTime = MockCTime,
+  CUI3tButton = MockCUI3tButton,
   CUICheckButton = MockCUICheckButton,
   CUIComboBox = MockCUIComboBox,
   CUIEditBox = MockCUIEditBox,
@@ -241,6 +243,7 @@ export function mockXRay16({
     CScriptXmlInit,
     CSightParams,
     CTime,
+    CUI3tButton,
     CUICheckButton,
     CUIComboBox,
     CUIEditBox,
