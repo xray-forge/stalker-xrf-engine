@@ -4,7 +4,7 @@ import { registry } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { AbstractDebugSection } from "@/engine/core/ui/debug/sections/AbstractDebugSection";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { EElementType, registerUiElement, resolveXmlFile } from "@/engine/core/utils/ui";
+import { EElementType, initializeElement, resolveXmlFile } from "@/engine/core/utils/ui";
 import { NIL } from "@/engine/lib/constants/words";
 import { AlifeSimulator, Optional, TCount, TPath } from "@/engine/lib/types";
 
@@ -27,16 +27,16 @@ export class DebugRegistrySection extends AbstractDebugSection {
   public initializeControls(): void {
     resolveXmlFile(base, this.xml);
 
-    registerUiElement(this.xml, "registry_list_frame", {
+    initializeElement(this.xml, "registry_list_frame", {
       base: this,
       type: EElementType.FRAME,
     });
 
-    this.uiRegistryCountLabel = registerUiElement(this.xml, "registry_filter_count", {
+    this.uiRegistryCountLabel = initializeElement(this.xml, "registry_filter_count", {
       type: EElementType.STATIC,
       base: this,
     });
-    this.uiLogGeneralReportButton = registerUiElement(this.xml, "log_general_report", {
+    this.uiLogGeneralReportButton = initializeElement(this.xml, "log_general_report", {
       type: EElementType.BUTTON,
       base: this,
       context: this.owner,
@@ -45,7 +45,7 @@ export class DebugRegistrySection extends AbstractDebugSection {
       },
     });
 
-    this.uiRegistryFilterOnline = registerUiElement(this.xml, "registry_filter_online", {
+    this.uiRegistryFilterOnline = initializeElement(this.xml, "registry_filter_online", {
       type: EElementType.CHECK_BOX,
       base: this,
       context: this.owner,
@@ -55,7 +55,7 @@ export class DebugRegistrySection extends AbstractDebugSection {
       },
     });
 
-    this.uiRegistryList = registerUiElement(this.xml, "registry_list", {
+    this.uiRegistryList = initializeElement(this.xml, "registry_list", {
       type: EElementType.LIST_BOX,
       base: this,
       context: this.owner,

@@ -462,7 +462,7 @@ export class MultiplayerMenu extends CUIScriptWnd {
     opt.SaveValues("mm_mp_srv_filter");
     this.dialogMultiplayerServer.uiMapList.SaveMapList();
     this.gatherServerData();
-    if (this.dialogMultiplayerServer.uiCheckDedicated.GetCheck()) {
+    if (this.dialogMultiplayerServer.uiDedicatedCheck.GetCheck()) {
       this.dialogMultiplayerServer.uiMapList.StartDedicatedServer();
     } else {
       executeConsoleCommand(consoleCommands.main_menu, "off");
@@ -479,19 +479,19 @@ export class MultiplayerMenu extends CUIScriptWnd {
     let tmpStr: string;
 
     // -- server name ------------------------------------------------------------------
-    tmpStr = this.dialogMultiplayerServer.uiEditServerName.GetText();
+    tmpStr = this.dialogMultiplayerServer.uiServerNameEdit.GetText();
     if (string.len(tmpStr) > 0) {
       cmdstr = "/hname=" + tmpStr;
     }
 
     // -- password ---------------------------------------------------------------------
-    tmpStr = this.dialogMultiplayerServer.uiEditPassword.GetText();
+    tmpStr = this.dialogMultiplayerServer.uiPasswordEdit.GetText();
     if (string.len(tmpStr) > 0) {
       cmdstr = cmdstr + "/psw=" + tmpStr;
     }
 
     // -- max players ------------------------------------------------------------------
-    tmpStr = this.dialogMultiplayerServer.uiSpinMaxPlayers.GetText();
+    tmpStr = this.dialogMultiplayerServer.uiMaxPlayersSpin.GetText();
     if (string.len(tmpStr) > 0) {
       cmdstr = cmdstr + "/maxplayers=" + tmpStr;
     }

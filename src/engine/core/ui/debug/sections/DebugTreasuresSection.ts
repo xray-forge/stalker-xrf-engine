@@ -7,7 +7,7 @@ import { AbstractDebugSection } from "@/engine/core/ui/debug/sections/AbstractDe
 import { isGameStarted } from "@/engine/core/utils/game";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { isGameVertexFromLevel } from "@/engine/core/utils/position";
-import { EElementType, registerStatics, registerUiElement, resolveXmlFile } from "@/engine/core/utils/ui";
+import { EElementType, initializeElement, initializeStatics, resolveXmlFile } from "@/engine/core/utils/ui";
 import { Optional, ServerObject, TCount, TLabel, TNumberId, TPath, TSection, XmlInit } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -40,7 +40,7 @@ export class DebugTreasuresSection extends AbstractDebugSection {
   public override initializeControls(): void {
     const xml: XmlInit = resolveXmlFile(base, this.xml);
 
-    registerStatics(
+    initializeStatics(
       xml,
       this,
       "preview_texture_common",
@@ -49,29 +49,29 @@ export class DebugTreasuresSection extends AbstractDebugSection {
       "preview_texture_unique"
     );
 
-    registerUiElement(xml, "treasures_list_frame", {
+    initializeElement(xml, "treasures_list_frame", {
       base: this,
       type: EElementType.FRAME,
     });
 
-    this.uiTotalTreasuresLabel = registerUiElement(xml, "total_treasures_count_label", {
+    this.uiTotalTreasuresLabel = initializeElement(xml, "total_treasures_count_label", {
       base: this,
       type: EElementType.STATIC,
     });
-    this.uiGivenTreasuresLabel = registerUiElement(xml, "given_treasures_count_label", {
+    this.uiGivenTreasuresLabel = initializeElement(xml, "given_treasures_count_label", {
       base: this,
       type: EElementType.STATIC,
     });
-    this.uiFoundTreasuresLabel = registerUiElement(xml, "found_treasures_count_label", {
+    this.uiFoundTreasuresLabel = initializeElement(xml, "found_treasures_count_label", {
       base: this,
       type: EElementType.STATIC,
     });
-    this.uiTreasureInfoLabel = registerUiElement(xml, "treasure_info_label", {
+    this.uiTreasureInfoLabel = initializeElement(xml, "treasure_info_label", {
       base: this,
       type: EElementType.STATIC,
     });
 
-    this.uiGiveRandomTreasuresButton = registerUiElement(xml, "give_random_treasures_button", {
+    this.uiGiveRandomTreasuresButton = initializeElement(xml, "give_random_treasures_button", {
       type: EElementType.BUTTON,
       base: this,
       context: this.owner,
@@ -79,7 +79,7 @@ export class DebugTreasuresSection extends AbstractDebugSection {
         [ui_events.BUTTON_CLICKED]: () => this.onGiveRandomTreasuresButtonClicked(),
       },
     });
-    this.uiGiveTreasuresButton = registerUiElement(xml, "give_treasures_button", {
+    this.uiGiveTreasuresButton = initializeElement(xml, "give_treasures_button", {
       type: EElementType.BUTTON,
       base: this,
       context: this.owner,
@@ -88,7 +88,7 @@ export class DebugTreasuresSection extends AbstractDebugSection {
       },
     });
 
-    this.uiGiveSpecificTreasureButton = registerUiElement(xml, "give_specific_treasure_button", {
+    this.uiGiveSpecificTreasureButton = initializeElement(xml, "give_specific_treasure_button", {
       type: EElementType.BUTTON,
       base: this,
       context: this.owner,
@@ -97,7 +97,7 @@ export class DebugTreasuresSection extends AbstractDebugSection {
       },
     });
 
-    this.uiTeleportToSpecificTreasureButton = registerUiElement(xml, "teleport_to_specific_treasure_button", {
+    this.uiTeleportToSpecificTreasureButton = initializeElement(xml, "teleport_to_specific_treasure_button", {
       type: EElementType.BUTTON,
       base: this,
       context: this.owner,
@@ -106,7 +106,7 @@ export class DebugTreasuresSection extends AbstractDebugSection {
       },
     });
 
-    this.uiTreasuresList = registerUiElement(xml, "treasures_list", {
+    this.uiTreasuresList = initializeElement(xml, "treasures_list", {
       type: EElementType.LIST_BOX,
       base: this,
       context: this.owner,
@@ -115,7 +115,7 @@ export class DebugTreasuresSection extends AbstractDebugSection {
       },
     });
 
-    this.uiTreasuresListEditBox = registerUiElement(xml, "treasures_filter_box", {
+    this.uiTreasuresListEditBox = initializeElement(xml, "treasures_filter_box", {
       type: EElementType.EDIT_BOX,
       base: this,
       context: this.owner,

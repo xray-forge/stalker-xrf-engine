@@ -57,7 +57,7 @@ export class MultiplayerOptions extends CUIWindow {
   public uiSpinWarmUpTime!: CUISpinNum;
   public uiCheckDdaHunt!: CUICheckButton;
   public uiSpinRateOfChange!: CUISpinFlt;
-  public uiSpinWeather!: CUIComboBox;
+  public uiWeatherComboBox!: CUIComboBox;
 
   public constructor(isOnlineMode: boolean) {
     super();
@@ -139,7 +139,7 @@ export class MultiplayerOptions extends CUIWindow {
 
     this.uiCheckDdaHunt = xml.InitCheck("tab_options:check_pda_hunt", this);
     this.uiSpinRateOfChange = xml.InitSpinFlt("tab_options:spin_rate_of_change", this);
-    this.uiSpinWeather = xml.InitComboBox("tab_options:spin_weather", this);
+    this.uiWeatherComboBox = xml.InitComboBox("tab_options:spin_weather", this);
 
     this.uiCheckSpectator.SetDependControl(this.uiSpinSpectator);
   }

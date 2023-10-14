@@ -1,7 +1,7 @@
 import { describe, expect, it, jest } from "@jest/globals";
 import { CUIScriptWnd, CUIWindow, ui_events } from "xray16";
 
-import { EElementType, registerStatics, registerUiElement } from "@/engine/core/utils/ui/forms";
+import { EElementType, initializeElement, initializeStatics } from "@/engine/core/utils/ui/forms";
 import { XmlInit } from "@/engine/lib/types";
 import { MockCScriptXmlInit, MockCUIScriptWnd, MockCUIWindow } from "@/fixtures/xray";
 
@@ -10,21 +10,21 @@ describe("forms_registration utils", () => {
     const xml: XmlInit = MockCScriptXmlInit.mock();
     const base: CUIWindow = MockCUIWindow.mock();
 
-    registerStatics(xml, base, "test_selector");
+    initializeStatics(xml, base, "test_selector");
     expect(xml.InitStatic).toHaveBeenCalledWith("test_selector", base);
   });
 
-  it("registerUiElement should correctly register elements", () => {
+  it("initElement should correctly register elements", () => {
     const xml: XmlInit = MockCScriptXmlInit.mock();
     const base: CUIWindow = MockCUIWindow.mock();
 
-    registerUiElement(xml, "test_selector", { type: EElementType.BUTTON, base });
+    initializeElement(xml, "test_selector", { type: EElementType.BUTTON, base });
     expect(xml.Init3tButton).toHaveBeenCalledWith("test_selector", base);
 
-    registerUiElement(xml, "test_selector", { type: EElementType.STATIC, base });
+    initializeElement(xml, "test_selector", { type: EElementType.STATIC, base });
     expect(xml.InitStatic).toHaveBeenCalledWith("test_selector", base);
 
-    registerUiElement(xml, "test_selector", { type: EElementType.LIST_BOX, base });
+    initializeElement(xml, "test_selector", { type: EElementType.LIST_BOX, base });
     expect(xml.InitListBox).toHaveBeenCalledWith("test_selector", base);
   });
 
@@ -36,7 +36,7 @@ describe("forms_registration utils", () => {
     const first = jest.fn();
     const second = jest.fn();
 
-    const element = registerUiElement(xml, "edit_box_example", {
+    const element = initializeElement(xml, "edit_box_example", {
       type: EElementType.EDIT_BOX,
       base,
       context,
@@ -70,7 +70,7 @@ describe("forms_registration utils", () => {
     const base: CUIWindow = MockCUIWindow.mock();
     const context: CUIScriptWnd = MockCUIScriptWnd.mock();
 
-    registerUiElement(xml, "check_box_example", {
+    initializeElement(xml, "check_box_example", {
       type: EElementType.CHECK_BOX,
       base,
       context,
@@ -79,7 +79,7 @@ describe("forms_registration utils", () => {
     expect(xml.InitCheck).toHaveBeenCalledWith("check_box_example", base);
     expect(context.Register).not.toHaveBeenCalled();
 
-    registerUiElement(xml, "edit_box_example", {
+    initializeElement(xml, "edit_box_example", {
       type: EElementType.EDIT_BOX,
       base,
       context,
@@ -88,7 +88,7 @@ describe("forms_registration utils", () => {
     expect(xml.InitEditBox).toHaveBeenCalledWith("edit_box_example", base);
     expect(context.Register).not.toHaveBeenCalled();
 
-    registerUiElement(xml, "combo_box_example", {
+    initializeElement(xml, "combo_box_example", {
       type: EElementType.COMBO_BOX,
       base,
       context,
@@ -97,7 +97,7 @@ describe("forms_registration utils", () => {
     expect(xml.InitComboBox).toHaveBeenCalledWith("combo_box_example", base);
     expect(context.Register).not.toHaveBeenCalled();
 
-    registerUiElement(xml, "frame_example", {
+    initializeElement(xml, "frame_example", {
       type: EElementType.FRAME,
       base,
       context,
@@ -106,7 +106,7 @@ describe("forms_registration utils", () => {
     expect(xml.InitFrame).toHaveBeenCalledWith("frame_example", base);
     expect(context.Register).not.toHaveBeenCalled();
 
-    registerUiElement(xml, "label_example", {
+    initializeElement(xml, "label_example", {
       type: EElementType.LABEL,
       base,
       context,
@@ -122,7 +122,7 @@ describe("forms_registration utils", () => {
     const context: CUIScriptWnd = MockCUIScriptWnd.mock();
 
     expect(() => {
-      registerUiElement(xml, "example", {
+      initializeElement(xml, "example", {
         type: "unexpected" as unknown as EElementType,
         base,
         context,

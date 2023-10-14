@@ -4,7 +4,7 @@ import { SYSTEM_INI } from "@/engine/core/database";
 import { ProfilingManager } from "@/engine/core/managers/debug/profiling";
 import { AbstractDebugSection } from "@/engine/core/ui/debug/sections/AbstractDebugSection";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { EElementType, registerUiElement, resolveXmlFile } from "@/engine/core/utils/ui";
+import { EElementType, initializeElement, resolveXmlFile } from "@/engine/core/utils/ui";
 import { forgeConfig } from "@/engine/lib/configs/ForgeConfig";
 import { TPath, XmlInit } from "@/engine/lib/types";
 
@@ -33,20 +33,20 @@ export class DebugGeneralSection extends AbstractDebugSection {
       .TextControl()
       .SetText("Command line args:" + (command_line() || "unknown"));
 
-    this.uiMemoryUsageCountLabel = registerUiElement(xml, "memory_usage_count", {
+    this.uiMemoryUsageCountLabel = initializeElement(xml, "memory_usage_count", {
       type: EElementType.STATIC,
       base: this,
     });
-    this.uiLuaVersionLabel = registerUiElement(xml, "lua_version_label", {
+    this.uiLuaVersionLabel = initializeElement(xml, "lua_version_label", {
       type: EElementType.STATIC,
       base: this,
     });
-    this.uiLuaJitLabel = registerUiElement(xml, "lua_jit_label", {
+    this.uiLuaJitLabel = initializeElement(xml, "lua_jit_label", {
       type: EElementType.STATIC,
       base: this,
     });
 
-    this.uiProfilingToggleButton = registerUiElement(xml, "profiling_toggle_button", {
+    this.uiProfilingToggleButton = initializeElement(xml, "profiling_toggle_button", {
       type: EElementType.BUTTON,
       base: this,
       context: this.owner,
@@ -55,7 +55,7 @@ export class DebugGeneralSection extends AbstractDebugSection {
       },
     });
 
-    this.uiSimulationDebugToggleButton = registerUiElement(xml, "debug_simulation_toggle_button", {
+    this.uiSimulationDebugToggleButton = initializeElement(xml, "debug_simulation_toggle_button", {
       type: EElementType.BUTTON,
       base: this,
       context: this.owner,
@@ -64,7 +64,7 @@ export class DebugGeneralSection extends AbstractDebugSection {
       },
     });
 
-    registerUiElement(xml, "refresh_memory_button", {
+    initializeElement(xml, "refresh_memory_button", {
       type: EElementType.BUTTON,
       base: this,
       context: this.owner,
@@ -73,7 +73,7 @@ export class DebugGeneralSection extends AbstractDebugSection {
       },
     });
 
-    registerUiElement(xml, "collect_memory_button", {
+    initializeElement(xml, "collect_memory_button", {
       type: EElementType.BUTTON,
       base: this,
       context: this.owner,
@@ -82,7 +82,7 @@ export class DebugGeneralSection extends AbstractDebugSection {
       },
     });
 
-    registerUiElement(xml, "dump_system_ini_button", {
+    initializeElement(xml, "dump_system_ini_button", {
       type: EElementType.BUTTON,
       base: this,
       context: this.owner,
@@ -91,7 +91,7 @@ export class DebugGeneralSection extends AbstractDebugSection {
       },
     });
 
-    this.uiProfilingReportButton = registerUiElement(xml, "profiling_log_button", {
+    this.uiProfilingReportButton = initializeElement(xml, "profiling_log_button", {
       base: this,
       type: EElementType.BUTTON,
       context: this.owner,
@@ -100,7 +100,7 @@ export class DebugGeneralSection extends AbstractDebugSection {
       },
     });
 
-    registerUiElement(xml, "portions_log_button", {
+    initializeElement(xml, "portions_log_button", {
       base: this,
       type: EElementType.BUTTON,
       context: this.owner,

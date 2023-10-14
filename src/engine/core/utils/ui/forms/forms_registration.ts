@@ -8,7 +8,7 @@ import { AnyCallable, TStringId, XmlInit } from "@/engine/lib/types";
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * Register UI element and add callback handlers for it.
+ * Initialize UI element and add callback handlers for it.
  * Shorter variant than original API.
  *
  * @param xml - base xml file with form
@@ -16,7 +16,7 @@ const logger: LuaLogger = new LuaLogger($filename);
  * @param descriptor - configuration of element registration (events, naming, base etc)
  * @returns initilized UI element instance
  */
-export function registerUiElement<T extends CUIWindow>(
+export function initializeElement<T extends CUIWindow>(
   xml: XmlInit,
   selector: TStringId,
   descriptor: IUiElementDescriptor
@@ -112,8 +112,8 @@ export function registerUiElement<T extends CUIWindow>(
  * @param base - base element to init new statics relatively from
  * @param selectors - variadic selectors list to initialize
  */
-export function registerStatics(xml: XmlInit, base: CUIWindow, ...selectors: Array<TStringId>): void {
+export function initializeStatics(xml: XmlInit, base: CUIWindow, ...selectors: Array<TStringId>): void {
   for (const selector of selectors) {
-    registerUiElement(xml, selector, { base, type: EElementType.STATIC });
+    initializeElement(xml, selector, { base, type: EElementType.STATIC });
   }
 }

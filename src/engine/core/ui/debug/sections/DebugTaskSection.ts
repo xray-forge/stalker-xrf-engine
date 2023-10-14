@@ -16,7 +16,7 @@ import { AbstractDebugSection } from "@/engine/core/ui/debug/sections/AbstractDe
 import { isGameStarted } from "@/engine/core/utils/game";
 import { parseConditionsList, pickSectionFromCondList, readIniString } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { EElementType, registerUiElement, resolveXmlFile } from "@/engine/core/utils/ui";
+import { EElementType, initializeElement, resolveXmlFile } from "@/engine/core/utils/ui";
 import { Optional, TCount, TLabel, TName, TPath, TStringId } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -38,17 +38,17 @@ export class DebugTaskSection extends AbstractDebugSection {
   public initializeControls(): void {
     resolveXmlFile(base, this.xml);
 
-    registerUiElement(this.xml, "task_list_frame", {
+    initializeElement(this.xml, "task_list_frame", {
       base: this,
       type: EElementType.FRAME,
     });
 
-    this.uiTaskCountLabel = registerUiElement(this.xml, "task_filter_count", {
+    this.uiTaskCountLabel = initializeElement(this.xml, "task_filter_count", {
       type: EElementType.STATIC,
       base: this,
     });
 
-    this.uiGiveTaskButton = registerUiElement(this.xml, "give_task", {
+    this.uiGiveTaskButton = initializeElement(this.xml, "give_task", {
       type: EElementType.BUTTON,
       base: this,
       context: this.owner,
@@ -57,7 +57,7 @@ export class DebugTaskSection extends AbstractDebugSection {
       },
     });
 
-    this.uiTaskFilterActive = registerUiElement(this.xml, "task_filter_active", {
+    this.uiTaskFilterActive = initializeElement(this.xml, "task_filter_active", {
       type: EElementType.CHECK_BOX,
       base: this,
       context: this.owner,
@@ -67,7 +67,7 @@ export class DebugTaskSection extends AbstractDebugSection {
       },
     });
 
-    this.uiTaskList = registerUiElement(this.xml, "task_list", {
+    this.uiTaskList = initializeElement(this.xml, "task_list", {
       type: EElementType.LIST_BOX,
       base: this,
       context: this.owner,
