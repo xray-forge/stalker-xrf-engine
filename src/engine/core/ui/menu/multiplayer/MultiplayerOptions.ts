@@ -11,10 +11,14 @@ import {
   GAME_TYPE,
   LuabindClass,
   TXR_GAME_TYPE,
+  ui_events,
 } from "xray16";
 
 import { MultiplayerMenu } from "@/engine/core/ui/menu/multiplayer/MultiplayerMenu";
+import { executeConsoleCommand } from "@/engine/core/utils/console";
 import { LuaLogger } from "@/engine/core/utils/logging";
+import { EElementType, initializeElement } from "@/engine/core/utils/ui";
+import { consoleCommands } from "@/engine/lib/constants/console_commands";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -117,8 +121,14 @@ export class MultiplayerOptions extends CUIWindow {
     this.uiCheckSpecLookat = xml.InitCheck("tab_options:check_spec_lookat", this);
     this.uiCheckSpecFreelook = xml.InitCheck("tab_options:check_spec_freelook", this);
 
-    this.uiCheckDemosave = xml.InitCheck("tab_options:check_demosave", this);
-    owner.Register(this.uiCheckDemosave, "check_demosave");
+    this.uiCheckDemosave = initializeElement(xml, "tab_options:check_demosave", {
+      type: EElementType.CHECK_BUTTON,
+      base: this,
+      context: owner,
+      handlers: {
+        [ui_events.BUTTON_CLICKED]: () => this.onDemoSaveChange(),
+      },
+    });
 
     this.uiTabRespawn = xml.InitTab("tab_options:radio_tab_respawn_options", this);
     this.uiSpinFriendlyFire = xml.InitSpinFlt("tab_options:spin_friendly_fire", this);
@@ -236,5 +246,11 @@ export class MultiplayerOptions extends CUIWindow {
         this.uiSpinFragLimit.Enable(false);
       }
     }
+  }
+
+  public onDemoSaveChange(): void {
+    logger.info("Demo save change");
+
+    executeConsoleCommand(consoleCommands.cl_mpdemosave, this.uiCheckDemosave.GetCheck() ? 1 : 0);
   }
 }

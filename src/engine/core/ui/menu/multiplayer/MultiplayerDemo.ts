@@ -14,7 +14,7 @@ import {
   getFS,
   LuabindClass,
   main_menu,
-  vector2,
+  ui_events,
 } from "xray16";
 
 import { MultiplayerDemoLoadItem } from "@/engine/core/ui/menu/multiplayer/MultiplayerDemoLoadItem";
@@ -23,6 +23,8 @@ import { MultiplayerDemoPlayerStatItem } from "@/engine/core/ui/menu/multiplayer
 import { MultiplayerMenu } from "@/engine/core/ui/menu/multiplayer/MultiplayerMenu";
 import { executeConsoleCommand } from "@/engine/core/utils/console";
 import { LuaLogger } from "@/engine/core/utils/logging";
+import { EElementType, initializeElement } from "@/engine/core/utils/ui";
+import { create2dVector } from "@/engine/core/utils/vector";
 import { consoleCommands } from "@/engine/lib/constants/console_commands";
 import { roots } from "@/engine/lib/constants/roots";
 import { FSFileListEX, Optional, TCount, TName, Vector2D } from "@/engine/lib/types";
@@ -34,7 +36,7 @@ const logger: LuaLogger = new LuaLogger($filename);
  */
 @LuabindClass()
 export class MultiplayerDemo extends CUIWindow {
-  public owner!: MultiplayerMenu;
+  public owner: MultiplayerMenu;
   public xml!: CScriptXmlInit;
 
   public onYesAction: string = "";
@@ -58,13 +60,16 @@ export class MultiplayerDemo extends CUIWindow {
   public uiMessageBox!: CUIMessageBoxEx;
   public uiPlayersList!: CUIListBox;
 
-  /**
-   * todo: Description.
-   */
-  public initControls(x: number, y: number, xml: CScriptXmlInit, owner: MultiplayerMenu): void {
-    this.SetAutoDelete(true);
+  public constructor(owner: MultiplayerMenu) {
+    super();
+
     this.owner = owner;
+  }
+
+  public initialize(x: number, y: number, xml: CScriptXmlInit, owner: MultiplayerMenu): void {
     this.xml = xml;
+
+    this.SetAutoDelete(true);
 
     xml.InitWindow("tab_demo:main", 0, this);
     xml.InitFrameLine("tab_demo:cap_demo_list", this);
@@ -76,22 +81,38 @@ export class MultiplayerDemo extends CUIWindow {
     this.uiMapInfo = xml.InitMapInfo("tab_demo:cap_map_info", this);
 
     // --  file list
-    this.uiDemoList = xml.InitListBox("tab_demo:list", this);
+    this.uiDemoList = initializeElement(xml, "tab_demo:list", {
+      type: EElementType.LIST_BOX,
+      base: this,
+      context: owner,
+      handlers: {
+        [ui_events.LIST_ITEM_CLICKED]: () => this.selectDemoFile(),
+        [ui_events.WINDOW_LBUTTON_DB_CLICK]: () => this.playSelectedDemo(),
+      },
+    });
     this.uiDemoList.ShowSelectedItem(true);
 
     const window: CUIWindow = new CUIWindow();
 
     xml.InitWindow("tab_demo:file_item_main", 0, window);
 
-    this.fileItemMainSz = new vector2().set(window.GetWidth(), window.GetHeight());
+    this.fileItemMainSz = create2dVector(window.GetWidth(), window.GetHeight());
 
     xml.InitWindow("tab_demo:file_item_name", 0, window);
-    this.fileItemFnSz = new vector2().set(window.GetWidth(), window.GetHeight());
+    this.fileItemFnSz = create2dVector(window.GetWidth(), window.GetHeight());
 
     xml.InitWindow("tab_demo:file_item_date", 0, window);
-    this.fileItemFdSz = new vector2().set(window.GetWidth(), window.GetHeight());
+    this.fileItemFdSz = create2dVector(window.GetWidth(), window.GetHeight());
 
-    this.uiMessageBox = new CUIMessageBoxEx();
+    this.uiMessageBox = initializeElement(xml, "demo_message_box", {
+      type: EElementType.MESSAGE_BOX_EX,
+      base: this,
+      context: owner,
+      handlers: {
+        [ui_events.MESSAGE_BOX_YES_CLICKED]: () => this.onMsgBoxYes(),
+        [ui_events.MESSAGE_BOX_OK_CLICKED]: () => this.onMsgBoxYes(),
+      },
+    });
 
     // --  demo play info
     xml.InitStatic("tab_demo:cap_demo_info_fields", this);
@@ -99,8 +120,14 @@ export class MultiplayerDemo extends CUIWindow {
     this.uiGameType = xml.InitTextWnd("tab_demo:static_demo_info_gametype", this);
     this.uiPlayersCount = xml.InitTextWnd("tab_demo:static_demo_info_players_count", this);
     this.uiTeamStats = xml.InitTextWnd("tab_demo:static_demo_info_teamstats", this);
-
-    this.uiFileNameEdit = xml.InitEditBox("tab_demo:demo_file_name", this);
+    this.uiFileNameEdit = initializeElement(xml, "tab_demo:demo_file_name", {
+      type: EElementType.EDIT_BOX,
+      base: this,
+      context: owner,
+      handlers: {
+        [ui_events.EDIT_TEXT_COMMIT]: () => this.onRenameDemo(),
+      },
+    });
 
     // --    players info
     xml.InitStatic("tab_demo:cap_demo_players_info", this);
@@ -109,19 +136,13 @@ export class MultiplayerDemo extends CUIWindow {
     this.uiPlayersList = xml.InitListBox("tab_demo:players_list", this);
 
     xml.InitWindow("tab_demo:player_item_main", 0, window);
-    this.playerItemMainSz = new vector2().set(window.GetWidth(), window.GetHeight());
+    this.playerItemMainSz = create2dVector(window.GetWidth(), window.GetHeight());
 
     xml.InitWindow("tab_demo:player_item_name", 0, window);
-    this.playerItemNameSz = new vector2().set(window.GetWidth(), window.GetHeight());
+    this.playerItemNameSz = create2dVector(window.GetWidth(), window.GetHeight());
 
     xml.InitWindow("tab_demo:player_item_column", 0, window);
-    this.playerItemColumnSz = new vector2().set(window.GetWidth(), window.GetHeight());
-
-    // --    handlers
-    owner.Register(this.uiDemoList, "demo_list_window");
-    owner.Register(this.uiMessageBox, "demo_message_box");
-    owner.Register(this.uiFileNameEdit, "demo_file_name");
-    owner.Register(this.uiDemoList, "demo_list_window");
+    this.playerItemColumnSz = create2dVector(window.GetWidth(), window.GetHeight());
   }
 
   /**

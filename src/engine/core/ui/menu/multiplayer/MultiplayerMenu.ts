@@ -31,7 +31,7 @@ import { EOptionGroup } from "@/engine/core/ui/menu/options/options_types";
 import { executeConsoleCommand } from "@/engine/core/utils/console";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { createRectangle } from "@/engine/core/utils/rectangle";
-import { resolveXmlFile } from "@/engine/core/utils/ui";
+import { EElementType, initializeElement, initializeStatics, resolveXmlFile } from "@/engine/core/utils/ui";
 import { forgeConfig } from "@/engine/lib/configs/ForgeConfig";
 import { screenConfig } from "@/engine/lib/configs/ScreenConfig";
 import { consoleCommands } from "@/engine/lib/constants/console_commands";
@@ -70,20 +70,16 @@ export class MultiplayerMenu extends CUIScriptWnd {
     this.owner = owner;
     this.isOnlineMode = isOnlineMode;
 
-    this.initControls();
-    this.initCallBacks();
-
-    this.tab.SetActiveTab(EMultiplayerMenuTab.CLIENT);
+    this.initialize();
   }
 
-  public initControls(): void {
+  public initialize(): void {
     this.SetWndRect(createRectangle(0, 0, screenConfig.BASE_WIDTH, screenConfig.BASE_HEIGHT));
+    this.Enable(true);
 
     const xml: CScriptXmlInit = resolveXmlFile(this.isOnlineMode ? baseOnline : baseOffline);
 
     xml.InitStatic("background", this);
-
-    this.Enable(true);
 
     const workArea: CUIWindow = new CUIWindow();
 
@@ -93,13 +89,27 @@ export class MultiplayerMenu extends CUIScriptWnd {
 
     if (this.isOnlineMode) {
       xml.InitMPPlayerName("edit_player_name", workArea);
-      xml.InitStatic("cap_cd_key", workArea);
-      this.cdkey = xml.InitCDkey("edit_cd_key", workArea);
-      this.Register(this.cdkey, "edit_cd_key");
+      initializeStatics(xml, workArea, "cap_cd_key");
+
+      this.cdkey = initializeElement(xml, "edit_cd_key", {
+        type: EElementType.CD_KEY,
+        base: workArea,
+        context: this,
+        handlers: {
+          [ui_events.EDIT_TEXT_COMMIT]: () => this.onCDKeyChanged(),
+        },
+      });
     } else {
-      xml.InitStatic("cap_unique_nick", workArea);
-      this.playerNameEditBox = xml.InitEditBox("edit_player_name", workArea);
-      this.Register(this.playerNameEditBox, "edit_player_name");
+      initializeStatics(xml, workArea, "cap_unique_nick");
+
+      this.playerNameEditBox = initializeElement(xml, "edit_player_name", {
+        type: EElementType.EDIT_BOX,
+        base: workArea,
+        context: this,
+        handlers: {
+          [ui_events.EDIT_TEXT_COMMIT]: () => this.onPlayerNameChanged(),
+        },
+      });
     }
 
     xml.InitStatic("cap_mode", workArea);
@@ -118,8 +128,8 @@ export class MultiplayerMenu extends CUIScriptWnd {
     this.dialogMultiplayerServer.Show(false);
     workArea.AttachChild(this.dialogMultiplayerServer);
 
-    this.dialogMultiplayerDemo = new MultiplayerDemo();
-    this.dialogMultiplayerDemo.initControls(0, 0, xml, this);
+    this.dialogMultiplayerDemo = new MultiplayerDemo(this);
+    this.dialogMultiplayerDemo.initialize(0, 0, xml, this);
     this.dialogMultiplayerDemo.Show(false);
     workArea.AttachChild(this.dialogMultiplayerDemo);
 
@@ -130,29 +140,61 @@ export class MultiplayerMenu extends CUIScriptWnd {
       workArea.AttachChild(this.dialogMultiplayerProfile);
     }
 
-    let button: CUI3tButton = xml.Init3tButton("btn_create", workArea);
+    this.uiCreateButton = initializeElement(xml, "btn_create", {
+      type: EElementType.BUTTON,
+      base: workArea,
+      context: this,
+      handlers: {
+        [ui_events.BUTTON_CLICKED]: () => this.onCreateButtonClicked(),
+      },
+    });
+    this.uiCreateButton.Enable(false);
 
-    this.Register(button, "btn_create");
-    this.uiCreateButton = button;
-    button.Enable(false);
+    this.uiPlayDemoButton = initializeElement(xml, "btn_play_demo", {
+      type: EElementType.BUTTON,
+      base: workArea,
+      context: this,
+      handlers: {
+        [ui_events.BUTTON_CLICKED]: () => this.dialogMultiplayerDemo.playSelectedDemo(),
+      },
+    });
+    this.uiPlayDemoButton.Enable(false);
 
-    button = xml.Init3tButton("btn_play_demo", workArea);
-    this.Register(button, "btn_play_demo");
-    this.uiPlayDemoButton = button;
-    button.Enable(false);
+    this.uiJoinButton = initializeElement(xml, "btn_join", {
+      type: EElementType.BUTTON,
+      base: workArea,
+      context: this,
+      handlers: {
+        [ui_events.BUTTON_CLICKED]: () => this.onJoinButtonClicked(),
+      },
+    });
 
-    button = xml.Init3tButton("btn_join", workArea);
-    this.Register(button, "btn_join");
-    this.uiJoinButton = button;
+    initializeElement(xml, "btn_cancel", {
+      base: workArea,
+      type: EElementType.BUTTON,
+      context: this,
+      handlers: {
+        [ui_events.BUTTON_CLICKED]: () => this.onCancelButtonClicked(),
+      },
+    });
 
-    button = xml.Init3tButton("btn_cancel", workArea);
-    this.Register(button, "btn_cancel");
+    this.tab = initializeElement(xml, "tab", {
+      type: EElementType.TAB,
+      base: workArea,
+      context: this,
+      handlers: {
+        [ui_events.TAB_CHANGED]: () => this.onTabChange(),
+      },
+    });
+    this.tab.SetActiveTab(EMultiplayerMenuTab.CLIENT);
 
-    this.tab = xml.InitTab("tab", workArea);
-    this.Register(this.tab, "tab");
-
-    this.messageBox = new CUIMessageBoxEx();
-    this.Register(this.messageBox, "msg_box");
+    this.messageBox = initializeElement(xml, "msg_box", {
+      type: EElementType.MESSAGE_BOX_EX,
+      base: this,
+      handlers: {
+        [ui_events.MESSAGE_BOX_YES_CLICKED]: () => this.onDirectIPConfirmationClicked(),
+      },
+    });
 
     const version: CUIStatic = xml.InitStatic("static_version", this);
     const mainMenu: CMainMenu = main_menu.get_main_menu();
@@ -204,62 +246,6 @@ export class MultiplayerMenu extends CUIScriptWnd {
     }
   }
 
-  public initCallBacks(): void {
-    this.AddCallback("btn_cancel", ui_events.BUTTON_CLICKED, () => this.onCancelButtonClicked(), this);
-    this.AddCallback("btn_create", ui_events.BUTTON_CLICKED, () => this.onCreateButtonClicked(), this);
-    this.AddCallback("btn_join", ui_events.BUTTON_CLICKED, () => this.onJoinButtonClicked(), this);
-
-    this.AddCallback("tab", ui_events.TAB_CHANGED, () => this.onTabChange(), this);
-
-    // -- msg_box
-    this.AddCallback("msg_box", ui_events.MESSAGE_BOX_YES_CLICKED, () => this.onDirectIPConfirmationClicked(), this);
-
-    this.AddCallback("edit_cd_key", ui_events.EDIT_TEXT_COMMIT, () => this.onCDKeyChanged(), this);
-    this.AddCallback("edit_player_name", ui_events.EDIT_TEXT_COMMIT, () => this.onPlayerNameChanged(), this);
-
-    // -- demo playing
-
-    this.AddCallback(
-      "demo_list_window",
-      ui_events.LIST_ITEM_CLICKED,
-      () => this.dialogMultiplayerDemo.selectDemoFile(),
-      this.dialogMultiplayerDemo
-    );
-    this.AddCallback(
-      "demo_list_window",
-      ui_events.WINDOW_LBUTTON_DB_CLICK,
-      () => this.dialogMultiplayerDemo.playSelectedDemo(),
-      this.dialogMultiplayerDemo
-    );
-
-    this.AddCallback(
-      "btn_play_demo",
-      ui_events.BUTTON_CLICKED,
-      () => this.dialogMultiplayerDemo.playSelectedDemo(),
-      this.dialogMultiplayerDemo
-    );
-    this.AddCallback(
-      "demo_file_name",
-      ui_events.EDIT_TEXT_COMMIT,
-      () => this.dialogMultiplayerDemo.onRenameDemo(),
-      this.dialogMultiplayerDemo
-    );
-    this.AddCallback(
-      "demo_message_box",
-      ui_events.MESSAGE_BOX_YES_CLICKED,
-      () => this.dialogMultiplayerDemo.onMsgBoxYes(),
-      this.dialogMultiplayerDemo
-    );
-    this.AddCallback(
-      "demo_message_box",
-      ui_events.MESSAGE_BOX_OK_CLICKED,
-      () => this.dialogMultiplayerDemo.onMsgBoxYes(),
-      this.dialogMultiplayerDemo
-    );
-
-    this.AddCallback("check_demosave", ui_events.BUTTON_CLICKED, () => this.onDemoSaveChange(), this);
-  }
-
   public onDirectIPConfirmationClicked(): void {
     logger.info("On direct API confirmed");
 
@@ -309,15 +295,6 @@ export class MultiplayerMenu extends CUIScriptWnd {
     logger.info("Filters change");
 
     this.dialogMultiplayerJoin.uiServerList.SetFilters(this.dialogMultiplayerJoin.getFilters());
-  }
-
-  public onDemoSaveChange(): void {
-    logger.info("Demo save change");
-
-    executeConsoleCommand(
-      consoleCommands.cl_mpdemosave,
-      this.dialogMultiplayerOptions.uiCheckDemosave.GetCheck() ? 1 : 0
-    );
   }
 
   public onRadioNetChanged(): void {

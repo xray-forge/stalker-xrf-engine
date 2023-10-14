@@ -20,6 +20,8 @@ export enum EElementType {
   MAP_LIST,
   MAP_INFO,
   SCROLL_VIEW,
+  TAB,
+  CD_KEY,
   MESSAGE_BOX,
   MESSAGE_BOX_EX,
 }

@@ -42,6 +42,14 @@ export function initializeElement<T extends CUIWindow>(
       element = xml.InitComboBox(selector, base) as unknown as T;
       break;
 
+    case EElementType.TAB:
+      element = xml.InitTab(selector, base) as unknown as T;
+      break;
+
+    case EElementType.CD_KEY:
+      element = xml.InitCDkey(selector, base) as unknown as T;
+      break;
+
     case EElementType.FRAME:
       element = xml.InitFrame(selector, base) as unknown as T;
       break;
