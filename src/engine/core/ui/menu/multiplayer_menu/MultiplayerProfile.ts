@@ -71,10 +71,12 @@ export class MultiplayerProfile extends CUIWindow {
     this.uiAwardsWindow.SetAutoDelete(true);
     this.AttachChild(this.uiAwardsWindow);
 
-    this.uiAwardsList = initializeElement(xml, "tab_profile:awards_list:list", {
-      type: EElementType.SCROLL_VIEW,
-      base: this.uiAwardsWindow,
-    });
+    this.uiAwardsList = initializeElement(
+      xml,
+      "tab_profile:awards_list:list",
+      EElementType.SCROLL_VIEW,
+      this.uiAwardsWindow
+    );
 
     this.uiBestResultsWindow = new CUIWindow();
     xml.InitWindow("tab_profile:best_results_list", 0, this.uiBestResultsWindow);
@@ -100,49 +102,50 @@ export class MultiplayerProfile extends CUIWindow {
       "tab_profile:best_results_list:cap_cscore_6"
     );
 
-    this.uiUniqueNickEditBox = initializeElement(xml, "tab_profile:edit_unique_nick", {
-      type: EElementType.EDIT_BOX,
-      base: this,
+    this.uiUniqueNickEditBox = initializeElement(xml, "tab_profile:edit_unique_nick", EElementType.EDIT_BOX, this, {
       context: owner,
       handlers: {
         [ui_events.EDIT_TEXT_COMMIT]: () => this.onEditUniqueNickChanged(),
       },
     });
 
-    this.uiAvailableButton = initializeElement(xml, "tab_profile:button_avaliability", {
-      type: EElementType.BUTTON,
-      base: this,
+    this.uiAvailableButton = initializeElement(xml, "tab_profile:button_avaliability", EElementType.BUTTON, this, {
       context: owner,
       handlers: {
         [ui_events.BUTTON_CLICKED]: () => this.onEditUniqueNickChanged(),
       },
     });
 
-    this.uiAvailableUniqueNickComboBox = initializeElement(xml, "tab_profile:combo_aval_unique_nick", {
-      type: EElementType.COMBO_BOX,
-      base: this,
-      context: owner,
-      handlers: {
-        [ui_events.LIST_ITEM_SELECT]: () => this.onUniqueNickSelect(),
-        [ui_events.WINDOW_LBUTTON_DOWN]: () => this.onUniqueNickSelect(),
-      },
-    });
+    this.uiAvailableUniqueNickComboBox = initializeElement(
+      xml,
+      "tab_profile:combo_aval_unique_nick",
+      EElementType.COMBO_BOX,
+      this,
+      {
+        context: owner,
+        handlers: {
+          [ui_events.LIST_ITEM_SELECT]: () => this.onUniqueNickSelect(),
+          [ui_events.WINDOW_LBUTTON_DOWN]: () => this.onUniqueNickSelect(),
+        },
+      }
+    );
     this.uiAvailableUniqueNickComboBox.Show(false);
 
-    this.uiChangeNickMessageBoxCancel = initializeElement(xml, "gs_change_nick_mb_cancel", {
-      type: EElementType.MESSAGE_BOX_EX,
-      base: this,
-      context: owner,
-      handlers: {
-        [ui_events.BUTTON_CLICKED]: () => this.onCancelChangeUniqueNick(),
-      },
-    });
+    this.uiChangeNickMessageBoxCancel = initializeElement(
+      xml,
+      "gs_change_nick_mb_cancel",
+      EElementType.MESSAGE_BOX_EX,
+      this,
+      {
+        context: owner,
+        handlers: {
+          [ui_events.BUTTON_CLICKED]: () => this.onCancelChangeUniqueNick(),
+        },
+      }
+    );
     this.uiChangeNickMessageBoxCancel.InitMessageBox("message_box_gs_info");
 
-    this.uiChangeNicMessageBox = initializeElement(xml, "gs_change_nick_mb", {
-      type: EElementType.MESSAGE_BOX_EX,
-      base: this,
-    });
+    this.uiChangeNicMessageBox = initializeElement(xml, "gs_change_nick_mb", EElementType.MESSAGE_BOX_EX, this);
     this.uiChangeNicMessageBox.InitMessageBox("message_box_ok");
   }
 

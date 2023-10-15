@@ -27,37 +27,31 @@ export class DebugRegistrySection extends AbstractDebugSection {
   public initializeControls(): void {
     resolveXmlFile(base, this.xml);
 
-    initializeElement(this.xml, "registry_list_frame", {
-      base: this,
-      type: EElementType.FRAME,
-    });
+    initializeElement(this.xml, "registry_list_frame", EElementType.FRAME, this);
 
-    this.uiRegistryCountLabel = initializeElement(this.xml, "registry_filter_count", {
-      type: EElementType.STATIC,
-      base: this,
-    });
-    this.uiLogGeneralReportButton = initializeElement(this.xml, "log_general_report", {
-      type: EElementType.BUTTON,
-      base: this,
+    this.uiRegistryCountLabel = initializeElement(this.xml, "registry_filter_count", EElementType.STATIC, this);
+    this.uiLogGeneralReportButton = initializeElement(this.xml, "log_general_report", EElementType.BUTTON, this, {
       context: this.owner,
       handlers: {
         [ui_events.BUTTON_CLICKED]: () => this.onPrintGeneralReport(),
       },
     });
 
-    this.uiRegistryFilterOnline = initializeElement(this.xml, "registry_filter_online", {
-      type: EElementType.CHECK_BUTTON,
-      base: this,
-      context: this.owner,
-      handlers: {
-        [ui_events.CHECK_BUTTON_RESET]: () => this.onToggleFilterOnline(),
-        [ui_events.CHECK_BUTTON_SET]: () => this.onToggleFilterOnline(),
-      },
-    });
+    this.uiRegistryFilterOnline = initializeElement(
+      this.xml,
+      "registry_filter_online",
+      EElementType.CHECK_BUTTON,
+      this,
+      {
+        context: this.owner,
+        handlers: {
+          [ui_events.CHECK_BUTTON_RESET]: () => this.onToggleFilterOnline(),
+          [ui_events.CHECK_BUTTON_SET]: () => this.onToggleFilterOnline(),
+        },
+      }
+    );
 
-    this.uiRegistryList = initializeElement(this.xml, "registry_list", {
-      type: EElementType.LIST_BOX,
-      base: this,
+    this.uiRegistryList = initializeElement(this.xml, "registry_list", EElementType.LIST_BOX, this, {
       context: this.owner,
       handlers: {
         [ui_events.LIST_ITEM_SELECT]: () => this.onSelectedObjectChange(),

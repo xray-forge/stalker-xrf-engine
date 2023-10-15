@@ -30,8 +30,6 @@ export enum EElementType {
  * Descriptor of UI element for initialization with factory.
  */
 export interface IUiElementDescriptor {
-  type: EElementType;
-  base: CUIWindow;
   context?: CUIWindow;
   handlers?: PartialRecord<TUIEvent, AnyCallable>;
 }

@@ -82,9 +82,7 @@ export class MultiplayerDemo extends CUIWindow {
     this.uiMapInfo = xml.InitMapInfo("tab_demo:cap_map_info", this);
 
     // --  file list
-    this.uiDemoList = initializeElement(xml, "tab_demo:list", {
-      type: EElementType.LIST_BOX,
-      base: this,
+    this.uiDemoList = initializeElement(xml, "tab_demo:list", EElementType.LIST_BOX, this, {
       context: owner,
       handlers: {
         [ui_events.LIST_ITEM_CLICKED]: () => this.selectDemoFile(),
@@ -105,9 +103,7 @@ export class MultiplayerDemo extends CUIWindow {
     xml.InitWindow("tab_demo:file_item_date", 0, window);
     this.fileItemFdSz = create2dVector(window.GetWidth(), window.GetHeight());
 
-    this.uiMessageBox = initializeElement(xml, "demo_message_box", {
-      type: EElementType.MESSAGE_BOX_EX,
-      base: this,
+    this.uiMessageBox = initializeElement(xml, "demo_message_box", EElementType.MESSAGE_BOX_EX, this, {
       context: owner,
       handlers: {
         [ui_events.MESSAGE_BOX_YES_CLICKED]: () => this.onMsgBoxYes(),
@@ -121,9 +117,7 @@ export class MultiplayerDemo extends CUIWindow {
     this.uiGameType = xml.InitTextWnd("tab_demo:static_demo_info_gametype", this);
     this.uiPlayersCount = xml.InitTextWnd("tab_demo:static_demo_info_players_count", this);
     this.uiTeamStats = xml.InitTextWnd("tab_demo:static_demo_info_teamstats", this);
-    this.uiFileNameEdit = initializeElement(xml, "tab_demo:demo_file_name", {
-      type: EElementType.EDIT_BOX,
-      base: this,
+    this.uiFileNameEdit = initializeElement(xml, "tab_demo:demo_file_name", EElementType.EDIT_BOX, this, {
       context: owner,
       handlers: {
         [ui_events.EDIT_TEXT_COMMIT]: () => this.onRenameDemo(),

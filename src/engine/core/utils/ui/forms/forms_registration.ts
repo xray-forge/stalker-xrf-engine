@@ -13,15 +13,19 @@ const logger: LuaLogger = new LuaLogger($filename);
  *
  * @param xml - base xml file with form
  * @param selector - string id of element in base XML for reading
+ * @param type - type of element to initialize
+ * @param base - reference of base element to which element should be initialized
  * @param descriptor - configuration of element registration (events, naming, base etc)
  * @returns initilized UI element instance
  */
 export function initializeElement<T extends CUIWindow>(
   xml: XmlInit,
   selector: TStringId,
-  descriptor: IUiElementDescriptor
+  type: EElementType,
+  base: CUIWindow,
+  descriptor: IUiElementDescriptor = {}
 ): T {
-  const { context, type, handlers, base } = descriptor;
+  const { context, handlers } = descriptor;
   let element: T;
 
   // Handle UI registration and binding.
@@ -126,6 +130,6 @@ export function initializeElement<T extends CUIWindow>(
  */
 export function initializeStatics(xml: XmlInit, base: CUIWindow, ...selectors: Array<TStringId>): void {
   for (const selector of selectors) {
-    initializeElement(xml, selector, { base, type: EElementType.STATIC });
+    initializeElement(xml, selector, EElementType.STATIC, base);
   }
 }

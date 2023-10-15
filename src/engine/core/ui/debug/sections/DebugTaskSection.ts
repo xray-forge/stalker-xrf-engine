@@ -38,28 +38,18 @@ export class DebugTaskSection extends AbstractDebugSection {
   public initializeControls(): void {
     resolveXmlFile(base, this.xml);
 
-    initializeElement(this.xml, "task_list_frame", {
-      base: this,
-      type: EElementType.FRAME,
-    });
+    initializeElement(this.xml, "task_list_frame", EElementType.FRAME, this);
 
-    this.uiTaskCountLabel = initializeElement(this.xml, "task_filter_count", {
-      type: EElementType.STATIC,
-      base: this,
-    });
+    this.uiTaskCountLabel = initializeElement(this.xml, "task_filter_count", EElementType.STATIC, this);
 
-    this.uiGiveTaskButton = initializeElement(this.xml, "give_task", {
-      type: EElementType.BUTTON,
-      base: this,
+    this.uiGiveTaskButton = initializeElement(this.xml, "give_task", EElementType.BUTTON, this, {
       context: this.owner,
       handlers: {
         [ui_events.BUTTON_CLICKED]: () => this.onGiveTask(),
       },
     });
 
-    this.uiTaskFilterActive = initializeElement(this.xml, "task_filter_active", {
-      type: EElementType.CHECK_BUTTON,
-      base: this,
+    this.uiTaskFilterActive = initializeElement(this.xml, "task_filter_active", EElementType.CHECK_BUTTON, this, {
       context: this.owner,
       handlers: {
         [ui_events.CHECK_BUTTON_RESET]: () => this.onToggleFilterActive(),
@@ -67,9 +57,7 @@ export class DebugTaskSection extends AbstractDebugSection {
       },
     });
 
-    this.uiTaskList = initializeElement(this.xml, "task_list", {
-      type: EElementType.LIST_BOX,
-      base: this,
+    this.uiTaskList = initializeElement(this.xml, "task_list", EElementType.LIST_BOX, this, {
       context: this.owner,
       handlers: {
         [ui_events.LIST_ITEM_SELECT]: () => this.onSelectedObjectChange(),

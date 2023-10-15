@@ -65,50 +65,38 @@ export class ExtensionsDialog extends CUIScriptWnd {
     this.SetWndRect(new Frect().set(0, 0, screenConfig.BASE_WIDTH, screenConfig.BASE_HEIGHT));
     this.Enable(true);
 
-    initializeElement(this.xml, "background", { base: this, type: EElementType.STATIC });
-    initializeElement(this.xml, "frame", { base: this, type: EElementType.STATIC });
-    initializeElement(this.xml, "items_list_frame", { base: this, type: EElementType.FRAME });
+    initializeElement(this.xml, "background", EElementType.STATIC, this);
+    initializeElement(this.xml, "frame", EElementType.STATIC, this);
+    initializeElement(this.xml, "items_list_frame", EElementType.FRAME, this);
 
-    initializeElement(this.xml, "accept_button", {
-      base: this,
-      type: EElementType.BUTTON,
+    initializeElement(this.xml, "accept_button", EElementType.BUTTON, this, {
       handlers: {
         [ui_events.BUTTON_CLICKED]: () => this.onAcceptButtonClick(),
       },
     });
-    initializeElement(this.xml, "cancel_button", {
-      base: this,
-      type: EElementType.BUTTON,
+    initializeElement(this.xml, "cancel_button", EElementType.BUTTON, this, {
       handlers: {
         [ui_events.BUTTON_CLICKED]: () => this.onCancelButtonClick(),
       },
     });
 
-    this.uiUpButton = initializeElement(this.xml, "toggle_button", {
-      base: this,
-      type: EElementType.BUTTON,
+    this.uiUpButton = initializeElement(this.xml, "toggle_button", EElementType.BUTTON, this, {
       handlers: {
         [ui_events.BUTTON_CLICKED]: () => this.onToggleButtonClick(),
       },
     });
-    this.uiUpButton = initializeElement(this.xml, "up_button", {
-      base: this,
-      type: EElementType.BUTTON,
+    this.uiUpButton = initializeElement(this.xml, "up_button", EElementType.BUTTON, this, {
       handlers: {
         [ui_events.BUTTON_CLICKED]: () => this.onUpButtonClick(),
       },
     });
-    this.uiDownButton = initializeElement(this.xml, "down_button", {
-      base: this,
-      type: EElementType.BUTTON,
+    this.uiDownButton = initializeElement(this.xml, "down_button", EElementType.BUTTON, this, {
       handlers: {
         [ui_events.BUTTON_CLICKED]: () => this.onDownButtonClick(),
       },
     });
 
-    this.uiItemsList = initializeElement(this.xml, "items_list", {
-      base: this,
-      type: EElementType.LIST_BOX,
+    this.uiItemsList = initializeElement(this.xml, "items_list", EElementType.LIST_BOX, this, {
       handlers: {
         [ui_events.LIST_ITEM_SELECT]: () => this.onActiveExtensionChange(),
       },

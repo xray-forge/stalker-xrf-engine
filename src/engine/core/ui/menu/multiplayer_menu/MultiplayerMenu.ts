@@ -93,9 +93,7 @@ export class MultiplayerMenu extends CUIScriptWnd {
       xml.InitMPPlayerName("edit_player_name", workArea);
       initializeStatics(xml, workArea, "cap_cd_key");
 
-      this.cdkey = initializeElement(xml, "edit_cd_key", {
-        type: EElementType.CD_KEY,
-        base: workArea,
+      this.cdkey = initializeElement(xml, "edit_cd_key", EElementType.CD_KEY, workArea, {
         context: this,
         handlers: {
           [ui_events.EDIT_TEXT_COMMIT]: () => this.onCDKeyChanged(),
@@ -104,9 +102,7 @@ export class MultiplayerMenu extends CUIScriptWnd {
     } else {
       initializeStatics(xml, workArea, "cap_unique_nick");
 
-      this.playerNameEditBox = initializeElement(xml, "edit_player_name", {
-        type: EElementType.EDIT_BOX,
-        base: workArea,
+      this.playerNameEditBox = initializeElement(xml, "edit_player_name", EElementType.EDIT_BOX, workArea, {
         context: this,
         handlers: {
           [ui_events.EDIT_TEXT_COMMIT]: () => this.onPlayerNameChanged(),
@@ -137,9 +133,7 @@ export class MultiplayerMenu extends CUIScriptWnd {
       workArea.AttachChild(this.dialogMultiplayerProfile);
     }
 
-    this.uiCreateButton = initializeElement(xml, "btn_create", {
-      type: EElementType.BUTTON,
-      base: workArea,
+    this.uiCreateButton = initializeElement(xml, "btn_create", EElementType.BUTTON, workArea, {
       context: this,
       handlers: {
         [ui_events.BUTTON_CLICKED]: () => this.onCreateButtonClicked(),
@@ -147,9 +141,7 @@ export class MultiplayerMenu extends CUIScriptWnd {
     });
     this.uiCreateButton.Enable(false);
 
-    this.uiPlayDemoButton = initializeElement(xml, "btn_play_demo", {
-      type: EElementType.BUTTON,
-      base: workArea,
+    this.uiPlayDemoButton = initializeElement(xml, "btn_play_demo", EElementType.BUTTON, workArea, {
       context: this,
       handlers: {
         [ui_events.BUTTON_CLICKED]: () => this.dialogMultiplayerDemo.playSelectedDemo(),
@@ -157,27 +149,21 @@ export class MultiplayerMenu extends CUIScriptWnd {
     });
     this.uiPlayDemoButton.Enable(false);
 
-    this.uiJoinButton = initializeElement(xml, "btn_join", {
-      type: EElementType.BUTTON,
-      base: workArea,
+    this.uiJoinButton = initializeElement(xml, "btn_join", EElementType.BUTTON, workArea, {
       context: this,
       handlers: {
         [ui_events.BUTTON_CLICKED]: () => this.onJoinButtonClicked(),
       },
     });
 
-    initializeElement(xml, "btn_cancel", {
-      base: workArea,
-      type: EElementType.BUTTON,
+    initializeElement(xml, "btn_cancel", EElementType.BUTTON, workArea, {
       context: this,
       handlers: {
         [ui_events.BUTTON_CLICKED]: () => this.onCancelButtonClicked(),
       },
     });
 
-    this.tab = initializeElement(xml, "tab", {
-      type: EElementType.TAB,
-      base: workArea,
+    this.tab = initializeElement(xml, "tab", EElementType.TAB, workArea, {
       context: this,
       handlers: {
         [ui_events.TAB_CHANGED]: () => this.onTabChange(),
@@ -185,9 +171,7 @@ export class MultiplayerMenu extends CUIScriptWnd {
     });
     this.tab.SetActiveTab(EMultiplayerMenuTab.CLIENT);
 
-    this.messageBox = initializeElement(xml, "msg_box", {
-      type: EElementType.MESSAGE_BOX_EX,
-      base: this,
+    this.messageBox = initializeElement(xml, "msg_box", EElementType.MESSAGE_BOX_EX, this, {
       handlers: {
         [ui_events.MESSAGE_BOX_YES_CLICKED]: () => this.onDirectIPConfirmationClicked(),
       },

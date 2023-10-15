@@ -52,27 +52,21 @@ export class MultiplayerLocalnet extends CUIScriptWnd {
     this.SetWndRect(createRectangle(0, 0, screenConfig.BASE_WIDTH, screenConfig.BASE_HEIGHT));
     this.Enable(true);
 
-    initializeElement(xml, "background", { type: EElementType.STATIC, base: this });
+    initializeElement(xml, "background", EElementType.STATIC, this);
 
-    initializeElement(xml, "button_login", {
-      type: EElementType.BUTTON,
-      base: this,
+    initializeElement(xml, "button_login", EElementType.BUTTON, this, {
       handlers: {
         [ui_events.BUTTON_CLICKED]: () => this.onLoginButtonClick(),
       },
     });
 
-    initializeElement(xml, "button_cancel", {
-      type: EElementType.BUTTON,
-      base: this,
+    initializeElement(xml, "button_cancel", EElementType.BUTTON, this, {
       handlers: {
         [ui_events.BUTTON_CLICKED]: () => this.onCancelButtonClick(),
       },
     });
 
-    this.uiGsLoginMessageBox = initializeElement(xml, "gs_message_box", {
-      type: EElementType.MESSAGE_BOX_EX,
-      base: this,
+    this.uiGsLoginMessageBox = initializeElement(xml, "gs_message_box", EElementType.MESSAGE_BOX_EX, this, {
       handlers: {
         [ui_events.MESSAGE_BOX_OK_CLICKED]: () => this.onOkMessageClick(),
       },
@@ -86,27 +80,29 @@ export class MultiplayerLocalnet extends CUIScriptWnd {
     this.uiLoginPage = uiLoginPage;
     this.uiLoginPage.SetAutoDelete(true);
 
-    initializeElement(xml, "login_page:cap_header_login", { type: EElementType.TEXT_WINDOW, base: uiLoginPage });
-    initializeElement(xml, "login_page:cap_nickname", { type: EElementType.TEXT_WINDOW, base: uiLoginPage });
+    initializeElement(xml, "login_page:cap_header_login", EElementType.TEXT_WINDOW, uiLoginPage);
+    initializeElement(xml, "login_page:cap_nickname", EElementType.TEXT_WINDOW, uiLoginPage);
 
-    this.uiNicknameEditBox = initializeElement(xml, "login_page:edit_nickname", {
-      base: uiLoginPage,
+    this.uiNicknameEditBox = initializeElement(xml, "login_page:edit_nickname", EElementType.EDIT_BOX, uiLoginPage, {
       context: this,
-      type: EElementType.EDIT_BOX,
       handlers: {
         [ui_events.EDIT_TEXT_COMMIT]: () => this.onNicknameEditBoxChanged(),
       },
     });
     this.uiNicknameEditBox.CaptureFocus(true);
 
-    this.uiRememberMeCheck = initializeElement(xml, "login_page:check_remember_me", {
-      base: uiLoginPage,
-      context: this,
-      type: EElementType.CHECK_BUTTON,
-      handlers: {
-        [ui_events.BUTTON_CLICKED]: () => this.onRememberMeButtonClick(),
-      },
-    });
+    this.uiRememberMeCheck = initializeElement(
+      xml,
+      "login_page:check_remember_me",
+      EElementType.CHECK_BUTTON,
+      uiLoginPage,
+      {
+        context: this,
+        handlers: {
+          [ui_events.BUTTON_CLICKED]: () => this.onRememberMeButtonClick(),
+        },
+      }
+    );
   }
 
   /**

@@ -18,13 +18,13 @@ describe("forms_registration utils", () => {
     const xml: XmlInit = MockCScriptXmlInit.mock();
     const base: CUIWindow = MockCUIWindow.mock();
 
-    initializeElement(xml, "test_selector", { type: EElementType.BUTTON, base });
+    initializeElement(xml, "test_selector", EElementType.BUTTON, base);
     expect(xml.Init3tButton).toHaveBeenCalledWith("test_selector", base);
 
-    initializeElement(xml, "test_selector", { type: EElementType.STATIC, base });
+    initializeElement(xml, "test_selector", EElementType.STATIC, base);
     expect(xml.InitStatic).toHaveBeenCalledWith("test_selector", base);
 
-    initializeElement(xml, "test_selector", { type: EElementType.LIST_BOX, base });
+    initializeElement(xml, "test_selector", EElementType.LIST_BOX, base);
     expect(xml.InitListBox).toHaveBeenCalledWith("test_selector", base);
   });
 
@@ -36,9 +36,7 @@ describe("forms_registration utils", () => {
     const first = jest.fn();
     const second = jest.fn();
 
-    const element = initializeElement(xml, "edit_box_example", {
-      type: EElementType.EDIT_BOX,
-      base,
+    const element = initializeElement(xml, "edit_box_example", EElementType.EDIT_BOX, base, {
       context,
       handlers: {
         [ui_events.BUTTON_CLICKED]: first,
@@ -70,45 +68,35 @@ describe("forms_registration utils", () => {
     const base: CUIWindow = MockCUIWindow.mock();
     const context: CUIScriptWnd = MockCUIScriptWnd.mock();
 
-    initializeElement(xml, "check_box_example", {
-      type: EElementType.CHECK_BUTTON,
-      base,
+    initializeElement(xml, "check_box_example", EElementType.CHECK_BUTTON, base, {
       context,
     });
 
     expect(xml.InitCheck).toHaveBeenCalledWith("check_box_example", base);
     expect(context.Register).not.toHaveBeenCalled();
 
-    initializeElement(xml, "edit_box_example", {
-      type: EElementType.EDIT_BOX,
-      base,
+    initializeElement(xml, "edit_box_example", EElementType.EDIT_BOX, base, {
       context,
     });
 
     expect(xml.InitEditBox).toHaveBeenCalledWith("edit_box_example", base);
     expect(context.Register).not.toHaveBeenCalled();
 
-    initializeElement(xml, "combo_box_example", {
-      type: EElementType.COMBO_BOX,
-      base,
+    initializeElement(xml, "combo_box_example", EElementType.COMBO_BOX, base, {
       context,
     });
 
     expect(xml.InitComboBox).toHaveBeenCalledWith("combo_box_example", base);
     expect(context.Register).not.toHaveBeenCalled();
 
-    initializeElement(xml, "frame_example", {
-      type: EElementType.FRAME,
-      base,
+    initializeElement(xml, "frame_example", EElementType.FRAME, base, {
       context,
     });
 
     expect(xml.InitFrame).toHaveBeenCalledWith("frame_example", base);
     expect(context.Register).not.toHaveBeenCalled();
 
-    initializeElement(xml, "label_example", {
-      type: EElementType.LABEL,
-      base,
+    initializeElement(xml, "label_example", EElementType.LABEL, base, {
       context,
     });
 
@@ -122,9 +110,7 @@ describe("forms_registration utils", () => {
     const context: CUIScriptWnd = MockCUIScriptWnd.mock();
 
     expect(() => {
-      initializeElement(xml, "example", {
-        type: "unexpected" as unknown as EElementType,
-        base,
+      initializeElement(xml, "example", "unexpected" as unknown as EElementType, base, {
         context,
       });
     }).toThrow();

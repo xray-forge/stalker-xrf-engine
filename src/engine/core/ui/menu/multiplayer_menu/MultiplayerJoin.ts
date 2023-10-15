@@ -49,18 +49,14 @@ export class MultiplayerJoin extends CUIWindow {
 
     this.uiServerList = xml.InitServerList("tab_client:server_list", this);
 
-    this.uiJoinDirectIPButton = initializeElement(xml, "tab_client:btn_direct_ip", {
-      type: EElementType.BUTTON,
-      base: this,
+    this.uiJoinDirectIPButton = initializeElement(xml, "tab_client:btn_direct_ip", EElementType.BUTTON, this, {
       context: owner,
       handlers: {
         [ui_events.BUTTON_CLICKED]: () => this.onDirectIPButtonClicked(),
       },
     });
 
-    this.uiFilterEmptyCheckButton = initializeElement(xml, "tab_client:check_empty", {
-      type: EElementType.CHECK_BUTTON,
-      base: this,
+    this.uiFilterEmptyCheckButton = initializeElement(xml, "tab_client:check_empty", EElementType.CHECK_BUTTON, this, {
       context: owner,
       handlers: {
         [ui_events.BUTTON_CLICKED]: () => this.onFiltersChange(),
@@ -68,9 +64,7 @@ export class MultiplayerJoin extends CUIWindow {
     });
     this.uiFilterEmptyCheckButton.SetCheck(true);
 
-    this.uiFilterFullCheckButton = initializeElement(xml, "tab_client:check_full", {
-      type: EElementType.CHECK_BUTTON,
-      base: this,
+    this.uiFilterFullCheckButton = initializeElement(xml, "tab_client:check_full", EElementType.CHECK_BUTTON, this, {
       context: owner,
       handlers: {
         [ui_events.BUTTON_CLICKED]: () => this.onFiltersChange(),
@@ -78,67 +72,77 @@ export class MultiplayerJoin extends CUIWindow {
     });
     this.uiFilterFullCheckButton.SetCheck(true);
 
-    this.uiFilterWithPasswordCheckButton = initializeElement(xml, "tab_client:check_with_pass", {
-      type: EElementType.CHECK_BUTTON,
-      base: this,
-      context: owner,
-      handlers: {
-        [ui_events.BUTTON_CLICKED]: () => this.onFiltersChange(),
-      },
-    });
+    this.uiFilterWithPasswordCheckButton = initializeElement(
+      xml,
+      "tab_client:check_with_pass",
+      EElementType.CHECK_BUTTON,
+      this,
+      {
+        context: owner,
+        handlers: {
+          [ui_events.BUTTON_CLICKED]: () => this.onFiltersChange(),
+        },
+      }
+    );
     this.uiFilterWithPasswordCheckButton.SetCheck(true);
 
-    this.uiFilterWithoutPasswordCheckButton = initializeElement(xml, "tab_client:check_without_pass", {
-      type: EElementType.CHECK_BUTTON,
-      base: this,
-      context: owner,
-      handlers: {
-        [ui_events.BUTTON_CLICKED]: () => this.onFiltersChange(),
-      },
-    });
+    this.uiFilterWithoutPasswordCheckButton = initializeElement(
+      xml,
+      "tab_client:check_without_pass",
+      EElementType.CHECK_BUTTON,
+      this,
+      {
+        context: owner,
+        handlers: {
+          [ui_events.BUTTON_CLICKED]: () => this.onFiltersChange(),
+        },
+      }
+    );
     this.uiFilterWithoutPasswordCheckButton.SetCheck(true);
 
-    this.uiFilterFFCheckButton = initializeElement(xml, "tab_client:check_without_ff", {
-      type: EElementType.CHECK_BUTTON,
-      base: this,
-      context: owner,
-      handlers: {
-        [ui_events.BUTTON_CLICKED]: () => this.onFiltersChange(),
-      },
-    });
+    this.uiFilterFFCheckButton = initializeElement(
+      xml,
+      "tab_client:check_without_ff",
+      EElementType.CHECK_BUTTON,
+      this,
+      {
+        context: owner,
+        handlers: {
+          [ui_events.BUTTON_CLICKED]: () => this.onFiltersChange(),
+        },
+      }
+    );
     this.uiFilterFFCheckButton.SetCheck(true);
 
-    this.uiFilterListenServersCheckButton = initializeElement(xml, "tab_client:check_listen_servers", {
-      type: EElementType.CHECK_BUTTON,
-      base: this,
-      context: owner,
-      handlers: {
-        [ui_events.BUTTON_CLICKED]: () => this.onFiltersChange(),
-      },
-    });
+    this.uiFilterListenServersCheckButton = initializeElement(
+      xml,
+      "tab_client:check_listen_servers",
+      EElementType.CHECK_BUTTON,
+      this,
+      {
+        context: owner,
+        handlers: {
+          [ui_events.BUTTON_CLICKED]: () => this.onFiltersChange(),
+        },
+      }
+    );
     this.uiFilterListenServersCheckButton.SetCheck(true);
 
-    initializeElement(xml, "tab_client:btn_refresh", {
-      type: EElementType.BUTTON,
-      base: this,
+    initializeElement(xml, "tab_client:btn_refresh", EElementType.BUTTON, this, {
       context: owner,
       handlers: {
         [ui_events.BUTTON_CLICKED]: () => this.onRefreshButtonClicked(),
       },
     });
 
-    initializeElement(xml, "tab_client:btn_quick_refresh", {
-      type: EElementType.BUTTON,
-      base: this,
+    initializeElement(xml, "tab_client:btn_quick_refresh", EElementType.BUTTON, this, {
       context: owner,
       handlers: {
         [ui_events.BUTTON_CLICKED]: () => this.onQuickRefreshButtonClicked(),
       },
     });
 
-    initializeElement(xml, "tab_client:btn_server_info", {
-      type: EElementType.BUTTON,
-      base: this,
+    initializeElement(xml, "tab_client:btn_server_info", EElementType.BUTTON, this, {
       context: owner,
       handlers: {
         [ui_events.BUTTON_CLICKED]: () => this.onServerInfoButtonClicked(),

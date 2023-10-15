@@ -47,101 +47,73 @@ export class NumPadWindow extends CUIScriptWnd {
     this.uiEditBox = xml.InitStatic("edit_box", this);
     this.uiEditBox.SetWindowName(NumPadWindow.__name);
 
-    initializeElement(xml, "btn_0", {
-      base: this,
-      type: EElementType.BUTTON,
+    initializeElement(xml, "btn_0", EElementType.BUTTON, this, {
       handlers: {
         [ui_events.BUTTON_CLICKED]: () => this.addNumber(0),
       },
     });
-    initializeElement(xml, "btn_1", {
-      base: this,
-      type: EElementType.BUTTON,
+    initializeElement(xml, "btn_1", EElementType.BUTTON, this, {
       handlers: {
         [ui_events.BUTTON_CLICKED]: () => this.addNumber(1),
       },
     });
-    initializeElement(xml, "btn_2", {
-      base: this,
-      type: EElementType.BUTTON,
+    initializeElement(xml, "btn_2", EElementType.BUTTON, this, {
       handlers: {
         [ui_events.BUTTON_CLICKED]: () => this.addNumber(2),
       },
     });
-    initializeElement(xml, "btn_3", {
-      base: this,
-      type: EElementType.BUTTON,
+    initializeElement(xml, "btn_3", EElementType.BUTTON, this, {
       handlers: {
         [ui_events.BUTTON_CLICKED]: () => this.addNumber(3),
       },
     });
-    initializeElement(xml, "btn_4", {
-      base: this,
-      type: EElementType.BUTTON,
+    initializeElement(xml, "btn_4", EElementType.BUTTON, this, {
       handlers: {
         [ui_events.BUTTON_CLICKED]: () => this.addNumber(4),
       },
     });
-    initializeElement(xml, "btn_5", {
-      base: this,
-      type: EElementType.BUTTON,
+    initializeElement(xml, "btn_5", EElementType.BUTTON, this, {
       handlers: {
         [ui_events.BUTTON_CLICKED]: () => this.addNumber(5),
       },
     });
-    initializeElement(xml, "btn_6", {
-      base: this,
-      type: EElementType.BUTTON,
+    initializeElement(xml, "btn_6", EElementType.BUTTON, this, {
       handlers: {
         [ui_events.BUTTON_CLICKED]: () => this.addNumber(6),
       },
     });
-    initializeElement(xml, "btn_7", {
-      base: this,
-      type: EElementType.BUTTON,
+    initializeElement(xml, "btn_7", EElementType.BUTTON, this, {
       handlers: {
         [ui_events.BUTTON_CLICKED]: () => this.addNumber(7),
       },
     });
-    initializeElement(xml, "btn_8", {
-      base: this,
-      type: EElementType.BUTTON,
+    initializeElement(xml, "btn_8", EElementType.BUTTON, this, {
       handlers: {
         [ui_events.BUTTON_CLICKED]: () => this.addNumber(8),
       },
     });
-    initializeElement(xml, "btn_9", {
-      base: this,
-      type: EElementType.BUTTON,
+    initializeElement(xml, "btn_9", EElementType.BUTTON, this, {
       handlers: {
         [ui_events.BUTTON_CLICKED]: () => this.addNumber(9),
       },
     });
 
-    initializeElement(xml, "btn_c", {
-      base: this,
-      type: EElementType.BUTTON,
+    initializeElement(xml, "btn_c", EElementType.BUTTON, this, {
       handlers: {
         [ui_events.BUTTON_CLICKED]: () => this.onOkButtonClicked(),
       },
     });
-    initializeElement(xml, "btn_cancel", {
-      base: this,
-      type: EElementType.BUTTON,
+    initializeElement(xml, "btn_cancel", EElementType.BUTTON, this, {
       handlers: {
         [ui_events.BUTTON_CLICKED]: () => this.onCancelButtonClicked(),
       },
     });
-    initializeElement(xml, "btn_enter", {
-      base: this,
-      type: EElementType.BUTTON,
+    initializeElement(xml, "btn_enter", EElementType.BUTTON, this, {
       handlers: {
         [ui_events.BUTTON_CLICKED]: () => this.onOkButtonClicked(),
       },
     });
-    initializeElement(xml, "btn_backspase", {
-      base: this,
-      type: EElementType.BUTTON,
+    initializeElement(xml, "btn_backspase", EElementType.BUTTON, this, {
       handlers: {
         [ui_events.BUTTON_CLICKED]: () => this.onBackspaceButtonClicked(),
       },
