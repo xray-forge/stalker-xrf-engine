@@ -33,7 +33,7 @@ export class MultiplayerOptions extends CUIWindow {
 
   public uiCheckSpectator!: CUICheckButton;
   public uiCheckAllowVoting!: CUICheckButton;
-  public uiSpinMaxPing!: CUISpinText;
+  public uiSpinMaxPing!: CUISpinNum;
   public uiCheckDamageBlock!: CUICheckButton;
   public uiCheckAutoTeamBalance!: CUICheckButton;
   public uiCheckAutoTeamSwap!: CUICheckButton;

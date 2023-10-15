@@ -26,7 +26,7 @@ describe("MultiplayerOptions", () => {
 
     expect(multiplayerServer.uiCheckSpectator).toBeInstanceOf(CUICheckButton);
     expect(multiplayerServer.uiCheckAllowVoting).toBeInstanceOf(CUICheckButton);
-    expect(multiplayerServer.uiSpinMaxPing).toBeInstanceOf(CUISpinText);
+    expect(multiplayerServer.uiSpinMaxPing).toBeInstanceOf(CUISpinNum);
     expect(multiplayerServer.uiCheckDamageBlock).toBeInstanceOf(CUICheckButton);
     expect(multiplayerServer.uiCheckAutoTeamBalance).toBeInstanceOf(CUICheckButton);
     expect(multiplayerServer.uiCheckAutoTeamSwap).toBeInstanceOf(CUICheckButton);

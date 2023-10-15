@@ -1,3 +1,4 @@
+import { jest } from "@jest/globals";
 import { CUICheckButton } from "xray16";
 
 /**
@@ -10,11 +11,11 @@ export class MockCUICheckButton {
 
   public isChecked: boolean = false;
 
-  public SetCheck(isChecked: boolean): void {
+  public SetCheck = jest.fn((isChecked: boolean) => {
     this.isChecked = isChecked;
-  }
+  });
 
-  public GetCheck(): boolean {
-    return this.isChecked;
-  }
+  public GetCheck = jest.fn(() => this.isChecked);
+
+  public SetDependControl = jest.fn();
 }

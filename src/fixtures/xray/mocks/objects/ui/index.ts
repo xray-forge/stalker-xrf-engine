@@ -1,7 +1,9 @@
 export * from "@/fixtures/xray/mocks/objects/ui/CScriptXmlInit.mock";
 export * from "@/fixtures/xray/mocks/objects/ui/CServerList.mock";
+export * from "@/fixtures/xray/mocks/objects/ui/CUI3tButton.mock";
 export * from "@/fixtures/xray/mocks/objects/ui/CUICheckButton.mock";
 export * from "@/fixtures/xray/mocks/objects/ui/CUIComboBox.mock";
+export * from "@/fixtures/xray/mocks/objects/ui/CUICustomSpin.mock";
 export * from "@/fixtures/xray/mocks/objects/ui/CUIDialogWnd.mock";
 export * from "@/fixtures/xray/mocks/objects/ui/CUIEditBox.mock";
 export * from "@/fixtures/xray/mocks/objects/ui/CUIGameCustom.mock";
@@ -15,6 +17,7 @@ export * from "@/fixtures/xray/mocks/objects/ui/CUIMapList.mock";
 export * from "@/fixtures/xray/mocks/objects/ui/CUIMessageBoxEx.mock";
 export * from "@/fixtures/xray/mocks/objects/ui/CUIScriptWnd.mock";
 export * from "@/fixtures/xray/mocks/objects/ui/CUIScrollView.mock";
+export * from "@/fixtures/xray/mocks/objects/ui/CUISpinFlt.mock";
 export * from "@/fixtures/xray/mocks/objects/ui/CUISpinNum.mock";
 export * from "@/fixtures/xray/mocks/objects/ui/CUISpinText.mock";
 export * from "@/fixtures/xray/mocks/objects/ui/CUIStatic.mock";

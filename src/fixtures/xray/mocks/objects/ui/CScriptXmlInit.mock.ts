@@ -10,6 +10,7 @@ import { MockCUIListBox } from "@/fixtures/xray/mocks/objects/ui/CUIListBox.mock
 import { MockCUIMapInfo } from "@/fixtures/xray/mocks/objects/ui/CUIMapInfo.mock";
 import { MockCUIMapList } from "@/fixtures/xray/mocks/objects/ui/CUIMapList.mock";
 import { MockCUIScrollView } from "@/fixtures/xray/mocks/objects/ui/CUIScrollView.mock";
+import { MockCUISpinFlt } from "@/fixtures/xray/mocks/objects/ui/CUISpinFlt.mock";
 import { MockCUISpinNum } from "@/fixtures/xray/mocks/objects/ui/CUISpinNum.mock";
 import { MockCUISpinText } from "@/fixtures/xray/mocks/objects/ui/CUISpinText.mock";
 import { MockCUIStatic } from "@/fixtures/xray/mocks/objects/ui/CUIStatic.mock";
@@ -48,5 +49,6 @@ export class MockCScriptXmlInit {
   public InitProgressBar = jest.fn();
   public InitTextWnd = jest.fn(() => MockCUITextWnd.mock());
   public InitMMShniaga = jest.fn();
+  public InitSpinFlt = jest.fn(() => MockCUISpinFlt.mock());
   public InitServerList = jest.fn(() => MockCServerList.mock());
 }
