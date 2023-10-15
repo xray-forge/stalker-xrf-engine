@@ -90,8 +90,17 @@ export function initializeElement<T extends CUIWindow>(
       element = xml.InitMapInfo(selector, base) as unknown as T;
       break;
 
+    case EElementType.MP_PLAYER_NAME:
+      element = xml.InitMPPlayerName(selector, base) as unknown as T;
+      break;
+
     case EElementType.TEXT_WINDOW:
       element = xml.InitTextWnd(selector, base) as unknown as T;
+      break;
+
+    case EElementType.WINDOW:
+      element = new CUIWindow() as unknown as T;
+      xml.InitWindow(selector, 0, element);
       break;
 
     case EElementType.MESSAGE_BOX:

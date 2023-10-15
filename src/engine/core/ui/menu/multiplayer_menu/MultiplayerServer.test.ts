@@ -19,7 +19,7 @@ describe("MultiplayerServer", () => {
   it("should correctly initialize", () => {
     const owner: MultiplayerMenu = new CUIScriptWnd() as MultiplayerMenu;
 
-    owner.dialogMultiplayerOptions = {
+    owner.uiDialogMultiplayerOptions = {
       uiSpinWeather: {},
     } as unknown as MultiplayerOptions;
 
@@ -35,7 +35,7 @@ describe("MultiplayerServer", () => {
 
     expect(multiplayerServer.SetAutoDelete).toHaveBeenCalledWith(true);
     expect(multiplayerServer.uiMapList.SetWeatherSelector).toHaveBeenCalledWith(
-      owner.dialogMultiplayerOptions.uiWeatherComboBox
+      owner.uiDialogMultiplayerOptions.uiWeatherComboBox
     );
     expect(multiplayerServer.uiMapList.SetModeSelector).toHaveBeenCalledWith(multiplayerServer.uiModeComboBox);
     expect(multiplayerServer.uiMapList.SetMapPic).toHaveBeenCalledWith(expect.any(CUIStatic));
@@ -45,7 +45,7 @@ describe("MultiplayerServer", () => {
   it("should correctly handle game mode change", () => {
     const owner: MultiplayerMenu = new CUIScriptWnd() as MultiplayerMenu;
 
-    owner.dialogMultiplayerOptions = {
+    owner.uiDialogMultiplayerOptions = {
       uiSpinWeather: {},
       setGameMode: jest.fn(),
     } as unknown as MultiplayerOptions;
@@ -55,6 +55,6 @@ describe("MultiplayerServer", () => {
     multiplayerServer.onGameModeChange();
 
     expect(multiplayerServer.uiMapList.OnModeChange).toHaveBeenCalledTimes(1);
-    expect(owner.dialogMultiplayerOptions.setGameMode).toHaveBeenCalledTimes(1);
+    expect(owner.uiDialogMultiplayerOptions.setGameMode).toHaveBeenCalledTimes(1);
   });
 });

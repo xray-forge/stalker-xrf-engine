@@ -17,7 +17,7 @@ import {
 import { MultiplayerMenu } from "@/engine/core/ui/menu/multiplayer_menu/MultiplayerMenu";
 import { executeConsoleCommand } from "@/engine/core/utils/console";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { EElementType, initializeElement } from "@/engine/core/utils/ui";
+import { EElementType, initializeElement, initializeStatics } from "@/engine/core/utils/ui";
 import { consoleCommands } from "@/engine/lib/constants/console_commands";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -90,23 +90,22 @@ export class MultiplayerOptions extends CUIWindow {
     xml.InitStatic("tab_options:cap_damage_block", this);
     xml.InitStatic("tab_options:cap_artreturn_time", this);
 
-    xml.InitStatic("tab_options:cap_friendly_fire", this);
-    xml.InitStatic("tab_options:cap_frag_limit", this);
-    xml.InitStatic("tab_options:cap_time_limit", this);
-    xml.InitStatic("tab_options:cap_artefact_stay", this);
-    xml.InitStatic("tab_options:cap_artefact_num", this);
-    xml.InitStatic("tab_options:cap_anomaly_time", this);
-    xml.InitStatic("tab_options:cap_warm_up_time", this);
-    xml.InitStatic("tab_options:cap_artefact_delay", this);
-    xml.InitStatic("tab_options:cap_starting_weather", this);
-    xml.InitStatic("tab_options:cap_rate_of_change", this);
-    xml.InitStatic("tab_options:cap_max_ping", this);
-
-    if (this.isOnlineMode) {
-      xml.InitStatic("tab_options:public_server_t", this);
-    } else {
-      xml.InitStatic("tab_options:public_server_d", this);
-    }
+    initializeStatics(
+      xml,
+      this,
+      "tab_options:cap_friendly_fire",
+      "tab_options:cap_frag_limit",
+      "tab_options:cap_time_limit",
+      "tab_options:cap_artefact_stay",
+      "tab_options:cap_artefact_num",
+      "tab_options:cap_anomaly_time",
+      "tab_options:cap_warm_up_time",
+      "tab_options:cap_artefact_delay",
+      "tab_options:cap_starting_weather",
+      "tab_options:cap_rate_of_change",
+      "tab_options:cap_max_ping",
+      this.isOnlineMode ? "tab_options:public_server_t" : "tab_options:public_server_d"
+    );
 
     this.uiCheckSpectator = xml.InitCheck("tab_options:check_spectator", this);
     this.uiCheckAllowVoting = xml.InitCheck("tab_options:check_allow_voting", this);
@@ -249,8 +248,6 @@ export class MultiplayerOptions extends CUIWindow {
   }
 
   public onDemoSaveChange(): void {
-    logger.info("Demo save change");
-
     executeConsoleCommand(consoleCommands.cl_mpdemosave, this.uiCheckDemosave.GetCheck() ? 1 : 0);
   }
 }

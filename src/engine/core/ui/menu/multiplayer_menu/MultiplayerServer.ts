@@ -76,7 +76,7 @@ export class MultiplayerServer extends CUIWindow {
 
     this.uiMapList = initializeElement(xml, EElementType.MAP_LIST, "tab_server:map_list", this);
 
-    this.uiMapList.SetWeatherSelector(owner.dialogMultiplayerOptions.uiWeatherComboBox);
+    this.uiMapList.SetWeatherSelector(owner.uiDialogMultiplayerOptions.uiWeatherComboBox);
     this.uiMapList.SetModeSelector(this.uiModeComboBox);
     this.uiMapList.SetMapPic(initializeElement(xml, EElementType.STATIC, "tab_server:static_map_pic", this));
     this.uiMapList.SetMapInfo(initializeElement(xml, EElementType.MAP_INFO, "tab_server:cap_map_info", this));
@@ -86,6 +86,6 @@ export class MultiplayerServer extends CUIWindow {
     logger.info("Game mode change");
 
     this.uiMapList.OnModeChange();
-    this.owner.dialogMultiplayerOptions.setGameMode(this.uiMapList.GetCurGameType());
+    this.owner.uiDialogMultiplayerOptions.setGameMode(this.uiMapList.GetCurGameType());
   }
 }

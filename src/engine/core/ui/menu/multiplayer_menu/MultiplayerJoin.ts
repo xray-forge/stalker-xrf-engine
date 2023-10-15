@@ -144,8 +144,8 @@ export class MultiplayerJoin extends CUIWindow {
   }
 
   public onDirectIPButtonClicked(): void {
-    this.owner.messageBox.InitMessageBox("message_box_direct_ip");
-    this.owner.messageBox.ShowDialog(true);
+    this.owner.uiMessageBox.InitMessageBox("message_box_direct_ip");
+    this.owner.uiMessageBox.ShowDialog(true);
   }
 
   public onFiltersChange(): void {

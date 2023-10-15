@@ -62,12 +62,9 @@ export class MultiplayerProfile extends CUIWindow {
   }
 
   public initialize(owner: MultiplayerMenu, xml: CScriptXmlInit): void {
-    logger.info("Initialize profile component");
-
     this.SetAutoDelete(true);
 
-    this.uiAwardsWindow = new CUIWindow();
-    xml.InitWindow("tab_profile:awards_list", 0, this.uiAwardsWindow);
+    this.uiAwardsWindow = initializeElement(xml, EElementType.WINDOW, "tab_profile:awards_list", this);
     this.uiAwardsWindow.SetAutoDelete(true);
     this.AttachChild(this.uiAwardsWindow);
 
@@ -78,8 +75,7 @@ export class MultiplayerProfile extends CUIWindow {
       this.uiAwardsWindow
     );
 
-    this.uiBestResultsWindow = new CUIWindow();
-    xml.InitWindow("tab_profile:best_results_list", 0, this.uiBestResultsWindow);
+    this.uiBestResultsWindow = initializeElement(xml, EElementType.WINDOW, "tab_profile:best_results_list", this);
     this.uiBestResultsWindow.SetAutoDelete(true);
     this.AttachChild(this.uiBestResultsWindow);
 
