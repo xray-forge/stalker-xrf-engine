@@ -9,14 +9,14 @@ import {
   ui_events,
 } from "xray16";
 
-import { MultiplayerMenu } from "@/engine/core/ui/menu/multiplayer/MultiplayerMenu";
+import { MultiplayerMenu } from "@/engine/core/ui/menu/multiplayer_menu/MultiplayerMenu";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { EElementType, initializeElement, initializeStatics } from "@/engine/core/utils/ui";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Join tab for multiplayer menu controls.
  */
 @LuabindClass()
 export class MultiplayerJoin extends CUIWindow {
@@ -32,13 +32,15 @@ export class MultiplayerJoin extends CUIWindow {
   public uiFilterFFCheckButton!: CUICheckButton;
   public uiFilterListenServersCheckButton!: CUICheckButton;
 
-  public constructor(owner: MultiplayerMenu, isOnlineMode: boolean) {
+  public constructor(owner: MultiplayerMenu, xml: CScriptXmlInit, isOnlineMode: boolean) {
     super();
     this.owner = owner;
     this.isOnlineMode = isOnlineMode;
+
+    this.initialize(owner, xml);
   }
 
-  public initialize(x: number, y: number, xml: CScriptXmlInit, owner: MultiplayerMenu): void {
+  public initialize(owner: MultiplayerMenu, xml: CScriptXmlInit): void {
     this.SetAutoDelete(true);
 
     initializeStatics(xml, this, "tab_client:cap_server_list", "tab_client:cap_filters");

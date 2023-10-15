@@ -17,30 +17,30 @@ import {
   ui_events,
 } from "xray16";
 
-import { MultiplayerDemoLoadItem } from "@/engine/core/ui/menu/multiplayer/MultiplayerDemoLoadItem";
-import { MultiplayerDemoPlayerInfo } from "@/engine/core/ui/menu/multiplayer/MultiplayerDemoPlayerInfo";
-import { MultiplayerDemoPlayerStatItem } from "@/engine/core/ui/menu/multiplayer/MultiplayerDemoPlayerStatItem";
-import { MultiplayerMenu } from "@/engine/core/ui/menu/multiplayer/MultiplayerMenu";
+import { MultiplayerDemoLoadItem } from "@/engine/core/ui/menu/multiplayer_menu/MultiplayerDemoLoadItem";
+import { MultiplayerDemoPlayerInfo } from "@/engine/core/ui/menu/multiplayer_menu/MultiplayerDemoPlayerInfo";
+import { MultiplayerDemoPlayerStatItem } from "@/engine/core/ui/menu/multiplayer_menu/MultiplayerDemoPlayerStatItem";
+import { MultiplayerMenu } from "@/engine/core/ui/menu/multiplayer_menu/MultiplayerMenu";
 import { executeConsoleCommand } from "@/engine/core/utils/console";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { EElementType, initializeElement } from "@/engine/core/utils/ui";
 import { create2dVector } from "@/engine/core/utils/vector";
 import { consoleCommands } from "@/engine/lib/constants/console_commands";
 import { roots } from "@/engine/lib/constants/roots";
-import { FSFileListEX, Optional, TCount, TName, Vector2D } from "@/engine/lib/types";
+import { FSFileListEX, Optional, TCount, TLabel, TName, Vector2D } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Demo playback tab for multiplayer menu controls.
  */
 @LuabindClass()
 export class MultiplayerDemo extends CUIWindow {
   public owner: MultiplayerMenu;
   public xml!: CScriptXmlInit;
 
-  public onYesAction: string = "";
-  public fileNameToRename: string = "";
+  public onYesAction: TLabel = "";
+  public fileNameToRename: TLabel = "";
 
   public fileItemMainSz!: Vector2D;
   public fileItemFnSz!: Vector2D;
@@ -60,15 +60,16 @@ export class MultiplayerDemo extends CUIWindow {
   public uiMessageBox!: CUIMessageBoxEx;
   public uiPlayersList!: CUIListBox;
 
-  public constructor(owner: MultiplayerMenu) {
+  public constructor(owner: MultiplayerMenu, xml: CScriptXmlInit) {
     super();
 
     this.owner = owner;
-  }
-
-  public initialize(x: number, y: number, xml: CScriptXmlInit, owner: MultiplayerMenu): void {
     this.xml = xml;
 
+    this.initialize(owner, xml);
+  }
+
+  public initialize(owner: MultiplayerMenu, xml: CScriptXmlInit): void {
     this.SetAutoDelete(true);
 
     xml.InitWindow("tab_demo:main", 0, this);

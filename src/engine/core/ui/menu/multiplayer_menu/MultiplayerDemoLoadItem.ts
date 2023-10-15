@@ -9,9 +9,9 @@ import {
   vector2,
 } from "xray16";
 
-import type { MultiplayerDemo } from "@/engine/core/ui/menu/multiplayer/MultiplayerDemo";
-import type { MultiplayerMenu } from "@/engine/core/ui/menu/multiplayer/MultiplayerMenu";
-import type { TName } from "@/engine/lib/types";
+import type { MultiplayerDemo } from "@/engine/core/ui/menu/multiplayer_menu/MultiplayerDemo";
+import type { MultiplayerMenu } from "@/engine/core/ui/menu/multiplayer_menu/MultiplayerMenu";
+import { TName, TSize } from "@/engine/lib/types";
 
 /**
  * todo;
@@ -24,7 +24,7 @@ export class MultiplayerDemoLoadItem extends CUIListBoxItemMsgChain {
   public uiFage: CUITextWnd;
   public uiDeleteButton: CUI3tButton;
 
-  public constructor(owner: MultiplayerDemo, height: number, w1: number, w2: number) {
+  public constructor(owner: MultiplayerDemo, height: TSize, w1: TSize, w2: TSize) {
     super(height);
 
     const multiplayerMenu: MultiplayerMenu = owner.owner;

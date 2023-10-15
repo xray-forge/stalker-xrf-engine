@@ -1,3 +1,4 @@
+import { jest } from "@jest/globals";
 import type { CUIWindow } from "xray16";
 
 import { Optional, TName } from "@/engine/lib/types";
@@ -40,9 +41,9 @@ export class MockCUIWindow extends MockLuabindClass {
     return this.windowSize?.x ?? -1;
   }
 
-  public SetAutoDelete(isAutoDelete: boolean): void {
+  public SetAutoDelete = jest.fn((isAutoDelete: boolean): void => {
     this.isAutoDelete = isAutoDelete;
-  }
+  });
 
   public SetWndPos(position: MockVector2D): void {
     this.windowPosition = position;

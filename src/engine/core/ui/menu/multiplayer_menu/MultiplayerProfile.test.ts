@@ -10,17 +10,15 @@ import {
   CUIWindow,
 } from "xray16";
 
-import { MultiplayerMenu } from "@/engine/core/ui/menu/multiplayer/MultiplayerMenu";
-import { MultiplayerProfile } from "@/engine/core/ui/menu/multiplayer/MultiplayerProfile";
+import { MultiplayerMenu } from "@/engine/core/ui/menu/multiplayer_menu/MultiplayerMenu";
+import { MultiplayerProfile } from "@/engine/core/ui/menu/multiplayer_menu/MultiplayerProfile";
 import { MockCScriptXmlInit } from "@/fixtures/xray";
 
 describe("MultiplayerProfile", () => {
   it("should correctly initialize", () => {
     const owner: MultiplayerMenu = new CUIScriptWnd() as MultiplayerMenu;
     const xml: CScriptXmlInit = MockCScriptXmlInit.mock();
-    const multiplayerServer: MultiplayerProfile = new MultiplayerProfile(owner);
-
-    multiplayerServer.initControls(0, 0, xml, owner);
+    const multiplayerServer: MultiplayerProfile = new MultiplayerProfile(owner, xml);
 
     expect(multiplayerServer.owner).toBe(owner);
     expect(multiplayerServer.xml).toBe(xml);

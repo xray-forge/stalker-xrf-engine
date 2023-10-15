@@ -21,12 +21,12 @@ import {
 } from "xray16";
 
 import { MainMenu } from "@/engine/core/ui/menu/MainMenu";
-import { EMultiplayerMenuTab } from "@/engine/core/ui/menu/multiplayer/multiplayer_types";
-import { MultiplayerDemo } from "@/engine/core/ui/menu/multiplayer/MultiplayerDemo";
-import { MultiplayerJoin } from "@/engine/core/ui/menu/multiplayer/MultiplayerJoin";
-import { MultiplayerOptions } from "@/engine/core/ui/menu/multiplayer/MultiplayerOptions";
-import { MultiplayerProfile } from "@/engine/core/ui/menu/multiplayer/MultiplayerProfile";
-import { MultiplayerServer } from "@/engine/core/ui/menu/multiplayer/MultiplayerServer";
+import { EMultiplayerMenuTab } from "@/engine/core/ui/menu/multiplayer_menu/multiplayer_types";
+import { MultiplayerDemo } from "@/engine/core/ui/menu/multiplayer_menu/MultiplayerDemo";
+import { MultiplayerJoin } from "@/engine/core/ui/menu/multiplayer_menu/MultiplayerJoin";
+import { MultiplayerOptions } from "@/engine/core/ui/menu/multiplayer_menu/MultiplayerOptions";
+import { MultiplayerProfile } from "@/engine/core/ui/menu/multiplayer_menu/MultiplayerProfile";
+import { MultiplayerServer } from "@/engine/core/ui/menu/multiplayer_menu/MultiplayerServer";
 import { EOptionGroup } from "@/engine/core/ui/menu/options/options_types";
 import { executeConsoleCommand } from "@/engine/core/utils/console";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -42,11 +42,13 @@ const baseOnline: TPath = "menu\\multiplayer\\MultiplayerOnline.component";
 const baseOffline: TPath = "menu\\multiplayer\\MultiplayerOffline.component";
 
 /**
- * todo;
+ * Multiplayer menu after login.
+ * Search of servers / configuration of custom server / profile and demo playback.
  */
 @LuabindClass()
 export class MultiplayerMenu extends CUIScriptWnd {
   public owner: MainMenu;
+  public xml: CScriptXmlInit;
   public isOnlineMode: boolean;
 
   public tab!: CUITabControl;
@@ -68,16 +70,16 @@ export class MultiplayerMenu extends CUIScriptWnd {
     super();
 
     this.owner = owner;
+    this.xml = resolveXmlFile(isOnlineMode ? baseOnline : baseOffline);
+
     this.isOnlineMode = isOnlineMode;
 
-    this.initialize();
+    this.initialize(owner, this.xml);
   }
 
-  public initialize(): void {
+  public initialize(owner: MainMenu, xml: CScriptXmlInit): void {
     this.SetWndRect(createRectangle(0, 0, screenConfig.BASE_WIDTH, screenConfig.BASE_HEIGHT));
     this.Enable(true);
-
-    const xml: CScriptXmlInit = resolveXmlFile(this.isOnlineMode ? baseOnline : baseOffline);
 
     xml.InitStatic("background", this);
 
@@ -114,28 +116,23 @@ export class MultiplayerMenu extends CUIScriptWnd {
 
     xml.InitStatic("cap_mode", workArea);
 
-    this.dialogMultiplayerJoin = new MultiplayerJoin(this, this.isOnlineMode);
-    this.dialogMultiplayerJoin.initialize(0, 0, xml, this);
+    this.dialogMultiplayerJoin = new MultiplayerJoin(this, xml, this.isOnlineMode);
     workArea.AttachChild(this.dialogMultiplayerJoin);
 
-    this.dialogMultiplayerOptions = new MultiplayerOptions(this.isOnlineMode);
-    this.dialogMultiplayerOptions.InitControls(0, 0, xml, this);
+    this.dialogMultiplayerOptions = new MultiplayerOptions(this, xml, this.isOnlineMode);
     this.dialogMultiplayerOptions.Show(false);
     workArea.AttachChild(this.dialogMultiplayerOptions);
 
-    this.dialogMultiplayerServer = new MultiplayerServer(this);
-    this.dialogMultiplayerServer.initialize(0, 0, xml, this);
+    this.dialogMultiplayerServer = new MultiplayerServer(this, xml);
     this.dialogMultiplayerServer.Show(false);
     workArea.AttachChild(this.dialogMultiplayerServer);
 
-    this.dialogMultiplayerDemo = new MultiplayerDemo(this);
-    this.dialogMultiplayerDemo.initialize(0, 0, xml, this);
+    this.dialogMultiplayerDemo = new MultiplayerDemo(this, xml);
     this.dialogMultiplayerDemo.Show(false);
     workArea.AttachChild(this.dialogMultiplayerDemo);
 
     if (this.isOnlineMode) {
-      this.dialogMultiplayerProfile = new MultiplayerProfile(this);
-      this.dialogMultiplayerProfile.initControls(0, 0, xml, this);
+      this.dialogMultiplayerProfile = new MultiplayerProfile(this, xml);
       this.dialogMultiplayerProfile.Show(false);
       workArea.AttachChild(this.dialogMultiplayerProfile);
     }

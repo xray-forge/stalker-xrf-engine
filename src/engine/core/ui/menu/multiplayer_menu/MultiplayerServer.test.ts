@@ -10,23 +10,20 @@ import {
   CUIStatic,
 } from "xray16";
 
-import { MultiplayerMenu } from "@/engine/core/ui/menu/multiplayer/MultiplayerMenu";
-import { MultiplayerOptions } from "@/engine/core/ui/menu/multiplayer/MultiplayerOptions";
-import { MultiplayerServer } from "@/engine/core/ui/menu/multiplayer/MultiplayerServer";
+import { MultiplayerMenu } from "@/engine/core/ui/menu/multiplayer_menu/MultiplayerMenu";
+import { MultiplayerOptions } from "@/engine/core/ui/menu/multiplayer_menu/MultiplayerOptions";
+import { MultiplayerServer } from "@/engine/core/ui/menu/multiplayer_menu/MultiplayerServer";
 import { MockCScriptXmlInit } from "@/fixtures/xray";
 
 describe("MultiplayerServer", () => {
   it("should correctly initialize", () => {
     const owner: MultiplayerMenu = new CUIScriptWnd() as MultiplayerMenu;
-    const multiplayerServer: MultiplayerServer = new MultiplayerServer(owner);
-
-    jest.spyOn(multiplayerServer, "SetAutoDelete").mockImplementation(jest.fn());
 
     owner.dialogMultiplayerOptions = {
       uiSpinWeather: {},
     } as unknown as MultiplayerOptions;
 
-    multiplayerServer.initialize(0, 0, MockCScriptXmlInit.mock(), owner);
+    const multiplayerServer: MultiplayerServer = new MultiplayerServer(owner, MockCScriptXmlInit.mock());
 
     expect(multiplayerServer.owner).toBe(owner);
     expect(multiplayerServer.uiServerNameEdit).toBeInstanceOf(CUIEditBox);
@@ -47,16 +44,14 @@ describe("MultiplayerServer", () => {
 
   it("should correctly handle game mode change", () => {
     const owner: MultiplayerMenu = new CUIScriptWnd() as MultiplayerMenu;
-    const multiplayerServer: MultiplayerServer = new MultiplayerServer(owner);
-
-    jest.spyOn(multiplayerServer, "SetAutoDelete").mockImplementation(jest.fn());
 
     owner.dialogMultiplayerOptions = {
       uiSpinWeather: {},
       setGameMode: jest.fn(),
     } as unknown as MultiplayerOptions;
 
-    multiplayerServer.initialize(0, 0, MockCScriptXmlInit.mock(), owner);
+    const multiplayerServer: MultiplayerServer = new MultiplayerServer(owner, MockCScriptXmlInit.mock());
+
     multiplayerServer.onGameModeChange();
 
     expect(multiplayerServer.uiMapList.OnModeChange).toHaveBeenCalledTimes(1);

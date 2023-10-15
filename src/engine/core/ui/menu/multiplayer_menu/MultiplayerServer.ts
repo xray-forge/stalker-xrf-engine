@@ -10,7 +10,7 @@ import {
   ui_events,
 } from "xray16";
 
-import { MultiplayerMenu } from "@/engine/core/ui/menu/multiplayer/MultiplayerMenu";
+import { MultiplayerMenu } from "@/engine/core/ui/menu/multiplayer_menu/MultiplayerMenu";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { EElementType, initializeElement, initializeStatics } from "@/engine/core/utils/ui";
 
@@ -22,6 +22,7 @@ const logger: LuaLogger = new LuaLogger($filename);
 @LuabindClass()
 export class MultiplayerServer extends CUIWindow {
   public owner: MultiplayerMenu;
+  public xml: CScriptXmlInit;
 
   public uiServerNameEdit!: CUIEditBox;
   public uiPasswordEdit!: CUIEditBox;
@@ -30,13 +31,16 @@ export class MultiplayerServer extends CUIWindow {
   public uiMapList!: CUIMapList;
   public uiDedicatedCheck!: CUICheckButton;
 
-  public constructor(owner: MultiplayerMenu) {
+  public constructor(owner: MultiplayerMenu, xml: CScriptXmlInit) {
     super();
 
     this.owner = owner;
+    this.xml = xml;
+
+    this.initialize(owner, xml);
   }
 
-  public initialize(x: number, y: number, xml: CScriptXmlInit, owner: MultiplayerMenu): void {
+  public initialize(owner: MultiplayerMenu, xml: CScriptXmlInit): void {
     this.SetAutoDelete(true);
 
     xml.InitWindow("tab_server:main", 0, this);

@@ -9,6 +9,7 @@ import {
 } from "xray16";
 
 import { create2dVector } from "@/engine/core/utils/vector";
+import { TSize } from "@/engine/lib/types";
 
 /**
  * todo;
@@ -22,7 +23,7 @@ export class MultiplayerDemoPlayerStatItem extends CUIListBoxItem {
   public uiSpots: CUITextWnd;
   public uiRank: CUIStatic;
 
-  public constructor(height: number, w1: number, w2: number) {
+  public constructor(height: TSize, w1: TSize, w2: TSize) {
     super(height);
 
     this.SetTextColor(GetARGB(255, 255, 255, 255));

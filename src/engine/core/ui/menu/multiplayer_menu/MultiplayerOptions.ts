@@ -14,7 +14,7 @@ import {
   ui_events,
 } from "xray16";
 
-import { MultiplayerMenu } from "@/engine/core/ui/menu/multiplayer/MultiplayerMenu";
+import { MultiplayerMenu } from "@/engine/core/ui/menu/multiplayer_menu/MultiplayerMenu";
 import { executeConsoleCommand } from "@/engine/core/utils/console";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { EElementType, initializeElement } from "@/engine/core/utils/ui";
@@ -23,10 +23,11 @@ import { consoleCommands } from "@/engine/lib/constants/console_commands";
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Options tab for multiplayer menu.
  */
 @LuabindClass()
 export class MultiplayerOptions extends CUIWindow {
+  public owner: MultiplayerMenu;
   public isOnlineMode: boolean;
 
   public uiCheckSpectator!: CUICheckButton;
@@ -63,12 +64,15 @@ export class MultiplayerOptions extends CUIWindow {
   public uiSpinRateOfChange!: CUISpinFlt;
   public uiWeatherComboBox!: CUIComboBox;
 
-  public constructor(isOnlineMode: boolean) {
+  public constructor(owner: MultiplayerMenu, xml: CScriptXmlInit, isOnlineMode: boolean) {
     super();
+    this.owner = owner;
     this.isOnlineMode = isOnlineMode;
+
+    this.initialize(owner, xml);
   }
 
-  public InitControls(x: number, y: number, xml: CScriptXmlInit, owner: MultiplayerMenu): void {
+  public initialize(owner: MultiplayerMenu, xml: CScriptXmlInit): void {
     this.SetAutoDelete(true);
 
     xml.InitWindow("tab_options:main", 0, this);

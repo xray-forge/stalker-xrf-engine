@@ -15,7 +15,7 @@ import {
   ui_events,
 } from "xray16";
 
-import { MultiplayerMenu } from "@/engine/core/ui/menu/multiplayer/MultiplayerMenu";
+import { MultiplayerMenu } from "@/engine/core/ui/menu/multiplayer_menu/MultiplayerMenu";
 import { abort } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import {
@@ -52,17 +52,17 @@ export class MultiplayerProfile extends CUIWindow {
   public uiAvailableUniqueNickComboBox!: CUIComboBox;
   public uiAwardsList!: CUIScrollView;
 
-  public constructor(owner: MultiplayerMenu) {
+  public constructor(owner: MultiplayerMenu, xml: CScriptXmlInit) {
     super();
 
     this.owner = owner;
+    this.xml = xml;
+
+    this.initialize(owner, xml);
   }
 
-  public initControls(x: number, y: number, xml: CScriptXmlInit, owner: MultiplayerMenu): void {
+  public initialize(owner: MultiplayerMenu, xml: CScriptXmlInit): void {
     logger.info("Initialize profile component");
-
-    this.xml = xml;
-    this.awards = new LuaTable();
 
     this.SetAutoDelete(true);
 
