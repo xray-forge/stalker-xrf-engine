@@ -19,5 +19,7 @@ export class MockCUITabControl extends MockCUIWindow {
     this.activeTab = tab;
   });
 
+  public GetActiveId = jest.fn(() => this.activeTab);
+
   public GetButtonById = jest.fn(() => MockCUI3tButton.mock());
 }

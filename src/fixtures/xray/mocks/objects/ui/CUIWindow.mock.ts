@@ -57,9 +57,9 @@ export class MockCUIWindow extends MockLuabindClass {
     return this.windowPosition;
   });
 
-  public SetWndRect(rect: MockFrect): void {
+  public SetWndRect = jest.fn((rect: MockFrect) => {
     this.windowRect = rect;
-  }
+  });
 
   public SetWindowName(name: TName): void {
     this.windowName = name;

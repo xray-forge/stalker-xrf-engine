@@ -52,9 +52,6 @@ export class MultiplayerMenu extends CUIScriptWnd {
   public isOnlineMode: boolean;
 
   public uiTab!: CUITabControl;
-  public uiMessageBox!: CUIMessageBoxEx;
-  public uiCdkey!: CUIEditBox;
-  public uiPlayerNameEditBox!: CUIEditBox;
 
   public uiDialogMultiplayerJoin!: MultiplayerJoin;
   public uiDialogMultiplayerServer!: MultiplayerServer;
@@ -62,6 +59,9 @@ export class MultiplayerMenu extends CUIScriptWnd {
   public uiDialogMultiplayerProfile!: MultiplayerProfile;
   public uiDialogMultiplayerOptions!: MultiplayerOptions;
 
+  public uiMessageBox!: CUIMessageBoxEx;
+  public uiCdkey!: CUIEditBox;
+  public uiPlayerNameEditBox!: CUIEditBox;
   public uiCreateButton!: CUI3tButton;
   public uiPlayDemoButton!: CUI3tButton;
   public uiJoinButton!: CUI3tButton;
@@ -328,9 +328,7 @@ export class MultiplayerMenu extends CUIScriptWnd {
     }
   }
 
-  public gatherServerData(): void {
-    logger.info("Gather server data");
-
+  public getServerCreationParameters(): string {
     let commandString: TLabel = "";
     let tmpStr: string;
 
@@ -571,7 +569,11 @@ export class MultiplayerMenu extends CUIScriptWnd {
       commandString = commandString + "/etimef=" + tmpStr;
     }
 
-    this.uiDialogMultiplayerServer.uiMapList.SetServerParams(commandString);
+    return commandString;
+  }
+
+  public gatherServerData(): void {
+    this.uiDialogMultiplayerServer.uiMapList.SetServerParams(this.getServerCreationParameters());
   }
 
   public onConnectError(code: number, description: TLabel): void {

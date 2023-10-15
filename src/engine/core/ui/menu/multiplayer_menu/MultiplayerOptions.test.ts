@@ -138,7 +138,7 @@ describe("MultiplayerOptions", () => {
     expect(multiplayerOptions.uiSpinFragLimit.Enable).toHaveBeenLastCalledWith(false);
   });
 
-  it("should correctly change game mode to GAME_DEATHMATCH with game mode 0", () => {
+  it("should correctly change game mode to GAME_DEATHMATCH", () => {
     const multiplayerOptions: MultiplayerOptions = new MultiplayerOptions(
       new CUIScriptWnd() as MultiplayerMenu,
       MockCScriptXmlInit.mock(),

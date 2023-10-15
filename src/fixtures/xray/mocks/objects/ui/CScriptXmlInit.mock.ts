@@ -48,6 +48,8 @@ export class MockCScriptXmlInit {
   public InitKeyBinding = jest.fn();
   public InitProgressBar = jest.fn();
   public InitTextWnd = jest.fn(() => MockCUITextWnd.mock());
+  public InitMPPlayerName = jest.fn(() => MockCUIEditBox.mock());
+  public InitCDkey = jest.fn(() => MockCUIEditBox.mock());
   public InitMMShniaga = jest.fn();
   public InitSpinFlt = jest.fn(() => MockCUISpinFlt.mock());
   public InitServerList = jest.fn(() => MockCServerList.mock());

@@ -25,5 +25,6 @@ export * from "@/fixtures/xray/mocks/objects/ui/CUITabControl.mock";
 export * from "@/fixtures/xray/mocks/objects/ui/CUITextWnd.mock";
 export * from "@/fixtures/xray/mocks/objects/ui/CUIWindow.mock";
 export * from "@/fixtures/xray/mocks/objects/ui/StaticDrawableWrapper.mock";
+export * from "@/fixtures/xray/mocks/objects/ui/connect_error_cb.mock";
 export * from "@/fixtures/xray/mocks/objects/ui/login_operation_cb.mock";
 export * from "@/fixtures/xray/mocks/objects/ui/profile.mock";
