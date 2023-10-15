@@ -1,6 +1,7 @@
 import { jest } from "@jest/globals";
 import type { CScriptXmlInit } from "xray16";
 
+import { MockCServerList } from "@/fixtures/xray/mocks/objects/ui/CServerList.mock";
 import { MockCUI3tButton } from "@/fixtures/xray/mocks/objects/ui/CUI3tButton.mock";
 import { MockCUICheckButton } from "@/fixtures/xray/mocks/objects/ui/CUICheckButton.mock";
 import { MockCUIComboBox } from "@/fixtures/xray/mocks/objects/ui/CUIComboBox.mock";
@@ -47,4 +48,5 @@ export class MockCScriptXmlInit {
   public InitProgressBar = jest.fn();
   public InitTextWnd = jest.fn(() => MockCUITextWnd.mock());
   public InitMMShniaga = jest.fn();
+  public InitServerList = jest.fn(() => MockCServerList.mock());
 }

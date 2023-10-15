@@ -21,6 +21,7 @@ const logger: LuaLogger = new LuaLogger($filename);
 @LuabindClass()
 export class MultiplayerJoin extends CUIWindow {
   public owner: MultiplayerMenu;
+  public xml: CScriptXmlInit;
   public isOnlineMode: boolean;
 
   public uiServerList!: CServerList;
@@ -34,7 +35,9 @@ export class MultiplayerJoin extends CUIWindow {
 
   public constructor(owner: MultiplayerMenu, xml: CScriptXmlInit, isOnlineMode: boolean) {
     super();
+
     this.owner = owner;
+    this.xml = xml;
     this.isOnlineMode = isOnlineMode;
 
     this.initialize(owner, xml);
