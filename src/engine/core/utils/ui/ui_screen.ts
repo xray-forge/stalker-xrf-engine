@@ -1,6 +1,7 @@
 import { device } from "xray16";
 
 import { LuaLogger } from "@/engine/core/utils/logging";
+import { RenderDevice } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -10,5 +11,7 @@ const logger: LuaLogger = new LuaLogger($filename);
  * @returns whether game resolution is wide screen
  */
 export function isWideScreen(): boolean {
-  return device().width / device().height > 1024 / 768 + 0.01;
+  const renderDevice: RenderDevice = device();
+
+  return renderDevice.width / renderDevice.height > 1024 / 768 + 0.01;
 }

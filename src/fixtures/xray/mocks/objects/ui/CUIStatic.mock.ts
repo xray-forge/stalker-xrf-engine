@@ -1,3 +1,4 @@
+import { jest } from "@jest/globals";
 import type { CUIStatic } from "xray16";
 
 import { MockCUILines } from "@/fixtures/xray/mocks/objects/ui/CUILines.mock";
@@ -13,7 +14,7 @@ export class MockCUIStatic extends MockCUIWindow {
 
   public textControl: MockCUILines = new MockCUILines();
 
-  public TextControl() {
-    return this.textControl;
-  }
+  public TextControl = jest.fn(() => this.textControl);
+
+  public SetStretchTexture = jest.fn();
 }

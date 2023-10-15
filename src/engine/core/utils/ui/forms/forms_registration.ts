@@ -2,26 +2,29 @@ import { CUIMessageBox, CUIMessageBoxEx, CUIScriptWnd, CUIWindow } from "xray16"
 
 import { abort } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { EElementType, IUiElementDescriptor } from "@/engine/core/utils/ui/forms/forms_types";
-import { AnyCallable, TStringId, XmlInit } from "@/engine/lib/types";
+import { EElementType } from "@/engine/core/utils/ui/forms/forms_types";
+import { AnyCallable, PartialRecord, TStringId, TUIEvent, XmlInit } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * Register UI element and add callback handlers for it.
+ * Initialize UI element and add callback handlers for it.
  * Shorter variant than original API.
  *
  * @param xml - base xml file with form
+ * @param type - type of element to initialize
  * @param selector - string id of element in base XML for reading
- * @param descriptor - configuration of element registration (events, naming, base etc)
+ * @param base - reference of base element to which element should be initialized
+ * @param descriptor - configuration of element registration events
  * @returns initilized UI element instance
  */
-export function registerUiElement<T extends CUIWindow>(
+export function initializeElement<T extends CUIWindow>(
   xml: XmlInit,
+  type: EElementType,
   selector: TStringId,
-  descriptor: IUiElementDescriptor
+  base: CUIWindow,
+  descriptor: PartialRecord<TUIEvent, AnyCallable> & { context?: CUIWindow } = {}
 ): T {
-  const { context, type, handlers, base } = descriptor;
   let element: T;
 
   // Handle UI registration and binding.
@@ -34,7 +37,7 @@ export function registerUiElement<T extends CUIWindow>(
       element = xml.InitStatic(selector, base) as unknown as T;
       break;
 
-    case EElementType.CHECK_BOX:
+    case EElementType.CHECK_BUTTON:
       element = xml.InitCheck(selector, base) as unknown as T;
       break;
 
@@ -42,8 +45,20 @@ export function registerUiElement<T extends CUIWindow>(
       element = xml.InitComboBox(selector, base) as unknown as T;
       break;
 
+    case EElementType.TAB:
+      element = xml.InitTab(selector, base) as unknown as T;
+      break;
+
+    case EElementType.CD_KEY:
+      element = xml.InitCDkey(selector, base) as unknown as T;
+      break;
+
     case EElementType.FRAME:
       element = xml.InitFrame(selector, base) as unknown as T;
+      break;
+
+    case EElementType.FRAME_LINE:
+      element = xml.InitFrameLine(selector, base) as unknown as T;
       break;
 
     case EElementType.LIST_BOX:
@@ -54,12 +69,37 @@ export function registerUiElement<T extends CUIWindow>(
       element = xml.InitEditBox(selector, base) as unknown as T;
       break;
 
+    case EElementType.SCROLL_VIEW:
+      element = xml.InitScrollView(selector, base) as unknown as T;
+      break;
+
     case EElementType.LABEL:
       element = xml.InitLabel(selector, base) as unknown as T;
       break;
 
+    case EElementType.SPIN_NUM:
+      element = xml.InitSpinNum(selector, base) as unknown as T;
+      break;
+
+    case EElementType.MAP_LIST:
+      element = xml.InitMapList(selector, base) as unknown as T;
+      break;
+
+    case EElementType.MAP_INFO:
+      element = xml.InitMapInfo(selector, base) as unknown as T;
+      break;
+
+    case EElementType.MP_PLAYER_NAME:
+      element = xml.InitMPPlayerName(selector, base) as unknown as T;
+      break;
+
     case EElementType.TEXT_WINDOW:
       element = xml.InitTextWnd(selector, base) as unknown as T;
+      break;
+
+    case EElementType.WINDOW:
+      element = new CUIWindow() as unknown as T;
+      xml.InitWindow(selector, 0, element);
       break;
 
     case EElementType.MESSAGE_BOX:
@@ -75,13 +115,15 @@ export function registerUiElement<T extends CUIWindow>(
   }
 
   // Handle event emit context and registration.
-  if (handlers) {
-    const eventBase: CUIScriptWnd = (context || base) as CUIScriptWnd;
+  if (table.size(descriptor) > 0) {
+    const eventBase: CUIScriptWnd = (descriptor.context ?? base) as CUIScriptWnd;
 
     eventBase.Register(element as CUIWindow, selector);
 
-    for (const [event, callback] of $fromObject(handlers)) {
-      eventBase.AddCallback(selector, event, callback as AnyCallable, eventBase || base);
+    for (const [event, callback] of $fromObject(descriptor)) {
+      if (event !== "context") {
+        eventBase.AddCallback(selector, event, callback as AnyCallable, eventBase || base);
+      }
     }
   }
 
@@ -96,8 +138,8 @@ export function registerUiElement<T extends CUIWindow>(
  * @param base - base element to init new statics relatively from
  * @param selectors - variadic selectors list to initialize
  */
-export function registerStatics(xml: XmlInit, base: CUIWindow, ...selectors: Array<TStringId>): void {
+export function initializeStatics(xml: XmlInit, base: CUIWindow, ...selectors: Array<TStringId>): void {
   for (const selector of selectors) {
-    registerUiElement(xml, selector, { base, type: EElementType.STATIC });
+    initializeElement(xml, EElementType.STATIC, selector, base);
   }
 }

@@ -22,9 +22,9 @@ import { DebugDialog } from "@/engine/core/ui/debug/DebugDialog";
 import { ExtensionsDialog } from "@/engine/core/ui/menu/extensions/ExtensionsDialog";
 import { LoadDialog } from "@/engine/core/ui/menu/load/LoadDialog";
 import { EMainMenuModalMode } from "@/engine/core/ui/menu/menu_types";
-import { MultiplayerMenu } from "@/engine/core/ui/menu/multiplayer/MultiplayerMenu";
 import { MultiplayerGameSpy } from "@/engine/core/ui/menu/multiplayer_login/MultiplayerGamespy";
 import { MultiplayerLocalnet } from "@/engine/core/ui/menu/multiplayer_login/MultiplayerLocalnet";
+import { MultiplayerMenu } from "@/engine/core/ui/menu/multiplayer_menu/MultiplayerMenu";
 import { Options } from "@/engine/core/ui/menu/options/Options";
 import { SaveDialog } from "@/engine/core/ui/menu/save/SaveDialog";
 import { executeConsoleCommand } from "@/engine/core/utils/console";
@@ -342,9 +342,9 @@ export class MainMenu extends CUIScriptWnd {
       this.uiMultiplayerMenuDialog = new MultiplayerMenu(this, this.xrGameSpyProfile?.online() === true);
       this.uiMultiplayerMenuDialog.onRadioNetChanged();
 
-      if (this.uiMultiplayerMenuDialog.online) {
-        this.uiMultiplayerMenuDialog.dialogMultiplayerProfile.InitBestScores();
-        this.uiMultiplayerMenuDialog.dialogMultiplayerProfile.fillRewardsTable();
+      if (this.uiMultiplayerMenuDialog.isOnlineMode) {
+        this.uiMultiplayerMenuDialog.uiDialogMultiplayerProfile.initializeBestScores();
+        this.uiMultiplayerMenuDialog.uiDialogMultiplayerProfile.initializeRewardsTable();
       }
     }
 
@@ -353,8 +353,6 @@ export class MainMenu extends CUIScriptWnd {
 
     this.HideDialog();
     this.Show(false);
-
-    executeConsoleCommand(consoleCommands.check_for_updates, 0);
   }
 
   /**
@@ -388,8 +386,6 @@ export class MainMenu extends CUIScriptWnd {
 
     this.HideDialog();
     this.Show(false);
-
-    executeConsoleCommand(consoleCommands.check_for_updates, 0);
   }
 
   /**
@@ -406,8 +402,6 @@ export class MainMenu extends CUIScriptWnd {
 
     this.HideDialog();
     this.Show(false);
-
-    executeConsoleCommand(consoleCommands.check_for_updates, 0);
   }
 
   /**

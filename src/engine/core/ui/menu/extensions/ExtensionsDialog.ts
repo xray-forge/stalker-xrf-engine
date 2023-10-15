@@ -19,7 +19,7 @@ import {
   syncExtensionsState,
 } from "@/engine/core/utils/extensions/extensions_state";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { EElementType, registerUiElement, resolveXmlFile } from "@/engine/core/utils/ui";
+import { EElementType, initializeElement, resolveXmlFile } from "@/engine/core/utils/ui";
 import { create2dVector } from "@/engine/core/utils/vector";
 import { screenConfig } from "@/engine/lib/configs/ScreenConfig";
 import { LuaArray, Optional, TIndex, TKeyCode, TPath, TUIEvent, Vector2D } from "@/engine/lib/types";
@@ -65,53 +65,29 @@ export class ExtensionsDialog extends CUIScriptWnd {
     this.SetWndRect(new Frect().set(0, 0, screenConfig.BASE_WIDTH, screenConfig.BASE_HEIGHT));
     this.Enable(true);
 
-    registerUiElement(this.xml, "background", { base: this, type: EElementType.STATIC });
-    registerUiElement(this.xml, "frame", { base: this, type: EElementType.STATIC });
-    registerUiElement(this.xml, "items_list_frame", { base: this, type: EElementType.FRAME });
+    initializeElement(this.xml, EElementType.STATIC, "background", this);
+    initializeElement(this.xml, EElementType.STATIC, "frame", this);
+    initializeElement(this.xml, EElementType.FRAME, "items_list_frame", this);
 
-    registerUiElement(this.xml, "accept_button", {
-      base: this,
-      type: EElementType.BUTTON,
-      handlers: {
-        [ui_events.BUTTON_CLICKED]: () => this.onAcceptButtonClick(),
-      },
+    initializeElement(this.xml, EElementType.BUTTON, "accept_button", this, {
+      [ui_events.BUTTON_CLICKED]: () => this.onAcceptButtonClick(),
     });
-    registerUiElement(this.xml, "cancel_button", {
-      base: this,
-      type: EElementType.BUTTON,
-      handlers: {
-        [ui_events.BUTTON_CLICKED]: () => this.onCancelButtonClick(),
-      },
+    initializeElement(this.xml, EElementType.BUTTON, "cancel_button", this, {
+      [ui_events.BUTTON_CLICKED]: () => this.onCancelButtonClick(),
     });
 
-    this.uiUpButton = registerUiElement(this.xml, "toggle_button", {
-      base: this,
-      type: EElementType.BUTTON,
-      handlers: {
-        [ui_events.BUTTON_CLICKED]: () => this.onToggleButtonClick(),
-      },
+    this.uiUpButton = initializeElement(this.xml, EElementType.BUTTON, "toggle_button", this, {
+      [ui_events.BUTTON_CLICKED]: () => this.onToggleButtonClick(),
     });
-    this.uiUpButton = registerUiElement(this.xml, "up_button", {
-      base: this,
-      type: EElementType.BUTTON,
-      handlers: {
-        [ui_events.BUTTON_CLICKED]: () => this.onUpButtonClick(),
-      },
+    this.uiUpButton = initializeElement(this.xml, EElementType.BUTTON, "up_button", this, {
+      [ui_events.BUTTON_CLICKED]: () => this.onUpButtonClick(),
     });
-    this.uiDownButton = registerUiElement(this.xml, "down_button", {
-      base: this,
-      type: EElementType.BUTTON,
-      handlers: {
-        [ui_events.BUTTON_CLICKED]: () => this.onDownButtonClick(),
-      },
+    this.uiDownButton = initializeElement(this.xml, EElementType.BUTTON, "down_button", this, {
+      [ui_events.BUTTON_CLICKED]: () => this.onDownButtonClick(),
     });
 
-    this.uiItemsList = registerUiElement(this.xml, "items_list", {
-      base: this,
-      type: EElementType.LIST_BOX,
-      handlers: {
-        [ui_events.LIST_ITEM_SELECT]: () => this.onActiveExtensionChange(),
-      },
+    this.uiItemsList = initializeElement(this.xml, EElementType.LIST_BOX, "items_list", this, {
+      [ui_events.LIST_ITEM_SELECT]: () => this.onActiveExtensionChange(),
     });
     this.uiItemsList.ShowSelectedItem(true);
 

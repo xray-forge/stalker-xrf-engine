@@ -14,31 +14,34 @@ import {
   getFS,
   LuabindClass,
   main_menu,
-  vector2,
+  ui_events,
 } from "xray16";
 
-import { MultiplayerDemoLoadItem } from "@/engine/core/ui/menu/multiplayer/MultiplayerDemoLoadItem";
-import { MultiplayerDemoPlayerInfo } from "@/engine/core/ui/menu/multiplayer/MultiplayerDemoPlayerInfo";
-import { MultiplayerDemoPlayerStatItem } from "@/engine/core/ui/menu/multiplayer/MultiplayerDemoPlayerStatItem";
-import { MultiplayerMenu } from "@/engine/core/ui/menu/multiplayer/MultiplayerMenu";
+import { MultiplayerDemoLoadItem } from "@/engine/core/ui/menu/multiplayer_menu/MultiplayerDemoLoadItem";
+import { MultiplayerDemoPlayerInfo } from "@/engine/core/ui/menu/multiplayer_menu/MultiplayerDemoPlayerInfo";
+import { MultiplayerDemoPlayerStatItem } from "@/engine/core/ui/menu/multiplayer_menu/MultiplayerDemoPlayerStatItem";
+import { MultiplayerMenu } from "@/engine/core/ui/menu/multiplayer_menu/MultiplayerMenu";
 import { executeConsoleCommand } from "@/engine/core/utils/console";
 import { LuaLogger } from "@/engine/core/utils/logging";
+import { createRectangle } from "@/engine/core/utils/rectangle";
+import { EElementType, initializeElement, initializeStatics } from "@/engine/core/utils/ui";
+import { create2dVector } from "@/engine/core/utils/vector";
 import { consoleCommands } from "@/engine/lib/constants/console_commands";
 import { roots } from "@/engine/lib/constants/roots";
-import { FSFileListEX, Optional, TCount, TName, Vector2D } from "@/engine/lib/types";
+import { FSFileListEX, FSItem, Optional, TCount, TLabel, TName, Vector2D } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Demo playback tab for multiplayer menu controls.
  */
 @LuabindClass()
 export class MultiplayerDemo extends CUIWindow {
-  public owner!: MultiplayerMenu;
+  public owner: MultiplayerMenu;
   public xml!: CScriptXmlInit;
 
-  public onYesAction: string = "";
-  public fileNameToRename: string = "";
+  public onYesAction: TLabel = "";
+  public fileNameToRename: TLabel = "";
 
   public fileItemMainSz!: Vector2D;
   public fileItemFnSz!: Vector2D;
@@ -58,13 +61,17 @@ export class MultiplayerDemo extends CUIWindow {
   public uiMessageBox!: CUIMessageBoxEx;
   public uiPlayersList!: CUIListBox;
 
-  /**
-   * todo: Description.
-   */
-  public initControls(x: number, y: number, xml: CScriptXmlInit, handler: MultiplayerMenu): void {
-    this.SetAutoDelete(true);
-    this.owner = handler;
+  public constructor(owner: MultiplayerMenu, xml: CScriptXmlInit) {
+    super();
+
+    this.owner = owner;
     this.xml = xml;
+
+    this.initialize(owner, xml);
+  }
+
+  public initialize(owner: MultiplayerMenu, xml: CScriptXmlInit): void {
+    this.SetAutoDelete(true);
 
     xml.InitWindow("tab_demo:main", 0, this);
     xml.InitFrameLine("tab_demo:cap_demo_list", this);
@@ -76,52 +83,52 @@ export class MultiplayerDemo extends CUIWindow {
     this.uiMapInfo = xml.InitMapInfo("tab_demo:cap_map_info", this);
 
     // --  file list
-    this.uiDemoList = xml.InitListBox("tab_demo:list", this);
+    this.uiDemoList = initializeElement(xml, EElementType.LIST_BOX, "tab_demo:list", this, {
+      context: owner,
+      [ui_events.LIST_ITEM_CLICKED]: () => this.selectDemoFile(),
+      [ui_events.WINDOW_LBUTTON_DB_CLICK]: () => this.playSelectedDemo(),
+    });
     this.uiDemoList.ShowSelectedItem(true);
 
-    const ctrl: CUIWindow = new CUIWindow();
+    const window: CUIWindow = new CUIWindow();
 
-    xml.InitWindow("tab_demo:file_item_main", 0, ctrl);
+    xml.InitWindow("tab_demo:file_item_main", 0, window);
 
-    this.fileItemMainSz = new vector2().set(ctrl.GetWidth(), ctrl.GetHeight());
+    this.fileItemMainSz = create2dVector(window.GetWidth(), window.GetHeight());
 
-    xml.InitWindow("tab_demo:file_item_name", 0, ctrl);
-    this.fileItemFnSz = new vector2().set(ctrl.GetWidth(), ctrl.GetHeight());
+    xml.InitWindow("tab_demo:file_item_name", 0, window);
+    this.fileItemFnSz = create2dVector(window.GetWidth(), window.GetHeight());
 
-    xml.InitWindow("tab_demo:file_item_date", 0, ctrl);
-    this.fileItemFdSz = new vector2().set(ctrl.GetWidth(), ctrl.GetHeight());
+    xml.InitWindow("tab_demo:file_item_date", 0, window);
+    this.fileItemFdSz = create2dVector(window.GetWidth(), window.GetHeight());
 
-    this.uiMessageBox = new CUIMessageBoxEx();
+    this.uiMessageBox = initializeElement(xml, EElementType.MESSAGE_BOX_EX, "demo_message_box", this, {
+      context: owner,
+      [ui_events.MESSAGE_BOX_YES_CLICKED]: () => this.onMsgBoxYes(),
+      [ui_events.MESSAGE_BOX_OK_CLICKED]: () => this.onMsgBoxYes(),
+    });
 
     // --  demo play info
-    xml.InitStatic("tab_demo:cap_demo_info_fields", this);
+    initializeStatics(xml, this, "tab_demo:cap_demo_info_fields", "tab_demo:cap_demo_players_info");
 
     this.uiGameType = xml.InitTextWnd("tab_demo:static_demo_info_gametype", this);
     this.uiPlayersCount = xml.InitTextWnd("tab_demo:static_demo_info_players_count", this);
     this.uiTeamStats = xml.InitTextWnd("tab_demo:static_demo_info_teamstats", this);
-
-    this.uiFileNameEdit = xml.InitEditBox("tab_demo:demo_file_name", this);
-
-    // --    players info
-    xml.InitStatic("tab_demo:cap_demo_players_info", this);
-    // --    xml.InitStatic            ("tab_demo:demo_players_info_header", this)
+    this.uiFileNameEdit = initializeElement(xml, EElementType.EDIT_BOX, "tab_demo:demo_file_name", this, {
+      context: owner,
+      [ui_events.EDIT_TEXT_COMMIT]: () => this.onRenameDemo(),
+    });
 
     this.uiPlayersList = xml.InitListBox("tab_demo:players_list", this);
 
-    xml.InitWindow("tab_demo:player_item_main", 0, ctrl);
-    this.playerItemMainSz = new vector2().set(ctrl.GetWidth(), ctrl.GetHeight());
+    xml.InitWindow("tab_demo:player_item_main", 0, window);
+    this.playerItemMainSz = create2dVector(window.GetWidth(), window.GetHeight());
 
-    xml.InitWindow("tab_demo:player_item_name", 0, ctrl);
-    this.playerItemNameSz = new vector2().set(ctrl.GetWidth(), ctrl.GetHeight());
+    xml.InitWindow("tab_demo:player_item_name", 0, window);
+    this.playerItemNameSz = create2dVector(window.GetWidth(), window.GetHeight());
 
-    xml.InitWindow("tab_demo:player_item_column", 0, ctrl);
-    this.playerItemColumnSz = new vector2().set(ctrl.GetWidth(), ctrl.GetHeight());
-
-    // --    handlers
-    handler.Register(this.uiDemoList, "demo_list_window");
-    handler.Register(this.uiMessageBox, "demo_message_box");
-    handler.Register(this.uiFileNameEdit, "demo_file_name");
-    handler.Register(this.uiDemoList, "demo_list_window");
+    xml.InitWindow("tab_demo:player_item_column", 0, window);
+    this.playerItemColumnSz = create2dVector(window.GetWidth(), window.GetHeight());
   }
 
   /**
@@ -137,9 +144,9 @@ export class MultiplayerDemo extends CUIWindow {
     filesList.Sort(FS.FS_sort_by_modif_down);
 
     for (let it = 0; it < filesCount; it += 1) {
-      const file = filesList.GetAt(it);
-      const fileName: string = string.sub(file.NameFull(), 0, string.len(file.NameFull()) - 5);
-      const dateTime: string = "[" + file.ModifDigitOnly() + "]";
+      const file: FSItem = filesList.GetAt(it);
+      const fileName: TName = string.sub(file.NameFull(), 0, string.len(file.NameFull()) - 5);
+      const dateTime: TLabel = "[" + file.ModifDigitOnly() + "]";
 
       // --menu_item =  +
       this.addItemToList(fileName, dateTime);
@@ -151,7 +158,7 @@ export class MultiplayerDemo extends CUIWindow {
   /**
    * todo: Description.
    */
-  public addItemToList(fileName: TName, dateTime: string): void {
+  public addItemToList(fileName: TName, dateTime: TLabel): void {
     const demoLoadItem: MultiplayerDemoLoadItem = new MultiplayerDemoLoadItem(
       this,
       this.fileItemFnSz.y,
@@ -161,8 +168,8 @@ export class MultiplayerDemo extends CUIWindow {
 
     demoLoadItem.SetWndSize(this.fileItemMainSz);
 
-    demoLoadItem.uiFn.SetText(fileName);
-    demoLoadItem.uiFage.SetText(dateTime);
+    demoLoadItem.uiFileNameText.SetText(fileName);
+    demoLoadItem.uiFileAgeText.SetText(dateTime);
 
     this.uiDemoList.AddExistingItem(demoLoadItem);
   }
@@ -170,7 +177,7 @@ export class MultiplayerDemo extends CUIWindow {
   /**
    * todo: Description.
    */
-  public getRankTextureName(playerInfo: MultiplayerDemoPlayerInfo): string {
+  public getRankTextureName(playerInfo: MultiplayerDemoPlayerInfo): TName {
     let textureName: TName = "ui_hud_status_";
 
     if (playerInfo.rank > 4 || playerInfo.rank < 0) {
@@ -215,16 +222,16 @@ export class MultiplayerDemo extends CUIWindow {
 
     itm.SetWndSize(this.playerItemMainSz);
 
-    itm.uiName.SetText(playerStats.name);
-    itm.uiFrags.SetText(tostring(playerStats.frags));
-    itm.uiDeath.SetText(tostring(playerStats.death));
-    itm.uiArtefacts.SetText(tostring(playerStats.artefacts));
-    itm.uiSpots.SetText(tostring(playerStats.spots));
+    itm.uiNameText.SetText(playerStats.name);
+    itm.uiFragsText.SetText(tostring(playerStats.frags));
+    itm.uiDeathText.SetText(tostring(playerStats.death));
+    itm.uiArtefactsText.SetText(tostring(playerStats.artefacts));
+    itm.uiSpotsText.SetText(tostring(playerStats.spots));
 
     const rankTextureName: string = this.getRankTextureName(playerStats);
 
     if (rankTextureName !== "") {
-      itm.uiRank.InitTexture(rankTextureName);
+      itm.uiRankText.InitTexture(rankTextureName);
     }
 
     this.uiPlayersList.AddExistingItem(itm);
@@ -244,7 +251,7 @@ export class MultiplayerDemo extends CUIWindow {
       return;
     }
 
-    const filename: string = item.uiFn.GetText();
+    const filename: string = item.uiFileNameText.GetText();
 
     logger.info("Selected demo file. " + filename + ".demo");
     this.updateDemoInfo(filename);
@@ -260,7 +267,7 @@ export class MultiplayerDemo extends CUIWindow {
       return;
     }
 
-    const filename: TName = item.uiFn.GetText();
+    const filename: TName = item.uiFileNameText.GetText();
 
     executeConsoleCommand(consoleCommands.start, "demo(" + filename + ".demo)");
   }
@@ -268,7 +275,7 @@ export class MultiplayerDemo extends CUIWindow {
   /**
    * todo: Description.
    */
-  public deleteSelectedDemo(): void {
+  public onDeleteSelectedDemo(): void {
     logger.info("Delete selected demo");
 
     const item = this.uiDemoList.GetSelectedItem();
@@ -283,7 +290,7 @@ export class MultiplayerDemo extends CUIWindow {
     this.onYesAction = "delete";
 
     const deleteQuestion: string =
-      game.translate_string("mp_want_to_delete_demo") + " " + item.uiFn.GetText() + ".demo ?";
+      game.translate_string("mp_want_to_delete_demo") + " " + item.uiFileNameText.GetText() + ".demo ?";
 
     this.uiMessageBox.InitMessageBox("message_box_yes_no");
     this.uiMessageBox.SetText(deleteQuestion);
@@ -348,7 +355,7 @@ export class MultiplayerDemo extends CUIWindow {
     }
 
     if (this.onYesAction === "delete") {
-      const filenameToDelete: TName = fs.update_path(roots.logs, item.uiFn.GetText() + ".demo");
+      const filenameToDelete: TName = fs.update_path(roots.logs, item.uiFileNameText.GetText() + ".demo");
 
       fs.file_delete(filenameToDelete);
       this.fillList();
@@ -358,7 +365,7 @@ export class MultiplayerDemo extends CUIWindow {
     }
 
     if (this.onYesAction === "rename") {
-      const oldFileName = fs.update_path(roots.logs, item.uiFn.GetText() + ".demo");
+      const oldFileName = fs.update_path(roots.logs, item.uiFileNameText.GetText() + ".demo");
       const newFileName = fs.update_path(roots.logs, this.fileNameToRename + ".demo");
 
       if (oldFileName === newFileName) {
@@ -368,7 +375,7 @@ export class MultiplayerDemo extends CUIWindow {
       }
 
       fs.file_rename(oldFileName, newFileName, true);
-      item.uiFn.SetText(this.fileNameToRename);
+      item.uiFileNameText.SetText(this.fileNameToRename);
       this.uiFileNameEdit.SetText(this.fileNameToRename);
       this.fileNameToRename = "";
       this.onYesAction = "";
@@ -382,8 +389,9 @@ export class MultiplayerDemo extends CUIWindow {
   /**
    * todo: Description.
    */
-  public updateDemoInfo(fileName: TName) {
+  public updateDemoInfo(fileName: TName): void {
     this.uiPlayersList.RemoveAll();
+
     if (fileName === "") {
       this.uiMapInfo.InitMap("", "");
       this.uiGameType.SetText("");
@@ -395,7 +403,7 @@ export class MultiplayerDemo extends CUIWindow {
 
       this.uiMapPic.InitTexture("ui\\ui_noise");
       this.uiMapPic.SetTextureRect(
-        new Frect().set(originalTextureRect.x1, originalTextureRect.y1, originalTextureRect.x2, originalTextureRect.y2)
+        createRectangle(originalTextureRect.x1, originalTextureRect.y1, originalTextureRect.x2, originalTextureRect.y2)
       );
 
       return;
@@ -429,7 +437,6 @@ export class MultiplayerDemo extends CUIWindow {
     this.uiTeamStats.SetText(tmpDemoinfo.get_game_score());
     this.uiFileNameEdit.SetText(fileName);
 
-    // -- calling C++ method
     for (let it = 0; it < playersCount; it + 1) {
       const playerInfo: MultiplayerDemoPlayerInfo = new MultiplayerDemoPlayerInfo();
       const tmpPlayer = tmpDemoinfo.get_player(it);
@@ -442,6 +449,7 @@ export class MultiplayerDemo extends CUIWindow {
       playerInfo.spots = tmpPlayer.get_spots();
       playerInfo.team = tmpPlayer.get_team();
       playerInfo.rank = tmpPlayer.get_rank();
+
       this.addPlayerToStats(playerInfo);
     }
   }

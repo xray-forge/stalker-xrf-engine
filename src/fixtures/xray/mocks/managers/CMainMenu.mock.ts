@@ -1,3 +1,4 @@
+import { jest } from "@jest/globals";
 import type { CMainMenu } from "xray16";
 
 import { Optional } from "@/engine/lib/types";
@@ -27,15 +28,15 @@ export class MockCMainMenu {
 
   public loginManager: MockLoginManager = new MockLoginManager();
 
-  public GetLoginMngr(): MockLoginManager {
-    return this.loginManager;
-  }
+  public GetLoginMngr = jest.fn(() => this.loginManager);
 
-  public GetAccountMngr(): void {}
+  public GetAccountMngr = jest.fn();
+
+  public GetPlayerName = jest.fn(() => "test-player-name");
 
   public GetProfileStore(): void {}
 
-  public GetGSVer(): string {
-    return "1.0-test";
-  }
+  public GetGSVer = jest.fn(() => "1.0-test");
+
+  public GetCDKey = jest.fn(() => "aaa-bb-c");
 }

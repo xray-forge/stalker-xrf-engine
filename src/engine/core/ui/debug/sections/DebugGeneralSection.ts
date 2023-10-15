@@ -4,7 +4,7 @@ import { SYSTEM_INI } from "@/engine/core/database";
 import { ProfilingManager } from "@/engine/core/managers/debug/profiling";
 import { AbstractDebugSection } from "@/engine/core/ui/debug/sections/AbstractDebugSection";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { EElementType, registerUiElement, resolveXmlFile } from "@/engine/core/utils/ui";
+import { EElementType, initializeElement, resolveXmlFile } from "@/engine/core/utils/ui";
 import { forgeConfig } from "@/engine/lib/configs/ForgeConfig";
 import { TPath, XmlInit } from "@/engine/lib/types";
 
@@ -33,80 +33,49 @@ export class DebugGeneralSection extends AbstractDebugSection {
       .TextControl()
       .SetText("Command line args:" + (command_line() || "unknown"));
 
-    this.uiMemoryUsageCountLabel = registerUiElement(xml, "memory_usage_count", {
-      type: EElementType.STATIC,
-      base: this,
-    });
-    this.uiLuaVersionLabel = registerUiElement(xml, "lua_version_label", {
-      type: EElementType.STATIC,
-      base: this,
-    });
-    this.uiLuaJitLabel = registerUiElement(xml, "lua_jit_label", {
-      type: EElementType.STATIC,
-      base: this,
+    this.uiMemoryUsageCountLabel = initializeElement(xml, EElementType.STATIC, "memory_usage_count", this);
+    this.uiLuaVersionLabel = initializeElement(xml, EElementType.STATIC, "lua_version_label", this);
+    this.uiLuaJitLabel = initializeElement(xml, EElementType.STATIC, "lua_jit_label", this);
+
+    this.uiProfilingToggleButton = initializeElement(xml, EElementType.BUTTON, "profiling_toggle_button", this, {
+      context: this.owner,
+      [ui_events.BUTTON_CLICKED]: () => this.onToggleProfilingButtonClick(),
     });
 
-    this.uiProfilingToggleButton = registerUiElement(xml, "profiling_toggle_button", {
-      type: EElementType.BUTTON,
-      base: this,
-      context: this.owner,
-      handlers: {
-        [ui_events.BUTTON_CLICKED]: () => this.onToggleProfilingButtonClick(),
-      },
-    });
-
-    this.uiSimulationDebugToggleButton = registerUiElement(xml, "debug_simulation_toggle_button", {
-      type: EElementType.BUTTON,
-      base: this,
-      context: this.owner,
-      handlers: {
+    this.uiSimulationDebugToggleButton = initializeElement(
+      xml,
+      EElementType.BUTTON,
+      "debug_simulation_toggle_button",
+      this,
+      {
+        context: this.owner,
         [ui_events.BUTTON_CLICKED]: () => this.onToggleSimulationDebugButtonClick(),
-      },
+      }
+    );
+
+    initializeElement(xml, EElementType.BUTTON, "refresh_memory_button", this, {
+      context: this.owner,
+      [ui_events.BUTTON_CLICKED]: () => this.onRefreshMemoryButtonClick(),
     });
 
-    registerUiElement(xml, "refresh_memory_button", {
-      type: EElementType.BUTTON,
-      base: this,
+    initializeElement(xml, EElementType.BUTTON, "collect_memory_button", this, {
       context: this.owner,
-      handlers: {
-        [ui_events.BUTTON_CLICKED]: () => this.onRefreshMemoryButtonClick(),
-      },
+      [ui_events.BUTTON_CLICKED]: () => this.onCollectMemoryButtonClick(),
     });
 
-    registerUiElement(xml, "collect_memory_button", {
-      type: EElementType.BUTTON,
-      base: this,
+    initializeElement(xml, EElementType.BUTTON, "dump_system_ini_button", this, {
       context: this.owner,
-      handlers: {
-        [ui_events.BUTTON_CLICKED]: () => this.onCollectMemoryButtonClick(),
-      },
+      [ui_events.BUTTON_CLICKED]: () => this.onDumpSystemIni(),
     });
 
-    registerUiElement(xml, "dump_system_ini_button", {
-      type: EElementType.BUTTON,
-      base: this,
+    this.uiProfilingReportButton = initializeElement(xml, EElementType.BUTTON, "profiling_log_button", this, {
       context: this.owner,
-      handlers: {
-        [ui_events.BUTTON_CLICKED]: () => this.onDumpSystemIni(),
-      },
+      [ui_events.BUTTON_CLICKED]: () => this.onLogProfilingStatsButtonClick(),
     });
 
-    this.uiProfilingReportButton = registerUiElement(xml, "profiling_log_button", {
-      base: this,
-      type: EElementType.BUTTON,
+    initializeElement(xml, EElementType.BUTTON, "portions_log_button", this, {
       context: this.owner,
-      handlers: {
-        [ui_events.BUTTON_CLICKED]: () => this.onLogProfilingStatsButtonClick(),
-      },
-    });
-
-    registerUiElement(xml, "portions_log_button", {
-      base: this,
-      type: EElementType.BUTTON,
-      context: this.owner,
-      handlers: {
-        [ui_events.BUTTON_CLICKED]: () => this.onLogPortionsStatsButtonClick(),
-      },
+      [ui_events.BUTTON_CLICKED]: () => this.onLogPortionsStatsButtonClick(),
     });
   }
 

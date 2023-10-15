@@ -94,6 +94,7 @@ import {
   TXR_danger_object,
   TXR_DIK_key,
   TXR_entity_action,
+  TXR_GAME_TYPE,
   TXR_look,
   TXR_MonsterBodyStateKey,
   TXR_move,
@@ -205,6 +206,7 @@ export type TCallback = TXR_callback;
 export type TClassId = TXR_class_id;
 export type TClassKey = TXR_class_key;
 export type TDangerType = TXR_danger_object;
+export type TGameType = TXR_GAME_TYPE;
 export type TEntityActionType = TXR_entity_action;
 export type TKeyCode = TXR_DIK_key;
 export type TLookType = TXR_look;

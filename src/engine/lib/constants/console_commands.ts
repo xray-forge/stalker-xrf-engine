@@ -21,7 +21,6 @@
  * CMD1(CCC_DemoRecordSetPos, "demo_set_cam_position");
  * CMD1(CCC_UIStyle, "ui_style");
  * CMD1(CCC_UIRestart, "ui_restart");
- * CMD1(CCC_GSCheckForUpdates, "check_for_updates");
  * CMD3(CCC_Mask, "g_autopickup", &psActorFlags, AF_AUTOPICKUP);
  * CMD3(CCC_Mask, "g_dynamic_music", &psActorFlags, AF_DYNAMIC_MUSIC);
  * CMD3(CCC_Mask, "g_important_save", &psActorFlags, AF_IMPORTANT_SAVE);

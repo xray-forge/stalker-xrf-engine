@@ -8,7 +8,6 @@ import {
   CUIWindow,
   DIK_keys,
   dik_to_bind,
-  Frect,
   FS,
   getFS,
   key_bindings,
@@ -19,9 +18,11 @@ import {
 import { SaveItem } from "@/engine/core/ui/menu/save/SaveItem";
 import { createGameSave, deleteGameSave, getGameSavesList } from "@/engine/core/utils/game_save";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { resolveXmlFile } from "@/engine/core/utils/ui";
+import { createRectangle } from "@/engine/core/utils/rectangle";
+import { EElementType, initializeElement, resolveXmlFile } from "@/engine/core/utils/ui";
 import { create2dVector } from "@/engine/core/utils/vector";
 import { forgeConfig } from "@/engine/lib/configs/ForgeConfig";
+import { screenConfig } from "@/engine/lib/configs/ScreenConfig";
 import { roots } from "@/engine/lib/constants/roots";
 import {
   FSFileList,
@@ -46,6 +47,9 @@ const base: TPath = "menu\\SaveDialog.component";
 export class SaveDialog extends CUIScriptWnd {
   public owner: CUIScriptWnd;
 
+  public modalBoxMode: number = 0;
+  public newSave: TName = "";
+
   public fileItemMainSize!: Vector2D;
   public fileItemFnSize!: Vector2D;
   public fileItemFdSize!: Vector2D;
@@ -55,21 +59,17 @@ export class SaveDialog extends CUIScriptWnd {
   public uiListBox!: CUIListBox<SaveItem>;
   public uiMessageBox!: CUIMessageBoxEx;
 
-  public newSave: TName = "";
-  public modalBoxMode: number = 0;
-
   public constructor(owner: CUIScriptWnd) {
     super();
 
     this.owner = owner;
 
-    this.initControls();
-    this.initCallBacks();
+    this.initialize();
     this.fillList();
   }
 
-  public initControls(): void {
-    this.SetWndRect(new Frect().set(0, 0, 1024, 768));
+  public initialize(): void {
+    this.SetWndRect(createRectangle(0, 0, screenConfig.BASE_WIDTH, screenConfig.BASE_HEIGHT));
 
     const xml: CScriptXmlInit = resolveXmlFile(base);
 
@@ -91,28 +91,33 @@ export class SaveDialog extends CUIScriptWnd {
     xml.InitTextWnd("form:caption", this.uiForm);
 
     this.uiEditBox = xml.InitEditBox("form:edit", this.uiForm);
-    this.Register(this.uiEditBox, "edit_filename");
 
     xml.InitFrame("form:list_frame", this.uiForm);
-    this.uiListBox = xml.InitListBox("form:list", this.uiForm);
+
+    this.uiListBox = initializeElement(xml, EElementType.LIST_BOX, "form:list", this.uiForm, {
+      context: this,
+      [ui_events.LIST_ITEM_CLICKED]: () => this.onListItemClicked(),
+    });
     this.uiListBox.ShowSelectedItem(true);
-    this.Register(this.uiListBox, "list_window");
 
-    this.Register(xml.Init3tButton("form:btn_save", this.uiForm), "button_ok");
-    this.Register(xml.Init3tButton("form:btn_delete", this.uiForm), "button_del");
-    this.Register(xml.Init3tButton("form:btn_cancel", this.uiForm), "button_cancel");
+    initializeElement(xml, EElementType.BUTTON, "form:btn_save", this.uiForm, {
+      context: this,
+      [ui_events.BUTTON_CLICKED]: () => this.onOkButtonClicked(),
+    });
 
-    this.uiMessageBox = new CUIMessageBoxEx();
-    this.Register(this.uiMessageBox, "message_box");
-  }
+    initializeElement(xml, EElementType.BUTTON, "form:btn_delete", this.uiForm, {
+      context: this,
+      [ui_events.BUTTON_CLICKED]: () => this.onDeleteButtonClicked(),
+    });
 
-  public initCallBacks(): void {
-    this.AddCallback("button_ok", ui_events.BUTTON_CLICKED, () => this.onOkButtonClicked(), this);
-    this.AddCallback("button_cancel", ui_events.BUTTON_CLICKED, () => this.onCancelButtonClicked(), this);
-    this.AddCallback("button_del", ui_events.BUTTON_CLICKED, () => this.onDeleteButtonClicked(), this);
+    initializeElement(xml, EElementType.BUTTON, "form:btn_cancel", this.uiForm, {
+      context: this,
+      [ui_events.BUTTON_CLICKED]: () => this.onCancelButtonClicked(),
+    });
 
-    this.AddCallback("message_box", ui_events.MESSAGE_BOX_YES_CLICKED, () => this.onMessageYesClicked(), this);
-    this.AddCallback("list_window", ui_events.LIST_ITEM_CLICKED, () => this.onListItemClicked(), this);
+    this.uiMessageBox = initializeElement(xml, EElementType.MESSAGE_BOX_EX, "message_box", this, {
+      [ui_events.MESSAGE_BOX_YES_CLICKED]: () => this.onMessageYesClicked(),
+    });
   }
 
   /**
@@ -133,6 +138,19 @@ export class SaveDialog extends CUIScriptWnd {
 
       this.addItemToList(filename, dateTime);
     }
+  }
+
+  public addItemToList(filename: TName, datetime: TLabel): void {
+    const saveItem: SaveItem = new SaveItem(this.fileItemMainSize.y, this.fileItemFdSize.x, datetime);
+
+    saveItem.SetWndSize(this.fileItemMainSize);
+
+    saveItem.uiInnerNameText.SetWndPos(create2dVector(0, 0));
+    saveItem.uiInnerNameText.SetWndSize(this.fileItemFnSize);
+    saveItem.uiInnerNameText.SetText(filename);
+    saveItem.uiInnerAgeText.SetWndPos(create2dVector(this.fileItemFnSize.x + 4, 0));
+
+    this.uiListBox.AddExistingItem(saveItem);
   }
 
   public onListItemClicked(): void {
@@ -273,18 +291,5 @@ export class SaveDialog extends CUIScriptWnd {
     }
 
     return true;
-  }
-
-  public addItemToList(filename: TName, datetime: TLabel): void {
-    const saveItem: SaveItem = new SaveItem(this.fileItemMainSize.y, this.fileItemFdSize.x, datetime);
-
-    saveItem.SetWndSize(this.fileItemMainSize);
-
-    saveItem.uiInnerNameText.SetWndPos(create2dVector(0, 0));
-    saveItem.uiInnerNameText.SetWndSize(this.fileItemFnSize);
-    saveItem.uiInnerNameText.SetText(filename);
-    saveItem.uiInnerAgeText.SetWndPos(create2dVector(this.fileItemFnSize.x + 4, 0));
-
-    this.uiListBox.AddExistingItem(saveItem);
   }
 }

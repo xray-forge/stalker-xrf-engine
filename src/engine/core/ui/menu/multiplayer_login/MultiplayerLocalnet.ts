@@ -15,7 +15,7 @@ import {
 import { MainMenu } from "@/engine/core/ui/menu/MainMenu";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { createRectangle } from "@/engine/core/utils/rectangle";
-import { EElementType, registerUiElement, resolveXmlFile, resolveXmlFormPath } from "@/engine/core/utils/ui";
+import { EElementType, initializeElement, resolveXmlFile, resolveXmlFormPath } from "@/engine/core/utils/ui";
 import { screenConfig } from "@/engine/lib/configs/ScreenConfig";
 import { Optional, Profile, TKeyCode, TLabel, TPath, TUIEvent } from "@/engine/lib/types";
 
@@ -52,30 +52,18 @@ export class MultiplayerLocalnet extends CUIScriptWnd {
     this.SetWndRect(createRectangle(0, 0, screenConfig.BASE_WIDTH, screenConfig.BASE_HEIGHT));
     this.Enable(true);
 
-    registerUiElement(xml, "background", { type: EElementType.STATIC, base: this });
+    initializeElement(xml, EElementType.STATIC, "background", this);
 
-    registerUiElement(xml, "button_login", {
-      type: EElementType.BUTTON,
-      base: this,
-      handlers: {
-        [ui_events.BUTTON_CLICKED]: () => this.onLoginButtonClick(),
-      },
+    initializeElement(xml, EElementType.BUTTON, "button_login", this, {
+      [ui_events.BUTTON_CLICKED]: () => this.onLoginButtonClick(),
     });
 
-    registerUiElement(xml, "button_cancel", {
-      type: EElementType.BUTTON,
-      base: this,
-      handlers: {
-        [ui_events.BUTTON_CLICKED]: () => this.onCancelButtonClick(),
-      },
+    initializeElement(xml, EElementType.BUTTON, "button_cancel", this, {
+      [ui_events.BUTTON_CLICKED]: () => this.onCancelButtonClick(),
     });
 
-    this.uiGsLoginMessageBox = registerUiElement(xml, "gs_message_box", {
-      type: EElementType.MESSAGE_BOX_EX,
-      base: this,
-      handlers: {
-        [ui_events.MESSAGE_BOX_OK_CLICKED]: () => this.onOkMessageClick(),
-      },
+    this.uiGsLoginMessageBox = initializeElement(xml, EElementType.MESSAGE_BOX_EX, "gs_message_box", this, {
+      [ui_events.MESSAGE_BOX_OK_CLICKED]: () => this.onOkMessageClick(),
     });
 
     const uiLoginPage: CUIWindow = new CUIWindow();
@@ -86,27 +74,25 @@ export class MultiplayerLocalnet extends CUIScriptWnd {
     this.uiLoginPage = uiLoginPage;
     this.uiLoginPage.SetAutoDelete(true);
 
-    registerUiElement(xml, "login_page:cap_header_login", { type: EElementType.TEXT_WINDOW, base: uiLoginPage });
-    registerUiElement(xml, "login_page:cap_nickname", { type: EElementType.TEXT_WINDOW, base: uiLoginPage });
+    initializeElement(xml, EElementType.TEXT_WINDOW, "login_page:cap_header_login", uiLoginPage);
+    initializeElement(xml, EElementType.TEXT_WINDOW, "login_page:cap_nickname", uiLoginPage);
 
-    this.uiNicknameEditBox = registerUiElement(xml, "login_page:edit_nickname", {
-      base: uiLoginPage,
+    this.uiNicknameEditBox = initializeElement(xml, EElementType.EDIT_BOX, "login_page:edit_nickname", uiLoginPage, {
       context: this,
-      type: EElementType.EDIT_BOX,
-      handlers: {
-        [ui_events.EDIT_TEXT_COMMIT]: () => this.onNicknameEditBoxChanged(),
-      },
+      [ui_events.EDIT_TEXT_COMMIT]: () => this.onNicknameEditBoxChanged(),
     });
     this.uiNicknameEditBox.CaptureFocus(true);
 
-    this.uiRememberMeCheck = registerUiElement(xml, "login_page:check_remember_me", {
-      base: uiLoginPage,
-      context: this,
-      type: EElementType.CHECK_BOX,
-      handlers: {
+    this.uiRememberMeCheck = initializeElement(
+      xml,
+      EElementType.CHECK_BUTTON,
+      "login_page:check_remember_me",
+      uiLoginPage,
+      {
+        context: this,
         [ui_events.BUTTON_CLICKED]: () => this.onRememberMeButtonClick(),
-      },
-    });
+      }
+    );
   }
 
   /**

@@ -16,7 +16,7 @@ import { AbstractDebugSection } from "@/engine/core/ui/debug/sections/AbstractDe
 import { isGameStarted } from "@/engine/core/utils/game";
 import { parseConditionsList, pickSectionFromCondList, readIniString } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { EElementType, registerUiElement, resolveXmlFile } from "@/engine/core/utils/ui";
+import { EElementType, initializeElement, resolveXmlFile } from "@/engine/core/utils/ui";
 import { Optional, TCount, TLabel, TName, TPath, TStringId } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -38,42 +38,24 @@ export class DebugTaskSection extends AbstractDebugSection {
   public initializeControls(): void {
     resolveXmlFile(base, this.xml);
 
-    registerUiElement(this.xml, "task_list_frame", {
-      base: this,
-      type: EElementType.FRAME,
-    });
+    initializeElement(this.xml, EElementType.FRAME, "task_list_frame", this);
 
-    this.uiTaskCountLabel = registerUiElement(this.xml, "task_filter_count", {
-      type: EElementType.STATIC,
-      base: this,
-    });
+    this.uiTaskCountLabel = initializeElement(this.xml, EElementType.STATIC, "task_filter_count", this);
 
-    this.uiGiveTaskButton = registerUiElement(this.xml, "give_task", {
-      type: EElementType.BUTTON,
-      base: this,
+    this.uiGiveTaskButton = initializeElement(this.xml, EElementType.BUTTON, "give_task", this, {
       context: this.owner,
-      handlers: {
-        [ui_events.BUTTON_CLICKED]: () => this.onGiveTask(),
-      },
+      [ui_events.BUTTON_CLICKED]: () => this.onGiveTask(),
     });
 
-    this.uiTaskFilterActive = registerUiElement(this.xml, "task_filter_active", {
-      type: EElementType.CHECK_BOX,
-      base: this,
+    this.uiTaskFilterActive = initializeElement(this.xml, EElementType.CHECK_BUTTON, "task_filter_active", this, {
       context: this.owner,
-      handlers: {
-        [ui_events.CHECK_BUTTON_RESET]: () => this.onToggleFilterActive(),
-        [ui_events.CHECK_BUTTON_SET]: () => this.onToggleFilterActive(),
-      },
+      [ui_events.CHECK_BUTTON_RESET]: () => this.onToggleFilterActive(),
+      [ui_events.CHECK_BUTTON_SET]: () => this.onToggleFilterActive(),
     });
 
-    this.uiTaskList = registerUiElement(this.xml, "task_list", {
-      type: EElementType.LIST_BOX,
-      base: this,
+    this.uiTaskList = initializeElement(this.xml, EElementType.LIST_BOX, "task_list", this, {
       context: this.owner,
-      handlers: {
-        [ui_events.LIST_ITEM_SELECT]: () => this.onSelectedObjectChange(),
-      },
+      [ui_events.LIST_ITEM_SELECT]: () => this.onSelectedObjectChange(),
     });
   }
 

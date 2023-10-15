@@ -1,12 +1,12 @@
 import { CUIScriptWnd, CUIStatic, DIK_keys, LuabindClass, ui_events } from "xray16";
 
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { EElementType, registerUiElement, resolveXmlFile } from "@/engine/core/utils/ui";
+import { EElementType, initializeElement, resolveXmlFile } from "@/engine/core/utils/ui";
 import { create2dVector } from "@/engine/core/utils/vector";
 import { Optional, TKeyCode, TLabel, TPath, TUIEvent, XmlInit } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
-const BASE: TPath = "game\\NumPadWindow.component";
+const base: TPath = "game\\NumPadWindow.component";
 
 export interface INumPadWindowOwner {
   onNumberReceive(text: string): void;
@@ -40,111 +40,55 @@ export class NumPadWindow extends CUIScriptWnd {
     this.SetWndPos(create2dVector(342, 199));
     this.SetWndSize(create2dVector(339, 369));
 
-    const xml: XmlInit = resolveXmlFile(BASE);
+    const xml: XmlInit = resolveXmlFile(base);
 
     xml.InitStatic("background", this);
 
     this.uiEditBox = xml.InitStatic("edit_box", this);
     this.uiEditBox.SetWindowName(NumPadWindow.__name);
 
-    registerUiElement(xml, "btn_0", {
-      base: this,
-      type: EElementType.BUTTON,
-      handlers: {
-        [ui_events.BUTTON_CLICKED]: () => this.addNumber(0),
-      },
+    initializeElement(xml, EElementType.BUTTON, "btn_0", this, {
+      [ui_events.BUTTON_CLICKED]: () => this.addNumber(0),
     });
-    registerUiElement(xml, "btn_1", {
-      base: this,
-      type: EElementType.BUTTON,
-      handlers: {
-        [ui_events.BUTTON_CLICKED]: () => this.addNumber(1),
-      },
+    initializeElement(xml, EElementType.BUTTON, "btn_1", this, {
+      [ui_events.BUTTON_CLICKED]: () => this.addNumber(1),
     });
-    registerUiElement(xml, "btn_2", {
-      base: this,
-      type: EElementType.BUTTON,
-      handlers: {
-        [ui_events.BUTTON_CLICKED]: () => this.addNumber(2),
-      },
+    initializeElement(xml, EElementType.BUTTON, "btn_2", this, {
+      [ui_events.BUTTON_CLICKED]: () => this.addNumber(2),
     });
-    registerUiElement(xml, "btn_3", {
-      base: this,
-      type: EElementType.BUTTON,
-      handlers: {
-        [ui_events.BUTTON_CLICKED]: () => this.addNumber(3),
-      },
+    initializeElement(xml, EElementType.BUTTON, "btn_3", this, {
+      [ui_events.BUTTON_CLICKED]: () => this.addNumber(3),
     });
-    registerUiElement(xml, "btn_4", {
-      base: this,
-      type: EElementType.BUTTON,
-      handlers: {
-        [ui_events.BUTTON_CLICKED]: () => this.addNumber(4),
-      },
+    initializeElement(xml, EElementType.BUTTON, "btn_4", this, {
+      [ui_events.BUTTON_CLICKED]: () => this.addNumber(4),
     });
-    registerUiElement(xml, "btn_5", {
-      base: this,
-      type: EElementType.BUTTON,
-      handlers: {
-        [ui_events.BUTTON_CLICKED]: () => this.addNumber(5),
-      },
+    initializeElement(xml, EElementType.BUTTON, "btn_5", this, {
+      [ui_events.BUTTON_CLICKED]: () => this.addNumber(5),
     });
-    registerUiElement(xml, "btn_6", {
-      base: this,
-      type: EElementType.BUTTON,
-      handlers: {
-        [ui_events.BUTTON_CLICKED]: () => this.addNumber(6),
-      },
+    initializeElement(xml, EElementType.BUTTON, "btn_6", this, {
+      [ui_events.BUTTON_CLICKED]: () => this.addNumber(6),
     });
-    registerUiElement(xml, "btn_7", {
-      base: this,
-      type: EElementType.BUTTON,
-      handlers: {
-        [ui_events.BUTTON_CLICKED]: () => this.addNumber(7),
-      },
+    initializeElement(xml, EElementType.BUTTON, "btn_7", this, {
+      [ui_events.BUTTON_CLICKED]: () => this.addNumber(7),
     });
-    registerUiElement(xml, "btn_8", {
-      base: this,
-      type: EElementType.BUTTON,
-      handlers: {
-        [ui_events.BUTTON_CLICKED]: () => this.addNumber(8),
-      },
+    initializeElement(xml, EElementType.BUTTON, "btn_8", this, {
+      [ui_events.BUTTON_CLICKED]: () => this.addNumber(8),
     });
-    registerUiElement(xml, "btn_9", {
-      base: this,
-      type: EElementType.BUTTON,
-      handlers: {
-        [ui_events.BUTTON_CLICKED]: () => this.addNumber(9),
-      },
+    initializeElement(xml, EElementType.BUTTON, "btn_9", this, {
+      [ui_events.BUTTON_CLICKED]: () => this.addNumber(9),
     });
 
-    registerUiElement(xml, "btn_c", {
-      base: this,
-      type: EElementType.BUTTON,
-      handlers: {
-        [ui_events.BUTTON_CLICKED]: () => this.onOkButtonClicked(),
-      },
+    initializeElement(xml, EElementType.BUTTON, "btn_c", this, {
+      [ui_events.BUTTON_CLICKED]: () => this.onOkButtonClicked(),
     });
-    registerUiElement(xml, "btn_cancel", {
-      base: this,
-      type: EElementType.BUTTON,
-      handlers: {
-        [ui_events.BUTTON_CLICKED]: () => this.onCancelButtonClicked(),
-      },
+    initializeElement(xml, EElementType.BUTTON, "btn_cancel", this, {
+      [ui_events.BUTTON_CLICKED]: () => this.onCancelButtonClicked(),
     });
-    registerUiElement(xml, "btn_enter", {
-      base: this,
-      type: EElementType.BUTTON,
-      handlers: {
-        [ui_events.BUTTON_CLICKED]: () => this.onOkButtonClicked(),
-      },
+    initializeElement(xml, EElementType.BUTTON, "btn_enter", this, {
+      [ui_events.BUTTON_CLICKED]: () => this.onOkButtonClicked(),
     });
-    registerUiElement(xml, "btn_backspase", {
-      base: this,
-      type: EElementType.BUTTON,
-      handlers: {
-        [ui_events.BUTTON_CLICKED]: () => this.onBackspaceButtonClicked(),
-      },
+    initializeElement(xml, EElementType.BUTTON, "btn_backspase", this, {
+      [ui_events.BUTTON_CLICKED]: () => this.onBackspaceButtonClicked(),
     });
   }
 

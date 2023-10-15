@@ -7,7 +7,7 @@ import { AbstractDebugSection } from "@/engine/core/ui/debug/sections/AbstractDe
 import { isGameStarted } from "@/engine/core/utils/game";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { isGameVertexFromLevel } from "@/engine/core/utils/position";
-import { EElementType, registerStatics, registerUiElement, resolveXmlFile } from "@/engine/core/utils/ui";
+import { EElementType, initializeElement, initializeStatics, resolveXmlFile } from "@/engine/core/utils/ui";
 import { Optional, ServerObject, TCount, TLabel, TNumberId, TPath, TSection, XmlInit } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -40,7 +40,7 @@ export class DebugTreasuresSection extends AbstractDebugSection {
   public override initializeControls(): void {
     const xml: XmlInit = resolveXmlFile(base, this.xml);
 
-    registerStatics(
+    initializeStatics(
       xml,
       this,
       "preview_texture_common",
@@ -49,79 +49,58 @@ export class DebugTreasuresSection extends AbstractDebugSection {
       "preview_texture_unique"
     );
 
-    registerUiElement(xml, "treasures_list_frame", {
-      base: this,
-      type: EElementType.FRAME,
-    });
+    initializeElement(xml, EElementType.FRAME, "treasures_list_frame", this);
 
-    this.uiTotalTreasuresLabel = registerUiElement(xml, "total_treasures_count_label", {
-      base: this,
-      type: EElementType.STATIC,
-    });
-    this.uiGivenTreasuresLabel = registerUiElement(xml, "given_treasures_count_label", {
-      base: this,
-      type: EElementType.STATIC,
-    });
-    this.uiFoundTreasuresLabel = registerUiElement(xml, "found_treasures_count_label", {
-      base: this,
-      type: EElementType.STATIC,
-    });
-    this.uiTreasureInfoLabel = registerUiElement(xml, "treasure_info_label", {
-      base: this,
-      type: EElementType.STATIC,
-    });
+    this.uiTotalTreasuresLabel = initializeElement(xml, EElementType.STATIC, "total_treasures_count_label", this);
+    this.uiGivenTreasuresLabel = initializeElement(xml, EElementType.STATIC, "given_treasures_count_label", this);
+    this.uiFoundTreasuresLabel = initializeElement(xml, EElementType.STATIC, "found_treasures_count_label", this);
+    this.uiTreasureInfoLabel = initializeElement(xml, EElementType.STATIC, "treasure_info_label", this);
 
-    this.uiGiveRandomTreasuresButton = registerUiElement(xml, "give_random_treasures_button", {
-      type: EElementType.BUTTON,
-      base: this,
-      context: this.owner,
-      handlers: {
+    this.uiGiveRandomTreasuresButton = initializeElement(
+      xml,
+      EElementType.BUTTON,
+      "give_random_treasures_button",
+      this,
+      {
+        context: this.owner,
         [ui_events.BUTTON_CLICKED]: () => this.onGiveRandomTreasuresButtonClicked(),
-      },
-    });
-    this.uiGiveTreasuresButton = registerUiElement(xml, "give_treasures_button", {
-      type: EElementType.BUTTON,
-      base: this,
+      }
+    );
+    this.uiGiveTreasuresButton = initializeElement(xml, EElementType.BUTTON, "give_treasures_button", this, {
       context: this.owner,
-      handlers: {
-        [ui_events.BUTTON_CLICKED]: () => this.onGiveAllTreasuresButtonClicked(),
-      },
+      [ui_events.BUTTON_CLICKED]: () => this.onGiveAllTreasuresButtonClicked(),
     });
 
-    this.uiGiveSpecificTreasureButton = registerUiElement(xml, "give_specific_treasure_button", {
-      type: EElementType.BUTTON,
-      base: this,
-      context: this.owner,
-      handlers: {
+    this.uiGiveSpecificTreasureButton = initializeElement(
+      xml,
+      EElementType.BUTTON,
+      "give_specific_treasure_button",
+      this,
+      {
+        context: this.owner,
         [ui_events.BUTTON_CLICKED]: () => this.onGiveSpecificTreasureButtonClicked(),
-      },
-    });
+      }
+    );
 
-    this.uiTeleportToSpecificTreasureButton = registerUiElement(xml, "teleport_to_specific_treasure_button", {
-      type: EElementType.BUTTON,
-      base: this,
-      context: this.owner,
-      handlers: {
+    this.uiTeleportToSpecificTreasureButton = initializeElement(
+      xml,
+      EElementType.BUTTON,
+      "teleport_to_specific_treasure_button",
+      this,
+      {
+        context: this.owner,
         [ui_events.BUTTON_CLICKED]: () => this.onTeleportToTreasureClicked(),
-      },
+      }
+    );
+
+    this.uiTreasuresList = initializeElement(xml, EElementType.LIST_BOX, "treasures_list", this, {
+      context: this.owner,
+      [ui_events.LIST_ITEM_SELECT]: () => this.onSelectedTreasureChange(),
     });
 
-    this.uiTreasuresList = registerUiElement(xml, "treasures_list", {
-      type: EElementType.LIST_BOX,
-      base: this,
+    this.uiTreasuresListEditBox = initializeElement(xml, EElementType.EDIT_BOX, "treasures_filter_box", this, {
       context: this.owner,
-      handlers: {
-        [ui_events.LIST_ITEM_SELECT]: () => this.onSelectedTreasureChange(),
-      },
-    });
-
-    this.uiTreasuresListEditBox = registerUiElement(xml, "treasures_filter_box", {
-      type: EElementType.EDIT_BOX,
-      base: this,
-      context: this.owner,
-      handlers: {
-        [ui_events.EDIT_TEXT_COMMIT]: () => this.onSelectedTreasureFilterChange(),
-      },
+      [ui_events.EDIT_TEXT_COMMIT]: () => this.onSelectedTreasureFilterChange(),
     });
   }
 
