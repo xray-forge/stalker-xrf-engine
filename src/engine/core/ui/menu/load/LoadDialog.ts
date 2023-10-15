@@ -25,9 +25,11 @@ import {
   loadGameSave,
 } from "@/engine/core/utils/game_save";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { resolveXmlFormPath } from "@/engine/core/utils/ui";
+import { createRectangle } from "@/engine/core/utils/rectangle";
+import { EElementType, initializeElement, initializeStatics, resolveXmlFile } from "@/engine/core/utils/ui";
 import { create2dVector } from "@/engine/core/utils/vector";
 import { forgeConfig } from "@/engine/lib/configs/ForgeConfig";
+import { screenConfig } from "@/engine/lib/configs/ScreenConfig";
 import {
   ClientObject,
   FSItem,
@@ -52,6 +54,8 @@ const base: TPath = "menu\\LoadDialog.component";
 export class LoadDialog extends CUIScriptWnd {
   public owner: CUIScriptWnd;
 
+  public messageBoxMode: number = 0;
+
   public fileItemMainSize!: Vector2D;
   public fileItemInnerNameTextSize!: Vector2D;
   public fileItemDdSize!: Vector2D;
@@ -62,24 +66,21 @@ export class LoadDialog extends CUIScriptWnd {
   public uiFileData!: CUITextWnd;
   public uiListBox!: CUIListBox<LoadItem>;
   public uiMessageBox!: CUIMessageBoxEx;
-  public messageBoxMode: number = 0;
 
   public constructor(owner: CUIScriptWnd) {
     super();
 
     this.owner = owner;
 
-    this.initControls();
-    this.initCallbacks();
+    this.initialize();
   }
 
-  public initControls(): void {
-    this.SetWndRect(new Frect().set(0, 0, 1024, 768));
+  public initialize(): void {
+    this.SetWndRect(createRectangle(0, 0, screenConfig.BASE_WIDTH, screenConfig.BASE_HEIGHT));
 
-    const xml: CScriptXmlInit = new CScriptXmlInit();
+    const xml: CScriptXmlInit = resolveXmlFile(base);
 
-    xml.ParseFile(resolveXmlFormPath(base));
-    xml.InitStatic("background", this);
+    initializeStatics(xml, this, "background");
 
     const window: CUIWindow = new CUIWindow();
 
@@ -93,38 +94,38 @@ export class LoadDialog extends CUIScriptWnd {
     this.fileItemDdSize = create2dVector(window.GetWidth(), window.GetHeight());
 
     this.uiForm = xml.InitStatic("form", this);
-    xml.InitStatic("form:caption", this.uiForm);
 
-    this.uiPicture = xml.InitStatic("form:picture", this.uiForm);
-
-    // -- xml.InitStatic("form:file_info", this.form);
+    this.uiPicture = initializeElement(xml, EElementType.STATIC, "form:picture", this.uiForm);
+    initializeStatics(xml, this.uiForm, "form:caption");
 
     this.uiFileCaption = xml.InitTextWnd("form:file_caption", this.uiForm);
     this.uiFileData = xml.InitTextWnd("form:file_data", this.uiForm);
 
     xml.InitFrame("form:list_frame", this.uiForm);
 
-    this.uiListBox = xml.InitListBox("form:list", this.uiForm);
+    this.uiListBox = initializeElement(xml, EElementType.LIST_BOX, "form:list", this.uiForm, {
+      context: this,
+      [ui_events.LIST_ITEM_CLICKED]: () => this.onListItemClicked(),
+      [ui_events.WINDOW_LBUTTON_DB_CLICK]: () => this.onListItemDoubleClicked(),
+    });
     this.uiListBox.ShowSelectedItem(true);
 
-    this.Register(this.uiListBox, "list_window");
-    this.Register(xml.Init3tButton("form:btn_load", this.uiForm), "button_load");
-    this.Register(xml.Init3tButton("form:btn_delete", this.uiForm), "button_del");
-    this.Register(xml.Init3tButton("form:btn_cancel", this.uiForm), "button_back");
+    initializeElement(xml, EElementType.BUTTON, "form:btn_load", this, {
+      [ui_events.BUTTON_CLICKED]: () => this.onLoadButtonClicked(),
+    });
 
-    this.uiMessageBox = new CUIMessageBoxEx();
-    this.Register(this.uiMessageBox, "message_box");
-  }
+    initializeElement(xml, EElementType.BUTTON, "form:btn_delete", this, {
+      [ui_events.BUTTON_CLICKED]: () => this.onDeleteButtonClicked(),
+    });
 
-  public initCallbacks(): void {
-    this.AddCallback("button_load", ui_events.BUTTON_CLICKED, () => this.onLoadButtonClicked(), this);
-    this.AddCallback("button_back", ui_events.BUTTON_CLICKED, () => this.onBackButtonClicked(), this);
-    this.AddCallback("button_del", ui_events.BUTTON_CLICKED, () => this.onDeleteButtonClicked(), this);
-    this.AddCallback("message_box", ui_events.MESSAGE_BOX_YES_CLICKED, () => this.onConfirmedLoadClicked(), this);
-    this.AddCallback("message_box", ui_events.MESSAGE_BOX_OK_CLICKED, () => this.onConfirmedLoadClicked(), this);
+    initializeElement(xml, EElementType.BUTTON, "form:btn_cancel", this, {
+      [ui_events.BUTTON_CLICKED]: () => this.onBackButtonClicked(),
+    });
 
-    this.AddCallback("list_window", ui_events.LIST_ITEM_CLICKED, () => this.onListItemClicked(), this);
-    this.AddCallback("list_window", ui_events.WINDOW_LBUTTON_DB_CLICK, () => this.onListItemDoubleClicked(), this);
+    this.uiMessageBox = initializeElement(xml, EElementType.MESSAGE_BOX_EX, "message_box", this, {
+      [ui_events.MESSAGE_BOX_YES_CLICKED]: () => this.onConfirmedLoadClicked(),
+      [ui_events.MESSAGE_BOX_OK_CLICKED]: () => this.onConfirmedLoadClicked(),
+    });
   }
 
   public fillList(): void {
@@ -142,6 +143,19 @@ export class LoadDialog extends CUIScriptWnd {
 
       this.addItemToList(filename, datetime);
     }
+  }
+
+  public addItemToList(filename: TName, datetime: TLabel): void {
+    const loadItem: LoadItem = new LoadItem(this.fileItemMainSize.y, this.fileItemDdSize.x, datetime);
+
+    loadItem.SetWndSize(this.fileItemMainSize);
+    loadItem.uiInnerNameText.SetWndPos(create2dVector(0, 0));
+    loadItem.uiInnerNameText.SetWndSize(this.fileItemInnerNameTextSize);
+    loadItem.uiInnerNameText.SetText(filename);
+    loadItem.uiInnerAgeText.SetWndPos(create2dVector(this.fileItemInnerNameTextSize.x + 4, 0));
+    loadItem.uiInnerAgeText.SetWndSize(this.fileItemDdSize);
+
+    this.uiListBox.AddExistingItem(loadItem);
   }
 
   public onListItemClicked(): void {
@@ -326,18 +340,5 @@ export class LoadDialog extends CUIScriptWnd {
     }
 
     return true;
-  }
-
-  public addItemToList(filename: string, datetime: string): void {
-    const loadItem: LoadItem = new LoadItem(this.fileItemMainSize.y, this.fileItemDdSize.x, datetime);
-
-    loadItem.SetWndSize(this.fileItemMainSize);
-    loadItem.uiInnerNameText.SetWndPos(create2dVector(0, 0));
-    loadItem.uiInnerNameText.SetWndSize(this.fileItemInnerNameTextSize);
-    loadItem.uiInnerNameText.SetText(filename);
-    loadItem.uiInnerAgeText.SetWndPos(create2dVector(this.fileItemInnerNameTextSize.x + 4, 0));
-    loadItem.uiInnerAgeText.SetWndSize(this.fileItemDdSize);
-
-    this.uiListBox.AddExistingItem(loadItem);
   }
 }
