@@ -2,9 +2,9 @@ import { jest } from "@jest/globals";
 import type { CUIWindow } from "xray16";
 
 import { Optional, TName } from "@/engine/lib/types";
-import { MockVector2D } from "@/fixtures/xray";
 import { MockFrect } from "@/fixtures/xray/mocks/frect.mock";
 import { MockLuabindClass } from "@/fixtures/xray/mocks/luabind.mock";
+import { MockVector2D } from "@/fixtures/xray/mocks/vector2.mock";
 
 /**
  * Mock base window class.
@@ -22,7 +22,7 @@ export class MockCUIWindow extends MockLuabindClass {
 
   public windowName: Optional<TName> = null;
   public windowRect: Optional<MockFrect> = null;
-  public windowPosition: Optional<MockVector2D> = null;
+  public windowPosition: Optional<MockVector2D> = MockVector2D.create();
   public windowSize: Optional<MockVector2D> = null;
 
   public Enable(isEnabled: boolean): void {
@@ -51,6 +51,10 @@ export class MockCUIWindow extends MockLuabindClass {
 
   public SetWndSize = jest.fn((size: MockVector2D) => {
     this.windowSize = size;
+  });
+
+  public GetWndPos = jest.fn(() => {
+    return this.windowPosition;
   });
 
   public SetWndRect(rect: MockFrect): void {

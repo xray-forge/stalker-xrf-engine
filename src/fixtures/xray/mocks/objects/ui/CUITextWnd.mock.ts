@@ -14,5 +14,7 @@ export class MockCUITextWnd extends MockCUIWindow {
 
   public GetText = jest.fn(() => this.text);
 
+  public SetTextAlignment = jest.fn();
+
   public SetEllipsis = jest.fn();
 }

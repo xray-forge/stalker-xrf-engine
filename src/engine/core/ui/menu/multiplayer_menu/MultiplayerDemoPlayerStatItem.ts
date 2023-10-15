@@ -16,45 +16,42 @@ import { TSize } from "@/engine/lib/types";
  */
 @LuabindClass()
 export class MultiplayerDemoPlayerStatItem extends CUIListBoxItem {
-  public uiName: CUITextWnd;
-  public uiFrags: CUITextWnd;
-  public uiDeath: CUITextWnd;
-  public uiArtefacts: CUITextWnd;
-  public uiSpots: CUITextWnd;
-  public uiRank: CUIStatic;
+  public uiNameText: CUITextWnd;
+  public uiFragsText: CUITextWnd;
+  public uiDeathText: CUITextWnd;
+  public uiArtefactsText: CUITextWnd;
+  public uiSpotsText: CUITextWnd;
+  public uiRankText: CUIStatic;
 
   public constructor(height: TSize, w1: TSize, w2: TSize) {
     super(height);
 
     this.SetTextColor(GetARGB(255, 255, 255, 255));
 
-    this.uiName = this.GetTextItem();
-    this.uiName.SetWndSize(create2dVector(w1, height));
-    this.uiName.SetFont(GetFontLetterica16Russian());
-    this.uiName.SetEllipsis(true);
+    this.uiNameText = this.GetTextItem();
+    this.uiNameText.SetWndSize(create2dVector(w1, height));
+    this.uiNameText.SetFont(GetFontLetterica16Russian());
+    this.uiNameText.SetEllipsis(true);
 
-    this.uiFrags = this.AddTextField("", w2);
-    this.uiFrags.SetFont(GetFontLetterica16Russian());
-    this.uiFrags.SetTextAlignment(CGameFont.alCenter);
+    this.uiFragsText = this.AddTextField("", w2);
+    this.uiFragsText.SetFont(GetFontLetterica16Russian());
+    this.uiFragsText.SetTextAlignment(CGameFont.alCenter);
 
-    this.uiDeath = this.AddTextField("", w2);
-    this.uiDeath.SetFont(GetFontLetterica16Russian());
-    this.uiDeath.SetTextAlignment(CGameFont.alCenter);
+    this.uiDeathText = this.AddTextField("", w2);
+    this.uiDeathText.SetFont(GetFontLetterica16Russian());
+    this.uiDeathText.SetTextAlignment(CGameFont.alCenter);
 
-    this.uiArtefacts = this.AddTextField("", w2);
-    this.uiArtefacts.SetFont(GetFontLetterica16Russian());
-    this.uiArtefacts.SetTextAlignment(CGameFont.alCenter);
+    this.uiArtefactsText = this.AddTextField("", w2);
+    this.uiArtefactsText.SetFont(GetFontLetterica16Russian());
+    this.uiArtefactsText.SetTextAlignment(CGameFont.alCenter);
 
-    this.uiSpots = this.AddTextField("", w2);
-    this.uiSpots.SetFont(GetFontLetterica16Russian());
-    this.uiSpots.SetTextAlignment(CGameFont.alCenter);
+    this.uiSpotsText = this.AddTextField("", w2);
+    this.uiSpotsText.SetFont(GetFontLetterica16Russian());
+    this.uiSpotsText.SetTextAlignment(CGameFont.alCenter);
 
-    this.uiRank = this.AddIconField(w2);
-    this.uiRank.SetStretchTexture(true);
-
-    this.uiRank.SetWndSize(create2dVector(16, 16));
-
-    // Aligning rank icon to center.
-    this.uiRank.SetWndPos(create2dVector(this.uiRank.GetWndPos().x + (w2 - 16) / 2, 0));
+    this.uiRankText = this.AddIconField(w2);
+    this.uiRankText.SetStretchTexture(true);
+    this.uiRankText.SetWndSize(create2dVector(16, 16));
+    this.uiRankText.SetWndPos(create2dVector(this.uiRankText.GetWndPos().x + (w2 - 16) / 2, 0));
   }
 }

@@ -30,7 +30,7 @@ import { MockCTime } from "@/fixtures/xray/mocks/CTime.mock";
 import { MockDevice } from "@/fixtures/xray/mocks/device.mock";
 import { MockPhraseDialog } from "@/fixtures/xray/mocks/dialogs";
 import { MockEffector } from "@/fixtures/xray/mocks/effector.mock";
-import { mockGetFontLetterica16Russian } from "@/fixtures/xray/mocks/font.mock";
+import { MockCGameFont, mockGetFontLetterica16Russian } from "@/fixtures/xray/mocks/font.mock";
 import { MockFrect } from "@/fixtures/xray/mocks/frect.mock";
 import { MockCSavedGameWrapper, MockFileSystem } from "@/fixtures/xray/mocks/fs";
 import { MockHit } from "@/fixtures/xray/mocks/hit.mock";
@@ -122,6 +122,7 @@ import { MockVector2D } from "@/fixtures/xray/mocks/vector2.mock";
 export function mockXRay16({
   CALifeSmartTerrainTask = MockCALifeSmartTerrainTask,
   CGameTask = MockCGameTask,
+  CGameFont = MockCGameFont,
   CPhraseDialog = MockPhraseDialog,
   CSavedGameWrapper = MockCSavedGameWrapper,
   CScriptXmlInit = MockCScriptXmlInit,
@@ -245,6 +246,7 @@ export function mockXRay16({
   jest.mock("xray16", () => ({
     CALifeSmartTerrainTask,
     CGameTask,
+    CGameFont,
     CPhraseDialog,
     CSavedGameWrapper,
     CScriptXmlInit,

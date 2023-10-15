@@ -221,16 +221,16 @@ export class MultiplayerDemo extends CUIWindow {
 
     itm.SetWndSize(this.playerItemMainSz);
 
-    itm.uiName.SetText(playerStats.name);
-    itm.uiFrags.SetText(tostring(playerStats.frags));
-    itm.uiDeath.SetText(tostring(playerStats.death));
-    itm.uiArtefacts.SetText(tostring(playerStats.artefacts));
-    itm.uiSpots.SetText(tostring(playerStats.spots));
+    itm.uiNameText.SetText(playerStats.name);
+    itm.uiFragsText.SetText(tostring(playerStats.frags));
+    itm.uiDeathText.SetText(tostring(playerStats.death));
+    itm.uiArtefactsText.SetText(tostring(playerStats.artefacts));
+    itm.uiSpotsText.SetText(tostring(playerStats.spots));
 
     const rankTextureName: string = this.getRankTextureName(playerStats);
 
     if (rankTextureName !== "") {
-      itm.uiRank.InitTexture(rankTextureName);
+      itm.uiRankText.InitTexture(rankTextureName);
     }
 
     this.uiPlayersList.AddExistingItem(itm);
