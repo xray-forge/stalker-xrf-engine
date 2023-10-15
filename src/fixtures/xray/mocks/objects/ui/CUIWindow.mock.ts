@@ -25,13 +25,13 @@ export class MockCUIWindow extends MockLuabindClass {
   public windowPosition: Optional<MockVector2D> = MockVector2D.create();
   public windowSize: Optional<MockVector2D> = null;
 
-  public Enable(isEnabled: boolean): void {
+  public Enable = jest.fn((isEnabled: boolean) => {
     this.isEnabled = isEnabled;
-  }
+  });
 
-  public Show(isShown: boolean): void {
+  public Show = jest.fn((isShown: boolean) => {
     this.isShown = isShown;
-  }
+  });
 
   public GetWidth(): number {
     return this.windowSize?.y ?? -1;

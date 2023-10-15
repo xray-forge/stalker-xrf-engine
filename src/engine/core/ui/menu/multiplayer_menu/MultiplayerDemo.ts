@@ -23,6 +23,7 @@ import { MultiplayerDemoPlayerStatItem } from "@/engine/core/ui/menu/multiplayer
 import { MultiplayerMenu } from "@/engine/core/ui/menu/multiplayer_menu/MultiplayerMenu";
 import { executeConsoleCommand } from "@/engine/core/utils/console";
 import { LuaLogger } from "@/engine/core/utils/logging";
+import { createRectangle } from "@/engine/core/utils/rectangle";
 import { EElementType, initializeElement, initializeStatics } from "@/engine/core/utils/ui";
 import { create2dVector } from "@/engine/core/utils/vector";
 import { consoleCommands } from "@/engine/lib/constants/console_commands";
@@ -388,8 +389,9 @@ export class MultiplayerDemo extends CUIWindow {
   /**
    * todo: Description.
    */
-  public updateDemoInfo(fileName: TName) {
+  public updateDemoInfo(fileName: TName): void {
     this.uiPlayersList.RemoveAll();
+
     if (fileName === "") {
       this.uiMapInfo.InitMap("", "");
       this.uiGameType.SetText("");
@@ -401,7 +403,7 @@ export class MultiplayerDemo extends CUIWindow {
 
       this.uiMapPic.InitTexture("ui\\ui_noise");
       this.uiMapPic.SetTextureRect(
-        new Frect().set(originalTextureRect.x1, originalTextureRect.y1, originalTextureRect.x2, originalTextureRect.y2)
+        createRectangle(originalTextureRect.x1, originalTextureRect.y1, originalTextureRect.x2, originalTextureRect.y2)
       );
 
       return;

@@ -4,13 +4,11 @@ import {
   CUIComboBox,
   CUISpinFlt,
   CUISpinNum,
-  CUISpinText,
   CUITabButton,
   CUITabControl,
   CUIWindow,
   GAME_TYPE,
   LuabindClass,
-  TXR_GAME_TYPE,
   ui_events,
 } from "xray16";
 
@@ -19,6 +17,7 @@ import { executeConsoleCommand } from "@/engine/core/utils/console";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { EElementType, initializeElement, initializeStatics } from "@/engine/core/utils/ui";
 import { consoleCommands } from "@/engine/lib/constants/console_commands";
+import { TGameType } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -157,7 +156,7 @@ export class MultiplayerOptions extends CUIWindow {
     this.uiCheckSpectator.SetDependControl(this.uiSpinSpectator);
   }
 
-  public setGameMode(mode: TXR_GAME_TYPE): void {
+  public setGameMode(mode: TGameType): void {
     logger.info("Set game mode");
 
     this.uiSpinFriendlyFire.Enable(true);
@@ -182,71 +181,99 @@ export class MultiplayerOptions extends CUIWindow {
     btnArtefactCapture.Enable(true);
 
     if ((GAME_TYPE.GAME_UNKNOWN as number) !== 0) {
-      if (GAME_TYPE.eGameIDDeathmatch === mode) {
-        this.uiSpinFriendlyFire.Enable(false);
-        this.uiCheckAutoTeamBalance.Enable(false);
-        this.uiCheckAutoTeamSwap.Enable(false);
-        this.uiSpinArtefactsNum.Enable(false);
-        this.uiSpinArtefactDelay.Enable(false);
-        this.uiSpinArtefactStay.Enable(false);
-        this.uiCheckFriendlyIndicators.Enable(false);
-        this.uiCheckFriendlyNames.Enable(false);
-        this.uiCheckSpecTeamonly.Enable(false);
-        this.uiSpinReinforcement.Enable(false);
-        // -- tab
-        this.uiTabRespawn.SetActiveTab("forcerespawn");
-        btnReinforcement.Enable(false);
-        btnArtefactCapture.Enable(false);
-        this.uiSpinArtreturnTime.Enable(false);
-        this.uiCheckActivatedReturn.Enable(false);
-      } else if (GAME_TYPE.eGameIDTeamDeathmatch === mode) {
-        this.uiSpinArtefactsNum.Enable(false);
-        this.uiSpinArtefactDelay.Enable(false);
-        this.uiSpinArtefactStay.Enable(false);
-        // -- tab
-        this.uiTabRespawn.SetActiveTab("forcerespawn");
-        btnReinforcement.Enable(false);
-        btnArtefactCapture.Enable(false);
-        this.uiSpinArtreturnTime.Enable(false);
-        this.uiCheckActivatedReturn.Enable(false);
-      } else if (GAME_TYPE.eGameIDArtefactHunt === mode) {
-        this.uiSpinFragLimit.Enable(false);
-        this.uiSpinArtreturnTime.Enable(false);
-        this.uiCheckActivatedReturn.Enable(false);
-      } else if (GAME_TYPE.eGameIDCaptureTheArtefact === mode) {
-        this.uiSpinArtefactDelay.Enable(false);
-        this.uiSpinArtefactStay.Enable(false);
-        this.uiSpinFragLimit.Enable(false);
+      switch (mode) {
+        case GAME_TYPE.eGameIDDeathmatch: {
+          this.uiSpinFriendlyFire.Enable(false);
+          this.uiCheckAutoTeamBalance.Enable(false);
+          this.uiCheckAutoTeamSwap.Enable(false);
+          this.uiSpinArtefactsNum.Enable(false);
+          this.uiSpinArtefactDelay.Enable(false);
+          this.uiSpinArtefactStay.Enable(false);
+          this.uiCheckFriendlyIndicators.Enable(false);
+          this.uiCheckFriendlyNames.Enable(false);
+          this.uiCheckSpecTeamonly.Enable(false);
+          this.uiSpinReinforcement.Enable(false);
+          // -- tab
+          this.uiTabRespawn.SetActiveTab("forcerespawn");
+          btnReinforcement.Enable(false);
+          btnArtefactCapture.Enable(false);
+          this.uiSpinArtreturnTime.Enable(false);
+          this.uiCheckActivatedReturn.Enable(false);
+
+          break;
+        }
+
+        case GAME_TYPE.eGameIDTeamDeathmatch: {
+          this.uiSpinArtefactsNum.Enable(false);
+          this.uiSpinArtefactDelay.Enable(false);
+          this.uiSpinArtefactStay.Enable(false);
+          // -- tab
+          this.uiTabRespawn.SetActiveTab("forcerespawn");
+          btnReinforcement.Enable(false);
+          btnArtefactCapture.Enable(false);
+          this.uiSpinArtreturnTime.Enable(false);
+          this.uiCheckActivatedReturn.Enable(false);
+
+          break;
+        }
+
+        case GAME_TYPE.eGameIDArtefactHunt: {
+          this.uiSpinFragLimit.Enable(false);
+          this.uiSpinArtreturnTime.Enable(false);
+          this.uiCheckActivatedReturn.Enable(false);
+
+          break;
+        }
+
+        case GAME_TYPE.eGameIDCaptureTheArtefact: {
+          this.uiSpinArtefactDelay.Enable(false);
+          this.uiSpinArtefactStay.Enable(false);
+          this.uiSpinFragLimit.Enable(false);
+
+          break;
+        }
       }
     } else if ((GAME_TYPE.GAME_UNKNOWN as number) === 0) {
       this.uiSpinArtreturnTime.Enable(false);
       this.uiCheckActivatedReturn.Enable(false);
 
-      if (GAME_TYPE.GAME_DEATHMATCH === mode) {
-        this.uiSpinFriendlyFire.Enable(false);
-        this.uiCheckAutoTeamBalance.Enable(false);
-        this.uiCheckAutoTeamSwap.Enable(false);
-        this.uiSpinArtefactsNum.Enable(false);
-        this.uiSpinArtefactDelay.Enable(false);
-        this.uiSpinArtefactStay.Enable(false);
-        this.uiCheckFriendlyIndicators.Enable(false);
-        this.uiCheckFriendlyNames.Enable(false);
-        this.uiCheckSpecTeamonly.Enable(false);
-        this.uiSpinReinforcement.Enable(false);
-        // -- tab
-        this.uiTabRespawn.SetActiveTab("forcerespawn");
-        btnReinforcement.Enable(false);
-        btnArtefactCapture.Enable(false);
-      } else if (GAME_TYPE.GAME_TEAMDEATHMATCH === mode) {
-        this.uiSpinArtefactsNum.Enable(false);
-        this.uiSpinArtefactDelay.Enable(false);
-        this.uiSpinArtefactStay.Enable(false);
-        // -- tab
-        this.uiTabRespawn.SetActiveTab("forcerespawn");
-        btnReinforcement.Enable(false);
-        btnArtefactCapture.Enable(false);
-      } else if (GAME_TYPE.GAME_ARTEFACTHUNT === mode) {
-        this.uiSpinFragLimit.Enable(false);
+      switch (mode) {
+        case GAME_TYPE.GAME_DEATHMATCH: {
+          this.uiSpinFriendlyFire.Enable(false);
+          this.uiCheckAutoTeamBalance.Enable(false);
+          this.uiCheckAutoTeamSwap.Enable(false);
+          this.uiSpinArtefactsNum.Enable(false);
+          this.uiSpinArtefactDelay.Enable(false);
+          this.uiSpinArtefactStay.Enable(false);
+          this.uiCheckFriendlyIndicators.Enable(false);
+          this.uiCheckFriendlyNames.Enable(false);
+          this.uiCheckSpecTeamonly.Enable(false);
+          this.uiSpinReinforcement.Enable(false);
+          // -- tab
+          this.uiTabRespawn.SetActiveTab("forcerespawn");
+          btnReinforcement.Enable(false);
+          btnArtefactCapture.Enable(false);
+
+          break;
+        }
+
+        case GAME_TYPE.GAME_TEAMDEATHMATCH: {
+          this.uiSpinArtefactsNum.Enable(false);
+          this.uiSpinArtefactDelay.Enable(false);
+          this.uiSpinArtefactStay.Enable(false);
+          // -- tab
+          this.uiTabRespawn.SetActiveTab("forcerespawn");
+          btnReinforcement.Enable(false);
+          btnArtefactCapture.Enable(false);
+
+          break;
+        }
+
+        case GAME_TYPE.GAME_ARTEFACTHUNT: {
+          this.uiSpinFragLimit.Enable(false);
+
+          break;
+        }
       }
     }
   }

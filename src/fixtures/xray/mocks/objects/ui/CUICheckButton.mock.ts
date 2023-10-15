@@ -1,11 +1,13 @@
 import { jest } from "@jest/globals";
 import { CUICheckButton } from "xray16";
 
+import { MockCUIWindow } from "@/fixtures/xray/mocks/objects/ui/CUIWindow.mock";
+
 /**
  * Mock check button.
  */
-export class MockCUICheckButton {
-  public static mock(): CUICheckButton {
+export class MockCUICheckButton extends MockCUIWindow {
+  public static override mock(): CUICheckButton {
     return new MockCUICheckButton() as unknown as CUICheckButton;
   }
 
