@@ -65,28 +65,28 @@ export class ExtensionsDialog extends CUIScriptWnd {
     this.SetWndRect(new Frect().set(0, 0, screenConfig.BASE_WIDTH, screenConfig.BASE_HEIGHT));
     this.Enable(true);
 
-    initializeElement(this.xml, "background", EElementType.STATIC, this);
-    initializeElement(this.xml, "frame", EElementType.STATIC, this);
-    initializeElement(this.xml, "items_list_frame", EElementType.FRAME, this);
+    initializeElement(this.xml, EElementType.STATIC, "background", this);
+    initializeElement(this.xml, EElementType.STATIC, "frame", this);
+    initializeElement(this.xml, EElementType.FRAME, "items_list_frame", this);
 
-    initializeElement(this.xml, "accept_button", EElementType.BUTTON, this, {
+    initializeElement(this.xml, EElementType.BUTTON, "accept_button", this, {
       [ui_events.BUTTON_CLICKED]: () => this.onAcceptButtonClick(),
     });
-    initializeElement(this.xml, "cancel_button", EElementType.BUTTON, this, {
+    initializeElement(this.xml, EElementType.BUTTON, "cancel_button", this, {
       [ui_events.BUTTON_CLICKED]: () => this.onCancelButtonClick(),
     });
 
-    this.uiUpButton = initializeElement(this.xml, "toggle_button", EElementType.BUTTON, this, {
+    this.uiUpButton = initializeElement(this.xml, EElementType.BUTTON, "toggle_button", this, {
       [ui_events.BUTTON_CLICKED]: () => this.onToggleButtonClick(),
     });
-    this.uiUpButton = initializeElement(this.xml, "up_button", EElementType.BUTTON, this, {
+    this.uiUpButton = initializeElement(this.xml, EElementType.BUTTON, "up_button", this, {
       [ui_events.BUTTON_CLICKED]: () => this.onUpButtonClick(),
     });
-    this.uiDownButton = initializeElement(this.xml, "down_button", EElementType.BUTTON, this, {
+    this.uiDownButton = initializeElement(this.xml, EElementType.BUTTON, "down_button", this, {
       [ui_events.BUTTON_CLICKED]: () => this.onDownButtonClick(),
     });
 
-    this.uiItemsList = initializeElement(this.xml, "items_list", EElementType.LIST_BOX, this, {
+    this.uiItemsList = initializeElement(this.xml, EElementType.LIST_BOX, "items_list", this, {
       [ui_events.LIST_ITEM_SELECT]: () => this.onActiveExtensionChange(),
     });
     this.uiItemsList.ShowSelectedItem(true);

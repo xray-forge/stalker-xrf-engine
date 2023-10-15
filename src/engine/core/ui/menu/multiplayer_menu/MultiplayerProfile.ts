@@ -73,8 +73,8 @@ export class MultiplayerProfile extends CUIWindow {
 
     this.uiAwardsList = initializeElement(
       xml,
-      "tab_profile:awards_list:list",
       EElementType.SCROLL_VIEW,
+      "tab_profile:awards_list:list",
       this.uiAwardsWindow
     );
 
@@ -102,20 +102,20 @@ export class MultiplayerProfile extends CUIWindow {
       "tab_profile:best_results_list:cap_cscore_6"
     );
 
-    this.uiUniqueNickEditBox = initializeElement(xml, "tab_profile:edit_unique_nick", EElementType.EDIT_BOX, this, {
+    this.uiUniqueNickEditBox = initializeElement(xml, EElementType.EDIT_BOX, "tab_profile:edit_unique_nick", this, {
       context: owner,
       [ui_events.EDIT_TEXT_COMMIT]: () => this.onEditUniqueNickChanged(),
     });
 
-    this.uiAvailableButton = initializeElement(xml, "tab_profile:button_avaliability", EElementType.BUTTON, this, {
+    this.uiAvailableButton = initializeElement(xml, EElementType.BUTTON, "tab_profile:button_avaliability", this, {
       context: owner,
       [ui_events.BUTTON_CLICKED]: () => this.onEditUniqueNickChanged(),
     });
 
     this.uiAvailableUniqueNickComboBox = initializeElement(
       xml,
-      "tab_profile:combo_aval_unique_nick",
       EElementType.COMBO_BOX,
+      "tab_profile:combo_aval_unique_nick",
       this,
       {
         context: owner,
@@ -127,8 +127,8 @@ export class MultiplayerProfile extends CUIWindow {
 
     this.uiChangeNickMessageBoxCancel = initializeElement(
       xml,
-      "gs_change_nick_mb_cancel",
       EElementType.MESSAGE_BOX_EX,
+      "gs_change_nick_mb_cancel",
       this,
       {
         context: owner,
@@ -137,7 +137,7 @@ export class MultiplayerProfile extends CUIWindow {
     );
     this.uiChangeNickMessageBoxCancel.InitMessageBox("message_box_gs_info");
 
-    this.uiChangeNicMessageBox = initializeElement(xml, "gs_change_nick_mb", EElementType.MESSAGE_BOX_EX, this);
+    this.uiChangeNicMessageBox = initializeElement(xml, EElementType.MESSAGE_BOX_EX, "gs_change_nick_mb", this);
     this.uiChangeNicMessageBox.InitMessageBox("message_box_ok");
   }
 

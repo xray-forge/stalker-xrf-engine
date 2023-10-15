@@ -49,32 +49,32 @@ export class DebugTreasuresSection extends AbstractDebugSection {
       "preview_texture_unique"
     );
 
-    initializeElement(xml, "treasures_list_frame", EElementType.FRAME, this);
+    initializeElement(xml, EElementType.FRAME, "treasures_list_frame", this);
 
-    this.uiTotalTreasuresLabel = initializeElement(xml, "total_treasures_count_label", EElementType.STATIC, this);
-    this.uiGivenTreasuresLabel = initializeElement(xml, "given_treasures_count_label", EElementType.STATIC, this);
-    this.uiFoundTreasuresLabel = initializeElement(xml, "found_treasures_count_label", EElementType.STATIC, this);
-    this.uiTreasureInfoLabel = initializeElement(xml, "treasure_info_label", EElementType.STATIC, this);
+    this.uiTotalTreasuresLabel = initializeElement(xml, EElementType.STATIC, "total_treasures_count_label", this);
+    this.uiGivenTreasuresLabel = initializeElement(xml, EElementType.STATIC, "given_treasures_count_label", this);
+    this.uiFoundTreasuresLabel = initializeElement(xml, EElementType.STATIC, "found_treasures_count_label", this);
+    this.uiTreasureInfoLabel = initializeElement(xml, EElementType.STATIC, "treasure_info_label", this);
 
     this.uiGiveRandomTreasuresButton = initializeElement(
       xml,
-      "give_random_treasures_button",
       EElementType.BUTTON,
+      "give_random_treasures_button",
       this,
       {
         context: this.owner,
         [ui_events.BUTTON_CLICKED]: () => this.onGiveRandomTreasuresButtonClicked(),
       }
     );
-    this.uiGiveTreasuresButton = initializeElement(xml, "give_treasures_button", EElementType.BUTTON, this, {
+    this.uiGiveTreasuresButton = initializeElement(xml, EElementType.BUTTON, "give_treasures_button", this, {
       context: this.owner,
       [ui_events.BUTTON_CLICKED]: () => this.onGiveAllTreasuresButtonClicked(),
     });
 
     this.uiGiveSpecificTreasureButton = initializeElement(
       xml,
-      "give_specific_treasure_button",
       EElementType.BUTTON,
+      "give_specific_treasure_button",
       this,
       {
         context: this.owner,
@@ -84,8 +84,8 @@ export class DebugTreasuresSection extends AbstractDebugSection {
 
     this.uiTeleportToSpecificTreasureButton = initializeElement(
       xml,
-      "teleport_to_specific_treasure_button",
       EElementType.BUTTON,
+      "teleport_to_specific_treasure_button",
       this,
       {
         context: this.owner,
@@ -93,12 +93,12 @@ export class DebugTreasuresSection extends AbstractDebugSection {
       }
     );
 
-    this.uiTreasuresList = initializeElement(xml, "treasures_list", EElementType.LIST_BOX, this, {
+    this.uiTreasuresList = initializeElement(xml, EElementType.LIST_BOX, "treasures_list", this, {
       context: this.owner,
       [ui_events.LIST_ITEM_SELECT]: () => this.onSelectedTreasureChange(),
     });
 
-    this.uiTreasuresListEditBox = initializeElement(xml, "treasures_filter_box", EElementType.EDIT_BOX, this, {
+    this.uiTreasuresListEditBox = initializeElement(xml, EElementType.EDIT_BOX, "treasures_filter_box", this, {
       context: this.owner,
       [ui_events.EDIT_TEXT_COMMIT]: () => this.onSelectedTreasureFilterChange(),
     });

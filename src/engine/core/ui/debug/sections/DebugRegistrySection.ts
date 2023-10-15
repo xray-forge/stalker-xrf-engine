@@ -27,18 +27,18 @@ export class DebugRegistrySection extends AbstractDebugSection {
   public initializeControls(): void {
     resolveXmlFile(base, this.xml);
 
-    initializeElement(this.xml, "registry_list_frame", EElementType.FRAME, this);
+    initializeElement(this.xml, EElementType.FRAME, "registry_list_frame", this);
 
-    this.uiRegistryCountLabel = initializeElement(this.xml, "registry_filter_count", EElementType.STATIC, this);
-    this.uiLogGeneralReportButton = initializeElement(this.xml, "log_general_report", EElementType.BUTTON, this, {
+    this.uiRegistryCountLabel = initializeElement(this.xml, EElementType.STATIC, "registry_filter_count", this);
+    this.uiLogGeneralReportButton = initializeElement(this.xml, EElementType.BUTTON, "log_general_report", this, {
       context: this.owner,
       [ui_events.BUTTON_CLICKED]: () => this.onPrintGeneralReport(),
     });
 
     this.uiRegistryFilterOnline = initializeElement(
       this.xml,
-      "registry_filter_online",
       EElementType.CHECK_BUTTON,
+      "registry_filter_online",
       this,
       {
         context: this.owner,
@@ -47,7 +47,7 @@ export class DebugRegistrySection extends AbstractDebugSection {
       }
     );
 
-    this.uiRegistryList = initializeElement(this.xml, "registry_list", EElementType.LIST_BOX, this, {
+    this.uiRegistryList = initializeElement(this.xml, EElementType.LIST_BOX, "registry_list", this, {
       context: this.owner,
       [ui_events.LIST_ITEM_SELECT]: () => this.onSelectedObjectChange(),
     });

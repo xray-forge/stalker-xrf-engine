@@ -49,18 +49,18 @@ export class MultiplayerJoin extends CUIWindow {
 
     this.uiServerList = xml.InitServerList("tab_client:server_list", this);
 
-    this.uiJoinDirectIPButton = initializeElement(xml, "tab_client:btn_direct_ip", EElementType.BUTTON, this, {
+    this.uiJoinDirectIPButton = initializeElement(xml, EElementType.BUTTON, "tab_client:btn_direct_ip", this, {
       context: owner,
       [ui_events.BUTTON_CLICKED]: () => this.onDirectIPButtonClicked(),
     });
 
-    this.uiFilterEmptyCheckButton = initializeElement(xml, "tab_client:check_empty", EElementType.CHECK_BUTTON, this, {
+    this.uiFilterEmptyCheckButton = initializeElement(xml, EElementType.CHECK_BUTTON, "tab_client:check_empty", this, {
       context: owner,
       [ui_events.BUTTON_CLICKED]: () => this.onFiltersChange(),
     });
     this.uiFilterEmptyCheckButton.SetCheck(true);
 
-    this.uiFilterFullCheckButton = initializeElement(xml, "tab_client:check_full", EElementType.CHECK_BUTTON, this, {
+    this.uiFilterFullCheckButton = initializeElement(xml, EElementType.CHECK_BUTTON, "tab_client:check_full", this, {
       context: owner,
       [ui_events.BUTTON_CLICKED]: () => this.onFiltersChange(),
     });
@@ -68,8 +68,8 @@ export class MultiplayerJoin extends CUIWindow {
 
     this.uiFilterWithPasswordCheckButton = initializeElement(
       xml,
-      "tab_client:check_with_pass",
       EElementType.CHECK_BUTTON,
+      "tab_client:check_with_pass",
       this,
       {
         context: owner,
@@ -80,8 +80,8 @@ export class MultiplayerJoin extends CUIWindow {
 
     this.uiFilterWithoutPasswordCheckButton = initializeElement(
       xml,
-      "tab_client:check_without_pass",
       EElementType.CHECK_BUTTON,
+      "tab_client:check_without_pass",
       this,
       {
         context: owner,
@@ -92,8 +92,8 @@ export class MultiplayerJoin extends CUIWindow {
 
     this.uiFilterFFCheckButton = initializeElement(
       xml,
-      "tab_client:check_without_ff",
       EElementType.CHECK_BUTTON,
+      "tab_client:check_without_ff",
       this,
       {
         context: owner,
@@ -104,8 +104,8 @@ export class MultiplayerJoin extends CUIWindow {
 
     this.uiFilterListenServersCheckButton = initializeElement(
       xml,
-      "tab_client:check_listen_servers",
       EElementType.CHECK_BUTTON,
+      "tab_client:check_listen_servers",
       this,
       {
         context: owner,
@@ -114,17 +114,17 @@ export class MultiplayerJoin extends CUIWindow {
     );
     this.uiFilterListenServersCheckButton.SetCheck(true);
 
-    initializeElement(xml, "tab_client:btn_refresh", EElementType.BUTTON, this, {
+    initializeElement(xml, EElementType.BUTTON, "tab_client:btn_refresh", this, {
       context: owner,
       [ui_events.BUTTON_CLICKED]: () => this.onRefreshButtonClicked(),
     });
 
-    initializeElement(xml, "tab_client:btn_quick_refresh", EElementType.BUTTON, this, {
+    initializeElement(xml, EElementType.BUTTON, "tab_client:btn_quick_refresh", this, {
       context: owner,
       [ui_events.BUTTON_CLICKED]: () => this.onQuickRefreshButtonClicked(),
     });
 
-    initializeElement(xml, "tab_client:btn_server_info", EElementType.BUTTON, this, {
+    initializeElement(xml, EElementType.BUTTON, "tab_client:btn_server_info", this, {
       context: owner,
       [ui_events.BUTTON_CLICKED]: () => this.onServerInfoButtonClicked(),
     });

@@ -33,19 +33,19 @@ export class DebugGeneralSection extends AbstractDebugSection {
       .TextControl()
       .SetText("Command line args:" + (command_line() || "unknown"));
 
-    this.uiMemoryUsageCountLabel = initializeElement(xml, "memory_usage_count", EElementType.STATIC, this);
-    this.uiLuaVersionLabel = initializeElement(xml, "lua_version_label", EElementType.STATIC, this);
-    this.uiLuaJitLabel = initializeElement(xml, "lua_jit_label", EElementType.STATIC, this);
+    this.uiMemoryUsageCountLabel = initializeElement(xml, EElementType.STATIC, "memory_usage_count", this);
+    this.uiLuaVersionLabel = initializeElement(xml, EElementType.STATIC, "lua_version_label", this);
+    this.uiLuaJitLabel = initializeElement(xml, EElementType.STATIC, "lua_jit_label", this);
 
-    this.uiProfilingToggleButton = initializeElement(xml, "profiling_toggle_button", EElementType.BUTTON, this, {
+    this.uiProfilingToggleButton = initializeElement(xml, EElementType.BUTTON, "profiling_toggle_button", this, {
       context: this.owner,
       [ui_events.BUTTON_CLICKED]: () => this.onToggleProfilingButtonClick(),
     });
 
     this.uiSimulationDebugToggleButton = initializeElement(
       xml,
-      "debug_simulation_toggle_button",
       EElementType.BUTTON,
+      "debug_simulation_toggle_button",
       this,
       {
         context: this.owner,
@@ -53,27 +53,27 @@ export class DebugGeneralSection extends AbstractDebugSection {
       }
     );
 
-    initializeElement(xml, "refresh_memory_button", EElementType.BUTTON, this, {
+    initializeElement(xml, EElementType.BUTTON, "refresh_memory_button", this, {
       context: this.owner,
       [ui_events.BUTTON_CLICKED]: () => this.onRefreshMemoryButtonClick(),
     });
 
-    initializeElement(xml, "collect_memory_button", EElementType.BUTTON, this, {
+    initializeElement(xml, EElementType.BUTTON, "collect_memory_button", this, {
       context: this.owner,
       [ui_events.BUTTON_CLICKED]: () => this.onCollectMemoryButtonClick(),
     });
 
-    initializeElement(xml, "dump_system_ini_button", EElementType.BUTTON, this, {
+    initializeElement(xml, EElementType.BUTTON, "dump_system_ini_button", this, {
       context: this.owner,
       [ui_events.BUTTON_CLICKED]: () => this.onDumpSystemIni(),
     });
 
-    this.uiProfilingReportButton = initializeElement(xml, "profiling_log_button", EElementType.BUTTON, this, {
+    this.uiProfilingReportButton = initializeElement(xml, EElementType.BUTTON, "profiling_log_button", this, {
       context: this.owner,
       [ui_events.BUTTON_CLICKED]: () => this.onLogProfilingStatsButtonClick(),
     });
 
-    initializeElement(xml, "portions_log_button", EElementType.BUTTON, this, {
+    initializeElement(xml, EElementType.BUTTON, "portions_log_button", this, {
       context: this.owner,
       [ui_events.BUTTON_CLICKED]: () => this.onLogPortionsStatsButtonClick(),
     });

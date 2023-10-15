@@ -12,16 +12,16 @@ const logger: LuaLogger = new LuaLogger($filename);
  * Shorter variant than original API.
  *
  * @param xml - base xml file with form
- * @param selector - string id of element in base XML for reading
  * @param type - type of element to initialize
+ * @param selector - string id of element in base XML for reading
  * @param base - reference of base element to which element should be initialized
  * @param descriptor - configuration of element registration events
  * @returns initilized UI element instance
  */
 export function initializeElement<T extends CUIWindow>(
   xml: XmlInit,
-  selector: TStringId,
   type: EElementType,
+  selector: TStringId,
   base: CUIWindow,
   descriptor: PartialRecord<TUIEvent, AnyCallable> & { context?: CUIWindow } = {}
 ): T {
@@ -132,6 +132,6 @@ export function initializeElement<T extends CUIWindow>(
  */
 export function initializeStatics(xml: XmlInit, base: CUIWindow, ...selectors: Array<TStringId>): void {
   for (const selector of selectors) {
-    initializeElement(xml, selector, EElementType.STATIC, base);
+    initializeElement(xml, EElementType.STATIC, selector, base);
   }
 }

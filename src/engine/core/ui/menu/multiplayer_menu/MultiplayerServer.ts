@@ -59,27 +59,27 @@ export class MultiplayerServer extends CUIWindow {
       "tab_server:static_map_pic_fore"
     );
 
-    initializeElement(xml, "tab_server:cap_server_settings", EElementType.FRAME_LINE, this);
+    initializeElement(xml, EElementType.FRAME_LINE, "tab_server:cap_server_settings", this);
 
-    this.uiMaxPlayersSpin = initializeElement(xml, "tab_server:spin_max_players", EElementType.SPIN_NUM, this);
+    this.uiMaxPlayersSpin = initializeElement(xml, EElementType.SPIN_NUM, "tab_server:spin_max_players", this);
 
-    this.uiModeComboBox = initializeElement(xml, "tab_server:spin_game_mode", EElementType.COMBO_BOX, this, {
+    this.uiModeComboBox = initializeElement(xml, EElementType.COMBO_BOX, "tab_server:spin_game_mode", this, {
       context: owner,
       [ui_events.LIST_ITEM_SELECT]: () => this.onGameModeChange(),
     });
 
-    this.uiDedicatedCheck = initializeElement(xml, "tab_server:check_dedicated", EElementType.CHECK_BUTTON, this);
+    this.uiDedicatedCheck = initializeElement(xml, EElementType.CHECK_BUTTON, "tab_server:check_dedicated", this);
 
-    this.uiServerNameEdit = initializeElement(xml, "tab_server:edit_server_name", EElementType.EDIT_BOX, this);
+    this.uiServerNameEdit = initializeElement(xml, EElementType.EDIT_BOX, "tab_server:edit_server_name", this);
 
-    this.uiPasswordEdit = initializeElement(xml, "tab_server:edit_password", EElementType.EDIT_BOX, this);
+    this.uiPasswordEdit = initializeElement(xml, EElementType.EDIT_BOX, "tab_server:edit_password", this);
 
-    this.uiMapList = initializeElement(xml, "tab_server:map_list", EElementType.MAP_LIST, this);
+    this.uiMapList = initializeElement(xml, EElementType.MAP_LIST, "tab_server:map_list", this);
 
     this.uiMapList.SetWeatherSelector(owner.dialogMultiplayerOptions.uiWeatherComboBox);
     this.uiMapList.SetModeSelector(this.uiModeComboBox);
-    this.uiMapList.SetMapPic(initializeElement(xml, "tab_server:static_map_pic", EElementType.STATIC, this));
-    this.uiMapList.SetMapInfo(initializeElement(xml, "tab_server:cap_map_info", EElementType.MAP_INFO, this));
+    this.uiMapList.SetMapPic(initializeElement(xml, EElementType.STATIC, "tab_server:static_map_pic", this));
+    this.uiMapList.SetMapInfo(initializeElement(xml, EElementType.MAP_INFO, "tab_server:cap_map_info", this));
   }
 
   public onGameModeChange(): void {

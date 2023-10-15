@@ -38,22 +38,22 @@ export class DebugTaskSection extends AbstractDebugSection {
   public initializeControls(): void {
     resolveXmlFile(base, this.xml);
 
-    initializeElement(this.xml, "task_list_frame", EElementType.FRAME, this);
+    initializeElement(this.xml, EElementType.FRAME, "task_list_frame", this);
 
-    this.uiTaskCountLabel = initializeElement(this.xml, "task_filter_count", EElementType.STATIC, this);
+    this.uiTaskCountLabel = initializeElement(this.xml, EElementType.STATIC, "task_filter_count", this);
 
-    this.uiGiveTaskButton = initializeElement(this.xml, "give_task", EElementType.BUTTON, this, {
+    this.uiGiveTaskButton = initializeElement(this.xml, EElementType.BUTTON, "give_task", this, {
       context: this.owner,
       [ui_events.BUTTON_CLICKED]: () => this.onGiveTask(),
     });
 
-    this.uiTaskFilterActive = initializeElement(this.xml, "task_filter_active", EElementType.CHECK_BUTTON, this, {
+    this.uiTaskFilterActive = initializeElement(this.xml, EElementType.CHECK_BUTTON, "task_filter_active", this, {
       context: this.owner,
       [ui_events.CHECK_BUTTON_RESET]: () => this.onToggleFilterActive(),
       [ui_events.CHECK_BUTTON_SET]: () => this.onToggleFilterActive(),
     });
 
-    this.uiTaskList = initializeElement(this.xml, "task_list", EElementType.LIST_BOX, this, {
+    this.uiTaskList = initializeElement(this.xml, EElementType.LIST_BOX, "task_list", this, {
       context: this.owner,
       [ui_events.LIST_ITEM_SELECT]: () => this.onSelectedObjectChange(),
     });

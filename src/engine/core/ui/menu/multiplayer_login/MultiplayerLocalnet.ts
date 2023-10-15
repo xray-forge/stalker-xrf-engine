@@ -52,17 +52,17 @@ export class MultiplayerLocalnet extends CUIScriptWnd {
     this.SetWndRect(createRectangle(0, 0, screenConfig.BASE_WIDTH, screenConfig.BASE_HEIGHT));
     this.Enable(true);
 
-    initializeElement(xml, "background", EElementType.STATIC, this);
+    initializeElement(xml, EElementType.STATIC, "background", this);
 
-    initializeElement(xml, "button_login", EElementType.BUTTON, this, {
+    initializeElement(xml, EElementType.BUTTON, "button_login", this, {
       [ui_events.BUTTON_CLICKED]: () => this.onLoginButtonClick(),
     });
 
-    initializeElement(xml, "button_cancel", EElementType.BUTTON, this, {
+    initializeElement(xml, EElementType.BUTTON, "button_cancel", this, {
       [ui_events.BUTTON_CLICKED]: () => this.onCancelButtonClick(),
     });
 
-    this.uiGsLoginMessageBox = initializeElement(xml, "gs_message_box", EElementType.MESSAGE_BOX_EX, this, {
+    this.uiGsLoginMessageBox = initializeElement(xml, EElementType.MESSAGE_BOX_EX, "gs_message_box", this, {
       [ui_events.MESSAGE_BOX_OK_CLICKED]: () => this.onOkMessageClick(),
     });
 
@@ -74,10 +74,10 @@ export class MultiplayerLocalnet extends CUIScriptWnd {
     this.uiLoginPage = uiLoginPage;
     this.uiLoginPage.SetAutoDelete(true);
 
-    initializeElement(xml, "login_page:cap_header_login", EElementType.TEXT_WINDOW, uiLoginPage);
-    initializeElement(xml, "login_page:cap_nickname", EElementType.TEXT_WINDOW, uiLoginPage);
+    initializeElement(xml, EElementType.TEXT_WINDOW, "login_page:cap_header_login", uiLoginPage);
+    initializeElement(xml, EElementType.TEXT_WINDOW, "login_page:cap_nickname", uiLoginPage);
 
-    this.uiNicknameEditBox = initializeElement(xml, "login_page:edit_nickname", EElementType.EDIT_BOX, uiLoginPage, {
+    this.uiNicknameEditBox = initializeElement(xml, EElementType.EDIT_BOX, "login_page:edit_nickname", uiLoginPage, {
       context: this,
       [ui_events.EDIT_TEXT_COMMIT]: () => this.onNicknameEditBoxChanged(),
     });
@@ -85,8 +85,8 @@ export class MultiplayerLocalnet extends CUIScriptWnd {
 
     this.uiRememberMeCheck = initializeElement(
       xml,
-      "login_page:check_remember_me",
       EElementType.CHECK_BUTTON,
+      "login_page:check_remember_me",
       uiLoginPage,
       {
         context: this,

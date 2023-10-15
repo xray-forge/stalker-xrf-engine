@@ -125,7 +125,7 @@ export class MultiplayerOptions extends CUIWindow {
     this.uiCheckSpecLookat = xml.InitCheck("tab_options:check_spec_lookat", this);
     this.uiCheckSpecFreelook = xml.InitCheck("tab_options:check_spec_freelook", this);
 
-    this.uiCheckDemosave = initializeElement(xml, "tab_options:check_demosave", EElementType.CHECK_BUTTON, this, {
+    this.uiCheckDemosave = initializeElement(xml, EElementType.CHECK_BUTTON, "tab_options:check_demosave", this, {
       context: owner,
       [ui_events.BUTTON_CLICKED]: () => this.onDemoSaveChange(),
     });

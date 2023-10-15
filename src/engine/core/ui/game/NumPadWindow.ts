@@ -47,47 +47,47 @@ export class NumPadWindow extends CUIScriptWnd {
     this.uiEditBox = xml.InitStatic("edit_box", this);
     this.uiEditBox.SetWindowName(NumPadWindow.__name);
 
-    initializeElement(xml, "btn_0", EElementType.BUTTON, this, {
+    initializeElement(xml, EElementType.BUTTON, "btn_0", this, {
       [ui_events.BUTTON_CLICKED]: () => this.addNumber(0),
     });
-    initializeElement(xml, "btn_1", EElementType.BUTTON, this, {
+    initializeElement(xml, EElementType.BUTTON, "btn_1", this, {
       [ui_events.BUTTON_CLICKED]: () => this.addNumber(1),
     });
-    initializeElement(xml, "btn_2", EElementType.BUTTON, this, {
+    initializeElement(xml, EElementType.BUTTON, "btn_2", this, {
       [ui_events.BUTTON_CLICKED]: () => this.addNumber(2),
     });
-    initializeElement(xml, "btn_3", EElementType.BUTTON, this, {
+    initializeElement(xml, EElementType.BUTTON, "btn_3", this, {
       [ui_events.BUTTON_CLICKED]: () => this.addNumber(3),
     });
-    initializeElement(xml, "btn_4", EElementType.BUTTON, this, {
+    initializeElement(xml, EElementType.BUTTON, "btn_4", this, {
       [ui_events.BUTTON_CLICKED]: () => this.addNumber(4),
     });
-    initializeElement(xml, "btn_5", EElementType.BUTTON, this, {
+    initializeElement(xml, EElementType.BUTTON, "btn_5", this, {
       [ui_events.BUTTON_CLICKED]: () => this.addNumber(5),
     });
-    initializeElement(xml, "btn_6", EElementType.BUTTON, this, {
+    initializeElement(xml, EElementType.BUTTON, "btn_6", this, {
       [ui_events.BUTTON_CLICKED]: () => this.addNumber(6),
     });
-    initializeElement(xml, "btn_7", EElementType.BUTTON, this, {
+    initializeElement(xml, EElementType.BUTTON, "btn_7", this, {
       [ui_events.BUTTON_CLICKED]: () => this.addNumber(7),
     });
-    initializeElement(xml, "btn_8", EElementType.BUTTON, this, {
+    initializeElement(xml, EElementType.BUTTON, "btn_8", this, {
       [ui_events.BUTTON_CLICKED]: () => this.addNumber(8),
     });
-    initializeElement(xml, "btn_9", EElementType.BUTTON, this, {
+    initializeElement(xml, EElementType.BUTTON, "btn_9", this, {
       [ui_events.BUTTON_CLICKED]: () => this.addNumber(9),
     });
 
-    initializeElement(xml, "btn_c", EElementType.BUTTON, this, {
+    initializeElement(xml, EElementType.BUTTON, "btn_c", this, {
       [ui_events.BUTTON_CLICKED]: () => this.onOkButtonClicked(),
     });
-    initializeElement(xml, "btn_cancel", EElementType.BUTTON, this, {
+    initializeElement(xml, EElementType.BUTTON, "btn_cancel", this, {
       [ui_events.BUTTON_CLICKED]: () => this.onCancelButtonClicked(),
     });
-    initializeElement(xml, "btn_enter", EElementType.BUTTON, this, {
+    initializeElement(xml, EElementType.BUTTON, "btn_enter", this, {
       [ui_events.BUTTON_CLICKED]: () => this.onOkButtonClicked(),
     });
-    initializeElement(xml, "btn_backspase", EElementType.BUTTON, this, {
+    initializeElement(xml, EElementType.BUTTON, "btn_backspase", this, {
       [ui_events.BUTTON_CLICKED]: () => this.onBackspaceButtonClicked(),
     });
   }
