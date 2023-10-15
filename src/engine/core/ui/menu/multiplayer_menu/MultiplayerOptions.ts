@@ -28,6 +28,7 @@ const logger: LuaLogger = new LuaLogger($filename);
 @LuabindClass()
 export class MultiplayerOptions extends CUIWindow {
   public owner: MultiplayerMenu;
+  public xml: CScriptXmlInit;
   public isOnlineMode: boolean;
 
   public uiCheckSpectator!: CUICheckButton;
@@ -45,6 +46,7 @@ export class MultiplayerOptions extends CUIWindow {
   public uiCheckSpecLookat!: CUICheckButton;
   public uiCheckSpecFreelook!: CUICheckButton;
   public uiCheckDemosave!: CUICheckButton;
+
   public uiTabRespawn!: CUITabControl;
   public uiSpinFriendlyFire!: CUISpinFlt;
   public uiSpinArtefactsNum!: CUISpinNum;
@@ -66,7 +68,9 @@ export class MultiplayerOptions extends CUIWindow {
 
   public constructor(owner: MultiplayerMenu, xml: CScriptXmlInit, isOnlineMode: boolean) {
     super();
+
     this.owner = owner;
+    this.xml = xml;
     this.isOnlineMode = isOnlineMode;
 
     this.initialize(owner, xml);
