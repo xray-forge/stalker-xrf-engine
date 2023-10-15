@@ -41,17 +41,17 @@ export class MockCUIWindow extends MockLuabindClass {
     return this.windowSize?.x ?? -1;
   }
 
-  public SetAutoDelete = jest.fn((isAutoDelete: boolean): void => {
+  public SetAutoDelete = jest.fn((isAutoDelete: boolean) => {
     this.isAutoDelete = isAutoDelete;
   });
 
-  public SetWndPos(position: MockVector2D): void {
+  public SetWndPos = jest.fn((position: MockVector2D) => {
     this.windowPosition = position;
-  }
+  });
 
-  public SetWndSize(size: MockVector2D): void {
+  public SetWndSize = jest.fn((size: MockVector2D) => {
     this.windowSize = size;
-  }
+  });
 
   public SetWndRect(rect: MockFrect): void {
     this.windowRect = rect;
@@ -65,9 +65,9 @@ export class MockCUIWindow extends MockLuabindClass {
     this.children.push(window);
   }
 
-  public WindowName(): Optional<TName> {
-    return this.windowName;
-  }
+  public WindowName = jest.fn(() => this.windowName);
+
+  public SetFont = jest.fn();
 
   public OnKeyboard(): boolean {
     return true;

@@ -23,11 +23,11 @@ import { MultiplayerDemoPlayerStatItem } from "@/engine/core/ui/menu/multiplayer
 import { MultiplayerMenu } from "@/engine/core/ui/menu/multiplayer_menu/MultiplayerMenu";
 import { executeConsoleCommand } from "@/engine/core/utils/console";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { EElementType, initializeElement } from "@/engine/core/utils/ui";
+import { EElementType, initializeElement, initializeStatics } from "@/engine/core/utils/ui";
 import { create2dVector } from "@/engine/core/utils/vector";
 import { consoleCommands } from "@/engine/lib/constants/console_commands";
 import { roots } from "@/engine/lib/constants/roots";
-import { FSFileListEX, Optional, TCount, TLabel, TName, Vector2D } from "@/engine/lib/types";
+import { FSFileListEX, FSItem, Optional, TCount, TLabel, TName, Vector2D } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -108,7 +108,7 @@ export class MultiplayerDemo extends CUIWindow {
     });
 
     // --  demo play info
-    xml.InitStatic("tab_demo:cap_demo_info_fields", this);
+    initializeStatics(xml, this, "tab_demo:cap_demo_info_fields", "tab_demo:cap_demo_players_info");
 
     this.uiGameType = xml.InitTextWnd("tab_demo:static_demo_info_gametype", this);
     this.uiPlayersCount = xml.InitTextWnd("tab_demo:static_demo_info_players_count", this);
@@ -117,10 +117,6 @@ export class MultiplayerDemo extends CUIWindow {
       context: owner,
       [ui_events.EDIT_TEXT_COMMIT]: () => this.onRenameDemo(),
     });
-
-    // --    players info
-    xml.InitStatic("tab_demo:cap_demo_players_info", this);
-    // --    xml.InitStatic            ("tab_demo:demo_players_info_header", this)
 
     this.uiPlayersList = xml.InitListBox("tab_demo:players_list", this);
 
@@ -147,9 +143,9 @@ export class MultiplayerDemo extends CUIWindow {
     filesList.Sort(FS.FS_sort_by_modif_down);
 
     for (let it = 0; it < filesCount; it += 1) {
-      const file = filesList.GetAt(it);
-      const fileName: string = string.sub(file.NameFull(), 0, string.len(file.NameFull()) - 5);
-      const dateTime: string = "[" + file.ModifDigitOnly() + "]";
+      const file: FSItem = filesList.GetAt(it);
+      const fileName: TName = string.sub(file.NameFull(), 0, string.len(file.NameFull()) - 5);
+      const dateTime: TLabel = "[" + file.ModifDigitOnly() + "]";
 
       // --menu_item =  +
       this.addItemToList(fileName, dateTime);
@@ -161,7 +157,7 @@ export class MultiplayerDemo extends CUIWindow {
   /**
    * todo: Description.
    */
-  public addItemToList(fileName: TName, dateTime: string): void {
+  public addItemToList(fileName: TName, dateTime: TLabel): void {
     const demoLoadItem: MultiplayerDemoLoadItem = new MultiplayerDemoLoadItem(
       this,
       this.fileItemFnSz.y,
@@ -171,8 +167,8 @@ export class MultiplayerDemo extends CUIWindow {
 
     demoLoadItem.SetWndSize(this.fileItemMainSz);
 
-    demoLoadItem.uiFn.SetText(fileName);
-    demoLoadItem.uiFage.SetText(dateTime);
+    demoLoadItem.uiFileNameText.SetText(fileName);
+    demoLoadItem.uiFileAgeText.SetText(dateTime);
 
     this.uiDemoList.AddExistingItem(demoLoadItem);
   }
@@ -180,7 +176,7 @@ export class MultiplayerDemo extends CUIWindow {
   /**
    * todo: Description.
    */
-  public getRankTextureName(playerInfo: MultiplayerDemoPlayerInfo): string {
+  public getRankTextureName(playerInfo: MultiplayerDemoPlayerInfo): TName {
     let textureName: TName = "ui_hud_status_";
 
     if (playerInfo.rank > 4 || playerInfo.rank < 0) {
@@ -254,7 +250,7 @@ export class MultiplayerDemo extends CUIWindow {
       return;
     }
 
-    const filename: string = item.uiFn.GetText();
+    const filename: string = item.uiFileNameText.GetText();
 
     logger.info("Selected demo file. " + filename + ".demo");
     this.updateDemoInfo(filename);
@@ -270,7 +266,7 @@ export class MultiplayerDemo extends CUIWindow {
       return;
     }
 
-    const filename: TName = item.uiFn.GetText();
+    const filename: TName = item.uiFileNameText.GetText();
 
     executeConsoleCommand(consoleCommands.start, "demo(" + filename + ".demo)");
   }
@@ -278,7 +274,7 @@ export class MultiplayerDemo extends CUIWindow {
   /**
    * todo: Description.
    */
-  public deleteSelectedDemo(): void {
+  public onDeleteSelectedDemo(): void {
     logger.info("Delete selected demo");
 
     const item = this.uiDemoList.GetSelectedItem();
@@ -293,7 +289,7 @@ export class MultiplayerDemo extends CUIWindow {
     this.onYesAction = "delete";
 
     const deleteQuestion: string =
-      game.translate_string("mp_want_to_delete_demo") + " " + item.uiFn.GetText() + ".demo ?";
+      game.translate_string("mp_want_to_delete_demo") + " " + item.uiFileNameText.GetText() + ".demo ?";
 
     this.uiMessageBox.InitMessageBox("message_box_yes_no");
     this.uiMessageBox.SetText(deleteQuestion);
@@ -358,7 +354,7 @@ export class MultiplayerDemo extends CUIWindow {
     }
 
     if (this.onYesAction === "delete") {
-      const filenameToDelete: TName = fs.update_path(roots.logs, item.uiFn.GetText() + ".demo");
+      const filenameToDelete: TName = fs.update_path(roots.logs, item.uiFileNameText.GetText() + ".demo");
 
       fs.file_delete(filenameToDelete);
       this.fillList();
@@ -368,7 +364,7 @@ export class MultiplayerDemo extends CUIWindow {
     }
 
     if (this.onYesAction === "rename") {
-      const oldFileName = fs.update_path(roots.logs, item.uiFn.GetText() + ".demo");
+      const oldFileName = fs.update_path(roots.logs, item.uiFileNameText.GetText() + ".demo");
       const newFileName = fs.update_path(roots.logs, this.fileNameToRename + ".demo");
 
       if (oldFileName === newFileName) {
@@ -378,7 +374,7 @@ export class MultiplayerDemo extends CUIWindow {
       }
 
       fs.file_rename(oldFileName, newFileName, true);
-      item.uiFn.SetText(this.fileNameToRename);
+      item.uiFileNameText.SetText(this.fileNameToRename);
       this.uiFileNameEdit.SetText(this.fileNameToRename);
       this.fileNameToRename = "";
       this.onYesAction = "";

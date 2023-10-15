@@ -13,6 +13,7 @@ import { MockCUISpinNum } from "@/fixtures/xray/mocks/objects/ui/CUISpinNum.mock
 import { MockCUISpinText } from "@/fixtures/xray/mocks/objects/ui/CUISpinText.mock";
 import { MockCUIStatic } from "@/fixtures/xray/mocks/objects/ui/CUIStatic.mock";
 import { MockCUITabControl } from "@/fixtures/xray/mocks/objects/ui/CUITabControl.mock";
+import { MockCUITextWnd } from "@/fixtures/xray/mocks/objects/ui/CUITextWnd.mock";
 import { MockCUIWindow } from "@/fixtures/xray/mocks/objects/ui/CUIWindow.mock";
 
 /**
@@ -44,6 +45,6 @@ export class MockCScriptXmlInit {
   public InitFrameLine = jest.fn();
   public InitKeyBinding = jest.fn();
   public InitProgressBar = jest.fn();
-  public InitTextWnd = jest.fn();
+  public InitTextWnd = jest.fn(() => MockCUITextWnd.mock());
   public InitMMShniaga = jest.fn();
 }

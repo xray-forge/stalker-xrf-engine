@@ -15,7 +15,7 @@ import {
 import { MockEntityAction } from "@/fixtures/xray/mocks/actions/entity_action.mock";
 import { MockSound } from "@/fixtures/xray/mocks/actions/sound.mock";
 import { MockCGameGraph } from "@/fixtures/xray/mocks/CGameGraph.mock";
-import { MockColor } from "@/fixtures/xray/mocks/color.mock";
+import { MockColor, mockGetARGB } from "@/fixtures/xray/mocks/color.mock";
 import { mockGetConsole } from "@/fixtures/xray/mocks/console.mock";
 import {
   mockCallbacks,
@@ -30,6 +30,7 @@ import { MockCTime } from "@/fixtures/xray/mocks/CTime.mock";
 import { MockDevice } from "@/fixtures/xray/mocks/device.mock";
 import { MockPhraseDialog } from "@/fixtures/xray/mocks/dialogs";
 import { MockEffector } from "@/fixtures/xray/mocks/effector.mock";
+import { mockGetFontLetterica16Russian } from "@/fixtures/xray/mocks/font.mock";
 import { MockFrect } from "@/fixtures/xray/mocks/frect.mock";
 import { MockCSavedGameWrapper, MockFileSystem } from "@/fixtures/xray/mocks/fs";
 import { MockHit } from "@/fixtures/xray/mocks/hit.mock";
@@ -80,6 +81,7 @@ import {
   MockCUICheckButton,
   MockCUIComboBox,
   MockCUIEditBox,
+  MockCUIListBox,
   MockCUIListBoxItem,
   MockCUIListBoxItemMsgChain,
   MockCUIMapInfo,
@@ -91,6 +93,7 @@ import {
   MockCUISpinNum,
   MockCUISpinText,
   MockCUIStatic,
+  MockCUITextWnd,
   MockCUIWindow,
   MockCZoneCampfire,
   MockDangerObject,
@@ -128,6 +131,7 @@ export function mockXRay16({
   CUICheckButton = MockCUICheckButton,
   CUIComboBox = MockCUIComboBox,
   CUIEditBox = MockCUIEditBox,
+  CUIListBox = MockCUIListBox,
   CUIListBoxItem = MockCUIListBoxItem,
   CUIListBoxItemMsgChain = MockCUIListBoxItemMsgChain,
   CUIMMShniaga = MockCUIMMShniaga,
@@ -139,11 +143,14 @@ export function mockXRay16({
   CUISpinNum = MockCUISpinNum,
   CUISpinText = MockCUISpinText,
   CUIStatic = MockCUIStatic,
+  CUITextWnd = MockCUITextWnd,
   CUIWindow = MockCUIWindow,
   CZoneCampfire = MockCZoneCampfire,
   DIK_keys = mockDikKeys,
   FS = MockFileSystem,
   Frect = MockFrect,
+  GetARGB = mockGetARGB,
+  GetFontLetterica16Russian = mockGetFontLetterica16Russian,
   IsImportantSave = jest.fn(() => mocksConfig.isAutoSavingEnabled),
   action_base = MockActionBase,
   action_planner = MockActionPlanner,
@@ -247,6 +254,7 @@ export function mockXRay16({
     CUICheckButton,
     CUIComboBox,
     CUIEditBox,
+    CUIListBox,
     CUIListBoxItem,
     CUIListBoxItemMsgChain,
     CUIMMShniaga,
@@ -258,11 +266,14 @@ export function mockXRay16({
     CUISpinNum,
     CUISpinText,
     CUIStatic,
+    CUITextWnd,
     CUIWindow,
     CZoneCampfire,
     DIK_keys,
     FS,
     Frect,
+    GetARGB,
+    GetFontLetterica16Russian,
     IsImportantSave,
     LuabindClass: () => {},
     action_base,

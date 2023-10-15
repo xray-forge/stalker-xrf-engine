@@ -12,7 +12,7 @@ import { create2dVector } from "@/engine/core/utils/vector";
 import { TSize } from "@/engine/lib/types";
 
 /**
- * todo;
+ * Player stat item for demo record.
  */
 @LuabindClass()
 export class MultiplayerDemoPlayerStatItem extends CUIListBoxItem {
@@ -54,7 +54,7 @@ export class MultiplayerDemoPlayerStatItem extends CUIListBoxItem {
 
     this.uiRank.SetWndSize(create2dVector(16, 16));
 
-    // -- aligning rank icon to center
+    // Aligning rank icon to center.
     this.uiRank.SetWndPos(create2dVector(this.uiRank.GetWndPos().x + (w2 - 16) / 2, 0));
   }
 }

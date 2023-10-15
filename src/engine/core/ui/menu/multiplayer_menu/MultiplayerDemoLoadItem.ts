@@ -6,51 +6,42 @@ import {
   GetFontLetterica16Russian,
   LuabindClass,
   ui_events,
-  vector2,
 } from "xray16";
 
 import type { MultiplayerDemo } from "@/engine/core/ui/menu/multiplayer_menu/MultiplayerDemo";
-import type { MultiplayerMenu } from "@/engine/core/ui/menu/multiplayer_menu/MultiplayerMenu";
+import { EElementType, initializeElement } from "@/engine/core/utils/ui";
+import { create2dVector } from "@/engine/core/utils/vector";
 import { TName, TSize } from "@/engine/lib/types";
 
 /**
- * todo;
+ * Demo item from list in demo records.
  */
 @LuabindClass()
 export class MultiplayerDemoLoadItem extends CUIListBoxItemMsgChain {
-  public filename: TName;
+  public filename: TName = "filename";
 
-  public uiFn: CUITextWnd;
-  public uiFage: CUITextWnd;
+  public uiFileNameText: CUITextWnd;
+  public uiFileAgeText: CUITextWnd;
   public uiDeleteButton: CUI3tButton;
 
   public constructor(owner: MultiplayerDemo, height: TSize, w1: TSize, w2: TSize) {
     super(height);
 
-    const multiplayerMenu: MultiplayerMenu = owner.owner;
-
-    this.filename = "filename";
     this.SetTextColor(GetARGB(255, 255, 255, 255));
 
-    this.uiFn = this.GetTextItem();
-    this.uiFn.SetFont(GetFontLetterica16Russian());
-    this.uiFn.SetWndPos(new vector2().set(20, 0));
-    this.uiFn.SetWndSize(new vector2().set(w1, height));
-    this.uiFn.SetEllipsis(true);
+    this.uiFileNameText = this.GetTextItem();
+    this.uiFileNameText.SetFont(GetFontLetterica16Russian());
+    this.uiFileNameText.SetWndPos(create2dVector(20, 0));
+    this.uiFileNameText.SetWndSize(create2dVector(w1, height));
+    this.uiFileNameText.SetEllipsis(true);
 
-    this.uiFage = this.AddTextField("", w2);
-    this.uiFage.SetFont(GetFontLetterica16Russian());
-    this.uiFage.SetWndSize(new vector2().set(w2, height));
+    this.uiFileAgeText = this.AddTextField("", w2);
+    this.uiFileAgeText.SetFont(GetFontLetterica16Russian());
+    this.uiFileAgeText.SetWndSize(create2dVector(w2, height));
 
-    // --this.AttachChild                        (del_btn)
-    this.uiDeleteButton = owner.xml.Init3tButton("delete_demo_button", this);
-
-    multiplayerMenu.Register(this.uiDeleteButton, "delete_demo_button");
-    multiplayerMenu.AddCallback(
-      "delete_demo_button",
-      ui_events.BUTTON_CLICKED,
-      () => owner.deleteSelectedDemo(),
-      owner
-    );
+    this.uiDeleteButton = initializeElement(owner.xml, EElementType.BUTTON, "delete_demo_button", this, {
+      context: owner.owner,
+      [ui_events.BUTTON_CLICKED]: () => owner.onDeleteSelectedDemo(),
+    });
   }
 }
