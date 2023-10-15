@@ -110,15 +110,18 @@ export class LoadDialog extends CUIScriptWnd {
     });
     this.uiListBox.ShowSelectedItem(true);
 
-    initializeElement(xml, EElementType.BUTTON, "form:btn_load", this, {
+    initializeElement(xml, EElementType.BUTTON, "form:btn_load", this.uiForm, {
+      context: this,
       [ui_events.BUTTON_CLICKED]: () => this.onLoadButtonClicked(),
     });
 
-    initializeElement(xml, EElementType.BUTTON, "form:btn_delete", this, {
+    initializeElement(xml, EElementType.BUTTON, "form:btn_delete", this.uiForm, {
+      context: this,
       [ui_events.BUTTON_CLICKED]: () => this.onDeleteButtonClicked(),
     });
 
-    initializeElement(xml, EElementType.BUTTON, "form:btn_cancel", this, {
+    initializeElement(xml, EElementType.BUTTON, "form:btn_cancel", this.uiForm, {
+      context: this,
       [ui_events.BUTTON_CLICKED]: () => this.onBackButtonClicked(),
     });
 

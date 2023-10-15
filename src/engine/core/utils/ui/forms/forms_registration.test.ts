@@ -66,37 +66,27 @@ describe("forms_registration utils", () => {
     const base: CUIWindow = MockCUIWindow.mock();
     const context: CUIScriptWnd = MockCUIScriptWnd.mock();
 
-    initializeElement(xml, EElementType.CHECK_BUTTON, "check_box_example", base, {
-      context,
-    });
+    initializeElement(xml, EElementType.CHECK_BUTTON, "check_box_example", base, {});
 
     expect(xml.InitCheck).toHaveBeenCalledWith("check_box_example", base);
     expect(context.Register).not.toHaveBeenCalled();
 
-    initializeElement(xml, EElementType.EDIT_BOX, "edit_box_example", base, {
-      context,
-    });
+    initializeElement(xml, EElementType.EDIT_BOX, "edit_box_example", base);
 
     expect(xml.InitEditBox).toHaveBeenCalledWith("edit_box_example", base);
     expect(context.Register).not.toHaveBeenCalled();
 
-    initializeElement(xml, EElementType.COMBO_BOX, "combo_box_example", base, {
-      context,
-    });
+    initializeElement(xml, EElementType.COMBO_BOX, "combo_box_example", base);
 
     expect(xml.InitComboBox).toHaveBeenCalledWith("combo_box_example", base);
     expect(context.Register).not.toHaveBeenCalled();
 
-    initializeElement(xml, EElementType.FRAME, "frame_example", base, {
-      context,
-    });
+    initializeElement(xml, EElementType.FRAME, "frame_example", base);
 
     expect(xml.InitFrame).toHaveBeenCalledWith("frame_example", base);
     expect(context.Register).not.toHaveBeenCalled();
 
-    initializeElement(xml, EElementType.LABEL, "label_example", base, {
-      context,
-    });
+    initializeElement(xml, EElementType.LABEL, "label_example", base);
 
     expect(xml.InitLabel).toHaveBeenCalledWith("label_example", base);
     expect(context.Register).not.toHaveBeenCalled();

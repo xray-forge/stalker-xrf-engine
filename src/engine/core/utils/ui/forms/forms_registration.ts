@@ -25,7 +25,6 @@ export function initializeElement<T extends CUIWindow>(
   base: CUIWindow,
   descriptor: PartialRecord<TUIEvent, AnyCallable> & { context?: CUIWindow } = {}
 ): T {
-  const { context, ...handlers } = descriptor;
   let element: T;
 
   // Handle UI registration and binding.
@@ -115,16 +114,16 @@ export function initializeElement<T extends CUIWindow>(
       abort("Could not register UI element for type: '%s'.", type);
   }
 
-  const handlersList = $fromObject(handlers);
-
   // Handle event emit context and registration.
-  if (handlersList.length() > 0) {
-    const eventBase: CUIScriptWnd = (context || base) as CUIScriptWnd;
+  if (table.size(descriptor) > 0) {
+    const eventBase: CUIScriptWnd = (descriptor.context ?? base) as CUIScriptWnd;
 
     eventBase.Register(element as CUIWindow, selector);
 
-    for (const [event, callback] of handlersList) {
-      eventBase.AddCallback(selector, event, callback as AnyCallable, eventBase || base);
+    for (const [event, callback] of $fromObject(descriptor)) {
+      if (event !== "context") {
+        eventBase.AddCallback(selector, event, callback as AnyCallable, eventBase || base);
+      }
     }
   }
 

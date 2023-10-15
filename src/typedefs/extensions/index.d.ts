@@ -16,6 +16,7 @@ declare namespace table {
    * @returns table size
    */
   function size<V>(list: Array<V>): number;
+  function size<V extends string = string>(list: Record<V, unknown>): number;
   function size<K extends AnyNotNil, V>(list: LuaTable<K, V>): number;
   /**
    * Get table keys.
