@@ -104,16 +104,12 @@ export class MultiplayerProfile extends CUIWindow {
 
     this.uiUniqueNickEditBox = initializeElement(xml, "tab_profile:edit_unique_nick", EElementType.EDIT_BOX, this, {
       context: owner,
-      handlers: {
-        [ui_events.EDIT_TEXT_COMMIT]: () => this.onEditUniqueNickChanged(),
-      },
+      [ui_events.EDIT_TEXT_COMMIT]: () => this.onEditUniqueNickChanged(),
     });
 
     this.uiAvailableButton = initializeElement(xml, "tab_profile:button_avaliability", EElementType.BUTTON, this, {
       context: owner,
-      handlers: {
-        [ui_events.BUTTON_CLICKED]: () => this.onEditUniqueNickChanged(),
-      },
+      [ui_events.BUTTON_CLICKED]: () => this.onEditUniqueNickChanged(),
     });
 
     this.uiAvailableUniqueNickComboBox = initializeElement(
@@ -123,10 +119,8 @@ export class MultiplayerProfile extends CUIWindow {
       this,
       {
         context: owner,
-        handlers: {
-          [ui_events.LIST_ITEM_SELECT]: () => this.onUniqueNickSelect(),
-          [ui_events.WINDOW_LBUTTON_DOWN]: () => this.onUniqueNickSelect(),
-        },
+        [ui_events.LIST_ITEM_SELECT]: () => this.onUniqueNickSelect(),
+        [ui_events.WINDOW_LBUTTON_DOWN]: () => this.onUniqueNickSelect(),
       }
     );
     this.uiAvailableUniqueNickComboBox.Show(false);
@@ -138,9 +132,7 @@ export class MultiplayerProfile extends CUIWindow {
       this,
       {
         context: owner,
-        handlers: {
-          [ui_events.BUTTON_CLICKED]: () => this.onCancelChangeUniqueNick(),
-        },
+        [ui_events.BUTTON_CLICKED]: () => this.onCancelChangeUniqueNick(),
       }
     );
     this.uiChangeNickMessageBoxCancel.InitMessageBox("message_box_gs_info");

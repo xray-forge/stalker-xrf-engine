@@ -1,7 +1,3 @@
-import { CUIWindow } from "xray16";
-
-import { AnyCallable, PartialRecord, TUIEvent } from "@/engine/lib/types";
-
 /**
  * Type of UI element to handle with utility helpers.
  */
@@ -24,12 +20,4 @@ export enum EElementType {
   CD_KEY,
   MESSAGE_BOX,
   MESSAGE_BOX_EX,
-}
-
-/**
- * Descriptor of UI element for initialization with factory.
- */
-export interface IUiElementDescriptor {
-  context?: CUIWindow;
-  handlers?: PartialRecord<TUIEvent, AnyCallable>;
 }

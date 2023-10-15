@@ -65,9 +65,7 @@ export class MultiplayerServer extends CUIWindow {
 
     this.uiModeComboBox = initializeElement(xml, "tab_server:spin_game_mode", EElementType.COMBO_BOX, this, {
       context: owner,
-      handlers: {
-        [ui_events.LIST_ITEM_SELECT]: () => this.onGameModeChange(),
-      },
+      [ui_events.LIST_ITEM_SELECT]: () => this.onGameModeChange(),
     });
 
     this.uiDedicatedCheck = initializeElement(xml, "tab_server:check_dedicated", EElementType.CHECK_BUTTON, this);

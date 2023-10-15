@@ -32,9 +32,7 @@ export class DebugRegistrySection extends AbstractDebugSection {
     this.uiRegistryCountLabel = initializeElement(this.xml, "registry_filter_count", EElementType.STATIC, this);
     this.uiLogGeneralReportButton = initializeElement(this.xml, "log_general_report", EElementType.BUTTON, this, {
       context: this.owner,
-      handlers: {
-        [ui_events.BUTTON_CLICKED]: () => this.onPrintGeneralReport(),
-      },
+      [ui_events.BUTTON_CLICKED]: () => this.onPrintGeneralReport(),
     });
 
     this.uiRegistryFilterOnline = initializeElement(
@@ -44,18 +42,14 @@ export class DebugRegistrySection extends AbstractDebugSection {
       this,
       {
         context: this.owner,
-        handlers: {
-          [ui_events.CHECK_BUTTON_RESET]: () => this.onToggleFilterOnline(),
-          [ui_events.CHECK_BUTTON_SET]: () => this.onToggleFilterOnline(),
-        },
+        [ui_events.CHECK_BUTTON_RESET]: () => this.onToggleFilterOnline(),
+        [ui_events.CHECK_BUTTON_SET]: () => this.onToggleFilterOnline(),
       }
     );
 
     this.uiRegistryList = initializeElement(this.xml, "registry_list", EElementType.LIST_BOX, this, {
       context: this.owner,
-      handlers: {
-        [ui_events.LIST_ITEM_SELECT]: () => this.onSelectedObjectChange(),
-      },
+      [ui_events.LIST_ITEM_SELECT]: () => this.onSelectedObjectChange(),
     });
   }
 

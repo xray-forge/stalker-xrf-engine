@@ -84,10 +84,8 @@ export class MultiplayerDemo extends CUIWindow {
     // --  file list
     this.uiDemoList = initializeElement(xml, "tab_demo:list", EElementType.LIST_BOX, this, {
       context: owner,
-      handlers: {
-        [ui_events.LIST_ITEM_CLICKED]: () => this.selectDemoFile(),
-        [ui_events.WINDOW_LBUTTON_DB_CLICK]: () => this.playSelectedDemo(),
-      },
+      [ui_events.LIST_ITEM_CLICKED]: () => this.selectDemoFile(),
+      [ui_events.WINDOW_LBUTTON_DB_CLICK]: () => this.playSelectedDemo(),
     });
     this.uiDemoList.ShowSelectedItem(true);
 
@@ -105,10 +103,8 @@ export class MultiplayerDemo extends CUIWindow {
 
     this.uiMessageBox = initializeElement(xml, "demo_message_box", EElementType.MESSAGE_BOX_EX, this, {
       context: owner,
-      handlers: {
-        [ui_events.MESSAGE_BOX_YES_CLICKED]: () => this.onMsgBoxYes(),
-        [ui_events.MESSAGE_BOX_OK_CLICKED]: () => this.onMsgBoxYes(),
-      },
+      [ui_events.MESSAGE_BOX_YES_CLICKED]: () => this.onMsgBoxYes(),
+      [ui_events.MESSAGE_BOX_OK_CLICKED]: () => this.onMsgBoxYes(),
     });
 
     // --  demo play info
@@ -119,9 +115,7 @@ export class MultiplayerDemo extends CUIWindow {
     this.uiTeamStats = xml.InitTextWnd("tab_demo:static_demo_info_teamstats", this);
     this.uiFileNameEdit = initializeElement(xml, "tab_demo:demo_file_name", EElementType.EDIT_BOX, this, {
       context: owner,
-      handlers: {
-        [ui_events.EDIT_TEXT_COMMIT]: () => this.onRenameDemo(),
-      },
+      [ui_events.EDIT_TEXT_COMMIT]: () => this.onRenameDemo(),
     });
 
     // --    players info

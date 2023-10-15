@@ -70,36 +70,24 @@ export class ExtensionsDialog extends CUIScriptWnd {
     initializeElement(this.xml, "items_list_frame", EElementType.FRAME, this);
 
     initializeElement(this.xml, "accept_button", EElementType.BUTTON, this, {
-      handlers: {
-        [ui_events.BUTTON_CLICKED]: () => this.onAcceptButtonClick(),
-      },
+      [ui_events.BUTTON_CLICKED]: () => this.onAcceptButtonClick(),
     });
     initializeElement(this.xml, "cancel_button", EElementType.BUTTON, this, {
-      handlers: {
-        [ui_events.BUTTON_CLICKED]: () => this.onCancelButtonClick(),
-      },
+      [ui_events.BUTTON_CLICKED]: () => this.onCancelButtonClick(),
     });
 
     this.uiUpButton = initializeElement(this.xml, "toggle_button", EElementType.BUTTON, this, {
-      handlers: {
-        [ui_events.BUTTON_CLICKED]: () => this.onToggleButtonClick(),
-      },
+      [ui_events.BUTTON_CLICKED]: () => this.onToggleButtonClick(),
     });
     this.uiUpButton = initializeElement(this.xml, "up_button", EElementType.BUTTON, this, {
-      handlers: {
-        [ui_events.BUTTON_CLICKED]: () => this.onUpButtonClick(),
-      },
+      [ui_events.BUTTON_CLICKED]: () => this.onUpButtonClick(),
     });
     this.uiDownButton = initializeElement(this.xml, "down_button", EElementType.BUTTON, this, {
-      handlers: {
-        [ui_events.BUTTON_CLICKED]: () => this.onDownButtonClick(),
-      },
+      [ui_events.BUTTON_CLICKED]: () => this.onDownButtonClick(),
     });
 
     this.uiItemsList = initializeElement(this.xml, "items_list", EElementType.LIST_BOX, this, {
-      handlers: {
-        [ui_events.LIST_ITEM_SELECT]: () => this.onActiveExtensionChange(),
-      },
+      [ui_events.LIST_ITEM_SELECT]: () => this.onActiveExtensionChange(),
     });
     this.uiItemsList.ShowSelectedItem(true);
 

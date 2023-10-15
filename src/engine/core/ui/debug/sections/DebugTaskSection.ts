@@ -44,24 +44,18 @@ export class DebugTaskSection extends AbstractDebugSection {
 
     this.uiGiveTaskButton = initializeElement(this.xml, "give_task", EElementType.BUTTON, this, {
       context: this.owner,
-      handlers: {
-        [ui_events.BUTTON_CLICKED]: () => this.onGiveTask(),
-      },
+      [ui_events.BUTTON_CLICKED]: () => this.onGiveTask(),
     });
 
     this.uiTaskFilterActive = initializeElement(this.xml, "task_filter_active", EElementType.CHECK_BUTTON, this, {
       context: this.owner,
-      handlers: {
-        [ui_events.CHECK_BUTTON_RESET]: () => this.onToggleFilterActive(),
-        [ui_events.CHECK_BUTTON_SET]: () => this.onToggleFilterActive(),
-      },
+      [ui_events.CHECK_BUTTON_RESET]: () => this.onToggleFilterActive(),
+      [ui_events.CHECK_BUTTON_SET]: () => this.onToggleFilterActive(),
     });
 
     this.uiTaskList = initializeElement(this.xml, "task_list", EElementType.LIST_BOX, this, {
       context: this.owner,
-      handlers: {
-        [ui_events.LIST_ITEM_SELECT]: () => this.onSelectedObjectChange(),
-      },
+      [ui_events.LIST_ITEM_SELECT]: () => this.onSelectedObjectChange(),
     });
   }
 

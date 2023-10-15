@@ -55,21 +55,15 @@ export class MultiplayerLocalnet extends CUIScriptWnd {
     initializeElement(xml, "background", EElementType.STATIC, this);
 
     initializeElement(xml, "button_login", EElementType.BUTTON, this, {
-      handlers: {
-        [ui_events.BUTTON_CLICKED]: () => this.onLoginButtonClick(),
-      },
+      [ui_events.BUTTON_CLICKED]: () => this.onLoginButtonClick(),
     });
 
     initializeElement(xml, "button_cancel", EElementType.BUTTON, this, {
-      handlers: {
-        [ui_events.BUTTON_CLICKED]: () => this.onCancelButtonClick(),
-      },
+      [ui_events.BUTTON_CLICKED]: () => this.onCancelButtonClick(),
     });
 
     this.uiGsLoginMessageBox = initializeElement(xml, "gs_message_box", EElementType.MESSAGE_BOX_EX, this, {
-      handlers: {
-        [ui_events.MESSAGE_BOX_OK_CLICKED]: () => this.onOkMessageClick(),
-      },
+      [ui_events.MESSAGE_BOX_OK_CLICKED]: () => this.onOkMessageClick(),
     });
 
     const uiLoginPage: CUIWindow = new CUIWindow();
@@ -85,9 +79,7 @@ export class MultiplayerLocalnet extends CUIScriptWnd {
 
     this.uiNicknameEditBox = initializeElement(xml, "login_page:edit_nickname", EElementType.EDIT_BOX, uiLoginPage, {
       context: this,
-      handlers: {
-        [ui_events.EDIT_TEXT_COMMIT]: () => this.onNicknameEditBoxChanged(),
-      },
+      [ui_events.EDIT_TEXT_COMMIT]: () => this.onNicknameEditBoxChanged(),
     });
     this.uiNicknameEditBox.CaptureFocus(true);
 
@@ -98,9 +90,7 @@ export class MultiplayerLocalnet extends CUIScriptWnd {
       uiLoginPage,
       {
         context: this,
-        handlers: {
-          [ui_events.BUTTON_CLICKED]: () => this.onRememberMeButtonClick(),
-        },
+        [ui_events.BUTTON_CLICKED]: () => this.onRememberMeButtonClick(),
       }
     );
   }

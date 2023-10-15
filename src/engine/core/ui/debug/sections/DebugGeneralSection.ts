@@ -39,9 +39,7 @@ export class DebugGeneralSection extends AbstractDebugSection {
 
     this.uiProfilingToggleButton = initializeElement(xml, "profiling_toggle_button", EElementType.BUTTON, this, {
       context: this.owner,
-      handlers: {
-        [ui_events.BUTTON_CLICKED]: () => this.onToggleProfilingButtonClick(),
-      },
+      [ui_events.BUTTON_CLICKED]: () => this.onToggleProfilingButtonClick(),
     });
 
     this.uiSimulationDebugToggleButton = initializeElement(
@@ -51,45 +49,33 @@ export class DebugGeneralSection extends AbstractDebugSection {
       this,
       {
         context: this.owner,
-        handlers: {
-          [ui_events.BUTTON_CLICKED]: () => this.onToggleSimulationDebugButtonClick(),
-        },
+        [ui_events.BUTTON_CLICKED]: () => this.onToggleSimulationDebugButtonClick(),
       }
     );
 
     initializeElement(xml, "refresh_memory_button", EElementType.BUTTON, this, {
       context: this.owner,
-      handlers: {
-        [ui_events.BUTTON_CLICKED]: () => this.onRefreshMemoryButtonClick(),
-      },
+      [ui_events.BUTTON_CLICKED]: () => this.onRefreshMemoryButtonClick(),
     });
 
     initializeElement(xml, "collect_memory_button", EElementType.BUTTON, this, {
       context: this.owner,
-      handlers: {
-        [ui_events.BUTTON_CLICKED]: () => this.onCollectMemoryButtonClick(),
-      },
+      [ui_events.BUTTON_CLICKED]: () => this.onCollectMemoryButtonClick(),
     });
 
     initializeElement(xml, "dump_system_ini_button", EElementType.BUTTON, this, {
       context: this.owner,
-      handlers: {
-        [ui_events.BUTTON_CLICKED]: () => this.onDumpSystemIni(),
-      },
+      [ui_events.BUTTON_CLICKED]: () => this.onDumpSystemIni(),
     });
 
     this.uiProfilingReportButton = initializeElement(xml, "profiling_log_button", EElementType.BUTTON, this, {
       context: this.owner,
-      handlers: {
-        [ui_events.BUTTON_CLICKED]: () => this.onLogProfilingStatsButtonClick(),
-      },
+      [ui_events.BUTTON_CLICKED]: () => this.onLogProfilingStatsButtonClick(),
     });
 
     initializeElement(xml, "portions_log_button", EElementType.BUTTON, this, {
       context: this.owner,
-      handlers: {
-        [ui_events.BUTTON_CLICKED]: () => this.onLogPortionsStatsButtonClick(),
-      },
+      [ui_events.BUTTON_CLICKED]: () => this.onLogPortionsStatsButtonClick(),
     });
   }
 

@@ -63,16 +63,12 @@ export class DebugTreasuresSection extends AbstractDebugSection {
       this,
       {
         context: this.owner,
-        handlers: {
-          [ui_events.BUTTON_CLICKED]: () => this.onGiveRandomTreasuresButtonClicked(),
-        },
+        [ui_events.BUTTON_CLICKED]: () => this.onGiveRandomTreasuresButtonClicked(),
       }
     );
     this.uiGiveTreasuresButton = initializeElement(xml, "give_treasures_button", EElementType.BUTTON, this, {
       context: this.owner,
-      handlers: {
-        [ui_events.BUTTON_CLICKED]: () => this.onGiveAllTreasuresButtonClicked(),
-      },
+      [ui_events.BUTTON_CLICKED]: () => this.onGiveAllTreasuresButtonClicked(),
     });
 
     this.uiGiveSpecificTreasureButton = initializeElement(
@@ -82,9 +78,7 @@ export class DebugTreasuresSection extends AbstractDebugSection {
       this,
       {
         context: this.owner,
-        handlers: {
-          [ui_events.BUTTON_CLICKED]: () => this.onGiveSpecificTreasureButtonClicked(),
-        },
+        [ui_events.BUTTON_CLICKED]: () => this.onGiveSpecificTreasureButtonClicked(),
       }
     );
 
@@ -95,24 +89,18 @@ export class DebugTreasuresSection extends AbstractDebugSection {
       this,
       {
         context: this.owner,
-        handlers: {
-          [ui_events.BUTTON_CLICKED]: () => this.onTeleportToTreasureClicked(),
-        },
+        [ui_events.BUTTON_CLICKED]: () => this.onTeleportToTreasureClicked(),
       }
     );
 
     this.uiTreasuresList = initializeElement(xml, "treasures_list", EElementType.LIST_BOX, this, {
       context: this.owner,
-      handlers: {
-        [ui_events.LIST_ITEM_SELECT]: () => this.onSelectedTreasureChange(),
-      },
+      [ui_events.LIST_ITEM_SELECT]: () => this.onSelectedTreasureChange(),
     });
 
     this.uiTreasuresListEditBox = initializeElement(xml, "treasures_filter_box", EElementType.EDIT_BOX, this, {
       context: this.owner,
-      handlers: {
-        [ui_events.EDIT_TEXT_COMMIT]: () => this.onSelectedTreasureFilterChange(),
-      },
+      [ui_events.EDIT_TEXT_COMMIT]: () => this.onSelectedTreasureFilterChange(),
     });
   }
 

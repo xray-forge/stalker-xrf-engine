@@ -127,9 +127,7 @@ export class MultiplayerOptions extends CUIWindow {
 
     this.uiCheckDemosave = initializeElement(xml, "tab_options:check_demosave", EElementType.CHECK_BUTTON, this, {
       context: owner,
-      handlers: {
-        [ui_events.BUTTON_CLICKED]: () => this.onDemoSaveChange(),
-      },
+      [ui_events.BUTTON_CLICKED]: () => this.onDemoSaveChange(),
     });
 
     this.uiTabRespawn = xml.InitTab("tab_options:radio_tab_respawn_options", this);

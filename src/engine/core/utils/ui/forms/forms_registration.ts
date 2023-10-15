@@ -2,8 +2,8 @@ import { CUIMessageBox, CUIMessageBoxEx, CUIScriptWnd, CUIWindow } from "xray16"
 
 import { abort } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { EElementType, IUiElementDescriptor } from "@/engine/core/utils/ui/forms/forms_types";
-import { AnyCallable, TStringId, XmlInit } from "@/engine/lib/types";
+import { EElementType } from "@/engine/core/utils/ui/forms/forms_types";
+import { AnyCallable, PartialRecord, TStringId, TUIEvent, XmlInit } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -15,7 +15,7 @@ const logger: LuaLogger = new LuaLogger($filename);
  * @param selector - string id of element in base XML for reading
  * @param type - type of element to initialize
  * @param base - reference of base element to which element should be initialized
- * @param descriptor - configuration of element registration (events, naming, base etc)
+ * @param descriptor - configuration of element registration events
  * @returns initilized UI element instance
  */
 export function initializeElement<T extends CUIWindow>(
@@ -23,9 +23,9 @@ export function initializeElement<T extends CUIWindow>(
   selector: TStringId,
   type: EElementType,
   base: CUIWindow,
-  descriptor: IUiElementDescriptor = {}
+  descriptor: PartialRecord<TUIEvent, AnyCallable> & { context?: CUIWindow } = {}
 ): T {
-  const { context, handlers } = descriptor;
+  const { context, ...handlers } = descriptor;
   let element: T;
 
   // Handle UI registration and binding.
@@ -106,13 +106,15 @@ export function initializeElement<T extends CUIWindow>(
       abort("Could not register UI element for type: '%s'.", type);
   }
 
+  const handlersList = $fromObject(handlers);
+
   // Handle event emit context and registration.
-  if (handlers) {
+  if (handlersList.length() > 0) {
     const eventBase: CUIScriptWnd = (context || base) as CUIScriptWnd;
 
     eventBase.Register(element as CUIWindow, selector);
 
-    for (const [event, callback] of $fromObject(handlers)) {
+    for (const [event, callback] of handlersList) {
       eventBase.AddCallback(selector, event, callback as AnyCallable, eventBase || base);
     }
   }

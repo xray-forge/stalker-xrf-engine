@@ -51,24 +51,18 @@ export class MultiplayerJoin extends CUIWindow {
 
     this.uiJoinDirectIPButton = initializeElement(xml, "tab_client:btn_direct_ip", EElementType.BUTTON, this, {
       context: owner,
-      handlers: {
-        [ui_events.BUTTON_CLICKED]: () => this.onDirectIPButtonClicked(),
-      },
+      [ui_events.BUTTON_CLICKED]: () => this.onDirectIPButtonClicked(),
     });
 
     this.uiFilterEmptyCheckButton = initializeElement(xml, "tab_client:check_empty", EElementType.CHECK_BUTTON, this, {
       context: owner,
-      handlers: {
-        [ui_events.BUTTON_CLICKED]: () => this.onFiltersChange(),
-      },
+      [ui_events.BUTTON_CLICKED]: () => this.onFiltersChange(),
     });
     this.uiFilterEmptyCheckButton.SetCheck(true);
 
     this.uiFilterFullCheckButton = initializeElement(xml, "tab_client:check_full", EElementType.CHECK_BUTTON, this, {
       context: owner,
-      handlers: {
-        [ui_events.BUTTON_CLICKED]: () => this.onFiltersChange(),
-      },
+      [ui_events.BUTTON_CLICKED]: () => this.onFiltersChange(),
     });
     this.uiFilterFullCheckButton.SetCheck(true);
 
@@ -79,9 +73,7 @@ export class MultiplayerJoin extends CUIWindow {
       this,
       {
         context: owner,
-        handlers: {
-          [ui_events.BUTTON_CLICKED]: () => this.onFiltersChange(),
-        },
+        [ui_events.BUTTON_CLICKED]: () => this.onFiltersChange(),
       }
     );
     this.uiFilterWithPasswordCheckButton.SetCheck(true);
@@ -93,9 +85,7 @@ export class MultiplayerJoin extends CUIWindow {
       this,
       {
         context: owner,
-        handlers: {
-          [ui_events.BUTTON_CLICKED]: () => this.onFiltersChange(),
-        },
+        [ui_events.BUTTON_CLICKED]: () => this.onFiltersChange(),
       }
     );
     this.uiFilterWithoutPasswordCheckButton.SetCheck(true);
@@ -107,9 +97,7 @@ export class MultiplayerJoin extends CUIWindow {
       this,
       {
         context: owner,
-        handlers: {
-          [ui_events.BUTTON_CLICKED]: () => this.onFiltersChange(),
-        },
+        [ui_events.BUTTON_CLICKED]: () => this.onFiltersChange(),
       }
     );
     this.uiFilterFFCheckButton.SetCheck(true);
@@ -121,32 +109,24 @@ export class MultiplayerJoin extends CUIWindow {
       this,
       {
         context: owner,
-        handlers: {
-          [ui_events.BUTTON_CLICKED]: () => this.onFiltersChange(),
-        },
+        [ui_events.BUTTON_CLICKED]: () => this.onFiltersChange(),
       }
     );
     this.uiFilterListenServersCheckButton.SetCheck(true);
 
     initializeElement(xml, "tab_client:btn_refresh", EElementType.BUTTON, this, {
       context: owner,
-      handlers: {
-        [ui_events.BUTTON_CLICKED]: () => this.onRefreshButtonClicked(),
-      },
+      [ui_events.BUTTON_CLICKED]: () => this.onRefreshButtonClicked(),
     });
 
     initializeElement(xml, "tab_client:btn_quick_refresh", EElementType.BUTTON, this, {
       context: owner,
-      handlers: {
-        [ui_events.BUTTON_CLICKED]: () => this.onQuickRefreshButtonClicked(),
-      },
+      [ui_events.BUTTON_CLICKED]: () => this.onQuickRefreshButtonClicked(),
     });
 
     initializeElement(xml, "tab_client:btn_server_info", EElementType.BUTTON, this, {
       context: owner,
-      handlers: {
-        [ui_events.BUTTON_CLICKED]: () => this.onServerInfoButtonClicked(),
-      },
+      [ui_events.BUTTON_CLICKED]: () => this.onServerInfoButtonClicked(),
     });
   }
 
