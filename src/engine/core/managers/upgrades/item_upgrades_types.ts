@@ -6,7 +6,8 @@ import { LuaArray, TStringId } from "@/engine/lib/types";
 export type TItemUpgradeBranch = 0 | 1 | 2;
 
 /**
- * todo;
+ * Descriptor of possible item upgrade.
+ * Contains self ID and group ID.
  */
 export interface IUpgradeDescriptor {
   id: TStringId;
@@ -14,7 +15,7 @@ export interface IUpgradeDescriptor {
 }
 
 /**
- * todo;
+ * Alias type of upgrade descriptors list.
  */
 
 export type TUpgradesList = LuaArray<IUpgradeDescriptor>;

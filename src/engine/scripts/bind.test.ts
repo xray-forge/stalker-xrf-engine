@@ -248,4 +248,11 @@ describe("bind entry point", () => {
     callBinding("outfit", stalker);
     expect(stalker.bind_object).toHaveBeenCalled();
   });
+
+  it("should correctly bind helmet", () => {
+    const stalker: ClientObject = mockClientGameObject();
+
+    callBinding("helmet", stalker);
+    expect(stalker.bind_object).toHaveBeenCalled();
+  });
 });
