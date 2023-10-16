@@ -21,10 +21,6 @@ const logger: LuaLogger = new LuaLogger($filename);
 export class HelmetBinder extends object_binder {
   public isInitialized: boolean = false;
 
-  public override net_save_relevant(): boolean {
-    return true;
-  }
-
   public override net_spawn(object: ServerItemHelmetObject): boolean {
     if (!super.net_spawn(object)) {
       return false;
@@ -55,6 +51,10 @@ export class HelmetBinder extends object_binder {
     super.reinit();
 
     resetObject(this.object);
+  }
+
+  public override net_save_relevant(): boolean {
+    return true;
   }
 
   public override save(packet: NetPacket): void {

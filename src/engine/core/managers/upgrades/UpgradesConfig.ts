@@ -17,8 +17,9 @@ export const upgradesConfig = {
   // Random installation tweaks:
   ADD_RANDOM_UPGRADES: readIniBoolean(UPGRADES_MANAGER_CONFIG_LTX, "random", "add_random_upgrades", true),
   ADD_RANDOM_DISPERSION: readIniNumber(UPGRADES_MANAGER_CONFIG_LTX, "random", "add_random_dispersion", true),
-  ADD_RANDOM_RATE: readIniNumber(UPGRADES_MANAGER_CONFIG_LTX, "random", "add_random_rate", true),
+  ADD_RANDOM_RATE_OWNED: readIniNumber(UPGRADES_MANAGER_CONFIG_LTX, "random", "add_random_rate_owned", true),
   ADD_RANDOM_RATE_TRADER: readIniNumber(UPGRADES_MANAGER_CONFIG_LTX, "random", "add_random_rate_trader", true),
+  ADD_RANDOM_RATE_WORLD: readIniNumber(UPGRADES_MANAGER_CONFIG_LTX, "random", "add_random_rate_world", true),
   ADD_RANDOM_CHANCE: readIniNumber(UPGRADES_MANAGER_CONFIG_LTX, "random", "add_random_chance", true),
   ADD_RANDOM_COUNT: readIniNumber(UPGRADES_MANAGER_CONFIG_LTX, "random", "add_random_count", true),
   ADD_RANDOM_RARE_CHANCE: readIniNumber(UPGRADES_MANAGER_CONFIG_LTX, "random", "add_random_rare_chance", true),

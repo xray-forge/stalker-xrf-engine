@@ -3,10 +3,10 @@ import { game } from "xray16";
 import { ITEM_UPGRADES, registry, STALKER_UPGRADE_INFO, SYSTEM_INI } from "@/engine/core/database";
 import { AbstractManager } from "@/engine/core/managers/base/AbstractManager";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
+import { isObjectTrader } from "@/engine/core/managers/trade/utils";
 import { TItemUpgradeBranch } from "@/engine/core/managers/upgrades/item_upgrades_types";
 import { upgradesConfig } from "@/engine/core/managers/upgrades/UpgradesConfig";
 import { addRandomUpgrades } from "@/engine/core/managers/upgrades/utils/upgrades_install";
-import { isTrader } from "@/engine/core/utils/class_ids";
 import {
   parseConditionsList,
   parseStringsList,
@@ -19,17 +19,7 @@ import { gameConfig } from "@/engine/lib/configs/GameConfig";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import { questItems } from "@/engine/lib/constants/items/quest_items";
 import { FALSE, TRUE } from "@/engine/lib/constants/words";
-import {
-  ClientObject,
-  LuaArray,
-  Optional,
-  ServerObject,
-  TCount,
-  TLabel,
-  TName,
-  TNumberId,
-  TRate,
-} from "@/engine/lib/types";
+import { ClientObject, LuaArray, Optional, TCount, TLabel, TName, TNumberId, TRate } from "@/engine/lib/types";
 import { TSection } from "@/engine/lib/types/scheme";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -403,13 +393,19 @@ export class UpgradesManager extends AbstractManager {
       return;
     }
 
-    const chance: TRate = math.random(100) / upgradesConfig.ADD_RANDOM_RATE;
+    let chance: TRate = math.random(100);
     const dispersion: TCount = upgradesConfig.ADD_RANDOM_DISPERSION * math.random();
 
-    const owner: Optional<ServerObject> = ownerId ? registry.simulator.object(ownerId) : null;
-
-    if (owner) {
-      logger.info("OWNER", owner.name(), owner.clsid(), owner.online, isTrader(object));
+    // Apply different rate for trader / owned / world.
+    if (ownerId && isObjectTrader(ownerId)) {
+      logger.info("TRADER RATE APPLY", object.name(), object.id(), ownerId);
+      chance /= upgradesConfig.ADD_RANDOM_RATE_TRADER;
+    } else if (ownerId) {
+      logger.info("OWNED RATE APPLY", object.name(), object.id(), ownerId);
+      chance /= upgradesConfig.ADD_RANDOM_RATE_OWNED;
+    } else {
+      logger.info("WORLD RATE APPLY", object.name(), object.id(), ownerId);
+      chance /= upgradesConfig.ADD_RANDOM_RATE_WORLD;
     }
 
     if (chance <= upgradesConfig.ADD_RANDOM_LEGENDARY_CHANCE) {

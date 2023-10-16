@@ -1,9 +1,16 @@
 import { LuabindClass, object_binder } from "xray16";
 
-import { openLoadMarker, registerObject, resetObject, unregisterObject } from "@/engine/core/database";
+import {
+  closeSaveMarker,
+  openLoadMarker,
+  openSaveMarker,
+  registerObject,
+  resetObject,
+  unregisterObject,
+} from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { Reader, ServerWeaponObject } from "@/engine/lib/types";
+import { NetPacket, Reader, ServerWeaponObject } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -13,10 +20,6 @@ const logger: LuaLogger = new LuaLogger($filename);
 @LuabindClass()
 export class WeaponBinder extends object_binder {
   public isInitialized: boolean = false;
-
-  public override net_save_relevant(): boolean {
-    return true;
-  }
 
   public override net_spawn(object: ServerWeaponObject): boolean {
     if (!super.net_spawn(object)) {
@@ -48,6 +51,19 @@ export class WeaponBinder extends object_binder {
     super.reinit();
 
     resetObject(this.object);
+  }
+
+  public override net_save_relevant(): boolean {
+    return true;
+  }
+
+  public override save(packet: NetPacket): void {
+    openSaveMarker(packet, WeaponBinder.__name);
+
+    super.save(packet);
+    packet.w_bool(this.isInitialized);
+
+    closeSaveMarker(packet, WeaponBinder.__name);
   }
 
   public override load(reader: Reader): void {
