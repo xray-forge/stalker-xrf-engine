@@ -313,7 +313,8 @@ export const FILES_MOCKS: Record<TPath, AnyObject> = {
     },
     random: {
       add_random_upgrades: false,
-      add_random_rate: 1,
+      add_random_rate_owned: 1,
+      add_random_rate_world: 0.75,
       add_random_rate_trader: 1.5,
       add_random_chance: 20,
       add_random_count: 1,
