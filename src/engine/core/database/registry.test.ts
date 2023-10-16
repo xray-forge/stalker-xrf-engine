@@ -4,7 +4,7 @@ import { registry } from "@/engine/core/database/registry";
 
 describe("registry storage", () => {
   it("storage to contain all fields", () => {
-    expect(Object.keys(registry)).toHaveLength(45);
+    expect(Object.keys(registry)).toHaveLength(46);
   });
 
   it("storage to initialize with correct data", () => {

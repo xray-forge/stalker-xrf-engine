@@ -160,7 +160,7 @@ describe("SaveManager class", () => {
 
     expect(onSave).toHaveBeenCalledTimes(1);
     expect(io.open).toHaveBeenCalledWith("$game_saves$\\test.scopx", "wb");
-    expect(file.write).toHaveBeenCalledWith(JSON.stringify({ generic: { example: 123 }, store: {} }));
+    expect(file.write).toHaveBeenCalledWith(JSON.stringify({ eventPacket: { example: 123 }, store: {}, objects: {} }));
     expect(file.close).toHaveBeenCalledTimes(1);
   });
 
@@ -168,7 +168,7 @@ describe("SaveManager class", () => {
     const saveManager: SaveManager = SaveManager.getInstance();
     const file: MockIoFile = new MockIoFile("test", "wb");
 
-    file.content = JSON.stringify({ generic: { example: 123 }, store: {} });
+    file.content = JSON.stringify({ eventPacket: { example: 123 }, store: {}, objects: {} });
 
     const onLoad = jest.fn((data: AnyObject) => {
       expect(data).toEqual({ example: 123 });
