@@ -297,6 +297,18 @@ export enum EGameEvent {
    */
   ITEM_GRENADE_UNREGISTERED,
   /**
+   * Helmet item go online first time.
+   */
+  ITEM_HELMET_GO_ONLINE_FIRST_TIME,
+  /**
+   * Helmet item go online.
+   */
+  ITEM_HELMET_GO_ONLINE,
+  /**
+   * Helmet item go offline.
+   */
+  ITEM_HELMET_GO_OFFLINE,
+  /**
    * Registered helmet item server object.
    */
   ITEM_HELMET_REGISTERED,

@@ -33,15 +33,17 @@ export class ItemUpgradesManager extends AbstractManager {
   public override initialize(): void {
     const eventsManager: EventsManager = EventsManager.getInstance();
 
-    eventsManager.registerCallback(EGameEvent.ITEM_WEAPON_GO_ONLINE_FIRST_TIME, this.onWeaponGoOnlineFirstTime, this);
-    eventsManager.registerCallback(EGameEvent.ITEM_OUTFIT_GO_ONLINE_FIRST_TIME, this.onOutfitGoOnlineFirstTime, this);
+    eventsManager.registerCallback(EGameEvent.ITEM_WEAPON_GO_ONLINE_FIRST_TIME, this.onItemGoOnlineFirstTime, this);
+    eventsManager.registerCallback(EGameEvent.ITEM_OUTFIT_GO_ONLINE_FIRST_TIME, this.onItemGoOnlineFirstTime, this);
+    eventsManager.registerCallback(EGameEvent.ITEM_HELMET_GO_ONLINE_FIRST_TIME, this.onItemGoOnlineFirstTime, this);
   }
 
   public override destroy(): void {
     const eventsManager: EventsManager = EventsManager.getInstance();
 
-    eventsManager.unregisterCallback(EGameEvent.ITEM_WEAPON_GO_ONLINE_FIRST_TIME, this.onWeaponGoOnlineFirstTime);
-    eventsManager.unregisterCallback(EGameEvent.ITEM_OUTFIT_GO_ONLINE_FIRST_TIME, this.onOutfitGoOnlineFirstTime);
+    eventsManager.unregisterCallback(EGameEvent.ITEM_WEAPON_GO_ONLINE_FIRST_TIME, this.onItemGoOnlineFirstTime);
+    eventsManager.unregisterCallback(EGameEvent.ITEM_OUTFIT_GO_ONLINE_FIRST_TIME, this.onItemGoOnlineFirstTime);
+    eventsManager.unregisterCallback(EGameEvent.ITEM_HELMET_GO_ONLINE_FIRST_TIME, this.onItemGoOnlineFirstTime);
   }
 
   /**
@@ -372,22 +374,12 @@ export class ItemUpgradesManager extends AbstractManager {
     }
   }
 
-  public onWeaponGoOnlineFirstTime(weapon: ClientObject): void {
-    const upgradesList: TUpgradesList = readAllObjectUpgrades(weapon.section());
+  public onItemGoOnlineFirstTime(item: ClientObject): void {
+    const upgradesList: TUpgradesList = readAllObjectUpgrades(item.section());
 
     for (const [, upgrade] of upgradesList) {
-      if (weapon.can_add_upgrade(upgrade.id)) {
-        weapon.add_upgrade(upgrade.id);
-      }
-    }
-  }
-
-  public onOutfitGoOnlineFirstTime(outfit: ClientObject): void {
-    const upgradesList: TUpgradesList = readAllObjectUpgrades(outfit.section());
-
-    for (const [, upgrade] of upgradesList) {
-      if (outfit.can_add_upgrade(upgrade.id)) {
-        outfit.add_upgrade(upgrade.id);
+      if (item.can_add_upgrade(upgrade.id)) {
+        item.add_upgrade(upgrade.id);
       }
     }
   }

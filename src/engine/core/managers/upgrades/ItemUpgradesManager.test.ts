@@ -1,8 +1,25 @@
-import { describe, it } from "@jest/globals";
+import { beforeEach, describe, expect, it } from "@jest/globals";
+
+import { disposeManager, getManagerInstance } from "@/engine/core/database";
+import { EventsManager } from "@/engine/core/managers/events";
+import { ItemUpgradesManager } from "@/engine/core/managers/upgrades/ItemUpgradesManager";
+import { resetRegistry } from "@/fixtures/engine";
 
 describe("ItemUpgradesManager class", () => {
-  it.todo("should correctly initialize and destroy");
+  beforeEach(() => {
+    resetRegistry();
+  });
 
+  it("should correctly initialize and destroy", () => {
+    const upgradesManager: ItemUpgradesManager = getManagerInstance(ItemUpgradesManager);
+    const eventsManager: EventsManager = getManagerInstance(EventsManager);
+
+    expect(eventsManager.getSubscribersCount()).toBe(3);
+
+    disposeManager(ItemUpgradesManager);
+
+    expect(eventsManager.getSubscribersCount()).toBe(0);
+  });
   it.todo("should correctly set hints");
 
   it.todo("should correctly get repair prices");
