@@ -1,8 +1,8 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { clsid } from "xray16";
 
-import { registerSimulator, registry } from "@/engine/core/database";
-import { AlifeSimulator, AnyObject, ClientObject } from "@/engine/lib/types";
+import { registerSimulator } from "@/engine/core/database";
+import { AnyObject, ClientObject } from "@/engine/lib/types";
 import { mockActorClientGameObject, mockClientGameObject, mockIniFile } from "@/fixtures/xray";
 
 describe("bind entry point", () => {
@@ -41,6 +41,8 @@ describe("bind entry point", () => {
     checkBinding("smartCover");
     checkBinding("smartTerrain");
     checkBinding("stalker");
+    checkBinding("weapon");
+    checkBinding("outfit");
   });
 
   it("should correctly bind actor", () => {
@@ -230,6 +232,20 @@ describe("bind entry point", () => {
     const stalker: ClientObject = mockClientGameObject();
 
     callBinding("stalker", stalker);
+    expect(stalker.bind_object).toHaveBeenCalled();
+  });
+
+  it("should correctly bind weapon", () => {
+    const stalker: ClientObject = mockClientGameObject();
+
+    callBinding("weapon", stalker);
+    expect(stalker.bind_object).toHaveBeenCalled();
+  });
+
+  it("should correctly bind outfit", () => {
+    const stalker: ClientObject = mockClientGameObject();
+
+    callBinding("outfit", stalker);
     expect(stalker.bind_object).toHaveBeenCalled();
   });
 });

@@ -1,7 +1,7 @@
 import { game, get_hud, StaticDrawableWrapper } from "xray16";
 
 import { getPortableStoreValue, setPortableStoreValue } from "@/engine/core/database";
-import { ItemUpgradesManager } from "@/engine/core/managers/interface/ItemUpgradesManager";
+import { ItemUpgradesManager } from "@/engine/core/managers/upgrades/ItemUpgradesManager";
 import { extern } from "@/engine/core/utils/binding";
 import { executeConsoleCommand } from "@/engine/core/utils/console";
 import { createGameAutoSave } from "@/engine/core/utils/game_save";

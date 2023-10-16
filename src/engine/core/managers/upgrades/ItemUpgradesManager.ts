@@ -2,7 +2,9 @@ import { game } from "xray16";
 
 import { ITEM_UPGRADES, registry, STALKER_UPGRADE_INFO, SYSTEM_INI } from "@/engine/core/database";
 import { AbstractManager } from "@/engine/core/managers/base/AbstractManager";
-import { TItemUpgradeBranch } from "@/engine/core/managers/interface/item_upgrades_types";
+import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
+import { TItemUpgradeBranch, TUpgradesList } from "@/engine/core/managers/upgrades/item_upgrades_types";
+import { readAllObjectUpgrades } from "@/engine/core/managers/upgrades/utils";
 import {
   parseConditionsList,
   parseStringsList,
@@ -28,6 +30,20 @@ export class ItemUpgradesManager extends AbstractManager {
   public currentMechanicName: TName = "";
   public currentPriceDiscountRate: TRate = 1;
 
+  public override initialize(): void {
+    const eventsManager: EventsManager = EventsManager.getInstance();
+
+    eventsManager.registerCallback(EGameEvent.ITEM_WEAPON_GO_ONLINE_FIRST_TIME, this.onWeaponGoOnlineFirstTime, this);
+    eventsManager.registerCallback(EGameEvent.ITEM_OUTFIT_GO_ONLINE_FIRST_TIME, this.onOutfitGoOnlineFirstTime, this);
+  }
+
+  public override destroy(): void {
+    const eventsManager: EventsManager = EventsManager.getInstance();
+
+    eventsManager.unregisterCallback(EGameEvent.ITEM_WEAPON_GO_ONLINE_FIRST_TIME, this.onWeaponGoOnlineFirstTime);
+    eventsManager.unregisterCallback(EGameEvent.ITEM_OUTFIT_GO_ONLINE_FIRST_TIME, this.onOutfitGoOnlineFirstTime);
+  }
+
   /**
    * todo: Description.
    */
@@ -50,8 +66,8 @@ export class ItemUpgradesManager extends AbstractManager {
   /**
    * todo: Description.
    */
-  public getRepairPrice(itemName: TName, itemCondition: TRate): TCount {
-    const cost: TCount = SYSTEM_INI.r_u32(itemName, "cost");
+  public getRepairPrice(itemSection: TSection, itemCondition: TRate): TCount {
+    const cost: TCount = SYSTEM_INI.r_u32(itemSection, "cost");
 
     return math.floor(
       cost * (1 - itemCondition) * ItemUpgradesManager.ITEM_REPAIR_PRICE_COEFFICIENT * this.currentPriceDiscountRate
@@ -353,6 +369,26 @@ export class ItemUpgradesManager extends AbstractManager {
       }
 
       return string.format("%s %s", propertyName, string.sub(ITEM_UPGRADES.r_string(section, "value"), 2, -2));
+    }
+  }
+
+  public onWeaponGoOnlineFirstTime(weapon: ClientObject): void {
+    const upgradesList: TUpgradesList = readAllObjectUpgrades(weapon.section());
+
+    for (const [, upgrade] of upgradesList) {
+      if (weapon.can_add_upgrade(upgrade.id)) {
+        weapon.add_upgrade(upgrade.id);
+      }
+    }
+  }
+
+  public onOutfitGoOnlineFirstTime(outfit: ClientObject): void {
+    const upgradesList: TUpgradesList = readAllObjectUpgrades(outfit.section());
+
+    for (const [, upgrade] of upgradesList) {
+      if (outfit.can_add_upgrade(upgrade.id)) {
+        outfit.add_upgrade(upgrade.id);
+      }
     }
   }
 }
