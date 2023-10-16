@@ -3,19 +3,33 @@ import { game } from "xray16";
 import { ITEM_UPGRADES, registry, STALKER_UPGRADE_INFO, SYSTEM_INI } from "@/engine/core/database";
 import { AbstractManager } from "@/engine/core/managers/base/AbstractManager";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
-import { TItemUpgradeBranch, TUpgradesList } from "@/engine/core/managers/upgrades/item_upgrades_types";
-import { readAllObjectUpgrades } from "@/engine/core/managers/upgrades/utils";
+import { TItemUpgradeBranch } from "@/engine/core/managers/upgrades/item_upgrades_types";
+import { upgradesConfig } from "@/engine/core/managers/upgrades/UpgradesConfig";
+import { addRandomUpgrades } from "@/engine/core/managers/upgrades/utils/upgrades_install";
+import { isTrader } from "@/engine/core/utils/class_ids";
 import {
   parseConditionsList,
   parseStringsList,
   pickSectionFromCondList,
   TConditionList,
 } from "@/engine/core/utils/ini";
+import { getItemOwnerId } from "@/engine/core/utils/item";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { gameConfig } from "@/engine/lib/configs/GameConfig";
+import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import { questItems } from "@/engine/lib/constants/items/quest_items";
 import { FALSE, TRUE } from "@/engine/lib/constants/words";
-import { ClientObject, LuaArray, Optional, TCount, TLabel, TName, TRate } from "@/engine/lib/types";
+import {
+  ClientObject,
+  LuaArray,
+  Optional,
+  ServerObject,
+  TCount,
+  TLabel,
+  TName,
+  TNumberId,
+  TRate,
+} from "@/engine/lib/types";
 import { TSection } from "@/engine/lib/types/scheme";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -23,9 +37,7 @@ const logger: LuaLogger = new LuaLogger($filename);
 /**
  * todo;
  */
-export class ItemUpgradesManager extends AbstractManager {
-  public static readonly ITEM_REPAIR_PRICE_COEFFICIENT: TRate = 0.6;
-
+export class UpgradesManager extends AbstractManager {
   public upgradeHints: Optional<LuaArray<TLabel>> = null;
   public currentMechanicName: TName = "";
   public currentPriceDiscountRate: TRate = 1;
@@ -72,7 +84,7 @@ export class ItemUpgradesManager extends AbstractManager {
     const cost: TCount = SYSTEM_INI.r_u32(itemSection, "cost");
 
     return math.floor(
-      cost * (1 - itemCondition) * ItemUpgradesManager.ITEM_REPAIR_PRICE_COEFFICIENT * this.currentPriceDiscountRate
+      cost * (1 - itemCondition) * upgradesConfig.ITEM_REPAIR_PRICE_COEFFICIENT * this.currentPriceDiscountRate
     );
   }
 
@@ -374,13 +386,40 @@ export class ItemUpgradesManager extends AbstractManager {
     }
   }
 
-  public onItemGoOnlineFirstTime(item: ClientObject): void {
-    const upgradesList: TUpgradesList = readAllObjectUpgrades(item.section());
+  /**
+   * Handle item going online (spawning) first time.
+   *
+   * @param object - game object of item switching online
+   */
+  public onItemGoOnlineFirstTime(object: ClientObject): void {
+    if (!upgradesConfig.ADD_RANDOM_UPGRADES) {
+      return;
+    }
 
-    for (const [, upgrade] of upgradesList) {
-      if (item.can_add_upgrade(upgrade.id)) {
-        item.add_upgrade(upgrade.id);
-      }
+    const ownerId: Optional<TNumberId> = getItemOwnerId(object.id());
+
+    // Do not upgrade actor spawned items.
+    if (ownerId === ACTOR_ID) {
+      return;
+    }
+
+    const chance: TRate = math.random(100) / upgradesConfig.ADD_RANDOM_RATE;
+    const dispersion: TCount = upgradesConfig.ADD_RANDOM_DISPERSION * math.random();
+
+    const owner: Optional<ServerObject> = ownerId ? registry.simulator.object(ownerId) : null;
+
+    if (owner) {
+      logger.info("OWNER", owner.name(), owner.clsid(), owner.online, isTrader(object));
+    }
+
+    if (chance <= upgradesConfig.ADD_RANDOM_LEGENDARY_CHANCE) {
+      return addRandomUpgrades(object, upgradesConfig.ADD_RANDOM_LEGENDARY_COUNT + dispersion);
+    } else if (chance <= upgradesConfig.ADD_RANDOM_EPIC_CHANCE) {
+      return addRandomUpgrades(object, upgradesConfig.ADD_RANDOM_EPIC_COUNT + dispersion);
+    } else if (chance <= upgradesConfig.ADD_RANDOM_RARE_CHANCE) {
+      return addRandomUpgrades(object, upgradesConfig.ADD_RANDOM_RARE_COUNT + dispersion);
+    } else if (chance <= upgradesConfig.ADD_RANDOM_CHANCE) {
+      return addRandomUpgrades(object, upgradesConfig.ADD_RANDOM_COUNT + dispersion);
     }
   }
 }

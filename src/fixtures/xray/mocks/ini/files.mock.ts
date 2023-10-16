@@ -307,6 +307,25 @@ export const FILES_MOCKS: Record<TPath, AnyObject> = {
       resupply_period: 24 * 3_600_000,
     },
   },
+  "managers\\upgrades_manager.ltx": {
+    config: {
+      item_repair_price_coefficient: 0.6,
+    },
+    random: {
+      add_random_upgrades: false,
+      add_random_rate: 1,
+      add_random_rate_trader: 1.5,
+      add_random_chance: 20,
+      add_random_count: 1,
+      add_random_dispersion: 2,
+      add_random_rare_chance: 12,
+      add_random_rare_count: 2,
+      add_random_epic_chance: 6,
+      add_random_epic_count: 4,
+      add_random_legendary_chance: 3,
+      add_random_legendary_count: 16,
+    },
+  },
   "managers\\map_display_manager.ltx": {
     config: {
       require_smart_terrain_visit: false,

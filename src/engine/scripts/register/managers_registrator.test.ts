@@ -22,7 +22,7 @@ import { TaskManager } from "@/engine/core/managers/tasks";
 import { TradeManager } from "@/engine/core/managers/trade";
 import { TravelManager } from "@/engine/core/managers/travel";
 import { TreasureManager } from "@/engine/core/managers/treasures";
-import { ItemUpgradesManager } from "@/engine/core/managers/upgrades";
+import { UpgradesManager } from "@/engine/core/managers/upgrades";
 import { WeatherManager } from "@/engine/core/managers/weather";
 import { AnyObject } from "@/engine/lib/types";
 import { registerManagers } from "@/engine/scripts/register/managers_registrator";
@@ -46,7 +46,7 @@ describe("managers_registrator entry point", () => {
       EventsManager,
       GameSettingsManager,
       GlobalSoundManager,
-      ItemUpgradesManager,
+      UpgradesManager,
       LoadScreenManager,
       MapDisplayManager,
       NotificationManager,

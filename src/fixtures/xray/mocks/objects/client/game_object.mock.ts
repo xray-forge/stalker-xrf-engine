@@ -52,6 +52,7 @@ export function mockClientGameObject({
   idOverride = ID_COUNTER++,
   infoPortions = [],
   inventory = [],
+  upgrades = [],
   money,
   motivation_action_manager,
   name,
@@ -69,10 +70,12 @@ export function mockClientGameObject({
     sectionOverride?: TSection;
     infoPortions?: Array<TName>;
     inventory: Array<[TSection | TNumberId, ClientObject]>;
+    upgrades: Array<TSection>;
   }
 > = {}): ClientObject {
   const internalInfos: Array<string> = [...infoPortions];
   const inventoryMap: Map<string | number, ClientObject> = new Map(inventory);
+  const upgradesSet: Set<string> = new Set(upgrades);
 
   let isInvulnerable: boolean = false;
   let objectPosition: Vector = MockVector.mock(0.25, 0.25, 0.25);
@@ -247,6 +250,11 @@ export function mockClientGameObject({
         }
       }
     ),
+    iterate_installed_upgrades: jest.fn((cb: (upgrade: TSection, item: ClientObject) => void | boolean) => {
+      for (const [upgrade] of upgradesSet) {
+        cb(upgrade, gameObject as ClientObject);
+      }
+    }),
     parent: rest.parent ?? jest.fn(() => null),
     position: rest.position ?? jest.fn(() => objectPosition),
     radiation,

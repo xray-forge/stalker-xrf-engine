@@ -2,21 +2,21 @@ import { beforeEach, describe, expect, it } from "@jest/globals";
 
 import { disposeManager, getManagerInstance } from "@/engine/core/database";
 import { EventsManager } from "@/engine/core/managers/events";
-import { ItemUpgradesManager } from "@/engine/core/managers/upgrades/ItemUpgradesManager";
+import { UpgradesManager } from "@/engine/core/managers/upgrades/UpgradesManager";
 import { resetRegistry } from "@/fixtures/engine";
 
-describe("ItemUpgradesManager class", () => {
+describe("UpgradesManager class", () => {
   beforeEach(() => {
     resetRegistry();
   });
 
   it("should correctly initialize and destroy", () => {
-    const upgradesManager: ItemUpgradesManager = getManagerInstance(ItemUpgradesManager);
+    const upgradesManager: UpgradesManager = getManagerInstance(UpgradesManager);
     const eventsManager: EventsManager = getManagerInstance(EventsManager);
 
     expect(eventsManager.getSubscribersCount()).toBe(3);
 
-    disposeManager(ItemUpgradesManager);
+    disposeManager(UpgradesManager);
 
     expect(eventsManager.getSubscribersCount()).toBe(0);
   });
