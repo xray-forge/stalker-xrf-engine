@@ -20,8 +20,8 @@ extern("start", {
    * Main start game callback.
    * Called when game is started or loaded.
    */
-  callback: (isNew: boolean): void => {
-    logger.info("Start game:", isNew);
+  callback: (isNewGame: boolean): void => {
+    logger.info("Start game:", isNewGame);
 
     updateClassIds(classIds);
 
@@ -32,8 +32,8 @@ extern("start", {
 
     registerManagers();
     registerSchemes();
-    registerExtensions();
+    registerExtensions(isNewGame);
 
-    EventsManager.emitEvent(EGameEvent.GAME_STARTED);
+    EventsManager.emitEvent(EGameEvent.GAME_STARTED, isNewGame);
   },
 });

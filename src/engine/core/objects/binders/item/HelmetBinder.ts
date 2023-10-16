@@ -1,6 +1,13 @@
-import { LuabindClass, object_binder } from "xray16";
+import { class_info, game_object, LuabindClass, object_binder } from "xray16";
 
-import { registerObject, resetObject, unregisterObject } from "@/engine/core/database";
+import {
+  getObjectDynamicState,
+  IDynamicObjectState,
+  registerObject,
+  resetObject,
+  unregisterObject,
+  unregisterObjectDynamicState,
+} from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { ServerItemHelmetObject } from "@/engine/lib/types";
@@ -19,11 +26,12 @@ export class HelmetBinder extends object_binder {
 
     registerObject(this.object);
 
-    /*
-    if (!this.isInitialized) {
+    const state: IDynamicObjectState = getObjectDynamicState(this.object.id(), true);
+
+    if (!state.hasBeenOnline) {
+      state.hasBeenOnline = true;
       EventsManager.emitEvent(EGameEvent.ITEM_HELMET_GO_ONLINE_FIRST_TIME, this.object, this);
     }
-    */
 
     EventsManager.emitEvent(EGameEvent.ITEM_HELMET_GO_ONLINE, this.object, this);
 
@@ -42,5 +50,11 @@ export class HelmetBinder extends object_binder {
     super.reinit();
 
     resetObject(this.object);
+  }
+
+  public override net_Relcase(object: game_object): void {
+    super.net_Relcase(object);
+
+    unregisterObjectDynamicState(object.id());
   }
 }

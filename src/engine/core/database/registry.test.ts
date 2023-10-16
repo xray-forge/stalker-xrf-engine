@@ -64,5 +64,6 @@ describe("registry storage", () => {
     expect(registry.noCombatSmartTerrains).toBeInstanceOf(LuaTable);
     expect(registry.baseSmartTerrains).toBeInstanceOf(LuaTable);
     expect(registry.extensions).toBeInstanceOf(LuaTable);
+    expect(registry.dynamicData).toBeInstanceOf(Object);
   });
 });

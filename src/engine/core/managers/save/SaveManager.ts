@@ -1,11 +1,10 @@
-import { initializeManager } from "@/engine/core/database";
+import { IDynamicSaveData, initializeManager, registry } from "@/engine/core/database";
 import { AchievementsManager } from "@/engine/core/managers/achievements";
 import { ActorInputManager } from "@/engine/core/managers/actor";
 import { AbstractManager } from "@/engine/core/managers/base";
 import { ReleaseBodyManager } from "@/engine/core/managers/death";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { PsyAntennaManager } from "@/engine/core/managers/psy";
-import { IDynamicSaveData } from "@/engine/core/managers/save/save_types";
 import { GameSettingsManager } from "@/engine/core/managers/settings";
 import { SimulationBoardManager } from "@/engine/core/managers/simulation";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds";
@@ -24,8 +23,6 @@ const logger: LuaLogger = new LuaLogger($filename);
  * Manage game saves for other managers / parts.
  */
 export class SaveManager extends AbstractManager {
-  public dynamicData: IDynamicSaveData = { generic: {}, store: {} };
-
   public override initialize(): void {
     const eventsManager: EventsManager = EventsManager.getInstance();
 
@@ -102,9 +99,9 @@ export class SaveManager extends AbstractManager {
   public onBeforeGameSave(saveName: TName): void {
     logger.info("Before game save:", saveName);
 
-    EventsManager.emitEvent(EGameEvent.GAME_SAVE, this.dynamicData.generic);
+    EventsManager.emitEvent(EGameEvent.GAME_SAVE, registry.dynamicData.eventPacket);
 
-    saveDynamicGameSave(saveName, this.dynamicData);
+    saveDynamicGameSave(saveName, registry.dynamicData);
   }
 
   /**
@@ -126,9 +123,9 @@ export class SaveManager extends AbstractManager {
 
     const data: Optional<IDynamicSaveData> = loadDynamicGameSave(saveName);
 
-    this.dynamicData = data ? data : this.dynamicData;
+    registry.dynamicData = data ? data : registry.dynamicData;
 
-    EventsManager.emitEvent(EGameEvent.GAME_LOAD, this.dynamicData.generic);
+    EventsManager.emitEvent(EGameEvent.GAME_LOAD, registry.dynamicData.eventPacket);
   }
 
   /**

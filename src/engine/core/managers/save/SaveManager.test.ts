@@ -178,7 +178,7 @@ describe("SaveManager class", () => {
 
     jest.spyOn(io, "open").mockImplementation(() => $multi(file.asMock()));
 
-    const contentBefore: AnyObject = saveManager.dynamicData;
+    const contentBefore: AnyObject = registry.dynamicData;
 
     saveManager.onBeforeGameLoad("F:\\\\parent\\\\test.scop");
 
@@ -187,22 +187,22 @@ describe("SaveManager class", () => {
     expect(io.open).toHaveBeenCalledWith("F:\\\\parent\\\\test.scopx", "rb");
     expect(file.read).toHaveBeenCalledTimes(1);
     expect(file.close).toHaveBeenCalledTimes(1);
-    expect(contentBefore).not.toBe(saveManager.dynamicData);
+    expect(contentBefore).not.toBe(registry.dynamicData);
 
     // In case of empty file data should stay same.
-    const contentAfter: AnyObject = saveManager.dynamicData;
+    const contentAfter: AnyObject = registry.dynamicData;
 
     file.content = "";
     saveManager.onBeforeGameLoad("F:\\\\parent\\\\test.scop");
-    expect(contentAfter).toBe(saveManager.dynamicData);
+    expect(contentAfter).toBe(registry.dynamicData);
 
     file.content = null;
     saveManager.onBeforeGameLoad("F:\\\\parent\\\\test.scop");
-    expect(contentAfter).toBe(saveManager.dynamicData);
+    expect(contentAfter).toBe(registry.dynamicData);
 
     file.content = "{}";
     file.isOpen = false;
     saveManager.onBeforeGameLoad("F:\\\\parent\\\\test.scop");
-    expect(contentAfter).toBe(saveManager.dynamicData);
+    expect(contentAfter).toBe(registry.dynamicData);
   });
 });

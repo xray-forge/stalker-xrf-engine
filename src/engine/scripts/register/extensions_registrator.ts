@@ -15,7 +15,7 @@ const logger: LuaLogger = new LuaLogger($filename);
  * Traverse gamedata extensions folder for valid extension modules and try to call register for each one.
  * Save extension load order and try to persist it every time.
  */
-export function registerExtensions(): void {
+export function registerExtensions(isNewGame: boolean): void {
   if (lfs === null) {
     return logger.warn("Skip externals registration, no `lfs` lib available");
   }
@@ -34,7 +34,7 @@ export function registerExtensions(): void {
   for (const [, extension] of sortedExtensions) {
     if (extension.isEnabled) {
       registerExtension(extension);
-      (extension.module as AnyCallablesModule).register(extension);
+      (extension.module as AnyCallablesModule).register(isNewGame, extension);
     }
   }
 

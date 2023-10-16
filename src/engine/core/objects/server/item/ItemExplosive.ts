@@ -1,6 +1,10 @@
 import { cse_alife_item_explosive, LuabindClass } from "xray16";
 
-import { registerObjectStoryLinks, unregisterStoryLinkByObjectId } from "@/engine/core/database";
+import {
+  registerObjectDynamicState,
+  registerObjectStoryLinks,
+  unregisterStoryLinkByObjectId,
+} from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { TreasureManager } from "@/engine/core/managers/treasures";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -13,6 +17,12 @@ const logger: LuaLogger = new LuaLogger($filename);
 @LuabindClass()
 export class ItemExplosive extends cse_alife_item_explosive {
   public isSecretItem: boolean = false;
+
+  public override on_spawn(): void {
+    super.on_spawn();
+
+    registerObjectDynamicState(this.id);
+  }
 
   public override on_register(): void {
     super.on_register();

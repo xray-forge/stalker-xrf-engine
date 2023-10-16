@@ -1,7 +1,5 @@
-import { IRegistryObjectState } from "@/engine/core/database/database_types";
-import { setPortableStoreValue } from "@/engine/core/database/portable_store";
+import { IDynamicObjectState, IRegistryObjectState } from "@/engine/core/database/database_types";
 import { registry } from "@/engine/core/database/registry";
-import { helpWoundedConfig } from "@/engine/core/schemes/stalker/help_wounded/HelpWoundedConfig";
 import { ClientObject, Optional, TNumberId } from "@/engine/lib/types";
 
 /**
@@ -48,4 +46,39 @@ export function resetObject(object: ClientObject, state: Partial<IRegistryObject
   registry.objects.set(object.id(), state as IRegistryObjectState);
 
   return state as IRegistryObjectState;
+}
+
+/**
+ * todo;
+ *
+ * @param objectId
+ * @param initialize
+ */
+export function getObjectDynamicState(objectId: TNumberId, initialize?: boolean): IDynamicObjectState {
+  let state: Optional<IDynamicObjectState> = registry.dynamicData.objects.get(objectId);
+
+  if (state === null && initialize) {
+    state = {} as IDynamicObjectState;
+    registry.dynamicData.objects.set(objectId, state);
+  }
+
+  return state;
+}
+
+/**
+ * todo;
+ *
+ * @param objectId
+ */
+export function registerObjectDynamicState(objectId: TNumberId): void {
+  registry.dynamicData.objects.set(objectId, {} as IDynamicObjectState);
+}
+
+/**
+ * todo;
+ *
+ * @param objectId
+ */
+export function unregisterObjectDynamicState(objectId: TNumberId): void {
+  registry.dynamicData.objects.delete(objectId);
 }

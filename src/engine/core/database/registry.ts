@@ -1,4 +1,5 @@
 import type {
+  IDynamicSaveData,
   IRankDescriptor,
   IRegistryObjectState,
   IStoredOfflineObject,
@@ -26,6 +27,7 @@ import type { ERelation } from "@/engine/core/utils/relation";
 import { storyNames, TStoryName } from "@/engine/lib/constants/story_names";
 import type {
   AlifeSimulator,
+  AnyObject,
   ClientObject,
   EScheme,
   IniFile,
@@ -281,4 +283,8 @@ export const registry = {
    * List of extensions details loaded additionally to the game engine.
    */
   extensions: new LuaTable<TName, IExtensionsDescriptor>(),
+  /**
+   * Dynamic data stored in separate file with marshal lib.
+   */
+  dynamicData: { eventPacket: {} as AnyObject, store: {}, objects: new LuaTable() } as IDynamicSaveData,
 };
