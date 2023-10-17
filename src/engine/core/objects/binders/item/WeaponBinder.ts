@@ -9,7 +9,7 @@ import {
   unregisterObjectDynamicState,
 } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
-import { ItemWeapon } from "@/engine/core/objects/server/item";
+import { ItemWeapon } from "@/engine/core/objects/server/item/ItemWeapon";
 import { LuaLogger } from "@/engine/core/utils/logging";
 
 const logger: LuaLogger = new LuaLogger($filename);

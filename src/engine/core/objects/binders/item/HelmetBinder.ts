@@ -1,4 +1,4 @@
-import { class_info, game_object, LuabindClass, object_binder } from "xray16";
+import { LuabindClass, object_binder } from "xray16";
 
 import {
   getObjectDynamicState,
@@ -9,8 +9,9 @@ import {
   unregisterObjectDynamicState,
 } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
+import { ItemHelmet } from "@/engine/core/objects/server/item/ItemHelmet";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { ServerItemHelmetObject } from "@/engine/lib/types";
+import { ClientObject } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -19,7 +20,7 @@ const logger: LuaLogger = new LuaLogger($filename);
  */
 @LuabindClass()
 export class HelmetBinder extends object_binder {
-  public override net_spawn(object: ServerItemHelmetObject): boolean {
+  public override net_spawn(object: ItemHelmet): boolean {
     if (!super.net_spawn(object)) {
       return false;
     }
@@ -52,7 +53,7 @@ export class HelmetBinder extends object_binder {
     resetObject(this.object);
   }
 
-  public override net_Relcase(object: game_object): void {
+  public override net_Relcase(object: ClientObject): void {
     super.net_Relcase(object);
 
     unregisterObjectDynamicState(object.id());
