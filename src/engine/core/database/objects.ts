@@ -1,7 +1,5 @@
-import { IRegistryObjectState } from "@/engine/core/database/database_types";
-import { setPortableStoreValue } from "@/engine/core/database/portable_store";
+import { IDynamicObjectState, IRegistryObjectState } from "@/engine/core/database/database_types";
 import { registry } from "@/engine/core/database/registry";
-import { helpWoundedConfig } from "@/engine/core/schemes/stalker/help_wounded/HelpWoundedConfig";
 import { ClientObject, Optional, TNumberId } from "@/engine/lib/types";
 
 /**
@@ -48,4 +46,46 @@ export function resetObject(object: ClientObject, state: Partial<IRegistryObject
   registry.objects.set(object.id(), state as IRegistryObjectState);
 
   return state as IRegistryObjectState;
+}
+
+/**
+ * Get dynamic state for game object.
+ * Dynamic state is persistent and saved in files by lua marshal lib.
+ *
+ * @param objectId - target game object ID
+ * @param initialize - whether data should be initialized in case it is null
+ * @returns dynamic state of the object
+ */
+export function getObjectDynamicState(objectId: TNumberId, initialize?: boolean): IDynamicObjectState {
+  let state: Optional<IDynamicObjectState> = registry.dynamicData.objects.get(objectId);
+
+  if (state === null && initialize) {
+    state = {} as IDynamicObjectState;
+    registry.dynamicData.objects.set(objectId, state);
+  }
+
+  return state;
+}
+
+/**
+ * Register dynamic state for game object.
+ *
+ * @param objectId - target game object ID
+ * @returns new initialized dynamic state
+ */
+export function registerObjectDynamicState(objectId: TNumberId): IDynamicObjectState {
+  const state: IDynamicObjectState = {} as IDynamicObjectState;
+
+  registry.dynamicData.objects.set(objectId, state);
+
+  return state;
+}
+
+/**
+ * Unregister dynamic state for the object.
+ *
+ * @param objectId - target game object ID
+ */
+export function unregisterObjectDynamicState(objectId: TNumberId): void {
+  registry.dynamicData.objects.delete(objectId);
 }

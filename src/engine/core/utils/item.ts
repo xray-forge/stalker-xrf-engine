@@ -1,6 +1,21 @@
 import { registry } from "@/engine/core/database";
 import { medkits } from "@/engine/lib/constants/items/drugs";
-import { ClientObject, LuaArray, TNumberId, TRate, TSection } from "@/engine/lib/types";
+import { MAX_U16 } from "@/engine/lib/constants/memory";
+import { ClientObject, LuaArray, Optional, ServerObject, TNumberId, TRate, TSection } from "@/engine/lib/types";
+
+/**
+ * @param id - item object id to get owner
+ * @returns id of item owner or null
+ */
+export function getItemOwnerId(id: TNumberId): Optional<TNumberId> {
+  const serverObject: Optional<ServerObject> = registry.simulator.object(id);
+
+  if (serverObject && serverObject.parent_id !== MAX_U16) {
+    return serverObject.parent_id;
+  }
+
+  return null;
+}
 
 /**
  * Set item condition.
@@ -86,4 +101,28 @@ export function actorHasAtLeastOneItem(
  */
 export function objectHasItem(object: ClientObject, itemSectionOrId: TSection | TNumberId): boolean {
   return object.object(itemSectionOrId) !== null;
+}
+
+/**
+ * @param object - target item object to get upgrades from
+ * @returns list of installed upgrades
+ */
+export function getItemInstalledUpgradesList(object: ClientObject): LuaArray<TSection> {
+  const list: LuaArray<TSection> = new LuaTable();
+
+  object.iterate_installed_upgrades((it) => table.insert(list, it));
+
+  return list;
+}
+
+/**
+ * @param object - target item object to get upgrades from
+ * @returns set of installed upgrades
+ */
+export function getItemInstalledUpgradesSet(object: ClientObject): LuaTable<TSection, boolean> {
+  const set: LuaTable<TSection, boolean> = new LuaTable();
+
+  object.iterate_installed_upgrades((it) => set.set(it, true));
+
+  return set;
 }

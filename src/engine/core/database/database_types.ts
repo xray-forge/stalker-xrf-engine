@@ -196,6 +196,13 @@ export interface IRegistryObjectState extends Record<EScheme, Optional<IBaseSche
 }
 
 /**
+ * Dynamic state stored with lua marshal lib.
+ */
+export interface IDynamicObjectState {
+  hasBeenOnline: boolean;
+}
+
+/**
  * Offline object state descriptor.
  * Remember object active section when object switched offline.
  */
@@ -211,4 +218,13 @@ export interface IRankDescriptor {
   min: TRate;
   max: TRate;
   name: TName;
+}
+
+/**
+ * Descriptor of data saved to additional save file.
+ */
+export interface IDynamicSaveData {
+  eventPacket: AnyObject;
+  store: AnyObject;
+  objects: LuaTable<TNumberId, IDynamicObjectState>;
 }

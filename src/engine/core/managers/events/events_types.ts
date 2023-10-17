@@ -297,6 +297,18 @@ export enum EGameEvent {
    */
   ITEM_GRENADE_UNREGISTERED,
   /**
+   * Helmet item go online first time.
+   */
+  ITEM_HELMET_GO_ONLINE_FIRST_TIME,
+  /**
+   * Helmet item go online.
+   */
+  ITEM_HELMET_GO_ONLINE,
+  /**
+   * Helmet item go offline.
+   */
+  ITEM_HELMET_GO_OFFLINE,
+  /**
    * Registered helmet item server object.
    */
   ITEM_HELMET_REGISTERED,
@@ -304,6 +316,18 @@ export enum EGameEvent {
    * Unregistered helmet item server object.
    */
   ITEM_HELMET_UNREGISTERED,
+  /**
+   * Outfit item go online first time.
+   */
+  ITEM_OUTFIT_GO_ONLINE_FIRST_TIME,
+  /**
+   * Outfit item go online.
+   */
+  ITEM_OUTFIT_GO_ONLINE,
+  /**
+   * Outfit item go offline.
+   */
+  ITEM_OUTFIT_GO_OFFLINE,
   /**
    * Registered outfit item server object.
    */
@@ -329,15 +353,27 @@ export enum EGameEvent {
    */
   ITEM_TORCH_UNREGISTERED,
   /**
-   * Unregistered pda item server object.
+   * Weapon item go online first time.
+   */
+  ITEM_WEAPON_GO_ONLINE_FIRST_TIME,
+  /**
+   * Weapon item go online.
+   */
+  ITEM_WEAPON_GO_ONLINE,
+  /**
+   * Weapon item go offline.
+   */
+  ITEM_WEAPON_GO_OFFLINE,
+  /**
+   * Registered weapon item server object.
    */
   ITEM_WEAPON_REGISTERED,
   /**
-   * Unregistered pda item server object.
+   * Unregistered weapon item server object.
    */
   ITEM_WEAPON_UNREGISTERED,
   /**
-   * Unregistered auto shotgun  item server object.
+   * Registered auto shotgun  item server object.
    */
   ITEM_WEAPON_AUTOMATIC_SHOTGUN_REGISTERED,
   /**
@@ -345,7 +381,7 @@ export enum EGameEvent {
    */
   ITEM_WEAPON_AUTOMATIC_SHOTGUN_UNREGISTERED,
   /**
-   * Unregistered magazined weapon item server object.
+   * Registered magazined weapon item server object.
    */
   ITEM_WEAPON_MAGAZINED_REGISTERED,
   /**

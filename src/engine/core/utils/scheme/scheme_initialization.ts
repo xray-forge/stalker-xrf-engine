@@ -7,8 +7,8 @@ import {
   IRegistryObjectState,
   registry,
 } from "@/engine/core/database";
-import { tradeConfig } from "@/engine/core/managers/trade/TradeConfig";
 import { TradeManager } from "@/engine/core/managers/trade/TradeManager";
+import { readObjectTradeIniPath } from "@/engine/core/managers/trade/utils/trade_init";
 import type { SmartTerrain } from "@/engine/core/objects/server/smart_terrain";
 import { assert } from "@/engine/core/utils/assertion";
 import { readIniNumber, readIniString } from "@/engine/core/utils/ini";
@@ -127,16 +127,7 @@ export function configureObjectSchemes(
 
   // todo: Move to separate activation methods?
   if (schemeType === ESchemeType.STALKER) {
-    const tradeIniPath: TPath = readIniString(
-      actualIni,
-      logicsSection,
-      "trade",
-      false,
-      null,
-      tradeConfig.DEFAULT_TRADE_LTX_PATH
-    );
-
-    TradeManager.getInstance().initializeForObject(object, tradeIniPath);
+    TradeManager.getInstance().initializeForObject(object, readObjectTradeIniPath(actualIni, logicsSection));
 
     initializeObjectSectionItems(object, state);
   }

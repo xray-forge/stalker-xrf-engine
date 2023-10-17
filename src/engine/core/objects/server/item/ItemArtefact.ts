@@ -1,6 +1,11 @@
 import { cse_alife_item_artefact, LuabindClass } from "xray16";
 
-import { registerObjectStoryLinks, registry, unregisterStoryLinkByObjectId } from "@/engine/core/database";
+import {
+  registerObjectDynamicState,
+  registerObjectStoryLinks,
+  registry,
+  unregisterStoryLinkByObjectId,
+} from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { alifeConfig } from "@/engine/lib/configs/AlifeConfig";
@@ -13,6 +18,12 @@ const logger: LuaLogger = new LuaLogger($filename);
  */
 @LuabindClass()
 export class ItemArtefact extends cse_alife_item_artefact {
+  public override on_spawn(): void {
+    super.on_spawn();
+
+    registerObjectDynamicState(this.id);
+  }
+
   public override on_register(): void {
     super.on_register();
 

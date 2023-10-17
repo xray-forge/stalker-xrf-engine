@@ -7,7 +7,7 @@ import { ReleaseBodyManager } from "@/engine/core/managers/death";
 import { ProfilingManager } from "@/engine/core/managers/debug/profiling";
 import { DialogManager } from "@/engine/core/managers/dialogs";
 import { EventsManager } from "@/engine/core/managers/events";
-import { ItemUpgradesManager, LoadScreenManager } from "@/engine/core/managers/interface";
+import { LoadScreenManager } from "@/engine/core/managers/interface";
 import { MapDisplayManager } from "@/engine/core/managers/map";
 import { NotificationManager } from "@/engine/core/managers/notifications";
 import { PdaManager } from "@/engine/core/managers/pda";
@@ -22,6 +22,7 @@ import { TaskManager } from "@/engine/core/managers/tasks";
 import { TradeManager } from "@/engine/core/managers/trade";
 import { TravelManager } from "@/engine/core/managers/travel";
 import { TreasureManager } from "@/engine/core/managers/treasures";
+import { UpgradesManager } from "@/engine/core/managers/upgrades";
 import { WeatherManager } from "@/engine/core/managers/weather";
 import { AnyObject } from "@/engine/lib/types";
 import { registerManagers } from "@/engine/scripts/register/managers_registrator";
@@ -45,7 +46,7 @@ describe("managers_registrator entry point", () => {
       EventsManager,
       GameSettingsManager,
       GlobalSoundManager,
-      ItemUpgradesManager,
+      UpgradesManager,
       LoadScreenManager,
       MapDisplayManager,
       NotificationManager,

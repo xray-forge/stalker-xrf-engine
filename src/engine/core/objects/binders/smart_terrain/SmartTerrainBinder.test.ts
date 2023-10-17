@@ -29,6 +29,12 @@ describe("SmartTerrainBinder class", () => {
     expect(binder.serverObject).toBeUndefined();
   });
 
+  it("should be save relevant", () => {
+    const binder: SmartTerrainBinder = new SmartTerrainBinder(mockClientGameObject());
+
+    expect(binder.net_save_relevant()).toBe(true);
+  });
+
   it("should correctly handle going online/offline", () => {
     const binder: SmartTerrainBinder = new SmartTerrainBinder(mockClientGameObject());
     const serverObject: ServerObject = mockServerAlifeObject({ id: binder.object.id() });

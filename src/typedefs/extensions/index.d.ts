@@ -8,7 +8,7 @@ declare namespace table {
    *
    * @returns random value from table
    */
-  function random<K extends AnyNotNil, V>(list: LuaTable<K, V>): V;
+  function random<K extends AnyNotNil, V>(list: LuaTable<K, V>): LuaMultiReturn<[K, V]>;
   /**
    * Get table size.
    * Provided by lua extensions lib in open-xray.

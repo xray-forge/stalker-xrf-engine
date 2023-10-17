@@ -9,10 +9,14 @@ import {
 } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { ItemDetector } from "@/engine/core/objects/server/item/ItemDetector";
+import { resetRegistry } from "@/fixtures/engine";
 import { mockIniFile } from "@/fixtures/xray/mocks/ini";
 
 describe("ItemDetector server class", () => {
-  beforeEach(() => registerSimulator());
+  beforeEach(() => {
+    resetRegistry();
+    registerSimulator();
+  });
 
   it("should correctly create generic objects without story links", () => {
     const itemDetector: ItemDetector = new ItemDetector("test-section");
@@ -99,5 +103,13 @@ describe("ItemDetector server class", () => {
     expect(onItemDetectorUnregister).toHaveBeenCalledWith(itemDetector);
     expect(onItemRegister).toHaveBeenCalledWith(itemDetector);
     expect(onItemUnregister).toHaveBeenCalledWith(itemDetector);
+  });
+
+  it("should correctly create dynamic state on spawn", () => {
+    const itemDetector: ItemDetector = new ItemDetector("test-section");
+
+    itemDetector.on_spawn();
+
+    expect(registry.dynamicData.objects.has(itemDetector.id)).toBe(true);
   });
 });

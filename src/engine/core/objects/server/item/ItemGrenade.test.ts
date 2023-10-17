@@ -9,10 +9,14 @@ import {
 } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { ItemGrenade } from "@/engine/core/objects/server/item/ItemGrenade";
+import { resetRegistry } from "@/fixtures/engine";
 import { mockIniFile } from "@/fixtures/xray/mocks/ini";
 
 describe("ItemGrenade server class", () => {
-  beforeEach(() => registerSimulator());
+  beforeEach(() => {
+    resetRegistry();
+    registerSimulator();
+  });
 
   it("should correctly create generic objects without story links", () => {
     const itemGrenade: ItemGrenade = new ItemGrenade("test-section");
@@ -99,5 +103,13 @@ describe("ItemGrenade server class", () => {
     expect(onItemGrenadeUnregister).toHaveBeenCalledWith(itemExplosive);
     expect(onItemRegister).toHaveBeenCalledWith(itemExplosive);
     expect(onItemUnregister).toHaveBeenCalledWith(itemExplosive);
+  });
+
+  it("should correctly create dynamic state on spawn", () => {
+    const itemExplosive: ItemGrenade = new ItemGrenade("test-section");
+
+    itemExplosive.on_spawn();
+
+    expect(registry.dynamicData.objects.has(itemExplosive.id)).toBe(true);
   });
 });

@@ -67,6 +67,10 @@ export class SmartTerrainBinder extends object_binder {
     }
   }
 
+  public override net_save_relevant(): boolean {
+    return true;
+  }
+
   public override save(packet: NetPacket): void {
     openSaveMarker(packet, SmartTerrainBinder.__name);
 

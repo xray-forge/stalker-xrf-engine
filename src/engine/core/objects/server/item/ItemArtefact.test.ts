@@ -12,11 +12,12 @@ import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { Actor } from "@/engine/core/objects/server/creature";
 import { ItemArtefact } from "@/engine/core/objects/server/item/ItemArtefact";
 import { alifeConfig } from "@/engine/lib/configs/AlifeConfig";
-import { mockRegisteredActor } from "@/fixtures/engine";
+import { mockRegisteredActor, resetRegistry } from "@/fixtures/engine";
 import { mockIniFile } from "@/fixtures/xray/mocks/ini";
 
 describe("ItemArtefact server class", () => {
   beforeEach(() => {
+    resetRegistry();
     registerSimulator();
     registerActorServer(null as unknown as Actor);
   });
@@ -113,5 +114,13 @@ describe("ItemArtefact server class", () => {
     expect(onItemArtefactUnregister).toHaveBeenCalledWith(itemArtefact);
     expect(onItemRegister).toHaveBeenCalledWith(itemArtefact);
     expect(onItemUnregister).toHaveBeenCalledWith(itemArtefact);
+  });
+
+  it("should correctly create dynamic state on spawn", () => {
+    const itemArtefact: ItemArtefact = new ItemArtefact("test-section");
+
+    itemArtefact.on_spawn();
+
+    expect(registry.dynamicData.objects.has(itemArtefact.id)).toBe(true);
   });
 });

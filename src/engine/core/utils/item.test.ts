@@ -1,22 +1,32 @@
-import { describe, expect, it } from "@jest/globals";
+import { beforeEach, describe, expect, it } from "@jest/globals";
 
-import { registerActor } from "@/engine/core/database";
+import { registerActor, registerSimulator } from "@/engine/core/database";
 import {
   actorHasAtLeastOneItem,
   actorHasItem,
   actorHasItems,
   actorHasMedKit,
+  getItemInstalledUpgradesList,
+  getItemInstalledUpgradesSet,
+  getItemOwnerId,
   objectHasItem,
   setItemCondition,
 } from "@/engine/core/utils/item";
 import { ammo } from "@/engine/lib/constants/items/ammo";
 import { medkits } from "@/engine/lib/constants/items/drugs";
 import { weapons } from "@/engine/lib/constants/items/weapons";
-import { ClientObject } from "@/engine/lib/types";
+import { MAX_U16 } from "@/engine/lib/constants/memory";
+import { ClientObject, ServerObject } from "@/engine/lib/types";
+import { resetRegistry } from "@/fixtures/engine";
 import { MockLuaTable } from "@/fixtures/lua";
-import { mockClientGameObject } from "@/fixtures/xray";
+import { mockClientGameObject, mockServerAlifeObject } from "@/fixtures/xray";
 
 describe("item utils", () => {
+  beforeEach(() => {
+    resetRegistry();
+    registerSimulator();
+  });
+
   const createObjectWithItems = () =>
     mockClientGameObject({
       inventory: [
@@ -35,6 +45,20 @@ describe("item utils", () => {
         [55, mockClientGameObject({ sectionOverride: ammo.ammo_9x18_pmm } as Partial<ClientObject>)],
       ],
     });
+
+  it("getItemOwnerId should correctly get owner ID", () => {
+    const first: ClientObject = mockClientGameObject();
+    const firstServer: ServerObject = mockServerAlifeObject({ id: first.id(), parent_id: 253 });
+
+    const second: ClientObject = mockClientGameObject();
+    const secondServer: ServerObject = mockServerAlifeObject({ id: second.id(), parent_id: MAX_U16 });
+
+    const third: ClientObject = mockClientGameObject();
+
+    expect(getItemOwnerId(first.id())).toBe(253);
+    expect(getItemOwnerId(second.id())).toBeNull();
+    expect(getItemOwnerId(third.id())).toBeNull();
+  });
 
   it("setItemCondition should correctly set condition", () => {
     const object: ClientObject = mockClientGameObject();
@@ -150,5 +174,20 @@ describe("item utils", () => {
     expect(actorHasMedKit(MockLuaTable.mockFromArray([medkits.medkit_scientic]))).toBeFalsy();
 
     expect(actorHasMedKit(MockLuaTable.mockFromArray([medkits.medkit]), mockClientGameObject())).toBeFalsy();
+  });
+
+  it("getItemInstalledUpgradesList should correctly get list of installed upgrades", () => {
+    expect(getItemInstalledUpgradesList(mockClientGameObject())).toEqualLuaArrays([]);
+    expect(getItemInstalledUpgradesList(mockClientGameObject({ upgrades: ["a", "b"] }))).toEqualLuaArrays(["a", "b"]);
+    expect(getItemInstalledUpgradesList(mockClientGameObject({ upgrades: ["c"] }))).toEqualLuaArrays(["c"]);
+  });
+
+  it("getItemInstalledUpgradesSet should correctly get list of installed upgrades", () => {
+    expect(getItemInstalledUpgradesSet(mockClientGameObject())).toEqualLuaTables({});
+    expect(getItemInstalledUpgradesSet(mockClientGameObject({ upgrades: ["a", "b"] }))).toEqualLuaTables({
+      a: true,
+      b: true,
+    });
+    expect(getItemInstalledUpgradesSet(mockClientGameObject({ upgrades: ["c"] }))).toEqualLuaTables({ c: true });
   });
 });

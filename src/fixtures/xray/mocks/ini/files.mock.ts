@@ -7,12 +7,14 @@ import { weaponAddons } from "@/engine/lib/constants/items/weapon_addons";
 import { weapons } from "@/engine/lib/constants/items/weapons";
 import { storyNames } from "@/engine/lib/constants/story_names";
 import { AnyObject, TPath } from "@/engine/lib/types";
+import { mockUpgradesLtx } from "@/fixtures/xray/mocks/ini/files/upgrades.ltx.mock";
 
 /**
  * Mock ini files for testing.
  */
 export const FILES_MOCKS: Record<TPath, AnyObject> = {
   "system.ini": {
+    ...mockUpgradesLtx,
     actor: {
       quick_item_1: "qi_1",
       quick_item_2: "qi_2",
@@ -52,6 +54,13 @@ export const FILES_MOCKS: Record<TPath, AnyObject> = {
     [weapons.wpn_ak74]: {
       inv_name: "AK-74",
       strap_bone0: "some_bone",
+    },
+    [weapons.wpn_ak74u]: {
+      inv_name: "AK-74u",
+      strap_bone0: "some_bone_u",
+      upgrades:
+        "up_gr_firstab_ak74u, up_gr_seconab_ak74u, up_gr_thirdab_ak74u, up_gr_fourtab_ak74u, " +
+        "up_gr_fifthab_ak74u, up_gr_fifthcd_ak74u",
     },
     [weapons.wpn_svu]: {
       strap_bone0: "some_bone",
@@ -305,6 +314,26 @@ export const FILES_MOCKS: Record<TPath, AnyObject> = {
     config: {
       update_period: 3_600_000,
       resupply_period: 24 * 3_600_000,
+    },
+  },
+  "managers\\upgrades_manager.ltx": {
+    config: {
+      item_repair_price_coefficient: 0.6,
+    },
+    random: {
+      add_random_upgrades: false,
+      add_random_rate_owned: 1,
+      add_random_rate_world: 0.75,
+      add_random_rate_trader: 1.5,
+      add_random_chance: 20,
+      add_random_count: 1,
+      add_random_dispersion: 2,
+      add_random_rare_chance: 12,
+      add_random_rare_count: 2,
+      add_random_epic_chance: 6,
+      add_random_epic_count: 4,
+      add_random_legendary_chance: 3,
+      add_random_legendary_count: 16,
     },
   },
   "managers\\map_display_manager.ltx": {

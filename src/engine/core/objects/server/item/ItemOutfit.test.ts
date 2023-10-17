@@ -9,10 +9,14 @@ import {
 } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { ItemOutfit } from "@/engine/core/objects/server/item/ItemOutfit";
+import { resetRegistry } from "@/fixtures/engine";
 import { mockIniFile } from "@/fixtures/xray/mocks/ini";
 
 describe("ItemOutfit server class", () => {
-  beforeEach(() => registerSimulator());
+  beforeEach(() => {
+    resetRegistry();
+    registerSimulator();
+  });
 
   it("should correctly create generic objects without story links", () => {
     const itemOutfit: ItemOutfit = new ItemOutfit("test-section");
@@ -99,5 +103,13 @@ describe("ItemOutfit server class", () => {
     expect(onItemOutfitUnregister).toHaveBeenCalledWith(itemOutfit);
     expect(onItemRegister).toHaveBeenCalledWith(itemOutfit);
     expect(onItemUnregister).toHaveBeenCalledWith(itemOutfit);
+  });
+
+  it("should correctly create dynamic state on spawn", () => {
+    const itemOutfit: ItemOutfit = new ItemOutfit("test-section");
+
+    itemOutfit.on_spawn();
+
+    expect(registry.dynamicData.objects.has(itemOutfit.id)).toBe(true);
   });
 });

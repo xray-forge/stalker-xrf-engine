@@ -9,10 +9,14 @@ import {
 } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { ItemExplosive } from "@/engine/core/objects/server/item/ItemExplosive";
+import { resetRegistry } from "@/fixtures/engine";
 import { mockIniFile } from "@/fixtures/xray/mocks/ini";
 
 describe("ItemExplosive server class", () => {
-  beforeEach(() => registerSimulator());
+  beforeEach(() => {
+    resetRegistry();
+    registerSimulator();
+  });
 
   it("should correctly create generic objects without story links", () => {
     const itemExplosive: ItemExplosive = new ItemExplosive("test-section");
@@ -99,5 +103,13 @@ describe("ItemExplosive server class", () => {
     expect(onItemExplosiveUnregister).toHaveBeenCalledWith(itemExplosive);
     expect(onItemRegister).toHaveBeenCalledWith(itemExplosive);
     expect(onItemUnregister).toHaveBeenCalledWith(itemExplosive);
+  });
+
+  it("should correctly create dynamic state on spawn", () => {
+    const itemExplosive: ItemExplosive = new ItemExplosive("test-section");
+
+    itemExplosive.on_spawn();
+
+    expect(registry.dynamicData.objects.has(itemExplosive.id)).toBe(true);
   });
 });

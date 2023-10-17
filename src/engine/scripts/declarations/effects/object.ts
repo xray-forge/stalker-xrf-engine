@@ -507,13 +507,13 @@ extern(
     for (const [, squad] of simulationBoardManager.getSmartTerrainDescriptor(smartTerrainId)!.assignedSquads) {
       if (clearStory === FALSE) {
         if (!getStoryIdByObjectId(squad.id)) {
-          logger.format("Remove smart terrain squads on effect: '%s', '%s', '%s'", smartTerrainName, squad.name());
+          logger.format("Remove smart terrain squads on effect: '%s', '%s'", smartTerrainName, squad.name());
 
           simulationBoardManager.exitSmartTerrain(squad, smartTerrainId);
           simulationBoardManager.releaseSquad(squad);
         }
       } else {
-        logger.format("Remove smart terrain squads on effect: '%s', '%s', '%s'", smartTerrainName, squad.name());
+        logger.format("Remove smart terrain squads on effect: '%s', '%s'", smartTerrainName, squad.name());
 
         simulationBoardManager.exitSmartTerrain(squad, smartTerrainId);
         simulationBoardManager.releaseSquad(squad);

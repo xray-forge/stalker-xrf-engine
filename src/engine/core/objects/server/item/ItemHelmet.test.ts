@@ -9,10 +9,14 @@ import {
 } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { ItemHelmet } from "@/engine/core/objects/server/item/ItemHelmet";
+import { resetRegistry } from "@/fixtures/engine";
 import { mockIniFile } from "@/fixtures/xray/mocks/ini";
 
 describe("ItemHelmet server class", () => {
-  beforeEach(() => registerSimulator());
+  beforeEach(() => {
+    resetRegistry();
+    registerSimulator();
+  });
 
   it("should correctly create generic objects without story links", () => {
     const itemHelmet: ItemHelmet = new ItemHelmet("test-section");
@@ -99,5 +103,13 @@ describe("ItemHelmet server class", () => {
     expect(onItemHelmetUnregister).toHaveBeenCalledWith(itemHelmet);
     expect(onItemRegister).toHaveBeenCalledWith(itemHelmet);
     expect(onItemUnregister).toHaveBeenCalledWith(itemHelmet);
+  });
+
+  it("should correctly create dynamic state on spawn", () => {
+    const itemHelmet: ItemHelmet = new ItemHelmet("test-section");
+
+    itemHelmet.on_spawn();
+
+    expect(registry.dynamicData.objects.has(itemHelmet.id)).toBe(true);
   });
 });

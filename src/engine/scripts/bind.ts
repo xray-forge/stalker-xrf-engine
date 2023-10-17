@@ -10,9 +10,11 @@ import {
   CampZoneBinder,
   CrowBinder,
   HelicopterBinder,
+  HelmetBinder,
   LabX8DoorBinder,
   LevelChangerBinder,
   MonsterBinder,
+  OutfitBinder,
   PhantomBinder,
   PhysicObjectBinder,
   RestrictorBinder,
@@ -20,6 +22,7 @@ import {
   SmartCoverBinder,
   SmartTerrainBinder,
   StalkerBinder,
+  WeaponBinder,
 } from "@/engine/core/objects/binders";
 import { extern } from "@/engine/core/utils/binding";
 import { ClientObject, IniFile, Optional } from "@/engine/lib/types";
@@ -57,6 +60,9 @@ extern("bind", {
       object.bind_object(new PhysicObjectBinder(object));
     }
   },
+  weapon: (object: ClientObject) => object.bind_object(new WeaponBinder(object)),
+  outfit: (object: ClientObject) => object.bind_object(new OutfitBinder(object)),
+  helmet: (object: ClientObject) => object.bind_object(new HelmetBinder(object)),
   restrictor: (object: ClientObject) => object.bind_object(new RestrictorBinder(object)),
   signalLight: (object: ClientObject) => object.bind_object(new SignalLightBinder(object)),
   smartCover: (object: ClientObject) => object.bind_object(new SmartCoverBinder(object)),

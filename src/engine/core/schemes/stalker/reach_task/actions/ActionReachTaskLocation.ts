@@ -99,7 +99,7 @@ export class ActionReachTaskLocation extends action_base implements ISchemeEvent
   public override execute(): void {
     const now: TTimestamp = time_global();
 
-    if (this.nextUpdateAt - now > 0) {
+    if (now < this.nextUpdateAt) {
       return;
     } else {
       this.nextUpdateAt = now + 1000;
