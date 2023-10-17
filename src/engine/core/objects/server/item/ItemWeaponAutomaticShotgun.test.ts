@@ -9,10 +9,14 @@ import {
 } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { ItemWeaponAutomaticShotgun } from "@/engine/core/objects/server/item/ItemWeaponAutomaticShotgun";
+import { resetRegistry } from "@/fixtures/engine";
 import { mockIniFile } from "@/fixtures/xray/mocks/ini";
 
 describe("ItemWeaponAutomaticShotgun server class", () => {
-  beforeEach(() => registerSimulator());
+  beforeEach(() => {
+    resetRegistry();
+    registerSimulator();
+  });
 
   it("should correctly create generic objects without story links", () => {
     const itemWeaponAutomaticShotgun: ItemWeaponAutomaticShotgun = new ItemWeaponAutomaticShotgun("test-section");
@@ -108,5 +112,13 @@ describe("ItemWeaponAutomaticShotgun server class", () => {
     expect(onItemWeaponUnregister).toHaveBeenCalledWith(itemWeaponAutomaticShotgun);
     expect(onItemRegister).toHaveBeenCalledWith(itemWeaponAutomaticShotgun);
     expect(onItemUnregister).toHaveBeenCalledWith(itemWeaponAutomaticShotgun);
+  });
+
+  it("should correctly create dynamic state on spawn", () => {
+    const itemWeaponAutomaticShotgun: ItemWeaponAutomaticShotgun = new ItemWeaponAutomaticShotgun("test-section");
+
+    itemWeaponAutomaticShotgun.on_spawn();
+
+    expect(registry.dynamicData.objects.has(itemWeaponAutomaticShotgun.id)).toBe(true);
   });
 });

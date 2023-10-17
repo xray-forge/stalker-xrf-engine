@@ -9,10 +9,14 @@ import {
 } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { InventoryBox } from "@/engine/core/objects/server/item/InventoryBox";
+import { resetRegistry } from "@/fixtures/engine";
 import { mockIniFile } from "@/fixtures/xray/mocks/ini";
 
 describe("InventoryBox server class", () => {
-  beforeEach(() => registerSimulator());
+  beforeEach(() => {
+    resetRegistry();
+    registerSimulator();
+  });
 
   it("should correctly create generic objects without story links", () => {
     const inventoryBox: InventoryBox = new InventoryBox("test-section");
@@ -99,5 +103,13 @@ describe("InventoryBox server class", () => {
     expect(onInventoryBoxUnregister).toHaveBeenCalledWith(inventoryBox);
     expect(onItemRegister).toHaveBeenCalledWith(inventoryBox);
     expect(onItemUnregister).toHaveBeenCalledWith(inventoryBox);
+  });
+
+  it("should correctly create dynamic state on spawn", () => {
+    const inventoryBox: InventoryBox = new InventoryBox("test-section");
+
+    inventoryBox.on_spawn();
+
+    expect(registry.dynamicData.objects.has(inventoryBox.id)).toBe(true);
   });
 });

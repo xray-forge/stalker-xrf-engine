@@ -9,10 +9,14 @@ import {
 } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { ItemEatable } from "@/engine/core/objects/server/item/ItemEatable";
+import { resetRegistry } from "@/fixtures/engine";
 import { mockIniFile } from "@/fixtures/xray/mocks/ini";
 
 describe("ItemEatable server class", () => {
-  beforeEach(() => registerSimulator());
+  beforeEach(() => {
+    resetRegistry();
+    registerSimulator();
+  });
 
   it("should correctly create generic objects without story links", () => {
     const itemEatable: ItemEatable = new ItemEatable("test-section");
@@ -99,5 +103,13 @@ describe("ItemEatable server class", () => {
     expect(onItemEatableUnregister).toHaveBeenCalledWith(itemEatable);
     expect(onItemRegister).toHaveBeenCalledWith(itemEatable);
     expect(onItemUnregister).toHaveBeenCalledWith(itemEatable);
+  });
+
+  it("should correctly create dynamic state on spawn", () => {
+    const itemEatable: ItemEatable = new ItemEatable("test-section");
+
+    itemEatable.on_spawn();
+
+    expect(registry.dynamicData.objects.has(itemEatable.id)).toBe(true);
   });
 });

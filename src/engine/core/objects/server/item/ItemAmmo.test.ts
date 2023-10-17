@@ -9,10 +9,14 @@ import {
 } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { ItemAmmo } from "@/engine/core/objects/server/item/ItemAmmo";
+import { resetRegistry } from "@/fixtures/engine";
 import { mockIniFile } from "@/fixtures/xray/mocks/ini";
 
 describe("ItemAmmo server class", () => {
-  beforeEach(() => registerSimulator());
+  beforeEach(() => {
+    resetRegistry();
+    registerSimulator();
+  });
 
   it("should correctly create generic objects without story links", () => {
     const itemAmmo: ItemAmmo = new ItemAmmo("test-section");
@@ -99,5 +103,13 @@ describe("ItemAmmo server class", () => {
     expect(onItemAmmoUnregister).toHaveBeenCalledWith(itemAmmo);
     expect(onItemRegister).toHaveBeenCalledWith(itemAmmo);
     expect(onItemUnregister).toHaveBeenCalledWith(itemAmmo);
+  });
+
+  it("should correctly create dynamic state on spawn", () => {
+    const itemAmmo: ItemAmmo = new ItemAmmo("test-section");
+
+    itemAmmo.on_spawn();
+
+    expect(registry.dynamicData.objects.has(itemAmmo.id)).toBe(true);
   });
 });

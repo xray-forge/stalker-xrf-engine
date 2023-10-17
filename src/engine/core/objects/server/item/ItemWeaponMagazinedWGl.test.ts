@@ -9,10 +9,14 @@ import {
 } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { ItemWeaponMagazinedWGl } from "@/engine/core/objects/server/item/ItemWeaponMagazinedWGl";
+import { resetRegistry } from "@/fixtures/engine";
 import { mockIniFile } from "@/fixtures/xray/mocks/ini";
 
 describe("ItemWeaponMagazinedWGl server class", () => {
-  beforeEach(() => registerSimulator());
+  beforeEach(() => {
+    resetRegistry();
+    registerSimulator();
+  });
 
   it("should correctly create generic objects without story links", () => {
     const itemWeaponMagazinedWGl: ItemWeaponMagazinedWGl = new ItemWeaponMagazinedWGl("test-section");
@@ -108,5 +112,13 @@ describe("ItemWeaponMagazinedWGl server class", () => {
     expect(onItemWeaponUnregister).toHaveBeenCalledWith(itemWeaponMagazinedWGl);
     expect(onItemRegister).toHaveBeenCalledWith(itemWeaponMagazinedWGl);
     expect(onItemUnregister).toHaveBeenCalledWith(itemWeaponMagazinedWGl);
+  });
+
+  it("should correctly create dynamic state on spawn", () => {
+    const itemWeaponMagazinedWGl: ItemWeaponMagazinedWGl = new ItemWeaponMagazinedWGl("test-section");
+
+    itemWeaponMagazinedWGl.on_spawn();
+
+    expect(registry.dynamicData.objects.has(itemWeaponMagazinedWGl.id)).toBe(true);
   });
 });

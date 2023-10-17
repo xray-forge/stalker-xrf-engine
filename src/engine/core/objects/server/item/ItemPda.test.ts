@@ -9,10 +9,14 @@ import {
 } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { ItemPda } from "@/engine/core/objects/server/item/ItemPda";
+import { resetRegistry } from "@/fixtures/engine";
 import { mockIniFile } from "@/fixtures/xray/mocks/ini";
 
 describe("ItemPda server class", () => {
-  beforeEach(() => registerSimulator());
+  beforeEach(() => {
+    resetRegistry();
+    registerSimulator();
+  });
 
   it("should correctly create generic objects without story links", () => {
     const itemPda: ItemPda = new ItemPda("test-section");
@@ -99,5 +103,13 @@ describe("ItemPda server class", () => {
     expect(onItemPdaUnregister).toHaveBeenCalledWith(itemPda);
     expect(onItemRegister).toHaveBeenCalledWith(itemPda);
     expect(onItemUnregister).toHaveBeenCalledWith(itemPda);
+  });
+
+  it("should correctly create dynamic state on spawn", () => {
+    const itemPda: ItemPda = new ItemPda("test-section");
+
+    itemPda.on_spawn();
+
+    expect(registry.dynamicData.objects.has(itemPda.id)).toBe(true);
   });
 });

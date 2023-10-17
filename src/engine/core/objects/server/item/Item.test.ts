@@ -10,10 +10,14 @@ import {
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { InventoryBox } from "@/engine/core/objects/server/item/InventoryBox";
 import { Item } from "@/engine/core/objects/server/item/Item";
+import { resetRegistry } from "@/fixtures/engine";
 import { mockIniFile } from "@/fixtures/xray/mocks/ini";
 
 describe("Item server class", () => {
-  beforeEach(() => registerSimulator());
+  beforeEach(() => {
+    resetRegistry();
+    registerSimulator();
+  });
 
   it("should correctly create generic objects without story links", () => {
     const item: Item = new Item("test-section");
@@ -91,5 +95,13 @@ describe("Item server class", () => {
 
     expect(onItemRegister).toHaveBeenCalledWith(item);
     expect(onItemUnregister).toHaveBeenCalledWith(item);
+  });
+
+  it("should correctly create dynamic state on spawn", () => {
+    const item: InventoryBox = new Item("test-section");
+
+    item.on_spawn();
+
+    expect(registry.dynamicData.objects.has(item.id)).toBe(true);
   });
 });

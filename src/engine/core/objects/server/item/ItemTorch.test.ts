@@ -9,10 +9,14 @@ import {
 } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { ItemTorch } from "@/engine/core/objects/server/item/ItemTorch";
+import { resetRegistry } from "@/fixtures/engine";
 import { mockIniFile } from "@/fixtures/xray/mocks/ini";
 
 describe("ItemTorch server class", () => {
-  beforeEach(() => registerSimulator());
+  beforeEach(() => {
+    resetRegistry();
+    registerSimulator();
+  });
 
   it("should correctly create generic objects without story links", () => {
     const itemTorch: ItemTorch = new ItemTorch("test-section");
@@ -129,5 +133,13 @@ describe("ItemTorch server class", () => {
     expect(onItemTorchUnregister).toHaveBeenCalledWith(itemTorch);
     expect(onItemRegister).toHaveBeenCalledWith(itemTorch);
     expect(onItemUnregister).toHaveBeenCalledWith(itemTorch);
+  });
+
+  it("should correctly create dynamic state on spawn", () => {
+    const itemTorch: ItemTorch = new ItemTorch("test-section");
+
+    itemTorch.on_spawn();
+
+    expect(registry.dynamicData.objects.has(itemTorch.id)).toBe(true);
   });
 });
