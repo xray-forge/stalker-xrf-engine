@@ -28,7 +28,6 @@ import {
 } from "@/engine/core/managers/achievements/achievements_preconditions";
 import { achievementRewards } from "@/engine/core/managers/achievements/achievements_rewards";
 import { EAchievement } from "@/engine/core/managers/achievements/achievements_types";
-import { AchievementsManager } from "@/engine/core/managers/achievements/AchievementsManager";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { ENotificationType, ITipNotification } from "@/engine/core/managers/notifications";
 import { StatisticsManager } from "@/engine/core/managers/statistics";

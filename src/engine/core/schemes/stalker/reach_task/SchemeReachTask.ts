@@ -6,7 +6,7 @@ import { ActionReachTaskLocation } from "@/engine/core/schemes/stalker/reach_tas
 import { EvaluatorReachedTaskLocation } from "@/engine/core/schemes/stalker/reach_task/evaluators";
 import { ISchemeReachTaskState } from "@/engine/core/schemes/stalker/reach_task/reach_task_types";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { ActionBase, ActionPlanner, EScheme, ESchemeType, GameObject, IniFile, TSection } from "@/engine/lib/types";
+import { ActionPlanner, EScheme, ESchemeType, GameObject, IniFile, TSection } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

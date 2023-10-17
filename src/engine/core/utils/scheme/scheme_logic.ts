@@ -11,7 +11,6 @@ import { MapDisplayManager } from "@/engine/core/managers/map/MapDisplayManager"
 import { ObjectRestrictionsManager } from "@/engine/core/objects/ai/restriction";
 import { TAbstractSchemeConstructor } from "@/engine/core/objects/ai/scheme";
 import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain";
-import { ISmartTerrainJobDescriptor } from "@/engine/core/objects/server/smart_terrain/job/job_types";
 import { assert, assertDefined } from "@/engine/core/utils/assertion";
 import { getObjectConfigOverrides, pickSectionFromCondList } from "@/engine/core/utils/ini/ini_config";
 import { getSchemeFromSection } from "@/engine/core/utils/ini/ini_parse";

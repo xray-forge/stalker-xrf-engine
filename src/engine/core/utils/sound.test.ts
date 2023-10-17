@@ -1,7 +1,6 @@
 import { describe, expect, it } from "@jest/globals";
 import { snd_type } from "xray16";
 
-import { registry } from "@/engine/core/database";
 import { LoopedSound } from "@/engine/core/managers/sounds/objects";
 import { soundsConfig } from "@/engine/core/managers/sounds/SoundsConfig";
 import {

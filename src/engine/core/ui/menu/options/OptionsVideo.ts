@@ -1,4 +1,4 @@
-import { CScriptXmlInit, CUIWindow, LuabindClass, vector2 } from "xray16";
+import { CScriptXmlInit, CUIWindow, LuabindClass } from "xray16";
 
 import { Options } from "@/engine/core/ui/menu/options/Options";
 import { LuaLogger } from "@/engine/core/utils/logging";

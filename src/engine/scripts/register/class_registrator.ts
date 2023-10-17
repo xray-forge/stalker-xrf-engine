@@ -1,4 +1,3 @@
-import { editor } from "xray16";
 
 import { Actor, Monster, Stalker } from "@/engine/core/objects/server/creature";
 import { Helicopter } from "@/engine/core/objects/server/Helicopter";

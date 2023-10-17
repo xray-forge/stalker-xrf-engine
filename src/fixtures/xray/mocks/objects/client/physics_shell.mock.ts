@@ -1,4 +1,4 @@
-import { PhysicsJoint, PhysicsShell, TName } from "@/engine/lib/types";
+import { PhysicsShell, TName } from "@/engine/lib/types";
 import { MockPhysicsJoint } from "@/fixtures/xray/mocks/objects/client/physics_joint.mock";
 
 export class MockPhysicsShell {

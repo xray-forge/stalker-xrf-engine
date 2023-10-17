@@ -49,12 +49,8 @@ export class SchemeCombat extends AbstractScheme {
       state.enabled = true;
       state.combatType = readIniConditionList(ini, section, "combat_type");
 
-      if ((state.combatType as unknown as string) === communities.monolith) {
-        state.combatType = null;
-      }
-
       if (!state.combatType && isZombied) {
-        state.combatType = { condlist: parseConditionsList(communities.zombied) };
+        state.combatType = { condlist: parseConditionsList(EScriptCombatType.ZOMBIED) };
       }
 
       if (state.combatType) {

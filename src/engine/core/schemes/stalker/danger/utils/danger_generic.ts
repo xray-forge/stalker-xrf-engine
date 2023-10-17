@@ -15,7 +15,6 @@ import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import { MAX_U16 } from "@/engine/lib/constants/memory";
 import { TRUE } from "@/engine/lib/constants/words";
 import {
-  AnyObject,
   DangerObject,
   EGameObjectRelation,
   EScheme,

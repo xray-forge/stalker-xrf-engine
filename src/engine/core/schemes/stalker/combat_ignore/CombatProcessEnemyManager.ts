@@ -8,7 +8,7 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 import { startSmartTerrainAlarm } from "@/engine/core/utils/smart_terrain";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import { MAX_U16 } from "@/engine/lib/constants/memory";
-import { AnyObject, GameObject, Optional, ServerCreatureObject, TCount, TNumberId, Vector } from "@/engine/lib/types";
+import { GameObject, Optional, ServerCreatureObject, TCount, TNumberId, Vector } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

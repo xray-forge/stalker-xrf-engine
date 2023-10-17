@@ -72,7 +72,6 @@ import {
   noise,
   object_factory,
   particles_object,
-  Patch_Dawnload_Progress,
   patrol,
   physics_element,
   physics_joint,
