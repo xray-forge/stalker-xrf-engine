@@ -7,12 +7,14 @@ import { weaponAddons } from "@/engine/lib/constants/items/weapon_addons";
 import { weapons } from "@/engine/lib/constants/items/weapons";
 import { storyNames } from "@/engine/lib/constants/story_names";
 import { AnyObject, TPath } from "@/engine/lib/types";
+import { mockUpgradesLtx } from "@/fixtures/xray/mocks/ini/files/upgrades.ltx.mock";
 
 /**
  * Mock ini files for testing.
  */
 export const FILES_MOCKS: Record<TPath, AnyObject> = {
   "system.ini": {
+    ...mockUpgradesLtx,
     actor: {
       quick_item_1: "qi_1",
       quick_item_2: "qi_2",
@@ -52,6 +54,13 @@ export const FILES_MOCKS: Record<TPath, AnyObject> = {
     [weapons.wpn_ak74]: {
       inv_name: "AK-74",
       strap_bone0: "some_bone",
+    },
+    [weapons.wpn_ak74u]: {
+      inv_name: "AK-74u",
+      strap_bone0: "some_bone_u",
+      upgrades:
+        "up_gr_firstab_ak74u, up_gr_seconab_ak74u, up_gr_thirdab_ak74u, up_gr_fourtab_ak74u, " +
+        "up_gr_fifthab_ak74u, up_gr_fifthcd_ak74u",
     },
     [weapons.wpn_svu]: {
       strap_bone0: "some_bone",

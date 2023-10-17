@@ -7,7 +7,12 @@ import { IniFile, LuaArray, Optional, TSection } from "@/engine/lib/types";
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Read upgrade group information from ini file / specific upgrade group section.
+ * Used for recursive navigation over upgrades group, contains side effect - modifies destination collection.
+ *
+ * @param ini - target ini file to read upgrades from
+ * @param section - section of upgrade group to read data for
+ * @param destination - target upgrades list to read data inti
  */
 export function readUpgradeGroup(ini: IniFile, section: TSection, destination: TUpgradesList): void {
   if (!ini.section_exist(section)) {
@@ -28,12 +33,11 @@ export function readUpgradeGroup(ini: IniFile, section: TSection, destination: T
 }
 
 /**
- * todo;
- * todo;
- * todo;
+ * Get list of upgrades descriptors for weapon section.
  *
- * @param ini
- * @param section
+ * @param ini - target ini file to read upgrades from
+ * @param section - item section to read upgrades for
+ * @returns item upgrades data from ini or from cache
  */
 export function readAllObjectUpgrades(ini: IniFile, section: TSection): TUpgradesList {
   if (upgradesConfig.UPGRADES_CACHE.has(section)) {
