@@ -49,10 +49,12 @@ export function resetObject(object: ClientObject, state: Partial<IRegistryObject
 }
 
 /**
- * todo;
+ * Get dynamic state for game object.
+ * Dynamic state is persistent and saved in files by lua marshal lib.
  *
- * @param objectId
- * @param initialize
+ * @param objectId - target game object ID
+ * @param initialize - whether data should be initialized in case it is null
+ * @returns dynamic state of the object
  */
 export function getObjectDynamicState(objectId: TNumberId, initialize?: boolean): IDynamicObjectState {
   let state: Optional<IDynamicObjectState> = registry.dynamicData.objects.get(objectId);
@@ -66,18 +68,23 @@ export function getObjectDynamicState(objectId: TNumberId, initialize?: boolean)
 }
 
 /**
- * todo;
+ * Register dynamic state for game object.
  *
- * @param objectId
+ * @param objectId - target game object ID
+ * @returns new initialized dynamic state
  */
-export function registerObjectDynamicState(objectId: TNumberId): void {
-  registry.dynamicData.objects.set(objectId, {} as IDynamicObjectState);
+export function registerObjectDynamicState(objectId: TNumberId): IDynamicObjectState {
+  const state: IDynamicObjectState = {} as IDynamicObjectState;
+
+  registry.dynamicData.objects.set(objectId, state);
+
+  return state;
 }
 
 /**
- * todo;
+ * Unregister dynamic state for the object.
  *
- * @param objectId
+ * @param objectId - target game object ID
  */
 export function unregisterObjectDynamicState(objectId: TNumberId): void {
   registry.dynamicData.objects.delete(objectId);
