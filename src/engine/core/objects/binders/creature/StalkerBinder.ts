@@ -59,8 +59,8 @@ import { misc } from "@/engine/lib/constants/items/misc";
 import { MAX_U16 } from "@/engine/lib/constants/memory";
 import {
   ActionPlanner,
-  EScheme,
   EGameObjectRelation,
+  EScheme,
   ESchemeEvent,
   GameObject,
   NetPacket,

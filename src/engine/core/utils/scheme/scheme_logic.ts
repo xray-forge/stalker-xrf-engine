@@ -28,16 +28,7 @@ import {
   initializeObjectTakeItemsEnabledState,
 } from "@/engine/core/utils/scheme/scheme_object_initialization";
 import { NIL } from "@/engine/lib/constants/words";
-import {
-  EScheme,
-  ESchemeEvent,
-  ESchemeType,
-  GameObject,
-  IniFile,
-  Optional,
-  TName,
-  TSection,
-} from "@/engine/lib/types";
+import { EScheme, ESchemeEvent, ESchemeType, GameObject, IniFile, Optional, TName, TSection } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename, { file: "scheme" });
 
