@@ -9,13 +9,13 @@ import { StalkerStateManager } from "@/engine/core/objects/ai/state/StalkerState
 import { EStalkerState } from "@/engine/core/objects/animation/types";
 import { StalkerBinder } from "@/engine/core/objects/binders/creature/StalkerBinder";
 import { createEmptyVector, createVector } from "@/engine/core/utils/vector";
-import { ClientObject } from "@/engine/lib/types";
+import { GameObject } from "@/engine/lib/types";
 import { resetFunctionMock } from "@/fixtures/jest";
-import { mockClientGameObject } from "@/fixtures/xray";
+import { mockGameObject } from "@/fixtures/xray";
 
 describe("ActionDirectionTurn class", () => {
   it("should correctly perform direction turn action", () => {
-    const stalker: StalkerBinder = new StalkerBinder(mockClientGameObject());
+    const stalker: StalkerBinder = new StalkerBinder(mockGameObject());
 
     registerStalker(stalker);
 
@@ -23,7 +23,7 @@ describe("ActionDirectionTurn class", () => {
 
     const manager: StalkerStateManager = registry.objects.get(stalker.object.id()).stateManager as StalkerStateManager;
     const action: ActionDirectionTurn = new ActionDirectionTurn(manager);
-    const lookObject: ClientObject = mockClientGameObject();
+    const lookObject: GameObject = mockGameObject();
 
     registerObject(lookObject);
 

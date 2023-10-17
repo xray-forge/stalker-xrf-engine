@@ -11,7 +11,7 @@ import { initializeMeetScheme } from "@/engine/core/schemes/stalker/meet/utils";
 import { readIniString } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { NIL } from "@/engine/lib/constants/words";
-import { ActionPlanner, ClientObject, EScheme, ESchemeType, IniFile, TSection } from "@/engine/lib/types";
+import { ActionPlanner, EScheme, ESchemeType, GameObject, IniFile, TSection } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename, { file: "meet" });
 
@@ -26,7 +26,7 @@ export class SchemeMeet extends AbstractScheme {
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.STALKER;
 
   public static override activate(
-    object: ClientObject,
+    object: GameObject,
     ini: IniFile,
     scheme: EScheme,
     section: TSection
@@ -35,7 +35,7 @@ export class SchemeMeet extends AbstractScheme {
   }
 
   public static override add(
-    object: ClientObject,
+    object: GameObject,
     ini: IniFile,
     scheme: EScheme,
     section: TSection,
@@ -78,7 +78,7 @@ export class SchemeMeet extends AbstractScheme {
   }
 
   public static override reset(
-    object: ClientObject,
+    object: GameObject,
     scheme: EScheme,
     state: IRegistryObjectState,
     section: TSection

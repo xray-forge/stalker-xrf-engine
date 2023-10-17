@@ -2,8 +2,8 @@ import { beforeEach, describe, expect, it } from "@jest/globals";
 
 import { registerSimulator } from "@/engine/core/database";
 import { getObjectSquad } from "@/engine/core/utils/squad/squad_get";
-import { ClientObject, ServerGroupObject, ServerHumanObject } from "@/engine/lib/types";
-import { mockClientGameObject, mockServerAlifeHumanStalker, mockServerAlifeOnlineOfflineGroup } from "@/fixtures/xray";
+import { GameObject, ServerGroupObject, ServerHumanObject } from "@/engine/lib/types";
+import { mockGameObject, mockServerAlifeHumanStalker, mockServerAlifeOnlineOfflineGroup } from "@/fixtures/xray";
 
 describe("squad utils", () => {
   beforeEach(() => {
@@ -11,22 +11,22 @@ describe("squad utils", () => {
   });
 
   it("getObjectSquad should correctly get squad of an object", () => {
-    expect(getObjectSquad(mockClientGameObject())).toBeNull();
+    expect(getObjectSquad(mockGameObject())).toBeNull();
     expect(getObjectSquad(mockServerAlifeHumanStalker())).toBeNull();
 
-    const clientObject: ClientObject = mockClientGameObject();
+    const gameObject: GameObject = mockGameObject();
     const groupObject: ServerGroupObject = mockServerAlifeOnlineOfflineGroup();
     const serverObject: ServerHumanObject = mockServerAlifeHumanStalker({
-      id: clientObject.id(),
+      id: gameObject.id(),
       group_id: groupObject.id,
     });
 
-    expect(getObjectSquad(clientObject)).toBe(groupObject);
+    expect(getObjectSquad(gameObject)).toBe(groupObject);
     expect(getObjectSquad(serverObject)).toBe(groupObject);
 
     serverObject.group_id = 99_999;
 
-    expect(getObjectSquad(clientObject)).toBeNull();
+    expect(getObjectSquad(gameObject)).toBeNull();
     expect(getObjectSquad(serverObject)).toBeNull();
   });
 });

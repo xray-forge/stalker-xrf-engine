@@ -25,7 +25,7 @@ import { pickRandom } from "@/engine/core/utils/random";
 import { copyVector, createEmptyVector, createVector, distanceBetween2d } from "@/engine/core/utils/vector";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import { ACTOR, NIL } from "@/engine/lib/constants/words";
-import { ClientObject, IniFile, NetPacket, Optional, Reader, TNumberId, TRate, Vector } from "@/engine/lib/types";
+import { GameObject, IniFile, NetPacket, Optional, Reader, TNumberId, TRate, Vector } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -44,7 +44,7 @@ const ROUND_SHOOT_DELAY = 2000;
 const DUMMY_VECTOR: Vector = createEmptyVector();
 
 export class HeliCombat {
-  public readonly object: ClientObject;
+  public readonly object: GameObject;
   public readonly heliObject: CHelicopter;
   public readonly st: IRegistryObjectState;
 
@@ -93,7 +93,7 @@ export class HeliCombat {
 
   public combatType!: number;
   public enemyId: Optional<TNumberId> = null;
-  public enemy: Optional<ClientObject> = null;
+  public enemy: Optional<GameObject> = null;
   public enemyLastSeenPos: Optional<Vector> = null;
   public enemyLastSeenTime: Optional<number> = null;
   public enemyLastSpotTime: Optional<number> = null;
@@ -110,7 +110,7 @@ export class HeliCombat {
 
   public state!: number;
 
-  public constructor(object: ClientObject, heliObject: CHelicopter) {
+  public constructor(object: GameObject, heliObject: CHelicopter) {
     this.st = registry.objects.get(object.id());
     this.object = object;
     this.heliObject = heliObject;

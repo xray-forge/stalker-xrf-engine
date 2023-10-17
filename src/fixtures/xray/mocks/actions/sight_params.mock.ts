@@ -1,4 +1,4 @@
-import { ClientObject, TSightType, Vector } from "@/engine/lib/types";
+import { GameObject, TSightType, Vector } from "@/engine/lib/types";
 
 export class MockSightParameters {
   public static readonly eSightTypeDummy: -1;
@@ -15,7 +15,7 @@ export class MockSightParameters {
   public static readonly eSightTypeFirePosition: 10;
   public static readonly eSightTypeAnimationDirection: 11;
 
-  public m_object!: ClientObject;
+  public m_object!: GameObject;
   public m_sight_type!: TSightType;
   public m_vector!: Vector;
 

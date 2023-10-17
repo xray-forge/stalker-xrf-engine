@@ -8,7 +8,7 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 import { startSmartTerrainAlarm } from "@/engine/core/utils/smart_terrain";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import { MAX_U16 } from "@/engine/lib/constants/memory";
-import { AnyObject, ClientObject, Optional, ServerCreatureObject, TCount, TNumberId, Vector } from "@/engine/lib/types";
+import { AnyObject, GameObject, Optional, ServerCreatureObject, TCount, TNumberId, Vector } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -19,7 +19,7 @@ export class CombatProcessEnemyManager extends AbstractSchemeManager<ISchemeComb
   /**
    * todo: Description.
    */
-  public onObjectEnemy(object: ClientObject, enemy: ClientObject): boolean {
+  public onObjectEnemy(object: GameObject, enemy: GameObject): boolean {
     if (enemy.id() === ACTOR_ID) {
       registry.actorCombat.set(object.id(), true);
     }
@@ -59,10 +59,10 @@ export class CombatProcessEnemyManager extends AbstractSchemeManager<ISchemeComb
    * todo: Description.
    */
   public override onHit(
-    object: ClientObject,
+    object: GameObject,
     amount: TCount,
     direction: Vector,
-    who: ClientObject,
+    who: GameObject,
     boneId: TNumberId
   ): void {
     if (who === null || amount === 0) {

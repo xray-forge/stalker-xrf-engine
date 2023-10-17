@@ -3,7 +3,7 @@ import { EActionId } from "@/engine/core/objects/ai/types";
 import { EStalkerState } from "@/engine/core/objects/animation/types/state_types";
 import { ISchemeWoundedState } from "@/engine/core/schemes/stalker/wounded";
 import { NIL } from "@/engine/lib/constants/words";
-import { ActionPlanner, ClientObject, EScheme, Optional, TNumberId } from "@/engine/lib/types";
+import { ActionPlanner, EScheme, GameObject, Optional, TNumberId } from "@/engine/lib/types";
 
 /**
  * @param objectId - target object id to check state
@@ -32,7 +32,7 @@ export function isObjectWounded(objectId: TNumberId): boolean {
  * @param object - target game object to check
  * @returns whether object is meeting with someone.
  */
-export function isObjectMeeting(object: ClientObject): boolean {
+export function isObjectMeeting(object: GameObject): boolean {
   const planner: ActionPlanner = object.motivation_action_manager();
 
   return planner !== null && planner.initialized() && planner.current_action_id() === EActionId.MEET_WAITING_ACTIVITY;
@@ -44,7 +44,7 @@ export function isObjectMeeting(object: ClientObject): boolean {
  * @param object - target client object to check
  * @returns whether object is in combat
  */
-export function isObjectInCombat(object: ClientObject): boolean {
+export function isObjectInCombat(object: GameObject): boolean {
   const planner: ActionPlanner = object.motivation_action_manager();
 
   if (!planner.initialized()) {
@@ -62,7 +62,7 @@ export function isObjectInCombat(object: ClientObject): boolean {
  * @param object - target client object to check
  * @returns whether object is searching corpse
  */
-export function isObjectSearchingCorpse(object: ClientObject): boolean {
+export function isObjectSearchingCorpse(object: GameObject): boolean {
   const planner: ActionPlanner = object.motivation_action_manager();
 
   return planner.initialized() && planner.current_action_id() === EActionId.SEARCH_CORPSE;
@@ -74,7 +74,7 @@ export function isObjectSearchingCorpse(object: ClientObject): boolean {
  * @param object - target client object to check
  * @returns whether object is helping wounded
  */
-export function isObjectHelpingWounded(object: ClientObject): boolean {
+export function isObjectHelpingWounded(object: GameObject): boolean {
   const planner: ActionPlanner = object.motivation_action_manager();
 
   return planner.initialized() && planner.current_action_id() === EActionId.HELP_WOUNDED;

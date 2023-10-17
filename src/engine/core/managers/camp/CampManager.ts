@@ -19,9 +19,9 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 import { isObjectMeeting } from "@/engine/core/utils/planner";
 import { emitSchemeEvent } from "@/engine/core/utils/scheme";
 import {
-  ClientObject,
   EScheme,
   ESchemeEvent,
+  GameObject,
   IniFile,
   LuaArray,
   Optional,
@@ -44,7 +44,7 @@ export class CampManager {
   /**
    * Linked camp zone client object.
    */
-  public object: ClientObject;
+  public object: GameObject;
   /**
    * Ini file describing camp parameters / logic.
    */
@@ -75,7 +75,7 @@ export class CampManager {
   public activitySwitchAt: TTimestamp = 0;
   public activityTimeout: TDuration = 0;
 
-  public constructor(object: ClientObject, ini: IniFile) {
+  public constructor(object: GameObject, ini: IniFile) {
     this.object = object;
     this.ini = ini;
 
@@ -221,7 +221,7 @@ export class CampManager {
       if (state !== null) {
         const schemeState: Optional<ISchemeAnimpointState> =
           state.activeScheme && (state[state.activeScheme] as ISchemeAnimpointState);
-        const object: Optional<ClientObject> = state.object;
+        const object: Optional<GameObject> = state.object;
 
         if (
           info[this.activity] === EObjectCampRole.DIRECTOR &&

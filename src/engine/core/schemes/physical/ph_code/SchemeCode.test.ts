@@ -6,13 +6,13 @@ import { ISchemeCodeState } from "@/engine/core/schemes/physical/ph_code/ph_code
 import { SchemeCode } from "@/engine/core/schemes/physical/ph_code/SchemeCode";
 import { getConfigSwitchConditions, parseConditionsList } from "@/engine/core/utils/ini";
 import { loadSchemeImplementation } from "@/engine/core/utils/scheme";
-import { ClientObject, EScheme, IniFile } from "@/engine/lib/types";
+import { EScheme, GameObject, IniFile } from "@/engine/lib/types";
 import { assertSchemeSubscribedToManager } from "@/fixtures/engine";
-import { mockClientGameObject, mockIniFile } from "@/fixtures/xray";
+import { mockGameObject, mockIniFile } from "@/fixtures/xray";
 
 describe("SchemeCode", () => {
   it("should correctly activate with defaults", () => {
-    const object: ClientObject = mockClientGameObject();
+    const object: GameObject = mockGameObject();
     const ini: IniFile = mockIniFile("test.ltx", {
       "ph_code@test": {},
     });
@@ -33,7 +33,7 @@ describe("SchemeCode", () => {
   });
 
   it("should correctly activate with one code", () => {
-    const object: ClientObject = mockClientGameObject();
+    const object: GameObject = mockGameObject();
     const ini: IniFile = mockIniFile("test.ltx", {
       "ph_code@test": {
         on_info: "{+test} first, second",
@@ -66,7 +66,7 @@ describe("SchemeCode", () => {
   });
 
   it("should correctly activate with on_check_code", () => {
-    const object: ClientObject = mockClientGameObject();
+    const object: GameObject = mockGameObject();
     const ini: IniFile = mockIniFile("test.ltx", {
       "ph_code@test": {
         on_info: "{+test} first, second",

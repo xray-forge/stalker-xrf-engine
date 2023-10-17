@@ -12,7 +12,7 @@ import { parseConditionsList, pickSectionFromCondList, TConditionList } from "@/
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { NIL } from "@/engine/lib/constants/words";
 import {
-  ClientObject,
+  GameObject,
   ISchemeEventHandler,
   Optional,
   StringOptional,
@@ -57,7 +57,7 @@ export class ActionSmartCoverActivity extends action_base implements ISchemeEven
   /**
    * todo: Description.
    */
-  public targetSelector(object: ClientObject): void {
+  public targetSelector(object: GameObject): void {
     if (!object.alive()) {
       return;
     }
@@ -137,7 +137,7 @@ export class ActionSmartCoverActivity extends action_base implements ISchemeEven
    * todo: Description.
    */
   public checkTarget(): boolean {
-    const object: ClientObject = this.object;
+    const object: GameObject = this.object;
 
     const targetPathSection: Optional<TName> = pickSectionFromCondList(
       registry.actor,
@@ -159,7 +159,7 @@ export class ActionSmartCoverActivity extends action_base implements ISchemeEven
         }
       }
     } else if (this.state.targetEnemy !== null) {
-      const storyObject: Optional<ClientObject> = getObjectByStoryId(this.state.targetEnemy);
+      const storyObject: Optional<GameObject> = getObjectByStoryId(this.state.targetEnemy);
 
       this.targetEnemyId = storyObject?.id() as Optional<TNumberId>;
 

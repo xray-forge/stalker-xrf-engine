@@ -1,6 +1,6 @@
 import { IDynamicObjectState, IRegistryObjectState } from "@/engine/core/database/database_types";
 import { registry } from "@/engine/core/database/registry";
-import { ClientObject, Optional, TNumberId } from "@/engine/lib/types";
+import { GameObject, Optional, TNumberId } from "@/engine/lib/types";
 
 /**
  * Register client object in lua in-memory registry.
@@ -8,7 +8,7 @@ import { ClientObject, Optional, TNumberId } from "@/engine/lib/types";
  * @param object - client game object to register
  * @returns registry object for provided game object
  */
-export function registerObject(object: ClientObject): IRegistryObjectState {
+export function registerObject(object: GameObject): IRegistryObjectState {
   const stored: Optional<IRegistryObjectState> = registry.objects.get(object.id());
 
   if (stored === null) {
@@ -29,7 +29,7 @@ export function registerObject(object: ClientObject): IRegistryObjectState {
  *
  * @param object - client game object to unregister
  */
-export function unregisterObject(object: ClientObject): void {
+export function unregisterObject(object: GameObject): void {
   registry.objects.delete(object.id());
 }
 
@@ -41,7 +41,7 @@ export function unregisterObject(object: ClientObject): void {
  * @param state - optional initial state to use for reset
  * @returns new client object state object
  */
-export function resetObject(object: ClientObject, state: Partial<IRegistryObjectState> = {}): IRegistryObjectState {
+export function resetObject(object: GameObject, state: Partial<IRegistryObjectState> = {}): IRegistryObjectState {
   state.object = object;
   registry.objects.set(object.id(), state as IRegistryObjectState);
 

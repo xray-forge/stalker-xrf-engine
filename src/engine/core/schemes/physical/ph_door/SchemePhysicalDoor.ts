@@ -5,7 +5,7 @@ import { getConfigSwitchConditions } from "@/engine/core/utils/ini/ini_config";
 import { parseBoneStateDescriptors } from "@/engine/core/utils/ini/ini_parse";
 import { readIniBoolean, readIniConditionList, readIniString } from "@/engine/core/utils/ini/ini_read";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { ClientObject, IniFile } from "@/engine/lib/types";
+import { GameObject, IniFile } from "@/engine/lib/types";
 import { EScheme, ESchemeType, TSection } from "@/engine/lib/types/scheme";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -18,7 +18,7 @@ export class SchemePhysicalDoor extends AbstractScheme {
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.OBJECT;
 
   public static override activate(
-    object: ClientObject,
+    object: GameObject,
     ini: IniFile,
     scheme: EScheme,
     section: TSection
@@ -57,7 +57,7 @@ export class SchemePhysicalDoor extends AbstractScheme {
   }
 
   public static override add(
-    object: ClientObject,
+    object: GameObject,
     ini: IniFile,
     scheme: EScheme,
     section: TSection,

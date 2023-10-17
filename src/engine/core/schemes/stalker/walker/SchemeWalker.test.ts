@@ -7,13 +7,13 @@ import { ActionWalkerActivity } from "@/engine/core/schemes/stalker/walker/actio
 import { SchemeWalker } from "@/engine/core/schemes/stalker/walker/SchemeWalker";
 import { ISchemeWalkerState } from "@/engine/core/schemes/stalker/walker/walker_types";
 import { loadSchemeImplementation } from "@/engine/core/utils/scheme";
-import { ActionPlanner, ClientObject, EScheme, IniFile } from "@/engine/lib/types";
+import { ActionPlanner, EScheme, GameObject, IniFile } from "@/engine/lib/types";
 import { assertSchemeSubscribedToManager, checkPlannerAction } from "@/fixtures/engine";
-import { mockClientGameObject, mockIniFile } from "@/fixtures/xray";
+import { mockGameObject, mockIniFile } from "@/fixtures/xray";
 
 describe("SchemeWalker", () => {
   it("should correctly activate with default data", () => {
-    const object: ClientObject = mockClientGameObject();
+    const object: GameObject = mockGameObject();
     const ini: IniFile = mockIniFile("test.ltx", {
       "walker@test": {
         path_walk: "zat_b40_merc_01_walk",
@@ -52,7 +52,7 @@ describe("SchemeWalker", () => {
   });
 
   it("should correctly activate with custom data", () => {
-    const object: ClientObject = mockClientGameObject();
+    const object: GameObject = mockGameObject();
     const ini: IniFile = mockIniFile("test.ltx", {
       "walker@test": {
         path_walk: "zat_b40_merc_01_walk",
@@ -97,7 +97,7 @@ describe("SchemeWalker", () => {
   });
 
   it("should correctly add evaluators/actions", () => {
-    const object: ClientObject = mockClientGameObject();
+    const object: GameObject = mockGameObject();
     const ini: IniFile = mockIniFile("test.ltx", {
       "walker@test": {
         path_walk: "zat_b40_merc_01_walk",

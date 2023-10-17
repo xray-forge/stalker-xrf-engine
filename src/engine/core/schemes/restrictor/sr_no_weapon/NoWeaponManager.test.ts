@@ -11,9 +11,9 @@ import {
 import { giveInfoPortion } from "@/engine/core/utils/info_portion";
 import { parseConditionsList } from "@/engine/core/utils/ini";
 import { loadSchemeImplementation } from "@/engine/core/utils/scheme";
-import { ClientObject, EScheme, ESchemeCondition } from "@/engine/lib/types";
+import { EScheme, ESchemeCondition, GameObject } from "@/engine/lib/types";
 import { mockBaseSchemeLogic, mockSchemeState } from "@/fixtures/engine";
-import { mockActorClientGameObject, mockClientGameObject } from "@/fixtures/xray";
+import { mockActorGameObject, mockGameObject } from "@/fixtures/xray";
 
 describe("NoWeaponManager class", () => {
   beforeEach(() => {
@@ -21,7 +21,7 @@ describe("NoWeaponManager class", () => {
   });
 
   it("should correctly init scheme", () => {
-    const object: ClientObject = mockClientGameObject();
+    const object: GameObject = mockGameObject();
     const state: ISchemeNoWeaponState = mockSchemeState(EScheme.SR_NO_WEAPON);
     const manager: NoWeaponManager = new NoWeaponManager(object, state);
 
@@ -29,13 +29,13 @@ describe("NoWeaponManager class", () => {
   });
 
   it("should correctly reset scheme", () => {
-    const object: ClientObject = mockClientGameObject();
+    const object: GameObject = mockGameObject();
     const state: ISchemeNoWeaponState = mockSchemeState(EScheme.SR_NO_WEAPON);
     const manager: NoWeaponManager = new NoWeaponManager(object, state);
 
     jest.spyOn(manager, "updateActorState").mockImplementation(() => {});
 
-    registerActor(mockActorClientGameObject());
+    registerActor(mockActorGameObject());
     registry.noWeaponZones.set(object.id(), true);
     manager.actorState = EActorZoneState.INSIDE;
 
@@ -47,11 +47,11 @@ describe("NoWeaponManager class", () => {
   });
 
   it("should correctly update schema with zone leave", () => {
-    const object: ClientObject = mockClientGameObject();
+    const object: GameObject = mockGameObject();
     const state: ISchemeNoWeaponState = mockSchemeState(EScheme.SR_NO_WEAPON);
     const manager: NoWeaponManager = new NoWeaponManager(object, state);
 
-    registerActor(mockActorClientGameObject());
+    registerActor(mockActorGameObject());
 
     jest.spyOn(manager, "onZoneEnter").mockImplementation(() => {});
     jest.spyOn(manager, "onZoneLeave").mockImplementation(() => {});
@@ -63,11 +63,11 @@ describe("NoWeaponManager class", () => {
   });
 
   it("should correctly update schema with zone enter", () => {
-    const object: ClientObject = mockClientGameObject();
+    const object: GameObject = mockGameObject();
     const state: ISchemeNoWeaponState = mockSchemeState(EScheme.SR_NO_WEAPON);
     const manager: NoWeaponManager = new NoWeaponManager(object, state);
 
-    registerActor(mockActorClientGameObject());
+    registerActor(mockActorGameObject());
 
     jest.spyOn(manager, "onZoneEnter").mockImplementation(() => {});
     jest.spyOn(manager, "onZoneLeave").mockImplementation(() => {});
@@ -80,12 +80,12 @@ describe("NoWeaponManager class", () => {
   });
 
   it("should correctly update schema with scheme change", () => {
-    const object: ClientObject = mockClientGameObject();
+    const object: GameObject = mockGameObject();
     const state: ISchemeNoWeaponState = mockSchemeState(EScheme.SR_NO_WEAPON);
     const manager: NoWeaponManager = new NoWeaponManager(object, state);
 
     registerObject(object);
-    registerActor(mockActorClientGameObject());
+    registerActor(mockActorGameObject());
     loadSchemeImplementation(SchemeNoWeapon);
 
     state.logic = $fromArray([
@@ -107,7 +107,7 @@ describe("NoWeaponManager class", () => {
   });
 
   it("should correctly update handle enter", () => {
-    const object: ClientObject = mockClientGameObject();
+    const object: GameObject = mockGameObject();
     const state: ISchemeNoWeaponState = mockSchemeState(EScheme.SR_NO_WEAPON);
     const manager: NoWeaponManager = new NoWeaponManager(object, state);
 
@@ -123,7 +123,7 @@ describe("NoWeaponManager class", () => {
   });
 
   it("should correctly update handle leave", () => {
-    const object: ClientObject = mockClientGameObject();
+    const object: GameObject = mockGameObject();
     const state: ISchemeNoWeaponState = mockSchemeState(EScheme.SR_NO_WEAPON);
     const manager: NoWeaponManager = new NoWeaponManager(object, state);
 

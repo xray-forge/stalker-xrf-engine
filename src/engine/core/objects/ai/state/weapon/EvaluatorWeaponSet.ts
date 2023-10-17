@@ -5,7 +5,7 @@ import { states } from "@/engine/core/objects/animation/states";
 import { EWeaponAnimation } from "@/engine/core/objects/animation/types";
 import { isStrappableWeapon } from "@/engine/core/utils/class_ids";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { ClientObject, Optional } from "@/engine/lib/types";
+import { GameObject, Optional } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -32,7 +32,7 @@ export class EvaluatorWeaponSet extends property_evaluator {
       return true;
     }
 
-    const activeItem: Optional<ClientObject> = this.object.active_item();
+    const activeItem: Optional<GameObject> = this.object.active_item();
 
     if (
       activeItem === null &&
@@ -43,7 +43,7 @@ export class EvaluatorWeaponSet extends property_evaluator {
       return true;
     }
 
-    const bestWeapon: Optional<ClientObject> = this.object.best_weapon();
+    const bestWeapon: Optional<GameObject> = this.object.best_weapon();
 
     if (bestWeapon === null) {
       return false;

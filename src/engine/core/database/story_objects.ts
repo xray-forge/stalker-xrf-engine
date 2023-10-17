@@ -6,7 +6,7 @@ import { abort, assert } from "@/engine/core/utils/assertion";
 import { readIniString } from "@/engine/core/utils/ini/ini_read";
 import {
   AnyGameObject,
-  ClientObject,
+  GameObject,
   IniFile,
   Optional,
   ServerObject,
@@ -105,7 +105,7 @@ export function unregisterStoryLinkByStoryId(storyId: TStringId): void {
  */
 export function isStoryObject(object: AnyGameObject): boolean {
   if (type(object.id) === "function") {
-    return registry.storyLink.sidById.has((object as ClientObject).id());
+    return registry.storyLink.sidById.has((object as GameObject).id());
   } else {
     return registry.storyLink.sidById.has((object as ServerObject).id);
   }
@@ -161,11 +161,11 @@ export function getServerObjectByStoryId<T extends ServerObject>(storyId: TStrin
  * @param storyId - story id to search
  * @returns existing client object instance or null
  */
-export function getObjectByStoryId(storyId: TStringId): Optional<ClientObject> {
+export function getObjectByStoryId(storyId: TStringId): Optional<GameObject> {
   const objectId: Optional<TNumberId> = registry.storyLink.idBySid.get(storyId);
-  const possibleObject: Optional<ClientObject> = (
+  const possibleObject: Optional<GameObject> = (
     objectId === null ? null : registry.objects.get(objectId)?.object
-  ) as Optional<ClientObject>;
+  ) as Optional<GameObject>;
 
   if (possibleObject) {
     return possibleObject;

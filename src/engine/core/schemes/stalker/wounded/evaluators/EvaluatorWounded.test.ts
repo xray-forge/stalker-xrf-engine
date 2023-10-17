@@ -5,14 +5,14 @@ import { EEvaluatorId } from "@/engine/core/objects/ai/types";
 import { ISchemeWoundedState } from "@/engine/core/schemes/stalker/wounded";
 import { EvaluatorWounded } from "@/engine/core/schemes/stalker/wounded/evaluators/EvaluatorWounded";
 import { WoundManager } from "@/engine/core/schemes/stalker/wounded/WoundManager";
-import { ClientObject, EScheme } from "@/engine/lib/types";
+import { EScheme, GameObject } from "@/engine/lib/types";
 import { mockSchemeState } from "@/fixtures/engine";
-import { MockActionPlanner, mockClientGameObject, MockPropertyStorage } from "@/fixtures/xray";
+import { MockActionPlanner, mockGameObject, MockPropertyStorage } from "@/fixtures/xray";
 import { MockPropertyEvaluatorConst } from "@/fixtures/xray/mocks/PropertyEvaluatorConst.mock";
 
 describe("EvaluatorWounded class", () => {
   const mockEvaluator = (hasEnemy: boolean = false) => {
-    const object: ClientObject = mockClientGameObject();
+    const object: GameObject = mockGameObject();
     const state: ISchemeWoundedState = mockSchemeState(EScheme.WOUNDED);
     const evaluator: EvaluatorWounded = new EvaluatorWounded(state);
     const planner: MockActionPlanner = new MockActionPlanner();

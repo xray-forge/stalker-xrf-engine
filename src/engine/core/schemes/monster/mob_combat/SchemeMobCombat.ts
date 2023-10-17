@@ -4,7 +4,7 @@ import { ISchemeMobCombatState } from "@/engine/core/schemes/monster/mob_combat/
 import { MobCombatManager } from "@/engine/core/schemes/monster/mob_combat/MobCombatManager";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini/ini_config";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { ClientObject, EScheme, ESchemeType, IniFile, Optional, TSection } from "@/engine/lib/types";
+import { EScheme, ESchemeType, GameObject, IniFile, Optional, TSection } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -16,7 +16,7 @@ export class SchemeMobCombat extends AbstractScheme {
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.MONSTER;
 
   public static override activate(
-    object: ClientObject,
+    object: GameObject,
     ini: IniFile,
     scheme: EScheme,
     section: TSection
@@ -30,7 +30,7 @@ export class SchemeMobCombat extends AbstractScheme {
   }
 
   public static override add(
-    object: ClientObject,
+    object: GameObject,
     ini: IniFile,
     scheme: EScheme,
     section: TSection,
@@ -43,7 +43,7 @@ export class SchemeMobCombat extends AbstractScheme {
     SchemeMobCombat.subscribe(object, state, manager);
   }
 
-  public static override disable(object: ClientObject, scheme: EScheme): void {
+  public static override disable(object: GameObject, scheme: EScheme): void {
     const state: Optional<ISchemeMobCombatState> = registry.objects.get(object.id())[scheme] as ISchemeMobCombatState;
 
     // No guarantee that it was activated before so should be checked additionally.

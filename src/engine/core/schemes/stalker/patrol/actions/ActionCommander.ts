@@ -6,7 +6,7 @@ import { StalkerPatrolManager } from "@/engine/core/objects/ai/state/StalkerPatr
 import { EStalkerState, EWaypointArrivalType } from "@/engine/core/objects/animation/types";
 import { ISchemePatrolState } from "@/engine/core/schemes/stalker/patrol";
 import { parseWaypointsData } from "@/engine/core/utils/ini/ini_parse";
-import { ClientObject, ISchemeEventHandler, Optional, TIndex } from "@/engine/lib/types";
+import { GameObject, ISchemeEventHandler, Optional, TIndex } from "@/engine/lib/types";
 
 /**
  * Action to command patrol/group of stalker on way somewhere.
@@ -19,7 +19,7 @@ export class ActionCommander extends action_base implements ISchemeEventHandler 
   public currentState: EStalkerState = EStalkerState.PATROL;
   public previousState: Optional<EStalkerState> = null;
 
-  public constructor(state: ISchemePatrolState, object: ClientObject) {
+  public constructor(state: ISchemePatrolState, object: GameObject) {
     super(null, ActionCommander.__name);
     this.state = state;
     this.patrolManager = registry.objects.get(object.id()).patrolManager as StalkerPatrolManager;
@@ -125,21 +125,21 @@ export class ActionCommander extends action_base implements ISchemeEventHandler 
   /**
    * todo: Description.
    */
-  public deactivate(object: ClientObject): void {
+  public deactivate(object: GameObject): void {
     registry.patrols.generic.get(this.state.patrolKey).removeObject(object);
   }
 
   /**
    * todo: Description.
    */
-  public onDeath(object: ClientObject): void {
+  public onDeath(object: GameObject): void {
     registry.patrols.generic.get(this.state.patrolKey).removeObject(object);
   }
 
   /**
    * todo: Description.
    */
-  public onSwitchOffline(object: ClientObject): void {
+  public onSwitchOffline(object: GameObject): void {
     this.deactivate(object);
   }
 

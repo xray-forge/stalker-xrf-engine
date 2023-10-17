@@ -12,7 +12,7 @@ import {
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { createVector } from "@/engine/core/utils/vector";
 import { MAX_U32 } from "@/engine/lib/constants/memory";
-import { ClientObject, NetPacket, Optional, Reader, ServerObject, TDuration, TTimestamp } from "@/engine/lib/types";
+import { GameObject, NetPacket, Optional, Reader, ServerObject, TDuration, TTimestamp } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -110,7 +110,7 @@ export class SignalLightBinder extends object_binder {
    * todo: Description.
    */
   public launch(): boolean {
-    const actor: Optional<ClientObject> = registry.actor;
+    const actor: Optional<GameObject> = registry.actor;
 
     if (actor === null) {
       return false;

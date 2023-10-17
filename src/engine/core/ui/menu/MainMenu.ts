@@ -39,7 +39,7 @@ import { gameTutorials } from "@/engine/lib/constants/game_tutorials";
 import { gameTypes } from "@/engine/lib/constants/game_types";
 import {
   AccountManager,
-  ClientObject,
+  GameObject,
   LoginManager,
   Optional,
   Profile,
@@ -449,7 +449,7 @@ export class MainMenu extends CUIScriptWnd {
     if (event === ui_events.WINDOW_KEY_PRESSED) {
       switch (key) {
         case DIK_keys.DIK_ESCAPE: {
-          const actor: Optional<ClientObject> = registry.actor;
+          const actor: Optional<GameObject> = registry.actor;
 
           if (level.present() && ((actor !== null && actor.alive()) || !IsGameTypeSingle())) {
             this.onReturnToGameButtonClick();

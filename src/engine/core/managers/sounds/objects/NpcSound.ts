@@ -14,7 +14,7 @@ import { roots } from "@/engine/lib/constants/roots";
 import { ZERO_VECTOR } from "@/engine/lib/constants/vectors";
 import { NIL } from "@/engine/lib/constants/words";
 import {
-  ClientObject,
+  GameObject,
   IniFile,
   LuaArray,
   NetPacket,
@@ -142,7 +142,7 @@ export class NpcSound extends AbstractPlayableSound {
    * todo;
    */
   public override reset(objectId: TNumberId): void {
-    const object: Optional<ClientObject> = registry.objects.get(objectId)?.object;
+    const object: Optional<GameObject> = registry.objects.get(objectId)?.object;
 
     this.playingStartedAt = null;
     this.playedSoundIndex = null;
@@ -164,7 +164,7 @@ export class NpcSound extends AbstractPlayableSound {
    * todo;
    */
   public override isPlaying(objectId: TNumberId): boolean {
-    const obj: Optional<ClientObject> = registry.objects.get(objectId) && registry.objects.get(objectId).object!;
+    const obj: Optional<GameObject> = registry.objects.get(objectId) && registry.objects.get(objectId).object!;
 
     if (obj === null) {
       return false;
@@ -176,7 +176,7 @@ export class NpcSound extends AbstractPlayableSound {
   /**
    * todo;
    */
-  public initializeObject(object: ClientObject): void {
+  public initializeObject(object: GameObject): void {
     const objectId: TNumberId = object.id();
     const objectDescriptor = {
       id: NpcSound.getNextId(),
@@ -234,7 +234,7 @@ export class NpcSound extends AbstractPlayableSound {
    * todo: Description.
    */
   public play(objectId: TNumberId, faction: string, point: Optional<string>, message: TLabel): boolean {
-    const object: Optional<ClientObject> = registry.objects.get(objectId)?.object;
+    const object: Optional<GameObject> = registry.objects.get(objectId)?.object;
 
     if (object === null) {
       return false;
@@ -389,7 +389,7 @@ export class NpcSound extends AbstractPlayableSound {
    * todo;
    */
   public override stop(objectId: TNumberId): void {
-    const object: Optional<ClientObject> = registry.objects.get(objectId)?.object;
+    const object: Optional<GameObject> = registry.objects.get(objectId)?.object;
 
     if (object !== null && object.alive()) {
       object.set_sound_mask(-1);
@@ -474,7 +474,7 @@ export class NpcSound extends AbstractPlayableSound {
   /**
    * todo;
    */
-  public override saveObject(packet: NetPacket, object: ClientObject): void {
+  public override saveObject(packet: NetPacket, object: GameObject): void {
     if (!this.isGroupSound) {
       packet.w_bool(this.canPlaySound.get(object.id()) === true);
     }
@@ -483,7 +483,7 @@ export class NpcSound extends AbstractPlayableSound {
   /**
    * todo;
    */
-  public override loadObject(reader: NetProcessor, object: ClientObject): void {
+  public override loadObject(reader: NetProcessor, object: GameObject): void {
     if (!this.isGroupSound) {
       this.canPlaySound.set(object.id(), reader.r_bool());
     }

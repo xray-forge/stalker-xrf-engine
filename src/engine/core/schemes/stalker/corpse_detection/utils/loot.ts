@@ -5,7 +5,7 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 import { transferLoot } from "@/engine/core/utils/loot";
 import { chance } from "@/engine/core/utils/random";
 import { LOOTING_DEAD_OBJECT_KEY } from "@/engine/lib/constants/portable_store_keys";
-import { ClientObject, EScheme, LuaArray, Optional, TNumberId } from "@/engine/lib/types";
+import { EScheme, GameObject, LuaArray, Optional, TNumberId } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -14,15 +14,15 @@ const logger: LuaLogger = new LuaLogger($filename);
  *
  * @param object - target object to finish looting of corpse
  */
-export function finishCorpseLooting(object: ClientObject): void {
+export function finishCorpseLooting(object: GameObject): void {
   const state: IRegistryObjectState = registry.objects.get(object.id());
   const corpseObjectId: Optional<TNumberId> = (state[EScheme.CORPSE_DETECTION] as ISchemeCorpseDetectionState)
     .selectedCorpseId;
-  const corpseObject: Optional<ClientObject> = corpseObjectId ? registry.objects.get(corpseObjectId)?.object : null;
+  const corpseObject: Optional<GameObject> = corpseObjectId ? registry.objects.get(corpseObjectId)?.object : null;
 
   // If corpse exists online:
   if (corpseObject) {
-    const transferred: LuaArray<ClientObject> = transferLoot(corpseObject, object);
+    const transferred: LuaArray<GameObject> = transferLoot(corpseObject, object);
 
     // Tell about loot quality with random chance, probably some price based assumption should work better.
     // Still tell about bad loot if transferred list is empty (actor took everything).

@@ -16,7 +16,7 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 import { isObjectWounded } from "@/engine/core/utils/planner";
 import { TRUE } from "@/engine/lib/constants/words";
 import {
-  ClientObject,
+  GameObject,
   LuaArray,
   NetPacket,
   NetProcessor,
@@ -199,7 +199,7 @@ export class DialogManager extends AbstractManager {
   /**
    * todo;
    */
-  public fillPriorityTable(object: ClientObject, PTSubtable: TPHRTable, PRTSubtable: TPRTTable): void {
+  public fillPriorityTable(object: GameObject, PTSubtable: TPHRTable, PRTSubtable: TPRTTable): void {
     const objectId: TNumberId = object.id();
 
     if (PRTSubtable.get(objectId) === null) {
@@ -219,7 +219,7 @@ export class DialogManager extends AbstractManager {
   public calculatePhrasePriority(
     PRTSubtable: TPRTTable,
     PTIDSubtable: IPhrasesDescriptor,
-    object: ClientObject,
+    object: GameObject,
     phraseId: TStringId
   ): TRate {
     const objectId: TNumberId = object.id();
@@ -319,28 +319,28 @@ export class DialogManager extends AbstractManager {
   /**
    * todo;
    */
-  public isTold(object: ClientObject, phrase: EGenericDialogCategory): boolean {
+  public isTold(object: GameObject, phrase: EGenericDialogCategory): boolean {
     return this.priorityTable.get(phrase).get(object.id())?.told === true;
   }
 
   /**
    * todo;
    */
-  public resetForObject(object: ClientObject): void {
+  public resetForObject(object: GameObject): void {
     this.disabledPhrases.delete(object.id());
   }
 
   /**
    * On interaction with new game object.
    */
-  public onInteractWithObject(object: ClientObject, who: ClientObject): void {
+  public onInteractWithObject(object: GameObject, who: GameObject): void {
     registry.activeSpeaker = object;
   }
 
   /**
    * todo;
    */
-  public saveObjectDialogs(packet: NetPacket, object: ClientObject): void {
+  public saveObjectDialogs(packet: NetPacket, object: GameObject): void {
     openSaveMarker(packet, DialogManager.name);
 
     const objectId: TNumberId = object.id();
@@ -357,7 +357,7 @@ export class DialogManager extends AbstractManager {
   /**
    * todo;
    */
-  public loadObjectDialogs(reader: NetProcessor, object: ClientObject): void {
+  public loadObjectDialogs(reader: NetProcessor, object: GameObject): void {
     openLoadMarker(reader, DialogManager.name);
 
     reader.r_bool();

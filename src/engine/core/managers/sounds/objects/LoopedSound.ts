@@ -6,7 +6,7 @@ import { EPlayableSound } from "@/engine/core/managers/sounds/sounds_types";
 import { assert } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { roots } from "@/engine/lib/constants/roots";
-import { ClientObject, IniFile, Optional, TNumberId, TSection, TSoundObjectType } from "@/engine/lib/types";
+import { GameObject, IniFile, Optional, TNumberId, TSection, TSoundObjectType } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -32,7 +32,7 @@ export class LoopedSound extends AbstractPlayableSound {
    * todo: Description.
    */
   public play(objectId: TNumberId): boolean {
-    const object: Optional<ClientObject> = registry.objects.get(objectId).object!;
+    const object: Optional<GameObject> = registry.objects.get(objectId).object!;
 
     if (object === null) {
       return false;

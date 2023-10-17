@@ -29,7 +29,7 @@ import {
   initializeObjectTakeItemsEnabledState,
 } from "@/engine/core/utils/scheme/scheme_object_initialization";
 import { NIL } from "@/engine/lib/constants/words";
-import { ClientObject, EScheme, ESchemeEvent, ESchemeType, IniFile, Optional, TSection } from "@/engine/lib/types";
+import { EScheme, ESchemeEvent, ESchemeType, GameObject, IniFile, Optional, TSection } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename, { file: "scheme" });
 
@@ -40,7 +40,7 @@ const logger: LuaLogger = new LuaLogger($filename, { file: "scheme" });
  * @param section - logic section to check
  * @returns whether object logics active section is same as provided
  */
-export function isActiveSection(object: ClientObject, section?: Optional<TSection>): boolean {
+export function isActiveSection(object: GameObject, section?: Optional<TSection>): boolean {
   return section === registry.objects.get(object.id()).activeSection;
 }
 
@@ -54,7 +54,7 @@ export function isActiveSection(object: ClientObject, section?: Optional<TSectio
  * @param section - desired logics section
  * @returns section to activate
  */
-export function getSectionToActivate(object: ClientObject, ini: IniFile, section: TSection): TSection {
+export function getSectionToActivate(object: GameObject, ini: IniFile, section: TSection): TSection {
   if (!ini.section_exist(section)) {
     return NIL;
   }
@@ -101,7 +101,7 @@ export function getSectionToActivate(object: ClientObject, ini: IniFile, section
  * @param isLoading - whether loading object on game load, `false` means manual scheme switch
  */
 export function activateSchemeBySection(
-  object: ClientObject,
+  object: GameObject,
   ini: IniFile,
   section: Optional<TSection>,
   additional: Optional<string>,
@@ -174,7 +174,7 @@ export function activateSchemeBySection(
  * @param logicsSection - next active logic section, source of object logic
  */
 export function enableObjectBaseSchemes(
-  object: ClientObject,
+  object: GameObject,
   ini: IniFile,
   schemeType: ESchemeType,
   logicsSection: TSection
@@ -289,11 +289,7 @@ export function enableObjectBaseSchemes(
  * @param scheme - new active scheme type
  * @param section - new active section
  */
-export function resetObjectGenericSchemesOnSectionSwitch(
-  object: ClientObject,
-  scheme: EScheme,
-  section: TSection
-): void {
+export function resetObjectGenericSchemesOnSectionSwitch(object: GameObject, scheme: EScheme, section: TSection): void {
   const state: IRegistryObjectState = registry.objects.get(object.id());
 
   if (state.schemeType === null) {

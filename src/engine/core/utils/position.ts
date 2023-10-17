@@ -9,8 +9,8 @@ import { ZERO_VECTOR } from "@/engine/lib/constants/vectors";
 import {
   AlifeSimulator,
   AnyGameObject,
-  ClientObject,
   ESoundObjectType,
+  GameObject,
   Optional,
   ServerCreatureObject,
   ServerObject,
@@ -28,11 +28,11 @@ const logger: LuaLogger = new LuaLogger($filename);
  * @param object - server or client object
  * @returns object smart terrain server object or null
  */
-export function getObjectSmartTerrain(object: ClientObject | ServerCreatureObject): Optional<SmartTerrain> {
+export function getObjectSmartTerrain(object: GameObject | ServerCreatureObject): Optional<SmartTerrain> {
   const simulator: AlifeSimulator = registry.simulator;
 
   if (type(object.id) === "function") {
-    const serverObject: Optional<ServerCreatureObject> = simulator.object((object as ClientObject).id());
+    const serverObject: Optional<ServerCreatureObject> = simulator.object((object as GameObject).id());
 
     return serverObject === null || serverObject.m_smart_terrain_id === MAX_U16
       ? null
@@ -51,7 +51,7 @@ export function getObjectSmartTerrain(object: ClientObject | ServerCreatureObjec
  * @param smartTerrainName - desired smart terrain to check
  * @returns whether object is assigned to smart terrain with desired name
  */
-export function isObjectInSmartTerrain(object: ClientObject, smartTerrainName: TName): boolean {
+export function isObjectInSmartTerrain(object: GameObject, smartTerrainName: TName): boolean {
   const smartTerrain: Optional<SmartTerrain> = getObjectSmartTerrain(object);
 
   return smartTerrain ? smartTerrain.name() === smartTerrainName : false;
@@ -64,7 +64,7 @@ export function isObjectInSmartTerrain(object: ClientObject, smartTerrainName: T
  * @param zone - target zone to check
  * @returns whether object is inside zone object.
  */
-export function isObjectInZone(object: Optional<ClientObject>, zone: Optional<ClientObject>): boolean {
+export function isObjectInZone(object: Optional<GameObject>, zone: Optional<GameObject>): boolean {
   return object !== null && zone !== null && zone.inside(object.position());
 }
 
@@ -74,7 +74,7 @@ export function isObjectInZone(object: Optional<ClientObject>, zone: Optional<Cl
  * @param object - target client object to check
  * @returns whether object is inside silence zone
  */
-export function isObjectInSilenceZone(object: ClientObject): boolean {
+export function isObjectInSilenceZone(object: GameObject): boolean {
   const position: Vector = object.position();
 
   for (const [, zoneName] of registry.silenceZones) {
@@ -109,8 +109,8 @@ export function isObjectOnLevel(object: Optional<ServerObject>, levelName: TName
  * @returns whether distance between objects greater or equal
  */
 export function isDistanceBetweenObjectsGreaterOrEqual(
-  first: ClientObject,
-  second: ClientObject,
+  first: GameObject,
+  second: GameObject,
   distance: TDistance
 ): boolean {
   return first.position().distance_to_sqr(second.position()) >= distance * distance;
@@ -125,8 +125,8 @@ export function isDistanceBetweenObjectsGreaterOrEqual(
  * @returns whether distance between objects less or equal
  */
 export function isDistanceBetweenObjectsLessOrEqual(
-  first: ClientObject,
-  second: ClientObject,
+  first: GameObject,
+  second: GameObject,
   distance: TDistance
 ): boolean {
   return first.position().distance_to_sqr(second.position()) <= distance * distance;
@@ -166,7 +166,7 @@ export function getServerDistanceBetween(first: ServerObject, second: ServerObje
  * @param second - object to check
  * @returns vector distance between two objects
  */
-export function getDistanceBetween(first: ClientObject, second: ClientObject): TDistance {
+export function getDistanceBetween(first: GameObject, second: GameObject): TDistance {
   return first.position().distance_to(second.position());
 }
 
@@ -177,7 +177,7 @@ export function getDistanceBetween(first: ClientObject, second: ClientObject): T
  * @param second - object to check
  * @returns squared vector distance between two objects
  */
-export function getDistanceBetweenSqr(first: ClientObject, second: ClientObject): TDistance {
+export function getDistanceBetweenSqr(first: GameObject, second: GameObject): TDistance {
   return first.position().distance_to_sqr(second.position());
 }
 
@@ -188,7 +188,7 @@ export function getDistanceBetweenSqr(first: ClientObject, second: ClientObject)
  * @param vertexId - destination vertex id
  * @returns actual vertex id to send object
  */
-export function sendToNearestAccessibleVertex(object: ClientObject, vertexId: Optional<TNumberId>): TNumberId {
+export function sendToNearestAccessibleVertex(object: GameObject, vertexId: Optional<TNumberId>): TNumberId {
   if (vertexId === null || vertexId >= MAX_U32) {
     object.set_dest_level_vertex_id(object.level_vertex_id());
 
@@ -210,7 +210,7 @@ export function sendToNearestAccessibleVertex(object: ClientObject, vertexId: Op
  * @param object - target object to check
  * @returns whether object is in visibility frustum
  */
-export function isObjectInActorFrustum(object: ClientObject): boolean {
+export function isObjectInActorFrustum(object: GameObject): boolean {
   const actorDirection: Vector = device().cam_dir;
   const objectDirection: Vector = object.position().sub(registry.actor.position());
 
@@ -235,7 +235,7 @@ export function isGameVertexFromLevel(levelName: TName, gameVertexId: TNumberId)
  * @param position - vector destination
  * @param direction - vector direction
  */
-export function teleportActorWithEffects(actor: ClientObject, position: Vector, direction: Vector): void {
+export function teleportActorWithEffects(actor: GameObject, position: Vector, direction: Vector): void {
   logger.info("Teleporting actor:", vectorToString(position));
 
   actor.set_actor_position(position);
@@ -258,10 +258,10 @@ export function getObjectPositioning(object: AnyGameObject): LuaMultiReturn<[TNu
     );
   } else {
     return $multi(
-      (object as ClientObject).id(),
-      (object as ClientObject).game_vertex_id(),
-      (object as ClientObject).level_vertex_id(),
-      (object as ClientObject).position()
+      (object as GameObject).id(),
+      (object as GameObject).game_vertex_id(),
+      (object as GameObject).level_vertex_id(),
+      (object as GameObject).position()
     );
   }
 }

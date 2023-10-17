@@ -16,7 +16,7 @@ import { abort, assertNonEmptyString } from "@/engine/core/utils/assertion";
 import { parseConditionsList, pickSectionFromCondList, readIniNumber, readIniString } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import {
-  ClientObject,
+  GameObject,
   IniFile,
   NetPacket,
   NetProcessor,
@@ -38,7 +38,7 @@ export class TradeManager extends AbstractManager {
   /**
    * Initialize trade manager descriptor for provided stalker object.
    */
-  public initializeForObject(object: ClientObject, iniFilePath: TPath): void {
+  public initializeForObject(object: GameObject, iniFilePath: TPath): void {
     logger.info("Initialize trade for:", object.name(), iniFilePath);
 
     const iniFile: IniFile = loadIniFile(iniFilePath);
@@ -79,7 +79,7 @@ export class TradeManager extends AbstractManager {
    *
    * @param object - target client object to update trading state
    */
-  public updateForObject(object: ClientObject): void {
+  public updateForObject(object: GameObject): void {
     const tradeDescriptor: Optional<ITradeManagerDescriptor> = registry.trade.get(object.id());
     const now: TTimestamp = time_global();
 
@@ -198,7 +198,7 @@ export class TradeManager extends AbstractManager {
    * @param packet - net packet to save data in
    * @param object - client object to save data for
    */
-  public saveObjectState(packet: NetPacket, object: ClientObject): void {
+  public saveObjectState(packet: NetPacket, object: GameObject): void {
     const tradeDescriptor: ITradeManagerDescriptor = registry.trade.get(object.id());
 
     openSaveMarker(packet, TradeManager.name);
@@ -228,7 +228,7 @@ export class TradeManager extends AbstractManager {
    * @param reader - net processor to read from
    * @Param object - client object to read for
    */
-  public loadObjectState(reader: NetProcessor, object: ClientObject): void {
+  public loadObjectState(reader: NetProcessor, object: GameObject): void {
     openLoadMarker(reader, TradeManager.name);
 
     const hasTrade: boolean = reader.r_bool();

@@ -6,13 +6,13 @@ import { HitManager } from "@/engine/core/schemes/stalker/hit/HitManager";
 import { SchemeHit } from "@/engine/core/schemes/stalker/hit/SchemeHit";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini";
 import { loadSchemeImplementation } from "@/engine/core/utils/scheme";
-import { ClientObject, EScheme, IniFile } from "@/engine/lib/types";
+import { EScheme, GameObject, IniFile } from "@/engine/lib/types";
 import { assertSchemeNotToBeSubscribed, assertSchemeSubscribedToManager } from "@/fixtures/engine";
-import { mockClientGameObject, mockIniFile } from "@/fixtures/xray";
+import { mockGameObject, mockIniFile } from "@/fixtures/xray";
 
 describe("SchemeHit", () => {
   it("should correctly activate with defaults", () => {
-    const object: ClientObject = mockClientGameObject();
+    const object: GameObject = mockGameObject();
     const ini: IniFile = mockIniFile("test.ltx", {
       "hit@test": {
         on_info: "{+test} first, second",
@@ -30,7 +30,7 @@ describe("SchemeHit", () => {
   });
 
   it("should correctly deactivate", () => {
-    const object: ClientObject = mockClientGameObject();
+    const object: GameObject = mockGameObject();
     const ini: IniFile = mockIniFile("test.ltx", {
       "hit@test": {},
     });
@@ -44,7 +44,7 @@ describe("SchemeHit", () => {
 
     assertSchemeNotToBeSubscribed(state);
 
-    const another: ClientObject = mockClientGameObject();
+    const another: GameObject = mockGameObject();
 
     registerObject(another);
 
@@ -53,7 +53,7 @@ describe("SchemeHit", () => {
   });
 
   it("should correctly throw if activate not existing", () => {
-    const object: ClientObject = mockClientGameObject();
+    const object: GameObject = mockGameObject();
     const ini: IniFile = mockIniFile("test.ltx", {
       "hit@test": {},
     });

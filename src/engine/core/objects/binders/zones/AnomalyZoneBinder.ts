@@ -26,7 +26,7 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 import { MAX_U8 } from "@/engine/lib/constants/memory";
 import {
   AnyGameObject,
-  ClientObject,
+  GameObject,
   IniFile,
   LuaArray,
   NetPacket,
@@ -101,7 +101,7 @@ export class AnomalyZoneBinder extends object_binder {
   /**
    * todo: Description.
    */
-  public constructor(object: ClientObject) {
+  public constructor(object: GameObject) {
     super(object);
 
     this.ini = object.spawn_ini()!;
@@ -583,7 +583,7 @@ export class AnomalyZoneBinder extends object_binder {
   public onArtefactTaken(object: AnyGameObject): void {
     logger.info("On artefact take:", this.object.name());
 
-    const id: number = type(object.id) === "number" ? (object as ServerObject).id : (object as ClientObject).id();
+    const id: number = type(object.id) === "number" ? (object as ServerObject).id : (object as GameObject).id();
 
     registry.artefacts.ways.delete(id);
     registry.artefacts.points.delete(id);

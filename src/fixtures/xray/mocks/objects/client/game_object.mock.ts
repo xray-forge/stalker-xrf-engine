@@ -6,7 +6,7 @@ import {
   AnyCallable,
   AnyContextualCallable,
   AnyObject,
-  ClientObject,
+  GameObject,
   GameTask,
   IniFile,
   PartialRecord,
@@ -35,7 +35,7 @@ let ID_COUNTER: TNumberId = 1000;
  * Mock client game object.
  * It is defined as script_object in c++ and wraps all script objects currently online.
  */
-export function mockClientGameObject({
+export function mockGameObject({
   animation_count = jest.fn(() => 0),
   bleeding = 0,
   clsid = jest.fn(() => -1 as TClassId),
@@ -65,16 +65,16 @@ export function mockClientGameObject({
   weapon_unstrapped = jest.fn(() => false),
   ...rest
 }: Partial<
-  ClientObject & {
+  GameObject & {
     idOverride?: TNumberId;
     sectionOverride?: TSection;
     infoPortions?: Array<TName>;
-    inventory: Array<[TSection | TNumberId, ClientObject]>;
+    inventory: Array<[TSection | TNumberId, GameObject]>;
     upgrades: Array<TSection>;
   }
-> = {}): ClientObject {
+> = {}): GameObject {
   const internalInfos: Array<string> = [...infoPortions];
-  const inventoryMap: Map<string | number, ClientObject> = new Map(inventory);
+  const inventoryMap: Map<string | number, GameObject> = new Map(inventory);
   const upgradesSet: Set<string> = new Set(upgrades);
 
   let isInvulnerable: boolean = false;
@@ -159,7 +159,7 @@ export function mockClientGameObject({
     disable_trade: rest.disable_trade ?? jest.fn(),
     drop_item:
       rest.drop_item ||
-      jest.fn((it: ClientObject) => {
+      jest.fn((it: GameObject) => {
         if (inventoryMap.get(it.section())) {
           inventoryMap.delete(it.section());
         }
@@ -171,7 +171,7 @@ export function mockClientGameObject({
     game_vertex_id,
     general_goodwill:
       rest.general_goodwill ||
-      jest.fn((to: ClientObject) => {
+      jest.fn((to: GameObject) => {
         return mockRelationRegistryInterface.get_general_goodwill_between(id ? id() : idOverride, to.id());
       }),
     get_car: rest.get_car ?? jest.fn(() => null),
@@ -214,7 +214,7 @@ export function mockClientGameObject({
     money: money ?? jest.fn(() => objectMoney),
     motivation_action_manager:
       motivation_action_manager ||
-      jest.fn(function (this: ClientObject) {
+      jest.fn(function (this: GameObject) {
         (actionManager as unknown as MockActionPlanner).object = this;
 
         return actionManager;
@@ -246,18 +246,16 @@ export function mockClientGameObject({
           return isInvulnerable;
         }
       }),
-    iterate_inventory: jest.fn(
-      (cb: (owner: ClientObject, item: ClientObject) => void | boolean, owner: ClientObject) => {
-        for (const [, item] of inventoryMap) {
-          if (cb(owner, item)) {
-            break;
-          }
+    iterate_inventory: jest.fn((cb: (owner: GameObject, item: GameObject) => void | boolean, owner: GameObject) => {
+      for (const [, item] of inventoryMap) {
+        if (cb(owner, item)) {
+          break;
         }
       }
-    ),
-    iterate_installed_upgrades: jest.fn((cb: (upgrade: TSection, item: ClientObject) => void | boolean) => {
+    }),
+    iterate_installed_upgrades: jest.fn((cb: (upgrade: TSection, item: GameObject) => void | boolean) => {
       for (const upgrade of upgradesSet) {
-        cb(upgrade, gameObject as ClientObject);
+        cb(upgrade, gameObject as GameObject);
       }
     }),
     parent: rest.parent ?? jest.fn(() => null),
@@ -332,7 +330,7 @@ export function mockClientGameObject({
       jest.fn(() => {
         const params: MockSightParameters = new MockSightParameters();
 
-        params.m_object = gameObject as ClientObject;
+        params.m_object = gameObject as GameObject;
         params.m_sight_type = sight;
         params.m_vector = gameObject.direction();
 
@@ -371,8 +369,8 @@ export function mockClientGameObject({
     transfer_money: rest.transfer_money ?? jest.fn(),
     transfer_item:
       transfer_item ||
-      jest.fn((item: ClientObject, to: ClientObject) => {
-        const targetInventory: Map<string | number, ClientObject> = (to as AnyObject).inventory;
+      jest.fn((item: GameObject, to: GameObject) => {
+        const targetInventory: Map<string | number, GameObject> = (to as AnyObject).inventory;
 
         for (const [key, it] of inventoryMap) {
           if (it === item) {
@@ -388,25 +386,25 @@ export function mockClientGameObject({
     wounded: rest.wounded ?? jest.fn(),
   };
 
-  CLIENT_SIDE_REGISTRY.set(gameObject.id(), gameObject as ClientObject);
+  CLIENT_SIDE_REGISTRY.set(gameObject.id(), gameObject as GameObject);
 
-  return gameObject as ClientObject;
+  return gameObject as GameObject;
 }
 
 /**
  * Mock client game object.
  */
-export function mockActorClientGameObject(
+export function mockActorGameObject(
   base: Partial<
-    ClientObject & {
+    GameObject & {
       idOverride?: TNumberId;
       sectionOverride?: TSection;
       infoPortions?: Array<TName>;
-      inventory: Array<[TSection | TNumberId, ClientObject]>;
+      inventory: Array<[TSection | TNumberId, GameObject]>;
     }
   > = {}
-): ClientObject {
-  return mockClientGameObject({
+): GameObject {
+  return mockGameObject({
     ...base,
     idOverride: ACTOR_ID,
     get_visual_name: base.get_visual_name ?? jest.fn(() => "some_actor_visual" as any),

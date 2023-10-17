@@ -4,13 +4,13 @@ import { setupStalkerAnimstateStatePlanner } from "@/engine/core/objects/ai/plan
 import { ActionAnimstateStart, ActionAnimstateStop } from "@/engine/core/objects/ai/state/animstate";
 import { StalkerStateManager } from "@/engine/core/objects/ai/state/StalkerStateManager";
 import { EStateActionId, EStateEvaluatorId } from "@/engine/core/objects/ai/types";
-import { ActionPlanner, ClientObject } from "@/engine/lib/types";
+import { ActionPlanner, GameObject } from "@/engine/lib/types";
 import { checkPlannerAction } from "@/fixtures/engine";
-import { mockClientGameObject } from "@/fixtures/xray";
+import { mockGameObject } from "@/fixtures/xray";
 
 describe("animation_planner util", () => {
   it("should correctly setup state planner animstate actions", () => {
-    const object: ClientObject = mockClientGameObject();
+    const object: GameObject = mockGameObject();
     const stateManager: StalkerStateManager = new StalkerStateManager(object);
     const planner: ActionPlanner = stateManager.planner;
 

@@ -9,8 +9,8 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 import { sendToNearestAccessibleVertex } from "@/engine/core/utils/position";
 import { areSameVectors, createEmptyVector, createVector } from "@/engine/core/utils/vector";
 import {
-  ClientObject,
-  EClientObjectPath,
+  EGameObjectPath,
+  GameObject,
   ISchemeEventHandler,
   Optional,
   TDistance,
@@ -37,7 +37,7 @@ export class ActionPatrol extends action_base implements ISchemeEventHandler {
   public isOnPoint: boolean = false;
   public timeToUpdate: TTimestamp = time_global() + 1000;
 
-  public constructor(state: ISchemePatrolState, object: ClientObject) {
+  public constructor(state: ISchemePatrolState, object: GameObject) {
     super(null, ActionPatrol.__name);
     this.state = state;
     this.moveManager = registry.objects.get(object.id()).patrolManager!;
@@ -107,7 +107,7 @@ export class ActionPatrol extends action_base implements ISchemeEventHandler {
       this.object.set_desired_direction(desiredDirection);
     }
 
-    this.object.set_path_type(EClientObjectPath.LEVEL_PATH);
+    this.object.set_path_type(EGameObjectPath.LEVEL_PATH);
 
     setStalkerState(this.object, this.currentState, null, null, null, null);
   }
@@ -131,21 +131,21 @@ export class ActionPatrol extends action_base implements ISchemeEventHandler {
   /**
    * todo: Description.
    */
-  public onDeath(object: ClientObject): void {
+  public onDeath(object: GameObject): void {
     registry.patrols.generic.get(this.state.patrolKey).removeObject(object);
   }
 
   /**
    * todo: Description.
    */
-  public deactivate(object: ClientObject): void {
+  public deactivate(object: GameObject): void {
     registry.patrols.generic.get(this.state.patrolKey).removeObject(object);
   }
 
   /**
    * todo: Description.
    */
-  public onSwitchOffline(object: ClientObject): void {
+  public onSwitchOffline(object: GameObject): void {
     this.deactivate(object);
   }
 }

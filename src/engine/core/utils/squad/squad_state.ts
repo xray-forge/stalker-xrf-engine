@@ -2,7 +2,7 @@ import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { Squad } from "@/engine/core/objects/server/squad";
 import { pickSectionFromCondList, readIniString, TConditionList } from "@/engine/core/utils/ini";
 import { TRUE } from "@/engine/lib/constants/words";
-import { ClientObject, Optional } from "@/engine/lib/types";
+import { GameObject, Optional } from "@/engine/lib/types";
 
 /**
  * Updates squad members invulnerability state based on defined logics condlist.
@@ -22,7 +22,7 @@ export function updateSquadInvulnerabilityState(squad: Squad): void {
     const objectState: Optional<IRegistryObjectState> = registry.objects.get(squadMember.id);
 
     if (objectState !== null) {
-      const object: ClientObject = objectState.object;
+      const object: GameObject = objectState.object;
 
       if (
         object.invulnerable() !== invulnerability &&

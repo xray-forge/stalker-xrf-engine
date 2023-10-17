@@ -9,7 +9,7 @@ import { ISchemeHelpWoundedState } from "@/engine/core/schemes/stalker/help_woun
 import { ISchemeWoundedState } from "@/engine/core/schemes/stalker/wounded";
 import { readIniBoolean } from "@/engine/core/utils/ini/ini_read";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { ActionPlanner, ClientObject, IniFile, Optional } from "@/engine/lib/types";
+import { ActionPlanner, GameObject, IniFile, Optional } from "@/engine/lib/types";
 import { EScheme, ESchemeType, TSection } from "@/engine/lib/types/scheme";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -23,7 +23,7 @@ export class SchemeHelpWounded extends AbstractScheme {
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.STALKER;
 
   public static override activate(
-    object: ClientObject,
+    object: GameObject,
     ini: IniFile,
     scheme: EScheme,
     section: Optional<TSection>
@@ -32,7 +32,7 @@ export class SchemeHelpWounded extends AbstractScheme {
   }
 
   public static override add(
-    object: ClientObject,
+    object: GameObject,
     ini: IniFile,
     scheme: EScheme,
     section: TSection,
@@ -73,7 +73,7 @@ export class SchemeHelpWounded extends AbstractScheme {
   }
 
   public static override reset(
-    object: ClientObject,
+    object: GameObject,
     scheme: EScheme,
     state: IRegistryObjectState,
     section: TSection

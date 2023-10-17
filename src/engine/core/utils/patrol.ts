@@ -3,8 +3,8 @@ import { level, patrol } from "xray16";
 import { registry } from "@/engine/core/database/registry";
 import type { IWaypointData } from "@/engine/core/utils/ini/ini_types";
 import type {
-  ClientObject,
   Flags32,
+  GameObject,
   LuaArray,
   Optional,
   Patrol,
@@ -25,7 +25,7 @@ import type {
  * @param patrolPointIndex - index of patrol to check
  * @returns whether object reached patrol point
  */
-export function isObjectAtWaypoint(object: ClientObject, patrolPath: Patrol, patrolPointIndex: TIndex): boolean {
+export function isObjectAtWaypoint(object: GameObject, patrolPath: Patrol, patrolPointIndex: TIndex): boolean {
   const objectPosition: Vector = object.position();
   const distance: TDistance = objectPosition.distance_to_sqr(patrolPath.point(patrolPointIndex));
 
@@ -41,7 +41,7 @@ export function isObjectAtWaypoint(object: ClientObject, patrolPath: Patrol, pat
  * @returns [whether on terminal point, terminal point index]
  */
 export function isObjectAtTerminalWaypoint(
-  object: ClientObject,
+  object: GameObject,
   patrol: Patrol
 ): LuaMultiReturn<[boolean, Optional<TIndex>]> {
   for (const index of $range(0, patrol.count() - 1)) {
@@ -68,7 +68,7 @@ export function isPatrolInRestrictor(restrictorName: Optional<TName>, patrolName
     return null;
   }
 
-  const restrictor: Optional<ClientObject> = registry.zones.get(restrictorName);
+  const restrictor: Optional<GameObject> = registry.zones.get(restrictorName);
 
   if (restrictor === null) {
     return null;
@@ -146,7 +146,7 @@ export function isPatrolTeamSynchronized(teamName: Optional<TName>): boolean {
   }
 
   for (const [id, isFlagged] of state) {
-    const object: Optional<ClientObject> = level.object_by_id(id);
+    const object: Optional<GameObject> = level.object_by_id(id);
 
     // Check sync stat of the object if it is online and alive.
     if (object && object.alive()) {

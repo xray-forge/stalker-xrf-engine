@@ -4,7 +4,7 @@ import { IRegistryObjectState } from "@/engine/core/database/database_types";
 import { DUMMY_LTX, DYNAMIC_LTX_PREFIX } from "@/engine/core/database/ini_registry";
 import { registry } from "@/engine/core/database/registry";
 import { assertDefined } from "@/engine/core/utils/assertion";
-import { ClientObject, IniFile, Optional, TName } from "@/engine/lib/types";
+import { GameObject, IniFile, Optional, TName } from "@/engine/lib/types";
 
 /**
  * Generic name of spawn ini configs flag.
@@ -68,7 +68,7 @@ export function loadIniFile(name: TName): IniFile {
  * @param filename - ini file name
  * @returns ini file for provided object
  */
-export function getObjectLogicIniConfig(object: ClientObject, filename: TName): IniFile {
+export function getObjectLogicIniConfig(object: GameObject, filename: TName): IniFile {
   if (filename === CUSTOM_DATA) {
     const ini: Optional<IniFile> = object.spawn_ini();
 

@@ -28,8 +28,8 @@ import { storyNames, TStoryName } from "@/engine/lib/constants/story_names";
 import type {
   AlifeSimulator,
   AnyObject,
-  ClientObject,
   EScheme,
+  GameObject,
   IniFile,
   Optional,
   TIndex,
@@ -53,7 +53,7 @@ export const registry = {
   /**
    * Current actor, injected on game start.
    */
-  actor: null as unknown as ClientObject,
+  actor: null as unknown as GameObject,
   /**
    * Current actor, server object representation.
    */
@@ -61,7 +61,7 @@ export const registry = {
   /**
    * Currently active speaker in dialogs.
    */
-  activeSpeaker: null as Optional<ClientObject>,
+  activeSpeaker: null as Optional<GameObject>,
   /**
    * Currently active smart terrain id.
    * If not null, assume actor is in it.
@@ -157,8 +157,8 @@ export const registry = {
    * List of data for game helicopters.
    */
   helicopter: {
-    storage: new LuaTable<TNumberId, ClientObject>(),
-    enemies: new LuaTable<TNumberId, ClientObject>(),
+    storage: new LuaTable<TNumberId, GameObject>(),
+    enemies: new LuaTable<TNumberId, GameObject>(),
     enemyIndex: 0,
   },
   /**
@@ -187,7 +187,7 @@ export const registry = {
   /**
    * List of active zones by name.
    */
-  zones: new LuaTable<TName, ClientObject>(),
+  zones: new LuaTable<TName, GameObject>(),
   /**
    * List of zones under silence restriction, no music is allowed.
    */

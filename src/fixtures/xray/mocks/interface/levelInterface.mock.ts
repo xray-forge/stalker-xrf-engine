@@ -1,12 +1,12 @@
 import { jest } from "@jest/globals";
 
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
-import { ClientObject, TName, TNumberId } from "@/engine/lib/types";
+import { GameObject, TName, TNumberId } from "@/engine/lib/types";
 import { MockLuaTable } from "@/fixtures/lua/mocks/LuaTable.mock";
 import { patrols } from "@/fixtures/xray/mocks/objects/path";
 import { MockVector } from "@/fixtures/xray/mocks/vector.mock";
 
-export const CLIENT_SIDE_REGISTRY: MockLuaTable<TNumberId, ClientObject> = MockLuaTable.create();
+export const CLIENT_SIDE_REGISTRY: MockLuaTable<TNumberId, GameObject> = MockLuaTable.create();
 
 /**
  * Mock game `level` interface.
@@ -19,7 +19,7 @@ export const mockLevelInterface = {
   get_snd_volume: jest.fn(() => 1),
   get_time_hours: jest.fn(() => 12),
   hide_indicators_safe: jest.fn(),
-  iterate_online_objects: jest.fn((cb: (object: ClientObject) => void) => {
+  iterate_online_objects: jest.fn((cb: (object: GameObject) => void) => {
     return [...CLIENT_SIDE_REGISTRY.entries()].forEach(([k, v]) => {
       if (v.id() !== ACTOR_ID) {
         cb(v);

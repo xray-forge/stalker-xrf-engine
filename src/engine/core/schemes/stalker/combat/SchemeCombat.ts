@@ -13,7 +13,7 @@ import { getConfigSwitchConditions, pickSectionFromCondList } from "@/engine/cor
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { communities } from "@/engine/lib/constants/communities";
 import { NIL } from "@/engine/lib/constants/words";
-import { ActionBase, ActionPlanner, AnyObject, ClientObject, IniFile, Optional, TName } from "@/engine/lib/types";
+import { ActionBase, ActionPlanner, AnyObject, GameObject, IniFile, Optional, TName } from "@/engine/lib/types";
 import { EScheme, ESchemeType, TSection } from "@/engine/lib/types/scheme";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -25,7 +25,7 @@ export class SchemeCombat extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.COMBAT;
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.STALKER;
 
-  public static override disable(object: ClientObject, scheme: EScheme): void {
+  public static override disable(object: GameObject, scheme: EScheme): void {
     const state: Optional<ISchemeCombatState> = registry.objects.get(object.id())[scheme] as ISchemeCombatState;
 
     if (state !== null) {
@@ -34,7 +34,7 @@ export class SchemeCombat extends AbstractScheme {
   }
 
   public static override activate(
-    object: ClientObject,
+    object: GameObject,
     ini: IniFile,
     scheme: EScheme,
     section: TSection
@@ -70,7 +70,7 @@ export class SchemeCombat extends AbstractScheme {
   }
 
   public static override add(
-    object: ClientObject,
+    object: GameObject,
     ini: IniFile,
     scheme: EScheme,
     section: TSection,
@@ -91,7 +91,7 @@ export class SchemeCombat extends AbstractScheme {
   /**
    * todo: Description.
    */
-  public static setCombatType(object: ClientObject, actor: ClientObject, overrides: Optional<AnyObject>): void {
+  public static setCombatType(object: GameObject, actor: GameObject, overrides: Optional<AnyObject>): void {
     if (overrides === null) {
       return;
     }

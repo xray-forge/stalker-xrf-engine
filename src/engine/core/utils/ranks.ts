@@ -4,7 +4,7 @@ import { isStalker, isTrader } from "@/engine/core/utils/class_ids";
 import { parseStringsList, readIniString } from "@/engine/core/utils/ini";
 import { MAX_U16 } from "@/engine/lib/constants/memory";
 import {
-  ClientObject,
+  GameObject,
   IniFile,
   LuaArray,
   Optional,
@@ -143,7 +143,7 @@ export function getNextMonsterRank(rank: TName): IRankDescriptor {
  *
  * @returns client object rank descriptor
  */
-export function getClientObjectRank(object: ClientObject): Optional<IRankDescriptor> {
+export function getGameObjectRank(object: GameObject): Optional<IRankDescriptor> {
   const classId: TClassId = object.clsid();
   const objectRank: TRate = object.character_rank() ?? object.rank();
 

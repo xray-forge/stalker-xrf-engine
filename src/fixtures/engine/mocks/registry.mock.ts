@@ -2,11 +2,11 @@ import { registerActor, registerActorServer } from "@/engine/core/database/actor
 import { IRegistryObjectState } from "@/engine/core/database/database_types";
 import { registerRanks } from "@/engine/core/database/ranks";
 import { registry } from "@/engine/core/database/registry";
-import { ClientObject, ServerActorObject } from "@/engine/lib/types";
-import { mockActorClientGameObject, mockServerAlifeCreatureActor } from "@/fixtures/xray/mocks/objects";
+import { GameObject, ServerActorObject } from "@/engine/lib/types";
+import { mockActorGameObject, mockServerAlifeCreatureActor } from "@/fixtures/xray/mocks/objects";
 
 export interface IMockActorDetails {
-  actorClientObject: ClientObject;
+  actorGameObject: GameObject;
   actorServerObject: ServerActorObject;
   actorState: IRegistryObjectState;
 }
@@ -15,21 +15,21 @@ export interface IMockActorDetails {
  * Mock actor client/server side.
  */
 export function mockRegisteredActor(
-  actorClientPartial: Partial<ClientObject> = {},
+  actorClientPartial: Partial<GameObject> = {},
   actorServerPartial: Partial<ServerActorObject> = {}
 ): IMockActorDetails {
-  const actorClientObject: ClientObject = mockActorClientGameObject(actorClientPartial);
+  const actorGameObject: GameObject = mockActorGameObject(actorClientPartial);
   const actorServerObject: ServerActorObject = registerActorServer(mockServerAlifeCreatureActor(actorServerPartial));
-  const actorState: IRegistryObjectState = registerActor(actorClientObject);
+  const actorState: IRegistryObjectState = registerActor(actorGameObject);
 
-  return { actorClientObject, actorServerObject, actorState };
+  return { actorGameObject: actorGameObject, actorServerObject, actorState };
 }
 
 /**
  * Reset managers registry state.
  */
 export function resetRegistry(): void {
-  registry.actor = null as unknown as ClientObject;
+  registry.actor = null as unknown as GameObject;
   registry.managers = new LuaTable();
   registry.objects = new LuaTable();
   registry.zones = new LuaTable();

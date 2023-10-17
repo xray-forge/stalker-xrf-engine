@@ -119,7 +119,7 @@ export type ActionPlanner = action_planner;
 export type AlifeSimulator = alife_simulator;
 export type AnyGameObject = game_object | cse_alife_object;
 export type Car = CCar;
-export type ClientObject = game_object;
+export type GameObject = game_object;
 export type Color = color;
 export type Cond = cond;
 export type Console = CConsole;
@@ -227,19 +227,19 @@ export type WorldState = world_state;
 export type XmlInit = CScriptXmlInit;
 export type ZoneCampfire = CZoneCampfire;
 
-export enum EClientObjectPath {
+export enum EGameObjectPath {
   GAME_PATH = game_object?.game_path || 0,
   LEVEL_PATH = game_object?.level_path || 1,
   PATROL_PATH = game_object?.patrol_path || 2,
 }
 
-export enum EClientObjectRelation {
+export enum EGameObjectRelation {
   FRIEND = game_object?.friend || 0,
   NEUTRAL = game_object?.neutral || 1,
   ENEMY = game_object?.enemy || 2,
 }
 
-export enum EClientObjectMovementType {
+export enum EGameObjectMovementType {
   MASK = game_object?.alifeMovementTypeMask || 0,
   RANDOM = game_object?.alifeMovementTypeRandom || 1,
 }

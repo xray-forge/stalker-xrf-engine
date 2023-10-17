@@ -7,12 +7,12 @@ import { StalkerStateManager } from "@/engine/core/objects/ai/state/StalkerState
 import { EStalkerState } from "@/engine/core/objects/animation/types";
 import { StalkerBinder } from "@/engine/core/objects/binders/creature/StalkerBinder";
 import { createEmptyVector } from "@/engine/core/utils/vector";
-import { ClientObject } from "@/engine/lib/types";
-import { mockClientGameObject } from "@/fixtures/xray";
+import { GameObject } from "@/engine/lib/types";
+import { mockGameObject } from "@/fixtures/xray";
 
 describe("EvaluatorDirectionSearch class", () => {
   it("should correctly perform direction search check", () => {
-    const stalker: StalkerBinder = new StalkerBinder(mockClientGameObject());
+    const stalker: StalkerBinder = new StalkerBinder(mockGameObject());
 
     registerStalker(stalker);
 
@@ -20,7 +20,7 @@ describe("EvaluatorDirectionSearch class", () => {
 
     const manager: StalkerStateManager = registry.objects.get(stalker.object.id()).stateManager as StalkerStateManager;
     const evaluator: EvaluatorDirectionSearch = new EvaluatorDirectionSearch(manager);
-    const lookObject: ClientObject = mockClientGameObject();
+    const lookObject: GameObject = mockGameObject();
 
     expect(evaluator.evaluate()).toBeTruthy();
 

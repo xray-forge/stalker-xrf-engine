@@ -18,10 +18,10 @@ import { pickSectionFromCondList, TConditionList } from "@/engine/core/utils/ini
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { emitSchemeEvent, initializeObjectSchemeLogic } from "@/engine/core/utils/scheme";
 import {
-  ClientObject,
   EScheme,
   ESchemeEvent,
   ESchemeType,
+  GameObject,
   IniFile,
   NetPacket,
   Optional,
@@ -163,7 +163,7 @@ export class PhysicObjectBinder extends object_binder {
   /**
    * todo: Description.
    */
-  public onUse(object: ClientObject, who: ClientObject): void {
+  public onUse(object: GameObject, who: GameObject): void {
     if (this.state.activeSection) {
       emitSchemeEvent(this.object, this.state[this.state.activeScheme!]!, ESchemeEvent.USE, object, this);
     }
@@ -172,13 +172,7 @@ export class PhysicObjectBinder extends object_binder {
   /**
    * todo: Description.
    */
-  public onHit(
-    object: ClientObject,
-    amount: TCount,
-    constDirection: Vector,
-    who: ClientObject,
-    boneIndex: TIndex
-  ): void {
+  public onHit(object: GameObject, amount: TCount, constDirection: Vector, who: GameObject, boneIndex: TIndex): void {
     if (this.state[EScheme.HIT]) {
       emitSchemeEvent(
         this.object,
@@ -209,7 +203,7 @@ export class PhysicObjectBinder extends object_binder {
   /**
    * todo: Description.
    */
-  public onDeath(victim: ClientObject, who: ClientObject): void {
+  public onDeath(victim: GameObject, who: GameObject): void {
     if (this.state.activeSection) {
       emitSchemeEvent(this.object, this.state[this.state.activeScheme!]!, ESchemeEvent.DEATH, victim, who);
     }

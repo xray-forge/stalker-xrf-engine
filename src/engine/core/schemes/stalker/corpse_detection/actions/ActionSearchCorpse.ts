@@ -6,7 +6,7 @@ import { EStalkerState } from "@/engine/core/objects/animation/types";
 import { ISchemeCorpseDetectionState } from "@/engine/core/schemes/stalker/corpse_detection/corpse_detection_types";
 import { freeSelectedLootedObjectSpot } from "@/engine/core/schemes/stalker/corpse_detection/utils";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { EClientObjectPath, Optional, TNumberId, Vector } from "@/engine/lib/types";
+import { EGameObjectPath, Optional, TNumberId, Vector } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -100,7 +100,7 @@ export class ActionSearchCorpse extends action_base {
 
     this.object.set_desired_position();
     this.object.set_desired_direction();
-    this.object.set_path_type(EClientObjectPath.LEVEL_PATH);
+    this.object.set_path_type(EGameObjectPath.LEVEL_PATH);
     this.object.set_dest_level_vertex_id(this.state.selectedCorpseVertexId);
 
     setStalkerState(this.object, EStalkerState.PATROL);

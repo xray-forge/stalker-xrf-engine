@@ -2,7 +2,7 @@ import type { IRegistryObjectState } from "@/engine/core/database/database_types
 import { registerObject, unregisterObject } from "@/engine/core/database/objects";
 import { registry } from "@/engine/core/database/registry";
 import type { Actor } from "@/engine/core/objects/server/creature/Actor";
-import type { ClientObject, ServerActorObject } from "@/engine/lib/types";
+import type { GameObject, ServerActorObject } from "@/engine/lib/types";
 
 /**
  * Register new actor entry in db.
@@ -11,7 +11,7 @@ import type { ClientObject, ServerActorObject } from "@/engine/lib/types";
  * @param object - game object to register as actor
  * @returns registry object state
  */
-export function registerActor(object: ClientObject): IRegistryObjectState {
+export function registerActor(object: GameObject): IRegistryObjectState {
   registry.actor = object;
 
   return registerObject(object);
@@ -24,7 +24,7 @@ export function registerActor(object: ClientObject): IRegistryObjectState {
  */
 export function unregisterActor(): void {
   unregisterObject(registry.actor);
-  registry.actor = null as unknown as ClientObject;
+  registry.actor = null as unknown as GameObject;
 }
 
 /**

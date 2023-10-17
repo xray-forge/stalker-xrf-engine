@@ -5,9 +5,9 @@ import { loadIniFile } from "@/engine/core/database";
 import { registry } from "@/engine/core/database/registry";
 import { TradeManager } from "@/engine/core/managers/trade";
 import { parseConditionsList } from "@/engine/core/utils/ini";
-import { ClientObject, IniFile } from "@/engine/lib/types";
+import { GameObject, IniFile } from "@/engine/lib/types";
 import { replaceFunctionMock } from "@/fixtures/jest";
-import { EPacketDataType, mockClientGameObject, MockNetProcessor } from "@/fixtures/xray";
+import { EPacketDataType, mockGameObject, MockNetProcessor } from "@/fixtures/xray";
 
 describe("TradeManager class implementation", () => {
   beforeEach(() => {
@@ -16,7 +16,7 @@ describe("TradeManager class implementation", () => {
 
   it("should correctly initialize for objects", () => {
     const tradeManager: TradeManager = TradeManager.getInstance();
-    const object: ClientObject = mockClientGameObject();
+    const object: GameObject = mockGameObject();
     const ini: IniFile = loadIniFile("misc\\trade\\trade_generic.ltx");
 
     expect(registry.trade.length()).toBe(0);
@@ -44,7 +44,7 @@ describe("TradeManager class implementation", () => {
 
   it("should correctly update for objects", () => {
     const tradeManager: TradeManager = TradeManager.getInstance();
-    const object: ClientObject = mockClientGameObject();
+    const object: GameObject = mockGameObject();
     const ini: IniFile = loadIniFile("misc\\trade\\trade_generic.ltx");
 
     replaceFunctionMock(time_global, () => 30_000);
@@ -85,7 +85,7 @@ describe("TradeManager class implementation", () => {
 
   it("should correctly get sell discount for objects", () => {
     const tradeManager: TradeManager = TradeManager.getInstance();
-    const object: ClientObject = mockClientGameObject();
+    const object: GameObject = mockGameObject();
     const ini: IniFile = loadIniFile("misc\\trade\\trade_generic.ltx");
 
     replaceFunctionMock(time_global, () => 30_000);
@@ -96,7 +96,7 @@ describe("TradeManager class implementation", () => {
 
   it("should correctly get buy discount for objects", () => {
     const tradeManager: TradeManager = TradeManager.getInstance();
-    const object: ClientObject = mockClientGameObject();
+    const object: GameObject = mockGameObject();
     const ini: IniFile = loadIniFile("misc\\trade\\trade_generic.ltx");
 
     replaceFunctionMock(time_global, () => 30_000);
@@ -107,7 +107,7 @@ describe("TradeManager class implementation", () => {
 
   it("TradeManager should correctly save and load data when not initialized", () => {
     const tradeManager: TradeManager = TradeManager.getInstance();
-    const object: ClientObject = mockClientGameObject();
+    const object: GameObject = mockGameObject();
     const netProcessor: MockNetProcessor = new MockNetProcessor();
 
     replaceFunctionMock(time_global, () => 30_000);
@@ -128,7 +128,7 @@ describe("TradeManager class implementation", () => {
 
   it("TradeManager should correctly save and load data when not updated", () => {
     const tradeManager: TradeManager = TradeManager.getInstance();
-    const object: ClientObject = mockClientGameObject();
+    const object: GameObject = mockGameObject();
     const ini: IniFile = loadIniFile("misc\\trade\\trade_generic.ltx");
     const netProcessor: MockNetProcessor = new MockNetProcessor();
 
@@ -172,7 +172,7 @@ describe("TradeManager class implementation", () => {
 
   it("TradeManager should correctly save and load data when updated", () => {
     const tradeManager: TradeManager = TradeManager.getInstance();
-    const object: ClientObject = mockClientGameObject();
+    const object: GameObject = mockGameObject();
     const ini: IniFile = loadIniFile("misc\\trade\\trade_generic.ltx");
     const netProcessor: MockNetProcessor = new MockNetProcessor();
 

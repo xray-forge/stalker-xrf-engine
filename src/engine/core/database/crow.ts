@@ -1,7 +1,7 @@
 import { IRegistryObjectState } from "@/engine/core/database/database_types";
 import { registerObject, unregisterObject } from "@/engine/core/database/objects";
 import { registry } from "@/engine/core/database/registry";
-import { ClientObject, TNumberId } from "@/engine/lib/types";
+import { GameObject, TNumberId } from "@/engine/lib/types";
 
 /**
  * Register crow game object in lua in-memory registry.
@@ -9,7 +9,7 @@ import { ClientObject, TNumberId } from "@/engine/lib/types";
  * @param object - client game object to register
  * @returns registry object for provided game object
  */
-export function registerCrow(object: ClientObject): IRegistryObjectState {
+export function registerCrow(object: GameObject): IRegistryObjectState {
   const objectId: TNumberId = object.id();
 
   registry.crows.storage.set(objectId, objectId);
@@ -23,7 +23,7 @@ export function registerCrow(object: ClientObject): IRegistryObjectState {
  *
  * @param object - client game object to unregister
  */
-export function unregisterCrow(object: ClientObject): void {
+export function unregisterCrow(object: GameObject): void {
   const objectId: TNumberId = object.id();
 
   if (registry.crows.storage.has(objectId)) {

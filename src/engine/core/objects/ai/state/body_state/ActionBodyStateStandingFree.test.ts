@@ -6,11 +6,11 @@ import { registerStalker, unregisterStalker } from "@/engine/core/database/stalk
 import { ActionBodyStateStandingFree } from "@/engine/core/objects/ai/state/body_state/ActionBodyStateStandingFree";
 import { StalkerStateManager } from "@/engine/core/objects/ai/state/StalkerStateManager";
 import { StalkerBinder } from "@/engine/core/objects/binders/creature/StalkerBinder";
-import { mockClientGameObject } from "@/fixtures/xray";
+import { mockGameObject } from "@/fixtures/xray";
 
 describe("ActionBodyStateStandingFree class", () => {
   it("should correctly perform body state change to standing free", () => {
-    const stalker: StalkerBinder = new StalkerBinder(mockClientGameObject());
+    const stalker: StalkerBinder = new StalkerBinder(mockGameObject());
 
     registerStalker(stalker);
 

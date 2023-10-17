@@ -6,9 +6,9 @@ import { EZombieCombatAction, ISchemeCombatState } from "@/engine/core/schemes/s
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { sendToNearestAccessibleVertex } from "@/engine/core/utils/position";
 import {
-  ClientObject,
   DangerObject,
-  EClientObjectPath,
+  EGameObjectPath,
+  GameObject,
   Optional,
   TIndex,
   TNumberId,
@@ -53,7 +53,7 @@ export class ActionZombieGoToDanger extends action_base {
 
     this.object.set_desired_direction();
     this.object.set_detail_path_type(move.line);
-    this.object.set_path_type(EClientObjectPath.LEVEL_PATH);
+    this.object.set_path_type(EGameObjectPath.LEVEL_PATH);
     this.lastState = null;
     this.bestDangerObjectId = null;
     this.bestDangerObjectVertexId = null;
@@ -64,7 +64,7 @@ export class ActionZombieGoToDanger extends action_base {
   /**
    * todo: Description.
    */
-  public setState(state: EStalkerState, bestEnemy: Optional<ClientObject>, position: Optional<Vector>): void {
+  public setState(state: EStalkerState, bestEnemy: Optional<GameObject>, position: Optional<Vector>): void {
     if (state !== this.lastState) {
       this.targetState.lookObjectId = bestEnemy?.id() as Optional<TNumberId>;
       this.targetState.lookPosition = position;
@@ -89,7 +89,7 @@ export class ActionZombieGoToDanger extends action_base {
       // -
     } else {
       const bestDanger: DangerObject = this.object.best_danger()!;
-      const object: Optional<ClientObject> = bestDanger.object();
+      const object: Optional<GameObject> = bestDanger.object();
 
       if (object && bestDanger.type() !== danger_object.grenade) {
         if (!this.bestDangerObjectId || this.bestDangerObjectId !== object.id()) {
@@ -122,7 +122,7 @@ export class ActionZombieGoToDanger extends action_base {
   /**
    * todo: Description.
    */
-  public onHit(object: ClientObject, amount: TRate, direction: Vector, who: ClientObject, boneId: TIndex): void {
+  public onHit(object: GameObject, amount: TRate, direction: Vector, who: GameObject, boneId: TIndex): void {
     if (who === null) {
       return;
     }
@@ -131,7 +131,7 @@ export class ActionZombieGoToDanger extends action_base {
       const bestDanger: Optional<DangerObject> = this.object.best_danger();
 
       if (bestDanger) {
-        const bestDangerObject: Optional<ClientObject> = bestDanger.object();
+        const bestDangerObject: Optional<GameObject> = bestDanger.object();
 
         if (bestDangerObject !== null && (bestDanger.type() === danger_object.attacked || amount > 0)) {
           this.enemyLastSeenPos = bestDangerObject.position();

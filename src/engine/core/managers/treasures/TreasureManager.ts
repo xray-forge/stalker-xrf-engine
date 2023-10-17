@@ -15,7 +15,7 @@ import { SECRET_SECTION } from "@/engine/lib/constants/sections";
 import { TRUE } from "@/engine/lib/constants/words";
 import {
   AlifeSimulator,
-  ClientObject,
+  GameObject,
   IniFile,
   LuaArray,
   NetPacket,
@@ -347,7 +347,7 @@ export class TreasureManager extends AbstractManager {
   /**
    * On item taken by actor, verify it is part of treasure.
    */
-  public onActorItemTake(object: ClientObject): void {
+  public onActorItemTake(object: GameObject): void {
     const objectId: TNumberId = object.id();
     const restrictorId: Optional<TNumberId> = this.treasuresRestrictorByItem.get(objectId);
 

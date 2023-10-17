@@ -5,7 +5,7 @@ import { TAbstractSchemeConstructor } from "@/engine/core/objects/ai/scheme";
 import { EEvaluatorId } from "@/engine/core/objects/ai/types";
 import { assert } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { ActionBase, ClientObject, EScheme, ESchemeType, LuaArray } from "@/engine/lib/types";
+import { ActionBase, EScheme, ESchemeType, GameObject, LuaArray } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -65,7 +65,7 @@ export function addCommonActionPreconditions(action: ActionBase): void {
  * @param object - client object for schemes disabling
  * @param schemeType - type of scheme applied for provided object
  */
-export function disableObjectBaseSchemes(object: ClientObject, schemeType: ESchemeType): void {
+export function disableObjectBaseSchemes(object: GameObject, schemeType: ESchemeType): void {
   switch (schemeType) {
     case ESchemeType.STALKER:
       registry.schemes.get(EScheme.COMBAT).disable(object, EScheme.COMBAT);

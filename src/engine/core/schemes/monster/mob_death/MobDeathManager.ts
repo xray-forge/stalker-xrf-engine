@@ -3,7 +3,7 @@ import { AbstractSchemeManager } from "@/engine/core/objects/ai/scheme";
 import { ISchemeMobDeathState } from "@/engine/core/schemes/monster/mob_death/mob_death_types";
 import { ISchemeDeathState } from "@/engine/core/schemes/stalker/death";
 import { trySwitchToAnotherSection } from "@/engine/core/utils/scheme/scheme_switch";
-import { ClientObject, EScheme, Optional, TNumberId } from "@/engine/lib/types";
+import { EScheme, GameObject, Optional, TNumberId } from "@/engine/lib/types";
 
 /**
  * Handler to manage monster death events.
@@ -15,7 +15,7 @@ export class MobDeathManager extends AbstractSchemeManager<ISchemeMobDeathState>
    * @param victim - monster who has been killed
    * @param who - target who killed the monster
    */
-  public override onDeath(victim: ClientObject, who: Optional<ClientObject>): void {
+  public override onDeath(victim: GameObject, who: Optional<GameObject>): void {
     const victimId: TNumberId = victim.id();
     let deathState: Optional<ISchemeDeathState> = registry.objects.get(victimId)[
       EScheme.DEATH

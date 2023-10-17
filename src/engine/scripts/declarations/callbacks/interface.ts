@@ -9,9 +9,9 @@ import { TWeapon } from "@/engine/lib/constants/items/weapons";
 import {
   AnyArgs,
   AnyObject,
-  ClientObject,
   EActorMenuMode,
   EActorMenuType,
+  GameObject,
   TCount,
   TIndex,
   TLabel,
@@ -81,8 +81,8 @@ extern("actor_menu_inventory", {
    * @returns whether drag drop was handled
    */
   CUIActorMenu_OnItemDropped: (
-    from: ClientObject,
-    to: ClientObject,
+    from: GameObject,
+    to: GameObject,
     oldList: EActorMenuType,
     newList: EActorMenuType
   ): boolean => {

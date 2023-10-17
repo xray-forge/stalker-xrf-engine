@@ -6,9 +6,9 @@ import { SchemeCrowSpawner } from "@/engine/core/schemes/restrictor/sr_crow_spaw
 import { ISchemeCrowSpawnerState } from "@/engine/core/schemes/restrictor/sr_crow_spawner/sr_crow_spawner_types";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini";
 import { loadSchemeImplementation } from "@/engine/core/utils/scheme";
-import { ClientObject, EScheme, ESchemeType, IniFile } from "@/engine/lib/types";
+import { EScheme, ESchemeType, GameObject, IniFile } from "@/engine/lib/types";
 import { assertSchemeSubscribedToManager } from "@/fixtures/engine";
-import { mockClientGameObject, mockIniFile } from "@/fixtures/xray";
+import { mockGameObject, mockIniFile } from "@/fixtures/xray";
 
 describe("SchemeCrowSpawner", () => {
   it("should be correctly defined", () => {
@@ -17,7 +17,7 @@ describe("SchemeCrowSpawner", () => {
   });
 
   it("should correctly read ini configuration", () => {
-    const object: ClientObject = mockClientGameObject();
+    const object: GameObject = mockGameObject();
     const ini: IniFile = mockIniFile("example.ltx", {
       "sr_crow_spawner@test": {
         on_info: "{+test_info} another@section",
@@ -44,7 +44,7 @@ describe("SchemeCrowSpawner", () => {
   });
 
   it("should correctly read empty configuration", () => {
-    const object: ClientObject = mockClientGameObject();
+    const object: GameObject = mockGameObject();
     const ini: IniFile = mockIniFile("another.ltx", {});
 
     registerObject(object);

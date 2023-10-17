@@ -4,13 +4,13 @@ import { CodeManager } from "@/engine/core/schemes/physical/ph_code/CodeManager"
 import { ISchemeCodeState } from "@/engine/core/schemes/physical/ph_code/ph_code_types";
 import { extern } from "@/engine/core/utils/binding";
 import { parseConditionsList, TConditionList } from "@/engine/core/utils/ini";
-import { ClientObject, EScheme, TName } from "@/engine/lib/types";
+import { EScheme, GameObject, TName } from "@/engine/lib/types";
 import { mockBaseSchemeLogic, mockSchemeState } from "@/fixtures/engine";
-import { mockClientGameObject } from "@/fixtures/xray";
+import { mockGameObject } from "@/fixtures/xray";
 
 describe("CodeManager", () => {
   it("should correctly activate", () => {
-    const object: ClientObject = mockClientGameObject();
+    const object: GameObject = mockGameObject();
     const state: ISchemeCodeState = mockSchemeState(EScheme.PH_CODE);
     const manager: CodeManager = new CodeManager(object, state);
 
@@ -20,7 +20,7 @@ describe("CodeManager", () => {
   });
 
   it("should correctly deactivate", () => {
-    const object: ClientObject = mockClientGameObject();
+    const object: GameObject = mockGameObject();
     const state: ISchemeCodeState = mockSchemeState(EScheme.PH_CODE);
     const manager: CodeManager = new CodeManager(object, state);
 
@@ -30,7 +30,7 @@ describe("CodeManager", () => {
   });
 
   it("should handle usage with no exceptions", () => {
-    const object: ClientObject = mockClientGameObject();
+    const object: GameObject = mockGameObject();
     const state: ISchemeCodeState = mockSchemeState(EScheme.PH_CODE);
     const manager: CodeManager = new CodeManager(object, state);
 
@@ -38,7 +38,7 @@ describe("CodeManager", () => {
   });
 
   it("should handle number callback when have code", () => {
-    const object: ClientObject = mockClientGameObject();
+    const object: GameObject = mockGameObject();
     const state: ISchemeCodeState = mockSchemeState<ISchemeCodeState>(EScheme.PH_CODE, {
       code: 123,
       onCode: mockBaseSchemeLogic({
@@ -64,7 +64,7 @@ describe("CodeManager", () => {
   });
 
   it("should handle number callback when have check", () => {
-    const object: ClientObject = mockClientGameObject();
+    const object: GameObject = mockGameObject();
     const state: ISchemeCodeState = mockSchemeState<ISchemeCodeState>(EScheme.PH_CODE, {
       onCheckCode: $fromObject<TName, TConditionList>({
         x443: parseConditionsList("{} first %=first%"),

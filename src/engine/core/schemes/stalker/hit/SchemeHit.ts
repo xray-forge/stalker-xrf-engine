@@ -5,7 +5,7 @@ import { HitManager } from "@/engine/core/schemes/stalker/hit/HitManager";
 import { abort } from "@/engine/core/utils/assertion";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini/ini_config";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { ClientObject, EScheme, ESchemeType, IniFile, Optional, TSection } from "@/engine/lib/types";
+import { EScheme, ESchemeType, GameObject, IniFile, Optional, TSection } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -16,7 +16,7 @@ export class SchemeHit extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.HIT;
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.STALKER;
 
-  public static override disable(object: ClientObject, scheme: EScheme): void {
+  public static override disable(object: GameObject, scheme: EScheme): void {
     const state: Optional<ISchemeHitState> = registry.objects.get(object.id())[scheme] as Optional<ISchemeHitState>;
 
     if (state) {
@@ -25,7 +25,7 @@ export class SchemeHit extends AbstractScheme {
   }
 
   public static override activate(
-    object: ClientObject,
+    object: GameObject,
     ini: IniFile,
     scheme: EScheme,
     section: TSection
@@ -42,7 +42,7 @@ export class SchemeHit extends AbstractScheme {
   }
 
   public static override add(
-    object: ClientObject,
+    object: GameObject,
     ini: IniFile,
     scheme: EScheme,
     section: TSection,

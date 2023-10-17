@@ -22,9 +22,9 @@ import { readIniNumber, readIniString } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { emitSchemeEvent, initializeObjectSchemeLogic } from "@/engine/core/utils/scheme";
 import {
-  ClientObject,
   ESchemeEvent,
   ESchemeType,
+  GameObject,
   IniFile,
   NetPacket,
   Optional,
@@ -60,7 +60,7 @@ export class HelicopterBinder extends object_binder {
 
   public heliObject!: CHelicopter;
 
-  public constructor(object: ClientObject, ini: IniFile) {
+  public constructor(object: GameObject, ini: IniFile) {
     super(object);
 
     this.ini = ini;
@@ -93,7 +93,7 @@ export class HelicopterBinder extends object_binder {
   public override update(delta: number): void {
     super.update(delta);
 
-    const actor: Optional<ClientObject> = registry.actor;
+    const actor: Optional<GameObject> = registry.actor;
 
     if (!this.initialized && actor) {
       this.initialized = true;
@@ -188,7 +188,7 @@ export class HelicopterBinder extends object_binder {
    * todo: Description.
    */
   public onHit(power: TRate, impulse: TRate, hitType: TNumberId, enemyId: TNumberId): void {
-    const enemy: Optional<ClientObject> = level.object_by_id(enemyId);
+    const enemy: Optional<GameObject> = level.object_by_id(enemyId);
     const enemyClassId: Optional<TClassId> = enemy?.clsid() as Optional<TClassId>;
 
     this.heliFire.enemy = enemy;

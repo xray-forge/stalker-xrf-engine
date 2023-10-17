@@ -6,7 +6,7 @@ import { getObjectSquad } from "@/engine/core/utils/squad/squad_get";
 import { isEmpty } from "@/engine/core/utils/table";
 import { communities } from "@/engine/lib/constants/communities";
 import { infoPortions } from "@/engine/lib/constants/info_portions";
-import { AnyGameObject, ClientObject, Optional, ServerObject, TNumberId } from "@/engine/lib/types";
+import { AnyGameObject, GameObject, Optional, ServerObject, TNumberId } from "@/engine/lib/types";
 
 /**
  * Precondition checker to verify if squad can help actor in case of attack by another squad / monsters etc.
@@ -44,7 +44,7 @@ export function isObjectSquadCommander(object: AnyGameObject): boolean {
   const squad: Optional<Squad> = getObjectSquad(object);
 
   if (squad) {
-    const id: TNumberId = type(object.id) === "function" ? (object as ClientObject).id() : (object as ServerObject).id;
+    const id: TNumberId = type(object.id) === "function" ? (object as GameObject).id() : (object as ServerObject).id;
 
     return squad.commander_id() === id;
   } else {

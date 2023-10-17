@@ -7,17 +7,17 @@ import { AbstractDebugSection } from "@/engine/core/ui/debug/sections/AbstractDe
 import { isGameStarted } from "@/engine/core/utils/game";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { setObjectWounded } from "@/engine/core/utils/object";
-import { getNearestClientObject } from "@/engine/core/utils/registry";
+import { getNearestGameObject } from "@/engine/core/utils/registry";
 import {
   ERelation,
   getObjectsRelationSafe,
   getSquadMembersRelationToActorSafe,
-  setClientObjectRelation,
+  setGameObjectRelation,
 } from "@/engine/core/utils/relation";
 import { getObjectSquad } from "@/engine/core/utils/squad";
 import { resolveXmlFile } from "@/engine/core/utils/ui";
 import { NIL } from "@/engine/lib/constants/words";
-import { ClientObject, Optional, TPath } from "@/engine/lib/types";
+import { GameObject, Optional, TPath } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 const base: TPath = "menu\\debug\\DebugObjectSection.component";
@@ -122,8 +122,8 @@ export class DebugObjectSection extends AbstractDebugSection {
 
   public override initializeState(): void {
     if (isGameStarted()) {
-      const nearestStalker: Optional<ClientObject> = getNearestClientObject();
-      const targetStalker: Optional<ClientObject> = level.get_target_obj();
+      const nearestStalker: Optional<GameObject> = getNearestGameObject();
+      const targetStalker: Optional<GameObject> = level.get_target_obj();
       const squad: Optional<Squad> = targetStalker ? getObjectSquad(targetStalker) : null;
 
       this.uiNearestStalkerLabel.SetText("Nearest: " + (nearestStalker ? nearestStalker.name() : NIL));
@@ -151,7 +151,7 @@ export class DebugObjectSection extends AbstractDebugSection {
       return logger.info("Cannot print while game is not started");
     }
 
-    const targetObject: Optional<ClientObject> = this.getCurrentObject();
+    const targetObject: Optional<GameObject> = this.getCurrentObject();
 
     if (targetObject) {
       DebugManager.getInstance().logObjectPlannerState(targetObject);
@@ -165,7 +165,7 @@ export class DebugObjectSection extends AbstractDebugSection {
       return logger.info("Cannot print while game is not started");
     }
 
-    const targetObject: Optional<ClientObject> = this.getCurrentObject();
+    const targetObject: Optional<GameObject> = this.getCurrentObject();
 
     if (targetObject) {
       DebugManager.getInstance().logObjectInventoryItems(targetObject);
@@ -179,7 +179,7 @@ export class DebugObjectSection extends AbstractDebugSection {
       return logger.info("Cannot print while game is not started");
     }
 
-    const targetObject: Optional<ClientObject> = this.getCurrentObject();
+    const targetObject: Optional<GameObject> = this.getCurrentObject();
 
     if (targetObject) {
       DebugManager.getInstance().logObjectState(targetObject);
@@ -193,7 +193,7 @@ export class DebugObjectSection extends AbstractDebugSection {
       return logger.info("Cannot print while game is not started");
     }
 
-    const targetObject: Optional<ClientObject> = this.getCurrentObject();
+    const targetObject: Optional<GameObject> = this.getCurrentObject();
 
     if (targetObject) {
       DebugManager.getInstance().logObjectRelations(targetObject);
@@ -207,7 +207,7 @@ export class DebugObjectSection extends AbstractDebugSection {
       return logger.info("Cannot print while game is not started");
     }
 
-    const targetObject: Optional<ClientObject> = this.getCurrentObject();
+    const targetObject: Optional<GameObject> = this.getCurrentObject();
 
     if (targetObject) {
       DebugManager.getInstance().logObjectStateManager(targetObject);
@@ -221,11 +221,11 @@ export class DebugObjectSection extends AbstractDebugSection {
       return logger.info("Cannot set relation while game is not started");
     }
 
-    const targetObject: Optional<ClientObject> = this.getCurrentObject();
+    const targetObject: Optional<GameObject> = this.getCurrentObject();
 
     if (targetObject) {
       logger.info("Set actor relation for:", targetObject.name(), relation);
-      setClientObjectRelation(targetObject, registry.actor, relation);
+      setGameObjectRelation(targetObject, registry.actor, relation);
       this.initializeState();
     } else {
       logger.info("No object found for relation change");
@@ -237,7 +237,7 @@ export class DebugObjectSection extends AbstractDebugSection {
       return logger.info("Cannot kill object while game is not started");
     }
 
-    const targetObject: Optional<ClientObject> = this.getCurrentObject();
+    const targetObject: Optional<GameObject> = this.getCurrentObject();
 
     if (targetObject) {
       logger.info("Kill object:", targetObject.name());
@@ -252,7 +252,7 @@ export class DebugObjectSection extends AbstractDebugSection {
       return logger.info("Cannot set wounded object while game is not started");
     }
 
-    const targetObject: Optional<ClientObject> = this.getCurrentObject();
+    const targetObject: Optional<GameObject> = this.getCurrentObject();
 
     if (targetObject) {
       logger.info("Set wounded object:", targetObject.name());
@@ -263,7 +263,7 @@ export class DebugObjectSection extends AbstractDebugSection {
     }
   }
 
-  public getCurrentObject(): Optional<ClientObject> {
-    return this.uiUseTargetCheck.GetCheck() ? level.get_target_obj() : getNearestClientObject();
+  public getCurrentObject(): Optional<GameObject> {
+    return this.uiUseTargetCheck.GetCheck() ? level.get_target_obj() : getNearestGameObject();
   }
 }

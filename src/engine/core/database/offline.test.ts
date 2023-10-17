@@ -8,12 +8,12 @@ import {
 } from "@/engine/core/database/offline";
 import { registry } from "@/engine/core/database/registry";
 import { MAX_I32 } from "@/engine/lib/constants/memory";
-import { ClientObject } from "@/engine/lib/types";
-import { mockClientGameObject } from "@/fixtures/xray";
+import { GameObject } from "@/engine/lib/types";
+import { mockGameObject } from "@/fixtures/xray";
 
 describe("offline database module", () => {
   it("should correctly register and unregister offline objects state", () => {
-    const object: ClientObject = mockClientGameObject();
+    const object: GameObject = mockGameObject();
 
     expect(registerOfflineObject(object.id(), { activeSection: "test", levelVertexId: 1 })).toEqual({
       activeSection: "test",

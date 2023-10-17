@@ -3,13 +3,13 @@ import { describe, it } from "@jest/globals";
 import { setupStalkerLockedStatePlanner } from "@/engine/core/objects/ai/planner/setup/state_planner/locked_planner";
 import { StalkerStateManager } from "@/engine/core/objects/ai/state/StalkerStateManager";
 import { EStateActionId, EStateEvaluatorId } from "@/engine/core/objects/ai/types";
-import { ActionPlanner, ClientObject } from "@/engine/lib/types";
+import { ActionPlanner, GameObject } from "@/engine/lib/types";
 import { checkPlannerAction } from "@/fixtures/engine";
-import { mockClientGameObject } from "@/fixtures/xray";
+import { mockGameObject } from "@/fixtures/xray";
 
 describe("locked_planner util", () => {
   it("should correctly setup state planner lock/end actions", () => {
-    const object: ClientObject = mockClientGameObject();
+    const object: GameObject = mockGameObject();
     const stateManager: StalkerStateManager = new StalkerStateManager(object);
     const planner: ActionPlanner = stateManager.planner;
 

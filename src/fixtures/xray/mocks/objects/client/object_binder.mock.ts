@@ -1,4 +1,4 @@
-import { ClientObject } from "@/engine/lib/types";
+import { GameObject } from "@/engine/lib/types";
 import { MockLuabindClass } from "@/fixtures/xray/mocks/luabind.mock";
 import { MockNetProcessor } from "@/fixtures/xray/mocks/save";
 
@@ -6,7 +6,7 @@ import { MockNetProcessor } from "@/fixtures/xray/mocks/save";
  * Mocking binder object that wraps client objects lifecycle.
  */
 export class MockObjectBinder extends MockLuabindClass {
-  public constructor(public object: ClientObject) {
+  public constructor(public object: GameObject) {
     super();
   }
 

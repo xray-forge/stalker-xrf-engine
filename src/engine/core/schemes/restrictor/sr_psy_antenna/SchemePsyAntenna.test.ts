@@ -6,13 +6,13 @@ import { SchemePsyAntenna } from "@/engine/core/schemes/restrictor/sr_psy_antenn
 import { ISchemePsyAntennaState } from "@/engine/core/schemes/restrictor/sr_psy_antenna/sr_psy_antenna_types";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini";
 import { loadSchemeImplementation } from "@/engine/core/utils/scheme";
-import { ClientObject, EScheme, IniFile } from "@/engine/lib/types";
+import { EScheme, GameObject, IniFile } from "@/engine/lib/types";
 import { assertSchemeSubscribedToManager } from "@/fixtures/engine";
-import { mockClientGameObject, mockIniFile } from "@/fixtures/xray";
+import { mockGameObject, mockIniFile } from "@/fixtures/xray";
 
 describe("SchemePsyAntenna", () => {
   it("should correctly initialize with defaults", () => {
-    const object: ClientObject = mockClientGameObject();
+    const object: GameObject = mockGameObject();
     const ini: IniFile = mockIniFile("test.ltx", {
       "sr_psy_antenna@test": {
         eff_intensity: 100,
@@ -45,7 +45,7 @@ describe("SchemePsyAntenna", () => {
   });
 
   it("should correctly initialize with custom data", () => {
-    const object: ClientObject = mockClientGameObject();
+    const object: GameObject = mockGameObject();
     const ini: IniFile = mockIniFile("test.ltx", {
       "sr_psy_antenna@test": {
         on_hit: "{+test} first, second",

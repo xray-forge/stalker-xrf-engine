@@ -89,9 +89,9 @@ import { NIL, TRUE } from "@/engine/lib/constants/words";
 import {
   AlifeSimulator,
   ALifeSmartTerrainTask,
-  ClientObject,
   ESchemeType,
   GameGraphVertex,
+  GameObject,
   IniFile,
   LuaArray,
   NetPacket,
@@ -774,7 +774,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
   /**
    * todo: Description.
    */
-  public setupObjectJobLogic(object: ClientObject): void {
+  public setupObjectJobLogic(object: GameObject): void {
     // logger.info("Setup logic:", this.name(), object.name());
 
     const objectJobDescriptor: IObjectJobDescriptor = this.objectJobDescriptors.get(object.id());
@@ -1112,7 +1112,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
       objectGameVertex = game_graph().vertex(object.m_game_vertex_id);
       objectPosition = object.position;
     } else {
-      const it: ClientObject = registry.objects.get(object.id).object!;
+      const it: GameObject = registry.objects.get(object.id).object!;
 
       objectGameVertex = game_graph().vertex(it.game_vertex_id());
       objectPosition = it.position();

@@ -2,14 +2,14 @@ import { ini_file } from "xray16";
 
 import { DUMMY_LTX, registry, SYSTEM_INI } from "@/engine/core/database";
 import { readIniString } from "@/engine/core/utils/ini";
-import { ClientObject, IniFile, Optional, TCount, TName, TSection } from "@/engine/lib/types";
+import { GameObject, IniFile, Optional, TCount, TName, TSection } from "@/engine/lib/types";
 
 /**
  * Setup object visuals based on global section description.
  *
  * @param object - target game object to initialize visuals for
  */
-export function getObjectStalkerIni(object: ClientObject): IniFile {
+export function getObjectStalkerIni(object: GameObject): IniFile {
   const spawnIni: Optional<IniFile> = object.spawn_ini();
   const stalkerIniFilename: Optional<TName> = spawnIni === null ? null : readIniString(spawnIni, "logic", "cfg", false);
 
@@ -21,7 +21,7 @@ export function getObjectStalkerIni(object: ClientObject): IniFile {
  *
  * @param object - target game object to initialize visuals for
  */
-export function setupObjectStalkerVisual(object: ClientObject): void {
+export function setupObjectStalkerVisual(object: GameObject): void {
   const visual: TName = readIniString(SYSTEM_INI, object.section(), "set_visual", false);
 
   if (visual !== null && visual !== "") {
@@ -36,7 +36,7 @@ export function setupObjectStalkerVisual(object: ClientObject): void {
  * @param ini - ini file to read info from
  * @param section - ini file section to read info from
  */
-export function setupObjectInfoPortions(object: ClientObject, ini: IniFile, section: Optional<TSection> = null): void {
+export function setupObjectInfoPortions(object: GameObject, ini: IniFile, section: Optional<TSection> = null): void {
   section = section === null ? "known_info" : section;
 
   if (ini.section_exist(section)) {

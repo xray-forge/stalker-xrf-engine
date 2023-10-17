@@ -10,16 +10,16 @@ import {
 } from "@/engine/core/schemes/restrictor/sr_teleport";
 import { giveInfoPortion } from "@/engine/core/utils/info_portion";
 import { activateSchemeBySection, loadSchemeImplementation } from "@/engine/core/utils/scheme";
-import { ClientObject, EScheme, IniFile } from "@/engine/lib/types";
+import { EScheme, GameObject, IniFile } from "@/engine/lib/types";
 import { getSchemeAction } from "@/fixtures/engine";
 import { replaceFunctionMock } from "@/fixtures/jest";
-import { mockClientGameObject, mockIniFile, patrols } from "@/fixtures/xray";
+import { mockGameObject, mockIniFile, patrols } from "@/fixtures/xray";
 
 describe("TeleportManager class", () => {
   it("should correctly call updates, teleport and react to generic logic", () => {
-    registerActor(mockClientGameObject());
+    registerActor(mockGameObject());
 
-    const object: ClientObject = mockClientGameObject();
+    const object: GameObject = mockGameObject();
     const state: IRegistryObjectState = registerObject(object);
 
     const ini: IniFile = mockIniFile("test.ltx", {

@@ -58,7 +58,7 @@ import { SMART_TERRAIN_SECTION } from "@/engine/lib/constants/sections";
 import { FALSE, NIL, TRUE } from "@/engine/lib/constants/words";
 import {
   ALifeSmartTerrainTask,
-  ClientObject,
+  GameObject,
   LuaArray,
   NetPacket,
   Optional,
@@ -751,7 +751,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
 
     if (squadSympathy !== null) {
       for (const squadMembers of this.squad_members()) {
-        const object: Optional<ClientObject> = registry.objects.get(squadMembers.id)?.object;
+        const object: Optional<GameObject> = registry.objects.get(squadMembers.id)?.object;
 
         if (object !== null) {
           setObjectSympathy(object, squadSympathy);
@@ -773,7 +773,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
     }
 
     for (const squadMember of this.squad_members()) {
-      const object: Optional<ClientObject> = registry.objects.get(squadMember.id)?.object as Optional<ClientObject>;
+      const object: Optional<GameObject> = registry.objects.get(squadMember.id)?.object as Optional<GameObject>;
 
       registry.offlineObjects.get(squadMember.id).levelVertexId = level.vertex_id(position);
 
@@ -930,7 +930,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
     }
 
     for (const [zoneName, smartTerrainName] of registry.noCombatZones) {
-      const zone: ClientObject = registry.zones.get(zoneName);
+      const zone: GameObject = registry.zones.get(zoneName);
 
       if (zone && zone.inside(this.position)) {
         const smartTerrain: Optional<SmartTerrain> =

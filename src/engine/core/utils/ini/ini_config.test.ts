@@ -18,19 +18,19 @@ import {
   parseConditionsList,
 } from "@/engine/core/utils/ini";
 import { NIL } from "@/engine/lib/constants/words";
-import { ClientObject, LuaArray, ServerObject, TIndex } from "@/engine/lib/types";
+import { GameObject, LuaArray, ServerObject, TIndex } from "@/engine/lib/types";
 import { mockBaseSchemeLogic } from "@/fixtures/engine";
-import { mockActorClientGameObject, mockClientGameObject, mockIniFile, mockServerAlifeObject } from "@/fixtures/xray";
+import { mockActorGameObject, mockGameObject, mockIniFile, mockServerAlifeObject } from "@/fixtures/xray";
 
 describe("config utils for ini file", () => {
   beforeEach(() => registerSimulator());
 
   it("getInfosFromData should correctly parse data list of condition lists", () => {
-    registerActor(mockActorClientGameObject());
+    registerActor(mockActorGameObject());
     giveInfoPortion("test");
 
-    expect(getSectionsFromConditionLists(mockClientGameObject(), "a|b|c")).toEqualLuaArrays(["a", "b", "c"]);
-    expect(getSectionsFromConditionLists(mockClientGameObject(), "a|{+not_existing}b,c|{+test}d,e")).toEqualLuaArrays([
+    expect(getSectionsFromConditionLists(mockGameObject(), "a|b|c")).toEqualLuaArrays(["a", "b", "c"]);
+    expect(getSectionsFromConditionLists(mockGameObject(), "a|{+not_existing}b,c|{+test}d,e")).toEqualLuaArrays([
       "a",
       "c",
       "d",
@@ -62,7 +62,7 @@ describe("config utils for ini file", () => {
   });
 
   it("getObjectConfigOverrides should correctly parse overrides", () => {
-    const object: ClientObject = mockClientGameObject();
+    const object: GameObject = mockGameObject();
     const state: IRegistryObjectState = registerObject(object);
 
     expect(getObjectConfigOverrides(mockIniFile("test.ltx", { empty: {} }), "empty", object)).toEqualLuaTables({

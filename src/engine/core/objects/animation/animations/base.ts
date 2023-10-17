@@ -8,7 +8,7 @@ import { createSequence } from "@/engine/core/utils/animation";
 import { getExtern } from "@/engine/core/utils/binding";
 import { startPlayingGuitar, startPlayingHarmonica } from "@/engine/core/utils/camp";
 import { misc } from "@/engine/lib/constants/items/misc";
-import { AnyCallablesModule, ClientObject, TName } from "@/engine/lib/types";
+import { AnyCallablesModule, GameObject, TName } from "@/engine/lib/types";
 
 /**
  * List of base animations for usage in stalkers logic.
@@ -265,7 +265,7 @@ export const baseAnimations: LuaTable<TName, IAnimationDescriptor> = $fromObject
       "sit_1_guitar_0_0",
       { a: "guitar_a" },
       {
-        f: (object: ClientObject) => {
+        f: (object: GameObject) => {
           startPlayingGuitar(object);
         },
       },
@@ -286,7 +286,7 @@ export const baseAnimations: LuaTable<TName, IAnimationDescriptor> = $fromObject
       "sit_2_harmonica_1_0",
       { a: "harmonica_a" },
       {
-        f: (object: ClientObject) => {
+        f: (object: GameObject) => {
           startPlayingHarmonica(object);
         },
       },
@@ -402,54 +402,54 @@ export const baseAnimations: LuaTable<TName, IAnimationDescriptor> = $fromObject
     into: createSequence(
       [
         "norm_facer_0_0",
-        { f: (object: ClientObject) => objectPunchActor(object) },
+        { f: (object: GameObject) => objectPunchActor(object) },
         "norm_facer_0_1",
-        { f: (object: ClientObject) => clearObjectAbuse(object) },
+        { f: (object: GameObject) => clearObjectAbuse(object) },
       ],
       [
         "norm_facer_1_0",
-        { f: (object: ClientObject) => objectPunchActor(object) },
+        { f: (object: GameObject) => objectPunchActor(object) },
         "norm_facer_1_1",
-        { f: (object: ClientObject) => clearObjectAbuse(object) },
+        { f: (object: GameObject) => clearObjectAbuse(object) },
       ],
       [
         "norm_facer_2_0",
-        { f: (object: ClientObject) => objectPunchActor(object) },
+        { f: (object: GameObject) => objectPunchActor(object) },
         "norm_facer_2_1",
-        { f: (object: ClientObject) => clearObjectAbuse(object) },
+        { f: (object: GameObject) => clearObjectAbuse(object) },
       ],
       [
         "norm_facer_3_0",
-        { f: (object: ClientObject) => objectPunchActor(object) },
+        { f: (object: GameObject) => objectPunchActor(object) },
         "norm_facer_3_1",
-        { f: (object: ClientObject) => clearObjectAbuse(object) },
+        { f: (object: GameObject) => clearObjectAbuse(object) },
       ],
       [
         "norm_facer_4_0",
-        { f: (object: ClientObject) => objectPunchActor(object) },
+        { f: (object: GameObject) => objectPunchActor(object) },
         "norm_facer_4_1",
-        { f: (object: ClientObject) => clearObjectAbuse(object) },
+        { f: (object: GameObject) => clearObjectAbuse(object) },
       ],
       null,
       null,
       null,
       [
         "norm_facer_8_0",
-        { f: (object: ClientObject) => objectPunchActor(object) },
+        { f: (object: GameObject) => objectPunchActor(object) },
         "norm_facer_8_1",
-        { f: (object: ClientObject) => clearObjectAbuse(object) },
+        { f: (object: GameObject) => clearObjectAbuse(object) },
       ],
       [
         "norm_facer_9_0",
-        { f: (object: ClientObject) => objectPunchActor(object) },
+        { f: (object: GameObject) => objectPunchActor(object) },
         "norm_facer_9_1",
-        { f: (object: ClientObject) => clearObjectAbuse(object) },
+        { f: (object: GameObject) => clearObjectAbuse(object) },
       ],
       [
         "norm_facer_10_0",
-        { f: (object: ClientObject) => objectPunchActor(object) },
+        { f: (object: GameObject) => objectPunchActor(object) },
         "norm_facer_10_1",
-        { f: (object: ClientObject) => clearObjectAbuse(object) },
+        { f: (object: GameObject) => clearObjectAbuse(object) },
       ]
     ),
     out: null,
@@ -1001,7 +1001,7 @@ export const baseAnimations: LuaTable<TName, IAnimationDescriptor> = $fromObject
       "dinamit_1",
       {
         // When animation ends, loot everything from an object.
-        f: (object: ClientObject) => finishCorpseLooting(object),
+        f: (object: GameObject) => finishCorpseLooting(object),
       },
     ]),
     out: null,
@@ -1020,7 +1020,7 @@ export const baseAnimations: LuaTable<TName, IAnimationDescriptor> = $fromObject
       {
         // When animation ends, finish help wounded and heal up.
         // todo: Probably just handle as callback in action object? Why setting globally?
-        f: (object: ClientObject) => {
+        f: (object: GameObject) => {
           finishObjectHelpWounded(object);
         },
       },
@@ -1043,7 +1043,7 @@ export const baseAnimations: LuaTable<TName, IAnimationDescriptor> = $fromObject
       {
         // When animation ends, finish help wounded and heal up.
         // todo: Probably just handle as callback in action object? Why setting globally?
-        f: (object: ClientObject) => {
+        f: (object: GameObject) => {
           finishObjectHelpWounded(object);
         },
       },

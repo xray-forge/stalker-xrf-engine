@@ -12,7 +12,7 @@ import { AnyObject } from "@/engine/lib/types";
 import { resetManagers, resetOfflineObjects, resetStoryObjects } from "@/fixtures/engine";
 import {
   EPacketDataType,
-  mockClientGameObject,
+  mockGameObject,
   mockIniFile,
   MockNetProcessor,
   mockServerAlifeHumanStalker,
@@ -266,7 +266,7 @@ describe("Stalker server object", () => {
     const stalker: Stalker = new Stalker("stalker");
     const netProcessor: MockNetProcessor = new MockNetProcessor();
 
-    mockClientGameObject({ idOverride: stalker.id, level_vertex_id: () => 311 });
+    mockGameObject({ idOverride: stalker.id, level_vertex_id: () => 311 });
 
     (stalker as AnyObject)["online"] = true;
     stalker.isCorpseLootDropped = true;

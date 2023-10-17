@@ -8,7 +8,7 @@ import { ISchemeCorpseDetectionState } from "@/engine/core/schemes/stalker/corps
 import { EvaluatorCorpseDetect } from "@/engine/core/schemes/stalker/corpse_detection/evaluators";
 import { readIniBoolean } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { ActionPlanner, ClientObject, IniFile, Optional } from "@/engine/lib/types";
+import { ActionPlanner, GameObject, IniFile, Optional } from "@/engine/lib/types";
 import { EScheme, ESchemeType, TSection } from "@/engine/lib/types/scheme";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -22,7 +22,7 @@ export class SchemeCorpseDetection extends AbstractScheme {
   public static override SCHEME_TYPE: ESchemeType = ESchemeType.STALKER;
 
   public static override activate(
-    object: ClientObject,
+    object: GameObject,
     ini: IniFile,
     scheme: EScheme,
     section: Optional<TSection>
@@ -31,7 +31,7 @@ export class SchemeCorpseDetection extends AbstractScheme {
   }
 
   public static override add(
-    object: ClientObject,
+    object: GameObject,
     ini: IniFile,
     scheme: EScheme,
     section: TSection,
@@ -66,7 +66,7 @@ export class SchemeCorpseDetection extends AbstractScheme {
   }
 
   public static override reset(
-    object: ClientObject,
+    object: GameObject,
     scheme: EScheme,
     state: IRegistryObjectState,
     section: TSection

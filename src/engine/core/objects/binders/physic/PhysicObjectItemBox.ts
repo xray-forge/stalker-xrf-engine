@@ -6,7 +6,7 @@ import { parseNumbersList, parseStringsList, readIniString } from "@/engine/core
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { spawnItemsForObject } from "@/engine/core/utils/spawn";
 import { TInventoryItem } from "@/engine/lib/constants/items";
-import { ClientObject, IniFile, LuaArray, Optional, TCount, TName, TProbability, TSection } from "@/engine/lib/types";
+import { GameObject, IniFile, LuaArray, Optional, TCount, TName, TProbability, TSection } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 const itemByCommunity: LuaTable<string, LuaTable<TInventoryItem, TCount>> = new LuaTable();
@@ -33,7 +33,7 @@ export class PhysicObjectItemBox {
     spawnIni: IniFile,
     section: TSection,
     line: string,
-    obj: ClientObject
+    obj: GameObject
   ): Optional<LuaTable<string, { section: TInventoryItem; count: TCount }>> {
     if (spawnIni.line_exist(section, line)) {
       const t: LuaArray<TInventoryItem> = parseStringsList(spawnIni.r_string(section, line));
@@ -76,9 +76,9 @@ export class PhysicObjectItemBox {
     return null;
   }
 
-  public object: ClientObject;
+  public object: GameObject;
 
-  public constructor(object: ClientObject) {
+  public constructor(object: GameObject) {
     this.object = object;
 
     for (const [k, v] of pairs(communityList)) {

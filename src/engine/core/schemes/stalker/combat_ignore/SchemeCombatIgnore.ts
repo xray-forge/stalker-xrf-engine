@@ -3,7 +3,7 @@ import { AbstractScheme } from "@/engine/core/objects/ai/scheme";
 import { ISchemeCombatIgnoreState } from "@/engine/core/schemes/stalker/combat_ignore/combat_igore_types";
 import { CombatProcessEnemyManager } from "@/engine/core/schemes/stalker/combat_ignore/CombatProcessEnemyManager";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { ClientObject, EScheme, ESchemeType, IniFile, Optional, TSection } from "@/engine/lib/types";
+import { EScheme, ESchemeType, GameObject, IniFile, Optional, TSection } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -14,7 +14,7 @@ export class SchemeCombatIgnore extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.COMBAT_IGNORE;
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.STALKER;
 
-  public static override disable(object: ClientObject, scheme: EScheme): void {
+  public static override disable(object: GameObject, scheme: EScheme): void {
     object.set_enemy_callback(null);
 
     const schemeState: Optional<ISchemeCombatIgnoreState> = registry.objects.get(object.id())[
@@ -26,12 +26,12 @@ export class SchemeCombatIgnore extends AbstractScheme {
     }
   }
 
-  public static override activate(object: ClientObject, ini: IniFile, scheme: EScheme): ISchemeCombatIgnoreState {
+  public static override activate(object: GameObject, ini: IniFile, scheme: EScheme): ISchemeCombatIgnoreState {
     return AbstractScheme.assign(object, ini, scheme, null);
   }
 
   public static override add(
-    object: ClientObject,
+    object: GameObject,
     ini: IniFile,
     scheme: EScheme,
     section: TSection,
@@ -41,7 +41,7 @@ export class SchemeCombatIgnore extends AbstractScheme {
   }
 
   public static override reset(
-    object: ClientObject,
+    object: GameObject,
     scheme: EScheme,
     state: IRegistryObjectState,
     section: TSection

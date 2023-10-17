@@ -4,13 +4,13 @@ import { setupStalkerDirectionStatePlanner } from "@/engine/core/objects/ai/plan
 import { ActionDirectionSearch, ActionDirectionTurn } from "@/engine/core/objects/ai/state/direction";
 import { StalkerStateManager } from "@/engine/core/objects/ai/state/StalkerStateManager";
 import { EStateActionId, EStateEvaluatorId } from "@/engine/core/objects/ai/types";
-import { ActionPlanner, ClientObject } from "@/engine/lib/types";
+import { ActionPlanner, GameObject } from "@/engine/lib/types";
 import { checkPlannerAction } from "@/fixtures/engine";
-import { mockClientGameObject } from "@/fixtures/xray";
+import { mockGameObject } from "@/fixtures/xray";
 
 describe("direction_planner util", () => {
   it("should correctly setup state planner planner actions", () => {
-    const object: ClientObject = mockClientGameObject();
+    const object: GameObject = mockGameObject();
     const stateManager: StalkerStateManager = new StalkerStateManager(object);
     const planner: ActionPlanner = stateManager.planner;
 

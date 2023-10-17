@@ -35,7 +35,7 @@ import {
   AnyCallable,
   AnyCallablesModule,
   AnyObject,
-  ClientObject,
+  GameObject,
   LuaArray,
   Optional,
   TCount,
@@ -53,7 +53,7 @@ extern("dialogs_zaton", {});
  */
 extern(
   "dialogs_zaton.zat_b30_owl_stalker_trader_actor_has_item_to_sell",
-  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
+  (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
     const itemsTable: LuaArray<TInventoryItem> = $fromArray<TInventoryItem>([
       questItems.zat_b20_noah_pda,
       questItems.zat_b40_notebook,
@@ -91,7 +91,7 @@ extern(
       [detectors.detector_scientific]: infoPortions.zat_b30_owl_detectors_approached,
     } as Record<TInventoryItem, TInfoPortion>);
 
-    const actor: ClientObject = registry.actor;
+    const actor: GameObject = registry.actor;
 
     for (const [k, v] of itemsTable) {
       if (actor.object(v) !== null) {
@@ -118,7 +118,7 @@ extern(
  */
 extern(
   "dialogs_zaton.zat_b30_owl_can_say_about_heli",
-  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
+  (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
     const table: LuaArray<TInfoPortion> = $fromArray<TInfoPortion>([
       infoPortions.zat_b28_heli_3_searched,
       infoPortions.zat_b100_heli_2_searched,
@@ -146,14 +146,14 @@ extern(
 /**
  * todo;
  */
-extern("dialogs_zaton.zat_b30_actor_has_1000", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
+extern("dialogs_zaton.zat_b30_actor_has_1000", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   return registry.actor.money() >= 1000;
 });
 
 /**
  * todo;
  */
-extern("dialogs_zaton.zat_b30_actor_has_200", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
+extern("dialogs_zaton.zat_b30_actor_has_200", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   return registry.actor.money() >= 200;
 });
 
@@ -162,7 +162,7 @@ extern("dialogs_zaton.zat_b30_actor_has_200", (firstSpeaker: ClientObject, secon
  */
 extern(
   "dialogs_zaton.zat_b30_actor_has_pri_b36_monolith_hiding_place_pda",
-  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
+  (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
     return registry.actor.object(questItems.pri_b36_monolith_hiding_place_pda) !== null;
   }
 );
@@ -172,7 +172,7 @@ extern(
  */
 extern(
   "dialogs_zaton.zat_b30_actor_has_pri_b306_envoy_pda",
-  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
+  (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
     return registry.actor.object(questItems.pri_b306_envoy_pda) !== null;
   }
 );
@@ -182,7 +182,7 @@ extern(
  */
 extern(
   "dialogs_zaton.zat_b30_actor_has_jup_b10_strelok_notes_1",
-  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
+  (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
     return registry.actor.object(questItems.jup_b10_notes_01) !== null;
   }
 );
@@ -192,7 +192,7 @@ extern(
  */
 extern(
   "dialogs_zaton.zat_b30_actor_has_jup_b10_strelok_notes_2",
-  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
+  (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
     return registry.actor.object(questItems.jup_b10_notes_02) !== null;
   }
 );
@@ -202,7 +202,7 @@ extern(
  */
 extern(
   "dialogs_zaton.zat_b30_actor_has_jup_b10_strelok_notes_3",
-  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
+  (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
     return registry.actor.object(questItems.jup_b10_notes_03) !== null;
   }
 );
@@ -212,7 +212,7 @@ extern(
  */
 extern(
   "dialogs_zaton.zat_b30_actor_has_detector_scientific",
-  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
+  (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
     return registry.actor.object(detectors.detector_scientific) !== null;
   }
 );
@@ -222,7 +222,7 @@ extern(
  */
 extern(
   "dialogs_zaton.zat_b30_actor_has_device_flash_snag",
-  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
+  (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
     return registry.actor.object(questItems.device_flash_snag) !== null;
   }
 );
@@ -232,7 +232,7 @@ extern(
  */
 extern(
   "dialogs_zaton.zat_b30_actor_has_device_pda_port_bandit_leader",
-  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
+  (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
     return registry.actor.object(questItems.device_pda_port_bandit_leader) !== null;
   }
 );
@@ -242,7 +242,7 @@ extern(
  */
 extern(
   "dialogs_zaton.zat_b30_actor_has_jup_b10_ufo_memory",
-  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
+  (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
     return registry.actor.object(questItems.jup_b10_ufo_memory_2) !== null;
   }
 );
@@ -252,7 +252,7 @@ extern(
  */
 extern(
   "dialogs_zaton.zat_b30_actor_has_jup_b202_bandit_pda",
-  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
+  (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
     return registry.actor.object(questItems.jup_b202_bandit_pda) !== null;
   }
 );
@@ -260,14 +260,14 @@ extern(
 /**
  * todo;
  */
-extern("dialogs_zaton.zat_b30_transfer_1000", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
+extern("dialogs_zaton.zat_b30_transfer_1000", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   transferMoneyFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), 1000);
 });
 
 /**
  * todo;
  */
-extern("dialogs_zaton.zat_b30_transfer_200", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
+extern("dialogs_zaton.zat_b30_transfer_200", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   transferMoneyFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), 200);
 });
 
@@ -276,7 +276,7 @@ extern("dialogs_zaton.zat_b30_transfer_200", (firstSpeaker: ClientObject, second
  */
 extern(
   "dialogs_zaton.zat_b30_sell_pri_b36_monolith_hiding_place_pda",
-  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
+  (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
     transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), questItems.pri_b36_monolith_hiding_place_pda);
     giveMoneyToActor(5000);
   }
@@ -285,20 +285,17 @@ extern(
 /**
  * todo;
  */
-extern(
-  "dialogs_zaton.zat_b30_sell_pri_b306_envoy_pda",
-  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
-    transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), questItems.pri_b306_envoy_pda);
-    giveMoneyToActor(4000);
-  }
-);
+extern("dialogs_zaton.zat_b30_sell_pri_b306_envoy_pda", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
+  transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), questItems.pri_b306_envoy_pda);
+  giveMoneyToActor(4000);
+});
 
 /**
  * todo;
  */
 extern(
   "dialogs_zaton.zat_b30_sell_jup_b207_merc_pda_with_contract",
-  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
+  (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
     transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), questItems.jup_b207_merc_pda_with_contract);
     giveMoneyToActor(1000);
     giveInfoPortion(infoPortions.jup_b207_merc_pda_with_contract_sold);
@@ -310,7 +307,7 @@ extern(
  */
 extern(
   "dialogs_zaton.zat_b30_sell_jup_b10_strelok_notes_1",
-  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
+  (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
     transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), questItems.jup_b10_notes_01);
     giveMoneyToActor(500);
   }
@@ -321,7 +318,7 @@ extern(
  */
 extern(
   "dialogs_zaton.zat_b30_sell_jup_b10_strelok_notes_2",
-  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
+  (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
     transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), questItems.jup_b10_notes_02);
     giveMoneyToActor(500);
   }
@@ -332,7 +329,7 @@ extern(
  */
 extern(
   "dialogs_zaton.zat_b30_sell_jup_b10_strelok_notes_3",
-  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
+  (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
     transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), questItems.jup_b10_notes_03);
     giveMoneyToActor(500);
   }
@@ -343,7 +340,7 @@ extern(
  */
 extern(
   "dialogs_zaton.jup_a9_owl_stalker_trader_sell_jup_a9_evacuation_info",
-  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
+  (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
     transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), questItems.jup_a9_evacuation_info);
     giveMoneyToActor(750);
     giveInfoPortion(infoPortions.jup_a9_evacuation_info_sold);
@@ -355,7 +352,7 @@ extern(
  */
 extern(
   "dialogs_zaton.jup_a9_owl_stalker_trader_sell_jup_a9_meeting_info",
-  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
+  (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
     transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), questItems.jup_a9_meeting_info);
     giveMoneyToActor(750);
     giveInfoPortion(infoPortions.jup_a9_meeting_info_sold);
@@ -367,7 +364,7 @@ extern(
  */
 extern(
   "dialogs_zaton.jup_a9_owl_stalker_trader_sell_jup_a9_losses_info",
-  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
+  (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
     transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), questItems.jup_a9_losses_info);
     giveMoneyToActor(750);
     giveInfoPortion(infoPortions.jup_a9_losses_info_sold);
@@ -379,7 +376,7 @@ extern(
  */
 extern(
   "dialogs_zaton.jup_a9_owl_stalker_trader_sell_jup_a9_delivery_info",
-  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
+  (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
     transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), questItems.jup_a9_delivery_info);
     giveMoneyToActor(750);
     giveInfoPortion(infoPortions.jup_a9_delivery_info_sold);
@@ -391,7 +388,7 @@ extern(
  */
 extern(
   "dialogs_zaton.zat_b30_owl_stalker_trader_sell_device_flash_snag",
-  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
+  (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
     transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), questItems.device_flash_snag);
     giveMoneyToActor(200);
     registry.actor.give_info_portion(infoPortions.device_flash_snag_sold);
@@ -403,7 +400,7 @@ extern(
  */
 extern(
   "dialogs_zaton.zat_b30_owl_stalker_trader_sell_device_pda_port_bandit_leader",
-  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
+  (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
     transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), questItems.device_pda_port_bandit_leader);
     giveMoneyToActor(1000);
     giveInfoPortion(infoPortions.device_pda_port_bandit_leader_sold);
@@ -415,7 +412,7 @@ extern(
  */
 extern(
   "dialogs_zaton.zat_b30_owl_stalker_trader_sell_jup_b10_ufo_memory",
-  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
+  (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
     transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), questItems.jup_b10_ufo_memory_2);
     giveMoneyToActor(500);
     giveInfoPortion(infoPortions.jup_b10_ufo_memory_2_sold);
@@ -427,7 +424,7 @@ extern(
  */
 extern(
   "dialogs_zaton.zat_b30_owl_stalker_trader_sell_jup_b202_bandit_pda",
-  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
+  (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
     transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), questItems.jup_b202_bandit_pda);
     giveMoneyToActor(500);
   }
@@ -436,28 +433,28 @@ extern(
 /**
  * todo;
  */
-extern("dialogs_zaton.zat_b14_bar_transfer_money", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
+extern("dialogs_zaton.zat_b14_bar_transfer_money", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   giveMoneyToActor(1000);
 });
 
 /**
  * todo;
  */
-extern("dialogs_zaton.zat_b14_transfer_artefact", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
+extern("dialogs_zaton.zat_b14_transfer_artefact", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), artefacts.af_quest_b14_twisted);
 });
 
 /**
  * todo;
  */
-extern("dialogs_zaton.actor_has_artefact", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
+extern("dialogs_zaton.actor_has_artefact", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   return firstSpeaker.object(artefacts.af_quest_b14_twisted) !== null;
 });
 
 /**
  * todo;
  */
-extern("dialogs_zaton.actor_hasnt_artefact", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
+extern("dialogs_zaton.actor_hasnt_artefact", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   return !getExtern<AnyCallable>("actor_has_artefact", getExtern("dialogs_zaton"))(firstSpeaker, secondSpeaker)(
     firstSpeaker,
     secondSpeaker
@@ -469,7 +466,7 @@ extern("dialogs_zaton.actor_hasnt_artefact", (firstSpeaker: ClientObject, second
  */
 extern(
   "dialogs_zaton.zat_b7_give_bandit_reward_to_actor",
-  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
+  (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
     giveMoneyToActor(math.random(15, 30) * 100);
     TreasureManager.getInstance().giveActorTreasureCoordinates("zat_hiding_place_30");
   }
@@ -480,7 +477,7 @@ extern(
  */
 extern(
   "dialogs_zaton.zat_b7_give_stalker_reward_to_actor",
-  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
+  (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
     const reward: TIndex = math.random(1, 3);
 
     if (reward === 1) {
@@ -507,7 +504,7 @@ extern(
  */
 extern(
   "dialogs_zaton.zat_b7_give_stalker_reward_2_to_actor",
-  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
+  (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
     transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), drugs.bandage, 4);
     transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), drugs.medkit, 2);
     transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), drugs.antirad, 2);
@@ -517,7 +514,7 @@ extern(
 /**
  * todo;
  */
-extern("dialogs_zaton.zat_b7_rob_actor", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
+extern("dialogs_zaton.zat_b7_rob_actor", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   let amount: TCount = math.floor((registry.actor.money() * math.random(75, 100)) / 100);
 
   if (registry.actor.money() < amount) {
@@ -530,62 +527,56 @@ extern("dialogs_zaton.zat_b7_rob_actor", (firstSpeaker: ClientObject, secondSpea
 /**
  * todo;
  */
-extern(
-  "dialogs_zaton.zat_b7_killed_self_precond",
-  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
-    if (
-      hasInfoPortion(infoPortions.zat_b7_stalkers_raiders_meet) ||
-      hasInfoPortion(infoPortions.zat_b7_victims_disappeared)
-    ) {
-      return false;
-    }
-
-    return !isStoryObjectExisting("zat_b7_stalkers_victims_1");
+extern("dialogs_zaton.zat_b7_killed_self_precond", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
+  if (
+    hasInfoPortion(infoPortions.zat_b7_stalkers_raiders_meet) ||
+    hasInfoPortion(infoPortions.zat_b7_victims_disappeared)
+  ) {
+    return false;
   }
-);
+
+  return !isStoryObjectExisting("zat_b7_stalkers_victims_1");
+});
 
 /**
  * todo;
  */
-extern("dialogs_zaton.zat_b7_squad_alive", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
+extern("dialogs_zaton.zat_b7_squad_alive", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   return isStoryObjectExisting("zat_b7_stalkers_victims_1");
 });
 
 /**
  * todo;
  */
-extern(
-  "dialogs_zaton.zat_b103_transfer_merc_supplies",
-  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
-    const object: ClientObject = getNpcSpeaker(firstSpeaker, secondSpeaker);
-    const actor: ClientObject = registry.actor;
-    let it: TCount = 6;
+extern("dialogs_zaton.zat_b103_transfer_merc_supplies", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
+  const object: GameObject = getNpcSpeaker(firstSpeaker, secondSpeaker);
+  const actor: GameObject = registry.actor;
+  let it: TCount = 6;
 
-    const newsManager: NotificationManager = NotificationManager.getInstance();
-    const itemSections: LuaArray<TFoodItem> = $fromArray<TFoodItem>([food.conserva, food.kolbasa, food.bread]);
+  const newsManager: NotificationManager = NotificationManager.getInstance();
+  const itemSections: LuaArray<TFoodItem> = $fromArray<TFoodItem>([food.conserva, food.kolbasa, food.bread]);
 
-    for (const [k, section] of itemSections) {
-      const j: TCount = it;
+  for (const [k, section] of itemSections) {
+    const j: TCount = it;
 
-      actor.iterate_inventory((temp, item) => {
-        if (item.section() === section && it !== 0) {
-          actor.transfer_item(item, object);
-          it = it - 1;
-        }
-      }, actor);
-
-      if (j - it !== 0) {
-        newsManager.sendItemRelocatedNotification(ENotificationDirection.OUT, section, j - it);
+    actor.iterate_inventory((temp, item) => {
+      if (item.section() === section && it !== 0) {
+        actor.transfer_item(item, object);
+        it = it - 1;
       }
+    }, actor);
+
+    if (j - it !== 0) {
+      newsManager.sendItemRelocatedNotification(ENotificationDirection.OUT, section, j - it);
     }
   }
-);
+});
 
 /**
  * todo;
  */
-extern("dialogs_zaton.zat_b33_set_counter_10", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
-  const actor: ClientObject = registry.actor;
+extern("dialogs_zaton.zat_b33_set_counter_10", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
+  const actor: GameObject = registry.actor;
 
   getExtern<AnyCallablesModule>("xr_effects").set_counter(actor, null, ["zat_b33_items", 10]);
 });
@@ -593,28 +584,28 @@ extern("dialogs_zaton.zat_b33_set_counter_10", (firstSpeaker: ClientObject, seco
 /**
  * todo;
  */
-extern("dialogs_zaton.zat_b33_counter_ge_2", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
+extern("dialogs_zaton.zat_b33_counter_ge_2", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   return getPortableStoreValue(ACTOR_ID, "zat_b33_items", 0 as number) >= 2;
 });
 
 /**
  * todo;
  */
-extern("dialogs_zaton.zat_b33_counter_ge_4", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
+extern("dialogs_zaton.zat_b33_counter_ge_4", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   return getPortableStoreValue(ACTOR_ID, "zat_b33_items", 0 as number) >= 4;
 });
 
 /**
  * todo;
  */
-extern("dialogs_zaton.zat_b33_counter_ge_8", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
+extern("dialogs_zaton.zat_b33_counter_ge_8", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   return getPortableStoreValue(ACTOR_ID, "zat_b33_items", 0 as number) >= 8;
 });
 
 /**
  * todo;
  */
-extern("dialogs_zaton.zat_b33_counter_le_2", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
+extern("dialogs_zaton.zat_b33_counter_le_2", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   return !getExtern<AnyCallable>("zat_b33_counter_ge_2", getExtern("dialogs_zaton"))(firstSpeaker, secondSpeaker)(
     firstSpeaker,
     secondSpeaker
@@ -624,22 +615,22 @@ extern("dialogs_zaton.zat_b33_counter_le_2", (firstSpeaker: ClientObject, second
 /**
  * todo;
  */
-extern("dialogs_zaton.zat_b33_counter_le_4", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
+extern("dialogs_zaton.zat_b33_counter_le_4", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   return !getExtern<AnyCallable>("zat_b33_counter_ge_4", getExtern("dialogs_zaton"))(firstSpeaker, secondSpeaker);
 });
 
 /**
  * todo;
  */
-extern("dialogs_zaton.zat_b33_counter_le_8", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
+extern("dialogs_zaton.zat_b33_counter_le_8", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   return !getExtern<AnyCallable>("zat_b33_counter_ge_8", getExtern("dialogs_zaton"))(firstSpeaker, secondSpeaker);
 });
 
 /**
  * todo;
  */
-extern("dialogs_zaton.zat_b33_counter_de_2", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
-  const actor: ClientObject = registry.actor;
+extern("dialogs_zaton.zat_b33_counter_de_2", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
+  const actor: GameObject = registry.actor;
 
   return getExtern<AnyCallablesModule>("xr_effects").dec_counter(actor, null, ["zat_b33_items", 2]);
 });
@@ -647,8 +638,8 @@ extern("dialogs_zaton.zat_b33_counter_de_2", (firstSpeaker: ClientObject, second
 /**
  * todo;
  */
-extern("dialogs_zaton.zat_b33_counter_de_4", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
-  const actor: ClientObject = registry.actor;
+extern("dialogs_zaton.zat_b33_counter_de_4", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
+  const actor: GameObject = registry.actor;
 
   return getExtern<AnyCallablesModule>("xr_effects").dec_counter(actor, null, ["zat_b33_items", 4]);
 });
@@ -656,8 +647,8 @@ extern("dialogs_zaton.zat_b33_counter_de_4", (firstSpeaker: ClientObject, second
 /**
  * todo;
  */
-extern("dialogs_zaton.zat_b33_counter_de_8", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
-  const actor: ClientObject = registry.actor;
+extern("dialogs_zaton.zat_b33_counter_de_8", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
+  const actor: GameObject = registry.actor;
 
   return getExtern<AnyCallablesModule>("xr_effects").dec_counter(actor, null, ["zat_b33_items", 8]);
 });
@@ -665,14 +656,14 @@ extern("dialogs_zaton.zat_b33_counter_de_8", (firstSpeaker: ClientObject, second
 /**
  * todo;
  */
-extern("dialogs_zaton.zat_b33_counter_eq_10", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
+extern("dialogs_zaton.zat_b33_counter_eq_10", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   return getPortableStoreValue(ACTOR_ID, "zat_b33_items", 0 as number) === 10;
 });
 
 /**
  * todo;
  */
-extern("dialogs_zaton.zat_b33_counter_ne_10", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
+extern("dialogs_zaton.zat_b33_counter_ne_10", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   return !getExtern<AnyCallable>("zat_b33_counter_eq_10", getExtern("dialogs_zaton"))(firstSpeaker, secondSpeaker);
 });
 
@@ -681,7 +672,7 @@ extern("dialogs_zaton.zat_b33_counter_ne_10", (firstSpeaker: ClientObject, secon
  */
 extern(
   "dialogs_zaton.zat_b103_transfer_mechanic_toolkit_2",
-  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
+  (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
     transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), misc.toolkit_2);
   }
 );
@@ -689,7 +680,7 @@ extern(
 /**
  * todo;
  */
-extern("dialogs_zaton.check_npc_name_mechanics", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
+extern("dialogs_zaton.check_npc_name_mechanics", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   return (
     !isObjectName(secondSpeaker, "mechanic") &&
     !isObjectName(secondSpeaker, "zat_b103_lost_merc") &&
@@ -702,85 +693,67 @@ extern("dialogs_zaton.check_npc_name_mechanics", (firstSpeaker: ClientObject, se
 /**
  * todo;
  */
-extern("dialogs_zaton.zat_b33_transfer_first_item", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
+extern("dialogs_zaton.zat_b33_transfer_first_item", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   giveItemsToActor(questItems.wpn_fort_snag);
 });
 
 /**
  * todo;
  */
-extern(
-  "dialogs_zaton.zat_b33_transfer_second_item",
-  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
-    giveItemsToActor(drugs.medkit_scientic, 3);
-    giveItemsToActor(drugs.antirad, 3);
-    giveItemsToActor(drugs.bandage, 5);
-  }
-);
+extern("dialogs_zaton.zat_b33_transfer_second_item", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
+  giveItemsToActor(drugs.medkit_scientic, 3);
+  giveItemsToActor(drugs.antirad, 3);
+  giveItemsToActor(drugs.bandage, 5);
+});
 
 /**
  * todo;
  */
-extern("dialogs_zaton.zat_b33_transfer_third_item", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
+extern("dialogs_zaton.zat_b33_transfer_third_item", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   giveItemsToActor(questItems.wpn_ak74u_snag);
 });
 
 /**
  * todo;
  */
-extern(
-  "dialogs_zaton.zat_b33_transfer_fourth_item",
-  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
-    giveItemsToActor(artefacts.af_soul);
-  }
-);
+extern("dialogs_zaton.zat_b33_transfer_fourth_item", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
+  giveItemsToActor(artefacts.af_soul);
+});
 
 /**
  * todo;
  */
-extern("dialogs_zaton.zat_b33_transfer_fifth_item", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
+extern("dialogs_zaton.zat_b33_transfer_fifth_item", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   giveItemsToActor(questItems.helm_hardhat_snag);
 });
 
 /**
  * todo;
  */
-extern(
-  "dialogs_zaton.zat_b33_transfer_safe_container",
-  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
-    transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), questItems.zat_b33_safe_container);
-  }
-);
+extern("dialogs_zaton.zat_b33_transfer_safe_container", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
+  transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), questItems.zat_b33_safe_container);
+});
 
 /**
  * todo;
  */
-extern(
-  "dialogs_zaton.zat_b33_aractor_has_habar",
-  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
-    return registry.actor.object(questItems.zat_b33_safe_container) !== null;
-  }
-);
+extern("dialogs_zaton.zat_b33_aractor_has_habar", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
+  return registry.actor.object(questItems.zat_b33_safe_container) !== null;
+});
 
 /**
  * todo;
  */
-extern(
-  "dialogs_zaton.zat_b33_actor_hasnt_habar",
-  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
-    return !getExtern<AnyCallable>("zat_b33_aractor_has_habar", getExtern("dialogs_zaton"))(
-      firstSpeaker,
-      secondSpeaker
-    );
-  }
-);
+extern("dialogs_zaton.zat_b33_actor_hasnt_habar", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
+  return !getExtern<AnyCallable>("zat_b33_aractor_has_habar", getExtern("dialogs_zaton"))(firstSpeaker, secondSpeaker);
+});
 
 /**
  * todo;
  */
 extern(
   "dialogs_zaton.zat_b33_actor_has_needed_money",
-  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
+  (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
     return registry.actor.money() >= 500;
   }
 );
@@ -790,7 +763,7 @@ extern(
  */
 extern(
   "dialogs_zaton.zat_b33_actor_hasnt_needed_money",
-  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
+  (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
     return !getExtern<AnyCallable>("zat_b33_actor_has_needed_money", getExtern("dialogs_zaton"))(
       firstSpeaker,
       secondSpeaker
@@ -801,7 +774,7 @@ extern(
 /**
  * todo;
  */
-extern("dialogs_zaton.zat_b33_relocate_money", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
+extern("dialogs_zaton.zat_b33_relocate_money", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   if (
     getExtern<AnyCallable>("zat_b33_actor_has_needed_money", getExtern("dialogs_zaton"))(firstSpeaker, secondSpeaker)
   ) {
@@ -868,91 +841,85 @@ export const zatB29InfopBringTable = {
 /**
  * todo;
  */
-extern(
-  "dialogs_zaton.zat_b29_create_af_in_anomaly",
-  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
-    const anomTbl: LuaArray<string> = {
-      [16]: "gravi",
-      [17]: "thermal",
-      [18]: "acid",
-      [19]: "electra",
-      [20]: "gravi",
-      [21]: "thermal",
-      [22]: "acid",
-      [23]: "electra",
-    } as unknown as LuaArray<string>;
+extern("dialogs_zaton.zat_b29_create_af_in_anomaly", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
+  const anomTbl: LuaArray<string> = {
+    [16]: "gravi",
+    [17]: "thermal",
+    [18]: "acid",
+    [19]: "electra",
+    [20]: "gravi",
+    [21]: "thermal",
+    [22]: "acid",
+    [23]: "electra",
+  } as unknown as LuaArray<string>;
 
-    const anomaliesNamesTbl = {
-      ["gravi"]: {
-        [1]: "zat_b14_anomal_zone",
-        [2]: "zat_b55_anomal_zone",
-        [3]: "zat_b44_anomal_zone_gravi",
-      },
-      ["thermal"]: {
-        [1]: "zat_b20_anomal_zone",
-        [2]: "zat_b53_anomal_zone",
-        [3]: "zaton_b56_anomal_zone",
-      },
-      ["acid"]: {
-        [1]: "zat_b39_anomal_zone",
-        [2]: "zat_b101_anomal_zone",
-        [3]: "zat_b44_anomal_zone_acid",
-      },
-      ["electra"]: {
-        [1]: "zat_b54_anomal_zone",
-        [2]: "zat_b100_anomal_zone",
-      },
-    } as unknown as LuaTable<string, LuaArray<string>>;
+  const anomaliesNamesTbl = {
+    ["gravi"]: {
+      [1]: "zat_b14_anomal_zone",
+      [2]: "zat_b55_anomal_zone",
+      [3]: "zat_b44_anomal_zone_gravi",
+    },
+    ["thermal"]: {
+      [1]: "zat_b20_anomal_zone",
+      [2]: "zat_b53_anomal_zone",
+      [3]: "zaton_b56_anomal_zone",
+    },
+    ["acid"]: {
+      [1]: "zat_b39_anomal_zone",
+      [2]: "zat_b101_anomal_zone",
+      [3]: "zat_b44_anomal_zone_acid",
+    },
+    ["electra"]: {
+      [1]: "zat_b54_anomal_zone",
+      [2]: "zat_b100_anomal_zone",
+    },
+  } as unknown as LuaTable<string, LuaArray<string>>;
 
-    let zone: TSection = "";
-    let zoneName: TName = "";
-    let key;
+  let zone: TSection = "";
+  let zoneName: TName = "";
+  let key;
 
-    for (const [k, v] of zatB29InfopBringTable) {
-      if (hasInfoPortion(v)) {
-        key = k;
-        zone = anomTbl.get(key);
-        break;
-      }
+  for (const [k, v] of zatB29InfopBringTable) {
+    if (hasInfoPortion(v)) {
+      key = k;
+      zone = anomTbl.get(key);
+      break;
     }
-
-    zoneName = anomaliesNamesTbl.get(zone).get(math.random(1, anomaliesNamesTbl.get(zone).length()));
-
-    registry.anomalyZones.get(zoneName).setForcedSpawnOverride(zatB29AfTable.get(key as number));
   }
-);
+
+  zoneName = anomaliesNamesTbl.get(zone).get(math.random(1, anomaliesNamesTbl.get(zone).length()));
+
+  registry.anomalyZones.get(zoneName).setForcedSpawnOverride(zatB29AfTable.get(key as number));
+});
 
 /**
  * todo;
  */
-extern(
-  "dialogs_zaton.zat_b29_linker_give_adv_task",
-  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): string => {
-    let result: string = "";
-    let isFirst: boolean = true;
+extern("dialogs_zaton.zat_b29_linker_give_adv_task", (firstSpeaker: GameObject, secondSpeaker: GameObject): string => {
+  let result: string = "";
+  let isFirst: boolean = true;
 
-    for (const i of $range(16, 23)) {
-      disableInfoPortion(zatB29InfopBringTable.get(i));
-      if (hasInfoPortion(zatB29InfopTable.get(i))) {
-        if (isFirst) {
-          result = game.translate_string(zatB29AfNamesTable.get(i));
-          isFirst = false;
-        } else {
-          result = result + ", " + game.translate_string(zatB29AfNamesTable.get(i));
-        }
+  for (const i of $range(16, 23)) {
+    disableInfoPortion(zatB29InfopBringTable.get(i));
+    if (hasInfoPortion(zatB29InfopTable.get(i))) {
+      if (isFirst) {
+        result = game.translate_string(zatB29AfNamesTable.get(i));
+        isFirst = false;
+      } else {
+        result = result + ", " + game.translate_string(zatB29AfNamesTable.get(i));
       }
     }
-
-    return result + ".";
   }
-);
+
+  return result + ".";
+});
 
 /**
  * todo;
  */
 extern(
   "dialogs_zaton.zat_b29_actor_do_not_has_adv_task_af",
-  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
+  (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
     for (const i of $range(16, 23)) {
       if (hasInfoPortion(zatB29InfopBringTable.get(i)) && registry.actor.object(zatB29AfTable.get(i))) {
         return false;
@@ -968,7 +935,7 @@ extern(
  */
 extern(
   "dialogs_zaton.zat_b29_actor_has_adv_task_af",
-  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
+  (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
     for (const i of $range(16, 23)) {
       if (hasInfoPortion(zatB29InfopBringTable.get(i)) && registry.actor.object(zatB29AfTable.get(i))) {
         return true;
@@ -982,37 +949,34 @@ extern(
 /**
  * todo;
  */
-extern(
-  "dialogs_zaton.zat_b29_linker_get_adv_task_af",
-  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
-    for (const i of $range(16, 23)) {
-      if (hasInfoPortion(zatB29InfopBringTable.get(i))) {
-        disableInfoPortion("zat_b29_adv_task_given");
-        transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), zatB29AfTable.get(i));
-        if (i < 20) {
-          if (hasInfoPortion("zat_b29_linker_take_af_from_rival")) {
-            giveMoneyToActor(12000);
-          } else {
-            giveMoneyToActor(18000);
-          }
-        } else if (i > 19) {
-          if (hasInfoPortion("zat_b29_linker_take_af_from_rival")) {
-            giveMoneyToActor(18000);
-          } else {
-            giveMoneyToActor(24000);
-          }
+extern("dialogs_zaton.zat_b29_linker_get_adv_task_af", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
+  for (const i of $range(16, 23)) {
+    if (hasInfoPortion(zatB29InfopBringTable.get(i))) {
+      disableInfoPortion("zat_b29_adv_task_given");
+      transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), zatB29AfTable.get(i));
+      if (i < 20) {
+        if (hasInfoPortion("zat_b29_linker_take_af_from_rival")) {
+          giveMoneyToActor(12000);
+        } else {
+          giveMoneyToActor(18000);
         }
-
-        break;
+      } else if (i > 19) {
+        if (hasInfoPortion("zat_b29_linker_take_af_from_rival")) {
+          giveMoneyToActor(18000);
+        } else {
+          giveMoneyToActor(24000);
+        }
       }
+
+      break;
     }
   }
-);
+});
 
 /**
  * todo;
  */
-export function getGoodGunsInInventory(object: ClientObject): LuaArray<TWeapon> {
+export function getGoodGunsInInventory(object: GameObject): LuaArray<TWeapon> {
   const actorWpnTable: LuaArray<TWeapon> = new LuaTable();
   const wpnTable = [
     weapons.wpn_sig550,
@@ -1023,7 +987,7 @@ export function getGoodGunsInInventory(object: ClientObject): LuaArray<TWeapon> 
     weapons.wpn_fn2000,
   ] as unknown as LuaArray<TWeapon>;
 
-  object.iterate_inventory((owner: ClientObject, item: ClientObject): void => {
+  object.iterate_inventory((owner: GameObject, item: GameObject): void => {
     const section: TSection = item.section();
 
     for (const [k, v] of wpnTable) {
@@ -1042,8 +1006,8 @@ export function getGoodGunsInInventory(object: ClientObject): LuaArray<TWeapon> 
  */
 extern(
   "dialogs_zaton.zat_b29_actor_has_exchange_item",
-  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
-    const actor: ClientObject = registry.actor;
+  (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
+    const actor: GameObject = registry.actor;
     const actorWeaponsTable: LuaArray<TWeapon> = getGoodGunsInInventory(actor);
 
     if (actorWeaponsTable.length() > 0) {
@@ -1057,8 +1021,8 @@ extern(
 /**
  * todo;
  */
-extern("dialogs_zaton.zat_b29_actor_exchange", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
-  const actor: ClientObject = registry.actor;
+extern("dialogs_zaton.zat_b29_actor_exchange", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
+  const actor: GameObject = registry.actor;
 
   for (const i of $range(16, 23)) {
     if (hasInfoPortion(zatB29InfopBringTable.get(i))) {
@@ -1076,7 +1040,7 @@ extern("dialogs_zaton.zat_b29_actor_exchange", (firstSpeaker: ClientObject, seco
 /**
  * todo;
  */
-extern("dialogs_zaton.zat_b30_transfer_percent", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
+extern("dialogs_zaton.zat_b30_transfer_percent", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   const amount: TCount = math.random(5, 25) * 100;
   const days: TCount = getPortableStoreValue(ACTOR_ID, "zat_b30_days_cnt", 0);
 
@@ -1087,25 +1051,22 @@ extern("dialogs_zaton.zat_b30_transfer_percent", (firstSpeaker: ClientObject, se
 /**
  * todo;
  */
-extern("dialogs_zaton.zat_b30_npc_has_detector", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
+extern("dialogs_zaton.zat_b30_npc_has_detector", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   return objectHasItem(getNpcSpeaker(firstSpeaker, secondSpeaker), detectors.detector_scientific);
 });
 
 /**
  * todo;
  */
-extern(
-  "dialogs_zaton.zat_b30_actor_second_exchange",
-  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
-    transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), detectors.detector_scientific);
-  }
-);
+extern("dialogs_zaton.zat_b30_actor_second_exchange", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
+  transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), detectors.detector_scientific);
+});
 
 /**
  * todo;
  */
-extern("dialogs_zaton.zat_b30_actor_exchange", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
-  const actor: ClientObject = registry.actor;
+extern("dialogs_zaton.zat_b30_actor_exchange", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
+  const actor: GameObject = registry.actor;
 
   if ((actor as AnyObject).goodGun !== null) {
     transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), (actor as AnyObject).goodGun);
@@ -1125,8 +1086,8 @@ extern("dialogs_zaton.zat_b30_actor_exchange", (firstSpeaker: ClientObject, seco
  */
 extern(
   "dialogs_zaton.zat_b30_actor_has_two_detectors",
-  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
-    const actor: ClientObject = registry.actor;
+  (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
+    const actor: GameObject = registry.actor;
     let cnt: number = 0;
 
     actor.iterate_inventory((object, item) => {
@@ -1142,7 +1103,7 @@ extern(
 /**
  * todo;
  */
-extern("dialogs_zaton.actor_has_nimble_weapon", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
+extern("dialogs_zaton.actor_has_nimble_weapon", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   return actorHasAtLeastOneItem([
     weapons.wpn_groza_nimble,
     weapons.wpn_vintorez_nimble,
@@ -1161,8 +1122,8 @@ extern("dialogs_zaton.actor_has_nimble_weapon", (firstSpeaker: ClientObject, sec
 /**
  * todo;
  */
-extern("dialogs_zaton.zat_b51_robbery", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
-  const actor: ClientObject = registry.actor;
+extern("dialogs_zaton.zat_b51_robbery", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
+  const actor: GameObject = registry.actor;
   let amount: number = math.floor((actor.money() * math.random(35, 50)) / 100);
 
   if (amount > actor.money()) {
@@ -1212,8 +1173,8 @@ extern("dialogs_zaton.zat_b51_robbery", (firstSpeaker: ClientObject, secondSpeak
 /**
  * todo;
  */
-extern("dialogs_zaton.zat_b51_rob_nimble_weapon", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
-  const actor: ClientObject = registry.actor;
+extern("dialogs_zaton.zat_b51_rob_nimble_weapon", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
+  const actor: GameObject = registry.actor;
   const actorHasItem: LuaArray<TWeapon> = new LuaTable();
   const needItem = {
     [weapons.wpn_groza_nimble]: true,
@@ -1257,7 +1218,7 @@ extern("dialogs_zaton.zat_b51_rob_nimble_weapon", (firstSpeaker: ClientObject, s
 /**
  * todo;
  */
-extern("dialogs_zaton.give_compass_to_actor", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
+extern("dialogs_zaton.give_compass_to_actor", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), artefacts.af_compass);
 });
 
@@ -1290,7 +1251,7 @@ const zatB51BuyItemTable = [
 /**
  * todo;
  */
-extern("dialogs_zaton.zat_b51_randomize_item", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
+extern("dialogs_zaton.zat_b51_randomize_item", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   for (const it of $range(1, 7)) {
     if (hasInfoPortion(("zat_b51_processing_category_" + tostring(it)) as TInfoPortion)) {
       const zatB51AvailableItemsTable: LuaArray<TCount> = new LuaTable();
@@ -1314,7 +1275,7 @@ extern("dialogs_zaton.zat_b51_randomize_item", (firstSpeaker: ClientObject, seco
 /**
  * todo;
  */
-extern("dialogs_zaton.zat_b51_give_prepay", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
+extern("dialogs_zaton.zat_b51_give_prepay", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   for (const it of $range(1, 7)) {
     if (hasInfoPortion(("zat_b51_processing_category_" + tostring(it)) as TInfoPortion)) {
       if (!hasInfoPortion(infoPortions.zat_b51_order_refused)) {
@@ -1332,8 +1293,8 @@ extern("dialogs_zaton.zat_b51_give_prepay", (firstSpeaker: ClientObject, secondS
 /**
  * todo;
  */
-extern("dialogs_zaton.zat_b51_has_prepay", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
-  const actor: ClientObject = registry.actor;
+extern("dialogs_zaton.zat_b51_has_prepay", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
+  const actor: GameObject = registry.actor;
 
   for (const it of $range(1, 7)) {
     if (hasInfoPortion(("zat_b51_processing_category_" + tostring(it)) as TInfoPortion)) {
@@ -1351,14 +1312,14 @@ extern("dialogs_zaton.zat_b51_has_prepay", (firstSpeaker: ClientObject, secondSp
 /**
  * todo;
  */
-extern("dialogs_zaton.zat_b51_hasnt_prepay", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
+extern("dialogs_zaton.zat_b51_hasnt_prepay", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   return !getExtern<AnyCallable>("zat_b51_has_prepay", getExtern("dialogs_zaton"))(firstSpeaker, secondSpeaker);
 });
 
 /**
  * todo;
  */
-extern("dialogs_zaton.zat_b51_buy_item", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
+extern("dialogs_zaton.zat_b51_buy_item", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   for (const it of $range(1, 7)) {
     if (hasInfoPortion(("zat_b51_processing_category_" + tostring(it)) as TInfoPortion)) {
       for (const j of $range(1, zatB51BuyItemTable.get(it).length())) {
@@ -1396,7 +1357,7 @@ extern("dialogs_zaton.zat_b51_buy_item", (firstSpeaker: ClientObject, secondSpea
 /**
  * todo;
  */
-extern("dialogs_zaton.zat_b51_refuse_item", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
+extern("dialogs_zaton.zat_b51_refuse_item", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   for (const i of $range(1, 7)) {
     if (hasInfoPortion(("zat_b51_processing_category_" + tostring(i)) as TInfoPortion)) {
       for (const j of $range(1, zatB51BuyItemTable.get(i).length())) {
@@ -1429,8 +1390,8 @@ extern("dialogs_zaton.zat_b51_refuse_item", (firstSpeaker: ClientObject, secondS
 /**
  * todo;
  */
-extern("dialogs_zaton.zat_b51_has_item_cost", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
-  const actor: ClientObject = registry.actor;
+extern("dialogs_zaton.zat_b51_has_item_cost", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
+  const actor: GameObject = registry.actor;
 
   for (const i of $range(1, 7)) {
     if (hasInfoPortion(("zat_b51_processing_category_" + tostring(i)) as TInfoPortion)) {
@@ -1444,28 +1405,25 @@ extern("dialogs_zaton.zat_b51_has_item_cost", (firstSpeaker: ClientObject, secon
 /**
  * todo;
  */
-extern("dialogs_zaton.zat_b51_hasnt_item_cost", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
+extern("dialogs_zaton.zat_b51_hasnt_item_cost", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   return !getExtern<AnyCallable>("zat_b51_has_item_cost", getExtern("dialogs_zaton"))(firstSpeaker, secondSpeaker);
 });
 
 /**
  * todo;
  */
-extern(
-  "dialogs_zaton.zat_b12_actor_have_documents",
-  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
-    return actorHasAtLeastOneItem([questItems.zat_b12_documents_1, questItems.zat_b12_documents_2]);
-  }
-);
+extern("dialogs_zaton.zat_b12_actor_have_documents", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
+  return actorHasAtLeastOneItem([questItems.zat_b12_documents_1, questItems.zat_b12_documents_2]);
+});
 
 /**
  * todo;
  */
 extern(
   "dialogs_zaton.zat_b12_actor_transfer_documents",
-  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
-    const object: ClientObject = getNpcSpeaker(firstSpeaker, secondSpeaker);
-    const actor: ClientObject = registry.actor;
+  (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
+    const object: GameObject = getNpcSpeaker(firstSpeaker, secondSpeaker);
+    const actor: GameObject = registry.actor;
 
     const amountDoc1: TCount = 1000;
     const amountDoc2: TCount = 600;
@@ -1518,10 +1476,10 @@ extern(
 /**
  * todo;
  */
-extern("dialogs_zaton.zat_b3_actor_got_toolkit", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
-  const actor: ClientObject = registry.actor;
+extern("dialogs_zaton.zat_b3_actor_got_toolkit", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
+  const actor: GameObject = registry.actor;
 
-  actor.iterate_inventory((owner: ClientObject, item: ClientObject) => {
+  actor.iterate_inventory((owner: GameObject, item: GameObject) => {
     const section: TSection = item.section();
 
     if (
@@ -1541,7 +1499,7 @@ extern("dialogs_zaton.zat_b3_actor_got_toolkit", (firstSpeaker: ClientObject, se
 /**
  * todo;
  */
-extern("dialogs_zaton.give_toolkit_3", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
+extern("dialogs_zaton.give_toolkit_3", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), misc.toolkit_3);
   (registry.actor as AnyObject).toolkit = null;
   giveMoneyToActor(1500);
@@ -1550,7 +1508,7 @@ extern("dialogs_zaton.give_toolkit_3", (firstSpeaker: ClientObject, secondSpeake
 /**
  * todo;
  */
-extern("dialogs_zaton.give_toolkit_1", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
+extern("dialogs_zaton.give_toolkit_1", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), misc.toolkit_1);
   (registry.actor as AnyObject).toolkit = null;
   giveMoneyToActor(1000);
@@ -1559,14 +1517,14 @@ extern("dialogs_zaton.give_toolkit_1", (firstSpeaker: ClientObject, secondSpeake
 /**
  * todo;
  */
-extern("dialogs_zaton.if_actor_has_toolkit_1", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
+extern("dialogs_zaton.if_actor_has_toolkit_1", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   return registry.actor.object(misc.toolkit_1) !== null;
 });
 
 /**
  * todo;
  */
-extern("dialogs_zaton.give_toolkit_2", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
+extern("dialogs_zaton.give_toolkit_2", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), misc.toolkit_2);
   (registry.actor as AnyObject).toolkit = null;
   giveMoneyToActor(1200);
@@ -1575,24 +1533,21 @@ extern("dialogs_zaton.give_toolkit_2", (firstSpeaker: ClientObject, secondSpeake
 /**
  * todo;
  */
-extern("dialogs_zaton.if_actor_has_toolkit_2", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
+extern("dialogs_zaton.if_actor_has_toolkit_2", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   return registry.actor.object(misc.toolkit_2) !== null;
 });
 
 /**
  * todo;
  */
-extern(
-  "dialogs_zaton.zat_b215_counter_greater_3",
-  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
-    return getPortableStoreValue(ACTOR_ID, "zat_a9_way_to_pripyat_counter", 0 as number) > 3;
-  }
-);
+extern("dialogs_zaton.zat_b215_counter_greater_3", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
+  return getPortableStoreValue(ACTOR_ID, "zat_a9_way_to_pripyat_counter", 0 as number) > 3;
+});
 
 /**
  * todo;
  */
-extern("dialogs_zaton.zat_b40_transfer_notebook", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
+extern("dialogs_zaton.zat_b40_transfer_notebook", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), questItems.zat_b40_notebook);
   giveInfoPortion(infoPortions.zat_b40_notebook_saled);
   giveMoneyToActor(2000);
@@ -1601,7 +1556,7 @@ extern("dialogs_zaton.zat_b40_transfer_notebook", (firstSpeaker: ClientObject, s
 /**
  * todo;
  */
-extern("dialogs_zaton.zat_b40_transfer_merc_pda_1", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
+extern("dialogs_zaton.zat_b40_transfer_merc_pda_1", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), questItems.zat_b40_pda_1);
   giveInfoPortion(infoPortions.zat_b40_pda_1_saled);
   giveMoneyToActor(1000);
@@ -1618,7 +1573,7 @@ extern("dialogs_zaton.zat_b40_transfer_merc_pda_1", (firstSpeaker: ClientObject,
 /**
  * todo;
  */
-extern("dialogs_zaton.zat_b40_transfer_merc_pda_2", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
+extern("dialogs_zaton.zat_b40_transfer_merc_pda_2", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), questItems.zat_b40_pda_2);
   giveInfoPortion(infoPortions.zat_b40_pda_2_saled);
   giveMoneyToActor(1_000);
@@ -1637,7 +1592,7 @@ extern("dialogs_zaton.zat_b40_transfer_merc_pda_2", (firstSpeaker: ClientObject,
  */
 extern(
   "dialogs_zaton.zat_b29_actor_do_not_has_adv_task_af_1",
-  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
+  (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
     return hasInfoPortion(zatB29InfopTable.get(16)) && !registry.actor.object(zatB29AfTable.get(16));
   }
 );
@@ -1647,7 +1602,7 @@ extern(
  */
 extern(
   "dialogs_zaton.zat_b29_actor_do_not_has_adv_task_af_2",
-  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
+  (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
     return hasInfoPortion(zatB29InfopTable.get(17)) && !registry.actor.object(zatB29AfTable.get(17));
   }
 );
@@ -1657,7 +1612,7 @@ extern(
  */
 extern(
   "dialogs_zaton.zat_b29_actor_do_not_has_adv_task_af_3",
-  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
+  (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
     return hasInfoPortion(zatB29InfopTable.get(18)) && !registry.actor.object(zatB29AfTable.get(18));
   }
 );
@@ -1667,7 +1622,7 @@ extern(
  */
 extern(
   "dialogs_zaton.zat_b29_actor_do_not_has_adv_task_af_4",
-  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
+  (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
     return hasInfoPortion(zatB29InfopTable.get(19)) && !registry.actor.object(zatB29AfTable.get(19));
   }
 );
@@ -1677,7 +1632,7 @@ extern(
  */
 extern(
   "dialogs_zaton.zat_b29_actor_do_not_has_adv_task_af_5",
-  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
+  (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
     return hasInfoPortion(zatB29InfopTable.get(20)) && !registry.actor.object(zatB29AfTable.get(20));
   }
 );
@@ -1687,7 +1642,7 @@ extern(
  */
 extern(
   "dialogs_zaton.zat_b29_actor_do_not_has_adv_task_af_6",
-  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
+  (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
     return hasInfoPortion(zatB29InfopTable.get(21)) && !registry.actor.object(zatB29AfTable.get(21));
   }
 );
@@ -1697,7 +1652,7 @@ extern(
  */
 extern(
   "dialogs_zaton.zat_b29_actor_do_not_has_adv_task_af_7",
-  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
+  (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
     return hasInfoPortion(zatB29InfopTable.get(22)) && !registry.actor.object(zatB29AfTable.get(22));
   }
 );
@@ -1707,7 +1662,7 @@ extern(
  */
 extern(
   "dialogs_zaton.zat_b29_actor_do_not_has_adv_task_af_8",
-  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
+  (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
     return hasInfoPortion(zatB29InfopTable.get(23)) && !registry.actor.object(zatB29AfTable.get(23));
   }
 );
@@ -1717,7 +1672,7 @@ extern(
  */
 extern(
   "dialogs_zaton.zat_b29_actor_has_adv_task_af_1",
-  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
+  (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
     return hasInfoPortion(zatB29InfopTable.get(16)) && registry.actor.object(zatB29AfTable.get(16)) !== null;
   }
 );
@@ -1727,7 +1682,7 @@ extern(
  */
 extern(
   "dialogs_zaton.zat_b29_actor_has_adv_task_af_2",
-  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
+  (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
     return hasInfoPortion(zatB29InfopTable.get(17)) && registry.actor.object(zatB29AfTable.get(17)) !== null;
   }
 );
@@ -1737,7 +1692,7 @@ extern(
  */
 extern(
   "dialogs_zaton.zat_b29_actor_has_adv_task_af_3",
-  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
+  (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
     return hasInfoPortion(zatB29InfopTable.get(18)) && registry.actor.object(zatB29AfTable.get(18)) !== null;
   }
 );
@@ -1747,7 +1702,7 @@ extern(
  */
 extern(
   "dialogs_zaton.zat_b29_actor_has_adv_task_af_4",
-  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
+  (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
     return hasInfoPortion(zatB29InfopTable.get(19)) && registry.actor.object(zatB29AfTable.get(19)) !== null;
   }
 );
@@ -1757,7 +1712,7 @@ extern(
  */
 extern(
   "dialogs_zaton.zat_b29_actor_has_adv_task_af_5",
-  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
+  (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
     return hasInfoPortion(zatB29InfopTable.get(20)) && registry.actor.object(zatB29AfTable.get(20)) !== null;
   }
 );
@@ -1767,7 +1722,7 @@ extern(
  */
 extern(
   "dialogs_zaton.zat_b29_actor_has_adv_task_af_6",
-  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
+  (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
     return hasInfoPortion(zatB29InfopTable.get(21)) && registry.actor.object(zatB29AfTable.get(21)) !== null;
   }
 );
@@ -1777,7 +1732,7 @@ extern(
  */
 extern(
   "dialogs_zaton.zat_b29_actor_has_adv_task_af_7",
-  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
+  (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
     return hasInfoPortion(zatB29InfopTable.get(22)) && registry.actor.object(zatB29AfTable.get(22)) !== null;
   }
 );
@@ -1787,7 +1742,7 @@ extern(
  */
 extern(
   "dialogs_zaton.zat_b29_actor_has_adv_task_af_8",
-  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
+  (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
     return hasInfoPortion(zatB29InfopTable.get(23)) && registry.actor.object(zatB29AfTable.get(23)) !== null;
   }
 );
@@ -1797,7 +1752,7 @@ extern(
  */
 extern(
   "dialogs_zaton.zat_b30_transfer_detector_to_actor",
-  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
+  (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
     transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), detectors.detector_scientific);
   }
 );
@@ -1807,7 +1762,7 @@ extern(
  */
 extern(
   "dialogs_zaton.zat_b30_give_owls_share_to_actor",
-  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
+  (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
     giveMoneyToActor(1_500);
   }
 );
@@ -1815,46 +1770,37 @@ extern(
 /**
  * todo;
  */
-extern(
-  "dialogs_zaton.zat_b30_actor_has_compass",
-  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
-    return registry.actor.object(artefacts.af_compass) !== null;
-  }
-);
+extern("dialogs_zaton.zat_b30_actor_has_compass", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
+  return registry.actor.object(artefacts.af_compass) !== null;
+});
 
 /**
  * todo;
  */
-extern(
-  "dialogs_zaton.zat_b30_transfer_af_from_actor",
-  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
-    transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), artefacts.af_compass);
-    giveMoneyToActor(10_000);
+extern("dialogs_zaton.zat_b30_transfer_af_from_actor", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
+  transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), artefacts.af_compass);
+  giveMoneyToActor(10_000);
 
-    const treasureManager: TreasureManager = TreasureManager.getInstance();
+  const treasureManager: TreasureManager = TreasureManager.getInstance();
 
-    treasureManager.giveActorTreasureCoordinates("zat_hiding_place_49");
-    treasureManager.giveActorTreasureCoordinates("zat_hiding_place_15");
-  }
-);
+  treasureManager.giveActorTreasureCoordinates("zat_hiding_place_49");
+  treasureManager.giveActorTreasureCoordinates("zat_hiding_place_15");
+});
 
 /**
  * todo;
  */
-extern(
-  "dialogs_zaton.zat_b30_barmen_has_percent",
-  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
-    const count: TCount = getPortableStoreValue(ACTOR_ID, "zat_b30_days_cnt", 0);
+extern("dialogs_zaton.zat_b30_barmen_has_percent", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
+  const count: TCount = getPortableStoreValue(ACTOR_ID, "zat_b30_days_cnt", 0);
 
-    return count > 0;
-  }
-);
+  return count > 0;
+});
 /**
  * todo;
  */
 extern(
   "dialogs_zaton.zat_b30_barmen_do_not_has_percent",
-  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
+  (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
     const count: TCount = getPortableStoreValue(ACTOR_ID, "zat_b30_days_cnt", 0);
 
     return count < 1;
@@ -1864,17 +1810,14 @@ extern(
 /**
  * todo;
  */
-extern(
-  "dialogs_zaton.zat_b30_actor_has_noah_pda",
-  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
-    return registry.actor.object(questItems.zat_b20_noah_pda) !== null;
-  }
-);
+extern("dialogs_zaton.zat_b30_actor_has_noah_pda", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
+  return registry.actor.object(questItems.zat_b20_noah_pda) !== null;
+});
 
 /**
  * todo;
  */
-extern("dialogs_zaton.zat_b30_sell_noah_pda", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
+extern("dialogs_zaton.zat_b30_sell_noah_pda", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), questItems.zat_b20_noah_pda);
   giveMoneyToActor(1000);
 });
@@ -1882,51 +1825,42 @@ extern("dialogs_zaton.zat_b30_sell_noah_pda", (firstSpeaker: ClientObject, secon
 /**
  * todo;
  */
-extern(
-  "dialogs_zaton.zat_b40_actor_has_notebook",
-  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
-    return registry.actor.object(questItems.zat_b40_notebook) !== null;
-  }
-);
+extern("dialogs_zaton.zat_b40_actor_has_notebook", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
+  return registry.actor.object(questItems.zat_b40_notebook) !== null;
+});
 
 /**
  * todo;
  */
-extern(
-  "dialogs_zaton.zat_b40_actor_has_merc_pda_1",
-  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
-    return registry.actor.object(questItems.zat_b40_pda_1) !== null;
-  }
-);
+extern("dialogs_zaton.zat_b40_actor_has_merc_pda_1", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
+  return registry.actor.object(questItems.zat_b40_pda_1) !== null;
+});
 
 /**
  * todo;
  */
-extern(
-  "dialogs_zaton.zat_b40_actor_has_merc_pda_2",
-  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
-    return registry.actor.object(questItems.zat_b40_pda_2) !== null;
-  }
-);
+extern("dialogs_zaton.zat_b40_actor_has_merc_pda_2", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
+  return registry.actor.object(questItems.zat_b40_pda_2) !== null;
+});
 
 /**
  * todo;
  */
-extern("dialogs_zaton.if_actor_has_toolkit_3", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
+extern("dialogs_zaton.if_actor_has_toolkit_3", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   return registry.actor.object(misc.toolkit_3) !== null;
 });
 
 /**
  * todo;
  */
-extern("dialogs_zaton.give_vodka", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
+extern("dialogs_zaton.give_vodka", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), food.vodka);
 });
 
 /**
  * todo;
  */
-extern("dialogs_zaton.if_actor_has_vodka", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
+extern("dialogs_zaton.if_actor_has_vodka", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   return registry.actor.object(food.vodka) !== null;
 });
 
@@ -1935,7 +1869,7 @@ extern("dialogs_zaton.if_actor_has_vodka", (firstSpeaker: ClientObject, secondSp
  */
 extern(
   "dialogs_zaton.actor_has_more_then_need_money_to_buy_battery",
-  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
+  (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
     return registry.actor.money() >= 2000;
   }
 );
@@ -1945,7 +1879,7 @@ extern(
  */
 extern(
   "dialogs_zaton.actor_has_less_then_need_money_to_buy_battery",
-  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
+  (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
     return registry.actor.money() < 2000;
   }
 );
@@ -1955,7 +1889,7 @@ extern(
  */
 extern(
   "dialogs_zaton.relocate_need_money_to_buy_battery",
-  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
+  (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
     transferMoneyFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), 2000);
   }
 );
@@ -1963,46 +1897,37 @@ extern(
 /**
  * todo;
  */
-extern("dialogs_zaton.give_actor_battery", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
+extern("dialogs_zaton.give_actor_battery", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), ammo.ammo_gauss_cardan);
 });
 
 /**
  * todo;
  */
-extern(
-  "dialogs_zaton.give_actor_zat_a23_access_card",
-  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
-    transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), questItems.zat_a23_access_card);
-  }
-);
+extern("dialogs_zaton.give_actor_zat_a23_access_card", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
+  transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), questItems.zat_a23_access_card);
+});
 
 /**
  * todo;
  */
-extern(
-  "dialogs_zaton.give_zat_a23_gauss_rifle_docs",
-  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
-    transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), questItems.zat_a23_gauss_rifle_docs);
-  }
-);
+extern("dialogs_zaton.give_zat_a23_gauss_rifle_docs", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
+  transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), questItems.zat_a23_gauss_rifle_docs);
+});
 
 /**
  * todo;
  */
-extern(
-  "dialogs_zaton.return_zat_a23_gauss_rifle_docs",
-  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
-    transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), questItems.zat_a23_gauss_rifle_docs);
-  }
-);
+extern("dialogs_zaton.return_zat_a23_gauss_rifle_docs", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
+  transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), questItems.zat_a23_gauss_rifle_docs);
+});
 
 /**
  * todo;
  */
 extern(
   "dialogs_zaton.if_actor_has_zat_a23_gauss_rifle_docs",
-  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
+  (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
     return firstSpeaker.object(questItems.zat_a23_gauss_rifle_docs) !== null;
   }
 );
@@ -2010,33 +1935,30 @@ extern(
 /**
  * todo;
  */
-extern("dialogs_zaton.if_actor_has_gauss_rifle", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
+extern("dialogs_zaton.if_actor_has_gauss_rifle", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   return firstSpeaker.object(questItems.pri_a17_gauss_rifle) !== null;
 });
 
 /**
  * todo;
  */
-extern("dialogs_zaton.give_tech_gauss_rifle", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
+extern("dialogs_zaton.give_tech_gauss_rifle", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), questItems.pri_a17_gauss_rifle);
 });
 
 /**
  * todo;
  */
-extern(
-  "dialogs_zaton.give_actor_repaired_gauss_rifle",
-  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
-    transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), weapons.wpn_gauss);
-  }
-);
+extern("dialogs_zaton.give_actor_repaired_gauss_rifle", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
+  transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), weapons.wpn_gauss);
+});
 
 /**
  * todo;
  */
 extern(
   "dialogs_zaton.zat_b215_actor_has_money_poor",
-  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
+  (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
     return registry.actor.money() >= 1000;
   }
 );
@@ -2046,7 +1968,7 @@ extern(
  */
 extern(
   "dialogs_zaton.zat_b215_actor_has_no_money_poor",
-  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
+  (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
     return registry.actor.money() < 1000;
   }
 );
@@ -2056,7 +1978,7 @@ extern(
  */
 extern(
   "dialogs_zaton.zat_b215_actor_has_money_poor_pripyat",
-  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
+  (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
     return registry.actor.money() >= 4000;
   }
 );
@@ -2066,7 +1988,7 @@ extern(
  */
 extern(
   "dialogs_zaton.zat_b215_actor_has_no_money_poor_pripyat",
-  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
+  (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
     return registry.actor.money() < 4000;
   }
 );
@@ -2076,7 +1998,7 @@ extern(
  */
 extern(
   "dialogs_zaton.zat_b215_actor_has_money_rich",
-  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
+  (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
     return registry.actor.money() >= 3000;
   }
 );
@@ -2086,7 +2008,7 @@ extern(
  */
 extern(
   "dialogs_zaton.zat_b215_actor_has_no_money_rich",
-  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
+  (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
     return registry.actor.money() < 3000;
   }
 );
@@ -2096,7 +2018,7 @@ extern(
  */
 extern(
   "dialogs_zaton.zat_b215_actor_has_money_rich_pripyat",
-  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
+  (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
     return registry.actor.money() >= 6000;
   }
 );
@@ -2106,7 +2028,7 @@ extern(
  */
 extern(
   "dialogs_zaton.zat_b215_actor_has_no_money_rich_pripyat",
-  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
+  (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
     return registry.actor.money() < 6000;
   }
 );
@@ -2114,19 +2036,16 @@ extern(
 /**
  * todo;
  */
-extern(
-  "dialogs_zaton.zat_b215_relocate_money_poor",
-  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
-    transferMoneyFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), 1000);
-  }
-);
+extern("dialogs_zaton.zat_b215_relocate_money_poor", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
+  transferMoneyFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), 1000);
+});
 
 /**
  * todo;
  */
 extern(
   "dialogs_zaton.zat_b215_relocate_money_poor_pripyat",
-  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
+  (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
     transferMoneyFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), 4000);
   }
 );
@@ -2134,19 +2053,16 @@ extern(
 /**
  * todo;
  */
-extern(
-  "dialogs_zaton.zat_b215_relocate_money_rich",
-  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
-    transferMoneyFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), 3000);
-  }
-);
+extern("dialogs_zaton.zat_b215_relocate_money_rich", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
+  transferMoneyFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), 3000);
+});
 
 /**
  * todo;
  */
 extern(
   "dialogs_zaton.zat_b215_relocate_money_rich_pripyat",
-  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
+  (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
     transferMoneyFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), 6000);
   }
 );
@@ -2154,22 +2070,19 @@ extern(
 /**
  * todo;
  */
-extern(
-  "dialogs_zaton.zat_b44_actor_has_pda_global",
-  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
-    return (
-      registry.actor.object(questItems.zat_b39_joker_pda) !== null ||
-      registry.actor.object(questItems.zat_b44_barge_pda) !== null
-    );
-  }
-);
+extern("dialogs_zaton.zat_b44_actor_has_pda_global", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
+  return (
+    registry.actor.object(questItems.zat_b39_joker_pda) !== null ||
+    registry.actor.object(questItems.zat_b44_barge_pda) !== null
+  );
+});
 
 /**
  * todo;
  */
 extern(
   "dialogs_zaton.zat_b44_actor_has_not_pda_global",
-  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
+  (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
     return (
       registry.actor.object(questItems.zat_b39_joker_pda) === null ||
       registry.actor.object(questItems.zat_b44_barge_pda) === null
@@ -2180,54 +2093,45 @@ extern(
 /**
  * todo;
  */
-extern(
-  "dialogs_zaton.zat_b44_actor_has_pda_barge",
-  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
-    return registry.actor.object(questItems.zat_b44_barge_pda) !== null;
-  }
-);
+extern("dialogs_zaton.zat_b44_actor_has_pda_barge", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
+  return registry.actor.object(questItems.zat_b44_barge_pda) !== null;
+});
 
 /**
  * todo;
  */
-extern(
-  "dialogs_zaton.zat_b44_actor_has_pda_joker",
-  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
-    return registry.actor.object(questItems.zat_b39_joker_pda) !== null;
-  }
-);
+extern("dialogs_zaton.zat_b44_actor_has_pda_joker", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
+  return registry.actor.object(questItems.zat_b39_joker_pda) !== null;
+});
 
 /**
  * todo;
  */
-extern(
-  "dialogs_zaton.zat_b44_actor_has_pda_both",
-  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
-    return (
-      registry.actor.object(questItems.zat_b39_joker_pda) !== null &&
-      registry.actor.object(questItems.zat_b44_barge_pda) !== null
-    );
-  }
-);
+extern("dialogs_zaton.zat_b44_actor_has_pda_both", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
+  return (
+    registry.actor.object(questItems.zat_b39_joker_pda) !== null &&
+    registry.actor.object(questItems.zat_b44_barge_pda) !== null
+  );
+});
 
 /**
  * todo;
  */
-extern("dialogs_zaton.zat_b44_transfer_pda_barge", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
+extern("dialogs_zaton.zat_b44_transfer_pda_barge", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), questItems.zat_b44_barge_pda);
 });
 
 /**
  * todo;
  */
-extern("dialogs_zaton.zat_b44_transfer_pda_joker", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
+extern("dialogs_zaton.zat_b44_transfer_pda_joker", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), questItems.zat_b39_joker_pda);
 });
 
 /**
  * todo;
  */
-extern("dialogs_zaton.zat_b44_transfer_pda_both", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
+extern("dialogs_zaton.zat_b44_transfer_pda_both", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), questItems.zat_b44_barge_pda);
   transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), questItems.zat_b39_joker_pda);
 });
@@ -2237,7 +2141,7 @@ extern("dialogs_zaton.zat_b44_transfer_pda_both", (firstSpeaker: ClientObject, s
  */
 extern(
   "dialogs_zaton.zat_b44_frends_dialog_enabled",
-  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
+  (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
     const a: boolean =
       hasInfoPortion(infoPortions.zat_b3_tech_have_couple_dose) && hasInfoPortion(infoPortions.zat_b3_tech_discount_1);
     const b: boolean = !getExtern<AnyCallable>("zat_b44_actor_has_pda_global", getExtern("dialogs_zaton"))(
@@ -2254,7 +2158,7 @@ extern(
  */
 extern(
   "dialogs_zaton.zat_b53_if_actor_has_detector_advanced",
-  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
+  (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
     return (
       actorHasItem(detectors.detector_advanced) ||
       actorHasItem(detectors.detector_elite) ||
@@ -2266,34 +2170,31 @@ extern(
 /**
  * todo;
  */
-extern(
-  "dialogs_zaton.zat_b53_transfer_medkit_to_npc",
-  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
-    let section: Optional<TDrugItem> = null;
-    const actor: ClientObject = registry.actor;
+extern("dialogs_zaton.zat_b53_transfer_medkit_to_npc", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
+  let section: Optional<TDrugItem> = null;
+  const actor: GameObject = registry.actor;
 
-    if (actorHasItem(drugs.medkit)) {
-      section = drugs.medkit;
-    } else if (actorHasItem(drugs.medkit_army)) {
-      section = drugs.medkit_army;
-    } else if (actorHasItem(drugs.medkit_scientic)) {
-      section = drugs.medkit_scientic;
-    }
-
-    if (!section) {
-      return;
-    }
-
-    registry.simulator.release(registry.simulator.object(actor.object(section)!.id()), true);
-    NotificationManager.getInstance().sendItemRelocatedNotification(ENotificationDirection.OUT, section, 1);
-    actor.change_character_reputation(10);
+  if (actorHasItem(drugs.medkit)) {
+    section = drugs.medkit;
+  } else if (actorHasItem(drugs.medkit_army)) {
+    section = drugs.medkit_army;
+  } else if (actorHasItem(drugs.medkit_scientic)) {
+    section = drugs.medkit_scientic;
   }
-);
+
+  if (!section) {
+    return;
+  }
+
+  registry.simulator.release(registry.simulator.object(actor.object(section)!.id()), true);
+  NotificationManager.getInstance().sendItemRelocatedNotification(ENotificationDirection.OUT, section, 1);
+  actor.change_character_reputation(10);
+});
 
 /**
  * todo;
  */
-extern("dialogs_zaton.is_zat_b106_hunting_time", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
+extern("dialogs_zaton.is_zat_b106_hunting_time", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   if (level.get_time_hours() >= 2 && level.get_time_hours() < 5) {
     if (level.get_time_hours() > 2) {
       return true;
@@ -2308,27 +2209,24 @@ extern("dialogs_zaton.is_zat_b106_hunting_time", (firstSpeaker: ClientObject, se
 /**
  * todo;
  */
-extern(
-  "dialogs_zaton.is_not_zat_b106_hunting_time",
-  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
-    if (level.get_time_hours() >= 2 && level.get_time_hours() < 5) {
-      if (level.get_time_hours() > 2) {
-        return false;
-      } else if (level.get_time_minutes() >= 45) {
-        return false;
-      }
+extern("dialogs_zaton.is_not_zat_b106_hunting_time", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
+  if (level.get_time_hours() >= 2 && level.get_time_hours() < 5) {
+    if (level.get_time_hours() > 2) {
+      return false;
+    } else if (level.get_time_minutes() >= 45) {
+      return false;
     }
-
-    return true;
   }
-);
+
+  return true;
+});
 
 /**
  * todo;
  */
 extern(
   "dialogs_zaton.zat_b53_if_actor_hasnt_detector_advanced",
-  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
+  (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
     return !getExtern<AnyCallable>("zat_b53_if_actor_has_detector_advanced", getExtern("dialogs_zaton"))(
       firstSpeaker,
       secondSpeaker
@@ -2341,7 +2239,7 @@ extern(
  */
 extern(
   "dialogs_zaton.zat_b53_transfer_detector_advanced_to_actor",
-  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
+  (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
     transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), detectors.detector_advanced);
   }
 );
@@ -2351,7 +2249,7 @@ extern(
  */
 extern(
   "dialogs_zaton.zat_b53_transfer_fireball_to_actor",
-  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
+  (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
     transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), artefacts.af_fireball);
   }
 );
@@ -2361,7 +2259,7 @@ extern(
  */
 extern(
   "dialogs_zaton.zat_b53_transfer_medkit_to_actor",
-  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
+  (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
     transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), drugs.medkit);
   }
 );
@@ -2369,7 +2267,7 @@ extern(
 /**
  * todo;
  */
-extern("dialogs_zaton.zat_b106_soroka_reward", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
+extern("dialogs_zaton.zat_b106_soroka_reward", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   if (
     hasInfoPortion(infoPortions.jup_b25_flint_blame_done_to_duty) ||
     hasInfoPortion(infoPortions.jup_b25_flint_blame_done_to_freedom)
@@ -2385,8 +2283,8 @@ extern("dialogs_zaton.zat_b106_soroka_reward", (firstSpeaker: ClientObject, seco
  */
 extern(
   "dialogs_zaton.zat_b103_actor_has_needed_food",
-  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
-    const actor: ClientObject = registry.actor;
+  (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
+    const actor: GameObject = registry.actor;
     const itemSections: LuaArray<TFoodItem> = $fromArray<TFoodItem>([food.bread, food.kolbasa, food.conserva]);
 
     let count: TCount = 0;
@@ -2406,40 +2304,34 @@ extern(
 /**
  * todo;
  */
-extern(
-  "dialogs_zaton.zat_b106_transfer_weap_to_actor",
-  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
-    transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), weapons.wpn_spas12);
-  }
-);
+extern("dialogs_zaton.zat_b106_transfer_weap_to_actor", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
+  transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), weapons.wpn_spas12);
+});
 
 /**
  * todo;
  */
-extern("dialogs_zaton.zat_b106_give_reward", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
+extern("dialogs_zaton.zat_b106_give_reward", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   TreasureManager.giveTreasureCoordinates("zat_hiding_place_50");
 });
 
 /**
  * todo;
  */
-extern(
-  "dialogs_zaton.zat_b3_tech_drinks_precond",
-  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
-    if (hasInfoPortion(infoPortions.zat_b3_gauss_repaired) && !hasInfoPortion(infoPortions.zat_b3_tech_drink_no_more)) {
-      return true;
-    } else if (!hasInfoPortion(infoPortions.zat_b3_tech_see_produce_62)) {
-      return true;
-    }
-
-    return false;
+extern("dialogs_zaton.zat_b3_tech_drinks_precond", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
+  if (hasInfoPortion(infoPortions.zat_b3_gauss_repaired) && !hasInfoPortion(infoPortions.zat_b3_tech_drink_no_more)) {
+    return true;
+  } else if (!hasInfoPortion(infoPortions.zat_b3_tech_see_produce_62)) {
+    return true;
   }
-);
+
+  return false;
+});
 
 /**
  * todo;
  */
-extern("dialogs_zaton.zat_b106_soroka_gone", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
+extern("dialogs_zaton.zat_b106_soroka_gone", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   return (
     hasInfoPortion(infoPortions.jup_b25_flint_blame_done_to_duty) ||
     hasInfoPortion(infoPortions.jup_b25_flint_blame_done_to_freedom)
@@ -2449,53 +2341,50 @@ extern("dialogs_zaton.zat_b106_soroka_gone", (firstSpeaker: ClientObject, second
 /**
  * todo;
  */
-extern("dialogs_zaton.zat_b106_soroka_not_gone", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
+extern("dialogs_zaton.zat_b106_soroka_not_gone", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   return !getExtern<AnyCallable>("zat_b106_soroka_gone", getExtern("dialogs_zaton"))(firstSpeaker, secondSpeaker);
 });
 
 /**
  * todo;
  */
-extern("dialogs_zaton.zat_b22_actor_has_proof", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
+extern("dialogs_zaton.zat_b22_actor_has_proof", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   return actorHasItem(infoPortions.zat_b22_medic_pda);
 });
 
 /**
  * todo;
  */
-extern("dialogs_zaton.zat_b22_transfer_proof", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
+extern("dialogs_zaton.zat_b22_transfer_proof", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), infoPortions.zat_b22_medic_pda);
 });
 
 /**
  * todo;
  */
-extern(
-  "dialogs_zaton.zat_b5_stalker_transfer_money",
-  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
-    giveMoneyToActor(2500);
-    TreasureManager.giveTreasureCoordinates("zat_hiding_place_7");
-  }
-);
+extern("dialogs_zaton.zat_b5_stalker_transfer_money", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
+  giveMoneyToActor(2500);
+  TreasureManager.giveTreasureCoordinates("zat_hiding_place_7");
+});
 
 /**
  * todo;
  */
-extern("dialogs_zaton.zat_b5_dealer_full_revard", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
+extern("dialogs_zaton.zat_b5_dealer_full_revard", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   giveMoneyToActor(6_000);
 });
 
 /**
  * todo;
  */
-extern("dialogs_zaton.zat_b5_dealer_easy_revard", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
+extern("dialogs_zaton.zat_b5_dealer_easy_revard", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   giveMoneyToActor(3_000);
 });
 
 /**
  * todo;
  */
-extern("dialogs_zaton.zat_b5_bandits_revard", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
+extern("dialogs_zaton.zat_b5_bandits_revard", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   giveMoneyToActor(5_000);
   TreasureManager.giveTreasureCoordinates("zat_hiding_place_20");
 });
@@ -2505,7 +2394,7 @@ extern("dialogs_zaton.zat_b5_bandits_revard", (firstSpeaker: ClientObject, secon
  */
 extern(
   "dialogs_zaton.zat_a23_actor_has_access_card",
-  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
+  (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
     return registry.actor.object(questItems.zat_a23_access_card) !== null;
   }
 );
@@ -2515,7 +2404,7 @@ extern(
  */
 extern(
   "dialogs_zaton.zat_a23_transfer_access_card_to_tech",
-  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
+  (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
     transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), questItems.zat_a23_access_card);
     transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), drugs.medkit_scientic, 3);
   }
@@ -2527,7 +2416,7 @@ extern(
 // --// --- b57 new // --// --
 extern(
   "dialogs_zaton.zat_b57_stalker_reward_to_actor_detector",
-  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
+  (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
     transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), detectors.detector_elite);
     TreasureManager.giveTreasureCoordinates("zat_hiding_place_54");
   }
@@ -2536,37 +2425,34 @@ extern(
 /**
  * todo;
  */
-extern("dialogs_zaton.actor_has_gas", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
+extern("dialogs_zaton.actor_has_gas", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   return registry.actor.object(questItems.zat_b57_gas) !== null;
 });
 
 /**
  * todo;
  */
-extern("dialogs_zaton.actor_has_not_gas", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
+extern("dialogs_zaton.actor_has_not_gas", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   return !getExtern<AnyCallable>("actor_has_gas", getExtern("dialogs_zaton"))(firstSpeaker, secondSpeaker);
 });
 
 /**
  * todo;
  */
-extern("dialogs_zaton.zat_b57_actor_has_money", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
+extern("dialogs_zaton.zat_b57_actor_has_money", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   return registry.actor.money() >= 2000;
 });
 
 /**
  * todo;
  */
-extern(
-  "dialogs_zaton.zat_b57_actor_hasnt_money",
-  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
-    return !getExtern<AnyCallable>("zat_b57_actor_has_money", getExtern("dialogs_zaton"))(firstSpeaker, secondSpeaker);
-  }
-);
+extern("dialogs_zaton.zat_b57_actor_hasnt_money", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
+  return !getExtern<AnyCallable>("zat_b57_actor_has_money", getExtern("dialogs_zaton"))(firstSpeaker, secondSpeaker);
+});
 
 /**
  * todo;
  */
-extern("dialogs_zaton.zat_b57_transfer_gas_money", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
+extern("dialogs_zaton.zat_b57_transfer_gas_money", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   transferMoneyFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), 2000);
 });

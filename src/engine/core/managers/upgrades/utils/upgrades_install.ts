@@ -3,7 +3,7 @@ import { IUpgradeDescriptor, TUpgradesList } from "@/engine/core/managers/upgrad
 import { readAllObjectUpgrades } from "@/engine/core/managers/upgrades/utils/upgrades_get";
 import { getItemInstalledUpgradesSet } from "@/engine/core/utils/item";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { ClientObject, LuaArray, TCount, TSection } from "@/engine/lib/types";
+import { GameObject, LuaArray, TCount, TSection } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -13,7 +13,7 @@ const logger: LuaLogger = new LuaLogger($filename);
  * @param object - target item object to add upgrades for
  * @returns whether upgrade was installed
  */
-export function addRandomUpgrade(object: ClientObject): boolean {
+export function addRandomUpgrade(object: GameObject): boolean {
   const installed: LuaTable<TSection, boolean> = getItemInstalledUpgradesSet(object);
   const upgrades: TUpgradesList = readAllObjectUpgrades(SYSTEM_INI, object.section());
 
@@ -41,7 +41,7 @@ export function addRandomUpgrade(object: ClientObject): boolean {
  * @param object - target item object to add upgrades for
  * @param count - count of upgrades to install
  */
-export function addRandomUpgrades(object: ClientObject, count: TCount): void {
+export function addRandomUpgrades(object: GameObject, count: TCount): void {
   const available: LuaTable<IUpgradeDescriptor, boolean> = new LuaTable();
   const installed: LuaTable<TSection, boolean> = getItemInstalledUpgradesSet(object);
   const upgrades: TUpgradesList = readAllObjectUpgrades(SYSTEM_INI, object.section());

@@ -5,11 +5,11 @@ import { DialogManager } from "@/engine/core/managers/dialogs";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds";
 import { TradeManager } from "@/engine/core/managers/trade";
 import { StalkerBinder } from "@/engine/core/objects/binders";
-import { ClientObject } from "@/engine/lib/types";
+import { GameObject } from "@/engine/lib/types";
 import {
   EPacketDataType,
-  mockClientGameObject,
   MockCTime,
+  mockGameObject,
   mockNetPacket,
   MockNetProcessor,
   mockNetReader,
@@ -45,7 +45,7 @@ describe("StalkerBinder class", () => {
 
     jest.spyOn(Date, "now").mockImplementationOnce(() => 7000);
 
-    const object: ClientObject = mockClientGameObject();
+    const object: GameObject = mockGameObject();
     const binder: StalkerBinder = new StalkerBinder(object);
     const netProcessor: MockNetProcessor = new MockNetProcessor();
 

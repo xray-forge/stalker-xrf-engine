@@ -10,8 +10,8 @@ import {
   hasInfoPortions,
 } from "@/engine/core/utils/info_portion";
 import { infoPortions, TInfoPortion } from "@/engine/lib/constants/info_portions";
-import { ClientObject } from "@/engine/lib/types";
-import { mockActorClientGameObject, mockClientGameObject } from "@/fixtures/xray";
+import { GameObject } from "@/engine/lib/types";
+import { mockActorGameObject, mockGameObject } from "@/fixtures/xray";
 
 describe("info_portion utils", () => {
   beforeEach(() => {
@@ -21,7 +21,7 @@ describe("info_portion utils", () => {
       infoPortions.device_pda_port_bandit_leader_sold,
     ];
 
-    registry.actor = mockClientGameObject({
+    registry.actor = mockGameObject({
       has_info: jest.fn((value: TInfoPortion) => availableInfos.includes(value)),
       give_info_portion: jest.fn((value: TInfoPortion) => {
         availableInfos.push(value);
@@ -37,11 +37,11 @@ describe("info_portion utils", () => {
   });
 
   afterEach(() => {
-    registry.actor = null as unknown as ClientObject;
+    registry.actor = null as unknown as GameObject;
   });
 
   it("giveInfoPortion should correctly give info portion for actor", () => {
-    registry.actor = mockActorClientGameObject();
+    registry.actor = mockActorGameObject();
 
     giveInfoPortion(infoPortions.info_up_ac_mp5);
 

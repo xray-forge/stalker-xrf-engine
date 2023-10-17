@@ -24,7 +24,7 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 import { alifeConfig } from "@/engine/lib/configs/AlifeConfig";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import {
-  ClientObject,
+  GameObject,
   GameTask,
   NetPacket,
   Optional,
@@ -101,25 +101,25 @@ export class ActorBinder extends object_binder {
     registerActor(this.object);
     destroyPortableStore(ACTOR_ID);
 
-    this.object.set_callback(callback.inventory_info, (object: ClientObject, info: string) => {
+    this.object.set_callback(callback.inventory_info, (object: GameObject, info: string) => {
       this.eventsManager.emitEvent(EGameEvent.ACTOR_INFO_UPDATE, object, info);
     });
-    this.object.set_callback(callback.take_item_from_box, (box: ClientObject, item: ClientObject) => {
+    this.object.set_callback(callback.take_item_from_box, (box: GameObject, item: GameObject) => {
       this.eventsManager.emitEvent(EGameEvent.ACTOR_TAKE_BOX_ITEM, box, item);
     });
-    this.object.set_callback(callback.on_item_drop, (item: ClientObject) => {
+    this.object.set_callback(callback.on_item_drop, (item: GameObject) => {
       this.eventsManager.emitEvent(EGameEvent.ACTOR_ITEM_DROP, item);
     });
-    this.object.set_callback(callback.trade_sell_buy_item, (item: ClientObject, sellBuy: boolean, money: number) => {
+    this.object.set_callback(callback.trade_sell_buy_item, (item: GameObject, sellBuy: boolean, money: number) => {
       this.eventsManager.emitEvent(EGameEvent.ACTOR_TRADE, item, sellBuy, money);
     });
     this.object.set_callback(callback.task_state, (task: GameTask, state: TTaskState) => {
       this.eventsManager.emitEvent(EGameEvent.TASK_STATE_UPDATE, task, state);
     });
-    this.object.set_callback(callback.on_item_take, (object: ClientObject) => {
+    this.object.set_callback(callback.on_item_take, (object: GameObject) => {
       this.eventsManager.emitEvent(EGameEvent.ACTOR_ITEM_TAKE, object);
     });
-    this.object.set_callback(callback.use_object, (object: ClientObject) => {
+    this.object.set_callback(callback.use_object, (object: GameObject) => {
       this.eventsManager.emitEvent(EGameEvent.ACTOR_USE_ITEM, object);
     });
 

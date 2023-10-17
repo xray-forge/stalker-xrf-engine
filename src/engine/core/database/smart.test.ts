@@ -11,9 +11,9 @@ import {
 } from "@/engine/core/database/smart";
 import { SmartCover } from "@/engine/core/objects/server/smart_cover";
 import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain";
-import { ClientObject, ZoneCampfire } from "@/engine/lib/types";
+import { GameObject, ZoneCampfire } from "@/engine/lib/types";
 import { mockSmartTerrain } from "@/fixtures/engine";
-import { mockClientGameObject, MockCZoneCampfire } from "@/fixtures/xray";
+import { MockCZoneCampfire, mockGameObject } from "@/fixtures/xray";
 
 describe("smart module of the database", () => {
   beforeEach(() => {
@@ -22,7 +22,7 @@ describe("smart module of the database", () => {
 
   it("should correctly register smart terrain", () => {
     const smartTerrain: SmartTerrain = mockSmartTerrain();
-    const smartObject: ClientObject = mockClientGameObject();
+    const smartObject: GameObject = mockGameObject();
 
     registerSmartTerrain(smartObject, smartTerrain);
 
@@ -56,7 +56,7 @@ describe("smart module of the database", () => {
   it("should correctly register smart terrains campfires", () => {
     const smartTerrain: SmartTerrain = mockSmartTerrain();
     const campfire: ZoneCampfire = MockCZoneCampfire.mock(true);
-    const campfireObject: ClientObject = mockClientGameObject({ get_campfire: () => campfire });
+    const campfireObject: GameObject = mockGameObject({ get_campfire: () => campfire });
 
     expect(registry.objects.length()).toBe(0);
     expect(registry.smartTerrainsCampfires.length()).toBe(0);

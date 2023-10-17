@@ -14,7 +14,7 @@ import { getConfigSwitchConditions, readIniBoolean, readIniString } from "@/engi
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { addCommonActionPreconditions } from "@/engine/core/utils/scheme/scheme_setup";
 import { getObjectSquad } from "@/engine/core/utils/squad";
-import { ActionPlanner, ClientObject, IniFile, Optional, TName } from "@/engine/lib/types";
+import { ActionPlanner, GameObject, IniFile, Optional, TName } from "@/engine/lib/types";
 import { EScheme, ESchemeType, TSection } from "@/engine/lib/types/scheme";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -27,7 +27,7 @@ export class SchemePatrol extends AbstractScheme {
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.STALKER;
 
   public static override activate(
-    object: ClientObject,
+    object: GameObject,
     ini: IniFile,
     scheme: EScheme,
     section: TSection,
@@ -91,7 +91,7 @@ export class SchemePatrol extends AbstractScheme {
   }
 
   public static override add(
-    object: ClientObject,
+    object: GameObject,
     ini: IniFile,
     scheme: EScheme,
     section: TSection,

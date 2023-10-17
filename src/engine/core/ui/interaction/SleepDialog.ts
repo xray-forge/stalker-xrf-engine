@@ -21,7 +21,7 @@ import { isWideScreen, resolveXmlFormPath } from "@/engine/core/utils/ui";
 import { create2dVector } from "@/engine/core/utils/vector";
 import { screenConfig } from "@/engine/lib/configs/ScreenConfig";
 import { infoPortions } from "@/engine/lib/constants/info_portions/info_portions";
-import { ClientObject, TPath, TTimestamp, Vector2D } from "@/engine/lib/types";
+import { GameObject, TPath, TTimestamp, Vector2D } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 const base: TPath = "interaction\\SleepDialog.component";
@@ -152,7 +152,7 @@ export class SleepDialog extends CUIScriptWnd {
   public showSleepOptions(): void {
     logger.info("Show sleep options");
 
-    const actor: ClientObject = registry.actor;
+    const actor: GameObject = registry.actor;
 
     giveInfoPortion(infoPortions.sleep_active);
 

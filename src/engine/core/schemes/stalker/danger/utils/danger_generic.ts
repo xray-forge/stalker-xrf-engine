@@ -16,10 +16,10 @@ import { MAX_U16 } from "@/engine/lib/constants/memory";
 import { TRUE } from "@/engine/lib/constants/words";
 import {
   AnyObject,
-  ClientObject,
   DangerObject,
-  EClientObjectRelation,
+  EGameObjectRelation,
   EScheme,
+  GameObject,
   Optional,
   ServerCreatureObject,
   TDangerType,
@@ -32,7 +32,7 @@ import {
  * @param object - target client object to check
  * @returns whether object is facing any danger right now
  */
-export function isObjectFacingDanger(object: ClientObject): boolean {
+export function isObjectFacingDanger(object: GameObject): boolean {
   const bestDanger: Optional<DangerObject> = object.best_danger();
 
   // No danger at all.
@@ -41,7 +41,7 @@ export function isObjectFacingDanger(object: ClientObject): boolean {
   }
 
   const bestDangerType: TDangerType = bestDanger.type();
-  const bestDangerObject: Optional<ClientObject> =
+  const bestDangerObject: Optional<GameObject> =
     bestDangerType !== danger_object.grenade && bestDanger.dependent_object() !== null
       ? bestDanger.dependent_object()
       : bestDanger.object();
@@ -73,7 +73,7 @@ export function isObjectFacingDanger(object: ClientObject): boolean {
   if (
     bestDangerType !== danger_object.grenade &&
     bestDangerType !== danger_object.entity_death &&
-    object.relation(bestDangerObject) !== EClientObjectRelation.ENEMY
+    object.relation(bestDangerObject) !== EGameObjectRelation.ENEMY
   ) {
     return false;
   }
@@ -117,7 +117,7 @@ export function isObjectFacingDanger(object: ClientObject): boolean {
  * @param enemy - possible enemy to check
  * @returns whether object os enemy of provided client entity
  */
-export function canObjectSelectAsEnemy(object: ClientObject, enemy: ClientObject): boolean {
+export function canObjectSelectAsEnemy(object: GameObject, enemy: GameObject): boolean {
   // Dead, cannot select enemies.
   if (!object.alive()) {
     return false;
@@ -158,7 +158,7 @@ export function canObjectSelectAsEnemy(object: ClientObject, enemy: ClientObject
   if (objectState.enemyId !== ACTOR_ID) {
     // If enemy of object is in no-combat zone.
     for (const [name, storyId] of registry.noCombatZones) {
-      const zone: Optional<ClientObject> = registry.zones.get(name);
+      const zone: Optional<GameObject> = registry.zones.get(name);
 
       if (zone && (isObjectInZone(object, zone) || isObjectInZone(enemy, zone))) {
         const smartTerrain: Optional<SmartTerrain> =

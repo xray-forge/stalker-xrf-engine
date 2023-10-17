@@ -11,7 +11,7 @@ import { toJSON } from "@/engine/core/utils/transform/json";
 import { getObjectActiveWeaponSlot } from "@/engine/core/utils/weapon";
 import { stalkerCommunities, TCommunity } from "@/engine/lib/constants/communities";
 import { NIL } from "@/engine/lib/constants/words";
-import { ActionPlanner, ClientObject, ESchemeType, Optional, TLabel, TName, TNumberId } from "@/engine/lib/types";
+import { ActionPlanner, ESchemeType, GameObject, Optional, TLabel, TName, TNumberId } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -22,7 +22,7 @@ export class DebugManager extends AbstractManager {
   /**
    * Debug object inventory items.
    */
-  public logObjectInventoryItems(object: ClientObject): void {
+  public logObjectInventoryItems(object: GameObject): void {
     logger.pushSeparator();
     logger.info("Print object inventory report:", object.name());
 
@@ -39,7 +39,7 @@ export class DebugManager extends AbstractManager {
   /**
    * Debug action planner state.
    */
-  public logObjectPlannerState(object: ClientObject): void {
+  public logObjectPlannerState(object: GameObject): void {
     logger.pushSeparator();
     logger.info("Print object planner state report:", object.name());
 
@@ -103,7 +103,7 @@ export class DebugManager extends AbstractManager {
   /**
    * Details about state management of the object.
    */
-  public logObjectStateManager(object: ClientObject): void {
+  public logObjectStateManager(object: GameObject): void {
     logger.pushSeparator();
     logger.info("Print object state manager report:", object.name());
 
@@ -141,7 +141,7 @@ export class DebugManager extends AbstractManager {
   /**
    * Details about state management of the object.
    */
-  public logObjectRelations(object: ClientObject): void {
+  public logObjectRelations(object: GameObject): void {
     logger.pushSeparator();
     logger.info("Print object relations report:", object.name());
 
@@ -184,7 +184,7 @@ export class DebugManager extends AbstractManager {
   /**
    * Log object scheme state for easier debug.
    */
-  public logObjectState(object: ClientObject): void {
+  public logObjectState(object: GameObject): void {
     logger.pushSeparator();
     logger.info("Print object state report:", object.name(), object.id(), object.section());
 

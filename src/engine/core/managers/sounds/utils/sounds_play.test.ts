@@ -4,8 +4,8 @@ import { clsid } from "xray16";
 import { NpcSound } from "@/engine/core/managers/sounds/objects";
 import { soundsConfig } from "@/engine/core/managers/sounds/SoundsConfig";
 import { initializeObjectThemes } from "@/engine/core/managers/sounds/utils/sounds_play";
-import { ClientObject } from "@/engine/lib/types";
-import { mockClientGameObject } from "@/fixtures/xray";
+import { GameObject } from "@/engine/lib/types";
+import { mockGameObject } from "@/fixtures/xray";
 
 describe("sounds_play utils", () => {
   it("initializeObjectThemes should correctly initialize object community themes", () => {
@@ -15,7 +15,7 @@ describe("sounds_play utils", () => {
     jest.spyOn(attackBegin, "initializeObject").mockImplementation(jest.fn());
     jest.spyOn(attackBeginReply, "initializeObject").mockImplementation(jest.fn());
 
-    const dolgObject: ClientObject = mockClientGameObject({
+    const dolgObject: GameObject = mockGameObject({
       character_community: <T>() => "dolg" as T,
       clsid: () => clsid.script_stalker,
     });
@@ -25,7 +25,7 @@ describe("sounds_play utils", () => {
     expect(attackBegin.initializeObject).toHaveBeenCalledWith(dolgObject);
     expect(attackBeginReply.initializeObject).not.toHaveBeenCalled();
 
-    const object: ClientObject = mockClientGameObject({
+    const object: GameObject = mockGameObject({
       clsid: () => clsid.script_stalker,
     });
 

@@ -7,15 +7,7 @@ import { ISchemeDangerState } from "@/engine/core/schemes/stalker/danger/danger_
 import { canObjectSelectAsEnemy } from "@/engine/core/schemes/stalker/danger/utils";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { isSoundType } from "@/engine/core/utils/sound";
-import {
-  ClientObject,
-  EClientObjectRelation,
-  Optional,
-  TNumberId,
-  TRate,
-  TSoundType,
-  Vector,
-} from "@/engine/lib/types";
+import { EGameObjectRelation, GameObject, Optional, TNumberId, TRate, TSoundType, Vector } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -31,13 +23,13 @@ export class DangerManager extends AbstractSchemeManager<ISchemeDangerState> {
    * todo: Description.
    */
   public onHear(
-    object: ClientObject,
+    object: GameObject,
     whoId: TNumberId,
     soundType: TSoundType,
     soundPosition: Vector,
     soundPower: TRate
   ): void {
-    const who: Optional<ClientObject> = registry.objects.get(whoId)?.object;
+    const who: Optional<GameObject> = registry.objects.get(whoId)?.object;
 
     // If already in combat or no client object 'who'.
     if (!who || object.best_enemy()) {
@@ -50,7 +42,7 @@ export class DangerManager extends AbstractSchemeManager<ISchemeDangerState> {
     }
 
     // Set danger state by hearing weapon bullets.
-    if (isSoundType(soundType, snd_type.weapon_bullet_hit) && object.relation(who) === EClientObjectRelation.ENEMY) {
+    if (isSoundType(soundType, snd_type.weapon_bullet_hit) && object.relation(who) === EGameObjectRelation.ENEMY) {
       const isSoundNear: boolean =
         object.position().distance_to_sqr(soundPosition) <= combatConfig.BULLET_REACT_DISTANCE_SQR;
 
@@ -63,12 +55,12 @@ export class DangerManager extends AbstractSchemeManager<ISchemeDangerState> {
         object.set_dest_level_vertex_id(who.level_vertex_id());
       }
     } else if (isSoundType(soundType, snd_type.weapon)) {
-      const shootingAt: Optional<ClientObject> = who.best_enemy();
+      const shootingAt: Optional<GameObject> = who.best_enemy();
 
       // If hear others shooting at enemy OR enemy shooting in range, try to help
       if (
-        ((shootingAt && object.relation(shootingAt) === EClientObjectRelation.ENEMY) ||
-          object.relation(who) === EClientObjectRelation.ENEMY) &&
+        ((shootingAt && object.relation(shootingAt) === EGameObjectRelation.ENEMY) ||
+          object.relation(who) === EGameObjectRelation.ENEMY) &&
         object.position().distance_to_sqr(soundPosition) <= combatConfig.ALLIES_SHOOTING_ASSIST_DISTANCE_SQR
       ) {
         this.state.dangerTime = time_global();

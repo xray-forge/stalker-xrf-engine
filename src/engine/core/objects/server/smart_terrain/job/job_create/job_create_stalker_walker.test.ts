@@ -9,7 +9,7 @@ import { createStalkerWalkerJobs } from "@/engine/core/objects/server/smart_terr
 import { jobPreconditionWalker } from "@/engine/core/objects/server/smart_terrain/job/job_precondition";
 import { StringBuilder } from "@/engine/core/utils/string";
 import { mockSmartTerrain, readInGameTestLtx } from "@/fixtures/engine";
-import { mockClientGameObject } from "@/fixtures/xray";
+import { mockGameObject } from "@/fixtures/xray";
 
 describe("jobs_general should correctly generate stalker walker jobs", () => {
   it("should correctly generate default walker jobs with no patrols", async () => {
@@ -84,7 +84,7 @@ describe("jobs_general should correctly generate stalker walker jobs", () => {
     smartTerrain.defendRestrictor = "test_defend_restrictor";
     smartTerrain.smartTerrainActorControl = { ignoreZone: "some_restrictor" } as SmartTerrainControl;
 
-    registerZone(mockClientGameObject({ name: () => "some_restrictor", inside: () => true }));
+    registerZone(mockGameObject({ name: () => "some_restrictor", inside: () => true }));
 
     jest.spyOn(smartTerrain, "name").mockImplementation(() => "test_smart");
 
@@ -117,7 +117,7 @@ describe("jobs_general should correctly generate stalker walker jobs", () => {
     smartTerrain.smartTerrainActorControl = { ignoreZone: "some_restrictor" } as SmartTerrainControl;
     smartTerrain.safeRestrictor = "safe_restrictor_test";
 
-    registerZone(mockClientGameObject({ name: () => "safe_restrictor_test", inside: () => true }));
+    registerZone(mockGameObject({ name: () => "safe_restrictor_test", inside: () => true }));
 
     jest.spyOn(smartTerrain, "name").mockImplementation(() => "test_smart");
 

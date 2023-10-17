@@ -1,12 +1,12 @@
 import { CHelicopter } from "xray16";
 
 import { createEmptyVector } from "@/engine/core/utils/vector";
-import { ClientObject, Optional, TRate, Vector } from "@/engine/lib/types";
+import { GameObject, Optional, TRate, Vector } from "@/engine/lib/types";
 
 const heliFlyer: LuaTable<number, HeliFly> = new LuaTable();
 
 export class HeliFly {
-  public object: ClientObject;
+  public object: GameObject;
   public pointByLook: Vector;
   public blockFlook: boolean;
   public distByLook: number;
@@ -16,7 +16,7 @@ export class HeliFly {
   public destPoint: Optional<Vector>;
   public pointArr: LuaTable<number, Vector>;
 
-  public constructor(object: ClientObject) {
+  public constructor(object: GameObject) {
     this.object = object;
     this.blockFlook = false;
     this.distByLook = 0;
@@ -193,7 +193,7 @@ export class HeliFly {
 /**
  * todo;
  */
-export function getHeliFlyer(object: ClientObject): HeliFly {
+export function getHeliFlyer(object: GameObject): HeliFly {
   if (heliFlyer.get(object.id()) === null) {
     heliFlyer.set(object.id(), new HeliFly(object));
   }

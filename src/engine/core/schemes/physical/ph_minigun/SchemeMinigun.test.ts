@@ -6,13 +6,13 @@ import { ISchemeMinigunState } from "@/engine/core/schemes/physical/ph_minigun/p
 import { SchemeMinigun } from "@/engine/core/schemes/physical/ph_minigun/SchemeMinigun";
 import { getConfigSwitchConditions, parseConditionsList } from "@/engine/core/utils/ini";
 import { loadSchemeImplementation } from "@/engine/core/utils/scheme";
-import { ClientObject, IniFile } from "@/engine/lib/types";
+import { GameObject, IniFile } from "@/engine/lib/types";
 import { assertSchemeSubscribedToManager, mockBaseSchemeLogic } from "@/fixtures/engine";
-import { mockClientGameObject, mockIniFile } from "@/fixtures/xray";
+import { mockGameObject, mockIniFile } from "@/fixtures/xray";
 
 describe("SchemeMinigun class", () => {
   it("should correctly activate scheme with defaults", () => {
-    const object: ClientObject = mockClientGameObject();
+    const object: GameObject = mockGameObject();
     const ini: IniFile = mockIniFile("test.ltx", {
       "ph_minigun@test": {},
     });
@@ -49,7 +49,7 @@ describe("SchemeMinigun class", () => {
   });
 
   it("should correctly activate scheme with custom values", () => {
-    const object: ClientObject = mockClientGameObject();
+    const object: GameObject = mockGameObject();
     const ini: IniFile = mockIniFile("test.ltx", {
       "ph_minigun@test": {
         on_info: "{+test} first, second",

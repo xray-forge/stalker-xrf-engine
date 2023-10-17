@@ -13,7 +13,7 @@ import { misc } from "@/engine/lib/constants/items/misc";
 import { FALSE, NIL, TRUE } from "@/engine/lib/constants/words";
 import {
   AlifeSimulator,
-  ClientObject,
+  GameObject,
   LuaArray,
   Optional,
   TCount,
@@ -85,7 +85,7 @@ export class WoundManager extends AbstractSchemeManager<ISchemeWoundedState> {
       logger.info("Eat medkit:", this.object.name());
 
       if (this.object.object(misc.medkit_script) !== null) {
-        this.object.eat(this.object.object(misc.medkit_script) as ClientObject);
+        this.object.eat(this.object.object(misc.medkit_script) as GameObject);
       }
 
       const simulator: AlifeSimulator = registry.simulator;

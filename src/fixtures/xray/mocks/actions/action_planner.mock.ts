@@ -1,7 +1,7 @@
 import {
   ActionBase,
   ActionPlanner,
-  ClientObject,
+  GameObject,
   Optional,
   PropertyEvaluator,
   PropertyStorage,
@@ -18,7 +18,7 @@ export class MockActionPlanner extends MockLuabindClass {
     return new MockActionPlanner() as unknown as ActionPlanner;
   }
 
-  public object!: ClientObject;
+  public object!: GameObject;
   public storage!: PropertyStorage;
 
   public evaluators: Record<TNumberId, PropertyEvaluator> = {};
@@ -34,7 +34,7 @@ export class MockActionPlanner extends MockLuabindClass {
 
   public update(): void {}
 
-  public setup(object: ClientObject): void {
+  public setup(object: GameObject): void {
     this.object = object;
   }
 

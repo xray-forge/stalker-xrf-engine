@@ -13,9 +13,9 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 import { clampNumber } from "@/engine/core/utils/number";
 import { createEmptyVector, createVector, vectorRotateY } from "@/engine/core/utils/vector";
 import {
-  ClientObject,
   ESoundObjectType,
   GameHud,
+  GameObject,
   Hit,
   NetPacket,
   NetProcessor,
@@ -155,7 +155,7 @@ export class PsyAntennaManager extends AbstractManager {
       this.phantomIdle = math.random(5000, 10000);
 
       if (math.random() < this.phantomSpawnProbability) {
-        const actor: ClientObject = registry.actor;
+        const actor: GameObject = registry.actor;
         const phantomManager: PhantomManager = PhantomManager.getInstance();
 
         if (phantomManager.phantomsCount < this.phantomMax) {
@@ -275,7 +275,7 @@ export class PsyAntennaManager extends AbstractManager {
       const power: number = this.hitAmplitude * this.hitIntensity;
 
       if (power > 0.0001) {
-        const actor: ClientObject = registry.actor;
+        const actor: GameObject = registry.actor;
         const psyHit: Hit = new hit();
 
         psyHit.power = power;

@@ -3,9 +3,9 @@ import { clsid } from "xray16";
 
 import { getMonsterState, setMonsterState } from "@/engine/core/database/monster";
 import { EMonsterState } from "@/engine/lib/constants/monsters";
-import { ClientObject } from "@/engine/lib/types";
+import { GameObject } from "@/engine/lib/types";
 import { resetFunctionMock } from "@/fixtures/jest";
-import { mockClientGameObject, mockIniFile } from "@/fixtures/xray";
+import { mockGameObject, mockIniFile } from "@/fixtures/xray";
 
 describe("monster database module", () => {
   it("should correctly read monster state from ini", () => {
@@ -20,7 +20,7 @@ describe("monster database module", () => {
   });
 
   it("should correctly set monster state", () => {
-    const monster: ClientObject = mockClientGameObject();
+    const monster: GameObject = mockGameObject();
 
     setMonsterState(monster, null);
     setMonsterState(monster, EMonsterState.NONE);
@@ -31,7 +31,7 @@ describe("monster database module", () => {
     expect(() => setMonsterState(monster, EMonsterState.VISIBLE)).toThrow();
     expect(() => setMonsterState(monster, "SOMETHING" as EMonsterState)).toThrow();
 
-    const bloodsucker: ClientObject = mockClientGameObject({ clsid: () => clsid.bloodsucker_s });
+    const bloodsucker: GameObject = mockGameObject({ clsid: () => clsid.bloodsucker_s });
 
     setMonsterState(bloodsucker, EMonsterState.VISIBLE);
     expect(bloodsucker.set_invisible).toHaveBeenCalledWith(false);

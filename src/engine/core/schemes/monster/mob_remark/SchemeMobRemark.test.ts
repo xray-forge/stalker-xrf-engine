@@ -6,13 +6,13 @@ import { MobRemarkManager } from "@/engine/core/schemes/monster/mob_remark/MobRe
 import { SchemeMobRemark } from "@/engine/core/schemes/monster/mob_remark/SchemeMobRemark";
 import { getConfigSwitchConditions, parseConditionsList } from "@/engine/core/utils/ini";
 import { loadSchemeImplementation } from "@/engine/core/utils/scheme";
-import { ClientObject, EScheme, IniFile } from "@/engine/lib/types";
+import { EScheme, GameObject, IniFile } from "@/engine/lib/types";
 import { assertSchemeSubscribedToManager } from "@/fixtures/engine";
-import { mockClientGameObject, mockIniFile } from "@/fixtures/xray";
+import { mockGameObject, mockIniFile } from "@/fixtures/xray";
 
 describe("SchemeMobRemark", () => {
   it("should correctly activate with defaults", () => {
-    const object: ClientObject = mockClientGameObject();
+    const object: GameObject = mockGameObject();
     const ini: IniFile = mockIniFile("test.ltx", {
       "mob_remark@test": {},
     });
@@ -37,7 +37,7 @@ describe("SchemeMobRemark", () => {
   });
 
   it("should correctly activate with overrides", () => {
-    const object: ClientObject = mockClientGameObject();
+    const object: GameObject = mockGameObject();
     const ini: IniFile = mockIniFile("test.ltx", {
       "mob_remark@test": {
         on_info: "{+test} first, second",

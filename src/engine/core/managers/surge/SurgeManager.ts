@@ -34,7 +34,7 @@ import { TLevel } from "@/engine/lib/constants/levels";
 import { Z_VECTOR } from "@/engine/lib/constants/vectors";
 import { TRUE } from "@/engine/lib/constants/words";
 import {
-  ClientObject,
+  GameObject,
   Hit,
   NetPacket,
   NetProcessor,
@@ -403,7 +403,7 @@ export class SurgeManager extends AbstractManager {
           globalSoundManager.setLoopedSoundVolume(ACTOR_ID, "blowout_rumble", surgeDuration / 180);
         }
 
-        const coverObject: Optional<ClientObject> = getNearestAvailableSurgeCover(registry.actor);
+        const coverObject: Optional<GameObject> = getNearestAvailableSurgeCover(registry.actor);
 
         if (
           surgeDuration >= 140 &&
@@ -470,7 +470,7 @@ export class SurgeManager extends AbstractManager {
   /**
    * Handle actor taking artefacts.
    */
-  public onActorItemTake(object: ClientObject): void {
+  public onActorItemTake(object: GameObject): void {
     if (isArtefact(object)) {
       logger.info("On artefact take:", object.name());
 

@@ -2,7 +2,7 @@ import { LuabindClass, property_evaluator } from "xray16";
 
 import { ISchemeCombatState } from "@/engine/core/schemes/stalker/combat";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { ClientObject, Optional } from "@/engine/lib/types";
+import { GameObject, Optional } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -23,7 +23,7 @@ export class EvaluatorSeeBestEnemyEnemy extends property_evaluator {
    * Check whether object see enemy.
    */
   public override evaluate(): boolean {
-    const bestEnemy: Optional<ClientObject> = this.object.best_enemy();
+    const bestEnemy: Optional<GameObject> = this.object.best_enemy();
 
     // Side effect of evaluator.
     if (bestEnemy !== null && this.object.alive() && this.object.see(bestEnemy)) {

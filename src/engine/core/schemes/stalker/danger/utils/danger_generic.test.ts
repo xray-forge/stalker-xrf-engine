@@ -14,12 +14,12 @@ import { ISchemeWoundedState } from "@/engine/core/schemes/stalker/wounded";
 import { WoundManager } from "@/engine/core/schemes/stalker/wounded/WoundManager";
 import { parseConditionsList } from "@/engine/core/utils/ini";
 import { FALSE, TRUE } from "@/engine/lib/constants/words";
-import { ClientObject, EClientObjectRelation, EScheme, ServerSmartZoneObject, TClassId } from "@/engine/lib/types";
+import { EGameObjectRelation, EScheme, GameObject, ServerSmartZoneObject, TClassId } from "@/engine/lib/types";
 import { mockSchemeState } from "@/fixtures/engine";
 import { replaceFunctionMock } from "@/fixtures/jest";
 import {
-  mockClientGameObject,
   MockDangerObject,
+  mockGameObject,
   mockServerAlifeHumanStalker,
   mockServerAlifeSmartZone,
 } from "@/fixtures/xray";
@@ -28,9 +28,9 @@ describe("danger generic utils", () => {
   beforeEach(() => registerSimulator());
 
   it("isObjectFacingDanger should correctly check generic danger", () => {
-    expect(isObjectFacingDanger(mockClientGameObject())).toBe(false);
+    expect(isObjectFacingDanger(mockGameObject())).toBe(false);
 
-    const object: ClientObject = mockClientGameObject();
+    const object: GameObject = mockGameObject();
     const bestDanger: MockDangerObject = new MockDangerObject();
     const state: IRegistryObjectState = registerObject(object);
 
@@ -39,10 +39,10 @@ describe("danger generic utils", () => {
 
     expect(isObjectFacingDanger(object)).toBe(false);
 
-    bestDanger.dangerDependentObject = mockClientGameObject();
+    bestDanger.dangerDependentObject = mockGameObject();
     expect(isObjectFacingDanger(object)).toBe(false);
 
-    replaceFunctionMock(object.relation, () => EClientObjectRelation.ENEMY);
+    replaceFunctionMock(object.relation, () => EGameObjectRelation.ENEMY);
     expect(isObjectFacingDanger(object)).toBe(false);
 
     bestDanger.dangerType = danger_object.hit;
@@ -51,17 +51,17 @@ describe("danger generic utils", () => {
   });
 
   it("isObjectFacingDanger should correctly check generic danger", () => {
-    expect(isObjectFacingDanger(mockClientGameObject())).toBe(false);
+    expect(isObjectFacingDanger(mockGameObject())).toBe(false);
 
-    const object: ClientObject = mockClientGameObject();
+    const object: GameObject = mockGameObject();
     const bestDanger: MockDangerObject = new MockDangerObject();
     const state: IRegistryObjectState = registerObject(object);
 
     state[EScheme.COMBAT_IGNORE] = mockSchemeState(EScheme.COMBAT_IGNORE);
     replaceFunctionMock(object.best_danger, () => bestDanger);
 
-    bestDanger.dangerDependentObject = mockClientGameObject();
-    replaceFunctionMock(object.relation, () => EClientObjectRelation.ENEMY);
+    bestDanger.dangerDependentObject = mockGameObject();
+    replaceFunctionMock(object.relation, () => EGameObjectRelation.ENEMY);
     bestDanger.dangerType = danger_object.hit;
     jest.spyOn(bestDanger.dangerPosition, "distance_to_sqr").mockImplementation(() => 150 * 150);
 
@@ -73,7 +73,7 @@ describe("danger generic utils", () => {
   });
 
   it("isObjectFacingDanger should correctly ignore corpses", () => {
-    const object: ClientObject = mockClientGameObject();
+    const object: GameObject = mockGameObject();
     const bestDanger: MockDangerObject = new MockDangerObject();
     const state: IRegistryObjectState = registerObject(object);
 
@@ -85,7 +85,7 @@ describe("danger generic utils", () => {
   });
 
   it("isObjectFacingDanger should correctly check ignore distance", () => {
-    const object: ClientObject = mockClientGameObject();
+    const object: GameObject = mockGameObject();
     const bestDanger: MockDangerObject = new MockDangerObject();
     const state: IRegistryObjectState = registerObject(object);
 
@@ -102,7 +102,7 @@ describe("danger generic utils", () => {
   });
 
   it("isObjectFacingDanger should correctly check grenades", () => {
-    const object: ClientObject = mockClientGameObject({ clsid: () => clsid.script_stalker as TClassId });
+    const object: GameObject = mockGameObject({ clsid: () => clsid.script_stalker as TClassId });
     const bestDanger: MockDangerObject = new MockDangerObject();
     const state: IRegistryObjectState = registerObject(object);
 
@@ -134,8 +134,8 @@ describe("danger generic utils", () => {
   });
 
   it("canObjectSelectAsEnemy should correctly check enemies selection possibility", () => {
-    const object: ClientObject = mockClientGameObject({ clsid: () => clsid.script_stalker as TClassId });
-    const enemy: ClientObject = mockClientGameObject();
+    const object: GameObject = mockGameObject({ clsid: () => clsid.script_stalker as TClassId });
+    const enemy: GameObject = mockGameObject();
     const state: IRegistryObjectState = registerObject(object);
     const combatIgnoreState: ISchemeCombatIgnoreState = mockSchemeState(EScheme.COMBAT_IGNORE);
 
@@ -148,7 +148,7 @@ describe("danger generic utils", () => {
     expect(canObjectSelectAsEnemy(object, enemy)).toBe(false);
     expect(state.enemyId).toBeNull();
 
-    expect(canObjectSelectAsEnemy(mockClientGameObject(), enemy)).toBe(true);
+    expect(canObjectSelectAsEnemy(mockGameObject(), enemy)).toBe(true);
 
     state.enemyId = null;
     combatIgnoreState.overrides = {
@@ -170,12 +170,12 @@ describe("danger generic utils", () => {
   });
 
   it("canObjectSelectAsEnemy should correctly check enemies in no-combat zones", () => {
-    const object: ClientObject = mockClientGameObject({ clsid: () => clsid.script_stalker as TClassId });
-    const enemy: ClientObject = mockClientGameObject();
+    const object: GameObject = mockGameObject({ clsid: () => clsid.script_stalker as TClassId });
+    const enemy: GameObject = mockGameObject();
     const state: IRegistryObjectState = registerObject(object);
     const combatIgnoreState: ISchemeCombatIgnoreState = mockSchemeState(EScheme.COMBAT_IGNORE);
 
-    const noCombatZone: ClientObject = mockClientGameObject();
+    const noCombatZone: GameObject = mockGameObject();
     const noCombatSmart: ServerSmartZoneObject = mockServerAlifeSmartZone({
       name: <T>() => "zat_stalker_base_smart" as T,
     });
@@ -195,8 +195,8 @@ describe("danger generic utils", () => {
   });
 
   it("canObjectSelectAsEnemy should correctly ignore enemies in no-combat smarts", () => {
-    const object: ClientObject = mockClientGameObject({ clsid: () => clsid.script_stalker as TClassId });
-    const enemy: ClientObject = mockClientGameObject();
+    const object: GameObject = mockGameObject({ clsid: () => clsid.script_stalker as TClassId });
+    const enemy: GameObject = mockGameObject();
     const state: IRegistryObjectState = registerObject(object);
     const combatIgnoreState: ISchemeCombatIgnoreState = mockSchemeState(EScheme.COMBAT_IGNORE);
 

@@ -7,7 +7,7 @@ import { isObjectFacingDanger } from "@/engine/core/schemes/stalker/danger/utils
 import { abort } from "@/engine/core/utils/assertion";
 import { isObjectAtTerminalWaypoint, isObjectAtWaypoint } from "@/engine/core/utils/patrol";
 import { createVector } from "@/engine/core/utils/vector";
-import { ClientObject, DangerObject, Optional, Patrol, TDangerType } from "@/engine/lib/types";
+import { DangerObject, GameObject, Optional, Patrol, TDangerType } from "@/engine/lib/types";
 
 /**
  * todo;
@@ -15,7 +15,7 @@ import { ClientObject, DangerObject, Optional, Patrol, TDangerType } from "@/eng
  * @param object
  * @param state
  */
-export function isOnCampPatrolPlace(object: ClientObject, state: ISchemeCamperState): boolean {
+export function isOnCampPatrolPlace(object: GameObject, state: ISchemeCamperState): boolean {
   if (state.noRetreat) {
     return false;
   }

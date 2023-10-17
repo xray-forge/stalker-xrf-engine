@@ -13,7 +13,7 @@ import { readIniBoolean, readIniString } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { communities, TCommunity } from "@/engine/lib/constants/communities";
 import { NIL } from "@/engine/lib/constants/words";
-import { ActionPlanner, AnyObject, ClientObject, IniFile, LuaArray, TName } from "@/engine/lib/types";
+import { ActionPlanner, AnyObject, GameObject, IniFile, LuaArray, TName } from "@/engine/lib/types";
 import { EScheme, ESchemeType, TSection } from "@/engine/lib/types/scheme";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -28,7 +28,7 @@ export class SchemeWounded extends AbstractScheme {
   public static WOUNDED_STATES: LuaArray<TName> = $fromArray(["wounded_heavy", "wounded_heavy_2", "wounded_heavy_3"]);
 
   public static override activate(
-    object: ClientObject,
+    object: GameObject,
     ini: IniFile,
     scheme: EScheme,
     section: TSection
@@ -41,7 +41,7 @@ export class SchemeWounded extends AbstractScheme {
   }
 
   public static override add(
-    object: ClientObject,
+    object: GameObject,
     ini: IniFile,
     scheme: EScheme,
     section: TSection,
@@ -70,7 +70,7 @@ export class SchemeWounded extends AbstractScheme {
   }
 
   public static override reset(
-    object: ClientObject,
+    object: GameObject,
     scheme: EScheme,
     state: IRegistryObjectState,
     section: TSection
@@ -88,7 +88,7 @@ export class SchemeWounded extends AbstractScheme {
   /**
    * todo: Description.
    */
-  public static initialize(object: ClientObject, ini: IniFile, section: TSection, state: ISchemeWoundedState): void {
+  public static initialize(object: GameObject, ini: IniFile, section: TSection, state: ISchemeWoundedState): void {
     // logger.info("Init wounded:", object.name(), section, scheme);
 
     if (tostring(section) === state.woundedSection && tostring(section) !== NIL) {

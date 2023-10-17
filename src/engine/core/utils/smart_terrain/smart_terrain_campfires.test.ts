@@ -8,7 +8,7 @@ import {
 } from "@/engine/core/utils/smart_terrain/smart_terrain_campfires";
 import { ZoneCampfire } from "@/engine/lib/types";
 import { mockSmartTerrain } from "@/fixtures/engine";
-import { mockClientGameObject, MockCZoneCampfire } from "@/fixtures/xray";
+import { MockCZoneCampfire, mockGameObject } from "@/fixtures/xray";
 
 describe("smart_terrain_campfires utils", () => {
   beforeEach(() => {
@@ -36,8 +36,8 @@ describe("smart_terrain_campfires utils", () => {
     expect(third.is_on()).toBe(true);
     expect(fourth.is_on()).toBe(false);
 
-    registerSmartTerrainCampfire(smartTerrain, mockClientGameObject({ get_campfire: () => first }));
-    registerSmartTerrainCampfire(smartTerrain, mockClientGameObject({ get_campfire: () => second }));
+    registerSmartTerrainCampfire(smartTerrain, mockGameObject({ get_campfire: () => first }));
+    registerSmartTerrainCampfire(smartTerrain, mockGameObject({ get_campfire: () => second }));
 
     expect(first.is_on()).toBe(false);
     expect(second.is_on()).toBe(false);

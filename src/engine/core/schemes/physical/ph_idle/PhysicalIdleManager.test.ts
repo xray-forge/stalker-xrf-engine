@@ -4,10 +4,10 @@ import { ISchemePhysicalIdleState } from "@/engine/core/schemes/physical/ph_idle
 import { PhysicalIdleManager } from "@/engine/core/schemes/physical/ph_idle/PhysicalIdleManager";
 import { parseBoneStateDescriptors, parseConditionsList } from "@/engine/core/utils/ini";
 import { switchObjectSchemeToSection, trySwitchToAnotherSection } from "@/engine/core/utils/scheme";
-import { ClientObject, EScheme, Vector } from "@/engine/lib/types";
+import { EScheme, GameObject, Vector } from "@/engine/lib/types";
 import { mockBaseSchemeLogic, mockSchemeState } from "@/fixtures/engine";
 import { resetFunctionMock } from "@/fixtures/jest";
-import { mockClientGameObject } from "@/fixtures/xray";
+import { mockGameObject } from "@/fixtures/xray";
 import { MockVector } from "@/fixtures/xray/mocks/vector.mock";
 
 jest.mock("@/engine/core/utils/scheme/scheme_switch", () => ({
@@ -17,7 +17,7 @@ jest.mock("@/engine/core/utils/scheme/scheme_switch", () => ({
 
 describe("PhysicalIdleManager", () => {
   it("should correctly activate", () => {
-    const object: ClientObject = mockClientGameObject();
+    const object: GameObject = mockGameObject();
     const state: ISchemePhysicalIdleState = mockSchemeState(EScheme.PH_IDLE, {});
     const manager: PhysicalIdleManager = new PhysicalIdleManager(object, state);
 
@@ -31,7 +31,7 @@ describe("PhysicalIdleManager", () => {
   });
 
   it("should correctly deactivate", () => {
-    const object: ClientObject = mockClientGameObject();
+    const object: GameObject = mockGameObject();
     const state: ISchemePhysicalIdleState = mockSchemeState(EScheme.PH_IDLE, {});
     const manager: PhysicalIdleManager = new PhysicalIdleManager(object, state);
 
@@ -40,7 +40,7 @@ describe("PhysicalIdleManager", () => {
   });
 
   it("should correctly update", () => {
-    const object: ClientObject = mockClientGameObject();
+    const object: GameObject = mockGameObject();
     const state: ISchemePhysicalIdleState = mockSchemeState(EScheme.PH_IDLE, {});
     const manager: PhysicalIdleManager = new PhysicalIdleManager(object, state);
 
@@ -49,7 +49,7 @@ describe("PhysicalIdleManager", () => {
   });
 
   it("should correctly handle usage", () => {
-    const object: ClientObject = mockClientGameObject();
+    const object: GameObject = mockGameObject();
     const state: ISchemePhysicalIdleState = mockSchemeState(EScheme.PH_IDLE, {});
     const manager: PhysicalIdleManager = new PhysicalIdleManager(object, state);
     const direction: Vector = MockVector.mock(1, 2, 3);
@@ -68,7 +68,7 @@ describe("PhysicalIdleManager", () => {
   });
 
   it("should correctly handle hit", () => {
-    const object: ClientObject = mockClientGameObject();
+    const object: GameObject = mockGameObject();
     const state: ISchemePhysicalIdleState = mockSchemeState(EScheme.PH_IDLE, {});
     const manager: PhysicalIdleManager = new PhysicalIdleManager(object, state);
 

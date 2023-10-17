@@ -5,9 +5,9 @@ import { ISchemeMobHomeState } from "@/engine/core/schemes/monster/mob_home/mob_
 import { MobHomeManager } from "@/engine/core/schemes/monster/mob_home/MobHomeManager";
 import { SchemeMobHome } from "@/engine/core/schemes/monster/mob_home/SchemeMobHome";
 import { loadSchemeImplementation } from "@/engine/core/utils/scheme/scheme_setup";
-import { ClientObject, EScheme, ESchemeType, IniFile } from "@/engine/lib/types";
+import { EScheme, ESchemeType, GameObject, IniFile } from "@/engine/lib/types";
 import { assertSchemeSubscribedToManager } from "@/fixtures/engine";
-import { mockClientGameObject, mockIniFile } from "@/fixtures/xray";
+import { mockGameObject, mockIniFile } from "@/fixtures/xray";
 
 describe("SchemeMobHome functionality", () => {
   it("should be correctly defined", () => {
@@ -17,7 +17,7 @@ describe("SchemeMobHome functionality", () => {
   });
 
   it("should correctly activate scheme", () => {
-    const object: ClientObject = mockClientGameObject();
+    const object: GameObject = mockGameObject();
     const ini: IniFile = mockIniFile("test.ltx", {
       "mob_home@test": {
         on_info: "{=actor_in_zone(zat_b42_warning_space_restrictor)} mob_home@1",

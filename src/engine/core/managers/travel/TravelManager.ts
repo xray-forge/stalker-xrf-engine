@@ -29,7 +29,7 @@ import { communities, TCommunity } from "@/engine/lib/constants/communities";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import { TRUE } from "@/engine/lib/constants/words";
 import {
-  ClientObject,
+  GameObject,
   Optional,
   Patrol,
   Phrase,
@@ -176,7 +176,7 @@ export class TravelManager extends AbstractManager {
    * @param object - target object to check whether actor can travel
    * @returns whether object actor can discuss traveling with object
    */
-  public canStartTravelingDialogs(actor: ClientObject, object: ClientObject): boolean {
+  public canStartTravelingDialogs(actor: GameObject, object: GameObject): boolean {
     const squad: Optional<Squad> = getObjectSquad(object);
     const objectCommunity: TCommunity = object.character_community();
 
@@ -195,8 +195,8 @@ export class TravelManager extends AbstractManager {
    * todo: Description.
    */
   public getSquadCurrentActionDescription(
-    actor: ClientObject,
-    object: ClientObject,
+    actor: GameObject,
+    object: GameObject,
     dialogId?: TStringId,
     phraseId?: TStringId
   ): TLabel {
@@ -242,8 +242,8 @@ export class TravelManager extends AbstractManager {
    * todo: Description.
    */
   public canActorMoveWithSquad(
-    actor: ClientObject,
-    object: ClientObject,
+    actor: GameObject,
+    object: GameObject,
     dialogId?: TStringId,
     phraseId?: TStringId
   ): boolean {
@@ -253,12 +253,7 @@ export class TravelManager extends AbstractManager {
   /**
    * todo: Description.
    */
-  public canSquadTakeActor(
-    object: ClientObject,
-    actor: ClientObject,
-    dialogId?: TStringId,
-    phraseId?: TStringId
-  ): boolean {
+  public canSquadTakeActor(object: GameObject, actor: GameObject, dialogId?: TStringId, phraseId?: TStringId): boolean {
     const squad: Squad = getObjectSquad(object) as Squad;
 
     return isSmartTerrain(registry.simulator.object(squad.assignedTargetId!) as ServerObject);
@@ -291,7 +286,7 @@ export class TravelManager extends AbstractManager {
   /**
    * todo: Description.
    */
-  public canSquadTravel(object: ClientObject, actor: ClientObject, dialogId: TStringId, phraseId: TStringId): boolean {
+  public canSquadTravel(object: GameObject, actor: GameObject, dialogId: TStringId, phraseId: TStringId): boolean {
     const squad: Squad = getObjectSquad(object)!;
 
     // todo: Filter all squads to current level, do not check other locations.
@@ -308,8 +303,8 @@ export class TravelManager extends AbstractManager {
    * todo: Description.
    */
   public canNegotiateTravelToSmart(
-    actor: ClientObject,
-    object: ClientObject,
+    actor: GameObject,
+    object: GameObject,
     dialogId: TStringId,
     prevPhraseId: TStringId,
     phraseId: TStringId
@@ -338,7 +333,7 @@ export class TravelManager extends AbstractManager {
   /**
    * todo: Description.
    */
-  public getTravelPriceByObjectPhrase(object: ClientObject, phraseId: TStringId): TCount {
+  public getTravelPriceByObjectPhrase(object: GameObject, phraseId: TStringId): TCount {
     const simulationBoardManager: SimulationBoardManager = SimulationBoardManager.getInstance();
     const smartTerrainName: TName = travelConfig.TRAVEL_DESCRIPTORS_BY_PHRASE.get(
       string.sub(phraseId, 1, string.len(phraseId) - 2)
@@ -352,12 +347,7 @@ export class TravelManager extends AbstractManager {
   /**
    * todo: Description.
    */
-  public getTravelCostLabel(
-    actor: ClientObject,
-    object: ClientObject,
-    dialogId: TStringId,
-    phraseId: TStringId
-  ): TLabel {
+  public getTravelCostLabel(actor: GameObject, object: GameObject, dialogId: TStringId, phraseId: TStringId): TLabel {
     return string.format(
       "%s %s.",
       game.translate_string("dm_traveler_travel_cost"),
@@ -369,8 +359,8 @@ export class TravelManager extends AbstractManager {
    * todo: Description.
    */
   public isEnoughMoneyToTravel(
-    actor: ClientObject,
-    object: ClientObject,
+    actor: GameObject,
+    object: GameObject,
     dialogId: TStringId,
     phraseId: TStringId
   ): boolean {
@@ -470,8 +460,8 @@ export class TravelManager extends AbstractManager {
    * todo;
    */
   public onTravelToSpecificSmartWithSquad(
-    actor: ClientObject,
-    object: ClientObject,
+    actor: GameObject,
+    object: GameObject,
     dialogId: TStringId,
     phraseId: TStringId
   ): void {
@@ -517,8 +507,8 @@ export class TravelManager extends AbstractManager {
    * todo;
    */
   public onTravelTogetherWithSquad(
-    actor: ClientObject,
-    object: ClientObject,
+    actor: GameObject,
+    object: GameObject,
     dialogId: TStringId,
     phraseId: TStringId
   ): void {

@@ -6,17 +6,14 @@ import { assert } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { EGoodwill, ERelation } from "@/engine/core/utils/relation/relation_types";
 import { communities, TCommunity } from "@/engine/lib/constants/communities";
-import { ClientObject, Optional, TCount, TNumberId, TRelationType, TStringId } from "@/engine/lib/types";
+import { GameObject, Optional, TCount, TNumberId, TRelationType, TStringId } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * Get relation type between objects with safe null check.
  */
-export function getObjectsRelationSafe(
-  from: Optional<ClientObject>,
-  to: Optional<ClientObject>
-): Optional<TRelationType> {
+export function getObjectsRelationSafe(from: Optional<GameObject>, to: Optional<GameObject>): Optional<TRelationType> {
   return from && to && from.relation(to);
 }
 
@@ -30,7 +27,7 @@ export function getObjectsRelationSafe(
  * @returns relation of squad members to actor or squad community relation is squad is empty
  */
 export function getSquadMembersRelationToActorSafe(squad: Squad): ERelation {
-  const actor: Optional<ClientObject> = registry.actor;
+  const actor: Optional<GameObject> = registry.actor;
 
   // Actor may be registered after other alife objects.
   if (actor === null) {
@@ -41,7 +38,7 @@ export function getSquadMembersRelationToActorSafe(squad: Squad): ERelation {
   let squadMembersCount: TCount = 0;
 
   for (const squadMember of squad.squad_members()) {
-    const object: Optional<ClientObject> = registry.objects.get(squadMember.id)?.object as Optional<ClientObject>;
+    const object: Optional<GameObject> = registry.objects.get(squadMember.id)?.object as Optional<GameObject>;
 
     if (object) {
       squadTotalGoodwill += object.general_goodwill(actor);
@@ -72,7 +69,7 @@ export function getSquadMembersRelationToActorSafe(squad: Squad): ERelation {
  * @returns average relation of squad members to actor, `null` if squad is empty
  */
 export function getSquadMembersRelationToActor(squad: Squad): Optional<ERelation> {
-  const actor: Optional<ClientObject> = registry.actor;
+  const actor: Optional<GameObject> = registry.actor;
 
   // Actor may be registered after other alife objects.
   if (actor === null) {
@@ -83,7 +80,7 @@ export function getSquadMembersRelationToActor(squad: Squad): Optional<ERelation
   let squadMembersCount: TCount = 0;
 
   for (const squadMember of squad.squad_members()) {
-    const object: Optional<ClientObject> = registry.objects.get(squadMember.id)?.object as Optional<ClientObject>;
+    const object: Optional<GameObject> = registry.objects.get(squadMember.id)?.object as Optional<GameObject>;
 
     if (object) {
       squadTotalGoodwill += object.general_goodwill(actor);

@@ -1,7 +1,7 @@
 import { registry } from "@/engine/core/database";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import { medkits, TMedkit } from "@/engine/lib/constants/items/drugs";
-import { ClientObject, LuaArray, Optional, TName, TNumberId, TSection } from "@/engine/lib/types";
+import { GameObject, LuaArray, Optional, TName, TNumberId, TSection } from "@/engine/lib/types";
 
 /**
  * From two possible speakers pick NPC one, omit actor.
@@ -10,7 +10,7 @@ import { ClientObject, LuaArray, Optional, TName, TNumberId, TSection } from "@/
  * @param second - possible non-actor speaker
  * @returns non-actor game object picked from parameters
  */
-export function getNpcSpeaker(first: ClientObject, second: ClientObject): ClientObject {
+export function getNpcSpeaker(first: GameObject, second: GameObject): GameObject {
   return second.id() === ACTOR_ID ? first : second;
 }
 
@@ -23,7 +23,7 @@ export function getNpcSpeaker(first: ClientObject, second: ClientObject): Client
  */
 export function getActorAvailableMedKit(
   list: LuaArray<TSection | TNumberId> = $fromObject(medkits) as unknown as LuaArray<TSection | TNumberId>,
-  actor: ClientObject = registry.actor
+  actor: GameObject = registry.actor
 ): Optional<TMedkit> {
   for (const [key, medkit] of list) {
     if (actor.object(medkit) !== null) {
@@ -41,7 +41,7 @@ export function getActorAvailableMedKit(
  * @param name - target name to check
  * @returns whether object name is matching provided string
  */
-export function isObjectName(object: ClientObject, name: TName): boolean {
+export function isObjectName(object: GameObject, name: TName): boolean {
   const objectName: Optional<string> = object.name();
 
   return objectName !== null && string.find(objectName, name)[0] !== null;

@@ -13,7 +13,7 @@ import { isAmmoSection, isExcludedFromLootDropItemSection, isLootableItemSection
 import { spawnItemsForObject } from "@/engine/core/utils/spawn";
 import { TInventoryItem } from "@/engine/lib/constants/items";
 import { misc } from "@/engine/lib/constants/items/misc";
-import { ClientObject, IniFile, Optional, TCount, TProbability, TSection } from "@/engine/lib/types";
+import { GameObject, IniFile, Optional, TCount, TProbability, TSection } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -32,7 +32,7 @@ export class DropManager extends AbstractManager {
    *
    * @param object - target object to create release items.
    */
-  public createCorpseReleaseItems(object: ClientObject): void {
+  public createCorpseReleaseItems(object: GameObject): void {
     // logger.info("Create corpse release items:", object.name());
 
     const alifeObject: Optional<Stalker> = registry.simulator.object<Stalker>(object.id());
@@ -82,7 +82,7 @@ export class DropManager extends AbstractManager {
   /**
    * todo: Description.
    */
-  protected filterLootItem(object: ClientObject, item: ClientObject): void {
+  protected filterLootItem(object: GameObject, item: GameObject): void {
     const section: TSection = item.section();
     const ini: IniFile = object.spawn_ini();
 
@@ -138,7 +138,7 @@ export class DropManager extends AbstractManager {
   /**
    * todo: Description.
    */
-  protected checkItemDependentDrops(object: ClientObject, section: TSection): boolean {
+  protected checkItemDependentDrops(object: GameObject, section: TSection): boolean {
     if (!dropConfig.ITEMS_DEPENDENCIES.has(section)) {
       return true;
     }
@@ -146,7 +146,7 @@ export class DropManager extends AbstractManager {
     let isDependent: boolean = true;
 
     for (const [dependentSection, v] of dropConfig.ITEMS_DEPENDENCIES.get(section)) {
-      const inventoryItem: Optional<ClientObject> = object.object(dependentSection);
+      const inventoryItem: Optional<GameObject> = object.object(dependentSection);
 
       if (inventoryItem !== null && !object.marked_dropped(inventoryItem)) {
         return true;
@@ -165,7 +165,7 @@ export class DropManager extends AbstractManager {
    *
    * @param object - client object facing death event
    */
-  public onObjectDeath(object: ClientObject): void {
+  public onObjectDeath(object: GameObject): void {
     this.createCorpseReleaseItems(object);
   }
 }

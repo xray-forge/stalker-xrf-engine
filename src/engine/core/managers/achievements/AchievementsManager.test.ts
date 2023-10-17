@@ -19,7 +19,7 @@ import { giveInfoPortion } from "@/engine/core/utils/info_portion";
 import { infoPortions } from "@/engine/lib/constants/info_portions";
 import { ServerObject } from "@/engine/lib/types";
 import { replaceFunctionMock, resetFunctionMock } from "@/fixtures/jest";
-import { mockActorClientGameObject, mockServerAlifeObject } from "@/fixtures/xray";
+import { mockActorGameObject, mockServerAlifeObject } from "@/fixtures/xray";
 import { MockCTime } from "@/fixtures/xray/mocks/CTime.mock";
 import { EPacketDataType, mockNetPacket, mockNetProcessor, MockNetProcessor } from "@/fixtures/xray/mocks/save";
 
@@ -27,7 +27,7 @@ describe("AchievementManager class", () => {
   beforeEach(() => {
     registry.managers = new LuaTable();
 
-    registerActor(mockActorClientGameObject());
+    registerActor(mockActorGameObject());
     registerSimulator();
   });
 

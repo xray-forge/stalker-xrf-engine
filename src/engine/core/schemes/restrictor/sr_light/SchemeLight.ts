@@ -5,7 +5,7 @@ import { ISchemeLightState } from "@/engine/core/schemes/restrictor/sr_light/sr_
 import { getConfigSwitchConditions, readIniBoolean } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { resetTable } from "@/engine/core/utils/table";
-import { ClientObject, EScheme, ESchemeType, IniFile, TSection } from "@/engine/lib/types";
+import { EScheme, ESchemeType, GameObject, IniFile, TSection } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -18,7 +18,7 @@ export class SchemeLight extends AbstractScheme {
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.RESTRICTOR;
 
   public static override activate(
-    object: ClientObject,
+    object: GameObject,
     ini: IniFile,
     scheme: EScheme,
     section: TSection
@@ -32,7 +32,7 @@ export class SchemeLight extends AbstractScheme {
   }
 
   public static override add(
-    object: ClientObject,
+    object: GameObject,
     ini: IniFile,
     scheme: EScheme,
     section: TSection,

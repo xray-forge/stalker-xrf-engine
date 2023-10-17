@@ -27,11 +27,11 @@ import { TInventoryItem } from "@/engine/lib/constants/items";
 import { MAX_U16 } from "@/engine/lib/constants/memory";
 import {
   AlifeSimulator,
-  ClientObject,
-  EClientObjectRelation,
+  EGameObjectRelation,
   EScheme,
   ESchemeEvent,
   ESchemeType,
+  GameObject,
   IniFile,
   Optional,
   ServerCreatureObject,
@@ -55,7 +55,7 @@ const logger: LuaLogger = new LuaLogger($filename, { file: "scheme" });
  * @returns ini file containing object logics
  */
 export function configureObjectSchemes(
-  object: ClientObject,
+  object: GameObject,
   ini: IniFile,
   iniName: TName,
   schemeType: ESchemeType,
@@ -146,7 +146,7 @@ export function configureObjectSchemes(
  * @param isLoaded - whether object is initialized after game load
  */
 export function setupObjectSmartJobsAndLogicOnSpawn(
-  object: ClientObject,
+  object: GameObject,
   state: IRegistryObjectState,
   schemeType: ESchemeType,
   isLoaded: boolean
@@ -185,7 +185,7 @@ export function setupObjectSmartJobsAndLogicOnSpawn(
  * @param schemeType - type of object schemes applied
  */
 export function initializeObjectSchemeLogic(
-  object: ClientObject,
+  object: GameObject,
   state: IRegistryObjectState,
   isLoading: boolean,
   schemeType: ESchemeType
@@ -231,13 +231,13 @@ export function initializeObjectSchemeLogic(
 
     switch (relation) {
       case ERelation.NEUTRAL:
-        object.set_relation(EClientObjectRelation.NEUTRAL, registry.actor);
+        object.set_relation(EGameObjectRelation.NEUTRAL, registry.actor);
         break;
       case ERelation.ENEMY:
-        object.set_relation(EClientObjectRelation.ENEMY, registry.actor);
+        object.set_relation(EGameObjectRelation.ENEMY, registry.actor);
         break;
       case ERelation.FRIEND:
-        object.set_relation(EClientObjectRelation.FRIEND, registry.actor);
+        object.set_relation(EGameObjectRelation.FRIEND, registry.actor);
         break;
     }
 
@@ -256,7 +256,7 @@ export function initializeObjectSchemeLogic(
  * @param object - target client object
  * @param state - object registry state
  */
-export function initializeObjectSectionItems(object: ClientObject, state: IRegistryObjectState): void {
+export function initializeObjectSectionItems(object: GameObject, state: IRegistryObjectState): void {
   const spawnItemsSection: Optional<TSection> = readIniString(state.ini, state.sectionLogic, "spawn", false);
 
   if (spawnItemsSection === null) {

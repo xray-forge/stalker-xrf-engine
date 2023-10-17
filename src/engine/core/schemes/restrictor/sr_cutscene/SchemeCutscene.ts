@@ -6,7 +6,7 @@ import { readIniBoolean, readIniNumber, readIniString } from "@/engine/core/util
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { emitSchemeEvent } from "@/engine/core/utils/scheme";
 import { NIL } from "@/engine/lib/constants/words";
-import { ClientObject, EScheme, ESchemeEvent, ESchemeType, IniFile, TSection } from "@/engine/lib/types";
+import { EScheme, ESchemeEvent, ESchemeType, GameObject, IniFile, TSection } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -19,7 +19,7 @@ export class SchemeCutscene extends AbstractScheme {
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.RESTRICTOR;
 
   public static override activate(
-    object: ClientObject,
+    object: GameObject,
     ini: IniFile,
     scheme: EScheme,
     section: TSection
@@ -42,7 +42,7 @@ export class SchemeCutscene extends AbstractScheme {
   }
 
   public static override add(
-    object: ClientObject,
+    object: GameObject,
     ini: IniFile,
     scheme: EScheme,
     section: TSection,

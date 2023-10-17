@@ -9,14 +9,14 @@ import {
 } from "@/engine/core/utils/ini";
 import { TInfoPortion } from "@/engine/lib/constants/info_portions";
 import { NIL, TRUE } from "@/engine/lib/constants/words";
-import { ClientObject, EScheme, IniFile, LuaArray, Optional, TDistance, TNumberId, TSection } from "@/engine/lib/types";
+import { EScheme, GameObject, IniFile, LuaArray, Optional, TDistance, TNumberId, TSection } from "@/engine/lib/types";
 
 /**
  * Synchronize object invulnerability state based.
  *
  * @param object - target client object
  */
-export function initializeObjectInvulnerability(object: ClientObject): void {
+export function initializeObjectInvulnerability(object: GameObject): void {
   const state: IRegistryObjectState = registry.objects.get(object.id());
   const invulnerability: Optional<string> = readIniString(state.ini, state.activeSection, "invulnerable", false);
 
@@ -39,7 +39,7 @@ export function initializeObjectInvulnerability(object: ClientObject): void {
  * @param section - active logics section of the object
  */
 export function initializeObjectCanSelectWeaponState(
-  object: ClientObject,
+  object: GameObject,
   scheme: EScheme,
   state: IRegistryObjectState,
   section: TSection
@@ -68,7 +68,7 @@ export function initializeObjectCanSelectWeaponState(
  * @param section - active logics section of the object
  */
 export function initializeObjectTakeItemsEnabledState(
-  object: ClientObject,
+  object: GameObject,
   scheme: EScheme,
   state: IRegistryObjectState,
   section: TSection
@@ -91,7 +91,7 @@ export function initializeObjectTakeItemsEnabledState(
  * @param ini - target ini config
  * @param section - active logics section of the object
  */
-export function initializeObjectGroup(object: ClientObject, ini: IniFile, section: TSection): void {
+export function initializeObjectGroup(object: GameObject, ini: IniFile, section: TSection): void {
   const group: TNumberId = readIniNumber(ini, section, "group", false, -1);
 
   if (group !== -1) {
@@ -106,7 +106,7 @@ export function initializeObjectGroup(object: ClientObject, ini: IniFile, sectio
  * @param ini - target ini config
  * @param section - active logics section of the object
  */
-export function initializeObjectInfo(object: ClientObject, ini: IniFile, section: TSection): void {
+export function initializeObjectInfo(object: GameObject, ini: IniFile, section: TSection): void {
   const inInfosList: LuaArray<TInfoPortion> = getSectionsFromConditionLists(
     object,
     readIniString(ini, section, "in", false)
@@ -134,7 +134,7 @@ export function initializeObjectInfo(object: ClientObject, ini: IniFile, section
  * @param section - active logics section of the object
  */
 export function initializeObjectIgnoreThreshold(
-  object: ClientObject,
+  object: GameObject,
   scheme: Optional<EScheme>,
   state: IRegistryObjectState,
   section: TSection

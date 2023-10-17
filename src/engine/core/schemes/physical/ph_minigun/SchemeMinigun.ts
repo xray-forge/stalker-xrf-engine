@@ -10,7 +10,7 @@ import {
   readIniStringAndCondList,
 } from "@/engine/core/utils/ini/ini_read";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { ClientObject, EScheme, ESchemeType, IniFile, TName, TSection } from "@/engine/lib/types";
+import { EScheme, ESchemeType, GameObject, IniFile, TName, TSection } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -22,7 +22,7 @@ export class SchemeMinigun extends AbstractScheme {
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.OBJECT;
 
   public static override activate(
-    object: ClientObject,
+    object: GameObject,
     ini: IniFile,
     scheme: EScheme,
     section: TSection,
@@ -47,7 +47,7 @@ export class SchemeMinigun extends AbstractScheme {
   }
 
   public static override add(
-    object: ClientObject,
+    object: GameObject,
     ini: IniFile,
     scheme: EScheme,
     section: TSection,

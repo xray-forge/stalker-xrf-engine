@@ -20,7 +20,7 @@ import { ZERO_VECTOR } from "@/engine/lib/constants/vectors";
 import {
   ActionPlanner,
   AnyCallable,
-  ClientObject,
+  GameObject,
   Optional,
   TDuration,
   TLookType,
@@ -36,7 +36,7 @@ const logger: LuaLogger = new LuaLogger($filename, { file: "ai_state" });
  * Handles animation, different states and body positioning when stalkers are doing anything.
  */
 export class StalkerStateManager {
-  public readonly object: ClientObject;
+  public readonly object: GameObject;
   public readonly planner: ActionPlanner;
 
   public controller: Optional<EAnimationType> = null;
@@ -60,7 +60,7 @@ export class StalkerStateManager {
   public lookPosition: Optional<Vector> = null;
   public lookObjectId: Optional<TNumberId> = null;
 
-  public constructor(object: ClientObject) {
+  public constructor(object: GameObject) {
     this.object = object;
     this.planner = new action_planner();
     this.planner.setup(object);

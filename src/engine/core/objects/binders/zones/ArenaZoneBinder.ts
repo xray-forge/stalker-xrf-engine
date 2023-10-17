@@ -3,7 +3,7 @@ import { callback, clsid, LuabindClass, object_binder } from "xray16";
 import { closeLoadMarker, closeSaveMarker, openLoadMarker, openSaveMarker, registry } from "@/engine/core/database";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
-import { AlifeSimulator, ClientObject, NetPacket, Reader, ServerObject, TNumberId } from "@/engine/lib/types";
+import { AlifeSimulator, GameObject, NetPacket, Reader, ServerObject, TNumberId } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -19,7 +19,7 @@ const arena_zones: LuaTable<string, ArenaZoneBinder> = new LuaTable();
 export class ArenaZoneBinder extends object_binder {
   public savedObjects: LuaTable<TNumberId, boolean> = new LuaTable();
 
-  public constructor(object: ClientObject) {
+  public constructor(object: GameObject) {
     super(object);
     arena_zones.set(object.name(), this);
   }
@@ -98,7 +98,7 @@ export class ArenaZoneBinder extends object_binder {
   /**
    * todo: Description.
    */
-  public on_enter(zone: ClientObject, object: ClientObject): void {
+  public on_enter(zone: GameObject, object: GameObject): void {
     if (
       object.id() === ACTOR_ID ||
       object.clsid() === clsid.obj_physic ||
@@ -114,7 +114,7 @@ export class ArenaZoneBinder extends object_binder {
   /**
    * todo: Description.
    */
-  public on_exit(zone: ClientObject, object: ClientObject): void {
+  public on_exit(zone: GameObject, object: GameObject): void {
     if (
       object.id() === ACTOR_ID ||
       object.clsid() === clsid.obj_physic ||

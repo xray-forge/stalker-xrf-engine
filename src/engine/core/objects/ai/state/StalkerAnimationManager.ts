@@ -18,7 +18,7 @@ import { createVector, vectorRotateY } from "@/engine/core/utils/vector";
 import { getObjectActiveWeaponSlot } from "@/engine/core/utils/weapon";
 import {
   AnyCallable,
-  ClientObject,
+  GameObject,
   Hit,
   LuaArray,
   Optional,
@@ -38,7 +38,7 @@ const logger: LuaLogger = new LuaLogger($filename, { file: "ai_state" });
  */
 export class StalkerAnimationManager {
   public readonly type: EAnimationType;
-  public readonly object: ClientObject;
+  public readonly object: GameObject;
   public readonly stateManager: StalkerStateManager;
   public readonly animations: LuaTable<TName, IAnimationDescriptor>;
 
@@ -51,7 +51,7 @@ export class StalkerAnimationManager {
     sequenceId: 1,
   };
 
-  public constructor(object: ClientObject, stateManager: StalkerStateManager, type: EAnimationType) {
+  public constructor(object: GameObject, stateManager: StalkerStateManager, type: EAnimationType) {
     this.type = type;
     this.object = object;
     this.stateManager = stateManager;
@@ -146,7 +146,7 @@ export class StalkerAnimationManager {
    * @param animationDescriptor - animation descriptor to play
    */
   public addAnimation(animation: TName, animationDescriptor: IAnimationDescriptor): void {
-    const object: ClientObject = this.object;
+    const object: GameObject = this.object;
     const animationProperties: Optional<IAnimationDescriptorProperties> = animationDescriptor.prop;
 
     if (
@@ -370,7 +370,7 @@ export class StalkerAnimationManager {
   public processSpecialAction(actionTable: LuaTable): void {
     // Attach item.
     if (actionTable.get("a") !== null) {
-      const objectInventoryItem: Optional<ClientObject> = this.object.object(actionTable.get("a"));
+      const objectInventoryItem: Optional<GameObject> = this.object.object(actionTable.get("a"));
 
       if (objectInventoryItem !== null) {
         objectInventoryItem.enable_attachable_item(true);
@@ -379,7 +379,7 @@ export class StalkerAnimationManager {
 
     // Detach item.
     if (actionTable.get("d") !== null) {
-      const objectInventoryItem: Optional<ClientObject> = this.object.object(actionTable.get("d"));
+      const objectInventoryItem: Optional<GameObject> = this.object.object(actionTable.get("d"));
 
       if (objectInventoryItem !== null) {
         objectInventoryItem.enable_attachable_item(false);

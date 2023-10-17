@@ -6,7 +6,7 @@ import { getSquadCommunityRelationToActor } from "@/engine/core/utils/relation/r
 import { EGoodwill, ERelation } from "@/engine/core/utils/relation/relation_types";
 import { communities, TCommunity } from "@/engine/lib/constants/communities";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
-import { ClientObject, Optional, TCount, TStringId } from "@/engine/lib/types";
+import { GameObject, Optional, TCount, TStringId } from "@/engine/lib/types";
 
 /**
  * Check whether is enemy with faction.
@@ -15,7 +15,7 @@ import { ClientObject, Optional, TCount, TStringId } from "@/engine/lib/types";
  * @param actor - optional actor object override
  * @returns whether actor is enemy with faction
  */
-export function isActorEnemyWithFaction(faction: TCommunity, actor: ClientObject = registry.actor): boolean {
+export function isActorEnemyWithFaction(faction: TCommunity, actor: GameObject = registry.actor): boolean {
   return relation_registry.community_goodwill(faction, actor.id()) <= EGoodwill.ENEMIES;
 }
 
@@ -26,7 +26,7 @@ export function isActorEnemyWithFaction(faction: TCommunity, actor: ClientObject
  * @param actor - optional actor object override
  * @returns whether actor is friend with faction
  */
-export function isActorFriendWithFaction(faction: TCommunity, actor: ClientObject = registry.actor): boolean {
+export function isActorFriendWithFaction(faction: TCommunity, actor: GameObject = registry.actor): boolean {
   return relation_registry.community_goodwill(faction, actor.id()) >= EGoodwill.FRIENDS;
 }
 
@@ -37,7 +37,7 @@ export function isActorFriendWithFaction(faction: TCommunity, actor: ClientObjec
  * @param actor - optional actor object override
  * @returns whether actor is neutral with faction
  */
-export function isActorNeutralWithFaction(faction: TCommunity, actor: ClientObject = registry.actor): boolean {
+export function isActorNeutralWithFaction(faction: TCommunity, actor: GameObject = registry.actor): boolean {
   const goodwill: TCount = relation_registry.community_goodwill(faction, actor.id());
 
   return goodwill > EGoodwill.ENEMIES && goodwill < EGoodwill.FRIENDS;

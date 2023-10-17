@@ -10,7 +10,7 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 import { TLevel } from "@/engine/lib/constants/levels";
 import { MAX_U32 } from "@/engine/lib/constants/memory";
 import { TRUE } from "@/engine/lib/constants/words";
-import { ClientObject, LuaArray, Optional, TDistance } from "@/engine/lib/types";
+import { GameObject, LuaArray, Optional, TDistance } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -70,11 +70,11 @@ export function initializeSurgeCovers(): void {
 /**
  * @returns list of game objects representing possible covers registered online
  */
-export function getOnlineSurgeCoversList(): LuaArray<ClientObject> {
-  const covers: LuaArray<ClientObject> = new LuaTable();
+export function getOnlineSurgeCoversList(): LuaArray<GameObject> {
+  const covers: LuaArray<GameObject> = new LuaTable();
 
   for (const [, descriptor] of surgeConfig.SURGE_COVERS) {
-    const object: Optional<ClientObject> = registry.zones.get(descriptor.name);
+    const object: Optional<GameObject> = registry.zones.get(descriptor.name);
 
     if (object !== null) {
       table.insert(covers, object);
@@ -87,8 +87,8 @@ export function getOnlineSurgeCoversList(): LuaArray<ClientObject> {
 /**
  * todo;
  */
-export function getNearestAvailableSurgeCover(object: ClientObject): Optional<ClientObject> {
-  let nearestCover: Optional<ClientObject> = null;
+export function getNearestAvailableSurgeCover(object: GameObject): Optional<GameObject> {
+  let nearestCover: Optional<GameObject> = null;
   let nearestCoverDistance: TDistance = MAX_U32;
 
   /**
@@ -98,7 +98,7 @@ export function getNearestAvailableSurgeCover(object: ClientObject): Optional<Cl
    * - Blocked by different conditions
    */
   for (const [, descriptor] of surgeConfig.SURGE_COVERS) {
-    const zone: Optional<ClientObject> = registry.zones.get(descriptor.name);
+    const zone: Optional<GameObject> = registry.zones.get(descriptor.name);
 
     if (zone !== null) {
       const isValidCover: boolean =
@@ -130,8 +130,8 @@ export function getNearestAvailableSurgeCover(object: ClientObject): Optional<Cl
  *
  * @returns nearest cover ID if it exists or null if none found / actor in one currently.
  */
-export function getActorTargetSurgeCover(): Optional<ClientObject> {
-  const coverObject: Optional<ClientObject> = getNearestAvailableSurgeCover(registry.actor);
+export function getActorTargetSurgeCover(): Optional<GameObject> {
+  const coverObject: Optional<GameObject> = getNearestAvailableSurgeCover(registry.actor);
 
   // No covers or already in cover -> nothing to do.
   if (coverObject === null || coverObject.inside(registry.actor.position())) {

@@ -20,7 +20,7 @@ import { questItems } from "@/engine/lib/constants/items/quest_items";
 import { weapons } from "@/engine/lib/constants/items/weapons";
 import { TRUE } from "@/engine/lib/constants/words";
 import {
-  ClientObject,
+  GameObject,
   LuaArray,
   Optional,
   Patrol,
@@ -44,8 +44,8 @@ const logger: LuaLogger = new LuaLogger($filename);
 extern(
   "xr_effects.play_sound",
   (
-    actor: ClientObject,
-    object: ClientObject,
+    actor: GameObject,
+    object: GameObject,
     p: [Optional<TName>, Optional<TCommunity>, Optional<string | number>]
   ): void => {
     const theme: Optional<TName> = p[0];
@@ -73,21 +73,21 @@ extern(
 /**
  * todo;
  */
-extern("xr_effects.stop_sound", (actor: ClientObject, object: ClientObject): void => {
+extern("xr_effects.stop_sound", (actor: GameObject, object: GameObject): void => {
   GlobalSoundManager.getInstance().stopSoundByObjectId(object.id());
 });
 
 /**
  * todo;
  */
-extern("xr_effects.play_sound_looped", (actor: ClientObject, object: ClientObject, params: [string]): void => {
+extern("xr_effects.play_sound_looped", (actor: GameObject, object: GameObject, params: [string]): void => {
   GlobalSoundManager.getInstance().playLoopedSound(object.id(), params[0]);
 });
 
 /**
  * todo;
  */
-extern("xr_effects.stop_sound_looped", (actor: ClientObject, object: ClientObject) => {
+extern("xr_effects.stop_sound_looped", (actor: GameObject, object: GameObject) => {
   GlobalSoundManager.getInstance().stopLoopedSound(object.id(), null);
 });
 
@@ -96,7 +96,7 @@ extern("xr_effects.stop_sound_looped", (actor: ClientObject, object: ClientObjec
  */
 extern(
   "xr_effects.play_sound_by_story",
-  (actor: ClientObject, object: ClientObject, p: [string, string, string, TName | number]) => {
+  (actor: GameObject, object: GameObject, p: [string, string, string, TName | number]) => {
     const storyObjectId: Optional<TNumberId> = getObjectIdByStoryId(p[0]);
     const theme: TName = p[1];
     const faction: TName = p[2];
@@ -113,7 +113,7 @@ extern(
 /**
  * todo;
  */
-extern("xr_effects.reset_sound_npc", (actor: ClientObject, object: ClientObject): void => {
+extern("xr_effects.reset_sound_npc", (actor: GameObject, object: GameObject): void => {
   const objectId: TNumberId = object.id();
 
   if (soundsConfig.playing.get(objectId) !== null) {
@@ -124,8 +124,8 @@ extern("xr_effects.reset_sound_npc", (actor: ClientObject, object: ClientObject)
 /**
  * todo;
  */
-extern("xr_effects.barrel_explode", (actor: ClientObject, object: ClientObject, p: [TStringId]) => {
-  const explodeObject: Optional<ClientObject> = getObjectByStoryId(p[0]);
+extern("xr_effects.barrel_explode", (actor: GameObject, object: GameObject, p: [TStringId]) => {
+  const explodeObject: Optional<GameObject> = getObjectByStoryId(p[0]);
 
   if (explodeObject !== null) {
     explodeObject.explode(0);
@@ -135,7 +135,7 @@ extern("xr_effects.barrel_explode", (actor: ClientObject, object: ClientObject, 
 /**
  * todo;
  */
-extern("xr_effects.set_game_time", (actor: ClientObject, object: ClientObject, params: [string, string]) => {
+extern("xr_effects.set_game_time", (actor: GameObject, object: GameObject, params: [string, string]) => {
   logger.info("Set game time:", params[0], params[1]);
 
   const realHours = level.get_time_hours();
@@ -171,7 +171,7 @@ extern("xr_effects.set_game_time", (actor: ClientObject, object: ClientObject, p
 /**
  * todo;
  */
-extern("xr_effects.forward_game_time", (actor: ClientObject, object: ClientObject, p: [string, string]) => {
+extern("xr_effects.forward_game_time", (actor: GameObject, object: GameObject, p: [string, string]) => {
   logger.info("Forward game time");
 
   if (!p) {
@@ -194,8 +194,8 @@ extern("xr_effects.forward_game_time", (actor: ClientObject, object: ClientObjec
 extern(
   "xr_effects.pick_artefact_from_anomaly",
   (
-    actor: ClientObject,
-    object: Optional<ClientObject | ServerHumanObject>,
+    actor: GameObject,
+    object: Optional<GameObject | ServerHumanObject>,
     params: [Optional<TStringId>, Optional<TName>, TName]
   ): void => {
     logger.info("Pick artefact from anomaly");
@@ -255,14 +255,14 @@ extern(
     anomalyZone.onArtefactTaken(artefactObject as ServerArtefactItemObject);
 
     registry.simulator.release(artefactObject!, true);
-    spawnItemsForObject(object as ClientObject, artefactSection);
+    spawnItemsForObject(object as GameObject, artefactSection);
   }
 );
 
 /**
  * todo
  */
-extern("xr_effects.anomaly_turn_off", (actor: ClientObject, object: ClientObject, p: [string]): void => {
+extern("xr_effects.anomaly_turn_off", (actor: GameObject, object: GameObject, p: [string]): void => {
   const anomalZone: Optional<AnomalyZoneBinder> = registry.anomalyZones.get(p[0]);
 
   if (anomalZone === null) {
@@ -275,27 +275,24 @@ extern("xr_effects.anomaly_turn_off", (actor: ClientObject, object: ClientObject
 /**
  * todo
  */
-extern(
-  "xr_effects.anomaly_turn_on",
-  (actor: ClientObject, object: ClientObject, p: [string, Optional<string>]): void => {
-    const anomalyZone: Optional<AnomalyZoneBinder> = registry.anomalyZones.get(p[0]);
+extern("xr_effects.anomaly_turn_on", (actor: GameObject, object: GameObject, p: [string, Optional<string>]): void => {
+  const anomalyZone: Optional<AnomalyZoneBinder> = registry.anomalyZones.get(p[0]);
 
-    if (anomalyZone === null) {
-      abort("No such anomal zone in function 'anomaly_turn_on!'");
-    }
-
-    if (p[1]) {
-      anomalyZone.turnOn(true);
-    } else {
-      anomalyZone.turnOn(false);
-    }
+  if (anomalyZone === null) {
+    abort("No such anomal zone in function 'anomaly_turn_on!'");
   }
-);
+
+  if (p[1]) {
+    anomalyZone.turnOn(true);
+  } else {
+    anomalyZone.turnOn(false);
+  }
+});
 
 /**
  * todo;
  */
-extern("xr_effects.turn_off_underpass_lamps", (actor: ClientObject, object: ClientObject): void => {
+extern("xr_effects.turn_off_underpass_lamps", (actor: GameObject, object: GameObject): void => {
   const lampsList = {
     ["pas_b400_lamp_start_flash"]: true,
     ["pas_b400_lamp_start_red"]: true,
@@ -322,7 +319,7 @@ extern("xr_effects.turn_off_underpass_lamps", (actor: ClientObject, object: Clie
   } as unknown as LuaTable<string, boolean>;
 
   for (const [k, v] of lampsList) {
-    const object: Optional<ClientObject> = getObjectByStoryId(k);
+    const object: Optional<GameObject> = getObjectByStoryId(k);
 
     if (object) {
       object.get_hanging_lamp().turn_off();
@@ -335,9 +332,9 @@ extern("xr_effects.turn_off_underpass_lamps", (actor: ClientObject, object: Clie
 /**
  * todo;
  */
-extern("xr_effects.turn_off", (actor: ClientObject, object: ClientObject, parameters: LuaArray<TStringId>): void => {
+extern("xr_effects.turn_off", (actor: GameObject, object: GameObject, parameters: LuaArray<TStringId>): void => {
   for (const [index, storyId] of parameters) {
-    const object: Optional<ClientObject> = getObjectByStoryId(storyId);
+    const object: Optional<GameObject> = getObjectByStoryId(storyId);
 
     if (!object) {
       abort("TURN_OFF. Target object with story_id [%s] does ! exist", storyId);
@@ -350,7 +347,7 @@ extern("xr_effects.turn_off", (actor: ClientObject, object: ClientObject, parame
 /**
  * todo;
  */
-extern("xr_effects.turn_off_object", (actor: ClientObject, object: ClientObject): void => {
+extern("xr_effects.turn_off_object", (actor: GameObject, object: GameObject): void => {
   object.get_hanging_lamp().turn_off();
 });
 
@@ -359,8 +356,8 @@ extern("xr_effects.turn_off_object", (actor: ClientObject, object: ClientObject)
  */
 extern(
   "xr_effects.turn_on_and_force",
-  (actor: ClientObject, object: ClientObject, params: [TStringId, number, number]): void => {
-    const storyObject: Optional<ClientObject> = getObjectByStoryId(params[0]);
+  (actor: GameObject, object: GameObject, params: [TStringId, number, number]): void => {
+    const storyObject: Optional<GameObject> = getObjectByStoryId(params[0]);
 
     if (!storyObject) {
       abort("TURN_ON_AND_FORCE. Target object does ! exist");
@@ -385,8 +382,8 @@ extern(
 /**
  * todo;
  */
-extern("xr_effects.turn_off_and_force", (actor: ClientObject, object: ClientObject, p: [TStringId]): void => {
-  const storyObject: Optional<ClientObject> = getObjectByStoryId(p[0]);
+extern("xr_effects.turn_off_and_force", (actor: GameObject, object: GameObject, p: [TStringId]): void => {
+  const storyObject: Optional<GameObject> = getObjectByStoryId(p[0]);
 
   if (!storyObject) {
     abort("TURN_OFF [%s]. Target object does ! exist", p[0]);
@@ -399,16 +396,16 @@ extern("xr_effects.turn_off_and_force", (actor: ClientObject, object: ClientObje
 /**
  * todo;
  */
-extern("xr_effects.turn_on_object", (actor: ClientObject, object: ClientObject): void => {
+extern("xr_effects.turn_on_object", (actor: GameObject, object: GameObject): void => {
   object.get_hanging_lamp().turn_on();
 });
 
 /**
  * todo;
  */
-extern("xr_effects.turn_on", (actor: ClientObject, object: ClientObject, parameters: LuaArray<TStringId>) => {
+extern("xr_effects.turn_on", (actor: GameObject, object: GameObject, parameters: LuaArray<TStringId>) => {
   for (const [index, storyId] of parameters) {
-    const storyObject: Optional<ClientObject> = getObjectByStoryId(storyId);
+    const storyObject: Optional<GameObject> = getObjectByStoryId(storyId);
 
     if (!storyObject) {
       abort("TURN_ON [%s]. Target object does ! exist", storyId);
@@ -423,7 +420,7 @@ extern("xr_effects.turn_on", (actor: ClientObject, object: ClientObject, paramet
  */
 extern(
   "xr_effects.set_weather",
-  (actor: ClientObject, object: ClientObject, [weatherName, isForced]: [TName, string]): void => {
+  (actor: GameObject, object: GameObject, [weatherName, isForced]: [TName, string]): void => {
     logger.info("Set weather:", weatherName);
 
     if (weatherName !== null) {
@@ -453,7 +450,7 @@ extern("xr_effects.stop_surge", (): void => {
  */
 extern(
   "xr_effects.set_surge_mess_and_task",
-  (actor: ClientObject, object: ClientObject, p: [string, Optional<string>]): void => {
+  (actor: GameObject, object: GameObject, p: [string, Optional<string>]): void => {
     const surgeManager: SurgeManager = SurgeManager.getInstance();
 
     surgeManager.setSurgeMessage(p[0]);
@@ -467,12 +464,12 @@ extern(
 /**
  * todo;
  */
-extern("xr_effects.enable_anomaly", (actor: ClientObject, object: ClientObject, p: [string]) => {
+extern("xr_effects.enable_anomaly", (actor: GameObject, object: GameObject, p: [string]) => {
   if (p[0] === null) {
     abort("Story id for enable_anomaly function is ! set");
   }
 
-  const storyObject: Optional<ClientObject> = getObjectByStoryId(p[0]);
+  const storyObject: Optional<GameObject> = getObjectByStoryId(p[0]);
 
   if (!storyObject) {
     abort("There is no object with story_id %s for enable_anomaly function", tostring(p[0]));
@@ -484,12 +481,12 @@ extern("xr_effects.enable_anomaly", (actor: ClientObject, object: ClientObject, 
 /**
  * todo;
  */
-extern("xr_effects.disable_anomaly", (actor: ClientObject, object: ClientObject, p: [TStringId]): void => {
+extern("xr_effects.disable_anomaly", (actor: GameObject, object: GameObject, p: [TStringId]): void => {
   if (p[0] === null) {
     abort("Story id for disable_anomaly function is ! set");
   }
 
-  const storyObject: Optional<ClientObject> = getObjectByStoryId(p[0]);
+  const storyObject: Optional<GameObject> = getObjectByStoryId(p[0]);
 
   if (!storyObject) {
     abort("There is no object with story_id %s for disable_anomaly function", tostring(p[0]));
@@ -501,7 +498,7 @@ extern("xr_effects.disable_anomaly", (actor: ClientObject, object: ClientObject,
 /**
  * todo;
  */
-extern("xr_effects.launch_signal_rocket", (actor: ClientObject, obj: ClientObject, p: [string]): void => {
+extern("xr_effects.launch_signal_rocket", (actor: GameObject, obj: GameObject, p: [string]): void => {
   if (p === null) {
     abort("Signal rocket name is ! set!");
   }
@@ -519,8 +516,8 @@ extern("xr_effects.launch_signal_rocket", (actor: ClientObject, obj: ClientObjec
 extern(
   "xr_effects.create_cutscene_actor_with_weapon",
   (
-    actor: ClientObject,
-    object: ClientObject,
+    actor: GameObject,
+    object: GameObject,
     params: [Optional<string>, Optional<string>, number, number, number]
   ): void => {
     logger.info("Create cutscene actor with weapon");
@@ -561,7 +558,7 @@ extern(
     const slotOverride: TIndex = params[4] || 0;
 
     let slot: number;
-    let activeItem: Optional<ClientObject> = null;
+    let activeItem: Optional<GameObject> = null;
 
     if (slotOverride === 0) {
       slot = actor.active_slot();
@@ -610,7 +607,7 @@ extern(
 /**
  * todo;
  */
-extern("xr_effects.stop_sr_cutscene", (actor: ClientObject, object: ClientObject, parameters: []) => {
+extern("xr_effects.stop_sr_cutscene", (actor: GameObject, object: GameObject, parameters: []) => {
   const state: IRegistryObjectState = registry.objects.get(object.id());
 
   if (state.activeScheme !== null) {

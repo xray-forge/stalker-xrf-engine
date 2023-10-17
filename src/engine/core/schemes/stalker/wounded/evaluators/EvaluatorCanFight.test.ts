@@ -3,13 +3,13 @@ import { describe, expect, it, jest } from "@jest/globals";
 import { registerObject, setPortableStoreValue } from "@/engine/core/database";
 import { ISchemeWoundedState } from "@/engine/core/schemes/stalker/wounded";
 import { EvaluatorCanFight } from "@/engine/core/schemes/stalker/wounded/evaluators/EvaluatorCanFight";
-import { ClientObject, EScheme } from "@/engine/lib/types";
+import { EScheme, GameObject } from "@/engine/lib/types";
 import { mockSchemeState } from "@/fixtures/engine";
-import { mockClientGameObject, MockPropertyStorage } from "@/fixtures/xray";
+import { mockGameObject, MockPropertyStorage } from "@/fixtures/xray";
 
 describe("EvaluatorCanFight class", () => {
   it("should correctly evaluate whether object can fight", () => {
-    const object: ClientObject = mockClientGameObject();
+    const object: GameObject = mockGameObject();
     const state: ISchemeWoundedState = mockSchemeState(EScheme.WOUNDED);
     const evaluator: EvaluatorCanFight = new EvaluatorCanFight(state);
 

@@ -6,7 +6,7 @@ import { ISchemePostCombatIdleState } from "@/engine/core/schemes/stalker/combat
 import { canObjectSelectAsEnemy } from "@/engine/core/schemes/stalker/danger/utils";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
-import { ClientObject, Optional, TDistance, TTimestamp } from "@/engine/lib/types";
+import { GameObject, Optional, TDistance, TTimestamp } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -31,7 +31,7 @@ export class EvaluatorHasEnemy extends property_evaluator {
       return false;
     }
 
-    const bestEnemy: Optional<ClientObject> = this.object.best_enemy();
+    const bestEnemy: Optional<GameObject> = this.object.best_enemy();
 
     if (bestEnemy !== null && !canObjectSelectAsEnemy(this.object, bestEnemy)) {
       return false;

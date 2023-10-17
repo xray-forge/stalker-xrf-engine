@@ -15,17 +15,7 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 import { isObjectInActorFrustum, isObjectInZone } from "@/engine/core/utils/position";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import { nimbleWeapons, TWeapon } from "@/engine/lib/constants/items/weapons";
-import {
-  ClientObject,
-  EScheme,
-  LuaArray,
-  Optional,
-  TCount,
-  TDistance,
-  TName,
-  TRate,
-  TSection,
-} from "@/engine/lib/types";
+import { EScheme, GameObject, LuaArray, Optional, TCount, TDistance, TName, TRate, TSection } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -53,7 +43,7 @@ extern("xr_conditions.actor_in_surge_cover", (): boolean => {
 /**
  * todo;
  */
-extern("xr_conditions.is_enemy_actor", (object: ClientObject): boolean => {
+extern("xr_conditions.is_enemy_actor", (object: GameObject): boolean => {
   // todo: Probably always true.
   return object.id() === ACTOR_ID;
 });
@@ -61,21 +51,21 @@ extern("xr_conditions.is_enemy_actor", (object: ClientObject): boolean => {
 /**
  * Check whether actor is alive at the moment.
  */
-extern("xr_conditions.actor_alive", (actor: ClientObject): boolean => {
+extern("xr_conditions.actor_alive", (actor: GameObject): boolean => {
   return actor.alive();
 });
 
 /**
  * Check whether actor sees object at the moment.
  */
-extern("xr_conditions.actor_see_npc", (actor: ClientObject, object: ClientObject): boolean => {
+extern("xr_conditions.actor_see_npc", (actor: GameObject, object: GameObject): boolean => {
   return actor.see(object);
 });
 
 /**
  * todo;
  */
-extern("xr_conditions.npc_in_actor_frustum", (actor: ClientObject, object: ClientObject): boolean => {
+extern("xr_conditions.npc_in_actor_frustum", (actor: GameObject, object: GameObject): boolean => {
   return isObjectInActorFrustum(object);
 });
 
@@ -86,7 +76,7 @@ extern("xr_conditions.npc_in_actor_frustum", (actor: ClientObject, object: Clien
  */
 extern(
   "xr_conditions.dist_to_actor_le",
-  (actor: ClientObject, object: ClientObject, [distance]: [Optional<TDistance>]): boolean => {
+  (actor: GameObject, object: GameObject, [distance]: [Optional<TDistance>]): boolean => {
     if (!distance) {
       abort("Wrong parameter in 'dist_to_actor_le' function: %s.", distance);
     }
@@ -100,7 +90,7 @@ extern(
  */
 extern(
   "xr_conditions.dist_to_actor_ge",
-  (actor: ClientObject, object: ClientObject, [distance]: [Optional<TDistance>]): boolean => {
+  (actor: GameObject, object: GameObject, [distance]: [Optional<TDistance>]): boolean => {
     if (!distance) {
       abort("Wrong parameter in 'dist_to_actor_ge' function: %s.", distance);
     }
@@ -112,21 +102,21 @@ extern(
 /**
  * todo;
  */
-extern("xr_conditions.actor_health_le", (actor: ClientObject, object: ClientObject, [health]: [TRate]): boolean => {
+extern("xr_conditions.actor_health_le", (actor: GameObject, object: GameObject, [health]: [TRate]): boolean => {
   return health !== null && actor.health < health;
 });
 
 /**
  * todo;
  */
-extern("xr_conditions.actor_in_zone", (actor: ClientObject, object: ClientObject, [zoneName]: [TName]): boolean => {
+extern("xr_conditions.actor_in_zone", (actor: GameObject, object: GameObject, [zoneName]: [TName]): boolean => {
   return isObjectInZone(registry.actor, registry.zones.get(zoneName));
 });
 
 /**
  * todo;
  */
-extern("xr_conditions.heli_see_actor", (actor: ClientObject, object: ClientObject): boolean => {
+extern("xr_conditions.heli_see_actor", (actor: GameObject, object: GameObject): boolean => {
   return actor !== null && object.get_helicopter().isVisible(actor);
 });
 
@@ -135,7 +125,7 @@ extern("xr_conditions.heli_see_actor", (actor: ClientObject, object: ClientObjec
  */
 extern(
   "xr_conditions.actor_has_item",
-  (actor: ClientObject, object: ClientObject, [item]: [Optional<TSection>]): boolean => {
+  (actor: GameObject, object: GameObject, [item]: [Optional<TSection>]): boolean => {
     return item !== null && actor !== null && actor.object(item) !== null;
   }
 );
@@ -145,7 +135,7 @@ extern(
  */
 extern(
   "xr_conditions.actor_has_item_count",
-  (actor: ClientObject, object: ClientObject, [itemSection, count]: [TSection, string]) => {
+  (actor: GameObject, object: GameObject, [itemSection, count]: [TSection, string]) => {
     const neededCount: TCount = tonumber(count) as TCount;
     let hasCount: TCount = 0;
 
@@ -168,7 +158,7 @@ extern(
 /**
  * Check if object is hit by actor.
  */
-extern("xr_conditions.hit_by_actor", (actor: ClientObject, object: ClientObject): boolean => {
+extern("xr_conditions.hit_by_actor", (actor: GameObject, object: GameObject): boolean => {
   const state: Optional<ISchemeHitState> = registry.objects.get(object.id())[EScheme.HIT] as ISchemeHitState;
 
   return state !== null && state.who === ACTOR_ID;
@@ -177,14 +167,14 @@ extern("xr_conditions.hit_by_actor", (actor: ClientObject, object: ClientObject)
 /**
  * Check if object is killed by actor.
  */
-extern("xr_conditions.killed_by_actor", (actor: ClientObject, object: ClientObject): boolean => {
+extern("xr_conditions.killed_by_actor", (actor: GameObject, object: GameObject): boolean => {
   return (registry.objects.get(object.id())[EScheme.DEATH] as ISchemeDeathState)?.killerId === ACTOR_ID;
 });
 
 /**
  * Check if actor has any active weapon.
  */
-extern("xr_conditions.actor_has_weapon", (actor: ClientObject): boolean => {
+extern("xr_conditions.actor_has_weapon", (actor: GameObject): boolean => {
   return isWeapon(actor.active_item());
 });
 
@@ -193,7 +183,7 @@ extern("xr_conditions.actor_has_weapon", (actor: ClientObject): boolean => {
  */
 extern(
   "xr_conditions.actor_active_detector",
-  (actor: ClientObject, object: ClientObject, p: Optional<[TSection]>): boolean => {
+  (actor: GameObject, object: GameObject, p: Optional<[TSection]>): boolean => {
     const detectorSection: Optional<TSection> = p && p[0];
 
     if (detectorSection === null) {
@@ -209,25 +199,22 @@ extern(
 /**
  * todo;
  */
-extern(
-  "xr_conditions.actor_on_level",
-  (actor: ClientObject, object: ClientObject, levels: LuaArray<TName>): boolean => {
-    const currentLevelName: TName = level.name();
+extern("xr_conditions.actor_on_level", (actor: GameObject, object: GameObject, levels: LuaArray<TName>): boolean => {
+  const currentLevelName: TName = level.name();
 
-    for (const [, levelName] of levels) {
-      if (levelName === currentLevelName) {
-        return true;
-      }
+  for (const [, levelName] of levels) {
+    if (levelName === currentLevelName) {
+      return true;
     }
-
-    return false;
   }
-);
+
+  return false;
+});
 
 /**
  * Check whether actor is talking right now (dialog window is active).
  */
-extern("xr_conditions.talking", (actor: ClientObject): boolean => {
+extern("xr_conditions.talking", (actor: GameObject): boolean => {
   return actor.is_talking();
 });
 
@@ -242,7 +229,7 @@ extern("xr_conditions.actor_nomove_nowpn", (): boolean => {
  * Check if actor has one of nimble weapons.
  * todo: Probably should be optimized.
  */
-extern("xr_conditions.actor_has_nimble_weapon", (actor: ClientObject): boolean => {
+extern("xr_conditions.actor_has_nimble_weapon", (actor: GameObject): boolean => {
   for (const [weapon] of pairs(nimbleWeapons)) {
     if (actor.object(weapon) !== null) {
       return true;
@@ -255,14 +242,14 @@ extern("xr_conditions.actor_has_nimble_weapon", (actor: ClientObject): boolean =
 /**
  * Check if nimble weapon is in one of active actor slots.
  */
-extern("xr_conditions.actor_has_active_nimble_weapon", (actor: ClientObject, object: ClientObject): boolean => {
-  const first: Optional<ClientObject> = actor.item_in_slot(2);
+extern("xr_conditions.actor_has_active_nimble_weapon", (actor: GameObject, object: GameObject): boolean => {
+  const first: Optional<GameObject> = actor.item_in_slot(2);
 
   if (first && nimbleWeapons[first.section() as TWeapon]) {
     return true;
   }
 
-  const second: Optional<ClientObject> = actor.item_in_slot(3);
+  const second: Optional<GameObject> = actor.item_in_slot(3);
 
   if (second && nimbleWeapons[second.section()]) {
     return true;

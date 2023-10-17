@@ -2,18 +2,18 @@ import { CHelicopter } from "xray16";
 
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { createEmptyVector } from "@/engine/core/utils/vector";
-import { ClientObject, Optional, TRate, Vector } from "@/engine/lib/types";
+import { GameObject, Optional, TRate, Vector } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
 const heliLooker: LuaTable<number, HeliLook> = new LuaTable();
 
 export class HeliLook {
-  public readonly object: ClientObject;
+  public readonly object: GameObject;
   public lookPoint: Vector;
   public lookState: boolean;
 
-  public constructor(object: ClientObject) {
+  public constructor(object: GameObject) {
     this.object = object;
     this.lookPoint = createEmptyVector();
     this.lookState = false;
@@ -58,7 +58,7 @@ export class HeliLook {
 /**
  * todo;
  */
-export function getHeliLooker(object: ClientObject): HeliLook {
+export function getHeliLooker(object: GameObject): HeliLook {
   if (heliLooker.get(object.id()) === null) {
     heliLooker.set(object.id(), new HeliLook(object));
   }

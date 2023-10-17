@@ -6,11 +6,11 @@ import { EvaluatorAnimstateLocked } from "@/engine/core/objects/ai/state/animsta
 import { StalkerStateManager } from "@/engine/core/objects/ai/state/StalkerStateManager";
 import { EAnimationMarker } from "@/engine/core/objects/animation/types/animation_types";
 import { StalkerBinder } from "@/engine/core/objects/binders/creature/StalkerBinder";
-import { mockClientGameObject } from "@/fixtures/xray";
+import { mockGameObject } from "@/fixtures/xray";
 
 describe("EvaluatorAnimstateLocked class", () => {
   it("should correctly perform animation locked state", () => {
-    const stalker: StalkerBinder = new StalkerBinder(mockClientGameObject());
+    const stalker: StalkerBinder = new StalkerBinder(mockGameObject());
 
     registerStalker(stalker);
 

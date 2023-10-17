@@ -5,11 +5,11 @@ import { EvaluatorAnimstate } from "@/engine/core/objects/ai/state/animstate/Eva
 import { StalkerStateManager } from "@/engine/core/objects/ai/state/StalkerStateManager";
 import { EStalkerState } from "@/engine/core/objects/animation/types";
 import { StalkerBinder } from "@/engine/core/objects/binders/creature/StalkerBinder";
-import { mockClientGameObject } from "@/fixtures/xray";
+import { mockGameObject } from "@/fixtures/xray";
 
 describe("EvaluatorAnimstate class", () => {
   it("should correctly perform animation state check", () => {
-    const stalker: StalkerBinder = new StalkerBinder(mockClientGameObject());
+    const stalker: StalkerBinder = new StalkerBinder(mockGameObject());
 
     stalker.reinit();
 

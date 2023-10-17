@@ -3,7 +3,7 @@ import { EObjectCampRole } from "@/engine/core/managers/camp/camp_types";
 import type { CampManager } from "@/engine/core/managers/camp/CampManager";
 import { ISchemeAnimpointState } from "@/engine/core/schemes/stalker/animpoint";
 import { isObjectMeeting } from "@/engine/core/utils/planner";
-import { ClientObject, Optional, TCount, TNumberId } from "@/engine/lib/types";
+import { GameObject, Optional, TCount, TNumberId } from "@/engine/lib/types";
 
 /**
  * Start playing guitar for an object.
@@ -11,7 +11,7 @@ import { ClientObject, Optional, TCount, TNumberId } from "@/engine/lib/types";
  *
  * @param object - stalker client object to start playing guitar for
  */
-export function startPlayingGuitar(object: ClientObject): void {
+export function startPlayingGuitar(object: GameObject): void {
   const campId: Optional<TNumberId> = registry.objects.get(object.id()).camp;
 
   // Object is not in camp.
@@ -33,7 +33,7 @@ export function startPlayingGuitar(object: ClientObject): void {
  *
  * @param object - stalker client object to start playing harmonica for
  */
-export function startPlayingHarmonica(object: ClientObject): void {
+export function startPlayingHarmonica(object: GameObject): void {
   const campId: Optional<TNumberId> = registry.objects.get(object.id()).camp;
 
   // Object is not in camp.
@@ -64,7 +64,7 @@ export function canTellCampStory(campManager: CampManager): boolean {
   let count: TCount = 0;
 
   for (const [id, v] of campManager.objects) {
-    const object: Optional<ClientObject> = registry.objects.get(id)?.object;
+    const object: Optional<GameObject> = registry.objects.get(id)?.object;
 
     // todo: Probably just return instead of full FOR? If 2+
     if (object !== null && !isObjectMeeting(object)) {
@@ -100,7 +100,7 @@ export function canPlayCampGuitar(campManager: CampManager): boolean {
       const schemeState: Optional<ISchemeAnimpointState> = state?.activeScheme
         ? (state[state.activeScheme] as ISchemeAnimpointState)
         : null;
-      const object: Optional<ClientObject> = state?.object;
+      const object: Optional<GameObject> = state?.object;
 
       if (
         object !== null &&
@@ -142,7 +142,7 @@ export function canPlayCampHarmonica(campManager: CampManager): boolean {
       const schemeState: Optional<ISchemeAnimpointState> = state?.activeScheme
         ? (state[state.activeScheme!] as ISchemeAnimpointState)
         : null;
-      const object: Optional<ClientObject> = state?.object;
+      const object: Optional<GameObject> = state?.object;
 
       if (
         object !== null &&

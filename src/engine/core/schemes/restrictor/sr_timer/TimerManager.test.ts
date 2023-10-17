@@ -6,13 +6,13 @@ import { SchemeTimer } from "@/engine/core/schemes/restrictor/sr_timer/SchemeTim
 import { ETimerType, ISchemeTimerState } from "@/engine/core/schemes/restrictor/sr_timer/sr_timer_types";
 import { TimerManager } from "@/engine/core/schemes/restrictor/sr_timer/TimerManager";
 import { activateSchemeBySection, loadSchemeImplementation } from "@/engine/core/utils/scheme";
-import { ClientObject, EScheme, IniFile } from "@/engine/lib/types";
+import { EScheme, GameObject, IniFile } from "@/engine/lib/types";
 import { getSchemeAction, mockSchemeState } from "@/fixtures/engine/mocks";
-import { mockClientGameObject, mockIniFile } from "@/fixtures/xray";
+import { mockGameObject, mockIniFile } from "@/fixtures/xray";
 
 describe("TimerManager class", () => {
   it("should correctly activate and deactivate with label and timer id", () => {
-    const object: ClientObject = mockClientGameObject();
+    const object: GameObject = mockGameObject();
     const state: ISchemeTimerState = mockSchemeState<ISchemeTimerState>(EScheme.SR_TIMER, {
       timerId: "timer-id",
       string: "timer-label",
@@ -32,7 +32,7 @@ describe("TimerManager class", () => {
   });
 
   it("should correctly activate and deactivate without custom label", () => {
-    const object: ClientObject = mockClientGameObject();
+    const object: GameObject = mockGameObject();
     const state: ISchemeTimerState = mockSchemeState<ISchemeTimerState>(EScheme.SR_TIMER, {
       timerId: "timer-id",
     });
@@ -51,9 +51,9 @@ describe("TimerManager class", () => {
   });
 
   it("should correctly call updates", () => {
-    registerActor(mockClientGameObject());
+    registerActor(mockGameObject());
 
-    const object: ClientObject = mockClientGameObject();
+    const object: GameObject = mockGameObject();
     const state: IRegistryObjectState = registerObject(object);
     const ini: IniFile = mockIniFile("test.ltx", {
       "sr_timer@test": {

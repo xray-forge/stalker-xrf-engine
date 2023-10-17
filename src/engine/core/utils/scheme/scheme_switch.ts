@@ -10,10 +10,10 @@ import { emitSchemeEvent } from "@/engine/core/utils/scheme/scheme_event";
 import { activateSchemeBySection } from "@/engine/core/utils/scheme/scheme_logic";
 import { NIL } from "@/engine/lib/constants/words";
 import {
-  ClientObject,
   EScheme,
   ESchemeCondition,
   ESchemeEvent,
+  GameObject,
   IniFile,
   LuaArray,
   Optional,
@@ -37,7 +37,7 @@ const logger: LuaLogger = new LuaLogger($filename, { file: "scheme" });
  */
 const SCHEME_LOGIC_SWITCH: Record<
   ESchemeCondition | typeof NIL,
-  (actor: ClientObject, object: ClientObject, state: IBaseSchemeState, logic: IBaseSchemeLogic) => boolean
+  (actor: GameObject, object: GameObject, state: IBaseSchemeState, logic: IBaseSchemeLogic) => boolean
 > = {
   [NIL]: () => abort("Error: 'scheme/switch': unknown condition encountered."),
   [ESchemeCondition.ON_ACTOR_DISTANCE_LESS_THAN]: (actor, object, state, logic) =>
@@ -96,7 +96,7 @@ const SCHEME_LOGIC_SWITCH: Record<
  * @param object - client object to try switching
  * @param state - current scheme state
  */
-export function trySwitchToAnotherSection(object: ClientObject, state: IBaseSchemeState): boolean {
+export function trySwitchToAnotherSection(object: GameObject, state: IBaseSchemeState): boolean {
   const logic: Optional<LuaArray<IBaseSchemeLogic>> = state.logic;
 
   assert(logic, "Can't find `logic` in state, section '%s'.", state.section);
@@ -122,7 +122,7 @@ export function trySwitchToAnotherSection(object: ClientObject, state: IBaseSche
  * @param section - next active section
  * @returns whether scheme switch happened
  */
-export function switchObjectSchemeToSection(object: ClientObject, ini: IniFile, section: Optional<TSection>): boolean {
+export function switchObjectSchemeToSection(object: GameObject, ini: IniFile, section: Optional<TSection>): boolean {
   if (section === "" || section === null) {
     return false;
   }

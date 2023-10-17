@@ -18,9 +18,9 @@ import { TCommunity } from "@/engine/lib/constants/communities";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import {
   AnyGameObject,
-  ClientObject,
-  EClientObjectRelation,
+  EGameObjectRelation,
   EScheme,
+  GameObject,
   Optional,
   ServerObject,
   TStringId,
@@ -33,7 +33,7 @@ const logger: LuaLogger = new LuaLogger($filename);
  */
 extern(
   "xr_conditions.is_factions_enemies",
-  (actor: ClientObject, object: ClientObject, [community]: [Optional<TCommunity>]): boolean => {
+  (actor: GameObject, object: GameObject, [community]: [Optional<TCommunity>]): boolean => {
     return community === null ? false : areCommunitiesEnemies(getObjectCommunity(actor), community);
   }
 );
@@ -43,7 +43,7 @@ extern(
  */
 extern(
   "xr_conditions.is_factions_neutrals",
-  (actor: ClientObject, object: ClientObject, [community]: [TCommunity]): boolean => {
+  (actor: GameObject, object: GameObject, [community]: [TCommunity]): boolean => {
     if (community === null) {
       return true;
     }
@@ -60,7 +60,7 @@ extern(
  */
 extern(
   "xr_conditions.is_factions_friends",
-  (actor: ClientObject, object: ClientObject, [community]: [Optional<TCommunity>]): boolean => {
+  (actor: GameObject, object: GameObject, [community]: [Optional<TCommunity>]): boolean => {
     return community === null ? false : areCommunitiesFriendly(getObjectCommunity(actor), community);
   }
 );
@@ -70,7 +70,7 @@ extern(
  */
 extern(
   "xr_conditions.is_faction_enemy_to_actor",
-  (actor: ClientObject, object: ClientObject, [community]: [Optional<TCommunity>]): boolean => {
+  (actor: GameObject, object: GameObject, [community]: [Optional<TCommunity>]): boolean => {
     return community === null ? false : isActorEnemyWithFaction(community);
   }
 );
@@ -80,7 +80,7 @@ extern(
  */
 extern(
   "xr_conditions.is_faction_friend_to_actor",
-  (actor: ClientObject, object: ClientObject, [community]: [Optional<TCommunity>]): boolean => {
+  (actor: GameObject, object: GameObject, [community]: [Optional<TCommunity>]): boolean => {
     return community === null ? false : isActorFriendWithFaction(community);
   }
 );
@@ -90,7 +90,7 @@ extern(
  */
 extern(
   "xr_conditions.is_faction_neutral_to_actor",
-  (actor: ClientObject, object: ClientObject, [community]: [Optional<TCommunity>]): boolean => {
+  (actor: GameObject, object: GameObject, [community]: [Optional<TCommunity>]): boolean => {
     return community === null ? false : isActorNeutralWithFaction(community);
   }
 );
@@ -102,7 +102,7 @@ extern(
  */
 extern(
   "xr_conditions.is_squad_friend_to_actor",
-  (actor: ClientObject, object: ClientObject, [squadStoryId]: [Optional<TStringId>]): boolean => {
+  (actor: GameObject, object: GameObject, [squadStoryId]: [Optional<TStringId>]): boolean => {
     if (squadStoryId) {
       const squad: Optional<Squad> = getServerObjectByStoryId(squadStoryId);
 
@@ -120,7 +120,7 @@ extern(
  */
 extern(
   "xr_conditions.is_squad_enemy_to_actor",
-  (actor: ClientObject, object: ClientObject, params: Array<TStringId>): boolean => {
+  (actor: GameObject, object: GameObject, params: Array<TStringId>): boolean => {
     for (const squadStoryId of params) {
       const squad: Optional<Squad> = getServerObjectByStoryId(squadStoryId);
 
@@ -136,31 +136,31 @@ extern(
 /**
  * Check if object is in combat and fighting actor.
  */
-extern("xr_conditions.fighting_actor", (actor: ClientObject, object: ClientObject): boolean => {
+extern("xr_conditions.fighting_actor", (actor: GameObject, object: GameObject): boolean => {
   return registry.objects.get(object.id()).enemyId === ACTOR_ID;
 });
 
 /**
  * Checks if object has enemy relations with actor.
  */
-extern("xr_conditions.actor_enemy", (actor: ClientObject, object: ClientObject): boolean => {
+extern("xr_conditions.actor_enemy", (actor: GameObject, object: GameObject): boolean => {
   const state: Optional<ISchemeDeathState> = registry.objects.get(object.id())[EScheme.DEATH] as ISchemeDeathState;
 
-  return object.relation(actor) === EClientObjectRelation.ENEMY || state?.killerId === actor.id();
+  return object.relation(actor) === EGameObjectRelation.ENEMY || state?.killerId === actor.id();
 });
 
 /**
  * Checks if object has friendly relations with actor.
  */
-extern("xr_conditions.actor_friend", (actor: ClientObject, object: ClientObject): boolean => {
-  return object.relation(actor) === EClientObjectRelation.FRIEND;
+extern("xr_conditions.actor_friend", (actor: GameObject, object: GameObject): boolean => {
+  return object.relation(actor) === EGameObjectRelation.FRIEND;
 });
 
 /**
  * Checks if object has neutral relations with actor.
  */
-extern("xr_conditions.actor_neutral", (actor: ClientObject, object: ClientObject): boolean => {
-  return object.relation(actor) === EClientObjectRelation.NEUTRAL;
+extern("xr_conditions.actor_neutral", (actor: GameObject, object: GameObject): boolean => {
+  return object.relation(actor) === EGameObjectRelation.NEUTRAL;
 });
 
 /**
@@ -168,14 +168,14 @@ extern("xr_conditions.actor_neutral", (actor: ClientObject, object: ClientObject
  */
 extern(
   "xr_conditions.npc_community",
-  (actor: ClientObject, object: AnyGameObject, [community]: [Optional<TCommunity>]): boolean => {
+  (actor: GameObject, object: AnyGameObject, [community]: [Optional<TCommunity>]): boolean => {
     if (community === null) {
       abort("Wrong number of params in npc_community");
     }
 
     // Just verify client object.
     if (type(object.id) === "function") {
-      return getObjectCommunity(object as ClientObject) === community;
+      return getObjectCommunity(object as GameObject) === community;
     }
 
     // Try to use registry client object or fallback to server object check.

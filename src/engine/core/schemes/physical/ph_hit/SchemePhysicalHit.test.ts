@@ -6,13 +6,13 @@ import { PhysicalHitManager } from "@/engine/core/schemes/physical/ph_hit/Physic
 import { SchemePhysicalHit } from "@/engine/core/schemes/physical/ph_hit/SchemePhysicalHit";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini";
 import { loadSchemeImplementation } from "@/engine/core/utils/scheme";
-import { ClientObject, EScheme, IniFile } from "@/engine/lib/types";
+import { EScheme, GameObject, IniFile } from "@/engine/lib/types";
 import { assertSchemeSubscribedToManager } from "@/fixtures/engine";
-import { mockClientGameObject, mockIniFile } from "@/fixtures/xray";
+import { mockGameObject, mockIniFile } from "@/fixtures/xray";
 
 describe("SchemePhysicalHit", () => {
   it("should correctly activate with defaults", () => {
-    const object: ClientObject = mockClientGameObject();
+    const object: GameObject = mockGameObject();
     const ini: IniFile = mockIniFile("test.ltx", {
       "ph_hit@test": {
         bone: "test_bone",
@@ -35,7 +35,7 @@ describe("SchemePhysicalHit", () => {
   });
 
   it("should correctly activate with custom data", () => {
-    const object: ClientObject = mockClientGameObject();
+    const object: GameObject = mockGameObject();
     const ini: IniFile = mockIniFile("test.ltx", {
       "ph_hit@test": {
         on_info: "{+test} first, second",
@@ -61,7 +61,7 @@ describe("SchemePhysicalHit", () => {
   });
 
   it("should correctly fail with no bone/path", () => {
-    const object: ClientObject = mockClientGameObject();
+    const object: GameObject = mockGameObject();
 
     registerObject(object);
     loadSchemeImplementation(SchemePhysicalHit);

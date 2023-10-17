@@ -7,14 +7,14 @@ import { SchemeMobJump } from "@/engine/core/schemes/monster/mob_jump/SchemeMobJ
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini";
 import { loadSchemeImplementation } from "@/engine/core/utils/scheme";
 import { ZERO_VECTOR } from "@/engine/lib/constants/vectors";
-import { ClientObject, EScheme, IniFile } from "@/engine/lib/types";
+import { EScheme, GameObject, IniFile } from "@/engine/lib/types";
 import { assertSchemeSubscribedToManager } from "@/fixtures/engine";
-import { mockClientGameObject, mockIniFile } from "@/fixtures/xray";
+import { mockGameObject, mockIniFile } from "@/fixtures/xray";
 import { MockVector } from "@/fixtures/xray/mocks/vector.mock";
 
 describe("SchemeMobJump", () => {
   it("should correctly activate scheme with default values", () => {
-    const object: ClientObject = mockClientGameObject();
+    const object: GameObject = mockGameObject();
     const ini: IniFile = mockIniFile("test.ltx", {
       "mob_jump@test": {
         on_signal: "on_signal = anim_end | remark@kovalski_arch_2_answer",
@@ -42,7 +42,7 @@ describe("SchemeMobJump", () => {
   });
 
   it("should correctly activate scheme with custom values", () => {
-    const object: ClientObject = mockClientGameObject();
+    const object: GameObject = mockGameObject();
     const ini: IniFile = mockIniFile("test.ltx", {
       "mob_jump@test": {
         on_signal: "on_signal = anim_end | remark@kovalski_arch_2_answer",
@@ -72,7 +72,7 @@ describe("SchemeMobJump", () => {
   });
 
   it("should correctly throw if no on_signal supplied", () => {
-    const object: ClientObject = mockClientGameObject();
+    const object: GameObject = mockGameObject();
     const ini: IniFile = mockIniFile("test.ltx", {});
 
     registerObject(object);

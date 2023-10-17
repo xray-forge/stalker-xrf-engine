@@ -6,13 +6,13 @@ import { PhysicalIdleManager } from "@/engine/core/schemes/physical/ph_idle/Phys
 import { SchemePhysicalIdle } from "@/engine/core/schemes/physical/ph_idle/SchemePhysicalIdle";
 import { getConfigSwitchConditions, parseBoneStateDescriptors, readIniConditionList } from "@/engine/core/utils/ini";
 import { loadSchemeImplementation } from "@/engine/core/utils/scheme";
-import { ClientObject, EScheme, IniFile } from "@/engine/lib/types";
+import { EScheme, GameObject, IniFile } from "@/engine/lib/types";
 import { assertSchemeSubscribedToManager } from "@/fixtures/engine";
-import { mockClientGameObject, mockIniFile } from "@/fixtures/xray";
+import { mockGameObject, mockIniFile } from "@/fixtures/xray";
 
 describe("SchemePhysicalIdle", () => {
   it("should correctly initialize", () => {
-    const object: ClientObject = mockClientGameObject();
+    const object: GameObject = mockGameObject();
     const ini: IniFile = mockIniFile("test.ltx", {
       "ph_idle@test": {},
     });
@@ -42,7 +42,7 @@ describe("SchemePhysicalIdle", () => {
   });
 
   it("should correctly initialize with custom values", () => {
-    const object: ClientObject = mockClientGameObject();
+    const object: GameObject = mockGameObject();
     const ini: IniFile = mockIniFile("test.ltx", {
       "ph_idle@test": {
         on_info: "{+test} a, b",

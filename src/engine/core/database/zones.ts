@@ -2,7 +2,7 @@ import { IRegistryObjectState } from "@/engine/core/database/database_types";
 import { registerObject, resetObject, unregisterObject } from "@/engine/core/database/objects";
 import { registry } from "@/engine/core/database/registry";
 import { CampManager } from "@/engine/core/managers/camp";
-import { ClientObject, Optional, Vector } from "@/engine/lib/types";
+import { GameObject, Optional, Vector } from "@/engine/lib/types";
 
 /**
  * Register zone object.
@@ -10,7 +10,7 @@ import { ClientObject, Optional, Vector } from "@/engine/lib/types";
  * @param object - zone game object to register
  * @returns registry state for provided object
  */
-export function registerZone(object: ClientObject): IRegistryObjectState {
+export function registerZone(object: GameObject): IRegistryObjectState {
   registry.zones.set(object.name(), object);
 
   return registerObject(object);
@@ -21,7 +21,7 @@ export function registerZone(object: ClientObject): IRegistryObjectState {
  *
  * @param object - zone game object to unregister
  */
-export function unregisterZone(object: ClientObject): void {
+export function unregisterZone(object: GameObject): void {
   registry.zones.delete(object.name());
   unregisterObject(object);
 }
@@ -54,7 +54,7 @@ export function getCampZoneForPosition(position: Optional<Vector>): Optional<Cam
  * @param object - target camp client object to register
  * @param manager - linked manager to register
  */
-export function registerCampZone(object: ClientObject, manager: CampManager): void {
+export function registerCampZone(object: GameObject, manager: CampManager): void {
   registerZone(object);
   registry.camps.set(object.id(), manager);
 }
@@ -64,7 +64,7 @@ export function registerCampZone(object: ClientObject, manager: CampManager): vo
  *
  * @param object - target camp client object to unregister
  */
-export function unregisterCampZone(object: ClientObject): void {
+export function unregisterCampZone(object: GameObject): void {
   unregisterZone(object);
   registry.camps.delete(object.id());
 }
@@ -75,7 +75,7 @@ export function unregisterCampZone(object: ClientObject): void {
  *
  * @param object - target camp client object to reset
  */
-export function resetCampZone(object: ClientObject): void {
+export function resetCampZone(object: GameObject): void {
   resetObject(object);
   registry.zones.set(object.name(), object);
 

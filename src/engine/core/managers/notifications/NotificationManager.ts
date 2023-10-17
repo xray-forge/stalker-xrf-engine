@@ -32,7 +32,7 @@ import { getInventoryNameForItemSection } from "@/engine/core/utils/spawn";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import {
   AlifeSimulator,
-  ClientObject,
+  GameObject,
   GameTask,
   Optional,
   TCount,
@@ -238,7 +238,7 @@ export class NotificationManager extends AbstractManager {
    */
   public sendTipNotification(
     caption: TLabel,
-    sender: Optional<TNotificationIcon | TNotificationIconKey | ClientObject> = null,
+    sender: Optional<TNotificationIcon | TNotificationIconKey | GameObject> = null,
     delay: Optional<TDuration> = 0,
     showtime: Optional<TTimestamp> = NotificationManager.DEFAULT_NOTIFICATION_SHOW_DURATION,
     senderId: Optional<TStringId> = null
@@ -277,7 +277,7 @@ export class NotificationManager extends AbstractManager {
       if (type(sender) === "string") {
         notificationIcon = notificationsIcons[sender as TNotificationIconKey] || (sender as TNotificationIcon);
       } else {
-        notificationIcon = (sender as ClientObject).character_icon();
+        notificationIcon = (sender as GameObject).character_icon();
       }
     }
 
@@ -297,7 +297,7 @@ export class NotificationManager extends AbstractManager {
    * Send generic sound notification to replicate what characters say.
    */
   public sendSoundNotification(
-    object: Optional<ClientObject>,
+    object: Optional<GameObject>,
     faction: TName,
     point: Optional<TName | TNumberId>,
     soundPath: TPath,

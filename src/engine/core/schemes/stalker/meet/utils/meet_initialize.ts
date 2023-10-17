@@ -6,7 +6,7 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 import { getObjectsRelationSafe } from "@/engine/core/utils/relation";
 import { NO_MEET_SECTION } from "@/engine/lib/constants/sections";
 import { FALSE, NIL, TRUE } from "@/engine/lib/constants/words";
-import { ClientObject, EClientObjectRelation, IniFile, Optional, TSection } from "@/engine/lib/types";
+import { EGameObjectRelation, GameObject, IniFile, Optional, TSection } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -19,7 +19,7 @@ const logger: LuaLogger = new LuaLogger($filename);
  * @param state - target meet scheme logics state
  */
 export function initializeMeetScheme(
-  object: ClientObject,
+  object: GameObject,
   ini: IniFile,
   section: TSection,
   state: ISchemeMeetState
@@ -31,7 +31,7 @@ export function initializeMeetScheme(
 
   state.meetSection = tostring(section);
 
-  const relation: Optional<EClientObjectRelation> = getObjectsRelationSafe(object, registry.actor);
+  const relation: Optional<EGameObjectRelation> = getObjectsRelationSafe(object, registry.actor);
 
   // Meet is disabled, mark sections as disabled.
   if (tostring(section) === NO_MEET_SECTION) {
@@ -60,7 +60,7 @@ export function initializeMeetScheme(
     state.resetDistance = meetConfig.MEET_RESET_DISTANCE;
     state.isMeetOnlyAtPathEnabled = true;
   } else {
-    const defaults = relation === EClientObjectRelation.ENEMY ? meetConfig.ENEMY_DEFAULTS : meetConfig.NEUTRAL_DEFAULTS;
+    const defaults = relation === EGameObjectRelation.ENEMY ? meetConfig.ENEMY_DEFAULTS : meetConfig.NEUTRAL_DEFAULTS;
 
     state.closeDistance = parseConditionsList(
       readIniString(ini, section, "close_distance", false, null, defaults.closeDistance)

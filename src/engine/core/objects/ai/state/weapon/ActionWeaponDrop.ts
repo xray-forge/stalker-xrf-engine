@@ -6,7 +6,7 @@ import { isStrappableWeapon } from "@/engine/core/utils/class_ids";
 import { setItemCondition } from "@/engine/core/utils/item";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getObjectWeaponForAnimationState } from "@/engine/core/utils/weapon";
-import { ClientObject, Optional } from "@/engine/lib/types";
+import { GameObject, Optional } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -30,7 +30,7 @@ export class ActionWeaponDrop extends action_base {
   public override initialize(): void {
     super.initialize();
 
-    const weapon: Optional<ClientObject> = getObjectWeaponForAnimationState(this.object, this.stateManager.targetState);
+    const weapon: Optional<GameObject> = getObjectWeaponForAnimationState(this.object, this.stateManager.targetState);
 
     if (isStrappableWeapon(weapon)) {
       this.object.set_item(object.drop, weapon);

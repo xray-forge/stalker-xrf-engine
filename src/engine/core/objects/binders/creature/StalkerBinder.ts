@@ -42,7 +42,7 @@ import { pickSectionFromCondList, readIniString, TConditionList } from "@/engine
 import { isUndergroundLevel } from "@/engine/core/utils/level";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getObjectStalkerIni, setupObjectInfoPortions, setupObjectStalkerVisual } from "@/engine/core/utils/object";
-import { ERelation, setClientObjectRelation, setObjectSympathy } from "@/engine/core/utils/relation";
+import { ERelation, setGameObjectRelation, setObjectSympathy } from "@/engine/core/utils/relation";
 import {
   emitSchemeEvent,
   initializeObjectInvulnerability,
@@ -58,10 +58,10 @@ import { MAX_U16 } from "@/engine/lib/constants/memory";
 import {
   ActionPlanner,
   AnyObject,
-  ClientObject,
-  EClientObjectRelation,
+  EGameObjectRelation,
   EScheme,
   ESchemeEvent,
+  GameObject,
   NetPacket,
   Optional,
   Reader,
@@ -119,7 +119,7 @@ export class StalkerBinder extends object_binder {
     }
 
     const objectId: TNumberId = this.object.id();
-    const actor: ClientObject = registry.actor;
+    const actor: GameObject = registry.actor;
 
     logger.info("Go online:", object.name());
 
@@ -143,7 +143,7 @@ export class StalkerBinder extends object_binder {
     const relation: Optional<ERelation> = registry.goodwill.relations.get(objectId);
 
     if (relation !== null) {
-      setClientObjectRelation(this.object, actor, relation);
+      setGameObjectRelation(this.object, actor, relation);
     }
 
     const sympathy: Optional<TCount> = registry.goodwill.sympathy.get(objectId);
@@ -244,7 +244,7 @@ export class StalkerBinder extends object_binder {
       registry.actorCombat.delete(this.object.id());
     }
 
-    const object: ClientObject = this.object;
+    const object: GameObject = this.object;
     const isObjectAlive: boolean = object.alive();
 
     updateStalkerLogic(object);
@@ -295,12 +295,12 @@ export class StalkerBinder extends object_binder {
   /**
    * todo: Description.
    */
-  public updateLightState(object: ClientObject): void {
+  public updateLightState(object: GameObject): void {
     if (object === null) {
       return;
     }
 
-    const torch: Optional<ClientObject> = object.object(misc.device_torch);
+    const torch: Optional<GameObject> = object.object(misc.device_torch);
     const isCurrentlyIndoor: boolean = isUndergroundLevel(level.name());
 
     if (torch === null) {
@@ -423,7 +423,7 @@ export class StalkerBinder extends object_binder {
    * todo: Description.
    */
   public onHearSound(
-    target: ClientObject,
+    target: GameObject,
     whoId: TNumberId,
     soundType: TSoundType,
     soundPosition: Vector,
@@ -440,7 +440,7 @@ export class StalkerBinder extends object_binder {
   /**
    * todo: Description.
    */
-  public onDeath(victim: ClientObject, who: Optional<ClientObject>): void {
+  public onDeath(victim: GameObject, who: Optional<GameObject>): void {
     logger.info("Stalker death:", this.object.name());
 
     this.onHit(victim, 1, createEmptyVector(), who, "from_death_callback");
@@ -493,7 +493,7 @@ export class StalkerBinder extends object_binder {
   /**
    * todo: Description.
    */
-  public onUse(object: ClientObject, who: ClientObject): void {
+  public onUse(object: GameObject, who: GameObject): void {
     logger.info("Stalker used:", this.object.name(), "by", who.name());
 
     if (this.object.alive()) {
@@ -524,13 +524,13 @@ export class StalkerBinder extends object_binder {
    * todo: Description.
    */
   public onHit(
-    object: ClientObject,
+    object: GameObject,
     amount: TRate,
     direction: Vector,
-    who: Optional<ClientObject>,
+    who: Optional<GameObject>,
     boneIndex: string | number
   ): void {
-    const actor: ClientObject = registry.actor;
+    const actor: GameObject = registry.actor;
 
     // -- FIXME: �������� ������� ���� �� �������������� � ����� storage, � �� ��������...
     if (who?.id() === ACTOR_ID) {
@@ -543,7 +543,7 @@ export class StalkerBinder extends object_binder {
             const actorLevelId: TNumberId = game_graph().vertex(registry.actorServer.m_game_vertex_id).level_id();
 
             if (levelId === actorLevelId && actor.position().distance_to_sqr(smartTerrain.position) <= 6400) {
-              if (this.object.relation(actor) !== EClientObjectRelation.ENEMY) {
+              if (this.object.relation(actor) !== EGameObjectRelation.ENEMY) {
                 smartTerrain.smartTerrainActorControl.onActorAttackSmartTerrain();
               }
             }
@@ -605,9 +605,9 @@ export class StalkerBinder extends object_binder {
  * todo: move out?
  * todo: move out?
  */
-export function updateStalkerLogic(object: ClientObject): void {
+export function updateStalkerLogic(object: GameObject): void {
   const state: Optional<IRegistryObjectState> = registry.objects.get(object.id());
-  const actor: ClientObject = registry.actor;
+  const actor: GameObject = registry.actor;
   const combatState: IBaseSchemeState = state.combat!;
 
   if (state !== null && state.activeScheme !== null && object.alive()) {

@@ -4,13 +4,13 @@ import { property_storage } from "xray16";
 import { IRegistryObjectState, registerObject } from "@/engine/core/database";
 import type { IBaseSchemeState } from "@/engine/core/database/database_types";
 import { EvaluatorSectionEnded } from "@/engine/core/objects/ai/planner/evaluators/EvaluatorSectionEnded";
-import { ClientObject, EScheme } from "@/engine/lib/types";
+import { EScheme, GameObject } from "@/engine/lib/types";
 import { mockSchemeState } from "@/fixtures/engine";
-import { mockClientGameObject } from "@/fixtures/xray";
+import { mockGameObject } from "@/fixtures/xray";
 
 describe("EvaluatorSectionActive class", () => {
   it("should correctly check if section state is active", () => {
-    const object: ClientObject = mockClientGameObject();
+    const object: GameObject = mockGameObject();
     const schemeState: IBaseSchemeState = mockSchemeState(EScheme.MEET, { section: "test@active" });
     const state: IRegistryObjectState = registerObject(object);
 

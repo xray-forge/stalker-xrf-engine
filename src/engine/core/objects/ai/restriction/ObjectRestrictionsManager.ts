@@ -3,7 +3,7 @@ import { parseStringsList } from "@/engine/core/utils/ini/ini_parse";
 import { readIniString } from "@/engine/core/utils/ini/ini_read";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { NIL } from "@/engine/lib/constants/words";
-import { ClientObject, IniFile, LuaArray, Optional, TName, TSection } from "@/engine/lib/types";
+import { GameObject, IniFile, LuaArray, Optional, TName, TSection } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -14,7 +14,7 @@ export class ObjectRestrictionsManager {
   /**
    * Initialize restrictor manager for game object.
    */
-  public static initializeForObject(object: ClientObject): ObjectRestrictionsManager {
+  public static initializeForObject(object: GameObject): ObjectRestrictionsManager {
     // logger.info("Initialize restrictor manager for object:", object.name());
 
     const state: Optional<IRegistryObjectState> = registry.objects.get(object.id());
@@ -29,7 +29,7 @@ export class ObjectRestrictionsManager {
   /**
    * Initialize restrictor manager for game object and activate it.
    */
-  public static activateForObject(object: ClientObject, section: TSection): ObjectRestrictionsManager {
+  public static activateForObject(object: GameObject, section: TSection): ObjectRestrictionsManager {
     const manager: ObjectRestrictionsManager = ObjectRestrictionsManager.initializeForObject(object);
 
     manager.activate(section);
@@ -37,11 +37,11 @@ export class ObjectRestrictionsManager {
     return manager;
   }
 
-  public object: ClientObject;
+  public object: GameObject;
   public baseOutRestrictions: LuaTable<string, boolean> = new LuaTable();
   public baseInRestrictions: LuaTable<string, boolean> = new LuaTable();
 
-  public constructor(object: ClientObject) {
+  public constructor(object: GameObject) {
     this.object = object;
 
     for (const [, name] of parseStringsList(this.object.out_restrictions())) {

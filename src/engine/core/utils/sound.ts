@@ -4,7 +4,7 @@ import { registry } from "@/engine/core/database";
 import { soundsConfig } from "@/engine/core/managers/sounds/SoundsConfig";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { ESoundType } from "@/engine/lib/constants/sound";
-import { ClientObject, TSoundType } from "@/engine/lib/types";
+import { GameObject, TSoundType } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -79,7 +79,7 @@ export function isSoundType(heard: TSoundType, expected: TSoundType): boolean {
  * @param object - client object to check playing
  * @returns whether currently sound is playing.
  */
-export function isPlayingSound(object: ClientObject): boolean {
+export function isPlayingSound(object: GameObject): boolean {
   return soundsConfig.playing.has(object.id());
 }
 
@@ -88,7 +88,7 @@ export function isPlayingSound(object: ClientObject): boolean {
  *
  * @param object - target object to stop playing
  */
-export function stopPlayingObjectSound(object: ClientObject): void {
+export function stopPlayingObjectSound(object: GameObject): void {
   if (object.alive()) {
     object.set_sound_mask(-1);
     object.set_sound_mask(0);

@@ -9,7 +9,7 @@ import { getNearestWoundedToHelp } from "@/engine/core/utils/object";
 import { isObjectWounded } from "@/engine/core/utils/planner";
 import { communities } from "@/engine/lib/constants/communities";
 import { ACTOR_VISUAL_STALKER } from "@/engine/lib/constants/sections";
-import { ClientObject, Optional, TNumberId } from "@/engine/lib/types";
+import { GameObject, Optional, TNumberId } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -30,7 +30,7 @@ export class EvaluatorWoundedExist extends property_evaluator {
    * Called with ~400-500ms period.
    */
   public override evaluate(): boolean {
-    const object: ClientObject = this.object;
+    const object: GameObject = this.object;
 
     return (
       // Scheme should be enabled.

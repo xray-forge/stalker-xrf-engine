@@ -5,7 +5,7 @@ import { CampfireBinder } from "@/engine/core/objects/binders/physic/CampfireBin
 import type { SmartTerrain } from "@/engine/core/objects/server/smart_terrain";
 import { ServerDynamicObject, ZoneCampfire } from "@/engine/lib/types";
 import { mockSmartTerrain } from "@/fixtures/engine";
-import { mockClientGameObject, MockCZoneCampfire, mockServerAlifeDynamicObject } from "@/fixtures/xray";
+import { MockCZoneCampfire, mockGameObject, mockServerAlifeDynamicObject } from "@/fixtures/xray";
 
 describe("CampfireBinder class", () => {
   beforeEach(() => {
@@ -15,7 +15,7 @@ describe("CampfireBinder class", () => {
   it("should correctly register and unregister campfire without links", () => {
     const smartTerrain: SmartTerrain = mockSmartTerrain();
     const campfire: ZoneCampfire = MockCZoneCampfire.mock(true);
-    const campfireBinder: CampfireBinder = new CampfireBinder(mockClientGameObject({ get_campfire: () => campfire }));
+    const campfireBinder: CampfireBinder = new CampfireBinder(mockGameObject({ get_campfire: () => campfire }));
     const campfireServer: ServerDynamicObject = mockServerAlifeDynamicObject({ id: campfireBinder.object.id() });
 
     smartTerrain.on_before_register();
@@ -33,7 +33,7 @@ describe("CampfireBinder class", () => {
     const smartTerrain: SmartTerrain = mockSmartTerrain();
     const campfire: ZoneCampfire = MockCZoneCampfire.mock(true);
     const campfireBinder: CampfireBinder = new CampfireBinder(
-      mockClientGameObject({ get_campfire: () => campfire, name: () => `_campfire_${smartTerrain.name()}` })
+      mockGameObject({ get_campfire: () => campfire, name: () => `_campfire_${smartTerrain.name()}` })
     );
     const campfireServer: ServerDynamicObject = mockServerAlifeDynamicObject({ id: campfireBinder.object.id() });
 

@@ -2,18 +2,18 @@ import { describe, expect, it } from "@jest/globals";
 
 import { addRandomUpgrade, addRandomUpgrades } from "@/engine/core/managers/upgrades";
 import { weapons } from "@/engine/lib/constants/items/weapons";
-import { ClientObject } from "@/engine/lib/types";
+import { GameObject } from "@/engine/lib/types";
 import { resetFunctionMock } from "@/fixtures/jest";
-import { mockClientGameObject } from "@/fixtures/xray";
+import { mockGameObject } from "@/fixtures/xray";
 
 describe("upgrades_install utils", () => {
   it("addRandomUpgrade should correctly add random upgrade", () => {
-    const first: ClientObject = mockClientGameObject();
+    const first: GameObject = mockGameObject();
 
     addRandomUpgrade(first);
     expect(first.add_upgrade).not.toHaveBeenCalled();
 
-    const second: ClientObject = mockClientGameObject({ section: <T>() => weapons.wpn_ak74u as T });
+    const second: GameObject = mockGameObject({ section: <T>() => weapons.wpn_ak74u as T });
 
     addRandomUpgrade(second);
     expect(second.add_upgrade).toHaveBeenCalledTimes(1);
@@ -21,7 +21,7 @@ describe("upgrades_install utils", () => {
     addRandomUpgrade(second);
     expect(second.add_upgrade).toHaveBeenCalledTimes(2);
 
-    const third: ClientObject = mockClientGameObject({ section: <T>() => weapons.wpn_ak74u as T });
+    const third: GameObject = mockGameObject({ section: <T>() => weapons.wpn_ak74u as T });
 
     addRandomUpgrades(third, Infinity);
 
@@ -35,12 +35,12 @@ describe("upgrades_install utils", () => {
   });
 
   it("addRandomUpgrade should correctly add random upgrades", () => {
-    const first: ClientObject = mockClientGameObject();
+    const first: GameObject = mockGameObject();
 
     addRandomUpgrades(first, 0);
     expect(first.add_upgrade).not.toHaveBeenCalled();
 
-    const second: ClientObject = mockClientGameObject({ section: <T>() => weapons.wpn_ak74u as T });
+    const second: GameObject = mockGameObject({ section: <T>() => weapons.wpn_ak74u as T });
 
     addRandomUpgrades(second, 0);
     expect(second.add_upgrade).not.toHaveBeenCalled();

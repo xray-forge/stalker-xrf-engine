@@ -7,7 +7,7 @@ import { combatConfig } from "@/engine/core/schemes/stalker/combat/CombatConfig"
 import { assertDefined } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { copyVector, vectorRotateY } from "@/engine/core/utils/vector";
-import { ClientObject, Optional, TCount, TTimestamp, Vector } from "@/engine/lib/types";
+import { GameObject, Optional, TCount, TTimestamp, Vector } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -40,7 +40,7 @@ export class ActionLookAround extends action_base {
    */
   public reset(): void {
     const now: TTimestamp = time_global();
-    const bestEnemy: Optional<ClientObject> = this.object.best_enemy();
+    const bestEnemy: Optional<GameObject> = this.object.best_enemy();
 
     this.forgetTime = now + combatConfig.LAST_SEEN_POSITION_TIMEOUT;
     this.changeDirTime = now + combatConfig.SEARCH_DIRECTION_CHANGE_TIMEOUT;
@@ -102,12 +102,12 @@ export class ActionLookAround extends action_base {
   /**
    * Handle object hit callback and reset search on hit.
    */
-  public onHit(object: ClientObject, amount: TCount, direction: Vector, who: ClientObject): void {
+  public onHit(object: GameObject, amount: TCount, direction: Vector, who: GameObject): void {
     if (who === null || !this.state.isCamperCombatAction) {
       return;
     }
 
-    const bestEnemy: Optional<ClientObject> = this.object?.best_enemy();
+    const bestEnemy: Optional<GameObject> = this.object?.best_enemy();
 
     if (bestEnemy && who.id() === bestEnemy.id()) {
       this.state.lastSeenEnemyAtPosition = bestEnemy.position();

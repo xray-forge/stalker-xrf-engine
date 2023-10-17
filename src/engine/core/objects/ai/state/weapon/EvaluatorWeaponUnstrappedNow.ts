@@ -2,7 +2,7 @@ import { LuabindClass, property_evaluator } from "xray16";
 
 import { StalkerStateManager } from "@/engine/core/objects/ai/state/StalkerStateManager";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { ClientObject, Optional } from "@/engine/lib/types";
+import { GameObject, Optional } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -22,8 +22,8 @@ export class EvaluatorWeaponUnstrappedNow extends property_evaluator {
    * Check if weapon currently unstrapped.
    */
   public override evaluate(): boolean {
-    const activeItem: Optional<ClientObject> = this.object.active_item();
-    const bestWeapon: Optional<ClientObject> = this.object.best_weapon();
+    const activeItem: Optional<GameObject> = this.object.active_item();
+    const bestWeapon: Optional<GameObject> = this.object.best_weapon();
 
     return (
       activeItem !== null &&

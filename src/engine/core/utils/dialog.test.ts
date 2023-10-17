@@ -5,38 +5,38 @@ import { getActorAvailableMedKit, getNpcSpeaker, isObjectName } from "@/engine/c
 import { ammo } from "@/engine/lib/constants/items/ammo";
 import { medkits } from "@/engine/lib/constants/items/drugs";
 import { weapons } from "@/engine/lib/constants/items/weapons";
-import { ClientObject } from "@/engine/lib/types";
+import { GameObject } from "@/engine/lib/types";
 import { MockLuaTable } from "@/fixtures/lua";
-import { mockActorClientGameObject, mockClientGameObject } from "@/fixtures/xray";
+import { mockActorGameObject, mockGameObject } from "@/fixtures/xray";
 
 describe("reward utils", () => {
   const createObjectWithItems = () =>
-    mockClientGameObject({
+    mockGameObject({
       inventory: [
-        [1, mockClientGameObject({ sectionOverride: medkits.medkit } as Partial<ClientObject>)],
-        [2, mockClientGameObject({ sectionOverride: medkits.medkit } as Partial<ClientObject>)],
-        [3, mockClientGameObject({ sectionOverride: medkits.medkit_army } as Partial<ClientObject>)],
-        [4, mockClientGameObject({ sectionOverride: medkits.medkit_army } as Partial<ClientObject>)],
-        [5, mockClientGameObject({ sectionOverride: medkits.medkit_army } as Partial<ClientObject>)],
-        [40, mockClientGameObject({ sectionOverride: weapons.wpn_svd } as Partial<ClientObject>)],
-        [41, mockClientGameObject({ sectionOverride: weapons.wpn_svd } as Partial<ClientObject>)],
-        [50, mockClientGameObject({ sectionOverride: ammo.ammo_9x18_pmm } as Partial<ClientObject>)],
-        [51, mockClientGameObject({ sectionOverride: ammo.ammo_9x18_pmm } as Partial<ClientObject>)],
-        [52, mockClientGameObject({ sectionOverride: ammo.ammo_9x18_pmm } as Partial<ClientObject>)],
-        [53, mockClientGameObject({ sectionOverride: ammo.ammo_9x18_pmm } as Partial<ClientObject>)],
-        [54, mockClientGameObject({ sectionOverride: ammo.ammo_9x18_pmm } as Partial<ClientObject>)],
-        [55, mockClientGameObject({ sectionOverride: ammo.ammo_9x18_pmm } as Partial<ClientObject>)],
+        [1, mockGameObject({ sectionOverride: medkits.medkit } as Partial<GameObject>)],
+        [2, mockGameObject({ sectionOverride: medkits.medkit } as Partial<GameObject>)],
+        [3, mockGameObject({ sectionOverride: medkits.medkit_army } as Partial<GameObject>)],
+        [4, mockGameObject({ sectionOverride: medkits.medkit_army } as Partial<GameObject>)],
+        [5, mockGameObject({ sectionOverride: medkits.medkit_army } as Partial<GameObject>)],
+        [40, mockGameObject({ sectionOverride: weapons.wpn_svd } as Partial<GameObject>)],
+        [41, mockGameObject({ sectionOverride: weapons.wpn_svd } as Partial<GameObject>)],
+        [50, mockGameObject({ sectionOverride: ammo.ammo_9x18_pmm } as Partial<GameObject>)],
+        [51, mockGameObject({ sectionOverride: ammo.ammo_9x18_pmm } as Partial<GameObject>)],
+        [52, mockGameObject({ sectionOverride: ammo.ammo_9x18_pmm } as Partial<GameObject>)],
+        [53, mockGameObject({ sectionOverride: ammo.ammo_9x18_pmm } as Partial<GameObject>)],
+        [54, mockGameObject({ sectionOverride: ammo.ammo_9x18_pmm } as Partial<GameObject>)],
+        [55, mockGameObject({ sectionOverride: ammo.ammo_9x18_pmm } as Partial<GameObject>)],
       ],
     });
 
   beforeEach(() => {
-    registerActor(mockActorClientGameObject());
+    registerActor(mockActorGameObject());
     registerSimulator();
   });
 
   it("getNpcSpeaker should correctly pick speaker", () => {
-    const first: ClientObject = mockClientGameObject();
-    const second: ClientObject = mockClientGameObject();
+    const first: GameObject = mockGameObject();
+    const second: GameObject = mockGameObject();
 
     expect(getNpcSpeaker(registry.actor, first)).toBe(first);
     expect(getNpcSpeaker(registry.actor, second)).toBe(second);
@@ -46,7 +46,7 @@ describe("reward utils", () => {
   });
 
   it("isObjectName should correctly check name", () => {
-    const object: ClientObject = mockClientGameObject({ name: () => "test_complex_name" } as Partial<ClientObject>);
+    const object: GameObject = mockGameObject({ name: () => "test_complex_name" } as Partial<GameObject>);
 
     expect(object.name()).toBe("test_complex_name");
     expect(isObjectName(object, "another")).toBeFalsy();
@@ -62,14 +62,12 @@ describe("reward utils", () => {
     registerActor(createObjectWithItems());
 
     expect(getActorAvailableMedKit(MockLuaTable.mockFromArray(Object.values(medkits)))).toBe(medkits.medkit);
-    expect(
-      getActorAvailableMedKit(MockLuaTable.mockFromArray(Object.values(medkits)), mockClientGameObject())
-    ).toBeNull();
+    expect(getActorAvailableMedKit(MockLuaTable.mockFromArray(Object.values(medkits)), mockGameObject())).toBeNull();
 
     expect(getActorAvailableMedKit(MockLuaTable.mockFromArray([medkits.medkit]))).toBe(medkits.medkit);
     expect(getActorAvailableMedKit(MockLuaTable.mockFromArray([medkits.medkit_army]))).toBe(medkits.medkit_army);
     expect(getActorAvailableMedKit(MockLuaTable.mockFromArray([medkits.medkit_scientic]))).toBeNull();
 
-    expect(getActorAvailableMedKit(MockLuaTable.mockFromArray([medkits.medkit]), mockClientGameObject())).toBeNull();
+    expect(getActorAvailableMedKit(MockLuaTable.mockFromArray([medkits.medkit]), mockGameObject())).toBeNull();
   });
 });

@@ -3,13 +3,13 @@ import { describe, expect, it } from "@jest/globals";
 import { IRegistryObjectState, registerObject } from "@/engine/core/database";
 import { ISchemeMobDeathState } from "@/engine/core/schemes/monster/mob_death/mob_death_types";
 import { MobDeathManager } from "@/engine/core/schemes/monster/mob_death/MobDeathManager";
-import { ClientObject, EScheme } from "@/engine/lib/types";
+import { EScheme, GameObject } from "@/engine/lib/types";
 import { mockSchemeState } from "@/fixtures/engine";
-import { mockClientGameObject } from "@/fixtures/xray";
+import { mockGameObject } from "@/fixtures/xray";
 
 describe("MobDeathManager", () => {
   it("should correctly handle death without killer", () => {
-    const object: ClientObject = mockClientGameObject();
+    const object: GameObject = mockGameObject();
     const state: IRegistryObjectState = registerObject(object);
     const schemeState: ISchemeMobDeathState = mockSchemeState<ISchemeMobDeathState>(EScheme.MOB_HOME);
     const manager: MobDeathManager = new MobDeathManager(object, schemeState);
@@ -23,12 +23,12 @@ describe("MobDeathManager", () => {
   });
 
   it("should correctly handle death with killer", () => {
-    const object: ClientObject = mockClientGameObject();
+    const object: GameObject = mockGameObject();
     const state: IRegistryObjectState = registerObject(object);
     const schemeState: ISchemeMobDeathState = mockSchemeState<ISchemeMobDeathState>(EScheme.MOB_HOME);
     const manager: MobDeathManager = new MobDeathManager(object, schemeState);
 
-    const killer: ClientObject = mockClientGameObject();
+    const killer: GameObject = mockGameObject();
 
     manager.onDeath(object, killer);
 

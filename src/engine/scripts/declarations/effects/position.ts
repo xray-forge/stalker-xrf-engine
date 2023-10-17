@@ -7,7 +7,7 @@ import { extern } from "@/engine/core/utils/binding";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { isObjectInZone } from "@/engine/core/utils/position";
 import {
-  ClientObject,
+  GameObject,
   Optional,
   ParticlesObject,
   Patrol,
@@ -28,7 +28,7 @@ const logger: LuaLogger = new LuaLogger($filename);
  */
 extern(
   "xr_effects.teleport_npc",
-  (actor: ClientObject, object: ClientObject, [patrolPoint, patrolPointIndex = 0]: [TName, TIndex]): void => {
+  (actor: GameObject, object: GameObject, [patrolPoint, patrolPointIndex = 0]: [TName, TIndex]): void => {
     assertDefined(patrolPoint, "Wrong parameters in 'teleport_npc' function.");
 
     const position: Vector = new patrol(patrolPoint).point(patrolPointIndex);
@@ -44,7 +44,7 @@ extern(
  */
 extern(
   "xr_effects.teleport_npc_by_story_id",
-  (actor: ClientObject, object: ClientObject, p: [TStringId, TName, TIndex]) => {
+  (actor: GameObject, object: GameObject, p: [TStringId, TName, TIndex]) => {
     const storyId: Optional<TStringId> = p[0];
     const patrolPoint: Optional<TName> = p[1];
     const patrolPointIndex: TIndex = p[2] || 0;
@@ -60,11 +60,11 @@ extern(
       abort("There is no story object with id [%s]", storyId);
     }
 
-    const clientObject: Optional<ClientObject> = level.object_by_id(objectId);
+    const gameObject: Optional<GameObject> = level.object_by_id(objectId);
 
-    if (clientObject) {
-      resetStalkerState(clientObject);
-      clientObject.set_npc_position(position);
+    if (gameObject) {
+      resetStalkerState(gameObject);
+      gameObject.set_npc_position(position);
     } else {
       registry.simulator.object(objectId)!.position = position;
     }
@@ -76,7 +76,7 @@ extern(
  */
 extern(
   "xr_effects.teleport_squad",
-  (actor: ClientObject, object: ClientObject, params: [TStringId, TName, TIndex]): void => {
+  (actor: GameObject, object: GameObject, params: [TStringId, TName, TIndex]): void => {
     const squadStoryId: Optional<TStringId> = params[0];
     const patrolPoint: TStringId = params[1];
     const patrolPointIndex: TIndex = params[2] || 0;
@@ -97,7 +97,7 @@ extern(
 /**
  * todo;
  */
-extern("xr_effects.teleport_actor", (actor: ClientObject, object: ClientObject, params: [TName, TName]): void => {
+extern("xr_effects.teleport_actor", (actor: GameObject, object: GameObject, params: [TName, TName]): void => {
   const point: Patrol = new patrol(params[0]);
 
   if (params[1] !== null) {
@@ -124,7 +124,7 @@ extern("xr_effects.teleport_actor", (actor: ClientObject, object: ClientObject, 
 /**
  * todo;
  */
-extern("xr_effects.play_particle_on_path", (actor: ClientObject, object: ClientObject, p: [string, string, number]) => {
+extern("xr_effects.play_particle_on_path", (actor: GameObject, object: GameObject, p: [string, string, number]) => {
   const name: TName = p[0];
   const path: TName = p[1];
   let pointProbability: TProbability = p[2];

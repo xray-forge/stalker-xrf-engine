@@ -6,11 +6,11 @@ import { EvaluatorAnimstateIdleNow } from "@/engine/core/objects/ai/state/animst
 import { StalkerStateManager } from "@/engine/core/objects/ai/state/StalkerStateManager";
 import { EStalkerState } from "@/engine/core/objects/animation/types";
 import { StalkerBinder } from "@/engine/core/objects/binders/creature/StalkerBinder";
-import { mockClientGameObject } from "@/fixtures/xray";
+import { mockGameObject } from "@/fixtures/xray";
 
 describe("EvaluatorAnimstateIdleNow class", () => {
   it("should correctly perform animation state idle now", () => {
-    const stalker: StalkerBinder = new StalkerBinder(mockClientGameObject());
+    const stalker: StalkerBinder = new StalkerBinder(mockGameObject());
 
     registerStalker(stalker);
 

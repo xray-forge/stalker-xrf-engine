@@ -2,7 +2,7 @@ import { EPlayableSound } from "@/engine/core/managers/sounds/sounds_types";
 import { readIniString } from "@/engine/core/utils/ini/ini_read";
 import {
   AnyArgs,
-  ClientObject,
+  GameObject,
   IniFile,
   NetPacket,
   NetProcessor,
@@ -86,10 +86,10 @@ export abstract class AbstractPlayableSound {
   /**
    * todo: Description.
    */
-  public saveObject(packet: NetPacket, object: ClientObject): void {}
+  public saveObject(packet: NetPacket, object: GameObject): void {}
 
   /**
    * todo: Description.
    */
-  public loadObject(processor: NetProcessor, object: ClientObject): void {}
+  public loadObject(processor: NetProcessor, object: GameObject): void {}
 }

@@ -22,8 +22,8 @@ import {
 } from "@/engine/core/utils/ini/ini_parse";
 import { IConfigCondition } from "@/engine/core/utils/ini/ini_types";
 import { NIL } from "@/engine/lib/constants/words";
-import { ClientObject, Flags32, IniFile, LuaArray } from "@/engine/lib/types";
-import { mockActorClientGameObject, mockClientGameObject, MockFlags32, mockIniFile } from "@/fixtures/xray";
+import { Flags32, GameObject, IniFile, LuaArray } from "@/engine/lib/types";
+import { mockActorGameObject, MockFlags32, mockGameObject, mockIniFile } from "@/fixtures/xray";
 
 describe("ini_data parsing utils", () => {
   it("parseStringsList should correctly parse names array", () => {
@@ -459,8 +459,8 @@ describe("ini_data parsing utils", () => {
   });
 
   it("pickSectionFromCondList should correctly throw on unexpected callbacks", () => {
-    const actor: ClientObject = mockActorClientGameObject();
-    const target: ClientObject = mockClientGameObject();
+    const actor: GameObject = mockActorGameObject();
+    const target: GameObject = mockGameObject();
 
     registerActor(actor);
 
@@ -471,8 +471,8 @@ describe("ini_data parsing utils", () => {
   });
 
   it("pickSectionFromCondList should correctly check probability", () => {
-    const actor: ClientObject = mockActorClientGameObject();
-    const target: ClientObject = mockClientGameObject();
+    const actor: GameObject = mockActorGameObject();
+    const target: GameObject = mockGameObject();
 
     registerActor(actor);
 
@@ -490,8 +490,8 @@ describe("ini_data parsing utils", () => {
   });
 
   it("pickSectionFromCondList should correctly check condition callbacks and call effects", () => {
-    const actor: ClientObject = mockActorClientGameObject();
-    const target: ClientObject = mockClientGameObject();
+    const actor: GameObject = mockActorGameObject();
+    const target: GameObject = mockGameObject();
 
     registerActor(actor);
 
@@ -524,8 +524,8 @@ describe("ini_data parsing utils", () => {
   });
 
   it("pickSectionFromCondList should correctly pick and process info from list", () => {
-    const actor: ClientObject = mockActorClientGameObject();
-    const target: ClientObject = mockClientGameObject();
+    const actor: GameObject = mockActorGameObject();
+    const target: GameObject = mockGameObject();
 
     registerActor(actor);
 
@@ -568,8 +568,8 @@ describe("ini_data parsing utils", () => {
   });
 
   it("pickSectionFromCondList should correctly handle combination of all factors", () => {
-    const actor: ClientObject = mockActorClientGameObject();
-    const target: ClientObject = mockClientGameObject();
+    const actor: GameObject = mockActorGameObject();
+    const target: GameObject = mockGameObject();
 
     registerActor(actor);
     giveInfoPortion("test_info");

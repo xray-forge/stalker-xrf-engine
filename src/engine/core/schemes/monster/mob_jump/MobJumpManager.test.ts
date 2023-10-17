@@ -4,13 +4,13 @@ import { patrol } from "xray16";
 import { EMobJumpState, ISchemeMobJumpState } from "@/engine/core/schemes/monster/mob_jump/mob_jump_types";
 import { MobJumpManager } from "@/engine/core/schemes/monster/mob_jump/MobJumpManager";
 import { createVector } from "@/engine/core/utils/vector";
-import { ClientObject, EntityAction, EScheme, TName } from "@/engine/lib/types";
+import { EntityAction, EScheme, GameObject, TName } from "@/engine/lib/types";
 import { mockSchemeState } from "@/fixtures/engine";
-import { mockClientGameObject } from "@/fixtures/xray";
+import { mockGameObject } from "@/fixtures/xray";
 
 describe("MobJumpManager", () => {
   it("should correctly fail on not existing patrol", () => {
-    const object: ClientObject = mockClientGameObject();
+    const object: GameObject = mockGameObject();
     const state: ISchemeMobJumpState = mockSchemeState<ISchemeMobJumpState>(EScheme.MOB_JUMP, {});
     const manager: MobJumpManager = new MobJumpManager(object, state);
 
@@ -19,7 +19,7 @@ describe("MobJumpManager", () => {
   });
 
   it("should correctly activate", () => {
-    const object: ClientObject = mockClientGameObject();
+    const object: GameObject = mockGameObject();
     const state: ISchemeMobJumpState = mockSchemeState<ISchemeMobJumpState>(EScheme.MOB_JUMP, {
       jumpPathName: "test-wp",
       signals: $fromObject<TName, boolean>({ a: true }),
@@ -38,7 +38,7 @@ describe("MobJumpManager", () => {
   });
 
   it("should correctly process jump", () => {
-    const object: ClientObject = mockClientGameObject({ action: () => null as unknown as EntityAction });
+    const object: GameObject = mockGameObject({ action: () => null as unknown as EntityAction });
     const state: ISchemeMobJumpState = mockSchemeState<ISchemeMobJumpState>(EScheme.MOB_JUMP, {
       jumpPathName: "test-wp",
       signals: $fromObject<TName, boolean>({ a: true }),

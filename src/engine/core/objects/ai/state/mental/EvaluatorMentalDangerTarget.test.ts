@@ -3,12 +3,12 @@ import { property_storage } from "xray16";
 
 import { EvaluatorMentalDangerTarget } from "@/engine/core/objects/ai/state/mental/EvaluatorMentalDangerTarget";
 import type { StalkerStateManager } from "@/engine/core/objects/ai/state/StalkerStateManager";
-import { ClientObject } from "@/engine/lib/types";
-import { mockClientGameObject } from "@/fixtures/xray";
+import { GameObject } from "@/engine/lib/types";
+import { mockGameObject } from "@/fixtures/xray";
 
 describe("EvaluatorMentalDangerTarget class", () => {
   it("should correctly check if danger state when needed", () => {
-    const object: ClientObject = mockClientGameObject();
+    const object: GameObject = mockGameObject();
     const evaluator: EvaluatorMentalDangerTarget = new EvaluatorMentalDangerTarget({
       targetState: "raid_fire",
     } as StalkerStateManager);
@@ -19,7 +19,7 @@ describe("EvaluatorMentalDangerTarget class", () => {
   });
 
   it("should correctly check if danger state when not needed", () => {
-    const object: ClientObject = mockClientGameObject();
+    const object: GameObject = mockGameObject();
     const evaluator: EvaluatorMentalDangerTarget = new EvaluatorMentalDangerTarget({
       targetState: "idle",
     } as StalkerStateManager);

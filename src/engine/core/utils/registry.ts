@@ -7,7 +7,7 @@ import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import {
   AlifeSimulator,
   AnyCallable,
-  ClientObject,
+  GameObject,
   LuaArray,
   Optional,
   ServerObject,
@@ -132,16 +132,16 @@ export function getServerObjects<T extends ServerObject>(
  * @param pattern - callback checker, name checker or class id checker
  * @returns list of matching client objects
  */
-export function getNearestClientObject(
-  pattern: Optional<TName | TClassId | ((object: ClientObject) => boolean)> = null
-): Optional<ClientObject> {
+export function getNearestGameObject(
+  pattern: Optional<TName | TClassId | ((object: GameObject) => boolean)> = null
+): Optional<GameObject> {
   const actorPosition: Vector = registry.actor.position();
   const hasFilter: boolean = pattern !== null;
 
   let nearestDistance: Optional<TDistance> = null;
-  let nearest: Optional<ClientObject> = null;
+  let nearest: Optional<GameObject> = null;
 
-  level.iterate_online_objects((object: ClientObject): void => {
+  level.iterate_online_objects((object: GameObject): void => {
     if (object.id() !== ACTOR_ID && object.parent()?.id() !== ACTOR_ID) {
       let isMatch: boolean = false;
 
@@ -183,12 +183,12 @@ export function getNearestClientObject(
  * @param pattern - callback checker, name checker or class id checker
  * @returns list of matching client objects
  */
-export function getClientObjects(
-  pattern: Optional<TName | TClassId | ((object: ClientObject) => boolean)> = null
-): LuaArray<ClientObject> {
-  const list: LuaArray<ClientObject> = new LuaTable();
+export function getGameObjects(
+  pattern: Optional<TName | TClassId | ((object: GameObject) => boolean)> = null
+): LuaArray<GameObject> {
+  const list: LuaArray<GameObject> = new LuaTable();
 
-  level.iterate_online_objects((object: ClientObject) => {
+  level.iterate_online_objects((object: GameObject) => {
     if (object.id() !== ACTOR_ID && object.parent()?.id() !== ACTOR_ID) {
       let isMatch: boolean = false;
 

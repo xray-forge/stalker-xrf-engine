@@ -7,7 +7,7 @@ import { ActionZombieGoToDanger, ActionZombieShoot } from "@/engine/core/schemes
 import { EvaluatorCombatZombied } from "@/engine/core/schemes/stalker/combat_zombied/evaluators";
 import { assertDefined } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { ActionPlanner, ClientObject, IniFile } from "@/engine/lib/types";
+import { ActionPlanner, GameObject, IniFile } from "@/engine/lib/types";
 import { EScheme, ESchemeType, TSection } from "@/engine/lib/types/scheme";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -24,7 +24,7 @@ export class SchemeCombatZombied extends AbstractScheme {
    * todo: Description.
    */
   public static override add(
-    object: ClientObject,
+    object: GameObject,
     ini: IniFile,
     scheme: EScheme,
     section: TSection,

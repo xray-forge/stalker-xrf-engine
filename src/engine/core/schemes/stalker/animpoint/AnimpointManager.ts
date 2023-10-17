@@ -17,7 +17,7 @@ import {
 import { assert } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { angleToDirection, createVector } from "@/engine/core/utils/vector";
-import { ClientObject, LuaArray, Optional, TIndex, TName, TNumberId, TRate, Vector } from "@/engine/lib/types";
+import { GameObject, LuaArray, Optional, TIndex, TName, TNumberId, TRate, Vector } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -40,7 +40,7 @@ export class AnimpointManager extends AbstractSchemeManager<ISchemeAnimpointStat
   public smartCoverDirection: Optional<Vector> = null;
   public lookPosition: Optional<Vector> = null;
 
-  public override activate(isLoading: boolean, object: ClientObject): void {
+  public override activate(isLoading: boolean, object: GameObject): void {
     logger.info("Activate animpoint scheme:", object.name());
 
     this.state.signals = new LuaTable();
@@ -196,7 +196,7 @@ export class AnimpointManager extends AbstractSchemeManager<ISchemeAnimpointStat
       return false;
     }
 
-    const object: ClientObject = registry.objects.get(this.object.id()).object;
+    const object: GameObject = registry.objects.get(this.object.id()).object;
 
     if (object === null) {
       return false;

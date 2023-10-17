@@ -8,7 +8,7 @@ import { clampNumber } from "@/engine/core/utils/number";
 import { EGoodwill, ERelation, mapRelationToGoodwill } from "@/engine/core/utils/relation/relation_types";
 import { communities, TCommunity } from "@/engine/lib/constants/communities";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
-import { ClientObject, Optional, ServerCreatureObject, TCount, TNumberId, TStringId } from "@/engine/lib/types";
+import { GameObject, Optional, ServerCreatureObject, TCount, TNumberId, TStringId } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -19,11 +19,7 @@ const logger: LuaLogger = new LuaLogger($filename);
  * @param to - client object to
  * @param relation - relation type to set
  */
-export function setClientObjectRelation(
-  from: Optional<ClientObject>,
-  to: Optional<ClientObject>,
-  relation: ERelation
-): void {
+export function setGameObjectRelation(from: Optional<GameObject>, to: Optional<GameObject>, relation: ERelation): void {
   assert(from && to, "One of objects is not set in c-goodwill function.");
   from.force_set_goodwill(mapRelationToGoodwill.get(relation), to);
 }
@@ -107,7 +103,7 @@ export function increaseCommunityGoodwillToId(
  * @param object - object to set sympathy
  * @param sympathy - value to set
  */
-export function setObjectSympathy(object: Optional<ClientObject>, sympathy: TCount): void {
+export function setObjectSympathy(object: Optional<GameObject>, sympathy: TCount): void {
   assert(object, "Object not set in sympathy function.");
   object.set_sympathy(clampNumber(sympathy, 0, 1));
 }
@@ -130,7 +126,7 @@ export function setSquadRelationToCommunity(squadId: TNumberId | TStringId, to: 
   const goodwill: EGoodwill = mapRelationToGoodwill.get(relation);
 
   for (const squadMember of squad.squad_members()) {
-    const object: Optional<ClientObject> = level.object_by_id(squadMember.id);
+    const object: Optional<GameObject> = level.object_by_id(squadMember.id);
 
     if (object) {
       object.set_community_goodwill(to, goodwill);
@@ -148,7 +144,7 @@ export function setSquadRelationToCommunity(squadId: TNumberId | TStringId, to: 
  */
 export function setSquadRelationWithObject(
   squadId: TStringId | TNumberId,
-  object: ClientObject,
+  object: GameObject,
   relation: ERelation
 ): void {
   logger.info("Applying new game relation between squad and object:", relation, squadId, object?.name());
@@ -204,11 +200,11 @@ export function updateSquadIdRelationToActor(
  */
 export function setSquadRelationToActor(squad: Squad, relation: ERelation): void {
   for (const squadMember of squad.squad_members()) {
-    const object: Optional<ClientObject> = level.object_by_id(squadMember.id);
+    const object: Optional<GameObject> = level.object_by_id(squadMember.id);
 
     // Handle both online and offline update.
     if (object) {
-      setClientObjectRelation(object, level.object_by_id(ACTOR_ID), relation);
+      setGameObjectRelation(object, level.object_by_id(ACTOR_ID), relation);
     } else {
       setServerObjectRelation(registry.simulator.object(squadMember.id), registry.actorServer, relation);
     }

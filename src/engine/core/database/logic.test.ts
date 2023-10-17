@@ -5,9 +5,9 @@ import { IBaseSchemeState, IRegistryObjectState } from "@/engine/core/database/d
 import { loadObjectLogic, saveObjectLogic } from "@/engine/core/database/logic";
 import { registerObject, resetObject } from "@/engine/core/database/objects";
 import { getPortableStoreValue, setPortableStoreValue } from "@/engine/core/database/portable_store";
-import { ClientObject, EScheme } from "@/engine/lib/types";
+import { EScheme, GameObject } from "@/engine/lib/types";
 import { replaceFunctionMock } from "@/fixtures/jest";
-import { EPacketDataType, mockClientGameObject, mockNetPacket, MockNetProcessor } from "@/fixtures/xray";
+import { EPacketDataType, mockGameObject, mockNetPacket, MockNetProcessor } from "@/fixtures/xray";
 import { MockCTime } from "@/fixtures/xray/mocks/CTime.mock";
 
 describe("logic database module", () => {
@@ -16,7 +16,7 @@ describe("logic database module", () => {
   });
 
   it("should correctly load and save scheme activation info when set state", () => {
-    const object: ClientObject = mockClientGameObject();
+    const object: GameObject = mockGameObject();
     const state: IRegistryObjectState = registerObject(object);
     const netProcessor: MockNetProcessor = new MockNetProcessor();
 

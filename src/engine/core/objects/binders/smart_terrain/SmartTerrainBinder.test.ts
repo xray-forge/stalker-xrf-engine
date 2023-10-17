@@ -9,7 +9,7 @@ import { ServerObject } from "@/engine/lib/types";
 import { mockRegisteredActor, resetRegistry } from "@/fixtures/engine";
 import {
   EPacketDataType,
-  mockClientGameObject,
+  mockGameObject,
   mockNetPacket,
   MockNetProcessor,
   mockNetReader,
@@ -23,20 +23,20 @@ describe("SmartTerrainBinder class", () => {
   });
 
   it("should correctly initialize", () => {
-    const binder: SmartTerrainBinder = new SmartTerrainBinder(mockClientGameObject());
+    const binder: SmartTerrainBinder = new SmartTerrainBinder(mockGameObject());
 
     expect(binder.isVisited).toBe(false);
     expect(binder.serverObject).toBeUndefined();
   });
 
   it("should be save relevant", () => {
-    const binder: SmartTerrainBinder = new SmartTerrainBinder(mockClientGameObject());
+    const binder: SmartTerrainBinder = new SmartTerrainBinder(mockGameObject());
 
     expect(binder.net_save_relevant()).toBe(true);
   });
 
   it("should correctly handle going online/offline", () => {
-    const binder: SmartTerrainBinder = new SmartTerrainBinder(mockClientGameObject());
+    const binder: SmartTerrainBinder = new SmartTerrainBinder(mockGameObject());
     const serverObject: ServerObject = mockServerAlifeObject({ id: binder.object.id() });
     const globalSoundManager: GlobalSoundManager = GlobalSoundManager.getInstance();
 
@@ -62,7 +62,7 @@ describe("SmartTerrainBinder class", () => {
   it("should correctly handle update event", () => {
     mockRegisteredActor();
 
-    const binder: SmartTerrainBinder = new SmartTerrainBinder(mockClientGameObject());
+    const binder: SmartTerrainBinder = new SmartTerrainBinder(mockGameObject());
     const serverObject: ServerObject = mockServerAlifeObject({ id: binder.object.id() });
     const onVisit = jest.fn();
 
@@ -91,7 +91,7 @@ describe("SmartTerrainBinder class", () => {
 
   it("should correctly handle save/load", () => {
     const netProcessor: MockNetProcessor = new MockNetProcessor();
-    const binder: SmartTerrainBinder = new SmartTerrainBinder(mockClientGameObject());
+    const binder: SmartTerrainBinder = new SmartTerrainBinder(mockGameObject());
 
     binder.isVisited = true;
 
@@ -100,7 +100,7 @@ describe("SmartTerrainBinder class", () => {
     expect(netProcessor.writeDataOrder).toEqual([EPacketDataType.STRING, EPacketDataType.BOOLEAN, EPacketDataType.U16]);
     expect(netProcessor.dataList).toEqual(["save_from_SmartTerrainBinder", true, 2]);
 
-    const newBinder: SmartTerrainBinder = new SmartTerrainBinder(mockClientGameObject());
+    const newBinder: SmartTerrainBinder = new SmartTerrainBinder(mockGameObject());
 
     newBinder.load(mockNetReader(netProcessor));
 

@@ -5,7 +5,7 @@ import { ISchemeDeimosState } from "@/engine/core/schemes/restrictor/sr_deimos/s
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini/ini_config";
 import { readIniNumber, readIniString } from "@/engine/core/utils/ini/ini_read";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { ClientObject, EScheme, ESchemeType, IniFile, TRate, TSection, Vector } from "@/engine/lib/types";
+import { EScheme, ESchemeType, GameObject, IniFile, TRate, TSection, Vector } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -18,7 +18,7 @@ export class SchemeDeimos extends AbstractScheme {
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.RESTRICTOR;
 
   public static override activate(
-    object: ClientObject,
+    object: GameObject,
     ini: IniFile,
     scheme: EScheme,
     section: TSection
@@ -44,7 +44,7 @@ export class SchemeDeimos extends AbstractScheme {
   }
 
   public static override add(
-    object: ClientObject,
+    object: GameObject,
     ini: IniFile,
     scheme: EScheme,
     section: TSection,

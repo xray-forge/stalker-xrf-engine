@@ -10,7 +10,7 @@ import { abort, assert, assertDefined } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { spawnItemsForObject } from "@/engine/core/utils/spawn";
 import { ammo, TAmmoItem } from "@/engine/lib/constants/items/ammo";
-import { ClientObject, Optional, TCount, TSection } from "@/engine/lib/types";
+import { GameObject, Optional, TCount, TSection } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -37,7 +37,7 @@ export function giveMoneyToActor(amount: TCount): void {
  * @param to - target object to transfer money from actor
  * @param amount - money to transfer
  */
-export function transferMoneyFromActor(to: ClientObject, amount: TCount): void {
+export function transferMoneyFromActor(to: GameObject, amount: TCount): void {
   assertDefined(to, "Couldn't relocate money to 'nil'.");
 
   registry.actor.transfer_money(amount, to);
@@ -56,17 +56,17 @@ export function transferMoneyFromActor(to: ClientObject, amount: TCount): void {
  * @param itemSection - section of transferred items
  * @param count - count of items to transfer
  */
-export function transferItemsFromActor(to: ClientObject, itemSection: TSection, count: TCount | "all" = 1): void {
+export function transferItemsFromActor(to: GameObject, itemSection: TSection, count: TCount | "all" = 1): void {
   logger.info("Transfer items from actor:", to.name(), itemSection, count);
 
-  const from: ClientObject = registry.actor;
+  const from: GameObject = registry.actor;
   let remaining: TCount = 0;
 
   // Transfer all items.
   if (count === "all") {
     count = 0;
 
-    from.iterate_inventory((owner: ClientObject, item: ClientObject) => {
+    from.iterate_inventory((owner: GameObject, item: GameObject) => {
       if (item.section() === itemSection) {
         from.transfer_item(item, to);
         count = (count as TCount) + 1;
@@ -76,7 +76,7 @@ export function transferItemsFromActor(to: ClientObject, itemSection: TSection, 
     // Transfer specified items count.
   } else if (count > 0) {
     remaining = count;
-    from.iterate_inventory((owner: ClientObject, item: ClientObject) => {
+    from.iterate_inventory((owner: GameObject, item: GameObject) => {
       if (item.section() === itemSection && remaining > 0) {
         from.transfer_item(item, to);
         remaining -= 1;
@@ -116,21 +116,21 @@ export function transferItemsFromActor(to: ClientObject, itemSection: TSection, 
  * @param itemSection - section of items to transfer
  * @param count - count of items to transfer
  */
-export function transferItemsToActor(from: ClientObject, itemSection: TSection, count: TCount = 1): void {
-  const actor: ClientObject = registry.actor;
+export function transferItemsToActor(from: GameObject, itemSection: TSection, count: TCount = 1): void {
+  const actor: GameObject = registry.actor;
   let remaining: TCount = 0;
 
   if (count > 1) {
     remaining = count;
 
-    from.iterate_inventory((owner: ClientObject, item: ClientObject) => {
+    from.iterate_inventory((owner: GameObject, item: GameObject) => {
       if (item.section() === itemSection && remaining !== 0) {
         from.transfer_item(item, actor);
         remaining -= 1;
       }
     }, actor);
   } else if (from.object(itemSection) !== null) {
-    from.transfer_item(from.object(itemSection) as ClientObject, actor);
+    from.transfer_item(from.object(itemSection) as GameObject, actor);
   } else {
     registry.simulator.create(
       itemSection,
@@ -189,7 +189,7 @@ export function giveItemsToActor(itemSection: TSection, count: TCount = 1): void
  * @param itemSection - section to take from actor
  */
 export function takeItemFromActor(itemSection: TSection): void {
-  const inventoryItem: Optional<ClientObject> = registry.actor.object(itemSection);
+  const inventoryItem: Optional<GameObject> = registry.actor.object(itemSection);
 
   assertDefined(inventoryItem, "Actor has no item '%s' to take.", itemSection);
 

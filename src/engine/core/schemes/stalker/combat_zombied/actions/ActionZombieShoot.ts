@@ -9,8 +9,8 @@ import { chance } from "@/engine/core/utils/random";
 import { copyVector } from "@/engine/core/utils/vector";
 import { ZERO_VECTOR } from "@/engine/lib/constants/vectors";
 import {
-  ClientObject,
-  EClientObjectPath,
+  EGameObjectPath,
+  GameObject,
   Optional,
   TIndex,
   TNumberId,
@@ -62,7 +62,7 @@ export class ActionZombieShoot extends action_base {
 
     this.previousState = null;
 
-    const bestEnemy: ClientObject = this.object.best_enemy() as ClientObject;
+    const bestEnemy: GameObject = this.object.best_enemy() as GameObject;
 
     this.enemyLastSeenPosition = bestEnemy.position();
     this.enemyLastSeenVertexId = bestEnemy.level_vertex_id();
@@ -82,7 +82,7 @@ export class ActionZombieShoot extends action_base {
   public override execute(): void {
     super.execute();
 
-    const bestEnemy: Optional<ClientObject> = this.object.best_enemy()!;
+    const bestEnemy: Optional<GameObject> = this.object.best_enemy()!;
     const isBestEnemyVisible: boolean = this.object.see(bestEnemy);
 
     if (isBestEnemyVisible) {
@@ -105,7 +105,7 @@ export class ActionZombieShoot extends action_base {
       }
     }
 
-    this.object.set_path_type(EClientObjectPath.LEVEL_PATH);
+    this.object.set_path_type(EGameObjectPath.LEVEL_PATH);
 
     const now: TTimestamp = time_global();
 
@@ -151,7 +151,7 @@ export class ActionZombieShoot extends action_base {
   /**
    * todo: Description.
    */
-  public setState(state: EStalkerState, bestEnemy: Optional<ClientObject>, position: Optional<Vector>): void {
+  public setState(state: EStalkerState, bestEnemy: Optional<GameObject>, position: Optional<Vector>): void {
     this.targetStateDescriptor.lookObjectId = bestEnemy?.id() as Optional<TNumberId>;
     this.targetStateDescriptor.lookPosition = bestEnemy ? this.enemyLastSeenPosition : position;
 
@@ -184,13 +184,13 @@ export class ActionZombieShoot extends action_base {
   /**
    * todo: Description.
    */
-  public onHit(object: ClientObject, amount: TRate, direction: Vector, who: ClientObject, boneId: TIndex): void {
+  public onHit(object: GameObject, amount: TRate, direction: Vector, who: GameObject, boneId: TIndex): void {
     if (who === null) {
       return;
     }
 
     if (this.state.currentAction === EZombieCombatAction.SHOOT) {
-      const bestEnemy: Optional<ClientObject> = this.object?.best_enemy();
+      const bestEnemy: Optional<GameObject> = this.object?.best_enemy();
 
       if (bestEnemy && bestEnemy.id() === who.id()) {
         this.wasHit = true;

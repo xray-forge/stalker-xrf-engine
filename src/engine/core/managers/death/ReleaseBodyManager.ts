@@ -21,7 +21,7 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 import { resetTable } from "@/engine/core/utils/table";
 import { roots } from "@/engine/lib/constants/roots";
 import {
-  ClientObject,
+  GameObject,
   IniFile,
   LuaArray,
   NetPacket,
@@ -49,7 +49,7 @@ export class ReleaseBodyManager extends AbstractManager {
   /**
    * todo: Description.
    */
-  public addDeadBody(object: ClientObject): void {
+  public addDeadBody(object: GameObject): void {
     if (this.inspectionResult(object)) {
       if (this.releaseObjectRegistry.length() > deathConfig.MAX_BODY_COUNT) {
         this.tryToReleaseCorpses();
@@ -102,7 +102,7 @@ export class ReleaseBodyManager extends AbstractManager {
   /**
    * todo: Description.
    */
-  protected inspectionResult(object: ClientObject): boolean {
+  protected inspectionResult(object: GameObject): boolean {
     if (getStoryIdByObjectId(object.id()) !== null) {
       // logger.info("Ignore corpse release, present in story:", object.name());
 
@@ -129,7 +129,7 @@ export class ReleaseBodyManager extends AbstractManager {
   /**
    * todo: Description.
    */
-  protected checkForKnownInfo(object: ClientObject): boolean {
+  protected checkForKnownInfo(object: GameObject): boolean {
     let characterIni: Optional<IniFile> = null;
     const objectSpawnIni: Optional<IniFile> = object.spawn_ini();
     const filename: Optional<TName> =

@@ -15,9 +15,9 @@ import { FALSE } from "@/engine/lib/constants/words";
 import {
   ActionBase,
   ActionPlanner,
-  ClientObject,
   EScheme,
   ESchemeType,
+  GameObject,
   IniFile,
   Optional,
   TName,
@@ -34,7 +34,7 @@ export class SchemeCamper extends AbstractScheme {
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.STALKER;
 
   public static override activate(
-    object: ClientObject,
+    object: GameObject,
     ini: IniFile,
     scheme: EScheme,
     section: TSection,
@@ -99,7 +99,7 @@ export class SchemeCamper extends AbstractScheme {
   }
 
   public static override add(
-    object: ClientObject,
+    object: GameObject,
     ini: IniFile,
     scheme: EScheme,
     section: TSection,

@@ -14,7 +14,7 @@ import { createEmptyVector } from "@/engine/core/utils/vector";
 import { roots } from "@/engine/lib/constants/roots";
 import { NIL } from "@/engine/lib/constants/words";
 import {
-  ClientObject,
+  GameObject,
   IniFile,
   LuaArray,
   NetPacket,
@@ -91,7 +91,7 @@ export class ObjectSound extends AbstractPlayableSound {
    * todo;
    */
   public play(objectId: TNumberId, faction: string, point: string, message: string): boolean {
-    const object: Optional<ClientObject> = registry.objects.get(objectId)?.object;
+    const object: Optional<GameObject> = registry.objects.get(objectId)?.object;
 
     if (object === null) {
       return false; // No object existing.

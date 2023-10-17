@@ -6,7 +6,7 @@ import { ISchemeCompanionState } from "@/engine/core/schemes/stalker/companion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { vectorRotateY } from "@/engine/core/utils/vector";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
-import { ClientObject, EClientObjectPath, Optional, Vector } from "@/engine/lib/types";
+import { EGameObjectPath, GameObject, Optional, Vector } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -69,7 +69,7 @@ export class ActionCompanionActivity extends action_base {
    * todo: Description.
    */
   public behWalkSimple(): void {
-    const actor: Optional<ClientObject> = registry.actor;
+    const actor: Optional<GameObject> = registry.actor;
     let selectNewPt: boolean = false;
     const distFromSelfToActor: number = this.object.position().distance_to(actor.position());
     const distFromAssistPtToActor: Optional<number> = this.assistPoint
@@ -92,7 +92,7 @@ export class ActionCompanionActivity extends action_base {
       return;
     }
 
-    this.object.set_path_type(EClientObjectPath.LEVEL_PATH);
+    this.object.set_path_type(EGameObjectPath.LEVEL_PATH);
     this.object.set_dest_level_vertex_id(this.assistPoint);
 
     const distToAssistPt = level.vertex_position(this.assistPoint).distance_to(this.object.position());
@@ -171,12 +171,12 @@ export class ActionCompanionActivity extends action_base {
 /**
  * todo;
  */
-function selectPosition(object: ClientObject, state: ISchemeCompanionState) {
+function selectPosition(object: GameObject, state: ISchemeCompanionState) {
   let node1VertexId = null;
   let node1Distance = null;
   let node2VertexId = null;
   let node2Distance = null;
-  const actor: ClientObject = registry.actor;
+  const actor: GameObject = registry.actor;
 
   let desiredDirection: Vector = vectorRotateY(actor.direction(), math.random(50, 60));
 

@@ -9,14 +9,14 @@ import { EvaluatorStateIdleItems } from "@/engine/core/objects/ai/state/state/Ev
 import { EvaluatorStateLogicActive } from "@/engine/core/objects/ai/state/state/EvaluatorStateLogicActive";
 import { EActionId, EEvaluatorId } from "@/engine/core/objects/ai/types";
 import { EAnimationType } from "@/engine/core/objects/animation/types/animation_types";
-import { ActionPlanner, ClientObject } from "@/engine/lib/types";
+import { ActionPlanner, GameObject } from "@/engine/lib/types";
 import { checkPlannerAction } from "@/fixtures/engine";
-import { MockActionPlanner, mockClientGameObject } from "@/fixtures/xray";
+import { MockActionPlanner, mockGameObject } from "@/fixtures/xray";
 import { mockStalkerIds } from "@/fixtures/xray/mocks/constants";
 
 describe("motivation_planner setup util", () => {
   it("should correctly setup object motivation planner evaluators", () => {
-    const object: ClientObject = mockClientGameObject();
+    const object: GameObject = mockGameObject();
     const planner: ActionPlanner = object.motivation_action_manager();
     const stateManager: StalkerStateManager = new StalkerStateManager(object);
 
@@ -36,7 +36,7 @@ describe("motivation_planner setup util", () => {
   });
 
   it("should correctly setup motivation planner actions", () => {
-    const object: ClientObject = mockClientGameObject();
+    const object: GameObject = mockGameObject();
     const planner: ActionPlanner = object.motivation_action_manager();
     const stateManager: StalkerStateManager = new StalkerStateManager(object);
 
@@ -76,7 +76,7 @@ describe("motivation_planner setup util", () => {
   });
 
   it("should correctly setup update planner default actions", () => {
-    const object: ClientObject = mockClientGameObject();
+    const object: GameObject = mockGameObject();
     const planner: ActionPlanner = object.motivation_action_manager();
     const stateManager: StalkerStateManager = new StalkerStateManager(object);
 

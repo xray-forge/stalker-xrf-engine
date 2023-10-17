@@ -8,7 +8,7 @@ import { EvaluatorHasEnemy } from "@/engine/core/schemes/stalker/combat_idle/eva
 import { getObjectCommunity } from "@/engine/core/utils/community";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { communities } from "@/engine/lib/constants/communities";
-import { ActionPlanner, ClientObject } from "@/engine/lib/types";
+import { ActionPlanner, GameObject } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -21,7 +21,7 @@ export class PostCombatIdle {
    * todo: Description.
    * todo: Generic idle
    */
-  public static setup(object: ClientObject): void {
+  public static setup(object: GameObject): void {
     // logger.info("Add post-combat idle for:", object.name());
 
     if (getObjectCommunity(object) === communities.zombied) {

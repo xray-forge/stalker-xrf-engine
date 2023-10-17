@@ -4,7 +4,7 @@ import { helpWoundedConfig } from "@/engine/core/schemes/stalker/help_wounded/He
 import { ISchemeWoundedState } from "@/engine/core/schemes/stalker/wounded";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { giveWoundedObjectMedkit } from "@/engine/core/utils/object";
-import { ClientObject, EScheme, Optional, TNumberId } from "@/engine/lib/types";
+import { EScheme, GameObject, Optional, TNumberId } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -14,7 +14,7 @@ const logger: LuaLogger = new LuaLogger($filename);
  *
  * @param object - target object animation is finished for (healer)
  */
-export function finishObjectHelpWounded(object: ClientObject): void {
+export function finishObjectHelpWounded(object: GameObject): void {
   const state: IRegistryObjectState = registry.objects.get(object.id());
 
   const selectedObjectId: TNumberId = (state[EScheme.HELP_WOUNDED] as ISchemeHelpWoundedState)

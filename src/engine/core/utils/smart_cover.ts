@@ -1,7 +1,7 @@
 import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { IStateDescriptor } from "@/engine/core/objects/animation/types";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { ClientObject, LuaArray, TName, TTimestamp } from "@/engine/lib/types";
+import { GameObject, LuaArray, TName, TTimestamp } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -23,11 +23,11 @@ const stateQueueParameters: LuaTable<TName, LuaArray<number>> = $fromObject<TNam
  * todo;
  */
 export function getObjectSmartCoverStateQueueParams(
-  object: ClientObject,
+  object: GameObject,
   descriptor: IStateDescriptor
 ): LuaMultiReturn<[number, number]> {
   const animation: LuaArray<number> = stateQueueParameters.get(descriptor.animation as TName);
-  const bestWeapon: ClientObject = object.best_weapon() as ClientObject;
+  const bestWeapon: GameObject = object.best_weapon() as GameObject;
   const state: IRegistryObjectState = registry.objects.get(object.id());
 
   if (animation !== null) {

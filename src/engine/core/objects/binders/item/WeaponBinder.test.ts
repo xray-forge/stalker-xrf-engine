@@ -5,7 +5,7 @@ import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { WeaponBinder } from "@/engine/core/objects/binders/item/WeaponBinder";
 import { ItemWeapon } from "@/engine/core/objects/server/item/ItemWeapon";
 import { resetRegistry } from "@/fixtures/engine";
-import { mockClientGameObject, mockServerAlifeObject } from "@/fixtures/xray";
+import { mockGameObject, mockServerAlifeObject } from "@/fixtures/xray";
 
 describe("WeaponBinder class", () => {
   beforeEach(() => {
@@ -14,7 +14,7 @@ describe("WeaponBinder class", () => {
   });
 
   it("should correctly handle going online/offline and release", () => {
-    const binder: WeaponBinder = new WeaponBinder(mockClientGameObject());
+    const binder: WeaponBinder = new WeaponBinder(mockGameObject());
     const serverObject: ItemWeapon = mockServerAlifeObject({
       id: binder.object.id(),
     }) as ItemWeapon;
@@ -46,7 +46,7 @@ describe("WeaponBinder class", () => {
 
   it("should correctly emit lifecycle signals", () => {
     const eventsManager: EventsManager = EventsManager.getInstance();
-    const binder: WeaponBinder = new WeaponBinder(mockClientGameObject());
+    const binder: WeaponBinder = new WeaponBinder(mockGameObject());
 
     const onGoOnlineFirstTime = jest.fn();
     const onGoOnline = jest.fn();

@@ -2,7 +2,7 @@ import { IRegistryObjectState } from "@/engine/core/database/database_types";
 import { registerObject, unregisterObject } from "@/engine/core/database/objects";
 import { registry } from "@/engine/core/database/registry";
 import { HelicopterBinder } from "@/engine/core/objects/binders/HelicopterBinder";
-import { ClientObject, TIndex } from "@/engine/lib/types";
+import { GameObject, TIndex } from "@/engine/lib/types";
 
 /**
  * Register helicopter binder object.
@@ -30,7 +30,7 @@ export function unregisterHelicopter(helicopter: HelicopterBinder): void {
  *
  * @param object - helicopter client object to unregister
  */
-export function unregisterHelicopterObject(object: ClientObject): void {
+export function unregisterHelicopterObject(object: GameObject): void {
   unregisterObject(object);
   registry.helicopter.storage.delete(object.id());
 }
@@ -41,7 +41,7 @@ export function unregisterHelicopterObject(object: ClientObject): void {
  * @param object - object to register as enemy
  * @returns index of newly added enemy
  */
-export function registerHelicopterEnemy(object: ClientObject): TIndex {
+export function registerHelicopterEnemy(object: GameObject): TIndex {
   const index: TIndex = registry.helicopter.enemyIndex;
 
   registry.helicopter.enemies.set(index, object);

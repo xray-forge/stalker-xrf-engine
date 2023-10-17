@@ -16,7 +16,7 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 import { getObjectSmartTerrain } from "@/engine/core/utils/position";
 import { communities, TCommunity } from "@/engine/lib/constants/communities";
 import { TRUE } from "@/engine/lib/constants/words";
-import { ClientObject, Optional, PhraseDialog, TName, TNumberId, TRate, TStringId } from "@/engine/lib/types";
+import { GameObject, Optional, PhraseDialog, TName, TNumberId, TRate, TStringId } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -30,7 +30,7 @@ extern("dialog_manager", {});
  * todo;
  */
 export function precondition(
-  object: ClientObject,
+  object: GameObject,
   PTsubtable: TPHRTable,
   PRTsubtable: TPRTTable,
   phraseId: TStringId
@@ -53,7 +53,7 @@ export function precondition(
 /**
  * todo;
  */
-export function told(PRTsubtable: TPRTTable, object: ClientObject): void {
+export function told(PRTsubtable: TPRTTable, object: GameObject): void {
   PRTsubtable.get(object.id()).told = true;
 }
 
@@ -64,7 +64,7 @@ export function action(
   PTsubtable: LuaTable<TStringId, IPhrasesDescriptor>,
   PRTsubtable: TPRTTable,
   currentPhraseId: TStringId,
-  object: ClientObject
+  object: GameObject
 ): void {
   if (!PRTsubtable.get(object.id()).ignore_once) {
     if (PTsubtable.get(currentPhraseId).once === TRUE) {
@@ -92,7 +92,7 @@ export function setPhraseHighestPriority(PRTsubtable: TPRTTable, objectId: TNumb
 export function resetPhrasePriority(
   PTsubtable: TPHRTable,
   PRTsubtable: TPRTTable,
-  object: ClientObject,
+  object: GameObject,
   phraseId: Optional<string>
 ): void {
   const dialogManager: DialogManager = DialogManager.getInstance();
@@ -119,7 +119,7 @@ export function resetPhrasePriority(
 export function isHighestPriorityPhrase(
   PTsubtable: TPHRTable,
   PRTsubtable: TPRTTable,
-  object: ClientObject,
+  object: GameObject,
   phraseId: string
 ) {
   const objectId: TNumberId = object.id();
@@ -153,7 +153,7 @@ export function isHighestPriorityPhrase(
 export function getHighestPriorityPhrase(
   PTsubtable: TPHRTable,
   PRTsubtable: TPRTTable,
-  object: ClientObject
+  object: GameObject
 ): LuaMultiReturn<[number, string | 0]> {
   const objectId: TNumberId = object.id();
 
@@ -181,7 +181,7 @@ export function getHighestPriorityPhrase(
 /**
  * todo;
  */
-export function preconditionNoMore(object: ClientObject, category: EGenericDialogCategory): boolean {
+export function preconditionNoMore(object: GameObject, category: EGenericDialogCategory): boolean {
   const dialogManager: DialogManager = DialogManager.getInstance();
 
   const [priority, id] = getHighestPriorityPhrase(
@@ -219,7 +219,7 @@ extern("dialog_manager.init_hello_dialogs", (dialog: PhraseDialog): void => {
  */
 extern(
   "dialog_manager.fill_priority_hello_table",
-  (actor: ClientObject, object: ClientObject, dialogName: string, phraseId: string): void => {
+  (actor: GameObject, object: GameObject, dialogName: string, phraseId: string): void => {
     const dialogManager: DialogManager = DialogManager.getInstance();
 
     dialogManager.fillPriorityTable(
@@ -235,7 +235,7 @@ extern(
  */
 extern(
   "dialog_manager.fill_priority_job_table",
-  (actor: ClientObject, object: ClientObject, dialogName: TName, phraseId: TStringId): void => {
+  (actor: GameObject, object: GameObject, dialogName: TName, phraseId: TStringId): void => {
     const dialogManager: DialogManager = DialogManager.getInstance();
 
     dialogManager.fillPriorityTable(
@@ -251,7 +251,7 @@ extern(
  */
 extern(
   "dialog_manager.fill_priority_anomalies_table",
-  (actor: ClientObject, object: ClientObject, dialogName: TName, phraseId: TStringId): void => {
+  (actor: GameObject, object: GameObject, dialogName: TName, phraseId: TStringId): void => {
     const dialogManager: DialogManager = DialogManager.getInstance();
 
     dialogManager.fillPriorityTable(
@@ -267,7 +267,7 @@ extern(
  */
 extern(
   "dialog_manager.fill_priority_information_table",
-  (actor: ClientObject, object: ClientObject, dialogName: TName, phraseId: TStringId): void => {
+  (actor: GameObject, object: GameObject, dialogName: TName, phraseId: TStringId): void => {
     const dialogManager: DialogManager = DialogManager.getInstance();
 
     dialogManager.fillPriorityTable(
@@ -283,7 +283,7 @@ extern(
  */
 extern(
   "dialog_manager.precondition_hello_dialogs",
-  (object: ClientObject, actor: ClientObject, dialogName: TName, parentId: TStringId, id: TStringId): boolean => {
+  (object: GameObject, actor: GameObject, dialogName: TName, parentId: TStringId, id: TStringId): boolean => {
     const dialogManager: DialogManager = DialogManager.getInstance();
 
     return precondition(
@@ -300,7 +300,7 @@ extern(
  */
 extern(
   "dialog_manager.action_hello_dialogs",
-  (object: ClientObject, actor: ClientObject, dialogName: TName, id: TStringId): void => {
+  (object: GameObject, actor: GameObject, dialogName: TName, id: TStringId): void => {
     const dialogManager: DialogManager = DialogManager.getInstance();
 
     action(
@@ -317,7 +317,7 @@ extern(
  */
 extern(
   "dialog_manager.precondition_job_dialogs_no_more",
-  (object: ClientObject, actor: ClientObject, dialogName: TName, parentId: TStringId, id: TStringId) => {
+  (object: GameObject, actor: GameObject, dialogName: TName, parentId: TStringId, id: TStringId) => {
     const dialogManager: DialogManager = DialogManager.getInstance();
 
     return dialogManager.isTold(object, EGenericDialogCategory.JOB);
@@ -329,7 +329,7 @@ extern(
  */
 extern(
   "dialog_manager.precondition_job_dialogs_do_not_know",
-  (object: ClientObject, actor: ClientObject, dialogName: TName, parentId: TStringId, id: TStringId) => {
+  (object: GameObject, actor: GameObject, dialogName: TName, parentId: TStringId, id: TStringId) => {
     return preconditionNoMore(object, EGenericDialogCategory.JOB);
   }
 );
@@ -339,7 +339,7 @@ extern(
  */
 extern(
   "dialog_manager.precondition_job_dialogs",
-  (object: ClientObject, actor: ClientObject, dialogName: TName, parentId: TStringId, id: TStringId): boolean => {
+  (object: GameObject, actor: GameObject, dialogName: TName, parentId: TStringId, id: TStringId): boolean => {
     const dialogManager: DialogManager = DialogManager.getInstance();
 
     return precondition(
@@ -356,7 +356,7 @@ extern(
  */
 extern(
   "dialog_manager.action_job_dialogs",
-  (object: ClientObject, actor: ClientObject, dialogName: string, id: string): void => {
+  (object: GameObject, actor: GameObject, dialogName: string, id: string): void => {
     const dialogManager: DialogManager = DialogManager.getInstance();
 
     action(
@@ -374,7 +374,7 @@ extern(
  */
 extern(
   "dialog_manager.precondition_anomalies_dialogs_no_more",
-  (object: ClientObject, actor: ClientObject, dialogName: TName, parentId: TStringId, id: TStringId): boolean => {
+  (object: GameObject, actor: GameObject, dialogName: TName, parentId: TStringId, id: TStringId): boolean => {
     return DialogManager.getInstance().isTold(object, EGenericDialogCategory.ANOMALIES);
   }
 );
@@ -384,7 +384,7 @@ extern(
  */
 extern(
   "dialog_manager.precondition_anomalies_dialogs_do_not_know",
-  (object: ClientObject, actor: ClientObject, dialogName: TName, parentId: TStringId, id: TStringId): boolean => {
+  (object: GameObject, actor: GameObject, dialogName: TName, parentId: TStringId, id: TStringId): boolean => {
     const dialogManager: DialogManager = DialogManager.getInstance();
 
     return preconditionNoMore(object, EGenericDialogCategory.ANOMALIES);
@@ -396,7 +396,7 @@ extern(
  */
 extern(
   "dialog_manager.precondition_anomalies_dialogs",
-  (object: ClientObject, actor: ClientObject, dialogName: TName, parentId: TStringId, id: TStringId): boolean => {
+  (object: GameObject, actor: GameObject, dialogName: TName, parentId: TStringId, id: TStringId): boolean => {
     const dialogManager: DialogManager = DialogManager.getInstance();
     const smartTerrain: Optional<SmartTerrain> = getObjectSmartTerrain(object);
 
@@ -423,7 +423,7 @@ extern(
  */
 extern(
   "dialog_manager.action_anomalies_dialogs",
-  (object: ClientObject, actor: ClientObject, dialogName: TName, id: TStringId): void => {
+  (object: GameObject, actor: GameObject, dialogName: TName, id: TStringId): void => {
     const dialogManager: DialogManager = DialogManager.getInstance();
 
     action(
@@ -442,7 +442,7 @@ extern(
  */
 extern(
   "dialog_manager.precondition_information_dialogs_no_more",
-  (object: ClientObject, actor: ClientObject, dialogName: TName, parentId: TStringId, id: TStringId): boolean => {
+  (object: GameObject, actor: GameObject, dialogName: TName, parentId: TStringId, id: TStringId): boolean => {
     return DialogManager.getInstance().isTold(object, EGenericDialogCategory.INFORMATION);
   }
 );
@@ -452,7 +452,7 @@ extern(
  */
 extern(
   "dialog_manager.precondition_information_dialogs_do_not_know",
-  (object: ClientObject, actor: ClientObject, dialogName: TName, parentId: TStringId, id: TStringId): boolean => {
+  (object: GameObject, actor: GameObject, dialogName: TName, parentId: TStringId, id: TStringId): boolean => {
     return preconditionNoMore(object, EGenericDialogCategory.INFORMATION);
   }
 );
@@ -462,7 +462,7 @@ extern(
  */
 extern(
   "dialog_manager.precondition_information_dialogs",
-  (object: ClientObject, actor: ClientObject, dialogName: TName, parentId: TStringId, id: TStringId): boolean => {
+  (object: GameObject, actor: GameObject, dialogName: TName, parentId: TStringId, id: TStringId): boolean => {
     const dialogManager: DialogManager = DialogManager.getInstance();
 
     return precondition(
@@ -479,7 +479,7 @@ extern(
  */
 extern(
   "dialog_manager.action_information_dialogs",
-  (object: ClientObject, actor: ClientObject, dialogName: TName, id: TStringId): void => {
+  (object: GameObject, actor: GameObject, dialogName: TName, id: TStringId): void => {
     const dialogManager: DialogManager = DialogManager.getInstance();
 
     action(
@@ -498,13 +498,13 @@ extern(
 extern(
   "dialog_manager.precondition_is_phrase_disabled",
   (
-    firstSpeaker: ClientObject,
-    secondSpeaker: ClientObject,
+    firstSpeaker: GameObject,
+    secondSpeaker: GameObject,
     dialogName: TName,
     parentDialogId: TStringId,
     phraseId: TStringId
   ): boolean => {
-    const object: ClientObject = getNpcSpeaker(firstSpeaker, secondSpeaker);
+    const object: GameObject = getNpcSpeaker(firstSpeaker, secondSpeaker);
 
     if (phraseId === "") {
       phraseId = dialogName;
@@ -530,8 +530,8 @@ extern(
  */
 extern(
   "dialog_manager.action_disable_phrase",
-  (firstSpeaker: ClientObject, secondSpeaker: ClientObject, dialogName: TName, phraseId: TStringId): void => {
-    const object: ClientObject = getNpcSpeaker(firstSpeaker, secondSpeaker);
+  (firstSpeaker: GameObject, secondSpeaker: GameObject, dialogName: TName, phraseId: TStringId): void => {
+    const object: GameObject = getNpcSpeaker(firstSpeaker, secondSpeaker);
 
     if (phraseId === "0") {
       phraseId = dialogName;
@@ -552,8 +552,8 @@ extern(
  */
 extern(
   "dialog_manager.action_disable_quest_phrase",
-  (firstSpeaker: ClientObject, secondSpeaker: ClientObject, dialogName: string, phraseId: string): void => {
-    const object: ClientObject = getNpcSpeaker(firstSpeaker, secondSpeaker);
+  (firstSpeaker: GameObject, secondSpeaker: GameObject, dialogName: string, phraseId: string): void => {
+    const object: GameObject = getNpcSpeaker(firstSpeaker, secondSpeaker);
 
     if (phraseId === "0") {
       phraseId = dialogName;
@@ -594,8 +594,8 @@ extern("dialog_manager.create_bye_phrase", (): string => {
 /**
  * todo;
  */
-extern("dialog_manager.uni_dialog_precond", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
-  const object: ClientObject = getNpcSpeaker(firstSpeaker, secondSpeaker);
+extern("dialog_manager.uni_dialog_precond", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
+  const object: GameObject = getNpcSpeaker(firstSpeaker, secondSpeaker);
   const community: TCommunity = getObjectCommunity(object);
 
   return (

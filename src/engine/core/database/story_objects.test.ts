@@ -16,8 +16,8 @@ import {
   unregisterStoryLinkByObjectId,
   unregisterStoryLinkByStoryId,
 } from "@/engine/core/database/story_objects";
-import { ClientObject, ServerObject } from "@/engine/lib/types";
-import { FILES_MOCKS, MockAlifeSimulator, mockClientGameObject, mockServerAlifeObject } from "@/fixtures/xray";
+import { GameObject, ServerObject } from "@/engine/lib/types";
+import { FILES_MOCKS, MockAlifeSimulator, mockGameObject, mockServerAlifeObject } from "@/fixtures/xray";
 
 describe("story_objects module of the database", () => {
   const firstObject: ServerObject = mockServerAlifeObject({ id: 12 });
@@ -82,7 +82,7 @@ describe("story_objects module of the database", () => {
   });
 
   it("should correctly handle lifecycle and get links with utils", () => {
-    const object: ClientObject = mockClientGameObject({ idOverride: 12 });
+    const object: GameObject = mockGameObject({ idOverride: 12 });
 
     registerObject(object);
     registerStoryLink(12, "test-sid");
@@ -101,7 +101,7 @@ describe("story_objects module of the database", () => {
   });
 
   it("getObjectByStoryId should correctly fallback to level check", () => {
-    const object: ClientObject = mockClientGameObject({ idOverride: 12 });
+    const object: GameObject = mockGameObject({ idOverride: 12 });
 
     registerStoryLink(object.id(), "test-level-check");
 
@@ -120,15 +120,15 @@ describe("story_objects module of the database", () => {
 
   it("isStoryObject should correctly check if object is existing", () => {
     const serverObject: ServerObject = mockServerAlifeObject();
-    const clientObject: ClientObject = mockClientGameObject({ idOverride: serverObject.id });
+    const gameObject: GameObject = mockGameObject({ idOverride: serverObject.id });
 
     expect(isStoryObject(serverObject)).toBe(false);
-    expect(isStoryObject(clientObject)).toBe(false);
+    expect(isStoryObject(gameObject)).toBe(false);
 
     registerStoryLink(serverObject.id, "is-story-object-example");
 
     expect(isStoryObject(serverObject)).toBe(true);
-    expect(isStoryObject(clientObject)).toBe(true);
+    expect(isStoryObject(gameObject)).toBe(true);
   });
 
   it("registerStoryLink should correctly handle register duplicates", () => {

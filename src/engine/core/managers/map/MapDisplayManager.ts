@@ -26,8 +26,8 @@ import { mapMarks } from "@/engine/lib/constants/map_marks";
 import { FALSE, NIL, TRUE } from "@/engine/lib/constants/words";
 import {
   AlifeSimulator,
-  ClientObject,
   EScheme,
+  GameObject,
   LuaArray,
   Maybe,
   Optional,
@@ -71,7 +71,7 @@ export class MapDisplayManager extends AbstractManager {
    * @param section - active logic section
    */
   public updateObjectMapSpot(
-    object: ClientObject,
+    object: GameObject,
     scheme: EScheme,
     state: IRegistryObjectState,
     section: TSection
@@ -97,7 +97,7 @@ export class MapDisplayManager extends AbstractManager {
       spotSection = TRUE;
     }
 
-    const actor: ClientObject = registry.actor;
+    const actor: GameObject = registry.actor;
     let mapSpot: Optional<TName> = readIniString(state.ini, state.sectionLogic, "level_spot", false);
 
     if (mapSpot === null) {
@@ -143,7 +143,7 @@ export class MapDisplayManager extends AbstractManager {
    * @param object - target client object
    * @param state - target object registry state
    */
-  public removeObjectMapSpot(object: ClientObject, state: IRegistryObjectState): void {
+  public removeObjectMapSpot(object: GameObject, state: IRegistryObjectState): void {
     logger.info("Remove object spot:", object.name());
 
     const simulator: AlifeSimulator = registry.simulator;
@@ -161,7 +161,7 @@ export class MapDisplayManager extends AbstractManager {
     }
 
     if (mapSpot !== null) {
-      const actor: ClientObject = registry.actor;
+      const actor: GameObject = registry.actor;
       const mapSpotConditionsList: TConditionList = parseConditionsList(mapSpot);
 
       mapSpot = pickSectionFromCondList(actor, object, mapSpotConditionsList);
@@ -439,7 +439,7 @@ export class MapDisplayManager extends AbstractManager {
   public updateSleepZonesDisplay(): void {
     for (const [, sleepZone] of mapDisplayConfig.SLEEP_SPOTS) {
       const objectId: Optional<TNumberId> = getObjectIdByStoryId(sleepZone.target);
-      const object: Optional<ClientObject> = objectId ? registry.objects.get(objectId)?.object : null;
+      const object: Optional<GameObject> = objectId ? registry.objects.get(objectId)?.object : null;
 
       if (objectId && object) {
         const actorPosition: Vector = registry.actor.position();

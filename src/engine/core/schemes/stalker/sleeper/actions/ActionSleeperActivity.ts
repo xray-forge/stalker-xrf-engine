@@ -9,7 +9,7 @@ import { parseWaypointsDataFromList } from "@/engine/core/utils/ini/ini_parse";
 import { IWaypointData } from "@/engine/core/utils/ini/ini_types";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import {
-  ClientObject,
+  GameObject,
   ISchemeEventHandler,
   LuaArray,
   Optional,
@@ -39,7 +39,7 @@ export class ActionSleeperActivity extends action_base implements ISchemeEventHa
     random: TDuration;
   };
 
-  public constructor(state: ISchemeSleeperState, object: ClientObject) {
+  public constructor(state: ISchemeSleeperState, object: GameObject) {
     super(null, ActionSleeperActivity.__name);
 
     this.state = state;

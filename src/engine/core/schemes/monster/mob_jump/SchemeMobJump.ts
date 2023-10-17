@@ -7,7 +7,7 @@ import { parseStringsList } from "@/engine/core/utils/ini/ini_parse";
 import { readIniNumber, readIniString } from "@/engine/core/utils/ini/ini_read";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { createVector } from "@/engine/core/utils/vector";
-import { ClientObject, EScheme, ESchemeType, IniFile, LuaArray, TName, TSection } from "@/engine/lib/types";
+import { EScheme, ESchemeType, GameObject, IniFile, LuaArray, TName, TSection } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -19,7 +19,7 @@ export class SchemeMobJump extends AbstractScheme {
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.MONSTER;
 
   public static override activate(
-    object: ClientObject,
+    object: GameObject,
     ini: IniFile,
     scheme: EScheme,
     section: TSection,
@@ -41,7 +41,7 @@ export class SchemeMobJump extends AbstractScheme {
   }
 
   public static override add(
-    object: ClientObject,
+    object: GameObject,
     ini: IniFile,
     scheme: EScheme,
     section: TSection,

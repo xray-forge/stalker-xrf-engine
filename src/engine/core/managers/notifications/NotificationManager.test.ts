@@ -27,9 +27,9 @@ import { ActorSound } from "@/engine/core/managers/sounds/objects/ActorSound";
 import { soundsConfig } from "@/engine/core/managers/sounds/SoundsConfig";
 import { ETaskState } from "@/engine/core/managers/tasks";
 import { ISchemeWoundedState } from "@/engine/core/schemes/stalker/wounded";
-import { ClientObject, GameTask } from "@/engine/lib/types";
+import { GameObject, GameTask } from "@/engine/lib/types";
 import { resetFunctionMock } from "@/fixtures/jest";
-import { mockClientGameObject, mockServerAlifeHumanStalker } from "@/fixtures/xray";
+import { mockGameObject, mockServerAlifeHumanStalker } from "@/fixtures/xray";
 import { MockAlifeSimulator } from "@/fixtures/xray/mocks/objects/AlifeSimulator.mock";
 import { mockCGameTask } from "@/fixtures/xray/mocks/objects/task";
 import { MockVector } from "@/fixtures/xray/mocks/vector.mock";
@@ -37,7 +37,7 @@ import { MockVector } from "@/fixtures/xray/mocks/vector.mock";
 describe("NotificationManager class", () => {
   beforeEach(() => {
     registerSimulator();
-    registerActor(mockClientGameObject());
+    registerActor(mockGameObject());
     initializeManager(NotificationManager);
   });
 
@@ -298,7 +298,7 @@ describe("NotificationManager class", () => {
 
   it("should correctly send generic tips", () => {
     const notificationManager: NotificationManager = NotificationManager.getInstance();
-    const sender: ClientObject = mockClientGameObject();
+    const sender: GameObject = mockGameObject();
 
     registerObject(sender);
 

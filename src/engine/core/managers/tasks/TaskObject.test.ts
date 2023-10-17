@@ -9,13 +9,13 @@ import { ETaskStatus } from "@/engine/core/managers/tasks/types";
 import { parseConditionsList } from "@/engine/core/utils/ini/ini_parse";
 import { NIL } from "@/engine/lib/constants/words";
 import { MockLuaTable } from "@/fixtures/lua/mocks/LuaTable.mock";
-import { mockClientGameObject } from "@/fixtures/xray";
+import { mockGameObject } from "@/fixtures/xray";
 import { EPacketDataType, mockNetPacket, mockNetProcessor, MockNetProcessor } from "@/fixtures/xray/mocks/save";
 
 describe("TaskObject class", () => {
   beforeAll(() => {
     require("@/engine/scripts/declarations/tasks");
-    registerActor(mockClientGameObject());
+    registerActor(mockGameObject());
   });
 
   it("should correctly initialize", () => {

@@ -5,12 +5,12 @@ import { EvaluatorGatherItems } from "@/engine/core/schemes/stalker/gather_items
 import { ISchemeGatherItemsState } from "@/engine/core/schemes/stalker/gather_items/gather_items_types";
 import { SchemeGatherItems } from "@/engine/core/schemes/stalker/gather_items/SchemeGatherItems";
 import { loadSchemeImplementation } from "@/engine/core/utils/scheme/scheme_setup";
-import { ActionPlanner, ClientObject, EScheme, IniFile } from "@/engine/lib/types";
-import { mockClientGameObject, mockIniFile, mockStalkerIds } from "@/fixtures/xray";
+import { ActionPlanner, EScheme, GameObject, IniFile } from "@/engine/lib/types";
+import { mockGameObject, mockIniFile, mockStalkerIds } from "@/fixtures/xray";
 
 describe("SchemeGatherItems class", () => {
   it("should correctly activate schemes", () => {
-    const object: ClientObject = mockClientGameObject();
+    const object: GameObject = mockGameObject();
     const state: IRegistryObjectState = registerObject(object);
     const ini: IniFile = mockIniFile("test.ltx", {
       "gather_items_default@test": {},
@@ -35,7 +35,7 @@ describe("SchemeGatherItems class", () => {
   });
 
   it("should correctly add schemes and replace evaluator", () => {
-    const object: ClientObject = mockClientGameObject();
+    const object: GameObject = mockGameObject();
     const state: IRegistryObjectState = registerObject(object);
     const ini: IniFile = mockIniFile("test.ltx", {});
 
@@ -57,7 +57,7 @@ describe("SchemeGatherItems class", () => {
   });
 
   it("should correctly reset schemes", () => {
-    const object: ClientObject = mockClientGameObject();
+    const object: GameObject = mockGameObject();
     const state: IRegistryObjectState = registerObject(object);
     const ini: IniFile = mockIniFile("test.ltx", {
       "gather_items_default@test": {},

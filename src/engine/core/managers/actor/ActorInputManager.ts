@@ -26,9 +26,9 @@ import { TInventoryItem } from "@/engine/lib/constants/items";
 import { drugs } from "@/engine/lib/constants/items/drugs";
 import { misc } from "@/engine/lib/constants/items/misc";
 import {
-  ClientObject,
   EActiveItemSlot,
   GameHud,
+  GameObject,
   NetPacket,
   NetProcessor,
   Optional,
@@ -117,7 +117,7 @@ export class ActorInputManager extends AbstractManager {
   public disableActorNightVision(): void {
     logger.info("Disable actor night vision");
 
-    const nightVision: Optional<ClientObject> = registry.actor.object(misc.device_torch);
+    const nightVision: Optional<GameObject> = registry.actor.object(misc.device_torch);
 
     if (nightVision !== null && nightVision.night_vision_enabled()) {
       nightVision.enable_night_vision(false);
@@ -131,7 +131,7 @@ export class ActorInputManager extends AbstractManager {
   public enableActorNightVision(): void {
     logger.info("Enable actor night vision");
 
-    const nightVision: Optional<ClientObject> = registry.actor.object(misc.device_torch);
+    const nightVision: Optional<GameObject> = registry.actor.object(misc.device_torch);
 
     if (nightVision !== null && !nightVision.night_vision_enabled() && !this.isActorNightVisionEnabled) {
       nightVision.enable_night_vision(true);
@@ -145,7 +145,7 @@ export class ActorInputManager extends AbstractManager {
   public disableActorTorch(): void {
     logger.info("Disable actor torch");
 
-    const torch: Optional<ClientObject> = registry.actor.object(misc.device_torch);
+    const torch: Optional<GameObject> = registry.actor.object(misc.device_torch);
 
     if (torch !== null && torch.torch_enabled()) {
       torch.enable_torch(false);
@@ -159,7 +159,7 @@ export class ActorInputManager extends AbstractManager {
   public enableActorTorch(): void {
     logger.info("Enable actor torch");
 
-    const torch: Optional<ClientObject> = registry.actor.object(misc.device_torch);
+    const torch: Optional<GameObject> = registry.actor.object(misc.device_torch);
 
     if (torch !== null && !torch.torch_enabled() && !this.isActorTorchEnabled) {
       torch.enable_torch(true);
@@ -173,7 +173,7 @@ export class ActorInputManager extends AbstractManager {
   public disableGameUi(resetSlot: boolean = false): void {
     logger.info("Disable game UI");
 
-    const actor: ClientObject = registry.actor;
+    const actor: GameObject = registry.actor;
 
     if (actor.is_talking()) {
       actor.stop_talk();
@@ -233,7 +233,7 @@ export class ActorInputManager extends AbstractManager {
   public disableGameUiOnly(): void {
     logger.info("Disable game UI only");
 
-    const actor: ClientObject = registry.actor;
+    const actor: GameObject = registry.actor;
 
     if (actor.is_talking()) {
       actor.stop_talk();
@@ -279,7 +279,7 @@ export class ActorInputManager extends AbstractManager {
    * Handle generic update from actor input perspective.
    */
   public onUpdate(delta: TDuration): void {
-    const actor: ClientObject = registry.actor;
+    const actor: GameObject = registry.actor;
 
     if (
       this.disableInputAt !== null &&
@@ -340,7 +340,7 @@ export class ActorInputManager extends AbstractManager {
    * Handle actor item use.
    * Mainly to intercept and properly handle anabiotic.
    */
-  public onActorUseItem(object: Optional<ClientObject>): void {
+  public onActorUseItem(object: Optional<GameObject>): void {
     if (object === null) {
       return;
     }

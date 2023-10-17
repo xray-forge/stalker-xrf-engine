@@ -3,9 +3,9 @@ import { registry } from "@/engine/core/database/registry";
 import type {
   AnyArgs,
   AnyContextualCallable,
-  ClientObject,
   EScheme,
   ESchemeEvent,
+  GameObject,
   Optional,
   TName,
 } from "@/engine/lib/types";
@@ -19,7 +19,7 @@ import type {
  * @param rest - event args
  */
 export function emitSchemeEvent(
-  object: ClientObject,
+  object: GameObject,
   state: IBaseSchemeState,
   event: ESchemeEvent,
   ...rest: AnyArgs
@@ -42,7 +42,7 @@ export function emitSchemeEvent(
  * @param object - object to set signal in state for
  * @param signal - name of the signal to set
  */
-export function setObjectActiveSchemeSignal(object: ClientObject, signal: TName): void {
+export function setObjectActiveSchemeSignal(object: GameObject, signal: TName): void {
   const state: Optional<IRegistryObjectState> = registry.objects.get(object.id());
   const signals: Optional<TSchemeSignals> = state?.[state.activeScheme as EScheme]?.signals as Optional<TSchemeSignals>;
 

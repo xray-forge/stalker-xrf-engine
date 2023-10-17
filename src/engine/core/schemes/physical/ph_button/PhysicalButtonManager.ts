@@ -7,7 +7,7 @@ import { pickSectionFromCondList } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { isActiveSection } from "@/engine/core/utils/scheme";
 import { switchObjectSchemeToSection, trySwitchToAnotherSection } from "@/engine/core/utils/scheme/scheme_switch";
-import { ClientObject, Optional, TIndex, TRate, TTimestamp, Vector } from "@/engine/lib/types";
+import { GameObject, Optional, TIndex, TRate, TTimestamp, Vector } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -28,10 +28,10 @@ export class PhysicalButtonManager extends AbstractSchemeManager<ISchemePhysical
   }
 
   public override onHit(
-    object: ClientObject,
+    object: GameObject,
     amount: TRate,
     direction: Vector,
-    who: Optional<ClientObject>,
+    who: Optional<GameObject>,
     boneIndex: TIndex
   ): void {
     /* --[[    const who_name
@@ -53,7 +53,7 @@ export class PhysicalButtonManager extends AbstractSchemeManager<ISchemePhysical
     */
   }
 
-  public override onUse(object: ClientObject, who: Optional<ClientObject>): void {
+  public override onUse(object: GameObject, who: Optional<GameObject>): void {
     logger.info("Button used:", object.name(), type(who));
 
     if (isActiveSection(this.object, this.state.section) && this.state.onPress) {

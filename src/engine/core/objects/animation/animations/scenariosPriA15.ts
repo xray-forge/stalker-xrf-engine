@@ -5,7 +5,7 @@ import { abort } from "@/engine/core/utils/assertion";
 import { parseStringsList } from "@/engine/core/utils/ini";
 import { infoPortions } from "@/engine/lib/constants/info_portions";
 import { storyNames } from "@/engine/lib/constants/story_names";
-import { ClientObject, LuaArray, Optional, TIndex, TName } from "@/engine/lib/types";
+import { GameObject, LuaArray, Optional, TIndex, TName } from "@/engine/lib/types";
 
 const WEAPONS_TABLE_STRAPPED: LuaArray<TName> = $fromArray([
   "pri_a15_wpn_svu",
@@ -24,8 +24,8 @@ const WEAPONS_TABLE_UNSTRAPPED: LuaArray<TName> = $fromArray([
 /**
  * todo;
  */
-function unstrapWeapon(object: ClientObject): void {
-  let item: Optional<ClientObject> = null;
+function unstrapWeapon(object: GameObject): void {
+  let item: Optional<GameObject> = null;
   let index: TIndex = 0;
 
   for (const [k, v] of WEAPONS_TABLE_STRAPPED) {
@@ -46,8 +46,8 @@ function unstrapWeapon(object: ClientObject): void {
 /**
  * todo;
  */
-function strapWeapon(object: ClientObject): void {
-  let item: Optional<ClientObject> = null;
+function strapWeapon(object: GameObject): void {
+  let item: Optional<GameObject> = null;
   let index: TIndex = 0;
 
   for (const [k, v] of pairs(WEAPONS_TABLE_STRAPPED)) {
@@ -78,8 +78,8 @@ const cutscene: Record<
         s?: string;
         s1?: string;
         det?: string;
-        f?: (object: ClientObject) => void;
-        f1?: (object: ClientObject) => void;
+        f?: (object: GameObject) => void;
+        f1?: (object: GameObject) => void;
       }
     >;
   }

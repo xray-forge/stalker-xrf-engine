@@ -9,7 +9,7 @@ import { createStalkerSleepJobs } from "@/engine/core/objects/server/smart_terra
 import { range } from "@/engine/core/utils/number";
 import { StringBuilder } from "@/engine/core/utils/string";
 import { mockSmartTerrain, readInGameTestLtx } from "@/fixtures/engine";
-import { mockClientGameObject } from "@/fixtures/xray";
+import { mockGameObject } from "@/fixtures/xray";
 
 describe("jobs_general should correctly generate stalkers sleep jobs", () => {
   it("should correctly generate sleep jobs for stalkers when no patrols exist", async () => {
@@ -82,7 +82,7 @@ describe("jobs_general should correctly generate stalkers sleep jobs", () => {
 
     const smartTerrain: SmartTerrain = mockSmartTerrain();
 
-    registerZone(mockClientGameObject({ name: () => "some_restrictor", inside: () => true }));
+    registerZone(mockGameObject({ name: () => "some_restrictor", inside: () => true }));
 
     smartTerrain.defendRestrictor = "def_restrictor_test";
     smartTerrain.smartTerrainActorControl = { ignoreZone: "some_restrictor" } as SmartTerrainControl;
@@ -112,7 +112,7 @@ describe("jobs_general should correctly generate stalkers sleep jobs", () => {
 
     const smartTerrain: SmartTerrain = mockSmartTerrain();
 
-    registerZone(mockClientGameObject({ name: () => "safe_restrictor_test", inside: () => true }));
+    registerZone(mockGameObject({ name: () => "safe_restrictor_test", inside: () => true }));
 
     smartTerrain.safeRestrictor = "safe_restrictor_test";
     smartTerrain.smartTerrainActorControl = { ignoreZone: "test_ignore_zone" } as SmartTerrainControl;

@@ -3,7 +3,7 @@ import { AbstractSchemeManager } from "@/engine/core/objects/ai/scheme";
 import { ISchemeLightState } from "@/engine/core/schemes/restrictor/sr_light/sr_light_types";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { trySwitchToAnotherSection } from "@/engine/core/utils/scheme/scheme_switch";
-import { ClientObject } from "@/engine/lib/types";
+import { GameObject } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -33,7 +33,7 @@ export class LightManager extends AbstractSchemeManager<ISchemeLightState> {
   /**
    * todo: Description.
    */
-  public checkStalker(object: ClientObject): LuaMultiReturn<[boolean, boolean]> {
+  public checkStalker(object: GameObject): LuaMultiReturn<[boolean, boolean]> {
     if (!this.active) {
       return $multi(false, false);
     }

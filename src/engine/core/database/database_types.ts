@@ -6,9 +6,9 @@ import { ISchemePostCombatIdleState } from "@/engine/core/schemes/stalker/combat
 import { TConditionList } from "@/engine/core/utils/ini";
 import {
   AnyObject,
-  ClientObject,
   EScheme,
   ESchemeType,
+  GameObject,
   IniFile,
   LuaArray,
   Optional,
@@ -134,7 +134,7 @@ export interface IRegistryObjectState extends Record<EScheme, Optional<IBaseSche
   /**
    * Client object reference to owner of the registry state.
    */
-  object: ClientObject;
+  object: GameObject;
   /**
    * Dynamically stored flags / variables.
    */
@@ -184,7 +184,7 @@ export interface IRegistryObjectState extends Record<EScheme, Optional<IBaseSche
   /**
    * todo;
    */
-  enemy: Optional<ClientObject>;
+  enemy: Optional<GameObject>;
   /**
    * todo;
    */

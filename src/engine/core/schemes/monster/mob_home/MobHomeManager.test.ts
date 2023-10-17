@@ -4,18 +4,11 @@ import { registerSimulator } from "@/engine/core/database";
 import { ISchemeMobHomeState } from "@/engine/core/schemes/monster/mob_home/mob_home_types";
 import { MobHomeManager } from "@/engine/core/schemes/monster/mob_home/MobHomeManager";
 import { EMonsterState } from "@/engine/lib/constants/monsters";
-import {
-  ClientObject,
-  EScheme,
-  ServerCreatureObject,
-  ServerSmartZoneObject,
-  TDistance,
-  TName,
-} from "@/engine/lib/types";
+import { EScheme, GameObject, ServerCreatureObject, ServerSmartZoneObject, TDistance, TName } from "@/engine/lib/types";
 import { mockSchemeState } from "@/fixtures/engine/mocks";
 import {
   MockAlifeSimulator,
-  mockClientGameObject,
+  mockGameObject,
   mockServerAlifeHumanStalker,
   mockServerAlifeSmartZone,
 } from "@/fixtures/xray";
@@ -24,7 +17,7 @@ describe("MobHomeManager functionality", () => {
   beforeEach(() => registerSimulator());
 
   it("should correctly call set home", () => {
-    const object: ClientObject = mockClientGameObject();
+    const object: GameObject = mockGameObject();
     const state: ISchemeMobHomeState = mockSchemeState<ISchemeMobHomeState>(EScheme.MOB_HOME, {
       homeMinRadius: 40,
       homeMaxRadius: 60,
@@ -62,7 +55,7 @@ describe("MobHomeManager functionality", () => {
   });
 
   it("should correctly get home location for generic points", () => {
-    const object: ClientObject = mockClientGameObject();
+    const object: GameObject = mockGameObject();
     const state: ISchemeMobHomeState = mockSchemeState<ISchemeMobHomeState>(EScheme.MOB_HOME, {
       homeMinRadius: 100,
       homeMaxRadius: 200,
@@ -83,7 +76,7 @@ describe("MobHomeManager functionality", () => {
   });
 
   it("should correctly get home location for defaults", () => {
-    const object: ClientObject = mockClientGameObject();
+    const object: GameObject = mockGameObject();
     const state: ISchemeMobHomeState = mockSchemeState<ISchemeMobHomeState>(EScheme.MOB_HOME, {
       homeWayPoint: "test-wp",
     });
@@ -100,7 +93,7 @@ describe("MobHomeManager functionality", () => {
 
   it("should correctly get home location for smart terrains", () => {
     const smartTerrain: ServerSmartZoneObject = mockServerAlifeSmartZone({ m_level_vertex_id: 333 });
-    const object: ClientObject = mockClientGameObject();
+    const object: GameObject = mockGameObject();
     const serverObject: ServerCreatureObject = mockServerAlifeHumanStalker({
       id: object.id(),
       m_smart_terrain_id: smartTerrain.id,

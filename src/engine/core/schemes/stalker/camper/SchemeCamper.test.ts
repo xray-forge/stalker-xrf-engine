@@ -9,13 +9,13 @@ import { EvaluatorCloseCombat } from "@/engine/core/schemes/stalker/camper/evalu
 import { SchemeCamper } from "@/engine/core/schemes/stalker/camper/SchemeCamper";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini";
 import { loadSchemeImplementation } from "@/engine/core/utils/scheme";
-import { ActionPlanner, ClientObject, EScheme, IniFile } from "@/engine/lib/types";
+import { ActionPlanner, EScheme, GameObject, IniFile } from "@/engine/lib/types";
 import { assertSchemeSubscribedToManager, checkPlannerAction } from "@/fixtures/engine";
-import { MockActionBase, mockClientGameObject, mockIniFile } from "@/fixtures/xray";
+import { MockActionBase, mockGameObject, mockIniFile } from "@/fixtures/xray";
 
 describe("SchemeCamper", () => {
   it("should fail if look and walk patrols are same", () => {
-    const object: ClientObject = mockClientGameObject();
+    const object: GameObject = mockGameObject();
     const ini: IniFile = mockIniFile("test.ltx", {
       "camper@test": {
         path_walk: "test-wp",
@@ -35,7 +35,7 @@ describe("SchemeCamper", () => {
   });
 
   it("should fail if sniper and no-retreat are set", () => {
-    const object: ClientObject = mockClientGameObject();
+    const object: GameObject = mockGameObject();
     const ini: IniFile = mockIniFile("test.ltx", {
       "camper@test": {
         path_walk: "test-wp",
@@ -57,7 +57,7 @@ describe("SchemeCamper", () => {
   });
 
   it("should correctly activate scheme with default values", () => {
-    const object: ClientObject = mockClientGameObject();
+    const object: GameObject = mockGameObject();
     const ini: IniFile = mockIniFile("test.ltx", {
       "camper@test": {
         on_info: "{+test_info} a, b",
@@ -102,7 +102,7 @@ describe("SchemeCamper", () => {
   });
 
   it("should correctly activate scheme with custom values", () => {
-    const object: ClientObject = mockClientGameObject();
+    const object: GameObject = mockGameObject();
     const ini: IniFile = mockIniFile("test.ltx", {
       "camper@test": {
         on_info: "{+test_info} a, b",
@@ -160,7 +160,7 @@ describe("SchemeCamper", () => {
   });
 
   it("should correctly add planner actions", () => {
-    const object: ClientObject = mockClientGameObject();
+    const object: GameObject = mockGameObject();
     const ini: IniFile = mockIniFile("test.ltx", {
       "camper@test": {
         on_info: "{+test_info} a, b",

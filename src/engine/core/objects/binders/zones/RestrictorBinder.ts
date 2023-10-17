@@ -19,7 +19,7 @@ import { soundsConfig } from "@/engine/core/managers/sounds/SoundsConfig";
 import { giveInfoPortion } from "@/engine/core/utils/info_portion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { emitSchemeEvent, initializeObjectSchemeLogic } from "@/engine/core/utils/scheme";
-import { ClientObject, ESchemeEvent, NetPacket, Reader, ServerObject, TDuration, TNumberId } from "@/engine/lib/types";
+import { ESchemeEvent, GameObject, NetPacket, Reader, ServerObject, TDuration, TNumberId } from "@/engine/lib/types";
 import { ESchemeType } from "@/engine/lib/types/scheme";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -78,7 +78,7 @@ export class RestrictorBinder extends object_binder {
   }
 
   public override update(delta: TDuration): void {
-    const object: ClientObject = this.object;
+    const object: GameObject = this.object;
     const objectId: TNumberId = object.id();
     const state: IRegistryObjectState = registry.objects.get(objectId);
 

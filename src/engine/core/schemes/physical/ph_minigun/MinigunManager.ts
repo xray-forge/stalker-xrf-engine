@@ -22,7 +22,7 @@ import {
 import { createEmptyVector, createVector, yaw } from "@/engine/core/utils/vector";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import { ACTOR, NIL } from "@/engine/lib/constants/words";
-import { Car, ClientObject, Optional, TSection, TStringId, TTimestamp, Vector } from "@/engine/lib/types";
+import { Car, GameObject, Optional, TSection, TStringId, TTimestamp, Vector } from "@/engine/lib/types";
 
 /**
  * todo;
@@ -48,7 +48,7 @@ export class MinigunManager extends AbstractSchemeManager<ISchemeMinigunState> {
   public stateDelaying: boolean = false;
   public hasWeapon: boolean = false;
 
-  public targetObject: Optional<ClientObject> = null;
+  public targetObject: Optional<GameObject> = null;
   public targetFirePt: Optional<Vector> = null;
   public targetFirePtIdx: number = 0;
   public fireRangeSqr: number = 0;
@@ -62,7 +62,7 @@ export class MinigunManager extends AbstractSchemeManager<ISchemeMinigunState> {
   public onTargetVis: Optional<IBaseSchemeLogic> = null;
   public onTargetNvis: Optional<IBaseSchemeLogic> = null;
 
-  public constructor(object: ClientObject, state: ISchemeMinigunState) {
+  public constructor(object: GameObject, state: ISchemeMinigunState) {
     super(object, state);
 
     this.mgun = this.object.get_car();
@@ -109,7 +109,7 @@ export class MinigunManager extends AbstractSchemeManager<ISchemeMinigunState> {
     this.onTargetVis = null;
     this.onTargetNvis = null;
 
-    const actor: ClientObject = registry.actor;
+    const actor: GameObject = registry.actor;
 
     if (this.hasWeapon) {
       if (this.state.fireTarget === "points") {
@@ -449,7 +449,7 @@ export class MinigunManager extends AbstractSchemeManager<ISchemeMinigunState> {
   /**
    * todo: Description.
    */
-  public getAngleXZ(object: ClientObject, position: Vector, direction: Vector): number {
+  public getAngleXZ(object: GameObject, position: Vector, direction: Vector): number {
     const dir1: Vector = direction;
 
     dir1.y = 0;

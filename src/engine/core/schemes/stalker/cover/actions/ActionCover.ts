@@ -10,7 +10,7 @@ import { areSameVectors, createVector, subVectors } from "@/engine/core/utils/ve
 import { ZERO_VECTOR } from "@/engine/lib/constants/vectors";
 import {
   CoverPoint,
-  EClientObjectPath,
+  EGameObjectPath,
   ISchemeEventHandler,
   Optional,
   TDistance,
@@ -112,7 +112,7 @@ export class ActionCover extends action_base implements ISchemeEventHandler {
       this.object.set_desired_direction(desiredDirection);
     }
 
-    this.object.set_path_type(EClientObjectPath.LEVEL_PATH);
+    this.object.set_path_type(EGameObjectPath.LEVEL_PATH);
     this.object.set_dest_level_vertex_id(this.coverVertexId);
 
     setStalkerState(this.object, EStalkerState.ASSAULT);

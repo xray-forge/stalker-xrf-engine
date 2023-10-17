@@ -3,12 +3,12 @@ import { property_storage } from "xray16";
 
 import { EvaluatorMentalFreeTarget } from "@/engine/core/objects/ai/state/mental/EvaluatorMentalFreeTarget";
 import type { StalkerStateManager } from "@/engine/core/objects/ai/state/StalkerStateManager";
-import { ClientObject } from "@/engine/lib/types";
-import { mockClientGameObject } from "@/fixtures/xray";
+import { GameObject } from "@/engine/lib/types";
+import { mockGameObject } from "@/fixtures/xray";
 
 describe("EvaluatorMentalDangerTarget class", () => {
   it("should correctly check if free state when needed", () => {
-    const object: ClientObject = mockClientGameObject();
+    const object: GameObject = mockGameObject();
     const evaluator: EvaluatorMentalFreeTarget = new EvaluatorMentalFreeTarget({
       targetState: "rush",
     } as StalkerStateManager);
@@ -19,7 +19,7 @@ describe("EvaluatorMentalDangerTarget class", () => {
   });
 
   it("should correctly check if free state when not needed", () => {
-    const object: ClientObject = mockClientGameObject();
+    const object: GameObject = mockGameObject();
     const evaluator: EvaluatorMentalFreeTarget = new EvaluatorMentalFreeTarget({
       targetState: "raid_fire",
     } as StalkerStateManager);

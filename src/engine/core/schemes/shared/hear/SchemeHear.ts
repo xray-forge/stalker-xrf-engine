@@ -9,9 +9,9 @@ import { switchObjectSchemeToSection } from "@/engine/core/utils/scheme/scheme_s
 import { mapSoundMaskToSoundType } from "@/engine/core/utils/sound";
 import { ESoundType } from "@/engine/lib/constants/sound";
 import {
-  ClientObject,
   EScheme,
   ESchemeType,
+  GameObject,
   IniFile,
   LuaArray,
   Optional,
@@ -34,7 +34,7 @@ export class SchemeHear extends AbstractScheme {
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.STALKER; // And monsters.
 
   public static override reset(
-    object: ClientObject,
+    object: GameObject,
     scheme: EScheme,
     state: IRegistryObjectState,
     section: TSection
@@ -69,7 +69,7 @@ export class SchemeHear extends AbstractScheme {
    * todo: Description.
    */
   public static onObjectHearSound(
-    object: ClientObject,
+    object: GameObject,
     whoId: TNumberId,
     soundType: TSoundType,
     soundPosition: Vector,

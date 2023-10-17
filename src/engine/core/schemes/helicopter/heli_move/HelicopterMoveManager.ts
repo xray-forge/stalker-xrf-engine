@@ -10,7 +10,7 @@ import { abort } from "@/engine/core/utils/assertion";
 import { parseWaypointsData } from "@/engine/core/utils/ini/ini_parse";
 import { trySwitchToAnotherSection } from "@/engine/core/utils/scheme/scheme_switch";
 import { ACTOR } from "@/engine/lib/constants/words";
-import { ClientObject, Optional, Patrol, TIndex, TName, TRate, Vector } from "@/engine/lib/types";
+import { GameObject, Optional, Patrol, TIndex, TName, TRate, Vector } from "@/engine/lib/types";
 
 const state_move: number = 0;
 
@@ -40,7 +40,7 @@ export class HelicopterMoveManager extends AbstractSchemeManager<ISchemeHelicopt
   /**
    * todo: Description.
    */
-  public constructor(object: ClientObject, state: ISchemeHelicopterMoveState) {
+  public constructor(object: GameObject, state: ISchemeHelicopterMoveState) {
     super(object, state);
 
     this.heliObject = object.get_helicopter();
@@ -183,7 +183,7 @@ export class HelicopterMoveManager extends AbstractSchemeManager<ISchemeHelicopt
     }
 
     if (this.state.path_look) {
-      const actor: ClientObject = registry.actor;
+      const actor: GameObject = registry.actor;
 
       if (this.state.path_look === ACTOR) {
         this.heliFly.setLookPoint(actor.position());
@@ -283,7 +283,7 @@ export class HelicopterMoveManager extends AbstractSchemeManager<ISchemeHelicopt
   /**
    * todo: Description.
    */
-  public override onWaypoint(object: ClientObject, actionType: TName, index: TIndex): void {
+  public override onWaypoint(object: GameObject, actionType: TName, index: TIndex): void {
     if (!this._flagToWpCallback) {
       if (this.patrolMove !== null) {
         if (index === this.lastIndex) {

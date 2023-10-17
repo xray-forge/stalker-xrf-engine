@@ -2,7 +2,7 @@ import { registry } from "@/engine/core/database";
 import { isStalker } from "@/engine/core/utils/class_ids";
 import { communities, TCommunity } from "@/engine/lib/constants/communities";
 import {
-  ClientObject,
+  GameObject,
   Optional,
   ServerCreatureObject,
   ServerGroupObject,
@@ -16,10 +16,10 @@ import {
  * @param object - client object or server stalker/group
  * @returns object community
  */
-export function getObjectCommunity(object: ClientObject | ServerHumanObject | ServerGroupObject): TCommunity {
+export function getObjectCommunity(object: GameObject | ServerHumanObject | ServerGroupObject): TCommunity {
   if (isStalker(object)) {
     return type(object.id) === "function"
-      ? (object as unknown as ClientObject).character_community()
+      ? (object as unknown as GameObject).character_community()
       : (object as ServerHumanObject).community();
   }
 
@@ -40,10 +40,10 @@ export function setObjectTeamSquadGroup(
   squadId: TNumberId,
   groupId: TNumberId
 ): void {
-  const clientObject: Optional<ClientObject> = registry.objects.get(object.id)?.object as Optional<ClientObject>;
+  const gameObject: Optional<GameObject> = registry.objects.get(object.id)?.object as Optional<GameObject>;
 
-  if (clientObject) {
-    clientObject.change_team(teamId, squadId, groupId);
+  if (gameObject) {
+    gameObject.change_team(teamId, squadId, groupId);
   } else {
     object.team = teamId;
     object.squad = squadId;

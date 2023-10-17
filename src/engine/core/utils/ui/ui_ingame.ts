@@ -2,7 +2,7 @@ import { get_hud, level } from "xray16";
 
 import { registry } from "@/engine/core/database";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { ClientObject, GameHud } from "@/engine/lib/types";
+import { GameHud, GameObject } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -13,7 +13,7 @@ const logger: LuaLogger = new LuaLogger($filename);
  */
 export function setUiVisibility(isVisible: boolean): void {
   const hud: GameHud = get_hud();
-  const actor: ClientObject = registry.actor;
+  const actor: GameObject = registry.actor;
 
   if (isVisible) {
     logger.info("[setUiVisibility] Showing UI");

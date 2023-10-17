@@ -2,9 +2,9 @@ import { describe, expect, it, jest } from "@jest/globals";
 
 import { ISchemeWoundedState } from "@/engine/core/schemes/stalker/wounded/wounded_types";
 import { WoundManager } from "@/engine/core/schemes/stalker/wounded/WoundManager";
-import { ClientObject, EScheme } from "@/engine/lib/types";
+import { EScheme, GameObject } from "@/engine/lib/types";
 import { mockSchemeState } from "@/fixtures/engine";
-import { mockClientGameObject } from "@/fixtures/xray";
+import { mockGameObject } from "@/fixtures/xray";
 
 describe("WoundManager class", () => {
   it.todo("should correctly handle updates");
@@ -20,7 +20,7 @@ describe("WoundManager class", () => {
   it.todo("should correctly process psy wounds");
 
   it("should correctly handle hit events", () => {
-    const object: ClientObject = mockClientGameObject();
+    const object: GameObject = mockGameObject();
     const state: ISchemeWoundedState = mockSchemeState(EScheme.WOUNDED);
     const manager: WoundManager = new WoundManager(object, state);
 

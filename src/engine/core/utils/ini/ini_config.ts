@@ -20,8 +20,8 @@ import { NEVER, NIL } from "@/engine/lib/constants/words";
 import {
   AnyCallable,
   AnyObject,
-  ClientObject,
   ESchemeCondition,
+  GameObject,
   IniFile,
   LuaArray,
   Optional,
@@ -42,9 +42,9 @@ import {
  * @param data - target data list string to parse
  * @returns parsed list of sections from processed condition lists
  */
-export function getSectionsFromConditionLists(object: ClientObject, data: Optional<string>): LuaArray<TInfoPortion> {
+export function getSectionsFromConditionLists(object: GameObject, data: Optional<string>): LuaArray<TInfoPortion> {
   const infos: LuaArray<TInfoPortion> = new LuaTable();
-  const actor: ClientObject = registry.actor;
+  const actor: GameObject = registry.actor;
 
   if (data !== null) {
     // todo: Trim parsed.
@@ -72,8 +72,8 @@ export function getSectionsFromConditionLists(object: ClientObject, data: Option
  * @returns picked section based on condlist and actual checks
  */
 export function pickSectionFromCondList<T extends TSection>(
-  actor: ClientObject,
-  object: Optional<ClientObject | ServerObject>,
+  actor: GameObject,
+  object: Optional<GameObject | ServerObject>,
   condlist: TConditionList
 ): Optional<T> {
   for (const [, switchCondition] of condlist) {
@@ -195,7 +195,7 @@ export function getConfigObjectAndZone(ini: IniFile, section: TSection, field: T
  * @param object - target client object
  * @returns overrides object
  */
-export function getObjectConfigOverrides(ini: IniFile, section: TSection, object: ClientObject): AnyObject {
+export function getObjectConfigOverrides(ini: IniFile, section: TSection, object: GameObject): AnyObject {
   const overrides: AnyObject = {};
   const heliHunter: Optional<string> = readIniString(ini, section, "heli_hunter", false);
 

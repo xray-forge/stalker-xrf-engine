@@ -8,7 +8,7 @@ import { createGameAutoSave } from "@/engine/core/utils/game_save";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { consoleCommands } from "@/engine/lib/constants/console_commands";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
-import { ClientObject, GameHud, LuaArray, Optional, TCount, TLabel, TName } from "@/engine/lib/types";
+import { GameHud, GameObject, LuaArray, Optional, TCount, TLabel, TName } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -17,7 +17,7 @@ const logger: LuaLogger = new LuaLogger($filename);
  */
 extern(
   "xr_effects.inc_counter",
-  (actor: ClientObject, object: ClientObject, [name, count]: [Optional<TName>, TCount]): void => {
+  (actor: GameObject, object: GameObject, [name, count]: [Optional<TName>, TCount]): void => {
     if (name) {
       setPortableStoreValue(ACTOR_ID, name, getPortableStoreValue(ACTOR_ID, name, 0) + (count ?? 1));
     }
@@ -29,7 +29,7 @@ extern(
  */
 extern(
   "xr_effects.dec_counter",
-  (actor: ClientObject, object: ClientObject, [name, count]: [Optional<TName>, TCount]): void => {
+  (actor: GameObject, object: GameObject, [name, count]: [Optional<TName>, TCount]): void => {
     if (name) {
       const newValue: TCount = getPortableStoreValue(ACTOR_ID, name, 0) - (count ?? 1);
 
@@ -43,7 +43,7 @@ extern(
  */
 extern(
   "xr_effects.set_counter",
-  (actor: ClientObject, object: ClientObject, [name, count]: [Optional<TName>, TCount]): void => {
+  (actor: GameObject, object: GameObject, [name, count]: [Optional<TName>, TCount]): void => {
     if (name) {
       setPortableStoreValue(ACTOR_ID, name, count ?? 0);
     }
@@ -53,7 +53,7 @@ extern(
 /**
  * todo;
  */
-extern("xr_effects.game_disconnect", (actor: ClientObject, object: ClientObject): void => {
+extern("xr_effects.game_disconnect", (actor: GameObject, object: GameObject): void => {
   logger.info("Game disconnect");
   executeConsoleCommand(consoleCommands.disconnect);
 });
@@ -122,14 +122,14 @@ extern("xr_effects.stop_tutorial", (): void => {
 /**
  * todo;
  */
-extern("xr_effects.scenario_autosave", (actor: ClientObject, object: ClientObject, [name]: [TName]): void => {
+extern("xr_effects.scenario_autosave", (actor: GameObject, object: GameObject, [name]: [TName]): void => {
   createGameAutoSave(name);
 });
 
 /**
  * todo;
  */
-extern("xr_effects.mech_discount", (actor: ClientObject, object: ClientObject, p: [string]): void => {
+extern("xr_effects.mech_discount", (actor: GameObject, object: GameObject, p: [string]): void => {
   if (p[0]) {
     UpgradesManager.getInstance().setCurrentPriceDiscount(tonumber(p[0])!);
   }
@@ -140,7 +140,7 @@ extern("xr_effects.mech_discount", (actor: ClientObject, object: ClientObject, p
  */
 extern(
   "xr_effects.upgrade_hint",
-  (actor: ClientObject, object: ClientObject, parameters: Optional<LuaArray<TLabel>>): void => {
+  (actor: GameObject, object: GameObject, parameters: Optional<LuaArray<TLabel>>): void => {
     if (parameters) {
       UpgradesManager.getInstance().setCurrentHints(parameters);
     }
@@ -150,7 +150,7 @@ extern(
 /**
  * todo;
  */
-extern("xr_effects.add_cs_text", (actor: ClientObject, object: ClientObject, [label]: [Optional<TLabel>]): void => {
+extern("xr_effects.add_cs_text", (actor: GameObject, object: GameObject, [label]: [Optional<TLabel>]): void => {
   if (label) {
     const hud: GameHud = get_hud();
     let customText: Optional<StaticDrawableWrapper> = hud.GetCustomStatic("text_on_screen_center");

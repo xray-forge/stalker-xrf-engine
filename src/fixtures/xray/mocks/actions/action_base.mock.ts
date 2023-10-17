@@ -1,4 +1,4 @@
-import { ActionBase, ClientObject, Optional } from "@/engine/lib/types";
+import { ActionBase, GameObject, Optional } from "@/engine/lib/types";
 import { MockWorldProperty } from "@/fixtures/xray/mocks/actions/world_property.mock";
 import { MockLuabindClass } from "@/fixtures/xray/mocks/luabind.mock";
 
@@ -6,17 +6,17 @@ import { MockLuabindClass } from "@/fixtures/xray/mocks/luabind.mock";
  * todo;
  */
 export class MockActionBase extends MockLuabindClass {
-  public static mock(object: Optional<ClientObject> = null, name?: string): ActionBase {
+  public static mock(object: Optional<GameObject> = null, name?: string): ActionBase {
     return new MockActionBase(object, name) as unknown as ActionBase;
   }
 
-  public object: Optional<ClientObject>;
+  public object: Optional<GameObject>;
   public name: string;
 
   public preconditions: Array<MockWorldProperty> = [];
   public effects: Array<MockWorldProperty> = [];
 
-  public constructor(object: Optional<ClientObject> = null, name?: string) {
+  public constructor(object: Optional<GameObject> = null, name?: string) {
     super();
 
     this.object = object;
@@ -29,7 +29,7 @@ export class MockActionBase extends MockLuabindClass {
 
   public finalize(): void {}
 
-  public setup(object: ClientObject): void {
+  public setup(object: GameObject): void {
     this.object = object;
   }
 
@@ -53,6 +53,6 @@ export class MockActionBase extends MockLuabindClass {
 /**
  * Mock action base method.
  */
-export function mockActionBase(object: Optional<ClientObject> = null, name: string = "generic"): ActionBase {
+export function mockActionBase(object: Optional<GameObject> = null, name: string = "generic"): ActionBase {
   return new MockActionBase(object, name) as unknown as ActionBase;
 }

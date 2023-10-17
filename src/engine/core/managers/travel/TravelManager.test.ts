@@ -6,10 +6,10 @@ import { travelConfig } from "@/engine/core/managers/travel/TravelConfig";
 import { TravelManager } from "@/engine/core/managers/travel/TravelManager";
 import { parseConditionsList } from "@/engine/core/utils/ini";
 import { TRUE } from "@/engine/lib/constants/words";
-import { ClientObject, ServerCreatureObject, ServerGroupObject, ServerSmartZoneObject } from "@/engine/lib/types";
+import { GameObject, ServerCreatureObject, ServerGroupObject, ServerSmartZoneObject } from "@/engine/lib/types";
 import {
-  mockActorClientGameObject,
-  mockClientGameObject,
+  mockActorGameObject,
+  mockGameObject,
   MockPhraseDialog,
   mockServerAlifeHumanStalker,
   mockServerAlifeOnlineOfflineGroup,
@@ -239,8 +239,8 @@ describe("TravelManager class", () => {
     const squad: ServerGroupObject = mockServerAlifeOnlineOfflineGroup();
     const smartZone: ServerSmartZoneObject = mockServerAlifeSmartZone({ name: <T>() => "jup_b41" as T });
     const serverObject: ServerCreatureObject = mockServerAlifeHumanStalker({ group_id: squad.id });
-    const object: ClientObject = mockClientGameObject({ idOverride: serverObject.id });
-    const actor: ClientObject = mockActorClientGameObject();
+    const object: GameObject = mockGameObject({ idOverride: serverObject.id });
+    const actor: GameObject = mockActorGameObject();
 
     squad.commander_id = () => object.id();
     object.character_community = <T>() => "stalker" as T;

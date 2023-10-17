@@ -6,7 +6,7 @@ import { abort } from "@/engine/core/utils/assertion";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/ini_config";
 import { switchObjectSchemeToSection, trySwitchToAnotherSection } from "@/engine/core/utils/scheme/scheme_switch";
 import {
-  ClientObject,
+  GameObject,
   Optional,
   PhysicObject,
   PhysicsElement,
@@ -244,7 +244,7 @@ export class PhysicalDoorManager extends AbstractSchemeManager<ISchemePhysicalDo
     }
   }
 
-  public override onUse(target: ClientObject, who: Optional<ClientObject>): void {
+  public override onUse(target: GameObject, who: Optional<GameObject>): void {
     if (this.state.locked && this.state.sndOpenStart) {
       GlobalSoundManager.getInstance().playSound(this.object.id(), this.state.sndOpenStart);
     }
@@ -259,10 +259,10 @@ export class PhysicalDoorManager extends AbstractSchemeManager<ISchemePhysicalDo
   }
 
   public override onHit(
-    object: ClientObject,
+    object: GameObject,
     amount: TCount,
     direction: Vector,
-    who: Optional<ClientObject>,
+    who: Optional<GameObject>,
     boneIndex: TIndex
   ): void {
     if (this.state.hitOnBone.has(boneIndex)) {

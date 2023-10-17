@@ -12,9 +12,9 @@ import { copyVector } from "@/engine/core/utils/vector";
 import { EMonsterState } from "@/engine/lib/constants/monsters";
 import { TRUE } from "@/engine/lib/constants/words";
 import {
-  ClientObject,
   EScheme,
   Flags32,
+  GameObject,
   LuaArray,
   Optional,
   Patrol,
@@ -122,7 +122,7 @@ export class MobWalkerManager extends AbstractSchemeManager<ISchemeMobWalkerStat
     }
   }
 
-  public override onWaypoint(object: ClientObject, actionType: Optional<TName>, index: Optional<TIndex>): void {
+  public override onWaypoint(object: GameObject, actionType: Optional<TName>, index: Optional<TIndex>): void {
     if (index === -1 || index === null) {
       return;
     }

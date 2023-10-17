@@ -3,12 +3,12 @@ import { callback } from "xray16";
 
 import { registry } from "@/engine/core/database";
 import { StalkerPatrolManager } from "@/engine/core/objects/ai/state/StalkerPatrolManager";
-import { ClientObject, EClientObjectPath } from "@/engine/lib/types";
-import { mockClientGameObject } from "@/fixtures/xray";
+import { EGameObjectPath, GameObject } from "@/engine/lib/types";
+import { mockGameObject } from "@/fixtures/xray";
 
 describe("StalkerPatrolManager class", () => {
   it("should correctly initialize", () => {
-    const object: ClientObject = mockClientGameObject();
+    const object: GameObject = mockGameObject();
     const manager: StalkerPatrolManager = new StalkerPatrolManager(object);
 
     expect(manager.object).toBe(object);
@@ -19,15 +19,15 @@ describe("StalkerPatrolManager class", () => {
   });
 
   it("should correctly finalize", () => {
-    const object: ClientObject = mockClientGameObject();
+    const object: GameObject = mockGameObject();
     const manager: StalkerPatrolManager = new StalkerPatrolManager(object);
 
     manager.finalize();
-    expect(object.set_path_type).toHaveBeenCalledWith(EClientObjectPath.LEVEL_PATH);
+    expect(object.set_path_type).toHaveBeenCalledWith(EGameObjectPath.LEVEL_PATH);
   });
 
   it("should correctly finalize with team", () => {
-    const object: ClientObject = mockClientGameObject();
+    const object: GameObject = mockGameObject();
     const manager: StalkerPatrolManager = new StalkerPatrolManager(object);
 
     manager.team = "some_team";
@@ -35,7 +35,7 @@ describe("StalkerPatrolManager class", () => {
     registry.patrolSynchronization.get("some_team").set(object.id(), true);
 
     manager.finalize();
-    expect(object.set_path_type).toHaveBeenCalledWith(EClientObjectPath.LEVEL_PATH);
+    expect(object.set_path_type).toHaveBeenCalledWith(EGameObjectPath.LEVEL_PATH);
     expect(registry.patrolSynchronization.get("some_team")).toEqualLuaTables({});
   });
 
@@ -54,7 +54,7 @@ describe("StalkerPatrolManager class", () => {
   it.todo("should correctly handle look waypoints");
 
   it("should correctly handle extrapolation", () => {
-    const object: ClientObject = mockClientGameObject();
+    const object: GameObject = mockGameObject();
     const manager: StalkerPatrolManager = new StalkerPatrolManager(object);
 
     jest.spyOn(Date, "now").mockImplementation(() => 4125);

@@ -3,13 +3,13 @@ import { describe, expect, it } from "@jest/globals";
 import { registerCrow, unregisterCrow } from "@/engine/core/database/crow";
 import { IRegistryObjectState } from "@/engine/core/database/database_types";
 import { registry } from "@/engine/core/database/registry";
-import { ClientObject } from "@/engine/lib/types";
-import { mockClientGameObject } from "@/fixtures/xray";
+import { GameObject } from "@/engine/lib/types";
+import { mockGameObject } from "@/fixtures/xray";
 
 describe("database crow objects utilities", () => {
   it("should correctly register and unregister crow objects", () => {
-    const first: ClientObject = mockClientGameObject();
-    const second: ClientObject = mockClientGameObject();
+    const first: GameObject = mockGameObject();
+    const second: GameObject = mockGameObject();
 
     const firstState: IRegistryObjectState = registerCrow(first);
 

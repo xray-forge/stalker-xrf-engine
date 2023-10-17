@@ -6,13 +6,13 @@ import { MobDeathManager } from "@/engine/core/schemes/monster/mob_death/MobDeat
 import { SchemeMobDeath } from "@/engine/core/schemes/monster/mob_death/SchemeMobDeath";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini";
 import { loadSchemeImplementation } from "@/engine/core/utils/scheme";
-import { ClientObject, EScheme, IniFile } from "@/engine/lib/types";
+import { EScheme, GameObject, IniFile } from "@/engine/lib/types";
 import { assertSchemeSubscribedToManager } from "@/fixtures/engine";
-import { mockClientGameObject, mockIniFile } from "@/fixtures/xray";
+import { mockGameObject, mockIniFile } from "@/fixtures/xray";
 
 describe("SchemeMobDeath", () => {
   it("should correctly activate", () => {
-    const object: ClientObject = mockClientGameObject();
+    const object: GameObject = mockGameObject();
     const ini: IniFile = mockIniFile("test.ltx", {
       "mob_death@test": {
         on_info: "{=actor_in_zone(zat_b42_warning_space_restrictor)} mob_home@1",

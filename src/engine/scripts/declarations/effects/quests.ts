@@ -33,7 +33,7 @@ import { MAX_U16 } from "@/engine/lib/constants/memory";
 import { TRUE } from "@/engine/lib/constants/words";
 import {
   AnyCallable,
-  ClientObject,
+  GameObject,
   LuaArray,
   Optional,
   ParticlesObject,
@@ -63,7 +63,7 @@ const logger: LuaLogger = new LuaLogger($filename);
  */
 extern(
   "xr_effects.show_freeplay_dialog",
-  (actor: ClientObject, object: ClientObject, [text, canLeave]: [Optional<TLabel>, Optional<"true">]) => {
+  (actor: GameObject, object: GameObject, [text, canLeave]: [Optional<TLabel>, Optional<"true">]) => {
     if (text && canLeave && canLeave === TRUE) {
       showFreeplayDialog("message_box_yes_no", text);
     } else if (text) {
@@ -109,7 +109,7 @@ extern("xr_effects.pri_b306_generator_start", (): void => {
 /**
  * todo;
  */
-extern("xr_effects.jup_b206_get_plant", (actor: ClientObject, object: ClientObject): void => {
+extern("xr_effects.jup_b206_get_plant", (actor: GameObject, object: GameObject): void => {
   if (isObjectInZone(registry.actor, registry.zones.get("jup_b206_sr_quest_line"))) {
     giveInfoPortion(infoPortions.jup_b206_anomalous_grove_has_plant);
     giveItemsToActor(questItems.jup_b206_plant);
@@ -212,7 +212,7 @@ extern("xr_effects.zat_b100_heli_2_searching", (): void => {
 /**
  * todo;
  */
-extern("xr_effects.jup_teleport_actor", (actor: ClientObject, object: ClientObject): void => {
+extern("xr_effects.jup_teleport_actor", (actor: GameObject, object: GameObject): void => {
   const pointIn: Vector = new patrol("jup_b16_teleport_in").point(0);
   const pointOut: Vector = new patrol("jup_b16_teleport_out").point(0);
   const actorPosition: Vector = actor.position();
@@ -233,7 +233,7 @@ let jupB219GVId: Optional<number> = null;
  * todo;
  */
 extern("xr_effects.jup_b219_save_pos", (): void => {
-  const object: Optional<ClientObject> = getObjectByStoryId("jup_b219_gate_id");
+  const object: Optional<GameObject> = getObjectByStoryId("jup_b219_gate_id");
 
   if (object && object.position()) {
     jupB219Position = object.position();
@@ -274,7 +274,7 @@ let particlesList: Optional<LuaArray<{ particle: ParticlesObject; sound: SoundOb
 /**
  * todo;
  */
-extern("xr_effects.jup_b16_play_particle_and_sound", (actor: ClientObject, object: ClientObject, p: [number]) => {
+extern("xr_effects.jup_b16_play_particle_and_sound", (actor: GameObject, object: GameObject, p: [number]) => {
   if (particlesList === null) {
     particlesList = [
       {
@@ -304,7 +304,7 @@ extern("xr_effects.jup_b16_play_particle_and_sound", (actor: ClientObject, objec
  */
 extern(
   "xr_effects.zat_b29_create_random_infop",
-  (actor: ClientObject, object: ClientObject, parameters: LuaArray<TInfoPortion>): void => {
+  (actor: GameObject, object: GameObject, parameters: LuaArray<TInfoPortion>): void => {
     if (parameters.get(2) === null) {
       abort("Not enough parameters for zat_b29_create_random_infop!");
     }
@@ -345,7 +345,7 @@ extern(
 /**
  * todo;
  */
-extern("xr_effects.give_item_b29", (actor: ClientObject, object: ClientObject, p: [string]) => {
+extern("xr_effects.give_item_b29", (actor: GameObject, object: GameObject, p: [string]) => {
   // --	const story_object = p && getStoryObject(p[1])
   const anomalyZonesList = [
     "zat_b55_anomal_zone",
@@ -380,7 +380,7 @@ extern("xr_effects.give_item_b29", (actor: ClientObject, object: ClientObject, p
 /**
  * todo;
  */
-extern("xr_effects.relocate_item_b29", (actor: ClientObject, object: ClientObject, p: [string, string]) => {
+extern("xr_effects.relocate_item_b29", (actor: GameObject, object: GameObject, p: [string, string]) => {
   let item: Optional<string> = null;
 
   for (const it of $range(16, 23)) {
@@ -390,8 +390,8 @@ extern("xr_effects.relocate_item_b29", (actor: ClientObject, object: ClientObjec
     }
   }
 
-  const fromObject: Optional<ClientObject> = p && getObjectByStoryId(p[0]);
-  const toObject: Optional<ClientObject> = p && getObjectByStoryId(p[1]);
+  const fromObject: Optional<GameObject> = p && getObjectByStoryId(p[0]);
+  const toObject: Optional<GameObject> = p && getObjectByStoryId(p[1]);
 
   if (toObject !== null) {
     if (fromObject !== null && fromObject.object(item!) !== null) {
@@ -413,16 +413,16 @@ extern("xr_effects.relocate_item_b29", (actor: ClientObject, object: ClientObjec
 /**
  * todo;
  */
-extern("xr_effects.jup_b202_inventory_box_relocate", (actor: ClientObject, object: ClientObject): void => {
-  const inventoryBoxOut: Optional<ClientObject> = getObjectByStoryId("jup_b202_actor_treasure");
-  const inventoryBoxIn: Optional<ClientObject> = getObjectByStoryId("jup_b202_snag_treasure");
-  const itemsToRelocate: LuaArray<ClientObject> = new LuaTable();
+extern("xr_effects.jup_b202_inventory_box_relocate", (actor: GameObject, object: GameObject): void => {
+  const inventoryBoxOut: Optional<GameObject> = getObjectByStoryId("jup_b202_actor_treasure");
+  const inventoryBoxIn: Optional<GameObject> = getObjectByStoryId("jup_b202_snag_treasure");
+  const itemsToRelocate: LuaArray<GameObject> = new LuaTable();
 
   if (!inventoryBoxIn || !inventoryBoxOut) {
     abort("No inventory boxes detected to relocate items.");
   }
 
-  inventoryBoxOut.iterate_inventory_box((invBoxOut: ClientObject, item: ClientObject) => {
+  inventoryBoxOut.iterate_inventory_box((invBoxOut: GameObject, item: GameObject) => {
     table.insert(itemsToRelocate, item);
   }, inventoryBoxOut);
 
@@ -434,19 +434,42 @@ extern("xr_effects.jup_b202_inventory_box_relocate", (actor: ClientObject, objec
 /**
  * todo;
  */
-extern(
-  "xr_effects.jup_b10_spawn_drunk_dead_items",
-  (actor: ClientObject, object: ClientObject, params: [string]): void => {
-    const itemsAll = {
-      [weapons.wpn_ak74]: 1,
-      [weapons.wpn_fort]: 1,
+extern("xr_effects.jup_b10_spawn_drunk_dead_items", (actor: GameObject, object: GameObject, params: [string]): void => {
+  const itemsAll = {
+    [weapons.wpn_ak74]: 1,
+    [weapons.wpn_fort]: 1,
+    [ammo["ammo_5.45x39_fmj"]]: 5,
+    [ammo["ammo_5.45x39_ap"]]: 3,
+    [ammo.ammo_9x18_fmj]: 3,
+    [ammo.ammo_12x70_buck]: 5,
+    [ammo["ammo_11.43x23_hydro"]]: 2,
+    [weapons.grenade_rgd5]: 3,
+    [weapons.grenade_f1]: 2,
+    [drugs.medkit_army]: 2,
+    [drugs.medkit]: 4,
+    [drugs.bandage]: 4,
+    [drugs.antirad]: 2,
+    [food.vodka]: 3,
+    [food.energy_drink]: 2,
+    [food.conserva]: 1,
+    [questItems.jup_b10_ufo_memory_2]: 1,
+  } as unknown as LuaTable<string, number>;
+
+  const items = {
+    [2]: {
+      [weapons.wpn_sig550_luckygun]: 1,
+    },
+    [1]: {
       [ammo["ammo_5.45x39_fmj"]]: 5,
       [ammo["ammo_5.45x39_ap"]]: 3,
+      [weapons.wpn_fort]: 1,
       [ammo.ammo_9x18_fmj]: 3,
       [ammo.ammo_12x70_buck]: 5,
       [ammo["ammo_11.43x23_hydro"]]: 2,
       [weapons.grenade_rgd5]: 3,
       [weapons.grenade_f1]: 2,
+    },
+    [0]: {
       [drugs.medkit_army]: 2,
       [drugs.medkit]: 4,
       [drugs.bandage]: 4,
@@ -454,78 +477,46 @@ extern(
       [food.vodka]: 3,
       [food.energy_drink]: 2,
       [food.conserva]: 1,
-      [questItems.jup_b10_ufo_memory_2]: 1,
-    } as unknown as LuaTable<string, number>;
+    },
+  } as unknown as LuaArray<LuaTable<string, number>>;
 
-    const items = {
-      [2]: {
-        [weapons.wpn_sig550_luckygun]: 1,
-      },
-      [1]: {
-        [ammo["ammo_5.45x39_fmj"]]: 5,
-        [ammo["ammo_5.45x39_ap"]]: 3,
-        [weapons.wpn_fort]: 1,
-        [ammo.ammo_9x18_fmj]: 3,
-        [ammo.ammo_12x70_buck]: 5,
-        [ammo["ammo_11.43x23_hydro"]]: 2,
-        [weapons.grenade_rgd5]: 3,
-        [weapons.grenade_f1]: 2,
-      },
-      [0]: {
-        [drugs.medkit_army]: 2,
-        [drugs.medkit]: 4,
-        [drugs.bandage]: 4,
-        [drugs.antirad]: 2,
-        [food.vodka]: 3,
-        [food.energy_drink]: 2,
-        [food.conserva]: 1,
-      },
-    } as unknown as LuaArray<LuaTable<string, number>>;
+  if (params && params[0] !== null) {
+    const cnt: TCount = getPortableStoreValue(ACTOR_ID, "jup_b10_ufo_counter", 0);
 
-    if (params && params[0] !== null) {
-      const cnt: TCount = getPortableStoreValue(ACTOR_ID, "jup_b10_ufo_counter", 0);
+    if (cnt > 2) {
+      return;
+    }
 
-      if (cnt > 2) {
-        return;
-      }
+    for (const [k, v] of items.get(cnt)) {
+      const targetObjectId: Optional<TNumberId> = getObjectIdByStoryId(params[0]);
 
-      for (const [k, v] of items.get(cnt)) {
-        const targetObjectId: Optional<TNumberId> = getObjectIdByStoryId(params[0]);
+      if (targetObjectId !== null) {
+        const box: Optional<ServerObject> = registry.simulator.object(targetObjectId);
 
-        if (targetObjectId !== null) {
-          const box: Optional<ServerObject> = registry.simulator.object(targetObjectId);
-
-          if (box === null) {
-            abort("There is no such object %s", params[0]);
-          }
-
-          for (const i of $range(1, v)) {
-            registry.simulator.create(k, createEmptyVector(), 0, 0, targetObjectId);
-          }
-        } else {
-          abort("object is null %s", tostring(params[0]));
+        if (box === null) {
+          abort("There is no such object %s", params[0]);
         }
-      }
-    } else {
-      for (const [k, v] of itemsAll) {
+
         for (const i of $range(1, v)) {
-          registry.simulator.create(
-            k,
-            object.position(),
-            object.level_vertex_id(),
-            object.game_vertex_id(),
-            object.id()
-          );
+          registry.simulator.create(k, createEmptyVector(), 0, 0, targetObjectId);
         }
+      } else {
+        abort("object is null %s", tostring(params[0]));
+      }
+    }
+  } else {
+    for (const [k, v] of itemsAll) {
+      for (const i of $range(1, v)) {
+        registry.simulator.create(k, object.position(), object.level_vertex_id(), object.game_vertex_id(), object.id());
       }
     }
   }
-);
+});
 
 /**
  * todo;
  */
-extern("xr_effects.zat_b202_spawn_random_loot", (actor: ClientObject, object: ClientObject, p: []) => {
+extern("xr_effects.zat_b202_spawn_random_loot", (actor: GameObject, object: GameObject, p: []) => {
   const spawnItemsList = [
     [
       {
@@ -607,7 +598,7 @@ extern("xr_effects.zat_b202_spawn_random_loot", (actor: ClientObject, object: Cl
 /**
  * todo;
  */
-extern("xr_effects.jup_b221_play_main", (actor: ClientObject, object: ClientObject, p: [string]) => {
+extern("xr_effects.jup_b221_play_main", (actor: GameObject, object: GameObject, p: [string]) => {
   let infoPortionsList: LuaArray<TInfoPortion> = new LuaTable();
   let mainTheme: string;
   let replyTheme: string;
@@ -690,14 +681,14 @@ extern("xr_effects.jup_b221_play_main", (actor: ClientObject, object: ClientObje
 /**
  * todo
  */
-extern("xr_effects.zat_a1_tutorial_end_give", (actor: ClientObject, object: ClientObject): void => {
+extern("xr_effects.zat_a1_tutorial_end_give", (actor: GameObject, object: GameObject): void => {
   // --	level.add_pp_effector("black.ppe", 1313, true) //---{ ! stop on r1 !
   giveInfoPortion(infoPortions.zat_a1_tutorial_end);
 });
 
 // todo: Fix if used, should increment values probably with +=.
 extern("xr_effects.oasis_heal", (): void => {
-  const actor: ClientObject = registry.actor;
+  const actor: GameObject = registry.actor;
 
   const newHealth: TRate = 0.005;
   const newPower: TRate = 0.01;
@@ -727,14 +718,14 @@ extern("xr_effects.oasis_heal", (): void => {
 /**
  * todo
  */
-extern("xr_effects.pas_b400_play_particle", (actor: ClientObject, object: ClientObject): void => {
+extern("xr_effects.pas_b400_play_particle", (actor: GameObject, object: GameObject): void => {
   registry.actor.start_particles("zones\\zone_acidic_idle", "bip01_head");
 });
 
 /**
  * todo
  */
-extern("xr_effects.pas_b400_stop_particle", (actor: ClientObject, object: ClientObject): void => {
+extern("xr_effects.pas_b400_stop_particle", (actor: GameObject, object: GameObject): void => {
   registry.actor.stop_particles("zones\\zone_acidic_idle", "bip01_head");
 });
 
@@ -742,7 +733,7 @@ extern("xr_effects.pas_b400_stop_particle", (actor: ClientObject, object: Client
  * todo
  */
 extern("xr_effects.damage_pri_a17_gauss", (): void => {
-  const object: Optional<ClientObject> = getObjectByStoryId(questItems.pri_a17_gauss_rifle);
+  const object: Optional<GameObject> = getObjectByStoryId(questItems.pri_a17_gauss_rifle);
 
   if (object !== null) {
     object.set_condition(0.0);
@@ -752,7 +743,7 @@ extern("xr_effects.damage_pri_a17_gauss", (): void => {
 /**
  * todo;
  */
-extern("xr_effects.pri_a17_hard_animation_reset", (actor: ClientObject, object: ClientObject): void => {
+extern("xr_effects.pri_a17_hard_animation_reset", (actor: GameObject, object: GameObject): void => {
   const stateManager = registry.objects.get(object.id()).stateManager!;
 
   stateManager.setState("pri_a17_fall_down" as EStalkerState, null, null, null, null);
@@ -764,7 +755,7 @@ extern("xr_effects.pri_a17_hard_animation_reset", (actor: ClientObject, object: 
 /**
  * todo;
  */
-extern("xr_effects.jup_b217_hard_animation_reset", (actor: ClientObject, object: ClientObject): void => {
+extern("xr_effects.jup_b217_hard_animation_reset", (actor: GameObject, object: GameObject): void => {
   const stateManager = registry.objects.get(object.id()).stateManager!;
 
   stateManager.setState("jup_b217_nitro_straight" as EStalkerState, null, null, null, null);
@@ -776,140 +767,140 @@ extern("xr_effects.jup_b217_hard_animation_reset", (actor: ClientObject, object:
 /**
  * todo;
  */
-extern("xr_effects.pri_a18_radio_start", (actor: ClientObject, object: ClientObject): void => {
+extern("xr_effects.pri_a18_radio_start", (actor: GameObject, object: GameObject): void => {
   giveInfoPortion(infoPortions.pri_a18_radio_start);
 });
 
 /**
  * todo;
  */
-extern("xr_effects.pri_a17_ice_climb_end", (actor: ClientObject, object: ClientObject): void => {
+extern("xr_effects.pri_a17_ice_climb_end", (actor: GameObject, object: GameObject): void => {
   giveInfoPortion(infoPortions.pri_a17_ice_climb_end);
 });
 
 /**
  * todo;
  */
-extern("xr_effects.jup_b219_opening", (actor: ClientObject, object: ClientObject): void => {
+extern("xr_effects.jup_b219_opening", (actor: GameObject, object: GameObject): void => {
   giveInfoPortion(infoPortions.jup_b219_opening);
 });
 
 /**
  * todo;
  */
-extern("xr_effects.jup_b219_entering_underpass", (actor: ClientObject, object: ClientObject): void => {
+extern("xr_effects.jup_b219_entering_underpass", (actor: GameObject, object: GameObject): void => {
   giveInfoPortion(infoPortions.jup_b219_entering_underpass);
 });
 
 /**
  * todo;
  */
-extern("xr_effects.pri_a17_pray_start", (actor: ClientObject, object: ClientObject): void => {
+extern("xr_effects.pri_a17_pray_start", (actor: GameObject, object: GameObject): void => {
   giveInfoPortion(infoPortions.pri_a17_pray_start);
 });
 
 /**
  * todo;
  */
-extern("xr_effects.zat_b38_open_info", (actor: ClientObject, object: ClientObject): void => {
+extern("xr_effects.zat_b38_open_info", (actor: GameObject, object: GameObject): void => {
   giveInfoPortion(infoPortions.zat_b38_open_info);
 });
 
 /**
  * todo;
  */
-extern("xr_effects.zat_b38_switch_info", (actor: ClientObject, object: ClientObject): void => {
+extern("xr_effects.zat_b38_switch_info", (actor: GameObject, object: GameObject): void => {
   giveInfoPortion(infoPortions.zat_b38_switch_info);
 });
 
 /**
  * todo;
  */
-extern("xr_effects.zat_b38_cop_dead", (actor: ClientObject, object: ClientObject): void => {
+extern("xr_effects.zat_b38_cop_dead", (actor: GameObject, object: GameObject): void => {
   giveInfoPortion(infoPortions.zat_b38_cop_dead);
 });
 
 /**
  * todo;
  */
-extern("xr_effects.jup_b15_zulus_drink_anim_info", (actor: ClientObject, object: ClientObject): void => {
+extern("xr_effects.jup_b15_zulus_drink_anim_info", (actor: GameObject, object: GameObject): void => {
   giveInfoPortion(infoPortions.jup_b15_zulus_drink_anim_info);
 });
 
 /**
  * todo;
  */
-extern("xr_effects.pri_a17_preacher_death", (actor: ClientObject, object: ClientObject): void => {
+extern("xr_effects.pri_a17_preacher_death", (actor: GameObject, object: GameObject): void => {
   giveInfoPortion(infoPortions.pri_a17_preacher_death);
 });
 
 /**
  * todo;
  */
-extern("xr_effects.zat_b3_tech_surprise_anim_end", (actor: ClientObject, object: ClientObject): void => {
+extern("xr_effects.zat_b3_tech_surprise_anim_end", (actor: GameObject, object: GameObject): void => {
   giveInfoPortion(infoPortions.zat_b3_tech_surprise_anim_end);
 });
 
 /**
  * todo;
  */
-extern("xr_effects.zat_b3_tech_waked_up", (actor: ClientObject, object: ClientObject): void => {
+extern("xr_effects.zat_b3_tech_waked_up", (actor: GameObject, object: GameObject): void => {
   giveInfoPortion(infoPortions.zat_b3_tech_waked_up);
 });
 
 /**
  * todo;
  */
-extern("xr_effects.zat_b3_tech_drinked_out", (actor: ClientObject, object: ClientObject): void => {
+extern("xr_effects.zat_b3_tech_drinked_out", (actor: GameObject, object: GameObject): void => {
   giveInfoPortion(infoPortions.zat_b3_tech_drinked_out);
 });
 
 /**
  * todo;
  */
-extern("xr_effects.pri_a28_kirillov_hq_online", (actor: ClientObject, object: ClientObject): void => {
+extern("xr_effects.pri_a28_kirillov_hq_online", (actor: GameObject, object: GameObject): void => {
   giveInfoPortion(infoPortions.pri_a28_kirillov_hq_online);
 });
 
 /**
  * todo;
  */
-extern("xr_effects.pri_a20_radio_start", (actor: ClientObject, object: ClientObject): void => {
+extern("xr_effects.pri_a20_radio_start", (actor: GameObject, object: GameObject): void => {
   giveInfoPortion(infoPortions.pri_a20_radio_start);
 });
 
 /**
  * todo;
  */
-extern("xr_effects.pri_a22_kovalski_speak", (actor: ClientObject, object: ClientObject): void => {
+extern("xr_effects.pri_a22_kovalski_speak", (actor: GameObject, object: GameObject): void => {
   giveInfoPortion(infoPortions.pri_a22_kovalski_speak);
 });
 
 /**
  * todo;
  */
-extern("xr_effects.zat_b38_underground_door_open", (actor: ClientObject, object: ClientObject): void => {
+extern("xr_effects.zat_b38_underground_door_open", (actor: GameObject, object: GameObject): void => {
   giveInfoPortion(infoPortions.zat_b38_underground_door_open);
 });
 
 /**
  * todo;
  */
-extern("xr_effects.zat_b38_jump_tonnel_info", (actor: ClientObject, object: ClientObject): void => {
+extern("xr_effects.zat_b38_jump_tonnel_info", (actor: GameObject, object: GameObject): void => {
   giveInfoPortion(infoPortions.zat_b38_jump_tonnel_info);
 });
 
 /**
  * todo;
  */
-extern("xr_effects.jup_a9_cam1_actor_anim_end", (actor: ClientObject, object: ClientObject): void => {
+extern("xr_effects.jup_a9_cam1_actor_anim_end", (actor: GameObject, object: GameObject): void => {
   giveInfoPortion(infoPortions.jup_a9_cam1_actor_anim_end);
 });
 
 /**
  * todo;
  */
-extern("xr_effects.pri_a28_talk_ssu_video_end", (actor: ClientObject, object: ClientObject): void => {
+extern("xr_effects.pri_a28_talk_ssu_video_end", (actor: GameObject, object: GameObject): void => {
   giveInfoPortion(infoPortions.pri_a28_talk_ssu_video_end);
 });
 
@@ -935,7 +926,7 @@ extern("xr_effects.zat_b33_pic_snag_container", (): void => {
 /**
  * todo;
  */
-extern("xr_effects.zat_b202_spawn_b33_loot", (actor: ClientObject, object: ClientObject, p: []) => {
+extern("xr_effects.zat_b202_spawn_b33_loot", (actor: GameObject, object: GameObject, p: []) => {
   const infoPortionsList: LuaArray<TInfoPortion> = $fromArray<TInfoPortion>([
     infoPortions.zat_b33_first_item_gived,
     infoPortions.zat_b33_second_item_gived,
@@ -979,7 +970,7 @@ extern("xr_effects.zat_b202_spawn_b33_loot", (actor: ClientObject, object: Clien
  * todo;
  */
 extern("xr_effects.pri_a28_check_zones", (): void => {
-  const actor: ClientObject = registry.actor;
+  const actor: GameObject = registry.actor;
   let dist: TDistance = 0;
   let index: TIndex = 0;
 
@@ -1039,7 +1030,7 @@ extern("xr_effects.pri_a28_check_zones", (): void => {
  * todo;
  */
 extern("xr_effects.eat_vodka_script", (): void => {
-  const actor: ClientObject = registry.actor;
+  const actor: GameObject = registry.actor;
 
   if (actor.object("vodka_script") !== null) {
     actor.eat(actor.object("vodka_script")!);
@@ -1061,14 +1052,14 @@ const materialsTable: LuaArray<TStringId> = $fromArray([
 /**
  * todo;
  */
-extern("xr_effects.jup_b200_count_found", (actor: ClientObject): void => {
+extern("xr_effects.jup_b200_count_found", (actor: GameObject): void => {
   let count: TCount = 0;
 
   for (const [index, materialId] of materialsTable) {
-    const materialObject: Optional<ClientObject> = getObjectByStoryId(materialId);
+    const materialObject: Optional<GameObject> = getObjectByStoryId(materialId);
 
     if (materialObject !== null) {
-      const parent: ClientObject = materialObject.parent();
+      const parent: GameObject = materialObject.parent();
 
       if (parent !== null) {
         const parentId: TNumberId = parent.id();

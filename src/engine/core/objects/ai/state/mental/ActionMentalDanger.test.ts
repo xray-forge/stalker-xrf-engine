@@ -3,12 +3,12 @@ import { anim, property_storage } from "xray16";
 
 import { ActionMentalDanger } from "@/engine/core/objects/ai/state/mental/ActionMentalDanger";
 import type { StalkerStateManager } from "@/engine/core/objects/ai/state/StalkerStateManager";
-import { ClientObject } from "@/engine/lib/types";
-import { mockClientGameObject } from "@/fixtures/xray";
+import { GameObject } from "@/engine/lib/types";
+import { mockGameObject } from "@/fixtures/xray";
 
 describe("ActionMentalDanger class", () => {
   it("should correctly perform mental state set", () => {
-    const object: ClientObject = mockClientGameObject();
+    const object: GameObject = mockGameObject();
     const action: ActionMentalDanger = new ActionMentalDanger({} as StalkerStateManager);
 
     action.setup(object, new property_storage());

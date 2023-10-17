@@ -14,7 +14,7 @@ import { abort } from "@/engine/core/utils/assertion";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/ini_config";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { NIL } from "@/engine/lib/constants/words";
-import { ClientObject, ISchemeEventHandler, Optional, SoundObject, TNumberId, Vector } from "@/engine/lib/types";
+import { GameObject, ISchemeEventHandler, Optional, SoundObject, TNumberId, Vector } from "@/engine/lib/types";
 
 const stateInitial = 0;
 const stateAnimation = 1;
@@ -188,7 +188,7 @@ export class ActionRemarkActivity extends action_base implements ISchemeEventHan
  * todo
  */
 export function initTarget(
-  object: ClientObject,
+  object: GameObject,
   targetString: string
 ): LuaMultiReturn<[Optional<Vector>, Optional<number>, Optional<boolean>]> {
   // todo: Simplify.
@@ -270,7 +270,7 @@ export function initTarget(
 /**
  * todo
  */
-function instruction(object: ClientObject, data: string): never {
+function instruction(object: GameObject, data: string): never {
   abort(
     "\nWrong target field for object [%s] in section [%s]!!!\n" +
       "Field [target] supports following:\n" +

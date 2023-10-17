@@ -12,8 +12,8 @@ import {
 } from "@/engine/core/utils/scheme";
 import { copyVector, subVectors } from "@/engine/core/utils/vector";
 import {
-  ClientObject,
   ESoundObjectType,
+  GameObject,
   Optional,
   ServerMonsterAbstractObject,
   SoundObject,
@@ -37,7 +37,7 @@ export class MonsterManager extends AbstractSchemeManager<ISchemeMonsterState> {
   public target!: Vector;
 
   public monster: Optional<ServerMonsterAbstractObject> = null;
-  public monsterObject: Optional<ClientObject> = null;
+  public monsterObject: Optional<GameObject> = null;
 
   public soundObject: Optional<SoundObject> = null;
   public appearSound!: SoundObject;
@@ -56,7 +56,7 @@ export class MonsterManager extends AbstractSchemeManager<ISchemeMonsterState> {
   }
 
   public update(delta: number): void {
-    const actor: ClientObject = registry.actor;
+    const actor: GameObject = registry.actor;
 
     if (this.idleState) {
       if (this.state.idleEnd <= game.time()) {
@@ -85,7 +85,7 @@ export class MonsterManager extends AbstractSchemeManager<ISchemeMonsterState> {
         this.monsterObject!.position().distance_to(this.state.path.point(this.state.path.count() - 1)) <= 1)
     ) {
       if (registry.objects.has(this.monster!.id)) {
-        scriptReleaseMonster(this.monsterObject as ClientObject);
+        scriptReleaseMonster(this.monsterObject as GameObject);
       }
 
       registry.simulator.release(this.monster, true);

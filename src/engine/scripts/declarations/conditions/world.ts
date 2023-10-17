@@ -9,7 +9,7 @@ import { ESmartTerrainStatus } from "@/engine/core/objects/server/smart_terrain/
 import { anomalyHasArtefact } from "@/engine/core/utils/anomaly";
 import { abort } from "@/engine/core/utils/assertion";
 import { extern } from "@/engine/core/utils/binding";
-import { ClientObject, Optional, TName, TSection, TTimestamp } from "@/engine/lib/types";
+import { GameObject, Optional, TName, TSection, TTimestamp } from "@/engine/lib/types";
 
 /**
  * @returns whether it is rainy in the game right now
@@ -52,7 +52,7 @@ extern("xr_conditions.is_dark_night", (): boolean => {
  */
 extern(
   "xr_conditions.anomaly_has_artefact",
-  (actor: ClientObject, object: ClientObject, [anomalyName, artefactSection]: [TName, TSection]): boolean => {
+  (actor: GameObject, object: GameObject, [anomalyName, artefactSection]: [TName, TSection]): boolean => {
     return anomalyHasArtefact(anomalyName, artefactSection);
   }
 );
@@ -83,7 +83,7 @@ extern("xr_conditions.surge_kill_all", (): boolean => {
  */
 extern(
   "xr_conditions.signal_rocket_flying",
-  (actor: ClientObject, object: ClientObject, [name]: [Optional<TName>]): boolean => {
+  (actor: GameObject, object: GameObject, [name]: [Optional<TName>]): boolean => {
     if (name === null) {
       abort("Signal rocket name is !set!");
     }
@@ -101,7 +101,7 @@ extern(
 /**
  * todo;
  */
-extern("xr_conditions.time_period", (actor: ClientObject, object: ClientObject, p: [number, number]): boolean => {
+extern("xr_conditions.time_period", (actor: GameObject, object: GameObject, p: [number, number]): boolean => {
   const [tshift, period] = p;
 
   if (tshift !== null && period !== null && registry.actor !== null) {
@@ -125,11 +125,7 @@ const ALARM_STATUSES = {
  */
 extern(
   "xr_conditions.check_smart_alarm_status",
-  (
-    actor: ClientObject,
-    object: ClientObject,
-    [smartName, smartStatus]: [TName, keyof typeof ALARM_STATUSES]
-  ): boolean => {
+  (actor: GameObject, object: GameObject, [smartName, smartStatus]: [TName, keyof typeof ALARM_STATUSES]): boolean => {
     const status: Optional<ESmartTerrainStatus> = ALARM_STATUSES[smartStatus];
 
     if (!status) {

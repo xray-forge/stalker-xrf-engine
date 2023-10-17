@@ -6,7 +6,7 @@ import { ActionReachTaskLocation } from "@/engine/core/schemes/stalker/reach_tas
 import { EvaluatorReachedTaskLocation } from "@/engine/core/schemes/stalker/reach_task/evaluators";
 import { ISchemeReachTaskState } from "@/engine/core/schemes/stalker/reach_task/reach_task_types";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { ActionBase, ActionPlanner, ClientObject, EScheme, ESchemeType, IniFile, TSection } from "@/engine/lib/types";
+import { ActionBase, ActionPlanner, EScheme, ESchemeType, GameObject, IniFile, TSection } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -17,12 +17,12 @@ export class SchemeReachTask extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.REACH_TASK;
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.STALKER;
 
-  public static override activate(object: ClientObject, ini: IniFile, scheme: EScheme): ISchemeReachTaskState {
+  public static override activate(object: GameObject, ini: IniFile, scheme: EScheme): ISchemeReachTaskState {
     return AbstractScheme.assign(object, ini, scheme, null);
   }
 
   public static override add(
-    object: ClientObject,
+    object: GameObject,
     ini: IniFile,
     scheme: EScheme,
     section: TSection,
@@ -42,7 +42,7 @@ export class SchemeReachTask extends AbstractScheme {
    * todo: Description.
    * todo: generic init method?
    */
-  public static setup(object: ClientObject): void {
+  public static setup(object: GameObject): void {
     const planner: ActionPlanner = object.motivation_action_manager();
     const alifePlanner: ActionPlanner = cast_planner(planner.action(EActionId.ALIFE));
 

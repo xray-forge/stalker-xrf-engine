@@ -8,12 +8,12 @@ import { StalkerStateManager } from "@/engine/core/objects/ai/state/StalkerState
 import { EStalkerState } from "@/engine/core/objects/animation/types";
 import { StalkerBinder } from "@/engine/core/objects/binders/creature/StalkerBinder";
 import { replaceFunctionMock } from "@/fixtures/jest";
-import { mockClientGameObject, MockSightParameters } from "@/fixtures/xray";
+import { mockGameObject, MockSightParameters } from "@/fixtures/xray";
 import { MockCSightParams } from "@/fixtures/xray/mocks/CSightParams.mock";
 
 describe("EvaluatorDirectionSet class", () => {
   it("should correctly perform direction check when look at object and activate callback", () => {
-    const stalker: StalkerBinder = new StalkerBinder(mockClientGameObject());
+    const stalker: StalkerBinder = new StalkerBinder(mockGameObject());
 
     registerStalker(stalker);
 
@@ -22,7 +22,7 @@ describe("EvaluatorDirectionSet class", () => {
     const manager: StalkerStateManager = registry.objects.get(stalker.object.id()).stateManager as StalkerStateManager;
     const evaluator: EvaluatorDirectionSet = new EvaluatorDirectionSet(manager);
     const endCallback = jest.fn();
-    const lookObject = mockClientGameObject();
+    const lookObject = mockGameObject();
 
     evaluator.setup(stalker.object, new property_storage());
 
@@ -64,7 +64,7 @@ describe("EvaluatorDirectionSet class", () => {
   });
 
   it("should correctly perform direction check by vector", () => {
-    const stalker: StalkerBinder = new StalkerBinder(mockClientGameObject());
+    const stalker: StalkerBinder = new StalkerBinder(mockGameObject());
 
     registerStalker(stalker);
 
@@ -73,7 +73,7 @@ describe("EvaluatorDirectionSet class", () => {
     const manager: StalkerStateManager = registry.objects.get(stalker.object.id()).stateManager as StalkerStateManager;
     const evaluator: EvaluatorDirectionSet = new EvaluatorDirectionSet(manager);
     const endCallback = jest.fn();
-    const lookObject = mockClientGameObject();
+    const lookObject = mockGameObject();
 
     evaluator.setup(stalker.object, new property_storage());
 

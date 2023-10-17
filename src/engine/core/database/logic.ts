@@ -8,8 +8,8 @@ import { emitSchemeEvent } from "@/engine/core/utils/scheme/scheme_event";
 import { readTimeFromPacket, writeTimeToPacket } from "@/engine/core/utils/time";
 import { NIL } from "@/engine/lib/constants/words";
 import {
-  ClientObject,
   ESchemeEvent,
+  GameObject,
   NetPacket,
   NetProcessor,
   Optional,
@@ -26,7 +26,7 @@ import {
  * @param object - game object to save logic
  * @param packet - net packet to save login into
  */
-export function saveObjectLogic(object: ClientObject, packet: NetPacket): void {
+export function saveObjectLogic(object: GameObject, packet: NetPacket): void {
   const state: IRegistryObjectState = registry.objects.get(object.id());
 
   openSaveMarker(packet, object.name());
@@ -54,7 +54,7 @@ export function saveObjectLogic(object: ClientObject, packet: NetPacket): void {
  * @param object - game object to load logic
  * @param reader - reader to load data from
  */
-export function loadObjectLogic(object: ClientObject, reader: NetProcessor): void {
+export function loadObjectLogic(object: GameObject, reader: NetProcessor): void {
   const state: IRegistryObjectState = registry.objects.get(object.id());
 
   openLoadMarker(reader, object.name());

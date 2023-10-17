@@ -5,7 +5,7 @@ import { getConfigSwitchConditions } from "@/engine/core/utils/ini/ini_config";
 import { parseStringsList } from "@/engine/core/utils/ini/ini_parse";
 import { readIniNumber, readIniString } from "@/engine/core/utils/ini/ini_read";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { ClientObject, EScheme, ESchemeType, IniFile, TSection } from "@/engine/lib/types";
+import { EScheme, ESchemeType, GameObject, IniFile, TSection } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -21,7 +21,7 @@ export class SchemeMonster extends AbstractScheme {
    * Activate scheme and apply configuration.
    */
   public static override activate(
-    object: ClientObject,
+    object: GameObject,
     ini: IniFile,
     scheme: EScheme,
     section: TSection
@@ -44,7 +44,7 @@ export class SchemeMonster extends AbstractScheme {
    * Add scheme handlers and subscribe them to events.
    */
   public static override add(
-    object: ClientObject,
+    object: GameObject,
     ini: IniFile,
     scheme: EScheme,
     section: TSection,

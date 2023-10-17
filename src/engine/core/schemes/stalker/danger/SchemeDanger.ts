@@ -7,7 +7,7 @@ import { ISchemeDangerState } from "@/engine/core/schemes/stalker/danger/danger_
 import { DangerManager } from "@/engine/core/schemes/stalker/danger/DangerManager";
 import { EvaluatorDanger } from "@/engine/core/schemes/stalker/danger/evaluators";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { ActionBase, ActionPlanner, ClientObject, EScheme, ESchemeType, IniFile, TSection } from "@/engine/lib/types";
+import { ActionBase, ActionPlanner, EScheme, ESchemeType, GameObject, IniFile, TSection } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -19,7 +19,7 @@ export class SchemeDanger extends AbstractScheme {
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.STALKER;
 
   public static override activate(
-    object: ClientObject,
+    object: GameObject,
     ini: IniFile,
     scheme: EScheme,
     section: TSection
@@ -28,7 +28,7 @@ export class SchemeDanger extends AbstractScheme {
   }
 
   public static override add(
-    object: ClientObject,
+    object: GameObject,
     ini: IniFile,
     scheme: EScheme,
     section: TSection,
@@ -49,7 +49,7 @@ export class SchemeDanger extends AbstractScheme {
   }
 
   public static override reset(
-    object: ClientObject,
+    object: GameObject,
     scheme: EScheme,
     state: IRegistryObjectState,
     section: TSection

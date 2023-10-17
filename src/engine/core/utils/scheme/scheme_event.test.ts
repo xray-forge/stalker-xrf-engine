@@ -2,18 +2,18 @@ import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 
 import { IBaseSchemeState, IRegistryObjectState, registerObject, registry } from "@/engine/core/database";
 import { emitSchemeEvent, setObjectActiveSchemeSignal } from "@/engine/core/utils/scheme/scheme_event";
-import { ClientObject, EScheme, ESchemeEvent } from "@/engine/lib/types";
+import { EScheme, ESchemeEvent, GameObject } from "@/engine/lib/types";
 import { mockSchemeState } from "@/fixtures/engine/mocks";
-import { mockClientGameObject } from "@/fixtures/xray";
+import { mockGameObject } from "@/fixtures/xray";
 
 describe("scheme logic utils", () => {
   beforeEach(() => {
     registry.schemes = new LuaTable();
-    registry.actor = null as unknown as ClientObject;
+    registry.actor = null as unknown as GameObject;
   });
 
   it("emitSchemeEvent should correctly emit events", () => {
-    const object: ClientObject = mockClientGameObject();
+    const object: GameObject = mockGameObject();
     const schemeState: IBaseSchemeState = mockSchemeState(EScheme.MEET);
     const mockAction = {
       activate: jest.fn(),
@@ -79,7 +79,7 @@ describe("scheme logic utils", () => {
   });
 
   it("setObjectActiveSchemeSignal should correctly set signals", () => {
-    const object: ClientObject = mockClientGameObject();
+    const object: GameObject = mockGameObject();
 
     expect(() => setObjectActiveSchemeSignal(object, "test")).not.toThrow();
     expect(registry.objects.get(object.id())).toBeNull();

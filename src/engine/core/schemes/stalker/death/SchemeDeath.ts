@@ -6,7 +6,7 @@ import { abort } from "@/engine/core/utils/assertion";
 import { parseConditionsList } from "@/engine/core/utils/ini/ini_parse";
 import { readIniString } from "@/engine/core/utils/ini/ini_read";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { ClientObject, EScheme, ESchemeType, IniFile, Optional, TSection } from "@/engine/lib/types";
+import { EScheme, ESchemeType, GameObject, IniFile, Optional, TSection } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -18,7 +18,7 @@ export class SchemeDeath extends AbstractScheme {
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.STALKER;
 
   public static override activate(
-    object: ClientObject,
+    object: GameObject,
     ini: IniFile,
     scheme: EScheme,
     section: TSection
@@ -27,7 +27,7 @@ export class SchemeDeath extends AbstractScheme {
   }
 
   public static override add(
-    object: ClientObject,
+    object: GameObject,
     ini: IniFile,
     scheme: EScheme,
     section: TSection,
@@ -37,7 +37,7 @@ export class SchemeDeath extends AbstractScheme {
   }
 
   public static override reset(
-    object: ClientObject,
+    object: GameObject,
     scheme: EScheme,
     objectState: IRegistryObjectState,
     section: TSection

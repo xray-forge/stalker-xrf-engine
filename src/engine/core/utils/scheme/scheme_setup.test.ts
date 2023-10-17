@@ -15,7 +15,7 @@ import {
   loadSchemeImplementations,
 } from "@/engine/core/utils/scheme/scheme_setup";
 import { ActionBase, EScheme, ESchemeType } from "@/engine/lib/types";
-import { MockActionBase, mockClientGameObject } from "@/fixtures/xray";
+import { MockActionBase, mockGameObject } from "@/fixtures/xray";
 
 describe("scheme setup utils", () => {
   beforeEach(() => {
@@ -35,7 +35,7 @@ describe("scheme setup utils", () => {
 
     schemes.forEach((it) => jest.spyOn(it, "disable").mockImplementation(jest.fn()));
 
-    disableObjectBaseSchemes(mockClientGameObject(), ESchemeType.STALKER);
+    disableObjectBaseSchemes(mockGameObject(), ESchemeType.STALKER);
 
     expect(SchemeCombat.disable).toHaveBeenCalledTimes(1);
     expect(SchemeCombatIgnore.disable).toHaveBeenCalledTimes(1);
@@ -45,7 +45,7 @@ describe("scheme setup utils", () => {
 
     schemes.forEach((it) => jest.spyOn(it, "disable").mockReset().mockImplementation(jest.fn()));
 
-    disableObjectBaseSchemes(mockClientGameObject(), ESchemeType.MONSTER);
+    disableObjectBaseSchemes(mockGameObject(), ESchemeType.MONSTER);
 
     expect(SchemeCombat.disable).toHaveBeenCalledTimes(0);
     expect(SchemeCombatIgnore.disable).toHaveBeenCalledTimes(1);
@@ -55,7 +55,7 @@ describe("scheme setup utils", () => {
 
     schemes.forEach((it) => jest.spyOn(it, "disable").mockReset().mockImplementation(jest.fn()));
 
-    disableObjectBaseSchemes(mockClientGameObject(), ESchemeType.OBJECT);
+    disableObjectBaseSchemes(mockGameObject(), ESchemeType.OBJECT);
 
     expect(SchemeCombat.disable).toHaveBeenCalledTimes(0);
     expect(SchemeCombatIgnore.disable).toHaveBeenCalledTimes(0);
@@ -65,7 +65,7 @@ describe("scheme setup utils", () => {
 
     schemes.forEach((it) => jest.spyOn(it, "disable").mockReset().mockImplementation(jest.fn()));
 
-    disableObjectBaseSchemes(mockClientGameObject(), ESchemeType.HELICOPTER);
+    disableObjectBaseSchemes(mockGameObject(), ESchemeType.HELICOPTER);
 
     expect(SchemeCombat.disable).toHaveBeenCalledTimes(0);
     expect(SchemeCombatIgnore.disable).toHaveBeenCalledTimes(0);
@@ -124,7 +124,7 @@ describe("scheme setup utils", () => {
   });
 
   it("addCommonActionPreconditions should add generic base conditions", () => {
-    const action: MockActionBase = new MockActionBase(mockClientGameObject(), "test");
+    const action: MockActionBase = new MockActionBase(mockGameObject(), "test");
 
     expect(action.preconditions).toHaveLength(0);
 

@@ -17,7 +17,7 @@ import { TMonster } from "@/engine/lib/constants/monsters";
 import { ANABIOTICS_USED_KEY } from "@/engine/lib/constants/portable_store_keys";
 import { NIL } from "@/engine/lib/constants/words";
 import {
-  ClientObject,
+  GameObject,
   NetPacket,
   NetProcessor,
   Optional,
@@ -172,7 +172,7 @@ export class StatisticsManager extends AbstractManager {
    *
    * @param item - target client object picked up
    */
-  public onActorCollectedItem(item: ClientObject): void {
+  public onActorCollectedItem(item: GameObject): void {
     if (!isArtefact(item)) {
       return;
     }
@@ -219,7 +219,7 @@ export class StatisticsManager extends AbstractManager {
    * @param object - object killed
    * @param killer - object killer
    */
-  public onStalkerKilled(object: ClientObject, killer: Optional<ClientObject>): void {
+  public onStalkerKilled(object: GameObject, killer: Optional<GameObject>): void {
     if (killer?.id() === ACTOR_ID) {
       this.actorStatistics.killedStalkersCount += 1;
     }
@@ -233,12 +233,12 @@ export class StatisticsManager extends AbstractManager {
    * @param direction - direction of object hit
    * @param who - source object of hit
    */
-  public onObjectHit(object: ClientObject, amount: TRate, direction: Vector, who: Optional<ClientObject>): void {
+  public onObjectHit(object: GameObject, amount: TRate, direction: Vector, who: Optional<GameObject>): void {
     if (who?.id() !== ACTOR_ID) {
       return;
     }
 
-    const activeActorItem: Optional<ClientObject> = registry.actor.active_item();
+    const activeActorItem: Optional<GameObject> = registry.actor.active_item();
 
     if (activeActorItem) {
       const serverObject: Optional<ServerObject> = registry.simulator.object(activeActorItem.id());
@@ -283,7 +283,7 @@ export class StatisticsManager extends AbstractManager {
    * @param object - object killed
    * @param who - object killer
    */
-  public onMonsterKilled(object: ClientObject, who: Optional<ClientObject>): void {
+  public onMonsterKilled(object: GameObject, who: Optional<GameObject>): void {
     if (who?.id() !== ACTOR_ID) {
       return;
     }

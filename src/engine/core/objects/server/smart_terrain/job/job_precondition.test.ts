@@ -31,7 +31,7 @@ import { parseConditionsList } from "@/engine/core/utils/ini";
 import { StringBuilder } from "@/engine/core/utils/string";
 import { AnyObject, ServerHumanObject } from "@/engine/lib/types";
 import { mockSmartCover, mockSmartTerrain } from "@/fixtures/engine";
-import { mockClientGameObject, MockCTime, mockServerAlifeHumanStalker } from "@/fixtures/xray";
+import { MockCTime, mockGameObject, mockServerAlifeHumanStalker } from "@/fixtures/xray";
 
 describe("job_precondition utilities", () => {
   it("jobPreconditionWalker should correctly check", () => {
@@ -56,10 +56,10 @@ describe("job_precondition utilities", () => {
     expect(jobPreconditionWalker(stalker, smartTerrain, parameters)).toBe(true);
     expect(jobPreconditionWalker(stalker, smartTerrain, { ...parameters, isSafeJob: false })).toBe(false);
 
-    registerZone(mockClientGameObject({ name: () => "safe_restrictor_test", inside: () => false }));
+    registerZone(mockGameObject({ name: () => "safe_restrictor_test", inside: () => false }));
     expect(jobPreconditionWalker(stalker, smartTerrain, { ...parameters, isSafeJob: null })).toBe(false);
 
-    registerZone(mockClientGameObject({ name: () => "safe_restrictor_test", inside: () => true }));
+    registerZone(mockGameObject({ name: () => "safe_restrictor_test", inside: () => true }));
     expect(jobPreconditionWalker(stalker, smartTerrain, { ...parameters, isSafeJob: null })).toBe(true);
   });
 
@@ -132,10 +132,10 @@ describe("job_precondition utilities", () => {
     expect(jobPreconditionCollector(stalker, smartTerrain, parameters)).toBe(false);
 
     registerObject(
-      mockClientGameObject({
+      mockGameObject({
         idOverride: stalker.id,
         object: (section: string) => {
-          return section === "detector_elite" ? mockClientGameObject() : null;
+          return section === "detector_elite" ? mockGameObject() : null;
         },
       })
     );
@@ -163,10 +163,10 @@ describe("job_precondition utilities", () => {
     expect(jobPreconditionGuard(stalker, smartTerrain, parameters)).toBe(true);
     expect(jobPreconditionGuard(stalker, smartTerrain, { ...parameters, isSafeJob: false })).toBe(false);
 
-    registerZone(mockClientGameObject({ name: () => "safe_restrictor_test", inside: () => true }));
+    registerZone(mockGameObject({ name: () => "safe_restrictor_test", inside: () => true }));
     expect(jobPreconditionGuard(stalker, smartTerrain, { ...parameters, isSafeJob: null })).toBe(true);
 
-    registerZone(mockClientGameObject({ name: () => "safe_restrictor_test", inside: () => false }));
+    registerZone(mockGameObject({ name: () => "safe_restrictor_test", inside: () => false }));
     expect(jobPreconditionGuard(stalker, smartTerrain, { ...parameters, isSafeJob: null })).toBe(false);
   });
 
@@ -221,10 +221,10 @@ describe("job_precondition utilities", () => {
     expect(jobPreconditionPatrol(stalker, smartTerrain, parameters)).toBe(true);
     expect(jobPreconditionPatrol(stalker, smartTerrain, { ...parameters, isSafeJob: false })).toBe(false);
 
-    registerZone(mockClientGameObject({ name: () => "safe_restrictor_test", inside: () => false }));
+    registerZone(mockGameObject({ name: () => "safe_restrictor_test", inside: () => false }));
     expect(jobPreconditionPatrol(stalker, smartTerrain, { ...parameters, isSafeJob: null })).toBe(false);
 
-    registerZone(mockClientGameObject({ name: () => "safe_restrictor_test", inside: () => true }));
+    registerZone(mockGameObject({ name: () => "safe_restrictor_test", inside: () => true }));
     expect(jobPreconditionPatrol(stalker, smartTerrain, { ...parameters, isSafeJob: null })).toBe(true);
   });
 
@@ -248,10 +248,10 @@ describe("job_precondition utilities", () => {
     expect(jobPreconditionSleep(stalker, smartTerrain, { ...parameters, isSafeJob: null })).toBe(true);
 
     smartTerrain.safeRestrictor = "sleep_test_restrictor";
-    registerZone(mockClientGameObject({ name: () => "sleep_test_restrictor", inside: () => true }));
+    registerZone(mockGameObject({ name: () => "sleep_test_restrictor", inside: () => true }));
     expect(jobPreconditionSleep(stalker, smartTerrain, { ...parameters, isSafeJob: null })).toBe(true);
 
-    registerZone(mockClientGameObject({ name: () => "sleep_test_restrictor", inside: () => false }));
+    registerZone(mockGameObject({ name: () => "sleep_test_restrictor", inside: () => false }));
     expect(jobPreconditionSleep(stalker, smartTerrain, { ...parameters, isSafeJob: null })).toBe(false);
 
     smartTerrain.safeRestrictor = "another_sleep_test_restrictor";

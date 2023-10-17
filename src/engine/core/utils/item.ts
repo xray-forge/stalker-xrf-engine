@@ -1,7 +1,7 @@
 import { registry } from "@/engine/core/database";
 import { medkits } from "@/engine/lib/constants/items/drugs";
 import { MAX_U16 } from "@/engine/lib/constants/memory";
-import { ClientObject, LuaArray, Optional, ServerObject, TNumberId, TRate, TSection } from "@/engine/lib/types";
+import { GameObject, LuaArray, Optional, ServerObject, TNumberId, TRate, TSection } from "@/engine/lib/types";
 
 /**
  * @param id - item object id to get owner
@@ -23,7 +23,7 @@ export function getItemOwnerId(id: TNumberId): Optional<TNumberId> {
  * @param object - client object to change condition
  * @param condition - value from 0 to 100, percents
  */
-export function setItemCondition(object: ClientObject, condition: TRate): void {
+export function setItemCondition(object: GameObject, condition: TRate): void {
   object.set_condition(condition / 100);
 }
 
@@ -36,7 +36,7 @@ export function setItemCondition(object: ClientObject, condition: TRate): void {
  */
 export function actorHasMedKit(
   list: LuaArray<TSection | TNumberId> = medkits as unknown as LuaArray<TSection | TNumberId>,
-  actor: ClientObject = registry.actor
+  actor: GameObject = registry.actor
 ): boolean {
   return actorHasAtLeastOneItem(list, actor);
 }
@@ -48,7 +48,7 @@ export function actorHasMedKit(
  * @param actor - target object to check, gets actor from registry by default
  * @returns whether actor has all of provided items
  */
-export function actorHasItem(itemSection: TSection | TNumberId, actor: ClientObject = registry.actor): boolean {
+export function actorHasItem(itemSection: TSection | TNumberId, actor: GameObject = registry.actor): boolean {
   return actor.object(itemSection) !== null;
 }
 
@@ -61,7 +61,7 @@ export function actorHasItem(itemSection: TSection | TNumberId, actor: ClientObj
  */
 export function actorHasItems(
   itemSections: LuaArray<TSection | TNumberId> | Array<TSection | TNumberId>,
-  actor: ClientObject = registry.actor
+  actor: GameObject = registry.actor
 ): boolean {
   for (const [, section] of itemSections as LuaArray<TSection | TNumberId>) {
     if (actor.object(section) === null) {
@@ -81,7 +81,7 @@ export function actorHasItems(
  */
 export function actorHasAtLeastOneItem(
   itemSections: LuaArray<TSection | TNumberId> | Array<TSection | TNumberId>,
-  actor: ClientObject = registry.actor
+  actor: GameObject = registry.actor
 ): boolean {
   for (const [index, section] of itemSections as LuaArray<TSection | TNumberId>) {
     if (actor.object(section) !== null) {
@@ -99,7 +99,7 @@ export function actorHasAtLeastOneItem(
  * @param itemSectionOrId - item section or ID to check in inventory
  * @returns whether object has item in inventory
  */
-export function objectHasItem(object: ClientObject, itemSectionOrId: TSection | TNumberId): boolean {
+export function objectHasItem(object: GameObject, itemSectionOrId: TSection | TNumberId): boolean {
   return object.object(itemSectionOrId) !== null;
 }
 
@@ -107,7 +107,7 @@ export function objectHasItem(object: ClientObject, itemSectionOrId: TSection | 
  * @param object - target item object to get upgrades from
  * @returns list of installed upgrades
  */
-export function getItemInstalledUpgradesList(object: ClientObject): LuaArray<TSection> {
+export function getItemInstalledUpgradesList(object: GameObject): LuaArray<TSection> {
   const list: LuaArray<TSection> = new LuaTable();
 
   object.iterate_installed_upgrades((it) => table.insert(list, it));
@@ -119,7 +119,7 @@ export function getItemInstalledUpgradesList(object: ClientObject): LuaArray<TSe
  * @param object - target item object to get upgrades from
  * @returns set of installed upgrades
  */
-export function getItemInstalledUpgradesSet(object: ClientObject): LuaTable<TSection, boolean> {
+export function getItemInstalledUpgradesSet(object: GameObject): LuaTable<TSection, boolean> {
   const set: LuaTable<TSection, boolean> = new LuaTable();
 
   object.iterate_installed_upgrades((it) => set.set(it, true));

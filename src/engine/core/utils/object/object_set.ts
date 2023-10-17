@@ -2,7 +2,7 @@ import { CSightParams } from "xray16";
 
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { copyVector } from "@/engine/core/utils/vector";
-import { ClientObject, Vector } from "@/engine/lib/types";
+import { GameObject, Vector } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -12,7 +12,7 @@ const logger: LuaLogger = new LuaLogger($filename);
  * @param object - object to execute look command
  * @param objectToLook - target object to look at
  */
-export function setObjectLookAtAnotherObject(object: ClientObject, objectToLook: ClientObject): void {
+export function setObjectLookAtAnotherObject(object: GameObject, objectToLook: GameObject): void {
   const lookPoint: Vector = copyVector(objectToLook.position().sub(object.position()));
 
   object.set_sight(CSightParams.eSightTypeDirection, lookPoint, 0);

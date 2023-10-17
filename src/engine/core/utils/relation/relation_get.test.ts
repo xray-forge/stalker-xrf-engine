@@ -19,12 +19,12 @@ import {
 import { ERelation } from "@/engine/core/utils/relation/relation_types";
 import { communities } from "@/engine/lib/constants/communities";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
-import { ClientObject, ServerGroupObject } from "@/engine/lib/types";
+import { GameObject, ServerGroupObject } from "@/engine/lib/types";
 import { mockRelationsSquads } from "@/fixtures/engine";
 import {
-  mockActorClientGameObject,
+  mockActorGameObject,
   MockAlifeSimulator,
-  mockClientGameObject,
+  mockGameObject,
   mockServerAlifeCreatureActor,
   mockServerAlifeOnlineOfflineGroup,
 } from "@/fixtures/xray";
@@ -39,14 +39,14 @@ describe("relation/get utils", () => {
   });
 
   it("getObjectsRelationSafe should correctly check relation", () => {
-    expect(getObjectsRelationSafe(mockClientGameObject(), null)).toBeNull();
-    expect(getObjectsRelationSafe(null, mockClientGameObject())).toBeNull();
+    expect(getObjectsRelationSafe(mockGameObject(), null)).toBeNull();
+    expect(getObjectsRelationSafe(null, mockGameObject())).toBeNull();
     expect(getObjectsRelationSafe(null, null)).toBeNull();
 
-    const first: ClientObject = mockClientGameObject({ relation: () => 0 });
-    const second: ClientObject = mockClientGameObject({ relation: () => 1 });
-    const third: ClientObject = mockClientGameObject({ relation: () => 2 });
-    const fourth: ClientObject = mockClientGameObject({ relation: () => 3 });
+    const first: GameObject = mockGameObject({ relation: () => 0 });
+    const second: GameObject = mockGameObject({ relation: () => 1 });
+    const third: GameObject = mockGameObject({ relation: () => 2 });
+    const fourth: GameObject = mockGameObject({ relation: () => 3 });
 
     expect(getObjectsRelationSafe(first, second)).toBe(0);
     expect(getObjectsRelationSafe(second, first)).toBe(1);
@@ -63,7 +63,7 @@ describe("relation/get utils", () => {
     expect(getSquadMembersRelationToActorSafe(emptyMonolithSquad)).toBe(ERelation.NEUTRAL);
     expect(getSquadMembersRelationToActorSafe(emptyArmySquad)).toBe(ERelation.NEUTRAL);
 
-    registerActor(mockActorClientGameObject());
+    registerActor(mockActorGameObject());
 
     expect(getSquadMembersRelationToActorSafe(emptyMonolithSquad)).toBe(ERelation.ENEMY);
     expect(getSquadMembersRelationToActorSafe(emptyArmySquad)).toBe(ERelation.FRIEND);
@@ -82,7 +82,7 @@ describe("relation/get utils", () => {
     expect(getSquadMembersRelationToActor(emptyMonolithSquad)).toBe(ERelation.NEUTRAL);
     expect(getSquadMembersRelationToActor(emptyArmySquad)).toBe(ERelation.NEUTRAL);
 
-    registerActor(mockActorClientGameObject());
+    registerActor(mockActorGameObject());
 
     expect(getSquadMembersRelationToActor(emptyMonolithSquad)).toBeNull();
     expect(getSquadMembersRelationToActor(emptyArmySquad)).toBeNull();

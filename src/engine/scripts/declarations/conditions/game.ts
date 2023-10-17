@@ -6,14 +6,14 @@ import { extern } from "@/engine/core/utils/binding";
 import { isBlackScreen } from "@/engine/core/utils/game";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
-import { ClientObject, Optional, TCount, TName } from "@/engine/lib/types";
+import { GameObject, Optional, TCount, TName } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * Check if provided scheme signal is active.
  */
-extern("xr_conditions.signal", (actor: ClientObject, object: ClientObject, [signalName]: [TName]): boolean => {
+extern("xr_conditions.signal", (actor: GameObject, object: GameObject, [signalName]: [TName]): boolean => {
   const state: IRegistryObjectState = registry.objects.get(object.id());
   const signals: Optional<LuaTable<TName, boolean>> = state[state.activeScheme!]!.signals;
 
@@ -26,7 +26,7 @@ extern("xr_conditions.signal", (actor: ClientObject, object: ClientObject, [sign
  */
 extern(
   "xr_conditions.counter_greater",
-  (actor: ClientObject, object: ClientObject, [name, count]: [Optional<TName>, Optional<TCount>]): boolean => {
+  (actor: GameObject, object: GameObject, [name, count]: [Optional<TName>, Optional<TCount>]): boolean => {
     if (!name || !count) {
       abort("Invalid parameters supplied for condition 'counter_greater'.");
     }
@@ -41,7 +41,7 @@ extern(
  */
 extern(
   "xr_conditions.counter_equal",
-  (actor: ClientObject, object: ClientObject, [name, count]: [Optional<TName>, Optional<TCount>]): boolean => {
+  (actor: GameObject, object: GameObject, [name, count]: [Optional<TName>, Optional<TCount>]): boolean => {
     if (!name || !count) {
       abort("Invalid parameters supplied for condition 'counter_equal'.");
     }

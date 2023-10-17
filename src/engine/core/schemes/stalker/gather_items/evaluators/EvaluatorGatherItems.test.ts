@@ -2,13 +2,13 @@ import { describe, expect, it, jest } from "@jest/globals";
 
 import { ISchemeGatherItemsState } from "@/engine/core/schemes/stalker/gather_items";
 import { EvaluatorGatherItems } from "@/engine/core/schemes/stalker/gather_items/evaluators/EvaluatorGatherItems";
-import { ClientObject, EScheme } from "@/engine/lib/types";
+import { EScheme, GameObject } from "@/engine/lib/types";
 import { mockSchemeState } from "@/fixtures/engine";
-import { mockClientGameObject, MockPropertyStorage } from "@/fixtures/xray";
+import { mockGameObject, MockPropertyStorage } from "@/fixtures/xray";
 
 describe("EvaluatorGatherItems class", () => {
   it("should correctly evaluate state for default state", () => {
-    const object: ClientObject = mockClientGameObject();
+    const object: GameObject = mockGameObject();
     const state: ISchemeGatherItemsState = mockSchemeState(EScheme.GATHER_ITEMS);
     const evaluator: EvaluatorGatherItems = new EvaluatorGatherItems(state);
 
@@ -23,7 +23,7 @@ describe("EvaluatorGatherItems class", () => {
   });
 
   it("should correctly evaluate state for lootable state", () => {
-    const object: ClientObject = mockClientGameObject();
+    const object: GameObject = mockGameObject();
     const state: ISchemeGatherItemsState = mockSchemeState<ISchemeGatherItemsState>(EScheme.GATHER_ITEMS, {
       canLootItems: true,
     });
@@ -39,7 +39,7 @@ describe("EvaluatorGatherItems class", () => {
   });
 
   it("should correctly evaluate state for not lootable state", () => {
-    const object: ClientObject = mockClientGameObject();
+    const object: GameObject = mockGameObject();
     const state: ISchemeGatherItemsState = mockSchemeState<ISchemeGatherItemsState>(EScheme.GATHER_ITEMS, {
       canLootItems: false,
     });

@@ -11,7 +11,7 @@ import { parseConditionsList } from "@/engine/core/utils/ini/ini_parse";
 import { TConditionList } from "@/engine/core/utils/ini/ini_types";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { FALSE } from "@/engine/lib/constants/words";
-import { ClientObject, Optional, TIndex, TSection } from "@/engine/lib/types";
+import { GameObject, Optional, TIndex, TSection } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -95,7 +95,7 @@ export class CamEffectorSet {
    */
   public selectEffect(): Optional<ICamEffectorSetDescriptorItem> {
     const state: EEffectorState = this.state;
-    const actor: ClientObject = registry.actor;
+    const actor: GameObject = registry.actor;
     let currentEffect: TIndex = this.currentEffect;
 
     if (this.looped) {

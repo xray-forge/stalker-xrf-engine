@@ -3,7 +3,7 @@ import { action_base, LuabindClass } from "xray16";
 import { StalkerStateManager } from "@/engine/core/objects/ai/state/StalkerStateManager";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { sendToNearestAccessibleVertex } from "@/engine/core/utils/position";
-import { ClientObject } from "@/engine/lib/types";
+import { GameObject } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -27,7 +27,7 @@ export class ActionSmartCoverExit extends action_base {
 
     super.initialize();
 
-    const object: ClientObject = this.object;
+    const object: GameObject = this.object;
 
     object.set_smart_cover_target();
     object.use_smart_covers_only(false);

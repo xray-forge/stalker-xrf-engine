@@ -19,7 +19,7 @@ import { gameConfig } from "@/engine/lib/configs/GameConfig";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import { questItems } from "@/engine/lib/constants/items/quest_items";
 import { FALSE, TRUE } from "@/engine/lib/constants/words";
-import { ClientObject, LuaArray, Optional, TCount, TLabel, TName, TNumberId, TRate } from "@/engine/lib/types";
+import { GameObject, LuaArray, Optional, TCount, TLabel, TName, TNumberId, TRate } from "@/engine/lib/types";
 import { TSection } from "@/engine/lib/types/scheme";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -232,7 +232,7 @@ export class UpgradesManager extends AbstractManager {
    * todo: Description.
    */
   public getPreRequirementsFunctorA(name: TName, section: TSection): TLabel {
-    const actor: ClientObject = registry.actor;
+    const actor: GameObject = registry.actor;
     let label: TLabel = "";
 
     if (STALKER_UPGRADE_INFO.line_exist(this.currentMechanicName + "_upgr", section)) {
@@ -381,7 +381,7 @@ export class UpgradesManager extends AbstractManager {
    *
    * @param object - game object of item switching online
    */
-  public onItemGoOnlineFirstTime(object: ClientObject): void {
+  public onItemGoOnlineFirstTime(object: GameObject): void {
     if (!upgradesConfig.ADD_RANDOM_UPGRADES) {
       return;
     }

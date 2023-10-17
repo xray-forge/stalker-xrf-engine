@@ -12,8 +12,8 @@ import { parseWaypointsData } from "@/engine/core/utils/ini";
 import { isObjectAtTerminalWaypoint } from "@/engine/core/utils/patrol";
 import { createVector } from "@/engine/core/utils/vector";
 import {
-  ClientObject,
   DangerObject,
+  GameObject,
   ISchemeEventHandler,
   Optional,
   Patrol,
@@ -40,10 +40,10 @@ export class ActionCloseCombat extends action_base implements ISchemeEventHandle
   public lookPoint: Optional<Vector> = null;
   public point0: Optional<Vector> = null;
   public point2: Optional<Vector> = null;
-  public enemy: Optional<ClientObject> = null;
+  public enemy: Optional<GameObject> = null;
   public enemyPosition: Optional<Vector> = null;
 
-  public constructor(state: ISchemeCamperState, object: ClientObject) {
+  public constructor(state: ISchemeCamperState, object: GameObject) {
     super(null, ActionCloseCombat.__name);
 
     this.state = state;
@@ -335,7 +335,7 @@ export class ActionCloseCombat extends action_base implements ISchemeEventHandle
       return false;
     }
 
-    const bestDangerObject: ClientObject = bestDanger.object();
+    const bestDangerObject: GameObject = bestDanger.object();
 
     if (!this.danger) {
       this.object.play_sound(stalker_ids.sound_alarm, 1, 0, 1, 0);

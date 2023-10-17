@@ -13,11 +13,11 @@ import { StalkerStateManager } from "@/engine/core/objects/ai/state/StalkerState
 import { EStalkerState } from "@/engine/core/objects/animation/types/state_types";
 import { StalkerBinder } from "@/engine/core/objects/binders/creature/StalkerBinder";
 import { createEmptyVector } from "@/engine/core/utils/vector";
-import { mockClientGameObject } from "@/fixtures/xray";
+import { mockGameObject } from "@/fixtures/xray";
 
 describe("stalker module of the database", () => {
   it("should correctly register actor", () => {
-    const stalker: StalkerBinder = new StalkerBinder(mockClientGameObject());
+    const stalker: StalkerBinder = new StalkerBinder(mockGameObject());
 
     registerStalker(stalker);
 
@@ -38,7 +38,7 @@ describe("stalker module of the database", () => {
   });
 
   it("should correctly get and set state", () => {
-    const stalker: StalkerBinder = new StalkerBinder(mockClientGameObject());
+    const stalker: StalkerBinder = new StalkerBinder(mockGameObject());
 
     registerStalker(stalker);
 
@@ -93,7 +93,7 @@ describe("stalker module of the database", () => {
   });
 
   it("should correctly reset state", () => {
-    const stalker: StalkerBinder = new StalkerBinder(mockClientGameObject());
+    const stalker: StalkerBinder = new StalkerBinder(mockGameObject());
 
     registerStalker(stalker);
 
@@ -125,7 +125,7 @@ describe("stalker module of the database", () => {
   });
 
   it("should correctly reset state when state manager does not exist", () => {
-    const stalker: StalkerBinder = new StalkerBinder(mockClientGameObject());
+    const stalker: StalkerBinder = new StalkerBinder(mockGameObject());
 
     registerStalker(stalker);
 

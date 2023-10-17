@@ -7,11 +7,11 @@ import { StalkerStateManager } from "@/engine/core/objects/ai/state/StalkerState
 import { EStalkerState } from "@/engine/core/objects/animation/types";
 import { StalkerBinder } from "@/engine/core/objects/binders/creature/StalkerBinder";
 import { createEmptyVector } from "@/engine/core/utils/vector";
-import { mockClientGameObject, MockPropertyStorage } from "@/fixtures/xray";
+import { mockGameObject, MockPropertyStorage } from "@/fixtures/xray";
 
 describe("ActionAnimationStop class", () => {
   it("should correctly perform stop action", () => {
-    const stalker: StalkerBinder = new StalkerBinder(mockClientGameObject());
+    const stalker: StalkerBinder = new StalkerBinder(mockGameObject());
 
     registerStalker(stalker);
 

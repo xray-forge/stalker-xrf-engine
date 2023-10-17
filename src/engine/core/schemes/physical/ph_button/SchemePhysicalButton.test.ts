@@ -6,13 +6,13 @@ import { PhysicalButtonManager } from "@/engine/core/schemes/physical/ph_button/
 import { SchemePhysicalButton } from "@/engine/core/schemes/physical/ph_button/SchemePhysicalButton";
 import { getConfigSwitchConditions, parseConditionsList } from "@/engine/core/utils/ini";
 import { loadSchemeImplementation } from "@/engine/core/utils/scheme";
-import { ClientObject, EScheme, IniFile } from "@/engine/lib/types";
+import { EScheme, GameObject, IniFile } from "@/engine/lib/types";
 import { assertSchemeSubscribedToManager } from "@/fixtures/engine";
-import { mockClientGameObject, mockIniFile } from "@/fixtures/xray";
+import { mockGameObject, mockIniFile } from "@/fixtures/xray";
 
 describe("SchemePhysicalButton", () => {
   it("should correctly activate with defaults", () => {
-    const object: ClientObject = mockClientGameObject();
+    const object: GameObject = mockGameObject();
     const ini: IniFile = mockIniFile("test.ltx", {
       "ph_button@test": {
         anim: "anim_test",
@@ -40,7 +40,7 @@ describe("SchemePhysicalButton", () => {
   });
 
   it("should correctly activate with data", () => {
-    const object: ClientObject = mockClientGameObject();
+    const object: GameObject = mockGameObject();
     const ini: IniFile = mockIniFile("test.ltx", {
       "ph_button@test": {
         on_info: "{+test} first, second",

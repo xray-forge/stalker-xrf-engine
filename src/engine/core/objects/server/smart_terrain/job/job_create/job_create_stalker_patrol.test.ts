@@ -10,7 +10,7 @@ import { jobPreconditionPatrol } from "@/engine/core/objects/server/smart_terrai
 import { range } from "@/engine/core/utils/number";
 import { StringBuilder } from "@/engine/core/utils/string";
 import { mockSmartTerrain, readInGameTestLtx } from "@/fixtures/engine";
-import { mockClientGameObject } from "@/fixtures/xray";
+import { mockGameObject } from "@/fixtures/xray";
 
 describe("should correctly generate stalker patrol jobs", () => {
   it("should correctly generate default patrol jobs with no patrols", async () => {
@@ -82,7 +82,7 @@ describe("should correctly generate stalker patrol jobs", () => {
     smartTerrain.defendRestrictor = "test_defend_restrictor";
     smartTerrain.smartTerrainActorControl = { ignoreZone: "some_restrictor" } as SmartTerrainControl;
 
-    registerZone(mockClientGameObject({ name: () => "some_restrictor", inside: () => true }));
+    registerZone(mockGameObject({ name: () => "some_restrictor", inside: () => true }));
 
     jest.spyOn(smartTerrain, "name").mockImplementation(() => "test_smart");
 
@@ -115,7 +115,7 @@ describe("should correctly generate stalker patrol jobs", () => {
     smartTerrain.smartTerrainActorControl = { ignoreZone: "some_restrictor" } as SmartTerrainControl;
     smartTerrain.safeRestrictor = "safe_restrictor_test";
 
-    registerZone(mockClientGameObject({ name: () => "safe_restrictor_test", inside: () => true }));
+    registerZone(mockGameObject({ name: () => "safe_restrictor_test", inside: () => true }));
 
     const [jobs, builder] = createStalkerPatrolJobs(smartTerrain, new LuaTable(), new StringBuilder());
 

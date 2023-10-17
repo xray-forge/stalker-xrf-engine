@@ -1,7 +1,7 @@
 import { entity_action } from "xray16";
 
 import { alifeConfig } from "@/engine/lib/configs/AlifeConfig";
-import { ClientObject, EntityAction, TEntityActionType, TName } from "@/engine/lib/types";
+import { EntityAction, GameObject, TEntityActionType, TName } from "@/engine/lib/types";
 
 /**
  * Check whether monster is currently captured by script logic.
@@ -9,14 +9,14 @@ import { ClientObject, EntityAction, TEntityActionType, TName } from "@/engine/l
  * @param object - target client monster object
  * @returns whether monster currently has active script
  */
-export function isMonsterScriptCaptured(object: ClientObject): boolean {
+export function isMonsterScriptCaptured(object: GameObject): boolean {
   return object.get_script();
 }
 
 /**
  * todo;
  */
-export function resetMonsterAction(object: ClientObject, scriptName: TName): void {
+export function resetMonsterAction(object: GameObject, scriptName: TName): void {
   if (object.get_script()) {
     object.script(false, object.get_script_name());
   }
@@ -33,7 +33,7 @@ export function resetMonsterAction(object: ClientObject, scriptName: TName): voi
  * @param scriptName - script name to capture object, using shared name for XRF logics by default
  */
 export function scriptCaptureMonster(
-  object: ClientObject,
+  object: GameObject,
   resetActions: boolean,
   scriptName: TName = alifeConfig.OBJECT_CAPTURE_SCRIPT_NAME
 ): void {
@@ -50,7 +50,7 @@ export function scriptCaptureMonster(
  *
  * @param object - target client object
  */
-export function scriptReleaseMonster(object: ClientObject): void {
+export function scriptReleaseMonster(object: GameObject): void {
   if (object.get_script()) {
     object.script(false, object.get_script_name());
   }
@@ -62,7 +62,7 @@ export function scriptReleaseMonster(object: ClientObject): void {
  * @param object - target object to command
  * @param actions - list of actions to perform
  */
-export function scriptCommandMonster(object: ClientObject, ...actions: Array<TEntityActionType>): void {
+export function scriptCommandMonster(object: GameObject, ...actions: Array<TEntityActionType>): void {
   const entityAction: EntityAction = new entity_action();
 
   for (const type of actions) {

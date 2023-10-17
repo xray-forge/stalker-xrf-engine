@@ -3,7 +3,7 @@ import { level } from "xray16";
 import { EStalkerState } from "@/engine/core/objects/animation/types";
 import { abort } from "@/engine/core/utils/assertion";
 import { createEmptyVector, createVector, vectorCross, vectorRotateY, yawDegree } from "@/engine/core/utils/vector";
-import { ClientObject, Optional, TCount, TDistance, TName, TNumberId, TRate, Vector } from "@/engine/lib/types";
+import { GameObject, Optional, TCount, TDistance, TName, TNumberId, TRate, Vector } from "@/engine/lib/types";
 
 // todo: Move out
 // todo: Move out
@@ -66,7 +66,7 @@ export class PatrolManager {
   /**
    * todo;
    */
-  public addObject(object: ClientObject, leader: Optional<boolean>): void {
+  public addObject(object: GameObject, leader: Optional<boolean>): void {
     if (object === null || object.alive() === false || this.npcList.get(object.id()) !== null) {
       return;
     }
@@ -89,7 +89,7 @@ export class PatrolManager {
   /**
    * todo;
    */
-  public removeObject(object: Optional<ClientObject>): void {
+  public removeObject(object: Optional<GameObject>): void {
     if (object === null) {
       return;
     }
@@ -146,7 +146,7 @@ export class PatrolManager {
     this.resetPositions();
   }
 
-  public getCommander(object: ClientObject): void {
+  public getCommander(object: GameObject): void {
     if (object === null) {
       abort("Invalid NPC on call PatrolManager:get_npc_command in PatrolManager[%s]", this.pathName);
     }
@@ -171,7 +171,7 @@ export class PatrolManager {
   /**
    * todo;
    */
-  public getObjectCommand(object: ClientObject): LuaMultiReturn<[number, Vector, EStalkerState]> {
+  public getObjectCommand(object: GameObject): LuaMultiReturn<[number, Vector, EStalkerState]> {
     if (object === null) {
       abort("Invalid NPC on call PatrolManager:get_npc_command in PatrolManager[%s]", this.pathName);
     }
@@ -234,7 +234,7 @@ export class PatrolManager {
   /**
    * todo;
    */
-  public setObjectCommand(object: ClientObject, command: EStalkerState, formation: string): void {
+  public setObjectCommand(object: GameObject, command: EStalkerState, formation: string): void {
     if (object === null || object.alive() === false) {
       this.removeObject(object);
 

@@ -1,6 +1,6 @@
 import type { IBaseSchemeState } from "@/engine/core/database/database_types";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import type { ClientObject, ISchemeEventHandler, Optional, TCount, TIndex, TName, Vector } from "@/engine/lib/types";
+import type { GameObject, ISchemeEventHandler, Optional, TCount, TIndex, TName, Vector } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -9,49 +9,49 @@ const logger: LuaLogger = new LuaLogger($filename);
  * Includes generic handlers and interface for implementation of scheme events.
  */
 export abstract class AbstractSchemeManager<T extends IBaseSchemeState> implements ISchemeEventHandler {
-  public readonly object: ClientObject;
+  public readonly object: GameObject;
   public readonly state: T;
 
-  public constructor(object: ClientObject, state: T) {
+  public constructor(object: GameObject, state: T) {
     this.object = object;
     this.state = state;
   }
 
-  public activate(isLoading: boolean, object: ClientObject): void {
+  public activate(isLoading: boolean, object: GameObject): void {
     // logger.info("Reset scheme:", this.state?.scheme, this.object.name());
   }
 
-  public deactivate(object: ClientObject): void {
+  public deactivate(object: GameObject): void {
     // logger.info("Deactivate:", this.state?.scheme, this.object.name());
   }
 
-  public onSwitchOnline(object: ClientObject): void {
+  public onSwitchOnline(object: GameObject): void {
     // logger.info("Net spawn:", this.state?.scheme, object.name());
   }
 
-  public onSwitchOffline(object: ClientObject): void {
+  public onSwitchOffline(object: GameObject): void {
     // logger.info("Net destroy:", this.state?.scheme, object.name());
   }
 
   public onHit(
-    object: ClientObject,
+    object: GameObject,
     amount: TCount,
     direction: Vector,
-    who: Optional<ClientObject>,
+    who: Optional<GameObject>,
     boneIndex: TIndex
   ): void {
     // logger.info("Hit:", this.state?.scheme, this.object.name());
   }
 
-  public onUse(object: ClientObject, who: Optional<ClientObject>): void {
+  public onUse(object: GameObject, who: Optional<GameObject>): void {
     logger.info("Use:", this.state?.scheme, this.object.name());
   }
 
-  public onWaypoint(object: ClientObject, actionType: TName, index: TIndex): void {
+  public onWaypoint(object: GameObject, actionType: TName, index: TIndex): void {
     logger.info("Waypoint:", this.state?.scheme, this.object.name());
   }
 
-  public onDeath(victim: ClientObject, who: Optional<ClientObject>): void {
+  public onDeath(victim: GameObject, who: Optional<GameObject>): void {
     logger.info("Death:", this.state?.scheme, this.object.name());
   }
 

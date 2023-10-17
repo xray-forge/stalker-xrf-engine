@@ -18,9 +18,9 @@ import {
 } from "@/engine/core/utils/patrol";
 import { setObjectActiveSchemeSignal } from "@/engine/core/utils/scheme";
 import {
-  ClientObject,
-  EClientObjectPath,
+  EGameObjectPath,
   Flags32,
+  GameObject,
   LuaArray,
   Optional,
   Patrol,
@@ -56,7 +56,7 @@ export class StalkerPatrolManager {
   public static DISTANCE_TO_RUN_SQR: TDistance = 50 * 50; // Distances to coordinate current run movement
 
   // Object linked to the manager.
-  public readonly object: ClientObject;
+  public readonly object: GameObject;
   public team: Optional<TName> = null;
 
   public suggestedStates: Optional<IPatrolSuggestedState> = null;
@@ -95,7 +95,7 @@ export class StalkerPatrolManager {
   public defaultStateMoving2!: TConditionList;
   public defaultStateMoving3!: TConditionList;
 
-  public constructor(object: ClientObject) {
+  public constructor(object: GameObject) {
     this.object = object;
   }
 
@@ -248,7 +248,7 @@ export class StalkerPatrolManager {
       registry.patrolSynchronization.get(this.team).delete(this.object.id());
     }
 
-    this.object.set_path_type(EClientObjectPath.LEVEL_PATH);
+    this.object.set_path_type(EGameObjectPath.LEVEL_PATH);
 
     // todo: Should remove callback from init?
   }
@@ -257,7 +257,7 @@ export class StalkerPatrolManager {
    * todo: Description.
    */
   public setup(): void {
-    this.object.set_path_type(EClientObjectPath.PATROL_PATH);
+    this.object.set_path_type(EGameObjectPath.PATROL_PATH);
     this.object.set_detail_path_type(move.line);
 
     if (this.currentPointIndex) {
@@ -431,7 +431,7 @@ export class StalkerPatrolManager {
    * Handle reaching `walk` waypoint of patrol.
    * todo: Description.
    */
-  public onWalkWaypoint(object: ClientObject, actionType: Optional<number>, index: Optional<TIndex>): void {
+  public onWalkWaypoint(object: GameObject, actionType: Optional<number>, index: Optional<TIndex>): void {
     logger.format(
       "Waypoint `walk`: '%s' action '%s', '%s' -> '%s'",
       this.object.name(),
@@ -513,7 +513,7 @@ export class StalkerPatrolManager {
    * todo: Description.
    */
   public onLookWaypoint(
-    object: ClientObject,
+    object: GameObject,
     actionType: Optional<number>,
     index: Optional<TIndex>,
     flags: Flags32
@@ -593,7 +593,7 @@ export class StalkerPatrolManager {
    * @param object - target object callback is called for
    * @param pointIndex - index of extrapolate point
    */
-  public onExtrapolate(object: ClientObject, pointIndex: TIndex): void {
+  public onExtrapolate(object: GameObject, pointIndex: TIndex): void {
     this.canUseGetCurrentPointIndex = true;
     this.currentPointInitAt = time_global();
     this.currentPointIndex = this.object.get_current_point_index();

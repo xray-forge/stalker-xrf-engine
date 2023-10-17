@@ -11,7 +11,7 @@ import {
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { ItemHelmet } from "@/engine/core/objects/server/item/ItemHelmet";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { ClientObject } from "@/engine/lib/types";
+import { GameObject } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -53,7 +53,7 @@ export class HelmetBinder extends object_binder {
     resetObject(this.object);
   }
 
-  public override net_Relcase(object: ClientObject): void {
+  public override net_Relcase(object: GameObject): void {
     super.net_Relcase(object);
 
     unregisterObjectDynamicState(object.id());

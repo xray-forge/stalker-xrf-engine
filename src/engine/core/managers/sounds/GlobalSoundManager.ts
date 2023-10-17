@@ -8,7 +8,7 @@ import { assert } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import {
-  ClientObject,
+  GameObject,
   NetPacket,
   NetProcessor,
   Optional,
@@ -290,7 +290,7 @@ export class GlobalSoundManager extends AbstractManager {
   /**
    * todo: Description.
    */
-  public saveObject(packet: NetPacket, object: ClientObject): void {
+  public saveObject(packet: NetPacket, object: GameObject): void {
     openSaveMarker(packet, GlobalSoundManager.name + "Object");
 
     for (const [, theme] of soundsConfig.themes) {
@@ -303,7 +303,7 @@ export class GlobalSoundManager extends AbstractManager {
   /**
    * todo: Description.
    */
-  public loadObject(reader: NetProcessor, object: ClientObject): void {
+  public loadObject(reader: NetProcessor, object: GameObject): void {
     openLoadMarker(reader, GlobalSoundManager.name + "Object");
 
     for (const [, theme] of soundsConfig.themes) {

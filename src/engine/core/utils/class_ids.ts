@@ -8,7 +8,7 @@ import type { Squad } from "@/engine/core/objects/server/squad";
 import { classIds } from "@/engine/lib/constants/class_ids";
 import type {
   AnyGameObject,
-  ClientObject,
+  GameObject,
   Optional,
   ServerArtefactItemObject,
   ServerHumanObject,
@@ -24,7 +24,7 @@ import type {
  * @param object - target client object to check
  * @returns whether provided object class id is matching monster
  */
-export function isMonster(object: ClientObject): object is ClientObject;
+export function isMonster(object: GameObject): object is GameObject;
 export function isMonster(object: ServerObject): object is ServerMonsterAbstractObject;
 export function isMonster(object: AnyGameObject): boolean {
   return classIds.monster.has(object.clsid());
@@ -94,7 +94,7 @@ export function isArtefact(object: AnyGameObject): object is ServerArtefactItemO
  * @param object - object to check
  * @returns whether strap animation is available for weapon
  */
-export function isStrappableWeapon(object: Optional<ClientObject>): object is ClientObject {
+export function isStrappableWeapon(object: Optional<GameObject>): object is GameObject {
   return object === null ? false : SYSTEM_INI.line_exist(object.section(), "strap_bone0");
 }
 

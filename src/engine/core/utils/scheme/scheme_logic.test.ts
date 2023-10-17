@@ -46,9 +46,9 @@ import {
 } from "@/engine/core/utils/scheme/scheme_logic";
 import { loadSchemeImplementation, loadSchemeImplementations } from "@/engine/core/utils/scheme/scheme_setup";
 import { NIL } from "@/engine/lib/constants/words";
-import { ClientObject, EScheme, ESchemeType, IniFile, ServerHumanObject } from "@/engine/lib/types";
+import { EScheme, ESchemeType, GameObject, IniFile, ServerHumanObject } from "@/engine/lib/types";
 import { getSchemeAction, mockSchemeState } from "@/fixtures/engine/mocks";
-import { MockAlifeSimulator, mockClientGameObject, mockIniFile, mockServerAlifeHumanStalker } from "@/fixtures/xray";
+import { MockAlifeSimulator, mockGameObject, mockIniFile, mockServerAlifeHumanStalker } from "@/fixtures/xray";
 import { MockCTime } from "@/fixtures/xray/mocks/CTime.mock";
 
 describe("scheme logic utils", () => {
@@ -75,12 +75,12 @@ describe("scheme logic utils", () => {
 
   beforeEach(() => {
     registry.schemes = new LuaTable();
-    registry.actor = null as unknown as ClientObject;
+    registry.actor = null as unknown as GameObject;
     registerSimulator();
   });
 
   it("isActiveSection should correctly check active scheme state", () => {
-    const object: ClientObject = mockClientGameObject();
+    const object: GameObject = mockGameObject();
     const state: IRegistryObjectState = registerObject(object);
 
     state.activeSection = null;
@@ -94,8 +94,8 @@ describe("scheme logic utils", () => {
   });
 
   it("getSectionToActivate should correctly determine active section", () => {
-    const actor: ClientObject = mockClientGameObject();
-    const object: ClientObject = mockClientGameObject();
+    const actor: GameObject = mockGameObject();
+    const object: GameObject = mockGameObject();
 
     const ini: IniFile = mockIniFile("test.ltx", {
       "sr_idle@empty": {},
@@ -138,9 +138,9 @@ describe("scheme logic utils", () => {
   });
 
   it("activateSchemeBySection should correctly activate NIL scheme", () => {
-    const first: ClientObject = mockClientGameObject();
+    const first: GameObject = mockGameObject();
     const firstState: IRegistryObjectState = registerObject(first);
-    const second: ClientObject = mockClientGameObject();
+    const second: GameObject = mockGameObject();
     const secondState: IRegistryObjectState = registerObject(second);
 
     const ini: IniFile = mockIniFile("test.ltx", {
@@ -169,12 +169,12 @@ describe("scheme logic utils", () => {
   });
 
   it("activateSchemeBySection should correctly assign smart terrain jobs", () => {
-    const object: ClientObject = mockClientGameObject();
+    const object: GameObject = mockGameObject();
     const serverObject: ServerHumanObject = mockServerAlifeHumanStalker({ id: object.id() });
     const state: IRegistryObjectState = registerObject(object);
     const smartTerrain: SmartTerrain = new SmartTerrain("smart_terrain");
 
-    registerActor(mockClientGameObject());
+    registerActor(mockGameObject());
 
     MockAlifeSimulator.addToRegistry(serverObject);
     MockAlifeSimulator.addToRegistry(smartTerrain);
@@ -207,13 +207,13 @@ describe("scheme logic utils", () => {
   });
 
   it("activateSchemeBySection should correctly activate schemes for restrictors", () => {
-    const object: ClientObject = mockClientGameObject();
+    const object: GameObject = mockGameObject();
     const state: IRegistryObjectState = registerObject(object);
     const ini: IniFile = mockIniFile("test.ltx", {
       "sr_idle@test": {},
     });
 
-    registerActor(mockClientGameObject());
+    registerActor(mockGameObject());
 
     state.ini = ini;
     state.schemeType = ESchemeType.RESTRICTOR;
@@ -236,13 +236,13 @@ describe("scheme logic utils", () => {
   });
 
   it("activateSchemeBySection should correctly change generic sections", () => {
-    const object: ClientObject = mockClientGameObject();
+    const object: GameObject = mockGameObject();
     const state: IRegistryObjectState = registerObject(object);
     const ini: IniFile = mockIniFile("test.ltx", {
       "hit@test": {},
     });
 
-    registerActor(mockClientGameObject());
+    registerActor(mockGameObject());
 
     state.ini = ini;
     state.schemeType = ESchemeType.STALKER;
@@ -280,7 +280,7 @@ describe("scheme logic utils", () => {
   });
 
   it("enableObjectBaseSchemes should correctly enables schemes for heli", () => {
-    const object: ClientObject = mockClientGameObject();
+    const object: GameObject = mockGameObject();
     const ini: IniFile = mockIniFile("test.ltx", {
       "sr_idle@first": {},
       "sr_idle@second": {
@@ -300,7 +300,7 @@ describe("scheme logic utils", () => {
   });
 
   it("enableObjectBaseSchemes should correctly enables schemes for items", () => {
-    const object: ClientObject = mockClientGameObject();
+    const object: GameObject = mockGameObject();
     const ini: IniFile = mockIniFile("test.ltx", {
       "sr_idle@first": {},
       "sr_idle@second": {
@@ -320,7 +320,7 @@ describe("scheme logic utils", () => {
   });
 
   it("enableObjectBaseSchemes should correctly enables schemes for monsters", () => {
-    const object: ClientObject = mockClientGameObject();
+    const object: GameObject = mockGameObject();
     const state: IRegistryObjectState = registerObject(object);
     const ini: IniFile = mockIniFile("test.ltx", {
       "sr_idle@first": {},
@@ -362,7 +362,7 @@ describe("scheme logic utils", () => {
   });
 
   it("enableObjectBaseSchemes should correctly enables schemes for stalkers", () => {
-    const object: ClientObject = mockClientGameObject();
+    const object: GameObject = mockGameObject();
     const state: IRegistryObjectState = registerObject(object);
     const ini: IniFile = mockIniFile("test.ltx", {
       "sr_idle@first": {},
@@ -399,7 +399,7 @@ describe("scheme logic utils", () => {
 
     schemes.forEach((it) => jest.spyOn(it, "activate").mockImplementation(() => mockSchemeState(it.SCHEME_SECTION)));
     loadSchemeImplementations($fromArray<TAbstractSchemeConstructor>(schemes));
-    registerActor(mockClientGameObject());
+    registerActor(mockGameObject());
 
     enableObjectBaseSchemes(object, ini, ESchemeType.STALKER, "sr_idle@first");
     expect(SchemeAbuse.activate).toHaveBeenCalledWith(object, ini, EScheme.ABUSE, "sr_idle@first");
@@ -438,17 +438,17 @@ describe("scheme logic utils", () => {
   });
 
   it("resetObjectGenericSchemesOnSectionSwitch should correctly reset base schemes", () => {
-    registerActor(mockClientGameObject());
+    registerActor(mockGameObject());
 
-    const stalker: ClientObject = mockClientGameObject();
+    const stalker: GameObject = mockGameObject();
     const stalkerState: IRegistryObjectState = registerObject(stalker);
-    const monster: ClientObject = mockClientGameObject();
+    const monster: GameObject = mockGameObject();
     const monsterState: IRegistryObjectState = registerObject(monster);
-    const item: ClientObject = mockClientGameObject();
+    const item: GameObject = mockGameObject();
     const itemState: IRegistryObjectState = registerObject(item);
-    const restrictor: ClientObject = mockClientGameObject();
+    const restrictor: GameObject = mockGameObject();
     const restrictorState: IRegistryObjectState = registerObject(restrictor);
-    const helicopter: ClientObject = mockClientGameObject();
+    const helicopter: GameObject = mockGameObject();
     const helicopterState: IRegistryObjectState = registerObject(helicopter);
 
     const ini: IniFile = mockIniFile("test.ltx", {
@@ -541,7 +541,7 @@ describe("scheme logic utils", () => {
   });
 
   it("resetObjectGenericSchemesOnSectionSwitch should correctly reset bloodsucker state", () => {
-    const monster: ClientObject = mockClientGameObject({
+    const monster: GameObject = mockGameObject({
       clsid: () => clsid.bloodsucker_s,
     });
     const state: IRegistryObjectState = registerObject(monster);

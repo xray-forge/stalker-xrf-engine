@@ -14,7 +14,7 @@ import { createEmptyVector } from "@/engine/core/utils/vector";
 import { roots } from "@/engine/lib/constants/roots";
 import { NIL } from "@/engine/lib/constants/words";
 import {
-  ClientObject,
+  GameObject,
   IniFile,
   LuaArray,
   NetPacket,
@@ -100,7 +100,7 @@ export class ActorSound extends AbstractPlayableSound {
   /**
    * todo;
    */
-  public play(object: ClientObject, faction: string, point: string, message: string): boolean {
+  public play(object: GameObject, faction: string, point: string, message: string): boolean {
     if (!this.canPlaySound) {
       return false;
     }

@@ -3,7 +3,7 @@ import { AbstractSchemeManager } from "@/engine/core/objects/ai/scheme";
 import { ISchemeHitState } from "@/engine/core/schemes/stalker/hit/hit_types";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { trySwitchToAnotherSection } from "@/engine/core/utils/scheme/scheme_switch";
-import { ClientObject, EScheme, Optional, TCount, TIndex, Vector } from "@/engine/lib/types";
+import { EScheme, GameObject, Optional, TCount, TIndex, Vector } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -12,10 +12,10 @@ const logger: LuaLogger = new LuaLogger($filename);
  */
 export class HitManager extends AbstractSchemeManager<ISchemeHitState> {
   public override onHit(
-    object: ClientObject,
+    object: GameObject,
     amount: TCount,
     localDirection: Vector,
-    who: Optional<ClientObject>,
+    who: Optional<GameObject>,
     boneIndex: TIndex
   ): void {
     // todo: Probably play around with this and avoid this external refs. this.state?

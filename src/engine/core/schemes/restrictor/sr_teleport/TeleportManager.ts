@@ -7,7 +7,7 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 import { teleportActorWithEffects } from "@/engine/core/utils/position";
 import { trySwitchToAnotherSection } from "@/engine/core/utils/scheme/scheme_switch";
 import { postProcessors } from "@/engine/lib/constants/animation";
-import { ClientObject, Optional, TProbability, TTimestamp, Vector } from "@/engine/lib/types";
+import { GameObject, Optional, TProbability, TTimestamp, Vector } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -19,7 +19,7 @@ export class TeleportManager extends AbstractSchemeManager<ISchemeTeleportState>
   public timer: TTimestamp = 0;
 
   public update(): void {
-    const actor: Optional<ClientObject> = registry.actor;
+    const actor: Optional<GameObject> = registry.actor;
     const now: TTimestamp = time_global();
 
     if (!actor) {

@@ -20,7 +20,7 @@ import { infoPortions } from "@/engine/lib/constants/info_portions";
 import { TLevel } from "@/engine/lib/constants/levels";
 import { Z_VECTOR } from "@/engine/lib/constants/vectors";
 import { TRUE } from "@/engine/lib/constants/words";
-import { ClientObject, Hit, LuaArray, Optional } from "@/engine/lib/types";
+import { GameObject, Hit, LuaArray, Optional } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -29,7 +29,7 @@ const logger: LuaLogger = new LuaLogger($filename);
  */
 export function killAllSurgeUnhiddenAfterActorDeath(): void {
   const simulationBoardManager: SimulationBoardManager = SimulationBoardManager.getInstance();
-  const surgeCovers: LuaArray<ClientObject> = getOnlineSurgeCoversList();
+  const surgeCovers: LuaArray<GameObject> = getOnlineSurgeCoversList();
   const levelName: TLevel = level.name();
 
   for (const [, squad] of simulationBoardManager.getSquads()) {
@@ -51,7 +51,7 @@ export function killAllSurgeUnhiddenAfterActorDeath(): void {
             squad.name()
           );
 
-          const object: Optional<ClientObject> = registry.objects.get(member.object.id)?.object;
+          const object: Optional<GameObject> = registry.objects.get(member.object.id)?.object;
 
           // todo: What is the difference here?
           if (object === null) {
@@ -71,7 +71,7 @@ export function killAllSurgeUnhiddenAfterActorDeath(): void {
 export function killAllSurgeUnhidden(): void {
   logger.info("Kill all surge not unhidden");
 
-  const actor: ClientObject = registry.actor;
+  const actor: GameObject = registry.actor;
   const surgeHit: Hit = new hit();
 
   surgeHit.type = hit.fire_wound;
@@ -83,7 +83,7 @@ export function killAllSurgeUnhidden(): void {
   logger.info("Kill crows");
 
   for (const [, id] of registry.crows.storage) {
-    const object: Optional<ClientObject> = registry.objects.get(id)?.object;
+    const object: Optional<GameObject> = registry.objects.get(id)?.object;
 
     if (object.alive()) {
       object.hit(surgeHit);
@@ -91,7 +91,7 @@ export function killAllSurgeUnhidden(): void {
   }
 
   const simulationBoardManager: SimulationBoardManager = SimulationBoardManager.getInstance();
-  const surgeCovers: LuaArray<ClientObject> = getOnlineSurgeCoversList();
+  const surgeCovers: LuaArray<GameObject> = getOnlineSurgeCoversList();
   const levelName: TLevel = level.name();
 
   logger.info("Killing squads");
@@ -103,7 +103,7 @@ export function killAllSurgeUnhidden(): void {
           if (canSurgeKillSquad(squad)) {
             logger.info("Releasing object from squad because of surge:", member.object.name(), squad.name());
 
-            const object: Optional<ClientObject> = registry.objects.get(member.object.id)?.object;
+            const object: Optional<GameObject> = registry.objects.get(member.object.id)?.object;
 
             if (object === null) {
               member.object.kill();
@@ -124,7 +124,7 @@ export function killAllSurgeUnhidden(): void {
             if (release) {
               logger.info("Releasing object from squad because of surge:", member.object.name(), squad.name());
 
-              const object: Optional<ClientObject> = registry.objects.get(member.object.id)?.object;
+              const object: Optional<GameObject> = registry.objects.get(member.object.id)?.object;
 
               if (object !== null) {
                 object.kill(object);
@@ -139,7 +139,7 @@ export function killAllSurgeUnhidden(): void {
   }
 
   if (actor.alive()) {
-    const surgeCoverObject: Optional<ClientObject> = getNearestAvailableSurgeCover(actor);
+    const surgeCoverObject: Optional<GameObject> = getNearestAvailableSurgeCover(actor);
 
     if (!surgeCoverObject?.inside(actor.position())) {
       if (hasInfoPortion(infoPortions.anabiotic_in_process)) {

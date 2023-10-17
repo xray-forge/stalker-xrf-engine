@@ -4,13 +4,13 @@ import { setupStalkerMentalStatePlanner } from "@/engine/core/objects/ai/planner
 import { ActionMentalDanger, ActionMentalFree, ActionMentalPanic } from "@/engine/core/objects/ai/state/mental";
 import { StalkerStateManager } from "@/engine/core/objects/ai/state/StalkerStateManager";
 import { EStateActionId, EStateEvaluatorId } from "@/engine/core/objects/ai/types";
-import { ActionPlanner, ClientObject } from "@/engine/lib/types";
+import { ActionPlanner, GameObject } from "@/engine/lib/types";
 import { checkPlannerAction } from "@/fixtures/engine";
-import { mockClientGameObject } from "@/fixtures/xray";
+import { mockGameObject } from "@/fixtures/xray";
 
 describe("mental_planner util", () => {
   it("should correctly setup state planner mental actions", () => {
-    const object: ClientObject = mockClientGameObject();
+    const object: GameObject = mockGameObject();
     const stateManager: StalkerStateManager = new StalkerStateManager(object);
     const planner: ActionPlanner = stateManager.planner;
 

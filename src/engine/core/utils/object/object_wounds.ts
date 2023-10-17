@@ -6,9 +6,9 @@ import { ISchemeWoundedState } from "@/engine/core/schemes/stalker/wounded";
 import { misc } from "@/engine/lib/constants/items/misc";
 import { MZ_VECTOR } from "@/engine/lib/constants/vectors";
 import {
-  ClientObject,
-  EClientObjectRelation,
+  EGameObjectRelation,
   EScheme,
+  GameObject,
   Hit,
   Maybe,
   Optional,
@@ -23,7 +23,7 @@ import {
  *
  * @param object - target client object to give healing item
  */
-export function giveWoundedObjectMedkit(object: ClientObject): void {
+export function giveWoundedObjectMedkit(object: GameObject): void {
   // Give script medkit to heal up for an object.
   registry.simulator.create(
     misc.medkit_script,
@@ -40,7 +40,7 @@ export function giveWoundedObjectMedkit(object: ClientObject): void {
  *
  * @param object - target client object to hit and wound
  */
-export function setObjectWounded(object: ClientObject): void {
+export function setObjectWounded(object: GameObject): void {
   const hitObject: Hit = new hit();
 
   hitObject.type = hit.fire_wound;
@@ -58,7 +58,7 @@ export function setObjectWounded(object: ClientObject): void {
  *
  * @param object - target client object to enable healing
  */
-export function enableObjectWoundedHealing(object: ClientObject): void {
+export function enableObjectWoundedHealing(object: GameObject): void {
   const state: Optional<IRegistryObjectState> = registry.objects.get(object.id());
 
   (state?.wounded as Maybe<ISchemeWoundedState>)?.woundManager.unlockMedkit();
@@ -68,7 +68,7 @@ export function enableObjectWoundedHealing(object: ClientObject): void {
  * @param object - target client object to check
  * @returns whether object is wounded with physical damage
  */
-export function isObjectPsyWounded(object: ClientObject): boolean {
+export function isObjectPsyWounded(object: GameObject): boolean {
   const state: Optional<IRegistryObjectState> = registry.objects.get(object.id());
 
   if (state.wounded) {
@@ -94,19 +94,19 @@ export function isObjectPsyWounded(object: ClientObject): boolean {
  * @returns tuple of optional object, vertex id and position vector
  */
 export function getNearestWoundedToHelp(
-  object: Readonly<ClientObject>
-): LuaMultiReturn<[ClientObject, TNumberId, Vector] | [null, null, null]> {
+  object: Readonly<GameObject>
+): LuaMultiReturn<[GameObject, TNumberId, Vector] | [null, null, null]> {
   const currentObjectId: TNumberId = object.id();
   const currentObjectPosition: Vector = object.position();
 
   let nearestDistance: TDistance = helpWoundedConfig.DISTANCE_TO_HELP_SQR;
   let nearestVertexId: Optional<TNumberId> = null;
   let nearestPosition: Optional<Vector> = null;
-  let nearestObject: Optional<ClientObject> = null;
+  let nearestObject: Optional<GameObject> = null;
 
   // Iterate all active wounded objects.
   for (const [, woundedObjectState] of registry.objectsWounded) {
-    const woundedObject: Optional<ClientObject> = woundedObjectState.object;
+    const woundedObject: Optional<GameObject> = woundedObjectState.object;
     const objectHealedBy: Optional<TNumberId> =
       woundedObject && getPortableStoreValue(woundedObject.id(), helpWoundedConfig.HELPING_WOUNDED_OBJECT_KEY);
 
@@ -120,7 +120,7 @@ export function getNearestWoundedToHelp(
       // Have no enemy active so will not help him in combat.
       woundedObject.best_enemy() === null &&
       // Not enemies.
-      woundedObject.relation(object) !== EClientObjectRelation.ENEMY &&
+      woundedObject.relation(object) !== EGameObjectRelation.ENEMY &&
       // Is not marked as excluded.
       (woundedObjectState[EScheme.WOUNDED] as ISchemeWoundedState).isNotForHelp !== true
     ) {
@@ -140,5 +140,5 @@ export function getNearestWoundedToHelp(
     }
   }
 
-  return $multi(nearestObject, nearestVertexId, nearestPosition) as LuaMultiReturn<[ClientObject, TNumberId, Vector]>;
+  return $multi(nearestObject, nearestVertexId, nearestPosition) as LuaMultiReturn<[GameObject, TNumberId, Vector]>;
 }

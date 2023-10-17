@@ -18,7 +18,7 @@ import {
 import { createEmptyVector } from "@/engine/core/utils/vector";
 import {
   AlifeSimulator,
-  ClientObject,
+  GameObject,
   ServerActorObject,
   ServerGroupObject,
   ServerHumanObject,
@@ -26,9 +26,9 @@ import {
   TSection,
 } from "@/engine/lib/types";
 import {
-  mockActorClientGameObject,
+  mockActorGameObject,
   MockAlifeSimulator,
-  mockClientGameObject,
+  mockGameObject,
   mockServerAlifeCreatureActor,
   mockServerAlifeObject,
   mockServerAlifeOnlineOfflineGroup,
@@ -43,7 +43,7 @@ describe("spawning utils", () => {
   });
 
   it("spawnItemsForObject should correctly spawn items and ammo", () => {
-    const object: ClientObject = mockClientGameObject();
+    const object: GameObject = mockGameObject();
     const simulator: AlifeSimulator = registry.simulator;
 
     expect(spawnItemsForObject(object, "item_test", 0)).toBe(0);
@@ -84,7 +84,7 @@ describe("spawning utils", () => {
   });
 
   it("spawnAmmoForObject should correctly spawn ammo for an object", () => {
-    const object: ClientObject = mockClientGameObject();
+    const object: GameObject = mockGameObject();
     const simulator: AlifeSimulator = registry.simulator;
 
     expect(spawnAmmoForObject(object, "ammo_5.45x39_ap", 0)).toBe(0);
@@ -115,7 +115,7 @@ describe("spawning utils", () => {
   });
 
   it("spawnItemsForObjectFromList should spawn desired count of random items from list", () => {
-    const object: ClientObject = mockClientGameObject();
+    const object: GameObject = mockGameObject();
     const simulator: AlifeSimulator = registry.simulator;
 
     spawnItemsForObjectFromList(object, $fromArray<TSection>([]), 3);
@@ -223,7 +223,7 @@ describe("spawning utils", () => {
   });
 
   it("spawnCreatureNearActor should create objects", () => {
-    const actor: ClientObject = mockActorClientGameObject();
+    const actor: GameObject = mockActorGameObject();
 
     registerActor(actor);
 

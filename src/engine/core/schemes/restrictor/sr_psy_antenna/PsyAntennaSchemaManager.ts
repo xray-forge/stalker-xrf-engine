@@ -10,7 +10,7 @@ import {
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { trySwitchToAnotherSection } from "@/engine/core/utils/scheme/scheme_switch";
 import { NIL } from "@/engine/lib/constants/words";
-import { ClientObject } from "@/engine/lib/types";
+import { GameObject } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename, { file: "psy" });
 
@@ -56,7 +56,7 @@ export class PsyAntennaSchemaManager extends AbstractSchemeManager<ISchemePsyAnt
   /**
    * todo: Description.
    */
-  public switchState(actor: ClientObject): void {
+  public switchState(actor: GameObject): void {
     if (this.antennaState !== EAntennaState.INSIDE) {
       if (this.object.inside(actor.position())) {
         return this.onZoneEnter();

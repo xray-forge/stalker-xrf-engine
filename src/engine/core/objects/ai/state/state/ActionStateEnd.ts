@@ -7,7 +7,7 @@ import { isStalker, isWeapon } from "@/engine/core/utils/class_ids";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getObjectSmartCoverStateQueueParams } from "@/engine/core/utils/smart_cover";
 import { getWeaponActionForAnimationState } from "@/engine/core/utils/weapon";
-import { ClientObject, EClientObjectRelation, Optional, TDuration, TRate, TTimestamp } from "@/engine/lib/types";
+import { EGameObjectRelation, GameObject, Optional, TDuration, TRate, TTimestamp } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -66,7 +66,7 @@ export class ActionStateEnd extends action_base {
       let sniperAimDuration: TDuration = SNIPER_AIM_TIME;
 
       if (this.stateManager.lookObjectId !== null) {
-        const lookObject: Optional<ClientObject> = level.object_by_id(this.stateManager.lookObjectId);
+        const lookObject: Optional<GameObject> = level.object_by_id(this.stateManager.lookObjectId);
 
         if (lookObject === null) {
           this.stateManager.lookObjectId = null;
@@ -76,7 +76,7 @@ export class ActionStateEnd extends action_base {
 
         if (
           this.object.see(lookObject) !== null &&
-          (!isStalker(lookObject) || this.object.relation(lookObject) === EClientObjectRelation.ENEMY) &&
+          (!isStalker(lookObject) || this.object.relation(lookObject) === EGameObjectRelation.ENEMY) &&
           lookObject.alive()
         ) {
           if (targetWeaponState === EWeaponAnimation.SNIPER_FIRE) {

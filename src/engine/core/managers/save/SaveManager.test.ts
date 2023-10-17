@@ -26,7 +26,7 @@ import { WeatherManager } from "@/engine/core/managers/weather/WeatherManager";
 import { AnyObject } from "@/engine/lib/types";
 import { resetFunctionMock } from "@/fixtures/jest";
 import { MockIoFile } from "@/fixtures/lua";
-import { mockClientGameObject, mockNetPacket } from "@/fixtures/xray";
+import { mockGameObject, mockNetPacket } from "@/fixtures/xray";
 
 describe("SaveManager class", () => {
   const mockLifecycleMethods = () => {
@@ -113,7 +113,7 @@ describe("SaveManager class", () => {
   });
 
   it("should read and write data from managers in a strict order", () => {
-    registerActor(mockClientGameObject());
+    registerActor(mockGameObject());
 
     const expectedOrder: Array<TAbstractCoreManagerConstructor> = [SimulationBoardManager];
 

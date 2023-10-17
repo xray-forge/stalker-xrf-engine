@@ -1,7 +1,7 @@
 import { TNotificationIcon } from "@/engine/core/managers/notifications/index";
 import { ETaskState } from "@/engine/core/managers/tasks/types";
 import {
-  ClientObject,
+  GameObject,
   GameTask,
   Optional,
   TCount,
@@ -88,7 +88,7 @@ export interface ITreasureNotification extends INotification {
 export interface ITipNotification extends INotification {
   caption: TLabel;
   delay?: Optional<TDuration>;
-  sender?: Optional<TNotificationIcon | ClientObject>;
+  sender?: Optional<TNotificationIcon | GameObject>;
   showtime?: Optional<TTimestamp>;
   senderId?: Optional<TStringId>;
 }
@@ -97,7 +97,7 @@ export interface ITipNotification extends INotification {
  * Sound play notification.
  */
 export interface ISoundNotification extends INotification {
-  object?: Optional<ClientObject>;
+  object?: Optional<GameObject>;
   faction: TName;
   point: Optional<TName | TNumberId>;
   soundPath: TPath;

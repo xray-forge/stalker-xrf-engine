@@ -16,7 +16,7 @@ import { pickRandom } from "@/engine/core/utils/random";
 import { distanceBetween2d } from "@/engine/core/utils/vector";
 import { MAX_U16 } from "@/engine/lib/constants/memory";
 import { ACTOR, NIL } from "@/engine/lib/constants/words";
-import { ClientObject, Optional, TDistance, TIndex, TPath, TRate, Vector, XmlInit } from "@/engine/lib/types";
+import { GameObject, Optional, TDistance, TIndex, TPath, TRate, Vector, XmlInit } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 const heliFirer: LuaTable<number, HeliFire> = new LuaTable();
@@ -24,9 +24,9 @@ const heliFirer: LuaTable<number, HeliFire> = new LuaTable();
 export class HeliFire {
   public static readonly HELI_STATIC_UI_XML_PATH: TPath = "game\\heli\\heli_progress.xml";
 
-  public object: ClientObject;
+  public object: GameObject;
   public enemy_: Optional<string>;
-  public enemy: Optional<ClientObject>;
+  public enemy: Optional<GameObject>;
   public enemyId: Optional<number>;
   public firePoint: Optional<Vector>;
   public flagByEnemy: boolean;
@@ -39,7 +39,7 @@ export class HeliFire {
 
   public heliProgress: Optional<CUIProgressBar> = null;
 
-  public constructor(object: ClientObject) {
+  public constructor(object: GameObject) {
     this.object = object;
     this.enemy_ = null;
     this.firePoint = null;
@@ -217,7 +217,7 @@ export class HeliFire {
 
     while (index < registry.helicopter.enemyIndex) {
       if (registry.helicopter.enemies.has(index)) {
-        const enemy: ClientObject = registry.helicopter.enemies.get(index);
+        const enemy: GameObject = registry.helicopter.enemies.get(index);
 
         if (heli.isVisible(enemy)) {
           if (distanceBetween2d(this.object.position(), enemy.position()) < minDist2D) {
@@ -231,7 +231,7 @@ export class HeliFire {
       index += 1;
     }
 
-    const actor: ClientObject = registry.actor;
+    const actor: GameObject = registry.actor;
 
     if ((heli.isVisible(actor) && pickRandom(false, true)) || registry.helicopter.enemyIndex === 0) {
       if (distanceBetween2d(this.object.position(), actor.position()) <= minDist2D * 2) {
@@ -244,7 +244,7 @@ export class HeliFire {
 /**
  * todo;
  */
-export function getHeliFirer(object: ClientObject): HeliFire {
+export function getHeliFirer(object: GameObject): HeliFire {
   if (heliFirer.get(object.id()) === null) {
     heliFirer.set(object.id(), new HeliFire(object));
   }

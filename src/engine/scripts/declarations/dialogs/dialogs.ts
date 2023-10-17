@@ -26,7 +26,7 @@ import { drugs, TMedkit } from "@/engine/lib/constants/items/drugs";
 import { misc } from "@/engine/lib/constants/items/misc";
 import { pistols, TPistol } from "@/engine/lib/constants/items/weapons";
 import { levels } from "@/engine/lib/constants/levels";
-import { ClientObject, EClientObjectRelation, EScheme, Optional, TNumberId } from "@/engine/lib/types";
+import { EGameObjectRelation, EScheme, GameObject, Optional, TNumberId } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -35,7 +35,7 @@ extern("dialogs", {});
 /**
  * Break dialog for two participating objects.
  */
-extern("dialogs.break_dialog", (actor: ClientObject, object: ClientObject): void => {
+extern("dialogs.break_dialog", (actor: GameObject, object: GameObject): void => {
   actor.stop_talk();
   object.stop_talk();
 });
@@ -43,8 +43,8 @@ extern("dialogs.break_dialog", (actor: ClientObject, object: ClientObject): void
 /**
  * todo;
  */
-extern("dialogs.update_npc_dialog", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
-  const object: ClientObject = getNpcSpeaker(firstSpeaker, secondSpeaker);
+extern("dialogs.update_npc_dialog", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
+  const object: GameObject = getNpcSpeaker(firstSpeaker, secondSpeaker);
 
   (registry.objects.get(object.id())[EScheme.MEET] as ISchemeMeetState).meetManager.update();
   updateObjectMeetAvailability(object);
@@ -54,14 +54,14 @@ extern("dialogs.update_npc_dialog", (firstSpeaker: ClientObject, secondSpeaker: 
 /**
  * Check if speaking with wounded object.
  */
-extern("dialogs.is_wounded", (actor: ClientObject, object: ClientObject): boolean => {
+extern("dialogs.is_wounded", (actor: GameObject, object: GameObject): boolean => {
   return isObjectWounded(getNpcSpeaker(actor, object).id());
 });
 
 /**
  * todo;
  */
-extern("dialogs.is_not_wounded", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
+extern("dialogs.is_not_wounded", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   return !isObjectWounded(getNpcSpeaker(firstSpeaker, secondSpeaker).id());
 });
 
@@ -82,7 +82,7 @@ extern("dialogs.actor_hasnt_medkit", (): boolean => {
 /**
  * todo;
  */
-extern("dialogs.transfer_medkit", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
+extern("dialogs.transfer_medkit", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   const availableMedkit: Optional<TMedkit> = getActorAvailableMedKit();
 
   if (availableMedkit !== null) {
@@ -99,8 +99,8 @@ extern("dialogs.transfer_medkit", (firstSpeaker: ClientObject, secondSpeaker: Cl
 
   enableObjectWoundedHealing(secondSpeaker);
 
-  if (secondSpeaker.relation(firstSpeaker) !== EClientObjectRelation.ENEMY) {
-    secondSpeaker.set_relation(EClientObjectRelation.FRIEND, firstSpeaker);
+  if (secondSpeaker.relation(firstSpeaker) !== EGameObjectRelation.ENEMY) {
+    secondSpeaker.set_relation(EGameObjectRelation.FRIEND, firstSpeaker);
   }
 
   firstSpeaker.change_character_reputation(10);
@@ -109,29 +109,29 @@ extern("dialogs.transfer_medkit", (firstSpeaker: ClientObject, secondSpeaker: Cl
 /**
  * Check whether actor has at least one bandage.
  */
-extern("dialogs.actor_have_bandage", (actor: ClientObject, object: ClientObject): boolean => {
+extern("dialogs.actor_have_bandage", (actor: GameObject, object: GameObject): boolean => {
   return actor.object(drugs.bandage) !== null;
 });
 
 /**
  * Transfer bandage from actor to object and set relation to friendly.
  */
-extern("dialogs.transfer_bandage", (actor: ClientObject, object: ClientObject): void => {
+extern("dialogs.transfer_bandage", (actor: GameObject, object: GameObject): void => {
   transferItemsFromActor(object, drugs.bandage);
-  object.set_relation(EClientObjectRelation.FRIEND, actor);
+  object.set_relation(EGameObjectRelation.FRIEND, actor);
 });
 
 /**
  * Kill actor on dialog option selection.
  */
-extern("dialogs.kill_yourself", (actor: ClientObject, object: ClientObject): void => {
+extern("dialogs.kill_yourself", (actor: GameObject, object: GameObject): void => {
   actor.kill(object);
 });
 
 /**
  * todo;
  */
-extern("dialogs.allow_wounded_dialog", (object: ClientObject, victim: ClientObject, id: TNumberId): boolean => {
+extern("dialogs.allow_wounded_dialog", (object: GameObject, victim: GameObject, id: TNumberId): boolean => {
   return (registry.objects.get(victim.id())[EScheme.WOUNDED] as ISchemeWoundedState)?.helpDialog === id;
 });
 
@@ -180,63 +180,63 @@ extern("dialogs.not_level_pripyat", (): boolean => {
 /**
  * Check whether actor is friend with object.
  */
-extern("dialogs.is_friend", (actor: ClientObject, object: ClientObject): boolean => {
-  return actor.relation(object) === EClientObjectRelation.FRIEND;
+extern("dialogs.is_friend", (actor: GameObject, object: GameObject): boolean => {
+  return actor.relation(object) === EGameObjectRelation.FRIEND;
 });
 
 /**
  * Check whether actor is not friend with object.
  */
-extern("dialogs.is_not_friend", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
-  return firstSpeaker.relation(secondSpeaker) !== EClientObjectRelation.FRIEND;
+extern("dialogs.is_not_friend", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
+  return firstSpeaker.relation(secondSpeaker) !== EGameObjectRelation.FRIEND;
 });
 
 /**
  * Become friends with object.
  */
-extern("dialogs.become_friend", (actor: ClientObject, object: ClientObject): void => {
-  actor.set_relation(EClientObjectRelation.FRIEND, object);
+extern("dialogs.become_friend", (actor: GameObject, object: GameObject): void => {
+  actor.set_relation(EGameObjectRelation.FRIEND, object);
 });
 
 /**
  * Check if speaking with stalker community member.
  */
-extern("dialogs.npc_stalker", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
+extern("dialogs.npc_stalker", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   return getObjectCommunity(getNpcSpeaker(firstSpeaker, secondSpeaker)) === communities.stalker;
 });
 
 /**
  * Check if speaking with bandit community member.
  */
-extern("dialogs.npc_bandit", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
+extern("dialogs.npc_bandit", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   return getObjectCommunity(getNpcSpeaker(firstSpeaker, secondSpeaker)) === communities.bandit;
 });
 
 /**
  * Check if speaking with freedom community member.
  */
-extern("dialogs.npc_freedom", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
+extern("dialogs.npc_freedom", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   return getObjectCommunity(getNpcSpeaker(firstSpeaker, secondSpeaker)) === communities.freedom;
 });
 
 /**
  * Check if speaking with dolg community member.
  */
-extern("dialogs.npc_dolg", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
+extern("dialogs.npc_dolg", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   return getObjectCommunity(getNpcSpeaker(firstSpeaker, secondSpeaker)) === communities.dolg;
 });
 
 /**
  * Check if speaking with army community member.
  */
-extern("dialogs.npc_army", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
+extern("dialogs.npc_army", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   return getObjectCommunity(getNpcSpeaker(firstSpeaker, secondSpeaker)) === communities.army;
 });
 
 /**
  * todo;
  */
-extern("dialogs.actor_in_dolg", (actor: ClientObject, object: ClientObject): boolean => {
+extern("dialogs.actor_in_dolg", (actor: GameObject, object: GameObject): boolean => {
   for (const [k, v] of SimulationBoardManager.getInstance().getFactions()) {
     if (v.isCommunity === true && v.name === communities.dolg) {
       return true;
@@ -249,7 +249,7 @@ extern("dialogs.actor_in_dolg", (actor: ClientObject, object: ClientObject): boo
 /**
  * todo;
  */
-extern("dialogs.actor_not_in_dolg", (actor: ClientObject, object: ClientObject): boolean => {
+extern("dialogs.actor_not_in_dolg", (actor: GameObject, object: GameObject): boolean => {
   for (const [k, v] of SimulationBoardManager.getInstance().getFactions()) {
     if (v.isCommunity === true && v.name === communities.dolg) {
       return false;
@@ -262,7 +262,7 @@ extern("dialogs.actor_not_in_dolg", (actor: ClientObject, object: ClientObject):
 /**
  * todo;
  */
-extern("dialogs.actor_in_freedom", (actor: ClientObject, object: ClientObject): boolean => {
+extern("dialogs.actor_in_freedom", (actor: GameObject, object: GameObject): boolean => {
   for (const [k, v] of SimulationBoardManager.getInstance().getFactions()) {
     if (v.isCommunity === true && v.name === communities.freedom) {
       return true;
@@ -275,7 +275,7 @@ extern("dialogs.actor_in_freedom", (actor: ClientObject, object: ClientObject): 
 /**
  * todo;
  */
-extern("dialogs.actor_not_in_freedom", (actor: ClientObject, object: ClientObject): boolean => {
+extern("dialogs.actor_not_in_freedom", (actor: GameObject, object: GameObject): boolean => {
   for (const [k, v] of SimulationBoardManager.getInstance().getFactions()) {
     if (v.isCommunity === true && v.name === communities.freedom) {
       return false;
@@ -288,7 +288,7 @@ extern("dialogs.actor_not_in_freedom", (actor: ClientObject, object: ClientObjec
 /**
  * todo;
  */
-extern("dialogs.actor_in_bandit", (actor: ClientObject, object: ClientObject): boolean => {
+extern("dialogs.actor_in_bandit", (actor: GameObject, object: GameObject): boolean => {
   for (const [k, v] of SimulationBoardManager.getInstance().getFactions()) {
     if (v.isCommunity === true && v.name === communities.bandit) {
       return true;
@@ -301,7 +301,7 @@ extern("dialogs.actor_in_bandit", (actor: ClientObject, object: ClientObject): b
 /**
  * todo;
  */
-extern("dialogs.actor_not_in_bandit", (actor: ClientObject, object: ClientObject): boolean => {
+extern("dialogs.actor_not_in_bandit", (actor: GameObject, object: GameObject): boolean => {
   for (const [k, v] of SimulationBoardManager.getInstance().getFactions()) {
     if (v.isCommunity === true && v.name === communities.bandit) {
       return false;
@@ -314,7 +314,7 @@ extern("dialogs.actor_not_in_bandit", (actor: ClientObject, object: ClientObject
 /**
  * todo;
  */
-extern("dialogs.actor_in_stalker", (actor: ClientObject, object: ClientObject): boolean => {
+extern("dialogs.actor_in_stalker", (actor: GameObject, object: GameObject): boolean => {
   for (const [k, v] of SimulationBoardManager.getInstance().getFactions()) {
     if (v.isCommunity === true && v.name === communities.stalker) {
       return true;
@@ -327,7 +327,7 @@ extern("dialogs.actor_in_stalker", (actor: ClientObject, object: ClientObject): 
 /**
  * todo;
  */
-extern("dialogs.actor_not_in_stalker", (actor: ClientObject, object: ClientObject): boolean => {
+extern("dialogs.actor_not_in_stalker", (actor: GameObject, object: GameObject): boolean => {
   for (const [k, v] of SimulationBoardManager.getInstance().getFactions()) {
     if (v.isCommunity && v.name === communities.stalker) {
       return false;
@@ -340,16 +340,16 @@ extern("dialogs.actor_not_in_stalker", (actor: ClientObject, object: ClientObjec
 /**
  * Check if actor has at least 2000 money value.
  */
-extern("dialogs.has_2000_money", (actor: ClientObject, object: ClientObject): boolean => {
+extern("dialogs.has_2000_money", (actor: GameObject, object: GameObject): boolean => {
   return actor.money() >= 2000;
 });
 
 /**
  * todo;
  */
-extern("dialogs.transfer_any_pistol_from_actor", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
-  const actor: ClientObject = registry.actor;
-  const object: ClientObject = getNpcSpeaker(firstSpeaker, secondSpeaker);
+extern("dialogs.transfer_any_pistol_from_actor", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
+  const actor: GameObject = registry.actor;
+  const object: GameObject = getNpcSpeaker(firstSpeaker, secondSpeaker);
   const pistol: Optional<TPistol> = getNpcPistol(actor);
 
   if (pistol !== null) {
@@ -361,7 +361,7 @@ extern("dialogs.transfer_any_pistol_from_actor", (firstSpeaker: ClientObject, se
 /**
  * todo;
  */
-function getNpcPistol(object: ClientObject): Optional<TPistol> {
+function getNpcPistol(object: GameObject): Optional<TPistol> {
   let pistol: Optional<TPistol> = null;
 
   object.iterate_inventory((owner, item) => {
@@ -378,42 +378,42 @@ function getNpcPistol(object: ClientObject): Optional<TPistol> {
 /**
  * todo;
  */
-extern("dialogs.have_actor_any_pistol", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
+extern("dialogs.have_actor_any_pistol", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   return getNpcPistol(registry.actor) !== null;
 });
 
 /**
  * todo;
  */
-extern("dialogs.disable_ui", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
+extern("dialogs.disable_ui", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   ActorInputManager.getInstance().disableGameUi(false);
 });
 
 /**
  * todo;
  */
-extern("dialogs.disable_ui_only", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
+extern("dialogs.disable_ui_only", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   ActorInputManager.getInstance().disableGameUi(false);
 });
 
 /**
  * todo;
  */
-extern("dialogs.is_surge_running", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
+extern("dialogs.is_surge_running", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   return surgeConfig.IS_STARTED;
 });
 
 /**
  * todo;
  */
-extern("dialogs.is_surge_not_running", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
+extern("dialogs.is_surge_not_running", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   return surgeConfig.IS_FINISHED;
 });
 
 /**
  * todo;
  */
-extern("dialogs.quest_dialog_heli_precond", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
+extern("dialogs.quest_dialog_heli_precond", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   return !(
     (hasInfoPortion(infoPortions.jup_b9_heli_1_searched) &&
       hasInfoPortion(infoPortions.zat_b100_heli_2_searched) &&
@@ -427,7 +427,7 @@ extern("dialogs.quest_dialog_heli_precond", (firstSpeaker: ClientObject, secondS
 /**
  * todo;
  */
-extern("dialogs.quest_dialog_military_precond", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
+extern("dialogs.quest_dialog_military_precond", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   if (hasInfoPortion(infoPortions.zat_b28_heli_3_searched) || hasInfoPortion(infoPortions.jup_b9_blackbox_decrypted)) {
     if (
       !(hasInfoPortion(infoPortions.zat_b28_heli_3_searched) && hasInfoPortion(infoPortions.jup_b9_blackbox_decrypted))
@@ -442,7 +442,7 @@ extern("dialogs.quest_dialog_military_precond", (firstSpeaker: ClientObject, sec
 /**
  * todo;
  */
-extern("dialogs.quest_dialog_squad_precond", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
+extern("dialogs.quest_dialog_squad_precond", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   return !(
     hasInfoPortion(infoPortions.jup_b218_monolith_hired) &&
     hasInfoPortion(infoPortions.jup_b218_soldier_hired) &&
@@ -453,7 +453,7 @@ extern("dialogs.quest_dialog_squad_precond", (firstSpeaker: ClientObject, second
 /**
  * todo;
  */
-extern("dialogs.quest_dialog_toolkits_precond", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
+extern("dialogs.quest_dialog_toolkits_precond", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   if (hasInfoPortion(infoPortions.zat_a2_mechanic_toolkit_search) && !hasInfoPortion(infoPortions.zat_b3_task_end)) {
     return true;
   } else if (
@@ -469,7 +469,7 @@ extern("dialogs.quest_dialog_toolkits_precond", (firstSpeaker: ClientObject, sec
 /**
  * todo;
  */
-extern("dialogs.monolith_leader_is_alive", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
+extern("dialogs.monolith_leader_is_alive", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   if (
     !(
       hasInfoPortion(infoPortions.jup_b4_monolith_squad_in_freedom) ||
@@ -491,7 +491,7 @@ extern("dialogs.monolith_leader_is_alive", (firstSpeaker: ClientObject, secondSp
 /**
  * todo;
  */
-extern("dialogs.monolith_leader_dead_or_hired", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
+extern("dialogs.monolith_leader_dead_or_hired", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   if (hasInfoPortion(infoPortions.jup_b218_soldier_hired)) {
     return true;
   }
@@ -517,7 +517,7 @@ extern("dialogs.monolith_leader_dead_or_hired", (firstSpeaker: ClientObject, sec
 /**
  * todo;
  */
-extern("dialogs.monolith_leader_dead_or_dolg", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
+extern("dialogs.monolith_leader_dead_or_dolg", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   if (hasInfoPortion(infoPortions.jup_b218_soldier_hired)) {
     return true;
   }
@@ -543,133 +543,133 @@ extern("dialogs.monolith_leader_dead_or_dolg", (firstSpeaker: ClientObject, seco
 /**
  * todo;
  */
-extern("dialogs.squad_not_in_smart_b101", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
+extern("dialogs.squad_not_in_smart_b101", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   return !isObjectInSmartTerrain(getNpcSpeaker(firstSpeaker, secondSpeaker), "zat_b101");
 });
 
 /**
  * todo;
  */
-extern("dialogs.squad_not_in_smart_b103", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
+extern("dialogs.squad_not_in_smart_b103", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   return !isObjectInSmartTerrain(getNpcSpeaker(firstSpeaker, secondSpeaker), "zat_b103");
 });
 
 /**
  * todo;
  */
-extern("dialogs.squad_not_in_smart_b104", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
+extern("dialogs.squad_not_in_smart_b104", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   return !isObjectInSmartTerrain(getNpcSpeaker(firstSpeaker, secondSpeaker), "zat_b104");
 });
 
 /**
  * todo;
  */
-extern("dialogs.squad_not_in_smart_b213", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
+extern("dialogs.squad_not_in_smart_b213", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   return !isObjectInSmartTerrain(getNpcSpeaker(firstSpeaker, secondSpeaker), "jup_b213");
 });
 
 /**
  * todo;
  */
-extern("dialogs.squad_not_in_smart_b214", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
+extern("dialogs.squad_not_in_smart_b214", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   return !isObjectInSmartTerrain(getNpcSpeaker(firstSpeaker, secondSpeaker), "jup_b214");
 });
 
 /**
  * todo;
  */
-extern("dialogs.squad_not_in_smart_b304", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
+extern("dialogs.squad_not_in_smart_b304", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   return !isObjectInSmartTerrain(getNpcSpeaker(firstSpeaker, secondSpeaker), "pri_b304_monsters_smart_terrain");
 });
 
 /**
  * todo;
  */
-extern("dialogs.squad_not_in_smart_b303", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
+extern("dialogs.squad_not_in_smart_b303", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   return !isObjectInSmartTerrain(getNpcSpeaker(firstSpeaker, secondSpeaker), "pri_b303");
 });
 
 /**
  * todo;
  */
-extern("dialogs.squad_not_in_smart_b40", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
+extern("dialogs.squad_not_in_smart_b40", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   return !isObjectInSmartTerrain(getNpcSpeaker(firstSpeaker, secondSpeaker), "zat_b40_smart_terrain");
 });
 
 /**
  * todo;
  */
-extern("dialogs.squad_not_in_smart_b18", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
+extern("dialogs.squad_not_in_smart_b18", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   return !isObjectInSmartTerrain(getNpcSpeaker(firstSpeaker, secondSpeaker), "zat_b18");
 });
 
 /**
  * todo;
  */
-extern("dialogs.squad_not_in_smart_b6", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
+extern("dialogs.squad_not_in_smart_b6", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   return !isObjectInSmartTerrain(getNpcSpeaker(firstSpeaker, secondSpeaker), "jup_b41");
 });
 
 /**
  * todo;
  */
-extern("dialogs.squad_not_in_smart_b205", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
+extern("dialogs.squad_not_in_smart_b205", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   return !isObjectInSmartTerrain(getNpcSpeaker(firstSpeaker, secondSpeaker), "jup_b205_smart_terrain");
 });
 
 /**
  * todo;
  */
-extern("dialogs.squad_not_in_smart_b47", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
+extern("dialogs.squad_not_in_smart_b47", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   return !isObjectInSmartTerrain(getNpcSpeaker(firstSpeaker, secondSpeaker), "jup_b47");
 });
 
 /**
  * todo;
  */
-extern("dialogs.squad_in_smart_zat_base", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
+extern("dialogs.squad_in_smart_zat_base", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   return isObjectInSmartTerrain(getNpcSpeaker(firstSpeaker, secondSpeaker), "zat_stalker_base_smart");
 });
 
 /**
  * todo;
  */
-extern("dialogs.squad_in_smart_jup_b25", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
+extern("dialogs.squad_in_smart_jup_b25", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   return isObjectInSmartTerrain(getNpcSpeaker(firstSpeaker, secondSpeaker), "jup_a6");
 });
 
 /**
  * todo;
  */
-extern("dialogs.spartak_is_alive", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
+extern("dialogs.spartak_is_alive", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   return isStalkerAlive("zat_b7_stalker_victim_1");
 });
 
 /**
  * todo;
  */
-extern("dialogs.tesak_is_alive", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
+extern("dialogs.tesak_is_alive", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   return isStalkerAlive("zat_b103_lost_merc_leader");
 });
 
 /**
  * todo;
  */
-extern("dialogs.gonta_is_alive", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
+extern("dialogs.gonta_is_alive", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   return isStalkerAlive("zat_b103_lost_merc_leader");
 });
 
 /**
  * todo;
  */
-extern("dialogs.mityay_is_alive", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
+extern("dialogs.mityay_is_alive", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   return isStalkerAlive("jup_a12_stalker_assaulter");
 });
 
 /**
  * todo;
  */
-extern("dialogs.dolg_can_work_for_sci", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
+extern("dialogs.dolg_can_work_for_sci", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   return !(
     hasInfoPortion(infoPortions.jup_a6_freedom_leader_bunker_guards_work) ||
     hasInfoPortion(infoPortions.jup_a6_freedom_leader_bunker_scan_work)
@@ -679,7 +679,7 @@ extern("dialogs.dolg_can_work_for_sci", (firstSpeaker: ClientObject, secondSpeak
 /**
  * todo;
  */
-extern("dialogs.dolg_can_not_work_for_sci", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
+extern("dialogs.dolg_can_not_work_for_sci", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   return (
     hasInfoPortion(infoPortions.jup_a6_freedom_leader_bunker_guards_work) ||
     hasInfoPortion(infoPortions.jup_a6_freedom_leader_bunker_scan_work)
@@ -689,7 +689,7 @@ extern("dialogs.dolg_can_not_work_for_sci", (firstSpeaker: ClientObject, secondS
 /**
  * todo;
  */
-extern("dialogs.freedom_can_work_for_sci", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
+extern("dialogs.freedom_can_work_for_sci", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   return !(
     hasInfoPortion(infoPortions.jup_a6_duty_leader_bunker_guards_work) ||
     hasInfoPortion(infoPortions.jup_a6_duty_leader_bunker_scan_work)
@@ -699,7 +699,7 @@ extern("dialogs.freedom_can_work_for_sci", (firstSpeaker: ClientObject, secondSp
 /**
  * todo;
  */
-extern("dialogs.freedom_can_not_work_for_sci", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
+extern("dialogs.freedom_can_not_work_for_sci", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   return (
     hasInfoPortion(infoPortions.jup_a6_duty_leader_bunker_guards_work) ||
     hasInfoPortion(infoPortions.jup_a6_duty_leader_bunker_scan_work)
@@ -709,37 +709,34 @@ extern("dialogs.freedom_can_not_work_for_sci", (firstSpeaker: ClientObject, seco
 /**
  * todo;
  */
-extern(
-  "dialogs.monolith_leader_dead_or_freedom",
-  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
-    if (hasInfoPortion(infoPortions.jup_b218_soldier_hired)) {
-      return true;
-    }
-
-    if (
-      !(
-        hasInfoPortion(infoPortions.jup_b4_monolith_squad_in_freedom) ||
-        hasInfoPortion(infoPortions.jup_b4_monolith_squad_in_duty)
-      )
-    ) {
-      return !isStalkerAlive("jup_b4_monolith_squad_leader_monolith_skin");
-    }
-
-    if (hasInfoPortion(infoPortions.jup_b4_monolith_squad_in_freedom)) {
-      return !isStalkerAlive("jup_b4_monolith_squad_leader_freedom_skin");
-    } else if (hasInfoPortion(infoPortions.jup_b4_monolith_squad_in_duty)) {
-      return true;
-    }
-
+extern("dialogs.monolith_leader_dead_or_freedom", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
+  if (hasInfoPortion(infoPortions.jup_b218_soldier_hired)) {
     return true;
   }
-);
+
+  if (
+    !(
+      hasInfoPortion(infoPortions.jup_b4_monolith_squad_in_freedom) ||
+      hasInfoPortion(infoPortions.jup_b4_monolith_squad_in_duty)
+    )
+  ) {
+    return !isStalkerAlive("jup_b4_monolith_squad_leader_monolith_skin");
+  }
+
+  if (hasInfoPortion(infoPortions.jup_b4_monolith_squad_in_freedom)) {
+    return !isStalkerAlive("jup_b4_monolith_squad_leader_freedom_skin");
+  } else if (hasInfoPortion(infoPortions.jup_b4_monolith_squad_in_duty)) {
+    return true;
+  }
+
+  return true;
+});
 
 /**
  * Heal actor, stop bleeding and radiation, restore power.
  */
-extern("dialogs.medic_magic_potion", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
-  const actor: ClientObject = registry.actor;
+extern("dialogs.medic_magic_potion", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
+  const actor: GameObject = registry.actor;
 
   actor.health = 1;
   actor.power = 1;
@@ -750,84 +747,84 @@ extern("dialogs.medic_magic_potion", (firstSpeaker: ClientObject, secondSpeaker:
 /**
  * Check whether actor needs healing, radiation or bleeding help.
  */
-extern("dialogs.actor_needs_bless", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
+extern("dialogs.actor_needs_bless", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   return isObjectInjured(registry.actor);
 });
 
 /**
  * Check whether actor is absolutely healthy, without bleeding and radiation contamination.
  */
-extern("dialogs.actor_is_damn_healthy", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
+extern("dialogs.actor_is_damn_healthy", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   return !isObjectInjured(registry.actor);
 });
 
 /**
  * todo;
  */
-extern("dialogs.leave_zone_save", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
+extern("dialogs.leave_zone_save", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   createGameAutoSave("st_save_uni_zone_to_reality");
 });
 
 /**
  * todo;
  */
-extern("dialogs.save_uni_travel_zat_to_jup", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
+extern("dialogs.save_uni_travel_zat_to_jup", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   createGameAutoSave("st_save_uni_travel_zat_to_jup");
 });
 
 /**
  * todo;
  */
-extern("dialogs.save_uni_travel_zat_to_pri", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
+extern("dialogs.save_uni_travel_zat_to_pri", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   createGameAutoSave("st_save_uni_travel_zat_to_pri");
 });
 
 /**
  * todo;
  */
-extern("dialogs.save_uni_travel_jup_to_zat", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
+extern("dialogs.save_uni_travel_jup_to_zat", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   createGameAutoSave("st_save_uni_travel_jup_to_zat");
 });
 
 /**
  * todo;
  */
-extern("dialogs.save_uni_travel_jup_to_pri", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
+extern("dialogs.save_uni_travel_jup_to_pri", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   createGameAutoSave("st_save_uni_travel_jup_to_pri");
 });
 
 /**
  * todo;
  */
-extern("dialogs.save_uni_travel_pri_to_zat", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
+extern("dialogs.save_uni_travel_pri_to_zat", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   createGameAutoSave("st_save_uni_travel_pri_to_zat");
 });
 
 /**
  * todo;
  */
-extern("dialogs.save_uni_travel_pri_to_jup", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
+extern("dialogs.save_uni_travel_pri_to_jup", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   createGameAutoSave("st_save_uni_travel_pri_to_jup");
 });
 
 /**
  * todo;
  */
-extern("dialogs.save_jup_b218_travel_jup_to_pas", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
+extern("dialogs.save_jup_b218_travel_jup_to_pas", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   createGameAutoSave("st_save_jup_b218_travel_jup_to_pas");
 });
 
 /**
  * todo;
  */
-extern("dialogs.save_pri_a17_hospital_start", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
+extern("dialogs.save_pri_a17_hospital_start", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   createGameAutoSave("st_save_pri_a17_hospital_start");
 });
 
 /**
  * todo;
  */
-extern("dialogs.save_jup_a10_gonna_return_debt", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
+extern("dialogs.save_jup_a10_gonna_return_debt", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   if (!hasInfoPortion(infoPortions.jup_a10_avtosave)) {
     createGameAutoSave("st_save_jup_a10_gonna_return_debt");
     giveInfoPortion(infoPortions.jup_a10_avtosave);
@@ -837,37 +834,34 @@ extern("dialogs.save_jup_a10_gonna_return_debt", (firstSpeaker: ClientObject, se
 /**
  * todo;
  */
-extern("dialogs.save_jup_b6_arrived_to_fen", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
+extern("dialogs.save_jup_b6_arrived_to_fen", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   createGameAutoSave("st_save_jup_b6_arrived_to_fen");
 });
 
 /**
  * todo;
  */
-extern("dialogs.save_jup_b6_arrived_to_ash_heap", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
+extern("dialogs.save_jup_b6_arrived_to_ash_heap", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   createGameAutoSave("st_save_jup_b6_arrived_to_ash_heap");
 });
 
 /**
  * todo;
  */
-extern("dialogs.save_jup_b19_arrived_to_kopachy", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
+extern("dialogs.save_jup_b19_arrived_to_kopachy", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   createGameAutoSave("st_save_jup_b19_arrived_to_kopachy");
 });
 
 /**
  * todo;
  */
-extern(
-  "dialogs.save_zat_b106_arrived_to_chimera_lair",
-  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
-    createGameAutoSave("st_save_zat_b106_arrived_to_chimera_lair");
-  }
-);
+extern("dialogs.save_zat_b106_arrived_to_chimera_lair", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
+  createGameAutoSave("st_save_zat_b106_arrived_to_chimera_lair");
+});
 
 /**
  * todo;
  */
-extern("dialogs.save_zat_b5_met_with_others", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
+extern("dialogs.save_zat_b5_met_with_others", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   createGameAutoSave("st_save_zat_b5_met_with_others");
 });

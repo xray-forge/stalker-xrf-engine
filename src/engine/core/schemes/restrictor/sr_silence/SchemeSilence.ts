@@ -4,7 +4,7 @@ import { SilenceManager } from "@/engine/core/schemes/restrictor/sr_silence/Sile
 import { ISchemeSilenceState } from "@/engine/core/schemes/restrictor/sr_silence/sr_silence_types";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini/ini_config";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { ClientObject, IniFile } from "@/engine/lib/types";
+import { GameObject, IniFile } from "@/engine/lib/types";
 import { EScheme, ESchemeType, TSection } from "@/engine/lib/types/scheme";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -19,7 +19,7 @@ export class SchemeSilence extends AbstractScheme {
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.RESTRICTOR;
 
   public static override activate(
-    object: ClientObject,
+    object: GameObject,
     ini: IniFile,
     scheme: EScheme,
     section: TSection
@@ -34,7 +34,7 @@ export class SchemeSilence extends AbstractScheme {
   }
 
   public static override add(
-    object: ClientObject,
+    object: GameObject,
     ini: IniFile,
     scheme: EScheme,
     section: TSection,

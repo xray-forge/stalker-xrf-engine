@@ -26,8 +26,8 @@ import { outfits } from "@/engine/lib/constants/items/outfits";
 import { weapons } from "@/engine/lib/constants/items/weapons";
 import { TRUE } from "@/engine/lib/constants/words";
 import {
-  ClientObject,
   EActiveItemSlot,
+  GameObject,
   GameTask,
   LuaArray,
   Optional,
@@ -46,14 +46,14 @@ const logger: LuaLogger = new LuaLogger($filename);
 /**
  * Disable game UI for actor and reset active item slot.
  */
-extern("xr_effects.disable_ui", (actor: ClientObject, object: ClientObject, parameters: [string]): void => {
+extern("xr_effects.disable_ui", (actor: GameObject, object: GameObject, parameters: [string]): void => {
   ActorInputManager.getInstance().disableGameUi(!parameters || (parameters && parameters[0] !== TRUE));
 });
 
 /**
  * Disable game UI for actor.
  */
-extern("xr_effects.disable_ui_only", (actor: ClientObject, object: ClientObject): void => {
+extern("xr_effects.disable_ui_only", (actor: GameObject, object: GameObject): void => {
   ActorInputManager.getInstance().disableGameUiOnly();
 });
 
@@ -61,7 +61,7 @@ extern("xr_effects.disable_ui_only", (actor: ClientObject, object: ClientObject)
  * Enable actor UI.
  * Effect parameter describes whether slot should be restored - `true` by default.
  */
-extern("xr_effects.enable_ui", (actor: ClientObject, object: ClientObject, parameters: [string]): void => {
+extern("xr_effects.enable_ui", (actor: GameObject, object: GameObject, parameters: [string]): void => {
   ActorInputManager.getInstance().enableGameUi(!parameters || (parameters && parameters[0] !== TRUE));
 });
 
@@ -70,7 +70,7 @@ let camEffectorPlayingObjectId: Optional<TNumberId> = null;
 /**
  * todo;
  */
-extern("xr_effects.run_cam_effector", (actor: ClientObject, object: ClientObject, p: [string, number, string]) => {
+extern("xr_effects.run_cam_effector", (actor: GameObject, object: GameObject, p: [string, number, string]) => {
   logger.info("Run cam effector");
 
   if (p[0]) {
@@ -94,7 +94,7 @@ extern("xr_effects.run_cam_effector", (actor: ClientObject, object: ClientObject
 /**
  * todo;
  */
-extern("xr_effects.stop_cam_effector", (actor: ClientObject, object: ClientObject, p: [Optional<number>]): void => {
+extern("xr_effects.stop_cam_effector", (actor: GameObject, object: GameObject, p: [Optional<number>]): void => {
   logger.info("Stop cam effector:", p);
 
   if (p[0] && type(p[0]) === "number" && p[0] > 0) {
@@ -105,28 +105,28 @@ extern("xr_effects.stop_cam_effector", (actor: ClientObject, object: ClientObjec
 /**
  * Disable actor night vision tools.
  */
-extern("xr_effects.disable_actor_nightvision", (actor: ClientObject): void => {
+extern("xr_effects.disable_actor_nightvision", (actor: GameObject): void => {
   ActorInputManager.getInstance().disableActorNightVision();
 });
 
 /**
  * Enable actor night vision tools.
  */
-extern("xr_effects.enable_actor_nightvision", (actor: ClientObject): void => {
+extern("xr_effects.enable_actor_nightvision", (actor: GameObject): void => {
   ActorInputManager.getInstance().enableActorNightVision();
 });
 
 /**
  * Disable actor torch.
  */
-extern("xr_effects.disable_actor_torch", (actor: ClientObject): void => {
+extern("xr_effects.disable_actor_torch", (actor: GameObject): void => {
   ActorInputManager.getInstance().disableActorTorch();
 });
 
 /**
  * Enable actor torch.
  */
-extern("xr_effects.enable_actor_torch", (actor: ClientObject): void => {
+extern("xr_effects.enable_actor_torch", (actor: GameObject): void => {
   ActorInputManager.getInstance().enableActorTorch();
 });
 
@@ -135,7 +135,7 @@ extern("xr_effects.enable_actor_torch", (actor: ClientObject): void => {
  */
 extern(
   "xr_effects.run_cam_effector_global",
-  (actor: ClientObject, object: ClientObject, params: [string, Optional<number>, Optional<number>]): void => {
+  (actor: GameObject, object: GameObject, params: [string, Optional<number>, Optional<number>]): void => {
     logger.info("Run cam effector global");
 
     let num: TIndex = 1000 + math.random(100);
@@ -186,7 +186,7 @@ extern("xr_effects.cam_effector_callback", (): void => {
 /**
  * todo;
  */
-extern("xr_effects.run_postprocess", (actor: ClientObject, object: ClientObject, p: [string, number]): void => {
+extern("xr_effects.run_postprocess", (actor: GameObject, object: GameObject, p: [string, number]): void => {
   logger.info("Run postprocess");
 
   if (p[0]) {
@@ -207,7 +207,7 @@ extern("xr_effects.run_postprocess", (actor: ClientObject, object: ClientObject,
 /**
  * todo;
  */
-extern("xr_effects.stop_postprocess", (actor: ClientObject, object: ClientObject, p: [number]): void => {
+extern("xr_effects.stop_postprocess", (actor: GameObject, object: GameObject, p: [number]): void => {
   logger.info("Stop postprocess");
 
   if (p[0] && type(p[0]) === "number" && p[0] > 0) {
@@ -219,7 +219,7 @@ extern("xr_effects.stop_postprocess", (actor: ClientObject, object: ClientObject
  * Run game tutorial.
  * Expects tutorial name parameter to run.
  */
-extern("xr_effects.run_tutorial", (actor: ClientObject, object: ClientObject, [tutorialName]: [TName]): void => {
+extern("xr_effects.run_tutorial", (actor: GameObject, object: GameObject, [tutorialName]: [TName]): void => {
   logger.format("Run tutorial: '%s'", tutorialName);
   game.start_tutorial(tutorialName);
 });
@@ -228,25 +228,22 @@ extern("xr_effects.run_tutorial", (actor: ClientObject, object: ClientObject, [t
  * Give items of provided section to actor.
  * Expects variadic list of sections to give for the actor.
  */
-extern(
-  "xr_effects.give_actor",
-  (actor: ClientObject, object: Optional<ClientObject>, sections: Array<TSection>): void => {
-    for (const section of sections) {
-      giveItemsToActor(section);
-    }
+extern("xr_effects.give_actor", (actor: GameObject, object: Optional<GameObject>, sections: Array<TSection>): void => {
+  for (const section of sections) {
+    giveItemsToActor(section);
   }
-);
+});
 
 /**
  * todo;
  */
-extern("xr_effects.remove_item", (actor: ClientObject, object: ClientObject, p: [TSection]): void => {
+extern("xr_effects.remove_item", (actor: GameObject, object: GameObject, p: [TSection]): void => {
   logger.info("Remove item");
 
   assert(p && p[0], "Wrong parameters in function 'remove_item'.");
 
   const section: TSection = p[0];
-  const inventoryItem: Optional<ClientObject> = actor.object(section);
+  const inventoryItem: Optional<GameObject> = actor.object(section);
 
   if (inventoryItem !== null) {
     registry.simulator.release(registry.simulator.object(inventoryItem.id()), true);
@@ -260,25 +257,22 @@ extern("xr_effects.remove_item", (actor: ClientObject, object: ClientObject, p: 
 /**
  * todo;
  */
-extern(
-  "xr_effects.drop_object_item_on_point",
-  (actor: ClientObject, object: ClientObject, p: [number, string]): void => {
-    const dropObject: ClientObject = actor.object(p[0]) as ClientObject;
-    const dropPoint: Vector = new patrol(p[1]).point(0);
+extern("xr_effects.drop_object_item_on_point", (actor: GameObject, object: GameObject, p: [number, string]): void => {
+  const dropObject: GameObject = actor.object(p[0]) as GameObject;
+  const dropPoint: Vector = new patrol(p[1]).point(0);
 
-    actor.drop_item_and_teleport(dropObject, dropPoint);
-  }
-);
+  actor.drop_item_and_teleport(dropObject, dropPoint);
+});
 
 /**
  * todo;
  */
-extern("xr_effects.relocate_item", (actor: ClientObject, object: ClientObject, params: [string, string, string]) => {
+extern("xr_effects.relocate_item", (actor: GameObject, object: GameObject, params: [string, string, string]) => {
   logger.info("Relocate item");
 
   const item: Optional<TSection> = params && params[0];
-  const fromObject: Optional<ClientObject> = params && getObjectByStoryId(params[1]);
-  const toObject: Optional<ClientObject> = params && getObjectByStoryId(params[2]);
+  const fromObject: Optional<GameObject> = params && getObjectByStoryId(params[1]);
+  const toObject: Optional<GameObject> = params && getObjectByStoryId(params[2]);
 
   if (toObject !== null) {
     if (fromObject !== null && fromObject.object(item) !== null) {
@@ -300,12 +294,9 @@ extern("xr_effects.relocate_item", (actor: ClientObject, object: ClientObject, p
 /**
  * todo;
  */
-extern(
-  "xr_effects.activate_weapon_slot",
-  (actor: ClientObject, object: ClientObject, [slot]: [EActiveItemSlot]): void => {
-    actor.activate_slot(slot);
-  }
-);
+extern("xr_effects.activate_weapon_slot", (actor: GameObject, object: GameObject, [slot]: [EActiveItemSlot]): void => {
+  actor.activate_slot(slot);
+});
 
 // todo: Move to input manager.
 let actorPositionForRestore: Optional<Vector> = null;
@@ -327,7 +318,7 @@ extern("xr_effects.restore_actor_position", (): void => {
 /**
  * Punch actor and force to drop active slot weapon as object.
  */
-extern("xr_effects.actor_punch", (actor: ClientObject, object: ClientObject): void => {
+extern("xr_effects.actor_punch", (actor: GameObject, object: GameObject): void => {
   objectPunchActor(object);
 });
 
@@ -336,11 +327,7 @@ extern("xr_effects.actor_punch", (actor: ClientObject, object: ClientObject): vo
  */
 extern(
   "xr_effects.send_tip",
-  (
-    actor: ClientObject,
-    object: ClientObject,
-    [caption, icon, senderId]: [TLabel, TNotificationIcon, TStringId]
-  ): void => {
+  (actor: GameObject, object: GameObject, [caption, icon, senderId]: [TLabel, TNotificationIcon, TStringId]): void => {
     logger.info("Send tip");
     NotificationManager.getInstance().sendTipNotification(caption, icon, 0, null, senderId);
   }
@@ -349,7 +336,7 @@ extern(
 /**
  * todo;
  */
-extern("xr_effects.give_task", (actor: ClientObject, object: ClientObject, [taskId]: [Optional<TStringId>]): void => {
+extern("xr_effects.give_task", (actor: GameObject, object: GameObject, [taskId]: [Optional<TStringId>]): void => {
   assertDefined(taskId, "No parameter in give_task effect.");
   TaskManager.getInstance().giveTask(taskId);
 });
@@ -357,7 +344,7 @@ extern("xr_effects.give_task", (actor: ClientObject, object: ClientObject, [task
 /**
  * todo;
  */
-extern("xr_effects.set_active_task", (actor: ClientObject, object: ClientObject, [taskId]: [TStringId]): void => {
+extern("xr_effects.set_active_task", (actor: GameObject, object: GameObject, [taskId]: [TStringId]): void => {
   logger.info("Set active task:", taskId);
 
   if (taskId !== null) {
@@ -372,7 +359,7 @@ extern("xr_effects.set_active_task", (actor: ClientObject, object: ClientObject,
 /**
  * Kill actor instantly.
  */
-extern("xr_effects.kill_actor", (actor: ClientObject, object: ClientObject): void => {
+extern("xr_effects.kill_actor", (actor: GameObject, object: GameObject): void => {
   logger.info("Kill actor effect");
   actor.kill(actor);
 });
@@ -383,16 +370,16 @@ extern("xr_effects.kill_actor", (actor: ClientObject, object: ClientObject): voi
  */
 extern(
   "xr_effects.make_actor_visible_to_squad",
-  (actor: ClientObject, object: ClientObject, [storyId]: [TStringId]): void => {
+  (actor: GameObject, object: GameObject, [storyId]: [TStringId]): void => {
     const squad: Optional<Squad> = getServerObjectByStoryId(storyId);
 
     assertDefined(squad, "There is no squad with id[%s]", storyId);
 
     for (const squadMember of squad.squad_members()) {
-      const clientObject: Optional<ClientObject> = level.object_by_id(squadMember.id);
+      const gameObject: Optional<GameObject> = level.object_by_id(squadMember.id);
 
-      if (clientObject !== null) {
-        clientObject.make_object_visible_somewhen(actor);
+      if (gameObject !== null) {
+        gameObject.make_object_visible_somewhen(actor);
       }
     }
   }
@@ -425,7 +412,7 @@ extern("xr_effects.sleep", (): void => {
 });
 
 // todo: To be more generic, pick items from slots and add randomization.
-extern("xr_effects.damage_actor_items_on_start", (actor: ClientObject): void => {
+extern("xr_effects.damage_actor_items_on_start", (actor: GameObject): void => {
   logger.info("Damage actor items on start");
 
   actor.object(helmets.helm_respirator)?.set_condition(0.8);
@@ -437,8 +424,8 @@ extern("xr_effects.damage_actor_items_on_start", (actor: ClientObject): void => 
 /**
  * todo;
  */
-extern("xr_effects.activate_weapon", (actor: ClientObject, object: ClientObject, [section]: [TSection]) => {
-  const inventoryItem: Optional<ClientObject> = actor.object(section);
+extern("xr_effects.activate_weapon", (actor: GameObject, object: GameObject, [section]: [TSection]) => {
+  const inventoryItem: Optional<GameObject> = actor.object(section);
 
   assertDefined(inventoryItem, "Actor has no such weapon - '%s'.", section);
 
@@ -449,27 +436,24 @@ extern("xr_effects.activate_weapon", (actor: ClientObject, object: ClientObject,
  * Give actor list of treasures.
  * Expects variadic list of treasure IDs.
  */
-extern(
-  "xr_effects.give_treasure",
-  (actor: ClientObject, object: ClientObject, treasures: LuaArray<TStringId>): void => {
-    logger.info("Give treasures for actor");
+extern("xr_effects.give_treasure", (actor: GameObject, object: GameObject, treasures: LuaArray<TStringId>): void => {
+  logger.info("Give treasures for actor");
 
-    assertDefined(treasures, "Required parameter is 'NIL'.");
+  assertDefined(treasures, "Required parameter is 'NIL'.");
 
-    const treasureManager: TreasureManager = TreasureManager.getInstance();
+  const treasureManager: TreasureManager = TreasureManager.getInstance();
 
-    for (const [, id] of treasures) {
-      treasureManager.giveActorTreasureCoordinates(id);
-    }
+  for (const [, id] of treasures) {
+    treasureManager.giveActorTreasureCoordinates(id);
   }
-);
+});
 
 /**
  * Force actor to use detector if any exists in inventory.
  */
-extern("xr_effects.get_best_detector", (actor: ClientObject): void => {
+extern("xr_effects.get_best_detector", (actor: GameObject): void => {
   for (const [, detector] of ipairs(detectorsOrder)) {
-    const item: Optional<ClientObject> = actor.object(detector);
+    const item: Optional<GameObject> = actor.object(detector);
 
     if (item !== null) {
       item.enable_attachable_item(true);
@@ -482,9 +466,9 @@ extern("xr_effects.get_best_detector", (actor: ClientObject): void => {
 /**
  * Hide actor detector if it is active item.
  */
-extern("xr_effects.hide_best_detector", (actor: ClientObject): void => {
+extern("xr_effects.hide_best_detector", (actor: GameObject): void => {
   for (const [, detector] of ipairs(detectorsOrder)) {
-    const item: Optional<ClientObject> = actor.object(detector);
+    const item: Optional<GameObject> = actor.object(detector);
 
     if (item !== null) {
       item.enable_attachable_item(false);
@@ -497,27 +481,24 @@ extern("xr_effects.hide_best_detector", (actor: ClientObject): void => {
 /**
  * todo;
  */
-extern(
-  "xr_effects.set_torch_state",
-  (actor: ClientObject, object: ClientObject, p: [string, Optional<string>]): void => {
-    if (p === null || p[1] === null) {
-      abort("Not enough parameters in 'set_torch_state' function!");
-    }
+extern("xr_effects.set_torch_state", (actor: GameObject, object: GameObject, p: [string, Optional<string>]): void => {
+  if (p === null || p[1] === null) {
+    abort("Not enough parameters in 'set_torch_state' function!");
+  }
 
-    const storyObject: Optional<ClientObject> = getObjectByStoryId(p[0]);
+  const storyObject: Optional<GameObject> = getObjectByStoryId(p[0]);
 
-    if (storyObject === null) {
-      return;
-    }
+  if (storyObject === null) {
+    return;
+  }
 
-    const torch: Optional<ClientObject> = storyObject.object(misc.device_torch);
+  const torch: Optional<GameObject> = storyObject.object(misc.device_torch);
 
-    if (torch) {
-      if (p[1] === "on") {
-        torch.enable_attachable_item(true);
-      } else if (p[1] === "off") {
-        torch.enable_attachable_item(false);
-      }
+  if (torch) {
+    if (p[1] === "on") {
+      torch.enable_attachable_item(true);
+    } else if (p[1] === "off") {
+      torch.enable_attachable_item(false);
     }
   }
-);
+});

@@ -2,12 +2,12 @@ import { describe, expect, it } from "@jest/globals";
 
 import { IRegistryObjectState, registerObject } from "@/engine/core/database";
 import { ObjectRestrictionsManager } from "@/engine/core/objects/ai/restriction";
-import { ClientObject } from "@/engine/lib/types";
-import { mockClientGameObject, mockIniFile } from "@/fixtures/xray";
+import { GameObject } from "@/engine/lib/types";
+import { mockGameObject, mockIniFile } from "@/fixtures/xray";
 
 describe("ObjectRestrictionsManager class", () => {
   it("should correctly initialize and get object restrictions", () => {
-    const object: ClientObject = mockClientGameObject({
+    const object: GameObject = mockGameObject({
       in_restrictions: () => "a, b",
       out_restrictions: () => "c, d",
     });
@@ -27,7 +27,7 @@ describe("ObjectRestrictionsManager class", () => {
   });
 
   it("should correctly activate and get object restrictions", () => {
-    const object: ClientObject = mockClientGameObject();
+    const object: GameObject = mockGameObject();
     const state: IRegistryObjectState = registerObject(object);
 
     state.ini = mockIniFile("test.ltx", {

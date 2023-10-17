@@ -8,12 +8,12 @@ import {
 } from "@/engine/core/database/helicopters";
 import { registry } from "@/engine/core/database/registry";
 import { HelicopterBinder } from "@/engine/core/objects/binders/HelicopterBinder";
-import { ClientObject, TIndex } from "@/engine/lib/types";
-import { mockClientGameObject, mockIniFile } from "@/fixtures/xray";
+import { GameObject, TIndex } from "@/engine/lib/types";
+import { mockGameObject, mockIniFile } from "@/fixtures/xray";
 
 describe("helicopters module of the database", () => {
   it("should correctly register helicopter binders", () => {
-    const helicopter: HelicopterBinder = new HelicopterBinder(mockClientGameObject(), mockIniFile("test.ini"));
+    const helicopter: HelicopterBinder = new HelicopterBinder(mockGameObject(), mockIniFile("test.ini"));
 
     registerHelicopter(helicopter);
 
@@ -29,14 +29,14 @@ describe("helicopters module of the database", () => {
   });
 
   it("should correctly register helicopter enemies", () => {
-    const first: ClientObject = mockClientGameObject();
+    const first: GameObject = mockGameObject();
     const firstIndex: TIndex = registerHelicopterEnemy(first);
 
     expect(firstIndex).toBe(0);
     expect(registry.helicopter.enemyIndex).toBe(1);
     expect(registry.helicopter.enemies.get(firstIndex)).toBe(first);
 
-    const second: ClientObject = mockClientGameObject();
+    const second: GameObject = mockGameObject();
     const secondIndex: TIndex = registerHelicopterEnemy(second);
 
     expect(secondIndex).toBe(1);

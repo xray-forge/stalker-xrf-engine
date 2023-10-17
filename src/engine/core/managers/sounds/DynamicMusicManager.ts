@@ -16,7 +16,7 @@ import { clampNumber } from "@/engine/core/utils/number";
 import { isObjectInSilenceZone } from "@/engine/core/utils/position";
 import { consoleCommands } from "@/engine/lib/constants/console_commands";
 import {
-  ClientObject,
+  GameObject,
   LuaArray,
   Optional,
   TDistance,
@@ -155,7 +155,7 @@ export class DynamicMusicManager extends AbstractManager {
    * todo: Description.
    */
   public getThemeState(): Optional<EDynamicMusicState> {
-    const actor: ClientObject = registry.actor;
+    const actor: GameObject = registry.actor;
 
     this.forceFade = false;
 
@@ -164,14 +164,14 @@ export class DynamicMusicManager extends AbstractManager {
         const actorPosition: Vector = actor.position();
         const actorId: TNumberId = actor.id();
 
-        let nearestEnemy: Optional<ClientObject> = null;
+        let nearestEnemy: Optional<GameObject> = null;
         let nearestEnemyDistanceSqr: TDistance = 10_000;
 
         // todo: No need to check every enemy, just find at least one who meets threshold and flag 'true'
         // todo: No need to check every enemy, just check same location.
         for (const [objectId] of registry.stalkers) {
-          const object: Optional<ClientObject> = registry.objects.get(objectId).object;
-          const enemy: Optional<ClientObject> = object.best_enemy();
+          const object: Optional<GameObject> = registry.objects.get(objectId).object;
+          const enemy: Optional<GameObject> = object.best_enemy();
 
           if (enemy && enemy.id() === actorId) {
             const dist: TDistance = actorPosition.distance_to_sqr(object.position());

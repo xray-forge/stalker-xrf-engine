@@ -31,8 +31,8 @@ import { create2dVector } from "@/engine/core/utils/vector";
 import { forgeConfig } from "@/engine/lib/configs/ForgeConfig";
 import { screenConfig } from "@/engine/lib/configs/ScreenConfig";
 import {
-  ClientObject,
   FSItem,
+  GameObject,
   LuaArray,
   Optional,
   TIndex,
@@ -283,7 +283,7 @@ export class LoadDialog extends CUIScriptWnd {
       return;
     }
 
-    const actor: Optional<ClientObject> = registry.actor;
+    const actor: Optional<GameObject> = registry.actor;
 
     if (actor !== null && !actor.alive()) {
       this.loadGameInternal();

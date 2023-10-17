@@ -15,7 +15,7 @@ import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundMan
 import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain/SmartTerrain";
 import { giveInfoPortion } from "@/engine/core/utils/info_portion";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { ClientObject, NetPacket, Reader, ServerObject, TDuration } from "@/engine/lib/types";
+import { GameObject, NetPacket, Reader, ServerObject, TDuration } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -56,7 +56,7 @@ export class SmartTerrainBinder extends object_binder {
 
     this.serverObject.update();
 
-    const object: ClientObject = this.object;
+    const object: GameObject = this.object;
 
     if (!this.isVisited && object.inside(registry.actor.position(), mapDisplayConfig.DISTANCE_TO_OPEN)) {
       logger.info("Visited:", object.name());

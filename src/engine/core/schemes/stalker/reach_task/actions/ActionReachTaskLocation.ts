@@ -12,9 +12,9 @@ import { sendToNearestAccessibleVertex } from "@/engine/core/utils/position";
 import { getObjectSquad } from "@/engine/core/utils/squad/squad_get";
 import { areSameVectors, createEmptyVector, createVector } from "@/engine/core/utils/vector";
 import {
-  ClientObject,
-  EClientObjectMovementType,
-  EClientObjectPath,
+  EGameObjectMovementType,
+  EGameObjectPath,
+  GameObject,
   ISchemeEventHandler,
   Optional,
   TName,
@@ -70,7 +70,7 @@ export class ActionReachTaskLocation extends action_base implements ISchemeEvent
     this.nextUpdateAt = time_global() + 1000;
 
     this.object.set_desired_direction();
-    this.object.set_movement_selection_type(EClientObjectMovementType.MASK);
+    this.object.set_movement_selection_type(EGameObjectMovementType.MASK);
     this.object.set_item(object.idle, this.object.best_weapon());
     this.object.set_body_state(move.standing);
     this.object.set_detail_path_type(move.line);
@@ -80,7 +80,7 @@ export class ActionReachTaskLocation extends action_base implements ISchemeEvent
     const reachTarget: TSimulationObject = registry.simulator.object(this.reachTargetId)!;
 
     this.object.set_dest_game_vertex_id(reachTarget.m_game_vertex_id);
-    this.object.set_path_type(EClientObjectPath.GAME_PATH);
+    this.object.set_path_type(EGameObjectPath.GAME_PATH);
     this.object.inactualize_patrol_path();
     this.object.set_sight(look.path_dir, null, 0);
 
@@ -133,7 +133,7 @@ export class ActionReachTaskLocation extends action_base implements ISchemeEvent
    */
   public override finalize(): void {
     super.finalize();
-    this.object.set_movement_selection_type(EClientObjectMovementType.RANDOM);
+    this.object.set_movement_selection_type(EGameObjectMovementType.RANDOM);
 
     logger.info("Finalize reach task action:", this.object.name());
   }
@@ -148,7 +148,7 @@ export class ActionReachTaskLocation extends action_base implements ISchemeEvent
       let position: Vector = squadTarget.position;
 
       if (this.object.game_vertex_id() !== gvi) {
-        this.object.set_path_type(EClientObjectPath.GAME_PATH);
+        this.object.set_path_type(EGameObjectPath.GAME_PATH);
         this.object.set_dest_game_vertex_id(gvi);
         this.object.set_sight(look.path_dir, null, 0);
 
@@ -159,7 +159,7 @@ export class ActionReachTaskLocation extends action_base implements ISchemeEvent
         return;
       }
 
-      this.object.set_path_type(EClientObjectPath.LEVEL_PATH);
+      this.object.set_path_type(EGameObjectPath.LEVEL_PATH);
 
       if (!this.object.accessible(position)) {
         [lvi] = this.object.accessible_nearest(position, createEmptyVector());
@@ -193,7 +193,7 @@ export class ActionReachTaskLocation extends action_base implements ISchemeEvent
       this.object.set_desired_direction(desiredDirection);
     }
 
-    this.object.set_path_type(EClientObjectPath.LEVEL_PATH);
+    this.object.set_path_type(EGameObjectPath.LEVEL_PATH);
 
     if (squadTarget === null || isSquad(squadTarget) || surgeConfig.IS_STARTED) {
       this.object.set_movement_type(level.object_by_id(objectSquad.commander_id())!.movement_type());
@@ -219,14 +219,14 @@ export class ActionReachTaskLocation extends action_base implements ISchemeEvent
   /**
    * todo: Description.
    */
-  public onDeath(object: ClientObject): void {
+  public onDeath(object: GameObject): void {
     this.patrolManager?.removeObjectFromPatrol(object);
   }
 
   /**
    * todo: Description.
    */
-  public onSwitchOffline(object: ClientObject): void {
+  public onSwitchOffline(object: GameObject): void {
     this.patrolManager?.removeObjectFromPatrol(object);
   }
 }
@@ -234,7 +234,7 @@ export class ActionReachTaskLocation extends action_base implements ISchemeEvent
 /**
  * todo;
  */
-function updateObjectMovement(object: ClientObject, target: Optional<TSimulationObject>): void {
+function updateObjectMovement(object: GameObject, target: Optional<TSimulationObject>): void {
   if (target !== null && !object.is_talking()) {
     if (surgeConfig.IS_STARTED) {
       object.set_movement_type(move.run);

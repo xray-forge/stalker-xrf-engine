@@ -20,8 +20,8 @@ import {
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { NIL, TRUE } from "@/engine/lib/constants/words";
 import {
-  ClientObject,
   ESoundObjectType,
+  GameObject,
   IniFile,
   NetPacket,
   Optional,
@@ -61,7 +61,7 @@ export class LabX8DoorBinder extends object_binder {
   public onStopConditionList!: TConditionList;
   public onStartConditionList!: TConditionList;
 
-  public constructor(object: ClientObject) {
+  public constructor(object: GameObject) {
     super(object);
 
     let ini: IniFile = object.spawn_ini()!;
@@ -333,7 +333,7 @@ export class LabX8DoorBinder extends object_binder {
   /**
    * todo: Description.
    */
-  public onUse(object: ClientObject): void {
+  public onUse(object: GameObject): void {
     pickSectionFromCondList(registry.actor, object, this.onUseConditionList);
   }
 }

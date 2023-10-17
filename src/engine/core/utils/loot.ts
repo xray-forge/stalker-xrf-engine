@@ -6,7 +6,7 @@ import { corpseDetectionConfig } from "@/engine/core/schemes/stalker/corpse_dete
 import { isLootableItemSection } from "@/engine/core/utils/section";
 import { lootableTable } from "@/engine/lib/constants/items/lootable_table";
 import { LOOTING_DEAD_OBJECT_KEY } from "@/engine/lib/constants/portable_store_keys";
-import { ClientObject, LuaArray, Optional, TDistance, TNumberId, Vector } from "@/engine/lib/types";
+import { GameObject, LuaArray, Optional, TDistance, TNumberId, Vector } from "@/engine/lib/types";
 
 /**
  * Check if object has valuable loot.
@@ -14,10 +14,10 @@ import { ClientObject, LuaArray, Optional, TDistance, TNumberId, Vector } from "
  * @param object - target client object to check
  * @returns whether object has any valuables to loot
  */
-export function isObjectWithValuableLoot(object: ClientObject): boolean {
+export function isObjectWithValuableLoot(object: GameObject): boolean {
   let hasValuableLoot: boolean = false;
 
-  object.iterate_inventory((object: ClientObject, item: ClientObject) => {
+  object.iterate_inventory((object: GameObject, item: GameObject) => {
     if (item.section() in lootableTable) {
       hasValuableLoot = true;
 
@@ -36,8 +36,8 @@ export function isObjectWithValuableLoot(object: ClientObject): boolean {
  * @param to - client object to move loot to
  * @returns transfered objects lists
  */
-export function transferLoot(from: ClientObject, to: ClientObject): LuaArray<ClientObject> {
-  const list: LuaArray<ClientObject> = new LuaTable();
+export function transferLoot(from: GameObject, to: GameObject): LuaArray<GameObject> {
+  const list: LuaArray<GameObject> = new LuaTable();
 
   from.iterate_inventory((owner, item) => {
     if (isLootableItemSection(item.section())) {
@@ -53,19 +53,19 @@ export function transferLoot(from: ClientObject, to: ClientObject): LuaArray<Cli
  * todo;
  */
 export function getNearestCorpseToLoot(
-  object: ClientObject
-): LuaMultiReturn<[ClientObject, TNumberId, Vector] | [null, null, null]> {
+  object: GameObject
+): LuaMultiReturn<[GameObject, TNumberId, Vector] | [null, null, null]> {
   const corpses: LuaArray<IReleaseDescriptor> = ReleaseBodyManager.getInstance().releaseObjectRegistry;
 
   let nearestCorpseDistSqr: TDistance = corpseDetectionConfig.DISTANCE_TO_SEARCH_SQR;
   let nearestCorpseVertex: Optional<TNumberId> = null;
   let nearestCorpsePosition: Optional<Vector> = null;
-  let nearestCorpseObject: Optional<ClientObject> = null;
+  let nearestCorpseObject: Optional<GameObject> = null;
 
   for (const [, descriptor] of corpses) {
     const id: TNumberId = descriptor.id;
     const registryState: Optional<IRegistryObjectState> = registry.objects.get(id);
-    const corpseObject: Optional<ClientObject> = registryState !== null ? registryState.object : null;
+    const corpseObject: Optional<GameObject> = registryState !== null ? registryState.object : null;
 
     // Is registered in client side.
     if (corpseObject) {
@@ -97,6 +97,6 @@ export function getNearestCorpseToLoot(
   }
 
   return $multi(nearestCorpseObject, nearestCorpseVertex, nearestCorpsePosition) as LuaMultiReturn<
-    [ClientObject, TNumberId, Vector]
+    [GameObject, TNumberId, Vector]
   >;
 }

@@ -9,7 +9,7 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 import { getObjectSquad } from "@/engine/core/utils/squad";
 import { createEmptyVector, createVector, vectorCross, vectorRotateY, yawDegree } from "@/engine/core/utils/vector";
 import {
-  ClientObject,
+  GameObject,
   Optional,
   ServerCreatureObject,
   TCount,
@@ -57,7 +57,7 @@ export class ReachTaskPatrolManager {
   /**
    * todo: Description.
    */
-  public addObjectToPatrol(object: ClientObject): void {
+  public addObjectToPatrol(object: GameObject): void {
     if (!object.alive() || this.objectsList.has(object.id())) {
       return;
     }
@@ -81,7 +81,7 @@ export class ReachTaskPatrolManager {
   /**
    * todo: Description.
    */
-  public removeObjectFromPatrol(object: ClientObject): void {
+  public removeObjectFromPatrol(object: GameObject): void {
     logger.info("Remove object from patrol:", object.name(), this.targetId);
 
     if (this.objectsList.get(object.id()) === null) {
@@ -149,7 +149,7 @@ export class ReachTaskPatrolManager {
   /**
    * todo: Description.
    */
-  public getCommander(object: ClientObject): ClientObject {
+  public getCommander(object: GameObject): GameObject {
     if (object === null) {
       abort("Invalid NPC on call PatrolManager:get_npc_command in PatrolManager[%s]", this.targetId);
     }
@@ -174,7 +174,7 @@ export class ReachTaskPatrolManager {
   /**
    * todo: Description.
    */
-  public getObjectOrders(object: ClientObject): LuaMultiReturn<[TNumberId, Vector, Optional<EStalkerState>]> {
+  public getObjectOrders(object: GameObject): LuaMultiReturn<[TNumberId, Vector, Optional<EStalkerState>]> {
     if (object === null) {
       abort("Invalid NPC on call PatrolManager:get_npc_command in PatrolManager[%s]", this.targetId);
     }
@@ -189,7 +189,7 @@ export class ReachTaskPatrolManager {
       abort("Patrol commander called function PatrolManager:get_npc_command in PatrolManager[%s]", this.targetId);
     }
 
-    const commander: Optional<ClientObject> = level.object_by_id(this.objectsList.get(this.commanderId).soldier);
+    const commander: Optional<GameObject> = level.object_by_id(this.objectsList.get(this.commanderId).soldier);
 
     assertDefined(commander, "Commander is nil!");
 
@@ -242,7 +242,7 @@ export class ReachTaskPatrolManager {
   /**
    * todo: Description.
    */
-  public setObjectOrders(object: ClientObject, command: EStalkerState, formation: TName): void {
+  public setObjectOrders(object: GameObject, command: EStalkerState, formation: TName): void {
     if (object === null || !object.alive()) {
       abort("NPC commander possible dead in PatrolManager[%s]", this.targetId);
     }

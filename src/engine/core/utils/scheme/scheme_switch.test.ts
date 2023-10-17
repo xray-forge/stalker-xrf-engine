@@ -18,10 +18,10 @@ import { parseConditionsList } from "@/engine/core/utils/ini/ini_parse";
 import { loadSchemeImplementation } from "@/engine/core/utils/scheme/scheme_setup";
 import { switchObjectSchemeToSection, trySwitchToAnotherSection } from "@/engine/core/utils/scheme/scheme_switch";
 import { NIL } from "@/engine/lib/constants/words";
-import { ClientObject, EScheme, ESchemeCondition, IniFile, LuaArray } from "@/engine/lib/types";
+import { EScheme, ESchemeCondition, GameObject, IniFile, LuaArray } from "@/engine/lib/types";
 import { getSchemeAction, mockBaseSchemeLogic, mockSchemeState } from "@/fixtures/engine";
 import { replaceFunctionMock } from "@/fixtures/jest";
-import { mockClientGameObject, mockIniFile } from "@/fixtures/xray";
+import { mockGameObject, mockIniFile } from "@/fixtures/xray";
 import { MockCTime } from "@/fixtures/xray/mocks/CTime.mock";
 
 // todo: Complex logic switch
@@ -33,7 +33,7 @@ describe("switch logic utils", () => {
   });
 
   it("trySwitchToAnotherSection should throw if no logic present / logic is not expected", () => {
-    const object: ClientObject = mockClientGameObject();
+    const object: GameObject = mockGameObject();
 
     const firstState: IBaseSchemeState = mockSchemeState(EScheme.SR_IDLE, {
       logic: null,
@@ -58,8 +58,8 @@ describe("switch logic utils", () => {
   });
 
   it("trySwitchToAnotherSection should correctly check ON_ACTOR_DISTANCE_LESS_THAN", () => {
-    const actor: ClientObject = mockClientGameObject();
-    const object: ClientObject = mockClientGameObject();
+    const actor: GameObject = mockGameObject();
+    const object: GameObject = mockGameObject();
     const objectState: IRegistryObjectState = registerObject(object);
     const ini: IniFile = mockIniFile("test.ltx", {
       "sr_idle@next": {},
@@ -102,8 +102,8 @@ describe("switch logic utils", () => {
   });
 
   it("trySwitchToAnotherSection should correctly check ON_ACTOR_DISTANCE_LESS_THAN_NOT_VISIBLE", () => {
-    const actor: ClientObject = mockClientGameObject();
-    const object: ClientObject = mockClientGameObject();
+    const actor: GameObject = mockGameObject();
+    const object: GameObject = mockGameObject();
     const objectState: IRegistryObjectState = registerObject(object);
     const ini: IniFile = mockIniFile("test.ltx", {
       "sr_idle@next": {},
@@ -138,8 +138,8 @@ describe("switch logic utils", () => {
   });
 
   it("trySwitchToAnotherSection should correctly check ON_ACTOR_DISTANCE_GREATER_THAN", () => {
-    const actor: ClientObject = mockClientGameObject();
-    const object: ClientObject = mockClientGameObject();
+    const actor: GameObject = mockGameObject();
+    const object: GameObject = mockGameObject();
     const objectState: IRegistryObjectState = registerObject(object);
     const ini: IniFile = mockIniFile("test.ltx", {
       "sr_idle@next": {},
@@ -182,8 +182,8 @@ describe("switch logic utils", () => {
   });
 
   it("trySwitchToAnotherSection should correctly check ON_ACTOR_DISTANCE_GREATER_THAN_NOT_VISIBLE", () => {
-    const actor: ClientObject = mockClientGameObject();
-    const object: ClientObject = mockClientGameObject();
+    const actor: GameObject = mockGameObject();
+    const object: GameObject = mockGameObject();
     const objectState: IRegistryObjectState = registerObject(object);
     const ini: IniFile = mockIniFile("test.ltx", {
       "sr_idle@next": {},
@@ -218,8 +218,8 @@ describe("switch logic utils", () => {
   });
 
   it("trySwitchToAnotherSection should correctly check ON_ACTOR_INSIDE", () => {
-    const actor: ClientObject = mockClientGameObject();
-    const object: ClientObject = mockClientGameObject();
+    const actor: GameObject = mockGameObject();
+    const object: GameObject = mockGameObject();
     const objectState: IRegistryObjectState = registerObject(object);
     const ini: IniFile = mockIniFile("test.ltx", {
       "sr_idle@next": {},
@@ -251,8 +251,8 @@ describe("switch logic utils", () => {
   });
 
   it("trySwitchToAnotherSection should correctly check ON_ACTOR_OUTSIDE", () => {
-    const actor: ClientObject = mockClientGameObject();
-    const object: ClientObject = mockClientGameObject();
+    const actor: GameObject = mockGameObject();
+    const object: GameObject = mockGameObject();
     const objectState: IRegistryObjectState = registerObject(object);
     const ini: IniFile = mockIniFile("test.ltx", {
       "sr_idle@next": {},
@@ -285,8 +285,8 @@ describe("switch logic utils", () => {
   });
 
   it("trySwitchToAnotherSection should correctly check ON_SIGNAL", () => {
-    const actor: ClientObject = mockClientGameObject();
-    const object: ClientObject = mockClientGameObject();
+    const actor: GameObject = mockGameObject();
+    const object: GameObject = mockGameObject();
     const objectState: IRegistryObjectState = registerObject(object);
     const ini: IniFile = mockIniFile("test.ltx", {
       "sr_idle@next": {},
@@ -323,8 +323,8 @@ describe("switch logic utils", () => {
   });
 
   it("trySwitchToAnotherSection should correctly check ON_INFO", () => {
-    const actor: ClientObject = mockClientGameObject();
-    const object: ClientObject = mockClientGameObject();
+    const actor: GameObject = mockGameObject();
+    const object: GameObject = mockGameObject();
     const objectState: IRegistryObjectState = registerObject(object);
     const ini: IniFile = mockIniFile("test.ltx", {
       "sr_idle@next": {},
@@ -358,8 +358,8 @@ describe("switch logic utils", () => {
   });
 
   it("trySwitchToAnotherSection should correctly check ON_TIMER", () => {
-    const actor: ClientObject = mockClientGameObject();
-    const object: ClientObject = mockClientGameObject();
+    const actor: GameObject = mockGameObject();
+    const object: GameObject = mockGameObject();
     const objectState: IRegistryObjectState = registerObject(object);
     const ini: IniFile = mockIniFile("test.ltx", {
       "sr_idle@next": {},
@@ -397,8 +397,8 @@ describe("switch logic utils", () => {
   });
 
   it("trySwitchToAnotherSection should correctly check ON_GAME_TIMER", () => {
-    const actor: ClientObject = mockClientGameObject();
-    const object: ClientObject = mockClientGameObject();
+    const actor: GameObject = mockGameObject();
+    const object: GameObject = mockGameObject();
     const objectState: IRegistryObjectState = registerObject(object);
     const ini: IniFile = mockIniFile("test.ltx", {
       "sr_idle@next": {},
@@ -436,8 +436,8 @@ describe("switch logic utils", () => {
   });
 
   it("trySwitchToAnotherSection should correctly check ON_ACTOR_IN_ZONE", () => {
-    const actor: ClientObject = mockClientGameObject();
-    const object: ClientObject = mockClientGameObject();
+    const actor: GameObject = mockGameObject();
+    const object: GameObject = mockGameObject();
     const objectState: IRegistryObjectState = registerObject(object);
     const ini: IniFile = mockIniFile("test.ltx", {
       "sr_idle@next": {},
@@ -456,7 +456,7 @@ describe("switch logic utils", () => {
     registerActor(actor);
     loadSchemeImplementation(SchemeIdle);
 
-    const zone: ClientObject = mockClientGameObject({ name: () => "zone_name" });
+    const zone: GameObject = mockGameObject({ name: () => "zone_name" });
 
     registerZone(zone);
 
@@ -474,8 +474,8 @@ describe("switch logic utils", () => {
   });
 
   it("trySwitchToAnotherSection should correctly check ON_ACTOR_NOT_IN_ZONE", () => {
-    const actor: ClientObject = mockClientGameObject();
-    const object: ClientObject = mockClientGameObject();
+    const actor: GameObject = mockGameObject();
+    const object: GameObject = mockGameObject();
     const objectState: IRegistryObjectState = registerObject(object);
     const ini: IniFile = mockIniFile("test.ltx", {
       "sr_idle@next": {},
@@ -494,7 +494,7 @@ describe("switch logic utils", () => {
     registerActor(actor);
     loadSchemeImplementation(SchemeIdle);
 
-    const zone: ClientObject = mockClientGameObject({ name: () => "zone_name" });
+    const zone: GameObject = mockGameObject({ name: () => "zone_name" });
 
     registerZone(zone);
 
@@ -513,10 +513,10 @@ describe("switch logic utils", () => {
   });
 
   it("trySwitchToAnotherSection should correctly check ON_NPC_IN_ZONE", () => {
-    const actor: ClientObject = mockClientGameObject();
-    const object: ClientObject = mockClientGameObject();
+    const actor: GameObject = mockGameObject();
+    const object: GameObject = mockGameObject();
     const objectState: IRegistryObjectState = registerObject(object);
-    const targetObject: ClientObject = mockClientGameObject();
+    const targetObject: GameObject = mockGameObject();
     const ini: IniFile = mockIniFile("test.ltx", {
       "sr_idle@next": {},
     });
@@ -536,7 +536,7 @@ describe("switch logic utils", () => {
     registerActor(actor);
     loadSchemeImplementation(SchemeIdle);
 
-    const zone: ClientObject = mockClientGameObject({ name: () => "zone_name" });
+    const zone: GameObject = mockGameObject({ name: () => "zone_name" });
 
     registerZone(zone);
 
@@ -555,10 +555,10 @@ describe("switch logic utils", () => {
   });
 
   it("trySwitchToAnotherSection should correctly check ON_NPC_NOT_IN_ZONE", () => {
-    const actor: ClientObject = mockClientGameObject();
-    const object: ClientObject = mockClientGameObject();
+    const actor: GameObject = mockGameObject();
+    const object: GameObject = mockGameObject();
     const objectState: IRegistryObjectState = registerObject(object);
-    const targetObject: ClientObject = mockClientGameObject();
+    const targetObject: GameObject = mockGameObject();
     const ini: IniFile = mockIniFile("test.ltx", {
       "sr_idle@next": {},
     });
@@ -578,7 +578,7 @@ describe("switch logic utils", () => {
     registerActor(actor);
     loadSchemeImplementation(SchemeIdle);
 
-    const zone: ClientObject = mockClientGameObject({ name: () => "zone_name" });
+    const zone: GameObject = mockGameObject({ name: () => "zone_name" });
 
     registerZone(zone);
 
@@ -597,8 +597,8 @@ describe("switch logic utils", () => {
   });
 
   it("trySwitchToAnotherSection should correctly handle multiple conditions", () => {
-    const actor: ClientObject = mockClientGameObject();
-    const object: ClientObject = mockClientGameObject();
+    const actor: GameObject = mockGameObject();
+    const object: GameObject = mockGameObject();
     const objectState: IRegistryObjectState = registerObject(object);
     const ini: IniFile = mockIniFile("test.ltx", {
       "sr_idle@default": {},
@@ -640,7 +640,7 @@ describe("switch logic utils", () => {
   });
 
   it("switchObjectSchemeToSection should correctly reset base schemes", () => {
-    const object: ClientObject = mockClientGameObject();
+    const object: GameObject = mockGameObject();
     const state: IRegistryObjectState = registerObject(object);
     const schemeState: IBaseSchemeState = mockSchemeState(EScheme.SR_IDLE, {
       actions: new LuaTable(),

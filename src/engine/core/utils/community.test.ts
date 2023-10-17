@@ -3,32 +3,32 @@ import { clsid } from "xray16";
 
 import { registerObject } from "@/engine/core/database";
 import { getObjectCommunity, setObjectTeamSquadGroup } from "@/engine/core/utils/community";
-import { ClientObject, ServerHumanObject, TClassId } from "@/engine/lib/types";
+import { GameObject, ServerHumanObject, TClassId } from "@/engine/lib/types";
 import { replaceFunctionMock } from "@/fixtures/jest";
-import { mockClientGameObject, mockServerAlifeHumanStalker } from "@/fixtures/xray";
+import { mockGameObject, mockServerAlifeHumanStalker } from "@/fixtures/xray";
 
 describe("community utils", () => {
   it("getObjectCommunity should correctly get community", () => {
-    expect(getObjectCommunity(mockClientGameObject())).toBe("monster");
+    expect(getObjectCommunity(mockGameObject())).toBe("monster");
     expect(getObjectCommunity(mockServerAlifeHumanStalker())).toBe("stalker");
 
-    const clientObject: ClientObject = mockClientGameObject({ clsid: () => clsid.script_stalker as TClassId });
+    const gameObject: GameObject = mockGameObject({ clsid: () => clsid.script_stalker as TClassId });
     const serverObject: ServerHumanObject = mockServerAlifeHumanStalker({
       clsid: () => clsid.script_stalker as TClassId,
     });
 
-    expect(getObjectCommunity(clientObject)).toBe("stalker");
+    expect(getObjectCommunity(gameObject)).toBe("stalker");
     expect(getObjectCommunity(serverObject)).toBe("stalker");
 
-    replaceFunctionMock(clientObject.character_community, () => "monolith");
+    replaceFunctionMock(gameObject.character_community, () => "monolith");
     replaceFunctionMock(serverObject.community, () => "army");
 
-    expect(getObjectCommunity(clientObject)).toBe("monolith");
+    expect(getObjectCommunity(gameObject)).toBe("monolith");
     expect(getObjectCommunity(serverObject)).toBe("army");
   });
 
   it("setObjectTeamSquadGroup should correctly set object group details", () => {
-    const firstObject: ClientObject = mockClientGameObject();
+    const firstObject: GameObject = mockGameObject();
     const firstServerObject: ServerHumanObject = mockServerAlifeHumanStalker({ id: firstObject.id() });
 
     setObjectTeamSquadGroup(firstServerObject, 432, 543, 654);
@@ -39,7 +39,7 @@ describe("community utils", () => {
 
     expect(firstObject.change_team).not.toHaveBeenCalled();
 
-    const secondObject: ClientObject = mockClientGameObject();
+    const secondObject: GameObject = mockGameObject();
     const secondServerObject: ServerHumanObject = mockServerAlifeHumanStalker({ id: secondObject.id() });
 
     registerObject(secondObject);

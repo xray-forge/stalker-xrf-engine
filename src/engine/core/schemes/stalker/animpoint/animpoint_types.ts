@@ -1,7 +1,7 @@
 import type { IBaseSchemeState } from "@/engine/core/database/database_types";
 import { EStalkerState } from "@/engine/core/objects/animation/types";
 import { AnimpointManager } from "@/engine/core/schemes/stalker/animpoint/AnimpointManager";
-import { ClientObject, LuaArray, Optional, TDistance, TName } from "@/engine/lib/types";
+import { GameObject, LuaArray, Optional, TDistance, TName } from "@/engine/lib/types";
 
 /**
  * State of animpoint scheme.
@@ -23,5 +23,5 @@ export interface ISchemeAnimpointState extends IBaseSchemeState {
  */
 export interface IAnimpointActionDescriptor {
   name: EStalkerState;
-  predicate: (this: void, object: ClientObject, isInCamp?: boolean) => boolean;
+  predicate: (this: void, object: GameObject, isInCamp?: boolean) => boolean;
 }

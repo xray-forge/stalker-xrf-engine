@@ -25,15 +25,7 @@ import { parseConditionsList } from "@/engine/core/utils/ini/ini_parse";
 import { TConditionList } from "@/engine/core/utils/ini/ini_types";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { ACTOR, TRUE } from "@/engine/lib/constants/words";
-import {
-  ALifeSmartTerrainTask,
-  ClientObject,
-  NetPacket,
-  Optional,
-  ServerObject,
-  TName,
-  TSize,
-} from "@/engine/lib/types";
+import { ALifeSmartTerrainTask, GameObject, NetPacket, Optional, ServerObject, TName, TSize } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -127,7 +119,7 @@ export class Actor extends cse_alife_creature_actor implements ISimulationTarget
     }
 
     for (const [zoneName, smartName] of registry.noCombatZones) {
-      const zone: ClientObject = registry.zones.get(zoneName);
+      const zone: GameObject = registry.zones.get(zoneName);
 
       if (zone !== null && zone.inside(this.position)) {
         const smartTerrain: Optional<SmartTerrain> =

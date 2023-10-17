@@ -9,13 +9,13 @@ import { ETreasureType, ITreasureDescriptor } from "@/engine/core/managers/treas
 import { readIniTreasuresList } from "@/engine/core/managers/treasures/utils/treasures_init";
 import { giveInfoPortion } from "@/engine/core/utils/info_portion";
 import { parseConditionsList } from "@/engine/core/utils/ini";
-import { ClientObject, ServerObject } from "@/engine/lib/types";
+import { GameObject, ServerObject } from "@/engine/lib/types";
 import { resetManagers } from "@/fixtures/engine";
-import { mockActorClientGameObject, mockIniFile, mockServerAlifeObject } from "@/fixtures/xray";
+import { mockActorGameObject, mockIniFile, mockServerAlifeObject } from "@/fixtures/xray";
 
 describe("TreasureManager class", () => {
   beforeEach(() => {
-    registry.actor = null as unknown as ClientObject;
+    registry.actor = null as unknown as GameObject;
 
     resetManagers();
 
@@ -149,7 +149,7 @@ describe("TreasureManager class", () => {
   });
 
   it("should correctly handle empty state in updates", () => {
-    registerActor(mockActorClientGameObject());
+    registerActor(mockActorGameObject());
     giveInfoPortion("info_b10_first_zone_visited");
 
     const treasureManager: TreasureManager = TreasureManager.getInstance();
@@ -176,7 +176,7 @@ describe("TreasureManager class", () => {
   });
 
   it("should correctly handle refresh state in updates", () => {
-    registerActor(mockActorClientGameObject());
+    registerActor(mockActorGameObject());
 
     const treasureManager: TreasureManager = TreasureManager.getInstance();
 

@@ -1,5 +1,5 @@
-import { ClientObject, Optional, TDangerType } from "@/engine/lib/types";
-import { mockClientGameObject } from "@/fixtures/xray";
+import { GameObject, Optional, TDangerType } from "@/engine/lib/types";
+import { mockGameObject } from "@/fixtures/xray";
 import { MockVector } from "@/fixtures/xray/mocks/vector.mock";
 
 /**
@@ -19,19 +19,19 @@ export class MockDangerObject {
   public static visual: number = 0;
 
   public dangerType: TDangerType = 6;
-  public dangerObject: ClientObject = mockClientGameObject();
-  public dangerDependentObject: Optional<ClientObject> = null;
+  public dangerObject: GameObject = mockGameObject();
+  public dangerDependentObject: Optional<GameObject> = null;
   public dangerPosition: MockVector = MockVector.create(1.5, -0.5, 1);
 
   public position(): MockVector {
     return this.dangerPosition;
   }
 
-  public object(): ClientObject {
+  public object(): GameObject {
     return this.dangerObject;
   }
 
-  public dependent_object(): Optional<ClientObject> {
+  public dependent_object(): Optional<GameObject> {
     return this.dangerDependentObject;
   }
 

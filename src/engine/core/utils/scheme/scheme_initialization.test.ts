@@ -31,19 +31,19 @@ import {
   initializeObjectSectionItems,
 } from "@/engine/core/utils/scheme/scheme_initialization";
 import { loadSchemeImplementations } from "@/engine/core/utils/scheme/scheme_setup";
-import { AnyObject, ClientObject, EClientObjectRelation, EScheme, ESchemeType, IniFile } from "@/engine/lib/types";
+import { AnyObject, EGameObjectRelation, EScheme, ESchemeType, GameObject, IniFile } from "@/engine/lib/types";
 import { resetFunctionMock } from "@/fixtures/jest";
-import { FILES_MOCKS, mockClientGameObject, mockIniFile, mockServerAlifeHumanStalker } from "@/fixtures/xray";
+import { FILES_MOCKS, mockGameObject, mockIniFile, mockServerAlifeHumanStalker } from "@/fixtures/xray";
 
 describe("scheme initialization utils", () => {
   beforeEach(() => {
     registry.schemes = new LuaTable();
-    registry.actor = null as unknown as ClientObject;
+    registry.actor = null as unknown as GameObject;
     registerSimulator();
   });
 
   it("configureObjectSchemes should correctly configure scheme for objects if section does not exist", () => {
-    const object: ClientObject = mockClientGameObject();
+    const object: GameObject = mockGameObject();
     const state: IRegistryObjectState = registerObject(object);
     const ini: IniFile = mockIniFile("test.ltx", {});
 
@@ -100,7 +100,7 @@ describe("scheme initialization utils", () => {
   });
 
   it("configureObjectSchemes should correctly configure scheme for objects if cfg section exists", () => {
-    const object: ClientObject = mockClientGameObject();
+    const object: GameObject = mockGameObject();
     const smartTerrain: SmartTerrain = new SmartTerrain("smart_terrain");
 
     mockServerAlifeHumanStalker({
@@ -187,8 +187,8 @@ describe("scheme initialization utils", () => {
       },
       "mob_combat@test": {},
     });
-    const actor: ClientObject = mockClientGameObject();
-    const object: ClientObject = mockClientGameObject({
+    const actor: GameObject = mockGameObject();
+    const object: GameObject = mockGameObject({
       spawn_ini: () => ini,
     });
     const state: IRegistryObjectState = registerObject(object);
@@ -218,7 +218,7 @@ describe("scheme initialization utils", () => {
     expect(state.ini).toBe(ini);
     expect(state.sectionLogic).toBe("logic");
 
-    expect(object.set_relation).toHaveBeenCalledWith(EClientObjectRelation.ENEMY, actor);
+    expect(object.set_relation).toHaveBeenCalledWith(EGameObjectRelation.ENEMY, actor);
     expect(object.set_sympathy).toHaveBeenCalledWith(1250);
 
     expect(SchemeMobCombat.disable).toHaveBeenCalled();
@@ -230,7 +230,7 @@ describe("scheme initialization utils", () => {
   });
 
   it("initializeObjectSchemeLogic should correctly initialize scheme logic on load", () => {
-    const object: ClientObject = mockClientGameObject();
+    const object: GameObject = mockGameObject();
     const state: IRegistryObjectState = registerObject(object);
 
     initializeObjectSchemeLogic(object, state, true, ESchemeType.MONSTER);
@@ -273,7 +273,7 @@ describe("scheme initialization utils", () => {
   });
 
   it("initializeObjectSectionItems should correctly skip spawn if section does not exist", () => {
-    const object: ClientObject = mockClientGameObject();
+    const object: GameObject = mockGameObject();
     const state: IRegistryObjectState = registerObject(object);
 
     state.sectionLogic = "logics";
@@ -287,7 +287,7 @@ describe("scheme initialization utils", () => {
   });
 
   it("initializeObjectSectionItems should correctly spawn items on scheme activation", () => {
-    const object: ClientObject = mockClientGameObject();
+    const object: GameObject = mockGameObject();
     const state: IRegistryObjectState = registerObject(object);
 
     state.sectionLogic = "logics";

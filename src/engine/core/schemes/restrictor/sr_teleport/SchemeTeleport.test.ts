@@ -4,8 +4,8 @@ import { registerObject } from "@/engine/core/database";
 import { SchemeTeleport } from "@/engine/core/schemes/restrictor/sr_teleport/SchemeTeleport";
 import { ISchemeTeleportState } from "@/engine/core/schemes/restrictor/sr_teleport/sr_teleport_types";
 import { loadSchemeImplementation } from "@/engine/core/utils/scheme/scheme_setup";
-import { ClientObject, EScheme, ESchemeType, IniFile } from "@/engine/lib/types";
-import { mockClientGameObject, mockIniFile } from "@/fixtures/xray";
+import { EScheme, ESchemeType, GameObject, IniFile } from "@/engine/lib/types";
+import { mockGameObject, mockIniFile } from "@/fixtures/xray";
 
 describe("SchemeTeleport functionality", () => {
   it("should be correctly defined", () => {
@@ -15,7 +15,7 @@ describe("SchemeTeleport functionality", () => {
   });
 
   it("should correctly activate scheme", () => {
-    const object: ClientObject = mockClientGameObject();
+    const object: GameObject = mockGameObject();
     const ini: IniFile = mockIniFile("test.ltx", {
       "sr_teleport@test": {
         timeout: 500,

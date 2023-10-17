@@ -9,19 +9,19 @@ import {
 } from "@/engine/core/schemes/stalker/corpse_detection";
 import { loadSchemeImplementation } from "@/engine/core/utils/scheme";
 import { weapons } from "@/engine/lib/constants/items/weapons";
-import { ClientObject, EScheme } from "@/engine/lib/types";
+import { EScheme, GameObject } from "@/engine/lib/types";
 import { replaceFunctionMock } from "@/fixtures/jest";
-import { mockClientGameObject, mockIniFile } from "@/fixtures/xray";
+import { mockGameObject, mockIniFile } from "@/fixtures/xray";
 
 describe("loot utils for corpse_detection scheme", () => {
   it("finishCorpseLooting should correctly finish looting", () => {
     const soundManager: GlobalSoundManager = GlobalSoundManager.getInstance();
 
-    const ak74: ClientObject = mockClientGameObject({ sectionOverride: weapons.wpn_ak74 });
-    const questItem: ClientObject = mockClientGameObject({ sectionOverride: "some_quest_item" });
+    const ak74: GameObject = mockGameObject({ sectionOverride: weapons.wpn_ak74 });
+    const questItem: GameObject = mockGameObject({ sectionOverride: "some_quest_item" });
 
-    const object: ClientObject = mockClientGameObject();
-    const corpse: ClientObject = mockClientGameObject({
+    const object: GameObject = mockGameObject();
+    const corpse: GameObject = mockGameObject({
       inventory: [
         [ak74.section(), ak74],
         [questItem.section(), questItem],

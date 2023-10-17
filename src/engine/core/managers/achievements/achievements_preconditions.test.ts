@@ -39,7 +39,7 @@ import { infoPortions, TInfoPortion } from "@/engine/lib/constants/info_portions
 import { artefacts } from "@/engine/lib/constants/items/artefacts";
 import { TName } from "@/engine/lib/types";
 import { MockLuaTable } from "@/fixtures/lua/mocks/LuaTable.mock";
-import { mockActorClientGameObject, mockClientGameObject } from "@/fixtures/xray";
+import { mockActorGameObject, mockGameObject } from "@/fixtures/xray";
 
 describe("AchievementManager class", () => {
   const mockNotificationListener = (caption: string, senderId: string) => {
@@ -86,7 +86,7 @@ describe("AchievementManager class", () => {
 
   beforeEach(() => {
     disposeManager(EventsManager);
-    registerActor(mockActorClientGameObject());
+    registerActor(mockActorGameObject());
   });
 
   it("should correctly check pioneer achievement", () => {
@@ -220,7 +220,7 @@ describe("AchievementManager class", () => {
 
     expect(relation_registry.change_community_goodwill).toHaveBeenCalledTimes(4);
 
-    registerActor(mockClientGameObject());
+    registerActor(mockGameObject());
 
     checkGenericAchievement({
       check: hasAchievedDiplomat,
@@ -247,7 +247,7 @@ describe("AchievementManager class", () => {
       ],
     });
 
-    registerActor(mockClientGameObject());
+    registerActor(mockGameObject());
 
     checkGenericAchievement({
       check: () => hasAchievedResearchMan(),
@@ -337,7 +337,7 @@ describe("AchievementManager class", () => {
       ],
     });
 
-    registerActor(mockClientGameObject());
+    registerActor(mockGameObject());
 
     checkGenericAchievement({
       check: () => hasAchievedInformationDealer(),

@@ -9,16 +9,16 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 import { isObjectHelpingWounded, isObjectSearchingCorpse, isObjectWounded } from "@/engine/core/utils/planner";
 import { getObjectsRelationSafe } from "@/engine/core/utils/relation";
 import { FALSE, NIL, TRUE } from "@/engine/lib/constants/words";
-import { ClientObject, EClientObjectRelation, EScheme, Optional, TCount, TName } from "@/engine/lib/types";
+import { EGameObjectRelation, EScheme, GameObject, Optional, TCount, TName } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename, { file: "meet" });
 
 /**
  * todo: Description.
  */
-export function updateObjectMeetAvailability(object: ClientObject): void {
+export function updateObjectMeetAvailability(object: GameObject): void {
   if (isObjectWounded(object.id())) {
-    if (object.relation(registry.actor) === EClientObjectRelation.ENEMY) {
+    if (object.relation(registry.actor) === EGameObjectRelation.ENEMY) {
       object.disable_talk();
     } else {
       const state: Optional<ISchemeWoundedState> = registry.objects.get(object.id())[
@@ -58,7 +58,7 @@ export function updateObjectMeetAvailability(object: ClientObject): void {
  *
  * todo: Description.
  */
-export function activateMeetWithObject(object: ClientObject): void {
+export function activateMeetWithObject(object: GameObject): void {
   if (!object.alive()) {
     return;
   }
@@ -71,7 +71,7 @@ export function activateMeetWithObject(object: ClientObject): void {
 
   logger.format("Activate meet interaction: '%s'", object.name());
 
-  const actor: ClientObject = registry.actor;
+  const actor: GameObject = registry.actor;
   const sound: Optional<TName> = pickSectionFromCondList(actor, object, state.useSound);
 
   if (tostring(sound) !== NIL) {
@@ -84,7 +84,7 @@ export function activateMeetWithObject(object: ClientObject): void {
   if (
     meetManager.use === FALSE &&
     meetManager.isAbuseModeEnabled === TRUE &&
-    getObjectsRelationSafe(object, actor) !== EClientObjectRelation.ENEMY
+    getObjectsRelationSafe(object, actor) !== EGameObjectRelation.ENEMY
   ) {
     addObjectAbuse(object, 1);
   }
@@ -96,7 +96,7 @@ export function activateMeetWithObject(object: ClientObject): void {
  * @param object - target client object
  * @param value - count of abuse to add
  */
-export function addObjectAbuse(object: ClientObject, value: TCount): void {
+export function addObjectAbuse(object: GameObject, value: TCount): void {
   const abuseState: Optional<ISchemeAbuseState> = registry.objects.get(object.id())[EScheme.ABUSE] as ISchemeAbuseState;
 
   abuseState?.abuseManager.addAbuse(value);
@@ -107,7 +107,7 @@ export function addObjectAbuse(object: ClientObject, value: TCount): void {
  *
  * @param object - target client object
  */
-export function clearObjectAbuse(object: ClientObject): void {
+export function clearObjectAbuse(object: GameObject): void {
   const state: Optional<ISchemeAbuseState> = registry.objects.get(object.id())[EScheme.ABUSE] as ISchemeAbuseState;
 
   state?.abuseManager.clearAbuse();
@@ -119,7 +119,7 @@ export function clearObjectAbuse(object: ClientObject): void {
  * @param object - target client object
  * @param isEnabled - whether object abuse state should be enabled
  */
-export function setObjectAbuseState(object: ClientObject, isEnabled: boolean): void {
+export function setObjectAbuseState(object: GameObject, isEnabled: boolean): void {
   const state: Optional<ISchemeAbuseState> = registry.objects.get(object.id())[EScheme.ABUSE] as ISchemeAbuseState;
 
   if (isEnabled) {

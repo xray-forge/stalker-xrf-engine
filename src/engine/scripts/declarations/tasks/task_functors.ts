@@ -7,7 +7,7 @@ import { hasInfoPortion } from "@/engine/core/utils/info_portion";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/ini_config";
 import { parseConditionsList } from "@/engine/core/utils/ini/ini_parse";
 import { TConditionList } from "@/engine/core/utils/ini/ini_types";
-import { ClientObject, Optional, TLabel, TNumberId, TRate, TSection, TStringId } from "@/engine/lib/types";
+import { GameObject, Optional, TLabel, TNumberId, TRate, TSection, TStringId } from "@/engine/lib/types";
 import { zatB29AfTable, zatB29InfopBringTable } from "@/engine/scripts/declarations/dialogs/dialogs_zaton";
 
 /**
@@ -21,7 +21,7 @@ extern("task_functors.condlist", (id: TStringId, field: string, conditionList: s
  * todo;
  */
 extern("task_functors.zat_b29_adv_title", (id: TStringId, field: string, p: string): Optional<string> => {
-  const actor: ClientObject = registry.actor;
+  const actor: GameObject = registry.actor;
   let title: Optional<string> = null;
 
   for (const i of $range(16, 23)) {
@@ -43,7 +43,7 @@ extern("task_functors.zat_b29_adv_title", (id: TStringId, field: string, p: stri
 extern("task_functors.zat_b29_adv_descr", (id: TStringId, field: string, p: string) => {
   let descr: TLabel = "";
   let fAf: TRate = 0;
-  const actor: ClientObject = registry.actor;
+  const actor: GameObject = registry.actor;
 
   for (const i of $range(16, 23)) {
     if (hasInfoPortion(zatB29InfopBringTable.get(i)) && actor.object(zatB29AfTable.get(i))) {
@@ -140,7 +140,7 @@ extern("task_functors.target_condlist", (id: TStringId, field: string, condition
 extern("task_functors.zat_b29_adv_target", (id: TStringId, field: string, p: string) => {
   let targetObjectId: TStringId = "zat_a2_stalker_barmen";
   let artefact: Optional<TStringId> = null;
-  const actor: ClientObject = registry.actor;
+  const actor: GameObject = registry.actor;
 
   for (const i of $range(16, 23)) {
     if (hasInfoPortion(zatB29InfopBringTable.get(i)) && actor.object(zatB29AfTable.get(i))) {

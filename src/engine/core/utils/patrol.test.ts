@@ -8,12 +8,12 @@ import {
   isPatrolInRestrictor,
   isPatrolTeamSynchronized,
 } from "@/engine/core/utils/patrol";
-import { ClientObject, Patrol, TNumberId, Vector } from "@/engine/lib/types";
-import { mockClientGameObject, patrols } from "@/fixtures/xray";
+import { GameObject, Patrol, TNumberId, Vector } from "@/engine/lib/types";
+import { mockGameObject, patrols } from "@/fixtures/xray";
 
 describe("patrol utils", () => {
   it("isObjectAtWaypoint should correctly check whether object is at waypoint", () => {
-    const object: ClientObject = mockClientGameObject();
+    const object: GameObject = mockGameObject();
 
     jest.spyOn(object.position(), "distance_to_sqr").mockImplementation(() => 0.131);
 
@@ -27,7 +27,7 @@ describe("patrol utils", () => {
   });
 
   it("isObjectAtTerminalWaypoint should correctly check whether object is at terminal waypoint", () => {
-    const object: ClientObject = mockClientGameObject();
+    const object: GameObject = mockGameObject();
     const waypointPatrol: Patrol = new patrol("test-wp");
     const lastPoint: Vector = waypointPatrol.point(2);
 
@@ -44,7 +44,7 @@ describe("patrol utils", () => {
     expect(isPatrolInRestrictor("some_restrictor", "some_patrol")).toBeNull();
     expect(isPatrolInRestrictor("some_restrictor", "another_patrol")).toBeNull();
 
-    const zone: ClientObject = mockClientGameObject({ name: () => "test_restrictor" });
+    const zone: GameObject = mockGameObject({ name: () => "test_restrictor" });
 
     registerZone(zone);
 
@@ -70,8 +70,8 @@ describe("patrol utils", () => {
   });
 
   it("isPatrolTeamSynchronized should correctly check team sync state", () => {
-    const first: ClientObject = mockClientGameObject();
-    const second: ClientObject = mockClientGameObject();
+    const first: GameObject = mockGameObject();
+    const second: GameObject = mockGameObject();
 
     expect(isPatrolTeamSynchronized(null)).toBe(true); // no team
     expect(isPatrolTeamSynchronized("not_existing")).toBe(true);
@@ -99,8 +99,8 @@ describe("patrol utils", () => {
   });
 
   it("isPatrolTeamSynchronized should correctly check team sync for dead/offline objects", () => {
-    const first: ClientObject = mockClientGameObject({ alive: () => false });
-    const second: ClientObject = mockClientGameObject();
+    const first: GameObject = mockGameObject({ alive: () => false });
+    const second: GameObject = mockGameObject();
 
     registry.patrolSynchronization.set(
       "not_sync_dead",

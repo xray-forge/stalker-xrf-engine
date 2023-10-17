@@ -13,7 +13,7 @@ import { ERelation, updateSquadIdRelationToActor } from "@/engine/core/utils/rel
 import { readTimeFromPacket, writeTimeToPacket } from "@/engine/core/utils/time";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import {
-  ClientObject,
+  GameObject,
   IniFile,
   NetPacket,
   NetProcessor,
@@ -96,7 +96,7 @@ export class SmartTerrainControl {
    * todo: Description.
    */
   public getActorStatus(): boolean {
-    const zoneObject: ClientObject = registry.zones.get(this.noWeaponZone);
+    const zoneObject: GameObject = registry.zones.get(this.noWeaponZone);
 
     if (zoneObject === null) {
       return false;

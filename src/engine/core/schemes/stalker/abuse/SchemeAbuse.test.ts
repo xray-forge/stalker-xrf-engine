@@ -8,13 +8,13 @@ import { ActionAbuseHit } from "@/engine/core/schemes/stalker/abuse/actions";
 import { EvaluatorAbuse } from "@/engine/core/schemes/stalker/abuse/evaluators";
 import { SchemeAbuse } from "@/engine/core/schemes/stalker/abuse/SchemeAbuse";
 import { loadSchemeImplementation } from "@/engine/core/utils/scheme";
-import { ActionPlanner, ClientObject, EScheme, IniFile } from "@/engine/lib/types";
+import { ActionPlanner, EScheme, GameObject, IniFile } from "@/engine/lib/types";
 import { assertSchemeNotToBeSubscribed, checkPlannerAction } from "@/fixtures/engine";
-import { mockClientGameObject, mockIniFile } from "@/fixtures/xray";
+import { mockGameObject, mockIniFile } from "@/fixtures/xray";
 
 describe("SchemeAbuse class", () => {
   it("should correctly activate", () => {
-    const object: ClientObject = mockClientGameObject();
+    const object: GameObject = mockGameObject();
     const ini: IniFile = mockIniFile("test.ltx", {
       "abuse@test": {
         on_info: "{+test} first, second",
@@ -32,7 +32,7 @@ describe("SchemeAbuse class", () => {
   });
 
   it("should correctly add planner actions", () => {
-    const object: ClientObject = mockClientGameObject();
+    const object: GameObject = mockGameObject();
     const ini: IniFile = mockIniFile("test.ltx", {
       "abuse@test": {},
     });

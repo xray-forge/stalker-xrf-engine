@@ -4,7 +4,7 @@ import { abort } from "@/engine/core/utils/assertion";
 import { readIniString } from "@/engine/core/utils/ini/ini_read";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { EMonsterState } from "@/engine/lib/constants/monsters";
-import { ClientObject, IniFile, Optional, TSection } from "@/engine/lib/types";
+import { GameObject, IniFile, Optional, TSection } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -27,7 +27,7 @@ export function getMonsterState(ini: IniFile, section: TSection): Optional<EMons
  * @param object - client game object to set state
  * @param state - target state to set
  */
-export function setMonsterState(object: ClientObject, state: Optional<EMonsterState>): void {
+export function setMonsterState(object: GameObject, state: Optional<EMonsterState>): void {
   if (state === null || state === EMonsterState.NONE) {
     return;
   }

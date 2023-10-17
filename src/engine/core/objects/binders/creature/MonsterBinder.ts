@@ -40,10 +40,10 @@ import { createEmptyVector } from "@/engine/core/utils/vector";
 import { MAX_U16 } from "@/engine/lib/constants/memory";
 import {
   ALifeSmartTerrainTask,
-  ClientObject,
   EScheme,
   ESchemeEvent,
   ESchemeType,
+  GameObject,
   Hit,
   NetPacket,
   Optional,
@@ -260,7 +260,7 @@ export class MonsterBinder extends object_binder {
   /**
    * On waypoint callback.
    */
-  public onWaypoint(object: ClientObject, actionType: number, index: TIndex): void {
+  public onWaypoint(object: GameObject, actionType: number, index: TIndex): void {
     if (this.state.activeSection !== null) {
       emitSchemeEvent(
         this.object,
@@ -276,7 +276,7 @@ export class MonsterBinder extends object_binder {
   /**
    * On monster death.
    */
-  public onDeath(victim: ClientObject, killer: ClientObject): void {
+  public onDeath(victim: GameObject, killer: GameObject): void {
     logger.info("Monster death:", this.object.name());
 
     registry.actorCombat.delete(this.object.id());
@@ -321,10 +321,10 @@ export class MonsterBinder extends object_binder {
    * On monster hit by another object.
    */
   public onHit(
-    object: ClientObject,
+    object: GameObject,
     amount: TCount,
     direction: Vector,
-    who: ClientObject,
+    who: GameObject,
     boneIndex: TLabel | TIndex
   ): void {
     if (this.state[EScheme.HIT]) {
@@ -348,7 +348,7 @@ export class MonsterBinder extends object_binder {
    * On monster hear sound.
    */
   public onHearSound(
-    object: ClientObject,
+    object: GameObject,
     sourceId: TNumberId,
     soundType: TSoundType,
     soundPosition: Vector,

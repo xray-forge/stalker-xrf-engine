@@ -10,7 +10,7 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 import { isObjectInCombat, isObjectWounded } from "@/engine/core/utils/planner";
 import { FALSE, NIL, TRUE } from "@/engine/lib/constants/words";
 import {
-  ClientObject,
+  GameObject,
   Optional,
   StringOptional,
   TDistance,
@@ -50,7 +50,7 @@ export class MeetManager extends AbstractSchemeManager<ISchemeMeetState> {
    * todo: Description.
    */
   public initialize(): void {
-    const actor: Optional<ClientObject> = registry.actor;
+    const actor: Optional<GameObject> = registry.actor;
 
     if (actor === null || !this.object.alive()) {
       this.isHelloPassed = false;
@@ -90,10 +90,10 @@ export class MeetManager extends AbstractSchemeManager<ISchemeMeetState> {
    * Called when actor is starting meet and stalker is captured in action.
    */
   public execute(): void {
-    const actor: ClientObject = registry.actor;
+    const actor: GameObject = registry.actor;
 
     let state: Optional<EStalkerState> = null;
-    let victim: Optional<ClientObject> = null;
+    let victim: Optional<GameObject> = null;
     let victimStoryId: Optional<TStringId> = null;
 
     if (this.currentDistanceToSpeaker === EMeetDistance.CLOSE) {
@@ -131,7 +131,7 @@ export class MeetManager extends AbstractSchemeManager<ISchemeMeetState> {
    * todo: Description.
    */
   public update(): void {
-    const actor: ClientObject = registry.actor;
+    const actor: GameObject = registry.actor;
     const distance: TDistance = this.object.position().distance_to(actor.position());
     const isActorVisible: boolean = this.object.see(actor);
 

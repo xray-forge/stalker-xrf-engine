@@ -1,7 +1,7 @@
 import { CHelicopter } from "xray16";
 
 import { IRegistryObjectState, registry } from "@/engine/core/database";
-import { ClientObject, TRate } from "@/engine/lib/types";
+import { GameObject, TRate } from "@/engine/lib/types";
 
 /**
  * todo;
@@ -27,6 +27,6 @@ export function getHeliHealth(heli: CHelicopter, state: IRegistryObjectState): n
 /**
  * todo;
  */
-export function isHeliAlive(object: ClientObject): boolean {
+export function isHeliAlive(object: GameObject): boolean {
   return getHeliHealth(object.get_helicopter(), registry.objects.get(object.id())) > 0.005;
 }

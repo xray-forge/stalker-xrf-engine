@@ -6,10 +6,10 @@ import { AnyObject } from "#/utils/types";
 import { disposeManager, getManagerInstance, registerActor, registry } from "@/engine/core/database";
 import { ActorInputManager } from "@/engine/core/managers/actor/ActorInputManager";
 import { EventsManager } from "@/engine/core/managers/events";
-import { ClientObject, EActiveItemSlot } from "@/engine/lib/types";
+import { EActiveItemSlot, GameObject } from "@/engine/lib/types";
 import { mockRegisteredActor } from "@/fixtures/engine";
 import { replaceFunctionMock } from "@/fixtures/jest";
-import { mockClientGameObject, MockCTime } from "@/fixtures/xray";
+import { MockCTime, mockGameObject } from "@/fixtures/xray";
 import { EPacketDataType, mockNetPacket, mockNetProcessor, MockNetProcessor } from "@/fixtures/xray/mocks/save";
 
 describe("ActorInputManager class", () => {
@@ -36,7 +36,7 @@ describe("ActorInputManager class", () => {
     const actorInputManager: ActorInputManager = getManagerInstance(ActorInputManager);
     const netProcessor: MockNetProcessor = new MockNetProcessor();
 
-    registerActor(mockClientGameObject());
+    registerActor(mockGameObject());
     replaceFunctionMock(registry.actor.active_slot, () => 10);
 
     actorInputManager.setInactiveInputTime(10);
@@ -83,12 +83,12 @@ describe("ActorInputManager class", () => {
 
   it("should correctly toggle night vision state", () => {
     const manager: ActorInputManager = ActorInputManager.getInstance();
-    const torch: ClientObject = mockClientGameObject({ sectionOverride: "device_torch" });
+    const torch: GameObject = mockGameObject({ sectionOverride: "device_torch" });
 
     manager.enableActorNightVision();
     expect(manager.isActorNightVisionEnabled).toBe(false);
 
-    const inventory: Map<string | number, ClientObject> = (registry.actor as AnyObject).inventory;
+    const inventory: Map<string | number, GameObject> = (registry.actor as AnyObject).inventory;
 
     inventory.set("device_torch", torch);
 

@@ -7,7 +7,7 @@ import { ISchemePostProcessState } from "@/engine/core/schemes/restrictor/sr_pos
 import { abort } from "@/engine/core/utils/assertion";
 import { trySwitchToAnotherSection } from "@/engine/core/utils/scheme/scheme_switch";
 import { ZERO_VECTOR } from "@/engine/lib/constants/vectors";
-import { ClientObject, Color, Hit, Noise, TDuration, TTimestamp } from "@/engine/lib/types";
+import { Color, GameObject, Hit, Noise, TDuration, TTimestamp } from "@/engine/lib/types";
 
 /**
  * todo;
@@ -54,7 +54,7 @@ export class PostProcessManager extends AbstractSchemeManager<ISchemePostProcess
   }
 
   public update(delta: TDuration): void {
-    const actor: ClientObject = registry.actor;
+    const actor: GameObject = registry.actor;
 
     if (trySwitchToAnotherSection(this.object, this.state)) {
       return;
@@ -124,7 +124,7 @@ export class PostProcessManager extends AbstractSchemeManager<ISchemePostProcess
 
     this.hitTime = now;
 
-    const actor: ClientObject = registry.actor;
+    const actor: GameObject = registry.actor;
     const actorHit: Hit = new hit();
 
     actorHit.power = this.hitPower;

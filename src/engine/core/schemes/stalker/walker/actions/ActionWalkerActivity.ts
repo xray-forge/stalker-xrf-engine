@@ -10,7 +10,7 @@ import { IAnimpointActionDescriptor } from "@/engine/core/schemes/stalker/animpo
 import { ISchemeWalkerState } from "@/engine/core/schemes/stalker/walker";
 import { parseWaypointsData } from "@/engine/core/utils/ini/ini_parse";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { ClientObject, ISchemeEventHandler, Optional } from "@/engine/lib/types";
+import { GameObject, ISchemeEventHandler, Optional } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -37,7 +37,7 @@ export class ActionWalkerActivity extends action_base implements ISchemeEventHan
   public isInCamp: Optional<boolean> = null;
   public campStoryManager: Optional<CampManager> = null;
 
-  public constructor(state: ISchemeWalkerState, object: ClientObject) {
+  public constructor(state: ISchemeWalkerState, object: GameObject) {
     super(null, ActionWalkerActivity.__name);
 
     this.state = state;
@@ -87,7 +87,7 @@ export class ActionWalkerActivity extends action_base implements ISchemeEventHan
   /**
    * todo: Description.
    */
-  public activate(isLoading: boolean, object: ClientObject): void {
+  public activate(isLoading: boolean, object: GameObject): void {
     this.state.signals = new LuaTable();
     this.reset(isLoading, object);
   }
@@ -95,7 +95,7 @@ export class ActionWalkerActivity extends action_base implements ISchemeEventHan
   /**
    * todo: Description.
    */
-  public reset(isLoading: boolean, object: ClientObject): void {
+  public reset(isLoading: boolean, object: GameObject): void {
     if (this.state.pathWalkInfo === null) {
       this.state.pathWalkInfo = parseWaypointsData(this.state.pathWalk);
     }
@@ -163,7 +163,7 @@ export class ActionWalkerActivity extends action_base implements ISchemeEventHan
   /**
    * todo: Description.
    */
-  public onSwitchOffline(object: ClientObject): void {
+  public onSwitchOffline(object: GameObject): void {
     if (this.isInCamp === true) {
       this.campStoryManager!.unregisterObject(object.id());
       this.isInCamp = null;

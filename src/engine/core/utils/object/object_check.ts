@@ -1,7 +1,7 @@
 import { getObjectIdByStoryId, registry } from "@/engine/core/database";
 import { isStalker } from "@/engine/core/utils/class_ids";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { ClientObject, Optional, ServerHumanObject, ServerObject, TNumberId, TStringId } from "@/engine/lib/types";
+import { GameObject, Optional, ServerHumanObject, ServerObject, TNumberId, TStringId } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -11,7 +11,7 @@ const logger: LuaLogger = new LuaLogger($filename);
  * @param targetObject - client/server object or story ID to check
  * @returns whether target stalker object is alive
  */
-export function isStalkerAlive(targetObject: ClientObject | ServerObject | TStringId): boolean {
+export function isStalkerAlive(targetObject: GameObject | ServerObject | TStringId): boolean {
   let targetId: Optional<TNumberId>;
 
   if (type(targetObject) === "string") {
@@ -19,7 +19,7 @@ export function isStalkerAlive(targetObject: ClientObject | ServerObject | TStri
   } else if (type((targetObject as ServerHumanObject).id) === "number") {
     targetId = (targetObject as ServerHumanObject).id;
   } else {
-    targetId = (targetObject as ClientObject).id();
+    targetId = (targetObject as GameObject).id();
   }
 
   if (targetId) {
@@ -37,7 +37,7 @@ export function isStalkerAlive(targetObject: ClientObject | ServerObject | TStri
  * @param object - target client object to check
  * @returns whether actor is seen by object
  */
-export function isActorSeenByObject(object: ClientObject): boolean {
+export function isActorSeenByObject(object: GameObject): boolean {
   return object.alive() && object.see(registry.actor);
 }
 
@@ -47,7 +47,7 @@ export function isActorSeenByObject(object: ClientObject): boolean {
  * @param object - target client object to check
  * @returns whether object is seen by actor
  */
-export function isObjectSeenByActor(object: ClientObject): boolean {
+export function isObjectSeenByActor(object: GameObject): boolean {
   return registry.actor.alive() && registry.actor.see(object);
 }
 
@@ -57,6 +57,6 @@ export function isObjectSeenByActor(object: ClientObject): boolean {
  * @param object - target client object to check
  * @returns whether object is injured/bleeding/contaminated
  */
-export function isObjectInjured(object: ClientObject): boolean {
+export function isObjectInjured(object: GameObject): boolean {
   return object.health < 1 || object.radiation > 0 || object.bleeding > 0;
 }

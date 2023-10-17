@@ -8,13 +8,13 @@ import { SchemeSleeper } from "@/engine/core/schemes/stalker/sleeper/SchemeSleep
 import { ISchemeSleeperState } from "@/engine/core/schemes/stalker/sleeper/sleeper_types";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini";
 import { loadSchemeImplementation } from "@/engine/core/utils/scheme";
-import { ActionPlanner, ClientObject, EScheme, IniFile } from "@/engine/lib/types";
+import { ActionPlanner, EScheme, GameObject, IniFile } from "@/engine/lib/types";
 import { assertSchemeSubscribedToManager, checkPlannerAction } from "@/fixtures/engine";
-import { mockClientGameObject, mockIniFile } from "@/fixtures/xray";
+import { mockGameObject, mockIniFile } from "@/fixtures/xray";
 
 describe("SchemeSleeper", () => {
   it("should correctly activate with default data", () => {
-    const object: ClientObject = mockClientGameObject();
+    const object: GameObject = mockGameObject();
     const ini: IniFile = mockIniFile("test.ltx", {
       "sleeper@test": {
         path_main: "zat_b40_merc_01_walk",
@@ -44,7 +44,7 @@ describe("SchemeSleeper", () => {
   });
 
   it("should correctly activate with custom data", () => {
-    const object: ClientObject = mockClientGameObject();
+    const object: GameObject = mockGameObject();
     const ini: IniFile = mockIniFile("test.ltx", {
       "sleeper@test": {
         on_info: "{+test} first, second",
@@ -76,7 +76,7 @@ describe("SchemeSleeper", () => {
   });
 
   it("should correctly activate with custom data", () => {
-    const object: ClientObject = mockClientGameObject();
+    const object: GameObject = mockGameObject();
     const ini: IniFile = mockIniFile("test.ltx", {
       "sleeper@test": {
         on_info: "{+test} first, second",

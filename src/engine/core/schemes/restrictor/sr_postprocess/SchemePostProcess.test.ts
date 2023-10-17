@@ -5,13 +5,13 @@ import { PostProcessManager } from "@/engine/core/schemes/restrictor/sr_postproc
 import { SchemePostProcess } from "@/engine/core/schemes/restrictor/sr_postprocess/SchemePostProcess";
 import { ISchemePostProcessState } from "@/engine/core/schemes/restrictor/sr_postprocess/sr_postprocess_types";
 import { loadSchemeImplementation } from "@/engine/core/utils/scheme";
-import { ClientObject, EScheme, IniFile } from "@/engine/lib/types";
+import { EScheme, GameObject, IniFile } from "@/engine/lib/types";
 import { assertSchemeSubscribedToManager } from "@/fixtures/engine";
-import { mockClientGameObject, mockIniFile } from "@/fixtures/xray";
+import { mockGameObject, mockIniFile } from "@/fixtures/xray";
 
 describe("SchemePostProcess", () => {
   it("should correctly initialize with defaults", () => {
-    const object: ClientObject = mockClientGameObject();
+    const object: GameObject = mockGameObject();
     const ini: IniFile = mockIniFile("test.ltx", {
       "sr_postprocess@test": {
         intensity: 1500,

@@ -7,7 +7,7 @@ import { ActorBinder } from "@/engine/core/objects/binders/creature/ActorBinder"
 import { ISchemeDeimosState } from "@/engine/core/schemes/restrictor/sr_deimos/sr_deimos_types";
 import { clampNumber } from "@/engine/core/utils/number";
 import { trySwitchToAnotherSection } from "@/engine/core/utils/scheme/scheme_switch";
-import { AnyObject, ClientObject, Optional, TIndex, TNumberId, TRate, TTimestamp, Vector } from "@/engine/lib/types";
+import { AnyObject, GameObject, Optional, TIndex, TNumberId, TRate, TTimestamp, Vector } from "@/engine/lib/types";
 
 /**
  * todo;
@@ -20,14 +20,14 @@ export class DeimosManager extends AbstractSchemeManager<ISchemeDeimosState> {
   public cameraEffectorActivatedAt: TTimestamp = 0;
   public phase: TIndex = 0;
 
-  public constructor(object: ClientObject, state: ISchemeDeimosState) {
+  public constructor(object: GameObject, state: ISchemeDeimosState) {
     super(object, state);
 
     this.state.intensity = 0;
   }
 
   public update(): void {
-    const actor: Optional<ClientObject> = registry.actor;
+    const actor: Optional<GameObject> = registry.actor;
     const globalSoundManager: GlobalSoundManager = GlobalSoundManager.getInstance();
 
     if (!actor || device().precache_frame > 1) {

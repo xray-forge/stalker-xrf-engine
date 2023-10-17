@@ -5,7 +5,7 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 import { getObjectSmartTerrain } from "@/engine/core/utils/position";
 import { food } from "@/engine/lib/constants/items/food";
 import { misc } from "@/engine/lib/constants/items/misc";
-import { ClientObject, LuaArray, Optional, TName } from "@/engine/lib/types";
+import { GameObject, LuaArray, Optional, TName } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -19,7 +19,7 @@ export function animpointPredicateAlways(): boolean {
 /**
  * todo;
  */
-function animpointPredicateBread(object: ClientObject): boolean {
+function animpointPredicateBread(object: GameObject): boolean {
   if (eatableVisuals.get(object.get_visual_name()) && object.object(food.bread)) {
     return true;
   }
@@ -30,7 +30,7 @@ function animpointPredicateBread(object: ClientObject): boolean {
 /**
  * todo;
  */
-function animpointPredicateKolbasa(object: ClientObject): boolean {
+function animpointPredicateKolbasa(object: GameObject): boolean {
   if (eatableVisuals.get(object.get_visual_name()) && object.object(food.kolbasa)) {
     return true;
   }
@@ -44,7 +44,7 @@ function animpointPredicateKolbasa(object: ClientObject): boolean {
  * @param object - client object to checek
  * @returns whether vodka animation can be used
  */
-function animpointPredicateVodka(object: ClientObject): boolean {
+function animpointPredicateVodka(object: GameObject): boolean {
   if (eatableVisuals.get(object.get_visual_name()) && object.object(food.vodka)) {
     return true;
   }
@@ -55,7 +55,7 @@ function animpointPredicateVodka(object: ClientObject): boolean {
 /**
  * todo;
  */
-function animpointPredicateEnergy(object: ClientObject): boolean {
+function animpointPredicateEnergy(object: GameObject): boolean {
   if (eatableVisuals.get(object.get_visual_name()) && object.object(food.energy_drink)) {
     return true;
   }
@@ -66,7 +66,7 @@ function animpointPredicateEnergy(object: ClientObject): boolean {
 /**
  * todo;
  */
-function animpointPredicateGuitar(object: ClientObject, isInCamp?: Optional<boolean>): boolean {
+function animpointPredicateGuitar(object: GameObject, isInCamp?: Optional<boolean>): boolean {
   if (isInCamp && object.object(misc.guitar_a)) {
     return true;
   }
@@ -77,7 +77,7 @@ function animpointPredicateGuitar(object: ClientObject, isInCamp?: Optional<bool
 /**
  * todo;
  */
-function animpointPredicateHarmonica(object: ClientObject, isInCamp?: Optional<boolean>): boolean {
+function animpointPredicateHarmonica(object: GameObject, isInCamp?: Optional<boolean>): boolean {
   if (isInCamp === true && harmonicaVisuals.get(object.get_visual_name()) && object.object(misc.harmonica_a)) {
     return true;
   }
@@ -88,7 +88,7 @@ function animpointPredicateHarmonica(object: ClientObject, isInCamp?: Optional<b
 /**
  * todo;
  */
-function animpointPredicateWeapon(object: ClientObject): boolean {
+function animpointPredicateWeapon(object: GameObject): boolean {
   const smartTerrainName: Optional<TName> = getObjectSmartTerrain(object)?.name() as Optional<TName>;
 
   if (smartTerrainName && registry.noCombatSmartTerrains.get(smartTerrainName)) {

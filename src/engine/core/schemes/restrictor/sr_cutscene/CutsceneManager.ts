@@ -17,7 +17,7 @@ import { getExtern } from "@/engine/core/utils/binding";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { trySwitchToAnotherSection } from "@/engine/core/utils/scheme/scheme_switch";
 import { postProcessors } from "@/engine/lib/constants/animation";
-import { AnyCallablesModule, ClientObject, Optional, TName, TNumberId } from "@/engine/lib/types";
+import { AnyCallablesModule, GameObject, Optional, TName, TNumberId } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -25,7 +25,7 @@ const logger: LuaLogger = new LuaLogger($filename);
  * todo;
  */
 export class CutsceneManager extends AbstractSchemeManager<ISchemeCutsceneState> {
-  public static objectCutscene: Optional<ClientObject> = null;
+  public static objectCutscene: Optional<GameObject> = null;
   public static storageScene: Optional<ISchemeCutsceneState> = null;
 
   public isUiDisabled: boolean = false;
@@ -65,7 +65,7 @@ export class CutsceneManager extends AbstractSchemeManager<ISchemeCutsceneState>
   public onZoneEnter(): void {
     logger.info("Zone enter:", this.object.name());
 
-    const actor: Optional<ClientObject> = registry.actor;
+    const actor: Optional<GameObject> = registry.actor;
 
     this.sceneState = ESceneState.RUN;
 
@@ -122,7 +122,7 @@ export class CutsceneManager extends AbstractSchemeManager<ISchemeCutsceneState>
   public override onCutscene(): void {
     logger.info("Cutscene callback:", this.object.name());
 
-    const actor: ClientObject = registry.actor;
+    const actor: GameObject = registry.actor;
 
     if (this.motion!.state === EEffectorState.RELEASE) {
       this.motion = null;

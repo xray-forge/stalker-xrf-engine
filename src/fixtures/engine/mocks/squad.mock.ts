@@ -5,7 +5,7 @@ import { Squad } from "@/engine/core/objects/server/squad";
 import { communities } from "@/engine/lib/constants/communities";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import { ServerHumanObject } from "@/engine/lib/types";
-import { MockAlifeOnlineOfflineGroup, mockClientGameObject, mockServerAlifeHumanStalker } from "@/fixtures/xray";
+import { MockAlifeOnlineOfflineGroup, mockGameObject, mockServerAlifeHumanStalker } from "@/fixtures/xray";
 import { mockCharactersGoodwill } from "@/fixtures/xray/mocks/relations/communityRelations.mocks";
 
 /**
@@ -42,11 +42,11 @@ export function mockRelationsSquads(): IMockedSquads {
   const almostEnemy: ServerHumanObject = mockServerAlifeHumanStalker();
   const almostFriend: ServerHumanObject = mockServerAlifeHumanStalker();
 
-  registerObject(mockClientGameObject({ idOverride: friend.id }));
-  registerObject(mockClientGameObject({ idOverride: enemy.id }));
-  registerObject(mockClientGameObject({ idOverride: neutral.id }));
-  registerObject(mockClientGameObject({ idOverride: almostEnemy.id }));
-  registerObject(mockClientGameObject({ idOverride: almostFriend.id }));
+  registerObject(mockGameObject({ idOverride: friend.id }));
+  registerObject(mockGameObject({ idOverride: enemy.id }));
+  registerObject(mockGameObject({ idOverride: neutral.id }));
+  registerObject(mockGameObject({ idOverride: almostEnemy.id }));
+  registerObject(mockGameObject({ idOverride: almostFriend.id }));
 
   mockCharactersGoodwill(friend.id, ACTOR_ID, 1000);
   mockCharactersGoodwill(enemy.id, ACTOR_ID, -1000);

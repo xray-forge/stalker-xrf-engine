@@ -7,9 +7,9 @@ import { ISchemeMobRemarkState } from "@/engine/core/schemes/monster/mob_remark/
 import { MobRemarkManager } from "@/engine/core/schemes/monster/mob_remark/MobRemarkManager";
 import { parseConditionsList } from "@/engine/core/utils/ini";
 import { EMonsterState } from "@/engine/lib/constants/monsters";
-import { ClientObject, EScheme, TName } from "@/engine/lib/types";
+import { EScheme, GameObject, TName } from "@/engine/lib/types";
 import { mockBaseSchemeLogic, mockSchemeState } from "@/fixtures/engine";
-import { mockClientGameObject } from "@/fixtures/xray";
+import { mockGameObject } from "@/fixtures/xray";
 
 describe("MobRemarkManager", () => {
   beforeEach(() => {
@@ -17,7 +17,7 @@ describe("MobRemarkManager", () => {
   });
 
   it("should correctly activate", () => {
-    const object: ClientObject = mockClientGameObject({ clsid: () => clsid.bloodsucker_s });
+    const object: GameObject = mockGameObject({ clsid: () => clsid.bloodsucker_s });
     const state: ISchemeMobRemarkState = mockSchemeState<ISchemeMobRemarkState>(EScheme.MOB_REMARK, {
       signals: $fromObject<TName, boolean>({ a: true }),
       state: EMonsterState.INVISIBLE,
@@ -40,7 +40,7 @@ describe("MobRemarkManager", () => {
   });
 
   it("should correctly update", () => {
-    const object: ClientObject = mockClientGameObject({ clsid: () => clsid.bloodsucker_s, get_script: () => true });
+    const object: GameObject = mockGameObject({ clsid: () => clsid.bloodsucker_s, get_script: () => true });
     const state: ISchemeMobRemarkState = mockSchemeState<ISchemeMobRemarkState>(EScheme.MOB_REMARK, {
       signals: $fromObject<TName, boolean>({ a: true }),
       state: EMonsterState.INVISIBLE,

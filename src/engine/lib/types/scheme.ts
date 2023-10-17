@@ -1,6 +1,6 @@
 import type { TCount, TIndex, TName } from "@/engine/lib/types/alias";
 import type { Optional } from "@/engine/lib/types/general";
-import type { ClientObject, Vector } from "@/engine/lib/types/xray";
+import type { GameObject, Vector } from "@/engine/lib/types/xray";
 
 /**
  * Section name string, representing string256 in c++.
@@ -147,11 +147,11 @@ export interface ISchemeEventHandler {
   /**
    * todo: Description, swap params order.
    */
-  activate?(isLoading: boolean, object: ClientObject): void;
+  activate?(isLoading: boolean, object: GameObject): void;
   /**
    * todo: Description.
    */
-  deactivate?(object: ClientObject): void;
+  deactivate?(object: GameObject): void;
   /**
    * todo: Description.
    */
@@ -163,11 +163,11 @@ export interface ISchemeEventHandler {
   /**
    * todo: Description.
    */
-  onSwitchOnline?(object: ClientObject): void;
+  onSwitchOnline?(object: GameObject): void;
   /**
    * todo: Description.
    */
-  onSwitchOffline?(object: ClientObject): void;
+  onSwitchOffline?(object: GameObject): void;
   /**
    * Handle scheme hit callback.
    * Emits when objects are hit by something.
@@ -178,15 +178,15 @@ export interface ISchemeEventHandler {
    * @param who - client object which is source of hit
    * @param boneIndex - index of bone being hit
    */
-  onHit?(object: ClientObject, amount: TCount, direction: Vector, who: Optional<ClientObject>, boneIndex: TIndex): void;
+  onHit?(object: GameObject, amount: TCount, direction: Vector, who: Optional<GameObject>, boneIndex: TIndex): void;
   /**
    * todo: Description.
    */
-  onUse?(object: ClientObject, who: Optional<ClientObject>): void;
+  onUse?(object: GameObject, who: Optional<GameObject>): void;
   /**
    * todo: Description.
    */
-  onWaypoint?(object: ClientObject, actionType: TName, index: TIndex): void;
+  onWaypoint?(object: GameObject, actionType: TName, index: TIndex): void;
   /**
    * Handle scheme death callback.
    * Emits when objects are dying.
@@ -194,7 +194,7 @@ export interface ISchemeEventHandler {
    * @param victim - target client object dying
    * @param who - client object who killed the object
    */
-  onDeath?(victim: ClientObject, who: Optional<ClientObject>): void;
+  onDeath?(victim: GameObject, who: Optional<GameObject>): void;
   /**
    * todo: Description.
    */

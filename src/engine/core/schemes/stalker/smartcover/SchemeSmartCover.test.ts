@@ -9,13 +9,13 @@ import { SchemeSmartCover } from "@/engine/core/schemes/stalker/smartcover/Schem
 import { ISchemeSmartCoverState } from "@/engine/core/schemes/stalker/smartcover/smartcover_types";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini";
 import { loadSchemeImplementation } from "@/engine/core/utils/scheme";
-import { ActionPlanner, ClientObject, EScheme, IniFile } from "@/engine/lib/types";
+import { ActionPlanner, EScheme, GameObject, IniFile } from "@/engine/lib/types";
 import { assertSchemeSubscribedToManager, checkPlannerAction } from "@/fixtures/engine";
-import { mockClientGameObject, mockIniFile } from "@/fixtures/xray";
+import { mockGameObject, mockIniFile } from "@/fixtures/xray";
 
 describe("SchemeSmartCover", () => {
   it("should correctly activate with default data", () => {
-    const object: ClientObject = mockClientGameObject();
+    const object: GameObject = mockGameObject();
     const ini: IniFile = mockIniFile("test.ltx", {
       "smartcover@test": {},
     });
@@ -46,7 +46,7 @@ describe("SchemeSmartCover", () => {
   });
 
   it("should correctly activate with custom data", () => {
-    const object: ClientObject = mockClientGameObject();
+    const object: GameObject = mockGameObject();
     const ini: IniFile = mockIniFile("test.ltx", {
       "smartcover@test": {
         on_info: "{+test} first, second",
@@ -93,7 +93,7 @@ describe("SchemeSmartCover", () => {
   });
 
   it("should correctly activate with default data", () => {
-    const object: ClientObject = mockClientGameObject();
+    const object: GameObject = mockGameObject();
     const ini: IniFile = mockIniFile("test.ltx", {
       "smartcover@test": {},
     });

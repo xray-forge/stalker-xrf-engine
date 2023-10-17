@@ -4,7 +4,7 @@ import { StalkerStateManager } from "@/engine/core/objects/ai/state/StalkerState
 import { EStalkerState } from "@/engine/core/objects/animation/types";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { sendToNearestAccessibleVertex } from "@/engine/core/utils/position";
-import { EClientObjectPath, TName } from "@/engine/lib/types";
+import { EGameObjectPath, TName } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -29,7 +29,7 @@ export class ActionStateToIdle extends action_base {
     super.initialize();
 
     this.object.inactualize_patrol_path();
-    this.object.set_path_type(EClientObjectPath.LEVEL_PATH);
+    this.object.set_path_type(EGameObjectPath.LEVEL_PATH);
 
     sendToNearestAccessibleVertex(this.object, this.object.level_vertex_id());
   }
