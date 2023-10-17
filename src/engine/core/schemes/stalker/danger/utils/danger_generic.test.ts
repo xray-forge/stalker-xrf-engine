@@ -158,7 +158,7 @@ describe("danger generic utils", () => {
 
     state.enemyId = null;
     combatIgnoreState.overrides = {
-      combat_ignore: mockBaseSchemeLogic({
+      combatIgnore: mockBaseSchemeLogic({
         condlist: parseConditionsList(TRUE),
       }),
     } as ILogicsOverrides;
@@ -167,7 +167,7 @@ describe("danger generic utils", () => {
 
     state.enemyId = null;
     combatIgnoreState.overrides = {
-      combat_ignore: mockBaseSchemeLogic({
+      combatIgnore: mockBaseSchemeLogic({
         condlist: parseConditionsList(FALSE),
       }),
     } as ILogicsOverrides;

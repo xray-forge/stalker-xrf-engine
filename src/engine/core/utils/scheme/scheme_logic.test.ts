@@ -261,15 +261,15 @@ describe("scheme logic utils", () => {
     expect(getSchemeAction(state[EScheme.HIT] as IBaseSchemeState).activate).toHaveBeenCalledWith(false, object);
 
     expect(state.overrides).toEqualLuaTables({
-      combat_ignore: null,
-      heli_hunter: null,
-      combat_ignore_keep_when_attacked: false,
+      combatIgnore: null,
+      heliHunter: null,
+      combatIgnoreKeepWhenAttacked: false,
       combatType: null,
       scriptCombatType: null,
       maxPostCombatTime: 10,
       minPostCombatTime: 5,
-      on_combat: null,
-      on_offline_condlist: {
+      onCombat: null,
+      onOffline: {
         "1": {
           infop_check: {},
           infop_set: {},

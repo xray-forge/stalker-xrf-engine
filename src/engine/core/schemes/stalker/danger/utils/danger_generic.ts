@@ -146,8 +146,8 @@ export function canObjectSelectAsEnemy(object: GameObject, enemy: GameObject): b
   // Check if object have any state overrides that cause object to explicitly ignore combat.
   const stateOverrides: Optional<ILogicsOverrides> = combatIgnoreState?.overrides as Optional<ILogicsOverrides>;
 
-  if (stateOverrides && stateOverrides.combat_ignore) {
-    return pickSectionFromCondList(enemy, object, stateOverrides.combat_ignore.condlist) !== TRUE;
+  if (stateOverrides && stateOverrides.combatIgnore) {
+    return pickSectionFromCondList(enemy, object, stateOverrides.combatIgnore.condlist) !== TRUE;
   }
 
   // When object is critically wounded, it should fight back.

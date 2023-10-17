@@ -67,8 +67,7 @@ export class PhysicObjectBinder extends object_binder {
       emitSchemeEvent(this.object, state[state.activeScheme]!, ESchemeEvent.SWITCH_OFFLINE, this.object);
     }
 
-    const onOfflineCondlist: Optional<TConditionList> = state?.overrides
-      ?.on_offline_condlist as Optional<TConditionList>;
+    const onOfflineCondlist: Optional<TConditionList> = state?.overrides?.onOffline as Optional<TConditionList>;
 
     if (onOfflineCondlist !== null) {
       pickSectionFromCondList(registry.actor, this.object, onOfflineCondlist);

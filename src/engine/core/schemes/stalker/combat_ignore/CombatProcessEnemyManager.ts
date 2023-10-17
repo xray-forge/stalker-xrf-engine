@@ -1,4 +1,4 @@
-import { registry } from "@/engine/core/database";
+import { ILogicsOverrides, registry } from "@/engine/core/database";
 import { AbstractSchemeManager } from "@/engine/core/objects/ai/scheme";
 import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain/SmartTerrain";
 import { combatConfig } from "@/engine/core/schemes/stalker/combat/CombatConfig";
@@ -70,9 +70,9 @@ export class CombatProcessEnemyManager extends AbstractSchemeManager<ISchemeComb
     }
 
     if (who.id() === ACTOR_ID) {
-      const overrides: Optional<AnyObject> = this.state.overrides;
+      const overrides: Optional<ILogicsOverrides> = this.state.overrides;
 
-      if (!overrides || !overrides.combat_ignore_keep_when_attacked) {
+      if (!overrides || !overrides.combatIgnoreKeepWhenAttacked) {
         this.state.enabled = false;
       }
     }

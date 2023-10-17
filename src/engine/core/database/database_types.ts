@@ -132,15 +132,15 @@ export interface IRegistryObjectStateLogic {
  * State logics overrides descriptor.
  */
 export interface ILogicsOverrides {
-  heli_hunter: Optional<TConditionList>;
-  combat_ignore: Optional<IBaseSchemeLogic>;
-  combat_ignore_keep_when_attacked: Optional<boolean>;
+  heliHunter: Optional<TConditionList>;
+  combatIgnore: Optional<IBaseSchemeLogic>;
+  combatIgnoreKeepWhenAttacked: Optional<boolean>;
   combatType: Optional<IBaseSchemeLogic>;
   scriptCombatType: Optional<TName>;
-  on_combat: Optional<IBaseSchemeLogic>;
   minPostCombatTime: TDuration;
   maxPostCombatTime: TDuration;
-  on_offline_condlist: Optional<TConditionList>;
+  onCombat: Optional<IBaseSchemeLogic>;
+  onOffline: Optional<TConditionList>;
   soundgroup: Optional<TName>;
 }
 

@@ -209,11 +209,11 @@ export function getObjectConfigOverrides(ini: IniFile, section: TSection, object
   return {
     combatType: readIniConditionList(ini, section, "combat_type"),
     scriptCombatType: null,
-    heli_hunter: heliHunter ? parseConditionsList(heliHunter) : null,
+    heliHunter: heliHunter ? parseConditionsList(heliHunter) : null,
     maxPostCombatTime: maxPostCombatTime,
     minPostCombatTime: minPostCombatTime,
-    on_combat: readIniConditionList(ini, section, "on_combat"),
-    on_offline_condlist: parseConditionsList(
+    onCombat: readIniConditionList(ini, section, "on_combat"),
+    onOffline: parseConditionsList(
       readIniString(
         ini,
         ini.line_exist(section, "on_offline") ? section : state.sectionLogic,
@@ -224,8 +224,8 @@ export function getObjectConfigOverrides(ini: IniFile, section: TSection, object
       )
     ),
     soundgroup: readIniString(ini, section, "soundgroup", false),
-    combat_ignore: readIniConditionList(ini, section, "combat_ignore_cond"),
-    combat_ignore_keep_when_attacked: readIniBoolean(ini, section, "combat_ignore_keep_when_attacked", false),
+    combatIgnore: readIniConditionList(ini, section, "combat_ignore_cond"),
+    combatIgnoreKeepWhenAttacked: readIniBoolean(ini, section, "combat_ignore_keep_when_attacked", false),
   };
 }
 

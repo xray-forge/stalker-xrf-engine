@@ -59,9 +59,8 @@ import { misc } from "@/engine/lib/constants/items/misc";
 import { MAX_U16 } from "@/engine/lib/constants/memory";
 import {
   ActionPlanner,
-  AnyObject,
-  EGameObjectRelation,
   EScheme,
+  EGameObjectRelation,
   ESchemeEvent,
   GameObject,
   NetPacket,
@@ -217,8 +216,7 @@ export class StalkerBinder extends object_binder {
     }
 
     // Call logics on offline.
-    const onOfflineConditionList: Optional<TConditionList> = state.overrides
-      ?.on_offline_condlist as Optional<TConditionList>;
+    const onOfflineConditionList: Optional<TConditionList> = state.overrides?.onOffline as Optional<TConditionList>;
 
     if (onOfflineConditionList !== null) {
       pickSectionFromCondList(registry.actor, this.object, onOfflineConditionList);
@@ -569,10 +567,10 @@ export class StalkerBinder extends object_binder {
     }
 
     // Probably should be reversed?
-    if (this.state.combat_ignore) {
+    if (this.state[EScheme.COMBAT_IGNORE]) {
       emitSchemeEvent(
         this.object,
-        this.state.combat_ignore,
+        this.state[EScheme.COMBAT_IGNORE],
         ESchemeEvent.HIT,
         object,
         amount,
@@ -582,12 +580,30 @@ export class StalkerBinder extends object_binder {
       );
     }
 
-    if (this.state.combat) {
-      emitSchemeEvent(this.object, this.state.combat, ESchemeEvent.HIT, object, amount, direction, who, boneIndex);
+    if (this.state[EScheme.COMBAT]) {
+      emitSchemeEvent(
+        this.object,
+        this.state[EScheme.COMBAT],
+        ESchemeEvent.HIT,
+        object,
+        amount,
+        direction,
+        who,
+        boneIndex
+      );
     }
 
-    if (this.state.hit) {
-      emitSchemeEvent(this.object, this.state.hit, ESchemeEvent.HIT, object, amount, direction, who, boneIndex);
+    if (this.state[EScheme.HIT]) {
+      emitSchemeEvent(
+        this.object,
+        this.state[EScheme.HIT],
+        ESchemeEvent.HIT,
+        object,
+        amount,
+        direction,
+        who,
+        boneIndex
+      );
     }
 
     if (boneIndex !== 15 && amount > this.object.health * 100) {
@@ -621,8 +637,8 @@ export function updateStalkerLogic(object: GameObject): void {
       const overrides: Optional<ILogicsOverrides> = state.overrides;
 
       if (overrides !== null) {
-        if (overrides.on_combat) {
-          pickSectionFromCondList(actor, object, overrides.on_combat.condlist);
+        if (overrides.onCombat) {
+          pickSectionFromCondList(actor, object, overrides.onCombat.condlist);
         }
 
         if (combatState?.logic) {
