@@ -14,7 +14,7 @@ import {
 import { MapDisplayManager } from "@/engine/core/managers/map";
 import { ObjectRestrictionsManager } from "@/engine/core/objects/ai/restriction";
 import { TAbstractSchemeConstructor } from "@/engine/core/objects/ai/scheme";
-import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain";
+import { ISmartTerrainJobDescriptor, SmartTerrain } from "@/engine/core/objects/server/smart_terrain";
 import { SchemeMobCombat } from "@/engine/core/schemes/monster/mob_combat";
 import { SchemeMobDeath } from "@/engine/core/schemes/monster/mob_death";
 import { SchemePhysicalOnHit } from "@/engine/core/schemes/physical/ph_on_hit";
@@ -36,7 +36,6 @@ import { SchemePatrol } from "@/engine/core/schemes/stalker/patrol";
 import { SchemeReachTask } from "@/engine/core/schemes/stalker/reach_task";
 import { SchemeWounded } from "@/engine/core/schemes/stalker/wounded";
 import { disableInfoPortion, giveInfoPortion } from "@/engine/core/utils/info_portion";
-import { ISmartTerrainJobDescriptor } from "@/engine/core/utils/job";
 import {
   activateSchemeBySection,
   enableObjectBaseSchemes,
@@ -263,8 +262,10 @@ describe("scheme logic utils", () => {
 
     expect(state.overrides).toEqualLuaTables({
       combat_ignore: null,
+      heli_hunter: null,
       combat_ignore_keep_when_attacked: false,
-      combat_type: null,
+      combatType: null,
+      scriptCombatType: null,
       maxPostCombatTime: 10,
       minPostCombatTime: 5,
       on_combat: null,

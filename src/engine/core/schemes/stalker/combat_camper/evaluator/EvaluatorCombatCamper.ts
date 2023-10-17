@@ -23,6 +23,6 @@ export class EvaluatorCombatCamper extends property_evaluator {
    */
   public override evaluate(): boolean {
     // todo: Probably get from this.state? Maybe invalid.
-    return registry.objects.get(this.object.id()).script_combat_type === EScriptCombatType.CAMPER;
+    return registry.objects.get(this.object.id()).scriptCombatType === EScriptCombatType.CAMPER;
   }
 }

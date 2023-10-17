@@ -1,6 +1,6 @@
 import { danger_object } from "xray16";
 
-import { IRegistryObjectState, registry } from "@/engine/core/database";
+import { ILogicsOverrides, IRegistryObjectState, registry } from "@/engine/core/database";
 import { SimulationBoardManager } from "@/engine/core/managers/simulation/SimulationBoardManager";
 import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain";
 import { ESmartTerrainStatus } from "@/engine/core/objects/server/smart_terrain/smart_terrain_types";
@@ -144,7 +144,7 @@ export function canObjectSelectAsEnemy(object: GameObject, enemy: GameObject): b
   }
 
   // Check if object have any state overrides that cause object to explicitly ignore combat.
-  const stateOverrides: Optional<AnyObject> = combatIgnoreState?.overrides as Optional<AnyObject>;
+  const stateOverrides: Optional<ILogicsOverrides> = combatIgnoreState?.overrides as Optional<ILogicsOverrides>;
 
   if (stateOverrides && stateOverrides.combat_ignore) {
     return pickSectionFromCondList(enemy, object, stateOverrides.combat_ignore.condlist) !== TRUE;

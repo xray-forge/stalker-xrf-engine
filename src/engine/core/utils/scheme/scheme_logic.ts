@@ -29,7 +29,16 @@ import {
   initializeObjectTakeItemsEnabledState,
 } from "@/engine/core/utils/scheme/scheme_object_initialization";
 import { NIL } from "@/engine/lib/constants/words";
-import { EScheme, ESchemeEvent, ESchemeType, GameObject, IniFile, Optional, TSection } from "@/engine/lib/types";
+import {
+  EScheme,
+  ESchemeEvent,
+  ESchemeType,
+  GameObject,
+  IniFile,
+  Optional,
+  TName,
+  TSection,
+} from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename, { file: "scheme" });
 
@@ -97,17 +106,17 @@ export function getSectionToActivate(object: GameObject, ini: IniFile, section: 
  * @param object - target client object
  * @param ini - target object logics ini file
  * @param section - target section to activate
- * @param additional - additional information, usually parent smart terrain name
+ * @param smartTerrainName - smart terrain name
  * @param isLoading - whether loading object on game load, `false` means manual scheme switch
  */
 export function activateSchemeBySection(
   object: GameObject,
   ini: IniFile,
   section: Optional<TSection>,
-  additional: Optional<string>,
+  smartTerrainName: Optional<TName>,
   isLoading: boolean
 ): void {
-  logger.format("Activate scheme: '%s' %s' %s'", object.name(), section, additional);
+  logger.format("Activate scheme: '%s' %s' %s'", object.name(), section, smartTerrainName);
 
   assertDefined(isLoading, "scheme/logic: activateBySection: loading field is null, true || false expected.");
 
@@ -153,7 +162,7 @@ export function activateSchemeBySection(
 
   // logger.info("Set active scheme:", scheme, "->", object.name(), section, additional);
 
-  schemeImplementation.activate(object, ini, scheme, section as TSection, additional);
+  schemeImplementation.activate(object, ini, scheme, section as TSection, smartTerrainName);
 
   state.activeSection = section;
   state.activeScheme = scheme;

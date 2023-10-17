@@ -55,6 +55,8 @@ export class ActionZombieShoot extends action_base {
    * todo: Description.
    */
   public override initialize(): void {
+    logger.info("Activate:", this.object.name());
+
     super.initialize();
 
     this.object.set_desired_direction();
@@ -74,6 +76,16 @@ export class ActionZombieShoot extends action_base {
     if (chance(25)) {
       GlobalSoundManager.getInstance().playSound(this.object.id(), "fight_attack");
     }
+  }
+
+  /**
+   * todo: Description.
+   */
+  public override finalize(): void {
+    logger.info("Deactivate:", this.object.name());
+
+    super.finalize();
+    this.state.currentAction = null;
   }
 
   /**
@@ -171,14 +183,6 @@ export class ActionZombieShoot extends action_base {
     lookPosition.z = lookPosition.z + math.sin(angle);
 
     return lookPosition;
-  }
-
-  /**
-   * todo: Description.
-   */
-  public override finalize(): void {
-    super.finalize();
-    this.state.currentAction = null;
   }
 
   /**

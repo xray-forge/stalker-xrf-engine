@@ -68,9 +68,11 @@ describe("config utils for ini file", () => {
     expect(getObjectConfigOverrides(mockIniFile("test.ltx", { empty: {} }), "empty", object)).toEqualLuaTables({
       combat_ignore: null,
       combat_ignore_keep_when_attacked: false,
-      combat_type: null,
+      combatType: null,
+      scriptCombatType: null,
       maxPostCombatTime: 10,
       minPostCombatTime: 5,
+      heli_hunter: null,
       on_combat: null,
       on_offline_condlist: parseConditionsList(NIL),
       soundgroup: null,
@@ -102,13 +104,14 @@ describe("config utils for ini file", () => {
         p2: null,
       },
       combat_ignore_keep_when_attacked: "third",
-      combat_type: {
+      combatType: {
         condlist: parseConditionsList("fourth"),
         name: "combat_type",
         objectId: null,
         p1: null,
         p2: null,
       },
+      scriptCombatType: null,
       heli_hunter: parseConditionsList("first"),
       maxPostCombatTime: 50,
       minPostCombatTime: 10,
@@ -137,9 +140,11 @@ describe("config utils for ini file", () => {
         object
       )
     ).toEqualLuaTables({
+      heli_hunter: null,
       combat_ignore: null,
       combat_ignore_keep_when_attacked: false,
-      combat_type: null,
+      combatType: null,
+      scriptCombatType: null,
       maxPostCombatTime: 54,
       minPostCombatTime: 15,
       on_combat: null,

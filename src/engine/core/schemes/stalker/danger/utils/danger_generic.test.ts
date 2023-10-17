@@ -1,7 +1,13 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { clsid, danger_object } from "xray16";
 
-import { IRegistryObjectState, registerObject, registerSimulator, registry } from "@/engine/core/database";
+import {
+  ILogicsOverrides,
+  IRegistryObjectState,
+  registerObject,
+  registerSimulator,
+  registry,
+} from "@/engine/core/database";
 import { SimulationBoardManager } from "@/engine/core/managers/simulation/SimulationBoardManager";
 import { SmartTerrain, SmartTerrainControl } from "@/engine/core/objects/server/smart_terrain";
 import { ESmartTerrainStatus } from "@/engine/core/objects/server/smart_terrain/smart_terrain_types";
@@ -15,7 +21,7 @@ import { WoundManager } from "@/engine/core/schemes/stalker/wounded/WoundManager
 import { parseConditionsList } from "@/engine/core/utils/ini";
 import { FALSE, TRUE } from "@/engine/lib/constants/words";
 import { EGameObjectRelation, EScheme, GameObject, ServerSmartZoneObject, TClassId } from "@/engine/lib/types";
-import { mockSchemeState } from "@/fixtures/engine";
+import { mockBaseSchemeLogic, mockSchemeState } from "@/fixtures/engine";
 import { replaceFunctionMock } from "@/fixtures/jest";
 import {
   MockDangerObject,
@@ -152,19 +158,19 @@ describe("danger generic utils", () => {
 
     state.enemyId = null;
     combatIgnoreState.overrides = {
-      combat_ignore: {
+      combat_ignore: mockBaseSchemeLogic({
         condlist: parseConditionsList(TRUE),
-      },
-    };
+      }),
+    } as ILogicsOverrides;
     expect(canObjectSelectAsEnemy(object, enemy)).toBe(false);
     expect(state.enemyId).toBe(enemy.id());
 
     state.enemyId = null;
     combatIgnoreState.overrides = {
-      combat_ignore: {
+      combat_ignore: mockBaseSchemeLogic({
         condlist: parseConditionsList(FALSE),
-      },
-    };
+      }),
+    } as ILogicsOverrides;
     expect(canObjectSelectAsEnemy(object, enemy)).toBe(true);
     expect(state.enemyId).toBe(enemy.id());
   });

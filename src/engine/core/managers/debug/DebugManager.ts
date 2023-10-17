@@ -203,7 +203,7 @@ export class DebugManager extends AbstractManager {
     logger.info("State overrides:", toJSON(state.overrides));
     logger.info("Enemy id:", state.enemyId);
     logger.info("Enemy name:", state.enemyId ? registry.simulator.object(state.enemyId)?.name() : NIL);
-    logger.info("Script combat type:", state.script_combat_type);
+    logger.info("Script combat type:", String(state.scriptCombatType));
     logger.info("Registered camp:", state.camp || "none");
 
     logger.pushSeparator();

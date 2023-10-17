@@ -1,19 +1,18 @@
 import { world_property } from "xray16";
 
-import { IRegistryObjectState, registry } from "@/engine/core/database";
+import { ILogicsOverrides, IRegistryObjectState, registry } from "@/engine/core/database";
 import { AbstractScheme } from "@/engine/core/objects/ai/scheme";
 import { EActionId, EEvaluatorId } from "@/engine/core/objects/ai/types";
-import { ISchemeCombatState } from "@/engine/core/schemes/stalker/combat/combat_types";
+import { EScriptCombatType, ISchemeCombatState } from "@/engine/core/schemes/stalker/combat/combat_types";
 import { EvaluatorCheckCombat } from "@/engine/core/schemes/stalker/combat/evaluators/EvaluatorCheckCombat";
 import { SchemeCombatCamper } from "@/engine/core/schemes/stalker/combat_camper/SchemeCombatCamper";
 import { SchemeCombatZombied } from "@/engine/core/schemes/stalker/combat_zombied/SchemeCombatZombied";
 import { getObjectCommunity } from "@/engine/core/utils/community";
-import { parseConditionsList, readIniConditionList } from "@/engine/core/utils/ini";
+import { parseConditionsList, parseStringOptional, readIniConditionList } from "@/engine/core/utils/ini";
 import { getConfigSwitchConditions, pickSectionFromCondList } from "@/engine/core/utils/ini/ini_config";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { communities } from "@/engine/lib/constants/communities";
-import { NIL } from "@/engine/lib/constants/words";
-import { ActionBase, ActionPlanner, AnyObject, GameObject, IniFile, Optional, TName } from "@/engine/lib/types";
+import { ActionBase, ActionPlanner, GameObject, IniFile, Optional } from "@/engine/lib/types";
 import { EScheme, ESchemeType, TSection } from "@/engine/lib/types/scheme";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -48,7 +47,6 @@ export class SchemeCombat extends AbstractScheme {
 
       state.logic = getConfigSwitchConditions(ini, section);
       state.enabled = true;
-
       state.combatType = readIniConditionList(ini, section, "combat_type");
 
       if ((state.combatType as unknown as string) === communities.monolith) {
@@ -76,22 +74,26 @@ export class SchemeCombat extends AbstractScheme {
     section: TSection,
     state: ISchemeCombatState
   ): void {
-    const actionPlanner: ActionPlanner = object.motivation_action_manager();
+    const planner: ActionPlanner = object.motivation_action_manager();
 
-    actionPlanner.add_evaluator(EEvaluatorId.IS_SCRIPTED_COMBAT, new EvaluatorCheckCombat(state));
+    planner.add_evaluator(EEvaluatorId.IS_SCRIPTED_COMBAT, new EvaluatorCheckCombat(state));
 
-    const action: ActionBase = actionPlanner.action(EActionId.COMBAT);
+    const combatAction: ActionBase = planner.action(EActionId.COMBAT);
 
-    action.add_precondition(new world_property(EEvaluatorId.IS_SCRIPTED_COMBAT, false));
+    combatAction.add_precondition(new world_property(EEvaluatorId.IS_SCRIPTED_COMBAT, false));
 
-    SchemeCombatZombied.add(object, ini, scheme, section, state, actionPlanner);
-    SchemeCombatCamper.add(object, ini, scheme, section, state, actionPlanner);
+    SchemeCombatZombied.add(object, ini, scheme, section, state, planner);
+    SchemeCombatCamper.add(object, ini, scheme, section, state, planner);
   }
 
   /**
    * todo: Description.
    */
-  public static setCombatType(object: GameObject, actor: GameObject, overrides: Optional<AnyObject>): void {
+  public static setCombatType(
+    object: GameObject,
+    actor: GameObject,
+    overrides: Optional<ILogicsOverrides | ISchemeCombatState>
+  ): void {
     if (overrides === null) {
       return;
     }
@@ -100,17 +102,13 @@ export class SchemeCombat extends AbstractScheme {
 
     state.enemy = object.best_enemy();
 
-    let scriptCombatType: Optional<TName> = null;
+    let scriptCombatType: Optional<EScriptCombatType> = null;
 
-    if (overrides.combat_type !== null) {
-      scriptCombatType = pickSectionFromCondList(actor, object, overrides.combat_type.condlist);
-
-      if (scriptCombatType === NIL) {
-        scriptCombatType = null;
-      }
+    if (overrides.combatType !== null) {
+      scriptCombatType = parseStringOptional(pickSectionFromCondList(actor, object, overrides.combatType.condlist));
     }
 
-    state.script_combat_type = scriptCombatType;
-    overrides.script_combat_type = scriptCombatType;
+    state.scriptCombatType = scriptCombatType;
+    overrides.scriptCombatType = scriptCombatType;
   }
 }
