@@ -23,6 +23,11 @@ export const mockTable = {
       throw new Error("Unexpected data provided for table size check mock.");
     }
   },
+  random: (table: MockLuaTable) => {
+    const entries = table.getEntriesArray();
+
+    return entries.length ? entries[Math.floor(entries.length * Math.random())] : [null, null];
+  },
   remove: (target: AnyObject, index: number) => {
     // Simulate lua behaviour by shifting all elements like with splice.
     if (target instanceof MockLuaTable) {

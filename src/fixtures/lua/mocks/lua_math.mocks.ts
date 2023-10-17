@@ -4,6 +4,7 @@
 export const mockMath = {
   pi: Math.PI,
   max: (...args: Array<number>) => Math.max(...args),
+  min: (...args: Array<number>) => Math.min(...args),
   abs: (value: number) => Math.abs(value),
   sqrt: (value: number) => Math.sqrt(value),
   cos: (value: number) => Math.cos(value),

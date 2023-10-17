@@ -99,6 +99,11 @@ export function mockClientGameObject({
     active_item: rest.active_item ?? jest.fn(() => null),
     activate_slot: rest.activate_slot ?? jest.fn(),
     add_animation: rest.add_animation ?? jest.fn(),
+    add_upgrade:
+      rest.add_upgrade ??
+      jest.fn((it: string) => {
+        upgradesSet.add(it);
+      }),
     animation_count,
     animation_slot: rest.animation_slot ?? jest.fn(() => 1),
     alive: rest.alive ?? jest.fn(() => true),
@@ -251,7 +256,7 @@ export function mockClientGameObject({
       }
     ),
     iterate_installed_upgrades: jest.fn((cb: (upgrade: TSection, item: ClientObject) => void | boolean) => {
-      for (const [upgrade] of upgradesSet) {
+      for (const upgrade of upgradesSet) {
         cb(upgrade, gameObject as ClientObject);
       }
     }),
@@ -377,6 +382,7 @@ export function mockClientGameObject({
           }
         }
       }),
+    upgradesSet,
     weapon_unstrapped,
     weapon_strapped: rest.weapon_strapped ?? jest.fn(() => true),
     wounded: rest.wounded ?? jest.fn(),
