@@ -54,6 +54,7 @@ export class ActionZombieGoToDanger extends action_base {
     this.object.set_desired_direction();
     this.object.set_detail_path_type(move.line);
     this.object.set_path_type(EGameObjectPath.LEVEL_PATH);
+
     this.lastState = null;
     this.bestDangerObjectId = null;
     this.bestDangerObjectVertexId = null;

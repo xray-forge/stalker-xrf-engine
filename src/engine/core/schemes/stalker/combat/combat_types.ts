@@ -3,7 +3,8 @@ import { TConditionList } from "@/engine/core/utils/ini";
 import { Optional, Vector } from "@/engine/lib/types";
 
 /**
- * todo;
+ * Type of combat used by game object.
+ * Each type overrides default behaviour and forces specific logics.
  */
 export enum EScriptCombatType {
   CAMPER = "camper",
@@ -12,7 +13,8 @@ export enum EScriptCombatType {
 }
 
 /**
- * todo;
+ * Current action type for zombie combat.
+ * Since zombies can do only few things, it includes related definitions.
  */
 export enum EZombieCombatAction {
   SHOOT = 1,
@@ -20,7 +22,8 @@ export enum EZombieCombatAction {
 }
 
 /**
- * todo;
+ * State of combat scheme.
+ * Configuration and parameters of current combat behaviour.
  */
 export interface ISchemeCombatState extends IBaseSchemeState {
   enabled: boolean;

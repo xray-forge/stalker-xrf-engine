@@ -59,7 +59,7 @@ export class PhysicObjectBinder extends object_binder {
       return false;
     }
 
-    const spawnIni: Optional<IniFile> = this.object.spawn_ini();
+    const spawnIni: Optional<IniFile> = this.object.spawn_ini() as Optional<IniFile>;
 
     if (spawnIni) {
       if (spawnIni.section_exist("drop_box")) {
