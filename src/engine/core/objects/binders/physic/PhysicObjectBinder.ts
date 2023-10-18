@@ -41,8 +41,8 @@ const logger: LuaLogger = new LuaLogger($filename);
  */
 @LuabindClass()
 export class PhysicObjectBinder extends object_binder {
-  public initialized: boolean = false;
-  public loaded: boolean = false;
+  public isInitialized: boolean = false;
+  public isLoaded: boolean = false;
 
   public particle: Optional<ParticlesObject> = null;
   public itemBox: Optional<PhysicObjectItemBox> = null;
@@ -52,6 +52,30 @@ export class PhysicObjectBinder extends object_binder {
   public override reinit(): void {
     super.reinit();
     this.state = resetObject(this.object);
+  }
+
+  public override net_spawn(object: ServerObject): boolean {
+    if (!super.net_spawn(object)) {
+      return false;
+    }
+
+    const spawnIni: Optional<IniFile> = this.object.spawn_ini();
+
+    if (spawnIni) {
+      if (spawnIni.section_exist("drop_box")) {
+        this.itemBox = new PhysicObjectItemBox(this.object);
+      }
+
+      if (spawnIni.section_exist("level_spot")) {
+        if (spawnIni.line_exist("level_spot", "actor_box")) {
+          level.map_add_object_spot(this.object.id(), "ui_pda2_actor_box_location", "st_ui_pda_actor_box");
+        }
+      }
+    }
+
+    registerObject(this.object);
+
+    return true;
   }
 
   public override net_destroy(): void {
@@ -69,79 +93,25 @@ export class PhysicObjectBinder extends object_binder {
 
     const onOfflineCondlist: Optional<TConditionList> = state?.overrides?.onOffline as Optional<TConditionList>;
 
-    if (onOfflineCondlist !== null) {
+    if (onOfflineCondlist) {
       pickSectionFromCondList(registry.actor, this.object, onOfflineCondlist);
     }
 
-    if (this.particle !== null) {
+    if (this.particle) {
       this.particle.stop();
     }
 
     unregisterObject(this.object);
 
-    registry.objects.delete(this.object.id());
-
     super.net_destroy();
   }
 
-  public override net_save_relevant(): boolean {
-    return true;
-  }
-
-  public override save(packet: NetPacket): void {
-    super.save(packet);
-
-    openSaveMarker(packet, PhysicObjectBinder.__name);
-    saveObjectLogic(this.object, packet);
-    closeSaveMarker(packet, PhysicObjectBinder.__name);
-  }
-
-  public override load(reader: Reader): void {
-    this.loaded = true;
-
-    super.load(reader);
-
-    openLoadMarker(reader, PhysicObjectBinder.__name);
-    loadObjectLogic(this.object, reader);
-    closeLoadMarker(reader, PhysicObjectBinder.__name);
-  }
-
-  /**
-   * todo: Description.
-   */
-  public override net_spawn(object: ServerObject): boolean {
-    if (!super.net_spawn(object)) {
-      return false;
-    }
-
-    const spawnIni: Optional<IniFile> = this.object.spawn_ini();
-
-    if (spawnIni !== null) {
-      if (spawnIni.section_exist("drop_box")) {
-        this.itemBox = new PhysicObjectItemBox(this.object);
-      }
-
-      if (spawnIni.section_exist("level_spot")) {
-        if (spawnIni.line_exist("level_spot", "actor_box")) {
-          level.map_add_object_spot(this.object.id(), "ui_pda2_actor_box_location", "st_ui_pda_actor_box");
-        }
-      }
-    }
-
-    registerObject(this.object);
-
-    return true;
-  }
-
-  /**
-   * todo: Description.
-   */
   public override update(delta: TDuration): void {
     super.update(delta);
 
-    if (!this.initialized) {
-      this.initialized = true;
-      initializeObjectSchemeLogic(this.object, this.state, this.loaded, ESchemeType.OBJECT);
+    if (!this.isInitialized) {
+      this.isInitialized = true;
+      initializeObjectSchemeLogic(this.object, this.state, this.isLoaded, ESchemeType.OBJECT);
     }
 
     const spawnIni: Optional<IniFile> = this.object.spawn_ini();
@@ -158,6 +128,30 @@ export class PhysicObjectBinder extends object_binder {
     }
 
     GlobalSoundManager.getInstance().update(this.object.id());
+  }
+
+  public override net_save_relevant(): boolean {
+    return true;
+  }
+
+  public override save(packet: NetPacket): void {
+    openSaveMarker(packet, PhysicObjectBinder.__name);
+
+    super.save(packet);
+    saveObjectLogic(this.object, packet);
+
+    closeSaveMarker(packet, PhysicObjectBinder.__name);
+  }
+
+  public override load(reader: Reader): void {
+    this.isLoaded = true;
+
+    openLoadMarker(reader, PhysicObjectBinder.__name);
+
+    super.load(reader);
+    loadObjectLogic(this.object, reader);
+
+    closeLoadMarker(reader, PhysicObjectBinder.__name);
   }
 
   /**
