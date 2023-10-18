@@ -6,6 +6,8 @@ import { Vector } from "@/engine/lib/types";
  */
 export const ZERO_VECTOR: Vector = createEmptyVector();
 
+export const ONE_VECTOR: Vector = createVector(1, 1, 1);
+
 export const X_VECTOR: Vector = createVector(1, 0, 0);
 export const MX_VECTOR: Vector = createVector(-1, 0, 0);
 

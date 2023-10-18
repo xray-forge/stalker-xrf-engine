@@ -34,7 +34,7 @@ export class ActionZombieShoot extends action_base {
 
   public wasHit: boolean = false;
 
-  public enemyLastSeenVertexId!: TNumberId;
+  public enemyLastSeenVertexId: Optional<TNumberId> = null;
   public enemyLastSeenPosition: Optional<Vector> = null;
   public enemyLastVertexId: Optional<TNumberId> = null;
   public enemyLastAccessibleVertexId: Optional<TNumberId> = null;
@@ -106,9 +106,9 @@ export class ActionZombieShoot extends action_base {
       this.enemyLastVertexId = this.enemyLastSeenVertexId;
       this.isValidPath = false;
 
-      if (!this.object.accessible(this.enemyLastSeenVertexId)) {
+      if (!this.object.accessible(this.enemyLastSeenVertexId as TNumberId)) {
         [this.enemyLastAccessibleVertexId, this.enemyLastAccessiblePosition] = this.object.accessible_nearest(
-          level.vertex_position(this.enemyLastSeenVertexId),
+          level.vertex_position(this.enemyLastSeenVertexId as TNumberId),
           ZERO_VECTOR
         );
       } else {
@@ -164,10 +164,10 @@ export class ActionZombieShoot extends action_base {
    * todo: Description.
    */
   public setState(state: EStalkerState, bestEnemy: Optional<GameObject>, position: Optional<Vector>): void {
-    this.targetStateDescriptor.lookObjectId = bestEnemy?.id() as Optional<TNumberId>;
+    this.targetStateDescriptor.lookObjectId = bestEnemy ? bestEnemy.id() : null;
     this.targetStateDescriptor.lookPosition = bestEnemy ? this.enemyLastSeenPosition : position;
 
-    setStalkerState(this.object, state, null, null, this.targetStateDescriptor, null);
+    setStalkerState(this.object, state, null, null, this.targetStateDescriptor);
 
     this.previousState = state;
   }
@@ -179,8 +179,8 @@ export class ActionZombieShoot extends action_base {
     const angle: TRate = math.pi * 2 * math.random();
     const lookPosition: Vector = copyVector(this.object.position());
 
-    lookPosition.x = lookPosition.x + math.cos(angle);
-    lookPosition.z = lookPosition.z + math.sin(angle);
+    lookPosition.x += math.cos(angle);
+    lookPosition.z += math.sin(angle);
 
     return lookPosition;
   }
@@ -188,7 +188,7 @@ export class ActionZombieShoot extends action_base {
   /**
    * todo: Description.
    */
-  public onHit(object: GameObject, amount: TRate, direction: Vector, who: GameObject, boneId: TIndex): void {
+  public onHit(object: GameObject, amount: TRate, direction: Vector, who: Optional<GameObject>, boneId: TIndex): void {
     if (who === null) {
       return;
     }
