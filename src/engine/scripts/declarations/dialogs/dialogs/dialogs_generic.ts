@@ -134,20 +134,6 @@ extern("dialogs.level_zaton", (): boolean => {
 });
 
 /**
- * Check whether current level is jupiter.
- */
-extern("dialogs.level_jupiter", (): boolean => {
-  return level.name() === levels.jupiter;
-});
-
-/**
- * Check whether current level is pripyat.
- */
-extern("dialogs.level_pripyat", (): boolean => {
-  return level.name() === levels.pripyat;
-});
-
-/**
  * Check whether current level is not zaton.
  */
 extern("dialogs.not_level_zaton", (): boolean => {
@@ -155,10 +141,24 @@ extern("dialogs.not_level_zaton", (): boolean => {
 });
 
 /**
+ * Check whether current level is jupiter.
+ */
+extern("dialogs.level_jupiter", (): boolean => {
+  return level.name() === levels.jupiter;
+});
+
+/**
  * Check whether current level is not jupiter.
  */
 extern("dialogs.not_level_jupiter", (): boolean => {
   return level.name() !== levels.jupiter;
+});
+
+/**
+ * Check whether current level is pripyat.
+ */
+extern("dialogs.level_pripyat", (): boolean => {
+  return level.name() === levels.pripyat;
 });
 
 /**
@@ -318,8 +318,8 @@ extern("dialogs.actor_in_stalker", (actor: GameObject, object: GameObject): bool
 /**
  * todo;
  */
-extern("dialogs.actor_not_in_stalker", (actor: GameObject, object: GameObject): boolean => {
-  for (const [k, v] of SimulationBoardManager.getInstance().getFactions()) {
+extern("dialogs.actor_not_in_stalker", (): boolean => {
+  for (const [, v] of SimulationBoardManager.getInstance().getFactions()) {
     if (v.isCommunity && v.name === communities.stalker) {
       return false;
     }
@@ -331,7 +331,7 @@ extern("dialogs.actor_not_in_stalker", (actor: GameObject, object: GameObject): 
 /**
  * Check if actor has at least 2000 money value.
  */
-extern("dialogs.has_2000_money", (actor: GameObject, object: GameObject): boolean => {
+extern("dialogs.has_2000_money", (actor: GameObject): boolean => {
   return actor.money() >= 2000;
 });
 
@@ -374,29 +374,29 @@ extern("dialogs.have_actor_any_pistol", (firstSpeaker: GameObject, secondSpeaker
 });
 
 /**
- * todo;
+ * Disable actor game UI (including torch and night vision).
  */
-extern("dialogs.disable_ui", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
+extern("dialogs.disable_ui", (): void => {
   ActorInputManager.getInstance().disableGameUi(false);
 });
 
 /**
- * todo;
+ * Disable actor game UI only.
  */
-extern("dialogs.disable_ui_only", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
-  ActorInputManager.getInstance().disableGameUi(false);
+extern("dialogs.disable_ui_only", (): void => {
+  ActorInputManager.getInstance().disableGameUiOnly();
 });
 
 /**
- * todo;
+ * Check if surge is in running state.
  */
-extern("dialogs.is_surge_running", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
+extern("dialogs.is_surge_running", (): boolean => {
   return surgeConfig.IS_STARTED;
 });
 
 /**
- * todo;
+ * Check if surge is in finished state (not running).
  */
-extern("dialogs.is_surge_not_running", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
+extern("dialogs.is_surge_not_running", (): boolean => {
   return surgeConfig.IS_FINISHED;
 });
