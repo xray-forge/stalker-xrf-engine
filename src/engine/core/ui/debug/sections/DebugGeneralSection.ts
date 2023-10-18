@@ -114,6 +114,10 @@ export class DebugGeneralSection extends AbstractDebugSection {
   public onToggleProfilingButtonClick(): void {
     const profilingManager: ProfilingManager = ProfilingManager.getInstance();
 
+    if (debug === null) {
+      return logger.info("Cannot use profiling - debug module is not present");
+    }
+
     if (profilingManager.isProfilingStarted) {
       profilingManager.clearHook();
     } else {

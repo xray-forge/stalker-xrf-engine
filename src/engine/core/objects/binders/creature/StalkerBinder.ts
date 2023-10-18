@@ -4,6 +4,7 @@ import {
   closeLoadMarker,
   closeSaveMarker,
   IBaseSchemeState,
+  ILogicsOverrides,
   IRegistryObjectState,
   loadObjectLogic,
   openLoadMarker,
@@ -31,6 +32,7 @@ import { StalkerPatrolManager } from "@/engine/core/objects/ai/state/StalkerPatr
 import { EActionId } from "@/engine/core/objects/ai/types";
 import type { ISmartTerrainJobDescriptor, SmartTerrain } from "@/engine/core/objects/server/smart_terrain";
 import { SchemeHear } from "@/engine/core/schemes/shared/hear/SchemeHear";
+import { ISchemeCombatState } from "@/engine/core/schemes/stalker/combat";
 import { SchemeCombat } from "@/engine/core/schemes/stalker/combat/SchemeCombat";
 import { PostCombatIdle } from "@/engine/core/schemes/stalker/combat_idle/PostCombatIdle";
 import { activateMeetWithObject, updateObjectMeetAvailability } from "@/engine/core/schemes/stalker/meet/utils";
@@ -57,7 +59,6 @@ import { misc } from "@/engine/lib/constants/items/misc";
 import { MAX_U16 } from "@/engine/lib/constants/memory";
 import {
   ActionPlanner,
-  AnyObject,
   EGameObjectRelation,
   EScheme,
   ESchemeEvent,
@@ -215,7 +216,7 @@ export class StalkerBinder extends object_binder {
     }
 
     // Call logics on offline.
-    const onOfflineConditionList: Optional<TConditionList> = state.overrides?.on_offline_condlist;
+    const onOfflineConditionList: Optional<TConditionList> = state.overrides?.onOffline as Optional<TConditionList>;
 
     if (onOfflineConditionList !== null) {
       pickSectionFromCondList(registry.actor, this.object, onOfflineConditionList);
@@ -566,10 +567,10 @@ export class StalkerBinder extends object_binder {
     }
 
     // Probably should be reversed?
-    if (this.state.combat_ignore) {
+    if (this.state[EScheme.COMBAT_IGNORE]) {
       emitSchemeEvent(
         this.object,
-        this.state.combat_ignore,
+        this.state[EScheme.COMBAT_IGNORE],
         ESchemeEvent.HIT,
         object,
         amount,
@@ -579,12 +580,30 @@ export class StalkerBinder extends object_binder {
       );
     }
 
-    if (this.state.combat) {
-      emitSchemeEvent(this.object, this.state.combat, ESchemeEvent.HIT, object, amount, direction, who, boneIndex);
+    if (this.state[EScheme.COMBAT]) {
+      emitSchemeEvent(
+        this.object,
+        this.state[EScheme.COMBAT],
+        ESchemeEvent.HIT,
+        object,
+        amount,
+        direction,
+        who,
+        boneIndex
+      );
     }
 
-    if (this.state.hit) {
-      emitSchemeEvent(this.object, this.state.hit, ESchemeEvent.HIT, object, amount, direction, who, boneIndex);
+    if (this.state[EScheme.HIT]) {
+      emitSchemeEvent(
+        this.object,
+        this.state[EScheme.HIT],
+        ESchemeEvent.HIT,
+        object,
+        amount,
+        direction,
+        who,
+        boneIndex
+      );
     }
 
     if (boneIndex !== 15 && amount > this.object.health * 100) {
@@ -608,25 +627,23 @@ export class StalkerBinder extends object_binder {
 export function updateStalkerLogic(object: GameObject): void {
   const state: Optional<IRegistryObjectState> = registry.objects.get(object.id());
   const actor: GameObject = registry.actor;
-  const combatState: IBaseSchemeState = state.combat!;
+  const combatState: ISchemeCombatState = state.combat as ISchemeCombatState;
 
   if (state !== null && state.activeScheme !== null && object.alive()) {
     const manager: ActionPlanner = object.motivation_action_manager();
     let switched: boolean = false;
 
     if (manager.initialized() && manager.current_action_id() === EActionId.COMBAT) {
-      const overrides: Optional<AnyObject> = state.overrides;
+      const overrides: Optional<ILogicsOverrides> = state.overrides;
 
       if (overrides !== null) {
-        if (overrides["on_combat"]) {
-          pickSectionFromCondList(actor, object, overrides["on_combat"].condlist);
+        if (overrides.onCombat) {
+          pickSectionFromCondList(actor, object, overrides.onCombat.condlist);
         }
 
-        if (combatState && combatState.logic) {
-          if (!trySwitchToAnotherSection(object, combatState)) {
-            if (overrides["combat_type"]) {
-              SchemeCombat.setCombatType(object, actor, overrides);
-            }
+        if (combatState?.logic) {
+          if (!trySwitchToAnotherSection(object, combatState) && overrides.combatType) {
+            SchemeCombat.setCombatType(object, actor, overrides);
           } else {
             switched = true;
           }

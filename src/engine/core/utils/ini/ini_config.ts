@@ -1,4 +1,4 @@
-import { IBaseSchemeLogic, IRegistryObjectState } from "@/engine/core/database/database_types";
+import { IBaseSchemeLogic, ILogicsOverrides, IRegistryObjectState } from "@/engine/core/database/database_types";
 import { registry } from "@/engine/core/database/registry";
 import { getServerObjectByStoryId } from "@/engine/core/database/story_objects";
 import { combatConfig } from "@/engine/core/schemes/stalker/combat/CombatConfig";
@@ -195,21 +195,9 @@ export function getConfigObjectAndZone(ini: IniFile, section: TSection, field: T
  * @param object - target client object
  * @returns overrides object
  */
-export function getObjectConfigOverrides(ini: IniFile, section: TSection, object: GameObject): AnyObject {
-  const overrides: AnyObject = {};
-  const heliHunter: Optional<string> = readIniString(ini, section, "heli_hunter", false);
-
-  if (heliHunter !== null) {
-    overrides.heli_hunter = parseConditionsList(heliHunter);
-  }
-
-  overrides.combat_ignore = readIniConditionList(ini, section, "combat_ignore_cond");
-  overrides.combat_ignore_keep_when_attacked = readIniBoolean(ini, section, "combat_ignore_keep_when_attacked", false);
-  overrides.combat_type = readIniConditionList(ini, section, "combat_type");
-  overrides.on_combat = readIniConditionList(ini, section, "on_combat");
-
+export function getObjectConfigOverrides(ini: IniFile, section: TSection, object: GameObject): ILogicsOverrides {
   const state: IRegistryObjectState = registry.objects.get(object.id());
-
+  const heliHunter: Optional<string> = readIniString(ini, section, "heli_hunter", false);
   const [minPostCombatTime, maxPostCombatTime] = readIniTwoNumbers(
     ini,
     ini.line_exist(state.sectionLogic, "post_combat_time") ? state.sectionLogic : section,
@@ -218,20 +206,27 @@ export function getObjectConfigOverrides(ini: IniFile, section: TSection, object
     combatConfig.POST_COMBAT_IDLE.MAX / 1000
   );
 
-  overrides.minPostCombatTime = minPostCombatTime;
-  overrides.maxPostCombatTime = maxPostCombatTime;
-
-  if (ini.line_exist(section, "on_offline")) {
-    overrides.on_offline_condlist = parseConditionsList(readIniString(ini, section, "on_offline", false, null, NIL));
-  } else {
-    overrides.on_offline_condlist = parseConditionsList(
-      readIniString(ini, state.sectionLogic, "on_offline", false, null, NIL)
-    );
-  }
-
-  overrides.soundgroup = readIniString(ini, section, "soundgroup", false);
-
-  return overrides;
+  return {
+    combatType: readIniConditionList(ini, section, "combat_type"),
+    scriptCombatType: null,
+    heliHunter: heliHunter ? parseConditionsList(heliHunter) : null,
+    maxPostCombatTime: maxPostCombatTime,
+    minPostCombatTime: minPostCombatTime,
+    onCombat: readIniConditionList(ini, section, "on_combat"),
+    onOffline: parseConditionsList(
+      readIniString(
+        ini,
+        ini.line_exist(section, "on_offline") ? section : state.sectionLogic,
+        "on_offline",
+        false,
+        null,
+        NIL
+      )
+    ),
+    soundgroup: readIniString(ini, section, "soundgroup", false),
+    combatIgnore: readIniConditionList(ini, section, "combat_ignore_cond"),
+    combatIgnoreKeepWhenAttacked: readIniBoolean(ini, section, "combat_ignore_keep_when_attacked", false),
+  };
 }
 
 /**

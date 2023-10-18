@@ -153,11 +153,10 @@ export class MonsterBinder extends object_binder {
     }
 
     const state: IRegistryObjectState = registry.objects.get(this.object.id());
-    const onOfflineConditionsList: Optional<TConditionList> =
-      state !== null && state.overrides && state.overrides.on_offline_condlist;
+    const onOfflineConditionsList: Optional<TConditionList> = state?.overrides?.onOffline as Optional<TConditionList>;
 
     if (onOfflineConditionsList !== null) {
-      pickSectionFromCondList(registry.actor, this.object, onOfflineConditionsList as any);
+      pickSectionFromCondList(registry.actor, this.object, onOfflineConditionsList);
     }
 
     if (!this.object.alive()) {

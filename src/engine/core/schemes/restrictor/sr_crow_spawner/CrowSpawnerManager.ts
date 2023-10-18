@@ -7,7 +7,7 @@ import { ISchemeCrowSpawnerState } from "@/engine/core/schemes/restrictor/sr_cro
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { trySwitchToAnotherSection } from "@/engine/core/utils/scheme/scheme_switch";
 import { copyTable } from "@/engine/core/utils/table";
-import { AlifeSimulator, LuaArray, Patrol, TDuration, TIndex, TName, TTimestamp, Vector } from "@/engine/lib/types";
+import { AlifeSimulator, LuaArray, Patrol, TIndex, TName, TTimestamp, Vector } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

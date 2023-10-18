@@ -1,13 +1,8 @@
-import { danger_object, patrol, stalker_ids, time_global } from "xray16";
+import { patrol } from "xray16";
 
-import { setStalkerState } from "@/engine/core/database";
-import { EStalkerState, ILookTargetDescriptor } from "@/engine/core/objects/animation/types";
 import { ICampPoint, ISchemeCamperState } from "@/engine/core/schemes/stalker/camper/camper_types";
-import { isObjectFacingDanger } from "@/engine/core/schemes/stalker/danger/utils";
-import { abort } from "@/engine/core/utils/assertion";
-import { isObjectAtTerminalWaypoint, isObjectAtWaypoint } from "@/engine/core/utils/patrol";
-import { createVector } from "@/engine/core/utils/vector";
-import { DangerObject, GameObject, Optional, Patrol, TDangerType } from "@/engine/lib/types";
+import { isObjectAtWaypoint } from "@/engine/core/utils/patrol";
+import { GameObject, Optional, Patrol } from "@/engine/lib/types";
 
 /**
  * todo;

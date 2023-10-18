@@ -66,13 +66,15 @@ describe("config utils for ini file", () => {
     const state: IRegistryObjectState = registerObject(object);
 
     expect(getObjectConfigOverrides(mockIniFile("test.ltx", { empty: {} }), "empty", object)).toEqualLuaTables({
-      combat_ignore: null,
-      combat_ignore_keep_when_attacked: false,
-      combat_type: null,
+      combatIgnore: null,
+      combatIgnoreKeepWhenAttacked: false,
+      combatType: null,
+      scriptCombatType: null,
       maxPostCombatTime: 10,
       minPostCombatTime: 5,
-      on_combat: null,
-      on_offline_condlist: parseConditionsList(NIL),
+      heliHunter: null,
+      onCombat: null,
+      onOffline: parseConditionsList(NIL),
       soundgroup: null,
     });
 
@@ -94,32 +96,33 @@ describe("config utils for ini file", () => {
         object
       )
     ).toEqualLuaTables({
-      combat_ignore: {
+      combatIgnore: {
         condlist: parseConditionsList("second"),
         name: "combat_ignore_cond",
         objectId: null,
         p1: null,
         p2: null,
       },
-      combat_ignore_keep_when_attacked: "third",
-      combat_type: {
+      combatIgnoreKeepWhenAttacked: "third",
+      combatType: {
         condlist: parseConditionsList("fourth"),
         name: "combat_type",
         objectId: null,
         p1: null,
         p2: null,
       },
-      heli_hunter: parseConditionsList("first"),
+      scriptCombatType: null,
+      heliHunter: parseConditionsList("first"),
       maxPostCombatTime: 50,
       minPostCombatTime: 10,
-      on_combat: {
+      onCombat: {
         condlist: parseConditionsList("fifth"),
         name: "on_combat",
         objectId: null,
         p1: null,
         p2: null,
       },
-      on_offline_condlist: parseConditionsList("sixth"),
+      onOffline: parseConditionsList("sixth"),
       soundgroup: "seventh",
     });
 
@@ -137,13 +140,15 @@ describe("config utils for ini file", () => {
         object
       )
     ).toEqualLuaTables({
-      combat_ignore: null,
-      combat_ignore_keep_when_attacked: false,
-      combat_type: null,
+      heliHunter: null,
+      combatIgnore: null,
+      combatIgnoreKeepWhenAttacked: false,
+      combatType: null,
+      scriptCombatType: null,
       maxPostCombatTime: 54,
       minPostCombatTime: 15,
-      on_combat: null,
-      on_offline_condlist: parseConditionsList(NIL),
+      onCombat: null,
+      onOffline: parseConditionsList(NIL),
       soundgroup: null,
     });
   });

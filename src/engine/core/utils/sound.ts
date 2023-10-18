@@ -1,6 +1,5 @@
 import { bit_and, snd_type } from "xray16";
 
-import { registry } from "@/engine/core/database";
 import { soundsConfig } from "@/engine/core/managers/sounds/SoundsConfig";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { ESoundType } from "@/engine/lib/constants/sound";

@@ -88,6 +88,10 @@ export class ExtensionsDialog extends CUIScriptWnd {
 
     this.uiItemsList = initializeElement(this.xml, EElementType.LIST_BOX, "items_list", this, {
       [ui_events.LIST_ITEM_SELECT]: () => this.onActiveExtensionChange(),
+      [ui_events.WINDOW_LBUTTON_DB_CLICK]: () => {
+        this.onActiveExtensionChange();
+        this.onToggleButtonClick();
+      },
     });
     this.uiItemsList.ShowSelectedItem(true);
 

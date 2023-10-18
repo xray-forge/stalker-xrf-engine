@@ -123,6 +123,7 @@ export function mockGameObject({
           .filter(Boolean)
           .forEach((it) => inRestrictions.push(it));
       }),
+    best_enemy: rest.best_enemy ?? jest.fn(() => null),
     best_danger: rest.best_danger ?? jest.fn(() => null),
     bind_object: rest.bind_object ?? jest.fn(),
     bleeding,
@@ -297,6 +298,7 @@ export function mockGameObject({
     set_const_force: rest.set_const_force ?? jest.fn(),
     set_desired_direction: rest.set_desired_direction ?? jest.fn(),
     set_desired_position: rest.set_desired_position ?? jest.fn(),
+    set_detail_path_type: rest.set_detail_path_type ?? jest.fn(),
     set_start_dialog: rest.set_start_dialog ?? jest.fn(),
     set_tip_text: rest.set_tip_text ?? jest.fn(),
     sell_condition: rest.sell_condition ?? jest.fn(),

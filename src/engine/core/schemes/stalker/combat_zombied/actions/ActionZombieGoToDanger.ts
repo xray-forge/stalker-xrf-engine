@@ -47,18 +47,29 @@ export class ActionZombieGoToDanger extends action_base {
    * todo: Description.
    */
   public override initialize(): void {
-    logger.info("Go to danger:", this.object.name());
+    logger.info("Activate:", this.object.name());
 
     super.initialize();
 
     this.object.set_desired_direction();
     this.object.set_detail_path_type(move.line);
     this.object.set_path_type(EGameObjectPath.LEVEL_PATH);
+
     this.lastState = null;
     this.bestDangerObjectId = null;
     this.bestDangerObjectVertexId = null;
     this.lastSentVertexId = null;
     this.state.currentAction = EZombieCombatAction.DANGER;
+  }
+
+  /**
+   * todo: Description.
+   */
+  public override finalize(): void {
+    logger.info("Deactivate:", this.object.name());
+
+    super.finalize();
+    this.state.currentAction = null;
   }
 
   /**
@@ -107,16 +118,6 @@ export class ActionZombieGoToDanger extends action_base {
         this.setState(EStalkerState.THREAT_NA, null, bestDanger.position());
       }
     }
-  }
-
-  /**
-   * todo: Description.
-   */
-  public override finalize(): void {
-    logger.info("Stop going to danger:", this.object.name());
-
-    super.finalize();
-    this.state.currentAction = null;
   }
 
   /**

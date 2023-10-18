@@ -41,8 +41,8 @@ const logger: LuaLogger = new LuaLogger($filename);
  */
 @LuabindClass()
 export class PhysicObjectBinder extends object_binder {
-  public initialized: boolean = false;
-  public loaded: boolean = false;
+  public isInitialized: boolean = false;
+  public isLoaded: boolean = false;
 
   public particle: Optional<ParticlesObject> = null;
   public itemBox: Optional<PhysicObjectItemBox> = null;
@@ -54,69 +54,14 @@ export class PhysicObjectBinder extends object_binder {
     this.state = resetObject(this.object);
   }
 
-  public override net_destroy(): void {
-    if (level.map_has_object_spot(this.object.id(), "ui_pda2_actor_box_location") !== 0) {
-      level.map_remove_object_spot(this.object.id(), "ui_pda2_actor_box_location");
-    }
-
-    GlobalSoundManager.getInstance().stopSoundByObjectId(this.object.id());
-
-    const state: IRegistryObjectState = registry.objects.get(this.object.id());
-
-    if (state.activeScheme) {
-      emitSchemeEvent(this.object, state[state.activeScheme]!, ESchemeEvent.SWITCH_OFFLINE, this.object);
-    }
-
-    const on_offline_condlist: Optional<TConditionList> = state?.overrides?.on_offline_condlist;
-
-    if (on_offline_condlist !== null) {
-      pickSectionFromCondList(registry.actor, this.object, on_offline_condlist);
-    }
-
-    if (this.particle !== null) {
-      this.particle.stop();
-    }
-
-    unregisterObject(this.object);
-
-    registry.objects.delete(this.object.id());
-
-    super.net_destroy();
-  }
-
-  public override net_save_relevant(): boolean {
-    return true;
-  }
-
-  public override save(packet: NetPacket): void {
-    super.save(packet);
-
-    openSaveMarker(packet, PhysicObjectBinder.__name);
-    saveObjectLogic(this.object, packet);
-    closeSaveMarker(packet, PhysicObjectBinder.__name);
-  }
-
-  public override load(reader: Reader): void {
-    this.loaded = true;
-
-    super.load(reader);
-
-    openLoadMarker(reader, PhysicObjectBinder.__name);
-    loadObjectLogic(this.object, reader);
-    closeLoadMarker(reader, PhysicObjectBinder.__name);
-  }
-
-  /**
-   * todo: Description.
-   */
   public override net_spawn(object: ServerObject): boolean {
     if (!super.net_spawn(object)) {
       return false;
     }
 
-    const spawnIni: Optional<IniFile> = this.object.spawn_ini();
+    const spawnIni: Optional<IniFile> = this.object.spawn_ini() as Optional<IniFile>;
 
-    if (spawnIni !== null) {
+    if (spawnIni) {
       if (spawnIni.section_exist("drop_box")) {
         this.itemBox = new PhysicObjectItemBox(this.object);
       }
@@ -133,15 +78,40 @@ export class PhysicObjectBinder extends object_binder {
     return true;
   }
 
-  /**
-   * todo: Description.
-   */
+  public override net_destroy(): void {
+    if (level.map_has_object_spot(this.object.id(), "ui_pda2_actor_box_location") !== 0) {
+      level.map_remove_object_spot(this.object.id(), "ui_pda2_actor_box_location");
+    }
+
+    GlobalSoundManager.getInstance().stopSoundByObjectId(this.object.id());
+
+    const state: IRegistryObjectState = registry.objects.get(this.object.id());
+
+    if (state.activeScheme) {
+      emitSchemeEvent(this.object, state[state.activeScheme]!, ESchemeEvent.SWITCH_OFFLINE, this.object);
+    }
+
+    const onOfflineCondlist: Optional<TConditionList> = state?.overrides?.onOffline as Optional<TConditionList>;
+
+    if (onOfflineCondlist) {
+      pickSectionFromCondList(registry.actor, this.object, onOfflineCondlist);
+    }
+
+    if (this.particle) {
+      this.particle.stop();
+    }
+
+    unregisterObject(this.object);
+
+    super.net_destroy();
+  }
+
   public override update(delta: TDuration): void {
     super.update(delta);
 
-    if (!this.initialized) {
-      this.initialized = true;
-      initializeObjectSchemeLogic(this.object, this.state, this.loaded, ESchemeType.OBJECT);
+    if (!this.isInitialized) {
+      this.isInitialized = true;
+      initializeObjectSchemeLogic(this.object, this.state, this.isLoaded, ESchemeType.OBJECT);
     }
 
     const spawnIni: Optional<IniFile> = this.object.spawn_ini();
@@ -158,6 +128,30 @@ export class PhysicObjectBinder extends object_binder {
     }
 
     GlobalSoundManager.getInstance().update(this.object.id());
+  }
+
+  public override net_save_relevant(): boolean {
+    return true;
+  }
+
+  public override save(packet: NetPacket): void {
+    openSaveMarker(packet, PhysicObjectBinder.__name);
+
+    super.save(packet);
+    saveObjectLogic(this.object, packet);
+
+    closeSaveMarker(packet, PhysicObjectBinder.__name);
+  }
+
+  public override load(reader: Reader): void {
+    this.isLoaded = true;
+
+    openLoadMarker(reader, PhysicObjectBinder.__name);
+
+    super.load(reader);
+    loadObjectLogic(this.object, reader);
+
+    closeLoadMarker(reader, PhysicObjectBinder.__name);
   }
 
   /**

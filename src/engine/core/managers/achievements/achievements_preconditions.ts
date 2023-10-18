@@ -10,7 +10,6 @@ import { increaseCommunityGoodwillToId } from "@/engine/core/utils/relation";
 import { communities } from "@/engine/lib/constants/communities";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import { infoPortions } from "@/engine/lib/constants/info_portions";
-import { TNumberId } from "@/engine/lib/types";
 
 /**
  * todo: Description.

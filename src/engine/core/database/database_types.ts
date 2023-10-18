@@ -12,6 +12,7 @@ import {
   IniFile,
   LuaArray,
   Optional,
+  TDuration,
   Time,
   TName,
   TNumberId,
@@ -55,7 +56,7 @@ export interface IBaseSchemeState {
   scheme: EScheme;
   section: Optional<TSection>;
   actions?: LuaTable<AnyObject, boolean>;
-  overrides: Optional<AnyObject>;
+  overrides: Optional<ILogicsOverrides>;
 }
 
 /**
@@ -96,7 +97,7 @@ export interface IRegistryObjectStateLogic {
   /**
    * todo;
    */
-  overrides: Optional<AnyObject>;
+  overrides: Optional<ILogicsOverrides>;
   /**
    * Time of logics section activation - absolute.
    */
@@ -125,6 +126,22 @@ export interface IRegistryObjectStateLogic {
    * Describes last active smart terrain name when game was saved.
    */
   loadedSmartTerrainName: Optional<TName>;
+}
+
+/**
+ * State logics overrides descriptor.
+ */
+export interface ILogicsOverrides {
+  heliHunter: Optional<TConditionList>;
+  combatIgnore: Optional<IBaseSchemeLogic>;
+  combatIgnoreKeepWhenAttacked: Optional<boolean>;
+  combatType: Optional<IBaseSchemeLogic>;
+  scriptCombatType: Optional<TName>;
+  minPostCombatTime: TDuration;
+  maxPostCombatTime: TDuration;
+  onCombat: Optional<IBaseSchemeLogic>;
+  onOffline: Optional<TConditionList>;
+  soundgroup: Optional<TName>;
 }
 
 /**
@@ -188,7 +205,7 @@ export interface IRegistryObjectState extends Record<EScheme, Optional<IBaseSche
   /**
    * todo;
    */
-  script_combat_type: Optional<TName>;
+  scriptCombatType: Optional<TName>;
   /**
    * Optional ID of linked camp game object, if registered object is in it.
    */

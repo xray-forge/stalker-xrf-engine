@@ -5,7 +5,7 @@ import { EActionId, EEvaluatorId } from "@/engine/core/objects/ai/types";
 import { ISchemeCombatState } from "@/engine/core/schemes/stalker/combat";
 import { ActionZombieGoToDanger, ActionZombieShoot } from "@/engine/core/schemes/stalker/combat_zombied/actions";
 import { EvaluatorCombatZombied } from "@/engine/core/schemes/stalker/combat_zombied/evaluators";
-import { assertDefined } from "@/engine/core/utils/assertion";
+import { assert } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { ActionPlanner, GameObject, IniFile } from "@/engine/lib/types";
 import { EScheme, ESchemeType, TSection } from "@/engine/lib/types/scheme";
@@ -14,15 +14,11 @@ const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * todo;
- * Note: not atomic scheme, just helper
  */
 export class SchemeCombatZombied extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.COMBAT_ZOMBIED;
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.STALKER;
 
-  /**
-   * todo: Description.
-   */
   public static override add(
     object: GameObject,
     ini: IniFile,
@@ -31,7 +27,9 @@ export class SchemeCombatZombied extends AbstractScheme {
     state: ISchemeCombatState,
     planner?: ActionPlanner
   ): void {
-    assertDefined(planner, "Expected planner to be provided for add method call.");
+    logger.info("Add zombied combat:", object.name());
+
+    assert(planner, "Expected planner to be provided for add method call.");
 
     planner.add_evaluator(EEvaluatorId.IS_COMBAT_ZOMBIED_ENABLED, new EvaluatorCombatZombied(state));
 
@@ -42,9 +40,10 @@ export class SchemeCombatZombied extends AbstractScheme {
     actionZombieShoot.add_precondition(new world_property(EEvaluatorId.IS_SCRIPTED_COMBAT, true));
     actionZombieShoot.add_effect(new world_property(EEvaluatorId.ENEMY, false));
     actionZombieShoot.add_effect(new world_property(EEvaluatorId.IS_STATE_LOGIC_ACTIVE, false));
+
     planner.add_action(EActionId.ZOMBIED_SHOOT, actionZombieShoot);
 
-    SchemeCombatZombied.subscribe(object, state, actionZombieShoot);
+    AbstractScheme.subscribe(object, state, actionZombieShoot);
 
     const actionZombieGoToDanger: ActionZombieGoToDanger = new ActionZombieGoToDanger(state);
 
@@ -54,8 +53,9 @@ export class SchemeCombatZombied extends AbstractScheme {
     actionZombieGoToDanger.add_precondition(new world_property(EEvaluatorId.DANGER, true));
     actionZombieGoToDanger.add_effect(new world_property(EEvaluatorId.DANGER, false));
     actionZombieGoToDanger.add_effect(new world_property(EEvaluatorId.IS_STATE_LOGIC_ACTIVE, false));
+
     planner.add_action(EActionId.ZOMBIED_GO_TO_DANGER, actionZombieGoToDanger);
 
-    SchemeCombatZombied.subscribe(object, state, actionZombieGoToDanger);
+    AbstractScheme.subscribe(object, state, actionZombieGoToDanger);
   }
 }

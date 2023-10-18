@@ -14,7 +14,7 @@ import {
 import { MapDisplayManager } from "@/engine/core/managers/map";
 import { ObjectRestrictionsManager } from "@/engine/core/objects/ai/restriction";
 import { TAbstractSchemeConstructor } from "@/engine/core/objects/ai/scheme";
-import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain";
+import { ISmartTerrainJobDescriptor, SmartTerrain } from "@/engine/core/objects/server/smart_terrain";
 import { SchemeMobCombat } from "@/engine/core/schemes/monster/mob_combat";
 import { SchemeMobDeath } from "@/engine/core/schemes/monster/mob_death";
 import { SchemePhysicalOnHit } from "@/engine/core/schemes/physical/ph_on_hit";
@@ -36,7 +36,6 @@ import { SchemePatrol } from "@/engine/core/schemes/stalker/patrol";
 import { SchemeReachTask } from "@/engine/core/schemes/stalker/reach_task";
 import { SchemeWounded } from "@/engine/core/schemes/stalker/wounded";
 import { disableInfoPortion, giveInfoPortion } from "@/engine/core/utils/info_portion";
-import { ISmartTerrainJobDescriptor } from "@/engine/core/utils/job";
 import {
   activateSchemeBySection,
   enableObjectBaseSchemes,
@@ -262,13 +261,15 @@ describe("scheme logic utils", () => {
     expect(getSchemeAction(state[EScheme.HIT] as IBaseSchemeState).activate).toHaveBeenCalledWith(false, object);
 
     expect(state.overrides).toEqualLuaTables({
-      combat_ignore: null,
-      combat_ignore_keep_when_attacked: false,
-      combat_type: null,
+      combatIgnore: null,
+      heliHunter: null,
+      combatIgnoreKeepWhenAttacked: false,
+      combatType: null,
+      scriptCombatType: null,
       maxPostCombatTime: 10,
       minPostCombatTime: 5,
-      on_combat: null,
-      on_offline_condlist: {
+      onCombat: null,
+      onOffline: {
         "1": {
           infop_check: {},
           infop_set: {},

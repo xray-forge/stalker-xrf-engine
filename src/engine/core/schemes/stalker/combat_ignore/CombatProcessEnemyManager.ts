@@ -1,4 +1,4 @@
-import { registry } from "@/engine/core/database";
+import { ILogicsOverrides, registry } from "@/engine/core/database";
 import { AbstractSchemeManager } from "@/engine/core/objects/ai/scheme";
 import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain/SmartTerrain";
 import { combatConfig } from "@/engine/core/schemes/stalker/combat/CombatConfig";
@@ -8,7 +8,7 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 import { startSmartTerrainAlarm } from "@/engine/core/utils/smart_terrain";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import { MAX_U16 } from "@/engine/lib/constants/memory";
-import { AnyObject, GameObject, Optional, ServerCreatureObject, TCount, TNumberId, Vector } from "@/engine/lib/types";
+import { GameObject, Optional, ServerCreatureObject, TCount, TNumberId, Vector } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -70,9 +70,9 @@ export class CombatProcessEnemyManager extends AbstractSchemeManager<ISchemeComb
     }
 
     if (who.id() === ACTOR_ID) {
-      const overrides: Optional<AnyObject> = this.state.overrides;
+      const overrides: Optional<ILogicsOverrides> = this.state.overrides;
 
-      if (!overrides || !overrides.combat_ignore_keep_when_attacked) {
+      if (!overrides || !overrides.combatIgnoreKeepWhenAttacked) {
         this.state.enabled = false;
       }
     }
