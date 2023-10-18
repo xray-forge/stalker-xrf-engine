@@ -1,6 +1,7 @@
 import { describe, expect, it } from "@jest/globals";
 
 import { extern, getExtern } from "@/engine/core/utils/binding";
+import { AnyObject } from "@/engine/lib/types";
 
 describe("binding utils", () => {
   it("binding utils should correctly work in pair with simple examples", () => {
@@ -12,6 +13,16 @@ describe("binding utils", () => {
 
     extern("sample3", { a: 1, b: 2, c: 3 });
     expect(getExtern("sample3")).toStrictEqual({ a: 1, b: 2, c: 3 });
+  });
+
+  it("binding utils should correctly handle externing few times", () => {
+    const first: AnyObject = {};
+
+    extern("object1", first);
+    expect(getExtern("object1")).toBe(first);
+
+    extern("object1", {});
+    expect(getExtern("object1")).not.toBe(first);
   });
 
   it("binding utils should correctly work in pair with complex examples", () => {

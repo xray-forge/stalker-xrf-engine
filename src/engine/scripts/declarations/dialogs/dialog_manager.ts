@@ -24,8 +24,6 @@ const logger: LuaLogger = new LuaLogger($filename);
 // todo: actor/object order is screwed somewhere?
 // todo: actor/object order is screwed somewhere?
 
-extern("dialog_manager", {});
-
 /**
  * todo;
  */

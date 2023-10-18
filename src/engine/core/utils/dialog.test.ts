@@ -1,13 +1,33 @@
-import { beforeEach, describe, expect, it } from "@jest/globals";
+import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 
-import { registerActor, registerSimulator, registry } from "@/engine/core/database";
-import { getActorAvailableMedKit, getNpcSpeaker, isObjectName } from "@/engine/core/utils/dialog";
+import {
+  IRegistryObjectState,
+  registerActor,
+  registerObject,
+  registerSimulator,
+  registry,
+} from "@/engine/core/database";
+import { updateStalkerLogic } from "@/engine/core/objects/binders";
+import { ISchemeMeetState } from "@/engine/core/schemes/stalker/meet";
+import { MeetManager } from "@/engine/core/schemes/stalker/meet/MeetManager";
+import { updateObjectMeetAvailability } from "@/engine/core/schemes/stalker/meet/utils";
+import {
+  breakObjectDialog,
+  getActorAvailableMedKit,
+  getNpcSpeaker,
+  isObjectName,
+  updateObjectDialog,
+} from "@/engine/core/utils/dialog";
 import { ammo } from "@/engine/lib/constants/items/ammo";
 import { medkits } from "@/engine/lib/constants/items/drugs";
 import { weapons } from "@/engine/lib/constants/items/weapons";
-import { GameObject } from "@/engine/lib/types";
+import { EScheme, GameObject } from "@/engine/lib/types";
+import { mockRegisteredActor, mockSchemeState, resetRegistry } from "@/fixtures/engine";
 import { MockLuaTable } from "@/fixtures/lua";
-import { mockActorGameObject, mockGameObject } from "@/fixtures/xray";
+import { mockGameObject } from "@/fixtures/xray";
+
+jest.mock("@/engine/core/schemes/stalker/meet/utils", () => ({ updateObjectMeetAvailability: jest.fn() }));
+jest.mock("@/engine/core/objects/binders/creature/StalkerBinder", () => ({ updateStalkerLogic: jest.fn() }));
 
 describe("reward utils", () => {
   const createObjectWithItems = () =>
@@ -30,7 +50,8 @@ describe("reward utils", () => {
     });
 
   beforeEach(() => {
-    registerActor(mockActorGameObject());
+    resetRegistry();
+    mockRegisteredActor();
     registerSimulator();
   });
 
@@ -69,5 +90,32 @@ describe("reward utils", () => {
     expect(getActorAvailableMedKit(MockLuaTable.mockFromArray([medkits.medkit_scientic]))).toBeNull();
 
     expect(getActorAvailableMedKit(MockLuaTable.mockFromArray([medkits.medkit]), mockGameObject())).toBeNull();
+  });
+
+  it("breakObjectDialog should correctly break", () => {
+    const { actorGameObject } = mockRegisteredActor();
+    const object: GameObject = mockGameObject();
+
+    breakObjectDialog(object);
+
+    expect(actorGameObject.stop_talk).toHaveBeenCalledTimes(1);
+    expect(object.stop_talk).toHaveBeenCalledTimes(1);
+  });
+
+  it("updateObjectDialog should correctly update dialog state", () => {
+    mockRegisteredActor();
+
+    const object: GameObject = mockGameObject();
+    const state: IRegistryObjectState = registerObject(object);
+    const meetState: ISchemeMeetState = mockSchemeState(EScheme.MEET);
+
+    state[EScheme.MEET] = meetState;
+    meetState.meetManager = { update: jest.fn() } as unknown as MeetManager;
+
+    updateObjectDialog(object);
+
+    expect(meetState.meetManager.update).toHaveBeenCalledTimes(1);
+    expect(updateObjectMeetAvailability).toHaveBeenCalledWith(object);
+    expect(updateStalkerLogic).toHaveBeenCalledWith(object);
   });
 });

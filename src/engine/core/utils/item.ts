@@ -83,7 +83,7 @@ export function actorHasAtLeastOneItem(
   itemSections: LuaArray<TSection | TNumberId> | Array<TSection | TNumberId>,
   actor: GameObject = registry.actor
 ): boolean {
-  for (const [index, section] of itemSections as LuaArray<TSection | TNumberId>) {
+  for (const [, section] of itemSections as LuaArray<TSection | TNumberId>) {
     if (actor.object(section) !== null) {
       return true;
     }

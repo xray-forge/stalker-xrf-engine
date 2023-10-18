@@ -23,8 +23,6 @@ import { AnyCallable, GameObject, LuaArray, TCount } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
-extern("dialogs_pripyat", {});
-
 /**
  * todo;
  */
