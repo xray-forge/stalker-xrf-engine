@@ -1,4 +1,5 @@
-import { beforeAll, describe, expect, it } from "@jest/globals";
+import { beforeAll, describe, expect, it, jest } from "@jest/globals";
+import { level } from "xray16";
 
 import { surgeConfig } from "@/engine/core/managers/surge/SurgeConfig";
 import { AnyArgs, AnyObject, TName } from "@/engine/lib/types";
@@ -23,17 +24,53 @@ describe("dialogs_generic external callbacks", () => {
     checkDialogsBinding("is_surge_not_running");
   });
 
-  it.todo("level_zaton should correctly check if level is zaton");
+  it("level_zaton should correctly check if level is zaton", () => {
+    jest.spyOn(level, "name").mockImplementation(() => "zaton");
+    expect(callDialogsBinding("level_zaton")).toBe(true);
 
-  it.todo("level_not_zaton should correctly check if level is not zaton");
+    jest.spyOn(level, "name").mockImplementation(() => "jupiter");
+    expect(callDialogsBinding("level_zaton")).toBe(false);
+  });
 
-  it.todo("level_jupiter should correctly check if level is jupiter");
+  it("not_level_zaton should correctly check if level is not zaton", () => {
+    jest.spyOn(level, "name").mockImplementation(() => "zaton");
+    expect(callDialogsBinding("not_level_zaton")).toBe(false);
 
-  it.todo("level_not_jupiter should correctly check if level is not jupiter");
+    jest.spyOn(level, "name").mockImplementation(() => "jupiter");
+    expect(callDialogsBinding("not_level_zaton")).toBe(true);
+  });
 
-  it.todo("level_pripyat should correctly check if level is pripyat");
+  it("level_jupiter should correctly check if level is not zaton", () => {
+    jest.spyOn(level, "name").mockImplementation(() => "zaton");
+    expect(callDialogsBinding("level_jupiter")).toBe(false);
 
-  it.todo("level_not_pripyat should correctly check if level is not pripyat");
+    jest.spyOn(level, "name").mockImplementation(() => "jupiter");
+    expect(callDialogsBinding("level_jupiter")).toBe(true);
+  });
+
+  it("not_level_jupiter should correctly check if level is not zaton", () => {
+    jest.spyOn(level, "name").mockImplementation(() => "zaton");
+    expect(callDialogsBinding("not_level_jupiter")).toBe(true);
+
+    jest.spyOn(level, "name").mockImplementation(() => "jupiter");
+    expect(callDialogsBinding("not_level_jupiter")).toBe(false);
+  });
+
+  it("level_pripyat should correctly check if level is not zaton", () => {
+    jest.spyOn(level, "name").mockImplementation(() => "zaton");
+    expect(callDialogsBinding("level_pripyat")).toBe(false);
+
+    jest.spyOn(level, "name").mockImplementation(() => "pripyat");
+    expect(callDialogsBinding("level_pripyat")).toBe(true);
+  });
+
+  it("not_level_pripyat should correctly check if level is not zaton", () => {
+    jest.spyOn(level, "name").mockImplementation(() => "zaton");
+    expect(callDialogsBinding("not_level_pripyat")).toBe(true);
+
+    jest.spyOn(level, "name").mockImplementation(() => "pripyat");
+    expect(callDialogsBinding("not_level_pripyat")).toBe(false);
+  });
 
   it("is_surge_running should correctly check surge state", () => {
     surgeConfig.IS_STARTED = true;

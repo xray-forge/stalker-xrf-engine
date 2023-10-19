@@ -10,10 +10,12 @@ import { replaceFunctionMock } from "@/fixtures/jest";
 import { mockGameObject } from "@/fixtures/xray";
 
 jest.mock("@/engine/core/utils/planner", () => ({ isObjectWounded: jest.fn(() => false) }));
+
 jest.mock("@/engine/core/utils/item", () => ({
   actorHasMedKit: jest.fn(() => false),
   getAnyObjectPistol: jest.fn(() => null),
 }));
+
 jest.mock("@/engine/core/utils/dialog", () => ({
   breakObjectDialog: jest.fn(),
   updateObjectDialog: jest.fn(),

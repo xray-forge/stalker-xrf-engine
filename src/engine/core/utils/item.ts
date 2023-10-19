@@ -1,5 +1,5 @@
 import { registry } from "@/engine/core/database";
-import { medkits } from "@/engine/lib/constants/items/drugs";
+import { medkits, TMedkit } from "@/engine/lib/constants/items/drugs";
 import { pistols, TPistol } from "@/engine/lib/constants/items/weapons";
 import { MAX_U16 } from "@/engine/lib/constants/memory";
 import { GameObject, LuaArray, Optional, ServerObject, TNumberId, TRate, TSection } from "@/engine/lib/types";
@@ -34,6 +34,26 @@ export function getAnyObjectPistol(object: GameObject): Optional<GameObject> {
   }, object);
 
   return pistol;
+}
+
+/**
+ * Get available medkit or null.
+ *
+ * @param list - list of medical kits to check in inventory
+ * @param actor - target object to get medkit, gets actor from registry by default
+ * @returns get medkit or null
+ */
+export function getActorAvailableMedKit(
+  list: LuaArray<TSection | TNumberId> = $fromObject(medkits) as unknown as LuaArray<TSection | TNumberId>,
+  actor: GameObject = registry.actor
+): Optional<TMedkit> {
+  for (const [key, medkit] of list) {
+    if (actor.object(medkit) !== null) {
+      return medkit as TMedkit;
+    }
+  }
+
+  return null;
 }
 
 /**

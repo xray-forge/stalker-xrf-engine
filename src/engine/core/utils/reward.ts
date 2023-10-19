@@ -88,7 +88,8 @@ export function transferItemsFromActor(to: GameObject, itemSection: TSection, co
 
   assert(
     remaining === 0,
-    "Actor do not has enough items. Transferred [%s], needed [%s].",
+    "Actor do not has enough '%s' items. Transferred '%s', needed '%s'.",
+    tostring(itemSection),
     tostring(count - remaining),
     tostring(count)
   );

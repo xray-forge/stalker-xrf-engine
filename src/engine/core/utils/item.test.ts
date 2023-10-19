@@ -6,6 +6,7 @@ import {
   actorHasItem,
   actorHasItems,
   actorHasMedKit,
+  getActorAvailableMedKit,
   getAnyObjectPistol,
   getItemInstalledUpgradesList,
   getItemInstalledUpgradesSet,
@@ -223,5 +224,18 @@ describe("item utils", () => {
       b: true,
     });
     expect(getItemInstalledUpgradesSet(mockGameObject({ upgrades: ["c"] }))).toEqualLuaTables({ c: true });
+  });
+
+  it("getActorAvailableMedKit should correctly check medkit", () => {
+    registerActor(createObjectWithItems());
+
+    expect(getActorAvailableMedKit(MockLuaTable.mockFromArray(Object.values(medkits)))).toBe(medkits.medkit);
+    expect(getActorAvailableMedKit(MockLuaTable.mockFromArray(Object.values(medkits)), mockGameObject())).toBeNull();
+
+    expect(getActorAvailableMedKit(MockLuaTable.mockFromArray([medkits.medkit]))).toBe(medkits.medkit);
+    expect(getActorAvailableMedKit(MockLuaTable.mockFromArray([medkits.medkit_army]))).toBe(medkits.medkit_army);
+    expect(getActorAvailableMedKit(MockLuaTable.mockFromArray([medkits.medkit_scientic]))).toBeNull();
+
+    expect(getActorAvailableMedKit(MockLuaTable.mockFromArray([medkits.medkit]), mockGameObject())).toBeNull();
   });
 });

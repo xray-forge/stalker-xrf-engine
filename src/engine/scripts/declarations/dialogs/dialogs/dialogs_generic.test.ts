@@ -1,19 +1,32 @@
 import { beforeAll, describe, expect, it, jest } from "@jest/globals";
 
+import { registerActor, registerSimulator, registry } from "@/engine/core/database";
 import { ActorInputManager } from "@/engine/core/managers/actor";
-import { breakObjectDialog, updateObjectDialog } from "@/engine/core/utils/dialog";
-import { actorHasMedKit, getAnyObjectPistol } from "@/engine/core/utils/item";
+import { breakObjectDialog } from "@/engine/core/utils/dialog";
+import { actorHasMedKit, getActorAvailableMedKit, getAnyObjectPistol } from "@/engine/core/utils/item";
+import { enableObjectWoundedHealing } from "@/engine/core/utils/object";
+import { transferItemsFromActor } from "@/engine/core/utils/reward";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
-import { AnyArgs, AnyObject, GameObject, TName } from "@/engine/lib/types";
+import { AnyArgs, AnyObject, EGameObjectRelation, GameObject, TName } from "@/engine/lib/types";
 import { callBinding, checkNestedBinding, mockRegisteredActor } from "@/fixtures/engine";
-import { replaceFunctionMock } from "@/fixtures/jest";
-import { mockGameObject } from "@/fixtures/xray";
+import { replaceFunctionMock, resetFunctionMock } from "@/fixtures/jest";
+import { mockActorGameObject, mockGameObject } from "@/fixtures/xray";
 
-jest.mock("@/engine/core/utils/planner", () => ({ isObjectWounded: jest.fn(() => false) }));
 jest.mock("@/engine/core/utils/item", () => ({
+  getActorAvailableMedKit: jest.fn(() => null),
   actorHasMedKit: jest.fn(() => false),
   getAnyObjectPistol: jest.fn(() => null),
+  transferItemsFromActor: jest.fn(() => null),
 }));
+
+jest.mock("@/engine/core/utils/object", () => ({
+  enableObjectWoundedHealing: jest.fn(() => null),
+}));
+
+jest.mock("@/engine/core/utils/reward", () => ({
+  transferItemsFromActor: jest.fn(() => null),
+}));
+
 jest.mock("@/engine/core/utils/dialog", () => ({
   breakObjectDialog: jest.fn(),
   updateObjectDialog: jest.fn(),
@@ -75,13 +88,61 @@ describe("dialogs_generic external callbacks", () => {
     expect(actorHasMedKit).toHaveBeenCalled();
   });
 
-  it.todo("transfer_medkit should correctly transfer medkits");
+  it("transfer_medkit should correctly transfer medkits", () => {
+    const medkit: GameObject = mockGameObject({ section: <T>() => "medkit" as T });
+    const actor: GameObject = mockActorGameObject({ inventory: [["medkit", medkit]] });
+    const object: GameObject = mockGameObject();
 
-  it.todo("actor_have_bandage should correctly check if actor has bandage");
+    registerActor(actor);
+    registerSimulator();
 
-  it.todo("transfer_bandage should correctly transfer actor has bandage");
+    resetFunctionMock(transferItemsFromActor);
+    replaceFunctionMock(getActorAvailableMedKit, () => "medkit");
 
-  it.todo("kill_yourself should correctly force actor kill");
+    callDialogsBinding("transfer_medkit", [actor, object]);
+
+    expect(transferItemsFromActor).toHaveBeenCalledWith(object, "medkit");
+    expect(registry.simulator.create).toHaveBeenCalledWith(
+      "medkit_script",
+      object.position(),
+      object.level_vertex_id(),
+      object.game_vertex_id(),
+      object.id()
+    );
+    expect(enableObjectWoundedHealing).toHaveBeenCalledWith(object);
+    expect(object.set_relation).toHaveBeenCalledWith(EGameObjectRelation.FRIEND, actor);
+    expect(actor.change_character_reputation).toHaveBeenCalledWith(10);
+  });
+
+  it("actor_have_bandage should correctly check if actor has bandage", () => {
+    const { actorGameObject } = mockRegisteredActor();
+
+    expect(callDialogsBinding("actor_have_bandage")).toBe(false);
+    expect(actorGameObject.object).toHaveBeenCalledWith("bandage");
+
+    jest.spyOn(actorGameObject, "object").mockImplementation(() => mockGameObject());
+    expect(callDialogsBinding("actor_have_bandage")).toBe(true);
+  });
+
+  it("transfer_bandage should correctly transfer actor has bandage", () => {
+    const { actorGameObject } = mockRegisteredActor();
+    const object: GameObject = mockGameObject();
+
+    resetFunctionMock(transferItemsFromActor);
+    callDialogsBinding("transfer_bandage", [actorGameObject, object]);
+
+    expect(transferItemsFromActor).toHaveBeenCalledWith(object, "bandage");
+    expect(object.set_relation).toHaveBeenCalledWith(EGameObjectRelation.FRIEND, actorGameObject);
+  });
+
+  it("kill_yourself should correctly force actor kill", () => {
+    const { actorGameObject } = mockRegisteredActor();
+    const object: GameObject = mockGameObject();
+
+    callDialogsBinding("kill_yourself", [actorGameObject, object]);
+
+    expect(actorGameObject.kill).toHaveBeenCalledWith(object);
+  });
 
   it("has_2000_money should correctly check money amount", () => {
     const first: GameObject = mockGameObject({ money: () => 1000 });

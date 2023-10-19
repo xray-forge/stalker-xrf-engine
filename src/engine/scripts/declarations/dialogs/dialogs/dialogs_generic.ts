@@ -2,8 +2,8 @@ import { registry } from "@/engine/core/database";
 import { ActorInputManager } from "@/engine/core/managers/actor";
 import { ENotificationDirection, NotificationManager } from "@/engine/core/managers/notifications";
 import { extern } from "@/engine/core/utils/binding";
-import { breakObjectDialog, getActorAvailableMedKit, getNpcSpeaker } from "@/engine/core/utils/dialog";
-import { actorHasMedKit, getAnyObjectPistol } from "@/engine/core/utils/item";
+import { breakObjectDialog, getNpcSpeaker } from "@/engine/core/utils/dialog";
+import { actorHasMedKit, getActorAvailableMedKit, getAnyObjectPistol } from "@/engine/core/utils/item";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { enableObjectWoundedHealing } from "@/engine/core/utils/object";
 import { transferItemsFromActor } from "@/engine/core/utils/reward";
@@ -35,7 +35,7 @@ extern("dialogs.actor_hasnt_medkit", (): boolean => {
 });
 
 /**
- * Transer medkit for NPC from actor.
+ * Transfer medkit for NPC from actor.
  */
 extern("dialogs.transfer_medkit", (actor: GameObject, object: GameObject): void => {
   const availableMedkit: Optional<TMedkit> = getActorAvailableMedKit();
@@ -64,8 +64,8 @@ extern("dialogs.transfer_medkit", (actor: GameObject, object: GameObject): void 
 /**
  * Check whether actor has at least one bandage.
  */
-extern("dialogs.actor_have_bandage", (actor: GameObject, object: GameObject): boolean => {
-  return actor.object(drugs.bandage) !== null;
+extern("dialogs.actor_have_bandage", (): boolean => {
+  return registry.actor.object(drugs.bandage) !== null;
 });
 
 /**
