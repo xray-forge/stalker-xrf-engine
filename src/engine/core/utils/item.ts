@@ -1,5 +1,6 @@
 import { registry } from "@/engine/core/database";
 import { medkits } from "@/engine/lib/constants/items/drugs";
+import { pistols, TPistol } from "@/engine/lib/constants/items/weapons";
 import { MAX_U16 } from "@/engine/lib/constants/memory";
 import { GameObject, LuaArray, Optional, ServerObject, TNumberId, TRate, TSection } from "@/engine/lib/types";
 
@@ -15,6 +16,24 @@ export function getItemOwnerId(id: TNumberId): Optional<TNumberId> {
   }
 
   return null;
+}
+
+/**
+ * @param object - target object to get pistol from
+ * @returns any pistol from object inventory
+ */
+export function getAnyObjectPistol(object: GameObject): Optional<GameObject> {
+  let pistol: Optional<GameObject> = null;
+
+  object.iterate_inventory((owner, item) => {
+    if (item.section() in pistols) {
+      pistol = item;
+
+      return true;
+    }
+  }, object);
+
+  return pistol;
 }
 
 /**

@@ -6,6 +6,7 @@ import {
   actorHasItem,
   actorHasItems,
   actorHasMedKit,
+  getAnyObjectPistol,
   getItemInstalledUpgradesList,
   getItemInstalledUpgradesSet,
   getItemOwnerId,
@@ -14,7 +15,7 @@ import {
 } from "@/engine/core/utils/item";
 import { ammo } from "@/engine/lib/constants/items/ammo";
 import { medkits } from "@/engine/lib/constants/items/drugs";
-import { weapons } from "@/engine/lib/constants/items/weapons";
+import { pistols, weapons } from "@/engine/lib/constants/items/weapons";
 import { MAX_U16 } from "@/engine/lib/constants/memory";
 import { GameObject, ServerObject } from "@/engine/lib/types";
 import { resetRegistry } from "@/fixtures/engine";
@@ -180,6 +181,39 @@ describe("item utils", () => {
     expect(getItemInstalledUpgradesList(mockGameObject())).toEqualLuaArrays([]);
     expect(getItemInstalledUpgradesList(mockGameObject({ upgrades: ["a", "b"] }))).toEqualLuaArrays(["a", "b"]);
     expect(getItemInstalledUpgradesList(mockGameObject({ upgrades: ["c"] }))).toEqualLuaArrays(["c"]);
+  });
+
+  it("getAnyObjectPistol should correctly get pistol from object inventory", () => {
+    const desertEagle: GameObject = mockGameObject({ section: <T>() => pistols.wpn_desert_eagle as T });
+    const fort: GameObject = mockGameObject({ section: <T>() => pistols.wpn_fort as T });
+
+    const first: GameObject = mockGameObject();
+    const second: GameObject = mockGameObject({
+      inventory: [
+        ["a", mockGameObject()],
+        ["b", mockGameObject()],
+        [weapons.wpn_svd, mockGameObject()],
+      ],
+    });
+    const third: GameObject = mockGameObject({
+      inventory: [
+        ["a", mockGameObject()],
+        [weapons.wpn_svd, mockGameObject()],
+        [weapons.wpn_desert_eagle, desertEagle],
+      ],
+    });
+    const fourth: GameObject = mockGameObject({
+      inventory: [
+        ["a", mockGameObject()],
+        [weapons.wpn_fort, fort],
+        [weapons.wpn_desert_eagle, desertEagle],
+      ],
+    });
+
+    expect(getAnyObjectPistol(first)).toBeNull();
+    expect(getAnyObjectPistol(second)).toBeNull();
+    expect(getAnyObjectPistol(third)).toBe(desertEagle);
+    expect(getAnyObjectPistol(fourth)).toBe(fort);
   });
 
   it("getItemInstalledUpgradesSet should correctly get list of installed upgrades", () => {
