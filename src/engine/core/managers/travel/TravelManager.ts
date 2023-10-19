@@ -133,7 +133,7 @@ export class TravelManager extends AbstractManager {
         -10000
       );
       npcPhraseScript = npcPhrase.GetPhraseScript();
-      npcPhraseScript.SetScriptText("travel_callbacks.getTravelConst");
+      npcPhraseScript.SetScriptText("travel_callbacks.getTravelCost");
 
       actorPhrase = dialog.AddPhrase(
         "dm_traveler_actor_agree",

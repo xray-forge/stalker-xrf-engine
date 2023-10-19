@@ -93,7 +93,7 @@ describe("TravelManager class", () => {
         goodwillLevel: -10000,
         prevPhraseId: "1002",
         script: {
-          text: "travel_callbacks.getTravelConst",
+          text: "travel_callbacks.getTravelCost",
         },
         text: "1002_1",
       },
