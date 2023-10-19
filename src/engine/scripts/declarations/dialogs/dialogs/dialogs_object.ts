@@ -6,7 +6,7 @@ import { getNpcSpeaker, updateObjectDialog } from "@/engine/core/utils/dialog";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { isObjectWounded } from "@/engine/core/utils/planner";
 import { communities } from "@/engine/lib/constants/communities";
-import { EGameObjectRelation, EScheme, GameObject, TNumberId } from "@/engine/lib/types";
+import { EGameObjectRelation, GameObject } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -29,13 +29,6 @@ extern("dialogs.is_wounded", (actor: GameObject, object: GameObject): boolean =>
  */
 extern("dialogs.is_not_wounded", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   return !isObjectWounded(getNpcSpeaker(firstSpeaker, secondSpeaker).id());
-});
-
-/**
- * todo;
- */
-extern("dialogs.allow_wounded_dialog", (object: GameObject, victim: GameObject, id: TNumberId): boolean => {
-  return (registry.objects.get(victim.id())[EScheme.WOUNDED] as ISchemeWoundedState)?.helpDialog === id;
 });
 
 /**

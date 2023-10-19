@@ -1,13 +1,13 @@
 import { beforeAll, describe, expect, it, jest } from "@jest/globals";
-import { clsid } from "xray16";
+import { clsid, TXR_relation } from "xray16";
 
 import { updateObjectDialog } from "@/engine/core/utils/dialog";
 import { isObjectWounded } from "@/engine/core/utils/planner";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
-import { AnyArgs, AnyObject, GameObject, TName } from "@/engine/lib/types";
+import { AnyArgs, AnyObject, EGameObjectRelation, GameObject, TName } from "@/engine/lib/types";
 import { callBinding, checkNestedBinding, mockRegisteredActor } from "@/fixtures/engine";
 import { replaceFunctionMock } from "@/fixtures/jest";
-import { mockGameObject } from "@/fixtures/xray";
+import { mockActorGameObject, mockGameObject } from "@/fixtures/xray";
 
 jest.mock("@/engine/core/utils/planner", () => ({ isObjectWounded: jest.fn(() => false) }));
 
@@ -34,7 +34,6 @@ describe("dialogs_generic external callbacks", () => {
     checkDialogsBinding("update_npc_dialog");
     checkDialogsBinding("is_wounded");
     checkDialogsBinding("is_not_wounded");
-    checkDialogsBinding("allow_wounded_dialog");
     checkDialogsBinding("is_friend");
     checkDialogsBinding("is_not_friend");
     checkDialogsBinding("become_friend");
@@ -83,21 +82,36 @@ describe("dialogs_generic external callbacks", () => {
     expect(isObjectWounded).toHaveBeenCalledWith(object.id());
   });
 
-  it.todo("transfer_medkit should correctly transfer medkits");
+  it("is_friend should correctly check friend relations", () => {
+    const actor: GameObject = mockActorGameObject();
+    const object: GameObject = mockGameObject();
 
-  it.todo("actor_have_bandage should correctly check if actor has bandage");
+    jest.spyOn(actor, "relation").mockImplementation(() => EGameObjectRelation.FRIEND as TXR_relation);
+    expect(callDialogsBinding("is_friend", [actor, object])).toBe(true);
 
-  it.todo("transfer_bandage should correctly transfer actor has bandage");
+    jest.spyOn(actor, "relation").mockImplementation(() => EGameObjectRelation.ENEMY as TXR_relation);
+    expect(callDialogsBinding("is_friend", [actor, object])).toBe(false);
+  });
 
-  it.todo("kill_yourself should correctly force actor kill");
+  it("is_not_friend should correctly check not friend relations", () => {
+    const actor: GameObject = mockActorGameObject();
+    const object: GameObject = mockGameObject();
 
-  it.todo("allow_wounded_dialog should correctly allow dialog");
+    jest.spyOn(actor, "relation").mockImplementation(() => EGameObjectRelation.FRIEND as TXR_relation);
+    expect(callDialogsBinding("is_not_friend", [actor, object])).toBe(false);
 
-  it.todo("is_friend should correctly check friend relations");
+    jest.spyOn(actor, "relation").mockImplementation(() => EGameObjectRelation.ENEMY as TXR_relation);
+    expect(callDialogsBinding("is_not_friend", [actor, object])).toBe(true);
+  });
 
-  it.todo("is_not_friend should correctly check not friend relations");
+  it("become_friend should correctly change relations", () => {
+    const actor: GameObject = mockActorGameObject();
+    const object: GameObject = mockGameObject();
 
-  it.todo("become_friend should correctly change relations");
+    callDialogsBinding("become_friend", [actor, object]);
+
+    expect(actor.set_relation).toHaveBeenCalledWith(EGameObjectRelation.FRIEND, object);
+  });
 
   it("npc_stalker should correctly check army faction", () => {
     const { actorGameObject } = mockRegisteredActor();
