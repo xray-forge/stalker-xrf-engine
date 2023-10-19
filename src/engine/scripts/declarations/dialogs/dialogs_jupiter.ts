@@ -48,8 +48,6 @@ import {
 
 const logger: LuaLogger = new LuaLogger($filename);
 
-extern("dialogs_jupiter", {});
-
 /**
  * todo;
  */

@@ -1,7 +1,10 @@
 import { registry } from "@/engine/core/database";
+import { updateStalkerLogic } from "@/engine/core/objects/binders";
+import { ISchemeMeetState } from "@/engine/core/schemes/stalker/meet";
+import { updateObjectMeetAvailability } from "@/engine/core/schemes/stalker/meet/utils";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import { medkits, TMedkit } from "@/engine/lib/constants/items/drugs";
-import { GameObject, LuaArray, Optional, TName, TNumberId, TSection } from "@/engine/lib/types";
+import { EScheme, GameObject, LuaArray, Optional, TName, TNumberId, TSection } from "@/engine/lib/types";
 
 /**
  * From two possible speakers pick NPC one, omit actor.
@@ -15,26 +18,6 @@ export function getNpcSpeaker(first: GameObject, second: GameObject): GameObject
 }
 
 /**
- * Get available medkit or null.
- *
- * @param list - list of medical kits to check in inventory
- * @param actor - target object to get medkit, gets actor from registry by default
- * @returns get medkit or null
- */
-export function getActorAvailableMedKit(
-  list: LuaArray<TSection | TNumberId> = $fromObject(medkits) as unknown as LuaArray<TSection | TNumberId>,
-  actor: GameObject = registry.actor
-): Optional<TMedkit> {
-  for (const [key, medkit] of list) {
-    if (actor.object(medkit) !== null) {
-      return medkit as TMedkit;
-    }
-  }
-
-  return null;
-}
-
-/**
  * Check whether NPC name matches provided parameter.
  *
  * @param object - target object to check name
@@ -45,4 +28,26 @@ export function isObjectName(object: GameObject, name: TName): boolean {
   const objectName: Optional<string> = object.name();
 
   return objectName !== null && string.find(objectName, name)[0] !== null;
+}
+
+/**
+ * Break current actor dialog with game object.
+ *
+ * @param object - target game object to break dialog with
+ */
+export function breakObjectDialog(object: GameObject): void {
+  registry.actor.stop_talk();
+  object.stop_talk();
+}
+
+/**
+ * Update current state of object dialog.
+ * Run logics sync and updates.
+ *
+ * @param object - target game object to update dialog for
+ */
+export function updateObjectDialog(object: GameObject): void {
+  (registry.objects.get(object.id())[EScheme.MEET] as ISchemeMeetState).meetManager.update();
+  updateObjectMeetAvailability(object);
+  updateStalkerLogic(object);
 }

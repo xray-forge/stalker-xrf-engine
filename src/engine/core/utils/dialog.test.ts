@@ -1,36 +1,22 @@
-import { beforeEach, describe, expect, it } from "@jest/globals";
+import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 
-import { registerActor, registerSimulator, registry } from "@/engine/core/database";
-import { getActorAvailableMedKit, getNpcSpeaker, isObjectName } from "@/engine/core/utils/dialog";
-import { ammo } from "@/engine/lib/constants/items/ammo";
-import { medkits } from "@/engine/lib/constants/items/drugs";
-import { weapons } from "@/engine/lib/constants/items/weapons";
-import { GameObject } from "@/engine/lib/types";
-import { MockLuaTable } from "@/fixtures/lua";
-import { mockActorGameObject, mockGameObject } from "@/fixtures/xray";
+import { IRegistryObjectState, registerObject, registerSimulator, registry } from "@/engine/core/database";
+import { updateStalkerLogic } from "@/engine/core/objects/binders";
+import { ISchemeMeetState } from "@/engine/core/schemes/stalker/meet";
+import { MeetManager } from "@/engine/core/schemes/stalker/meet/MeetManager";
+import { updateObjectMeetAvailability } from "@/engine/core/schemes/stalker/meet/utils";
+import { breakObjectDialog, getNpcSpeaker, isObjectName, updateObjectDialog } from "@/engine/core/utils/dialog";
+import { EScheme, GameObject } from "@/engine/lib/types";
+import { mockRegisteredActor, mockSchemeState, resetRegistry } from "@/fixtures/engine";
+import { mockGameObject } from "@/fixtures/xray";
+
+jest.mock("@/engine/core/schemes/stalker/meet/utils", () => ({ updateObjectMeetAvailability: jest.fn() }));
+jest.mock("@/engine/core/objects/binders/creature/StalkerBinder", () => ({ updateStalkerLogic: jest.fn() }));
 
 describe("reward utils", () => {
-  const createObjectWithItems = () =>
-    mockGameObject({
-      inventory: [
-        [1, mockGameObject({ sectionOverride: medkits.medkit } as Partial<GameObject>)],
-        [2, mockGameObject({ sectionOverride: medkits.medkit } as Partial<GameObject>)],
-        [3, mockGameObject({ sectionOverride: medkits.medkit_army } as Partial<GameObject>)],
-        [4, mockGameObject({ sectionOverride: medkits.medkit_army } as Partial<GameObject>)],
-        [5, mockGameObject({ sectionOverride: medkits.medkit_army } as Partial<GameObject>)],
-        [40, mockGameObject({ sectionOverride: weapons.wpn_svd } as Partial<GameObject>)],
-        [41, mockGameObject({ sectionOverride: weapons.wpn_svd } as Partial<GameObject>)],
-        [50, mockGameObject({ sectionOverride: ammo.ammo_9x18_pmm } as Partial<GameObject>)],
-        [51, mockGameObject({ sectionOverride: ammo.ammo_9x18_pmm } as Partial<GameObject>)],
-        [52, mockGameObject({ sectionOverride: ammo.ammo_9x18_pmm } as Partial<GameObject>)],
-        [53, mockGameObject({ sectionOverride: ammo.ammo_9x18_pmm } as Partial<GameObject>)],
-        [54, mockGameObject({ sectionOverride: ammo.ammo_9x18_pmm } as Partial<GameObject>)],
-        [55, mockGameObject({ sectionOverride: ammo.ammo_9x18_pmm } as Partial<GameObject>)],
-      ],
-    });
-
   beforeEach(() => {
-    registerActor(mockActorGameObject());
+    resetRegistry();
+    mockRegisteredActor();
     registerSimulator();
   });
 
@@ -58,16 +44,30 @@ describe("reward utils", () => {
     expect(isObjectName(object, "name")).toBeTruthy();
   });
 
-  it("getActorAvailableMedKit should correctly check medkit", () => {
-    registerActor(createObjectWithItems());
+  it("breakObjectDialog should correctly break", () => {
+    const { actorGameObject } = mockRegisteredActor();
+    const object: GameObject = mockGameObject();
 
-    expect(getActorAvailableMedKit(MockLuaTable.mockFromArray(Object.values(medkits)))).toBe(medkits.medkit);
-    expect(getActorAvailableMedKit(MockLuaTable.mockFromArray(Object.values(medkits)), mockGameObject())).toBeNull();
+    breakObjectDialog(object);
 
-    expect(getActorAvailableMedKit(MockLuaTable.mockFromArray([medkits.medkit]))).toBe(medkits.medkit);
-    expect(getActorAvailableMedKit(MockLuaTable.mockFromArray([medkits.medkit_army]))).toBe(medkits.medkit_army);
-    expect(getActorAvailableMedKit(MockLuaTable.mockFromArray([medkits.medkit_scientic]))).toBeNull();
+    expect(actorGameObject.stop_talk).toHaveBeenCalledTimes(1);
+    expect(object.stop_talk).toHaveBeenCalledTimes(1);
+  });
 
-    expect(getActorAvailableMedKit(MockLuaTable.mockFromArray([medkits.medkit]), mockGameObject())).toBeNull();
+  it("updateObjectDialog should correctly update dialog state", () => {
+    mockRegisteredActor();
+
+    const object: GameObject = mockGameObject();
+    const state: IRegistryObjectState = registerObject(object);
+    const meetState: ISchemeMeetState = mockSchemeState(EScheme.MEET);
+
+    state[EScheme.MEET] = meetState;
+    meetState.meetManager = { update: jest.fn() } as unknown as MeetManager;
+
+    updateObjectDialog(object);
+
+    expect(meetState.meetManager.update).toHaveBeenCalledTimes(1);
+    expect(updateObjectMeetAvailability).toHaveBeenCalledWith(object);
+    expect(updateStalkerLogic).toHaveBeenCalledWith(object);
   });
 });

@@ -6,6 +6,8 @@ import {
   actorHasItem,
   actorHasItems,
   actorHasMedKit,
+  getActorAvailableMedKit,
+  getAnyObjectPistol,
   getItemInstalledUpgradesList,
   getItemInstalledUpgradesSet,
   getItemOwnerId,
@@ -14,7 +16,7 @@ import {
 } from "@/engine/core/utils/item";
 import { ammo } from "@/engine/lib/constants/items/ammo";
 import { medkits } from "@/engine/lib/constants/items/drugs";
-import { weapons } from "@/engine/lib/constants/items/weapons";
+import { pistols, weapons } from "@/engine/lib/constants/items/weapons";
 import { MAX_U16 } from "@/engine/lib/constants/memory";
 import { GameObject, ServerObject } from "@/engine/lib/types";
 import { resetRegistry } from "@/fixtures/engine";
@@ -182,6 +184,39 @@ describe("item utils", () => {
     expect(getItemInstalledUpgradesList(mockGameObject({ upgrades: ["c"] }))).toEqualLuaArrays(["c"]);
   });
 
+  it("getAnyObjectPistol should correctly get pistol from object inventory", () => {
+    const desertEagle: GameObject = mockGameObject({ section: <T>() => pistols.wpn_desert_eagle as T });
+    const fort: GameObject = mockGameObject({ section: <T>() => pistols.wpn_fort as T });
+
+    const first: GameObject = mockGameObject();
+    const second: GameObject = mockGameObject({
+      inventory: [
+        ["a", mockGameObject()],
+        ["b", mockGameObject()],
+        [weapons.wpn_svd, mockGameObject()],
+      ],
+    });
+    const third: GameObject = mockGameObject({
+      inventory: [
+        ["a", mockGameObject()],
+        [weapons.wpn_svd, mockGameObject()],
+        [weapons.wpn_desert_eagle, desertEagle],
+      ],
+    });
+    const fourth: GameObject = mockGameObject({
+      inventory: [
+        ["a", mockGameObject()],
+        [weapons.wpn_fort, fort],
+        [weapons.wpn_desert_eagle, desertEagle],
+      ],
+    });
+
+    expect(getAnyObjectPistol(first)).toBeNull();
+    expect(getAnyObjectPistol(second)).toBeNull();
+    expect(getAnyObjectPistol(third)).toBe(desertEagle);
+    expect(getAnyObjectPistol(fourth)).toBe(fort);
+  });
+
   it("getItemInstalledUpgradesSet should correctly get list of installed upgrades", () => {
     expect(getItemInstalledUpgradesSet(mockGameObject())).toEqualLuaTables({});
     expect(getItemInstalledUpgradesSet(mockGameObject({ upgrades: ["a", "b"] }))).toEqualLuaTables({
@@ -189,5 +224,18 @@ describe("item utils", () => {
       b: true,
     });
     expect(getItemInstalledUpgradesSet(mockGameObject({ upgrades: ["c"] }))).toEqualLuaTables({ c: true });
+  });
+
+  it("getActorAvailableMedKit should correctly check medkit", () => {
+    registerActor(createObjectWithItems());
+
+    expect(getActorAvailableMedKit(MockLuaTable.mockFromArray(Object.values(medkits)))).toBe(medkits.medkit);
+    expect(getActorAvailableMedKit(MockLuaTable.mockFromArray(Object.values(medkits)), mockGameObject())).toBeNull();
+
+    expect(getActorAvailableMedKit(MockLuaTable.mockFromArray([medkits.medkit]))).toBe(medkits.medkit);
+    expect(getActorAvailableMedKit(MockLuaTable.mockFromArray([medkits.medkit_army]))).toBe(medkits.medkit_army);
+    expect(getActorAvailableMedKit(MockLuaTable.mockFromArray([medkits.medkit_scientic]))).toBeNull();
+
+    expect(getActorAvailableMedKit(MockLuaTable.mockFromArray([medkits.medkit]), mockGameObject())).toBeNull();
   });
 });

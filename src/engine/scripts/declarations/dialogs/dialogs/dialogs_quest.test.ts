@@ -3,54 +3,14 @@ import { beforeAll, describe, it } from "@jest/globals";
 import { TName } from "@/engine/lib/types";
 import { checkNestedBinding } from "@/fixtures/engine";
 
-describe("dialogs external callbacks", () => {
+describe("dialogs_quest external callbacks", () => {
   const checkDialogsBinding = (name: TName) => checkNestedBinding("dialogs", name);
 
   beforeAll(() => {
-    require("@/engine/scripts/declarations/dialogs/dialogs");
+    require("@/engine/scripts/declarations/dialogs/dialogs/dialogs_quest");
   });
 
   it("should correctly inject dialog functors", () => {
-    checkDialogsBinding("break_dialog");
-    checkDialogsBinding("update_npc_dialog");
-    checkDialogsBinding("is_wounded");
-    checkDialogsBinding("is_not_wounded");
-    checkDialogsBinding("actor_have_medkit");
-    checkDialogsBinding("actor_hasnt_medkit");
-    checkDialogsBinding("transfer_medkit");
-    checkDialogsBinding("actor_have_bandage");
-    checkDialogsBinding("transfer_bandage");
-    checkDialogsBinding("kill_yourself");
-    checkDialogsBinding("allow_wounded_dialog");
-    checkDialogsBinding("level_zaton");
-    checkDialogsBinding("level_jupiter");
-    checkDialogsBinding("level_pripyat");
-    checkDialogsBinding("not_level_zaton");
-    checkDialogsBinding("not_level_jupiter");
-    checkDialogsBinding("not_level_pripyat");
-    checkDialogsBinding("is_friend");
-    checkDialogsBinding("is_not_friend");
-    checkDialogsBinding("become_friend");
-    checkDialogsBinding("npc_stalker");
-    checkDialogsBinding("npc_bandit");
-    checkDialogsBinding("npc_freedom");
-    checkDialogsBinding("npc_dolg");
-    checkDialogsBinding("npc_army");
-    checkDialogsBinding("actor_in_dolg");
-    checkDialogsBinding("actor_not_in_dolg");
-    checkDialogsBinding("actor_in_freedom");
-    checkDialogsBinding("actor_not_in_freedom");
-    checkDialogsBinding("actor_in_bandit");
-    checkDialogsBinding("actor_not_in_bandit");
-    checkDialogsBinding("actor_in_stalker");
-    checkDialogsBinding("actor_not_in_stalker");
-    checkDialogsBinding("has_2000_money");
-    checkDialogsBinding("transfer_any_pistol_from_actor");
-    checkDialogsBinding("have_actor_any_pistol");
-    checkDialogsBinding("disable_ui");
-    checkDialogsBinding("disable_ui_only");
-    checkDialogsBinding("is_surge_running");
-    checkDialogsBinding("is_surge_not_running");
     checkDialogsBinding("quest_dialog_heli_precond");
     checkDialogsBinding("quest_dialog_military_precond");
     checkDialogsBinding("quest_dialog_squad_precond");

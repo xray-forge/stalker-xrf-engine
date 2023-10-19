@@ -1,4 +1,4 @@
-import { AnyObject, TName } from "@/engine/lib/types";
+import { AnyArgs, AnyCallable, AnyObject, TName } from "@/engine/lib/types";
 
 /**
  * Expect binding to be defined in global container.
@@ -10,6 +10,20 @@ export function checkBinding(name: TName, container: AnyObject = _G): void {
   if (!container[name]) {
     throw new Error(`Expected '${name}' extern to be declared.`);
   }
+}
+
+/**
+ * Call global binding function.
+ *
+ * @param name - name of global binding
+ * @param args - variadic list of arguments
+ * @param container - container object
+ * @returns generic value from binding function
+ */
+export function callBinding<T>(name: TName, args: AnyArgs = [], container: AnyObject = _G): T {
+  checkBinding(name, container);
+
+  return (container[name] as AnyCallable)(...args) as T;
 }
 
 /**

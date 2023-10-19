@@ -1,5 +1,6 @@
 import { registry } from "@/engine/core/database";
-import { medkits } from "@/engine/lib/constants/items/drugs";
+import { medkits, TMedkit } from "@/engine/lib/constants/items/drugs";
+import { pistols, TPistol } from "@/engine/lib/constants/items/weapons";
 import { MAX_U16 } from "@/engine/lib/constants/memory";
 import { GameObject, LuaArray, Optional, ServerObject, TNumberId, TRate, TSection } from "@/engine/lib/types";
 
@@ -12,6 +13,44 @@ export function getItemOwnerId(id: TNumberId): Optional<TNumberId> {
 
   if (serverObject && serverObject.parent_id !== MAX_U16) {
     return serverObject.parent_id;
+  }
+
+  return null;
+}
+
+/**
+ * @param object - target object to get pistol from
+ * @returns any pistol from object inventory
+ */
+export function getAnyObjectPistol(object: GameObject): Optional<GameObject> {
+  let pistol: Optional<GameObject> = null;
+
+  object.iterate_inventory((owner, item) => {
+    if (item.section() in pistols) {
+      pistol = item;
+
+      return true;
+    }
+  }, object);
+
+  return pistol;
+}
+
+/**
+ * Get available medkit or null.
+ *
+ * @param list - list of medical kits to check in inventory
+ * @param actor - target object to get medkit, gets actor from registry by default
+ * @returns get medkit or null
+ */
+export function getActorAvailableMedKit(
+  list: LuaArray<TSection | TNumberId> = $fromObject(medkits) as unknown as LuaArray<TSection | TNumberId>,
+  actor: GameObject = registry.actor
+): Optional<TMedkit> {
+  for (const [key, medkit] of list) {
+    if (actor.object(medkit) !== null) {
+      return medkit as TMedkit;
+    }
   }
 
   return null;
@@ -83,7 +122,7 @@ export function actorHasAtLeastOneItem(
   itemSections: LuaArray<TSection | TNumberId> | Array<TSection | TNumberId>,
   actor: GameObject = registry.actor
 ): boolean {
-  for (const [index, section] of itemSections as LuaArray<TSection | TNumberId>) {
+  for (const [, section] of itemSections as LuaArray<TSection | TNumberId>) {
     if (actor.object(section) !== null) {
       return true;
     }
