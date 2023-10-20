@@ -3,191 +3,38 @@ import { game } from "xray16";
 import { getObjectIdByStoryId, registry } from "@/engine/core/database";
 import { getActorTargetSurgeCover, isActorInSurgeCover } from "@/engine/core/managers/surge/utils/surge_cover";
 import { extern } from "@/engine/core/utils/binding";
-import { hasInfoPortion } from "@/engine/core/utils/info_portion";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/ini_config";
 import { parseConditionsList } from "@/engine/core/utils/ini/ini_parse";
-import { TConditionList } from "@/engine/core/utils/ini/ini_types";
-import { GameObject, Optional, TLabel, TNumberId, TRate, TSection, TStringId } from "@/engine/lib/types";
-import { zatB29AfTable, zatB29InfopBringTable } from "@/engine/scripts/declarations/dialogs/dialogs_zaton";
+import { GameObject, Optional, TLabel, TNumberId, TSection, TStringId } from "@/engine/lib/types";
 
 /**
- * todo;
+ * Check condlist as part of condition functor.
  */
-extern("task_functors.condlist", (id: TStringId, field: string, conditionList: string): Optional<TSection> => {
-  return pickSectionFromCondList(registry.actor, null, parseConditionsList(conditionList));
+extern("task_functors.condlist", (id: TStringId, field: string, condlist: string): Optional<TSection> => {
+  return pickSectionFromCondList(registry.actor, null, parseConditionsList(condlist));
 });
 
 /**
- * todo;
+ * Get task for current surge task title.
  */
-extern("task_functors.zat_b29_adv_title", (id: TStringId, field: string, p: string): Optional<string> => {
-  const actor: GameObject = registry.actor;
-  let title: Optional<string> = null;
-
-  for (const i of $range(16, 23)) {
-    if (hasInfoPortion(zatB29InfopBringTable.get(i)) && actor.object(zatB29AfTable.get(i))) {
-      title = "zat_b29_simple_bring_title_" + i;
-      break;
-    } else if (hasInfoPortion(zatB29InfopBringTable.get(i))) {
-      title = "zat_b29_simple_find_title_" + i;
-      break;
-    }
-  }
-
-  return title;
-});
-
-/**
- * todo;
- */
-extern("task_functors.zat_b29_adv_descr", (id: TStringId, field: string, p: string) => {
-  let descr: TLabel = "";
-  let fAf: TRate = 0;
-  const actor: GameObject = registry.actor;
-
-  for (const i of $range(16, 23)) {
-    if (hasInfoPortion(zatB29InfopBringTable.get(i)) && actor.object(zatB29AfTable.get(i))) {
-      fAf = 1;
-      descr = "zat_b29_simple_bring_text_5";
-      if (
-        hasInfoPortion("zat_b29_stalker_rival_1_found_af") &&
-        hasInfoPortion("zat_b29_first_rival_taken_out") &&
-        fAf !== 0
-      ) {
-        return descr;
-      } else if (
-        hasInfoPortion("zat_b29_stalker_rival_2_found_af") &&
-        hasInfoPortion("zat_b29_second_rival_taken_out") &&
-        fAf !== 0
-      ) {
-        return descr;
-      } else if (hasInfoPortion("zat_b29_linker_take_af_from_rival")) {
-        descr = "zat_b29_simple_bring_text_4";
-      } else if (hasInfoPortion("zat_b29_stalkers_rivals_found_af")) {
-        descr = "zat_b29_simple_bring_text_3";
-      } else if (hasInfoPortion("zat_b29_rivals_search") && hasInfoPortion("zat_b29_exclusive_conditions")) {
-        descr = "zat_b29_simple_bring_text_1";
-      } else if (hasInfoPortion("zat_b29_rivals_search")) {
-        descr = "zat_b29_simple_bring_text_2";
-      }
-
-      break;
-    } else if (hasInfoPortion(zatB29InfopBringTable.get(i))) {
-      descr = "zat_b29_simple_find_text_5";
-
-      if (
-        hasInfoPortion("zat_b29_stalker_rival_1_found_af") &&
-        hasInfoPortion("zat_b29_first_rival_taken_out") &&
-        fAf !== 0
-      ) {
-        return descr;
-      } else if (
-        hasInfoPortion("zat_b29_stalker_rival_2_found_af") &&
-        hasInfoPortion("zat_b29_second_rival_taken_out") &&
-        fAf !== 0
-      ) {
-        return descr;
-      } else if (hasInfoPortion("zat_b29_linker_take_af_from_rival")) {
-        descr = "zat_b29_simple_find_text_4";
-      } else if (hasInfoPortion("zat_b29_stalkers_rivals_found_af")) {
-        descr = "zat_b29_simple_find_text_3";
-      } else if (hasInfoPortion("zat_b29_rivals_search") && hasInfoPortion("zat_b29_exclusive_conditions")) {
-        descr = "zat_b29_simple_find_text_1";
-      } else if (hasInfoPortion("zat_b29_rivals_search")) {
-        descr = "zat_b29_simple_find_text_2";
-      }
-
-      break;
-    }
-  }
-
-  return descr;
-});
-
-/**
- * todo;
- */
-extern("task_functors.surge_task_title", (): string => {
+extern("task_functors.surge_task_title", (): TLabel => {
   return isActorInSurgeCover() ? "hide_from_surge_name_2" : "hide_from_surge_name_1";
 });
 
 /**
- * todo;
+ * Get task for current surge task description.
  */
-extern("task_functors.surge_task_descr", (): Optional<string> => {
-  return isActorInSurgeCover()
-    ? game.translate_string("hide_from_surge_descr_2_a")
-    : game.translate_string("hide_from_surge_descr_1_a");
+extern("task_functors.surge_task_descr", (): TLabel => {
+  return game.translate_string(isActorInSurgeCover() ? "hide_from_surge_descr_2_a" : "hide_from_surge_descr_1_a");
 });
 
 /**
- * todo;
+ * Get target object id based on condlist returning story id.
  */
-extern("task_functors.target_condlist", (id: TStringId, field: string, conditionListString: string) => {
-  const conditionsList: TConditionList = parseConditionsList(conditionListString);
-  const value: Optional<TSection> = pickSectionFromCondList(registry.actor, null, conditionsList);
+extern("task_functors.target_condlist", (id: TStringId, field: string, condlist: string) => {
+  const value: Optional<TSection> = pickSectionFromCondList(registry.actor, null, parseConditionsList(condlist));
 
-  if (value === null) {
-    return null;
-  }
-
-  return getObjectIdByStoryId(value);
-});
-
-/**
- * todo;
- */
-extern("task_functors.zat_b29_adv_target", (id: TStringId, field: string, p: string) => {
-  let targetObjectId: TStringId = "zat_a2_stalker_barmen";
-  let artefact: Optional<TStringId> = null;
-  const actor: GameObject = registry.actor;
-
-  for (const i of $range(16, 23)) {
-    if (hasInfoPortion(zatB29InfopBringTable.get(i)) && actor.object(zatB29AfTable.get(i))) {
-      artefact = zatB29AfTable.get(i);
-      break;
-    }
-  }
-
-  if (!hasInfoPortion("zat_b29_linker_take_af_from_rival") && hasInfoPortion("zat_b29_stalkers_rivals_found_af")) {
-    if (hasInfoPortion("zat_b29_stalker_rival_1_found_af")) {
-      if (!hasInfoPortion("zat_b29_first_rival_taken_out")) {
-        if (hasInfoPortion("zat_b29_exclusive_conditions")) {
-          targetObjectId = "zat_b29_stalker_rival_1";
-        } else {
-          targetObjectId = "zat_b29_stalker_rival_default_1";
-        }
-      } else if (artefact === null) {
-        if (hasInfoPortion("zat_b29_exclusive_conditions")) {
-          targetObjectId = "zat_b29_stalker_rival_1";
-        } else {
-          targetObjectId = "zat_b29_stalker_rival_default_1";
-        }
-      }
-    } else if (hasInfoPortion("zat_b29_stalker_rival_2_found_af")) {
-      if (!hasInfoPortion("zat_b29_second_rival_taken_out")) {
-        if (hasInfoPortion("zat_b29_exclusive_conditions")) {
-          targetObjectId = "zat_b29_stalker_rival_2";
-        } else {
-          targetObjectId = "zat_b29_stalker_rival_default_2";
-        }
-      } else if (artefact === null) {
-        if (hasInfoPortion("zat_b29_exclusive_conditions")) {
-          targetObjectId = "zat_b29_stalker_rival_2";
-        } else {
-          targetObjectId = "zat_b29_stalker_rival_default_2";
-        }
-      }
-    }
-
-    return getObjectIdByStoryId(targetObjectId);
-  }
-
-  if (artefact !== null) {
-    return getObjectIdByStoryId(targetObjectId);
-  }
-
-  return null;
+  return value ? getObjectIdByStoryId(value) : null;
 });
 
 /**
@@ -195,5 +42,7 @@ extern("task_functors.zat_b29_adv_target", (id: TStringId, field: string, p: str
  * Returns nearest cover id if it exists or null if none found / actor in one currently.
  */
 extern("task_functors.surge_task_target", (): Optional<TNumberId> => {
-  return getActorTargetSurgeCover()?.id() as Optional<TNumberId>;
+  const surgeCover: Optional<GameObject> = getActorTargetSurgeCover();
+
+  return surgeCover ? surgeCover.id() : null;
 });
