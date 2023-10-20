@@ -1,7 +1,7 @@
 import { getObjectIdByStoryId, registry } from "@/engine/core/database";
 import { extern } from "@/engine/core/utils/binding";
 import { hasInfoPortion } from "@/engine/core/utils/info_portion";
-import { GameObject, Optional, TCount, TLabel, TRate, TSection, TStringId } from "@/engine/lib/types";
+import { GameObject, Optional, TLabel, TSection, TStringId } from "@/engine/lib/types";
 import { zatB29AfTable, zatB29InfopBringTable } from "@/engine/scripts/declarations/dialogs/dialogs_zaton";
 
 /**

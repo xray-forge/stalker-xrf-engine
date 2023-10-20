@@ -22,7 +22,7 @@ import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import { infoPortions, TInfoPortion } from "@/engine/lib/constants/info_portions";
 import { TInventoryItem } from "@/engine/lib/constants/items";
 import { ammo } from "@/engine/lib/constants/items/ammo";
-import { artefacts, TArtefact } from "@/engine/lib/constants/items/artefacts";
+import { artefacts } from "@/engine/lib/constants/items/artefacts";
 import { detectors } from "@/engine/lib/constants/items/detectors";
 import { drugs, TDrugItem } from "@/engine/lib/constants/items/drugs";
 import { food, TFoodItem } from "@/engine/lib/constants/items/food";
@@ -750,12 +750,9 @@ extern("dialogs_zaton.zat_b33_actor_hasnt_habar", (firstSpeaker: GameObject, sec
 /**
  * todo;
  */
-extern(
-  "dialogs_zaton.zat_b33_actor_has_needed_money",
-  (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
-    return registry.actor.money() >= 500;
-  }
-);
+extern("dialogs_zaton.zat_b33_actor_has_needed_money", (): boolean => {
+  return registry.actor.money() >= 500;
+});
 
 /**
  * todo;
@@ -798,7 +795,7 @@ export const zatB29AfTable: LuaTable<TIndex, string> = $fromObject<TIndex, TSect
 /**
  * todo;
  */
-export const zatB29AfNamesTable = {
+export const zatB29AfNamesTable: LuaTable<TIndex, TName> = $fromObject<TIndex, TName>({
   [16]: "st_af_gravi_name",
   [17]: "st_af_eye_name",
   [18]: "st_af_baloon_name",
@@ -807,12 +804,12 @@ export const zatB29AfNamesTable = {
   [21]: "st_af_fire_name",
   [22]: "st_af_glass_name",
   [23]: "st_af_ice_name",
-} as unknown as LuaArray<string>;
+});
 
 /**
  * todo;
  */
-export const zatB29InfopTable = {
+export const zatB29InfopTable: LuaTable<TIndex, TName> = $fromObject<TIndex, TName>({
   [16]: infoPortions.zat_b29_af_16,
   [17]: infoPortions.zat_b29_af_17,
   [18]: infoPortions.zat_b29_af_18,
@@ -821,7 +818,7 @@ export const zatB29InfopTable = {
   [21]: infoPortions.zat_b29_af_21,
   [22]: infoPortions.zat_b29_af_22,
   [23]: infoPortions.zat_b29_af_23,
-} as unknown as LuaArray<TInfoPortion>;
+});
 
 /**
  * todo;
@@ -840,7 +837,7 @@ export const zatB29InfopBringTable: LuaTable<TIndex, TStringId> = $fromObject<TI
 /**
  * todo;
  */
-extern("dialogs_zaton.zat_b29_create_af_in_anomaly", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
+extern("dialogs_zaton.zat_b29_create_af_in_anomaly", (): void => {
   const anomTbl: LuaArray<string> = {
     [16]: "gravi",
     [17]: "thermal",

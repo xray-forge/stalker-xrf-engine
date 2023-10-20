@@ -1,5 +1,3 @@
-import { registry } from "@/engine/core/database";
-import { ISchemeWoundedState } from "@/engine/core/schemes/stalker/wounded";
 import { extern } from "@/engine/core/utils/binding";
 import { getObjectCommunity } from "@/engine/core/utils/community";
 import { getNpcSpeaker, updateObjectDialog } from "@/engine/core/utils/dialog";
