@@ -15,49 +15,49 @@ extern("on_actor_critical_power", () => {
 });
 
 /**
- * todo;
+ * Handle actor max power event.
  */
 extern("on_actor_critical_max_power", () => {
   logger.info("Actor critical max power");
 });
 
 /**
- * todo;
+ * Handle actor bleeding.
  */
 extern("on_actor_bleeding", () => {
   logger.info("Actor bleeding");
 });
 
 /**
- * todo;
+ * Handle actor satiety levels change.
  */
 extern("on_actor_satiety", () => {
   logger.info("Actor satiety");
 });
 
 /**
- * todo;
+ * Handle actor radiation levels change.
  */
 extern("on_actor_radiation", () => {
   logger.info("Actor radiation");
 });
 
 /**
- * todo;
+ * Handle actor weapon jammed event.
  */
 extern("on_actor_weapon_jammed", () => {
   logger.info("Actor weapon jammed");
 });
 
 /**
- * todo;
+ * Handle actor weight change with cannot walk event.
  */
 extern("on_actor_cant_walk_weight", () => {
   logger.info("Actor cant walk weight");
 });
 
 /**
- * todo;
+ * Handle actor psy levels change.
  */
 extern("on_actor_psy", () => {
   logger.info("Actor psy");
@@ -93,7 +93,7 @@ extern("travel_callbacks", {
     prevPhraseId: TStringId,
     phraseId: TStringId
   ) => TravelManager.getInstance().canNegotiateTravelToSmart(actor, object, dialogId, prevPhraseId, phraseId),
-  getTravelConst: (actor: GameObject, object: GameObject, dialogId: TStringId, phraseId: TStringId): TLabel =>
+  getTravelCost: (actor: GameObject, object: GameObject, dialogId: TStringId, phraseId: TStringId): TLabel =>
     TravelManager.getInstance().getTravelCostLabel(actor, object, dialogId, phraseId),
   isEnoughMoneyToTravel: (actor: GameObject, object: GameObject, dialogId: TStringId, phraseId: TStringId) =>
     TravelManager.getInstance().isEnoughMoneyToTravel(actor, object, dialogId, phraseId),

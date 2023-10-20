@@ -3,8 +3,7 @@ import { updateStalkerLogic } from "@/engine/core/objects/binders";
 import { ISchemeMeetState } from "@/engine/core/schemes/stalker/meet";
 import { updateObjectMeetAvailability } from "@/engine/core/schemes/stalker/meet/utils";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
-import { medkits, TMedkit } from "@/engine/lib/constants/items/drugs";
-import { EScheme, GameObject, LuaArray, Optional, TName, TNumberId, TSection } from "@/engine/lib/types";
+import { EScheme, GameObject, Optional, TName } from "@/engine/lib/types";
 
 /**
  * From two possible speakers pick NPC one, omit actor.

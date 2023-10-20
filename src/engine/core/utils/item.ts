@@ -1,6 +1,6 @@
 import { registry } from "@/engine/core/database";
 import { medkits, TMedkit } from "@/engine/lib/constants/items/drugs";
-import { pistols, TPistol } from "@/engine/lib/constants/items/weapons";
+import { pistols } from "@/engine/lib/constants/items/weapons";
 import { MAX_U16 } from "@/engine/lib/constants/memory";
 import { GameObject, LuaArray, Optional, ServerObject, TNumberId, TRate, TSection } from "@/engine/lib/types";
 

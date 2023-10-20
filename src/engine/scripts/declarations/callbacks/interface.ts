@@ -5,7 +5,6 @@ import { UpgradesManager } from "@/engine/core/managers/upgrades/UpgradesManager
 import { WeaponParams } from "@/engine/core/ui/game/WeaponParams";
 import { extern } from "@/engine/core/utils/binding";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { TWeapon } from "@/engine/lib/constants/items/weapons";
 import {
   AnyArgs,
   AnyObject,
@@ -37,7 +36,7 @@ extern("loadscreen", {
 extern("inventory_upgrades", {
   get_upgrade_cost: (section: TSection): TLabel => UpgradesManager.getInstance().getUpgradeCost(section),
   can_repair_item: (itemName: TName, itemCondition: number, mechanicName: TName): boolean =>
-    UpgradesManager.getInstance().isAbleToRepairItem(itemName, itemCondition, mechanicName),
+    UpgradesManager.getInstance().canRepairItem(itemName, itemCondition, mechanicName),
   can_upgrade_item: (itemName: TName, mechanicName: TName): boolean =>
     UpgradesManager.getInstance().canUpgradeItem(itemName, mechanicName),
   effect_repair_item: (itemName: TName, itemCondition: number) =>
@@ -93,14 +92,11 @@ extern("actor_menu_inventory", {
 });
 
 /**
- * todo;
+ * PDA callbacks.
  */
 extern("pda", {
   set_active_subdialog: (...args: AnyArgs): void => {
     logger.info("Set active subdialog", ...args);
-  },
-  fill_fraction_state: (state: AnyObject): void => {
-    return PdaManager.getInstance().fillFactionState(state);
   },
   get_max_resource: (): TCount => {
     return 10;
@@ -116,19 +112,22 @@ extern("pda", {
   },
   // todo: m_UIPropertiesBox, m_cur_location
   property_box_clicked: (...args: AnyArgs): void => {
-    logger.info("Pda box property clicked");
+    logger.info("Pda box property clicked", ...args);
   },
   // todo: m_UIPropertiesBox, m_cur_location->ObjectID(), (LPCSTR)m_cur_location->GetLevelName().c_str(), m_cur_location
   property_box_add_properties: (...args: AnyArgs): void => {
     logger.info("Pda box property added:", ...args);
   },
-  get_monster_back: () => {
+  fill_fraction_state: (state: AnyObject): void => {
+    PdaManager.getInstance().fillFactionState(state);
+  },
+  get_monster_back: (): TName => {
     return PdaManager.getInstance().getMonsterBackground();
   },
-  get_monster_icon: () => {
+  get_monster_icon: (): TName => {
     return PdaManager.getInstance().getMonsterIcon();
   },
-  get_favorite_weapon: (): TWeapon => {
+  get_favorite_weapon: (): TSection => {
     return PdaManager.getInstance().getFavoriteWeapon();
   },
   get_stat: (index: TIndex): TLabel => {
