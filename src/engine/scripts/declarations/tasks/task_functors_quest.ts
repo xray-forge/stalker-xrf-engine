@@ -1,7 +1,7 @@
 import { getObjectIdByStoryId, registry } from "@/engine/core/database";
 import { extern } from "@/engine/core/utils/binding";
 import { hasInfoPortion } from "@/engine/core/utils/info_portion";
-import { GameObject, Optional, TCount, TLabel, TRate, TStringId } from "@/engine/lib/types";
+import { GameObject, Optional, TCount, TLabel, TRate, TSection, TStringId } from "@/engine/lib/types";
 import { zatB29AfTable, zatB29InfopBringTable } from "@/engine/scripts/declarations/dialogs/dialogs_zaton";
 
 /**
@@ -23,11 +23,9 @@ extern("task_functors.zat_b29_adv_title", (): Optional<TLabel> => {
  * Get correct description for zat_b29 treasure hunters quest.
  */
 extern("task_functors.zat_b29_adv_descr", (): Optional<TLabel> => {
-  const actor: GameObject = registry.actor;
-
   for (const it of $range(16, 23)) {
     if (hasInfoPortion(zatB29InfopBringTable.get(it))) {
-      if (actor.object(zatB29AfTable.get(it))) {
+      if (registry.actor.object(zatB29AfTable.get(it))) {
         if (hasInfoPortion("zat_b29_stalker_rival_1_found_af") && hasInfoPortion("zat_b29_first_rival_taken_out")) {
           return "zat_b29_simple_bring_text_5";
         } else if (
@@ -70,8 +68,9 @@ extern("task_functors.zat_b29_adv_descr", (): Optional<TLabel> => {
  */
 extern("task_functors.zat_b29_adv_target", () => {
   const actor: GameObject = registry.actor;
+
   let targetObjectId: TStringId = "zat_a2_stalker_barmen";
-  let artefact: Optional<TStringId> = null;
+  let artefact: Optional<TSection> = null;
 
   // Get available search artefact.
   for (const it of $range(16, 23)) {
@@ -84,31 +83,23 @@ extern("task_functors.zat_b29_adv_target", () => {
   if (!hasInfoPortion("zat_b29_linker_take_af_from_rival") && hasInfoPortion("zat_b29_stalkers_rivals_found_af")) {
     if (hasInfoPortion("zat_b29_stalker_rival_1_found_af")) {
       if (!hasInfoPortion("zat_b29_first_rival_taken_out")) {
-        if (hasInfoPortion("zat_b29_exclusive_conditions")) {
-          targetObjectId = "zat_b29_stalker_rival_1";
-        } else {
-          targetObjectId = "zat_b29_stalker_rival_default_1";
-        }
-      } else if (artefact === null) {
-        if (hasInfoPortion("zat_b29_exclusive_conditions")) {
-          targetObjectId = "zat_b29_stalker_rival_1";
-        } else {
-          targetObjectId = "zat_b29_stalker_rival_default_1";
-        }
+        targetObjectId = hasInfoPortion("zat_b29_exclusive_conditions")
+          ? "zat_b29_stalker_rival_1"
+          : "zat_b29_stalker_rival_default_1";
+      } else if (!artefact) {
+        targetObjectId = hasInfoPortion("zat_b29_exclusive_conditions")
+          ? "zat_b29_stalker_rival_1"
+          : "zat_b29_stalker_rival_default_1";
       }
     } else if (hasInfoPortion("zat_b29_stalker_rival_2_found_af")) {
       if (!hasInfoPortion("zat_b29_second_rival_taken_out")) {
-        if (hasInfoPortion("zat_b29_exclusive_conditions")) {
-          targetObjectId = "zat_b29_stalker_rival_2";
-        } else {
-          targetObjectId = "zat_b29_stalker_rival_default_2";
-        }
-      } else if (artefact === null) {
-        if (hasInfoPortion("zat_b29_exclusive_conditions")) {
-          targetObjectId = "zat_b29_stalker_rival_2";
-        } else {
-          targetObjectId = "zat_b29_stalker_rival_default_2";
-        }
+        targetObjectId = hasInfoPortion("zat_b29_exclusive_conditions")
+          ? "zat_b29_stalker_rival_2"
+          : "zat_b29_stalker_rival_default_2";
+      } else if (!artefact) {
+        targetObjectId = hasInfoPortion("zat_b29_exclusive_conditions")
+          ? "zat_b29_stalker_rival_2"
+          : "zat_b29_stalker_rival_default_2";
       }
     }
 

@@ -784,7 +784,7 @@ extern("dialogs_zaton.zat_b33_relocate_money", (firstSpeaker: GameObject, second
 /**
  * todo;
  */
-export const zatB29AfTable: LuaTable<TIndex, string> = $fromObject<TIndex, TStringId>({
+export const zatB29AfTable: LuaTable<TIndex, string> = $fromObject<TIndex, TSection>({
   [16]: artefacts.af_gravi,
   [17]: artefacts.af_eye,
   [18]: artefacts.af_baloon,
