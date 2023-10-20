@@ -41,4 +41,100 @@ describe("task_functors external callbacks", () => {
       expect(callTaskBinding("zat_b29_adv_title")).toBeNull();
     }
   });
+
+  it("zat_b29_adv_title should correctly return description", () => {
+    const { actorGameObject } = mockRegisteredActor();
+
+    expect(callTaskBinding("zat_b29_adv_descr")).toBeNull();
+
+    for (const it of $range(16, 23)) {
+      giveInfoPortion(`zat_b29_bring_af_${it}`);
+
+      jest.spyOn(actorGameObject, "object").mockImplementation(() => null);
+      expect(callTaskBinding("zat_b29_adv_descr")).toBe("zat_b29_simple_find_text_5");
+
+      jest.spyOn(actorGameObject, "object").mockImplementation(() => mockGameObject());
+      expect(callTaskBinding("zat_b29_adv_descr")).toBe("zat_b29_simple_bring_text_5");
+
+      // First rival checks.
+
+      giveInfoPortion("zat_b29_stalker_rival_1_found_af");
+      giveInfoPortion("zat_b29_first_rival_taken_out");
+
+      jest.spyOn(actorGameObject, "object").mockImplementation(() => null);
+      expect(callTaskBinding("zat_b29_adv_descr")).toBe("zat_b29_simple_find_text_5");
+
+      jest.spyOn(actorGameObject, "object").mockImplementation(() => mockGameObject());
+      expect(callTaskBinding("zat_b29_adv_descr")).toBe("zat_b29_simple_bring_text_5");
+
+      disableInfoPortion("zat_b29_stalker_rival_1_found_af");
+      disableInfoPortion("zat_b29_first_rival_taken_out");
+
+      // Second rival checks.
+
+      giveInfoPortion("zat_b29_stalker_rival_2_found_af");
+      giveInfoPortion("zat_b29_second_rival_taken_out");
+
+      jest.spyOn(actorGameObject, "object").mockImplementation(() => null);
+      expect(callTaskBinding("zat_b29_adv_descr")).toBe("zat_b29_simple_find_text_5");
+
+      jest.spyOn(actorGameObject, "object").mockImplementation(() => mockGameObject());
+      expect(callTaskBinding("zat_b29_adv_descr")).toBe("zat_b29_simple_bring_text_5");
+
+      disableInfoPortion("zat_b29_stalker_rival_2_found_af");
+      disableInfoPortion("zat_b29_second_rival_taken_out");
+
+      // Take artefact from rival.
+
+      giveInfoPortion("zat_b29_linker_take_af_from_rival");
+
+      jest.spyOn(actorGameObject, "object").mockImplementation(() => null);
+      expect(callTaskBinding("zat_b29_adv_descr")).toBe("zat_b29_simple_find_text_4");
+
+      jest.spyOn(actorGameObject, "object").mockImplementation(() => mockGameObject());
+      expect(callTaskBinding("zat_b29_adv_descr")).toBe("zat_b29_simple_bring_text_4");
+
+      disableInfoPortion("zat_b29_linker_take_af_from_rival");
+
+      // Rivals found.
+
+      giveInfoPortion("zat_b29_stalkers_rivals_found_af");
+
+      jest.spyOn(actorGameObject, "object").mockImplementation(() => null);
+      expect(callTaskBinding("zat_b29_adv_descr")).toBe("zat_b29_simple_find_text_3");
+
+      jest.spyOn(actorGameObject, "object").mockImplementation(() => mockGameObject());
+      expect(callTaskBinding("zat_b29_adv_descr")).toBe("zat_b29_simple_bring_text_3");
+
+      disableInfoPortion("zat_b29_stalkers_rivals_found_af");
+
+      // Rivals search without exclusive conditions.
+
+      giveInfoPortion("zat_b29_rivals_search");
+
+      jest.spyOn(actorGameObject, "object").mockImplementation(() => null);
+      expect(callTaskBinding("zat_b29_adv_descr")).toBe("zat_b29_simple_find_text_2");
+
+      jest.spyOn(actorGameObject, "object").mockImplementation(() => mockGameObject());
+      expect(callTaskBinding("zat_b29_adv_descr")).toBe("zat_b29_simple_bring_text_2");
+
+      // Rivals search on exclusive conditions.
+
+      giveInfoPortion("zat_b29_exclusive_conditions");
+
+      jest.spyOn(actorGameObject, "object").mockImplementation(() => null);
+      expect(callTaskBinding("zat_b29_adv_descr")).toBe("zat_b29_simple_find_text_1");
+
+      jest.spyOn(actorGameObject, "object").mockImplementation(() => mockGameObject());
+      expect(callTaskBinding("zat_b29_adv_descr")).toBe("zat_b29_simple_bring_text_1");
+
+      disableInfoPortion("zat_b29_rivals_search");
+      disableInfoPortion("zat_b29_exclusive_conditions");
+
+      // Clear.
+
+      disableInfoPortion(`zat_b29_bring_af_${it}`);
+      expect(callTaskBinding("zat_b29_adv_descr")).toBeNull();
+    }
+  });
 });
