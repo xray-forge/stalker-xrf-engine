@@ -145,12 +145,12 @@ export class UpgradesManager extends AbstractManager {
   /**
    * todo: Description.
    */
-  public isAbleToRepairItem(itemName: TName, itemCondition: number, mechanicName: TName): boolean {
-    if (itemName === questItems.pri_a17_gauss_rifle) {
+  public canRepairItem(section: TSection, condition: TRate, mechanicName: TName): boolean {
+    if (section === questItems.pri_a17_gauss_rifle) {
       return false;
     }
 
-    return registry.actor.money() >= this.getRepairPrice(itemName, itemCondition);
+    return registry.actor.money() >= this.getRepairPrice(section, condition);
   }
 
   /**

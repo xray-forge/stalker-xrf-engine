@@ -4,9 +4,9 @@ import { AbstractManager } from "@/engine/core/managers/base/AbstractManager";
 import { EPdaStatSection, killedMonstersDisplay } from "@/engine/core/managers/pda/pda_types";
 import { StatisticsManager } from "@/engine/core/managers/statistics";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { TWeapon, weapons } from "@/engine/lib/constants/items/weapons";
+import { weapons } from "@/engine/lib/constants/items/weapons";
 import { TMonster } from "@/engine/lib/constants/monsters";
-import { Optional, TLabel } from "@/engine/lib/types";
+import { Optional, TLabel, TSection } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -65,7 +65,7 @@ export class PdaManager extends AbstractManager {
   /**
    * todo: Description.
    */
-  public getFavoriteWeapon(): TWeapon {
+  public getFavoriteWeapon(): TSection {
     return StatisticsManager.getInstance().actorStatistics.favoriteWeapon || weapons.wpn_knife;
   }
 
