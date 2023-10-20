@@ -5,35 +5,31 @@ import { GameObject, Optional, TLabel, TRate, TStringId } from "@/engine/lib/typ
 import { zatB29AfTable, zatB29InfopBringTable } from "@/engine/scripts/declarations/dialogs/dialogs_zaton";
 
 /**
- * todo;
+ * Get correct title for zat_b29 treasure hunters quest.
  */
-extern("task_functors.zat_b29_adv_title", (): Optional<string> => {
-  const actor: GameObject = registry.actor;
-  let title: Optional<string> = null;
-
+extern("task_functors.zat_b29_adv_title", (): Optional<TLabel> => {
   for (const it of $range(16, 23)) {
-    if (hasInfoPortion(zatB29InfopBringTable.get(it)) && actor.object(zatB29AfTable.get(it))) {
-      title = "zat_b29_simple_bring_title_" + it;
-      break;
-    } else if (hasInfoPortion(zatB29InfopBringTable.get(it))) {
-      title = "zat_b29_simple_find_title_" + it;
-      break;
+    if (hasInfoPortion(zatB29InfopBringTable.get(it))) {
+      return registry.actor.object(zatB29AfTable.get(it))
+        ? "zat_b29_simple_bring_title_" + it
+        : "zat_b29_simple_find_title_" + it;
     }
   }
 
-  return title;
+  return null;
 });
 
 /**
  * todo;
  */
 extern("task_functors.zat_b29_adv_descr", () => {
-  let descr: TLabel = "";
-  let fAf: TRate = 0;
   const actor: GameObject = registry.actor;
 
-  for (const i of $range(16, 23)) {
-    if (hasInfoPortion(zatB29InfopBringTable.get(i)) && actor.object(zatB29AfTable.get(i))) {
+  let descr: TLabel = "";
+  let fAf: TRate = 0;
+
+  for (const it of $range(16, 23)) {
+    if (hasInfoPortion(zatB29InfopBringTable.get(it)) && actor.object(zatB29AfTable.get(it))) {
       fAf = 1;
       descr = "zat_b29_simple_bring_text_5";
       if (
@@ -59,7 +55,7 @@ extern("task_functors.zat_b29_adv_descr", () => {
       }
 
       break;
-    } else if (hasInfoPortion(zatB29InfopBringTable.get(i))) {
+    } else if (hasInfoPortion(zatB29InfopBringTable.get(it))) {
       descr = "zat_b29_simple_find_text_5";
 
       if (
@@ -95,13 +91,14 @@ extern("task_functors.zat_b29_adv_descr", () => {
  * todo;
  */
 extern("task_functors.zat_b29_adv_target", () => {
+  const actor: GameObject = registry.actor;
   let targetObjectId: TStringId = "zat_a2_stalker_barmen";
   let artefact: Optional<TStringId> = null;
-  const actor: GameObject = registry.actor;
 
-  for (const i of $range(16, 23)) {
-    if (hasInfoPortion(zatB29InfopBringTable.get(i)) && actor.object(zatB29AfTable.get(i))) {
-      artefact = zatB29AfTable.get(i);
+  // Get available search artefact.
+  for (const it of $range(16, 23)) {
+    if (hasInfoPortion(zatB29InfopBringTable.get(it)) && actor.object(zatB29AfTable.get(it))) {
+      artefact = zatB29AfTable.get(it);
       break;
     }
   }
@@ -140,9 +137,5 @@ extern("task_functors.zat_b29_adv_target", () => {
     return getObjectIdByStoryId(targetObjectId);
   }
 
-  if (artefact !== null) {
-    return getObjectIdByStoryId(targetObjectId);
-  }
-
-  return null;
+  return artefact ? getObjectIdByStoryId(targetObjectId) : null;
 });

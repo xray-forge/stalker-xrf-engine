@@ -42,6 +42,7 @@ import {
   TIndex,
   TName,
   TSection,
+  TStringId,
 } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -783,7 +784,7 @@ extern("dialogs_zaton.zat_b33_relocate_money", (firstSpeaker: GameObject, second
 /**
  * todo;
  */
-export const zatB29AfTable = {
+export const zatB29AfTable: LuaTable<TIndex, string> = $fromObject<TIndex, TStringId>({
   [16]: artefacts.af_gravi,
   [17]: artefacts.af_eye,
   [18]: artefacts.af_baloon,
@@ -792,7 +793,7 @@ export const zatB29AfTable = {
   [21]: artefacts.af_fire,
   [22]: artefacts.af_glass,
   [23]: artefacts.af_ice,
-} as unknown as LuaArray<TArtefact>;
+});
 
 /**
  * todo;
@@ -825,7 +826,7 @@ export const zatB29InfopTable = {
 /**
  * todo;
  */
-export const zatB29InfopBringTable = {
+export const zatB29InfopBringTable: LuaTable<TIndex, TStringId> = $fromObject<TIndex, TStringId>({
   [16]: "zat_b29_bring_af_16",
   [17]: "zat_b29_bring_af_17",
   [18]: "zat_b29_bring_af_18",
@@ -834,7 +835,7 @@ export const zatB29InfopBringTable = {
   [21]: "zat_b29_bring_af_21",
   [22]: "zat_b29_bring_af_22",
   [23]: "zat_b29_bring_af_23",
-} as unknown as LuaArray<TInfoPortion>;
+});
 
 /**
  * todo;
