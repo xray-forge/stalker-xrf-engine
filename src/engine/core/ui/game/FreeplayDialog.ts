@@ -1,7 +1,8 @@
-import { CUIMessageBoxEx, CUIScriptWnd, Frect, LuabindClass, ui_events } from "xray16";
+import { CUIMessageBoxEx, CUIScriptWnd, LuabindClass, ui_events } from "xray16";
 
 import { giveInfoPortion } from "@/engine/core/utils/info_portion";
 import { LuaLogger } from "@/engine/core/utils/logging";
+import { createScreenRectangle } from "@/engine/core/utils/rectangle";
 import { infoPortions } from "@/engine/lib/constants/info_portions";
 import { Optional } from "@/engine/lib/types";
 
@@ -18,7 +19,7 @@ export class FreeplayDialog extends CUIScriptWnd {
   public constructor() {
     super();
 
-    this.SetWndRect(new Frect().set(0, 0, 1024, 768));
+    this.SetWndRect(createScreenRectangle());
     this.uiFreeplayMb = new CUIMessageBoxEx();
     this.Register(this.uiFreeplayMb, "freeplay_mb");
 

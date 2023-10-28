@@ -6,7 +6,6 @@ import {
   CUIScriptWnd,
   CUIStatic,
   DIK_keys,
-  Frect,
   game,
   IsGameTypeSingle,
   level,
@@ -30,9 +29,9 @@ import { SaveDialog } from "@/engine/core/ui/menu/save/SaveDialog";
 import { executeConsoleCommand } from "@/engine/core/utils/console";
 import { loadLastGameSave, startNewGame } from "@/engine/core/utils/game_save";
 import { LuaLogger } from "@/engine/core/utils/logging";
+import { createScreenRectangle } from "@/engine/core/utils/rectangle";
 import { resolveXmlFile, resolveXmlFormPath } from "@/engine/core/utils/ui";
 import { forgeConfig } from "@/engine/lib/configs/ForgeConfig";
-import { screenConfig } from "@/engine/lib/configs/ScreenConfig";
 import { consoleCommands } from "@/engine/lib/constants/console_commands";
 import { gameDifficulties } from "@/engine/lib/constants/game_difficulties";
 import { gameTutorials } from "@/engine/lib/constants/game_tutorials";
@@ -97,7 +96,7 @@ export class MainMenu extends CUIScriptWnd {
    * Initialize UI controls.
    */
   public initControls(): void {
-    this.SetWndRect(new Frect().set(0, 0, screenConfig.BASE_WIDTH, screenConfig.BASE_HEIGHT));
+    this.SetWndRect(createScreenRectangle());
 
     const xml: CScriptXmlInit = resolveXmlFile(base);
 

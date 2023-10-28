@@ -8,7 +8,6 @@ import {
   CUIWindow,
   DIK_keys,
   dik_to_bind,
-  Frect,
   key_bindings,
   LuabindClass,
   ui_events,
@@ -25,11 +24,10 @@ import {
   loadGameSave,
 } from "@/engine/core/utils/game_save";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { createRectangle } from "@/engine/core/utils/rectangle";
+import { copyRectangle, createScreenRectangle } from "@/engine/core/utils/rectangle";
 import { EElementType, initializeElement, initializeStatics, resolveXmlFile } from "@/engine/core/utils/ui";
 import { create2dVector } from "@/engine/core/utils/vector";
 import { forgeConfig } from "@/engine/lib/configs/ForgeConfig";
-import { screenConfig } from "@/engine/lib/configs/ScreenConfig";
 import {
   FSItem,
   GameObject,
@@ -76,7 +74,7 @@ export class LoadDialog extends CUIScriptWnd {
   }
 
   public initialize(): void {
-    this.SetWndRect(createRectangle(0, 0, screenConfig.BASE_WIDTH, screenConfig.BASE_HEIGHT));
+    this.SetWndRect(createScreenRectangle());
 
     const xml: CScriptXmlInit = resolveXmlFile(base);
 
@@ -174,10 +172,8 @@ export class LoadDialog extends CUIScriptWnd {
       this.uiFileCaption.SetText("");
       this.uiFileData.SetText("");
 
-      const rect: Frect = this.uiPicture.GetTextureRect();
-
       this.uiPicture.InitTexture("ui_ui_noise");
-      this.uiPicture.SetTextureRect(new Frect().set(rect.x1, rect.y1, rect.x2, rect.y2));
+      this.uiPicture.SetTextureRect(copyRectangle(this.uiPicture.GetTextureRect()));
 
       return;
     }
@@ -194,15 +190,13 @@ export class LoadDialog extends CUIScriptWnd {
       return;
     }
 
-    const rect: Frect = this.uiPicture.GetTextureRect();
-
     if (isGameSaveFileExist(itemText + ".dds")) {
       this.uiPicture.InitTexture(itemText);
     } else {
       this.uiPicture.InitTexture("ui_ui_noise");
     }
 
-    this.uiPicture.SetTextureRect(new Frect().set(rect.x1, rect.y1, rect.x2, rect.y2));
+    this.uiPicture.SetTextureRect(copyRectangle(this.uiPicture.GetTextureRect()));
   }
 
   public onListItemDoubleClicked(): void {

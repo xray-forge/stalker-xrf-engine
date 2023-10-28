@@ -18,11 +18,10 @@ import {
 import { SaveItem } from "@/engine/core/ui/menu/save/SaveItem";
 import { createGameSave, deleteGameSave, getGameSavesList } from "@/engine/core/utils/game_save";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { createRectangle } from "@/engine/core/utils/rectangle";
+import { createScreenRectangle } from "@/engine/core/utils/rectangle";
 import { EElementType, initializeElement, resolveXmlFile } from "@/engine/core/utils/ui";
 import { create2dVector } from "@/engine/core/utils/vector";
 import { forgeConfig } from "@/engine/lib/configs/ForgeConfig";
-import { screenConfig } from "@/engine/lib/configs/ScreenConfig";
 import { roots } from "@/engine/lib/constants/roots";
 import {
   FSFileList,
@@ -69,7 +68,7 @@ export class SaveDialog extends CUIScriptWnd {
   }
 
   public initialize(): void {
-    this.SetWndRect(createRectangle(0, 0, screenConfig.BASE_WIDTH, screenConfig.BASE_HEIGHT));
+    this.SetWndRect(createScreenRectangle());
 
     const xml: CScriptXmlInit = resolveXmlFile(base);
 

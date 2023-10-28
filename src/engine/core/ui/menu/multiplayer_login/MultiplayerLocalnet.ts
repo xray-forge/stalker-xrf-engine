@@ -14,9 +14,8 @@ import {
 
 import { MainMenu } from "@/engine/core/ui/menu/MainMenu";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { createRectangle } from "@/engine/core/utils/rectangle";
+import { createScreenRectangle } from "@/engine/core/utils/rectangle";
 import { EElementType, initializeElement, resolveXmlFile, resolveXmlFormPath } from "@/engine/core/utils/ui";
-import { screenConfig } from "@/engine/lib/configs/ScreenConfig";
 import { Optional, Profile, TKeyCode, TLabel, TPath, TUIEvent } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -49,7 +48,7 @@ export class MultiplayerLocalnet extends CUIScriptWnd {
   public initialize(): void {
     const xml: CScriptXmlInit = resolveXmlFile(base);
 
-    this.SetWndRect(createRectangle(0, 0, screenConfig.BASE_WIDTH, screenConfig.BASE_HEIGHT));
+    this.SetWndRect(createScreenRectangle());
     this.Enable(true);
 
     initializeElement(xml, EElementType.STATIC, "background", this);

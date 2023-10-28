@@ -14,7 +14,6 @@ import {
   CUIWindow,
   DIK_keys,
   found_email_cb,
-  Frect,
   game,
   login_operation_cb,
   LuabindClass,
@@ -26,6 +25,7 @@ import {
 
 import { MainMenu } from "@/engine/core/ui/menu/MainMenu";
 import { LuaLogger } from "@/engine/core/utils/logging";
+import { createScreenRectangle } from "@/engine/core/utils/rectangle";
 import { resolveXmlFormPath } from "@/engine/core/utils/ui";
 import { Optional, TKeyCode, TLabel, TName, TPath, TUIEvent } from "@/engine/lib/types";
 
@@ -95,7 +95,7 @@ export class MultiplayerGameSpy extends CUIScriptWnd {
 
     xml.ParseFile(resolveXmlFormPath(base));
 
-    this.SetWndRect(new Frect().set(0, 0, 1024, 768));
+    this.SetWndRect(createScreenRectangle());
     this.Enable(true);
     xml.InitStatic("background", this);
 

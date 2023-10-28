@@ -30,10 +30,9 @@ import { MultiplayerServer } from "@/engine/core/ui/menu/multiplayer_menu/Multip
 import { EOptionGroup } from "@/engine/core/ui/menu/options/options_types";
 import { executeConsoleCommand } from "@/engine/core/utils/console";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { createRectangle } from "@/engine/core/utils/rectangle";
+import { createScreenRectangle } from "@/engine/core/utils/rectangle";
 import { EElementType, initializeElement, initializeStatics, resolveXmlFile } from "@/engine/core/utils/ui";
 import { forgeConfig } from "@/engine/lib/configs/ForgeConfig";
-import { screenConfig } from "@/engine/lib/configs/ScreenConfig";
 import { consoleCommands } from "@/engine/lib/constants/console_commands";
 import { Optional, Profile, TKeyCode, TLabel, TPath, TUIEvent } from "@/engine/lib/types";
 
@@ -77,7 +76,7 @@ export class MultiplayerMenu extends CUIScriptWnd {
   }
 
   public initialize(owner: MainMenu, xml: CScriptXmlInit): void {
-    this.SetWndRect(createRectangle(0, 0, screenConfig.BASE_WIDTH, screenConfig.BASE_HEIGHT));
+    this.SetWndRect(createScreenRectangle());
     this.Enable(true);
 
     initializeStatics(xml, this, "background");

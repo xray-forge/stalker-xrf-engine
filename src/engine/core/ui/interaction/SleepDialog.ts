@@ -16,9 +16,9 @@ import { registry } from "@/engine/core/database";
 import { SleepManager } from "@/engine/core/managers/sleep";
 import { disableInfoPortion, giveInfoPortion } from "@/engine/core/utils/info_portion";
 import { LuaLogger } from "@/engine/core/utils/logging";
+import { createRectangle, createScreenRectangle } from "@/engine/core/utils/rectangle";
 import { isWideScreen, resolveXmlFormPath } from "@/engine/core/utils/ui";
 import { create2dVector } from "@/engine/core/utils/vector";
-import { screenConfig } from "@/engine/lib/configs/ScreenConfig";
 import { infoPortions } from "@/engine/lib/constants/info_portions/info_portions";
 import { GameObject, TPath, TTimestamp, Vector2D } from "@/engine/lib/types";
 
@@ -58,7 +58,7 @@ export class SleepDialog extends CUIScriptWnd {
    * Initialize UI control elements.
    */
   public initControls(): void {
-    this.SetWndRect(new Frect().set(0, 0, screenConfig.BASE_WIDTH, screenConfig.BASE_HEIGHT));
+    this.SetWndRect(createScreenRectangle());
 
     const xml: CScriptXmlInit = new CScriptXmlInit();
 
@@ -116,7 +116,7 @@ export class SleepDialog extends CUIScriptWnd {
     }
 
     const delta: number = math.floor((591 / 24) * currentHours);
-    let rect: Frect = new Frect().set(delta, 413, 591, 531);
+    let rect: Frect = createRectangle(delta, 413, 591, 531);
 
     this.uiSleepStatic.SetTextureRect(rect);
 
@@ -128,7 +128,7 @@ export class SleepDialog extends CUIScriptWnd {
 
     this.uiSleepStatic.SetWndSize(create2dVector(width, 118));
 
-    rect = new Frect().set(0, 413, delta, 531);
+    rect = createRectangle(0, 413, delta, 531);
     this.uiSleepStatic2.SetTextureRect(rect);
 
     width = delta;

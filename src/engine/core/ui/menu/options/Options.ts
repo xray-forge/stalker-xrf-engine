@@ -9,7 +9,6 @@ import {
   CUITrackBar,
   CUIWindow,
   DIK_keys,
-  Frect,
   is_enough_address_space_available,
   LuabindClass,
   ui_events,
@@ -23,8 +22,8 @@ import { OptionsVideo } from "@/engine/core/ui/menu/options/OptionsVideo";
 import { OptionsVideoAdvanced } from "@/engine/core/ui/menu/options/OptionsVideoAdvanced";
 import { executeConsoleCommand } from "@/engine/core/utils/console";
 import { LuaLogger } from "@/engine/core/utils/logging";
+import { createScreenRectangle } from "@/engine/core/utils/rectangle";
 import { resolveXmlFile } from "@/engine/core/utils/ui";
-import { screenConfig } from "@/engine/lib/configs/ScreenConfig";
 import { consoleCommands } from "@/engine/lib/constants/console_commands";
 import { TKeyCode, TPath, TUIEvent } from "@/engine/lib/types";
 
@@ -70,7 +69,7 @@ export class Options extends CUIScriptWnd {
   }
 
   public initializeControls(): void {
-    this.SetWndRect(new Frect().set(0, 0, screenConfig.BASE_WIDTH, screenConfig.BASE_HEIGHT));
+    this.SetWndRect(createScreenRectangle());
     this.Enable(true);
 
     const xml: CScriptXmlInit = resolveXmlFile(base);

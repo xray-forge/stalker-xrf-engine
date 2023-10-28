@@ -8,7 +8,6 @@ import {
   CUIStatic,
   CUITextWnd,
   CUIWindow,
-  Frect,
   FS,
   game,
   getFS,
@@ -23,7 +22,7 @@ import { MultiplayerDemoPlayerStatItem } from "@/engine/core/ui/menu/multiplayer
 import { MultiplayerMenu } from "@/engine/core/ui/menu/multiplayer_menu/MultiplayerMenu";
 import { executeConsoleCommand } from "@/engine/core/utils/console";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { createRectangle } from "@/engine/core/utils/rectangle";
+import { copyRectangle } from "@/engine/core/utils/rectangle";
 import { EElementType, initializeElement, initializeStatics } from "@/engine/core/utils/ui";
 import { create2dVector } from "@/engine/core/utils/vector";
 import { consoleCommands } from "@/engine/lib/constants/console_commands";
@@ -399,12 +398,8 @@ export class MultiplayerDemo extends CUIWindow {
       this.uiTeamStats.SetText("");
       this.uiFileNameEdit.SetText("");
 
-      const originalTextureRect: Frect = this.uiMapPic.GetTextureRect();
-
       this.uiMapPic.InitTexture("ui\\ui_noise");
-      this.uiMapPic.SetTextureRect(
-        createRectangle(originalTextureRect.x1, originalTextureRect.y1, originalTextureRect.x2, originalTextureRect.y2)
-      );
+      this.uiMapPic.SetTextureRect(copyRectangle(this.uiMapPic.GetTextureRect()));
 
       return;
     }
@@ -424,13 +419,8 @@ export class MultiplayerDemo extends CUIWindow {
 
     this.uiMapInfo.InitMap(mapName, tmpDemoinfo.get_map_version());
 
-    const originalTextureRect: Frect = this.uiMapPic.GetTextureRect();
-
     this.uiMapPic.InitTexture(this.getMapTextureName(mapName));
-
-    this.uiMapPic.SetTextureRect(
-      new Frect().set(originalTextureRect.x1, originalTextureRect.y1, originalTextureRect.x2, originalTextureRect.y2)
-    );
+    this.uiMapPic.SetTextureRect(copyRectangle(this.uiMapPic.GetTextureRect()));
 
     this.uiGameType.SetText(tmpDemoinfo.get_game_type());
     this.uiPlayersCount.SetText(tostring(playersCount));

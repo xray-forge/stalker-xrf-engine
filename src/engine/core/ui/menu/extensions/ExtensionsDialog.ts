@@ -5,7 +5,6 @@ import {
   CUIScriptWnd,
   CUIWindow,
   DIK_keys,
-  Frect,
   LuabindClass,
   ui_events,
 } from "xray16";
@@ -18,9 +17,9 @@ import {
   syncExtensionsState,
 } from "@/engine/core/utils/extensions/extensions_state";
 import { LuaLogger } from "@/engine/core/utils/logging";
+import { createScreenRectangle } from "@/engine/core/utils/rectangle";
 import { EElementType, initializeElement, resolveXmlFile } from "@/engine/core/utils/ui";
 import { create2dVector, createEmpty2dVector } from "@/engine/core/utils/vector";
-import { screenConfig } from "@/engine/lib/configs/ScreenConfig";
 import { LuaArray, Optional, TIndex, TKeyCode, TPath, TUIEvent, Vector2D } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -61,7 +60,7 @@ export class ExtensionsDialog extends CUIScriptWnd {
    * Init controls for extensions management.
    */
   public initControls(): void {
-    this.SetWndRect(new Frect().set(0, 0, screenConfig.BASE_WIDTH, screenConfig.BASE_HEIGHT));
+    this.SetWndRect(createScreenRectangle());
     this.Enable(true);
 
     initializeElement(this.xml, EElementType.STATIC, "background", this);

@@ -5,15 +5,14 @@ import {
   CUIScrollView,
   CUIWindow,
   DIK_keys,
-  Frect,
   LuabindClass,
   ui_events,
 } from "xray16";
 
 import { EDebugSection, sectionsMap } from "@/engine/core/ui/debug/debug_types";
 import { LuaLogger } from "@/engine/core/utils/logging";
+import { createScreenRectangle } from "@/engine/core/utils/rectangle";
 import { resolveXmlFile } from "@/engine/core/utils/ui";
-import { screenConfig } from "@/engine/lib/configs/ScreenConfig";
 import { TKeyCode, TPath, TUIEvent } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -48,7 +47,7 @@ export class DebugDialog extends CUIScriptWnd {
    * Initialize UI controls related to debug sections switching.
    */
   public initControls(): void {
-    this.SetWndRect(new Frect().set(0, 0, screenConfig.BASE_WIDTH, screenConfig.BASE_HEIGHT));
+    this.SetWndRect(createScreenRectangle());
     this.Enable(true);
 
     this.xml = resolveXmlFile(base);
