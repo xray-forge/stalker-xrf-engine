@@ -2,7 +2,7 @@ import { action_base, LuabindClass } from "xray16";
 
 import { getStalkerState, registry } from "@/engine/core/database";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
-import { StalkerPatrolManager } from "@/engine/core/objects/ai/state/StalkerPatrolManager";
+import { StalkerPatrolManager } from "@/engine/core/objects/ai/patrol/StalkerPatrolManager";
 import { EStalkerState, EWaypointArrivalType } from "@/engine/core/objects/animation/types";
 import { EPatrolFormation, ISchemePatrolState } from "@/engine/core/schemes/stalker/patrol";
 import { patrolConfig } from "@/engine/core/schemes/stalker/patrol/PatrolConfig";

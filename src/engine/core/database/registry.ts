@@ -19,8 +19,6 @@ import type { Actor } from "@/engine/core/objects/server/creature/Actor";
 import type { SmartCover } from "@/engine/core/objects/server/smart_cover";
 import type { SmartTerrain } from "@/engine/core/objects/server/smart_terrain";
 import type { LightManager } from "@/engine/core/schemes/restrictor/sr_light";
-import type { PatrolManager } from "@/engine/core/schemes/stalker/patrol";
-import type { ReachTaskPatrolManager } from "@/engine/core/schemes/stalker/reach_task";
 import type { IExtensionsDescriptor } from "@/engine/core/utils/extensions";
 import type { TConditionList } from "@/engine/core/utils/ini/ini_types";
 import type { ERelation } from "@/engine/core/utils/relation";
@@ -240,11 +238,6 @@ export const registry = {
    * List of vertexes with matching IDs of existing objects.
    */
   spawnedVertexes: new LuaTable<TNumberId, TNumberId>(),
-  /**
-   * List of synchronization groups for game patrols.
-   * Related to stalkers patrol manager.
-   */
-  patrolSynchronization: new LuaTable<TName, LuaTable<TNumberId, boolean>>(),
   /**
    * Map of no assault zones.
    * - key is name of no assault zone

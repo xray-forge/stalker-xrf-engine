@@ -1,6 +1,8 @@
 import { callback, move, patrol, time_global } from "xray16";
 
 import { registry, setStalkerState } from "@/engine/core/database";
+import { isPatrolTeamSynchronized } from "@/engine/core/objects/ai/patrol/patrol_utils";
+import { patrolConfig } from "@/engine/core/objects/ai/patrol/PatrolConfig";
 import {
   EStalkerState,
   EWaypointArrivalType,
@@ -14,7 +16,6 @@ import {
   choosePatrolWaypointByFlags,
   isObjectAtTerminalWaypoint,
   isObjectAtWaypoint,
-  isPatrolTeamSynchronized,
 } from "@/engine/core/utils/patrol";
 import { setObjectActiveSchemeSignal } from "@/engine/core/utils/scheme";
 import {
@@ -162,11 +163,11 @@ export class StalkerPatrolManager {
       this.team = patrolTeam;
 
       if (this.team) {
-        let state: Optional<LuaTable<TNumberId, boolean>> = registry.patrolSynchronization.get(this.team);
+        let state: Optional<LuaTable<TNumberId, boolean>> = patrolConfig.PATROL_TEAMS.get(this.team);
 
         if (!state) {
           state = new LuaTable();
-          registry.patrolSynchronization.set(this.team, state);
+          patrolConfig.PATROL_TEAMS.set(this.team, state);
         }
 
         state.set(this.object.id(), false);
@@ -245,7 +246,7 @@ export class StalkerPatrolManager {
     );
 
     if (this.team) {
-      registry.patrolSynchronization.get(this.team).delete(this.object.id());
+      patrolConfig.PATROL_TEAMS.get(this.team).delete(this.object.id());
     }
 
     this.object.set_path_type(EGameObjectPath.LEVEL_PATH);
@@ -381,7 +382,7 @@ export class StalkerPatrolManager {
 
       // Mark current object as synchronized.
       if (this.team) {
-        registry.patrolSynchronization.get(this.team).set(this.object.id(), true);
+        patrolConfig.PATROL_TEAMS.get(this.team).set(this.object.id(), true);
       }
     } else {
       // Emit turn signal since not blocked by sync.

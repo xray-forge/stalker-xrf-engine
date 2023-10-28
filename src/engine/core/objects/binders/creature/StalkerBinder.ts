@@ -26,9 +26,9 @@ import { SimulationBoardManager } from "@/engine/core/managers/simulation/Simula
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import { initializeObjectThemes } from "@/engine/core/managers/sounds/utils";
 import { TradeManager } from "@/engine/core/managers/trade/TradeManager";
+import { StalkerPatrolManager } from "@/engine/core/objects/ai/patrol/StalkerPatrolManager";
 import { setupStalkerMotivationPlanner, setupStalkerStatePlanner } from "@/engine/core/objects/ai/planner/setup";
 import { StalkerStateManager } from "@/engine/core/objects/ai/state";
-import { StalkerPatrolManager } from "@/engine/core/objects/ai/state/StalkerPatrolManager";
 import { EActionId } from "@/engine/core/objects/ai/types";
 import type { ISmartTerrainJobDescriptor, SmartTerrain } from "@/engine/core/objects/server/smart_terrain";
 import { SchemeHear } from "@/engine/core/schemes/shared/hear/SchemeHear";
