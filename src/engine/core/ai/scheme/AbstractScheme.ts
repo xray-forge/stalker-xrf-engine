@@ -135,4 +135,10 @@ export abstract class AbstractScheme {
       state.actions = new LuaTable();
     }
   }
+
+  /**
+   * Not intended to be created as instance.
+   * Marked as protected.
+   */
+  protected constructor() {}
 }

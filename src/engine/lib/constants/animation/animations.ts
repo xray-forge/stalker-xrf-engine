@@ -268,11 +268,11 @@ export const animations = {
 } as const;
 
 /**
- * todo;
+ * Type definition for animations map.
  */
 export type TAnimations = typeof animations;
 
 /**
- * todo;
+ * Possible animation path.
  */
 export type TAnimation = TAnimations[keyof TAnimations];

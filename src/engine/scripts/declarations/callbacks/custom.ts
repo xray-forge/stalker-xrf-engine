@@ -3,7 +3,7 @@ import { AchievementsManager } from "@/engine/core/managers/achievements/Achieve
 import { ActorInputManager } from "@/engine/core/managers/actor";
 import { SleepManager } from "@/engine/core/managers/sleep";
 import { taskConfig } from "@/engine/core/managers/tasks";
-import { SchemeCutscene } from "@/engine/core/schemes/restrictor/sr_cutscene/SchemeCutscene";
+import { emitCutsceneEndedEvent } from "@/engine/core/schemes/restrictor/sr_cutscene/utils";
 import { extern } from "@/engine/core/utils/binding";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { AnyCallable, PartialRecord, TStringId } from "@/engine/lib/types";
@@ -58,7 +58,7 @@ extern("engine.is_task_failed", (taskId: TStringId): boolean => taskConfig.ACTIV
  *
  * todo: rename to camera_effector_callback?
  */
-extern("engine.effector_callback", () => SchemeCutscene.onCutsceneEnd());
+extern("engine.effector_callback", () => emitCutsceneEndedEvent());
 
 /**
  * Checkers for achievements called from C++.

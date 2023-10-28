@@ -4,9 +4,8 @@ import { ISchemeCutsceneState } from "@/engine/core/schemes/restrictor/sr_cutsce
 import { getConfigSwitchConditions, parseStringsList } from "@/engine/core/utils/ini";
 import { readIniBoolean, readIniNumber, readIniString } from "@/engine/core/utils/ini/ini_read";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { emitSchemeEvent } from "@/engine/core/utils/scheme";
 import { NIL } from "@/engine/lib/constants/words";
-import { EScheme, ESchemeEvent, ESchemeType, GameObject, IniFile, TSection } from "@/engine/lib/types";
+import { EScheme, ESchemeType, GameObject, IniFile, TSection } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -49,13 +48,5 @@ export class SchemeCutscene extends AbstractScheme {
     state: ISchemeCutsceneState
   ): void {
     AbstractScheme.subscribe(object, state, new CutsceneManager(object, state));
-  }
-
-  /**
-   * todo: Description.
-   */
-  public static onCutsceneEnd(): void {
-    logger.info("Cutscene stage ended");
-    emitSchemeEvent(CutsceneManager.objectCutscene!, CutsceneManager.storageScene!, ESchemeEvent.CUTSCENE);
   }
 }

@@ -4,9 +4,13 @@ import { EAchievement } from "@/engine/core/managers/achievements";
 import { ActorInputManager } from "@/engine/core/managers/actor";
 import { SleepManager } from "@/engine/core/managers/sleep";
 import { taskConfig, TaskObject } from "@/engine/core/managers/tasks";
-import { SchemeCutscene } from "@/engine/core/schemes/restrictor/sr_cutscene";
+import { emitCutsceneEndedEvent } from "@/engine/core/schemes/restrictor/sr_cutscene/utils";
 import { AnyArgs, AnyObject, TName } from "@/engine/lib/types";
 import { callBinding, checkNestedBinding, resetRegistry } from "@/fixtures/engine";
+
+jest.mock("@/engine/core/schemes/restrictor/sr_cutscene/utils", () => ({
+  emitCutsceneEndedEvent: jest.fn(),
+}));
 
 describe("custom external callbacks", () => {
   const callEngineBinding = (name: TName, args: AnyArgs = []) => callBinding(name, args, (_G as AnyObject)["engine"]);
@@ -103,11 +107,9 @@ describe("custom external callbacks", () => {
   });
 
   it("engine.effector_callback should correctly handle event", () => {
-    jest.spyOn(SchemeCutscene, "onCutsceneEnd").mockImplementation(jest.fn());
-
     callEngineBinding("effector_callback");
 
-    expect(SchemeCutscene.onCutsceneEnd).toHaveBeenCalled();
+    expect(emitCutsceneEndedEvent).toHaveBeenCalled();
   });
 
   it("engine.effector_callback should correctly check achievements", () => {

@@ -171,6 +171,7 @@ export function mockGameObject({
     enable_talk: rest.enable_talk ?? jest.fn(),
     enable_trade: rest.enable_trade ?? jest.fn(),
     force_set_goodwill: rest.force_set_goodwill ?? jest.fn(),
+    fov: rest.fov ?? jest.fn(() => 75),
     game_vertex_id,
     general_goodwill:
       rest.general_goodwill ||
