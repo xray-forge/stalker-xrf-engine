@@ -192,7 +192,7 @@ export class ActionSmartCoverActivity extends action_base implements ISchemeEven
     ) as ESmartCoverState;
 
     if (
-      needCoverState === ("default_behaviour" as any) ||
+      needCoverState === ("default_behaviour" as ESmartCoverState) ||
       COVER_SUBSTATE_TABLE[this.coverState as ESmartCoverState] !== COVER_SUBSTATE_TABLE[needCoverState]
     ) {
       this.coverState = needCoverState;

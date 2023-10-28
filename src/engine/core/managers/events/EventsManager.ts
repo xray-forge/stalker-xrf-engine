@@ -52,7 +52,7 @@ export class EventsManager extends AbstractTimersManager {
     // logger.info("Register callback:", EGameEvent[event]);
 
     this.assertEventIsDeclared(event);
-    this.callbacks[event].set(callback as any, { context: context });
+    this.callbacks[event].set(callback as AnyCallable, { context: context });
   }
 
   /**

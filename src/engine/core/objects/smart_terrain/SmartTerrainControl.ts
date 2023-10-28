@@ -128,7 +128,7 @@ export class SmartTerrainControl {
       const sound: Optional<TStringId> = pickSectionFromCondList(
         registry.actor,
         this.smartTerrain,
-        this.alarmStartSoundConditionList as any
+        this.alarmStartSoundConditionList
       );
 
       if (sound !== null) {

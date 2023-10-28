@@ -50,9 +50,7 @@ export class CutsceneManager extends AbstractSchemeManager<ISchemeCutsceneState>
       }
     }
 
-    if (trySwitchToAnotherSection(this.object, this.state)) {
-      return;
-    }
+    trySwitchToAnotherSection(this.object, this.state);
   }
 
   /**
@@ -89,6 +87,9 @@ export class CutsceneManager extends AbstractSchemeManager<ISchemeCutsceneState>
     cutsceneConfig.cutsceneState = this.state;
   }
 
+  /**
+   * todo;
+   */
   public selectNextMotion(): void {
     logger.info("Select next cutscene motion");
 
@@ -113,10 +114,12 @@ export class CutsceneManager extends AbstractSchemeManager<ISchemeCutsceneState>
     const effect: ICameraEffectorSetDescriptorItem = this.motion.selectEffect()!;
 
     this.motion.startEffect(effect);
-
     this.motionId += 1;
   }
 
+  /**
+   * Handle progression of cutscene scenario.
+   */
   public override onCutscene(): void {
     logger.info("Cutscene callback:", this.object.name());
 

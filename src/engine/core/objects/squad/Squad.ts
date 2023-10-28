@@ -527,7 +527,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
       }
 
       if (this.deathConditionList !== null) {
-        pickSectionFromCondList(registry.actor, this, this.deathConditionList as any);
+        pickSectionFromCondList(registry.actor, this, this.deathConditionList);
       }
 
       this.simulationBoardManager.releaseSquad(this);

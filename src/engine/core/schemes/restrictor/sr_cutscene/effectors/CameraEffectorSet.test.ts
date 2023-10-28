@@ -81,4 +81,8 @@ describe("CameraEffectorSet", () => {
     expect(effectorSet.state).toBe(EEffectorState.RELEASE);
     expect(effectorSet.currentEffect).toBe(0);
   });
+
+  it.todo("should correctly handle updates");
+
+  it.todo("should correctly select effects");
 });

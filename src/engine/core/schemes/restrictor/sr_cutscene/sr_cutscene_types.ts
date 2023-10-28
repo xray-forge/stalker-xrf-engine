@@ -2,7 +2,7 @@ import type { IBaseSchemeState } from "@/engine/core/database/database_types";
 import type { LuaArray, StringOptional, TPath, TRate } from "@/engine/lib/types";
 
 /**
- * todo;
+ * State of effector set run with `level.add_effect` interface.
  */
 export enum EEffectorState {
   START = "start",
