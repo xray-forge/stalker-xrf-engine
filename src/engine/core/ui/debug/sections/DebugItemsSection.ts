@@ -1,4 +1,4 @@
-import { CUI3tButton, CUIComboBox, CUIListBox, CUIWindow, LuabindClass, ui_events, vector2 } from "xray16";
+import { CUI3tButton, CUIComboBox, CUIListBox, CUIWindow, LuabindClass, ui_events } from "xray16";
 
 import { registry } from "@/engine/core/database";
 import { AbstractDebugSection } from "@/engine/core/ui/debug/sections/AbstractDebugSection";
@@ -15,6 +15,7 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 import { isAmmoSection } from "@/engine/core/utils/section";
 import { getInventoryNameForItemSection, spawnItemsForObject } from "@/engine/core/utils/spawn";
 import { resolveXmlFile } from "@/engine/core/utils/ui";
+import { create2dVector, createEmpty2dVector } from "@/engine/core/utils/vector";
 import { TInventoryItem } from "@/engine/lib/constants/items";
 import { drugs } from "@/engine/lib/constants/items/drugs";
 import { food } from "@/engine/lib/constants/items/food";
@@ -56,11 +57,11 @@ export class DebugItemsSection extends AbstractDebugSection {
     const window: CUIWindow = new CUIWindow();
 
     this.xml.InitWindow("spawn_item:main", 0, window);
-    this.uiItemListMainSize = new vector2().set(window.GetWidth(), window.GetHeight());
+    this.uiItemListMainSize = create2dVector(window.GetWidth(), window.GetHeight());
     this.xml.InitWindow("spawn_item:fn", 0, window);
-    this.uiItemListNameSize = new vector2().set(window.GetWidth(), window.GetHeight());
+    this.uiItemListNameSize = create2dVector(window.GetWidth(), window.GetHeight());
     this.xml.InitWindow("spawn_item:fd", 0, window);
-    this.uiItemListDdSize = new vector2().set(window.GetWidth(), window.GetHeight());
+    this.uiItemListDdSize = create2dVector(window.GetWidth(), window.GetHeight());
 
     this.uiItemSpawnButton = this.xml.Init3tButton("spawn_button", this);
 
@@ -135,10 +136,10 @@ export class DebugItemsSection extends AbstractDebugSection {
     );
 
     spawnItem.SetWndSize(this.uiItemListMainSize);
-    spawnItem.uiInnerNameText.SetWndPos(new vector2().set(0, 0));
+    spawnItem.uiInnerNameText.SetWndPos(createEmpty2dVector());
     spawnItem.uiInnerNameText.SetWndSize(this.uiItemListNameSize);
     spawnItem.uiInnerNameText.SetText(getInventoryNameForItemSection(section));
-    spawnItem.uiInnerSectionText.SetWndPos(new vector2().set(this.uiItemListNameSize.x + 4, 0));
+    spawnItem.uiInnerSectionText.SetWndPos(create2dVector(this.uiItemListNameSize.x + 4, 0));
     spawnItem.uiInnerSectionText.SetWndSize(this.uiItemListDdSize);
 
     this.uiItemsList.AddExistingItem(spawnItem);

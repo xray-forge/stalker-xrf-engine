@@ -10,7 +10,6 @@ import {
   level,
   LuabindClass,
   ui_events,
-  vector2,
 } from "xray16";
 
 import { registry } from "@/engine/core/database";
@@ -127,7 +126,7 @@ export class SleepDialog extends CUIScriptWnd {
       width = width * 0.8;
     }
 
-    this.uiSleepStatic.SetWndSize(new vector2().set(width, 118));
+    this.uiSleepStatic.SetWndSize(create2dVector(width, 118));
 
     rect = new Frect().set(0, 413, delta, 531);
     this.uiSleepStatic2.SetTextureRect(rect);
@@ -138,7 +137,7 @@ export class SleepDialog extends CUIScriptWnd {
       width = width * 0.8;
     }
 
-    this.uiSleepStatic2.SetWndSize(new vector2().set(width, 118));
+    this.uiSleepStatic2.SetWndSize(create2dVector(width, 118));
 
     const position: Vector2D = this.uiSleepStatic2.GetWndPos();
 

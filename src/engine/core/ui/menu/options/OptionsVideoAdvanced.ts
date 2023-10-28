@@ -1,13 +1,4 @@
-import {
-  CScriptXmlInit,
-  CUIComboBox,
-  CUIScrollView,
-  CUIStatic,
-  CUITrackBar,
-  CUIWindow,
-  LuabindClass,
-  vector2,
-} from "xray16";
+import { CScriptXmlInit, CUIComboBox, CUIScrollView, CUIStatic, CUITrackBar, CUIWindow, LuabindClass } from "xray16";
 
 import { Options } from "@/engine/core/ui/menu/options/Options";
 import {
@@ -162,7 +153,7 @@ export class OptionsVideoAdvanced extends CUIWindow {
 
     const ao = xml.InitStatic("video_adv:templ_item", this.scrollView);
 
-    ao.SetWndSize(new vector2().set(ao.GetWidth(), 106));
+    ao.SetWndSize(create2dVector(ao.GetWidth(), 106));
     xml.InitStatic("video_adv:cap_ao", ao);
 
     const aoTab = xml.InitTab("video_adv:radio_tab_ao_options", ao);

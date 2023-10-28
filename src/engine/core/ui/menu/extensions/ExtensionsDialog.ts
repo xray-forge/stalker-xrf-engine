@@ -8,7 +8,6 @@ import {
   Frect,
   LuabindClass,
   ui_events,
-  vector2,
 } from "xray16";
 
 import { ExtensionItemListEntry } from "@/engine/core/ui/menu/extensions/ExtensionItemListEntry";
@@ -20,7 +19,7 @@ import {
 } from "@/engine/core/utils/extensions/extensions_state";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { EElementType, initializeElement, resolveXmlFile } from "@/engine/core/utils/ui";
-import { create2dVector } from "@/engine/core/utils/vector";
+import { create2dVector, createEmpty2dVector } from "@/engine/core/utils/vector";
 import { screenConfig } from "@/engine/lib/configs/ScreenConfig";
 import { LuaArray, Optional, TIndex, TKeyCode, TPath, TUIEvent, Vector2D } from "@/engine/lib/types";
 
@@ -135,9 +134,9 @@ export class ExtensionsDialog extends CUIScriptWnd {
       );
 
       extensionItem.SetWndSize(this.uiItemListMainSize);
-      extensionItem.uiInnerNameText.SetWndPos(new vector2().set(0, 0));
+      extensionItem.uiInnerNameText.SetWndPos(createEmpty2dVector());
       extensionItem.uiInnerNameText.SetWndSize(this.uiItemListNameSize);
-      extensionItem.uiInnerSectionText.SetWndPos(new vector2().set(this.uiItemListNameSize.x + 4, 0));
+      extensionItem.uiInnerSectionText.SetWndPos(create2dVector(this.uiItemListNameSize.x + 4, 0));
       extensionItem.uiInnerSectionText.SetWndSize(this.uiItemListDdSize);
 
       this.uiItemsList.AddExistingItem(extensionItem);

@@ -1,4 +1,4 @@
-import { CUI3tButton, CUIComboBox, CUIListBox, CUIWindow, game, level, LuabindClass, ui_events, vector2 } from "xray16";
+import { CUI3tButton, CUIComboBox, CUIListBox, CUIWindow, game, level, LuabindClass, ui_events } from "xray16";
 
 import { registry } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
@@ -11,7 +11,7 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 import { isGameVertexFromLevel } from "@/engine/core/utils/position";
 import { getServerObjects } from "@/engine/core/utils/registry";
 import { resolveXmlFile } from "@/engine/core/utils/ui";
-import { vectorToString } from "@/engine/core/utils/vector";
+import { create2dVector, createEmpty2dVector, vectorToString } from "@/engine/core/utils/vector";
 import { postProcessors } from "@/engine/lib/constants/animation";
 import { consoleCommands } from "@/engine/lib/constants/console_commands";
 import { LuaArray, Optional, TPath, Vector2D } from "@/engine/lib/types";
@@ -48,11 +48,11 @@ export class DebugTeleportSection extends AbstractDebugSection {
     const window: CUIWindow = new CUIWindow();
 
     this.xml.InitWindow("teleport_item:main", 0, window);
-    this.uiItemListMainSize = new vector2().set(window.GetWidth(), window.GetHeight());
+    this.uiItemListMainSize = create2dVector(window.GetWidth(), window.GetHeight());
     this.xml.InitWindow("teleport_item:fn", 0, window);
-    this.uiItemListNameSize = new vector2().set(window.GetWidth(), window.GetHeight());
+    this.uiItemListNameSize = create2dVector(window.GetWidth(), window.GetHeight());
     this.xml.InitWindow("teleport_item:fd", 0, window);
-    this.uiItemListDdSize = new vector2().set(window.GetWidth(), window.GetHeight());
+    this.uiItemListDdSize = create2dVector(window.GetWidth(), window.GetHeight());
 
     this.uiItemTeleportButton = this.xml.Init3tButton("teleport_button", this);
 
@@ -116,9 +116,9 @@ export class DebugTeleportSection extends AbstractDebugSection {
     );
 
     teleportItem.SetWndSize(this.uiItemListMainSize);
-    teleportItem.uiInnerNameText.SetWndPos(new vector2().set(0, 0));
+    teleportItem.uiInnerNameText.SetWndPos(createEmpty2dVector());
     teleportItem.uiInnerNameText.SetWndSize(this.uiItemListNameSize);
-    teleportItem.uiInnerSectionText.SetWndPos(new vector2().set(this.uiItemListNameSize.x + 4, 0));
+    teleportItem.uiInnerSectionText.SetWndPos(create2dVector(this.uiItemListNameSize.x + 4, 0));
     teleportItem.uiInnerSectionText.SetWndSize(this.uiItemListDdSize);
 
     this.uiItemsList.AddExistingItem(teleportItem);
