@@ -245,7 +245,6 @@ export const registry = {
    */
   patrols: {
     generic: new LuaTable<TStringId, PatrolManager>(),
-    reachTask: new LuaTable<TNumberId, ReachTaskPatrolManager>(),
   },
   /**
    * List of synchronization groups for game patrols.

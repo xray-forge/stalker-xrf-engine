@@ -119,7 +119,6 @@ export class DebugRegistrySection extends AbstractDebugSection {
     logger.info("Signal lights registered:", Object.keys(registry.signalLights).length);
     logger.info("Spawned vertexes registered:", Object.keys(registry.spawnedVertexes).length);
     logger.info("Patrols registered:", Object.keys(registry.patrols.generic).length);
-    logger.info("Reach tasks registered:", Object.keys(registry.patrols.reachTask).length);
 
     const eventsManager: EventsManager = EventsManager.getInstance();
 

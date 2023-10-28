@@ -1,16 +1,19 @@
-import { action_base, anim, clsid, level, look, LuabindClass, move, object, time_global } from "xray16";
+import { action_base, anim, level, look, LuabindClass, move, object, time_global } from "xray16";
 
 import { registry } from "@/engine/core/database";
 import { TSimulationObject } from "@/engine/core/managers/simulation";
 import { surgeConfig } from "@/engine/core/managers/surge/SurgeConfig";
 import { EStalkerState } from "@/engine/core/objects/animation/types";
 import { Squad } from "@/engine/core/objects/server/squad/Squad";
+import { reachTaskConfig } from "@/engine/core/schemes/stalker/reach_task/ReachTaskConfig";
 import { ReachTaskPatrolManager } from "@/engine/core/schemes/stalker/reach_task/ReachTaskPatrolManager";
+import { updateObjectReachTaskMovement } from "@/engine/core/schemes/stalker/reach_task/utils";
 import { isSquad } from "@/engine/core/utils/class_ids";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { sendToNearestAccessibleVertex } from "@/engine/core/utils/position";
 import { getObjectSquad } from "@/engine/core/utils/squad/squad_get";
-import { areSameVectors, createEmptyVector, createVector } from "@/engine/core/utils/vector";
+import { areSameVectors, createEmptyVector } from "@/engine/core/utils/vector";
+import { Z_VECTOR } from "@/engine/lib/constants/vectors";
 import {
   EGameObjectMovementType,
   EGameObjectPath,
@@ -66,7 +69,7 @@ export class ActionReachTaskLocation extends action_base implements ISchemeEvent
     this.formation = "back";
     this.levelVertexId = -1;
     this.distance = 0;
-    this.direction = createVector(0, 0, 1);
+    this.direction = Z_VECTOR;
     this.nextUpdateAt = time_global() + 1000;
 
     this.object.set_desired_direction();
@@ -85,11 +88,11 @@ export class ActionReachTaskLocation extends action_base implements ISchemeEvent
     this.object.set_sight(look.path_dir, null, 0);
 
     // Add to patrol init.
-    if (registry.patrols.reachTask.get(this.squadId) === null) {
-      registry.patrols.reachTask.set(this.squadId, new ReachTaskPatrolManager(this.squadId));
+    if (reachTaskConfig.PATROLS.get(this.squadId) === null) {
+      reachTaskConfig.PATROLS.set(this.squadId, new ReachTaskPatrolManager(this.squadId));
     }
 
-    this.patrolManager = registry.patrols.reachTask.get(objectSquad.id);
+    this.patrolManager = reachTaskConfig.PATROLS.get(objectSquad.id);
     this.patrolManager.addObjectToPatrol(this.object);
   }
 
@@ -152,9 +155,9 @@ export class ActionReachTaskLocation extends action_base implements ISchemeEvent
         this.object.set_dest_game_vertex_id(gvi);
         this.object.set_sight(look.path_dir, null, 0);
 
-        updateObjectMovement(this.object, squadTarget);
+        updateObjectReachTaskMovement(this.object, squadTarget);
 
-        registry.patrols.reachTask.get(this.squadId).setObjectOrders(this.object, this.currentState, this.formation);
+        reachTaskConfig.PATROLS.get(this.squadId).setObjectOrders(this.object, this.currentState, this.formation);
 
         return;
       }
@@ -171,16 +174,16 @@ export class ActionReachTaskLocation extends action_base implements ISchemeEvent
       this.object.set_desired_position(position);
     }
 
-    updateObjectMovement(this.object, squadTarget);
+    updateObjectReachTaskMovement(this.object, squadTarget);
 
-    registry.patrols.reachTask.get(this.squadId).setObjectOrders(this.object, this.currentState, this.formation);
+    reachTaskConfig.PATROLS.get(this.squadId).setObjectOrders(this.object, this.currentState, this.formation);
   }
 
   /**
    * todo: Description.
    */
   public executeSquadSoldier(objectSquad: Squad, squadTarget: Optional<TSimulationObject>): void {
-    const [lvi, direction, currentState] = registry.patrols.reachTask.get(this.squadId).getObjectOrders(this.object);
+    const [lvi, direction, currentState] = reachTaskConfig.PATROLS.get(this.squadId).getObjectOrders(this.object);
 
     this.direction = direction;
     this.currentState = currentState!;
@@ -228,33 +231,5 @@ export class ActionReachTaskLocation extends action_base implements ISchemeEvent
    */
   public onSwitchOffline(object: GameObject): void {
     this.patrolManager?.removeObjectFromPatrol(object);
-  }
-}
-
-/**
- * todo;
- */
-function updateObjectMovement(object: GameObject, target: Optional<TSimulationObject>): void {
-  if (target !== null && !object.is_talking()) {
-    if (surgeConfig.IS_STARTED) {
-      object.set_movement_type(move.run);
-      object.set_mental_state(anim.free);
-
-      return;
-    }
-
-    if (target.clsid() === clsid.online_offline_group_s) {
-      object.set_movement_type(move.run);
-      if (target.position.distance_to_sqr(object.position()) <= 10_000) {
-        object.set_mental_state(anim.danger);
-      } else {
-        object.set_mental_state(anim.free);
-      }
-    } else {
-      object.set_movement_type(move.walk);
-      object.set_mental_state(anim.free);
-    }
-  } else {
-    object.set_movement_type(move.stand);
   }
 }

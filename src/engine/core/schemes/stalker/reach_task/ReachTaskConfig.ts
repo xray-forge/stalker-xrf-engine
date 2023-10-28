@@ -1,6 +1,9 @@
+import type { ReachTaskPatrolManager } from "@/engine/core/schemes/stalker/reach_task/ReachTaskPatrolManager";
 import { createVector } from "@/engine/core/utils/vector";
+import { TNumberId } from "@/engine/lib/types";
 
 export const reachTaskConfig = {
+  PATROLS: new LuaTable<TNumberId, ReachTaskPatrolManager>(),
   FORMATIONS: {
     back: [
       { dir: createVector(0.7, 0, -0.5), dist: 1.2 },
