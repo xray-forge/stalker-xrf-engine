@@ -1,6 +1,7 @@
 import { level } from "xray16";
 
 import { registry } from "@/engine/core/database/registry";
+import { EPatrolFormation } from "@/engine/core/objects/ai/patrol";
 import { EStalkerState } from "@/engine/core/objects/animation/types";
 import type { Squad } from "@/engine/core/objects/server/squad";
 import { reachTaskConfig } from "@/engine/core/schemes/stalker/reach_task/ReachTaskConfig";
@@ -8,6 +9,7 @@ import { abort, assertDefined } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getObjectSquad } from "@/engine/core/utils/squad";
 import { createEmptyVector, createVector, vectorCross, vectorRotateY, yawDegree } from "@/engine/core/utils/vector";
+import { Z_VECTOR } from "@/engine/lib/constants/vectors";
 import {
   GameObject,
   Optional,
@@ -45,9 +47,9 @@ export class ReachTaskPatrolManager {
   public targetId: TNumberId;
   public currentState: EStalkerState = EStalkerState.PATROL;
   public commanderId: TNumberId = -1;
-  public formation: string = "back";
+  public formation: EPatrolFormation = EPatrolFormation.BACK;
   public commanderLid: number = -1;
-  public commanderDir: Vector = createVector(0, 0, 1);
+  public commanderDir: Vector = Z_VECTOR;
   public objectsCount: TCount = 0;
 
   public constructor(targetId: TNumberId) {
@@ -133,7 +135,7 @@ export class ReachTaskPatrolManager {
   /**
    * todo: Description.
    */
-  public setFormation(formation: TName): void {
+  public setFormation(formation: EPatrolFormation): void {
     if (formation === null) {
       abort("Invalid formation (nil) for PatrolManager[%s]", this.targetId);
     }
@@ -242,7 +244,7 @@ export class ReachTaskPatrolManager {
   /**
    * todo: Description.
    */
-  public setObjectOrders(object: GameObject, command: EStalkerState, formation: TName): void {
+  public setObjectOrders(object: GameObject, command: EStalkerState, formation: EPatrolFormation): void {
     if (object === null || !object.alive()) {
       abort("NPC commander possible dead in PatrolManager[%s]", this.targetId);
     }

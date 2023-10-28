@@ -1,7 +1,7 @@
 import { registry } from "@/engine/core/database";
 import type { Squad } from "@/engine/core/objects/server/squad";
 import { MAX_U16 } from "@/engine/lib/constants/memory";
-import { AnyGameObject, GameObject, Optional, ServerCreatureObject } from "@/engine/lib/types";
+import { AnyGameObject, GameObject, Optional, ServerCreatureObject, TNumberId } from "@/engine/lib/types";
 
 /**
  * Get squad of provided object.
@@ -23,4 +23,18 @@ export function getObjectSquad(object: AnyGameObject): Optional<Squad> {
       ? null
       : registry.simulator.object<Squad>((object as ServerCreatureObject).group_id);
   }
+}
+
+/**
+ * Get squad of provided object.
+ *
+ * @param objectId - object id to check
+ * @return object squad server object or null
+ */
+export function getObjectSquadByObjectId(objectId: TNumberId): Optional<Squad> {
+  const serverObject: Optional<ServerCreatureObject> = registry.simulator.object(objectId);
+
+  return !serverObject || serverObject.group_id === MAX_U16
+    ? null
+    : registry.simulator.object<Squad>(serverObject.group_id);
 }

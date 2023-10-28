@@ -1,15 +1,16 @@
 import type { IBaseSchemeState } from "@/engine/core/database/database_types";
+import type { EPatrolFormation } from "@/engine/core/objects/ai/patrol";
 import type { IPatrolSuggestedState } from "@/engine/core/objects/animation/types";
 import type { IWaypointData } from "@/engine/core/utils/ini/ini_types";
-import type { LuaArray, Optional } from "@/engine/lib/types";
+import type { LuaArray, Optional, TName } from "@/engine/lib/types";
 
 /**
  * todo;
  */
 export interface ISchemePatrolState extends IBaseSchemeState {
-  pathName: string;
-  pathWalk: string;
-  pathLook: string;
+  pathName: TName;
+  pathWalk: TName;
+  pathLook: TName;
   formation: EPatrolFormation;
   silent: boolean;
   moveType: string;
@@ -19,13 +20,4 @@ export interface ISchemePatrolState extends IBaseSchemeState {
   pathLookInfo: Optional<LuaArray<IWaypointData>>;
   patrolKey: string;
   commander: boolean;
-}
-
-/**
- * todo;
- */
-export enum EPatrolFormation {
-  LINE = "line",
-  AROUND = "around",
-  BACK = "back",
 }

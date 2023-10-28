@@ -1,15 +1,26 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 
-import { registry } from "@/engine/core/database";
+import { registerSimulator, registry } from "@/engine/core/database";
 import type { Squad } from "@/engine/core/objects/server/squad";
 import { giveInfoPortion } from "@/engine/core/utils/info_portion";
-import { canSquadHelpActor } from "@/engine/core/utils/squad/squad_actions";
+import {
+  canSquadHelpActor,
+  isObjectSquadCommander,
+  isObjectSquadCommanderById,
+} from "@/engine/core/utils/squad/squad_actions";
+import { GameObject, ServerGroupObject, ServerHumanObject } from "@/engine/lib/types";
 import { mockRegisteredActor } from "@/fixtures/engine";
-import { MockAlifeOnlineOfflineGroup, mockServerAlifeOnlineOfflineGroup } from "@/fixtures/xray";
+import {
+  MockAlifeOnlineOfflineGroup,
+  mockGameObject,
+  mockServerAlifeHumanStalker,
+  mockServerAlifeOnlineOfflineGroup,
+} from "@/fixtures/xray";
 
 describe("squad_actions utils", () => {
   beforeEach(() => {
     mockRegisteredActor();
+    registerSimulator();
   });
 
   it("canSquadHelpActor should correctly check if squad can help actor", () => {
@@ -50,5 +61,43 @@ describe("squad_actions utils", () => {
     expect(canSquadHelpActor(squad)).toBe(false);
   });
 
-  it.todo("isObjectSquadCommander should correctly check if object commanding squad");
+  it("isObjectSquadCommander should correctly check if object commanding squad", () => {
+    expect(isObjectSquadCommander(mockGameObject())).toBe(false);
+    expect(isObjectSquadCommander(mockServerAlifeHumanStalker())).toBe(false);
+
+    const gameObject: GameObject = mockGameObject();
+    const groupObject: ServerGroupObject = mockServerAlifeOnlineOfflineGroup();
+    const serverObject: ServerHumanObject = mockServerAlifeHumanStalker({
+      id: gameObject.id(),
+      group_id: groupObject.id,
+    });
+
+    expect(isObjectSquadCommander(gameObject)).toBe(false);
+    expect(isObjectSquadCommander(serverObject)).toBe(false);
+
+    jest.spyOn(groupObject, "commander_id").mockImplementation(() => gameObject.id());
+
+    expect(isObjectSquadCommander(gameObject)).toBe(true);
+    expect(isObjectSquadCommander(serverObject)).toBe(true);
+  });
+
+  it("isObjectSquadCommanderById should correctly check if object commanding squad", () => {
+    expect(isObjectSquadCommanderById(mockGameObject().id())).toBe(false);
+    expect(isObjectSquadCommanderById(mockServerAlifeHumanStalker().id)).toBe(false);
+
+    const gameObject: GameObject = mockGameObject();
+    const groupObject: ServerGroupObject = mockServerAlifeOnlineOfflineGroup();
+    const serverObject: ServerHumanObject = mockServerAlifeHumanStalker({
+      id: gameObject.id(),
+      group_id: groupObject.id,
+    });
+
+    expect(isObjectSquadCommanderById(gameObject.id())).toBe(false);
+    expect(isObjectSquadCommanderById(serverObject.id)).toBe(false);
+
+    jest.spyOn(groupObject, "commander_id").mockImplementation(() => gameObject.id());
+
+    expect(isObjectSquadCommanderById(gameObject.id())).toBe(true);
+    expect(isObjectSquadCommanderById(serverObject.id)).toBe(true);
+  });
 });

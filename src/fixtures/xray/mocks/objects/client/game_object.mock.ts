@@ -125,6 +125,7 @@ export function mockGameObject({
       }),
     best_enemy: rest.best_enemy ?? jest.fn(() => null),
     best_danger: rest.best_danger ?? jest.fn(() => null),
+    best_weapon: rest.best_weapon ?? jest.fn(() => null),
     bind_object: rest.bind_object ?? jest.fn(),
     bleeding,
     buy_condition: rest.buy_condition ?? jest.fn(),
@@ -240,6 +241,7 @@ export function mockGameObject({
       }),
     out_restrictions: rest.out_restrictions ?? jest.fn(() => outRestrictions.join(",")),
     in_restrictions: rest.in_restrictions ?? jest.fn(() => inRestrictions.join(",")),
+    inactualize_patrol_path: rest.inactualize_patrol_path ?? jest.fn(),
     invulnerable:
       rest.invulnerable ||
       jest.fn((nextInvulnerable?: boolean) => {
@@ -318,12 +320,14 @@ export function mockGameObject({
         }
       }),
     set_condition: rest.set_condition ?? jest.fn(),
+    set_dest_game_vertex_id: rest.set_dest_game_vertex_id ?? jest.fn(),
     set_manual_invisibility: rest.set_manual_invisibility ?? jest.fn(),
     set_mental_state: rest.set_mental_state ?? jest.fn(),
     set_movement_type: rest.set_movement_type ?? jest.fn(),
     set_nonscript_usable: rest.set_nonscript_usable ?? jest.fn(),
     set_home: rest.set_home ?? jest.fn(),
     set_invisible: rest.set_invisible ?? jest.fn(),
+    set_item: rest.set_item ?? jest.fn(),
     set_path_type: rest.set_path_type ?? jest.fn(),
     set_relation: rest.set_relation ?? jest.fn(),
     set_sound_mask: rest.set_sound_mask ?? jest.fn(),
@@ -352,6 +356,7 @@ export function mockGameObject({
       jest.fn((it: number) => {
         objectDirection = objectDirection.set(it, objectDirection.y, objectDirection.z);
       }),
+    set_movement_selection_type: rest.set_movement_selection_type ?? jest.fn(),
     set_community_goodwill: rest.set_community_goodwill ?? jest.fn(),
     set_fastcall: rest.set_fastcall ?? jest.fn(),
     spawn_ini: rest.spawn_ini ?? jest.fn(() => spawnIni),

@@ -1,4 +1,4 @@
-import { CALifeSmartTerrainTask, cse_alife_creature_actor, level, LuabindClass } from "xray16";
+import { CALifeSmartTerrainTask, cse_alife_creature_actor, LuabindClass } from "xray16";
 
 import {
   closeLoadMarker,
@@ -99,7 +99,7 @@ export class Actor extends cse_alife_creature_actor implements ISimulationTarget
    * @returns whether squad completed assigned task to `kill?` actor
    */
   public isReachedBySquad(): boolean {
-    return !level.object_by_id(this.id)!.alive();
+    return !registry.actor.alive();
   }
 
   /**

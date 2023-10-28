@@ -1,12 +1,13 @@
 import { world_property } from "xray16";
 
+import { EPatrolFormation } from "@/engine/core/objects/ai/patrol";
 import { EvaluatorSectionEnded } from "@/engine/core/objects/ai/planner/evaluators";
 import { AbstractScheme } from "@/engine/core/objects/ai/scheme";
 import { EActionId, EEvaluatorId } from "@/engine/core/objects/ai/types";
 import { Squad } from "@/engine/core/objects/server/squad/Squad";
 import { ActionCommander, ActionPatrol } from "@/engine/core/schemes/stalker/patrol/actions";
 import { EvaluatorPatrolCommander } from "@/engine/core/schemes/stalker/patrol/evaluators";
-import { EPatrolFormation, ISchemePatrolState } from "@/engine/core/schemes/stalker/patrol/patrol_types";
+import { ISchemePatrolState } from "@/engine/core/schemes/stalker/patrol/patrol_types";
 import { patrolConfig } from "@/engine/core/schemes/stalker/patrol/PatrolConfig";
 import { PatrolManager } from "@/engine/core/schemes/stalker/patrol/PatrolManager";
 import { abort } from "@/engine/core/utils/assertion";
