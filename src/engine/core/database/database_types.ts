@@ -158,7 +158,7 @@ export interface IRegistryObjectState extends Record<EScheme, Optional<IBaseSche
   portableStore: Optional<LuaTable<TName>>;
   /**
    * Patrol manager for stalker objects.
-   * Handles patrols selection/logics/waypoints etc.
+   * Handles patrol selection/logics/waypoints etc.
    */
   patrolManager: Optional<StalkerPatrolManager>;
   /**
