@@ -4,7 +4,7 @@ import { screenConfig } from "@/engine/lib/configs/ScreenConfig";
 
 /**
  * Create rectangle based on screen base layout expectations.
-
+ *
  * @returns new rectangle describing screen layout
  */
 export function createScreenRectangle(): Frect {
