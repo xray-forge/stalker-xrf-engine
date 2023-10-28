@@ -222,6 +222,10 @@ export class ActionReachTaskLocation extends action_base implements ISchemeEvent
    * @param object - target game object to switch
    */
   public onDeath(object: GameObject): void {
+    if (!this.patrolManager) {
+      return;
+    }
+
     this.patrolManager.removeObjectFromPatrol(object);
   }
 
@@ -232,6 +236,10 @@ export class ActionReachTaskLocation extends action_base implements ISchemeEvent
    * @param object - target game object to switch
    */
   public onSwitchOffline(object: GameObject): void {
+    if (!this.patrolManager) {
+      return;
+    }
+
     this.patrolManager.removeObjectFromPatrol(object);
   }
 }

@@ -138,7 +138,9 @@ describe("ActionReachTaskLocation", () => {
   it.todo("should correctly execute for squad commander");
 
   it("should correctly switch death", () => {
-    const { object, action, target, serverObject, weapon, squad } = mockActionData();
+    const { object, action, squad } = mockActionData();
+
+    expect(() => action.onDeath(mockGameObject())).not.toThrow();
 
     action.setup(object, new property_storage());
     action.initialize();
@@ -153,7 +155,9 @@ describe("ActionReachTaskLocation", () => {
   });
 
   it("should correctly switch offline", () => {
-    const { object, action, target, serverObject, weapon, squad } = mockActionData();
+    const { object, action, squad } = mockActionData();
+
+    expect(() => action.onSwitchOffline(mockGameObject())).not.toThrow();
 
     action.setup(object, new property_storage());
     action.initialize();
