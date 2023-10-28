@@ -20,6 +20,6 @@ describe("OptionsVideoAdvanced", () => {
 
     advanced.initialize(1, 1, xml, options);
 
-    expect(options.preconditions.length()).toBe(31);
+    expect(options.preconditions.length()).toBe(36);
   });
 });

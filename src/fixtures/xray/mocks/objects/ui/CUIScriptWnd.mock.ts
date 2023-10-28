@@ -13,4 +13,6 @@ export class MockCUIScriptWnd extends MockCUIDialogWnd {
 
   public Register = jest.fn();
   public AddCallback = jest.fn();
+
+  public Update(): void {}
 }

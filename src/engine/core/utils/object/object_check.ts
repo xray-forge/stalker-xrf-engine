@@ -6,6 +6,15 @@ import { GameObject, Optional, ServerHumanObject, ServerObject, TNumberId, TStri
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
+ * @returns whether actor can start sleeping
+ */
+export function canActorSleep(): boolean {
+  const actor: GameObject = registry.actor;
+
+  return actor.bleeding <= 0 && actor.radiation <= 0;
+}
+
+/**
  * Is provided target stalker and alive.
  *
  * @param targetObject - client/server object or story ID to check

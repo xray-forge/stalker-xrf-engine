@@ -1,3 +1,4 @@
+import { jest } from "@jest/globals";
 import { CUILines } from "xray16";
 
 /**
@@ -10,15 +11,15 @@ export class MockCUILines {
 
   public text: string = "";
 
-  public GetText(): string {
+  public GetText = jest.fn(() => {
     return this.text;
-  }
+  });
 
-  public SetText(text: string): void {
+  public SetText = jest.fn((text: string) => {
     this.text = text;
-  }
+  });
 
-  public SetTextST(text: string): void {
+  public SetTextST = jest.fn((text: string) => {
     this.text = text;
-  }
+  });
 }

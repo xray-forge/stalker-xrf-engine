@@ -1,4 +1,4 @@
-import { CUIMessageBox, CUIMessageBoxEx, CUIScriptWnd, CUIWindow } from "xray16";
+import { CUIMessageBox, CUIMessageBoxEx, CUIScriptWnd, CUIStatic, CUIWindow } from "xray16";
 
 import { abort } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -47,6 +47,10 @@ export function initializeElement<T extends CUIWindow>(
 
     case EElementType.TAB:
       element = xml.InitTab(selector, base) as unknown as T;
+      break;
+
+    case EElementType.TRACK_BAR:
+      element = xml.InitTrackBar(selector, base) as unknown as T;
       break;
 
     case EElementType.CD_KEY:
@@ -128,6 +132,18 @@ export function initializeElement<T extends CUIWindow>(
   }
 
   return element;
+}
+
+/**
+ * Register static element from XML file.
+ * Shortcut to init one static element.
+ *
+ * @param xml - file with forms
+ * @param base - base element to init new statics relatively from
+ * @param selector - selector name for statics init
+ */
+export function initializeStatic(xml: XmlInit, base: CUIWindow, selector: TStringId): CUIStatic {
+  return initializeElement(xml, EElementType.STATIC, selector, base);
 }
 
 /**

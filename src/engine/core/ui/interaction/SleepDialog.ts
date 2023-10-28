@@ -5,7 +5,6 @@ import {
   CUIScriptWnd,
   CUIStatic,
   CUITrackBar,
-  Frect,
   game,
   level,
   LuabindClass,
@@ -16,11 +15,19 @@ import { registry } from "@/engine/core/database";
 import { SleepManager } from "@/engine/core/managers/sleep";
 import { disableInfoPortion, giveInfoPortion } from "@/engine/core/utils/info_portion";
 import { LuaLogger } from "@/engine/core/utils/logging";
+import { canActorSleep } from "@/engine/core/utils/object";
 import { createRectangle, createScreenRectangle } from "@/engine/core/utils/rectangle";
-import { isWideScreen, resolveXmlFormPath } from "@/engine/core/utils/ui";
+import {
+  EElementType,
+  initializeElement,
+  initializeStatic,
+  isWideScreen,
+  resolveXmlFile,
+} from "@/engine/core/utils/ui";
 import { create2dVector } from "@/engine/core/utils/vector";
+import { screenConfig } from "@/engine/lib/configs/ScreenConfig";
 import { infoPortions } from "@/engine/lib/constants/info_portions/info_portions";
-import { GameObject, TPath, TTimestamp, Vector2D } from "@/engine/lib/types";
+import { GameObject, TDuration, TNumberId, TPath, TTimestamp, Vector2D } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 const base: TPath = "interaction\\SleepDialog.component";
@@ -31,113 +38,95 @@ const base: TPath = "interaction\\SleepDialog.component";
 @LuabindClass()
 export class SleepDialog extends CUIScriptWnd {
   public readonly owner: SleepManager;
+  public readonly xml: CScriptXmlInit = resolveXmlFile(base, new CScriptXmlInit(), true);
 
   public isWide: boolean = isWideScreen();
 
-  public uiBack!: CUIStatic;
+  public uiBackground!: CUIStatic;
   public uiSleepStatic!: CUIStatic;
   public uiSleepStatic2!: CUIStatic;
-  public uiStaticCover!: CUIStatic;
-  public uiStMarker!: CUIStatic;
+  public uiCoverStatic!: CUIStatic;
+  public uiMarkerStatic!: CUIStatic;
   public uiTimeTrack!: CUITrackBar;
-  public uiBtnSleep!: CUI3tButton;
-  public uiBtnCancel!: CUI3tButton;
+  public uiSleepButton!: CUI3tButton;
+  public uiCancelButton!: CUI3tButton;
   public uiSleepMessageBox!: CUIMessageBoxEx;
-  public uiSleepStTable!: Record<string, CUIStatic>;
+  public uiSleepNodeList: LuaTable<TNumberId, CUIStatic> = new LuaTable();
 
   public constructor(owner: SleepManager) {
     super();
 
     this.owner = owner;
 
-    this.initControls();
-    this.initCallbacks();
+    this.initializeControls();
   }
 
   /**
    * Initialize UI control elements.
    */
-  public initControls(): void {
+  public initializeControls(): void {
     this.SetWndRect(createScreenRectangle());
 
-    const xml: CScriptXmlInit = new CScriptXmlInit();
-
-    xml.ParseFile(resolveXmlFormPath(base, true));
-
-    this.uiBack = xml.InitStatic("background", this);
-
-    this.uiSleepStatic = xml.InitStatic("sleep_static", this.uiBack);
-    this.uiSleepStatic2 = xml.InitStatic("sleep_static", this.uiBack);
-    this.uiStaticCover = xml.InitStatic("static_cover", this.uiBack);
-    this.uiStMarker = xml.InitStatic("st_marker", this.uiStaticCover);
-
-    this.uiSleepStTable = {};
+    this.uiBackground = initializeStatic(this.xml, this, "background");
+    this.uiSleepStatic = initializeStatic(this.xml, this.uiBackground, "sleep_static");
+    this.uiSleepStatic2 = initializeStatic(this.xml, this.uiBackground, "sleep_static");
+    this.uiCoverStatic = initializeStatic(this.xml, this.uiBackground, "static_cover");
+    this.uiMarkerStatic = initializeStatic(this.xml, this.uiCoverStatic, "st_marker");
 
     for (let it = 1; it <= 24; it += 1) {
-      this.uiSleepStTable[it] = xml.InitStatic("sleep_st_" + it, this.uiBack);
+      this.uiSleepNodeList.set(it, initializeStatic(this.xml, this.uiBackground, "sleep_st_" + it));
     }
 
-    this.uiTimeTrack = xml.InitTrackBar("time_track", this.uiBack);
-    this.Register(this.uiTimeTrack, "time_track");
+    this.uiTimeTrack = initializeElement(this.xml, EElementType.TRACK_BAR, "time_track", this.uiBackground);
 
-    this.uiBtnSleep = xml.Init3tButton("btn_sleep", this.uiBack);
-    this.Register(this.uiBtnSleep, "btn_sleep");
+    this.uiSleepButton = initializeElement(this.xml, EElementType.BUTTON, "btn_sleep", this.uiBackground, {
+      context: this,
+      [ui_events.BUTTON_CLICKED]: () => this.onSleepButtonClick(),
+    });
 
-    this.uiBtnCancel = xml.Init3tButton("btn_cancel", this.uiBack);
-    this.Register(this.uiBtnCancel, "btn_cancel");
+    this.uiCancelButton = initializeElement(this.xml, EElementType.BUTTON, "btn_cancel", this.uiBackground, {
+      context: this,
+      [ui_events.BUTTON_CLICKED]: () => this.onCancelButtonClick(),
+    });
 
-    this.uiSleepMessageBox = new CUIMessageBoxEx();
-    this.Register(this.uiSleepMessageBox, "sleep_mb");
-  }
-
-  /**
-   * Initialize UI handlers.
-   */
-  public initCallbacks(): void {
-    this.AddCallback("btn_sleep", ui_events.BUTTON_CLICKED, () => this.onButtonSleepClicked(), this);
-    this.AddCallback("btn_cancel", ui_events.BUTTON_CLICKED, () => this.onButtonCancel(), this);
-    this.AddCallback("sleep_mb", ui_events.MESSAGE_BOX_OK_CLICKED, () => this.onMessageBoxOkClicked(), this);
+    this.uiSleepMessageBox = initializeElement(this.xml, EElementType.MESSAGE_BOX_EX, "sleep_mb", this, {
+      [ui_events.MESSAGE_BOX_OK_CLICKED]: () => this.onMessageBoxOkClicked(),
+    });
   }
 
   /**
    * Initialize display of sleep dialog.
    */
-  public initialize(): void {
+  public initializeDisplay(): void {
     const currentHours: TTimestamp = level.get_time_hours();
 
     for (let it = 1; it <= 24; it += 1) {
       let hours: number = currentHours + it;
 
       if (hours >= 24) {
-        hours = hours - 24;
+        hours -= 24;
       }
 
-      this.uiSleepStTable[it].TextControl().SetText(hours + game.translate_string("st_sleep_hours"));
+      this.uiSleepNodeList
+        .get(it)
+        .TextControl()
+        .SetText(hours + game.translate_string("st_sleep_hours"));
     }
 
     const delta: number = math.floor((591 / 24) * currentHours);
-    let rect: Frect = createRectangle(delta, 413, 591, 531);
 
-    this.uiSleepStatic.SetTextureRect(rect);
+    this.uiSleepStatic.SetTextureRect(createRectangle(delta, 413, 591, 531));
 
-    let width: number = 591 - delta;
+    const staticPositionX: number = 591 - delta;
 
-    if (this.isWide) {
-      width = width * 0.8;
-    }
+    this.uiSleepStatic.SetWndSize(
+      create2dVector(this.isWide ? staticPositionX * screenConfig.BASE_WIDE_COEFFICIENT : staticPositionX, 118)
+    );
+    this.uiSleepStatic2.SetTextureRect(createRectangle(0, 413, delta, 531));
 
-    this.uiSleepStatic.SetWndSize(create2dVector(width, 118));
-
-    rect = createRectangle(0, 413, delta, 531);
-    this.uiSleepStatic2.SetTextureRect(rect);
-
-    width = delta;
-
-    if (this.isWide) {
-      width = width * 0.8;
-    }
-
-    this.uiSleepStatic2.SetWndSize(create2dVector(width, 118));
+    this.uiSleepStatic2.SetWndSize(
+      create2dVector(this.isWide ? delta * screenConfig.BASE_WIDE_COEFFICIENT : delta, 118)
+    );
 
     const position: Vector2D = this.uiSleepStatic2.GetWndPos();
 
@@ -148,15 +137,19 @@ export class SleepDialog extends CUIScriptWnd {
   /**
    * Show in-game sleep dialog options.
    */
-  public showSleepOptions(): void {
+  public show(): void {
     logger.info("Show sleep options");
-
-    const actor: GameObject = registry.actor;
 
     giveInfoPortion(infoPortions.sleep_active);
 
-    if (actor.bleeding > 0 || actor.radiation > 0) {
+    // Handle cases when actor cannot sleep because of various factors.
+    if (canActorSleep()) {
+      this.initializeDisplay();
+      this.ShowDialog(true);
+    } else {
       this.uiSleepMessageBox.InitMessageBox("message_box_ok");
+
+      const actor: GameObject = registry.actor;
 
       if (actor.bleeding > 0 && actor.radiation > 0) {
         this.uiSleepMessageBox.SetText("sleep_warning_all_pleasures");
@@ -167,51 +160,47 @@ export class SleepDialog extends CUIScriptWnd {
       }
 
       this.uiSleepMessageBox.ShowDialog(true);
-    } else {
-      this.initialize();
-      this.ShowDialog(true);
     }
   }
 
   /**
-   * todo;
+   * Handle update tick for the ui component.
    */
   public override Update(): void {
     super.Update();
 
-    const sleepTime: number = this.uiTimeTrack.GetIValue() - 1;
+    const sleepTime: TDuration = this.uiTimeTrack.GetIValue() - 1;
     let x: number = math.floor((591 / 24) * sleepTime);
 
     if (x === 0) {
       x = 5;
     }
 
-    if (this.isWide) {
-      x = x * 0.8;
-    }
-
-    this.uiStMarker.SetWndPos(create2dVector(x, 0));
+    this.uiMarkerStatic.SetWndPos(create2dVector(this.isWide ? x * screenConfig.BASE_WIDE_COEFFICIENT : x, 0));
   }
 
-  public onButtonCancel(): void {
-    logger.info("On cancel");
+  /**
+   * Handle sleep OK button click.
+   */
+  public onSleepButtonClick(): void {
+    this.HideDialog();
+    this.owner.startSleep(this.uiTimeTrack.GetIValue());
+  }
 
+  /**
+   * Handle sleep cancel button click.
+   */
+  public onCancelButtonClick(): void {
     this.HideDialog();
 
     giveInfoPortion(infoPortions.tutorial_sleep);
     disableInfoPortion(infoPortions.sleep_active);
   }
 
-  public onButtonSleepClicked(): void {
-    logger.info("On button sleep");
-
-    this.HideDialog();
-    this.owner.startSleep(this.uiTimeTrack.GetIValue());
-  }
-
+  /**
+   * Handle closing cannot sleep message box.
+   */
   public onMessageBoxOkClicked(): void {
-    logger.info("On message box OK");
-
     giveInfoPortion(infoPortions.tutorial_sleep);
     disableInfoPortion(infoPortions.sleep_active);
   }

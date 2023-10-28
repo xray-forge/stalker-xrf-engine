@@ -22,6 +22,7 @@ export * from "@/fixtures/xray/mocks/objects/ui/CUISpinNum.mock";
 export * from "@/fixtures/xray/mocks/objects/ui/CUISpinText.mock";
 export * from "@/fixtures/xray/mocks/objects/ui/CUIStatic.mock";
 export * from "@/fixtures/xray/mocks/objects/ui/CUITabControl.mock";
+export * from "@/fixtures/xray/mocks/objects/ui/CUITrackBar.mock";
 export * from "@/fixtures/xray/mocks/objects/ui/CUITextWnd.mock";
 export * from "@/fixtures/xray/mocks/objects/ui/CUIWindow.mock";
 export * from "@/fixtures/xray/mocks/objects/ui/StaticDrawableWrapper.mock";

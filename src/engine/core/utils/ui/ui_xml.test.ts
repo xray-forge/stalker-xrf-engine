@@ -15,6 +15,21 @@ describe("ui_xml utils", () => {
     expect(example.ParseFile).toHaveBeenCalledWith("another.xml");
   });
 
+  it("resolveXmlFile should correctly parse provided path when enabling support of wide screen", () => {
+    expect(resolveXmlFile("test.xml").ParseFile).toHaveBeenCalledWith("test.xml");
+
+    MockFileSystem.getInstance().setMock(roots.gameConfig, "ui\\another_with_wide.xml", true);
+    MockFileSystem.getInstance().setMock(roots.gameConfig, "ui\\another_with_wide.16.xml", true);
+
+    const example: CScriptXmlInit = new CScriptXmlInit();
+
+    expect(resolveXmlFile("another_with_wide.xml", example, false)).toBe(example);
+    expect(example.ParseFile).toHaveBeenCalledWith("another_with_wide.xml");
+
+    expect(resolveXmlFile("another_with_wide.xml", example, true)).toBe(example);
+    expect(example.ParseFile).toHaveBeenCalledWith("another_with_wide.16.xml");
+  });
+
   it("resolveXmlFormPath should fail on non-windows paths", () => {
     expect(() => resolveXmlFormPath("a/b/c.xml")).toThrow();
     expect(() => resolveXmlFormPath("a/c.xml")).toThrow();

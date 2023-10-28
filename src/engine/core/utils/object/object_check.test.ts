@@ -1,18 +1,41 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { clsid } from "xray16";
 
-import { registerActor, registerSimulator, registerStoryLink } from "@/engine/core/database";
+import { registerActor, registerSimulator, registerStoryLink, registry } from "@/engine/core/database";
 import {
+  canActorSleep,
   isActorSeenByObject,
   isObjectInjured,
   isObjectSeenByActor,
   isStalkerAlive,
 } from "@/engine/core/utils/object/object_check";
 import { GameObject, ServerHumanObject, TClassId } from "@/engine/lib/types";
+import { mockRegisteredActor, resetRegistry } from "@/fixtures/engine";
 import { mockGameObject, mockServerAlifeHumanStalker, mockServerAlifeMonsterBase } from "@/fixtures/xray";
 
 describe("object_check utils", () => {
-  beforeEach(() => registerSimulator());
+  beforeEach(() => {
+    resetRegistry();
+    registerSimulator();
+  });
+
+  it("canActorSleep should correctly check object", () => {
+    mockRegisteredActor();
+
+    expect(canActorSleep()).toBe(true);
+
+    registry.actor.radiation = 1;
+    expect(canActorSleep()).toBe(false);
+
+    registry.actor.bleeding = 1;
+    expect(canActorSleep()).toBe(false);
+
+    registry.actor.radiation = 0;
+    expect(canActorSleep()).toBe(false);
+
+    registry.actor.bleeding = 0;
+    expect(canActorSleep()).toBe(true);
+  });
 
   it("isStalkerAlive should correctly check stalker alive state", () => {
     const aliveStalkerServerObject: ServerHumanObject = mockServerAlifeHumanStalker({

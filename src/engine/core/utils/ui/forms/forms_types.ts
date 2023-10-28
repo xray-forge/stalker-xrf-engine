@@ -21,5 +21,6 @@ export enum EElementType {
   STATIC,
   TAB,
   TEXT_WINDOW,
+  TRACK_BAR,
   WINDOW,
 }

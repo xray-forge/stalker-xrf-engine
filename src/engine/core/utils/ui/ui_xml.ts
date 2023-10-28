@@ -16,7 +16,7 @@ const logger: LuaLogger = new LuaLogger($filename);
  * todo: Respect folders in XRAY.
  *
  * @param path - target path to parse xml from
- * @param hasWideScreenSupport - whether should check existence of `.16.xml` alternative and use it in wide screen
+ * @param hasWideScreenSupport - if should check existence of `.16.xml` alternative and use it in wide screen
  * @returns normalized xml form file path
  */
 export function resolveXmlFormPath(path: TPath, hasWideScreenSupport: boolean = false): TPath {
@@ -35,11 +35,7 @@ export function resolveXmlFormPath(path: TPath, hasWideScreenSupport: boolean = 
     }
   }
 
-  const resolved: TPath = canBeWide && getFS().exist(roots.gameConfig, "ui\\" + wideBase) ? wideBase : base + ".xml";
-
-  // logger.info("Resolved XML to:", resolved);
-
-  return resolved;
+  return canBeWide && getFS().exist(roots.gameConfig, "ui\\" + wideBase) ? wideBase : base + ".xml";
 }
 
 /**
@@ -47,10 +43,15 @@ export function resolveXmlFormPath(path: TPath, hasWideScreenSupport: boolean = 
  *
  * @param path - xml form file path
  * @param xml - target xml form initializer, or it will be created from empty
+ * @param hasWideScreenSupport - if should check existence of `.16.xml` alternative and use it in wide screen
  * @returns xml initialized based on provided path
  */
-export function resolveXmlFile(path: TPath, xml: XmlInit = new CScriptXmlInit()): XmlInit {
-  xml.ParseFile(resolveXmlFormPath(path));
+export function resolveXmlFile(
+  path: TPath,
+  xml: XmlInit = new CScriptXmlInit(),
+  hasWideScreenSupport: boolean = false
+): XmlInit {
+  xml.ParseFile(resolveXmlFormPath(path, hasWideScreenSupport));
 
   return xml;
 }

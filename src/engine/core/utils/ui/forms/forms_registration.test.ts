@@ -1,12 +1,20 @@
 import { describe, expect, it, jest } from "@jest/globals";
-import { CUIScriptWnd, CUIWindow, ui_events } from "xray16";
+import { CUIScriptWnd, CUIStatic, CUIWindow, ui_events } from "xray16";
 
-import { EElementType, initializeElement, initializeStatics } from "@/engine/core/utils/ui/forms";
+import { EElementType, initializeElement, initializeStatic, initializeStatics } from "@/engine/core/utils/ui/forms";
 import { XmlInit } from "@/engine/lib/types";
 import { MockCScriptXmlInit, MockCUIScriptWnd, MockCUIWindow } from "@/fixtures/xray";
 
 describe("forms_registration utils", () => {
-  it("registerStatics should correctly create statics as shortcut", () => {
+  it("initializeStatic should correctly create static as shortcut", () => {
+    const xml: XmlInit = MockCScriptXmlInit.mock();
+    const base: CUIWindow = MockCUIWindow.mock();
+
+    expect(initializeStatic(xml, base, "test_selector")).toBeInstanceOf(CUIStatic);
+    expect(xml.InitStatic).toHaveBeenCalledWith("test_selector", base);
+  });
+
+  it("initializeStatics should correctly create statics as shortcut", () => {
     const xml: XmlInit = MockCScriptXmlInit.mock();
     const base: CUIWindow = MockCUIWindow.mock();
 
