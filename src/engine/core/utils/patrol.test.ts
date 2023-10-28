@@ -1,14 +1,9 @@
 import { describe, expect, it, jest } from "@jest/globals";
 import { patrol } from "xray16";
 
-import { registerZone, registry } from "@/engine/core/database";
-import {
-  isObjectAtTerminalWaypoint,
-  isObjectAtWaypoint,
-  isPatrolInRestrictor,
-  isPatrolTeamSynchronized,
-} from "@/engine/core/utils/patrol";
-import { GameObject, Patrol, TNumberId, Vector } from "@/engine/lib/types";
+import { registerZone } from "@/engine/core/database";
+import { isObjectAtTerminalWaypoint, isObjectAtWaypoint, isPatrolInRestrictor } from "@/engine/core/utils/patrol";
+import { GameObject, Patrol, Vector } from "@/engine/lib/types";
 import { mockGameObject, patrols } from "@/fixtures/xray";
 
 describe("patrol utils", () => {
@@ -67,48 +62,6 @@ describe("patrol utils", () => {
       );
     expect(isPatrolInRestrictor("test_restrictor", "test_smart_sleep_1")).toBe(false);
     expect(isPatrolInRestrictor("test_restrictor", "test_smart_surge_1_walk")).toBe(true);
-  });
-
-  it("isPatrolTeamSynchronized should correctly check team sync state", () => {
-    const first: GameObject = mockGameObject();
-    const second: GameObject = mockGameObject();
-
-    expect(isPatrolTeamSynchronized(null)).toBe(true); // no team
-    expect(isPatrolTeamSynchronized("not_existing")).toBe(true);
-
-    registry.patrolSynchronization.set("empty", new LuaTable());
-    expect(isPatrolTeamSynchronized("empty")).toBe(true);
-
-    registry.patrolSynchronization.set(
-      "not_sync",
-      $fromObject<TNumberId, boolean>({ [first.id()]: false, [second.id()]: false })
-    );
-    expect(isPatrolTeamSynchronized("not_sync")).toBe(false);
-
-    registry.patrolSynchronization.set(
-      "partial_sync",
-      $fromObject<TNumberId, boolean>({ [first.id()]: false, [second.id()]: true })
-    );
-    expect(isPatrolTeamSynchronized("partial_sync")).toBe(false);
-
-    registry.patrolSynchronization.set(
-      "sync",
-      $fromObject<TNumberId, boolean>({ [first.id()]: true, [second.id()]: true })
-    );
-    expect(isPatrolTeamSynchronized("sync")).toBe(true);
-  });
-
-  it("isPatrolTeamSynchronized should correctly check team sync for dead/offline objects", () => {
-    const first: GameObject = mockGameObject({ alive: () => false });
-    const second: GameObject = mockGameObject();
-
-    registry.patrolSynchronization.set(
-      "not_sync_dead",
-      $fromObject<TNumberId, boolean>({ [first.id()]: false, [second.id()]: true, 1: false })
-    );
-    expect(isPatrolTeamSynchronized("not_sync_dead")).toBe(true);
-
-    expect(registry.patrolSynchronization.get("not_sync_dead")).toEqualLuaTables({ [second.id()]: true });
   });
 
   it.todo("choosePatrolWaypointByFlags should correctly choose points matching flags");

@@ -1,7 +1,7 @@
 import { LuabindClass, property_evaluator } from "xray16";
 
-import { registry } from "@/engine/core/database";
 import { ISchemePatrolState } from "@/engine/core/schemes/stalker/patrol";
+import { patrolConfig } from "@/engine/core/schemes/stalker/patrol/PatrolConfig";
 import { LuaLogger } from "@/engine/core/utils/logging";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -19,6 +19,6 @@ export class EvaluatorPatrolCommander extends property_evaluator {
   }
 
   public override evaluate(): boolean {
-    return registry.patrols.generic.get(this.state.patrolKey).isCommander(this.object.id());
+    return patrolConfig.PATROLS.get(this.state.patrolKey).isCommander(this.object.id());
   }
 }

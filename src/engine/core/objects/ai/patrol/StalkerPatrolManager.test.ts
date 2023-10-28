@@ -1,8 +1,8 @@
 import { describe, expect, it, jest } from "@jest/globals";
 import { callback } from "xray16";
 
-import { registry } from "@/engine/core/database";
-import { StalkerPatrolManager } from "@/engine/core/objects/ai/state/StalkerPatrolManager";
+import { patrolConfig } from "@/engine/core/objects/ai/patrol/PatrolConfig";
+import { StalkerPatrolManager } from "@/engine/core/objects/ai/patrol/StalkerPatrolManager";
 import { EGameObjectPath, GameObject } from "@/engine/lib/types";
 import { mockGameObject } from "@/fixtures/xray";
 
@@ -31,12 +31,12 @@ describe("StalkerPatrolManager class", () => {
     const manager: StalkerPatrolManager = new StalkerPatrolManager(object);
 
     manager.team = "some_team";
-    registry.patrolSynchronization.set("some_team", new LuaTable());
-    registry.patrolSynchronization.get("some_team").set(object.id(), true);
+    patrolConfig.PATROL_TEAMS.set("some_team", new LuaTable());
+    patrolConfig.PATROL_TEAMS.get("some_team").set(object.id(), true);
 
     manager.finalize();
     expect(object.set_path_type).toHaveBeenCalledWith(EGameObjectPath.LEVEL_PATH);
-    expect(registry.patrolSynchronization.get("some_team")).toEqualLuaTables({});
+    expect(patrolConfig.PATROL_TEAMS.get("some_team")).toEqualLuaTables({});
   });
 
   it.todo("should correctly reset");

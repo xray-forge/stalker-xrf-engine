@@ -1,5 +1,5 @@
+import { StalkerPatrolManager } from "@/engine/core/objects/ai/patrol/StalkerPatrolManager";
 import { ObjectRestrictionsManager } from "@/engine/core/objects/ai/restriction";
-import { StalkerPatrolManager } from "@/engine/core/objects/ai/state/StalkerPatrolManager";
 import { StalkerStateManager } from "@/engine/core/objects/ai/state/StalkerStateManager";
 import { IActionSchemeHearState } from "@/engine/core/schemes/shared/hear";
 import { ISchemePostCombatIdleState } from "@/engine/core/schemes/stalker/combat_idle/combat_idle_types";
@@ -158,7 +158,7 @@ export interface IRegistryObjectState extends Record<EScheme, Optional<IBaseSche
   portableStore: Optional<LuaTable<TName>>;
   /**
    * Patrol manager for stalker objects.
-   * Handles patrols selection/logics/waypoints etc.
+   * Handles patrol selection/logics/waypoints etc.
    */
   patrolManager: Optional<StalkerPatrolManager>;
   /**

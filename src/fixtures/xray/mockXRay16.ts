@@ -45,6 +45,7 @@ import {
 } from "@/fixtures/xray/mocks/interface";
 import { mocksConfig } from "@/fixtures/xray/mocks/MocksConfig";
 import { MockNoise } from "@/fixtures/xray/mocks/noise.mock";
+import { MockObject } from "@/fixtures/xray/mocks/object.mock";
 import {
   MockAlifeCreatureActor,
   MockAlifeDynamicObject,
@@ -228,6 +229,7 @@ export function mockXRay16({
   main_menu = mockMainMenuInterface,
   move = MockMove,
   noise = MockNoise,
+  object = MockObject,
   object_binder = MockObjectBinder,
   patrol = MockPatrol,
   physics_joint = MockPhysicsJoint,
@@ -359,6 +361,7 @@ export function mockXRay16({
     main_menu,
     move,
     noise,
+    object,
     object_binder,
     patrol,
     physics_joint,

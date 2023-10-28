@@ -1,6 +1,12 @@
+import type { ReachTaskPatrolManager } from "@/engine/core/schemes/stalker/reach_task/ReachTaskPatrolManager";
 import { createVector } from "@/engine/core/utils/vector";
+import { TNumberId } from "@/engine/lib/types";
 
 export const reachTaskConfig = {
+  // Period of reach task update throttling.
+  PATROL_UPDATE_PERIOD: 1000,
+  // todo: Delete patrol managers when finalize actions and no participants registered.
+  PATROLS: new LuaTable<TNumberId, ReachTaskPatrolManager>(),
   FORMATIONS: {
     back: [
       { dir: createVector(0.7, 0, -0.5), dist: 1.2 },

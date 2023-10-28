@@ -60,6 +60,7 @@ export function mockServerAlifeOnlineOfflineGroup(base: Partial<ServerGroupObjec
   return mockServerAlifeDynamicObject({
     ...base,
     clsid: () => mockClsid.online_offline_group_s,
+    commander_id: jest.fn(() => null),
     assignSmartTerrain: jest.fn(),
     update: jest.fn(),
     createSquadMembers: jest.fn(),

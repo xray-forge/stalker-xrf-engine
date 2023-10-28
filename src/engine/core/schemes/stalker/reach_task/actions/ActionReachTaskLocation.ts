@@ -1,23 +1,26 @@
-import { action_base, anim, clsid, level, look, LuabindClass, move, object, time_global } from "xray16";
+import { action_base, anim, level, look, LuabindClass, move, object, time_global } from "xray16";
 
 import { registry } from "@/engine/core/database";
 import { TSimulationObject } from "@/engine/core/managers/simulation";
 import { surgeConfig } from "@/engine/core/managers/surge/SurgeConfig";
+import { EPatrolFormation } from "@/engine/core/objects/ai/patrol";
 import { EStalkerState } from "@/engine/core/objects/animation/types";
 import { Squad } from "@/engine/core/objects/server/squad/Squad";
+import { reachTaskConfig } from "@/engine/core/schemes/stalker/reach_task/ReachTaskConfig";
 import { ReachTaskPatrolManager } from "@/engine/core/schemes/stalker/reach_task/ReachTaskPatrolManager";
+import { updateObjectReachTaskMovement } from "@/engine/core/schemes/stalker/reach_task/utils";
 import { isSquad } from "@/engine/core/utils/class_ids";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { sendToNearestAccessibleVertex } from "@/engine/core/utils/position";
 import { getObjectSquad } from "@/engine/core/utils/squad/squad_get";
-import { areSameVectors, createEmptyVector, createVector } from "@/engine/core/utils/vector";
+import { areSameVectors, createEmptyVector } from "@/engine/core/utils/vector";
+import { Z_VECTOR } from "@/engine/lib/constants/vectors";
 import {
   EGameObjectMovementType,
   EGameObjectPath,
   GameObject,
   ISchemeEventHandler,
   Optional,
-  TName,
   TNumberId,
   TTimestamp,
   Vector,
@@ -34,17 +37,16 @@ const logger: LuaLogger = new LuaLogger($filename);
 export class ActionReachTaskLocation extends action_base implements ISchemeEventHandler {
   public nextUpdateAt: TTimestamp = 0;
 
+  public patrolManager!: ReachTaskPatrolManager;
+
+  public currentState: EStalkerState = EStalkerState.PATROL;
+  public formation: EPatrolFormation = EPatrolFormation.BACK;
+
   public reachTargetId!: TNumberId;
   public squadId!: TNumberId;
-
-  public currentState!: EStalkerState;
-  public formation!: TName;
-
-  public levelVertexId!: TNumberId;
-  public direction!: Vector;
-  public distance!: TNumberId;
-
-  public patrolManager: Optional<ReachTaskPatrolManager> = null;
+  public levelVertexId: TNumberId = -1;
+  public direction: Vector = Z_VECTOR;
+  public distance: TNumberId = 0;
 
   public constructor() {
     super(null, ActionReachTaskLocation.__name);
@@ -56,41 +58,42 @@ export class ActionReachTaskLocation extends action_base implements ISchemeEvent
   public override initialize(): void {
     super.initialize();
 
-    const objectSquad: Squad = getObjectSquad(this.object)!;
+    const gameObject: GameObject = this.object;
+    const objectSquad: Squad = getObjectSquad(gameObject) as Squad;
+    const reachTarget: TSimulationObject = registry.simulator.object(
+      objectSquad.assignedTargetId as TNumberId
+    ) as TSimulationObject;
 
-    logger.info("Start reach location action:", objectSquad.name(), this.object.name(), objectSquad.assignedTargetId);
+    logger.info("Start reach location action:", objectSquad.name(), gameObject.name(), objectSquad.assignedTargetId);
 
     this.reachTargetId = objectSquad.assignedTargetId!;
     this.squadId = objectSquad.id;
     this.currentState = EStalkerState.PATROL;
-    this.formation = "back";
+    this.formation = EPatrolFormation.BACK;
     this.levelVertexId = -1;
     this.distance = 0;
-    this.direction = createVector(0, 0, 1);
-    this.nextUpdateAt = time_global() + 1000;
+    this.direction = Z_VECTOR;
+    this.nextUpdateAt = time_global() + 1000; // todo: should be 0 for instant update reset?
 
-    this.object.set_desired_direction();
-    this.object.set_movement_selection_type(EGameObjectMovementType.MASK);
-    this.object.set_item(object.idle, this.object.best_weapon());
-    this.object.set_body_state(move.standing);
-    this.object.set_detail_path_type(move.line);
-    this.object.set_mental_state(anim.free);
-    this.object.set_movement_type(move.walk);
-
-    const reachTarget: TSimulationObject = registry.simulator.object(this.reachTargetId)!;
-
-    this.object.set_dest_game_vertex_id(reachTarget.m_game_vertex_id);
-    this.object.set_path_type(EGameObjectPath.GAME_PATH);
-    this.object.inactualize_patrol_path();
-    this.object.set_sight(look.path_dir, null, 0);
+    gameObject.set_desired_direction();
+    gameObject.set_movement_selection_type(EGameObjectMovementType.MASK);
+    gameObject.set_item(object.idle, gameObject.best_weapon());
+    gameObject.set_body_state(move.standing);
+    gameObject.set_detail_path_type(move.line);
+    gameObject.set_mental_state(anim.free);
+    gameObject.set_movement_type(move.walk);
+    gameObject.set_dest_game_vertex_id(reachTarget.m_game_vertex_id);
+    gameObject.set_path_type(EGameObjectPath.GAME_PATH);
+    gameObject.inactualize_patrol_path();
+    gameObject.set_sight(look.path_dir, null, 0);
 
     // Add to patrol init.
-    if (registry.patrols.reachTask.get(this.squadId) === null) {
-      registry.patrols.reachTask.set(this.squadId, new ReachTaskPatrolManager(this.squadId));
+    if (reachTaskConfig.PATROLS.get(this.squadId) === null) {
+      reachTaskConfig.PATROLS.set(this.squadId, new ReachTaskPatrolManager(this.squadId));
     }
 
-    this.patrolManager = registry.patrols.reachTask.get(objectSquad.id);
-    this.patrolManager.addObjectToPatrol(this.object);
+    this.patrolManager = reachTaskConfig.PATROLS.get(objectSquad.id);
+    this.patrolManager.addObjectToPatrol(gameObject);
   }
 
   /**
@@ -102,34 +105,32 @@ export class ActionReachTaskLocation extends action_base implements ISchemeEvent
     if (now < this.nextUpdateAt) {
       return;
     } else {
-      this.nextUpdateAt = now + 1000;
+      this.nextUpdateAt = now + reachTaskConfig.PATROL_UPDATE_PERIOD;
     }
 
-    const objectSquad: Squad = getObjectSquad(this.object) as Squad;
+    const squad: Squad = getObjectSquad(this.object) as Squad;
 
-    if (objectSquad.assignedTargetId !== this.reachTargetId) {
-      logger.info("Updating reach task target:", this.reachTargetId, "->", objectSquad.assignedTargetId, "$");
-
-      this.reachTargetId = objectSquad.assignedTargetId!;
+    if (squad.assignedTargetId !== this.reachTargetId) {
+      this.reachTargetId = squad.assignedTargetId!;
     }
 
-    let squadTarget: Optional<TSimulationObject> = registry.simulationObjects.get(objectSquad.assignedTargetId!);
+    let target: Optional<TSimulationObject> = registry.simulationObjects.get(squad.assignedTargetId!);
 
-    if (squadTarget === null && objectSquad.getLogicsScriptTarget() !== null) {
-      squadTarget = registry.simulator.object(objectSquad.assignedTargetId!);
+    if (target === null && squad.getLogicsScriptTarget() !== null) {
+      target = registry.simulator.object(squad.assignedTargetId!);
     }
 
-    if (this.object.id() === (getObjectSquad(this.object) as Squad).commander_id()) {
-      this.executeSquadCommander(objectSquad, squadTarget);
+    if (this.object.id() === squad.commander_id()) {
+      this.executeSquadCommander(squad, target);
     } else {
-      this.executeSquadSoldier(objectSquad, squadTarget);
+      this.executeSquadSoldier(squad, target);
     }
 
     super.execute();
   }
 
   /**
-   * todo: Description.
+   * Stop reaching target and clean up object state.
    */
   public override finalize(): void {
     super.finalize();
@@ -141,20 +142,20 @@ export class ActionReachTaskLocation extends action_base implements ISchemeEvent
   /**
    * todo: Description.
    */
-  public executeSquadCommander(squad: Squad, squadTarget: Optional<TSimulationObject>): void {
-    if (squadTarget !== null && !this.object.is_talking()) {
-      const gvi: TNumberId = squadTarget.m_game_vertex_id;
-      let lvi: TNumberId = squadTarget.m_level_vertex_id;
-      let position: Vector = squadTarget.position;
+  public executeSquadCommander(squad: Squad, target: Optional<TSimulationObject>): void {
+    if (target !== null && !this.object.is_talking()) {
+      const gvi: TNumberId = target.m_game_vertex_id;
+      let lvi: TNumberId = target.m_level_vertex_id;
+      let position: Vector = target.position;
 
       if (this.object.game_vertex_id() !== gvi) {
         this.object.set_path_type(EGameObjectPath.GAME_PATH);
         this.object.set_dest_game_vertex_id(gvi);
         this.object.set_sight(look.path_dir, null, 0);
 
-        updateObjectMovement(this.object, squadTarget);
+        updateObjectReachTaskMovement(this.object, target);
 
-        registry.patrols.reachTask.get(this.squadId).setObjectOrders(this.object, this.currentState, this.formation);
+        reachTaskConfig.PATROLS.get(this.squadId).setObjectOrders(this.object, this.currentState, this.formation);
 
         return;
       }
@@ -171,16 +172,16 @@ export class ActionReachTaskLocation extends action_base implements ISchemeEvent
       this.object.set_desired_position(position);
     }
 
-    updateObjectMovement(this.object, squadTarget);
+    updateObjectReachTaskMovement(this.object, target);
 
-    registry.patrols.reachTask.get(this.squadId).setObjectOrders(this.object, this.currentState, this.formation);
+    reachTaskConfig.PATROLS.get(this.squadId).setObjectOrders(this.object, this.currentState, this.formation);
   }
 
   /**
    * todo: Description.
    */
-  public executeSquadSoldier(objectSquad: Squad, squadTarget: Optional<TSimulationObject>): void {
-    const [lvi, direction, currentState] = registry.patrols.reachTask.get(this.squadId).getObjectOrders(this.object);
+  public executeSquadSoldier(squad: Squad, target: Optional<TSimulationObject>): void {
+    const [lvi, direction, currentState] = reachTaskConfig.PATROLS.get(this.squadId).getObjectOrders(this.object);
 
     this.direction = direction;
     this.currentState = currentState!;
@@ -195,9 +196,9 @@ export class ActionReachTaskLocation extends action_base implements ISchemeEvent
 
     this.object.set_path_type(EGameObjectPath.LEVEL_PATH);
 
-    if (squadTarget === null || isSquad(squadTarget) || surgeConfig.IS_STARTED) {
-      this.object.set_movement_type(level.object_by_id(objectSquad.commander_id())!.movement_type());
-      this.object.set_mental_state(level.object_by_id(objectSquad.commander_id())!.mental_state());
+    if (target === null || isSquad(target) || surgeConfig.IS_STARTED) {
+      this.object.set_movement_type(level.object_by_id(squad.commander_id())!.movement_type());
+      this.object.set_mental_state(level.object_by_id(squad.commander_id())!.mental_state());
 
       return;
     }
@@ -209,52 +210,36 @@ export class ActionReachTaskLocation extends action_base implements ISchemeEvent
       return;
     }
 
-    if (level.vertex_position(this.levelVertexId).distance_to_sqr(this.object.position()) > 25) {
-      this.object.set_movement_type(move.run);
-    } else {
-      this.object.set_movement_type(move.walk);
-    }
+    this.object.set_movement_type(
+      level.vertex_position(this.levelVertexId).distance_to_sqr(this.object.position()) > 25 ? move.run : move.walk
+    );
   }
 
   /**
-   * todo: Description.
+   * Handle object death.
+   * Unregister it from active patrol.
+   *
+   * @param object - target game object to switch
    */
   public onDeath(object: GameObject): void {
-    this.patrolManager?.removeObjectFromPatrol(object);
-  }
-
-  /**
-   * todo: Description.
-   */
-  public onSwitchOffline(object: GameObject): void {
-    this.patrolManager?.removeObjectFromPatrol(object);
-  }
-}
-
-/**
- * todo;
- */
-function updateObjectMovement(object: GameObject, target: Optional<TSimulationObject>): void {
-  if (target !== null && !object.is_talking()) {
-    if (surgeConfig.IS_STARTED) {
-      object.set_movement_type(move.run);
-      object.set_mental_state(anim.free);
-
+    if (!this.patrolManager) {
       return;
     }
 
-    if (target.clsid() === clsid.online_offline_group_s) {
-      object.set_movement_type(move.run);
-      if (target.position.distance_to_sqr(object.position()) <= 10_000) {
-        object.set_mental_state(anim.danger);
-      } else {
-        object.set_mental_state(anim.free);
-      }
-    } else {
-      object.set_movement_type(move.walk);
-      object.set_mental_state(anim.free);
+    this.patrolManager.removeObjectFromPatrol(object);
+  }
+
+  /**
+   * Handle object switching offline.
+   * Unregister it from active patrol.
+   *
+   * @param object - target game object to switch
+   */
+  public onSwitchOffline(object: GameObject): void {
+    if (!this.patrolManager) {
+      return;
     }
-  } else {
-    object.set_movement_type(move.stand);
+
+    this.patrolManager.removeObjectFromPatrol(object);
   }
 }
