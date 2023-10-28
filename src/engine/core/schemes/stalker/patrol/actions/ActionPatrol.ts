@@ -4,6 +4,7 @@ import { registry, setStalkerState } from "@/engine/core/database";
 import { StalkerPatrolManager } from "@/engine/core/objects/ai/state/StalkerPatrolManager";
 import { EStalkerState, EWaypointArrivalType } from "@/engine/core/objects/animation/types";
 import { ISchemePatrolState } from "@/engine/core/schemes/stalker/patrol";
+import { patrolConfig } from "@/engine/core/schemes/stalker/patrol/PatrolConfig";
 import { parseWaypointsData } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { sendToNearestAccessibleVertex } from "@/engine/core/utils/position";
@@ -92,7 +93,7 @@ export class ActionPatrol extends action_base implements ISchemeEventHandler {
 
     this.timeToUpdate = time_global() + 1000;
 
-    const [lvid, dir, currentState] = registry.patrols.generic.get(this.state.patrolKey).getObjectCommand(this.object);
+    const [lvid, dir, currentState] = patrolConfig.PATROLS.get(this.state.patrolKey).getObjectCommand(this.object);
 
     this.levelVertexId = lvid;
     this.dir = dir;
@@ -126,20 +127,20 @@ export class ActionPatrol extends action_base implements ISchemeEventHandler {
   /**
    * todo: Description.
    */
+  public deactivate(object: GameObject): void {
+    patrolConfig.PATROLS.get(this.state.patrolKey).removeObject(object);
+  }
+
+  /**
+   * todo: Description.
+   */
   public onProcessWaypoint(mode: EWaypointArrivalType, patrolRetVal: Optional<number>, index: TIndex): void {}
 
   /**
    * todo: Description.
    */
   public onDeath(object: GameObject): void {
-    registry.patrols.generic.get(this.state.patrolKey).removeObject(object);
-  }
-
-  /**
-   * todo: Description.
-   */
-  public deactivate(object: GameObject): void {
-    registry.patrols.generic.get(this.state.patrolKey).removeObject(object);
+    patrolConfig.PATROLS.get(this.state.patrolKey).removeObject(object);
   }
 
   /**

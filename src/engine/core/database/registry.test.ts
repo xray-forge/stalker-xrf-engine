@@ -4,7 +4,7 @@ import { registry } from "@/engine/core/database/registry";
 
 describe("registry storage", () => {
   it("storage to contain all fields", () => {
-    expect(Object.keys(registry)).toHaveLength(46);
+    expect(Object.keys(registry)).toHaveLength(45);
   });
 
   it("storage to initialize with correct data", () => {
@@ -58,7 +58,6 @@ describe("registry storage", () => {
     expect(registry.saveMarkers).toBeInstanceOf(LuaTable);
     expect(registry.signalLights).toBeInstanceOf(LuaTable);
     expect(registry.spawnedVertexes).toBeInstanceOf(LuaTable);
-    expect(registry.patrols).toEqualLuaTables({ generic: {}, reachTask: {} });
     expect(registry.patrolSynchronization).toBeInstanceOf(LuaTable);
     expect(registry.noCombatZones).toBeInstanceOf(LuaTable);
     expect(registry.noCombatSmartTerrains).toBeInstanceOf(LuaTable);

@@ -1,13 +1,13 @@
 import { world_property } from "xray16";
 
-import { registry } from "@/engine/core/database";
 import { EvaluatorSectionEnded } from "@/engine/core/objects/ai/planner/evaluators";
 import { AbstractScheme } from "@/engine/core/objects/ai/scheme";
 import { EActionId, EEvaluatorId } from "@/engine/core/objects/ai/types";
 import { Squad } from "@/engine/core/objects/server/squad/Squad";
 import { ActionCommander, ActionPatrol } from "@/engine/core/schemes/stalker/patrol/actions";
 import { EvaluatorPatrolCommander } from "@/engine/core/schemes/stalker/patrol/evaluators";
-import { ISchemePatrolState } from "@/engine/core/schemes/stalker/patrol/patrol_types";
+import { EPatrolFormation, ISchemePatrolState } from "@/engine/core/schemes/stalker/patrol/patrol_types";
+import { patrolConfig } from "@/engine/core/schemes/stalker/patrol/PatrolConfig";
 import { PatrolManager } from "@/engine/core/schemes/stalker/patrol/PatrolManager";
 import { abort } from "@/engine/core/utils/assertion";
 import { getConfigSwitchConditions, readIniBoolean, readIniString } from "@/engine/core/utils/ini";
@@ -51,7 +51,7 @@ export class SchemePatrol extends AbstractScheme {
     state.formation = readIniString(ini, section, "formation", false);
     state.silent = readIniBoolean(ini, section, "silent", false, false);
     if (state.formation === null) {
-      state.formation = "back";
+      state.formation = EPatrolFormation.BACK;
     }
 
     state.moveType = readIniString(ini, section, "move_type", false);
@@ -81,11 +81,11 @@ export class SchemePatrol extends AbstractScheme {
       state.patrolKey = state.patrolKey + tostring(squad.id);
     }
 
-    if (registry.patrols.generic.get(state.patrolKey) === null) {
-      registry.patrols.generic.set(state.patrolKey, new PatrolManager(state.pathName));
+    if (patrolConfig.PATROLS.get(state.patrolKey) === null) {
+      patrolConfig.PATROLS.set(state.patrolKey, new PatrolManager(state.pathName));
     }
 
-    registry.patrols.generic.get(state.patrolKey).addObject(object, state.commander);
+    patrolConfig.PATROLS.get(state.patrolKey).addObject(object, state.commander);
 
     return state;
   }

@@ -241,12 +241,6 @@ export const registry = {
    */
   spawnedVertexes: new LuaTable<TNumberId, TNumberId>(),
   /**
-   * List of active patrols and actions.
-   */
-  patrols: {
-    generic: new LuaTable<TStringId, PatrolManager>(),
-  },
-  /**
    * List of synchronization groups for game patrols.
    * Related to stalkers patrol manager.
    */

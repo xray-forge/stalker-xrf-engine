@@ -4,7 +4,8 @@ import { getStalkerState, registry } from "@/engine/core/database";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import { StalkerPatrolManager } from "@/engine/core/objects/ai/state/StalkerPatrolManager";
 import { EStalkerState, EWaypointArrivalType } from "@/engine/core/objects/animation/types";
-import { ISchemePatrolState } from "@/engine/core/schemes/stalker/patrol";
+import { EPatrolFormation, ISchemePatrolState } from "@/engine/core/schemes/stalker/patrol";
+import { patrolConfig } from "@/engine/core/schemes/stalker/patrol/PatrolConfig";
 import { parseWaypointsData } from "@/engine/core/utils/ini/ini_parse";
 import { GameObject, ISchemeEventHandler, Optional, TIndex } from "@/engine/lib/types";
 
@@ -61,9 +62,11 @@ export class ActionCommander extends action_base implements ISchemeEventHandler 
       { context: this, callback: this.onProcessPoint }
     );
 
-    registry.patrols.generic
-      .get(this.state.patrolKey)
-      .setObjectCommand(this.object, this.currentState, this.state.formation);
+    patrolConfig.PATROLS.get(this.state.patrolKey).setObjectCommand(
+      this.object,
+      this.currentState,
+      this.state.formation
+    );
   }
 
   /**
@@ -105,7 +108,7 @@ export class ActionCommander extends action_base implements ISchemeEventHandler 
       this.previousState = nextState;
     }
 
-    registry.patrols.generic.get(this.state.patrolKey).setObjectCommand(this.object, nextState, this.state.formation);
+    patrolConfig.PATROLS.get(this.state.patrolKey).setObjectCommand(this.object, nextState, this.state.formation);
   }
 
   /**
@@ -113,9 +116,11 @@ export class ActionCommander extends action_base implements ISchemeEventHandler 
    */
   public override finalize(): void {
     if (this.object.alive() === true) {
-      registry.patrols.generic
-        .get(this.state.patrolKey)
-        .setObjectCommand(this.object, EStalkerState.GUARD, this.state.formation);
+      patrolConfig.PATROLS.get(this.state.patrolKey).setObjectCommand(
+        this.object,
+        EStalkerState.GUARD,
+        this.state.formation
+      );
       this.patrolManager.finalize();
     }
 
@@ -126,14 +131,14 @@ export class ActionCommander extends action_base implements ISchemeEventHandler 
    * todo: Description.
    */
   public deactivate(object: GameObject): void {
-    registry.patrols.generic.get(this.state.patrolKey).removeObject(object);
+    patrolConfig.PATROLS.get(this.state.patrolKey).removeObject(object);
   }
 
   /**
    * todo: Description.
    */
   public onDeath(object: GameObject): void {
-    registry.patrols.generic.get(this.state.patrolKey).removeObject(object);
+    patrolConfig.PATROLS.get(this.state.patrolKey).removeObject(object);
   }
 
   /**
@@ -148,11 +153,11 @@ export class ActionCommander extends action_base implements ISchemeEventHandler 
    */
   public onProcessPoint(mode: EWaypointArrivalType, patrolRetVal: Optional<number>, index: TIndex): void {
     if (patrolRetVal === 0) {
-      this.state.formation = "line";
+      this.state.formation = EPatrolFormation.LINE;
     } else if (patrolRetVal === 1) {
-      this.state.formation = "around";
+      this.state.formation = EPatrolFormation.AROUND;
     } else if (patrolRetVal === 2) {
-      this.state.formation = "back";
+      this.state.formation = EPatrolFormation.BACK;
     }
   }
 }

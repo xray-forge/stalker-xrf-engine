@@ -10,7 +10,7 @@ export interface ISchemePatrolState extends IBaseSchemeState {
   pathName: string;
   pathWalk: string;
   pathLook: string;
-  formation: string;
+  formation: EPatrolFormation;
   silent: boolean;
   moveType: string;
   suggestedState: IPatrolSuggestedState;
@@ -19,4 +19,13 @@ export interface ISchemePatrolState extends IBaseSchemeState {
   pathLookInfo: Optional<LuaArray<IWaypointData>>;
   patrolKey: string;
   commander: boolean;
+}
+
+/**
+ * todo;
+ */
+export enum EPatrolFormation {
+  LINE = "line",
+  AROUND = "around",
+  BACK = "back",
 }

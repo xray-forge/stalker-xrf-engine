@@ -3,6 +3,7 @@ import { createVector } from "@/engine/core/utils/vector";
 import { TNumberId } from "@/engine/lib/types";
 
 export const reachTaskConfig = {
+  // todo: Delete patrol managers when finalize actions and no participants registered.
   PATROLS: new LuaTable<TNumberId, ReachTaskPatrolManager>(),
   FORMATIONS: {
     back: [
