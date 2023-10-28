@@ -12,7 +12,7 @@ import { ENotificationDirection, NotificationManager, TNotificationIcon } from "
 import { SleepManager } from "@/engine/core/managers/sleep/SleepManager";
 import { TaskManager } from "@/engine/core/managers/tasks";
 import { TreasureManager } from "@/engine/core/managers/treasures";
-import type { Squad } from "@/engine/core/objects/server/squad";
+import type { Squad } from "@/engine/core/objects/squad";
 import { objectPunchActor } from "@/engine/core/utils/action";
 import { abort, assert, assertDefined } from "@/engine/core/utils/assertion";
 import { extern } from "@/engine/core/utils/binding";

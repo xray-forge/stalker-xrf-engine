@@ -1,5 +1,5 @@
+import { AbstractScheme } from "@/engine/core/ai/scheme/AbstractScheme";
 import { getMonsterState } from "@/engine/core/database";
-import { AbstractScheme } from "@/engine/core/objects/ai/scheme/AbstractScheme";
 import { ISchemeMobHomeState } from "@/engine/core/schemes/monster/mob_home/mob_home_types";
 import { MobHomeManager } from "@/engine/core/schemes/monster/mob_home/MobHomeManager";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini/ini_config";

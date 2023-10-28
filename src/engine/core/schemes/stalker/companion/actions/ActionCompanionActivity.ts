@@ -1,7 +1,7 @@
 import { action_base, level, LuabindClass, time_global } from "xray16";
 
+import { EStalkerState, ILookTargetDescriptor } from "@/engine/core/animation/types";
 import { registry, setStalkerState } from "@/engine/core/database";
-import { EStalkerState, ILookTargetDescriptor } from "@/engine/core/objects/animation/types";
 import { ISchemeCompanionState } from "@/engine/core/schemes/stalker/companion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { vectorRotateY } from "@/engine/core/utils/vector";

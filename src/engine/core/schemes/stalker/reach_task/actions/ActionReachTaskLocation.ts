@@ -1,11 +1,11 @@
 import { action_base, anim, level, look, LuabindClass, move, object, time_global } from "xray16";
 
+import { EPatrolFormation } from "@/engine/core/ai/patrol";
+import { EStalkerState } from "@/engine/core/animation/types";
 import { registry } from "@/engine/core/database";
 import { TSimulationObject } from "@/engine/core/managers/simulation";
 import { surgeConfig } from "@/engine/core/managers/surge/SurgeConfig";
-import { EPatrolFormation } from "@/engine/core/objects/ai/patrol";
-import { EStalkerState } from "@/engine/core/objects/animation/types";
-import { Squad } from "@/engine/core/objects/server/squad/Squad";
+import { Squad } from "@/engine/core/objects/squad/Squad";
 import { reachTaskConfig } from "@/engine/core/schemes/stalker/reach_task/ReachTaskConfig";
 import { ReachTaskPatrolManager } from "@/engine/core/schemes/stalker/reach_task/ReachTaskPatrolManager";
 import { updateObjectReachTaskMovement } from "@/engine/core/schemes/stalker/reach_task/utils";

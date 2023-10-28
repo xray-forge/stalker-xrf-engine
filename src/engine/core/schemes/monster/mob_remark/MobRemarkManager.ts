@@ -1,8 +1,8 @@
 import { anim, cond } from "xray16";
 
+import { AbstractSchemeManager } from "@/engine/core/ai/scheme";
 import { registry, setMonsterState } from "@/engine/core/database";
 import { NotificationManager } from "@/engine/core/managers/notifications";
-import { AbstractSchemeManager } from "@/engine/core/objects/ai/scheme";
 import { ISchemeMobRemarkState } from "@/engine/core/schemes/monster/mob_remark/mob_remark_types";
 import { parseStringsList, pickSectionFromCondList } from "@/engine/core/utils/ini";
 import { scriptCaptureMonster, scriptCommandMonster } from "@/engine/core/utils/scheme";

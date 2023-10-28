@@ -3,7 +3,7 @@ import { AbstractManager } from "@/engine/core/managers/base/AbstractManager";
 import { IItemDropAmountDescriptor } from "@/engine/core/managers/drop/drop_types";
 import { DROP_MANAGER_CONFIG_LTX, dropConfig } from "@/engine/core/managers/drop/DropConfig";
 import { readIniDropCountByLevel } from "@/engine/core/managers/drop/utils";
-import { Stalker } from "@/engine/core/objects/server/creature/Stalker";
+import { Stalker } from "@/engine/core/objects/creature/Stalker";
 import { abort } from "@/engine/core/utils/assertion";
 import { isArtefact, isGrenade, isWeapon } from "@/engine/core/utils/class_ids";
 import { getObjectCommunity } from "@/engine/core/utils/community";

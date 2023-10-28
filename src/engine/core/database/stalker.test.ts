@@ -1,6 +1,9 @@
 import { describe, expect, it, jest } from "@jest/globals";
 import { anim, move } from "xray16";
 
+import { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
+import { EStalkerState } from "@/engine/core/animation/types/state_types";
+import { StalkerBinder } from "@/engine/core/binders/creature/StalkerBinder";
 import { registry } from "@/engine/core/database/registry";
 import {
   getStalkerState,
@@ -9,9 +12,6 @@ import {
   setStalkerState,
   unregisterStalker,
 } from "@/engine/core/database/stalker";
-import { StalkerStateManager } from "@/engine/core/objects/ai/state/StalkerStateManager";
-import { EStalkerState } from "@/engine/core/objects/animation/types/state_types";
-import { StalkerBinder } from "@/engine/core/objects/binders/creature/StalkerBinder";
 import { createEmptyVector } from "@/engine/core/utils/vector";
 import { mockGameObject } from "@/fixtures/xray";
 

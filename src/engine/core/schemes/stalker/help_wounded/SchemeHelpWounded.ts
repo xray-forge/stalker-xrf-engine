@@ -1,8 +1,8 @@
 import { world_property } from "xray16";
 
+import { AbstractScheme } from "@/engine/core/ai/scheme";
+import { EActionId, EEvaluatorId } from "@/engine/core/ai/types";
 import { IRegistryObjectState } from "@/engine/core/database";
-import { AbstractScheme } from "@/engine/core/objects/ai/scheme";
-import { EActionId, EEvaluatorId } from "@/engine/core/objects/ai/types";
 import { ActionHelpWounded } from "@/engine/core/schemes/stalker/help_wounded/actions";
 import { EvaluatorWoundedExist } from "@/engine/core/schemes/stalker/help_wounded/evaluators";
 import { ISchemeHelpWoundedState } from "@/engine/core/schemes/stalker/help_wounded/help_wounded_types";

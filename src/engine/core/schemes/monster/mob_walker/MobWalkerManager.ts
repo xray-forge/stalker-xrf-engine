@@ -1,7 +1,7 @@
 import { anim, cond, look, move, patrol, sound } from "xray16";
 
+import { AbstractSchemeManager } from "@/engine/core/ai/scheme";
 import { registry, setMonsterState } from "@/engine/core/database";
-import { AbstractSchemeManager } from "@/engine/core/objects/ai/scheme";
 import { EMobWalkerState, ISchemeMobWalkerState } from "@/engine/core/schemes/monster/mob_walker/mob_walker_types";
 import { mobWalkerConfig } from "@/engine/core/schemes/monster/mob_walker/MobWalkerConfig";
 import { abort } from "@/engine/core/utils/assertion";

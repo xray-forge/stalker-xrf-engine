@@ -1,7 +1,7 @@
 import { level, particles_object, patrol } from "xray16";
 
 import { getObjectIdByStoryId, getServerObjectByStoryId, registry, resetStalkerState } from "@/engine/core/database";
-import { Squad } from "@/engine/core/objects/server/squad";
+import { Squad } from "@/engine/core/objects/squad";
 import { abort, assertDefined } from "@/engine/core/utils/assertion";
 import { extern } from "@/engine/core/utils/binding";
 import { LuaLogger } from "@/engine/core/utils/logging";

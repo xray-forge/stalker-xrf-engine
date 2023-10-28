@@ -1,5 +1,5 @@
+import { AbstractSchemeManager } from "@/engine/core/ai/scheme";
 import { registry } from "@/engine/core/database";
-import { AbstractSchemeManager } from "@/engine/core/objects/ai/scheme";
 import { ISchemeMobCombatState } from "@/engine/core/schemes/monster/mob_combat/mob_combat_types";
 import { trySwitchToAnotherSection } from "@/engine/core/utils/scheme/scheme_switch";
 

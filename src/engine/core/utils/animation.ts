@@ -1,4 +1,4 @@
-import { TAnimationSequenceElement, TAnimationSequenceElements } from "@/engine/core/objects/animation/types";
+import { TAnimationSequenceElement, TAnimationSequenceElements } from "@/engine/core/animation/types";
 import { LuaArray, Optional } from "@/engine/lib/types";
 
 /**

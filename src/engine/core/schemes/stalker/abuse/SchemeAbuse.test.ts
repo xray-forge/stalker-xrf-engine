@@ -1,7 +1,7 @@
 import { describe, expect, it } from "@jest/globals";
 
+import { EActionId, EEvaluatorId } from "@/engine/core/ai/types";
 import { registerObject } from "@/engine/core/database";
-import { EActionId, EEvaluatorId } from "@/engine/core/objects/ai/types";
 import { ISchemeAbuseState } from "@/engine/core/schemes/stalker/abuse/abuse_types";
 import { AbuseManager } from "@/engine/core/schemes/stalker/abuse/AbuseManager";
 import { ActionAbuseHit } from "@/engine/core/schemes/stalker/abuse/actions";

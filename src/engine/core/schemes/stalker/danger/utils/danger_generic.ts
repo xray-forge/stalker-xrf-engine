@@ -2,8 +2,8 @@ import { danger_object } from "xray16";
 
 import { ILogicsOverrides, IRegistryObjectState, registry } from "@/engine/core/database";
 import { SimulationBoardManager } from "@/engine/core/managers/simulation/SimulationBoardManager";
-import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain";
-import { ESmartTerrainStatus } from "@/engine/core/objects/server/smart_terrain/smart_terrain_types";
+import { SmartTerrain } from "@/engine/core/objects/smart_terrain";
+import { ESmartTerrainStatus } from "@/engine/core/objects/smart_terrain/smart_terrain_types";
 import { ISchemeCombatIgnoreState } from "@/engine/core/schemes/stalker/combat_ignore";
 import { dangerConfig } from "@/engine/core/schemes/stalker/danger/DangerConfig";
 import { getObjectCommunity } from "@/engine/core/utils/community";

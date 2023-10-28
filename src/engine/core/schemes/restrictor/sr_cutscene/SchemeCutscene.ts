@@ -1,4 +1,4 @@
-import { AbstractScheme } from "@/engine/core/objects/ai/scheme";
+import { AbstractScheme } from "@/engine/core/ai/scheme";
 import { CutsceneManager } from "@/engine/core/schemes/restrictor/sr_cutscene/CutsceneManager";
 import { ISchemeCutsceneState } from "@/engine/core/schemes/restrictor/sr_cutscene/sr_cutscene_types";
 import { getConfigSwitchConditions, parseStringsList } from "@/engine/core/utils/ini";

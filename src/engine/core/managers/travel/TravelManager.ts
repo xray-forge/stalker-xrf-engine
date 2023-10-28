@@ -10,9 +10,9 @@ import { SimulationBoardManager } from "@/engine/core/managers/simulation/Simula
 import { surgeConfig } from "@/engine/core/managers/surge/SurgeConfig";
 import { ITravelRouteDescriptor } from "@/engine/core/managers/travel/travel_types";
 import { travelConfig } from "@/engine/core/managers/travel/TravelConfig";
-import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain/SmartTerrain";
-import type { Squad } from "@/engine/core/objects/server/squad/Squad";
-import { ESquadActionType } from "@/engine/core/objects/server/squad/squad_types";
+import { SmartTerrain } from "@/engine/core/objects/smart_terrain/SmartTerrain";
+import type { Squad } from "@/engine/core/objects/squad/Squad";
+import { ESquadActionType } from "@/engine/core/objects/squad/squad_types";
 import { abort } from "@/engine/core/utils/assertion";
 import { isSmartTerrain, isSquad } from "@/engine/core/utils/class_ids";
 import { getObjectCommunity } from "@/engine/core/utils/community";

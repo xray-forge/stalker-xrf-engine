@@ -1,5 +1,6 @@
 import { time_global } from "xray16";
 
+import { TAnimationSequenceElement } from "@/engine/core/animation/types";
 import {
   closeLoadMarker,
   closeSaveMarker,
@@ -11,7 +12,6 @@ import {
 import { AbstractManager } from "@/engine/core/managers/base/AbstractManager";
 import { ITradeManagerDescriptor } from "@/engine/core/managers/trade/trade_types";
 import { tradeConfig } from "@/engine/core/managers/trade/TradeConfig";
-import { TAnimationSequenceElement } from "@/engine/core/objects/animation/types";
 import { abort, assertNonEmptyString } from "@/engine/core/utils/assertion";
 import { parseConditionsList, pickSectionFromCondList, readIniNumber, readIniString } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";

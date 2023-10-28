@@ -1,8 +1,8 @@
 import { get_hud, level } from "xray16";
 
+import { AbstractSchemeManager } from "@/engine/core/ai/scheme";
 import { getPortableStoreValue, registry, setPortableStoreValue } from "@/engine/core/database";
 import { PsyAntennaManager } from "@/engine/core/managers/psy/PsyAntennaManager";
-import { AbstractSchemeManager } from "@/engine/core/objects/ai/scheme";
 import {
   EAntennaState,
   ISchemePsyAntennaState,

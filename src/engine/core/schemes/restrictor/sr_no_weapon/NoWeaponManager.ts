@@ -1,6 +1,6 @@
+import { AbstractSchemeManager } from "@/engine/core/ai/scheme";
 import { registry } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
-import { AbstractSchemeManager } from "@/engine/core/objects/ai/scheme";
 import {
   EActorZoneState,
   ISchemeNoWeaponState,

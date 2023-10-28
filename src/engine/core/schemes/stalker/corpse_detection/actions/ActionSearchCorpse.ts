@@ -1,8 +1,8 @@
 import { action_base, LuabindClass } from "xray16";
 
+import { EStalkerState } from "@/engine/core/animation/types";
 import { getStalkerState, setStalkerState } from "@/engine/core/database";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
-import { EStalkerState } from "@/engine/core/objects/animation/types";
 import { ISchemeCorpseDetectionState } from "@/engine/core/schemes/stalker/corpse_detection/corpse_detection_types";
 import { freeSelectedLootedObjectSpot } from "@/engine/core/schemes/stalker/corpse_detection/utils";
 import { LuaLogger } from "@/engine/core/utils/logging";

@@ -1,5 +1,6 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 
+import { TAbstractSchemeConstructor } from "@/engine/core/ai/scheme";
 import {
   CUSTOM_DATA,
   IRegistryObjectState,
@@ -8,8 +9,7 @@ import {
   registerSimulator,
   registry,
 } from "@/engine/core/database";
-import { TAbstractSchemeConstructor } from "@/engine/core/objects/ai/scheme";
-import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain";
+import { SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import { SchemeMobCombat } from "@/engine/core/schemes/monster/mob_combat";
 import { SchemeHear } from "@/engine/core/schemes/shared/hear";
 import { SchemeAbuse } from "@/engine/core/schemes/stalker/abuse";

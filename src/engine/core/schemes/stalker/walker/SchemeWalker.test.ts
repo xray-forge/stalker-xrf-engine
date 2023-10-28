@@ -1,8 +1,8 @@
 import { describe, expect, it } from "@jest/globals";
 
+import { EvaluatorSectionActive } from "@/engine/core/ai/planner/evaluators/EvaluatorSectionActive";
+import { EActionId, EEvaluatorId } from "@/engine/core/ai/types";
 import { registerObject } from "@/engine/core/database";
-import { EvaluatorSectionActive } from "@/engine/core/objects/ai/planner/evaluators/EvaluatorSectionActive";
-import { EActionId, EEvaluatorId } from "@/engine/core/objects/ai/types";
 import { ActionWalkerActivity } from "@/engine/core/schemes/stalker/walker/actions";
 import { SchemeWalker } from "@/engine/core/schemes/stalker/walker/SchemeWalker";
 import { ISchemeWalkerState } from "@/engine/core/schemes/stalker/walker/walker_types";

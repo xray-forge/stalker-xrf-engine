@@ -1,12 +1,12 @@
 import { time_global } from "xray16";
 
+import { WEAPON_POSTFIX } from "@/engine/core/animation/types";
 import { IBaseSchemeState, IRegistryObjectState, registry } from "@/engine/core/database";
 import { CAMP_ACTIVITIES } from "@/engine/core/managers/camp/camp_logic";
 import { EObjectCampActivity, EObjectCampRole, ICampObjectState } from "@/engine/core/managers/camp/camp_types";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import { soundsConfig } from "@/engine/core/managers/sounds/SoundsConfig";
 import { StoryManager } from "@/engine/core/managers/sounds/stories";
-import { WEAPON_POSTFIX } from "@/engine/core/objects/animation/types";
 import {
   IAnimpointActionDescriptor,
   ISchemeAnimpointState,

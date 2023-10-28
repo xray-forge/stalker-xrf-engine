@@ -1,5 +1,5 @@
+import { AbstractSchemeManager } from "@/engine/core/ai/scheme";
 import { registry } from "@/engine/core/database";
-import { AbstractSchemeManager } from "@/engine/core/objects/ai/scheme";
 import { ISchemeLightState } from "@/engine/core/schemes/restrictor/sr_light/sr_light_types";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { trySwitchToAnotherSection } from "@/engine/core/utils/scheme/scheme_switch";

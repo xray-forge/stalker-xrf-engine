@@ -1,5 +1,5 @@
 import { registry } from "@/engine/core/database";
-import type { Squad } from "@/engine/core/objects/server/squad";
+import type { Squad } from "@/engine/core/objects/squad";
 import { hasInfoPortion } from "@/engine/core/utils/info_portion";
 import { areObjectsOnSameLevel } from "@/engine/core/utils/position";
 import { getObjectSquad, getObjectSquadByObjectId } from "@/engine/core/utils/squad/squad_get";

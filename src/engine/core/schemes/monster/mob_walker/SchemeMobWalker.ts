@@ -1,5 +1,5 @@
+import { AbstractScheme } from "@/engine/core/ai/scheme";
 import { getMonsterState } from "@/engine/core/database";
-import { AbstractScheme } from "@/engine/core/objects/ai/scheme";
 import { ISchemeMobWalkerState } from "@/engine/core/schemes/monster/mob_walker/mob_walker_types";
 import { MobWalkerManager } from "@/engine/core/schemes/monster/mob_walker/MobWalkerManager";
 import { abort } from "@/engine/core/utils/assertion";

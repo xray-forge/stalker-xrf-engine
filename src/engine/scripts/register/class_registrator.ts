@@ -1,5 +1,5 @@
-import { Actor, Monster, Stalker } from "@/engine/core/objects/server/creature";
-import { Helicopter } from "@/engine/core/objects/server/Helicopter";
+import { Actor, Monster, Stalker } from "@/engine/core/objects/creature";
+import { Helicopter } from "@/engine/core/objects/Helicopter";
 import {
   InventoryBox,
   Item,
@@ -18,13 +18,13 @@ import {
   ItemWeaponMagazined,
   ItemWeaponMagazinedWGl,
   ItemWeaponShotgun,
-} from "@/engine/core/objects/server/item";
-import { LevelChanger } from "@/engine/core/objects/server/LevelChanger";
-import { ObjectHangingLamp, ObjectPhysic } from "@/engine/core/objects/server/physic";
-import { SmartCover } from "@/engine/core/objects/server/smart_cover";
-import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain";
-import { Squad } from "@/engine/core/objects/server/squad";
-import { ZoneAnomalous, ZoneRestrictor, ZoneTorrid, ZoneVisual } from "@/engine/core/objects/server/zone";
+} from "@/engine/core/objects/item";
+import { LevelChanger } from "@/engine/core/objects/LevelChanger";
+import { ObjectHangingLamp, ObjectPhysic } from "@/engine/core/objects/physic";
+import { SmartCover } from "@/engine/core/objects/smart_cover";
+import { SmartTerrain } from "@/engine/core/objects/smart_terrain";
+import { Squad } from "@/engine/core/objects/squad";
+import { ZoneAnomalous, ZoneRestrictor, ZoneTorrid, ZoneVisual } from "@/engine/core/objects/zone";
 import { MainMenu } from "@/engine/core/ui/menu";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { EConfigClassId, EGameObjectClass, EScriptClassId } from "@/engine/lib/constants/class_ids";

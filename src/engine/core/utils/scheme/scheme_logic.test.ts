@@ -1,6 +1,8 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { callback, clsid } from "xray16";
 
+import { ObjectRestrictionsManager } from "@/engine/core/ai/restriction";
+import { TAbstractSchemeConstructor } from "@/engine/core/ai/scheme";
 import {
   IBaseSchemeState,
   IRegistryObjectState,
@@ -12,9 +14,7 @@ import {
   registry,
 } from "@/engine/core/database";
 import { MapDisplayManager } from "@/engine/core/managers/map";
-import { ObjectRestrictionsManager } from "@/engine/core/objects/ai/restriction";
-import { TAbstractSchemeConstructor } from "@/engine/core/objects/ai/scheme";
-import { ISmartTerrainJobDescriptor, SmartTerrain } from "@/engine/core/objects/server/smart_terrain";
+import { ISmartTerrainJobDescriptor, SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import { SchemeMobCombat } from "@/engine/core/schemes/monster/mob_combat";
 import { SchemeMobDeath } from "@/engine/core/schemes/monster/mob_death";
 import { SchemePhysicalOnHit } from "@/engine/core/schemes/physical/ph_on_hit";

@@ -11,8 +11,8 @@ import {
 } from "@/engine/core/managers/simulation/simulation_preconditions";
 import { ESimulationRole, ISimulationActivityDescriptor } from "@/engine/core/managers/simulation/simulation_types";
 import { surgeConfig } from "@/engine/core/managers/surge/SurgeConfig";
-import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain";
-import { Squad } from "@/engine/core/objects/server/squad/Squad";
+import { SmartTerrain } from "@/engine/core/objects/smart_terrain";
+import { Squad } from "@/engine/core/objects/squad/Squad";
 import { hasInfoPortion } from "@/engine/core/utils/info_portion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getServerDistanceBetween } from "@/engine/core/utils/position";

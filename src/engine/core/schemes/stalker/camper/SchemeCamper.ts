@@ -1,8 +1,8 @@
 import { world_property } from "xray16";
 
-import { AbstractScheme } from "@/engine/core/objects/ai/scheme";
-import { EActionId, EEvaluatorId } from "@/engine/core/objects/ai/types";
-import { EStalkerState } from "@/engine/core/objects/animation/types";
+import { AbstractScheme } from "@/engine/core/ai/scheme";
+import { EActionId, EEvaluatorId } from "@/engine/core/ai/types";
+import { EStalkerState } from "@/engine/core/animation/types";
 import { ActionCloseCombat } from "@/engine/core/schemes/stalker/camper/actions";
 import { ISchemeCamperState } from "@/engine/core/schemes/stalker/camper/camper_types";
 import { camperConfig } from "@/engine/core/schemes/stalker/camper/CamperConfig";

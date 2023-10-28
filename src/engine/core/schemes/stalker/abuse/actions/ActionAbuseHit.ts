@@ -1,7 +1,7 @@
 import { action_base, LuabindClass } from "xray16";
 
+import { EStalkerState } from "@/engine/core/animation/types";
 import { setStalkerState } from "@/engine/core/database";
-import { EStalkerState } from "@/engine/core/objects/animation/types";
 import { ISchemeAbuseState } from "@/engine/core/schemes/stalker/abuse/abuse_types";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
 

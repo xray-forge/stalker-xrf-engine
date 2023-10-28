@@ -1,5 +1,5 @@
+import { AbstractScheme } from "@/engine/core/ai/scheme";
 import { IRegistryObjectState, registry } from "@/engine/core/database";
-import { AbstractScheme } from "@/engine/core/objects/ai/scheme";
 import { ISchemeCombatIgnoreState } from "@/engine/core/schemes/stalker/combat_ignore/combat_igore_types";
 import { CombatProcessEnemyManager } from "@/engine/core/schemes/stalker/combat_ignore/CombatProcessEnemyManager";
 import { LuaLogger } from "@/engine/core/utils/logging";

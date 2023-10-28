@@ -1,8 +1,8 @@
 import { world_property } from "xray16";
 
-import { EvaluatorSectionActive } from "@/engine/core/objects/ai/planner/evaluators/EvaluatorSectionActive";
-import { AbstractScheme } from "@/engine/core/objects/ai/scheme/AbstractScheme";
-import { EActionId, EEvaluatorId } from "@/engine/core/objects/ai/types";
+import { EvaluatorSectionActive } from "@/engine/core/ai/planner/evaluators/EvaluatorSectionActive";
+import { AbstractScheme } from "@/engine/core/ai/scheme/AbstractScheme";
+import { EActionId, EEvaluatorId } from "@/engine/core/ai/types";
 import { ActionSmartCoverActivity } from "@/engine/core/schemes/stalker/smartcover/actions";
 import { EvaluatorUseSmartCoverInCombat } from "@/engine/core/schemes/stalker/smartcover/evaluators";
 import { ISchemeSmartCoverState } from "@/engine/core/schemes/stalker/smartcover/smartcover_types";

@@ -1,7 +1,7 @@
 import { patrol, time_global } from "xray16";
 
+import { AbstractSchemeManager } from "@/engine/core/ai/scheme";
 import { registry } from "@/engine/core/database";
-import { AbstractSchemeManager } from "@/engine/core/objects/ai/scheme";
 import { crowSpawnerConfig } from "@/engine/core/schemes/restrictor/sr_crow_spawner/CrowSpawnerConfig";
 import { ISchemeCrowSpawnerState } from "@/engine/core/schemes/restrictor/sr_crow_spawner/sr_crow_spawner_types";
 import { LuaLogger } from "@/engine/core/utils/logging";

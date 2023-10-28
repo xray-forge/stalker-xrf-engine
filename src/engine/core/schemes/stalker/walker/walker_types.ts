@@ -1,5 +1,5 @@
+import type { EStalkerState, IPatrolSuggestedState } from "@/engine/core/animation/types";
 import type { IBaseSchemeState } from "@/engine/core/database/database_types";
-import type { EStalkerState, IPatrolSuggestedState } from "@/engine/core/objects/animation/types";
 import type { IAnimpointActionDescriptor } from "@/engine/core/schemes/stalker/animpoint/animpoint_types";
 import type { IWaypointData } from "@/engine/core/utils/ini/ini_types";
 import type { LuaArray, Optional, TName } from "@/engine/lib/types";

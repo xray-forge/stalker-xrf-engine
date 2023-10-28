@@ -1,7 +1,7 @@
 import { describe, expect, it } from "@jest/globals";
 
 import { registerActorServer, registerSimulator, registry } from "@/engine/core/database";
-import { Actor } from "@/engine/core/objects/server/creature";
+import { Actor } from "@/engine/core/objects/creature";
 import { isBlackScreen, isGameLevelChanging, isGameStarted } from "@/engine/core/utils/game/game_check";
 import { AlifeSimulator } from "@/engine/lib/types";
 import { MockDevice, mockServerAlifeCreatureActor } from "@/fixtures/xray";

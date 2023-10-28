@@ -1,7 +1,7 @@
 import { action_base, danger_object, LuabindClass, move, time_global } from "xray16";
 
+import { EStalkerState, ILookTargetDescriptor } from "@/engine/core/animation/types";
 import { setStalkerState } from "@/engine/core/database";
-import { EStalkerState, ILookTargetDescriptor } from "@/engine/core/objects/animation/types";
 import { EZombieCombatAction, ISchemeCombatState } from "@/engine/core/schemes/stalker/combat/combat_types";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { sendToNearestAccessibleVertex } from "@/engine/core/utils/position";

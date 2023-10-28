@@ -1,5 +1,5 @@
+import { AbstractScheme } from "@/engine/core/ai/scheme/AbstractScheme";
 import { registry } from "@/engine/core/database";
-import { AbstractScheme } from "@/engine/core/objects/ai/scheme/AbstractScheme";
 import { ISchemeHitState } from "@/engine/core/schemes/stalker/hit/hit_types";
 import { HitManager } from "@/engine/core/schemes/stalker/hit/HitManager";
 import { abort } from "@/engine/core/utils/assertion";

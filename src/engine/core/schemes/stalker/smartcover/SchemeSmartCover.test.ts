@@ -1,8 +1,8 @@
 import { describe, expect, it } from "@jest/globals";
 
+import { EvaluatorSectionActive } from "@/engine/core/ai/planner/evaluators/EvaluatorSectionActive";
+import { EActionId, EEvaluatorId } from "@/engine/core/ai/types";
 import { registerObject } from "@/engine/core/database";
-import { EvaluatorSectionActive } from "@/engine/core/objects/ai/planner/evaluators/EvaluatorSectionActive";
-import { EActionId, EEvaluatorId } from "@/engine/core/objects/ai/types";
 import { ActionSmartCoverActivity } from "@/engine/core/schemes/stalker/smartcover/actions";
 import { EvaluatorUseSmartCoverInCombat } from "@/engine/core/schemes/stalker/smartcover/evaluators";
 import { SchemeSmartCover } from "@/engine/core/schemes/stalker/smartcover/SchemeSmartCover";

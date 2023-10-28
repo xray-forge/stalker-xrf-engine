@@ -1,7 +1,7 @@
 import { CUIGameCustom, get_hud, time_global } from "xray16";
 
+import { AbstractSchemeManager } from "@/engine/core/ai/scheme";
 import { registry } from "@/engine/core/database";
-import { AbstractSchemeManager } from "@/engine/core/objects/ai/scheme";
 import { ETimerType, ISchemeTimerState } from "@/engine/core/schemes/restrictor/sr_timer/sr_timer_types";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/ini_config";
 import { LuaLogger } from "@/engine/core/utils/logging";

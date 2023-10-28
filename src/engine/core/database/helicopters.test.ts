@@ -1,5 +1,6 @@
 import { describe, expect, it } from "@jest/globals";
 
+import { HelicopterBinder } from "@/engine/core/binders/HelicopterBinder";
 import {
   registerHelicopter,
   registerHelicopterEnemy,
@@ -7,7 +8,6 @@ import {
   unregisterHelicopterEnemy,
 } from "@/engine/core/database/helicopters";
 import { registry } from "@/engine/core/database/registry";
-import { HelicopterBinder } from "@/engine/core/objects/binders/HelicopterBinder";
 import { GameObject, TIndex } from "@/engine/lib/types";
 import { mockGameObject, mockIniFile } from "@/fixtures/xray";
 

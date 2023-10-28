@@ -6,10 +6,9 @@ import {
   evaluateSimulationPriorityByDistance,
 } from "@/engine/core/managers/simulation/utils/simulation_priority";
 import { TName } from "@/engine/lib/types";
-import { mockLuaTable } from "@/fixtures/lua/mocks/LuaTable.mock";
-import { mockServerAlifeObject } from "@/fixtures/xray/mocks/objects/server/cse_alife_object.mock";
-import { mockSquad } from "@/fixtures/xray/mocks/objects/server/Squad.mock";
-import { MockVector } from "@/fixtures/xray/mocks/vector.mock";
+import { mockSquad } from "@/fixtures/engine";
+import { mockLuaTable } from "@/fixtures/lua";
+import { mockServerAlifeObject, MockVector } from "@/fixtures/xray";
 
 describe("alife utils", () => {
   beforeEach(() => registerSimulator());

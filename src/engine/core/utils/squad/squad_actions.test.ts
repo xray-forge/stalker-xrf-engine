@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 
 import { registerSimulator, registry } from "@/engine/core/database";
-import type { Squad } from "@/engine/core/objects/server/squad";
+import type { Squad } from "@/engine/core/objects/squad";
 import { giveInfoPortion } from "@/engine/core/utils/info_portion";
 import {
   canSquadHelpActor,

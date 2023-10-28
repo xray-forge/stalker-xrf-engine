@@ -1,5 +1,6 @@
 import { describe, expect, it } from "@jest/globals";
 
+import { AnomalyFieldBinder, AnomalyZoneBinder } from "@/engine/core/binders/zones";
 import {
   registerAnomalyField,
   registerAnomalyZone,
@@ -7,7 +8,6 @@ import {
   unregisterAnomalyZone,
 } from "@/engine/core/database/anomalies";
 import { registry } from "@/engine/core/database/registry";
-import { AnomalyFieldBinder, AnomalyZoneBinder } from "@/engine/core/objects/binders/zones";
 import { mockGameObject } from "@/fixtures/xray";
 
 describe("anomalies module of the database", () => {

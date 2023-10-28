@@ -1,5 +1,5 @@
 import { registry } from "@/engine/core/database";
-import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain";
+import { SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { isEmpty } from "@/engine/core/utils/table";
 import { Optional, TNumberId, ZoneCampfire } from "@/engine/lib/types";

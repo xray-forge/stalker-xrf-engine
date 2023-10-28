@@ -1,9 +1,9 @@
 import { action_base, hit, LuabindClass, time_global } from "xray16";
 
+import { EStalkerState } from "@/engine/core/animation/types";
 import { getPortableStoreValue, registry, setPortableStoreValue, setStalkerState } from "@/engine/core/database";
 import { registerWoundedObject, unRegisterWoundedObject } from "@/engine/core/database/wounded";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
-import { EStalkerState } from "@/engine/core/objects/animation/types";
 import { ISchemeWoundedState } from "@/engine/core/schemes/stalker/wounded";
 import { schemeWoundedConfig } from "@/engine/core/schemes/stalker/wounded/SchemeWoundedConfig";
 import { WoundManager } from "@/engine/core/schemes/stalker/wounded/WoundManager";

@@ -1,6 +1,6 @@
 import { time_global } from "xray16";
 
-import { AbstractSchemeManager } from "@/engine/core/objects/ai/scheme";
+import { AbstractSchemeManager } from "@/engine/core/ai/scheme";
 import { ISchemeOscillateState } from "@/engine/core/schemes/physical/ph_oscillate/ph_oscillate_types";
 import { createVector, vectorRotateY } from "@/engine/core/utils/vector";
 import { Optional, PhysicsJoint, TRate, TTimestamp, Vector } from "@/engine/lib/types";

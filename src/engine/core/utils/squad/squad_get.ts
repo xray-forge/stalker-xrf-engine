@@ -1,5 +1,5 @@
 import { registry } from "@/engine/core/database";
-import type { Squad } from "@/engine/core/objects/server/squad";
+import type { Squad } from "@/engine/core/objects/squad";
 import { MAX_U16 } from "@/engine/lib/constants/memory";
 import { AnyGameObject, GameObject, Optional, ServerCreatureObject, TNumberId } from "@/engine/lib/types";
 

@@ -1,8 +1,8 @@
 import { describe, expect, it } from "@jest/globals";
 
+import { EvaluatorSectionActive } from "@/engine/core/ai/planner/evaluators/EvaluatorSectionActive";
+import { EActionId, EEvaluatorId } from "@/engine/core/ai/types";
 import { registerObject } from "@/engine/core/database";
-import { EvaluatorSectionActive } from "@/engine/core/objects/ai/planner/evaluators/EvaluatorSectionActive";
-import { EActionId, EEvaluatorId } from "@/engine/core/objects/ai/types";
 import { ActionRemarkActivity } from "@/engine/core/schemes/stalker/remark/actions";
 import { ISchemeRemarkState } from "@/engine/core/schemes/stalker/remark/remark_types";
 import { SchemeRemark } from "@/engine/core/schemes/stalker/remark/SchemeRemark";

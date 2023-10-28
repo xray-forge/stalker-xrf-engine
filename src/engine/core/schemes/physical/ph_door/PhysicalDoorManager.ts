@@ -1,6 +1,6 @@
+import { AbstractSchemeManager } from "@/engine/core/ai/scheme";
 import { registry } from "@/engine/core/database";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
-import { AbstractSchemeManager } from "@/engine/core/objects/ai/scheme";
 import { ISchemePhysicalDoorState } from "@/engine/core/schemes/physical/ph_door/ph_door_types";
 import { abort } from "@/engine/core/utils/assertion";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/ini_config";

@@ -1,6 +1,7 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { time_global } from "xray16";
 
+import { StalkerStateManager } from "@/engine/core/ai/state";
 import {
   getPortableStoreValue,
   IRegistryObjectState,
@@ -11,7 +12,6 @@ import {
 } from "@/engine/core/database";
 import { registerWoundedObject } from "@/engine/core/database/wounded";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds";
-import { StalkerStateManager } from "@/engine/core/objects/ai/state";
 import { ISchemeWoundedState } from "@/engine/core/schemes/stalker/wounded";
 import { ActionWounded } from "@/engine/core/schemes/stalker/wounded/actions/ActionWounded";
 import { WoundManager } from "@/engine/core/schemes/stalker/wounded/WoundManager";

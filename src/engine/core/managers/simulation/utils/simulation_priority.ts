@@ -1,5 +1,5 @@
 import { TSimulationObject } from "@/engine/core/managers/simulation";
-import { Squad } from "@/engine/core/objects/server/squad";
+import { Squad } from "@/engine/core/objects/squad";
 import { areObjectsOnSameLevel, getServerDistanceBetween } from "@/engine/core/utils/position";
 import { Optional, ServerObject, TDistance, TRate } from "@/engine/lib/types";
 

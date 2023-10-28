@@ -9,8 +9,8 @@ import {
   registry,
 } from "@/engine/core/database";
 import { SimulationBoardManager } from "@/engine/core/managers/simulation/SimulationBoardManager";
-import { SmartTerrain, SmartTerrainControl } from "@/engine/core/objects/server/smart_terrain";
-import { ESmartTerrainStatus } from "@/engine/core/objects/server/smart_terrain/smart_terrain_types";
+import { SmartTerrain, SmartTerrainControl } from "@/engine/core/objects/smart_terrain";
+import { ESmartTerrainStatus } from "@/engine/core/objects/smart_terrain/smart_terrain_types";
 import { ISchemeCombatIgnoreState } from "@/engine/core/schemes/stalker/combat_ignore";
 import {
   canObjectSelectAsEnemy,

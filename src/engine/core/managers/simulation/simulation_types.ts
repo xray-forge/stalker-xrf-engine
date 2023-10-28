@@ -1,6 +1,6 @@
-import type { Actor } from "@/engine/core/objects/server/creature/Actor";
-import type { SmartTerrain } from "@/engine/core/objects/server/smart_terrain";
-import type { Squad } from "@/engine/core/objects/server/squad";
+import type { Actor } from "@/engine/core/objects/creature/Actor";
+import type { SmartTerrain } from "@/engine/core/objects/smart_terrain";
+import type { Squad } from "@/engine/core/objects/squad";
 import { TConditionList } from "@/engine/core/utils/ini";
 import { TCommunity } from "@/engine/lib/constants/communities";
 import { levels, TLevel } from "@/engine/lib/constants/levels";

@@ -1,4 +1,4 @@
-import { TAbstractSchemeConstructor } from "@/engine/core/objects/ai/scheme";
+import { TAbstractSchemeConstructor } from "@/engine/core/ai/scheme";
 import { SchemeHelicopterMove } from "@/engine/core/schemes/helicopter/heli_move";
 import { SchemeMobCombat } from "@/engine/core/schemes/monster/mob_combat";
 import { SchemeMobDeath } from "@/engine/core/schemes/monster/mob_death";

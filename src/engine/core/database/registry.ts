@@ -1,3 +1,5 @@
+import type { TAbstractSchemeConstructor } from "@/engine/core/ai/scheme";
+import type { AnomalyFieldBinder, AnomalyZoneBinder, LabX8DoorBinder, SignalLightBinder } from "@/engine/core/binders";
 import type {
   IDynamicSaveData,
   IRankDescriptor,
@@ -8,16 +10,9 @@ import type { AbstractManager, TAbstractCoreManagerConstructor } from "@/engine/
 import type { CampManager } from "@/engine/core/managers/camp";
 import type { TSimulationObject } from "@/engine/core/managers/simulation";
 import type { ITradeManagerDescriptor } from "@/engine/core/managers/trade";
-import type { TAbstractSchemeConstructor } from "@/engine/core/objects/ai/scheme";
-import type {
-  AnomalyFieldBinder,
-  AnomalyZoneBinder,
-  LabX8DoorBinder,
-  SignalLightBinder,
-} from "@/engine/core/objects/binders";
-import type { Actor } from "@/engine/core/objects/server/creature/Actor";
-import type { SmartCover } from "@/engine/core/objects/server/smart_cover";
-import type { SmartTerrain } from "@/engine/core/objects/server/smart_terrain";
+import type { Actor } from "@/engine/core/objects/creature/Actor";
+import type { SmartCover } from "@/engine/core/objects/smart_cover";
+import type { SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import type { LightManager } from "@/engine/core/schemes/restrictor/sr_light";
 import type { IExtensionsDescriptor } from "@/engine/core/utils/extensions";
 import type { TConditionList } from "@/engine/core/utils/ini/ini_types";

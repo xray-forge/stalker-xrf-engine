@@ -1,8 +1,8 @@
 import { describe, expect, it } from "@jest/globals";
 
+import { EvaluatorSectionEnded } from "@/engine/core/ai/planner/evaluators";
+import { EActionId, EEvaluatorId } from "@/engine/core/ai/types";
 import { registerObject } from "@/engine/core/database";
-import { EvaluatorSectionEnded } from "@/engine/core/objects/ai/planner/evaluators";
-import { EActionId, EEvaluatorId } from "@/engine/core/objects/ai/types";
 import { ActionCloseCombat } from "@/engine/core/schemes/stalker/camper/actions";
 import { ISchemeCamperState } from "@/engine/core/schemes/stalker/camper/camper_types";
 import { EvaluatorCloseCombat } from "@/engine/core/schemes/stalker/camper/evaluators";

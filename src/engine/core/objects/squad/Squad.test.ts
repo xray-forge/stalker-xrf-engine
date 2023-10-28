@@ -1,0 +1,27 @@
+import { describe, expect, it, jest } from "@jest/globals";
+
+import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
+import { Squad } from "@/engine/core/objects/squad/index";
+
+describe("Squad server object", () => {
+  it("should correctly emit lifecycle events", () => {
+    const eventsManager: EventsManager = EventsManager.getInstance();
+    const squad: Squad = new Squad("test-squad");
+
+    const onSquadRegister = jest.fn();
+    const onSquadUnregister = jest.fn();
+
+    eventsManager.registerCallback(EGameEvent.SQUAD_REGISTERED, onSquadRegister);
+    eventsManager.registerCallback(EGameEvent.SQUAD_UNREGISTERED, onSquadUnregister);
+
+    squad.on_register();
+
+    expect(onSquadRegister).toHaveBeenCalledWith(squad);
+    expect(onSquadUnregister).not.toHaveBeenCalled();
+
+    squad.on_unregister();
+
+    expect(onSquadRegister).toHaveBeenCalledWith(squad);
+    expect(onSquadUnregister).toHaveBeenCalledWith(squad);
+  });
+});

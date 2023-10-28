@@ -1,9 +1,9 @@
 import { cast_planner, relation_registry } from "xray16";
 
+import { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
+import { EActionId, EStateActionId } from "@/engine/core/ai/types";
 import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { AbstractManager } from "@/engine/core/managers/base/AbstractManager";
-import { StalkerStateManager } from "@/engine/core/objects/ai/state/StalkerStateManager";
-import { EActionId, EStateActionId } from "@/engine/core/objects/ai/types";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getNumberRelationBetweenCommunities } from "@/engine/core/utils/relation";
 import { gameTimeToString } from "@/engine/core/utils/time";

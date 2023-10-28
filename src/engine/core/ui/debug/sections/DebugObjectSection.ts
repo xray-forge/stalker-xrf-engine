@@ -2,7 +2,7 @@ import { CUI3tButton, CUICheckButton, CUIStatic, level, LuabindClass, ui_events 
 
 import { registry } from "@/engine/core/database";
 import { DebugManager } from "@/engine/core/managers/debug/DebugManager";
-import type { Squad } from "@/engine/core/objects/server/squad";
+import type { Squad } from "@/engine/core/objects/squad";
 import { AbstractDebugSection } from "@/engine/core/ui/debug/sections/AbstractDebugSection";
 import { isGameStarted } from "@/engine/core/utils/game";
 import { LuaLogger } from "@/engine/core/utils/logging";

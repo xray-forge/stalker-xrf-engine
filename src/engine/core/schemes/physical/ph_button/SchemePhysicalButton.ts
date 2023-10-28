@@ -1,4 +1,4 @@
-import { AbstractScheme } from "@/engine/core/objects/ai/scheme/AbstractScheme";
+import { AbstractScheme } from "@/engine/core/ai/scheme/AbstractScheme";
 import { ISchemePhysicalButtonState } from "@/engine/core/schemes/physical/ph_button/ph_button_types";
 import { PhysicalButtonManager } from "@/engine/core/schemes/physical/ph_button/PhysicalButtonManager";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini/ini_config";

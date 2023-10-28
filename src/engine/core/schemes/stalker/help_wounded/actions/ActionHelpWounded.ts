@@ -1,8 +1,8 @@
 import { action_base, LuabindClass } from "xray16";
 
+import { EStalkerState } from "@/engine/core/animation/types";
 import { getStalkerState, setStalkerState } from "@/engine/core/database";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
-import { EStalkerState } from "@/engine/core/objects/animation/types";
 import { ISchemeHelpWoundedState } from "@/engine/core/schemes/stalker/help_wounded/help_wounded_types";
 import { freeSelectedWoundedStalkerSpot } from "@/engine/core/schemes/stalker/help_wounded/utils";
 import { LuaLogger } from "@/engine/core/utils/logging";

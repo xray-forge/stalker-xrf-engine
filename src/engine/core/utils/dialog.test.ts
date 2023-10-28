@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 
+import { updateStalkerLogic } from "@/engine/core/binders";
 import { IRegistryObjectState, registerObject, registerSimulator, registry } from "@/engine/core/database";
-import { updateStalkerLogic } from "@/engine/core/objects/binders";
 import { ISchemeMeetState } from "@/engine/core/schemes/stalker/meet";
 import { MeetManager } from "@/engine/core/schemes/stalker/meet/MeetManager";
 import { updateObjectMeetAvailability } from "@/engine/core/schemes/stalker/meet/utils";
@@ -11,7 +11,7 @@ import { mockRegisteredActor, mockSchemeState, resetRegistry } from "@/fixtures/
 import { mockGameObject } from "@/fixtures/xray";
 
 jest.mock("@/engine/core/schemes/stalker/meet/utils", () => ({ updateObjectMeetAvailability: jest.fn() }));
-jest.mock("@/engine/core/objects/binders/creature/StalkerBinder", () => ({ updateStalkerLogic: jest.fn() }));
+jest.mock("@/engine/core/binders/creature/StalkerBinder", () => ({ updateStalkerLogic: jest.fn() }));
 
 describe("reward utils", () => {
   beforeEach(() => {

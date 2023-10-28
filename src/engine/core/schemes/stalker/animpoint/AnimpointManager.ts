@@ -1,15 +1,15 @@
 import { level } from "xray16";
 
-import { getCampZoneForPosition, registry } from "@/engine/core/database";
-import { CAMP_ACTIVITY_ANIMATION, CampManager, EObjectCampActivity } from "@/engine/core/managers/camp";
-import { AbstractSchemeManager } from "@/engine/core/objects/ai/scheme";
+import { AbstractSchemeManager } from "@/engine/core/ai/scheme";
 import {
   animpoint_predicates,
   animpointPredicateAlways,
-} from "@/engine/core/objects/animation/predicates/animpoint_predicates";
-import { states } from "@/engine/core/objects/animation/states";
-import { EStalkerState, WEAPON_POSTFIX } from "@/engine/core/objects/animation/types";
-import { SmartCover } from "@/engine/core/objects/server/smart_cover";
+} from "@/engine/core/animation/predicates/animpoint_predicates";
+import { states } from "@/engine/core/animation/states";
+import { EStalkerState, WEAPON_POSTFIX } from "@/engine/core/animation/types";
+import { getCampZoneForPosition, registry } from "@/engine/core/database";
+import { CAMP_ACTIVITY_ANIMATION, CampManager, EObjectCampActivity } from "@/engine/core/managers/camp";
+import { SmartCover } from "@/engine/core/objects/smart_cover";
 import {
   IAnimpointActionDescriptor,
   ISchemeAnimpointState,

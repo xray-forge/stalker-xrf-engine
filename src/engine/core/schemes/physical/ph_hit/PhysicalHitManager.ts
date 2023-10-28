@@ -1,6 +1,6 @@
 import { hit, patrol } from "xray16";
 
-import { AbstractSchemeManager } from "@/engine/core/objects/ai/scheme";
+import { AbstractSchemeManager } from "@/engine/core/ai/scheme";
 import { ISchemePhysicalHitState } from "@/engine/core/schemes/physical/ph_hit/ph_hit_types";
 import { trySwitchToAnotherSection } from "@/engine/core/utils/scheme/scheme_switch";
 import { copyVector } from "@/engine/core/utils/vector";

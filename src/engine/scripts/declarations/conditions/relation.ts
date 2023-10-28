@@ -1,5 +1,5 @@
 import { getServerObjectByStoryId, registry } from "@/engine/core/database";
-import { Squad } from "@/engine/core/objects/server/squad";
+import { Squad } from "@/engine/core/objects/squad";
 import { ISchemeDeathState } from "@/engine/core/schemes/stalker/death";
 import { abort } from "@/engine/core/utils/assertion";
 import { extern } from "@/engine/core/utils/binding";

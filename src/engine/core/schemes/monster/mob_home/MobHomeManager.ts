@@ -1,8 +1,8 @@
 import { patrol } from "xray16";
 
+import { AbstractSchemeManager } from "@/engine/core/ai/scheme";
 import { registry, setMonsterState } from "@/engine/core/database";
-import { AbstractSchemeManager } from "@/engine/core/objects/ai/scheme";
-import type { SmartTerrain } from "@/engine/core/objects/server/smart_terrain";
+import type { SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import { ISchemeMobHomeState } from "@/engine/core/schemes/monster/mob_home/mob_home_types";
 import { mobHomeConfig } from "@/engine/core/schemes/monster/mob_home/MobHomeConfig";
 import { assert } from "@/engine/core/utils/assertion";

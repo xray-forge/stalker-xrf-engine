@@ -1,5 +1,5 @@
+import { AbstractSchemeManager } from "@/engine/core/ai/scheme";
 import { registry } from "@/engine/core/database";
-import { AbstractSchemeManager } from "@/engine/core/objects/ai/scheme";
 import { ISchemeCodeState } from "@/engine/core/schemes/physical/ph_code/ph_code_types";
 import { NumPadWindow } from "@/engine/core/ui/game/NumPadWindow";
 import { TConditionList } from "@/engine/core/utils/ini";

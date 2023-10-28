@@ -1,8 +1,8 @@
 import { describe, expect, it } from "@jest/globals";
 
+import { LabX8DoorBinder } from "@/engine/core/binders/physic/LabX8DoorBinder";
 import { registerDoor, unregisterDoor } from "@/engine/core/database/doors";
 import { registry } from "@/engine/core/database/registry";
-import { LabX8DoorBinder } from "@/engine/core/objects/binders/physic/LabX8DoorBinder";
 import { mockGameObject } from "@/fixtures/xray";
 
 describe("doors module of the database", () => {

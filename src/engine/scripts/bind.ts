@@ -23,7 +23,7 @@ import {
   SmartTerrainBinder,
   StalkerBinder,
   WeaponBinder,
-} from "@/engine/core/objects/binders";
+} from "@/engine/core/binders";
 import { extern } from "@/engine/core/utils/binding";
 import { GameObject, IniFile, Optional } from "@/engine/lib/types";
 

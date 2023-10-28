@@ -8,7 +8,7 @@ import {
   TPRTTable,
 } from "@/engine/core/managers/dialogs";
 import { dialogConfig } from "@/engine/core/managers/dialogs/DialogConfig";
-import type { SmartTerrain } from "@/engine/core/objects/server/smart_terrain";
+import type { SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import { extern } from "@/engine/core/utils/binding";
 import { getObjectCommunity } from "@/engine/core/utils/community";
 import { getNpcSpeaker } from "@/engine/core/utils/dialog";

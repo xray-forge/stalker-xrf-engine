@@ -1,5 +1,5 @@
+import { EStalkerState } from "@/engine/core/animation/types";
 import type { IBaseSchemeState } from "@/engine/core/database/database_types";
-import { EStalkerState } from "@/engine/core/objects/animation/types";
 import { AnimpointManager } from "@/engine/core/schemes/stalker/animpoint/AnimpointManager";
 import { GameObject, LuaArray, Optional, TDistance, TName } from "@/engine/lib/types";
 

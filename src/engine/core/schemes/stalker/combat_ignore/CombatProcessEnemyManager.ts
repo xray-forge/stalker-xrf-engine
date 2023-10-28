@@ -1,6 +1,6 @@
+import { AbstractSchemeManager } from "@/engine/core/ai/scheme";
 import { ILogicsOverrides, registry } from "@/engine/core/database";
-import { AbstractSchemeManager } from "@/engine/core/objects/ai/scheme";
-import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain/SmartTerrain";
+import { SmartTerrain } from "@/engine/core/objects/smart_terrain/SmartTerrain";
 import { combatConfig } from "@/engine/core/schemes/stalker/combat/CombatConfig";
 import { ISchemeCombatIgnoreState } from "@/engine/core/schemes/stalker/combat_ignore/index";
 import { canObjectSelectAsEnemy } from "@/engine/core/schemes/stalker/danger/utils";

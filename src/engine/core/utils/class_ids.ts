@@ -2,9 +2,9 @@ import { clsid } from "xray16";
 
 import { SYSTEM_INI } from "@/engine/core/database/ini_registry";
 import { registry } from "@/engine/core/database/registry";
-import type { Stalker } from "@/engine/core/objects/server/creature";
-import type { SmartTerrain } from "@/engine/core/objects/server/smart_terrain";
-import type { Squad } from "@/engine/core/objects/server/squad";
+import type { Stalker } from "@/engine/core/objects/creature";
+import type { SmartTerrain } from "@/engine/core/objects/smart_terrain";
+import type { Squad } from "@/engine/core/objects/squad";
 import { classIds } from "@/engine/lib/constants/class_ids";
 import type {
   AnyGameObject,

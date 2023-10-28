@@ -1,5 +1,5 @@
+import { AbstractSchemeManager } from "@/engine/core/ai/scheme";
 import { IBaseSchemeLogic, IBaseSchemeState, IRegistryObjectState } from "@/engine/core/database";
-import { AbstractSchemeManager } from "@/engine/core/objects/ai/scheme";
 import { IConfigSwitchCondition, TConditionList } from "@/engine/core/utils/ini/ini_types";
 import { EScheme } from "@/engine/lib/types";
 import { MockLuaTable } from "@/fixtures/lua";

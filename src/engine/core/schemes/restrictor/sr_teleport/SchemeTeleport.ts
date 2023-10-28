@@ -1,4 +1,4 @@
-import { AbstractScheme } from "@/engine/core/objects/ai/scheme/AbstractScheme";
+import { AbstractScheme } from "@/engine/core/ai/scheme/AbstractScheme";
 import { ISchemeTeleportState, ITeleportPoint } from "@/engine/core/schemes/restrictor/sr_teleport/sr_teleport_types";
 import { TeleportManager } from "@/engine/core/schemes/restrictor/sr_teleport/TeleportManager";
 import { assert } from "@/engine/core/utils/assertion";

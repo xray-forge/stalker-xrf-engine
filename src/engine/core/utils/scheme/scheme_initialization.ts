@@ -9,7 +9,7 @@ import {
 } from "@/engine/core/database";
 import { TradeManager } from "@/engine/core/managers/trade/TradeManager";
 import { readObjectTradeIniPath } from "@/engine/core/managers/trade/utils/trade_init";
-import type { SmartTerrain } from "@/engine/core/objects/server/smart_terrain";
+import type { SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import { assert } from "@/engine/core/utils/assertion";
 import { readIniNumber, readIniString } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";

@@ -1,13 +1,13 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 
+import { SignalLightBinder } from "@/engine/core/binders";
 import { surgeConfig } from "@/engine/core/managers/surge/SurgeConfig";
 import {
   isImmuneToSurgeSquad,
   isSurgeEnabledOnLevel,
   launchSurgeSignalRockets,
 } from "@/engine/core/managers/surge/utils/surge_generic";
-import { SignalLightBinder } from "@/engine/core/objects/binders";
-import { Squad } from "@/engine/core/objects/server/squad";
+import { Squad } from "@/engine/core/objects/squad";
 import { communities } from "@/engine/lib/constants/communities";
 import { TName } from "@/engine/lib/types";
 import { mockRegisteredActor } from "@/fixtures/engine";

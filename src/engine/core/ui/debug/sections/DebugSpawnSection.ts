@@ -1,6 +1,6 @@
 import { CUI3tButton, CUIComboBox, CUIListBox, CUIWindow, LuabindClass, ui_events } from "xray16";
 
-import { Squad } from "@/engine/core/objects/server/squad";
+import { Squad } from "@/engine/core/objects/squad";
 import { AbstractDebugSection } from "@/engine/core/ui/debug/sections/AbstractDebugSection";
 import { DebugItemListEntry } from "@/engine/core/ui/debug/sections/DebugItemListEntry";
 import { isGameStarted } from "@/engine/core/utils/game";

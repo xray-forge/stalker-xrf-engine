@@ -7,7 +7,7 @@ import {
   unregisterActorServer,
 } from "@/engine/core/database/actor";
 import { registry } from "@/engine/core/database/registry";
-import { Actor } from "@/engine/core/objects/server/creature";
+import { Actor } from "@/engine/core/objects/creature";
 import { GameObject } from "@/engine/lib/types";
 import { mockGameObject } from "@/fixtures/xray";
 

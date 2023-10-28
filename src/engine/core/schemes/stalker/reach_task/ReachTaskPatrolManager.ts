@@ -1,9 +1,9 @@
 import { level } from "xray16";
 
+import { EPatrolFormation } from "@/engine/core/ai/patrol";
+import { EStalkerState } from "@/engine/core/animation/types";
 import { registry } from "@/engine/core/database/registry";
-import { EPatrolFormation } from "@/engine/core/objects/ai/patrol";
-import { EStalkerState } from "@/engine/core/objects/animation/types";
-import type { Squad } from "@/engine/core/objects/server/squad";
+import type { Squad } from "@/engine/core/objects/squad";
 import { reachTaskConfig } from "@/engine/core/schemes/stalker/reach_task/ReachTaskConfig";
 import { abort, assertDefined } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";

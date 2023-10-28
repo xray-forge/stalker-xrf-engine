@@ -1,5 +1,5 @@
+import { updateStalkerLogic } from "@/engine/core/binders";
 import { registry } from "@/engine/core/database";
-import { updateStalkerLogic } from "@/engine/core/objects/binders";
 import { ISchemeMeetState } from "@/engine/core/schemes/stalker/meet";
 import { updateObjectMeetAvailability } from "@/engine/core/schemes/stalker/meet/utils";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";

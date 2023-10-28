@@ -1,11 +1,11 @@
 import { action_base, LuabindClass } from "xray16";
 
+import { StalkerPatrolManager } from "@/engine/core/ai/patrol/StalkerPatrolManager";
+import { animpoint_predicates } from "@/engine/core/animation/predicates/animpoint_predicates";
+import { EStalkerState } from "@/engine/core/animation/types";
 import { getCampZoneForPosition, registry, setStalkerState } from "@/engine/core/database";
 import { CampManager } from "@/engine/core/managers/camp/CampManager";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
-import { StalkerPatrolManager } from "@/engine/core/objects/ai/patrol/StalkerPatrolManager";
-import { animpoint_predicates } from "@/engine/core/objects/animation/predicates/animpoint_predicates";
-import { EStalkerState } from "@/engine/core/objects/animation/types";
 import { IAnimpointActionDescriptor } from "@/engine/core/schemes/stalker/animpoint/animpoint_types";
 import { ISchemeWalkerState } from "@/engine/core/schemes/stalker/walker";
 import { parseWaypointsData } from "@/engine/core/utils/ini/ini_parse";

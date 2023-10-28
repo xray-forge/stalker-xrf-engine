@@ -1,7 +1,7 @@
 import { CCar, level, move, patrol, time_global } from "xray16";
 
+import { AbstractSchemeManager } from "@/engine/core/ai/scheme";
 import { getObjectByStoryId, IBaseSchemeLogic, registry } from "@/engine/core/database";
-import { AbstractSchemeManager } from "@/engine/core/objects/ai/scheme";
 import { minigunConfig } from "@/engine/core/schemes/physical/ph_minigun/MinigunConfig";
 import {
   EMinigunCannonState,

@@ -1,9 +1,9 @@
 /* eslint @typescript-eslint/explicit-function-return-type: "error" */
 
+import { AnomalyZoneBinder } from "@/engine/core/binders/zones/AnomalyZoneBinder";
 import { registry } from "@/engine/core/database";
 import { getPortableStoreValue } from "@/engine/core/database/portable_store";
 import { TreasureManager } from "@/engine/core/managers/treasures";
-import { AnomalyZoneBinder } from "@/engine/core/objects/binders/zones/AnomalyZoneBinder";
 import { extern, getExtern } from "@/engine/core/utils/binding";
 import { getNpcSpeaker, isObjectName } from "@/engine/core/utils/dialog";
 import { disableInfoPortion, giveInfoPortion, hasInfoPortion } from "@/engine/core/utils/info_portion";

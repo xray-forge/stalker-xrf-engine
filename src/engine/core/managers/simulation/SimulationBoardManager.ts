@@ -12,9 +12,9 @@ import {
 import { SIMULATION_LTX } from "@/engine/core/managers/simulation/SimulationConfig";
 import { evaluateSimulationPriority } from "@/engine/core/managers/simulation/utils";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
-import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain/SmartTerrain";
-import type { Squad } from "@/engine/core/objects/server/squad/Squad";
-import { ESquadActionType } from "@/engine/core/objects/server/squad/squad_types";
+import { SmartTerrain } from "@/engine/core/objects/smart_terrain/SmartTerrain";
+import type { Squad } from "@/engine/core/objects/squad/Squad";
+import { ESquadActionType } from "@/engine/core/objects/squad/squad_types";
 import { abort, assert } from "@/engine/core/utils/assertion";
 import { setObjectTeamSquadGroup } from "@/engine/core/utils/community";
 import { parseStringsList } from "@/engine/core/utils/ini";

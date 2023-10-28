@@ -1,9 +1,9 @@
 import { level, world_property } from "xray16";
 
-import { EvaluatorSectionActive } from "@/engine/core/objects/ai/planner/evaluators/EvaluatorSectionActive";
-import { AbstractScheme } from "@/engine/core/objects/ai/scheme";
-import { EActionId, EEvaluatorId } from "@/engine/core/objects/ai/types";
-import { EStalkerState } from "@/engine/core/objects/animation/types";
+import { EvaluatorSectionActive } from "@/engine/core/ai/planner/evaluators/EvaluatorSectionActive";
+import { AbstractScheme } from "@/engine/core/ai/scheme";
+import { EActionId, EEvaluatorId } from "@/engine/core/ai/types";
+import { EStalkerState } from "@/engine/core/animation/types";
 import { ActionWalkerActivity } from "@/engine/core/schemes/stalker/walker/actions";
 import { ISchemeWalkerState } from "@/engine/core/schemes/stalker/walker/walker_types";
 import { assert } from "@/engine/core/utils/assertion";

@@ -1,5 +1,6 @@
 import { game, hit, level } from "xray16";
 
+import type { AnomalyZoneBinder } from "@/engine/core/binders/zones";
 import { closeLoadMarker, closeSaveMarker, openLoadMarker, openSaveMarker, registry } from "@/engine/core/database";
 import { AbstractManager } from "@/engine/core/managers/base/AbstractManager";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
@@ -18,7 +19,6 @@ import {
 } from "@/engine/core/managers/surge/utils";
 import { TaskManager } from "@/engine/core/managers/tasks";
 import { WeatherManager } from "@/engine/core/managers/weather/WeatherManager";
-import type { AnomalyZoneBinder } from "@/engine/core/objects/binders/zones";
 import { isArtefact } from "@/engine/core/utils/class_ids";
 import { isBlackScreen } from "@/engine/core/utils/game";
 import { createGameAutoSave } from "@/engine/core/utils/game_save";

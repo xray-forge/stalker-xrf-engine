@@ -1,5 +1,5 @@
+import { IStateDescriptor } from "@/engine/core/animation/types";
 import { IRegistryObjectState, registry } from "@/engine/core/database";
-import { IStateDescriptor } from "@/engine/core/objects/animation/types";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { GameObject, LuaArray, TName, TTimestamp } from "@/engine/lib/types";
 

@@ -1,5 +1,6 @@
 import { level, patrol } from "xray16";
 
+import { AnomalyZoneBinder } from "@/engine/core/binders";
 import { getObjectByStoryId, getObjectIdByStoryId, IRegistryObjectState, registry } from "@/engine/core/database";
 import { SimulationBoardManager } from "@/engine/core/managers/simulation/SimulationBoardManager";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
@@ -7,8 +8,7 @@ import { soundsConfig } from "@/engine/core/managers/sounds/SoundsConfig";
 import { surgeConfig } from "@/engine/core/managers/surge/SurgeConfig";
 import { SurgeManager } from "@/engine/core/managers/surge/SurgeManager";
 import { WeatherManager } from "@/engine/core/managers/weather/WeatherManager";
-import { AnomalyZoneBinder } from "@/engine/core/objects/binders";
-import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain";
+import { SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import { abort } from "@/engine/core/utils/assertion";
 import { extern } from "@/engine/core/utils/binding";
 import { isStalker } from "@/engine/core/utils/class_ids";

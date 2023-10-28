@@ -1,5 +1,5 @@
+import { AnomalyZoneBinder } from "@/engine/core/binders/zones/AnomalyZoneBinder";
 import { registry } from "@/engine/core/database";
-import { AnomalyZoneBinder } from "@/engine/core/objects/binders/zones/AnomalyZoneBinder";
 import { LuaArray, Optional, ServerObject, TName, TSection } from "@/engine/lib/types";
 
 /**

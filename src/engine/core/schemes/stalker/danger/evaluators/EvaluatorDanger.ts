@@ -1,8 +1,8 @@
 import { LuabindClass, property_evaluator, time_global } from "xray16";
 
+import { EActionId } from "@/engine/core/ai/types";
 import { registry } from "@/engine/core/database";
-import { EActionId } from "@/engine/core/objects/ai/types";
-import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain";
+import { SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import { ISchemeDangerState } from "@/engine/core/schemes/stalker/danger";
 import { dangerConfig } from "@/engine/core/schemes/stalker/danger/DangerConfig";
 import { isObjectFacingDanger } from "@/engine/core/schemes/stalker/danger/utils";

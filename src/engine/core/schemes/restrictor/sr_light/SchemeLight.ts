@@ -1,5 +1,5 @@
+import { AbstractScheme } from "@/engine/core/ai/scheme/AbstractScheme";
 import { registry } from "@/engine/core/database";
-import { AbstractScheme } from "@/engine/core/objects/ai/scheme/AbstractScheme";
 import { LightManager } from "@/engine/core/schemes/restrictor/sr_light/LightManager";
 import { ISchemeLightState } from "@/engine/core/schemes/restrictor/sr_light/sr_light_types";
 import { getConfigSwitchConditions, readIniBoolean } from "@/engine/core/utils/ini";

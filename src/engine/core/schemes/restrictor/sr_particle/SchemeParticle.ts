@@ -1,4 +1,4 @@
-import { AbstractScheme } from "@/engine/core/objects/ai/scheme";
+import { AbstractScheme } from "@/engine/core/ai/scheme";
 import { ParticleManager } from "@/engine/core/schemes/restrictor/sr_particle/ParticleManager";
 import { ISchemeParticleState } from "@/engine/core/schemes/restrictor/sr_particle/sr_particale_types";
 import { abort } from "@/engine/core/utils/assertion";

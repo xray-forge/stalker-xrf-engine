@@ -1,6 +1,6 @@
+import { AbstractScheme } from "@/engine/core/ai/scheme";
+import { EEvaluatorId } from "@/engine/core/ai/types";
 import { IRegistryObjectState } from "@/engine/core/database";
-import { AbstractScheme } from "@/engine/core/objects/ai/scheme";
-import { EEvaluatorId } from "@/engine/core/objects/ai/types";
 import { EvaluatorGatherItems } from "@/engine/core/schemes/stalker/gather_items/evaluators";
 import { ISchemeGatherItemsState } from "@/engine/core/schemes/stalker/gather_items/gather_items_types";
 import { readIniBoolean } from "@/engine/core/utils/ini/ini_read";

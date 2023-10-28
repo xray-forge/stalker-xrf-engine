@@ -1,8 +1,8 @@
 import { cast_planner } from "xray16";
 
+import { AbstractScheme } from "@/engine/core/ai/scheme";
+import { EActionId, EEvaluatorId } from "@/engine/core/ai/types";
 import { IRegistryObjectState } from "@/engine/core/database";
-import { AbstractScheme } from "@/engine/core/objects/ai/scheme";
-import { EActionId, EEvaluatorId } from "@/engine/core/objects/ai/types";
 import { ISchemeDangerState } from "@/engine/core/schemes/stalker/danger/danger_types";
 import { DangerManager } from "@/engine/core/schemes/stalker/danger/DangerManager";
 import { EvaluatorDanger } from "@/engine/core/schemes/stalker/danger/evaluators";

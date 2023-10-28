@@ -1,9 +1,9 @@
 import { action_base, danger_object, LuabindClass, patrol, stalker_ids, time_global } from "xray16";
 
+import { StalkerPatrolManager } from "@/engine/core/ai/patrol/StalkerPatrolManager";
+import { EStalkerState, ILookTargetDescriptor } from "@/engine/core/animation/types";
 import { registry, setStalkerState } from "@/engine/core/database";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
-import { StalkerPatrolManager } from "@/engine/core/objects/ai/patrol/StalkerPatrolManager";
-import { EStalkerState, ILookTargetDescriptor } from "@/engine/core/objects/animation/types";
 import { ICampPoint, ISchemeCamperState } from "@/engine/core/schemes/stalker/camper/camper_types";
 import { getNextCampPatrolPoint, isOnCampPatrolPlace } from "@/engine/core/schemes/stalker/camper/utils/camper_utils";
 import { isObjectFacingDanger } from "@/engine/core/schemes/stalker/danger/utils";

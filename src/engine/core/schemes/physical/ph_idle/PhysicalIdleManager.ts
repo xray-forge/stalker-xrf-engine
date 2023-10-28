@@ -1,5 +1,5 @@
+import { AbstractSchemeManager } from "@/engine/core/ai/scheme";
 import { registry } from "@/engine/core/database";
-import { AbstractSchemeManager } from "@/engine/core/objects/ai/scheme";
 import { ISchemePhysicalIdleState } from "@/engine/core/schemes/physical/ph_idle/ph_idle_types";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/ini_config";
 import { TConditionList } from "@/engine/core/utils/ini/ini_types";

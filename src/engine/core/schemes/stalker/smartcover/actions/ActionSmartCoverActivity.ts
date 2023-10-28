@@ -1,8 +1,8 @@
 import { action_base, level, LuabindClass, patrol } from "xray16";
 
+import { ESmartCoverState, EStalkerState } from "@/engine/core/animation/types/state_types";
 import { getObjectByStoryId, registry, setStalkerState } from "@/engine/core/database";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
-import { ESmartCoverState, EStalkerState } from "@/engine/core/objects/animation/types/state_types";
 import {
   COVER_SUBSTATE_TABLE,
   ISchemeSmartCoverState,

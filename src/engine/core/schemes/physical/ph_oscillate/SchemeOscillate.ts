@@ -1,4 +1,4 @@
-import { AbstractScheme } from "@/engine/core/objects/ai/scheme/AbstractScheme";
+import { AbstractScheme } from "@/engine/core/ai/scheme/AbstractScheme";
 import { OscillateManager } from "@/engine/core/schemes/physical/ph_oscillate/OscillateManager";
 import { ISchemeOscillateState } from "@/engine/core/schemes/physical/ph_oscillate/ph_oscillate_types";
 import { abort } from "@/engine/core/utils/assertion";

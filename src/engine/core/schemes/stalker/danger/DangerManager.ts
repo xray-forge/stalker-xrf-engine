@@ -1,7 +1,7 @@
 import { snd_type, time_global } from "xray16";
 
+import { AbstractSchemeManager } from "@/engine/core/ai/scheme";
 import { registry } from "@/engine/core/database";
-import { AbstractSchemeManager } from "@/engine/core/objects/ai/scheme";
 import { combatConfig } from "@/engine/core/schemes/stalker/combat/CombatConfig";
 import { ISchemeDangerState } from "@/engine/core/schemes/stalker/danger/danger_types";
 import { canObjectSelectAsEnemy } from "@/engine/core/schemes/stalker/danger/utils";

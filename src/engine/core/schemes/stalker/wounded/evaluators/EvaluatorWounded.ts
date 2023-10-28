@@ -1,7 +1,7 @@
 import { LuabindClass, property_evaluator } from "xray16";
 
+import { EEvaluatorId } from "@/engine/core/ai/types";
 import { getPortableStoreValue } from "@/engine/core/database/portable_store";
-import { EEvaluatorId } from "@/engine/core/objects/ai/types";
 import { ISchemeWoundedState } from "@/engine/core/schemes/stalker/wounded";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { NIL, TRUE } from "@/engine/lib/constants/words";

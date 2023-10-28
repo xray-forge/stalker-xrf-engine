@@ -1,10 +1,10 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { anim, look, move, property_storage } from "xray16";
 
+import { EPatrolFormation } from "@/engine/core/ai/patrol";
+import { EStalkerState } from "@/engine/core/animation/types";
 import { registerSimulator } from "@/engine/core/database";
-import { EPatrolFormation } from "@/engine/core/objects/ai/patrol";
-import { EStalkerState } from "@/engine/core/objects/animation/types";
-import { Squad } from "@/engine/core/objects/server/squad";
+import { Squad } from "@/engine/core/objects/squad";
 import { ReachTaskPatrolManager } from "@/engine/core/schemes/stalker/reach_task";
 import { ActionReachTaskLocation } from "@/engine/core/schemes/stalker/reach_task/actions/ActionReachTaskLocation";
 import { reachTaskConfig } from "@/engine/core/schemes/stalker/reach_task/ReachTaskConfig";
@@ -16,13 +16,13 @@ import {
   ServerCreatureObject,
   ServerGroupObject,
 } from "@/engine/lib/types";
+import { mockSquad } from "@/fixtures/engine";
 import { resetFunctionMock } from "@/fixtures/jest";
 import {
   mockGameObject,
   MockObject,
   mockServerAlifeCreatureAbstract,
   mockServerAlifeOnlineOfflineGroup,
-  mockSquad,
 } from "@/fixtures/xray";
 
 describe("ActionReachTaskLocation", () => {

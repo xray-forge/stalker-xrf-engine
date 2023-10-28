@@ -1,4 +1,4 @@
-import { AbstractScheme } from "@/engine/core/objects/ai/scheme";
+import { AbstractScheme } from "@/engine/core/ai/scheme";
 import { ISchemeMobJumpState } from "@/engine/core/schemes/monster/mob_jump/mob_jump_types";
 import { MobJumpManager } from "@/engine/core/schemes/monster/mob_jump/MobJumpManager";
 import { assert } from "@/engine/core/utils/assertion";

@@ -1,9 +1,9 @@
 import { action_base, level, LuabindClass } from "xray16";
 
+import { EStalkerState } from "@/engine/core/animation/types";
 import { registry, setStalkerState } from "@/engine/core/database";
 import { SimulationBoardManager } from "@/engine/core/managers/simulation/SimulationBoardManager";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
-import { EStalkerState } from "@/engine/core/objects/animation/types";
 import { ISchemeCoverState } from "@/engine/core/schemes/stalker/cover";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/ini_config";
 import { areSameVectors, createVector, subVectors } from "@/engine/core/utils/vector";

@@ -1,7 +1,7 @@
+import { AbstractSchemeManager } from "@/engine/core/ai/scheme";
+import { EStalkerState } from "@/engine/core/animation/types";
 import { getObjectByStoryId, registry, setStalkerState } from "@/engine/core/database";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
-import { AbstractSchemeManager } from "@/engine/core/objects/ai/scheme";
-import { EStalkerState } from "@/engine/core/objects/animation/types";
 import { EMeetDistance, ISchemeMeetState } from "@/engine/core/schemes/stalker/meet/meet_types";
 import { setObjectAbuseState } from "@/engine/core/schemes/stalker/meet/utils";
 import { isBlackScreen } from "@/engine/core/utils/game";

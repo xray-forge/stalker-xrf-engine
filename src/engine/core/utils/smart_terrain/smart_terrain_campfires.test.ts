@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it } from "@jest/globals";
 
 import { registerSmartTerrainCampfire, registry } from "@/engine/core/database";
-import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain";
+import { SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import {
   turnOffSmartTerrainCampfires,
   turnOnSmartTerrainCampfires,

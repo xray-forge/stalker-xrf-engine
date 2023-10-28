@@ -11,9 +11,9 @@ import {
 import { ActorInventoryMenuManager } from "@/engine/core/managers/actor/ActorInventoryMenuManager";
 import { SimulationBoardManager } from "@/engine/core/managers/simulation/SimulationBoardManager";
 import { UpgradesManager } from "@/engine/core/managers/upgrades/UpgradesManager";
-import type { SmartTerrain } from "@/engine/core/objects/server/smart_terrain";
-import type { Squad } from "@/engine/core/objects/server/squad";
-import { ESquadActionType } from "@/engine/core/objects/server/squad/squad_types";
+import type { SmartTerrain } from "@/engine/core/objects/smart_terrain";
+import type { Squad } from "@/engine/core/objects/squad";
+import { ESquadActionType } from "@/engine/core/objects/squad/squad_types";
 import { SchemeDeimos } from "@/engine/core/schemes/restrictor/sr_deimos";
 import { ISchemeAnimpointState, SchemeAnimpoint } from "@/engine/core/schemes/stalker/animpoint";
 import { ISchemeDeathState } from "@/engine/core/schemes/stalker/death";

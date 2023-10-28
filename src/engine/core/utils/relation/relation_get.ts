@@ -1,7 +1,7 @@
 import { relation_registry } from "xray16";
 
 import { getServerObjectByStoryId, registry } from "@/engine/core/database";
-import type { Squad } from "@/engine/core/objects/server/squad/Squad";
+import type { Squad } from "@/engine/core/objects/squad/Squad";
 import { assert } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { EGoodwill, ERelation } from "@/engine/core/utils/relation/relation_types";

@@ -1,7 +1,7 @@
 import { game } from "xray16";
 
-import type { SmartTerrain } from "@/engine/core/objects/server/smart_terrain/SmartTerrain";
-import { smartTerrainConfig } from "@/engine/core/objects/server/smart_terrain/SmartTerrainConfig";
+import type { SmartTerrain } from "@/engine/core/objects/smart_terrain/SmartTerrain";
+import { smartTerrainConfig } from "@/engine/core/objects/smart_terrain/SmartTerrainConfig";
 
 /**
  * Start alarm for smart terrain.

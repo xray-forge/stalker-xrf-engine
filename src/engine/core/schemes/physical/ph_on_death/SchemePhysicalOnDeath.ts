@@ -1,4 +1,4 @@
-import { AbstractScheme } from "@/engine/core/objects/ai/scheme/AbstractScheme";
+import { AbstractScheme } from "@/engine/core/ai/scheme/AbstractScheme";
 import { ISchemePhysicalOnDeathState } from "@/engine/core/schemes/physical/ph_on_death/ph_on_death_types";
 import { PhysicalDeathManager } from "@/engine/core/schemes/physical/ph_on_death/PhysicalDeathManager";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini/ini_config";

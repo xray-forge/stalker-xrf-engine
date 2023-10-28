@@ -1,8 +1,8 @@
 import { action_base, LuabindClass, time_global } from "xray16";
 
+import { StalkerPatrolManager } from "@/engine/core/ai/patrol/StalkerPatrolManager";
+import { EStalkerState, EWaypointArrivalType } from "@/engine/core/animation/types";
 import { registry, setStalkerState } from "@/engine/core/database";
-import { StalkerPatrolManager } from "@/engine/core/objects/ai/patrol/StalkerPatrolManager";
-import { EStalkerState, EWaypointArrivalType } from "@/engine/core/objects/animation/types";
 import { ISchemePatrolState } from "@/engine/core/schemes/stalker/patrol";
 import { patrolConfig } from "@/engine/core/schemes/stalker/patrol/PatrolConfig";
 import { parseWaypointsData } from "@/engine/core/utils/ini";

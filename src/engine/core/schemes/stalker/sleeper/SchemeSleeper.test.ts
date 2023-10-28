@@ -1,8 +1,8 @@
 import { describe, expect, it } from "@jest/globals";
 
+import { EvaluatorSectionActive } from "@/engine/core/ai/planner/evaluators/EvaluatorSectionActive";
+import { EActionId, EEvaluatorId } from "@/engine/core/ai/types";
 import { registerObject } from "@/engine/core/database";
-import { EvaluatorSectionActive } from "@/engine/core/objects/ai/planner/evaluators/EvaluatorSectionActive";
-import { EActionId, EEvaluatorId } from "@/engine/core/objects/ai/types";
 import { ActionSleeperActivity } from "@/engine/core/schemes/stalker/sleeper/actions";
 import { SchemeSleeper } from "@/engine/core/schemes/stalker/sleeper/SchemeSleeper";
 import { ISchemeSleeperState } from "@/engine/core/schemes/stalker/sleeper/sleeper_types";

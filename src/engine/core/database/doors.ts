@@ -1,7 +1,7 @@
+import type { LabX8DoorBinder } from "@/engine/core/binders/physic/LabX8DoorBinder";
 import { IRegistryObjectState } from "@/engine/core/database/database_types";
 import { registerObject, unregisterObject } from "@/engine/core/database/objects";
 import { registry } from "@/engine/core/database/registry";
-import type { LabX8DoorBinder } from "@/engine/core/objects/binders/physic/LabX8DoorBinder";
 
 /**
  * Register door binder object.

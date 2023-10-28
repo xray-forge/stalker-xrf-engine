@@ -2,8 +2,8 @@ import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 
 import { registerActor, registerSimulator, registry } from "@/engine/core/database";
 import { SimulationBoardManager } from "@/engine/core/managers/simulation/SimulationBoardManager";
-import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain";
-import { Squad } from "@/engine/core/objects/server/squad";
+import { SmartTerrain } from "@/engine/core/objects/smart_terrain";
+import { Squad } from "@/engine/core/objects/squad";
 import {
   getInventoryNameForItemSection,
   releaseObject,
