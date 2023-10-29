@@ -47,6 +47,19 @@ export class UpgradesManager extends AbstractManager {
   }
 
   /**
+   * @param name - ?
+   * @param section - upgrade section
+   * @param loading - not casted value, whether game is loading
+   */
+  public getUpgradeItemPayment(name: TName, section: TSection, loading: TNotCastedBoolean): void {
+    if (loading === 0) {
+      registry.actor.give_money(
+        math.floor(ITEM_UPGRADES.r_u32(section, "cost") * upgradesConfig.PRICE_DISCOUNT_RATE) * -1
+      );
+    }
+  }
+
+  /**
    * @param mechanicName - name of the mechanic
    * @param possibilities - condition list to switch possibilities logics
    * @returns label describing upgrade possibilities
@@ -174,19 +187,8 @@ export class UpgradesManager extends AbstractManager {
   /**
    * todo: Description.
    */
-  public useEffectFunctorA(name: TName, section: TSection, loading: TNotCastedBoolean): void {
-    if (loading === 0) {
-      const money: TCount = ITEM_UPGRADES.r_u32(section, "cost");
-
-      registry.actor.give_money(math.floor(money * -1 * upgradesConfig.PRICE_DISCOUNT_RATE));
-    }
-  }
-
-  /**
-   * todo: Description.
-   */
-  public getPropertyFunctorA(data: string, name: TName): TLabel {
-    const propertyName: TName = ITEM_UPGRADES.r_string(name, "name");
+  public getPropertyFunctorA(data: string, upgrade: TName): TLabel {
+    const propertyName: TName = ITEM_UPGRADES.r_string(upgrade, "name");
     const translatedPropertyName: TLabel = game.translate_string(propertyName);
 
     const sections: LuaArray<TSection> = parseStringsList(data);
@@ -205,32 +207,32 @@ export class UpgradesManager extends AbstractManager {
       }
 
       value = ITEM_UPGRADES.r_string(sections.get(it), "value");
-      if (name !== "prop_night_vision") {
-        sum += tonumber(value)!;
-      } else {
+      if (upgrade === "prop_night_vision") {
         sum = tonumber(value)!;
+      } else {
+        sum += tonumber(value)!;
       }
     }
 
     value = sum < 0 ? tostring(sum) : "+" + sum;
 
-    if (name === "prop_ammo_size" || name === "prop_artefact") {
+    if (upgrade === "prop_ammo_size" || upgrade === "prop_artefact") {
       return translatedPropertyName + " " + value;
-    } else if (name === "prop_restore_bleeding" || name === "prop_restore_health" || name === "prop_power") {
-      if (name === "prop_power") {
+    } else if (upgrade === "prop_restore_bleeding" || upgrade === "prop_restore_health" || upgrade === "prop_power") {
+      if (upgrade === "prop_power") {
         value = "+" + tonumber(value)! * 2;
       }
 
       // --        const str = string.format("%s %4.1f", t_prorerty_name, value)
       // --        return str
       return translatedPropertyName + " " + value;
-    } else if (name === "prop_tonnage" || name === "prop_weightoutfit" || name === "prop_weight") {
+    } else if (upgrade === "prop_tonnage" || upgrade === "prop_weightoutfit" || upgrade === "prop_weight") {
       return string.format("%s %5.2f %s", translatedPropertyName, value, game.translate_string("st_kg"));
-    } else if (name === "prop_night_vision") {
+    } else if (upgrade === "prop_night_vision") {
       return tonumber(value) === 1
         ? translatedPropertyName
         : game.translate_string(propertyName + "_" + tonumber(value));
-    } else if (name === "prop_no_buck" || name === "prop_autofire") {
+    } else if (upgrade === "prop_no_buck" || upgrade === "prop_autofire") {
       return translatedPropertyName;
     }
 

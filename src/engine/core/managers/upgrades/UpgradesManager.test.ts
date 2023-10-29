@@ -76,6 +76,23 @@ describe("UpgradesManager class", () => {
     expect(actorGameObject.give_money).toHaveBeenCalledWith(-750);
   });
 
+  it("should correctly get upgrade item payment", () => {
+    const { actorGameObject } = mockRegisteredActor();
+    const manager: UpgradesManager = UpgradesManager.getInstance();
+
+    upgradesConfig.ITEM_REPAIR_PRICE_COEFFICIENT = 0.6;
+    upgradesConfig.PRICE_DISCOUNT_RATE = 0.5;
+
+    manager.getUpgradeItemPayment("test_mechanic", "up_sect_firsta_ak74u", 1);
+    expect(actorGameObject.give_money).not.toHaveBeenCalled();
+
+    manager.getUpgradeItemPayment("test_mechanic", "up_sect_firsta_ak74u", 0);
+    expect(actorGameObject.give_money).toHaveBeenCalledWith(-200);
+
+    manager.getUpgradeItemPayment("test_mechanic", "up_sect_seconf_ak74u", 0);
+    expect(actorGameObject.give_money).toHaveBeenCalledWith(-450);
+  });
+
   it("should correctly get possibilities label", () => {
     const manager: UpgradesManager = UpgradesManager.getInstance();
 

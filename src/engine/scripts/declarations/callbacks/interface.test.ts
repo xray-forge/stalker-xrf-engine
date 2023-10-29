@@ -6,11 +6,11 @@ import { PdaManager } from "@/engine/core/managers/pda";
 import {
   canRepairItem,
   getRepairItemAskReplicLabel,
+  getUpgradeCostLabel,
   issueUpgradeProperty,
+  TItemUpgradeBranch,
   UpgradesManager,
 } from "@/engine/core/managers/upgrades";
-import { TItemUpgradeBranch } from "@/engine/core/managers/upgrades/item_upgrades_types";
-import { getUpgradeCostLabel } from "@/engine/core/managers/upgrades/utils/upgrades_price_utils";
 import { WeaponParams } from "@/engine/core/ui/game/WeaponParams";
 import { getExtern } from "@/engine/core/utils/binding";
 import {
@@ -26,8 +26,11 @@ import { callBinding, checkBinding, checkNestedBinding } from "@/fixtures/engine
 import { mockGameObject } from "@/fixtures/xray";
 
 jest.mock("@/engine/core/managers/upgrades/utils/upgrades_price_utils", () => ({
-  getUpgradeCostLabel: jest.fn(() => "100"),
   canRepairItem: jest.fn(() => true),
+}));
+
+jest.mock("@/engine/core/managers/upgrades/utils/upgrades_label_utils", () => ({
+  getUpgradeCostLabel: jest.fn(() => "100"),
   getRepairItemAskReplicLabel: jest.fn(() => "test_label"),
   issueUpgradeProperty: jest.fn(() => "issued_property"),
 }));
@@ -101,7 +104,7 @@ describe("interface external callbacks", () => {
 
     jest.spyOn(upgradesManager, "canUpgradeItem").mockImplementation(jest.fn(() => true));
     jest.spyOn(upgradesManager, "getRepairItemPayment").mockImplementation(jest.fn(() => true));
-    jest.spyOn(upgradesManager, "useEffectFunctorA").mockImplementation(jest.fn(() => true));
+    jest.spyOn(upgradesManager, "getUpgradeItemPayment").mockImplementation(jest.fn(() => -400));
     jest.spyOn(upgradesManager, "getPreRequirementsFunctorA").mockImplementation(jest.fn(() => "test-1"));
     jest.spyOn(upgradesManager, "getPreconditionFunctorA").mockImplementation(jest.fn(() => 1 as TItemUpgradeBranch));
     jest.spyOn(upgradesManager, "getPropertyFunctorA").mockImplementation(jest.fn(() => "a"));
@@ -122,7 +125,7 @@ describe("interface external callbacks", () => {
     expect(upgradesManager.getRepairItemPayment).toHaveBeenCalledWith("test", 1);
 
     callUpgradeBinding("effect_functor_a", ["test", "test-2", true]);
-    expect(upgradesManager.useEffectFunctorA).toHaveBeenCalledWith("test", "test-2", true);
+    expect(upgradesManager.getUpgradeItemPayment).toHaveBeenCalledWith("test", "test-2", true);
 
     expect(callUpgradeBinding("prereq_functor_a", ["test", "test-2"])).toBe("test-1");
     expect(upgradesManager.getPreRequirementsFunctorA).toHaveBeenCalledWith("test", "test-2");

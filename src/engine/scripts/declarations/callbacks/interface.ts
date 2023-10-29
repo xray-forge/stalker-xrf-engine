@@ -3,11 +3,11 @@ import { LoadScreenManager } from "@/engine/core/managers/interface/LoadScreenMa
 import { PdaManager } from "@/engine/core/managers/pda/PdaManager";
 import { UpgradesManager } from "@/engine/core/managers/upgrades/UpgradesManager";
 import {
-  canRepairItem,
   getRepairItemAskReplicLabel,
   getUpgradeCostLabel,
   issueUpgradeProperty,
-} from "@/engine/core/managers/upgrades/utils/upgrades_price_utils";
+} from "@/engine/core/managers/upgrades/utils/upgrades_label_utils";
+import { canRepairItem } from "@/engine/core/managers/upgrades/utils/upgrades_price_utils";
 import { WeaponParams } from "@/engine/core/ui/game/WeaponParams";
 import { extern } from "@/engine/core/utils/binding";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -50,7 +50,7 @@ extern("inventory_upgrades", {
   effect_repair_item: (section: TSection, condition: TRate) =>
     UpgradesManager.getInstance().getRepairItemPayment(section, condition),
   effect_functor_a: (name: TName, section: TSection, loading: TNotCastedBoolean) =>
-    UpgradesManager.getInstance().useEffectFunctorA(name, section, loading),
+    UpgradesManager.getInstance().getUpgradeItemPayment(name, section, loading),
   prereq_functor_a: (name: TName, section: TSection): TLabel =>
     UpgradesManager.getInstance().getPreRequirementsFunctorA(name, section),
   precondition_functor_a: (name: TName, section: TSection) =>
