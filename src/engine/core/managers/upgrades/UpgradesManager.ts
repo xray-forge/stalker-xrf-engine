@@ -1,9 +1,10 @@
 import { game } from "xray16";
 
-import { registry, SYSTEM_INI } from "@/engine/core/database";
+import { registry } from "@/engine/core/database";
 import { AbstractManager } from "@/engine/core/managers/base/AbstractManager";
 import { TItemUpgradeBranch } from "@/engine/core/managers/upgrades/item_upgrades_types";
 import { ITEM_UPGRADES, STALKER_UPGRADE_INFO, upgradesConfig } from "@/engine/core/managers/upgrades/UpgradesConfig";
+import { getRepairPrice } from "@/engine/core/managers/upgrades/utils";
 import {
   parseConditionsList,
   parseStringsList,
@@ -23,39 +24,18 @@ const logger: LuaLogger = new LuaLogger($filename);
  * Manager to handle upgrading of items with mechanics logics.
  */
 export class UpgradesManager extends AbstractManager {
-  public upgradeHints: Optional<LuaArray<TLabel>> = null;
-  public currentMechanicName: TName = "";
-  public currentPriceDiscountRate: TRate = 1;
-
   /**
    * @param hints - list of hints to set as current
    */
   public setCurrentHints(hints: LuaArray<TLabel>): void {
-    this.upgradeHints = hints;
+    upgradesConfig.UPGRADES_HINTS = hints;
   }
 
   /**
-   * Setup discount value based on current mechanic.
+   * @param rate - discount rate [0...1] for current upgrading operations
    */
-  public setupDiscounts(): void {
-    if (STALKER_UPGRADE_INFO.line_exist(this.currentMechanicName, "discount_condlist")) {
-      const data: string = STALKER_UPGRADE_INFO.r_string(this.currentMechanicName, "discount_condlist");
-
-      pickSectionFromCondList(registry.actor, null, parseConditionsList(data));
-    }
-  }
-
-  /**
-   * @param section - section of the item to get price for
-   * @param condition - current condition state of the item object
-   * @returns repair price based on item price and condition
-   */
-  public getRepairPrice(section: TSection, condition: TRate): TCount {
-    const cost: TCount = SYSTEM_INI.r_u32(section, "cost");
-
-    return math.floor(
-      cost * (1 - condition) * upgradesConfig.ITEM_REPAIR_PRICE_COEFFICIENT * this.currentPriceDiscountRate
-    );
+  public setCurrentPriceDiscount(rate: TRate): void {
+    upgradesConfig.PRICE_DISCOUNT_RATE = rate;
   }
 
   /**
@@ -65,22 +45,18 @@ export class UpgradesManager extends AbstractManager {
    * @param condition - current condition state of the item object
    */
   public getRepairItemPayment(section: TSection, condition: TRate): void {
-    registry.actor.give_money(-this.getRepairPrice(section, condition));
+    registry.actor.give_money(-getRepairPrice(section, condition));
   }
 
   /**
-   * todo: Description.
+   * Setup discount value based on current mechanic.
    */
-  public getUpgradeCost(section: TSection): TLabel {
-    if (registry.actor !== null) {
-      return (
-        game.translate_string("st_upgr_cost") +
-        ": " +
-        math.floor(ITEM_UPGRADES.r_u32(section, "cost") * this.currentPriceDiscountRate)
-      );
-    }
+  public setupDiscounts(): void {
+    if (STALKER_UPGRADE_INFO.line_exist(upgradesConfig.CURRENT_MECHANIC_NAME, "discount_condlist")) {
+      const data: string = STALKER_UPGRADE_INFO.r_string(upgradesConfig.CURRENT_MECHANIC_NAME, "discount_condlist");
 
-    return " ";
+      pickSectionFromCondList(registry.actor, null, parseConditionsList(data));
+    }
   }
 
   /**
@@ -89,8 +65,8 @@ export class UpgradesManager extends AbstractManager {
   public getPossibilitiesLabel(mechanicName: TName, possibilities: TConditionList): TLabel {
     let hintsLabel: TLabel = "";
 
-    if (this.upgradeHints !== null) {
-      for (const [, caption] of this.upgradeHints) {
+    if (upgradesConfig.UPGRADES_HINTS !== null) {
+      for (const [, caption] of upgradesConfig.UPGRADES_HINTS) {
         hintsLabel = hintsLabel + "\\n - " + game.translate_string(caption);
       }
     }
@@ -105,15 +81,15 @@ export class UpgradesManager extends AbstractManager {
   /**
    * todo: Description.
    */
-  public canUpgradeItem(itemName: TName, mechanicName: TName): boolean {
-    this.currentMechanicName = mechanicName;
+  public canUpgradeItem(section: TSection, mechanicName: TName): boolean {
+    upgradesConfig.CURRENT_MECHANIC_NAME = mechanicName;
     this.setupDiscounts();
 
     if (STALKER_UPGRADE_INFO.line_exist(mechanicName, "he_upgrade_nothing")) {
       return false;
     }
 
-    if (!STALKER_UPGRADE_INFO.line_exist(mechanicName, itemName)) {
+    if (!STALKER_UPGRADE_INFO.line_exist(mechanicName, section)) {
       return false;
     }
 
@@ -123,19 +99,13 @@ export class UpgradesManager extends AbstractManager {
   /**
    * todo: Description.
    */
-  public setCurrentPriceDiscount(percent: TRate): void {
-    this.currentPriceDiscountRate = percent;
-  }
-
-  /**
-   * todo: Description.
-   */
   public canRepairItem(section: TSection, condition: TRate, mechanicName: TName): boolean {
+    // todo: no_repair field in ltx?
     if (section === questItems.pri_a17_gauss_rifle) {
       return false;
     }
 
-    return registry.actor.money() >= this.getRepairPrice(section, condition);
+    return registry.actor.money() >= getRepairPrice(section, condition);
   }
 
   /**
@@ -151,7 +121,7 @@ export class UpgradesManager extends AbstractManager {
       return game.translate_string("st_gauss_cannot_be_repaired");
     }
 
-    const price: TCount = this.getRepairPrice(itemName, itemCondition);
+    const price: TCount = getRepairPrice(itemName, itemCondition);
 
     if (registry.actor.money() < price) {
       // Price is: N $\n
@@ -180,8 +150,8 @@ export class UpgradesManager extends AbstractManager {
    * todo: Description.
    */
   public getPreconditionFunctorA(name: TName, section: TSection): TItemUpgradeBranch {
-    if (STALKER_UPGRADE_INFO.line_exist(this.currentMechanicName + "_upgr", section)) {
-      const param: string = STALKER_UPGRADE_INFO.r_string(this.currentMechanicName + "_upgr", section);
+    if (STALKER_UPGRADE_INFO.line_exist(upgradesConfig.CURRENT_MECHANIC_NAME + "_upgr", section)) {
+      const param: string = STALKER_UPGRADE_INFO.r_string(upgradesConfig.CURRENT_MECHANIC_NAME + "_upgr", section);
 
       if (param !== null) {
         if (param === FALSE) {
@@ -202,7 +172,7 @@ export class UpgradesManager extends AbstractManager {
     }
 
     if (registry.actor !== null) {
-      const price: TCount = math.floor(ITEM_UPGRADES.r_u32(section, "cost") * this.currentPriceDiscountRate);
+      const price: TCount = math.floor(ITEM_UPGRADES.r_u32(section, "cost") * upgradesConfig.PRICE_DISCOUNT_RATE);
       const cash: TCount = registry.actor.money();
 
       if (cash < price) {
@@ -220,14 +190,14 @@ export class UpgradesManager extends AbstractManager {
     const actor: GameObject = registry.actor;
     let label: TLabel = "";
 
-    if (STALKER_UPGRADE_INFO.line_exist(this.currentMechanicName + "_upgr", section)) {
-      const param: string = STALKER_UPGRADE_INFO.r_string(this.currentMechanicName + "_upgr", section);
+    if (STALKER_UPGRADE_INFO.line_exist(upgradesConfig.CURRENT_MECHANIC_NAME + "_upgr", section)) {
+      const param: string = STALKER_UPGRADE_INFO.r_string(upgradesConfig.CURRENT_MECHANIC_NAME + "_upgr", section);
 
       if (param !== null) {
         if (param === FALSE) {
           return label;
         } else {
-          this.upgradeHints = null;
+          upgradesConfig.UPGRADES_HINTS = null;
 
           const possibilitiesConditionList: TConditionList = parseConditionsList(param);
           const possibility: Optional<TSection> = pickSectionFromCondList(
@@ -237,14 +207,15 @@ export class UpgradesManager extends AbstractManager {
           );
 
           if (!possibility || possibility === FALSE) {
-            label = label + this.getPossibilitiesLabel(this.currentMechanicName, possibilitiesConditionList);
+            label =
+              label + this.getPossibilitiesLabel(upgradesConfig.CURRENT_MECHANIC_NAME, possibilitiesConditionList);
           }
         }
       }
     }
 
     if (actor !== null) {
-      const price: TCount = math.floor(ITEM_UPGRADES.r_u32(section, "cost") * this.currentPriceDiscountRate);
+      const price: TCount = math.floor(ITEM_UPGRADES.r_u32(section, "cost") * upgradesConfig.PRICE_DISCOUNT_RATE);
 
       if (actor.money() < price) {
         return string.format("%s\\n - %s", label, game.translate_string("st_upgr_enough_money"));
@@ -261,7 +232,7 @@ export class UpgradesManager extends AbstractManager {
     if (loading === 0) {
       const money: TCount = ITEM_UPGRADES.r_u32(section, "cost");
 
-      registry.actor.give_money(math.floor(money * -1 * this.currentPriceDiscountRate));
+      registry.actor.give_money(math.floor(money * -1 * upgradesConfig.PRICE_DISCOUNT_RATE));
     }
   }
 

@@ -5,12 +5,10 @@ import {
   DYNAMIC_LTX_PREFIX,
   DYNAMIC_WEATHER_GRAPHS,
   GAME_LTX,
-  ITEM_UPGRADES,
   PH_BOX_GENERIC_LTX,
   SMART_TERRAIN_MASKS_LTX,
   SOUND_STORIES_LTX,
   SQUAD_BEHAVIOURS_LTX,
-  STALKER_UPGRADE_INFO,
   SYSTEM_INI,
 } from "@/engine/core/database/ini_registry";
 import { IniFile } from "@/engine/lib/types";
@@ -28,8 +26,6 @@ describe("ini_registry database module", () => {
       GAME_LTX,
       PH_BOX_GENERIC_LTX,
       DYNAMIC_WEATHER_GRAPHS,
-      ITEM_UPGRADES,
-      STALKER_UPGRADE_INFO,
       SQUAD_BEHAVIOURS_LTX,
       SMART_TERRAIN_MASKS_LTX,
       SOUND_STORIES_LTX,

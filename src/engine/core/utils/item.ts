@@ -1,8 +1,16 @@
-import { registry } from "@/engine/core/database";
+import { registry, SYSTEM_INI } from "@/engine/core/database";
 import { medkits, TMedkit } from "@/engine/lib/constants/items/drugs";
 import { pistols } from "@/engine/lib/constants/items/weapons";
 import { MAX_U16 } from "@/engine/lib/constants/memory";
-import { GameObject, LuaArray, Optional, ServerObject, TNumberId, TRate, TSection } from "@/engine/lib/types";
+import { GameObject, LuaArray, Optional, ServerObject, TCount, TNumberId, TRate, TSection } from "@/engine/lib/types";
+
+/**
+ * @param section - item section to get cost for
+ * @returns cost of the item by section
+ */
+export function getItemPrice(section: TSection): TCount {
+  return SYSTEM_INI.r_u32(section, "cost");
+}
 
 /**
  * @param id - item object id to get owner

@@ -11,16 +11,28 @@ describe("UpgradesManager class", () => {
     resetRegistry();
 
     upgradesConfig.ITEM_REPAIR_PRICE_COEFFICIENT = 0.6;
+    upgradesConfig.UPGRADES_HINTS = null;
+    upgradesConfig.CURRENT_MECHANIC_NAME = "";
   });
 
   it("should correctly set hints", () => {
     const hints: LuaArray<TLabel> = $fromArray(["a", "b"]);
     const manager: UpgradesManager = UpgradesManager.getInstance();
 
-    expect(manager.upgradeHints).toBeNull();
+    expect(upgradesConfig.UPGRADES_HINTS).toBeNull();
 
     manager.setCurrentHints(hints);
-    expect(manager.upgradeHints).toBe(hints);
+    expect(upgradesConfig.UPGRADES_HINTS).toBe(hints);
+  });
+
+  it("should correctly set discount", () => {
+    const manager: UpgradesManager = UpgradesManager.getInstance();
+
+    manager.setCurrentPriceDiscount(0.44);
+    expect(upgradesConfig.PRICE_DISCOUNT_RATE).toBe(0.44);
+
+    manager.setCurrentPriceDiscount(1);
+    expect(upgradesConfig.PRICE_DISCOUNT_RATE).toBe(1);
   });
 
   it("should correctly setup discounts", () => {
@@ -28,12 +40,12 @@ describe("UpgradesManager class", () => {
 
     const manager: UpgradesManager = UpgradesManager.getInstance();
 
-    manager.currentMechanicName = "";
+    upgradesConfig.CURRENT_MECHANIC_NAME = "";
     expect(() => manager.setupDiscounts()).not.toThrow();
 
-    manager.currentMechanicName = "test_mechanic_name";
+    upgradesConfig.CURRENT_MECHANIC_NAME = "test_mechanic_name";
     STALKER_UPGRADE_INFO.w_string(
-      manager.currentMechanicName,
+      upgradesConfig.CURRENT_MECHANIC_NAME,
       "discount_condlist",
       "{+some_info} true %+another_info%"
     );
@@ -47,59 +59,18 @@ describe("UpgradesManager class", () => {
     expect(hasInfoPortion("another_info")).toBe(true);
   });
 
-  it("should correctly get repair prices", () => {
-    const manager: UpgradesManager = UpgradesManager.getInstance();
-
-    upgradesConfig.ITEM_REPAIR_PRICE_COEFFICIENT = 0.6;
-
-    expect(manager.getRepairPrice("wpn_ak74u", 1)).toBe(0);
-    expect(manager.getRepairPrice("wpn_ak74u", 0.75)).toBe(600);
-    expect(manager.getRepairPrice("wpn_abakan", 0.5)).toBe(1500);
-    expect(manager.getRepairPrice("wpn_abakan", 0)).toBe(3000);
-
-    manager.currentPriceDiscountRate = 0.5;
-
-    expect(manager.getRepairPrice("wpn_ak74u", 1)).toBe(0);
-    expect(manager.getRepairPrice("wpn_ak74u", 0.75)).toBe(300);
-    expect(manager.getRepairPrice("wpn_abakan", 0.5)).toBe(750);
-    expect(manager.getRepairPrice("wpn_abakan", 0)).toBe(1500);
-
-    upgradesConfig.ITEM_REPAIR_PRICE_COEFFICIENT = 1.5;
-
-    expect(manager.getRepairPrice("wpn_ak74u", 1)).toBe(0);
-    expect(manager.getRepairPrice("wpn_ak74u", 0.75)).toBe(750);
-    expect(manager.getRepairPrice("wpn_abakan", 0.5)).toBe(1875);
-    expect(manager.getRepairPrice("wpn_abakan", 0)).toBe(3750);
-  });
-
   it("should correctly get repair payment", () => {
     const { actorGameObject } = mockRegisteredActor();
     const manager: UpgradesManager = UpgradesManager.getInstance();
 
     upgradesConfig.ITEM_REPAIR_PRICE_COEFFICIENT = 0.6;
-    manager.currentPriceDiscountRate = 0.5;
+    upgradesConfig.PRICE_DISCOUNT_RATE = 0.5;
 
     manager.getRepairItemPayment("wpn_ak74u", 0.75);
     expect(actorGameObject.give_money).toHaveBeenCalledWith(-300);
 
     manager.getRepairItemPayment("wpn_abakan", 0.5);
     expect(actorGameObject.give_money).toHaveBeenCalledWith(-750);
-  });
-
-  it("should correctly get upgrade cost", () => {
-    const manager: UpgradesManager = UpgradesManager.getInstance();
-
-    manager.currentPriceDiscountRate = 0.5;
-
-    expect(manager.getUpgradeCost("up_sect_firsta_ak74u")).toBe(" ");
-    expect(manager.getUpgradeCost("up_sect_firstc_ak74u")).toBe(" ");
-    expect(manager.getUpgradeCost("up_sect_firste_ak74u")).toBe(" ");
-
-    mockRegisteredActor();
-
-    expect(manager.getUpgradeCost("up_sect_firsta_ak74u")).toBe("translated_st_upgr_cost: 200");
-    expect(manager.getUpgradeCost("up_sect_firstc_ak74u")).toBe("translated_st_upgr_cost: 325");
-    expect(manager.getUpgradeCost("up_sect_firste_ak74u")).toBe("translated_st_upgr_cost: 450");
   });
 
   it.todo("should correctly get possibilities label");

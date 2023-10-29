@@ -2,6 +2,7 @@ import { ActorInventoryMenuManager } from "@/engine/core/managers/actor/ActorInv
 import { LoadScreenManager } from "@/engine/core/managers/interface/LoadScreenManager";
 import { PdaManager } from "@/engine/core/managers/pda/PdaManager";
 import { UpgradesManager } from "@/engine/core/managers/upgrades/UpgradesManager";
+import { getUpgradeCostLabel } from "@/engine/core/managers/upgrades/utils/upgrades_price_utils";
 import { WeaponParams } from "@/engine/core/ui/game/WeaponParams";
 import { extern } from "@/engine/core/utils/binding";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -34,7 +35,7 @@ extern("loadscreen", {
  * Handle item upgrade callbacks from game engine.
  */
 extern("inventory_upgrades", {
-  get_upgrade_cost: (section: TSection): TLabel => UpgradesManager.getInstance().getUpgradeCost(section),
+  get_upgrade_cost: (section: TSection): TLabel => getUpgradeCostLabel(section),
   can_repair_item: (itemName: TName, itemCondition: number, mechanicName: TName): boolean =>
     UpgradesManager.getInstance().canRepairItem(itemName, itemCondition, mechanicName),
   can_upgrade_item: (itemName: TName, mechanicName: TName): boolean =>

@@ -5,6 +5,7 @@ import { LoadScreenManager } from "@/engine/core/managers/interface/LoadScreenMa
 import { PdaManager } from "@/engine/core/managers/pda";
 import { UpgradesManager } from "@/engine/core/managers/upgrades";
 import { TItemUpgradeBranch } from "@/engine/core/managers/upgrades/item_upgrades_types";
+import { getUpgradeCostLabel } from "@/engine/core/managers/upgrades/utils/upgrades_price_utils";
 import { WeaponParams } from "@/engine/core/ui/game/WeaponParams";
 import { getExtern } from "@/engine/core/utils/binding";
 import {
@@ -18,6 +19,10 @@ import {
 } from "@/engine/lib/types";
 import { callBinding, checkBinding, checkNestedBinding } from "@/fixtures/engine";
 import { mockGameObject } from "@/fixtures/xray";
+
+jest.mock("@/engine/core/managers/upgrades/utils/upgrades_price_utils", () => ({
+  getUpgradeCostLabel: jest.fn(() => "100"),
+}));
 
 describe("interface external callbacks", () => {
   beforeAll(() => {
@@ -86,7 +91,6 @@ describe("interface external callbacks", () => {
   it("should correctly handle inventory upgrades callbacks", () => {
     const upgradesManager: UpgradesManager = UpgradesManager.getInstance();
 
-    jest.spyOn(upgradesManager, "getUpgradeCost").mockImplementation(jest.fn(() => "100"));
     jest.spyOn(upgradesManager, "canRepairItem").mockImplementation(jest.fn(() => true));
     jest.spyOn(upgradesManager, "canUpgradeItem").mockImplementation(jest.fn(() => true));
     jest.spyOn(upgradesManager, "getRepairItemPayment").mockImplementation(jest.fn(() => true));
@@ -102,11 +106,10 @@ describe("interface external callbacks", () => {
       callBinding(name, args, (_G as AnyObject)["inventory_upgrades"]);
 
     expect(callUpgradeBinding("get_upgrade_cost", ["test"])).toBe("100");
-    expect(upgradesManager.getUpgradeCost).toHaveBeenCalledWith("test");
+    expect(getUpgradeCostLabel).toHaveBeenCalledWith("test");
 
     expect(callUpgradeBinding("can_repair_item", ["test", 1, "name"])).toBe(true);
     expect(upgradesManager.canRepairItem).toHaveBeenCalledWith("test", 1, "name");
-    expect(upgradesManager.getUpgradeCost).toHaveBeenCalledWith("test");
 
     expect(callUpgradeBinding("can_upgrade_item", ["test", "name"])).toBe(true);
     expect(upgradesManager.canUpgradeItem).toHaveBeenCalledWith("test", "name");
