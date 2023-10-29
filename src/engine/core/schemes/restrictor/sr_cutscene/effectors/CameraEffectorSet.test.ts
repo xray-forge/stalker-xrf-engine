@@ -8,15 +8,31 @@ import {
   TCamEffectorSetDescriptor,
 } from "@/engine/core/schemes/restrictor/sr_cutscene";
 import { CameraEffectorSet } from "@/engine/core/schemes/restrictor/sr_cutscene/effectors/CameraEffectorSet";
+import { emitCutsceneEndedEvent } from "@/engine/core/schemes/restrictor/sr_cutscene/utils/cutscene_utils";
 import { parseConditionsList } from "@/engine/core/utils/ini";
 import { FALSE } from "@/engine/lib/constants/words";
 import { EScheme } from "@/engine/lib/types";
 import { mockRegisteredActor, mockSchemeState, resetRegistry } from "@/fixtures/engine";
+import { resetFunctionMock } from "@/fixtures/jest";
 import { MockDevice } from "@/fixtures/xray";
 
+jest.mock("@/engine/core/schemes/restrictor/sr_cutscene/utils/cutscene_utils", () => ({
+  emitCutsceneEndedEvent: jest.fn(),
+}));
+
 describe("CameraEffectorSet", () => {
+  const mockEffectorDescriptor = (
+    base: Partial<ICameraEffectorSetDescriptorItem> = {}
+  ): ICameraEffectorSetDescriptorItem => ({
+    isGlobalCameraEffect: base.isGlobalCameraEffect ?? false,
+    looped: base.looped ?? false,
+    anim: base.anim ?? "test",
+    enabled: base.enabled ?? "true",
+  });
+
   beforeEach(() => {
     resetRegistry();
+    resetFunctionMock(emitCutsceneEndedEvent);
     MockDevice.getInstance().precache_frame = 0;
   });
 
@@ -38,13 +54,12 @@ describe("CameraEffectorSet", () => {
     mockRegisteredActor();
 
     const state: ISchemeCutsceneState = mockSchemeState(EScheme.SR_CUTSCENE);
-    const descriptor: TCamEffectorSetDescriptor = {} as TCamEffectorSetDescriptor;
-    const effectorSet: CameraEffectorSet = new CameraEffectorSet(descriptor, state);
+    const effectorSet: CameraEffectorSet = new CameraEffectorSet({} as TCamEffectorSetDescriptor, state);
 
-    effectorSet.startEffect({ anim: "test_global", isGlobalCameraEffect: true, looped: false });
+    effectorSet.startEffect(mockEffectorDescriptor({ isGlobalCameraEffect: true }));
 
     expect(level.add_cam_effector2).toHaveBeenCalledWith(
-      "camera_effects\\test_global.anm",
+      "camera_effects\\test.anm",
       210408,
       false,
       "engine.effector_callback",
@@ -57,13 +72,12 @@ describe("CameraEffectorSet", () => {
     mockRegisteredActor();
 
     const state: ISchemeCutsceneState = mockSchemeState(EScheme.SR_CUTSCENE);
-    const descriptor: TCamEffectorSetDescriptor = {} as TCamEffectorSetDescriptor;
-    const effectorSet: CameraEffectorSet = new CameraEffectorSet(descriptor, state);
+    const effectorSet: CameraEffectorSet = new CameraEffectorSet({} as TCamEffectorSetDescriptor, state);
 
-    effectorSet.startEffect({ anim: "test_global", isGlobalCameraEffect: false, looped: false });
+    effectorSet.startEffect(mockEffectorDescriptor());
 
     expect(level.add_cam_effector).toHaveBeenCalledWith(
-      "camera_effects\\test_global.anm",
+      "camera_effects\\test.anm",
       210408,
       false,
       "engine.effector_callback"
@@ -75,8 +89,7 @@ describe("CameraEffectorSet", () => {
     mockRegisteredActor();
 
     const state: ISchemeCutsceneState = mockSchemeState(EScheme.SR_CUTSCENE);
-    const descriptor: TCamEffectorSetDescriptor = {} as TCamEffectorSetDescriptor;
-    const effectorSet: CameraEffectorSet = new CameraEffectorSet(descriptor, state);
+    const effectorSet: CameraEffectorSet = new CameraEffectorSet({} as TCamEffectorSetDescriptor, state);
 
     effectorSet.startEffect({ anim: "test_global", isGlobalCameraEffect: false, looped: false });
     effectorSet.stopEffect();
@@ -91,8 +104,8 @@ describe("CameraEffectorSet", () => {
     const state: ISchemeCutsceneState = mockSchemeState(EScheme.SR_CUTSCENE);
     const descriptor: TCamEffectorSetDescriptor = {
       idle: $fromArray<ICameraEffectorSetDescriptorItem>([
-        { isGlobalCameraEffect: true, looped: false, anim: "test.anm" },
-        { isGlobalCameraEffect: true, looped: true, anim: "test.anm" },
+        mockEffectorDescriptor({ looped: false }),
+        mockEffectorDescriptor({ looped: true }),
       ]),
     } as TCamEffectorSetDescriptor;
     const effectorSet: CameraEffectorSet = new CameraEffectorSet(descriptor, state);
@@ -126,7 +139,7 @@ describe("CameraEffectorSet", () => {
 
     expect(effectorSet.startEffect).not.toHaveBeenCalled();
 
-    const effect: ICameraEffectorSetDescriptorItem = { anim: "test", looped: true, isGlobalCameraEffect: true };
+    const effect: ICameraEffectorSetDescriptorItem = mockEffectorDescriptor({});
 
     jest.spyOn(effectorSet, "getNextEffector").mockImplementation(() => effect);
     jest.spyOn(effectorSet, "startEffect").mockImplementation(jest.fn());
@@ -144,9 +157,7 @@ describe("CameraEffectorSet", () => {
     MockDevice.getInstance().precache_frame = 2;
     effectorSet.isPlaying = false;
 
-    jest
-      .spyOn(effectorSet, "getNextEffector")
-      .mockImplementation(() => ({ anim: "test", looped: true, isGlobalCameraEffect: true }));
+    jest.spyOn(effectorSet, "getNextEffector").mockImplementation(() => mockEffectorDescriptor());
     jest.spyOn(effectorSet, "startEffect").mockImplementation(jest.fn());
 
     effectorSet.update();
@@ -155,8 +166,8 @@ describe("CameraEffectorSet", () => {
   });
 
   it("should correctly select looped effects", () => {
-    const first: ICameraEffectorSetDescriptorItem = { isGlobalCameraEffect: true, looped: true, anim: "test1.anm" };
-    const second: ICameraEffectorSetDescriptorItem = { isGlobalCameraEffect: true, looped: true, anim: "test2.anm" };
+    const first: ICameraEffectorSetDescriptorItem = mockEffectorDescriptor();
+    const second: ICameraEffectorSetDescriptorItem = mockEffectorDescriptor();
 
     const state: ISchemeCutsceneState = mockSchemeState(EScheme.SR_CUTSCENE);
     const descriptor: TCamEffectorSetDescriptor = {
@@ -179,5 +190,52 @@ describe("CameraEffectorSet", () => {
     expect(effectorSet.getNextEffector()).toBe(second);
   });
 
-  it.todo("should correctly select effects when progressing from start to release");
+  it("should correctly select effects when progressing from start to release", () => {
+    const toSkip: ICameraEffectorSetDescriptorItem = mockEffectorDescriptor({ enabled: FALSE });
+
+    const first: ICameraEffectorSetDescriptorItem = mockEffectorDescriptor();
+    const second: ICameraEffectorSetDescriptorItem = mockEffectorDescriptor();
+    const third: ICameraEffectorSetDescriptorItem = mockEffectorDescriptor();
+    const fourth: ICameraEffectorSetDescriptorItem = mockEffectorDescriptor();
+    const fifth: ICameraEffectorSetDescriptorItem = mockEffectorDescriptor();
+    const sixth: ICameraEffectorSetDescriptorItem = mockEffectorDescriptor();
+
+    const state: ISchemeCutsceneState = mockSchemeState(EScheme.SR_CUTSCENE);
+    const descriptor: TCamEffectorSetDescriptor = {
+      start: $fromArray<ICameraEffectorSetDescriptorItem>([toSkip, first, second, toSkip]),
+      idle: $fromArray<ICameraEffectorSetDescriptorItem>([third, toSkip, fourth]),
+      finish: $fromArray<ICameraEffectorSetDescriptorItem>([fifth, toSkip, sixth, toSkip]),
+    } as TCamEffectorSetDescriptor;
+    const effectorSet: CameraEffectorSet = new CameraEffectorSet(descriptor, state);
+
+    expect(effectorSet.getNextEffector()).toBe(first);
+    expect(effectorSet.currentEffectIndex).toBe(2);
+    expect(effectorSet.state).toBe(EEffectorState.START);
+
+    expect(effectorSet.getNextEffector()).toBe(second);
+    expect(effectorSet.currentEffectIndex).toBe(3);
+    expect(effectorSet.state).toBe(EEffectorState.START);
+
+    expect(effectorSet.getNextEffector()).toBe(third);
+    expect(effectorSet.currentEffectIndex).toBe(1);
+    expect(effectorSet.state).toBe(EEffectorState.IDLE);
+
+    expect(effectorSet.getNextEffector()).toBe(fourth);
+    expect(effectorSet.currentEffectIndex).toBe(3);
+    expect(effectorSet.state).toBe(EEffectorState.IDLE);
+
+    expect(effectorSet.getNextEffector()).toBe(fifth);
+    expect(effectorSet.currentEffectIndex).toBe(1);
+    expect(effectorSet.state).toBe(EEffectorState.FINISH);
+
+    expect(effectorSet.getNextEffector()).toBe(sixth);
+    expect(effectorSet.currentEffectIndex).toBe(3);
+    expect(effectorSet.state).toBe(EEffectorState.FINISH);
+
+    expect(effectorSet.getNextEffector()).toBeNull();
+    expect(effectorSet.currentEffectIndex).toBe(0);
+    expect(effectorSet.state).toBe(EEffectorState.RELEASE);
+
+    expect(emitCutsceneEndedEvent).toHaveBeenCalled();
+  });
 });
