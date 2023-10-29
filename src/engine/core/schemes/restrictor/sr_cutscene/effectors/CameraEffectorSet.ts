@@ -103,98 +103,100 @@ export class CameraEffectorSet {
   }
 
   /**
-   * todo: Description.
+   * @returns optional effector descriptor based on current state / effect index for further execution
    */
   public selectEffect(): Optional<ICameraEffectorSetDescriptorItem> {
     const state: EEffectorState = this.state;
     const actor: GameObject = registry.actor;
-    let currentEffect: TIndex = this.currentEffect;
 
     if (this.isLooped) {
-      return this.set[state].get(currentEffect);
+      return this.set[state].get(this.currentEffect);
     }
 
-    if (state === EEffectorState.START) {
-      currentEffect = currentEffect + 1;
-      if (this.set.start.get(currentEffect) !== null) {
-        this.currentEffect = currentEffect;
-        if (type(this.set.start.get(currentEffect).enabled) === "string") {
-          const conditionsList: TConditionList = parseConditionsList(
-            this.set.start.get(currentEffect).enabled as string
-          );
+    const nextEffect: TIndex = this.currentEffect + 1;
 
-          if (pickSectionFromCondList(actor, null, conditionsList) === FALSE) {
-            return this.selectEffect();
+    switch (state) {
+      case EEffectorState.START:
+        if (this.set.start.get(nextEffect)) {
+          this.currentEffect = nextEffect;
+
+          if (type(this.set.start.get(nextEffect).enabled) === "string") {
+            const conditionsList: TConditionList = parseConditionsList(
+              this.set.start.get(nextEffect).enabled as string
+            );
+
+            if (pickSectionFromCondList(actor, null, conditionsList) === FALSE) {
+              return this.selectEffect();
+            }
           }
-        }
 
-        if (type(this.set.start.get(currentEffect).looped) === "string") {
-          this.isLooped = true;
-          this.condlist = parseConditionsList(this.set.start.get(currentEffect).looped as string);
-        }
-
-        return this.set.start.get(currentEffect);
-      } else {
-        this.state = EEffectorState.IDLE;
-        this.currentEffect = 0;
-
-        return this.selectEffect();
-      }
-    } else if (state === EEffectorState.IDLE) {
-      currentEffect = currentEffect + 1;
-      if (this.set.idle.get(currentEffect) !== null) {
-        this.currentEffect = currentEffect;
-        if (type(this.set.idle.get(currentEffect).enabled) === "string") {
-          const conditionsList: TConditionList = parseConditionsList(
-            this.set.idle.get(currentEffect).enabled as string
-          );
-
-          if (pickSectionFromCondList(actor, null, conditionsList) === FALSE) {
-            return this.selectEffect();
+          if (type(this.set.start.get(nextEffect).looped) === "string") {
+            this.isLooped = true;
+            this.condlist = parseConditionsList(this.set.start.get(nextEffect).looped as string);
           }
+
+          return this.set.start.get(nextEffect);
+        } else {
+          this.state = EEffectorState.IDLE;
+          this.currentEffect = 0;
+
+          return this.selectEffect();
         }
 
-        if (type(this.set.idle.get(currentEffect).looped) === "string") {
-          this.isLooped = true;
-          this.condlist = parseConditionsList(this.set.idle.get(currentEffect).looped as string);
-        }
+      case EEffectorState.IDLE:
+        if (this.set.idle.get(nextEffect)) {
+          this.currentEffect = nextEffect;
 
-        return this.set.idle.get(currentEffect);
-      } else {
-        this.state = EEffectorState.FINISH;
-        this.currentEffect = 0;
+          if (type(this.set.idle.get(nextEffect).enabled) === "string") {
+            const conditionsList: TConditionList = parseConditionsList(this.set.idle.get(nextEffect).enabled as string);
 
-        return this.selectEffect();
-      }
-    } else if (state === EEffectorState.FINISH) {
-      currentEffect = currentEffect + 1;
-      if (this.set.finish.get(currentEffect) !== null) {
-        this.currentEffect = currentEffect;
-
-        if (type(this.set.finish.get(currentEffect).enabled) === "string") {
-          const condlist: TConditionList = parseConditionsList(this.set.finish.get(currentEffect).enabled as string);
-
-          if (pickSectionFromCondList(actor, null, condlist) === FALSE) {
-            return this.selectEffect();
+            if (pickSectionFromCondList(actor, null, conditionsList) === FALSE) {
+              return this.selectEffect();
+            }
           }
+
+          if (type(this.set.idle.get(nextEffect).looped) === "string") {
+            this.isLooped = true;
+            this.condlist = parseConditionsList(this.set.idle.get(nextEffect).looped as string);
+          }
+
+          return this.set.idle.get(nextEffect);
+        } else {
+          this.state = EEffectorState.FINISH;
+          this.currentEffect = 0;
+
+          return this.selectEffect();
         }
 
-        if (type(this.set.finish.get(currentEffect).looped) === "string") {
-          this.isLooped = true;
-          this.condlist = parseConditionsList(this.set.finish.get(currentEffect).looped as string);
+      case EEffectorState.FINISH:
+        if (this.set.finish.get(nextEffect)) {
+          this.currentEffect = nextEffect;
+
+          if (type(this.set.finish.get(nextEffect).enabled) === "string") {
+            const condlist: TConditionList = parseConditionsList(this.set.finish.get(nextEffect).enabled as string);
+
+            if (pickSectionFromCondList(actor, null, condlist) === FALSE) {
+              return this.selectEffect();
+            }
+          }
+
+          if (type(this.set.finish.get(nextEffect).looped) === "string") {
+            this.isLooped = true;
+            this.condlist = parseConditionsList(this.set.finish.get(nextEffect).looped as string);
+          }
+
+          return this.set.finish.get(nextEffect);
+        } else {
+          this.state = EEffectorState.RELEASE;
+          this.currentEffect = 0;
+
+          emitCutsceneEndedEvent();
+
+          return null;
         }
 
-        return this.set.finish.get(currentEffect);
-      } else {
-        this.state = EEffectorState.RELEASE;
-        this.currentEffect = 0;
-
-        emitCutsceneEndedEvent();
-
+      default:
         return null;
-      }
     }
-
-    return null;
   }
 }
