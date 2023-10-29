@@ -44,10 +44,12 @@ export class EventsManager extends AbstractTimersManager {
    * @param callback - callback to register for event
    * @param context to call callback at
    */
-  public registerCallback<T>(
+  public registerCallback<T extends AnyObject>(event: EGameEvent, callback: AnyContextualCallable<T>, context: T): void;
+  public registerCallback(event: EGameEvent, callback: AnyCallable): void;
+  public registerCallback<T extends AnyObject>(
     event: EGameEvent,
-    callback: (this: T, ...args: AnyArgs) => void,
-    context: Optional<AnyObject> = null
+    callback: AnyContextualCallable<T>,
+    context: Optional<T> = null
   ): void {
     // logger.info("Register callback:", EGameEvent[event]);
 
@@ -79,7 +81,11 @@ export class EventsManager extends AbstractTimersManager {
   public emitEvent(event: EGameEvent, ...data: AnyArgs): void;
   public emitEvent(event: EGameEvent, ...data: AnyArgs): void {
     for (const [func, config] of this.callbacks[event]) {
-      (func as unknown as AnyContextualCallable).call(config.context, ...data);
+      if (config.context) {
+        (func as unknown as AnyContextualCallable).call(config.context, ...data);
+      } else {
+        (func as unknown as AnyCallable)(...data);
+      }
     }
   }
 

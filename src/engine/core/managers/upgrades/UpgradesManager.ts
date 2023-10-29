@@ -1,88 +1,71 @@
 import { game } from "xray16";
 
-import { ITEM_UPGRADES, registry, STALKER_UPGRADE_INFO, SYSTEM_INI } from "@/engine/core/database";
+import { registry, SYSTEM_INI } from "@/engine/core/database";
 import { AbstractManager } from "@/engine/core/managers/base/AbstractManager";
-import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
-import { isObjectTrader } from "@/engine/core/managers/trade/utils";
 import { TItemUpgradeBranch } from "@/engine/core/managers/upgrades/item_upgrades_types";
-import { upgradesConfig } from "@/engine/core/managers/upgrades/UpgradesConfig";
-import { addRandomUpgrades } from "@/engine/core/managers/upgrades/utils/upgrades_install";
+import { ITEM_UPGRADES, STALKER_UPGRADE_INFO, upgradesConfig } from "@/engine/core/managers/upgrades/UpgradesConfig";
 import {
   parseConditionsList,
   parseStringsList,
   pickSectionFromCondList,
   TConditionList,
 } from "@/engine/core/utils/ini";
-import { getItemOwnerId } from "@/engine/core/utils/item";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { gameConfig } from "@/engine/lib/configs/GameConfig";
-import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import { questItems } from "@/engine/lib/constants/items/quest_items";
 import { FALSE, TRUE } from "@/engine/lib/constants/words";
-import { GameObject, LuaArray, Optional, TCount, TLabel, TName, TNumberId, TRate } from "@/engine/lib/types";
+import { GameObject, LuaArray, Optional, TCount, TLabel, TName, TRate } from "@/engine/lib/types";
 import { TSection } from "@/engine/lib/types/scheme";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Manager to handle upgrading of items with mechanics logics.
  */
 export class UpgradesManager extends AbstractManager {
   public upgradeHints: Optional<LuaArray<TLabel>> = null;
   public currentMechanicName: TName = "";
   public currentPriceDiscountRate: TRate = 1;
 
-  public override initialize(): void {
-    const eventsManager: EventsManager = EventsManager.getInstance();
-
-    eventsManager.registerCallback(EGameEvent.ITEM_WEAPON_GO_ONLINE_FIRST_TIME, this.onItemGoOnlineFirstTime, this);
-    eventsManager.registerCallback(EGameEvent.ITEM_OUTFIT_GO_ONLINE_FIRST_TIME, this.onItemGoOnlineFirstTime, this);
-    eventsManager.registerCallback(EGameEvent.ITEM_HELMET_GO_ONLINE_FIRST_TIME, this.onItemGoOnlineFirstTime, this);
-  }
-
-  public override destroy(): void {
-    const eventsManager: EventsManager = EventsManager.getInstance();
-
-    eventsManager.unregisterCallback(EGameEvent.ITEM_WEAPON_GO_ONLINE_FIRST_TIME, this.onItemGoOnlineFirstTime);
-    eventsManager.unregisterCallback(EGameEvent.ITEM_OUTFIT_GO_ONLINE_FIRST_TIME, this.onItemGoOnlineFirstTime);
-    eventsManager.unregisterCallback(EGameEvent.ITEM_HELMET_GO_ONLINE_FIRST_TIME, this.onItemGoOnlineFirstTime);
-  }
-
   /**
-   * todo: Description.
+   * @param hints - list of hints to set as current
    */
   public setCurrentHints(hints: LuaArray<TLabel>): void {
     this.upgradeHints = hints;
   }
 
   /**
-   * todo: Description.
+   * Setup discount value based on current mechanic.
    */
   public setupDiscounts(): void {
     if (STALKER_UPGRADE_INFO.line_exist(this.currentMechanicName, "discount_condlist")) {
       const data: string = STALKER_UPGRADE_INFO.r_string(this.currentMechanicName, "discount_condlist");
-      const conditionsList: TConditionList = parseConditionsList(data);
 
-      pickSectionFromCondList(registry.actor, null, conditionsList);
+      pickSectionFromCondList(registry.actor, null, parseConditionsList(data));
     }
   }
 
   /**
-   * todo: Description.
+   * @param section - section of the item to get price for
+   * @param condition - current condition state of the item object
+   * @returns repair price based on item price and condition
    */
-  public getRepairPrice(itemSection: TSection, itemCondition: TRate): TCount {
-    const cost: TCount = SYSTEM_INI.r_u32(itemSection, "cost");
+  public getRepairPrice(section: TSection, condition: TRate): TCount {
+    const cost: TCount = SYSTEM_INI.r_u32(section, "cost");
 
     return math.floor(
-      cost * (1 - itemCondition) * upgradesConfig.ITEM_REPAIR_PRICE_COEFFICIENT * this.currentPriceDiscountRate
+      cost * (1 - condition) * upgradesConfig.ITEM_REPAIR_PRICE_COEFFICIENT * this.currentPriceDiscountRate
     );
   }
 
   /**
-   * todo: Description.
+   * Gets repair service payment from the actor.
+   *
+   * @param section - section of the item to get price for
+   * @param condition - current condition state of the item object
    */
-  public getRepairItemPayment(itemName: TName, itemCondition: TRate): void {
-    registry.actor.give_money(-this.getRepairPrice(itemName, itemCondition));
+  public getRepairItemPayment(section: TSection, condition: TRate): void {
+    registry.actor.give_money(-this.getRepairPrice(section, condition));
   }
 
   /**
@@ -90,9 +73,11 @@ export class UpgradesManager extends AbstractManager {
    */
   public getUpgradeCost(section: TSection): TLabel {
     if (registry.actor !== null) {
-      const price: TCount = math.floor(ITEM_UPGRADES.r_u32(section, "cost") * this.currentPriceDiscountRate);
-
-      return game.translate_string("st_upgr_cost") + ": " + price;
+      return (
+        game.translate_string("st_upgr_cost") +
+        ": " +
+        math.floor(ITEM_UPGRADES.r_u32(section, "cost") * this.currentPriceDiscountRate)
+      );
     }
 
     return " ";
@@ -373,49 +358,6 @@ export class UpgradesManager extends AbstractManager {
       }
 
       return string.format("%s %s", propertyName, string.sub(ITEM_UPGRADES.r_string(section, "value"), 2, -2));
-    }
-  }
-
-  /**
-   * Handle item going online (spawning) first time.
-   *
-   * @param object - game object of item switching online
-   */
-  public onItemGoOnlineFirstTime(object: GameObject): void {
-    if (!upgradesConfig.ADD_RANDOM_UPGRADES) {
-      return;
-    }
-
-    const ownerId: Optional<TNumberId> = getItemOwnerId(object.id());
-
-    // Do not upgrade actor spawned items.
-    if (ownerId === ACTOR_ID) {
-      return;
-    }
-
-    let chance: TRate = math.random(100);
-    const dispersion: TCount = upgradesConfig.ADD_RANDOM_DISPERSION * math.random();
-
-    // Apply different rate for trader / owned / world.
-    if (ownerId && isObjectTrader(ownerId)) {
-      logger.info("TRADER RATE APPLY", object.name(), object.id(), ownerId);
-      chance /= upgradesConfig.ADD_RANDOM_RATE_TRADER;
-    } else if (ownerId) {
-      logger.info("OWNED RATE APPLY", object.name(), object.id(), ownerId);
-      chance /= upgradesConfig.ADD_RANDOM_RATE_OWNED;
-    } else {
-      logger.info("WORLD RATE APPLY", object.name(), object.id(), ownerId);
-      chance /= upgradesConfig.ADD_RANDOM_RATE_WORLD;
-    }
-
-    if (chance <= upgradesConfig.ADD_RANDOM_LEGENDARY_CHANCE) {
-      return addRandomUpgrades(object, upgradesConfig.ADD_RANDOM_LEGENDARY_COUNT + dispersion);
-    } else if (chance <= upgradesConfig.ADD_RANDOM_EPIC_CHANCE) {
-      return addRandomUpgrades(object, upgradesConfig.ADD_RANDOM_EPIC_COUNT + dispersion);
-    } else if (chance <= upgradesConfig.ADD_RANDOM_RARE_CHANCE) {
-      return addRandomUpgrades(object, upgradesConfig.ADD_RANDOM_RARE_COUNT + dispersion);
-    } else if (chance <= upgradesConfig.ADD_RANDOM_CHANCE) {
-      return addRandomUpgrades(object, upgradesConfig.ADD_RANDOM_COUNT + dispersion);
     }
   }
 }

@@ -56,6 +56,7 @@ export const FILES_MOCKS: Record<TPath, AnyObject> = {
       strap_bone0: "some_bone",
     },
     [weapons.wpn_ak74u]: {
+      cost: 4000,
       inv_name: "AK-74u",
       strap_bone0: "some_bone_u",
       upgrades:
@@ -320,21 +321,6 @@ export const FILES_MOCKS: Record<TPath, AnyObject> = {
     config: {
       item_repair_price_coefficient: 0.6,
     },
-    random: {
-      add_random_upgrades: false,
-      add_random_rate_owned: 1,
-      add_random_rate_world: 0.75,
-      add_random_rate_trader: 1.5,
-      add_random_chance: 20,
-      add_random_count: 1,
-      add_random_dispersion: 2,
-      add_random_rare_chance: 12,
-      add_random_rare_count: 2,
-      add_random_epic_chance: 6,
-      add_random_epic_count: 4,
-      add_random_legendary_chance: 3,
-      add_random_legendary_count: 16,
-    },
   },
   "managers\\map_display_manager.ltx": {
     config: {
@@ -397,6 +383,7 @@ export const FILES_MOCKS: Record<TPath, AnyObject> = {
       second: "b",
     },
   },
+  "item_upgrades.ltx": mockUpgradesLtx,
   "alife.ltx": alifeConfig,
   "forge.ltx": forgeConfig,
 };
