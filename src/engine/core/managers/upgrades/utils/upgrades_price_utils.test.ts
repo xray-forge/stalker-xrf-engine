@@ -1,7 +1,9 @@
-import { beforeEach, describe, expect, it } from "@jest/globals";
+import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 
 import { upgradesConfig } from "@/engine/core/managers/upgrades/UpgradesConfig";
 import {
+  canRepairItem,
+  getRepairItemAskReplicLabel,
   getRepairPrice,
   getUpgradeCost,
   getUpgradeCostLabel,
@@ -13,8 +15,69 @@ describe("upgrades_price_utils module", () => {
     resetRegistry();
 
     upgradesConfig.ITEM_REPAIR_PRICE_COEFFICIENT = 0.6;
+    upgradesConfig.PRICE_DISCOUNT_RATE = 1;
     upgradesConfig.UPGRADES_HINTS = null;
     upgradesConfig.CURRENT_MECHANIC_NAME = "";
+  });
+
+  it("getRepairItemAskReplicLabel should correctly get label", () => {
+    const { actorGameObject } = mockRegisteredActor();
+
+    jest.spyOn(actorGameObject, "money").mockImplementation(() => 100_000);
+
+    expect(getRepairItemAskReplicLabel("pri_a17_gauss_rifle", 1, true, "some_name")).toBe(
+      "translated_st_gauss_cannot_be_repaired"
+    );
+    expect(getRepairItemAskReplicLabel("pri_a17_gauss_rifle", 0, true, "some_name")).toBe(
+      "translated_st_gauss_cannot_be_repaired"
+    );
+
+    expect(getRepairItemAskReplicLabel("wpn_ak74u", 1, true, "some_name")).toBe(
+      "translated_st_upgr_cost 0 RU. translated_ui_inv_repair?"
+    );
+    expect(getRepairItemAskReplicLabel("wpn_abakan", 0.5, true, "some_name")).toBe(
+      "translated_st_upgr_cost 1500 RU. translated_ui_inv_repair?"
+    );
+    expect(getRepairItemAskReplicLabel("wpn_svu", 0, true, "some_name")).toBe(
+      "translated_st_upgr_cost 4200 RU. translated_ui_inv_repair?"
+    );
+
+    jest.spyOn(actorGameObject, "money").mockImplementation(() => 100);
+
+    expect(getRepairItemAskReplicLabel("wpn_ak74u", 1, true, "some_name")).toBe(
+      "translated_st_upgr_cost 0 RU. translated_ui_inv_repair?"
+    );
+    expect(getRepairItemAskReplicLabel("wpn_abakan", 0.5, true, "some_name")).toBe(
+      "translated_st_upgr_cost: 1500 RU\\ntranslated_ui_inv_not_enought_money: 1400 RU"
+    );
+    expect(getRepairItemAskReplicLabel("wpn_svu", 0, true, "some_name")).toBe(
+      "translated_st_upgr_cost: 4200 RU\\ntranslated_ui_inv_not_enought_money: 4100 RU"
+    );
+  });
+
+  it("canRepairItem should correctly check", () => {
+    const { actorGameObject } = mockRegisteredActor();
+
+    jest.spyOn(actorGameObject, "money").mockImplementation(() => 100_000);
+
+    upgradesConfig.ITEM_REPAIR_PRICE_COEFFICIENT = 0.6;
+    upgradesConfig.PRICE_DISCOUNT_RATE = 0.5;
+
+    expect(canRepairItem("wpn_ak74u", 1, "some_name")).toBe(true);
+    expect(canRepairItem("wpn_ak74u", 0.75, "some_name")).toBe(true);
+    expect(canRepairItem("wpn_abakan", 0.5, "some_name")).toBe(true);
+    expect(canRepairItem("wpn_abakan", 0, "some_name")).toBe(true);
+    expect(canRepairItem("pri_a17_gauss_rifle", 1, "some_name")).toBe(false);
+    expect(canRepairItem("pri_a17_gauss_rifle", 0, "some_name")).toBe(false);
+
+    jest.spyOn(actorGameObject, "money").mockImplementation(() => 300);
+
+    expect(canRepairItem("wpn_ak74u", 1, "some_name")).toBe(true);
+    expect(canRepairItem("wpn_ak74u", 0.75, "some_name")).toBe(true);
+    expect(canRepairItem("wpn_abakan", 0.5, "some_name")).toBe(false);
+    expect(canRepairItem("wpn_abakan", 0, "some_name")).toBe(false);
+    expect(canRepairItem("pri_a17_gauss_rifle", 1, "some_name")).toBe(false);
+    expect(canRepairItem("pri_a17_gauss_rifle", 0, "some_name")).toBe(false);
   });
 
   it("getRepairPrice should correctly get repair prices", () => {

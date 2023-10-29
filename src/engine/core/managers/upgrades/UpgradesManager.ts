@@ -12,10 +12,8 @@ import {
   TConditionList,
 } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { gameConfig } from "@/engine/lib/configs/GameConfig";
-import { questItems } from "@/engine/lib/constants/items/quest_items";
 import { FALSE, TRUE } from "@/engine/lib/constants/words";
-import { GameObject, LuaArray, Optional, TCount, TLabel, TName, TRate } from "@/engine/lib/types";
+import { GameObject, LuaArray, Optional, TCount, TLabel, TName, TNotCastedBoolean, TRate } from "@/engine/lib/types";
 import { TSection } from "@/engine/lib/types/scheme";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -27,7 +25,7 @@ export class UpgradesManager extends AbstractManager {
   /**
    * @param hints - list of hints to set as current
    */
-  public setCurrentHints(hints: LuaArray<TLabel>): void {
+  public setCurrentHints(hints: Optional<LuaArray<TLabel>>): void {
     upgradesConfig.UPGRADES_HINTS = hints;
   }
 
@@ -49,6 +47,41 @@ export class UpgradesManager extends AbstractManager {
   }
 
   /**
+   * @param mechanicName - name of the mechanic
+   * @param possibilities - condition list to switch possibilities logics
+   * @returns label describing upgrade possibilities
+   */
+  public getPossibilitiesLabel(mechanicName: TName, possibilities: TConditionList): TLabel {
+    let hintsLabel: TLabel = "";
+
+    if (upgradesConfig.UPGRADES_HINTS) {
+      for (const [, caption] of upgradesConfig.UPGRADES_HINTS) {
+        hintsLabel += `\\n - ${game.translate_string(caption)}`;
+      }
+    }
+
+    return hintsLabel === "" ? " - add hints for this upgrade" : hintsLabel;
+  }
+
+  /**
+   * @param section - item section to check
+   * @param mechanicName - name of the mechanic to verify
+   * @returns whether mechanic can upgrade item of provided section
+   */
+  public canUpgradeItem(section: TSection, mechanicName: TName): boolean {
+    upgradesConfig.CURRENT_MECHANIC_NAME = mechanicName;
+
+    this.setupDiscounts();
+
+    return (
+      // Check if it is not `repair only` mechanic type.
+      !STALKER_UPGRADE_INFO.line_exist(mechanicName, "he_upgrade_nothing") &&
+      // Check if it can upgrade specific item.
+      STALKER_UPGRADE_INFO.line_exist(mechanicName, section)
+    );
+  }
+
+  /**
    * Setup discount value based on current mechanic.
    */
   public setupDiscounts(): void {
@@ -57,93 +90,6 @@ export class UpgradesManager extends AbstractManager {
 
       pickSectionFromCondList(registry.actor, null, parseConditionsList(data));
     }
-  }
-
-  /**
-   * todo: Description.
-   */
-  public getPossibilitiesLabel(mechanicName: TName, possibilities: TConditionList): TLabel {
-    let hintsLabel: TLabel = "";
-
-    if (upgradesConfig.UPGRADES_HINTS !== null) {
-      for (const [, caption] of upgradesConfig.UPGRADES_HINTS) {
-        hintsLabel = hintsLabel + "\\n - " + game.translate_string(caption);
-      }
-    }
-
-    if (hintsLabel === "") {
-      hintsLabel = " - add hints for this upgrade";
-    }
-
-    return hintsLabel;
-  }
-
-  /**
-   * todo: Description.
-   */
-  public canUpgradeItem(section: TSection, mechanicName: TName): boolean {
-    upgradesConfig.CURRENT_MECHANIC_NAME = mechanicName;
-    this.setupDiscounts();
-
-    if (STALKER_UPGRADE_INFO.line_exist(mechanicName, "he_upgrade_nothing")) {
-      return false;
-    }
-
-    if (!STALKER_UPGRADE_INFO.line_exist(mechanicName, section)) {
-      return false;
-    }
-
-    return true;
-  }
-
-  /**
-   * todo: Description.
-   */
-  public canRepairItem(section: TSection, condition: TRate, mechanicName: TName): boolean {
-    // todo: no_repair field in ltx?
-    if (section === questItems.pri_a17_gauss_rifle) {
-      return false;
-    }
-
-    return registry.actor.money() >= getRepairPrice(section, condition);
-  }
-
-  /**
-   * todo: Description.
-   */
-  public getRepairItemAskReplicLabel(
-    itemName: TName,
-    itemCondition: number,
-    canRepair: boolean,
-    mechanicName: TName
-  ): TLabel {
-    if (itemName === questItems.pri_a17_gauss_rifle) {
-      return game.translate_string("st_gauss_cannot_be_repaired");
-    }
-
-    const price: TCount = getRepairPrice(itemName, itemCondition);
-
-    if (registry.actor.money() < price) {
-      // Price is: N $\n
-      // Not enough money: N $
-      return string.format(
-        "%s: %s RU\\n%s: %s %s",
-        game.translate_string("st_upgr_cost"),
-        price,
-        game.translate_string("ui_inv_not_enought_money"),
-        price - registry.actor.money(),
-        gameConfig.CURRENCY
-      );
-    }
-
-    // Price N $. Repair?
-    return string.format(
-      "%s %s %s. %s?",
-      game.translate_string("st_upgr_cost"),
-      price,
-      gameConfig.CURRENCY,
-      game.translate_string("ui_inv_repair")
-    );
   }
 
   /**
@@ -228,7 +174,7 @@ export class UpgradesManager extends AbstractManager {
   /**
    * todo: Description.
    */
-  public useEffectFunctorA(name: TName, section: TSection, loading: number): void {
+  public useEffectFunctorA(name: TName, section: TSection, loading: TNotCastedBoolean): void {
     if (loading === 0) {
       const money: TCount = ITEM_UPGRADES.r_u32(section, "cost");
 
@@ -266,11 +212,7 @@ export class UpgradesManager extends AbstractManager {
       }
     }
 
-    if (sum < 0) {
-      value = tostring(sum);
-    } else {
-      value = "+" + sum;
-    }
+    value = sum < 0 ? tostring(sum) : "+" + sum;
 
     if (name === "prop_ammo_size" || name === "prop_artefact") {
       return translatedPropertyName + " " + value;

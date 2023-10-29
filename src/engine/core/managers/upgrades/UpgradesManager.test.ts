@@ -1,8 +1,10 @@
-import { beforeEach, describe, expect, it } from "@jest/globals";
+import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 
 import { STALKER_UPGRADE_INFO, upgradesConfig } from "@/engine/core/managers/upgrades/UpgradesConfig";
 import { UpgradesManager } from "@/engine/core/managers/upgrades/UpgradesManager";
 import { giveInfoPortion, hasInfoPortion } from "@/engine/core/utils/info_portion";
+import { parseConditionsList } from "@/engine/core/utils/ini";
+import { TRUE } from "@/engine/lib/constants/words";
 import { LuaArray, TLabel } from "@/engine/lib/types";
 import { mockRegisteredActor, resetRegistry } from "@/fixtures/engine";
 
@@ -11,6 +13,7 @@ describe("UpgradesManager class", () => {
     resetRegistry();
 
     upgradesConfig.ITEM_REPAIR_PRICE_COEFFICIENT = 0.6;
+    upgradesConfig.PRICE_DISCOUNT_RATE = 1;
     upgradesConfig.UPGRADES_HINTS = null;
     upgradesConfig.CURRENT_MECHANIC_NAME = "";
   });
@@ -73,13 +76,42 @@ describe("UpgradesManager class", () => {
     expect(actorGameObject.give_money).toHaveBeenCalledWith(-750);
   });
 
-  it.todo("should correctly get possibilities label");
+  it("should correctly get possibilities label", () => {
+    const manager: UpgradesManager = UpgradesManager.getInstance();
 
-  it.todo("should correctly check if item can be upgraded");
+    manager.setCurrentHints(null);
+    expect(manager.getPossibilitiesLabel("test_name", parseConditionsList(TRUE))).toBe(" - add hints for this upgrade");
 
-  it.todo("should correctly set price discounts");
+    manager.setCurrentHints($fromArray<TLabel>([]));
+    expect(manager.getPossibilitiesLabel("test_name", parseConditionsList(TRUE))).toBe(" - add hints for this upgrade");
 
-  it.todo("should correctly check if able to repair item");
+    manager.setCurrentHints($fromArray(["first", "second", "third"]));
+    expect(manager.getPossibilitiesLabel("test_name", parseConditionsList(TRUE))).toBe(
+      "\\n - translated_first\\n - translated_second\\n - translated_third"
+    );
+  });
+
+  it("should correctly check if item can be upgraded", () => {
+    const manager: UpgradesManager = UpgradesManager.getInstance();
+
+    jest.spyOn(manager, "setupDiscounts").mockImplementation(jest.fn());
+
+    expect(manager.canUpgradeItem("wpn_ak74u", "test_mechanic")).toBe(true);
+    expect(upgradesConfig.CURRENT_MECHANIC_NAME).toBe("test_mechanic");
+    expect(manager.setupDiscounts).toHaveBeenCalled();
+
+    expect(manager.canUpgradeItem("wpn_ak74", "test_mechanic")).toBe(false);
+    expect(upgradesConfig.CURRENT_MECHANIC_NAME).toBe("test_mechanic");
+
+    expect(manager.canUpgradeItem("wpn_ak74u", "test_mechanic_upgrading_nothing")).toBe(false);
+    expect(upgradesConfig.CURRENT_MECHANIC_NAME).toBe("test_mechanic_upgrading_nothing");
+
+    expect(manager.canUpgradeItem("wpn_ak74", "test_mechanic_upgrading_nothing")).toBe(false);
+    expect(upgradesConfig.CURRENT_MECHANIC_NAME).toBe("test_mechanic_upgrading_nothing");
+
+    expect(manager.canUpgradeItem("wpn_ak74u", "unknown")).toBe(false);
+    expect(upgradesConfig.CURRENT_MECHANIC_NAME).toBe("unknown");
+  });
 
   it.todo("should correctly generate ask repair replics");
 
