@@ -119,7 +119,7 @@ describe("CameraEffectorSet", () => {
 
     effectorSet.isPlaying = false;
 
-    jest.spyOn(effectorSet, "selectEffect").mockImplementation(() => null);
+    jest.spyOn(effectorSet, "getNextEffector").mockImplementation(() => null);
     jest.spyOn(effectorSet, "startEffect").mockImplementation(jest.fn());
 
     effectorSet.update();
@@ -128,7 +128,7 @@ describe("CameraEffectorSet", () => {
 
     const effect: ICameraEffectorSetDescriptorItem = { anim: "test", looped: true, isGlobalCameraEffect: true };
 
-    jest.spyOn(effectorSet, "selectEffect").mockImplementation(() => effect);
+    jest.spyOn(effectorSet, "getNextEffector").mockImplementation(() => effect);
     jest.spyOn(effectorSet, "startEffect").mockImplementation(jest.fn());
 
     effectorSet.update();
@@ -145,7 +145,7 @@ describe("CameraEffectorSet", () => {
     effectorSet.isPlaying = false;
 
     jest
-      .spyOn(effectorSet, "selectEffect")
+      .spyOn(effectorSet, "getNextEffector")
       .mockImplementation(() => ({ anim: "test", looped: true, isGlobalCameraEffect: true }));
     jest.spyOn(effectorSet, "startEffect").mockImplementation(jest.fn());
 
@@ -154,7 +154,30 @@ describe("CameraEffectorSet", () => {
     expect(effectorSet.startEffect).not.toHaveBeenCalled();
   });
 
-  it.todo("should correctly select looped effects");
+  it("should correctly select looped effects", () => {
+    const first: ICameraEffectorSetDescriptorItem = { isGlobalCameraEffect: true, looped: true, anim: "test1.anm" };
+    const second: ICameraEffectorSetDescriptorItem = { isGlobalCameraEffect: true, looped: true, anim: "test2.anm" };
+
+    const state: ISchemeCutsceneState = mockSchemeState(EScheme.SR_CUTSCENE);
+    const descriptor: TCamEffectorSetDescriptor = {
+      idle: $fromArray<ICameraEffectorSetDescriptorItem>([first, second]),
+    } as TCamEffectorSetDescriptor;
+    const effectorSet: CameraEffectorSet = new CameraEffectorSet(descriptor, state);
+
+    effectorSet.state = EEffectorState.IDLE;
+    effectorSet.isLooped = true;
+    effectorSet.currentEffectIndex = 1;
+
+    expect(effectorSet.getNextEffector()).toBe(first);
+    expect(effectorSet.getNextEffector()).toBe(first);
+    expect(effectorSet.getNextEffector()).toBe(first);
+
+    effectorSet.currentEffectIndex = 2;
+
+    expect(effectorSet.getNextEffector()).toBe(second);
+    expect(effectorSet.getNextEffector()).toBe(second);
+    expect(effectorSet.getNextEffector()).toBe(second);
+  });
 
   it.todo("should correctly select effects when progressing from start to release");
 });

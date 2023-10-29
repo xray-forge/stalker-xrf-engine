@@ -90,6 +90,7 @@ export class CameraEffectorSet {
       return;
     }
 
+    // When playing and effect is looped, verify that condition to continue playing is still up-to-date.
     if (this.isPlaying) {
       const effect: ICameraEffectorSetDescriptorItem = this.set[this.state].get(this.currentEffectIndex);
 
@@ -97,7 +98,8 @@ export class CameraEffectorSet {
         this.isLooped = false;
       }
     } else {
-      const effect: Optional<ICameraEffectorSetDescriptorItem> = this.selectEffect();
+      // Check effect to play and start it if not playing anything.
+      const effect: Optional<ICameraEffectorSetDescriptorItem> = this.getNextEffector();
 
       if (effect) {
         this.startEffect(effect);
@@ -108,7 +110,7 @@ export class CameraEffectorSet {
   /**
    * @returns optional effector descriptor based on current state / effect index for further execution
    */
-  public selectEffect(): Optional<ICameraEffectorSetDescriptorItem> {
+  public getNextEffector(): Optional<ICameraEffectorSetDescriptorItem> {
     if (this.isLooped) {
       return this.set[this.state].get(this.currentEffectIndex);
     }
@@ -127,7 +129,7 @@ export class CameraEffectorSet {
             );
 
             if (pickSectionFromCondList(registry.actor, null, conditionsList) === FALSE) {
-              return this.selectEffect();
+              return this.getNextEffector();
             }
           }
 
@@ -141,7 +143,7 @@ export class CameraEffectorSet {
           this.state = EEffectorState.IDLE;
           this.currentEffectIndex = 0;
 
-          return this.selectEffect();
+          return this.getNextEffector();
         }
 
       // Handling idle state and progressing to finish animation.
@@ -155,7 +157,7 @@ export class CameraEffectorSet {
             );
 
             if (pickSectionFromCondList(registry.actor, null, conditionsList) === FALSE) {
-              return this.selectEffect();
+              return this.getNextEffector();
             }
           }
 
@@ -169,7 +171,7 @@ export class CameraEffectorSet {
           this.state = EEffectorState.FINISH;
           this.currentEffectIndex = 0;
 
-          return this.selectEffect();
+          return this.getNextEffector();
         }
 
       // Handling finish state and progressing to release state and callback emit.
@@ -183,7 +185,7 @@ export class CameraEffectorSet {
             );
 
             if (pickSectionFromCondList(registry.actor, null, condlist) === FALSE) {
-              return this.selectEffect();
+              return this.getNextEffector();
             }
           }
 

@@ -111,7 +111,7 @@ export class CutsceneManager extends AbstractSchemeManager<ISchemeCutsceneState>
       this.motion = new CameraEffectorSet(effectorSets[motion], this.state);
     }
 
-    const effect: ICameraEffectorSetDescriptorItem = this.motion.selectEffect()!;
+    const effect: ICameraEffectorSetDescriptorItem = this.motion.getNextEffector()!;
 
     this.motion.startEffect(effect);
     this.motionId += 1;
@@ -152,7 +152,7 @@ export class CutsceneManager extends AbstractSchemeManager<ISchemeCutsceneState>
     } else {
       this.motion!.isPlaying = false;
 
-      const effect: Optional<ICameraEffectorSetDescriptorItem> = this.motion!.selectEffect();
+      const effect: Optional<ICameraEffectorSetDescriptorItem> = this.motion!.getNextEffector();
 
       if (effect) {
         this.motion!.startEffect(effect);
