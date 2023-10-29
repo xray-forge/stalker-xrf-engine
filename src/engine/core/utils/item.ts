@@ -20,7 +20,7 @@ export function getItemOwnerId(id: TNumberId): Optional<TNumberId> {
 
 /**
  * @param object - target object to get pistol from
- * @returns any pistol from object inventory
+ * @returns pistol from object inventory
  */
 export function getAnyObjectPistol(object: GameObject): Optional<GameObject> {
   let pistol: Optional<GameObject> = null;

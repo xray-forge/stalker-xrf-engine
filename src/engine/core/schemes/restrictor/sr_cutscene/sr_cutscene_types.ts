@@ -1,8 +1,8 @@
 import type { IBaseSchemeState } from "@/engine/core/database/database_types";
-import type { LuaArray, StringOptional, TRate } from "@/engine/lib/types";
+import type { LuaArray, StringOptional, TPath, TRate } from "@/engine/lib/types";
 
 /**
- * todo;
+ * State of effector set run with `level.add_effect` interface.
  */
 export enum EEffectorState {
   START = "start",
@@ -33,3 +33,19 @@ export interface ISchemeCutsceneState extends IBaseSchemeState {
   isGlobalCameraEffect: boolean;
   isOutdoor: boolean;
 }
+
+/**
+ * Descriptor of camera effector properties.
+ */
+export interface ICameraEffectorSetDescriptorItem {
+  anim: TPath;
+  looped?: string | boolean;
+  isGlobalCameraEffect: boolean;
+  // Condition list.
+  enabled?: string;
+}
+
+/**
+ * todo;
+ */
+export type TCamEffectorSetDescriptor = Record<EEffectorState, LuaArray<ICameraEffectorSetDescriptorItem>>;

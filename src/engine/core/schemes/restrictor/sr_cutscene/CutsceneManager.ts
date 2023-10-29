@@ -3,14 +3,13 @@ import { level, patrol } from "xray16";
 import { AbstractSchemeManager } from "@/engine/core/ai/scheme";
 import { registry } from "@/engine/core/database";
 import { ActorInputManager } from "@/engine/core/managers/actor";
-import { CamEffectorSet } from "@/engine/core/schemes/restrictor/sr_cutscene/effectors/CamEffectorSet";
-import {
-  effectorSets,
-  ICamEffectorSetDescriptorItem,
-} from "@/engine/core/schemes/restrictor/sr_cutscene/effectors/camera_effector_sets";
+import { cutsceneConfig } from "@/engine/core/schemes/restrictor/sr_cutscene/CutsceneConfig";
+import { effectorSets } from "@/engine/core/schemes/restrictor/sr_cutscene/effectors/camera_effector_sets";
+import { CameraEffectorSet } from "@/engine/core/schemes/restrictor/sr_cutscene/effectors/CameraEffectorSet";
 import {
   EEffectorState,
   ESceneState,
+  ICameraEffectorSetDescriptorItem,
   ISchemeCutsceneState,
 } from "@/engine/core/schemes/restrictor/sr_cutscene/sr_cutscene_types";
 import { getExtern } from "@/engine/core/utils/binding";
@@ -25,13 +24,10 @@ const logger: LuaLogger = new LuaLogger($filename);
  * todo;
  */
 export class CutsceneManager extends AbstractSchemeManager<ISchemeCutsceneState> {
-  public static objectCutscene: Optional<GameObject> = null;
-  public static storageScene: Optional<ISchemeCutsceneState> = null;
-
   public isUiDisabled: boolean = false;
   public isPostprocess: boolean = false;
   public motionId: TNumberId = 1;
-  public motion: Optional<CamEffectorSet> = null;
+  public motion: Optional<CameraEffectorSet> = null;
   public sceneState: ESceneState = ESceneState.NONE;
 
   public override activate(): void {
@@ -54,9 +50,7 @@ export class CutsceneManager extends AbstractSchemeManager<ISchemeCutsceneState>
       }
     }
 
-    if (trySwitchToAnotherSection(this.object, this.state)) {
-      return;
-    }
+    trySwitchToAnotherSection(this.object, this.state);
   }
 
   /**
@@ -89,36 +83,43 @@ export class CutsceneManager extends AbstractSchemeManager<ISchemeCutsceneState>
     this.motionId = 1;
     this.selectNextMotion();
 
-    CutsceneManager.objectCutscene = this.object;
-    CutsceneManager.storageScene = this.state;
+    cutsceneConfig.objectCutscene = this.object;
+    cutsceneConfig.cutsceneState = this.state;
   }
 
+  /**
+   * todo;
+   */
   public selectNextMotion(): void {
     logger.info("Select next cutscene motion");
 
     const motion: TName = this.state.cameraEffector!.get(this.motionId);
 
     if (effectorSets[motion] === null) {
-      this.motion = new CamEffectorSet(
+      this.motion = new CameraEffectorSet(
         {
           start: new LuaTable(),
-          idle: [{ anim: motion, looped: false, global_cameffect: this.state.isGlobalCameraEffect }] as any,
+          idle: $fromArray<ICameraEffectorSetDescriptorItem>([
+            { anim: motion, looped: false, isGlobalCameraEffect: this.state.isGlobalCameraEffect },
+          ]),
           finish: new LuaTable(),
           release: new LuaTable(),
         },
         this.state
       );
     } else {
-      this.motion = new CamEffectorSet(effectorSets[motion], this.state);
+      this.motion = new CameraEffectorSet(effectorSets[motion], this.state);
     }
 
-    const effect: ICamEffectorSetDescriptorItem = this.motion.selectEffect()!;
+    const effect: ICameraEffectorSetDescriptorItem = this.motion.getNextEffector()!;
 
-    this.motion!.startEffect(effect);
-
-    this.motionId = this.motionId + 1;
+    this.motion.startEffect(effect);
+    this.motionId += 1;
   }
 
+  /**
+   * Handle progression of cutscene scenario.
+   */
   public override onCutscene(): void {
     logger.info("Cutscene callback:", this.object.name());
 
@@ -149,9 +150,9 @@ export class CutsceneManager extends AbstractSchemeManager<ISchemeCutsceneState>
         }
       }
     } else {
-      this.motion!.playing = false;
+      this.motion!.isPlaying = false;
 
-      const effect: Optional<ICamEffectorSetDescriptorItem> = this.motion!.selectEffect();
+      const effect: Optional<ICameraEffectorSetDescriptorItem> = this.motion!.getNextEffector();
 
       if (effect) {
         this.motion!.startEffect(effect);

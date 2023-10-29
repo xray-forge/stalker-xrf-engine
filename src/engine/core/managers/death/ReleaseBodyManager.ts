@@ -209,7 +209,7 @@ export class ReleaseBodyManager extends AbstractManager {
     for (const it of $range(1, count)) {
       const vid = reader.r_u16();
 
-      this.releaseObjectRegistry.set(it, {} as any);
+      this.releaseObjectRegistry.set(it, {} as IReleaseDescriptor);
       this.releaseObjectRegistry.get(it).id = vid;
     }
 

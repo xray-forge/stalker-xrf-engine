@@ -4,6 +4,7 @@ import { EPatrolFormation } from "@/engine/core/ai/patrol";
 import { EvaluatorSectionEnded } from "@/engine/core/ai/planner/evaluators";
 import { AbstractScheme } from "@/engine/core/ai/scheme";
 import { EActionId, EEvaluatorId } from "@/engine/core/ai/types";
+import { IPatrolSuggestedState } from "@/engine/core/animation/types";
 import { Squad } from "@/engine/core/objects/squad/Squad";
 import { ActionCommander, ActionPatrol } from "@/engine/core/schemes/stalker/patrol/actions";
 import { EvaluatorPatrolCommander } from "@/engine/core/schemes/stalker/patrol/evaluators";
@@ -60,7 +61,7 @@ export class SchemePatrol extends AbstractScheme {
       state.moveType = "patrol";
     }
 
-    state.suggestedState = {} as any;
+    state.suggestedState = {} as IPatrolSuggestedState;
     state.suggestedState.standing = readIniString(ini, section, "def_state_standing", false);
     state.suggestedState.moving = readIniString(ini, section, "def_state_moving1", false);
     state.suggestedState.moving = readIniString(

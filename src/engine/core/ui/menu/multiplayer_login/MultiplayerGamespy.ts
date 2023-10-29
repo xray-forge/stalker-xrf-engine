@@ -603,7 +603,7 @@ export class MultiplayerGameSpy extends CUIScriptWnd {
     this.owner.xrLoginManager.forgot_password("https://login.gamespy.com/lostpassword.aspx");
   }
 
-  public loadingProgress(fakeBool: any, progressString: string) {
+  public loadingProgress(fakeBool: unknown, progressString: string) {
     if (this.uiGsLoginMbCancel.IsShown()) {
       this.uiGsLoginMbCancel.HideDialog();
     }

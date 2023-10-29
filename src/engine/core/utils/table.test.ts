@@ -4,10 +4,10 @@ import { AnyObject, LuaArray, Optional } from "@/engine/lib/types";
 
 describe("table utils", () => {
   const tableUtils: {
-    isEmpty: (target: Optional<LuaTable<any>>) => boolean;
-    resetTable: (target: LuaTable<any>) => void;
+    isEmpty: <T extends AnyNotNil>(target: Optional<LuaTable<T>>) => boolean;
+    resetTable: <T extends AnyNotNil>(target: LuaTable<T>) => void;
     copyTable: (first: AnyObject, second: AnyObject) => AnyObject;
-    mergeTables: (base: LuaTable, ...rest: Array<LuaTable>) => AnyObject;
+    mergeTables: <T extends AnyNotNil>(base: LuaTable<T>, ...rest: Array<LuaTable<T>>) => AnyObject;
   } = jest.requireActual("@/engine/core/utils/table");
 
   it("resetTable should correctly empty provided table", () => {
@@ -22,8 +22,8 @@ describe("table utils", () => {
   });
 
   it("copyTable should correctly copy table", () => {
-    const from: LuaTable<any> = new LuaTable();
-    const to: LuaTable<any> = $fromObject({ a: 1, b: 2, c: 3, d: { a: "a" } });
+    const from: LuaTable = new LuaTable();
+    const to: LuaTable<string, unknown> = $fromObject<string, unknown>({ a: 1, b: 2, c: 3, d: { a: "a" } });
 
     expect(tableUtils.copyTable(to, from)).toEqualLuaTables({ a: 1, b: 2, c: 3, d: { a: "a" } });
     expect(to).toEqualLuaTables({ a: 1, b: 2, c: 3, d: { a: "a" } });
@@ -40,10 +40,10 @@ describe("table utils", () => {
   });
 
   it("mergeTables should correctly merge tables", () => {
-    const to: LuaTable<any> = $fromObject({ a: 1 });
+    const to: LuaTable<string, number> = $fromObject<string, number>({ a: 1 });
 
     expect(
-      tableUtils.mergeTables(to, $fromObject<any, any>({ b: 2 }), $fromObject<any, any>({ c: 3 }))
+      tableUtils.mergeTables(to, $fromObject<string, number>({ b: 2 }), $fromObject<string, number>({ c: 3 }))
     ).toEqualLuaTables({
       a: 1,
       b: 2,
