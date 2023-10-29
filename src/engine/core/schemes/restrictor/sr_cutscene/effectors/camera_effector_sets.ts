@@ -3,6 +3,7 @@ import {
   TCamEffectorSetDescriptor,
 } from "@/engine/core/schemes/restrictor/sr_cutscene/sr_cutscene_types";
 import { FALSE } from "@/engine/lib/constants/words";
+import { TName } from "@/engine/lib/types";
 
 export const pri_a15_cameffector: TCamEffectorSetDescriptor = {
   start: new LuaTable(),
@@ -210,7 +211,7 @@ export const pri_b305_camera_5: TCamEffectorSetDescriptor = {
   release: new LuaTable(),
 };
 
-export const effectorSets: Record<string, TCamEffectorSetDescriptor> = {
+export const effectorSets: Record<TName, TCamEffectorSetDescriptor> = {
   pri_a15_cameffector,
   jup_b219_descent_camera,
   pri_b305_camera_2,

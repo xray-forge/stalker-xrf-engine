@@ -12,7 +12,7 @@ import { isBlackScreen } from "@/engine/core/utils/game";
 import { parseConditionsList, pickSectionFromCondList, TConditionList } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { FALSE } from "@/engine/lib/constants/words";
-import { GameObject, Optional, TIndex, TNumberId } from "@/engine/lib/types";
+import { Optional, TIndex, TNumberId } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -29,8 +29,11 @@ export class CameraEffectorSet {
   public isPlaying: boolean = false;
   public isLooped: boolean = false;
 
+  // Effect lifecycle state.
   public state: EEffectorState = EEffectorState.START;
-  public currentEffect: TNumberId = 0;
+  // Effect index in current lifecycle state.
+  public currentEffectIndex: TIndex = 0;
+
   public condlist!: TConditionList;
 
   public constructor(set: TCamEffectorSetDescriptor, state: ISchemeCutsceneState) {
@@ -70,13 +73,13 @@ export class CameraEffectorSet {
    * Handle stop of camera effector.
    */
   public stopEffect(): void {
-    logger.info("Stop effect:", this.currentEffect, this.state);
+    logger.info("Stop effect:", this.currentEffectIndex, this.state);
 
     level.remove_cam_effector(CameraEffectorSet.EFFECTOR_ID);
 
     this.isPlaying = false;
     this.state = EEffectorState.RELEASE;
-    this.currentEffect = 0;
+    this.currentEffectIndex = 0;
   }
 
   /**
@@ -88,7 +91,7 @@ export class CameraEffectorSet {
     }
 
     if (this.isPlaying) {
-      const effect: ICameraEffectorSetDescriptorItem = this.set[this.state].get(this.currentEffect);
+      const effect: ICameraEffectorSetDescriptorItem = this.set[this.state].get(this.currentEffectIndex);
 
       if (effect && effect.looped !== false && pickSectionFromCondList(registry.actor, null, this.condlist) === FALSE) {
         this.isLooped = false;
@@ -106,89 +109,93 @@ export class CameraEffectorSet {
    * @returns optional effector descriptor based on current state / effect index for further execution
    */
   public selectEffect(): Optional<ICameraEffectorSetDescriptorItem> {
-    const state: EEffectorState = this.state;
-    const actor: GameObject = registry.actor;
-
     if (this.isLooped) {
-      return this.set[state].get(this.currentEffect);
+      return this.set[this.state].get(this.currentEffectIndex);
     }
 
-    const nextEffect: TIndex = this.currentEffect + 1;
+    const nextEffectIndex: TIndex = this.currentEffectIndex + 1;
 
-    switch (state) {
+    switch (this.state) {
+      // Starting effectors scenario and progress over list of descriptors or switch to idle state.
       case EEffectorState.START:
-        if (this.set.start.get(nextEffect)) {
-          this.currentEffect = nextEffect;
+        if (this.set.start.get(nextEffectIndex) as Optional<ICameraEffectorSetDescriptorItem>) {
+          this.currentEffectIndex = nextEffectIndex;
 
-          if (type(this.set.start.get(nextEffect).enabled) === "string") {
+          if (type(this.set.start.get(nextEffectIndex).enabled) === "string") {
             const conditionsList: TConditionList = parseConditionsList(
-              this.set.start.get(nextEffect).enabled as string
+              this.set.start.get(nextEffectIndex).enabled as string
             );
 
-            if (pickSectionFromCondList(actor, null, conditionsList) === FALSE) {
+            if (pickSectionFromCondList(registry.actor, null, conditionsList) === FALSE) {
               return this.selectEffect();
             }
           }
 
-          if (type(this.set.start.get(nextEffect).looped) === "string") {
+          if (type(this.set.start.get(nextEffectIndex).looped) === "string") {
             this.isLooped = true;
-            this.condlist = parseConditionsList(this.set.start.get(nextEffect).looped as string);
+            this.condlist = parseConditionsList(this.set.start.get(nextEffectIndex).looped as string);
           }
 
-          return this.set.start.get(nextEffect);
+          return this.set.start.get(nextEffectIndex);
         } else {
           this.state = EEffectorState.IDLE;
-          this.currentEffect = 0;
+          this.currentEffectIndex = 0;
 
           return this.selectEffect();
         }
 
+      // Handling idle state and progressing to finish animation.
       case EEffectorState.IDLE:
-        if (this.set.idle.get(nextEffect)) {
-          this.currentEffect = nextEffect;
+        if (this.set.idle.get(nextEffectIndex) as Optional<ICameraEffectorSetDescriptorItem>) {
+          this.currentEffectIndex = nextEffectIndex;
 
-          if (type(this.set.idle.get(nextEffect).enabled) === "string") {
-            const conditionsList: TConditionList = parseConditionsList(this.set.idle.get(nextEffect).enabled as string);
+          if (type(this.set.idle.get(nextEffectIndex).enabled) === "string") {
+            const conditionsList: TConditionList = parseConditionsList(
+              this.set.idle.get(nextEffectIndex).enabled as string
+            );
 
-            if (pickSectionFromCondList(actor, null, conditionsList) === FALSE) {
+            if (pickSectionFromCondList(registry.actor, null, conditionsList) === FALSE) {
               return this.selectEffect();
             }
           }
 
-          if (type(this.set.idle.get(nextEffect).looped) === "string") {
+          if (type(this.set.idle.get(nextEffectIndex).looped) === "string") {
             this.isLooped = true;
-            this.condlist = parseConditionsList(this.set.idle.get(nextEffect).looped as string);
+            this.condlist = parseConditionsList(this.set.idle.get(nextEffectIndex).looped as string);
           }
 
-          return this.set.idle.get(nextEffect);
+          return this.set.idle.get(nextEffectIndex);
         } else {
           this.state = EEffectorState.FINISH;
-          this.currentEffect = 0;
+          this.currentEffectIndex = 0;
 
           return this.selectEffect();
         }
 
+      // Handling finish state and progressing to release state and callback emit.
       case EEffectorState.FINISH:
-        if (this.set.finish.get(nextEffect)) {
-          this.currentEffect = nextEffect;
+        if (this.set.finish.get(nextEffectIndex) as Optional<ICameraEffectorSetDescriptorItem>) {
+          this.currentEffectIndex = nextEffectIndex;
 
-          if (type(this.set.finish.get(nextEffect).enabled) === "string") {
-            const condlist: TConditionList = parseConditionsList(this.set.finish.get(nextEffect).enabled as string);
+          if (type(this.set.finish.get(nextEffectIndex).enabled) === "string") {
+            const condlist: TConditionList = parseConditionsList(
+              this.set.finish.get(nextEffectIndex).enabled as string
+            );
 
-            if (pickSectionFromCondList(actor, null, condlist) === FALSE) {
+            if (pickSectionFromCondList(registry.actor, null, condlist) === FALSE) {
               return this.selectEffect();
             }
           }
 
-          if (type(this.set.finish.get(nextEffect).looped) === "string") {
+          if (type(this.set.finish.get(nextEffectIndex).looped) === "string") {
             this.isLooped = true;
-            this.condlist = parseConditionsList(this.set.finish.get(nextEffect).looped as string);
+            this.condlist = parseConditionsList(this.set.finish.get(nextEffectIndex).looped as string);
           }
 
-          return this.set.finish.get(nextEffect);
+          return this.set.finish.get(nextEffectIndex);
         } else {
           this.state = EEffectorState.RELEASE;
-          this.currentEffect = 0;
+          this.currentEffectIndex = 0;
 
           emitCutsceneEndedEvent();
 

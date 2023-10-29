@@ -28,7 +28,7 @@ describe("CameraEffectorSet", () => {
     expect(effectorSet.cutsceneState).toBe(state);
     expect(effectorSet.set).toBe(descriptor);
     expect(effectorSet.state).toBe(EEffectorState.START);
-    expect(effectorSet.currentEffect).toBe(0);
+    expect(effectorSet.currentEffectIndex).toBe(0);
     expect(effectorSet.isPlaying).toBe(false);
     expect(effectorSet.isLooped).toBe(false);
     expect(effectorSet.isEnabled).toBe(true);
@@ -84,7 +84,7 @@ describe("CameraEffectorSet", () => {
     expect(level.remove_cam_effector).toHaveBeenCalledWith(210408);
     expect(effectorSet.isPlaying).toBe(false);
     expect(effectorSet.state).toBe(EEffectorState.RELEASE);
-    expect(effectorSet.currentEffect).toBe(0);
+    expect(effectorSet.currentEffectIndex).toBe(0);
   });
 
   it("should correctly handle updates when playing", () => {
@@ -101,12 +101,12 @@ describe("CameraEffectorSet", () => {
     effectorSet.isLooped = true;
     effectorSet.isPlaying = true;
     effectorSet.state = EEffectorState.IDLE;
-    effectorSet.currentEffect = 1;
+    effectorSet.currentEffectIndex = 1;
 
     effectorSet.update();
     expect(effectorSet.isLooped).toBe(true);
 
-    effectorSet.currentEffect = 2;
+    effectorSet.currentEffectIndex = 2;
 
     effectorSet.update();
     expect(effectorSet.isLooped).toBe(false);
