@@ -2,9 +2,10 @@ import { game } from "xray16";
 
 import { registry, SYSTEM_INI } from "@/engine/core/database";
 import { ITEM_UPGRADES, upgradesConfig } from "@/engine/core/managers/upgrades/UpgradesConfig";
+import { parseStringsList } from "@/engine/core/utils/ini";
 import { getItemPrice } from "@/engine/core/utils/item";
 import { gameConfig } from "@/engine/lib/configs/GameConfig";
-import { TCount, TLabel, TName, TRate, TSection } from "@/engine/lib/types";
+import { LuaArray, Optional, TCount, TLabel, TName, TRate, TSection } from "@/engine/lib/types";
 
 /**
  * @param section - item section
@@ -93,4 +94,21 @@ export function getRepairItemAskReplicLabel(
     gameConfig.CURRENCY,
     game.translate_string("ui_inv_repair")
   );
+}
+
+/**
+ * @param data - comma separated list of upgrades to add (?)
+ * @param upgrade - name of upgrade
+ * @returns issued property label
+ */
+export function issueUpgradeProperty(data: string, upgrade: TName): TLabel {
+  const propertyName: TLabel = game.translate_string(ITEM_UPGRADES.r_string(upgrade, "name"));
+  const values: LuaArray<string> = parseStringsList(data);
+  const section: Optional<TSection> = values.get(1);
+
+  if (section && ITEM_UPGRADES.line_exist(section, "value") && ITEM_UPGRADES.r_string(section, "value")) {
+    return string.format("%s %s", propertyName, string.sub(ITEM_UPGRADES.r_string(section, "value"), 2, -2));
+  }
+
+  return propertyName;
 }

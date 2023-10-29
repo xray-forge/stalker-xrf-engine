@@ -206,7 +206,7 @@ export class UpgradesManager extends AbstractManager {
 
       value = ITEM_UPGRADES.r_string(sections.get(it), "value");
       if (name !== "prop_night_vision") {
-        sum = sum + tonumber(value)!;
+        sum += tonumber(value)!;
       } else {
         sum = tonumber(value)!;
       }
@@ -225,52 +225,15 @@ export class UpgradesManager extends AbstractManager {
       // --        return str
       return translatedPropertyName + " " + value;
     } else if (name === "prop_tonnage" || name === "prop_weightoutfit" || name === "prop_weight") {
-      const str: string = string.format("%s %5.2f %s", translatedPropertyName, value, game.translate_string("st_kg"));
-
-      return str;
+      return string.format("%s %5.2f %s", translatedPropertyName, value, game.translate_string("st_kg"));
     } else if (name === "prop_night_vision") {
-      if (tonumber(value) === 1) {
-        return translatedPropertyName;
-      } else {
-        return game.translate_string(propertyName + "_" + tonumber(value));
-      }
+      return tonumber(value) === 1
+        ? translatedPropertyName
+        : game.translate_string(propertyName + "_" + tonumber(value));
     } else if (name === "prop_no_buck" || name === "prop_autofire") {
       return translatedPropertyName;
     }
 
     return translatedPropertyName + " " + value + "%";
-  }
-
-  /**
-   * todo: Description.
-   */
-  public getPropertyFunctorB(data: string, name: TName): TName {
-    return this.issueProperty(data, name);
-  }
-
-  /**
-   * todo: Description.
-   */
-  public getPropertyFunctorC(data: string, name: TName): TName {
-    return this.issueProperty(data, name);
-  }
-
-  /**
-   * todo: Description.
-   */
-  public issueProperty(data: string, name: TName): TName {
-    const propertyName: TLabel = game.translate_string(ITEM_UPGRADES.r_string(name, "name"));
-    const values: LuaArray<string> = parseStringsList(data);
-    const section: Optional<TSection> = values.get(1);
-
-    if (section === null) {
-      return propertyName;
-    } else {
-      if (!ITEM_UPGRADES.line_exist(section, "value") || !ITEM_UPGRADES.r_string(section, "value")) {
-        return propertyName;
-      }
-
-      return string.format("%s %s", propertyName, string.sub(ITEM_UPGRADES.r_string(section, "value"), 2, -2));
-    }
   }
 }

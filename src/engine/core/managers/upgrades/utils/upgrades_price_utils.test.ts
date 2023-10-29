@@ -7,6 +7,7 @@ import {
   getRepairPrice,
   getUpgradeCost,
   getUpgradeCostLabel,
+  issueUpgradeProperty,
 } from "@/engine/core/managers/upgrades/utils/upgrades_price_utils";
 import { mockRegisteredActor, resetRegistry } from "@/fixtures/engine";
 
@@ -129,5 +130,13 @@ describe("upgrades_price_utils module", () => {
     expect(getUpgradeCostLabel("up_sect_firsta_ak74u")).toBe("translated_st_upgr_cost: 200");
     expect(getUpgradeCostLabel("up_sect_firstc_ak74u")).toBe("translated_st_upgr_cost: 325");
     expect(getUpgradeCostLabel("up_sect_firste_ak74u")).toBe("translated_st_upgr_cost: 450");
+  });
+
+  it("issueUpgradeProperty should correctly get label", () => {
+    expect(issueUpgradeProperty("", "up_firsta_ak74u")).toBe("translated_st_up_zat_a3_name");
+    expect(issueUpgradeProperty("up_sect_unknonwn,b", "up_firsta_ak74u")).toBe("translated_st_up_zat_a3_name");
+    expect(issueUpgradeProperty("up_sect_firsta_ak74u,b,c", "up_firsta_ak74u")).toBe("translated_st_up_zat_a3_name 1");
+    expect(issueUpgradeProperty("up_sect_seconf_ak74u,b,c", "up_firsta_ak74u")).toBe("translated_st_up_zat_a3_name 2");
+    expect(issueUpgradeProperty("up_sect_fourte_ak74u,b,c", "up_firsta_ak74u")).toBe("translated_st_up_zat_a3_name 2");
   });
 });

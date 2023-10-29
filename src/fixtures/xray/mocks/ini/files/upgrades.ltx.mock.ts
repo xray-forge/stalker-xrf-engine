@@ -80,6 +80,7 @@ export const mockUpgradesLtx = {
     ammo_mag_size: "10",
   },
   up_firsta_ak74u: {
+    name: "st_up_zat_a3_name",
     scheme_index: "0, 0",
     known: "1",
     effects: "up_gr_firstcd_ak74u",
@@ -92,6 +93,7 @@ export const mockUpgradesLtx = {
     effects: "up_gr_firstef_ak74u",
     section: "up_sect_firstc_ak74u",
     property: "prop_reliability",
+    name: "st_up_zat_a4_name",
   },
   up_firstd_ak74u: {
     scheme_index: "1, 1",

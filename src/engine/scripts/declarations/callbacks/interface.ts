@@ -6,6 +6,7 @@ import {
   canRepairItem,
   getRepairItemAskReplicLabel,
   getUpgradeCostLabel,
+  issueUpgradeProperty,
 } from "@/engine/core/managers/upgrades/utils/upgrades_price_utils";
 import { WeaponParams } from "@/engine/core/ui/game/WeaponParams";
 import { extern } from "@/engine/core/utils/binding";
@@ -56,10 +57,8 @@ extern("inventory_upgrades", {
     UpgradesManager.getInstance().getPreconditionFunctorA(name, section),
   property_functor_a: (data: string, name: TName): TLabel =>
     UpgradesManager.getInstance().getPropertyFunctorA(data, name),
-  property_functor_b: (data: string, name: TName): TName =>
-    UpgradesManager.getInstance().getPropertyFunctorB(data, name),
-  property_functor_c: (data: string, name: TName): TName =>
-    UpgradesManager.getInstance().getPropertyFunctorC(data, name),
+  property_functor_b: (data: string, upgrade: TName): TName => issueUpgradeProperty(data, upgrade),
+  property_functor_c: (data: string, upgrade: TName): TName => issueUpgradeProperty(data, upgrade),
   question_repair_item: (section: TSection, condition: TRate, canRepair: boolean, mechanicName: TName): TLabel =>
     getRepairItemAskReplicLabel(section, condition, canRepair, mechanicName),
 });

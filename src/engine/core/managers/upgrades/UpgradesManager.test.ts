@@ -122,10 +122,4 @@ describe("UpgradesManager class", () => {
   it.todo("should correctly handle effect A");
 
   it.todo("should correctly get property functor A");
-
-  it.todo("should correctly get property functor B");
-
-  it.todo("should correctly get property functor C");
-
-  it.todo("should correctly issue properties");
 });
