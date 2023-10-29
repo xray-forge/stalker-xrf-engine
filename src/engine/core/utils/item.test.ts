@@ -11,6 +11,7 @@ import {
   getItemInstalledUpgradesList,
   getItemInstalledUpgradesSet,
   getItemOwnerId,
+  getItemPrice,
   objectHasItem,
   setItemCondition,
 } from "@/engine/core/utils/item";
@@ -18,7 +19,7 @@ import { ammo } from "@/engine/lib/constants/items/ammo";
 import { medkits } from "@/engine/lib/constants/items/drugs";
 import { pistols, weapons } from "@/engine/lib/constants/items/weapons";
 import { MAX_U16 } from "@/engine/lib/constants/memory";
-import { GameObject, ServerObject } from "@/engine/lib/types";
+import { GameObject } from "@/engine/lib/types";
 import { resetRegistry } from "@/fixtures/engine";
 import { MockLuaTable } from "@/fixtures/lua";
 import { mockGameObject, mockServerAlifeObject } from "@/fixtures/xray";
@@ -48,12 +49,18 @@ describe("item utils", () => {
       ],
     });
 
+  it("getItemPrice should correctly get item price", () => {
+    expect(getItemPrice("wpn_ak74u")).toBe(4000);
+    expect(getItemPrice("wpn_abakan")).toBe(5000);
+    expect(getItemPrice("wpn_addon_scope")).toBe(2100);
+  });
+
   it("getItemOwnerId should correctly get owner ID", () => {
     const first: GameObject = mockGameObject();
-    const firstServer: ServerObject = mockServerAlifeObject({ id: first.id(), parent_id: 253 });
-
     const second: GameObject = mockGameObject();
-    const secondServer: ServerObject = mockServerAlifeObject({ id: second.id(), parent_id: MAX_U16 });
+
+    mockServerAlifeObject({ id: first.id(), parent_id: 253 });
+    mockServerAlifeObject({ id: second.id(), parent_id: MAX_U16 });
 
     const third: GameObject = mockGameObject();
 

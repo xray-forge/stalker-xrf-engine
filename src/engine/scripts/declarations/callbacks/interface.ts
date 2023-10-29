@@ -2,6 +2,12 @@ import { ActorInventoryMenuManager } from "@/engine/core/managers/actor/ActorInv
 import { LoadScreenManager } from "@/engine/core/managers/interface/LoadScreenManager";
 import { PdaManager } from "@/engine/core/managers/pda/PdaManager";
 import { UpgradesManager } from "@/engine/core/managers/upgrades/UpgradesManager";
+import {
+  getRepairItemAskReplicLabel,
+  getUpgradeCostLabel,
+  issueUpgradeProperty,
+} from "@/engine/core/managers/upgrades/utils/upgrades_label_utils";
+import { canRepairItem } from "@/engine/core/managers/upgrades/utils/upgrades_price_utils";
 import { WeaponParams } from "@/engine/core/ui/game/WeaponParams";
 import { extern } from "@/engine/core/utils/binding";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -15,6 +21,8 @@ import {
   TIndex,
   TLabel,
   TName,
+  TNotCastedBoolean,
+  TRate,
   TSection,
 } from "@/engine/lib/types";
 
@@ -34,27 +42,25 @@ extern("loadscreen", {
  * Handle item upgrade callbacks from game engine.
  */
 extern("inventory_upgrades", {
-  get_upgrade_cost: (section: TSection): TLabel => UpgradesManager.getInstance().getUpgradeCost(section),
-  can_repair_item: (itemName: TName, itemCondition: number, mechanicName: TName): boolean =>
-    UpgradesManager.getInstance().canRepairItem(itemName, itemCondition, mechanicName),
-  can_upgrade_item: (itemName: TName, mechanicName: TName): boolean =>
-    UpgradesManager.getInstance().canUpgradeItem(itemName, mechanicName),
-  effect_repair_item: (itemName: TName, itemCondition: number) =>
-    UpgradesManager.getInstance().getRepairItemPayment(itemName, itemCondition),
-  effect_functor_a: (name: TName, section: TSection, loading: number) =>
-    UpgradesManager.getInstance().useEffectFunctorA(name, section, loading),
+  get_upgrade_cost: (section: TSection): TLabel => getUpgradeCostLabel(section),
+  can_repair_item: (section: TSection, condition: TRate, mechanicName: TName): boolean =>
+    canRepairItem(section, condition, mechanicName),
+  can_upgrade_item: (section: TSection, mechanicName: TName): boolean =>
+    UpgradesManager.getInstance().canUpgradeItem(section, mechanicName),
+  effect_repair_item: (section: TSection, condition: TRate) =>
+    UpgradesManager.getInstance().getRepairItemPayment(section, condition),
+  effect_functor_a: (name: TName, section: TSection, loading: TNotCastedBoolean) =>
+    UpgradesManager.getInstance().getUpgradeItemPayment(name, section, loading),
   prereq_functor_a: (name: TName, section: TSection): TLabel =>
     UpgradesManager.getInstance().getPreRequirementsFunctorA(name, section),
   precondition_functor_a: (name: TName, section: TSection) =>
     UpgradesManager.getInstance().getPreconditionFunctorA(name, section),
   property_functor_a: (data: string, name: TName): TLabel =>
     UpgradesManager.getInstance().getPropertyFunctorA(data, name),
-  property_functor_b: (data: string, name: TName): TName =>
-    UpgradesManager.getInstance().getPropertyFunctorB(data, name),
-  property_functor_c: (data: string, name: TName): TName =>
-    UpgradesManager.getInstance().getPropertyFunctorC(data, name),
-  question_repair_item: (itemName: TName, itemCondition: number, canRepair: boolean, mechanicName: TName): TLabel =>
-    UpgradesManager.getInstance().getRepairItemAskReplicLabel(itemName, itemCondition, canRepair, mechanicName),
+  property_functor_b: (data: string, upgrade: TName): TName => issueUpgradeProperty(data, upgrade),
+  property_functor_c: (data: string, upgrade: TName): TName => issueUpgradeProperty(data, upgrade),
+  question_repair_item: (section: TSection, condition: TRate, canRepair: boolean, mechanicName: TName): TLabel =>
+    getRepairItemAskReplicLabel(section, condition, canRepair, mechanicName),
 });
 
 /**

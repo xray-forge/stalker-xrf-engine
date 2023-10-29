@@ -3,8 +3,14 @@ import { beforeAll, describe, expect, it, jest } from "@jest/globals";
 import { ActorInventoryMenuManager } from "@/engine/core/managers/actor";
 import { LoadScreenManager } from "@/engine/core/managers/interface/LoadScreenManager";
 import { PdaManager } from "@/engine/core/managers/pda";
-import { UpgradesManager } from "@/engine/core/managers/upgrades";
-import { TItemUpgradeBranch } from "@/engine/core/managers/upgrades/item_upgrades_types";
+import {
+  canRepairItem,
+  getRepairItemAskReplicLabel,
+  getUpgradeCostLabel,
+  issueUpgradeProperty,
+  TItemUpgradeBranch,
+  UpgradesManager,
+} from "@/engine/core/managers/upgrades";
 import { WeaponParams } from "@/engine/core/ui/game/WeaponParams";
 import { getExtern } from "@/engine/core/utils/binding";
 import {
@@ -18,6 +24,16 @@ import {
 } from "@/engine/lib/types";
 import { callBinding, checkBinding, checkNestedBinding } from "@/fixtures/engine";
 import { mockGameObject } from "@/fixtures/xray";
+
+jest.mock("@/engine/core/managers/upgrades/utils/upgrades_price_utils", () => ({
+  canRepairItem: jest.fn(() => true),
+}));
+
+jest.mock("@/engine/core/managers/upgrades/utils/upgrades_label_utils", () => ({
+  getUpgradeCostLabel: jest.fn(() => "100"),
+  getRepairItemAskReplicLabel: jest.fn(() => "test_label"),
+  issueUpgradeProperty: jest.fn(() => "issued_property"),
+}));
 
 describe("interface external callbacks", () => {
   beforeAll(() => {
@@ -86,27 +102,21 @@ describe("interface external callbacks", () => {
   it("should correctly handle inventory upgrades callbacks", () => {
     const upgradesManager: UpgradesManager = UpgradesManager.getInstance();
 
-    jest.spyOn(upgradesManager, "getUpgradeCost").mockImplementation(jest.fn(() => "100"));
-    jest.spyOn(upgradesManager, "canRepairItem").mockImplementation(jest.fn(() => true));
     jest.spyOn(upgradesManager, "canUpgradeItem").mockImplementation(jest.fn(() => true));
     jest.spyOn(upgradesManager, "getRepairItemPayment").mockImplementation(jest.fn(() => true));
-    jest.spyOn(upgradesManager, "useEffectFunctorA").mockImplementation(jest.fn(() => true));
+    jest.spyOn(upgradesManager, "getUpgradeItemPayment").mockImplementation(jest.fn(() => -400));
     jest.spyOn(upgradesManager, "getPreRequirementsFunctorA").mockImplementation(jest.fn(() => "test-1"));
     jest.spyOn(upgradesManager, "getPreconditionFunctorA").mockImplementation(jest.fn(() => 1 as TItemUpgradeBranch));
     jest.spyOn(upgradesManager, "getPropertyFunctorA").mockImplementation(jest.fn(() => "a"));
-    jest.spyOn(upgradesManager, "getPropertyFunctorB").mockImplementation(jest.fn(() => "b"));
-    jest.spyOn(upgradesManager, "getPropertyFunctorC").mockImplementation(jest.fn(() => "c"));
-    jest.spyOn(upgradesManager, "getRepairItemAskReplicLabel").mockImplementation(jest.fn(() => "replic"));
 
     const callUpgradeBinding = (name: TName, args: AnyArgs = []) =>
       callBinding(name, args, (_G as AnyObject)["inventory_upgrades"]);
 
     expect(callUpgradeBinding("get_upgrade_cost", ["test"])).toBe("100");
-    expect(upgradesManager.getUpgradeCost).toHaveBeenCalledWith("test");
+    expect(getUpgradeCostLabel).toHaveBeenCalledWith("test");
 
     expect(callUpgradeBinding("can_repair_item", ["test", 1, "name"])).toBe(true);
-    expect(upgradesManager.canRepairItem).toHaveBeenCalledWith("test", 1, "name");
-    expect(upgradesManager.getUpgradeCost).toHaveBeenCalledWith("test");
+    expect(canRepairItem).toHaveBeenCalledWith("test", 1, "name");
 
     expect(callUpgradeBinding("can_upgrade_item", ["test", "name"])).toBe(true);
     expect(upgradesManager.canUpgradeItem).toHaveBeenCalledWith("test", "name");
@@ -115,7 +125,7 @@ describe("interface external callbacks", () => {
     expect(upgradesManager.getRepairItemPayment).toHaveBeenCalledWith("test", 1);
 
     callUpgradeBinding("effect_functor_a", ["test", "test-2", true]);
-    expect(upgradesManager.useEffectFunctorA).toHaveBeenCalledWith("test", "test-2", true);
+    expect(upgradesManager.getUpgradeItemPayment).toHaveBeenCalledWith("test", "test-2", true);
 
     expect(callUpgradeBinding("prereq_functor_a", ["test", "test-2"])).toBe("test-1");
     expect(upgradesManager.getPreRequirementsFunctorA).toHaveBeenCalledWith("test", "test-2");
@@ -126,14 +136,14 @@ describe("interface external callbacks", () => {
     expect(callUpgradeBinding("property_functor_a", ["test", "test-2"])).toBe("a");
     expect(upgradesManager.getPreRequirementsFunctorA).toHaveBeenCalledWith("test", "test-2");
 
-    expect(callUpgradeBinding("property_functor_b", ["test", "test-2"])).toBe("b");
-    expect(upgradesManager.getPreRequirementsFunctorA).toHaveBeenCalledWith("test", "test-2");
+    expect(callUpgradeBinding("property_functor_b", ["test-b", "test-2"])).toBe("issued_property");
+    expect(issueUpgradeProperty).toHaveBeenCalledWith("test-b", "test-2");
 
-    expect(callUpgradeBinding("property_functor_c", ["test", "test-2"])).toBe("c");
-    expect(upgradesManager.getPreRequirementsFunctorA).toHaveBeenCalledWith("test", "test-2");
+    expect(callUpgradeBinding("property_functor_c", ["test-c", "test-2"])).toBe("issued_property");
+    expect(issueUpgradeProperty).toHaveBeenCalledWith("test-c", "test-2");
 
-    expect(callUpgradeBinding("question_repair_item", ["test", 1, true, "test"])).toBe("replic");
-    expect(upgradesManager.getRepairItemAskReplicLabel).toHaveBeenCalledWith("test", 1, true, "test");
+    expect(callUpgradeBinding("question_repair_item", ["test", 1, true, "test"])).toBe("test_label");
+    expect(getRepairItemAskReplicLabel).toHaveBeenCalledWith("test", 1, true, "test");
   });
 
   it("actor_menu callbacks", () => {

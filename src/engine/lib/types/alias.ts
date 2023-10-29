@@ -69,3 +69,8 @@ export type TRate = number;
  * Number based size.
  */
 export type TSize = number;
+
+/**
+ * Boolean value not correctly casted from C++ number;
+ */
+export type TNotCastedBoolean = 0 | 1;

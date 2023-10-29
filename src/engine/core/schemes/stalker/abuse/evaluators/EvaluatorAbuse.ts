@@ -9,13 +9,13 @@ import { ISchemeAbuseState } from "@/engine/core/schemes/stalker/abuse/abuse_typ
 export class EvaluatorAbuse extends property_evaluator {
   public readonly state: ISchemeAbuseState;
 
-  public constructor(storage: ISchemeAbuseState) {
+  public constructor(state: ISchemeAbuseState) {
     super(null, EvaluatorAbuse.__name);
-    this.state = storage;
+    this.state = state;
   }
 
   /**
-   * Check whether object is abused.
+   * @returns whether object is abused
    */
   public override evaluate(): boolean {
     return this.state.abuseManager.update();

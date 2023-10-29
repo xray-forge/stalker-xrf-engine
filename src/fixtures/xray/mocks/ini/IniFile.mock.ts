@@ -17,6 +17,14 @@ export class MockIniFile<T extends AnyObject> {
     this.data = data || (FILES_MOCKS[path as keyof typeof FILES_MOCKS] as unknown as T) || {};
   }
 
+  public w_string = jest.fn((section: TSection, field: TName, value: string) => {
+    if (!this.data[section]) {
+      (this.data as AnyObject)[section] = {};
+    }
+
+    this.data[section][field] = value;
+  });
+
   public r_float = jest.fn((section: TSection, field: TName) => this.data[section][field]);
   public r_u32 = jest.fn((section: TSection, field: TName) => {
     if (!(section in this.data)) {

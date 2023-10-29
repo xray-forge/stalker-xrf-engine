@@ -202,8 +202,8 @@ export function getObjectConfigOverrides(ini: IniFile, section: TSection, object
     ini,
     ini.line_exist(state.sectionLogic, "post_combat_time") ? state.sectionLogic : section,
     "post_combat_time",
-    combatConfig.POST_COMBAT_IDLE.MIN / 1000,
-    combatConfig.POST_COMBAT_IDLE.MAX / 1000
+    combatConfig.POST_COMBAT_IDLE.MIN,
+    combatConfig.POST_COMBAT_IDLE.MAX
   );
 
   return {
