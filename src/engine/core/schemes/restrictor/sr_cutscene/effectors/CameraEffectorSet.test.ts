@@ -10,7 +10,7 @@ import {
 import { CameraEffectorSet } from "@/engine/core/schemes/restrictor/sr_cutscene/effectors/CameraEffectorSet";
 import { emitCutsceneEndedEvent } from "@/engine/core/schemes/restrictor/sr_cutscene/utils/cutscene_utils";
 import { parseConditionsList } from "@/engine/core/utils/ini";
-import { FALSE } from "@/engine/lib/constants/words";
+import { FALSE, TRUE } from "@/engine/lib/constants/words";
 import { EScheme } from "@/engine/lib/types";
 import { mockRegisteredActor, mockSchemeState, resetRegistry } from "@/fixtures/engine";
 import { resetFunctionMock } from "@/fixtures/jest";
@@ -165,6 +165,17 @@ describe("CameraEffectorSet", () => {
     expect(effectorSet.startEffect).not.toHaveBeenCalled();
   });
 
+  it("should correctly select effects when stage is unknown", () => {
+    const state: ISchemeCutsceneState = mockSchemeState(EScheme.SR_CUTSCENE);
+    const effectorSet: CameraEffectorSet = new CameraEffectorSet({} as TCamEffectorSetDescriptor, state);
+
+    effectorSet.state = EEffectorState.RELEASE;
+    expect(effectorSet.getNextEffector()).toBeNull();
+
+    effectorSet.state = "not-known" as unknown as EEffectorState;
+    expect(effectorSet.getNextEffector()).toBeNull();
+  });
+
   it("should correctly select looped effects", () => {
     const first: ICameraEffectorSetDescriptorItem = mockEffectorDescriptor();
     const second: ICameraEffectorSetDescriptorItem = mockEffectorDescriptor();
@@ -237,5 +248,73 @@ describe("CameraEffectorSet", () => {
     expect(effectorSet.state).toBe(EEffectorState.RELEASE);
 
     expect(emitCutsceneEndedEvent).toHaveBeenCalled();
+  });
+
+  it("should correctly select effects when progressing from start to release and get looped", () => {
+    const toSkip: ICameraEffectorSetDescriptorItem = mockEffectorDescriptor({ enabled: FALSE });
+
+    const first: ICameraEffectorSetDescriptorItem = mockEffectorDescriptor({ looped: TRUE });
+    const second: ICameraEffectorSetDescriptorItem = mockEffectorDescriptor();
+    const third: ICameraEffectorSetDescriptorItem = mockEffectorDescriptor({ looped: TRUE });
+    const fourth: ICameraEffectorSetDescriptorItem = mockEffectorDescriptor();
+    const fifth: ICameraEffectorSetDescriptorItem = mockEffectorDescriptor({ looped: TRUE });
+
+    const state: ISchemeCutsceneState = mockSchemeState(EScheme.SR_CUTSCENE);
+    const descriptor: TCamEffectorSetDescriptor = {
+      start: $fromArray<ICameraEffectorSetDescriptorItem>([toSkip, first, toSkip]),
+      idle: $fromArray<ICameraEffectorSetDescriptorItem>([second, toSkip, third]),
+      finish: $fromArray<ICameraEffectorSetDescriptorItem>([toSkip, fourth, fifth]),
+    } as TCamEffectorSetDescriptor;
+    const effectorSet: CameraEffectorSet = new CameraEffectorSet(descriptor, state);
+
+    expect(effectorSet.getNextEffector()).toBe(first);
+    expect(effectorSet.currentEffectIndex).toBe(2);
+    expect(effectorSet.state).toBe(EEffectorState.START);
+    expect(effectorSet.isLooped).toBe(true);
+    expect(effectorSet.condlist).toEqualLuaTables(parseConditionsList(TRUE));
+
+    expect(effectorSet.getNextEffector()).toBe(first);
+    expect(effectorSet.currentEffectIndex).toBe(2);
+    expect(effectorSet.state).toBe(EEffectorState.START);
+    expect(effectorSet.isLooped).toBe(true);
+    expect(effectorSet.condlist).toEqualLuaTables(parseConditionsList(TRUE));
+
+    effectorSet.isLooped = false;
+
+    expect(effectorSet.getNextEffector()).toBe(second);
+    expect(effectorSet.currentEffectIndex).toBe(1);
+    expect(effectorSet.state).toBe(EEffectorState.IDLE);
+    expect(effectorSet.isLooped).toBe(false);
+
+    expect(effectorSet.getNextEffector()).toBe(third);
+    expect(effectorSet.currentEffectIndex).toBe(3);
+    expect(effectorSet.state).toBe(EEffectorState.IDLE);
+    expect(effectorSet.isLooped).toBe(true);
+    expect(effectorSet.condlist).toEqualLuaTables(parseConditionsList(TRUE));
+
+    expect(effectorSet.getNextEffector()).toBe(third);
+    expect(effectorSet.currentEffectIndex).toBe(3);
+    expect(effectorSet.state).toBe(EEffectorState.IDLE);
+    expect(effectorSet.isLooped).toBe(true);
+    expect(effectorSet.condlist).toEqualLuaTables(parseConditionsList(TRUE));
+
+    effectorSet.isLooped = false;
+
+    expect(effectorSet.getNextEffector()).toBe(fourth);
+    expect(effectorSet.currentEffectIndex).toBe(2);
+    expect(effectorSet.state).toBe(EEffectorState.FINISH);
+    expect(effectorSet.isLooped).toBe(false);
+
+    expect(effectorSet.getNextEffector()).toBe(fifth);
+    expect(effectorSet.currentEffectIndex).toBe(3);
+    expect(effectorSet.state).toBe(EEffectorState.FINISH);
+    expect(effectorSet.isLooped).toBe(true);
+    expect(effectorSet.condlist).toEqualLuaTables(parseConditionsList(TRUE));
+
+    expect(effectorSet.getNextEffector()).toBe(fifth);
+    expect(effectorSet.currentEffectIndex).toBe(3);
+    expect(effectorSet.state).toBe(EEffectorState.FINISH);
+    expect(effectorSet.isLooped).toBe(true);
+    expect(effectorSet.condlist).toEqualLuaTables(parseConditionsList(TRUE));
   });
 });
