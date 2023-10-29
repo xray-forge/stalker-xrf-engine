@@ -1,5 +1,6 @@
 import { registry, SYSTEM_INI } from "@/engine/core/database";
 import { ITEM_UPGRADES, upgradesConfig } from "@/engine/core/managers/upgrades/UpgradesConfig";
+import { readIniBoolean } from "@/engine/core/utils/ini";
 import { getItemPrice } from "@/engine/core/utils/item";
 import { TCount, TName, TRate, TSection } from "@/engine/lib/types";
 
@@ -11,7 +12,7 @@ import { TCount, TName, TRate, TSection } from "@/engine/lib/types";
  */
 export function canRepairItem(section: TSection, condition: TRate, mechanicName: TName): boolean {
   // Item defined as no repairable.
-  if (SYSTEM_INI.r_bool(section, "no_repair")) {
+  if (readIniBoolean(SYSTEM_INI, section, "no_repair", false, false)) {
     return false;
   }
 

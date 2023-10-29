@@ -6,7 +6,7 @@ import { ISchemePostCombatIdleState } from "@/engine/core/schemes/stalker/combat
 import { canObjectSelectAsEnemy } from "@/engine/core/schemes/stalker/danger/utils";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
-import { GameObject, Optional, TDistance, TDuration, TTimestamp } from "@/engine/lib/types";
+import { GameObject, Optional, TDistance, TTimestamp } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -48,13 +48,13 @@ export class EvaluatorHasEnemy extends property_evaluator {
     const now: TTimestamp = time_global();
 
     if (bestEnemy === null && this.state.timer === null) {
-      const overrides: Optional<ILogicsOverrides> = registry.objects.get(this.object.id()).overrides;
-      const min: TDistance = (overrides?.minPostCombatTime as TDuration) * 1000 || combatConfig.POST_COMBAT_IDLE.MIN;
-      const max: TDistance = (overrides?.maxPostCombatTime as TDuration) * 1000 || combatConfig.POST_COMBAT_IDLE.MAX;
-
       if (this.state.lastBestEnemyId === ACTOR_ID) {
         this.state.timer = now;
       } else {
+        const overrides: Optional<ILogicsOverrides> = registry.objects.get(this.object.id()).overrides;
+        const min: TDistance = (overrides?.minPostCombatTime ?? combatConfig.POST_COMBAT_IDLE.MIN) * 1000;
+        const max: TDistance = (overrides?.maxPostCombatTime ?? combatConfig.POST_COMBAT_IDLE.MAX) * 1000;
+
         this.state.timer = now + math.random(min, max);
       }
     }

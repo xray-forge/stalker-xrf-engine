@@ -3,7 +3,7 @@ import { game } from "xray16";
 import { registry, SYSTEM_INI } from "@/engine/core/database";
 import { ITEM_UPGRADES } from "@/engine/core/managers/upgrades/UpgradesConfig";
 import { getRepairPrice, getUpgradeCost } from "@/engine/core/managers/upgrades/utils/upgrades_price_utils";
-import { parseStringsList } from "@/engine/core/utils/ini";
+import { parseStringsList, readIniBoolean } from "@/engine/core/utils/ini";
 import { gameConfig } from "@/engine/lib/configs/GameConfig";
 import { LuaArray, Optional, TCount, TLabel, TName, TRate, TSection } from "@/engine/lib/types";
 
@@ -29,7 +29,7 @@ export function getRepairItemAskReplicLabel(
   mechanicName: TName
 ): TLabel {
   // Item defined as no repairable.
-  if (SYSTEM_INI.r_bool(section, "no_repair")) {
+  if (readIniBoolean(SYSTEM_INI, section, "no_repair", false, false)) {
     return game.translate_string("st_gauss_cannot_be_repaired");
   }
 
