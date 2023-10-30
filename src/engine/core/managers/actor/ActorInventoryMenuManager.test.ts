@@ -13,7 +13,7 @@ describe("ActorInventoryMenuManager class", () => {
   it("should correctly initialize", () => {
     const actorInventoryMenuManager: ActorInventoryMenuManager = ActorInventoryMenuManager.getInstance();
 
-    expect(actorInventoryMenuManager.activeMode).toBe(EActorMenuMode.UNDEFINED);
+    expect(actorInventoryMenuManager.ACTOR_MENU_MODE).toBe(EActorMenuMode.UNDEFINED);
 
     // Quick slots init.
     expect(gameConsole.execute).toHaveBeenCalledTimes(4);
@@ -28,7 +28,7 @@ describe("ActorInventoryMenuManager class", () => {
   it("should correctly change and check active mode", () => {
     const actorInventoryMenuManager: ActorInventoryMenuManager = ActorInventoryMenuManager.getInstance();
 
-    expect(actorInventoryMenuManager.activeMode).toBe(EActorMenuMode.UNDEFINED);
+    expect(actorInventoryMenuManager.ACTOR_MENU_MODE).toBe(EActorMenuMode.UNDEFINED);
     expect(actorInventoryMenuManager.isActiveMode(EActorMenuMode.UNDEFINED)).toBe(true);
     expect(actorInventoryMenuManager.isActiveMode(EActorMenuMode.TALK_DIALOG)).toBe(false);
 
