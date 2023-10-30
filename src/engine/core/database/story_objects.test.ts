@@ -17,6 +17,7 @@ import {
   unregisterStoryLinkByStoryId,
 } from "@/engine/core/database/story_objects";
 import { GameObject, ServerObject } from "@/engine/lib/types";
+import { resetRegistry } from "@/fixtures/engine";
 import { FILES_MOCKS, MockAlifeSimulator, mockGameObject, mockServerAlifeObject } from "@/fixtures/xray";
 
 describe("story_objects module of the database", () => {
@@ -27,10 +28,8 @@ describe("story_objects module of the database", () => {
   MockAlifeSimulator.addToRegistry(secondObject);
 
   beforeEach(() => {
+    resetRegistry();
     registerSimulator();
-
-    registry.storyLink.idBySid = new LuaTable();
-    registry.storyLink.sidById = new LuaTable();
   });
 
   it("should correctly register object story links", () => {

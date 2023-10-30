@@ -46,7 +46,7 @@ import {
 import { loadSchemeImplementation, loadSchemeImplementations } from "@/engine/core/utils/scheme/scheme_setup";
 import { NIL } from "@/engine/lib/constants/words";
 import { EScheme, ESchemeType, GameObject, IniFile, ServerHumanObject } from "@/engine/lib/types";
-import { getSchemeAction, mockSchemeState } from "@/fixtures/engine/mocks";
+import { getSchemeAction, mockSchemeState, resetRegistry } from "@/fixtures/engine/mocks";
 import { MockAlifeSimulator, mockGameObject, mockIniFile, mockServerAlifeHumanStalker } from "@/fixtures/xray";
 import { MockCTime } from "@/fixtures/xray/mocks/CTime.mock";
 
@@ -73,8 +73,7 @@ describe("scheme logic utils", () => {
   }
 
   beforeEach(() => {
-    registry.schemes = new LuaTable();
-    registry.actor = null as unknown as GameObject;
+    resetRegistry();
     registerSimulator();
   });
 

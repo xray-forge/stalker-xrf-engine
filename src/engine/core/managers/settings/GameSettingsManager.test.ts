@@ -1,16 +1,17 @@
 import { beforeEach, describe, expect, it } from "@jest/globals";
 import { level } from "xray16";
 
-import { disposeManager, getManagerInstance, registry } from "@/engine/core/database";
+import { disposeManager, getManagerInstance } from "@/engine/core/database";
 import { GameSettingsManager } from "@/engine/core/managers/settings/GameSettingsManager";
 import { EGameDifficulty, gameDifficulties } from "@/engine/lib/constants/game_difficulties";
+import { resetRegistry } from "@/fixtures/engine";
 import { replaceFunctionMock } from "@/fixtures/jest";
 import { gameConsole } from "@/fixtures/xray/mocks/console.mock";
 import { EPacketDataType, mockNetPacket, mockNetProcessor, MockNetProcessor } from "@/fixtures/xray/mocks/save";
 
 describe("GameSettingsManager class", () => {
   beforeEach(() => {
-    registry.managers = new LuaTable();
+    resetRegistry();
   });
 
   it("should correctly save and load data", () => {

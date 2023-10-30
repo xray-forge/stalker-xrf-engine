@@ -4,12 +4,12 @@ import { level } from "xray16";
 import { MapDisplayManager } from "@/engine/core/managers/map/MapDisplayManager";
 import { ETreasureType, ITreasureDescriptor, treasureConfig } from "@/engine/core/managers/treasures";
 import { mapMarks } from "@/engine/lib/constants/map_marks";
-import { resetManagers } from "@/fixtures/engine";
+import { resetRegistry } from "@/fixtures/engine";
 import { resetFunctionMock } from "@/fixtures/jest";
 
 describe("MapDisplayManager class", () => {
   beforeEach(() => {
-    resetManagers();
+    resetRegistry();
     treasureConfig.ENHANCED_MODE_ENABLED = true;
   });
 

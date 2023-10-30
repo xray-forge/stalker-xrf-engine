@@ -4,12 +4,12 @@ import { CampfireBinder } from "@/engine/core/binders/physic/CampfireBinder";
 import { registry } from "@/engine/core/database";
 import type { SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import { ServerDynamicObject, ZoneCampfire } from "@/engine/lib/types";
-import { mockSmartTerrain } from "@/fixtures/engine";
+import { mockSmartTerrain, resetRegistry } from "@/fixtures/engine";
 import { MockCZoneCampfire, mockGameObject, mockServerAlifeDynamicObject } from "@/fixtures/xray";
 
 describe("CampfireBinder class", () => {
   beforeEach(() => {
-    registry.objects = new LuaTable();
+    resetRegistry();
   });
 
   it("should correctly register and unregister campfire without links", () => {

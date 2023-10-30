@@ -17,13 +17,13 @@ import { ActionWounded } from "@/engine/core/schemes/stalker/wounded/actions/Act
 import { WoundManager } from "@/engine/core/schemes/stalker/wounded/WoundManager";
 import { TRUE } from "@/engine/lib/constants/words";
 import { EScheme, GameObject } from "@/engine/lib/types";
-import { mockSchemeState } from "@/fixtures/engine";
+import { mockSchemeState, resetRegistry } from "@/fixtures/engine";
 import { replaceFunctionMockOnce } from "@/fixtures/jest";
 import { mockGameObject, MockPropertyStorage } from "@/fixtures/xray";
 
 describe("ActionWounded class", () => {
   beforeEach(() => {
-    registry.managers = new LuaTable();
+    resetRegistry();
     registerSimulator();
   });
 

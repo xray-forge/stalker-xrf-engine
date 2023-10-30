@@ -6,6 +6,7 @@ import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { StatisticsManager } from "@/engine/core/managers/statistics";
 import { weapons } from "@/engine/lib/constants/items/weapons";
 import { GameObject, TClassId, TName } from "@/engine/lib/types";
+import { resetRegistry } from "@/fixtures/engine";
 import { replaceFunctionMock } from "@/fixtures/jest";
 import { MockLuaTable } from "@/fixtures/lua";
 import {
@@ -20,7 +21,7 @@ import { MockVector } from "@/fixtures/xray/mocks/vector.mock";
 
 describe("StatisticsManager class", () => {
   beforeEach(() => {
-    registry.managers = new LuaTable();
+    resetRegistry();
     registerSimulator();
   });
 

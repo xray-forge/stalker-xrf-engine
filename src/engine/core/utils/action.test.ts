@@ -1,18 +1,19 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { level } from "xray16";
 
-import { registerActor, registry } from "@/engine/core/database";
+import { registerActor } from "@/engine/core/database";
 import { ActorInputManager } from "@/engine/core/managers/actor";
 import { objectPunchActor } from "@/engine/core/utils/action";
 import { animations } from "@/engine/lib/constants/animation";
 import { EActiveItemSlot, GameObject } from "@/engine/lib/types";
+import { resetRegistry } from "@/fixtures/engine";
 import { resetFunctionMock } from "@/fixtures/jest";
 import { mockActorGameObject, mockGameObject } from "@/fixtures/xray";
 
 describe("action utils", () => {
   beforeEach(() => {
     resetFunctionMock(level.add_cam_effector);
-    registry.managers = new LuaTable();
+    resetRegistry();
   });
 
   it("objectPunchActor should correctly punch actor", () => {

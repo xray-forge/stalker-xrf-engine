@@ -20,7 +20,7 @@ import { ERelation } from "@/engine/core/utils/relation/relation_types";
 import { communities } from "@/engine/lib/constants/communities";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import { GameObject, ServerGroupObject } from "@/engine/lib/types";
-import { mockRelationsSquads } from "@/fixtures/engine";
+import { mockRelationsSquads, resetRegistry } from "@/fixtures/engine";
 import {
   mockActorGameObject,
   MockAlifeSimulator,
@@ -31,9 +31,7 @@ import {
 
 describe("relation/get utils", () => {
   beforeEach(() => {
-    registry.actor = null as any;
-    registry.storyLink.sidById = new LuaTable();
-    registry.storyLink.idBySid = new LuaTable();
+    resetRegistry();
     MockAlifeSimulator.removeFromRegistry(ACTOR_ID);
     registerSimulator();
   });

@@ -12,12 +12,12 @@ import {
 import { SmartCover } from "@/engine/core/objects/smart_cover";
 import { SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import { GameObject, ZoneCampfire } from "@/engine/lib/types";
-import { mockSmartTerrain } from "@/fixtures/engine";
+import { mockSmartTerrain, resetRegistry } from "@/fixtures/engine";
 import { MockCZoneCampfire, mockGameObject } from "@/fixtures/xray";
 
 describe("smart module of the database", () => {
   beforeEach(() => {
-    registry.objects = new LuaTable();
+    resetRegistry();
   });
 
   it("should correctly register smart terrain", () => {

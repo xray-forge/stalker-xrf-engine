@@ -14,12 +14,12 @@ import {
   readRanksList,
 } from "@/engine/core/utils/ranks";
 import { LuaArray } from "@/engine/lib/types";
-import { resetRanks } from "@/fixtures/engine";
+import { resetRegistry } from "@/fixtures/engine";
 import { mockGameObject, mockServerAlifeMonsterBase } from "@/fixtures/xray";
 
 describe("ranks class", () => {
   beforeEach(() => {
-    resetRanks();
+    resetRegistry();
   });
 
   it("readRanksList should correctly read ranks from ini file", () => {

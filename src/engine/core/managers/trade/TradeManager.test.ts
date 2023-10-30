@@ -6,12 +6,13 @@ import { registry } from "@/engine/core/database/registry";
 import { TradeManager } from "@/engine/core/managers/trade";
 import { parseConditionsList } from "@/engine/core/utils/ini";
 import { GameObject, IniFile } from "@/engine/lib/types";
+import { resetRegistry } from "@/fixtures/engine";
 import { replaceFunctionMock } from "@/fixtures/jest";
 import { EPacketDataType, mockGameObject, MockNetProcessor } from "@/fixtures/xray";
 
 describe("TradeManager class implementation", () => {
   beforeEach(() => {
-    registry.trade = new LuaTable();
+    resetRegistry();
   });
 
   it("should correctly initialize for objects", () => {

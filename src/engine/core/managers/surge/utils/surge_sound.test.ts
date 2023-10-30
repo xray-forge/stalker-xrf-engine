@@ -1,7 +1,6 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { level } from "xray16";
 
-import { registry } from "@/engine/core/database";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds";
 import {
   playSurgeEndedSound,
@@ -11,11 +10,11 @@ import {
 import { giveInfoPortion } from "@/engine/core/utils/info_portion";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import { infoPortions } from "@/engine/lib/constants/info_portions";
-import { mockRegisteredActor } from "@/fixtures/engine";
+import { mockRegisteredActor, resetRegistry } from "@/fixtures/engine";
 
 describe("surge_sound utils", () => {
   beforeEach(() => {
-    registry.managers = new LuaTable();
+    resetRegistry();
     mockRegisteredActor();
   });
 

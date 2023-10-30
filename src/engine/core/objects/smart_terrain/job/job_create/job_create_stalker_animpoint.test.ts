@@ -8,11 +8,11 @@ import { SmartTerrain, SmartTerrainControl } from "@/engine/core/objects/smart_t
 import { EJobPathType, EJobType } from "@/engine/core/objects/smart_terrain/job";
 import { createStalkerAnimpointJobs } from "@/engine/core/objects/smart_terrain/job/job_create/job_create_stalker_animpoint";
 import { StringBuilder } from "@/engine/core/utils/string";
-import { mockSmartCover, mockSmartTerrain, readInGameTestLtx } from "@/fixtures/engine";
+import { mockSmartCover, mockSmartTerrain, readInGameTestLtx, resetRegistry } from "@/fixtures/engine";
 
 describe("should correctly generate stalker animpoint jobs", () => {
   beforeEach(() => {
-    registry.smartCovers = new LuaTable();
+    resetRegistry();
   });
 
   it("should correctly generate default animpoint jobs with no smart covers", async () => {

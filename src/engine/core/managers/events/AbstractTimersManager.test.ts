@@ -1,14 +1,15 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 
-import { getManagerInstance, registry } from "@/engine/core/database";
+import { getManagerInstance } from "@/engine/core/database";
 import { AbstractTimersManager } from "@/engine/core/managers/events/AbstractTimersManager";
+import { resetRegistry } from "@/fixtures/engine";
 import { MockLuaTable } from "@/fixtures/lua/mocks/LuaTable.mock";
 
 describe("EventsManager class", () => {
   class TimersManager extends AbstractTimersManager {}
 
   beforeEach(() => {
-    registry.managers = new LuaTable();
+    resetRegistry();
   });
 
   it("should correctly initialize", () => {

@@ -2,7 +2,7 @@ import { registerActor, registerActorServer } from "@/engine/core/database/actor
 import { IRegistryObjectState } from "@/engine/core/database/database_types";
 import { registerRanks } from "@/engine/core/database/ranks";
 import { registry } from "@/engine/core/database/registry";
-import { GameObject, ServerActorObject } from "@/engine/lib/types";
+import { AlifeSimulator, GameObject, ServerActorObject } from "@/engine/lib/types";
 import { mockActorGameObject, mockServerAlifeCreatureActor } from "@/fixtures/xray/mocks/objects";
 
 export interface IMockActorDetails {
@@ -30,13 +30,21 @@ export function mockRegisteredActor(
  */
 export function resetRegistry(): void {
   registry.actor = null as unknown as GameObject;
+  registry.simulator = null as unknown as AlifeSimulator;
   registry.managers = new LuaTable();
   registry.objects = new LuaTable();
   registry.zones = new LuaTable();
+  registry.trade = new LuaTable();
   registry.offlineObjects = new LuaTable();
   registry.crows.storage = new LuaTable();
   registry.crows.count = 0;
+  registry.simulationObjects = new LuaTable();
   registry.storyLink = { sidById: new LuaTable(), idBySid: new LuaTable() };
+  registry.extensions = new LuaTable();
+  registry.smartCovers = new LuaTable();
+  registry.noWeaponZones = new LuaTable();
+  registry.smartTerrainsCampfires = new LuaTable();
+  registry.schemes = new LuaTable();
 
   registerRanks();
 }

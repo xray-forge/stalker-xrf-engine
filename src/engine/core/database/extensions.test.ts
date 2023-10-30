@@ -3,10 +3,11 @@ import { beforeEach, describe, expect, it } from "@jest/globals";
 import { haveExtensions, registerExtension } from "@/engine/core/database/extensions";
 import { registry } from "@/engine/core/database/registry";
 import { IExtensionsDescriptor } from "@/engine/core/utils/extensions";
+import { resetRegistry } from "@/fixtures/engine";
 
 describe("extensions module of the database", () => {
   beforeEach(() => {
-    registry.extensions = new LuaTable();
+    resetRegistry();
   });
 
   it("should correctly register extensions", () => {

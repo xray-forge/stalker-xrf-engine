@@ -1,12 +1,13 @@
 import { beforeEach, describe, expect, it } from "@jest/globals";
 
-import { registerSimulator, registry } from "@/engine/core/database";
+import { registerSimulator } from "@/engine/core/database";
 import { EventsManager } from "@/engine/core/managers/events";
 import { travelConfig } from "@/engine/core/managers/travel/TravelConfig";
 import { TravelManager } from "@/engine/core/managers/travel/TravelManager";
 import { parseConditionsList } from "@/engine/core/utils/ini";
 import { TRUE } from "@/engine/lib/constants/words";
 import { GameObject, ServerCreatureObject, ServerGroupObject, ServerSmartZoneObject } from "@/engine/lib/types";
+import { resetRegistry } from "@/fixtures/engine";
 import {
   mockActorGameObject,
   mockGameObject,
@@ -18,7 +19,7 @@ import {
 
 describe("TravelManager class", () => {
   beforeEach(() => {
-    registry.managers = new LuaTable();
+    resetRegistry();
     registerSimulator();
   });
 
