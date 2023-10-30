@@ -2,25 +2,28 @@ import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 
 import { actorConfig } from "@/engine/core/managers/actor/ActorConfig";
 import { ActorInventoryMenuManager } from "@/engine/core/managers/actor/ActorInventoryMenuManager";
-import { AnyCallable, EActorMenuMode } from "@/engine/lib/types";
+import { AnyCallable, Console, EActorMenuMode } from "@/engine/lib/types";
 import { resetRegistry } from "@/fixtures/engine";
-import { gameConsole } from "@/fixtures/xray/mocks/console.mock";
+import { MockConsole } from "@/fixtures/xray";
 
 describe("ActorInventoryMenuManager class", () => {
   beforeEach(() => {
     resetRegistry();
 
+    MockConsole.reset();
+
     actorConfig.ACTOR_MENU_MODE = EActorMenuMode.UNDEFINED;
   });
 
   it("should correctly initialize", () => {
+    const console: Console = MockConsole.getInstanceMock();
     const actorInventoryMenuManager: ActorInventoryMenuManager = ActorInventoryMenuManager.getInstance();
 
     expect(actorConfig.ACTOR_MENU_MODE).toBe(EActorMenuMode.UNDEFINED);
 
     // Quick slots init.
-    expect(gameConsole.execute).toHaveBeenCalledTimes(4);
-    expect((gameConsole.execute as jest.MockedFunction<AnyCallable>).mock.calls).toEqual([
+    expect(console.execute).toHaveBeenCalledTimes(4);
+    expect((console.execute as jest.MockedFunction<AnyCallable>).mock.calls).toEqual([
       ["slot_0 qi_1"],
       ["slot_1 qi_2"],
       ["slot_2 qi_3"],

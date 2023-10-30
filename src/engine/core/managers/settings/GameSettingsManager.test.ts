@@ -4,17 +4,20 @@ import { level } from "xray16";
 import { disposeManager, getManagerInstance } from "@/engine/core/database";
 import { GameSettingsManager } from "@/engine/core/managers/settings/GameSettingsManager";
 import { EGameDifficulty, gameDifficulties } from "@/engine/lib/constants/game_difficulties";
+import { Console } from "@/engine/lib/types";
 import { resetRegistry } from "@/fixtures/engine";
 import { replaceFunctionMock } from "@/fixtures/jest";
-import { gameConsole } from "@/fixtures/xray/mocks/console.mock";
+import { MockConsole } from "@/fixtures/xray";
 import { EPacketDataType, mockNetPacket, mockNetProcessor, MockNetProcessor } from "@/fixtures/xray/mocks/save";
 
 describe("GameSettingsManager class", () => {
   beforeEach(() => {
     resetRegistry();
+    MockConsole.reset();
   });
 
   it("should correctly save and load data", () => {
+    const console: Console = MockConsole.getInstanceMock();
     const gameSettingsManager: GameSettingsManager = getManagerInstance(GameSettingsManager);
     const netProcessor: MockNetProcessor = new MockNetProcessor();
 
@@ -31,7 +34,7 @@ describe("GameSettingsManager class", () => {
 
     newActorInputManager.load(mockNetProcessor(netProcessor));
 
-    expect(gameConsole.execute).toHaveBeenCalledWith("g_game_difficulty " + gameDifficulties.gd_stalker);
+    expect(console.execute).toHaveBeenCalledWith("g_game_difficulty " + gameDifficulties.gd_stalker);
     expect(netProcessor.readDataOrder).toEqual(netProcessor.writeDataOrder);
     expect(netProcessor.dataList).toHaveLength(0);
   });
