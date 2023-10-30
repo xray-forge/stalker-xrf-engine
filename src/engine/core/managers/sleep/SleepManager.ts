@@ -26,7 +26,7 @@ export class SleepManager extends AbstractManager {
   private nextSleepDuration: TDuration = 0;
 
   /**
-   * Show sleep dialog.
+   * Show sleep dialog and set current active time for it.
    */
   public showSleepDialog(): void {
     logger.info("Show sleep dialog");
