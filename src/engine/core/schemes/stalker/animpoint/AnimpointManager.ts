@@ -8,7 +8,7 @@ import {
 import { states } from "@/engine/core/animation/states";
 import { EStalkerState, WEAPON_POSTFIX } from "@/engine/core/animation/types";
 import { getCampZoneForPosition, registry } from "@/engine/core/database";
-import { CAMP_ACTIVITY_ANIMATION, CampManager, EObjectCampActivity } from "@/engine/core/managers/camp";
+import { campConfig, CampManager, EObjectCampActivity } from "@/engine/core/managers/camp";
 import { SmartCover } from "@/engine/core/objects/smart_cover";
 import {
   IAnimpointActionDescriptor,
@@ -103,8 +103,8 @@ export class AnimpointManager extends AbstractSchemeManager<ISchemeAnimpointStat
 
     const [campAction, isDirector] = this.campManager!.getCampAction(this.object.id());
     const campActionsList = isDirector
-      ? CAMP_ACTIVITY_ANIMATION.get(campAction as EObjectCampActivity).director
-      : CAMP_ACTIVITY_ANIMATION.get(campAction as EObjectCampActivity).listener;
+      ? campConfig.CAMP_ACTIVITY_ANIMATION.get(campAction as EObjectCampActivity).director
+      : campConfig.CAMP_ACTIVITY_ANIMATION.get(campAction as EObjectCampActivity).listener;
 
     let isFound: boolean = false;
 
