@@ -26,8 +26,8 @@ import {
   hasAchievedSkilledStalker,
   hasAchievedWealthy,
 } from "@/engine/core/managers/achievements/achievements_preconditions";
-import { achievementRewards } from "@/engine/core/managers/achievements/achievements_rewards";
 import { EAchievement } from "@/engine/core/managers/achievements/achievements_types";
+import { achievementsConfig } from "@/engine/core/managers/achievements/AchievementsConfig";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { ENotificationType, ITipNotification } from "@/engine/core/managers/notifications";
 import { StatisticsManager } from "@/engine/core/managers/statistics";
@@ -412,7 +412,7 @@ describe("AchievementManager class", () => {
 
     statisticsManager.actorStatistics.collectedArtefacts = new LuaTable();
 
-    for (const it of $range(1, achievementRewards.ARTEFACTS_SEEKER_UNIQUES_REQUIRED)) {
+    for (const it of $range(1, achievementsConfig.ARTEFACTS_SEEKER_UNIQUES_REQUIRED)) {
       statisticsManager.actorStatistics.collectedArtefacts.set("af_" + it, true);
     }
 

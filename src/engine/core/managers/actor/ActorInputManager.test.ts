@@ -4,18 +4,22 @@ import { game, level } from "xray16";
 import { AnyObject } from "#/utils/types";
 
 import { disposeManager, getManagerInstance, registerActor, registry } from "@/engine/core/database";
+import { actorConfig } from "@/engine/core/managers/actor/ActorConfig";
 import { ActorInputManager } from "@/engine/core/managers/actor/ActorInputManager";
 import { EventsManager } from "@/engine/core/managers/events";
 import { EActiveItemSlot, GameObject } from "@/engine/lib/types";
-import { mockRegisteredActor } from "@/fixtures/engine";
+import { mockRegisteredActor, resetRegistry } from "@/fixtures/engine";
 import { replaceFunctionMock } from "@/fixtures/jest";
 import { MockCTime, mockGameObject } from "@/fixtures/xray";
 import { EPacketDataType, mockNetPacket, mockNetProcessor, MockNetProcessor } from "@/fixtures/xray/mocks/save";
 
 describe("ActorInputManager class", () => {
   beforeEach(() => {
-    registry.managers = new LuaTable();
+    resetRegistry();
     mockRegisteredActor();
+
+    actorConfig.DISABLED_INPUT_AT = null;
+    actorConfig.DISABLED_INPUT_DURATION = null;
   });
 
   it("should correctly initialize and destroy", () => {
@@ -23,9 +27,6 @@ describe("ActorInputManager class", () => {
     const eventsManager: EventsManager = getManagerInstance(EventsManager);
 
     expect(eventsManager.getSubscribersCount()).toBe(4);
-    expect(actorInputManager.activeItemSlot).toBe(3);
-    expect(actorInputManager.isWeaponHidden).toBe(false);
-    expect(actorInputManager.isWeaponHiddenInDialog).toBe(false);
 
     disposeManager(ActorInputManager);
 
@@ -66,18 +67,18 @@ describe("ActorInputManager class", () => {
     expect(netProcessor.readDataOrder).toEqual(netProcessor.writeDataOrder);
     expect(netProcessor.dataList).toHaveLength(0);
     expect(newActorInputManager).not.toBe(actorInputManager);
-    expect(newActorInputManager.activeItemSlot).toBe(10);
+    expect(actorConfig.ACTIVE_ITEM_SLOT).toBe(10);
   });
 
   it("should correctly toggle inactive input state", () => {
     const manager: ActorInputManager = ActorInputManager.getInstance();
 
-    expect(manager.disableInputAt).toBeNull();
+    expect(actorConfig.DISABLED_INPUT_AT).toBeNull();
 
     manager.setInactiveInputTime(7_000);
-    expect(manager.disableInputAt).toBeDefined();
-    expect(String(manager.disableInputAt)).toBe(String(game.get_game_time()));
-    expect(manager.disableInputDuration).toBe(7_000);
+    expect(actorConfig.DISABLED_INPUT_AT).toBeDefined();
+    expect(String(actorConfig.DISABLED_INPUT_AT)).toBe(String(game.get_game_time()));
+    expect(actorConfig.DISABLED_INPUT_DURATION).toBe(7_000);
     expect(level.disable_input).toHaveBeenCalledTimes(1);
   });
 
@@ -86,24 +87,24 @@ describe("ActorInputManager class", () => {
     const torch: GameObject = mockGameObject({ sectionOverride: "device_torch" });
 
     manager.enableActorNightVision();
-    expect(manager.isActorNightVisionEnabled).toBe(false);
+    expect(actorConfig.IS_ACTOR_NIGHT_VISION_ENABLED).toBe(false);
 
     const inventory: Map<string | number, GameObject> = (registry.actor as AnyObject).inventory;
 
     inventory.set("device_torch", torch);
 
     manager.enableActorNightVision();
-    expect(manager.isActorNightVisionEnabled).toBe(true);
+    expect(actorConfig.IS_ACTOR_NIGHT_VISION_ENABLED).toBe(true);
     expect(torch.enable_night_vision).toHaveBeenCalledWith(true);
 
     manager.enableActorNightVision();
-    expect(manager.isActorNightVisionEnabled).toBe(true);
+    expect(actorConfig.IS_ACTOR_NIGHT_VISION_ENABLED).toBe(true);
     expect(torch.enable_night_vision).toHaveBeenCalledTimes(1);
 
     jest.spyOn(torch, "night_vision_enabled").mockImplementation(() => true);
 
     manager.disableActorNightVision();
-    expect(manager.isActorNightVisionEnabled).toBe(false);
+    expect(actorConfig.IS_ACTOR_NIGHT_VISION_ENABLED).toBe(false);
     expect(torch.enable_night_vision).toHaveBeenCalledTimes(2);
     expect(torch.enable_night_vision).toHaveBeenNthCalledWith(2, false);
   });
@@ -119,13 +120,13 @@ describe("ActorInputManager class", () => {
   it("should correctly first update event", () => {
     const manager: ActorInputManager = ActorInputManager.getInstance();
 
-    manager.activeItemSlot = EActiveItemSlot.PRIMARY;
-    manager.onFirstUpdate(0);
+    actorConfig.ACTIVE_ITEM_SLOT = EActiveItemSlot.PRIMARY;
+    manager.onFirstUpdate();
 
     expect(registry.actor.activate_slot).toHaveBeenNthCalledWith(1, EActiveItemSlot.PRIMARY);
 
-    manager.activeItemSlot = EActiveItemSlot.KNIFE;
-    manager.onFirstUpdate(0);
+    actorConfig.ACTIVE_ITEM_SLOT = EActiveItemSlot.KNIFE;
+    manager.onFirstUpdate();
 
     expect(registry.actor.activate_slot).toHaveBeenNthCalledWith(2, EActiveItemSlot.KNIFE);
   });
@@ -133,11 +134,11 @@ describe("ActorInputManager class", () => {
   it("should correctly network spawn event", () => {
     const manager: ActorInputManager = ActorInputManager.getInstance();
 
-    manager.disableInputAt = MockCTime.mock(2012, 12, 1, 12, 30, 5, 500);
+    actorConfig.DISABLED_INPUT_AT = MockCTime.mock(2012, 12, 1, 12, 30, 5, 500);
     manager.onActorGoOnline();
     expect(level.enable_input).toHaveBeenCalledTimes(0);
 
-    manager.disableInputAt = null;
+    actorConfig.DISABLED_INPUT_AT = null;
     manager.onActorGoOnline();
     expect(level.enable_input).toHaveBeenCalledTimes(1);
   });

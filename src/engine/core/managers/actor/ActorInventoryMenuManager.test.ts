@@ -1,19 +1,22 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 
-import { registry } from "@/engine/core/database";
+import { actorConfig } from "@/engine/core/managers/actor/ActorConfig";
 import { ActorInventoryMenuManager } from "@/engine/core/managers/actor/ActorInventoryMenuManager";
 import { AnyCallable, EActorMenuMode } from "@/engine/lib/types";
+import { resetRegistry } from "@/fixtures/engine";
 import { gameConsole } from "@/fixtures/xray/mocks/console.mock";
 
 describe("ActorInventoryMenuManager class", () => {
   beforeEach(() => {
-    registry.managers = new LuaTable();
+    resetRegistry();
+
+    actorConfig.ACTOR_MENU_MODE = EActorMenuMode.UNDEFINED;
   });
 
   it("should correctly initialize", () => {
     const actorInventoryMenuManager: ActorInventoryMenuManager = ActorInventoryMenuManager.getInstance();
 
-    expect(actorInventoryMenuManager.ACTOR_MENU_MODE).toBe(EActorMenuMode.UNDEFINED);
+    expect(actorConfig.ACTOR_MENU_MODE).toBe(EActorMenuMode.UNDEFINED);
 
     // Quick slots init.
     expect(gameConsole.execute).toHaveBeenCalledTimes(4);
@@ -28,7 +31,7 @@ describe("ActorInventoryMenuManager class", () => {
   it("should correctly change and check active mode", () => {
     const actorInventoryMenuManager: ActorInventoryMenuManager = ActorInventoryMenuManager.getInstance();
 
-    expect(actorInventoryMenuManager.ACTOR_MENU_MODE).toBe(EActorMenuMode.UNDEFINED);
+    expect(actorConfig.ACTOR_MENU_MODE).toBe(EActorMenuMode.UNDEFINED);
     expect(actorInventoryMenuManager.isActiveMode(EActorMenuMode.UNDEFINED)).toBe(true);
     expect(actorInventoryMenuManager.isActiveMode(EActorMenuMode.TALK_DIALOG)).toBe(false);
 
