@@ -29,6 +29,8 @@ export function mockRegisteredActor(
  * Reset managers registry state.
  */
 export function resetRegistry(): void {
+  registry.musicVolume = 0;
+  registry.effectsVolume = 0;
   registry.actor = null as unknown as GameObject;
   registry.simulator = null as unknown as AlifeSimulator;
   registry.managers = new LuaTable();

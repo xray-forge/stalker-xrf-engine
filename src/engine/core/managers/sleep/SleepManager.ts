@@ -23,7 +23,7 @@ const logger: LuaLogger = new LuaLogger($filename);
  * Manage sleep process of the actor.
  */
 export class SleepManager extends AbstractManager {
-  private nextSleepDuration: TDuration = 0;
+  public nextSleepDuration: TDuration = 0;
 
   /**
    * Show sleep dialog and set current active time for it.
@@ -70,10 +70,9 @@ export class SleepManager extends AbstractManager {
     logger.info("On start sleeping");
 
     level.add_cam_effector(animations.camera_effects_sleep, 10, false, "engine.on_finish_sleeping");
+    level.change_game_time(0, this.nextSleepDuration, 0);
 
     const weatherManager: WeatherManager = WeatherManager.getInstance();
-
-    level.change_game_time(0, this.nextSleepDuration, 0);
 
     weatherManager.forceWeatherChange();
     surgeConfig.IS_TIME_FORWARDED = true;
