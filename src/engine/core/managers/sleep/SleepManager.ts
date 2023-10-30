@@ -4,6 +4,7 @@ import { registry } from "@/engine/core/database";
 import { ActorInputManager } from "@/engine/core/managers/actor";
 import { AbstractManager } from "@/engine/core/managers/base/AbstractManager";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
+import { sleepConfig } from "@/engine/core/managers/sleep/SleepConfig";
 import { surgeConfig } from "@/engine/core/managers/surge/SurgeConfig";
 import { SurgeManager } from "@/engine/core/managers/surge/SurgeManager";
 import { WeatherManager } from "@/engine/core/managers/weather/WeatherManager";
@@ -14,7 +15,7 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 import { animations, postProcessors } from "@/engine/lib/constants/animation";
 import { consoleCommands } from "@/engine/lib/constants/console_commands";
 import { infoPortions } from "@/engine/lib/constants/info_portions";
-import { Optional, TDuration } from "@/engine/lib/types";
+import { TDuration } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -22,7 +23,6 @@ const logger: LuaLogger = new LuaLogger($filename);
  * Manage sleep process of the actor.
  */
 export class SleepManager extends AbstractManager {
-  private sleepDialog: Optional<SleepDialog> = null;
   private nextSleepDuration: TDuration = 0;
 
   /**
@@ -31,12 +31,12 @@ export class SleepManager extends AbstractManager {
   public showSleepDialog(): void {
     logger.info("Show sleep dialog");
 
-    if (this.sleepDialog === null) {
-      this.sleepDialog = new SleepDialog(this);
+    if (sleepConfig.SLEEP_DIALOG === null) {
+      sleepConfig.SLEEP_DIALOG = new SleepDialog(this);
     }
 
-    this.sleepDialog.uiTimeTrack.SetCurrentValue();
-    this.sleepDialog.show();
+    sleepConfig.SLEEP_DIALOG.uiTimeTrack.SetCurrentValue();
+    sleepConfig.SLEEP_DIALOG.show();
   }
 
   /**
