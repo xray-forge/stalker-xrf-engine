@@ -24,8 +24,8 @@ import {
   hasAchievedSkilledStalker,
   hasAchievedWealthy,
 } from "@/engine/core/managers/achievements/achievements_preconditions";
-import { achievementRewards } from "@/engine/core/managers/achievements/achievements_rewards";
 import { EAchievement } from "@/engine/core/managers/achievements/achievements_types";
+import { achievementsConfig } from "@/engine/core/managers/achievements/AchievementsConfig";
 import { AbstractManager } from "@/engine/core/managers/base/AbstractManager";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { ENotificationType, ITipNotification, notificationsIcons } from "@/engine/core/managers/notifications";
@@ -35,18 +35,14 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 import { spawnItemsForObjectFromList } from "@/engine/core/utils/spawn";
 import { readTimeFromPacket, writeTimeToPacket } from "@/engine/core/utils/time";
 import { infoPortions } from "@/engine/lib/constants/info_portions/info_portions";
-import { NetPacket, NetProcessor, Optional, Time } from "@/engine/lib/types";
+import { NetPacket, NetProcessor } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * todo;
- * todo: move to config file generic achievements descriptions
  */
 export class AchievementsManager extends AbstractManager {
-  public lastDetectiveAchievementSpawnTime: Optional<Time> = null;
-  public lastMutantHunterAchievementSpawnTime: Optional<Time> = null;
-
   public override initialize(): void {
     const eventsManager: EventsManager = EventsManager.getInstance();
 
@@ -67,6 +63,7 @@ export class AchievementsManager extends AbstractManager {
   /**
    * todo: Description.
    * todo: create map for matching instead of switch/ifs
+   * todo: use utils/config for it
    */
   public checkAchieved(achievement: EAchievement): boolean {
     switch (achievement) {
@@ -123,17 +120,17 @@ export class AchievementsManager extends AbstractManager {
   protected updateDetectiveAchievementRewardSpawn(): void {
     if (!hasInfoPortion(infoPortions.detective_achievement_gained)) {
       return;
-    } else if (!this.lastDetectiveAchievementSpawnTime) {
-      this.lastDetectiveAchievementSpawnTime = game.get_game_time();
+    } else if (!achievementsConfig.LAST_DETECTIVE_ACHIEVEMENT_SPAWN_AT) {
+      achievementsConfig.LAST_DETECTIVE_ACHIEVEMENT_SPAWN_AT = game.get_game_time();
     }
 
     if (
-      game.get_game_time().diffSec(this.lastDetectiveAchievementSpawnTime) >
-      achievementRewards.ACHIEVEMENT_REWARD_SPAWN_PERIOD
+      game.get_game_time().diffSec(achievementsConfig.LAST_DETECTIVE_ACHIEVEMENT_SPAWN_AT) >
+      achievementsConfig.ACHIEVEMENT_REWARD_SPAWN_PERIOD
     ) {
       spawnItemsForObjectFromList(
-        registry.simulator.object(getObjectIdByStoryId(achievementRewards.REWARD_BOXES.ZATON)!)!,
-        achievementRewards.ITEMS[EAchievement.DETECTIVE],
+        registry.simulator.object(getObjectIdByStoryId(achievementsConfig.REWARD_BOXES.ZATON)!)!,
+        achievementsConfig.REWARD_ITEMS[EAchievement.DETECTIVE],
         4
       );
 
@@ -143,7 +140,7 @@ export class AchievementsManager extends AbstractManager {
         senderId: notificationsIcons.got_medicine,
       });
 
-      this.lastDetectiveAchievementSpawnTime = game.get_game_time();
+      achievementsConfig.LAST_DETECTIVE_ACHIEVEMENT_SPAWN_AT = game.get_game_time();
     }
   }
 
@@ -153,17 +150,17 @@ export class AchievementsManager extends AbstractManager {
   protected updateMutantHunterAchievementSpawn(): void {
     if (!hasInfoPortion(infoPortions.mutant_hunter_achievement_gained)) {
       return;
-    } else if (!this.lastMutantHunterAchievementSpawnTime) {
-      this.lastMutantHunterAchievementSpawnTime = game.get_game_time();
+    } else if (!achievementsConfig.LAST_MUTANT_HUNTER_ACHIEVEMENT_SPAWN_AT) {
+      achievementsConfig.LAST_MUTANT_HUNTER_ACHIEVEMENT_SPAWN_AT = game.get_game_time();
     }
 
     if (
-      game.get_game_time().diffSec(this.lastMutantHunterAchievementSpawnTime) >
-      achievementRewards.ACHIEVEMENT_REWARD_SPAWN_PERIOD
+      game.get_game_time().diffSec(achievementsConfig.LAST_MUTANT_HUNTER_ACHIEVEMENT_SPAWN_AT) >
+      achievementsConfig.ACHIEVEMENT_REWARD_SPAWN_PERIOD
     ) {
       spawnItemsForObjectFromList(
-        registry.simulator.object(getObjectIdByStoryId(achievementRewards.REWARD_BOXES.JUPITER)!)!,
-        achievementRewards.ITEMS[EAchievement.MUTANT_HUNTER],
+        registry.simulator.object(getObjectIdByStoryId(achievementsConfig.REWARD_BOXES.JUPITER)!)!,
+        achievementsConfig.REWARD_ITEMS[EAchievement.MUTANT_HUNTER],
         5
       );
 
@@ -173,23 +170,23 @@ export class AchievementsManager extends AbstractManager {
         senderId: notificationsIcons.got_ammo,
       });
 
-      this.lastMutantHunterAchievementSpawnTime = game.get_game_time();
+      achievementsConfig.LAST_MUTANT_HUNTER_ACHIEVEMENT_SPAWN_AT = game.get_game_time();
     }
   }
 
   public override save(packet: NetPacket): void {
-    if (this.lastDetectiveAchievementSpawnTime === null) {
+    if (achievementsConfig.LAST_DETECTIVE_ACHIEVEMENT_SPAWN_AT === null) {
       packet.w_bool(false);
     } else {
       packet.w_bool(true);
-      writeTimeToPacket(packet, this.lastDetectiveAchievementSpawnTime);
+      writeTimeToPacket(packet, achievementsConfig.LAST_DETECTIVE_ACHIEVEMENT_SPAWN_AT);
     }
 
-    if (this.lastMutantHunterAchievementSpawnTime === null) {
+    if (achievementsConfig.LAST_MUTANT_HUNTER_ACHIEVEMENT_SPAWN_AT === null) {
       packet.w_bool(false);
     } else {
       packet.w_bool(true);
-      writeTimeToPacket(packet, this.lastMutantHunterAchievementSpawnTime);
+      writeTimeToPacket(packet, achievementsConfig.LAST_MUTANT_HUNTER_ACHIEVEMENT_SPAWN_AT);
     }
   }
 
@@ -197,13 +194,13 @@ export class AchievementsManager extends AbstractManager {
     const hasSpawnedDetectiveLoot: boolean = reader.r_bool();
 
     if (hasSpawnedDetectiveLoot) {
-      this.lastDetectiveAchievementSpawnTime = readTimeFromPacket(reader);
+      achievementsConfig.LAST_DETECTIVE_ACHIEVEMENT_SPAWN_AT = readTimeFromPacket(reader);
     }
 
     const hasSpawnedMutantHunterLoot: boolean = reader.r_bool();
 
     if (hasSpawnedMutantHunterLoot) {
-      this.lastMutantHunterAchievementSpawnTime = readTimeFromPacket(reader);
+      achievementsConfig.LAST_MUTANT_HUNTER_ACHIEVEMENT_SPAWN_AT = readTimeFromPacket(reader);
     }
   }
 }

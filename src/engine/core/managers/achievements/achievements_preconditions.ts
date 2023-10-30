@@ -1,7 +1,7 @@
 import { registry } from "@/engine/core/database";
 import { achievementIcons } from "@/engine/core/managers/achievements/achievements_icons";
-import { achievementRewards } from "@/engine/core/managers/achievements/achievements_rewards";
 import { EAchievement } from "@/engine/core/managers/achievements/achievements_types";
+import { achievementsConfig } from "@/engine/core/managers/achievements/AchievementsConfig";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { ENotificationType, ITipNotification } from "@/engine/core/managers/notifications";
 import { StatisticsManager } from "@/engine/core/managers/statistics";
@@ -156,7 +156,7 @@ export function hasAchievedSeeker(): boolean {
   // Require unique artefacts count to be found for seeker achievement.
   if (
     StatisticsManager.getInstance().actorStatistics.collectedArtefacts.length() <
-    achievementRewards.ARTEFACTS_SEEKER_UNIQUES_REQUIRED
+    achievementsConfig.ARTEFACTS_SEEKER_UNIQUES_REQUIRED
   ) {
     return false;
   }
