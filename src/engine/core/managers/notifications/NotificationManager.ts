@@ -20,6 +20,7 @@ import {
   ITipNotification,
   ITreasureNotification,
 } from "@/engine/core/managers/notifications/notifications_types";
+import { notificationsConfig } from "@/engine/core/managers/notifications/NotificationsConfig";
 import { ISmartTerrainDescriptor } from "@/engine/core/managers/simulation/simulation_types";
 import { SimulationBoardManager } from "@/engine/core/managers/simulation/SimulationBoardManager";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
@@ -55,9 +56,6 @@ const logger: LuaLogger = new LuaLogger($filename);
  * todo: Handle notification events from app-level events without direct imports.
  */
 export class NotificationManager extends AbstractManager {
-  public static readonly DEFAULT_NOTIFICATION_SHOW_DURATION: TDuration = 5_000;
-  public static readonly QUEST_NOTIFICATION_SHOW_DURATION: TDuration = 10_000;
-
   public override initialize(): void {
     const eventsManager: EventsManager = EventsManager.getInstance();
 
@@ -139,7 +137,7 @@ export class NotificationManager extends AbstractManager {
       notificationText,
       notificationIcon,
       0,
-      NotificationManager.DEFAULT_NOTIFICATION_SHOW_DURATION
+      notificationsConfig.DEFAULT_NOTIFICATION_SHOW_DURATION
     );
   }
 
@@ -170,7 +168,7 @@ export class NotificationManager extends AbstractManager {
       notificationText,
       notificationIcon,
       0,
-      NotificationManager.DEFAULT_NOTIFICATION_SHOW_DURATION
+      notificationsConfig.DEFAULT_NOTIFICATION_SHOW_DURATION
     );
   }
 
@@ -196,7 +194,7 @@ export class NotificationManager extends AbstractManager {
       "",
       notificationsIcons.received_secret_coordinates,
       0,
-      NotificationManager.DEFAULT_NOTIFICATION_SHOW_DURATION
+      notificationsConfig.DEFAULT_NOTIFICATION_SHOW_DURATION
     );
   }
 
@@ -219,8 +217,8 @@ export class NotificationManager extends AbstractManager {
     const notificationIcon: TName = task.get_icon_name() ?? "ui_iconsTotal_storyline";
     const notificationDuration: TDuration =
       newState === "updated"
-        ? NotificationManager.DEFAULT_NOTIFICATION_SHOW_DURATION
-        : NotificationManager.QUEST_NOTIFICATION_SHOW_DURATION;
+        ? notificationsConfig.DEFAULT_NOTIFICATION_SHOW_DURATION
+        : notificationsConfig.QUEST_NOTIFICATION_SHOW_DURATION;
 
     this.onPlayPdaNotificationSound();
     this.onSendGenericNotification(
@@ -240,7 +238,7 @@ export class NotificationManager extends AbstractManager {
     caption: TLabel,
     sender: Optional<TNotificationIcon | TNotificationIconKey | GameObject> = null,
     delay: Optional<TDuration> = 0,
-    showtime: Optional<TTimestamp> = NotificationManager.DEFAULT_NOTIFICATION_SHOW_DURATION,
+    showtime: Optional<TTimestamp> = notificationsConfig.DEFAULT_NOTIFICATION_SHOW_DURATION,
     senderId: Optional<TStringId> = null
   ): void {
     logger.info("Show tip notification:", caption, delay, showtime, senderId);
@@ -288,7 +286,7 @@ export class NotificationManager extends AbstractManager {
       notificationDescription,
       notificationIcon,
       delay || 0,
-      showtime || NotificationManager.DEFAULT_NOTIFICATION_SHOW_DURATION,
+      showtime || notificationsConfig.DEFAULT_NOTIFICATION_SHOW_DURATION,
       0
     );
   }
@@ -355,7 +353,7 @@ export class NotificationManager extends AbstractManager {
       notificationTextTranslated,
       textureName,
       delay + 1000,
-      NotificationManager.DEFAULT_NOTIFICATION_SHOW_DURATION,
+      notificationsConfig.DEFAULT_NOTIFICATION_SHOW_DURATION,
       1
     );
   }

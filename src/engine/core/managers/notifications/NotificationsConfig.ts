@@ -1,0 +1,4 @@
+export const notificationsConfig = {
+  DEFAULT_NOTIFICATION_SHOW_DURATION: 5_000,
+  QUEST_NOTIFICATION_SHOW_DURATION: 10_000,
+};
