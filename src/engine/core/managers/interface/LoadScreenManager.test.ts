@@ -1,11 +1,11 @@
 import { beforeEach, describe, expect, it } from "@jest/globals";
 
-import { registry } from "@/engine/core/database";
 import { LoadScreenManager } from "@/engine/core/managers/interface/LoadScreenManager";
+import { resetRegistry } from "@/fixtures/engine";
 
 describe("LoadScreenManager class", () => {
   beforeEach(() => {
-    registry.managers = new LuaTable();
+    resetRegistry();
   });
 
   it("should correctly generate tips", () => {

@@ -16,7 +16,7 @@ import { MockEntityAction } from "@/fixtures/xray/mocks/actions/entity_action.mo
 import { MockSound } from "@/fixtures/xray/mocks/actions/sound.mock";
 import { MockCGameGraph } from "@/fixtures/xray/mocks/CGameGraph.mock";
 import { MockColor, mockGetARGB } from "@/fixtures/xray/mocks/color.mock";
-import { mockGetConsole } from "@/fixtures/xray/mocks/console.mock";
+import { MockConsole } from "@/fixtures/xray/mocks/console.mock";
 import {
   mockCallbacks,
   mockClsid,
@@ -220,7 +220,7 @@ export function mockXRay16({
   game = mockGameInterface,
   game_graph = () => MockCGameGraph.getInstance(),
   getFS = () => MockFileSystem.getInstance(),
-  get_console = mockGetConsole,
+  get_console = () => MockConsole.getInstance(),
   get_hud = mockGetGameHud,
   hit = MockHit,
   ini_file = MockIniFile,

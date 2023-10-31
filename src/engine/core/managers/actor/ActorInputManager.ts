@@ -8,6 +8,7 @@ import {
   openSaveMarker,
   registry,
 } from "@/engine/core/database";
+import { actorConfig } from "@/engine/core/managers/actor/ActorConfig";
 import { AbstractManager } from "@/engine/core/managers/base";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { surgeConfig } from "@/engine/core/managers/surge/SurgeConfig";
@@ -45,17 +46,6 @@ const logger: LuaLogger = new LuaLogger($filename);
  * Manager to handle actor input.
  */
 export class ActorInputManager extends AbstractManager {
-  public isWeaponHidden: boolean = false;
-  public isWeaponHiddenInDialog: boolean = false;
-  public isActorNightVisionEnabled: boolean = false;
-  public isActorTorchEnabled: boolean = false;
-
-  public activeItemSlot: EActiveItemSlot = EActiveItemSlot.PRIMARY;
-  public memoizedItemSlot: EActiveItemSlot = EActiveItemSlot.NONE;
-
-  public disableInputAt: Optional<Time> = null;
-  public disableInputDuration: Optional<TDuration> = null;
-
   public override initialize(): void {
     const eventsManager: EventsManager = EventsManager.getInstance();
 
@@ -77,11 +67,11 @@ export class ActorInputManager extends AbstractManager {
   public override save(packet: NetPacket): void {
     openSaveMarker(packet, ActorInputManager.name);
 
-    if (this.disableInputAt === null) {
+    if (actorConfig.DISABLED_INPUT_AT === null) {
       packet.w_bool(false);
     } else {
       packet.w_bool(true);
-      writeTimeToPacket(packet, this.disableInputAt);
+      writeTimeToPacket(packet, actorConfig.DISABLED_INPUT_AT);
     }
 
     packet.w_u8(registry.actor.active_slot());
@@ -92,10 +82,10 @@ export class ActorInputManager extends AbstractManager {
     openLoadMarker(reader, ActorInputManager.name);
 
     if (reader.r_bool()) {
-      this.disableInputAt = readTimeFromPacket(reader);
+      actorConfig.DISABLED_INPUT_AT = readTimeFromPacket(reader);
     }
 
-    this.activeItemSlot = reader.r_u8();
+    actorConfig.ACTIVE_ITEM_SLOT = reader.r_u8();
     closeLoadMarker(reader, ActorInputManager.name);
   }
 
@@ -105,8 +95,8 @@ export class ActorInputManager extends AbstractManager {
   public setInactiveInputTime(duration: TDuration): void {
     logger.format("Deactivate actor input: '%s'", duration);
 
-    this.disableInputAt = game.get_game_time();
-    this.disableInputDuration = duration;
+    actorConfig.DISABLED_INPUT_AT = game.get_game_time();
+    actorConfig.DISABLED_INPUT_DURATION = duration;
 
     level.disable_input();
   }
@@ -121,7 +111,7 @@ export class ActorInputManager extends AbstractManager {
 
     if (nightVision !== null && nightVision.night_vision_enabled()) {
       nightVision.enable_night_vision(false);
-      this.isActorNightVisionEnabled = false;
+      actorConfig.IS_ACTOR_NIGHT_VISION_ENABLED = false;
     }
   }
 
@@ -133,9 +123,9 @@ export class ActorInputManager extends AbstractManager {
 
     const nightVision: Optional<GameObject> = registry.actor.object(misc.device_torch);
 
-    if (nightVision !== null && !nightVision.night_vision_enabled() && !this.isActorNightVisionEnabled) {
+    if (nightVision !== null && !nightVision.night_vision_enabled() && !actorConfig.IS_ACTOR_NIGHT_VISION_ENABLED) {
       nightVision.enable_night_vision(true);
-      this.isActorNightVisionEnabled = true;
+      actorConfig.IS_ACTOR_NIGHT_VISION_ENABLED = true;
     }
   }
 
@@ -149,7 +139,7 @@ export class ActorInputManager extends AbstractManager {
 
     if (torch !== null && torch.torch_enabled()) {
       torch.enable_torch(false);
-      this.isActorTorchEnabled = false;
+      actorConfig.IS_ACTOR_TORCH_ENABLED = false;
     }
   }
 
@@ -161,9 +151,9 @@ export class ActorInputManager extends AbstractManager {
 
     const torch: Optional<GameObject> = registry.actor.object(misc.device_torch);
 
-    if (torch !== null && !torch.torch_enabled() && !this.isActorTorchEnabled) {
+    if (torch !== null && !torch.torch_enabled() && !actorConfig.IS_ACTOR_TORCH_ENABLED) {
       torch.enable_torch(true);
-      this.isActorTorchEnabled = true;
+      actorConfig.IS_ACTOR_TORCH_ENABLED = true;
     }
   }
 
@@ -185,7 +175,7 @@ export class ActorInputManager extends AbstractManager {
       const slot: TIndex = actor.active_slot();
 
       if (slot !== EActiveItemSlot.NONE) {
-        this.memoizedItemSlot = slot;
+        actorConfig.MEMOIZED_ITEM_SLOT = slot;
         actor.activate_slot(EActiveItemSlot.NONE);
       }
     }
@@ -210,14 +200,14 @@ export class ActorInputManager extends AbstractManager {
 
     if (restore) {
       if (
-        this.memoizedItemSlot !== EActiveItemSlot.NONE &&
-        registry.actor.item_in_slot(this.memoizedItemSlot) !== null
+        actorConfig.MEMOIZED_ITEM_SLOT !== EActiveItemSlot.NONE &&
+        registry.actor.item_in_slot(actorConfig.MEMOIZED_ITEM_SLOT) !== null
       ) {
-        registry.actor.activate_slot(this.memoizedItemSlot);
+        registry.actor.activate_slot(actorConfig.MEMOIZED_ITEM_SLOT);
       }
     }
 
-    this.memoizedItemSlot = EActiveItemSlot.NONE;
+    actorConfig.MEMOIZED_ITEM_SLOT = EActiveItemSlot.NONE;
 
     level.show_weapon(true);
     level.enable_input();
@@ -244,7 +234,7 @@ export class ActorInputManager extends AbstractManager {
     const slot: TIndex = actor.active_slot();
 
     if (slot !== EActiveItemSlot.NONE) {
-      this.memoizedItemSlot = slot;
+      actorConfig.MEMOIZED_ITEM_SLOT = slot;
       actor.activate_slot(EActiveItemSlot.NONE);
     }
 
@@ -282,39 +272,39 @@ export class ActorInputManager extends AbstractManager {
     const actor: GameObject = registry.actor;
 
     if (
-      this.disableInputAt !== null &&
-      game.get_game_time().diffSec(this.disableInputAt) >= (this.disableInputDuration as number)
+      actorConfig.DISABLED_INPUT_AT !== null &&
+      game.get_game_time().diffSec(actorConfig.DISABLED_INPUT_AT) >= (actorConfig.DISABLED_INPUT_DURATION as number)
     ) {
       logger.info("Enabling actor game input");
       level.enable_input();
-      this.disableInputAt = null;
+      actorConfig.DISABLED_INPUT_AT = null;
     }
 
     if (actor.is_talking()) {
-      if (!this.isWeaponHiddenInDialog) {
+      if (!actorConfig.IS_WEAPON_HIDDEN_IN_DIALOG) {
         logger.info("Hiding weapon in dialog");
         actor.hide_weapon();
-        this.isWeaponHiddenInDialog = true;
+        actorConfig.IS_WEAPON_HIDDEN_IN_DIALOG = true;
       }
     } else {
-      if (this.isWeaponHiddenInDialog) {
+      if (actorConfig.IS_WEAPON_HIDDEN_IN_DIALOG) {
         logger.info("Restoring weapon in dialog");
         actor.restore_weapon();
-        this.isWeaponHiddenInDialog = false;
+        actorConfig.IS_WEAPON_HIDDEN_IN_DIALOG = false;
       }
     }
 
     if (isActorInNoWeaponZone()) {
-      if (!this.isWeaponHidden) {
+      if (!actorConfig.IS_WEAPON_HIDDEN) {
         logger.info("Hiding weapon");
         actor.hide_weapon();
-        this.isWeaponHidden = true;
+        actorConfig.IS_WEAPON_HIDDEN = true;
       }
     } else {
-      if (this.isWeaponHidden) {
+      if (actorConfig.IS_WEAPON_HIDDEN) {
         logger.info("Restoring weapon");
         actor.restore_weapon();
-        this.isWeaponHidden = false;
+        actorConfig.IS_WEAPON_HIDDEN = false;
       }
     }
   }
@@ -323,15 +313,15 @@ export class ActorInputManager extends AbstractManager {
    * Handle first update from actor input perspective.
    */
   public onFirstUpdate(): void {
-    logger.info("Apply active item slot:", this.activeItemSlot);
-    registry.actor.activate_slot(this.activeItemSlot);
+    logger.info("Apply active item slot:", actorConfig.ACTIVE_ITEM_SLOT);
+    registry.actor.activate_slot(actorConfig.ACTIVE_ITEM_SLOT);
   }
 
   /**
    * Handle actor network spawn.
    */
   public onActorGoOnline(): void {
-    if (this.disableInputAt === null) {
+    if (actorConfig.DISABLED_INPUT_AT === null) {
       level.enable_input();
     }
   }

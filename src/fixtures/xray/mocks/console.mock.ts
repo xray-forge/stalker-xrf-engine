@@ -1,46 +1,37 @@
 import { jest } from "@jest/globals";
 
-import { Console } from "@/engine/lib/types";
-import { mockLuabindBase } from "@/fixtures/xray/mocks/luabind.mock";
+import { Console, Optional } from "@/engine/lib/types";
 
 /**
- * todo;
+ * Mock xray game console class.
  */
-export function mockConsole({
-  show = jest.fn(),
-  hide = jest.fn(),
-  execute = jest.fn(),
-  execute_deferred = jest.fn(),
-  execute_script = jest.fn(),
-  get_bool = jest.fn(() => false),
-  get_float = jest.fn(() => 0.5),
-  get_integer = jest.fn(() => 1),
-  get_string = jest.fn(() => "test"),
-  get_token = jest.fn(() => "token"),
-}: Partial<Console> = {}): Console {
-  return {
-    ...mockLuabindBase(),
-    show,
-    hide,
-    execute,
-    execute_deferred,
-    execute_script,
-    get_bool,
-    get_float,
-    get_integer,
-    get_string,
-    get_token,
-  };
-}
+export class MockConsole {
+  public static instance: Optional<MockConsole> = null;
 
-/**
- * todo;
- */
-export const gameConsole: Console = mockConsole();
+  public static getInstance(): MockConsole {
+    if (!this.instance) {
+      this.instance = new MockConsole();
+    }
 
-/**
- * todo;
- */
-export function mockGetConsole(): Console {
-  return gameConsole;
+    return this.instance;
+  }
+
+  public static getInstanceMock(): Console {
+    return this.getInstance() as unknown as Console;
+  }
+
+  public static reset(): void {
+    this.instance = null;
+  }
+
+  public show = jest.fn();
+  public hide = jest.fn();
+  public execute = jest.fn();
+  public execute_deferred = jest.fn();
+  public execute_script = jest.fn();
+  public get_bool = jest.fn(() => false);
+  public get_float = jest.fn(() => 0.5);
+  public get_integer = jest.fn(() => 1);
+  public get_string = jest.fn(() => "test");
+  public get_token = jest.fn(() => "token");
 }

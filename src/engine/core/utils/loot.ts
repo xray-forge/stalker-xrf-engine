@@ -1,7 +1,7 @@
 import { level } from "xray16";
 
 import { getPortableStoreValue, IRegistryObjectState, registry } from "@/engine/core/database";
-import { IReleaseDescriptor, ReleaseBodyManager } from "@/engine/core/managers/death";
+import { deathConfig } from "@/engine/core/managers/death/DeathConfig";
 import { corpseDetectionConfig } from "@/engine/core/schemes/stalker/corpse_detection/CorpseDetectionConfig";
 import { isLootableItemSection } from "@/engine/core/utils/section";
 import { lootableTable } from "@/engine/lib/constants/items/lootable_table";
@@ -55,14 +55,12 @@ export function transferLoot(from: GameObject, to: GameObject): LuaArray<GameObj
 export function getNearestCorpseToLoot(
   object: GameObject
 ): LuaMultiReturn<[GameObject, TNumberId, Vector] | [null, null, null]> {
-  const corpses: LuaArray<IReleaseDescriptor> = ReleaseBodyManager.getInstance().releaseObjectRegistry;
-
   let nearestCorpseDistSqr: TDistance = corpseDetectionConfig.DISTANCE_TO_SEARCH_SQR;
   let nearestCorpseVertex: Optional<TNumberId> = null;
   let nearestCorpsePosition: Optional<Vector> = null;
   let nearestCorpseObject: Optional<GameObject> = null;
 
-  for (const [, descriptor] of corpses) {
+  for (const [, descriptor] of deathConfig.RELEASE_OBJECTS_REGISTRY) {
     const id: TNumberId = descriptor.id;
     const registryState: Optional<IRegistryObjectState> = registry.objects.get(id);
     const corpseObject: Optional<GameObject> = registryState !== null ? registryState.object : null;

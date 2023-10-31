@@ -2,8 +2,8 @@ import { time_global } from "xray16";
 
 import { WEAPON_POSTFIX } from "@/engine/core/animation/types";
 import { IBaseSchemeState, IRegistryObjectState, registry } from "@/engine/core/database";
-import { CAMP_ACTIVITIES } from "@/engine/core/managers/camp/camp_logic";
 import { EObjectCampActivity, EObjectCampRole, ICampObjectState } from "@/engine/core/managers/camp/camp_types";
+import { campConfig } from "@/engine/core/managers/camp/CampConfig";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import { soundsConfig } from "@/engine/core/managers/sounds/SoundsConfig";
 import { StoryManager } from "@/engine/core/managers/sounds/stories";
@@ -173,12 +173,14 @@ export class CampManager {
    * todo: Description.
    */
   public setNextState(): void {
-    const transitions: LuaTable<EObjectCampActivity, TProbability> = CAMP_ACTIVITIES.get(this.activity).transitions;
+    const transitions: LuaTable<EObjectCampActivity, TProbability> = campConfig.CAMP_ACTIVITIES.get(
+      this.activity
+    ).transitions;
     let probability: TProbability = math.random(100);
 
     for (const [activity, chance] of transitions) {
       if (probability < chance) {
-        if (CAMP_ACTIVITIES.get(activity).precondition(this)) {
+        if (campConfig.CAMP_ACTIVITIES.get(activity).precondition(this)) {
           this.activity = activity;
           break;
         }
@@ -194,8 +196,12 @@ export class CampManager {
     const now: TTimestamp = time_global();
 
     this.activitySwitchAt =
-      now + math.random(CAMP_ACTIVITIES.get(this.activity).minTime, CAMP_ACTIVITIES.get(this.activity).maxTime);
-    this.activityTimeout = now + CAMP_ACTIVITIES.get(this.activity).timeout;
+      now +
+      math.random(
+        campConfig.CAMP_ACTIVITIES.get(this.activity).minTime,
+        campConfig.CAMP_ACTIVITIES.get(this.activity).maxTime
+      );
+    this.activityTimeout = now + campConfig.CAMP_ACTIVITIES.get(this.activity).timeout;
 
     // logger.info("Set camp next state:", probability, this.activity, "| switch at:", this.activitySwitchAt);
   }
@@ -289,7 +295,7 @@ export class CampManager {
 
     state.camp = this.object.id();
 
-    for (const [activity] of CAMP_ACTIVITIES) {
+    for (const [activity] of campConfig.CAMP_ACTIVITIES) {
       const role: EObjectCampRole = this.getObjectRole(objectId, activity);
 
       if (role === EObjectCampRole.NONE) {

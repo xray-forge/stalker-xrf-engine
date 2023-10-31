@@ -9,8 +9,8 @@ import {
   registerStoryLink,
   registry,
 } from "@/engine/core/database";
-import { achievementRewards } from "@/engine/core/managers/achievements/achievements_rewards";
 import { EAchievement } from "@/engine/core/managers/achievements/achievements_types";
+import { achievementsConfig } from "@/engine/core/managers/achievements/AchievementsConfig";
 import { AchievementsManager } from "@/engine/core/managers/achievements/AchievementsManager";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { ENotificationType, notificationsIcons } from "@/engine/core/managers/notifications";
@@ -18,6 +18,7 @@ import { WeatherManager } from "@/engine/core/managers/weather/WeatherManager";
 import { giveInfoPortion } from "@/engine/core/utils/info_portion";
 import { infoPortions } from "@/engine/lib/constants/info_portions";
 import { ServerObject } from "@/engine/lib/types";
+import { resetRegistry } from "@/fixtures/engine";
 import { replaceFunctionMock, resetFunctionMock } from "@/fixtures/jest";
 import { mockActorGameObject, mockServerAlifeObject } from "@/fixtures/xray";
 import { MockCTime } from "@/fixtures/xray/mocks/CTime.mock";
@@ -25,10 +26,12 @@ import { EPacketDataType, mockNetPacket, mockNetProcessor, MockNetProcessor } fr
 
 describe("AchievementManager class", () => {
   beforeEach(() => {
-    registry.managers = new LuaTable();
-
+    resetRegistry();
     registerActor(mockActorGameObject());
     registerSimulator();
+
+    achievementsConfig.LAST_DETECTIVE_ACHIEVEMENT_SPAWN_AT = null;
+    achievementsConfig.LAST_MUTANT_HUNTER_ACHIEVEMENT_SPAWN_AT = null;
   });
 
   it("should correctly initialize and destroy", () => {
@@ -36,9 +39,6 @@ describe("AchievementManager class", () => {
     const eventsManager: EventsManager = getManagerInstance(EventsManager);
 
     expect(eventsManager.getSubscribersCount()).toBe(1);
-
-    expect(achievementsManager.lastDetectiveAchievementSpawnTime).toBeNull();
-    expect(achievementsManager.lastMutantHunterAchievementSpawnTime).toBeNull();
 
     disposeManager(AchievementsManager);
 
@@ -69,8 +69,8 @@ describe("AchievementManager class", () => {
     const netProcessor: MockNetProcessor = new MockNetProcessor();
     const achievementsManager: AchievementsManager = getManagerInstance(AchievementsManager);
 
-    achievementsManager.lastDetectiveAchievementSpawnTime = MockCTime.mock(2023, 4, 16, 10, 57, 4, 400);
-    achievementsManager.lastMutantHunterAchievementSpawnTime = MockCTime.mock(2012, 2, 24, 5, 33, 2, 0);
+    achievementsConfig.LAST_DETECTIVE_ACHIEVEMENT_SPAWN_AT = MockCTime.mock(2023, 4, 16, 10, 57, 4, 400);
+    achievementsConfig.LAST_MUTANT_HUNTER_ACHIEVEMENT_SPAWN_AT = MockCTime.mock(2012, 2, 24, 5, 33, 2, 0);
 
     achievementsManager.save(mockNetPacket(netProcessor));
 
@@ -134,8 +134,8 @@ describe("AchievementManager class", () => {
 
     achievementsManager.update();
 
-    expect(achievementsManager.lastMutantHunterAchievementSpawnTime).toBeNull();
-    expect(achievementsManager.lastDetectiveAchievementSpawnTime).toBeNull();
+    expect(achievementsConfig.LAST_MUTANT_HUNTER_ACHIEVEMENT_SPAWN_AT).toBeNull();
+    expect(achievementsConfig.LAST_DETECTIVE_ACHIEVEMENT_SPAWN_AT).toBeNull();
     expect(registry.simulator.create).not.toHaveBeenCalled();
     expect(registry.simulator.create_ammo).not.toHaveBeenCalled();
   });
@@ -151,12 +151,12 @@ describe("AchievementManager class", () => {
     resetFunctionMock(registry.simulator.create_ammo);
     replaceFunctionMock(game.get_game_time, () => MockCTime.mock(2012, 6, 25, 12, 35, 30, 500));
 
-    registerStoryLink(box.id, achievementRewards.REWARD_BOXES.ZATON);
+    registerStoryLink(box.id, achievementsConfig.REWARD_BOXES.ZATON);
     giveInfoPortion(infoPortions.detective_achievement_gained);
 
     achievementsManager.update();
 
-    expect(String(achievementsManager.lastDetectiveAchievementSpawnTime)).toBe(String(game.get_game_time()));
+    expect(String(achievementsConfig.LAST_DETECTIVE_ACHIEVEMENT_SPAWN_AT)).toBe(String(game.get_game_time()));
     expect(registry.simulator.create).not.toHaveBeenCalled();
     expect(registry.simulator.create_ammo).not.toHaveBeenCalled();
 
@@ -173,7 +173,7 @@ describe("AchievementManager class", () => {
     });
     expect(registry.simulator.create).toHaveBeenCalledTimes(4);
     expect(registry.simulator.create_ammo).toHaveBeenCalledTimes(0);
-    expect(achievementsManager.lastDetectiveAchievementSpawnTime).toBe(newTime);
+    expect(achievementsConfig.LAST_DETECTIVE_ACHIEVEMENT_SPAWN_AT).toBe(newTime);
   });
 
   it("should correctly handle update with monster hunter", () => {
@@ -187,12 +187,12 @@ describe("AchievementManager class", () => {
     resetFunctionMock(registry.simulator.create_ammo);
     replaceFunctionMock(game.get_game_time, () => MockCTime.mock(2012, 6, 25, 12, 35, 30, 500));
 
-    registerStoryLink(box.id, achievementRewards.REWARD_BOXES.JUPITER);
+    registerStoryLink(box.id, achievementsConfig.REWARD_BOXES.JUPITER);
     giveInfoPortion(infoPortions.mutant_hunter_achievement_gained);
 
     achievementsManager.update();
 
-    expect(String(achievementsManager.lastMutantHunterAchievementSpawnTime)).toBe(String(game.get_game_time()));
+    expect(String(achievementsConfig.LAST_MUTANT_HUNTER_ACHIEVEMENT_SPAWN_AT)).toBe(String(game.get_game_time()));
     expect(registry.simulator.create).not.toHaveBeenCalled();
 
     const newTime: CTime = MockCTime.mock(2020, 6, 25, 12, 35, 30, 500);
@@ -208,6 +208,6 @@ describe("AchievementManager class", () => {
     });
     expect(registry.simulator.create).not.toHaveBeenCalled();
     expect(registry.simulator.create_ammo).toHaveBeenCalledTimes(5);
-    expect(achievementsManager.lastMutantHunterAchievementSpawnTime).toBe(newTime);
+    expect(achievementsConfig.LAST_MUTANT_HUNTER_ACHIEVEMENT_SPAWN_AT).toBe(newTime);
   });
 });

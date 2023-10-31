@@ -6,6 +6,7 @@ import { DialogManager } from "@/engine/core/managers/dialogs";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds";
 import { TradeManager } from "@/engine/core/managers/trade";
 import { GameObject } from "@/engine/lib/types";
+import { resetRegistry } from "@/fixtures/engine";
 import {
   EPacketDataType,
   MockCTime,
@@ -17,8 +18,7 @@ import {
 
 describe("StalkerBinder class", () => {
   beforeEach(() => {
-    registry.managers = new LuaTable();
-    registry.objects = new LuaTable();
+    resetRegistry();
   });
 
   it.todo("should correctly initialize");

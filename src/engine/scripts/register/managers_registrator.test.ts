@@ -26,10 +26,11 @@ import { UpgradesManager } from "@/engine/core/managers/upgrades";
 import { WeatherManager } from "@/engine/core/managers/weather";
 import { AnyObject } from "@/engine/lib/types";
 import { registerManagers } from "@/engine/scripts/register/managers_registrator";
+import { resetRegistry } from "@/fixtures/engine";
 
 describe("managers_registrator entry point", () => {
   beforeEach(() => {
-    registry.managers = new LuaTable();
+    resetRegistry();
   });
 
   it("registerSchemeModules should correctly re-register required managers", () => {

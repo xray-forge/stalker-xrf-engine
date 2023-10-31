@@ -9,7 +9,7 @@ import {
   registerSimulator,
   registry,
 } from "@/engine/core/database";
-import { SmartTerrain } from "@/engine/core/objects/smart_terrain";
+import { ISmartTerrainJobDescriptor, SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import { SchemeMobCombat } from "@/engine/core/schemes/monster/mob_combat";
 import { SchemeHear } from "@/engine/core/schemes/shared/hear";
 import { SchemeAbuse } from "@/engine/core/schemes/stalker/abuse";
@@ -24,7 +24,6 @@ import { SchemeHit } from "@/engine/core/schemes/stalker/hit";
 import { SchemeMeet } from "@/engine/core/schemes/stalker/meet";
 import { SchemeReachTask } from "@/engine/core/schemes/stalker/reach_task";
 import { SchemeWounded } from "@/engine/core/schemes/stalker/wounded";
-import { ISmartTerrainJobDescriptor } from "@/engine/core/utils/job";
 import {
   configureObjectSchemes,
   initializeObjectSchemeLogic,
@@ -32,13 +31,13 @@ import {
 } from "@/engine/core/utils/scheme/scheme_initialization";
 import { loadSchemeImplementations } from "@/engine/core/utils/scheme/scheme_setup";
 import { AnyObject, EGameObjectRelation, EScheme, ESchemeType, GameObject, IniFile } from "@/engine/lib/types";
+import { resetRegistry } from "@/fixtures/engine";
 import { resetFunctionMock } from "@/fixtures/jest";
 import { FILES_MOCKS, mockGameObject, mockIniFile, mockServerAlifeHumanStalker } from "@/fixtures/xray";
 
 describe("scheme initialization utils", () => {
   beforeEach(() => {
-    registry.schemes = new LuaTable();
-    registry.actor = null as unknown as GameObject;
+    resetRegistry();
     registerSimulator();
   });
 

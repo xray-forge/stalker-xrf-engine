@@ -2,6 +2,7 @@ import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 
 import { registry } from "@/engine/core/database";
 import { AbstractManager } from "@/engine/core/managers/base/AbstractManager";
+import { resetRegistry } from "@/fixtures/engine";
 import { MockLuaTable } from "@/fixtures/lua";
 import { mockNetPacket, mockNetProcessor } from "@/fixtures/xray";
 
@@ -12,7 +13,7 @@ describe("AbstractCoreManager class", () => {
   }
 
   beforeEach(() => {
-    registry.managers = new LuaTable();
+    resetRegistry();
   });
 
   it("should correctly have lifecycle and method placeholders that throw", () => {

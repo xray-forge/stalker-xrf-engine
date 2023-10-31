@@ -7,12 +7,12 @@ import {
   turnOnSmartTerrainCampfires,
 } from "@/engine/core/utils/smart_terrain/smart_terrain_campfires";
 import { ZoneCampfire } from "@/engine/lib/types";
-import { mockSmartTerrain } from "@/fixtures/engine";
+import { mockSmartTerrain, resetRegistry } from "@/fixtures/engine";
 import { MockCZoneCampfire, mockGameObject } from "@/fixtures/xray";
 
 describe("smart_terrain_campfires utils", () => {
   beforeEach(() => {
-    registry.smartTerrainsCampfires = new LuaTable();
+    resetRegistry();
   });
 
   it("should correctly tun on and turn off linked campfires", () => {

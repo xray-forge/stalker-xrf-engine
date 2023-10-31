@@ -10,12 +10,13 @@ import {
 import { Squad } from "@/engine/core/objects/squad";
 import { communities } from "@/engine/lib/constants/communities";
 import { TName } from "@/engine/lib/types";
-import { mockRegisteredActor } from "@/fixtures/engine";
+import { mockRegisteredActor, resetRegistry } from "@/fixtures/engine";
 import { MockLuaTable } from "@/fixtures/lua";
 import { mockGameObject } from "@/fixtures/xray";
 
 describe("surge_generic utils", () => {
   beforeEach(() => {
+    resetRegistry();
     mockRegisteredActor();
   });
 

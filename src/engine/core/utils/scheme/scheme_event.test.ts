@@ -3,13 +3,12 @@ import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { IBaseSchemeState, IRegistryObjectState, registerObject, registry } from "@/engine/core/database";
 import { emitSchemeEvent, setObjectActiveSchemeSignal } from "@/engine/core/utils/scheme/scheme_event";
 import { EScheme, ESchemeEvent, GameObject } from "@/engine/lib/types";
-import { mockSchemeState } from "@/fixtures/engine/mocks";
+import { mockSchemeState, resetRegistry } from "@/fixtures/engine/mocks";
 import { mockGameObject } from "@/fixtures/xray";
 
 describe("scheme logic utils", () => {
   beforeEach(() => {
-    registry.schemes = new LuaTable();
-    registry.actor = null as unknown as GameObject;
+    resetRegistry();
   });
 
   it("emitSchemeEvent should correctly emit events", () => {

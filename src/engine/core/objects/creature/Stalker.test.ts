@@ -9,7 +9,7 @@ import { Squad } from "@/engine/core/objects/squad";
 import { MAX_U16 } from "@/engine/lib/constants/memory";
 import { NIL } from "@/engine/lib/constants/words";
 import { AnyObject } from "@/engine/lib/types";
-import { resetManagers, resetOfflineObjects, resetStoryObjects } from "@/fixtures/engine";
+import { resetRegistry } from "@/fixtures/engine";
 import {
   EPacketDataType,
   mockGameObject,
@@ -22,9 +22,7 @@ import {
 
 describe("Stalker server object", () => {
   beforeEach(() => {
-    resetManagers();
-    resetStoryObjects();
-    resetOfflineObjects();
+    resetRegistry();
     registerSimulator();
   });
 

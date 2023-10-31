@@ -12,12 +12,12 @@ import { giveInfoPortion } from "@/engine/core/utils/info_portion";
 import { parseConditionsList } from "@/engine/core/utils/ini";
 import { loadSchemeImplementation } from "@/engine/core/utils/scheme";
 import { EScheme, ESchemeCondition, GameObject } from "@/engine/lib/types";
-import { mockBaseSchemeLogic, mockSchemeState } from "@/fixtures/engine";
+import { mockBaseSchemeLogic, mockSchemeState, resetRegistry } from "@/fixtures/engine";
 import { mockActorGameObject, mockGameObject } from "@/fixtures/xray";
 
 describe("NoWeaponManager class", () => {
   beforeEach(() => {
-    registry.noWeaponZones = new LuaTable();
+    resetRegistry();
   });
 
   it("should correctly init scheme", () => {

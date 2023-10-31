@@ -2,7 +2,6 @@ import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 
 import {
   disposeManager,
-  disposeManagers,
   initializeManager,
   isManagerInitialized,
   registerActor,
@@ -24,6 +23,7 @@ import { TaskManager } from "@/engine/core/managers/tasks";
 import { TreasureManager } from "@/engine/core/managers/treasures";
 import { WeatherManager } from "@/engine/core/managers/weather/WeatherManager";
 import { AnyObject } from "@/engine/lib/types";
+import { resetRegistry } from "@/fixtures/engine";
 import { resetFunctionMock } from "@/fixtures/jest";
 import { MockIoFile } from "@/fixtures/lua";
 import { mockGameObject, mockNetPacket } from "@/fixtures/xray";
@@ -46,7 +46,7 @@ describe("SaveManager class", () => {
   };
 
   beforeEach(() => {
-    disposeManagers();
+    resetRegistry();
     resetFunctionMock(io.open);
   });
 

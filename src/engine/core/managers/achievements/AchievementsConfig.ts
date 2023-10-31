@@ -3,12 +3,11 @@ import { TInventoryItem } from "@/engine/lib/constants/items";
 import { ammo } from "@/engine/lib/constants/items/ammo";
 import { drugs } from "@/engine/lib/constants/items/drugs";
 import { storyNames } from "@/engine/lib/constants/story_names";
+import { Optional, Time } from "@/engine/lib/types";
 
-/**
- * Configuration of achievements rewards.
- * todo: Configure with LTX file.
- */
-export const achievementRewards = {
+export const achievementsConfig = {
+  LAST_DETECTIVE_ACHIEVEMENT_SPAWN_AT: null as Optional<Time>,
+  LAST_MUTANT_HUNTER_ACHIEVEMENT_SPAWN_AT: null as Optional<Time>,
   ACHIEVEMENT_REWARD_SPAWN_PERIOD: 43_200,
   /**
    * For seeker require at least 22 unique artefacts to be found.
@@ -18,7 +17,7 @@ export const achievementRewards = {
     JUPITER: storyNames.jup_b202_actor_treasure,
     ZATON: storyNames.zat_a2_actor_treasure,
   },
-  ITEMS: {
+  REWARD_ITEMS: {
     [EAchievement.MUTANT_HUNTER]: $fromArray<TInventoryItem>([
       ammo["ammo_5.45x39_ap"],
       ammo["ammo_5.56x45_ap"],
@@ -28,4 +27,4 @@ export const achievementRewards = {
     ]),
     [EAchievement.DETECTIVE]: $fromArray<TInventoryItem>([drugs.medkit, drugs.antirad, drugs.antirad]),
   },
-} as const;
+};

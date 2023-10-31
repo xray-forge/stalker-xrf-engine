@@ -11,6 +11,7 @@ import {
 } from "@/engine/core/database/managers";
 import { registry } from "@/engine/core/database/registry";
 import { AbstractManager } from "@/engine/core/managers/base/AbstractManager";
+import { resetRegistry } from "@/fixtures/engine";
 
 describe("managers module of the database", () => {
   class ExampleManagerOne extends AbstractManager {
@@ -36,7 +37,7 @@ describe("managers module of the database", () => {
   };
 
   beforeEach(() => {
-    registry.managers = new LuaTable();
+    resetRegistry();
   });
 
   it("should correctly initialize managers", () => {

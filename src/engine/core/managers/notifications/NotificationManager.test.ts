@@ -22,6 +22,7 @@ import {
   ITreasureNotification,
   NotificationManager,
 } from "@/engine/core/managers/notifications";
+import { notificationsConfig } from "@/engine/core/managers/notifications/NotificationsConfig";
 import { AbstractPlayableSound } from "@/engine/core/managers/sounds/objects/AbstractPlayableSound";
 import { ActorSound } from "@/engine/core/managers/sounds/objects/ActorSound";
 import { soundsConfig } from "@/engine/core/managers/sounds/SoundsConfig";
@@ -148,7 +149,7 @@ describe("NotificationManager class", () => {
       "2000",
       "ui_inGame2_Dengi_polucheni",
       0,
-      NotificationManager.DEFAULT_NOTIFICATION_SHOW_DURATION
+      notificationsConfig.DEFAULT_NOTIFICATION_SHOW_DURATION
     );
 
     resetFunctionMock(notificationManager.onSendGenericNotification);
@@ -160,7 +161,7 @@ describe("NotificationManager class", () => {
       "128",
       "ui_inGame2_Dengi_otdani",
       0,
-      NotificationManager.DEFAULT_NOTIFICATION_SHOW_DURATION
+      notificationsConfig.DEFAULT_NOTIFICATION_SHOW_DURATION
     );
   });
 
@@ -176,7 +177,7 @@ describe("NotificationManager class", () => {
       "translated_st_detector2 x25",
       "ui_inGame2_Predmet_poluchen",
       0,
-      NotificationManager.DEFAULT_NOTIFICATION_SHOW_DURATION
+      notificationsConfig.DEFAULT_NOTIFICATION_SHOW_DURATION
     );
 
     resetFunctionMock(notificationManager.onSendGenericNotification);
@@ -188,7 +189,7 @@ describe("NotificationManager class", () => {
       "translated_st_detector2",
       "ui_inGame2_Predmet_otdan",
       0,
-      NotificationManager.DEFAULT_NOTIFICATION_SHOW_DURATION
+      notificationsConfig.DEFAULT_NOTIFICATION_SHOW_DURATION
     );
   });
 
@@ -204,7 +205,7 @@ describe("NotificationManager class", () => {
       "",
       "ui_inGame2_Polucheni_koordinaty_taynika",
       0,
-      NotificationManager.DEFAULT_NOTIFICATION_SHOW_DURATION
+      notificationsConfig.DEFAULT_NOTIFICATION_SHOW_DURATION
     );
 
     resetFunctionMock(notificationManager.onSendGenericNotification);
@@ -216,7 +217,7 @@ describe("NotificationManager class", () => {
       "",
       "ui_inGame2_Polucheni_koordinaty_taynika",
       0,
-      NotificationManager.DEFAULT_NOTIFICATION_SHOW_DURATION
+      notificationsConfig.DEFAULT_NOTIFICATION_SHOW_DURATION
     );
 
     resetFunctionMock(notificationManager.onSendGenericNotification);
@@ -228,7 +229,7 @@ describe("NotificationManager class", () => {
       "",
       "ui_inGame2_Polucheni_koordinaty_taynika",
       0,
-      NotificationManager.DEFAULT_NOTIFICATION_SHOW_DURATION
+      notificationsConfig.DEFAULT_NOTIFICATION_SHOW_DURATION
     );
   });
 
@@ -254,7 +255,7 @@ describe("NotificationManager class", () => {
       "translated_st_surge_while_asleep",
       "ui_inGame2_V_zone_nedavno_proshel_vibros",
       0,
-      NotificationManager.DEFAULT_NOTIFICATION_SHOW_DURATION,
+      notificationsConfig.DEFAULT_NOTIFICATION_SHOW_DURATION,
       0
     );
 
@@ -278,7 +279,7 @@ describe("NotificationManager class", () => {
       "translated_test_title.",
       "test_icon",
       0,
-      NotificationManager.QUEST_NOTIFICATION_SHOW_DURATION
+      notificationsConfig.QUEST_NOTIFICATION_SHOW_DURATION
     );
 
     notificationManager.onPlayPdaNotificationSound = jest.fn();
@@ -292,7 +293,7 @@ describe("NotificationManager class", () => {
       "translated_example.",
       "icon",
       0,
-      NotificationManager.DEFAULT_NOTIFICATION_SHOW_DURATION
+      notificationsConfig.DEFAULT_NOTIFICATION_SHOW_DURATION
     );
   });
 
@@ -313,7 +314,7 @@ describe("NotificationManager class", () => {
       "translated_test_simple",
       "ui_iconsTotal_grouping",
       0,
-      NotificationManager.DEFAULT_NOTIFICATION_SHOW_DURATION,
+      notificationsConfig.DEFAULT_NOTIFICATION_SHOW_DURATION,
       0
     );
 
@@ -411,7 +412,7 @@ describe("NotificationManager class", () => {
       "translated_military_attack",
       "ui_iconsTotal_grouping",
       1000,
-      NotificationManager.DEFAULT_NOTIFICATION_SHOW_DURATION,
+      notificationsConfig.DEFAULT_NOTIFICATION_SHOW_DURATION,
       1
     );
 
@@ -424,7 +425,7 @@ describe("NotificationManager class", () => {
       "translated_test_caption",
       "ui_iconsTotal_grouping",
       1500,
-      NotificationManager.DEFAULT_NOTIFICATION_SHOW_DURATION,
+      notificationsConfig.DEFAULT_NOTIFICATION_SHOW_DURATION,
       1
     );
 

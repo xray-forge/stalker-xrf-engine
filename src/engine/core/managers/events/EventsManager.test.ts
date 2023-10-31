@@ -1,13 +1,14 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 
-import { getManagerInstance, registry } from "@/engine/core/database";
+import { getManagerInstance } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { AnyCallable, AnyObject } from "@/engine/lib/types";
+import { resetRegistry } from "@/fixtures/engine";
 import { MockLuaTable } from "@/fixtures/lua/mocks/LuaTable.mock";
 
 describe("EventsManager class", () => {
   beforeEach(() => {
-    registry.managers = new LuaTable();
+    resetRegistry();
   });
 
   it("should correctly initialize", () => {

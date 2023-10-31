@@ -1,23 +1,29 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 
-import { registry } from "@/engine/core/database";
+import { actorConfig } from "@/engine/core/managers/actor/ActorConfig";
 import { ActorInventoryMenuManager } from "@/engine/core/managers/actor/ActorInventoryMenuManager";
-import { AnyCallable, EActorMenuMode } from "@/engine/lib/types";
-import { gameConsole } from "@/fixtures/xray/mocks/console.mock";
+import { AnyCallable, Console, EActorMenuMode } from "@/engine/lib/types";
+import { resetRegistry } from "@/fixtures/engine";
+import { MockConsole } from "@/fixtures/xray";
 
 describe("ActorInventoryMenuManager class", () => {
   beforeEach(() => {
-    registry.managers = new LuaTable();
+    resetRegistry();
+
+    MockConsole.reset();
+
+    actorConfig.ACTOR_MENU_MODE = EActorMenuMode.UNDEFINED;
   });
 
   it("should correctly initialize", () => {
+    const console: Console = MockConsole.getInstanceMock();
     const actorInventoryMenuManager: ActorInventoryMenuManager = ActorInventoryMenuManager.getInstance();
 
-    expect(actorInventoryMenuManager.activeMode).toBe(EActorMenuMode.UNDEFINED);
+    expect(actorConfig.ACTOR_MENU_MODE).toBe(EActorMenuMode.UNDEFINED);
 
     // Quick slots init.
-    expect(gameConsole.execute).toHaveBeenCalledTimes(4);
-    expect((gameConsole.execute as jest.MockedFunction<AnyCallable>).mock.calls).toEqual([
+    expect(console.execute).toHaveBeenCalledTimes(4);
+    expect((console.execute as jest.MockedFunction<AnyCallable>).mock.calls).toEqual([
       ["slot_0 qi_1"],
       ["slot_1 qi_2"],
       ["slot_2 qi_3"],
@@ -28,7 +34,7 @@ describe("ActorInventoryMenuManager class", () => {
   it("should correctly change and check active mode", () => {
     const actorInventoryMenuManager: ActorInventoryMenuManager = ActorInventoryMenuManager.getInstance();
 
-    expect(actorInventoryMenuManager.activeMode).toBe(EActorMenuMode.UNDEFINED);
+    expect(actorConfig.ACTOR_MENU_MODE).toBe(EActorMenuMode.UNDEFINED);
     expect(actorInventoryMenuManager.isActiveMode(EActorMenuMode.UNDEFINED)).toBe(true);
     expect(actorInventoryMenuManager.isActiveMode(EActorMenuMode.TALK_DIALOG)).toBe(false);
 

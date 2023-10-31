@@ -11,7 +11,7 @@ import { ESmartTerrainStatus } from "@/engine/core/objects/smart_terrain/smart_t
 import { parseConditionsList } from "@/engine/core/utils/ini";
 import { TRUE } from "@/engine/lib/constants/words";
 import { ServerHumanObject } from "@/engine/lib/types";
-import { mockSmartTerrain, mockSmartTerrainWithConfiguration } from "@/fixtures/engine";
+import { mockSmartTerrain, mockSmartTerrainWithConfiguration, resetRegistry } from "@/fixtures/engine";
 import { replaceFunctionMock } from "@/fixtures/jest";
 import {
   EPacketDataType,
@@ -25,11 +25,7 @@ import {
 
 describe("SmartTerrain class generic logic", () => {
   beforeEach(() => {
-    registry.managers = new LuaTable();
-    registry.simulationObjects = new LuaTable();
-    registry.storyLink.sidById = new LuaTable();
-    registry.storyLink.idBySid = new LuaTable();
-
+    resetRegistry();
     registerSimulator();
     registerActorServer(mockServerAlifeCreatureActor() as Actor);
   });

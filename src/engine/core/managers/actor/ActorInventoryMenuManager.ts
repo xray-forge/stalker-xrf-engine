@@ -1,4 +1,5 @@
 import { SYSTEM_INI } from "@/engine/core/database";
+import { actorConfig } from "@/engine/core/managers/actor/ActorConfig";
 import { AbstractManager } from "@/engine/core/managers/base/AbstractManager";
 import { executeConsoleCommand } from "@/engine/core/utils/console";
 import { readIniString } from "@/engine/core/utils/ini";
@@ -11,11 +12,6 @@ const logger: LuaLogger = new LuaLogger($filename);
 
 // todo: .CUIActorMenu_OnItemDropped handler
 export class ActorInventoryMenuManager extends AbstractManager {
-  public activeMode: EActorMenuMode = EActorMenuMode.UNDEFINED;
-
-  /**
-   * todo: Description.
-   */
   public override initialize(): void {
     const ini: IniFile = SYSTEM_INI;
 
@@ -40,12 +36,12 @@ export class ActorInventoryMenuManager extends AbstractManager {
    * todo: Description.
    */
   public closeActorMenu(): void {
-    switch (this.activeMode) {
+    switch (actorConfig.ACTOR_MENU_MODE) {
       case EActorMenuMode.INVENTORY:
       case EActorMenuMode.TRADE:
       case EActorMenuMode.UPGRADE:
       case EActorMenuMode.DEAD_BODY_SEARCH:
-        this.onWindowClosed(this.activeMode);
+        this.onWindowClosed(actorConfig.ACTOR_MENU_MODE);
         break;
 
       case EActorMenuMode.TALK_DIALOG_HIDE:
@@ -53,7 +49,7 @@ export class ActorInventoryMenuManager extends AbstractManager {
         break;
     }
 
-    this.activeMode = EActorMenuMode.UNDEFINED;
+    actorConfig.ACTOR_MENU_MODE = EActorMenuMode.UNDEFINED;
   }
 
   /**
@@ -65,12 +61,12 @@ export class ActorInventoryMenuManager extends AbstractManager {
       case EActorMenuMode.TRADE:
       case EActorMenuMode.UPGRADE:
       case EActorMenuMode.DEAD_BODY_SEARCH:
-        this.activeMode = mode;
+        actorConfig.ACTOR_MENU_MODE = mode;
 
         return this.onWindowOpen(mode);
 
       case EActorMenuMode.TALK_DIALOG_SHOW:
-        this.activeMode = EActorMenuMode.TALK_DIALOG;
+        actorConfig.ACTOR_MENU_MODE = EActorMenuMode.TALK_DIALOG;
 
         return this.onWindowOpen(mode);
     }
@@ -80,7 +76,7 @@ export class ActorInventoryMenuManager extends AbstractManager {
    * todo: Description.
    */
   public isActiveMode(mode: EActorMenuMode): boolean {
-    return this.activeMode === mode;
+    return actorConfig.ACTOR_MENU_MODE === mode;
   }
 
   /**

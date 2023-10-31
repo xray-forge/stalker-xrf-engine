@@ -11,8 +11,8 @@ import {
   registry,
 } from "@/engine/core/database";
 import { AbstractManager } from "@/engine/core/managers/base/AbstractManager";
+import { IReleaseDescriptor } from "@/engine/core/managers/death/death_types";
 import { deathConfig } from "@/engine/core/managers/death/DeathConfig";
-import { IReleaseDescriptor } from "@/engine/core/managers/death/release_body_types";
 import { dropConfig } from "@/engine/core/managers/drop/DropConfig";
 import { abort } from "@/engine/core/utils/assertion";
 import { isMonster, isStalker } from "@/engine/core/utils/class_ids";
@@ -44,20 +44,18 @@ const logger: LuaLogger = new LuaLogger($filename);
  * Release the most further of them from time to time to keep up with limits.
  */
 export class ReleaseBodyManager extends AbstractManager {
-  public readonly releaseObjectRegistry: LuaArray<IReleaseDescriptor> = new LuaTable();
-
   /**
    * todo: Description.
    */
   public addDeadBody(object: GameObject): void {
     if (this.inspectionResult(object)) {
-      if (this.releaseObjectRegistry.length() > deathConfig.MAX_BODY_COUNT) {
+      if (deathConfig.RELEASE_OBJECTS_REGISTRY.length() > deathConfig.MAX_BODY_COUNT) {
         this.tryToReleaseCorpses();
       }
 
       logger.info("Add to release table:", object.name());
 
-      table.insert(this.releaseObjectRegistry, {
+      table.insert(deathConfig.RELEASE_OBJECTS_REGISTRY, {
         id: object.id(),
         diedAt: time_global(),
       });
@@ -68,19 +66,23 @@ export class ReleaseBodyManager extends AbstractManager {
    * todo: Description.
    */
   public tryToReleaseCorpses(): void {
-    logger.info("Try to release dead bodies:", this.releaseObjectRegistry.length(), deathConfig.MAX_BODY_COUNT);
+    logger.info(
+      "Try to release dead bodies:",
+      deathConfig.RELEASE_OBJECTS_REGISTRY.length(),
+      deathConfig.MAX_BODY_COUNT
+    );
 
-    const overflowCount: TCount = this.releaseObjectRegistry.length() - deathConfig.MAX_BODY_COUNT;
+    const overflowCount: TCount = deathConfig.RELEASE_OBJECTS_REGISTRY.length() - deathConfig.MAX_BODY_COUNT;
 
     for (const _ of $range(1, overflowCount)) {
-      const positionInList: Optional<TIndex> = this.findNearestObjectToRelease(this.releaseObjectRegistry);
+      const positionInList: Optional<TIndex> = this.findNearestObjectToRelease(deathConfig.RELEASE_OBJECTS_REGISTRY);
 
       if (positionInList === null) {
         return;
       }
 
       const releaseObject: Optional<ServerObject> = registry.simulator.object(
-        this.releaseObjectRegistry.get(positionInList).id
+        deathConfig.RELEASE_OBJECTS_REGISTRY.get(positionInList).id
       );
 
       if (releaseObject !== null) {
@@ -95,7 +97,7 @@ export class ReleaseBodyManager extends AbstractManager {
         }
       }
 
-      table.remove(this.releaseObjectRegistry, positionInList);
+      table.remove(deathConfig.RELEASE_OBJECTS_REGISTRY, positionInList);
     }
   }
 
@@ -184,11 +186,11 @@ export class ReleaseBodyManager extends AbstractManager {
   public override save(packet: NetPacket): void {
     openSaveMarker(packet, ReleaseBodyManager.name);
 
-    const count: TCount = this.releaseObjectRegistry.length();
+    const count: TCount = deathConfig.RELEASE_OBJECTS_REGISTRY.length();
 
     packet.w_u16(count);
 
-    for (const [, v] of this.releaseObjectRegistry) {
+    for (const [, v] of deathConfig.RELEASE_OBJECTS_REGISTRY) {
       packet.w_u16(v.id);
     }
 
@@ -204,20 +206,20 @@ export class ReleaseBodyManager extends AbstractManager {
 
     const count: TCount = reader.r_u16();
 
-    resetTable(this.releaseObjectRegistry);
+    resetTable(deathConfig.RELEASE_OBJECTS_REGISTRY);
 
     for (const it of $range(1, count)) {
       const vid = reader.r_u16();
 
-      this.releaseObjectRegistry.set(it, {} as IReleaseDescriptor);
-      this.releaseObjectRegistry.get(it).id = vid;
+      deathConfig.RELEASE_OBJECTS_REGISTRY.set(it, {} as IReleaseDescriptor);
+      deathConfig.RELEASE_OBJECTS_REGISTRY.get(it).id = vid;
     }
 
     const levelId: TNumberId = reader.r_u16();
 
     // Is not same level, reset corpses list.
     if (levelId !== game_graph().vertex(registry.actorServer.m_game_vertex_id).level_id()) {
-      resetTable(this.releaseObjectRegistry);
+      resetTable(deathConfig.RELEASE_OBJECTS_REGISTRY);
     }
 
     closeLoadMarker(reader, ReleaseBodyManager.name);

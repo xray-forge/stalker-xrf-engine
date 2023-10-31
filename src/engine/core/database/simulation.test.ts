@@ -10,7 +10,8 @@ import {
 } from "@/engine/core/database/simulation";
 import { TSimulationObject } from "@/engine/core/managers/simulation";
 import { parseConditionsList } from "@/engine/core/utils/ini";
-import { AlifeSimulator, ServerActorObject } from "@/engine/lib/types";
+import { ServerActorObject } from "@/engine/lib/types";
+import { resetRegistry } from "@/fixtures/engine";
 import {
   MockAlifeSimulator,
   mockIniFile,
@@ -20,9 +21,7 @@ import {
 
 describe("simulation module of the database", () => {
   beforeEach(() => {
-    registry.simulator = null as unknown as AlifeSimulator;
-    registry.objects = new LuaTable();
-    registry.simulationObjects = new LuaTable();
+    resetRegistry();
   });
 
   it("registerSimulator should correctly register simulator", () => {

@@ -7,11 +7,13 @@ import {
 } from "@/engine/core/utils/console";
 import { consoleCommands } from "@/engine/lib/constants/console_commands";
 import { gameDifficulties } from "@/engine/lib/constants/game_difficulties";
+import { Console } from "@/engine/lib/types";
 import { resetFunctionMock } from "@/fixtures/jest";
-import { mockIniFile } from "@/fixtures/xray";
-import { gameConsole } from "@/fixtures/xray/mocks/console.mock";
+import { MockConsole, mockIniFile } from "@/fixtures/xray";
 
 describe("console utils", () => {
+  const gameConsole: Console = MockConsole.getInstanceMock();
+
   beforeEach(() => {
     resetFunctionMock(gameConsole.execute);
     resetFunctionMock(gameConsole.get_float);

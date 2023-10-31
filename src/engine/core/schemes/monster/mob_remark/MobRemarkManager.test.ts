@@ -1,19 +1,18 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { clsid } from "xray16";
 
-import { registry } from "@/engine/core/database";
 import { NotificationManager } from "@/engine/core/managers/notifications";
 import { ISchemeMobRemarkState } from "@/engine/core/schemes/monster/mob_remark/mob_remark_types";
 import { MobRemarkManager } from "@/engine/core/schemes/monster/mob_remark/MobRemarkManager";
 import { parseConditionsList } from "@/engine/core/utils/ini";
 import { EMonsterState } from "@/engine/lib/constants/monsters";
 import { EScheme, GameObject, TName } from "@/engine/lib/types";
-import { mockBaseSchemeLogic, mockSchemeState } from "@/fixtures/engine";
+import { mockBaseSchemeLogic, mockSchemeState, resetRegistry } from "@/fixtures/engine";
 import { mockGameObject } from "@/fixtures/xray";
 
 describe("MobRemarkManager", () => {
   beforeEach(() => {
-    registry.managers = new LuaTable();
+    resetRegistry();
   });
 
   it("should correctly activate", () => {

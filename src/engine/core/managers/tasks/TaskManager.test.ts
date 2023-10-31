@@ -1,6 +1,6 @@
 import { beforeAll, beforeEach, describe, expect, it, jest } from "@jest/globals";
 
-import { disposeManager, getManagerInstance, registry } from "@/engine/core/database";
+import { disposeManager, getManagerInstance } from "@/engine/core/database";
 import { EventsManager } from "@/engine/core/managers/events";
 import { taskConfig } from "@/engine/core/managers/tasks/TaskConfig";
 import { TaskManager } from "@/engine/core/managers/tasks/TaskManager";
@@ -8,7 +8,7 @@ import { TaskObject } from "@/engine/core/managers/tasks/TaskObject";
 import { ETaskState } from "@/engine/core/managers/tasks/types";
 import { NIL } from "@/engine/lib/constants/words";
 import { TSection } from "@/engine/lib/types";
-import { mockRegisteredActor } from "@/fixtures/engine";
+import { mockRegisteredActor, resetRegistry } from "@/fixtures/engine";
 import { MockLuaTable } from "@/fixtures/lua/mocks/LuaTable.mock";
 import { mockIniFile } from "@/fixtures/xray";
 import { EPacketDataType, mockNetPacket, mockNetProcessor, MockNetProcessor } from "@/fixtures/xray/mocks/save";
@@ -16,11 +16,11 @@ import { EPacketDataType, mockNetPacket, mockNetProcessor, MockNetProcessor } fr
 describe("TaskManager class", () => {
   beforeAll(() => {
     require("@/engine/scripts/declarations/tasks");
-    mockRegisteredActor();
   });
 
   beforeEach(() => {
-    registry.managers = new LuaTable();
+    resetRegistry();
+    mockRegisteredActor();
     taskConfig.ACTIVE_TASKS = new LuaTable();
   });
 
