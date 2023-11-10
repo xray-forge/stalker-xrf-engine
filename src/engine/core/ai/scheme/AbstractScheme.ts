@@ -12,7 +12,9 @@ const logger: LuaLogger = new LuaLogger($filename);
 export type TAbstractSchemeConstructor = typeof AbstractScheme;
 
 /**
- * todo;
+ * Abstract scheme implementation.
+ * Used to define logics of stalkers when specific scenarios from ltx scripts are processed and new section appears.
+ * Defines how scheme should be activated, initialized, reset and deactivated.
  */
 export abstract class AbstractScheme {
   public static readonly SCHEME_SECTION: EScheme;

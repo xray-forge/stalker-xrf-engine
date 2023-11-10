@@ -1,4 +1,4 @@
-import type { CampManager } from "@/engine/core/managers/camp/index";
+import type { CampManager } from "@/engine/core/ai/camp/CampManager";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import type { LuaArray, Optional, TDuration, TName, TProbability } from "@/engine/lib/types";
 

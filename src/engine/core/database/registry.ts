@@ -1,3 +1,4 @@
+import type { CampManager } from "@/engine/core/ai/camp";
 import type { TAbstractSchemeConstructor } from "@/engine/core/ai/scheme";
 import type { AnomalyFieldBinder, AnomalyZoneBinder, LabX8DoorBinder, SignalLightBinder } from "@/engine/core/binders";
 import type {
@@ -7,7 +8,6 @@ import type {
   IStoredOfflineObject,
 } from "@/engine/core/database/database_types";
 import type { AbstractManager, TAbstractCoreManagerConstructor } from "@/engine/core/managers/base/AbstractManager";
-import type { CampManager } from "@/engine/core/managers/camp";
 import type { TSimulationObject } from "@/engine/core/managers/simulation";
 import type { ITradeManagerDescriptor } from "@/engine/core/managers/trade";
 import type { Actor } from "@/engine/core/objects/creature/Actor";

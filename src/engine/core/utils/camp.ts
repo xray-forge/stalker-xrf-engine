@@ -1,6 +1,6 @@
+import { EObjectCampRole } from "@/engine/core/ai/camp/camp_types";
+import type { CampManager } from "@/engine/core/ai/camp/CampManager";
 import { IRegistryObjectState, registry } from "@/engine/core/database";
-import { EObjectCampRole } from "@/engine/core/managers/camp/camp_types";
-import type { CampManager } from "@/engine/core/managers/camp/CampManager";
 import { ISchemeAnimpointState } from "@/engine/core/schemes/stalker/animpoint";
 import { isObjectMeeting } from "@/engine/core/utils/planner";
 import { GameObject, Optional, TCount, TNumberId } from "@/engine/lib/types";

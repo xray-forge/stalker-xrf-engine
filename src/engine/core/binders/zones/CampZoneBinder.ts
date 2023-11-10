@@ -1,5 +1,6 @@
 import { ini_file, LuabindClass, object_binder } from "xray16";
 
+import { CampManager } from "@/engine/core/ai/camp/CampManager";
 import {
   closeLoadMarker,
   closeSaveMarker,
@@ -10,7 +11,6 @@ import {
   resetCampZone,
   unregisterCampZone,
 } from "@/engine/core/database";
-import { CampManager } from "@/engine/core/managers/camp/CampManager";
 import { readIniString } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { IniFile, NetPacket, Optional, Reader, ServerObject, TDuration, TName } from "@/engine/lib/types";

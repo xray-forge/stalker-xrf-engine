@@ -1,9 +1,9 @@
 import { time_global } from "xray16";
 
+import { EObjectCampActivity, EObjectCampRole, ICampObjectState } from "@/engine/core/ai/camp/camp_types";
+import { campConfig } from "@/engine/core/ai/camp/CampConfig";
 import { WEAPON_POSTFIX } from "@/engine/core/animation/types";
 import { IBaseSchemeState, IRegistryObjectState, registry } from "@/engine/core/database";
-import { EObjectCampActivity, EObjectCampRole, ICampObjectState } from "@/engine/core/managers/camp/camp_types";
-import { campConfig } from "@/engine/core/managers/camp/CampConfig";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import { soundsConfig } from "@/engine/core/managers/sounds/SoundsConfig";
 import { StoryManager } from "@/engine/core/managers/sounds/stories";

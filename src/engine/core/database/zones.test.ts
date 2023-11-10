@@ -1,5 +1,6 @@
 import { describe, expect, it } from "@jest/globals";
 
+import { CampManager } from "@/engine/core/ai/camp";
 import { registry } from "@/engine/core/database/registry";
 import {
   getCampZoneForPosition,
@@ -9,7 +10,6 @@ import {
   unregisterCampZone,
   unregisterZone,
 } from "@/engine/core/database/zones";
-import { CampManager } from "@/engine/core/managers/camp";
 import { GameObject, Vector } from "@/engine/lib/types";
 import { mockGameObject } from "@/fixtures/xray";
 import { MockVector } from "@/fixtures/xray/mocks/vector.mock";
