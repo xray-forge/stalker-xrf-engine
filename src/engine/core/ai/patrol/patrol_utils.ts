@@ -24,6 +24,7 @@ export function isPatrolTeamSynchronized(teamName: Optional<TName>): boolean {
   }
 
   for (const [id, isFlagged] of state) {
+    // todo: Probably use registry to get object for checking without engine access.
     const object: Optional<GameObject> = level.object_by_id(id);
 
     // Check sync stat of the object if it is online and alive.
