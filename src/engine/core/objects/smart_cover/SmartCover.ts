@@ -53,12 +53,11 @@ export class SmartCover extends cse_smart_cover {
   public override FillProps(pref: string, items: LuaTable<number>): void {
     super.FillProps(pref, items);
 
-    const prefix: TLabel = pref + "\\" + this.section_name() + "\\";
     const smartCoverDescription: Optional<TLabel> = this.description();
 
     if (smartCoverDescription !== this.lastDescription) {
-      for (const [k, v] of this.loopholes) {
-        this.loopholes.delete(k);
+      for (const [key] of this.loopholes) {
+        this.loopholes.delete(key);
       }
 
       this.lastDescription = tostring(smartCoverDescription);
@@ -74,7 +73,7 @@ export class SmartCover extends cse_smart_cover {
 
         const isLoopholesTableCheckerEnabled: boolean = new properties_helper().create_bool(
           items,
-          prefix + "loopholes\\" + descriptor.id,
+          `${pref}\\${this.section_name()}\\loopholes\\${descriptor.id}`,
           this,
           this.loopholes,
           descriptor.id
@@ -122,7 +121,7 @@ export class SmartCover extends cse_smart_cover {
 
       const loopholesCount: TCount = packet.r_u8();
 
-      for (const index of $range(1, loopholesCount)) {
+      for (const _ of $range(1, loopholesCount)) {
         const loopholeId: TStringId = packet.r_stringZ();
         const isLoopholeExisting: boolean = packet.r_bool();
 
