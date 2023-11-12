@@ -120,6 +120,7 @@ import {
   MockZoneVisual,
 } from "@/fixtures/xray/mocks/objects";
 import { MockProfileTimer } from "@/fixtures/xray/mocks/ProfileTimer.mock";
+import { MockPropertiesHelper } from "@/fixtures/xray/mocks/properties_helper.mock";
 import { MockPropertyEvaluator } from "@/fixtures/xray/mocks/PropertyEvaluator.mock";
 import { MockVector } from "@/fixtures/xray/mocks/vector.mock";
 import { MockVector2D } from "@/fixtures/xray/mocks/vector2.mock";
@@ -239,6 +240,7 @@ export function mockXRay16({
   print_stack = jest.fn(),
   profile = MockProfile,
   profile_timer = MockProfileTimer,
+  properties_helper = MockPropertiesHelper,
   property_evaluator = MockPropertyEvaluator,
   property_storage = MockPropertyStorage,
   relation_registry = mockRelationRegistryInterface,
@@ -372,6 +374,7 @@ export function mockXRay16({
     print_stack,
     profile,
     profile_timer,
+    properties_helper,
     property_evaluator,
     property_storage,
     relation_registry,

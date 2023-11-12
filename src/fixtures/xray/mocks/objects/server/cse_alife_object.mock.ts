@@ -59,7 +59,7 @@ export class MockAlifeObject extends MockLuabindClass {
   }
 
   public STATE_Write(packet: NetPacket): void {
-    packet.w_stringZ("cse_alife_object");
+    packet.w_stringZ(this.constructor.name);
   }
 
   public STATE_Read(packet: NetPacket, size: number): void {

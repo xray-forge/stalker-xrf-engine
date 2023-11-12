@@ -59,7 +59,7 @@ describe("Actor server object", () => {
 
     expect(saveManager.serverSave).toHaveBeenCalledWith(netProcessor);
     expect(netProcessor.writeDataOrder).toEqual([EPacketDataType.STRING, EPacketDataType.U16]);
-    expect(netProcessor.dataList).toEqual(["cse_alife_object", 0]);
+    expect(netProcessor.dataList).toEqual(["Actor", 0]);
 
     actor.STATE_Read(mockNetPacket(netProcessor), 0);
 
