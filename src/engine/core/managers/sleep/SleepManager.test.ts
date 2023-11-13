@@ -18,7 +18,7 @@ import { Console } from "@/engine/lib/types";
 import { mockRegisteredActor, resetRegistry } from "@/fixtures/engine";
 import { MockConsole, MockCUITrackBar } from "@/fixtures/xray";
 
-jest.mock("@/engine/core/ui/interaction/SleepDialog", () => ({
+jest.mock("@/engine/core/ui/game/SleepDialog", () => ({
   SleepDialog: class {
     public uiTimeTrack = MockCUITrackBar.mock();
     public show = jest.fn();
