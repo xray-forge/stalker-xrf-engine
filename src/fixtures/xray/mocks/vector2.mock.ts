@@ -1,19 +1,13 @@
 import { Vector2D } from "@/engine/lib/types";
 
 /**
- * todo;
+ * Mock of xray engine 2D vector.
  */
 export class MockVector2D {
-  /**
-   * Create mock vector from coordinates.
-   */
   public static create(x: number = 0, y: number = 0): MockVector2D {
     return new MockVector2D().set(x, y);
   }
 
-  /**
-   * Create mock vector as mock from coordinates.
-   */
   public static mock(x: number = 0, y: number = 0): Vector2D {
     return new MockVector2D().set(x, y) as unknown as Vector2D;
   }
@@ -23,9 +17,6 @@ export class MockVector2D {
   public x: number = 0;
   public y: number = 0;
 
-  /**
-   * todo: Description.
-   */
   public set(x: number, y: number): MockVector2D;
   public set(x: number | MockVector2D, y: number): MockVector2D {
     if (x instanceof MockVector2D) {
@@ -38,9 +29,6 @@ export class MockVector2D {
     return this;
   }
 
-  /**
-   * Mock vector add method implementation.
-   */
   public add(first: MockVector2D | number, second?: MockVector2D): MockVector2D {
     if (typeof first === "number") {
       this.x += first;

@@ -34,7 +34,7 @@ import type { ISmartTerrainJobDescriptor, SmartTerrain } from "@/engine/core/obj
 import { SchemeHear } from "@/engine/core/schemes/shared/hear/SchemeHear";
 import { ISchemeCombatState } from "@/engine/core/schemes/stalker/combat";
 import { SchemeCombat } from "@/engine/core/schemes/stalker/combat/SchemeCombat";
-import { PostCombatIdle } from "@/engine/core/schemes/stalker/combat_idle/PostCombatIdle";
+import { SchemePostCombatIdle } from "@/engine/core/schemes/stalker/combat_idle/SchemePostCombatIdle";
 import { activateMeetWithObject, updateObjectMeetAvailability } from "@/engine/core/schemes/stalker/meet/utils";
 import { SchemeReachTask } from "@/engine/core/schemes/stalker/reach_task/SchemeReachTask";
 import { ISchemeWoundedState } from "@/engine/core/schemes/stalker/wounded";
@@ -190,7 +190,7 @@ export class StalkerBinder extends object_binder {
 
     setupObjectSmartJobsAndLogicOnSpawn(this.object, this.state, ESchemeType.STALKER, this.isLoaded);
 
-    PostCombatIdle.setup(this.object);
+    SchemePostCombatIdle.setup(this.object);
 
     this.object.group_throw_time_interval(2_000); // todo: Interval to check danger from group objects?
 

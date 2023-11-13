@@ -43,7 +43,6 @@ import {
   mockMainMenuInterface,
   mockRelationRegistryInterface,
 } from "@/fixtures/xray/mocks/interface";
-import { mocksConfig } from "@/fixtures/xray/mocks/MocksConfig";
 import { MockNoise } from "@/fixtures/xray/mocks/noise.mock";
 import { MockObject } from "@/fixtures/xray/mocks/object.mock";
 import {
@@ -167,7 +166,7 @@ export function mockXRay16({
   Frect = MockFrect,
   GetARGB = mockGetARGB,
   GetFontLetterica16Russian = mockGetFontLetterica16Russian,
-  IsImportantSave = jest.fn(() => mocksConfig.isAutoSavingEnabled),
+  IsImportantSave = jest.fn(() => true),
   action_base = MockActionBase,
   action_planner = MockActionPlanner,
   alife = jest.fn(() => MockAlifeSimulator.mock()),

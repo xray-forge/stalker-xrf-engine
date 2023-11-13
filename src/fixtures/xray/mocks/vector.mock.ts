@@ -4,16 +4,10 @@ import { Vector } from "@/engine/lib/types";
  * todo;
  */
 export class MockVector {
-  /**
-   * Create mock vector from coordinates.
-   */
   public static create(x: number = 0, y: number = 0, z: number = 0): MockVector {
     return new MockVector().set(x, y, z);
   }
 
-  /**
-   * Create mock vector as mock from coordinates.
-   */
   public static mock(x: number = 0, y: number = 0, z: number = 0): Vector {
     return new MockVector().set(x, y, z) as unknown as Vector;
   }
@@ -24,9 +18,6 @@ export class MockVector {
   public y: number = 0;
   public z: number = 0;
 
-  /**
-   * todo: Description.
-   */
   public set(x: number, y: number, z: number): MockVector;
   public set(x: number | MockVector, y: number, z: number): MockVector {
     if (x instanceof MockVector) {
@@ -40,9 +31,6 @@ export class MockVector {
     return this;
   }
 
-  /**
-   * Mock vector add method implementation.
-   */
   public add(first: MockVector | number, second?: MockVector): MockVector {
     if (typeof first === "number") {
       this.x += first;

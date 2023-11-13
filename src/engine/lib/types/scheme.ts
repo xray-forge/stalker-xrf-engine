@@ -48,6 +48,7 @@ export enum EScheme {
   PH_ON_DEATH = "ph_on_death",
   PH_ON_HIT = "ph_on_hit",
   PH_OSCILLATE = "ph_oscillate",
+  POST_COMBAT_IDLE = "post_combat_idle",
   REACH_TASK = "reach_task",
   REMARK = "remark",
   SLEEPER = "sleeper",

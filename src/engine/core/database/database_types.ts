@@ -193,10 +193,6 @@ export interface IRegistryObjectState extends Record<EScheme, Optional<IBaseSche
   /**
    * todo;
    */
-  post_combat_wait: Optional<ISchemePostCombatIdleState>;
-  /**
-   * todo;
-   */
   enemyId: Optional<TNumberId>;
   /**
    * todo;

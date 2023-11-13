@@ -8,7 +8,7 @@ import { GameObject, IniFile, LuaArray, Optional, TName, TSection } from "@/engi
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Manager switching game object restrictors based on current logics / active ini section.
  */
 export class ObjectRestrictionsManager {
   /**

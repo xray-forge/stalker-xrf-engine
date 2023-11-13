@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
-import { device } from "xray16";
+import { device, IsImportantSave } from "xray16";
 
 import { registerSimulator, registry } from "@/engine/core/database";
 import {
@@ -17,15 +17,17 @@ import {
 import { gameDifficulties } from "@/engine/lib/constants/game_difficulties";
 import { AlifeSimulator, Console } from "@/engine/lib/types";
 import { resetRegistry } from "@/fixtures/engine";
-import { resetFunctionMock } from "@/fixtures/jest";
+import { replaceFunctionMock, resetFunctionMock } from "@/fixtures/jest";
 import { MockIoFile } from "@/fixtures/lua";
-import { MockConsole, MockFileSystem, MockFileSystemList, mocksConfig } from "@/fixtures/xray";
+import { MockConsole, MockFileSystem, MockFileSystemList } from "@/fixtures/xray";
 
 describe("game_save utils", () => {
   beforeEach(() => {
     resetRegistry();
     resetFunctionMock(io.open);
     registerSimulator();
+
+    replaceFunctionMock(IsImportantSave, () => true);
 
     MockConsole.reset();
   });
@@ -87,7 +89,7 @@ describe("game_save utils", () => {
     const console: Console = MockConsole.getInstanceMock();
 
     // When auto-save disabled.
-    mocksConfig.isAutoSavingEnabled = false;
+    replaceFunctionMock(IsImportantSave, () => false);
 
     createGameAutoSave("test");
     createGameAutoSave("st_test");
@@ -96,7 +98,7 @@ describe("game_save utils", () => {
     expect(console.execute).not.toHaveBeenCalled();
 
     // When auto-save enabled.
-    mocksConfig.isAutoSavingEnabled = true;
+    replaceFunctionMock(IsImportantSave, () => true);
 
     createGameAutoSave("test");
     expect(console.execute).toHaveBeenCalledWith("save os_user_name - translated_test");

@@ -1,5 +1,6 @@
 import { cast_planner, world_property } from "xray16";
 
+import { AbstractScheme } from "@/engine/core/ai/scheme";
 import { EActionId, EEvaluatorId } from "@/engine/core/ai/types";
 import { registry } from "@/engine/core/database";
 import { ActionPostCombatIdleWait } from "@/engine/core/schemes/stalker/combat_idle/actions";
@@ -8,7 +9,7 @@ import { EvaluatorHasEnemy } from "@/engine/core/schemes/stalker/combat_idle/eva
 import { getObjectCommunity } from "@/engine/core/utils/community";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { communities } from "@/engine/lib/constants/communities";
-import { ActionPlanner, GameObject } from "@/engine/lib/types";
+import { ActionPlanner, EScheme, ESchemeType, GameObject } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -16,7 +17,10 @@ const logger: LuaLogger = new LuaLogger($filename);
  * Post combat idle scheme manager.
  * Used to add idle state logics for game objects if it is needed.
  */
-export class PostCombatIdle {
+export class SchemePostCombatIdle extends AbstractScheme {
+  public static override readonly SCHEME_SECTION: EScheme = EScheme.POST_COMBAT_IDLE;
+  public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.STALKER;
+
   /**
    * todo: Description.
    * todo: Generic idle
@@ -24,6 +28,7 @@ export class PostCombatIdle {
   public static setup(object: GameObject): void {
     // logger.info("Add post-combat idle for:", object.name());
 
+    // Zombied stalkers do not wait for more enemies after ending of combat.
     if (getObjectCommunity(object) === communities.zombied) {
       return;
     }
@@ -36,9 +41,9 @@ export class PostCombatIdle {
       animation: null,
       lastBestEnemyId: null,
       lastBestEnemyName: null,
-    };
+    } as ISchemePostCombatIdleState;
 
-    registry.objects.get(object.id()).post_combat_wait = state;
+    registry.objects.get(object.id())[EScheme.POST_COMBAT_IDLE] = state;
 
     planner.remove_evaluator(EEvaluatorId.ENEMY);
     planner.add_evaluator(EEvaluatorId.ENEMY, new EvaluatorHasEnemy(state));
