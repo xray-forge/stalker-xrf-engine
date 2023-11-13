@@ -5,12 +5,12 @@ import {
 } from "@/fixtures/xray/mocks/objects/server/cse_alife_dynamic_object.mock";
 
 /**
- * todo;
+ * Mock alife dynamic visual server object.
  */
 export class MockAlifeDynamicObjectVisual extends MockAlifeDynamicObject {}
 
 /**
- * todo;
+ * Mock data based alife dynamic visual server object.
  */
 export function mockServerAlifeDynamicObjectVisual(
   base: Partial<ServerDynamicVisualObject> = {}

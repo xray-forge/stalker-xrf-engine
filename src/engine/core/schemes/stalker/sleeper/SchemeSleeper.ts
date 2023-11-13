@@ -71,6 +71,6 @@ export class SchemeSleeper extends AbstractScheme {
     // Cannot use alife activity when need to sleep.
     planner.action(EActionId.ALIFE).add_precondition(new world_property(EEvaluatorId.NEED_SLEEPER, false));
 
-    AbstractScheme.subscribe(object, state, actionSleeper);
+    AbstractScheme.subscribe(state, actionSleeper);
   }
 }

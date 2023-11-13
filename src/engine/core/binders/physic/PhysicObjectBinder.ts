@@ -37,7 +37,7 @@ import {
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Binder of physic game objects.
  */
 @LuabindClass()
 export class PhysicObjectBinder extends object_binder {

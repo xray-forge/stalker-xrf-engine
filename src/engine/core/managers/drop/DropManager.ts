@@ -159,11 +159,11 @@ export class DropManager extends AbstractManager {
   }
 
   /**
-   * Handle client object death.
+   * Handle game object death.
    * Spawn required loot, filter existing loot and mark state of items in inventory.
    * todo: implement with eventsManager, not direct call.
    *
-   * @param object - client object facing death event
+   * @param object - game object facing death event
    */
   public onObjectDeath(object: GameObject): void {
     this.createCorpseReleaseItems(object);

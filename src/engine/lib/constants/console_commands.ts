@@ -1,6 +1,8 @@
 /* eslint sort-keys-fix/sort-keys-fix: "error" */
 
 /**
+ * todo: Probably move to xrf book and do not define here.
+ *
  * DOC ref:
  *
  * CMD1(CCC_ShowMonsterInfo, "ai_monster_info");
@@ -473,7 +475,7 @@ export const consoleCommands = {
 } as const;
 
 /**
- * todo;
+ * Type describing set of available console commands.
  */
 export type TConsoleCommands = typeof consoleCommands;
 

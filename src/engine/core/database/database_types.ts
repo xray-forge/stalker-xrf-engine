@@ -39,7 +39,8 @@ export interface IBaseSchemeLogic {
 export type TSchemeSignals = LuaTable<TName, boolean>;
 
 /**
- * todo;
+ * Generic state of scheme logics stored in object state.
+ * For each scheme separate table is allocated where information about its state and handlers is stored.
  */
 export interface IBaseSchemeState {
   ini: IniFile;
@@ -167,7 +168,8 @@ export interface IRegistryObjectState extends Record<EScheme, Optional<IBaseSche
    */
   stateManager: Optional<StalkerStateManager>;
   /**
-   * todo;
+   * Restrictions manager for game objects.
+   * Handles current restrictions list depending on active logics.
    */
   restrictionsManager: Optional<ObjectRestrictionsManager>;
   /**
@@ -175,11 +177,12 @@ export interface IRegistryObjectState extends Record<EScheme, Optional<IBaseSche
    */
   hearInfo: Optional<IActionSchemeHearState>;
   /**
-   * todo;
+   * Whether object is invulnerable to any damage.
    */
   invulnerable: Optional<boolean>;
   /**
-   * todo;
+   * Whether game object is immortal.
+   * todo: Applicable for heli only. Should be somewhere else?
    */
   immortal: Optional<boolean>;
   /**
@@ -191,15 +194,11 @@ export interface IRegistryObjectState extends Record<EScheme, Optional<IBaseSche
    */
   old_aim_time: Optional<TTimestamp>;
   /**
-   * todo;
-   */
-  post_combat_wait: Optional<ISchemePostCombatIdleState>;
-  /**
-   * todo;
+   * Current enemy ID of the object.
    */
   enemyId: Optional<TNumberId>;
   /**
-   * todo;
+   * Current enemy of the object.
    */
   enemy: Optional<GameObject>;
   /**

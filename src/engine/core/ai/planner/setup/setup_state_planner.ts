@@ -62,5 +62,6 @@ export function setupStalkerStatePlanner(planner: ActionPlanner, stateManager: S
   const goal: WorldState = new world_state();
 
   goal.add_property(new world_property(EStateEvaluatorId.END, true));
+
   planner.set_goal_world_state(goal);
 }

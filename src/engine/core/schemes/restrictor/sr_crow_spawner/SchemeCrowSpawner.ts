@@ -10,7 +10,7 @@ import { EScheme, ESchemeType, GameObject, IniFile, TName, TSection } from "@/en
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * Scheme to handle crows spawner restrictors.
+ * Scheme implementing logics of crow spawning for restrictors.
  * From time to time spawns crows and assigns them to specific paths.
  */
 export class SchemeCrowSpawner extends AbstractScheme {
@@ -39,6 +39,6 @@ export class SchemeCrowSpawner extends AbstractScheme {
     section: TSection,
     state: ISchemeCrowSpawnerState
   ): void {
-    AbstractScheme.subscribe(object, state, new CrowSpawnerManager(object, state));
+    AbstractScheme.subscribe(state, new CrowSpawnerManager(object, state));
   }
 }

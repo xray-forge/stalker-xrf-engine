@@ -10,19 +10,11 @@ import { EScheme, ESchemeType, GameObject, IniFile, Optional, TSection } from "@
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Scheme describing how stalker object should handle being hit.
  */
 export class SchemeHit extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.HIT;
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.STALKER;
-
-  public static override disable(object: GameObject, scheme: EScheme): void {
-    const state: Optional<ISchemeHitState> = registry.objects.get(object.id())[scheme] as Optional<ISchemeHitState>;
-
-    if (state) {
-      AbstractScheme.unsubscribe(object, state, state.action);
-    }
-  }
 
   public static override activate(
     object: GameObject,
@@ -52,6 +44,14 @@ export class SchemeHit extends AbstractScheme {
 
     state.action = manager;
 
-    AbstractScheme.subscribe(object, state, manager);
+    AbstractScheme.subscribe(state, manager);
+  }
+
+  public static override disable(object: GameObject, scheme: EScheme): void {
+    const state: Optional<ISchemeHitState> = registry.objects.get(object.id())[scheme] as Optional<ISchemeHitState>;
+
+    if (state) {
+      AbstractScheme.unsubscribe(state, state.action);
+    }
   }
 }

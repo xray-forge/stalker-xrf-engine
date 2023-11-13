@@ -18,7 +18,7 @@ import {
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Binder of artefact game objects logics.
  */
 @LuabindClass()
 export class ArtefactBinder extends object_binder {
@@ -36,7 +36,7 @@ export class ArtefactBinder extends object_binder {
     const artefact: CArtefact = this.object.get_artefact();
     const id: TNumberId = this.object.id();
 
-    if (registry.artefacts.ways.get(id) !== null) {
+    if (registry.artefacts.ways.has(id)) {
       const anomalyZone: AnomalyZoneBinder = registry.artefacts.parentZones.get(id);
       const forceXZ: TRate = anomalyZone.applyingForceXZ;
       const forceY: TRate = anomalyZone.applyingForceY;
@@ -68,15 +68,13 @@ export class ArtefactBinder extends object_binder {
         return;
       }
 
-      const boneName: string = ini.r_string("fixed_bone", "name");
-
       const physicsShell: Optional<PhysicsShell> = this.object.get_physics_shell();
 
       if (!physicsShell) {
         return;
       }
 
-      const physicsElement: PhysicsElement = physicsShell.get_element_by_bone_name(boneName);
+      const physicsElement: PhysicsElement = physicsShell.get_element_by_bone_name(ini.r_string("fixed_bone", "name"));
 
       if (!physicsElement.is_fixed()) {
         physicsElement.fix();

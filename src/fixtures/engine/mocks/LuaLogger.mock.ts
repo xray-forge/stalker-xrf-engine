@@ -1,7 +1,7 @@
 import { jest } from "@jest/globals";
 
 /**
- * todo;
+ * Mock XRF lua logger for simpler handling of logs that are used everywhere.
  */
 export class MockLuaLogger {
   public error = jest.fn();

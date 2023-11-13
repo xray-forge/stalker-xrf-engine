@@ -1,5 +1,6 @@
 /**
- * todo;
+ * Mock engine class ids for testing environment.
+ * In game engine all these constants do not match since they are dynamic and allocated on runtime.
  */
 export const mockStalkerIds = {
   action_accomplish_task: 7,

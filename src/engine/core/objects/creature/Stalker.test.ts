@@ -208,7 +208,7 @@ describe("Stalker server object", () => {
       EPacketDataType.STRING,
       EPacketDataType.BOOLEAN,
     ]);
-    expect(netProcessor.dataList).toEqual(["cse_alife_object", NIL, NIL, false]);
+    expect(netProcessor.dataList).toEqual(["Stalker", NIL, NIL, false]);
 
     const another: Stalker = new Stalker("stalker");
 
@@ -244,7 +244,7 @@ describe("Stalker server object", () => {
       EPacketDataType.STRING,
       EPacketDataType.BOOLEAN,
     ]);
-    expect(netProcessor.dataList).toEqual(["cse_alife_object", "435", "test_section", true]);
+    expect(netProcessor.dataList).toEqual(["Stalker", "435", "test_section", true]);
 
     const another: Stalker = new Stalker("stalker");
 
@@ -281,7 +281,7 @@ describe("Stalker server object", () => {
       EPacketDataType.STRING,
       EPacketDataType.BOOLEAN,
     ]);
-    expect(netProcessor.dataList).toEqual(["cse_alife_object", "311", "test_section", true]);
+    expect(netProcessor.dataList).toEqual(["Stalker", "311", "test_section", true]);
 
     const another: Stalker = new Stalker("stalker");
 
@@ -316,7 +316,7 @@ describe("Stalker server object", () => {
       EPacketDataType.STRING,
       EPacketDataType.BOOLEAN,
     ]);
-    expect(netProcessor.dataList).toEqual(["cse_alife_object", NIL, "test_section", true]);
+    expect(netProcessor.dataList).toEqual(["Stalker", NIL, "test_section", true]);
 
     const another: Stalker = new Stalker("stalker");
 

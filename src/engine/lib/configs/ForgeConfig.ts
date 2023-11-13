@@ -8,8 +8,6 @@ export const FORGE_CONFIG_LTX: IniFile = new ini_file("forge.ltx");
 /**
  * Global-level configuration for configs/scripts/forms.
  * Used to define some dev flags/features.
- *
- * todo: Move some fields to ltx file?
  */
 export const forgeConfig = {
   VERSION: readIniString(FORGE_CONFIG_LTX, "config", "version", true),

@@ -1,26 +1,26 @@
 declare module "fengari" {
   /**
-   * todo: Description.
+   * Interface describing lua string.
    */
   interface ILuaString {
 
   }
 
   /**
-   * todo: Description.
+   * Interface describing current lua VM state.
    */
   interface ILuaState {
 
   }
 
   /**
-   * todo: Description.
+   * Interface describing lua VM config.
    */
   interface ILuaConf {
   }
 
   /**
-   * todo: Description.
+   * Interface describing methods available in fengari VM.
    */
   interface ILua {
     lua_getglobal(state: ILuaState, name: string): unknown;
@@ -38,14 +38,14 @@ declare module "fengari" {
   }
 
   /**
-   * todo: Description.
+   * Interface describing methods available in fengari VM lib.
    */
   interface ILualib {
     luaL_openlibs(state: ILuaState): void;
   }
 
   /**
-   * todo: Description.
+   * Interface describing methods available in fengari LAUX lib.
    */
   interface ILauxlib {
     luaL_newstate(): ILuaState;

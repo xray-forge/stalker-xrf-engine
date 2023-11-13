@@ -127,7 +127,7 @@ export function getServerObjects<T extends ServerObject>(
 }
 
 /**
- * Get nearest to actor client object.
+ * Get nearest to actor game object.
  *
  * @param pattern - callback checker, name checker or class id checker
  * @returns list of matching client objects

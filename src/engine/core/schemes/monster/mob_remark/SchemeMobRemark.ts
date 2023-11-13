@@ -11,7 +11,7 @@ import { EScheme, ESchemeType, TSection } from "@/engine/lib/types/scheme";
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Scheme implementing logics of switching between scripts.
  */
 export class SchemeMobRemark extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.MOB_REMARK;
@@ -46,6 +46,6 @@ export class SchemeMobRemark extends AbstractScheme {
     section: TSection,
     state: ISchemeMobRemarkState
   ): void {
-    AbstractScheme.subscribe(object, state, new MobRemarkManager(object, state));
+    AbstractScheme.subscribe(state, new MobRemarkManager(object, state));
   }
 }

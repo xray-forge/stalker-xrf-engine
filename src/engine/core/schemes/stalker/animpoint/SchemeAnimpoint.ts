@@ -19,8 +19,8 @@ import { EScheme, ESchemeType, TSection } from "@/engine/lib/types/scheme";
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * Logical scheme for stalkers to implement animation.
- * As example - sitting, standing near table etc.
+ * Scheme defining how to handle animation and static animation states.
+ * As example - sitting, standing near table when in smart cover or waiting for quest scripts.
  */
 export class SchemeAnimpoint extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.ANIMPOINT;
@@ -75,7 +75,7 @@ export class SchemeAnimpoint extends AbstractScheme {
 
     schemeState.animpointManager = new AnimpointManager(object, schemeState);
 
-    AbstractScheme.subscribe(object, schemeState, schemeState.animpointManager);
+    AbstractScheme.subscribe(schemeState, schemeState.animpointManager);
 
     const actionReachAnimpoint: ActionReachAnimpoint = new ActionReachAnimpoint(schemeState);
 
@@ -103,7 +103,7 @@ export class SchemeAnimpoint extends AbstractScheme {
     actionAnimpoint.add_effect(new world_property(EEvaluatorId.IS_STATE_LOGIC_ACTIVE, false));
     planner.add_action(EActionId.ANIMPOINT_ACTIVITY, actionAnimpoint);
 
-    AbstractScheme.subscribe(object, schemeState, actionAnimpoint);
+    AbstractScheme.subscribe(schemeState, actionAnimpoint);
 
     // Cannot go to alife simulation if animation is defined.
     planner.action(EActionId.ALIFE).add_precondition(new world_property(EEvaluatorId.IS_ANIMPOINT_NEEDED, false));

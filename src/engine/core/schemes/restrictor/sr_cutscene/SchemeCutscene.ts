@@ -10,7 +10,7 @@ import { EScheme, ESchemeType, GameObject, IniFile, TSection } from "@/engine/li
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * Cutscenes implementing scheme.
+ * Scheme implementing cutscenes logics.
  * Allows disabling input and controlling camera for some time.
  */
 export class SchemeCutscene extends AbstractScheme {
@@ -47,6 +47,6 @@ export class SchemeCutscene extends AbstractScheme {
     section: TSection,
     state: ISchemeCutsceneState
   ): void {
-    AbstractScheme.subscribe(object, state, new CutsceneManager(object, state));
+    AbstractScheme.subscribe(state, new CutsceneManager(object, state));
   }
 }

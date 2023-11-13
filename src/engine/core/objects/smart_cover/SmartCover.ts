@@ -1,6 +1,6 @@
 import { cse_smart_cover, LuabindClass, properties_helper } from "xray16";
 
-import { ISmartCoverLoopholeDescriptor, smartCoversList } from "@/engine/core/animation/smart_covers";
+import { smartCoversList } from "@/engine/core/animation/smart_covers/list";
 import {
   registerObjectStoryLinks,
   registerSmartCover,
@@ -10,7 +10,9 @@ import {
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { assert } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { NetPacket, Optional, TCount, TLabel, TSection, TStringId } from "@/engine/lib/types";
+import { resetTable } from "@/engine/core/utils/table";
+import { NIL } from "@/engine/lib/constants/words";
+import { LuaArray, NetPacket, Optional, TCount, TLabel, TSection, TStringId } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -39,48 +41,45 @@ export class SmartCover extends cse_smart_cover {
     super.on_register();
 
     registerObjectStoryLinks(this);
+
     EventsManager.emitEvent(EGameEvent.SMART_COVER_REGISTER, this);
   }
 
   public override on_unregister(): void {
     EventsManager.emitEvent(EGameEvent.SMART_COVER_UNREGISTER, this);
+
     unregisterStoryLinkByObjectId(this.id);
     unregisterSmartCover(this);
 
     super.on_unregister();
   }
 
-  public override FillProps(pref: string, items: LuaTable<number>): void {
+  public override FillProps(pref: string, items: LuaArray<unknown>): void {
     super.FillProps(pref, items);
 
-    const prefix: TLabel = pref + "\\" + this.section_name() + "\\";
-    const smartCoverDescription: Optional<TLabel> = this.description();
+    const nextDescription: TLabel = tostring(this.description());
 
-    if (smartCoverDescription !== this.lastDescription) {
-      for (const [k, v] of this.loopholes) {
-        this.loopholes.delete(k);
-      }
-
-      this.lastDescription = tostring(smartCoverDescription);
+    if (nextDescription !== this.lastDescription) {
+      this.lastDescription = tostring(nextDescription);
+      resetTable(this.loopholes);
     }
 
-    if (smartCoverDescription !== null) {
-      const loopholes = smartCoversList.get(smartCoverDescription).loopholes;
-
-      for (const [, descriptor] of loopholes) {
+    // todo: should this be part of memoized check?
+    if (nextDescription !== NIL) {
+      for (const [, descriptor] of smartCoversList.get(nextDescription).loopholes) {
         if (this.loopholes.get(descriptor.id) === null) {
           this.loopholes.set(descriptor.id, true);
         }
 
-        const isLoopholesTableCheckerEnabled: boolean = new properties_helper().create_bool(
-          items,
-          prefix + "loopholes\\" + descriptor.id,
-          this,
-          this.loopholes,
-          descriptor.id
+        this.set_loopholes_table_checker(
+          new properties_helper().create_bool(
+            items,
+            `${pref}\\${this.section_name()}\\loopholes\\${descriptor.id}`,
+            this,
+            this.loopholes,
+            descriptor.id
+          )
         );
-
-        this.set_loopholes_table_checker(isLoopholesTableCheckerEnabled);
       }
     }
   }
@@ -99,6 +98,7 @@ export class SmartCover extends cse_smart_cover {
   public override STATE_Read(packet: NetPacket, size: TCount): void {
     super.STATE_Read(packet, size);
 
+    // todo: Handle `nil` values with string casting.
     this.lastDescription = packet.r_stringZ();
 
     const smartCoverDescription: Optional<string> =
@@ -108,25 +108,22 @@ export class SmartCover extends cse_smart_cover {
     if (smartCoverDescription !== null) {
       assert(
         smartCoversList.has(smartCoverDescription),
-        "SmartCover [%s] has wrong description [%s].",
+        "SmartCover '%s' has wrong description - '%s'.",
         this.name(),
         tostring(smartCoverDescription)
       );
 
-      const loopholes: LuaTable<number, ISmartCoverLoopholeDescriptor> =
-        smartCoversList.get(smartCoverDescription).loopholes;
-
-      for (const [, descriptor] of loopholes) {
+      for (const [, descriptor] of smartCoversList.get(smartCoverDescription).loopholes) {
         existingLoopholes.set(descriptor.id, true);
       }
 
       const loopholesCount: TCount = packet.r_u8();
 
-      for (const index of $range(1, loopholesCount)) {
+      for (const _ of $range(1, loopholesCount)) {
         const loopholeId: TStringId = packet.r_stringZ();
         const isLoopholeExisting: boolean = packet.r_bool();
 
-        if (existingLoopholes.get(loopholeId) !== null) {
+        if (existingLoopholes.has(loopholeId)) {
           this.loopholes.set(loopholeId, isLoopholeExisting);
         }
       }

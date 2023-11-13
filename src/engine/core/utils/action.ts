@@ -8,7 +8,7 @@ import { GameObject } from "@/engine/lib/types";
 /**
  * Punch actor as object.
  *
- * @param object - client object that should hit actor
+ * @param object - game object that should hit actor
  */
 export function objectPunchActor(object: GameObject): void {
   const actor: GameObject = registry.actor;

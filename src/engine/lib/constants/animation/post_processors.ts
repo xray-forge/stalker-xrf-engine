@@ -44,13 +44,3 @@ export const postProcessors = {
   teleport: "teleport.ppe",
   thermal: "thermal.ppe",
 } as const;
-
-/**
- * todo;
- */
-export type TPostProcessors = typeof postProcessors;
-
-/**
- * todo;
- */
-export type TPostProcessor = TPostProcessors[keyof TPostProcessors];

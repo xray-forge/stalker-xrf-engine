@@ -1,7 +1,10 @@
 import { NIL } from "@/engine/lib/constants/words";
 
 /**
- * todo;
+ * Mock lua `type` global method.
+ *
+ * @param value - target value to check type for
+ * @returns type of value
  */
 export function mockType(value: unknown): string {
   const type = typeof value;

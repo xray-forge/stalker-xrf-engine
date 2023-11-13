@@ -25,7 +25,7 @@ const logger: LuaLogger = new LuaLogger($filename);
 /**
  * Get smart terrain linked to object.
  *
- * @param object - server or client object
+ * @param object - server or game object
  * @returns object smart terrain server object or null
  */
 export function getObjectSmartTerrain(object: GameObject | ServerCreatureObject): Optional<SmartTerrain> {
@@ -47,7 +47,7 @@ export function getObjectSmartTerrain(object: GameObject | ServerCreatureObject)
 /**
  * Check whether object is in provided smart terrain (name).
  *
- * @param object - client object to check
+ * @param object - game object to check
  * @param smartTerrainName - desired smart terrain to check
  * @returns whether object is assigned to smart terrain with desired name
  */
@@ -60,7 +60,7 @@ export function isObjectInSmartTerrain(object: GameObject, smartTerrainName: TNa
 /**
  * Check whether object is inside another zone object.
  *
- * @param object - target client object to check
+ * @param object - target game object to check
  * @param zone - target zone to check
  * @returns whether object is inside zone object.
  */
@@ -71,7 +71,7 @@ export function isObjectInZone(object: Optional<GameObject>, zone: Optional<Game
 /**
  * Check whether object is inside silence zone.
  *
- * @param object - target client object to check
+ * @param object - target game object to check
  * @returns whether object is inside silence zone
  */
 export function isObjectInSilenceZone(object: GameObject): boolean {

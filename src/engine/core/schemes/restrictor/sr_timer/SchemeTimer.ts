@@ -11,7 +11,7 @@ import { EScheme, ESchemeType, TSection } from "@/engine/lib/types/scheme";
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * Scheme implementing timed logic with custom UI element telling about limits.
+ * Scheme implementing timer logics with custom UI element telling about limits.
  */
 export class SchemeTimer extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.SR_TIMER;
@@ -57,6 +57,6 @@ export class SchemeTimer extends AbstractScheme {
     section: TSection,
     state: ISchemeTimerState
   ): void {
-    SchemeTimer.subscribe(object, state, new TimerManager(object, state));
+    AbstractScheme.subscribe(state, new TimerManager(object, state));
   }
 }

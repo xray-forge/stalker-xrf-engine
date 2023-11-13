@@ -1,6 +1,6 @@
 ## Camp object configuration
 
-todo;
+todo; Move to xrf book?
 
 - [camp] - section describing file with camp logic configuration
 - cfg - field used in camp section to provide config path with [camp] logic, current ini will be used otherwise

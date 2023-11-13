@@ -9,7 +9,7 @@ import { EScheme, ESchemeType, TSection } from "@/engine/lib/types/scheme";
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * Scheme to handle death event for physical objects as part of logics.
+ * Scheme to handle death event for physical objects as part of scripts/game events.
  */
 export class SchemePhysicalOnDeath extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.PH_ON_DEATH;
@@ -39,7 +39,7 @@ export class SchemePhysicalOnDeath extends AbstractScheme {
 
     storage.action = action;
 
-    SchemePhysicalOnDeath.subscribe(object, storage, action);
+    AbstractScheme.subscribe(storage, action);
   }
 
   public static override disable(object: GameObject, scheme: EScheme): void {

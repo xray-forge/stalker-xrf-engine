@@ -170,7 +170,7 @@ export class StatisticsManager extends AbstractManager {
   /**
    * Handle item pick up event.
    *
-   * @param item - target client object picked up
+   * @param item - target game object picked up
    */
   public onActorCollectedItem(item: GameObject): void {
     if (!isArtefact(item)) {
@@ -228,7 +228,7 @@ export class StatisticsManager extends AbstractManager {
   /**
    * Handle object hit by an actor and collect statistics.
    *
-   * @param object - client object
+   * @param object - game object
    * @param amount - amount of damage done
    * @param direction - direction of object hit
    * @param who - source object of hit

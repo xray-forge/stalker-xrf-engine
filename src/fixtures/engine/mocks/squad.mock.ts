@@ -5,7 +5,7 @@ import { Squad } from "@/engine/core/objects/squad";
 import { communities } from "@/engine/lib/constants/communities";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import { ServerGroupObject, ServerHumanObject, TClassId, TName } from "@/engine/lib/types";
-import { MockLuaTable, mockLuaTable } from "@/fixtures/lua";
+import { MockLuaTable } from "@/fixtures/lua";
 import {
   MockAlifeOnlineOfflineGroup,
   mockGameObject,
@@ -23,7 +23,7 @@ export class MockSquad extends MockAlifeOnlineOfflineGroup {}
  * Mock squad record based on online-offline group for testing.
  */
 export function mockSquad({
-  behaviour = mockLuaTable([
+  behaviour = MockLuaTable.mock([
     ["a", "4"],
     ["c", "3"],
   ]),

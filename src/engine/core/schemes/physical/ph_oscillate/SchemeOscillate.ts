@@ -10,7 +10,7 @@ import { EScheme, ESchemeType, GameObject, IniFile, TName, TSection } from "@/en
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * Scheme to oscillate physical objects with some period of time.
+ * Scheme implementing logics of oscillation of physical objects with some period of time.
  */
 export class SchemeOscillate extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.PH_OSCILLATE;
@@ -57,6 +57,6 @@ export class SchemeOscillate extends AbstractScheme {
     section: TSection,
     state: ISchemeOscillateState
   ): void {
-    AbstractScheme.subscribe(object, state, new OscillateManager(object, state));
+    AbstractScheme.subscribe(state, new OscillateManager(object, state));
   }
 }

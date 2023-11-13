@@ -38,7 +38,7 @@ const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * Binder of actor game object.
- * Intercepts and handles lifecycle of actor client object.
+ * Intercepts and handles lifecycle of actor game object.
  */
 @LuabindClass()
 export class ActorBinder extends object_binder {
@@ -160,10 +160,7 @@ export class ActorBinder extends object_binder {
     let isDeimosExisting: boolean = false;
 
     for (const [id, zone] of registry.zones) {
-      if (
-        registry.objects.get(zone.id()) &&
-        registry.objects.get(zone.id()).activeSection === SchemeDeimos.SCHEME_SECTION
-      ) {
+      if (registry.objects.get(zone.id())?.activeSection === SchemeDeimos.SCHEME_SECTION) {
         isDeimosExisting = true;
         packet.w_bool(true);
         packet.w_float((registry.objects.get(zone.id())[SchemeDeimos.SCHEME_SECTION] as ISchemeDeimosState).intensity);

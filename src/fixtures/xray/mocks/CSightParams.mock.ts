@@ -1,7 +1,7 @@
 import { TSightType } from "@/engine/lib/types";
 
 /**
- * todo;
+ * Mock sight parameters enumeration class.
  */
 export class MockCSightParams {
   public static readonly eSightTypeDummy: TSightType = -1;

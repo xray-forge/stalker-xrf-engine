@@ -17,9 +17,6 @@ export class SchemeMonster extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.SR_MONSTER;
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.RESTRICTOR;
 
-  /**
-   * Activate scheme and apply configuration.
-   */
   public static override activate(
     object: GameObject,
     ini: IniFile,
@@ -40,9 +37,6 @@ export class SchemeMonster extends AbstractScheme {
     return state;
   }
 
-  /**
-   * Add scheme handlers and subscribe them to events.
-   */
   public static override add(
     object: GameObject,
     ini: IniFile,
@@ -50,6 +44,6 @@ export class SchemeMonster extends AbstractScheme {
     section: TSection,
     state: ISchemeMonsterState
   ): void {
-    SchemeMonster.subscribe(object, state, new MonsterManager(object, state));
+    AbstractScheme.subscribe(state, new MonsterManager(object, state));
   }
 }

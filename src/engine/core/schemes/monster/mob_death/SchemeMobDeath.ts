@@ -8,7 +8,7 @@ import { EScheme, ESchemeType, GameObject, IniFile, TSection } from "@/engine/li
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * Scheme to handle monster death and record information about who killed them.
+ * Scheme defining logics of how to handle monster death and record information about who killed them.
  */
 export class SchemeMobDeath extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.MOB_DEATH;
@@ -34,6 +34,6 @@ export class SchemeMobDeath extends AbstractScheme {
     section: TSection,
     state: ISchemeMobDeathState
   ): void {
-    SchemeMobDeath.subscribe(object, state, new MobDeathManager(object, state));
+    AbstractScheme.subscribe(state, new MobDeathManager(object, state));
   }
 }

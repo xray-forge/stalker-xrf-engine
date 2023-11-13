@@ -15,8 +15,8 @@ const logger: LuaLogger = new LuaLogger($filename);
 /**
  * Set object goodwill based on relation type and client objects.
  *
- * @param from - client object from
- * @param to - client object to
+ * @param from - game object from
+ * @param to - game object to
  * @param relation - relation type to set
  */
 export function setGameObjectRelation(from: Optional<GameObject>, to: Optional<GameObject>, relation: ERelation): void {

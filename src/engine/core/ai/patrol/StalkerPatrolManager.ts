@@ -42,21 +42,6 @@ const logger: LuaLogger = new LuaLogger($filename, { file: "ai_state" });
  * {@link https://xray-forge.github.io/stalker-xrf-book/script_engine/patrols.html patrols system}
  */
 export class StalkerPatrolManager {
-  public static DEFAULT_PATROL_WAIT_TIME: TDuration = 10_000;
-  public static DEFAULT_PATROL_STATE_STANDING: EStalkerState = EStalkerState.GUARD;
-  public static DEFAULT_PATROL_STATE_MOVING: EStalkerState = EStalkerState.PATROL;
-
-  // When cannot keep with patrol state, persist state for a while and then switch walk/run/sprint based on distance.
-  public static KEEP_STATE_DURATION: TDuration = 1500;
-  // Minimal time to walk before checking whether state can switch.
-  public static WALK_STATE_DURATION: TDuration = 3000;
-  // Minimal time to run before checking whether state can switch.
-  public static RUN_STATE_DURATION: TDuration = 2000;
-
-  public static DISTANCE_TO_WALK_SQR: TDistance = 10 * 10; // Distances to coordinate current walk movement
-  public static DISTANCE_TO_RUN_SQR: TDistance = 50 * 50; // Distances to coordinate current run movement
-
-  // Object linked to the manager.
   public readonly object: GameObject;
   public team: Optional<TName> = null;
 
@@ -137,20 +122,20 @@ export class StalkerPatrolManager {
 
     const now: TTimestamp = time_global();
 
-    this.patrolWaitTime = StalkerPatrolManager.DEFAULT_PATROL_WAIT_TIME;
+    this.patrolWaitTime = patrolConfig.DEFAULT_PATROL_WAIT_TIME;
     this.suggestedStates = patrolSuggestedStates;
 
     this.defaultStateStanding = parseConditionsList(
-      patrolSuggestedStates?.standing ?? StalkerPatrolManager.DEFAULT_PATROL_STATE_STANDING
+      patrolSuggestedStates?.standing ?? patrolConfig.DEFAULT_PATROL_STATE_STANDING
     );
     this.defaultStateMoving1 = parseConditionsList(
-      patrolSuggestedStates?.moving ?? StalkerPatrolManager.DEFAULT_PATROL_STATE_MOVING
+      patrolSuggestedStates?.moving ?? patrolConfig.DEFAULT_PATROL_STATE_MOVING
     );
     this.defaultStateMoving2 = parseConditionsList(
-      patrolSuggestedStates?.moving ?? StalkerPatrolManager.DEFAULT_PATROL_STATE_MOVING
+      patrolSuggestedStates?.moving ?? patrolConfig.DEFAULT_PATROL_STATE_MOVING
     );
     this.defaultStateMoving3 = parseConditionsList(
-      patrolSuggestedStates?.moving ?? StalkerPatrolManager.DEFAULT_PATROL_STATE_MOVING
+      patrolSuggestedStates?.moving ?? patrolConfig.DEFAULT_PATROL_STATE_MOVING
     );
 
     this.synchronizationSignalTimeout = now + 1000;
@@ -192,7 +177,7 @@ export class StalkerPatrolManager {
 
       this.patrolWalkWaypoints = walkPathWaypoints!;
 
-      if (lookPathName !== null) {
+      if (lookPathName) {
         if (!lookPathWaypoints) {
           abort(
             "object '%s': path_look ('%s') field was supplied, but path_look_info field is null",
@@ -216,8 +201,8 @@ export class StalkerPatrolManager {
       this.currentStateMoving = pickSectionFromCondList(registry.actor, this.object, this.defaultStateMoving1)!;
 
       this.canUseGetCurrentPointIndex = false;
-      this.walkUntil = now + StalkerPatrolManager.WALK_STATE_DURATION;
-      this.runUntil = now + StalkerPatrolManager.WALK_STATE_DURATION + StalkerPatrolManager.RUN_STATE_DURATION;
+      this.walkUntil = now + patrolConfig.WALK_STATE_DURATION;
+      this.runUntil = now + patrolConfig.WALK_STATE_DURATION + patrolConfig.RUN_STATE_DURATION;
       this.keepStateUntil = now;
 
       this.retvalAfterRotation = null;
@@ -291,15 +276,15 @@ export class StalkerPatrolManager {
 
     // todo: explain.
     if (this.canUseGetCurrentPointIndex && this.lastWalkPointIndex === null && now >= this.keepStateUntil) {
-      this.keepStateUntil = now + StalkerPatrolManager.KEEP_STATE_DURATION;
+      this.keepStateUntil = now + patrolConfig.KEEP_STATE_DURATION;
 
       const distance: TDistance = this.object
         .position()
         .distance_to_sqr(this.patrolWalk!.point(this.currentPointIndex as TIndex));
 
-      if (distance <= StalkerPatrolManager.DISTANCE_TO_WALK_SQR || now < this.walkUntil) {
+      if (distance <= patrolConfig.DISTANCE_TO_WALK_SQR || now < this.walkUntil) {
         this.currentStateMoving = pickSectionFromCondList(registry.actor, this.object, this.defaultStateMoving1)!;
-      } else if (distance <= StalkerPatrolManager.DISTANCE_TO_RUN_SQR || now < this.runUntil) {
+      } else if (distance <= patrolConfig.DISTANCE_TO_RUN_SQR || now < this.runUntil) {
         this.currentStateMoving = pickSectionFromCondList(registry.actor, this.object, this.defaultStateMoving2)!;
       } else {
         this.currentStateMoving = pickSectionFromCondList(registry.actor, this.object, this.defaultStateMoving3)!;
@@ -566,7 +551,7 @@ export class StalkerPatrolManager {
         this.patrolWaitTime = waitTime;
       }
     } else {
-      this.patrolWaitTime = StalkerPatrolManager.DEFAULT_PATROL_WAIT_TIME;
+      this.patrolWaitTime = patrolConfig.DEFAULT_PATROL_WAIT_TIME;
     }
 
     const retVal: Optional<string> = this.patrolLookWaypoints!.get(lookPointIndex).ret;

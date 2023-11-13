@@ -11,7 +11,7 @@ import {
 } from "@/fixtures/xray/mocks/objects/server/cse_alife_creature_abstract.mock";
 
 /**
- * todo;
+ * Mock alife monster creature server object.
  */
 export class MockAlifeMonsterBase extends MockServerAlifeCreatureAbstract {
   public override m_smart_terrain_id: TNumberId = MAX_U16;
@@ -25,7 +25,7 @@ export class MockAlifeMonsterBase extends MockServerAlifeCreatureAbstract {
 }
 
 /**
- * todo;
+ * Mock data based alife monster creature server object.
  */
 export function mockServerAlifeMonsterBase(base: Partial<ServerMonsterBaseObject> = {}): ServerMonsterAbstractObject {
   return mockServerAlifeCreatureAbstract({

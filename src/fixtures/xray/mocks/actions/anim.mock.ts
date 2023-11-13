@@ -1,5 +1,5 @@
 /**
- * todo;
+ * Mock animation actions class.
  */
 export class MockAnim {
   public static readonly danger: number = 0;

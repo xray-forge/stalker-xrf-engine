@@ -9,7 +9,7 @@ import { EScheme, ESchemeType, GameObject, IniFile, TSection } from "@/engine/li
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Scheme implementing hit handling logics for physical objects.
  */
 export class SchemePhysicalHit extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.PH_HIT;
@@ -39,6 +39,6 @@ export class SchemePhysicalHit extends AbstractScheme {
     section: TSection,
     state: ISchemePhysicalHitState
   ): void {
-    AbstractScheme.subscribe(object, state, new PhysicalHitManager(object, state));
+    AbstractScheme.subscribe(state, new PhysicalHitManager(object, state));
   }
 }

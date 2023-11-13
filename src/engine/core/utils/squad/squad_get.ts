@@ -6,11 +6,11 @@ import { AnyGameObject, GameObject, Optional, ServerCreatureObject, TNumberId } 
 /**
  * Get squad of provided object.
  *
- * @param object - server or client object
+ * @param object - server or game object
  * @return object squad server object or null
  */
 export function getObjectSquad(object: AnyGameObject): Optional<Squad> {
-  // Get for client object.
+  // Get for game object.
   if (type(object.id) === "function") {
     const serverObject: Optional<ServerCreatureObject> = registry.simulator.object((object as GameObject).id());
 

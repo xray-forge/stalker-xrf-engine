@@ -74,7 +74,7 @@ export class SchemeMeet extends AbstractScheme {
 
     state.meetManager = new MeetManager(object, state);
 
-    SchemeMeet.subscribe(object, state, state.meetManager);
+    AbstractScheme.subscribe(state, state.meetManager);
   }
 
   public static override reset(

@@ -1,7 +1,7 @@
 import { smartCoversList } from "@/engine/core/animation/smart_covers";
-import { SaveManager } from "@/engine/core/managers/save/SaveManager";
-import { TradeManager } from "@/engine/core/managers/trade/TradeManager";
-import { GameOutroManager } from "@/engine/core/ui/game/GameOutroManager";
+import { GameOutroManager } from "@/engine/core/managers/outro";
+import { SaveManager } from "@/engine/core/managers/save";
+import { TradeManager } from "@/engine/core/managers/trade";
 import { extern } from "@/engine/core/utils/binding";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { TName, TNumberId } from "@/engine/lib/types";

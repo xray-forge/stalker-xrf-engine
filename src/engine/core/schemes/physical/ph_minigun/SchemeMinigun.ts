@@ -15,7 +15,8 @@ import { EScheme, ESchemeType, GameObject, IniFile, TName, TSection } from "@/en
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Scheme for physical objects defining minigun.
+ * Example: gun in `escape` army post used to shoot at main hero.
  */
 export class SchemeMinigun extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.PH_MINIGUN;
@@ -53,6 +54,6 @@ export class SchemeMinigun extends AbstractScheme {
     section: TSection,
     state: ISchemeMinigunState
   ): void {
-    AbstractScheme.subscribe(object, state, new MinigunManager(object, state));
+    AbstractScheme.subscribe(state, new MinigunManager(object, state));
   }
 }

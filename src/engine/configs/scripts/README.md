@@ -1,4 +1,4 @@
-## todo: scripts logic ini fields descriptions
+## todo: scripts logic ini fields descriptions. Move to xrf book?
 
 ## Logic fields
 

@@ -3,7 +3,7 @@ import { registry } from "@/engine/core/database/registry";
 import { GameObject, Optional, TNumberId } from "@/engine/lib/types";
 
 /**
- * Register client object in lua in-memory registry.
+ * Register game object in lua in-memory registry.
  *
  * @param object - client game object to register
  * @returns registry object for provided game object
@@ -25,7 +25,7 @@ export function registerObject(object: GameObject): IRegistryObjectState {
 }
 
 /**
- * Unregister client object from lya in-memory registry.
+ * Unregister game object from lya in-memory registry.
  *
  * @param object - client game object to unregister
  */
@@ -39,7 +39,7 @@ export function unregisterObject(object: GameObject): void {
  *
  * @param object - client game object to reset state
  * @param state - optional initial state to use for reset
- * @returns new client object state object
+ * @returns new game object state object
  */
 export function resetObject(object: GameObject, state: Partial<IRegistryObjectState> = {}): IRegistryObjectState {
   state.object = object;

@@ -8,7 +8,7 @@ import { GameObject, Optional, TIndex } from "@/engine/lib/types";
 /**
  * Check whether object is strapping weapon.
  *
- * @param object - target client object to check
+ * @param object - target game object to check
  * @returns whether strapping/unstrapping weapon is in process
  */
 export function isObjectStrappingWeapon(object: GameObject): boolean {
@@ -40,12 +40,14 @@ export function isObjectWeaponLocked(object: GameObject): boolean {
 }
 
 /**
- * todo;
+ * Force object to get the best weapon and set it to idle state.
+ *
+ * @param target - target game object to force getting best weapon
  */
 export function setObjectBestWeapon(target: GameObject): void {
   const bestWeapon: Optional<GameObject> = target.best_weapon();
 
-  if (bestWeapon && isWeapon(bestWeapon)) {
+  if (isWeapon(bestWeapon)) {
     target.set_item(object.idle, bestWeapon);
   }
 }
@@ -53,7 +55,7 @@ export function setObjectBestWeapon(target: GameObject): void {
 /**
  * Get active weapon slot of an object for animating.
  *
- * @param object - target client object to check
+ * @param object - target game object to check
  * @returns active weapon slot index
  */
 export function getObjectActiveWeaponSlot(object: GameObject): TIndex {

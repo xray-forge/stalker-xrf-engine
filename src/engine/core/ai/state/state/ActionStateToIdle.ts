@@ -40,7 +40,7 @@ export class ActionStateToIdle extends action_base {
   public override execute(): void {
     super.execute();
 
-    // If any animation is active in state manager, reset everything for client object.
+    // If any animation is active in state manager, reset everything for game object.
     if (this.stateManager.targetState !== EStalkerState.IDLE) {
       this.object.clear_animations();
       this.stateManager.setState(EStalkerState.IDLE, null, null, null, { isForced: true });

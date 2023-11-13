@@ -7,7 +7,7 @@ import { ServerObject } from "@/engine/lib/types";
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Binder of anomaly field game object.
  */
 @LuabindClass()
 export class AnomalyFieldBinder extends object_binder {
@@ -37,7 +37,9 @@ export class AnomalyFieldBinder extends object_binder {
   }
 
   /**
-   * todo: Description.
+   * Toggle anomaly field availability.
+   *
+   * @param isEnabled - field next state
    */
   public setEnabled(isEnabled: boolean): void {
     return isEnabled ? this.object.enable_anomaly() : this.object.disable_anomaly();

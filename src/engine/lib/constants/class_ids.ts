@@ -4,7 +4,7 @@ import { createClassIds } from "@/engine/core/utils/class_ids_list";
 import { TClassId } from "@/engine/lib/types";
 
 /**
- * todo;
+ * Definition of grouped class IDs used in the xray engine for object checks / comparison.
  */
 export interface IClassIdsGrouped {
   artefact: LuaTable<TClassId, boolean>;
@@ -14,7 +14,7 @@ export interface IClassIdsGrouped {
 }
 
 /**
- * todo;
+ * Set of grouped class IDs defined in the game engine.
  */
 export const classIds: IClassIdsGrouped = createClassIds();
 

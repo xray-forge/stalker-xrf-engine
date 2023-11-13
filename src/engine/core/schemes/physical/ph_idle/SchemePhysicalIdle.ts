@@ -10,7 +10,7 @@ import { EScheme, ESchemeType, GameObject, IniFile, TSection } from "@/engine/li
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * Scheme to update idle state of items.
+ * Scheme to manage idle state of items.
  * Allows adding handling of `hit` and `use` callbacks for static objects.
  */
 export class SchemePhysicalIdle extends AbstractScheme {
@@ -43,6 +43,6 @@ export class SchemePhysicalIdle extends AbstractScheme {
     section: TSection,
     state: ISchemePhysicalIdleState
   ): void {
-    AbstractScheme.subscribe(object, state, new PhysicalIdleManager(object, state));
+    AbstractScheme.subscribe(state, new PhysicalIdleManager(object, state));
   }
 }

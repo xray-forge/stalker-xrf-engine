@@ -9,7 +9,7 @@ import { MockVector } from "@/fixtures/xray/mocks/vector.mock";
 let ID_COUNTER: TNumberId = 100_000;
 
 /**
- * todo;
+ * Mock base alife object implementation.
  */
 export class MockAlifeObject extends MockLuabindClass {
   public id: TNumberId = ID_COUNTER++;
@@ -59,7 +59,7 @@ export class MockAlifeObject extends MockLuabindClass {
   }
 
   public STATE_Write(packet: NetPacket): void {
-    packet.w_stringZ("cse_alife_object");
+    packet.w_stringZ(this.constructor.name);
   }
 
   public STATE_Read(packet: NetPacket, size: number): void {
@@ -68,7 +68,7 @@ export class MockAlifeObject extends MockLuabindClass {
 }
 
 /**
- * todo;
+ * Mock data based alife object implementation.
  */
 export function mockServerAlifeObject({
   sectionOverride = "section",

@@ -9,7 +9,7 @@ import { Optional, ServerObject } from "@/engine/lib/types";
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * Bind campfire client object.
+ * Bind campfire game object.
  */
 @LuabindClass()
 export class CampfireBinder extends object_binder {

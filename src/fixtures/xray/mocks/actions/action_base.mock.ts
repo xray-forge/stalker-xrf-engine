@@ -3,7 +3,7 @@ import { MockWorldProperty } from "@/fixtures/xray/mocks/actions/world_property.
 import { MockLuabindClass } from "@/fixtures/xray/mocks/luabind.mock";
 
 /**
- * todo;
+ * Mock action base class for handling with GOAP planner.
  */
 export class MockActionBase extends MockLuabindClass {
   public static mock(object: Optional<GameObject> = null, name?: string): ActionBase {

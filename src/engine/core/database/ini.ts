@@ -39,7 +39,8 @@ export function loadDynamicIniFile(name: TName, content: Optional<string> = null
 }
 
 /**
- * todo;
+ * Load ini file from the registry by name.
+ * Gets existing object link if it is already open and active or creates and memoize new.
  *
  * @param name - ini file name
  * @returns multi return of file

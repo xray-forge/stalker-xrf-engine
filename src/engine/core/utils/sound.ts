@@ -75,7 +75,7 @@ export function isSoundType(heard: TSoundType, expected: TSoundType): boolean {
 /**
  * Check whether is playing sound.
  *
- * @param object - client object to check playing
+ * @param object - game object to check playing
  * @returns whether currently sound is playing.
  */
 export function isPlayingSound(object: GameObject): boolean {

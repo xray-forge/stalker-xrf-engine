@@ -48,7 +48,7 @@ export function scriptCaptureMonster(
  * Reset monster script control.
  * After reset monster will behave like generic game monster.
  *
- * @param object - target client object
+ * @param object - target game object
  */
 export function scriptReleaseMonster(object: GameObject): void {
   if (object.get_script()) {

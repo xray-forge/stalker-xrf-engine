@@ -41,7 +41,7 @@ function animpointPredicateKolbasa(object: GameObject): boolean {
 /**
  * Check whether vodka animations can be used for actor.
  *
- * @param object - client object to checek
+ * @param object - game object to checek
  * @returns whether vodka animation can be used
  */
 function animpointPredicateVodka(object: GameObject): boolean {

@@ -41,7 +41,7 @@ export function isObjectMeeting(object: GameObject): boolean {
 /**
  * Check whether provided object is in combat.
  *
- * @param object - target client object to check
+ * @param object - target game object to check
  * @returns whether object is in combat
  */
 export function isObjectInCombat(object: GameObject): boolean {
@@ -59,7 +59,7 @@ export function isObjectInCombat(object: GameObject): boolean {
 /**
  * Check whether provided object is searching corpse.
  *
- * @param object - target client object to check
+ * @param object - target game object to check
  * @returns whether object is searching corpse
  */
 export function isObjectSearchingCorpse(object: GameObject): boolean {
@@ -71,7 +71,7 @@ export function isObjectSearchingCorpse(object: GameObject): boolean {
 /**
  * Check whether provided object is helping wounded.
  *
- * @param object - target client object to check
+ * @param object - target game object to check
  * @returns whether object is helping wounded
  */
 export function isObjectHelpingWounded(object: GameObject): boolean {

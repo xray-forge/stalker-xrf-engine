@@ -8,7 +8,7 @@ import {
 } from "@/fixtures/xray/mocks/objects/server/cse_alife_dynamic_object_visual.mock";
 
 /**
- * todo;
+ * Mock server creature object.
  */
 export class MockServerAlifeCreatureAbstract extends MockAlifeDynamicObjectVisual {
   public m_smart_terrain_id = MAX_U16;
@@ -21,7 +21,7 @@ export class MockServerAlifeCreatureAbstract extends MockAlifeDynamicObjectVisua
 }
 
 /**
- * todo;
+ * Mock data based server creature object.
  */
 export function mockServerAlifeCreatureAbstract(
   base: Partial<ServerCreatureObject> = {

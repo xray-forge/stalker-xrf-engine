@@ -7,8 +7,8 @@ import type { AnyObject, LuaArray, TIndex } from "@/engine/lib/types";
  * In runtime objects, arrays and tables are same, but in test env have to mock them with compat and workarounds.
  */
 export class MockLuaTable<K = unknown, V = unknown> extends Map<K, V> {
-  public static mock<K extends AnyNotNil, V>(): LuaTable<K, V> {
-    return new MockLuaTable() as unknown as LuaTable<K, V>;
+  public static mock<K extends AnyNotNil, V>(initial: Array<[K, V]> = []): LuaTable<K, V> {
+    return new MockLuaTable(initial) as unknown as LuaTable<K, V>;
   }
 
   public static create<K extends AnyNotNil, V>(): MockLuaTable<K, V> {
@@ -164,15 +164,6 @@ export class MockLuaTable<K = unknown, V = unknown> extends Map<K, V> {
   public map<U>(cb: (value: V, index: TIndex, array: Array<V>) => U): Array<U> {
     return this.getValuesArray().map((it, index, collection) => cb(it, index, collection));
   }
-}
-
-/**
- * todo;
- */
-export function mockLuaTable<K extends AnyNotNil, V>(initial: Array<[K, V]> = []): LuaTable<K, V> {
-  const table = new MockLuaTable<K, V>(initial);
-
-  return table as unknown as LuaTable<K, V>;
 }
 
 /**

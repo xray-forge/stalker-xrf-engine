@@ -15,8 +15,9 @@ import { ActionPlanner, EScheme, ESchemeType, GameObject, IniFile, TSection } fr
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * Scheme describing smart cover logics.
+ * Scheme describing stalkers handling smart covers.
  * Usually it is used as some point with animation in smart terrains.
+ *
  * Example: stalkers sitting near tables, stalkers standing near wall etc.
  */
 export class SchemeCover extends AbstractScheme {
@@ -77,7 +78,7 @@ export class SchemeCover extends AbstractScheme {
     actionPlanner.add_action(EActionId.COVER_ACTIVITY, newAction);
 
     // Subscribe action to global scheme events.
-    SchemeCover.subscribe(object, state, newAction);
+    SchemeCover.subscribe(state, newAction);
 
     // Do not continue alife activity while stay in animpoint.
     actionPlanner.action(EActionId.ALIFE).add_precondition(new world_property(EEvaluatorId.NEED_COVER, false));

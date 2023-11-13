@@ -93,7 +93,7 @@ const SCHEME_LOGIC_SWITCH: Record<
  * Try switching of active object scheme based on configured logic.
  * Checks object active logics conditions and verifies whether it should stay the same or pick new logics section.
  *
- * @param object - client object to try switching
+ * @param object - game object to try switching
  * @param state - current scheme state
  */
 export function trySwitchToAnotherSection(object: GameObject, state: IBaseSchemeState): boolean {

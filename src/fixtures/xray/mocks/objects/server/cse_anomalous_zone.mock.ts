@@ -3,12 +3,12 @@ import { mockServerAlifeObject } from "@/fixtures/xray";
 import { MockAlifeDynamicObject } from "@/fixtures/xray/mocks/objects/server/cse_alife_dynamic_object.mock";
 
 /**
- * todo;
+ * Mock anomalous zone server object.
  */
 export class MockAnomalousZone extends MockAlifeDynamicObject {}
 
 /**
- * todo;
+ * Mock data based anomalous zone server object.
  */
 export function mockServerAnomalousZone({
   ...base

@@ -11,7 +11,7 @@ import { EScheme, ESchemeType, TSection } from "@/engine/lib/types/scheme";
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Scheme implementing door logics for physical objects.
  */
 export class SchemePhysicalDoor extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.PH_DOOR;
@@ -65,6 +65,6 @@ export class SchemePhysicalDoor extends AbstractScheme {
   ): void {
     object.register_door_for_npc();
 
-    SchemePhysicalDoor.subscribe(object, state, new PhysicalDoorManager(object, state));
+    AbstractScheme.subscribe(state, new PhysicalDoorManager(object, state));
   }
 }

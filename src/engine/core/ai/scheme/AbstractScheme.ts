@@ -7,29 +7,24 @@ import { EScheme, ESchemeType, TSection } from "@/engine/lib/types/scheme";
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * Typing describing abstract scheme implementation.
+ * Type describing abstract scheme implementation static class.
  */
 export type TAbstractSchemeConstructor = typeof AbstractScheme;
 
 /**
- * todo;
+ * Abstract scheme implementation.
+ * Used to define logics of stalkers when specific scenarios from ltx scripts are processed and new section appears.
+ * Defines how scheme should be activated, initialized, reset and deactivated.
  */
 export abstract class AbstractScheme {
   public static readonly SCHEME_SECTION: EScheme;
   public static readonly SCHEME_TYPE: ESchemeType;
 
   /**
-   * todo: Description.
-   */
-  public static disable(object: GameObject, scheme: EScheme): void {
-    abort("Called not implemented 'disable' method: %s, %s.", object.name(), scheme);
-  }
-
-  /**
-   * todo: Description.
-   * Activate scheme by parameters.
+   * Implementation of scheme activation.
+   * Handling of logics section switching to current scheme from ltx script file.
    *
-   * @param object - client object to handle with provided scheme
+   * @param object - game object to handle with provided scheme
    * @param ini - ini file with scheme details
    * @param scheme - name of scheme to activate, `mob_home` as example
    * @param section - scheme section, `mob_home@2` as example
@@ -46,11 +41,13 @@ export abstract class AbstractScheme {
   }
 
   /**
-   * Assign some scheme state to an object and prepare shared constants in it in a correct way.
-   * Initializes base state in object registry.
+   * Assign scheme data for working with logics.
+   * Initializes base state in object registry where key is current scheme.
    *
-   * todo;
-   *
+   * @param object - target game object
+   * @param ini - file to read scheme configuration from
+   * @param scheme - type of scheme activated
+   * @param section - section of activated logics
    * @returns base scheme state for provided `scheme`
    */
   protected static assign<T extends IBaseSchemeState>(
@@ -69,29 +66,28 @@ export abstract class AbstractScheme {
       registry.schemes.get(scheme).add(object, ini, scheme, section as TSection, schemeState);
     }
 
+    schemeState.ini = ini;
     schemeState.scheme = scheme;
     schemeState.section = section;
-    schemeState.ini = ini;
 
     return schemeState;
   }
 
   /**
-   * Add scheme state handlers to client object states.
-   * Called once if object registry state does not have created base state for provided scheme.
+   * Initialize current state and add scheme state handlers for game object state.
    *
-   * @param object - target client object
+   * @param object - target game object
    * @param ini - ini file describing object logic
    * @param scheme - new scheme type
    * @param section - new logic section
-   * @param schemeState - state of new scheme
+   * @param state - state of new scheme to initialize data into
    */
   public static add(
     object: GameObject,
     ini: IniFile,
     scheme: EScheme,
     section: TSection,
-    schemeState: IBaseSchemeState
+    state: IBaseSchemeState
   ): void {
     abort("Called not implemented 'add' method: %s, %s, %s.", object.name(), scheme, section);
   }
@@ -101,7 +97,7 @@ export abstract class AbstractScheme {
    * Scheme may be different or same, but expected section is different.
    * Mainly used for shared generic schemes that are always active.
    *
-   * @param object - target client object
+   * @param object - target game object
    * @param scheme - new scheme type
    * @param state - target object registry state
    * @param section - new active section
@@ -111,9 +107,24 @@ export abstract class AbstractScheme {
   }
 
   /**
-   * todo: Description.
+   * Generic method to disable scheme logics.
+   * Used with persistent schemes that are always active independently of current logics section.
+   *
+   * @param object - target game object
+   * @param scheme - target scheme to disable for
    */
-  public static subscribe(object: GameObject, state: IBaseSchemeState, subscriber: ISchemeEventHandler): void {
+  public static disable(object: GameObject, scheme: EScheme): void {
+    abort("Called not implemented 'disable' method: %s, %s.", object.name(), scheme);
+  }
+
+  /**
+   * Subscribe provided scheme state to scheme actions.
+   * Once scheme events occur subscriber will be used to handle them.
+   *
+   * @param state - scheme state owning action subscriber
+   * @param subscriber - action subscribing handler
+   */
+  public static subscribe(state: IBaseSchemeState, subscriber: ISchemeEventHandler): void {
     if (!state.actions) {
       state.actions = new LuaTable();
     }
@@ -124,13 +135,12 @@ export abstract class AbstractScheme {
   /**
    * Ub-subscribe provided action class from scheme events.
    *
-   * @param object - target client object owning scheme states
    * @param state - scheme state owning action subscriber
-   * @param action - action subscribing handler
+   * @param subscriber - action subscribing handler
    */
-  public static unsubscribe(object: GameObject, state: IBaseSchemeState, action: AnyObject): void {
+  public static unsubscribe(state: IBaseSchemeState, subscriber: ISchemeEventHandler): void {
     if (state.actions) {
-      state.actions.delete(action);
+      state.actions.delete(subscriber);
     } else {
       state.actions = new LuaTable();
     }

@@ -11,7 +11,7 @@ import { EScheme, ESchemeType, GameObject, IniFile, TName, TSection } from "@/en
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Scheme describing simple patrolling over defined paths for monsters.
  */
 export class SchemeMobWalker extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.MOB_WALKER;
@@ -52,6 +52,6 @@ export class SchemeMobWalker extends AbstractScheme {
     section: TSection,
     state: ISchemeMobWalkerState
   ): void {
-    AbstractScheme.subscribe(object, state, new MobWalkerManager(object, state));
+    AbstractScheme.subscribe(state, new MobWalkerManager(object, state));
   }
 }

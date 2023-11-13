@@ -1,7 +1,7 @@
+import { CampManager } from "@/engine/core/ai/camp";
 import { IRegistryObjectState } from "@/engine/core/database/database_types";
 import { registerObject, resetObject, unregisterObject } from "@/engine/core/database/objects";
 import { registry } from "@/engine/core/database/registry";
-import { CampManager } from "@/engine/core/managers/camp";
 import { GameObject, Optional, Vector } from "@/engine/lib/types";
 
 /**
@@ -51,7 +51,7 @@ export function getCampZoneForPosition(position: Optional<Vector>): Optional<Cam
 /**
  * Register camp object on net spawn.
  *
- * @param object - target camp client object to register
+ * @param object - target camp game object to register
  * @param manager - linked manager to register
  */
 export function registerCampZone(object: GameObject, manager: CampManager): void {
@@ -62,7 +62,7 @@ export function registerCampZone(object: GameObject, manager: CampManager): void
 /**
  * Unregister camp on net despawn.
  *
- * @param object - target camp client object to unregister
+ * @param object - target camp game object to unregister
  */
 export function unregisterCampZone(object: GameObject): void {
   unregisterZone(object);
@@ -71,9 +71,9 @@ export function unregisterCampZone(object: GameObject): void {
 
 /**
  * Reset camp instance on object re-init.
- * Rewrites client object reference.
+ * Rewrites game object reference.
  *
- * @param object - target camp client object to reset
+ * @param object - target camp game object to reset
  */
 export function resetCampZone(object: GameObject): void {
   resetObject(object);

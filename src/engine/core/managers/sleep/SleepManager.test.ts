@@ -9,7 +9,7 @@ import { SleepManager } from "@/engine/core/managers/sleep/SleepManager";
 import { SurgeManager } from "@/engine/core/managers/surge";
 import { surgeConfig } from "@/engine/core/managers/surge/SurgeConfig";
 import { WeatherManager } from "@/engine/core/managers/weather";
-import { SleepDialog } from "@/engine/core/ui/interaction/SleepDialog";
+import { SleepDialog } from "@/engine/core/ui/game/SleepDialog";
 import { giveInfoPortion, hasInfoPortion } from "@/engine/core/utils/info_portion";
 import { animations, postProcessors } from "@/engine/lib/constants/animation";
 import { consoleCommands } from "@/engine/lib/constants/console_commands";
@@ -18,7 +18,7 @@ import { Console } from "@/engine/lib/types";
 import { mockRegisteredActor, resetRegistry } from "@/fixtures/engine";
 import { MockConsole, MockCUITrackBar } from "@/fixtures/xray";
 
-jest.mock("@/engine/core/ui/interaction/SleepDialog", () => ({
+jest.mock("@/engine/core/ui/game/SleepDialog", () => ({
   SleepDialog: class {
     public uiTimeTrack = MockCUITrackBar.mock();
     public show = jest.fn();

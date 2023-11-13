@@ -1,6 +1,6 @@
+import { EObjectCampRole } from "@/engine/core/ai/camp/camp_types";
+import type { CampManager } from "@/engine/core/ai/camp/CampManager";
 import { IRegistryObjectState, registry } from "@/engine/core/database";
-import { EObjectCampRole } from "@/engine/core/managers/camp/camp_types";
-import type { CampManager } from "@/engine/core/managers/camp/CampManager";
 import { ISchemeAnimpointState } from "@/engine/core/schemes/stalker/animpoint";
 import { isObjectMeeting } from "@/engine/core/utils/planner";
 import { GameObject, Optional, TCount, TNumberId } from "@/engine/lib/types";
@@ -9,7 +9,7 @@ import { GameObject, Optional, TCount, TNumberId } from "@/engine/lib/types";
  * Start playing guitar for an object.
  * Checks whether object is in camp and tries to start new guitar action with guitar playing.
  *
- * @param object - stalker client object to start playing guitar for
+ * @param object - stalker game object to start playing guitar for
  */
 export function startPlayingGuitar(object: GameObject): void {
   const campId: Optional<TNumberId> = registry.objects.get(object.id()).camp;
@@ -31,7 +31,7 @@ export function startPlayingGuitar(object: GameObject): void {
  * Start playing harmonica for an object.
  * Checks whether object is in camp and tries to start new harmonica action with guitar playing.
  *
- * @param object - stalker client object to start playing harmonica for
+ * @param object - stalker game object to start playing harmonica for
  */
 export function startPlayingHarmonica(object: GameObject): void {
   const campId: Optional<TNumberId> = registry.objects.get(object.id()).camp;

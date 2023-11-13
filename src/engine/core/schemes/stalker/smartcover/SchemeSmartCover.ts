@@ -91,6 +91,6 @@ export class SchemeSmartCover extends AbstractScheme {
       .add_precondition(new world_property(EEvaluatorId.CAN_USE_SMART_COVER_IN_COMBAT, false));
 
     // Subscribe to scheme events.
-    AbstractScheme.subscribe(object, state, actionSmartCoverActivity);
+    AbstractScheme.subscribe(state, actionSmartCoverActivity);
   }
 }

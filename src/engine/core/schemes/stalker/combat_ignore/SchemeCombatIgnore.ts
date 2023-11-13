@@ -8,7 +8,8 @@ import { EScheme, ESchemeType, GameObject, IniFile, Optional, TSection } from "@
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo
+ * Scheme describing stalker combat ignore state.
+ * Activated when stalkers are on bases / processing quest events and should ignore combat.
  */
 export class SchemeCombatIgnore extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.COMBAT_IGNORE;
@@ -22,7 +23,7 @@ export class SchemeCombatIgnore extends AbstractScheme {
     ] as ISchemeCombatIgnoreState;
 
     if (schemeState !== null) {
-      SchemeCombatIgnore.unsubscribe(object, schemeState, schemeState.action);
+      AbstractScheme.unsubscribe(schemeState, schemeState.action);
     }
   }
 
@@ -50,7 +51,7 @@ export class SchemeCombatIgnore extends AbstractScheme {
 
     object.set_enemy_callback(schemeState.action.onObjectEnemy, schemeState.action);
 
-    SchemeCombatIgnore.subscribe(object, schemeState, schemeState.action);
+    AbstractScheme.subscribe(schemeState, schemeState.action);
 
     schemeState.enabled = true;
     schemeState.overrides = state.overrides;

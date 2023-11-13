@@ -67,7 +67,7 @@ export function getActorAvailableMedKit(
 /**
  * Set item condition.
  *
- * @param object - client object to change condition
+ * @param object - game object to change condition
  * @param condition - value from 0 to 100, percents
  */
 export function setItemCondition(object: GameObject, condition: TRate): void {

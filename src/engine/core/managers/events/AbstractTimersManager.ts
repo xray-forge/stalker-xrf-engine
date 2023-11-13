@@ -116,7 +116,7 @@ export class AbstractTimersManager extends AbstractManager {
 
   /**
    * On game update tick.
-   * Based on actor client object - when game is paused / in menu it does not count.
+   * Based on actor game object - when game is paused / in menu it does not count.
    */
   public tick(): void {
     const now: TTimestamp = time_global();

@@ -156,10 +156,10 @@ export function getServerObjectByStoryId<T extends ServerObject>(storyId: TStrin
 }
 
 /**
- * Get client object by provided story ID.
+ * Get game object by provided story ID.
  *
  * @param storyId - story id to search
- * @returns existing client object instance or null
+ * @returns existing game object instance or null
  */
 export function getObjectByStoryId(storyId: TStringId): Optional<GameObject> {
   const objectId: Optional<TNumberId> = registry.storyLink.idBySid.get(storyId);

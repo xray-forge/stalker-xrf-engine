@@ -15,7 +15,8 @@ import { EScheme, ESchemeType, GameObject, IniFile, Optional, TIndex, TName, TSe
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Scheme implementing code input for physical objects.
+ * Mainly used with doors.
  */
 export class SchemeCode extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.PH_CODE;
@@ -61,6 +62,6 @@ export class SchemeCode extends AbstractScheme {
     section: TSection,
     state: ISchemeCodeState
   ): void {
-    AbstractScheme.subscribe(object, state, new CodeManager(object, state));
+    AbstractScheme.subscribe(state, new CodeManager(object, state));
   }
 }

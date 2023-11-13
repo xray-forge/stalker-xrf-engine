@@ -257,7 +257,7 @@ describe("SmartTerrain class generic logic", () => {
       EPacketDataType.U16,
     ]);
     expect(netProcessor.dataList).toEqual([
-      "cse_alife_object",
+      "SmartTerrain",
       2,
       firstArriving.id,
       secondArriving.id,
@@ -300,7 +300,6 @@ describe("SmartTerrain class generic logic", () => {
 
     const anotherSmartTerrain: SmartTerrain = mockSmartTerrainWithConfiguration("another_smart");
 
-    mockSmartTerrain();
     anotherSmartTerrain.STATE_Read(netProcessor.asMockNetPacket(), 5001);
 
     expect(anotherSmartTerrain.arrivingObjects).toEqualLuaTables({
@@ -355,11 +354,10 @@ describe("SmartTerrain class generic logic", () => {
       EPacketDataType.U8,
       EPacketDataType.U16,
     ]);
-    expect(netProcessor.dataList).toEqual(["cse_alife_object", 0, 0, 0, false, false, 0, 6]);
+    expect(netProcessor.dataList).toEqual(["SmartTerrain", 0, 0, 0, false, false, 0, 6]);
 
     const anotherSmartTerrain: SmartTerrain = mockSmartTerrainWithConfiguration("another_smart");
 
-    mockSmartTerrain();
     anotherSmartTerrain.STATE_Read(netProcessor.asMockNetPacket(), 5001);
 
     expect(anotherSmartTerrain.arrivingObjects.length()).toBe(0);

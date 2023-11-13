@@ -1,5 +1,5 @@
 /**
- * todo;
+ * Mock look actions class.
  */
 export class MockLook {
   public static readonly cur_dir: number = 0;
