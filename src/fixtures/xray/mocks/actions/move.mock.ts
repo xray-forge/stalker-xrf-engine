@@ -1,5 +1,5 @@
 /**
- * todo;
+ * Mock move actions class.
  */
 export class MockMove {
   public static readonly crouch: number = 0;

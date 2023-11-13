@@ -1,7 +1,7 @@
 import { ObjectFactory, TClassKey } from "@/engine/lib/types";
 
 /**
- * todo;
+ * Mock implementation of game objects factory.
  */
 export class MockObjectFactory {
   public registeredClientClasses: Set<string> = new Set();
@@ -9,13 +9,8 @@ export class MockObjectFactory {
   public registeredClassIds: Set<string> = new Set();
   public registeredScriptClassIds: Set<string> = new Set();
 
-  public register(
-    client_object_class: string,
-    server_object_class: string,
-    clsid: string,
-    script_clsid: TClassKey
-  ): void;
-  public register(client_object_class: string, clsid: string, script_clsid: TClassKey): void;
+  public register(clientObjectClass: string, serverObjectClass: string, clsId: string, scriptClsId: TClassKey): void;
+  public register(clientObjectClass: string, clsId: string, scriptClsId: TClassKey): void;
   public register(...args: Array<string>): void {
     this.registeredClientClasses.add(args[0]);
 
@@ -31,7 +26,7 @@ export class MockObjectFactory {
 }
 
 /**
- * todo;
+ * Mock generic object factory.
  */
 export function mockObjectFactory(): [ObjectFactory, MockObjectFactory] {
   const factory: MockObjectFactory = new MockObjectFactory();

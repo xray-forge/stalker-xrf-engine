@@ -6,10 +6,10 @@ import { MockAlifeSimulator } from "@/fixtures/xray/mocks/objects/AlifeSimulator
 import { charactersGoodwill, communityGoodwill } from "@/fixtures/xray/mocks/relations";
 
 /**
- * todo;
+ * Mock module with relations methods and registry.
  */
 export const mockRelationRegistryInterface: IXR_relation_registry = {
-  change_community_goodwill: jest.fn((community_a: string, value2: number, value3: number): void => {}),
+  change_community_goodwill: jest.fn((communityA: string, value2: number, value3: number): void => {}),
   community_goodwill: jest.fn((community: string, objectId: TNumberId): number => {
     const object: Optional<ServerHumanObject> = MockAlifeSimulator.getFromRegistry(objectId);
 
@@ -36,6 +36,6 @@ export const mockRelationRegistryInterface: IXR_relation_registry = {
 
     throw new Error(`Unexpected mock check: '${from}' to '${to}'.`);
   }),
-  set_community_goodwill: jest.fn((community_a: string, value2: number, value3: number): void => {}),
-  set_community_relation: jest.fn((community_a: string, community_b: string, value3: number): void => {}),
+  set_community_goodwill: jest.fn((communityA: string, value2: number, value3: number): void => {}),
+  set_community_relation: jest.fn((communityA: string, communityB: string, value3: number): void => {}),
 };

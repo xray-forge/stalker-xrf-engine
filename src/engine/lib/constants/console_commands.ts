@@ -473,7 +473,7 @@ export const consoleCommands = {
 } as const;
 
 /**
- * todo;
+ * Type describing set of available console commands.
  */
 export type TConsoleCommands = typeof consoleCommands;
 

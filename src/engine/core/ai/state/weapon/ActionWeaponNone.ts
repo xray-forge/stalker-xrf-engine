@@ -6,7 +6,7 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Action for setting current object weapon to none.
  */
 @LuabindClass()
 export class ActionWeaponNone extends action_base {

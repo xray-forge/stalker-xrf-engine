@@ -4,7 +4,7 @@ import { AnyObject, IniFile, TName, TNumberId, TPath, TSection } from "@/engine/
 import { FILES_MOCKS } from "@/fixtures/xray/mocks/ini/files.mock";
 
 /**
- * todo;
+ * Mock class implementing engine ini files reading with JSON based data stores.
  */
 export class MockIniFile<T extends AnyObject> {
   public path: TName;

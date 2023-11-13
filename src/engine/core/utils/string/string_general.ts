@@ -13,14 +13,13 @@ export function trimString(target: string): string {
 }
 
 /**
- * todo;
- *
- * @param target
- * @param sub
+ * @param target - target string to check in
+ * @param substring - string part to check in target
+ * @returns whether target string contains substring
  */
-export function containsSubstring(target: string, sub: string): boolean {
+export function containsSubstring(target: string, substring: string): boolean {
   target = string.lower(target);
-  sub = string.lower(sub);
+  substring = string.lower(substring);
 
-  return target !== string.gsub(target, sub, "")[0];
+  return target !== string.gsub(target, substring, "")[0];
 }

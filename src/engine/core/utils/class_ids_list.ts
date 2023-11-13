@@ -4,7 +4,15 @@ import { IClassIdsGrouped } from "@/engine/lib/constants/class_ids";
 import type { TClassId } from "@/engine/lib/types";
 
 /**
- * todo;
+ * Create and synchronize list of class identifiers in game engine.
+ * Used to synchronize dynamic identifiers lists for further checks against game objects.
+ *
+ * Main reasons to store class IDs:
+ *  - class IDs are dynamic
+ *  - assigning of class IDs happen when game register scripts execute
+ *  - to minimize engine access with short class IDs checks it is better to be initialized and stored once
+ *
+ * @returns grouped sets of class identifiers
  */
 export function createClassIds(): IClassIdsGrouped {
   if (clsid === null) {
@@ -25,7 +33,9 @@ export function createClassIds(): IClassIdsGrouped {
 }
 
 /**
- * todo;
+ * Synchronize and update current class identifiers list.
+ *
+ * @param target - memoized class identifiers sets to synchronize with game engine
  */
 export function updateClassIds(target: IClassIdsGrouped): void {
   target.artefact = createArtefactClassIds();
@@ -35,7 +45,7 @@ export function updateClassIds(target: IClassIdsGrouped): void {
 }
 
 /**
- * todo;
+ * @returns dynamic set of current monster class identifiers
  */
 export function createMonsterClassIds(): LuaTable<TClassId, boolean> {
   return $fromObject({
@@ -57,7 +67,7 @@ export function createMonsterClassIds(): LuaTable<TClassId, boolean> {
 }
 
 /**
- * todo;
+ * @returns dynamic set of current stalker class identifiers
  */
 export function createStalkerClassIds(): LuaTable<TClassId, boolean> {
   return $fromObject({
@@ -67,7 +77,7 @@ export function createStalkerClassIds(): LuaTable<TClassId, boolean> {
 }
 
 /**
- * todo;
+ * @returns dynamic set of current weapon class identifiers
  */
 export function createWeaponClassIds(): LuaTable<TClassId, boolean> {
   return $fromObject({
@@ -125,7 +135,7 @@ export function createWeaponClassIds(): LuaTable<TClassId, boolean> {
 }
 
 /**
- * todo;
+ * @returns dynamic set of current artefact class identifiers
  */
 export function createArtefactClassIds(): LuaTable<TClassId, boolean> {
   return $fromObject({

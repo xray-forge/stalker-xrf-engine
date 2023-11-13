@@ -41,7 +41,7 @@ import {
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Binder for helicopter game object events and logics.
  */
 @LuabindClass()
 export class HelicopterBinder extends object_binder {

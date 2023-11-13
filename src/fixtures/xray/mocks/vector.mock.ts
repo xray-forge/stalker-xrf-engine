@@ -1,7 +1,7 @@
 import { Vector } from "@/engine/lib/types";
 
 /**
- * todo;
+ * Mock of xray engine 3D vector.
  */
 export class MockVector {
   public static create(x: number = 0, y: number = 0, z: number = 0): MockVector {

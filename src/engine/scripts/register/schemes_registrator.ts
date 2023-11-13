@@ -35,6 +35,7 @@ import { SchemeAnimpoint } from "@/engine/core/schemes/stalker/animpoint";
 import { SchemeCamper } from "@/engine/core/schemes/stalker/camper";
 import { SchemeCombat } from "@/engine/core/schemes/stalker/combat";
 import { SchemeCombatCamper } from "@/engine/core/schemes/stalker/combat_camper";
+import { SchemePostCombatIdle } from "@/engine/core/schemes/stalker/combat_idle";
 import { SchemeCombatIgnore } from "@/engine/core/schemes/stalker/combat_ignore";
 import { SchemeCombatZombied } from "@/engine/core/schemes/stalker/combat_zombied";
 import { SchemeCompanion } from "@/engine/core/schemes/stalker/companion";
@@ -109,6 +110,7 @@ export function registerSchemes(): void {
       SchemePhysicalIdle,
       SchemePhysicalOnDeath,
       SchemePhysicalOnHit,
+      SchemePostCombatIdle,
       SchemePostProcess,
       SchemePsyAntenna,
       SchemeReachTask,

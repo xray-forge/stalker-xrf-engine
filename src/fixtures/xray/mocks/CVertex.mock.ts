@@ -4,7 +4,7 @@ import { TNumberId } from "@/engine/lib/types";
 import { MockVector } from "@/fixtures/xray/mocks/vector.mock";
 
 /**
- * todo;
+ * Mock generic game level vertex object.
  */
 export class MockCVertex {
   public vertexId: TNumberId;

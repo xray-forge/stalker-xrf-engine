@@ -9,7 +9,7 @@ import { MockVector } from "@/fixtures/xray/mocks/vector.mock";
 let ID_COUNTER: TNumberId = 100_000;
 
 /**
- * todo;
+ * Mock base alife object implementation.
  */
 export class MockAlifeObject extends MockLuabindClass {
   public id: TNumberId = ID_COUNTER++;
@@ -68,7 +68,7 @@ export class MockAlifeObject extends MockLuabindClass {
 }
 
 /**
- * todo;
+ * Mock data based alife object implementation.
  */
 export function mockServerAlifeObject({
   sectionOverride = "section",
