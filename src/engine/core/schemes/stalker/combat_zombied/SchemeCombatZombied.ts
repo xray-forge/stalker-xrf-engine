@@ -13,7 +13,8 @@ import { EScheme, ESchemeType, TSection } from "@/engine/lib/types/scheme";
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Scheme describing combat of zombied type.
+ * Zombied combat includes walking to danger, stupid actions without usage of covers and checking any noise.
  */
 export class SchemeCombatZombied extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.COMBAT_ZOMBIED;
@@ -43,7 +44,7 @@ export class SchemeCombatZombied extends AbstractScheme {
 
     planner.add_action(EActionId.ZOMBIED_SHOOT, actionZombieShoot);
 
-    AbstractScheme.subscribe(object, state, actionZombieShoot);
+    AbstractScheme.subscribe(state, actionZombieShoot);
 
     const actionZombieGoToDanger: ActionZombieGoToDanger = new ActionZombieGoToDanger(state);
 
@@ -56,6 +57,6 @@ export class SchemeCombatZombied extends AbstractScheme {
 
     planner.add_action(EActionId.ZOMBIED_GO_TO_DANGER, actionZombieGoToDanger);
 
-    AbstractScheme.subscribe(object, state, actionZombieGoToDanger);
+    AbstractScheme.subscribe(state, actionZombieGoToDanger);
   }
 }

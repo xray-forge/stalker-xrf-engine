@@ -10,8 +10,7 @@ import { EScheme, ESchemeType, GameObject, IniFile, TSection } from "@/engine/li
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
- * Class managing torches used by stalkers during night hours / in underground levels.
+ * Scheme implementing logics of managing torches used by stalkers during night hours / in underground levels.
  */
 export class SchemeLight extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.SR_LIGHT;
@@ -38,7 +37,7 @@ export class SchemeLight extends AbstractScheme {
     section: TSection,
     state: ISchemeLightState
   ): void {
-    AbstractScheme.subscribe(object, state, new LightManager(object, state));
+    AbstractScheme.subscribe(state, new LightManager(object, state));
   }
 
   public static override reset(): void {

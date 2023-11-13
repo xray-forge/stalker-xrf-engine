@@ -74,6 +74,6 @@ export class SchemeRemark extends AbstractScheme {
 
     planner.action(EActionId.ALIFE).add_precondition(new world_property(EEvaluatorId.NEED_REMARK, false));
 
-    AbstractScheme.subscribe(object, state, actionRemarkActivity);
+    AbstractScheme.subscribe(state, actionRemarkActivity);
   }
 }

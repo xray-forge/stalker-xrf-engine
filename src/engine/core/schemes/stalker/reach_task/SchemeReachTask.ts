@@ -11,7 +11,8 @@ import { ActionPlanner, EScheme, ESchemeType, GameObject, IniFile, TSection } fr
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Scheme defining logics of stalker when reaching smart terrain task.
+ * It can be going to another squad, smart terrain or actor.
  */
 export class SchemeReachTask extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.REACH_TASK;
@@ -35,7 +36,7 @@ export class SchemeReachTask extends AbstractScheme {
       EActionId.SMART_TERRAIN_TASK
     ) as ActionReachTaskLocation;
 
-    AbstractScheme.subscribe(object, state, smartTerrainTaskAction);
+    AbstractScheme.subscribe(state, smartTerrainTaskAction);
   }
 
   /**

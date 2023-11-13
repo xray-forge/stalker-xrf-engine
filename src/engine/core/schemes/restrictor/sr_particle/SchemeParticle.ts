@@ -48,6 +48,6 @@ export class SchemeParticle extends AbstractScheme {
     section: TSection,
     state: ISchemeParticleState
   ): void {
-    AbstractScheme.subscribe(object, state, new ParticleManager(object, state));
+    AbstractScheme.subscribe(state, new ParticleManager(object, state));
   }
 }

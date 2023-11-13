@@ -27,7 +27,7 @@ import {
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Scheme defining how stalker should handle camping enemies and waiting for ambush.
  */
 export class SchemeCamper extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.CAMPER;
@@ -90,7 +90,6 @@ export class SchemeCamper extends AbstractScheme {
     state.idle = readIniNumber(ini, section, "enemy_idle", false, camperConfig.DEFAULT_IDLE_TIME);
     state.postEnemyWait = camperConfig.DEFAULT_POST_ENEMY_WAIT_TIME;
     state.enemyDisp = camperConfig.DEFAULT_ENEMY_DISPERSION;
-
     state.scandelta = camperConfig.DEFAULT_SCAN_DELTA;
     state.timedelta = camperConfig.DEFAULT_TIME_DELTA;
     state.timeScanDelta = state.timedelta / state.scandelta;
@@ -132,7 +131,7 @@ export class SchemeCamper extends AbstractScheme {
 
     planner.add_action(EActionId.CLOSE_COMBAT, actionCloseCombat);
 
-    AbstractScheme.subscribe(object, state, actionCloseCombat);
+    AbstractScheme.subscribe(state, actionCloseCombat);
 
     planner.action(EActionId.ALIFE).add_precondition(new world_property(EEvaluatorId.IS_CLOSE_COMBAT_ENDED, true));
     planner

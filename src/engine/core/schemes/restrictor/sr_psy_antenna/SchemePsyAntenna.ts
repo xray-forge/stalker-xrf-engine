@@ -10,7 +10,7 @@ import { EScheme, ESchemeType, GameObject, IniFile, TSection } from "@/engine/li
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Scheme implementing psy antenna restrictor logics.
  */
 export class SchemePsyAntenna extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.SR_PSY_ANTENNA;
@@ -45,6 +45,6 @@ export class SchemePsyAntenna extends AbstractScheme {
     section: TSection,
     state: ISchemePsyAntennaState
   ): void {
-    AbstractScheme.subscribe(object, state, new PsyAntennaSchemaManager(object, state));
+    AbstractScheme.subscribe(state, new PsyAntennaSchemaManager(object, state));
   }
 }

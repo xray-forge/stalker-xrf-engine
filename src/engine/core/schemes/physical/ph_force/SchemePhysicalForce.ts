@@ -12,7 +12,7 @@ import { EScheme, ESchemeType, GameObject, IniFile, Patrol, TIndex, TName, TSect
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Scheme implementing logics of scripted for usage to physical objects.
  */
 export class SchemePhysicalForce extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.PH_FORCE;
@@ -64,6 +64,6 @@ export class SchemePhysicalForce extends AbstractScheme {
     section: TSection,
     state: ISchemePhysicalForceState
   ): void {
-    AbstractScheme.subscribe(object, state, new PhysicalForceManager(object, state));
+    AbstractScheme.subscribe(state, new PhysicalForceManager(object, state));
   }
 }

@@ -11,6 +11,7 @@ const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * Scheme to implement zones where playing dynamic music is restricted.
+ * Used to stop combat music when actor entering bases or safe places.
  *
  * todo: Possibly deactivation part is missing for the scheme and was never implemented before.
  */
@@ -40,6 +41,6 @@ export class SchemeSilence extends AbstractScheme {
     section: TSection,
     state: ISchemeSilenceState
   ): void {
-    AbstractScheme.subscribe(object, state, new SilenceManager(object, state));
+    AbstractScheme.subscribe(state, new SilenceManager(object, state));
   }
 }

@@ -9,7 +9,7 @@ import { EScheme, ESchemeType, GameObject, IniFile, TSection } from "@/engine/li
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Scheme implementing logics of button toggling for physical objects.
  */
 export class SchemePhysicalButton extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.PH_BUTTON;
@@ -27,11 +27,7 @@ export class SchemePhysicalButton extends AbstractScheme {
     state.onPress = readIniConditionList(ini, section, "on_press");
     state.tooltip = readIniString(ini, section, "tooltip", false);
 
-    if (state.tooltip) {
-      object.set_tip_text(state.tooltip);
-    } else {
-      object.set_tip_text("");
-    }
+    object.set_tip_text(state.tooltip ? state.tooltip : "");
 
     state.anim = readIniString(ini, section, "anim", true);
     state.blending = readIniBoolean(ini, section, "anim_blend", false, true);
@@ -51,6 +47,6 @@ export class SchemePhysicalButton extends AbstractScheme {
     section: TSection,
     state: ISchemePhysicalButtonState
   ): void {
-    SchemePhysicalButton.subscribe(object, state, new PhysicalButtonManager(object, state));
+    AbstractScheme.subscribe(state, new PhysicalButtonManager(object, state));
   }
 }

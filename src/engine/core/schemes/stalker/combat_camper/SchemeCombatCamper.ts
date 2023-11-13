@@ -8,15 +8,15 @@ import {
   EvaluatorCombatCamper,
   EvaluatorSeeBestEnemyEnemy,
 } from "@/engine/core/schemes/stalker/combat_camper/evaluator";
-import { assertDefined } from "@/engine/core/utils/assertion";
+import { assert } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { ActionPlanner, EScheme, ESchemeType, GameObject, IniFile, TSection } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo
- * Note: not atomic scheme, just sub-implementation
+ * Scheme describing combat of camper type.
+ * Used to silently walk near enemy and start shooting only when short distance is reached.
  */
 export class SchemeCombatCamper extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.COMBAT_CAMPER;
@@ -30,7 +30,7 @@ export class SchemeCombatCamper extends AbstractScheme {
     state: ISchemeCombatState,
     planner?: ActionPlanner
   ): void {
-    assertDefined(planner, "Expected planner to be provided for add method call.");
+    assert(planner, "Expected planner to be provided for add method call.");
 
     planner.add_evaluator(EEvaluatorId.IS_COMBAT_CAMPING_ENABLED, new EvaluatorCombatCamper(state));
     planner.add_evaluator(EEvaluatorId.SEE_BEST_ENEMY, new EvaluatorSeeBestEnemyEnemy(state));
@@ -57,7 +57,7 @@ export class SchemeCombatCamper extends AbstractScheme {
     lookAroundAction.add_effect(new world_property(EEvaluatorId.IS_STATE_LOGIC_ACTIVE, false));
     planner.add_action(EActionId.LOOK_AROUND, lookAroundAction);
 
-    SchemeCombatCamper.subscribe(object, state, lookAroundAction);
+    AbstractScheme.subscribe(state, lookAroundAction);
 
     state.isCamperCombatAction = false;
   }

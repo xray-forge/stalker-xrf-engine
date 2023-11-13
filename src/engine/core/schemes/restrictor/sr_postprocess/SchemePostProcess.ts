@@ -38,6 +38,6 @@ export class SchemePostProcess extends AbstractScheme {
     section: TSection,
     state: ISchemePostProcessState
   ): void {
-    AbstractScheme.subscribe(object, state, new PostProcessManager(object, state));
+    AbstractScheme.subscribe(state, new PostProcessManager(object, state));
   }
 }

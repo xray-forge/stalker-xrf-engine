@@ -36,6 +36,6 @@ export class SchemeIdle extends AbstractScheme {
     section: TSection,
     state: ISchemeIdleState
   ): void {
-    SchemeIdle.subscribe(object, state, new IdleManager(object, state));
+    SchemeIdle.subscribe(state, new IdleManager(object, state));
   }
 }

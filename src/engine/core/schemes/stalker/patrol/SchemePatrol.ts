@@ -120,7 +120,7 @@ export class SchemePatrol extends AbstractScheme {
     actionCommander.add_effect(new world_property(EEvaluatorId.IS_STATE_LOGIC_ACTIVE, false));
     planner.add_action(EActionId.COMMAND_SQUAD, actionCommander);
 
-    AbstractScheme.subscribe(object, state, actionCommander);
+    AbstractScheme.subscribe(state, actionCommander);
 
     const actionPatrol: ActionPatrol = new ActionPatrol(state, object);
 
@@ -135,7 +135,7 @@ export class SchemePatrol extends AbstractScheme {
     actionPatrol.add_effect(new world_property(EEvaluatorId.IS_STATE_LOGIC_ACTIVE, false));
     planner.add_action(EActionId.PATROL_ACTIVITY, actionPatrol);
 
-    AbstractScheme.subscribe(object, state, actionPatrol);
+    AbstractScheme.subscribe(state, actionPatrol);
 
     planner.action(EActionId.ALIFE).add_precondition(new world_property(EEvaluatorId.IS_PATROL_ENDED, true));
   }

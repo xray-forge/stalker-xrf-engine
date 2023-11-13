@@ -10,7 +10,7 @@ import { EScheme, ESchemeType, GameObject, IniFile, TSection } from "@/engine/li
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo
+ * Scheme describing helicopter movement over defined paths logics.
  */
 export class SchemeHelicopterMove extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.HELI_MOVE;
@@ -58,6 +58,6 @@ export class SchemeHelicopterMove extends AbstractScheme {
     section: TSection,
     state: ISchemeHelicopterMoveState
   ): void {
-    SchemeHelicopterMove.subscribe(object, state, new HelicopterMoveManager(object, state));
+    AbstractScheme.subscribe(state, new HelicopterMoveManager(object, state));
   }
 }

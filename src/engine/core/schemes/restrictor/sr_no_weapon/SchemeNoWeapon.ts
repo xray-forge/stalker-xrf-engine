@@ -8,7 +8,7 @@ import { EScheme, ESchemeType, GameObject, IniFile, TSection } from "@/engine/li
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * Observe whether actor is in no-weapon zone or not and allow usage of weapons.
+ * Scheme to define logics when actor is in no-weapon zone or not to allow usage of weapons.
  */
 export class SchemeNoWeapon extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.SR_NO_WEAPON;
@@ -34,6 +34,6 @@ export class SchemeNoWeapon extends AbstractScheme {
     section: TSection,
     state: ISchemeNoWeaponState
   ): void {
-    AbstractScheme.subscribe(object, state, new NoWeaponManager(object, state));
+    AbstractScheme.subscribe(state, new NoWeaponManager(object, state));
   }
 }

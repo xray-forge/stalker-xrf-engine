@@ -11,7 +11,7 @@ import { EScheme, ESchemeType, GameObject, IniFile, Optional, TSection } from "@
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Scheme defining events that should happen when stalker object dies.
  */
 export class SchemeDeath extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.DEATH;
@@ -33,7 +33,7 @@ export class SchemeDeath extends AbstractScheme {
     section: TSection,
     state: ISchemeDeathState
   ): void {
-    AbstractScheme.subscribe(object, state, new DeathManager(object, state));
+    AbstractScheme.subscribe(state, new DeathManager(object, state));
   }
 
   public static override reset(

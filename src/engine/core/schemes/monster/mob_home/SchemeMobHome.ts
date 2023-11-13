@@ -49,6 +49,6 @@ export class SchemeMobHome extends AbstractScheme {
     section: TSection,
     state: ISchemeMobHomeState
   ): void {
-    SchemeMobHome.subscribe(object, state, new MobHomeManager(object, state));
+    AbstractScheme.subscribe(state, new MobHomeManager(object, state));
   }
 }

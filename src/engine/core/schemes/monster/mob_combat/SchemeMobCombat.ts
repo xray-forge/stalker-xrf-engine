@@ -9,7 +9,7 @@ import { EScheme, ESchemeType, GameObject, IniFile, Optional, TSection } from "@
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * Scheme linking monster logics and monster combat.
+ * Scheme describing how monsters should handle combat.
  */
 export class SchemeMobCombat extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.MOB_COMBAT;
@@ -40,7 +40,7 @@ export class SchemeMobCombat extends AbstractScheme {
 
     state.action = manager;
 
-    SchemeMobCombat.subscribe(object, state, manager);
+    AbstractScheme.subscribe(state, manager);
   }
 
   public static override disable(object: GameObject, scheme: EScheme): void {

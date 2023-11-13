@@ -96,6 +96,6 @@ export class SchemeWalker extends AbstractScheme {
 
     planner.action(EActionId.ALIFE).add_precondition(new world_property(EEvaluatorId.NEED_WALKER, false));
 
-    AbstractScheme.subscribe(object, state, actionWalkerActivity);
+    AbstractScheme.subscribe(state, actionWalkerActivity);
   }
 }

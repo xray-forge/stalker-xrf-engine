@@ -50,7 +50,7 @@ export class SchemeDeimos extends AbstractScheme {
     section: TSection,
     state: ISchemeDeimosState
   ): void {
-    SchemeDeimos.subscribe(object, state, new DeimosManager(object, state));
+    AbstractScheme.subscribe(state, new DeimosManager(object, state));
   }
 
   /**

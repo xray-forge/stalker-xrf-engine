@@ -42,7 +42,6 @@ const logger: LuaLogger = new LuaLogger($filename, { file: "ai_state" });
  * {@link https://xray-forge.github.io/stalker-xrf-book/script_engine/patrols.html patrols system}
  */
 export class StalkerPatrolManager {
-  // Object linked to the manager.
   public readonly object: GameObject;
   public team: Optional<TName> = null;
 
@@ -178,7 +177,7 @@ export class StalkerPatrolManager {
 
       this.patrolWalkWaypoints = walkPathWaypoints!;
 
-      if (lookPathName !== null) {
+      if (lookPathName) {
         if (!lookPathWaypoints) {
           abort(
             "object '%s': path_look ('%s') field was supplied, but path_look_info field is null",

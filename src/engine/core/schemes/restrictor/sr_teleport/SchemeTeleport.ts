@@ -11,7 +11,7 @@ import { EScheme, ESchemeType, TSection } from "@/engine/lib/types/scheme";
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * Scheme logic implementation for restrictors teleportation.
+ * Scheme logic implementation for teleporting restrictors.
  * Allows teleporting on reaching specific location.
  */
 export class SchemeTeleport extends AbstractScheme {
@@ -59,6 +59,6 @@ export class SchemeTeleport extends AbstractScheme {
     section: TSection,
     state: ISchemeTeleportState
   ): void {
-    AbstractScheme.subscribe(object, state, new TeleportManager(object, state));
+    AbstractScheme.subscribe(state, new TeleportManager(object, state));
   }
 }

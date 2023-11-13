@@ -47,6 +47,6 @@ export class SchemeMobJump extends AbstractScheme {
     section: TSection,
     state: ISchemeMobJumpState
   ): void {
-    SchemeMobJump.subscribe(object, state, new MobJumpManager(object, state));
+    SchemeMobJump.subscribe(state, new MobJumpManager(object, state));
   }
 }

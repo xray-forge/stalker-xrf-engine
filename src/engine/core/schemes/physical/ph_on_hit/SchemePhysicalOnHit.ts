@@ -9,7 +9,7 @@ import { EScheme, ESchemeType, GameObject, IniFile, Optional, TSection } from "@
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * Scheme to handle hits as part of logic for physical objects.
+ * Scheme defining logics of handling hits for physical objects.
  */
 export class SchemePhysicalOnHit extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.PH_ON_HIT;
@@ -38,7 +38,8 @@ export class SchemePhysicalOnHit extends AbstractScheme {
     const manager: PhysicalOnHitManager = new PhysicalOnHitManager(object, state);
 
     state.action = manager;
-    AbstractScheme.subscribe(object, state, manager);
+
+    AbstractScheme.subscribe(state, manager);
   }
 
   public static override disable(object: GameObject, scheme: EScheme): void {
@@ -47,7 +48,7 @@ export class SchemePhysicalOnHit extends AbstractScheme {
     ] as Optional<ISchemePhysicalOnHitState>;
 
     if (state) {
-      AbstractScheme.unsubscribe(object, state, state.action);
+      AbstractScheme.unsubscribe(state, state.action);
     }
   }
 }
