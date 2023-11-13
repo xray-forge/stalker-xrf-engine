@@ -1,5 +1,6 @@
 /**
- * todo;
+ * Define global lua table interface extensions.
+ * TSTL typing does not include all the methods available in xray engine build of LUA.
  */
 declare namespace table {
   function concat<K extends AnyNotNil, V>(list: LuaTable<K, V>, separator: string): string;
@@ -10,14 +11,16 @@ declare namespace table {
 }
 
 /**
- * todo;
+ * Define global lua string interface extensions.
+ * TSTL typing does not include all the methods available in xray engine build of LUA.
  */
 declare namespace string {
   function gfind(this: void, s: string | number, pattern: unknown, init?: number, plain?: boolean): LuaIterable<string>;
 }
 
 /**
- * todo;
+ * Define global lua math interface extensions.
+ * TSTL typing does not include all the methods available in xray engine build of LUA.
  */
 declare namespace math {
   function mod(target: number, module: number): number;

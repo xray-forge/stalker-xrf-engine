@@ -3,7 +3,7 @@ import { mockGameObject } from "@/fixtures/xray";
 import { MockVector } from "@/fixtures/xray/mocks/vector.mock";
 
 /**
- * todo;
+ * Mock xray engine danger object.
  */
 export class MockDangerObject {
   public static attack_sound: number = 1;

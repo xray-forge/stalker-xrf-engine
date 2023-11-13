@@ -5,7 +5,7 @@ import { mockClsid } from "@/fixtures/xray/mocks/constants";
 import { MockAlifeObject, mockServerAlifeObject } from "@/fixtures/xray/mocks/objects/server/cse_alife_object.mock";
 
 /**
- * todo;
+ * Mock alife smart zone server object.
  */
 export class MockAlifeSmartZone extends MockAlifeObject {
   public override m_level_vertex_id: TNumberId = 255;
@@ -21,7 +21,7 @@ export class MockAlifeSmartZone extends MockAlifeObject {
 }
 
 /**
- * todo;
+ * Mock data based alife smart zone server object.
  */
 export function mockServerAlifeSmartZone(base: Partial<ServerSmartZoneObject> = {}): ServerSmartZoneObject {
   return mockServerAlifeObject({

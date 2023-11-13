@@ -5,12 +5,12 @@ import {
 } from "@/fixtures/xray/mocks/objects/server/cse_anomalous_zone.mock";
 
 /**
- * todo;
+ * Mock visual zone server object.
  */
 export class MockZoneVisual extends MockAnomalousZone {}
 
 /**
- * todo;
+ * Mock data based visual zone server object.
  */
 export function mockServerVisual(base: Partial<ServerZoneObject> = {}): ServerZoneObject {
   return { ...mockServerAnomalousZone(), ...base } as unknown as ServerZoneObject;

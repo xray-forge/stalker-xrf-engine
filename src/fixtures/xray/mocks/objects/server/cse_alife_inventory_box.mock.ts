@@ -5,12 +5,12 @@ import {
 } from "@/fixtures/xray/mocks/objects/server/cse_alife_dynamic_object_visual.mock";
 
 /**
- * todo;
+ * Mock alife inventory box server object.
  */
 export class MockAlifeInventoryBox extends MockAlifeDynamicObjectVisual {}
 
 /**
- * todo;
+ * Mock data based alife inventory box server object.
  */
 export function mockServerAlifeInventoryBox(base: Partial<ServerInventoryBox> = {}): ServerInventoryBox {
   return { ...mockServerAlifeDynamicObjectVisual(), ...base } as unknown as ServerInventoryBox;

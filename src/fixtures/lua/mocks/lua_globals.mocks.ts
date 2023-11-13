@@ -5,7 +5,6 @@ import { mockDebug } from "@/fixtures/lua/mocks/lua_debug.mock";
 import { mockIo } from "@/fixtures/lua/mocks/lua_io.mock";
 import { mockJit } from "@/fixtures/lua/mocks/lua_jit.mocks";
 import { mockMath } from "@/fixtures/lua/mocks/lua_math.mocks";
-import { mockPairs } from "@/fixtures/lua/mocks/lua_pairs.mock";
 import { mockString } from "@/fixtures/lua/mocks/lua_string.mock";
 import { mockTable } from "@/fixtures/lua/mocks/lua_table.mock";
 import { mockToString } from "@/fixtures/lua/mocks/lua_tostring.mock";
@@ -68,7 +67,7 @@ export function mockLuaGlobals(): void {
   // @ts-ignore
   global.type = jest.fn(mockType);
   // @ts-ignore
-  global.pairs = jest.fn(mockPairs);
+  global.pairs = jest.fn((target: object) => Object.entries(target));
   // @ts-ignore
   global.error = (message: string): string => {
     throw new Error(message);

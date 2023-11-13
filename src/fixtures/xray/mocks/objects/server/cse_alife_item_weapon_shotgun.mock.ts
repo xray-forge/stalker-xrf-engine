@@ -5,12 +5,12 @@ import {
 } from "@/fixtures/xray/mocks/objects/server/cse_alife_item_weapon.mock";
 
 /**
- * todo;
+ * Mock alife shotgun weapon server object.
  */
 export class MockAlifeItemWeaponShotgun extends MockAlifeItemWeapon {}
 
 /**
- * todo;
+ * Mock data based alife shotgun weapon server object.
  */
 export function mockServerAlifeItemWeaponShotgun(
   base: Partial<ServerWeaponShotgunObject> = {}

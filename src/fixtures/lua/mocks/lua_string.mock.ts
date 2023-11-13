@@ -3,7 +3,8 @@ import { ILuaState, ILuaString, lauxlib, lua, lualib, to_jsstring, to_luastring 
 import type { Optional } from "@/engine/lib/types";
 
 /**
- * todo;
+ * Mock lua global string methods.
+ * Use lua VM to get 1-1 behaviour in some cases.
  */
 export const mockString = {
   format: (base: string, ...replacements: Array<unknown>) => {

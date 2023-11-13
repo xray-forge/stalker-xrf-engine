@@ -3,12 +3,12 @@ import { mockServerAlifeObject } from "@/fixtures/xray";
 import { MockSpaceRestrictor } from "@/fixtures/xray/mocks/objects/server/cse_alife_space_restrictor.mock";
 
 /**
- * todo;
+ * Mock alife level changer server object.
  */
 export class MockAlifeLevelChanger extends MockSpaceRestrictor {}
 
 /**
- * todo;
+ * Mock data based alife level changer server object.
  */
 export function mockServerAlifeLevelChanger(base: Partial<ServerLevelChangerObject> = {}): ServerLevelChangerObject {
   return { ...mockServerAlifeObject(), ...base } as unknown as ServerLevelChangerObject;

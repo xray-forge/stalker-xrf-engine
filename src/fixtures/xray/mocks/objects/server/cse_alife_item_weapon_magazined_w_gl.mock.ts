@@ -5,12 +5,12 @@ import {
 } from "@/fixtures/xray/mocks/objects/server/cse_alife_item_weapon.mock";
 
 /**
- * todo;
+ * Mock alife magazined weapon with grenade launcher server object.
  */
 export class MockAlifeItemWeaponMagazinedWGL extends MockAlifeItemWeapon {}
 
 /**
- * todo;
+ * Mock data based alife magazined weapon with grenade launcher server object.
  */
 export function mockServerAlifeItemWeaponMagazinedWGL(
   base: Partial<ServerWeaponMagazinedWGLObject> = {}
