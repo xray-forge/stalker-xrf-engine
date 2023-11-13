@@ -13,7 +13,7 @@ import type {
 /**
  * Emit scheme event for active `actions` list in scheme state.
  *
- * @param object - client object working on scheme
+ * @param object - game object working on scheme
  * @param state - scheme state for emitting
  * @param event - event type to emit
  * @param rest - event args

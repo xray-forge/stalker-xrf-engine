@@ -21,7 +21,7 @@ import type {
 /**
  * Check whether object class id matches monster.
  *
- * @param object - target client object to check
+ * @param object - target game object to check
  * @returns whether provided object class id is matching monster
  */
 export function isMonster(object: GameObject): object is GameObject;

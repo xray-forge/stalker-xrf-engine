@@ -38,7 +38,7 @@ const ANIMATED_OBJECT_SECT: string = "animated_object";
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Binder of door game objects.
  * todo: Rename to animated door?
  */
 @LuabindClass()

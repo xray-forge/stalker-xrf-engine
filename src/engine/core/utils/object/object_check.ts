@@ -43,7 +43,7 @@ export function isStalkerAlive(targetObject: GameObject | ServerObject | TString
 /**
  * Check whether object is alive and actor is seen by object.
  *
- * @param object - target client object to check
+ * @param object - target game object to check
  * @returns whether actor is seen by object
  */
 export function isActorSeenByObject(object: GameObject): boolean {
@@ -53,7 +53,7 @@ export function isActorSeenByObject(object: GameObject): boolean {
 /**
  * Check whether actor is alive and object is seen by actor.
  *
- * @param object - target client object to check
+ * @param object - target game object to check
  * @returns whether object is seen by actor
  */
 export function isObjectSeenByActor(object: GameObject): boolean {
@@ -63,7 +63,7 @@ export function isObjectSeenByActor(object: GameObject): boolean {
 /**
  * Check whether object is injured.
  *
- * @param object - target client object to check
+ * @param object - target game object to check
  * @returns whether object is injured/bleeding/contaminated
  */
 export function isObjectInjured(object: GameObject): boolean {

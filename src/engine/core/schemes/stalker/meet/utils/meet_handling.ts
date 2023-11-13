@@ -93,7 +93,7 @@ export function activateMeetWithObject(object: GameObject): void {
 /**
  * Increment abuse for object.
  *
- * @param object - target client object
+ * @param object - target game object
  * @param value - count of abuse to add
  */
 export function addObjectAbuse(object: GameObject, value: TCount): void {
@@ -105,7 +105,7 @@ export function addObjectAbuse(object: GameObject, value: TCount): void {
 /**
  * Clear abuse state for object.
  *
- * @param object - target client object
+ * @param object - target game object
  */
 export function clearObjectAbuse(object: GameObject): void {
   const state: Optional<ISchemeAbuseState> = registry.objects.get(object.id())[EScheme.ABUSE] as ISchemeAbuseState;
@@ -116,7 +116,7 @@ export function clearObjectAbuse(object: GameObject): void {
 /**
  * Set object abuse state.
  *
- * @param object - target client object
+ * @param object - target game object
  * @param isEnabled - whether object abuse state should be enabled
  */
 export function setObjectAbuseState(object: GameObject, isEnabled: boolean): void {

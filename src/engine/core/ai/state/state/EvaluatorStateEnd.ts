@@ -8,7 +8,8 @@ import { Optional, TNumberId } from "@/engine/lib/types";
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Evaluator to check when state end action is active.
+ * State never ends, but has side effects during checking to force execution of other actions.
  */
 @LuabindClass()
 export class EvaluatorStateEnd extends property_evaluator {
@@ -22,7 +23,9 @@ export class EvaluatorStateEnd extends property_evaluator {
   }
 
   /**
-   * todo: Description.
+   * Perform silly checks of state with side effects.
+   *
+   * @returns false since state never ends
    */
   public override evaluate(): boolean {
     this.actionPlanner = this.actionPlanner ?? this.object.motivation_action_manager();

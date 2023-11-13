@@ -18,7 +18,7 @@ import { NetPacket, Reader, ServerObject } from "@/engine/lib/types";
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Binder for level changer game object.
  */
 @LuabindClass()
 export class LevelChangerBinder extends object_binder {

@@ -13,7 +13,7 @@ import {
 /**
  * Returns community of provided object.
  *
- * @param object - client object or server stalker/group
+ * @param object - game object or server stalker/group
  * @returns object community
  */
 export function getObjectCommunity(object: GameObject | ServerHumanObject | ServerGroupObject): TCommunity {

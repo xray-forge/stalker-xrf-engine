@@ -146,54 +146,75 @@ export enum ESchemeEvent {
  */
 export interface ISchemeEventHandler {
   /**
-   * todo: Description, swap params order.
+   * todo: Swap params order.
+   *
+   * Handle schema activation event.
+   *
+   * @param object - target game object activation happen for
+   * @param isLoading - whether activation happen on load or during active game
    */
   activate?(isLoading: boolean, object: GameObject): void;
   /**
-   * todo: Description.
+   * Handle schema deactivation event.
+   *
+   * @param object - target game object deactivation happen for
    */
   deactivate?(object: GameObject): void;
   /**
-   * todo: Description.
+   * Handle game update event inside the schema.
+   *
+   * @param delta - time since last update tick
    */
   update?(delta: TCount): void;
   /**
-   * todo: Description.
+   * Handle save event inside the schema.
+   * Usually data being stored in portable state or dynamic save.
    */
-  save?(delta: TCount): void;
+  save?(): void;
   /**
-   * todo: Description.
+   * Handle going online by game object.
+   *
+   * @param object - target game object going online
    */
   onSwitchOnline?(object: GameObject): void;
   /**
-   * todo: Description.
+   * Handle going offline by game object.
+   *
+   * @param object - target game object going offline
    */
   onSwitchOffline?(object: GameObject): void;
   /**
    * Handle scheme hit callback.
    * Emits when objects are hit by something.
    *
-   * @param object - target client object being hit
+   * @param object - target game object being hit
    * @param amount - amount of hit applied
    * @param direction - direction of hit
-   * @param who - client object which is source of hit
+   * @param who - game object which is source of hit
    * @param boneIndex - index of bone being hit
    */
   onHit?(object: GameObject, amount: TCount, direction: Vector, who: Optional<GameObject>, boneIndex: TIndex): void;
   /**
-   * todo: Description.
+   * Handle scheme use event.
+   *
+   * @param object - target game object being used
+   * @param who - game object using target object
    */
   onUse?(object: GameObject, who: Optional<GameObject>): void;
   /**
-   * todo: Description.
+   * Handle scheme waypoint moving event.
+   *
+   * @param object - target game object moving on waypoints
+   * @param actionType - type of action in the waypoint
+   * @param index - index of the waypoint in patrol
    */
   onWaypoint?(object: GameObject, actionType: TName, index: TIndex): void;
   /**
    * Handle scheme death callback.
    * Emits when objects are dying.
    *
-   * @param victim - target client object dying
-   * @param who - client object who killed the object
+   * @param victim - target game object dying
+   * @param who - game object who killed the object
    */
   onDeath?(victim: GameObject, who: Optional<GameObject>): void;
   /**

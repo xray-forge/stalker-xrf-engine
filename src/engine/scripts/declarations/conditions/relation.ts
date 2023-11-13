@@ -173,12 +173,12 @@ extern(
       abort("Wrong number of params in npc_community");
     }
 
-    // Just verify client object.
+    // Just verify game object.
     if (type(object.id) === "function") {
       return getObjectCommunity(object as GameObject) === community;
     }
 
-    // Try to use registry client object or fallback to server object check.
+    // Try to use registry game object or fallback to server object check.
     return getObjectCommunity(registry.objects.get((object as ServerObject).id)?.object ?? object) === community;
   }
 );

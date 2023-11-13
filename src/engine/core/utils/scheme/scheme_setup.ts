@@ -62,7 +62,7 @@ export function addCommonActionPreconditions(action: ActionBase): void {
  *
  * todo; Use shared generic to disable schemes by type, probably config based approach for each type.
  *
- * @param object - client object for schemes disabling
+ * @param object - game object for schemes disabling
  * @param schemeType - type of scheme applied for provided object
  */
 export function disableObjectBaseSchemes(object: GameObject, schemeType: ESchemeType): void {

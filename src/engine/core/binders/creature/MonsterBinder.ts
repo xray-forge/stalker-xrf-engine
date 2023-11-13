@@ -63,7 +63,7 @@ import {
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Binder of monster game objects.
  */
 @LuabindClass()
 export class MonsterBinder extends object_binder {

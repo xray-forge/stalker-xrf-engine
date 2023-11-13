@@ -38,7 +38,7 @@ const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * Binder of actor game object.
- * Intercepts and handles lifecycle of actor client object.
+ * Intercepts and handles lifecycle of actor game object.
  */
 @LuabindClass()
 export class ActorBinder extends object_binder {

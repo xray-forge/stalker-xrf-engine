@@ -31,7 +31,7 @@ export class DangerManager extends AbstractSchemeManager<ISchemeDangerState> {
   ): void {
     const who: Optional<GameObject> = registry.objects.get(whoId)?.object;
 
-    // If already in combat or no client object 'who'.
+    // If already in combat or no game object 'who'.
     if (!who || object.best_enemy()) {
       return;
     }

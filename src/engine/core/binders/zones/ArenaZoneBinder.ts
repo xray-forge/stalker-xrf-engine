@@ -13,7 +13,7 @@ const logger: LuaLogger = new LuaLogger($filename);
 const arena_zones: LuaTable<string, ArenaZoneBinder> = new LuaTable();
 
 /**
- * todo;
+ * Binder for arena zone restrictor game object.
  */
 @LuabindClass()
 export class ArenaZoneBinder extends object_binder {
@@ -38,9 +38,6 @@ export class ArenaZoneBinder extends object_binder {
     return true;
   }
 
-  /**
-   * todo: Description.
-   */
   public override net_destroy(): void {
     this.object.set_callback(callback.zone_enter, null);
     this.object.set_callback(callback.zone_exit, null);
@@ -61,9 +58,6 @@ export class ArenaZoneBinder extends object_binder {
     }
   }
 
-  /**
-   * todo: Description.
-   */
   public override save(packet: NetPacket): void {
     super.save(packet);
 
@@ -78,9 +72,6 @@ export class ArenaZoneBinder extends object_binder {
     closeSaveMarker(packet, ArenaZoneBinder.__name);
   }
 
-  /**
-   * todo: Description.
-   */
   public override load(reader: Reader): void {
     super.load(reader);
 

@@ -139,9 +139,9 @@ export function getNextMonsterRank(rank: TName): IRankDescriptor {
 }
 
 /**
- * @param object - client object to get rank descriptor for
+ * @param object - game object to get rank descriptor for
  *
- * @returns client object rank descriptor
+ * @returns game object rank descriptor
  */
 export function getGameObjectRank(object: GameObject): Optional<IRankDescriptor> {
   const classId: TClassId = object.clsid();

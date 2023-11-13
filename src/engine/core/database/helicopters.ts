@@ -28,7 +28,7 @@ export function unregisterHelicopter(helicopter: HelicopterBinder): void {
 /**
  * Unregister helicopter object.
  *
- * @param object - helicopter client object to unregister
+ * @param object - helicopter game object to unregister
  */
 export function unregisterHelicopterObject(object: GameObject): void {
   unregisterObject(object);

@@ -11,7 +11,7 @@ import { GameObject, LuaArray, Optional, TDistance, TNumberId, Vector } from "@/
 /**
  * Check if object has valuable loot.
  *
- * @param object - target client object to check
+ * @param object - target game object to check
  * @returns whether object has any valuables to loot
  */
 export function isObjectWithValuableLoot(object: GameObject): boolean {
@@ -32,8 +32,8 @@ export function isObjectWithValuableLoot(object: GameObject): boolean {
 /**
  * Transfer all lootable items from one object to another.
  *
- * @param from - client object to move loot from
- * @param to - client object to move loot to
+ * @param from - game object to move loot from
+ * @param to - game object to move loot to
  * @returns transfered objects lists
  */
 export function transferLoot(from: GameObject, to: GameObject): LuaArray<GameObject> {

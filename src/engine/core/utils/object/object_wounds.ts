@@ -21,7 +21,7 @@ import {
 /**
  * Gives wounds medication for target object to heal up.
  *
- * @param object - target client object to give healing item
+ * @param object - target game object to give healing item
  */
 export function giveWoundedObjectMedkit(object: GameObject): void {
   // Give script medkit to heal up for an object.
@@ -38,7 +38,7 @@ export function giveWoundedObjectMedkit(object: GameObject): void {
  * Wounds object to have minimal health amount.
  * As result, object is expected to be wounded.
  *
- * @param object - target client object to hit and wound
+ * @param object - target game object to hit and wound
  */
 export function setObjectWounded(object: GameObject): void {
   const hitObject: Hit = new hit();
@@ -56,7 +56,7 @@ export function setObjectWounded(object: GameObject): void {
  * Allow wounded object to heal.
  * If object healing is enabled, it will try to use medication and resolve current state.
  *
- * @param object - target client object to enable healing
+ * @param object - target game object to enable healing
  */
 export function enableObjectWoundedHealing(object: GameObject): void {
   const state: Optional<IRegistryObjectState> = registry.objects.get(object.id());
@@ -65,7 +65,7 @@ export function enableObjectWoundedHealing(object: GameObject): void {
 }
 
 /**
- * @param object - target client object to check
+ * @param object - target game object to check
  * @returns whether object is wounded with physical damage
  */
 export function isObjectPsyWounded(object: GameObject): boolean {

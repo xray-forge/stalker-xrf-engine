@@ -42,7 +42,7 @@ const logger: LuaLogger = new LuaLogger($filename);
  */
 export class CampManager {
   /**
-   * Linked camp zone client object.
+   * Linked camp zone game object.
    */
   public object: GameObject;
   /**

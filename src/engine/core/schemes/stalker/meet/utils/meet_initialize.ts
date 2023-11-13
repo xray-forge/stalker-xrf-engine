@@ -13,7 +13,7 @@ const logger: LuaLogger = new LuaLogger($filename);
 /**
  * Initialize meet scheme defaults based on object relations and current section logics preferences.
  *
- * @param object - target client object
+ * @param object - target game object
  * @param ini - target ini file to read config from
  * @param section - currently active section
  * @param state - target meet scheme logics state

@@ -6,7 +6,7 @@ import { GameObject, TNumberId } from "@/engine/lib/types";
 /**
  * Register object as wounded so others can detect it for searching and helping.
  *
- * @param object - client object to register as wounded
+ * @param object - game object to register as wounded
  */
 export function registerWoundedObject(object: GameObject): void {
   const objectId: TNumberId = object.id();
@@ -17,7 +17,7 @@ export function registerWoundedObject(object: GameObject): void {
 /**
  * Unregister object as wounded so others will not detect it for helping.
  *
- * @param object - client object to unregister
+ * @param object - game object to unregister
  */
 export function unRegisterWoundedObject(object: GameObject): void {
   setPortableStoreValue(object.id(), helpWoundedConfig.HELPING_WOUNDED_OBJECT_KEY, null);

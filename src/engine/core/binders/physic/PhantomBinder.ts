@@ -1,10 +1,10 @@
 import { LuabindClass, object_binder } from "xray16";
 
 import { PhantomManager } from "@/engine/core/managers/psy/PhantomManager";
-import { GameObject, Vector } from "@/engine/lib/types";
+import { GameObject, TCount, Vector } from "@/engine/lib/types";
 
 /**
- * todo;
+ * Binder for phantom game objects created by psy antenna.
  */
 @LuabindClass()
 export class PhantomBinder extends object_binder {
@@ -13,24 +13,23 @@ export class PhantomBinder extends object_binder {
     PhantomManager.getInstance().addPhantom();
   }
 
-  /**
-   * todo: Description.
-   */
   public override net_destroy(): void {
     PhantomManager.getInstance().removePhantom();
   }
 
   /**
-   * todo: Description.
+   * Spawn new phantom instance somewhere nearby.
+   *
+   * @param position - where to spawn next phantom
    */
-  public spawn_phantom(position: Vector): void {
+  public spawnPhantom(position: Vector): void {
     PhantomManager.getInstance().spawnPhantom(position);
   }
 
   /**
-   * todo: Description.
+   * @returns count of currently spawned phantoms
    */
-  public phantom_count(): number {
+  public getPhantomsCount(): TCount {
     return PhantomManager.getInstance().phantomsCount;
   }
 }
