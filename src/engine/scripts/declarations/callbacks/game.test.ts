@@ -1,9 +1,9 @@
 import { beforeAll, beforeEach, describe, expect, it, jest } from "@jest/globals";
 
 import { smartCoversList } from "@/engine/core/animation/smart_covers";
+import { GameOutroManager } from "@/engine/core/managers/outro";
 import { SaveManager } from "@/engine/core/managers/save";
 import { TradeManager } from "@/engine/core/managers/trade";
-import { GameOutroManager } from "@/engine/core/ui/game/GameOutroManager";
 import { AnyArgs, AnyObject, TName } from "@/engine/lib/types";
 import { callBinding, checkBinding, checkNestedBinding, resetRegistry } from "@/fixtures/engine";
 

@@ -2,7 +2,7 @@ import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { CUI3tButton, CUIMessageBoxEx, CUIStatic, CUITrackBar, level } from "xray16";
 
 import { SleepManager } from "@/engine/core/managers/sleep";
-import { SleepDialog } from "@/engine/core/ui/interaction/SleepDialog";
+import { SleepDialog } from "@/engine/core/ui/game/SleepDialog";
 import { giveInfoPortion, hasInfoPortion } from "@/engine/core/utils/info_portion";
 import { infoPortions } from "@/engine/lib/constants/info_portions";
 import { mockRegisteredActor, resetRegistry } from "@/fixtures/engine";
