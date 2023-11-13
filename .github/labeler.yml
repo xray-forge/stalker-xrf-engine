@@ -12,14 +12,17 @@ test:
 configs:
   - src/engine/forms/**
 
+ai:
+  - src/engine/core/ai/**
+
+animation:
+  - src/engine/core/animation/**
+
 managers:
   - src/engine/core/managers/**
 
 schemes:
   - src/engine/core/schemes/**
-
-ai:
-  - src/engine/core/objects/ai/**
 
 extensions:
   - src/engine/extensions/**
