@@ -8,7 +8,7 @@ import { WeatherManager } from "@/engine/core/managers/weather/WeatherManager";
 import { NIL } from "@/engine/lib/constants/words";
 import { resetRegistry } from "@/fixtures/engine";
 import { getFunctionMock } from "@/fixtures/jest";
-import { mockLuaTable, MockLuaTable } from "@/fixtures/lua/mocks/LuaTable.mock";
+import { MockLuaTable } from "@/fixtures/lua/mocks/LuaTable.mock";
 import { EPacketDataType, mockNetPacket, mockNetProcessor, MockNetProcessor } from "@/fixtures/xray/mocks/save";
 
 describe("WeatherManager class", () => {
@@ -50,12 +50,12 @@ describe("WeatherManager class", () => {
 
     expect(MockLuaTable.getMockSize(manager.weatherState)).toBe(1);
     expect(manager.weatherState).toStrictEqual(
-      mockLuaTable<string, IWeatherState>([
+      MockLuaTable.mock<string, IWeatherState>([
         [
           "dynamic_default",
           {
             currentState: "clear",
-            weatherGraph: mockLuaTable([
+            weatherGraph: MockLuaTable.mock([
               ["clear", 0.4],
               ["cloudy", 0.4],
               ["rain", 0.1],

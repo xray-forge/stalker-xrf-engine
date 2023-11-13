@@ -197,11 +197,11 @@ export interface ISchemeEventHandler {
    */
   onDeath?(victim: GameObject, who: Optional<GameObject>): void;
   /**
-   * todo: Description.
+   * Handle scheme cutscene progression event.
    */
   onCutscene?(): void;
   /**
-   * todo: Description.
+   * Handle scheme combat start event.
    */
   onCombat?(): void;
 }
