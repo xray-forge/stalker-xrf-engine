@@ -136,10 +136,6 @@ export function configureObjectSchemes(
 }
 
 /**
- * todo; Add tests
- * todo; Add tests
- * todo; Add tests
- *
  * @param object - target game object to setup logic
  * @param state - target object registry state
  * @param schemeType - target object active scheme type

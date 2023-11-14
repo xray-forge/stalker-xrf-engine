@@ -3,7 +3,7 @@ import type { EMonsterState } from "@/engine/lib/constants/monsters";
 import type { Optional } from "@/engine/lib/types";
 
 /**
- * todo;
+ * State of remark scheme.
  */
 export interface ISchemeMobRemarkState extends IBaseSchemeState {
   state: Optional<EMonsterState>;

@@ -7,12 +7,12 @@ import { ISchemeDangerState } from "@/engine/core/schemes/stalker/danger/danger_
 import { DangerManager } from "@/engine/core/schemes/stalker/danger/DangerManager";
 import { EvaluatorDanger } from "@/engine/core/schemes/stalker/danger/evaluators";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { ActionBase, ActionPlanner, EScheme, ESchemeType, GameObject, IniFile, TSection } from "@/engine/lib/types";
+import { ActionPlanner, EScheme, ESchemeType, GameObject, IniFile, TSection } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Scheme implementing logics of handling / checking danger for stalkers.
  */
 export class SchemeDanger extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.DANGER;
@@ -34,12 +34,11 @@ export class SchemeDanger extends AbstractScheme {
     section: TSection,
     state: ISchemeDangerState
   ): void {
-    const actionPlanner: ActionPlanner = object.motivation_action_manager();
-    const dangerAction: ActionBase = actionPlanner.action(EActionId.DANGER);
-    const dangerActionPlanner: ActionPlanner = cast_planner(dangerAction);
+    const planner: ActionPlanner = object.motivation_action_manager();
+    const dangerActionPlanner: ActionPlanner = cast_planner(planner.action(EActionId.DANGER));
 
-    actionPlanner.remove_evaluator(EEvaluatorId.DANGER);
-    actionPlanner.add_evaluator(EEvaluatorId.DANGER, new EvaluatorDanger(state));
+    planner.remove_evaluator(EEvaluatorId.DANGER);
+    planner.add_evaluator(EEvaluatorId.DANGER, new EvaluatorDanger(state));
 
     dangerActionPlanner.remove_evaluator(EEvaluatorId.DANGER);
     dangerActionPlanner.add_evaluator(EEvaluatorId.DANGER, new EvaluatorDanger(state));

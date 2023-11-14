@@ -8,7 +8,7 @@ import { EScheme, GameObject, Optional, TCount, TIndex, Vector } from "@/engine/
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Manager of object hit events.
  */
 export class HitManager extends AbstractSchemeManager<ISchemeHitState> {
   public override onHit(

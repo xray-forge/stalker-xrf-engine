@@ -12,7 +12,7 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Automatic shotgun server object representation.
  */
 @LuabindClass()
 export class ItemWeaponAutomaticShotgun extends cse_alife_item_weapon_auto_shotgun {

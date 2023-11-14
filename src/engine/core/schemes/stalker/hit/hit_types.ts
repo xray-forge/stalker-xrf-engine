@@ -3,7 +3,7 @@ import { HitManager } from "@/engine/core/schemes/stalker/hit/HitManager";
 import { TIndex, TNumberId } from "@/engine/lib/types";
 
 /**
- * todo;
+ * Hit scheme state.
  */
 export interface ISchemeHitState extends ISchemeAbuseState {
   isDeadlyHit: boolean;

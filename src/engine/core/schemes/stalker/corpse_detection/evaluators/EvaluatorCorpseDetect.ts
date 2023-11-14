@@ -48,9 +48,7 @@ export class EvaluatorCorpseDetect extends property_evaluator {
   }
 
   /**
-   * todo;
-   *
-   * @returns whether any corpse nearby exists
+   * @returns whether any nearby corpse to loot exists
    */
   public hasCorpseToLoot(): boolean {
     const [corpseObject, corpseVertexId, corpsePosition] = getNearestCorpseToLoot(this.object);

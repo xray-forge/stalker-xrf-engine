@@ -13,7 +13,7 @@ import { ActionPlanner, EScheme, ESchemeType, GameObject, IniFile, TSection } fr
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Scheme implementing logics of companion follower for stalkers.
  */
 export class SchemeCompanion extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.COMPANION;

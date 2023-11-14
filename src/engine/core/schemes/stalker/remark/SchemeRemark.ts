@@ -16,7 +16,7 @@ import { ActionPlanner, EScheme, ESchemeType, GameObject, IniFile, TSection } fr
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Scheme implementing remark logics of transitions between scenarios.
  */
 export class SchemeRemark extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.REMARK;

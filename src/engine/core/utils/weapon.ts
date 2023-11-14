@@ -16,7 +16,8 @@ export function isObjectStrappingWeapon(object: GameObject): boolean {
 }
 
 /**
- * todo;
+ * @param object - target game object to check weapon state for
+ * @returns whether object is in locked state for the object
  */
 export function isObjectWeaponLocked(object: GameObject): boolean {
   const bestWeapon: Optional<GameObject> = object.best_weapon();

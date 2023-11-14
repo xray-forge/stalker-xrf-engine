@@ -12,7 +12,7 @@ export interface ISchemeSleeperState extends IBaseSchemeState {
 }
 
 /**
- * todo;
+ * State of stalker with active sleeper scheme.
  */
 export enum ESleeperState {
   WALKING = 0,

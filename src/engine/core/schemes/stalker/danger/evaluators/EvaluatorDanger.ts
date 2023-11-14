@@ -11,7 +11,7 @@ import { MAX_U16 } from "@/engine/lib/constants/memory";
 import { ActionPlanner, DangerObject, Optional, ServerCreatureObject } from "@/engine/lib/types";
 
 /**
- * todo;
+ * Evaluator to check whether any danger is active.
  */
 @LuabindClass()
 export class EvaluatorDanger extends property_evaluator {

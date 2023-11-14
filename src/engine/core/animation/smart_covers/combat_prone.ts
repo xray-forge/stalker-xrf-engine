@@ -5,7 +5,7 @@ import { ISmartCoverDescriptor } from "@/engine/core/animation/smart_covers/type
 import { MX_VECTOR, ZERO_VECTOR } from "@/engine/lib/constants/vectors";
 
 /**
- * todo;
+ * @returns descriptor of combat prone smart covers
  */
 export function getSmartCoverCombatProne(): ISmartCoverDescriptor {
   return {

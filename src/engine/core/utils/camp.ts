@@ -118,9 +118,7 @@ export function canPlayCampGuitar(campManager: CampManager): boolean {
 }
 
 /**
- * todo;
- *
- * @param campManager - manager to check
+ * @param campManager - manager instance to check
  * @returns whether harmonica can be played in camp
  */
 export function canPlayCampHarmonica(campManager: CampManager): boolean {

@@ -16,7 +16,6 @@ import {
   ServerCreatureObject,
   TCount,
   TDistance,
-  TName,
   TNumberId,
   TRate,
   Vector,

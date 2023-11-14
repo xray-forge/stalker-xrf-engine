@@ -7,7 +7,7 @@ import { create2dVector } from "@/engine/core/utils/vector";
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * UI component of video settings tab in options.
  */
 @LuabindClass()
 export class OptionsVideo extends CUIWindow {

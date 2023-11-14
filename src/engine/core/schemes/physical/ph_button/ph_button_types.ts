@@ -3,7 +3,7 @@ import { IConfigSwitchConditionsDescriptor } from "@/engine/core/utils/ini/ini_t
 import { Optional, TLabel } from "@/engine/lib/types";
 
 /**
- * todo;
+ * State of button logics implementing scheme.
  */
 export interface ISchemePhysicalButtonState extends IBaseSchemeState {
   onPress: Optional<IConfigSwitchConditionsDescriptor>;

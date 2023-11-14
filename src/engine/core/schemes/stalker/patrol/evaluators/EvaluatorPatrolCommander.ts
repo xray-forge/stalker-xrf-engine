@@ -7,7 +7,7 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Evaluate whether object is patrol commander.
  */
 @LuabindClass()
 export class EvaluatorPatrolCommander extends property_evaluator {

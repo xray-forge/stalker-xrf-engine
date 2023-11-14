@@ -10,7 +10,7 @@ import {
 import { TSection } from "@/engine/lib/types";
 
 /**
- * todo;
+ * List item describing game item in items debugging section.
  */
 @LuabindClass()
 export class DebugItemListEntry extends CUIListBoxItem {

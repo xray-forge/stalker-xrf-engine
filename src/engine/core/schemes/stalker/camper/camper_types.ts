@@ -22,7 +22,7 @@ export interface ICampPoint {
 }
 
 /**
- * todo;
+ * Camper scheme state.
  */
 export interface ISchemeCamperState extends IBaseSchemeState {
   pathWalk: TName;

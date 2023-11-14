@@ -17,7 +17,7 @@ import { EScheme, ESchemeType, TSection } from "@/engine/lib/types/scheme";
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Scheme implementing walker patrols logics for stalkers.
  */
 export class SchemeWalker extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.WALKER;

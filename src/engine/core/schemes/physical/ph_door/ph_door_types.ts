@@ -3,7 +3,7 @@ import type { IBoneStateDescriptor, IConfigSwitchConditionsDescriptor } from "@/
 import type { LuaArray, Optional, TLabel } from "@/engine/lib/types";
 
 /**
- * todo;
+ * State of door scheme.
  */
 export interface ISchemePhysicalDoorState extends IBaseSchemeState {
   closed: boolean;

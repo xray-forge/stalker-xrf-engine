@@ -5,7 +5,7 @@ import type { IWaypointData } from "@/engine/core/utils/ini/ini_types";
 import type { LuaArray, Optional, TName } from "@/engine/lib/types";
 
 /**
- * todo;
+ * Walker scheme state.
  */
 export interface ISchemeWalkerState extends IBaseSchemeState {
   useCamp: boolean;

@@ -1,5 +1,5 @@
 /**
- * todo;
+ * Squad action type within alife simulation.
  */
 export enum ESquadActionType {
   STAY_ON_TARGET = "stay_on_target",

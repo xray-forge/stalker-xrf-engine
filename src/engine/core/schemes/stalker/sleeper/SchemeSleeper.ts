@@ -15,7 +15,7 @@ import { EScheme, ESchemeType, TSection } from "@/engine/lib/types/scheme";
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Scheme implementing sleeping logics at some specific smart terrain places.
  */
 export class SchemeSleeper extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.SLEEPER;

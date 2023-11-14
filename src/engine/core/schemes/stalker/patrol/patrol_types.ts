@@ -5,7 +5,7 @@ import type { IWaypointData } from "@/engine/core/utils/ini/ini_types";
 import type { LuaArray, Optional, TName } from "@/engine/lib/types";
 
 /**
- * todo;
+ * State of scheme implementing patrol.
  */
 export interface ISchemePatrolState extends IBaseSchemeState {
   pathName: TName;

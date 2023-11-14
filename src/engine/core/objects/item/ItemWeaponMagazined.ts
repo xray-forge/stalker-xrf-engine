@@ -12,7 +12,7 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Magazined weapon server object representation.
  */
 @LuabindClass()
 export class ItemWeaponMagazined extends cse_alife_item_weapon_magazined {

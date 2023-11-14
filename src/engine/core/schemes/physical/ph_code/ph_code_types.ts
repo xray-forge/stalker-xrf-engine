@@ -3,7 +3,7 @@ import type { IConfigSwitchConditionsDescriptor, TConditionList } from "@/engine
 import type { Optional, TLabel, TName } from "@/engine/lib/types";
 
 /**
- * todo;
+ * State of code implementing scheme.
  */
 export interface ISchemeCodeState extends IBaseSchemeState {
   tips: TLabel;

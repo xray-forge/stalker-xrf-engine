@@ -36,7 +36,7 @@ let ctrl: boolean = false;
 let focusedEb: number = 0;
 
 /**
- * todo;
+ * Game spy multiplayer UI component.
  */
 @LuabindClass()
 export class MultiplayerGameSpy extends CUIScriptWnd {

@@ -3,6 +3,7 @@ import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { TAbstractSchemeConstructor } from "@/engine/core/ai/scheme";
 import {
   CUSTOM_DATA,
+  IBaseSchemeState,
   IRegistryObjectState,
   registerActor,
   registerObject,
@@ -64,7 +65,7 @@ describe("scheme initialization utils", () => {
 
     schemes.forEach((it) => {
       jest.spyOn(it, "disable").mockImplementation(() => {});
-      jest.spyOn(it, "activate").mockImplementation(() => {});
+      jest.spyOn(it, "activate").mockImplementation(() => ({}) as IBaseSchemeState);
       jest.spyOn(it, "reset").mockImplementation(() => {});
     });
 
@@ -139,7 +140,7 @@ describe("scheme initialization utils", () => {
 
     schemes.forEach((it) => {
       jest.spyOn(it, "disable").mockImplementation(() => {});
-      jest.spyOn(it, "activate").mockImplementation(() => {});
+      jest.spyOn(it, "activate").mockImplementation(() => ({}) as IBaseSchemeState);
       jest.spyOn(it, "reset").mockImplementation(() => {});
     });
 
@@ -204,7 +205,7 @@ describe("scheme initialization utils", () => {
 
     schemes.forEach((it) => {
       jest.spyOn(it, "disable").mockImplementation(() => {});
-      jest.spyOn(it, "activate").mockImplementation(() => {});
+      jest.spyOn(it, "activate").mockImplementation(() => ({}) as IBaseSchemeState);
       jest.spyOn(it, "reset").mockImplementation(() => {});
     });
 
@@ -257,7 +258,7 @@ describe("scheme initialization utils", () => {
 
     schemes.forEach((it) => {
       jest.spyOn(it, "disable").mockImplementation(() => {});
-      jest.spyOn(it, "activate").mockImplementation(() => {});
+      jest.spyOn(it, "activate").mockImplementation(() => ({}) as IBaseSchemeState);
       jest.spyOn(it, "reset").mockImplementation(() => {});
     });
 
@@ -321,4 +322,6 @@ describe("scheme initialization utils", () => {
       object.id()
     );
   });
+
+  it.todo("setupObjectSmartJobsAndLogicOnSpawn should correctly setup jobs and logics");
 });

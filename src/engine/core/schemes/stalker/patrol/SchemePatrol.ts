@@ -22,7 +22,7 @@ import { EScheme, ESchemeType, TSection } from "@/engine/lib/types/scheme";
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Scheme implementing stalker patrol logics.
  */
 export class SchemePatrol extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.PATROL;

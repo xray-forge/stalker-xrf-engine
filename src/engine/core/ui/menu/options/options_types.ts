@@ -1,7 +1,7 @@
 /* eslint sort-keys-fix/sort-keys-fix: "error" */
 
 /**
- * todo;
+ * Available option groups for toggling in game settings menu.
  */
 export enum EOptionGroup {
   KEY_BINDINGS = "key_binding",

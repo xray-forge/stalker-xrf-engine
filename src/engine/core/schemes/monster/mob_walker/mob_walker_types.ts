@@ -4,7 +4,7 @@ import type { EMonsterState } from "@/engine/lib/constants/monsters";
 import type { LuaArray, Optional, TName } from "@/engine/lib/types";
 
 /**
- * todo;
+ * State of mob walker scheme state.
  */
 export interface ISchemeMobWalkerState extends IBaseSchemeState {
   pathWalk: TName;
@@ -16,7 +16,7 @@ export interface ISchemeMobWalkerState extends IBaseSchemeState {
 }
 
 /**
- * todo;
+ * Mob walker object state.
  */
 export enum EMobWalkerState {
   MOVING = 0,
