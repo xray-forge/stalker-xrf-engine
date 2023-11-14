@@ -7,7 +7,7 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Evaluator to check if current combat type is camper combat.
  */
 @LuabindClass()
 export class EvaluatorCombatCamper extends property_evaluator {

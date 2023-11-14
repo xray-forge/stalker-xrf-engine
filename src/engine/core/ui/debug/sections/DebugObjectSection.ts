@@ -23,7 +23,7 @@ const logger: LuaLogger = new LuaLogger($filename);
 const base: TPath = "menu\\debug\\DebugObjectSection.component";
 
 /**
- * todo;
+ * Debug game objects section (squads, monsters, stalkers etc).
  */
 @LuabindClass()
 export class DebugObjectSection extends AbstractDebugSection {

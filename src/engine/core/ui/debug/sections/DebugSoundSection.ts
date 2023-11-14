@@ -9,7 +9,7 @@ const logger: LuaLogger = new LuaLogger($filename);
 const base: TPath = "menu\\debug\\DebugSoundSection.component";
 
 /**
- * todo;
+ * Debug game sounds section.
  */
 @LuabindClass()
 export class DebugSoundSection extends AbstractDebugSection {

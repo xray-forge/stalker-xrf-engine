@@ -9,7 +9,7 @@ const logger: LuaLogger = new LuaLogger($filename);
 const base: TPath = "menu\\debug\\DebugPositionSection.component";
 
 /**
- * todo;
+ * Debug section to handle display of current actor positioning.
  */
 @LuabindClass()
 export class DebugPositionSection extends AbstractDebugSection {

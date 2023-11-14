@@ -10,7 +10,7 @@ import {
 import { TLabel, TNumberId, Vector } from "@/engine/lib/types";
 
 /**
- * todo;
+ * List entry of teleport options in debug menu.
  */
 @LuabindClass()
 export class DebugTeleportListEntry extends CUIListBoxItem {

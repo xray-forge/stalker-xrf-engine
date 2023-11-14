@@ -15,7 +15,7 @@ import { ActionPlanner, EScheme, ESchemeType, GameObject, IniFile, TSection } fr
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Scheme implementing logics of staying in smart cover for stalkers.
  */
 export class SchemeSmartCover extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.SMARTCOVER;

@@ -11,15 +11,12 @@ const logger: LuaLogger = new LuaLogger($filename);
 const base: TPath = "menu\\debug\\DebugCommandsSection.component";
 
 /**
- * todo;
+ * Debug section to handle console commands shortcuts.
  */
 @LuabindClass()
 export class DebugCommandsSection extends AbstractDebugSection {
   public uiCommandsList!: CUIScrollView;
 
-  /**
-   * todo: Description.
-   */
   public initializeControls(): void {
     const console: CConsole = get_console();
 

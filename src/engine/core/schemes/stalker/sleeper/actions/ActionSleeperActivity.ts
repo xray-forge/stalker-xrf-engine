@@ -22,7 +22,7 @@ import {
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Action to handle sleeping state of stalkers.
  */
 @LuabindClass()
 export class ActionSleeperActivity extends action_base implements ISchemeEventHandler {
@@ -47,9 +47,6 @@ export class ActionSleeperActivity extends action_base implements ISchemeEventHa
     this.wasReset = false;
   }
 
-  /**
-   * Reset scheme state and object positioning for new sleeping activity.
-   */
   public override initialize(): void {
     super.initialize();
 
@@ -59,10 +56,6 @@ export class ActionSleeperActivity extends action_base implements ISchemeEventHa
     this.reset();
   }
 
-  /**
-   * Handle execution of action.
-   * Walk to needed place and start sleeping.
-   */
   public override execute(): void {
     super.execute();
 
@@ -83,18 +76,12 @@ export class ActionSleeperActivity extends action_base implements ISchemeEventHa
      */
   }
 
-  /**
-   * todo: Description.
-   */
   public override finalize(): void {
     // --  GlobalSound:set_sound(this.object, null)
     this.patrolManager.finalize();
     super.finalize();
   }
 
-  /**
-   * todo: Description.
-   */
   public activate(): void {
     this.wasReset = false;
   }

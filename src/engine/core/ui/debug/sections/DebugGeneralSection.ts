@@ -99,7 +99,7 @@ export class DebugGeneralSection extends AbstractDebugSection {
   }
 
   /**
-   * todo: Description.
+   * Handle collection of LUA garbage on button click.
    */
   public onCollectMemoryButtonClick(): void {
     logger.info("Collect memory garbage");
@@ -109,7 +109,7 @@ export class DebugGeneralSection extends AbstractDebugSection {
   }
 
   /**
-   * todo: Description.
+   * Handle `toggle profiling` button to turn on or turn off profiling mode.
    */
   public onToggleProfilingButtonClick(): void {
     const profilingManager: ProfilingManager = ProfilingManager.getInstance();
@@ -129,7 +129,7 @@ export class DebugGeneralSection extends AbstractDebugSection {
   }
 
   /**
-   * todo: Description.
+   * Handle click on `log profiling stats` button to display profiling debug information in game console.
    */
   public onLogProfilingStatsButtonClick(): void {
     const profilingManager: ProfilingManager = ProfilingManager.getInstance();
@@ -142,7 +142,7 @@ export class DebugGeneralSection extends AbstractDebugSection {
   }
 
   /**
-   * todo: Description.
+   * Handle click on `log` button to display generic debug information in game console.
    */
   public onLogPortionsStatsButtonClick(): void {
     ProfilingManager.getInstance().logProfilingPortionsStats();
@@ -166,7 +166,7 @@ export class DebugGeneralSection extends AbstractDebugSection {
   }
 
   /**
-   * todo: Description.
+   * Handle refreshing of used RAM in game UI display elements.
    */
   public onRefreshMemoryButtonClick(): void {
     logger.info("Collect memory usage");
@@ -175,7 +175,7 @@ export class DebugGeneralSection extends AbstractDebugSection {
   }
 
   /**
-   * todo: Description.
+   * @returns label to display used RAM
    */
   public getUsedMemoryLabel(): string {
     return string.format("RAM: %.03f MB", ProfilingManager.getInstance().getLuaMemoryUsed() / 1024);

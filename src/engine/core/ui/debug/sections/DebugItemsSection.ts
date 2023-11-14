@@ -34,7 +34,8 @@ enum EItemCategory {
 }
 
 /**
- * todo;
+ * Debug list of accessible actions.
+ * Allows navigation over available items and spawning them.
  */
 @LuabindClass()
 export class DebugItemsSection extends AbstractDebugSection {

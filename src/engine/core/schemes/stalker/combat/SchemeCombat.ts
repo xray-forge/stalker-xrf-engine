@@ -18,7 +18,7 @@ import { EScheme, ESchemeType, TSection } from "@/engine/lib/types/scheme";
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Scheme implementing stalker combat types.
  */
 export class SchemeCombat extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.COMBAT;

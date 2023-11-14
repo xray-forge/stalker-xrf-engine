@@ -22,7 +22,7 @@ enum ESpawnCategory {
 }
 
 /**
- * todo;
+ * Debug section to handle spawning of squads / creatures.
  */
 @LuabindClass()
 export class DebugSpawnSection extends AbstractDebugSection {

@@ -2,7 +2,7 @@ import type { IBaseSchemeState } from "@/engine/core/database/database_types";
 import type { TName, TProbability, TRate } from "@/engine/lib/types";
 
 /**
- * todo;
+ * State of psy antenna scheme.
  */
 export interface ISchemePsyAntennaState extends IBaseSchemeState {
   intensity: TRate;
@@ -17,7 +17,7 @@ export interface ISchemePsyAntennaState extends IBaseSchemeState {
 }
 
 /**
- * todo;
+ * Possible states of psy antenna.
  */
 export enum EAntennaState {
   OUTSIDE = 0,

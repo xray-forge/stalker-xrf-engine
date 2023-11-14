@@ -9,7 +9,7 @@ const logger: LuaLogger = new LuaLogger($filename);
 const base: TPath = "menu\\debug\\DebugPlayerSection.component";
 
 /**
- * todo;
+ * Debug section to display / handle actor state.
  */
 @LuabindClass()
 export class DebugPlayerSection extends AbstractDebugSection {
