@@ -50,7 +50,10 @@ export function transferLoot(from: GameObject, to: GameObject): LuaArray<GameObj
 }
 
 /**
- * todo;
+ * Get nearest corpse for game object.
+ *
+ * @param object - target game object to get nearest corpse
+ * @returns tuple with object, vertex id, position
  */
 export function getNearestCorpseToLoot(
   object: GameObject

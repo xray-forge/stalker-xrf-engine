@@ -267,9 +267,7 @@ export function getObjectPositioning(object: AnyGameObject): LuaMultiReturn<[TNu
 }
 
 /**
- * todo;
- * todo;
- * todo;
+ * @returns whether actor is inside any no weapon zone
  */
 export function isActorInNoWeaponZone(): boolean {
   for (const [, isActive] of registry.noWeaponZones) {

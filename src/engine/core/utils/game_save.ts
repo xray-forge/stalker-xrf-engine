@@ -26,7 +26,7 @@ import {
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * @returns list of game saves file system items
  */
 export function getGameSavesList(): LuaArray<FSItem> {
   const savesList: LuaArray<FSItem> = new LuaTable();
