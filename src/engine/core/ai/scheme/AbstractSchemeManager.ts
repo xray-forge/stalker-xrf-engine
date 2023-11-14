@@ -17,7 +17,7 @@ export abstract class AbstractSchemeManager<T extends IBaseSchemeState> implemen
     this.state = state;
   }
 
-  public activate(isLoading: boolean, object: GameObject): void {
+  public activate(object: GameObject, isLoading: boolean): void {
     // logger.info("Reset scheme:", this.state?.scheme, this.object.name());
   }
 

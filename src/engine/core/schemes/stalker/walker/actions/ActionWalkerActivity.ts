@@ -54,9 +54,6 @@ export class ActionWalkerActivity extends action_base implements ISchemeEventHan
     }
   }
 
-  /**
-   * Initialize action and start processing of walker action.
-   */
   public override initialize(): void {
     logger.info("Activate walker scheme:", this.object.name());
 
@@ -68,9 +65,6 @@ export class ActionWalkerActivity extends action_base implements ISchemeEventHan
     this.reset(false, this.object);
   }
 
-  /**
-   * todo: Description.
-   */
   public override finalize(): void {
     logger.info("Deactivate walker scheme:", this.object.name());
 
@@ -84,10 +78,7 @@ export class ActionWalkerActivity extends action_base implements ISchemeEventHan
     super.finalize();
   }
 
-  /**
-   * todo: Description.
-   */
-  public activate(isLoading: boolean, object: GameObject): void {
+  public activate(object: GameObject, isLoading: boolean): void {
     this.state.signals = new LuaTable();
     this.reset(isLoading, object);
   }
@@ -114,9 +105,6 @@ export class ActionWalkerActivity extends action_base implements ISchemeEventHan
     );
   }
 
-  /**
-   * todo: Description.
-   */
   public override execute(): void {
     super.execute();
 
@@ -140,9 +128,6 @@ export class ActionWalkerActivity extends action_base implements ISchemeEventHan
     }
   }
 
-  /**
-   * todo: Description.
-   */
   public update(): void {
     if (this.campStoryManager === null) {
       return;
@@ -160,9 +145,6 @@ export class ActionWalkerActivity extends action_base implements ISchemeEventHan
     setStalkerState(this.object, anim);
   }
 
-  /**
-   * todo: Description.
-   */
   public onSwitchOffline(object: GameObject): void {
     if (this.isInCamp === true) {
       this.campStoryManager!.unregisterObject(object.id());

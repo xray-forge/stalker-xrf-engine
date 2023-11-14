@@ -153,7 +153,7 @@ export interface ISchemeEventHandler {
    * @param object - target game object activation happen for
    * @param isLoading - whether activation happen on load or during active game
    */
-  activate?(isLoading: boolean, object: GameObject): void;
+  activate?(object: GameObject, isLoading: boolean): void;
   /**
    * Handle schema deactivation event.
    *

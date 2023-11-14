@@ -40,7 +40,7 @@ export class AnimpointManager extends AbstractSchemeManager<ISchemeAnimpointStat
   public smartCoverDirection: Optional<Vector> = null;
   public lookPosition: Optional<Vector> = null;
 
-  public override activate(isLoading: boolean, object: GameObject): void {
+  public override activate(object: GameObject): void {
     logger.info("Activate animpoint scheme:", object.name());
 
     this.state.signals = new LuaTable();

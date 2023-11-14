@@ -37,9 +37,6 @@ export class HelicopterMoveManager extends AbstractSchemeManager<ISchemeHelicopt
   public byStopFireFly: Optional<boolean> = null;
   public stopPoint: Optional<Vector> = null;
 
-  /**
-   * todo: Description.
-   */
   public constructor(object: GameObject, state: ISchemeHelicopterMoveState) {
     super(object, state);
 
@@ -50,10 +47,7 @@ export class HelicopterMoveManager extends AbstractSchemeManager<ISchemeHelicopt
     this.heliLook = getHeliLooker(object);
   }
 
-  /**
-   * todo: Description.
-   */
-  public override activate(loading?: boolean): void {
+  public override activate(object: GameObject, loading?: boolean): void {
     this.state.signals = new LuaTable();
     this.heliObject.TurnEngineSound(this.state.engine_sound);
 
@@ -156,9 +150,6 @@ export class HelicopterMoveManager extends AbstractSchemeManager<ISchemeHelicopt
     }
   }
 
-  /**
-   * todo: Description.
-   */
   public save(): void {
     setPortableStoreValue(this.object.id(), "st", this.heliState);
     // ---
@@ -168,9 +159,6 @@ export class HelicopterMoveManager extends AbstractSchemeManager<ISchemeHelicopt
     setPortableStoreValue(this.object.id(), "wc", this.wasCallback);
   }
 
-  /**
-   * todo: Description.
-   */
   public update(delta: number): void {
     if (trySwitchToAnotherSection(this.object, this.state)) {
       return;

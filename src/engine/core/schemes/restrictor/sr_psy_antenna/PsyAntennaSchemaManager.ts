@@ -21,7 +21,7 @@ export class PsyAntennaSchemaManager extends AbstractSchemeManager<ISchemePsyAnt
   public antennaState: EAntennaState = EAntennaState.VOID;
   public antennaManager: PsyAntennaManager = PsyAntennaManager.getInstance();
 
-  public override activate(loading?: boolean): void {
+  public override activate(object: GameObject, loading?: boolean): void {
     logger.info("Activate antenna manager");
 
     if (loading) {
@@ -137,9 +137,6 @@ export class PsyAntennaSchemaManager extends AbstractSchemeManager<ISchemePsyAnt
     }
   }
 
-  /**
-   * todo: Description.
-   */
   public save(): void {
     setPortableStoreValue(this.object.id(), "inside", this.antennaState);
   }

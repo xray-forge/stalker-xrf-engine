@@ -51,9 +51,6 @@ export class ActionCloseCombat extends action_base implements ISchemeEventHandle
     this.state.scanTable = new LuaTable();
   }
 
-  /**
-   * todo: Description.
-   */
   public override initialize(): void {
     super.initialize();
 
@@ -64,9 +61,6 @@ export class ActionCloseCombat extends action_base implements ISchemeEventHandle
     this.enemyPosition = null;
   }
 
-  /**
-   * todo: Description.
-   */
   public activate(): void {
     this.reset();
   }
