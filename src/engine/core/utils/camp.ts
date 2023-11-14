@@ -77,8 +77,6 @@ export function canTellCampStory(campManager: CampManager): boolean {
 }
 
 /**
- * todo;
- *
  * @param campManager - manager to check
  * @returns whether guitar can be played in camp
  */

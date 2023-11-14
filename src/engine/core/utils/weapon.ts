@@ -87,7 +87,9 @@ export function getWeaponActionForAnimationState(targetState: EStalkerState): TX
 }
 
 /**
- * todo;
+ * @param object - target game object to get weapon from
+ * @param targetState - animation state to get weapon for
+ * @returns weapon matching desired animation state or null
  */
 export function getObjectWeaponForAnimationState(object: GameObject, targetState: EStalkerState): Optional<GameObject> {
   const weaponSlot: Optional<TIndex> = states.get(targetState).weaponSlot as Optional<TIndex>;

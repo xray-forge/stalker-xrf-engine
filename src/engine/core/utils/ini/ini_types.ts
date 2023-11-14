@@ -77,8 +77,6 @@ export interface IConfigSwitchCondition {
   readonly infop_set: LuaArray<IConfigCondition>;
 }
 
-export type TStringConditionList = string;
-
 export type TConditionList = LuaArray<IConfigSwitchCondition>;
 
 /**

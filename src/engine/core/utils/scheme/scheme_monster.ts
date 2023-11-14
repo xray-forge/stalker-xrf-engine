@@ -14,7 +14,10 @@ export function isMonsterScriptCaptured(object: GameObject): boolean {
 }
 
 /**
- * todo;
+ * Reset monster active scripted actions.
+ *
+ * @param object - target game object to reset state for
+ * @param scriptName - name of the script active after reset
  */
 export function resetMonsterAction(object: GameObject, scriptName: TName): void {
   if (object.get_script()) {
