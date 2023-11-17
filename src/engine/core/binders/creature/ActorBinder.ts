@@ -3,13 +3,13 @@ import { callback, level, LuabindClass, object_binder } from "xray16";
 import {
   closeLoadMarker,
   closeSaveMarker,
-  destroyPortableStore,
   initializePortableStore,
   loadPortableStore,
   openLoadMarker,
   openSaveMarker,
   registerActor,
   registry,
+  resetPortableStore,
   savePortableStore,
   unregisterActor,
 } from "@/engine/core/database";
@@ -49,12 +49,12 @@ export class ActorBinder extends object_binder {
   // todo: Move out deimos related logic / data.
   public deimosIntensity: Optional<number> = null;
 
-  public override net_spawn(data: ServerActorObject): boolean {
+  public override net_spawn(serverObject: ServerActorObject): boolean {
     logger.info("Actor go online");
 
     level.show_indicators();
 
-    if (!super.net_spawn(data)) {
+    if (!super.net_spawn(serverObject)) {
       return false;
     }
 
@@ -80,6 +80,7 @@ export class ActorBinder extends object_binder {
     this.object.set_callback(callback.article_info, null);
     this.object.set_callback(callback.on_item_take, null);
     this.object.set_callback(callback.on_item_drop, null);
+    this.object.set_callback(callback.trade_sell_buy_item, null);
     this.object.set_callback(callback.task_state, null);
     this.object.set_callback(callback.level_border_enter, null);
     this.object.set_callback(callback.level_border_exit, null);
@@ -94,42 +95,46 @@ export class ActorBinder extends object_binder {
   }
 
   public override reinit(): void {
-    logger.info("Re-init actor");
-
     super.reinit();
 
-    registerActor(this.object);
-    destroyPortableStore(ACTOR_ID);
+    const actor: GameObject = this.object;
+    const eventsManager: EventsManager = this.eventsManager;
 
-    this.object.set_callback(callback.inventory_info, (object: GameObject, info: string) => {
-      this.eventsManager.emitEvent(EGameEvent.ACTOR_INFO_UPDATE, object, info);
+    logger.info("Re-init actor");
+
+    registerActor(this.object);
+    resetPortableStore(ACTOR_ID);
+
+    actor.set_callback(callback.inventory_info, (object: GameObject, info: string) => {
+      eventsManager.emitEvent(EGameEvent.ACTOR_INFO_UPDATE, object, info);
     });
-    this.object.set_callback(callback.take_item_from_box, (box: GameObject, item: GameObject) => {
-      this.eventsManager.emitEvent(EGameEvent.ACTOR_TAKE_BOX_ITEM, box, item);
+    actor.set_callback(callback.take_item_from_box, (box: GameObject, item: GameObject) => {
+      eventsManager.emitEvent(EGameEvent.ACTOR_TAKE_BOX_ITEM, box, item);
     });
-    this.object.set_callback(callback.on_item_drop, (item: GameObject) => {
-      this.eventsManager.emitEvent(EGameEvent.ACTOR_ITEM_DROP, item);
+    actor.set_callback(callback.on_item_take, (object: GameObject) => {
+      eventsManager.emitEvent(EGameEvent.ACTOR_ITEM_TAKE, object);
     });
-    this.object.set_callback(callback.trade_sell_buy_item, (item: GameObject, sellBuy: boolean, money: number) => {
-      this.eventsManager.emitEvent(EGameEvent.ACTOR_TRADE, item, sellBuy, money);
+    actor.set_callback(callback.on_item_drop, (item: GameObject) => {
+      eventsManager.emitEvent(EGameEvent.ACTOR_ITEM_DROP, item);
     });
-    this.object.set_callback(callback.task_state, (task: GameTask, state: TTaskState) => {
-      this.eventsManager.emitEvent(EGameEvent.TASK_STATE_UPDATE, task, state);
+    actor.set_callback(callback.trade_sell_buy_item, (item: GameObject, sellBuy: boolean, money: number) => {
+      eventsManager.emitEvent(EGameEvent.ACTOR_TRADE, item, sellBuy, money);
     });
-    this.object.set_callback(callback.on_item_take, (object: GameObject) => {
-      this.eventsManager.emitEvent(EGameEvent.ACTOR_ITEM_TAKE, object);
+    actor.set_callback(callback.task_state, (task: GameTask, state: TTaskState) => {
+      eventsManager.emitEvent(EGameEvent.TASK_STATE_UPDATE, task, state);
     });
-    this.object.set_callback(callback.use_object, (object: GameObject) => {
-      this.eventsManager.emitEvent(EGameEvent.ACTOR_USE_ITEM, object);
+    actor.set_callback(callback.use_object, (object: GameObject) => {
+      eventsManager.emitEvent(EGameEvent.ACTOR_USE_ITEM, object);
     });
+
+    // todo: article_info info callback.
+    // todo: level_border_enter info callback.
+    // todo: level_border_exit info callback.
 
     // At re-init allow alife to do batched updates.
     setUnlimitedAlifeObjectsUpdate();
-    this.eventsManager.registerGameTimeout(
-      () => setStableAlifeObjectsUpdate(),
-      alifeConfig.OBJECT_INITIAL_SPAWN_BUFFER_TIME
-    );
 
+    this.eventsManager.registerGameTimeout(setStableAlifeObjectsUpdate, alifeConfig.OBJECT_INITIAL_SPAWN_BUFFER_TIME);
     this.eventsManager.emitEvent(EGameEvent.ACTOR_REINIT, this);
   }
 
@@ -144,7 +149,7 @@ export class ActorBinder extends object_binder {
     this.eventsManager.emitEvent(EGameEvent.ACTOR_UPDATE, delta, this);
     this.eventsManager.tick();
 
-    // todo: Probably part of sim manager?
+    // todo: Probably part of simulation manager?
     updateSimulationObjectAvailability(registry.actorServer);
   }
 

@@ -171,7 +171,7 @@ export function loadPortableStore(objectId: TNumberId, reader: NetProcessor): vo
 /**
  * Initialize object portable store if it does not exist.
  *
- * @param objectId - client game object id for portable store initialization
+ * @param objectId - game object id for portable store initialization
  */
 export function initializePortableStore(objectId: TNumberId): void {
   const state: IRegistryObjectState = registry.objects.get(objectId);
@@ -182,14 +182,19 @@ export function initializePortableStore(objectId: TNumberId): void {
 }
 
 /**
- * Initialize object portable store if it does not exist.
+ * Destroy object portable store if it is defined.
  *
- * @param objectId - client game object id for portable store destruction
+ * @param objectId - game object id for portable store destruction
  */
 export function destroyPortableStore(objectId: TNumberId): void {
-  const state: Optional<IRegistryObjectState> = registry.objects.get(objectId);
+  registry.objects.get(objectId).portableStore = null;
+}
 
-  if (state !== null) {
-    state.portableStore = null;
-  }
+/**
+ * Reset object portable store if it does not exist.
+ *
+ * @param objectId - game object id for portable store reset
+ */
+export function resetPortableStore(objectId: TNumberId): void {
+  registry.objects.get(objectId).portableStore = new LuaTable();
 }

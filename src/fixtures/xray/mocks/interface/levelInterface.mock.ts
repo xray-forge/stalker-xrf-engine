@@ -44,6 +44,7 @@ export const mockLevelInterface = {
   remove_cam_effector: jest.fn(),
   set_snd_volume: jest.fn((volume: number) => {}),
   show_indicators: jest.fn(),
+  show_weapon: jest.fn(),
   vertex_position: jest.fn(() => MockVector.create(15, 14, 16)),
   set_weather: jest.fn(),
   stop_weather_fx: jest.fn(),

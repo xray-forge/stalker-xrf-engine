@@ -8,11 +8,12 @@ import {
   initializePortableStore,
   isValidPortableStoreValue,
   loadPortableStore,
+  resetPortableStore,
   savePortableStore,
   setPortableStoreValue,
 } from "@/engine/core/database/portable_store";
 import { registry } from "@/engine/core/database/registry";
-import { GameObject } from "@/engine/lib/types";
+import { GameObject, Optional } from "@/engine/lib/types";
 import { EPacketDataType, mockGameObject, mockNetPacket, MockNetProcessor, mockNetProcessor } from "@/fixtures/xray";
 
 describe("portable_store functionality", () => {
@@ -46,6 +47,17 @@ describe("portable_store functionality", () => {
     destroyPortableStore(object.id());
 
     expect(registry.objects.get(object.id()).portableStore).toBeNull();
+
+    resetPortableStore(object.id());
+
+    expect(registry.objects.get(object.id()).portableStore).toEqual(new LuaTable());
+
+    const previous: Optional<LuaTable<string>> = registry.objects.get(object.id()).portableStore;
+
+    resetPortableStore(object.id());
+
+    expect(registry.objects.get(object.id()).portableStore).toEqual(new LuaTable());
+    expect(registry.objects.get(object.id()).portableStore).not.toBe(previous);
   });
 
   it("should correctly set and get values by key", () => {

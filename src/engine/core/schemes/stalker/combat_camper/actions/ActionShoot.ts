@@ -9,7 +9,7 @@ import { TNumberId } from "@/engine/lib/types";
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * Scheme implementing shooting action for campter combat scheme.
+ * Scheme implementing shooting action for camper combat scheme.
  */
 @LuabindClass()
 export class ActionShoot extends action_base {
