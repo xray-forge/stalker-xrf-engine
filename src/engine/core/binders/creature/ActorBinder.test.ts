@@ -1,15 +1,31 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { callback, level } from "xray16";
 
-import { ActorBinder } from "@/engine/core/binders";
-import { IRegistryObjectState, registerSimulator, registry } from "@/engine/core/database";
+import { ActorBinder } from "@/engine/core/binders/creature/ActorBinder";
+import {
+  IRegistryObjectState,
+  registerSimulator,
+  registerZone,
+  registry,
+  setPortableStoreValue,
+} from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
+import { SaveManager } from "@/engine/core/managers/save";
 import { TSimulationObject } from "@/engine/core/managers/simulation";
+import { ISchemeDeimosState, SchemeDeimos } from "@/engine/core/schemes/restrictor/sr_deimos";
 import { setStableAlifeObjectsUpdate } from "@/engine/core/utils/alife";
-import { GameObject, ServerActorObject } from "@/engine/lib/types";
-import { mockRegisteredActor, resetRegistry } from "@/fixtures/engine";
+import { EScheme, GameObject, ServerActorObject } from "@/engine/lib/types";
+import { mockRegisteredActor, mockSchemeState, resetRegistry } from "@/fixtures/engine";
 import { resetFunctionMock } from "@/fixtures/jest";
-import { mockActorGameObject, mockServerAlifeCreatureActor } from "@/fixtures/xray";
+import {
+  EPacketDataType,
+  mockActorGameObject,
+  mockGameObject,
+  mockNetPacket,
+  MockNetProcessor,
+  mockNetReader,
+  mockServerAlifeCreatureActor,
+} from "@/fixtures/xray";
 
 describe("ActorBinder class", () => {
   beforeEach(() => {
@@ -144,5 +160,103 @@ describe("ActorBinder class", () => {
     expect(registry.simulationObjects.length()).toBe(0);
   });
 
-  it.todo("should correctly handle save/load");
+  it("should correctly handle save/load with default values", () => {
+    const { actorGameObject, actorServerObject } = mockRegisteredActor();
+    const saveManager: SaveManager = SaveManager.getInstance();
+    const netProcessor: MockNetProcessor = new MockNetProcessor();
+    const binder: ActorBinder = new ActorBinder(actorGameObject);
+
+    jest.spyOn(saveManager, "clientSave").mockImplementation(jest.fn());
+    jest.spyOn(saveManager, "clientLoad").mockImplementation(jest.fn());
+
+    binder.net_spawn(actorServerObject);
+    binder.reinit();
+    binder.save(mockNetPacket(netProcessor));
+
+    expect(saveManager.clientSave).toHaveBeenCalledWith(netProcessor);
+    expect(netProcessor.writeDataOrder).toEqual([
+      EPacketDataType.STRING,
+      EPacketDataType.U32,
+      EPacketDataType.BOOLEAN,
+      EPacketDataType.U16,
+    ]);
+    expect(netProcessor.dataList).toEqual(["save_from_ActorBinder", 0, false, 3]);
+
+    const newBinder: ActorBinder = new ActorBinder(actorGameObject);
+
+    newBinder.isFirstUpdatePerformed = true;
+    newBinder.load(mockNetReader(netProcessor));
+
+    expect(newBinder.isFirstUpdatePerformed).toBe(false);
+    expect(saveManager.clientLoad).toHaveBeenCalledWith(netProcessor);
+    expect(netProcessor.readDataOrder).toEqual(netProcessor.writeDataOrder);
+    expect(netProcessor.dataList).toHaveLength(0);
+  });
+
+  it("should correctly handle save/load with deimos and pstore values", () => {
+    const { actorGameObject, actorServerObject } = mockRegisteredActor();
+    const saveManager: SaveManager = SaveManager.getInstance();
+    const netProcessor: MockNetProcessor = new MockNetProcessor();
+    const binder: ActorBinder = new ActorBinder(actorGameObject);
+
+    const firstZone: GameObject = mockGameObject();
+    const secondZone: GameObject = mockGameObject();
+
+    registerZone(firstZone);
+    registerZone(secondZone);
+
+    const secondState: IRegistryObjectState = registry.objects.get(secondZone.id());
+
+    secondState.activeSection = SchemeDeimos.SCHEME_SECTION;
+    secondState[SchemeDeimos.SCHEME_SECTION] = mockSchemeState<ISchemeDeimosState>(EScheme.SR_DEIMOS, {
+      intensity: 11.5,
+    });
+
+    jest.spyOn(saveManager, "clientSave").mockImplementation(jest.fn());
+    jest.spyOn(saveManager, "clientLoad").mockImplementation(jest.fn());
+
+    binder.net_spawn(actorServerObject);
+    binder.reinit();
+
+    setPortableStoreValue(actorGameObject.id(), "test-1", "value");
+    setPortableStoreValue(actorGameObject.id(), "test-2", "value");
+
+    binder.save(mockNetPacket(netProcessor));
+
+    expect(saveManager.clientSave).toHaveBeenCalledWith(netProcessor);
+    expect(netProcessor.writeDataOrder).toEqual([
+      EPacketDataType.STRING,
+      EPacketDataType.U32,
+      EPacketDataType.STRING,
+      EPacketDataType.U8,
+      EPacketDataType.STRING,
+      EPacketDataType.STRING,
+      EPacketDataType.U8,
+      EPacketDataType.STRING,
+      EPacketDataType.BOOLEAN,
+      EPacketDataType.F32,
+      EPacketDataType.U16,
+    ]);
+    expect(netProcessor.dataList).toEqual([
+      "save_from_ActorBinder",
+      2,
+      "test-1",
+      1,
+      "value",
+      "test-2",
+      1,
+      "value",
+      true,
+      11.5,
+      10,
+    ]);
+
+    const newBinder: ActorBinder = new ActorBinder(actorGameObject);
+
+    newBinder.load(mockNetReader(netProcessor));
+
+    expect(saveManager.clientLoad).toHaveBeenCalledWith(netProcessor);
+    expect(netProcessor.readDataOrder).toEqual(netProcessor.writeDataOrder);
+    expect(netProcessor.dataList).toHaveLength(0);
+  });
 });

@@ -4,6 +4,7 @@ import {
   closeLoadMarker,
   closeSaveMarker,
   initializePortableStore,
+  IRegistryObjectState,
   loadPortableStore,
   openLoadMarker,
   openSaveMarker,
@@ -42,12 +43,11 @@ const logger: LuaLogger = new LuaLogger($filename);
  */
 @LuabindClass()
 export class ActorBinder extends object_binder {
-  public isFirstUpdatePerformed: boolean = false;
-
-  public eventsManager: EventsManager = EventsManager.getInstance();
+  public readonly eventsManager: EventsManager = EventsManager.getInstance();
 
   // todo: Move out deimos related logic / data.
   public deimosIntensity: Optional<number> = null;
+  public isFirstUpdatePerformed: boolean = false;
 
   public override net_spawn(serverObject: ServerActorObject): boolean {
     logger.info("Actor go online");
@@ -164,11 +164,16 @@ export class ActorBinder extends object_binder {
     // todo: Move out deimos logic. Probably store in pstore?
     let isDeimosExisting: boolean = false;
 
-    for (const [id, zone] of registry.zones) {
-      if (registry.objects.get(zone.id())?.activeSection === SchemeDeimos.SCHEME_SECTION) {
+    for (const [, zone] of registry.zones) {
+      const state: IRegistryObjectState = registry.objects.get(zone.id());
+
+      // todo: Probably should check scheme instead of section.
+      // todo: Only one deimos zone can exist, it is hardcoded.
+      // todo: Consider creating separate deimos manager or store in dynamic save file?
+      if (state.activeSection === SchemeDeimos.SCHEME_SECTION) {
         isDeimosExisting = true;
         packet.w_bool(true);
-        packet.w_float((registry.objects.get(zone.id())[SchemeDeimos.SCHEME_SECTION] as ISchemeDeimosState).intensity);
+        packet.w_float((state[SchemeDeimos.SCHEME_SECTION] as ISchemeDeimosState).intensity);
       }
     }
 
