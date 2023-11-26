@@ -15,7 +15,7 @@ import {
 import { ISchemeMeetState } from "@/engine/core/schemes/stalker/meet";
 import { MeetManager } from "@/engine/core/schemes/stalker/meet/MeetManager";
 import { abort } from "@/engine/core/utils/assertion";
-import { parseStringsList, readIniString } from "@/engine/core/utils/ini";
+import { readIniStringList } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { isObjectMeeting } from "@/engine/core/utils/planner";
 import { emitSchemeEvent } from "@/engine/core/utils/scheme";
@@ -66,13 +66,9 @@ export class CampManager {
     this.object = object;
     this.storyManager = getStoryManager(`camp_${this.object.id()}`);
 
-    this.availableSoundStories = parseStringsList(readIniString(ini, "camp", "stories", false, null, "test_story"));
-    this.availableGuitarStories = parseStringsList(
-      readIniString(ini, "camp", "guitar_themes", false, null, "test_guitar")
-    );
-    this.availableHarmonicaStories = parseStringsList(
-      readIniString(ini, "camp", "harmonica_themes", false, null, "test_harmonica")
-    );
+    this.availableSoundStories = readIniStringList(ini, "camp", "stories", false, "test_story");
+    this.availableGuitarStories = readIniStringList(ini, "camp", "guitar_themes", false, "test_guitar");
+    this.availableHarmonicaStories = readIniStringList(ini, "camp", "harmonica_themes", false, "test_harmonica");
   }
 
   /**
