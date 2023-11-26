@@ -32,7 +32,16 @@ import { MockVector } from "@/fixtures/xray/mocks/vector.mock";
 let ID_COUNTER: TNumberId = 1000;
 
 /**
- * Mock client game object.
+ * Abstract game object mock.
+ */
+export class MockGameObject {
+  public static mock(base: Partial<GameObject> = {}): GameObject {
+    return mockGameObject(base);
+  }
+}
+
+/**
+ * Mock game object.
  * It is defined as script_object in c++ and wraps all script objects currently online.
  */
 export function mockGameObject({

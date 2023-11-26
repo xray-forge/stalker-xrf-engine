@@ -7,6 +7,7 @@ import { IBaseSchemeState, IRegistryObjectState, registry } from "@/engine/core/
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import { soundsConfig } from "@/engine/core/managers/sounds/SoundsConfig";
 import { StoryManager } from "@/engine/core/managers/sounds/stories";
+import { getStoryManager } from "@/engine/core/managers/sounds/utils";
 import {
   IAnimpointActionDescriptor,
   ISchemeAnimpointState,
@@ -41,55 +42,37 @@ const logger: LuaLogger = new LuaLogger($filename);
  * In other cases checks are done with position verification.
  */
 export class CampManager {
-  /**
-   * Linked camp zone game object.
-   */
-  public object: GameObject;
-  /**
-   * Ini file describing camp parameters / logic.
-   */
+  public storyManager: StoryManager;
   public ini: IniFile;
+  public object: GameObject;
 
-  /**
-   * List of available stories in camp.
-   */
-  public storyTable: LuaArray<TName>;
-  public guitarTable: LuaArray<TName>;
-  public harmonicaTable: LuaArray<TName>;
+  public readonly availableSoundStories: LuaArray<TName>;
+  public readonly availableGuitarStories: LuaArray<TName>;
+  public readonly availableHarmonicaStories: LuaArray<TName>;
 
-  /**
-   * List of objects registered in camp.
-   */
+  // List of objects registered in camp.
   public objects: LuaTable<TNumberId, ICampObjectState> = new LuaTable();
-
-  /**
-   * ID of current story/action director.
-   */
   public directorId: Optional<TNumberId> = null;
   public idleTalkerId: Optional<TNumberId> = null;
 
-  public isSoundManagerStarted: boolean = true;
-  public storyManager: StoryManager;
+  public isStoryStarted: boolean = true;
 
   public activity: EObjectCampActivity = EObjectCampActivity.IDLE;
   public activitySwitchAt: TTimestamp = 0;
   public activityTimeout: TDuration = 0;
 
   public constructor(object: GameObject, ini: IniFile) {
-    this.object = object;
     this.ini = ini;
+    this.object = object;
+    this.storyManager = getStoryManager(`camp_${this.object.id()}`);
 
-    const stories: string = readIniString(ini, "camp", "stories", false, null, "test_story");
-    const guitars: string = readIniString(ini, "camp", "guitar_themes", false, null, "test_guitar");
-    const harmonicas: string = readIniString(ini, "camp", "harmonica_themes", false, null, "test_harmonica");
-
-    this.storyTable = parseStringsList(stories);
-    this.guitarTable = parseStringsList(guitars);
-    this.harmonicaTable = parseStringsList(harmonicas);
-
-    this.storyManager = StoryManager.getStoryManagerForId("camp" + this.object.id());
-
-    // logger.info("Created for:", object.name(), stories, guitars, harmonicas);
+    this.availableSoundStories = parseStringsList(readIniString(ini, "camp", "stories", false, null, "test_story"));
+    this.availableGuitarStories = parseStringsList(
+      readIniString(ini, "camp", "guitar_themes", false, null, "test_guitar")
+    );
+    this.availableHarmonicaStories = parseStringsList(
+      readIniString(ini, "camp", "harmonica_themes", false, null, "test_harmonica")
+    );
   }
 
   /**
@@ -102,7 +85,7 @@ export class CampManager {
     }
 
     // Nothing to process.
-    if (!this.isSoundManagerStarted) {
+    if (!this.isStoryStarted) {
       return;
     }
 
@@ -128,7 +111,7 @@ export class CampManager {
         }
       }
 
-      this.isSoundManagerStarted = false;
+      this.isStoryStarted = false;
 
       for (const [id] of this.objects) {
         const state: Optional<IRegistryObjectState> = registry.objects.get(id) as Optional<IRegistryObjectState>;
@@ -259,10 +242,10 @@ export class CampManager {
   public setStory(): void {
     if (this.activity === EObjectCampActivity.STORY) {
       this.storyManager.setStoryTeller(this.directorId);
-      this.storyManager.setActiveId(this.storyTable.get(math.random(this.storyTable.length())));
-      this.isSoundManagerStarted = true;
+      this.storyManager.setActiveId(this.availableSoundStories.get(math.random(this.availableSoundStories.length())));
+      this.isStoryStarted = true;
     } else if (this.activity === EObjectCampActivity.IDLE) {
-      this.isSoundManagerStarted = true;
+      this.isStoryStarted = true;
     }
   }
 
@@ -319,13 +302,13 @@ export class CampManager {
     logger.info("Unregister object from camp:", objectId);
 
     if (this.directorId === objectId) {
-      this.isSoundManagerStarted = false;
+      this.isStoryStarted = false;
       this.activitySwitchAt = 0;
       this.directorId = null;
 
       this.activity = EObjectCampActivity.IDLE;
-      for (const [k, v] of this.objects) {
-        v.state = this.activity;
+      for (const [, descriptor] of this.objects) {
+        descriptor.state = this.activity;
       }
     }
 

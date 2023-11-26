@@ -22,8 +22,10 @@ export function startPlayingGuitar(object: GameObject): void {
   const manager: CampManager = registry.camps.get(campId);
 
   manager.storyManager.setStoryTeller(manager.directorId);
-  manager.storyManager.setActiveId(manager.guitarTable.get(math.random(manager.guitarTable.length())));
-  manager.isSoundManagerStarted = true;
+  manager.storyManager.setActiveId(
+    manager.availableGuitarStories.get(math.random(manager.availableGuitarStories.length()))
+  );
+  manager.isStoryStarted = true;
   manager.storyManager.update();
 }
 
@@ -44,8 +46,10 @@ export function startPlayingHarmonica(object: GameObject): void {
   const manager: CampManager = registry.camps.get(campId);
 
   manager.storyManager.setStoryTeller(manager.directorId);
-  manager.storyManager.setActiveId(manager.harmonicaTable.get(math.random(manager.harmonicaTable.length())));
-  manager.isSoundManagerStarted = true;
+  manager.storyManager.setActiveId(
+    manager.availableHarmonicaStories.get(math.random(manager.availableHarmonicaStories.length()))
+  );
+  manager.isStoryStarted = true;
   manager.storyManager.update();
 }
 
@@ -57,7 +61,7 @@ export function startPlayingHarmonica(object: GameObject): void {
  */
 export function canTellCampStory(campManager: CampManager): boolean {
   // Nothing to tell here.
-  if (campManager.storyTable.length() === 0) {
+  if (campManager.availableSoundStories.length() === 0) {
     return false;
   }
 
@@ -82,7 +86,7 @@ export function canTellCampStory(campManager: CampManager): boolean {
  */
 export function canPlayCampGuitar(campManager: CampManager): boolean {
   // Nothing to play here.
-  if (campManager.guitarTable.length() === 0) {
+  if (campManager.availableGuitarStories.length() === 0) {
     return false;
   }
 
@@ -121,7 +125,7 @@ export function canPlayCampGuitar(campManager: CampManager): boolean {
  */
 export function canPlayCampHarmonica(campManager: CampManager): boolean {
   // Nothing to play here.
-  if (campManager.harmonicaTable.length() === 0) {
+  if (campManager.availableHarmonicaStories.length() === 0) {
     return false;
   }
 
