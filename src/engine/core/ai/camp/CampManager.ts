@@ -58,7 +58,7 @@ export class CampManager {
   public isStoryStarted: boolean = true;
 
   public activity: EObjectCampActivity = EObjectCampActivity.IDLE;
-  public activitySwitchAt: TTimestamp = 0;
+  public activitySwitchAt: TTimestamp = -1;
   public activityTimeout: TDuration = 0;
 
   public constructor(object: GameObject, ini: IniFile) {
@@ -280,7 +280,7 @@ export class CampManager {
       const role: EObjectCampRole = this.getObjectRole(objectId, activity);
 
       if (role === EObjectCampRole.NONE) {
-        abort("Wrong role for object '%d' in camp '['%s', activity '%s'.", "", objectId, this.object.name(), activity);
+        abort("Wrong role for object '%s' in camp '%s', activity '%s'.", objectId, this.object.name(), activity);
       }
 
       this.objects.get(objectId)[activity] = role;
@@ -288,7 +288,7 @@ export class CampManager {
 
     this.storyManager.registerObject(objectId);
 
-    emitSchemeEvent(state.object!, state[state.activeScheme!]!, ESchemeEvent.UPDATE);
+    emitSchemeEvent(state.object, state[state.activeScheme!]!, ESchemeEvent.UPDATE, -1);
   }
 
   /**
@@ -328,7 +328,7 @@ export class CampManager {
     ] as ISchemeAnimpointState;
 
     // Object is not captured in animation state scheme (sitting / laying / telling etc).
-    if (schemeState === null) {
+    if (!schemeState) {
       return EObjectCampRole.NONE;
     }
 
@@ -338,8 +338,9 @@ export class CampManager {
     switch (activity) {
       case EObjectCampActivity.HARMONICA:
       case EObjectCampActivity.GUITAR:
-        stalkerState = stalkerState + "_" + activity;
+        stalkerState += `_${activity}`;
 
+        // todo: Probably just for-of in object actions collection.
         for (const it of $range(1, objectActions.length())) {
           if (objectActions.get(it).name === stalkerState) {
             return EObjectCampRole.DIRECTOR;
@@ -349,6 +350,7 @@ export class CampManager {
         return EObjectCampRole.LISTENER;
 
       case EObjectCampActivity.STORY:
+        // todo: Probably just for-of in object actions collection.
         for (const it of $range(1, objectActions.length())) {
           const actionName: TName = objectActions.get(it).name;
 
