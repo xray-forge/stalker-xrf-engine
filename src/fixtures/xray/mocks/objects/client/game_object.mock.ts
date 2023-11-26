@@ -27,9 +27,8 @@ import {
 } from "@/fixtures/xray/mocks/actions";
 import { mockIniFile } from "@/fixtures/xray/mocks/ini";
 import { CLIENT_SIDE_REGISTRY, mockRelationRegistryInterface } from "@/fixtures/xray/mocks/interface";
+import { mockConfig } from "@/fixtures/xray/mocks/MockConfig";
 import { MockVector } from "@/fixtures/xray/mocks/vector.mock";
-
-let ID_COUNTER: TNumberId = 1000;
 
 /**
  * Abstract game object mock.
@@ -58,7 +57,7 @@ export function mockGameObject({
   has_info,
   health = 1,
   id,
-  idOverride = ID_COUNTER++,
+  idOverride = mockConfig.ID_COUNTER++,
   infoPortions = [],
   inventory = [],
   upgrades = [],

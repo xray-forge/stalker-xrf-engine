@@ -3,16 +3,15 @@ import { jest } from "@jest/globals";
 import { AnyObject, NetPacket, ServerObject, TClassId, TNumberId, TSection, Vector } from "@/engine/lib/types";
 import { MockIniFile, mockIniFile } from "@/fixtures/xray/mocks/ini";
 import { MockLuabindClass } from "@/fixtures/xray/mocks/luabind.mock";
+import { mockConfig } from "@/fixtures/xray/mocks/MockConfig";
 import { MockAlifeSimulator } from "@/fixtures/xray/mocks/objects/AlifeSimulator.mock";
 import { MockVector } from "@/fixtures/xray/mocks/vector.mock";
-
-let ID_COUNTER: TNumberId = 100_000;
 
 /**
  * Mock base alife object implementation.
  */
 export class MockAlifeObject extends MockLuabindClass {
-  public id: TNumberId = ID_COUNTER++;
+  public id: TNumberId = mockConfig.ID_COUNTER++;
   public section: TSection;
   public position: Vector = MockVector.mock(0, 0, 0);
   public m_level_vertex_id: TNumberId = 255;
@@ -72,7 +71,7 @@ export class MockAlifeObject extends MockLuabindClass {
  */
 export function mockServerAlifeObject({
   sectionOverride = "section",
-  id = ID_COUNTER++,
+  id = mockConfig.ID_COUNTER++,
   m_level_vertex_id = 255,
   m_game_vertex_id = 512,
   name,

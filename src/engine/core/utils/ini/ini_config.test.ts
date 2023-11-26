@@ -55,7 +55,7 @@ describe("config utils for ini file", () => {
     ).toEqualLuaTables({
       condlist: parseConditionsList("{+a -b} walker@get_out"),
       name: "key",
-      objectId: 100000,
+      objectId: serverObject.id,
       p1: "zat_cop_id",
       p2: "zat_b38_actor_jump_down",
     });
