@@ -14,18 +14,17 @@ import { GameObject, Optional, TCount, TNumberId } from "@/engine/lib/types";
 export function startPlayingGuitar(object: GameObject): void {
   const campId: Optional<TNumberId> = registry.objects.get(object.id()).camp;
 
-  // Object is not in camp.
-  if (campId === null) {
+  if (!campId) {
     return;
   }
 
   const manager: CampManager = registry.camps.get(campId);
 
+  manager.isStoryStarted = true;
   manager.storyManager.setStoryTeller(manager.directorId);
-  manager.storyManager.setActiveId(
+  manager.storyManager.setActiveStory(
     manager.availableGuitarStories.get(math.random(manager.availableGuitarStories.length()))
   );
-  manager.isStoryStarted = true;
   manager.storyManager.update();
 }
 
@@ -38,46 +37,18 @@ export function startPlayingGuitar(object: GameObject): void {
 export function startPlayingHarmonica(object: GameObject): void {
   const campId: Optional<TNumberId> = registry.objects.get(object.id()).camp;
 
-  // Object is not in camp.
-  if (campId === null) {
+  if (!campId) {
     return;
   }
 
   const manager: CampManager = registry.camps.get(campId);
 
+  manager.isStoryStarted = true;
   manager.storyManager.setStoryTeller(manager.directorId);
-  manager.storyManager.setActiveId(
+  manager.storyManager.setActiveStory(
     manager.availableHarmonicaStories.get(math.random(manager.availableHarmonicaStories.length()))
   );
-  manager.isStoryStarted = true;
   manager.storyManager.update();
-}
-
-/**
- * Checker to verify if story can be told in camp.
- * Used by animstate checkers when objects have correct animation.
- *
- * @returns whether story can be told in camp
- */
-export function canTellCampStory(campManager: CampManager): boolean {
-  // Nothing to tell here.
-  if (campManager.availableSoundStories.length() === 0) {
-    return false;
-  }
-
-  let count: TCount = 0;
-
-  for (const [id, v] of campManager.objects) {
-    const object: Optional<GameObject> = registry.objects.get(id)?.object;
-
-    // todo: Probably just return instead of full FOR? If 2+
-    if (object !== null && !isObjectMeeting(object)) {
-      count += 1;
-    }
-  }
-
-  // Check whether camp has free speakers, verify that have 2+ of them.
-  return count > 1;
 }
 
 /**
@@ -157,4 +128,31 @@ export function canPlayCampHarmonica(campManager: CampManager): boolean {
   }
 
   return false;
+}
+
+/**
+ * Checker to verify if story can be told in camp.
+ * Used by animstate checkers when objects have correct animation.
+ *
+ * @returns whether story can be told in camp
+ */
+export function canTellCampStory(campManager: CampManager): boolean {
+  // Nothing to tell here.
+  if (campManager.availableSoundStories.length() === 0) {
+    return false;
+  }
+
+  let count: TCount = 0;
+
+  for (const [id, v] of campManager.objects) {
+    const object: Optional<GameObject> = registry.objects.get(id)?.object;
+
+    // todo: Probably just return instead of full FOR? If 2+
+    if (object !== null && !isObjectMeeting(object)) {
+      count += 1;
+    }
+  }
+
+  // Check whether camp has free speakers, verify that have 2+ of them.
+  return count > 1;
 }

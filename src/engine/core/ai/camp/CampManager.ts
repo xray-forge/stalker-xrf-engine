@@ -238,7 +238,9 @@ export class CampManager {
   public setStory(): void {
     if (this.activity === EObjectCampActivity.STORY) {
       this.storyManager.setStoryTeller(this.directorId);
-      this.storyManager.setActiveId(this.availableSoundStories.get(math.random(this.availableSoundStories.length())));
+      this.storyManager.setActiveStory(
+        this.availableSoundStories.get(math.random(this.availableSoundStories.length()))
+      );
       this.isStoryStarted = true;
     } else if (this.activity === EObjectCampActivity.IDLE) {
       this.isStoryStarted = true;

@@ -60,11 +60,11 @@ export class StoryManager {
   }
 
   /**
-   * Set active story sound to play.
+   * Set active story sound to play by ID of the story.
    *
    * @param storyId - id of sound story to play
    */
-  public setActiveId(storyId: TStringId): void {
+  public setActiveStory(storyId: TStringId): void {
     this.story = new SoundStory(storyId);
   }
 
