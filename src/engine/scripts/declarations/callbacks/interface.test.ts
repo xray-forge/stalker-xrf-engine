@@ -23,7 +23,7 @@ import {
   TName,
 } from "@/engine/lib/types";
 import { callBinding, checkBinding, checkNestedBinding } from "@/fixtures/engine";
-import { mockGameObject } from "@/fixtures/xray";
+import { MockGameObject } from "@/fixtures/xray";
 
 jest.mock("@/engine/core/managers/upgrades/utils/upgrades_price_utils", () => ({
   canRepairItem: jest.fn(() => true),
@@ -160,8 +160,8 @@ describe("interface external callbacks", () => {
 
     jest.spyOn(actorInventoryMenuManager, "onItemDropped").mockImplementation(jest.fn());
 
-    const from: GameObject = mockGameObject();
-    const to: GameObject = mockGameObject();
+    const from: GameObject = MockGameObject.mock();
+    const to: GameObject = MockGameObject.mock();
     const oldList: EActorMenuType = EActorMenuType.ACTOR_BELT;
     const newList: EActorMenuType = EActorMenuType.ACTOR_BAG;
 

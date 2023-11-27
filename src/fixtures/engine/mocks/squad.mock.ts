@@ -8,7 +8,7 @@ import { ServerGroupObject, ServerHumanObject, TClassId, TName } from "@/engine/
 import { MockLuaTable } from "@/fixtures/lua";
 import {
   MockAlifeOnlineOfflineGroup,
-  mockGameObject,
+  MockGameObject,
   mockServerAlifeHumanStalker,
   mockServerAlifeOnlineOfflineGroup,
 } from "@/fixtures/xray";
@@ -73,11 +73,11 @@ export function mockRelationsSquads(): IMockedSquads {
   const almostEnemy: ServerHumanObject = mockServerAlifeHumanStalker();
   const almostFriend: ServerHumanObject = mockServerAlifeHumanStalker();
 
-  registerObject(mockGameObject({ idOverride: friend.id }));
-  registerObject(mockGameObject({ idOverride: enemy.id }));
-  registerObject(mockGameObject({ idOverride: neutral.id }));
-  registerObject(mockGameObject({ idOverride: almostEnemy.id }));
-  registerObject(mockGameObject({ idOverride: almostFriend.id }));
+  registerObject(MockGameObject.mock({ idOverride: friend.id }));
+  registerObject(MockGameObject.mock({ idOverride: enemy.id }));
+  registerObject(MockGameObject.mock({ idOverride: neutral.id }));
+  registerObject(MockGameObject.mock({ idOverride: almostEnemy.id }));
+  registerObject(MockGameObject.mock({ idOverride: almostFriend.id }));
 
   mockCharactersGoodwill(friend.id, ACTOR_ID, 1000);
   mockCharactersGoodwill(enemy.id, ACTOR_ID, -1000);

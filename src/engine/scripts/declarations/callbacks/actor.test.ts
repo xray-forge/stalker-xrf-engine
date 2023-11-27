@@ -3,7 +3,7 @@ import { beforeAll, describe, expect, it, jest } from "@jest/globals";
 import { TravelManager } from "@/engine/core/managers/travel";
 import { AnyArgs, AnyObject, GameObject, TName } from "@/engine/lib/types";
 import { callBinding, checkBinding } from "@/fixtures/engine";
-import { mockGameObject } from "@/fixtures/xray";
+import { MockGameObject } from "@/fixtures/xray";
 
 describe("actor external callbacks", () => {
   beforeAll(() => {
@@ -69,8 +69,8 @@ describe("actor external callbacks", () => {
     jest.spyOn(travelManager, "getTravelCostLabel").mockImplementation(jest.fn(() => "5000"));
     jest.spyOn(travelManager, "isEnoughMoneyToTravel").mockImplementation(jest.fn(() => true));
 
-    const first: GameObject = mockGameObject();
-    const second: GameObject = mockGameObject();
+    const first: GameObject = MockGameObject.mock();
+    const second: GameObject = MockGameObject.mock();
 
     const callTravelBinding = (name: TName, args: AnyArgs = []) =>
       callBinding(name, args, (_G as AnyObject)["travel_callbacks"]);

@@ -6,7 +6,7 @@ import { emitCutsceneEndedEvent } from "@/engine/core/schemes/restrictor/sr_cuts
 import { emitSchemeEvent } from "@/engine/core/utils/scheme";
 import { EScheme, ESchemeEvent, GameObject } from "@/engine/lib/types";
 import { mockSchemeState } from "@/fixtures/engine";
-import { mockGameObject } from "@/fixtures/xray";
+import { MockGameObject } from "@/fixtures/xray";
 
 jest.mock("@/engine/core/utils/scheme/scheme_event", () => ({
   emitSchemeEvent: jest.fn(),
@@ -20,7 +20,7 @@ describe("cutscene_utils module", () => {
 
   it("emitCutsceneEndedEvent should correctly emit scheme event", () => {
     const state: ISchemeCutsceneState = mockSchemeState(EScheme.SR_CUTSCENE);
-    const object: GameObject = mockGameObject();
+    const object: GameObject = MockGameObject.mock();
 
     cutsceneConfig.objectCutscene = object;
     cutsceneConfig.cutsceneState = state;

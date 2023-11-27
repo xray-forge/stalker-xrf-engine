@@ -12,7 +12,7 @@ import { MockLuaTable } from "@/fixtures/lua";
 import {
   EPacketDataType,
   mockActorGameObject,
-  mockGameObject,
+  MockGameObject,
   MockNetProcessor,
   mockServerAlifeMonsterBase,
   mockServerAlifeObject,
@@ -77,10 +77,10 @@ describe("StatisticsManager class", () => {
 
     expect(manager.actorStatistics.killedStalkersCount).toBe(0);
 
-    EventsManager.emitEvent(EGameEvent.STALKER_KILLED, mockGameObject(), actor);
-    EventsManager.emitEvent(EGameEvent.STALKER_KILLED, mockGameObject(), actor);
-    EventsManager.emitEvent(EGameEvent.STALKER_KILLED, mockGameObject(), null);
-    EventsManager.emitEvent(EGameEvent.STALKER_KILLED, mockGameObject(), mockGameObject());
+    EventsManager.emitEvent(EGameEvent.STALKER_KILLED, MockGameObject.mock(), actor);
+    EventsManager.emitEvent(EGameEvent.STALKER_KILLED, MockGameObject.mock(), actor);
+    EventsManager.emitEvent(EGameEvent.STALKER_KILLED, MockGameObject.mock(), null);
+    EventsManager.emitEvent(EGameEvent.STALKER_KILLED, MockGameObject.mock(), MockGameObject.mock());
 
     expect(manager.actorStatistics.killedStalkersCount).toBe(2);
   });
@@ -111,9 +111,9 @@ describe("StatisticsManager class", () => {
 
   it("should correctly handle taking artefacts", () => {
     const manager: StatisticsManager = StatisticsManager.getInstance();
-    const firstClient: GameObject = mockGameObject({ clsid: () => clsid.art_black_drops as TClassId });
-    const secondClient: GameObject = mockGameObject({ clsid: () => clsid.art_bast_artefact as TClassId });
-    const thirdClient: GameObject = mockGameObject({ clsid: () => clsid.art_zuda as TClassId });
+    const firstClient: GameObject = MockGameObject.mock({ clsid: () => clsid.art_black_drops as TClassId });
+    const secondClient: GameObject = MockGameObject.mock({ clsid: () => clsid.art_bast_artefact as TClassId });
+    const thirdClient: GameObject = MockGameObject.mock({ clsid: () => clsid.art_zuda as TClassId });
 
     mockServerAlifeObject({ id: firstClient.id(), sectionOverride: "af_first" });
     mockServerAlifeObject({ id: secondClient.id(), sectionOverride: "af_first" });
@@ -121,7 +121,7 @@ describe("StatisticsManager class", () => {
 
     expect(manager.actorStatistics.collectedArtefactsCount).toBe(0);
 
-    EventsManager.emitEvent(EGameEvent.ACTOR_ITEM_TAKE, mockGameObject());
+    EventsManager.emitEvent(EGameEvent.ACTOR_ITEM_TAKE, MockGameObject.mock());
     EventsManager.emitEvent(EGameEvent.ACTOR_ITEM_TAKE, firstClient);
     EventsManager.emitEvent(EGameEvent.ACTOR_ITEM_TAKE, firstClient);
     EventsManager.emitEvent(EGameEvent.ACTOR_ITEM_TAKE, firstClient);
@@ -140,11 +140,11 @@ describe("StatisticsManager class", () => {
 
   it("should correctly handle dealing damage to an object", () => {
     const manager: StatisticsManager = StatisticsManager.getInstance();
-    const ak74: GameObject = mockGameObject();
-    const desertEagle: GameObject = mockGameObject();
-    const desertEagleNimble: GameObject = mockGameObject();
+    const ak74: GameObject = MockGameObject.mock();
+    const desertEagle: GameObject = MockGameObject.mock();
+    const desertEagleNimble: GameObject = MockGameObject.mock();
     const actor: GameObject = mockActorGameObject();
-    const target: GameObject = mockGameObject();
+    const target: GameObject = MockGameObject.mock();
 
     registerActor(actor);
 
@@ -153,7 +153,7 @@ describe("StatisticsManager class", () => {
     mockServerAlifeObject({ id: desertEagleNimble.id(), sectionOverride: weapons.wpn_desert_eagle_nimble });
 
     EventsManager.emitEvent(EGameEvent.MONSTER_HIT, target, 100, MockVector.mock(), actor);
-    EventsManager.emitEvent(EGameEvent.MONSTER_HIT, target, 100, MockVector.mock(), mockGameObject());
+    EventsManager.emitEvent(EGameEvent.MONSTER_HIT, target, 100, MockVector.mock(), MockGameObject.mock());
 
     expect(manager.weaponsStatistics.length()).toBe(36);
     (manager.weaponsStatistics as unknown as MockLuaTable<unknown, unknown>).forEach((value, key) => {
@@ -165,7 +165,7 @@ describe("StatisticsManager class", () => {
 
     EventsManager.emitEvent(EGameEvent.MONSTER_HIT, target, 100, MockVector.mock(), actor);
     EventsManager.emitEvent(EGameEvent.STALKER_HIT, target, 150, MockVector.mock(), actor);
-    EventsManager.emitEvent(EGameEvent.MONSTER_HIT, target, 150, MockVector.mock(), mockGameObject());
+    EventsManager.emitEvent(EGameEvent.MONSTER_HIT, target, 150, MockVector.mock(), MockGameObject.mock());
 
     expect(manager.weaponsStatistics.get("ak74")).toBe(250);
     expect(manager.weaponsStatistics.get("desert")).toBe(0);
@@ -176,7 +176,7 @@ describe("StatisticsManager class", () => {
     EventsManager.emitEvent(EGameEvent.MONSTER_HIT, target, 100, MockVector.mock(), actor);
     expect(manager.actorStatistics.favoriteWeapon).toBe("wpn_ak74");
     EventsManager.emitEvent(EGameEvent.MONSTER_HIT, target, 300, MockVector.mock(), actor);
-    EventsManager.emitEvent(EGameEvent.MONSTER_HIT, target, 300, MockVector.mock(), mockGameObject());
+    EventsManager.emitEvent(EGameEvent.MONSTER_HIT, target, 300, MockVector.mock(), MockGameObject.mock());
 
     expect(manager.weaponsStatistics.get("ak74")).toBe(250);
     expect(manager.weaponsStatistics.get("desert")).toBe(400);
@@ -194,9 +194,9 @@ describe("StatisticsManager class", () => {
 
   it("should correctly handle monster kills", () => {
     const manager: StatisticsManager = StatisticsManager.getInstance();
-    const firstMonster: GameObject = mockGameObject({ clsid: () => clsid.flesh_s, rank: () => 3 });
-    const secondMonster: GameObject = mockGameObject({ clsid: () => clsid.bloodsucker_s, rank: () => 15 });
-    const thirdMonster: GameObject = mockGameObject({ clsid: () => clsid.bloodsucker_s, rank: () => 16 });
+    const firstMonster: GameObject = MockGameObject.mock({ clsid: () => clsid.flesh_s, rank: () => 3 });
+    const secondMonster: GameObject = MockGameObject.mock({ clsid: () => clsid.bloodsucker_s, rank: () => 15 });
+    const thirdMonster: GameObject = MockGameObject.mock({ clsid: () => clsid.bloodsucker_s, rank: () => 16 });
     const actor: GameObject = mockActorGameObject();
 
     registerActor(actor);
@@ -208,9 +208,9 @@ describe("StatisticsManager class", () => {
     expect(manager.actorStatistics.bestKilledMonster).toBeNull();
     expect(manager.actorStatistics.bestKilledMonsterRank).toBe(0);
 
-    expect(() => EventsManager.emitEvent(EGameEvent.MONSTER_KILLED, mockGameObject(), actor)).toThrow();
+    expect(() => EventsManager.emitEvent(EGameEvent.MONSTER_KILLED, MockGameObject.mock(), actor)).toThrow();
     expect(() => {
-      EventsManager.emitEvent(EGameEvent.MONSTER_KILLED, mockGameObject(), mockGameObject());
+      EventsManager.emitEvent(EGameEvent.MONSTER_KILLED, MockGameObject.mock(), MockGameObject.mock());
     }).not.toThrow();
 
     expect(manager.actorStatistics.killedMonstersCount).toBe(0);

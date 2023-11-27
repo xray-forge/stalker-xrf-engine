@@ -11,7 +11,7 @@ import {
 } from "@/engine/core/utils/info_portion";
 import { infoPortions, TInfoPortion } from "@/engine/lib/constants/info_portions";
 import { GameObject } from "@/engine/lib/types";
-import { mockActorGameObject, mockGameObject } from "@/fixtures/xray";
+import { mockActorGameObject, MockGameObject } from "@/fixtures/xray";
 
 describe("info_portion utils", () => {
   beforeEach(() => {
@@ -21,7 +21,7 @@ describe("info_portion utils", () => {
       infoPortions.device_pda_port_bandit_leader_sold,
     ];
 
-    registry.actor = mockGameObject({
+    registry.actor = MockGameObject.mock({
       has_info: jest.fn((value: TInfoPortion) => availableInfos.includes(value)),
       give_info_portion: jest.fn((value: TInfoPortion) => {
         availableInfos.push(value);

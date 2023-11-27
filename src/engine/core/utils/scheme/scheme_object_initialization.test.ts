@@ -10,11 +10,11 @@ import {
   initializeObjectTakeItemsEnabledState,
 } from "@/engine/core/utils/scheme/scheme_object_initialization";
 import { EScheme, GameObject } from "@/engine/lib/types";
-import { mockGameObject, mockIniFile } from "@/fixtures/xray";
+import { MockGameObject, mockIniFile } from "@/fixtures/xray";
 
 describe("scheme_object_initialization utils", () => {
   it("initializeObjectInvulnerability should correctly initialize", () => {
-    const object: GameObject = mockGameObject();
+    const object: GameObject = MockGameObject.mock();
     const state: IRegistryObjectState = registerObject(object);
 
     state.ini = mockIniFile("example.ltx", {
@@ -39,7 +39,7 @@ describe("scheme_object_initialization utils", () => {
   });
 
   it("initializeObjectCanSelectWeaponState should correctly initialize", () => {
-    const object: GameObject = mockGameObject();
+    const object: GameObject = MockGameObject.mock();
     const state: IRegistryObjectState = registerObject(object);
 
     state.ini = mockIniFile("example.ltx", {
@@ -75,7 +75,7 @@ describe("scheme_object_initialization utils", () => {
   });
 
   it("initializeObjectTakeItemsEnabledState should correctly initialize", () => {
-    const object: GameObject = mockGameObject();
+    const object: GameObject = MockGameObject.mock();
     const state: IRegistryObjectState = registerObject(object);
 
     state.ini = mockIniFile("example.ltx", {
@@ -111,7 +111,7 @@ describe("scheme_object_initialization utils", () => {
   });
 
   it("initializeObjectGroup should correctly initialize", () => {
-    const object: GameObject = mockGameObject();
+    const object: GameObject = MockGameObject.mock();
 
     initializeObjectGroup(object, mockIniFile("example.ltx", {}), "not-existing");
 
@@ -129,7 +129,7 @@ describe("scheme_object_initialization utils", () => {
   });
 
   it("initializeObjectInfo should correctly initialize", () => {
-    const object: GameObject = mockGameObject();
+    const object: GameObject = MockGameObject.mock();
 
     initializeObjectInfo(object, mockIniFile("example.ltx", {}), "not-existing");
     expect(object.give_info_portion).not.toHaveBeenCalled();
@@ -155,7 +155,7 @@ describe("scheme_object_initialization utils", () => {
   });
 
   it("initializeObjectIgnoreThreshold should correctly initialize", () => {
-    const object: GameObject = mockGameObject();
+    const object: GameObject = MockGameObject.mock();
     const state: IRegistryObjectState = registerObject(object);
 
     state.ini = mockIniFile("example.ltx", {

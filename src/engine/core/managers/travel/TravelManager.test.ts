@@ -10,7 +10,7 @@ import { GameObject, ServerCreatureObject, ServerGroupObject, ServerSmartZoneObj
 import { resetRegistry } from "@/fixtures/engine";
 import {
   mockActorGameObject,
-  mockGameObject,
+  MockGameObject,
   MockPhraseDialog,
   mockServerAlifeHumanStalker,
   mockServerAlifeOnlineOfflineGroup,
@@ -240,7 +240,7 @@ describe("TravelManager class", () => {
     const squad: ServerGroupObject = mockServerAlifeOnlineOfflineGroup();
     const smartZone: ServerSmartZoneObject = mockServerAlifeSmartZone({ name: <T>() => "jup_b41" as T });
     const serverObject: ServerCreatureObject = mockServerAlifeHumanStalker({ group_id: squad.id });
-    const object: GameObject = mockGameObject({ idOverride: serverObject.id });
+    const object: GameObject = MockGameObject.mock({ idOverride: serverObject.id });
     const actor: GameObject = mockActorGameObject();
 
     squad.commander_id = () => object.id();

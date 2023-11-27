@@ -30,7 +30,7 @@ import { ETaskState } from "@/engine/core/managers/tasks";
 import { ISchemeWoundedState } from "@/engine/core/schemes/stalker/wounded";
 import { GameObject, GameTask } from "@/engine/lib/types";
 import { resetFunctionMock } from "@/fixtures/jest";
-import { mockGameObject, mockServerAlifeHumanStalker } from "@/fixtures/xray";
+import { MockGameObject, mockServerAlifeHumanStalker } from "@/fixtures/xray";
 import { MockAlifeSimulator } from "@/fixtures/xray/mocks/objects/AlifeSimulator.mock";
 import { mockCGameTask } from "@/fixtures/xray/mocks/objects/task";
 import { MockVector } from "@/fixtures/xray/mocks/vector.mock";
@@ -38,7 +38,7 @@ import { MockVector } from "@/fixtures/xray/mocks/vector.mock";
 describe("NotificationManager class", () => {
   beforeEach(() => {
     registerSimulator();
-    registerActor(mockGameObject());
+    registerActor(MockGameObject.mock());
     initializeManager(NotificationManager);
   });
 
@@ -299,7 +299,7 @@ describe("NotificationManager class", () => {
 
   it("should correctly send generic tips", () => {
     const notificationManager: NotificationManager = NotificationManager.getInstance();
-    const sender: GameObject = mockGameObject();
+    const sender: GameObject = MockGameObject.mock();
 
     registerObject(sender);
 

@@ -11,12 +11,12 @@ import { EActionId, EEvaluatorId } from "@/engine/core/ai/types";
 import { EAnimationType } from "@/engine/core/animation/types/animation_types";
 import { ActionPlanner, GameObject } from "@/engine/lib/types";
 import { checkPlannerAction } from "@/fixtures/engine";
-import { MockActionPlanner, mockGameObject } from "@/fixtures/xray";
+import { MockActionPlanner, MockGameObject } from "@/fixtures/xray";
 import { mockStalkerIds } from "@/fixtures/xray/mocks/constants";
 
 describe("motivation_planner setup util", () => {
   it("should correctly setup object motivation planner evaluators", () => {
-    const object: GameObject = mockGameObject();
+    const object: GameObject = MockGameObject.mock();
     const planner: ActionPlanner = object.motivation_action_manager();
     const stateManager: StalkerStateManager = new StalkerStateManager(object);
 
@@ -36,7 +36,7 @@ describe("motivation_planner setup util", () => {
   });
 
   it("should correctly setup motivation planner actions", () => {
-    const object: GameObject = mockGameObject();
+    const object: GameObject = MockGameObject.mock();
     const planner: ActionPlanner = object.motivation_action_manager();
     const stateManager: StalkerStateManager = new StalkerStateManager(object);
 
@@ -76,7 +76,7 @@ describe("motivation_planner setup util", () => {
   });
 
   it("should correctly setup update planner default actions", () => {
-    const object: GameObject = mockGameObject();
+    const object: GameObject = MockGameObject.mock();
     const planner: ActionPlanner = object.motivation_action_manager();
     const stateManager: StalkerStateManager = new StalkerStateManager(object);
 

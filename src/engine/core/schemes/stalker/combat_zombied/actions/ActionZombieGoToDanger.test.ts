@@ -6,7 +6,7 @@ import { EZombieCombatAction, ISchemeCombatState } from "@/engine/core/schemes/s
 import { ActionZombieGoToDanger } from "@/engine/core/schemes/stalker/combat_zombied/actions/ActionZombieGoToDanger";
 import { EGameObjectPath, EScheme, GameObject } from "@/engine/lib/types";
 import { mockSchemeState, resetRegistry } from "@/fixtures/engine";
-import { mockGameObject } from "@/fixtures/xray";
+import { MockGameObject } from "@/fixtures/xray";
 
 describe("ActionZombieGoToDanger", () => {
   beforeEach(() => {
@@ -14,8 +14,8 @@ describe("ActionZombieGoToDanger", () => {
   });
 
   it("should correctly initialize", () => {
-    const enemy: GameObject = mockGameObject();
-    const object: GameObject = mockGameObject({ best_enemy: () => enemy });
+    const enemy: GameObject = MockGameObject.mock();
+    const object: GameObject = MockGameObject.mock({ best_enemy: () => enemy });
     const state: ISchemeCombatState = mockSchemeState(EScheme.COMBAT);
     const action: ActionZombieGoToDanger = new ActionZombieGoToDanger(state);
 
@@ -43,8 +43,8 @@ describe("ActionZombieGoToDanger", () => {
   });
 
   it("should correctly finalize", () => {
-    const enemy: GameObject = mockGameObject();
-    const object: GameObject = mockGameObject({ best_enemy: () => enemy });
+    const enemy: GameObject = MockGameObject.mock();
+    const object: GameObject = MockGameObject.mock({ best_enemy: () => enemy });
     const state: ISchemeCombatState = mockSchemeState(EScheme.COMBAT);
     const action: ActionZombieGoToDanger = new ActionZombieGoToDanger(state);
 

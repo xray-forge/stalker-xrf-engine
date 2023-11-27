@@ -5,7 +5,7 @@ import { IRegistryObjectState, registerSimulator, registry } from "@/engine/core
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { ItemHelmet } from "@/engine/core/objects/item/ItemHelmet";
 import { resetRegistry } from "@/fixtures/engine";
-import { mockGameObject, mockServerAlifeObject } from "@/fixtures/xray";
+import { MockGameObject, mockServerAlifeObject } from "@/fixtures/xray";
 
 describe("HelmetBinder class", () => {
   beforeEach(() => {
@@ -14,7 +14,7 @@ describe("HelmetBinder class", () => {
   });
 
   it("should correctly handle going online/offline and release", () => {
-    const binder: HelmetBinder = new HelmetBinder(mockGameObject());
+    const binder: HelmetBinder = new HelmetBinder(MockGameObject.mock());
     const serverObject: ItemHelmet = mockServerAlifeObject({
       id: binder.object.id(),
     }) as ItemHelmet;
@@ -46,7 +46,7 @@ describe("HelmetBinder class", () => {
 
   it("should correctly emit lifecycle signals", () => {
     const eventsManager: EventsManager = EventsManager.getInstance();
-    const binder: HelmetBinder = new HelmetBinder(mockGameObject());
+    const binder: HelmetBinder = new HelmetBinder(MockGameObject.mock());
 
     const onGoOnlineFirstTime = jest.fn();
     const onGoOnline = jest.fn();

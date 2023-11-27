@@ -8,13 +8,13 @@ import {
   unregisterAnomalyZone,
 } from "@/engine/core/database/anomalies";
 import { registry } from "@/engine/core/database/registry";
-import { mockGameObject } from "@/fixtures/xray";
+import { MockGameObject } from "@/fixtures/xray";
 
 describe("anomalies module of the database", () => {
   it("should correctly register anomaly zones", () => {
     expect(registry.actor).toBeNull();
 
-    const anomalyZone: AnomalyZoneBinder = new AnomalyZoneBinder(mockGameObject());
+    const anomalyZone: AnomalyZoneBinder = new AnomalyZoneBinder(MockGameObject.mock());
 
     registerAnomalyZone(anomalyZone);
 
@@ -32,7 +32,7 @@ describe("anomalies module of the database", () => {
   it("should correctly register anomaly fields", () => {
     expect(registry.actor).toBeNull();
 
-    const anomalyField: AnomalyFieldBinder = new AnomalyFieldBinder(mockGameObject());
+    const anomalyField: AnomalyFieldBinder = new AnomalyFieldBinder(MockGameObject.mock());
 
     registerAnomalyField(anomalyField);
 

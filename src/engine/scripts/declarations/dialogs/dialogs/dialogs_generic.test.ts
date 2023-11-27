@@ -10,7 +10,7 @@ import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import { AnyArgs, AnyObject, EGameObjectRelation, GameObject, TName } from "@/engine/lib/types";
 import { callBinding, checkNestedBinding, mockRegisteredActor } from "@/fixtures/engine";
 import { replaceFunctionMock, resetFunctionMock } from "@/fixtures/jest";
-import { mockActorGameObject, mockGameObject } from "@/fixtures/xray";
+import { mockActorGameObject, MockGameObject } from "@/fixtures/xray";
 
 jest.mock("@/engine/core/utils/item", () => ({
   getActorAvailableMedKit: jest.fn(() => null),
@@ -58,7 +58,7 @@ describe("dialogs_generic external callbacks", () => {
 
   it("break_dialog should correctly break", () => {
     const { actorGameObject } = mockRegisteredActor();
-    const object: GameObject = mockGameObject();
+    const object: GameObject = MockGameObject.mock();
 
     callDialogsBinding("break_dialog", [actorGameObject, object]);
     expect(breakObjectDialog).toHaveBeenCalledWith(object);
@@ -89,9 +89,9 @@ describe("dialogs_generic external callbacks", () => {
   });
 
   it("transfer_medkit should correctly transfer medkits", () => {
-    const medkit: GameObject = mockGameObject({ section: <T>() => "medkit" as T });
+    const medkit: GameObject = MockGameObject.mock({ section: <T>() => "medkit" as T });
     const actor: GameObject = mockActorGameObject({ inventory: [["medkit", medkit]] });
-    const object: GameObject = mockGameObject();
+    const object: GameObject = MockGameObject.mock();
 
     registerActor(actor);
     registerSimulator();
@@ -120,13 +120,13 @@ describe("dialogs_generic external callbacks", () => {
     expect(callDialogsBinding("actor_have_bandage")).toBe(false);
     expect(actorGameObject.object).toHaveBeenCalledWith("bandage");
 
-    jest.spyOn(actorGameObject, "object").mockImplementation(() => mockGameObject());
+    jest.spyOn(actorGameObject, "object").mockImplementation(() => MockGameObject.mock());
     expect(callDialogsBinding("actor_have_bandage")).toBe(true);
   });
 
   it("transfer_bandage should correctly transfer actor has bandage", () => {
     const { actorGameObject } = mockRegisteredActor();
-    const object: GameObject = mockGameObject();
+    const object: GameObject = MockGameObject.mock();
 
     resetFunctionMock(transferItemsFromActor);
     callDialogsBinding("transfer_bandage", [actorGameObject, object]);
@@ -137,7 +137,7 @@ describe("dialogs_generic external callbacks", () => {
 
   it("kill_yourself should correctly force actor kill", () => {
     const { actorGameObject } = mockRegisteredActor();
-    const object: GameObject = mockGameObject();
+    const object: GameObject = MockGameObject.mock();
 
     callDialogsBinding("kill_yourself", [actorGameObject, object]);
 
@@ -145,8 +145,8 @@ describe("dialogs_generic external callbacks", () => {
   });
 
   it("has_2000_money should correctly check money amount", () => {
-    const first: GameObject = mockGameObject({ money: () => 1000 });
-    const second: GameObject = mockGameObject({ money: () => 2000 });
+    const first: GameObject = MockGameObject.mock({ money: () => 1000 });
+    const second: GameObject = MockGameObject.mock({ money: () => 2000 });
 
     expect(callDialogsBinding("has_2000_money", [first])).toBe(false);
     expect(callDialogsBinding("has_2000_money", [second])).toBe(true);
@@ -158,8 +158,8 @@ describe("dialogs_generic external callbacks", () => {
     callDialogsBinding("transfer_any_pistol_from_actor", []);
     expect(actorGameObject.transfer_item).not.toHaveBeenCalled();
 
-    const speaker: GameObject = mockGameObject();
-    const fort: GameObject = mockGameObject();
+    const speaker: GameObject = MockGameObject.mock();
+    const fort: GameObject = MockGameObject.mock();
 
     replaceFunctionMock(getAnyObjectPistol, () => fort);
 
@@ -174,7 +174,7 @@ describe("dialogs_generic external callbacks", () => {
     expect(callDialogsBinding("have_actor_any_pistol", [])).toBe(false);
     expect(getAnyObjectPistol).toHaveBeenCalledWith(actorGameObject);
 
-    replaceFunctionMock(getAnyObjectPistol, () => mockGameObject());
+    replaceFunctionMock(getAnyObjectPistol, () => MockGameObject.mock());
     expect(callDialogsBinding("have_actor_any_pistol", [])).toBe(true);
   });
 

@@ -7,7 +7,7 @@ import { trySwitchToAnotherSection } from "@/engine/core/utils/scheme";
 import { EScheme, GameObject } from "@/engine/lib/types";
 import { mockSchemeState } from "@/fixtures/engine";
 import { resetFunctionMock } from "@/fixtures/jest";
-import { mockGameObject } from "@/fixtures/xray";
+import { MockGameObject } from "@/fixtures/xray";
 import { MockVector } from "@/fixtures/xray/mocks/vector.mock";
 
 jest.mock("@/engine/core/utils/scheme/scheme_switch", () => ({
@@ -16,7 +16,7 @@ jest.mock("@/engine/core/utils/scheme/scheme_switch", () => ({
 
 describe("PhysicalOnHitManager", () => {
   it("should correctly handle hit callback switch", () => {
-    const object: GameObject = mockGameObject();
+    const object: GameObject = MockGameObject.mock();
     const state: IRegistryObjectState = registerObject(object);
     const schemeState: ISchemePhysicalOnHitState = mockSchemeState(EScheme.PH_IDLE, {});
     const manager: PhysicalOnHitManager = new PhysicalOnHitManager(object, schemeState);

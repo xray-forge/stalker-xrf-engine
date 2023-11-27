@@ -9,13 +9,13 @@ import {
 import { registry } from "@/engine/core/database/registry";
 import { Actor } from "@/engine/core/objects/creature";
 import { GameObject } from "@/engine/lib/types";
-import { mockGameObject } from "@/fixtures/xray";
+import { MockGameObject } from "@/fixtures/xray";
 
 describe("actor module of the database", () => {
   it("should correctly register actor", () => {
     expect(registry.actor).toBeNull();
 
-    const actor: GameObject = mockGameObject({ idOverride: 0, sectionOverride: "actor" });
+    const actor: GameObject = MockGameObject.mock({ idOverride: 0, sectionOverride: "actor" });
 
     expect(actor.id()).toBe(0);
 

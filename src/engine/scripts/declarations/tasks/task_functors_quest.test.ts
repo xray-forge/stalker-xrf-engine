@@ -3,7 +3,7 @@ import { beforeAll, beforeEach, describe, expect, it, jest } from "@jest/globals
 import { disableInfoPortion, giveInfoPortion } from "@/engine/core/utils/info_portion";
 import { AnyArgs, AnyObject, TName } from "@/engine/lib/types";
 import { callBinding, checkNestedBinding, mockRegisteredActor, resetRegistry } from "@/fixtures/engine";
-import { mockGameObject } from "@/fixtures/xray";
+import { MockGameObject } from "@/fixtures/xray";
 
 describe("task_functors external callbacks", () => {
   const checkTaskBinding = (name: TName) => checkNestedBinding("task_functors", name);
@@ -34,7 +34,7 @@ describe("task_functors external callbacks", () => {
       jest.spyOn(actorGameObject, "object").mockImplementation(() => null);
       expect(callTaskBinding("zat_b29_adv_title")).toBe(`zat_b29_simple_find_title_${it}`);
 
-      jest.spyOn(actorGameObject, "object").mockImplementation(() => mockGameObject());
+      jest.spyOn(actorGameObject, "object").mockImplementation(() => MockGameObject.mock());
       expect(callTaskBinding("zat_b29_adv_title")).toBe(`zat_b29_simple_bring_title_${it}`);
 
       disableInfoPortion(`zat_b29_bring_af_${it}`);
@@ -53,7 +53,7 @@ describe("task_functors external callbacks", () => {
       jest.spyOn(actorGameObject, "object").mockImplementation(() => null);
       expect(callTaskBinding("zat_b29_adv_descr")).toBe("zat_b29_simple_find_text_5");
 
-      jest.spyOn(actorGameObject, "object").mockImplementation(() => mockGameObject());
+      jest.spyOn(actorGameObject, "object").mockImplementation(() => MockGameObject.mock());
       expect(callTaskBinding("zat_b29_adv_descr")).toBe("zat_b29_simple_bring_text_5");
 
       // First rival checks.
@@ -64,7 +64,7 @@ describe("task_functors external callbacks", () => {
       jest.spyOn(actorGameObject, "object").mockImplementation(() => null);
       expect(callTaskBinding("zat_b29_adv_descr")).toBe("zat_b29_simple_find_text_5");
 
-      jest.spyOn(actorGameObject, "object").mockImplementation(() => mockGameObject());
+      jest.spyOn(actorGameObject, "object").mockImplementation(() => MockGameObject.mock());
       expect(callTaskBinding("zat_b29_adv_descr")).toBe("zat_b29_simple_bring_text_5");
 
       disableInfoPortion("zat_b29_stalker_rival_1_found_af");
@@ -78,7 +78,7 @@ describe("task_functors external callbacks", () => {
       jest.spyOn(actorGameObject, "object").mockImplementation(() => null);
       expect(callTaskBinding("zat_b29_adv_descr")).toBe("zat_b29_simple_find_text_5");
 
-      jest.spyOn(actorGameObject, "object").mockImplementation(() => mockGameObject());
+      jest.spyOn(actorGameObject, "object").mockImplementation(() => MockGameObject.mock());
       expect(callTaskBinding("zat_b29_adv_descr")).toBe("zat_b29_simple_bring_text_5");
 
       disableInfoPortion("zat_b29_stalker_rival_2_found_af");
@@ -91,7 +91,7 @@ describe("task_functors external callbacks", () => {
       jest.spyOn(actorGameObject, "object").mockImplementation(() => null);
       expect(callTaskBinding("zat_b29_adv_descr")).toBe("zat_b29_simple_find_text_4");
 
-      jest.spyOn(actorGameObject, "object").mockImplementation(() => mockGameObject());
+      jest.spyOn(actorGameObject, "object").mockImplementation(() => MockGameObject.mock());
       expect(callTaskBinding("zat_b29_adv_descr")).toBe("zat_b29_simple_bring_text_4");
 
       disableInfoPortion("zat_b29_linker_take_af_from_rival");
@@ -103,7 +103,7 @@ describe("task_functors external callbacks", () => {
       jest.spyOn(actorGameObject, "object").mockImplementation(() => null);
       expect(callTaskBinding("zat_b29_adv_descr")).toBe("zat_b29_simple_find_text_3");
 
-      jest.spyOn(actorGameObject, "object").mockImplementation(() => mockGameObject());
+      jest.spyOn(actorGameObject, "object").mockImplementation(() => MockGameObject.mock());
       expect(callTaskBinding("zat_b29_adv_descr")).toBe("zat_b29_simple_bring_text_3");
 
       disableInfoPortion("zat_b29_stalkers_rivals_found_af");
@@ -115,7 +115,7 @@ describe("task_functors external callbacks", () => {
       jest.spyOn(actorGameObject, "object").mockImplementation(() => null);
       expect(callTaskBinding("zat_b29_adv_descr")).toBe("zat_b29_simple_find_text_2");
 
-      jest.spyOn(actorGameObject, "object").mockImplementation(() => mockGameObject());
+      jest.spyOn(actorGameObject, "object").mockImplementation(() => MockGameObject.mock());
       expect(callTaskBinding("zat_b29_adv_descr")).toBe("zat_b29_simple_bring_text_2");
 
       // Rivals search on exclusive conditions.
@@ -125,7 +125,7 @@ describe("task_functors external callbacks", () => {
       jest.spyOn(actorGameObject, "object").mockImplementation(() => null);
       expect(callTaskBinding("zat_b29_adv_descr")).toBe("zat_b29_simple_find_text_1");
 
-      jest.spyOn(actorGameObject, "object").mockImplementation(() => mockGameObject());
+      jest.spyOn(actorGameObject, "object").mockImplementation(() => MockGameObject.mock());
       expect(callTaskBinding("zat_b29_adv_descr")).toBe("zat_b29_simple_bring_text_1");
 
       disableInfoPortion("zat_b29_rivals_search");

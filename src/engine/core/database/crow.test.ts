@@ -4,12 +4,12 @@ import { registerCrow, unregisterCrow } from "@/engine/core/database/crow";
 import { IRegistryObjectState } from "@/engine/core/database/database_types";
 import { registry } from "@/engine/core/database/registry";
 import { GameObject } from "@/engine/lib/types";
-import { mockGameObject } from "@/fixtures/xray";
+import { MockGameObject } from "@/fixtures/xray";
 
 describe("database crow objects utilities", () => {
   it("should correctly register and unregister crow objects", () => {
-    const first: GameObject = mockGameObject();
-    const second: GameObject = mockGameObject();
+    const first: GameObject = MockGameObject.mock();
+    const second: GameObject = MockGameObject.mock();
 
     const firstState: IRegistryObjectState = registerCrow(first);
 

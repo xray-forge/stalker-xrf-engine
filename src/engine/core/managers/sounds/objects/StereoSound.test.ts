@@ -4,7 +4,7 @@ import { sound_object, time_global } from "xray16";
 import { registerActor } from "@/engine/core/database";
 import { StereoSound } from "@/engine/core/managers/sounds/objects/StereoSound";
 import { replaceFunctionMock } from "@/fixtures/jest";
-import { mockGameObject } from "@/fixtures/xray";
+import { MockGameObject } from "@/fixtures/xray";
 
 describe("StereoSound class", () => {
   it("should correctly initialize", () => {
@@ -51,7 +51,7 @@ describe("StereoSound class", () => {
 
     expect(() => stereoSound.play()).toThrow();
 
-    registerActor(mockGameObject());
+    registerActor(MockGameObject.mock());
 
     stereoSound.update(50);
 

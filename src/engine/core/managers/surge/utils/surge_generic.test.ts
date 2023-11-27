@@ -12,7 +12,7 @@ import { communities } from "@/engine/lib/constants/communities";
 import { TName } from "@/engine/lib/types";
 import { mockRegisteredActor, resetRegistry } from "@/fixtures/engine";
 import { MockLuaTable } from "@/fixtures/lua";
-import { mockGameObject } from "@/fixtures/xray";
+import { MockGameObject } from "@/fixtures/xray";
 
 describe("surge_generic utils", () => {
   beforeEach(() => {
@@ -21,8 +21,8 @@ describe("surge_generic utils", () => {
   });
 
   it("launchSurgeSignalRockets should correctly launch rockets", () => {
-    const first: SignalLightBinder = new SignalLightBinder(mockGameObject());
-    const second: SignalLightBinder = new SignalLightBinder(mockGameObject());
+    const first: SignalLightBinder = new SignalLightBinder(MockGameObject.mock());
+    const second: SignalLightBinder = new SignalLightBinder(MockGameObject.mock());
 
     first.reinit();
     second.reinit();

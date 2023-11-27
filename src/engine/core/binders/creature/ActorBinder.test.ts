@@ -20,7 +20,7 @@ import { resetFunctionMock } from "@/fixtures/jest";
 import {
   EPacketDataType,
   mockActorGameObject,
-  mockGameObject,
+  MockGameObject,
   mockNetPacket,
   MockNetProcessor,
   mockNetReader,
@@ -199,8 +199,8 @@ describe("ActorBinder class", () => {
     const netProcessor: MockNetProcessor = new MockNetProcessor();
     const binder: ActorBinder = new ActorBinder(actorGameObject);
 
-    const firstZone: GameObject = mockGameObject();
-    const secondZone: GameObject = mockGameObject();
+    const firstZone: GameObject = MockGameObject.mock();
+    const secondZone: GameObject = MockGameObject.mock();
 
     registerZone(firstZone);
     registerZone(secondZone);

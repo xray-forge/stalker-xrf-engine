@@ -13,7 +13,7 @@ import { mockRegisteredActor, mockSchemeState, resetRegistry } from "@/fixtures/
 import { resetFunctionMock } from "@/fixtures/jest";
 import {
   EPacketDataType,
-  mockGameObject,
+  MockGameObject,
   mockNetPacket,
   MockNetProcessor,
   mockNetReader,
@@ -35,7 +35,7 @@ describe("RestrictorBinder class", () => {
   });
 
   it("should correctly initialize", () => {
-    const binder: RestrictorBinder = new RestrictorBinder(mockGameObject());
+    const binder: RestrictorBinder = new RestrictorBinder(MockGameObject.mock());
 
     expect(binder.isInitialized).toBe(false);
     expect(binder.isLoaded).toBe(false);
@@ -43,13 +43,13 @@ describe("RestrictorBinder class", () => {
   });
 
   it("should correctly be net save relevant", () => {
-    const binder: RestrictorBinder = new RestrictorBinder(mockGameObject());
+    const binder: RestrictorBinder = new RestrictorBinder(MockGameObject.mock());
 
     expect(binder.net_save_relevant()).toBe(true);
   });
 
   it("should correctly handle going online and offline", () => {
-    const binder: RestrictorBinder = new RestrictorBinder(mockGameObject());
+    const binder: RestrictorBinder = new RestrictorBinder(MockGameObject.mock());
     const serverObject: ServerObject = mockServerAlifeObject({ id: binder.object.id() });
     const globalSoundManager: GlobalSoundManager = GlobalSoundManager.getInstance();
     const mockSound: AbstractPlayableSound = {} as AnyObject as AbstractPlayableSound;
@@ -90,7 +90,7 @@ describe("RestrictorBinder class", () => {
   it("should correctly handle update event", () => {
     mockRegisteredActor();
 
-    const binder: RestrictorBinder = new RestrictorBinder(mockGameObject());
+    const binder: RestrictorBinder = new RestrictorBinder(MockGameObject.mock());
     const serverObject: ServerObject = mockServerAlifeObject({ id: binder.object.id() });
     const globalSoundManager: GlobalSoundManager = GlobalSoundManager.getInstance();
     const onVisit = jest.fn();
@@ -144,7 +144,7 @@ describe("RestrictorBinder class", () => {
     jest.spyOn(Date, "now").mockImplementation(() => 5000);
 
     const netProcessor: MockNetProcessor = new MockNetProcessor();
-    const binder: RestrictorBinder = new RestrictorBinder(mockGameObject());
+    const binder: RestrictorBinder = new RestrictorBinder(MockGameObject.mock());
     const binderState: IRegistryObjectState = registerObject(binder.object);
 
     binder.isVisited = true;
@@ -185,7 +185,7 @@ describe("RestrictorBinder class", () => {
       11,
     ]);
 
-    const newBinder: RestrictorBinder = new RestrictorBinder(mockGameObject());
+    const newBinder: RestrictorBinder = new RestrictorBinder(MockGameObject.mock());
     const newBinderState: IRegistryObjectState = registerObject(newBinder.object);
 
     expect(newBinder.isLoaded).toBe(false);

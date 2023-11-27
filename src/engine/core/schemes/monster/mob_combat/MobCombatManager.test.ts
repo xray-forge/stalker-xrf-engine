@@ -6,13 +6,13 @@ import { MobCombatManager } from "@/engine/core/schemes/monster/mob_combat/MobCo
 import { trySwitchToAnotherSection } from "@/engine/core/utils/scheme";
 import { EScheme, GameObject } from "@/engine/lib/types";
 import { mockSchemeState } from "@/fixtures/engine";
-import { mockGameObject } from "@/fixtures/xray";
+import { MockGameObject } from "@/fixtures/xray";
 
 jest.mock("@/engine/core/utils/scheme/scheme_switch", () => ({ trySwitchToAnotherSection: jest.fn() }));
 
 describe("MobCombatManager", () => {
   it("should correctly handle combat scheme event", () => {
-    const object: GameObject = mockGameObject();
+    const object: GameObject = MockGameObject.mock();
     const state: IRegistryObjectState = registerObject(object);
     const schemeState: ISchemeMobCombatState = mockSchemeState<ISchemeMobCombatState>(EScheme.MOB_COMBAT);
     const manager: MobCombatManager = new MobCombatManager(object, schemeState);
@@ -26,7 +26,7 @@ describe("MobCombatManager", () => {
 
     expect(trySwitchToAnotherSection).not.toHaveBeenCalled();
 
-    jest.spyOn(object, "get_enemy").mockImplementation(() => mockGameObject());
+    jest.spyOn(object, "get_enemy").mockImplementation(() => MockGameObject.mock());
     manager.onCombat();
 
     expect(trySwitchToAnotherSection).not.toHaveBeenCalled();

@@ -6,11 +6,11 @@ import { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager"
 import { EStateActionId, EStateEvaluatorId } from "@/engine/core/ai/types";
 import { ActionPlanner, GameObject } from "@/engine/lib/types";
 import { checkPlannerAction } from "@/fixtures/engine";
-import { mockGameObject } from "@/fixtures/xray";
+import { MockGameObject } from "@/fixtures/xray";
 
 describe("direction_planner util", () => {
   it("should correctly setup state planner planner actions", () => {
-    const object: GameObject = mockGameObject();
+    const object: GameObject = MockGameObject.mock();
     const stateManager: StalkerStateManager = new StalkerStateManager(object);
     const planner: ActionPlanner = stateManager.planner;
 

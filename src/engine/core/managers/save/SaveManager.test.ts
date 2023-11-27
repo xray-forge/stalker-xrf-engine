@@ -26,7 +26,7 @@ import { AnyObject } from "@/engine/lib/types";
 import { resetRegistry } from "@/fixtures/engine";
 import { resetFunctionMock } from "@/fixtures/jest";
 import { MockIoFile } from "@/fixtures/lua";
-import { mockGameObject, mockNetPacket } from "@/fixtures/xray";
+import { MockGameObject, mockNetPacket } from "@/fixtures/xray";
 
 describe("SaveManager class", () => {
   const mockLifecycleMethods = () => {
@@ -113,7 +113,7 @@ describe("SaveManager class", () => {
   });
 
   it("should read and write data from managers in a strict order", () => {
-    registerActor(mockGameObject());
+    registerActor(MockGameObject.mock());
 
     const expectedOrder: Array<TAbstractCoreManagerConstructor> = [SimulationBoardManager];
 

@@ -12,7 +12,7 @@ import { GameObject, ServerGroupObject, ServerHumanObject } from "@/engine/lib/t
 import { mockRegisteredActor } from "@/fixtures/engine";
 import {
   MockAlifeOnlineOfflineGroup,
-  mockGameObject,
+  MockGameObject,
   mockServerAlifeHumanStalker,
   mockServerAlifeOnlineOfflineGroup,
 } from "@/fixtures/xray";
@@ -62,10 +62,10 @@ describe("squad_actions utils", () => {
   });
 
   it("isObjectSquadCommander should correctly check if object commanding squad", () => {
-    expect(isObjectSquadCommander(mockGameObject())).toBe(false);
+    expect(isObjectSquadCommander(MockGameObject.mock())).toBe(false);
     expect(isObjectSquadCommander(mockServerAlifeHumanStalker())).toBe(false);
 
-    const gameObject: GameObject = mockGameObject();
+    const gameObject: GameObject = MockGameObject.mock();
     const groupObject: ServerGroupObject = mockServerAlifeOnlineOfflineGroup();
     const serverObject: ServerHumanObject = mockServerAlifeHumanStalker({
       id: gameObject.id(),
@@ -82,10 +82,10 @@ describe("squad_actions utils", () => {
   });
 
   it("isObjectSquadCommanderById should correctly check if object commanding squad", () => {
-    expect(isObjectSquadCommanderById(mockGameObject().id())).toBe(false);
+    expect(isObjectSquadCommanderById(MockGameObject.mock().id())).toBe(false);
     expect(isObjectSquadCommanderById(mockServerAlifeHumanStalker().id)).toBe(false);
 
-    const gameObject: GameObject = mockGameObject();
+    const gameObject: GameObject = MockGameObject.mock();
     const groupObject: ServerGroupObject = mockServerAlifeOnlineOfflineGroup();
     const serverObject: ServerHumanObject = mockServerAlifeHumanStalker({
       id: gameObject.id(),

@@ -4,11 +4,11 @@ import { CutsceneManager } from "@/engine/core/schemes/restrictor/sr_cutscene/Cu
 import { ESceneState, ISchemeCutsceneState } from "@/engine/core/schemes/restrictor/sr_cutscene/sr_cutscene_types";
 import { EScheme, GameObject } from "@/engine/lib/types";
 import { mockSchemeState } from "@/fixtures/engine";
-import { mockGameObject } from "@/fixtures/xray";
+import { MockGameObject } from "@/fixtures/xray";
 
 describe("CutsceneManager", () => {
   it("should correctly initialize", () => {
-    const object: GameObject = mockGameObject();
+    const object: GameObject = MockGameObject.mock();
     const state: ISchemeCutsceneState = mockSchemeState(EScheme.SR_CUTSCENE);
     const manager: CutsceneManager = new CutsceneManager(object, state);
 
@@ -22,7 +22,7 @@ describe("CutsceneManager", () => {
   });
 
   it("should correctly handle activation", () => {
-    const object: GameObject = mockGameObject();
+    const object: GameObject = MockGameObject.mock();
     const state: ISchemeCutsceneState = mockSchemeState(EScheme.SR_CUTSCENE);
     const manager: CutsceneManager = new CutsceneManager(object, state);
 

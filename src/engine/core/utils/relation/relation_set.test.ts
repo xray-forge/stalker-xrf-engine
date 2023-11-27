@@ -18,19 +18,19 @@ import { ERelation } from "@/engine/core/utils/relation/relation_types";
 import { communities } from "@/engine/lib/constants/communities";
 import { GameObject, ServerCreatureObject, ServerHumanObject, TIndex } from "@/engine/lib/types";
 import { mockRegisteredActor, mockRelationsSquads } from "@/fixtures/engine";
-import { CLIENT_SIDE_REGISTRY, mockGameObject, mockServerAlifeCreatureAbstract } from "@/fixtures/xray";
+import { CLIENT_SIDE_REGISTRY, MockGameObject, mockServerAlifeCreatureAbstract } from "@/fixtures/xray";
 
 describe("relation/set utils", () => {
   beforeEach(() => registerSimulator());
 
   it("setGameObjectRelation should correctly set objects relation", () => {
     expect(() => setGameObjectRelation(null, null, ERelation.ENEMY)).toThrow();
-    expect(() => setGameObjectRelation(mockGameObject(), null, ERelation.ENEMY)).toThrow();
-    expect(() => setGameObjectRelation(null, mockGameObject(), ERelation.ENEMY)).toThrow();
+    expect(() => setGameObjectRelation(MockGameObject.mock(), null, ERelation.ENEMY)).toThrow();
+    expect(() => setGameObjectRelation(null, MockGameObject.mock(), ERelation.ENEMY)).toThrow();
 
-    const first: GameObject = mockGameObject();
-    const second: GameObject = mockGameObject();
-    const third: GameObject = mockGameObject();
+    const first: GameObject = MockGameObject.mock();
+    const second: GameObject = MockGameObject.mock();
+    const third: GameObject = MockGameObject.mock();
 
     setGameObjectRelation(first, second, ERelation.ENEMY);
     expect(first.force_set_goodwill).toHaveBeenCalledWith(-1000, second);
@@ -112,7 +112,7 @@ describe("relation/set utils", () => {
   });
 
   it("setObjectSympathy should correctly set sympathy", () => {
-    const object: GameObject = mockGameObject();
+    const object: GameObject = MockGameObject.mock();
 
     setObjectSympathy(object, -10);
     setObjectSympathy(object, -0.5);

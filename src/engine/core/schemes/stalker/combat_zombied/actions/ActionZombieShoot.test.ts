@@ -9,7 +9,7 @@ import { ActionZombieShoot } from "@/engine/core/schemes/stalker/combat_zombied/
 import { MX_VECTOR, ONE_VECTOR, ZERO_VECTOR } from "@/engine/lib/constants/vectors";
 import { EScheme, GameObject, Vector } from "@/engine/lib/types";
 import { mockSchemeState, resetRegistry } from "@/fixtures/engine";
-import { mockGameObject } from "@/fixtures/xray";
+import { MockGameObject } from "@/fixtures/xray";
 
 jest.mock("@/engine/core/database/stalker", () => ({
   setStalkerState: jest.fn(),
@@ -23,8 +23,8 @@ describe("ActionZombieShoot", () => {
   });
 
   it("should correctly initialize", () => {
-    const enemy: GameObject = mockGameObject();
-    const object: GameObject = mockGameObject({ best_enemy: () => enemy });
+    const enemy: GameObject = MockGameObject.mock();
+    const object: GameObject = MockGameObject.mock({ best_enemy: () => enemy });
     const state: ISchemeCombatState = mockSchemeState(EScheme.COMBAT);
     const action: ActionZombieShoot = new ActionZombieShoot(state);
 
@@ -61,8 +61,8 @@ describe("ActionZombieShoot", () => {
   });
 
   it("should correctly finalize", () => {
-    const enemy: GameObject = mockGameObject();
-    const object: GameObject = mockGameObject({ best_enemy: () => enemy });
+    const enemy: GameObject = MockGameObject.mock();
+    const object: GameObject = MockGameObject.mock({ best_enemy: () => enemy });
     const state: ISchemeCombatState = mockSchemeState(EScheme.COMBAT);
     const action: ActionZombieShoot = new ActionZombieShoot(state);
 
@@ -79,8 +79,8 @@ describe("ActionZombieShoot", () => {
   it.todo("should correctly execute");
 
   it("should correctly set state", () => {
-    const enemy: GameObject = mockGameObject();
-    const object: GameObject = mockGameObject({ best_enemy: () => enemy });
+    const enemy: GameObject = MockGameObject.mock();
+    const object: GameObject = MockGameObject.mock({ best_enemy: () => enemy });
     const state: ISchemeCombatState = mockSchemeState(EScheme.COMBAT);
     const action: ActionZombieShoot = new ActionZombieShoot(state);
 
@@ -114,8 +114,8 @@ describe("ActionZombieShoot", () => {
   });
 
   it("should correctly get look direction", () => {
-    const enemy: GameObject = mockGameObject();
-    const object: GameObject = mockGameObject({ position: () => ONE_VECTOR, best_enemy: () => enemy });
+    const enemy: GameObject = MockGameObject.mock();
+    const object: GameObject = MockGameObject.mock({ position: () => ONE_VECTOR, best_enemy: () => enemy });
     const state: ISchemeCombatState = mockSchemeState(EScheme.COMBAT);
     const action: ActionZombieShoot = new ActionZombieShoot(state);
 
@@ -143,8 +143,8 @@ describe("ActionZombieShoot", () => {
   });
 
   it("should correctly handle hit", () => {
-    const enemy: GameObject = mockGameObject();
-    const object: GameObject = mockGameObject({ best_enemy: () => enemy });
+    const enemy: GameObject = MockGameObject.mock();
+    const object: GameObject = MockGameObject.mock({ best_enemy: () => enemy });
     const state: ISchemeCombatState = mockSchemeState(EScheme.COMBAT);
     const action: ActionZombieShoot = new ActionZombieShoot(state);
 

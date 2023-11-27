@@ -8,11 +8,11 @@ import { getConfigSwitchConditions } from "@/engine/core/utils/ini";
 import { loadSchemeImplementation } from "@/engine/core/utils/scheme";
 import { EScheme, GameObject, IniFile } from "@/engine/lib/types";
 import { assertSchemeSubscribedToManager } from "@/fixtures/engine";
-import { mockGameObject, mockIniFile } from "@/fixtures/xray";
+import { MockGameObject, mockIniFile } from "@/fixtures/xray";
 
 describe("SchemeSilence", () => {
   it("should correctly initialize", () => {
-    const object: GameObject = mockGameObject();
+    const object: GameObject = MockGameObject.mock();
     const ini: IniFile = mockIniFile("test.ltx", {
       "sr_silence@test": {
         on_info: "{+test} first, second",

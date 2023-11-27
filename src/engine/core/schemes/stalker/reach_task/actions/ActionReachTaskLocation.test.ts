@@ -19,7 +19,7 @@ import {
 import { mockSquad } from "@/fixtures/engine";
 import { resetFunctionMock } from "@/fixtures/jest";
 import {
-  mockGameObject,
+  MockGameObject,
   MockObject,
   mockServerAlifeCreatureAbstract,
   mockServerAlifeOnlineOfflineGroup,
@@ -28,8 +28,8 @@ import {
 describe("ActionReachTaskLocation", () => {
   const mockActionData = () => {
     const action: ActionReachTaskLocation = new ActionReachTaskLocation();
-    const object: GameObject = mockGameObject();
-    const weapon: GameObject = mockGameObject();
+    const object: GameObject = MockGameObject.mock();
+    const weapon: GameObject = MockGameObject.mock();
     const squad: Squad = mockSquad();
     const serverObject: ServerCreatureObject = mockServerAlifeCreatureAbstract({ id: object.id() });
     const target: ServerGroupObject = mockServerAlifeOnlineOfflineGroup();
@@ -140,7 +140,7 @@ describe("ActionReachTaskLocation", () => {
   it("should correctly switch death", () => {
     const { object, action, squad } = mockActionData();
 
-    expect(() => action.onDeath(mockGameObject())).not.toThrow();
+    expect(() => action.onDeath(MockGameObject.mock())).not.toThrow();
 
     action.setup(object, new property_storage());
     action.initialize();
@@ -157,7 +157,7 @@ describe("ActionReachTaskLocation", () => {
   it("should correctly switch offline", () => {
     const { object, action, squad } = mockActionData();
 
-    expect(() => action.onSwitchOffline(mockGameObject())).not.toThrow();
+    expect(() => action.onSwitchOffline(MockGameObject.mock())).not.toThrow();
 
     action.setup(object, new property_storage());
     action.initialize();

@@ -10,7 +10,7 @@ import { EventsManager } from "@/engine/core/managers/events";
 import { EActiveItemSlot, GameObject } from "@/engine/lib/types";
 import { mockRegisteredActor, resetRegistry } from "@/fixtures/engine";
 import { replaceFunctionMock } from "@/fixtures/jest";
-import { MockCTime, mockGameObject } from "@/fixtures/xray";
+import { MockCTime, MockGameObject } from "@/fixtures/xray";
 import { EPacketDataType, mockNetPacket, mockNetProcessor, MockNetProcessor } from "@/fixtures/xray/mocks/save";
 
 describe("ActorInputManager class", () => {
@@ -37,7 +37,7 @@ describe("ActorInputManager class", () => {
     const actorInputManager: ActorInputManager = getManagerInstance(ActorInputManager);
     const netProcessor: MockNetProcessor = new MockNetProcessor();
 
-    registerActor(mockGameObject());
+    registerActor(MockGameObject.mock());
     replaceFunctionMock(registry.actor.active_slot, () => 10);
 
     actorInputManager.setInactiveInputTime(10);
@@ -84,7 +84,7 @@ describe("ActorInputManager class", () => {
 
   it("should correctly toggle night vision state", () => {
     const manager: ActorInputManager = ActorInputManager.getInstance();
-    const torch: GameObject = mockGameObject({ sectionOverride: "device_torch" });
+    const torch: GameObject = MockGameObject.mock({ sectionOverride: "device_torch" });
 
     manager.enableActorNightVision();
     expect(actorConfig.IS_ACTOR_NIGHT_VISION_ENABLED).toBe(false);

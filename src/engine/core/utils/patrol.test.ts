@@ -4,11 +4,11 @@ import { patrol } from "xray16";
 import { registerZone } from "@/engine/core/database";
 import { isObjectAtTerminalWaypoint, isObjectAtWaypoint, isPatrolInRestrictor } from "@/engine/core/utils/patrol";
 import { GameObject, Patrol, Vector } from "@/engine/lib/types";
-import { mockGameObject, patrols } from "@/fixtures/xray";
+import { MockGameObject, patrols } from "@/fixtures/xray";
 
 describe("patrol utils", () => {
   it("isObjectAtWaypoint should correctly check whether object is at waypoint", () => {
-    const object: GameObject = mockGameObject();
+    const object: GameObject = MockGameObject.mock();
 
     jest.spyOn(object.position(), "distance_to_sqr").mockImplementation(() => 0.131);
 
@@ -22,7 +22,7 @@ describe("patrol utils", () => {
   });
 
   it("isObjectAtTerminalWaypoint should correctly check whether object is at terminal waypoint", () => {
-    const object: GameObject = mockGameObject();
+    const object: GameObject = MockGameObject.mock();
     const waypointPatrol: Patrol = new patrol("test-wp");
     const lastPoint: Vector = waypointPatrol.point(2);
 
@@ -39,7 +39,7 @@ describe("patrol utils", () => {
     expect(isPatrolInRestrictor("some_restrictor", "some_patrol")).toBeNull();
     expect(isPatrolInRestrictor("some_restrictor", "another_patrol")).toBeNull();
 
-    const zone: GameObject = mockGameObject({ name: () => "test_restrictor" });
+    const zone: GameObject = MockGameObject.mock({ name: () => "test_restrictor" });
 
     registerZone(zone);
 

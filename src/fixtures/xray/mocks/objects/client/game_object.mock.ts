@@ -47,6 +47,24 @@ export class MockGameObject {
   ): GameObject {
     return mockGameObject(base);
   }
+
+  public static mockActor(
+    base: Partial<
+      GameObject & {
+        idOverride?: TNumberId;
+        sectionOverride?: TSection;
+        infoPortions?: Array<TName>;
+        inventory: Array<[TSection | TNumberId, GameObject]>;
+        upgrades: Array<TSection>;
+      }
+    > = {}
+  ): GameObject {
+    return MockGameObject.mock({
+      ...base,
+      idOverride: ACTOR_ID,
+      get_visual_name: base.get_visual_name ?? jest.fn(() => "some_actor_visual" as any),
+    });
+  }
 }
 
 /**
@@ -432,7 +450,7 @@ export function mockActorGameObject(
     }
   > = {}
 ): GameObject {
-  return mockGameObject({
+  return MockGameObject.mock({
     ...base,
     idOverride: ACTOR_ID,
     get_visual_name: base.get_visual_name ?? jest.fn(() => "some_actor_visual" as any),

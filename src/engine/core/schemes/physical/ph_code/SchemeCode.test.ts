@@ -8,11 +8,11 @@ import { getConfigSwitchConditions, parseConditionsList } from "@/engine/core/ut
 import { loadSchemeImplementation } from "@/engine/core/utils/scheme";
 import { EScheme, GameObject, IniFile } from "@/engine/lib/types";
 import { assertSchemeSubscribedToManager } from "@/fixtures/engine";
-import { mockGameObject, mockIniFile } from "@/fixtures/xray";
+import { MockGameObject, mockIniFile } from "@/fixtures/xray";
 
 describe("SchemeCode", () => {
   it("should correctly activate with defaults", () => {
-    const object: GameObject = mockGameObject();
+    const object: GameObject = MockGameObject.mock();
     const ini: IniFile = mockIniFile("test.ltx", {
       "ph_code@test": {},
     });
@@ -33,7 +33,7 @@ describe("SchemeCode", () => {
   });
 
   it("should correctly activate with one code", () => {
-    const object: GameObject = mockGameObject();
+    const object: GameObject = MockGameObject.mock();
     const ini: IniFile = mockIniFile("test.ltx", {
       "ph_code@test": {
         on_info: "{+test} first, second",
@@ -66,7 +66,7 @@ describe("SchemeCode", () => {
   });
 
   it("should correctly activate with on_check_code", () => {
-    const object: GameObject = mockGameObject();
+    const object: GameObject = MockGameObject.mock();
     const ini: IniFile = mockIniFile("test.ltx", {
       "ph_code@test": {
         on_info: "{+test} first, second",

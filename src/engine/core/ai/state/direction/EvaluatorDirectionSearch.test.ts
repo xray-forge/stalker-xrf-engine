@@ -8,11 +8,11 @@ import { registry } from "@/engine/core/database/registry";
 import { registerStalker, setStalkerState, unregisterStalker } from "@/engine/core/database/stalker";
 import { createEmptyVector } from "@/engine/core/utils/vector";
 import { GameObject } from "@/engine/lib/types";
-import { mockGameObject } from "@/fixtures/xray";
+import { MockGameObject } from "@/fixtures/xray";
 
 describe("EvaluatorDirectionSearch class", () => {
   it("should correctly perform direction search check", () => {
-    const stalker: StalkerBinder = new StalkerBinder(mockGameObject());
+    const stalker: StalkerBinder = new StalkerBinder(MockGameObject.mock());
 
     registerStalker(stalker);
 
@@ -20,7 +20,7 @@ describe("EvaluatorDirectionSearch class", () => {
 
     const manager: StalkerStateManager = registry.objects.get(stalker.object.id()).stateManager as StalkerStateManager;
     const evaluator: EvaluatorDirectionSearch = new EvaluatorDirectionSearch(manager);
-    const lookObject: GameObject = mockGameObject();
+    const lookObject: GameObject = MockGameObject.mock();
 
     expect(evaluator.evaluate()).toBeTruthy();
 

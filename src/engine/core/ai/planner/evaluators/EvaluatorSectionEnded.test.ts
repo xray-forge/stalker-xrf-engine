@@ -6,11 +6,11 @@ import { IRegistryObjectState, registerObject } from "@/engine/core/database";
 import type { IBaseSchemeState } from "@/engine/core/database/database_types";
 import { EScheme, GameObject } from "@/engine/lib/types";
 import { mockSchemeState } from "@/fixtures/engine";
-import { mockGameObject } from "@/fixtures/xray";
+import { MockGameObject } from "@/fixtures/xray";
 
 describe("EvaluatorSectionActive class", () => {
   it("should correctly check if section state is active", () => {
-    const object: GameObject = mockGameObject();
+    const object: GameObject = MockGameObject.mock();
     const schemeState: IBaseSchemeState = mockSchemeState(EScheme.MEET, { section: "test@active" });
     const state: IRegistryObjectState = registerObject(object);
 

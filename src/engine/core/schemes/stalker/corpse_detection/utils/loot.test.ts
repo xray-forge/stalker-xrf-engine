@@ -11,17 +11,17 @@ import { loadSchemeImplementation } from "@/engine/core/utils/scheme";
 import { weapons } from "@/engine/lib/constants/items/weapons";
 import { EScheme, GameObject } from "@/engine/lib/types";
 import { replaceFunctionMock } from "@/fixtures/jest";
-import { mockGameObject, mockIniFile } from "@/fixtures/xray";
+import { MockGameObject, mockIniFile } from "@/fixtures/xray";
 
 describe("loot utils for corpse_detection scheme", () => {
   it("finishCorpseLooting should correctly finish looting", () => {
     const soundManager: GlobalSoundManager = GlobalSoundManager.getInstance();
 
-    const ak74: GameObject = mockGameObject({ sectionOverride: weapons.wpn_ak74 });
-    const questItem: GameObject = mockGameObject({ sectionOverride: "some_quest_item" });
+    const ak74: GameObject = MockGameObject.mock({ sectionOverride: weapons.wpn_ak74 });
+    const questItem: GameObject = MockGameObject.mock({ sectionOverride: "some_quest_item" });
 
-    const object: GameObject = mockGameObject();
-    const corpse: GameObject = mockGameObject({
+    const object: GameObject = MockGameObject.mock();
+    const corpse: GameObject = MockGameObject.mock({
       inventory: [
         [ak74.section(), ak74],
         [questItem.section(), questItem],

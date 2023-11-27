@@ -6,11 +6,11 @@ import { ISchemeGatherItemsState } from "@/engine/core/schemes/stalker/gather_it
 import { SchemeGatherItems } from "@/engine/core/schemes/stalker/gather_items/SchemeGatherItems";
 import { loadSchemeImplementation } from "@/engine/core/utils/scheme/scheme_setup";
 import { ActionPlanner, EScheme, GameObject, IniFile } from "@/engine/lib/types";
-import { mockGameObject, mockIniFile, mockStalkerIds } from "@/fixtures/xray";
+import { MockGameObject, mockIniFile, mockStalkerIds } from "@/fixtures/xray";
 
 describe("SchemeGatherItems class", () => {
   it("should correctly activate schemes", () => {
-    const object: GameObject = mockGameObject();
+    const object: GameObject = MockGameObject.mock();
     const state: IRegistryObjectState = registerObject(object);
     const ini: IniFile = mockIniFile("test.ltx", {
       "gather_items_default@test": {},
@@ -35,7 +35,7 @@ describe("SchemeGatherItems class", () => {
   });
 
   it("should correctly add schemes and replace evaluator", () => {
-    const object: GameObject = mockGameObject();
+    const object: GameObject = MockGameObject.mock();
     const state: IRegistryObjectState = registerObject(object);
     const ini: IniFile = mockIniFile("test.ltx", {});
 
@@ -57,7 +57,7 @@ describe("SchemeGatherItems class", () => {
   });
 
   it("should correctly reset schemes", () => {
-    const object: GameObject = mockGameObject();
+    const object: GameObject = MockGameObject.mock();
     const state: IRegistryObjectState = registerObject(object);
     const ini: IniFile = mockIniFile("test.ltx", {
       "gather_items_default@test": {},

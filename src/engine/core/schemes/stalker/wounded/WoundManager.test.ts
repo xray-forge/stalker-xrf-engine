@@ -4,7 +4,7 @@ import { ISchemeWoundedState } from "@/engine/core/schemes/stalker/wounded/wound
 import { WoundManager } from "@/engine/core/schemes/stalker/wounded/WoundManager";
 import { EScheme, GameObject } from "@/engine/lib/types";
 import { mockSchemeState } from "@/fixtures/engine";
-import { mockGameObject } from "@/fixtures/xray";
+import { MockGameObject } from "@/fixtures/xray";
 
 describe("WoundManager class", () => {
   it.todo("should correctly handle updates");
@@ -20,7 +20,7 @@ describe("WoundManager class", () => {
   it.todo("should correctly process psy wounds");
 
   it("should correctly handle hit events", () => {
-    const object: GameObject = mockGameObject();
+    const object: GameObject = MockGameObject.mock();
     const state: ISchemeWoundedState = mockSchemeState(EScheme.WOUNDED);
     const manager: WoundManager = new WoundManager(object, state);
 

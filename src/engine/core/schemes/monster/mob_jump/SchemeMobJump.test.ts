@@ -9,12 +9,12 @@ import { loadSchemeImplementation } from "@/engine/core/utils/scheme";
 import { ZERO_VECTOR } from "@/engine/lib/constants/vectors";
 import { EScheme, GameObject, IniFile } from "@/engine/lib/types";
 import { assertSchemeSubscribedToManager } from "@/fixtures/engine";
-import { mockGameObject, mockIniFile } from "@/fixtures/xray";
+import { MockGameObject, mockIniFile } from "@/fixtures/xray";
 import { MockVector } from "@/fixtures/xray/mocks/vector.mock";
 
 describe("SchemeMobJump", () => {
   it("should correctly activate scheme with default values", () => {
-    const object: GameObject = mockGameObject();
+    const object: GameObject = MockGameObject.mock();
     const ini: IniFile = mockIniFile("test.ltx", {
       "mob_jump@test": {
         on_signal: "on_signal = anim_end | remark@kovalski_arch_2_answer",
@@ -42,7 +42,7 @@ describe("SchemeMobJump", () => {
   });
 
   it("should correctly activate scheme with custom values", () => {
-    const object: GameObject = mockGameObject();
+    const object: GameObject = MockGameObject.mock();
     const ini: IniFile = mockIniFile("test.ltx", {
       "mob_jump@test": {
         on_signal: "on_signal = anim_end | remark@kovalski_arch_2_answer",
@@ -72,7 +72,7 @@ describe("SchemeMobJump", () => {
   });
 
   it("should correctly throw if no on_signal supplied", () => {
-    const object: GameObject = mockGameObject();
+    const object: GameObject = MockGameObject.mock();
     const ini: IniFile = mockIniFile("test.ltx", {});
 
     registerObject(object);

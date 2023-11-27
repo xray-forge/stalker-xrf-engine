@@ -8,11 +8,11 @@ import {
 } from "@/engine/core/schemes/stalker/meet/utils/meet_handling";
 import { AnyObject, EScheme, GameObject } from "@/engine/lib/types";
 import { mockSchemeState } from "@/fixtures/engine";
-import { mockGameObject } from "@/fixtures/xray";
+import { MockGameObject } from "@/fixtures/xray";
 
 describe("meet handling utils", () => {
   it("addObjectAbuse should correctly add abuse values to the manager", () => {
-    const object: GameObject = mockGameObject();
+    const object: GameObject = MockGameObject.mock();
     const state: IRegistryObjectState = registerObject(object);
     const manager = { addAbuse: jest.fn() };
 
@@ -28,7 +28,7 @@ describe("meet handling utils", () => {
   });
 
   it("clearObjectAbuse should correctly clear abuse state from the manager", () => {
-    const object: GameObject = mockGameObject();
+    const object: GameObject = MockGameObject.mock();
     const state: IRegistryObjectState = registerObject(object);
     const manager = { clearAbuse: jest.fn() };
 
@@ -44,7 +44,7 @@ describe("meet handling utils", () => {
   });
 
   it("setObjectAbuseState should correctly set abuse state for the manager", () => {
-    const object: GameObject = mockGameObject();
+    const object: GameObject = MockGameObject.mock();
     const state: IRegistryObjectState = registerObject(object);
     const manager = { enableAbuse: jest.fn(), disableAbuse: jest.fn() };
 

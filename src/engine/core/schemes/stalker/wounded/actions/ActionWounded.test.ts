@@ -19,7 +19,7 @@ import { TRUE } from "@/engine/lib/constants/words";
 import { EScheme, GameObject } from "@/engine/lib/types";
 import { mockSchemeState, resetRegistry } from "@/fixtures/engine";
 import { replaceFunctionMockOnce } from "@/fixtures/jest";
-import { mockGameObject, MockPropertyStorage } from "@/fixtures/xray";
+import { MockGameObject, MockPropertyStorage } from "@/fixtures/xray";
 
 describe("ActionWounded class", () => {
   beforeEach(() => {
@@ -28,7 +28,7 @@ describe("ActionWounded class", () => {
   });
 
   it("should correctly initialize being wounded", () => {
-    const object: GameObject = mockGameObject();
+    const object: GameObject = MockGameObject.mock();
     const state: IRegistryObjectState = registerObject(object);
     const schemeState: ISchemeWoundedState = mockSchemeState<ISchemeWoundedState>(EScheme.WOUNDED, {
       helpStartDialog: "test_dialog",
@@ -56,7 +56,7 @@ describe("ActionWounded class", () => {
   });
 
   it("should correctly finalize and clean up the state", () => {
-    const object: GameObject = mockGameObject();
+    const object: GameObject = MockGameObject.mock();
     const state: IRegistryObjectState = registerObject(object);
     const schemeState: ISchemeWoundedState = mockSchemeState<ISchemeWoundedState>(EScheme.WOUNDED, {
       helpStartDialog: "test_dialog",
@@ -80,7 +80,7 @@ describe("ActionWounded class", () => {
   });
 
   it("should correctly execute being wounded and hit object when state is true", () => {
-    const object: GameObject = mockGameObject();
+    const object: GameObject = MockGameObject.mock();
     const schemeState: ISchemeWoundedState = mockSchemeState<ISchemeWoundedState>(EScheme.WOUNDED, {
       helpStartDialog: "test_dialog",
     });
@@ -102,7 +102,7 @@ describe("ActionWounded class", () => {
   });
 
   it("should correctly execute being wounded and hit object when state is true", () => {
-    const object: GameObject = mockGameObject();
+    const object: GameObject = MockGameObject.mock();
     const state: IRegistryObjectState = registerObject(object);
     const schemeState: ISchemeWoundedState = mockSchemeState<ISchemeWoundedState>(EScheme.WOUNDED, {
       helpStartDialog: "test_dialog",
@@ -135,7 +135,7 @@ describe("ActionWounded class", () => {
   });
 
   it("should correctly execute being wounded and autoheal", () => {
-    const object: GameObject = mockGameObject();
+    const object: GameObject = MockGameObject.mock();
     const schemeState: ISchemeWoundedState = mockSchemeState<ISchemeWoundedState>(EScheme.WOUNDED, {
       helpStartDialog: "test_dialog",
       woundManager: { unlockMedkit: jest.fn() } as unknown as WoundManager,

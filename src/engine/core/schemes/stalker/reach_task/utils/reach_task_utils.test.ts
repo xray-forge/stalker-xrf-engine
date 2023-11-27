@@ -5,7 +5,7 @@ import { TSimulationObject } from "@/engine/core/managers/simulation";
 import { surgeConfig } from "@/engine/core/managers/surge/SurgeConfig";
 import { updateObjectReachTaskMovement } from "@/engine/core/schemes/stalker/reach_task/utils/reach_task_utils";
 import { GameObject, Vector } from "@/engine/lib/types";
-import { mockGameObject, MockVector } from "@/fixtures/xray";
+import { MockGameObject, MockVector } from "@/fixtures/xray";
 
 describe("reach_task_utils.test.ts class", () => {
   beforeEach(() => {
@@ -13,7 +13,7 @@ describe("reach_task_utils.test.ts class", () => {
   });
 
   it("updateObjectReachTaskMovement should correctly set object movement when have not target or talking", () => {
-    const object: GameObject = mockGameObject();
+    const object: GameObject = MockGameObject.mock();
 
     updateObjectReachTaskMovement(object, null);
 
@@ -29,7 +29,7 @@ describe("reach_task_utils.test.ts class", () => {
   });
 
   it("updateObjectReachTaskMovement should correctly set object movement when have surge active", () => {
-    const object: GameObject = mockGameObject();
+    const object: GameObject = MockGameObject.mock();
 
     surgeConfig.IS_STARTED = true;
 
@@ -40,7 +40,7 @@ describe("reach_task_utils.test.ts class", () => {
   });
 
   it("updateObjectReachTaskMovement should correctly set object movement when have terrain target", () => {
-    const object: GameObject = mockGameObject();
+    const object: GameObject = MockGameObject.mock();
 
     updateObjectReachTaskMovement(object, { clsid: () => clsid.smart_terrain } as TSimulationObject);
 
@@ -49,7 +49,7 @@ describe("reach_task_utils.test.ts class", () => {
   });
 
   it("updateObjectReachTaskMovement should correctly set object movement when have squad", () => {
-    const object: GameObject = mockGameObject();
+    const object: GameObject = MockGameObject.mock();
     const squadPosition: Vector = MockVector.mock();
 
     jest.spyOn(squadPosition, "distance_to_sqr").mockImplementation(() => 10_000);

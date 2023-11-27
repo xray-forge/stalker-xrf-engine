@@ -7,7 +7,7 @@ import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import { AnyArgs, AnyObject, EGameObjectRelation, GameObject, TName } from "@/engine/lib/types";
 import { callBinding, checkNestedBinding, mockRegisteredActor } from "@/fixtures/engine";
 import { replaceFunctionMock } from "@/fixtures/jest";
-import { mockActorGameObject, mockGameObject } from "@/fixtures/xray";
+import { mockActorGameObject, MockGameObject } from "@/fixtures/xray";
 
 jest.mock("@/engine/core/utils/planner", () => ({ isObjectWounded: jest.fn(() => false) }));
 
@@ -46,7 +46,7 @@ describe("dialogs_generic external callbacks", () => {
 
   it("update_npc_dialog should correctly update", () => {
     const { actorGameObject } = mockRegisteredActor();
-    const object: GameObject = mockGameObject();
+    const object: GameObject = MockGameObject.mock();
 
     callDialogsBinding("update_npc_dialog", [actorGameObject, object]);
     expect(updateObjectDialog).toHaveBeenCalledWith(object);
@@ -54,7 +54,7 @@ describe("dialogs_generic external callbacks", () => {
 
   it("is_wounded should correctly check wounded state", () => {
     const { actorGameObject } = mockRegisteredActor();
-    const object: GameObject = mockGameObject();
+    const object: GameObject = MockGameObject.mock();
 
     replaceFunctionMock(isObjectWounded, (it) => it === ACTOR_ID);
 
@@ -69,7 +69,7 @@ describe("dialogs_generic external callbacks", () => {
 
   it("is_not_wounded should correctly check wounded state", () => {
     const { actorGameObject } = mockRegisteredActor();
-    const object: GameObject = mockGameObject();
+    const object: GameObject = MockGameObject.mock();
 
     replaceFunctionMock(isObjectWounded, (it) => it === ACTOR_ID);
 
@@ -84,7 +84,7 @@ describe("dialogs_generic external callbacks", () => {
 
   it("is_friend should correctly check friend relations", () => {
     const actor: GameObject = mockActorGameObject();
-    const object: GameObject = mockGameObject();
+    const object: GameObject = MockGameObject.mock();
 
     jest.spyOn(actor, "relation").mockImplementation(() => EGameObjectRelation.FRIEND as TXR_relation);
     expect(callDialogsBinding("is_friend", [actor, object])).toBe(true);
@@ -95,7 +95,7 @@ describe("dialogs_generic external callbacks", () => {
 
   it("is_not_friend should correctly check not friend relations", () => {
     const actor: GameObject = mockActorGameObject();
-    const object: GameObject = mockGameObject();
+    const object: GameObject = MockGameObject.mock();
 
     jest.spyOn(actor, "relation").mockImplementation(() => EGameObjectRelation.FRIEND as TXR_relation);
     expect(callDialogsBinding("is_not_friend", [actor, object])).toBe(false);
@@ -106,7 +106,7 @@ describe("dialogs_generic external callbacks", () => {
 
   it("become_friend should correctly change relations", () => {
     const actor: GameObject = mockActorGameObject();
-    const object: GameObject = mockGameObject();
+    const object: GameObject = MockGameObject.mock();
 
     callDialogsBinding("become_friend", [actor, object]);
 
@@ -119,7 +119,7 @@ describe("dialogs_generic external callbacks", () => {
     expect(
       callDialogsBinding("npc_stalker", [
         actorGameObject,
-        mockGameObject({
+        MockGameObject.mock({
           clsid: () => clsid.script_stalker,
           character_community: <T>() => "monolith" as T,
         }),
@@ -129,7 +129,7 @@ describe("dialogs_generic external callbacks", () => {
     expect(
       callDialogsBinding("npc_stalker", [
         actorGameObject,
-        mockGameObject({
+        MockGameObject.mock({
           clsid: () => clsid.script_stalker,
           character_community: <T>() => "stalker" as T,
         }),
@@ -143,7 +143,7 @@ describe("dialogs_generic external callbacks", () => {
     expect(
       callDialogsBinding("npc_bandit", [
         actorGameObject,
-        mockGameObject({
+        MockGameObject.mock({
           clsid: () => clsid.script_stalker,
           character_community: <T>() => "stalker" as T,
         }),
@@ -153,7 +153,7 @@ describe("dialogs_generic external callbacks", () => {
     expect(
       callDialogsBinding("npc_bandit", [
         actorGameObject,
-        mockGameObject({
+        MockGameObject.mock({
           clsid: () => clsid.script_stalker,
           character_community: <T>() => "bandit" as T,
         }),
@@ -167,7 +167,7 @@ describe("dialogs_generic external callbacks", () => {
     expect(
       callDialogsBinding("npc_freedom", [
         actorGameObject,
-        mockGameObject({
+        MockGameObject.mock({
           clsid: () => clsid.script_stalker,
           character_community: <T>() => "stalker" as T,
         }),
@@ -177,7 +177,7 @@ describe("dialogs_generic external callbacks", () => {
     expect(
       callDialogsBinding("npc_freedom", [
         actorGameObject,
-        mockGameObject({
+        MockGameObject.mock({
           clsid: () => clsid.script_stalker,
           character_community: <T>() => "freedom" as T,
         }),
@@ -191,7 +191,7 @@ describe("dialogs_generic external callbacks", () => {
     expect(
       callDialogsBinding("npc_dolg", [
         actorGameObject,
-        mockGameObject({
+        MockGameObject.mock({
           clsid: () => clsid.script_stalker,
           character_community: <T>() => "stalker" as T,
         }),
@@ -201,7 +201,7 @@ describe("dialogs_generic external callbacks", () => {
     expect(
       callDialogsBinding("npc_dolg", [
         actorGameObject,
-        mockGameObject({
+        MockGameObject.mock({
           clsid: () => clsid.script_stalker,
           character_community: <T>() => "dolg" as T,
         }),
@@ -215,7 +215,7 @@ describe("dialogs_generic external callbacks", () => {
     expect(
       callDialogsBinding("npc_army", [
         actorGameObject,
-        mockGameObject({
+        MockGameObject.mock({
           clsid: () => clsid.script_stalker,
           character_community: <T>() => "stalker" as T,
         }),
@@ -225,7 +225,7 @@ describe("dialogs_generic external callbacks", () => {
     expect(
       callDialogsBinding("npc_army", [
         actorGameObject,
-        mockGameObject({
+        MockGameObject.mock({
           clsid: () => clsid.script_stalker,
           character_community: <T>() => "army" as T,
         }),

@@ -9,7 +9,7 @@ import { ZERO_VECTOR } from "@/engine/lib/constants/vectors";
 import { EScheme, GameObject, TIndex } from "@/engine/lib/types";
 import { mockSchemeState } from "@/fixtures/engine";
 import { resetFunctionMock } from "@/fixtures/jest";
-import { mockGameObject, MockPhysicsJoint, MockPhysicsShell } from "@/fixtures/xray";
+import { MockGameObject, MockPhysicsJoint, MockPhysicsShell } from "@/fixtures/xray";
 
 jest.mock("@/engine/core/utils/scheme/scheme_switch", () => ({
   trySwitchToAnotherSection: jest.fn(),
@@ -23,7 +23,7 @@ describe("PhysicalDoorManager", () => {
   });
 
   it("should correctly activate without shell object", () => {
-    const object: GameObject = mockGameObject();
+    const object: GameObject = MockGameObject.mock();
     const state: ISchemePhysicalDoorState = mockSchemeState<ISchemePhysicalDoorState>(EScheme.PH_DOOR, {});
     const manager: PhysicalDoorManager = new PhysicalDoorManager(object, state);
 
@@ -34,7 +34,7 @@ describe("PhysicalDoorManager", () => {
   });
 
   it("should correctly activate with shell object", () => {
-    const object: GameObject = mockGameObject({ get_physics_shell: jest.fn(() => MockPhysicsShell.mock()) });
+    const object: GameObject = MockGameObject.mock({ get_physics_shell: jest.fn(() => MockPhysicsShell.mock()) });
     const state: ISchemePhysicalDoorState = mockSchemeState<ISchemePhysicalDoorState>(EScheme.PH_DOOR, {
       showTips: true,
       scriptUsedMoreThanOnce: false,
@@ -59,7 +59,7 @@ describe("PhysicalDoorManager", () => {
   });
 
   it("should correctly activate and force open", () => {
-    const object: GameObject = mockGameObject({ get_physics_shell: jest.fn(() => MockPhysicsShell.mock()) });
+    const object: GameObject = MockGameObject.mock({ get_physics_shell: jest.fn(() => MockPhysicsShell.mock()) });
     const state: ISchemePhysicalDoorState = mockSchemeState<ISchemePhysicalDoorState>(EScheme.PH_DOOR, {
       showTips: true,
       scriptUsedMoreThanOnce: false,
@@ -75,7 +75,7 @@ describe("PhysicalDoorManager", () => {
   });
 
   it("should correctly deactivate", () => {
-    const object: GameObject = mockGameObject();
+    const object: GameObject = MockGameObject.mock();
     const state: ISchemePhysicalDoorState = mockSchemeState<ISchemePhysicalDoorState>(EScheme.PH_DOOR, {});
     const manager: PhysicalDoorManager = new PhysicalDoorManager(object, state);
 
@@ -86,7 +86,7 @@ describe("PhysicalDoorManager", () => {
   });
 
   it("should throw on updates without initialization", () => {
-    const object: GameObject = mockGameObject();
+    const object: GameObject = MockGameObject.mock();
     const state: ISchemePhysicalDoorState = mockSchemeState<ISchemePhysicalDoorState>(EScheme.PH_DOOR, {});
     const manager: PhysicalDoorManager = new PhysicalDoorManager(object, state);
 
@@ -96,7 +96,7 @@ describe("PhysicalDoorManager", () => {
   });
 
   it("should correctly update", () => {
-    const object: GameObject = mockGameObject();
+    const object: GameObject = MockGameObject.mock();
     const state: ISchemePhysicalDoorState = mockSchemeState<ISchemePhysicalDoorState>(EScheme.PH_DOOR, {});
     const manager: PhysicalDoorManager = new PhysicalDoorManager(object, state);
 
@@ -108,7 +108,7 @@ describe("PhysicalDoorManager", () => {
   });
 
   it("should correctly check if state is open without slider", () => {
-    const object: GameObject = mockGameObject();
+    const object: GameObject = MockGameObject.mock();
     const state: ISchemePhysicalDoorState = mockSchemeState<ISchemePhysicalDoorState>(EScheme.PH_DOOR, {
       slider: false,
     });
@@ -149,7 +149,7 @@ describe("PhysicalDoorManager", () => {
   });
 
   it("should correctly check if state is open with slider", () => {
-    const object: GameObject = mockGameObject();
+    const object: GameObject = MockGameObject.mock();
     const state: ISchemePhysicalDoorState = mockSchemeState<ISchemePhysicalDoorState>(EScheme.PH_DOOR, {
       slider: true,
     });
@@ -184,7 +184,7 @@ describe("PhysicalDoorManager", () => {
   });
 
   it("should correctly check if state is closed without slider", () => {
-    const object: GameObject = mockGameObject();
+    const object: GameObject = MockGameObject.mock();
     const state: ISchemePhysicalDoorState = mockSchemeState<ISchemePhysicalDoorState>(EScheme.PH_DOOR, {
       slider: false,
     });
@@ -213,7 +213,7 @@ describe("PhysicalDoorManager", () => {
   });
 
   it("should correctly check if state is closed with slider", () => {
-    const object: GameObject = mockGameObject();
+    const object: GameObject = MockGameObject.mock();
     const state: ISchemePhysicalDoorState = mockSchemeState<ISchemePhysicalDoorState>(EScheme.PH_DOOR, {
       slider: true,
     });
@@ -248,7 +248,7 @@ describe("PhysicalDoorManager", () => {
   });
 
   it("should correctly handle usage", () => {
-    const object: GameObject = mockGameObject();
+    const object: GameObject = MockGameObject.mock();
     const state: ISchemePhysicalDoorState = mockSchemeState<ISchemePhysicalDoorState>(EScheme.PH_DOOR, {
       hitOnBone: $fromObject<TIndex, IBoneStateDescriptor>({ 2: { index: 2, state: parseConditionsList("sample") } }),
     });
@@ -262,7 +262,7 @@ describe("PhysicalDoorManager", () => {
   });
 
   it("should correctly handle hit", () => {
-    const object: GameObject = mockGameObject();
+    const object: GameObject = MockGameObject.mock();
     const state: ISchemePhysicalDoorState = mockSchemeState<ISchemePhysicalDoorState>(EScheme.PH_DOOR, {
       hitOnBone: $fromObject<TIndex, IBoneStateDescriptor>({ 2: { index: 2, state: parseConditionsList("sample") } }),
     });

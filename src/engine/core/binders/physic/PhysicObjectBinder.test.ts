@@ -12,7 +12,7 @@ import { EScheme, ESchemeEvent } from "@/engine/lib/types";
 import { mockRegisteredActor, mockSchemeState, resetRegistry } from "@/fixtures/engine";
 import {
   EPacketDataType,
-  mockGameObject,
+  MockGameObject,
   mockIniFile,
   mockNetPacket,
   MockNetProcessor,
@@ -31,7 +31,7 @@ describe("PhysicObjectBinder class", () => {
   });
 
   it("should correctly handle going online/offline with defaults", () => {
-    const binder: PhysicObjectBinder = new PhysicObjectBinder(mockGameObject());
+    const binder: PhysicObjectBinder = new PhysicObjectBinder(MockGameObject.mock());
     const soundManager: GlobalSoundManager = GlobalSoundManager.getInstance();
 
     jest.spyOn(soundManager, "stopSoundByObjectId").mockImplementation(jest.fn());
@@ -55,7 +55,7 @@ describe("PhysicObjectBinder class", () => {
   });
 
   it("should correctly handle with extended config", () => {
-    const binder: PhysicObjectBinder = new PhysicObjectBinder(mockGameObject());
+    const binder: PhysicObjectBinder = new PhysicObjectBinder(MockGameObject.mock());
     const soundManager: GlobalSoundManager = GlobalSoundManager.getInstance();
 
     jest.spyOn(soundManager, "stopSoundByObjectId").mockImplementation(jest.fn());
@@ -107,7 +107,7 @@ describe("PhysicObjectBinder class", () => {
   it.todo("should correctly handle update events");
 
   it("should be save relevant", () => {
-    const binder: PhysicObjectBinder = new PhysicObjectBinder(mockGameObject());
+    const binder: PhysicObjectBinder = new PhysicObjectBinder(MockGameObject.mock());
 
     expect(binder.net_save_relevant()).toBe(true);
   });
@@ -116,7 +116,7 @@ describe("PhysicObjectBinder class", () => {
     jest.spyOn(Date, "now").mockImplementation(() => 5000);
 
     const netProcessor: MockNetProcessor = new MockNetProcessor();
-    const binder: PhysicObjectBinder = new PhysicObjectBinder(mockGameObject());
+    const binder: PhysicObjectBinder = new PhysicObjectBinder(MockGameObject.mock());
     const binderState: IRegistryObjectState = registerObject(binder.object);
 
     binderState.jobIni = "test.ltx";
@@ -154,7 +154,7 @@ describe("PhysicObjectBinder class", () => {
       10,
     ]);
 
-    const newBinder: PhysicObjectBinder = new PhysicObjectBinder(mockGameObject());
+    const newBinder: PhysicObjectBinder = new PhysicObjectBinder(MockGameObject.mock());
     const newBinderState: IRegistryObjectState = registerObject(newBinder.object);
 
     newBinder.load(mockNetReader(netProcessor));

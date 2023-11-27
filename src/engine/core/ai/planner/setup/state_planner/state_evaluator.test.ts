@@ -58,11 +58,11 @@ import {
 } from "@/engine/core/ai/state/weapon";
 import { EStateEvaluatorId } from "@/engine/core/ai/types";
 import { ActionPlanner, GameObject } from "@/engine/lib/types";
-import { MockActionPlanner, mockGameObject } from "@/fixtures/xray";
+import { MockActionPlanner, MockGameObject } from "@/fixtures/xray";
 
 describe("state_evaluator util", () => {
   it("should correctly setup state planner evaluators", () => {
-    const object: GameObject = mockGameObject();
+    const object: GameObject = MockGameObject.mock();
     const stateManager: StalkerStateManager = new StalkerStateManager(object);
     const planner: ActionPlanner = stateManager.planner;
 

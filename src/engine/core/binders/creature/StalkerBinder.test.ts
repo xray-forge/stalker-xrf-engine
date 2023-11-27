@@ -10,7 +10,7 @@ import { resetRegistry } from "@/fixtures/engine";
 import {
   EPacketDataType,
   MockCTime,
-  mockGameObject,
+  MockGameObject,
   mockNetPacket,
   MockNetProcessor,
   mockNetReader,
@@ -45,7 +45,7 @@ describe("StalkerBinder class", () => {
 
     jest.spyOn(Date, "now").mockImplementationOnce(() => 7000);
 
-    const object: GameObject = mockGameObject();
+    const object: GameObject = MockGameObject.mock();
     const binder: StalkerBinder = new StalkerBinder(object);
     const netProcessor: MockNetProcessor = new MockNetProcessor();
 

@@ -10,7 +10,7 @@ import { jobPreconditionSurge } from "@/engine/core/objects/smart_terrain/job/jo
 import { range } from "@/engine/core/utils/number";
 import { StringBuilder } from "@/engine/core/utils/string";
 import { mockSmartTerrain, readInGameTestLtx } from "@/fixtures/engine";
-import { mockGameObject } from "@/fixtures/xray";
+import { MockGameObject } from "@/fixtures/xray";
 
 describe("jobs_general should correctly generate stalkers surge jobs", () => {
   it("should correctly generate surge jobs for stalkers when no patrols exist", async () => {
@@ -77,7 +77,7 @@ describe("jobs_general should correctly generate stalkers surge jobs", () => {
     );
     const smartTerrain: SmartTerrain = mockSmartTerrain();
 
-    registerZone(mockGameObject({ name: () => "some_restrictor", inside: () => true }));
+    registerZone(MockGameObject.mock({ name: () => "some_restrictor", inside: () => true }));
 
     smartTerrain.defendRestrictor = "def_restrictor_test";
     smartTerrain.smartTerrainActorControl = { ignoreZone: "some_restrictor" } as SmartTerrainControl;

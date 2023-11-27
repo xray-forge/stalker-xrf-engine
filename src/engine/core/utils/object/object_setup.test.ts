@@ -4,13 +4,13 @@ import { registerActor } from "@/engine/core/database";
 import { setupObjectInfoPortions, setupObjectStalkerVisual } from "@/engine/core/utils/object/object_setup";
 import { GameObject } from "@/engine/lib/types";
 import { expectCallsToEqual } from "@/fixtures/jest";
-import { mockActorGameObject, mockGameObject, mockIniFile } from "@/fixtures/xray";
+import { mockActorGameObject, MockGameObject, mockIniFile } from "@/fixtures/xray";
 
 describe("object_setup utils", () => {
   it("setupObjectVisual should setup visuals", () => {
-    const stalkerNone: GameObject = mockGameObject({ section: <T>() => "stalker_none_1" as T });
-    const stalkerFreedom: GameObject = mockGameObject({ section: <T>() => "stalker_freedom_1" as T });
-    const stalkerActor: GameObject = mockGameObject({ section: <T>() => "stalker_actor_1" as T });
+    const stalkerNone: GameObject = MockGameObject.mock({ section: <T>() => "stalker_none_1" as T });
+    const stalkerFreedom: GameObject = MockGameObject.mock({ section: <T>() => "stalker_freedom_1" as T });
+    const stalkerActor: GameObject = MockGameObject.mock({ section: <T>() => "stalker_actor_1" as T });
 
     registerActor(mockActorGameObject());
 
@@ -25,8 +25,8 @@ describe("object_setup utils", () => {
   });
 
   it("setupObjectInfoPortions should setup info portions", () => {
-    const first: GameObject = mockGameObject();
-    const second: GameObject = mockGameObject();
+    const first: GameObject = MockGameObject.mock();
+    const second: GameObject = MockGameObject.mock();
 
     setupObjectInfoPortions(first, mockIniFile("test.ltx", {}));
 

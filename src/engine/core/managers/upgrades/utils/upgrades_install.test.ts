@@ -4,16 +4,16 @@ import { addRandomUpgrade, addRandomUpgrades } from "@/engine/core/managers/upgr
 import { weapons } from "@/engine/lib/constants/items/weapons";
 import { GameObject } from "@/engine/lib/types";
 import { resetFunctionMock } from "@/fixtures/jest";
-import { mockGameObject } from "@/fixtures/xray";
+import { MockGameObject } from "@/fixtures/xray";
 
 describe("upgrades_install utils", () => {
   it("addRandomUpgrade should correctly add random upgrade", () => {
-    const first: GameObject = mockGameObject();
+    const first: GameObject = MockGameObject.mock();
 
     addRandomUpgrade(first);
     expect(first.add_upgrade).not.toHaveBeenCalled();
 
-    const second: GameObject = mockGameObject({ section: <T>() => weapons.wpn_ak74u as T });
+    const second: GameObject = MockGameObject.mock({ section: <T>() => weapons.wpn_ak74u as T });
 
     addRandomUpgrade(second);
     expect(second.add_upgrade).toHaveBeenCalledTimes(1);
@@ -21,7 +21,7 @@ describe("upgrades_install utils", () => {
     addRandomUpgrade(second);
     expect(second.add_upgrade).toHaveBeenCalledTimes(2);
 
-    const third: GameObject = mockGameObject({ section: <T>() => weapons.wpn_ak74u as T });
+    const third: GameObject = MockGameObject.mock({ section: <T>() => weapons.wpn_ak74u as T });
 
     addRandomUpgrades(third, Infinity);
 
@@ -35,12 +35,12 @@ describe("upgrades_install utils", () => {
   });
 
   it("addRandomUpgrade should correctly add random upgrades", () => {
-    const first: GameObject = mockGameObject();
+    const first: GameObject = MockGameObject.mock();
 
     addRandomUpgrades(first, 0);
     expect(first.add_upgrade).not.toHaveBeenCalled();
 
-    const second: GameObject = mockGameObject({ section: <T>() => weapons.wpn_ak74u as T });
+    const second: GameObject = MockGameObject.mock({ section: <T>() => weapons.wpn_ak74u as T });
 
     addRandomUpgrades(second, 0);
     expect(second.add_upgrade).not.toHaveBeenCalled();

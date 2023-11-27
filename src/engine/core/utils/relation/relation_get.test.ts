@@ -24,7 +24,7 @@ import { mockRelationsSquads, resetRegistry } from "@/fixtures/engine";
 import {
   mockActorGameObject,
   MockAlifeSimulator,
-  mockGameObject,
+  MockGameObject,
   mockServerAlifeCreatureActor,
   mockServerAlifeOnlineOfflineGroup,
 } from "@/fixtures/xray";
@@ -37,14 +37,14 @@ describe("relation/get utils", () => {
   });
 
   it("getObjectsRelationSafe should correctly check relation", () => {
-    expect(getObjectsRelationSafe(mockGameObject(), null)).toBeNull();
-    expect(getObjectsRelationSafe(null, mockGameObject())).toBeNull();
+    expect(getObjectsRelationSafe(MockGameObject.mock(), null)).toBeNull();
+    expect(getObjectsRelationSafe(null, MockGameObject.mock())).toBeNull();
     expect(getObjectsRelationSafe(null, null)).toBeNull();
 
-    const first: GameObject = mockGameObject({ relation: () => 0 });
-    const second: GameObject = mockGameObject({ relation: () => 1 });
-    const third: GameObject = mockGameObject({ relation: () => 2 });
-    const fourth: GameObject = mockGameObject({ relation: () => 3 });
+    const first: GameObject = MockGameObject.mock({ relation: () => 0 });
+    const second: GameObject = MockGameObject.mock({ relation: () => 1 });
+    const third: GameObject = MockGameObject.mock({ relation: () => 2 });
+    const fourth: GameObject = MockGameObject.mock({ relation: () => 3 });
 
     expect(getObjectsRelationSafe(first, second)).toBe(0);
     expect(getObjectsRelationSafe(second, first)).toBe(1);

@@ -11,11 +11,11 @@ import { getConfigSwitchConditions } from "@/engine/core/utils/ini";
 import { loadSchemeImplementation } from "@/engine/core/utils/scheme";
 import { ActionPlanner, EScheme, GameObject, IniFile } from "@/engine/lib/types";
 import { assertSchemeSubscribedToManager, checkPlannerAction } from "@/fixtures/engine";
-import { MockActionBase, mockGameObject, mockIniFile } from "@/fixtures/xray";
+import { MockActionBase, MockGameObject, mockIniFile } from "@/fixtures/xray";
 
 describe("SchemeCamper", () => {
   it("should fail if look and walk patrols are same", () => {
-    const object: GameObject = mockGameObject();
+    const object: GameObject = MockGameObject.mock();
     const ini: IniFile = mockIniFile("test.ltx", {
       "camper@test": {
         path_walk: "test-wp",
@@ -35,7 +35,7 @@ describe("SchemeCamper", () => {
   });
 
   it("should fail if sniper and no-retreat are set", () => {
-    const object: GameObject = mockGameObject();
+    const object: GameObject = MockGameObject.mock();
     const ini: IniFile = mockIniFile("test.ltx", {
       "camper@test": {
         path_walk: "test-wp",
@@ -57,7 +57,7 @@ describe("SchemeCamper", () => {
   });
 
   it("should correctly activate scheme with default values", () => {
-    const object: GameObject = mockGameObject();
+    const object: GameObject = MockGameObject.mock();
     const ini: IniFile = mockIniFile("test.ltx", {
       "camper@test": {
         on_info: "{+test_info} a, b",
@@ -102,7 +102,7 @@ describe("SchemeCamper", () => {
   });
 
   it("should correctly activate scheme with custom values", () => {
-    const object: GameObject = mockGameObject();
+    const object: GameObject = MockGameObject.mock();
     const ini: IniFile = mockIniFile("test.ltx", {
       "camper@test": {
         on_info: "{+test_info} a, b",
@@ -160,7 +160,7 @@ describe("SchemeCamper", () => {
   });
 
   it("should correctly add planner actions", () => {
-    const object: GameObject = mockGameObject();
+    const object: GameObject = MockGameObject.mock();
     const ini: IniFile = mockIniFile("test.ltx", {
       "camper@test": {
         on_info: "{+test_info} a, b",

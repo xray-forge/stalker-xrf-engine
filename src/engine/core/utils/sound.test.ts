@@ -12,7 +12,7 @@ import {
 import { ESoundType } from "@/engine/lib/constants/sound";
 import { GameObject } from "@/engine/lib/types";
 import { replaceFunctionMock } from "@/fixtures/jest";
-import { mockGameObject, mockIniFile } from "@/fixtures/xray";
+import { MockGameObject, mockIniFile } from "@/fixtures/xray";
 
 describe("sound utils", () => {
   it("mapSoundMaskToSoundType should correctly convert mask to enum", () => {
@@ -59,7 +59,7 @@ describe("sound utils", () => {
   });
 
   it("stopPlayingObjectSound should correctly reset object sound play", () => {
-    const object: GameObject = mockGameObject();
+    const object: GameObject = MockGameObject.mock();
 
     replaceFunctionMock(object.alive, () => false);
     stopPlayingObjectSound(object);
@@ -73,7 +73,7 @@ describe("sound utils", () => {
   });
 
   it("isPlayingSound should correctly check sound play state", () => {
-    const object: GameObject = mockGameObject();
+    const object: GameObject = MockGameObject.mock();
 
     expect(isPlayingSound(object)).toBe(false);
 

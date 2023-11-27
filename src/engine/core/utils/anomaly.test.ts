@@ -3,7 +3,7 @@ import { beforeEach, describe, expect, it } from "@jest/globals";
 import { AnomalyZoneBinder } from "@/engine/core/binders/zones/AnomalyZoneBinder";
 import { registerSimulator, registry } from "@/engine/core/database";
 import { anomalyHasArtefact, getAnomalyArtefacts } from "@/engine/core/utils/anomaly";
-import { mockGameObject, mockServerAlifeObject } from "@/fixtures/xray";
+import { MockGameObject, mockServerAlifeObject } from "@/fixtures/xray";
 
 describe("anomaly utils", () => {
   beforeEach(() => registerSimulator());
@@ -13,7 +13,7 @@ describe("anomaly utils", () => {
     expect(anomalyHasArtefact("test-anomaly", "")).toBe(false);
     expect(anomalyHasArtefact("test-anomaly", "sect_1")).toBe(false);
 
-    const anomalyZoneBinder: AnomalyZoneBinder = new AnomalyZoneBinder(mockGameObject());
+    const anomalyZoneBinder: AnomalyZoneBinder = new AnomalyZoneBinder(MockGameObject.mock());
 
     registry.anomalyZones.set("test-anomaly", anomalyZoneBinder);
     expect(anomalyHasArtefact("test-anomaly", "sect_1")).toBe(false);
@@ -39,7 +39,7 @@ describe("anomaly utils", () => {
     expect(getAnomalyArtefacts("another-anomaly")).toEqualLuaArrays([]);
     expect(getAnomalyArtefacts("another-anomaly")).toEqualLuaArrays([]);
 
-    const anomalyZoneBinder: AnomalyZoneBinder = new AnomalyZoneBinder(mockGameObject());
+    const anomalyZoneBinder: AnomalyZoneBinder = new AnomalyZoneBinder(MockGameObject.mock());
 
     registry.anomalyZones.set("another-anomaly", anomalyZoneBinder);
     expect(getAnomalyArtefacts("another-anomaly")).toEqualLuaArrays([]);

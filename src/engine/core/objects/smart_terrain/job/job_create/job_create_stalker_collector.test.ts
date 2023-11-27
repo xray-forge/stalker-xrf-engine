@@ -9,7 +9,7 @@ import { createStalkerCollectorJobs } from "@/engine/core/objects/smart_terrain/
 import { jobPreconditionCollector } from "@/engine/core/objects/smart_terrain/job/job_precondition";
 import { StringBuilder } from "@/engine/core/utils/string";
 import { mockSmartTerrain, readInGameTestLtx } from "@/fixtures/engine";
-import { mockGameObject } from "@/fixtures/xray";
+import { MockGameObject } from "@/fixtures/xray";
 
 describe("should correctly generate stalker collector jobs", () => {
   it("should correctly generate default collector jobs with no collector patrols", () => {
@@ -77,7 +77,7 @@ describe("should correctly generate stalker collector jobs", () => {
     smartTerrain.defendRestrictor = "test_defend_restrictor";
     smartTerrain.smartTerrainActorControl = { ignoreZone: "some_restrictor" } as SmartTerrainControl;
 
-    registerZone(mockGameObject({ name: () => "some_restrictor", inside: () => true }));
+    registerZone(MockGameObject.mock({ name: () => "some_restrictor", inside: () => true }));
 
     const [jobs, builder] = createStalkerCollectorJobs(smartTerrain, new LuaTable(), new StringBuilder());
 
@@ -106,7 +106,7 @@ describe("should correctly generate stalker collector jobs", () => {
     smartTerrain.smartTerrainActorControl = { ignoreZone: "some_restrictor" } as SmartTerrainControl;
     smartTerrain.safeRestrictor = "safe_restrictor_test";
 
-    registerZone(mockGameObject({ name: () => "safe_restrictor_test", inside: () => true }));
+    registerZone(MockGameObject.mock({ name: () => "safe_restrictor_test", inside: () => true }));
 
     const [jobs, builder] = createStalkerCollectorJobs(smartTerrain, new LuaTable(), new StringBuilder());
 

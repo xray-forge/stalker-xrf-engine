@@ -8,11 +8,11 @@ import { getConfigSwitchConditions, parseConditionsList } from "@/engine/core/ut
 import { loadSchemeImplementation } from "@/engine/core/utils/scheme";
 import { EScheme, GameObject, IniFile } from "@/engine/lib/types";
 import { assertSchemeSubscribedToManager } from "@/fixtures/engine";
-import { mockGameObject, mockIniFile } from "@/fixtures/xray";
+import { MockGameObject, mockIniFile } from "@/fixtures/xray";
 
 describe("SchemePhysicalButton", () => {
   it("should correctly activate with defaults", () => {
-    const object: GameObject = mockGameObject();
+    const object: GameObject = MockGameObject.mock();
     const ini: IniFile = mockIniFile("test.ltx", {
       "ph_button@test": {
         anim: "anim_test",
@@ -40,7 +40,7 @@ describe("SchemePhysicalButton", () => {
   });
 
   it("should correctly activate with data", () => {
-    const object: GameObject = mockGameObject();
+    const object: GameObject = MockGameObject.mock();
     const ini: IniFile = mockIniFile("test.ltx", {
       "ph_button@test": {
         on_info: "{+test} first, second",

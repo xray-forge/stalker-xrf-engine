@@ -7,7 +7,7 @@ import { updateSquadInvulnerabilityState } from "@/engine/core/utils/squad/squad
 import { FALSE, TRUE } from "@/engine/lib/constants/words";
 import { GameObject, IniFile, ServerCreatureObject } from "@/engine/lib/types";
 import { resetFunctionMock } from "@/fixtures/jest";
-import { MockAlifeOnlineOfflineGroup, mockGameObject, mockIniFile, mockServerAlifeHumanStalker } from "@/fixtures/xray";
+import { MockAlifeOnlineOfflineGroup, MockGameObject, mockIniFile, mockServerAlifeHumanStalker } from "@/fixtures/xray";
 
 describe("squad_state utils", () => {
   it("updateSquadInvulnerabilityState should correctly update state for squad", () => {
@@ -20,11 +20,11 @@ describe("squad_state utils", () => {
       },
     });
 
-    const first: GameObject = mockGameObject();
+    const first: GameObject = MockGameObject.mock();
     const firstServer: ServerCreatureObject = mockServerAlifeHumanStalker({ id: first.id() });
     const firstState: IRegistryObjectState = registerObject(first);
 
-    const second: GameObject = mockGameObject();
+    const second: GameObject = MockGameObject.mock();
     const secondServer: ServerCreatureObject = mockServerAlifeHumanStalker({ id: second.id() });
     const secondState: IRegistryObjectState = registerObject(second);
 

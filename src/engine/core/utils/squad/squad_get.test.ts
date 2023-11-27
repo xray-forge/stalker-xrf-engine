@@ -3,7 +3,7 @@ import { beforeEach, describe, expect, it } from "@jest/globals";
 import { registerSimulator } from "@/engine/core/database";
 import { getObjectSquad, getObjectSquadByObjectId } from "@/engine/core/utils/squad/squad_get";
 import { GameObject, ServerGroupObject, ServerHumanObject } from "@/engine/lib/types";
-import { mockGameObject, mockServerAlifeHumanStalker, mockServerAlifeOnlineOfflineGroup } from "@/fixtures/xray";
+import { MockGameObject, mockServerAlifeHumanStalker, mockServerAlifeOnlineOfflineGroup } from "@/fixtures/xray";
 
 describe("squad utils", () => {
   beforeEach(() => {
@@ -11,10 +11,10 @@ describe("squad utils", () => {
   });
 
   it("getObjectSquad should correctly get squad of an object", () => {
-    expect(getObjectSquad(mockGameObject())).toBeNull();
+    expect(getObjectSquad(MockGameObject.mock())).toBeNull();
     expect(getObjectSquad(mockServerAlifeHumanStalker())).toBeNull();
 
-    const gameObject: GameObject = mockGameObject();
+    const gameObject: GameObject = MockGameObject.mock();
     const groupObject: ServerGroupObject = mockServerAlifeOnlineOfflineGroup();
     const serverObject: ServerHumanObject = mockServerAlifeHumanStalker({
       id: gameObject.id(),
@@ -31,10 +31,10 @@ describe("squad utils", () => {
   });
 
   it("getObjectSquadByObjectId should correctly get squad of an object", () => {
-    expect(getObjectSquadByObjectId(mockGameObject().id())).toBeNull();
+    expect(getObjectSquadByObjectId(MockGameObject.mock().id())).toBeNull();
     expect(getObjectSquadByObjectId(mockServerAlifeHumanStalker().id)).toBeNull();
 
-    const gameObject: GameObject = mockGameObject();
+    const gameObject: GameObject = MockGameObject.mock();
     const groupObject: ServerGroupObject = mockServerAlifeOnlineOfflineGroup();
     const serverObject: ServerHumanObject = mockServerAlifeHumanStalker({
       id: gameObject.id(),

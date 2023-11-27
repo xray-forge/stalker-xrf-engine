@@ -7,7 +7,7 @@ import { EScheme, ESchemeType, GameObject, ServerObject } from "@/engine/lib/typ
 import { resetRegistry } from "@/fixtures/engine";
 import {
   EPacketDataType,
-  mockGameObject,
+  MockGameObject,
   mockNetPacket,
   MockNetProcessor,
   mockNetReader,
@@ -21,7 +21,7 @@ describe("CrowBinder class", () => {
   });
 
   it("should correctly reinit", () => {
-    const object: GameObject = mockGameObject();
+    const object: GameObject = MockGameObject.mock();
     const crowBinder: CrowBinder = new CrowBinder(object);
 
     crowBinder.diedAt = 5000;
@@ -36,7 +36,7 @@ describe("CrowBinder class", () => {
   });
 
   it("should correctly handle going online/offline", () => {
-    const object: GameObject = mockGameObject();
+    const object: GameObject = MockGameObject.mock();
     const crowBinder: CrowBinder = new CrowBinder(object);
 
     expect(crowBinder.net_spawn(mockServerAlifeObject({ id: object.id() }))).toBe(true);
@@ -52,7 +52,7 @@ describe("CrowBinder class", () => {
   });
 
   it("should correctly handle update event", () => {
-    const object: GameObject = mockGameObject();
+    const object: GameObject = MockGameObject.mock();
     const serverObject: ServerObject = mockServerAlifeObject({ id: object.id() });
     const crowBinder: CrowBinder = new CrowBinder(object);
 
@@ -77,7 +77,7 @@ describe("CrowBinder class", () => {
   });
 
   it("should correctly handle update event", () => {
-    const firstObject: GameObject = mockGameObject();
+    const firstObject: GameObject = MockGameObject.mock();
     const firstCrowBinder: CrowBinder = new CrowBinder(firstObject);
 
     expect(firstCrowBinder.net_save_relevant()).toBe(true);
@@ -86,7 +86,7 @@ describe("CrowBinder class", () => {
   it("should correctly handle save/load", () => {
     const netProcessor: MockNetProcessor = new MockNetProcessor();
 
-    const firstObject: GameObject = mockGameObject();
+    const firstObject: GameObject = MockGameObject.mock();
     const firstCrowBinder: CrowBinder = new CrowBinder(firstObject);
 
     expect(firstCrowBinder.net_spawn(mockServerAlifeObject({ id: firstObject.id() }))).toBe(true);
@@ -135,7 +135,7 @@ describe("CrowBinder class", () => {
       11,
     ]);
 
-    const secondObject: GameObject = mockGameObject();
+    const secondObject: GameObject = MockGameObject.mock();
     const secondCrowBinder: CrowBinder = new CrowBinder(secondObject);
 
     expect(secondCrowBinder.net_spawn(mockServerAlifeObject({ id: secondObject.id() }))).toBe(true);
@@ -160,7 +160,7 @@ describe("CrowBinder class", () => {
   });
 
   it("should correctly handle death event", () => {
-    const object: GameObject = mockGameObject();
+    const object: GameObject = MockGameObject.mock();
     const crowBinder: CrowBinder = new CrowBinder(object);
 
     registerCrow(object);

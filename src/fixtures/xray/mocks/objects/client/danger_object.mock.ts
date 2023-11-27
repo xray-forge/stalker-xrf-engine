@@ -1,5 +1,5 @@
 import { GameObject, Optional, TDangerType } from "@/engine/lib/types";
-import { mockGameObject } from "@/fixtures/xray";
+import { MockGameObject } from "@/fixtures/xray";
 import { MockVector } from "@/fixtures/xray/mocks/vector.mock";
 
 /**
@@ -19,7 +19,7 @@ export class MockDangerObject {
   public static visual: number = 0;
 
   public dangerType: TDangerType = 6;
-  public dangerObject: GameObject = mockGameObject();
+  public dangerObject: GameObject = MockGameObject.mock();
   public dangerDependentObject: Optional<GameObject> = null;
   public dangerPosition: MockVector = MockVector.create(1.5, -0.5, 1);
 

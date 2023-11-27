@@ -6,7 +6,7 @@ import { giveInfoPortion } from "@/engine/core/utils/info_portion";
 import { AnyArgs, AnyObject, GameObject, TName } from "@/engine/lib/types";
 import { callBinding, checkNestedBinding, mockRegisteredActor, resetRegistry } from "@/fixtures/engine";
 import { replaceFunctionMock } from "@/fixtures/jest";
-import { mockGameObject } from "@/fixtures/xray";
+import { MockGameObject } from "@/fixtures/xray";
 
 jest.mock("@/engine/core/managers/surge/utils/surge_cover", () => ({
   isActorInSurgeCover: jest.fn(() => true),
@@ -60,7 +60,7 @@ describe("task_functors external callbacks", () => {
   it("target_condlist should correctly return target", () => {
     mockRegisteredActor();
 
-    const object: GameObject = mockGameObject();
+    const object: GameObject = MockGameObject.mock();
 
     registerStoryLink(object.id(), "first-sid");
 
@@ -74,7 +74,7 @@ describe("task_functors external callbacks", () => {
     replaceFunctionMock(getActorTargetSurgeCover, () => null);
     expect(callTaskBinding("surge_task_target")).toBeNull();
 
-    const target: GameObject = mockGameObject();
+    const target: GameObject = MockGameObject.mock();
 
     replaceFunctionMock(getActorTargetSurgeCover, () => target);
     expect(callTaskBinding("surge_task_target")).toBe(target.id());

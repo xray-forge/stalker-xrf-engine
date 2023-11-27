@@ -7,12 +7,12 @@ import { EvaluatorWounded } from "@/engine/core/schemes/stalker/wounded/evaluato
 import { WoundManager } from "@/engine/core/schemes/stalker/wounded/WoundManager";
 import { EScheme, GameObject } from "@/engine/lib/types";
 import { mockSchemeState } from "@/fixtures/engine";
-import { MockActionPlanner, mockGameObject, MockPropertyStorage } from "@/fixtures/xray";
+import { MockActionPlanner, MockGameObject, MockPropertyStorage } from "@/fixtures/xray";
 import { MockPropertyEvaluatorConst } from "@/fixtures/xray/mocks/PropertyEvaluatorConst.mock";
 
 describe("EvaluatorWounded class", () => {
   const mockEvaluator = (hasEnemy: boolean = false) => {
-    const object: GameObject = mockGameObject();
+    const object: GameObject = MockGameObject.mock();
     const state: ISchemeWoundedState = mockSchemeState(EScheme.WOUNDED);
     const evaluator: EvaluatorWounded = new EvaluatorWounded(state);
     const planner: MockActionPlanner = new MockActionPlanner();

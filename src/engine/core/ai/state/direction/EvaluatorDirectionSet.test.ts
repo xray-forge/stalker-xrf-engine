@@ -8,12 +8,12 @@ import { StalkerBinder } from "@/engine/core/binders/creature/StalkerBinder";
 import { registry } from "@/engine/core/database/registry";
 import { registerStalker, setStalkerState, unregisterStalker } from "@/engine/core/database/stalker";
 import { replaceFunctionMock } from "@/fixtures/jest";
-import { mockGameObject, MockSightParameters } from "@/fixtures/xray";
+import { MockGameObject, MockSightParameters } from "@/fixtures/xray";
 import { MockCSightParams } from "@/fixtures/xray/mocks/CSightParams.mock";
 
 describe("EvaluatorDirectionSet class", () => {
   it("should correctly perform direction check when look at object and activate callback", () => {
-    const stalker: StalkerBinder = new StalkerBinder(mockGameObject());
+    const stalker: StalkerBinder = new StalkerBinder(MockGameObject.mock());
 
     registerStalker(stalker);
 
@@ -22,7 +22,7 @@ describe("EvaluatorDirectionSet class", () => {
     const manager: StalkerStateManager = registry.objects.get(stalker.object.id()).stateManager as StalkerStateManager;
     const evaluator: EvaluatorDirectionSet = new EvaluatorDirectionSet(manager);
     const endCallback = jest.fn();
-    const lookObject = mockGameObject();
+    const lookObject = MockGameObject.mock();
 
     evaluator.setup(stalker.object, new property_storage());
 
@@ -64,7 +64,7 @@ describe("EvaluatorDirectionSet class", () => {
   });
 
   it("should correctly perform direction check by vector", () => {
-    const stalker: StalkerBinder = new StalkerBinder(mockGameObject());
+    const stalker: StalkerBinder = new StalkerBinder(MockGameObject.mock());
 
     registerStalker(stalker);
 
@@ -73,7 +73,7 @@ describe("EvaluatorDirectionSet class", () => {
     const manager: StalkerStateManager = registry.objects.get(stalker.object.id()).stateManager as StalkerStateManager;
     const evaluator: EvaluatorDirectionSet = new EvaluatorDirectionSet(manager);
     const endCallback = jest.fn();
-    const lookObject = mockGameObject();
+    const lookObject = MockGameObject.mock();
 
     evaluator.setup(stalker.object, new property_storage());
 

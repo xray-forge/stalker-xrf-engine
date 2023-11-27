@@ -13,7 +13,7 @@ import { parseConditionsList } from "@/engine/core/utils/ini";
 import { loadSchemeImplementation } from "@/engine/core/utils/scheme";
 import { EScheme, ESchemeCondition, GameObject } from "@/engine/lib/types";
 import { mockBaseSchemeLogic, mockSchemeState, resetRegistry } from "@/fixtures/engine";
-import { mockActorGameObject, mockGameObject } from "@/fixtures/xray";
+import { mockActorGameObject, MockGameObject } from "@/fixtures/xray";
 
 describe("NoWeaponManager class", () => {
   beforeEach(() => {
@@ -21,7 +21,7 @@ describe("NoWeaponManager class", () => {
   });
 
   it("should correctly init scheme", () => {
-    const object: GameObject = mockGameObject();
+    const object: GameObject = MockGameObject.mock();
     const state: ISchemeNoWeaponState = mockSchemeState(EScheme.SR_NO_WEAPON);
     const manager: NoWeaponManager = new NoWeaponManager(object, state);
 
@@ -29,7 +29,7 @@ describe("NoWeaponManager class", () => {
   });
 
   it("should correctly reset scheme", () => {
-    const object: GameObject = mockGameObject();
+    const object: GameObject = MockGameObject.mock();
     const state: ISchemeNoWeaponState = mockSchemeState(EScheme.SR_NO_WEAPON);
     const manager: NoWeaponManager = new NoWeaponManager(object, state);
 
@@ -47,7 +47,7 @@ describe("NoWeaponManager class", () => {
   });
 
   it("should correctly update schema with zone leave", () => {
-    const object: GameObject = mockGameObject();
+    const object: GameObject = MockGameObject.mock();
     const state: ISchemeNoWeaponState = mockSchemeState(EScheme.SR_NO_WEAPON);
     const manager: NoWeaponManager = new NoWeaponManager(object, state);
 
@@ -63,7 +63,7 @@ describe("NoWeaponManager class", () => {
   });
 
   it("should correctly update schema with zone enter", () => {
-    const object: GameObject = mockGameObject();
+    const object: GameObject = MockGameObject.mock();
     const state: ISchemeNoWeaponState = mockSchemeState(EScheme.SR_NO_WEAPON);
     const manager: NoWeaponManager = new NoWeaponManager(object, state);
 
@@ -80,7 +80,7 @@ describe("NoWeaponManager class", () => {
   });
 
   it("should correctly update schema with scheme change", () => {
-    const object: GameObject = mockGameObject();
+    const object: GameObject = MockGameObject.mock();
     const state: ISchemeNoWeaponState = mockSchemeState(EScheme.SR_NO_WEAPON);
     const manager: NoWeaponManager = new NoWeaponManager(object, state);
 
@@ -107,7 +107,7 @@ describe("NoWeaponManager class", () => {
   });
 
   it("should correctly update handle enter", () => {
-    const object: GameObject = mockGameObject();
+    const object: GameObject = MockGameObject.mock();
     const state: ISchemeNoWeaponState = mockSchemeState(EScheme.SR_NO_WEAPON);
     const manager: NoWeaponManager = new NoWeaponManager(object, state);
 
@@ -123,7 +123,7 @@ describe("NoWeaponManager class", () => {
   });
 
   it("should correctly update handle leave", () => {
-    const object: GameObject = mockGameObject();
+    const object: GameObject = MockGameObject.mock();
     const state: ISchemeNoWeaponState = mockSchemeState(EScheme.SR_NO_WEAPON);
     const manager: NoWeaponManager = new NoWeaponManager(object, state);
 

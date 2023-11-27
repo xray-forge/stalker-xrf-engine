@@ -4,11 +4,11 @@ import { move, property_storage } from "xray16";
 import { ActionMovementStandTurn } from "@/engine/core/ai/state/movement/ActionMovementStandTurn";
 import type { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
 import { GameObject } from "@/engine/lib/types";
-import { mockGameObject } from "@/fixtures/xray";
+import { MockGameObject } from "@/fixtures/xray";
 
 describe("ActionMovementRunTurn class", () => {
   it("should correctly perform movement state set", () => {
-    const object: GameObject = mockGameObject();
+    const object: GameObject = MockGameObject.mock();
     const stateManager: StalkerStateManager = {
       turn: () => {},
     } as StalkerStateManager;

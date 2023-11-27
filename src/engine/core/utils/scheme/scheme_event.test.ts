@@ -4,7 +4,7 @@ import { IBaseSchemeState, IRegistryObjectState, registerObject, registry } from
 import { emitSchemeEvent, setObjectActiveSchemeSignal } from "@/engine/core/utils/scheme/scheme_event";
 import { EScheme, ESchemeEvent, GameObject } from "@/engine/lib/types";
 import { mockSchemeState, resetRegistry } from "@/fixtures/engine/mocks";
-import { mockGameObject } from "@/fixtures/xray";
+import { MockGameObject } from "@/fixtures/xray";
 
 describe("scheme logic utils", () => {
   beforeEach(() => {
@@ -12,7 +12,7 @@ describe("scheme logic utils", () => {
   });
 
   it("emitSchemeEvent should correctly emit events", () => {
-    const object: GameObject = mockGameObject();
+    const object: GameObject = MockGameObject.mock();
     const schemeState: IBaseSchemeState = mockSchemeState(EScheme.MEET);
     const mockAction = {
       activate: jest.fn(),
@@ -78,7 +78,7 @@ describe("scheme logic utils", () => {
   });
 
   it("setObjectActiveSchemeSignal should correctly set signals", () => {
-    const object: GameObject = mockGameObject();
+    const object: GameObject = MockGameObject.mock();
 
     expect(() => setObjectActiveSchemeSignal(object, "test")).not.toThrow();
     expect(registry.objects.get(object.id())).toBeNull();

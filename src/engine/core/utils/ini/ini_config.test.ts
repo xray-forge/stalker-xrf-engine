@@ -20,7 +20,7 @@ import {
 import { NIL } from "@/engine/lib/constants/words";
 import { GameObject, LuaArray, ServerObject, TIndex } from "@/engine/lib/types";
 import { mockBaseSchemeLogic } from "@/fixtures/engine";
-import { mockActorGameObject, mockGameObject, mockIniFile, mockServerAlifeObject } from "@/fixtures/xray";
+import { mockActorGameObject, MockGameObject, mockIniFile, mockServerAlifeObject } from "@/fixtures/xray";
 
 describe("config utils for ini file", () => {
   beforeEach(() => registerSimulator());
@@ -29,8 +29,8 @@ describe("config utils for ini file", () => {
     registerActor(mockActorGameObject());
     giveInfoPortion("test");
 
-    expect(getSectionsFromConditionLists(mockGameObject(), "a|b|c")).toEqualLuaArrays(["a", "b", "c"]);
-    expect(getSectionsFromConditionLists(mockGameObject(), "a|{+not_existing}b,c|{+test}d,e")).toEqualLuaArrays([
+    expect(getSectionsFromConditionLists(MockGameObject.mock(), "a|b|c")).toEqualLuaArrays(["a", "b", "c"]);
+    expect(getSectionsFromConditionLists(MockGameObject.mock(), "a|{+not_existing}b,c|{+test}d,e")).toEqualLuaArrays([
       "a",
       "c",
       "d",
@@ -62,7 +62,7 @@ describe("config utils for ini file", () => {
   });
 
   it("getObjectConfigOverrides should correctly parse overrides", () => {
-    const object: GameObject = mockGameObject();
+    const object: GameObject = MockGameObject.mock();
     const state: IRegistryObjectState = registerObject(object);
 
     expect(getObjectConfigOverrides(mockIniFile("test.ltx", { empty: {} }), "empty", object)).toEqualLuaTables({

@@ -9,11 +9,11 @@ import {
 import { registry } from "@/engine/core/database/registry";
 import { MAX_I32 } from "@/engine/lib/constants/memory";
 import { GameObject } from "@/engine/lib/types";
-import { mockGameObject } from "@/fixtures/xray";
+import { MockGameObject } from "@/fixtures/xray";
 
 describe("offline database module", () => {
   it("should correctly register and unregister offline objects state", () => {
-    const object: GameObject = mockGameObject();
+    const object: GameObject = MockGameObject.mock();
 
     expect(registerOfflineObject(object.id(), { activeSection: "test", levelVertexId: 1 })).toEqual({
       activeSection: "test",

@@ -11,7 +11,7 @@ import {
 } from "@/engine/core/utils/object/object_check";
 import { GameObject, ServerHumanObject, TClassId } from "@/engine/lib/types";
 import { mockRegisteredActor, resetRegistry } from "@/fixtures/engine";
-import { mockGameObject, mockServerAlifeHumanStalker, mockServerAlifeMonsterBase } from "@/fixtures/xray";
+import { MockGameObject, mockServerAlifeHumanStalker, mockServerAlifeMonsterBase } from "@/fixtures/xray";
 
 describe("object_check utils", () => {
   beforeEach(() => {
@@ -42,7 +42,7 @@ describe("object_check utils", () => {
       alive: () => true,
       clsid: () => clsid.script_stalker as TClassId,
     });
-    const aliveStalkerGameObject: GameObject = mockGameObject({
+    const aliveStalkerGameObject: GameObject = MockGameObject.mock({
       idOverride: aliveStalkerServerObject.id,
       alive: () => true,
       clsid: () => clsid.script_stalker as TClassId,
@@ -54,7 +54,7 @@ describe("object_check utils", () => {
     expect(isStalkerAlive(aliveStalkerGameObject)).toBe(true);
     expect(isStalkerAlive("alive-stalker-sid")).toBe(true);
     expect(isStalkerAlive("not-existing-stalker-sid")).toBe(false);
-    expect(isStalkerAlive(mockGameObject())).toBe(false);
+    expect(isStalkerAlive(MockGameObject.mock())).toBe(false);
     expect(
       isStalkerAlive(
         mockServerAlifeHumanStalker({
@@ -82,44 +82,44 @@ describe("object_check utils", () => {
   });
 
   it("isObjectInjured should correctly check objects", () => {
-    expect(isObjectInjured(mockGameObject())).toBe(false);
-    expect(isObjectInjured(mockGameObject({ radiation: -1, health: 100, bleeding: -1 }))).toBe(false);
-    expect(isObjectInjured(mockGameObject({ radiation: 0.01 }))).toBe(true);
-    expect(isObjectInjured(mockGameObject({ radiation: 0.5 }))).toBe(true);
-    expect(isObjectInjured(mockGameObject({ bleeding: 0.01 }))).toBe(true);
-    expect(isObjectInjured(mockGameObject({ bleeding: 0.5 }))).toBe(true);
-    expect(isObjectInjured(mockGameObject({ health: 0.999 }))).toBe(true);
-    expect(isObjectInjured(mockGameObject({ health: 0.5 }))).toBe(true);
+    expect(isObjectInjured(MockGameObject.mock())).toBe(false);
+    expect(isObjectInjured(MockGameObject.mock({ radiation: -1, health: 100, bleeding: -1 }))).toBe(false);
+    expect(isObjectInjured(MockGameObject.mock({ radiation: 0.01 }))).toBe(true);
+    expect(isObjectInjured(MockGameObject.mock({ radiation: 0.5 }))).toBe(true);
+    expect(isObjectInjured(MockGameObject.mock({ bleeding: 0.01 }))).toBe(true);
+    expect(isObjectInjured(MockGameObject.mock({ bleeding: 0.5 }))).toBe(true);
+    expect(isObjectInjured(MockGameObject.mock({ health: 0.999 }))).toBe(true);
+    expect(isObjectInjured(MockGameObject.mock({ health: 0.5 }))).toBe(true);
   });
 
   it("isObjectSeenByActor should correctly check objects visibility", () => {
-    expect(() => isObjectSeenByActor(mockGameObject())).toThrow();
+    expect(() => isObjectSeenByActor(MockGameObject.mock())).toThrow();
 
-    const actor: GameObject = mockGameObject();
+    const actor: GameObject = MockGameObject.mock();
 
     registerActor(actor);
 
     jest.spyOn(actor, "alive").mockImplementation(() => true);
     jest.spyOn(actor, "see").mockImplementation(() => true);
-    expect(isObjectSeenByActor(mockGameObject())).toBe(true);
+    expect(isObjectSeenByActor(MockGameObject.mock())).toBe(true);
 
     jest.spyOn(actor, "alive").mockImplementation(() => false);
     jest.spyOn(actor, "see").mockImplementation(() => true);
-    expect(isObjectSeenByActor(mockGameObject())).toBe(false);
+    expect(isObjectSeenByActor(MockGameObject.mock())).toBe(false);
 
     jest.spyOn(actor, "alive").mockImplementation(() => true);
     jest.spyOn(actor, "see").mockImplementation(() => false);
-    expect(isObjectSeenByActor(mockGameObject())).toBe(false);
+    expect(isObjectSeenByActor(MockGameObject.mock())).toBe(false);
 
     jest.spyOn(actor, "alive").mockImplementation(() => false);
     jest.spyOn(actor, "see").mockImplementation(() => false);
-    expect(isObjectSeenByActor(mockGameObject())).toBe(false);
+    expect(isObjectSeenByActor(MockGameObject.mock())).toBe(false);
   });
 
   it("isActorSeenByObject should correctly check actor visibility", () => {
-    const object: GameObject = mockGameObject();
+    const object: GameObject = MockGameObject.mock();
 
-    registerActor(mockGameObject());
+    registerActor(MockGameObject.mock());
 
     jest.spyOn(object, "alive").mockImplementation(() => true);
     jest.spyOn(object, "see").mockImplementation(() => true);

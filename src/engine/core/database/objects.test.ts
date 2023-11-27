@@ -11,11 +11,11 @@ import {
 } from "@/engine/core/database/objects";
 import { registry } from "@/engine/core/database/registry";
 import { GameObject } from "@/engine/lib/types";
-import { mockGameObject, MockIniFile } from "@/fixtures/xray";
+import { MockGameObject, MockIniFile } from "@/fixtures/xray";
 
 describe("database objects utilities", () => {
   it("should correctly register, reset and unregister objects", () => {
-    const object: GameObject = mockGameObject();
+    const object: GameObject = MockGameObject.mock();
     const mockIni: MockIniFile<{ a: number }> = new MockIniFile("test.ltx", { a: 1 });
     const state: IRegistryObjectState = registerObject(object);
 
@@ -30,7 +30,7 @@ describe("database objects utilities", () => {
   });
 
   it("should correctly register, get and unregister dynamic state for objects", () => {
-    const object: GameObject = mockGameObject();
+    const object: GameObject = MockGameObject.mock();
     const state: IDynamicObjectState = registerObjectDynamicState(object.id());
 
     expect(registry.dynamicData.objects.get(object.id())).toEqual({});

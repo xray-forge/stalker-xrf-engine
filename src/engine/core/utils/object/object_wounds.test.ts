@@ -12,7 +12,7 @@ import {
 } from "@/engine/core/utils/object/object_wounds";
 import { EScheme, GameObject, Hit, Optional } from "@/engine/lib/types";
 import { mockSchemeState } from "@/fixtures/engine";
-import { mockGameObject } from "@/fixtures/xray";
+import { MockGameObject } from "@/fixtures/xray";
 import { MockVector } from "@/fixtures/xray/mocks/vector.mock";
 
 describe("object_wounds utils", () => {
@@ -21,7 +21,7 @@ describe("object_wounds utils", () => {
   });
 
   it("giveWoundedObjectMedkit should correctly give medkits for objects", () => {
-    const object: GameObject = mockGameObject();
+    const object: GameObject = MockGameObject.mock();
 
     giveWoundedObjectMedkit(object);
 
@@ -36,7 +36,7 @@ describe("object_wounds utils", () => {
 
   it("setObjectWounded should correctly set objects as wounded", () => {
     let objectHit: Optional<Hit> = null as Optional<Hit>;
-    const object: GameObject = mockGameObject({
+    const object: GameObject = MockGameObject.mock({
       hit: jest.fn((it: Hit) => {
         objectHit = it;
       }),
@@ -54,7 +54,7 @@ describe("object_wounds utils", () => {
   });
 
   it("enableObjectWoundedHealing should correctly enable healing for objects", () => {
-    const object: GameObject = mockGameObject();
+    const object: GameObject = MockGameObject.mock();
     const state: IRegistryObjectState = registerObject(object);
     const schemeState: ISchemeWoundedState = mockSchemeState<ISchemeWoundedState>(EScheme.WOUNDED, {
       woundManager: {
@@ -70,7 +70,7 @@ describe("object_wounds utils", () => {
   });
 
   it("isObjectPsyWounded should correctly check if object is psy wounded", () => {
-    const object: GameObject = mockGameObject();
+    const object: GameObject = MockGameObject.mock();
     const state: IRegistryObjectState = registerObject(object);
     const schemeState: ISchemeWoundedState = mockSchemeState<ISchemeWoundedState>(EScheme.WOUNDED, {
       woundManager: {

@@ -18,13 +18,13 @@ import { ActionStateEnd } from "@/engine/core/ai/state/state";
 import { EStateActionId, EStateEvaluatorId } from "@/engine/core/ai/types";
 import { ActionPlanner, GameObject } from "@/engine/lib/types";
 import { checkPlannerAction } from "@/fixtures/engine";
-import { MockActionPlanner, mockGameObject, MockWorldState } from "@/fixtures/xray";
+import { MockActionPlanner, MockGameObject, MockWorldState } from "@/fixtures/xray";
 
 jest.mock("@/engine/core/ai/planner/setup/state_planner");
 
 describe("state_manager util", () => {
   it("should correctly setup state planner events", () => {
-    const object: GameObject = mockGameObject();
+    const object: GameObject = MockGameObject.mock();
     const stateManager: StalkerStateManager = new StalkerStateManager(object);
     const planner: ActionPlanner = stateManager.planner;
 
@@ -43,7 +43,7 @@ describe("state_manager util", () => {
   });
 
   it("should correctly setup state planner target world state", () => {
-    const object: GameObject = mockGameObject();
+    const object: GameObject = MockGameObject.mock();
     const stateManager: StalkerStateManager = new StalkerStateManager(object);
     const planner: ActionPlanner = stateManager.planner;
 

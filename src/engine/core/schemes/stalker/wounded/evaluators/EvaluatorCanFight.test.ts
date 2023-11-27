@@ -5,11 +5,11 @@ import { ISchemeWoundedState } from "@/engine/core/schemes/stalker/wounded";
 import { EvaluatorCanFight } from "@/engine/core/schemes/stalker/wounded/evaluators/EvaluatorCanFight";
 import { EScheme, GameObject } from "@/engine/lib/types";
 import { mockSchemeState } from "@/fixtures/engine";
-import { mockGameObject, MockPropertyStorage } from "@/fixtures/xray";
+import { MockGameObject, MockPropertyStorage } from "@/fixtures/xray";
 
 describe("EvaluatorCanFight class", () => {
   it("should correctly evaluate whether object can fight", () => {
-    const object: GameObject = mockGameObject();
+    const object: GameObject = MockGameObject.mock();
     const state: ISchemeWoundedState = mockSchemeState(EScheme.WOUNDED);
     const evaluator: EvaluatorCanFight = new EvaluatorCanFight(state);
 

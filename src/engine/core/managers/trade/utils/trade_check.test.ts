@@ -4,13 +4,13 @@ import { IRegistryObjectState, registerObject } from "@/engine/core/database";
 import { tradeConfig } from "@/engine/core/managers/trade/TradeConfig";
 import { isObjectTrader } from "@/engine/core/managers/trade/utils/trade_check";
 import { GameObject } from "@/engine/lib/types";
-import { mockGameObject, mockIniFile } from "@/fixtures/xray";
+import { MockGameObject, mockIniFile } from "@/fixtures/xray";
 
 describe("trade_check utils", () => {
   it("isObjectTrader should correctly check if object trade config is customized", () => {
     expect(isObjectTrader(-1)).toBe(false);
 
-    const object: GameObject = mockGameObject();
+    const object: GameObject = MockGameObject.mock();
 
     expect(isObjectTrader(object.id())).toBe(false);
 
