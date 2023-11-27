@@ -340,9 +340,8 @@ export class CampManager {
       case EObjectCampActivity.GUITAR:
         stalkerState += `_${activity}`;
 
-        // todo: Probably just for-of in object actions collection.
-        for (const it of $range(1, objectActions.length())) {
-          if (objectActions.get(it).name === stalkerState) {
+        for (const [, action] of objectActions) {
+          if (action.name === stalkerState) {
             return EObjectCampRole.DIRECTOR;
           }
         }
@@ -350,11 +349,8 @@ export class CampManager {
         return EObjectCampRole.LISTENER;
 
       case EObjectCampActivity.STORY:
-        // todo: Probably just for-of in object actions collection.
-        for (const it of $range(1, objectActions.length())) {
-          const actionName: TName = objectActions.get(it).name;
-
-          if (actionName === stalkerState || actionName === stalkerState + WEAPON_POSTFIX) {
+        for (const [, action] of objectActions) {
+          if (action.name === stalkerState || action.name === stalkerState + WEAPON_POSTFIX) {
             return EObjectCampRole.DIRECTOR;
           }
         }

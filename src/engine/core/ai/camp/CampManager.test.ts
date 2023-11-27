@@ -240,5 +240,72 @@ describe("CampManager class", () => {
     expect(manager.objects).toEqualLuaTables({});
   });
 
-  it.todo("should correctly get object roles");
+  it("should correctly get object roles for generic activities", () => {
+    const object: GameObject = MockGameObject.mock();
+    const state: IRegistryObjectState = registerObject(object);
+    const manager: CampManager = new CampManager(MockGameObject.mock(), MockIniFile.mock("test.ltx"));
+
+    state.activeScheme = EScheme.ANIMPOINT;
+
+    expect(manager.getObjectRole(object.id(), EObjectCampActivity.IDLE)).toBe(EObjectCampRole.NONE);
+    expect(manager.getObjectRole(object.id(), "unexpected" as unknown as EObjectCampActivity)).toBe(
+      EObjectCampRole.NONE
+    );
+
+    state[EScheme.ANIMPOINT] = mockSchemeState(EScheme.ANIMPOINT);
+
+    expect(manager.getObjectRole(object.id(), EObjectCampActivity.IDLE)).toBe(EObjectCampRole.LISTENER);
+    expect(manager.getObjectRole(object.id(), "unexpected" as unknown as EObjectCampActivity)).toBe(
+      EObjectCampRole.NONE
+    );
+  });
+
+  it("should correctly get object roles for harmonica/guitar", () => {
+    const object: GameObject = MockGameObject.mock();
+    const state: IRegistryObjectState = registerObject(object);
+    const manager: CampManager = new CampManager(MockGameObject.mock(), MockIniFile.mock("test.ltx"));
+
+    state.activeScheme = EScheme.ANIMPOINT;
+
+    expect(manager.getObjectRole(object.id(), EObjectCampActivity.HARMONICA)).toBe(EObjectCampRole.NONE);
+    expect(manager.getObjectRole(object.id(), EObjectCampActivity.GUITAR)).toBe(EObjectCampRole.NONE);
+
+    state[EScheme.ANIMPOINT] = mockSchemeState<ISchemeAnimpointState>(EScheme.ANIMPOINT, {
+      description: EStalkerState.ANIMPOINT_SIT_ASS,
+      approvedActions: $fromArray<IAnimpointActionDescriptor>([
+        { name: EStalkerState.ANIMPOINT_SIT_ASS_GUITAR, predicate: () => true },
+        { name: EStalkerState.ANIMPOINT_SIT_ASS_HARMONICA, predicate: () => true },
+      ]),
+    });
+
+    expect(manager.getObjectRole(object.id(), EObjectCampActivity.GUITAR)).toBe(EObjectCampRole.DIRECTOR);
+    expect(manager.getObjectRole(object.id(), EObjectCampActivity.HARMONICA)).toBe(EObjectCampRole.DIRECTOR);
+  });
+
+  it("should correctly get object roles for story teller", () => {
+    const object: GameObject = MockGameObject.mock();
+    const state: IRegistryObjectState = registerObject(object);
+    const manager: CampManager = new CampManager(MockGameObject.mock(), MockIniFile.mock("test.ltx"));
+
+    state.activeScheme = EScheme.ANIMPOINT;
+
+    expect(manager.getObjectRole(object.id(), EObjectCampActivity.HARMONICA)).toBe(EObjectCampRole.NONE);
+    expect(manager.getObjectRole(object.id(), EObjectCampActivity.GUITAR)).toBe(EObjectCampRole.NONE);
+
+    state[EScheme.ANIMPOINT] = mockSchemeState<ISchemeAnimpointState>(EScheme.ANIMPOINT, {
+      approvedActions: $fromArray<IAnimpointActionDescriptor>([
+        { name: EStalkerState.ANIMPOINT_STAY_TABLE_WEAPON, predicate: () => true },
+        { name: EStalkerState.ANIMPOINT_STAY_TABLE, predicate: () => true },
+      ]),
+    });
+
+    (state[EScheme.ANIMPOINT] as ISchemeAnimpointState).description = EStalkerState.STOOP_NO_WEAP;
+    expect(manager.getObjectRole(object.id(), EObjectCampActivity.STORY)).toBe(EObjectCampRole.LISTENER);
+
+    (state[EScheme.ANIMPOINT] as ISchemeAnimpointState).description = EStalkerState.ANIMPOINT_STAY_TABLE;
+    expect(manager.getObjectRole(object.id(), EObjectCampActivity.STORY)).toBe(EObjectCampRole.DIRECTOR);
+
+    (state[EScheme.ANIMPOINT] as ISchemeAnimpointState).description = EStalkerState.ANIMPOINT_STAY_TABLE_WEAPON;
+    expect(manager.getObjectRole(object.id(), EObjectCampActivity.STORY)).toBe(EObjectCampRole.DIRECTOR);
+  });
 });
