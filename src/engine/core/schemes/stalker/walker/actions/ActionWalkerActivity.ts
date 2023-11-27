@@ -133,7 +133,7 @@ export class ActionWalkerActivity extends action_base implements ISchemeEventHan
       return;
     }
 
-    const [campAction, isDirector] = this.campStoryManager.getCampAction(this.object.id());
+    const [campAction, isDirector] = this.campStoryManager.getObjectActivity(this.object.id());
 
     if (!isDirector) {
       return;
