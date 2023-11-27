@@ -12,7 +12,6 @@ import { AnyObject, GameObject, ServerObject, TClassId, TIndex } from "@/engine/
 import { MockLuaTable } from "@/fixtures/lua";
 import {
   CLIENT_SIDE_REGISTRY,
-  mockActorGameObject,
   MockAlifeSimulator,
   MockGameObject,
   mockServerAlifeCreatureActor,
@@ -27,7 +26,7 @@ describe("registry find utils", () => {
   });
 
   it("getNearestServerObject should correctly search for client objects", () => {
-    registerActor(mockActorGameObject());
+    registerActor(MockGameObject.mockActor());
 
     const actor: ServerObject = mockServerAlifeCreatureActor({
       clsid: () => clsid.actor as TClassId,
@@ -153,7 +152,7 @@ describe("registry find utils", () => {
   });
 
   it("getNearestGameObject should correctly search for client objects", () => {
-    const actor: GameObject = mockActorGameObject({
+    const actor: GameObject = MockGameObject.mockActor({
       clsid: () => clsid.actor as TClassId,
       name: () => "actor_name",
     });
@@ -187,7 +186,7 @@ describe("registry find utils", () => {
   });
 
   it("getGameObjects should correctly search for client objects", () => {
-    const actor: GameObject = mockActorGameObject({
+    const actor: GameObject = MockGameObject.mockActor({
       clsid: () => clsid.actor as TClassId,
       name: () => "actor_name",
     });

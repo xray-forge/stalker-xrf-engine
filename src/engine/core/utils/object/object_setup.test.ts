@@ -4,7 +4,7 @@ import { registerActor } from "@/engine/core/database";
 import { setupObjectInfoPortions, setupObjectStalkerVisual } from "@/engine/core/utils/object/object_setup";
 import { GameObject } from "@/engine/lib/types";
 import { expectCallsToEqual } from "@/fixtures/jest";
-import { mockActorGameObject, MockGameObject, mockIniFile } from "@/fixtures/xray";
+import { MockGameObject, mockIniFile } from "@/fixtures/xray";
 
 describe("object_setup utils", () => {
   it("setupObjectVisual should setup visuals", () => {
@@ -12,7 +12,7 @@ describe("object_setup utils", () => {
     const stalkerFreedom: GameObject = MockGameObject.mock({ section: <T>() => "stalker_freedom_1" as T });
     const stalkerActor: GameObject = MockGameObject.mock({ section: <T>() => "stalker_actor_1" as T });
 
-    registerActor(mockActorGameObject());
+    registerActor(MockGameObject.mockActor());
 
     setupObjectStalkerVisual(stalkerNone);
     expect(stalkerNone.set_visual_name).not.toHaveBeenCalled();

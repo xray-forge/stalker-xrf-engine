@@ -4,13 +4,13 @@ import { get_hud, level } from "xray16";
 import { registerActor, registry } from "@/engine/core/database";
 import { setUiVisibility } from "@/engine/core/utils/ui/ui_ingame";
 import { GameHud } from "@/engine/lib/types";
-import { mockActorGameObject } from "@/fixtures/xray";
+import { MockGameObject } from "@/fixtures/xray";
 
 describe("ui_ingame utils", () => {
   it("setUiVisibility should correctly toggle visibility", () => {
     const hud: GameHud = get_hud();
 
-    registerActor(mockActorGameObject());
+    registerActor(MockGameObject.mockActor());
 
     setUiVisibility(true);
 
@@ -18,7 +18,7 @@ describe("ui_ingame utils", () => {
     expect(registry.actor.disable_hit_marks).toHaveBeenCalledWith(false);
     expect(hud.show_messages).toHaveBeenCalledWith();
 
-    registerActor(mockActorGameObject({ is_talking: jest.fn(() => true) }));
+    registerActor(MockGameObject.mockActor({ is_talking: jest.fn(() => true) }));
 
     setUiVisibility(false);
 

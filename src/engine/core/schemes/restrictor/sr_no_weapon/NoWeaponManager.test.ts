@@ -13,7 +13,7 @@ import { parseConditionsList } from "@/engine/core/utils/ini";
 import { loadSchemeImplementation } from "@/engine/core/utils/scheme";
 import { EScheme, ESchemeCondition, GameObject } from "@/engine/lib/types";
 import { mockBaseSchemeLogic, mockSchemeState, resetRegistry } from "@/fixtures/engine";
-import { mockActorGameObject, MockGameObject } from "@/fixtures/xray";
+import { MockGameObject } from "@/fixtures/xray";
 
 describe("NoWeaponManager class", () => {
   beforeEach(() => {
@@ -35,7 +35,7 @@ describe("NoWeaponManager class", () => {
 
     jest.spyOn(manager, "updateActorState").mockImplementation(() => {});
 
-    registerActor(mockActorGameObject());
+    registerActor(MockGameObject.mockActor());
     registry.noWeaponZones.set(object.id(), true);
     manager.actorState = EActorZoneState.INSIDE;
 
@@ -51,7 +51,7 @@ describe("NoWeaponManager class", () => {
     const state: ISchemeNoWeaponState = mockSchemeState(EScheme.SR_NO_WEAPON);
     const manager: NoWeaponManager = new NoWeaponManager(object, state);
 
-    registerActor(mockActorGameObject());
+    registerActor(MockGameObject.mockActor());
 
     jest.spyOn(manager, "onZoneEnter").mockImplementation(() => {});
     jest.spyOn(manager, "onZoneLeave").mockImplementation(() => {});
@@ -67,7 +67,7 @@ describe("NoWeaponManager class", () => {
     const state: ISchemeNoWeaponState = mockSchemeState(EScheme.SR_NO_WEAPON);
     const manager: NoWeaponManager = new NoWeaponManager(object, state);
 
-    registerActor(mockActorGameObject());
+    registerActor(MockGameObject.mockActor());
 
     jest.spyOn(manager, "onZoneEnter").mockImplementation(() => {});
     jest.spyOn(manager, "onZoneLeave").mockImplementation(() => {});
@@ -85,7 +85,7 @@ describe("NoWeaponManager class", () => {
     const manager: NoWeaponManager = new NoWeaponManager(object, state);
 
     registerObject(object);
-    registerActor(mockActorGameObject());
+    registerActor(MockGameObject.mockActor());
     loadSchemeImplementation(SchemeNoWeapon);
 
     state.logic = $fromArray([

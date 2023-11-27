@@ -10,7 +10,7 @@ import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import { AnyArgs, AnyObject, EGameObjectRelation, GameObject, TName } from "@/engine/lib/types";
 import { callBinding, checkNestedBinding, mockRegisteredActor } from "@/fixtures/engine";
 import { replaceFunctionMock, resetFunctionMock } from "@/fixtures/jest";
-import { mockActorGameObject, MockGameObject } from "@/fixtures/xray";
+import { MockGameObject } from "@/fixtures/xray";
 
 jest.mock("@/engine/core/utils/item", () => ({
   getActorAvailableMedKit: jest.fn(() => null),
@@ -90,7 +90,7 @@ describe("dialogs_generic external callbacks", () => {
 
   it("transfer_medkit should correctly transfer medkits", () => {
     const medkit: GameObject = MockGameObject.mock({ section: <T>() => "medkit" as T });
-    const actor: GameObject = mockActorGameObject({ inventory: [["medkit", medkit]] });
+    const actor: GameObject = MockGameObject.mockActor({ inventory: [["medkit", medkit]] });
     const object: GameObject = MockGameObject.mock();
 
     registerActor(actor);

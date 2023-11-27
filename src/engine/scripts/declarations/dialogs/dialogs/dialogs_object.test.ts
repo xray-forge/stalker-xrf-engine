@@ -7,7 +7,7 @@ import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import { AnyArgs, AnyObject, EGameObjectRelation, GameObject, TName } from "@/engine/lib/types";
 import { callBinding, checkNestedBinding, mockRegisteredActor } from "@/fixtures/engine";
 import { replaceFunctionMock } from "@/fixtures/jest";
-import { mockActorGameObject, MockGameObject } from "@/fixtures/xray";
+import { MockGameObject } from "@/fixtures/xray";
 
 jest.mock("@/engine/core/utils/planner", () => ({ isObjectWounded: jest.fn(() => false) }));
 
@@ -83,7 +83,7 @@ describe("dialogs_generic external callbacks", () => {
   });
 
   it("is_friend should correctly check friend relations", () => {
-    const actor: GameObject = mockActorGameObject();
+    const actor: GameObject = MockGameObject.mockActor();
     const object: GameObject = MockGameObject.mock();
 
     jest.spyOn(actor, "relation").mockImplementation(() => EGameObjectRelation.FRIEND as TXR_relation);
@@ -94,7 +94,7 @@ describe("dialogs_generic external callbacks", () => {
   });
 
   it("is_not_friend should correctly check not friend relations", () => {
-    const actor: GameObject = mockActorGameObject();
+    const actor: GameObject = MockGameObject.mockActor();
     const object: GameObject = MockGameObject.mock();
 
     jest.spyOn(actor, "relation").mockImplementation(() => EGameObjectRelation.FRIEND as TXR_relation);
@@ -105,7 +105,7 @@ describe("dialogs_generic external callbacks", () => {
   });
 
   it("become_friend should correctly change relations", () => {
-    const actor: GameObject = mockActorGameObject();
+    const actor: GameObject = MockGameObject.mockActor();
     const object: GameObject = MockGameObject.mock();
 
     callDialogsBinding("become_friend", [actor, object]);

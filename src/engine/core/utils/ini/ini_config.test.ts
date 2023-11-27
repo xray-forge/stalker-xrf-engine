@@ -20,13 +20,13 @@ import {
 import { NIL } from "@/engine/lib/constants/words";
 import { GameObject, LuaArray, ServerObject, TIndex } from "@/engine/lib/types";
 import { mockBaseSchemeLogic } from "@/fixtures/engine";
-import { mockActorGameObject, MockGameObject, mockIniFile, mockServerAlifeObject } from "@/fixtures/xray";
+import { MockGameObject, mockIniFile, mockServerAlifeObject } from "@/fixtures/xray";
 
 describe("config utils for ini file", () => {
   beforeEach(() => registerSimulator());
 
   it("getInfosFromData should correctly parse data list of condition lists", () => {
-    registerActor(mockActorGameObject());
+    registerActor(MockGameObject.mockActor());
     giveInfoPortion("test");
 
     expect(getSectionsFromConditionLists(MockGameObject.mock(), "a|b|c")).toEqualLuaArrays(["a", "b", "c"]);

@@ -11,7 +11,7 @@ import { giveInfoPortion } from "@/engine/core/utils/info_portion";
 import { parseConditionsList } from "@/engine/core/utils/ini";
 import { GameObject, ServerObject } from "@/engine/lib/types";
 import { resetManagers } from "@/fixtures/engine";
-import { mockActorGameObject, mockIniFile, mockServerAlifeObject } from "@/fixtures/xray";
+import { MockGameObject, mockIniFile, mockServerAlifeObject } from "@/fixtures/xray";
 
 describe("TreasureManager class", () => {
   beforeEach(() => {
@@ -149,7 +149,7 @@ describe("TreasureManager class", () => {
   });
 
   it("should correctly handle empty state in updates", () => {
-    registerActor(mockActorGameObject());
+    registerActor(MockGameObject.mockActor());
     giveInfoPortion("info_b10_first_zone_visited");
 
     const treasureManager: TreasureManager = TreasureManager.getInstance();
@@ -176,7 +176,7 @@ describe("TreasureManager class", () => {
   });
 
   it("should correctly handle refresh state in updates", () => {
-    registerActor(mockActorGameObject());
+    registerActor(MockGameObject.mockActor());
 
     const treasureManager: TreasureManager = TreasureManager.getInstance();
 

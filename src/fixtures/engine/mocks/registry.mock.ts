@@ -3,7 +3,7 @@ import { IRegistryObjectState } from "@/engine/core/database/database_types";
 import { registerRanks } from "@/engine/core/database/ranks";
 import { registry } from "@/engine/core/database/registry";
 import { AlifeSimulator, GameObject, ServerActorObject } from "@/engine/lib/types";
-import { mockActorGameObject, mockServerAlifeCreatureActor } from "@/fixtures/xray/mocks/objects";
+import { MockGameObject, mockServerAlifeCreatureActor } from "@/fixtures/xray/mocks/objects";
 
 export interface IMockActorDetails {
   actorGameObject: GameObject;
@@ -18,7 +18,7 @@ export function mockRegisteredActor(
   actorClientPartial: Partial<GameObject> = {},
   actorServerPartial: Partial<ServerActorObject> = {}
 ): IMockActorDetails {
-  const actorGameObject: GameObject = mockActorGameObject(actorClientPartial);
+  const actorGameObject: GameObject = MockGameObject.mockActor(actorClientPartial);
   const actorServerObject: ServerActorObject = registerActorServer(mockServerAlifeCreatureActor(actorServerPartial));
   const actorState: IRegistryObjectState = registerActor(actorGameObject);
 

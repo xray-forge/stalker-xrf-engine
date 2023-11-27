@@ -11,7 +11,6 @@ import { replaceFunctionMock } from "@/fixtures/jest";
 import { MockLuaTable } from "@/fixtures/lua";
 import {
   EPacketDataType,
-  mockActorGameObject,
   MockGameObject,
   MockNetProcessor,
   mockServerAlifeMonsterBase,
@@ -73,7 +72,7 @@ describe("StatisticsManager class", () => {
 
   it("should correctly handle stalkers killing", () => {
     const manager: StatisticsManager = StatisticsManager.getInstance();
-    const actor: GameObject = mockActorGameObject();
+    const actor: GameObject = MockGameObject.mockActor();
 
     expect(manager.actorStatistics.killedStalkersCount).toBe(0);
 
@@ -97,7 +96,7 @@ describe("StatisticsManager class", () => {
   });
 
   it("should correctly handle anabiotics", () => {
-    registerActor(mockActorGameObject());
+    registerActor(MockGameObject.mockActor());
 
     const manager: StatisticsManager = StatisticsManager.getInstance();
 
@@ -143,7 +142,7 @@ describe("StatisticsManager class", () => {
     const ak74: GameObject = MockGameObject.mock();
     const desertEagle: GameObject = MockGameObject.mock();
     const desertEagleNimble: GameObject = MockGameObject.mock();
-    const actor: GameObject = mockActorGameObject();
+    const actor: GameObject = MockGameObject.mockActor();
     const target: GameObject = MockGameObject.mock();
 
     registerActor(actor);
@@ -197,7 +196,7 @@ describe("StatisticsManager class", () => {
     const firstMonster: GameObject = MockGameObject.mock({ clsid: () => clsid.flesh_s, rank: () => 3 });
     const secondMonster: GameObject = MockGameObject.mock({ clsid: () => clsid.bloodsucker_s, rank: () => 15 });
     const thirdMonster: GameObject = MockGameObject.mock({ clsid: () => clsid.bloodsucker_s, rank: () => 16 });
-    const actor: GameObject = mockActorGameObject();
+    const actor: GameObject = MockGameObject.mockActor();
 
     registerActor(actor);
     mockServerAlifeMonsterBase({ id: firstMonster.id(), rank: () => 3 });

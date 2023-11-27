@@ -20,7 +20,7 @@ import { ammo } from "@/engine/lib/constants/items/ammo";
 import { medkits } from "@/engine/lib/constants/items/drugs";
 import { weapons } from "@/engine/lib/constants/items/weapons";
 import { AnyObject, GameObject, TSection } from "@/engine/lib/types";
-import { mockActorGameObject, MockAlifeSimulator, MockGameObject, mockServerAlifeObject } from "@/fixtures/xray";
+import { MockAlifeSimulator, MockGameObject, mockServerAlifeObject } from "@/fixtures/xray";
 
 describe("reward utils", () => {
   const createObjectWithItems = () =>
@@ -49,7 +49,7 @@ describe("reward utils", () => {
   };
 
   beforeEach(() => {
-    registerActor(mockActorGameObject());
+    registerActor(MockGameObject.mockActor());
     registerSimulator();
   });
 

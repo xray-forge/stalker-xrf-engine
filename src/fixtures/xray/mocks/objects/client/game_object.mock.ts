@@ -436,23 +436,3 @@ export function mockGameObject({
 
   return gameObject as GameObject;
 }
-
-/**
- * Mock client game object.
- */
-export function mockActorGameObject(
-  base: Partial<
-    GameObject & {
-      idOverride?: TNumberId;
-      sectionOverride?: TSection;
-      infoPortions?: Array<TName>;
-      inventory: Array<[TSection | TNumberId, GameObject]>;
-    }
-  > = {}
-): GameObject {
-  return MockGameObject.mock({
-    ...base,
-    idOverride: ACTOR_ID,
-    get_visual_name: base.get_visual_name ?? jest.fn(() => "some_actor_visual" as any),
-  });
-}

@@ -26,7 +26,6 @@ import { ZERO_VECTOR } from "@/engine/lib/constants/vectors";
 import { GameObject, ServerHumanObject, ServerObject, ServerSmartZoneObject, Vector } from "@/engine/lib/types";
 import { mockRegisteredActor } from "@/fixtures/engine";
 import {
-  mockActorGameObject,
   MockGameObject,
   mockServerAlifeHumanStalker,
   mockServerAlifeObject,
@@ -185,7 +184,7 @@ describe("position utils", () => {
   });
 
   it("teleportActorWithEffects should correctly teleport actor", () => {
-    const actor: GameObject = mockActorGameObject();
+    const actor: GameObject = MockGameObject.mockActor();
     const destination: Vector = MockVector.mock(15, 14, 16);
     const direction: Vector = MockVector.mock(3, 5, 4);
 

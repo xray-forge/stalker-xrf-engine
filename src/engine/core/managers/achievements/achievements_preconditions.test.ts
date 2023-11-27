@@ -37,8 +37,8 @@ import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import { infoPortions, TInfoPortion } from "@/engine/lib/constants/info_portions";
 import { artefacts } from "@/engine/lib/constants/items/artefacts";
 import { TName } from "@/engine/lib/types";
-import { MockLuaTable } from "@/fixtures/lua/mocks/LuaTable.mock";
-import { mockActorGameObject, MockGameObject } from "@/fixtures/xray";
+import { MockLuaTable } from "@/fixtures/lua";
+import { MockGameObject } from "@/fixtures/xray";
 
 describe("AchievementManager class", () => {
   const mockNotificationListener = (caption: string, senderId: string) => {
@@ -85,7 +85,7 @@ describe("AchievementManager class", () => {
 
   beforeEach(() => {
     disposeManager(EventsManager);
-    registerActor(mockActorGameObject());
+    registerActor(MockGameObject.mockActor());
   });
 
   it("should correctly check pioneer achievement", () => {

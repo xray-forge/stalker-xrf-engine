@@ -19,7 +19,6 @@ import { mockRegisteredActor, mockSchemeState, resetRegistry } from "@/fixtures/
 import { resetFunctionMock } from "@/fixtures/jest";
 import {
   EPacketDataType,
-  mockActorGameObject,
   MockGameObject,
   mockNetPacket,
   MockNetProcessor,
@@ -36,7 +35,7 @@ describe("ActorBinder class", () => {
   });
 
   it("should correctly initialize", () => {
-    const actor: GameObject = mockActorGameObject();
+    const actor: GameObject = MockGameObject.mockActor();
     const binder: ActorBinder = new ActorBinder(actor);
 
     expect(binder.isFirstUpdatePerformed).toBe(false);
@@ -45,7 +44,7 @@ describe("ActorBinder class", () => {
   });
 
   it("should correctly handle net spawn / destroy", () => {
-    const actor: GameObject = mockActorGameObject();
+    const actor: GameObject = MockGameObject.mockActor();
     const serverActor: ServerActorObject = mockServerAlifeCreatureActor();
     const binder: ActorBinder = new ActorBinder(actor);
     const eventsManager: EventsManager = EventsManager.getInstance();
@@ -85,7 +84,7 @@ describe("ActorBinder class", () => {
   });
 
   it("should correctly handle re-init", () => {
-    const actor: GameObject = mockActorGameObject();
+    const actor: GameObject = MockGameObject.mockActor();
     const binder: ActorBinder = new ActorBinder(actor);
     const eventsManager: EventsManager = EventsManager.getInstance();
 
@@ -113,7 +112,7 @@ describe("ActorBinder class", () => {
   });
 
   it("should correctly force infinite alife update on re-init", () => {
-    const actor: GameObject = mockActorGameObject();
+    const actor: GameObject = MockGameObject.mockActor();
     const binder: ActorBinder = new ActorBinder(actor);
     const eventsManager: EventsManager = EventsManager.getInstance();
 

@@ -8,7 +8,7 @@ import { range } from "@/engine/core/utils/number";
 import { trySwitchToAnotherSection } from "@/engine/core/utils/scheme";
 import { AlifeSimulator, EScheme, GameObject, Patrol } from "@/engine/lib/types";
 import { mockSchemeState } from "@/fixtures/engine";
-import { mockActorGameObject, MockGameObject } from "@/fixtures/xray";
+import { MockGameObject } from "@/fixtures/xray";
 import { MockVector } from "@/fixtures/xray/mocks/vector.mock";
 
 jest.mock("@/engine/core/utils/scheme/scheme_switch", () => ({ trySwitchToAnotherSection: jest.fn() }));
@@ -60,7 +60,7 @@ describe("CrowSpawnerManager class", () => {
     const state: ISchemeCrowSpawnerState = mockSchemeState(EScheme.SR_CROW_SPAWNER);
     const manager: CrowSpawnerManager = new CrowSpawnerManager(object, state);
 
-    registerActor(mockActorGameObject());
+    registerActor(MockGameObject.mockActor());
 
     jest.spyOn(Date, "now").mockImplementation(() => 5500);
 

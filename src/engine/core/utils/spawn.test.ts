@@ -26,7 +26,6 @@ import {
   TSection,
 } from "@/engine/lib/types";
 import {
-  mockActorGameObject,
   MockAlifeSimulator,
   MockGameObject,
   mockServerAlifeCreatureActor,
@@ -223,7 +222,7 @@ describe("spawning utils", () => {
   });
 
   it("spawnCreatureNearActor should create objects", () => {
-    const actor: GameObject = mockActorGameObject();
+    const actor: GameObject = MockGameObject.mockActor();
 
     registerActor(actor);
 

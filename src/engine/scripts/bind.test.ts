@@ -3,7 +3,7 @@ import { clsid } from "xray16";
 
 import { registerSimulator } from "@/engine/core/database";
 import { AnyObject, GameObject } from "@/engine/lib/types";
-import { mockActorGameObject, MockGameObject, mockIniFile } from "@/fixtures/xray";
+import { MockGameObject, mockIniFile } from "@/fixtures/xray";
 
 describe("bind entry point", () => {
   const checkBinding = (name: string, container: AnyObject = global) => {
@@ -46,7 +46,7 @@ describe("bind entry point", () => {
   });
 
   it("should correctly bind actor", () => {
-    const actor: GameObject = mockActorGameObject();
+    const actor: GameObject = MockGameObject.mockActor();
 
     callBinding("actor", actor);
     expect(actor.bind_object).toHaveBeenCalled();

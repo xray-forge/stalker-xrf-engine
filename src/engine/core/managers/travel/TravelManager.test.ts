@@ -9,7 +9,6 @@ import { TRUE } from "@/engine/lib/constants/words";
 import { GameObject, ServerCreatureObject, ServerGroupObject, ServerSmartZoneObject } from "@/engine/lib/types";
 import { resetRegistry } from "@/fixtures/engine";
 import {
-  mockActorGameObject,
   MockGameObject,
   MockPhraseDialog,
   mockServerAlifeHumanStalker,
@@ -241,7 +240,7 @@ describe("TravelManager class", () => {
     const smartZone: ServerSmartZoneObject = mockServerAlifeSmartZone({ name: <T>() => "jup_b41" as T });
     const serverObject: ServerCreatureObject = mockServerAlifeHumanStalker({ group_id: squad.id });
     const object: GameObject = MockGameObject.mock({ idOverride: serverObject.id });
-    const actor: GameObject = mockActorGameObject();
+    const actor: GameObject = MockGameObject.mockActor();
 
     squad.commander_id = () => object.id();
     object.character_community = <T>() => "stalker" as T;

@@ -11,7 +11,7 @@ import {
 } from "@/engine/core/utils/info_portion";
 import { infoPortions, TInfoPortion } from "@/engine/lib/constants/info_portions";
 import { GameObject } from "@/engine/lib/types";
-import { mockActorGameObject, MockGameObject } from "@/fixtures/xray";
+import { MockGameObject } from "@/fixtures/xray";
 
 describe("info_portion utils", () => {
   beforeEach(() => {
@@ -41,7 +41,7 @@ describe("info_portion utils", () => {
   });
 
   it("giveInfoPortion should correctly give info portion for actor", () => {
-    registry.actor = mockActorGameObject();
+    registry.actor = MockGameObject.mockActor();
 
     giveInfoPortion(infoPortions.info_up_ac_mp5);
 

@@ -8,7 +8,7 @@ import { animations } from "@/engine/lib/constants/animation";
 import { EActiveItemSlot, GameObject } from "@/engine/lib/types";
 import { resetRegistry } from "@/fixtures/engine";
 import { resetFunctionMock } from "@/fixtures/jest";
-import { mockActorGameObject, MockGameObject } from "@/fixtures/xray";
+import { MockGameObject } from "@/fixtures/xray";
 
 describe("action utils", () => {
   beforeEach(() => {
@@ -18,7 +18,7 @@ describe("action utils", () => {
 
   it("objectPunchActor should correctly punch actor", () => {
     const ak74: GameObject = MockGameObject.mock({ sectionOverride: "wpn_ak74" });
-    const actor: GameObject = mockActorGameObject({
+    const actor: GameObject = MockGameObject.mockActor({
       active_item: () => actor.object(ak74.section()),
       active_slot: <T extends number>() => EActiveItemSlot.PRIMARY as T,
       inventory: [[ak74.section(), ak74]],

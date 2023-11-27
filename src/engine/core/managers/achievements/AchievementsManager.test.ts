@@ -20,14 +20,14 @@ import { infoPortions } from "@/engine/lib/constants/info_portions";
 import { ServerObject } from "@/engine/lib/types";
 import { resetRegistry } from "@/fixtures/engine";
 import { replaceFunctionMock, resetFunctionMock } from "@/fixtures/jest";
-import { mockActorGameObject, mockServerAlifeObject } from "@/fixtures/xray";
+import { MockGameObject, mockServerAlifeObject } from "@/fixtures/xray";
 import { MockCTime } from "@/fixtures/xray/mocks/CTime.mock";
 import { EPacketDataType, mockNetPacket, mockNetProcessor, MockNetProcessor } from "@/fixtures/xray/mocks/save";
 
 describe("AchievementManager class", () => {
   beforeEach(() => {
     resetRegistry();
-    registerActor(mockActorGameObject());
+    registerActor(MockGameObject.mockActor());
     registerSimulator();
 
     achievementsConfig.LAST_DETECTIVE_ACHIEVEMENT_SPAWN_AT = null;

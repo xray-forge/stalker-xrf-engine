@@ -22,7 +22,6 @@ import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import { GameObject, ServerGroupObject } from "@/engine/lib/types";
 import { mockRelationsSquads, resetRegistry } from "@/fixtures/engine";
 import {
-  mockActorGameObject,
   MockAlifeSimulator,
   MockGameObject,
   mockServerAlifeCreatureActor,
@@ -61,7 +60,7 @@ describe("relation/get utils", () => {
     expect(getSquadMembersRelationToActorSafe(emptyMonolithSquad)).toBe(ERelation.NEUTRAL);
     expect(getSquadMembersRelationToActorSafe(emptyArmySquad)).toBe(ERelation.NEUTRAL);
 
-    registerActor(mockActorGameObject());
+    registerActor(MockGameObject.mockActor());
 
     expect(getSquadMembersRelationToActorSafe(emptyMonolithSquad)).toBe(ERelation.ENEMY);
     expect(getSquadMembersRelationToActorSafe(emptyArmySquad)).toBe(ERelation.FRIEND);
@@ -80,7 +79,7 @@ describe("relation/get utils", () => {
     expect(getSquadMembersRelationToActor(emptyMonolithSquad)).toBe(ERelation.NEUTRAL);
     expect(getSquadMembersRelationToActor(emptyArmySquad)).toBe(ERelation.NEUTRAL);
 
-    registerActor(mockActorGameObject());
+    registerActor(MockGameObject.mockActor());
 
     expect(getSquadMembersRelationToActor(emptyMonolithSquad)).toBeNull();
     expect(getSquadMembersRelationToActor(emptyArmySquad)).toBeNull();
