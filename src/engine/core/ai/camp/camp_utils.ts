@@ -1,9 +1,10 @@
-import { EObjectCampRole } from "@/engine/core/ai/camp/camp_types";
+import { EObjectCampActivity, EObjectCampRole } from "@/engine/core/ai/camp/camp_types";
 import type { CampManager } from "@/engine/core/ai/camp/CampManager";
+import { WEAPON_POSTFIX } from "@/engine/core/animation/types";
 import { IRegistryObjectState, registry } from "@/engine/core/database";
-import { ISchemeAnimpointState } from "@/engine/core/schemes/stalker/animpoint";
+import { IAnimpointActionDescriptor, ISchemeAnimpointState } from "@/engine/core/schemes/stalker/animpoint";
 import { isObjectMeeting } from "@/engine/core/utils/planner";
-import { GameObject, Optional, TCount, TNumberId } from "@/engine/lib/types";
+import { GameObject, LuaArray, Optional, TCount, TName, TNumberId } from "@/engine/lib/types";
 
 /**
  * Start playing guitar for an object.
@@ -155,4 +156,54 @@ export function canTellCampStory(campManager: CampManager): boolean {
 
   // Check whether camp has free speakers, verify that have 2+ of them.
   return count > 1;
+}
+
+/**
+ * Get object role based on id/state for current camp activity.
+ *
+ * @param objectId - target game object id
+ * @param activity - camp activity name to check role for
+ * @returns whether object animpoint state is correct and what role can be used for it
+ */
+export function getObjectCampActivityRole(objectId: TNumberId, activity: EObjectCampActivity): EObjectCampRole {
+  const schemeState: Optional<ISchemeAnimpointState> = registry.objects.get(objectId)[
+    registry.objects.get(objectId).activeScheme!
+  ] as ISchemeAnimpointState;
+
+  // Object is not captured in animation state scheme (sitting / laying / telling etc).
+  if (!schemeState) {
+    return EObjectCampRole.NONE;
+  }
+
+  const objectActions: LuaArray<IAnimpointActionDescriptor> = schemeState.approvedActions;
+  let stalkerState: Optional<TName> = schemeState.description as TName;
+
+  switch (activity) {
+    case EObjectCampActivity.HARMONICA:
+    case EObjectCampActivity.GUITAR:
+      stalkerState += `_${activity}`;
+
+      for (const [, action] of objectActions) {
+        if (action.name === stalkerState) {
+          return EObjectCampRole.DIRECTOR;
+        }
+      }
+
+      return EObjectCampRole.LISTENER;
+
+    case EObjectCampActivity.STORY:
+      for (const [, action] of objectActions) {
+        if (action.name === stalkerState || action.name === stalkerState + WEAPON_POSTFIX) {
+          return EObjectCampRole.DIRECTOR;
+        }
+      }
+
+      return EObjectCampRole.LISTENER;
+
+    case EObjectCampActivity.IDLE:
+      return EObjectCampRole.LISTENER;
+
+    default:
+      return EObjectCampRole.NONE;
+  }
 }

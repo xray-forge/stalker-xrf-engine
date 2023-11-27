@@ -1,17 +1,14 @@
 import { time_global } from "xray16";
 
 import { EObjectCampActivity, EObjectCampRole, ICampObjectState } from "@/engine/core/ai/camp/camp_types";
+import { getObjectCampActivityRole } from "@/engine/core/ai/camp/camp_utils";
 import { campConfig } from "@/engine/core/ai/camp/CampConfig";
-import { WEAPON_POSTFIX } from "@/engine/core/animation/types";
 import { IBaseSchemeState, IRegistryObjectState, registry } from "@/engine/core/database";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import { soundsConfig } from "@/engine/core/managers/sounds/SoundsConfig";
 import { StoryManager } from "@/engine/core/managers/sounds/stories";
 import { getStoryManager } from "@/engine/core/managers/sounds/utils";
-import {
-  IAnimpointActionDescriptor,
-  ISchemeAnimpointState,
-} from "@/engine/core/schemes/stalker/animpoint/animpoint_types";
+import { ISchemeAnimpointState } from "@/engine/core/schemes/stalker/animpoint/animpoint_types";
 import { ISchemeMeetState } from "@/engine/core/schemes/stalker/meet";
 import { MeetManager } from "@/engine/core/schemes/stalker/meet/MeetManager";
 import { abort } from "@/engine/core/utils/assertion";
@@ -277,7 +274,7 @@ export class CampManager {
     state.camp = this.object.id();
 
     for (const [activity] of campConfig.CAMP_ACTIVITIES) {
-      const role: EObjectCampRole = this.getObjectRole(objectId, activity);
+      const role: EObjectCampRole = getObjectCampActivityRole(objectId, activity);
 
       if (role === EObjectCampRole.NONE) {
         abort("Wrong role for object '%s' in camp '%s', activity '%s'.", objectId, this.object.name(), activity);
@@ -313,55 +310,5 @@ export class CampManager {
     registry.objects.get(objectId).camp = null;
     this.objects.delete(objectId);
     this.storyManager.unregisterObject(objectId);
-  }
-
-  /**
-   * Get object role based on id/state for current camp activity.
-   *
-   * @param objectId - target game object id
-   * @param activity - camp activity name to check role for
-   * @returns whether object animpoint state is correct and what role can be used for it
-   */
-  public getObjectRole(objectId: TNumberId, activity: EObjectCampActivity): EObjectCampRole {
-    const schemeState: Optional<ISchemeAnimpointState> = registry.objects.get(objectId)[
-      registry.objects.get(objectId).activeScheme!
-    ] as ISchemeAnimpointState;
-
-    // Object is not captured in animation state scheme (sitting / laying / telling etc).
-    if (!schemeState) {
-      return EObjectCampRole.NONE;
-    }
-
-    const objectActions: LuaArray<IAnimpointActionDescriptor> = schemeState.approvedActions;
-    let stalkerState: Optional<TName> = schemeState.description as TName;
-
-    switch (activity) {
-      case EObjectCampActivity.HARMONICA:
-      case EObjectCampActivity.GUITAR:
-        stalkerState += `_${activity}`;
-
-        for (const [, action] of objectActions) {
-          if (action.name === stalkerState) {
-            return EObjectCampRole.DIRECTOR;
-          }
-        }
-
-        return EObjectCampRole.LISTENER;
-
-      case EObjectCampActivity.STORY:
-        for (const [, action] of objectActions) {
-          if (action.name === stalkerState || action.name === stalkerState + WEAPON_POSTFIX) {
-            return EObjectCampRole.DIRECTOR;
-          }
-        }
-
-        return EObjectCampRole.LISTENER;
-
-      case EObjectCampActivity.IDLE:
-        return EObjectCampRole.LISTENER;
-
-      default:
-        return EObjectCampRole.NONE;
-    }
   }
 }
