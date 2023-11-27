@@ -5,11 +5,11 @@ import { registerObject } from "@/engine/core/database/objects";
 import { registry } from "@/engine/core/database/registry";
 import { registerWoundedObject, unRegisterWoundedObject } from "@/engine/core/database/wounded";
 import { GameObject } from "@/engine/lib/types";
-import { mockGameObject } from "@/fixtures/xray";
+import { MockGameObject } from "@/fixtures/xray";
 
 describe("database objects utilities", () => {
   it("should correctly register and unregister wounded objects", () => {
-    const object: GameObject = mockGameObject();
+    const object: GameObject = MockGameObject.mock();
     const state: IRegistryObjectState = registerObject(object);
 
     registerWoundedObject(object);

@@ -20,25 +20,25 @@ import { ammo } from "@/engine/lib/constants/items/ammo";
 import { medkits } from "@/engine/lib/constants/items/drugs";
 import { weapons } from "@/engine/lib/constants/items/weapons";
 import { AnyObject, GameObject, TSection } from "@/engine/lib/types";
-import { mockActorGameObject, MockAlifeSimulator, mockGameObject, mockServerAlifeObject } from "@/fixtures/xray";
+import { mockActorGameObject, MockAlifeSimulator, MockGameObject, mockServerAlifeObject } from "@/fixtures/xray";
 
 describe("reward utils", () => {
   const createObjectWithItems = () =>
-    mockGameObject({
+    MockGameObject.mock({
       inventory: [
-        [1, mockGameObject({ sectionOverride: medkits.medkit } as Partial<GameObject>)],
-        [2, mockGameObject({ sectionOverride: medkits.medkit } as Partial<GameObject>)],
-        [3, mockGameObject({ sectionOverride: medkits.medkit_army } as Partial<GameObject>)],
-        [4, mockGameObject({ sectionOverride: medkits.medkit_army } as Partial<GameObject>)],
-        [5, mockGameObject({ sectionOverride: medkits.medkit_army } as Partial<GameObject>)],
-        [40, mockGameObject({ sectionOverride: weapons.wpn_svd } as Partial<GameObject>)],
-        [41, mockGameObject({ sectionOverride: weapons.wpn_svd } as Partial<GameObject>)],
-        [50, mockGameObject({ sectionOverride: ammo.ammo_9x18_pmm } as Partial<GameObject>)],
-        [51, mockGameObject({ sectionOverride: ammo.ammo_9x18_pmm } as Partial<GameObject>)],
-        [52, mockGameObject({ sectionOverride: ammo.ammo_9x18_pmm } as Partial<GameObject>)],
-        [53, mockGameObject({ sectionOverride: ammo.ammo_9x18_pmm } as Partial<GameObject>)],
-        [54, mockGameObject({ sectionOverride: ammo.ammo_9x18_pmm } as Partial<GameObject>)],
-        [55, mockGameObject({ sectionOverride: ammo.ammo_9x18_pmm } as Partial<GameObject>)],
+        [1, MockGameObject.mock({ sectionOverride: medkits.medkit } as Partial<GameObject>)],
+        [2, MockGameObject.mock({ sectionOverride: medkits.medkit } as Partial<GameObject>)],
+        [3, MockGameObject.mock({ sectionOverride: medkits.medkit_army } as Partial<GameObject>)],
+        [4, MockGameObject.mock({ sectionOverride: medkits.medkit_army } as Partial<GameObject>)],
+        [5, MockGameObject.mock({ sectionOverride: medkits.medkit_army } as Partial<GameObject>)],
+        [40, MockGameObject.mock({ sectionOverride: weapons.wpn_svd } as Partial<GameObject>)],
+        [41, MockGameObject.mock({ sectionOverride: weapons.wpn_svd } as Partial<GameObject>)],
+        [50, MockGameObject.mock({ sectionOverride: ammo.ammo_9x18_pmm } as Partial<GameObject>)],
+        [51, MockGameObject.mock({ sectionOverride: ammo.ammo_9x18_pmm } as Partial<GameObject>)],
+        [52, MockGameObject.mock({ sectionOverride: ammo.ammo_9x18_pmm } as Partial<GameObject>)],
+        [53, MockGameObject.mock({ sectionOverride: ammo.ammo_9x18_pmm } as Partial<GameObject>)],
+        [54, MockGameObject.mock({ sectionOverride: ammo.ammo_9x18_pmm } as Partial<GameObject>)],
+        [55, MockGameObject.mock({ sectionOverride: ammo.ammo_9x18_pmm } as Partial<GameObject>)],
       ],
     });
 
@@ -66,7 +66,7 @@ describe("reward utils", () => {
       expect(notification.direction).toBe(ENotificationDirection.IN);
     });
 
-    eventsManager.registerCallback(EGameEvent.NOTIFICATION, mock, null);
+    eventsManager.registerCallback(EGameEvent.NOTIFICATION, mock);
 
     giveMoneyToActor(250);
 
@@ -83,9 +83,9 @@ describe("reward utils", () => {
       expect(notification.direction).toBe(ENotificationDirection.OUT);
     });
 
-    eventsManager.registerCallback(EGameEvent.NOTIFICATION, mock, null);
+    eventsManager.registerCallback(EGameEvent.NOTIFICATION, mock);
 
-    const destinationObject: GameObject = mockGameObject();
+    const destinationObject: GameObject = MockGameObject.mock();
 
     transferMoneyFromActor(destinationObject, 500);
 
@@ -101,7 +101,7 @@ describe("reward utils", () => {
       expect(notification.direction).toBe(ENotificationDirection.OUT);
     });
 
-    eventsManager.registerCallback(EGameEvent.NOTIFICATION, mock, null);
+    eventsManager.registerCallback(EGameEvent.NOTIFICATION, mock);
 
     registerActor(createObjectWithItems());
 
@@ -110,7 +110,7 @@ describe("reward utils", () => {
     expect(getItemsCount(registry.actor, medkits.medkit_army)).toBe(3);
     expect(getItemsCount(registry.actor, ammo.ammo_9x18_pmm)).toBe(6);
 
-    transferItemsFromActor(mockGameObject(), weapons.wpn_svd, 2);
+    transferItemsFromActor(MockGameObject.mock(), weapons.wpn_svd, 2);
 
     expect(getItemsCount(registry.actor, weapons.wpn_svd)).toBe(0);
     expect(getItemsCount(registry.actor, medkits.medkit)).toBe(2);
@@ -119,7 +119,7 @@ describe("reward utils", () => {
 
     expect(registry.actor.transfer_item).toHaveBeenCalledTimes(2);
 
-    expect(() => transferItemsFromActor(mockGameObject(), weapons.wpn_svd, 2)).toThrow();
+    expect(() => transferItemsFromActor(MockGameObject.mock(), weapons.wpn_svd, 2)).toThrow();
     expect(mock).toHaveBeenCalledTimes(1);
   });
 
@@ -131,16 +131,16 @@ describe("reward utils", () => {
       expect(notification.direction).toBe(ENotificationDirection.OUT);
     });
 
-    eventsManager.registerCallback(EGameEvent.NOTIFICATION, mock, null);
+    eventsManager.registerCallback(EGameEvent.NOTIFICATION, mock);
 
     registerActor(createObjectWithItems());
 
     expect(getItemsCount(registry.actor, ammo.ammo_9x18_pmm)).toBe(6);
-    transferItemsFromActor(mockGameObject(), ammo.ammo_9x18_pmm, 3);
+    transferItemsFromActor(MockGameObject.mock(), ammo.ammo_9x18_pmm, 3);
     expect(getItemsCount(registry.actor, ammo.ammo_9x18_pmm)).toBe(3);
     expect(registry.actor.transfer_item).toHaveBeenCalledTimes(3);
 
-    transferItemsFromActor(mockGameObject(), ammo.ammo_9x18_pmm, 3);
+    transferItemsFromActor(MockGameObject.mock(), ammo.ammo_9x18_pmm, 3);
     expect(getItemsCount(registry.actor, ammo.ammo_9x18_pmm)).toBe(0);
     expect(mock).toHaveBeenCalledTimes(2);
   });
@@ -153,13 +153,13 @@ describe("reward utils", () => {
       expect(notification.direction).toBe(ENotificationDirection.OUT);
     });
 
-    eventsManager.registerCallback(EGameEvent.NOTIFICATION, mock, null);
+    eventsManager.registerCallback(EGameEvent.NOTIFICATION, mock);
 
     registerActor(createObjectWithItems());
 
     expect(getItemsCount(registry.actor, ammo.ammo_9x18_pmm)).toBe(6);
 
-    transferItemsFromActor(mockGameObject(), ammo.ammo_9x18_pmm, "all");
+    transferItemsFromActor(MockGameObject.mock(), ammo.ammo_9x18_pmm, "all");
 
     expect(getItemsCount(registry.actor, ammo.ammo_9x18_pmm)).toBe(0);
     expect(registry.actor.transfer_item).toHaveBeenCalledTimes(6);
@@ -169,7 +169,7 @@ describe("reward utils", () => {
   it("transferItemsFromActor should fail on bad attempts", () => {
     registerActor(createObjectWithItems());
 
-    const to: GameObject = mockGameObject();
+    const to: GameObject = MockGameObject.mock();
 
     expect(() => transferItemsFromActor(to, ammo["ammo_5.45x39_ap"], -1)).toThrow();
     expect(() => transferItemsFromActor(to, ammo["ammo_5.45x39_ap"], 0)).toThrow();
@@ -187,7 +187,7 @@ describe("reward utils", () => {
       expect(notification.direction).toBe(ENotificationDirection.IN);
     });
 
-    eventsManager.registerCallback(EGameEvent.NOTIFICATION, mock, null);
+    eventsManager.registerCallback(EGameEvent.NOTIFICATION, mock);
 
     expect(getItemsCount(from, ammo.ammo_9x18_pmm)).toBe(6);
     transferItemsToActor(from, ammo.ammo_9x18_pmm, 6);
@@ -204,7 +204,7 @@ describe("reward utils", () => {
       expect(notification.direction).toBe(ENotificationDirection.IN);
     });
 
-    eventsManager.registerCallback(EGameEvent.NOTIFICATION, mock, null);
+    eventsManager.registerCallback(EGameEvent.NOTIFICATION, mock);
 
     giveItemsToActor("ammo_5.45x39_ap", 300);
 
@@ -213,14 +213,14 @@ describe("reward utils", () => {
 
   it("takeItemFromActor should correctly delete items and then notify", () => {
     const eventsManager: EventsManager = EventsManager.getInstance();
-    const itemToTake: GameObject = mockGameObject();
+    const itemToTake: GameObject = MockGameObject.mock();
     const mock = jest.fn((notification: IItemRelocatedNotification) => {
       expect(notification.type).toBe(ENotificationType.ITEM);
       expect(notification.itemSection).toBe("test_section");
       expect(notification.direction).toBe(ENotificationDirection.OUT);
     });
 
-    eventsManager.registerCallback(EGameEvent.NOTIFICATION, mock, null);
+    eventsManager.registerCallback(EGameEvent.NOTIFICATION, mock);
 
     expect(() => takeItemFromActor("test_section_none")).toThrow();
 
@@ -228,7 +228,7 @@ describe("reward utils", () => {
 
     expect(registry.simulator.object(itemToTake.id())).not.toBeNull();
 
-    registerActor(mockGameObject({ object: () => itemToTake }));
+    registerActor(MockGameObject.mock({ object: () => itemToTake }));
     takeItemFromActor("test_section");
 
     expect(registry.simulator.object(itemToTake.id())).toBeNull();

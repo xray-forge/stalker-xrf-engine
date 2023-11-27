@@ -3,12 +3,12 @@ import { describe, expect, it } from "@jest/globals";
 import { isPatrolTeamSynchronized } from "@/engine/core/ai/patrol/patrol_utils";
 import { patrolConfig } from "@/engine/core/ai/patrol/PatrolConfig";
 import { GameObject, TNumberId } from "@/engine/lib/types";
-import { mockGameObject } from "@/fixtures/xray";
+import { MockGameObject } from "@/fixtures/xray";
 
 describe("patrol_utils module", () => {
   it("isPatrolTeamSynchronized should correctly check team sync state", () => {
-    const first: GameObject = mockGameObject();
-    const second: GameObject = mockGameObject();
+    const first: GameObject = MockGameObject.mock();
+    const second: GameObject = MockGameObject.mock();
 
     expect(isPatrolTeamSynchronized(null)).toBe(true); // no team
     expect(isPatrolTeamSynchronized("not_existing")).toBe(true);
@@ -33,8 +33,8 @@ describe("patrol_utils module", () => {
   });
 
   it("isPatrolTeamSynchronized should correctly check team sync for dead/offline objects", () => {
-    const first: GameObject = mockGameObject({ alive: () => false });
-    const second: GameObject = mockGameObject();
+    const first: GameObject = MockGameObject.mock({ alive: () => false });
+    const second: GameObject = MockGameObject.mock();
 
     patrolConfig.PATROL_TEAMS.set(
       "not_sync_dead",

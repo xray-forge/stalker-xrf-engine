@@ -14,7 +14,7 @@ import {
   CLIENT_SIDE_REGISTRY,
   mockActorGameObject,
   MockAlifeSimulator,
-  mockGameObject,
+  MockGameObject,
   mockServerAlifeCreatureActor,
   mockServerAlifeObject,
 } from "@/fixtures/xray";
@@ -88,8 +88,8 @@ describe("registry find utils", () => {
 
     mockServerAlifeObject({ parent_id: actor.id });
 
-    mockGameObject({ idOverride: actor.id });
-    mockGameObject({ idOverride: first.id });
+    MockGameObject.mock({ idOverride: actor.id });
+    MockGameObject.mock({ idOverride: first.id });
 
     expect((getServerObjects() as unknown as MockLuaTable<TIndex, ServerObject>).map((it) => it.id)).toEqual([
       first.id,
@@ -160,16 +160,16 @@ describe("registry find utils", () => {
 
     registerActor(actor);
 
-    const first: GameObject = mockGameObject({
+    const first: GameObject = MockGameObject.mock({
       clsid: () => clsid.dog_s as TClassId,
       name: () => "dog_name",
     });
-    const second: GameObject = mockGameObject({
+    const second: GameObject = MockGameObject.mock({
       clsid: () => clsid.dog_red as TClassId,
       name: () => "dog_name",
     });
-    const third: GameObject = mockGameObject();
-    const fourth: GameObject = mockGameObject({ parent: () => actor });
+    const third: GameObject = MockGameObject.mock();
+    const fourth: GameObject = MockGameObject.mock({ parent: () => actor });
 
     jest.spyOn(actor.position(), "distance_to_sqr").mockImplementation(() => 1);
     jest.spyOn(first.position(), "distance_to_sqr").mockImplementation(() => 145 * 145);
@@ -191,17 +191,17 @@ describe("registry find utils", () => {
       clsid: () => clsid.actor as TClassId,
       name: () => "actor_name",
     });
-    const first: GameObject = mockGameObject({
+    const first: GameObject = MockGameObject.mock({
       clsid: () => clsid.script_stalker as TClassId,
       name: () => "stalker_name",
     });
-    const second: GameObject = mockGameObject({
+    const second: GameObject = MockGameObject.mock({
       clsid: () => clsid.pseudodog_s as TClassId,
       name: () => "dog_name",
     });
-    const third: GameObject = mockGameObject();
+    const third: GameObject = MockGameObject.mock();
 
-    mockGameObject({ parent: () => actor });
+    MockGameObject.mock({ parent: () => actor });
 
     registerActor(actor);
 

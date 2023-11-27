@@ -18,11 +18,11 @@ import {
 import { ActionPlanner, EScheme, GameObject } from "@/engine/lib/types";
 import { mockSchemeState } from "@/fixtures/engine";
 import { replaceFunctionMock } from "@/fixtures/jest";
-import { MockActionPlanner, mockGameObject } from "@/fixtures/xray";
+import { MockActionPlanner, MockGameObject } from "@/fixtures/xray";
 
 describe("object state utils", () => {
   it("isObjectAsleep should check state correctly", () => {
-    const object: GameObject = mockGameObject();
+    const object: GameObject = MockGameObject.mock();
 
     expect(isObjectAsleep(object.id())).toBe(false);
 
@@ -44,7 +44,7 @@ describe("object state utils", () => {
   });
 
   it("isObjectWounded should correctly check wounded state", () => {
-    const object: GameObject = mockGameObject();
+    const object: GameObject = MockGameObject.mock();
 
     expect(isObjectWounded(object.id())).toBe(false);
 
@@ -71,7 +71,7 @@ describe("object state utils", () => {
   });
 
   it("isObjectMeeting should correctly check meeting state", () => {
-    const object: GameObject = mockGameObject();
+    const object: GameObject = MockGameObject.mock();
 
     expect(isObjectMeeting(object)).toBe(false);
 
@@ -92,7 +92,7 @@ describe("object state utils", () => {
   });
 
   it("isObjectInCombat should correctly check object combat state", () => {
-    const object: GameObject = mockGameObject();
+    const object: GameObject = MockGameObject.mock();
     const planner: MockActionPlanner = object.motivation_action_manager() as unknown as MockActionPlanner;
 
     expect(isObjectInCombat(object)).toBe(false);
@@ -114,7 +114,7 @@ describe("object state utils", () => {
   });
 
   it("isObjectSearchingCorpse should correctly check object searching corpse state", () => {
-    const object: GameObject = mockGameObject();
+    const object: GameObject = MockGameObject.mock();
     const planner: MockActionPlanner = object.motivation_action_manager() as unknown as MockActionPlanner;
 
     expect(isObjectSearchingCorpse(object)).toBe(false);
@@ -136,7 +136,7 @@ describe("object state utils", () => {
   });
 
   it("isObjectHelpingWounded should correctly check object helping wounded state", () => {
-    const object: GameObject = mockGameObject();
+    const object: GameObject = MockGameObject.mock();
     const planner: MockActionPlanner = object.motivation_action_manager() as unknown as MockActionPlanner;
 
     expect(isObjectHelpingWounded(object)).toBe(false);

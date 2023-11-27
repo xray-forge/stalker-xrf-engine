@@ -8,7 +8,7 @@ import { updateObjectMeetAvailability } from "@/engine/core/schemes/stalker/meet
 import { breakObjectDialog, getNpcSpeaker, isObjectName, updateObjectDialog } from "@/engine/core/utils/dialog";
 import { EScheme, GameObject } from "@/engine/lib/types";
 import { mockRegisteredActor, mockSchemeState, resetRegistry } from "@/fixtures/engine";
-import { mockGameObject } from "@/fixtures/xray";
+import { MockGameObject } from "@/fixtures/xray";
 
 jest.mock("@/engine/core/schemes/stalker/meet/utils", () => ({ updateObjectMeetAvailability: jest.fn() }));
 jest.mock("@/engine/core/binders/creature/StalkerBinder", () => ({ updateStalkerLogic: jest.fn() }));
@@ -21,8 +21,8 @@ describe("reward utils", () => {
   });
 
   it("getNpcSpeaker should correctly pick speaker", () => {
-    const first: GameObject = mockGameObject();
-    const second: GameObject = mockGameObject();
+    const first: GameObject = MockGameObject.mock();
+    const second: GameObject = MockGameObject.mock();
 
     expect(getNpcSpeaker(registry.actor, first)).toBe(first);
     expect(getNpcSpeaker(registry.actor, second)).toBe(second);
@@ -32,7 +32,7 @@ describe("reward utils", () => {
   });
 
   it("isObjectName should correctly check name", () => {
-    const object: GameObject = mockGameObject({ name: () => "test_complex_name" } as Partial<GameObject>);
+    const object: GameObject = MockGameObject.mock({ name: () => "test_complex_name" } as Partial<GameObject>);
 
     expect(object.name()).toBe("test_complex_name");
     expect(isObjectName(object, "another")).toBeFalsy();
@@ -46,7 +46,7 @@ describe("reward utils", () => {
 
   it("breakObjectDialog should correctly break", () => {
     const { actorGameObject } = mockRegisteredActor();
-    const object: GameObject = mockGameObject();
+    const object: GameObject = MockGameObject.mock();
 
     breakObjectDialog(object);
 
@@ -57,7 +57,7 @@ describe("reward utils", () => {
   it("updateObjectDialog should correctly update dialog state", () => {
     mockRegisteredActor();
 
-    const object: GameObject = mockGameObject();
+    const object: GameObject = MockGameObject.mock();
     const state: IRegistryObjectState = registerObject(object);
     const meetState: ISchemeMeetState = mockSchemeState(EScheme.MEET);
 

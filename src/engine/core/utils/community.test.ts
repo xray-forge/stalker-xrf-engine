@@ -5,14 +5,14 @@ import { registerObject } from "@/engine/core/database";
 import { getObjectCommunity, setObjectTeamSquadGroup } from "@/engine/core/utils/community";
 import { GameObject, ServerHumanObject, TClassId } from "@/engine/lib/types";
 import { replaceFunctionMock } from "@/fixtures/jest";
-import { mockGameObject, mockServerAlifeHumanStalker } from "@/fixtures/xray";
+import { MockGameObject, mockServerAlifeHumanStalker } from "@/fixtures/xray";
 
 describe("community utils", () => {
   it("getObjectCommunity should correctly get community", () => {
-    expect(getObjectCommunity(mockGameObject())).toBe("monster");
+    expect(getObjectCommunity(MockGameObject.mock())).toBe("monster");
     expect(getObjectCommunity(mockServerAlifeHumanStalker())).toBe("stalker");
 
-    const gameObject: GameObject = mockGameObject({ clsid: () => clsid.script_stalker as TClassId });
+    const gameObject: GameObject = MockGameObject.mock({ clsid: () => clsid.script_stalker as TClassId });
     const serverObject: ServerHumanObject = mockServerAlifeHumanStalker({
       clsid: () => clsid.script_stalker as TClassId,
     });
@@ -28,7 +28,7 @@ describe("community utils", () => {
   });
 
   it("setObjectTeamSquadGroup should correctly set object group details", () => {
-    const firstObject: GameObject = mockGameObject();
+    const firstObject: GameObject = MockGameObject.mock();
     const firstServerObject: ServerHumanObject = mockServerAlifeHumanStalker({ id: firstObject.id() });
 
     setObjectTeamSquadGroup(firstServerObject, 432, 543, 654);
@@ -39,7 +39,7 @@ describe("community utils", () => {
 
     expect(firstObject.change_team).not.toHaveBeenCalled();
 
-    const secondObject: GameObject = mockGameObject();
+    const secondObject: GameObject = MockGameObject.mock();
     const secondServerObject: ServerHumanObject = mockServerAlifeHumanStalker({ id: secondObject.id() });
 
     registerObject(secondObject);

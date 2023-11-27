@@ -4,11 +4,11 @@ import { anim, property_storage } from "xray16";
 import { ActionMentalFree } from "@/engine/core/ai/state/mental/ActionMentalFree";
 import type { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
 import { GameObject } from "@/engine/lib/types";
-import { mockGameObject } from "@/fixtures/xray";
+import { MockGameObject } from "@/fixtures/xray";
 
 describe("ActionMentalFree class", () => {
   it("should correctly perform mental state set", () => {
-    const object: GameObject = mockGameObject();
+    const object: GameObject = MockGameObject.mock();
     const action: ActionMentalFree = new ActionMentalFree({} as StalkerStateManager);
 
     action.setup(object, new property_storage());

@@ -3,7 +3,7 @@ import { clsid } from "xray16";
 
 import { registerSimulator } from "@/engine/core/database";
 import { AnyObject, GameObject } from "@/engine/lib/types";
-import { mockActorGameObject, mockGameObject, mockIniFile } from "@/fixtures/xray";
+import { mockActorGameObject, MockGameObject, mockIniFile } from "@/fixtures/xray";
 
 describe("bind entry point", () => {
   const checkBinding = (name: string, container: AnyObject = global) => {
@@ -53,21 +53,21 @@ describe("bind entry point", () => {
   });
 
   it("should correctly bind anomaly fields", () => {
-    const anomalyField: GameObject = mockGameObject();
+    const anomalyField: GameObject = MockGameObject.mock();
 
     callBinding("anomalyField", anomalyField);
     expect(anomalyField.bind_object).toHaveBeenCalled();
   });
 
   it("should correctly bind anomaly zones", () => {
-    const anomalyZone: GameObject = mockGameObject();
+    const anomalyZone: GameObject = MockGameObject.mock();
 
     callBinding("anomalyZone", anomalyZone);
     expect(anomalyZone.bind_object).toHaveBeenCalled();
   });
 
   it("should correctly bind arena zones", () => {
-    const arenaZone: GameObject = mockGameObject();
+    const arenaZone: GameObject = MockGameObject.mock();
 
     callBinding("arenaZone", arenaZone);
     expect(arenaZone.bind_object).not.toHaveBeenCalled();
@@ -83,35 +83,35 @@ describe("bind entry point", () => {
   });
 
   it("should correctly bind artefacts", () => {
-    const artefact: GameObject = mockGameObject();
+    const artefact: GameObject = MockGameObject.mock();
 
     callBinding("artefact", artefact);
     expect(artefact.bind_object).toHaveBeenCalled();
   });
 
   it("should correctly bind camp", () => {
-    const camp: GameObject = mockGameObject();
+    const camp: GameObject = MockGameObject.mock();
 
     callBinding("camp", camp);
     expect(camp.bind_object).toHaveBeenCalled();
   });
 
   it("should correctly bind campfire", () => {
-    const campfire: GameObject = mockGameObject();
+    const campfire: GameObject = MockGameObject.mock();
 
     callBinding("campfire", campfire);
     expect(campfire.bind_object).toHaveBeenCalled();
   });
 
   it("should correctly bind crow", () => {
-    const crow: GameObject = mockGameObject();
+    const crow: GameObject = MockGameObject.mock();
 
     callBinding("crow", crow);
     expect(crow.bind_object).toHaveBeenCalled();
   });
 
   it("should correctly bind heli", () => {
-    const heli: GameObject = mockGameObject();
+    const heli: GameObject = MockGameObject.mock();
 
     callBinding("heli", heli);
     expect(heli.bind_object).not.toHaveBeenCalled();
@@ -127,35 +127,35 @@ describe("bind entry point", () => {
   });
 
   it("should correctly bind labX8Door", () => {
-    const door: GameObject = mockGameObject();
+    const door: GameObject = MockGameObject.mock();
 
     callBinding("labX8Door", door);
     expect(door.bind_object).toHaveBeenCalled();
   });
 
   it("should correctly bind level changer", () => {
-    const levelChanger: GameObject = mockGameObject();
+    const levelChanger: GameObject = MockGameObject.mock();
 
     callBinding("levelChanger", levelChanger);
     expect(levelChanger.bind_object).toHaveBeenCalled();
   });
 
   it("should correctly bind monster", () => {
-    const monster: GameObject = mockGameObject();
+    const monster: GameObject = MockGameObject.mock();
 
     callBinding("monster", monster);
     expect(monster.bind_object).toHaveBeenCalled();
   });
 
   it("should correctly bind phantom", () => {
-    const phantom: GameObject = mockGameObject();
+    const phantom: GameObject = MockGameObject.mock();
 
     callBinding("phantom", phantom);
     expect(phantom.bind_object).toHaveBeenCalled();
   });
 
   it("should correctly bind physic object", () => {
-    const physicObject: GameObject = mockGameObject();
+    const physicObject: GameObject = MockGameObject.mock();
 
     callBinding("physicObject", physicObject);
     expect(physicObject.bind_object).not.toHaveBeenCalled();
@@ -182,30 +182,30 @@ describe("bind entry point", () => {
   });
 
   it("should correctly bind restrictor", () => {
-    const restrictor: GameObject = mockGameObject();
+    const restrictor: GameObject = MockGameObject.mock();
 
     callBinding("restrictor", restrictor);
     expect(restrictor.bind_object).toHaveBeenCalled();
   });
 
   it("should correctly bind signalLight", () => {
-    const signalLight: GameObject = mockGameObject();
+    const signalLight: GameObject = MockGameObject.mock();
 
     callBinding("signalLight", signalLight);
     expect(signalLight.bind_object).toHaveBeenCalled();
   });
 
   it("should correctly bind smartCover", () => {
-    const smartCover: GameObject = mockGameObject();
+    const smartCover: GameObject = MockGameObject.mock();
 
     callBinding("smartCover", smartCover);
     expect(smartCover.bind_object).toHaveBeenCalled();
   });
 
   it("should correctly bind smartTerrain", () => {
-    const firstSmartTerrain: GameObject = mockGameObject();
-    const secondSmartTerrain: GameObject = mockGameObject();
-    const thirdSmartTerrain: GameObject = mockGameObject();
+    const firstSmartTerrain: GameObject = MockGameObject.mock();
+    const secondSmartTerrain: GameObject = MockGameObject.mock();
+    const thirdSmartTerrain: GameObject = MockGameObject.mock();
 
     callBinding("smartTerrain", firstSmartTerrain);
     expect(firstSmartTerrain.bind_object).not.toHaveBeenCalled();
@@ -229,28 +229,28 @@ describe("bind entry point", () => {
   });
 
   it("should correctly bind stalker", () => {
-    const stalker: GameObject = mockGameObject();
+    const stalker: GameObject = MockGameObject.mock();
 
     callBinding("stalker", stalker);
     expect(stalker.bind_object).toHaveBeenCalled();
   });
 
   it("should correctly bind weapon", () => {
-    const stalker: GameObject = mockGameObject();
+    const stalker: GameObject = MockGameObject.mock();
 
     callBinding("weapon", stalker);
     expect(stalker.bind_object).toHaveBeenCalled();
   });
 
   it("should correctly bind outfit", () => {
-    const stalker: GameObject = mockGameObject();
+    const stalker: GameObject = MockGameObject.mock();
 
     callBinding("outfit", stalker);
     expect(stalker.bind_object).toHaveBeenCalled();
   });
 
   it("should correctly bind helmet", () => {
-    const stalker: GameObject = mockGameObject();
+    const stalker: GameObject = MockGameObject.mock();
 
     callBinding("helmet", stalker);
     expect(stalker.bind_object).toHaveBeenCalled();

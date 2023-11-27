@@ -4,11 +4,11 @@ import { callback } from "xray16";
 import { patrolConfig } from "@/engine/core/ai/patrol/PatrolConfig";
 import { StalkerPatrolManager } from "@/engine/core/ai/patrol/StalkerPatrolManager";
 import { EGameObjectPath, GameObject } from "@/engine/lib/types";
-import { mockGameObject } from "@/fixtures/xray";
+import { MockGameObject } from "@/fixtures/xray";
 
 describe("StalkerPatrolManager class", () => {
   it("should correctly initialize", () => {
-    const object: GameObject = mockGameObject();
+    const object: GameObject = MockGameObject.mock();
     const manager: StalkerPatrolManager = new StalkerPatrolManager(object);
 
     expect(manager.object).toBe(object);
@@ -19,7 +19,7 @@ describe("StalkerPatrolManager class", () => {
   });
 
   it("should correctly finalize", () => {
-    const object: GameObject = mockGameObject();
+    const object: GameObject = MockGameObject.mock();
     const manager: StalkerPatrolManager = new StalkerPatrolManager(object);
 
     manager.finalize();
@@ -27,7 +27,7 @@ describe("StalkerPatrolManager class", () => {
   });
 
   it("should correctly finalize with team", () => {
-    const object: GameObject = mockGameObject();
+    const object: GameObject = MockGameObject.mock();
     const manager: StalkerPatrolManager = new StalkerPatrolManager(object);
 
     manager.team = "some_team";
@@ -54,7 +54,7 @@ describe("StalkerPatrolManager class", () => {
   it.todo("should correctly handle look waypoints");
 
   it("should correctly handle extrapolation", () => {
-    const object: GameObject = mockGameObject();
+    const object: GameObject = MockGameObject.mock();
     const manager: StalkerPatrolManager = new StalkerPatrolManager(object);
 
     jest.spyOn(Date, "now").mockImplementation(() => 4125);

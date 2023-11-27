@@ -34,7 +34,17 @@ import { MockVector } from "@/fixtures/xray/mocks/vector.mock";
  * Abstract game object mock.
  */
 export class MockGameObject {
-  public static mock(base: Partial<GameObject> = {}): GameObject {
+  public static mock(
+    base: Partial<
+      GameObject & {
+        idOverride?: TNumberId;
+        sectionOverride?: TSection;
+        infoPortions?: Array<TName>;
+        inventory: Array<[TSection | TNumberId, GameObject]>;
+        upgrades: Array<TSection>;
+      }
+    > = {}
+  ): GameObject {
     return mockGameObject(base);
   }
 }

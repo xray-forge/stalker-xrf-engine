@@ -15,7 +15,7 @@ import {
 } from "@/engine/core/utils/ranks";
 import { LuaArray } from "@/engine/lib/types";
 import { resetRegistry } from "@/fixtures/engine";
-import { mockGameObject, mockServerAlifeMonsterBase } from "@/fixtures/xray";
+import { MockGameObject, mockServerAlifeMonsterBase } from "@/fixtures/xray";
 
 describe("ranks class", () => {
   beforeEach(() => {
@@ -178,24 +178,26 @@ describe("ranks class", () => {
   });
 
   it("getGameObjectRank should correctly get ranks", () => {
-    expect(getGameObjectRank(mockGameObject({ clsid: () => clsid.script_stalker, character_rank: () => 155 }))).toEqual(
-      {
-        max: 300,
-        min: 0,
-        name: "novice",
-      }
-    );
-    expect(getGameObjectRank(mockGameObject({ clsid: () => clsid.trader, rank: () => 600 }))).toEqual({
+    expect(
+      getGameObjectRank(MockGameObject.mock({ clsid: () => clsid.script_stalker, character_rank: () => 155 }))
+    ).toEqual({
+      max: 300,
+      min: 0,
+      name: "novice",
+    });
+    expect(getGameObjectRank(MockGameObject.mock({ clsid: () => clsid.trader, rank: () => 600 }))).toEqual({
       max: 900,
       min: 600,
       name: "veteran",
     });
-    expect(getGameObjectRank(mockGameObject({ clsid: () => clsid.bloodsucker_s, character_rank: () => 600 }))).toEqual({
+    expect(
+      getGameObjectRank(MockGameObject.mock({ clsid: () => clsid.bloodsucker_s, character_rank: () => 600 }))
+    ).toEqual({
       max: 800,
       min: 400,
       name: "normal",
     });
-    expect(getGameObjectRank(mockGameObject({ clsid: () => clsid.pseudo_gigant, rank: () => 1200 }))).toEqual({
+    expect(getGameObjectRank(MockGameObject.mock({ clsid: () => clsid.pseudo_gigant, rank: () => 1200 }))).toEqual({
       max: 65535,
       min: 800,
       name: "strong",

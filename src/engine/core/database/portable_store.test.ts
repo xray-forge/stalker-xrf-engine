@@ -14,7 +14,7 @@ import {
 } from "@/engine/core/database/portable_store";
 import { registry } from "@/engine/core/database/registry";
 import { GameObject, Optional } from "@/engine/lib/types";
-import { EPacketDataType, mockGameObject, mockNetPacket, MockNetProcessor, mockNetProcessor } from "@/fixtures/xray";
+import { EPacketDataType, MockGameObject, mockNetPacket, MockNetProcessor, mockNetProcessor } from "@/fixtures/xray";
 
 describe("portable_store functionality", () => {
   it("should correctly validate value type", () => {
@@ -34,7 +34,7 @@ describe("portable_store functionality", () => {
   });
 
   it("should correctly initialize portable store", () => {
-    const object: GameObject = mockGameObject();
+    const object: GameObject = MockGameObject.mock();
 
     registerObject(object);
 
@@ -61,7 +61,7 @@ describe("portable_store functionality", () => {
   });
 
   it("should correctly set and get values by key", () => {
-    const object: GameObject = mockGameObject();
+    const object: GameObject = MockGameObject.mock();
 
     registerObject(object);
 
@@ -102,7 +102,7 @@ describe("portable_store functionality", () => {
   });
 
   it("should correctly save and load values", () => {
-    const object: GameObject = mockGameObject();
+    const object: GameObject = MockGameObject.mock();
 
     registerObject(object);
 
@@ -139,7 +139,7 @@ describe("portable_store functionality", () => {
       "example",
     ]);
 
-    const nextObject: GameObject = mockGameObject();
+    const nextObject: GameObject = MockGameObject.mock();
 
     registerObject(nextObject);
 
@@ -154,7 +154,7 @@ describe("portable_store functionality", () => {
   });
 
   it("should correctly save and load with invalid data", () => {
-    const object: GameObject = mockGameObject();
+    const object: GameObject = MockGameObject.mock();
 
     registerObject(object);
 

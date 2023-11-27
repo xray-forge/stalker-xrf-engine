@@ -39,13 +39,13 @@ const logger: LuaLogger = new LuaLogger($filename);
  * In other cases checks are done with position verification.
  */
 export class CampManager {
-  public storyManager: StoryManager;
-  public ini: IniFile;
-  public object: GameObject;
-
   public readonly availableSoundStories: LuaArray<TName>;
   public readonly availableGuitarStories: LuaArray<TName>;
   public readonly availableHarmonicaStories: LuaArray<TName>;
+
+  public storyManager: StoryManager;
+  public ini: IniFile;
+  public object: GameObject;
 
   // List of objects registered in camp.
   public objects: LuaTable<TNumberId, ICampStateDescriptor> = new LuaTable();

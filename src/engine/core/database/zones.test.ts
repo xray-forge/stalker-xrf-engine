@@ -11,16 +11,15 @@ import {
   unregisterZone,
 } from "@/engine/core/database/zones";
 import { GameObject, Vector } from "@/engine/lib/types";
-import { mockGameObject } from "@/fixtures/xray";
-import { MockVector } from "@/fixtures/xray/mocks/vector.mock";
+import { MockGameObject, MockVector } from "@/fixtures/xray";
 
 describe("zones module of the database", () => {
   it("should correctly register zones", () => {
     expect(registry.zones.length()).toBe(0);
     expect(registry.objects.length()).toBe(0);
 
-    const firstZone: GameObject = mockGameObject({ idOverride: 10, sectionOverride: "test_zone" });
-    const secondZone: GameObject = mockGameObject({ idOverride: 20, sectionOverride: "test_zone" });
+    const firstZone: GameObject = MockGameObject.mock({ idOverride: 10, sectionOverride: "test_zone" });
+    const secondZone: GameObject = MockGameObject.mock({ idOverride: 20, sectionOverride: "test_zone" });
 
     expect(firstZone.id()).toBe(10);
     expect(firstZone.name()).toBe("test_zone_10");
@@ -60,9 +59,9 @@ describe("zones module of the database", () => {
     expect(registry.objects.length()).toBe(0);
     expect(registry.camps.length()).toBe(0);
 
-    const firstZone: GameObject = mockGameObject({ idOverride: 10, sectionOverride: "test_camp" });
+    const firstZone: GameObject = MockGameObject.mock({ idOverride: 10, sectionOverride: "test_camp" });
     const firstManager: CampManager = new CampManager(firstZone, firstZone.spawn_ini());
-    const secondZone: GameObject = mockGameObject({ idOverride: 20, sectionOverride: "test_camp" });
+    const secondZone: GameObject = MockGameObject.mock({ idOverride: 20, sectionOverride: "test_camp" });
     const secondManager: CampManager = new CampManager(secondZone, secondZone.spawn_ini());
 
     expect(firstZone.id()).toBe(10);
@@ -108,13 +107,13 @@ describe("zones module of the database", () => {
   it("should correctly get camp zones for specific locations", () => {
     const position: Vector = MockVector.mock();
 
-    const firstZone: GameObject = mockGameObject({
+    const firstZone: GameObject = MockGameObject.mock({
       idOverride: 10,
       sectionOverride: "test_camp",
       inside: () => false,
     });
     const firstManager: CampManager = new CampManager(firstZone, firstZone.spawn_ini());
-    const secondZone: GameObject = mockGameObject({
+    const secondZone: GameObject = MockGameObject.mock({
       idOverride: 20,
       sectionOverride: "test_camp",
       inside: (it) => it === position,
@@ -142,7 +141,7 @@ describe("zones module of the database", () => {
   });
 
   it("should correctly reset camp zones", () => {
-    const firstZone: GameObject = mockGameObject({
+    const firstZone: GameObject = MockGameObject.mock({
       idOverride: 10,
       sectionOverride: "test_camp",
     });
@@ -153,7 +152,7 @@ describe("zones module of the database", () => {
     expect(registry.camps.get(firstZone.id())).toBe(firstManager);
     expect(registry.camps.get(firstZone.id()).object).toBe(firstZone);
 
-    const secondZone: GameObject = mockGameObject(firstZone);
+    const secondZone: GameObject = MockGameObject.mock(firstZone);
 
     resetCampZone(secondZone);
 

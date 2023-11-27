@@ -13,11 +13,11 @@ import {
   unregisterStalker,
 } from "@/engine/core/database/stalker";
 import { createEmptyVector } from "@/engine/core/utils/vector";
-import { mockGameObject } from "@/fixtures/xray";
+import { MockGameObject } from "@/fixtures/xray";
 
 describe("stalker module of the database", () => {
   it("should correctly register actor", () => {
-    const stalker: StalkerBinder = new StalkerBinder(mockGameObject());
+    const stalker: StalkerBinder = new StalkerBinder(MockGameObject.mock());
 
     registerStalker(stalker);
 
@@ -38,7 +38,7 @@ describe("stalker module of the database", () => {
   });
 
   it("should correctly get and set state", () => {
-    const stalker: StalkerBinder = new StalkerBinder(mockGameObject());
+    const stalker: StalkerBinder = new StalkerBinder(MockGameObject.mock());
 
     registerStalker(stalker);
 
@@ -93,7 +93,7 @@ describe("stalker module of the database", () => {
   });
 
   it("should correctly reset state", () => {
-    const stalker: StalkerBinder = new StalkerBinder(mockGameObject());
+    const stalker: StalkerBinder = new StalkerBinder(MockGameObject.mock());
 
     registerStalker(stalker);
 
@@ -125,7 +125,7 @@ describe("stalker module of the database", () => {
   });
 
   it("should correctly reset state when state manager does not exist", () => {
-    const stalker: StalkerBinder = new StalkerBinder(mockGameObject());
+    const stalker: StalkerBinder = new StalkerBinder(MockGameObject.mock());
 
     registerStalker(stalker);
 

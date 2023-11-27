@@ -17,7 +17,7 @@ import {
 } from "@/engine/core/utils/class_ids";
 import { ServerActorObject, ServerGroupObject, ServerHumanObject, TClassId, TSection } from "@/engine/lib/types";
 import {
-  mockGameObject,
+  MockGameObject,
   mockServerAlifeCreatureActor,
   mockServerAlifeHumanStalker,
   mockServerAlifeObject,
@@ -26,10 +26,10 @@ import {
 
 describe("class_ids utils", () => {
   const mockSectionGameObject = (section: TSection) => {
-    return mockGameObject({ section: <T>() => section as T });
+    return MockGameObject.mock({ section: <T>() => section as T });
   };
   const mockClassIdGameObject = (classId: number) => {
-    return mockGameObject({ clsid: () => classId as TClassId });
+    return MockGameObject.mock({ clsid: () => classId as TClassId });
   };
   const mockClassIdServerObject = (classId: number) => {
     return mockServerAlifeObject({ clsid: () => classId as TClassId });
@@ -111,15 +111,15 @@ describe("class_ids utils", () => {
 
   it("isStalker should correctly check if object is a stalker", () => {
     expect(isStalker(mockClassIdGameObject(clsid.script_actor))).toBe(true);
-    expect(isStalker(mockGameObject(), clsid.script_actor)).toBe(true);
+    expect(isStalker(MockGameObject.mock(), clsid.script_actor)).toBe(true);
     expect(isStalker(mockClassIdGameObject(clsid.script_stalker))).toBe(true);
-    expect(isStalker(mockGameObject(), clsid.script_stalker)).toBe(true);
+    expect(isStalker(MockGameObject.mock(), clsid.script_stalker)).toBe(true);
     expect(isStalker(mockClassIdServerObject(clsid.script_actor))).toBe(true);
     expect(isStalker(mockClassIdServerObject(clsid.script_stalker))).toBe(true);
     expect(isStalker(mockClassIdServerObject(clsid.trader))).toBe(false);
-    expect(isStalker(mockGameObject(), clsid.trader)).toBe(false);
+    expect(isStalker(MockGameObject.mock(), clsid.trader)).toBe(false);
 
-    expect(isStalker(mockGameObject(), clsid.zone_mbald_s)).toBe(false);
+    expect(isStalker(MockGameObject.mock(), clsid.zone_mbald_s)).toBe(false);
     expect(isStalker(mockClassIdGameObject(clsid.zone_mbald_s))).toBe(false);
     expect(isStalker(mockClassIdServerObject(clsid.wpn_ak74_s))).toBe(false);
     expect(isStalker(mockClassIdServerObject(clsid.boar_s))).toBe(false);
@@ -127,15 +127,15 @@ describe("class_ids utils", () => {
 
   it("isTrader should correctly check if object is a stalker", () => {
     expect(isTrader(mockClassIdServerObject(clsid.trader))).toBe(true);
-    expect(isTrader(mockGameObject(), clsid.trader)).toBe(true);
+    expect(isTrader(MockGameObject.mock(), clsid.trader)).toBe(true);
 
     expect(isTrader(mockClassIdGameObject(clsid.script_actor))).toBe(false);
-    expect(isTrader(mockGameObject(), clsid.script_actor)).toBe(false);
+    expect(isTrader(MockGameObject.mock(), clsid.script_actor)).toBe(false);
     expect(isTrader(mockClassIdGameObject(clsid.script_stalker))).toBe(false);
-    expect(isTrader(mockGameObject(), clsid.script_stalker)).toBe(false);
+    expect(isTrader(MockGameObject.mock(), clsid.script_stalker)).toBe(false);
     expect(isTrader(mockClassIdServerObject(clsid.script_actor))).toBe(false);
     expect(isTrader(mockClassIdServerObject(clsid.script_stalker))).toBe(false);
-    expect(isTrader(mockGameObject(), clsid.zone_mbald_s)).toBe(false);
+    expect(isTrader(MockGameObject.mock(), clsid.zone_mbald_s)).toBe(false);
     expect(isTrader(mockClassIdGameObject(clsid.zone_mbald_s))).toBe(false);
     expect(isTrader(mockClassIdServerObject(clsid.wpn_ak74_s))).toBe(false);
     expect(isTrader(mockClassIdServerObject(clsid.boar_s))).toBe(false);

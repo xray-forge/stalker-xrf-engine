@@ -28,7 +28,7 @@ import {
 import {
   mockActorGameObject,
   MockAlifeSimulator,
-  mockGameObject,
+  MockGameObject,
   mockServerAlifeCreatureActor,
   mockServerAlifeObject,
   mockServerAlifeOnlineOfflineGroup,
@@ -43,7 +43,7 @@ describe("spawning utils", () => {
   });
 
   it("spawnItemsForObject should correctly spawn items and ammo", () => {
-    const object: GameObject = mockGameObject();
+    const object: GameObject = MockGameObject.mock();
     const simulator: AlifeSimulator = registry.simulator;
 
     expect(spawnItemsForObject(object, "item_test", 0)).toBe(0);
@@ -84,7 +84,7 @@ describe("spawning utils", () => {
   });
 
   it("spawnAmmoForObject should correctly spawn ammo for an object", () => {
-    const object: GameObject = mockGameObject();
+    const object: GameObject = MockGameObject.mock();
     const simulator: AlifeSimulator = registry.simulator;
 
     expect(spawnAmmoForObject(object, "ammo_5.45x39_ap", 0)).toBe(0);
@@ -115,7 +115,7 @@ describe("spawning utils", () => {
   });
 
   it("spawnItemsForObjectFromList should spawn desired count of random items from list", () => {
-    const object: GameObject = mockGameObject();
+    const object: GameObject = MockGameObject.mock();
     const simulator: AlifeSimulator = registry.simulator;
 
     spawnItemsForObjectFromList(object, $fromArray<TSection>([]), 3);

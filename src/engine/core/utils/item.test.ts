@@ -22,7 +22,7 @@ import { MAX_U16 } from "@/engine/lib/constants/memory";
 import { GameObject } from "@/engine/lib/types";
 import { resetRegistry } from "@/fixtures/engine";
 import { MockLuaTable } from "@/fixtures/lua";
-import { mockGameObject, mockServerAlifeObject } from "@/fixtures/xray";
+import { MockGameObject, mockServerAlifeObject } from "@/fixtures/xray";
 
 describe("item utils", () => {
   beforeEach(() => {
@@ -31,21 +31,21 @@ describe("item utils", () => {
   });
 
   const createObjectWithItems = () =>
-    mockGameObject({
+    MockGameObject.mock({
       inventory: [
-        [1, mockGameObject({ sectionOverride: medkits.medkit } as Partial<GameObject>)],
-        [2, mockGameObject({ sectionOverride: medkits.medkit } as Partial<GameObject>)],
-        [3, mockGameObject({ sectionOverride: medkits.medkit_army } as Partial<GameObject>)],
-        [4, mockGameObject({ sectionOverride: medkits.medkit_army } as Partial<GameObject>)],
-        [5, mockGameObject({ sectionOverride: medkits.medkit_army } as Partial<GameObject>)],
-        [40, mockGameObject({ sectionOverride: weapons.wpn_svd } as Partial<GameObject>)],
-        [41, mockGameObject({ sectionOverride: weapons.wpn_svd } as Partial<GameObject>)],
-        [50, mockGameObject({ sectionOverride: ammo.ammo_9x18_pmm } as Partial<GameObject>)],
-        [51, mockGameObject({ sectionOverride: ammo.ammo_9x18_pmm } as Partial<GameObject>)],
-        [52, mockGameObject({ sectionOverride: ammo.ammo_9x18_pmm } as Partial<GameObject>)],
-        [53, mockGameObject({ sectionOverride: ammo.ammo_9x18_pmm } as Partial<GameObject>)],
-        [54, mockGameObject({ sectionOverride: ammo.ammo_9x18_pmm } as Partial<GameObject>)],
-        [55, mockGameObject({ sectionOverride: ammo.ammo_9x18_pmm } as Partial<GameObject>)],
+        [1, MockGameObject.mock({ sectionOverride: medkits.medkit } as Partial<GameObject>)],
+        [2, MockGameObject.mock({ sectionOverride: medkits.medkit } as Partial<GameObject>)],
+        [3, MockGameObject.mock({ sectionOverride: medkits.medkit_army } as Partial<GameObject>)],
+        [4, MockGameObject.mock({ sectionOverride: medkits.medkit_army } as Partial<GameObject>)],
+        [5, MockGameObject.mock({ sectionOverride: medkits.medkit_army } as Partial<GameObject>)],
+        [40, MockGameObject.mock({ sectionOverride: weapons.wpn_svd } as Partial<GameObject>)],
+        [41, MockGameObject.mock({ sectionOverride: weapons.wpn_svd } as Partial<GameObject>)],
+        [50, MockGameObject.mock({ sectionOverride: ammo.ammo_9x18_pmm } as Partial<GameObject>)],
+        [51, MockGameObject.mock({ sectionOverride: ammo.ammo_9x18_pmm } as Partial<GameObject>)],
+        [52, MockGameObject.mock({ sectionOverride: ammo.ammo_9x18_pmm } as Partial<GameObject>)],
+        [53, MockGameObject.mock({ sectionOverride: ammo.ammo_9x18_pmm } as Partial<GameObject>)],
+        [54, MockGameObject.mock({ sectionOverride: ammo.ammo_9x18_pmm } as Partial<GameObject>)],
+        [55, MockGameObject.mock({ sectionOverride: ammo.ammo_9x18_pmm } as Partial<GameObject>)],
       ],
     });
 
@@ -56,13 +56,13 @@ describe("item utils", () => {
   });
 
   it("getItemOwnerId should correctly get owner ID", () => {
-    const first: GameObject = mockGameObject();
-    const second: GameObject = mockGameObject();
+    const first: GameObject = MockGameObject.mock();
+    const second: GameObject = MockGameObject.mock();
 
     mockServerAlifeObject({ id: first.id(), parent_id: 253 });
     mockServerAlifeObject({ id: second.id(), parent_id: MAX_U16 });
 
-    const third: GameObject = mockGameObject();
+    const third: GameObject = MockGameObject.mock();
 
     expect(getItemOwnerId(first.id())).toBe(253);
     expect(getItemOwnerId(second.id())).toBeNull();
@@ -70,7 +70,7 @@ describe("item utils", () => {
   });
 
   it("setItemCondition should correctly set condition", () => {
-    const object: GameObject = mockGameObject();
+    const object: GameObject = MockGameObject.mock();
 
     setItemCondition(object, 25);
     expect(object.set_condition).toHaveBeenCalledWith(0.25);
@@ -176,43 +176,43 @@ describe("item utils", () => {
     registerActor(createObjectWithItems());
 
     expect(actorHasMedKit(MockLuaTable.mockFromArray(Object.values(medkits)))).toBeTruthy();
-    expect(actorHasMedKit(MockLuaTable.mockFromArray(Object.values(medkits)), mockGameObject())).toBeFalsy();
+    expect(actorHasMedKit(MockLuaTable.mockFromArray(Object.values(medkits)), MockGameObject.mock())).toBeFalsy();
 
     expect(actorHasMedKit(MockLuaTable.mockFromArray([medkits.medkit]))).toBeTruthy();
     expect(actorHasMedKit(MockLuaTable.mockFromArray([medkits.medkit_army]))).toBeTruthy();
     expect(actorHasMedKit(MockLuaTable.mockFromArray([medkits.medkit_scientic]))).toBeFalsy();
 
-    expect(actorHasMedKit(MockLuaTable.mockFromArray([medkits.medkit]), mockGameObject())).toBeFalsy();
+    expect(actorHasMedKit(MockLuaTable.mockFromArray([medkits.medkit]), MockGameObject.mock())).toBeFalsy();
   });
 
   it("getItemInstalledUpgradesList should correctly get list of installed upgrades", () => {
-    expect(getItemInstalledUpgradesList(mockGameObject())).toEqualLuaArrays([]);
-    expect(getItemInstalledUpgradesList(mockGameObject({ upgrades: ["a", "b"] }))).toEqualLuaArrays(["a", "b"]);
-    expect(getItemInstalledUpgradesList(mockGameObject({ upgrades: ["c"] }))).toEqualLuaArrays(["c"]);
+    expect(getItemInstalledUpgradesList(MockGameObject.mock())).toEqualLuaArrays([]);
+    expect(getItemInstalledUpgradesList(MockGameObject.mock({ upgrades: ["a", "b"] }))).toEqualLuaArrays(["a", "b"]);
+    expect(getItemInstalledUpgradesList(MockGameObject.mock({ upgrades: ["c"] }))).toEqualLuaArrays(["c"]);
   });
 
   it("getAnyObjectPistol should correctly get pistol from object inventory", () => {
-    const desertEagle: GameObject = mockGameObject({ section: <T>() => pistols.wpn_desert_eagle as T });
-    const fort: GameObject = mockGameObject({ section: <T>() => pistols.wpn_fort as T });
+    const desertEagle: GameObject = MockGameObject.mock({ section: <T>() => pistols.wpn_desert_eagle as T });
+    const fort: GameObject = MockGameObject.mock({ section: <T>() => pistols.wpn_fort as T });
 
-    const first: GameObject = mockGameObject();
-    const second: GameObject = mockGameObject({
+    const first: GameObject = MockGameObject.mock();
+    const second: GameObject = MockGameObject.mock({
       inventory: [
-        ["a", mockGameObject()],
-        ["b", mockGameObject()],
-        [weapons.wpn_svd, mockGameObject()],
+        ["a", MockGameObject.mock()],
+        ["b", MockGameObject.mock()],
+        [weapons.wpn_svd, MockGameObject.mock()],
       ],
     });
-    const third: GameObject = mockGameObject({
+    const third: GameObject = MockGameObject.mock({
       inventory: [
-        ["a", mockGameObject()],
-        [weapons.wpn_svd, mockGameObject()],
+        ["a", MockGameObject.mock()],
+        [weapons.wpn_svd, MockGameObject.mock()],
         [weapons.wpn_desert_eagle, desertEagle],
       ],
     });
-    const fourth: GameObject = mockGameObject({
+    const fourth: GameObject = MockGameObject.mock({
       inventory: [
-        ["a", mockGameObject()],
+        ["a", MockGameObject.mock()],
         [weapons.wpn_fort, fort],
         [weapons.wpn_desert_eagle, desertEagle],
       ],
@@ -225,24 +225,26 @@ describe("item utils", () => {
   });
 
   it("getItemInstalledUpgradesSet should correctly get list of installed upgrades", () => {
-    expect(getItemInstalledUpgradesSet(mockGameObject())).toEqualLuaTables({});
-    expect(getItemInstalledUpgradesSet(mockGameObject({ upgrades: ["a", "b"] }))).toEqualLuaTables({
+    expect(getItemInstalledUpgradesSet(MockGameObject.mock())).toEqualLuaTables({});
+    expect(getItemInstalledUpgradesSet(MockGameObject.mock({ upgrades: ["a", "b"] }))).toEqualLuaTables({
       a: true,
       b: true,
     });
-    expect(getItemInstalledUpgradesSet(mockGameObject({ upgrades: ["c"] }))).toEqualLuaTables({ c: true });
+    expect(getItemInstalledUpgradesSet(MockGameObject.mock({ upgrades: ["c"] }))).toEqualLuaTables({ c: true });
   });
 
   it("getActorAvailableMedKit should correctly check medkit", () => {
     registerActor(createObjectWithItems());
 
     expect(getActorAvailableMedKit(MockLuaTable.mockFromArray(Object.values(medkits)))).toBe(medkits.medkit);
-    expect(getActorAvailableMedKit(MockLuaTable.mockFromArray(Object.values(medkits)), mockGameObject())).toBeNull();
+    expect(
+      getActorAvailableMedKit(MockLuaTable.mockFromArray(Object.values(medkits)), MockGameObject.mock())
+    ).toBeNull();
 
     expect(getActorAvailableMedKit(MockLuaTable.mockFromArray([medkits.medkit]))).toBe(medkits.medkit);
     expect(getActorAvailableMedKit(MockLuaTable.mockFromArray([medkits.medkit_army]))).toBe(medkits.medkit_army);
     expect(getActorAvailableMedKit(MockLuaTable.mockFromArray([medkits.medkit_scientic]))).toBeNull();
 
-    expect(getActorAvailableMedKit(MockLuaTable.mockFromArray([medkits.medkit]), mockGameObject())).toBeNull();
+    expect(getActorAvailableMedKit(MockLuaTable.mockFromArray([medkits.medkit]), MockGameObject.mock())).toBeNull();
   });
 });

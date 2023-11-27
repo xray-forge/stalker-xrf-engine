@@ -3,28 +3,28 @@ import { describe, expect, it } from "@jest/globals";
 import { getObjectActiveWeaponSlot, isObjectStrappingWeapon } from "@/engine/core/utils/weapon";
 import { GameObject } from "@/engine/lib/types";
 import { replaceFunctionMock } from "@/fixtures/jest";
-import { mockGameObject } from "@/fixtures/xray";
+import { MockGameObject } from "@/fixtures/xray";
 
 describe("object_weapon utils", () => {
   it("getObjectActiveWeaponSlot should correctly get slot", () => {
-    const object: GameObject = mockGameObject();
+    const object: GameObject = MockGameObject.mock();
 
     replaceFunctionMock(object.active_item, () => null);
     replaceFunctionMock(object.weapon_strapped, () => true);
     expect(getObjectActiveWeaponSlot(object)).toBe(0);
 
-    replaceFunctionMock(object.active_item, () => mockGameObject({ animation_slot: () => 4 }));
+    replaceFunctionMock(object.active_item, () => MockGameObject.mock({ animation_slot: () => 4 }));
     expect(getObjectActiveWeaponSlot(object)).toBe(0);
 
     replaceFunctionMock(object.weapon_strapped, () => false);
     expect(getObjectActiveWeaponSlot(object)).toBe(4);
 
-    replaceFunctionMock(object.active_item, () => mockGameObject({ animation_slot: () => 3 }));
+    replaceFunctionMock(object.active_item, () => MockGameObject.mock({ animation_slot: () => 3 }));
     expect(getObjectActiveWeaponSlot(object)).toBe(3);
   });
 
   it("isObjectStrappingWeapon should correctly check weapon strap state", () => {
-    const object: GameObject = mockGameObject();
+    const object: GameObject = MockGameObject.mock();
 
     replaceFunctionMock(object.weapon_strapped, () => true);
     replaceFunctionMock(object.weapon_unstrapped, () => false);
