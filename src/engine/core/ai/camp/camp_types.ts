@@ -38,9 +38,9 @@ export interface ICampTransitionDescriptor {
 }
 
 /**
- * Camp registed object state.
+ * Camp registered object state.
  */
-export interface ICampObjectState extends Record<EObjectCampActivity, Optional<EObjectCampRole>> {
+export interface ICampStateDescriptor extends Record<EObjectCampActivity, Optional<EObjectCampRole>> {
   state: EObjectCampActivity;
 }
 

@@ -14,6 +14,7 @@ import {
   readIniSectionsAsSet,
   readIniString,
   readIniStringAndCondList,
+  readIniStringList,
   readIniTwoNumbers,
 } from "@/engine/core/utils/ini/ini_read";
 import { IniFile, Optional } from "@/engine/lib/types";
@@ -37,6 +38,28 @@ describe("read utils for ini file", () => {
 
     expect(() => readIniString(ini, "section2", "a", true)).toThrow();
     expect(() => readIniString(ini, "section2", "a", false)).not.toThrow();
+  });
+
+  it("readIniStringList utils should correctly get data from ini files", () => {
+    const ini: IniFile = mockIniFile("example.ltx", {
+      section1: {
+        a: "a1",
+        b: "b2, b3, b4",
+        c: "",
+      },
+    });
+
+    expect(readIniStringList(ini, "section1", "a", true, "")).toEqualLuaArrays(["a1"]);
+    expect(readIniStringList(ini, "section1", "b", true, "")).toEqualLuaArrays(["b2", "b3", "b4"]);
+    expect(readIniStringList(ini, "section1", "c", true, "")).toEqualLuaArrays([]);
+    expect(readIniStringList(ini, "section1", "d", false)).toEqualLuaArrays([]);
+    expect(readIniStringList(ini, "section1", "d", false, "")).toEqualLuaArrays([]);
+    expect(readIniStringList(ini, "section1", "e", false, "e1, e2")).toEqualLuaArrays(["e1", "e2"]);
+
+    expect(() => readIniStringList(ini, "section2", "a", true, null as unknown as string)).toThrow();
+    expect(() => readIniStringList(ini, "section2", "3", true, null as unknown as string)).toThrow();
+    expect(() => readIniStringList(ini, "section2", "3", true, "")).toThrow();
+    expect(() => readIniStringList(ini, "section2", "3", false, null as unknown as string)).not.toThrow();
   });
 
   it("readIniNumber utils should correctly get data from ini files", () => {

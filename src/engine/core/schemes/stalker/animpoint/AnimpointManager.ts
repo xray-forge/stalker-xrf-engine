@@ -101,7 +101,7 @@ export class AnimpointManager extends AbstractSchemeManager<ISchemeAnimpointStat
       return;
     }
 
-    const [campAction, isDirector] = this.campManager!.getCampAction(this.object.id());
+    const [campAction, isDirector] = this.campManager!.getObjectActivity(this.object.id());
     const campActionsList = isDirector
       ? campConfig.CAMP_ACTIVITY_ANIMATION.get(campAction as EObjectCampActivity).director
       : campConfig.CAMP_ACTIVITY_ANIMATION.get(campAction as EObjectCampActivity).listener;

@@ -13,17 +13,6 @@ import { LuaArray, Optional, TCount, TDuration, TNumberId, TStringId, TTimestamp
  * Used by objects when they are sitting or walking together.
  */
 export class StoryManager {
-  /**
-   * Get manager singleton for provided object ID.
-   */
-  public static getStoryManagerForId(id: TStringId): StoryManager {
-    if (soundsConfig.managers.get(id) === null) {
-      soundsConfig.managers.set(id, new StoryManager(id));
-    }
-
-    return soundsConfig.managers.get(id);
-  }
-
   public readonly id: TStringId;
   public readonly objects: LuaArray<{ objectId: TNumberId }> = new LuaTable();
 
@@ -71,11 +60,11 @@ export class StoryManager {
   }
 
   /**
-   * Set active story sound to play.
+   * Set active story sound to play by ID of the story.
    *
    * @param storyId - id of sound story to play
    */
-  public setActiveId(storyId: TStringId): void {
+  public setActiveStory(storyId: TStringId): void {
     this.story = new SoundStory(storyId);
   }
 

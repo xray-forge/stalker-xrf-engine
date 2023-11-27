@@ -29,6 +29,7 @@ import {
 } from "@/engine/core/managers/simulation";
 import { SimulationBoardManager } from "@/engine/core/managers/simulation/SimulationBoardManager";
 import { StoryManager } from "@/engine/core/managers/sounds/stories";
+import { getStoryManager } from "@/engine/core/managers/sounds/utils";
 import { ESmartTerrainStatus } from "@/engine/core/objects/smart_terrain/smart_terrain_types";
 import type { SmartTerrain } from "@/engine/core/objects/smart_terrain/SmartTerrain";
 import { SquadReachTargetAction, SquadStayOnTargetAction } from "@/engine/core/objects/squad/action";
@@ -99,7 +100,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
 
   public readonly mapDisplayManager: MapDisplayManager = MapDisplayManager.getInstance();
   public readonly simulationBoardManager: SimulationBoardManager = SimulationBoardManager.getInstance();
-  public readonly soundManager: StoryManager = StoryManager.getStoryManagerForId("squad_" + this.section_name());
+  public readonly soundManager: StoryManager = getStoryManager(`squad_${this.section_name()}`);
 
   public simulationProperties!: LuaTable<TName, string>;
 

@@ -3,9 +3,9 @@ import {
   ICampTransitionDescriptor,
   IStoryAnimationDescriptor,
 } from "@/engine/core/ai/camp/camp_types";
+import { canPlayCampGuitar, canPlayCampHarmonica, canTellCampStory } from "@/engine/core/ai/camp/camp_utils";
 import { CampManager } from "@/engine/core/ai/camp/CampManager";
 import { WEAPON_POSTFIX } from "@/engine/core/animation/types";
-import { canPlayCampGuitar, canPlayCampHarmonica, canTellCampStory } from "@/engine/core/utils/camp";
 import { TProbability } from "@/engine/lib/types";
 
 export const campConfig = {

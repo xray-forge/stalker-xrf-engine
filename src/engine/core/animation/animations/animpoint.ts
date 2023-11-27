@@ -1,7 +1,7 @@
+import { startPlayingGuitar, startPlayingHarmonica } from "@/engine/core/ai/camp/camp_utils";
 import { IAnimationDescriptor } from "@/engine/core/animation/types/animation_types";
 import { EStalkerState } from "@/engine/core/animation/types/state_types";
 import { createSequence } from "@/engine/core/utils/animation";
-import { startPlayingGuitar, startPlayingHarmonica } from "@/engine/core/utils/camp";
 import { food } from "@/engine/lib/constants/items/food";
 import { misc } from "@/engine/lib/constants/items/misc";
 import { GameObject, TName } from "@/engine/lib/types";
