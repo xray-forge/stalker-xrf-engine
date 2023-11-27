@@ -1,6 +1,6 @@
 import { time_global } from "xray16";
 
-import { EObjectCampActivity, EObjectCampRole, ICampObjectState } from "@/engine/core/ai/camp/camp_types";
+import { EObjectCampActivity, EObjectCampRole, ICampStateDescriptor } from "@/engine/core/ai/camp/camp_types";
 import { getObjectCampActivityRole } from "@/engine/core/ai/camp/camp_utils";
 import { campConfig } from "@/engine/core/ai/camp/CampConfig";
 import { IBaseSchemeState, IRegistryObjectState, registry } from "@/engine/core/database";
@@ -48,7 +48,7 @@ export class CampManager {
   public readonly availableHarmonicaStories: LuaArray<TName>;
 
   // List of objects registered in camp.
-  public objects: LuaTable<TNumberId, ICampObjectState> = new LuaTable();
+  public objects: LuaTable<TNumberId, ICampStateDescriptor> = new LuaTable();
   public directorId: Optional<TNumberId> = null;
   public idleTalkerId: Optional<TNumberId> = null;
 
@@ -192,10 +192,10 @@ export class CampManager {
       return null;
     }
 
-    const directors = new LuaTable();
+    const directors: LuaArray<TNumberId> = new LuaTable();
     let objectsCount: TCount = 0;
 
-    for (const [id, info] of this.objects) {
+    for (const [id, descriptor] of this.objects) {
       objectsCount = objectsCount + 1;
 
       const state: Optional<IRegistryObjectState> = registry.objects.get(id);
@@ -206,7 +206,7 @@ export class CampManager {
         const object: Optional<GameObject> = state.object;
 
         if (
-          info[this.activity] === EObjectCampRole.DIRECTOR &&
+          descriptor[this.activity] === EObjectCampRole.DIRECTOR &&
           schemeState !== null &&
           schemeState.actionNameBase === schemeState.description &&
           !isObjectMeeting(object)
@@ -233,14 +233,20 @@ export class CampManager {
    * todo: Description.
    */
   public setStory(): void {
-    if (this.activity === EObjectCampActivity.STORY) {
-      this.storyManager.setStoryTeller(this.directorId);
-      this.storyManager.setActiveStory(
-        this.availableSoundStories.get(math.random(this.availableSoundStories.length()))
-      );
-      this.isStoryStarted = true;
-    } else if (this.activity === EObjectCampActivity.IDLE) {
-      this.isStoryStarted = true;
+    switch (this.activity) {
+      case EObjectCampActivity.STORY:
+        this.isStoryStarted = true;
+        this.storyManager.setStoryTeller(this.directorId);
+        this.storyManager.setActiveStory(
+          this.availableSoundStories.get(math.random(this.availableSoundStories.length()))
+        );
+
+        return;
+
+      case EObjectCampActivity.IDLE:
+        this.isStoryStarted = true;
+
+        return;
     }
   }
 
@@ -251,11 +257,12 @@ export class CampManager {
    * @returns tuple with action name and whether object is director
    */
   public getCampAction(objectId: TNumberId): LuaMultiReturn<[Optional<EObjectCampActivity>, Optional<boolean>]> {
-    if (this.objects.get(objectId) === null) {
-      // Not participating in stories.
-      return $multi(null, null);
+    const descriptor: Optional<ICampStateDescriptor> = this.objects.get(objectId);
+
+    if (descriptor) {
+      return $multi(descriptor.state, this.directorId === objectId);
     } else {
-      return $multi(this.objects.get(objectId)!.state, this.directorId === objectId);
+      return $multi(null, null);
     }
   }
 
@@ -267,7 +274,7 @@ export class CampManager {
   public registerObject(objectId: TNumberId): void {
     logger.info("Register object in camp:", objectId);
 
-    this.objects.set(objectId, { state: this.activity } as ICampObjectState);
+    this.objects.set(objectId, { state: this.activity } as ICampStateDescriptor);
 
     const state: IRegistryObjectState = registry.objects.get(objectId);
 
