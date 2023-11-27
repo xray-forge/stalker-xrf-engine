@@ -64,7 +64,7 @@ export function canPlayCampGuitar(campManager: CampManager): boolean {
 
   let count: TCount = 0;
 
-  for (const [k, v] of campManager.objects) {
+  for (const [_] of campManager.objects) {
     count += 1;
   }
 
@@ -145,7 +145,7 @@ export function canTellCampStory(campManager: CampManager): boolean {
 
   let count: TCount = 0;
 
-  for (const [id, v] of campManager.objects) {
+  for (const [id] of campManager.objects) {
     const object: Optional<GameObject> = registry.objects.get(id)?.object;
 
     // todo: Probably just return instead of full FOR? If 2+
