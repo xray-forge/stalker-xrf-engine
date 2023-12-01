@@ -90,7 +90,7 @@ export class CampManager {
   }
 
   /**
-   * todo: Description.
+   * Get activity in camp for provided object.
    *
    * @param objectId - target object id to check and get action / state
    * @returns tuple with action name and whether object is director

@@ -64,7 +64,25 @@ describe("CampManager class", () => {
 
   it.todo("should correctly set story");
 
-  it.todo("should correctly get camp action");
+  it("should correctly get object activity", () => {
+    const object: GameObject = MockGameObject.mock();
+    const manager: CampManager = new CampManager(object, MockIniFile.mock("test.ltx"));
+    const participant: GameObject = MockGameObject.mock();
+    const participantState: IRegistryObjectState = registerObject(participant);
+
+    participantState.activeScheme = EScheme.ANIMPOINT;
+    participantState[EScheme.ANIMPOINT] = mockSchemeState<ISchemeAnimpointState>(EScheme.ANIMPOINT, {
+      approvedActions: MockLuaTable.mock(),
+    });
+
+    manager.registerObject(participant.id());
+
+    expect(manager.getObjectActivity(-1)).toEqual([null, null]);
+    expect(manager.getObjectActivity(participant.id())).toEqual([EObjectCampActivity.IDLE, false]);
+
+    manager.directorId = participant.id();
+    expect(manager.getObjectActivity(participant.id())).toEqual([EObjectCampActivity.IDLE, true]);
+  });
 
   it("should correctly register/unregister objects with idle state", () => {
     const object: GameObject = MockGameObject.mock();
