@@ -25,7 +25,7 @@ export function getSmartTerrainNameCaption(smartTerrain: SmartTerrain): TLabel {
 export function getSmartTerrainMapDisplayHint(smartTerrain: SmartTerrain): TLabel {
   if (forgeConfig.DEBUG.IS_SIMULATION_ENABLED) {
     let caption: TLabel = string.format(
-      "%s (%s) \\nonline = %s\\nsimulation_type = %s\\nsquad_id = %s\\ncapacity = %s\\%s\\n",
+      "%s (%s) \\nonline = %s\\nsimulation_role = %s\\nsquad_id = %s\\ncapacity = %s\\%s\\n",
       game.translate_string(getSmartTerrainNameCaption(smartTerrain)),
       smartTerrain.name(),
       smartTerrain.online,
@@ -35,8 +35,8 @@ export function getSmartTerrainMapDisplayHint(smartTerrain: SmartTerrain): TLabe
       SimulationBoardManager.getInstance().getSmartTerrainPopulation(smartTerrain.id)
     );
 
-    if (smartTerrain.isRespawnPoint !== null && smartTerrain.alreadySpawned !== null) {
-      caption = caption + "\\nalready_spawned:\\n";
+    if (smartTerrain.isRespawnPoint) {
+      caption += "\\nalready_spawned:\\n";
 
       for (const [section, descriptor] of smartTerrain.alreadySpawned) {
         caption += string.format(
@@ -49,7 +49,7 @@ export function getSmartTerrainMapDisplayHint(smartTerrain: SmartTerrain): TLabe
 
       if (smartTerrain.lastRespawnUpdatedAt) {
         caption += string.format(
-          "\ntime_to_spawn: %.2f\n\n",
+          "\ntime_to_spawn: %s\n\n",
           smartTerrainConfig.RESPAWN_IDLE - game.get_game_time().diffSec(smartTerrain.lastRespawnUpdatedAt)
         );
       }
