@@ -62,7 +62,29 @@ describe("CampManager class", () => {
 
   it.todo("should correctly get current director");
 
-  it.todo("should correctly set story");
+  it("should correctly set story", () => {
+    const object: GameObject = MockGameObject.mock();
+    const manager: CampManager = new CampManager(object, MockIniFile.mock("test.ltx"));
+
+    manager.isStoryStarted = false;
+
+    manager.activity = EObjectCampActivity.IDLE;
+    manager.updateStory();
+
+    expect(manager.isStoryStarted).toBe(true);
+
+    jest.spyOn(manager.storyManager, "setStoryTeller").mockImplementation(jest.fn());
+    jest.spyOn(manager.storyManager, "setActiveStory").mockImplementation(jest.fn());
+
+    manager.activity = EObjectCampActivity.STORY;
+    manager.isStoryStarted = false;
+    manager.directorId = 255;
+    manager.updateStory();
+
+    expect(manager.isStoryStarted).toBe(true);
+    expect(manager.storyManager.setStoryTeller).toHaveBeenCalledWith(255);
+    expect(manager.storyManager.setActiveStory).toHaveBeenCalledWith("test_story");
+  });
 
   it("should correctly get object activity", () => {
     const object: GameObject = MockGameObject.mock();

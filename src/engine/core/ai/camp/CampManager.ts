@@ -69,9 +69,9 @@ export class CampManager {
   }
 
   /**
-   * todo: Description.
+   * Update current activity story.
    */
-  public setStory(): void {
+  public updateStory(): void {
     switch (this.activity) {
       case EObjectCampActivity.STORY:
         this.isStoryStarted = true;
@@ -155,7 +155,7 @@ export class CampManager {
     }
 
     if (this.activityTimeout !== 0 && this.activityTimeout <= now) {
-      this.setStory();
+      this.updateStory();
       this.activityTimeout = 0;
     }
 
