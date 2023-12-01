@@ -25,7 +25,7 @@ export function getSmartTerrainNameCaption(smartTerrain: SmartTerrain): TLabel {
 export function getSmartTerrainMapDisplayHint(smartTerrain: SmartTerrain): TLabel {
   if (forgeConfig.DEBUG.IS_SIMULATION_ENABLED) {
     let caption: TLabel = string.format(
-      "%s (%s) \\nonline = %s\\nsimulation_role = %s\\nsquad_id = %s\\ncapacity = %s\\%s\\n",
+      "%s (%s)\\nonline = %s\\nsimulation_role = %s\\nsquad_id = %s\\ncapacity = %s\\%s\\n",
       game.translate_string(getSmartTerrainNameCaption(smartTerrain)),
       smartTerrain.name(),
       smartTerrain.online,
@@ -62,7 +62,7 @@ export function getSmartTerrainMapDisplayHint(smartTerrain: SmartTerrain): TLabe
       caption += `${tostring(squad.name())}\\n`;
     }
 
-    caption += `\\n\\n${toJSON(smartTerrain.simulationProperties)}`;
+    caption += `\\n${toJSON(smartTerrain.simulationProperties)}`;
 
     return caption;
   } else {

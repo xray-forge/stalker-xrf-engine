@@ -47,10 +47,16 @@ describe("smart_terrain_generic_utils module", () => {
 
     forgeConfig.DEBUG.IS_SIMULATION_ENABLED = true;
 
-    expect(getSmartTerrainMapDisplayHint(smartTerrain)).toBe(
-      "translated_st_test_smart_name (test_smart) " +
-        "\\nonline = nil\\nsimulation_role = default\\nsquad_id = 0\\ncapacity = -1\\0\\n\\n" +
-        `not respawn point\\n\\n\\n${toJSON(smartTerrain.simulationProperties)}`
+    expect(getSmartTerrainMapDisplayHint(smartTerrain).replaceAll("\\n", "\n")).toBe(
+      `translated_st_test_smart_name (test_smart)
+online = nil
+simulation_role = default
+squad_id = 0
+capacity = -1\\0
+
+not respawn point
+
+${toJSON(smartTerrain.simulationProperties)}`
     );
   });
 
@@ -88,13 +94,22 @@ describe("smart_terrain_generic_utils module", () => {
 
     squads.forEach((it) => descriptor.assignedSquads.set(it.id, it));
 
-    expect(getSmartTerrainMapDisplayHint(smartTerrain)).toBe(
-      "translated_st_test_smart_name (test_smart) " +
-        "\\nonline = true\\nsimulation_role = surge\\nsquad_id = 155\\ncapacity = 10\\6\\n\\n" +
-        "already_spawned:\\n[test-1] = 3\\3\\n[test-2] = 3\\3\\n\n" +
-        "time_to_spawn: -83133530\n\n" +
-        squads.map((it) => it.name()).join("\\n") +
-        `\\n\\n\\n${toJSON(testProperties)}`
+    expect(getSmartTerrainMapDisplayHint(smartTerrain).replaceAll("\\n", "\n")).toBe(
+      `translated_st_test_smart_name (test_smart)
+online = true
+simulation_role = surge
+squad_id = 155
+capacity = 10\\6
+
+already_spawned:
+[test-1] = 3\\3
+[test-2] = 3\\3
+
+time_to_spawn: -83133530
+
+${squads.map((it) => it.name()).join("\n")}
+
+${toJSON(testProperties)}`
     );
   });
 });
