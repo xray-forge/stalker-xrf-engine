@@ -87,5 +87,5 @@ describe("smart_terrain_spawn module", () => {
 
   it.todo("respawnSmartTerrainSquad should correctly respawn squads in smart terrains");
 
-  it.todo("tryRespawnSmartTerrainSquad should correctly respawn squads when needed");
+  it.todo("canRespawnSmartTerrainSquad should correctly check if respawn is available");
 });

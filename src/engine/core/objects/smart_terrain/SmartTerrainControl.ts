@@ -78,11 +78,7 @@ export class SmartTerrainControl {
       this.alarmStartedAt = null;
     }
 
-    if (this.getActorStatus()) {
-      this.status = ESmartTerrainStatus.DANGER;
-    } else {
-      this.status = ESmartTerrainStatus.NORMAL;
-    }
+    this.status = this.getActorStatus() ? ESmartTerrainStatus.DANGER : ESmartTerrainStatus.NORMAL;
   }
 
   /**

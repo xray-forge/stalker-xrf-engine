@@ -55,7 +55,8 @@ import { smartTerrainConfig } from "@/engine/core/objects/smart_terrain/SmartTer
 import { SmartTerrainControl } from "@/engine/core/objects/smart_terrain/SmartTerrainControl";
 import {
   applySmartTerrainRespawnSectionsConfig,
-  tryRespawnSmartTerrainSquad,
+  canRespawnSmartTerrainSquad,
+  respawnSmartTerrainSquad,
 } from "@/engine/core/objects/smart_terrain/spawn/smart_terrain_spawn";
 import type { Squad } from "@/engine/core/objects/squad";
 import { abort, assert } from "@/engine/core/utils/assertion";
@@ -88,6 +89,7 @@ import {
   AlifeSimulator,
   ALifeSmartTerrainTask,
   ESchemeType,
+  GameObject,
   IniFile,
   LuaArray,
   NetPacket,
@@ -482,7 +484,9 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
       }
     }
 
-    tryRespawnSmartTerrainSquad(this);
+    if (canRespawnSmartTerrainSquad(this)) {
+      respawnSmartTerrainSquad(this);
+    }
 
     if (now < this.nextCheckAt) {
       return;
@@ -494,13 +498,13 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
       turnOnSmartTerrainCampfires(this);
     }
 
-    if (registry.actor === null) {
-      this.nextCheckAt = now + 10;
-    } else {
+    if (registry.actor as Optional<GameObject>) {
       const distance: TDistance = registry.actor.position().distance_to_sqr(this.position);
       const idleTime: TDuration = math.max(60, 0.003 * distance);
 
       this.nextCheckAt = now + idleTime;
+    } else {
+      this.nextCheckAt = now + 10;
     }
 
     const currentGameTime: Time = game.get_game_time();
@@ -513,12 +517,9 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
 
     updateSmartTerrainAlarmStatus(this);
     updateSmartTerrainJobs(this);
-
-    if (this.smartTerrainActorControl) {
-      this.smartTerrainActorControl.update();
-    }
-
     updateSimulationObjectAvailability(this);
+
+    this.smartTerrainActorControl?.update();
   }
 
   /**

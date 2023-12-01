@@ -1,6 +1,8 @@
 import { game } from "xray16";
 
 import { registry } from "@/engine/core/database";
+import { SimulationBoardManager } from "@/engine/core/managers/simulation";
+import { ISmartTerrainSpawnConfiguration } from "@/engine/core/objects/smart_terrain";
 import type { SmartTerrain } from "@/engine/core/objects/smart_terrain/SmartTerrain";
 import { smartTerrainConfig } from "@/engine/core/objects/smart_terrain/SmartTerrainConfig";
 import { Squad } from "@/engine/core/objects/squad";
@@ -11,37 +13,34 @@ import { LuaArray, Optional, TCount, Time, TSection, TStringId } from "@/engine/
 
 /**
  * Apply respawn configuration for provided smart terrain.
+ * Based on provided section tries to read list of squad sections to get exact targets and count to spawn.
  *
  * @param smartTerrain - target smart terrain to set configuration for
- * @param respawnSection - section in smart terrain ini configuration file to read spawn information from
+ * @param section - section in smart terrain ini configuration file to read spawn information from
  */
-export function applySmartTerrainRespawnSectionsConfig(smartTerrain: SmartTerrain, respawnSection: TSection): void {
+export function applySmartTerrainRespawnSectionsConfig(smartTerrain: SmartTerrain, section: TSection): void {
   smartTerrain.isRespawnPoint = true;
   smartTerrain.spawnSquadsConfiguration = new LuaTable();
   smartTerrain.spawnedSquadsList = new LuaTable();
 
-  if (!smartTerrain.ini.section_exist(respawnSection)) {
-    abort("Could not find respawn configuration section '%s' for '%s'.", respawnSection, smartTerrain.name());
+  if (!smartTerrain.ini.section_exist(section)) {
+    abort("Could not find respawn configuration section '%s' for '%s'.", section, smartTerrain.name());
   }
 
-  const parametersCount: TCount = smartTerrain.ini.line_count(respawnSection);
+  const parametersCount: TCount = smartTerrain.ini.line_count(section);
 
   if (parametersCount === 0) {
-    abort(
-      "Wrong smart terrain respawn configuration section '%s' - empty for '%s'.",
-      respawnSection,
-      smartTerrain.name()
-    );
+    abort("Wrong smart terrain respawn configuration section '%s' - empty for '%s'.", section, smartTerrain.name());
   }
 
   for (const it of $range(0, parametersCount - 1)) {
-    const [, sectionName] = smartTerrain.ini.r_line(respawnSection, it, "", "");
+    const [, sectionName] = smartTerrain.ini.r_line(section, it, "", "");
 
     // Validate respawn section line.
     if (!smartTerrain.ini.section_exist(sectionName)) {
       abort(
         "Wrong smart terrain respawn configuration section '%s' line '%s' - there is no such section.",
-        respawnSection,
+        section,
         sectionName
       );
     }
@@ -53,13 +52,13 @@ export function applySmartTerrainRespawnSectionsConfig(smartTerrain: SmartTerrai
     if (squadsToSpawn === null) {
       abort(
         "Wrong smart terrain respawn configuration section '%s' line 'spawn_squads' in '%s' is not defined.",
-        respawnSection,
+        section,
         sectionName
       );
     } else if (squadsCount === null) {
       abort(
         "Wrong smart terrain respawn configuration section '%s' line 'spawn_num' in '%s' is not defined.",
-        respawnSection,
+        section,
         sectionName
       );
     }
@@ -91,56 +90,55 @@ export function respawnSmartTerrainSquad(smartTerrain: SmartTerrain): void {
     }
   }
 
-  if (availableSections.length() > 0) {
-    const sectionToSpawn: TSection = availableSections.get(math.random(1, availableSections.length()));
-    const sectionParams = smartTerrain.spawnSquadsConfiguration.get(sectionToSpawn);
-    const squadId: TStringId = sectionParams.squads.get(math.random(1, sectionParams.squads.length()));
-    const squad: Squad = smartTerrain.simulationBoardManager.createSquad(smartTerrain, squadId);
-
-    squad.respawnPointId = smartTerrain.id;
-    squad.respawnPointSection = sectionToSpawn;
-
-    smartTerrain.simulationBoardManager.enterSmartTerrain(squad, smartTerrain.id);
-
-    for (const squadMember of squad.squad_members()) {
-      smartTerrain.simulationBoardManager.setupObjectSquadAndGroup(squadMember.object);
-    }
-
-    smartTerrain.spawnedSquadsList.get(sectionToSpawn).num += 1;
+  // No available spawn spots.
+  if (availableSections.length() === 0) {
+    return;
   }
+
+  const simulationBoardManager: SimulationBoardManager = smartTerrain.simulationBoardManager;
+  const sectionToSpawn: TSection = availableSections.get(math.random(1, availableSections.length()));
+  const sectionParams: ISmartTerrainSpawnConfiguration = smartTerrain.spawnSquadsConfiguration.get(sectionToSpawn);
+  const squadId: TStringId = sectionParams.squads.get(math.random(1, sectionParams.squads.length()));
+  const squad: Squad = simulationBoardManager.createSquad(smartTerrain, squadId);
+
+  squad.respawnPointId = smartTerrain.id;
+  squad.respawnPointSection = sectionToSpawn;
+
+  simulationBoardManager.enterSmartTerrain(squad, smartTerrain.id);
+
+  for (const squadMember of squad.squad_members()) {
+    simulationBoardManager.setupObjectSquadAndGroup(squadMember.object);
+  }
+
+  smartTerrain.spawnedSquadsList.get(sectionToSpawn).num += 1;
 }
 
 /**
- * todo: Description.
+ * @param smartTerrain - target smart terrain to check spawn availability for
+ * @returns whether smart terrain squad spawn operation can be performed
  */
-export function tryRespawnSmartTerrainSquad(smartTerrain: SmartTerrain): void {
+export function canRespawnSmartTerrainSquad(smartTerrain: SmartTerrain): boolean {
   const currentTime: Time = game.get_game_time();
 
+  // Throttle respawn attempts period.
+  // Memoize `false` state for `idle` period of time.
   if (
-    smartTerrain.lastRespawnUpdatedAt === null ||
-    currentTime.diffSec(smartTerrain.lastRespawnUpdatedAt) > smartTerrainConfig.RESPAWN_IDLE
+    smartTerrain.lastRespawnUpdatedAt !== null &&
+    currentTime.diffSec(smartTerrain.lastRespawnUpdatedAt) <= smartTerrainConfig.RESPAWN_IDLE
   ) {
+    return false;
+  } else {
     smartTerrain.lastRespawnUpdatedAt = currentTime;
-
-    if (
-      pickSectionFromCondList(registry.actor, smartTerrain, smartTerrain.isSimulationAvailableConditionList) !== TRUE
-    ) {
-      return;
-    }
-
-    const squadsCount: TCount = smartTerrain.simulationBoardManager.getSmartTerrainAssignedSquads(smartTerrain.id);
-
-    if (smartTerrain.maxPopulation <= squadsCount) {
-      return;
-    }
-
-    if (
-      registry.actorServer.position.distance_to_sqr(smartTerrain.position) <
-      smartTerrainConfig.RESPAWN_RADIUS_RESTRICTION_SQR
-    ) {
-      return;
-    }
-
-    respawnSmartTerrainSquad(smartTerrain);
   }
+
+  if (
+    pickSectionFromCondList(registry.actor, smartTerrain, smartTerrain.isSimulationAvailableConditionList) !== TRUE ||
+    smartTerrain.simulationBoardManager.getSmartTerrainAssignedSquads(smartTerrain.id) > smartTerrain.maxPopulation ||
+    registry.actorServer.position.distance_to_sqr(smartTerrain.position) <
+      smartTerrainConfig.RESPAWN_RADIUS_RESTRICTION_SQR
+  ) {
+    return false;
+  }
+
+  return true;
 }
