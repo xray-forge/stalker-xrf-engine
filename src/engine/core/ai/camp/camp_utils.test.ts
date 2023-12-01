@@ -1,7 +1,15 @@
 import { describe, expect, it, jest } from "@jest/globals";
 
-import { getObjectCampActivityRole, startPlayingGuitar, startPlayingHarmonica } from "@/engine/core/ai/camp/camp_utils";
+import {
+  canPlayCampGuitar,
+  canPlayCampHarmonica,
+  canTellCampStory,
+  getObjectCampActivityRole,
+  startPlayingGuitar,
+  startPlayingHarmonica,
+} from "@/engine/core/ai/camp/camp_utils";
 import { CampManager, EObjectCampActivity, EObjectCampRole } from "@/engine/core/ai/camp/index";
+import { EActionId } from "@/engine/core/ai/types";
 import { EStalkerState } from "@/engine/core/animation/types";
 import { IRegistryObjectState, registerCampZone, registerObject, registry } from "@/engine/core/database";
 import { IAnimpointActionDescriptor, ISchemeAnimpointState } from "@/engine/core/schemes/stalker/animpoint";
@@ -22,23 +30,23 @@ describe("camp utils", () => {
   it("startPlayingGuitar should correctly start playing with camp", () => {
     const object: GameObject = MockGameObject.mock();
     const camp: GameObject = MockGameObject.mock();
-    const campManager: CampManager = new CampManager(camp, MockIniFile.mock("test.ltx"));
+    const manager: CampManager = new CampManager(camp, MockIniFile.mock("test.ltx"));
     const state: IRegistryObjectState = registerObject(object);
 
-    jest.spyOn(campManager.storyManager, "setStoryTeller").mockImplementation(jest.fn());
-    jest.spyOn(campManager.storyManager, "setActiveStory").mockImplementation(jest.fn());
-    jest.spyOn(campManager.storyManager, "update").mockImplementation(jest.fn());
+    jest.spyOn(manager.storyManager, "setStoryTeller").mockImplementation(jest.fn());
+    jest.spyOn(manager.storyManager, "setActiveStory").mockImplementation(jest.fn());
+    jest.spyOn(manager.storyManager, "update").mockImplementation(jest.fn());
 
     state.camp = camp.id();
 
-    campManager.directorId = 450;
+    manager.directorId = 450;
 
-    registerCampZone(camp, campManager);
+    registerCampZone(camp, manager);
     startPlayingGuitar(object);
 
-    expect(campManager.storyManager.setStoryTeller).toHaveBeenCalledWith(450);
-    expect(campManager.storyManager.setActiveStory).toHaveBeenCalledWith("test_guitar");
-    expect(campManager.storyManager.update).toHaveBeenCalledTimes(1);
+    expect(manager.storyManager.setStoryTeller).toHaveBeenCalledWith(450);
+    expect(manager.storyManager.setActiveStory).toHaveBeenCalledWith("test_guitar");
+    expect(manager.storyManager.update).toHaveBeenCalledTimes(1);
   });
 
   it("startPlayingHarmonica should correctly start playing without camp", () => {
@@ -53,30 +61,175 @@ describe("camp utils", () => {
   it("startPlayingHarmonica should correctly start playing with camp", () => {
     const object: GameObject = MockGameObject.mock();
     const camp: GameObject = MockGameObject.mock();
-    const campManager: CampManager = new CampManager(camp, MockIniFile.mock("test.ltx"));
+    const manager: CampManager = new CampManager(camp, MockIniFile.mock("test.ltx"));
     const state: IRegistryObjectState = registerObject(object);
 
-    jest.spyOn(campManager.storyManager, "setStoryTeller").mockImplementation(jest.fn());
-    jest.spyOn(campManager.storyManager, "setActiveStory").mockImplementation(jest.fn());
-    jest.spyOn(campManager.storyManager, "update").mockImplementation(jest.fn());
+    jest.spyOn(manager.storyManager, "setStoryTeller").mockImplementation(jest.fn());
+    jest.spyOn(manager.storyManager, "setActiveStory").mockImplementation(jest.fn());
+    jest.spyOn(manager.storyManager, "update").mockImplementation(jest.fn());
 
     state.camp = camp.id();
 
-    campManager.directorId = 450;
+    manager.directorId = 450;
 
-    registerCampZone(camp, campManager);
+    registerCampZone(camp, manager);
     startPlayingHarmonica(object);
 
-    expect(campManager.storyManager.setStoryTeller).toHaveBeenCalledWith(450);
-    expect(campManager.storyManager.setActiveStory).toHaveBeenCalledWith("test_harmonica");
-    expect(campManager.storyManager.update).toHaveBeenCalledTimes(1);
+    expect(manager.storyManager.setStoryTeller).toHaveBeenCalledWith(450);
+    expect(manager.storyManager.setActiveStory).toHaveBeenCalledWith("test_harmonica");
+    expect(manager.storyManager.update).toHaveBeenCalledTimes(1);
   });
 
-  it.todo("canTellCampStory should correctly check");
+  it("canTellCampStory should correctly check", () => {
+    const camp: GameObject = MockGameObject.mock();
+    const manager: CampManager = new CampManager(camp, MockIniFile.mock("test.ltx"));
 
-  it.todo("canPlayCampGuitar should correctly check");
+    expect(canTellCampStory(manager)).toBe(false);
 
-  it.todo("canPlayCampHarmonica should correctly check");
+    const first: GameObject = MockGameObject.mock();
+    const second: GameObject = MockGameObject.mock();
+
+    const firstState: IRegistryObjectState = registerObject(first);
+    const secondState: IRegistryObjectState = registerObject(second);
+
+    firstState.activeScheme = EScheme.ANIMPOINT;
+    firstState[EScheme.ANIMPOINT] = mockSchemeState<ISchemeAnimpointState>(EScheme.ANIMPOINT, {
+      approvedActions: $fromArray<IAnimpointActionDescriptor>([
+        { name: EStalkerState.ANIMPOINT_STAY_TABLE_WEAPON, predicate: () => true },
+      ]),
+    });
+
+    secondState.activeScheme = EScheme.ANIMPOINT;
+    secondState[EScheme.ANIMPOINT] = mockSchemeState<ISchemeAnimpointState>(EScheme.ANIMPOINT, {
+      approvedActions: $fromArray<IAnimpointActionDescriptor>([
+        { name: EStalkerState.ANIMPOINT_STAY_TABLE_WEAPON, predicate: () => true },
+      ]),
+    });
+
+    manager.registerObject(first.id());
+    expect(canTellCampStory(manager)).toBe(false);
+
+    manager.registerObject(second.id());
+    expect(canTellCampStory(manager)).toBe(true);
+
+    // Meeting activity stops story.
+    jest.spyOn(second.motivation_action_manager(), "initialized").mockImplementation(() => true);
+    jest
+      .spyOn(second.motivation_action_manager(), "current_action_id")
+      .mockImplementation(() => EActionId.MEET_WAITING_ACTIVITY);
+    expect(canTellCampStory(manager)).toBe(false);
+
+    // OK with animpoint action.
+    jest
+      .spyOn(second.motivation_action_manager(), "current_action_id")
+      .mockImplementation(() => EActionId.ANIMPOINT_ACTIVITY);
+    expect(canTellCampStory(manager)).toBe(true);
+
+    manager.availableSoundStories = new LuaTable();
+    expect(canTellCampStory(manager)).toBe(false);
+  });
+
+  it("canPlayCampGuitar should correctly check", () => {
+    const camp: GameObject = MockGameObject.mock();
+    const manager: CampManager = new CampManager(camp, MockIniFile.mock("test.ltx"));
+
+    expect(canPlayCampGuitar(manager)).toBe(false);
+
+    const first: GameObject = MockGameObject.mock();
+    const second: GameObject = MockGameObject.mock();
+
+    const firstState: IRegistryObjectState = registerObject(first);
+    const secondState: IRegistryObjectState = registerObject(second);
+
+    firstState.activeScheme = EScheme.ANIMPOINT;
+    firstState[EScheme.ANIMPOINT] = mockSchemeState<ISchemeAnimpointState>(EScheme.ANIMPOINT, {
+      approvedActions: $fromArray<IAnimpointActionDescriptor>([
+        { name: EStalkerState.ANIMPOINT_STAY_TABLE_WEAPON, predicate: () => true },
+      ]),
+    });
+
+    secondState.activeScheme = EScheme.ANIMPOINT;
+    secondState[EScheme.ANIMPOINT] = mockSchemeState<ISchemeAnimpointState>(EScheme.ANIMPOINT, {
+      description: EStalkerState.ANIMPOINT_SIT_ASS,
+      actionNameBase: EStalkerState.ANIMPOINT_SIT_ASS,
+      approvedActions: $fromArray<IAnimpointActionDescriptor>([
+        { name: EStalkerState.ANIMPOINT_SIT_ASS_GUITAR, predicate: () => true },
+      ]),
+    });
+
+    manager.registerObject(first.id());
+    expect(canPlayCampGuitar(manager)).toBe(false);
+
+    manager.registerObject(second.id());
+    expect(canPlayCampGuitar(manager)).toBe(true);
+
+    // Meeting activity stops playing.
+    jest.spyOn(second.motivation_action_manager(), "initialized").mockImplementation(() => true);
+    jest
+      .spyOn(second.motivation_action_manager(), "current_action_id")
+      .mockImplementation(() => EActionId.MEET_WAITING_ACTIVITY);
+    expect(canPlayCampGuitar(manager)).toBe(false);
+
+    // OK with animpoint action.
+    jest
+      .spyOn(second.motivation_action_manager(), "current_action_id")
+      .mockImplementation(() => EActionId.ANIMPOINT_ACTIVITY);
+    expect(canPlayCampGuitar(manager)).toBe(true);
+
+    manager.availableGuitarStories = new LuaTable();
+    expect(canPlayCampGuitar(manager)).toBe(false);
+  });
+
+  it("canPlayCampHarmonica should correctly check", () => {
+    const camp: GameObject = MockGameObject.mock();
+    const manager: CampManager = new CampManager(camp, MockIniFile.mock("test.ltx"));
+
+    expect(canPlayCampHarmonica(manager)).toBe(false);
+
+    const first: GameObject = MockGameObject.mock();
+    const second: GameObject = MockGameObject.mock();
+
+    const firstState: IRegistryObjectState = registerObject(first);
+    const secondState: IRegistryObjectState = registerObject(second);
+
+    firstState.activeScheme = EScheme.ANIMPOINT;
+    firstState[EScheme.ANIMPOINT] = mockSchemeState<ISchemeAnimpointState>(EScheme.ANIMPOINT, {
+      approvedActions: $fromArray<IAnimpointActionDescriptor>([
+        { name: EStalkerState.ANIMPOINT_STAY_TABLE_WEAPON, predicate: () => true },
+      ]),
+    });
+
+    secondState.activeScheme = EScheme.ANIMPOINT;
+    secondState[EScheme.ANIMPOINT] = mockSchemeState<ISchemeAnimpointState>(EScheme.ANIMPOINT, {
+      description: EStalkerState.ANIMPOINT_SIT_ASS,
+      actionNameBase: EStalkerState.ANIMPOINT_SIT_ASS,
+      approvedActions: $fromArray<IAnimpointActionDescriptor>([
+        { name: EStalkerState.ANIMPOINT_SIT_ASS_HARMONICA, predicate: () => true },
+      ]),
+    });
+
+    manager.registerObject(first.id());
+    expect(canPlayCampHarmonica(manager)).toBe(false);
+
+    manager.registerObject(second.id());
+    expect(canPlayCampHarmonica(manager)).toBe(true);
+
+    // Meeting activity stops playing.
+    jest.spyOn(second.motivation_action_manager(), "initialized").mockImplementation(() => true);
+    jest
+      .spyOn(second.motivation_action_manager(), "current_action_id")
+      .mockImplementation(() => EActionId.MEET_WAITING_ACTIVITY);
+    expect(canPlayCampHarmonica(manager)).toBe(false);
+
+    // OK with animpoint action.
+    jest
+      .spyOn(second.motivation_action_manager(), "current_action_id")
+      .mockImplementation(() => EActionId.ANIMPOINT_ACTIVITY);
+    expect(canPlayCampHarmonica(manager)).toBe(true);
+
+    manager.availableHarmonicaStories = new LuaTable();
+    expect(canPlayCampHarmonica(manager)).toBe(false);
+  });
 
   it("getObjectCampActivityRole should correctly get object roles for generic activities", () => {
     const object: GameObject = MockGameObject.mock();

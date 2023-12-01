@@ -53,38 +53,29 @@ export function startPlayingHarmonica(object: GameObject): void {
 }
 
 /**
- * @param campManager - manager to check
+ * @param manager - manager to check
  * @returns whether guitar can be played in camp
  */
-export function canPlayCampGuitar(campManager: CampManager): boolean {
-  // Nothing to play here.
-  if (campManager.availableGuitarStories.length() === 0) {
+export function canPlayCampGuitar(manager: CampManager): boolean {
+  if (manager.availableGuitarStories.length() === 0 || table.size(manager.objects) < 2) {
     return false;
   }
 
-  let count: TCount = 0;
+  for (const [objectId, objectInfo] of manager.objects) {
+    const state: Optional<IRegistryObjectState> = registry.objects.get(objectId);
+    const schemeState: Optional<ISchemeAnimpointState> = state?.activeScheme
+      ? (state[state.activeScheme] as ISchemeAnimpointState)
+      : null;
+    const object: Optional<GameObject> = state?.object;
 
-  for (const [_] of campManager.objects) {
-    count += 1;
-  }
-
-  if (count > 1) {
-    for (const [objectId, objectInfo] of campManager.objects) {
-      const state: Optional<IRegistryObjectState> = registry.objects.get(objectId);
-      const schemeState: Optional<ISchemeAnimpointState> = state?.activeScheme
-        ? (state[state.activeScheme] as ISchemeAnimpointState)
-        : null;
-      const object: Optional<GameObject> = state?.object;
-
-      if (
-        object !== null &&
-        objectInfo.guitar === EObjectCampRole.DIRECTOR &&
-        schemeState !== null &&
-        schemeState.actionNameBase === schemeState.description &&
-        !isObjectMeeting(object)
-      ) {
-        return true;
-      }
+    if (
+      object &&
+      schemeState &&
+      objectInfo.guitar === EObjectCampRole.DIRECTOR &&
+      schemeState.actionNameBase === schemeState.description &&
+      !isObjectMeeting(object)
+    ) {
+      return true;
     }
   }
 
@@ -92,39 +83,30 @@ export function canPlayCampGuitar(campManager: CampManager): boolean {
 }
 
 /**
- * @param campManager - manager instance to check
+ * @param manager - manager instance to check
  * @returns whether harmonica can be played in camp
  */
-export function canPlayCampHarmonica(campManager: CampManager): boolean {
+export function canPlayCampHarmonica(manager: CampManager): boolean {
   // Nothing to play here.
-  if (campManager.availableHarmonicaStories.length() === 0) {
+  if (manager.availableHarmonicaStories.length() === 0 || table.size(manager.objects) < 2) {
     return false;
   }
 
-  let count: TCount = 0;
+  for (const [id, info] of manager.objects) {
+    const state: Optional<IRegistryObjectState> = registry.objects.get(id);
+    const schemeState: Optional<ISchemeAnimpointState> = state?.activeScheme
+      ? (state[state.activeScheme!] as ISchemeAnimpointState)
+      : null;
+    const object: Optional<GameObject> = state?.object;
 
-  // todo: Len util.
-  for (const [id] of campManager.objects) {
-    count += 1;
-  }
-
-  if (count > 1) {
-    for (const [id, info] of campManager.objects) {
-      const state: Optional<IRegistryObjectState> = registry.objects.get(id);
-      const schemeState: Optional<ISchemeAnimpointState> = state?.activeScheme
-        ? (state[state.activeScheme!] as ISchemeAnimpointState)
-        : null;
-      const object: Optional<GameObject> = state?.object;
-
-      if (
-        object !== null &&
-        info.harmonica === EObjectCampRole.DIRECTOR &&
-        schemeState !== null &&
-        schemeState.actionNameBase === schemeState.description &&
-        !isObjectMeeting(object)
-      ) {
-        return true;
-      }
+    if (
+      object &&
+      schemeState &&
+      info.harmonica === EObjectCampRole.DIRECTOR &&
+      schemeState.actionNameBase === schemeState.description &&
+      !isObjectMeeting(object)
+    ) {
+      return true;
     }
   }
 
@@ -137,25 +119,29 @@ export function canPlayCampHarmonica(campManager: CampManager): boolean {
  *
  * @returns whether story can be told in camp
  */
-export function canTellCampStory(campManager: CampManager): boolean {
+export function canTellCampStory(manager: CampManager): boolean {
   // Nothing to tell here.
-  if (campManager.availableSoundStories.length() === 0) {
+  if (manager.availableSoundStories.length() === 0) {
     return false;
   }
 
   let count: TCount = 0;
 
-  for (const [id] of campManager.objects) {
+  for (const [id] of manager.objects) {
     const object: Optional<GameObject> = registry.objects.get(id)?.object;
 
-    // todo: Probably just return instead of full FOR? If 2+
-    if (object !== null && !isObjectMeeting(object)) {
+    if (object && !isObjectMeeting(object)) {
       count += 1;
+    }
+
+    // Need just two speakers to assume story can be told.
+    if (count === 2) {
+      return true;
     }
   }
 
   // Check whether camp has free speakers, verify that have 2+ of them.
-  return count > 1;
+  return false;
 }
 
 /**
