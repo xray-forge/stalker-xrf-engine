@@ -114,12 +114,6 @@ describe("SmartTerrain class generic logic", () => {
     expect(smartTerrain.simulationBoardManager.getSmartTerrainPopulation(smartTerrain.id)).toBe(0);
   });
 
-  it("should correctly generate captions", () => {
-    const smartTerrain: SmartTerrain = new SmartTerrain("test_init");
-
-    expect(smartTerrain.getNameCaption()).toBe(`st_test_init_${smartTerrain.id}_name`);
-  });
-
   it("should correctly handle register", () => {
     const smartTerrain: SmartTerrain = new SmartTerrain("test_init");
 

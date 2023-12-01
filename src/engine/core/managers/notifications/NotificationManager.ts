@@ -26,6 +26,7 @@ import { SimulationBoardManager } from "@/engine/core/managers/simulation/Simula
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import { ETaskState } from "@/engine/core/managers/tasks/types";
 import { Stalker } from "@/engine/core/objects/creature/Stalker";
+import { getSmartTerrainNameCaption } from "@/engine/core/objects/smart_terrain/utils";
 import { abort, assert } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { isObjectWounded } from "@/engine/core/utils/planner";
@@ -307,15 +308,13 @@ export class NotificationManager extends AbstractManager {
     let pointName: TName = "";
 
     // todo: Probably name and number id problem? Not real condition?
-    if (point !== null) {
+    if (point) {
       const smartDescriptor: Optional<ISmartTerrainDescriptor> =
         SimulationBoardManager.getInstance().getSmartTerrainDescriptor(point as TNumberId);
 
-      if (smartDescriptor !== null) {
-        pointName = smartDescriptor.smartTerrain.getNameCaption();
-      } else {
-        pointName = game.translate_string(point as TName);
-      }
+      pointName = smartDescriptor
+        ? getSmartTerrainNameCaption(smartDescriptor.smartTerrain)
+        : game.translate_string(point as TName);
     }
 
     let soundCaptionText: Optional<TLabel> = soundCaption;

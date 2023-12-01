@@ -50,6 +50,7 @@ import {
 import { ESmartTerrainStatus } from "@/engine/core/objects/smart_terrain/smart_terrain_types";
 import { smartTerrainConfig } from "@/engine/core/objects/smart_terrain/SmartTerrainConfig";
 import { SmartTerrainControl } from "@/engine/core/objects/smart_terrain/SmartTerrainControl";
+import { getSmartTerrainNameCaption } from "@/engine/core/objects/smart_terrain/utils";
 import { ESquadActionType, Squad } from "@/engine/core/objects/squad";
 import { abort, assert, assertDefined } from "@/engine/core/utils/assertion";
 import { isMonsterSquad, isStalker } from "@/engine/core/utils/class_ids";
@@ -531,14 +532,6 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
   }
 
   /**
-   * Get smart terrain name label.
-   * Used for UI display or mentioning in strings.
-   */
-  public getNameCaption(): TLabel {
-    return string.format("st_%s_name", this.name());
-  }
-
-  /**
    * Initialize smart terrain from ini files.
    */
   public initialize(): void {
@@ -932,7 +925,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
     if (forgeConfig.DEBUG.IS_SIMULATION_ENABLED) {
       let caption: TLabel = string.format(
         "%s (%s) \\nonline = %s\\nsimulation_type = %s\\nsquad_id = %s\\ncapacity = %s\\%s\\n",
-        game.translate_string(this.getNameCaption()),
+        game.translate_string(getSmartTerrainNameCaption(this)),
         this.name(),
         this.online,
         this.simulationRole,
@@ -972,7 +965,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
 
       return caption;
     } else {
-      return this.getNameCaption();
+      return getSmartTerrainNameCaption(this);
     }
   }
 
