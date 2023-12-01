@@ -10,6 +10,7 @@ import {
 import { TradeManager } from "@/engine/core/managers/trade/TradeManager";
 import { readObjectTradeIniPath } from "@/engine/core/managers/trade/utils/trade_init";
 import type { SmartTerrain } from "@/engine/core/objects/smart_terrain";
+import { getSmartTerrainJobByObjectId, setupObjectJobLogic } from "@/engine/core/objects/smart_terrain/job";
 import { assert } from "@/engine/core/utils/assertion";
 import { readIniNumber, readIniString } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -94,7 +95,7 @@ export function configureObjectSchemes(
         const currentSmart: Optional<SmartTerrain> = getObjectSmartTerrain(object);
 
         if (currentSmart) {
-          state.jobIni = currentSmart.getJobByObjectId(object.id())?.iniPath as Optional<TPath>;
+          state.jobIni = getSmartTerrainJobByObjectId(currentSmart, object.id())?.iniPath as Optional<TPath>;
         }
       }
 
@@ -165,7 +166,7 @@ export function setupObjectSmartJobsAndLogicOnSpawn(
   const needSetupLogic: boolean = !isLoaded && smartTerrain.objectJobDescriptors.get(object.id())?.isBegun === true;
 
   if (needSetupLogic) {
-    smartTerrain.setupObjectJobLogic(object);
+    setupObjectJobLogic(smartTerrain, object);
   } else {
     initializeObjectSchemeLogic(object, state, isLoaded, schemeType);
   }

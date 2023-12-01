@@ -15,6 +15,7 @@ import {
 } from "@/engine/core/database";
 import { MapDisplayManager } from "@/engine/core/managers/map";
 import { ISmartTerrainJobDescriptor, SmartTerrain } from "@/engine/core/objects/smart_terrain";
+import { getSmartTerrainJobByObjectId } from "@/engine/core/objects/smart_terrain/job";
 import { SchemeMobCombat } from "@/engine/core/schemes/monster/mob_combat";
 import { SchemeMobDeath } from "@/engine/core/schemes/monster/mob_death";
 import { SchemePhysicalOnHit } from "@/engine/core/schemes/physical/ph_on_hit";
@@ -47,8 +48,13 @@ import { loadSchemeImplementation, loadSchemeImplementations } from "@/engine/co
 import { NIL } from "@/engine/lib/constants/words";
 import { EScheme, ESchemeType, GameObject, IniFile, ServerHumanObject } from "@/engine/lib/types";
 import { getSchemeAction, mockSchemeState, resetRegistry } from "@/fixtures/engine/mocks";
+import { replaceFunctionMock } from "@/fixtures/jest";
 import { MockAlifeSimulator, MockGameObject, mockIniFile, mockServerAlifeHumanStalker } from "@/fixtures/xray";
 import { MockCTime } from "@/fixtures/xray/mocks/CTime.mock";
+
+jest.mock("@/engine/core/objects/smart_terrain/job", () => ({
+  getSmartTerrainJobByObjectId: jest.fn(),
+}));
 
 describe("scheme logic utils", () => {
   function loadGenericSchemes(): Array<TAbstractSchemeConstructor> {
@@ -183,12 +189,8 @@ describe("scheme logic utils", () => {
     loadSchemeImplementation(SchemePatrol);
 
     jest.spyOn(SchemePatrol, "activate").mockImplementation(() => mockSchemeState(EScheme.PATROL));
-    jest.spyOn(smartTerrain, "getJobByObjectId").mockImplementation(
-      () =>
-        ({
-          section: "patrol@test",
-        }) as ISmartTerrainJobDescriptor
-    );
+
+    replaceFunctionMock(getSmartTerrainJobByObjectId, () => ({ section: "patrol@test" }) as ISmartTerrainJobDescriptor);
 
     const ini: IniFile = mockIniFile("test.ltx", {
       "patrol@test": {},

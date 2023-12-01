@@ -14,6 +14,7 @@ import {
 } from "@/engine/core/database";
 import { SimulationBoardManager } from "@/engine/core/managers/simulation/SimulationBoardManager";
 import type { SmartTerrain } from "@/engine/core/objects/smart_terrain";
+import { switchObjectToDesiredJob } from "@/engine/core/objects/smart_terrain/job";
 import type { Squad } from "@/engine/core/objects/squad";
 import { ISchemeMobCombatState } from "@/engine/core/schemes/monster/mob_combat";
 import { ISchemeCombatState } from "@/engine/core/schemes/stalker/combat";
@@ -741,7 +742,7 @@ extern("xr_effects.clear_monster_animation", (actor: GameObject, object: GameObj
  * todo;
  */
 extern("xr_effects.switch_to_desired_job", (actor: GameObject, object: GameObject): void => {
-  (getObjectSmartTerrain(object) as SmartTerrain).switchObjectToDesiredJob(object.id());
+  switchObjectToDesiredJob(getObjectSmartTerrain(object) as SmartTerrain, object.id());
 });
 
 /**
