@@ -80,11 +80,11 @@ ${toJSON(smartTerrain.simulationProperties)}`
     smartTerrain.maxPopulation = 10;
 
     smartTerrain.lastRespawnUpdatedAt = MockCTime.mock(2015, 2, 14, 14, 25, 30, 100);
-    smartTerrain.alreadySpawned.set("test-1", { num: 3 });
-    smartTerrain.alreadySpawned.set("test-2", { num: 3 });
+    smartTerrain.spawnedSquadsList.set("test-1", { num: 3 });
+    smartTerrain.spawnedSquadsList.set("test-2", { num: 3 });
 
-    smartTerrain.respawnConfiguration.set("test-1", { num: parseConditionsList("3"), squads: new LuaTable() });
-    smartTerrain.respawnConfiguration.set("test-2", { num: parseConditionsList("3"), squads: new LuaTable() });
+    smartTerrain.spawnSquadsConfiguration.set("test-1", { num: parseConditionsList("3"), squads: new LuaTable() });
+    smartTerrain.spawnSquadsConfiguration.set("test-2", { num: parseConditionsList("3"), squads: new LuaTable() });
 
     const descriptor: ISmartTerrainDescriptor = SimulationBoardManager.getInstance().getSmartTerrainDescriptor(
       smartTerrain.id

@@ -38,12 +38,12 @@ export function getSmartTerrainMapDisplayHint(smartTerrain: SmartTerrain): TLabe
     if (smartTerrain.isRespawnPoint) {
       caption += "\\nalready_spawned:\\n";
 
-      for (const [section, descriptor] of smartTerrain.alreadySpawned) {
+      for (const [section, descriptor] of smartTerrain.spawnedSquadsList) {
         caption += string.format(
           "[%s] = %s\\%s\\n",
           section,
           descriptor.num,
-          pickSectionFromCondList(registry.actor, null, smartTerrain.respawnConfiguration.get(section).num)
+          pickSectionFromCondList(registry.actor, null, smartTerrain.spawnSquadsConfiguration.get(section).num)
         );
       }
 

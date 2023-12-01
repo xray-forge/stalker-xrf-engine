@@ -79,8 +79,8 @@ describe("SmartTerrain class generic logic", () => {
     expect(smartTerrain.simulationBoardManager).toBeDefined();
     expect(smartTerrain.mapDisplayManager).toBeDefined();
     expect(smartTerrain.simulationProperties).toBeUndefined();
-    expect(smartTerrain.respawnConfiguration.length()).toBe(0);
-    expect(smartTerrain.alreadySpawned.length()).toBe(0);
+    expect(smartTerrain.spawnSquadsConfiguration.length()).toBe(0);
+    expect(smartTerrain.spawnedSquadsList.length()).toBe(0);
   });
 
   it("should correctly emit registering lifecycle events", () => {
@@ -200,9 +200,9 @@ describe("SmartTerrain class generic logic", () => {
     );
 
     smartTerrain.isRespawnPoint = true;
-    smartTerrain.alreadySpawned = new LuaTable();
-    smartTerrain.alreadySpawned.set("test_squad_novice", { num: 3 });
-    smartTerrain.alreadySpawned.set("test_squad_master", { num: 1 });
+    smartTerrain.spawnedSquadsList = new LuaTable();
+    smartTerrain.spawnedSquadsList.set("test_squad_novice", { num: 3 });
+    smartTerrain.spawnedSquadsList.set("test_squad_master", { num: 1 });
 
     smartTerrain.lastRespawnUpdatedAt = MockCTime.mock(2005, 8, 20, 13, 31, 11, 201);
     smartTerrain.population = 4;
@@ -317,7 +317,7 @@ describe("SmartTerrain class generic logic", () => {
     expect(anotherSmartTerrain.smartTerrainActorControl?.status).toBe(ESmartTerrainStatus.NORMAL);
     expect(anotherSmartTerrain.smartTerrainActorControl?.alarmStartedAt).toBeNull();
     expect(anotherSmartTerrain.isRespawnPoint).toBe(true);
-    expect(anotherSmartTerrain.alreadySpawned).toEqualLuaTables({
+    expect(anotherSmartTerrain.spawnedSquadsList).toEqualLuaTables({
       test_squad_novice: {
         num: 3,
       },
@@ -362,7 +362,7 @@ describe("SmartTerrain class generic logic", () => {
     expect(anotherSmartTerrain.smartTerrainActorControl?.status).toBe(ESmartTerrainStatus.NORMAL);
     expect(anotherSmartTerrain.smartTerrainActorControl?.alarmStartedAt).toBeNull();
     expect(anotherSmartTerrain.isRespawnPoint).toBe(true);
-    expect(anotherSmartTerrain.alreadySpawned).toEqualLuaTables({
+    expect(anotherSmartTerrain.spawnedSquadsList).toEqualLuaTables({
       test_squad_novice: {
         num: 0,
       },

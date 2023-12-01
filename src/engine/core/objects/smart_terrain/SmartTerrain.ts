@@ -46,11 +46,15 @@ import {
   updateSmartTerrainJobs,
 } from "@/engine/core/objects/smart_terrain/job";
 import { isObjectArrivedToSmartTerrain } from "@/engine/core/objects/smart_terrain/object";
-import { ESmartTerrainStatus } from "@/engine/core/objects/smart_terrain/smart_terrain_types";
+import {
+  ESmartTerrainStatus,
+  ISmartTerrainSpawnConfiguration,
+  ISmartTerrainSpawnItemsDescriptor,
+} from "@/engine/core/objects/smart_terrain/smart_terrain_types";
 import { smartTerrainConfig } from "@/engine/core/objects/smart_terrain/SmartTerrainConfig";
 import { SmartTerrainControl } from "@/engine/core/objects/smart_terrain/SmartTerrainControl";
 import {
-  applySmartTerrainRespawnSection,
+  applySmartTerrainRespawnSectionsConfig,
   tryRespawnSmartTerrainSquad,
 } from "@/engine/core/objects/smart_terrain/spawn/smart_terrain_spawn";
 import type { Squad } from "@/engine/core/objects/squad";
@@ -162,21 +166,16 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
 
   public smartTerrainAlifeTask!: ALifeSmartTerrainTask;
 
-  /**
-   * Tree-like representation of available smart terrain jobs.
-   */
+  // Flat representation of available smart terrain jobs.
   public jobs: TSmartTerrainJobsList = new LuaTable();
-  /**
-   * Flat representation of available smart terrain jobs.
-   */
   public jobDeadTimeById: LuaTable<TNumberId, Time> = new LuaTable(); // job id -> time
 
   public simulationProperties!: LuaTable<TName, string>;
   public simulationBoardManager: SimulationBoardManager = SimulationBoardManager.getInstance();
   public mapDisplayManager: MapDisplayManager = MapDisplayManager.getInstance();
 
-  public respawnConfiguration: LuaTable<TSection, { squads: LuaArray<TSection>; num: TConditionList }> = new LuaTable();
-  public alreadySpawned: LuaTable<TSection, { num: TCount }> = new LuaTable();
+  public spawnSquadsConfiguration: LuaTable<TSection, ISmartTerrainSpawnConfiguration> = new LuaTable();
+  public spawnedSquadsList: LuaTable<TSection, ISmartTerrainSpawnItemsDescriptor> = new LuaTable();
 
   public override on_before_register(): void {
     super.on_before_register();
@@ -350,9 +349,9 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
 
     if (this.isRespawnPoint) {
       packet.w_bool(true);
-      packet.w_u8(table.size(this.alreadySpawned));
+      packet.w_u8(table.size(this.spawnedSquadsList));
 
-      for (const [k, v] of this.alreadySpawned) {
+      for (const [k, v] of this.spawnedSquadsList) {
         packet.w_stringZ(k);
         packet.w_u8(v.num);
       }
@@ -443,7 +442,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
         const section: TSection = packet.r_stringZ();
         const num: TCount = packet.r_u8();
 
-        this.alreadySpawned.set(section, { num });
+        this.spawnedSquadsList.set(section, { num });
       }
 
       const exist: boolean = packet.r_bool();
@@ -622,7 +621,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
     }
 
     if (respawnSection) {
-      applySmartTerrainRespawnSection(this, respawnSection);
+      applySmartTerrainRespawnSectionsConfig(this, respawnSection);
     } else {
       this.isRespawnPoint = false;
     }

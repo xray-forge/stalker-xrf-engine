@@ -325,7 +325,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
       if (smartTerrain === null) {
         return;
       } else {
-        smartTerrain.alreadySpawned.get(this.respawnPointSection!).num -= 1;
+        smartTerrain.spawnedSquadsList.get(this.respawnPointSection!).num -= 1;
       }
     }
 

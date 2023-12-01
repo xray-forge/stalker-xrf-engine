@@ -10,29 +10,37 @@ import { TRUE } from "@/engine/lib/constants/words";
 import { LuaArray, Optional, TCount, Time, TSection, TStringId } from "@/engine/lib/types";
 
 /**
- * todo: Description.
+ * Apply respawn configuration for provided smart terrain.
+ *
+ * @param smartTerrain - target smart terrain to set configuration for
+ * @param respawnSection - section in smart terrain ini configuration file to read spawn information from
  */
-export function applySmartTerrainRespawnSection(smartTerrain: SmartTerrain, respawnSection: TSection): void {
+export function applySmartTerrainRespawnSectionsConfig(smartTerrain: SmartTerrain, respawnSection: TSection): void {
   smartTerrain.isRespawnPoint = true;
-  smartTerrain.respawnConfiguration = new LuaTable();
-  smartTerrain.alreadySpawned = new LuaTable();
+  smartTerrain.spawnSquadsConfiguration = new LuaTable();
+  smartTerrain.spawnedSquadsList = new LuaTable();
 
   if (!smartTerrain.ini.section_exist(respawnSection)) {
-    abort("Wrong smart_terrain respawn_params section [%s] (there is no section).", respawnSection);
+    abort("Could not find respawn configuration section '%s' for '%s'.", respawnSection, smartTerrain.name());
   }
 
   const parametersCount: TCount = smartTerrain.ini.line_count(respawnSection);
 
   if (parametersCount === 0) {
-    abort("Wrong smart_terrain respawn_params section [%s](empty params)", respawnSection);
+    abort(
+      "Wrong smart terrain respawn configuration section '%s' - empty for '%s'.",
+      respawnSection,
+      smartTerrain.name()
+    );
   }
 
   for (const it of $range(0, parametersCount - 1)) {
     const [, sectionName] = smartTerrain.ini.r_line(respawnSection, it, "", "");
 
+    // Validate respawn section line.
     if (!smartTerrain.ini.section_exist(sectionName)) {
       abort(
-        "Wrong smart_terrain respawn_params section [%s] prop [%s](there is no section).",
+        "Wrong smart terrain respawn configuration section '%s' line '%s' - there is no such section.",
         respawnSection,
         sectionName
       );
@@ -41,22 +49,23 @@ export function applySmartTerrainRespawnSection(smartTerrain: SmartTerrain, resp
     const squadsCount: Optional<string> = readIniString(smartTerrain.ini, sectionName, "spawn_num", false);
     const squadsToSpawn: Optional<string> = readIniString(smartTerrain.ini, sectionName, "spawn_squads", false);
 
+    // Validate each line to be defined.
     if (squadsToSpawn === null) {
       abort(
-        "Wrong smart_terrain respawn_params section [%s] prop [%s] line [spawn_squads](there is no line)",
+        "Wrong smart terrain respawn configuration section '%s' line 'spawn_squads' in '%s' is not defined.",
         respawnSection,
         sectionName
       );
     } else if (squadsCount === null) {
       abort(
-        "Wrong smart_terrain respawn_params section [%s] prop [%s] line [spawn_num](there is no line)",
+        "Wrong smart terrain respawn configuration section '%s' line 'spawn_num' in '%s' is not defined.",
         respawnSection,
         sectionName
       );
     }
 
-    smartTerrain.alreadySpawned.set(sectionName, { num: 0 });
-    smartTerrain.respawnConfiguration.set(sectionName, {
+    smartTerrain.spawnedSquadsList.set(sectionName, { num: 0 });
+    smartTerrain.spawnSquadsConfiguration.set(sectionName, {
       num: parseConditionsList(squadsCount),
       squads: parseStringsList(squadsToSpawn),
     });
@@ -73,10 +82,10 @@ export function respawnSmartTerrainSquad(smartTerrain: SmartTerrain): void {
   const availableSections: LuaArray<TSection> = new LuaTable();
 
   // Pick section that can be used for spawn and have available spots.
-  for (const [section, descriptor] of smartTerrain.respawnConfiguration) {
+  for (const [section, descriptor] of smartTerrain.spawnSquadsConfiguration) {
     if (
       tonumber(pickSectionFromCondList(registry.actor, null, descriptor.num))! >
-      smartTerrain.alreadySpawned.get(section).num
+      smartTerrain.spawnedSquadsList.get(section).num
     ) {
       table.insert(availableSections, section);
     }
@@ -84,7 +93,7 @@ export function respawnSmartTerrainSquad(smartTerrain: SmartTerrain): void {
 
   if (availableSections.length() > 0) {
     const sectionToSpawn: TSection = availableSections.get(math.random(1, availableSections.length()));
-    const sectionParams = smartTerrain.respawnConfiguration.get(sectionToSpawn);
+    const sectionParams = smartTerrain.spawnSquadsConfiguration.get(sectionToSpawn);
     const squadId: TStringId = sectionParams.squads.get(math.random(1, sectionParams.squads.length()));
     const squad: Squad = smartTerrain.simulationBoardManager.createSquad(smartTerrain, squadId);
 
@@ -97,7 +106,7 @@ export function respawnSmartTerrainSquad(smartTerrain: SmartTerrain): void {
       smartTerrain.simulationBoardManager.setupObjectSquadAndGroup(squadMember.object);
     }
 
-    smartTerrain.alreadySpawned.get(sectionToSpawn).num += 1;
+    smartTerrain.spawnedSquadsList.get(sectionToSpawn).num += 1;
   }
 }
 
