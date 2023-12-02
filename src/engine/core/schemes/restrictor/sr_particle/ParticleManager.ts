@@ -1,17 +1,20 @@
 import { particles_object, patrol, time_global } from "xray16";
 
 import { AbstractSchemeManager } from "@/engine/core/ai/scheme";
-import { ISchemeParticleState } from "@/engine/core/schemes/restrictor/sr_particle/sr_particale_types";
+import {
+  IParticleDescriptor,
+  ISchemeParticleState,
+} from "@/engine/core/schemes/restrictor/sr_particle/sr_particale_types";
 import { parseWaypointsData } from "@/engine/core/utils/ini/ini_parse";
 import { IWaypointData } from "@/engine/core/utils/ini/ini_types";
 import { trySwitchToAnotherSection } from "@/engine/core/utils/scheme/scheme_switch";
-import { LuaArray, Optional, Patrol, TCount, TDuration, TTimestamp } from "@/engine/lib/types";
+import { LuaArray, Optional, ParticlesObject, Patrol, TCount, TDuration, TIndex, TTimestamp } from "@/engine/lib/types";
 
 /**
  * todo;
  */
 export class ParticleManager extends AbstractSchemeManager<ISchemeParticleState> {
-  public particles: LuaTable = new LuaTable();
+  public particles: LuaTable<TIndex, IParticleDescriptor> = new LuaTable();
   public path: Optional<Patrol> = null;
   public lastUpdate: TTimestamp = 0;
   public started: boolean = false;
@@ -25,20 +28,21 @@ export class ParticleManager extends AbstractSchemeManager<ISchemeParticleState>
       const flags: LuaArray<IWaypointData> = parseWaypointsData(this.state.path)!;
       const count: TCount = this.path.count();
 
-      for (const a of $range(1, count)) {
-        let d: TDuration = 0;
+      for (const it of $range(1, count)) {
+        let delay: TDuration = 0;
 
-        if (flags.get(a - 1)["d"]) {
-          d = tonumber(flags.get(a - 1)["d"])!;
-          if (d === null) {
-            d = 0;
+        if (flags.get(it - 1)["d"]) {
+          delay = tonumber(flags.get(it - 1)["d"])!;
+
+          if (delay === null) {
+            delay = 0;
           }
         }
 
-        this.particles.set(a, {
+        this.particles.set(it, {
           particle: new particles_object(this.state.name),
           snd: null,
-          delay: d,
+          delay: delay,
           time: time_global(),
           played: false,
         });
@@ -64,13 +68,13 @@ export class ParticleManager extends AbstractSchemeManager<ISchemeParticleState>
     const size: TCount = this.particles.length();
 
     for (const it of $range(1, size)) {
-      const particle = this.particles.get(it);
+      const particle: IParticleDescriptor = this.particles.get(it);
 
       if (particle.particle.playing() === true) {
         particle.particle.stop();
       }
 
-      particle.particle = null;
+      particle.particle = null as unknown as ParticlesObject;
 
       if (particle.snd !== null && particle.snd.playing() === true) {
         particle.snd.stop();
@@ -129,16 +133,16 @@ export class ParticleManager extends AbstractSchemeManager<ISchemeParticleState>
       return false;
     }
 
-    const size = this.particles.length();
+    const size: TCount = this.particles.length();
 
     if (size === 0) {
       return true;
     }
 
-    for (const a of $range(1, size)) {
-      const particle = this.particles.get(a).particle;
+    for (const it of $range(1, size)) {
+      const particle: ParticlesObject = this.particles.get(it).particle;
 
-      if (particle && particle.playing() === true) {
+      if (particle?.playing()) {
         return false;
       }
     }

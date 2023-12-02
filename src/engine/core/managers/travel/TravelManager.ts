@@ -493,8 +493,8 @@ export class TravelManager extends AbstractManager {
     this.isTravelTeleported = false;
     this.isTraveling = true;
 
-    this.travelActorPath = smartTerrain.travelerActorPath;
-    this.travelSquadPath = smartTerrain.travelerSquadPath;
+    this.travelActorPath = smartTerrain.travelerActorPointName;
+    this.travelSquadPath = smartTerrain.travelerSquadPointName;
     this.travelToSmartId = smartTerrain.id;
     this.travelSquad = squad;
     this.travelDistance = distance;
@@ -528,8 +528,8 @@ export class TravelManager extends AbstractManager {
     this.isTraveling = true;
 
     this.travelDistance = getServerDistanceBetween(squad, smartTerrain);
-    this.travelActorPath = smartTerrain.travelerActorPath;
-    this.travelSquadPath = smartTerrain.travelerSquadPath;
+    this.travelActorPath = smartTerrain.travelerActorPointName;
+    this.travelSquadPath = smartTerrain.travelerSquadPointName;
     this.travelToSmartId = smartTerrain.id;
     this.travelSquad = squad;
     this.travelingStartedAt = time_global();

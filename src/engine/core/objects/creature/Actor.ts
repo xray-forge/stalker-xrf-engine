@@ -98,7 +98,7 @@ export class Actor extends cse_alife_creature_actor implements ISimulationTarget
   /**
    * @returns whether squad completed assigned task to `kill?` actor
    */
-  public isReachedBySquad(): boolean {
+  public isSquadArrived(): boolean {
     return !registry.actor.alive();
   }
 

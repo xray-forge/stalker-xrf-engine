@@ -30,11 +30,16 @@ export function mockSquad({
   simulationProperties = MockLuaTable.mockFromObject<TName, string>({ a: "1", c: "2" }),
   clsid = jest.fn(() => -1 as TClassId),
   isValidSquadTarget = () => true,
+  ...rest
 }: Partial<Squad> = {}): Squad {
   return mockServerAlifeOnlineOfflineGroup({
+    ...rest,
     simulationProperties: simulationProperties,
     clsid,
     isValidSquadTarget: isValidSquadTarget,
+    assignToSmartTerrain: rest.assignToSmartTerrain ?? jest.fn(),
+    isSquadArrived: rest.isSquadArrived ?? jest.fn(),
+    isSimulationAvailable: rest.isSimulationAvailable ?? jest.fn(() => true),
     behaviour,
   } as Partial<ServerGroupObject>) as unknown as Squad;
 }

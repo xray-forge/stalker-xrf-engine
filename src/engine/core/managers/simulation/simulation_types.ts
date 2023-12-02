@@ -109,7 +109,7 @@ export interface ISimulationTarget {
   /**
    * @returns whether object reached by squad
    */
-  isReachedBySquad(squad: Squad): boolean;
+  isSquadArrived(squad: Squad): boolean;
   /**
    * On target started being reached by squad.
    */

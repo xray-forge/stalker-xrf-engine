@@ -71,7 +71,7 @@ export const JobPathTypeByScheme: PartialRecord<EScheme, EJobPathType> = {
  * Descriptor of game object job in smart.
  * Contains information about object job state / progress.
  */
-export interface IObjectJobDescriptor {
+export interface IObjectJobState {
   isMonster: boolean;
   object: ServerCreatureObject;
   desiredJob: TSection; // Section with needed job?
@@ -109,7 +109,7 @@ export interface ISmartTerrainJobDescriptor {
     serverObject: ServerCreatureObject,
     smartTerrain: SmartTerrain,
     preconditionParameters: AnyObject,
-    objectJobDescriptor: IObjectJobDescriptor
+    objectJobDescriptor: IObjectJobState
   ) => boolean;
 }
 
@@ -123,4 +123,4 @@ export type TSmartTerrainJobsList = LuaArray<ISmartTerrainJobDescriptor>;
  * List of object jobs.
  * Use in many places, so alias can be simpler.
  */
-export type TObjectJobsList = LuaArray<IObjectJobDescriptor>;
+export type TObjectJobsList = LuaArray<IObjectJobState>;

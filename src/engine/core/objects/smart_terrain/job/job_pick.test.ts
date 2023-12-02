@@ -1,16 +1,18 @@
-import { beforeAll, describe, expect, it } from "@jest/globals";
+import { beforeAll, describe, expect, it, jest } from "@jest/globals";
 
 import { registerActorServer, registerSimulator } from "@/engine/core/database";
-import type { SmartTerrain } from "@/engine/core/objects/smart_terrain";
+import { EJobPathType, SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import {
   createObjectJobDescriptor,
   EJobType,
-  IObjectJobDescriptor,
+  getSmartTerrainJobByObjectId,
+  getSmartTerrainObjectIdByJobSection,
+  IObjectJobState,
   ISmartTerrainJobDescriptor,
   selectSmartTerrainJob,
 } from "@/engine/core/objects/smart_terrain/job/index";
 import { jobPreconditionCamper, jobPreconditionSniper } from "@/engine/core/objects/smart_terrain/job/job_precondition";
-import { ServerHumanObject, ServerMonsterBaseObject, TNumberId } from "@/engine/lib/types";
+import { AnyObject, ServerHumanObject, ServerMonsterBaseObject, TNumberId } from "@/engine/lib/types";
 import { mockSmartTerrain } from "@/fixtures/engine";
 import { mockServerAlifeCreatureActor, mockServerAlifeHumanStalker, mockServerAlifeMonsterBase } from "@/fixtures/xray";
 
@@ -23,7 +25,7 @@ describe("job_pick utils", () => {
   it("selectSmartTerrainJob should correctly get jobs for stalkers", () => {
     const smartTerrain: SmartTerrain = mockSmartTerrain();
     const object: ServerHumanObject = mockServerAlifeHumanStalker();
-    const job: IObjectJobDescriptor = createObjectJobDescriptor(object);
+    const job: IObjectJobState = createObjectJobDescriptor(object);
 
     const [firstId, firstJob] = selectSmartTerrainJob(smartTerrain, smartTerrain.jobs, job);
 
@@ -113,7 +115,7 @@ describe("job_pick utils", () => {
   it("selectSmartTerrainJob should correctly get jobs for monsters", () => {
     const smartTerrain: SmartTerrain = mockSmartTerrain();
     const object: ServerMonsterBaseObject = mockServerAlifeMonsterBase();
-    const job: IObjectJobDescriptor = createObjectJobDescriptor(object);
+    const job: IObjectJobState = createObjectJobDescriptor(object);
 
     const [firstId, firstJob] = selectSmartTerrainJob(smartTerrain, smartTerrain.jobs, job);
 
@@ -180,5 +182,55 @@ describe("job_pick utils", () => {
       section: "logic@test_smart_home_2",
       type: EJobType.MONSTER_HOME,
     });
+  });
+
+  it("getSmartTerrainJobByObjectId should correctly get job section and job descriptor from smart terrain", () => {
+    const smartTerrain: SmartTerrain = new SmartTerrain("test_smart");
+    const firstStalker: ServerHumanObject = mockServerAlifeHumanStalker();
+    const secondStalker: ServerHumanObject = mockServerAlifeHumanStalker();
+
+    smartTerrain.ini = smartTerrain.spawn_ini();
+    jest.spyOn(smartTerrain, "name").mockImplementation(() => "test_smart");
+
+    (smartTerrain as AnyObject).m_game_vertex_id = 512;
+    (firstStalker as AnyObject).m_game_vertex_id = 512;
+    (secondStalker as AnyObject).m_game_vertex_id = 512;
+
+    smartTerrain.on_register();
+
+    smartTerrain.register_npc(firstStalker);
+    smartTerrain.register_npc(secondStalker);
+
+    expect(getSmartTerrainJobByObjectId(smartTerrain, firstStalker.id)).toEqual({
+      alifeTask: {
+        gameVertexId: 20001,
+        levelVertexId: 20002,
+        taskPosition: {
+          x: 10,
+          y: 20,
+          z: 30,
+        },
+      },
+      gameVertexId: 20001,
+      pathType: EJobPathType.PATH,
+      objectId: firstStalker.id,
+      id: 4,
+      type: EJobType.CAMPER,
+      levelId: 200010,
+      position: {
+        x: 10,
+        y: 20,
+        z: 30,
+      },
+      priority: 45,
+      section: "logic@test_smart_camper_1_walk",
+      preconditionFunction: expect.any(Function),
+      isMonsterJob: false,
+      preconditionParameters: {
+        wayName: "test_smart_camper_1_walk",
+      },
+    });
+
+    expect(getSmartTerrainObjectIdByJobSection(smartTerrain, "logic@test_smart_camper_1_walk")).toBe(firstStalker.id);
   });
 });

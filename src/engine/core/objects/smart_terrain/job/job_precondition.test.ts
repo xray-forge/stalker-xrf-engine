@@ -26,7 +26,7 @@ import {
   jobPreconditionSurge,
   jobPreconditionWalker,
 } from "@/engine/core/objects/smart_terrain/job/job_precondition";
-import { IObjectJobDescriptor } from "@/engine/core/objects/smart_terrain/job/job_types";
+import { IObjectJobState } from "@/engine/core/objects/smart_terrain/job/job_types";
 import { parseConditionsList } from "@/engine/core/utils/ini";
 import { StringBuilder } from "@/engine/core/utils/string";
 import { AnyObject, ServerHumanObject } from "@/engine/lib/types";
@@ -177,29 +177,24 @@ describe("job_precondition utilities", () => {
     const [jobs] = createStalkerGuardJobs(smartTerrain, new LuaTable(), new StringBuilder());
     const parameters: AnyObject = jobs.get(2).preconditionParameters as AnyObject;
 
-    expect(jobPreconditionGuardFollower(stalker, smartTerrain, parameters, {} as IObjectJobDescriptor)).toBe(false);
+    expect(jobPreconditionGuardFollower(stalker, smartTerrain, parameters, {} as IObjectJobState)).toBe(false);
     expect(
       jobPreconditionGuardFollower(stalker, smartTerrain, parameters, {
         desiredJob: "logic@test_smart_guard_1_walk",
-      } as IObjectJobDescriptor)
+      } as IObjectJobState)
     ).toBe(true);
     expect(
-      jobPreconditionGuardFollower(
-        stalker,
-        smartTerrain,
-        { ...parameters, nextDesiredJob: "1" },
-        {} as IObjectJobDescriptor
-      )
+      jobPreconditionGuardFollower(stalker, smartTerrain, { ...parameters, nextDesiredJob: "1" }, {} as IObjectJobState)
     ).toBe(false);
     expect(
       jobPreconditionGuardFollower(stalker, smartTerrain, { ...parameters, nextDesiredJob: "1" }, {
         desiredJob: "2",
-      } as IObjectJobDescriptor)
+      } as IObjectJobState)
     ).toBe(false);
     expect(
       jobPreconditionGuardFollower(stalker, smartTerrain, { ...parameters, nextDesiredJob: "3" }, {
         desiredJob: "3",
-      } as IObjectJobDescriptor)
+      } as IObjectJobState)
     ).toBe(true);
   });
 

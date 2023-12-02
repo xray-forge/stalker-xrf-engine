@@ -1,13 +1,18 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 
 import { registerActorServer, registerSimulator } from "@/engine/core/database";
+import {
+  selectSmartTerrainObjectJob,
+  switchSmartTerrainObjectToDesiredJob,
+  updateSmartTerrainJobs,
+} from "@/engine/core/objects/smart_terrain/job/job_execution";
 import { EJobPathType, EJobType } from "@/engine/core/objects/smart_terrain/job/job_types";
 import { SmartTerrain } from "@/engine/core/objects/smart_terrain/SmartTerrain";
 import { MAX_U16 } from "@/engine/lib/constants/memory";
 import { AnyObject, ServerHumanObject, ServerMonsterBaseObject } from "@/engine/lib/types";
 import { mockServerAlifeCreatureActor, mockServerAlifeHumanStalker, mockServerAlifeMonsterBase } from "@/fixtures/xray";
 
-describe("SmartTerrain class jobs logic", () => {
+describe("job_execution logic", () => {
   beforeEach(() => {
     registerSimulator();
     registerActorServer(mockServerAlifeCreatureActor());
@@ -159,7 +164,7 @@ describe("SmartTerrain class jobs logic", () => {
     // Arrived.
     (firstStalker as AnyObject).m_game_vertex_id = 512;
 
-    smartTerrain.updateJobs();
+    updateSmartTerrainJobs(smartTerrain);
 
     expect(smartTerrain.objectByJobSection.length()).toBe(2);
     expect(smartTerrain.objectJobDescriptors.length()).toBe(2);
@@ -325,10 +330,10 @@ describe("SmartTerrain class jobs logic", () => {
     smartTerrain.register_npc(firstStalker);
     smartTerrain.register_npc(secondStalker);
 
-    smartTerrain.selectObjectJob(smartTerrain.objectJobDescriptors.get(secondStalker.id));
-    smartTerrain.selectObjectJob(smartTerrain.objectJobDescriptors.get(firstStalker.id));
-    smartTerrain.selectObjectJob(smartTerrain.objectJobDescriptors.get(secondStalker.id));
-    smartTerrain.selectObjectJob(smartTerrain.objectJobDescriptors.get(firstStalker.id));
+    selectSmartTerrainObjectJob(smartTerrain, smartTerrain.objectJobDescriptors.get(secondStalker.id));
+    selectSmartTerrainObjectJob(smartTerrain, smartTerrain.objectJobDescriptors.get(firstStalker.id));
+    selectSmartTerrainObjectJob(smartTerrain, smartTerrain.objectJobDescriptors.get(secondStalker.id));
+    selectSmartTerrainObjectJob(smartTerrain, smartTerrain.objectJobDescriptors.get(firstStalker.id));
 
     // Works in determined way, always same even after multiple calls.
 
@@ -417,56 +422,6 @@ describe("SmartTerrain class jobs logic", () => {
     });
   });
 
-  it("should correctly get job section and job descriptor from smart terrain", () => {
-    const smartTerrain: SmartTerrain = new SmartTerrain("test_smart");
-    const firstStalker: ServerHumanObject = mockServerAlifeHumanStalker();
-    const secondStalker: ServerHumanObject = mockServerAlifeHumanStalker();
-
-    smartTerrain.ini = smartTerrain.spawn_ini();
-    jest.spyOn(smartTerrain, "name").mockImplementation(() => "test_smart");
-
-    (smartTerrain as AnyObject).m_game_vertex_id = 512;
-    (firstStalker as AnyObject).m_game_vertex_id = 512;
-    (secondStalker as AnyObject).m_game_vertex_id = 512;
-
-    smartTerrain.on_register();
-
-    smartTerrain.register_npc(firstStalker);
-    smartTerrain.register_npc(secondStalker);
-
-    expect(smartTerrain.getJobByObjectId(firstStalker.id)).toEqual({
-      alifeTask: {
-        gameVertexId: 20001,
-        levelVertexId: 20002,
-        taskPosition: {
-          x: 10,
-          y: 20,
-          z: 30,
-        },
-      },
-      gameVertexId: 20001,
-      pathType: EJobPathType.PATH,
-      objectId: firstStalker.id,
-      id: 4,
-      type: EJobType.CAMPER,
-      levelId: 200010,
-      position: {
-        x: 10,
-        y: 20,
-        z: 30,
-      },
-      priority: 45,
-      section: "logic@test_smart_camper_1_walk",
-      preconditionFunction: expect.any(Function),
-      isMonsterJob: false,
-      preconditionParameters: {
-        wayName: "test_smart_camper_1_walk",
-      },
-    });
-
-    expect(smartTerrain.getObjectIdByJobSection("logic@test_smart_camper_1_walk")).toBe(firstStalker.id);
-  });
-
   it("should correctly switch objects to desired jobs", () => {
     const smartTerrain: SmartTerrain = new SmartTerrain("test_smart");
     const firstStalker: ServerHumanObject = mockServerAlifeHumanStalker();
@@ -490,7 +445,7 @@ describe("SmartTerrain class jobs logic", () => {
     });
 
     smartTerrain.objectJobDescriptors.get(firstStalker.id).desiredJob = "logic@test_smart_sniper_1_walk";
-    smartTerrain.switchObjectToDesiredJob(firstStalker.id);
+    switchSmartTerrainObjectToDesiredJob(smartTerrain, firstStalker.id);
 
     expect(smartTerrain.objectByJobSection).toEqualLuaTables({
       "logic@test_smart_sniper_1_walk": firstStalker.id,
@@ -498,7 +453,7 @@ describe("SmartTerrain class jobs logic", () => {
     });
 
     smartTerrain.objectJobDescriptors.get(firstStalker.id).desiredJob = "logic@test_smart_camper_1_walk";
-    smartTerrain.switchObjectToDesiredJob(firstStalker.id);
+    switchSmartTerrainObjectToDesiredJob(smartTerrain, firstStalker.id);
 
     expect(smartTerrain.objectByJobSection).toEqualLuaTables({
       "logic@test_smart_camper_1_walk": firstStalker.id,
@@ -506,8 +461,8 @@ describe("SmartTerrain class jobs logic", () => {
     });
 
     smartTerrain.objectJobDescriptors.get(firstStalker.id).desiredJob = "logic@test_smart_sniper_1_walk";
-    smartTerrain.switchObjectToDesiredJob(firstStalker.id);
-    smartTerrain.updateJobs();
+    switchSmartTerrainObjectToDesiredJob(smartTerrain, firstStalker.id);
+    updateSmartTerrainJobs(smartTerrain);
 
     expect(smartTerrain.objectByJobSection).toEqualLuaTables({
       "logic@test_smart_sniper_1_walk": firstStalker.id,

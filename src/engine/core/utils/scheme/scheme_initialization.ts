@@ -9,9 +9,11 @@ import {
 } from "@/engine/core/database";
 import { TradeManager } from "@/engine/core/managers/trade/TradeManager";
 import { readObjectTradeIniPath } from "@/engine/core/managers/trade/utils/trade_init";
-import type { SmartTerrain } from "@/engine/core/objects/smart_terrain";
+import type { IObjectJobState, ISmartTerrainJobDescriptor } from "@/engine/core/objects/smart_terrain/job";
+import { getSmartTerrainJobByObjectId } from "@/engine/core/objects/smart_terrain/job/job_pick";
+import type { SmartTerrain } from "@/engine/core/objects/smart_terrain/SmartTerrain";
 import { assert } from "@/engine/core/utils/assertion";
-import { readIniNumber, readIniString } from "@/engine/core/utils/ini";
+import { getSchemeFromSection, readIniNumber, readIniString } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getObjectSmartTerrain } from "@/engine/core/utils/position";
 import { ERelation } from "@/engine/core/utils/relation";
@@ -94,7 +96,7 @@ export function configureObjectSchemes(
         const currentSmart: Optional<SmartTerrain> = getObjectSmartTerrain(object);
 
         if (currentSmart) {
-          state.jobIni = currentSmart.getJobByObjectId(object.id())?.iniPath as Optional<TPath>;
+          state.jobIni = getSmartTerrainJobByObjectId(currentSmart, object.id())?.iniPath as Optional<TPath>;
         }
       }
 
@@ -133,42 +135,6 @@ export function configureObjectSchemes(
   }
 
   return state.ini;
-}
-
-/**
- * @param object - target game object to setup logic
- * @param state - target object registry state
- * @param schemeType - target object active scheme type
- * @param isLoaded - whether object is initialized after game load
- */
-export function setupObjectSmartJobsAndLogicOnSpawn(
-  object: GameObject,
-  state: IRegistryObjectState,
-  schemeType: ESchemeType,
-  isLoaded: boolean
-): void {
-  // logger.info("Setup smart terrain logic on spawn:", object.name(), schemeType);
-
-  const alifeSimulator: Optional<AlifeSimulator> = registry.simulator;
-  const serverObject: Optional<ServerCreatureObject> = registry.simulator!.object(object.id());
-
-  if (
-    alifeSimulator === null ||
-    serverObject === null ||
-    serverObject.m_smart_terrain_id === null ||
-    serverObject.m_smart_terrain_id === MAX_U16
-  ) {
-    return initializeObjectSchemeLogic(object, state, isLoaded, schemeType);
-  }
-
-  const smartTerrain: SmartTerrain = alifeSimulator.object(serverObject.m_smart_terrain_id) as SmartTerrain;
-  const needSetupLogic: boolean = !isLoaded && smartTerrain.objectJobDescriptors.get(object.id())?.isBegun === true;
-
-  if (needSetupLogic) {
-    smartTerrain.setupObjectJobLogic(object);
-  } else {
-    initializeObjectSchemeLogic(object, state, isLoaded, schemeType);
-  }
 }
 
 /**
@@ -246,6 +212,42 @@ export function initializeObjectSchemeLogic(
 }
 
 /**
+ * @param object - target game object to setup logic
+ * @param state - target object registry state
+ * @param schemeType - target object active scheme type
+ * @param isLoaded - whether object is initialized after game load
+ */
+export function setupObjectSmartJobsAndLogicOnSpawn(
+  object: GameObject,
+  state: IRegistryObjectState,
+  schemeType: ESchemeType,
+  isLoaded: boolean
+): void {
+  // logger.info("Setup smart terrain logic on spawn:", object.name(), schemeType);
+
+  const alifeSimulator: Optional<AlifeSimulator> = registry.simulator;
+  const serverObject: Optional<ServerCreatureObject> = registry.simulator!.object(object.id());
+
+  if (
+    alifeSimulator === null ||
+    serverObject === null ||
+    serverObject.m_smart_terrain_id === null ||
+    serverObject.m_smart_terrain_id === MAX_U16
+  ) {
+    return initializeObjectSchemeLogic(object, state, isLoaded, schemeType);
+  }
+
+  const smartTerrain: SmartTerrain = alifeSimulator.object(serverObject.m_smart_terrain_id) as SmartTerrain;
+  const needSetupLogic: boolean = !isLoaded && smartTerrain.objectJobDescriptors.get(object.id())?.isBegun === true;
+
+  if (needSetupLogic) {
+    setupSmartTerrainObjectJobLogic(smartTerrain, object);
+  } else {
+    initializeObjectSchemeLogic(object, state, isLoaded, schemeType);
+  }
+}
+
+/**
  * Spawn object items on logics section change for an object.
  * Allows giving items to objects on specific logics activation.
  *
@@ -276,4 +278,34 @@ export function initializeObjectSectionItems(object: GameObject, state: IRegistr
       spawnItemsForObject(object, id, count);
     }
   }
+}
+
+/**
+ * Initialize and setup object job logics in smart terrain based on currently active job.
+ * If object job descriptor is updated and linked, logics schemas will be activated as needed.
+ *
+ * @param smartTerrain - target smart terrain to setup logic in
+ * @param object - target game object to setup logics
+ */
+export function setupSmartTerrainObjectJobLogic(smartTerrain: SmartTerrain, object: GameObject): void {
+  // logger.info("Setup logic:", this.name(), object.name());
+
+  const objectJobDescriptor: IObjectJobState = smartTerrain.objectJobDescriptors.get(object.id());
+  const job: ISmartTerrainJobDescriptor = smartTerrain.jobs.get(objectJobDescriptor.jobId);
+  const ltx: IniFile = job.iniFile || smartTerrain.jobsConfig;
+  const ltxName: TName = job.iniPath || smartTerrain.jobsConfigName;
+
+  configureObjectSchemes(object, ltx, ltxName, objectJobDescriptor.schemeType, job.section, smartTerrain.name());
+
+  const section: TSection = getSectionToActivate(object, ltx, job.section);
+
+  assert(
+    getSchemeFromSection(section),
+    "Smart terrain '%s' setup logics for '%s' section '%s', don't use section 'null'.",
+    smartTerrain.name(),
+    object.name(),
+    section
+  );
+
+  activateSchemeBySection(object, ltx, section, smartTerrain.name(), false);
 }

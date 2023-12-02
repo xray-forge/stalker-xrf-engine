@@ -1,4 +1,4 @@
-import { IObjectJobDescriptor } from "@/engine/core/objects/smart_terrain/job/job_types";
+import { IObjectJobState } from "@/engine/core/objects/smart_terrain/job/job_types";
 import { isStalker } from "@/engine/core/utils/class_ids";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { NIL } from "@/engine/lib/constants/words";
@@ -13,7 +13,7 @@ const logger: LuaLogger = new LuaLogger($filename);
  * @param object - server creature object to create job descriptor for
  * @returns descriptor object for provided server creature object
  */
-export function createObjectJobDescriptor(object: ServerCreatureObject): IObjectJobDescriptor {
+export function createObjectJobDescriptor(object: ServerCreatureObject): IObjectJobState {
   const isObjectStalker: boolean = isStalker(object);
 
   return {

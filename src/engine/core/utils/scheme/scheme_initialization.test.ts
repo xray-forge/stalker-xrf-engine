@@ -11,6 +11,7 @@ import {
   registry,
 } from "@/engine/core/database";
 import { ISmartTerrainJobDescriptor, SmartTerrain } from "@/engine/core/objects/smart_terrain";
+import { getSmartTerrainJobByObjectId } from "@/engine/core/objects/smart_terrain/job";
 import { SchemeMobCombat } from "@/engine/core/schemes/monster/mob_combat";
 import { SchemeHear } from "@/engine/core/schemes/shared/hear";
 import { SchemeAbuse } from "@/engine/core/schemes/stalker/abuse";
@@ -33,8 +34,12 @@ import {
 import { loadSchemeImplementations } from "@/engine/core/utils/scheme/scheme_setup";
 import { AnyObject, EGameObjectRelation, EScheme, ESchemeType, GameObject, IniFile } from "@/engine/lib/types";
 import { resetRegistry } from "@/fixtures/engine";
-import { resetFunctionMock } from "@/fixtures/jest";
+import { replaceFunctionMock, resetFunctionMock } from "@/fixtures/jest";
 import { FILES_MOCKS, MockGameObject, mockIniFile, mockServerAlifeHumanStalker } from "@/fixtures/xray";
+
+jest.mock("@/engine/core/objects/smart_terrain/job/job_pick", () => ({
+  getSmartTerrainJobByObjectId: jest.fn(),
+}));
 
 describe("scheme initialization utils", () => {
   beforeEach(() => {
@@ -144,9 +149,10 @@ describe("scheme initialization utils", () => {
       jest.spyOn(it, "reset").mockImplementation(() => {});
     });
 
-    jest
-      .spyOn(smartTerrain, "getJobByObjectId")
-      .mockImplementation(() => ({ iniPath: "job_test.ltx" }) as ISmartTerrainJobDescriptor);
+    replaceFunctionMock(
+      getSmartTerrainJobByObjectId,
+      () => ({ iniPath: "job_test.ltx" }) as ISmartTerrainJobDescriptor
+    );
 
     resetFunctionMock(registry.simulator.create);
 
@@ -324,4 +330,6 @@ describe("scheme initialization utils", () => {
   });
 
   it.todo("setupObjectSmartJobsAndLogicOnSpawn should correctly setup jobs and logics");
+
+  it.todo("setupSmartTerrainObjectJobLogic should correctly setup jobs and logics");
 });

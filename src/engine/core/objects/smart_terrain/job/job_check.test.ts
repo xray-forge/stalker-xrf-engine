@@ -4,17 +4,17 @@ import { game } from "xray16";
 import { SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import { areNoStalkersWorkingOnJobs, isJobAvailableToObject } from "@/engine/core/objects/smart_terrain/job/job_check";
 import { createObjectJobDescriptor } from "@/engine/core/objects/smart_terrain/job/job_create";
-import { IObjectJobDescriptor, ISmartTerrainJobDescriptor } from "@/engine/core/objects/smart_terrain/job/job_types";
+import { IObjectJobState, ISmartTerrainJobDescriptor } from "@/engine/core/objects/smart_terrain/job/job_types";
 import { AnyObject, ServerCreatureObject, ServerMonsterBaseObject } from "@/engine/lib/types";
 import { mockSmartTerrain } from "@/fixtures/engine";
 import { mockServerAlifeHumanStalker, mockServerAlifeMonsterBase } from "@/fixtures/xray";
 
 describe("job_check utils", () => {
   it("areNoStalkersWorkingOnJobs should correctly check whether no stalkers are working", () => {
-    expect(areNoStalkersWorkingOnJobs($fromArray<IObjectJobDescriptor>([]))).toBe(true);
+    expect(areNoStalkersWorkingOnJobs($fromArray<IObjectJobState>([]))).toBe(true);
     expect(
       areNoStalkersWorkingOnJobs(
-        $fromArray<IObjectJobDescriptor>([
+        $fromArray<IObjectJobState>([
           createObjectJobDescriptor(mockServerAlifeMonsterBase()),
           createObjectJobDescriptor(mockServerAlifeMonsterBase()),
         ])
@@ -22,7 +22,7 @@ describe("job_check utils", () => {
     ).toBe(true);
     expect(
       areNoStalkersWorkingOnJobs(
-        $fromArray<IObjectJobDescriptor>([
+        $fromArray<IObjectJobState>([
           createObjectJobDescriptor(mockServerAlifeMonsterBase()),
           createObjectJobDescriptor(mockServerAlifeHumanStalker()),
         ])
@@ -30,7 +30,7 @@ describe("job_check utils", () => {
     ).toBe(false);
     expect(
       areNoStalkersWorkingOnJobs(
-        $fromArray<IObjectJobDescriptor>([
+        $fromArray<IObjectJobState>([
           createObjectJobDescriptor(mockServerAlifeHumanStalker()),
           createObjectJobDescriptor(mockServerAlifeHumanStalker()),
         ])
@@ -115,7 +115,7 @@ describe("job_check utils", () => {
   it("isJobAvailableToObject should correctly check job accessibility with precondition call", () => {
     const smartTerrain: SmartTerrain = mockSmartTerrain();
     const monster: ServerMonsterBaseObject = mockServerAlifeMonsterBase();
-    const job: IObjectJobDescriptor = createObjectJobDescriptor(monster);
+    const job: IObjectJobState = createObjectJobDescriptor(monster);
 
     expect(
       isJobAvailableToObject(
@@ -146,7 +146,7 @@ describe("job_check utils", () => {
             serverObject: ServerCreatureObject,
             smartTerrainParameter: SmartTerrain,
             preconditionParameters: AnyObject,
-            objectJobDescriptor: IObjectJobDescriptor
+            objectJobDescriptor: IObjectJobState
           ) =>
             serverObject === monster &&
             smartTerrainParameter === smartTerrain &&
@@ -167,7 +167,7 @@ describe("job_check utils", () => {
             serverObject: ServerCreatureObject,
             smartTerrainParameter: SmartTerrain,
             preconditionParameters: AnyObject,
-            objectJobDescriptor: IObjectJobDescriptor
+            objectJobDescriptor: IObjectJobState
           ) =>
             serverObject === monster &&
             smartTerrainParameter === smartTerrain &&

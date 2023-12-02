@@ -1,6 +1,6 @@
 import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { surgeConfig } from "@/engine/core/managers/surge/SurgeConfig";
-import type { IObjectJobDescriptor, SmartTerrain } from "@/engine/core/objects/smart_terrain";
+import type { IObjectJobState, SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini";
 import { isPatrolInRestrictor } from "@/engine/core/utils/patrol";
 import { isInTimeInterval } from "@/engine/core/utils/time";
@@ -87,9 +87,9 @@ export function jobPreconditionGuardFollower(
   object: ServerCreatureObject,
   smartTerrain: SmartTerrain,
   parameters: AnyObject,
-  objectInfo: IObjectJobDescriptor
+  objectJobState: IObjectJobState
 ): boolean {
-  return objectInfo.desiredJob === parameters.nextDesiredJob;
+  return objectJobState.desiredJob === parameters.nextDesiredJob;
 }
 
 /**

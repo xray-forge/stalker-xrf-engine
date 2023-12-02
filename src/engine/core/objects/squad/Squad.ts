@@ -280,7 +280,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
 
     this.currentTargetId = currentTargetId === NIL ? null : (tonumber(currentTargetId) as TNumberId);
 
-    const respawnPointId = packet.r_stringZ();
+    const respawnPointId: StringOptional = packet.r_stringZ();
 
     this.respawnPointId = respawnPointId === NIL ? null : (tonumber(respawnPointId) as TNumberId);
     this.respawnPointSection = packet.r_stringZ();
@@ -320,12 +320,12 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
 
     // todo: Method for smart terrain onSpawnedSquadKilled.
     if (this.respawnPointId !== null) {
-      const smartTerrain: Optional<SmartTerrain> = registry.simulator.object(this.respawnPointId)!;
+      const smartTerrain: Optional<SmartTerrain> = registry.simulator.object(
+        this.respawnPointId
+      ) as Optional<SmartTerrain>;
 
-      if (smartTerrain === null) {
-        return;
-      } else {
-        smartTerrain.alreadySpawned.get(this.respawnPointSection!).num -= 1;
+      if (smartTerrain) {
+        smartTerrain.spawnedSquadsList.get(this.respawnPointSection!).num -= 1;
       }
     }
 
@@ -485,7 +485,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
     );
 
     if (this.currentTargetId === null) {
-      if (squadTarget === null || squadTarget.isReachedBySquad(this)) {
+      if (squadTarget === null || squadTarget.isSquadArrived(this)) {
         if (squadTarget !== null) {
           squadTarget.onStartedBeingReachedBySquad(this);
           // todo: Probably should be revisited.
@@ -893,7 +893,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
   /**
    * @returns whether squad targeting another squad can be finished since one is eliminated
    */
-  public isReachedBySquad(squad: Squad): boolean {
+  public isSquadArrived(squad: Squad): boolean {
     return this.npc_count() === 0;
   }
 

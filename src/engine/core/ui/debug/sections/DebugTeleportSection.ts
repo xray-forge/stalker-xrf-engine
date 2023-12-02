@@ -2,7 +2,7 @@ import { CUI3tButton, CUIComboBox, CUIListBox, CUIWindow, game, level, LuabindCl
 
 import { registry } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
-import { SmartTerrain } from "@/engine/core/objects/smart_terrain";
+import { getSmartTerrainNameCaption, SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import { AbstractDebugSection } from "@/engine/core/ui/debug/sections/AbstractDebugSection";
 import { DebugTeleportListEntry } from "@/engine/core/ui/debug/sections/DebugTeleportListEntry";
 import { executeConsoleCommand } from "@/engine/core/utils/console";
@@ -107,7 +107,7 @@ export class DebugTeleportSection extends AbstractDebugSection {
       smartTerrain.name(),
       string.format(
         "%s - %s",
-        game.translate_string(smartTerrain.getNameCaption()),
+        game.translate_string(getSmartTerrainNameCaption(smartTerrain)),
         vectorToString(smartTerrain.position)
       ),
       smartTerrain.position,

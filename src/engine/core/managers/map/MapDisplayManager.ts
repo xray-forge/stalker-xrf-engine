@@ -8,6 +8,7 @@ import { mapDisplayConfig } from "@/engine/core/managers/map/MapDisplayConfig";
 import { treasureConfig } from "@/engine/core/managers/treasures/TreasureConfig";
 import { ETreasureType, ITreasureDescriptor } from "@/engine/core/managers/treasures/treasures_types";
 import type { SmartTerrain } from "@/engine/core/objects/smart_terrain";
+import { getSmartTerrainMapDisplayHint } from "@/engine/core/objects/smart_terrain/utils";
 import type { Squad } from "@/engine/core/objects/squad";
 import { getAnomalyArtefacts } from "@/engine/core/utils/anomaly";
 import { hasInfoPortion } from "@/engine/core/utils/info_portion";
@@ -314,7 +315,7 @@ export class MapDisplayManager extends AbstractManager {
       );
 
       if (smartTerrain.smartTerrainDisplayedMapSpot === spot) {
-        level.map_change_spot_hint(smartTerrain.id, previousSelector, smartTerrain.getMapDisplayHint());
+        level.map_change_spot_hint(smartTerrain.id, previousSelector, getSmartTerrainMapDisplayHint(smartTerrain));
 
         return;
       }
@@ -328,7 +329,7 @@ export class MapDisplayManager extends AbstractManager {
       if (spot !== null) {
         const nextSelector: TName = string.format("alife_presentation_smart_%s_%s", smartTerrain.simulationRole, spot);
 
-        level.map_add_object_spot(smartTerrain.id, nextSelector, smartTerrain.getMapDisplayHint());
+        level.map_add_object_spot(smartTerrain.id, nextSelector, getSmartTerrainMapDisplayHint(smartTerrain));
       }
 
       smartTerrain.smartTerrainDisplayedMapSpot = spot;
