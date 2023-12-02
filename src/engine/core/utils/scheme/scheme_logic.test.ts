@@ -52,7 +52,7 @@ import { replaceFunctionMock } from "@/fixtures/jest";
 import { MockAlifeSimulator, MockGameObject, mockIniFile, mockServerAlifeHumanStalker } from "@/fixtures/xray";
 import { MockCTime } from "@/fixtures/xray/mocks/CTime.mock";
 
-jest.mock("@/engine/core/objects/smart_terrain/job", () => ({
+jest.mock("@/engine/core/objects/smart_terrain/job/job_pick", () => ({
   getSmartTerrainJobByObjectId: jest.fn(),
 }));
 
