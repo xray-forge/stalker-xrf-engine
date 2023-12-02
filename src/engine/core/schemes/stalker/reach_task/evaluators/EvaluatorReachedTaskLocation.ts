@@ -31,6 +31,6 @@ export class EvaluatorReachedTaskLocation extends property_evaluator {
 
     const simulationTarget: Optional<TSimulationObject> = registry.simulator.object(squad.assignedTargetId!);
 
-    return simulationTarget !== null && !simulationTarget.isReachedBySquad(squad);
+    return simulationTarget !== null && !simulationTarget.isSquadArrived(squad);
   }
 }

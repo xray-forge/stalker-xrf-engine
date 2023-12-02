@@ -65,7 +65,7 @@ export class SquadReachTargetAction implements ISquadAction {
     /**
      * Check whether reached and notify end target.
      */
-    if (squadTarget.isReachedBySquad(this.squad)) {
+    if (squadTarget.isSquadArrived(this.squad)) {
       squadTarget.onEndedBeingReachedBySquad(this.squad);
 
       return true;

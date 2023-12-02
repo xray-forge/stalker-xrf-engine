@@ -38,6 +38,8 @@ export function mockSquad({
     clsid,
     isValidSquadTarget: isValidSquadTarget,
     assignToSmartTerrain: rest.assignToSmartTerrain ?? jest.fn(),
+    isSquadArrived: rest.isSquadArrived ?? jest.fn(),
+    isSimulationAvailable: rest.isSimulationAvailable ?? jest.fn(() => true),
     behaviour,
   } as Partial<ServerGroupObject>) as unknown as Squad;
 }

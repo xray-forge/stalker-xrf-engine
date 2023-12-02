@@ -1,53 +1,69 @@
-import { game_graph } from "xray16";
+import { CGameGraph, game_graph } from "xray16";
 
 import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { TSimulationObject } from "@/engine/core/managers/simulation";
 import type { SmartTerrain } from "@/engine/core/objects/smart_terrain/SmartTerrain";
 import { ESquadActionType, Squad } from "@/engine/core/objects/squad";
+import { abort } from "@/engine/core/utils/assertion";
 import { GameGraphVertex, GameObject, Optional, ServerCreatureObject, Vector } from "@/engine/lib/types";
 
 /**
+ * @param object - server object to check
+ * @param smartTerrain - target smart terrain to check reached state
  * @returns whether object has arrived to the smart terrain
  */
 export function isObjectArrivedToSmartTerrain(object: ServerCreatureObject, smartTerrain: SmartTerrain): boolean {
+  // Do squad based checks for object if possible.
+  // todo: Check max u16 instead?
+  const squad: Optional<Squad> =
+    object.group_id === null ? null : smartTerrain.simulationBoardManager.getSquads().get(object.group_id);
+
+  if (squad) {
+    return isSquadArrivedToSmartTerrain(squad);
+  }
+
+  const graph: CGameGraph = game_graph();
+  const smartTerrainGameVertex: GameGraphVertex = graph.vertex(smartTerrain.m_game_vertex_id);
   const state: Optional<IRegistryObjectState> = registry.objects.get(object.id) as Optional<IRegistryObjectState>;
 
   let objectGameVertex: GameGraphVertex;
   let objectPosition: Vector;
 
+  // Check more detailed online object position if possible.
   if (state) {
-    const it: GameObject = registry.objects.get(object.id).object!;
+    const gameObject: GameObject = state.object!;
 
-    objectGameVertex = game_graph().vertex(it.game_vertex_id());
-    objectPosition = it.position();
+    objectGameVertex = graph.vertex(gameObject.game_vertex_id());
+    objectPosition = gameObject.position();
   } else {
-    objectGameVertex = game_graph().vertex(object.m_game_vertex_id);
+    objectGameVertex = graph.vertex(object.m_game_vertex_id);
     objectPosition = object.position;
-  }
-
-  const smartTerrainGameVertex: GameGraphVertex = game_graph().vertex(smartTerrain.m_game_vertex_id);
-
-  // todo: Check max u16 instead?
-  if (object.group_id !== null) {
-    const squad: Squad = smartTerrain.simulationBoardManager.getSquads().get(object.group_id);
-
-    if (squad !== null && squad.currentAction) {
-      if (squad.currentAction.type === ESquadActionType.REACH_TARGET) {
-        const squadTarget: Optional<TSimulationObject> = registry.simulationObjects.get(squad.assignedTargetId!);
-
-        if (squadTarget !== null) {
-          return squadTarget.isReachedBySquad(squad);
-        } else {
-          return registry.simulator.object<SmartTerrain>(squad.assignedTargetId!)!.isReachedBySquad(squad);
-        }
-      } else if (squad.currentAction.type === ESquadActionType.STAY_ON_TARGET) {
-        return true;
-      }
-    }
   }
 
   return (
     objectGameVertex.level_id() === smartTerrainGameVertex.level_id() &&
-    objectPosition.distance_to_sqr(smartTerrain.position) <= 10000
+    objectPosition.distance_to_sqr(smartTerrain.position) <= 10_000 // 100 * 100
   );
+}
+
+/**
+ * @param squad - squad object to check
+ * @returns whether object has arrived to the smart terrain
+ */
+export function isSquadArrivedToSmartTerrain(squad: Squad): boolean {
+  switch (squad.currentAction?.type) {
+    case ESquadActionType.REACH_TARGET: {
+      const squadTarget: TSimulationObject =
+        registry.simulationObjects.get(squad.assignedTargetId!) ??
+        registry.simulator.object<SmartTerrain>(squad.assignedTargetId!)!;
+
+      return squadTarget.isSquadArrived(squad);
+    }
+
+    case ESquadActionType.STAY_ON_TARGET:
+      return true;
+
+    default:
+      abort("Unexpected squad action received: '%s'.", squad.currentAction?.type);
+  }
 }

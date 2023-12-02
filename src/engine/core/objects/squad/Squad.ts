@@ -485,7 +485,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
     );
 
     if (this.currentTargetId === null) {
-      if (squadTarget === null || squadTarget.isReachedBySquad(this)) {
+      if (squadTarget === null || squadTarget.isSquadArrived(this)) {
         if (squadTarget !== null) {
           squadTarget.onStartedBeingReachedBySquad(this);
           // todo: Probably should be revisited.
@@ -893,7 +893,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
   /**
    * @returns whether squad targeting another squad can be finished since one is eliminated
    */
-  public isReachedBySquad(squad: Squad): boolean {
+  public isSquadArrived(squad: Squad): boolean {
     return this.npc_count() === 0;
   }
 

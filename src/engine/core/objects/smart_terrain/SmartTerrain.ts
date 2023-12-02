@@ -778,7 +778,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
   /**
    * todo: Description.
    */
-  public isReachedBySquad(squad: Squad): boolean {
+  public isSquadArrived(squad: Squad): boolean {
     if (!areObjectsOnSameLevel(squad, this)) {
       return false;
     }
