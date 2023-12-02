@@ -1,7 +1,7 @@
 import { SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import { isJobAvailableToObject } from "@/engine/core/objects/smart_terrain/job/job_check";
 import {
-  IObjectJobDescriptor,
+  IObjectJobState,
   ISmartTerrainJobDescriptor,
   TSmartTerrainJobsList,
 } from "@/engine/core/objects/smart_terrain/job/job_types";
@@ -21,7 +21,7 @@ const logger: LuaLogger = new LuaLogger($filename);
 export function selectSmartTerrainJob(
   smartTerrain: SmartTerrain,
   jobs: TSmartTerrainJobsList,
-  objectJobDescriptor: IObjectJobDescriptor
+  objectJobDescriptor: IObjectJobState
 ): LuaMultiReturn<[Optional<TNumberId>, Optional<ISmartTerrainJobDescriptor>]> {
   for (const [, it] of jobs) {
     // Verify if job is accessible by object and meets conditions.

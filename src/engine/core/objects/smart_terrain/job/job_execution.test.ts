@@ -2,10 +2,10 @@ import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 
 import { registerActorServer, registerSimulator } from "@/engine/core/database";
 import {
-  getObjectIdByJobSection,
   getSmartTerrainJobByObjectId,
-  selectObjectSmartTerrainJob,
-  switchObjectToDesiredJob,
+  getSmartTerrainObjectIdByJobSection,
+  selectSmartTerrainObjectJob,
+  switchSmartTerrainObjectToDesiredJob,
   updateSmartTerrainJobs,
 } from "@/engine/core/objects/smart_terrain/job/job_execution";
 import { EJobPathType, EJobType } from "@/engine/core/objects/smart_terrain/job/job_types";
@@ -332,10 +332,10 @@ describe("job_execution logic", () => {
     smartTerrain.register_npc(firstStalker);
     smartTerrain.register_npc(secondStalker);
 
-    selectObjectSmartTerrainJob(smartTerrain, smartTerrain.objectJobDescriptors.get(secondStalker.id));
-    selectObjectSmartTerrainJob(smartTerrain, smartTerrain.objectJobDescriptors.get(firstStalker.id));
-    selectObjectSmartTerrainJob(smartTerrain, smartTerrain.objectJobDescriptors.get(secondStalker.id));
-    selectObjectSmartTerrainJob(smartTerrain, smartTerrain.objectJobDescriptors.get(firstStalker.id));
+    selectSmartTerrainObjectJob(smartTerrain, smartTerrain.objectJobDescriptors.get(secondStalker.id));
+    selectSmartTerrainObjectJob(smartTerrain, smartTerrain.objectJobDescriptors.get(firstStalker.id));
+    selectSmartTerrainObjectJob(smartTerrain, smartTerrain.objectJobDescriptors.get(secondStalker.id));
+    selectSmartTerrainObjectJob(smartTerrain, smartTerrain.objectJobDescriptors.get(firstStalker.id));
 
     // Works in determined way, always same even after multiple calls.
 
@@ -471,7 +471,7 @@ describe("job_execution logic", () => {
       },
     });
 
-    expect(getObjectIdByJobSection(smartTerrain, "logic@test_smart_camper_1_walk")).toBe(firstStalker.id);
+    expect(getSmartTerrainObjectIdByJobSection(smartTerrain, "logic@test_smart_camper_1_walk")).toBe(firstStalker.id);
   });
 
   it("should correctly switch objects to desired jobs", () => {
@@ -497,7 +497,7 @@ describe("job_execution logic", () => {
     });
 
     smartTerrain.objectJobDescriptors.get(firstStalker.id).desiredJob = "logic@test_smart_sniper_1_walk";
-    switchObjectToDesiredJob(smartTerrain, firstStalker.id);
+    switchSmartTerrainObjectToDesiredJob(smartTerrain, firstStalker.id);
 
     expect(smartTerrain.objectByJobSection).toEqualLuaTables({
       "logic@test_smart_sniper_1_walk": firstStalker.id,
@@ -505,7 +505,7 @@ describe("job_execution logic", () => {
     });
 
     smartTerrain.objectJobDescriptors.get(firstStalker.id).desiredJob = "logic@test_smart_camper_1_walk";
-    switchObjectToDesiredJob(smartTerrain, firstStalker.id);
+    switchSmartTerrainObjectToDesiredJob(smartTerrain, firstStalker.id);
 
     expect(smartTerrain.objectByJobSection).toEqualLuaTables({
       "logic@test_smart_camper_1_walk": firstStalker.id,
@@ -513,7 +513,7 @@ describe("job_execution logic", () => {
     });
 
     smartTerrain.objectJobDescriptors.get(firstStalker.id).desiredJob = "logic@test_smart_sniper_1_walk";
-    switchObjectToDesiredJob(smartTerrain, firstStalker.id);
+    switchSmartTerrainObjectToDesiredJob(smartTerrain, firstStalker.id);
     updateSmartTerrainJobs(smartTerrain);
 
     expect(smartTerrain.objectByJobSection).toEqualLuaTables({

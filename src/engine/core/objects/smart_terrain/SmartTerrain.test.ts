@@ -5,7 +5,7 @@ import { registerActorServer, registerSimulator, registry } from "@/engine/core/
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { ESimulationTerrainRole } from "@/engine/core/managers/simulation";
 import { Actor } from "@/engine/core/objects/creature";
-import { IObjectJobDescriptor, SmartTerrain, SmartTerrainControl } from "@/engine/core/objects/smart_terrain/index";
+import { IObjectJobState, SmartTerrain, SmartTerrainControl } from "@/engine/core/objects/smart_terrain/index";
 import { createObjectJobDescriptor } from "@/engine/core/objects/smart_terrain/job/job_create";
 import { ESmartTerrainStatus } from "@/engine/core/objects/smart_terrain/smart_terrain_types";
 import { parseConditionsList } from "@/engine/core/utils/ini";
@@ -60,8 +60,8 @@ describe("SmartTerrain class generic logic", () => {
     expect(smartTerrain.nextCheckAt).toBe(0);
     expect(smartTerrain.lastRespawnUpdatedAt).toBeNull();
 
-    expect(smartTerrain.travelerActorPath).toBe("");
-    expect(smartTerrain.travelerSquadPath).toBe("");
+    expect(smartTerrain.travelerActorPointName).toBe("");
+    expect(smartTerrain.travelerSquadPointName).toBe("");
 
     expect(smartTerrain.defendRestrictor).toBeNull();
     expect(smartTerrain.attackRestrictor).toBeNull();
@@ -124,7 +124,6 @@ describe("SmartTerrain class generic logic", () => {
         },
       });
     });
-    jest.spyOn(smartTerrain, "registerDelayedObjects");
 
     smartTerrain.ini = smartTerrain.spawn_ini();
 
@@ -142,7 +141,6 @@ describe("SmartTerrain class generic logic", () => {
     expect(smartTerrain.isRegistered).toBe(true);
     expect(smartTerrain.isOnLevel).toBe(true);
     expect(smartTerrain.jobs).toBeDefined();
-    expect(smartTerrain.registerDelayedObjects).toHaveBeenCalledTimes(1);
     expect(smartTerrain.nextCheckAt).toBe(4000);
   });
 
@@ -173,7 +171,7 @@ describe("SmartTerrain class generic logic", () => {
     const firstArriving: ServerHumanObject = mockServerAlifeHumanStalker();
     const secondArriving: ServerHumanObject = mockServerAlifeHumanStalker();
     const thirdWithJob: ServerHumanObject = mockServerAlifeHumanStalker();
-    const thirdJob: IObjectJobDescriptor = createObjectJobDescriptor(thirdWithJob);
+    const thirdJob: IObjectJobState = createObjectJobDescriptor(thirdWithJob);
 
     smartTerrain.arrivingObjects.set(firstArriving.id, firstArriving);
     smartTerrain.arrivingObjects.set(secondArriving.id, secondArriving);

@@ -1,6 +1,6 @@
 import type { SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import type {
-  IObjectJobDescriptor,
+  IObjectJobState,
   ISmartTerrainJobDescriptor,
   TObjectJobsList,
 } from "@/engine/core/objects/smart_terrain/job/job_types";
@@ -16,7 +16,7 @@ import { AnyObject, TNumberId } from "@/engine/lib/types";
  * @returns whether job is available for object
  */
 export function isJobAvailableToObject(
-  objectJob: IObjectJobDescriptor,
+  objectJob: IObjectJobState,
   smartTerrainJob: ISmartTerrainJobDescriptor,
   smartTerrain: SmartTerrain
 ): boolean {

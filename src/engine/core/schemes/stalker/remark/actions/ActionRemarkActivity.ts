@@ -4,7 +4,7 @@ import { EStalkerState, ILookTargetDescriptor, IStateManagerCallbackDescriptor }
 import { getObjectIdByStoryId, registry, setStalkerState } from "@/engine/core/database";
 import { SimulationBoardManager } from "@/engine/core/managers/simulation/SimulationBoardManager";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
-import { getObjectIdByJobSection } from "@/engine/core/objects/smart_terrain/job";
+import { getSmartTerrainObjectIdByJobSection } from "@/engine/core/objects/smart_terrain/job";
 import { SmartTerrain } from "@/engine/core/objects/smart_terrain/SmartTerrain";
 import { ISchemeRemarkState } from "@/engine/core/schemes/stalker/remark";
 import { abort } from "@/engine/core/utils/assertion";
@@ -263,7 +263,7 @@ export function initTarget(
     const [job, smartTerrainName] = parseTarget(target);
     const smartTerrain: SmartTerrain = SimulationBoardManager.getInstance().getSmartTerrainByName(smartTerrainName!)!;
 
-    targetId = getObjectIdByJobSection(smartTerrain, job as TStringId);
+    targetId = getSmartTerrainObjectIdByJobSection(smartTerrain, job as TStringId);
     isTargetInitialized = targetId !== null;
   } else {
     instruction(object, targetString);

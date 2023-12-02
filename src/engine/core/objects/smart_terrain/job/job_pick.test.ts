@@ -5,7 +5,7 @@ import type { SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import {
   createObjectJobDescriptor,
   EJobType,
-  IObjectJobDescriptor,
+  IObjectJobState,
   ISmartTerrainJobDescriptor,
   selectSmartTerrainJob,
 } from "@/engine/core/objects/smart_terrain/job/index";
@@ -23,7 +23,7 @@ describe("job_pick utils", () => {
   it("selectSmartTerrainJob should correctly get jobs for stalkers", () => {
     const smartTerrain: SmartTerrain = mockSmartTerrain();
     const object: ServerHumanObject = mockServerAlifeHumanStalker();
-    const job: IObjectJobDescriptor = createObjectJobDescriptor(object);
+    const job: IObjectJobState = createObjectJobDescriptor(object);
 
     const [firstId, firstJob] = selectSmartTerrainJob(smartTerrain, smartTerrain.jobs, job);
 
@@ -113,7 +113,7 @@ describe("job_pick utils", () => {
   it("selectSmartTerrainJob should correctly get jobs for monsters", () => {
     const smartTerrain: SmartTerrain = mockSmartTerrain();
     const object: ServerMonsterBaseObject = mockServerAlifeMonsterBase();
-    const job: IObjectJobDescriptor = createObjectJobDescriptor(object);
+    const job: IObjectJobState = createObjectJobDescriptor(object);
 
     const [firstId, firstJob] = selectSmartTerrainJob(smartTerrain, smartTerrain.jobs, job);
 
