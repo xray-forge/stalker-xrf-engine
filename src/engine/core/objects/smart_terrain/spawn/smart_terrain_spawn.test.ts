@@ -1,12 +1,15 @@
-import { beforeEach, describe, expect, it } from "@jest/globals";
+import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { CTime, game } from "xray16";
 
-import { SmartTerrain } from "@/engine/core/objects/smart_terrain";
+import { SimulationBoardManager } from "@/engine/core/managers/simulation";
+import { SmartTerrain, smartTerrainConfig } from "@/engine/core/objects/smart_terrain";
 import {
   applySmartTerrainRespawnSectionsConfig,
   canRespawnSmartTerrainSquad,
 } from "@/engine/core/objects/smart_terrain/spawn/smart_terrain_spawn";
 import { parseConditionsList } from "@/engine/core/utils/ini";
+import { FALSE, TRUE } from "@/engine/lib/constants/words";
+import { Optional } from "@/engine/lib/types";
 import { mockRegisteredActor, mockSmartTerrain, resetRegistry } from "@/fixtures/engine";
 import { MockCTime, MockIniFile } from "@/fixtures/xray";
 
@@ -94,7 +97,9 @@ describe("smart_terrain_spawn module", () => {
   });
 
   it.todo("respawnSmartTerrainSquad should correctly respawn squads in smart terrains");
+});
 
+describe("canRespawnSmartTerrainSquad util", () => {
   it("canRespawnSmartTerrainSquad should correctly set idle state after check", () => {
     const smartTerrain: SmartTerrain = mockSmartTerrain();
 
@@ -109,9 +114,85 @@ describe("smart_terrain_spawn module", () => {
     expect(MockCTime.areEqual(smartTerrain.lastRespawnUpdatedAt as CTime, game.get_game_time())).toBe(true);
   });
 
-  it.todo("canRespawnSmartTerrainSquad should correctly check if respawn is based on condlist");
+  it("canRespawnSmartTerrainSquad should correctly check if respawn is based on condlist", () => {
+    const smartTerrain: SmartTerrain = mockSmartTerrain();
+    const { actorServerObject } = mockRegisteredActor();
 
-  it.todo("canRespawnSmartTerrainSquad should correctly check if respawn is based on population count");
+    smartTerrain.on_before_register();
+    smartTerrain.on_register();
 
-  it.todo("canRespawnSmartTerrainSquad should correctly check if respawn is based on distance");
+    smartTerrain.isSimulationAvailableConditionList = parseConditionsList(FALSE);
+    smartTerrain.maxPopulation = 100;
+
+    jest
+      .spyOn(actorServerObject.position, "distance_to_sqr")
+      .mockImplementation(() => smartTerrainConfig.RESPAWN_RADIUS_RESTRICTION_SQR + 1);
+
+    expect(canRespawnSmartTerrainSquad(smartTerrain)).toBe(false);
+    expect(MockCTime.areEqual(smartTerrain.lastRespawnUpdatedAt as CTime, game.get_game_time())).toBe(true);
+
+    smartTerrain.lastRespawnUpdatedAt = null as Optional<CTime>;
+    smartTerrain.isSimulationAvailableConditionList = parseConditionsList(TRUE);
+
+    expect(canRespawnSmartTerrainSquad(smartTerrain)).toBe(true);
+    expect(MockCTime.areEqual(smartTerrain.lastRespawnUpdatedAt as CTime, game.get_game_time())).toBe(true);
+
+    expect(canRespawnSmartTerrainSquad(smartTerrain)).toBe(false);
+  });
+
+  it("canRespawnSmartTerrainSquad should correctly check if respawn is based on population count", () => {
+    const smartTerrain: SmartTerrain = mockSmartTerrain();
+    const { actorServerObject } = mockRegisteredActor();
+
+    smartTerrain.on_before_register();
+    smartTerrain.on_register();
+
+    smartTerrain.isSimulationAvailableConditionList = parseConditionsList(TRUE);
+    smartTerrain.maxPopulation = 2;
+
+    jest
+      .spyOn(actorServerObject.position, "distance_to_sqr")
+      .mockImplementation(() => smartTerrainConfig.RESPAWN_RADIUS_RESTRICTION_SQR + 1);
+
+    jest.spyOn(SimulationBoardManager.getInstance(), "getSmartTerrainAssignedSquads").mockImplementation(() => 2);
+
+    expect(canRespawnSmartTerrainSquad(smartTerrain)).toBe(false);
+    expect(MockCTime.areEqual(smartTerrain.lastRespawnUpdatedAt as CTime, game.get_game_time())).toBe(true);
+
+    smartTerrain.lastRespawnUpdatedAt = null as Optional<CTime>;
+    jest.spyOn(SimulationBoardManager.getInstance(), "getSmartTerrainAssignedSquads").mockImplementation(() => 1);
+
+    expect(canRespawnSmartTerrainSquad(smartTerrain)).toBe(true);
+    expect(MockCTime.areEqual(smartTerrain.lastRespawnUpdatedAt as CTime, game.get_game_time())).toBe(true);
+
+    expect(canRespawnSmartTerrainSquad(smartTerrain)).toBe(false);
+  });
+
+  it("canRespawnSmartTerrainSquad should correctly check if respawn is based on distance", () => {
+    const smartTerrain: SmartTerrain = mockSmartTerrain();
+    const { actorServerObject } = mockRegisteredActor();
+
+    smartTerrain.on_before_register();
+    smartTerrain.on_register();
+
+    smartTerrain.isSimulationAvailableConditionList = parseConditionsList(TRUE);
+    smartTerrain.maxPopulation = 100;
+
+    jest
+      .spyOn(actorServerObject.position, "distance_to_sqr")
+      .mockImplementation(() => smartTerrainConfig.RESPAWN_RADIUS_RESTRICTION_SQR - 1);
+
+    expect(canRespawnSmartTerrainSquad(smartTerrain)).toBe(false);
+    expect(MockCTime.areEqual(smartTerrain.lastRespawnUpdatedAt as CTime, game.get_game_time())).toBe(true);
+
+    smartTerrain.lastRespawnUpdatedAt = null as Optional<CTime>;
+    jest
+      .spyOn(actorServerObject.position, "distance_to_sqr")
+      .mockImplementation(() => smartTerrainConfig.RESPAWN_RADIUS_RESTRICTION_SQR + 1);
+
+    expect(canRespawnSmartTerrainSquad(smartTerrain)).toBe(true);
+    expect(MockCTime.areEqual(smartTerrain.lastRespawnUpdatedAt as CTime, game.get_game_time())).toBe(true);
+
+    expect(canRespawnSmartTerrainSquad(smartTerrain)).toBe(false);
+  });
 });

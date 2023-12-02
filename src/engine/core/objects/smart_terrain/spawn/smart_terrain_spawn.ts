@@ -131,14 +131,10 @@ export function canRespawnSmartTerrainSquad(smartTerrain: SmartTerrain): boolean
     smartTerrain.lastRespawnUpdatedAt = now;
   }
 
-  if (
-    pickSectionFromCondList(registry.actor, smartTerrain, smartTerrain.isSimulationAvailableConditionList) !== TRUE ||
-    smartTerrain.simulationBoardManager.getSmartTerrainAssignedSquads(smartTerrain.id) > smartTerrain.maxPopulation ||
-    registry.actorServer.position.distance_to_sqr(smartTerrain.position) <
+  return (
+    pickSectionFromCondList(registry.actor, smartTerrain, smartTerrain.isSimulationAvailableConditionList) === TRUE &&
+    smartTerrain.simulationBoardManager.getSmartTerrainAssignedSquads(smartTerrain.id) < smartTerrain.maxPopulation &&
+    registry.actorServer.position.distance_to_sqr(smartTerrain.position) >
       smartTerrainConfig.RESPAWN_RADIUS_RESTRICTION_SQR
-  ) {
-    return false;
-  }
-
-  return true;
+  );
 }
