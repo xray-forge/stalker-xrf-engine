@@ -37,7 +37,7 @@ import { resetRegistry } from "@/fixtures/engine";
 import { replaceFunctionMock, resetFunctionMock } from "@/fixtures/jest";
 import { FILES_MOCKS, MockGameObject, mockIniFile, mockServerAlifeHumanStalker } from "@/fixtures/xray";
 
-jest.mock("@/engine/core/objects/smart_terrain/job", () => ({
+jest.mock("@/engine/core/objects/smart_terrain/job/job_pick", () => ({
   getSmartTerrainJobByObjectId: jest.fn(),
 }));
 
