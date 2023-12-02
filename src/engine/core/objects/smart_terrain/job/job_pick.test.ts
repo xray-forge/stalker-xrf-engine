@@ -182,55 +182,55 @@ describe("job_pick utils", () => {
       section: "logic@test_smart_home_2",
       type: EJobType.MONSTER_HOME,
     });
+  });
 
-    it("should correctly get job section and job descriptor from smart terrain", () => {
-      const smartTerrain: SmartTerrain = new SmartTerrain("test_smart");
-      const firstStalker: ServerHumanObject = mockServerAlifeHumanStalker();
-      const secondStalker: ServerHumanObject = mockServerAlifeHumanStalker();
+  it("getSmartTerrainJobByObjectId should correctly get job section and job descriptor from smart terrain", () => {
+    const smartTerrain: SmartTerrain = new SmartTerrain("test_smart");
+    const firstStalker: ServerHumanObject = mockServerAlifeHumanStalker();
+    const secondStalker: ServerHumanObject = mockServerAlifeHumanStalker();
 
-      smartTerrain.ini = smartTerrain.spawn_ini();
-      jest.spyOn(smartTerrain, "name").mockImplementation(() => "test_smart");
+    smartTerrain.ini = smartTerrain.spawn_ini();
+    jest.spyOn(smartTerrain, "name").mockImplementation(() => "test_smart");
 
-      (smartTerrain as AnyObject).m_game_vertex_id = 512;
-      (firstStalker as AnyObject).m_game_vertex_id = 512;
-      (secondStalker as AnyObject).m_game_vertex_id = 512;
+    (smartTerrain as AnyObject).m_game_vertex_id = 512;
+    (firstStalker as AnyObject).m_game_vertex_id = 512;
+    (secondStalker as AnyObject).m_game_vertex_id = 512;
 
-      smartTerrain.on_register();
+    smartTerrain.on_register();
 
-      smartTerrain.register_npc(firstStalker);
-      smartTerrain.register_npc(secondStalker);
+    smartTerrain.register_npc(firstStalker);
+    smartTerrain.register_npc(secondStalker);
 
-      expect(getSmartTerrainJobByObjectId(smartTerrain, firstStalker.id)).toEqual({
-        alifeTask: {
-          gameVertexId: 20001,
-          levelVertexId: 20002,
-          taskPosition: {
-            x: 10,
-            y: 20,
-            z: 30,
-          },
-        },
+    expect(getSmartTerrainJobByObjectId(smartTerrain, firstStalker.id)).toEqual({
+      alifeTask: {
         gameVertexId: 20001,
-        pathType: EJobPathType.PATH,
-        objectId: firstStalker.id,
-        id: 4,
-        type: EJobType.CAMPER,
-        levelId: 200010,
-        position: {
+        levelVertexId: 20002,
+        taskPosition: {
           x: 10,
           y: 20,
           z: 30,
         },
-        priority: 45,
-        section: "logic@test_smart_camper_1_walk",
-        preconditionFunction: expect.any(Function),
-        isMonsterJob: false,
-        preconditionParameters: {
-          wayName: "test_smart_camper_1_walk",
-        },
-      });
-
-      expect(getSmartTerrainObjectIdByJobSection(smartTerrain, "logic@test_smart_camper_1_walk")).toBe(firstStalker.id);
+      },
+      gameVertexId: 20001,
+      pathType: EJobPathType.PATH,
+      objectId: firstStalker.id,
+      id: 4,
+      type: EJobType.CAMPER,
+      levelId: 200010,
+      position: {
+        x: 10,
+        y: 20,
+        z: 30,
+      },
+      priority: 45,
+      section: "logic@test_smart_camper_1_walk",
+      preconditionFunction: expect.any(Function),
+      isMonsterJob: false,
+      preconditionParameters: {
+        wayName: "test_smart_camper_1_walk",
+      },
     });
+
+    expect(getSmartTerrainObjectIdByJobSection(smartTerrain, "logic@test_smart_camper_1_walk")).toBe(firstStalker.id);
   });
 });
