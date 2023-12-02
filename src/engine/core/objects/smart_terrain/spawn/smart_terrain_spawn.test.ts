@@ -1,17 +1,20 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { CTime, game } from "xray16";
 
+import { registerSimulator, registry } from "@/engine/core/database";
 import { SimulationBoardManager } from "@/engine/core/managers/simulation";
 import { SmartTerrain, smartTerrainConfig } from "@/engine/core/objects/smart_terrain";
 import {
   applySmartTerrainRespawnSectionsConfig,
   canRespawnSmartTerrainSquad,
+  respawnSmartTerrainSquad,
 } from "@/engine/core/objects/smart_terrain/spawn/smart_terrain_spawn";
+import { Squad } from "@/engine/core/objects/squad";
 import { parseConditionsList } from "@/engine/core/utils/ini";
 import { FALSE, TRUE } from "@/engine/lib/constants/words";
 import { Optional } from "@/engine/lib/types";
-import { mockRegisteredActor, mockSmartTerrain, resetRegistry } from "@/fixtures/engine";
-import { MockCTime, MockIniFile } from "@/fixtures/xray";
+import { mockRegisteredActor, mockSmartTerrain, mockSquad, resetRegistry } from "@/fixtures/engine";
+import { MockAlifeOnlineOfflineGroup, MockCTime, MockIniFile, mockServerAlifeHumanStalker } from "@/fixtures/xray";
 
 describe("smart_terrain_spawn module", () => {
   beforeEach(() => {
@@ -95,12 +98,99 @@ describe("smart_terrain_spawn module", () => {
       },
     });
   });
+});
 
-  it.todo("respawnSmartTerrainSquad should correctly respawn squads in smart terrains");
+describe("respawnSmartTerrainSquad util", () => {
+  beforeEach(() => {
+    resetRegistry();
+  });
+
+  it("should correctly ignore spawn when no available sections exist", () => {
+    const smartTerrain: SmartTerrain = mockSmartTerrain();
+
+    mockRegisteredActor();
+
+    smartTerrain.on_before_register();
+    smartTerrain.on_register();
+
+    const simulationBoardManager: SimulationBoardManager = SimulationBoardManager.getInstance();
+
+    jest.spyOn(simulationBoardManager, "enterSmartTerrain").mockImplementation(() => jest.fn());
+
+    expect(respawnSmartTerrainSquad(smartTerrain)).toBeNull();
+    expect(simulationBoardManager.enterSmartTerrain).not.toHaveBeenCalled();
+  });
+
+  it("should correctly spawn when available sections exist", () => {
+    const smartTerrain: SmartTerrain = mockSmartTerrain();
+
+    smartTerrain.ini = MockIniFile.mock("test.ltx", {
+      "spawn-section": ["test-section-1"],
+      "test-section-1": {
+        spawn_squads: "a, b",
+        spawn_num: "2",
+      },
+    });
+
+    mockRegisteredActor();
+    registerSimulator();
+
+    smartTerrain.on_before_register();
+    smartTerrain.on_register();
+
+    applySmartTerrainRespawnSectionsConfig(smartTerrain, "spawn-section");
+
+    const simulationBoardManager: SimulationBoardManager = SimulationBoardManager.getInstance();
+
+    jest.spyOn(simulationBoardManager, "enterSmartTerrain").mockImplementation(() => jest.fn());
+    jest.spyOn(simulationBoardManager, "setupObjectSquadAndGroup");
+    jest.spyOn(registry.simulator, "create").mockImplementation(() => {
+      const base: Squad = mockSquad();
+
+      (base as unknown as MockAlifeOnlineOfflineGroup).addSquadMember(mockServerAlifeHumanStalker());
+      (base as unknown as MockAlifeOnlineOfflineGroup).addSquadMember(mockServerAlifeHumanStalker());
+
+      jest.spyOn(base, "assignToSmartTerrain").mockImplementation(jest.fn());
+
+      return base;
+    });
+
+    const squad: Optional<Squad> = respawnSmartTerrainSquad(smartTerrain);
+
+    expect(squad).not.toBeNull();
+    expect(squad?.assignToSmartTerrain).toHaveBeenCalledWith(smartTerrain);
+    expect(simulationBoardManager.enterSmartTerrain).toHaveBeenCalledWith(squad, smartTerrain.id);
+    expect(simulationBoardManager.setupObjectSquadAndGroup).toHaveBeenCalledTimes(4);
+    expect(smartTerrain.spawnedSquadsList).toEqualLuaTables({
+      "test-section-1": {
+        num: 1,
+      },
+    });
+
+    respawnSmartTerrainSquad(smartTerrain);
+
+    expect(smartTerrain.spawnedSquadsList).toEqualLuaTables({
+      "test-section-1": {
+        num: 2,
+      },
+    });
+
+    respawnSmartTerrainSquad(smartTerrain);
+
+    expect(smartTerrain.spawnedSquadsList).toEqualLuaTables({
+      "test-section-1": {
+        num: 2,
+      },
+    });
+
+    expect(registry.simulator.create).toHaveBeenCalledTimes(2);
+    expect(simulationBoardManager.enterSmartTerrain).toHaveBeenCalledTimes(2);
+    expect(simulationBoardManager.setupObjectSquadAndGroup).toHaveBeenCalledTimes(8);
+  });
 });
 
 describe("canRespawnSmartTerrainSquad util", () => {
-  it("canRespawnSmartTerrainSquad should correctly set idle state after check", () => {
+  it("should correctly set idle state after check", () => {
     const smartTerrain: SmartTerrain = mockSmartTerrain();
 
     mockRegisteredActor();
@@ -114,7 +204,7 @@ describe("canRespawnSmartTerrainSquad util", () => {
     expect(MockCTime.areEqual(smartTerrain.lastRespawnUpdatedAt as CTime, game.get_game_time())).toBe(true);
   });
 
-  it("canRespawnSmartTerrainSquad should correctly check if respawn is based on condlist", () => {
+  it("should correctly check if respawn is based on condlist", () => {
     const smartTerrain: SmartTerrain = mockSmartTerrain();
     const { actorServerObject } = mockRegisteredActor();
 
@@ -140,7 +230,7 @@ describe("canRespawnSmartTerrainSquad util", () => {
     expect(canRespawnSmartTerrainSquad(smartTerrain)).toBe(false);
   });
 
-  it("canRespawnSmartTerrainSquad should correctly check if respawn is based on population count", () => {
+  it("should correctly check if respawn is based on population count", () => {
     const smartTerrain: SmartTerrain = mockSmartTerrain();
     const { actorServerObject } = mockRegisteredActor();
 
@@ -168,7 +258,7 @@ describe("canRespawnSmartTerrainSquad util", () => {
     expect(canRespawnSmartTerrainSquad(smartTerrain)).toBe(false);
   });
 
-  it("canRespawnSmartTerrainSquad should correctly check if respawn is based on distance", () => {
+  it("should correctly check if respawn is based on distance", () => {
     const smartTerrain: SmartTerrain = mockSmartTerrain();
     const { actorServerObject } = mockRegisteredActor();
 

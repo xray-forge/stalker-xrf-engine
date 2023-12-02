@@ -9,7 +9,7 @@ import { Squad } from "@/engine/core/objects/squad";
 import { abort } from "@/engine/core/utils/assertion";
 import { parseConditionsList, parseStringsList, pickSectionFromCondList, readIniString } from "@/engine/core/utils/ini";
 import { TRUE } from "@/engine/lib/constants/words";
-import { LuaArray, Optional, TCount, Time, TSection, TStringId } from "@/engine/lib/types";
+import { LuaArray, Optional, TCount, Time, TSection } from "@/engine/lib/types";
 
 /**
  * Apply respawn configuration for provided smart terrain.
@@ -72,10 +72,13 @@ export function applySmartTerrainRespawnSectionsConfig(smartTerrain: SmartTerrai
 }
 
 /**
- * todo: Description.
- * todo: throttle globally to delay spawn 10+ at once
+ * Respawn random squad section from smart terrain spawn config.
+ * Finds random one available to spawn and assigns it to the terrain.
+ *
+ * @param smartTerrain - target smart terrain to spawn squad in
+ * @returns spawned squad or null if cannot spawn any
  */
-export function respawnSmartTerrainSquad(smartTerrain: SmartTerrain): void {
+export function respawnSmartTerrainSquad(smartTerrain: SmartTerrain): Optional<Squad> {
   // logger.info("Respawn squad in smart:", this.name());
 
   const availableSections: LuaArray<TSection> = new LuaTable();
@@ -92,25 +95,29 @@ export function respawnSmartTerrainSquad(smartTerrain: SmartTerrain): void {
 
   // No available spawn spots.
   if (availableSections.length() === 0) {
-    return;
+    return null;
   }
 
   const simulationBoardManager: SimulationBoardManager = smartTerrain.simulationBoardManager;
   const sectionToSpawn: TSection = availableSections.get(math.random(1, availableSections.length()));
   const sectionParams: ISmartTerrainSpawnConfiguration = smartTerrain.spawnSquadsConfiguration.get(sectionToSpawn);
-  const squadId: TStringId = sectionParams.squads.get(math.random(1, sectionParams.squads.length()));
-  const squad: Squad = simulationBoardManager.createSquad(smartTerrain, squadId);
+  const squadSection: TSection = sectionParams.squads.get(math.random(1, sectionParams.squads.length()));
+
+  const squad: Squad = simulationBoardManager.createSquad(smartTerrain, squadSection);
 
   squad.respawnPointId = smartTerrain.id;
   squad.respawnPointSection = sectionToSpawn;
 
   simulationBoardManager.enterSmartTerrain(squad, smartTerrain.id);
 
+  // Is it duplicated with create squad method? Should we do it twice?
   for (const squadMember of squad.squad_members()) {
     simulationBoardManager.setupObjectSquadAndGroup(squadMember.object);
   }
 
   smartTerrain.spawnedSquadsList.get(sectionToSpawn).num += 1;
+
+  return squad;
 }
 
 /**
