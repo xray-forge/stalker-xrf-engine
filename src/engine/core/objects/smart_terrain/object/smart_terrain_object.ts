@@ -4,7 +4,6 @@ import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { TSimulationObject } from "@/engine/core/managers/simulation";
 import type { SmartTerrain } from "@/engine/core/objects/smart_terrain/SmartTerrain";
 import { ESquadActionType, Squad } from "@/engine/core/objects/squad";
-import { abort } from "@/engine/core/utils/assertion";
 import { GameGraphVertex, GameObject, Optional, ServerCreatureObject, Vector } from "@/engine/lib/types";
 
 /**
@@ -19,7 +18,13 @@ export function isObjectArrivedToSmartTerrain(object: ServerCreatureObject, smar
     object.group_id === null ? null : smartTerrain.simulationBoardManager.getSquads().get(object.group_id);
 
   if (squad) {
-    return isSquadArrivedToSmartTerrain(squad);
+    const isSquadArrived: Optional<boolean> = isSquadArrivedToSmartTerrain(squad);
+
+    // When sure about squad status, return it.
+    // Check object otherwise.
+    if (isSquadArrived !== null) {
+      return isSquadArrived;
+    }
   }
 
   const graph: CGameGraph = game_graph();
@@ -50,7 +55,7 @@ export function isObjectArrivedToSmartTerrain(object: ServerCreatureObject, smar
  * @param squad - squad object to check
  * @returns whether object has arrived to the smart terrain
  */
-export function isSquadArrivedToSmartTerrain(squad: Squad): boolean {
+export function isSquadArrivedToSmartTerrain(squad: Squad): Optional<boolean> {
   switch (squad.currentAction?.type) {
     case ESquadActionType.REACH_TARGET: {
       const squadTarget: TSimulationObject =
@@ -64,6 +69,6 @@ export function isSquadArrivedToSmartTerrain(squad: Squad): boolean {
       return true;
 
     default:
-      abort("Unexpected squad action received: '%s'.", squad.currentAction?.type);
+      return null;
   }
 }

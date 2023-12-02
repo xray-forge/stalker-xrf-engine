@@ -74,10 +74,10 @@ describe("isSquadArrivedToSmartTerrain utility", () => {
     resetRegistry();
   });
 
-  it("should correctly fail on unexpected", () => {
+  it("should return null on unknown status", () => {
     const squad: Squad = mockSquad();
 
-    expect(() => isSquadArrivedToSmartTerrain(squad)).toThrow("Unexpected squad action received: 'nil'.");
+    expect(isSquadArrivedToSmartTerrain(squad)).toBeNull();
   });
 
   it("should correctly check arrived state based on react target action", () => {
