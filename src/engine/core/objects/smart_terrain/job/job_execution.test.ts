@@ -2,8 +2,6 @@ import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 
 import { registerActorServer, registerSimulator } from "@/engine/core/database";
 import {
-  getSmartTerrainJobByObjectId,
-  getSmartTerrainObjectIdByJobSection,
   selectSmartTerrainObjectJob,
   switchSmartTerrainObjectToDesiredJob,
   updateSmartTerrainJobs,
@@ -422,56 +420,6 @@ describe("job_execution logic", () => {
         schemeType: 1,
       },
     });
-  });
-
-  it("should correctly get job section and job descriptor from smart terrain", () => {
-    const smartTerrain: SmartTerrain = new SmartTerrain("test_smart");
-    const firstStalker: ServerHumanObject = mockServerAlifeHumanStalker();
-    const secondStalker: ServerHumanObject = mockServerAlifeHumanStalker();
-
-    smartTerrain.ini = smartTerrain.spawn_ini();
-    jest.spyOn(smartTerrain, "name").mockImplementation(() => "test_smart");
-
-    (smartTerrain as AnyObject).m_game_vertex_id = 512;
-    (firstStalker as AnyObject).m_game_vertex_id = 512;
-    (secondStalker as AnyObject).m_game_vertex_id = 512;
-
-    smartTerrain.on_register();
-
-    smartTerrain.register_npc(firstStalker);
-    smartTerrain.register_npc(secondStalker);
-
-    expect(getSmartTerrainJobByObjectId(smartTerrain, firstStalker.id)).toEqual({
-      alifeTask: {
-        gameVertexId: 20001,
-        levelVertexId: 20002,
-        taskPosition: {
-          x: 10,
-          y: 20,
-          z: 30,
-        },
-      },
-      gameVertexId: 20001,
-      pathType: EJobPathType.PATH,
-      objectId: firstStalker.id,
-      id: 4,
-      type: EJobType.CAMPER,
-      levelId: 200010,
-      position: {
-        x: 10,
-        y: 20,
-        z: 30,
-      },
-      priority: 45,
-      section: "logic@test_smart_camper_1_walk",
-      preconditionFunction: expect.any(Function),
-      isMonsterJob: false,
-      preconditionParameters: {
-        wayName: "test_smart_camper_1_walk",
-      },
-    });
-
-    expect(getSmartTerrainObjectIdByJobSection(smartTerrain, "logic@test_smart_camper_1_walk")).toBe(firstStalker.id);
   });
 
   it("should correctly switch objects to desired jobs", () => {

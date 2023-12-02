@@ -138,42 +138,6 @@ export function configureObjectSchemes(
 }
 
 /**
- * @param object - target game object to setup logic
- * @param state - target object registry state
- * @param schemeType - target object active scheme type
- * @param isLoaded - whether object is initialized after game load
- */
-export function setupObjectSmartJobsAndLogicOnSpawn(
-  object: GameObject,
-  state: IRegistryObjectState,
-  schemeType: ESchemeType,
-  isLoaded: boolean
-): void {
-  // logger.info("Setup smart terrain logic on spawn:", object.name(), schemeType);
-
-  const alifeSimulator: Optional<AlifeSimulator> = registry.simulator;
-  const serverObject: Optional<ServerCreatureObject> = registry.simulator!.object(object.id());
-
-  if (
-    alifeSimulator === null ||
-    serverObject === null ||
-    serverObject.m_smart_terrain_id === null ||
-    serverObject.m_smart_terrain_id === MAX_U16
-  ) {
-    return initializeObjectSchemeLogic(object, state, isLoaded, schemeType);
-  }
-
-  const smartTerrain: SmartTerrain = alifeSimulator.object(serverObject.m_smart_terrain_id) as SmartTerrain;
-  const needSetupLogic: boolean = !isLoaded && smartTerrain.objectJobDescriptors.get(object.id())?.isBegun === true;
-
-  if (needSetupLogic) {
-    setupSmartTerrainObjectJobLogic(smartTerrain, object);
-  } else {
-    initializeObjectSchemeLogic(object, state, isLoaded, schemeType);
-  }
-}
-
-/**
  * Initialize object scheme logics on object logics change/load/spawn.
  * Called on first object update or when smart terrain assignments change and object has to get new logic.
  *
@@ -244,6 +208,42 @@ export function initializeObjectSchemeLogic(
     if (sympathy !== null) {
       object.set_sympathy(sympathy);
     }
+  }
+}
+
+/**
+ * @param object - target game object to setup logic
+ * @param state - target object registry state
+ * @param schemeType - target object active scheme type
+ * @param isLoaded - whether object is initialized after game load
+ */
+export function setupObjectSmartJobsAndLogicOnSpawn(
+  object: GameObject,
+  state: IRegistryObjectState,
+  schemeType: ESchemeType,
+  isLoaded: boolean
+): void {
+  // logger.info("Setup smart terrain logic on spawn:", object.name(), schemeType);
+
+  const alifeSimulator: Optional<AlifeSimulator> = registry.simulator;
+  const serverObject: Optional<ServerCreatureObject> = registry.simulator!.object(object.id());
+
+  if (
+    alifeSimulator === null ||
+    serverObject === null ||
+    serverObject.m_smart_terrain_id === null ||
+    serverObject.m_smart_terrain_id === MAX_U16
+  ) {
+    return initializeObjectSchemeLogic(object, state, isLoaded, schemeType);
+  }
+
+  const smartTerrain: SmartTerrain = alifeSimulator.object(serverObject.m_smart_terrain_id) as SmartTerrain;
+  const needSetupLogic: boolean = !isLoaded && smartTerrain.objectJobDescriptors.get(object.id())?.isBegun === true;
+
+  if (needSetupLogic) {
+    setupSmartTerrainObjectJobLogic(smartTerrain, object);
+  } else {
+    initializeObjectSchemeLogic(object, state, isLoaded, schemeType);
   }
 }
 

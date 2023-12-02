@@ -330,4 +330,6 @@ describe("scheme initialization utils", () => {
   });
 
   it.todo("setupObjectSmartJobsAndLogicOnSpawn should correctly setup jobs and logics");
+
+  it.todo("setupSmartTerrainObjectJobLogic should correctly setup jobs and logics");
 });
