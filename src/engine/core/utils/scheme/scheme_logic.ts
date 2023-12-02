@@ -10,8 +10,8 @@ import {
   registry,
 } from "@/engine/core/database";
 import { MapDisplayManager } from "@/engine/core/managers/map/MapDisplayManager";
-import type { SmartTerrain } from "@/engine/core/objects/smart_terrain";
-import { getSmartTerrainJobByObjectId } from "@/engine/core/objects/smart_terrain/job";
+import { getSmartTerrainJobByObjectId } from "@/engine/core/objects/smart_terrain/job/job_pick";
+import type { SmartTerrain } from "@/engine/core/objects/smart_terrain/SmartTerrain";
 import { assert, assertDefined } from "@/engine/core/utils/assertion";
 import { getObjectConfigOverrides, pickSectionFromCondList } from "@/engine/core/utils/ini/ini_config";
 import { getSchemeFromSection } from "@/engine/core/utils/ini/ini_parse";

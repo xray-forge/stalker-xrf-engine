@@ -35,3 +35,17 @@ export function selectSmartTerrainJob(
 
   return $multi(null, null);
 }
+
+/**
+ * @param smartTerrain - target smart terrain to get job in
+ * @param objectId - target object ID to get active job for
+ * @returns descriptor of the job object is assigned to or null
+ */
+export function getSmartTerrainJobByObjectId(
+  smartTerrain: SmartTerrain,
+  objectId: TNumberId
+): Optional<ISmartTerrainJobDescriptor> {
+  const descriptor: Optional<IObjectJobState> = smartTerrain.objectJobDescriptors.get(objectId);
+
+  return descriptor && smartTerrain.jobs.get(descriptor.jobId);
+}

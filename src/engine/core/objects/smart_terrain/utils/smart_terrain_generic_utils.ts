@@ -2,7 +2,8 @@ import { game } from "xray16";
 
 import { registry } from "@/engine/core/database";
 import { SimulationBoardManager } from "@/engine/core/managers/simulation";
-import { SmartTerrain, smartTerrainConfig } from "@/engine/core/objects/smart_terrain";
+import type { SmartTerrain } from "@/engine/core/objects/smart_terrain/SmartTerrain";
+import { smartTerrainConfig } from "@/engine/core/objects/smart_terrain/SmartTerrainConfig";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini";
 import { toJSON } from "@/engine/core/utils/transform";
 import { forgeConfig } from "@/engine/lib/configs/ForgeConfig";

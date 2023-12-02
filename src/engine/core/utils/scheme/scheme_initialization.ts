@@ -9,10 +9,11 @@ import {
 } from "@/engine/core/database";
 import { TradeManager } from "@/engine/core/managers/trade/TradeManager";
 import { readObjectTradeIniPath } from "@/engine/core/managers/trade/utils/trade_init";
-import type { SmartTerrain } from "@/engine/core/objects/smart_terrain";
-import { getSmartTerrainJobByObjectId, setupSmartTerrainObjectJobLogic } from "@/engine/core/objects/smart_terrain/job";
+import type { IObjectJobState, ISmartTerrainJobDescriptor } from "@/engine/core/objects/smart_terrain/job";
+import { getSmartTerrainJobByObjectId } from "@/engine/core/objects/smart_terrain/job/job_pick";
+import type { SmartTerrain } from "@/engine/core/objects/smart_terrain/SmartTerrain";
 import { assert } from "@/engine/core/utils/assertion";
-import { readIniNumber, readIniString } from "@/engine/core/utils/ini";
+import { getSchemeFromSection, readIniNumber, readIniString } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getObjectSmartTerrain } from "@/engine/core/utils/position";
 import { ERelation } from "@/engine/core/utils/relation";
@@ -277,4 +278,34 @@ export function initializeObjectSectionItems(object: GameObject, state: IRegistr
       spawnItemsForObject(object, id, count);
     }
   }
+}
+
+/**
+ * Initialize and setup object job logics in smart terrain based on currently active job.
+ * If object job descriptor is updated and linked, logics schemas will be activated as needed.
+ *
+ * @param smartTerrain - target smart terrain to setup logic in
+ * @param object - target game object to setup logics
+ */
+export function setupSmartTerrainObjectJobLogic(smartTerrain: SmartTerrain, object: GameObject): void {
+  // logger.info("Setup logic:", this.name(), object.name());
+
+  const objectJobDescriptor: IObjectJobState = smartTerrain.objectJobDescriptors.get(object.id());
+  const job: ISmartTerrainJobDescriptor = smartTerrain.jobs.get(objectJobDescriptor.jobId);
+  const ltx: IniFile = job.iniFile || smartTerrain.jobsConfig;
+  const ltxName: TName = job.iniPath || smartTerrain.jobsConfigName;
+
+  configureObjectSchemes(object, ltx, ltxName, objectJobDescriptor.schemeType, job.section, smartTerrain.name());
+
+  const section: TSection = getSectionToActivate(object, ltx, job.section);
+
+  assert(
+    getSchemeFromSection(section),
+    "Smart terrain '%s' setup logics for '%s' section '%s', don't use section 'null'.",
+    smartTerrain.name(),
+    object.name(),
+    section
+  );
+
+  activateSchemeBySection(object, ltx, section, smartTerrain.name(), false);
 }

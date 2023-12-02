@@ -1,23 +1,15 @@
 import { hardResetOfflineObject, IRegistryObjectState, registry } from "@/engine/core/database";
-import { SmartTerrain } from "@/engine/core/objects/smart_terrain";
-import {
-  createObjectJobDescriptor,
-  IObjectJobState,
-  ISmartTerrainJobDescriptor,
-  selectSmartTerrainJob,
-} from "@/engine/core/objects/smart_terrain/job";
+import type { SmartTerrain } from "@/engine/core/objects/smart_terrain";
+import { createObjectJobDescriptor } from "@/engine/core/objects/smart_terrain/job/job_create";
+import { selectSmartTerrainJob } from "@/engine/core/objects/smart_terrain/job/job_pick";
+import { IObjectJobState, ISmartTerrainJobDescriptor } from "@/engine/core/objects/smart_terrain/job/job_types";
 import { isObjectArrivedToSmartTerrain } from "@/engine/core/objects/smart_terrain/object";
-import { abort, assert } from "@/engine/core/utils/assertion";
-import { getSchemeFromSection } from "@/engine/core/utils/ini";
+import { abort } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import {
-  activateSchemeBySection,
-  configureObjectSchemes,
-  getSectionToActivate,
-  switchObjectSchemeToSection,
-} from "@/engine/core/utils/scheme";
+import { setupSmartTerrainObjectJobLogic } from "@/engine/core/utils/scheme/scheme_initialization";
+import { switchObjectSchemeToSection } from "@/engine/core/utils/scheme/scheme_switch";
 import { NIL } from "@/engine/lib/constants/words";
-import { GameObject, IniFile, Optional, TName, TNumberId, TSection } from "@/engine/lib/types";
+import { Optional, TNumberId, TSection } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename, { file: "job_execution" });
 
@@ -44,50 +36,6 @@ export function updateSmartTerrainJobs(smartTerrain: SmartTerrain): void {
   for (const [, objectJobDescriptor] of smartTerrain.objectJobDescriptors) {
     selectSmartTerrainObjectJob(smartTerrain, objectJobDescriptor);
   }
-}
-
-/**
- * Initialize and setup object job logics in smart terrain based on currently active job.
- * If object job descriptor is updated and linked, logics schemas will be activated as needed.
- *
- * @param smartTerrain - target smart terrain to setup logic in
- * @param object - target game object to setup logics
- */
-export function setupSmartTerrainObjectJobLogic(smartTerrain: SmartTerrain, object: GameObject): void {
-  // logger.info("Setup logic:", this.name(), object.name());
-
-  const objectJobDescriptor: IObjectJobState = smartTerrain.objectJobDescriptors.get(object.id());
-  const job: ISmartTerrainJobDescriptor = smartTerrain.jobs.get(objectJobDescriptor.jobId);
-  const ltx: IniFile = job.iniFile || smartTerrain.jobsConfig;
-  const ltxName: TName = job.iniPath || smartTerrain.jobsConfigName;
-
-  configureObjectSchemes(object, ltx, ltxName, objectJobDescriptor.schemeType, job.section, smartTerrain.name());
-
-  const section: TSection = getSectionToActivate(object, ltx, job.section);
-
-  assert(
-    getSchemeFromSection(section),
-    "Smart terrain '%s' setup logics for '%s' section '%s', don't use section 'null'.",
-    smartTerrain.name(),
-    object.name(),
-    section
-  );
-
-  activateSchemeBySection(object, ltx, section, smartTerrain.name(), false);
-}
-
-/**
- * @param smartTerrain - target smart terrain to get job in
- * @param objectId - target object ID to get active job for
- * @returns descriptor of the job object is assigned to or null
- */
-export function getSmartTerrainJobByObjectId(
-  smartTerrain: SmartTerrain,
-  objectId: TNumberId
-): Optional<ISmartTerrainJobDescriptor> {
-  const descriptor: Optional<IObjectJobState> = smartTerrain.objectJobDescriptors.get(objectId);
-
-  return descriptor && smartTerrain.jobs.get(descriptor.jobId);
 }
 
 /**
