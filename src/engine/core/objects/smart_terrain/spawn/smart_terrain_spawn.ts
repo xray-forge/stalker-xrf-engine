@@ -118,17 +118,17 @@ export function respawnSmartTerrainSquad(smartTerrain: SmartTerrain): void {
  * @returns whether smart terrain squad spawn operation can be performed
  */
 export function canRespawnSmartTerrainSquad(smartTerrain: SmartTerrain): boolean {
-  const currentTime: Time = game.get_game_time();
+  const now: Time = game.get_game_time();
 
   // Throttle respawn attempts period.
   // Memoize `false` state for `idle` period of time.
   if (
     smartTerrain.lastRespawnUpdatedAt !== null &&
-    currentTime.diffSec(smartTerrain.lastRespawnUpdatedAt) <= smartTerrainConfig.RESPAWN_IDLE
+    now.diffSec(smartTerrain.lastRespawnUpdatedAt) <= smartTerrainConfig.RESPAWN_IDLE
   ) {
     return false;
   } else {
-    smartTerrain.lastRespawnUpdatedAt = currentTime;
+    smartTerrain.lastRespawnUpdatedAt = now;
   }
 
   if (

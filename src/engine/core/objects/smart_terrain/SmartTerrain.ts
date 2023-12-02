@@ -40,7 +40,7 @@ import {
   createObjectJobDescriptor,
   createSmartTerrainJobs,
   IObjectJobDescriptor,
-  selectObjectJob,
+  selectObjectSmartTerrainJob,
   TSmartTerrainJobsList,
   unlinkObjectJob,
   updateSmartTerrainJobs,
@@ -204,12 +204,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
 
     logger.info("Initialize smart jobs:", this.name());
 
-    const [jobsList, jobsConfig, jobsConfigName] = createSmartTerrainJobs(this);
-
-    this.jobs = jobsList;
-    this.jobsConfigName = jobsConfigName;
-    this.jobsConfig = jobsConfig;
-
+    [this.jobs, this.jobsConfig, this.jobsConfigName] = createSmartTerrainJobs(this);
     this.simulationBoardManager.initializeSmartTerrainSimulation(this);
 
     if (this.isObjectsInitializationNeeded) {
@@ -257,7 +252,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
 
       this.objectJobDescriptors.set(object.id, createObjectJobDescriptor(object));
       this.jobDeadTimeById = new LuaTable();
-      selectObjectJob(this, this.objectJobDescriptors.get(object.id));
+      selectObjectSmartTerrainJob(this, this.objectJobDescriptors.get(object.id));
     } else {
       logger.info("Mark as arrived:", this.name(), object.name(), this.population);
       this.arrivingObjects.set(object.id, object);

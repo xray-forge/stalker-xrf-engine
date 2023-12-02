@@ -1,4 +1,5 @@
 import { jest } from "@jest/globals";
+import { CTime } from "xray16";
 
 import { Time } from "@/engine/lib/types";
 
@@ -16,6 +17,10 @@ export class MockCTime {
 
   public static mock(y: number, m: number, d: number, h: number, min: number, sec: number, ms: number): Time {
     return MockCTime.create(y, m, d, h, min, sec, ms) as unknown as Time;
+  }
+
+  public static areEqual(first: MockCTime | CTime, second: MockCTime | CTime): boolean {
+    return (first as MockCTime).isEqual(second);
   }
 
   public static nowTime: MockCTime = MockCTime.create(2012, 6, 12, 9, 30, 0, 0);
@@ -74,6 +79,20 @@ export class MockCTime {
     time.set(this.y, this.m, this.d, this.h, this.min, this.sec, this.ms);
 
     return time;
+  }
+
+  public isEqual(time: MockCTime | CTime): boolean {
+    const [y, m, d, h, min, sec, ms] = time.get(0, 0, 0, 0, 0, 0, 0);
+
+    return (
+      this.y === y &&
+      this.m === m &&
+      this.d === d &&
+      this.h === h &&
+      this.min === min &&
+      this.sec === sec &&
+      this.ms === ms
+    );
   }
 
   public toString(): string {

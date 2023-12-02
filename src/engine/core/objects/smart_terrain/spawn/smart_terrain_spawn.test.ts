@@ -1,12 +1,20 @@
-import { describe, expect, it } from "@jest/globals";
+import { beforeEach, describe, expect, it } from "@jest/globals";
+import { CTime, game } from "xray16";
 
 import { SmartTerrain } from "@/engine/core/objects/smart_terrain";
-import { applySmartTerrainRespawnSectionsConfig } from "@/engine/core/objects/smart_terrain/spawn/smart_terrain_spawn";
+import {
+  applySmartTerrainRespawnSectionsConfig,
+  canRespawnSmartTerrainSquad,
+} from "@/engine/core/objects/smart_terrain/spawn/smart_terrain_spawn";
 import { parseConditionsList } from "@/engine/core/utils/ini";
-import { mockSmartTerrain } from "@/fixtures/engine";
-import { MockIniFile } from "@/fixtures/xray";
+import { mockRegisteredActor, mockSmartTerrain, resetRegistry } from "@/fixtures/engine";
+import { MockCTime, MockIniFile } from "@/fixtures/xray";
 
 describe("smart_terrain_spawn module", () => {
+  beforeEach(() => {
+    resetRegistry();
+  });
+
   it("applySmartTerrainRespawnSectionsConfig should correctly apply respawn configuration", () => {
     const smartTerrain: SmartTerrain = mockSmartTerrain();
 
@@ -87,5 +95,23 @@ describe("smart_terrain_spawn module", () => {
 
   it.todo("respawnSmartTerrainSquad should correctly respawn squads in smart terrains");
 
-  it.todo("canRespawnSmartTerrainSquad should correctly check if respawn is available");
+  it("canRespawnSmartTerrainSquad should correctly set idle state after check", () => {
+    const smartTerrain: SmartTerrain = mockSmartTerrain();
+
+    mockRegisteredActor();
+
+    smartTerrain.on_before_register();
+    smartTerrain.on_register();
+
+    expect(smartTerrain.lastRespawnUpdatedAt).toBeNull();
+
+    expect(canRespawnSmartTerrainSquad(smartTerrain)).toBe(false);
+    expect(MockCTime.areEqual(smartTerrain.lastRespawnUpdatedAt as CTime, game.get_game_time())).toBe(true);
+  });
+
+  it.todo("canRespawnSmartTerrainSquad should correctly check if respawn is based on condlist");
+
+  it.todo("canRespawnSmartTerrainSquad should correctly check if respawn is based on population count");
+
+  it.todo("canRespawnSmartTerrainSquad should correctly check if respawn is based on distance");
 });

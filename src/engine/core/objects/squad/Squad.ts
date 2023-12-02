@@ -280,7 +280,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
 
     this.currentTargetId = currentTargetId === NIL ? null : (tonumber(currentTargetId) as TNumberId);
 
-    const respawnPointId = packet.r_stringZ();
+    const respawnPointId: StringOptional = packet.r_stringZ();
 
     this.respawnPointId = respawnPointId === NIL ? null : (tonumber(respawnPointId) as TNumberId);
     this.respawnPointSection = packet.r_stringZ();
@@ -320,11 +320,11 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
 
     // todo: Method for smart terrain onSpawnedSquadKilled.
     if (this.respawnPointId !== null) {
-      const smartTerrain: Optional<SmartTerrain> = registry.simulator.object(this.respawnPointId)!;
+      const smartTerrain: Optional<SmartTerrain> = registry.simulator.object(
+        this.respawnPointId
+      ) as Optional<SmartTerrain>;
 
-      if (smartTerrain === null) {
-        return;
-      } else {
+      if (smartTerrain) {
         smartTerrain.spawnedSquadsList.get(this.respawnPointSection!).num -= 1;
       }
     }

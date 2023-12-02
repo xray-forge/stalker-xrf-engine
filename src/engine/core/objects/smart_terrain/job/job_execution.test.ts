@@ -4,7 +4,7 @@ import { registerActorServer, registerSimulator } from "@/engine/core/database";
 import {
   getObjectIdByJobSection,
   getSmartTerrainJobByObjectId,
-  selectObjectJob,
+  selectObjectSmartTerrainJob,
   switchObjectToDesiredJob,
   updateSmartTerrainJobs,
 } from "@/engine/core/objects/smart_terrain/job/job_execution";
@@ -332,10 +332,10 @@ describe("job_execution logic", () => {
     smartTerrain.register_npc(firstStalker);
     smartTerrain.register_npc(secondStalker);
 
-    selectObjectJob(smartTerrain, smartTerrain.objectJobDescriptors.get(secondStalker.id));
-    selectObjectJob(smartTerrain, smartTerrain.objectJobDescriptors.get(firstStalker.id));
-    selectObjectJob(smartTerrain, smartTerrain.objectJobDescriptors.get(secondStalker.id));
-    selectObjectJob(smartTerrain, smartTerrain.objectJobDescriptors.get(firstStalker.id));
+    selectObjectSmartTerrainJob(smartTerrain, smartTerrain.objectJobDescriptors.get(secondStalker.id));
+    selectObjectSmartTerrainJob(smartTerrain, smartTerrain.objectJobDescriptors.get(firstStalker.id));
+    selectObjectSmartTerrainJob(smartTerrain, smartTerrain.objectJobDescriptors.get(secondStalker.id));
+    selectObjectSmartTerrainJob(smartTerrain, smartTerrain.objectJobDescriptors.get(firstStalker.id));
 
     // Works in determined way, always same even after multiple calls.
 

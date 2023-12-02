@@ -30,7 +30,7 @@ export function updateSmartTerrainJobs(smartTerrain: SmartTerrain): void {
       smartTerrain.objectJobDescriptors.set(object.id, createObjectJobDescriptor(object));
       smartTerrain.jobDeadTimeById = new LuaTable();
 
-      selectObjectJob(smartTerrain, smartTerrain.objectJobDescriptors.get(object.id));
+      selectObjectSmartTerrainJob(smartTerrain, smartTerrain.objectJobDescriptors.get(object.id));
 
       smartTerrain.arrivingObjects.delete(id);
     }
@@ -39,7 +39,7 @@ export function updateSmartTerrainJobs(smartTerrain: SmartTerrain): void {
   table.sort(smartTerrain.objectJobDescriptors, (a, b) => a.jobPriority < b.jobPriority);
 
   for (const [, objectJobDescriptor] of smartTerrain.objectJobDescriptors) {
-    selectObjectJob(smartTerrain, objectJobDescriptor);
+    selectObjectSmartTerrainJob(smartTerrain, objectJobDescriptor);
   }
 }
 
@@ -116,7 +116,7 @@ export function switchObjectToDesiredJob(smartTerrain: SmartTerrain, objectId: T
     objectInfo.jobId = -1;
     objectInfo.jobPriority = -1;
 
-    selectObjectJob(smartTerrain, objectInfo);
+    selectObjectSmartTerrainJob(smartTerrain, objectInfo);
   } else {
     unlinkObjectJob(smartTerrain, objectInfo);
 
@@ -147,7 +147,7 @@ export function switchObjectToDesiredJob(smartTerrain: SmartTerrain, objectId: T
     changingObjectInfo.jobId = -1;
     changingObjectInfo.jobPriority = -1;
 
-    selectObjectJob(smartTerrain, changingObjectInfo);
+    selectObjectSmartTerrainJob(smartTerrain, changingObjectInfo);
   }
 }
 
@@ -157,7 +157,10 @@ export function switchObjectToDesiredJob(smartTerrain: SmartTerrain, objectId: T
  * @param smartTerrain
  * @param objectJobDescriptor - descriptor of active job for an object
  */
-export function selectObjectJob(smartTerrain: SmartTerrain, objectJobDescriptor: IObjectJobDescriptor): void {
+export function selectObjectSmartTerrainJob(
+  smartTerrain: SmartTerrain,
+  objectJobDescriptor: IObjectJobDescriptor
+): void {
   const [selectedJobId, selectedJobLink] = selectSmartTerrainJob(smartTerrain, smartTerrain.jobs, objectJobDescriptor);
 
   if (selectedJobId === null) {
