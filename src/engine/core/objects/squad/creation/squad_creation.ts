@@ -13,81 +13,81 @@ import {
 } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { SMART_TERRAIN_SECTION } from "@/engine/lib/constants/sections";
-import { LuaArray, Optional, Patrol, TCount, TIndex, TName, TNumberId, TSection, Vector } from "@/engine/lib/types";
+import { NIL } from "@/engine/lib/constants/words";
+import { LuaArray, Optional, Patrol, TName, TNumberId, TSection, Vector } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo: Description.
+ * Spawn default squad members for provided squad / smart terrain.
+ * Selects configuration based objects to spawn and assign to the squad.
+ *
+ * Contains strictly defined objects for the squad and random sections with random count to fill the squad.
+ *
+ * @param squad - target squad to spawn members for
+ * @param spawnSmartTerrain - parent smart terrain assigned to squad
  */
 export function createSquadMembers(squad: Squad, spawnSmartTerrain: SmartTerrain): void {
-  logger.info("Create squad members:", squad.name(), spawnSmartTerrain?.name());
-
-  const section: TSection = squad.section_name();
-
+  const squadSection: TSection = squad.section_name();
   const spawnSections: LuaArray<TSection> = parseStringsList(
-    readIniString(SYSTEM_INI, section, "npc", false, null, "")
+    readIniString(SYSTEM_INI, squadSection, "npc", false, null, "")
   );
-  const spawnPointData =
-    readIniString(SYSTEM_INI, section, "spawn_point", false, null, "self") ||
-    readIniString(spawnSmartTerrain.ini, SMART_TERRAIN_SECTION, "spawn_point", false, null, "self");
-
+  const spawnPointData: string =
+    readIniString(SYSTEM_INI, squadSection, "spawn_point", false) ??
+    readIniString(spawnSmartTerrain.ini, SMART_TERRAIN_SECTION, "spawn_point", false) ??
+    "self";
   const spawnPoint: Optional<TName> = pickSectionFromCondList(
     registry.actor,
     squad,
     parseConditionsList(spawnPointData)
   );
+  const spawnPointName: Optional<TName> =
+    spawnPoint && spawnPoint !== NIL ? spawnPoint : (spawnSmartTerrain.spawnPointName as TName);
 
-  let baseSpawnPosition: Vector = spawnSmartTerrain.position;
-  let baseLevelVertexId: TNumberId = spawnSmartTerrain.m_level_vertex_id;
-  let baseGameVertexId: TNumberId = spawnSmartTerrain.m_game_vertex_id;
+  if (spawnSections.length() === 0) {
+    abort("Unexpected attempt to spawn an empty squad '%s'.", squadSection);
+  }
 
-  if (spawnPoint) {
-    if (spawnPoint === "self") {
-      baseSpawnPosition = spawnSmartTerrain.position;
-      baseLevelVertexId = spawnSmartTerrain.m_level_vertex_id;
-      baseGameVertexId = spawnSmartTerrain.m_game_vertex_id;
-    } else {
-      const destination: Patrol = new patrol(spawnPoint);
+  logger.info("Create squad members:", squad.name(), spawnSmartTerrain?.name(), spawnPointData, spawnPoint);
 
-      baseSpawnPosition = destination.point(0);
-      baseLevelVertexId = destination.level_vertex_id(0);
-      baseGameVertexId = destination.game_vertex_id(0);
-    }
-  } else if (spawnSmartTerrain.spawnPointName) {
-    const destination: Patrol = new patrol(spawnSmartTerrain.spawnPointName);
+  let baseSpawnPosition: Vector;
+  let baseLevelVertexId: TNumberId;
+  let baseGameVertexId: TNumberId;
+
+  if (spawnPointName && spawnPointName !== "self") {
+    const destination: Patrol = new patrol(spawnPointName);
 
     baseSpawnPosition = destination.point(0);
     baseLevelVertexId = destination.level_vertex_id(0);
     baseGameVertexId = destination.game_vertex_id(0);
+  } else {
+    baseSpawnPosition = spawnSmartTerrain.position;
+    baseLevelVertexId = spawnSmartTerrain.m_level_vertex_id;
+    baseGameVertexId = spawnSmartTerrain.m_game_vertex_id;
   }
 
-  if (spawnSections.length() !== 0) {
-    for (const [, squadMemberSection] of spawnSections) {
-      squad.addMember(squadMemberSection, baseSpawnPosition, baseLevelVertexId, baseGameVertexId);
-    }
+  for (const [, squadMemberSection] of spawnSections) {
+    squad.addMember(squadMemberSection, baseSpawnPosition, baseLevelVertexId, baseGameVertexId);
   }
 
-  const randomSpawnConfig: Optional<string> = readIniString(SYSTEM_INI, section, "npc_random", false);
+  const randomSpawnConfig: Optional<string> = readIniString(SYSTEM_INI, squadSection, "npc_random", false);
 
   if (randomSpawnConfig) {
+    const [countMin, countMax] = readIniTwoNumbers(SYSTEM_INI, squadSection, "npc_in_squad", 1, 2);
     const randomSpawn: LuaArray<string> = parseStringsList(randomSpawnConfig)!;
 
-    const [countMin, countMax] = readIniTwoNumbers(SYSTEM_INI, section, "npc_in_squad", 1, 2);
-
     if (countMin > countMax) {
-      abort("min_count can't be greater then max_count [%s]!", section);
+      abort("When spawning squad min count can't be greater then max count in '%s'.", squadSection);
     }
 
-    const randomCount: TCount = math.random(countMin, countMax);
-
-    for (const _ of $range(1, randomCount)) {
-      const randomId: TIndex = math.random(1, randomSpawn!.length());
-
-      squad.addMember(randomSpawn!.get(randomId), baseSpawnPosition, baseLevelVertexId, baseGameVertexId);
+    for (const _ of $range(1, math.random(countMin, countMax))) {
+      squad.addMember(
+        randomSpawn!.get(math.random(1, randomSpawn!.length())),
+        baseSpawnPosition,
+        baseLevelVertexId,
+        baseGameVertexId
+      );
     }
-  } else if (spawnSections.length() === 0) {
-    abort("You are trying to spawn an empty squad [%s]!", section);
   }
 
   squad.assignedSmartTerrainId = spawnSmartTerrain.id;

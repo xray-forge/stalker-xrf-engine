@@ -640,7 +640,12 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
   /**
    * todo: Description.
    */
-  public addMember(spawnSection: TSection, spawnPosition: Vector, lvi: TNumberId, gvi: TNumberId): TNumberId {
+  public addMember(
+    spawnSection: TSection,
+    spawnPosition: Vector,
+    lvi: TNumberId,
+    gvi: TNumberId
+  ): ServerCreatureObject {
     const customData: TName = readIniString(
       SYSTEM_INI,
       spawnSection,
@@ -657,7 +662,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
       );
     }
 
-    const serverObject: ServerObject = registry.simulator.create(spawnSection, spawnPosition, lvi, gvi);
+    const serverObject: ServerCreatureObject = registry.simulator.create(spawnSection, spawnPosition, lvi, gvi);
 
     this.register_member(serverObject.id);
     this.soundManager.registerObject(serverObject.id);
@@ -670,7 +675,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
       registry.spawnedVertexes.set(serverObject.id, lvi);
     }
 
-    return serverObject.id;
+    return serverObject;
   }
 
   /**
