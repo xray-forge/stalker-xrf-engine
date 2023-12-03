@@ -65,31 +65,29 @@ import {
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Process forward animation for provided doors.
  */
-extern("xr_effects.anim_obj_forward", (actor: GameObject, object: GameObject, p: LuaArray<string>): void => {
-  for (const [k, v] of p) {
-    if (v !== null) {
-      registry.doors.get(v).forwardAnimation();
-    }
+extern("xr_effects.anim_obj_forward", (actor: GameObject, object: GameObject, doors: LuaArray<TName>): void => {
+  for (const [, doorName] of doors) {
+    registry.doors.get(doorName).forwardAnimation();
   }
 });
 
 /**
- * todo;
+ * Process backward animation for provided doors.
  */
-extern("xr_effects.anim_obj_backward", (actor: GameObject, object: GameObject, p: [string]): void => {
-  if (p[0] !== null) {
-    registry.doors.get(p[0]).backwardAnimation();
+extern("xr_effects.anim_obj_backward", (actor: GameObject, object: GameObject, doors: LuaArray<TName>): void => {
+  for (const [, doorName] of doors) {
+    registry.doors.get(doorName).backwardAnimation();
   }
 });
 
 /**
- * todo;
+ * Stop animation for provided doors.
  */
-extern("xr_effects.anim_obj_stop", (actor: GameObject, object: GameObject, p: [string]): void => {
-  if (p[0] !== null) {
-    registry.doors.get(p[0]).stopAnimation();
+extern("xr_effects.anim_obj_stop", (actor: GameObject, object: GameObject, doors: LuaArray<TName>): void => {
+  for (const [, doorName] of doors) {
+    registry.doors.get(doorName).stopAnimation();
   }
 });
 
@@ -340,6 +338,7 @@ extern("xr_effects.create_squad", (actor: GameObject, obj: Optional<GameObject>,
 
 /**
  * todo;
+ * todo: Move member creation to squad / squad util.
  */
 extern(
   "xr_effects.create_squad_member",
@@ -389,12 +388,15 @@ extern(
       gameVertexId = commander.m_game_vertex_id;
     }
 
-    const newSquadMemberId: TNumberId = squad.addSquadMember(squadMemberSection, position, levelVertexId, gameVertexId);
-
-    squad.assignSquadMemberToSmartTerrain(newSquadMemberId, squadSmartTerrain, null);
-    simulationBoardManager.setupObjectSquadAndGroup(
-      registry.simulator.object(newSquadMemberId) as ServerCreatureObject
+    const newSquadMember: ServerCreatureObject = squad.addMember(
+      squadMemberSection,
+      position,
+      levelVertexId,
+      gameVertexId
     );
+
+    squad.assignMemberToSmartTerrain(newSquadMember.id, squadSmartTerrain, null);
+    simulationBoardManager.setupObjectSquadAndGroup(newSquadMember);
     // --squad_smart.refresh()
     squad.update();
   }

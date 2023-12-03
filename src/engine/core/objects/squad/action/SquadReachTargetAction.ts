@@ -12,6 +12,7 @@ const logger: LuaLogger = new LuaLogger($filename);
  */
 export class SquadReachTargetAction implements ISquadAction {
   public readonly type: ESquadActionType = ESquadActionType.REACH_TARGET;
+  // Squad performing reach target action.
   public readonly squad: Squad;
 
   public constructor(squad: Squad) {
@@ -27,7 +28,7 @@ export class SquadReachTargetAction implements ISquadAction {
       : registry.simulator.object(this.squad.assignedTargetId!);
 
     if (target !== null) {
-      target.onStartedBeingReachedBySquad(this.squad);
+      target.onSimulationTargetSelected(this.squad);
     }
 
     for (const squadMember of this.squad.squad_members()) {
@@ -65,8 +66,8 @@ export class SquadReachTargetAction implements ISquadAction {
     /**
      * Check whether reached and notify end target.
      */
-    if (squadTarget.isSquadArrived(this.squad)) {
-      squadTarget.onEndedBeingReachedBySquad(this.squad);
+    if (squadTarget.isReachedBySimulationObject(this.squad)) {
+      squadTarget.onSimulationTargetDeselected(this.squad);
 
       return true;
     } else {

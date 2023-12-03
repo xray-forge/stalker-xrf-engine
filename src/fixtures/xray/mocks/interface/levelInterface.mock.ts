@@ -50,5 +50,6 @@ export const mockLevelInterface = {
   stop_weather_fx: jest.fn(),
   map_remove_object_spot: jest.fn(),
   map_add_object_spot_ser: jest.fn(),
+  vertex_id: jest.fn(() => -1),
   enable_input: jest.fn(),
 };

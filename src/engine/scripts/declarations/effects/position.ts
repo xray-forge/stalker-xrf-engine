@@ -2,7 +2,8 @@ import { level, particles_object, patrol } from "xray16";
 
 import { getObjectIdByStoryId, getServerObjectByStoryId, registry, resetStalkerState } from "@/engine/core/database";
 import { Squad } from "@/engine/core/objects/squad";
-import { abort, assertDefined } from "@/engine/core/utils/assertion";
+import { setSquadPosition } from "@/engine/core/objects/squad/utils";
+import { abort, assert } from "@/engine/core/utils/assertion";
 import { extern } from "@/engine/core/utils/binding";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { isObjectInZone } from "@/engine/core/utils/position";
@@ -28,14 +29,12 @@ const logger: LuaLogger = new LuaLogger($filename);
  */
 extern(
   "xr_effects.teleport_npc",
-  (actor: GameObject, object: GameObject, [patrolPoint, patrolPointIndex = 0]: [TName, TIndex]): void => {
-    assertDefined(patrolPoint, "Wrong parameters in 'teleport_npc' function.");
-
-    const position: Vector = new patrol(patrolPoint).point(patrolPointIndex);
+  (actor: GameObject, object: GameObject, [patrolPointName, patrolPointIndex = 0]: [TName, TIndex]): void => {
+    assert(patrolPointName, "Wrong parameters in 'teleport_npc' function.");
 
     resetStalkerState(object);
 
-    object.set_npc_position(position);
+    object.set_npc_position(new patrol(patrolPointName).point(patrolPointIndex));
   }
 );
 
@@ -88,9 +87,8 @@ extern(
     const position: Vector = new patrol(patrolPoint).point(patrolPointIndex);
     const squad: Optional<Squad> = getServerObjectByStoryId(squadStoryId);
 
-    assertDefined(squad, "There is no squad with story id [%s]", squadStoryId);
-
-    squad.setSquadPosition(position);
+    assert(squad, "There is no squad with story id [%s]", squadStoryId);
+    setSquadPosition(squad, position);
   }
 );
 

@@ -56,7 +56,6 @@ online = nil
 simulation_role = default
 squad_id = 0
 capacity = 0\\0
-is_mutant_layer = false
 arriving_objects = 0
 [not respawn point]
 [jobs]
@@ -110,7 +109,6 @@ online = true
 simulation_role = surge
 squad_id = 155
 capacity = 6\\10
-is_mutant_layer = false
 arriving_objects = 1
 [spawn_state] (tts: -83133530)
 test-1 -> 3\\3

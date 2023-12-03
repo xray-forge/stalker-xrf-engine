@@ -40,11 +40,7 @@ export function getSmartTerrainMapDisplayHint(smartTerrain: SmartTerrain): TLabe
       smartTerrain.maxPopulation
     );
 
-    caption += string.format(
-      "is_mutant_layer = %s\\narriving_objects = %s\\n",
-      smartTerrain.isMutantLair,
-      table.size(smartTerrain.arrivingObjects)
-    );
+    caption += string.format("arriving_objects = %s\\n", table.size(smartTerrain.arrivingObjects));
 
     if (smartTerrain.isRespawnPoint) {
       caption += string.format(

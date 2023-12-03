@@ -100,14 +100,14 @@ export class Actor extends cse_alife_creature_actor implements ISimulationTarget
   /**
    * Get generic task.
    */
-  public getAlifeSmartTerrainTask(): ALifeSmartTerrainTask {
+  public getSimulationTask(): ALifeSmartTerrainTask {
     return new CALifeSmartTerrainTask(this.m_game_vertex_id, this.m_level_vertex_id);
   }
 
   /**
    * @returns whether squad completed assigned task to `kill?` actor
    */
-  public isSquadArrived(): boolean {
+  public isReachedBySimulationObject(): boolean {
     return !registry.actor.alive();
   }
 
@@ -161,14 +161,14 @@ export class Actor extends cse_alife_creature_actor implements ISimulationTarget
   /**
    * Whether actor can be selected as simulation target by squad.
    */
-  public isValidSquadTarget(squad: Squad): boolean {
+  public isValidSimulationTarget(squad: Squad): boolean {
     return simulationActivities.get(squad.faction)?.actor?.(squad, this) === true;
   }
 
   /**
    * When squad already reached actor.
    */
-  public onEndedBeingReachedBySquad(squad: Squad): void {
+  public onSimulationTargetDeselected(squad: Squad): void {
     /**
      * Nothing.
      */
@@ -177,7 +177,7 @@ export class Actor extends cse_alife_creature_actor implements ISimulationTarget
   /**
    * When squad reaches actor.
    */
-  public onStartedBeingReachedBySquad(squad: Squad): void {
+  public onSimulationTargetSelected(squad: Squad): void {
     squad.setLocationTypes();
 
     for (const squadMember of squad.squad_members()) {

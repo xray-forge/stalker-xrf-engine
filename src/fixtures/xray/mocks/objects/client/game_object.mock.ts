@@ -394,6 +394,7 @@ export function mockGameObject({
         objectDirection = objectDirection.set(it, objectDirection.y, objectDirection.z);
       }),
     set_movement_selection_type: rest.set_movement_selection_type ?? jest.fn(),
+    set_npc_position: rest.set_npc_position ?? jest.fn(),
     set_community_goodwill: rest.set_community_goodwill ?? jest.fn(),
     set_fastcall: rest.set_fastcall ?? jest.fn(),
     spawn_ini: rest.spawn_ini ?? jest.fn(() => spawnIni),

@@ -29,24 +29,25 @@ export function mockRegisteredActor(
  * Reset managers registry state.
  */
 export function resetRegistry(): void {
-  registry.musicVolume = 0;
-  registry.effectsVolume = 0;
   registry.actor = null as unknown as GameObject;
-  registry.simulator = null as unknown as AlifeSimulator;
-  registry.managers = new LuaTable();
-  registry.objects = new LuaTable();
-  registry.zones = new LuaTable();
-  registry.trade = new LuaTable();
-  registry.offlineObjects = new LuaTable();
-  registry.crows.storage = new LuaTable();
+  registry.actorCombat = new LuaTable();
   registry.crows.count = 0;
-  registry.simulationObjects = new LuaTable();
-  registry.storyLink = { sidById: new LuaTable(), idBySid: new LuaTable() };
+  registry.crows.storage = new LuaTable();
+  registry.effectsVolume = 0;
   registry.extensions = new LuaTable();
-  registry.smartCovers = new LuaTable();
+  registry.managers = new LuaTable();
+  registry.musicVolume = 0;
   registry.noWeaponZones = new LuaTable();
-  registry.smartTerrainsCampfires = new LuaTable();
+  registry.objects = new LuaTable();
+  registry.offlineObjects = new LuaTable();
   registry.schemes = new LuaTable();
+  registry.simulationObjects = new LuaTable();
+  registry.simulator = null as unknown as AlifeSimulator;
+  registry.smartCovers = new LuaTable();
+  registry.smartTerrainsCampfires = new LuaTable();
+  registry.storyLink = { sidById: new LuaTable(), idBySid: new LuaTable() };
+  registry.trade = new LuaTable();
+  registry.zones = new LuaTable();
 
   registerRanks();
 }

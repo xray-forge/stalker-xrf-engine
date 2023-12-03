@@ -13,6 +13,7 @@ import { travelConfig } from "@/engine/core/managers/travel/TravelConfig";
 import { SmartTerrain } from "@/engine/core/objects/smart_terrain/SmartTerrain";
 import type { Squad } from "@/engine/core/objects/squad/Squad";
 import { ESquadActionType } from "@/engine/core/objects/squad/squad_types";
+import { setSquadPosition } from "@/engine/core/objects/squad/utils";
 import { abort } from "@/engine/core/utils/assertion";
 import { isSmartTerrain, isSquad } from "@/engine/core/utils/class_ids";
 import { getObjectCommunity } from "@/engine/core/utils/community";
@@ -412,7 +413,7 @@ export class TravelManager extends AbstractManager {
 
       logger.format("Set squad position: '%s' -> '%s'", this.travelSquad!.name(), vectorToString(position));
 
-      this.travelSquad!.setSquadPosition(position);
+      setSquadPosition(this.travelSquad as Squad, position);
 
       registry.actor.set_actor_direction(direction);
       registry.actor.set_actor_position(point.point(0));

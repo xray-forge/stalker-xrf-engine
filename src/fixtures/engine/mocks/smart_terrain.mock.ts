@@ -5,7 +5,23 @@ import { TName, TSection } from "@/engine/lib/types";
 import { mockIniFile } from "@/fixtures/xray";
 
 /**
+ * Mock smart terrain mocked server object.
+ */
+export class MockSmartTerrain extends SmartTerrain {
+  public static mock(name: TName = "test_smart", section: TSection = "test_smart_section"): SmartTerrain {
+    const smartTerrain: MockSmartTerrain = new MockSmartTerrain(section);
+
+    smartTerrain.ini = smartTerrain.spawn_ini();
+    jest.spyOn(smartTerrain, "name").mockImplementation(() => name);
+
+    return smartTerrain;
+  }
+}
+
+/**
  * Mock smart terrain server object.
+ *
+ * @deprecated
  */
 export function mockSmartTerrain(name: TName = "test_smart", section: TSection = "test_smart_section"): SmartTerrain {
   const smartTerrain: SmartTerrain = new SmartTerrain(section);

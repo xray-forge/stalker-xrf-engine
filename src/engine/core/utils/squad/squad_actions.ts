@@ -1,12 +1,22 @@
 import { registry } from "@/engine/core/database";
 import type { Squad } from "@/engine/core/objects/squad";
+import { getSquadCommunity } from "@/engine/core/utils/community";
 import { hasInfoPortion } from "@/engine/core/utils/info_portion";
 import { areObjectsOnSameLevel } from "@/engine/core/utils/position";
+import { areCommunitiesEnemies } from "@/engine/core/utils/relation";
 import { getObjectSquad, getObjectSquadByObjectId } from "@/engine/core/utils/squad/squad_get";
 import { isEmpty } from "@/engine/core/utils/table";
-import { communities } from "@/engine/lib/constants/communities";
+import { communities, TCommunity } from "@/engine/lib/constants/communities";
 import { infoPortions } from "@/engine/lib/constants/info_portions";
-import { AnyGameObject, GameObject, Optional, ServerObject, TNumberId } from "@/engine/lib/types";
+import {
+  AlifeSimulator,
+  AnyGameObject,
+  GameObject,
+  Optional,
+  ServerCreatureObject,
+  ServerObject,
+  TNumberId,
+} from "@/engine/lib/types";
 
 /**
  * Precondition checker to verify if squad can help actor in case of attack by another squad / monsters etc.
@@ -19,7 +29,7 @@ export function canSquadHelpActor(squad: Squad): boolean {
     return false;
   }
 
-  switch (squad.getCommunity()) {
+  switch (getSquadCommunity(squad)) {
     case communities.stalker:
       return hasInfoPortion(infoPortions.sim_stalker_help_harder);
 
@@ -32,6 +42,40 @@ export function canSquadHelpActor(squad: Squad): boolean {
     default:
       return false;
   }
+}
+
+/**
+ * Check if squad can help actor.
+ * If any valid target in combat can be targeted, try to help actor.
+ *
+ * @returns optional help target id to start combat with
+ */
+export function getSquadHelpActorTargetId(squad: Squad): Optional<TNumberId> {
+  if (!canSquadHelpActor(squad)) {
+    return null;
+  }
+
+  const squadCommunity: TCommunity = getSquadCommunity(squad);
+  const simulator: AlifeSimulator = registry.simulator;
+
+  for (const [id] of registry.actorCombat) {
+    const enemySquadId: Optional<TNumberId> = simulator.object<ServerCreatureObject>(id)
+      ?.group_id as Optional<TNumberId>;
+
+    if (enemySquadId) {
+      const targetSquad: Optional<Squad> = simulator.object<Squad>(enemySquadId);
+
+      if (
+        targetSquad &&
+        areCommunitiesEnemies(squadCommunity, getSquadCommunity(targetSquad)) &&
+        squad.position.distance_to_sqr(targetSquad.position) < 150 * 150
+      ) {
+        return enemySquadId;
+      }
+    }
+  }
+
+  return null;
 }
 
 /**

@@ -3,6 +3,7 @@ import { relation_registry } from "xray16";
 import { getServerObjectByStoryId, registry } from "@/engine/core/database";
 import type { Squad } from "@/engine/core/objects/squad/Squad";
 import { assert } from "@/engine/core/utils/assertion";
+import { getSquadCommunity } from "@/engine/core/utils/community";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { EGoodwill, ERelation } from "@/engine/core/utils/relation/relation_types";
 import { communities, TCommunity } from "@/engine/lib/constants/communities";
@@ -49,7 +50,7 @@ export function getSquadMembersRelationToActorSafe(squad: Squad): ERelation {
   const averageRelation: TCount =
     squadMembersCount > 0
       ? squadTotalGoodwill / squadMembersCount
-      : relation_registry.community_relation(squad.getCommunity(), communities.actor);
+      : relation_registry.community_relation(getSquadCommunity(squad), communities.actor);
 
   if (averageRelation >= EGoodwill.FRIENDS) {
     return ERelation.FRIEND;
@@ -139,7 +140,7 @@ export function getSquadCommunityRelationToActor(squadStoryId: TStringId): ERela
   }
 
   const goodwill: EGoodwill = relation_registry.community_relation(
-    squad.getCommunity(),
+    getSquadCommunity(squad),
     registry.actorServer.community()
   );
 
@@ -167,7 +168,7 @@ export function getSquadRelationToActorById(squadId: TNumberId): ERelation {
     return squad.relationship;
   } else {
     const goodwill: TCount = relation_registry.community_relation(
-      squad.getCommunity(),
+      getSquadCommunity(squad),
       registry.actorServer.community()
     );
 

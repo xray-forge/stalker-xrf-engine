@@ -1,7 +1,7 @@
 import { cse_alife_human_stalker, level, LuabindClass } from "xray16";
 
 import {
-  IStoredOfflineObject,
+  IRegistryOfflineState,
   registerObjectStoryLinks,
   registerOfflineObject,
   registry,
@@ -114,7 +114,7 @@ export class Stalker extends cse_alife_human_stalker {
 
       assert(squad, "Squad with ID '%s' not found.", this.group_id);
 
-      squad.onSquadObjectDeath(this);
+      squad.onMemberDeath(this);
     }
 
     EventsManager.emitEvent(EGameEvent.STALKER_DEATH, this, killer);
@@ -138,7 +138,7 @@ export class Stalker extends cse_alife_human_stalker {
   public override STATE_Read(packet: NetPacket, size: number): void {
     super.STATE_Read(packet, size);
 
-    const offlineObject: IStoredOfflineObject = registerOfflineObject(this.id);
+    const offlineObject: IRegistryOfflineState = registerOfflineObject(this.id);
     const oldVertexId: Optional<TNumberId> = parseNumberOptional(packet.r_stringZ());
 
     offlineObject.activeSection = parseStringOptional(packet.r_stringZ());

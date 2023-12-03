@@ -12,6 +12,7 @@ import {
   TCount,
   TName,
   TNumberId,
+  TRate,
 } from "@/engine/lib/types";
 
 /**
@@ -86,38 +87,35 @@ export const VALID_SMART_TERRAINS_SIMULATION_ROLES: LuaTable<TName, boolean> = $
  * Used for building game logic with custom alife priorities and decisions.
  */
 export interface ISimulationTarget {
-  /**
-   * Whether simulation is available, basic conditions list.
-   */
-  isSimulationAvailableConditionList: TConditionList;
-  /**
-   * Simulation properties of separate object entity.
-   */
-  simulationProperties: AnyObject;
-  /**
-   * Get CObject for smart terrain task.
-   */
-  getAlifeSmartTerrainTask(): ALifeSmartTerrainTask;
-  /**
-   * @returns whether object can be selected as simulation target by squad
-   */
-  isValidSquadTarget(squad: Squad): boolean;
+  // Simulation properties of separate object entity.
+  simulationProperties: LuaTable<TName, TRate>;
+
   /**
    * @returns whether object is participating in simulation
    */
   isSimulationAvailable(): boolean;
   /**
+   * @returns whether object can be selected as simulation target by squad
+   */
+  isValidSimulationTarget(squad: Squad): boolean;
+  /**
    * @returns whether object reached by squad
    */
-  isSquadArrived(squad: Squad): boolean;
+  isReachedBySimulationObject(squad: Squad): boolean;
   /**
-   * On target started being reached by squad.
+   * Get CObject for smart terrain task.
    */
-  onStartedBeingReachedBySquad(squad: Squad): void;
+  getSimulationTask(): ALifeSmartTerrainTask;
   /**
-   * On target reached by squad, next action.
+   * On target selected by simulation squad.
+   * Means that some squad started reaching the object.
    */
-  onEndedBeingReachedBySquad(squad: Squad): void;
+  onSimulationTargetSelected(squad: Squad): void;
+  /**
+   * On deselection by simulation squad.
+   * Means that current instance is not reached anymore.
+   */
+  onSimulationTargetDeselected(squad: Squad): void;
 }
 
 /**

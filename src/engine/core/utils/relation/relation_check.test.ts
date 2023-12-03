@@ -71,7 +71,7 @@ describe("relation/check utils", () => {
 
     const enemy: ServerGroupObject = mockServerAlifeOnlineOfflineGroup();
 
-    (enemy as Squad).getCommunity = () => communities.monster;
+    (enemy as Squad).faction = communities.monster;
     registerStoryLink(enemy.id, "existing-enemy");
 
     expect(getSquadCommunityRelationToActor("existing-enemy")).toBe(ERelation.ENEMY);
@@ -86,7 +86,7 @@ describe("relation/check utils", () => {
 
     const friend: ServerGroupObject = mockServerAlifeOnlineOfflineGroup();
 
-    (friend as Squad).getCommunity = () => communities.army;
+    (friend as Squad).faction = communities.army;
     registerStoryLink(friend.id, "existing-friend");
 
     expect(getSquadCommunityRelationToActor("existing-friend")).toBe(ERelation.FRIEND);
@@ -101,7 +101,7 @@ describe("relation/check utils", () => {
 
     const neutral: ServerGroupObject = mockServerAlifeOnlineOfflineGroup();
 
-    (neutral as Squad).getCommunity = () => communities.bandit;
+    (neutral as Squad).faction = communities.bandit;
     registerStoryLink(neutral.id, "existing-neutral");
 
     expect(getSquadCommunityRelationToActor("existing-neutral")).toBe(ERelation.NEUTRAL);

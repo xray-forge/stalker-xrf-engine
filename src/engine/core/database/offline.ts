@@ -1,4 +1,4 @@
-import { IStoredOfflineObject } from "@/engine/core/database/database_types";
+import { IRegistryOfflineState } from "@/engine/core/database/database_types";
 import { registry } from "@/engine/core/database/registry";
 import { Optional, TNumberId } from "@/engine/lib/types";
 
@@ -11,12 +11,12 @@ import { Optional, TNumberId } from "@/engine/lib/types";
  */
 export function registerOfflineObject(
   objectId: TNumberId,
-  state: IStoredOfflineObject = {
+  state: IRegistryOfflineState = {
     levelVertexId: null,
     activeSection: null,
   }
-): IStoredOfflineObject {
-  let offlineRecord: Optional<IStoredOfflineObject> = registry.offlineObjects.get(objectId);
+): IRegistryOfflineState {
+  let offlineRecord: Optional<IRegistryOfflineState> = registry.offlineObjects.get(objectId);
 
   if (!offlineRecord) {
     offlineRecord = state;
@@ -32,7 +32,7 @@ export function registerOfflineObject(
  */
 export function hardResetOfflineObject(
   objectId: TNumberId,
-  state: IStoredOfflineObject = {
+  state: IRegistryOfflineState = {
     levelVertexId: null,
     activeSection: null,
   }
@@ -46,7 +46,7 @@ export function hardResetOfflineObject(
  */
 export function softResetOfflineObject(
   objectId: TNumberId,
-  state: IStoredOfflineObject = {
+  state: IRegistryOfflineState = {
     levelVertexId: null,
     activeSection: null,
   }

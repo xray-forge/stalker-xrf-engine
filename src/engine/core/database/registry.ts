@@ -5,7 +5,7 @@ import type {
   IDynamicSaveData,
   IRankDescriptor,
   IRegistryObjectState,
-  IStoredOfflineObject,
+  IRegistryOfflineState,
 } from "@/engine/core/database/database_types";
 import type { AbstractManager, TAbstractCoreManagerConstructor } from "@/engine/core/managers/base/AbstractManager";
 import type { TSimulationObject } from "@/engine/core/managers/simulation";
@@ -110,7 +110,7 @@ export const registry = {
   /**
    * List of offline objects.
    */
-  offlineObjects: new LuaTable<TNumberId, IStoredOfflineObject>(),
+  offlineObjects: new LuaTable<TNumberId, IRegistryOfflineState>(),
   /**
    * List of wounded objects.
    */

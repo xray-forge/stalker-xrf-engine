@@ -25,18 +25,18 @@ import {
   ServerSmartZoneObject,
   TSection,
 } from "@/engine/lib/types";
+import { mockRegisteredActor, MockSmartTerrain, MockSquad, resetRegistry } from "@/fixtures/engine";
 import {
   MockAlifeSimulator,
   MockGameObject,
   mockServerAlifeCreatureActor,
   mockServerAlifeObject,
-  mockServerAlifeOnlineOfflineGroup,
-  mockServerAlifeSmartZone,
 } from "@/fixtures/xray";
 import { MockVector } from "@/fixtures/xray/mocks/vector.mock";
 
 describe("spawning utils", () => {
   beforeEach(() => {
+    resetRegistry();
     MockAlifeSimulator.reset();
     registerSimulator();
   });
@@ -158,10 +158,10 @@ describe("spawning utils", () => {
     expect(() => spawnSquadInSmart("squad", "some_terrain")).toThrow();
 
     const simulationManager: SimulationBoardManager = SimulationBoardManager.getInstance();
-    const smartTerrain: ServerSmartZoneObject = mockServerAlifeSmartZone({
-      name: <T extends string>() => "some_terrain" as T,
-    });
-    const squad: Squad = mockServerAlifeOnlineOfflineGroup() as Squad;
+    const smartTerrain: ServerSmartZoneObject = MockSmartTerrain.mock();
+    const squad: Squad = MockSquad.mock();
+
+    mockRegisteredActor();
 
     jest.spyOn(simulationManager, "enterSmartTerrain").mockImplementation(() => {});
     jest.spyOn(simulationManager, "createSquad").mockImplementation(() => squad);
@@ -169,10 +169,10 @@ describe("spawning utils", () => {
 
     simulationManager.registerSmartTerrain(smartTerrain as SmartTerrain);
 
-    squad.addSquadMember("test", MockVector.mock(1, 1, 1), 1, 2);
-    squad.addSquadMember("test", MockVector.mock(2, 2, 2), 1, 2);
+    squad.addMember("test", MockVector.mock(1, 1, 1), 1, 2);
+    squad.addMember("test", MockVector.mock(2, 2, 2), 1, 2);
 
-    const createdSquad: ServerGroupObject = spawnSquadInSmart("squad", "some_terrain");
+    const createdSquad: ServerGroupObject = spawnSquadInSmart("squad", smartTerrain.name());
 
     expect(createdSquad).toBe(squad);
     expect(squad.update).toHaveBeenCalled();

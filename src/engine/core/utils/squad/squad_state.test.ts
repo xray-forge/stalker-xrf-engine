@@ -6,13 +6,13 @@ import { parseConditionsList } from "@/engine/core/utils/ini";
 import { updateSquadInvulnerabilityState } from "@/engine/core/utils/squad/squad_state";
 import { FALSE, TRUE } from "@/engine/lib/constants/words";
 import { GameObject, IniFile, ServerCreatureObject } from "@/engine/lib/types";
+import { MockSquad } from "@/fixtures/engine";
 import { resetFunctionMock } from "@/fixtures/jest";
 import { MockAlifeOnlineOfflineGroup, MockGameObject, mockIniFile, mockServerAlifeHumanStalker } from "@/fixtures/xray";
 
 describe("squad_state utils", () => {
   it("updateSquadInvulnerabilityState should correctly update state for squad", () => {
-    const squadMock: MockAlifeOnlineOfflineGroup = new MockAlifeOnlineOfflineGroup("test_section");
-    const squad: Squad = squadMock as unknown as Squad;
+    const squad: MockSquad = MockSquad.mock();
 
     const ini: IniFile = mockIniFile("test.ltx", {
       active: {
@@ -33,21 +33,21 @@ describe("squad_state utils", () => {
     secondState.ini = ini;
     secondState.activeSection = "active";
 
-    squadMock.addSquadMember(firstServer);
-    squadMock.addSquadMember(secondServer);
+    squad.mockAddMember(firstServer);
+    squad.mockAddMember(secondServer);
 
-    squad.invulnerability = parseConditionsList(FALSE);
+    squad.invulnerabilityConditionList = parseConditionsList(FALSE);
 
     jest.spyOn(first, "invulnerable").mockImplementation(() => false);
     jest.spyOn(second, "invulnerable").mockImplementation(() => false);
 
-    squadMock.online = false;
+    squad.mockSetOnline(false);
     updateSquadInvulnerabilityState(squad);
 
     expect(first.invulnerable).toHaveBeenCalledTimes(0);
     expect(second.invulnerable).toHaveBeenCalledTimes(0);
 
-    squadMock.online = true;
+    squad.mockSetOnline(true);
     updateSquadInvulnerabilityState(squad);
 
     expect(first.invulnerable).toHaveBeenCalledTimes(1);
@@ -80,7 +80,7 @@ describe("squad_state utils", () => {
       .mockReset()
       .mockImplementation(() => true);
 
-    squad.invulnerability = parseConditionsList(TRUE);
+    squad.invulnerabilityConditionList = parseConditionsList(TRUE);
     secondState.activeSection = "another";
 
     updateSquadInvulnerabilityState(squad);

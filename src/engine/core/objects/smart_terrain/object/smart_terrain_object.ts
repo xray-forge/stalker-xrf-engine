@@ -62,7 +62,7 @@ export function isSquadArrivedToSmartTerrain(squad: Squad): Optional<boolean> {
         registry.simulationObjects.get(squad.assignedTargetId!) ??
         registry.simulator.object<SmartTerrain>(squad.assignedTargetId!)!;
 
-      return squadTarget.isSquadArrived(squad);
+      return squadTarget.isReachedBySimulationObject(squad);
     }
 
     case ESquadActionType.STAY_ON_TARGET:

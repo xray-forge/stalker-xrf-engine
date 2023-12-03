@@ -2,7 +2,7 @@ import { cse_alife_monster_base, level, LuabindClass } from "xray16";
 
 import {
   hardResetOfflineObject,
-  IStoredOfflineObject,
+  IRegistryOfflineState,
   registerObjectStoryLinks,
   registerOfflineObject,
   registry,
@@ -106,7 +106,7 @@ export class Monster extends cse_alife_monster_base {
 
       assert(squad, "There is no squad with ID [%s]", this.group_id);
 
-      squad.onSquadObjectDeath(this);
+      squad.onMemberDeath(this);
     }
 
     EventsManager.emitEvent(EGameEvent.MONSTER_DEATH, this, killer);
@@ -129,7 +129,7 @@ export class Monster extends cse_alife_monster_base {
   public override STATE_Read(packet: NetPacket, size: number): void {
     super.STATE_Read(packet, size);
 
-    const offlineObject: IStoredOfflineObject = registerOfflineObject(this.id);
+    const offlineObject: IRegistryOfflineState = registerOfflineObject(this.id);
 
     offlineObject.levelVertexId = parseNumberOptional(packet.r_stringZ());
     offlineObject.activeSection = parseStringOptional(packet.r_stringZ());

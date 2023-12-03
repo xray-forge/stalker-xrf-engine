@@ -6,7 +6,7 @@ import {
   IBaseSchemeLogic,
   IBaseSchemeState,
   IRegistryObjectState,
-  IStoredOfflineObject,
+  IRegistryOfflineState,
   registry,
 } from "@/engine/core/database";
 import { MapDisplayManager } from "@/engine/core/managers/map/MapDisplayManager";
@@ -59,7 +59,7 @@ export function getSectionToActivate(object: GameObject, ini: IniFile, section: 
     return NIL;
   }
 
-  const offlineObjectDescriptor: Optional<IStoredOfflineObject> = registry.offlineObjects.get(object.id());
+  const offlineObjectDescriptor: Optional<IRegistryOfflineState> = registry.offlineObjects.get(object.id());
 
   /**
    * If offline object detected, try to continue previous jon on online switch.

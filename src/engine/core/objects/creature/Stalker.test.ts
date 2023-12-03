@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 
-import { IStoredOfflineObject, registerSimulator, registry } from "@/engine/core/database";
+import { IRegistryOfflineState, registerSimulator, registry } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { SimulationBoardManager } from "@/engine/core/managers/simulation";
 import { Stalker } from "@/engine/core/objects/creature/Stalker";
@@ -9,15 +9,13 @@ import { Squad } from "@/engine/core/objects/squad";
 import { MAX_U16 } from "@/engine/lib/constants/memory";
 import { NIL } from "@/engine/lib/constants/words";
 import { AnyObject } from "@/engine/lib/types";
-import { resetRegistry } from "@/fixtures/engine";
+import { MockSmartTerrain, MockSquad, resetRegistry } from "@/fixtures/engine";
 import {
   EPacketDataType,
   MockGameObject,
   mockIniFile,
   MockNetProcessor,
   mockServerAlifeHumanStalker,
-  mockServerAlifeOnlineOfflineGroup,
-  mockServerAlifeSmartZone,
 } from "@/fixtures/xray";
 
 describe("Stalker server object", () => {
@@ -39,7 +37,7 @@ describe("Stalker server object", () => {
   it("should correctly check can switch offline", () => {
     const stalker: Stalker = new Stalker("stalker");
 
-    expect(stalker.can_switch_offline()).toBe(true);
+    expect(stalker.can_switch_offline()).toBe(false);
 
     stalker.group_id = 1;
     expect(stalker.can_switch_offline()).toBe(true);
@@ -116,14 +114,12 @@ describe("Stalker server object", () => {
 
   it("should correctly handle register/unregister with smart terrain", () => {
     const stalker: Stalker = new Stalker("stalker");
-    const smartTerrain: SmartTerrain = mockServerAlifeSmartZone({
-      name: <T>() => "test_smart_name" as T,
-    }) as SmartTerrain;
+    const smartTerrain: SmartTerrain = MockSmartTerrain.mock();
 
     jest.spyOn(stalker, "spawn_ini").mockImplementation(() => {
       return mockIniFile("test.ltx", {
         logic: {
-          smart_terrain: "test_smart_name",
+          smart_terrain: smartTerrain.name(),
         },
       });
     });
@@ -157,11 +153,11 @@ describe("Stalker server object", () => {
 
   it("should correctly handle death callback", () => {
     const stalker: Stalker = new Stalker("stalker");
-    const squad: Squad = mockServerAlifeOnlineOfflineGroup() as Squad;
-    const smartTerrain: SmartTerrain = mockServerAlifeSmartZone() as SmartTerrain;
+    const squad: Squad = MockSquad.mock();
+    const smartTerrain: SmartTerrain = MockSmartTerrain.mock();
 
-    smartTerrain.onObjectDeath = jest.fn();
-    squad.onSquadObjectDeath = jest.fn();
+    jest.spyOn(smartTerrain, "onObjectDeath").mockImplementation(jest.fn());
+    jest.spyOn(squad, "onMemberDeath").mockImplementation(jest.fn());
 
     stalker.m_smart_terrain_id = smartTerrain.id;
     stalker.group_id = squad.id;
@@ -170,17 +166,17 @@ describe("Stalker server object", () => {
 
     expect(smartTerrain.onObjectDeath).toHaveBeenCalledTimes(1);
     expect(smartTerrain.onObjectDeath).toHaveBeenCalledWith(stalker);
-    expect(squad.onSquadObjectDeath).toHaveBeenCalledTimes(1);
-    expect(squad.onSquadObjectDeath).toHaveBeenCalledWith(stalker);
+    expect(squad.onMemberDeath).toHaveBeenCalledTimes(1);
+    expect(squad.onMemberDeath).toHaveBeenCalledWith(stalker);
   });
 
   it("should correctly handle death callback if squad or smart does not exist", () => {
     const stalker: Stalker = new Stalker("stalker");
-    const squad: Squad = mockServerAlifeOnlineOfflineGroup() as Squad;
-    const smartTerrain: SmartTerrain = mockServerAlifeSmartZone() as SmartTerrain;
+    const squad: Squad = MockSquad.mock();
+    const smartTerrain: SmartTerrain = MockSmartTerrain.mock();
 
-    smartTerrain.onObjectDeath = jest.fn();
-    squad.onSquadObjectDeath = jest.fn();
+    jest.spyOn(smartTerrain, "onObjectDeath").mockImplementation(jest.fn());
+    jest.spyOn(squad, "onMemberDeath").mockImplementation(jest.fn());
 
     stalker.m_smart_terrain_id = 65000;
     stalker.group_id = 65001;
@@ -231,7 +227,7 @@ describe("Stalker server object", () => {
     (stalker as AnyObject)["online"] = false;
     stalker.isCorpseLootDropped = true;
 
-    const offlineState: IStoredOfflineObject = registry.offlineObjects.get(stalker.id);
+    const offlineState: IRegistryOfflineState = registry.offlineObjects.get(stalker.id);
 
     offlineState.activeSection = "test_section";
     offlineState.levelVertexId = 435;
@@ -269,7 +265,7 @@ describe("Stalker server object", () => {
     (stalker as AnyObject)["online"] = true;
     stalker.isCorpseLootDropped = true;
 
-    const offlineState: IStoredOfflineObject = registry.offlineObjects.get(stalker.id);
+    const offlineState: IRegistryOfflineState = registry.offlineObjects.get(stalker.id);
 
     offlineState.activeSection = "test_section";
 
@@ -304,7 +300,7 @@ describe("Stalker server object", () => {
     (stalker as AnyObject)["online"] = false;
     stalker.isCorpseLootDropped = true;
 
-    const offlineState: IStoredOfflineObject = registry.offlineObjects.get(stalker.id);
+    const offlineState: IRegistryOfflineState = registry.offlineObjects.get(stalker.id);
 
     offlineState.activeSection = "test_section";
 
