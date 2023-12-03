@@ -1,7 +1,7 @@
 import { jest } from "@jest/globals";
 
 import { MAX_U16 } from "@/engine/lib/constants/memory";
-import { ServerCreatureObject, ServerMonsterBaseObject } from "@/engine/lib/types";
+import { ServerCreatureObject, ServerMonsterBaseObject, TNumberId } from "@/engine/lib/types";
 import {
   MockAlifeDynamicObjectVisual,
   mockServerAlifeDynamicObjectVisual,
@@ -11,7 +11,8 @@ import {
  * Mock server creature object.
  */
 export class MockServerAlifeCreatureAbstract extends MockAlifeDynamicObjectVisual {
-  public m_smart_terrain_id = MAX_U16;
+  public m_smart_terrain_id: TNumberId = MAX_U16;
+  public group_id: TNumberId = MAX_U16;
 
   public force_set_goodwill = jest.fn();
 

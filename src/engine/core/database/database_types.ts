@@ -222,7 +222,7 @@ export interface IDynamicObjectState {
  * Offline object state descriptor.
  * Remember object active section when object switched offline.
  */
-export interface IStoredOfflineObject {
+export interface IRegistryOfflineState {
   levelVertexId: Optional<TNumberId>;
   activeSection: Optional<TSection>;
 }

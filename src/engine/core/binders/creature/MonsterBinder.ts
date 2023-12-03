@@ -5,7 +5,7 @@ import {
   closeSaveMarker,
   IBaseSchemeState,
   IRegistryObjectState,
-  IStoredOfflineObject,
+  IRegistryOfflineState,
   loadObjectLogic,
   openLoadMarker,
   openSaveMarker,
@@ -219,7 +219,7 @@ export class MonsterBinder extends object_binder {
       emitSchemeEvent(this.object, this.state[this.state.activeScheme]!, ESchemeEvent.SWITCH_OFFLINE, this.object);
     }
 
-    const offlineObject: IStoredOfflineObject = registry.offlineObjects.get(this.object.id());
+    const offlineObject: IRegistryOfflineState = registry.offlineObjects.get(this.object.id());
 
     if (offlineObject !== null) {
       offlineObject.levelVertexId = this.object.level_vertex_id();

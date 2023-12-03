@@ -6,7 +6,7 @@ import { TAbstractSchemeConstructor } from "@/engine/core/ai/scheme";
 import {
   IBaseSchemeState,
   IRegistryObjectState,
-  IStoredOfflineObject,
+  IRegistryOfflineState,
   registerActor,
   registerObject,
   registerOfflineObject,
@@ -127,7 +127,7 @@ describe("scheme logic utils", () => {
     disableInfoPortion("test_condition");
     expect(getSectionToActivate(object, ini, "sr_idle@desired")).toBe("sr_idle@fallback");
 
-    const offlineState: IStoredOfflineObject = registerOfflineObject(object.id(), {
+    const offlineState: IRegistryOfflineState = registerOfflineObject(object.id(), {
       activeSection: "sr_idle@not_existing",
       levelVertexId: 123,
     });

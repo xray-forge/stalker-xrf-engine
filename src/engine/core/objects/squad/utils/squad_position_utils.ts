@@ -28,13 +28,10 @@ export function setSquadPosition(squad: Squad, position: Vector): void {
     registry.offlineObjects.get(squadMember.id).levelVertexId = level.vertex_id(position);
 
     if (object) {
-      logger.format("Set client squad member position: '%s'", object.name());
-
       resetStalkerState(object);
+
       object.set_npc_position(position);
     } else {
-      logger.format("Set server squad member position: '%s'", squadMember.object.name());
-
       squadMember.object.position = position;
     }
   }

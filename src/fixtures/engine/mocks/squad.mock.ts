@@ -7,7 +7,6 @@ import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import {
   ServerCreatureObject,
   ServerGroupObject,
-  ServerHumanObject,
   TClassId,
   TName,
   TNumberId,
@@ -20,6 +19,7 @@ import {
   MockAlifeOnlineOfflineGroup,
   mockCharactersGoodwill,
   MockGameObject,
+  MockServerAlifeCreatureAbstract,
   mockServerAlifeOnlineOfflineGroup,
 } from "@/fixtures/xray";
 
@@ -45,7 +45,7 @@ export class MockSquad extends Squad {
     return squad;
   }
 
-  public mockAddMember(object: ServerCreatureObject): void {
+  public mockAddMember(object: ServerCreatureObject | MockServerAlifeCreatureAbstract): void {
     super.register_member(object.id);
 
     object.group_id = this.id;
@@ -97,11 +97,11 @@ export interface IMockedSquads {
   neutralSquad: MockSquad;
   mixedSquad: MockSquad;
   enemySquad: MockSquad;
-  friend: ServerHumanObject;
-  enemy: ServerHumanObject;
-  neutral: ServerHumanObject;
-  almostEnemy: ServerHumanObject;
-  almostFriend: ServerHumanObject;
+  friend: MockAlifeHumanStalker;
+  enemy: MockAlifeHumanStalker;
+  neutral: MockAlifeHumanStalker;
+  almostEnemy: MockAlifeHumanStalker;
+  almostFriend: MockAlifeHumanStalker;
 }
 
 /**
@@ -115,11 +115,11 @@ export function mockRelationsSquads(): IMockedSquads {
   const mixedSquad: MockSquad = MockSquad.mock();
   const enemySquad: MockSquad = MockSquad.mock();
 
-  const friend: ServerHumanObject = MockAlifeHumanStalker.mock();
-  const enemy: ServerHumanObject = MockAlifeHumanStalker.mock();
-  const neutral: ServerHumanObject = MockAlifeHumanStalker.mock();
-  const almostEnemy: ServerHumanObject = MockAlifeHumanStalker.mock();
-  const almostFriend: ServerHumanObject = MockAlifeHumanStalker.mock();
+  const friend: MockAlifeHumanStalker = MockAlifeHumanStalker.mock();
+  const enemy: MockAlifeHumanStalker = MockAlifeHumanStalker.mock();
+  const neutral: MockAlifeHumanStalker = MockAlifeHumanStalker.mock();
+  const almostEnemy: MockAlifeHumanStalker = MockAlifeHumanStalker.mock();
+  const almostFriend: MockAlifeHumanStalker = MockAlifeHumanStalker.mock();
 
   registerObject(MockGameObject.mock({ idOverride: friend.id }));
   registerObject(MockGameObject.mock({ idOverride: enemy.id }));

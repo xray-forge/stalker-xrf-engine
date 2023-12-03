@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 
-import { IStoredOfflineObject, registerSimulator, registry } from "@/engine/core/database";
+import { IRegistryOfflineState, registerSimulator, registry } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { SimulationBoardManager } from "@/engine/core/managers/simulation";
 import { Stalker } from "@/engine/core/objects/creature/Stalker";
@@ -37,7 +37,7 @@ describe("Stalker server object", () => {
   it("should correctly check can switch offline", () => {
     const stalker: Stalker = new Stalker("stalker");
 
-    expect(stalker.can_switch_offline()).toBe(true);
+    expect(stalker.can_switch_offline()).toBe(false);
 
     stalker.group_id = 1;
     expect(stalker.can_switch_offline()).toBe(true);
@@ -227,7 +227,7 @@ describe("Stalker server object", () => {
     (stalker as AnyObject)["online"] = false;
     stalker.isCorpseLootDropped = true;
 
-    const offlineState: IStoredOfflineObject = registry.offlineObjects.get(stalker.id);
+    const offlineState: IRegistryOfflineState = registry.offlineObjects.get(stalker.id);
 
     offlineState.activeSection = "test_section";
     offlineState.levelVertexId = 435;
@@ -265,7 +265,7 @@ describe("Stalker server object", () => {
     (stalker as AnyObject)["online"] = true;
     stalker.isCorpseLootDropped = true;
 
-    const offlineState: IStoredOfflineObject = registry.offlineObjects.get(stalker.id);
+    const offlineState: IRegistryOfflineState = registry.offlineObjects.get(stalker.id);
 
     offlineState.activeSection = "test_section";
 
@@ -300,7 +300,7 @@ describe("Stalker server object", () => {
     (stalker as AnyObject)["online"] = false;
     stalker.isCorpseLootDropped = true;
 
-    const offlineState: IStoredOfflineObject = registry.offlineObjects.get(stalker.id);
+    const offlineState: IRegistryOfflineState = registry.offlineObjects.get(stalker.id);
 
     offlineState.activeSection = "test_section";
 

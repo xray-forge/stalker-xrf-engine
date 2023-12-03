@@ -15,8 +15,8 @@ import {
  * Mock server human object representation.
  */
 export class MockAlifeHumanStalker extends MockServerAlifeCreatureAbstract {
-  public static mock(section: TSection = "test_human_stalker"): ServerHumanObject {
-    return new MockAlifeHumanStalker(section) as unknown as ServerHumanObject;
+  public static mock(section: TSection = "test_human_stalker"): MockAlifeHumanStalker {
+    return new MockAlifeHumanStalker(section);
   }
 
   public override m_smart_terrain_id: TNumberId = MAX_U16;

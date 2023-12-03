@@ -41,6 +41,8 @@ export class MockAlifeOnlineOfflineGroup extends MockAlifeDynamicObject {
 
   public clear_location_types(): void {}
 
+  public force_change_position(): void {}
+
   public commander_id(): Optional<TNumberId> {
     return null;
   }
