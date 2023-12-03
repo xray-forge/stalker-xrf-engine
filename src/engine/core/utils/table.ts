@@ -19,7 +19,7 @@ export function isEmpty(target: Optional<LuaTable<any>>): target is LuaTable {
     return false;
   }
 
-  for (const [k] of target) {
+  for (const [_] of target) {
     return false;
   }
 

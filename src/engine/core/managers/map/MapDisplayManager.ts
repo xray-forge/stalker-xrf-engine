@@ -80,7 +80,7 @@ export class MapDisplayManager extends AbstractManager {
     // logger.info("Update object spot:", object.name());
 
     const objectId: TNumberId = object.id();
-    const simulator: AlifeSimulator = registry.simulator;
+    const simulator: Optional<AlifeSimulator> = registry.simulator;
 
     if (!simulator) {
       return;

@@ -25,7 +25,16 @@ import { parseConditionsList } from "@/engine/core/utils/ini/ini_parse";
 import { TConditionList } from "@/engine/core/utils/ini/ini_types";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { ACTOR, TRUE } from "@/engine/lib/constants/words";
-import { ALifeSmartTerrainTask, GameObject, NetPacket, Optional, ServerObject, TName, TSize } from "@/engine/lib/types";
+import {
+  ALifeSmartTerrainTask,
+  GameObject,
+  NetPacket,
+  Optional,
+  ServerObject,
+  TName,
+  TRate,
+  TSize,
+} from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -36,7 +45,7 @@ const logger: LuaLogger = new LuaLogger($filename);
 @LuabindClass()
 export class Actor extends cse_alife_creature_actor implements ISimulationTarget {
   public isSimulationAvailableConditionList: TConditionList = parseConditionsList(TRUE);
-  public simulationProperties!: LuaTable<TName, string>;
+  public simulationProperties!: LuaTable<TName, TRate>;
 
   public override on_register(): void {
     super.on_register();

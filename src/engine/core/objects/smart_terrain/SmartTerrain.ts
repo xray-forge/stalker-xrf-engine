@@ -101,6 +101,7 @@ import {
   Time,
   TName,
   TNumberId,
+  TRate,
   TSection,
   TTimestamp,
 } from "@/engine/lib/types";
@@ -120,7 +121,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
   public squadId: TNumberId = 0; // Squads identifier spawned by specific smart terrain.
 
   public arrivalDistance: TNumberId = smartTerrainConfig.DEFAULT_ARRIVAL_DISTANCE;
-  public simulationProperties!: LuaTable<TName, string>;
+  public simulationProperties!: LuaTable<TName, TRate>;
   public simulationRole: ESimulationTerrainRole = ESimulationTerrainRole.DEFAULT;
   public smartTerrainDisplayedMapSpot: Optional<ERelation> = null;
   public respawnSector: Optional<TConditionList> = null;

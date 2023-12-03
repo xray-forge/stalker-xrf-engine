@@ -57,8 +57,8 @@ describe("simulation module of the database", () => {
     expect(registry.simulationObjects.get(object.id)).toBe(object);
 
     expect(object.simulationProperties).toEqualLuaTables({
-      first: "a",
-      second: "b",
+      first: 0,
+      second: 0,
     });
     expect(object.isSimulationAvailableConditionList).toEqualLuaTables(
       parseConditionsList("{+test_squad} true, false")

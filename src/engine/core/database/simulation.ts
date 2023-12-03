@@ -87,7 +87,7 @@ export function initializeSimulationObjectProperties(
     if (name === "sim_avail") {
       object.isSimulationAvailableConditionList = parseConditionsList(value);
     } else {
-      object.simulationProperties.set(name, value);
+      object.simulationProperties.set(name, tonumber(value) ?? 0);
     }
   }
 }

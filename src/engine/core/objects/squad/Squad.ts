@@ -72,6 +72,7 @@ import {
   TLabel,
   TName,
   TNumberId,
+  TRate,
   Vector,
 } from "@/engine/lib/types";
 import { TSection } from "@/engine/lib/types/scheme";
@@ -102,7 +103,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
   public readonly simulationBoardManager: SimulationBoardManager = SimulationBoardManager.getInstance();
   public readonly soundManager: StoryManager = getStoryManager(`squad_${this.section_name()}`);
 
-  public simulationProperties!: LuaTable<TName, string>;
+  public simulationProperties!: LuaTable<TName, TRate>;
 
   /**
    * Meta-info about spawn point of the squad.
@@ -621,7 +622,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
         const smartTerrain: ServerObject = registry.simulator.object(id) as ServerObject;
 
         if (isSmartTerrain(smartTerrain)) {
-          const propertiesBase: TName = smartTerrain.simulationProperties.get(ESimulationTerrainRole.BASE);
+          const propertiesBase: TRate = smartTerrain.simulationProperties.get(ESimulationTerrainRole.BASE);
 
           if (propertiesBase && tonumber(propertiesBase) === 0) {
             this.setLocationTypesMaskFromSection(smartTerrain.name());

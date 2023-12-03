@@ -36,8 +36,8 @@ export function evaluateSimulationPriority(object: TSimulationObject, squad: Squ
     const squadCoefficient: TRate = tonumber(rate) as TRate;
     let targetCoefficient: TRate = 0;
 
-    if (object.simulationProperties.get(property) as Optional<string>) {
-      targetCoefficient = tonumber(object.simulationProperties.get(property))!;
+    if (object.simulationProperties.has(property)) {
+      targetCoefficient = object.simulationProperties.get(property);
     }
 
     priority += squadCoefficient * targetCoefficient;
