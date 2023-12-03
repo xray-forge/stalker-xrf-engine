@@ -16,8 +16,6 @@ import {
   mockIniFile,
   MockNetProcessor,
   mockServerAlifeHumanStalker,
-  mockServerAlifeOnlineOfflineGroup,
-  mockServerAlifeSmartZone,
 } from "@/fixtures/xray";
 
 describe("Stalker server object", () => {
@@ -116,14 +114,12 @@ describe("Stalker server object", () => {
 
   it("should correctly handle register/unregister with smart terrain", () => {
     const stalker: Stalker = new Stalker("stalker");
-    const smartTerrain: SmartTerrain = mockServerAlifeSmartZone({
-      name: <T>() => "test_smart_name" as T,
-    }) as SmartTerrain;
+    const smartTerrain: SmartTerrain = MockSmartTerrain.mock();
 
     jest.spyOn(stalker, "spawn_ini").mockImplementation(() => {
       return mockIniFile("test.ltx", {
         logic: {
-          smart_terrain: "test_smart_name",
+          smart_terrain: smartTerrain.name(),
         },
       });
     });
@@ -176,8 +172,8 @@ describe("Stalker server object", () => {
 
   it("should correctly handle death callback if squad or smart does not exist", () => {
     const stalker: Stalker = new Stalker("stalker");
-    const squad: Squad = mockServerAlifeOnlineOfflineGroup() as Squad;
-    const smartTerrain: SmartTerrain = mockServerAlifeSmartZone() as SmartTerrain;
+    const squad: Squad = MockSquad.mock();
+    const smartTerrain: SmartTerrain = MockSmartTerrain.mock();
 
     jest.spyOn(smartTerrain, "onObjectDeath").mockImplementation(jest.fn());
     jest.spyOn(squad, "onMemberDeath").mockImplementation(jest.fn());
