@@ -2,8 +2,8 @@ import { registry } from "@/engine/core/database";
 import { SquadStayOnTargetAction } from "@/engine/core/objects/squad/action";
 import { Squad } from "@/engine/core/objects/squad/Squad";
 import { ESquadActionType } from "@/engine/core/objects/squad/squad_types";
+import { getSquadCommunity } from "@/engine/core/utils/community";
 import { getSquadMembersRelationToActor } from "@/engine/core/utils/relation";
-import { getSquadCommunity } from "@/engine/core/utils/squad";
 import { forgeConfig } from "@/engine/lib/configs/ForgeConfig";
 import { AlifeSimulator, TLabel } from "@/engine/lib/types";
 

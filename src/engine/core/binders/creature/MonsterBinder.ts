@@ -219,7 +219,9 @@ export class MonsterBinder extends object_binder {
       emitSchemeEvent(this.object, this.state[this.state.activeScheme]!, ESchemeEvent.SWITCH_OFFLINE, this.object);
     }
 
-    const offlineObject: Optional<IRegistryOfflineState> = registry.offlineObjects.get(this.object.id());
+    const offlineObject: Optional<IRegistryOfflineState> = registry.offlineObjects.get(
+      this.object.id()
+    ) as Optional<IRegistryOfflineState>;
 
     if (offlineObject) {
       offlineObject.levelVertexId = this.object.level_vertex_id();

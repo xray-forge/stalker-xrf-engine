@@ -8,6 +8,8 @@ import { replaceFunctionMock } from "@/fixtures/jest";
 import { MockGameObject, mockServerAlifeHumanStalker } from "@/fixtures/xray";
 
 describe("community utils", () => {
+  it.todo("getSquadCommunity should correctly get community for squads");
+
   it("getObjectCommunity should correctly get community", () => {
     expect(getObjectCommunity(MockGameObject.mock())).toBe("monster");
     expect(getObjectCommunity(mockServerAlifeHumanStalker())).toBe("stalker");

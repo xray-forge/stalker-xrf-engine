@@ -1,8 +1,9 @@
 import { registry } from "@/engine/core/database";
 import type { Squad } from "@/engine/core/objects/squad";
+import { getSquadCommunity } from "@/engine/core/utils/community";
 import { hasInfoPortion } from "@/engine/core/utils/info_portion";
 import { areObjectsOnSameLevel } from "@/engine/core/utils/position";
-import { areCommunitiesEnemies, getSquadCommunity } from "@/engine/core/utils/relation";
+import { areCommunitiesEnemies } from "@/engine/core/utils/relation";
 import { getObjectSquad, getObjectSquadByObjectId } from "@/engine/core/utils/squad/squad_get";
 import { isEmpty } from "@/engine/core/utils/table";
 import { communities, TCommunity } from "@/engine/lib/constants/communities";
