@@ -49,4 +49,6 @@ describe("squad utils", () => {
     expect(getObjectSquadByObjectId(gameObject.id())).toBeNull();
     expect(getObjectSquadByObjectId(serverObject.id)).toBeNull();
   });
+
+  it.todo("getSquadCommunity should correctly get community for squads");
 });

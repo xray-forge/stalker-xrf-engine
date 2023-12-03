@@ -100,4 +100,6 @@ describe("squad_actions utils", () => {
     expect(isObjectSquadCommanderById(gameObject.id())).toBe(true);
     expect(isObjectSquadCommanderById(serverObject.id)).toBe(true);
   });
+
+  it.todo("getSquadHelpActorTargetId should correctly get help actor targets");
 });

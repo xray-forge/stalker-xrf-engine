@@ -1,7 +1,17 @@
 import { registry } from "@/engine/core/database";
 import type { Squad } from "@/engine/core/objects/squad";
+import { squadCommunityByBehaviour } from "@/engine/lib/constants/behaviours";
+import { TCommunity } from "@/engine/lib/constants/communities";
 import { MAX_U16 } from "@/engine/lib/constants/memory";
 import { AnyGameObject, GameObject, Optional, ServerCreatureObject, TNumberId } from "@/engine/lib/types";
+
+/**
+ * @param squad - target squad to get community for
+ * @returns squad community section
+ */
+export function getSquadCommunity(squad: Squad): TCommunity {
+  return squadCommunityByBehaviour.get(squad.faction);
+}
 
 /**
  * Get squad of provided object.

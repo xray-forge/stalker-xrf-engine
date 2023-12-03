@@ -340,6 +340,7 @@ extern("xr_effects.create_squad", (actor: GameObject, obj: Optional<GameObject>,
 
 /**
  * todo;
+ * todo: Move member creation to squad / squad util.
  */
 extern(
   "xr_effects.create_squad_member",
@@ -389,9 +390,9 @@ extern(
       gameVertexId = commander.m_game_vertex_id;
     }
 
-    const newSquadMemberId: TNumberId = squad.addSquadMember(squadMemberSection, position, levelVertexId, gameVertexId);
+    const newSquadMemberId: TNumberId = squad.addMember(squadMemberSection, position, levelVertexId, gameVertexId);
 
-    squad.assignSquadMemberToSmartTerrain(newSquadMemberId, squadSmartTerrain, null);
+    squad.assignMemberToSmartTerrain(newSquadMemberId, squadSmartTerrain, null);
     simulationBoardManager.setupObjectSquadAndGroup(
       registry.simulator.object(newSquadMemberId) as ServerCreatureObject
     );

@@ -13,6 +13,7 @@ import { SIMULATION_LTX } from "@/engine/core/managers/simulation/SimulationConf
 import { evaluateSimulationPriority } from "@/engine/core/managers/simulation/utils";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import { SmartTerrain } from "@/engine/core/objects/smart_terrain/SmartTerrain";
+import { createSquadMembers } from "@/engine/core/objects/squad/creation";
 import type { Squad } from "@/engine/core/objects/squad/Squad";
 import { ESquadActionType } from "@/engine/core/objects/squad/squad_types";
 import { abort, assert } from "@/engine/core/utils/assertion";
@@ -135,7 +136,7 @@ export class SimulationBoardManager extends AbstractManager {
     let count: TCount = 0;
 
     for (const [k, squad] of this.smartTerrains.get(smartTerrainId).assignedSquads) {
-      if (squad.getLogicsScriptTarget() !== null) {
+      if (squad.getScriptedSimulationTarget() !== null) {
         count += 1;
       }
     }
@@ -284,7 +285,7 @@ export class SimulationBoardManager extends AbstractManager {
 
     // logger.info("Creating squad in smart:", squad.name(), smartTerrain.name());
 
-    squad.createSquadMembers(smartTerrain);
+    createSquadMembers(squad, smartTerrain);
 
     if (squad.relationship) {
       setSquadRelationToActor(squad, squad.relationship);

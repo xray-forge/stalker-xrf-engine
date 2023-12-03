@@ -116,7 +116,7 @@ export class ActionReachTaskLocation extends action_base implements ISchemeEvent
 
     let target: Optional<TSimulationObject> = registry.simulationObjects.get(squad.assignedTargetId!);
 
-    if (target === null && squad.getLogicsScriptTarget() !== null) {
+    if (target === null && squad.getScriptedSimulationTarget() !== null) {
       target = registry.simulator.object(squad.assignedTargetId!);
     }
 

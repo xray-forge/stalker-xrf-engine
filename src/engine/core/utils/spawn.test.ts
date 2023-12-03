@@ -169,8 +169,8 @@ describe("spawning utils", () => {
 
     simulationManager.registerSmartTerrain(smartTerrain as SmartTerrain);
 
-    squad.addSquadMember("test", MockVector.mock(1, 1, 1), 1, 2);
-    squad.addSquadMember("test", MockVector.mock(2, 2, 2), 1, 2);
+    squad.addMember("test", MockVector.mock(1, 1, 1), 1, 2);
+    squad.addMember("test", MockVector.mock(2, 2, 2), 1, 2);
 
     const createdSquad: ServerGroupObject = spawnSquadInSmart("squad", "some_terrain");
 

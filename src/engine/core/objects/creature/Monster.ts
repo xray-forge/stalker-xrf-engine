@@ -106,7 +106,7 @@ export class Monster extends cse_alife_monster_base {
 
       assert(squad, "There is no squad with ID [%s]", this.group_id);
 
-      squad.onSquadObjectDeath(this);
+      squad.onMemberDeath(this);
     }
 
     EventsManager.emitEvent(EGameEvent.MONSTER_DEATH, this, killer);

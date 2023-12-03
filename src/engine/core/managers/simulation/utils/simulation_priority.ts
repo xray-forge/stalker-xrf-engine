@@ -20,15 +20,15 @@ export function evaluateSimulationPriorityByDistance(first: ServerObject, second
 /**
  * Evaluate objects selection priority for alife simulation.
  *
- * @param object - simulation participating game object
- * @param squad - squad participating in simulation
+ * @param target - simulation target to evaluate priority for
+ * @param squad - squad trying to reach the target
  * @returns alife simulation priority for target selection
  */
-export function evaluateSimulationPriority(object: TSimulationObject, squad: Squad): TRate {
+export function evaluateSimulationPriority(target: TSimulationObject, squad: Squad): TRate {
   let priority: TRate = 3;
 
   // Blocking level traveling and specific preconditions.
-  if (!object.isValidSquadTarget(squad) || !areObjectsOnSameLevel(object, squad)) {
+  if (!target.isValidSquadTarget(squad) || !areObjectsOnSameLevel(target, squad)) {
     return 0;
   }
 
@@ -36,12 +36,12 @@ export function evaluateSimulationPriority(object: TSimulationObject, squad: Squ
     const squadCoefficient: TRate = tonumber(rate) as TRate;
     let targetCoefficient: TRate = 0;
 
-    if (object.simulationProperties.has(property)) {
-      targetCoefficient = object.simulationProperties.get(property);
+    if (target.simulationProperties.has(property)) {
+      targetCoefficient = target.simulationProperties.get(property);
     }
 
     priority += squadCoefficient * targetCoefficient;
   }
 
-  return priority * evaluateSimulationPriorityByDistance(object, squad);
+  return priority * evaluateSimulationPriorityByDistance(target, squad);
 }
