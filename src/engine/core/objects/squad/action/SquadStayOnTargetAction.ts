@@ -10,6 +10,7 @@ import { Optional, TDuration, Time } from "@/engine/lib/types";
  */
 export class SquadStayOnTargetAction implements ISquadAction {
   public readonly type: ESquadActionType = ESquadActionType.STAY_ON_TARGET;
+  // Squad performing stay target action.
   public readonly squad: Squad;
 
   public constructor(squad: Squad) {

@@ -36,7 +36,7 @@ describe("squad_state utils", () => {
     squadMock.addSquadMember(firstServer);
     squadMock.addSquadMember(secondServer);
 
-    squad.invulnerability = parseConditionsList(FALSE);
+    squad.invulnerabilityConditionList = parseConditionsList(FALSE);
 
     jest.spyOn(first, "invulnerable").mockImplementation(() => false);
     jest.spyOn(second, "invulnerable").mockImplementation(() => false);
@@ -80,7 +80,7 @@ describe("squad_state utils", () => {
       .mockReset()
       .mockImplementation(() => true);
 
-    squad.invulnerability = parseConditionsList(TRUE);
+    squad.invulnerabilityConditionList = parseConditionsList(TRUE);
     secondState.activeSection = "another";
 
     updateSquadInvulnerabilityState(squad);

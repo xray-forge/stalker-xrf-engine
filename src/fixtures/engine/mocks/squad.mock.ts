@@ -4,7 +4,7 @@ import { registerObject } from "@/engine/core/database";
 import { Squad } from "@/engine/core/objects/squad";
 import { communities } from "@/engine/lib/constants/communities";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
-import { ServerGroupObject, ServerHumanObject, TClassId, TName } from "@/engine/lib/types";
+import { ServerGroupObject, ServerHumanObject, TClassId, TName, TRate, TSection } from "@/engine/lib/types";
 import { MockLuaTable } from "@/fixtures/lua";
 import {
   MockAlifeOnlineOfflineGroup,
@@ -17,7 +17,25 @@ import { mockCharactersGoodwill } from "@/fixtures/xray/mocks/relations/communit
 /**
  * Class based mock of squad group.
  */
-export class MockSquad extends MockAlifeOnlineOfflineGroup {}
+export class MockSquad extends Squad {
+  public static mock(
+    section: TSection = "test_squad",
+    {
+      simulationProperties = MockLuaTable.mockFromObject<TName, TRate>({ a: 1, c: 2 }),
+      behaviour = MockLuaTable.mock([
+        ["a", "4"],
+        ["c", "3"],
+      ]),
+    }: Partial<Squad> = {}
+  ): Squad {
+    const squad: MockSquad = new MockSquad(section);
+
+    squad.behaviour = behaviour;
+    squad.simulationProperties = simulationProperties;
+
+    return squad;
+  }
+}
 
 /**
  * Mock squad record based on online-offline group for testing.
@@ -27,7 +45,7 @@ export function mockSquad({
     ["a", "4"],
     ["c", "3"],
   ]),
-  simulationProperties = MockLuaTable.mockFromObject<TName, string>({ a: "1", c: "2" }),
+  simulationProperties = MockLuaTable.mockFromObject<TName, TRate>({ a: 1, c: 2 }),
   clsid = jest.fn(() => -1 as TClassId),
   isValidSquadTarget = () => true,
   ...rest

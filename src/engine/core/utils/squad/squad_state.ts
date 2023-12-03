@@ -16,7 +16,7 @@ export function updateSquadInvulnerabilityState(squad: Squad): void {
   }
 
   const invulnerability: boolean =
-    pickSectionFromCondList(registry.actor, squad, squad.invulnerability as TConditionList) === TRUE;
+    pickSectionFromCondList(registry.actor, squad, squad.invulnerabilityConditionList as TConditionList) === TRUE;
 
   for (const squadMember of squad.squad_members()) {
     const objectState: Optional<IRegistryObjectState> = registry.objects.get(squadMember.id);

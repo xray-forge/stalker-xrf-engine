@@ -114,6 +114,9 @@ const logger: LuaLogger = new LuaLogger($filename, { file: "smart_terrain", mode
  */
 @LuabindClass()
 export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTarget {
+  public readonly simulationBoardManager: SimulationBoardManager = SimulationBoardManager.getInstance();
+  public readonly mapDisplayManager: MapDisplayManager = MapDisplayManager.getInstance();
+
   public ini!: IniFile;
   public jobsConfig!: IniFile;
   public jobsConfigName!: TName;
@@ -166,9 +169,6 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
   public jobDeadTimeById: LuaTable<TNumberId, Time> = new LuaTable(); // job id -> time
   public objectJobDescriptors: LuaTable<TNumberId, IObjectJobState> = new LuaTable();
   public objectByJobSection: LuaTable<TSection, TNumberId> = new LuaTable();
-
-  public readonly simulationBoardManager: SimulationBoardManager = SimulationBoardManager.getInstance();
-  public readonly mapDisplayManager: MapDisplayManager = MapDisplayManager.getInstance();
 
   // Spawning configuration and state for the smart terrain.
   public lastRespawnUpdatedAt: Optional<Time> = null;

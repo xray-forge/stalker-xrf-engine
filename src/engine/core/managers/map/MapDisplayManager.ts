@@ -7,9 +7,10 @@ import { IMapMarkDescriptor } from "@/engine/core/managers/map/map_types";
 import { mapDisplayConfig } from "@/engine/core/managers/map/MapDisplayConfig";
 import { treasureConfig } from "@/engine/core/managers/treasures/TreasureConfig";
 import { ETreasureType, ITreasureDescriptor } from "@/engine/core/managers/treasures/treasures_types";
-import type { SmartTerrain } from "@/engine/core/objects/smart_terrain";
+import type { SmartTerrain } from "@/engine/core/objects/smart_terrain/SmartTerrain";
 import { getSmartTerrainMapDisplayHint } from "@/engine/core/objects/smart_terrain/utils";
-import type { Squad } from "@/engine/core/objects/squad";
+import type { Squad } from "@/engine/core/objects/squad/Squad";
+import { getSquadMapDisplayHint } from "@/engine/core/objects/squad/utils";
 import { getAnomalyArtefacts } from "@/engine/core/utils/anomaly";
 import { hasInfoPortion } from "@/engine/core/utils/info_portion";
 import { parseConditionsList, pickSectionFromCondList, readIniString, TConditionList } from "@/engine/core/utils/ini";
@@ -105,7 +106,7 @@ export class MapDisplayManager extends AbstractManager {
       mapSpot = readIniString(state.ini!, section, "level_spot", false);
     }
 
-    if (mapSpot !== null) {
+    if (mapSpot) {
       const spotConditionList: TConditionList = parseConditionsList(mapSpot);
 
       mapSpot = pickSectionFromCondList(actor, object, spotConditionList);
@@ -118,7 +119,7 @@ export class MapDisplayManager extends AbstractManager {
     if (serverObject?.online) {
       serverObject.visible_for_map(spot !== FALSE);
 
-      if (mapSpot !== null) {
+      if (mapSpot) {
         const descriptor = mapDisplayConfig.MAP_MARKS.get(mapSpot);
 
         if (level.map_has_object_spot(objectId, descriptor.icon) !== 0) {
@@ -252,7 +253,7 @@ export class MapDisplayManager extends AbstractManager {
     }
 
     if (spot) {
-      const hint: TLabel = squad.getMapDisplayHint();
+      const hint: TLabel = getSquadMapDisplayHint(squad);
       const hasMapSpot: boolean = level.map_has_object_spot(squad.currentMapSpotId, spot) === 1;
 
       if (spot === squad.currentMapSpotSection && hasMapSpot) {
@@ -297,16 +298,10 @@ export class MapDisplayManager extends AbstractManager {
      * If debug enabled, render map spots.
      */
     if (forgeConfig.DEBUG.IS_SIMULATION_ENABLED) {
-      let spot: ERelation = ERelation.NEUTRAL;
-
-      if (
-        smartTerrain.isSimulationAvailableConditionList === null ||
+      const spot: ERelation =
         pickSectionFromCondList(registry.actor, smartTerrain, smartTerrain.isSimulationAvailableConditionList) === TRUE
-      ) {
-        spot = ERelation.FRIEND;
-      } else {
-        spot = ERelation.ENEMY;
-      }
+          ? ERelation.FRIEND
+          : ERelation.ENEMY;
 
       const previousSelector: TName = string.format(
         "alife_presentation_smart_%s_%s",
@@ -315,9 +310,11 @@ export class MapDisplayManager extends AbstractManager {
       );
 
       if (smartTerrain.smartTerrainDisplayedMapSpot === spot) {
-        level.map_change_spot_hint(smartTerrain.id, previousSelector, getSmartTerrainMapDisplayHint(smartTerrain));
-
-        return;
+        return level.map_change_spot_hint(
+          smartTerrain.id,
+          previousSelector,
+          getSmartTerrainMapDisplayHint(smartTerrain)
+        );
       }
 
       // If previous mark is defined.
@@ -325,12 +322,11 @@ export class MapDisplayManager extends AbstractManager {
         level.map_remove_object_spot(smartTerrain.id, previousSelector);
       }
 
-      // If next mark is defined.
-      if (spot !== null) {
-        const nextSelector: TName = string.format("alife_presentation_smart_%s_%s", smartTerrain.simulationRole, spot);
-
-        level.map_add_object_spot(smartTerrain.id, nextSelector, getSmartTerrainMapDisplayHint(smartTerrain));
-      }
+      level.map_add_object_spot(
+        smartTerrain.id,
+        string.format("alife_presentation_smart_%s_%s", smartTerrain.simulationRole, spot),
+        getSmartTerrainMapDisplayHint(smartTerrain)
+      );
 
       smartTerrain.smartTerrainDisplayedMapSpot = spot;
 
@@ -341,15 +337,15 @@ export class MapDisplayManager extends AbstractManager {
      * If not enabled rendering, just remove map spot if needed.
      */
     if (
-      smartTerrain.smartTerrainDisplayedMapSpot !== null &&
+      smartTerrain.smartTerrainDisplayedMapSpot &&
       level.map_has_object_spot(
         smartTerrain.id,
-        "alife_presentation_smart_" + smartTerrain.simulationRole + "_" + smartTerrain.smartTerrainDisplayedMapSpot
+        `alife_presentation_smart_${smartTerrain.simulationRole}_${smartTerrain.smartTerrainDisplayedMapSpot}`
       )
     ) {
       level.map_remove_object_spot(
         smartTerrain.id,
-        "alife_presentation_smart_" + smartTerrain.simulationRole + "_" + smartTerrain.smartTerrainDisplayedMapSpot
+        `alife_presentation_smart_${smartTerrain.simulationRole}_${smartTerrain.smartTerrainDisplayedMapSpot}`
       );
       smartTerrain.smartTerrainDisplayedMapSpot = null;
     }
@@ -424,14 +420,12 @@ export class MapDisplayManager extends AbstractManager {
    * todo: Description.
    */
   public removeSmartTerrainMapSpot(smartTerrain: SmartTerrain): void {
-    if (smartTerrain.smartTerrainDisplayedMapSpot === null) {
-      return;
+    if (smartTerrain.smartTerrainDisplayedMapSpot) {
+      level.map_remove_object_spot(
+        smartTerrain.id,
+        `alife_presentation_smart_${smartTerrain.simulationRole}_${smartTerrain.smartTerrainDisplayedMapSpot}`
+      );
     }
-
-    level.map_remove_object_spot(
-      smartTerrain.id,
-      "alife_presentation_smart_" + smartTerrain.simulationRole + "_" + smartTerrain.smartTerrainDisplayedMapSpot
-    );
   }
 
   /**

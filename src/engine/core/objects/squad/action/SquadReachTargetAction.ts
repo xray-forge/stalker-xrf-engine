@@ -12,6 +12,7 @@ const logger: LuaLogger = new LuaLogger($filename);
  */
 export class SquadReachTargetAction implements ISquadAction {
   public readonly type: ESquadActionType = ESquadActionType.REACH_TARGET;
+  // Squad performing reach target action.
   public readonly squad: Squad;
 
   public constructor(squad: Squad) {

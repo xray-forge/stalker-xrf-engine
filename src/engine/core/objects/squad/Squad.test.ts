@@ -2,11 +2,12 @@ import { describe, expect, it, jest } from "@jest/globals";
 
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { Squad } from "@/engine/core/objects/squad/index";
+import { MockSquad } from "@/fixtures/engine";
 
 describe("Squad server object", () => {
   it("should correctly emit lifecycle events", () => {
     const eventsManager: EventsManager = EventsManager.getInstance();
-    const squad: Squad = new Squad("test-squad");
+    const squad: Squad = MockSquad.mock();
 
     const onSquadRegister = jest.fn();
     const onSquadUnregister = jest.fn();

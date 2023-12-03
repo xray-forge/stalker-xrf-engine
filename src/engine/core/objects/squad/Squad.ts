@@ -51,7 +51,6 @@ import { areObjectsOnSameLevel } from "@/engine/core/utils/position";
 import { areCommunitiesEnemies, ERelation, setObjectSympathy } from "@/engine/core/utils/relation";
 import { canSquadHelpActor, updateSquadInvulnerabilityState } from "@/engine/core/utils/squad";
 import { vectorToString } from "@/engine/core/utils/vector";
-import { forgeConfig } from "@/engine/lib/configs/ForgeConfig";
 import { squadCommunityByBehaviour } from "@/engine/lib/constants/behaviours";
 import { TCommunity } from "@/engine/lib/constants/communities";
 import { MAX_U16 } from "@/engine/lib/constants/memory";
@@ -69,7 +68,6 @@ import {
   StringOptional,
   TCount,
   TIndex,
-  TLabel,
   TName,
   TNumberId,
   TRate,
@@ -85,6 +83,10 @@ const simulationLogger: LuaLogger = new LuaLogger($filename, { file: "simulation
  */
 @LuabindClass()
 export class Squad extends cse_alife_online_offline_group implements ISimulationTarget {
+  public readonly mapDisplayManager: MapDisplayManager = MapDisplayManager.getInstance();
+  public readonly simulationBoardManager: SimulationBoardManager = SimulationBoardManager.getInstance();
+  public readonly soundManager: StoryManager = getStoryManager(`squad_${this.section_name()}`);
+
   public isItemListSpawned: Optional<boolean> = null;
   public isSimulationAvailableConditionList: TConditionList = parseConditionsList(TRUE);
   public isMapDisplayHidden: boolean = false;
@@ -93,21 +95,16 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
   public isSpotVisible: Optional<TConditionList> = null;
 
   // Faction for simulation (behaviour community) like monster_day/night etc.
-  public faction!: TCommunity;
+  public faction: TCommunity;
   public behaviour: LuaTable<string, string> = new LuaTable();
 
   public assignedSmartTerrainId: Optional<TNumberId> = null;
   public enteredSmartTerrainId: Optional<TNumberId> = null;
 
-  public readonly mapDisplayManager: MapDisplayManager = MapDisplayManager.getInstance();
-  public readonly simulationBoardManager: SimulationBoardManager = SimulationBoardManager.getInstance();
-  public readonly soundManager: StoryManager = getStoryManager(`squad_${this.section_name()}`);
-
   public simulationProperties!: LuaTable<TName, TRate>;
 
-  /**
-   * Meta-info about spawn point of the squad.
-   */
+  // Meta-info about spawn point of the squad.
+  // Used to track each point spawning limits.
   public respawnPointId: Optional<TNumberId> = null;
   public respawnPointSection: Optional<TSection> = null;
 
@@ -117,14 +114,13 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
   public currentAction: Optional<ISquadAction> = null;
   public currentTargetId: Optional<TNumberId> = null;
   public assignedTargetId: Optional<TNumberId> = null;
-  public nextTargetId: Optional<TNumberId> = null;
+  public nextTargetIndex: Optional<TIndex> = null;
   public lastTarget: Optional<string> = null;
-
   public parsedTargets: LuaArray<TName> = new LuaTable();
 
-  public invulnerability: Optional<TConditionList> = null;
+  public invulnerabilityConditionList: Optional<TConditionList> = null;
 
-  public actionConditionList: TConditionList = new LuaTable();
+  public targetConditionList: TConditionList = new LuaTable();
   public deathConditionList: TConditionList = new LuaTable();
 
   public sympathy: Optional<TCount> = null;
@@ -132,7 +128,40 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
 
   public constructor(section: TSection) {
     super(section);
-    this.initialize();
+
+    this.targetConditionList = parseConditionsList(readIniString(SYSTEM_INI, section, "target_smart", false, null, ""));
+    this.deathConditionList = parseConditionsList(readIniString(SYSTEM_INI, section, "on_death", false, null, ""));
+    this.invulnerabilityConditionList = parseConditionsList(
+      readIniString(SYSTEM_INI, section, "invulnerability", false, null, "")
+    );
+
+    this.faction = readIniString(SYSTEM_INI, section, "faction", true) as TCommunity;
+    this.relationship = this.relationship || readIniString(SYSTEM_INI, section, "relationship", false);
+    this.sympathy = readIniNumber(SYSTEM_INI, section, "sympathy", false, null);
+    this.isSpotVisible = parseConditionsList(readIniString(SYSTEM_INI, section, "show_spot", false, null, FALSE));
+    this.isAlwaysArrived = readIniBoolean(SYSTEM_INI, section, "always_arrived", false);
+
+    this.setLocationTypesMaskFromSection("stalker_terrain");
+    this.updateSquadSympathy();
+
+    const behaviourSection: TSection = readIniString(
+      SYSTEM_INI,
+      this.section_name(),
+      "behaviour",
+      false,
+      null,
+      this.faction
+    );
+
+    if (!SQUAD_BEHAVIOURS_LTX.section_exist(behaviourSection)) {
+      abort("There is no section [" + behaviourSection + "] in 'squad_behaviours.ltx'");
+    }
+
+    for (const it of $range(0, SQUAD_BEHAVIOURS_LTX.line_count(behaviourSection) - 1)) {
+      const [, name, conditionsList] = SQUAD_BEHAVIOURS_LTX.r_line(behaviourSection, it, "", "");
+
+      this.behaviour.set(name, conditionsList);
+    }
   }
 
   public override update(): void {
@@ -189,7 +218,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
     }
 
     // Have target and action, update it until it is finished.
-    if (this.currentAction !== null && this.isAssignedTargetAvailable()) {
+    if (this.currentAction && this.isAssignedTargetAvailable()) {
       const isFinished: boolean = this.currentAction.update(true);
 
       if (isFinished) {
@@ -226,7 +255,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
     let isNewActionNeeded: boolean = false;
 
     if (this.assignedTargetId !== null && this.assignedTargetId === scriptTarget) {
-      if (this.currentAction !== null) {
+      if (this.currentAction) {
         if (this.currentAction.type === ESquadActionType.STAY_ON_TARGET) {
           if (this.isSquadOnPoint()) {
             isNewActionNeeded = true;
@@ -234,7 +263,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
             isNewActionNeeded = this.currentAction!.update(false);
           }
         } else {
-          if (this.currentAction!.update(false)) {
+          if (this.currentAction.update(false)) {
             this.isSquadOnPoint();
             isNewActionNeeded = true;
           }
@@ -250,7 +279,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
     if (isNewActionNeeded) {
       this.assignedTargetId = scriptTarget;
 
-      if (this.currentAction !== null) {
+      if (this.currentAction) {
         this.currentAction.finalize();
         this.currentAction = null;
       }
@@ -336,52 +365,6 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
   /**
    * todo: Description.
    */
-  public initialize(): void {
-    const sectionName: TSection = this.section_name();
-
-    this.faction = readIniString(SYSTEM_INI, sectionName, "faction", true) as TCommunity;
-    this.actionConditionList = parseConditionsList(
-      readIniString(SYSTEM_INI, sectionName, "target_smart", false, null, "")
-    );
-    this.deathConditionList = parseConditionsList(readIniString(SYSTEM_INI, sectionName, "on_death", false, null, ""));
-    this.invulnerability = parseConditionsList(
-      readIniString(SYSTEM_INI, sectionName, "invulnerability", false, null, "")
-    );
-    this.relationship = this.relationship || readIniString(SYSTEM_INI, sectionName, "relationship", false);
-    this.sympathy = readIniNumber(SYSTEM_INI, sectionName, "sympathy", false, null);
-    this.isSpotVisible = parseConditionsList(readIniString(SYSTEM_INI, sectionName, "show_spot", false, null, FALSE));
-    this.isAlwaysArrived = readIniBoolean(SYSTEM_INI, sectionName, "always_arrived", false);
-
-    this.setLocationTypesMaskFromSection("stalker_terrain");
-    this.updateSquadSympathy();
-
-    this.behaviour = new LuaTable();
-
-    const behaviourSection: TSection = readIniString(
-      SYSTEM_INI,
-      this.section_name(),
-      "behaviour",
-      false,
-      null,
-      this.faction
-    );
-
-    if (!SQUAD_BEHAVIOURS_LTX.section_exist(behaviourSection)) {
-      abort("There is no section [" + behaviourSection + "] in 'squad_behaviours.ltx'");
-    }
-
-    const behaviourParametersCount: TCount = SQUAD_BEHAVIOURS_LTX.line_count(behaviourSection);
-
-    for (const it of $range(0, behaviourParametersCount - 1)) {
-      const [, name, conditionsList] = SQUAD_BEHAVIOURS_LTX.r_line(behaviourSection, it, "", "");
-
-      this.behaviour.set(name, conditionsList);
-    }
-  }
-
-  /**
-   * todo: Description.
-   */
   public initializeOnLoad(): void {
     logger.info("Init squad on load:", this.name());
 
@@ -401,7 +384,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
    * @return target ID assigned for smart by condlists from ltx script configuration
    */
   public getLogicsScriptTarget(): Optional<TNumberId> {
-    const newTarget: Optional<TSection> = pickSectionFromCondList(registry.actor, this, this.actionConditionList);
+    const newTarget: Optional<TSection> = pickSectionFromCondList(registry.actor, this, this.targetConditionList);
 
     if (newTarget === null) {
       return null;
@@ -410,20 +393,22 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
     if (newTarget !== this.lastTarget) {
       this.lastTarget = newTarget;
       this.parsedTargets = parseStringsList(newTarget);
-      this.nextTargetId = 1;
+      this.nextTargetIndex = 1;
     }
 
-    if (this.parsedTargets.get(this.nextTargetId as TNumberId) === null) {
-      this.nextTargetId = 1;
+    if (this.parsedTargets.get(this.nextTargetIndex as TNumberId) === null) {
+      this.nextTargetIndex = 1;
     }
 
-    let nextTargetName: StringOptional<TName> = this.selectNextTarget();
+    let nextTargetName: StringOptional<TName> = this.parsedTargets.get(this.nextTargetIndex as TNumberId);
 
     if (nextTargetName === NIL) {
       return null;
     } else if (nextTargetName === "loop") {
-      this.nextTargetId = 1;
-      nextTargetName = this.selectNextTarget();
+      // Support logics of looping over squad targets over and over.
+      // In case if a->b->c path proceeded, go back to a and retry again.
+      this.nextTargetIndex = 1;
+      nextTargetName = this.parsedTargets.get(this.nextTargetIndex as TNumberId);
     }
 
     return (this.simulationBoardManager.getSmartTerrainByName(nextTargetName) as SmartTerrain).id;
@@ -431,25 +416,21 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
 
   /**
    * todo: Description.
-   */
-  public selectNextTarget(): StringOptional<TName> {
-    return this.parsedTargets.get(this.nextTargetId as TNumberId);
-  }
-
-  /**
-   * todo: Description.
    * todo: has side effect
+   *
+   * Check if currently assigned target is assigned as smart terrain.
+   * If yes, switch to next smart terrain target in the list.
    */
   public isSquadOnPoint(): boolean {
     if (this.parsedTargets === null) {
       return true;
     }
 
-    const nextTargetId: TNumberId = this.nextTargetId || 0;
+    const nextTargetId: TNumberId = (this.nextTargetIndex ?? 0) + 1;
 
-    if (this.assignedTargetId !== null && this.assignedSmartTerrainId === this.assignedTargetId) {
-      if (this.parsedTargets.get(nextTargetId + 1) !== null) {
-        this.nextTargetId = nextTargetId + 1;
+    if (this.assignedTargetId !== null && this.assignedTargetId === this.assignedSmartTerrainId) {
+      if (this.parsedTargets.has(nextTargetId)) {
+        this.nextTargetIndex = nextTargetId;
 
         return true;
       }
@@ -800,38 +781,6 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
   }
 
   /**
-   * Get map display hint for debugging and display in game UI map.
-   *
-   * @returns hint to show when hovering over in PDA map
-   */
-  public getMapDisplayHint(): TLabel {
-    if (forgeConfig.DEBUG.IS_SIMULATION_ENABLED) {
-      let hint: TLabel = string.format(
-        "[%s]\\nonline = %s\\ncurrent_target = [%s]\\nassigned_target = [%s]" +
-          "\\nassigned_smartTerrain = [%s]\\nnext_target = [%s]\\ncurrent_action = [%s]\\n",
-        this.name(),
-        this.online,
-        tostring(this.currentTargetId && registry.simulator.object(this.currentTargetId)?.name()),
-        tostring(this.assignedTargetId && registry.simulator.object(this.assignedTargetId)?.name()),
-        tostring(this.assignedSmartTerrainId && registry.simulator.object(this.assignedSmartTerrainId)?.name()),
-        tostring(this.nextTargetId && registry.simulator.object(this.nextTargetId)?.name()),
-        tostring(this.currentAction?.type)
-      );
-
-      if (this.currentAction?.type === ESquadActionType.STAY_ON_TARGET) {
-        hint += string.format(
-          "stay_on_target_for = [%.2f]",
-          (this.currentAction as SquadStayOnTargetAction).getStayIdleDuration()
-        );
-      }
-
-      return hint;
-    } else {
-      return "";
-    }
-  }
-
-  /**
    * Check if squad can help actor.
    * If any valid target in combat can be targeted, try to help actor.
    *
@@ -940,7 +889,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
 
         if (
           smartTerrain &&
-          smartTerrain.smartTerrainActorControl !== null &&
+          smartTerrain.smartTerrainActorControl &&
           smartTerrain.smartTerrainActorControl.status !== ESmartTerrainStatus.ALARM
         ) {
           return false;
@@ -963,7 +912,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
     }
 
     if (
-      assignedSmartTerrain.smartTerrainActorControl !== null &&
+      assignedSmartTerrain.smartTerrainActorControl &&
       assignedSmartTerrain.smartTerrainActorControl.status !== ESmartTerrainStatus.NORMAL
     ) {
       if (
@@ -982,9 +931,9 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
    * @returns whether the squad is valid simulation target for provided squad parameter.
    */
   public isValidSquadTarget(squad: Squad): boolean {
-    const squadActivityDescriptor: ISimulationActivityDescriptor = simulationActivities.get(squad.faction);
+    const squadActivityDescriptor: Optional<ISimulationActivityDescriptor> = simulationActivities.get(squad.faction);
 
-    if (squadActivityDescriptor === null || squadActivityDescriptor.squad === null) {
+    if (!squadActivityDescriptor || !squadActivityDescriptor.squad) {
       return false;
     }
 
