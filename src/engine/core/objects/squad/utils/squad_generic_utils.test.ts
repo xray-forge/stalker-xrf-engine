@@ -49,7 +49,7 @@ next = nil
 current = nil
 [relation]
 sympathy = nil
-relationship = nil
+relationship = neutral
 `);
   });
 
@@ -84,13 +84,13 @@ entered = nil
 current = ${target.name()}
 assigned = ${assigned.name()}
 last = nil
-next = ${next.name()}
+next = ${next.id}
 [action]
 current = ${squad.currentAction.type}
 stay_on_target_for = 0
 [relation]
 sympathy = nil
-relationship = nil
+relationship = neutral
 `);
   });
 });

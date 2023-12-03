@@ -112,8 +112,8 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
   public currentMapSpotSection: Optional<TName> = null;
 
   public currentAction: Optional<ISquadAction> = null;
-  public currentTargetId: Optional<TNumberId> = null;
-  public assignedTargetId: Optional<TNumberId> = null;
+  public currentTargetId: Optional<TNumberId> = null; // Target squad currently stays on.
+  public assignedTargetId: Optional<TNumberId> = null; // Target squad should reach.
   public nextTargetIndex: Optional<TIndex> = null;
   public lastTarget: Optional<string> = null;
   public parsedTargets: LuaArray<TName> = new LuaTable();
@@ -467,15 +467,15 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
     );
 
     if (this.currentTargetId === null) {
-      if (squadTarget === null || squadTarget.isSquadArrived(this)) {
-        if (squadTarget !== null) {
+      if (!squadTarget || squadTarget.isSquadArrived(this)) {
+        if (squadTarget) {
           squadTarget.onStartedBeingReachedBySquad(this);
           // todo: Probably should be revisited.
           squadTarget.onEndedBeingReachedBySquad(this);
         }
 
-        this.currentAction = new SquadStayOnTargetAction(this);
         this.currentTargetId = this.assignedTargetId;
+        this.currentAction = new SquadStayOnTargetAction(this);
         this.currentAction.initialize(isUnderSimulation);
 
         return;
