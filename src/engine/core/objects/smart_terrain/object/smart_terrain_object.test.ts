@@ -96,8 +96,8 @@ describe("isSquadArrivedToSmartTerrain utility", () => {
     jest.spyOn(target, "isSquadArrived").mockImplementation(() => false);
     expect(isSquadArrivedToSmartTerrain(squad)).toBe(false);
 
-    expect(target.isSquadArrived).toHaveBeenCalledTimes(2);
-    expect(target.isSquadArrived).toHaveBeenCalledWith(squad);
+    expect(target.isReachedBySimulationObject).toHaveBeenCalledTimes(2);
+    expect(target.isReachedBySimulationObject).toHaveBeenCalledWith(squad);
   });
 
   it("should correctly check arrived state based stay on target action", () => {

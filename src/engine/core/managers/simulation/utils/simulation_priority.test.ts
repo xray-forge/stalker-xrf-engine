@@ -5,7 +5,7 @@ import {
   evaluateSimulationPriority,
   evaluateSimulationPriorityByDistance,
 } from "@/engine/core/managers/simulation/utils/simulation_priority";
-import { TName } from "@/engine/lib/types";
+import { TName, TRate } from "@/engine/lib/types";
 import { mockSquad } from "@/fixtures/engine";
 import { MockLuaTable } from "@/fixtures/lua";
 import { mockServerAlifeObject, MockVector } from "@/fixtures/xray";
@@ -35,7 +35,7 @@ describe("alife utils", () => {
       evaluateSimulationPriority(
         mockSquad({
           behaviour: MockLuaTable.mock([["a", "5"]]),
-          simulationProperties: $fromObject<TName, string>({ a: "6" }),
+          simulationProperties: $fromObject<TName, TRate>({ a: 6 }),
         }),
         mockSquad()
       )

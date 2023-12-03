@@ -48,7 +48,6 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 import { areObjectsOnSameLevel } from "@/engine/core/utils/position";
 import { ERelation, setObjectSympathy } from "@/engine/core/utils/relation";
 import { getSquadHelpActorTargetId, updateSquadInvulnerabilityState } from "@/engine/core/utils/squad";
-import { squadCommunityByBehaviour } from "@/engine/lib/constants/behaviours";
 import { TCommunity } from "@/engine/lib/constants/communities";
 import { MAX_U16 } from "@/engine/lib/constants/memory";
 import { FALSE, NIL, TRUE } from "@/engine/lib/constants/words";
@@ -377,10 +376,10 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
         return smartTerrain.objectJobDescriptors.get(this.commander_id()).job!.alifeTask as CALifeSmartTerrainTask;
       }
 
-      return smartTerrain.getAlifeSmartTerrainTask();
+      return smartTerrain.getSimulationTask();
     }
 
-    return this.getAlifeSmartTerrainTask();
+    return this.getSimulationTask();
   }
 
   /**
@@ -470,7 +469,8 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
    */
   public isAssignedTargetAvailable(): boolean {
     return this.assignedTargetId
-      ? registry.simulator.object<TSimulationObject>(this.assignedTargetId)?.isValidSquadTarget(this, true) === true
+      ? registry.simulator.object<TSimulationObject>(this.assignedTargetId)?.isValidSimulationTarget(this, true) ===
+          true
       : false;
   }
 
@@ -491,11 +491,11 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
     );
 
     if (this.currentTargetId === null) {
-      if (!squadTarget || squadTarget.isSquadArrived(this)) {
+      if (!squadTarget || squadTarget.isReachedBySimulationObject(this)) {
         if (squadTarget) {
-          squadTarget.onStartedBeingReachedBySquad(this);
+          squadTarget.onSimulationTargetSelected(this);
           // todo: Probably should be revisited.
-          squadTarget.onEndedBeingReachedBySquad(this);
+          squadTarget.onSimulationTargetDeselected(this);
         }
 
         this.currentTargetId = this.assignedTargetId;
@@ -695,19 +695,19 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
   /**
    * @returns whether squad targeting another squad can be finished since one is eliminated
    */
-  public isSquadArrived(squad: Squad): boolean {
+  public isReachedBySimulationObject(squad: Squad): boolean {
     return this.npc_count() === 0;
   }
 
   /**
    * todo: Description.
    */
-  public onEndedBeingReachedBySquad(squad: Squad): void {}
+  public onSimulationTargetDeselected(squad: Squad): void {}
 
   /**
    * todo: Description.
    */
-  public onStartedBeingReachedBySquad(squad: Squad): void {
+  public onSimulationTargetSelected(squad: Squad): void {
     squad.setLocationTypes();
 
     for (const it of squad.squad_members()) {
@@ -720,7 +720,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
   /**
    * @returns alife smart terrain task to reach/stay on current object
    */
-  public getAlifeSmartTerrainTask(): ALifeSmartTerrainTask {
+  public getSimulationTask(): ALifeSmartTerrainTask {
     return new CALifeSmartTerrainTask(this.m_game_vertex_id, this.m_level_vertex_id);
   }
 
@@ -782,7 +782,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
    * @param squad - another squad checking availability of current instance
    * @returns whether the squad is valid simulation target for provided squad parameter.
    */
-  public isValidSquadTarget(squad: Squad): boolean {
+  public isValidSimulationTarget(squad: Squad): boolean {
     const squadActivityDescriptor: Optional<ISimulationActivityDescriptor> = simulationActivities.get(squad.faction);
 
     if (!squadActivityDescriptor || !squadActivityDescriptor.squad) {

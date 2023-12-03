@@ -718,7 +718,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
    * @param isPopulationDecreaseNeeded - whether population decrease should be estimated with check
    * @return whether current smart terrain is valid simulation target for provided squad
    */
-  public isValidSquadTarget(squad: Squad, isPopulationDecreaseNeeded?: boolean): boolean {
+  public isValidSimulationTarget(squad: Squad, isPopulationDecreaseNeeded?: boolean): boolean {
     if (this.isRespawnOnlySmart) {
       return false;
     }
@@ -779,7 +779,14 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
   /**
    * todo: Description.
    */
-  public isSquadArrived(squad: Squad): boolean {
+  public getSimulationTask(): CALifeSmartTerrainTask {
+    return this.smartTerrainAlifeTask;
+  }
+
+  /**
+   * todo: Description.
+   */
+  public isReachedBySimulationObject(squad: Squad): boolean {
     if (!areObjectsOnSameLevel(squad, this)) {
       return false;
     }
@@ -797,30 +804,24 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
   /**
    * todo: Description.
    */
-  public onEndedBeingReachedBySquad(squad: Squad): void {
+  public onSimulationTargetSelected(squad: Squad): void {
+    squad.setLocationTypes(this.name());
+
+    for (const it of squad.squad_members()) {
+      softResetOfflineObject(it.id);
+    }
+
+    this.simulationBoardManager.assignSquadToSmartTerrain(squad, this.id);
+  }
+
+  /**
+   * todo: Description.
+   */
+  public onSimulationTargetDeselected(squad: Squad): void {
     for (const squadMember of squad.squad_members()) {
       squad.simulationBoardManager.setupObjectSquadAndGroup(squadMember.object);
     }
 
     squad.currentTargetId = this.id;
-  }
-
-  /**
-   * todo: Description.
-   */
-  public onStartedBeingReachedBySquad(squad: Squad): void {
-    squad.setLocationTypes(this.name());
-    this.simulationBoardManager.assignSquadToSmartTerrain(squad, this.id);
-
-    for (const it of squad.squad_members()) {
-      softResetOfflineObject(it.id);
-    }
-  }
-
-  /**
-   * todo: Description.
-   */
-  public getAlifeSmartTerrainTask(): CALifeSmartTerrainTask {
-    return this.smartTerrainAlifeTask;
   }
 }

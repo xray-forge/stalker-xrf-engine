@@ -28,7 +28,7 @@ export function evaluateSimulationPriority(target: TSimulationObject, squad: Squ
   let priority: TRate = 3;
 
   // Blocking level traveling and specific preconditions.
-  if (!target.isValidSquadTarget(squad) || !areObjectsOnSameLevel(target, squad)) {
+  if (!target.isValidSimulationTarget(squad) || !areObjectsOnSameLevel(target, squad)) {
     return 0;
   }
 
