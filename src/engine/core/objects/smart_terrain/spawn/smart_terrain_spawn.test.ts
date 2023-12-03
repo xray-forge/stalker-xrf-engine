@@ -13,7 +13,7 @@ import { Squad } from "@/engine/core/objects/squad";
 import { parseConditionsList } from "@/engine/core/utils/ini";
 import { FALSE, TRUE } from "@/engine/lib/constants/words";
 import { Optional } from "@/engine/lib/types";
-import { mockRegisteredActor, mockSmartTerrain, mockSquad, resetRegistry } from "@/fixtures/engine";
+import { mockRegisteredActor, mockSmartTerrain, MockSquad, resetRegistry } from "@/fixtures/engine";
 import { MockAlifeOnlineOfflineGroup, MockCTime, MockIniFile, mockServerAlifeHumanStalker } from "@/fixtures/xray";
 
 describe("smart_terrain_spawn module", () => {
@@ -145,7 +145,7 @@ describe("respawnSmartTerrainSquad util", () => {
     jest.spyOn(simulationBoardManager, "enterSmartTerrain").mockImplementation(() => jest.fn());
     jest.spyOn(simulationBoardManager, "setupObjectSquadAndGroup");
     jest.spyOn(registry.simulator, "create").mockImplementation(() => {
-      const base: Squad = mockSquad();
+      const base: Squad = MockSquad.mock();
 
       (base as unknown as MockAlifeOnlineOfflineGroup).addSquadMember(mockServerAlifeHumanStalker());
       (base as unknown as MockAlifeOnlineOfflineGroup).addSquadMember(mockServerAlifeHumanStalker());
@@ -160,7 +160,7 @@ describe("respawnSmartTerrainSquad util", () => {
     expect(squad).not.toBeNull();
     expect(squad?.assignToSmartTerrain).toHaveBeenCalledWith(smartTerrain);
     expect(simulationBoardManager.enterSmartTerrain).toHaveBeenCalledWith(squad, smartTerrain.id);
-    expect(simulationBoardManager.setupObjectSquadAndGroup).toHaveBeenCalledTimes(4);
+    expect(simulationBoardManager.setupObjectSquadAndGroup).toHaveBeenCalledTimes(8);
     expect(smartTerrain.spawnedSquadsList).toEqualLuaTables({
       "test-section-1": {
         num: 1,
@@ -183,9 +183,9 @@ describe("respawnSmartTerrainSquad util", () => {
       },
     });
 
-    expect(registry.simulator.create).toHaveBeenCalledTimes(2);
+    expect(registry.simulator.create).toHaveBeenCalledTimes(6);
     expect(simulationBoardManager.enterSmartTerrain).toHaveBeenCalledTimes(2);
-    expect(simulationBoardManager.setupObjectSquadAndGroup).toHaveBeenCalledTimes(8);
+    expect(simulationBoardManager.setupObjectSquadAndGroup).toHaveBeenCalledTimes(16);
   });
 });
 

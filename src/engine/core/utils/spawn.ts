@@ -157,15 +157,14 @@ export function getInventoryNameForItemSection(section: TSection): TLabel {
  * @returns spawned squad
  */
 export function spawnSquadInSmart(section: Optional<TStringId>, smartTerrainName: Optional<TName>): Squad {
-  assertDefined(section, "Wrong squad identifier in spawnSquad function.");
-  assertDefined(smartTerrainName, "Wrong squad name in spawnSquad function.");
-
+  assert(section, "Wrong squad identifier in spawnSquad function.");
+  assert(smartTerrainName, "Wrong squad name in spawnSquad function.");
   assert(SYSTEM_INI.section_exist(section), "Wrong squad identifier '%s'. Squad doesnt exist in ini.", section);
 
   const simulationBoardManager: SimulationBoardManager = SimulationBoardManager.getInstance();
   const smartTerrain: Optional<SmartTerrain> = simulationBoardManager.getSmartTerrainByName(smartTerrainName);
 
-  assertDefined(smartTerrain, "Wrong smartName '%s' for faction in spawnSquad function", tostring(smartTerrainName));
+  assert(smartTerrain, "Wrong smartName '%s' for faction in spawnSquad function", tostring(smartTerrainName));
 
   const squad: Squad = simulationBoardManager.createSquad(smartTerrain, section);
 

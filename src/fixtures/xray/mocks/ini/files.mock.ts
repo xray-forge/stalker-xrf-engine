@@ -48,6 +48,7 @@ export const FILES_MOCKS: Record<TPath, AnyObject> = {
     squad: {},
     test_squad: {
       faction: "stalker",
+      npc: "test_npc_1, test_npc_2",
     },
     stalker_none_1: {
       set_visual: "",

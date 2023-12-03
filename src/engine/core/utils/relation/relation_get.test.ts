@@ -115,9 +115,9 @@ describe("relation/get utils", () => {
     const neutral: ServerGroupObject = mockServerAlifeOnlineOfflineGroup();
     const predefined: ServerGroupObject = mockServerAlifeOnlineOfflineGroup();
 
-    (enemy as Squad).getCommunity = () => communities.monolith;
-    (friend as Squad).getCommunity = () => communities.army;
-    (neutral as Squad).getCommunity = () => communities.stalker;
+    (enemy as Squad).faction = communities.monolith;
+    (friend as Squad).faction = communities.army;
+    (neutral as Squad).faction = communities.stalker;
 
     registerStoryLink(enemy.id, "existing-enemy");
     registerStoryLink(friend.id, "existing-friend");

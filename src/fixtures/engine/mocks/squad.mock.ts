@@ -39,6 +39,8 @@ export class MockSquad extends Squad {
 
 /**
  * Mock squad record based on online-offline group for testing.
+ *
+ * @deprecated
  */
 export function mockSquad({
   behaviour = MockLuaTable.mock([
@@ -54,7 +56,7 @@ export function mockSquad({
     ...rest,
     simulationProperties: simulationProperties,
     clsid,
-    isValidSquadTarget: isValidSimulationTarget,
+    isValidSimulationTarget: isValidSimulationTarget,
     assignToSmartTerrain: rest.assignToSmartTerrain ?? jest.fn(),
     isSquadArrived: rest.isReachedBySimulationObject ?? jest.fn(),
     isSimulationAvailable: rest.isSimulationAvailable ?? jest.fn(() => true),
@@ -108,12 +110,12 @@ export function mockRelationsSquads(): IMockedSquads {
   mockCharactersGoodwill(almostEnemy.id, ACTOR_ID, -999);
   mockCharactersGoodwill(almostFriend.id, ACTOR_ID, 999);
 
-  jest.spyOn(emptyMonolithSquad, "getCommunity").mockImplementation(() => communities.monolith);
-  jest.spyOn(emptyArmySquad, "getCommunity").mockImplementation(() => communities.army);
-  jest.spyOn(friendlySquad, "getCommunity").mockImplementation(() => communities.army);
-  jest.spyOn(enemySquad, "getCommunity").mockImplementation(() => communities.monster);
-  jest.spyOn(neutralSquad, "getCommunity").mockImplementation(() => communities.stalker);
-  jest.spyOn(mixedSquad, "getCommunity").mockImplementation(() => communities.bandit);
+  emptyMonolithSquad.faction = communities.monolith;
+  emptyArmySquad.faction = communities.army;
+  friendlySquad.faction = communities.army;
+  enemySquad.faction = communities.monster;
+  neutralSquad.faction = communities.stalker;
+  mixedSquad.faction = communities.bandit;
 
   [emptyMonolithSquad, emptyArmySquad, friendlySquad, enemySquad, neutralSquad, mixedSquad].forEach((it) => {
     jest.spyOn(it, "updateSquadRelationToActor").mockImplementation(() => {});

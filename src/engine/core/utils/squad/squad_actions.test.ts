@@ -8,6 +8,7 @@ import {
   isObjectSquadCommander,
   isObjectSquadCommanderById,
 } from "@/engine/core/utils/squad/squad_actions";
+import { communities } from "@/engine/lib/constants/communities";
 import { GameObject, ServerGroupObject, ServerHumanObject } from "@/engine/lib/types";
 import { mockRegisteredActor } from "@/fixtures/engine";
 import {
@@ -33,19 +34,19 @@ describe("squad_actions utils", () => {
 
     expect(canSquadHelpActor(squad)).toBe(false);
 
-    jest.spyOn(squad, "getCommunity").mockImplementation(() => "stalker");
+    squad.faction = communities.stalker;
     expect(canSquadHelpActor(squad)).toBe(false);
 
     giveInfoPortion("sim_stalker_help_harder");
     expect(canSquadHelpActor(squad)).toBe(true);
 
-    jest.spyOn(squad, "getCommunity").mockImplementation(() => "freedom");
+    squad.faction = communities.freedom;
     expect(canSquadHelpActor(squad)).toBe(false);
 
     giveInfoPortion("sim_freedom_help_harder");
     expect(canSquadHelpActor(squad)).toBe(true);
 
-    jest.spyOn(squad, "getCommunity").mockImplementation(() => "dolg");
+    squad.faction = communities.dolg;
     expect(canSquadHelpActor(squad)).toBe(false);
 
     giveInfoPortion("sim_duty_help_harder");

@@ -2,8 +2,16 @@ import { jest } from "@jest/globals";
 import type { cse_alife_online_offline_group } from "xray16";
 
 import type { TConditionList } from "@/engine/core/utils/ini";
-import { communities, TCommunity } from "@/engine/lib/constants/communities";
-import { ServerCreatureObject, ServerGroupObject, ServerSquadMemberDescriptor, TNumberId } from "@/engine/lib/types";
+import { TCommunity } from "@/engine/lib/constants/communities";
+import {
+  Optional,
+  ServerCreatureObject,
+  ServerGroupObject,
+  ServerSquadMemberDescriptor,
+  TCount,
+  TNumberId,
+} from "@/engine/lib/types";
+import { MockAlifeSimulator } from "@/fixtures/xray";
 import { mockClsid } from "@/fixtures/xray/mocks/constants";
 import {
   MockAlifeDynamicObject,
@@ -17,6 +25,7 @@ export class MockAlifeOnlineOfflineGroup extends MockAlifeDynamicObject {
   public members: Array<ServerSquadMemberDescriptor> = [];
   public invulnerable!: TConditionList;
   public online: boolean = true;
+  public faction!: TCommunity;
 
   public clsid(): TNumberId {
     return mockClsid.online_offline_group_s;
@@ -34,14 +43,24 @@ export class MockAlifeOnlineOfflineGroup extends MockAlifeDynamicObject {
 
   public assignSmartTerrain(): void {}
 
-  public update(): void {}
+  public register_member = jest.fn((id: TNumberId) => {
+    this.members.push({ id: id, object: MockAlifeSimulator.getFromRegistry(id) as ServerCreatureObject });
+  });
+
+  public clear_location_types(): void {}
+
+  public commander_id(): Optional<TNumberId> {
+    return null;
+  }
+
+  public npc_count(): TCount {
+    return this.members.length;
+  }
+
+  public update = jest.fn();
 
   public asMock(): ServerGroupObject {
     return this as unknown as ServerGroupObject;
-  }
-
-  public getCommunity(): TCommunity {
-    return communities.stalker;
   }
 
   public updateSquadRelationToActor(): void {}

@@ -9,7 +9,7 @@ import { Squad } from "@/engine/core/objects/squad";
 import { MAX_U16 } from "@/engine/lib/constants/memory";
 import { NIL } from "@/engine/lib/constants/words";
 import { AnyObject } from "@/engine/lib/types";
-import { resetRegistry } from "@/fixtures/engine";
+import { MockSmartTerrain, MockSquad, resetRegistry } from "@/fixtures/engine";
 import {
   EPacketDataType,
   MockGameObject,
@@ -157,11 +157,11 @@ describe("Stalker server object", () => {
 
   it("should correctly handle death callback", () => {
     const stalker: Stalker = new Stalker("stalker");
-    const squad: Squad = mockServerAlifeOnlineOfflineGroup() as Squad;
-    const smartTerrain: SmartTerrain = mockServerAlifeSmartZone() as SmartTerrain;
+    const squad: Squad = MockSquad.mock();
+    const smartTerrain: SmartTerrain = MockSmartTerrain.mock();
 
-    smartTerrain.onObjectDeath = jest.fn();
-    squad.onMemberDeath = jest.fn();
+    jest.spyOn(smartTerrain, "onObjectDeath").mockImplementation(jest.fn());
+    jest.spyOn(squad, "onMemberDeath").mockImplementation(jest.fn());
 
     stalker.m_smart_terrain_id = smartTerrain.id;
     stalker.group_id = squad.id;
@@ -179,8 +179,8 @@ describe("Stalker server object", () => {
     const squad: Squad = mockServerAlifeOnlineOfflineGroup() as Squad;
     const smartTerrain: SmartTerrain = mockServerAlifeSmartZone() as SmartTerrain;
 
-    smartTerrain.onObjectDeath = jest.fn();
-    squad.onMemberDeath = jest.fn();
+    jest.spyOn(smartTerrain, "onObjectDeath").mockImplementation(jest.fn());
+    jest.spyOn(squad, "onMemberDeath").mockImplementation(jest.fn());
 
     stalker.m_smart_terrain_id = 65000;
     stalker.group_id = 65001;
