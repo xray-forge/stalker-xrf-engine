@@ -1,4 +1,4 @@
-import { clsid, game, level, patrol } from "xray16";
+import { clsid, level, patrol } from "xray16";
 
 import { registry, SYSTEM_INI } from "@/engine/core/database";
 import { SimulationBoardManager } from "@/engine/core/managers/simulation/SimulationBoardManager";
@@ -21,7 +21,6 @@ import {
   TCount,
   TDistance,
   TIndex,
-  TLabel,
   TName,
   TNumberId,
   TProbability,
@@ -130,22 +129,6 @@ export function spawnItemsForObjectFromList<T extends TSection>(
 
   for (const it of $range(1, count)) {
     spawnItemsForObject(object, itemSections.get(math.random(itemSections.length())), 1);
-  }
-}
-
-/**
- * Get matching translation for section if it exists.
- *
- * @param section - section name to check for translated name
- * @returns translated item name if translation is declared
- */
-export function getInventoryNameForItemSection(section: TSection): TLabel {
-  if (SYSTEM_INI.section_exist(section) && SYSTEM_INI.line_exist(section, "inv_name")) {
-    const caption: Optional<TLabel> = SYSTEM_INI.r_string(section, "inv_name");
-
-    return game.translate_string(caption || section);
-  } else {
-    return game.translate_string(section);
   }
 }
 

@@ -3,11 +3,12 @@ import { CUI3tButton, CUIComboBox, CUIListBox, CUIWindow, LuabindClass, ui_event
 import { Squad } from "@/engine/core/objects/squad";
 import { AbstractDebugSection } from "@/engine/core/ui/debug/sections/AbstractDebugSection";
 import { DebugItemListEntry } from "@/engine/core/ui/debug/sections/DebugItemListEntry";
+import { getInventoryNameForItemSectionSafely } from "@/engine/core/utils/caption";
 import { isGameStarted } from "@/engine/core/utils/game";
 import { getSimulationGroupSections, getStalkerSections } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getNearestServerObject } from "@/engine/core/utils/registry";
-import { getInventoryNameForItemSection, spawnCreatureNearActor, spawnSquadInSmart } from "@/engine/core/utils/spawn";
+import { spawnCreatureNearActor, spawnSquadInSmart } from "@/engine/core/utils/spawn";
 import { resolveXmlFile } from "@/engine/core/utils/ui";
 import { create2dVector, createEmpty2dVector } from "@/engine/core/utils/vector";
 import { TInventoryItem } from "@/engine/lib/constants/items";
@@ -114,7 +115,7 @@ export class DebugSpawnSection extends AbstractDebugSection {
     spawnItem.SetWndSize(this.uiItemListMainSize);
     spawnItem.uiInnerNameText.SetWndPos(createEmpty2dVector());
     spawnItem.uiInnerNameText.SetWndSize(this.uiItemListNameSize);
-    spawnItem.uiInnerNameText.SetText(getInventoryNameForItemSection(section));
+    spawnItem.uiInnerNameText.SetText(getInventoryNameForItemSectionSafely(section));
     spawnItem.uiInnerSectionText.SetWndPos(create2dVector(this.uiItemListNameSize.x + 4, 0));
     spawnItem.uiInnerSectionText.SetWndSize(this.uiItemListDdSize);
 

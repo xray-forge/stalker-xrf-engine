@@ -28,9 +28,9 @@ import { ETaskState } from "@/engine/core/managers/tasks/types";
 import { Stalker } from "@/engine/core/objects/creature/Stalker";
 import { getSmartTerrainNameCaption } from "@/engine/core/objects/smart_terrain/utils";
 import { abort, assert } from "@/engine/core/utils/assertion";
+import { getInventoryNameForItemSectionSafely } from "@/engine/core/utils/caption";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { isObjectWounded } from "@/engine/core/utils/planner";
-import { getInventoryNameForItemSection } from "@/engine/core/utils/spawn";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import {
   AlifeSimulator,
@@ -157,7 +157,7 @@ export class NotificationManager extends AbstractManager {
     );
     const notificationText: TLabel = string.format(
       "%s%s",
-      getInventoryNameForItemSection(itemSection),
+      getInventoryNameForItemSectionSafely(itemSection),
       amount === 1 ? "" : " x" + amount
     );
     const notificationIcon: TName =

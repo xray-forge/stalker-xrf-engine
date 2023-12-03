@@ -5,7 +5,6 @@ import { SimulationBoardManager } from "@/engine/core/managers/simulation/Simula
 import { SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import { Squad } from "@/engine/core/objects/squad";
 import {
-  getInventoryNameForItemSection,
   releaseObject,
   spawnAmmoForObject,
   spawnCreatureNearActor,
@@ -143,11 +142,6 @@ describe("spawning utils", () => {
       object.game_vertex_id(),
       object.id()
     );
-  });
-
-  it("getInventoryNameForItemSection should correctly search for translation", () => {
-    expect(getInventoryNameForItemSection("wpn_not_existing")).toBe("translated_wpn_not_existing");
-    expect(getInventoryNameForItemSection("wpn_ak74")).toBe("translated_AK-74");
   });
 
   it("spawnSquadInSmart should correctly spawn squad in smart terrain", () => {
