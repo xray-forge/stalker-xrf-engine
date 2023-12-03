@@ -13,8 +13,8 @@ import { Squad } from "@/engine/core/objects/squad";
 import { parseConditionsList } from "@/engine/core/utils/ini";
 import { FALSE, TRUE } from "@/engine/lib/constants/words";
 import { Optional } from "@/engine/lib/types";
-import { mockRegisteredActor, mockSmartTerrain, MockSquad, resetRegistry } from "@/fixtures/engine";
-import { MockAlifeOnlineOfflineGroup, MockCTime, MockIniFile, mockServerAlifeHumanStalker } from "@/fixtures/xray";
+import { mockRegisteredActor, MockSmartTerrain, MockSquad, resetRegistry } from "@/fixtures/engine";
+import { MockAlifeHumanStalker, MockCTime, MockIniFile } from "@/fixtures/xray";
 
 describe("smart_terrain_spawn module", () => {
   beforeEach(() => {
@@ -22,7 +22,7 @@ describe("smart_terrain_spawn module", () => {
   });
 
   it("applySmartTerrainRespawnSectionsConfig should correctly apply respawn configuration", () => {
-    const smartTerrain: SmartTerrain = mockSmartTerrain();
+    const smartTerrain: SmartTerrain = MockSmartTerrain.mock();
 
     smartTerrain.ini = MockIniFile.mock("test.ltx", {
       "test-correct": ["test-section-1", "test-section-2"],
@@ -106,7 +106,7 @@ describe("respawnSmartTerrainSquad util", () => {
   });
 
   it("should correctly ignore spawn when no available sections exist", () => {
-    const smartTerrain: SmartTerrain = mockSmartTerrain();
+    const smartTerrain: SmartTerrain = MockSmartTerrain.mock();
 
     mockRegisteredActor();
 
@@ -122,7 +122,7 @@ describe("respawnSmartTerrainSquad util", () => {
   });
 
   it("should correctly spawn when available sections exist", () => {
-    const smartTerrain: SmartTerrain = mockSmartTerrain();
+    const smartTerrain: SmartTerrain = MockSmartTerrain.mock();
 
     smartTerrain.ini = MockIniFile.mock("test.ltx", {
       "spawn-section": ["test-section-1"],
@@ -145,10 +145,10 @@ describe("respawnSmartTerrainSquad util", () => {
     jest.spyOn(simulationBoardManager, "enterSmartTerrain").mockImplementation(() => jest.fn());
     jest.spyOn(simulationBoardManager, "setupObjectSquadAndGroup");
     jest.spyOn(registry.simulator, "create").mockImplementation(() => {
-      const base: Squad = MockSquad.mock();
+      const base: MockSquad = MockSquad.mock();
 
-      (base as unknown as MockAlifeOnlineOfflineGroup).addSquadMember(mockServerAlifeHumanStalker());
-      (base as unknown as MockAlifeOnlineOfflineGroup).addSquadMember(mockServerAlifeHumanStalker());
+      base.mockAddMember(MockAlifeHumanStalker.mock());
+      base.mockAddMember(MockAlifeHumanStalker.mock());
 
       jest.spyOn(base, "assignToSmartTerrain").mockImplementation(jest.fn());
 
@@ -191,7 +191,7 @@ describe("respawnSmartTerrainSquad util", () => {
 
 describe("canRespawnSmartTerrainSquad util", () => {
   it("should correctly set idle state after check", () => {
-    const smartTerrain: SmartTerrain = mockSmartTerrain();
+    const smartTerrain: SmartTerrain = MockSmartTerrain.mock();
 
     mockRegisteredActor();
 
@@ -205,7 +205,7 @@ describe("canRespawnSmartTerrainSquad util", () => {
   });
 
   it("should correctly check if respawn is based on condlist", () => {
-    const smartTerrain: SmartTerrain = mockSmartTerrain();
+    const smartTerrain: SmartTerrain = MockSmartTerrain.mock();
     const { actorServerObject } = mockRegisteredActor();
 
     smartTerrain.on_before_register();
@@ -231,7 +231,7 @@ describe("canRespawnSmartTerrainSquad util", () => {
   });
 
   it("should correctly check if respawn is based on population count", () => {
-    const smartTerrain: SmartTerrain = mockSmartTerrain();
+    const smartTerrain: SmartTerrain = MockSmartTerrain.mock();
     const { actorServerObject } = mockRegisteredActor();
 
     smartTerrain.on_before_register();
@@ -259,7 +259,7 @@ describe("canRespawnSmartTerrainSquad util", () => {
   });
 
   it("should correctly check if respawn is based on distance", () => {
-    const smartTerrain: SmartTerrain = mockSmartTerrain();
+    const smartTerrain: SmartTerrain = MockSmartTerrain.mock();
     const { actorServerObject } = mockRegisteredActor();
 
     smartTerrain.on_before_register();

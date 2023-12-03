@@ -7,7 +7,15 @@ import { getObjectSquad, getObjectSquadByObjectId, getSquadCommunity } from "@/e
 import { isEmpty } from "@/engine/core/utils/table";
 import { communities, TCommunity } from "@/engine/lib/constants/communities";
 import { infoPortions } from "@/engine/lib/constants/info_portions";
-import { AnyGameObject, GameObject, Optional, ServerCreatureObject, ServerObject, TNumberId } from "@/engine/lib/types";
+import {
+  AlifeSimulator,
+  AnyGameObject,
+  GameObject,
+  Optional,
+  ServerCreatureObject,
+  ServerObject,
+  TNumberId,
+} from "@/engine/lib/types";
 
 /**
  * Precondition checker to verify if squad can help actor in case of attack by another squad / monsters etc.
@@ -46,18 +54,19 @@ export function getSquadHelpActorTargetId(squad: Squad): Optional<TNumberId> {
     return null;
   }
 
-  const currentCommunity: TCommunity = getSquadCommunity(squad);
+  const squadCommunity: TCommunity = getSquadCommunity(squad);
+  const simulator: AlifeSimulator = registry.simulator;
 
-  for (const [id, v] of registry.actorCombat) {
-    const enemySquadId: Optional<TNumberId> = registry.simulator.object<ServerCreatureObject>(id)
+  for (const [id] of registry.actorCombat) {
+    const enemySquadId: Optional<TNumberId> = simulator.object<ServerCreatureObject>(id)
       ?.group_id as Optional<TNumberId>;
 
-    if (enemySquadId !== null) {
-      const targetSquad: Optional<Squad> = registry.simulator.object<Squad>(enemySquadId);
+    if (enemySquadId) {
+      const targetSquad: Optional<Squad> = simulator.object<Squad>(enemySquadId);
 
       if (
         targetSquad &&
-        areCommunitiesEnemies(currentCommunity, getSquadCommunity(targetSquad)) &&
+        areCommunitiesEnemies(squadCommunity, getSquadCommunity(targetSquad)) &&
         squad.position.distance_to_sqr(targetSquad.position) < 150 * 150
       ) {
         return enemySquadId;

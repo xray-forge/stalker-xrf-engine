@@ -4,15 +4,24 @@ import { registerObject } from "@/engine/core/database";
 import { Squad } from "@/engine/core/objects/squad";
 import { communities } from "@/engine/lib/constants/communities";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
-import { ServerGroupObject, ServerHumanObject, TClassId, TName, TRate, TSection } from "@/engine/lib/types";
+import {
+  ServerCreatureObject,
+  ServerGroupObject,
+  ServerHumanObject,
+  TClassId,
+  TName,
+  TNumberId,
+  TRate,
+  TSection,
+} from "@/engine/lib/types";
 import { MockLuaTable } from "@/fixtures/lua";
 import {
+  MockAlifeHumanStalker,
   MockAlifeOnlineOfflineGroup,
+  mockCharactersGoodwill,
   MockGameObject,
-  mockServerAlifeHumanStalker,
   mockServerAlifeOnlineOfflineGroup,
 } from "@/fixtures/xray";
-import { mockCharactersGoodwill } from "@/fixtures/xray/mocks/relations/communityRelations.mocks";
 
 /**
  * Class based mock of squad group.
@@ -27,13 +36,27 @@ export class MockSquad extends Squad {
         ["c", "3"],
       ]),
     }: Partial<Squad> = {}
-  ): Squad {
+  ): MockSquad {
     const squad: MockSquad = new MockSquad(section);
 
     squad.behaviour = behaviour;
     squad.simulationProperties = simulationProperties;
 
     return squad;
+  }
+
+  public mockAddMember(object: ServerCreatureObject): void {
+    super.register_member(object.id);
+
+    object.group_id = this.id;
+  }
+
+  public mockSetOnline(isOnline: boolean): void {
+    (this as unknown as MockAlifeOnlineOfflineGroup).online = isOnline;
+  }
+
+  public mockSetGameVertexId(id: TNumberId): void {
+    (this as unknown as MockAlifeOnlineOfflineGroup).m_game_vertex_id = id;
   }
 }
 
@@ -68,12 +91,12 @@ export function mockSquad({
  * Mocked squads.
  */
 export interface IMockedSquads {
-  emptyMonolithSquad: Squad;
-  emptyArmySquad: Squad;
-  friendlySquad: Squad;
-  neutralSquad: Squad;
-  mixedSquad: Squad;
-  enemySquad: Squad;
+  emptyMonolithSquad: MockSquad;
+  emptyArmySquad: MockSquad;
+  friendlySquad: MockSquad;
+  neutralSquad: MockSquad;
+  mixedSquad: MockSquad;
+  enemySquad: MockSquad;
   friend: ServerHumanObject;
   enemy: ServerHumanObject;
   neutral: ServerHumanObject;
@@ -85,18 +108,18 @@ export interface IMockedSquads {
  * Mocked squads with different relations.
  */
 export function mockRelationsSquads(): IMockedSquads {
-  const emptyMonolithSquad: MockAlifeOnlineOfflineGroup = new MockAlifeOnlineOfflineGroup("test");
-  const emptyArmySquad: MockAlifeOnlineOfflineGroup = new MockAlifeOnlineOfflineGroup("test");
-  const friendlySquad: MockAlifeOnlineOfflineGroup = new MockAlifeOnlineOfflineGroup("test");
-  const neutralSquad: MockAlifeOnlineOfflineGroup = new MockAlifeOnlineOfflineGroup("test");
-  const mixedSquad: MockAlifeOnlineOfflineGroup = new MockAlifeOnlineOfflineGroup("test");
-  const enemySquad: MockAlifeOnlineOfflineGroup = new MockAlifeOnlineOfflineGroup("test");
+  const emptyMonolithSquad: MockSquad = MockSquad.mock();
+  const emptyArmySquad: MockSquad = MockSquad.mock();
+  const friendlySquad: MockSquad = MockSquad.mock();
+  const neutralSquad: MockSquad = MockSquad.mock();
+  const mixedSquad: MockSquad = MockSquad.mock();
+  const enemySquad: MockSquad = MockSquad.mock();
 
-  const friend: ServerHumanObject = mockServerAlifeHumanStalker();
-  const enemy: ServerHumanObject = mockServerAlifeHumanStalker();
-  const neutral: ServerHumanObject = mockServerAlifeHumanStalker();
-  const almostEnemy: ServerHumanObject = mockServerAlifeHumanStalker();
-  const almostFriend: ServerHumanObject = mockServerAlifeHumanStalker();
+  const friend: ServerHumanObject = MockAlifeHumanStalker.mock();
+  const enemy: ServerHumanObject = MockAlifeHumanStalker.mock();
+  const neutral: ServerHumanObject = MockAlifeHumanStalker.mock();
+  const almostEnemy: ServerHumanObject = MockAlifeHumanStalker.mock();
+  const almostFriend: ServerHumanObject = MockAlifeHumanStalker.mock();
 
   registerObject(MockGameObject.mock({ idOverride: friend.id }));
   registerObject(MockGameObject.mock({ idOverride: enemy.id }));
@@ -117,31 +140,27 @@ export function mockRelationsSquads(): IMockedSquads {
   neutralSquad.faction = communities.stalker;
   mixedSquad.faction = communities.bandit;
 
-  [emptyMonolithSquad, emptyArmySquad, friendlySquad, enemySquad, neutralSquad, mixedSquad].forEach((it) => {
-    jest.spyOn(it, "updateSquadRelationToActor").mockImplementation(() => {});
-  });
+  friendlySquad.mockAddMember(friend);
+  friendlySquad.mockAddMember(friend);
+  friendlySquad.mockAddMember(friend);
 
-  friendlySquad.addSquadMember(friend);
-  friendlySquad.addSquadMember(friend);
-  friendlySquad.addSquadMember(friend);
+  neutralSquad.mockAddMember(neutral);
+  neutralSquad.mockAddMember(almostEnemy);
+  neutralSquad.mockAddMember(almostFriend);
 
-  neutralSquad.addSquadMember(neutral);
-  neutralSquad.addSquadMember(almostEnemy);
-  neutralSquad.addSquadMember(almostFriend);
+  enemySquad.mockAddMember(enemy);
+  enemySquad.mockAddMember(enemy);
 
-  enemySquad.addSquadMember(enemy);
-  enemySquad.addSquadMember(enemy);
-
-  mixedSquad.addSquadMember(friend);
-  mixedSquad.addSquadMember(enemy);
+  mixedSquad.mockAddMember(friend);
+  mixedSquad.mockAddMember(enemy);
 
   return {
-    emptyMonolithSquad: emptyMonolithSquad.asSquad(),
-    emptyArmySquad: emptyArmySquad.asSquad(),
-    friendlySquad: friendlySquad.asSquad(),
-    mixedSquad: mixedSquad.asSquad(),
-    enemySquad: enemySquad.asSquad(),
-    neutralSquad: neutralSquad.asSquad(),
+    emptyMonolithSquad,
+    emptyArmySquad,
+    friendlySquad,
+    mixedSquad,
+    enemySquad,
+    neutralSquad,
     friend,
     enemy,
     neutral,

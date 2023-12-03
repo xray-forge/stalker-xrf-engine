@@ -35,17 +35,9 @@ export class MockAlifeOnlineOfflineGroup extends MockAlifeDynamicObject {
     return this.members;
   }
 
-  public addSquadMember(object: ServerCreatureObject): void {
-    this.members.push({ object: object, id: object.id });
-  }
-
-  public createSquadMembers(): void {}
-
-  public assignSmartTerrain(): void {}
-
-  public register_member = jest.fn((id: TNumberId) => {
+  public register_member(id: TNumberId): void {
     this.members.push({ id: id, object: MockAlifeSimulator.getFromRegistry(id) as ServerCreatureObject });
-  });
+  }
 
   public clear_location_types(): void {}
 
@@ -61,12 +53,6 @@ export class MockAlifeOnlineOfflineGroup extends MockAlifeDynamicObject {
 
   public asMock(): ServerGroupObject {
     return this as unknown as ServerGroupObject;
-  }
-
-  public updateSquadRelationToActor(): void {}
-
-  public asSquad<T extends cse_alife_online_offline_group>(): T {
-    return this as unknown as T;
   }
 }
 

@@ -20,6 +20,8 @@ export class MockSmartTerrain extends SmartTerrain {
 
 /**
  * Mock smart terrain server object.
+ *
+ * @deprecated
  */
 export function mockSmartTerrain(name: TName = "test_smart", section: TSection = "test_smart_section"): SmartTerrain {
   const smartTerrain: SmartTerrain = new SmartTerrain(section);

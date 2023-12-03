@@ -27,7 +27,7 @@ export const mockRelationRegistryInterface: IXR_relation_registry = {
       return goodwill;
     }
 
-    throw new Error("Unexpected mock check.");
+    throw new Error("Unexpected relations mock check - table match is missing, update or fix it.");
   }),
   get_general_goodwill_between: jest.fn((from: TNumberId, to: TNumberId): number => {
     if (typeof charactersGoodwill[from]?.[to] === "number") {

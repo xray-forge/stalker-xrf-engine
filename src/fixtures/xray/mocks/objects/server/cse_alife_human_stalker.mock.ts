@@ -1,8 +1,9 @@
 import { jest } from "@jest/globals";
 import { CALifeMonsterBrain, rotation } from "xray16";
 
+import { communities, TCommunity } from "@/engine/lib/constants/communities";
 import { MAX_U16 } from "@/engine/lib/constants/memory";
-import { ServerHumanObject, TNumberId } from "@/engine/lib/types";
+import { ServerHumanObject, TNumberId, TSection } from "@/engine/lib/types";
 import { MockCAlifeMonsterBrain } from "@/fixtures/xray";
 import { mockClsid } from "@/fixtures/xray/mocks/constants";
 import {
@@ -14,6 +15,10 @@ import {
  * Mock server human object representation.
  */
 export class MockAlifeHumanStalker extends MockServerAlifeCreatureAbstract {
+  public static mock(section: TSection = "test_human_stalker"): ServerHumanObject {
+    return new MockAlifeHumanStalker(section) as unknown as ServerHumanObject;
+  }
+
   public override m_smart_terrain_id: TNumberId = MAX_U16;
   public aiBrain: CALifeMonsterBrain = MockCAlifeMonsterBrain.mock();
 
@@ -22,6 +27,10 @@ export class MockAlifeHumanStalker extends MockServerAlifeCreatureAbstract {
   public clsid = jest.fn(() => mockClsid.script_stalker);
 
   public brain = jest.fn(() => this.aiBrain);
+
+  public community(): TCommunity {
+    return communities.stalker;
+  }
 
   public override can_switch_online(): boolean {
     return false;
@@ -34,6 +43,8 @@ export class MockAlifeHumanStalker extends MockServerAlifeCreatureAbstract {
 
 /**
  * Mock generic stalker server object.
+ *
+ * @deprecated
  */
 export function mockServerAlifeHumanStalker(base: Partial<ServerHumanObject> = {}): ServerHumanObject {
   return mockServerAlifeCreatureAbstract({

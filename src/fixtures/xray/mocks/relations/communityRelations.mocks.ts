@@ -20,6 +20,8 @@ export const communityGoodwill: Record<TName, Record<TName, TCount>> = {
     [communities.army]: 0,
     [communities.monolith]: -1000,
     [communities.monster]: -1000,
+    [communities.dolg]: 1000,
+    [communities.zombied]: -5000,
   },
   [communities.bandit]: {
     [communities.bandit]: 1000,
