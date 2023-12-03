@@ -15,7 +15,11 @@ import {
  * Mock server human object representation.
  */
 export class MockAlifeHumanStalker extends MockServerAlifeCreatureAbstract {
-  public static mock(section: TSection = "test_human_stalker"): MockAlifeHumanStalker {
+  public static mock(section: TSection = "test_human_stalker"): ServerHumanObject {
+    return new MockAlifeHumanStalker(section) as unknown as ServerHumanObject;
+  }
+
+  public static create(section: TSection = "test_human_stalker"): MockAlifeHumanStalker {
     return new MockAlifeHumanStalker(section);
   }
 

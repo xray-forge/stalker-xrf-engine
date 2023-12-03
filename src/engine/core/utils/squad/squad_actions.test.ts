@@ -186,7 +186,7 @@ describe("getSquadHelpActorTargetId util", () => {
   it("getSquadHelpActorTargetId should correctly get based on community", () => {
     const squad: MockSquad = MockSquad.mock();
     const enemySquad: MockSquad = MockSquad.mock();
-    const enemy: ServerHumanObject = MockAlifeHumanStalker.mock();
+    const enemy: MockAlifeHumanStalker = MockAlifeHumanStalker.create();
 
     squad.faction = communities.stalker;
 
@@ -214,7 +214,7 @@ describe("getSquadHelpActorTargetId util", () => {
   it("getSquadHelpActorTargetId should correctly get based on distance", () => {
     const squad: MockSquad = MockSquad.mock();
     const enemySquad: MockSquad = MockSquad.mock();
-    const enemy: ServerHumanObject = MockAlifeHumanStalker.mock();
+    const enemy: MockAlifeHumanStalker = MockAlifeHumanStalker.create();
 
     squad.faction = communities.stalker;
     enemySquad.faction = communities.zombied;

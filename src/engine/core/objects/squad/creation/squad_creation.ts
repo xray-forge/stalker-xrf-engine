@@ -43,8 +43,9 @@ export function createSquadMembers(squad: Squad, spawnSmartTerrain: SmartTerrain
   );
   const spawnPointName: Optional<TName> =
     spawnPoint && spawnPoint !== NIL ? spawnPoint : (spawnSmartTerrain.spawnPointName as TName);
+  const randomSpawnConfig: Optional<string> = readIniString(SYSTEM_INI, squadSection, "npc_random", false);
 
-  if (spawnSections.length() === 0) {
+  if (!randomSpawnConfig && spawnSections.length() === 0) {
     abort("Unexpected attempt to spawn an empty squad '%s'.", squadSection);
   }
 
@@ -69,8 +70,6 @@ export function createSquadMembers(squad: Squad, spawnSmartTerrain: SmartTerrain
   for (const [, squadMemberSection] of spawnSections) {
     squad.addMember(squadMemberSection, baseSpawnPosition, baseLevelVertexId, baseGameVertexId);
   }
-
-  const randomSpawnConfig: Optional<string> = readIniString(SYSTEM_INI, squadSection, "npc_random", false);
 
   if (randomSpawnConfig) {
     const [countMin, countMax] = readIniTwoNumbers(SYSTEM_INI, squadSection, "npc_in_squad", 1, 2);

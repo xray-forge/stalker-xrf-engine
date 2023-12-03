@@ -65,7 +65,7 @@ import {
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Process forward animation for provided doors.
  */
 extern("xr_effects.anim_obj_forward", (actor: GameObject, object: GameObject, doors: LuaArray<TName>): void => {
   for (const [, doorName] of doors) {
@@ -74,7 +74,7 @@ extern("xr_effects.anim_obj_forward", (actor: GameObject, object: GameObject, do
 });
 
 /**
- * todo;
+ * Process backward animation for provided doors.
  */
 extern("xr_effects.anim_obj_backward", (actor: GameObject, object: GameObject, doors: LuaArray<TName>): void => {
   for (const [, doorName] of doors) {
@@ -83,7 +83,7 @@ extern("xr_effects.anim_obj_backward", (actor: GameObject, object: GameObject, d
 });
 
 /**
- * todo;
+ * Stop animation for provided doors.
  */
 extern("xr_effects.anim_obj_stop", (actor: GameObject, object: GameObject, doors: LuaArray<TName>): void => {
   for (const [, doorName] of doors) {
