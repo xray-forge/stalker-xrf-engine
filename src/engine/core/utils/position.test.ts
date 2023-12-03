@@ -12,7 +12,6 @@ import {
   isActorInNoWeaponZone,
   isDistanceBetweenObjectsGreaterOrEqual,
   isDistanceBetweenObjectsLessOrEqual,
-  isGameVertexFromLevel,
   isObjectInActorFrustum,
   isObjectInSilenceZone,
   isObjectInSmartTerrain,
@@ -192,11 +191,6 @@ describe("position utils", () => {
 
     expect(actor.set_actor_position).toHaveBeenCalledWith(destination);
     expect(actor.set_actor_direction).toHaveBeenCalledWith(-direction.getH());
-  });
-
-  it("isGameVertexFromLevel should correctly check level name", () => {
-    expect(isGameVertexFromLevel("pripyat", 50)).toBe(true);
-    expect(isGameVertexFromLevel("zaton", 51)).toBe(false);
   });
 
   it("isObjectInActorFrustum should correctly check whether object is in actor frustum", () => {

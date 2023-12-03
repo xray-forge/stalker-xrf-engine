@@ -15,10 +15,6 @@ export function isEmpty(target: Optional<LuaTable<any>>): target is LuaTable {
     return true;
   }
 
-  if (1 in target) {
-    return false;
-  }
-
   for (const [_] of target) {
     return false;
   }

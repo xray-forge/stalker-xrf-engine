@@ -8,10 +8,10 @@ import { DebugTeleportListEntry } from "@/engine/core/ui/debug/sections/DebugTel
 import { executeConsoleCommand } from "@/engine/core/utils/console";
 import { isGameStarted } from "@/engine/core/utils/game";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { isGameVertexFromLevel } from "@/engine/core/utils/position";
 import { getServerObjects } from "@/engine/core/utils/registry";
 import { resolveXmlFile } from "@/engine/core/utils/ui";
 import { create2dVector, createEmpty2dVector, vectorToString } from "@/engine/core/utils/vector";
+import { isGameVertexFromLevel } from "@/engine/core/utils/vertex";
 import { postProcessors } from "@/engine/lib/constants/animation";
 import { consoleCommands } from "@/engine/lib/constants/console_commands";
 import { LuaArray, Optional, TPath, Vector2D } from "@/engine/lib/types";

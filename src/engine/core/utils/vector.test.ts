@@ -15,8 +15,6 @@ import {
   createVector,
   degreeToRadian,
   distanceBetween2d,
-  graphDistance,
-  graphDistanceSqr,
   radianToDegree,
   subVectors,
   vectorCross,
@@ -194,30 +192,6 @@ describe("vector utils", () => {
     expect(angleToDirection(MockVector.mock(50, -20, 30))).toEqual(
       MockVector.mock(0.8809611528253755, -0.26237485370392877, 0.3937853264869419)
     );
-  });
-
-  it("graphDistance should correctly get graph distance", () => {
-    expect(graphDistance(1, 2)).toBe(20);
-
-    const vertex: Vertex = game_graph().vertex(500);
-
-    jest.spyOn(vertex.game_point(), "distance_to").mockImplementation(() => 1050);
-    expect(graphDistance(500, 255)).toBe(1050);
-
-    jest.spyOn(vertex.game_point(), "distance_to").mockImplementation(() => 888);
-    expect(graphDistance(500, 256)).toBe(888);
-  });
-
-  it("graphDistanceSqr should correctly get graph distance sqr", () => {
-    expect(graphDistanceSqr(1, 2)).toBe(400);
-
-    const vertex: Vertex = game_graph().vertex(500);
-
-    jest.spyOn(vertex.game_point(), "distance_to").mockImplementation(() => 1050);
-    expect(graphDistanceSqr(500, 255)).toBe(1_102_500);
-
-    jest.spyOn(vertex.game_point(), "distance_to").mockImplementation(() => 888);
-    expect(graphDistanceSqr(500, 256)).toBe(788_544);
   });
 
   it("radianToDegree should correctly convert", () => {

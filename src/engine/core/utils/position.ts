@@ -3,7 +3,8 @@ import { CGameGraph, device, game_graph, level, sound_object } from "xray16";
 import { registry } from "@/engine/core/database";
 import type { SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { graphDistance, vectorToString, yawDegree3d } from "@/engine/core/utils/vector";
+import { vectorToString, yawDegree3d } from "@/engine/core/utils/vector";
+import { graphDistance } from "@/engine/core/utils/vertex";
 import { MAX_U16, MAX_U32 } from "@/engine/lib/constants/memory";
 import { ZERO_VECTOR } from "@/engine/lib/constants/vectors";
 import {
@@ -215,17 +216,6 @@ export function isObjectInActorFrustum(object: GameObject): boolean {
   const objectDirection: Vector = object.position().sub(registry.actor.position());
 
   return yawDegree3d(actorDirection, objectDirection) < 35;
-}
-
-/**
- * Check whether provided vertex ID is from level.
- *
- * @param levelName - target level to expect
- * @param gameVertexId - game vertex id to check level
- * @returns whether gameVertexId is part of level with name `levelName`
- */
-export function isGameVertexFromLevel(levelName: TName, gameVertexId: TNumberId): boolean {
-  return levelName === registry.simulator.level_name(game_graph().vertex(gameVertexId).level_id());
 }
 
 /**

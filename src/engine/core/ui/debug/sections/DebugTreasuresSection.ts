@@ -6,8 +6,8 @@ import { ITreasureDescriptor, treasureConfig, TreasureManager } from "@/engine/c
 import { AbstractDebugSection } from "@/engine/core/ui/debug/sections/AbstractDebugSection";
 import { isGameStarted } from "@/engine/core/utils/game";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { isGameVertexFromLevel } from "@/engine/core/utils/position";
 import { EElementType, initializeElement, initializeStatics, resolveXmlFile } from "@/engine/core/utils/ui";
+import { isGameVertexFromLevel } from "@/engine/core/utils/vertex";
 import { Optional, ServerObject, TCount, TLabel, TNumberId, TPath, TSection, XmlInit } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);

@@ -202,31 +202,6 @@ export function angleToDirection(angle: Vector): Vector {
 }
 
 /**
- * Get graph distance between two vertexes.
- *
- * @param firstVertexId - from vertex id
- * @param secondVertexId - to vertex id
- * @returns distance between vertexes
- */
-export function graphDistance(firstVertexId: TNumberId, secondVertexId: TNumberId): TDistance {
-  return game_graph().vertex(firstVertexId).game_point().distance_to(game_graph().vertex(secondVertexId).game_point());
-}
-
-/**
- * Get squared graph distance between two vertexes.
- *
- * @param firstVertexId - from vertex id
- * @param secondVertexId - to vertex id
- * @returns squared distance between vertexes
- */
-export function graphDistanceSqr(firstVertexId: TNumberId, secondVertexId: TNumberId): TDistance {
-  return game_graph()
-    .vertex(firstVertexId)
-    .game_point()
-    .distance_to_sqr(game_graph().vertex(secondVertexId).game_point());
-}
-
-/**
  * Get distance between vectors based on `x` and `z` axis.
  *
  * @param first - vector to compute

@@ -18,3 +18,13 @@ export function getInventoryNameForItemSectionSafely(section: TSection): TLabel 
     return game.translate_string(section);
   }
 }
+
+/**
+ * Get matching translation for section.
+ *
+ * @param section - section name to check for translated name
+ * @returns translated item inventory name
+ */
+export function getInventoryNameForItemSection(section: TSection): TLabel {
+  return game.translate_string(SYSTEM_INI.r_string(section, "inv_name"));
+}
