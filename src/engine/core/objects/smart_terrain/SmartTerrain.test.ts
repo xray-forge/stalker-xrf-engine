@@ -56,7 +56,7 @@ describe("SmartTerrain class generic logic", () => {
     expect(smartTerrain.alarmStartedAt).toBeNull();
     expect(smartTerrain.arrivalDistance).toBe(25);
     expect(smartTerrain.population).toBe(0);
-    expect(smartTerrain.maxPopulation).toBe(-1);
+    expect(smartTerrain.maxPopulation).toBe(0);
     expect(smartTerrain.nextCheckAt).toBe(0);
     expect(smartTerrain.lastRespawnUpdatedAt).toBeNull();
 

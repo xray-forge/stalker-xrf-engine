@@ -140,7 +140,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
   public alarmStartedAt: Optional<Time> = null;
 
   public population: TCount = 0;
-  public maxPopulation: TCount = -1;
+  public maxPopulation: TCount = 0;
 
   public nextCheckAt: TTimestamp = 0;
 

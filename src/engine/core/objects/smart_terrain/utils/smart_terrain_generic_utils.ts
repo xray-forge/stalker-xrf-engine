@@ -32,8 +32,8 @@ export function getSmartTerrainMapDisplayHint(smartTerrain: SmartTerrain): TLabe
       smartTerrain.online,
       smartTerrain.simulationRole,
       smartTerrain.squadId,
-      smartTerrain.maxPopulation,
-      SimulationBoardManager.getInstance().getSmartTerrainPopulation(smartTerrain.id)
+      SimulationBoardManager.getInstance().getSmartTerrainPopulation(smartTerrain.id),
+      smartTerrain.maxPopulation
     );
 
     if (smartTerrain.isRespawnPoint) {

@@ -52,7 +52,7 @@ describe("smart_terrain_generic_utils module", () => {
 online = nil
 simulation_role = default
 squad_id = 0
-capacity = -1\\0
+capacity = 0\\0
 
 not respawn point
 
@@ -99,7 +99,7 @@ ${toJSON(smartTerrain.simulationProperties)}`
 online = true
 simulation_role = surge
 squad_id = 155
-capacity = 10\\6
+capacity = 6\\10
 
 already_spawned:
 [test-1] = 3\\3
