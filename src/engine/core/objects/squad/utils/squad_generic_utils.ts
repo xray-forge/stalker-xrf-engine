@@ -29,9 +29,8 @@ export function getSquadMapDisplayHint(squad: Squad): TLabel {
     );
 
     hint += string.format(
-      "[smart_terrain]\\nassigned = %s\\nentered = %s\\n",
-      squad.assignedSmartTerrainId && simulator.object(squad.assignedSmartTerrainId)?.name(),
-      squad.enteredSmartTerrainId && simulator.object(squad.enteredSmartTerrainId)?.name()
+      "[smart_terrain]\\nassigned = %s\\n",
+      squad.smartTerrainId && simulator.object(squad.smartTerrainId)?.name()
     );
 
     hint += string.format(
@@ -50,12 +49,6 @@ export function getSquadMapDisplayHint(squad: Squad): TLabel {
         (squad.currentAction as SquadStayOnTargetAction).getStayIdleDuration()
       );
     }
-
-    hint += string.format(
-      "[relation]\\nsympathy = %s\\nrelationship = %s\\n",
-      squad.sympathy,
-      getSquadMembersRelationToActor(squad)
-    );
 
     return hint;
   } else {

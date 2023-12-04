@@ -3,7 +3,7 @@ import { level } from "xray16";
 import { EStalkerState } from "@/engine/core/animation/types";
 import { abort } from "@/engine/core/utils/assertion";
 import { createEmptyVector, createVector, vectorCross, vectorRotateY, yawDegree } from "@/engine/core/utils/vector";
-import { GameObject, Optional, TCount, TDistance, TName, TNumberId, TRate, Vector } from "@/engine/lib/types";
+import { GameObject, Optional, TCount, TDistance, TIndex, TName, TNumberId, TRate, Vector } from "@/engine/lib/types";
 
 // todo: Move out
 // todo: Move out
@@ -46,12 +46,18 @@ const ACCEL_BY_CURTYPE = {
   sneak_run: EStalkerState.ASSAULT,
 };
 
+export interface IPatrolObjectDescriptor {
+  soldier: GameObject;
+  dir: Vector;
+  dist: TDistance;
+}
+
 /**
  * todo;
  */
 export class PatrolManager {
   public pathName: TName;
-  public npcList: LuaTable = new LuaTable();
+  public npcList: LuaTable<TNumberId, IPatrolObjectDescriptor> = new LuaTable();
   public currentState: EStalkerState = EStalkerState.PATROL;
   public commanderId: TNumberId = -1;
   public formation: string = "back";
@@ -112,7 +118,7 @@ export class PatrolManager {
    */
   public resetPositions(): void {
     const form_ = formations[this.formation as keyof typeof formations];
-    let index = 1;
+    let index: TIndex = 1;
 
     for (const [key, data] of this.npcList) {
       if (this.commanderId === -1 && index === 1) {
@@ -122,10 +128,8 @@ export class PatrolManager {
       if (this.commanderId !== this.npcList.get(key).soldier.id()) {
         this.npcList.get(key).dir = form_[index].dir;
         this.npcList.get(key).dist = form_[index].dist;
-        this.npcList.get(key).vertex_id = -1;
-        this.npcList.get(key).accepted = true;
 
-        index = index + 1;
+        index += 1;
       }
     }
   }
@@ -146,7 +150,7 @@ export class PatrolManager {
     this.resetPositions();
   }
 
-  public getCommander(object: GameObject): void {
+  public getCommander(object: GameObject): GameObject {
     if (object === null) {
       abort("Invalid NPC on call PatrolManager:get_npc_command in PatrolManager[%s]", this.pathName);
     }
@@ -159,7 +163,7 @@ export class PatrolManager {
       abort("Patrol commander called function PatrolManager:get_npc_command in PatrolManager[%s]", this.pathName);
     }
 
-    const commander = this.npcList.get(this.commanderId).soldier;
+    const commander: GameObject = this.npcList.get(this.commanderId).soldier;
 
     if (commander === null) {
       abort("Patrol commander not present in PatrolManager[%s]", this.pathName);
@@ -189,7 +193,7 @@ export class PatrolManager {
       abort("Patrol commander called function PatrolManager:get_npc_command in PatrolManager[%s]", this.pathName);
     }
 
-    const commander = this.npcList.get(this.commanderId).soldier;
+    const commander: GameObject = this.npcList.get(this.commanderId).soldier;
     const dir: Vector = commander.direction();
     const pos: Vector = createEmptyVector();
     let vertexId: TNumberId = commander.location_on_path(5, pos);
@@ -215,9 +219,6 @@ export class PatrolManager {
 
     const d: number = 2;
     const vertex: TNumberId = level.vertex_in_direction(level.vertex_in_direction(vertexId, dirS, distS), dir, d);
-
-    this.npcList.get(objectId).vertex_id = vertex;
-
     const distance: TDistance = commander.position().distance_to(this.npcList.get(objectId).soldier.position());
 
     if (distance > distS + 2) {

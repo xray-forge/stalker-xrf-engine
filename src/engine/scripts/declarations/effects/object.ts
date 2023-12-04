@@ -357,7 +357,7 @@ extern(
     const simulationBoardManager: SimulationManager = SimulationManager.getInstance();
     const squad: Squad = getServerObjectByStoryId(storyId) as Squad;
     const squadSmartTerrain: Optional<SmartTerrain> = simulationBoardManager.getSmartTerrainDescriptor(
-      squad.assignedSmartTerrainId as TNumberId
+      squad.smartTerrainId as TNumberId
     )!.smartTerrain;
 
     if (params[2] !== null) {
@@ -508,14 +508,10 @@ extern(
       if (clearStory === FALSE) {
         if (!getStoryIdByObjectId(squad.id)) {
           logger.format("Remove smart terrain squads on effect: '%s', '%s'", smartTerrainName, squad.name());
-
-          simulationBoardManager.exitSmartTerrain(squad, smartTerrainId);
           simulationBoardManager.releaseSquad(squad);
         }
       } else {
         logger.format("Remove smart terrain squads on effect: '%s', '%s'", smartTerrainName, squad.name());
-
-        simulationBoardManager.exitSmartTerrain(squad, smartTerrainId);
         simulationBoardManager.releaseSquad(squad);
       }
     }

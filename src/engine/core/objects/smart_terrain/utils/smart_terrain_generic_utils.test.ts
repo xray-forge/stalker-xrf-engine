@@ -53,6 +53,7 @@ simulation_role = default
 squad_id = 0
 capacity = 0\\0
 arriving_objects = 0
+staying_objects = 0
 [not respawn point]
 [jobs]
 total = 54
@@ -77,7 +78,8 @@ working = 0
     (smartTerrain as AnyObject).online = true;
     smartTerrain.simulationRole = ESimulationTerrainRole.SURGE;
     smartTerrain.squadId = 155;
-    smartTerrain.maxPopulation = 10;
+    smartTerrain.maxStayingSquadsCount = 10;
+    smartTerrain.stayingObjectsCount = 3;
 
     smartTerrain.lastRespawnUpdatedAt = MockCTime.mock(2015, 2, 14, 14, 25, 30, 100);
     smartTerrain.spawnedSquadsList.set("test-1", { num: 3 });
@@ -94,7 +96,7 @@ working = 0
       smartTerrain.id
     ) as ISmartTerrainDescriptor;
 
-    descriptor.stayingSquadsCount = 6;
+    descriptor.assignedSquadsCount = 6;
 
     squads.forEach((it) => descriptor.assignedSquads.set(it.id, it));
 
@@ -106,6 +108,7 @@ simulation_role = surge
 squad_id = 155
 capacity = 6\\10
 arriving_objects = 1
+staying_objects = 3
 [spawn_state] (tts: -83133530)
 test-1 -> 3\\3
 test-2 -> 3\\3

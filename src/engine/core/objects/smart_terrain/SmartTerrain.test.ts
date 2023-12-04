@@ -55,8 +55,8 @@ describe("SmartTerrain class generic logic", () => {
 
     expect(smartTerrain.alarmStartedAt).toBeNull();
     expect(smartTerrain.arrivalDistance).toBe(25);
-    expect(smartTerrain.population).toBe(0);
-    expect(smartTerrain.maxPopulation).toBe(0);
+    expect(smartTerrain.stayingObjectsCount).toBe(0);
+    expect(smartTerrain.maxStayingSquadsCount).toBe(0);
     expect(smartTerrain.nextCheckAt).toBe(0);
     expect(smartTerrain.lastRespawnUpdatedAt).toBeNull();
 
@@ -76,7 +76,7 @@ describe("SmartTerrain class generic logic", () => {
     expect(smartTerrain.jobDeadTimeById.length()).toBe(0);
     expect(smartTerrain.smartTerrainAlifeTask).toBeUndefined();
 
-    expect(smartTerrain.simulationBoardManager).toBeDefined();
+    expect(smartTerrain.simulationManager).toBeDefined();
     expect(smartTerrain.mapDisplayManager).toBeDefined();
     expect(smartTerrain.simulationProperties).toBeUndefined();
     expect(smartTerrain.spawnSquadsConfiguration.length()).toBe(0);
@@ -110,8 +110,7 @@ describe("SmartTerrain class generic logic", () => {
 
     smartTerrain.on_before_register();
 
-    expect(smartTerrain.simulationBoardManager.getSmartTerrainByName(smartTerrain.name())).toBe(smartTerrain);
-    expect(smartTerrain.simulationBoardManager.getSmartTerrainPopulation(smartTerrain.id)).toBe(0);
+    expect(smartTerrain.simulationManager.getSmartTerrainByName(smartTerrain.name())).toBe(smartTerrain);
   });
 
   it("should correctly handle register", () => {
@@ -159,8 +158,8 @@ describe("SmartTerrain class generic logic", () => {
 
     expect(registry.storyLink.idBySid.get("test_smart_sid")).toBeNull();
     expect(registry.storyLink.sidById.get(smartTerrain.id)).toBeNull();
-    expect(smartTerrain.simulationBoardManager.getSmartTerrainDescriptor(smartTerrain.id)).toBeNull();
-    expect(smartTerrain.simulationBoardManager.getSmartTerrainByName(smartTerrain.name())).toBeNull();
+    expect(smartTerrain.simulationManager.getSmartTerrainDescriptor(smartTerrain.id)).toBeNull();
+    expect(smartTerrain.simulationManager.getSmartTerrainByName(smartTerrain.name())).toBeNull();
     expect(smartTerrain.isRegistered).toBe(false);
   });
 
@@ -203,7 +202,7 @@ describe("SmartTerrain class generic logic", () => {
     smartTerrain.spawnedSquadsList.set("test_squad_master", { num: 1 });
 
     smartTerrain.lastRespawnUpdatedAt = MockCTime.mock(2005, 8, 20, 13, 31, 11, 201);
-    smartTerrain.population = 4;
+    smartTerrain.stayingObjectsCount = 4;
 
     smartTerrain.STATE_Write(netProcessor.asMockNetPacket());
 
@@ -327,7 +326,7 @@ describe("SmartTerrain class generic logic", () => {
     expect(anotherSmartTerrain.lastRespawnUpdatedAt?.toString()).toBe(
       MockCTime.mock(2005, 8, 20, 13, 31, 11, 201).toString()
     );
-    expect(anotherSmartTerrain.population).toBe(4);
+    expect(anotherSmartTerrain.stayingObjectsCount).toBe(4);
   });
 
   it("should correctly save and load data when have empty info", () => {
@@ -370,7 +369,7 @@ describe("SmartTerrain class generic logic", () => {
     });
 
     expect(anotherSmartTerrain.lastRespawnUpdatedAt).toBeNull();
-    expect(anotherSmartTerrain.population).toBe(0);
+    expect(anotherSmartTerrain.stayingObjectsCount).toBe(0);
   });
 
   it.todo("should handle simulation callbacks");

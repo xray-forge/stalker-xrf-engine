@@ -151,8 +151,6 @@ export function spawnSquadInSmart(section: Optional<TStringId>, smartTerrainName
 
   const squad: Squad = simulationBoardManager.createSquad(smartTerrain, section);
 
-  simulationBoardManager.enterSmartTerrain(squad, smartTerrain.id);
-
   for (const squadMember of squad.squad_members()) {
     simulationBoardManager.setupObjectSquadAndGroup(squadMember.object);
   }

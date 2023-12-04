@@ -115,10 +115,10 @@ describe("respawnSmartTerrainSquad util", () => {
 
     const simulationBoardManager: SimulationManager = SimulationManager.getInstance();
 
-    jest.spyOn(simulationBoardManager, "enterSmartTerrain").mockImplementation(() => jest.fn());
+    jest.spyOn(simulationBoardManager, "assignSquadToSmartTerrain").mockImplementation(() => jest.fn());
 
     expect(respawnSmartTerrainSquad(smartTerrain)).toBeNull();
-    expect(simulationBoardManager.enterSmartTerrain).not.toHaveBeenCalled();
+    expect(simulationBoardManager.assignSquadToSmartTerrain).not.toHaveBeenCalled();
   });
 
   it("should correctly spawn when available sections exist", () => {
@@ -142,7 +142,7 @@ describe("respawnSmartTerrainSquad util", () => {
 
     const simulationBoardManager: SimulationManager = SimulationManager.getInstance();
 
-    jest.spyOn(simulationBoardManager, "enterSmartTerrain").mockImplementation(() => jest.fn());
+    jest.spyOn(simulationBoardManager, "assignSquadToSmartTerrain").mockImplementation(() => jest.fn());
     jest.spyOn(simulationBoardManager, "setupObjectSquadAndGroup");
     jest.spyOn(registry.simulator, "create").mockImplementation(() => {
       const base: MockSquad = MockSquad.mock();
@@ -159,7 +159,7 @@ describe("respawnSmartTerrainSquad util", () => {
 
     expect(squad).not.toBeNull();
     expect(squad?.assignToSmartTerrain).toHaveBeenCalledWith(smartTerrain);
-    expect(simulationBoardManager.enterSmartTerrain).toHaveBeenCalledWith(squad, smartTerrain.id);
+    expect(simulationBoardManager.assignSquadToSmartTerrain).toHaveBeenCalledWith(squad, smartTerrain.id);
     expect(simulationBoardManager.setupObjectSquadAndGroup).toHaveBeenCalledTimes(8);
     expect(smartTerrain.spawnedSquadsList).toEqualLuaTables({
       "test-section-1": {
@@ -184,7 +184,7 @@ describe("respawnSmartTerrainSquad util", () => {
     });
 
     expect(registry.simulator.create).toHaveBeenCalledTimes(6);
-    expect(simulationBoardManager.enterSmartTerrain).toHaveBeenCalledTimes(2);
+    expect(simulationBoardManager.assignSquadToSmartTerrain).toHaveBeenCalledTimes(2);
     expect(simulationBoardManager.setupObjectSquadAndGroup).toHaveBeenCalledTimes(16);
   });
 });
@@ -212,7 +212,7 @@ describe("canRespawnSmartTerrainSquad util", () => {
     smartTerrain.on_register();
 
     smartTerrain.isSimulationAvailableConditionList = parseConditionsList(FALSE);
-    smartTerrain.maxPopulation = 100;
+    smartTerrain.maxStayingSquadsCount = 100;
 
     jest
       .spyOn(actorServerObject.position, "distance_to_sqr")
@@ -238,19 +238,19 @@ describe("canRespawnSmartTerrainSquad util", () => {
     smartTerrain.on_register();
 
     smartTerrain.isSimulationAvailableConditionList = parseConditionsList(TRUE);
-    smartTerrain.maxPopulation = 2;
+    smartTerrain.maxStayingSquadsCount = 2;
 
     jest
       .spyOn(actorServerObject.position, "distance_to_sqr")
       .mockImplementation(() => smartTerrainConfig.RESPAWN_RADIUS_RESTRICTION_SQR + 1);
 
-    jest.spyOn(SimulationManager.getInstance(), "getSmartTerrainAssignedSquads").mockImplementation(() => 2);
+    jest.spyOn(SimulationManager.getInstance(), "getSmartTerrainAssignedSquadsCount").mockImplementation(() => 2);
 
     expect(canRespawnSmartTerrainSquad(smartTerrain)).toBe(false);
     expect(MockCTime.areEqual(smartTerrain.lastRespawnUpdatedAt as CTime, game.get_game_time())).toBe(true);
 
     smartTerrain.lastRespawnUpdatedAt = null as Optional<CTime>;
-    jest.spyOn(SimulationManager.getInstance(), "getSmartTerrainAssignedSquads").mockImplementation(() => 1);
+    jest.spyOn(SimulationManager.getInstance(), "getSmartTerrainAssignedSquadsCount").mockImplementation(() => 1);
 
     expect(canRespawnSmartTerrainSquad(smartTerrain)).toBe(true);
     expect(MockCTime.areEqual(smartTerrain.lastRespawnUpdatedAt as CTime, game.get_game_time())).toBe(true);
@@ -266,7 +266,7 @@ describe("canRespawnSmartTerrainSquad util", () => {
     smartTerrain.on_register();
 
     smartTerrain.isSimulationAvailableConditionList = parseConditionsList(TRUE);
-    smartTerrain.maxPopulation = 100;
+    smartTerrain.maxStayingSquadsCount = 100;
 
     jest
       .spyOn(actorServerObject.position, "distance_to_sqr")

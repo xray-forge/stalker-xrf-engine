@@ -47,9 +47,6 @@ last = nil
 next = nil
 [action]
 current = nil
-[relation]
-sympathy = nil
-relationship = neutral
 `);
   });
 
@@ -66,7 +63,7 @@ relationship = neutral
     squad.currentAction = new SquadStayOnTargetAction(target);
 
     squad.assignedTargetId = 5000;
-    squad.assignedSmartTerrainId = smartTerrain.id;
+    squad.smartTerrainId = smartTerrain.id;
     squad.nextTargetIndex = next.id;
     squad.assignedTargetId = assigned.id;
 
@@ -88,9 +85,6 @@ next = ${next.id}
 [action]
 current = ${squad.currentAction.type}
 stay_on_target_for = 0
-[relation]
-sympathy = nil
-relationship = neutral
 `);
   });
 });

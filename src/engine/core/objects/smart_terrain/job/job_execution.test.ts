@@ -30,7 +30,7 @@ describe("job_execution logic", () => {
     expect(smartTerrain.objectJobDescriptors.length()).toBe(0);
     expect(smartTerrain.objectByJobSection.length()).toBe(0);
     expect(smartTerrain.jobDeadTimeById.length()).toBe(0);
-    expect(smartTerrain.population).toBe(0);
+    expect(smartTerrain.stayingObjectsCount).toBe(0);
   });
 
   it("should correctly assign jobs on new stalker arriving when not registered", () => {
@@ -42,7 +42,7 @@ describe("job_execution logic", () => {
 
     smartTerrain.register_npc(stalker);
 
-    expect(smartTerrain.population).toBe(1);
+    expect(smartTerrain.stayingObjectsCount).toBe(0);
     expect(smartTerrain.objectsToRegister.length()).toBe(1);
     expect(smartTerrain.objectsToRegister.get(1)).toBe(stalker);
     expect(stalker.smart_terrain_task_activate).not.toHaveBeenCalled();
@@ -64,7 +64,7 @@ describe("job_execution logic", () => {
     smartTerrain.on_register();
     smartTerrain.register_npc(stalker);
 
-    expect(smartTerrain.population).toBe(1);
+    expect(smartTerrain.stayingObjectsCount).toBe(1);
     expect(smartTerrain.objectsToRegister.length()).toBe(0);
     expect(smartTerrain.arrivingObjects.length()).toBe(1);
     expect(stalker.smart_terrain_task_activate).not.toHaveBeenCalled();
@@ -86,7 +86,7 @@ describe("job_execution logic", () => {
     smartTerrain.on_register();
     smartTerrain.register_npc(stalker);
 
-    expect(smartTerrain.population).toBe(1);
+    expect(smartTerrain.stayingObjectsCount).toBe(1);
     expect(smartTerrain.objectsToRegister.length()).toBe(0);
     expect(smartTerrain.arrivingObjects.length()).toBe(0);
     expect(stalker.smart_terrain_task_activate).not.toHaveBeenCalled();
@@ -153,7 +153,7 @@ describe("job_execution logic", () => {
     smartTerrain.register_npc(firstStalker);
     smartTerrain.register_npc(secondStalker);
 
-    expect(smartTerrain.population).toBe(2);
+    expect(smartTerrain.stayingObjectsCount).toBe(2);
     expect(smartTerrain.objectsToRegister.length()).toBe(0);
     expect(smartTerrain.arrivingObjects.length()).toBe(1);
     expect(firstStalker.m_smart_terrain_id).toBe(smartTerrain.id);
@@ -269,7 +269,7 @@ describe("job_execution logic", () => {
     smartTerrain.on_register();
     smartTerrain.register_npc(monster);
 
-    expect(smartTerrain.population).toBe(1);
+    expect(smartTerrain.stayingObjectsCount).toBe(1);
     expect(smartTerrain.objectsToRegister.length()).toBe(0);
     expect(smartTerrain.arrivingObjects.length()).toBe(0);
     expect(monster.smart_terrain_task_activate).toHaveBeenCalled();

@@ -135,8 +135,8 @@ export function selectSmartTerrainObjectJob(smartTerrain: SmartTerrain, objectJo
       smartTerrain.simulationRole,
       table.size(smartTerrain.jobs),
       objectJobDescriptor.jobId,
-      smartTerrain.population,
-      smartTerrain.maxPopulation
+      smartTerrain.stayingObjectsCount,
+      smartTerrain.maxStayingSquadsCount
     );
   }
 

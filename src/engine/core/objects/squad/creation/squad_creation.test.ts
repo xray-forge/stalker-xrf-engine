@@ -42,7 +42,7 @@ describe("createSquadMembers util", () => {
 
     createSquadMembers(squad, smartTerrain);
 
-    expect(squad.assignedSmartTerrainId).toBe(smartTerrain.id);
+    expect(squad.smartTerrainId).toBe(smartTerrain.id);
     expect(squad.mapDisplayManager.updateSquadMapSpot).toHaveBeenCalledWith(squad);
     expect(squad.addMember).toHaveBeenCalledTimes(2);
     expect(squad.addMember).toHaveBeenCalledWith(
@@ -78,7 +78,7 @@ describe("createSquadMembers util", () => {
 
     createSquadMembers(squad, smartTerrain);
 
-    expect(squad.assignedSmartTerrainId).toBe(smartTerrain.id);
+    expect(squad.smartTerrainId).toBe(smartTerrain.id);
     expect(squad.mapDisplayManager.updateSquadMapSpot).toHaveBeenCalledWith(squad);
     expect(squad.addMember).toHaveBeenCalledTimes(2);
     expect(squad.addMember).toHaveBeenCalledWith(
@@ -112,7 +112,7 @@ describe("createSquadMembers util", () => {
 
     createSquadMembers(squad, smartTerrain);
 
-    expect(squad.assignedSmartTerrainId).toBe(smartTerrain.id);
+    expect(squad.smartTerrainId).toBe(smartTerrain.id);
     expect(squad.mapDisplayManager.updateSquadMapSpot).toHaveBeenCalledWith(squad);
     expect(squad.addMember).toHaveBeenCalledTimes(2);
     expect(squad.addMember).toHaveBeenCalledWith(
@@ -145,7 +145,7 @@ describe("createSquadMembers util", () => {
 
     createSquadMembers(squad, smartTerrain);
 
-    expect(squad.assignedSmartTerrainId).toBe(smartTerrain.id);
+    expect(squad.smartTerrainId).toBe(smartTerrain.id);
     expect(squad.mapDisplayManager.updateSquadMapSpot).toHaveBeenCalledWith(squad);
     expect(squad.addMember).toHaveBeenCalledTimes(3);
     expect(squad.addMember).toHaveBeenCalledWith(

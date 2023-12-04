@@ -1,4 +1,4 @@
-import { CALifeSmartTerrainTask, cse_alife_online_offline_group, level, LuabindClass, patrol } from "xray16";
+import { CALifeSmartTerrainTask, cse_alife_online_offline_group, LuabindClass } from "xray16";
 
 import {
   closeLoadMarker,
@@ -82,7 +82,6 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
   public readonly simulationBoardManager: SimulationManager = SimulationManager.getInstance();
   public readonly soundManager: StoryManager = getStoryManager(`squad_${this.section_name()}`);
 
-  public isItemListSpawned: Optional<boolean> = null;
   public isSimulationAvailableConditionList: TConditionList = parseConditionsList(TRUE);
   public isMapDisplayHidden: boolean = false;
   public isAlwaysArrived: boolean = false;
@@ -93,9 +92,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
   public faction: TCommunity;
   public behaviour: LuaTable<string, string> = new LuaTable();
 
-  public assignedSmartTerrainId: Optional<TNumberId> = null;
-  public enteredSmartTerrainId: Optional<TNumberId> = null;
-
+  public smartTerrainId: Optional<TNumberId> = null;
   public simulationProperties!: LuaTable<TName, TRate>;
 
   // Meta-info about spawn point of the squad.
@@ -188,28 +185,16 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
   public updateCurrentGenericAction(): void {
     const helpTargetId: Optional<TNumberId> = getSquadHelpActorTargetId(this);
 
-    // Try to help actor.
-    if (helpTargetId) {
+    // Try to help actor if can.
+    if (helpTargetId && helpTargetId !== this.assignedTargetId) {
       simulationLogger.info("Assign squad new help target id:", this.name(), helpTargetId);
 
-      this.assignedTargetId = helpTargetId;
+      this.currentAction?.finalize();
       this.currentAction = null;
+      this.assignedTargetId = helpTargetId;
       this.selectNewAction(false);
 
       return;
-    }
-
-    // Have squad target assigned, update current action and recalculate priorities.
-    if (this.assignedTargetId && isSquadId(this.assignedTargetId)) {
-      const target: TSimulationObject = getSquadSimulationTarget(this) as TSimulationObject;
-
-      if (isSquad(target)) {
-        this.currentAction = null;
-        this.assignedTargetId = target.id;
-        this.selectNewAction(true);
-
-        return;
-      }
     }
 
     // Have target and action, update it until it is finished.
@@ -226,21 +211,24 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
 
         this.currentAction.finalize();
 
-        if (this.currentAction.type === ESquadActionType.STAY_ON_TARGET || this.assignedTargetId === null) {
-          this.assignedTargetId = getSquadSimulationTarget(this)!.id;
-        }
+        // Leave reaching target as assigned to stay for some time.
+        this.assignedTargetId =
+          this.currentAction.type === ESquadActionType.REACH_TARGET
+            ? this.assignedTargetId
+            : getSquadSimulationTarget(this)!.id;
 
         this.currentAction = null;
-      } else {
-        return;
+        this.selectNewAction(true);
       }
-    } else {
-      this.currentAction = null;
-      this.assignedTargetId = getSquadSimulationTarget(this)!.id;
-      this.currentTargetId = null;
-    }
 
-    this.selectNewAction(true);
+      // Continue previous action execution.
+    } else {
+      this.currentAction?.finalize();
+      this.currentAction = null;
+      this.currentTargetId = null;
+      this.assignedTargetId = getSquadSimulationTarget(this)!.id;
+      this.selectNewAction(true);
+    }
   }
 
   /**
@@ -291,7 +279,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
     packet.w_stringZ(tostring(this.currentTargetId));
     packet.w_stringZ(tostring(this.respawnPointId));
     packet.w_stringZ(tostring(this.respawnPointSection));
-    packet.w_stringZ(tostring(this.assignedSmartTerrainId));
+    packet.w_stringZ(tostring(this.smartTerrainId));
 
     closeSaveMarker(packet, Squad.__name);
   }
@@ -316,7 +304,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
 
     const smartTerrainId: StringOptional = packet.r_stringZ();
 
-    this.assignedSmartTerrainId = smartTerrainId === NIL ? null : (tonumber(smartTerrainId) as TNumberId);
+    this.smartTerrainId = smartTerrainId === NIL ? null : (tonumber(smartTerrainId) as TNumberId);
 
     this.initializeOnLoad();
 
@@ -390,12 +378,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
     logger.info("Init squad on load:", this.name());
 
     this.updateSympathy();
-    this.simulationBoardManager.assignSquadToSmartTerrain(this, this.assignedSmartTerrainId);
-
-    if (this.assignedSmartTerrainId !== null) {
-      this.simulationBoardManager.enterSmartTerrain(this, this.assignedSmartTerrainId);
-    }
-
+    this.simulationBoardManager.assignSquadToSmartTerrain(this, this.smartTerrainId);
     this.isLocationMasksResetNeeded = true;
   }
 
@@ -452,7 +435,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
 
     const nextTargetId: TNumberId = (this.nextTargetIndex ?? 0) + 1;
 
-    if (this.assignedTargetId !== null && this.assignedTargetId === this.assignedSmartTerrainId) {
+    if (this.assignedTargetId !== null && this.assignedTargetId === this.smartTerrainId) {
       if (this.parsedTargets.has(nextTargetId)) {
         this.nextTargetIndex = nextTargetId;
 
@@ -494,8 +477,8 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
     if (this.currentTargetId === null) {
       if (!squadTarget || squadTarget.isReachedBySimulationObject(this)) {
         if (squadTarget) {
-          squadTarget.onSimulationTargetSelected(this);
           // todo: Probably should be revisited.
+          squadTarget.onSimulationTargetSelected(this);
           squadTarget.onSimulationTargetDeselected(this);
         }
 
@@ -557,13 +540,13 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
     const object: Optional<ServerCreatureObject> = registry.simulator.object(memberId);
 
     if (object !== null) {
-      if (object.m_smart_terrain_id === this.assignedSmartTerrainId) {
+      if (object.m_smart_terrain_id === this.smartTerrainId) {
         return;
       }
 
       if (
         oldSmartTerrainId !== null &&
-        object.m_smart_terrain_id !== MAX_U16 &&
+        oldSmartTerrainId !== MAX_U16 &&
         object.m_smart_terrain_id === oldSmartTerrainId &&
         this.simulationBoardManager.getSmartTerrainDescriptor(oldSmartTerrainId)
       ) {
@@ -580,9 +563,9 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
    * todo: Description.
    */
   public assignToSmartTerrain(smartTerrain: Optional<SmartTerrain>): void {
-    const oldSmartId: TNumberId = this.assignedSmartTerrainId!;
+    const oldSmartId: TNumberId = this.smartTerrainId!;
 
-    this.assignedSmartTerrainId = smartTerrain && smartTerrain.id;
+    this.smartTerrainId = smartTerrain && smartTerrain.id;
 
     for (const squadMember of this.squad_members()) {
       this.assignMemberToSmartTerrain(squadMember.id, smartTerrain, oldSmartId);
@@ -604,15 +587,15 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
    * todo: Description.
    */
   public setLocationTypes(newLocationSection?: TSection): void {
-    const defaultLocation: TSection = "stalker_terrain";
-
     this.clear_location_types();
 
-    if (isSmartTerrain(registry.simulator.object(this.assignedTargetId as TNumberId) as ServerObject)) {
-      this.setLocationTypesMaskFromSection(defaultLocation);
+    this.setLocationTypesMaskFromSection("stalker_terrain");
+    this.setLocationTypesMaskFromSection("squad_terrain");
 
-      const oldSmartName =
-        this.assignedSmartTerrainId !== null && registry.simulator.object(this.assignedSmartTerrainId)?.name();
+    if (isSmartTerrain(registry.simulator.object(this.assignedTargetId as TNumberId) as ServerObject)) {
+      const oldSmartName: Optional<TName> = this.smartTerrainId
+        ? (registry.simulator.object(this.smartTerrainId)?.name() as TName)
+        : null;
 
       if (oldSmartName) {
         this.setLocationTypesMaskFromSection(oldSmartName);
@@ -622,17 +605,11 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
         this.setLocationTypesMaskFromSection(newLocationSection);
       }
     } else {
-      this.setLocationTypesMaskFromSection("squad_terrain");
+      for (const [smartTerrainName, smartTerrain] of this.simulationBoardManager.getSmartTerrains()) {
+        const baseRate: Optional<TRate> = smartTerrain.simulationProperties.get(ESimulationTerrainRole.BASE);
 
-      for (const [id] of registry.simulationObjects) {
-        const smartTerrain: ServerObject = registry.simulator.object(id) as ServerObject;
-
-        if (isSmartTerrain(smartTerrain)) {
-          const propertiesBase: TRate = smartTerrain.simulationProperties.get(ESimulationTerrainRole.BASE);
-
-          if (propertiesBase && tonumber(propertiesBase) === 0) {
-            this.setLocationTypesMaskFromSection(smartTerrain.name());
-          }
+        if (baseRate && baseRate !== 0) {
+          this.setLocationTypesMaskFromSection(smartTerrainName);
         }
       }
     }
@@ -755,11 +732,11 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
       }
     }
 
-    if (this.assignedSmartTerrainId === null) {
+    if (this.smartTerrainId === null) {
       return true;
     }
 
-    const assignedSmartTerrain: SmartTerrain = registry.simulator.object(this.assignedSmartTerrainId) as SmartTerrain;
+    const assignedSmartTerrain: SmartTerrain = registry.simulator.object(this.smartTerrainId) as SmartTerrain;
     const smartTerrainBaseProperties =
       assignedSmartTerrain!.simulationProperties &&
       assignedSmartTerrain!.simulationProperties.get(ESimulationTerrainRole.BASE);

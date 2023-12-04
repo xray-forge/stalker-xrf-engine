@@ -395,12 +395,11 @@ export class TravelManager extends AbstractManager {
       // todo: Why releasing enemies? Probably not needed.
       for (const [, squad] of board.getSmartTerrainDescriptor(this.travelToSmartId!)!.assignedSquads) {
         if (getStoryIdByObjectId(squad.id) === null && isAnySquadMemberEnemyToActor(squad)) {
-          board.exitSmartTerrain(squad, this.travelToSmartId);
           board.releaseSquad(squad);
         }
       }
 
-      const currentSmartId: Optional<TNumberId> = this.travelSquad!.assignedSmartTerrainId;
+      const currentSmartId: Optional<TNumberId> = this.travelSquad!.smartTerrainId;
 
       if (currentSmartId !== null) {
         logger.format("Leave smart on traveling: '%s' from '%s'", this.travelSquad!.name(), currentSmartId);

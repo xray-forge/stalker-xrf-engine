@@ -37,8 +37,8 @@ export class SquadStayOnTargetAction implements ISquadAction {
    * Check whether idle time passed for offline mode.
    * Do not stay on target for online mode.
    */
-  public update(isUnderSimulation: boolean): boolean {
-    return isUnderSimulation ? game.get_game_time().diffSec(this.actionStartTime!) > this.actionIdleTime : true;
+  public update(): boolean {
+    return game.get_game_time().diffSec(this.actionStartTime as Time) > this.actionIdleTime;
   }
 
   /**
