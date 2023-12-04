@@ -31,7 +31,7 @@ import {
   ISimulationActivityDescriptor,
   ISimulationTarget,
   simulationActivities,
-  SimulationBoardManager,
+  SimulationManager,
   TSimulationActivityPrecondition,
   VALID_SMART_TERRAINS_SIMULATION_ROLES,
 } from "@/engine/core/managers/simulation";
@@ -114,7 +114,7 @@ const logger: LuaLogger = new LuaLogger($filename, { file: "smart_terrain", mode
  */
 @LuabindClass()
 export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTarget {
-  public readonly simulationBoardManager: SimulationBoardManager = SimulationBoardManager.getInstance();
+  public readonly simulationBoardManager: SimulationManager = SimulationManager.getInstance();
   public readonly mapDisplayManager: MapDisplayManager = MapDisplayManager.getInstance();
 
   public ini!: IniFile;
@@ -143,7 +143,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
   // If smart terrain is attacked, all active squads will react.
   public alarmStartedAt: Optional<Time> = null;
 
-  public population: TCount = 0;
+  public population: TCount = 0; // Count of game object inside smart terrain.
   public maxPopulation: TCount = 0;
 
   public nextCheckAt: TTimestamp = 0;
@@ -730,47 +730,49 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
     }
 
     // Cannot select smart as target due to max population constraints.
-    if (squadsCount !== null && squadsCount >= this.maxPopulation) {
+    if (squadsCount >= this.maxPopulation) {
       return false;
     }
 
-    const squadParameters: ISimulationActivityDescriptor = simulationActivities.get(squad.faction);
+    const squadParameters: Optional<ISimulationActivityDescriptor> = simulationActivities.get(squad.faction);
 
-    if (squadParameters === null || squadParameters.smart === null) {
+    if (!squadParameters || !squadParameters.smart) {
       return false;
     }
 
-    if ((tonumber(this.simulationProperties.get(ESimulationTerrainRole.RESOURCE)) as number) > 0) {
-      const simulationProperties: Optional<TSimulationActivityPrecondition> = squadParameters.smart
-        .resource as Optional<TSimulationActivityPrecondition>;
-
-      if (simulationProperties?.(squad, this)) {
-        return true;
-      }
+    if (
+      (this.simulationProperties.get(ESimulationTerrainRole.RESOURCE) ?? 0) > 0 &&
+      squadParameters.smart.resource?.(squad, this)
+    ) {
+      return true;
     }
 
-    if ((tonumber(this.simulationProperties.get(ESimulationTerrainRole.BASE)) as number) > 0) {
-      if (squadParameters.smart.base?.(squad, this)) {
-        return true;
-      }
+    if (
+      (this.simulationProperties.get(ESimulationTerrainRole.BASE) ?? 0) > 0 &&
+      squadParameters.smart.base?.(squad, this)
+    ) {
+      return true;
     }
 
-    if ((tonumber(this.simulationProperties.get(ESimulationTerrainRole.LAIR)) as number) > 0) {
-      if (squadParameters.smart.lair?.(squad, this)) {
-        return true;
-      }
+    if (
+      (this.simulationProperties.get(ESimulationTerrainRole.LAIR) ?? 0) > 0 &&
+      squadParameters.smart.lair?.(squad, this)
+    ) {
+      return true;
     }
 
-    if ((tonumber(this.simulationProperties.get(ESimulationTerrainRole.TERRITORY)) as number) > 0) {
-      if (squadParameters.smart.territory?.(squad, this)) {
-        return true;
-      }
+    if (
+      (this.simulationProperties.get(ESimulationTerrainRole.TERRITORY) ?? 0) > 0 &&
+      squadParameters.smart.territory?.(squad, this)
+    ) {
+      return true;
     }
 
-    if ((tonumber(this.simulationProperties.get(ESimulationTerrainRole.SURGE)) as number) > 0) {
-      if (squadParameters.smart.surge?.(squad, this)) {
-        return true;
-      }
+    if (
+      (this.simulationProperties.get(ESimulationTerrainRole.SURGE) ?? 0) > 0 &&
+      squadParameters.smart.surge?.(squad, this)
+    ) {
+      return true;
     }
 
     return false;

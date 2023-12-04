@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 
 import { registerActor, registerSimulator, registry } from "@/engine/core/database";
-import { SimulationBoardManager } from "@/engine/core/managers/simulation/SimulationBoardManager";
+import { SimulationManager } from "@/engine/core/managers/simulation/SimulationManager";
 import { SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import { Squad } from "@/engine/core/objects/squad";
 import {
@@ -151,7 +151,7 @@ describe("spawning utils", () => {
     expect(() => spawnSquadInSmart("abc", "abc")).toThrow();
     expect(() => spawnSquadInSmart("squad", "some_terrain")).toThrow();
 
-    const simulationManager: SimulationBoardManager = SimulationBoardManager.getInstance();
+    const simulationManager: SimulationManager = SimulationManager.getInstance();
     const smartTerrain: ServerSmartZoneObject = MockSmartTerrain.mock();
     const squad: Squad = MockSquad.mock();
 

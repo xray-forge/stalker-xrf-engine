@@ -3,7 +3,7 @@ import { hit, level } from "xray16";
 import { getManagerInstanceByName, isStoryObject, registry } from "@/engine/core/database";
 import type { ActorInputManager } from "@/engine/core/managers/actor/ActorInputManager";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
-import { SimulationBoardManager } from "@/engine/core/managers/simulation";
+import { SimulationManager } from "@/engine/core/managers/simulation";
 import { surgeConfig } from "@/engine/core/managers/surge/SurgeConfig";
 import {
   canSurgeKillSquad,
@@ -28,7 +28,7 @@ const logger: LuaLogger = new LuaLogger($filename);
  * todo: Description.
  */
 export function killAllSurgeUnhiddenAfterActorDeath(): void {
-  const simulationBoardManager: SimulationBoardManager = SimulationBoardManager.getInstance();
+  const simulationBoardManager: SimulationManager = SimulationManager.getInstance();
   const surgeCovers: LuaArray<GameObject> = getOnlineSurgeCoversList();
   const levelName: TLevel = level.name();
 
@@ -90,7 +90,7 @@ export function killAllSurgeUnhidden(): void {
     }
   }
 
-  const simulationBoardManager: SimulationBoardManager = SimulationBoardManager.getInstance();
+  const simulationBoardManager: SimulationManager = SimulationManager.getInstance();
   const surgeCovers: LuaArray<GameObject> = getOnlineSurgeCoversList();
   const levelName: TLevel = level.name();
 

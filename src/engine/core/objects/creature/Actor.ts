@@ -16,7 +16,7 @@ import { registerSimulationObject, unregisterSimulationObject } from "@/engine/c
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { SaveManager } from "@/engine/core/managers/save/SaveManager";
 import { ISimulationTarget, simulationActivities } from "@/engine/core/managers/simulation";
-import { SimulationBoardManager } from "@/engine/core/managers/simulation/SimulationBoardManager";
+import { SimulationManager } from "@/engine/core/managers/simulation/SimulationManager";
 import { ESmartTerrainStatus } from "@/engine/core/objects/smart_terrain/smart_terrain_types";
 import { SmartTerrain } from "@/engine/core/objects/smart_terrain/SmartTerrain";
 import { Squad } from "@/engine/core/objects/squad/Squad";
@@ -56,7 +56,7 @@ export class Actor extends cse_alife_creature_actor implements ISimulationTarget
     registerStoryLink(this.id, ACTOR);
     registerSimulationObject(this);
 
-    SimulationBoardManager.getInstance().onActorRegister();
+    SimulationManager.getInstance().onActorRegister();
 
     EventsManager.emitEvent(EGameEvent.ACTOR_REGISTER, this);
   }
@@ -131,8 +131,7 @@ export class Actor extends cse_alife_creature_actor implements ISimulationTarget
       const zone: GameObject = registry.zones.get(zoneName);
 
       if (zone !== null && zone.inside(this.position)) {
-        const smartTerrain: Optional<SmartTerrain> =
-          SimulationBoardManager.getInstance().getSmartTerrainByName(smartName);
+        const smartTerrain: Optional<SmartTerrain> = SimulationManager.getInstance().getSmartTerrainByName(smartName);
 
         if (smartTerrain !== null && smartTerrain.smartTerrainActorControl?.status !== ESmartTerrainStatus.ALARM) {
           return false;
@@ -184,6 +183,6 @@ export class Actor extends cse_alife_creature_actor implements ISimulationTarget
       softResetOfflineObject(squadMember.id);
     }
 
-    SimulationBoardManager.getInstance().assignSquadToSmartTerrain(squad, null);
+    SimulationManager.getInstance().assignSquadToSmartTerrain(squad, null);
   }
 }

@@ -2,7 +2,7 @@ import { action_base, level, LuabindClass, patrol } from "xray16";
 
 import { EStalkerState, ILookTargetDescriptor, IStateManagerCallbackDescriptor } from "@/engine/core/animation/types";
 import { getObjectIdByStoryId, registry, setStalkerState } from "@/engine/core/database";
-import { SimulationBoardManager } from "@/engine/core/managers/simulation/SimulationBoardManager";
+import { SimulationManager } from "@/engine/core/managers/simulation/SimulationManager";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import { getSmartTerrainObjectIdByJobSection } from "@/engine/core/objects/smart_terrain/job";
 import { SmartTerrain } from "@/engine/core/objects/smart_terrain/SmartTerrain";
@@ -261,7 +261,7 @@ export function initTarget(
     }
   } else if (targetType === "job") {
     const [job, smartTerrainName] = parseTarget(target);
-    const smartTerrain: SmartTerrain = SimulationBoardManager.getInstance().getSmartTerrainByName(smartTerrainName!)!;
+    const smartTerrain: SmartTerrain = SimulationManager.getInstance().getSmartTerrainByName(smartTerrainName!)!;
 
     targetId = getSmartTerrainObjectIdByJobSection(smartTerrain, job as TStringId);
     isTargetInitialized = targetId !== null;

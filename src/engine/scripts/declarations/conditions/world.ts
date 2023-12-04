@@ -1,7 +1,7 @@
 import { level } from "xray16";
 
 import { registry } from "@/engine/core/database";
-import { SimulationBoardManager } from "@/engine/core/managers/simulation/SimulationBoardManager";
+import { SimulationManager } from "@/engine/core/managers/simulation/SimulationManager";
 import { surgeConfig } from "@/engine/core/managers/surge/SurgeConfig";
 import { SurgeManager } from "@/engine/core/managers/surge/SurgeManager";
 import { SmartTerrain, SmartTerrainControl } from "@/engine/core/objects/smart_terrain";
@@ -132,7 +132,7 @@ extern(
       abort("Wrong status[%s] in 'check_smart_alarm_status'", status);
     }
 
-    const smart: SmartTerrain = SimulationBoardManager.getInstance().getSmartTerrainByName(smartName)!;
+    const smart: SmartTerrain = SimulationManager.getInstance().getSmartTerrainByName(smartName)!;
     const smartControl: Optional<SmartTerrainControl> = smart.smartTerrainActorControl;
 
     if (smartControl === null) {

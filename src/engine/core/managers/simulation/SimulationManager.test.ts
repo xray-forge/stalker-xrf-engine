@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it } from "@jest/globals";
 
 import { disposeManager, getManagerInstance } from "@/engine/core/database";
-import { SimulationBoardManager } from "@/engine/core/managers/simulation/SimulationBoardManager";
+import { SimulationManager } from "@/engine/core/managers/simulation/SimulationManager";
 import { resetRegistry } from "@/fixtures/engine";
 import { EPacketDataType, mockNetPacket, mockNetProcessor, MockNetProcessor } from "@/fixtures/xray";
 
@@ -11,7 +11,7 @@ describe("SimulationBoardManager class", () => {
   });
 
   it("should correctly initialize and return values with getters", () => {
-    const manager: SimulationBoardManager = getManagerInstance(SimulationBoardManager);
+    const manager: SimulationManager = getManagerInstance(SimulationManager);
 
     expect(manager.areDefaultSimulationSquadsSpawned).toBe(false);
     expect(manager.getFactions()).toEqualLuaTables({});
@@ -22,7 +22,7 @@ describe("SimulationBoardManager class", () => {
   });
 
   it("should correctly save and load data", () => {
-    const manager: SimulationBoardManager = getManagerInstance(SimulationBoardManager);
+    const manager: SimulationManager = getManagerInstance(SimulationManager);
     const netProcessor: MockNetProcessor = new MockNetProcessor();
 
     manager.areDefaultSimulationSquadsSpawned = true;
@@ -32,9 +32,9 @@ describe("SimulationBoardManager class", () => {
     expect(netProcessor.writeDataOrder).toEqual([EPacketDataType.BOOLEAN]);
     expect(netProcessor.dataList).toEqual([true]);
 
-    disposeManager(SimulationBoardManager);
+    disposeManager(SimulationManager);
 
-    const newManager: SimulationBoardManager = getManagerInstance(SimulationBoardManager);
+    const newManager: SimulationManager = getManagerInstance(SimulationManager);
 
     newManager.load(mockNetProcessor(netProcessor));
 

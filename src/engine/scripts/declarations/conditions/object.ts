@@ -9,7 +9,7 @@ import {
   registry,
 } from "@/engine/core/database";
 import { ActorInventoryMenuManager } from "@/engine/core/managers/actor/ActorInventoryMenuManager";
-import { SimulationBoardManager } from "@/engine/core/managers/simulation/SimulationBoardManager";
+import { SimulationManager } from "@/engine/core/managers/simulation/SimulationManager";
 import { UpgradesManager } from "@/engine/core/managers/upgrades/UpgradesManager";
 import type { SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import type { Squad } from "@/engine/core/objects/squad";
@@ -226,7 +226,7 @@ extern("xr_conditions.distance_to_obj_on_job_le", (actor: GameObject, object: Ga
 extern("xr_conditions.is_obj_on_job", (actor: GameObject, object: GameObject, params: AnyArgs): boolean => {
   const smartTerrain: Optional<SmartTerrain> =
     params && params[1]
-      ? SimulationBoardManager.getInstance().getSmartTerrainByName(params[1])
+      ? SimulationManager.getInstance().getSmartTerrainByName(params[1])
       : getObjectSmartTerrain(object);
 
   if (smartTerrain === null) {
@@ -721,7 +721,7 @@ extern("xr_conditions.squad_in_zone_all", (actor: GameObject, object: GameObject
  * todo;
  */
 extern("xr_conditions.squads_in_zone_b41", (actor: GameObject, object: GameObject): boolean => {
-  const smartTerrain: Optional<SmartTerrain> = SimulationBoardManager.getInstance().getSmartTerrainByName("jup_b41");
+  const smartTerrain: Optional<SmartTerrain> = SimulationManager.getInstance().getSmartTerrainByName("jup_b41");
   const zone: Optional<GameObject> = registry.zones.get("jup_b41_sr_light");
 
   if (zone === null) {
@@ -732,8 +732,7 @@ extern("xr_conditions.squads_in_zone_b41", (actor: GameObject, object: GameObjec
     return false;
   }
 
-  for (const [k, v] of SimulationBoardManager.getInstance().getSmartTerrainDescriptor(smartTerrain.id)!
-    .assignedSquads) {
+  for (const [k, v] of SimulationManager.getInstance().getSmartTerrainDescriptor(smartTerrain.id)!.assignedSquads) {
     if (v !== null) {
       for (const j of v.squad_members()) {
         if (!zone.inside(j.object.position)) {

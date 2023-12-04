@@ -26,7 +26,8 @@ import {
   TSimulationActivityPrecondition,
   TSimulationObject,
 } from "@/engine/core/managers/simulation";
-import { SimulationBoardManager } from "@/engine/core/managers/simulation/SimulationBoardManager";
+import { SimulationManager } from "@/engine/core/managers/simulation/SimulationManager";
+import { getSquadSimulationTarget } from "@/engine/core/managers/simulation/utils";
 import { StoryManager } from "@/engine/core/managers/sounds/stories";
 import { getStoryManager } from "@/engine/core/managers/sounds/utils";
 import { ESmartTerrainStatus } from "@/engine/core/objects/smart_terrain/smart_terrain_types";
@@ -78,7 +79,7 @@ const simulationLogger: LuaLogger = new LuaLogger($filename, { file: "simulation
 @LuabindClass()
 export class Squad extends cse_alife_online_offline_group implements ISimulationTarget {
   public readonly mapDisplayManager: MapDisplayManager = MapDisplayManager.getInstance();
-  public readonly simulationBoardManager: SimulationBoardManager = SimulationBoardManager.getInstance();
+  public readonly simulationBoardManager: SimulationManager = SimulationManager.getInstance();
   public readonly soundManager: StoryManager = getStoryManager(`squad_${this.section_name()}`);
 
   public isItemListSpawned: Optional<boolean> = null;
@@ -200,7 +201,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
 
     // Have squad target assigned, update current action and recalculate priorities.
     if (this.assignedTargetId && isSquadId(this.assignedTargetId)) {
-      const target: TSimulationObject = this.simulationBoardManager.getSquadSimulationTarget(this) as TSimulationObject;
+      const target: TSimulationObject = getSquadSimulationTarget(this) as TSimulationObject;
 
       if (isSquad(target)) {
         this.currentAction = null;
@@ -226,7 +227,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
         this.currentAction.finalize();
 
         if (this.currentAction.type === ESquadActionType.STAY_ON_TARGET || this.assignedTargetId === null) {
-          this.assignedTargetId = this.simulationBoardManager.getSquadSimulationTarget(this)!.id;
+          this.assignedTargetId = getSquadSimulationTarget(this)!.id;
         }
 
         this.currentAction = null;
@@ -235,7 +236,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
       }
     } else {
       this.currentAction = null;
-      this.assignedTargetId = this.simulationBoardManager.getSquadSimulationTarget(this)!.id;
+      this.assignedTargetId = getSquadSimulationTarget(this)!.id;
       this.currentTargetId = null;
     }
 
@@ -360,23 +361,23 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
    * todo: Description.
    */
   public override get_current_task(): CALifeSmartTerrainTask {
-    const smartTerrain: Optional<SmartTerrain> =
-      this.assignedTargetId === null ? null : registry.simulator.object<SmartTerrain>(this.assignedTargetId);
+    const target: Optional<TSimulationObject> =
+      this.assignedTargetId === null ? null : registry.simulator.object(this.assignedTargetId);
 
-    if (smartTerrain) {
+    if (target && isSmartTerrain(target)) {
       const commanderId: TNumberId = this.commander_id();
 
       if (
-        smartTerrain.arrivingObjects.get(commanderId) === null &&
-        smartTerrain.objectJobDescriptors &&
-        smartTerrain.objectJobDescriptors.get(commanderId) &&
-        smartTerrain.objectJobDescriptors.get(commanderId).jobId &&
-        smartTerrain.jobs.get(smartTerrain.objectJobDescriptors.get(commanderId).jobId)
+        target.arrivingObjects.get(commanderId) === null &&
+        target.objectJobDescriptors &&
+        target.objectJobDescriptors.get(commanderId) &&
+        target.objectJobDescriptors.get(commanderId).jobId &&
+        target.jobs.get(target.objectJobDescriptors.get(commanderId).jobId)
       ) {
-        return smartTerrain.objectJobDescriptors.get(this.commander_id()).job!.alifeTask as CALifeSmartTerrainTask;
+        return target.objectJobDescriptors.get(this.commander_id()).job!.alifeTask as CALifeSmartTerrainTask;
       }
 
-      return smartTerrain.getSimulationTask();
+      return target.getSimulationTask();
     }
 
     return this.getSimulationTask();
@@ -742,7 +743,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
 
       if (zone && zone.inside(this.position)) {
         const smartTerrain: Optional<SmartTerrain> =
-          SimulationBoardManager.getInstance().getSmartTerrainByName(smartTerrainName);
+          SimulationManager.getInstance().getSmartTerrainByName(smartTerrainName);
 
         if (
           smartTerrain &&

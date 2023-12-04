@@ -131,3 +131,11 @@ export interface ISimulationActivityDescriptor {
   smart: Optional<PartialRecord<ESimulationTerrainRole, Optional<TSimulationActivityPrecondition>>>;
   actor: Optional<TSimulationActivityPrecondition>;
 }
+
+/**
+ * Descriptor of possible simulation target to pick.
+ */
+export interface IAvailableSimulationTargetDescriptor {
+  priority: TRate;
+  target: TSimulationObject;
+}

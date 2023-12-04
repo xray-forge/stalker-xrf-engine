@@ -2,7 +2,7 @@ import { level, patrol } from "xray16";
 
 import { AnomalyZoneBinder } from "@/engine/core/binders";
 import { getObjectByStoryId, getObjectIdByStoryId, IRegistryObjectState, registry } from "@/engine/core/database";
-import { SimulationBoardManager } from "@/engine/core/managers/simulation/SimulationBoardManager";
+import { SimulationManager } from "@/engine/core/managers/simulation/SimulationManager";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import { soundsConfig } from "@/engine/core/managers/sounds/SoundsConfig";
 import { surgeConfig } from "@/engine/core/managers/surge/SurgeConfig";
@@ -50,7 +50,7 @@ extern(
   ): void => {
     const theme: Optional<TName> = p[0];
     const faction: Optional<TCommunity> = p[1];
-    const smartTerrain: SmartTerrain = SimulationBoardManager.getInstance().getSmartTerrainByName(
+    const smartTerrain: SmartTerrain = SimulationManager.getInstance().getSmartTerrainByName(
       p[2] as TName
     ) as SmartTerrain;
     const smartTerrainId: TNumberId = smartTerrain !== null ? smartTerrain.id : (p[2] as TNumberId);
@@ -101,9 +101,7 @@ extern(
     const theme: TName = p[1];
     const faction: TName = p[2];
 
-    const smartTerrain: Optional<SmartTerrain> = SimulationBoardManager.getInstance().getSmartTerrainByName(
-      p[3] as TName
-    );
+    const smartTerrain: Optional<SmartTerrain> = SimulationManager.getInstance().getSmartTerrainByName(p[3] as TName);
     const smartTerrainId: TNumberId = smartTerrain !== null ? smartTerrain.id : (p[3] as number);
 
     GlobalSoundManager.getInstance().playSound(storyObjectId as number, theme, faction, smartTerrainId);

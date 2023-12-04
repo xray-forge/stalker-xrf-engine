@@ -6,7 +6,7 @@ import { ReleaseBodyManager } from "@/engine/core/managers/death";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { PsyAntennaManager } from "@/engine/core/managers/psy";
 import { GameSettingsManager } from "@/engine/core/managers/settings";
-import { SimulationBoardManager } from "@/engine/core/managers/simulation";
+import { SimulationManager } from "@/engine/core/managers/simulation";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds";
 import { StatisticsManager } from "@/engine/core/managers/statistics";
 import { SurgeManager } from "@/engine/core/managers/surge";
@@ -79,7 +79,7 @@ export class SaveManager extends AbstractManager {
   public serverSave(packet: NetPacket): void {
     logger.info("Saving server data");
 
-    SimulationBoardManager.getInstance().save(packet);
+    SimulationManager.getInstance().save(packet);
   }
 
   /**
@@ -88,7 +88,7 @@ export class SaveManager extends AbstractManager {
   public serverLoad(reader: NetProcessor): void {
     logger.info("Loading server data");
 
-    SimulationBoardManager.getInstance().load(reader);
+    SimulationManager.getInstance().load(reader);
   }
 
   /**

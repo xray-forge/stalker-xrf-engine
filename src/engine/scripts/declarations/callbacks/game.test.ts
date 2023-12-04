@@ -1,7 +1,7 @@
 import { beforeAll, beforeEach, describe, expect, it, jest } from "@jest/globals";
 
 import { smartCoversList } from "@/engine/core/animation/smart_covers";
-import { GameOutroManager } from "@/engine/core/managers/outro";
+import { gameOutroConfig, GameOutroManager } from "@/engine/core/managers/outro";
 import { SaveManager } from "@/engine/core/managers/save";
 import { TradeManager } from "@/engine/core/managers/trade";
 import { AnyArgs, AnyObject, TName } from "@/engine/lib/types";
@@ -42,7 +42,7 @@ describe("game external callbacks", () => {
 
     const callOutroBinding = (name: TName, args: AnyArgs = []) => callBinding(name, args, (_G as AnyObject)["outro"]);
 
-    expect((_G as AnyObject)["outro"]["conditions"]).toBe(GameOutroManager.OUTRO_CONDITIONS);
+    expect((_G as AnyObject)["outro"]["conditions"]).toBe(gameOutroConfig.OUTRO_CONDITIONS);
 
     callOutroBinding("start_bk_sound");
     expect(outroManager.startBkSound).toHaveBeenCalled();

@@ -26,7 +26,7 @@ import { DialogManager } from "@/engine/core/managers/dialogs";
 import { DropManager } from "@/engine/core/managers/drop";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { MapDisplayManager } from "@/engine/core/managers/map/MapDisplayManager";
-import { SimulationBoardManager } from "@/engine/core/managers/simulation/SimulationBoardManager";
+import { SimulationManager } from "@/engine/core/managers/simulation/SimulationManager";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import { initializeObjectThemes } from "@/engine/core/managers/sounds/utils";
 import { TradeManager } from "@/engine/core/managers/trade/TradeManager";
@@ -536,7 +536,7 @@ export class StalkerBinder extends object_binder {
     // -- FIXME: �������� ������� ���� �� �������������� � ����� storage, � �� ��������...
     if (who?.id() === ACTOR_ID) {
       if (amount > 0) {
-        for (const [, descriptor] of SimulationBoardManager.getInstance().getSmartTerrainDescriptors()) {
+        for (const [, descriptor] of SimulationManager.getInstance().getSmartTerrainDescriptors()) {
           const smartTerrain: SmartTerrain = descriptor.smartTerrain;
 
           if (smartTerrain.smartTerrainActorControl !== null) {

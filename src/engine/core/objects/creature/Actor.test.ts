@@ -2,14 +2,14 @@ import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { SaveManager } from "@/engine/core/managers/save/SaveManager";
-import { SimulationBoardManager } from "@/engine/core/managers/simulation";
+import { SimulationManager } from "@/engine/core/managers/simulation";
 import { Actor } from "@/engine/core/objects/creature/Actor";
 import { ServerObject } from "@/engine/lib/types";
 import { EPacketDataType, mockNetPacket, MockNetProcessor, mockServerAlifeHumanStalker } from "@/fixtures/xray";
 
 describe("Actor server object", () => {
   beforeEach(() => {
-    jest.spyOn(SimulationBoardManager.getInstance(), "onActorRegister").mockImplementation(jest.fn);
+    jest.spyOn(SimulationManager.getInstance(), "onActorRegister").mockImplementation(jest.fn);
   });
 
   it("should correctly emit lifecycle events", () => {

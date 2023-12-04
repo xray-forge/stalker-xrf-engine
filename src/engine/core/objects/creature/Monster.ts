@@ -9,7 +9,7 @@ import {
   unregisterStoryLinkByObjectId,
 } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
-import { SimulationBoardManager } from "@/engine/core/managers/simulation/SimulationBoardManager";
+import { SimulationManager } from "@/engine/core/managers/simulation/SimulationManager";
 import { SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import { Squad } from "@/engine/core/objects/squad";
 import { assert } from "@/engine/core/utils/assertion";
@@ -52,7 +52,7 @@ export class Monster extends cse_alife_monster_base {
 
     registerObjectStoryLinks(this);
 
-    const simulationBoardManager: SimulationBoardManager = SimulationBoardManager.getInstance();
+    const simulationBoardManager: SimulationManager = SimulationManager.getInstance();
 
     registerOfflineObject(this.id);
 

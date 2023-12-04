@@ -15,7 +15,7 @@ import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { PsyAntennaManager } from "@/engine/core/managers/psy/PsyAntennaManager";
 import { SaveManager } from "@/engine/core/managers/save";
 import { GameSettingsManager } from "@/engine/core/managers/settings/GameSettingsManager";
-import { SimulationBoardManager } from "@/engine/core/managers/simulation/SimulationBoardManager";
+import { SimulationManager } from "@/engine/core/managers/simulation/SimulationManager";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import { StatisticsManager } from "@/engine/core/managers/statistics";
 import { SurgeManager } from "@/engine/core/managers/surge/SurgeManager";
@@ -115,7 +115,7 @@ describe("SaveManager class", () => {
   it("should read and write data from managers in a strict order", () => {
     registerActor(MockGameObject.mock());
 
-    const expectedOrder: Array<TAbstractCoreManagerConstructor> = [SimulationBoardManager];
+    const expectedOrder: Array<TAbstractCoreManagerConstructor> = [SimulationManager];
 
     expectedOrder.forEach((it) => initializeManager(it));
 

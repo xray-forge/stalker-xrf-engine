@@ -7,10 +7,8 @@ import {
   groupIdByLevelName,
   ISimulationFactionDescriptor,
   ISmartTerrainDescriptor,
-  TSimulationObject,
 } from "@/engine/core/managers/simulation/simulation_types";
 import { SIMULATION_LTX } from "@/engine/core/managers/simulation/SimulationConfig";
-import { evaluateSimulationPriority } from "@/engine/core/managers/simulation/utils";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import { SmartTerrain } from "@/engine/core/objects/smart_terrain/SmartTerrain";
 import { createSquadMembers } from "@/engine/core/objects/squad/creation";
@@ -33,7 +31,6 @@ import {
   TCount,
   TName,
   TNumberId,
-  TRate,
   TSection,
   TStringId,
 } from "@/engine/lib/types";
@@ -44,7 +41,7 @@ const simulationLogger: LuaLogger = new LuaLogger($filename, { file: "simulation
 /**
  * todo;
  */
-export class SimulationBoardManager extends AbstractManager {
+export class SimulationManager extends AbstractManager {
   public areDefaultSimulationSquadsSpawned: boolean = false;
 
   protected factions: LuaArray<ISimulationFactionDescriptor> = new LuaTable();
@@ -142,48 +139,6 @@ export class SimulationBoardManager extends AbstractManager {
     }
 
     return count;
-  }
-
-  /**
-   * Get simulation target for squad participating in alife.
-   *
-   * @param squad - squad to generate simulation target for
-   * @returns simulation object to target or null based on priorities
-   */
-  public getSquadSimulationTarget(squad: Squad): Optional<TSimulationObject> {
-    const availableTargets: LuaArray<{ priority: TRate; target: TSimulationObject }> = new LuaTable();
-
-    for (const [, target] of registry.simulationObjects) {
-      const priority: TRate = target.id === squad.id ? 0 : evaluateSimulationPriority(target, squad);
-
-      if (priority > 0) {
-        table.insert(availableTargets, { priority: priority, target: target });
-      }
-    }
-
-    let mostPriorityTask: Optional<TSimulationObject> = null;
-
-    if (availableTargets.length() > 0) {
-      table.sort(availableTargets, (a, b) => a.priority > b.priority);
-
-      // todo: Is it trick to get not first task always?
-      let maxId: TNumberId = math.floor(0.3 * availableTargets.length());
-
-      if (maxId === 0) {
-        maxId = 1;
-      }
-
-      mostPriorityTask = availableTargets.get(math.random(maxId)).target;
-    }
-
-    if (mostPriorityTask) {
-      return mostPriorityTask;
-    } else {
-      // Return already assigned target or squad itself.
-      return (
-        (squad.assignedSmartTerrainId && registry.simulator.object<SmartTerrain>(squad.assignedSmartTerrainId)) || squad
-      );
-    }
   }
 
   /**

@@ -6,7 +6,7 @@ import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { mapDisplayConfig } from "@/engine/core/managers/map/MapDisplayConfig";
 import { ENotificationDirection, NotificationManager } from "@/engine/core/managers/notifications";
 import { TSimulationObject } from "@/engine/core/managers/simulation";
-import { SimulationBoardManager } from "@/engine/core/managers/simulation/SimulationBoardManager";
+import { SimulationManager } from "@/engine/core/managers/simulation/SimulationManager";
 import { surgeConfig } from "@/engine/core/managers/surge/SurgeConfig";
 import { ITravelRouteDescriptor } from "@/engine/core/managers/travel/travel_types";
 import { travelConfig } from "@/engine/core/managers/travel/TravelConfig";
@@ -272,7 +272,7 @@ export class TravelManager extends AbstractManager {
       return false;
     }
 
-    const smartTerrain: Optional<SmartTerrain> = SimulationBoardManager.getInstance().getSmartTerrainByName(smartName);
+    const smartTerrain: Optional<SmartTerrain> = SimulationManager.getInstance().getSmartTerrainByName(smartName);
 
     if (smartTerrain === null) {
       abort("Error in travel manager. Smart terrain '%s' does not exist.", smartName);
@@ -335,7 +335,7 @@ export class TravelManager extends AbstractManager {
    * todo: Description.
    */
   public getTravelPriceByObjectPhrase(object: GameObject, phraseId: TStringId): TCount {
-    const simulationBoardManager: SimulationBoardManager = SimulationBoardManager.getInstance();
+    const simulationBoardManager: SimulationManager = SimulationManager.getInstance();
     const smartTerrainName: TName = travelConfig.TRAVEL_DESCRIPTORS_BY_PHRASE.get(
       string.sub(phraseId, 1, string.len(phraseId) - 2)
     );
@@ -390,7 +390,7 @@ export class TravelManager extends AbstractManager {
 
       const point: Patrol = new patrol(this.travelActorPath!);
       const direction: TDirection = -point.point(1).sub(point.point(0)).getH();
-      const board: SimulationBoardManager = SimulationBoardManager.getInstance();
+      const board: SimulationManager = SimulationManager.getInstance();
 
       // todo: Why releasing enemies? Probably not needed.
       for (const [, squad] of board.getSmartTerrainDescriptor(this.travelToSmartId!)!.assignedSquads) {
@@ -466,7 +466,7 @@ export class TravelManager extends AbstractManager {
     dialogId: TStringId,
     phraseId: TStringId
   ): void {
-    const simulationBoardManager: SimulationBoardManager = SimulationBoardManager.getInstance();
+    const simulationBoardManager: SimulationManager = SimulationManager.getInstance();
     const travelPhraseId: TStringId = string.sub(phraseId, 1, string.len(phraseId) - 3);
     const smartName: TName = travelConfig.TRAVEL_DESCRIPTORS_BY_PHRASE.get(travelPhraseId);
     const smartTerrain: Optional<SmartTerrain> = simulationBoardManager.getSmartTerrainByName(smartName)!;

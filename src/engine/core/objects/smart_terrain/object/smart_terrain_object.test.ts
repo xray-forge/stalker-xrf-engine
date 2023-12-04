@@ -2,7 +2,7 @@ import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { game_graph } from "xray16";
 
 import { registerObject, updateSimulationObjectAvailability } from "@/engine/core/database";
-import { SimulationBoardManager } from "@/engine/core/managers/simulation";
+import { SimulationManager } from "@/engine/core/managers/simulation";
 import { SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import {
   isObjectArrivedToSmartTerrain,
@@ -23,7 +23,7 @@ describe("isObjectArrivedToSmartTerrain utility", () => {
     const squad: Squad = MockSquad.mock();
     const smartTerrain: SmartTerrain = mockSmartTerrain();
 
-    SimulationBoardManager.getInstance().registerSmartTerrain(smartTerrain);
+    SimulationManager.getInstance().registerSmartTerrain(smartTerrain);
 
     object.group_id = squad.id;
     squad.currentAction = new SquadStayOnTargetAction(squad);

@@ -1,7 +1,7 @@
 import { game } from "xray16";
 
 import { registry } from "@/engine/core/database";
-import { SimulationBoardManager } from "@/engine/core/managers/simulation";
+import { SimulationManager } from "@/engine/core/managers/simulation";
 import { ISmartTerrainSpawnConfiguration } from "@/engine/core/objects/smart_terrain/smart_terrain_types";
 import type { SmartTerrain } from "@/engine/core/objects/smart_terrain/SmartTerrain";
 import { smartTerrainConfig } from "@/engine/core/objects/smart_terrain/SmartTerrainConfig";
@@ -98,7 +98,7 @@ export function respawnSmartTerrainSquad(smartTerrain: SmartTerrain): Optional<S
     return null;
   }
 
-  const simulationBoardManager: SimulationBoardManager = smartTerrain.simulationBoardManager;
+  const simulationBoardManager: SimulationManager = smartTerrain.simulationBoardManager;
   const sectionToSpawn: TSection = availableSections.get(math.random(1, availableSections.length()));
   const sectionParams: ISmartTerrainSpawnConfiguration = smartTerrain.spawnSquadsConfiguration.get(sectionToSpawn);
   const squadSection: TSection = sectionParams.squads.get(math.random(1, sectionParams.squads.length()));
