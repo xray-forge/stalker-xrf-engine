@@ -147,7 +147,7 @@ export function spawnSquadInSmart(section: Optional<TStringId>, smartTerrainName
   const simulationBoardManager: SimulationManager = SimulationManager.getInstance();
   const smartTerrain: Optional<SmartTerrain> = simulationBoardManager.getSmartTerrainByName(smartTerrainName);
 
-  assert(smartTerrain, "Wrong smartName '%s' for faction in spawnSquad function", tostring(smartTerrainName));
+  assert(smartTerrain, "Wrong smartName '%s' for faction in spawnSquad function.", tostring(smartTerrainName));
 
   const squad: Squad = simulationBoardManager.createSquad(smartTerrain, section);
 

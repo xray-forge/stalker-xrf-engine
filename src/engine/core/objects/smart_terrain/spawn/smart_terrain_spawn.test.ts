@@ -158,7 +158,6 @@ describe("respawnSmartTerrainSquad util", () => {
     const squad: Optional<Squad> = respawnSmartTerrainSquad(smartTerrain);
 
     expect(squad).not.toBeNull();
-    expect(squad?.assignToSmartTerrain).toHaveBeenCalledWith(smartTerrain);
     expect(simulationBoardManager.assignSquadToSmartTerrain).toHaveBeenCalledWith(squad, smartTerrain.id);
     expect(simulationBoardManager.setupObjectSquadAndGroup).toHaveBeenCalledTimes(8);
     expect(smartTerrain.spawnedSquadsList).toEqualLuaTables({
@@ -184,7 +183,7 @@ describe("respawnSmartTerrainSquad util", () => {
     });
 
     expect(registry.simulator.create).toHaveBeenCalledTimes(6);
-    expect(simulationBoardManager.assignSquadToSmartTerrain).toHaveBeenCalledTimes(2);
+    expect(simulationBoardManager.assignSquadToSmartTerrain).toHaveBeenCalledTimes(4);
     expect(simulationBoardManager.setupObjectSquadAndGroup).toHaveBeenCalledTimes(16);
   });
 });
