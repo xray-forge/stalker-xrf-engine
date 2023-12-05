@@ -40,12 +40,9 @@ describe("smart_terrain_generic_utils module", () => {
   });
 
   it("getSmartTerrainMapDisplayHint should correctly generate map hints with debug and defaults", () => {
-    const smartTerrain: SmartTerrain = mockSmartTerrain();
-
     mockRegisteredActor();
 
-    smartTerrain.on_before_register();
-    smartTerrain.on_register();
+    const smartTerrain: SmartTerrain = MockSmartTerrain.mockRegistered("test_smart");
 
     smartTerrain.isSimulationAvailableConditionList = parseConditionsList(FALSE);
     smartTerrain.isRespawnPoint = false;
@@ -53,7 +50,7 @@ describe("smart_terrain_generic_utils module", () => {
     forgeConfig.DEBUG.IS_SIMULATION_ENABLED = true;
 
     expect(getSmartTerrainMapDisplayHint(smartTerrain).replaceAll("\\n", "\n")).toBe(
-      `[translated_st_test_smart_name] (test_smart) (${smartTerrain.id})
+      `[translated_st_test_smart_name] (${smartTerrain.name()}) (${smartTerrain.id})
 available = false
 online = nil
 simulation_role = default
@@ -70,7 +67,9 @@ working = 0
   });
 
   it("getSmartTerrainMapDisplayHint should correctly generate map hints with debug and some custom values", () => {
-    const smartTerrain: SmartTerrain = MockSmartTerrain.mock();
+    mockRegisteredActor();
+
+    const smartTerrain: SmartTerrain = MockSmartTerrain.mockRegistered("test_smart");
     const squads: Array<Squad> = [
       MockSquad.mock(),
       MockSquad.mock(),
@@ -79,11 +78,6 @@ working = 0
       MockSquad.mock(),
       MockSquad.mock(),
     ];
-
-    mockRegisteredActor();
-
-    smartTerrain.on_before_register();
-    smartTerrain.on_register();
 
     forgeConfig.DEBUG.IS_SIMULATION_ENABLED = true;
 

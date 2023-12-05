@@ -1,18 +1,30 @@
 import { jest } from "@jest/globals";
 
 import { SmartTerrain } from "@/engine/core/objects/smart_terrain/SmartTerrain";
-import { TName, TSection } from "@/engine/lib/types";
+import { Optional, TName, TSection } from "@/engine/lib/types";
 import { mockIniFile } from "@/fixtures/xray";
 
 /**
  * Mock smart terrain mocked server object.
  */
 export class MockSmartTerrain extends SmartTerrain {
-  public static mock(name: TName = "test_smart", section: TSection = "test_smart_section"): SmartTerrain {
+  public static mock(name: Optional<TName> = null, section: TSection = "test_smart_section"): SmartTerrain {
     const smartTerrain: MockSmartTerrain = new MockSmartTerrain(section);
 
     smartTerrain.ini = smartTerrain.spawn_ini();
-    jest.spyOn(smartTerrain, "name").mockImplementation(() => name);
+
+    if (name) {
+      jest.spyOn(smartTerrain, "name").mockImplementation(() => name);
+    }
+
+    return smartTerrain;
+  }
+
+  public static mockRegistered(name: Optional<TName> = null, section: TSection = "test_smart_section"): SmartTerrain {
+    const smartTerrain: MockSmartTerrain = MockSmartTerrain.mock(name, section);
+
+    smartTerrain.on_before_register();
+    smartTerrain.on_register();
 
     return smartTerrain;
   }

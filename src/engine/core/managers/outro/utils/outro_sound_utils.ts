@@ -16,10 +16,8 @@ export function calculateSoundFade(
   fade1Volume: number,
   fade2Volume: number
 ): number {
-  let f: TRate = ((factor - startPoint) * (fade2Volume - fade1Volume)) / (stopPoint - startPoint) + fade1Volume;
-
-  let minVol: TRate = 0.0;
-  let maxVol: TRate = 1.0;
+  let minVol: TRate;
+  let maxVol: TRate;
 
   if (fade1Volume > fade2Volume) {
     maxVol = fade1Volume;
@@ -29,11 +27,13 @@ export function calculateSoundFade(
     minVol = fade1Volume;
   }
 
-  if (f > maxVol) {
-    f = maxVol;
-  } else if (f < minVol) {
-    f = minVol;
-  }
+  const fade: TRate = ((factor - startPoint) * (fade2Volume - fade1Volume)) / (stopPoint - startPoint) + fade1Volume;
 
-  return f;
+  if (fade > maxVol) {
+    return maxVol;
+  } else if (fade < minVol) {
+    return minVol;
+  } else {
+    return fade;
+  }
 }

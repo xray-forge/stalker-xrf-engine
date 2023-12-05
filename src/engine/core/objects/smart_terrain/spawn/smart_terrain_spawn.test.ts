@@ -52,10 +52,10 @@ describe("smart_terrain_spawn module", () => {
     expect(smartTerrain.spawnSquadsConfiguration).toEqualLuaTables({});
 
     expect(() => applySmartTerrainRespawnSectionsConfig(smartTerrain, "test-not-existing")).toThrow(
-      "Could not find respawn configuration section 'test-not-existing' for 'test_smart'."
+      `Could not find respawn configuration section 'test-not-existing' for '${smartTerrain.name()}'.`
     );
     expect(() => applySmartTerrainRespawnSectionsConfig(smartTerrain, "test-wrong")).toThrow(
-      "Wrong smart terrain respawn configuration section 'test-wrong' - empty for 'test_smart'."
+      `Wrong smart terrain respawn configuration section 'test-wrong' - empty for '${smartTerrain.name()}'.`
     );
     expect(() => applySmartTerrainRespawnSectionsConfig(smartTerrain, "test-wrong-partially")).toThrow(
       "Wrong smart terrain respawn configuration section 'test-wrong-partially' line 'test-section-not-existing'" +

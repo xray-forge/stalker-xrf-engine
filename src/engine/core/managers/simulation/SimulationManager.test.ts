@@ -2,7 +2,9 @@ import { beforeEach, describe, expect, it } from "@jest/globals";
 
 import { disposeManager, getManagerInstance } from "@/engine/core/database";
 import { SimulationManager } from "@/engine/core/managers/simulation/SimulationManager";
-import { resetRegistry } from "@/fixtures/engine";
+import { SmartTerrain } from "@/engine/core/objects/smart_terrain";
+import { TName } from "@/engine/lib/types";
+import { mockRegisteredActor, MockSmartTerrain, resetRegistry } from "@/fixtures/engine";
 import { EPacketDataType, mockNetPacket, mockNetProcessor, MockNetProcessor } from "@/fixtures/xray";
 
 describe("SimulationBoardManager class", () => {
@@ -48,6 +50,20 @@ describe("SimulationBoardManager class", () => {
   it.todo("should correctly get squads");
 
   it.todo("should correctly get smart terrain descriptors, population and info");
+
+  it("should correctly get smart terrain terrains list", () => {
+    mockRegisteredActor();
+
+    const manager: SimulationManager = getManagerInstance(SimulationManager);
+    const first: SmartTerrain = MockSmartTerrain.mockRegistered();
+    const second: SmartTerrain = MockSmartTerrain.mockRegistered();
+
+    const smartTerrains: LuaTable<TName, SmartTerrain> = manager.getSmartTerrains();
+
+    expect(smartTerrains.length()).toBe(2);
+    expect(smartTerrains.get(first.name())).toBe(first);
+    expect(smartTerrains.get(second.name())).toBe(second);
+  });
 
   it.todo("should correctly get squad simulation targets");
 
