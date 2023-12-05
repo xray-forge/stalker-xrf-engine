@@ -39,7 +39,6 @@ spawn_id = nil
 spawn_section = nil
 [smart_terrain]
 assigned = nil
-entered = nil
 [target]
 current = nil
 assigned = nil
@@ -76,7 +75,6 @@ spawn_id = nil
 spawn_section = nil
 [smart_terrain]
 assigned = ${smartTerrain.name()}
-entered = nil
 [target]
 current = ${target.name()}
 assigned = ${assigned.name()}

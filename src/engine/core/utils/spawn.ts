@@ -58,7 +58,7 @@ export function spawnItemsForObject(
   const simulator: AlifeSimulator = registry.simulator;
   const [id, gvid, lvid, position] = getObjectPositioning(object);
 
-  for (const it of $range(1, count)) {
+  for (const _ of $range(1, count)) {
     if (math.random(100) <= probability) {
       simulator.create(itemSection, position, lvid, gvid, id);
       itemsSpawned += 1;
@@ -127,7 +127,7 @@ export function spawnItemsForObjectFromList<T extends TSection>(
     return;
   }
 
-  for (const it of $range(1, count)) {
+  for (const _ of $range(1, count)) {
     spawnItemsForObject(object, itemSections.get(math.random(itemSections.length())), 1);
   }
 }
@@ -236,10 +236,10 @@ export function releaseObject(objectId: TNumberId): void {
 
   logger.info("Destroying object:", objectId);
 
-  if (serverObject === null) {
-    logger.warn("No existing object to destroy:", objectId);
-  } else {
+  if (serverObject) {
     simulator.release(serverObject, true);
+  } else {
+    logger.warn("No existing object to destroy:", objectId);
   }
 }
 
