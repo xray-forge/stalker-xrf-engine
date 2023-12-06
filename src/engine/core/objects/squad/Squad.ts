@@ -35,7 +35,7 @@ import type { SmartTerrain } from "@/engine/core/objects/smart_terrain/SmartTerr
 import { SquadReachTargetAction, SquadStayOnTargetAction } from "@/engine/core/objects/squad/action";
 import { ESquadActionType, ISquadAction } from "@/engine/core/objects/squad/squad_types";
 import { abort } from "@/engine/core/utils/assertion";
-import { isSmartTerrain, isSquad, isSquadId } from "@/engine/core/utils/class_ids";
+import { isSmartTerrain } from "@/engine/core/utils/class_ids";
 import {
   parseConditionsList,
   parseStringsList,
@@ -617,16 +617,18 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
 
   /**
    * todo: Description.
+   *
+   * @returns create squad member object
    */
   public addMember(
-    spawnSection: TSection,
-    spawnPosition: Vector,
-    lvi: TNumberId,
-    gvi: TNumberId
+    section: TSection,
+    position: Vector,
+    levelVertexId: TNumberId,
+    gameVertexId: TNumberId
   ): ServerCreatureObject {
     const customData: TName = readIniString(
       SYSTEM_INI,
-      spawnSection,
+      section,
       "custom_data",
       false,
       null,
@@ -636,24 +638,23 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
     if (customData !== "misc\\default_custom_data.ltx") {
       logger.format(
         "INCORRECT npc_spawn_section used for '%s'. You cannot use object with custom_data in squad",
-        spawnSection
+        section
       );
     }
 
-    const serverObject: ServerCreatureObject = registry.simulator.create(spawnSection, spawnPosition, lvi, gvi);
+    const object: ServerCreatureObject = registry.simulator.create(section, position, levelVertexId, gameVertexId);
 
-    this.register_member(serverObject.id);
-    this.soundManager.registerObject(serverObject.id);
+    this.register_member(object.id);
+    this.soundManager.registerObject(object.id);
 
     if (
-      areObjectsOnSameLevel(serverObject, registry.actorServer) &&
-      spawnPosition.distance_to_sqr(registry.actorServer.position) <=
-        registry.simulator.switch_distance() * registry.simulator.switch_distance()
+      areObjectsOnSameLevel(object, registry.actorServer) &&
+      position.distance_to_sqr(registry.actorServer.position) <= Math.pow(registry.simulator.switch_distance(), 2)
     ) {
-      registry.spawnedVertexes.set(serverObject.id, lvi);
+      registry.spawnedVertexes.set(object.id, levelVertexId);
     }
 
-    return serverObject;
+    return object;
   }
 
   /**
@@ -662,15 +663,17 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
   public updateSympathy(sympathy?: Optional<TCount>): void {
     const squadSympathy: Optional<TCount> = sympathy || this.sympathy;
 
-    if (squadSympathy !== null) {
-      for (const squadMembers of this.squad_members()) {
-        const object: Optional<GameObject> = registry.objects.get(squadMembers.id)?.object;
+    if (squadSympathy === null) {
+      return;
+    }
 
-        if (object !== null) {
-          setObjectSympathy(object, squadSympathy);
-        } else {
-          registry.goodwill.sympathy.set(squadMembers.id, squadSympathy);
-        }
+    for (const squadMembers of this.squad_members()) {
+      const object: Optional<GameObject> = registry.objects.get(squadMembers.id)?.object as Optional<GameObject>;
+
+      if (object) {
+        setObjectSympathy(object, squadSympathy);
+      } else {
+        registry.goodwill.sympathy.set(squadMembers.id, squadSympathy);
       }
     }
   }
@@ -719,8 +722,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
       const zone: GameObject = registry.zones.get(zoneName);
 
       if (zone && zone.inside(this.position)) {
-        const smartTerrain: Optional<SmartTerrain> =
-          SimulationManager.getInstance().getSmartTerrainByName(smartTerrainName);
+        const smartTerrain: Optional<SmartTerrain> = this.simulationManager.getSmartTerrainByName(smartTerrainName);
 
         if (
           smartTerrain &&
@@ -732,7 +734,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
       }
     }
 
-    if (this.smartTerrainId === null) {
+    if (!this.smartTerrainId) {
       return true;
     }
 
