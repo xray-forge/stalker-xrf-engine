@@ -79,7 +79,7 @@ const simulationLogger: LuaLogger = new LuaLogger($filename, { file: "simulation
 @LuabindClass()
 export class Squad extends cse_alife_online_offline_group implements ISimulationTarget {
   public readonly mapDisplayManager: MapDisplayManager = MapDisplayManager.getInstance();
-  public readonly simulationBoardManager: SimulationManager = SimulationManager.getInstance();
+  public readonly simulationManager: SimulationManager = SimulationManager.getInstance();
   public readonly soundManager: StoryManager = getStoryManager(`squad_${this.section_name()}`);
 
   public isSimulationAvailableConditionList: TConditionList = parseConditionsList(TRUE);
@@ -314,7 +314,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
   public override on_register(): void {
     super.on_register();
 
-    this.simulationBoardManager.registerSquad(this);
+    this.simulationManager.registerSquad(this);
 
     registerObjectStoryLinks(this);
     registerSimulationObject(this);
@@ -328,8 +328,8 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
     unregisterStoryLinkByObjectId(this.id);
     unregisterSimulationObject(this);
 
-    this.simulationBoardManager.unRegisterSquad(this);
-    this.simulationBoardManager.assignSquadToSmartTerrain(this, null);
+    this.simulationManager.unRegisterSquad(this);
+    this.simulationManager.assignSquadToSmartTerrain(this, null);
 
     // todo: Method for smart terrain onSpawnedSquadKilled.
     if (this.respawnPointId !== null) {
@@ -378,7 +378,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
     logger.info("Init squad on load:", this.name());
 
     this.updateSympathy();
-    this.simulationBoardManager.assignSquadToSmartTerrain(this, this.smartTerrainId);
+    this.simulationManager.assignSquadToSmartTerrain(this, this.smartTerrainId);
     this.isLocationMasksResetNeeded = true;
   }
 
@@ -418,7 +418,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
       nextTargetName = this.parsedTargets.get(this.nextTargetIndex as TNumberId);
     }
 
-    return (this.simulationBoardManager.getSmartTerrainByName(nextTargetName) as SmartTerrain).id;
+    return (this.simulationManager.getSmartTerrainByName(nextTargetName) as SmartTerrain).id;
   }
 
   /**
@@ -521,7 +521,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
         pickSectionFromCondList(registry.actor, this, this.deathConditionList);
       }
 
-      this.simulationBoardManager.releaseSquad(this);
+      this.simulationManager.releaseSquad(this);
 
       return;
     }
@@ -548,9 +548,9 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
         oldSmartTerrainId !== null &&
         oldSmartTerrainId !== MAX_U16 &&
         object.m_smart_terrain_id === oldSmartTerrainId &&
-        this.simulationBoardManager.getSmartTerrainDescriptor(oldSmartTerrainId)
+        this.simulationManager.getSmartTerrainDescriptor(oldSmartTerrainId)
       ) {
-        this.simulationBoardManager.getSmartTerrainDescriptor(oldSmartTerrainId)!.smartTerrain.unregister_npc(object);
+        this.simulationManager.getSmartTerrainDescriptor(oldSmartTerrainId)!.smartTerrain.unregister_npc(object);
       }
 
       if (smartTerrain) {
@@ -605,7 +605,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
         this.setLocationTypesMaskFromSection(newLocationSection);
       }
     } else {
-      for (const [smartTerrainName, smartTerrain] of this.simulationBoardManager.getSmartTerrains()) {
+      for (const [smartTerrainName, smartTerrain] of this.simulationManager.getSmartTerrains()) {
         const baseRate: Optional<TRate> = smartTerrain.simulationProperties.get(ESimulationTerrainRole.BASE);
 
         if (baseRate && baseRate !== 0) {
@@ -697,7 +697,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
       softResetOfflineObject(it.id);
     }
 
-    this.simulationBoardManager.assignSquadToSmartTerrain(squad, null);
+    this.simulationManager.assignSquadToSmartTerrain(squad, null);
   }
 
   /**

@@ -820,7 +820,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
    */
   public onSimulationTargetDeselected(squad: Squad): void {
     for (const squadMember of squad.squad_members()) {
-      squad.simulationBoardManager.setupObjectSquadAndGroup(squadMember.object);
+      squad.simulationManager.setupObjectSquadAndGroup(squadMember.object);
     }
 
     squad.currentTargetId = this.id;

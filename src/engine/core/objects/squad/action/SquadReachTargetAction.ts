@@ -32,7 +32,7 @@ export class SquadReachTargetAction implements ISquadAction {
     }
 
     for (const squadMember of this.squad.squad_members()) {
-      this.squad.simulationBoardManager.setupObjectSquadAndGroup(squadMember.object);
+      this.squad.simulationManager.setupObjectSquadAndGroup(squadMember.object);
     }
   }
 

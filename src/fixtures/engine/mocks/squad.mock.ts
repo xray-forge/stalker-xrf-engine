@@ -45,6 +45,15 @@ export class MockSquad extends Squad {
     return squad;
   }
 
+  public static mockRegistered(section: TSection = "test_squad", base: Partial<Squad> = {}): MockSquad {
+    const squad: MockSquad = MockSquad.mock(section, base);
+
+    squad.on_before_register();
+    squad.on_register();
+
+    return squad;
+  }
+
   public mockAddMember(object: ServerCreatureObject | MockServerAlifeCreatureAbstract): void {
     super.register_member(object.id);
 
@@ -115,11 +124,11 @@ export function mockRelationsSquads(): IMockedSquads {
   const mixedSquad: MockSquad = MockSquad.mock();
   const enemySquad: MockSquad = MockSquad.mock();
 
-  const friend: MockAlifeHumanStalker = MockAlifeHumanStalker.mock();
-  const enemy: MockAlifeHumanStalker = MockAlifeHumanStalker.mock();
-  const neutral: MockAlifeHumanStalker = MockAlifeHumanStalker.mock();
-  const almostEnemy: MockAlifeHumanStalker = MockAlifeHumanStalker.mock();
-  const almostFriend: MockAlifeHumanStalker = MockAlifeHumanStalker.mock();
+  const friend: MockAlifeHumanStalker = MockAlifeHumanStalker.create();
+  const enemy: MockAlifeHumanStalker = MockAlifeHumanStalker.create();
+  const neutral: MockAlifeHumanStalker = MockAlifeHumanStalker.create();
+  const almostEnemy: MockAlifeHumanStalker = MockAlifeHumanStalker.create();
+  const almostFriend: MockAlifeHumanStalker = MockAlifeHumanStalker.create();
 
   registerObject(MockGameObject.mock({ idOverride: friend.id }));
   registerObject(MockGameObject.mock({ idOverride: enemy.id }));
