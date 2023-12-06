@@ -113,7 +113,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
   public invulnerabilityConditionList: Optional<TConditionList> = null;
 
   public targetConditionList: TConditionList = new LuaTable();
-  public deathConditionList: TConditionList = new LuaTable();
+  public deathConditionList: Optional<TConditionList> = null;
 
   public sympathy: Optional<TCount> = null;
   public relationship: Optional<ERelation> = null;
@@ -306,7 +306,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
 
     this.smartTerrainId = smartTerrainId === NIL ? null : (tonumber(smartTerrainId) as TNumberId);
 
-    this.initializeOnLoad();
+    this.onSquadLoad();
 
     closeLoadMarker(packet, Squad.__name);
   }
@@ -369,17 +369,6 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
     }
 
     return this.getSimulationTask();
-  }
-
-  /**
-   * todo: Description.
-   */
-  public initializeOnLoad(): void {
-    logger.info("Init squad on load:", this.name());
-
-    this.updateSympathy();
-    this.simulationManager.assignSquadToSmartTerrain(this, this.smartTerrainId);
-    this.isLocationMasksResetNeeded = true;
   }
 
   /**
@@ -498,35 +487,6 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
       this.currentAction = new SquadReachTargetAction(this);
       this.currentAction.initialize(isUnderSimulation);
     }
-  }
-
-  /**
-   * todo: Description.
-   */
-  public onMemberDeath(object: ServerObject): void {
-    simulationLogger.info("On squad member death:", this.name(), object.name());
-
-    this.soundManager.unregisterObject(object.id);
-    this.unregister_member(object.id);
-
-    if (this.npc_count() === 0) {
-      logger.info("Removing dead squad:", this.name());
-
-      if (this.currentAction !== null) {
-        this.currentAction.finalize();
-        this.currentAction = null;
-      }
-
-      if (this.deathConditionList !== null) {
-        pickSectionFromCondList(registry.actor, this, this.deathConditionList);
-      }
-
-      this.simulationManager.releaseSquad(this);
-
-      return;
-    }
-
-    this.mapDisplayManager.updateSquadMapSpot(this);
   }
 
   /**
@@ -679,28 +639,48 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
   }
 
   /**
-   * @returns whether squad targeting another squad can be finished since one is eliminated
+   * todo: Description.
    */
-  public isReachedBySimulationObject(squad: Squad): boolean {
-    return this.npc_count() === 0;
+  public onSquadLoad(): void {
+    logger.info("Initialize squad on load:", this.name());
+
+    this.updateSympathy();
+    this.simulationManager.assignSquadToSmartTerrain(this, this.smartTerrainId);
+    this.isLocationMasksResetNeeded = true;
   }
 
   /**
    * todo: Description.
    */
-  public onSimulationTargetDeselected(squad: Squad): void {}
+  public onMemberDeath(object: ServerObject): void {
+    simulationLogger.info("On squad member death:", this.name(), object.name());
+
+    this.soundManager.unregisterObject(object.id);
+    this.unregister_member(object.id);
+
+    if (this.npc_count() === 0) {
+      logger.info("Removing empty squad, last member died:", this.name());
+
+      if (this.currentAction) {
+        this.currentAction.finalize();
+        this.currentAction = null;
+      }
+
+      if (this.deathConditionList) {
+        pickSectionFromCondList(registry.actor, this, this.deathConditionList);
+      }
+
+      this.simulationManager.releaseSquad(this);
+    } else {
+      this.mapDisplayManager.updateSquadMapSpot(this);
+    }
+  }
 
   /**
-   * todo: Description.
+   * @returns whether squad targeting another squad can be finished since one is eliminated
    */
-  public onSimulationTargetSelected(squad: Squad): void {
-    squad.setLocationTypes();
-
-    for (const it of squad.squad_members()) {
-      softResetOfflineObject(it.id);
-    }
-
-    this.simulationManager.assignSquadToSmartTerrain(squad, null);
+  public isReachedBySimulationObject(squad: Squad): boolean {
+    return this.npc_count() === 0;
   }
 
   /**
@@ -764,20 +744,30 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
   }
 
   /**
-   * @param squad - another squad checking availability of current instance
-   * @returns whether the squad is valid simulation target for provided squad parameter.
+   * @param squad - another squad checking availability of current one
+   * @returns whether current squad is valid simulation target for provided squad
    */
   public isValidSimulationTarget(squad: Squad): boolean {
-    const squadActivityDescriptor: Optional<ISimulationActivityDescriptor> = simulationActivities.get(squad.faction);
+    return simulationActivities.get(squad.faction)?.squad?.[this.faction]?.(squad, this) === true;
+  }
 
-    if (!squadActivityDescriptor || !squadActivityDescriptor.squad) {
-      return false;
+  /**
+   * @param squad - squad that deselected current one from priority targets
+   */
+  public onSimulationTargetDeselected(squad: Squad): void {
+    // Nothing to do currently.
+  }
+
+  /**
+   * @param squad - squad that selected current one as active target
+   */
+  public onSimulationTargetSelected(squad: Squad): void {
+    squad.setLocationTypes();
+
+    for (const squadMember of squad.squad_members()) {
+      softResetOfflineObject(squadMember.id);
     }
 
-    const currentFactionPrecondition: Optional<TSimulationActivityPrecondition> = squadActivityDescriptor.squad[
-      this.faction
-    ] as Optional<TSimulationActivityPrecondition>;
-
-    return currentFactionPrecondition !== null && currentFactionPrecondition(squad, this);
+    this.simulationManager.assignSquadToSmartTerrain(squad, null);
   }
 }

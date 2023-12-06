@@ -4,6 +4,7 @@ import { registerObject } from "@/engine/core/database";
 import { Squad } from "@/engine/core/objects/squad";
 import { communities } from "@/engine/lib/constants/communities";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
+import { MAX_U16 } from "@/engine/lib/constants/memory";
 import {
   ServerCreatureObject,
   ServerGroupObject,
@@ -58,6 +59,12 @@ export class MockSquad extends Squad {
     super.register_member(object.id);
 
     object.group_id = this.id;
+  }
+
+  public mockRemoveMember(object: ServerCreatureObject | MockServerAlifeCreatureAbstract): void {
+    super.unregister_member(object.id);
+
+    object.group_id = MAX_U16;
   }
 
   public mockSetOnline(isOnline: boolean): void {
