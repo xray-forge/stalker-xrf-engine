@@ -10,10 +10,10 @@ import { mockSquad } from "@/fixtures/engine";
 import { MockLuaTable } from "@/fixtures/lua";
 import { mockServerAlifeObject, MockVector } from "@/fixtures/xray";
 
-describe("alife utils", () => {
+describe("evaluateSimulationPriorityByDistance util", () => {
   beforeEach(() => registerSimulator());
 
-  it("evaluateSimulationPriorityByDistance utils should correctly evaluate priority by distance", () => {
+  it("should correctly evaluate priority by distance", () => {
     MockVector.DEFAULT_DISTANCE = 20;
     expect(evaluateSimulationPriorityByDistance(mockServerAlifeObject(), mockServerAlifeObject())).toBe(1.05);
 
@@ -23,8 +23,12 @@ describe("alife utils", () => {
     MockVector.DEFAULT_DISTANCE = 5;
     expect(evaluateSimulationPriorityByDistance(mockServerAlifeObject(), mockServerAlifeObject())).toBe(1.2);
   });
+});
 
-  it("evaluateSimulationPriority utils should correctly evaluate priority", () => {
+describe("evaluateSimulationPriority util", () => {
+  beforeEach(() => registerSimulator());
+
+  it("should correctly evaluate priority", () => {
     MockVector.DEFAULT_DISTANCE = 20;
 
     expect(evaluateSimulationPriority(mockSquad(), mockSquad())).toBe(13.65);
@@ -41,4 +45,16 @@ describe("alife utils", () => {
       )
     ).toBe(29.700000000000003);
   });
+});
+
+describe("getAvailableSimulationTargets util", () => {
+  it.todo("should correctly get list of sorted targets");
+});
+
+describe("getSlicedSimulationTargets util", () => {
+  it.todo("should correctly get limited list of sorted targets");
+});
+
+describe("getSquadSimulationTarget util", () => {
+  it.todo("should correctly get random highest priority target for simulation");
 });
