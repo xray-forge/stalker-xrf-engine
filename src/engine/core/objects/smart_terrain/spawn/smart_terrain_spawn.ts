@@ -1,7 +1,7 @@
 import { game } from "xray16";
 
 import { registry } from "@/engine/core/database";
-import { ISmartTerrainDescriptor, SimulationManager } from "@/engine/core/managers/simulation";
+import { SimulationManager } from "@/engine/core/managers/simulation";
 import { ISmartTerrainSpawnConfiguration } from "@/engine/core/objects/smart_terrain/smart_terrain_types";
 import type { SmartTerrain } from "@/engine/core/objects/smart_terrain/SmartTerrain";
 import { smartTerrainConfig } from "@/engine/core/objects/smart_terrain/SmartTerrainConfig";

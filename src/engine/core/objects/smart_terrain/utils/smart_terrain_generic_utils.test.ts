@@ -12,9 +12,7 @@ import { AnyObject, TName, TRate } from "@/engine/lib/types";
 import {
   mockRegisteredActor,
   MockSmartTerrain,
-  mockSmartTerrain,
   MockSquad,
-  mockSquad,
   resetRegistry,
 } from "@/fixtures/engine";
 import { MockCTime, mockServerAlifeHumanStalker } from "@/fixtures/xray";

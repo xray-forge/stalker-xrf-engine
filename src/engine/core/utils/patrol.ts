@@ -1,4 +1,4 @@
-import { level, patrol } from "xray16";
+import { patrol } from "xray16";
 
 import { registry } from "@/engine/core/database/registry";
 import type { IWaypointData } from "@/engine/core/utils/ini/ini_types";
@@ -12,7 +12,6 @@ import type {
   TDistance,
   TIndex,
   TName,
-  TNumberId,
   TRate,
   Vector,
 } from "@/engine/lib/types";

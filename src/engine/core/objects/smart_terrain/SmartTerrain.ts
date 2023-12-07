@@ -32,7 +32,6 @@ import {
   ISimulationTarget,
   simulationActivities,
   SimulationManager,
-  TSimulationActivityPrecondition,
   VALID_SMART_TERRAINS_SIMULATION_ROLES,
 } from "@/engine/core/managers/simulation";
 import {
@@ -62,7 +61,6 @@ import type { Squad } from "@/engine/core/objects/squad";
 import { abort, assert } from "@/engine/core/utils/assertion";
 import { isMonsterSquad, isStalker } from "@/engine/core/utils/class_ids";
 import {
-  IConfigSwitchCondition,
   parseConditionsList,
   pickSectionFromCondList,
   readIniBoolean,

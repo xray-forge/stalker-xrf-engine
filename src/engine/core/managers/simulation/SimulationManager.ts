@@ -5,11 +5,9 @@ import { AbstractManager } from "@/engine/core/managers/base/AbstractManager";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import {
   groupIdByLevelName,
-  ISimulationFactionDescriptor,
   ISmartTerrainDescriptor,
 } from "@/engine/core/managers/simulation/simulation_types";
 import { SIMULATION_LTX } from "@/engine/core/managers/simulation/SimulationConfig";
-import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import { SmartTerrain } from "@/engine/core/objects/smart_terrain/SmartTerrain";
 import { createSquadMembers } from "@/engine/core/objects/squad/creation";
 import type { Squad } from "@/engine/core/objects/squad/Squad";

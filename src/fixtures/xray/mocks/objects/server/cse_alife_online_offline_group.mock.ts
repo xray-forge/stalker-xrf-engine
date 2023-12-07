@@ -1,5 +1,4 @@
 import { jest } from "@jest/globals";
-import type { cse_alife_online_offline_group } from "xray16";
 
 import type { TConditionList } from "@/engine/core/utils/ini";
 import { TCommunity } from "@/engine/lib/constants/communities";

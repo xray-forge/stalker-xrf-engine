@@ -1,5 +1,5 @@
-import { describe, expect, it, jest } from "@jest/globals";
-import { game_graph, vector, vector2 } from "xray16";
+import { describe, expect, it } from "@jest/globals";
+import { vector, vector2 } from "xray16";
 
 import {
   addVectors,
@@ -24,7 +24,7 @@ import {
   yawDegree,
   yawDegree3d,
 } from "@/engine/core/utils/vector";
-import { Vector, Vertex } from "@/engine/lib/types";
+import { Vector } from "@/engine/lib/types";
 import { MockVector, MockVector2D } from "@/fixtures/xray";
 
 describe("vector utils", () => {

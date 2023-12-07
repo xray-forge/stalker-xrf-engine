@@ -1,14 +1,13 @@
 import { describe, expect, it, jest } from "@jest/globals";
 
 import { IRegistryObjectState, registerObject } from "@/engine/core/database";
-import { Squad } from "@/engine/core/objects/squad";
 import { parseConditionsList } from "@/engine/core/utils/ini";
 import { updateSquadInvulnerabilityState } from "@/engine/core/utils/squad/squad_state";
 import { FALSE, TRUE } from "@/engine/lib/constants/words";
 import { GameObject, IniFile, ServerCreatureObject } from "@/engine/lib/types";
 import { MockSquad } from "@/fixtures/engine";
 import { resetFunctionMock } from "@/fixtures/jest";
-import { MockAlifeOnlineOfflineGroup, MockGameObject, mockIniFile, mockServerAlifeHumanStalker } from "@/fixtures/xray";
+import { MockGameObject, mockIniFile, mockServerAlifeHumanStalker } from "@/fixtures/xray";
 
 describe("squad_state utils", () => {
   it("updateSquadInvulnerabilityState should correctly update state for squad", () => {
