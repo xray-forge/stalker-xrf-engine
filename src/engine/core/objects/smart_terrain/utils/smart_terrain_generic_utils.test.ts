@@ -9,12 +9,7 @@ import { parseConditionsList } from "@/engine/core/utils/ini";
 import { forgeConfig } from "@/engine/lib/configs/ForgeConfig";
 import { FALSE } from "@/engine/lib/constants/words";
 import { AnyObject, TName, TRate } from "@/engine/lib/types";
-import {
-  mockRegisteredActor,
-  MockSmartTerrain,
-  MockSquad,
-  resetRegistry,
-} from "@/fixtures/engine";
+import { mockRegisteredActor, MockSmartTerrain, MockSquad, resetRegistry } from "@/fixtures/engine";
 import { MockCTime, mockServerAlifeHumanStalker } from "@/fixtures/xray";
 
 describe("smart_terrain_generic_utils module", () => {
@@ -116,7 +111,7 @@ squad_id = 155
 capacity = 6\\10
 arriving_objects = 1
 staying_objects = 3
-[spawn_state] (tts: -83133530)
+[spawn_state] (tts: -83163600)
 test-1 -> 3\\3
 test-2 -> 3\\3
 [assigned]
