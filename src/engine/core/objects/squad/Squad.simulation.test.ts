@@ -1,19 +1,87 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { CALifeSmartTerrainTask, level } from "xray16";
 
-import { registerOfflineObject, registry } from "@/engine/core/database";
-import { SimulationManager } from "@/engine/core/managers/simulation";
+import { registerOfflineObject, registerSimulator, registerZone, registry } from "@/engine/core/database";
+import { ESimulationTerrainRole, SimulationManager } from "@/engine/core/managers/simulation";
+import { ESmartTerrainStatus, SmartTerrainControl } from "@/engine/core/objects/smart_terrain";
+import { parseConditionsList } from "@/engine/core/utils/ini";
 import { communities } from "@/engine/lib/constants/communities";
-import { ServerHumanObject } from "@/engine/lib/types";
-import { MockSquad, resetRegistry } from "@/fixtures/engine";
-import { MockAlifeHumanStalker } from "@/fixtures/xray";
+import { FALSE, TRUE } from "@/engine/lib/constants/words";
+import { GameObject, ServerHumanObject } from "@/engine/lib/types";
+import { mockRegisteredActor, MockSmartTerrain, MockSquad, resetRegistry } from "@/fixtures/engine";
+import { MockAlifeHumanStalker, MockGameObject, mockIniFile } from "@/fixtures/xray";
 
 describe("Squad server object", () => {
   beforeEach(() => {
     resetRegistry();
   });
 
-  it.todo("should correctly check if squad simulation is enabled");
+  it("should correctly check if squad simulation is enabled by condlist", () => {
+    const squad: MockSquad = MockSquad.mock();
+
+    squad.isSimulationAvailableConditionList = parseConditionsList(TRUE);
+    expect(squad.isSimulationAvailable()).toBe(true);
+
+    squad.isSimulationAvailableConditionList = parseConditionsList(FALSE);
+    expect(squad.isSimulationAvailable()).toBe(false);
+  });
+
+  it("should correctly check if squad simulation is enabled by no combat zone", () => {
+    mockRegisteredActor();
+    registerSimulator();
+
+    const squad: MockSquad = MockSquad.mock();
+    const smartTerrain: MockSmartTerrain = MockSmartTerrain.mock();
+    const zone: GameObject = MockGameObject.mock({ idOverride: smartTerrain.id });
+
+    jest.spyOn(smartTerrain, "name").mockImplementation(jest.fn(() => "zat_stalker_base_smart"));
+    jest.spyOn(zone, "name").mockImplementation(jest.fn(() => "zat_a2_sr_no_assault"));
+
+    smartTerrain.on_before_register();
+    smartTerrain.on_register();
+
+    registerZone(zone);
+
+    smartTerrain.smartTerrainActorControl = new SmartTerrainControl(
+      smartTerrain,
+      mockIniFile("test.ltx", {
+        test_control: {
+          noweap_zone: "no_weap_test",
+          ignore_zone: "ignore_zone_test",
+          alarm_start_sound: "start_sound.ogg",
+          alarm_stop_sound: "stop_sound.ogg",
+        },
+      }),
+      "test_control"
+    );
+    smartTerrain.smartTerrainActorControl.status = ESmartTerrainStatus.NORMAL;
+
+    squad.isSimulationAvailableConditionList = parseConditionsList(TRUE);
+    expect(squad.isSimulationAvailable()).toBe(true);
+
+    jest.spyOn(zone, "inside").mockImplementation(() => true);
+    expect(squad.isSimulationAvailable()).toBe(false);
+
+    smartTerrain.smartTerrainActorControl.status = ESmartTerrainStatus.ALARM;
+    expect(squad.isSimulationAvailable()).toBe(true);
+  });
+
+  it("should correctly check if squad simulation is enabled by assigned base smart terrain", () => {
+    mockRegisteredActor();
+    registerSimulator();
+
+    const squad: MockSquad = MockSquad.mock();
+    const smartTerrain: MockSmartTerrain = MockSmartTerrain.mockRegistered();
+
+    smartTerrain.simulationManager.assignSquadToSmartTerrain(squad, smartTerrain.id);
+    expect(squad.isSimulationAvailable()).toBe(true);
+
+    smartTerrain.simulationProperties.set(ESimulationTerrainRole.BASE, 1);
+    expect(squad.isSimulationAvailable()).toBe(false);
+
+    squad.smartTerrainId = null;
+    expect(squad.isSimulationAvailable()).toBe(true);
+  });
 
   it("should correctly check if squad is valid target", () => {
     const squad: MockSquad = MockSquad.mock();

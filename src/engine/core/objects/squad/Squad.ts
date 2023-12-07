@@ -20,17 +20,14 @@ import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { MapDisplayManager } from "@/engine/core/managers/map/MapDisplayManager";
 import {
   ESimulationTerrainRole,
-  ISimulationActivityDescriptor,
   ISimulationTarget,
   simulationActivities,
-  TSimulationActivityPrecondition,
   TSimulationObject,
 } from "@/engine/core/managers/simulation";
 import { SimulationManager } from "@/engine/core/managers/simulation/SimulationManager";
 import { getSquadSimulationTarget } from "@/engine/core/managers/simulation/utils";
 import { StoryManager } from "@/engine/core/managers/sounds/stories";
 import { getStoryManager } from "@/engine/core/managers/sounds/utils";
-import { ESmartTerrainStatus } from "@/engine/core/objects/smart_terrain/smart_terrain_types";
 import type { SmartTerrain } from "@/engine/core/objects/smart_terrain/SmartTerrain";
 import { SquadReachTargetAction, SquadStayOnTargetAction } from "@/engine/core/objects/squad/action";
 import { ESquadActionType, ISquadAction } from "@/engine/core/objects/squad/squad_types";
@@ -49,6 +46,7 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 import { areObjectsOnSameLevel } from "@/engine/core/utils/position";
 import { ERelation, setObjectSympathy } from "@/engine/core/utils/relation";
 import { getSquadHelpActorTargetId, updateSquadInvulnerabilityState } from "@/engine/core/utils/squad";
+import { isInNoCombatZone, isInNoWeaponBase } from "@/engine/core/utils/zone";
 import { TCommunity } from "@/engine/lib/constants/communities";
 import { MAX_U16 } from "@/engine/lib/constants/memory";
 import { FALSE, NIL, TRUE } from "@/engine/lib/constants/words";
@@ -691,56 +689,17 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
   }
 
   /**
-   * todo: Description.
+   * @returns if current squad can be simulation target for other squads
    */
   public isSimulationAvailable(): boolean {
-    if (pickSectionFromCondList(registry.actor, this, this.isSimulationAvailableConditionList) !== TRUE) {
-      return false;
-    }
-
-    for (const [zoneName, smartTerrainName] of registry.noCombatZones) {
-      const zone: GameObject = registry.zones.get(zoneName);
-
-      if (zone && zone.inside(this.position)) {
-        const smartTerrain: Optional<SmartTerrain> = this.simulationManager.getSmartTerrainByName(smartTerrainName);
-
-        if (
-          smartTerrain &&
-          smartTerrain.smartTerrainActorControl &&
-          smartTerrain.smartTerrainActorControl.status !== ESmartTerrainStatus.ALARM
-        ) {
-          return false;
-        }
-      }
-    }
-
-    if (!this.smartTerrainId) {
-      return true;
-    }
-
-    const assignedSmartTerrain: SmartTerrain = registry.simulator.object(this.smartTerrainId) as SmartTerrain;
-    const smartTerrainBaseProperties =
-      assignedSmartTerrain!.simulationProperties &&
-      assignedSmartTerrain!.simulationProperties.get(ESimulationTerrainRole.BASE);
-
-    // Squad is in base.
-    if (smartTerrainBaseProperties !== null && tonumber(smartTerrainBaseProperties)! > 0) {
-      return false;
-    }
-
-    if (
-      assignedSmartTerrain.smartTerrainActorControl &&
-      assignedSmartTerrain.smartTerrainActorControl.status !== ESmartTerrainStatus.NORMAL
-    ) {
-      if (
-        registry.zones.get(assignedSmartTerrain.smartTerrainActorControl.noWeaponZone) === null ||
-        !registry.zones.get(assignedSmartTerrain.smartTerrainActorControl.noWeaponZone).inside(this.position)
-      ) {
-        return false;
-      }
-    }
-
-    return true;
+    return (
+      // Object specific checker.
+      pickSectionFromCondList(registry.actor, this, this.isSimulationAvailableConditionList) === TRUE &&
+      // Is walking nearby no-combat zone or is inside [not necessary assigned to it].
+      !isInNoCombatZone(this) &&
+      // Is assigned to base.
+      !isInNoWeaponBase(this)
+    );
   }
 
   /**
