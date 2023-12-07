@@ -1,7 +1,8 @@
 import { registry } from "@/engine/core/database";
 import { ESimulationTerrainRole, SimulationManager } from "@/engine/core/managers/simulation";
-import { ESmartTerrainStatus, SmartTerrain } from "@/engine/core/objects/smart_terrain";
-import { Squad } from "@/engine/core/objects/squad";
+import { ESmartTerrainStatus } from "@/engine/core/objects/smart_terrain/smart_terrain_types";
+import type { SmartTerrain } from "@/engine/core/objects/smart_terrain/SmartTerrain";
+import type { Squad } from "@/engine/core/objects/squad/Squad";
 import { GameObject, Optional, ServerObject, TRate } from "@/engine/lib/types";
 
 /**
