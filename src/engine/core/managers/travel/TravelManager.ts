@@ -399,7 +399,7 @@ export class TravelManager extends AbstractManager {
         }
       }
 
-      const currentSmartId: Optional<TNumberId> = this.travelSquad!.smartTerrainId;
+      const currentSmartId: Optional<TNumberId> = this.travelSquad!.assignedSmartTerrainId;
 
       if (currentSmartId !== null) {
         logger.format("Leave smart on traveling: '%s' from '%s'", this.travelSquad!.name(), currentSmartId);

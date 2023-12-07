@@ -90,7 +90,6 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
   public faction: TCommunity;
   public behaviour: LuaTable<string, string> = new LuaTable();
 
-  public smartTerrainId: Optional<TNumberId> = null;
   public simulationProperties!: LuaTable<TName, TRate>;
 
   // Meta-info about spawn point of the squad.
@@ -103,7 +102,10 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
 
   public currentAction: Optional<ISquadAction> = null;
   public currentTargetId: Optional<TNumberId> = null; // Target squad currently stays on.
+
+  public assignedSmartTerrainId: Optional<TNumberId> = null; // ID of linked smart terrain.
   public assignedTargetId: Optional<TNumberId> = null; // Target squad should reach.
+
   public nextTargetIndex: Optional<TIndex> = null;
   public lastTarget: Optional<string> = null;
   public parsedTargets: LuaArray<TName> = new LuaTable();
@@ -277,7 +279,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
     packet.w_stringZ(tostring(this.currentTargetId));
     packet.w_stringZ(tostring(this.respawnPointId));
     packet.w_stringZ(tostring(this.respawnPointSection));
-    packet.w_stringZ(tostring(this.smartTerrainId));
+    packet.w_stringZ(tostring(this.assignedSmartTerrainId));
 
     closeSaveMarker(packet, Squad.__name);
   }
@@ -302,7 +304,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
 
     const smartTerrainId: StringOptional = packet.r_stringZ();
 
-    this.smartTerrainId = smartTerrainId === NIL ? null : (tonumber(smartTerrainId) as TNumberId);
+    this.assignedSmartTerrainId = smartTerrainId === NIL ? null : (tonumber(smartTerrainId) as TNumberId);
 
     this.onSquadLoad();
 
@@ -422,7 +424,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
 
     const nextTargetId: TNumberId = (this.nextTargetIndex ?? 0) + 1;
 
-    if (this.assignedTargetId !== null && this.assignedTargetId === this.smartTerrainId) {
+    if (this.assignedTargetId !== null && this.assignedTargetId === this.assignedSmartTerrainId) {
       if (this.parsedTargets.has(nextTargetId)) {
         this.nextTargetIndex = nextTargetId;
 
@@ -498,7 +500,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
     const object: Optional<ServerCreatureObject> = registry.simulator.object(memberId);
 
     if (object !== null) {
-      if (object.m_smart_terrain_id === this.smartTerrainId) {
+      if (object.m_smart_terrain_id === this.assignedSmartTerrainId) {
         return;
       }
 
@@ -521,9 +523,9 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
    * todo: Description.
    */
   public assignToSmartTerrain(smartTerrain: Optional<SmartTerrain>): void {
-    const oldSmartId: TNumberId = this.smartTerrainId!;
+    const oldSmartId: TNumberId = this.assignedSmartTerrainId!;
 
-    this.smartTerrainId = smartTerrain && smartTerrain.id;
+    this.assignedSmartTerrainId = smartTerrain && smartTerrain.id;
 
     for (const squadMember of this.squad_members()) {
       this.assignMemberToSmartTerrain(squadMember.id, smartTerrain, oldSmartId);
@@ -551,8 +553,8 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
     this.setLocationTypesMaskFromSection("squad_terrain");
 
     if (isSmartTerrain(registry.simulator.object(this.assignedTargetId as TNumberId) as ServerObject)) {
-      const oldSmartName: Optional<TName> = this.smartTerrainId
-        ? (registry.simulator.object(this.smartTerrainId)?.name() as TName)
+      const oldSmartName: Optional<TName> = this.assignedSmartTerrainId
+        ? (registry.simulator.object(this.assignedSmartTerrainId)?.name() as TName)
         : null;
 
       if (oldSmartName) {
@@ -643,7 +645,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
     logger.info("Initialize squad on load:", this.name());
 
     this.updateSympathy();
-    this.simulationManager.assignSquadToSmartTerrain(this, this.smartTerrainId);
+    this.simulationManager.assignSquadToSmartTerrain(this, this.assignedSmartTerrainId);
     this.isLocationMasksResetNeeded = true;
   }
 

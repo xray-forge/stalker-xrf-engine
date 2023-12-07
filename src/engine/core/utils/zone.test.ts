@@ -74,7 +74,7 @@ describe("isInNoWeaponBase util method", () => {
     smartTerrain.simulationProperties.set(ESimulationTerrainRole.BASE, 1);
     expect(isInNoWeaponBase(squad)).toBe(true);
 
-    squad.smartTerrainId = null;
+    squad.assignedSmartTerrainId = null;
     expect(isInNoWeaponBase(squad)).toBe(false);
   });
 });

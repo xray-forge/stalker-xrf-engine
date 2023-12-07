@@ -29,11 +29,11 @@ export function isActorInSurgeCover(): boolean {
 export function canSurgeKillSquad(squad: Squad): boolean {
   const boardManager: SimulationManager = SimulationManager.getInstance();
 
-  if (!squad.smartTerrainId) {
+  if (!squad.assignedSmartTerrainId) {
     return false;
   }
 
-  const smartTerrain: Optional<SmartTerrain> = boardManager.getSmartTerrainDescriptor(squad.smartTerrainId)
+  const smartTerrain: Optional<SmartTerrain> = boardManager.getSmartTerrainDescriptor(squad.assignedSmartTerrainId)
     ?.smartTerrain as Optional<SmartTerrain>;
 
   return smartTerrain !== null && tonumber(smartTerrain.simulationProperties.get(ESimulationTerrainRole.SURGE))! <= 0;

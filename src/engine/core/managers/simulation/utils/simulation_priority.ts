@@ -127,5 +127,5 @@ export function getSquadSimulationTarget(squad: Squad): Optional<TSimulationObje
 
   return availableTargetsCount > 0
     ? availableTargets.get(math.random(availableTargetsCount)).target
-    : (squad.smartTerrainId && registry.simulator.object<SmartTerrain>(squad.smartTerrainId)) || squad;
+    : (squad.assignedSmartTerrainId && registry.simulator.object<SmartTerrain>(squad.assignedSmartTerrainId)) || squad;
 }

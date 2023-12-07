@@ -62,7 +62,7 @@ current = nil
     squad.currentAction = new SquadStayOnTargetAction(target);
 
     squad.assignedTargetId = 5000;
-    squad.smartTerrainId = smartTerrain.id;
+    squad.assignedSmartTerrainId = smartTerrain.id;
     squad.nextTargetIndex = next.id;
     squad.assignedTargetId = assigned.id;
 

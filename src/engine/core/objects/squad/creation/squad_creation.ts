@@ -89,6 +89,6 @@ export function createSquadMembers(squad: Squad, spawnSmartTerrain: SmartTerrain
     }
   }
 
-  squad.smartTerrainId = spawnSmartTerrain.id;
+  squad.assignedSmartTerrainId = spawnSmartTerrain.id;
   squad.mapDisplayManager.updateSquadMapSpot(squad);
 }

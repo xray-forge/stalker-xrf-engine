@@ -357,7 +357,7 @@ extern(
     const simulationBoardManager: SimulationManager = SimulationManager.getInstance();
     const squad: Squad = getServerObjectByStoryId(storyId) as Squad;
     const squadSmartTerrain: Optional<SmartTerrain> = simulationBoardManager.getSmartTerrainDescriptor(
-      squad.smartTerrainId as TNumberId
+      squad.assignedSmartTerrainId as TNumberId
     )!.smartTerrain;
 
     if (params[2] !== null) {

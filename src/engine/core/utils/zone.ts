@@ -41,11 +41,11 @@ export function isInNoCombatZone(object: ServerObject): boolean {
  */
 export function isInNoWeaponBase(squad: Squad): boolean {
   // todo: Should be u16 max checks?
-  if (!squad.smartTerrainId) {
+  if (!squad.assignedSmartTerrainId) {
     return false;
   }
 
-  const assignedSmartTerrain: SmartTerrain = registry.simulator.object(squad.smartTerrainId) as SmartTerrain;
+  const assignedSmartTerrain: SmartTerrain = registry.simulator.object(squad.assignedSmartTerrainId) as SmartTerrain;
   const smartTerrainBaseProperties: Optional<TRate> = assignedSmartTerrain.simulationProperties?.get(
     ESimulationTerrainRole.BASE
   );

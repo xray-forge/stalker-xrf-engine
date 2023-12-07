@@ -179,10 +179,12 @@ export class SimulationManager extends AbstractManager {
       return;
     }
 
-    const oldSmartTerrainId: Optional<TNumberId> = squad.smartTerrainId;
+    const oldSmartTerrainId: Optional<TNumberId> = squad.assignedSmartTerrainId;
+    const oldSmartTerrainDescriptor: Optional<ISmartTerrainDescriptor> = oldSmartTerrainId
+      ? this.smartTerrainDescriptors.get(oldSmartTerrainId)
+      : null;
 
-    if (oldSmartTerrainId) {
-      const oldSmartTerrainDescriptor: ISmartTerrainDescriptor = this.smartTerrainDescriptors.get(oldSmartTerrainId);
+    if (oldSmartTerrainDescriptor) {
       const oldSmartTerrain: SmartTerrain = oldSmartTerrainDescriptor.smartTerrain;
 
       oldSmartTerrainDescriptor.assignedSquads.delete(squad.id);
@@ -319,8 +321,8 @@ export class SimulationManager extends AbstractManager {
 
     if (squad.currentAction !== null && squad.currentAction.type === ESquadActionType.REACH_TARGET) {
       smartTerrain = registry.simulator.object<SmartTerrain>(squad.assignedTargetId!);
-    } else if (squad.smartTerrainId !== null) {
-      smartTerrain = registry.simulator.object<SmartTerrain>(squad.smartTerrainId);
+    } else if (squad.assignedSmartTerrainId !== null) {
+      smartTerrain = registry.simulator.object<SmartTerrain>(squad.assignedSmartTerrainId);
     }
 
     if (smartTerrain === null) {
