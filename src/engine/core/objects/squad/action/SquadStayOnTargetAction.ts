@@ -1,6 +1,6 @@
 import { game } from "xray16";
 
-import { Squad } from "@/engine/core/objects/squad/Squad";
+import type { Squad } from "@/engine/core/objects/squad/Squad";
 import { ESquadActionType, ISquadAction } from "@/engine/core/objects/squad/squad_types";
 import { squadConfig } from "@/engine/core/objects/squad/SquadConfig";
 import { Optional, TDuration, Time } from "@/engine/lib/types";
@@ -10,20 +10,19 @@ import { Optional, TDuration, Time } from "@/engine/lib/types";
  */
 export class SquadStayOnTargetAction implements ISquadAction {
   public readonly type: ESquadActionType = ESquadActionType.STAY_ON_TARGET;
-  // Squad performing stay target action.
-  public readonly squad: Squad;
+  public readonly squad: Squad; // Squad performing stay target action.
+
+  public actionStartTime: Optional<Time> = null;
+  public actionIdleTime: TDuration = math.random(squadConfig.STAY_POINT_IDLE_MIN, squadConfig.STAY_POINT_IDLE_MAX);
 
   public constructor(squad: Squad) {
     this.squad = squad;
   }
 
-  public actionStartTime: Optional<Time> = null;
-  public actionIdleTime: TDuration = math.random(squadConfig.STAY_POINT_IDLE_MIN, squadConfig.STAY_POINT_IDLE_MAX);
-
   /**
    * Stay on target, initialize action.
    */
-  public initialize(isUnderSimulation: boolean): void {
+  public initialize(isUnderSimulation?: boolean): void {
     this.actionStartTime = game.get_game_time();
   }
 
@@ -38,7 +37,7 @@ export class SquadStayOnTargetAction implements ISquadAction {
    * Do not stay on target for online mode.
    */
   public update(): boolean {
-    return game.get_game_time().diffSec(this.actionStartTime as Time) > this.actionIdleTime;
+    return (this.actionStartTime as Time).diffSec(game.get_game_time()) > this.actionIdleTime;
   }
 
   /**

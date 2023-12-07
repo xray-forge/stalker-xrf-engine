@@ -1,7 +1,7 @@
 import { jest } from "@jest/globals";
 import { CTime } from "xray16";
 
-import { Time } from "@/engine/lib/types";
+import { Time, TTimestamp } from "@/engine/lib/types";
 
 /**
  * Mock CTime object.
@@ -62,15 +62,7 @@ export class MockCTime {
   });
 
   public diffSec = jest.fn((target: MockCTime): number => {
-    return Math.abs(
-      this.sec -
-        target.sec +
-        (this.min - target.min) * 60 +
-        (this.h - target.h) * 3_600 +
-        (this.d - target.d) * 86_400 +
-        (this.m - target.m) * 2_592_000 +
-        (this.y - target.y) * 31_104_000
-    );
+    return Math.abs(this.toAbsolute() - target.toAbsolute());
   });
 
   public copy(): MockCTime {
@@ -97,5 +89,28 @@ export class MockCTime {
 
   public toString(): string {
     return `y:${this.y}, m:${this.m}, d:${this.d}, h:${this.h}, min:${this.min}, sec:${this.sec}, ms:${this.ms}`;
+  }
+
+  public toAbsolute(): number {
+    return (
+      this.ms +
+      this.sec * 1000 +
+      this.min * 60 +
+      this.h * 3_600 +
+      this.d * 86_400 +
+      this.m * 2_592_000 +
+      this.y * 31_104_000
+    );
+  }
+
+  public toTimestamp(): TTimestamp {
+    const base: number = MockCTime.create(1970, 1, 1, 0, 0, 0, 0).toAbsolute();
+    const current: number = this.toAbsolute();
+
+    if (base > current) {
+      throw new Error("Not expected timestamp conversion - base is less than current.");
+    }
+
+    return current - base;
   }
 }
