@@ -9,7 +9,7 @@ import {
   unregisterStoryLinkByObjectId,
 } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
-import { SimulationBoardManager } from "@/engine/core/managers/simulation/SimulationBoardManager";
+import { SimulationManager } from "@/engine/core/managers/simulation/SimulationManager";
 import type { SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import type { Squad } from "@/engine/core/objects/squad";
 import { assert } from "@/engine/core/utils/assertion";
@@ -63,7 +63,7 @@ export class Stalker extends cse_alife_human_stalker {
 
     this.brain().can_choose_alife_tasks(false);
 
-    const simulationBoardManager: SimulationBoardManager = SimulationBoardManager.getInstance();
+    const simulationBoardManager: SimulationManager = SimulationManager.getInstance();
 
     const smartName: TName = readIniString(this.spawn_ini(), "logic", "smart_terrain", false, null, "");
     const smartTerrain: Optional<SmartTerrain> = simulationBoardManager.getSmartTerrainByName(smartName);

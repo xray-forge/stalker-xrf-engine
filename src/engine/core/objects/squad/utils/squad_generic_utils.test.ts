@@ -39,7 +39,6 @@ spawn_id = nil
 spawn_section = nil
 [smart_terrain]
 assigned = nil
-entered = nil
 [target]
 current = nil
 assigned = nil
@@ -47,9 +46,6 @@ last = nil
 next = nil
 [action]
 current = nil
-[relation]
-sympathy = nil
-relationship = neutral
 `);
   });
 
@@ -79,7 +75,6 @@ spawn_id = nil
 spawn_section = nil
 [smart_terrain]
 assigned = ${smartTerrain.name()}
-entered = nil
 [target]
 current = ${target.name()}
 assigned = ${assigned.name()}
@@ -88,9 +83,6 @@ next = ${next.id}
 [action]
 current = ${squad.currentAction.type}
 stay_on_target_for = 0
-[relation]
-sympathy = nil
-relationship = neutral
 `);
   });
 });

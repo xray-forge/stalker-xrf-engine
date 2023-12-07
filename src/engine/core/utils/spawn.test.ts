@@ -1,8 +1,7 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 
 import { registerActor, registerSimulator, registry } from "@/engine/core/database";
-import { SimulationBoardManager } from "@/engine/core/managers/simulation/SimulationBoardManager";
-import { SmartTerrain } from "@/engine/core/objects/smart_terrain";
+import { SimulationManager } from "@/engine/core/managers/simulation/SimulationManager";
 import { Squad } from "@/engine/core/objects/squad";
 import {
   releaseObject,
@@ -151,17 +150,18 @@ describe("spawning utils", () => {
     expect(() => spawnSquadInSmart("abc", "abc")).toThrow();
     expect(() => spawnSquadInSmart("squad", "some_terrain")).toThrow();
 
-    const simulationManager: SimulationBoardManager = SimulationBoardManager.getInstance();
+    const simulationManager: SimulationManager = SimulationManager.getInstance();
     const smartTerrain: ServerSmartZoneObject = MockSmartTerrain.mock();
     const squad: Squad = MockSquad.mock();
 
     mockRegisteredActor();
 
-    jest.spyOn(simulationManager, "enterSmartTerrain").mockImplementation(() => {});
+    jest.spyOn(simulationManager, "assignSquadToSmartTerrain").mockImplementation(() => {});
     jest.spyOn(simulationManager, "createSquad").mockImplementation(() => squad);
     jest.spyOn(simulationManager, "setupObjectSquadAndGroup").mockImplementation(() => {});
 
-    simulationManager.registerSmartTerrain(smartTerrain as SmartTerrain);
+    smartTerrain.on_before_register();
+    smartTerrain.on_register();
 
     squad.addMember("test", MockVector.mock(1, 1, 1), 1, 2);
     squad.addMember("test", MockVector.mock(2, 2, 2), 1, 2);
@@ -169,10 +169,9 @@ describe("spawning utils", () => {
     const createdSquad: ServerGroupObject = spawnSquadInSmart("squad", smartTerrain.name());
 
     expect(createdSquad).toBe(squad);
-    expect(squad.update).toHaveBeenCalled();
     expect(simulationManager.createSquad).toHaveBeenCalledWith(smartTerrain, "squad");
-    expect(simulationManager.enterSmartTerrain).toHaveBeenCalledWith(squad, smartTerrain.id);
     expect(simulationManager.setupObjectSquadAndGroup).toHaveBeenCalledTimes(2);
+    expect(squad.update).toHaveBeenCalled();
   });
 
   it("spawnObject should correctly spawn objects", () => {

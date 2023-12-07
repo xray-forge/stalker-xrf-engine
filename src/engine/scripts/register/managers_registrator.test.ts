@@ -14,7 +14,7 @@ import { PdaManager } from "@/engine/core/managers/pda";
 import { PhantomManager } from "@/engine/core/managers/psy";
 import { SaveManager } from "@/engine/core/managers/save";
 import { GameSettingsManager } from "@/engine/core/managers/settings";
-import { SimulationBoardManager } from "@/engine/core/managers/simulation";
+import { SimulationManager } from "@/engine/core/managers/simulation";
 import { SleepManager } from "@/engine/core/managers/sleep";
 import { DynamicMusicManager, GlobalSoundManager } from "@/engine/core/managers/sounds";
 import { StatisticsManager } from "@/engine/core/managers/statistics";
@@ -56,7 +56,7 @@ describe("managers_registrator entry point", () => {
       ProfilingManager,
       ReleaseBodyManager,
       SaveManager,
-      SimulationBoardManager,
+      SimulationManager,
       SleepManager,
       StatisticsManager,
       TaskManager,

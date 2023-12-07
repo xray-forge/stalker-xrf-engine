@@ -1,7 +1,7 @@
 import { game } from "xray16";
 
 import { registry } from "@/engine/core/database";
-import { SimulationBoardManager } from "@/engine/core/managers/simulation";
+import { SimulationManager } from "@/engine/core/managers/simulation";
 import { ISmartTerrainSpawnConfiguration } from "@/engine/core/objects/smart_terrain/smart_terrain_types";
 import type { SmartTerrain } from "@/engine/core/objects/smart_terrain/SmartTerrain";
 import { smartTerrainConfig } from "@/engine/core/objects/smart_terrain/SmartTerrainConfig";
@@ -98,7 +98,7 @@ export function respawnSmartTerrainSquad(smartTerrain: SmartTerrain): Optional<S
     return null;
   }
 
-  const simulationBoardManager: SimulationBoardManager = smartTerrain.simulationBoardManager;
+  const simulationBoardManager: SimulationManager = smartTerrain.simulationManager;
   const sectionToSpawn: TSection = availableSections.get(math.random(1, availableSections.length()));
   const sectionParams: ISmartTerrainSpawnConfiguration = smartTerrain.spawnSquadsConfiguration.get(sectionToSpawn);
   const squadSection: TSection = sectionParams.squads.get(math.random(1, sectionParams.squads.length()));
@@ -108,7 +108,7 @@ export function respawnSmartTerrainSquad(smartTerrain: SmartTerrain): Optional<S
   squad.respawnPointId = smartTerrain.id;
   squad.respawnPointSection = sectionToSpawn;
 
-  simulationBoardManager.enterSmartTerrain(squad, smartTerrain.id);
+  simulationBoardManager.assignSquadToSmartTerrain(squad, smartTerrain.id);
 
   // Is it duplicated with create squad method? Should we do it twice?
   for (const squadMember of squad.squad_members()) {
@@ -140,7 +140,8 @@ export function canRespawnSmartTerrainSquad(smartTerrain: SmartTerrain): boolean
 
   return (
     pickSectionFromCondList(registry.actor, smartTerrain, smartTerrain.isSimulationAvailableConditionList) === TRUE &&
-    smartTerrain.simulationBoardManager.getSmartTerrainAssignedSquads(smartTerrain.id) < smartTerrain.maxPopulation &&
+    smartTerrain.simulationManager.getSmartTerrainAssignedSquadsCount(smartTerrain.id) <
+      smartTerrain.maxStayingSquadsCount &&
     registry.actorServer.position.distance_to_sqr(smartTerrain.position) >
       smartTerrainConfig.RESPAWN_RADIUS_RESTRICTION_SQR
   );

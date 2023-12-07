@@ -1,7 +1,7 @@
 import { game } from "xray16";
 
 import { registry } from "@/engine/core/database";
-import { ISmartTerrainDescriptor, SimulationBoardManager } from "@/engine/core/managers/simulation";
+import { ISmartTerrainDescriptor, SimulationManager } from "@/engine/core/managers/simulation";
 import type { SmartTerrain } from "@/engine/core/objects/smart_terrain/SmartTerrain";
 import { smartTerrainConfig } from "@/engine/core/objects/smart_terrain/SmartTerrainConfig";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini";
@@ -25,22 +25,28 @@ export function getSmartTerrainNameCaption(smartTerrain: SmartTerrain): TLabel {
  */
 export function getSmartTerrainMapDisplayHint(smartTerrain: SmartTerrain): TLabel {
   if (forgeConfig.DEBUG.IS_SIMULATION_ENABLED) {
-    const smartTerrainDescriptor: ISmartTerrainDescriptor =
-      SimulationBoardManager.getInstance().getSmartTerrainDescriptor(smartTerrain.id)!;
+    const smartTerrainDescriptor: ISmartTerrainDescriptor = SimulationManager.getInstance().getSmartTerrainDescriptor(
+      smartTerrain.id
+    )!;
 
     let caption: TLabel = string.format(
-      "[%s] (%s)\\navailable = %s\\nonline = %s\\nsimulation_role = %s\\nsquad_id = %s\\ncapacity = %s\\%s\\n",
+      "[%s] (%s) (%s)\\navailable = %s\\nonline = %s\\nsimulation_role = %s\\nsquad_id = %s\\ncapacity = %s\\%s\\n",
       game.translate_string(getSmartTerrainNameCaption(smartTerrain)),
       smartTerrain.name(),
+      smartTerrain.id,
       smartTerrain.isSimulationAvailable(),
       smartTerrain.online,
       smartTerrain.simulationRole,
       smartTerrain.squadId,
-      SimulationBoardManager.getInstance().getSmartTerrainPopulation(smartTerrain.id),
-      smartTerrain.maxPopulation
+      smartTerrainDescriptor.assignedSquadsCount,
+      smartTerrain.maxStayingSquadsCount
     );
 
-    caption += string.format("arriving_objects = %s\\n", table.size(smartTerrain.arrivingObjects));
+    caption += string.format(
+      "arriving_objects = %s\\nstaying_objects = %s\\n",
+      table.size(smartTerrain.arrivingObjects),
+      smartTerrain.stayingObjectsCount
+    );
 
     if (smartTerrain.isRespawnPoint) {
       caption += string.format(
@@ -66,7 +72,7 @@ export function getSmartTerrainMapDisplayHint(smartTerrain: SmartTerrain): TLabe
       caption += "[assigned]\\n";
 
       for (const [, squad] of smartTerrainDescriptor.assignedSquads) {
-        caption += `${tostring(squad.name())}\\n`;
+        caption += `${tostring(squad.name())} -> ${squad.getScriptedSimulationTarget()}\\n`;
       }
     }
 

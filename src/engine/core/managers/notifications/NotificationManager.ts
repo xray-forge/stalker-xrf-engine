@@ -22,7 +22,7 @@ import {
 } from "@/engine/core/managers/notifications/notifications_types";
 import { notificationsConfig } from "@/engine/core/managers/notifications/NotificationsConfig";
 import { ISmartTerrainDescriptor } from "@/engine/core/managers/simulation/simulation_types";
-import { SimulationBoardManager } from "@/engine/core/managers/simulation/SimulationBoardManager";
+import { SimulationManager } from "@/engine/core/managers/simulation/SimulationManager";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import { ETaskState } from "@/engine/core/managers/tasks/types";
 import { Stalker } from "@/engine/core/objects/creature/Stalker";
@@ -310,7 +310,7 @@ export class NotificationManager extends AbstractManager {
     // todo: Probably name and number id problem? Not real condition?
     if (point) {
       const smartDescriptor: Optional<ISmartTerrainDescriptor> =
-        SimulationBoardManager.getInstance().getSmartTerrainDescriptor(point as TNumberId);
+        SimulationManager.getInstance().getSmartTerrainDescriptor(point as TNumberId);
 
       pointName = smartDescriptor
         ? getSmartTerrainNameCaption(smartDescriptor.smartTerrain)

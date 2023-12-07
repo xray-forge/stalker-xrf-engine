@@ -1,7 +1,7 @@
 import { game } from "xray16";
 
 import { closeLoadMarker, closeSaveMarker, openLoadMarker, openSaveMarker, registry } from "@/engine/core/database";
-import { SimulationBoardManager } from "@/engine/core/managers/simulation/SimulationBoardManager";
+import { SimulationManager } from "@/engine/core/managers/simulation/SimulationManager";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import { ESmartTerrainStatus } from "@/engine/core/objects/smart_terrain/smart_terrain_types";
 import type { SmartTerrain } from "@/engine/core/objects/smart_terrain/SmartTerrain";
@@ -70,7 +70,7 @@ export class SmartTerrainControl {
         GlobalSoundManager.getInstance().playSound(ACTOR_ID, sound);
       }
 
-      for (const [id, squad] of SimulationBoardManager.getInstance().getSmartTerrainDescriptor(this.smartTerrain.id)!
+      for (const [id, squad] of SimulationManager.getInstance().getSmartTerrainDescriptor(this.smartTerrain.id)!
         .assignedSquads) {
         updateSquadIdRelationToActor(id, ERelation.NEUTRAL);
       }
@@ -131,7 +131,7 @@ export class SmartTerrainControl {
         GlobalSoundManager.getInstance().playSound(ACTOR_ID, sound);
       }
 
-      for (const [squadId] of SimulationBoardManager.getInstance().getSmartTerrainDescriptor(this.smartTerrain.id)!
+      for (const [squadId] of SimulationManager.getInstance().getSmartTerrainDescriptor(this.smartTerrain.id)!
         .assignedSquads) {
         updateSquadIdRelationToActor(squadId, ERelation.ENEMY);
       }

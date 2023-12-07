@@ -1,5 +1,5 @@
 import { registry } from "@/engine/core/database";
-import { TSimulationObject } from "@/engine/core/managers/simulation";
+import { SimulationManager, TSimulationObject } from "@/engine/core/managers/simulation";
 import type { Squad } from "@/engine/core/objects/squad/Squad";
 import { ESquadActionType, ISquadAction } from "@/engine/core/objects/squad/squad_types";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -12,8 +12,7 @@ const logger: LuaLogger = new LuaLogger($filename);
  */
 export class SquadReachTargetAction implements ISquadAction {
   public readonly type: ESquadActionType = ESquadActionType.REACH_TARGET;
-  // Squad performing reach target action.
-  public readonly squad: Squad;
+  public readonly squad: Squad; // Squad performing reach target action.
 
   public constructor(squad: Squad) {
     this.squad = squad;
@@ -27,12 +26,14 @@ export class SquadReachTargetAction implements ISquadAction {
       ? registry.simulationObjects.get(this.squad.assignedTargetId!)
       : registry.simulator.object(this.squad.assignedTargetId!);
 
-    if (target !== null) {
+    if (target) {
       target.onSimulationTargetSelected(this.squad);
     }
 
+    const simulationManager: SimulationManager = this.squad.simulationManager;
+
     for (const squadMember of this.squad.squad_members()) {
-      this.squad.simulationBoardManager.setupObjectSquadAndGroup(squadMember.object);
+      simulationManager.setupObjectSquadAndGroup(squadMember.object);
     }
   }
 
@@ -42,32 +43,21 @@ export class SquadReachTargetAction implements ISquadAction {
   public finalize(): void {}
 
   /**
-   * Generic update tick.
-   *
    * @returns whether task is finished
    */
   public update(isUnderSimulation: boolean): boolean {
-    /**
-     * Rely on simulation board manager for offline mode.
-     */
-    const squadTarget: Optional<TSimulationObject> = isUnderSimulation
+    const target: Optional<TSimulationObject> = isUnderSimulation
       ? registry.simulationObjects.get(this.squad.assignedTargetId as TNumberId)
       : registry.simulator.object(this.squad.assignedTargetId as TNumberId);
 
-    /**
-     * Target object stopped existing.
-     */
-    if (squadTarget === null) {
+    if (!target) {
       this.squad.clearAssignedTarget();
 
       return true;
     }
 
-    /**
-     * Check whether reached and notify end target.
-     */
-    if (squadTarget.isReachedBySimulationObject(this.squad)) {
-      squadTarget.onSimulationTargetDeselected(this.squad);
+    if (target.isReachedBySimulationObject(this.squad)) {
+      target.onSimulationTargetDeselected(this.squad);
 
       return true;
     } else {

@@ -12,7 +12,7 @@ import {
   SYSTEM_INI,
   unregisterHelicopterObject,
 } from "@/engine/core/database";
-import { SimulationBoardManager } from "@/engine/core/managers/simulation/SimulationBoardManager";
+import { SimulationManager } from "@/engine/core/managers/simulation/SimulationManager";
 import type { SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import { switchSmartTerrainObjectToDesiredJob } from "@/engine/core/objects/smart_terrain/job";
 import type { Squad } from "@/engine/core/objects/squad";
@@ -354,7 +354,7 @@ extern(
       abort("Wrong squad identificator [NIL] in 'create_squad_member' function");
     }
 
-    const simulationBoardManager: SimulationBoardManager = SimulationBoardManager.getInstance();
+    const simulationBoardManager: SimulationManager = SimulationManager.getInstance();
     const squad: Squad = getServerObjectByStoryId(storyId) as Squad;
     const squadSmartTerrain: Optional<SmartTerrain> = simulationBoardManager.getSmartTerrainDescriptor(
       squad.assignedSmartTerrainId as TNumberId
@@ -418,7 +418,7 @@ extern("xr_effects.remove_squad", (actor: GameObject, obj: GameObject, p: [strin
     abort("Wrong squad identificator [%s]. squad doesnt exist", tostring(storyId));
   }
 
-  SimulationBoardManager.getInstance().releaseSquad(squad);
+  SimulationManager.getInstance().releaseSquad(squad);
 });
 
 /**
@@ -500,7 +500,7 @@ extern(
       abort("Wrong squad id [NIL] in clear_smart_terrain function");
     }
 
-    const simulationBoardManager: SimulationBoardManager = SimulationBoardManager.getInstance();
+    const simulationBoardManager: SimulationManager = SimulationManager.getInstance();
     const smartTerrain: SmartTerrain = simulationBoardManager.getSmartTerrainByName(smartTerrainName) as SmartTerrain;
     const smartTerrainId: TNumberId = smartTerrain.id;
 
@@ -508,14 +508,10 @@ extern(
       if (clearStory === FALSE) {
         if (!getStoryIdByObjectId(squad.id)) {
           logger.format("Remove smart terrain squads on effect: '%s', '%s'", smartTerrainName, squad.name());
-
-          simulationBoardManager.exitSmartTerrain(squad, smartTerrainId);
           simulationBoardManager.releaseSquad(squad);
         }
       } else {
         logger.format("Remove smart terrain squads on effect: '%s', '%s'", smartTerrainName, squad.name());
-
-        simulationBoardManager.exitSmartTerrain(squad, smartTerrainId);
         simulationBoardManager.releaseSquad(squad);
       }
     }

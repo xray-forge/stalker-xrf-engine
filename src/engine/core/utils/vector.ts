@@ -1,9 +1,9 @@
-import { game_graph, vector, vector2 } from "xray16";
+import { vector, vector2 } from "xray16";
 
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { PI_DEGREE, RADIAN } from "@/engine/lib/constants/math";
 import { NIL } from "@/engine/lib/constants/words";
-import { Optional, TDistance, TNumberId, TRate, Vector, Vector2D } from "@/engine/lib/types";
+import { Optional, TDistance, TRate, Vector, Vector2D } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

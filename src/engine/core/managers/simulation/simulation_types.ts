@@ -1,19 +1,9 @@
 import type { Actor } from "@/engine/core/objects/creature/Actor";
 import type { SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import type { Squad } from "@/engine/core/objects/squad";
-import { TConditionList } from "@/engine/core/utils/ini";
 import { TCommunity } from "@/engine/lib/constants/communities";
 import { levels, TLevel } from "@/engine/lib/constants/levels";
-import {
-  ALifeSmartTerrainTask,
-  AnyObject,
-  Optional,
-  PartialRecord,
-  TCount,
-  TName,
-  TNumberId,
-  TRate,
-} from "@/engine/lib/types";
+import { ALifeSmartTerrainTask, Optional, PartialRecord, TCount, TName, TNumberId, TRate } from "@/engine/lib/types";
 
 /**
  * Smart terrain details descriptor for alife participation.
@@ -21,7 +11,7 @@ import {
 export interface ISmartTerrainDescriptor {
   smartTerrain: SmartTerrain;
   assignedSquads: LuaTable<TNumberId, Squad>;
-  stayingSquadsCount: TCount;
+  assignedSquadsCount: TCount;
 }
 
 /**
@@ -130,4 +120,12 @@ export interface ISimulationActivityDescriptor {
   squad: Optional<PartialRecord<TCommunity, Optional<TSimulationActivityPrecondition>>>;
   smart: Optional<PartialRecord<ESimulationTerrainRole, Optional<TSimulationActivityPrecondition>>>;
   actor: Optional<TSimulationActivityPrecondition>;
+}
+
+/**
+ * Descriptor of possible simulation target to pick.
+ */
+export interface IAvailableSimulationTargetDescriptor {
+  priority: TRate;
+  target: TSimulationObject;
 }

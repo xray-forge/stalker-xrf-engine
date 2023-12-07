@@ -1,7 +1,7 @@
 import { clsid, level, patrol } from "xray16";
 
 import { registry, SYSTEM_INI } from "@/engine/core/database";
-import { SimulationBoardManager } from "@/engine/core/managers/simulation/SimulationBoardManager";
+import { SimulationManager } from "@/engine/core/managers/simulation/SimulationManager";
 import type { SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import type { Squad } from "@/engine/core/objects/squad";
 import { abort, assert, assertDefined } from "@/engine/core/utils/assertion";
@@ -58,7 +58,7 @@ export function spawnItemsForObject(
   const simulator: AlifeSimulator = registry.simulator;
   const [id, gvid, lvid, position] = getObjectPositioning(object);
 
-  for (const it of $range(1, count)) {
+  for (const _ of $range(1, count)) {
     if (math.random(100) <= probability) {
       simulator.create(itemSection, position, lvid, gvid, id);
       itemsSpawned += 1;
@@ -127,7 +127,7 @@ export function spawnItemsForObjectFromList<T extends TSection>(
     return;
   }
 
-  for (const it of $range(1, count)) {
+  for (const _ of $range(1, count)) {
     spawnItemsForObject(object, itemSections.get(math.random(itemSections.length())), 1);
   }
 }
@@ -144,14 +144,12 @@ export function spawnSquadInSmart(section: Optional<TStringId>, smartTerrainName
   assert(smartTerrainName, "Wrong squad name in spawnSquad function.");
   assert(SYSTEM_INI.section_exist(section), "Wrong squad identifier '%s'. Squad doesnt exist in ini.", section);
 
-  const simulationBoardManager: SimulationBoardManager = SimulationBoardManager.getInstance();
+  const simulationBoardManager: SimulationManager = SimulationManager.getInstance();
   const smartTerrain: Optional<SmartTerrain> = simulationBoardManager.getSmartTerrainByName(smartTerrainName);
 
-  assert(smartTerrain, "Wrong smartName '%s' for faction in spawnSquad function", tostring(smartTerrainName));
+  assert(smartTerrain, "Wrong smartName '%s' for faction in spawnSquad function.", tostring(smartTerrainName));
 
   const squad: Squad = simulationBoardManager.createSquad(smartTerrain, section);
-
-  simulationBoardManager.enterSmartTerrain(squad, smartTerrain.id);
 
   for (const squadMember of squad.squad_members()) {
     simulationBoardManager.setupObjectSquadAndGroup(squadMember.object);
@@ -238,10 +236,10 @@ export function releaseObject(objectId: TNumberId): void {
 
   logger.info("Destroying object:", objectId);
 
-  if (serverObject === null) {
-    logger.warn("No existing object to destroy:", objectId);
-  } else {
+  if (serverObject) {
     simulator.release(serverObject, true);
+  } else {
+    logger.warn("No existing object to destroy:", objectId);
   }
 }
 

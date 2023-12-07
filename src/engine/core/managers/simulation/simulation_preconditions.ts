@@ -5,21 +5,21 @@ import { isInTimeInterval } from "@/engine/core/utils/time";
 import { ServerObject } from "@/engine/lib/types";
 
 /**
- * todo;
+ * @returns always true
  */
 export function simulationPreconditionAlways(): boolean {
   return true;
 }
 
 /**
- * todo;
+ * @returns whether surge is active at the moment
  */
 export function simulationPreconditionSurge(): boolean {
   return surgeConfig.IS_STARTED;
 }
 
 /**
- * todo;
+ * @returns whether sure is not active at the moment
  */
 export function simulationPreconditionNotSurge(): boolean {
   return !surgeConfig.IS_STARTED;
@@ -54,7 +54,9 @@ export function simulationPreconditionNight(squad: Squad, target: ServerObject):
 }
 
 /**
- * todo;
+ * @param squad - target squad to check
+ * @param target - target to check distance
+ * @returns whether target is near squad
  */
 export function simulationPreconditionNear(squad: Squad, target: ServerObject): boolean {
   return getServerDistanceBetween(squad, target) <= 150;

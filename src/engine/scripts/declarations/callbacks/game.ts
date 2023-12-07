@@ -1,5 +1,6 @@
 import { smartCoversList } from "@/engine/core/animation/smart_covers";
 import { GameOutroManager } from "@/engine/core/managers/outro";
+import { gameOutroConfig } from "@/engine/core/managers/outro/GameOutroConfig";
 import { SaveManager } from "@/engine/core/managers/save";
 import { TradeManager } from "@/engine/core/managers/trade";
 import { extern } from "@/engine/core/utils/binding";
@@ -28,11 +29,13 @@ extern("smart_covers", {
  * Module of callbacks related to game outro.
  */
 extern("outro", {
-  conditions: GameOutroManager.OUTRO_CONDITIONS,
-  start_bk_sound: () => GameOutroManager.getInstance().startBkSound(),
-  stop_bk_sound: () => GameOutroManager.getInstance().stopBkSound(),
-  update_bk_sound_fade_start: (factor: number) => GameOutroManager.getInstance().updateBkSoundFadeStart(factor),
-  update_bk_sound_fade_stop: (factor: number) => GameOutroManager.getInstance().updateBkSoundFadeStop(factor),
+  conditions: gameOutroConfig.OUTRO_CONDITIONS,
+  start_bk_sound: () => GameOutroManager.getInstance().startBlackScreenAndSound(),
+  stop_bk_sound: () => GameOutroManager.getInstance().stopBlackScreenAndSound(),
+  update_bk_sound_fade_start: (factor: number) =>
+    GameOutroManager.getInstance().updateBlackScreenAndSoundFadeStart(factor),
+  update_bk_sound_fade_stop: (factor: number) =>
+    GameOutroManager.getInstance().updateBlackScreenAndSoundFadeStop(factor),
 });
 
 /**

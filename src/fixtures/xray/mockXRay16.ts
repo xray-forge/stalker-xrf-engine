@@ -37,6 +37,7 @@ import { MockCSavedGameWrapper, MockFileSystem } from "@/fixtures/xray/mocks/fs"
 import { MockHit } from "@/fixtures/xray/mocks/hit.mock";
 import { mockCreateIniFile, MockIniFile, mockIniFile } from "@/fixtures/xray/mocks/ini";
 import {
+  mockActorStatsInterface,
   mockGameInterface,
   mockGetGameHud,
   mockLevelInterface,
@@ -169,6 +170,7 @@ export function mockXRay16({
   IsImportantSave = jest.fn(() => true),
   action_base = MockActionBase,
   action_planner = MockActionPlanner,
+  actor_stats = mockActorStatsInterface,
   alife = jest.fn(() => MockAlifeSimulator.mock()),
   anim = MockAnim,
   bit_and = jest.fn((first: number, second: number) => first & second),
@@ -303,6 +305,7 @@ export function mockXRay16({
     LuabindClass: () => {},
     action_base,
     action_planner,
+    actor_stats,
     alife,
     anim,
     bit_and,

@@ -5,13 +5,9 @@ import { AbstractManager } from "@/engine/core/managers/base/AbstractManager";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import {
   groupIdByLevelName,
-  ISimulationFactionDescriptor,
   ISmartTerrainDescriptor,
-  TSimulationObject,
 } from "@/engine/core/managers/simulation/simulation_types";
 import { SIMULATION_LTX } from "@/engine/core/managers/simulation/SimulationConfig";
-import { evaluateSimulationPriority } from "@/engine/core/managers/simulation/utils";
-import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import { SmartTerrain } from "@/engine/core/objects/smart_terrain/SmartTerrain";
 import { createSquadMembers } from "@/engine/core/objects/squad/creation";
 import type { Squad } from "@/engine/core/objects/squad/Squad";
@@ -33,7 +29,6 @@ import {
   TCount,
   TName,
   TNumberId,
-  TRate,
   TSection,
   TStringId,
 } from "@/engine/lib/types";
@@ -44,16 +39,14 @@ const simulationLogger: LuaLogger = new LuaLogger($filename, { file: "simulation
 /**
  * todo;
  */
-export class SimulationBoardManager extends AbstractManager {
+export class SimulationManager extends AbstractManager {
   public areDefaultSimulationSquadsSpawned: boolean = false;
 
-  protected factions: LuaArray<ISimulationFactionDescriptor> = new LuaTable();
-  protected squads: LuaTable<TNumberId, Squad> = new LuaTable();
-  protected smartTerrains: LuaTable<TNumberId, ISmartTerrainDescriptor> = new LuaTable();
-  protected smartTerrainsByName: LuaTable<TName, SmartTerrain> = new LuaTable();
+  protected readonly smartTerrains: LuaTable<TName, SmartTerrain> = new LuaTable();
+  protected readonly smartTerrainDescriptors: LuaTable<TNumberId, ISmartTerrainDescriptor> = new LuaTable();
+  protected readonly squads: LuaTable<TNumberId, Squad> = new LuaTable();
 
-  protected temporaryAssignedSquads: LuaTable<TNumberId, LuaArray<Squad>> = new LuaTable();
-  protected temporaryEnteredSquads: LuaTable<TNumberId, LuaArray<Squad>> = new LuaTable();
+  protected readonly temporaryAssignedSquads: LuaTable<TNumberId, LuaArray<Squad>> = new LuaTable();
 
   public override initialize(): void {
     const eventsManager: EventsManager = EventsManager.getInstance();
@@ -67,15 +60,6 @@ export class SimulationBoardManager extends AbstractManager {
 
     eventsManager.unregisterCallback(EGameEvent.ACTOR_REGISTER, this.onActorRegister);
     eventsManager.unregisterCallback(EGameEvent.ACTOR_GO_OFFLINE, this.onActorDestroy);
-  }
-
-  /**
-   * Get list of factions participating in alife simulation.
-   *
-   * @returns list of factions participating in simulation
-   */
-  public getFactions(): LuaArray<ISimulationFactionDescriptor> {
-    return this.factions;
   }
 
   /**
@@ -93,6 +77,13 @@ export class SimulationBoardManager extends AbstractManager {
    * @returns list of smart terrains descriptors participating in simulation
    */
   public getSmartTerrainDescriptors(): LuaTable<TNumberId, ISmartTerrainDescriptor> {
+    return this.smartTerrainDescriptors;
+  }
+
+  /**
+   * @returns map of registered smart terrains by name
+   */
+  public getSmartTerrains(): LuaTable<TName, SmartTerrain> {
     return this.smartTerrains;
   }
 
@@ -103,7 +94,7 @@ export class SimulationBoardManager extends AbstractManager {
    * @returns matching smart terrain server object or null
    */
   public getSmartTerrainByName(name: TName): Optional<SmartTerrain> {
-    return this.smartTerrainsByName.get(name);
+    return this.smartTerrains.get(name);
   }
 
   /**
@@ -113,17 +104,7 @@ export class SimulationBoardManager extends AbstractManager {
    * @returns smart terrain descriptor if it participates in simulation
    */
   public getSmartTerrainDescriptor(smartTerrainId: TNumberId): Optional<ISmartTerrainDescriptor> {
-    return this.smartTerrains.get(smartTerrainId);
-  }
-
-  /**
-   * Get staying squads count for smart terrain.
-   *
-   * @param smartTerrainId - id of smart terrain to get staying squads count
-   * @returns count of squads staying in smart terrain
-   */
-  public getSmartTerrainPopulation(smartTerrainId: TNumberId): TCount {
-    return this.smartTerrains.get(smartTerrainId).stayingSquadsCount;
+    return this.smartTerrainDescriptors.get(smartTerrainId);
   }
 
   /**
@@ -132,58 +113,16 @@ export class SimulationBoardManager extends AbstractManager {
    * @param smartTerrainId - id of smart terrain to get count of assigned squads
    * @returns count of squads assigned to smart terrain
    */
-  public getSmartTerrainAssignedSquads(smartTerrainId: TNumberId): TCount {
+  public getSmartTerrainAssignedSquadsCount(smartTerrainId: TNumberId): TCount {
     let count: TCount = 0;
 
-    for (const [k, squad] of this.smartTerrains.get(smartTerrainId).assignedSquads) {
-      if (squad.getScriptedSimulationTarget() !== null) {
+    for (const [, squad] of this.smartTerrainDescriptors.get(smartTerrainId).assignedSquads) {
+      if (!squad.getScriptedSimulationTarget()) {
         count += 1;
       }
     }
 
     return count;
-  }
-
-  /**
-   * Get simulation target for squad participating in alife.
-   *
-   * @param squad - squad to generate simulation target for
-   * @returns simulation object to target or null based on priorities
-   */
-  public getSquadSimulationTarget(squad: Squad): Optional<TSimulationObject> {
-    const availableTargets: LuaArray<{ priority: TRate; target: TSimulationObject }> = new LuaTable();
-
-    for (const [, target] of registry.simulationObjects) {
-      const priority: TRate = target.id === squad.id ? 0 : evaluateSimulationPriority(target, squad);
-
-      if (priority > 0) {
-        table.insert(availableTargets, { priority: priority, target: target });
-      }
-    }
-
-    let mostPriorityTask: Optional<TSimulationObject> = null;
-
-    if (availableTargets.length() > 0) {
-      table.sort(availableTargets, (a, b) => a.priority > b.priority);
-
-      // todo: Is it trick to get not first task always?
-      let maxId: TNumberId = math.floor(0.3 * availableTargets.length());
-
-      if (maxId === 0) {
-        maxId = 1;
-      }
-
-      mostPriorityTask = availableTargets.get(math.random(maxId)).target;
-    }
-
-    if (mostPriorityTask) {
-      return mostPriorityTask;
-    } else {
-      // Return already assigned target or squad itself.
-      return (
-        (squad.assignedSmartTerrainId && registry.simulator.object<SmartTerrain>(squad.assignedSmartTerrainId)) || squad
-      );
-    }
   }
 
   /**
@@ -194,16 +133,16 @@ export class SimulationBoardManager extends AbstractManager {
   public registerSmartTerrain(smartTerrain: SmartTerrain): void {
     simulationLogger.info("Register smart terrain:", smartTerrain.name());
 
-    if (this.smartTerrains.get(smartTerrain.id) !== null) {
+    if (this.smartTerrainDescriptors.has(smartTerrain.id)) {
       abort("Smart terrain '%s' is already registered in simulation board.", smartTerrain.name());
     }
 
-    this.smartTerrains.set(smartTerrain.id, {
+    this.smartTerrains.set(smartTerrain.name(), smartTerrain);
+    this.smartTerrainDescriptors.set(smartTerrain.id, {
       smartTerrain: smartTerrain,
       assignedSquads: new LuaTable(),
-      stayingSquadsCount: 0,
+      assignedSquadsCount: 0,
     });
-    this.smartTerrainsByName.set(smartTerrain.name(), smartTerrain);
   }
 
   /**
@@ -214,12 +153,12 @@ export class SimulationBoardManager extends AbstractManager {
   public unregisterSmartTerrain(smartTerrain: SmartTerrain): void {
     simulationLogger.info("Unregister smart terrain:", smartTerrain.name());
 
-    if (!this.smartTerrains.has(smartTerrain.id)) {
+    if (!this.smartTerrainDescriptors.has(smartTerrain.id)) {
       abort("Trying to unregister not registered smart terrain '%s'.", smartTerrain.name());
     }
 
-    this.smartTerrains.delete(smartTerrain.id);
-    this.smartTerrainsByName.delete(smartTerrain.name());
+    this.smartTerrains.delete(smartTerrain.name());
+    this.smartTerrainDescriptors.delete(smartTerrain.id);
   }
 
   /**
@@ -228,7 +167,7 @@ export class SimulationBoardManager extends AbstractManager {
   public assignSquadToSmartTerrain(squad: Squad, smartTerrainId: Optional<TNumberId>): void {
     simulationLogger.format("Assign squad to smart terrain: '%s' -> '%s'.", squad.name(), smartTerrainId);
 
-    if (smartTerrainId !== null && !this.smartTerrains.has(smartTerrainId)) {
+    if (smartTerrainId !== null && !this.smartTerrainDescriptors.has(smartTerrainId)) {
       if (!this.temporaryAssignedSquads.has(smartTerrainId)) {
         this.temporaryAssignedSquads.set(smartTerrainId, new LuaTable());
       }
@@ -238,30 +177,36 @@ export class SimulationBoardManager extends AbstractManager {
       return;
     }
 
-    let oldSmartTerrainId: Optional<TNumberId> = null;
+    const oldSmartTerrainId: Optional<TNumberId> = squad.assignedSmartTerrainId;
+    const oldSmartTerrainDescriptor: Optional<ISmartTerrainDescriptor> = oldSmartTerrainId
+      ? this.smartTerrainDescriptors.get(oldSmartTerrainId)
+      : null;
 
-    if (squad.assignedSmartTerrainId !== null) {
-      oldSmartTerrainId = squad.assignedSmartTerrainId;
-    }
+    if (oldSmartTerrainDescriptor) {
+      const oldSmartTerrain: SmartTerrain = oldSmartTerrainDescriptor.smartTerrain;
 
-    if (oldSmartTerrainId !== null && this.smartTerrains.has(oldSmartTerrainId)) {
-      const smartTerrain: SmartTerrain = this.smartTerrains.get(oldSmartTerrainId).smartTerrain;
+      oldSmartTerrainDescriptor.assignedSquads.delete(squad.id);
+      oldSmartTerrainDescriptor.assignedSquadsCount = this.getSmartTerrainAssignedSquadsCount(
+        oldSmartTerrainId as TNumberId
+      );
 
-      this.smartTerrains.get(oldSmartTerrainId).assignedSquads.delete(squad.id);
-      smartTerrain.mapDisplayManager.updateSmartTerrainMapSpot(smartTerrain);
+      oldSmartTerrain.mapDisplayManager.updateSmartTerrainMapSpot(oldSmartTerrain);
     }
 
     if (smartTerrainId === null) {
       squad.assignToSmartTerrain(null);
+    } else {
+      const newSmartTerrainDescriptor: ISmartTerrainDescriptor = this.smartTerrainDescriptors.get(smartTerrainId);
 
-      return;
+      squad.assignToSmartTerrain(newSmartTerrainDescriptor.smartTerrain);
+
+      newSmartTerrainDescriptor.assignedSquads.set(squad.id, squad);
+      newSmartTerrainDescriptor.assignedSquadsCount = this.getSmartTerrainAssignedSquadsCount(smartTerrainId);
+
+      newSmartTerrainDescriptor.smartTerrain.mapDisplayManager.updateSmartTerrainMapSpot(
+        newSmartTerrainDescriptor.smartTerrain
+      );
     }
-
-    const target: ISmartTerrainDescriptor = this.smartTerrains.get(smartTerrainId);
-
-    squad.assignToSmartTerrain(target.smartTerrain);
-    target.assignedSquads.set(squad.id, squad);
-    target.smartTerrain.mapDisplayManager.updateSmartTerrainMapSpot(target.smartTerrain);
   }
 
   /**
@@ -311,7 +256,6 @@ export class SimulationBoardManager extends AbstractManager {
   public releaseSquad(squad: Squad): void {
     simulationLogger.format("Release squad: '%s'.", squad.name());
 
-    this.exitSmartTerrain(squad, squad.assignedSmartTerrainId);
     this.assignSquadToSmartTerrain(squad, null);
 
     const squadMembers: LuaTable<TNumberId, boolean> = new LuaTable();
@@ -349,64 +293,6 @@ export class SimulationBoardManager extends AbstractManager {
    */
   public unRegisterSquad(squad: Squad): void {
     this.squads.delete(squad.id);
-  }
-
-  /**
-   * todo: Description.
-   */
-  public exitSmartTerrain(squad: Squad, smartTerrainId: Optional<TNumberId>): void {
-    simulationLogger.format("Exist smart terrain: '%s' x '%s'.", squad.name(), smartTerrainId);
-
-    if (smartTerrainId === null) {
-      return;
-    }
-
-    if (squad.enteredSmartTerrainId !== smartTerrainId) {
-      return;
-    }
-
-    squad.enteredSmartTerrainId = null;
-
-    const smartTerrainDescriptor: Optional<ISmartTerrainDescriptor> = this.smartTerrains.get(smartTerrainId);
-
-    if (smartTerrainDescriptor === null) {
-      abort("Smart null while smart_id not null [%s]", tostring(smartTerrainId));
-    }
-
-    smartTerrainDescriptor.stayingSquadsCount = smartTerrainDescriptor.stayingSquadsCount - 1;
-    smartTerrainDescriptor.assignedSquads.delete(squad.id);
-  }
-
-  /**
-   * todo: Description.
-   */
-  public enterSmartTerrain(squad: Squad, smartTerrainId: TNumberId): void {
-    if (!this.smartTerrains.has(smartTerrainId)) {
-      if (!this.temporaryEnteredSquads.has(smartTerrainId)) {
-        this.temporaryEnteredSquads.set(smartTerrainId, new LuaTable());
-      }
-
-      table.insert(this.temporaryEnteredSquads.get(smartTerrainId), squad);
-
-      return;
-    }
-
-    const smartTerrainDescriptor: ISmartTerrainDescriptor = this.smartTerrains.get(smartTerrainId);
-
-    simulationLogger.format(
-      "Enter smart terrain: '%s' -> '%s'.",
-      squad.name(),
-      smartTerrainDescriptor.smartTerrain.name()
-    );
-
-    if (squad.enteredSmartTerrainId) {
-      abort("Couldn't enter smart, still in old one. Squad: [%s]", squad.name());
-    }
-
-    squad.enteredSmartTerrainId = smartTerrainId;
-    squad.isItemListSpawned = false;
-
-    smartTerrainDescriptor.stayingSquadsCount = smartTerrainDescriptor.stayingSquadsCount + 1;
   }
 
   /**
@@ -462,15 +348,6 @@ export class SimulationBoardManager extends AbstractManager {
 
       this.temporaryAssignedSquads.delete(smartTerrain.id);
     }
-
-    // Resolve entered squads state.
-    if (this.temporaryEnteredSquads.has(smartTerrain.id)) {
-      for (const [, squad] of this.temporaryEnteredSquads.get(smartTerrain.id)) {
-        this.enterSmartTerrain(squad, smartTerrain.id);
-      }
-
-      this.temporaryEnteredSquads.delete(smartTerrain.id);
-    }
   }
 
   /**
@@ -502,11 +379,11 @@ export class SimulationBoardManager extends AbstractManager {
         const smartTerrainsNames: LuaArray<TName> = parseStringsList(value);
 
         for (const [, name] of smartTerrainsNames) {
-          const smartTerrain: Optional<SmartTerrain> = this.smartTerrainsByName.get(name);
+          const smartTerrain: Optional<SmartTerrain> = this.smartTerrains.get(name);
 
           assert(smartTerrain, "Wrong smart name '%s' in start position spawning.", name);
 
-          this.enterSmartTerrain(this.createSquad(smartTerrain, field), smartTerrain.id);
+          this.assignSquadToSmartTerrain(this.createSquad(smartTerrain, field), smartTerrain.id);
         }
       }
     }
@@ -522,12 +399,6 @@ export class SimulationBoardManager extends AbstractManager {
 
     if (actor_stats.remove_from_ranking !== null) {
       actor_stats.remove_from_ranking(ACTOR_ID);
-    }
-
-    if (this.factions !== null) {
-      for (const [, faction] of this.factions) {
-        GlobalSoundManager.getInstance().stopSoundByObjectId(faction.id);
-      }
     }
   }
 

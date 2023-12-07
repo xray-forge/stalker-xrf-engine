@@ -1,7 +1,7 @@
 import { danger_object } from "xray16";
 
 import { ILogicsOverrides, IRegistryObjectState, registry } from "@/engine/core/database";
-import { SimulationBoardManager } from "@/engine/core/managers/simulation/SimulationBoardManager";
+import { SimulationManager } from "@/engine/core/managers/simulation/SimulationManager";
 import { SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import { ESmartTerrainStatus } from "@/engine/core/objects/smart_terrain/smart_terrain_types";
 import { ISchemeCombatIgnoreState } from "@/engine/core/schemes/stalker/combat_ignore";
@@ -160,8 +160,7 @@ export function canObjectSelectAsEnemy(object: GameObject, enemy: GameObject): b
       const zone: Optional<GameObject> = registry.zones.get(name);
 
       if (zone && (isObjectInZone(object, zone) || isObjectInZone(enemy, zone))) {
-        const smartTerrain: Optional<SmartTerrain> =
-          SimulationBoardManager.getInstance().getSmartTerrainByName(storyId);
+        const smartTerrain: Optional<SmartTerrain> = SimulationManager.getInstance().getSmartTerrainByName(storyId);
 
         // Still allow combat if zone is set to alarm.
         if (

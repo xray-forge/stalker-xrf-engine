@@ -8,7 +8,7 @@ import {
   registerSimulator,
   registry,
 } from "@/engine/core/database";
-import { SimulationBoardManager } from "@/engine/core/managers/simulation/SimulationBoardManager";
+import { SimulationManager } from "@/engine/core/managers/simulation/SimulationManager";
 import { SmartTerrain, SmartTerrainControl } from "@/engine/core/objects/smart_terrain";
 import { ESmartTerrainStatus } from "@/engine/core/objects/smart_terrain/smart_terrain_types";
 import { ISchemeCombatIgnoreState } from "@/engine/core/schemes/stalker/combat_ignore";
@@ -190,7 +190,7 @@ describe("danger generic utils", () => {
 
     registry.zones.set("zat_a2_sr_no_assault", noCombatZone);
     jest.spyOn(noCombatZone, "inside").mockImplementation(() => true);
-    SimulationBoardManager.getInstance().registerSmartTerrain(noCombatSmart as SmartTerrain);
+    SimulationManager.getInstance().registerSmartTerrain(noCombatSmart as SmartTerrain);
 
     (noCombatSmart as SmartTerrain).smartTerrainActorControl = {
       status: ESmartTerrainStatus.NORMAL,

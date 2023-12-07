@@ -1,7 +1,12 @@
-import { TSimulationObject } from "@/engine/core/managers/simulation";
+import { registry } from "@/engine/core/database";
+import { IAvailableSimulationTargetDescriptor, TSimulationObject } from "@/engine/core/managers/simulation";
+import { SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import { Squad } from "@/engine/core/objects/squad";
+import { LuaLogger } from "@/engine/core/utils/logging";
 import { areObjectsOnSameLevel, getServerDistanceBetween } from "@/engine/core/utils/position";
-import { Optional, ServerObject, TDistance, TRate } from "@/engine/lib/types";
+import { LuaArray, Optional, ServerObject, TCount, TIndex, TNumberId, TRate } from "@/engine/lib/types";
+
+const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * Evaluates simulation priority by distance.
@@ -12,9 +17,7 @@ import { Optional, ServerObject, TDistance, TRate } from "@/engine/lib/types";
  * @returns priority evaluated by distance
  */
 export function evaluateSimulationPriorityByDistance(first: ServerObject, second: ServerObject): TRate {
-  const distance: TDistance = math.max(getServerDistanceBetween(first, second), 1);
-
-  return 1 + 1 / distance;
+  return 1 + 1 / math.max(getServerDistanceBetween(first, second), 1);
 }
 
 /**
@@ -44,4 +47,85 @@ export function evaluateSimulationPriority(target: TSimulationObject, squad: Squ
   }
 
   return priority * evaluateSimulationPriorityByDistance(target, squad);
+}
+
+/**
+ * Get all available simulation targets for an object.
+ * Targets are sorted by priority.
+ *
+ * @param squad - squad to get simulation targets for
+ * @returns list of possible simulation targets to pick with priorities
+ */
+export function getAvailableSimulationTargets(squad: Squad): LuaArray<IAvailableSimulationTargetDescriptor> {
+  const availableTargets: LuaArray<IAvailableSimulationTargetDescriptor> = new LuaTable();
+  const squadId: TNumberId = squad.id;
+
+  for (const [, target] of registry.simulationObjects) {
+    const priority: TRate = target.id === squadId ? 0 : evaluateSimulationPriority(target, squad);
+
+    if (priority > 0) {
+      table.insert(availableTargets, { priority: priority, target: target });
+    }
+  }
+
+  table.sort(availableTargets, (a, b) => a.priority > b.priority);
+
+  return availableTargets;
+}
+
+/**
+ * Get sliced available simulation targets for an object.
+ * Targets are sorted by priority and count / rotation is based on slice parameter.
+ *
+ * @param squad - squad to get simulation targets for
+ * @param slice - number of priority tasks to get
+ * @returns list of possible simulation targets to pick with priorities
+ */
+export function getSlicedSimulationTargets(
+  squad: Squad,
+  slice: TCount
+): LuaArray<IAvailableSimulationTargetDescriptor> {
+  const availableTargets: LuaArray<IAvailableSimulationTargetDescriptor> = new LuaTable();
+  const squadId: TNumberId = squad.id;
+
+  let index: TIndex = 1;
+
+  for (const [, target] of registry.simulationObjects) {
+    const priority: TRate = target.id === squadId ? 0 : evaluateSimulationPriority(target, squad);
+    const existing: Optional<IAvailableSimulationTargetDescriptor> = availableTargets.get(index);
+
+    if (priority > 0) {
+      if (existing && existing.priority < priority) {
+        existing.target = target;
+        existing.priority = priority;
+      } else {
+        availableTargets.set(index, { target, priority });
+      }
+
+      if (index === slice) {
+        index = 1;
+      } else {
+        index += 1;
+      }
+    }
+  }
+
+  table.sort(availableTargets, (a, b) => a.priority > b.priority);
+
+  return availableTargets;
+}
+
+/**
+ * Get simulation target for squad participating in alife.
+ *
+ * @param squad - squad to generate simulation target for
+ * @returns simulation object to target or null based on priorities
+ */
+export function getSquadSimulationTarget(squad: Squad): Optional<TSimulationObject> {
+  const availableTargets: LuaArray<IAvailableSimulationTargetDescriptor> = getSlicedSimulationTargets(squad, 5);
+  const availableTargetsCount: TCount = availableTargets.length();
+
+  return availableTargetsCount > 0
+    ? availableTargets.get(math.random(availableTargetsCount)).target
+    : (squad.assignedSmartTerrainId && registry.simulator.object<SmartTerrain>(squad.assignedSmartTerrainId)) || squad;
 }

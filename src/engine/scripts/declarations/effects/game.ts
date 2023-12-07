@@ -4,6 +4,7 @@ import { getPortableStoreValue, setPortableStoreValue } from "@/engine/core/data
 import { UpgradesManager } from "@/engine/core/managers/upgrades/UpgradesManager";
 import { extern } from "@/engine/core/utils/binding";
 import { executeConsoleCommand } from "@/engine/core/utils/console";
+import { disconnectFromGame } from "@/engine/core/utils/game";
 import { createGameAutoSave } from "@/engine/core/utils/game_save";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { consoleCommands } from "@/engine/lib/constants/console_commands";
@@ -51,12 +52,10 @@ extern(
 );
 
 /**
- * todo;
+ * Disconnect from game simulator.
+ * Stops current game and opens main manu.
  */
-extern("xr_effects.game_disconnect", (actor: GameObject, object: GameObject): void => {
-  logger.info("Game disconnect");
-  executeConsoleCommand(consoleCommands.disconnect);
-});
+extern("xr_effects.game_disconnect", (): void => disconnectFromGame());
 
 let isGameoverCreditsStarted: boolean = false;
 

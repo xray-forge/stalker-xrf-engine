@@ -15,7 +15,7 @@ export function isObjectArrivedToSmartTerrain(object: ServerCreatureObject, smar
   // Do squad based checks for object if possible.
   // todo: Check max u16 instead?
   const squad: Optional<Squad> =
-    object.group_id === null ? null : smartTerrain.simulationBoardManager.getSquads().get(object.group_id);
+    object.group_id === null ? null : smartTerrain.simulationManager.getSquads().get(object.group_id);
 
   if (squad) {
     const isSquadArrived: Optional<boolean> = isSquadArrivedToSmartTerrain(squad);

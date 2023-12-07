@@ -1,5 +1,4 @@
 import { jest } from "@jest/globals";
-import type { cse_alife_online_offline_group } from "xray16";
 
 import type { TConditionList } from "@/engine/core/utils/ini";
 import { TCommunity } from "@/engine/lib/constants/communities";
@@ -9,6 +8,7 @@ import {
   ServerGroupObject,
   ServerSquadMemberDescriptor,
   TCount,
+  TIndex,
   TNumberId,
 } from "@/engine/lib/types";
 import { MockAlifeSimulator } from "@/fixtures/xray";
@@ -37,6 +37,14 @@ export class MockAlifeOnlineOfflineGroup extends MockAlifeDynamicObject {
 
   public register_member(id: TNumberId): void {
     this.members.push({ id: id, object: MockAlifeSimulator.getFromRegistry(id) as ServerCreatureObject });
+  }
+
+  public unregister_member(id: TNumberId): void {
+    const index: TIndex = this.members.findIndex((it) => it.id === id);
+
+    if (index !== -1) {
+      this.members.splice(index, 1);
+    }
   }
 
   public clear_location_types(): void {}

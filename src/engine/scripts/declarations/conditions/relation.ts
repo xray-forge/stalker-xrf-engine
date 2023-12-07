@@ -34,7 +34,7 @@ const logger: LuaLogger = new LuaLogger($filename);
 extern(
   "xr_conditions.is_factions_enemies",
   (actor: GameObject, object: GameObject, [community]: [Optional<TCommunity>]): boolean => {
-    return community === null ? false : areCommunitiesEnemies(getObjectCommunity(actor), community);
+    return community === null ? false : areCommunitiesEnemies(getObjectCommunity(registry.actorServer), community);
   }
 );
 
@@ -49,8 +49,8 @@ extern(
     }
 
     return !(
-      areCommunitiesEnemies(getObjectCommunity(actor), community) ||
-      areCommunitiesFriendly(getObjectCommunity(actor), community)
+      areCommunitiesEnemies(getObjectCommunity(registry.actorServer), community) ||
+      areCommunitiesFriendly(getObjectCommunity(registry.actorServer), community)
     );
   }
 );
@@ -61,7 +61,7 @@ extern(
 extern(
   "xr_conditions.is_factions_friends",
   (actor: GameObject, object: GameObject, [community]: [Optional<TCommunity>]): boolean => {
-    return community === null ? false : areCommunitiesFriendly(getObjectCommunity(actor), community);
+    return community === null ? false : areCommunitiesFriendly(getObjectCommunity(registry.actorServer), community);
   }
 );
 

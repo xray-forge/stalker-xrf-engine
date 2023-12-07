@@ -3,7 +3,6 @@ import { SquadStayOnTargetAction } from "@/engine/core/objects/squad/action";
 import { Squad } from "@/engine/core/objects/squad/Squad";
 import { ESquadActionType } from "@/engine/core/objects/squad/squad_types";
 import { getSquadCommunity } from "@/engine/core/utils/community";
-import { getSquadMembersRelationToActor } from "@/engine/core/utils/relation";
 import { forgeConfig } from "@/engine/lib/configs/ForgeConfig";
 import { AlifeSimulator, TLabel } from "@/engine/lib/types";
 
@@ -29,9 +28,8 @@ export function getSquadMapDisplayHint(squad: Squad): TLabel {
     );
 
     hint += string.format(
-      "[smart_terrain]\\nassigned = %s\\nentered = %s\\n",
-      squad.assignedSmartTerrainId && simulator.object(squad.assignedSmartTerrainId)?.name(),
-      squad.enteredSmartTerrainId && simulator.object(squad.enteredSmartTerrainId)?.name()
+      "[smart_terrain]\\nassigned = %s\\n",
+      squad.assignedSmartTerrainId && simulator.object(squad.assignedSmartTerrainId)?.name()
     );
 
     hint += string.format(
@@ -50,12 +48,6 @@ export function getSquadMapDisplayHint(squad: Squad): TLabel {
         (squad.currentAction as SquadStayOnTargetAction).getStayIdleDuration()
       );
     }
-
-    hint += string.format(
-      "[relation]\\nsympathy = %s\\nrelationship = %s\\n",
-      squad.sympathy,
-      getSquadMembersRelationToActor(squad)
-    );
 
     return hint;
   } else {
