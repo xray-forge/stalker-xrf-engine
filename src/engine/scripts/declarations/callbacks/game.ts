@@ -30,10 +30,12 @@ extern("smart_covers", {
  */
 extern("outro", {
   conditions: gameOutroConfig.OUTRO_CONDITIONS,
-  start_bk_sound: () => GameOutroManager.getInstance().startBkSound(),
-  stop_bk_sound: () => GameOutroManager.getInstance().stopBkSound(),
-  update_bk_sound_fade_start: (factor: number) => GameOutroManager.getInstance().updateBkSoundFadeStart(factor),
-  update_bk_sound_fade_stop: (factor: number) => GameOutroManager.getInstance().updateBkSoundFadeStop(factor),
+  start_bk_sound: () => GameOutroManager.getInstance().startBlackScreenAndSound(),
+  stop_bk_sound: () => GameOutroManager.getInstance().stopBlackScreenAndSound(),
+  update_bk_sound_fade_start: (factor: number) =>
+    GameOutroManager.getInstance().updateBlackScreenAndSoundFadeStart(factor),
+  update_bk_sound_fade_stop: (factor: number) =>
+    GameOutroManager.getInstance().updateBlackScreenAndSoundFadeStop(factor),
 });
 
 /**

@@ -5,7 +5,7 @@ export const gameOutroConfig = {
   VOLUME_MAX: 1.0,
   VOLUME_MIN: 0.3,
   /**
-   * todo: Use utils to check multiple
+   * todo: Use utils to check multiple conditions at once
    */
   OUTRO_CONDITIONS: {
     // -- 4a

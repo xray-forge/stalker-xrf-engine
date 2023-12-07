@@ -8,5 +8,6 @@ import { MockCTime } from "@/fixtures/xray/mocks/CTime.mock";
 export const mockGameInterface = {
   CTime: jest.fn(() => MockCTime.now()),
   get_game_time: jest.fn(() => MockCTime.now()),
+  start_tutorial: jest.fn(() => {}),
   translate_string: jest.fn((key: string) => "translated_" + key),
 };

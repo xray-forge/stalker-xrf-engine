@@ -35,27 +35,27 @@ describe("game external callbacks", () => {
   it("outro callbacks should be defined", () => {
     const outroManager: GameOutroManager = GameOutroManager.getInstance();
 
-    jest.spyOn(outroManager, "startBkSound").mockImplementation(jest.fn());
-    jest.spyOn(outroManager, "stopBkSound").mockImplementation(jest.fn());
-    jest.spyOn(outroManager, "updateBkSoundFadeStart").mockImplementation(jest.fn());
-    jest.spyOn(outroManager, "updateBkSoundFadeStop").mockImplementation(jest.fn());
+    jest.spyOn(outroManager, "startBlackScreenAndSound").mockImplementation(jest.fn());
+    jest.spyOn(outroManager, "stopBlackScreenAndSound").mockImplementation(jest.fn());
+    jest.spyOn(outroManager, "updateBlackScreenAndSoundFadeStart").mockImplementation(jest.fn());
+    jest.spyOn(outroManager, "updateBlackScreenAndSoundFadeStop").mockImplementation(jest.fn());
 
     const callOutroBinding = (name: TName, args: AnyArgs = []) => callBinding(name, args, (_G as AnyObject)["outro"]);
 
     expect((_G as AnyObject)["outro"]["conditions"]).toBe(gameOutroConfig.OUTRO_CONDITIONS);
 
     callOutroBinding("start_bk_sound");
-    expect(outroManager.startBkSound).toHaveBeenCalled();
+    expect(outroManager.startBlackScreenAndSound).toHaveBeenCalled();
 
     callOutroBinding("stop_bk_sound");
-    expect(outroManager.stopBkSound).toHaveBeenCalled();
+    expect(outroManager.stopBlackScreenAndSound).toHaveBeenCalled();
 
     callOutroBinding("update_bk_sound_fade_start", [25]);
-    expect(outroManager.updateBkSoundFadeStart).toHaveBeenCalledWith(25);
-    expect(outroManager.stopBkSound).toHaveBeenCalled();
+    expect(outroManager.updateBlackScreenAndSoundFadeStart).toHaveBeenCalledWith(25);
+    expect(outroManager.stopBlackScreenAndSound).toHaveBeenCalled();
 
     callOutroBinding("update_bk_sound_fade_stop", [35]);
-    expect(outroManager.updateBkSoundFadeStop).toHaveBeenCalledWith(35);
+    expect(outroManager.updateBlackScreenAndSoundFadeStop).toHaveBeenCalledWith(35);
   });
 
   it("trade manager callbacks should be defined", () => {
