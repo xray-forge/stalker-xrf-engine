@@ -1,7 +1,13 @@
 import { level, patrol } from "xray16";
 
 import { AnomalyZoneBinder } from "@/engine/core/binders";
-import { getObjectByStoryId, getObjectIdByStoryId, IRegistryObjectState, registry } from "@/engine/core/database";
+import {
+  getManager,
+  getObjectByStoryId,
+  getObjectIdByStoryId,
+  IRegistryObjectState,
+  registry,
+} from "@/engine/core/database";
 import { SimulationManager } from "@/engine/core/managers/simulation/SimulationManager";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import { soundsConfig } from "@/engine/core/managers/sounds/SoundsConfig";
@@ -50,7 +56,7 @@ extern(
   ): void => {
     const theme: Optional<TName> = p[0];
     const faction: Optional<TCommunity> = p[1];
-    const smartTerrain: SmartTerrain = SimulationManager.getInstance().getSmartTerrainByName(
+    const smartTerrain: SmartTerrain = getManager(SimulationManager).getSmartTerrainByName(
       p[2] as TName
     ) as SmartTerrain;
     const smartTerrainId: TNumberId = smartTerrain !== null ? smartTerrain.id : (p[2] as TNumberId);
@@ -66,7 +72,7 @@ extern(
       }
     }
 
-    GlobalSoundManager.getInstance().playSound(object.id(), theme, faction, smartTerrainId);
+    getManager(GlobalSoundManager).playSound(object.id(), theme, faction, smartTerrainId);
   }
 );
 
@@ -74,21 +80,21 @@ extern(
  * todo;
  */
 extern("xr_effects.stop_sound", (actor: GameObject, object: GameObject): void => {
-  GlobalSoundManager.getInstance().stopSoundByObjectId(object.id());
+  getManager(GlobalSoundManager).stopSoundByObjectId(object.id());
 });
 
 /**
  * todo;
  */
 extern("xr_effects.play_sound_looped", (actor: GameObject, object: GameObject, params: [string]): void => {
-  GlobalSoundManager.getInstance().playLoopedSound(object.id(), params[0]);
+  getManager(GlobalSoundManager).playLoopedSound(object.id(), params[0]);
 });
 
 /**
  * todo;
  */
 extern("xr_effects.stop_sound_looped", (actor: GameObject, object: GameObject) => {
-  GlobalSoundManager.getInstance().stopLoopedSound(object.id(), null);
+  getManager(GlobalSoundManager).stopLoopedSound(object.id(), null);
 });
 
 /**
@@ -101,10 +107,10 @@ extern(
     const theme: TName = p[1];
     const faction: TName = p[2];
 
-    const smartTerrain: Optional<SmartTerrain> = SimulationManager.getInstance().getSmartTerrainByName(p[3] as TName);
+    const smartTerrain: Optional<SmartTerrain> = getManager(SimulationManager).getSmartTerrainByName(p[3] as TName);
     const smartTerrainId: TNumberId = smartTerrain !== null ? smartTerrain.id : (p[3] as number);
 
-    GlobalSoundManager.getInstance().playSound(storyObjectId as number, theme, faction, smartTerrainId);
+    getManager(GlobalSoundManager).playSound(storyObjectId as number, theme, faction, smartTerrainId);
   }
 );
 
@@ -162,7 +168,7 @@ extern("xr_effects.set_game_time", (actor: GameObject, object: GameObject, param
   }
 
   level.change_game_time(0, hoursToChange, minutesToChange);
-  WeatherManager.getInstance().forceWeatherChange();
+  getManager(WeatherManager).forceWeatherChange();
   surgeConfig.IS_TIME_FORWARDED = true;
 });
 
@@ -184,7 +190,7 @@ extern("xr_effects.forward_game_time", (actor: GameObject, object: GameObject, p
   }
 
   level.change_game_time(0, hours, minutes);
-  WeatherManager.getInstance().forceWeatherChange();
+  getManager(WeatherManager).forceWeatherChange();
   surgeConfig.IS_TIME_FORWARDED = true;
 });
 
@@ -432,7 +438,7 @@ extern(
  */
 extern("xr_effects.start_surge", (): void => {
   logger.info("Start surge");
-  SurgeManager.getInstance().requestSurgeStart();
+  getManager(SurgeManager).requestSurgeStart();
 });
 
 /**
@@ -440,7 +446,7 @@ extern("xr_effects.start_surge", (): void => {
  */
 extern("xr_effects.stop_surge", (): void => {
   logger.info("Stop surge");
-  SurgeManager.getInstance().requestSurgeStop();
+  getManager(SurgeManager).requestSurgeStop();
 });
 
 /**
@@ -449,7 +455,7 @@ extern("xr_effects.stop_surge", (): void => {
 extern(
   "xr_effects.set_surge_mess_and_task",
   (actor: GameObject, object: GameObject, p: [string, Optional<string>]): void => {
-    const surgeManager: SurgeManager = SurgeManager.getInstance();
+    const surgeManager: SurgeManager = getManager(SurgeManager);
 
     surgeManager.setSurgeMessage(p[0]);
 

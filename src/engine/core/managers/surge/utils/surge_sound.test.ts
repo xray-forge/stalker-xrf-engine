@@ -19,7 +19,7 @@ describe("surge_sound utils", () => {
   });
 
   it("playSurgeStartingSound should correctly play sound", () => {
-    const manager: GlobalSoundManager = GlobalSoundManager.getInstance();
+    const manager: GlobalSoundManager = getManager(GlobalSoundManager);
 
     jest.spyOn(manager, "playSound").mockImplementation(() => null);
 
@@ -41,7 +41,7 @@ describe("surge_sound utils", () => {
   });
 
   it("playSurgeWillHappenSoonSound should correctly play sound", () => {
-    const manager: GlobalSoundManager = GlobalSoundManager.getInstance();
+    const manager: GlobalSoundManager = getManager(GlobalSoundManager);
 
     jest.spyOn(manager, "playSound").mockImplementation(() => null);
 
@@ -63,7 +63,7 @@ describe("surge_sound utils", () => {
   });
 
   it("playSurgeEndedSound should correctly play sound", () => {
-    const manager: GlobalSoundManager = GlobalSoundManager.getInstance();
+    const manager: GlobalSoundManager = getManager(GlobalSoundManager);
 
     jest.spyOn(manager, "playSound").mockImplementation(() => null);
 

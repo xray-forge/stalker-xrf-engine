@@ -76,7 +76,7 @@ describe("ItemEatable server class", () => {
   });
 
   it("should correctly emit lifecycle events", () => {
-    const eventsManager: EventsManager = EventsManager.getInstance();
+    const eventsManager: EventsManager = getManager(EventsManager);
     const itemEatable: ItemEatable = new ItemEatable("test-section");
 
     const onItemEatableRegister = jest.fn();

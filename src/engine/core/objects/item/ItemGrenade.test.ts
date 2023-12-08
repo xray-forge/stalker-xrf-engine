@@ -76,7 +76,7 @@ describe("ItemGrenade server class", () => {
   });
 
   it("should correctly emit lifecycle events", () => {
-    const eventsManager: EventsManager = EventsManager.getInstance();
+    const eventsManager: EventsManager = getManager(EventsManager);
     const itemExplosive: ItemGrenade = new ItemGrenade("test-section");
 
     const onItemGrenadeRegister = jest.fn();

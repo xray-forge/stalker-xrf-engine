@@ -3,6 +3,7 @@ import { CALifeSmartTerrainTask, cse_alife_creature_actor, LuabindClass } from "
 import {
   closeLoadMarker,
   closeSaveMarker,
+  getManager,
   openSaveMarker,
   registerActorServer,
   registerStoryLink,
@@ -56,7 +57,7 @@ export class Actor extends cse_alife_creature_actor implements ISimulationTarget
     registerStoryLink(this.id, ACTOR);
     registerSimulationObject(this);
 
-    SimulationManager.getInstance().onActorRegister();
+    getManager(SimulationManager).onActorRegister();
 
     EventsManager.emitEvent(EGameEvent.ACTOR_REGISTER, this);
   }
@@ -77,7 +78,7 @@ export class Actor extends cse_alife_creature_actor implements ISimulationTarget
     super.STATE_Write(packet);
 
     openSaveMarker(packet, Actor.__name);
-    SaveManager.getInstance().serverSave(packet);
+    getManager(SaveManager).serverSave(packet);
     closeSaveMarker(packet, Actor.__name);
   }
 
@@ -85,7 +86,7 @@ export class Actor extends cse_alife_creature_actor implements ISimulationTarget
     super.STATE_Read(packet, size);
 
     openLoadMarker(packet, Actor.__name);
-    SaveManager.getInstance().serverLoad(packet);
+    getManager(SaveManager).serverLoad(packet);
     closeLoadMarker(packet, Actor.__name);
   }
 
@@ -131,9 +132,9 @@ export class Actor extends cse_alife_creature_actor implements ISimulationTarget
       const zone: GameObject = registry.zones.get(zoneName);
 
       if (zone !== null && zone.inside(this.position)) {
-        const smartTerrain: Optional<SmartTerrain> = SimulationManager.getInstance().getSmartTerrainByName(smartName);
+        const smartTerrain: Optional<SmartTerrain> = getManager(SimulationManager).getSmartTerrainByName(smartName);
 
-        if (smartTerrain !== null && smartTerrain.smartTerrainActorControl?.status !== ESmartTerrainStatus.ALARM) {
+        if (smartTerrain && smartTerrain.smartTerrainActorControl?.status !== ESmartTerrainStatus.ALARM) {
           return false;
         }
       }
@@ -183,6 +184,6 @@ export class Actor extends cse_alife_creature_actor implements ISimulationTarget
       softResetOfflineObject(squadMember.id);
     }
 
-    SimulationManager.getInstance().assignSquadToSmartTerrain(squad, null);
+    getManager(SimulationManager).assignSquadToSmartTerrain(squad, null);
   }
 }

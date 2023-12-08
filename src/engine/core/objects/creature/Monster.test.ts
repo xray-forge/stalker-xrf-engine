@@ -5,7 +5,7 @@ import { Monster } from "@/engine/core/objects/creature/Monster";
 
 describe("Monster server object", () => {
   it("should correctly emit lifecycle events", () => {
-    const eventsManager: EventsManager = EventsManager.getInstance();
+    const eventsManager: EventsManager = getManager(EventsManager);
     const monster: Monster = new Monster("monster");
 
     const onMonsterRegister = jest.fn();

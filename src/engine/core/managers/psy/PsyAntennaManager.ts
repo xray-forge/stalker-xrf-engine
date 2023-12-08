@@ -1,6 +1,13 @@
 import { get_hud, hit, level, sound_object, StaticDrawableWrapper, time_global } from "xray16";
 
-import { closeLoadMarker, closeSaveMarker, disposeManager, openSaveMarker, registry } from "@/engine/core/database";
+import {
+  closeLoadMarker,
+  closeSaveMarker,
+  disposeManager,
+  getManager,
+  openSaveMarker,
+  registry,
+} from "@/engine/core/database";
 import { getWeakManager, isManagerInitialized } from "@/engine/core/database/managers";
 import { openLoadMarker } from "@/engine/core/database/save_markers";
 import { AbstractManager } from "@/engine/core/managers/base/AbstractManager";
@@ -48,7 +55,7 @@ export class PsyAntennaManager extends AbstractManager {
         abort("PsyAntennaManager already exists!");
       }
 
-      PsyAntennaManager.getInstance().load(reader);
+      getManager(PsyAntennaManager).load(reader);
     }
 
     closeLoadMarker(reader, PsyAntennaManager.name + "_static");
@@ -114,14 +121,14 @@ export class PsyAntennaManager extends AbstractManager {
   }
 
   public override initialize(): void {
-    const eventsManager: EventsManager = EventsManager.getInstance();
+    const eventsManager: EventsManager = getManager(EventsManager);
 
     eventsManager.registerCallback(EGameEvent.ACTOR_UPDATE, this.update, this);
     eventsManager.registerCallback(EGameEvent.ACTOR_GO_OFFLINE, this.dispose, this);
   }
 
   public override destroy(): void {
-    const eventsManager: EventsManager = EventsManager.getInstance();
+    const eventsManager: EventsManager = getManager(EventsManager);
 
     eventsManager.unregisterCallback(EGameEvent.ACTOR_UPDATE, this.update);
     eventsManager.unregisterCallback(EGameEvent.ACTOR_GO_OFFLINE, this.dispose);
@@ -156,7 +163,7 @@ export class PsyAntennaManager extends AbstractManager {
 
       if (math.random() < this.phantomSpawnProbability) {
         const actor: GameObject = registry.actor;
-        const phantomManager: PhantomManager = PhantomManager.getInstance();
+        const phantomManager: PhantomManager = getManager(PhantomManager);
 
         if (phantomManager.phantomsCount < this.phantomMax) {
           const radius: TDistance = this.phantomSpawnRadius * (math.random() * 0.5 + 0.5);

@@ -1,3 +1,4 @@
+import { getManager } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { onItemGoOnlineFirstTime } from "@/engine/extensions/enhanced_items_drop/enhanced_items_drop_utils";
@@ -15,7 +16,7 @@ export const enabled: boolean = false;
 export function register(): void {
   logger.info("Enhanced treasures activated");
 
-  const eventsManager: EventsManager = EventsManager.getInstance();
+  const eventsManager: EventsManager = getManager(EventsManager);
 
   eventsManager.registerCallback(EGameEvent.ITEM_WEAPON_GO_ONLINE_FIRST_TIME, onItemGoOnlineFirstTime);
   eventsManager.registerCallback(EGameEvent.ITEM_OUTFIT_GO_ONLINE_FIRST_TIME, onItemGoOnlineFirstTime);

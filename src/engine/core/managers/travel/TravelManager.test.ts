@@ -23,7 +23,7 @@ describe("TravelManager class", () => {
   });
 
   it("should correctly initialize callbacks", () => {
-    const eventsManager: EventsManager = EventsManager.getInstance();
+    const eventsManager: EventsManager = getManager(EventsManager);
     const manager: TravelManager = TravelManager.getInstance();
 
     manager.initialize();

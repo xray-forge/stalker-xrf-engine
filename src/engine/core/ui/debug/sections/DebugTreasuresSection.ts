@@ -1,6 +1,6 @@
 import { CUI3tButton, CUIEditBox, CUIListBox, CUIStatic, game, level, LuabindClass, ui_events } from "xray16";
 
-import { registry } from "@/engine/core/database";
+import { getManager, registry } from "@/engine/core/database";
 import { StatisticsManager } from "@/engine/core/managers/statistics";
 import { ITreasureDescriptor, treasureConfig, TreasureManager } from "@/engine/core/managers/treasures";
 import { AbstractDebugSection } from "@/engine/core/ui/debug/sections/AbstractDebugSection";
@@ -108,8 +108,8 @@ export class DebugTreasuresSection extends AbstractDebugSection {
    * Initialize section state from current state.
    */
   public override initializeState(): void {
-    const treasureManager: TreasureManager = TreasureManager.getInstance();
-    const statisticManager: StatisticsManager = StatisticsManager.getInstance();
+    const treasureManager: TreasureManager = getManager(TreasureManager);
+    const statisticManager: StatisticsManager = getManager(StatisticsManager);
 
     this.uiTotalTreasuresLabel
       .TextControl()
@@ -138,9 +138,7 @@ export class DebugTreasuresSection extends AbstractDebugSection {
    * @returns label with debug information for the treasure
    */
   public getTreasureDescription(section: Optional<TSection>): TLabel {
-    const treasureManager: TreasureManager = TreasureManager.getInstance();
-
-    if (section !== null) {
+    if (section) {
       const treasure: ITreasureDescriptor = treasureConfig.TREASURES.get(section);
 
       let totalItems: TCount = 0;
@@ -191,7 +189,7 @@ export class DebugTreasuresSection extends AbstractDebugSection {
       return;
     }
 
-    const treasureManager: TreasureManager = TreasureManager.getInstance();
+    const treasureManager: TreasureManager = getManager(TreasureManager);
     const restrictorId: Optional<TNumberId> = treasureManager.treasuresRestrictorByName.get(this.currentSection);
     const object: Optional<ServerObject> = restrictorId === null ? null : registry.simulator.object(restrictorId);
 
@@ -213,7 +211,7 @@ export class DebugTreasuresSection extends AbstractDebugSection {
     logger.info("onGiveAllTreasuresButtonClicked");
 
     if (isGameStarted()) {
-      TreasureManager.getInstance().giveActorAllTreasureCoordinates();
+      getManager(TreasureManager).giveActorAllTreasureCoordinates();
     }
   }
 
@@ -222,7 +220,7 @@ export class DebugTreasuresSection extends AbstractDebugSection {
    */
   public onGiveRandomTreasuresButtonClicked(): void {
     if (isGameStarted()) {
-      TreasureManager.getInstance().giveActorRandomTreasureCoordinates();
+      getManager(TreasureManager).giveActorRandomTreasureCoordinates();
     }
   }
 
@@ -234,6 +232,6 @@ export class DebugTreasuresSection extends AbstractDebugSection {
       return;
     }
 
-    TreasureManager.getInstance().giveActorTreasureCoordinates(this.currentSection);
+    getManager(TreasureManager).giveActorTreasureCoordinates(this.currentSection);
   }
 }

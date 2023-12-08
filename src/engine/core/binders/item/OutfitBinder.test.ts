@@ -45,7 +45,7 @@ describe("HelmetBinder class", () => {
   });
 
   it("should correctly emit lifecycle signals", () => {
-    const eventsManager: EventsManager = EventsManager.getInstance();
+    const eventsManager: EventsManager = getManager(EventsManager);
     const binder: OutfitBinder = new OutfitBinder(MockGameObject.mock());
 
     const onGoOnlineFirstTime = jest.fn();

@@ -3,6 +3,7 @@ import { CALifeSmartTerrainTask, cse_alife_online_offline_group, LuabindClass } 
 import {
   closeLoadMarker,
   closeSaveMarker,
+  getManager,
   openLoadMarker,
   openSaveMarker,
   registerObjectStoryLinks,
@@ -76,8 +77,8 @@ const simulationLogger: LuaLogger = new LuaLogger($filename, { file: "simulation
  */
 @LuabindClass()
 export class Squad extends cse_alife_online_offline_group implements ISimulationTarget {
-  public readonly mapDisplayManager: MapDisplayManager = MapDisplayManager.getInstance();
-  public readonly simulationManager: SimulationManager = SimulationManager.getInstance();
+  public readonly mapDisplayManager: MapDisplayManager = getManager(MapDisplayManager);
+  public readonly simulationManager: SimulationManager = getManager(SimulationManager);
   public readonly soundManager: StoryManager = getStoryManager(`squad_${this.section_name()}`);
 
   public isSimulationAvailableConditionList: TConditionList = parseConditionsList(TRUE);

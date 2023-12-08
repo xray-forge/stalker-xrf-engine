@@ -1,7 +1,13 @@
 import { action_base, hit, LuabindClass, time_global } from "xray16";
 
 import { EStalkerState } from "@/engine/core/animation/types";
-import { getPortableStoreValue, registry, setPortableStoreValue, setStalkerState } from "@/engine/core/database";
+import {
+  getManager,
+  getPortableStoreValue,
+  registry,
+  setPortableStoreValue,
+  setStalkerState,
+} from "@/engine/core/database";
 import { registerWoundedObject, unRegisterWoundedObject } from "@/engine/core/database/wounded";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import { ISchemeWoundedState } from "@/engine/core/schemes/stalker/wounded";
@@ -113,10 +119,7 @@ export class ActionWounded extends action_base {
 
     // Play call for help not more often than once per 5 seconds.
     if (now > this.nextSoundPlayAt) {
-      GlobalSoundManager.getInstance().playSound(
-        this.object.id(),
-        woundManagerSound === NIL ? null : woundManagerSound
-      );
+      getManager(GlobalSoundManager).playSound(this.object.id(), woundManagerSound === NIL ? null : woundManagerSound);
 
       this.nextSoundPlayAt = now + schemeWoundedConfig.CALL_FOR_HELP_PERIOD;
     }

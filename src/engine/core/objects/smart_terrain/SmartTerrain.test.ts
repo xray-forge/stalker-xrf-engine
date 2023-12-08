@@ -84,7 +84,7 @@ describe("SmartTerrain class generic logic", () => {
   });
 
   it("should correctly emit registering lifecycle events", () => {
-    const eventsManager: EventsManager = EventsManager.getInstance();
+    const eventsManager: EventsManager = getManager(EventsManager);
     const smartTerrain: SmartTerrain = mockSmartTerrain();
 
     const onSmartTerrainRegister = jest.fn();

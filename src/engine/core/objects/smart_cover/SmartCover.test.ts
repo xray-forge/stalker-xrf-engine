@@ -14,7 +14,7 @@ describe("SmartCover server object", () => {
   });
 
   it("should correctly emit lifecycle events", () => {
-    const eventsManager: EventsManager = EventsManager.getInstance();
+    const eventsManager: EventsManager = getManager(EventsManager);
     const smartCover: SmartCover = new SmartCover("monster");
 
     const onSmartCoverRegister = jest.fn();

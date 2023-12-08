@@ -9,7 +9,7 @@ import {
   ui_events,
 } from "xray16";
 
-import { registry } from "@/engine/core/database";
+import { getManager, registry } from "@/engine/core/database";
 import { TaskManager } from "@/engine/core/managers/tasks";
 import { TASK_MANAGER_CONFIG_LTX } from "@/engine/core/managers/tasks/TaskConfig";
 import { AbstractDebugSection } from "@/engine/core/ui/debug/sections/AbstractDebugSection";
@@ -62,7 +62,7 @@ export class DebugTaskSection extends AbstractDebugSection {
   public override initializeState(): void {
     this.uiTaskFilterActive.SetCheck(this.filterIsActive);
 
-    const taskManager: TaskManager = TaskManager.getInstance();
+    const taskManager: TaskManager = getManager(TaskManager);
 
     if (isGameStarted()) {
       let total: TCount = 0;
@@ -104,7 +104,7 @@ export class DebugTaskSection extends AbstractDebugSection {
   public onGiveTask(): void {
     if (this.selectedTaskId) {
       logger.info("Give task:", this.selectedTaskId);
-      TaskManager.getInstance().giveTask(this.selectedTaskId);
+      getManager(TaskManager).giveTask(this.selectedTaskId);
     } else {
       logger.info("No task to give");
     }

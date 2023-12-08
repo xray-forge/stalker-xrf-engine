@@ -3,6 +3,7 @@ import { callback, CHelicopter, clsid, level, LuabindClass, object_binder, time_
 import {
   closeLoadMarker,
   closeSaveMarker,
+  getManager,
   IBaseSchemeState,
   IRegistryObjectState,
   openLoadMarker,
@@ -106,7 +107,7 @@ export class HelicopterBinder extends object_binder {
 
     this.checkHealth();
 
-    GlobalSoundManager.getInstance().update(this.object.id());
+    getManager(GlobalSoundManager).update(this.object.id());
   }
 
   public override net_spawn(object: ServerObject): boolean {

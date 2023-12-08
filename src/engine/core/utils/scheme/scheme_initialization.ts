@@ -2,6 +2,7 @@ import { ini_file } from "xray16";
 
 import {
   CUSTOM_DATA,
+  getManager,
   getObjectLogicIniConfig,
   IBaseSchemeState,
   IRegistryObjectState,
@@ -129,7 +130,7 @@ export function configureObjectSchemes(
 
   // todo: Move to separate activation methods?
   if (schemeType === ESchemeType.STALKER) {
-    TradeManager.getInstance().initializeForObject(object, readObjectTradeIniPath(actualIni, logicsSection));
+    getManager(TradeManager).initializeForObject(object, readObjectTradeIniPath(actualIni, logicsSection));
 
     initializeObjectSectionItems(object, state);
   }

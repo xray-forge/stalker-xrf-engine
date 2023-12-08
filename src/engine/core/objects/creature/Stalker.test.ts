@@ -58,7 +58,7 @@ describe("Stalker server object", () => {
   });
 
   it("should correctly handle register", () => {
-    const eventsManager: EventsManager = EventsManager.getInstance();
+    const eventsManager: EventsManager = getManager(EventsManager);
     const stalker: Stalker = new Stalker("stalker");
     const fn = jest.fn();
 
@@ -89,7 +89,7 @@ describe("Stalker server object", () => {
   });
 
   it("should correctly handle unregister", () => {
-    const eventsManager: EventsManager = EventsManager.getInstance();
+    const eventsManager: EventsManager = getManager(EventsManager);
     const stalker: Stalker = new Stalker("stalker");
     const fn = jest.fn();
 
@@ -129,7 +129,7 @@ describe("Stalker server object", () => {
     smartTerrain.register_npc = jest.fn();
     smartTerrain.unregister_npc = jest.fn();
 
-    SimulationManager.getInstance().registerSmartTerrain(smartTerrain);
+    getManager(SimulationManager).registerSmartTerrain(smartTerrain);
 
     stalker.on_register();
     stalker.on_unregister();
@@ -139,7 +139,7 @@ describe("Stalker server object", () => {
   });
 
   it("should correctly handle spawn", () => {
-    const eventsManager: EventsManager = EventsManager.getInstance();
+    const eventsManager: EventsManager = getManager(EventsManager);
     const stalker: Stalker = new Stalker("stalker");
     const fn = jest.fn();
 

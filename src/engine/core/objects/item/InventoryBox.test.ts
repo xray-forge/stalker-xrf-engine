@@ -76,7 +76,7 @@ describe("InventoryBox server class", () => {
   });
 
   it("should correctly emit lifecycle events", () => {
-    const eventsManager: EventsManager = EventsManager.getInstance();
+    const eventsManager: EventsManager = getManager(EventsManager);
     const inventoryBox: InventoryBox = new InventoryBox("test-section");
 
     const onInventoryBoxRegister = jest.fn();

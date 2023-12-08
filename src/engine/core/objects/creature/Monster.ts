@@ -1,6 +1,7 @@
 import { cse_alife_monster_base, level, LuabindClass } from "xray16";
 
 import {
+  getManager,
   hardResetOfflineObject,
   IRegistryOfflineState,
   registerObjectStoryLinks,
@@ -52,7 +53,7 @@ export class Monster extends cse_alife_monster_base {
 
     registerObjectStoryLinks(this);
 
-    const simulationBoardManager: SimulationManager = SimulationManager.getInstance();
+    const simulationBoardManager: SimulationManager = getManager(SimulationManager);
 
     registerOfflineObject(this.id);
 

@@ -32,7 +32,7 @@ describe("PhysicObjectBinder class", () => {
 
   it("should correctly handle going online/offline with defaults", () => {
     const binder: PhysicObjectBinder = new PhysicObjectBinder(MockGameObject.mock());
-    const soundManager: GlobalSoundManager = GlobalSoundManager.getInstance();
+    const soundManager: GlobalSoundManager = getManager(GlobalSoundManager);
 
     jest.spyOn(soundManager, "stopSoundByObjectId").mockImplementation(jest.fn());
 
@@ -56,7 +56,7 @@ describe("PhysicObjectBinder class", () => {
 
   it("should correctly handle with extended config", () => {
     const binder: PhysicObjectBinder = new PhysicObjectBinder(MockGameObject.mock());
-    const soundManager: GlobalSoundManager = GlobalSoundManager.getInstance();
+    const soundManager: GlobalSoundManager = getManager(GlobalSoundManager);
 
     jest.spyOn(soundManager, "stopSoundByObjectId").mockImplementation(jest.fn());
     jest.spyOn(binder.object, "spawn_ini").mockImplementation(() => {

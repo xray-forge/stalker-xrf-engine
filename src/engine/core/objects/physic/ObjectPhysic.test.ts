@@ -72,7 +72,7 @@ describe("ObjectPhysic server class", () => {
   });
 
   it("should correctly emit lifecycle events", () => {
-    const eventsManager: EventsManager = EventsManager.getInstance();
+    const eventsManager: EventsManager = getManager(EventsManager);
     const object: ObjectPhysic = new ObjectPhysic("test-section");
 
     const obObjectRegister = jest.fn();

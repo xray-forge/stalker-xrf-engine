@@ -38,7 +38,7 @@ describe("SleepManager class", () => {
   it("should correctly show and initialize sleep dialog", () => {
     expect(sleepConfig.SLEEP_DIALOG).toBeNull();
 
-    const sleepManager: SleepManager = SleepManager.getInstance();
+    const sleepManager: SleepManager = getManager(SleepManager);
 
     sleepManager.showSleepDialog();
 
@@ -48,7 +48,7 @@ describe("SleepManager class", () => {
   });
 
   it("should correctly show and initialize sleep dialog if already dialog exists", () => {
-    const sleepManager: SleepManager = SleepManager.getInstance();
+    const sleepManager: SleepManager = getManager(SleepManager);
     const sleepDialog: SleepDialog = new SleepDialog(sleepManager);
 
     sleepConfig.SLEEP_DIALOG = sleepDialog;
@@ -77,9 +77,9 @@ describe("SleepManager class", () => {
       return 1;
     });
 
-    const sleepManager: SleepManager = SleepManager.getInstance();
-    const surgeManager: SurgeManager = SurgeManager.getInstance();
-    const actorInputManager: ActorInputManager = ActorInputManager.getInstance();
+    const sleepManager: SleepManager = getManager(SleepManager);
+    const surgeManager: SurgeManager = getManager(SurgeManager);
+    const actorInputManager: ActorInputManager = getManager(ActorInputManager);
 
     jest.spyOn(actorInputManager, "disableGameUi").mockImplementation(jest.fn());
     jest.spyOn(surgeManager, "setSkipResurrectMessage").mockImplementation(jest.fn());
@@ -116,9 +116,9 @@ describe("SleepManager class", () => {
 
     surgeConfig.IS_STARTED = true;
 
-    const sleepManager: SleepManager = SleepManager.getInstance();
+    const sleepManager: SleepManager = getManager(SleepManager);
     const weatherManager: WeatherManager = WeatherManager.getInstance();
-    const eventsManager: EventsManager = EventsManager.getInstance();
+    const eventsManager: EventsManager = getManager(EventsManager);
 
     jest.spyOn(weatherManager, "forceWeatherChange").mockImplementation(jest.fn());
     jest.spyOn(eventsManager, "emitEvent").mockImplementation(jest.fn());
@@ -148,9 +148,9 @@ describe("SleepManager class", () => {
     mockRegisteredActor();
 
     const console: Console = MockConsole.getInstanceMock();
-    const sleepManager: SleepManager = SleepManager.getInstance();
-    const actorInputManager: ActorInputManager = ActorInputManager.getInstance();
-    const eventsManager: EventsManager = EventsManager.getInstance();
+    const sleepManager: SleepManager = getManager(SleepManager);
+    const actorInputManager: ActorInputManager = getManager(ActorInputManager);
+    const eventsManager: EventsManager = getManager(EventsManager);
 
     jest.spyOn(actorInputManager, "enableGameUi").mockImplementation(jest.fn());
     jest.spyOn(eventsManager, "emitEvent").mockImplementation(jest.fn());

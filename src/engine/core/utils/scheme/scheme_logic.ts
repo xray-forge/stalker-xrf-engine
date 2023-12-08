@@ -3,6 +3,7 @@ import { callback, clsid, game, time_global } from "xray16";
 import { ObjectRestrictionsManager } from "@/engine/core/ai/restriction";
 import { TAbstractSchemeConstructor } from "@/engine/core/ai/scheme";
 import {
+  getManager,
   IBaseSchemeLogic,
   IBaseSchemeState,
   IRegistryObjectState,
@@ -309,7 +310,7 @@ export function resetObjectGenericSchemesOnSectionSwitch(object: GameObject, sch
       registry.schemes.get(EScheme.COMBAT_IGNORE).reset(object, scheme, state, section);
       registry.schemes.get(EScheme.HEAR).reset(object, scheme, state, section);
 
-      MapDisplayManager.getInstance().updateObjectMapSpot(object, scheme, state, section);
+      getManager(MapDisplayManager).updateObjectMapSpot(object, scheme, state, section);
 
       initializeObjectIgnoreThreshold(object, scheme, state, section);
       initializeObjectInvulnerability(object);

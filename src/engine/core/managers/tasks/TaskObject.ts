@@ -1,6 +1,13 @@
 import { CGameTask, game, game_graph, level, task, time_global } from "xray16";
 
-import { closeLoadMarker, closeSaveMarker, openLoadMarker, openSaveMarker, registry } from "@/engine/core/database";
+import {
+  closeLoadMarker,
+  closeSaveMarker,
+  getManager,
+  openLoadMarker,
+  openSaveMarker,
+  registry,
+} from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { NotificationManager } from "@/engine/core/managers/notifications";
 import { taskConfig } from "@/engine/core/managers/tasks/TaskConfig";
@@ -226,7 +233,7 @@ export class TaskObject {
     }
 
     if (isTaskUpdated && !this.isNotificationOnUpdateMuted) {
-      NotificationManager.getInstance().sendTaskNotification(ETaskState.UPDATED, this.task);
+      getManager(NotificationManager).sendTaskNotification(ETaskState.UPDATED, this.task);
     }
 
     for (const [, conditionList] of this.conditionLists) {
@@ -326,13 +333,13 @@ export class TaskObject {
 
     switch (this.state) {
       case ETaskState.FAIL:
-        NotificationManager.getInstance().sendTaskNotification(ETaskState.FAIL, task);
+        getManager(NotificationManager).sendTaskNotification(ETaskState.FAIL, task);
         EventsManager.emitEvent(EGameEvent.TASK_FAILED, this);
         break;
 
       case ETaskState.REVERSED:
         pickSectionFromCondList(registry.actor, registry.actor, this.onReversed);
-        NotificationManager.getInstance().sendTaskNotification(ETaskState.REVERSED, task);
+        getManager(NotificationManager).sendTaskNotification(ETaskState.REVERSED, task);
         EventsManager.emitEvent(EGameEvent.TASK_REVERSED, this);
         break;
 

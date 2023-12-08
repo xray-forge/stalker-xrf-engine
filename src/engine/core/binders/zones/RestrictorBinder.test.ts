@@ -51,7 +51,7 @@ describe("RestrictorBinder class", () => {
   it("should correctly handle going online and offline", () => {
     const binder: RestrictorBinder = new RestrictorBinder(MockGameObject.mock());
     const serverObject: ServerObject = mockServerAlifeObject({ id: binder.object.id() });
-    const globalSoundManager: GlobalSoundManager = GlobalSoundManager.getInstance();
+    const globalSoundManager: GlobalSoundManager = getManager(GlobalSoundManager);
     const mockSound: AbstractPlayableSound = {} as AnyObject as AbstractPlayableSound;
 
     jest.spyOn(globalSoundManager, "playLoopedSound").mockImplementation(jest.fn());
@@ -92,10 +92,10 @@ describe("RestrictorBinder class", () => {
 
     const binder: RestrictorBinder = new RestrictorBinder(MockGameObject.mock());
     const serverObject: ServerObject = mockServerAlifeObject({ id: binder.object.id() });
-    const globalSoundManager: GlobalSoundManager = GlobalSoundManager.getInstance();
+    const globalSoundManager: GlobalSoundManager = getManager(GlobalSoundManager);
     const onVisit = jest.fn();
 
-    EventsManager.getInstance().registerCallback(EGameEvent.RESTRICTOR_ZONE_VISITED, onVisit);
+    getManager(EventsManager).registerCallback(EGameEvent.RESTRICTOR_ZONE_VISITED, onVisit);
 
     jest.spyOn(globalSoundManager, "update").mockImplementation(jest.fn());
 

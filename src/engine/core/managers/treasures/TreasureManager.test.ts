@@ -95,7 +95,7 @@ describe("TreasureManager class", () => {
 
   it("should correctly initialize and destroy", () => {
     const treasureManager: TreasureManager = TreasureManager.getInstance();
-    const eventsManager: EventsManager = EventsManager.getInstance();
+    const eventsManager: EventsManager = getManager(EventsManager);
 
     treasureManager.initialize();
 

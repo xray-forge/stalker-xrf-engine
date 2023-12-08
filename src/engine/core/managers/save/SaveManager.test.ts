@@ -51,7 +51,7 @@ describe("SaveManager class", () => {
   });
 
   it("should correctly initialize", () => {
-    const eventsManager: EventsManager = EventsManager.getInstance();
+    const eventsManager: EventsManager = getManager(EventsManager);
 
     expect(eventsManager.getSubscribersCount()).toBe(0);
 
@@ -63,7 +63,7 @@ describe("SaveManager class", () => {
   });
 
   it("should correctly force init of surge manager on actor init", () => {
-    const eventsManager: EventsManager = EventsManager.getInstance();
+    const eventsManager: EventsManager = getManager(EventsManager);
 
     expect(isManagerInitialized(SaveManager)).toBe(false);
     expect(isManagerInitialized(SurgeManager)).toBe(false);
@@ -152,7 +152,7 @@ describe("SaveManager class", () => {
       data.example = 123;
     });
 
-    EventsManager.getInstance().registerCallback(EGameEvent.GAME_SAVE, onSave);
+    getManager(EventsManager).registerCallback(EGameEvent.GAME_SAVE, onSave);
 
     jest.spyOn(io, "open").mockImplementationOnce(() => $multi(file.asMock()));
 
@@ -174,7 +174,7 @@ describe("SaveManager class", () => {
       expect(data).toEqual({ example: 123 });
     });
 
-    EventsManager.getInstance().registerCallback(EGameEvent.GAME_LOAD, onLoad);
+    getManager(EventsManager).registerCallback(EGameEvent.GAME_LOAD, onLoad);
 
     jest.spyOn(io, "open").mockImplementation(() => $multi(file.asMock()));
 

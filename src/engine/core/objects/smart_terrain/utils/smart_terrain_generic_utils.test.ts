@@ -93,7 +93,7 @@ working = 0
     smartTerrain.objectJobDescriptors.set(4000, createObjectJobDescriptor(mockServerAlifeHumanStalker({ id: 4000 })));
     smartTerrain.arrivingObjects.set(4001, mockServerAlifeHumanStalker({ id: 4001 }));
 
-    const descriptor: ISmartTerrainDescriptor = SimulationManager.getInstance().getSmartTerrainDescriptor(
+    const descriptor: ISmartTerrainDescriptor = getManager(SimulationManager).getSmartTerrainDescriptor(
       smartTerrain.id
     ) as ISmartTerrainDescriptor;
 

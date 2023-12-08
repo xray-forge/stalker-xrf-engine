@@ -3,6 +3,7 @@ import { callback, clsid, cond, hit, level, LuabindClass, move, object_binder } 
 import {
   closeLoadMarker,
   closeSaveMarker,
+  getManager,
   IBaseSchemeState,
   IRegistryObjectState,
   IRegistryOfflineState,
@@ -212,7 +213,7 @@ export class MonsterBinder extends object_binder {
     this.object.set_callback(callback.hit, null);
     this.object.set_callback(callback.sound, null);
 
-    GlobalSoundManager.getInstance().stopSoundByObjectId(this.object.id());
+    getManager(GlobalSoundManager).stopSoundByObjectId(this.object.id());
     registry.actorCombat.delete(this.object.id());
 
     if (this.state.activeScheme !== null) {

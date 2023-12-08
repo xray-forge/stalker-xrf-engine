@@ -1,7 +1,7 @@
 import { time_global } from "xray16";
 
 import { AbstractSchemeManager } from "@/engine/core/ai/scheme";
-import { registry } from "@/engine/core/database";
+import { getManager, registry } from "@/engine/core/database";
 import { getPortableStoreValue, setPortableStoreValue } from "@/engine/core/database/portable_store";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import { ISchemeWoundedState, IWoundedStateDescriptor } from "@/engine/core/schemes/stalker/wounded/wounded_types";
@@ -102,7 +102,7 @@ export class WoundManager extends AbstractSchemeManager<ISchemeWoundedState> {
       const beginAt: Optional<TTimestamp> = getPortableStoreValue(this.object.id(), "begin_wounded");
 
       if (beginAt !== null && now - beginAt <= 60_000) {
-        GlobalSoundManager.getInstance().playSound(this.object.id(), "help_thanks");
+        getManager(GlobalSoundManager).playSound(this.object.id(), "help_thanks");
       }
 
       setPortableStoreValue(this.object.id(), "begin_wounded", null);

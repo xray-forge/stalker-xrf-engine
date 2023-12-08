@@ -7,6 +7,7 @@ import { EActionId } from "@/engine/core/ai/types";
 import {
   closeLoadMarker,
   closeSaveMarker,
+  getManager,
   IBaseSchemeState,
   ILogicsOverrides,
   IRegistryObjectState,
@@ -136,7 +137,7 @@ export class StalkerBinder extends object_binder {
 
     if (!this.object.alive()) {
       this.object.death_sound_enabled(false);
-      ReleaseBodyManager.getInstance().addDeadBody(this.object);
+      getManager(ReleaseBodyManager).addDeadBody(this.object);
 
       return true;
     }
@@ -203,7 +204,7 @@ export class StalkerBinder extends object_binder {
     const objectId: TNumberId = this.object.id();
 
     registry.actorCombat.delete(objectId);
-    GlobalSoundManager.getInstance().stopSoundByObjectId(objectId);
+    getManager(GlobalSoundManager).stopSoundByObjectId(objectId);
 
     const state: IRegistryObjectState = registry.objects.get(objectId);
 
@@ -252,7 +253,7 @@ export class StalkerBinder extends object_binder {
 
     if (this.isFirstUpdate === false) {
       if (isObjectAlive === false) {
-        DropManager.getInstance().createCorpseReleaseItems(this.object);
+        getManager(DropManager).createCorpseReleaseItems(this.object);
       }
 
       this.isFirstUpdate = true;
@@ -269,7 +270,7 @@ export class StalkerBinder extends object_binder {
 
         if (this.state.stateManager.isCombat === false && this.state.stateManager.isAlife === false) {
           // --and this.st.state_mgr.planner:current_action_id() == this.st.state_mgr.operators["}"]
-          TradeManager.getInstance().updateForObject(object);
+          getManager(TradeManager).updateForObject(object);
         }
       } else {
         this.state.stateManager = null;
@@ -277,7 +278,7 @@ export class StalkerBinder extends object_binder {
     }
 
     if (isObjectAlive) {
-      GlobalSoundManager.getInstance().update(object.id());
+      getManager(GlobalSoundManager).update(object.id());
       updateObjectMeetAvailability(object);
       initializeObjectInvulnerability(this.object);
     }
@@ -377,9 +378,9 @@ export class StalkerBinder extends object_binder {
     super.save(packet);
     saveObjectLogic(this.object, packet);
 
-    TradeManager.getInstance().saveObjectState(packet, this.object);
-    GlobalSoundManager.getInstance().saveObject(packet, this.object);
-    DialogManager.getInstance().saveObjectDialogs(packet, this.object);
+    getManager(TradeManager).saveObjectState(packet, this.object);
+    getManager(GlobalSoundManager).saveObject(packet, this.object);
+    getManager(DialogManager).saveObjectDialogs(packet, this.object);
 
     closeSaveMarker(packet, StalkerBinder.__name);
   }
@@ -392,9 +393,9 @@ export class StalkerBinder extends object_binder {
     super.load(reader);
     loadObjectLogic(this.object, reader);
 
-    TradeManager.getInstance().loadObjectState(reader, this.object);
-    GlobalSoundManager.getInstance().loadObject(reader, this.object);
-    DialogManager.getInstance().loadObjectDialogs(reader, this.object);
+    getManager(TradeManager).loadObjectState(reader, this.object);
+    getManager(GlobalSoundManager).loadObject(reader, this.object);
+    getManager(DialogManager).loadObjectDialogs(reader, this.object);
 
     closeLoadMarker(reader, StalkerBinder.__name);
   }
@@ -450,7 +451,7 @@ export class StalkerBinder extends object_binder {
 
     const state: IRegistryObjectState = registry.objects.get(this.object.id());
 
-    MapDisplayManager.getInstance().removeObjectMapSpot(this.object, state);
+    getManager(MapDisplayManager).removeObjectMapSpot(this.object, state);
 
     setupObjectInfoPortions(this.object, state.ini, readIniString(state.ini, state.sectionLogic, "known_info", false));
 
@@ -459,7 +460,7 @@ export class StalkerBinder extends object_binder {
     }
 
     this.updateLightState(this.object);
-    DropManager.getInstance().onObjectDeath(this.object);
+    getManager(DropManager).onObjectDeath(this.object);
 
     if (this.state[EScheme.REACH_TASK]) {
       emitSchemeEvent(this.object, this.state[EScheme.REACH_TASK], ESchemeEvent.DEATH, victim, who);
@@ -488,7 +489,7 @@ export class StalkerBinder extends object_binder {
 
     EventsManager.emitEvent(EGameEvent.STALKER_KILLED, this.object, who);
 
-    ReleaseBodyManager.getInstance().addDeadBody(this.object);
+    getManager(ReleaseBodyManager).addDeadBody(this.object);
   }
 
   /**
@@ -499,7 +500,7 @@ export class StalkerBinder extends object_binder {
 
     if (this.object.alive()) {
       EventsManager.emitEvent(EGameEvent.STALKER_INTERACTION, object, who);
-      DialogManager.getInstance().resetForObject(this.object);
+      getManager(DialogManager).resetForObject(this.object);
 
       activateMeetWithObject(object);
 
@@ -536,7 +537,7 @@ export class StalkerBinder extends object_binder {
     // -- FIXME: �������� ������� ���� �� �������������� � ����� storage, � �� ��������...
     if (who?.id() === ACTOR_ID) {
       if (amount > 0) {
-        for (const [, descriptor] of SimulationManager.getInstance().getSmartTerrainDescriptors()) {
+        for (const [, descriptor] of getManager(SimulationManager).getSmartTerrainDescriptors()) {
           const smartTerrain: SmartTerrain = descriptor.smartTerrain;
 
           if (smartTerrain.smartTerrainActorControl !== null) {

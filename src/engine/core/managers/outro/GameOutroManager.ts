@@ -1,5 +1,6 @@
 import { CUIGameCustom, game, get_hud, sound_object } from "xray16";
 
+import { getManager } from "@/engine/core/database";
 import { ActorInputManager } from "@/engine/core/managers/actor";
 import { AbstractManager } from "@/engine/core/managers/base/AbstractManager";
 import { gameOutroConfig } from "@/engine/core/managers/outro/GameOutroConfig";
@@ -68,10 +69,9 @@ export class GameOutroManager extends AbstractManager {
   public startBlackScreenAndSound(): void {
     this.startSound();
 
-    const hud: CUIGameCustom = get_hud();
+    get_hud().AddCustomStatic("blackscreen", true);
 
-    hud.AddCustomStatic("blackscreen", true);
-    ActorInputManager.getInstance().disableGameUiOnly();
+    getManager(ActorInputManager).disableGameUiOnly();
   }
 
   /**

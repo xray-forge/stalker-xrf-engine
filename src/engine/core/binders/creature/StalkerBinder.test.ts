@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 
 import { StalkerBinder } from "@/engine/core/binders";
-import { IRegistryObjectState, registerObject, registry } from "@/engine/core/database";
+import { getManager, IRegistryObjectState, registerObject, registry } from "@/engine/core/database";
 import { DialogManager } from "@/engine/core/managers/dialogs";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds";
 import { TradeManager } from "@/engine/core/managers/trade";
@@ -32,9 +32,9 @@ describe("StalkerBinder class", () => {
   it.todo("should correctly handle update event");
 
   it("should correctly handle save/load", () => {
-    const tradeManager: TradeManager = TradeManager.getInstance();
-    const globalSoundManager: GlobalSoundManager = GlobalSoundManager.getInstance();
-    const dialogManager: DialogManager = DialogManager.getInstance();
+    const tradeManager: TradeManager = getManager(TradeManager);
+    const globalSoundManager: GlobalSoundManager = getManager(GlobalSoundManager);
+    const dialogManager: DialogManager = getManager(DialogManager);
 
     jest.spyOn(tradeManager, "saveObjectState").mockImplementation(jest.fn());
     jest.spyOn(tradeManager, "loadObjectState").mockImplementation(jest.fn());

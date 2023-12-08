@@ -1,5 +1,6 @@
 import { level } from "xray16";
 
+import { getManager } from "@/engine/core/database";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds";
 import { hasInfoPortion } from "@/engine/core/utils/info_portion";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
@@ -16,7 +17,7 @@ export function playSurgeStartingSound(): void {
     return;
   }
 
-  const globalSoundManager: GlobalSoundManager = GlobalSoundManager.getInstance();
+  const globalSoundManager: GlobalSoundManager = getManager(GlobalSoundManager);
   const levelName: TName = level.name();
 
   switch (levelName) {
@@ -47,7 +48,7 @@ export function playSurgeWillHappenSoonSound(): void {
     return;
   }
 
-  const globalSoundManager: GlobalSoundManager = GlobalSoundManager.getInstance();
+  const globalSoundManager: GlobalSoundManager = getManager(GlobalSoundManager);
   const levelName: TName = level.name();
 
   switch (levelName) {
@@ -78,7 +79,7 @@ export function playSurgeEndedSound(): void {
     return;
   }
 
-  const globalSoundManager: GlobalSoundManager = GlobalSoundManager.getInstance();
+  const globalSoundManager: GlobalSoundManager = getManager(GlobalSoundManager);
   const levelName: TName = level.name();
 
   switch (levelName) {

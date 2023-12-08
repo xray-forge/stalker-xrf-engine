@@ -4,6 +4,7 @@ import { PhysicObjectItemBox } from "@/engine/core/binders/physic/PhysicObjectIt
 import {
   closeLoadMarker,
   closeSaveMarker,
+  getManager,
   IRegistryObjectState,
   openLoadMarker,
   openSaveMarker,
@@ -83,7 +84,7 @@ export class PhysicObjectBinder extends object_binder {
       level.map_remove_object_spot(this.object.id(), "ui_pda2_actor_box_location");
     }
 
-    GlobalSoundManager.getInstance().stopSoundByObjectId(this.object.id());
+    getManager(GlobalSoundManager).stopSoundByObjectId(this.object.id());
 
     const state: IRegistryObjectState = registry.objects.get(this.object.id());
 
@@ -127,7 +128,7 @@ export class PhysicObjectBinder extends object_binder {
       this.object.set_callback(callback.use_object, this.onUse, this);
     }
 
-    GlobalSoundManager.getInstance().update(this.object.id());
+    getManager(GlobalSoundManager).update(this.object.id());
   }
 
   public override net_save_relevant(): boolean {

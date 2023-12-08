@@ -10,7 +10,7 @@ describe("Squad server object", () => {
   });
 
   it("should correctly emit lifecycle events", () => {
-    const eventsManager: EventsManager = EventsManager.getInstance();
+    const eventsManager: EventsManager = getManager(EventsManager);
     const squad: Squad = MockSquad.mock();
 
     const onSquadRegister = jest.fn();

@@ -2,6 +2,7 @@ import { hit, level, patrol } from "xray16";
 
 import { updateStalkerLogic } from "@/engine/core/binders/creature/StalkerBinder";
 import {
+  getManager,
   getObjectByStoryId,
   getObjectIdByStoryId,
   getServerObjectByStoryId,
@@ -354,9 +355,9 @@ extern(
       abort("Wrong squad identificator [NIL] in 'create_squad_member' function");
     }
 
-    const simulationBoardManager: SimulationManager = SimulationManager.getInstance();
+    const simulationManager: SimulationManager = getManager(SimulationManager);
     const squad: Squad = getServerObjectByStoryId(storyId) as Squad;
-    const squadSmartTerrain: Optional<SmartTerrain> = simulationBoardManager.getSmartTerrainDescriptor(
+    const squadSmartTerrain: Optional<SmartTerrain> = simulationManager.getSmartTerrainDescriptor(
       squad.assignedSmartTerrainId as TNumberId
     )!.smartTerrain;
 
@@ -396,7 +397,7 @@ extern(
     );
 
     squad.assignMemberToSmartTerrain(newSquadMember.id, squadSmartTerrain, null);
-    simulationBoardManager.setupObjectSquadAndGroup(newSquadMember);
+    simulationManager.setupObjectSquadAndGroup(newSquadMember);
     // --squad_smart.refresh()
     squad.update();
   }
@@ -418,7 +419,7 @@ extern("xr_effects.remove_squad", (actor: GameObject, obj: GameObject, p: [strin
     abort("Wrong squad identificator [%s]. squad doesnt exist", tostring(storyId));
   }
 
-  SimulationManager.getInstance().releaseSquad(squad);
+  getManager(SimulationManager).releaseSquad(squad);
 });
 
 /**
@@ -500,19 +501,19 @@ extern(
       abort("Wrong squad id [NIL] in clear_smart_terrain function");
     }
 
-    const simulationBoardManager: SimulationManager = SimulationManager.getInstance();
-    const smartTerrain: SmartTerrain = simulationBoardManager.getSmartTerrainByName(smartTerrainName) as SmartTerrain;
+    const simulationManager: SimulationManager = getManager(SimulationManager);
+    const smartTerrain: SmartTerrain = simulationManager.getSmartTerrainByName(smartTerrainName) as SmartTerrain;
     const smartTerrainId: TNumberId = smartTerrain.id;
 
-    for (const [, squad] of simulationBoardManager.getSmartTerrainDescriptor(smartTerrainId)!.assignedSquads) {
+    for (const [, squad] of simulationManager.getSmartTerrainDescriptor(smartTerrainId)!.assignedSquads) {
       if (clearStory === FALSE) {
         if (!getStoryIdByObjectId(squad.id)) {
           logger.format("Remove smart terrain squads on effect: '%s', '%s'", smartTerrainName, squad.name());
-          simulationBoardManager.releaseSquad(squad);
+          simulationManager.releaseSquad(squad);
         }
       } else {
         logger.format("Remove smart terrain squads on effect: '%s', '%s'", smartTerrainName, squad.name());
-        simulationBoardManager.releaseSquad(squad);
+        simulationManager.releaseSquad(squad);
       }
     }
   }

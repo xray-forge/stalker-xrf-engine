@@ -18,7 +18,7 @@ describe("SimulationBoardManager class", () => {
   });
 
   it("should correctly create and return values with getters", () => {
-    const manager: SimulationManager = SimulationManager.getInstance();
+    const manager: SimulationManager = getManager(SimulationManager);
 
     expect(manager.areDefaultSimulationSquadsSpawned).toBe(false);
     expect(manager.getSquads()).toEqualLuaTables({});
@@ -28,9 +28,9 @@ describe("SimulationBoardManager class", () => {
   });
 
   it("should correctly initialize", () => {
-    const eventsManager: EventsManager = EventsManager.getInstance();
+    const eventsManager: EventsManager = getManager(EventsManager);
 
-    SimulationManager.getInstance();
+    getManager(SimulationManager);
 
     expect(eventsManager.getSubscribersCount()).toBe(2);
     expect(eventsManager.getEventSubscribersCount(EGameEvent.ACTOR_REGISTER)).toBe(1);
@@ -44,7 +44,7 @@ describe("SimulationBoardManager class", () => {
   it("should correctly get squads", () => {
     mockRegisteredActor();
 
-    const manager: SimulationManager = SimulationManager.getInstance();
+    const manager: SimulationManager = getManager(SimulationManager);
 
     expect(manager.getSquads().length()).toBe(0);
 
@@ -62,7 +62,7 @@ describe("SimulationBoardManager class", () => {
   it("should correctly get smart terrain list", () => {
     mockRegisteredActor();
 
-    const manager: SimulationManager = SimulationManager.getInstance();
+    const manager: SimulationManager = getManager(SimulationManager);
     const first: SmartTerrain = MockSmartTerrain.mockRegistered();
     const second: SmartTerrain = MockSmartTerrain.mockRegistered();
 
@@ -76,7 +76,7 @@ describe("SimulationBoardManager class", () => {
   it("should correctly get smart terrain by name", () => {
     mockRegisteredActor();
 
-    const manager: SimulationManager = SimulationManager.getInstance();
+    const manager: SimulationManager = getManager(SimulationManager);
     const first: SmartTerrain = MockSmartTerrain.mockRegistered();
     const second: SmartTerrain = MockSmartTerrain.mockRegistered();
 
@@ -87,7 +87,7 @@ describe("SimulationBoardManager class", () => {
   it("should correctly get smart terrain descriptor by id", () => {
     mockRegisteredActor();
 
-    const manager: SimulationManager = SimulationManager.getInstance();
+    const manager: SimulationManager = getManager(SimulationManager);
     const first: SmartTerrain = MockSmartTerrain.mockRegistered();
     const second: SmartTerrain = MockSmartTerrain.mockRegistered();
 
@@ -106,7 +106,7 @@ describe("SimulationBoardManager class", () => {
   it("should correctly get smart terrain assigned squads count", () => {
     mockRegisteredActor();
 
-    const manager: SimulationManager = SimulationManager.getInstance();
+    const manager: SimulationManager = getManager(SimulationManager);
     const smartTerrain: SmartTerrain = MockSmartTerrain.mockRegistered();
 
     const first: Squad = MockSquad.mockRegistered();
@@ -137,7 +137,7 @@ describe("SimulationBoardManager class", () => {
   it("should correctly register/unregister smart terrains", () => {
     mockRegisteredActor();
 
-    const manager: SimulationManager = SimulationManager.getInstance();
+    const manager: SimulationManager = getManager(SimulationManager);
     const smartTerrain: SmartTerrain = MockSmartTerrain.mock();
 
     expect(manager.getSmartTerrains().length()).toBe(0);
@@ -190,7 +190,7 @@ describe("SimulationBoardManager class", () => {
   it.todo("should correctly initialize default simulation squads");
 
   it("should correctly initialize default simulation squads on actor register", () => {
-    const manager: SimulationManager = SimulationManager.getInstance();
+    const manager: SimulationManager = getManager(SimulationManager);
 
     jest.spyOn(manager, "initializeDefaultSimulationSquads");
 
@@ -200,7 +200,7 @@ describe("SimulationBoardManager class", () => {
   });
 
   it("should correctly handle actor destroy", () => {
-    SimulationManager.getInstance();
+    getManager(SimulationManager);
 
     EventsManager.emitEvent(EGameEvent.ACTOR_GO_OFFLINE);
 
@@ -209,7 +209,7 @@ describe("SimulationBoardManager class", () => {
   });
 
   it("should correctly save and load data", () => {
-    const manager: SimulationManager = SimulationManager.getInstance();
+    const manager: SimulationManager = getManager(SimulationManager);
     const netProcessor: MockNetProcessor = new MockNetProcessor();
 
     manager.areDefaultSimulationSquadsSpawned = true;
@@ -221,7 +221,7 @@ describe("SimulationBoardManager class", () => {
 
     disposeManager(SimulationManager);
 
-    const newManager: SimulationManager = SimulationManager.getInstance();
+    const newManager: SimulationManager = getManager(SimulationManager);
 
     newManager.load(mockNetProcessor(netProcessor));
 

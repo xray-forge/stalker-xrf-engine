@@ -45,7 +45,7 @@ describe("WeaponBinder class", () => {
   });
 
   it("should correctly emit lifecycle signals", () => {
-    const eventsManager: EventsManager = EventsManager.getInstance();
+    const eventsManager: EventsManager = getManager(EventsManager);
     const binder: WeaponBinder = new WeaponBinder(MockGameObject.mock());
 
     const onGoOnlineFirstTime = jest.fn();

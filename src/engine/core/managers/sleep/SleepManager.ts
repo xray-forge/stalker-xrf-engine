@@ -1,6 +1,6 @@
 import { level } from "xray16";
 
-import { registry } from "@/engine/core/database";
+import { getManager, registry } from "@/engine/core/database";
 import { ActorInputManager } from "@/engine/core/managers/actor";
 import { AbstractManager } from "@/engine/core/managers/base/AbstractManager";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
@@ -47,7 +47,7 @@ export class SleepManager extends AbstractManager {
 
     this.nextSleepDuration = hours;
 
-    ActorInputManager.getInstance().disableGameUi();
+    getManager(ActorInputManager).disableGameUi();
 
     level.add_cam_effector(animations.camera_effects_sleep, 10, false, "engine.on_start_sleeping");
     level.add_pp_effector(postProcessors.sleep_fade, 11, false);
@@ -60,7 +60,7 @@ export class SleepManager extends AbstractManager {
     executeConsoleCommand(consoleCommands.snd_volume_music, 0);
     executeConsoleCommand(consoleCommands.snd_volume_eff, 0);
 
-    SurgeManager.getInstance().setSkipResurrectMessage();
+    getManager(SurgeManager).setSkipResurrectMessage();
   }
 
   /**
@@ -72,7 +72,7 @@ export class SleepManager extends AbstractManager {
     level.add_cam_effector(animations.camera_effects_sleep, 10, false, "engine.on_finish_sleeping");
     level.change_game_time(0, this.nextSleepDuration, 0);
 
-    const weatherManager: WeatherManager = WeatherManager.getInstance();
+    const weatherManager: WeatherManager = getManager(WeatherManager);
 
     weatherManager.forceWeatherChange();
     surgeConfig.IS_TIME_FORWARDED = true;
@@ -93,7 +93,7 @@ export class SleepManager extends AbstractManager {
   public onFinishSleeping(): void {
     logger.info("On finish sleeping");
 
-    ActorInputManager.getInstance().enableGameUi();
+    getManager(ActorInputManager).enableGameUi();
 
     executeConsoleCommand(consoleCommands.snd_volume_music, registry.musicVolume);
     executeConsoleCommand(consoleCommands.snd_volume_eff, registry.effectsVolume);

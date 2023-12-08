@@ -3,6 +3,7 @@ import { callback, level, LuabindClass, object_binder } from "xray16";
 import {
   closeLoadMarker,
   closeSaveMarker,
+  getManager,
   initializePortableStore,
   IRegistryObjectState,
   loadPortableStore,
@@ -43,7 +44,7 @@ const logger: LuaLogger = new LuaLogger($filename);
  */
 @LuabindClass()
 export class ActorBinder extends object_binder {
-  public readonly eventsManager: EventsManager = EventsManager.getInstance();
+  public readonly eventsManager: EventsManager = getManager(EventsManager);
 
   // todo: Move out deimos related logic / data.
   public deimosIntensity: Optional<number> = null;
@@ -159,7 +160,7 @@ export class ActorBinder extends object_binder {
     super.save(packet);
 
     savePortableStore(this.object.id(), packet);
-    SaveManager.getInstance().clientSave(packet);
+    getManager(SaveManager).clientSave(packet);
 
     // todo: Move out deimos logic. Probably store in pstore?
     let isDeimosExisting: boolean = false;
@@ -192,7 +193,7 @@ export class ActorBinder extends object_binder {
     super.load(reader);
 
     loadPortableStore(this.object.id(), reader);
-    SaveManager.getInstance().clientLoad(reader);
+    getManager(SaveManager).clientLoad(reader);
 
     // todo: Move out deimos logic.
     const hasDeimos: boolean = reader.r_bool();

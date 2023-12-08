@@ -1,4 +1,4 @@
-import { IRegistryObjectState, registry, setPortableStoreValue } from "@/engine/core/database";
+import { getManager, IRegistryObjectState, registry, setPortableStoreValue } from "@/engine/core/database";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import { ISchemeCorpseDetectionState } from "@/engine/core/schemes/stalker/corpse_detection";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -26,7 +26,7 @@ export function finishCorpseLooting(object: GameObject): void {
 
     // Tell about loot quality with random chance, probably some price based assumption should work better.
     // Still tell about bad loot if transferred list is empty (actor took everything).
-    GlobalSoundManager.getInstance().playSound(
+    getManager(GlobalSoundManager).playSound(
       object.id(),
       transferred.length() > 0 && chance(80) ? "corpse_loot_good" : "corpse_loot_bad"
     );

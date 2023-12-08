@@ -76,7 +76,7 @@ describe("ItemHelmet server class", () => {
   });
 
   it("should correctly emit lifecycle events", () => {
-    const eventsManager: EventsManager = EventsManager.getInstance();
+    const eventsManager: EventsManager = getManager(EventsManager);
     const itemHelmet: ItemHelmet = new ItemHelmet("test-section");
 
     const onItemHelmetRegister = jest.fn();

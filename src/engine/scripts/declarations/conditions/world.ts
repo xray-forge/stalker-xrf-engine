@@ -1,6 +1,6 @@
 import { level } from "xray16";
 
-import { registry } from "@/engine/core/database";
+import { getManager, registry } from "@/engine/core/database";
 import { SimulationManager } from "@/engine/core/managers/simulation/SimulationManager";
 import { surgeConfig } from "@/engine/core/managers/surge/SurgeConfig";
 import { SurgeManager } from "@/engine/core/managers/surge/SurgeManager";
@@ -75,7 +75,7 @@ extern("xr_conditions.surge_started", (): boolean => {
  * @returns whether surge is killing all not hided objects
  */
 extern("xr_conditions.surge_kill_all", (): boolean => {
-  return SurgeManager.getInstance().isKillingAll();
+  return getManager(SurgeManager).isKillingAll();
 });
 
 /**
@@ -132,7 +132,7 @@ extern(
       abort("Wrong status[%s] in 'check_smart_alarm_status'", status);
     }
 
-    const smart: SmartTerrain = SimulationManager.getInstance().getSmartTerrainByName(smartName)!;
+    const smart: SmartTerrain = getManager(SimulationManager).getSmartTerrainByName(smartName)!;
     const smartControl: Optional<SmartTerrainControl> = smart.smartTerrainActorControl;
 
     if (smartControl === null) {

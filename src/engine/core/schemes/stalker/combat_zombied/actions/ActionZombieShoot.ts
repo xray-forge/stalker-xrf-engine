@@ -1,7 +1,7 @@
 import { action_base, level, LuabindClass, move, time_global } from "xray16";
 
 import { EStalkerState, ILookTargetDescriptor } from "@/engine/core/animation/types";
-import { setStalkerState } from "@/engine/core/database";
+import { getManager, setStalkerState } from "@/engine/core/database";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import { EZombieCombatAction, ISchemeCombatState } from "@/engine/core/schemes/stalker/combat/combat_types";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -74,7 +74,7 @@ export class ActionZombieShoot extends action_base {
     this.state.currentAction = EZombieCombatAction.SHOOT;
 
     if (chance(25)) {
-      GlobalSoundManager.getInstance().playSound(this.object.id(), "fight_attack");
+      getManager(GlobalSoundManager).playSound(this.object.id(), "fight_attack");
     }
   }
 

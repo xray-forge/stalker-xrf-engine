@@ -1,6 +1,6 @@
 import { clsid, level, patrol } from "xray16";
 
-import { registry, SYSTEM_INI } from "@/engine/core/database";
+import { getManager, registry, SYSTEM_INI } from "@/engine/core/database";
 import { SimulationManager } from "@/engine/core/managers/simulation/SimulationManager";
 import type { SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import type { Squad } from "@/engine/core/objects/squad";
@@ -144,7 +144,7 @@ export function spawnSquadInSmart(section: Optional<TStringId>, smartTerrainName
   assert(smartTerrainName, "Wrong squad name in spawnSquad function.");
   assert(SYSTEM_INI.section_exist(section), "Wrong squad identifier '%s'. Squad doesnt exist in ini.", section);
 
-  const simulationBoardManager: SimulationManager = SimulationManager.getInstance();
+  const simulationBoardManager: SimulationManager = getManager(SimulationManager);
   const smartTerrain: Optional<SmartTerrain> = simulationBoardManager.getSmartTerrainByName(smartTerrainName);
 
   assert(smartTerrain, "Wrong smartName '%s' for faction in spawnSquad function.", tostring(smartTerrainName));

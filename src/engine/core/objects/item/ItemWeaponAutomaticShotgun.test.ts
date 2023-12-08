@@ -76,7 +76,7 @@ describe("ItemWeaponAutomaticShotgun server class", () => {
   });
 
   it("should correctly emit lifecycle events", () => {
-    const eventsManager: EventsManager = EventsManager.getInstance();
+    const eventsManager: EventsManager = getManager(EventsManager);
     const itemWeaponAutomaticShotgun: ItemWeaponAutomaticShotgun = new ItemWeaponAutomaticShotgun("test-section");
 
     const onItemAutoShotgunRegister = jest.fn();

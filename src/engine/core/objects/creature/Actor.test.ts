@@ -9,11 +9,11 @@ import { EPacketDataType, mockNetPacket, MockNetProcessor, mockServerAlifeHumanS
 
 describe("Actor server object", () => {
   beforeEach(() => {
-    jest.spyOn(SimulationManager.getInstance(), "onActorRegister").mockImplementation(jest.fn);
+    jest.spyOn(getManager(SimulationManager), "onActorRegister").mockImplementation(jest.fn);
   });
 
   it("should correctly emit lifecycle events", () => {
-    const eventsManager: EventsManager = EventsManager.getInstance();
+    const eventsManager: EventsManager = getManager(EventsManager);
     const actor: Actor = new Actor("actor");
 
     const onActorRegister = jest.fn();
@@ -34,7 +34,7 @@ describe("Actor server object", () => {
   });
 
   it("should correctly emit death events", () => {
-    const eventsManager: EventsManager = EventsManager.getInstance();
+    const eventsManager: EventsManager = getManager(EventsManager);
     const actor: Actor = new Actor("actor");
     const killer: ServerObject = mockServerAlifeHumanStalker();
 

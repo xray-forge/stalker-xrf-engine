@@ -1,6 +1,7 @@
 import { device, game, level, patrol } from "xray16";
 
 import {
+  getManager,
   getObjectByStoryId,
   getServerObjectByStoryId,
   IRegistryObjectState,
@@ -47,14 +48,14 @@ const logger: LuaLogger = new LuaLogger($filename);
  * Disable game UI for actor and reset active item slot.
  */
 extern("xr_effects.disable_ui", (actor: GameObject, object: GameObject, parameters: [string]): void => {
-  ActorInputManager.getInstance().disableGameUi(!parameters || (parameters && parameters[0] !== TRUE));
+  getManager(ActorInputManager).disableGameUi(!parameters || (parameters && parameters[0] !== TRUE));
 });
 
 /**
  * Disable game UI for actor.
  */
 extern("xr_effects.disable_ui_only", (actor: GameObject, object: GameObject): void => {
-  ActorInputManager.getInstance().disableGameUiOnly();
+  getManager(ActorInputManager).disableGameUiOnly();
 });
 
 /**
@@ -62,7 +63,7 @@ extern("xr_effects.disable_ui_only", (actor: GameObject, object: GameObject): vo
  * Effect parameter describes whether slot should be restored - `true` by default.
  */
 extern("xr_effects.enable_ui", (actor: GameObject, object: GameObject, parameters: [string]): void => {
-  ActorInputManager.getInstance().enableGameUi(!parameters || (parameters && parameters[0] !== TRUE));
+  getManager(ActorInputManager).enableGameUi(!parameters || (parameters && parameters[0] !== TRUE));
 });
 
 let camEffectorPlayingObjectId: Optional<TNumberId> = null;
@@ -106,28 +107,28 @@ extern("xr_effects.stop_cam_effector", (actor: GameObject, object: GameObject, p
  * Disable actor night vision tools.
  */
 extern("xr_effects.disable_actor_nightvision", (actor: GameObject): void => {
-  ActorInputManager.getInstance().disableActorNightVision();
+  getManager(ActorInputManager).disableActorNightVision();
 });
 
 /**
  * Enable actor night vision tools.
  */
 extern("xr_effects.enable_actor_nightvision", (actor: GameObject): void => {
-  ActorInputManager.getInstance().enableActorNightVision();
+  getManager(ActorInputManager).enableActorNightVision();
 });
 
 /**
  * Disable actor torch.
  */
 extern("xr_effects.disable_actor_torch", (actor: GameObject): void => {
-  ActorInputManager.getInstance().disableActorTorch();
+  getManager(ActorInputManager).disableActorTorch();
 });
 
 /**
  * Enable actor torch.
  */
 extern("xr_effects.enable_actor_torch", (actor: GameObject): void => {
-  ActorInputManager.getInstance().enableActorTorch();
+  getManager(ActorInputManager).enableActorTorch();
 });
 
 /**
@@ -251,7 +252,7 @@ extern("xr_effects.remove_item", (actor: GameObject, object: GameObject, p: [TSe
     abort("Actor has no such item!");
   }
 
-  NotificationManager.getInstance().sendItemRelocatedNotification(ENotificationDirection.OUT, section);
+  getManager(NotificationManager).sendItemRelocatedNotification(ENotificationDirection.OUT, section);
 });
 
 /**
@@ -329,7 +330,7 @@ extern(
   "xr_effects.send_tip",
   (actor: GameObject, object: GameObject, [caption, icon, senderId]: [TLabel, TNotificationIcon, TStringId]): void => {
     logger.info("Send tip");
-    NotificationManager.getInstance().sendTipNotification(caption, icon, 0, null, senderId);
+    getManager(NotificationManager).sendTipNotification(caption, icon, 0, null, senderId);
   }
 );
 
@@ -338,7 +339,7 @@ extern(
  */
 extern("xr_effects.give_task", (actor: GameObject, object: GameObject, [taskId]: [Optional<TStringId>]): void => {
   assertDefined(taskId, "No parameter in give_task effect.");
-  TaskManager.getInstance().giveTask(taskId);
+  getManager(TaskManager).giveTask(taskId);
 });
 
 /**
@@ -405,7 +406,7 @@ extern("xr_effects.sleep", (): void => {
   for (const [, zone] of sleepZones) {
     if (isObjectInZone(registry.actor, registry.zones.get(zone))) {
       logger.format("Actor sleep in: '%s'", zone);
-      SleepManager.getInstance().showSleepDialog();
+      getManager(SleepManager).showSleepDialog();
       break;
     }
   }
@@ -441,7 +442,7 @@ extern("xr_effects.give_treasure", (actor: GameObject, object: GameObject, treas
 
   assertDefined(treasures, "Required parameter is 'NIL'.");
 
-  const treasureManager: TreasureManager = TreasureManager.getInstance();
+  const treasureManager: TreasureManager = getManager(TreasureManager);
 
   for (const [, id] of treasures) {
     treasureManager.giveActorTreasureCoordinates(id);

@@ -3,6 +3,7 @@ import { time_global } from "xray16";
 
 import { StalkerStateManager } from "@/engine/core/ai/state";
 import {
+  getManager,
   getPortableStoreValue,
   IRegistryObjectState,
   registerObject,
@@ -109,7 +110,7 @@ describe("ActionWounded class", () => {
       woundManager: { eatMedkit: jest.fn() } as unknown as WoundManager,
     });
 
-    const globalSoundManager: GlobalSoundManager = GlobalSoundManager.getInstance();
+    const globalSoundManager: GlobalSoundManager = getManager(GlobalSoundManager);
     const action: ActionWounded = new ActionWounded(schemeState);
 
     state.stateManager = { setState: jest.fn() } as unknown as StalkerStateManager;

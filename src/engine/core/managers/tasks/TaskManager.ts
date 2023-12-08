@@ -1,6 +1,6 @@
 import { task } from "xray16";
 
-import { closeLoadMarker, closeSaveMarker, openLoadMarker, openSaveMarker } from "@/engine/core/database";
+import { closeLoadMarker, closeSaveMarker, getManager, openLoadMarker, openSaveMarker } from "@/engine/core/database";
 import { AbstractManager } from "@/engine/core/managers/base/AbstractManager";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { NotificationManager } from "@/engine/core/managers/notifications";
@@ -18,13 +18,13 @@ const logger: LuaLogger = new LuaLogger($filename);
  */
 export class TaskManager extends AbstractManager {
   public override initialize(): void {
-    const eventsManager: EventsManager = EventsManager.getInstance();
+    const eventsManager: EventsManager = getManager(EventsManager);
 
     eventsManager.registerCallback(EGameEvent.TASK_STATE_UPDATE, this.onTaskStateUpdate, this);
   }
 
   public override destroy(): void {
-    const eventsManager: EventsManager = EventsManager.getInstance();
+    const eventsManager: EventsManager = getManager(EventsManager);
 
     eventsManager.unregisterCallback(EGameEvent.TASK_STATE_UPDATE, this.onTaskStateUpdate);
   }
@@ -83,7 +83,7 @@ export class TaskManager extends AbstractManager {
     logger.info("Task state update:", taskId, state, state !== task.fail);
 
     if (state !== task.fail) {
-      NotificationManager.getInstance().sendTaskNotification(
+      getManager(NotificationManager).sendTaskNotification(
         state === task.completed ? ETaskState.COMPLETED : ETaskState.NEW,
         taskObject
       );

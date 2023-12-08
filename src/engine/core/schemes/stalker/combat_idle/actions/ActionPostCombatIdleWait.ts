@@ -2,6 +2,7 @@ import { action_base, anim, look, LuabindClass, move } from "xray16";
 
 import { StalkerAnimationManager } from "@/engine/core/ai/state/StalkerAnimationManager";
 import { EAnimationType, EStalkerState } from "@/engine/core/animation/types";
+import { getManager } from "@/engine/core/database";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import { ISchemePostCombatIdleState } from "@/engine/core/schemes/stalker/combat_idle/combat_idle_types";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -54,7 +55,7 @@ export class ActionPostCombatIdleWait extends action_base {
   public override finalize(): void {
     logger.info("End post combat idle state:", this.object.name());
 
-    GlobalSoundManager.getInstance().playSound(this.object.id(), "post_combat_relax");
+    getManager(GlobalSoundManager).playSound(this.object.id(), "post_combat_relax");
 
     if (this.isAnimationStarted) {
       (this.state.animation as StalkerAnimationManager).setState(null, true);
@@ -90,6 +91,6 @@ export class ActionPostCombatIdleWait extends action_base {
     (this.state.animation as StalkerAnimationManager).setState(EStalkerState.HIDE);
     (this.state.animation as StalkerAnimationManager).setControl();
 
-    GlobalSoundManager.getInstance().playSound(this.object.id(), "post_combat_wait", null, null);
+    getManager(GlobalSoundManager).playSound(this.object.id(), "post_combat_wait", null, null);
   }
 }

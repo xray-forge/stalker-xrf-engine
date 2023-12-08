@@ -76,7 +76,7 @@ describe("ItemWeapon server class", () => {
   });
 
   it("should correctly emit lifecycle events", () => {
-    const eventsManager: EventsManager = EventsManager.getInstance();
+    const eventsManager: EventsManager = getManager(EventsManager);
     const itemWeapon: ItemWeapon = new ItemWeapon("test-section");
 
     const onItemTorchRegister = jest.fn();

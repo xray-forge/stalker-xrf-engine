@@ -1,4 +1,5 @@
 import { smartCoversList } from "@/engine/core/animation/smart_covers";
+import { getManager } from "@/engine/core/database";
 import { GameOutroManager } from "@/engine/core/managers/outro";
 import { gameOutroConfig } from "@/engine/core/managers/outro/GameOutroConfig";
 import { SaveManager } from "@/engine/core/managers/save";
@@ -30,12 +31,11 @@ extern("smart_covers", {
  */
 extern("outro", {
   conditions: gameOutroConfig.OUTRO_CONDITIONS,
-  start_bk_sound: () => GameOutroManager.getInstance().startBlackScreenAndSound(),
-  stop_bk_sound: () => GameOutroManager.getInstance().stopBlackScreenAndSound(),
+  start_bk_sound: () => getManager(GameOutroManager).startBlackScreenAndSound(),
+  stop_bk_sound: () => getManager(GameOutroManager).stopBlackScreenAndSound(),
   update_bk_sound_fade_start: (factor: number) =>
-    GameOutroManager.getInstance().updateBlackScreenAndSoundFadeStart(factor),
-  update_bk_sound_fade_stop: (factor: number) =>
-    GameOutroManager.getInstance().updateBlackScreenAndSoundFadeStop(factor),
+    getManager(GameOutroManager).updateBlackScreenAndSoundFadeStart(factor),
+  update_bk_sound_fade_stop: (factor: number) => getManager(GameOutroManager).updateBlackScreenAndSoundFadeStop(factor),
 });
 
 /**
@@ -43,26 +43,26 @@ extern("outro", {
  * Adjust pricing / trading from lua.
  */
 extern("trade_manager", {
-  get_sell_discount: (objectId: TNumberId) => TradeManager.getInstance().getSellDiscountForObject(objectId),
-  get_buy_discount: (objectId: TNumberId) => TradeManager.getInstance().getBuyDiscountForObject(objectId),
+  get_sell_discount: (objectId: TNumberId) => getManager(TradeManager).getSellDiscountForObject(objectId),
+  get_buy_discount: (objectId: TNumberId) => getManager(TradeManager).getBuyDiscountForObject(objectId),
 });
 
 /**
  * Called from game engine just before creating game save.
  */
-extern("on_before_game_save", (saveName: TName) => SaveManager.getInstance().onBeforeGameSave(saveName));
+extern("on_before_game_save", (saveName: TName) => getManager(SaveManager).onBeforeGameSave(saveName));
 
 /**
  * Called from game engine when game save is created.
  */
-extern("on_game_save", (saveName: TName) => SaveManager.getInstance().onGameSave(saveName));
+extern("on_game_save", (saveName: TName) => getManager(SaveManager).onGameSave(saveName));
 
 /**
  * Called from game engine just before loading game save.
  */
-extern("on_before_game_load", (saveName: TName) => SaveManager.getInstance().onBeforeGameLoad(saveName));
+extern("on_before_game_load", (saveName: TName) => getManager(SaveManager).onBeforeGameLoad(saveName));
 
 /**
  * Called from game engine after loading game save.
  */
-extern("on_game_load", (saveName: TName) => SaveManager.getInstance().onGameLoad(saveName));
+extern("on_game_load", (saveName: TName) => getManager(SaveManager).onGameLoad(saveName));

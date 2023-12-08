@@ -76,7 +76,7 @@ describe("ItemTorch server class", () => {
   });
 
   it("should correctly emit lifecycle events", () => {
-    const eventsManager: EventsManager = EventsManager.getInstance();
+    const eventsManager: EventsManager = getManager(EventsManager);
     const itemTorch: ItemTorch = new ItemTorch("test-section");
 
     const onItemTorchRegister = jest.fn();
@@ -106,7 +106,7 @@ describe("ItemTorch server class", () => {
   });
 
   it("should correctly emit lifecycle events", () => {
-    const eventsManager: EventsManager = EventsManager.getInstance();
+    const eventsManager: EventsManager = getManager(EventsManager);
     const itemTorch: ItemTorch = new ItemTorch("test-section");
 
     const onItemTorchRegister = jest.fn();

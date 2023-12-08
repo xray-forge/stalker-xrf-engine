@@ -42,7 +42,7 @@ import { MockGameObject } from "@/fixtures/xray";
 
 describe("AchievementManager class", () => {
   const mockNotificationListener = (caption: string, senderId: string) => {
-    const eventsManager: EventsManager = EventsManager.getInstance();
+    const eventsManager: EventsManager = getManager(EventsManager);
 
     const onNotification = jest.fn((notification: ITipNotification) => {
       expect(notification.type).toBe(ENotificationType.TIP);

@@ -179,7 +179,7 @@ describe("dialogs_generic external callbacks", () => {
   });
 
   it("disable_ui should correctly disable UI", () => {
-    const actorInputManager: ActorInputManager = ActorInputManager.getInstance();
+    const actorInputManager: ActorInputManager = getManager(ActorInputManager);
 
     jest.spyOn(actorInputManager, "disableGameUi").mockImplementation(jest.fn());
 
@@ -189,7 +189,7 @@ describe("dialogs_generic external callbacks", () => {
   });
 
   it("disable_ui_only should correctly disable UI only", () => {
-    const actorInputManager: ActorInputManager = ActorInputManager.getInstance();
+    const actorInputManager: ActorInputManager = getManager(ActorInputManager);
 
     jest.spyOn(actorInputManager, "disableGameUiOnly").mockImplementation(jest.fn());
 

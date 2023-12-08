@@ -5,6 +5,7 @@ import {
   closeSaveMarker,
   DYNAMIC_WEATHER_GRAPHS,
   GAME_LTX,
+  getManager,
   getManagerByName,
   openLoadMarker,
   openSaveMarker,
@@ -85,7 +86,7 @@ export class WeatherManager extends AbstractManager {
   public graphs: LuaTable<TName, Optional<LuaTable<TName, TProbability>>> = new LuaTable();
 
   public override initialize(): void {
-    const eventsManager: EventsManager = EventsManager.getInstance();
+    const eventsManager: EventsManager = getManager(EventsManager);
 
     eventsManager.registerCallback(EGameEvent.ACTOR_UPDATE, this.update, this);
     eventsManager.registerCallback(EGameEvent.ACTOR_GO_ONLINE, this.onActorNetworkSpawn, this);
@@ -98,7 +99,7 @@ export class WeatherManager extends AbstractManager {
   }
 
   public override destroy(): void {
-    const eventsManager: EventsManager = EventsManager.getInstance();
+    const eventsManager: EventsManager = getManager(EventsManager);
 
     eventsManager.unregisterCallback(EGameEvent.ACTOR_UPDATE, this.update);
     eventsManager.unregisterCallback(EGameEvent.ACTOR_GO_ONLINE, this.onActorNetworkSpawn);

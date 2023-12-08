@@ -15,7 +15,7 @@ describe("SquadReachTargetAction class", () => {
   });
 
   it("should correctly initialize under simulation", () => {
-    const manager: SimulationManager = SimulationManager.getInstance();
+    const manager: SimulationManager = getManager(SimulationManager);
     const squad: MockSquad = MockSquad.mock();
     const target: MockSquad = MockSquad.mock();
     const action: SquadReachTargetAction = new SquadReachTargetAction(squad);
@@ -47,7 +47,7 @@ describe("SquadReachTargetAction class", () => {
   });
 
   it("should correctly initialize without simulation", () => {
-    const manager: SimulationManager = SimulationManager.getInstance();
+    const manager: SimulationManager = getManager(SimulationManager);
     const squad: MockSquad = MockSquad.mock();
     const target: MockSquad = MockSquad.mock();
     const action: SquadReachTargetAction = new SquadReachTargetAction(squad);
@@ -104,7 +104,7 @@ describe("SquadReachTargetAction class", () => {
   });
 
   it("should correctly update under simulation", () => {
-    const manager: SimulationManager = SimulationManager.getInstance();
+    const manager: SimulationManager = getManager(SimulationManager);
     const squad: MockSquad = MockSquad.mock();
     const target: MockSquad = MockSquad.mock();
     const action: SquadReachTargetAction = new SquadReachTargetAction(squad);
@@ -145,7 +145,7 @@ describe("SquadReachTargetAction class", () => {
   });
 
   it("should correctly update without simulation", () => {
-    const manager: SimulationManager = SimulationManager.getInstance();
+    const manager: SimulationManager = getManager(SimulationManager);
     const squad: MockSquad = MockSquad.mock();
     const target: MockSquad = MockSquad.mock();
     const action: SquadReachTargetAction = new SquadReachTargetAction(squad);

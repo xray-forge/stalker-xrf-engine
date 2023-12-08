@@ -190,7 +190,7 @@ describe("danger generic utils", () => {
 
     registry.zones.set("zat_a2_sr_no_assault", noCombatZone);
     jest.spyOn(noCombatZone, "inside").mockImplementation(() => true);
-    SimulationManager.getInstance().registerSmartTerrain(noCombatSmart as SmartTerrain);
+    getManager(SimulationManager).registerSmartTerrain(noCombatSmart as SmartTerrain);
 
     (noCombatSmart as SmartTerrain).smartTerrainActorControl = {
       status: ESmartTerrainStatus.NORMAL,

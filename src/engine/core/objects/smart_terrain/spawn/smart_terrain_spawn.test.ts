@@ -113,7 +113,7 @@ describe("respawnSmartTerrainSquad util", () => {
     smartTerrain.on_before_register();
     smartTerrain.on_register();
 
-    const simulationBoardManager: SimulationManager = SimulationManager.getInstance();
+    const simulationBoardManager: SimulationManager = getManager(SimulationManager);
 
     jest.spyOn(simulationBoardManager, "assignSquadToSmartTerrain").mockImplementation(() => jest.fn());
 
@@ -140,7 +140,7 @@ describe("respawnSmartTerrainSquad util", () => {
 
     applySmartTerrainRespawnSectionsConfig(smartTerrain, "spawn-section");
 
-    const simulationBoardManager: SimulationManager = SimulationManager.getInstance();
+    const simulationBoardManager: SimulationManager = getManager(SimulationManager);
 
     jest.spyOn(simulationBoardManager, "assignSquadToSmartTerrain").mockImplementation(() => jest.fn());
     jest.spyOn(simulationBoardManager, "setupObjectSquadAndGroup");
@@ -243,13 +243,13 @@ describe("canRespawnSmartTerrainSquad util", () => {
       .spyOn(actorServerObject.position, "distance_to_sqr")
       .mockImplementation(() => smartTerrainConfig.RESPAWN_RADIUS_RESTRICTION_SQR + 1);
 
-    jest.spyOn(SimulationManager.getInstance(), "getSmartTerrainAssignedSquadsCount").mockImplementation(() => 2);
+    jest.spyOn(getManager(SimulationManager), "getSmartTerrainAssignedSquadsCount").mockImplementation(() => 2);
 
     expect(canRespawnSmartTerrainSquad(smartTerrain)).toBe(false);
     expect(MockCTime.areEqual(smartTerrain.lastRespawnUpdatedAt as CTime, game.get_game_time())).toBe(true);
 
     smartTerrain.lastRespawnUpdatedAt = null as Optional<CTime>;
-    jest.spyOn(SimulationManager.getInstance(), "getSmartTerrainAssignedSquadsCount").mockImplementation(() => 1);
+    jest.spyOn(getManager(SimulationManager), "getSmartTerrainAssignedSquadsCount").mockImplementation(() => 1);
 
     expect(canRespawnSmartTerrainSquad(smartTerrain)).toBe(true);
     expect(MockCTime.areEqual(smartTerrain.lastRespawnUpdatedAt as CTime, game.get_game_time())).toBe(true);

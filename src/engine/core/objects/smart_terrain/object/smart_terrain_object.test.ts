@@ -23,7 +23,7 @@ describe("isObjectArrivedToSmartTerrain utility", () => {
     const squad: Squad = MockSquad.mock();
     const smartTerrain: SmartTerrain = mockSmartTerrain();
 
-    SimulationManager.getInstance().registerSmartTerrain(smartTerrain);
+    getManager(SimulationManager).registerSmartTerrain(smartTerrain);
 
     object.group_id = squad.id;
     squad.currentAction = new SquadStayOnTargetAction(squad);

@@ -52,7 +52,7 @@ describe("MobRemarkManager", () => {
       animationMovement: true,
     });
     const manager: MobRemarkManager = new MobRemarkManager(object, state);
-    const notificationManager: NotificationManager = NotificationManager.getInstance();
+    const notificationManager: NotificationManager = getManager(NotificationManager);
 
     jest.spyOn(notificationManager, "sendTipNotification").mockImplementation(jest.fn());
 

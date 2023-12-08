@@ -1,7 +1,7 @@
 import { action_base, LuabindClass } from "xray16";
 
 import { EStalkerState } from "@/engine/core/animation/types";
-import { getStalkerState, setStalkerState } from "@/engine/core/database";
+import { getManager, getStalkerState, setStalkerState } from "@/engine/core/database";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import { ISchemeCorpseDetectionState } from "@/engine/core/schemes/stalker/corpse_detection/corpse_detection_types";
 import { freeSelectedLootedObjectSpot } from "@/engine/core/schemes/stalker/corpse_detection/utils";
@@ -82,12 +82,11 @@ export class ActionSearchCorpse extends action_base {
   public startSearchingCorpse(): void {
     setStalkerState(this.object, EStalkerState.SEARCH_CORPSE, null, null, {
       lookPosition: this.state.selectedCorpseVertexPosition,
-      lookObjectId: null,
     });
 
     // Play looting start sound once.
     if (!this.isLootingSoundPlayed) {
-      GlobalSoundManager.getInstance().playSound(this.object.id(), "corpse_loot_begin");
+      getManager(GlobalSoundManager).playSound(this.object.id(), "corpse_loot_begin");
       this.isLootingSoundPlayed = true;
     }
   }

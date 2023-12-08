@@ -3,6 +3,7 @@ import { LuabindClass, object_binder } from "xray16";
 import {
   closeLoadMarker,
   closeSaveMarker,
+  getManager,
   IRegistryObjectState,
   openLoadMarker,
   openSaveMarker,
@@ -51,7 +52,7 @@ export class RestrictorBinder extends object_binder {
     const objectId: TNumberId = this.object.id();
 
     if (soundsConfig.looped.has(objectId)) {
-      const globalSoundManager: GlobalSoundManager = GlobalSoundManager.getInstance();
+      const globalSoundManager: GlobalSoundManager = getManager(GlobalSoundManager);
 
       for (const [sound] of soundsConfig.looped.get(objectId)) {
         globalSoundManager.playLoopedSound(objectId, sound);
@@ -64,7 +65,7 @@ export class RestrictorBinder extends object_binder {
   public override net_destroy(): void {
     logger.info("Go offline:", this.object.name());
 
-    GlobalSoundManager.getInstance().stopSoundByObjectId(this.object.id());
+    getManager(GlobalSoundManager).stopSoundByObjectId(this.object.id());
 
     const state: IRegistryObjectState = registry.objects.get(this.object.id());
 
@@ -100,7 +101,7 @@ export class RestrictorBinder extends object_binder {
       emitSchemeEvent(object, state[state.activeScheme!]!, ESchemeEvent.UPDATE, delta);
     }
 
-    GlobalSoundManager.getInstance().update(objectId);
+    getManager(GlobalSoundManager).update(objectId);
   }
 
   public override net_save_relevant(): boolean {

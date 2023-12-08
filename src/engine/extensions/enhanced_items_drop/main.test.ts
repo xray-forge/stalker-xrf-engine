@@ -10,7 +10,7 @@ describe("enhanced drop", () => {
   });
 
   it("should correctly change config of drop", () => {
-    const eventsManager: EventsManager = EventsManager.getInstance();
+    const eventsManager: EventsManager = getManager(EventsManager);
 
     expect(eventsManager.getSubscribersCount()).toBe(0);
 

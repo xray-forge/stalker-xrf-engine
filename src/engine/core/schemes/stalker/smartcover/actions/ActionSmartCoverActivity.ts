@@ -1,7 +1,7 @@
 import { action_base, level, LuabindClass, patrol } from "xray16";
 
 import { ESmartCoverState, EStalkerState } from "@/engine/core/animation/types/state_types";
-import { getObjectByStoryId, registry, setStalkerState } from "@/engine/core/database";
+import { getManager, getObjectByStoryId, registry, setStalkerState } from "@/engine/core/database";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import {
   COVER_SUBSTATE_TABLE,
@@ -214,7 +214,7 @@ export class ActionSmartCoverActivity extends action_base implements ISchemeEven
     }
 
     if (this.state.soundIdle !== null) {
-      GlobalSoundManager.getInstance().playSound(this.object.id(), this.state.soundIdle, null, null);
+      getManager(GlobalSoundManager).playSound(this.object.id(), this.state.soundIdle, null, null);
     }
   }
 

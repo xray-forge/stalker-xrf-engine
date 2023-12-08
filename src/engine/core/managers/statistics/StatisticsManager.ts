@@ -1,6 +1,6 @@
 import { clsid } from "xray16";
 
-import { getPortableStoreValue, registry, setPortableStoreValue } from "@/engine/core/database";
+import { getManager, getPortableStoreValue, registry, setPortableStoreValue } from "@/engine/core/database";
 import { AbstractManager } from "@/engine/core/managers/base/AbstractManager";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import type { IActorStatistics } from "@/engine/core/managers/statistics/statistics_types";
@@ -110,7 +110,7 @@ export class StatisticsManager extends AbstractManager {
   };
 
   public override initialize(): void {
-    const eventsManager: EventsManager = EventsManager.getInstance();
+    const eventsManager: EventsManager = getManager(EventsManager);
 
     eventsManager.registerCallback(EGameEvent.TASK_COMPLETED, this.onTaskCompleted, this);
     eventsManager.registerCallback(EGameEvent.SURGE_SURVIVED_WITH_ANABIOTIC, this.onSurvivedSurgeWithAnabiotic, this);
@@ -125,7 +125,7 @@ export class StatisticsManager extends AbstractManager {
   }
 
   public override destroy(): void {
-    const eventsManager: EventsManager = EventsManager.getInstance();
+    const eventsManager: EventsManager = getManager(EventsManager);
 
     eventsManager.unregisterCallback(EGameEvent.TASK_COMPLETED, this.onTaskCompleted);
     eventsManager.unregisterCallback(EGameEvent.SURGE_SURVIVED_WITH_ANABIOTIC, this.onSurvivedSurgeWithAnabiotic);

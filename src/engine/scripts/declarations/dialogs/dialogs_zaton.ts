@@ -2,7 +2,7 @@
 
 import { game, level } from "xray16";
 
-import { isStoryObjectExisting, registry } from "@/engine/core/database";
+import { getManager, isStoryObjectExisting, registry } from "@/engine/core/database";
 import { getPortableStoreValue, setPortableStoreValue } from "@/engine/core/database/portable_store";
 import { ENotificationDirection, NotificationManager } from "@/engine/core/managers/notifications";
 import { TreasureManager } from "@/engine/core/managers/treasures";
@@ -463,13 +463,10 @@ extern("dialogs_zaton.actor_hasnt_artefact", (firstSpeaker: GameObject, secondSp
 /**
  * todo;
  */
-extern(
-  "dialogs_zaton.zat_b7_give_bandit_reward_to_actor",
-  (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
-    giveMoneyToActor(math.random(15, 30) * 100);
-    TreasureManager.getInstance().giveActorTreasureCoordinates("zat_hiding_place_30");
-  }
-);
+extern("dialogs_zaton.zat_b7_give_bandit_reward_to_actor", (): void => {
+  giveMoneyToActor(math.random(15, 30) * 100);
+  getManager(TreasureManager).giveActorTreasureCoordinates("zat_hiding_place_30");
+});
 
 /**
  * todo;
@@ -552,7 +549,7 @@ extern("dialogs_zaton.zat_b103_transfer_merc_supplies", (firstSpeaker: GameObjec
   const actor: GameObject = registry.actor;
   let it: TCount = 6;
 
-  const newsManager: NotificationManager = NotificationManager.getInstance();
+  const newsManager: NotificationManager = getManager(NotificationManager);
   const itemSections: LuaArray<TFoodItem> = $fromArray<TFoodItem>([food.conserva, food.kolbasa, food.bread]);
 
   for (const [k, section] of itemSections) {
@@ -1777,7 +1774,7 @@ extern("dialogs_zaton.zat_b30_transfer_af_from_actor", (firstSpeaker: GameObject
   transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), artefacts.af_compass);
   giveMoneyToActor(10_000);
 
-  const treasureManager: TreasureManager = TreasureManager.getInstance();
+  const treasureManager: TreasureManager = getManager(TreasureManager);
 
   treasureManager.giveActorTreasureCoordinates("zat_hiding_place_49");
   treasureManager.giveActorTreasureCoordinates("zat_hiding_place_15");
@@ -2183,7 +2180,7 @@ extern("dialogs_zaton.zat_b53_transfer_medkit_to_npc", (firstSpeaker: GameObject
   }
 
   registry.simulator.release(registry.simulator.object(actor.object(section)!.id()), true);
-  NotificationManager.getInstance().sendItemRelocatedNotification(ENotificationDirection.OUT, section, 1);
+  getManager(NotificationManager).sendItemRelocatedNotification(ENotificationDirection.OUT, section, 1);
   actor.change_character_reputation(10);
 });
 

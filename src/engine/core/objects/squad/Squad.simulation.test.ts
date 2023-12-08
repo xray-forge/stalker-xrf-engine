@@ -137,7 +137,7 @@ describe("Squad server object", () => {
   it("should correctly handle simulation target selection", () => {
     const squad: MockSquad = MockSquad.mock();
     const another: MockSquad = MockSquad.mock();
-    const simulationManager: SimulationManager = SimulationManager.getInstance();
+    const simulationManager: SimulationManager = getManager(SimulationManager);
 
     const first: ServerHumanObject = MockAlifeHumanStalker.mock();
     const second: ServerHumanObject = MockAlifeHumanStalker.mock();

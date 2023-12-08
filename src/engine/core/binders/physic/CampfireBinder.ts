@@ -1,6 +1,6 @@
 import { LuabindClass, object_binder } from "xray16";
 
-import { registerSmartTerrainCampfire, unRegisterSmartTerrainCampfire } from "@/engine/core/database";
+import { getManager, registerSmartTerrainCampfire, unRegisterSmartTerrainCampfire } from "@/engine/core/database";
 import { SimulationManager } from "@/engine/core/managers/simulation/SimulationManager";
 import { SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -25,7 +25,7 @@ export class CampfireBinder extends object_binder {
 
     const [smartTerrainName] = string.gsub(this.object.name(), "_campfire_%d*", "");
 
-    this.smartTerrain = SimulationManager.getInstance().getSmartTerrainByName(smartTerrainName);
+    this.smartTerrain = getManager(SimulationManager).getSmartTerrainByName(smartTerrainName);
 
     if (this.smartTerrain) {
       registerSmartTerrainCampfire(this.smartTerrain, this.object);

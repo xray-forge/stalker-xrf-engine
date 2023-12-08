@@ -1,6 +1,13 @@
 import { time_global } from "xray16";
 
-import { closeLoadMarker, closeSaveMarker, openLoadMarker, openSaveMarker, registry } from "@/engine/core/database";
+import {
+  closeLoadMarker,
+  closeSaveMarker,
+  getManager,
+  openLoadMarker,
+  openSaveMarker,
+  registry,
+} from "@/engine/core/database";
 import { AbstractManager } from "@/engine/core/managers/base/AbstractManager";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { MapDisplayManager } from "@/engine/core/managers/map";
@@ -41,14 +48,14 @@ export class TreasureManager extends AbstractManager {
    * Share treasure coordinates with the actor.
    */
   public static giveTreasureCoordinates(treasureId: TStringId): void {
-    return TreasureManager.getInstance().giveActorTreasureCoordinates(treasureId);
+    return getManager(TreasureManager).giveActorTreasureCoordinates(treasureId);
   }
 
   /**
    * Register server object in treasure manager.
    */
   public static registerItem(serverObject: ServerObject): boolean {
-    return TreasureManager.getInstance().onRegisterItem(serverObject);
+    return getManager(TreasureManager).onRegisterItem(serverObject);
   }
 
   public areItemsSpawned: boolean = false;
@@ -83,7 +90,7 @@ export class TreasureManager extends AbstractManager {
    * Initialize secrets manager.
    */
   public override initialize(): void {
-    const eventsManager: EventsManager = EventsManager.getInstance();
+    const eventsManager: EventsManager = getManager(EventsManager);
 
     eventsManager.registerCallback(EGameEvent.ACTOR_UPDATE, this.update, this);
     eventsManager.registerCallback(EGameEvent.ACTOR_ITEM_TAKE, this.onActorItemTake, this);
@@ -94,7 +101,7 @@ export class TreasureManager extends AbstractManager {
    * Destroy and unregister manager instance.
    */
   public override destroy(): void {
-    const eventsManager: EventsManager = EventsManager.getInstance();
+    const eventsManager: EventsManager = getManager(EventsManager);
 
     eventsManager.unregisterCallback(EGameEvent.ACTOR_UPDATE, this.update);
     eventsManager.unregisterCallback(EGameEvent.ACTOR_ITEM_TAKE, this.onActorItemTake);
@@ -128,7 +135,7 @@ export class TreasureManager extends AbstractManager {
           treasureDescriptor.empty = null;
           treasureDescriptor.checked = true;
 
-          MapDisplayManager.getInstance().removeTreasureMapSpot(
+          getManager(MapDisplayManager).removeTreasureMapSpot(
             this.treasuresRestrictorByName.get(treasureSection),
             treasureDescriptor
           );
@@ -228,7 +235,7 @@ export class TreasureManager extends AbstractManager {
 
     // Just notify actor. todo: check empty as condlist?
     if (descriptor.itemsToFindRemain === 0 && !descriptor.empty) {
-      NotificationManager.getInstance().sendTreasureNotification(ETreasureState.LOOTED_TREASURE_COORDINATES);
+      getManager(NotificationManager).sendTreasureNotification(ETreasureState.LOOTED_TREASURE_COORDINATES);
 
       return logger.info("Already empty treasure given:", treasureId);
     }
@@ -239,8 +246,8 @@ export class TreasureManager extends AbstractManager {
     }
 
     descriptor.given = true;
-    MapDisplayManager.getInstance().showTreasureMapSpot(this.treasuresRestrictorByName.get(treasureId), descriptor);
-    NotificationManager.getInstance().sendTreasureNotification(ETreasureState.NEW_TREASURE_COORDINATES);
+    getManager(MapDisplayManager).showTreasureMapSpot(this.treasuresRestrictorByName.get(treasureId), descriptor);
+    getManager(NotificationManager).sendTreasureNotification(ETreasureState.NEW_TREASURE_COORDINATES);
   }
 
   /**
@@ -368,13 +375,10 @@ export class TreasureManager extends AbstractManager {
       descriptor.itemsToFindRemain -= 1;
 
       if (treasureConfig.TREASURES.get(treasureId).itemsToFindRemain === 0) {
-        MapDisplayManager.getInstance().removeTreasureMapSpot(
-          this.treasuresRestrictorByName.get(treasureId),
-          descriptor
-        );
+        getManager(MapDisplayManager).removeTreasureMapSpot(this.treasuresRestrictorByName.get(treasureId), descriptor);
         EventsManager.emitEvent(EGameEvent.TREASURE_FOUND, descriptor);
         treasureConfig.TREASURES.get(treasureId).checked = true;
-        NotificationManager.getInstance().sendTreasureNotification(ETreasureState.FOUND_TREASURE);
+        getManager(NotificationManager).sendTreasureNotification(ETreasureState.FOUND_TREASURE);
 
         logger.info("Secret now is empty:", treasureId);
       }

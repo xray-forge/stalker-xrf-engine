@@ -77,7 +77,7 @@ describe("Item server class", () => {
   });
 
   it("should correctly emit lifecycle events", () => {
-    const eventsManager: EventsManager = EventsManager.getInstance();
+    const eventsManager: EventsManager = getManager(EventsManager);
     const item: InventoryBox = new Item("test-section");
 
     const onItemRegister = jest.fn();

@@ -1,4 +1,4 @@
-import { IDynamicSaveData, initializeManager, registry } from "@/engine/core/database";
+import { getManager, IDynamicSaveData, initializeManager, registry } from "@/engine/core/database";
 import { AchievementsManager } from "@/engine/core/managers/achievements";
 import { ActorInputManager } from "@/engine/core/managers/actor";
 import { AbstractManager } from "@/engine/core/managers/base";
@@ -24,13 +24,13 @@ const logger: LuaLogger = new LuaLogger($filename);
  */
 export class SaveManager extends AbstractManager {
   public override initialize(): void {
-    const eventsManager: EventsManager = EventsManager.getInstance();
+    const eventsManager: EventsManager = getManager(EventsManager);
 
     eventsManager.registerCallback(EGameEvent.ACTOR_REINIT, this.onActorReinit, this);
   }
 
   public override destroy(): void {
-    const eventsManager: EventsManager = EventsManager.getInstance();
+    const eventsManager: EventsManager = getManager(EventsManager);
 
     eventsManager.unregisterCallback(EGameEvent.ACTOR_REINIT, this.onActorReinit);
   }
@@ -41,17 +41,17 @@ export class SaveManager extends AbstractManager {
   public clientSave(packet: NetPacket): void {
     logger.info("Saving client data");
 
-    WeatherManager.getInstance().save(packet);
-    ReleaseBodyManager.getInstance().save(packet);
-    SurgeManager.getInstance().save(packet);
-    PsyAntennaManager.save(packet);
-    GlobalSoundManager.getInstance().save(packet);
-    StatisticsManager.getInstance().save(packet);
-    TreasureManager.getInstance().save(packet);
-    TaskManager.getInstance().save(packet);
-    AchievementsManager.getInstance().save(packet);
-    ActorInputManager.getInstance().save(packet);
-    GameSettingsManager.getInstance().save(packet);
+    getManager(WeatherManager).save(packet);
+    getManager(ReleaseBodyManager).save(packet);
+    getManager(SurgeManager).save(packet);
+    getManager(PsyAntennaManager).save(packet);
+    getManager(GlobalSoundManager).save(packet);
+    getManager(StatisticsManager).save(packet);
+    getManager(TreasureManager).save(packet);
+    getManager(TaskManager).save(packet);
+    getManager(AchievementsManager).save(packet);
+    getManager(ActorInputManager).save(packet);
+    getManager(GameSettingsManager).save(packet);
   }
 
   /**
@@ -60,17 +60,17 @@ export class SaveManager extends AbstractManager {
   public clientLoad(reader: NetProcessor): void {
     logger.info("Loading client data");
 
-    WeatherManager.getInstance().load(reader);
-    ReleaseBodyManager.getInstance().load(reader);
-    SurgeManager.getInstance().load(reader);
+    getManager(WeatherManager).load(reader);
+    getManager(ReleaseBodyManager).load(reader);
+    getManager(SurgeManager).load(reader);
     PsyAntennaManager.load(reader);
-    GlobalSoundManager.getInstance().load(reader);
-    StatisticsManager.getInstance().load(reader);
-    TreasureManager.getInstance().load(reader);
-    TaskManager.getInstance().load(reader);
-    AchievementsManager.getInstance().load(reader);
-    ActorInputManager.getInstance().load(reader);
-    GameSettingsManager.getInstance().load(reader);
+    getManager(GlobalSoundManager).load(reader);
+    getManager(StatisticsManager).load(reader);
+    getManager(TreasureManager).load(reader);
+    getManager(TaskManager).load(reader);
+    getManager(AchievementsManager).load(reader);
+    getManager(ActorInputManager).load(reader);
+    getManager(GameSettingsManager).load(reader);
   }
 
   /**
@@ -79,7 +79,7 @@ export class SaveManager extends AbstractManager {
   public serverSave(packet: NetPacket): void {
     logger.info("Saving server data");
 
-    SimulationManager.getInstance().save(packet);
+    getManager(SimulationManager).save(packet);
   }
 
   /**
@@ -88,7 +88,7 @@ export class SaveManager extends AbstractManager {
   public serverLoad(reader: NetProcessor): void {
     logger.info("Loading server data");
 
-    SimulationManager.getInstance().load(reader);
+    getManager(SimulationManager).load(reader);
   }
 
   /**

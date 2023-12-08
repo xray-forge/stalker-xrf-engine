@@ -76,7 +76,7 @@ describe("ItemDetector server class", () => {
   });
 
   it("should correctly emit lifecycle events", () => {
-    const eventsManager: EventsManager = EventsManager.getInstance();
+    const eventsManager: EventsManager = getManager(EventsManager);
     const itemDetector: ItemDetector = new ItemDetector("test-section");
 
     const onItemDetectorRegister = jest.fn();

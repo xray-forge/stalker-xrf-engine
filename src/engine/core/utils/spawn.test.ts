@@ -150,7 +150,7 @@ describe("spawning utils", () => {
     expect(() => spawnSquadInSmart("abc", "abc")).toThrow();
     expect(() => spawnSquadInSmart("squad", "some_terrain")).toThrow();
 
-    const simulationManager: SimulationManager = SimulationManager.getInstance();
+    const simulationManager: SimulationManager = getManager(SimulationManager);
     const smartTerrain: ServerSmartZoneObject = MockSmartTerrain.mock();
     const squad: Squad = MockSquad.mock();
 

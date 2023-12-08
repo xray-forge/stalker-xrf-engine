@@ -1,6 +1,6 @@
 import { game } from "xray16";
 
-import { getObjectIdByStoryId, registry } from "@/engine/core/database";
+import { getManager, getObjectIdByStoryId, registry } from "@/engine/core/database";
 import {
   hasAchievedBalanceAdvocate,
   hasAchievedBattleSystemsMaster,
@@ -44,13 +44,13 @@ const logger: LuaLogger = new LuaLogger($filename);
  */
 export class AchievementsManager extends AbstractManager {
   public override initialize(): void {
-    const eventsManager: EventsManager = EventsManager.getInstance();
+    const eventsManager: EventsManager = getManager(EventsManager);
 
     eventsManager.registerCallback(EGameEvent.ACTOR_UPDATE, this.update, this);
   }
 
   public override destroy(): void {
-    const eventsManager: EventsManager = EventsManager.getInstance();
+    const eventsManager: EventsManager = getManager(EventsManager);
 
     eventsManager.unregisterCallback(EGameEvent.ACTOR_UPDATE, this.update);
   }

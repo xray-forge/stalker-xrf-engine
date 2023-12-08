@@ -1,5 +1,6 @@
 import { profile_timer } from "xray16";
 
+import { getManager } from "@/engine/core/database";
 import { ProfilingManager } from "@/engine/core/managers/debug/profiling/ProfilingManager";
 import { ELuaLoggerMode, LuaLogger } from "@/engine/core/utils/logging";
 import { AnyCallable, LuaArray, Optional, ProfileTimer, TDuration, TName } from "@/engine/lib/types";
@@ -14,7 +15,7 @@ export class ProfilingPortion {
    * Create profiling mark entry for precise measurement of execution duration.
    */
   public static mark(name: Optional<TName | AnyCallable> = null): ProfilingPortion {
-    const manager: ProfilingManager = ProfilingManager.getInstance();
+    const manager: ProfilingManager = getManager(ProfilingManager);
     const functionInfo: debug.FunctionInfo = debug.getinfo(2)!;
     const functionRef: AnyCallable = functionInfo.func as AnyCallable;
     const key: AnyCallable | TName = name ?? functionRef;

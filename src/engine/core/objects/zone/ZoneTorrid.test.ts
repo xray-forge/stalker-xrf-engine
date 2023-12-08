@@ -59,7 +59,7 @@ describe("ZoneTorrid server class", () => {
   });
 
   it("should correctly emit lifecycle events", () => {
-    const eventsManager: EventsManager = EventsManager.getInstance();
+    const eventsManager: EventsManager = getManager(EventsManager);
     const zoneTorrid: ZoneTorrid = new ZoneTorrid("test-section");
 
     const onTorridRegister = jest.fn();

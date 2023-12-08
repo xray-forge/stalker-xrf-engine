@@ -113,7 +113,7 @@ describe("NoWeaponManager class", () => {
 
     const onZoneEnter = jest.fn();
 
-    EventsManager.getInstance().registerCallback(EGameEvent.ACTOR_ENTER_NO_WEAPON_ZONE, onZoneEnter);
+    getManager(EventsManager).registerCallback(EGameEvent.ACTOR_ENTER_NO_WEAPON_ZONE, onZoneEnter);
 
     manager.onZoneEnter();
 
@@ -129,7 +129,7 @@ describe("NoWeaponManager class", () => {
 
     const onZoneLeave = jest.fn();
 
-    EventsManager.getInstance().registerCallback(EGameEvent.ACTOR_LEAVE_NO_WEAPON_ZONE, onZoneLeave);
+    getManager(EventsManager).registerCallback(EGameEvent.ACTOR_LEAVE_NO_WEAPON_ZONE, onZoneLeave);
 
     registry.noWeaponZones.set(object.id(), true);
 

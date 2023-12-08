@@ -1,6 +1,6 @@
 import { danger_object } from "xray16";
 
-import { ILogicsOverrides, IRegistryObjectState, registry } from "@/engine/core/database";
+import { getManager, ILogicsOverrides, IRegistryObjectState, registry } from "@/engine/core/database";
 import { SimulationManager } from "@/engine/core/managers/simulation/SimulationManager";
 import { SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import { ESmartTerrainStatus } from "@/engine/core/objects/smart_terrain/smart_terrain_types";
@@ -155,12 +155,14 @@ export function canObjectSelectAsEnemy(object: GameObject, enemy: GameObject): b
   }
 
   if (objectState.enemyId !== ACTOR_ID) {
+    const simulationManager: SimulationManager = getManager(SimulationManager);
+
     // If enemy of object is in no-combat zone.
     for (const [name, storyId] of registry.noCombatZones) {
       const zone: Optional<GameObject> = registry.zones.get(name);
 
       if (zone && (isObjectInZone(object, zone) || isObjectInZone(enemy, zone))) {
-        const smartTerrain: Optional<SmartTerrain> = SimulationManager.getInstance().getSmartTerrainByName(storyId);
+        const smartTerrain: Optional<SmartTerrain> = simulationManager.getSmartTerrainByName(storyId);
 
         // Still allow combat if zone is set to alarm.
         if (
@@ -177,11 +179,7 @@ export function canObjectSelectAsEnemy(object: GameObject, enemy: GameObject): b
   const serverObject: Optional<ServerCreatureObject> = registry.simulator.object(enemy.id());
 
   // Check if server object is in no-combat zone.
-  if (
-    serverObject !== null &&
-    serverObject.m_smart_terrain_id !== null &&
-    serverObject.m_smart_terrain_id !== MAX_U16
-  ) {
+  if (serverObject && serverObject.m_smart_terrain_id && serverObject.m_smart_terrain_id !== MAX_U16) {
     const enemySmartTerrain: SmartTerrain = registry.simulator.object<SmartTerrain>(
       serverObject.m_smart_terrain_id
     ) as SmartTerrain;

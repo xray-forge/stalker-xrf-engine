@@ -38,7 +38,7 @@ describe("SmartTerrainBinder class", () => {
   it("should correctly handle going online/offline", () => {
     const binder: SmartTerrainBinder = new SmartTerrainBinder(MockGameObject.mock());
     const serverObject: ServerObject = mockServerAlifeObject({ id: binder.object.id() });
-    const globalSoundManager: GlobalSoundManager = GlobalSoundManager.getInstance();
+    const globalSoundManager: GlobalSoundManager = getManager(GlobalSoundManager);
 
     jest.spyOn(globalSoundManager, "stopSoundByObjectId").mockImplementation(jest.fn());
 
@@ -66,7 +66,7 @@ describe("SmartTerrainBinder class", () => {
     const serverObject: ServerObject = mockServerAlifeObject({ id: binder.object.id() });
     const onVisit = jest.fn();
 
-    EventsManager.getInstance().registerCallback(EGameEvent.SMART_TERRAIN_VISITED, onVisit);
+    getManager(EventsManager).registerCallback(EGameEvent.SMART_TERRAIN_VISITED, onVisit);
 
     binder.net_spawn(serverObject);
     binder.update(255);
