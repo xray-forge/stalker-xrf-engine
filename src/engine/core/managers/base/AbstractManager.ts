@@ -1,4 +1,4 @@
-import { disposeManager, getManagerInstance, getWeakManagerInstance } from "@/engine/core/database/managers";
+import { disposeManager, getManager, getWeakManager } from "@/engine/core/database/managers";
 import { abort } from "@/engine/core/utils/assertion";
 import { IConstructor, NetPacket, NetProcessor, Optional, TDuration } from "@/engine/lib/types";
 
@@ -14,7 +14,7 @@ export abstract class AbstractManager {
    * @returns manager instance
    */
   public static getInstance<T extends AbstractManager>(this: IConstructor<T>, initialize: boolean = true): T {
-    return getManagerInstance(this, initialize);
+    return getManager(this, initialize);
   }
 
   /**
@@ -24,7 +24,7 @@ export abstract class AbstractManager {
    * @returns manager instance or `null`
    */
   public static getWeakInstance<T extends AbstractManager>(this: IConstructor<T>): Optional<T> {
-    return getWeakManagerInstance(this);
+    return getWeakManager(this);
   }
 
   /**

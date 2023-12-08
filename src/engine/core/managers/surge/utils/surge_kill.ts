@@ -1,6 +1,6 @@
 import { hit, level } from "xray16";
 
-import { getManagerInstanceByName, isStoryObject, registry } from "@/engine/core/database";
+import { getManagerByName, isStoryObject, registry } from "@/engine/core/database";
 import type { ActorInputManager } from "@/engine/core/managers/actor/ActorInputManager";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { SimulationManager } from "@/engine/core/managers/simulation";
@@ -146,7 +146,7 @@ export function killAllSurgeUnhidden(): void {
         EventsManager.emitEvent(EGameEvent.SURGE_SURVIVED_WITH_ANABIOTIC);
       }
 
-      getManagerInstanceByName<ActorInputManager>("ActorInputManager")?.disableGameUiOnly();
+      getManagerByName<ActorInputManager>("ActorInputManager")?.disableGameUiOnly();
 
       /**
        * Whether actor should survive surge.

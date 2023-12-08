@@ -3,7 +3,7 @@ import { game, get_hud, level } from "xray16";
 import {
   closeLoadMarker,
   closeSaveMarker,
-  getManagerInstanceByName,
+  getManagerByName,
   openLoadMarker,
   openSaveMarker,
   registry,
@@ -350,7 +350,7 @@ export class ActorInputManager extends AbstractManager {
     level.add_cam_effector(animations.camera_effects_surge_01, 10, false, "engine.on_anabiotic_wake_up");
 
     const random: number = math.random(35, 45);
-    const surgeManager: SurgeManager = getManagerInstanceByName("SurgeManager") as SurgeManager;
+    const surgeManager: SurgeManager = getManagerByName("SurgeManager") as SurgeManager;
 
     if (surgeConfig.IS_STARTED) {
       const timeFactor: TRate = level.get_time_factor();

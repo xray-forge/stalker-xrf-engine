@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 
-import { getManagerInstance } from "@/engine/core/database";
+import { getManager } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { AnyCallable, AnyObject } from "@/engine/lib/types";
 import { resetRegistry } from "@/fixtures/engine";
@@ -12,7 +12,7 @@ describe("EventsManager class", () => {
   });
 
   it("should correctly initialize", () => {
-    const manager: EventsManager = getManagerInstance(EventsManager);
+    const manager: EventsManager = getManager(EventsManager);
 
     expect(MockLuaTable.getMockSize(manager.callbacks)).toBe(115);
 
@@ -24,7 +24,7 @@ describe("EventsManager class", () => {
   });
 
   it("should correctly add listeners", () => {
-    const manager: EventsManager = getManagerInstance(EventsManager);
+    const manager: EventsManager = getManager(EventsManager);
     const contextObject: AnyObject = {};
 
     const mockFn: AnyCallable = jest.fn(function (this: unknown, param: number) {

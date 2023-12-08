@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it } from "@jest/globals";
 import { clsid } from "xray16";
 
-import { disposeManager, getManagerInstance, registerActor, registerSimulator } from "@/engine/core/database";
+import { disposeManager, getManager, registerActor, registerSimulator } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { StatisticsManager } from "@/engine/core/managers/statistics";
 import { weapons } from "@/engine/lib/constants/items/weapons";
@@ -25,8 +25,8 @@ describe("StatisticsManager class", () => {
   });
 
   it("should correctly initialize and destroy", () => {
-    const statisticsManager: StatisticsManager = getManagerInstance(StatisticsManager);
-    const eventsManager: EventsManager = getManagerInstance(EventsManager);
+    const statisticsManager: StatisticsManager = getManager(StatisticsManager);
+    const eventsManager: EventsManager = getManager(EventsManager);
 
     expect(eventsManager.getSubscribersCount()).toBe(10);
     expect(statisticsManager.takenArtefacts).toEqualLuaTables(new LuaTable());
@@ -236,7 +236,7 @@ describe("StatisticsManager class", () => {
   });
 
   it("should correctly save and load data", () => {
-    const oldManager: StatisticsManager = getManagerInstance(StatisticsManager);
+    const oldManager: StatisticsManager = getManager(StatisticsManager);
     const netProcessor: MockNetProcessor = new MockNetProcessor();
 
     oldManager.actorStatistics = {
@@ -437,7 +437,7 @@ describe("StatisticsManager class", () => {
 
     disposeManager(StatisticsManager);
 
-    const newManager: StatisticsManager = getManagerInstance(StatisticsManager);
+    const newManager: StatisticsManager = getManager(StatisticsManager);
 
     newManager.load(netProcessor.asMockNetProcessor());
 

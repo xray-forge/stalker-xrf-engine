@@ -5,7 +5,7 @@ import {
   closeSaveMarker,
   DYNAMIC_WEATHER_GRAPHS,
   GAME_LTX,
-  getManagerInstanceByName,
+  getManagerByName,
   openLoadMarker,
   openSaveMarker,
   registry,
@@ -164,7 +164,7 @@ export class WeatherManager extends AbstractManager {
    */
   public changePeriod(): void {
     const currentTimeHour: TTimestamp = level.get_time_hours();
-    const surgeManager: SurgeManager = getManagerInstanceByName("SurgeManager") as SurgeManager;
+    const surgeManager: SurgeManager = getManagerByName("SurgeManager") as SurgeManager;
     const gameTime: CTime = game.get_game_time();
     const timeToSurge: TDuration = math.floor(
       surgeManager.nextScheduledSurgeDelay - gameTime.diffSec(surgeManager.lastSurgeAt)

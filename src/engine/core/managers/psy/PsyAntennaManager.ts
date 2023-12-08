@@ -1,7 +1,7 @@
 import { get_hud, hit, level, sound_object, StaticDrawableWrapper, time_global } from "xray16";
 
 import { closeLoadMarker, closeSaveMarker, openSaveMarker, registry } from "@/engine/core/database";
-import { getWeakManagerInstance, isManagerInitialized } from "@/engine/core/database/managers";
+import { getWeakManager, isManagerInitialized } from "@/engine/core/database/managers";
 import { openLoadMarker } from "@/engine/core/database/save_markers";
 import { AbstractManager } from "@/engine/core/managers/base/AbstractManager";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
@@ -60,7 +60,7 @@ export class PsyAntennaManager extends AbstractManager {
   public static save(packet: NetPacket): void {
     openSaveMarker(packet, PsyAntennaManager.name + "_static");
 
-    const manager: Optional<PsyAntennaManager> = getWeakManagerInstance(PsyAntennaManager);
+    const manager: Optional<PsyAntennaManager> = getWeakManager(PsyAntennaManager);
 
     if (manager && !isGameLevelChanging()) {
       packet.w_bool(true);

@@ -8,101 +8,102 @@ const logger: LuaLogger = new LuaLogger($filename);
 /**
  * Get initialized manager singleton.
  *
- * @param managerClass - manager class statics reference, used as key in registry to get singletons
+ * @param ManagerClass - manager class statics reference, used as key in registry to get singletons
  * @param initialize - whether initialization lifecycle should be called, 'true' by default
  * @returns manager instance singleton
  */
-export function getManagerInstance<T extends TAbstractCoreManagerConstructor>(
-  managerClass: T,
+export function getManager<T extends TAbstractCoreManagerConstructor>(
+  ManagerClass: T,
   initialize: boolean = true
 ): InstanceType<T> {
-  if (!registry.managers.get(managerClass)) {
-    logger.info("Initialize manager:", managerClass.name);
+  let manager: Optional<AbstractManager> = registry.managers.get(ManagerClass);
 
-    const instance: AbstractManager = new managerClass();
+  if (!manager) {
+    logger.info("Initialize manager:", ManagerClass.name);
 
-    registry.managers.set(managerClass, instance);
+    manager = new ManagerClass();
+
+    registry.managers.set(ManagerClass, manager);
+    registry.managersByName.set(ManagerClass.name, manager);
 
     if (initialize) {
-      instance.initialize();
+      manager.initialize();
     }
-
-    return instance as InstanceType<T>;
   }
 
-  return registry.managers.get(managerClass) as InstanceType<T>;
+  return manager as InstanceType<T>;
 }
 
 /**
  * Get initialized manager singleton or `null` by name.
+ * Used mainly in cases when circular reference appears.
+ * Do not use it until you know what exactly you are doing.
  *
- * @param managerName - manager class name to get
+ * Note: cannot initialize instance automatically because ref does not exist with name only
+ *
+ * @param name - manager class name to get
  * @returns manager instance singleton or null if it is not initialized
  */
-export function getManagerInstanceByName<T extends AbstractManager>(managerName: TName): Optional<T> {
-  for (const [constructor, manager] of registry.managers) {
-    if (constructor.name === managerName) {
-      return manager as T;
-    }
-  }
-
-  return null;
+export function getManagerByName<T extends AbstractManager>(name: TName): Optional<T> {
+  return registry.managersByName.get(name) as Optional<T>;
 }
 
 /**
  * Get manager instance without initialization if it does not exist.
  *
- * @param managerClass - manager class statics reference, used as key in registry to get singletons
+ * @param ManagerClass - manager class statics reference, used as key in registry to get singletons
  * @returns manager singleton if it is initialized, 'null' otherwise
  */
-export function getWeakManagerInstance<T extends TAbstractCoreManagerConstructor>(
-  managerClass: T
-): Optional<InstanceType<T>> {
-  return registry.managers.get(managerClass) as InstanceType<T>;
+export function getWeakManager<T extends TAbstractCoreManagerConstructor>(ManagerClass: T): Optional<InstanceType<T>> {
+  return registry.managers.get(ManagerClass) as InstanceType<T>;
 }
 
 /**
  * Check whether manager instance is already initialized.
  *
- * @param managerClass - manager class statics reference, used as key in registry to get singletons
+ * @param ManagerClass - manager class statics reference, used as key in registry to get singletons
  * @returns whether manager class singleton is initialized and stored in registry
  */
-export function isManagerInitialized<T extends TAbstractCoreManagerConstructor>(managerClass: T): boolean {
-  return registry.managers.has(managerClass);
+export function isManagerInitialized<T extends TAbstractCoreManagerConstructor>(ManagerClass: T): boolean {
+  return registry.managers.has(ManagerClass);
 }
 
 /**
  * Initialize manager instance in registry, if it is not present.
  *
- * @param managerClass - manager class statics reference, used as key in registry to get singletons
+ * @param ManagerClass - manager class statics reference, used as key in registry to get singletons
  */
-export function initializeManager(managerClass: TAbstractCoreManagerConstructor): void {
-  if (registry.managers.get(managerClass) === null) {
-    logger.info("Initialize manager:", managerClass.name);
+export function initializeManager(ManagerClass: TAbstractCoreManagerConstructor): void {
+  let manager: Optional<AbstractManager> = registry.managers.get(ManagerClass);
 
-    const instance: AbstractManager = new managerClass();
+  if (!manager) {
+    logger.info("Initialize manager:", ManagerClass.name);
 
-    registry.managers.set(managerClass, instance);
+    manager = new ManagerClass();
 
-    instance.initialize();
+    registry.managers.set(ManagerClass, manager);
+    registry.managersByName.set(ManagerClass.name, manager);
+
+    manager.initialize();
   }
 }
 
 /**
  * Destroy and remove manager from registry.
  *
- * @param managerClass - manager class statics reference, used as key in registry to get singletons
+ * @param ManagerClass - manager class statics reference, used as key in registry to get singletons
  */
-export function disposeManager<T extends TAbstractCoreManagerConstructor>(managerClass: T): void {
-  const manager: Optional<AbstractManager> = registry.managers.get(managerClass);
+export function disposeManager<T extends TAbstractCoreManagerConstructor>(ManagerClass: T): void {
+  const manager: Optional<AbstractManager> = registry.managers.get(ManagerClass) as Optional<AbstractManager>;
 
-  if (manager !== null) {
-    logger.info("Dispose manager:", managerClass.name);
+  if (manager) {
+    logger.format("Dispose manager: %s", ManagerClass.name);
 
     manager.destroy();
     manager.isDestroyed = true;
 
-    registry.managers.delete(managerClass);
+    registry.managers.delete(ManagerClass);
+    registry.managersByName.delete(ManagerClass.name);
   }
 }
 
@@ -111,7 +112,7 @@ export function disposeManager<T extends TAbstractCoreManagerConstructor>(manage
  * Each manager lifecycle methods are expected to be called in the process.
  */
 export function disposeManagers(): void {
-  for (const [implementation] of registry.managers) {
-    disposeManager(implementation);
+  for (const [ManagerClass] of registry.managers) {
+    disposeManager(ManagerClass);
   }
 }

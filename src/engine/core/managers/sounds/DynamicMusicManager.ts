@@ -1,6 +1,6 @@
 import { IsDynamicMusic, level, time_global } from "xray16";
 
-import { getManagerInstanceByName, registry } from "@/engine/core/database";
+import { getManagerByName, registry } from "@/engine/core/database";
 import { AbstractManager } from "@/engine/core/managers/base/AbstractManager";
 import { EGameEvent } from "@/engine/core/managers/events/events_types";
 import { EventsManager } from "@/engine/core/managers/events/EventsManager";
@@ -377,7 +377,7 @@ export class DynamicMusicManager extends AbstractManager {
       return;
     }
 
-    const surgeManager: Optional<SurgeManager> = getManagerInstanceByName<SurgeManager>("SurgeManager");
+    const surgeManager: Optional<SurgeManager> = getManagerByName<SurgeManager>("SurgeManager");
 
     if (surgeConfig.IS_STARTED && surgeManager?.isBlowoutSoundStarted) {
       if (surgeManager.isKillingAll()) {

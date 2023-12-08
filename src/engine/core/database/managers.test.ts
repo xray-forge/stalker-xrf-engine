@@ -3,9 +3,9 @@ import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import {
   disposeManager,
   disposeManagers,
-  getManagerInstance,
-  getManagerInstanceByName,
-  getWeakManagerInstance,
+  getManager,
+  getManagerByName,
+  getWeakManager,
   initializeManager,
   isManagerInitialized,
 } from "@/engine/core/database/managers";
@@ -31,8 +31,11 @@ describe("managers module of the database", () => {
 
   const assertRegistryIsClean = () => {
     expect(registry.managers.get(ExampleManagerOne)).toBeNull();
+    expect(registry.managersByName.get(ExampleManagerOne.name)).toBeNull();
     expect(registry.managers.get(ExampleManagerTwo)).toBeNull();
+    expect(registry.managersByName.get(ExampleManagerTwo.name)).toBeNull();
     expect(registry.managers.get(ExampleManagerThree)).toBeNull();
+    expect(registry.managersByName.get(ExampleManagerThree.name)).toBeNull();
     expect(registry.managers.length()).toBe(0);
   };
 
@@ -43,18 +46,30 @@ describe("managers module of the database", () => {
   it("should correctly initialize managers", () => {
     assertRegistryIsClean();
 
-    getManagerInstance(ExampleManagerOne);
+    // Does not initialize by name.
+    expect(getManagerByName(ExampleManagerOne.name)).toBeNull();
+    expect(getManagerByName(ExampleManagerTwo.name)).toBeNull();
+
+    getManager(ExampleManagerOne);
     expect(registry.managers.get(ExampleManagerOne)).not.toBeNull();
+    expect(registry.managersByName.get(ExampleManagerOne.name)).not.toBeNull();
     expect(registry.managers.get(ExampleManagerTwo)).toBeNull();
+    expect(registry.managersByName.get(ExampleManagerTwo.name)).toBeNull();
     expect(registry.managers.length()).toBe(1);
+    expect(registry.managersByName.length()).toBe(1);
 
-    getManagerInstance(ExampleManagerTwo);
+    getManager(ExampleManagerTwo);
     expect(registry.managers.get(ExampleManagerOne)).not.toBeNull();
+    expect(registry.managersByName.get(ExampleManagerOne.name)).not.toBeNull();
     expect(registry.managers.get(ExampleManagerTwo)).not.toBeNull();
+    expect(registry.managersByName.get(ExampleManagerTwo.name)).not.toBeNull();
     expect(registry.managers.length()).toBe(2);
+    expect(registry.managersByName.length()).toBe(2);
 
-    expect(getManagerInstance(ExampleManagerOne)).toBe(registry.managers.get(ExampleManagerOne));
-    expect(getManagerInstance(ExampleManagerTwo)).toBe(registry.managers.get(ExampleManagerTwo));
+    expect(getManager(ExampleManagerOne)).toBe(registry.managers.get(ExampleManagerOne));
+    expect(getManagerByName(ExampleManagerOne.name)).toBe(registry.managers.get(ExampleManagerOne));
+    expect(getManager(ExampleManagerTwo)).toBe(registry.managers.get(ExampleManagerTwo));
+    expect(getManagerByName(ExampleManagerTwo.name)).toBe(registry.managers.get(ExampleManagerTwo));
 
     expect(registry.managers.get(ExampleManagerOne).initialize).toHaveBeenCalledTimes(1);
     expect(registry.managers.get(ExampleManagerTwo).initialize).toHaveBeenCalledTimes(1);
@@ -64,9 +79,11 @@ describe("managers module of the database", () => {
   it("should correctly initialize managers in a lazy way", () => {
     assertRegistryIsClean();
 
-    getManagerInstance(ExampleManagerThree, false);
+    getManager(ExampleManagerThree, false);
     expect(registry.managers.length()).toBe(1);
+    expect(registry.managersByName.length()).toBe(1);
     expect(registry.managers.get(ExampleManagerThree)).not.toBeNull();
+    expect(registry.managersByName.get(ExampleManagerThree.name)).not.toBeNull();
     expect(registry.managers.get(ExampleManagerThree).initialize).toHaveBeenCalledTimes(0);
   });
 
@@ -75,40 +92,51 @@ describe("managers module of the database", () => {
 
     initializeManager(ExampleManagerThree);
     expect(registry.managers.length()).toBe(1);
+    expect(registry.managersByName.length()).toBe(1);
     expect(registry.managers.get(ExampleManagerThree)).not.toBeNull();
+    expect(registry.managersByName.get(ExampleManagerThree.name)).not.toBeNull();
     expect(registry.managers.get(ExampleManagerThree).initialize).toHaveBeenCalledTimes(1);
   });
 
   it("should correctly get weak references", () => {
     assertRegistryIsClean();
 
-    getWeakManagerInstance(ExampleManagerOne);
+    getWeakManager(ExampleManagerOne);
     expect(registry.managers.length()).toBe(0);
-    expect(registry.managers.get(ExampleManagerOne)).toBeNull();
+    expect(registry.managersByName.length()).toBe(0);
 
-    getWeakManagerInstance(ExampleManagerTwo);
+    getWeakManager(ExampleManagerTwo);
     expect(registry.managers.length()).toBe(0);
-    expect(registry.managers.get(ExampleManagerTwo)).toBeNull();
+    expect(registry.managersByName.length()).toBe(0);
 
-    getWeakManagerInstance(ExampleManagerThree);
+    getWeakManager(ExampleManagerThree);
     expect(registry.managers.length()).toBe(0);
-    expect(registry.managers.get(ExampleManagerThree)).toBeNull();
+    expect(registry.managersByName.length()).toBe(0);
   });
 
   it("should correctly check managers initialize status", () => {
     assertRegistryIsClean();
 
-    getManagerInstance(ExampleManagerOne, false);
+    // Does not initialize.
+    getManagerByName(ExampleManagerOne.name);
+    getManagerByName(ExampleManagerTwo.name);
+    getManagerByName(ExampleManagerThree.name);
+
+    expect(isManagerInitialized(ExampleManagerOne)).toBe(false);
+    expect(isManagerInitialized(ExampleManagerTwo)).toBe(false);
+    expect(isManagerInitialized(ExampleManagerThree)).toBe(false);
+
+    getManager(ExampleManagerOne, true);
     expect(isManagerInitialized(ExampleManagerOne)).toBe(true);
     expect(isManagerInitialized(ExampleManagerTwo)).toBe(false);
     expect(isManagerInitialized(ExampleManagerThree)).toBe(false);
 
-    getManagerInstance(ExampleManagerTwo, false);
+    getManager(ExampleManagerTwo, false);
     expect(isManagerInitialized(ExampleManagerOne)).toBe(true);
     expect(isManagerInitialized(ExampleManagerTwo)).toBe(true);
     expect(isManagerInitialized(ExampleManagerThree)).toBe(false);
 
-    getManagerInstance(ExampleManagerThree, false);
+    getManager(ExampleManagerThree, false);
     expect(isManagerInitialized(ExampleManagerOne)).toBe(true);
     expect(isManagerInitialized(ExampleManagerTwo)).toBe(true);
     expect(isManagerInitialized(ExampleManagerThree)).toBe(true);
@@ -117,12 +145,12 @@ describe("managers module of the database", () => {
   it("should correctly dispose manager", () => {
     assertRegistryIsClean();
 
-    getManagerInstance(ExampleManagerOne);
+    getManager(ExampleManagerOne);
     disposeManager(ExampleManagerOne);
     expect(isManagerInitialized(ExampleManagerOne)).toBe(false);
     expect(registry.managers.get(ExampleManagerOne)).toBeNull();
 
-    getManagerInstance(ExampleManagerTwo);
+    getManager(ExampleManagerTwo);
     disposeManager(ExampleManagerTwo);
     expect(isManagerInitialized(ExampleManagerTwo)).toBe(false);
     expect(registry.managers.get(ExampleManagerTwo)).toBeNull();
@@ -131,9 +159,9 @@ describe("managers module of the database", () => {
   it("should correctly dispose managers", () => {
     assertRegistryIsClean();
 
-    getManagerInstance(ExampleManagerOne);
-    getManagerInstance(ExampleManagerTwo);
-    getManagerInstance(ExampleManagerThree);
+    getManager(ExampleManagerOne);
+    getManager(ExampleManagerTwo);
+    getManager(ExampleManagerThree);
 
     disposeManagers();
     expect(registry.managers.length()).toBe(0);
@@ -142,11 +170,11 @@ describe("managers module of the database", () => {
   it("getManagerInstance should correctly get managers by name", () => {
     assertRegistryIsClean();
 
-    expect(getManagerInstanceByName("ExampleManagerOne")).toBeNull();
-    getManagerInstance(ExampleManagerOne);
-    expect(getManagerInstanceByName("ExampleManagerOne")).toBe(getManagerInstance(ExampleManagerOne));
-    expect(getManagerInstanceByName("ExampleManagerTwo")).toBeNull();
-    getManagerInstance(ExampleManagerTwo);
-    expect(getManagerInstanceByName("ExampleManagerTwo")).toBe(getManagerInstance(ExampleManagerTwo));
+    expect(getManagerByName("ExampleManagerOne")).toBeNull();
+    getManager(ExampleManagerOne);
+    expect(getManagerByName("ExampleManagerOne")).toBe(getManager(ExampleManagerOne));
+    expect(getManagerByName("ExampleManagerTwo")).toBeNull();
+    getManager(ExampleManagerTwo);
+    expect(getManagerByName("ExampleManagerTwo")).toBe(getManager(ExampleManagerTwo));
   });
 });

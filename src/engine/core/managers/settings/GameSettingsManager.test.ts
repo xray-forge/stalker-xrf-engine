@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it } from "@jest/globals";
 import { level } from "xray16";
 
-import { disposeManager, getManagerInstance } from "@/engine/core/database";
+import { disposeManager, getManager } from "@/engine/core/database";
 import { GameSettingsManager } from "@/engine/core/managers/settings/GameSettingsManager";
 import { EGameDifficulty, gameDifficulties } from "@/engine/lib/constants/game_difficulties";
 import { Console } from "@/engine/lib/types";
@@ -18,7 +18,7 @@ describe("GameSettingsManager class", () => {
 
   it("should correctly save and load data", () => {
     const console: Console = MockConsole.getInstanceMock();
-    const gameSettingsManager: GameSettingsManager = getManagerInstance(GameSettingsManager);
+    const gameSettingsManager: GameSettingsManager = getManager(GameSettingsManager);
     const netProcessor: MockNetProcessor = new MockNetProcessor();
 
     replaceFunctionMock(level.get_game_difficulty, () => EGameDifficulty.STALKER);
@@ -30,7 +30,7 @@ describe("GameSettingsManager class", () => {
 
     disposeManager(GameSettingsManager);
 
-    const newActorInputManager: GameSettingsManager = getManagerInstance(GameSettingsManager);
+    const newActorInputManager: GameSettingsManager = getManager(GameSettingsManager);
 
     newActorInputManager.load(mockNetProcessor(netProcessor));
 

@@ -61,9 +61,13 @@ export const registry = {
    */
   activeSmartTerrainId: null as Optional<TNumberId>,
   /**
-   * List of active game managers.
+   * List of active game managers by base class reference.
    */
   managers: new LuaTable<TAbstractCoreManagerConstructor, AbstractManager>(),
+  /**
+   * List of active game managers by base class name.
+   */
+  managersByName: new LuaTable<TName, AbstractManager>(),
   /**
    * List of activated schemes in game.
    */

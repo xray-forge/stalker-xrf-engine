@@ -1,6 +1,6 @@
 import { beforeAll, beforeEach, describe, expect, it, jest } from "@jest/globals";
 
-import { disposeManager, getManagerInstance } from "@/engine/core/database";
+import { disposeManager, getManager } from "@/engine/core/database";
 import { EventsManager } from "@/engine/core/managers/events";
 import { taskConfig } from "@/engine/core/managers/tasks/TaskConfig";
 import { TaskManager } from "@/engine/core/managers/tasks/TaskManager";
@@ -25,8 +25,8 @@ describe("TaskManager class", () => {
   });
 
   it("should correctly initialize and destroy", () => {
-    const taskManager: TaskManager = getManagerInstance(TaskManager);
-    const eventsManager: EventsManager = getManagerInstance(EventsManager);
+    const taskManager: TaskManager = getManager(TaskManager);
+    const eventsManager: EventsManager = getManager(EventsManager);
 
     expect(MockLuaTable.getMockSize(taskConfig.ACTIVE_TASKS)).toBe(0);
     expect(eventsManager.getSubscribersCount()).toBe(1);
@@ -38,7 +38,7 @@ describe("TaskManager class", () => {
   });
 
   it("should correctly save and load empty list data", () => {
-    const taskManager: TaskManager = getManagerInstance(TaskManager);
+    const taskManager: TaskManager = getManager(TaskManager);
     const netProcessor: MockNetProcessor = new MockNetProcessor();
 
     taskManager.save(mockNetPacket(netProcessor));
@@ -49,7 +49,7 @@ describe("TaskManager class", () => {
     disposeManager(TaskManager);
 
     const tasksBefore: LuaTable<TSection, TaskObject> = taskConfig.ACTIVE_TASKS;
-    const newTaskManager: TaskManager = getManagerInstance(TaskManager);
+    const newTaskManager: TaskManager = getManager(TaskManager);
 
     newTaskManager.load(mockNetProcessor(netProcessor));
 
@@ -60,7 +60,7 @@ describe("TaskManager class", () => {
   });
 
   it("should correctly save and load with tasks data", () => {
-    const taskManager: TaskManager = getManagerInstance(TaskManager);
+    const taskManager: TaskManager = getManager(TaskManager);
     const netProcessor: MockNetProcessor = new MockNetProcessor();
 
     taskManager.giveTask("hide_from_surge");
@@ -104,7 +104,7 @@ describe("TaskManager class", () => {
 
     disposeManager(TaskManager);
 
-    const newTaskManager: TaskManager = getManagerInstance(TaskManager);
+    const newTaskManager: TaskManager = getManager(TaskManager);
 
     newTaskManager.load(mockNetProcessor(netProcessor));
 

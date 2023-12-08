@@ -3,7 +3,7 @@ import { game, level } from "xray16";
 
 import { AnyObject } from "#/utils/types";
 
-import { disposeManager, getManagerInstance, registerActor, registry } from "@/engine/core/database";
+import { disposeManager, getManager, registerActor, registry } from "@/engine/core/database";
 import { actorConfig } from "@/engine/core/managers/actor/ActorConfig";
 import { ActorInputManager } from "@/engine/core/managers/actor/ActorInputManager";
 import { EventsManager } from "@/engine/core/managers/events";
@@ -23,8 +23,8 @@ describe("ActorInputManager class", () => {
   });
 
   it("should correctly initialize and destroy", () => {
-    const actorInputManager: ActorInputManager = getManagerInstance(ActorInputManager);
-    const eventsManager: EventsManager = getManagerInstance(EventsManager);
+    const actorInputManager: ActorInputManager = getManager(ActorInputManager);
+    const eventsManager: EventsManager = getManager(EventsManager);
 
     expect(eventsManager.getSubscribersCount()).toBe(4);
 
@@ -34,7 +34,7 @@ describe("ActorInputManager class", () => {
   });
 
   it("should correctly save and load data", () => {
-    const actorInputManager: ActorInputManager = getManagerInstance(ActorInputManager);
+    const actorInputManager: ActorInputManager = getManager(ActorInputManager);
     const netProcessor: MockNetProcessor = new MockNetProcessor();
 
     registerActor(MockGameObject.mock());
@@ -60,7 +60,7 @@ describe("ActorInputManager class", () => {
 
     disposeManager(ActorInputManager);
 
-    const newActorInputManager: ActorInputManager = getManagerInstance(ActorInputManager);
+    const newActorInputManager: ActorInputManager = getManager(ActorInputManager);
 
     newActorInputManager.load(mockNetProcessor(netProcessor));
 

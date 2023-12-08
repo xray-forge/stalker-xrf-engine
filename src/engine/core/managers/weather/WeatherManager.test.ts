@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it } from "@jest/globals";
 import { level } from "xray16";
 
-import { disposeManager, getManagerInstance } from "@/engine/core/database";
+import { disposeManager, getManager } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { IWeatherState } from "@/engine/core/managers/weather/weather_types";
 import { WeatherManager } from "@/engine/core/managers/weather/WeatherManager";
@@ -17,8 +17,8 @@ describe("WeatherManager class", () => {
   });
 
   it("should correctly initialize and destroy", () => {
-    const weatherManager: WeatherManager = getManagerInstance(WeatherManager);
-    const eventsManager: EventsManager = getManagerInstance(EventsManager);
+    const weatherManager: WeatherManager = getManager(WeatherManager);
+    const eventsManager: EventsManager = getManager(EventsManager);
 
     expect(weatherManager.weatherPeriod).toBe("neutral");
     expect(weatherManager.lastUpdatedAtHour).toBe(0);
@@ -31,8 +31,8 @@ describe("WeatherManager class", () => {
   });
 
   it("should correctly handle actor spawn", () => {
-    const weatherManager: WeatherManager = getManagerInstance(WeatherManager);
-    const eventsManager: EventsManager = getManagerInstance(EventsManager);
+    const weatherManager: WeatherManager = getManager(WeatherManager);
+    const eventsManager: EventsManager = getManager(EventsManager);
 
     eventsManager.emitEvent(EGameEvent.ACTOR_GO_ONLINE);
 
@@ -44,7 +44,7 @@ describe("WeatherManager class", () => {
   });
 
   it("should correctly set state", () => {
-    const manager: WeatherManager = getManagerInstance(WeatherManager);
+    const manager: WeatherManager = getManager(WeatherManager);
 
     manager.setStateAsString("dynamic_default=clear,cloudy");
 
@@ -70,7 +70,7 @@ describe("WeatherManager class", () => {
   });
 
   it("should correctly save and load data", () => {
-    const manager: WeatherManager = getManagerInstance(WeatherManager);
+    const manager: WeatherManager = getManager(WeatherManager);
     const netProcessor: MockNetProcessor = new MockNetProcessor();
 
     manager.setStateAsString("dynamic_default=clear,cloudy");
@@ -96,7 +96,7 @@ describe("WeatherManager class", () => {
 
     disposeManager(WeatherManager);
 
-    const newManager: WeatherManager = getManagerInstance(WeatherManager);
+    const newManager: WeatherManager = getManager(WeatherManager);
 
     newManager.load(mockNetProcessor(netProcessor));
 

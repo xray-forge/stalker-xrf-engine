@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it } from "@jest/globals";
 
-import { disposeManager, getManagerInstance } from "@/engine/core/database";
+import { disposeManager, getManager } from "@/engine/core/database";
 import { surgeConfig } from "@/engine/core/managers/surge/SurgeConfig";
 import { SurgeManager } from "@/engine/core/managers/surge/SurgeManager";
 import { resetRegistry } from "@/fixtures/engine";
@@ -71,7 +71,7 @@ describe("SurgeManager class", () => {
 
     disposeManager(SurgeManager);
 
-    const newManager: SurgeManager = getManagerInstance(SurgeManager);
+    const newManager: SurgeManager = getManager(SurgeManager);
 
     newManager.load(mockNetProcessor(netProcessor));
 
@@ -169,7 +169,7 @@ describe("SurgeManager class", () => {
 
     disposeManager(SurgeManager);
 
-    const newManager: SurgeManager = getManagerInstance(SurgeManager);
+    const newManager: SurgeManager = getManager(SurgeManager);
 
     newManager.load(mockNetProcessor(netProcessor));
 

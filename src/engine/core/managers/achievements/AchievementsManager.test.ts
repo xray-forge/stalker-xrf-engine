@@ -3,7 +3,7 @@ import { CTime, game } from "xray16";
 
 import {
   disposeManager,
-  getManagerInstance,
+  getManager,
   registerActor,
   registerSimulator,
   registerStoryLink,
@@ -35,8 +35,8 @@ describe("AchievementManager class", () => {
   });
 
   it("should correctly initialize and destroy", () => {
-    const achievementsManager: AchievementsManager = getManagerInstance(AchievementsManager);
-    const eventsManager: EventsManager = getManagerInstance(EventsManager);
+    const achievementsManager: AchievementsManager = getManager(AchievementsManager);
+    const eventsManager: EventsManager = getManager(EventsManager);
 
     expect(eventsManager.getSubscribersCount()).toBe(1);
 
@@ -47,7 +47,7 @@ describe("AchievementManager class", () => {
 
   it("should correctly save and load by default", () => {
     const netProcessor: MockNetProcessor = new MockNetProcessor();
-    const achievementsManager: AchievementsManager = getManagerInstance(AchievementsManager);
+    const achievementsManager: AchievementsManager = getManager(AchievementsManager);
 
     achievementsManager.save(mockNetPacket(netProcessor));
 
@@ -56,7 +56,7 @@ describe("AchievementManager class", () => {
 
     disposeManager(AchievementsManager);
 
-    const newAchievementsManager: AchievementsManager = getManagerInstance(AchievementsManager);
+    const newAchievementsManager: AchievementsManager = getManager(AchievementsManager);
 
     newAchievementsManager.load(mockNetProcessor(netProcessor));
 
@@ -67,7 +67,7 @@ describe("AchievementManager class", () => {
 
   it("should correctly save and load when state is updated", () => {
     const netProcessor: MockNetProcessor = new MockNetProcessor();
-    const achievementsManager: AchievementsManager = getManagerInstance(AchievementsManager);
+    const achievementsManager: AchievementsManager = getManager(AchievementsManager);
 
     achievementsConfig.LAST_DETECTIVE_ACHIEVEMENT_SPAWN_AT = MockCTime.mock(2023, 4, 16, 10, 57, 4, 400);
     achievementsConfig.LAST_MUTANT_HUNTER_ACHIEVEMENT_SPAWN_AT = MockCTime.mock(2012, 2, 24, 5, 33, 2, 0);
@@ -96,7 +96,7 @@ describe("AchievementManager class", () => {
 
     disposeManager(WeatherManager);
 
-    const newAchievementsManager: AchievementsManager = getManagerInstance(AchievementsManager);
+    const newAchievementsManager: AchievementsManager = getManager(AchievementsManager);
 
     newAchievementsManager.load(mockNetProcessor(netProcessor));
 
@@ -106,7 +106,7 @@ describe("AchievementManager class", () => {
   });
 
   it("should correctly check achievements by with generic method", () => {
-    const achievementsManager: AchievementsManager = getManagerInstance(AchievementsManager);
+    const achievementsManager: AchievementsManager = getManager(AchievementsManager);
 
     expect(achievementsManager.checkAchieved(EAchievement.DETECTIVE)).toBeFalsy();
     expect(achievementsManager.checkAchieved(EAchievement.ONE_OF_THE_LADS)).toBeFalsy();
@@ -120,14 +120,14 @@ describe("AchievementManager class", () => {
   });
 
   it("should correctly fail on unknown achievement checks", () => {
-    const achievementsManager: AchievementsManager = getManagerInstance(AchievementsManager);
+    const achievementsManager: AchievementsManager = getManager(AchievementsManager);
 
     expect(() => achievementsManager.checkAchieved("unknown" as unknown as EAchievement)).toThrow();
     Object.values(EAchievement).forEach((it) => expect(() => achievementsManager.checkAchieved(it)).not.toThrow());
   });
 
   it("should correctly handle update with no achievements", () => {
-    const achievementsManager: AchievementsManager = getManagerInstance(AchievementsManager);
+    const achievementsManager: AchievementsManager = getManager(AchievementsManager);
 
     resetFunctionMock(registry.simulator.create);
     resetFunctionMock(registry.simulator.create_ammo);
@@ -141,8 +141,8 @@ describe("AchievementManager class", () => {
   });
 
   it("should correctly handle update with detective", () => {
-    const eventsManager: EventsManager = getManagerInstance(EventsManager);
-    const achievementsManager: AchievementsManager = getManagerInstance(AchievementsManager);
+    const eventsManager: EventsManager = getManager(EventsManager);
+    const achievementsManager: AchievementsManager = getManager(AchievementsManager);
     const box: ServerObject = mockServerAlifeObject();
 
     jest.spyOn(eventsManager, "emitEvent").mockImplementation(jest.fn());
@@ -177,8 +177,8 @@ describe("AchievementManager class", () => {
   });
 
   it("should correctly handle update with monster hunter", () => {
-    const eventsManager: EventsManager = getManagerInstance(EventsManager);
-    const achievementsManager: AchievementsManager = getManagerInstance(AchievementsManager);
+    const eventsManager: EventsManager = getManager(EventsManager);
+    const achievementsManager: AchievementsManager = getManager(AchievementsManager);
     const box: ServerObject = mockServerAlifeObject();
 
     jest.spyOn(eventsManager, "emitEvent").mockImplementation(jest.fn());

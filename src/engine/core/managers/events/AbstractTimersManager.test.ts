@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 
-import { getManagerInstance } from "@/engine/core/database";
+import { getManager } from "@/engine/core/database";
 import { AbstractTimersManager } from "@/engine/core/managers/events/AbstractTimersManager";
 import { resetRegistry } from "@/fixtures/engine";
 import { MockLuaTable } from "@/fixtures/lua/mocks/LuaTable.mock";
@@ -13,7 +13,7 @@ describe("EventsManager class", () => {
   });
 
   it("should correctly initialize", () => {
-    const manager: TimersManager = getManagerInstance(TimersManager);
+    const manager: TimersManager = getManager(TimersManager);
 
     expect(MockLuaTable.getMockSize(manager.intervals)).toBe(0);
     expect(MockLuaTable.getMockSize(manager.timeouts)).toBe(0);
@@ -25,7 +25,7 @@ describe("EventsManager class", () => {
   it("should correctly call ticks for timeouts and cancel them", () => {
     jest.spyOn(Date, "now").mockImplementation(() => 200);
 
-    const manager: TimersManager = getManagerInstance(TimersManager);
+    const manager: TimersManager = getManager(TimersManager);
     const timeout = jest.fn();
     const [, descriptor, callback] = manager.registerGameTimeout(timeout, 1000);
 
@@ -70,7 +70,7 @@ describe("EventsManager class", () => {
   it("should correctly call ticks for intervals and cancel them", () => {
     jest.spyOn(Date, "now").mockImplementation(() => 100);
 
-    const manager: TimersManager = getManagerInstance(TimersManager);
+    const manager: TimersManager = getManager(TimersManager);
     const first = jest.fn();
     const second = jest.fn();
     const [, firstDescriptor, firstCallback] = manager.registerGameInterval(first, 500);
