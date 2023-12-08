@@ -27,13 +27,6 @@ export abstract class AbstractManager {
   }
 
   /**
-   * Dispose manager instance if it is registered.
-   */
-  public static dispose<T extends AbstractManager>(this: IConstructor<T>): void {
-    return disposeManager(this);
-  }
-
-  /**
    * Whether manager was disposed and removed from registry.
    */
   public isDestroyed: boolean = false;

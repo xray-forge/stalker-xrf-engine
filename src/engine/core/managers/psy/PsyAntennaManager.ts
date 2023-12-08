@@ -1,6 +1,6 @@
 import { get_hud, hit, level, sound_object, StaticDrawableWrapper, time_global } from "xray16";
 
-import { closeLoadMarker, closeSaveMarker, openSaveMarker, registry } from "@/engine/core/database";
+import { closeLoadMarker, closeSaveMarker, disposeManager, openSaveMarker, registry } from "@/engine/core/database";
 import { getWeakManager, isManagerInitialized } from "@/engine/core/database/managers";
 import { openLoadMarker } from "@/engine/core/database/save_markers";
 import { AbstractManager } from "@/engine/core/managers/base/AbstractManager";
@@ -139,7 +139,7 @@ export class PsyAntennaManager extends AbstractManager {
    */
   public dispose(): void {
     logger.info("Dispose psy antenna manager");
-    PsyAntennaManager.dispose();
+    disposeManager(PsyAntennaManager);
   }
 
   /**
