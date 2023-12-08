@@ -1,7 +1,7 @@
 import { anim, cond } from "xray16";
 
 import { AbstractSchemeManager } from "@/engine/core/ai/scheme";
-import { registry, setMonsterState } from "@/engine/core/database";
+import { getManager, registry, setMonsterState } from "@/engine/core/database";
 import { NotificationManager } from "@/engine/core/managers/notifications";
 import { ISchemeMobRemarkState } from "@/engine/core/schemes/monster/mob_remark/mob_remark_types";
 import { parseStringsList, pickSectionFromCondList } from "@/engine/core/utils/ini";
@@ -60,7 +60,7 @@ export class MobRemarkManager extends AbstractSchemeManager<ISchemeMobRemarkStat
       this.isTipSent = true;
 
       if (this.state.tip) {
-        NotificationManager.getInstance().sendTipNotification(this.state.tip);
+        getManager(NotificationManager).sendTipNotification(this.state.tip);
       }
     }
 

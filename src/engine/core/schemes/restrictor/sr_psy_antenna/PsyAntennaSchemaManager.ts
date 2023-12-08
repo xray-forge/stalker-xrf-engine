@@ -1,7 +1,7 @@
 import { get_hud, level } from "xray16";
 
 import { AbstractSchemeManager } from "@/engine/core/ai/scheme";
-import { getPortableStoreValue, registry, setPortableStoreValue } from "@/engine/core/database";
+import { getManager, getPortableStoreValue, registry, setPortableStoreValue } from "@/engine/core/database";
 import { PsyAntennaManager } from "@/engine/core/managers/psy/PsyAntennaManager";
 import {
   EAntennaState,
@@ -19,7 +19,7 @@ const logger: LuaLogger = new LuaLogger($filename, { file: "psy" });
  */
 export class PsyAntennaSchemaManager extends AbstractSchemeManager<ISchemePsyAntennaState> {
   public antennaState: EAntennaState = EAntennaState.VOID;
-  public antennaManager: PsyAntennaManager = PsyAntennaManager.getInstance();
+  public antennaManager: PsyAntennaManager = getManager(PsyAntennaManager);
 
   public override activate(object: GameObject, loading?: boolean): void {
     logger.info("Activate antenna manager");

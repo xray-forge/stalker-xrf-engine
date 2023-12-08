@@ -1,5 +1,6 @@
 import { beforeAll, describe, expect, it, jest } from "@jest/globals";
 
+import { getManager } from "@/engine/core/database";
 import { ActorInventoryMenuManager } from "@/engine/core/managers/actor";
 import { LoadScreenManager } from "@/engine/core/managers/interface/LoadScreenManager";
 import { PdaManager } from "@/engine/core/managers/pda";
@@ -87,7 +88,7 @@ describe("interface external callbacks", () => {
     checkNestedBinding("loadscreen", "get_tip_number");
     checkNestedBinding("loadscreen", "get_mp_tip_number");
 
-    const loadScreenManager: LoadScreenManager = LoadScreenManager.getInstance();
+    const loadScreenManager: LoadScreenManager = getManager(LoadScreenManager);
 
     jest.spyOn(loadScreenManager, "getRandomMultiplayerTipIndex");
     jest.spyOn(loadScreenManager, "getRandomTipIndex");
@@ -100,7 +101,7 @@ describe("interface external callbacks", () => {
   });
 
   it("should correctly handle inventory upgrades callbacks", () => {
-    const upgradesManager: UpgradesManager = UpgradesManager.getInstance();
+    const upgradesManager: UpgradesManager = getManager(UpgradesManager);
 
     jest.spyOn(upgradesManager, "canUpgradeItem").mockImplementation(jest.fn(() => true));
     jest.spyOn(upgradesManager, "getRepairItemPayment").mockImplementation(jest.fn(() => true));
@@ -147,7 +148,7 @@ describe("interface external callbacks", () => {
   });
 
   it("actor_menu callbacks", () => {
-    const actorInventoryMenuManager: ActorInventoryMenuManager = ActorInventoryMenuManager.getInstance();
+    const actorInventoryMenuManager: ActorInventoryMenuManager = getManager(ActorInventoryMenuManager);
 
     jest.spyOn(actorInventoryMenuManager, "setActiveMode").mockImplementation(jest.fn());
 
@@ -156,7 +157,7 @@ describe("interface external callbacks", () => {
   });
 
   it("actor_menu_inventory callbacks", () => {
-    const actorInventoryMenuManager: ActorInventoryMenuManager = ActorInventoryMenuManager.getInstance();
+    const actorInventoryMenuManager: ActorInventoryMenuManager = getManager(ActorInventoryMenuManager);
 
     jest.spyOn(actorInventoryMenuManager, "onItemDropped").mockImplementation(jest.fn());
 
@@ -170,7 +171,7 @@ describe("interface external callbacks", () => {
   });
 
   it("pda callbacks", () => {
-    const pdaManager: PdaManager = PdaManager.getInstance();
+    const pdaManager: PdaManager = getManager(PdaManager);
 
     jest.spyOn(pdaManager, "fillFactionState").mockImplementation(jest.fn());
     jest.spyOn(pdaManager, "getMonsterBackground").mockImplementation(jest.fn(() => "test-bg"));

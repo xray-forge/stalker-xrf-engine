@@ -1,6 +1,7 @@
 import { cse_alife_human_stalker, level, LuabindClass } from "xray16";
 
 import {
+  getManager,
   IRegistryOfflineState,
   registerObjectStoryLinks,
   registerOfflineObject,
@@ -63,7 +64,7 @@ export class Stalker extends cse_alife_human_stalker {
 
     this.brain().can_choose_alife_tasks(false);
 
-    const simulationBoardManager: SimulationManager = SimulationManager.getInstance();
+    const simulationBoardManager: SimulationManager = getManager(SimulationManager);
 
     const smartName: TName = readIniString(this.spawn_ini(), "logic", "smart_terrain", false, null, "");
     const smartTerrain: Optional<SmartTerrain> = simulationBoardManager.getSmartTerrainByName(smartName);

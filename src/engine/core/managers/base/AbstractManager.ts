@@ -1,4 +1,3 @@
-import { getManager } from "@/engine/core/database/managers";
 import { abort } from "@/engine/core/utils/assertion";
 import { IConstructor, NetPacket, NetProcessor, TDuration } from "@/engine/lib/types";
 
@@ -6,16 +5,6 @@ import { IConstructor, NetPacket, NetProcessor, TDuration } from "@/engine/lib/t
  * Abstract class for core manager implementation.
  */
 export abstract class AbstractManager {
-  /**
-   * Get singleton manager instance from managers registry.
-   * Initialize manager if it was not initialized before.
-   *
-   * @returns manager instance
-   */
-  public static getInstance<T extends AbstractManager>(this: IConstructor<T>): T {
-    return getManager(this);
-  }
-
   // Whether manager was disposed and removed from registry, disposed manager are not supposed to work.
   // Mainly for timers / async or delayed code.
   public isDestroyed: boolean = false;

@@ -1,6 +1,7 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { CUI3tButton, CUIMessageBoxEx, CUIStatic, CUITrackBar, level } from "xray16";
 
+import { getManager } from "@/engine/core/database";
 import { SleepManager } from "@/engine/core/managers/sleep";
 import { SleepDialog } from "@/engine/core/ui/game/SleepDialog";
 import { giveInfoPortion, hasInfoPortion } from "@/engine/core/utils/info_portion";
@@ -13,7 +14,7 @@ describe("SleepDialog ui component", () => {
   });
 
   it("should correctly initialize", () => {
-    const manager: SleepManager = SleepManager.getInstance();
+    const manager: SleepManager = getManager(SleepManager);
     const dialog: SleepDialog = new SleepDialog(manager);
 
     expect(dialog.SetWndRect).toHaveBeenCalled();
@@ -38,7 +39,7 @@ describe("SleepDialog ui component", () => {
   it("should correctly handle display init with 4:3 screen", () => {
     mockRegisteredActor();
 
-    const manager: SleepManager = SleepManager.getInstance();
+    const manager: SleepManager = getManager(SleepManager);
     const dialog: SleepDialog = new SleepDialog(manager);
 
     dialog.isWide = false;
@@ -84,7 +85,7 @@ describe("SleepDialog ui component", () => {
   it("should correctly handle display init with 4:3 screen at night", () => {
     mockRegisteredActor();
 
-    const manager: SleepManager = SleepManager.getInstance();
+    const manager: SleepManager = getManager(SleepManager);
     const dialog: SleepDialog = new SleepDialog(manager);
 
     dialog.isWide = false;
@@ -130,7 +131,7 @@ describe("SleepDialog ui component", () => {
   it("should correctly handle display init with 16:9 screen", () => {
     mockRegisteredActor();
 
-    const manager: SleepManager = SleepManager.getInstance();
+    const manager: SleepManager = getManager(SleepManager);
     const dialog: SleepDialog = new SleepDialog(manager);
 
     dialog.isWide = true;
@@ -176,7 +177,7 @@ describe("SleepDialog ui component", () => {
   it("should correctly show sleep dialog when can sleep", () => {
     mockRegisteredActor();
 
-    const manager: SleepManager = SleepManager.getInstance();
+    const manager: SleepManager = getManager(SleepManager);
     const dialog: SleepDialog = new SleepDialog(manager);
 
     jest.spyOn(dialog, "initializeDisplay").mockImplementation(jest.fn());
@@ -191,7 +192,7 @@ describe("SleepDialog ui component", () => {
   it("should correctly show warning when cannot sleep", () => {
     const { actorGameObject } = mockRegisteredActor();
 
-    const manager: SleepManager = SleepManager.getInstance();
+    const manager: SleepManager = getManager(SleepManager);
     const dialog: SleepDialog = new SleepDialog(manager);
 
     jest.spyOn(dialog, "initializeDisplay").mockImplementation(jest.fn());
@@ -228,7 +229,7 @@ describe("SleepDialog ui component", () => {
   });
 
   it("should correctly handle 4:3 screen updates", () => {
-    const manager: SleepManager = SleepManager.getInstance();
+    const manager: SleepManager = getManager(SleepManager);
     const dialog: SleepDialog = new SleepDialog(manager);
 
     dialog.isWide = false;
@@ -255,7 +256,7 @@ describe("SleepDialog ui component", () => {
   });
 
   it("should correctly handle 16:9 screen updates", () => {
-    const manager: SleepManager = SleepManager.getInstance();
+    const manager: SleepManager = getManager(SleepManager);
     const dialog: SleepDialog = new SleepDialog(manager);
 
     dialog.isWide = true;
@@ -282,7 +283,7 @@ describe("SleepDialog ui component", () => {
   });
 
   it("should correctly handle sleep start button", () => {
-    const manager: SleepManager = SleepManager.getInstance();
+    const manager: SleepManager = getManager(SleepManager);
     const dialog: SleepDialog = new SleepDialog(manager);
 
     jest.spyOn(manager, "startSleep").mockImplementation(jest.fn());
@@ -297,7 +298,7 @@ describe("SleepDialog ui component", () => {
   it("should correctly handle cancel button", () => {
     mockRegisteredActor();
 
-    const manager: SleepManager = SleepManager.getInstance();
+    const manager: SleepManager = getManager(SleepManager);
     const dialog: SleepDialog = new SleepDialog(manager);
 
     giveInfoPortion(infoPortions.sleep_active);
@@ -312,7 +313,7 @@ describe("SleepDialog ui component", () => {
   it("should correctly handle message box OK click", () => {
     mockRegisteredActor();
 
-    const manager: SleepManager = SleepManager.getInstance();
+    const manager: SleepManager = getManager(SleepManager);
     const dialog: SleepDialog = new SleepDialog(manager);
 
     giveInfoPortion(infoPortions.sleep_active);

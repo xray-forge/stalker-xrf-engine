@@ -1,4 +1,4 @@
-import { registry } from "@/engine/core/database";
+import { getManager, registry } from "@/engine/core/database";
 import { ActorInputManager } from "@/engine/core/managers/actor";
 import { ENotificationDirection, NotificationManager } from "@/engine/core/managers/notifications";
 import { extern } from "@/engine/core/utils/binding";
@@ -98,7 +98,7 @@ extern("dialogs.transfer_any_pistol_from_actor", (firstSpeaker: GameObject, seco
 
   if (pistol) {
     registry.actor.transfer_item(pistol, getNpcSpeaker(firstSpeaker, secondSpeaker));
-    NotificationManager.getInstance().sendItemRelocatedNotification(ENotificationDirection.OUT, pistol.section());
+    getManager(NotificationManager).sendItemRelocatedNotification(ENotificationDirection.OUT, pistol.section());
   }
 });
 
@@ -113,12 +113,12 @@ extern("dialogs.have_actor_any_pistol", (): boolean => {
  * Disable actor game UI (including torch and night vision).
  */
 extern("dialogs.disable_ui", (): void => {
-  ActorInputManager.getInstance().disableGameUi(false);
+  getManager(ActorInputManager).disableGameUi(false);
 });
 
 /**
  * Disable actor game UI only.
  */
 extern("dialogs.disable_ui_only", (): void => {
-  ActorInputManager.getInstance().disableGameUiOnly();
+  getManager(ActorInputManager).disableGameUiOnly();
 });

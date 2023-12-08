@@ -49,7 +49,7 @@ describe("StatisticsManager class", () => {
   });
 
   it("should correctly handle surges", () => {
-    const manager: StatisticsManager = StatisticsManager.getInstance();
+    const manager: StatisticsManager = getManager(StatisticsManager);
 
     expect(manager.actorStatistics.surgesCount).toBe(0);
 
@@ -60,7 +60,7 @@ describe("StatisticsManager class", () => {
   });
 
   it("should correctly handle treasures finding", () => {
-    const manager: StatisticsManager = StatisticsManager.getInstance();
+    const manager: StatisticsManager = getManager(StatisticsManager);
 
     expect(manager.actorStatistics.collectedTreasuresCount).toBe(0);
 
@@ -71,7 +71,7 @@ describe("StatisticsManager class", () => {
   });
 
   it("should correctly handle stalkers killing", () => {
-    const manager: StatisticsManager = StatisticsManager.getInstance();
+    const manager: StatisticsManager = getManager(StatisticsManager);
     const actor: GameObject = MockGameObject.mockActor();
 
     expect(manager.actorStatistics.killedStalkersCount).toBe(0);
@@ -85,7 +85,7 @@ describe("StatisticsManager class", () => {
   });
 
   it("should correctly handle tasks", () => {
-    const manager: StatisticsManager = StatisticsManager.getInstance();
+    const manager: StatisticsManager = getManager(StatisticsManager);
 
     expect(manager.actorStatistics.completedTasksCount).toBe(0);
 
@@ -98,7 +98,7 @@ describe("StatisticsManager class", () => {
   it("should correctly handle anabiotics", () => {
     registerActor(MockGameObject.mockActor());
 
-    const manager: StatisticsManager = StatisticsManager.getInstance();
+    const manager: StatisticsManager = getManager(StatisticsManager);
 
     expect(manager.getUsedAnabioticsCount()).toBe(0);
 
@@ -109,7 +109,7 @@ describe("StatisticsManager class", () => {
   });
 
   it("should correctly handle taking artefacts", () => {
-    const manager: StatisticsManager = StatisticsManager.getInstance();
+    const manager: StatisticsManager = getManager(StatisticsManager);
     const firstClient: GameObject = MockGameObject.mock({ clsid: () => clsid.art_black_drops as TClassId });
     const secondClient: GameObject = MockGameObject.mock({ clsid: () => clsid.art_bast_artefact as TClassId });
     const thirdClient: GameObject = MockGameObject.mock({ clsid: () => clsid.art_zuda as TClassId });
@@ -138,7 +138,7 @@ describe("StatisticsManager class", () => {
   });
 
   it("should correctly handle dealing damage to an object", () => {
-    const manager: StatisticsManager = StatisticsManager.getInstance();
+    const manager: StatisticsManager = getManager(StatisticsManager);
     const ak74: GameObject = MockGameObject.mock();
     const desertEagle: GameObject = MockGameObject.mock();
     const desertEagleNimble: GameObject = MockGameObject.mock();
@@ -192,7 +192,7 @@ describe("StatisticsManager class", () => {
   });
 
   it("should correctly handle monster kills", () => {
-    const manager: StatisticsManager = StatisticsManager.getInstance();
+    const manager: StatisticsManager = getManager(StatisticsManager);
     const firstMonster: GameObject = MockGameObject.mock({ clsid: () => clsid.flesh_s, rank: () => 3 });
     const secondMonster: GameObject = MockGameObject.mock({ clsid: () => clsid.bloodsucker_s, rank: () => 15 });
     const thirdMonster: GameObject = MockGameObject.mock({ clsid: () => clsid.bloodsucker_s, rank: () => 16 });

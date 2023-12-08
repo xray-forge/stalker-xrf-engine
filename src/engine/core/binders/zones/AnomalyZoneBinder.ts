@@ -4,6 +4,7 @@ import { AnomalyFieldBinder } from "@/engine/core/binders/zones/AnomalyFieldBind
 import {
   closeLoadMarker,
   closeSaveMarker,
+  getManager,
   openLoadMarker,
   openSaveMarker,
   registerAnomalyZone,
@@ -593,7 +594,7 @@ export class AnomalyZoneBinder extends object_binder {
 
     this.spawnedArtefactsCount = this.spawnedArtefactsCount - 1;
 
-    MapDisplayManager.getInstance().updateAnomalyZonesDisplay();
+    getManager(MapDisplayManager).updateAnomalyZonesDisplay();
   }
 
   /**

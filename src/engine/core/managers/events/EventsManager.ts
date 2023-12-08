@@ -1,3 +1,4 @@
+import { getManager } from "@/engine/core/database";
 import { AbstractTimersManager } from "@/engine/core/managers/events/AbstractTimersManager";
 import { EGameEvent } from "@/engine/core/managers/events/events_types";
 import { assert } from "@/engine/core/utils/assertion";
@@ -24,7 +25,7 @@ export class EventsManager extends AbstractTimersManager {
   public static emitEvent<T>(event: EGameEvent, data: T): void;
   public static emitEvent(event: EGameEvent, ...data: AnyArgs): void;
   public static emitEvent(event: EGameEvent, ...data: AnyArgs): void {
-    return EventsManager.getInstance().emitEvent(event, ...data);
+    return getManager(EventsManager).emitEvent(event, ...data);
   }
 
   // Initialize list of all enum handlers. Note TSTL map created instead for enum.

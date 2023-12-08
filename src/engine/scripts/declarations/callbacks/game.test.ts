@@ -1,6 +1,7 @@
 import { beforeAll, beforeEach, describe, expect, it, jest } from "@jest/globals";
 
 import { smartCoversList } from "@/engine/core/animation/smart_covers";
+import { getManager } from "@/engine/core/database";
 import { gameOutroConfig, GameOutroManager } from "@/engine/core/managers/outro";
 import { SaveManager } from "@/engine/core/managers/save";
 import { TradeManager } from "@/engine/core/managers/trade";
@@ -33,7 +34,7 @@ describe("game external callbacks", () => {
   });
 
   it("outro callbacks should be defined", () => {
-    const outroManager: GameOutroManager = GameOutroManager.getInstance();
+    const outroManager: GameOutroManager = getManager(GameOutroManager);
 
     jest.spyOn(outroManager, "startBlackScreenAndSound").mockImplementation(jest.fn());
     jest.spyOn(outroManager, "stopBlackScreenAndSound").mockImplementation(jest.fn());
@@ -59,7 +60,7 @@ describe("game external callbacks", () => {
   });
 
   it("trade manager callbacks should be defined", () => {
-    const tradeManager: TradeManager = TradeManager.getInstance();
+    const tradeManager: TradeManager = getManager(TradeManager);
 
     const callTradeBinding = (name: TName, args: AnyArgs = []) =>
       callBinding(name, args, (_G as AnyObject)["trade_manager"]);
@@ -75,7 +76,7 @@ describe("game external callbacks", () => {
   });
 
   it("on_before_game_save should be handled", () => {
-    const saveManager: SaveManager = SaveManager.getInstance();
+    const saveManager: SaveManager = getManager(SaveManager);
 
     jest.spyOn(saveManager, "onBeforeGameSave");
 
@@ -84,7 +85,7 @@ describe("game external callbacks", () => {
   });
 
   it("on_game_save should be handled", () => {
-    const saveManager: SaveManager = SaveManager.getInstance();
+    const saveManager: SaveManager = getManager(SaveManager);
 
     jest.spyOn(saveManager, "onGameSave");
 
@@ -93,7 +94,7 @@ describe("game external callbacks", () => {
   });
 
   it("on_before_game_load should be handled", () => {
-    const saveManager: SaveManager = SaveManager.getInstance();
+    const saveManager: SaveManager = getManager(SaveManager);
 
     jest.spyOn(saveManager, "onBeforeGameLoad");
 
@@ -102,7 +103,7 @@ describe("game external callbacks", () => {
   });
 
   it("on_game_load should be handled", () => {
-    const saveManager: SaveManager = SaveManager.getInstance();
+    const saveManager: SaveManager = getManager(SaveManager);
 
     jest.spyOn(saveManager, "onGameLoad");
 

@@ -1,6 +1,7 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { clsid } from "xray16";
 
+import { getManager } from "@/engine/core/database";
 import { NotificationManager } from "@/engine/core/managers/notifications";
 import { ISchemeMobRemarkState } from "@/engine/core/schemes/monster/mob_remark/mob_remark_types";
 import { MobRemarkManager } from "@/engine/core/schemes/monster/mob_remark/MobRemarkManager";
@@ -52,7 +53,7 @@ describe("MobRemarkManager", () => {
       animationMovement: true,
     });
     const manager: MobRemarkManager = new MobRemarkManager(object, state);
-    const notificationManager: NotificationManager = NotificationManager.getInstance();
+    const notificationManager: NotificationManager = getManager(NotificationManager);
 
     jest.spyOn(notificationManager, "sendTipNotification").mockImplementation(jest.fn());
 

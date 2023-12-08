@@ -1,5 +1,6 @@
 import { LuabindClass, object_binder } from "xray16";
 
+import { getManager } from "@/engine/core/database";
 import { PhantomManager } from "@/engine/core/managers/psy/PhantomManager";
 import { GameObject, TCount, Vector } from "@/engine/lib/types";
 
@@ -10,11 +11,11 @@ import { GameObject, TCount, Vector } from "@/engine/lib/types";
 export class PhantomBinder extends object_binder {
   public constructor(object: GameObject) {
     super(object);
-    PhantomManager.getInstance().addPhantom();
+    getManager(PhantomManager).addPhantom();
   }
 
   public override net_destroy(): void {
-    PhantomManager.getInstance().removePhantom();
+    getManager(PhantomManager).removePhantom();
   }
 
   /**
@@ -23,13 +24,13 @@ export class PhantomBinder extends object_binder {
    * @param position - where to spawn next phantom
    */
   public spawnPhantom(position: Vector): void {
-    PhantomManager.getInstance().spawnPhantom(position);
+    getManager(PhantomManager).spawnPhantom(position);
   }
 
   /**
    * @returns count of currently spawned phantoms
    */
   public getPhantomsCount(): TCount {
-    return PhantomManager.getInstance().phantomsCount;
+    return getManager(PhantomManager).phantomsCount;
   }
 }

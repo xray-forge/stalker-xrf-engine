@@ -1,5 +1,5 @@
 import { AbstractSchemeManager } from "@/engine/core/ai/scheme";
-import { registry } from "@/engine/core/database";
+import { getManager, registry } from "@/engine/core/database";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import { ISchemePhysicalDoorState } from "@/engine/core/schemes/physical/ph_door/ph_door_types";
 import { abort } from "@/engine/core/utils/assertion";
@@ -163,7 +163,7 @@ export class PhysicalDoorManager extends AbstractSchemeManager<ISchemePhysicalDo
     this.block = false;
 
     if (!this.soundlessBlock && this.state.sndCloseStop) {
-      GlobalSoundManager.getInstance().playSound(this.object.id(), this.state.sndCloseStop, null, null);
+      getManager(GlobalSoundManager).playSound(this.object.id(), this.state.sndCloseStop, null, null);
     }
   }
 
@@ -173,7 +173,7 @@ export class PhysicalDoorManager extends AbstractSchemeManager<ISchemePhysicalDo
   public openDoor(disableSound?: boolean): void {
     if (!disableSound) {
       if (this.state.sndOpenStart) {
-        GlobalSoundManager.getInstance().playSound(this.object.id(), this.state.sndOpenStart, null, null);
+        getManager(GlobalSoundManager).playSound(this.object.id(), this.state.sndOpenStart, null, null);
       }
     }
 
@@ -212,7 +212,7 @@ export class PhysicalDoorManager extends AbstractSchemeManager<ISchemePhysicalDo
   public closeDoor(disableSound: boolean): void {
     if (!disableSound) {
       if (this.state.sndCloseStart !== null) {
-        GlobalSoundManager.getInstance().playSound(this.object.id(), this.state.sndCloseStart, null, null);
+        getManager(GlobalSoundManager).playSound(this.object.id(), this.state.sndCloseStart, null, null);
       }
     }
 
@@ -246,7 +246,7 @@ export class PhysicalDoorManager extends AbstractSchemeManager<ISchemePhysicalDo
 
   public override onUse(target: GameObject, who: Optional<GameObject>): void {
     if (this.state.locked && this.state.sndOpenStart) {
-      GlobalSoundManager.getInstance().playSound(this.object.id(), this.state.sndOpenStart);
+      getManager(GlobalSoundManager).playSound(this.object.id(), this.state.sndOpenStart);
     }
 
     if (this.state.onUse) {

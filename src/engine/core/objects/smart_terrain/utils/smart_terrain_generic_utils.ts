@@ -1,6 +1,6 @@
 import { game } from "xray16";
 
-import { registry } from "@/engine/core/database";
+import { getManager, registry } from "@/engine/core/database";
 import { ISmartTerrainDescriptor, SimulationManager } from "@/engine/core/managers/simulation";
 import type { SmartTerrain } from "@/engine/core/objects/smart_terrain/SmartTerrain";
 import { smartTerrainConfig } from "@/engine/core/objects/smart_terrain/SmartTerrainConfig";
@@ -25,7 +25,7 @@ export function getSmartTerrainNameCaption(smartTerrain: SmartTerrain): TLabel {
  */
 export function getSmartTerrainMapDisplayHint(smartTerrain: SmartTerrain): TLabel {
   if (forgeConfig.DEBUG.IS_SIMULATION_ENABLED) {
-    const smartTerrainDescriptor: ISmartTerrainDescriptor = SimulationManager.getInstance().getSmartTerrainDescriptor(
+    const smartTerrainDescriptor: ISmartTerrainDescriptor = getManager(SimulationManager).getSmartTerrainDescriptor(
       smartTerrain.id
     )!;
 

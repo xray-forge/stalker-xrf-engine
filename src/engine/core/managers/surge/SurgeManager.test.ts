@@ -44,7 +44,7 @@ describe("SurgeManager class", () => {
   it.todo("should correctly handle update event");
 
   it("should correctly handle saving/loading in general case", () => {
-    const manager: SurgeManager = SurgeManager.getInstance();
+    const manager: SurgeManager = getManager(SurgeManager);
     const netProcessor: MockNetProcessor = new MockNetProcessor();
 
     manager.nextScheduledSurgeDelay = 4500;
@@ -86,7 +86,7 @@ describe("SurgeManager class", () => {
   it("should correctly handle saving/loading when surge started", () => {
     surgeConfig.IS_STARTED = true;
 
-    const manager: SurgeManager = SurgeManager.getInstance();
+    const manager: SurgeManager = getManager(SurgeManager);
     const netProcessor: MockNetProcessor = new MockNetProcessor();
 
     manager.nextScheduledSurgeDelay = 530;

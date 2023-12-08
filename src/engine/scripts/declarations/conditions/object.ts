@@ -1,6 +1,7 @@
 import { clsid, level, MonsterHitInfo } from "xray16";
 
 import {
+  getManager,
   getObjectByStoryId,
   getObjectIdByStoryId,
   getServerObjectByStoryId,
@@ -226,7 +227,7 @@ extern("xr_conditions.distance_to_obj_on_job_le", (actor: GameObject, object: Ga
 extern("xr_conditions.is_obj_on_job", (actor: GameObject, object: GameObject, params: AnyArgs): boolean => {
   const smartTerrain: Optional<SmartTerrain> =
     params && params[1]
-      ? SimulationManager.getInstance().getSmartTerrainByName(params[1])
+      ? getManager(SimulationManager).getSmartTerrainByName(params[1])
       : getObjectSmartTerrain(object);
 
   if (smartTerrain === null) {
@@ -248,7 +249,7 @@ extern("xr_conditions.is_obj_on_job", (actor: GameObject, object: GameObject, pa
 extern("xr_conditions.obj_in_zone", (actor: GameObject, zone: GameObject, params: LuaTable): boolean => {
   const simulator: AlifeSimulator = registry.simulator;
 
-  for (const [i, v] of params) {
+  for (const [, v] of params) {
     const objectId: Optional<TNumberId> = getObjectIdByStoryId(v);
 
     if (objectId && zone.inside(simulator.object(objectId)!.position)) {
@@ -721,7 +722,7 @@ extern("xr_conditions.squad_in_zone_all", (actor: GameObject, object: GameObject
  * todo;
  */
 extern("xr_conditions.squads_in_zone_b41", (actor: GameObject, object: GameObject): boolean => {
-  const smartTerrain: Optional<SmartTerrain> = SimulationManager.getInstance().getSmartTerrainByName("jup_b41");
+  const smartTerrain: Optional<SmartTerrain> = getManager(SimulationManager).getSmartTerrainByName("jup_b41");
   const zone: Optional<GameObject> = registry.zones.get("jup_b41_sr_light");
 
   if (zone === null) {
@@ -732,7 +733,7 @@ extern("xr_conditions.squads_in_zone_b41", (actor: GameObject, object: GameObjec
     return false;
   }
 
-  for (const [k, v] of SimulationManager.getInstance().getSmartTerrainDescriptor(smartTerrain.id)!.assignedSquads) {
+  for (const [k, v] of getManager(SimulationManager).getSmartTerrainDescriptor(smartTerrain.id)!.assignedSquads) {
     if (v !== null) {
       for (const j of v.squad_members()) {
         if (!zone.inside(j.object.position)) {
@@ -976,7 +977,7 @@ extern(
  * @returns whether actor is currently searching dead body
  */
 extern("xr_conditions.dead_body_searching", (actor: GameObject, object: GameObject): boolean => {
-  return ActorInventoryMenuManager.getInstance().isActiveMode(EActorMenuMode.DEAD_BODY_SEARCH);
+  return getManager(ActorInventoryMenuManager).isActiveMode(EActorMenuMode.DEAD_BODY_SEARCH);
 });
 
 /**
@@ -1138,7 +1139,7 @@ extern("xr_conditions.upgrade_hint_kardan", (actor: GameObject, object: GameObje
     canUpgrade = canUpgrade + 1;
   }
 
-  UpgradesManager.getInstance().setCurrentHints(itemUpgradeHints);
+  getManager(UpgradesManager).setCurrentHints(itemUpgradeHints);
 
   return canUpgrade >= 2;
 });

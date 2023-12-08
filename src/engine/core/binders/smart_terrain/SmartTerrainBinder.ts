@@ -3,6 +3,7 @@ import { LuabindClass, object_binder } from "xray16";
 import {
   closeLoadMarker,
   closeSaveMarker,
+  getManager,
   openLoadMarker,
   openSaveMarker,
   registerSmartTerrain,
@@ -44,7 +45,7 @@ export class SmartTerrainBinder extends object_binder {
   public override net_destroy(): void {
     logger.info("Go offline:", this.object.name());
 
-    GlobalSoundManager.getInstance().stopSoundByObjectId(this.object.id());
+    getManager(GlobalSoundManager).stopSoundByObjectId(this.object.id());
 
     unregisterSmartTerrain(this.object, this.serverObject);
 

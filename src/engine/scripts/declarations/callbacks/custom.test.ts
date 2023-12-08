@@ -1,5 +1,6 @@
 import { beforeAll, beforeEach, describe, expect, it, jest } from "@jest/globals";
 
+import { getManager } from "@/engine/core/database";
 import { EAchievement } from "@/engine/core/managers/achievements";
 import { ActorInputManager } from "@/engine/core/managers/actor";
 import { SleepManager } from "@/engine/core/managers/sleep";
@@ -37,7 +38,7 @@ describe("custom external callbacks", () => {
   });
 
   it("engine.on_start_sleeping should correctly handle event", () => {
-    const sleepManager: SleepManager = SleepManager.getInstance();
+    const sleepManager: SleepManager = getManager(SleepManager);
 
     jest.spyOn(sleepManager, "onStartSleeping").mockImplementation(jest.fn);
 
@@ -46,7 +47,7 @@ describe("custom external callbacks", () => {
   });
 
   it("engine.on_finish_sleeping should correctly handle event", () => {
-    const sleepManager: SleepManager = SleepManager.getInstance();
+    const sleepManager: SleepManager = getManager(SleepManager);
 
     jest.spyOn(sleepManager, "onFinishSleeping").mockImplementation(jest.fn);
 
@@ -55,7 +56,7 @@ describe("custom external callbacks", () => {
   });
 
   it("engine.on_anabiotic_sleep should correctly handle event", () => {
-    const actorInputManager: ActorInputManager = ActorInputManager.getInstance();
+    const actorInputManager: ActorInputManager = getManager(ActorInputManager);
 
     jest.spyOn(actorInputManager, "onAnabioticSleep").mockImplementation(jest.fn);
 
@@ -64,7 +65,7 @@ describe("custom external callbacks", () => {
   });
 
   it("engine.on_anabiotic_wake_up should correctly handle event", () => {
-    const actorInputManager: ActorInputManager = ActorInputManager.getInstance();
+    const actorInputManager: ActorInputManager = getManager(ActorInputManager);
 
     jest.spyOn(actorInputManager, "onAnabioticWakeUp").mockImplementation(jest.fn);
 
@@ -73,7 +74,7 @@ describe("custom external callbacks", () => {
   });
 
   it("engine.surge_survive_start should correctly handle event", () => {
-    const actorInputManager: ActorInputManager = ActorInputManager.getInstance();
+    const actorInputManager: ActorInputManager = getManager(ActorInputManager);
 
     jest.spyOn(actorInputManager, "onSurgeSurviveStart").mockImplementation(jest.fn);
 
@@ -82,7 +83,7 @@ describe("custom external callbacks", () => {
   });
 
   it("engine.surge_survive_end should correctly handle event", () => {
-    const actorInputManager: ActorInputManager = ActorInputManager.getInstance();
+    const actorInputManager: ActorInputManager = getManager(ActorInputManager);
 
     jest.spyOn(actorInputManager, "onSurgeSurviveEnd").mockImplementation(jest.fn);
 

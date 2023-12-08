@@ -1,6 +1,6 @@
 import { AbstractSchemeManager } from "@/engine/core/ai/scheme";
 import { EStalkerState } from "@/engine/core/animation/types";
-import { getObjectByStoryId, registry, setStalkerState } from "@/engine/core/database";
+import { getManager, getObjectByStoryId, registry, setStalkerState } from "@/engine/core/database";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import { EMeetDistance, ISchemeMeetState } from "@/engine/core/schemes/stalker/meet/meet_types";
 import { setObjectAbuseState } from "@/engine/core/schemes/stalker/meet/utils";
@@ -123,7 +123,7 @@ export class MeetManager extends AbstractSchemeManager<ISchemeMeetState> {
 
     if (optionalSound !== null) {
       logger.format("Execute play sound: '%s', '%s'", this.object.name(), optionalSound);
-      GlobalSoundManager.getInstance().playSound(this.object.id(), optionalSound);
+      getManager(GlobalSoundManager).playSound(this.object.id(), optionalSound);
     }
   }
 
@@ -147,7 +147,7 @@ export class MeetManager extends AbstractSchemeManager<ISchemeMeetState> {
 
         if (sound !== null && !isObjectInCombat(this.object)) {
           logger.format("Execute play sound hello: '%s', '%s'", this.object.name(), sound);
-          GlobalSoundManager.getInstance().playSound(this.object.id(), sound);
+          getManager(GlobalSoundManager).playSound(this.object.id(), sound);
         }
 
         this.isHelloPassed = true;
@@ -162,7 +162,7 @@ export class MeetManager extends AbstractSchemeManager<ISchemeMeetState> {
 
         if (sound !== null && !isObjectInCombat(this.object)) {
           logger.format("Execute play sound bye: '%s', '%s'", this.object.name(), sound);
-          GlobalSoundManager.getInstance().playSound(this.object.id(), sound);
+          getManager(GlobalSoundManager).playSound(this.object.id(), sound);
         }
 
         this.isByePassed = true;

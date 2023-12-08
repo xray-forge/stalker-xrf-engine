@@ -2,6 +2,7 @@ import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 
 import {
   disposeManager,
+  getManager,
   initializeManager,
   isManagerInitialized,
   registerActor,
@@ -51,7 +52,7 @@ describe("SaveManager class", () => {
   });
 
   it("should correctly initialize", () => {
-    const eventsManager: EventsManager = EventsManager.getInstance();
+    const eventsManager: EventsManager = getManager(EventsManager);
 
     expect(eventsManager.getSubscribersCount()).toBe(0);
 
@@ -63,7 +64,7 @@ describe("SaveManager class", () => {
   });
 
   it("should correctly force init of surge manager on actor init", () => {
-    const eventsManager: EventsManager = EventsManager.getInstance();
+    const eventsManager: EventsManager = getManager(EventsManager);
 
     expect(isManagerInitialized(SaveManager)).toBe(false);
     expect(isManagerInitialized(SurgeManager)).toBe(false);
@@ -101,12 +102,12 @@ describe("SaveManager class", () => {
     expect(saveOrder).toEqual([]);
     expect(loadOrder).toEqual([]);
 
-    SaveManager.getInstance().clientSave(mockNetPacket());
+    getManager(SaveManager).clientSave(mockNetPacket());
 
     expect(saveOrder).toEqual(expectedOrder);
     expect(loadOrder).toEqual([]);
 
-    SaveManager.getInstance().clientLoad(mockNetPacket());
+    getManager(SaveManager).clientLoad(mockNetPacket());
 
     expect(saveOrder).toEqual(expectedOrder);
     expect(loadOrder).toEqual(expectedOrder);
@@ -124,19 +125,19 @@ describe("SaveManager class", () => {
     expect(saveOrder).toEqual([]);
     expect(loadOrder).toEqual([]);
 
-    SaveManager.getInstance().serverSave(mockNetPacket());
+    getManager(SaveManager).serverSave(mockNetPacket());
 
     expect(saveOrder).toEqual(expectedOrder);
     expect(loadOrder).toEqual([]);
 
-    SaveManager.getInstance().serverLoad(mockNetPacket());
+    getManager(SaveManager).serverLoad(mockNetPacket());
 
     expect(saveOrder).toEqual(expectedOrder);
     expect(loadOrder).toEqual(expectedOrder);
   });
 
   it("should have implementation base for save callbacks", () => {
-    const saveManager: SaveManager = SaveManager.getInstance();
+    const saveManager: SaveManager = getManager(SaveManager);
 
     expect(saveManager.onBeforeGameSave).toBeDefined();
     expect(saveManager.onGameSave).toBeDefined();
@@ -145,14 +146,14 @@ describe("SaveManager class", () => {
   });
 
   it("should properly create dynamic saves", () => {
-    const saveManager: SaveManager = SaveManager.getInstance();
+    const saveManager: SaveManager = getManager(SaveManager);
     const file: MockIoFile = new MockIoFile("test", "wb");
 
     const onSave = jest.fn((data: AnyObject) => {
       data.example = 123;
     });
 
-    EventsManager.getInstance().registerCallback(EGameEvent.GAME_SAVE, onSave);
+    getManager(EventsManager).registerCallback(EGameEvent.GAME_SAVE, onSave);
 
     jest.spyOn(io, "open").mockImplementationOnce(() => $multi(file.asMock()));
 
@@ -165,7 +166,7 @@ describe("SaveManager class", () => {
   });
 
   it("should properly load dynamic saves", () => {
-    const saveManager: SaveManager = SaveManager.getInstance();
+    const saveManager: SaveManager = getManager(SaveManager);
     const file: MockIoFile = new MockIoFile("test", "wb");
 
     file.content = JSON.stringify({ eventPacket: { example: 123 }, store: {}, objects: {} });
@@ -174,7 +175,7 @@ describe("SaveManager class", () => {
       expect(data).toEqual({ example: 123 });
     });
 
-    EventsManager.getInstance().registerCallback(EGameEvent.GAME_LOAD, onLoad);
+    getManager(EventsManager).registerCallback(EGameEvent.GAME_LOAD, onLoad);
 
     jest.spyOn(io, "open").mockImplementation(() => $multi(file.asMock()));
 

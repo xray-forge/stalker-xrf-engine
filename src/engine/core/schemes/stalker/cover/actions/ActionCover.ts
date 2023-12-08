@@ -1,7 +1,7 @@
 import { action_base, level, LuabindClass } from "xray16";
 
 import { EStalkerState } from "@/engine/core/animation/types";
-import { registry, setStalkerState } from "@/engine/core/database";
+import { getManager, registry, setStalkerState } from "@/engine/core/database";
 import { SimulationManager } from "@/engine/core/managers/simulation/SimulationManager";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import { ISchemeCoverState } from "@/engine/core/schemes/stalker/cover";
@@ -54,7 +54,7 @@ export class ActionCover extends action_base implements ISchemeEventHandler {
 
       // Play idle state sounds from stalkers like complaining etc.
       if (this.state.soundIdle !== null) {
-        GlobalSoundManager.getInstance().playSound(this.object.id(), this.state.soundIdle);
+        getManager(GlobalSoundManager).playSound(this.object.id(), this.state.soundIdle);
       }
     } else {
       this.object.set_dest_level_vertex_id(this.coverVertexId);
@@ -71,7 +71,7 @@ export class ActionCover extends action_base implements ISchemeEventHandler {
   public activate(): void {
     this.state.signals = new LuaTable();
 
-    const smartTerrainVertexId: TNumberId = SimulationManager.getInstance().getSmartTerrainByName(
+    const smartTerrainVertexId: TNumberId = getManager(SimulationManager).getSmartTerrainByName(
       this.state.smartTerrainName
     )!.m_level_vertex_id;
 

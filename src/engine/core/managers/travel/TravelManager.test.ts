@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it } from "@jest/globals";
 
-import { registerSimulator } from "@/engine/core/database";
+import { getManager, registerSimulator } from "@/engine/core/database";
 import { EventsManager } from "@/engine/core/managers/events";
 import { travelConfig } from "@/engine/core/managers/travel/TravelConfig";
 import { TravelManager } from "@/engine/core/managers/travel/TravelManager";
@@ -23,8 +23,8 @@ describe("TravelManager class", () => {
   });
 
   it("should correctly initialize callbacks", () => {
-    const eventsManager: EventsManager = EventsManager.getInstance();
-    const manager: TravelManager = TravelManager.getInstance();
+    const eventsManager: EventsManager = getManager(EventsManager);
+    const manager: TravelManager = getManager(TravelManager);
 
     manager.initialize();
     expect(eventsManager.getSubscribersCount()).toBe(1);
@@ -71,7 +71,7 @@ describe("TravelManager class", () => {
   });
 
   it("should correctly initialize and destroy", () => {
-    const manager: TravelManager = TravelManager.getInstance();
+    const manager: TravelManager = getManager(TravelManager);
 
     manager.initialize();
 
@@ -81,7 +81,7 @@ describe("TravelManager class", () => {
   });
 
   it("should correctly initialize travel dialog phrases", () => {
-    const manager: TravelManager = TravelManager.getInstance();
+    const manager: TravelManager = getManager(TravelManager);
     const dialog: MockPhraseDialog = MockPhraseDialog.create();
 
     manager.initialize();
@@ -235,7 +235,7 @@ describe("TravelManager class", () => {
   });
 
   it("should correctly check if can use travel dialogs", () => {
-    const manager: TravelManager = TravelManager.getInstance();
+    const manager: TravelManager = getManager(TravelManager);
     const squad: ServerGroupObject = mockServerAlifeOnlineOfflineGroup();
     const smartZone: ServerSmartZoneObject = mockServerAlifeSmartZone({ name: <T>() => "jup_b41" as T });
     const serverObject: ServerCreatureObject = mockServerAlifeHumanStalker({ group_id: squad.id });
@@ -277,7 +277,7 @@ describe("TravelManager class", () => {
   it.todo("should correctly check if can negotiate traveling");
 
   it("should correctly calculate travel price", () => {
-    const manager: TravelManager = TravelManager.getInstance();
+    const manager: TravelManager = getManager(TravelManager);
 
     expect(manager.getTravelPriceByDistance(10)).toBe(50);
     expect(manager.getTravelPriceByDistance(100)).toBe(100);

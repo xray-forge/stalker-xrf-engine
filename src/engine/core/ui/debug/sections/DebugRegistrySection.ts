@@ -1,6 +1,6 @@
 import { CUI3tButton, CUICheckButton, CUIListBox, CUIStatic, LuabindClass, ui_events } from "xray16";
 
-import { registry } from "@/engine/core/database";
+import { getManager, registry } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { AbstractDebugSection } from "@/engine/core/ui/debug/sections/AbstractDebugSection";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -119,7 +119,7 @@ export class DebugRegistrySection extends AbstractDebugSection {
     logger.info("Signal lights registered:", Object.keys(registry.signalLights).length);
     logger.info("Spawned vertexes registered:", Object.keys(registry.spawnedVertexes).length);
 
-    const eventsManager: EventsManager = EventsManager.getInstance();
+    const eventsManager: EventsManager = getManager(EventsManager);
 
     logger.info("Event handlers exist:", Object.keys(eventsManager.callbacks).length);
     Object.entries(eventsManager.callbacks).forEach(([key, values]) => {

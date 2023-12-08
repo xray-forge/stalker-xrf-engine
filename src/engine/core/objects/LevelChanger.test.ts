@@ -1,6 +1,7 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 
 import {
+  getManager,
   getObjectIdByStoryId,
   getServerObjectByStoryId,
   getStoryIdByObjectId,
@@ -88,7 +89,7 @@ describe("LevelChanger server class", () => {
   });
 
   it("should correctly emit lifecycle events", () => {
-    const eventsManager: EventsManager = EventsManager.getInstance();
+    const eventsManager: EventsManager = getManager(EventsManager);
     const levelChanger: LevelChanger = new LevelChanger("test-section");
 
     const onLevelChangerRegister = jest.fn();

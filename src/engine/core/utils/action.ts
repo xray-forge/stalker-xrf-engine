@@ -1,5 +1,6 @@
 import { level } from "xray16";
 
+import { getManager } from "@/engine/core/database";
 import { registry } from "@/engine/core/database/registry";
 import { ActorInputManager } from "@/engine/core/managers/actor/ActorInputManager";
 import { animations } from "@/engine/lib/constants/animation";
@@ -18,6 +19,7 @@ export function objectPunchActor(object: GameObject): void {
     return;
   }
 
-  ActorInputManager.getInstance().setInactiveInputTime(30);
+  getManager(ActorInputManager).setInactiveInputTime(30);
+
   level.add_cam_effector(animations.camera_effects_fusker, 999, false, "");
 }

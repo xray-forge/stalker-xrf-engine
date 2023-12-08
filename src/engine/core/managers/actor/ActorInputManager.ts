@@ -3,6 +3,7 @@ import { game, get_hud, level } from "xray16";
 import {
   closeLoadMarker,
   closeSaveMarker,
+  getManager,
   getManagerByName,
   openLoadMarker,
   openSaveMarker,
@@ -46,7 +47,7 @@ const logger: LuaLogger = new LuaLogger($filename);
  */
 export class ActorInputManager extends AbstractManager {
   public override initialize(): void {
-    const eventsManager: EventsManager = EventsManager.getInstance();
+    const eventsManager: EventsManager = getManager(EventsManager);
 
     eventsManager.registerCallback(EGameEvent.ACTOR_UPDATE, this.onUpdate, this);
     eventsManager.registerCallback(EGameEvent.ACTOR_FIRST_UPDATE, this.onFirstUpdate, this);
@@ -55,7 +56,7 @@ export class ActorInputManager extends AbstractManager {
   }
 
   public override destroy(): void {
-    const eventsManager: EventsManager = EventsManager.getInstance();
+    const eventsManager: EventsManager = getManager(EventsManager);
 
     eventsManager.unregisterCallback(EGameEvent.ACTOR_UPDATE, this.onUpdate);
     eventsManager.unregisterCallback(EGameEvent.ACTOR_FIRST_UPDATE, this.onFirstUpdate);
@@ -250,7 +251,7 @@ export class ActorInputManager extends AbstractManager {
    * todo: Description.
    */
   public processAnabioticItemUsage(): void {
-    ActorInputManager.getInstance().disableGameUiOnly();
+    getManager(ActorInputManager).disableGameUiOnly();
 
     level.add_cam_effector(animations.camera_effects_surge_02, 10, false, "engine.on_anabiotic_sleep");
     level.add_pp_effector(postProcessors.surge_fade, 11, false);
@@ -367,14 +368,14 @@ export class ActorInputManager extends AbstractManager {
     }
 
     level.change_game_time(0, 0, random);
-    WeatherManager.getInstance().forceWeatherChange();
+    getManager(WeatherManager).forceWeatherChange();
   }
 
   /**
    * todo: Description.
    */
   public onAnabioticWakeUp(): void {
-    ActorInputManager.getInstance().enableGameUi();
+    getManager(ActorInputManager).enableGameUi();
 
     executeConsoleCommand(consoleCommands.snd_volume_music, registry.musicVolume);
     executeConsoleCommand(consoleCommands.snd_volume_eff, registry.effectsVolume);

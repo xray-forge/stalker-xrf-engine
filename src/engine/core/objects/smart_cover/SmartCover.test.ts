@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 
-import { registry } from "@/engine/core/database";
+import { getManager, registry } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { SmartCover } from "@/engine/core/objects/smart_cover/SmartCover";
 import { LuaArray, TStringId } from "@/engine/lib/types";
@@ -14,7 +14,7 @@ describe("SmartCover server object", () => {
   });
 
   it("should correctly emit lifecycle events", () => {
-    const eventsManager: EventsManager = EventsManager.getInstance();
+    const eventsManager: EventsManager = getManager(EventsManager);
     const smartCover: SmartCover = new SmartCover("monster");
 
     const onSmartCoverRegister = jest.fn();

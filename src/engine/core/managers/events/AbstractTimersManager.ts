@@ -1,5 +1,6 @@
 import { time_global } from "xray16";
 
+import { getManager } from "@/engine/core/database";
 import { AbstractManager } from "@/engine/core/managers/base/AbstractManager";
 import { IIntervalDescriptor, ITimeoutDescriptor } from "@/engine/core/managers/events/events_types";
 import { assert } from "@/engine/core/utils/assertion";
@@ -21,7 +22,7 @@ export class AbstractTimersManager extends AbstractManager {
     callback: (offset: TDuration) => void,
     period: TDuration
   ): LuaMultiReturn<[AnyCallable, IIntervalDescriptor, AnyCallable]> {
-    return this.getInstance().registerGameInterval(callback, period);
+    return getManager(this).registerGameInterval(callback, period);
   }
 
   /**
@@ -33,7 +34,7 @@ export class AbstractTimersManager extends AbstractManager {
     callback: (offset: TDuration) => void,
     delay: TDuration
   ): LuaMultiReturn<[AnyCallable, ITimeoutDescriptor, AnyCallable]> {
-    return this.getInstance().registerGameTimeout(callback, delay);
+    return getManager(this).registerGameTimeout(callback, delay);
   }
 
   public readonly intervals: LuaTable<IIntervalDescriptor, boolean> = new LuaTable();

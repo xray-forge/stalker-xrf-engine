@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { CALifeSmartTerrainTask, level } from "xray16";
 
-import { registerOfflineObject, registerSimulator, registerZone, registry } from "@/engine/core/database";
+import { getManager, registerOfflineObject, registerSimulator, registerZone, registry } from "@/engine/core/database";
 import { ESimulationTerrainRole, SimulationManager } from "@/engine/core/managers/simulation";
 import { ESmartTerrainStatus, SmartTerrainControl } from "@/engine/core/objects/smart_terrain";
 import { parseConditionsList } from "@/engine/core/utils/ini";
@@ -137,7 +137,7 @@ describe("Squad server object", () => {
   it("should correctly handle simulation target selection", () => {
     const squad: MockSquad = MockSquad.mock();
     const another: MockSquad = MockSquad.mock();
-    const simulationManager: SimulationManager = SimulationManager.getInstance();
+    const simulationManager: SimulationManager = getManager(SimulationManager);
 
     const first: ServerHumanObject = MockAlifeHumanStalker.mock();
     const second: ServerHumanObject = MockAlifeHumanStalker.mock();

@@ -1,6 +1,7 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 
 import {
+  getManager,
   getObjectIdByStoryId,
   getServerObjectByStoryId,
   getStoryIdByObjectId,
@@ -59,7 +60,7 @@ describe("ZoneVisual server class", () => {
   });
 
   it("should correctly emit lifecycle events", () => {
-    const eventsManager: EventsManager = EventsManager.getInstance();
+    const eventsManager: EventsManager = getManager(EventsManager);
     const zoneVisual: ZoneVisual = new ZoneVisual("test-section");
 
     const onRestrictorRegister = jest.fn();

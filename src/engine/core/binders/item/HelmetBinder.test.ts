@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 
 import { HelmetBinder } from "@/engine/core/binders/item/HelmetBinder";
-import { IRegistryObjectState, registerSimulator, registry } from "@/engine/core/database";
+import { getManager, IRegistryObjectState, registerSimulator, registry } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { ItemHelmet } from "@/engine/core/objects/item/ItemHelmet";
 import { resetRegistry } from "@/fixtures/engine";
@@ -45,7 +45,7 @@ describe("HelmetBinder class", () => {
   });
 
   it("should correctly emit lifecycle signals", () => {
-    const eventsManager: EventsManager = EventsManager.getInstance();
+    const eventsManager: EventsManager = getManager(EventsManager);
     const binder: HelmetBinder = new HelmetBinder(MockGameObject.mock());
 
     const onGoOnlineFirstTime = jest.fn();

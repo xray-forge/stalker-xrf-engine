@@ -1,5 +1,6 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 
+import { getManager } from "@/engine/core/database";
 import { ESimulationTerrainRole, ISmartTerrainDescriptor, SimulationManager } from "@/engine/core/managers/simulation";
 import { getSmartTerrainMapDisplayHint, SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import { createObjectJobDescriptor } from "@/engine/core/objects/smart_terrain/job";
@@ -93,7 +94,7 @@ working = 0
     smartTerrain.objectJobDescriptors.set(4000, createObjectJobDescriptor(mockServerAlifeHumanStalker({ id: 4000 })));
     smartTerrain.arrivingObjects.set(4001, mockServerAlifeHumanStalker({ id: 4001 }));
 
-    const descriptor: ISmartTerrainDescriptor = SimulationManager.getInstance().getSmartTerrainDescriptor(
+    const descriptor: ISmartTerrainDescriptor = getManager(SimulationManager).getSmartTerrainDescriptor(
       smartTerrain.id
     ) as ISmartTerrainDescriptor;
 

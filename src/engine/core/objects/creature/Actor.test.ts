@@ -1,19 +1,20 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 
+import { getManager } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { SaveManager } from "@/engine/core/managers/save/SaveManager";
 import { SimulationManager } from "@/engine/core/managers/simulation";
 import { Actor } from "@/engine/core/objects/creature/Actor";
 import { ServerObject } from "@/engine/lib/types";
-import { EPacketDataType, mockNetPacket, MockNetProcessor, mockServerAlifeHumanStalker } from "@/fixtures/xray";
+import { EPacketDataType, MockAlifeHumanStalker, mockNetPacket, MockNetProcessor } from "@/fixtures/xray";
 
 describe("Actor server object", () => {
   beforeEach(() => {
-    jest.spyOn(SimulationManager.getInstance(), "onActorRegister").mockImplementation(jest.fn);
+    jest.spyOn(getManager(SimulationManager), "onActorRegister").mockImplementation(jest.fn);
   });
 
   it("should correctly emit lifecycle events", () => {
-    const eventsManager: EventsManager = EventsManager.getInstance();
+    const eventsManager: EventsManager = getManager(EventsManager);
     const actor: Actor = new Actor("actor");
 
     const onActorRegister = jest.fn();
@@ -34,9 +35,9 @@ describe("Actor server object", () => {
   });
 
   it("should correctly emit death events", () => {
-    const eventsManager: EventsManager = EventsManager.getInstance();
+    const eventsManager: EventsManager = getManager(EventsManager);
     const actor: Actor = new Actor("actor");
-    const killer: ServerObject = mockServerAlifeHumanStalker();
+    const killer: ServerObject = MockAlifeHumanStalker.mock();
 
     const onActorDeath = jest.fn();
 
@@ -48,7 +49,7 @@ describe("Actor server object", () => {
   });
 
   it("should correctly handle save-load in appropriate manager", () => {
-    const saveManager: SaveManager = SaveManager.getInstance();
+    const saveManager: SaveManager = getManager(SaveManager);
     const actor: Actor = new Actor("actor");
     const netProcessor: MockNetProcessor = new MockNetProcessor();
 

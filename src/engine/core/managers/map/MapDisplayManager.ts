@@ -1,6 +1,6 @@
 import { game, level, time_global } from "xray16";
 
-import { getObjectIdByStoryId, IRegistryObjectState, registry } from "@/engine/core/database";
+import { getManager, getObjectIdByStoryId, IRegistryObjectState, registry } from "@/engine/core/database";
 import { AbstractManager } from "@/engine/core/managers/base/AbstractManager";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { IMapMarkDescriptor } from "@/engine/core/managers/map/map_types";
@@ -53,13 +53,13 @@ export class MapDisplayManager extends AbstractManager {
   public lastUpdateAt: TTimestamp = 0;
 
   public override initialize(): void {
-    const eventsManager: EventsManager = EventsManager.getInstance();
+    const eventsManager: EventsManager = getManager(EventsManager);
 
     eventsManager.registerCallback(EGameEvent.ACTOR_UPDATE, this.update, this);
   }
 
   public override destroy(): void {
-    const eventsManager: EventsManager = EventsManager.getInstance();
+    const eventsManager: EventsManager = getManager(EventsManager);
 
     eventsManager.unregisterCallback(EGameEvent.ACTOR_UPDATE, this.update);
   }

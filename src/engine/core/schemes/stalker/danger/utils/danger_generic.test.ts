@@ -2,6 +2,7 @@ import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { clsid, danger_object } from "xray16";
 
 import {
+  getManager,
   ILogicsOverrides,
   IRegistryObjectState,
   registerObject,
@@ -190,7 +191,7 @@ describe("danger generic utils", () => {
 
     registry.zones.set("zat_a2_sr_no_assault", noCombatZone);
     jest.spyOn(noCombatZone, "inside").mockImplementation(() => true);
-    SimulationManager.getInstance().registerSmartTerrain(noCombatSmart as SmartTerrain);
+    getManager(SimulationManager).registerSmartTerrain(noCombatSmart as SmartTerrain);
 
     (noCombatSmart as SmartTerrain).smartTerrainActorControl = {
       status: ESmartTerrainStatus.NORMAL,

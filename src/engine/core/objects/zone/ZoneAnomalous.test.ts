@@ -1,6 +1,7 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 
 import {
+  getManager,
   getObjectIdByStoryId,
   getServerObjectByStoryId,
   getStoryIdByObjectId,
@@ -59,7 +60,7 @@ describe("ZoneAnomalous server class", () => {
   });
 
   it("should correctly emit lifecycle events", () => {
-    const eventsManager: EventsManager = EventsManager.getInstance();
+    const eventsManager: EventsManager = getManager(EventsManager);
     const zoneAnomalous: ZoneAnomalous = new ZoneAnomalous("test-section");
 
     const onAnomalousZoneRegister = jest.fn();

@@ -1,3 +1,4 @@
+import { getManager } from "@/engine/core/database";
 import { ActorInventoryMenuManager } from "@/engine/core/managers/actor/ActorInventoryMenuManager";
 import { LoadScreenManager } from "@/engine/core/managers/interface/LoadScreenManager";
 import { PdaManager } from "@/engine/core/managers/pda/PdaManager";
@@ -34,8 +35,8 @@ logger.info("Resolve and bind interface externals");
  * Callbacks related to loading screen tips generation.
  */
 extern("loadscreen", {
-  get_tip_number: (levelName: TName) => LoadScreenManager.getInstance().getRandomTipIndex(levelName),
-  get_mp_tip_number: (levelName: TName) => LoadScreenManager.getInstance().getRandomMultiplayerTipIndex(levelName),
+  get_tip_number: (levelName: TName) => getManager(LoadScreenManager).getRandomTipIndex(levelName),
+  get_mp_tip_number: (levelName: TName) => getManager(LoadScreenManager).getRandomMultiplayerTipIndex(levelName),
 });
 
 /**
@@ -46,17 +47,17 @@ extern("inventory_upgrades", {
   can_repair_item: (section: TSection, condition: TRate, mechanicName: TName): boolean =>
     canRepairItem(section, condition, mechanicName),
   can_upgrade_item: (section: TSection, mechanicName: TName): boolean =>
-    UpgradesManager.getInstance().canUpgradeItem(section, mechanicName),
+    getManager(UpgradesManager).canUpgradeItem(section, mechanicName),
   effect_repair_item: (section: TSection, condition: TRate) =>
-    UpgradesManager.getInstance().getRepairItemPayment(section, condition),
+    getManager(UpgradesManager).getRepairItemPayment(section, condition),
   effect_functor_a: (name: TName, section: TSection, loading: TNotCastedBoolean) =>
-    UpgradesManager.getInstance().getUpgradeItemPayment(name, section, loading),
+    getManager(UpgradesManager).getUpgradeItemPayment(name, section, loading),
   prereq_functor_a: (name: TName, section: TSection): TLabel =>
-    UpgradesManager.getInstance().getPreRequirementsFunctorA(name, section),
+    getManager(UpgradesManager).getPreRequirementsFunctorA(name, section),
   precondition_functor_a: (name: TName, section: TSection) =>
-    UpgradesManager.getInstance().getPreconditionFunctorA(name, section),
+    getManager(UpgradesManager).getPreconditionFunctorA(name, section),
   property_functor_a: (data: string, name: TName): TLabel =>
-    UpgradesManager.getInstance().getPropertyFunctorA(data, name),
+    getManager(UpgradesManager).getPropertyFunctorA(data, name),
   property_functor_b: (data: string, upgrade: TName): TName => issueUpgradeProperty(data, upgrade),
   property_functor_c: (data: string, upgrade: TName): TName => issueUpgradeProperty(data, upgrade),
   question_repair_item: (section: TSection, condition: TRate, canRepair: boolean, mechanicName: TName): TLabel =>
@@ -68,7 +69,7 @@ extern("inventory_upgrades", {
  */
 extern("actor_menu", {
   actor_menu_mode: (mode: EActorMenuMode): void => {
-    return ActorInventoryMenuManager.getInstance().setActiveMode(mode);
+    return getManager(ActorInventoryMenuManager).setActiveMode(mode);
   },
 });
 
@@ -91,7 +92,7 @@ extern("actor_menu_inventory", {
     oldList: EActorMenuType,
     newList: EActorMenuType
   ): boolean => {
-    ActorInventoryMenuManager.getInstance().onItemDropped(from, to, oldList, newList);
+    getManager(ActorInventoryMenuManager).onItemDropped(from, to, oldList, newList);
 
     return true;
   },
@@ -125,19 +126,19 @@ extern("pda", {
     logger.info("Pda box property added:", ...args);
   },
   fill_fraction_state: (state: AnyObject): void => {
-    PdaManager.getInstance().fillFactionState(state);
+    getManager(PdaManager).fillFactionState(state);
   },
   get_monster_back: (): TName => {
-    return PdaManager.getInstance().getMonsterBackground();
+    return getManager(PdaManager).getMonsterBackground();
   },
   get_monster_icon: (): TName => {
-    return PdaManager.getInstance().getMonsterIcon();
+    return getManager(PdaManager).getMonsterIcon();
   },
   get_favorite_weapon: (): TSection => {
-    return PdaManager.getInstance().getFavoriteWeapon();
+    return getManager(PdaManager).getFavoriteWeapon();
   },
   get_stat: (index: TIndex): TLabel => {
-    return PdaManager.getInstance().getStat(index);
+    return getManager(PdaManager).getStat(index);
   },
 });
 

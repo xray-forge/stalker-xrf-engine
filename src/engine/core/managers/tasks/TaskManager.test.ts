@@ -118,7 +118,7 @@ describe("TaskManager class", () => {
   it.todo("should correctly give tasks");
 
   it("should correctly check if tasks are active", () => {
-    const taskManager: TaskManager = TaskManager.getInstance();
+    const taskManager: TaskManager = getManager(TaskManager);
 
     expect(taskManager.isTaskActive("test_task")).toBeFalsy();
 
@@ -132,7 +132,7 @@ describe("TaskManager class", () => {
   });
 
   it("should correctly check if tasks are failed", () => {
-    const taskManager: TaskManager = TaskManager.getInstance();
+    const taskManager: TaskManager = getManager(TaskManager);
     const task: TaskObject = new TaskObject("test", mockIniFile("test.ltx", { test: {} }));
 
     expect(taskManager.isTaskFailed("test_task")).toBeFalsy();
@@ -154,7 +154,7 @@ describe("TaskManager class", () => {
   });
 
   it("should correctly check if tasks are completed", () => {
-    const taskManager: TaskManager = TaskManager.getInstance();
+    const taskManager: TaskManager = getManager(TaskManager);
     const task: TaskObject = new TaskObject("test", mockIniFile("test.ltx", { test: {} }));
 
     expect(taskManager.isTaskCompleted("test_task")).toBeFalsy();

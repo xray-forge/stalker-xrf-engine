@@ -3,6 +3,7 @@ import { callback, level } from "xray16";
 
 import { ActorBinder } from "@/engine/core/binders/creature/ActorBinder";
 import {
+  getManager,
   IRegistryObjectState,
   registerSimulator,
   registerZone,
@@ -40,14 +41,14 @@ describe("ActorBinder class", () => {
 
     expect(binder.isFirstUpdatePerformed).toBe(false);
     expect(binder.deimosIntensity).toBeNull();
-    expect(binder.eventsManager).toBe(EventsManager.getInstance());
+    expect(binder.eventsManager).toBe(getManager(EventsManager));
   });
 
   it("should correctly handle net spawn / destroy", () => {
     const actor: GameObject = MockGameObject.mockActor();
     const serverActor: ServerActorObject = mockServerAlifeCreatureActor();
     const binder: ActorBinder = new ActorBinder(actor);
-    const eventsManager: EventsManager = EventsManager.getInstance();
+    const eventsManager: EventsManager = getManager(EventsManager);
 
     jest.spyOn(eventsManager, "emitEvent");
 
@@ -86,7 +87,7 @@ describe("ActorBinder class", () => {
   it("should correctly handle re-init", () => {
     const actor: GameObject = MockGameObject.mockActor();
     const binder: ActorBinder = new ActorBinder(actor);
-    const eventsManager: EventsManager = EventsManager.getInstance();
+    const eventsManager: EventsManager = getManager(EventsManager);
 
     jest.spyOn(eventsManager, "emitEvent");
     jest.spyOn(eventsManager, "registerGameTimeout");
@@ -114,7 +115,7 @@ describe("ActorBinder class", () => {
   it("should correctly force infinite alife update on re-init", () => {
     const actor: GameObject = MockGameObject.mockActor();
     const binder: ActorBinder = new ActorBinder(actor);
-    const eventsManager: EventsManager = EventsManager.getInstance();
+    const eventsManager: EventsManager = getManager(EventsManager);
 
     jest.spyOn(eventsManager, "registerGameTimeout");
 
@@ -130,7 +131,7 @@ describe("ActorBinder class", () => {
     const { actorGameObject, actorServerObject } = mockRegisteredActor();
 
     const binder: ActorBinder = new ActorBinder(actorGameObject);
-    const eventsManager: EventsManager = EventsManager.getInstance();
+    const eventsManager: EventsManager = getManager(EventsManager);
 
     jest.spyOn(eventsManager, "emitEvent");
     jest.spyOn(eventsManager, "tick");
@@ -161,7 +162,7 @@ describe("ActorBinder class", () => {
 
   it("should correctly handle save/load with default values", () => {
     const { actorGameObject, actorServerObject } = mockRegisteredActor();
-    const saveManager: SaveManager = SaveManager.getInstance();
+    const saveManager: SaveManager = getManager(SaveManager);
     const netProcessor: MockNetProcessor = new MockNetProcessor();
     const binder: ActorBinder = new ActorBinder(actorGameObject);
 
@@ -194,7 +195,7 @@ describe("ActorBinder class", () => {
 
   it("should correctly handle save/load with deimos and pstore values", () => {
     const { actorGameObject, actorServerObject } = mockRegisteredActor();
-    const saveManager: SaveManager = SaveManager.getInstance();
+    const saveManager: SaveManager = getManager(SaveManager);
     const netProcessor: MockNetProcessor = new MockNetProcessor();
     const binder: ActorBinder = new ActorBinder(actorGameObject);
 

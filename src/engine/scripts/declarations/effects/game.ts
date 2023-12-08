@@ -1,6 +1,6 @@
 import { game, get_hud, StaticDrawableWrapper } from "xray16";
 
-import { getPortableStoreValue, setPortableStoreValue } from "@/engine/core/database";
+import { getManager, getPortableStoreValue, setPortableStoreValue } from "@/engine/core/database";
 import { UpgradesManager } from "@/engine/core/managers/upgrades/UpgradesManager";
 import { extern } from "@/engine/core/utils/binding";
 import { executeConsoleCommand } from "@/engine/core/utils/console";
@@ -130,7 +130,7 @@ extern("xr_effects.scenario_autosave", (actor: GameObject, object: GameObject, [
  */
 extern("xr_effects.mech_discount", (actor: GameObject, object: GameObject, p: [string]): void => {
   if (p[0]) {
-    UpgradesManager.getInstance().setCurrentPriceDiscount(tonumber(p[0])!);
+    getManager(UpgradesManager).setCurrentPriceDiscount(tonumber(p[0])!);
   }
 });
 
@@ -141,7 +141,7 @@ extern(
   "xr_effects.upgrade_hint",
   (actor: GameObject, object: GameObject, parameters: Optional<LuaArray<TLabel>>): void => {
     if (parameters) {
-      UpgradesManager.getInstance().setCurrentHints(parameters);
+      getManager(UpgradesManager).setCurrentHints(parameters);
     }
   }
 );

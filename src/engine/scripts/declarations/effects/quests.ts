@@ -2,6 +2,7 @@ import { particles_object, patrol, sound_object } from "xray16";
 
 import { EStalkerState } from "@/engine/core/animation/types";
 import {
+  getManager,
   getObjectByStoryId,
   getObjectIdByStoryId,
   getPortableStoreValue,
@@ -94,7 +95,7 @@ extern("xr_effects.jup_b32_place_scanner", (): void => {
  * todo;
  */
 extern("xr_effects.jup_b32_pda_check", (): void => {
-  MapDisplayManager.getInstance().updateAnomalyZonesDisplay();
+  getManager(MapDisplayManager).updateAnomalyZonesDisplay();
 });
 
 /**

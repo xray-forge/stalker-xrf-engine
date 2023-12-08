@@ -1,5 +1,6 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 
+import { getManager } from "@/engine/core/database";
 import { STALKER_UPGRADE_INFO, upgradesConfig } from "@/engine/core/managers/upgrades/UpgradesConfig";
 import { UpgradesManager } from "@/engine/core/managers/upgrades/UpgradesManager";
 import { giveInfoPortion, hasInfoPortion } from "@/engine/core/utils/info_portion";
@@ -20,7 +21,7 @@ describe("UpgradesManager class", () => {
 
   it("should correctly set hints", () => {
     const hints: LuaArray<TLabel> = $fromArray(["a", "b"]);
-    const manager: UpgradesManager = UpgradesManager.getInstance();
+    const manager: UpgradesManager = getManager(UpgradesManager);
 
     expect(upgradesConfig.UPGRADES_HINTS).toBeNull();
 
@@ -29,7 +30,7 @@ describe("UpgradesManager class", () => {
   });
 
   it("should correctly set discount", () => {
-    const manager: UpgradesManager = UpgradesManager.getInstance();
+    const manager: UpgradesManager = getManager(UpgradesManager);
 
     manager.setCurrentPriceDiscount(0.44);
     expect(upgradesConfig.PRICE_DISCOUNT_RATE).toBe(0.44);
@@ -41,7 +42,7 @@ describe("UpgradesManager class", () => {
   it("should correctly setup discounts", () => {
     mockRegisteredActor();
 
-    const manager: UpgradesManager = UpgradesManager.getInstance();
+    const manager: UpgradesManager = getManager(UpgradesManager);
 
     upgradesConfig.CURRENT_MECHANIC_NAME = "";
     expect(() => manager.setupDiscounts()).not.toThrow();
@@ -64,7 +65,7 @@ describe("UpgradesManager class", () => {
 
   it("should correctly get repair payment", () => {
     const { actorGameObject } = mockRegisteredActor();
-    const manager: UpgradesManager = UpgradesManager.getInstance();
+    const manager: UpgradesManager = getManager(UpgradesManager);
 
     upgradesConfig.ITEM_REPAIR_PRICE_COEFFICIENT = 0.6;
     upgradesConfig.PRICE_DISCOUNT_RATE = 0.5;
@@ -78,7 +79,7 @@ describe("UpgradesManager class", () => {
 
   it("should correctly get upgrade item payment", () => {
     const { actorGameObject } = mockRegisteredActor();
-    const manager: UpgradesManager = UpgradesManager.getInstance();
+    const manager: UpgradesManager = getManager(UpgradesManager);
 
     upgradesConfig.ITEM_REPAIR_PRICE_COEFFICIENT = 0.6;
     upgradesConfig.PRICE_DISCOUNT_RATE = 0.5;
@@ -94,7 +95,7 @@ describe("UpgradesManager class", () => {
   });
 
   it("should correctly get possibilities label", () => {
-    const manager: UpgradesManager = UpgradesManager.getInstance();
+    const manager: UpgradesManager = getManager(UpgradesManager);
 
     manager.setCurrentHints(null);
     expect(manager.getPossibilitiesLabel("test_name", parseConditionsList(TRUE))).toBe(" - add hints for this upgrade");
@@ -109,7 +110,7 @@ describe("UpgradesManager class", () => {
   });
 
   it("should correctly check if item can be upgraded", () => {
-    const manager: UpgradesManager = UpgradesManager.getInstance();
+    const manager: UpgradesManager = getManager(UpgradesManager);
 
     jest.spyOn(manager, "setupDiscounts").mockImplementation(jest.fn());
 

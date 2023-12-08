@@ -12,6 +12,7 @@ import {
 import {
   closeLoadMarker,
   closeSaveMarker,
+  getManager,
   IRegistryObjectState,
   openLoadMarker,
   openSaveMarker,
@@ -112,8 +113,8 @@ const logger: LuaLogger = new LuaLogger($filename, { file: "smart_terrain", mode
  */
 @LuabindClass()
 export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTarget {
-  public readonly simulationManager: SimulationManager = SimulationManager.getInstance();
-  public readonly mapDisplayManager: MapDisplayManager = MapDisplayManager.getInstance();
+  public readonly simulationManager: SimulationManager = getManager(SimulationManager);
+  public readonly mapDisplayManager: MapDisplayManager = getManager(MapDisplayManager);
 
   public ini!: IniFile;
   public jobsConfig!: IniFile;

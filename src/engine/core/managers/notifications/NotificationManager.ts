@@ -1,6 +1,6 @@
 import { clsid, game } from "xray16";
 
-import { getObjectIdByStoryId, registry } from "@/engine/core/database";
+import { getManager, getObjectIdByStoryId, registry } from "@/engine/core/database";
 import { AbstractManager } from "@/engine/core/managers/base/AbstractManager";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import {
@@ -58,14 +58,14 @@ const logger: LuaLogger = new LuaLogger($filename);
  */
 export class NotificationManager extends AbstractManager {
   public override initialize(): void {
-    const eventsManager: EventsManager = EventsManager.getInstance();
+    const eventsManager: EventsManager = getManager(EventsManager);
 
     eventsManager.registerCallback(EGameEvent.SURGE_SKIPPED, this.onSurgeSkipped, this);
     eventsManager.registerCallback(EGameEvent.NOTIFICATION, this.sendNotification, this);
   }
 
   public override destroy(): void {
-    const eventsManager: EventsManager = EventsManager.getInstance();
+    const eventsManager: EventsManager = getManager(EventsManager);
 
     eventsManager.unregisterCallback(EGameEvent.SURGE_SKIPPED, this.onSurgeSkipped);
     eventsManager.unregisterCallback(EGameEvent.NOTIFICATION, this.sendNotification);
@@ -309,8 +309,9 @@ export class NotificationManager extends AbstractManager {
 
     // todo: Probably name and number id problem? Not real condition?
     if (point) {
-      const smartDescriptor: Optional<ISmartTerrainDescriptor> =
-        SimulationManager.getInstance().getSmartTerrainDescriptor(point as TNumberId);
+      const smartDescriptor: Optional<ISmartTerrainDescriptor> = getManager(
+        SimulationManager
+      ).getSmartTerrainDescriptor(point as TNumberId);
 
       pointName = smartDescriptor
         ? getSmartTerrainNameCaption(smartDescriptor.smartTerrain)
@@ -361,7 +362,7 @@ export class NotificationManager extends AbstractManager {
    * Play default sound notification of PDA updates.
    */
   public onPlayPdaNotificationSound(): void {
-    GlobalSoundManager.getInstance().playSound(ACTOR_ID, "pda_task");
+    getManager(GlobalSoundManager).playSound(ACTOR_ID, "pda_task");
   }
 
   /**

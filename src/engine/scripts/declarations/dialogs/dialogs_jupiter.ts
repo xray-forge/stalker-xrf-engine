@@ -1,7 +1,7 @@
 /* eslint @typescript-eslint/explicit-function-return-type: "error" */
 
 import { AnomalyZoneBinder } from "@/engine/core/binders/zones/AnomalyZoneBinder";
-import { registry } from "@/engine/core/database";
+import { getManager, registry } from "@/engine/core/database";
 import { getPortableStoreValue } from "@/engine/core/database/portable_store";
 import { TreasureManager } from "@/engine/core/managers/treasures";
 import { extern, getExtern } from "@/engine/core/utils/binding";
@@ -54,7 +54,7 @@ const logger: LuaLogger = new LuaLogger($filename);
 extern("dialogs_jupiter.jup_b208_give_reward", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   giveMoneyToActor(5000);
 
-  const treasureManager: TreasureManager = TreasureManager.getInstance();
+  const treasureManager: TreasureManager = getManager(TreasureManager);
 
   treasureManager.giveActorTreasureCoordinates("jup_hiding_place_18");
   treasureManager.giveActorTreasureCoordinates("jup_hiding_place_35");
@@ -953,9 +953,10 @@ extern(
 extern(
   "dialogs_jupiter.jup_a12_transfer_5000_money_to_actor",
   (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
-    const treasureManager: TreasureManager = TreasureManager.getInstance();
+    const treasureManager: TreasureManager = getManager(TreasureManager);
 
     giveMoneyToActor(5000);
+
     treasureManager.giveActorTreasureCoordinates("jup_hiding_place_40");
     treasureManager.giveActorTreasureCoordinates("jup_hiding_place_34");
   }
@@ -970,7 +971,7 @@ extern(
     transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), artefacts.af_gold_fish);
 
     if (hasInfoPortion(infoPortions.jup_a12_stalker_prisoner_free_dialog_done)) {
-      const treasureManager: TreasureManager = TreasureManager.getInstance();
+      const treasureManager: TreasureManager = getManager(TreasureManager);
 
       treasureManager.giveActorTreasureCoordinates("jup_hiding_place_40");
       treasureManager.giveActorTreasureCoordinates("jup_hiding_place_34");

@@ -1,6 +1,6 @@
 import { describe, expect, it, jest } from "@jest/globals";
 
-import { IRegistryObjectState, registerObject } from "@/engine/core/database";
+import { getManager, IRegistryObjectState, registerObject } from "@/engine/core/database";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import {
   finishCorpseLooting,
@@ -15,7 +15,7 @@ import { MockGameObject, mockIniFile } from "@/fixtures/xray";
 
 describe("loot utils for corpse_detection scheme", () => {
   it("finishCorpseLooting should correctly finish looting", () => {
-    const soundManager: GlobalSoundManager = GlobalSoundManager.getInstance();
+    const soundManager: GlobalSoundManager = getManager(GlobalSoundManager);
 
     const ak74: GameObject = MockGameObject.mock({ sectionOverride: weapons.wpn_ak74 });
     const questItem: GameObject = MockGameObject.mock({ sectionOverride: "some_quest_item" });

@@ -1,6 +1,7 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 
 import {
+  getManager,
   getObjectIdByStoryId,
   getServerObjectByStoryId,
   getStoryIdByObjectId,
@@ -76,7 +77,7 @@ describe("ItemWeaponMagazined server class", () => {
   });
 
   it("should correctly emit lifecycle events", () => {
-    const eventsManager: EventsManager = EventsManager.getInstance();
+    const eventsManager: EventsManager = getManager(EventsManager);
     const itemWeaponMagazined: ItemWeaponMagazined = new ItemWeaponMagazined("test-section");
 
     const onItemWeaponMagazinedRegister = jest.fn();

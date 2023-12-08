@@ -3,7 +3,7 @@ import { time_global } from "xray16";
 import { EObjectCampActivity, EObjectCampRole, ICampStateDescriptor } from "@/engine/core/ai/camp/camp_types";
 import { getObjectCampActivityRole } from "@/engine/core/ai/camp/camp_utils";
 import { campConfig } from "@/engine/core/ai/camp/CampConfig";
-import { IBaseSchemeState, IRegistryObjectState, registry } from "@/engine/core/database";
+import { getManager, IBaseSchemeState, IRegistryObjectState, registry } from "@/engine/core/database";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import { soundsConfig } from "@/engine/core/managers/sounds/SoundsConfig";
 import { StoryManager } from "@/engine/core/managers/sounds/stories";
@@ -172,7 +172,7 @@ export class CampManager {
       // todo: Simplify with table random.
       if (objectsCount !== 0) {
         this.idleTalkerId = talkers.get(math.random(talkers.length()));
-        GlobalSoundManager.getInstance().playSound(this.idleTalkerId, "state");
+        getManager(GlobalSoundManager).playSound(this.idleTalkerId, "state");
       }
     }
   }

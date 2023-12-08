@@ -1,6 +1,13 @@
 import { CPhraseScript, level } from "xray16";
 
-import { closeLoadMarker, closeSaveMarker, openLoadMarker, openSaveMarker, registry } from "@/engine/core/database";
+import {
+  closeLoadMarker,
+  closeSaveMarker,
+  getManager,
+  openLoadMarker,
+  openSaveMarker,
+  registry,
+} from "@/engine/core/database";
 import { AbstractManager } from "@/engine/core/managers/base/AbstractManager";
 import {
   EGenericDialogCategory,
@@ -50,23 +57,19 @@ export class DialogManager extends AbstractManager {
   } as Record<EGenericDialogCategory, TPRTTable>);
 
   public override initialize(): void {
-    const eventsManager: EventsManager = EventsManager.getInstance();
+    const eventsManager: EventsManager = getManager(EventsManager);
 
     eventsManager.registerCallback(EGameEvent.STALKER_INTERACTION, this.onInteractWithObject, this);
   }
 
   public override destroy(): void {
-    const eventsManager: EventsManager = EventsManager.getInstance();
+    const eventsManager: EventsManager = getManager(EventsManager);
 
     eventsManager.unregisterCallback(EGameEvent.STALKER_INTERACTION, this.onInteractWithObject);
   }
 
   public initializeNewDialog(dialog: PhraseDialog): void {
     logger.info("Init new dialog");
-
-    const eventsManager: EventsManager = EventsManager.getInstance();
-
-    eventsManager.unregisterCallback(EGameEvent.STALKER_INTERACTION, this.onInteractWithObject);
 
     const actorTable: LuaArray<EGenericDialogCategory> = $fromArray<EGenericDialogCategory>([
       EGenericDialogCategory.JOB,

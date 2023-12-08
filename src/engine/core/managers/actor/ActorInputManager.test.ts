@@ -71,7 +71,7 @@ describe("ActorInputManager class", () => {
   });
 
   it("should correctly toggle inactive input state", () => {
-    const manager: ActorInputManager = ActorInputManager.getInstance();
+    const manager: ActorInputManager = getManager(ActorInputManager);
 
     expect(actorConfig.DISABLED_INPUT_AT).toBeNull();
 
@@ -83,7 +83,7 @@ describe("ActorInputManager class", () => {
   });
 
   it("should correctly toggle night vision state", () => {
-    const manager: ActorInputManager = ActorInputManager.getInstance();
+    const manager: ActorInputManager = getManager(ActorInputManager);
     const torch: GameObject = MockGameObject.mock({ sectionOverride: "device_torch" });
 
     manager.enableActorNightVision();
@@ -118,7 +118,7 @@ describe("ActorInputManager class", () => {
   it.todo("should correctly handle update event");
 
   it("should correctly first update event", () => {
-    const manager: ActorInputManager = ActorInputManager.getInstance();
+    const manager: ActorInputManager = getManager(ActorInputManager);
 
     actorConfig.ACTIVE_ITEM_SLOT = EActiveItemSlot.PRIMARY;
     manager.onFirstUpdate();
@@ -132,7 +132,7 @@ describe("ActorInputManager class", () => {
   });
 
   it("should correctly network spawn event", () => {
-    const manager: ActorInputManager = ActorInputManager.getInstance();
+    const manager: ActorInputManager = getManager(ActorInputManager);
 
     actorConfig.DISABLED_INPUT_AT = MockCTime.mock(2012, 12, 1, 12, 30, 5, 500);
     manager.onActorGoOnline();

@@ -1,6 +1,6 @@
 import { CUI3tButton, CUICheckButton, CUIStatic, level, LuabindClass, ui_events } from "xray16";
 
-import { registry } from "@/engine/core/database";
+import { getManager, registry } from "@/engine/core/database";
 import { DebugManager } from "@/engine/core/managers/debug/DebugManager";
 import type { Squad } from "@/engine/core/objects/squad";
 import { AbstractDebugSection } from "@/engine/core/ui/debug/sections/AbstractDebugSection";
@@ -154,7 +154,7 @@ export class DebugObjectSection extends AbstractDebugSection {
     const targetObject: Optional<GameObject> = this.getCurrentObject();
 
     if (targetObject) {
-      DebugManager.getInstance().logObjectPlannerState(targetObject);
+      getManager(DebugManager).logObjectPlannerState(targetObject);
     } else {
       logger.info("No object found for action state print");
     }
@@ -168,7 +168,7 @@ export class DebugObjectSection extends AbstractDebugSection {
     const targetObject: Optional<GameObject> = this.getCurrentObject();
 
     if (targetObject) {
-      DebugManager.getInstance().logObjectInventoryItems(targetObject);
+      getManager(DebugManager).logObjectInventoryItems(targetObject);
     } else {
       logger.info("No object found for inventory state print");
     }
@@ -182,7 +182,7 @@ export class DebugObjectSection extends AbstractDebugSection {
     const targetObject: Optional<GameObject> = this.getCurrentObject();
 
     if (targetObject) {
-      DebugManager.getInstance().logObjectState(targetObject);
+      getManager(DebugManager).logObjectState(targetObject);
     } else {
       logger.info("No object found for scheme state print");
     }
@@ -196,7 +196,7 @@ export class DebugObjectSection extends AbstractDebugSection {
     const targetObject: Optional<GameObject> = this.getCurrentObject();
 
     if (targetObject) {
-      DebugManager.getInstance().logObjectRelations(targetObject);
+      getManager(DebugManager).logObjectRelations(targetObject);
     } else {
       logger.info("No object found for relations state print");
     }
@@ -210,7 +210,7 @@ export class DebugObjectSection extends AbstractDebugSection {
     const targetObject: Optional<GameObject> = this.getCurrentObject();
 
     if (targetObject) {
-      DebugManager.getInstance().logObjectStateManager(targetObject);
+      getManager(DebugManager).logObjectStateManager(targetObject);
     } else {
       logger.info("No object found for state manager report");
     }

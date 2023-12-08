@@ -4,7 +4,7 @@ import { CampManager } from "@/engine/core/ai/camp/CampManager";
 import { StalkerPatrolManager } from "@/engine/core/ai/patrol/StalkerPatrolManager";
 import { animpoint_predicates } from "@/engine/core/animation/predicates/animpoint_predicates";
 import { EStalkerState } from "@/engine/core/animation/types";
-import { getCampZoneForPosition, registry, setStalkerState } from "@/engine/core/database";
+import { getCampZoneForPosition, getManager, registry, setStalkerState } from "@/engine/core/database";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import { IAnimpointActionDescriptor } from "@/engine/core/schemes/stalker/animpoint/animpoint_types";
 import { ISchemeWalkerState } from "@/engine/core/schemes/stalker/walker";
@@ -124,7 +124,7 @@ export class ActionWalkerActivity extends action_base implements ISchemeEventHan
     }
 
     if (!this.isInCamp && this.state.soundIdle !== null) {
-      GlobalSoundManager.getInstance().playSound(this.object.id(), this.state.soundIdle);
+      getManager(GlobalSoundManager).playSound(this.object.id(), this.state.soundIdle);
     }
   }
 

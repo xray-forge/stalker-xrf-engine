@@ -1,5 +1,6 @@
 import { beforeAll, describe, expect, it, jest } from "@jest/globals";
 
+import { getManager } from "@/engine/core/database";
 import { TravelManager } from "@/engine/core/managers/travel";
 import { AnyArgs, AnyObject, GameObject, TName } from "@/engine/lib/types";
 import { callBinding, checkBinding } from "@/fixtures/engine";
@@ -55,7 +56,7 @@ describe("actor external callbacks", () => {
   });
 
   it("travel_callbacks should correctly link travel manager", () => {
-    const travelManager: TravelManager = TravelManager.getInstance();
+    const travelManager: TravelManager = getManager(TravelManager);
 
     jest.spyOn(travelManager, "initializeTravellerDialog").mockImplementation(jest.fn());
     jest.spyOn(travelManager, "canStartTravelingDialogs").mockImplementation(jest.fn(() => true));

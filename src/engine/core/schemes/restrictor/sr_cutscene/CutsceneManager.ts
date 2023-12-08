@@ -1,7 +1,7 @@
 import { level, patrol } from "xray16";
 
 import { AbstractSchemeManager } from "@/engine/core/ai/scheme";
-import { registry } from "@/engine/core/database";
+import { getManager, registry } from "@/engine/core/database";
 import { ActorInputManager } from "@/engine/core/managers/actor";
 import { cutsceneConfig } from "@/engine/core/schemes/restrictor/sr_cutscene/CutsceneConfig";
 import { effectorSets } from "@/engine/core/schemes/restrictor/sr_cutscene/effectors/camera_effector_sets";
@@ -69,7 +69,7 @@ export class CutsceneManager extends AbstractSchemeManager<ISchemeCutsceneState>
       level.add_pp_effector(this.state.ppEffector, 234, false);
     }
 
-    ActorInputManager.getInstance().disableGameUi(false);
+    getManager(ActorInputManager).disableGameUi(false);
     this.isUiDisabled = true;
 
     const timeHours: number = level.get_time_hours();
@@ -137,7 +137,7 @@ export class CutsceneManager extends AbstractSchemeManager<ISchemeCutsceneState>
 
         if (this.isUiDisabled) {
           if (!actor.is_talking() && this.state.shouldEnableUiOnEnd) {
-            ActorInputManager.getInstance().enableGameUi(false);
+            getManager(ActorInputManager).enableGameUi(false);
           } else if (this.state.shouldEnableUiOnEnd) {
             level.enable_input();
           }

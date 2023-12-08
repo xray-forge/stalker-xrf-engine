@@ -3,7 +3,7 @@ import { action_base, LuabindClass } from "xray16";
 import { EPatrolFormation } from "@/engine/core/ai/patrol";
 import { StalkerPatrolManager } from "@/engine/core/ai/patrol/StalkerPatrolManager";
 import { EStalkerState, EWaypointArrivalType } from "@/engine/core/animation/types";
-import { getStalkerState, registry } from "@/engine/core/database";
+import { getManager, getStalkerState, registry } from "@/engine/core/database";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import { ISchemePatrolState } from "@/engine/core/schemes/stalker/patrol";
 import { patrolConfig } from "@/engine/core/schemes/stalker/patrol/PatrolConfig";
@@ -82,7 +82,7 @@ export class ActionCommander extends action_base implements ISchemeEventHandler 
     const previousState: Optional<EStalkerState> = this.previousState;
 
     if (previousState !== nextState) {
-      const globalSoundManager: GlobalSoundManager = GlobalSoundManager.getInstance();
+      const globalSoundManager: GlobalSoundManager = getManager(GlobalSoundManager);
 
       if (this.state.silent !== true) {
         if (nextState === EStalkerState.SNEAK) {

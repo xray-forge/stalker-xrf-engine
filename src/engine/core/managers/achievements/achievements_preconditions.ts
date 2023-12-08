@@ -1,4 +1,4 @@
-import { registry } from "@/engine/core/database";
+import { getManager, registry } from "@/engine/core/database";
 import { achievementIcons } from "@/engine/core/managers/achievements/achievements_icons";
 import { EAchievement } from "@/engine/core/managers/achievements/achievements_types";
 import { achievementsConfig } from "@/engine/core/managers/achievements/AchievementsConfig";
@@ -155,7 +155,7 @@ export function hasAchievedSeeker(): boolean {
 
   // Require unique artefacts count to be found for seeker achievement.
   if (
-    StatisticsManager.getInstance().actorStatistics.collectedArtefacts.length() <
+    getManager(StatisticsManager).actorStatistics.collectedArtefacts.length() <
     achievementsConfig.ARTEFACTS_SEEKER_UNIQUES_REQUIRED
   ) {
     return false;
@@ -448,7 +448,7 @@ export function hasAchievedMarkedByZone(): boolean {
     return true;
   }
 
-  if (StatisticsManager.getInstance().getUsedAnabioticsCount() >= 3) {
+  if (getManager(StatisticsManager).getUsedAnabioticsCount() >= 3) {
     giveInfoPortion(infoPortions.actor_marked_by_zone_3_times);
 
     EventsManager.emitEvent<ITipNotification>(EGameEvent.NOTIFICATION, {

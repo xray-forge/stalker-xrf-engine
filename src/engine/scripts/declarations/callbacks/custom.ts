@@ -1,3 +1,4 @@
+import { getManager } from "@/engine/core/database";
 import { EAchievement } from "@/engine/core/managers/achievements/achievements_types";
 import { AchievementsManager } from "@/engine/core/managers/achievements/AchievementsManager";
 import { ActorInputManager } from "@/engine/core/managers/actor";
@@ -15,32 +16,32 @@ logger.info("Resolve and bind custom externals");
 /**
  * On actor start sleeping.
  */
-extern("engine.on_start_sleeping", () => SleepManager.getInstance().onStartSleeping());
+extern("engine.on_start_sleeping", () => getManager(SleepManager).onStartSleeping());
 
 /**
  * On actor stop sleeping.
  */
-extern("engine.on_finish_sleeping", () => SleepManager.getInstance().onFinishSleeping());
+extern("engine.on_finish_sleeping", () => getManager(SleepManager).onFinishSleeping());
 
 /**
  * On anabiotic used and start sleeping.
  */
-extern("engine.on_anabiotic_sleep", () => ActorInputManager.getInstance().onAnabioticSleep());
+extern("engine.on_anabiotic_sleep", () => getManager(ActorInputManager).onAnabioticSleep());
 
 /**
  * On anabiotic used and stop sleeping.
  */
-extern("engine.on_anabiotic_wake_up", () => ActorInputManager.getInstance().onAnabioticWakeUp());
+extern("engine.on_anabiotic_wake_up", () => getManager(ActorInputManager).onAnabioticWakeUp());
 
 /**
  * On surviving surge start sleeping.
  */
-extern("engine.surge_survive_start", () => ActorInputManager.getInstance().onSurgeSurviveStart());
+extern("engine.surge_survive_start", () => getManager(ActorInputManager).onSurgeSurviveStart());
 
 /**
  * On surviving surge stop sleeping.
  */
-extern("engine.surge_survive_end", () => ActorInputManager.getInstance().onSurgeSurviveEnd());
+extern("engine.surge_survive_end", () => getManager(ActorInputManager).onSurgeSurviveEnd());
 
 /**
  * Check whether task with provided ID is completed.
@@ -67,7 +68,7 @@ extern("engine.effector_callback", () => emitCutsceneEndedEvent());
 extern(
   "engine.check_achievement",
   Object.values(EAchievement).reduce<PartialRecord<EAchievement, AnyCallable>>((acc, it) => {
-    const manager: AchievementsManager = AchievementsManager.getInstance();
+    const manager: AchievementsManager = getManager(AchievementsManager);
 
     acc[it] = () => manager.checkAchieved(it);
 

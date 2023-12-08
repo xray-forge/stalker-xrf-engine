@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 
 import { SmartTerrainBinder } from "@/engine/core/binders/smart_terrain/index";
-import { registerSimulator, registry } from "@/engine/core/database";
+import { getManager, registerSimulator, registry } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds";
 import { hasInfoPortion } from "@/engine/core/utils/info_portion";
@@ -38,7 +38,7 @@ describe("SmartTerrainBinder class", () => {
   it("should correctly handle going online/offline", () => {
     const binder: SmartTerrainBinder = new SmartTerrainBinder(MockGameObject.mock());
     const serverObject: ServerObject = mockServerAlifeObject({ id: binder.object.id() });
-    const globalSoundManager: GlobalSoundManager = GlobalSoundManager.getInstance();
+    const globalSoundManager: GlobalSoundManager = getManager(GlobalSoundManager);
 
     jest.spyOn(globalSoundManager, "stopSoundByObjectId").mockImplementation(jest.fn());
 
@@ -66,7 +66,7 @@ describe("SmartTerrainBinder class", () => {
     const serverObject: ServerObject = mockServerAlifeObject({ id: binder.object.id() });
     const onVisit = jest.fn();
 
-    EventsManager.getInstance().registerCallback(EGameEvent.SMART_TERRAIN_VISITED, onVisit);
+    getManager(EventsManager).registerCallback(EGameEvent.SMART_TERRAIN_VISITED, onVisit);
 
     binder.net_spawn(serverObject);
     binder.update(255);

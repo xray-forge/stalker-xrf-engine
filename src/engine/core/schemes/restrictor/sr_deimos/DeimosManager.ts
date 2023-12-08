@@ -2,7 +2,7 @@ import { device, level, time_global } from "xray16";
 
 import { AbstractSchemeManager } from "@/engine/core/ai/scheme";
 import { ActorBinder } from "@/engine/core/binders/creature/ActorBinder";
-import { registry } from "@/engine/core/database";
+import { getManager, registry } from "@/engine/core/database";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import { ISchemeDeimosState } from "@/engine/core/schemes/restrictor/sr_deimos/sr_deimos_types";
 import { clampNumber } from "@/engine/core/utils/number";
@@ -28,7 +28,7 @@ export class DeimosManager extends AbstractSchemeManager<ISchemeDeimosState> {
 
   public update(): void {
     const actor: Optional<GameObject> = registry.actor;
-    const globalSoundManager: GlobalSoundManager = GlobalSoundManager.getInstance();
+    const globalSoundManager: GlobalSoundManager = getManager(GlobalSoundManager);
 
     if (!actor || device().precache_frame > 1) {
       return;

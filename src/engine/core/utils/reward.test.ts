@@ -1,6 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it, jest } from "@jest/globals";
 
-import { disposeManager, registerActor, registerSimulator, registry } from "@/engine/core/database";
+import { disposeManager, getManager, registerActor, registerSimulator, registry } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import {
   ENotificationDirection,
@@ -58,7 +58,7 @@ describe("reward utils", () => {
   });
 
   it("giveMoneyToActor should correctly transfer money", () => {
-    const eventsManager: EventsManager = EventsManager.getInstance();
+    const eventsManager: EventsManager = getManager(EventsManager);
 
     const mock = jest.fn((notification: IMoneyRelocatedNotification) => {
       expect(notification.type).toBe(ENotificationType.MONEY);
@@ -75,7 +75,7 @@ describe("reward utils", () => {
   });
 
   it("takeMoneyFromActor should correctly transfer money", () => {
-    const eventsManager: EventsManager = EventsManager.getInstance();
+    const eventsManager: EventsManager = getManager(EventsManager);
 
     const mock = jest.fn((notification: IMoneyRelocatedNotification) => {
       expect(notification.type).toBe(ENotificationType.MONEY);
@@ -94,7 +94,7 @@ describe("reward utils", () => {
   });
 
   it("transferItemsFromActor should take items from actor", () => {
-    const eventsManager: EventsManager = EventsManager.getInstance();
+    const eventsManager: EventsManager = getManager(EventsManager);
     const mock = jest.fn((notification: IItemRelocatedNotification) => {
       expect(notification.type).toBe(ENotificationType.ITEM);
       expect(notification.amount).toBe(2);
@@ -124,7 +124,7 @@ describe("reward utils", () => {
   });
 
   it("transferItemsFromActor should take ammo from object", () => {
-    const eventsManager: EventsManager = EventsManager.getInstance();
+    const eventsManager: EventsManager = getManager(EventsManager);
     const mock = jest.fn((notification: IItemRelocatedNotification) => {
       expect(notification.type).toBe(ENotificationType.ITEM);
       expect(notification.amount).toBe(90);
@@ -146,7 +146,7 @@ describe("reward utils", () => {
   });
 
   it("transferItemsFromActor should take ALL from object", () => {
-    const eventsManager: EventsManager = EventsManager.getInstance();
+    const eventsManager: EventsManager = getManager(EventsManager);
     const mock = jest.fn((notification: IItemRelocatedNotification) => {
       expect(notification.type).toBe(ENotificationType.ITEM);
       expect(notification.amount).toBe(180);
@@ -179,7 +179,7 @@ describe("reward utils", () => {
   });
 
   it("transferItemsToActor should take items from object", () => {
-    const eventsManager: EventsManager = EventsManager.getInstance();
+    const eventsManager: EventsManager = getManager(EventsManager);
     const from: GameObject = createObjectWithItems();
     const mock = jest.fn((notification: IItemRelocatedNotification) => {
       expect(notification.type).toBe(ENotificationType.ITEM);
@@ -197,7 +197,7 @@ describe("reward utils", () => {
   });
 
   it("giveItemsToActor should correctly create items and then notify", () => {
-    const eventsManager: EventsManager = EventsManager.getInstance();
+    const eventsManager: EventsManager = getManager(EventsManager);
     const mock = jest.fn((notification: IItemRelocatedNotification) => {
       expect(notification.type).toBe(ENotificationType.ITEM);
       expect(notification.amount).toBe(300);
@@ -212,7 +212,7 @@ describe("reward utils", () => {
   });
 
   it("takeItemFromActor should correctly delete items and then notify", () => {
-    const eventsManager: EventsManager = EventsManager.getInstance();
+    const eventsManager: EventsManager = getManager(EventsManager);
     const itemToTake: GameObject = MockGameObject.mock();
     const mock = jest.fn((notification: IItemRelocatedNotification) => {
       expect(notification.type).toBe(ENotificationType.ITEM);

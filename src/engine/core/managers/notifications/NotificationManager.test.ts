@@ -2,6 +2,7 @@ import { afterEach, beforeEach, describe, expect, it, jest } from "@jest/globals
 
 import {
   disposeManager,
+  getManager,
   initializeManager,
   registerActor,
   registerObject,
@@ -47,7 +48,7 @@ describe("NotificationManager class", () => {
   });
 
   it("should correctly initialize", () => {
-    const eventsManager: EventsManager = EventsManager.getInstance();
+    const eventsManager: EventsManager = getManager(EventsManager);
 
     initializeManager(NotificationManager);
 
@@ -59,8 +60,8 @@ describe("NotificationManager class", () => {
   });
 
   it("should correctly handle generic call method with events", () => {
-    const eventsManager: EventsManager = EventsManager.getInstance();
-    const notificationManager: NotificationManager = NotificationManager.getInstance();
+    const eventsManager: EventsManager = getManager(EventsManager);
+    const notificationManager: NotificationManager = getManager(NotificationManager);
 
     notificationManager.sendItemRelocatedNotification = jest.fn();
     notificationManager.sendMoneyRelocatedNotification = jest.fn();
@@ -138,7 +139,7 @@ describe("NotificationManager class", () => {
   });
 
   it("should correctly send money relocation notifications", () => {
-    const notificationManager: NotificationManager = NotificationManager.getInstance();
+    const notificationManager: NotificationManager = getManager(NotificationManager);
 
     notificationManager.onSendGenericNotification = jest.fn();
 
@@ -166,7 +167,7 @@ describe("NotificationManager class", () => {
   });
 
   it("should correctly send item relocation notifications", () => {
-    const notificationManager: NotificationManager = NotificationManager.getInstance();
+    const notificationManager: NotificationManager = getManager(NotificationManager);
 
     notificationManager.onSendGenericNotification = jest.fn();
 
@@ -194,7 +195,7 @@ describe("NotificationManager class", () => {
   });
 
   it("should correctly send treasures notifications", () => {
-    const notificationManager: NotificationManager = NotificationManager.getInstance();
+    const notificationManager: NotificationManager = getManager(NotificationManager);
 
     notificationManager.onSendGenericNotification = jest.fn();
 
@@ -234,8 +235,8 @@ describe("NotificationManager class", () => {
   });
 
   it("should correctly send surge notifications", () => {
-    const notificationManager: NotificationManager = NotificationManager.getInstance();
-    const eventsManager: EventsManager = EventsManager.getInstance();
+    const notificationManager: NotificationManager = getManager(NotificationManager);
+    const eventsManager: EventsManager = getManager(EventsManager);
 
     notificationManager.onPlayPdaNotificationSound = jest.fn();
     notificationManager.onSendGenericNotification = jest.fn();
@@ -266,7 +267,7 @@ describe("NotificationManager class", () => {
   });
 
   it("should correctly send task notifications", () => {
-    const notificationManager: NotificationManager = NotificationManager.getInstance();
+    const notificationManager: NotificationManager = getManager(NotificationManager);
 
     notificationManager.onPlayPdaNotificationSound = jest.fn();
     notificationManager.onSendGenericNotification = jest.fn();
@@ -298,7 +299,7 @@ describe("NotificationManager class", () => {
   });
 
   it("should correctly send generic tips", () => {
-    const notificationManager: NotificationManager = NotificationManager.getInstance();
+    const notificationManager: NotificationManager = getManager(NotificationManager);
     const sender: GameObject = MockGameObject.mock();
 
     registerObject(sender);
@@ -395,7 +396,7 @@ describe("NotificationManager class", () => {
   });
 
   it("should correctly send sound notifications", () => {
-    const notificationManager: NotificationManager = NotificationManager.getInstance();
+    const notificationManager: NotificationManager = getManager(NotificationManager);
 
     notificationManager.onPlayPdaNotificationSound = jest.fn();
     notificationManager.onSendGenericNotification = jest.fn();
@@ -438,7 +439,7 @@ describe("NotificationManager class", () => {
     expect(notificationSound).toBeDefined();
     expect(notificationSound).toBeInstanceOf(ActorSound);
 
-    const notificationManager: NotificationManager = NotificationManager.getInstance();
+    const notificationManager: NotificationManager = getManager(NotificationManager);
 
     notificationManager.onPlayPdaNotificationSound();
 
@@ -452,7 +453,7 @@ describe("NotificationManager class", () => {
   });
 
   it("should correctly send flexible notifications based on config and dialog state", () => {
-    const notificationManager: NotificationManager = NotificationManager.getInstance();
+    const notificationManager: NotificationManager = getManager(NotificationManager);
 
     // Flexible + not talking.
     jest.spyOn(registry.actor, "is_talking").mockImplementation(() => false);

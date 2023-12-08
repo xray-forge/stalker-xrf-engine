@@ -1,12 +1,9 @@
 import { actor_stats, clsid, game_graph, level } from "xray16";
 
-import { registry } from "@/engine/core/database";
+import { getManager, registry } from "@/engine/core/database";
 import { AbstractManager } from "@/engine/core/managers/base/AbstractManager";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
-import {
-  groupIdByLevelName,
-  ISmartTerrainDescriptor,
-} from "@/engine/core/managers/simulation/simulation_types";
+import { groupIdByLevelName, ISmartTerrainDescriptor } from "@/engine/core/managers/simulation/simulation_types";
 import { SIMULATION_LTX } from "@/engine/core/managers/simulation/SimulationConfig";
 import { SmartTerrain } from "@/engine/core/objects/smart_terrain/SmartTerrain";
 import { createSquadMembers } from "@/engine/core/objects/squad/creation";
@@ -49,14 +46,14 @@ export class SimulationManager extends AbstractManager {
   protected readonly temporaryAssignedSquads: LuaTable<TNumberId, LuaArray<Squad>> = new LuaTable();
 
   public override initialize(): void {
-    const eventsManager: EventsManager = EventsManager.getInstance();
+    const eventsManager: EventsManager = getManager(EventsManager);
 
     eventsManager.registerCallback(EGameEvent.ACTOR_REGISTER, this.onActorRegister, this);
     eventsManager.registerCallback(EGameEvent.ACTOR_GO_OFFLINE, this.onActorDestroy, this);
   }
 
   public override destroy(): void {
-    const eventsManager: EventsManager = EventsManager.getInstance();
+    const eventsManager: EventsManager = getManager(EventsManager);
 
     eventsManager.unregisterCallback(EGameEvent.ACTOR_REGISTER, this.onActorRegister);
     eventsManager.unregisterCallback(EGameEvent.ACTOR_GO_OFFLINE, this.onActorDestroy);

@@ -1,7 +1,14 @@
 import { game, hit, level } from "xray16";
 
 import type { AnomalyZoneBinder } from "@/engine/core/binders/zones";
-import { closeLoadMarker, closeSaveMarker, openLoadMarker, openSaveMarker, registry } from "@/engine/core/database";
+import {
+  closeLoadMarker,
+  closeSaveMarker,
+  getManager,
+  openLoadMarker,
+  openSaveMarker,
+  registry,
+} from "@/engine/core/database";
 import { AbstractManager } from "@/engine/core/managers/base/AbstractManager";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { MapDisplayManager } from "@/engine/core/managers/map/MapDisplayManager";
@@ -82,7 +89,7 @@ export class SurgeManager extends AbstractManager {
   );
 
   public override initialize(): void {
-    const eventsManager: EventsManager = EventsManager.getInstance();
+    const eventsManager: EventsManager = getManager(EventsManager);
 
     eventsManager.registerCallback(EGameEvent.ACTOR_GO_ONLINE, this.onActorGoOnline, this);
     eventsManager.registerCallback(EGameEvent.ACTOR_UPDATE, this.update, this);
@@ -90,7 +97,7 @@ export class SurgeManager extends AbstractManager {
   }
 
   public override destroy(): void {
-    const eventsManager: EventsManager = EventsManager.getInstance();
+    const eventsManager: EventsManager = getManager(EventsManager);
 
     eventsManager.unregisterCallback(EGameEvent.ACTOR_GO_ONLINE, this.onActorGoOnline);
     eventsManager.unregisterCallback(EGameEvent.ACTOR_UPDATE, this.update);
@@ -130,7 +137,7 @@ export class SurgeManager extends AbstractManager {
    */
   protected giveSurgeHideTask(): void {
     if (this.surgeTaskSection !== "empty") {
-      TaskManager.getInstance().giveTask(this.surgeTaskSection === "" ? "hide_from_surge" : this.surgeTaskSection);
+      getManager(TaskManager).giveTask(this.surgeTaskSection === "" ? "hide_from_surge" : this.surgeTaskSection);
       this.isTaskGiven = true;
     }
   }
@@ -255,7 +262,7 @@ export class SurgeManager extends AbstractManager {
     this.surgeTaskSection = "";
     this.isTaskGiven = false;
 
-    const globalSoundManager: GlobalSoundManager = GlobalSoundManager.getInstance();
+    const globalSoundManager: GlobalSoundManager = getManager(GlobalSoundManager);
 
     if (this.isEffectorSet) {
       globalSoundManager.stopLoopedSound(ACTOR_ID, "blowout_rumble");
@@ -268,9 +275,9 @@ export class SurgeManager extends AbstractManager {
     level.remove_pp_effector(surgeConfig.SURGE_SHOCK_PP_EFFECTOR_ID);
     level.remove_cam_effector(surgeConfig.EARTHQUAKE_CAM_EFFECTOR_ID);
 
-    if (manual || (surgeConfig.IS_TIME_FORWARDED && WeatherManager.getInstance().weatherFx)) {
+    if (manual || (surgeConfig.IS_TIME_FORWARDED && getManager(WeatherManager).weatherFx)) {
       level.stop_weather_fx();
-      WeatherManager.getInstance().forceWeatherChange();
+      getManager(WeatherManager).forceWeatherChange();
     }
 
     this.isEffectorSet = false;
@@ -308,7 +315,7 @@ export class SurgeManager extends AbstractManager {
       anomalyZone.respawnArtefactsAndReplaceAnomalyZones();
     }
 
-    MapDisplayManager.getInstance().updateAnomalyZonesDisplay();
+    getManager(MapDisplayManager).updateAnomalyZonesDisplay();
   }
 
   /**
@@ -365,7 +372,7 @@ export class SurgeManager extends AbstractManager {
         return;
       }
 
-      const globalSoundManager: GlobalSoundManager = GlobalSoundManager.getInstance();
+      const globalSoundManager: GlobalSoundManager = getManager(GlobalSoundManager);
 
       if (surgeDuration >= surgeConfig.DURATION) {
         playSurgeEndedSound();

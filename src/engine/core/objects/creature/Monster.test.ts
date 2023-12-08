@@ -1,11 +1,12 @@
 import { describe, expect, it, jest } from "@jest/globals";
 
+import { getManager } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { Monster } from "@/engine/core/objects/creature/Monster";
 
 describe("Monster server object", () => {
   it("should correctly emit lifecycle events", () => {
-    const eventsManager: EventsManager = EventsManager.getInstance();
+    const eventsManager: EventsManager = getManager(EventsManager);
     const monster: Monster = new Monster("monster");
 
     const onMonsterRegister = jest.fn();

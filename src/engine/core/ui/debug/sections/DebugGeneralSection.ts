@@ -1,6 +1,6 @@
 import { command_line, CUI3tButton, CUIStatic, LuabindClass, ui_events } from "xray16";
 
-import { SYSTEM_INI } from "@/engine/core/database";
+import { getManager, SYSTEM_INI } from "@/engine/core/database";
 import { ProfilingManager } from "@/engine/core/managers/debug/profiling";
 import { AbstractDebugSection } from "@/engine/core/ui/debug/sections/AbstractDebugSection";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -83,7 +83,7 @@ export class DebugGeneralSection extends AbstractDebugSection {
    * Initialize section state from current state.
    */
   public override initializeState(): void {
-    const profilingManager: ProfilingManager = ProfilingManager.getInstance();
+    const profilingManager: ProfilingManager = getManager(ProfilingManager);
 
     this.uiMemoryUsageCountLabel.TextControl().SetText(this.getUsedMemoryLabel());
     this.uiLuaVersionLabel.TextControl().SetText("Lua version: " + (_VERSION || "unknown"));
@@ -104,7 +104,7 @@ export class DebugGeneralSection extends AbstractDebugSection {
   public onCollectMemoryButtonClick(): void {
     logger.info("Collect memory garbage");
 
-    ProfilingManager.getInstance().collectLuaGarbage();
+    getManager(ProfilingManager).collectLuaGarbage();
     this.uiMemoryUsageCountLabel.TextControl().SetText(this.getUsedMemoryLabel());
   }
 
@@ -112,7 +112,7 @@ export class DebugGeneralSection extends AbstractDebugSection {
    * Handle `toggle profiling` button to turn on or turn off profiling mode.
    */
   public onToggleProfilingButtonClick(): void {
-    const profilingManager: ProfilingManager = ProfilingManager.getInstance();
+    const profilingManager: ProfilingManager = getManager(ProfilingManager);
 
     if (debug === null) {
       return logger.info("Cannot use profiling - debug module is not present");
@@ -132,7 +132,7 @@ export class DebugGeneralSection extends AbstractDebugSection {
    * Handle click on `log profiling stats` button to display profiling debug information in game console.
    */
   public onLogProfilingStatsButtonClick(): void {
-    const profilingManager: ProfilingManager = ProfilingManager.getInstance();
+    const profilingManager: ProfilingManager = getManager(ProfilingManager);
 
     if (profilingManager.isProfilingStarted) {
       profilingManager.logHookedCallsCountStats();
@@ -145,7 +145,7 @@ export class DebugGeneralSection extends AbstractDebugSection {
    * Handle click on `log` button to display generic debug information in game console.
    */
   public onLogPortionsStatsButtonClick(): void {
-    ProfilingManager.getInstance().logProfilingPortionsStats();
+    getManager(ProfilingManager).logProfilingPortionsStats();
   }
 
   /**
@@ -178,6 +178,6 @@ export class DebugGeneralSection extends AbstractDebugSection {
    * @returns label to display used RAM
    */
   public getUsedMemoryLabel(): string {
-    return string.format("RAM: %.03f MB", ProfilingManager.getInstance().getLuaMemoryUsed() / 1024);
+    return string.format("RAM: %.03f MB", getManager(ProfilingManager).getLuaMemoryUsed() / 1024);
   }
 }

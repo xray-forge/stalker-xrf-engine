@@ -1,5 +1,6 @@
 import { game } from "xray16";
 
+import { getManager } from "@/engine/core/database";
 import { AbstractManager } from "@/engine/core/managers/base/AbstractManager";
 import { EPdaStatSection, killedMonstersDisplay } from "@/engine/core/managers/pda/pda_types";
 import { StatisticsManager } from "@/engine/core/managers/statistics";
@@ -15,7 +16,7 @@ const logger: LuaLogger = new LuaLogger($filename);
  */
 export class PdaManager extends AbstractManager {
   public getStat(section: EPdaStatSection): TLabel {
-    const statisticsManager: StatisticsManager = StatisticsManager.getInstance();
+    const statisticsManager: StatisticsManager = getManager(StatisticsManager);
 
     switch (section) {
       case EPdaStatSection.UNKNOWN:
@@ -41,7 +42,7 @@ export class PdaManager extends AbstractManager {
    * todo: Description.
    */
   public getBestKilledMonster() {
-    const bestKilledMonster: Optional<TMonster> = StatisticsManager.getInstance().actorStatistics.bestKilledMonster;
+    const bestKilledMonster: Optional<TMonster> = getManager(StatisticsManager).actorStatistics.bestKilledMonster;
 
     return bestKilledMonster && killedMonstersDisplay[bestKilledMonster]
       ? killedMonstersDisplay[bestKilledMonster]
@@ -66,7 +67,7 @@ export class PdaManager extends AbstractManager {
    * todo: Description.
    */
   public getFavoriteWeapon(): TSection {
-    return StatisticsManager.getInstance().actorStatistics.favoriteWeapon || weapons.wpn_knife;
+    return getManager(StatisticsManager).actorStatistics.favoriteWeapon || weapons.wpn_knife;
   }
 
   /**

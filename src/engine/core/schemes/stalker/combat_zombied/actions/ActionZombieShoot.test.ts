@@ -2,7 +2,7 @@ import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { move, property_storage } from "xray16";
 
 import { EStalkerState } from "@/engine/core/animation/types";
-import { setStalkerState } from "@/engine/core/database";
+import { getManager, setStalkerState } from "@/engine/core/database";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds";
 import { EZombieCombatAction, ISchemeCombatState } from "@/engine/core/schemes/stalker/combat";
 import { ActionZombieShoot } from "@/engine/core/schemes/stalker/combat_zombied/actions/ActionZombieShoot";
@@ -19,7 +19,7 @@ describe("ActionZombieShoot", () => {
   beforeEach(() => {
     resetRegistry();
 
-    GlobalSoundManager.getInstance().playSound = jest.fn(() => null);
+    getManager(GlobalSoundManager).playSound = jest.fn(() => null);
   });
 
   it("should correctly initialize", () => {
@@ -51,13 +51,13 @@ describe("ActionZombieShoot", () => {
     expect(action.isValidPath).toBe(false);
     expect(action.turnTime).toBe(0);
     expect(state.currentAction).toBe(EZombieCombatAction.SHOOT);
-    expect(GlobalSoundManager.getInstance().playSound).not.toHaveBeenCalled();
+    expect(getManager(GlobalSoundManager).playSound).not.toHaveBeenCalled();
 
     jest.spyOn(math, "random").mockImplementationOnce(() => 25);
 
     action.initialize();
 
-    expect(GlobalSoundManager.getInstance().playSound).toHaveBeenCalledWith(object.id(), "fight_attack");
+    expect(getManager(GlobalSoundManager).playSound).toHaveBeenCalledWith(object.id(), "fight_attack");
   });
 
   it("should correctly finalize", () => {

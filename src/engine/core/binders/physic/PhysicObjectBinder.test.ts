@@ -3,7 +3,7 @@ import { level, particles_object } from "xray16";
 
 import { PhysicObjectItemBox } from "@/engine/core/binders";
 import { PhysicObjectBinder } from "@/engine/core/binders/physic/PhysicObjectBinder";
-import { ILogicsOverrides, IRegistryObjectState, registerObject, registry } from "@/engine/core/database";
+import { getManager, ILogicsOverrides, IRegistryObjectState, registerObject, registry } from "@/engine/core/database";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds";
 import { hasInfoPortion } from "@/engine/core/utils/info_portion";
 import { parseConditionsList } from "@/engine/core/utils/ini";
@@ -32,7 +32,7 @@ describe("PhysicObjectBinder class", () => {
 
   it("should correctly handle going online/offline with defaults", () => {
     const binder: PhysicObjectBinder = new PhysicObjectBinder(MockGameObject.mock());
-    const soundManager: GlobalSoundManager = GlobalSoundManager.getInstance();
+    const soundManager: GlobalSoundManager = getManager(GlobalSoundManager);
 
     jest.spyOn(soundManager, "stopSoundByObjectId").mockImplementation(jest.fn());
 
@@ -56,7 +56,7 @@ describe("PhysicObjectBinder class", () => {
 
   it("should correctly handle with extended config", () => {
     const binder: PhysicObjectBinder = new PhysicObjectBinder(MockGameObject.mock());
-    const soundManager: GlobalSoundManager = GlobalSoundManager.getInstance();
+    const soundManager: GlobalSoundManager = getManager(GlobalSoundManager);
 
     jest.spyOn(soundManager, "stopSoundByObjectId").mockImplementation(jest.fn());
     jest.spyOn(binder.object, "spawn_ini").mockImplementation(() => {

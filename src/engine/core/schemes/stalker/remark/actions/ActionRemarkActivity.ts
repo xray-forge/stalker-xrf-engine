@@ -1,7 +1,7 @@
 import { action_base, level, LuabindClass, patrol } from "xray16";
 
 import { EStalkerState, ILookTargetDescriptor, IStateManagerCallbackDescriptor } from "@/engine/core/animation/types";
-import { getObjectIdByStoryId, registry, setStalkerState } from "@/engine/core/database";
+import { getManager, getObjectIdByStoryId, registry, setStalkerState } from "@/engine/core/database";
 import { SimulationManager } from "@/engine/core/managers/simulation/SimulationManager";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import { getSmartTerrainObjectIdByJobSection } from "@/engine/core/objects/smart_terrain/job";
@@ -165,7 +165,7 @@ export class ActionRemarkActivity extends action_base implements ISchemeEventHan
     } else if (this.state === stateSound) {
       if (this.sndScheduled === true) {
         this.sndStarted = true;
-        GlobalSoundManager.getInstance().playSound(this.object.id(), this.st.snd, null, null);
+        getManager(GlobalSoundManager).playSound(this.object.id(), this.st.snd, null, null);
       }
 
       if (this.animEndSignalled === false) {
@@ -261,7 +261,7 @@ export function initTarget(
     }
   } else if (targetType === "job") {
     const [job, smartTerrainName] = parseTarget(target);
-    const smartTerrain: SmartTerrain = SimulationManager.getInstance().getSmartTerrainByName(smartTerrainName!)!;
+    const smartTerrain: SmartTerrain = getManager(SimulationManager).getSmartTerrainByName(smartTerrainName!)!;
 
     targetId = getSmartTerrainObjectIdByJobSection(smartTerrain, job as TStringId);
     isTargetInitialized = targetId !== null;

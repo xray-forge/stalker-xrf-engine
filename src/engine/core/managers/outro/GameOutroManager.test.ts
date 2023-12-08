@@ -1,6 +1,7 @@
 import { beforeEach, describe, expect, it } from "@jest/globals";
 import { game, sound_object } from "xray16";
 
+import { getManager } from "@/engine/core/database";
 import { GameOutroManager } from "@/engine/core/managers/outro/GameOutroManager";
 import { ESoundObjectType, SoundObject } from "@/engine/lib/types";
 import { resetRegistry } from "@/fixtures/engine";
@@ -12,7 +13,7 @@ describe("GameOutroManager class", () => {
   });
 
   it("should correctly start ending tutorial", () => {
-    const gameOutroManager: GameOutroManager = GameOutroManager.getInstance();
+    const gameOutroManager: GameOutroManager = getManager(GameOutroManager);
 
     gameOutroManager.startOutro();
 
@@ -20,7 +21,7 @@ describe("GameOutroManager class", () => {
   });
 
   it("should correctly start outro sound", () => {
-    const gameOutroManager: GameOutroManager = GameOutroManager.getInstance();
+    const gameOutroManager: GameOutroManager = getManager(GameOutroManager);
 
     expect(gameOutroManager.sound).toBeNull();
 
@@ -34,7 +35,7 @@ describe("GameOutroManager class", () => {
   });
 
   it("should correctly stop outro sound", () => {
-    const gameOutroManager: GameOutroManager = GameOutroManager.getInstance();
+    const gameOutroManager: GameOutroManager = getManager(GameOutroManager);
 
     expect(gameOutroManager.sound).toBeNull();
 
