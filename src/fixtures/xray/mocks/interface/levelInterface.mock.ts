@@ -41,6 +41,7 @@ export const mockLevelInterface = {
     return CLIENT_SIDE_REGISTRY.get(verifiedId);
   }),
   patrol_path_exists: jest.fn((name: TName) => name in patrols),
+  present: jest.fn(() => true),
   remove_cam_effector: jest.fn(),
   set_snd_volume: jest.fn((volume: number) => {}),
   show_indicators: jest.fn(),

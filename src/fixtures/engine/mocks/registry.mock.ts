@@ -15,10 +15,10 @@ export interface IMockActorDetails {
  * Mock actor client/server side.
  */
 export function mockRegisteredActor(
-  actorClientPartial: Partial<GameObject> = {},
+  actorGamePartial: Partial<GameObject> = {},
   actorServerPartial: Partial<ServerActorObject> = {}
 ): IMockActorDetails {
-  const actorGameObject: GameObject = MockGameObject.mockActor(actorClientPartial);
+  const actorGameObject: GameObject = MockGameObject.mockActor(actorGamePartial);
   const actorServerObject: ServerActorObject = registerActorServer(mockServerAlifeCreatureActor(actorServerPartial));
   const actorState: IRegistryObjectState = registerActor(actorGameObject);
 
