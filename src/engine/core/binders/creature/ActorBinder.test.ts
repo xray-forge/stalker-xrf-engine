@@ -3,6 +3,7 @@ import { callback, level } from "xray16";
 
 import { ActorBinder } from "@/engine/core/binders/creature/ActorBinder";
 import {
+  getManager,
   IRegistryObjectState,
   registerSimulator,
   registerZone,
@@ -161,7 +162,7 @@ describe("ActorBinder class", () => {
 
   it("should correctly handle save/load with default values", () => {
     const { actorGameObject, actorServerObject } = mockRegisteredActor();
-    const saveManager: SaveManager = SaveManager.getInstance();
+    const saveManager: SaveManager = getManager(SaveManager);
     const netProcessor: MockNetProcessor = new MockNetProcessor();
     const binder: ActorBinder = new ActorBinder(actorGameObject);
 
@@ -194,7 +195,7 @@ describe("ActorBinder class", () => {
 
   it("should correctly handle save/load with deimos and pstore values", () => {
     const { actorGameObject, actorServerObject } = mockRegisteredActor();
-    const saveManager: SaveManager = SaveManager.getInstance();
+    const saveManager: SaveManager = getManager(SaveManager);
     const netProcessor: MockNetProcessor = new MockNetProcessor();
     const binder: ActorBinder = new ActorBinder(actorGameObject);
 

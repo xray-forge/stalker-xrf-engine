@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { relation_registry } from "xray16";
 
-import { disposeManager, registerActor, registry } from "@/engine/core/database";
+import { disposeManager, getManager, registerActor, registry } from "@/engine/core/database";
 import { achievementIcons } from "@/engine/core/managers/achievements/achievements_icons";
 import {
   hasAchievedBalanceAdvocate,
@@ -395,7 +395,7 @@ describe("AchievementManager class", () => {
   });
 
   it("should correctly check seeker achievement", () => {
-    const statisticsManager: StatisticsManager = StatisticsManager.getInstance();
+    const statisticsManager: StatisticsManager = getManager(StatisticsManager);
     const onNotification = mockNotificationListener("st_ach_seeker", achievementIcons[EAchievement.SEEKER]);
 
     giveInfoPortion(infoPortions.sim_bandit_attack_harder);
@@ -403,7 +403,7 @@ describe("AchievementManager class", () => {
 
     disableInfoPortion(infoPortions.sim_bandit_attack_harder);
 
-    StatisticsManager.getInstance().actorStatistics.collectedArtefacts = MockLuaTable.mockFromObject({
+    getManager(StatisticsManager).actorStatistics.collectedArtefacts = MockLuaTable.mockFromObject({
       [artefacts.af_baloon]: true,
       [artefacts.af_blood]: false,
     } as Record<TName, boolean>);
@@ -424,7 +424,7 @@ describe("AchievementManager class", () => {
   });
 
   it("should correctly check marked by zone achievement", () => {
-    const statisticsManager: StatisticsManager = StatisticsManager.getInstance();
+    const statisticsManager: StatisticsManager = getManager(StatisticsManager);
     const onNotification = mockNotificationListener(
       "st_ach_marked_by_zone",
       achievementIcons[EAchievement.MARKED_BY_ZONE]

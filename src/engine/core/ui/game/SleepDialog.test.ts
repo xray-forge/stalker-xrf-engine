@@ -1,6 +1,7 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { CUI3tButton, CUIMessageBoxEx, CUIStatic, CUITrackBar, level } from "xray16";
 
+import { getManager } from "@/engine/core/database";
 import { SleepManager } from "@/engine/core/managers/sleep";
 import { SleepDialog } from "@/engine/core/ui/game/SleepDialog";
 import { giveInfoPortion, hasInfoPortion } from "@/engine/core/utils/info_portion";

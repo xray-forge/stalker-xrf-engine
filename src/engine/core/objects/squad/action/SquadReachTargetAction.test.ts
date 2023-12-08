@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 
-import { registerSimulator, updateSimulationObjectAvailability } from "@/engine/core/database";
+import { getManager, registerSimulator, updateSimulationObjectAvailability } from "@/engine/core/database";
 import { SimulationManager } from "@/engine/core/managers/simulation";
 import { SquadReachTargetAction } from "@/engine/core/objects/squad/action/SquadReachTargetAction";
 import { ESquadActionType } from "@/engine/core/objects/squad/squad_types";

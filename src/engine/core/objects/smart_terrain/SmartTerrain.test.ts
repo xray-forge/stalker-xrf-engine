@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { time_global } from "xray16";
 
-import { registerActorServer, registerSimulator, registry } from "@/engine/core/database";
+import { getManager, registerActorServer, registerSimulator, registry } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { ESimulationTerrainRole } from "@/engine/core/managers/simulation";
 import { Actor } from "@/engine/core/objects/creature";
@@ -11,7 +11,12 @@ import { ESmartTerrainStatus } from "@/engine/core/objects/smart_terrain/smart_t
 import { parseConditionsList } from "@/engine/core/utils/ini";
 import { TRUE } from "@/engine/lib/constants/words";
 import { ServerHumanObject } from "@/engine/lib/types";
-import { mockSmartTerrain, mockSmartTerrainWithConfiguration, resetRegistry } from "@/fixtures/engine";
+import {
+  MockSmartTerrain,
+  mockSmartTerrain,
+  mockSmartTerrainWithConfiguration,
+  resetRegistry,
+} from "@/fixtures/engine";
 import { replaceFunctionMock } from "@/fixtures/jest";
 import {
   EPacketDataType,
@@ -85,7 +90,7 @@ describe("SmartTerrain class generic logic", () => {
 
   it("should correctly emit registering lifecycle events", () => {
     const eventsManager: EventsManager = getManager(EventsManager);
-    const smartTerrain: SmartTerrain = mockSmartTerrain();
+    const smartTerrain: SmartTerrain = MockSmartTerrain.mock();
 
     const onSmartTerrainRegister = jest.fn();
     const onSmartTerrainUnregister = jest.fn();

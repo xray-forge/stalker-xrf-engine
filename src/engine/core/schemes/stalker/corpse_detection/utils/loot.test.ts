@@ -1,6 +1,6 @@
 import { describe, expect, it, jest } from "@jest/globals";
 
-import { IRegistryObjectState, registerObject } from "@/engine/core/database";
+import { getManager, IRegistryObjectState, registerObject } from "@/engine/core/database";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import {
   finishCorpseLooting,

@@ -1,6 +1,6 @@
 import { beforeAll, describe, expect, it, jest } from "@jest/globals";
 
-import { registerActor, registerSimulator, registry } from "@/engine/core/database";
+import { getManager, registerActor, registerSimulator, registry } from "@/engine/core/database";
 import { ActorInputManager } from "@/engine/core/managers/actor";
 import { breakObjectDialog } from "@/engine/core/utils/dialog";
 import { actorHasMedKit, getActorAvailableMedKit, getAnyObjectPistol } from "@/engine/core/utils/item";

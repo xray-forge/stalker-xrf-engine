@@ -2,6 +2,7 @@ import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { clsid, danger_object } from "xray16";
 
 import {
+  getManager,
   ILogicsOverrides,
   IRegistryObjectState,
   registerObject,

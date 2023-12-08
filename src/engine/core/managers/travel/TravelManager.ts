@@ -324,6 +324,8 @@ export class TravelManager extends AbstractManager {
   }
 
   /**
+   * todo: Move to utils.
+   *
    * @param distance - traveling distance from current point to destination
    * @returns travel price based on travel distance
    */

@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { actor_stats } from "xray16";
 
-import { disposeManager } from "@/engine/core/database";
+import { disposeManager, getManager } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { ISmartTerrainDescriptor } from "@/engine/core/managers/simulation/simulation_types";
 import { SimulationManager } from "@/engine/core/managers/simulation/SimulationManager";

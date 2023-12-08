@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { game_graph } from "xray16";
 
-import { registerObject, updateSimulationObjectAvailability } from "@/engine/core/database";
+import { getManager, registerObject, updateSimulationObjectAvailability } from "@/engine/core/database";
 import { SimulationManager } from "@/engine/core/managers/simulation";
 import { SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import {
@@ -10,8 +10,8 @@ import {
 } from "@/engine/core/objects/smart_terrain/object/smart_terrain_object";
 import { Squad, SquadReachTargetAction, SquadStayOnTargetAction } from "@/engine/core/objects/squad";
 import { AnyObject, GameObject, ServerCreatureObject } from "@/engine/lib/types";
-import { mockSmartTerrain, MockSquad, resetRegistry } from "@/fixtures/engine";
-import { MockGameObject, mockServerAlifeHumanStalker } from "@/fixtures/xray";
+import { MockSmartTerrain, MockSquad, resetRegistry } from "@/fixtures/engine";
+import { MockAlifeHumanStalker, MockGameObject } from "@/fixtures/xray";
 
 describe("isObjectArrivedToSmartTerrain utility", () => {
   beforeEach(() => {
@@ -19,9 +19,9 @@ describe("isObjectArrivedToSmartTerrain utility", () => {
   });
 
   it("should correctly check arrived state based on squad", () => {
-    const object: ServerCreatureObject = mockServerAlifeHumanStalker();
+    const object: ServerCreatureObject = MockAlifeHumanStalker.mock();
     const squad: Squad = MockSquad.mock();
-    const smartTerrain: SmartTerrain = mockSmartTerrain();
+    const smartTerrain: SmartTerrain = MockSmartTerrain.mock();
 
     getManager(SimulationManager).registerSmartTerrain(smartTerrain);
 
@@ -32,8 +32,8 @@ describe("isObjectArrivedToSmartTerrain utility", () => {
   });
 
   it("should correctly check arrived state based on server object", () => {
-    const serverObject: ServerCreatureObject = mockServerAlifeHumanStalker();
-    const smartTerrain: SmartTerrain = mockSmartTerrain();
+    const serverObject: ServerCreatureObject = MockAlifeHumanStalker.mock();
+    const smartTerrain: SmartTerrain = MockSmartTerrain.mock();
 
     expect(isObjectArrivedToSmartTerrain(serverObject, smartTerrain)).toBe(true);
 
@@ -49,8 +49,8 @@ describe("isObjectArrivedToSmartTerrain utility", () => {
   });
 
   it("should correctly check arrived state based on object online", () => {
-    const serverObject: ServerCreatureObject = mockServerAlifeHumanStalker();
-    const smartTerrain: SmartTerrain = mockSmartTerrain();
+    const serverObject: ServerCreatureObject = MockAlifeHumanStalker.mock();
+    const smartTerrain: SmartTerrain = MockSmartTerrain.mock();
     const object: GameObject = MockGameObject.mock({ idOverride: serverObject.id });
 
     registerObject(object);

@@ -1,5 +1,6 @@
 import { beforeEach, describe, expect, it } from "@jest/globals";
 
+import { getManager } from "@/engine/core/database";
 import { LoadScreenManager } from "@/engine/core/managers/interface/LoadScreenManager";
 import { resetRegistry } from "@/fixtures/engine";
 
@@ -9,7 +10,7 @@ describe("LoadScreenManager class", () => {
   });
 
   it("should correctly generate tips", () => {
-    const loadScreenManager: LoadScreenManager = LoadScreenManager.getInstance();
+    const loadScreenManager: LoadScreenManager = getManager(LoadScreenManager);
 
     expect(typeof loadScreenManager.getRandomTipIndex("test")).toBe("number");
     expect(typeof loadScreenManager.getRandomTipIndex("test")).toBe("number");

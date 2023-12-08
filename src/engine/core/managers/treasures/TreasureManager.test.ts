@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { level } from "xray16";
 
-import { registerActor, registry } from "@/engine/core/database";
+import { getManager, registerActor, registry } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { TREASURE_MANAGER_CONFIG_LTX, treasureConfig } from "@/engine/core/managers/treasures/TreasureConfig";
 import { TreasureManager } from "@/engine/core/managers/treasures/TreasureManager";
@@ -94,7 +94,7 @@ describe("TreasureManager class", () => {
   });
 
   it("should correctly initialize and destroy", () => {
-    const treasureManager: TreasureManager = TreasureManager.getInstance();
+    const treasureManager: TreasureManager = getManager(TreasureManager);
     const eventsManager: EventsManager = getManager(EventsManager);
 
     treasureManager.initialize();
@@ -113,7 +113,7 @@ describe("TreasureManager class", () => {
   });
 
   it("should correctly handle statics shortcuts", () => {
-    const treasureManager: TreasureManager = TreasureManager.getInstance();
+    const treasureManager: TreasureManager = getManager(TreasureManager);
 
     jest.spyOn(treasureManager, "giveActorTreasureCoordinates").mockImplementation(() => {});
     jest.spyOn(treasureManager, "onRegisterItem").mockImplementation(() => true);
@@ -126,7 +126,7 @@ describe("TreasureManager class", () => {
   });
 
   it("should correctly handle spawn all in updates", () => {
-    const treasureManager: TreasureManager = TreasureManager.getInstance();
+    const treasureManager: TreasureManager = getManager(TreasureManager);
 
     treasureManager.initialize();
 
@@ -152,7 +152,7 @@ describe("TreasureManager class", () => {
     registerActor(MockGameObject.mockActor());
     giveInfoPortion("info_b10_first_zone_visited");
 
-    const treasureManager: TreasureManager = TreasureManager.getInstance();
+    const treasureManager: TreasureManager = getManager(TreasureManager);
 
     treasureManager.treasuresRestrictorByName.set("jup_b1_secret", 1501);
     treasureManager.initialize();
@@ -178,7 +178,7 @@ describe("TreasureManager class", () => {
   it("should correctly handle refresh state in updates", () => {
     registerActor(MockGameObject.mockActor());
 
-    const treasureManager: TreasureManager = TreasureManager.getInstance();
+    const treasureManager: TreasureManager = getManager(TreasureManager);
 
     treasureManager.initialize();
 
@@ -198,7 +198,7 @@ describe("TreasureManager class", () => {
     const secret: ServerObject = mockServerAlifeObject({
       spawn_ini: () => mockIniFile("spawn.ini", { secret: {} }),
     });
-    const treasureManager: TreasureManager = TreasureManager.getInstance();
+    const treasureManager: TreasureManager = getManager(TreasureManager);
 
     jest.spyOn(treasureManager, "onRegisterRestrictor");
 
@@ -216,7 +216,7 @@ describe("TreasureManager class", () => {
   });
 
   it("should correctly get treasures count", () => {
-    const treasureManager: TreasureManager = TreasureManager.getInstance();
+    const treasureManager: TreasureManager = getManager(TreasureManager);
 
     treasureManager.initialize();
 
@@ -225,7 +225,7 @@ describe("TreasureManager class", () => {
   });
 
   it("should correctly get treasures", () => {
-    const treasureManager: TreasureManager = TreasureManager.getInstance();
+    const treasureManager: TreasureManager = getManager(TreasureManager);
 
     treasureManager.initialize();
 
@@ -234,7 +234,7 @@ describe("TreasureManager class", () => {
   });
 
   it("should correctly get given treasures count", () => {
-    const treasureManager: TreasureManager = TreasureManager.getInstance();
+    const treasureManager: TreasureManager = getManager(TreasureManager);
 
     treasureManager.initialize();
     expect(treasureManager.getGivenTreasuresCount()).toBe(0);
@@ -247,7 +247,7 @@ describe("TreasureManager class", () => {
   });
 
   it("should correctly spawn treasures", () => {
-    const treasureManager: TreasureManager = TreasureManager.getInstance();
+    const treasureManager: TreasureManager = getManager(TreasureManager);
 
     treasureManager.initialize();
 

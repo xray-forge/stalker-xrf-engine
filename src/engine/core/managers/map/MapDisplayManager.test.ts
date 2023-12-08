@@ -1,6 +1,7 @@
 import { beforeEach, describe, expect, it } from "@jest/globals";
 import { level } from "xray16";
 
+import { getManager } from "@/engine/core/database";
 import { MapDisplayManager } from "@/engine/core/managers/map/MapDisplayManager";
 import { ETreasureType, ITreasureDescriptor, treasureConfig } from "@/engine/core/managers/treasures";
 import { mapMarks } from "@/engine/lib/constants/map_marks";
@@ -34,7 +35,7 @@ describe("MapDisplayManager class", () => {
   it.todo("should correctly handle update event");
 
   it("should correctly get icon from treasure descriptor", () => {
-    const mapDisplayManager: MapDisplayManager = MapDisplayManager.getInstance();
+    const mapDisplayManager: MapDisplayManager = getManager(MapDisplayManager);
 
     treasureConfig.ENHANCED_MODE_ENABLED = true;
 
@@ -63,7 +64,7 @@ describe("MapDisplayManager class", () => {
   it("should correctly display map objects for treasures", () => {
     resetFunctionMock(level.map_add_object_spot_ser);
 
-    const mapDisplayManager: MapDisplayManager = MapDisplayManager.getInstance();
+    const mapDisplayManager: MapDisplayManager = getManager(MapDisplayManager);
 
     mapDisplayManager.showTreasureMapSpot(10, { type: ETreasureType.COMMON } as ITreasureDescriptor, "tst");
     expect(level.map_add_object_spot_ser).toHaveBeenCalledWith(10, mapMarks.treasure, "tst");
@@ -78,7 +79,7 @@ describe("MapDisplayManager class", () => {
   it("should correctly remove map objects for treasures", () => {
     resetFunctionMock(level.map_remove_object_spot);
 
-    const mapDisplayManager: MapDisplayManager = MapDisplayManager.getInstance();
+    const mapDisplayManager: MapDisplayManager = getManager(MapDisplayManager);
 
     mapDisplayManager.removeTreasureMapSpot(10, { type: ETreasureType.COMMON } as ITreasureDescriptor);
     expect(level.map_remove_object_spot).toHaveBeenCalledWith(10, mapMarks.treasure);

@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 
-import { IRegistryOfflineState, registerSimulator, registry } from "@/engine/core/database";
+import { getManager, IRegistryOfflineState, registerSimulator, registry } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { SimulationManager } from "@/engine/core/managers/simulation";
 import { Stalker } from "@/engine/core/objects/creature/Stalker";

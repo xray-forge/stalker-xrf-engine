@@ -4,6 +4,7 @@ import { callback, clsid } from "xray16";
 import { ObjectRestrictionsManager } from "@/engine/core/ai/restriction";
 import { TAbstractSchemeConstructor } from "@/engine/core/ai/scheme";
 import {
+  getManager,
   IBaseSchemeState,
   IRegistryObjectState,
   IRegistryOfflineState,
@@ -249,7 +250,7 @@ describe("scheme logic utils", () => {
 
     jest.spyOn(SchemeHit, "activate");
     jest.spyOn(HitManager.prototype, "activate");
-    jest.spyOn(MapDisplayManager.getInstance(), "updateObjectMapSpot").mockImplementation(jest.fn());
+    jest.spyOn(getManager(MapDisplayManager), "updateObjectMapSpot").mockImplementation(jest.fn());
 
     loadGenericSchemes();
     loadSchemeImplementation(SchemeHit);
@@ -489,7 +490,7 @@ describe("scheme logic utils", () => {
     const mockRestrictorGetter = jest.fn(() => new ObjectRestrictionsManager(stalker));
 
     jest.spyOn(ObjectRestrictionsManager, "activateForObject").mockImplementation(mockRestrictorGetter);
-    jest.spyOn(MapDisplayManager.getInstance(), "updateObjectMapSpot").mockImplementation(jest.fn());
+    jest.spyOn(getManager(MapDisplayManager), "updateObjectMapSpot").mockImplementation(jest.fn());
 
     loadSchemeImplementations($fromArray(schemes));
 
@@ -507,7 +508,7 @@ describe("scheme logic utils", () => {
     expect(SchemeCombatIgnore.reset).toHaveBeenCalledWith(stalker, EScheme.SR_IDLE, stalkerState, "sr_idle@test");
     expect(SchemeHear.reset).toHaveBeenCalledWith(stalker, EScheme.SR_IDLE, stalkerState, "sr_idle@test");
 
-    expect(MapDisplayManager.getInstance().updateObjectMapSpot).toHaveBeenCalledTimes(1);
+    expect(getManager(MapDisplayManager).updateObjectMapSpot).toHaveBeenCalledTimes(1);
     expect(stalker.max_ignore_monster_distance).toHaveBeenCalledWith(20);
     expect(stalker.ignore_monster_threshold).toHaveBeenCalledWith(10);
     expect(stalker.invulnerable).toHaveBeenNthCalledWith(2, true);

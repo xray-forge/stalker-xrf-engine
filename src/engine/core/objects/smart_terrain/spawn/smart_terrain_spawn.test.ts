@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { CTime, game } from "xray16";
 
-import { registerSimulator, registry } from "@/engine/core/database";
+import { getManager, registerSimulator, registry } from "@/engine/core/database";
 import { SimulationManager } from "@/engine/core/managers/simulation";
 import { SmartTerrain, smartTerrainConfig } from "@/engine/core/objects/smart_terrain";
 import {

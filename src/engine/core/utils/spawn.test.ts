@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 
-import { registerActor, registerSimulator, registry } from "@/engine/core/database";
+import { getManager, registerActor, registerSimulator, registry } from "@/engine/core/database";
 import { SimulationManager } from "@/engine/core/managers/simulation/SimulationManager";
 import { Squad } from "@/engine/core/objects/squad";
 import {

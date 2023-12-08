@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 
 import { RestrictorBinder } from "@/engine/core/binders/zones/RestrictorBinder";
-import { IRegistryObjectState, registerObject, registry } from "@/engine/core/database";
+import { getManager, IRegistryObjectState, registerObject, registry } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds";
 import { AbstractPlayableSound } from "@/engine/core/managers/sounds/objects";

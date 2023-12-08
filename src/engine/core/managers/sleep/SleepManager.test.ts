@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { level } from "xray16";
 
-import { registry } from "@/engine/core/database";
+import { getManager, registry } from "@/engine/core/database";
 import { ActorInputManager } from "@/engine/core/managers/actor";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { sleepConfig } from "@/engine/core/managers/sleep/SleepConfig";
@@ -117,7 +117,7 @@ describe("SleepManager class", () => {
     surgeConfig.IS_STARTED = true;
 
     const sleepManager: SleepManager = getManager(SleepManager);
-    const weatherManager: WeatherManager = WeatherManager.getInstance();
+    const weatherManager: WeatherManager = getManager(WeatherManager);
     const eventsManager: EventsManager = getManager(EventsManager);
 
     jest.spyOn(weatherManager, "forceWeatherChange").mockImplementation(jest.fn());
