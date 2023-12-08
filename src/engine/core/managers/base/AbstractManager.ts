@@ -1,6 +1,6 @@
-import { disposeManager, getManager, getWeakManager } from "@/engine/core/database/managers";
+import { getManager } from "@/engine/core/database/managers";
 import { abort } from "@/engine/core/utils/assertion";
-import { IConstructor, NetPacket, NetProcessor, Optional, TDuration } from "@/engine/lib/types";
+import { IConstructor, NetPacket, NetProcessor, TDuration } from "@/engine/lib/types";
 
 /**
  * Abstract class for core manager implementation.
@@ -16,19 +16,8 @@ export abstract class AbstractManager {
     return getManager(this);
   }
 
-  /**
-   * Get singleton manager instance if it exists.
-   * Do not initialize manager if it was not registered before.
-   *
-   * @returns manager instance or `null`
-   */
-  public static getWeakInstance<T extends AbstractManager>(this: IConstructor<T>): Optional<T> {
-    return getWeakManager(this);
-  }
-
-  /**
-   * Whether manager was disposed and removed from registry.
-   */
+  // Whether manager was disposed and removed from registry, disposed manager are not supposed to work.
+  // Mainly for timers / async or delayed code.
   public isDestroyed: boolean = false;
 
   /**
@@ -42,17 +31,13 @@ export abstract class AbstractManager {
   public destroy(): void {}
 
   /**
-   * Generic method for game update tick
-   *
-   * @param delta - delta from previous update
+   * @param delta - delta time since previous update
    */
   public update(delta: TDuration): void {
     abort("Update method is not implemented.");
   }
 
   /**
-   * Generic base method for saving.
-   *
    * @param packet - net packet to write data
    */
   public save(packet: NetPacket): void {
@@ -60,8 +45,6 @@ export abstract class AbstractManager {
   }
 
   /**
-   * Generic base method for loading.
-   *
    * @param reader - net processor to read data from
    */
   public load(reader: NetProcessor): void {
