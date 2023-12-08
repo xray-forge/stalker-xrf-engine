@@ -21,9 +21,6 @@ import { DebugDialog } from "@/engine/core/ui/debug/DebugDialog";
 import { ExtensionsDialog } from "@/engine/core/ui/menu/extensions/ExtensionsDialog";
 import { LoadDialog } from "@/engine/core/ui/menu/load/LoadDialog";
 import { EMainMenuModalMode } from "@/engine/core/ui/menu/menu_types";
-import { MultiplayerGameSpy } from "@/engine/core/ui/menu/multiplayer_login/MultiplayerGamespy";
-import { MultiplayerLocalnet } from "@/engine/core/ui/menu/multiplayer_login/MultiplayerLocalnet";
-import { MultiplayerMenu } from "@/engine/core/ui/menu/multiplayer_menu/MultiplayerMenu";
 import { Options } from "@/engine/core/ui/menu/options/Options";
 import { SaveDialog } from "@/engine/core/ui/menu/save/SaveDialog";
 import { executeConsoleCommand } from "@/engine/core/utils/console";
@@ -69,12 +66,9 @@ export class MainMenu extends CUIScriptWnd {
   public uiModalBox!: CUIMessageBoxEx;
   public modalBoxMode: EMainMenuModalMode = EMainMenuModalMode.OFF;
 
-  public uiMultiplayerMenuDialog: Optional<MultiplayerMenu> = null;
   public uiGameOptionsDialog: Optional<Options> = null;
   public uiGameSavesSaveDialog: Optional<SaveDialog> = null;
   public uiGameSavesLoadDialog: Optional<LoadDialog> = null;
-  public uiLocalnetDialog: Optional<MultiplayerLocalnet> = null;
-  public uiGamespyDialog: Optional<MultiplayerGameSpy> = null;
   public uiGameDebugDialog: Optional<DebugDialog> = null;
   public uiGameExtensionsDialog: Optional<ExtensionsDialog> = null;
 
@@ -130,12 +124,6 @@ export class MainMenu extends CUIScriptWnd {
     this.AddCallback("btn_options", ui_events.BUTTON_CLICKED, () => this.onOptionsButtonClick(), this);
     this.AddCallback("btn_load", ui_events.BUTTON_CLICKED, () => this.onLoadGameButtonClick(), this);
     this.AddCallback("btn_save", ui_events.BUTTON_CLICKED, () => this.onSaveGameButtonClick(), this);
-
-    this.AddCallback("btn_net_game", ui_events.BUTTON_CLICKED, () => this.onNetworkGameButtonClick(), this);
-    this.AddCallback("btn_internet", ui_events.BUTTON_CLICKED, () => this.onInternetButtonClick(), this);
-    this.AddCallback("btn_localnet", ui_events.BUTTON_CLICKED, () => this.onLocalnetButtonClick(), this);
-    this.AddCallback("btn_multiplayer", ui_events.BUTTON_CLICKED, () => this.onMultiplayerButtonClick(), this);
-    this.AddCallback("btn_logout", ui_events.BUTTON_CLICKED, () => this.onLogoutButtonClick(), this);
 
     this.AddCallback("btn_quit", ui_events.BUTTON_CLICKED, () => this.onQuitToWindowsButtonClick(), this);
     this.AddCallback("btn_quit_to_mm", ui_events.BUTTON_CLICKED, () => this.onDisconnectButtonClick(), this);
@@ -327,83 +315,6 @@ export class MainMenu extends CUIScriptWnd {
   }
 
   /**
-   * On network game play clicked.
-   */
-  public onNetworkGameButtonClick(): void {
-    this.xrMenuPageController.ShowPage(CUIMMShniaga.epi_new_network_game);
-  }
-
-  /**
-   * On multiplayer button click.
-   */
-  public onMultiplayerButtonClick(): void {
-    if (!this.uiMultiplayerMenuDialog) {
-      this.uiMultiplayerMenuDialog = new MultiplayerMenu(this, this.xrGameSpyProfile?.online() === true);
-      this.uiMultiplayerMenuDialog.onRadioNetChanged();
-
-      if (this.uiMultiplayerMenuDialog.isOnlineMode) {
-        this.uiMultiplayerMenuDialog.uiDialogMultiplayerProfile.initializeBestScores();
-        this.uiMultiplayerMenuDialog.uiDialogMultiplayerProfile.initializeRewardsTable();
-      }
-    }
-
-    this.uiMultiplayerMenuDialog.updateControls();
-    this.uiMultiplayerMenuDialog.ShowDialog(true);
-
-    this.HideDialog();
-    this.Show(false);
-  }
-
-  /**
-   * On network logout button clicked.
-   */
-  public onLogoutButtonClick(): void {
-    // -- assert(this.gs_profile)
-
-    this.xrMenuPageController.ShowPage(CUIMMShniaga.epi_new_network_game); // --fake
-    this.xrLoginManager.logout();
-
-    this.xrGameSpyProfile = null;
-    this.uiMultiplayerMenuDialog = null;
-
-    this.xrMenuPageController.SetPage(CUIMMShniaga.epi_main, resolveXmlFormPath(base), "menu_main");
-    this.xrMenuPageController.ShowPage(CUIMMShniaga.epi_main);
-  }
-
-  /**
-   * On clicked network play button.
-   */
-  public onInternetButtonClick(): void {
-    logger.info("Button internet clicked");
-
-    if (!this.uiGamespyDialog) {
-      this.uiGamespyDialog = new MultiplayerGameSpy(this);
-    }
-
-    this.uiGamespyDialog.showLoginPage();
-    this.uiGamespyDialog.ShowDialog(true);
-
-    this.HideDialog();
-    this.Show(false);
-  }
-
-  /**
-   * On clicked local network play button.
-   */
-  public onLocalnetButtonClick(): void {
-    if (!this.uiLocalnetDialog) {
-      this.uiLocalnetDialog = new MultiplayerLocalnet(this);
-      this.uiLocalnetDialog.uiNicknameEditBox.SetText(this.xrLoginManager.get_nick_from_registry());
-      this.uiLocalnetDialog.uiRememberMeCheck.SetCheck(this.xrLoginManager.get_remember_me_from_registry());
-    }
-
-    this.uiLocalnetDialog.ShowDialog(true);
-
-    this.HideDialog();
-    this.Show(false);
-  }
-
-  /**
    * Confirm message box confirmation.
    */
   public onMessageBoxConfirmClick(): void {
@@ -426,17 +337,6 @@ export class MainMenu extends CUIScriptWnd {
    */
   public override Show(isVisible: boolean): void {
     this.xrMenuPageController.SetVisibleMagnifier(isVisible);
-  }
-
-  /**
-   * Handle command dispatch to the component.
-   */
-  public override Dispatch(command: TNumberId): boolean {
-    if (command === 2) {
-      this.onMultiplayerButtonClick();
-    }
-
-    return true;
   }
 
   /**

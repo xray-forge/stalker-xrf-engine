@@ -27,24 +27,15 @@ export function create(): JSXNode {
       <menu_main btn_height={34} font={fonts.graffiti22}>
         <btn name={"btn_new_game"} caption={"ui_mm_newgame"} />
         <btn name={"btn_load"} caption={"ui_mm_load_game"} />
-        <btn name={"btn_net_game"} caption={"ui_mm_network_game"} />
         <btn name={"btn_options"} caption={"ui_mm_options_n"} />
         <btn name={"btn_credits"} caption={"ui_mm_credits"} />
         <btn name={"btn_extensions"} caption={"ui_mm_extensions"} />
         <btn name={"btn_quit"} caption={"ui_mm_quit2windows"} />
       </menu_main>
 
-      <menu_network_game btn_height={34} font={fonts.graffiti22}>
-        <btn name={"btn_internet"} caption={"ui_mp_internet"} />
-        <btn name={"btn_localnet"} caption={"ui_mp_localnet"} />
-        <btn name={"btn_new_back"} caption={"ui_mm_back"} />
-      </menu_network_game>
-
       <menu_main_logout btn_height={34} font={fonts.graffiti22}>
         <btn name={"btn_new_game"} caption={"ui_mm_newgame"} />
         <btn name={"btn_load"} caption={"ui_mm_load_game"} />
-        <btn name={"btn_multiplayer"} caption={"ui_mm_network_game"} />
-        <btn name={"btn_logout"} caption={"ui_mm_logout"} />
         <btn name={"btn_options"} caption={"ui_mm_options_n"} />
         <btn name={"btn_credits"} caption={"ui_mm_credits"} />
         <btn name={"btn_extensions"} caption={"ui_mm_extensions"} />
@@ -55,7 +46,6 @@ export function create(): JSXNode {
         <btn name={"btn_new_game"} caption={"ui_mm_newgame"} />
         <btn name={"btn_load"} caption={"ui_mm_load_game"} />
         <btn name={"btn_lastsave"} caption={"ui_mm_last_save"} />
-        <btn name={"btn_net_game"} caption={"ui_mm_network_game"} />
         <btn name={"btn_options"} caption={"ui_mm_options_n"} />
         <btn name={"btn_credits"} caption={"ui_mm_credits"} />
         <btn name={"btn_extensions"} caption={"ui_mm_extensions"} />
