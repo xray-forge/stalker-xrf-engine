@@ -6,12 +6,9 @@ describe("MainMenu component", () => {
   it("should correctly create", () => {
     const menu: MainMenu = new MainMenu();
 
-    expect(menu.uiMultiplayerMenuDialog).toBeNull();
     expect(menu.uiGameOptionsDialog).toBeNull();
     expect(menu.uiGameSavesSaveDialog).toBeNull();
     expect(menu.uiGameSavesLoadDialog).toBeNull();
-    expect(menu.uiLocalnetDialog).toBeNull();
-    expect(menu.uiGamespyDialog).toBeNull();
     expect(menu.uiGameDebugDialog).toBeNull();
     expect(menu.uiGameExtensionsDialog).toBeNull();
   });
