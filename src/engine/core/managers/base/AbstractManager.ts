@@ -10,11 +10,10 @@ export abstract class AbstractManager {
    * Get singleton manager instance from managers registry.
    * Initialize manager if it was not initialized before.
    *
-   * @param initialize - whether initialize should be called on manager instance creation, `true` by default
    * @returns manager instance
    */
-  public static getInstance<T extends AbstractManager>(this: IConstructor<T>, initialize: boolean = true): T {
-    return getManager(this, initialize);
+  public static getInstance<T extends AbstractManager>(this: IConstructor<T>): T {
+    return getManager(this);
   }
 
   /**

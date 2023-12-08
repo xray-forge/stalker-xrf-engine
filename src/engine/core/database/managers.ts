@@ -9,29 +9,10 @@ const logger: LuaLogger = new LuaLogger($filename);
  * Get initialized manager singleton.
  *
  * @param ManagerClass - manager class statics reference, used as key in registry to get singletons
- * @param initialize - whether initialization lifecycle should be called, 'true' by default
  * @returns manager instance singleton
  */
-export function getManager<T extends TAbstractCoreManagerConstructor>(
-  ManagerClass: T,
-  initialize: boolean = true
-): InstanceType<T> {
-  let manager: Optional<AbstractManager> = registry.managers.get(ManagerClass);
-
-  if (!manager) {
-    logger.info("Initialize manager:", ManagerClass.name);
-
-    manager = new ManagerClass();
-
-    registry.managers.set(ManagerClass, manager);
-    registry.managersByName.set(ManagerClass.name, manager);
-
-    if (initialize) {
-      manager.initialize();
-    }
-  }
-
-  return manager as InstanceType<T>;
+export function getManager<T extends TAbstractCoreManagerConstructor>(ManagerClass: T): InstanceType<T> {
+  return (registry.managers.get(ManagerClass) ?? initializeManager(ManagerClass)) as InstanceType<T>;
 }
 
 /**
@@ -73,11 +54,13 @@ export function isManagerInitialized<T extends TAbstractCoreManagerConstructor>(
  *
  * @param ManagerClass - manager class statics reference, used as key in registry to get singletons
  */
-export function initializeManager(ManagerClass: TAbstractCoreManagerConstructor): void {
+export function initializeManager<T extends TAbstractCoreManagerConstructor>(
+  ManagerClass: TAbstractCoreManagerConstructor
+): InstanceType<T> {
   let manager: Optional<AbstractManager> = registry.managers.get(ManagerClass);
 
   if (!manager) {
-    logger.info("Initialize manager:", ManagerClass.name);
+    logger.format("Initialize manager: %s", ManagerClass.name);
 
     manager = new ManagerClass();
 
@@ -86,6 +69,8 @@ export function initializeManager(ManagerClass: TAbstractCoreManagerConstructor)
 
     manager.initialize();
   }
+
+  return manager as InstanceType<T>;
 }
 
 /**

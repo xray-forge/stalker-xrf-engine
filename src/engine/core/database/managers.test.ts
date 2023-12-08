@@ -79,18 +79,20 @@ describe("managers module of the database", () => {
   it("should correctly initialize managers in a lazy way", () => {
     assertRegistryIsClean();
 
-    getManager(ExampleManagerThree, false);
+    getManager(ExampleManagerThree);
+
     expect(registry.managers.length()).toBe(1);
     expect(registry.managersByName.length()).toBe(1);
     expect(registry.managers.get(ExampleManagerThree)).not.toBeNull();
     expect(registry.managersByName.get(ExampleManagerThree.name)).not.toBeNull();
-    expect(registry.managers.get(ExampleManagerThree).initialize).toHaveBeenCalledTimes(0);
+    expect(registry.managers.get(ExampleManagerThree).initialize).toHaveBeenCalledTimes(1);
   });
 
   it("should correctly initialize managers directly", () => {
     assertRegistryIsClean();
 
     initializeManager(ExampleManagerThree);
+
     expect(registry.managers.length()).toBe(1);
     expect(registry.managersByName.length()).toBe(1);
     expect(registry.managers.get(ExampleManagerThree)).not.toBeNull();
@@ -126,17 +128,17 @@ describe("managers module of the database", () => {
     expect(isManagerInitialized(ExampleManagerTwo)).toBe(false);
     expect(isManagerInitialized(ExampleManagerThree)).toBe(false);
 
-    getManager(ExampleManagerOne, true);
+    getManager(ExampleManagerOne);
     expect(isManagerInitialized(ExampleManagerOne)).toBe(true);
     expect(isManagerInitialized(ExampleManagerTwo)).toBe(false);
     expect(isManagerInitialized(ExampleManagerThree)).toBe(false);
 
-    getManager(ExampleManagerTwo, false);
+    getManager(ExampleManagerTwo);
     expect(isManagerInitialized(ExampleManagerOne)).toBe(true);
     expect(isManagerInitialized(ExampleManagerTwo)).toBe(true);
     expect(isManagerInitialized(ExampleManagerThree)).toBe(false);
 
-    getManager(ExampleManagerThree, false);
+    getManager(ExampleManagerThree);
     expect(isManagerInitialized(ExampleManagerOne)).toBe(true);
     expect(isManagerInitialized(ExampleManagerTwo)).toBe(true);
     expect(isManagerInitialized(ExampleManagerThree)).toBe(true);
