@@ -350,7 +350,7 @@ export class MainMenu extends CUIScriptWnd {
         case DIK_keys.DIK_ESCAPE: {
           const actor: Optional<GameObject> = registry.actor;
 
-          if (level.present() && ((actor !== null && actor.alive()) || !IsGameTypeSingle())) {
+          if (level.present() && (actor?.alive() || !IsGameTypeSingle())) {
             this.onReturnToGameButtonClick();
           }
 
