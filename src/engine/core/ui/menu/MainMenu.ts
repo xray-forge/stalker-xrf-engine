@@ -41,7 +41,6 @@ import {
   Profile,
   ProfileStore,
   TKeyCode,
-  TNumberId,
   TPath,
   TUIEvent,
 } from "@/engine/lib/types";
@@ -83,7 +82,7 @@ export class MainMenu extends CUIScriptWnd {
     this.initControls();
     this.initCallBacks();
 
-    EventsManager.emitEvent(EGameEvent.MAIN_MENU_ON);
+    EventsManager.emitEvent(EGameEvent.MAIN_MENU_ON, this);
   }
 
   /**
@@ -150,7 +149,7 @@ export class MainMenu extends CUIScriptWnd {
    */
   public close(): void {
     executeConsoleCommand(consoleCommands.main_menu, "off");
-    EventsManager.emitEvent(EGameEvent.MAIN_MENU_OFF);
+    EventsManager.emitEvent(EGameEvent.MAIN_MENU_OFF, this);
   }
 
   /**
@@ -348,9 +347,7 @@ export class MainMenu extends CUIScriptWnd {
     if (event === ui_events.WINDOW_KEY_PRESSED) {
       switch (key) {
         case DIK_keys.DIK_ESCAPE: {
-          const actor: Optional<GameObject> = registry.actor;
-
-          if (level.present() && (actor?.alive() || !IsGameTypeSingle())) {
+          if (level.present() && (registry.actor?.alive() || !IsGameTypeSingle())) {
             this.onReturnToGameButtonClick();
           }
 
