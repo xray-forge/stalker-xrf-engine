@@ -47,5 +47,5 @@ export interface ISchemeCamperState extends IBaseSchemeState {
   lastLookPoint: Optional<ICampPoint>;
   scanBegin: Optional<TTimestamp>;
   memEnemy: Optional<TTimestamp>;
-  wpFlag: Optional<number>;
+  waypointFlag: Optional<number>;
 }

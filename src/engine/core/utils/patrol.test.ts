@@ -2,12 +2,17 @@ import { describe, expect, it, jest } from "@jest/globals";
 import { patrol } from "xray16";
 
 import { registerZone } from "@/engine/core/database";
-import { isObjectAtTerminalWaypoint, isObjectAtWaypoint, isPatrolInRestrictor } from "@/engine/core/utils/patrol";
+import {
+  getPatrolFlag,
+  isObjectAtTerminalWaypoint,
+  isObjectAtWaypoint,
+  isPatrolInRestrictor,
+} from "@/engine/core/utils/patrol";
 import { GameObject, Patrol, Vector } from "@/engine/lib/types";
-import { MockGameObject, patrols } from "@/fixtures/xray";
+import { MockGameObject, MockPatrol, patrols } from "@/fixtures/xray";
 
-describe("patrol utils", () => {
-  it("isObjectAtWaypoint should correctly check whether object is at waypoint", () => {
+describe("isObjectAtWaypoint utils", () => {
+  it("should correctly check whether object is at waypoint", () => {
     const object: GameObject = MockGameObject.mock();
 
     jest.spyOn(object.position(), "distance_to_sqr").mockImplementation(() => 0.131);
@@ -20,8 +25,10 @@ describe("patrol utils", () => {
     expect(isObjectAtWaypoint(object, new patrol("test-wp"), 2)).toBe(true);
     expect(object.position().distance_to_sqr).toHaveBeenCalledWith(patrols["test-wp"].points[2].position);
   });
+});
 
-  it("isObjectAtTerminalWaypoint should correctly check whether object is at terminal waypoint", () => {
+describe("isObjectAtTerminalWaypoint utils", () => {
+  it("should correctly check whether object is at terminal waypoint", () => {
     const object: GameObject = MockGameObject.mock();
     const waypointPatrol: Patrol = new patrol("test-wp");
     const lastPoint: Vector = waypointPatrol.point(2);
@@ -34,8 +41,10 @@ describe("patrol utils", () => {
     expect(isObjectAtTerminalWaypoint(object, waypointPatrol)[0]).toBe(true);
     expect(isObjectAtTerminalWaypoint(object, waypointPatrol)[1]).toBe(2);
   });
+});
 
-  it("isPatrolInRestrictor should correctly check if all patrol points are in restrictor", () => {
+describe("isPatrolInRestrictor utils", () => {
+  it("should correctly check if all patrol points are in restrictor", () => {
     expect(isPatrolInRestrictor("some_restrictor", "some_patrol")).toBeNull();
     expect(isPatrolInRestrictor("some_restrictor", "another_patrol")).toBeNull();
 
@@ -63,6 +72,18 @@ describe("patrol utils", () => {
     expect(isPatrolInRestrictor("test_restrictor", "test_smart_sleep_1")).toBe(false);
     expect(isPatrolInRestrictor("test_restrictor", "test_smart_surge_1_walk")).toBe(true);
   });
+});
 
-  it.todo("choosePatrolWaypointByFlags should correctly choose points matching flags");
+describe("choosePatrolWaypointByFlags util", () => {
+  it.todo("should correctly choose points matching flags");
+});
+
+describe("getPatrolFlag util", () => {
+  it("should correctly choose patrol point flag bit", () => {
+    const patrol: Patrol = MockPatrol.mock("test-wp");
+
+    expect(getPatrolFlag(patrol, 0)).toBe(3);
+    expect(getPatrolFlag(patrol, 1)).toBe(15);
+    expect(getPatrolFlag(patrol, 2)).toBeNull();
+  });
 });

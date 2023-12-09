@@ -25,6 +25,12 @@ export class MockPatrol {
     return MockFlags32.mock();
   }
 
+  public flag(index: TIndex, flag: number): boolean {
+    const normalizedFlag: number = flag + 1;
+
+    return ((this.patrolMock.points[index].flag ?? 0) & normalizedFlag) === normalizedFlag;
+  }
+
   public game_vertex_id(index: TIndex): TNumberId {
     return this.patrolMock.points[index].gvid;
   }

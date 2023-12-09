@@ -5,7 +5,10 @@ import { EStalkerState, ILookTargetDescriptor } from "@/engine/core/animation/ty
 import { getManager, registry, setStalkerState } from "@/engine/core/database";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import { ICampPoint, ISchemeCamperState } from "@/engine/core/schemes/stalker/camper/camper_types";
-import { getNextCampPatrolPoint, isOnCampPatrolPlace } from "@/engine/core/schemes/stalker/camper/utils/camper_utils";
+import {
+  getNextCampPatrolPoint,
+  isOnCampPatrolWalkPoint,
+} from "@/engine/core/schemes/stalker/camper/utils/camper_utils";
 import { isObjectFacingDanger } from "@/engine/core/schemes/stalker/danger/utils";
 import { abort } from "@/engine/core/utils/assertion";
 import { parseWaypointsData } from "@/engine/core/utils/ini";
@@ -224,7 +227,7 @@ export class ActionCloseCombat extends action_base implements ISchemeEventHandle
             this.scan(-1);
           }
         } else {
-          if (isOnCampPatrolPlace(this.object, this.state)) {
+          if (isOnCampPatrolWalkPoint(this.object, this.state)) {
             const position: Optional<ILookTargetDescriptor> =
               this.enemyPosition !== null ? { lookPosition: this.enemyPosition, lookObjectId: null } : null;
 
@@ -257,12 +260,12 @@ export class ActionCloseCombat extends action_base implements ISchemeEventHandle
     }
 
     if (this.state.sniper === true) {
-      if (isOnCampPatrolPlace(this.object, this.state)) {
+      if (isOnCampPatrolWalkPoint(this.object, this.state)) {
         if (this.scantime === null) {
           this.scantime = time_global();
         }
 
-        this.scan(this.state.wpFlag as number);
+        this.scan(this.state.waypointFlag as number);
 
         const [isOnWaypoint] = isObjectAtTerminalWaypoint(
           this.patrolManager.object,
@@ -375,7 +378,8 @@ export class ActionCloseCombat extends action_base implements ISchemeEventHandle
     }
 
     if (this.state.scanBegin === null || now - this.state.scanBegin > this.state.timeScanDelta) {
-      this.nextPoint = getNextCampPatrolPoint(flag, this.state);
+      this.nextPoint = getNextCampPatrolPoint(flag, this.state) as ICampPoint;
+
       if (this.state.curLookPoint === null) {
         this.state.curLookPoint = 1;
       }

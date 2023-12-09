@@ -123,3 +123,18 @@ export function choosePatrolWaypointByFlags(
 
   return $multi(chosenPointIndex, countOfPossiblePoints);
 }
+
+/**
+ * @param patrol - target patrol to check
+ * @param index - point index of the patrol to check
+ * @returns flag 32 bit index or null if patrol is not flagged at all
+ */
+export function getPatrolFlag(patrol: Patrol, index: TIndex): Optional<TIndex> {
+  for (const flag of $range(0, 31)) {
+    if (patrol.flag(index, flag)) {
+      return flag;
+    }
+  }
+
+  return null;
+}

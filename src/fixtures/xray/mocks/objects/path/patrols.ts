@@ -5,7 +5,7 @@ import { MockVector } from "@/fixtures/xray/mocks/vector.mock";
  * Generic patrol mock.
  */
 export interface IPatrolMock {
-  points: Array<{ name: TName; gvid: TNumberId; lvid: TNumberId; position: MockVector }>;
+  points: Array<{ name: TName; gvid: TNumberId; lvid: TNumberId; position: MockVector; flag?: number }>;
 }
 
 /**
@@ -17,8 +17,8 @@ export const patrols: Record<string, IPatrolMock> = {
   },
   "test-wp": {
     points: [
-      { name: "wp00|a=patrol", gvid: 110, lvid: 1000, position: MockVector.create(1, 1, 1) },
-      { name: "wp01|a=patrol", gvid: 111, lvid: 1110, position: MockVector.create(5, 2, 1) },
+      { name: "wp00|a=patrol", gvid: 110, lvid: 1000, position: MockVector.create(1, 1, 1), flag: 12 },
+      { name: "wp01|a=patrol", gvid: 111, lvid: 1110, position: MockVector.create(5, 2, 1), flag: 16 },
       { name: "wp02|a=patrol", gvid: 112, lvid: 1120, position: MockVector.create(4, 1, 3) },
     ],
   },
