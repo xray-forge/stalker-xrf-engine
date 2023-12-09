@@ -5,4 +5,5 @@ import { jest } from "@jest/globals";
  */
 export class MockProfileTimer {
   public start = jest.fn(() => {});
+  public stop = jest.fn(() => {});
 }

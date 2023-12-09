@@ -22,13 +22,13 @@ export class ProfilingPortion {
 
     let target: Optional<LuaArray<TDuration>> = manager.profilingPortions.get(key);
 
-    if (target === null) {
+    if (target) {
+      return new ProfilingPortion(target);
+    } else {
       target = new LuaTable();
       manager.profilingPortions.set(key, target);
 
-      return new ProfilingPortion(manager.profilingPortions.get(key));
-    } else {
-      return new ProfilingPortion(manager.profilingPortions.get(key));
+      return new ProfilingPortion(target);
     }
   }
 

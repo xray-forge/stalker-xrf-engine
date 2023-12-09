@@ -17,6 +17,8 @@ const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * Debug manager to work with UI overlay components / console commands and help debugging the game.
+ *
+ * todo: move to debug utils?
  */
 export class DebugManager extends AbstractManager {
   /**

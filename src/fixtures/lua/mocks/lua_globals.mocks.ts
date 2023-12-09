@@ -65,6 +65,8 @@ export function mockLuaGlobals(): void {
   // @ts-ignore
   global.tostring = jest.fn(mockToString);
   // @ts-ignore
+  global.collectgarbage = jest.fn(() => 1024);
+  // @ts-ignore
   global.type = jest.fn(mockType);
   // @ts-ignore
   global.pairs = jest.fn((target: object) => Object.entries(target));

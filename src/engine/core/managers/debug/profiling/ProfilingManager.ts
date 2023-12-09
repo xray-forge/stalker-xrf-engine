@@ -20,7 +20,7 @@ export class ProfilingManager extends AbstractManager {
 
   public countersMap: LuaTable<AnyCallable, IProfileSnapshotDescriptor> = new LuaTable();
   public namesMap: LuaTable<AnyCallable, debug.FunctionInfo> = new LuaTable();
-  public callsCountMap: LuaTable<AnyCallable, { info: debug.FunctionInfo; count: number }> = new LuaTable();
+  public callsCountMap: LuaTable<AnyCallable, { info: debug.FunctionInfo; count: TCount }> = new LuaTable();
 
   public profilingTimer: ProfileTimer = new profile_timer();
   public isProfilingStarted: boolean = false;
@@ -32,28 +32,12 @@ export class ProfilingManager extends AbstractManager {
   public mode: string = "r";
 
   /**
-   * Initialize profiling manager automatically based on set preferences.
-   * Print warnings about state of 'debug', 'jit' and profiling.
+   * Initialize profiling manager automatically based on current preferences.
+   * Hook up automatic profiling instantly if needed.
    */
   public override initialize(): void {
-    if (!forgeConfig.DEBUG.IS_PROFILING_ENABLED) {
-      return;
-    }
-
-    // If settings allow, start profiling from init process.
-    logger.info("Initialize profiling manager in mode:", this.mode);
-
-    if (jit !== null) {
-      logger.warn("Take care, jit is enabled so profiling stats may be incorrect");
-      logger.warn("For correct profiling run game with '-nojit' flag");
-    }
-
-    // Ensure all conditions for profiling start are met
-    if (debug !== null) {
-      logger.info("Profiling enabled, JIT disabled, going to setup hook");
-      this.setupHook();
-    } else {
-      logger.info("Debug is not enabled, skip profiling");
+    if (forgeConfig.DEBUG.IS_PROFILING_ENABLED) {
+      this.start();
     }
   }
 
@@ -61,7 +45,7 @@ export class ProfilingManager extends AbstractManager {
    * Destroy manager - clear data and bound hooks.
    */
   public override destroy(): void {
-    this.clear();
+    this.stop();
   }
 
   /**
@@ -103,10 +87,30 @@ export class ProfilingManager extends AbstractManager {
   }
 
   /**
-   * Reset stats and clear hook if it is enabled.
+   * Start profiling of lua execution - attach hooks and start measuring time/counts of executions.
    */
-  public clear(): void {
-    if (this.isProfilingStarted === true) {
+  public start(): void {
+    logger.info("Start profiling manager in mode:", this.mode);
+
+    if (jit !== null) {
+      logger.warn("Take care, jit is enabled so profiling stats may be incorrect");
+      logger.warn("For correct profiling run game with '-nojit' flag");
+    }
+
+    // Ensure all conditions for profiling start are met
+    if (debug !== null) {
+      logger.info("Profiling enabled, JIT disabled, going to setup hook");
+      this.setupHook();
+    } else {
+      logger.info("Debug is not enabled, skip profiling");
+    }
+  }
+
+  /**
+   * Reset stats and clear hook if it is attached.
+   */
+  public stop(): void {
+    if (this.isProfilingStarted) {
       this.clearHook();
     }
 
@@ -147,10 +151,10 @@ export class ProfilingManager extends AbstractManager {
   }
 
   /**
-   * todo: Description.
+   * Detach profiling hook from debugging context.
    */
   public clearHook(): void {
-    if (this.isProfilingStarted === false) {
+    if (!this.isProfilingStarted) {
       logger.info("Profiler hook wasn't setup!");
 
       return;
