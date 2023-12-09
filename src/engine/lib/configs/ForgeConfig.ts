@@ -1,6 +1,6 @@
 import { ini_file } from "xray16";
 
-import { readIniBoolean, readIniString } from "@/engine/core/utils/ini/ini_read";
+import { readIniBoolean, readIniString, readIniStringWB } from "@/engine/core/utils/ini/ini_read";
 import { IniFile } from "@/engine/lib/types";
 
 export const FORGE_CONFIG_LTX: IniFile = new ini_file("forge.ltx");
@@ -10,7 +10,7 @@ export const FORGE_CONFIG_LTX: IniFile = new ini_file("forge.ltx");
  * Used to define some dev flags/features.
  */
 export const forgeConfig = {
-  VERSION: readIniString(FORGE_CONFIG_LTX, "config", "version", true),
+  VERSION: readIniStringWB(FORGE_CONFIG_LTX, "config", "version", true),
   ARE_INTRO_VIDEOS_ENABLED: readIniBoolean(FORGE_CONFIG_LTX, "config", "intro_videos_enabled", true),
   EXTENSIONS: {
     ENABLED: readIniBoolean(FORGE_CONFIG_LTX, "extensions", "enabled", true),

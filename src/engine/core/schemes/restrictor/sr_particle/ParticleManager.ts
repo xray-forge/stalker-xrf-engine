@@ -8,7 +8,7 @@ import {
 } from "@/engine/core/schemes/restrictor/sr_particle/sr_particale_types";
 import { IWaypointData, parseWaypointsData } from "@/engine/core/utils/ini";
 import { trySwitchToAnotherSection } from "@/engine/core/utils/scheme/scheme_switch";
-import { LuaArray, Optional, ParticlesObject, Patrol, TCount, TIndex, TTimestamp, Vector } from "@/engine/lib/types";
+import { LuaArray, Optional, ParticlesObject, Patrol, TCount, TName, TTimestamp, Vector } from "@/engine/lib/types";
 
 /**
  * todo;
@@ -32,12 +32,25 @@ export class ParticleManager extends AbstractSchemeManager<ISchemeParticleState>
 
       // Make sure order is maintained with range loop.
       for (const it of $range(1, path.count())) {
-        const pointIndex: TIndex = it - 1;
+        const waypointData: IWaypointData = flags.get(it - 1);
+        const soundName: Optional<TName> = waypointData.s as Optional<TName>;
+        const delay: TCount = waypointData["d"] ? tonumber(waypointData["d"]) ?? 0 : 0;
+
+        /**
+         *     local sound_name = nil
+         *            if flags[a - 1]["s"] ~= nil then
+         *               sound_name = flags[a - 1]["s"]
+         *            end
+         *            local snd_obj = nil
+         *            if sound_name ~= nil and sound_name ~= "" then
+         *               snd_obj = xr_sound.get_sound_object(sound_name, "random")
+         *            end
+         */
 
         this.particles.set(it, {
           particle: new particles_object(this.state.name),
           sound: null,
-          delay: flags.get(pointIndex)["d"] ? tonumber(flags.get(pointIndex)["d"]) ?? 0 : 0,
+          delay,
           time: now,
           played: false,
         });
@@ -191,3 +204,100 @@ export class ParticleManager extends AbstractSchemeManager<ISchemeParticleState>
     return true;
   }
 }
+
+/*
+ * todo: implement
+ *
+ *
+-- modified by Alundaio (original: ????)
+--' ������� ��� �������� ��������� ����� ��������.
+--' type = [random|seq|looped]
+local ltx = ini_file("plugins\\radio_music.ltx")
+function get_sound_object(theme, t_type)
+	if not (ph_snd_themes) then
+		ph_snd_themes = {}
+		ph_snd_themes[theme] = alun_utils.collect_section(ltx,theme)
+		--printf("collect theme=%s",theme)
+	end
+
+	if (not ph_snd_themes or not ph_snd_themes[theme]) then
+		--printf("no ph_snd_themes theme=%s",theme)
+		return
+	end
+
+	if not (sound_object_by_theme) then
+		sound_object_by_theme = {}
+	end
+
+	if (not sound_object_by_theme[theme])then
+		sound_object_by_theme[theme] = {}
+	end
+
+	if t_type == nil then
+		t_type = "random"
+	end
+
+	--' ����� ���������� ���������
+	local play_id = -1
+
+	local table_size = #ph_snd_themes[theme]
+
+	if (table_size == 0) then
+		return
+	end
+
+	--printf("tablesize = %s theme=%s",table_size,theme)
+	if sound_object_by_theme[theme].last_id == nil then
+		if t_type == "random" then
+			if table_size >= 2 then
+				play_id = math.random(1, table_size)
+			else
+				play_id = 1
+			end
+		else
+			play_id = 1
+		end
+	else
+		if t_type == "random" then
+			if table_size >= 2 then
+				play_id = math.random(1, table_size - 1)
+				if play_id >= sound_object_by_theme[theme].last_id then play_id = play_id + 1 end
+			else
+				play_id = 1
+			end
+		else
+			if sound_object_by_theme[theme].last_id < table_size then
+				play_id = sound_object_by_theme[theme].last_id + 1
+			else
+				if type == "looped" then
+					play_id = 1
+				end
+			end
+		end
+	end
+
+	if play_id == -1 then
+		return
+	end
+
+	--' ��������� ������ �� � ��� ��������������� ����� ������ ��� ��� ���� �������
+	if sound_object_by_theme[theme][play_id] == nil then
+		if type(ph_snd_themes[theme][play_id]) == "table" then
+			sound_object_by_theme[theme][play_id.."_r"] = get_safe_sound_object(ph_snd_themes[theme][play_id][1].."_r")
+			sound_object_by_theme[theme][play_id.."_l"] = get_safe_sound_object(ph_snd_themes[theme][play_id][1].."_l")
+		else
+			sound_object_by_theme[theme][play_id] = get_safe_sound_object(ph_snd_themes[theme][play_id])
+		end
+	end
+
+	sound_object_by_theme[theme].last_id = play_id
+
+	--' ���������� ����� ������
+	if type(ph_snd_themes[theme][play_id]) == "table" then
+		return sound_object_by_theme[theme][play_id.."_r"], sound_object_by_theme[theme][play_id.."_l"]
+	else
+		return sound_object_by_theme[theme][play_id]
+	end
+end
+
+ */

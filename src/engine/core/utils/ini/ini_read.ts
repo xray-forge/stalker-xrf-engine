@@ -48,6 +48,46 @@ export function readIniString<D = string>(
 }
 
 /**
+ * Read string field from provided ini file section.
+ * WB variants preserves spaces in read data and strips quotes from original data.
+ *
+ * @param ini - config file to read
+ * @param section - config section to read
+ * @param field - section field to read
+ * @param required - whether field is required, throw exception if field is required and not present
+ * @param prefix - prefix for return values
+ * @param defaultValue - value to use in case if ini field is missing
+ * @returns value from ini file section or default value if section is not declared in ini
+ */
+export function readIniStringWB<D = string>(
+  ini: IniFile,
+  section: Optional<TSection>,
+  field: TName,
+  required: boolean,
+  prefix: Optional<string> = null,
+  defaultValue: D = null as unknown as D
+): D {
+  if (required === null) {
+    return abort("Section '%s', wrong arguments order in call to 'readIniString'.", section);
+  }
+
+  if (section && ini.section_exist(section) && ini.line_exist(section, field)) {
+    // todo: Resolve prefix. Probably should change order of default value and prefix.
+    if (prefix && prefix !== "") {
+      return string.format("%s_%s", prefix, ini.r_string_wb(section, field)) as D;
+    } else {
+      return ini.r_string_wb(section, field) as D;
+    }
+  }
+
+  if (required) {
+    return abort("Attempt to read a non-existent string field '%s' in section '%s'.", field, section);
+  }
+
+  return defaultValue as D;
+}
+
+/**
  * Read string list field from provided ini file section and parse as comma separated array.
  *
  * @param ini - config file to read
