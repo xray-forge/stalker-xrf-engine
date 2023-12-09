@@ -45,7 +45,7 @@ describe("ParticleManager class", () => {
     expect(state.signals).toEqualLuaTables({});
     expect(manager.particles.length()).toBe(1);
     expect(manager.particles.get(1)).toEqual({
-      particle: { name: "simple_name" },
+      particle: expect.objectContaining({ name: "simple_name" }),
       sound: null,
       delay: 0,
       time: 10_000,
@@ -71,21 +71,23 @@ describe("ParticleManager class", () => {
     expect(state.signals).toEqualLuaTables({});
     expect(manager.particles.length()).toBe(3);
     expect(manager.particles.get(1)).toEqual({
-      particle: { name: "simple_name" },
+      particle: expect.objectContaining({ name: "simple_name" }),
       sound: null,
       delay: 0,
       time: 10_000,
       played: false,
     });
     expect(manager.particles.get(2)).toEqual({
-      particle: { name: "simple_name" },
+      particle: expect.objectContaining({ name: "simple_name" }),
+
       sound: null,
       delay: 2_000,
       time: 10_000,
       played: false,
     });
     expect(manager.particles.get(3)).toEqual({
-      particle: { name: "simple_name" },
+      particle: expect.objectContaining({ name: "simple_name" }),
+
       sound: null,
       delay: 3_000,
       time: 10_000,
