@@ -20,7 +20,7 @@ export class ProfilingPortion {
     const functionRef: AnyCallable = functionInfo.func as AnyCallable;
     const key: AnyCallable | TName = name ?? functionRef;
 
-    let target: Optional<LuaArray<TDuration>> = manager.profilingPortions.get(key);
+    let target: Optional<LuaArray<TDuration>> = manager.profilingPortions.get(key) as Optional<LuaArray<TDuration>>;
 
     if (target) {
       return new ProfilingPortion(target);

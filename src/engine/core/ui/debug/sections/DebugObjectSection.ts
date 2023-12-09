@@ -1,9 +1,15 @@
 import { CUI3tButton, CUICheckButton, CUIStatic, level, LuabindClass, ui_events } from "xray16";
 
-import { getManager, registry } from "@/engine/core/database";
-import { DebugManager } from "@/engine/core/managers/debug/DebugManager";
+import { registry } from "@/engine/core/database";
 import type { Squad } from "@/engine/core/objects/squad";
 import { AbstractDebugSection } from "@/engine/core/ui/debug/sections/AbstractDebugSection";
+import {
+  logObjectInventoryItems,
+  logObjectPlannerState,
+  logObjectRelations,
+  logObjectState,
+  logObjectStateManager,
+} from "@/engine/core/utils/debug/debug_log";
 import { isGameStarted } from "@/engine/core/utils/game";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { setObjectWounded } from "@/engine/core/utils/object";
@@ -154,7 +160,7 @@ export class DebugObjectSection extends AbstractDebugSection {
     const targetObject: Optional<GameObject> = this.getCurrentObject();
 
     if (targetObject) {
-      getManager(DebugManager).logObjectPlannerState(targetObject);
+      logObjectPlannerState(targetObject);
     } else {
       logger.info("No object found for action state print");
     }
@@ -168,7 +174,7 @@ export class DebugObjectSection extends AbstractDebugSection {
     const targetObject: Optional<GameObject> = this.getCurrentObject();
 
     if (targetObject) {
-      getManager(DebugManager).logObjectInventoryItems(targetObject);
+      logObjectInventoryItems(targetObject);
     } else {
       logger.info("No object found for inventory state print");
     }
@@ -182,7 +188,7 @@ export class DebugObjectSection extends AbstractDebugSection {
     const targetObject: Optional<GameObject> = this.getCurrentObject();
 
     if (targetObject) {
-      getManager(DebugManager).logObjectState(targetObject);
+      logObjectState(targetObject);
     } else {
       logger.info("No object found for scheme state print");
     }
@@ -196,7 +202,7 @@ export class DebugObjectSection extends AbstractDebugSection {
     const targetObject: Optional<GameObject> = this.getCurrentObject();
 
     if (targetObject) {
-      getManager(DebugManager).logObjectRelations(targetObject);
+      logObjectRelations(targetObject);
     } else {
       logger.info("No object found for relations state print");
     }
@@ -210,7 +216,7 @@ export class DebugObjectSection extends AbstractDebugSection {
     const targetObject: Optional<GameObject> = this.getCurrentObject();
 
     if (targetObject) {
-      getManager(DebugManager).logObjectStateManager(targetObject);
+      logObjectStateManager(targetObject);
     } else {
       logger.info("No object found for state manager report");
     }

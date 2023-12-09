@@ -1,3 +1,5 @@
+import { jest } from "@jest/globals";
+
 import {
   ActionBase,
   ActionPlanner,
@@ -77,6 +79,8 @@ export class MockActionPlanner extends MockLuabindClass {
   public evaluator(id: TNumberId): Optional<MockPropertyEvaluator> {
     return (this.evaluators[id] as unknown as MockPropertyEvaluator) || null;
   }
+
+  public show = jest.fn();
 
   public asMock(): ActionPlanner {
     return this as unknown as ActionPlanner;

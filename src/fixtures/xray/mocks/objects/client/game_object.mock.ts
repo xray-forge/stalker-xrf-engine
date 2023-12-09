@@ -161,6 +161,7 @@ export function mockGameObject({
       }),
     best_enemy: rest.best_enemy ?? jest.fn(() => null),
     best_danger: rest.best_danger ?? jest.fn(() => null),
+    best_item: rest.best_weapon ?? jest.fn(() => null),
     best_weapon: rest.best_weapon ?? jest.fn(() => null),
     bind_object: rest.bind_object ?? jest.fn(),
     bleeding,
