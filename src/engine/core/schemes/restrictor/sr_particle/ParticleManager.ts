@@ -129,7 +129,7 @@ export class ParticleManager extends AbstractSchemeManager<ISchemeParticleState>
    * todo: Description.
    */
   public isEnd(): boolean {
-    if (this.state.looped === true || this.isFirstPlayed) {
+    if (this.state.looped || this.isFirstPlayed) {
       return false;
     }
 
@@ -174,12 +174,13 @@ export class ParticleManager extends AbstractSchemeManager<ISchemeParticleState>
     const time: TTimestamp = time_global();
 
     for (const it of $range(1, size)) {
-      const particle = this.particles.get(it);
+      const particle: IParticleDescriptor = this.particles.get(it);
 
       if (time - particle.time > particle.delay && particle.particle.playing() === false) {
         if (particle.played === false) {
           particle.particle.play_at_pos(this.path!.point(it - 1));
-          if (particle.snd !== null) {
+
+          if (particle.snd) {
             particle.snd.play_at_pos(this.object, this.path!.point(it - 1), 0);
           }
 
@@ -188,7 +189,8 @@ export class ParticleManager extends AbstractSchemeManager<ISchemeParticleState>
         } else {
           if (this.state.looped === true) {
             particle.particle.play_at_pos(this.path!.point(it - 1));
-            if (particle.snd !== null) {
+
+            if (particle.snd) {
               particle.snd.play_at_pos(this.object, this.path!.point(it - 1), 0);
             }
           }

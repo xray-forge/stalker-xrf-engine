@@ -31,11 +31,11 @@ export class SchemeParticle extends AbstractScheme {
     state.looped = readIniBoolean(ini, section, "looped", false);
 
     if (state.path === null || state.path === "") {
-      abort("Scheme sr_particle: invalid path name");
+      abort("Scheme sr_particle: invalid path name in configuration.");
     }
 
     if (state.mode !== 1 && state.mode !== 2) {
-      abort("Scheme sr_particle: invalid mode");
+      abort("Scheme sr_particle: invalid mode in configuration.");
     }
 
     return state;
