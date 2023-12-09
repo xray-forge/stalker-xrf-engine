@@ -7,7 +7,7 @@ import type { Optional, ParticlesObject, SoundObject, TDuration, TName, TTimesta
 export interface ISchemeParticleState extends IBaseSchemeState {
   name: TName;
   path: TName;
-  mode: number;
+  mode: EParticleBehaviour;
   looped: boolean;
 }
 
@@ -20,4 +20,13 @@ export interface IParticleDescriptor {
   delay: TDuration;
   time: TTimestamp;
   played: boolean;
+}
+
+/**
+ * Mode of particle behaviour.
+ * todo: Clarify meaning.
+ */
+export enum EParticleBehaviour {
+  FIRST = 1,
+  SECOND = 2,
 }

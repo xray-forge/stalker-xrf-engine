@@ -1,6 +1,9 @@
 import { AbstractScheme } from "@/engine/core/ai/scheme";
 import { ParticleManager } from "@/engine/core/schemes/restrictor/sr_particle/ParticleManager";
-import { ISchemeParticleState } from "@/engine/core/schemes/restrictor/sr_particle/sr_particale_types";
+import {
+  EParticleBehaviour,
+  ISchemeParticleState,
+} from "@/engine/core/schemes/restrictor/sr_particle/sr_particale_types";
 import { abort } from "@/engine/core/utils/assertion";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini/ini_config";
 import { readIniBoolean, readIniNumber, readIniString } from "@/engine/core/utils/ini/ini_read";
@@ -34,7 +37,7 @@ export class SchemeParticle extends AbstractScheme {
       abort("Scheme sr_particle: invalid path name in configuration.");
     }
 
-    if (state.mode !== 1 && state.mode !== 2) {
+    if (state.mode !== EParticleBehaviour.FIRST && state.mode !== EParticleBehaviour.SECOND) {
       abort("Scheme sr_particle: invalid mode in configuration.");
     }
 
