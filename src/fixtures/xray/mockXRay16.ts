@@ -119,6 +119,7 @@ import {
   MockTorridZone,
   MockZoneVisual,
 } from "@/fixtures/xray/mocks/objects";
+import { MockParticleObject } from "@/fixtures/xray/mocks/particle_object.mock";
 import { MockProfileTimer } from "@/fixtures/xray/mocks/ProfileTimer.mock";
 import { MockPropertiesHelper } from "@/fixtures/xray/mocks/properties_helper.mock";
 import { MockPropertyEvaluator } from "@/fixtures/xray/mocks/PropertyEvaluator.mock";
@@ -236,6 +237,7 @@ export function mockXRay16({
   noise = MockNoise,
   object = MockObject,
   object_binder = MockObjectBinder,
+  particles_object = MockParticleObject,
   patrol = MockPatrol,
   physics_joint = MockPhysicsJoint,
   physics_shell = MockPhysicsShell,
@@ -372,6 +374,7 @@ export function mockXRay16({
     noise,
     object,
     object_binder,
+    particles_object,
     patrol,
     physics_joint,
     physics_shell,

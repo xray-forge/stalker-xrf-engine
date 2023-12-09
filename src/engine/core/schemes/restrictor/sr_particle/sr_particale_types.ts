@@ -24,9 +24,8 @@ export interface IParticleDescriptor {
 
 /**
  * Mode of particle behaviour.
- * todo: Clarify meaning.
  */
 export enum EParticleBehaviour {
-  FIRST = 1,
-  SECOND = 2,
+  SIMPLE = 1,
+  COMPLEX = 2,
 }

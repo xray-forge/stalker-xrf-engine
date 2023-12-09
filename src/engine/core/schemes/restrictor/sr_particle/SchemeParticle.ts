@@ -37,7 +37,7 @@ export class SchemeParticle extends AbstractScheme {
       abort("Scheme sr_particle: invalid path name in configuration.");
     }
 
-    if (state.mode !== EParticleBehaviour.FIRST && state.mode !== EParticleBehaviour.SECOND) {
+    if (state.mode !== EParticleBehaviour.SIMPLE && state.mode !== EParticleBehaviour.COMPLEX) {
       abort("Scheme sr_particle: invalid mode in configuration.");
     }
 

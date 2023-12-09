@@ -8,7 +8,7 @@ import {
 } from "@/engine/core/schemes/restrictor/sr_particle/sr_particale_types";
 import { IWaypointData, parseWaypointsData } from "@/engine/core/utils/ini";
 import { trySwitchToAnotherSection } from "@/engine/core/utils/scheme/scheme_switch";
-import { LuaArray, Optional, ParticlesObject, Patrol, TCount, TIndex, TTimestamp } from "@/engine/lib/types";
+import { LuaArray, Optional, ParticlesObject, Patrol, TCount, TIndex, TTimestamp, Vector } from "@/engine/lib/types";
 
 /**
  * todo;
@@ -24,7 +24,7 @@ export class ParticleManager extends AbstractSchemeManager<ISchemeParticleState>
   public override activate(): void {
     const now: TTimestamp = time_global();
 
-    if (this.state.mode === EParticleBehaviour.SECOND) {
+    if (this.state.mode === EParticleBehaviour.COMPLEX) {
       const path: Patrol = new patrol(this.state.path);
       const flags: LuaArray<IWaypointData> = parseWaypointsData(this.state.path)!;
 
@@ -89,10 +89,10 @@ export class ParticleManager extends AbstractSchemeManager<ISchemeParticleState>
     }
 
     if (this.isStarted) {
-      if (this.state.mode === EParticleBehaviour.FIRST) {
-        this.updateMode1();
+      if (this.state.mode === EParticleBehaviour.SIMPLE) {
+        this.updateSimple();
       } else {
-        this.updateMode2();
+        this.updateComplex();
       }
 
       this.isEnded();
@@ -101,7 +101,7 @@ export class ParticleManager extends AbstractSchemeManager<ISchemeParticleState>
     } else {
       this.isStarted = true;
 
-      if (this.state.mode === EParticleBehaviour.FIRST) {
+      if (this.state.mode === EParticleBehaviour.SIMPLE) {
         const descriptor: IParticleDescriptor = this.particles.get(1);
 
         descriptor.particle.load_path(this.state.path);
@@ -120,7 +120,7 @@ export class ParticleManager extends AbstractSchemeManager<ISchemeParticleState>
    * Handle loop playback scenario.
    * todo: Description.
    */
-  public updateMode1(): void {
+  public updateSimple(): void {
     if (this.state.looped) {
       const particle: ParticlesObject = this.particles.get(1).particle;
 
@@ -133,7 +133,7 @@ export class ParticleManager extends AbstractSchemeManager<ISchemeParticleState>
   /**
    * todo: Description.
    */
-  public updateMode2(): void {
+  public updateComplex(): void {
     const now: TTimestamp = time_global();
 
     // Make sure order is maintained with range loop.
@@ -141,23 +141,23 @@ export class ParticleManager extends AbstractSchemeManager<ISchemeParticleState>
       const descriptor: IParticleDescriptor = this.particles.get(it);
 
       if (now - descriptor.time > descriptor.delay && !descriptor.particle.playing()) {
-        const pointIndex: TIndex = it - 1;
+        const position: Vector = this.path!.point(it - 1);
 
         if (!descriptor.played) {
-          descriptor.particle.play_at_pos(this.path!.point(pointIndex));
+          descriptor.particle.play_at_pos(position);
 
           if (descriptor.sound) {
-            descriptor.sound.play_at_pos(this.object, this.path!.point(pointIndex), 0);
+            descriptor.sound.play_at_pos(this.object, position, 0);
           }
 
           descriptor.played = true;
 
           this.isFirstPlayed = true;
         } else if (this.state.looped) {
-          descriptor.particle.play_at_pos(this.path!.point(pointIndex));
+          descriptor.particle.play_at_pos(position);
 
           if (descriptor.sound) {
-            descriptor.sound.play_at_pos(this.object, this.path!.point(pointIndex), 0);
+            descriptor.sound.play_at_pos(this.object, position, 0);
           }
         }
       }
@@ -169,7 +169,7 @@ export class ParticleManager extends AbstractSchemeManager<ISchemeParticleState>
    * todo: Description.
    */
   public isEnded(): boolean {
-    if (this.state.looped || this.isFirstPlayed) {
+    if (this.state.looped || !this.isFirstPlayed) {
       return false;
     }
 
@@ -181,9 +181,7 @@ export class ParticleManager extends AbstractSchemeManager<ISchemeParticleState>
 
     // Make sure order is maintained with range loop.
     for (const it of $range(1, count)) {
-      const particle: ParticlesObject = this.particles.get(it).particle;
-
-      if (particle?.playing()) {
+      if (this.particles.get(it).particle.playing()) {
         return false;
       }
     }
