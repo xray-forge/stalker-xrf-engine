@@ -6,10 +6,9 @@ import {
   IParticleDescriptor,
   ISchemeParticleState,
 } from "@/engine/core/schemes/restrictor/sr_particle/sr_particale_types";
-import { parseWaypointsData } from "@/engine/core/utils/ini/ini_parse";
-import { IWaypointData } from "@/engine/core/utils/ini/ini_types";
+import { IWaypointData, parseWaypointsData } from "@/engine/core/utils/ini";
 import { trySwitchToAnotherSection } from "@/engine/core/utils/scheme/scheme_switch";
-import { LuaArray, Optional, ParticlesObject, Patrol, TCount, TDuration, TIndex, TTimestamp } from "@/engine/lib/types";
+import { LuaArray, Optional, ParticlesObject, Patrol, TCount, TIndex, TTimestamp } from "@/engine/lib/types";
 
 /**
  * todo;
@@ -26,37 +25,33 @@ export class ParticleManager extends AbstractSchemeManager<ISchemeParticleState>
     const now: TTimestamp = time_global();
 
     if (this.state.mode === EParticleBehaviour.SECOND) {
-      this.path = new patrol(this.state.path);
-
+      const path: Patrol = new patrol(this.state.path);
       const flags: LuaArray<IWaypointData> = parseWaypointsData(this.state.path)!;
 
-      // Make sure order is maintained with range loop.
-      for (const it of $range(1, this.path.count())) {
-        let delay: TDuration = 0;
-        const pointIndex: TIndex = it - 1;
+      this.path = path;
 
-        if (flags.get(pointIndex)["d"]) {
-          delay = tonumber(flags.get(pointIndex)["d"]) ?? 0;
-        }
+      // Make sure order is maintained with range loop.
+      for (const it of $range(1, path.count())) {
+        const pointIndex: TIndex = it - 1;
 
         this.particles.set(it, {
           particle: new particles_object(this.state.name),
-          snd: null,
-          delay: delay,
+          sound: null,
+          delay: flags.get(pointIndex)["d"] ? tonumber(flags.get(pointIndex)["d"]) ?? 0 : 0,
           time: now,
           played: false,
         });
       }
     } else {
+      this.path = null;
+
       this.particles.set(1, {
         particle: new particles_object(this.state.name),
-        snd: null,
+        sound: null,
         delay: 0,
         time: now,
         played: false,
       });
-
-      this.path = null;
     }
 
     this.updatedAt = 0;
@@ -68,19 +63,19 @@ export class ParticleManager extends AbstractSchemeManager<ISchemeParticleState>
   public override deactivate(): void {
     // Make sure order is maintained with range loop.
     for (const it of $range(1, this.particles.length())) {
-      const particle: IParticleDescriptor = this.particles.get(it);
+      const descriptor: IParticleDescriptor = this.particles.get(it);
 
-      if (particle.particle.playing()) {
-        particle.particle.stop();
+      if (descriptor.particle.playing()) {
+        descriptor.particle.stop();
       }
 
-      particle.particle = null as unknown as ParticlesObject;
+      descriptor.particle = null as unknown as ParticlesObject;
 
-      if (particle.snd && particle.snd.playing()) {
-        particle.snd.stop();
+      if (descriptor.sound?.playing()) {
+        descriptor.sound.stop();
       }
 
-      particle.snd = null;
+      descriptor.sound = null;
     }
   }
 
@@ -94,31 +89,79 @@ export class ParticleManager extends AbstractSchemeManager<ISchemeParticleState>
     }
 
     if (this.isStarted) {
+      if (this.state.mode === EParticleBehaviour.FIRST) {
+        this.updateMode1();
+      } else {
+        this.updateMode2();
+      }
+
+      this.isEnded();
+
+      trySwitchToAnotherSection(this.object, this.state);
+    } else {
       this.isStarted = true;
 
       if (this.state.mode === EParticleBehaviour.FIRST) {
-        const particle: IParticleDescriptor = this.particles.get(1);
+        const descriptor: IParticleDescriptor = this.particles.get(1);
 
-        particle.particle.load_path(this.state.path);
-        particle.particle.start_path(this.state.looped);
-        particle.particle.play();
-        particle.played = true;
+        descriptor.particle.load_path(this.state.path);
+        descriptor.particle.start_path(this.state.looped);
+        descriptor.particle.play();
+        descriptor.played = true;
 
         this.isFirstPlayed = true;
       }
 
       return;
     }
+  }
 
-    if (this.state.mode === EParticleBehaviour.FIRST) {
-      this.updateMode1();
-    } else {
-      this.updateMode2();
+  /**
+   * Handle loop playback scenario.
+   * todo: Description.
+   */
+  public updateMode1(): void {
+    if (this.state.looped) {
+      const particle: ParticlesObject = this.particles.get(1).particle;
+
+      if (!particle.playing()) {
+        particle.play();
+      }
     }
+  }
 
-    this.isEnded();
+  /**
+   * todo: Description.
+   */
+  public updateMode2(): void {
+    const now: TTimestamp = time_global();
 
-    trySwitchToAnotherSection(this.object, this.state);
+    // Make sure order is maintained with range loop.
+    for (const it of $range(1, this.particles.length())) {
+      const descriptor: IParticleDescriptor = this.particles.get(it);
+
+      if (now - descriptor.time > descriptor.delay && !descriptor.particle.playing()) {
+        const pointIndex: TIndex = it - 1;
+
+        if (!descriptor.played) {
+          descriptor.particle.play_at_pos(this.path!.point(pointIndex));
+
+          if (descriptor.sound) {
+            descriptor.sound.play_at_pos(this.object, this.path!.point(pointIndex), 0);
+          }
+
+          descriptor.played = true;
+
+          this.isFirstPlayed = true;
+        } else if (this.state.looped) {
+          descriptor.particle.play_at_pos(this.path!.point(pointIndex));
+
+          if (descriptor.sound) {
+            descriptor.sound.play_at_pos(this.object, this.path!.point(pointIndex), 0);
+          }
+        }
+      }
+    }
   }
 
   /**
@@ -148,52 +191,5 @@ export class ParticleManager extends AbstractSchemeManager<ISchemeParticleState>
     this.state.signals!.set("particle_end", true);
 
     return true;
-  }
-
-  /**
-   * Handle loop playback scenario.
-   * todo: Description.
-   */
-  public updateMode1(): void {
-    if (this.state.looped) {
-      const particle: ParticlesObject = this.particles.get(1).particle;
-
-      if (!particle.playing()) {
-        particle.play();
-      }
-    }
-  }
-
-  /**
-   * todo: Description.
-   */
-  public updateMode2(): void {
-    const now: TTimestamp = time_global();
-
-    // Make sure order is maintained with range loop.
-    for (const it of $range(1, this.particles.length())) {
-      const particle: IParticleDescriptor = this.particles.get(it);
-
-      if (now - particle.time > particle.delay && !particle.particle.playing()) {
-        const pointIndex: TIndex = it - 1;
-
-        if (!particle.played) {
-          particle.particle.play_at_pos(this.path!.point(pointIndex));
-
-          if (particle.snd) {
-            particle.snd.play_at_pos(this.object, this.path!.point(pointIndex), 0);
-          }
-
-          particle.played = true;
-          this.isFirstPlayed = true;
-        } else if (this.state.looped) {
-          particle.particle.play_at_pos(this.path!.point(pointIndex));
-
-          if (particle.snd) {
-            particle.snd.play_at_pos(this.object, this.path!.point(pointIndex), 0);
-          }
-        }
-      }
-    }
   }
 }

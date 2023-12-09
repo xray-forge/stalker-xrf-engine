@@ -16,7 +16,7 @@ export interface ISchemeParticleState extends IBaseSchemeState {
  */
 export interface IParticleDescriptor {
   particle: ParticlesObject;
-  snd: Optional<SoundObject>;
+  sound: Optional<SoundObject>;
   delay: TDuration;
   time: TTimestamp;
   played: boolean;
