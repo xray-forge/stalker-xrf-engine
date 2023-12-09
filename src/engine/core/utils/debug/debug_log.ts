@@ -1,4 +1,4 @@
-import { cast_planner, relation_registry } from "xray16";
+import { cast_planner, CTime, relation_registry } from "xray16";
 
 import { StalkerStateManager } from "@/engine/core/ai/state";
 import { EActionId, EStateActionId } from "@/engine/core/ai/types";
@@ -205,7 +205,7 @@ export function logObjectState(object: GameObject): void {
   logger.info("Activation time:", state.activationTime);
   logger.info(
     "Activation game time:",
-    state.activationGameTime === null ? NIL : gameTimeToString(state.activationGameTime)
+    (state.activationGameTime as Optional<CTime>) ? gameTimeToString(state.activationGameTime) : NIL
   );
   logger.info("Portable store:", toJSON(state.portableStore));
   logger.info("State overrides:", toJSON(state.overrides));
