@@ -1,12 +1,17 @@
 import { beforeAll, beforeEach, describe, expect, it, jest } from "@jest/globals";
-import { level } from "xray16";
+import { game } from "xray16";
 
 import { getManager } from "@/engine/core/database";
 import { ActorInputManager } from "@/engine/core/managers/actor";
+import { giveItemsToActor } from "@/engine/core/utils/reward";
 import { TRUE } from "@/engine/lib/constants/words";
 import { callXrEffect, checkXrEffect, resetRegistry } from "@/fixtures/engine";
 import { resetFunctionMock } from "@/fixtures/jest";
 import { MockGameObject } from "@/fixtures/xray";
+
+jest.mock("@/engine/core/utils/reward", () => ({
+  giveItemsToActor: jest.fn(),
+}));
 
 describe("actor effects declaration", () => {
   beforeAll(() => {
@@ -52,6 +57,9 @@ describe("actor effects implementation", () => {
 
   beforeEach(() => {
     resetRegistry();
+
+    resetFunctionMock(game.start_tutorial);
+    resetFunctionMock(giveItemsToActor);
   });
 
   it("disable_ui should correctly call manager methods", () => {
@@ -85,5 +93,55 @@ describe("actor effects implementation", () => {
 
     callXrEffect("enable_ui", MockGameObject.mockActor(), MockGameObject.mock(), TRUE);
     expect(manager.enableGameUi).toHaveBeenCalledWith(false);
+  });
+
+  it("disable_actor_nightvision should correctly call manager methods", () => {
+    const manager: ActorInputManager = getManager(ActorInputManager);
+
+    jest.spyOn(manager, "disableActorNightVision").mockImplementation(jest.fn());
+
+    callXrEffect("disable_actor_nightvision", MockGameObject.mockActor(), MockGameObject.mock());
+    expect(manager.disableActorNightVision).toHaveBeenCalledTimes(1);
+  });
+
+  it("enable_actor_nightvision should correctly call manager methods", () => {
+    const manager: ActorInputManager = getManager(ActorInputManager);
+
+    jest.spyOn(manager, "enableActorNightVision").mockImplementation(jest.fn());
+
+    callXrEffect("enable_actor_nightvision", MockGameObject.mockActor(), MockGameObject.mock());
+    expect(manager.enableActorNightVision).toHaveBeenCalledTimes(1);
+  });
+
+  it("disable_actor_torch should correctly call manager methods", () => {
+    const manager: ActorInputManager = getManager(ActorInputManager);
+
+    jest.spyOn(manager, "disableActorTorch").mockImplementation(jest.fn());
+
+    callXrEffect("disable_actor_torch", MockGameObject.mockActor(), MockGameObject.mock());
+    expect(manager.disableActorTorch).toHaveBeenCalledTimes(1);
+  });
+
+  it("enable_actor_torch should correctly call manager methods", () => {
+    const manager: ActorInputManager = getManager(ActorInputManager);
+
+    jest.spyOn(manager, "enableActorTorch").mockImplementation(jest.fn());
+
+    callXrEffect("enable_actor_torch", MockGameObject.mockActor(), MockGameObject.mock());
+    expect(manager.enableActorTorch).toHaveBeenCalledTimes(1);
+  });
+
+  it("run_tutorial should correctly run tutorials", () => {
+    callXrEffect("run_tutorial", MockGameObject.mockActor(), MockGameObject.mock(), "custom_tutorial");
+    expect(game.start_tutorial).toHaveBeenCalledTimes(1);
+    expect(game.start_tutorial).toHaveBeenCalledWith("custom_tutorial");
+  });
+
+  it("give_actor should give actor object list of items", () => {
+    callXrEffect("give_actor", MockGameObject.mockActor(), MockGameObject.mock(), "first", "second");
+
+    expect(giveItemsToActor).toHaveBeenCalledTimes(2);
+    expect(giveItemsToActor).toHaveBeenCalledWith("first");
+    expect(giveItemsToActor).toHaveBeenCalledWith("second");
   });
 });
