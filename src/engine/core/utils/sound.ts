@@ -8,6 +8,39 @@ import { GameObject, TSoundType } from "@/engine/lib/types";
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
+ * Check whether sound is included in actual sound bit mask.
+ *
+ * @param heard - actual heard sound bit mask
+ * @param expected - sound to check containing in the mask
+ * @returns whether expected sound type is heard
+ */
+export function isSoundType(heard: TSoundType, expected: TSoundType): boolean {
+  return bit_and(heard, expected) === expected;
+}
+
+/**
+ * Check whether is playing sound.
+ *
+ * @param object - game object to check playing
+ * @returns whether currently sound is playing.
+ */
+export function isPlayingSound(object: GameObject): boolean {
+  return soundsConfig.playing.has(object.id());
+}
+
+/**
+ * Stop playing sound for client game object.
+ *
+ * @param object - target object to stop playing
+ */
+export function stopPlayingObjectSound(object: GameObject): void {
+  if (object.alive()) {
+    object.set_sound_mask(-1);
+    object.set_sound_mask(0);
+  }
+}
+
+/**
  * Transforms heard sound type from mask value to specific enum.
  *
  * @param soundMask - heard sound mask
@@ -59,37 +92,4 @@ export function mapSoundMaskToSoundType(soundMask: TSoundType): ESoundType {
   }
 
   return ESoundType.NIL;
-}
-
-/**
- * Check whether sound is included in actual sound bit mask.
- *
- * @param heard - actual heard sound bit mask
- * @param expected - sound to check containing in the mask
- * @returns whether expected sound type is heard
- */
-export function isSoundType(heard: TSoundType, expected: TSoundType): boolean {
-  return bit_and(heard, expected) === expected;
-}
-
-/**
- * Check whether is playing sound.
- *
- * @param object - game object to check playing
- * @returns whether currently sound is playing.
- */
-export function isPlayingSound(object: GameObject): boolean {
-  return soundsConfig.playing.has(object.id());
-}
-
-/**
- * Stop playing sound for client game object.
- *
- * @param object - target object to stop playing
- */
-export function stopPlayingObjectSound(object: GameObject): void {
-  if (object.alive()) {
-    object.set_sound_mask(-1);
-    object.set_sound_mask(0);
-  }
 }

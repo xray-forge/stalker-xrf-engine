@@ -27,10 +27,6 @@ export function readIniString<D = string>(
   prefix: Optional<string> = null,
   defaultValue: D = null as unknown as D
 ): D {
-  if (required === null) {
-    return abort("Section '%s', wrong arguments order in call to 'readIniString'.", section);
-  }
-
   if (section && ini.section_exist(section) && ini.line_exist(section, field)) {
     // todo: Resolve prefix. Probably should change order of default value and prefix.
     if (prefix && prefix !== "") {
@@ -67,10 +63,6 @@ export function readIniStringWB<D = string>(
   prefix: Optional<string> = null,
   defaultValue: D = null as unknown as D
 ): D {
-  if (required === null) {
-    return abort("Section '%s', wrong arguments order in call to 'readIniString'.", section);
-  }
-
   if (section && ini.section_exist(section) && ini.line_exist(section, field)) {
     // todo: Resolve prefix. Probably should change order of default value and prefix.
     if (prefix && prefix !== "") {
@@ -104,10 +96,6 @@ export function readIniStringList<D = string>(
   required: boolean,
   defaultValue: Optional<string> = null
 ): LuaArray<D> {
-  if (required === null) {
-    return abort("Section '%s', wrong arguments order in call to 'readIniString'.", section);
-  }
-
   if (section && ini.section_exist(section) && ini.line_exist(section, field)) {
     return parseStringsList(ini.r_string(section, field) as string) as unknown as LuaArray<D>;
   } else if (required) {
@@ -138,8 +126,6 @@ export function readIniNumber<D = number>(
   required: boolean,
   defaultValue: D = null as unknown as D
 ): number | D {
-  assertDefined(required, "Section '%s', wrong arguments order in call to 'readIniNumber'.", section);
-
   if (section && ini.section_exist(section) && ini.line_exist(section, field)) {
     return ini.r_float(section, field);
   }
@@ -168,8 +154,6 @@ export function readIniBoolean(
   required: boolean,
   defaultValue: Optional<boolean> = null
 ): boolean {
-  assertDefined(required, "Section '%s', wrong arguments order in call to 'readIniBoolean'.", section);
-
   if (section && ini.section_exist(section) && ini.line_exist(section, field)) {
     return ini.r_bool(section, field);
   }
