@@ -8,7 +8,7 @@ export interface ISchemeParticleState extends IBaseSchemeState {
   name: TName;
   path: TName;
   mode: EParticleBehaviour;
-  looped: boolean;
+  looped: boolean; // Whether particles should start if previous playback ended.
 }
 
 /**
@@ -26,6 +26,6 @@ export interface IParticleDescriptor {
  * Mode of particle behaviour.
  */
 export enum EParticleBehaviour {
-  SIMPLE = 1,
-  COMPLEX = 2,
+  SIMPLE = 1, // Single particle based on path.
+  COMPLEX = 2, // Scenario based particles, multiple particles on different positions.
 }

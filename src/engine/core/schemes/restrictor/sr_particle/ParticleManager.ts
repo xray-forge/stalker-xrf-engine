@@ -1,6 +1,7 @@
 import { particles_object, patrol, time_global } from "xray16";
 
 import { AbstractSchemeManager } from "@/engine/core/ai/scheme";
+import { particleConfig } from "@/engine/core/schemes/restrictor/sr_particle/ParticleConfig";
 import {
   EParticleBehaviour,
   IParticleDescriptor,
@@ -13,12 +14,13 @@ import { LuaArray, Optional, ParticlesObject, Patrol, TCount, TName, TTimestamp,
 
 /**
  * todo;
+ * todo: Should be table insert + ipairs where possible instead of $range loops.
  */
 export class ParticleManager extends AbstractSchemeManager<ISchemeParticleState> {
+  public nextUpdateAt: TTimestamp = 0;
+
   public isStarted: boolean = false;
   public isFirstPlayed: boolean = false;
-  // todo: nextUpdateAt
-  public updatedAt: TTimestamp = 0;
   public particles: LuaArray<IParticleDescriptor> = new LuaTable();
   public path: Optional<Patrol> = null;
 
@@ -72,7 +74,7 @@ export class ParticleManager extends AbstractSchemeManager<ISchemeParticleState>
       });
     }
 
-    this.updatedAt = 0;
+    this.nextUpdateAt = 0;
     this.isStarted = false;
     this.isFirstPlayed = false;
     this.state.signals = new LuaTable();
@@ -98,12 +100,12 @@ export class ParticleManager extends AbstractSchemeManager<ISchemeParticleState>
   }
 
   public update(): void {
-    const time: TTimestamp = time_global();
+    const now: TTimestamp = time_global();
 
-    if (this.updatedAt !== 0 && time - this.updatedAt < 50) {
-      return;
+    if (this.nextUpdateAt < now) {
+      this.nextUpdateAt = now + particleConfig.UPDATE_PERIOD_THROTTLE;
     } else {
-      this.updatedAt = time;
+      return;
     }
 
     if (this.isStarted) {
@@ -119,15 +121,9 @@ export class ParticleManager extends AbstractSchemeManager<ISchemeParticleState>
     } else {
       this.isStarted = true;
 
+      // todo: probably call separate update methods based on first played flag and simplify update loop.
       if (this.state.mode === EParticleBehaviour.SIMPLE) {
-        const descriptor: IParticleDescriptor = this.particles.get(1);
-
-        descriptor.particle.load_path(this.state.path);
-        descriptor.particle.start_path(this.state.looped);
-        descriptor.particle.play();
-        descriptor.played = true;
-
-        this.isFirstPlayed = true;
+        this.startSimple();
       }
 
       return;
@@ -135,8 +131,22 @@ export class ParticleManager extends AbstractSchemeManager<ISchemeParticleState>
   }
 
   /**
-   * Handle loop playback scenario.
-   * todo: Description.
+   * Handle first update as `start` in simple mode.
+   */
+  public startSimple(): void {
+    const descriptor: IParticleDescriptor = this.particles.get(1);
+
+    descriptor.particle.load_path(this.state.path);
+    descriptor.particle.start_path(this.state.looped);
+    descriptor.particle.play();
+    descriptor.played = true;
+
+    this.isFirstPlayed = true;
+  }
+
+  /**
+   * Handle simple playback scenario.
+   * Restarts particle playback if `loop` is enabled.
    */
   public updateSimple(): void {
     if (this.state.looped) {
@@ -149,7 +159,7 @@ export class ParticleManager extends AbstractSchemeManager<ISchemeParticleState>
   }
 
   /**
-   * todo: Description.
+   * Handle complex playback scenario.
    */
   public updateComplex(): void {
     const now: TTimestamp = time_global();
@@ -158,9 +168,10 @@ export class ParticleManager extends AbstractSchemeManager<ISchemeParticleState>
     for (const it of $range(1, this.particles.length())) {
       const descriptor: IParticleDescriptor = this.particles.get(it);
 
-      if (now - descriptor.time > descriptor.delay && !descriptor.particle.playing()) {
+      if (now - descriptor.time >= descriptor.delay && !descriptor.particle.playing()) {
         const position: Vector = this.path!.point(it - 1);
 
+        // todo: Probably just one simple `or` check.
         if (!descriptor.played) {
           descriptor.particle.play_at_pos(position);
 
@@ -183,8 +194,9 @@ export class ParticleManager extends AbstractSchemeManager<ISchemeParticleState>
   }
 
   /**
-   * Note: has side effect with signal set.
-   * todo: Description.
+   * Note: has side effect with set signal.
+   *
+   * @returns whether particle playback is ended
    */
   public isEnded(): boolean {
     if (this.state.looped || !this.isFirstPlayed) {
