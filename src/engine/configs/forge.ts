@@ -4,7 +4,7 @@
 export const config = {
   config: {
     // label to display in game menu
-    version: "ver_%s_XRF_0.5",
+    version: `"ver. %s XRF ${0.5}"`,
     intro_videos_enabled: false,
   },
   extensions: {

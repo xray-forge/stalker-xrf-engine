@@ -7,8 +7,8 @@ import type { Optional, ParticlesObject, SoundObject, TDuration, TName, TTimesta
 export interface ISchemeParticleState extends IBaseSchemeState {
   name: TName;
   path: TName;
-  mode: number;
-  looped: boolean;
+  mode: EParticleBehaviour;
+  looped: boolean; // Whether particles should start if previous playback ended.
 }
 
 /**
@@ -16,8 +16,16 @@ export interface ISchemeParticleState extends IBaseSchemeState {
  */
 export interface IParticleDescriptor {
   particle: ParticlesObject;
-  snd: Optional<SoundObject>;
+  sound: Optional<SoundObject>;
   delay: TDuration;
   time: TTimestamp;
   played: boolean;
+}
+
+/**
+ * Mode of particle behaviour.
+ */
+export enum EParticleBehaviour {
+  SIMPLE = 1, // Single particle based on path.
+  COMPLEX = 2, // Scenario based particles, multiple particles on different positions.
 }

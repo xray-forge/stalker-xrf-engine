@@ -15,6 +15,7 @@ import {
   readIniString,
   readIniStringAndCondList,
   readIniStringList,
+  readIniStringWB,
   readIniTwoNumbers,
 } from "@/engine/core/utils/ini/ini_read";
 import { IniFile, Optional } from "@/engine/lib/types";
@@ -38,6 +39,29 @@ describe("read utils for ini file", () => {
 
     expect(() => readIniString(ini, "section2", "a", true)).toThrow();
     expect(() => readIniString(ini, "section2", "a", false)).not.toThrow();
+  });
+
+  it("readIniStringWB utils should correctly get data from ini files", () => {
+    const ini: IniFile = mockIniFile("example.ltx", {
+      section1: {
+        a: "a1",
+        b: "b2",
+        q1: `"${1} 2 another"`,
+        q2: `"${1} 2 another`,
+      },
+    });
+
+    expect(readIniStringWB(ini, "section1", "a", true)).toBe("a1");
+    expect(readIniStringWB(ini, "section1", "b", true)).toBe("b2");
+    expect(readIniStringWB(ini, "section1", "q1", true)).toBe("1 2 another");
+    expect(readIniStringWB(ini, "section1", "q2", true)).toBe(`"${1} 2 another`);
+
+    expect(readIniStringWB(ini, "section1", "c", false)).toBeNull();
+    expect(readIniStringWB(ini, "section1", "c", false, null, "def")).toBe("def");
+    expect(() => readIniStringWB(ini, "section1", "c", true)).toThrow();
+
+    expect(() => readIniStringWB(ini, "section2", "a", true)).toThrow();
+    expect(() => readIniStringWB(ini, "section2", "a", false)).not.toThrow();
   });
 
   it("readIniStringList utils should correctly get data from ini files", () => {
