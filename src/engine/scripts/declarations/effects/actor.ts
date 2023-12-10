@@ -1,13 +1,6 @@
-import { device, game, level, patrol } from "xray16";
+import { game, level, patrol } from "xray16";
 
-import {
-  getManager,
-  getObjectByStoryId,
-  getServerObjectByStoryId,
-  IRegistryObjectState,
-  registry,
-  SYSTEM_INI,
-} from "@/engine/core/database";
+import { getManager, getObjectByStoryId, getServerObjectByStoryId, registry } from "@/engine/core/database";
 import { ActorInputManager } from "@/engine/core/managers/actor";
 import { ENotificationDirection, NotificationManager, TNotificationIcon } from "@/engine/core/managers/notifications";
 import { SleepManager } from "@/engine/core/managers/sleep/SleepManager";
@@ -32,13 +25,11 @@ import {
   GameTask,
   LuaArray,
   Optional,
-  TIndex,
   TLabel,
   TName,
-  TNumberId,
-  TRate,
   TSection,
   TStringId,
+  TStringifiedBoolean,
   Vector,
 } from "@/engine/lib/types";
 
@@ -47,14 +38,17 @@ const logger: LuaLogger = new LuaLogger($filename);
 /**
  * Disable game UI for actor and reset active item slot.
  */
-extern("xr_effects.disable_ui", (actor: GameObject, object: GameObject, parameters: [string]): void => {
-  getManager(ActorInputManager).disableGameUi(!parameters || (parameters && parameters[0] !== TRUE));
-});
+extern(
+  "xr_effects.disable_ui",
+  (actor: GameObject, object: GameObject, [preserveSlot]: [TStringifiedBoolean]): void => {
+    getManager(ActorInputManager).disableGameUi(preserveSlot !== TRUE);
+  }
+);
 
 /**
  * Disable game UI for actor.
  */
-extern("xr_effects.disable_ui_only", (actor: GameObject, object: GameObject): void => {
+extern("xr_effects.disable_ui_only", (): void => {
   getManager(ActorInputManager).disableGameUiOnly();
 });
 
@@ -62,45 +56,8 @@ extern("xr_effects.disable_ui_only", (actor: GameObject, object: GameObject): vo
  * Enable actor UI.
  * Effect parameter describes whether slot should be restored - `true` by default.
  */
-extern("xr_effects.enable_ui", (actor: GameObject, object: GameObject, parameters: [string]): void => {
-  getManager(ActorInputManager).enableGameUi(!parameters || (parameters && parameters[0] !== TRUE));
-});
-
-let camEffectorPlayingObjectId: Optional<TNumberId> = null;
-
-/**
- * todo;
- */
-extern("xr_effects.run_cam_effector", (actor: GameObject, object: GameObject, p: [string, number, string]) => {
-  logger.info("Run cam effector");
-
-  if (p[0]) {
-    let loop: boolean = false;
-    let num: number = 1000 + math.random(100);
-
-    if (p[1] && type(p[1]) === "number" && p[1] > 0) {
-      num = p[1];
-    }
-
-    if (p[2] && p[2] === TRUE) {
-      loop = true;
-    }
-
-    // --level.add_pp_effector(p[1] + ".ppe", num, loop)
-    level.add_cam_effector("camera_effects\\" + p[0] + ".anm", num, loop, "xr_effects.cam_effector_callback");
-    camEffectorPlayingObjectId = object.id();
-  }
-});
-
-/**
- * todo;
- */
-extern("xr_effects.stop_cam_effector", (actor: GameObject, object: GameObject, p: [Optional<number>]): void => {
-  logger.info("Stop cam effector:", p);
-
-  if (p[0] && type(p[0]) === "number" && p[0] > 0) {
-    level.remove_cam_effector(p[0]);
-  }
+extern("xr_effects.enable_ui", (actor: GameObject, object: GameObject, [preserveSlot]: [TStringifiedBoolean]): void => {
+  getManager(ActorInputManager).enableGameUi(preserveSlot !== TRUE);
 });
 
 /**
@@ -129,91 +86,6 @@ extern("xr_effects.disable_actor_torch", (actor: GameObject): void => {
  */
 extern("xr_effects.enable_actor_torch", (actor: GameObject): void => {
   getManager(ActorInputManager).enableActorTorch();
-});
-
-/**
- * todo;
- */
-extern(
-  "xr_effects.run_cam_effector_global",
-  (actor: GameObject, object: GameObject, params: [string, Optional<number>, Optional<number>]): void => {
-    logger.info("Run cam effector global");
-
-    let num: TIndex = 1000 + math.random(100);
-    let fov: TRate = device().fov;
-
-    if (params[1] && type(params[1]) === "number" && params[1] > 0) {
-      num = params[1];
-    }
-
-    if (params[2] !== null && type(params[2]) === "number") {
-      fov = params[2];
-    }
-
-    level.add_cam_effector2(
-      "camera_effects\\" + params[0] + ".anm",
-      num,
-      false,
-      "xr_effects.cam_effector_callback",
-      fov
-    );
-    camEffectorPlayingObjectId = object.id();
-  }
-);
-
-/**
- * todo;
- */
-extern("xr_effects.cam_effector_callback", (): void => {
-  logger.info("Run cam effector callback");
-
-  if (camEffectorPlayingObjectId === null) {
-    return;
-  }
-
-  const state: IRegistryObjectState = registry.objects.get(camEffectorPlayingObjectId);
-
-  if (state === null || state.activeScheme === null) {
-    return;
-  }
-
-  if (state[state.activeScheme!]!.signals === null) {
-    return;
-  }
-
-  state[state.activeScheme!]!.signals!.set("cameff_end", true);
-});
-
-/**
- * todo;
- */
-extern("xr_effects.run_postprocess", (actor: GameObject, object: GameObject, p: [string, number]): void => {
-  logger.info("Run postprocess");
-
-  if (p[0]) {
-    if (SYSTEM_INI.section_exist(p[0])) {
-      let num: number = 2000 + math.random(100);
-
-      if (p[1] && type(p[1]) === "number" && p[1] > 0) {
-        num = p[1];
-      }
-
-      level.add_complex_effector(p[0], num);
-    } else {
-      abort("Complex effector section is no set! [%s]", tostring(p[1]));
-    }
-  }
-});
-
-/**
- * todo;
- */
-extern("xr_effects.stop_postprocess", (actor: GameObject, object: GameObject, p: [number]): void => {
-  logger.info("Stop postprocess");
-
-  if (p[0] && type(p[0]) === "number" && p[0] > 0) {
-    level.remove_complex_effector(p[0]);
-  }
 });
 
 /**

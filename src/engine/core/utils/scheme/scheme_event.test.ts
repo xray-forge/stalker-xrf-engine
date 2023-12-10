@@ -83,7 +83,7 @@ describe("scheme logic utils", () => {
     expect(() => setObjectActiveSchemeSignal(object, "test")).not.toThrow();
     expect(registry.objects.get(object.id())).toBeNull();
 
-    const mockMeetState: IBaseSchemeState = mockSchemeState(EScheme.MEET);
+    const mockMeetState: IBaseSchemeState = mockSchemeState(EScheme.MEET, { signals: new LuaTable() });
     const state: IRegistryObjectState = registerObject(object);
 
     expect(() => setObjectActiveSchemeSignal(object, "test")).not.toThrow();

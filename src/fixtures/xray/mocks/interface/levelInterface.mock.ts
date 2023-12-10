@@ -12,8 +12,9 @@ export const CLIENT_SIDE_REGISTRY: MockLuaTable<TNumberId, GameObject> = MockLua
  * Mock game `level` interface.
  */
 export const mockLevelInterface = {
-  add_cam_effector: jest.fn(),
   add_cam_effector2: jest.fn(),
+  add_cam_effector: jest.fn(),
+  add_complex_effector: jest.fn(),
   add_pp_effector: jest.fn(),
   change_game_time: jest.fn(),
   disable_input: jest.fn(),
@@ -43,6 +44,7 @@ export const mockLevelInterface = {
   patrol_path_exists: jest.fn((name: TName) => name in patrols),
   present: jest.fn(() => true),
   remove_cam_effector: jest.fn(),
+  remove_complex_effector: jest.fn(),
   set_snd_volume: jest.fn((volume: number) => {}),
   show_indicators: jest.fn(),
   show_weapon: jest.fn(),

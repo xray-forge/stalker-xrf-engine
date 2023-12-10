@@ -20,7 +20,7 @@ export function mockSchemeState<T extends IBaseSchemeState>(
   {
     ini = mockIniFile("scheme_mock.ltx"),
     logic = new LuaTable(),
-    signals = new LuaTable(),
+    signals = null,
     overrides = null,
     ...base
   }: Partial<T> = {}

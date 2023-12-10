@@ -24,6 +24,7 @@ export const FILES_MOCKS: Record<TPath, AnyObject> = {
     [detectors.detector_advanced]: {
       inv_name: "st_detector2",
     },
+    existing: {},
     sim_default_first: {},
     sim_default_second: {},
     simulation_first: {},

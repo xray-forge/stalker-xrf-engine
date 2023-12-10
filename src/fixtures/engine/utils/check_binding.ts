@@ -1,4 +1,4 @@
-import { AnyArgs, AnyCallable, AnyObject, TName } from "@/engine/lib/types";
+import { AnyArgs, AnyCallable, AnyObject, GameObject, Optional, TName } from "@/engine/lib/types";
 
 /**
  * Expect binding to be defined in global container.
@@ -59,4 +59,24 @@ export function checkXrCondition(name: TName, container: AnyObject = _G): void {
  */
 export function checkXrEffect(name: TName, container: AnyObject = _G): void {
   return checkNestedBinding("xr_effects", name, container);
+}
+
+/**
+ * Call effect similar to game scripts.
+ *
+ * @param name - name of effect binding
+ * @param actor - current game actor object
+ * @param object - target object to call effect for
+ * @param parameters - list of parameters for the effect
+ */
+export function callXrEffect(name: TName, actor: GameObject, object: GameObject, ...parameters: AnyArgs): void {
+  const effects: Optional<AnyObject> = (_G as AnyObject)["xr_effects"];
+
+  if (effects && name in effects) {
+    (_G as AnyObject)["xr_effects"][name](actor, object, parameters);
+  } else if (!effects) {
+    throw new Error("Unexpected call - 'xr_effects' global is not registered.");
+  } else {
+    throw new Error(`Unexpected effect provided - '${name}', no matching methods in xr_effects globals.`);
+  }
 }

@@ -70,6 +70,8 @@ export class MockGameObject {
 /**
  * Mock game object.
  * It is defined as script_object in c++ and wraps all script objects currently online.
+ *
+ * @deprecated
  */
 export function mockGameObject({
   animation_count = jest.fn(() => 0),
