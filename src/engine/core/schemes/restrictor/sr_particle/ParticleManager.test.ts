@@ -148,7 +148,7 @@ describe("ParticleManager class", () => {
     manager.update();
 
     // Timed throttle.
-    expect(manager.nextUpdateAt).toBe(10_050);
+    expect(manager.nextUpdateAt).toBe(10_100);
     expect(manager.updateComplex).toHaveBeenCalledTimes(0);
     expect(manager.updateComplex).toHaveBeenCalledTimes(0);
 
