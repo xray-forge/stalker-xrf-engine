@@ -67,3 +67,123 @@ describe("quests effects declaration", () => {
     checkXrEffect("jup_b200_count_found");
   });
 });
+
+describe("quests effects implementation", () => {
+  beforeAll(() => {
+    require("@/engine/scripts/declarations/effects/quests");
+  });
+
+  it.todo("show_freeplay_dialog should show freeplay dialog");
+
+  it.todo("jup_b32_place_scanner should place scanners");
+
+  it.todo("jup_b32_pda_check should check pda");
+
+  it.todo("pri_b306_generator_start should start generators");
+
+  it.todo("jup_b206_get_plant should get plant object");
+
+  it.todo("pas_b400_switcher should handle pass switcher");
+
+  it.todo("jup_b209_place_scanner should place scanners");
+
+  it.todo("jup_b9_heli_1_searching should handle heli search");
+
+  it.todo("pri_a18_use_idol should handle idol usage");
+
+  it.todo("jup_b8_heli_4_searching should handle heli search");
+
+  it.todo("jup_b10_ufo_searching should handle ufo search");
+
+  it.todo("zat_b101_heli_5_searching should handle heli search");
+
+  it.todo("zat_b28_heli_3_searching should handle heli search");
+
+  it.todo("zat_b100_heli_2_searching should handle heli search");
+
+  it.todo("jup_teleport_actor should handle teleport");
+
+  it.todo("jup_b219_save_pos should handle saving of position");
+
+  it.todo("jup_b219_restore_gate should restore gate objects");
+
+  it.todo("jup_b16_play_particle_and_sound should play particles");
+
+  it.todo("zat_b29_create_random_infop should create random info portion");
+
+  it.todo("give_item_b29 should give items");
+
+  it.todo("relocate_item_b29 should relocate items");
+
+  it.todo("jup_b202_inventory_box_relocate should relocate items");
+
+  it.todo("jup_b10_spawn_drunk_dead_items should spawn dead drunk stalker");
+
+  it.todo("zat_b202_spawn_random_loot should spawn random loot");
+
+  it.todo("jup_b221_play_main should play sounds");
+
+  it.todo("zat_a1_tutorial_end_give should give info portions");
+
+  it.todo("oasis_heal should heal in oasis");
+
+  it.todo("pas_b400_play_particle should play particles");
+
+  it.todo("pas_b400_stop_particle should stop particles");
+
+  it.todo("damage_pri_a17_gauss should damage gauss weapon");
+
+  it.todo("pri_a17_hard_animation_reset should reset animation");
+
+  it.todo("jup_b217_hard_animation_reset should reset animation");
+
+  it.todo("pri_a18_radio_start should start radio");
+
+  it.todo("pri_a17_ice_climb_end should give info portion");
+
+  it.todo("jup_b219_opening should give info portion");
+
+  it.todo("jup_b219_entering_underpass should give info portion");
+
+  it.todo("pri_a17_pray_start should give info portion");
+
+  it.todo("zat_b38_open_info should give info portion");
+
+  it.todo("zat_b38_switch_info should give info portion");
+
+  it.todo("zat_b38_cop_dead should give info portion");
+
+  it.todo("jup_b15_zulus_drink_anim_info should give info portion");
+
+  it.todo("pri_a17_preacher_death should give info portion");
+
+  it.todo("zat_b3_tech_surprise_anim_end should give info portion");
+
+  it.todo("zat_b3_tech_waked_up should give info portion");
+
+  it.todo("zat_b3_tech_drinked_out should give info portion");
+
+  it.todo("pri_a28_kirillov_hq_online should give info portion");
+
+  it.todo("pri_a20_radio_start should give info portion");
+
+  it.todo("pri_a22_kovalski_speak should give info portion");
+
+  it.todo("zat_b38_underground_door_open should give info portion");
+
+  it.todo("zat_b38_jump_tonnel_info should give info portion");
+
+  it.todo("jup_a9_cam1_actor_anim_end should give info portion");
+
+  it.todo("pri_a28_talk_ssu_video_end should give info portion");
+
+  it.todo("zat_b33_pic_snag_container should pick container");
+
+  it.todo("zat_b202_spawn_b33_loot should spawn loot");
+
+  it.todo("pri_a28_check_zones should check zones");
+
+  it.todo("eat_vodka_script should handle vodka");
+
+  it.todo("jup_b200_count_found should recalculate count");
+});

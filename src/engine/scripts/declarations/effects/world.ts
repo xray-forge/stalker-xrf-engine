@@ -120,7 +120,7 @@ extern(
 extern("xr_effects.reset_sound_npc", (actor: GameObject, object: GameObject): void => {
   const objectId: TNumberId = object.id();
 
-  if (soundsConfig.playing.get(objectId) !== null) {
+  if (soundsConfig.playing.has(objectId)) {
     soundsConfig.playing.get(objectId).reset(objectId);
   }
 });
