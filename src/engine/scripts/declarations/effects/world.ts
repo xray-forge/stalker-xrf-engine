@@ -45,31 +45,22 @@ import {
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Should play sound based on provided parameters in smart terrain.
  */
 extern(
   "xr_effects.play_sound",
   (
     actor: GameObject,
     object: GameObject,
-    p: [Optional<TName>, Optional<TCommunity>, Optional<string | number>]
+    [theme, faction, smartTerrainName]: [Optional<TName>, Optional<TCommunity>, Optional<TName | TNumberId>]
   ): void => {
-    const theme: Optional<TName> = p[0];
-    const faction: Optional<TCommunity> = p[1];
-    const smartTerrain: SmartTerrain = getManager(SimulationManager).getSmartTerrainByName(
-      p[2] as TName
-    ) as SmartTerrain;
-    const smartTerrainId: TNumberId = smartTerrain !== null ? smartTerrain.id : (p[2] as TNumberId);
+    const smartTerrain: Optional<SmartTerrain> = getManager(SimulationManager).getSmartTerrainByName(
+      smartTerrainName as TName
+    );
+    const smartTerrainId: TNumberId = smartTerrain ? smartTerrain.id : (smartTerrainName as TNumberId);
 
-    if (object && isStalker(object)) {
-      if (!object.alive()) {
-        abort(
-          "Stalker [%s][%s] is dead, but you wants to say something for you. [%s]!",
-          tostring(object.id()),
-          tostring(object.name()),
-          p[0]
-        );
-      }
+    if (object && isStalker(object) && !object.alive()) {
+      abort("Stalker '%s' is dead while trying to play theme sound '%s'.", object.name(), theme);
     }
 
     getManager(GlobalSoundManager).playSound(object.id(), theme, faction, smartTerrainId);
@@ -77,21 +68,21 @@ extern(
 );
 
 /**
- * todo;
+ * Stop playing sound for an object.
  */
 extern("xr_effects.stop_sound", (actor: GameObject, object: GameObject): void => {
   getManager(GlobalSoundManager).stopSoundByObjectId(object.id());
 });
 
 /**
- * todo;
+ * Start looped sound playback by theme name.
  */
-extern("xr_effects.play_sound_looped", (actor: GameObject, object: GameObject, params: [string]): void => {
-  getManager(GlobalSoundManager).playLoopedSound(object.id(), params[0]);
+extern("xr_effects.play_sound_looped", (actor: GameObject, object: GameObject, [name]: [TName]): void => {
+  getManager(GlobalSoundManager).playLoopedSound(object.id(), name);
 });
 
 /**
- * todo;
+ * Stop looped sound playback for an object.
  */
 extern("xr_effects.stop_sound_looped", (actor: GameObject, object: GameObject) => {
   getManager(GlobalSoundManager).stopLoopedSound(object.id(), null);
@@ -611,10 +602,10 @@ extern(
 /**
  * todo;
  */
-extern("xr_effects.stop_sr_cutscene", (actor: GameObject, object: GameObject, parameters: []) => {
+extern("xr_effects.stop_sr_cutscene", (actor: GameObject, object: GameObject) => {
   const state: IRegistryObjectState = registry.objects.get(object.id());
 
-  if (state.activeScheme !== null) {
+  if (state.activeScheme) {
     state[state.activeScheme]!.signals!.set("cam_effector_stop", true);
   }
 });

@@ -1,6 +1,17 @@
-import { beforeAll, describe, it } from "@jest/globals";
+import { beforeAll, beforeEach, describe, expect, it, jest } from "@jest/globals";
 
-import { checkXrEffect } from "@/fixtures/engine";
+import { getManager, IRegistryObjectState, registerObject } from "@/engine/core/database";
+import { GlobalSoundManager } from "@/engine/core/managers/sounds";
+import { EScheme, GameObject, SoundObject } from "@/engine/lib/types";
+import {
+  callXrEffect,
+  checkXrEffect,
+  mockRegisteredActor,
+  mockSchemeState,
+  MockSmartTerrain,
+  resetRegistry,
+} from "@/fixtures/engine";
+import { mockClsid, MockGameObject } from "@/fixtures/xray";
 
 describe("world effects declaration", () => {
   beforeAll(() => {
@@ -44,13 +55,65 @@ describe("world effects implementation", () => {
     require("@/engine/scripts/declarations/effects/world");
   });
 
-  it.todo("play_sound should force play sounds");
+  beforeEach(() => {
+    resetRegistry();
+  });
 
-  it.todo("stop_sound should stop sounds");
+  it("play_sound should force play sounds", () => {
+    const { actorGameObject } = mockRegisteredActor();
+    const object: GameObject = MockGameObject.mock({ clsid: <T>() => mockClsid.script_stalker as T });
+    const smartTerrain: MockSmartTerrain = MockSmartTerrain.mockRegistered();
+    const soundManager: GlobalSoundManager = getManager(GlobalSoundManager);
 
-  it.todo("play_sound_looped should play looped sounds");
+    jest.spyOn(soundManager, "playSound").mockImplementation(jest.fn(() => null as unknown as SoundObject));
 
-  it.todo("stop_sound_looped should stop looped sounds");
+    callXrEffect("play_sound", actorGameObject, object, "test_theme", "test_faction", smartTerrain.name());
+
+    expect(soundManager.playSound).toHaveBeenCalledTimes(1);
+    expect(soundManager.playSound).toHaveBeenCalledWith(object.id(), "test_theme", "test_faction", smartTerrain.id);
+
+    jest.spyOn(object, "alive").mockImplementation(() => false);
+
+    expect(() => {
+      callXrEffect("play_sound", actorGameObject, object, "test_theme", "test_faction", smartTerrain.name());
+    }).toThrow(`Stalker '${object.name()}' is dead while trying to play theme sound 'test_theme'.`);
+  });
+
+  it("stop_sound should stop sounds", () => {
+    const soundManager: GlobalSoundManager = getManager(GlobalSoundManager);
+    const object: GameObject = MockGameObject.mock();
+
+    jest.spyOn(soundManager, "stopSoundByObjectId").mockImplementation(jest.fn());
+
+    callXrEffect("stop_sound", MockGameObject.mockActor(), object);
+
+    expect(soundManager.stopSoundByObjectId).toHaveBeenCalledTimes(1);
+    expect(soundManager.stopSoundByObjectId).toHaveBeenCalledWith(object.id());
+  });
+
+  it("play_sound_looped should play looped sounds", () => {
+    const soundManager: GlobalSoundManager = getManager(GlobalSoundManager);
+    const object: GameObject = MockGameObject.mock();
+
+    jest.spyOn(soundManager, "playLoopedSound").mockImplementation(jest.fn());
+
+    callXrEffect("play_sound_looped", MockGameObject.mockActor(), object, "test_sound");
+
+    expect(soundManager.playLoopedSound).toHaveBeenCalledTimes(1);
+    expect(soundManager.playLoopedSound).toHaveBeenCalledWith(object.id(), "test_sound");
+  });
+
+  it("stop_sound_looped should stop looped sounds", () => {
+    const soundManager: GlobalSoundManager = getManager(GlobalSoundManager);
+    const object: GameObject = MockGameObject.mock();
+
+    jest.spyOn(soundManager, "stopLoopedSound").mockImplementation(jest.fn());
+
+    callXrEffect("stop_sound_looped", MockGameObject.mockActor(), object);
+
+    expect(soundManager.stopLoopedSound).toHaveBeenCalledTimes(1);
+    expect(soundManager.stopLoopedSound).toHaveBeenCalledWith(object.id(), null);
+  });
 
   it.todo("play_sound_by_story should play sound by story id");
 
@@ -98,5 +161,15 @@ describe("world effects implementation", () => {
 
   it.todo("create_cutscene_actor_with_weapon should create cutscenes");
 
-  it.todo("stop_sr_cutscene should stop cutscenes");
+  it("stop_sr_cutscene should stop cutscenes", () => {
+    const object: GameObject = MockGameObject.mock();
+    const state: IRegistryObjectState = registerObject(object);
+
+    state.activeScheme = EScheme.ANIMPOINT;
+    state[EScheme.ANIMPOINT] = mockSchemeState(EScheme.ANIMPOINT, { signals: new LuaTable() });
+
+    callXrEffect("stop_sr_cutscene", MockGameObject.mockActor(), object);
+
+    expect(state[EScheme.ANIMPOINT]?.signals?.get("cam_effector_stop")).toBe(true);
+  });
 });
