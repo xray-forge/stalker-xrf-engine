@@ -2,7 +2,7 @@ import { registerActor, registerActorServer } from "@/engine/core/database/actor
 import { IRegistryObjectState } from "@/engine/core/database/database_types";
 import { registerRanks } from "@/engine/core/database/ranks";
 import { registry } from "@/engine/core/database/registry";
-import { AlifeSimulator, GameObject, ServerActorObject } from "@/engine/lib/types";
+import { AlifeSimulator, GameObject, ServerActorObject, TName, TNumberId, TSection } from "@/engine/lib/types";
 import { MockGameObject, mockServerAlifeCreatureActor } from "@/fixtures/xray/mocks/objects";
 
 export interface IMockActorDetails {
@@ -15,7 +15,15 @@ export interface IMockActorDetails {
  * Mock actor client/server side.
  */
 export function mockRegisteredActor(
-  actorGamePartial: Partial<GameObject> = {},
+  actorGamePartial: Partial<
+    GameObject & {
+      idOverride?: TNumberId;
+      sectionOverride?: TSection;
+      infoPortions?: Array<TName>;
+      inventory: Array<[TSection | TNumberId, GameObject]>;
+      upgrades: Array<TSection>;
+    }
+  > = {},
   actorServerPartial: Partial<ServerActorObject> = {}
 ): IMockActorDetails {
   const actorGameObject: GameObject = MockGameObject.mockActor(actorGamePartial);

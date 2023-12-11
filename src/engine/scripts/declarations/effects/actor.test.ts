@@ -1,13 +1,15 @@
 import { beforeAll, beforeEach, describe, expect, it, jest } from "@jest/globals";
-import { game } from "xray16";
+import { game, patrol } from "xray16";
 
-import { getManager } from "@/engine/core/database";
+import { getManager, registerSimulator, registry } from "@/engine/core/database";
 import { ActorInputManager } from "@/engine/core/managers/actor";
+import { ENotificationDirection, NotificationManager } from "@/engine/core/managers/notifications";
 import { giveItemsToActor } from "@/engine/core/utils/reward";
 import { TRUE } from "@/engine/lib/constants/words";
-import { callXrEffect, checkXrEffect, resetRegistry } from "@/fixtures/engine";
+import { GameObject, ServerObject } from "@/engine/lib/types";
+import { callXrEffect, checkXrEffect, mockRegisteredActor, resetRegistry } from "@/fixtures/engine";
 import { resetFunctionMock } from "@/fixtures/jest";
-import { MockGameObject } from "@/fixtures/xray";
+import { MockGameObject, mockServerAlifeObject } from "@/fixtures/xray";
 
 jest.mock("@/engine/core/utils/reward", () => ({
   giveItemsToActor: jest.fn(),
@@ -143,5 +145,47 @@ describe("actor effects implementation", () => {
     expect(giveItemsToActor).toHaveBeenCalledTimes(2);
     expect(giveItemsToActor).toHaveBeenCalledWith("first");
     expect(giveItemsToActor).toHaveBeenCalledWith("second");
+  });
+
+  it("remove_item should release items from actor inventory", () => {
+    const notificationManager: NotificationManager = getManager(NotificationManager);
+    const item: GameObject = MockGameObject.mock({ section: <T>() => "test_section" as T });
+    const serverItem: ServerObject = mockServerAlifeObject({ id: item.id() });
+    const { actorGameObject } = mockRegisteredActor({ inventory: [["test_section", item]] });
+
+    jest.spyOn(notificationManager, "sendItemRelocatedNotification").mockImplementation(jest.fn());
+
+    registerSimulator();
+
+    expect(() => callXrEffect("remove_item", actorGameObject, MockGameObject.mock())).toThrow(
+      "Wrong parameters in function 'remove_item'."
+    );
+    expect(() => callXrEffect("remove_item", actorGameObject, MockGameObject.mock(), "not_existing")).toThrow(
+      "Actor has no item to remove with section 'not_existing'."
+    );
+
+    callXrEffect("remove_item", actorGameObject, MockGameObject.mock(), "test_section");
+
+    expect(registry.simulator.release).toHaveBeenCalledTimes(1);
+    expect(registry.simulator.release).toHaveBeenCalledWith(serverItem, true);
+    expect(notificationManager.sendItemRelocatedNotification).toHaveBeenCalledTimes(1);
+    expect(notificationManager.sendItemRelocatedNotification).toHaveBeenCalledWith(
+      ENotificationDirection.OUT,
+      "test_section"
+    );
+  });
+
+  it("drop_object_item_on_point should drop objects on points", () => {
+    const item: GameObject = MockGameObject.mock({ section: <T>() => "test_section" as T });
+    const { actorGameObject } = mockRegisteredActor({ inventory: [["test_section", item]] });
+
+    expect(() => {
+      callXrEffect("drop_object_item_on_point", actorGameObject, MockGameObject.mock(), "not_existing", "patrol_path");
+    }).toThrow("Actor has no item to drop with section 'not_existing'.");
+
+    callXrEffect("drop_object_item_on_point", actorGameObject, MockGameObject.mock(), "test_section", "test-wp");
+
+    expect(actorGameObject.drop_item_and_teleport).toHaveBeenCalledTimes(1);
+    expect(actorGameObject.drop_item_and_teleport).toHaveBeenCalledWith(item, new patrol("test-wp").point(0));
   });
 });

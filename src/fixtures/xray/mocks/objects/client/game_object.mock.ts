@@ -206,6 +206,7 @@ export function mockGameObject({
           inventoryMap.delete(it.section());
         }
       }),
+    drop_item_and_teleport: rest.drop_item_and_teleport ?? jest.fn(),
     enable_night_vision: rest.enable_night_vision ?? jest.fn(),
     enable_talk: rest.enable_talk ?? jest.fn(),
     enable_trade: rest.enable_trade ?? jest.fn(),

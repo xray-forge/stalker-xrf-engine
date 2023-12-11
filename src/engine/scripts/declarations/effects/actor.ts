@@ -108,34 +108,38 @@ extern("xr_effects.give_actor", (actor: GameObject, object: Optional<GameObject>
 });
 
 /**
- * todo;
+ * Remove item from actor inventory based on provided section parameter.
  */
-extern("xr_effects.remove_item", (actor: GameObject, object: GameObject, p: [TSection]): void => {
+extern("xr_effects.remove_item", (actor: GameObject, object: GameObject, [section]: [Optional<TSection>]): void => {
   logger.info("Remove item");
 
-  assert(p && p[0], "Wrong parameters in function 'remove_item'.");
+  assert(section, "Wrong parameters in function 'remove_item'.");
 
-  const section: TSection = p[0];
   const inventoryItem: Optional<GameObject> = actor.object(section);
 
-  if (inventoryItem !== null) {
+  if (inventoryItem) {
     registry.simulator.release(registry.simulator.object(inventoryItem.id()), true);
+    getManager(NotificationManager).sendItemRelocatedNotification(ENotificationDirection.OUT, section);
   } else {
-    abort("Actor has no such item!");
+    abort(`Actor has no item to remove with section '${section}'.`);
   }
-
-  getManager(NotificationManager).sendItemRelocatedNotification(ENotificationDirection.OUT, section);
 });
 
 /**
- * todo;
+ * Drop actor item with provided `section` on first point from provided path.
  */
-extern("xr_effects.drop_object_item_on_point", (actor: GameObject, object: GameObject, p: [number, string]): void => {
-  const dropObject: GameObject = actor.object(p[0]) as GameObject;
-  const dropPoint: Vector = new patrol(p[1]).point(0);
+extern(
+  "xr_effects.drop_object_item_on_point",
+  (actor: GameObject, object: GameObject, [section, pathName]: [TSection, TName]): void => {
+    const inventoryItem: Optional<GameObject> = actor.object(section);
 
-  actor.drop_item_and_teleport(dropObject, dropPoint);
-});
+    if (inventoryItem) {
+      actor.drop_item_and_teleport(actor.object(section) as GameObject, new patrol(pathName).point(0));
+    } else {
+      abort(`Actor has no item to drop with section '${section}'.`);
+    }
+  }
+);
 
 /**
  * todo;
@@ -147,8 +151,8 @@ extern("xr_effects.relocate_item", (actor: GameObject, object: GameObject, param
   const fromObject: Optional<GameObject> = params && getObjectByStoryId(params[1]);
   const toObject: Optional<GameObject> = params && getObjectByStoryId(params[2]);
 
-  if (toObject !== null) {
-    if (fromObject !== null && fromObject.object(item) !== null) {
+  if (toObject) {
+    if (fromObject && fromObject.object(item)) {
       fromObject.transfer_item(fromObject.object(item)!, toObject);
     } else {
       registry.simulator.create(
@@ -160,7 +164,7 @@ extern("xr_effects.relocate_item", (actor: GameObject, object: GameObject, param
       );
     }
   } else {
-    abort("Couldn't relocate item to NULL");
+    abort("Couldn't relocate item to NULL.");
   }
 });
 
