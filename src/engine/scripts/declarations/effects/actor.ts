@@ -332,7 +332,7 @@ extern("xr_effects.get_best_detector", (actor: GameObject): void => {
   for (const [, detector] of ipairs(detectorsOrder)) {
     const item: Optional<GameObject> = actor.object(detector);
 
-    if (item !== null) {
+    if (item) {
       item.enable_attachable_item(true);
 
       return;

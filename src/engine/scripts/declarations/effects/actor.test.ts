@@ -188,4 +188,38 @@ describe("actor effects implementation", () => {
     expect(actorGameObject.drop_item_and_teleport).toHaveBeenCalledTimes(1);
     expect(actorGameObject.drop_item_and_teleport).toHaveBeenCalledWith(item, new patrol("test-wp").point(0));
   });
+
+  it.todo("relocate_item should correctly relocate items from one object to another");
+
+  it.todo("activate_weapon_slot should activate slots for actor");
+
+  it.todo("save_actor_position should save actor position");
+
+  it.todo("restore_actor_position should restore actor position");
+
+  it.todo("actor_punch should punch actor by object");
+
+  it.todo("send_tip should send notifications for actor");
+
+  it.todo("give_task should give tasks for actor");
+
+  it.todo("set_active_task should set tasks for actor");
+
+  it.todo("kill_actor should kill actor");
+
+  it.todo("make_actor_visible_to_squad should make actor visible for squad");
+
+  it.todo("sleep should force actor to start sleeping");
+
+  it.todo("damage_actor_items_on_start should correctly modify actor items on game start");
+
+  it.todo("activate_weapon should change active actor item");
+
+  it.todo("give_treasure should give actor treasure coordinates");
+
+  it.todo("get_best_detector should force actor to select best detector");
+
+  it.todo("hide_best_detector should force actor to hide best detector");
+
+  it.todo("set_torch_state should switch actor torch state");
 });
