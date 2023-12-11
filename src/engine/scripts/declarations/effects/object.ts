@@ -523,7 +523,7 @@ extern(
  * todo;
  */
 extern("xr_effects.update_npc_logic", (actor: GameObject, object: GameObject, params: LuaArray<TStringId>): void => {
-  for (const [index, storyId] of params) {
+  for (const [, storyId] of params) {
     const storyObject: Optional<GameObject> = getObjectByStoryId(storyId);
 
     if (storyObject !== null) {
@@ -553,7 +553,7 @@ extern("xr_effects.update_npc_logic", (actor: GameObject, object: GameObject, pa
  * todo;
  */
 extern("xr_effects.update_obj_logic", (actor: GameObject, object: GameObject, params: LuaArray<TStringId>): void => {
-  for (const [index, storyId] of params) {
+  for (const [, storyId] of params) {
     const storyObject: Optional<GameObject> = getObjectByStoryId(storyId);
 
     if (storyObject !== null) {
@@ -852,9 +852,5 @@ extern("xr_effects.clear_box", (actor: GameObject, object: GameObject, p: [strin
  * todo;
  */
 extern("xr_effects.polter_actor_ignore", (actor: GameObject, object: GameObject, [ignore]: [string]): void => {
-  if (ignore === TRUE) {
-    object.poltergeist_set_actor_ignore(true);
-  } else if (ignore === FALSE) {
-    object.poltergeist_set_actor_ignore(false);
-  }
+  object.poltergeist_set_actor_ignore(ignore === TRUE);
 });
