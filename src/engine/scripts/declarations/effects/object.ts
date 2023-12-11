@@ -41,6 +41,7 @@ import {
   spawnSquadInSmart,
 } from "@/engine/core/utils/spawn";
 import { createVector, subVectors } from "@/engine/core/utils/vector";
+import { misc } from "@/engine/lib/constants/items/misc";
 import { FALSE, TRUE } from "@/engine/lib/constants/words";
 import {
   ActionPlanner,
@@ -802,26 +803,29 @@ extern("xr_effects.heli_die", (actor: GameObject, object: GameObject): void => {
 /**
  * todo;
  */
-extern("xr_effects.set_bloodsucker_state", (actor: GameObject, object: GameObject, p: [string, string]): void => {
-  if ((p && p[0]) === null) {
-    abort("Wrong parameters in function 'set_bloodsucker_state'!!!");
-  }
+extern(
+  "xr_effects.set_bloodsucker_state",
+  (actor: GameObject, object: Optional<GameObject>, p: [string, string]): void => {
+    if ((p && p[0]) === null) {
+      abort("Wrong parameters in function 'set_bloodsucker_state'!!!");
+    }
 
-  let state: string = p[0];
+    let state: string = p[0];
 
-  if (p[1] !== null) {
-    state = p[1];
-    object = getObjectByStoryId(p[1]) as GameObject;
-  }
+    if (p[1]) {
+      state = p[1];
+      object = getObjectByStoryId(p[1]);
+    }
 
-  if (object !== null) {
-    if (state === "default") {
-      object.force_visibility_state(-1);
-    } else {
-      object.force_visibility_state(tonumber(state) as TBloodsuckerVisibilityState);
+    if (object) {
+      if (state === "default") {
+        object.force_visibility_state(-1);
+      } else {
+        object.force_visibility_state(tonumber(state) as TBloodsuckerVisibilityState);
+      }
     }
   }
-});
+);
 
 /**
  * todo;
@@ -835,7 +839,7 @@ extern("xr_effects.clear_box", (actor: GameObject, object: GameObject, p: [strin
 
   const inventoryBox: Optional<GameObject> = getObjectByStoryId(p[0]);
 
-  assertDefined(inventoryBox, "There is no object with story_id [%s]", tostring(p[0]));
+  assert(inventoryBox, "There is no object with story_id '%s'.", p[0]);
 
   const itemsList: LuaArray<GameObject> = new LuaTable();
 
@@ -849,8 +853,27 @@ extern("xr_effects.clear_box", (actor: GameObject, object: GameObject, p: [strin
 });
 
 /**
- * todo;
+ * Toggle poltergeist object ignoring of actor.
  */
 extern("xr_effects.polter_actor_ignore", (actor: GameObject, object: GameObject, [ignore]: [string]): void => {
   object.poltergeist_set_actor_ignore(ignore === TRUE);
 });
+
+/**
+ * Set torch state for an object if story id object exists and has it.
+ * Expect `on` or `off` as state.
+ */
+extern(
+  "xr_effects.set_torch_state",
+  (actor: GameObject, object: GameObject, [storyId, state]: [TStringId, Optional<string>]): void => {
+    if (!state) {
+      abort("Not enough parameters in 'set_torch_state' function effect.");
+    }
+
+    const torch: Optional<GameObject> = getObjectByStoryId(storyId)?.object(misc.device_torch) as Optional<GameObject>;
+
+    if (torch) {
+      torch.enable_attachable_item(state === "on");
+    }
+  }
+);

@@ -354,28 +354,3 @@ extern("xr_effects.hide_best_detector", (actor: GameObject): void => {
     }
   }
 });
-
-/**
- * todo;
- */
-extern("xr_effects.set_torch_state", (actor: GameObject, object: GameObject, p: [string, Optional<string>]): void => {
-  if (p === null || p[1] === null) {
-    abort("Not enough parameters in 'set_torch_state' function!");
-  }
-
-  const storyObject: Optional<GameObject> = getObjectByStoryId(p[0]);
-
-  if (storyObject === null) {
-    return;
-  }
-
-  const torch: Optional<GameObject> = storyObject.object(misc.device_torch);
-
-  if (torch) {
-    if (p[1] === "on") {
-      torch.enable_attachable_item(true);
-    } else if (p[1] === "off") {
-      torch.enable_attachable_item(false);
-    }
-  }
-});

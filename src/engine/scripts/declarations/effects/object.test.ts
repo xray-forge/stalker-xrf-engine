@@ -1,6 +1,11 @@
-import { beforeAll, describe, it } from "@jest/globals";
+import { beforeAll, beforeEach, describe, expect, it } from "@jest/globals";
 
-import { checkXrEffect } from "@/fixtures/engine";
+import { registerStoryLink } from "@/engine/core/database";
+import { misc } from "@/engine/lib/constants/items/misc";
+import { FALSE, TRUE } from "@/engine/lib/constants/words";
+import { GameObject } from "@/engine/lib/types";
+import { callXrEffect, checkXrEffect, resetRegistry } from "@/fixtures/engine";
+import { MockGameObject } from "@/fixtures/xray";
 
 describe("object effects declaration", () => {
   beforeAll(() => {
@@ -54,12 +59,17 @@ describe("object effects declaration", () => {
     checkXrEffect("set_bloodsucker_state");
     checkXrEffect("clear_box");
     checkXrEffect("polter_actor_ignore");
+    checkXrEffect("set_torch_state");
   });
 });
 
 describe("object effects implementation", () => {
   beforeAll(() => {
     require("@/engine/scripts/declarations/effects/object");
+  });
+
+  beforeEach(() => {
+    resetRegistry();
   });
 
   it.todo("anim_obj_forward should correctly play forward animation");
@@ -152,5 +162,34 @@ describe("object effects implementation", () => {
 
   it.todo("clear_box should clear boxes");
 
-  it.todo("polter_actor_ignore should force poltergeist to ignore actor");
+  it("polter_actor_ignore should force poltergeist to ignore actor", () => {
+    const object: GameObject = MockGameObject.mock();
+
+    callXrEffect("polter_actor_ignore", MockGameObject.mockActor(), object, TRUE);
+    expect(object.poltergeist_set_actor_ignore).toHaveBeenCalledTimes(1);
+    expect(object.poltergeist_set_actor_ignore).toHaveBeenCalledWith(true);
+
+    callXrEffect("polter_actor_ignore", MockGameObject.mockActor(), object, FALSE);
+    expect(object.poltergeist_set_actor_ignore).toHaveBeenCalledTimes(2);
+    expect(object.poltergeist_set_actor_ignore).toHaveBeenCalledWith(false);
+  });
+
+  it("set_torch_state should switch actor torch state", () => {
+    const torch: GameObject = MockGameObject.mock({ section: <T>() => misc.device_torch as T });
+    const object: GameObject = MockGameObject.mock({ inventory: [[misc.device_torch, torch]] });
+
+    registerStoryLink(object.id(), "test-sid");
+
+    expect(() => callXrEffect("set_torch_state", MockGameObject.mockActor(), object, "test-sid")).toThrow(
+      "Not enough parameters in 'set_torch_state' function effect."
+    );
+
+    callXrEffect("set_torch_state", MockGameObject.mockActor(), object, "test-sid", "on");
+    expect(torch.enable_attachable_item).toHaveBeenCalledTimes(1);
+    expect(torch.enable_attachable_item).toHaveBeenCalledWith(true);
+
+    callXrEffect("set_torch_state", MockGameObject.mockActor(), object, "test-sid", "off");
+    expect(torch.enable_attachable_item).toHaveBeenCalledTimes(2);
+    expect(torch.enable_attachable_item).toHaveBeenCalledWith(false);
+  });
 });

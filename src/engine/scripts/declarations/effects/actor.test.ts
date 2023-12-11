@@ -48,7 +48,6 @@ describe("actor effects declaration", () => {
     checkXrEffect("give_treasure");
     checkXrEffect("get_best_detector");
     checkXrEffect("hide_best_detector");
-    checkXrEffect("set_torch_state");
   });
 });
 
@@ -220,6 +219,4 @@ describe("actor effects implementation", () => {
   it.todo("get_best_detector should force actor to select best detector");
 
   it.todo("hide_best_detector should force actor to hide best detector");
-
-  it.todo("set_torch_state should switch actor torch state");
 });

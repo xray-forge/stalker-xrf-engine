@@ -207,6 +207,7 @@ export function mockGameObject({
         }
       }),
     drop_item_and_teleport: rest.drop_item_and_teleport ?? jest.fn(),
+    enable_attachable_item: rest.enable_attachable_item ?? jest.fn(),
     enable_night_vision: rest.enable_night_vision ?? jest.fn(),
     enable_talk: rest.enable_talk ?? jest.fn(),
     enable_trade: rest.enable_trade ?? jest.fn(),
@@ -305,6 +306,7 @@ export function mockGameObject({
       }
     }),
     parent: rest.parent ?? jest.fn(() => null),
+    poltergeist_set_actor_ignore: rest.poltergeist_set_actor_ignore ?? jest.fn(),
     position: rest.position ?? jest.fn(() => objectPosition),
     radiation,
     rank: rest.rank ?? jest.fn(() => null),
