@@ -81,6 +81,8 @@ export function setRelationFromCommunityToCommunity(
 /**
  * Set goodwill from one community to object by id.
  *
+ * todo: Rename to match `change`. Can also decrease.
+ *
  * @param from - from community
  * @param toId - to object id
  * @param delta - delta value to change from current state (+20, +1000, -50, -500 etc)

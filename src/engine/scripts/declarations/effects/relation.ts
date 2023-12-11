@@ -13,7 +13,8 @@ import {
   updateSquadIdRelationToActor,
 } from "@/engine/core/utils/relation";
 import { TCommunity } from "@/engine/lib/constants/communities";
-import { EGameObjectRelation, GameObject, Optional, TCount, TStringId } from "@/engine/lib/types";
+import { ACTOR_ID } from "@/engine/lib/constants/ids";
+import { EGameObjectRelation, GameObject, Optional, TCount, TRate, TStringId } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -46,9 +47,7 @@ extern(
   (actor: GameObject, object: GameObject, [squadStoryId]: [TStringId]): void => {
     const squad: Optional<Squad> = getServerObjectByStoryId(squadStoryId);
 
-    if (squad === null) {
-      return;
-    } else {
+    if (squad) {
       setSquadRelationToActor(squad, ERelation.NEUTRAL);
     }
   }
@@ -62,9 +61,7 @@ extern(
   (actor: GameObject, object: GameObject, [squadStoryId]: [TStringId]): void => {
     const squad: Optional<Squad> = getServerObjectByStoryId(squadStoryId);
 
-    if (squad === null) {
-      return;
-    } else {
+    if (squad) {
       setSquadRelationToActor(squad, ERelation.FRIEND);
     }
   }
@@ -78,112 +75,107 @@ extern(
   (actor: GameObject, object: GameObject, [squadStoryId]: [TStringId]): void => {
     const squad: Optional<Squad> = getServerObjectByStoryId(squadStoryId);
 
-    if (squad === null) {
-      return;
-    } else {
+    if (squad) {
       setSquadRelationToActor(squad, ERelation.ENEMY);
     }
   }
 );
 
 /**
- * todo;
+ * Set object sympathy level based on provided `sympathy` parameter.
  */
 extern("xr_effects.set_npc_sympathy", (actor: GameObject, object: GameObject, [sympathy]: [Optional<TCount>]): void => {
-  if (sympathy !== null) {
+  if (sympathy) {
     setObjectSympathy(object, sympathy);
   }
 });
 
 /**
- * todo;
+ * Set squad relation to an actor.
  */
 extern(
   "xr_effects.set_squad_goodwill",
   (actor: GameObject, object: GameObject, [storyId, relation]: [Optional<TStringId>, Optional<ERelation>]): void => {
-    if (storyId !== null && relation !== null) {
+    if (storyId && relation) {
       updateSquadIdRelationToActor(storyId, relation);
     }
   }
 );
 
 /**
- * todo;
+ * Set squad relation to an object.
  */
 extern(
   "xr_effects.set_squad_goodwill_to_npc",
   (actor: GameObject, object: GameObject, [storyId, relation]: [Optional<TStringId>, Optional<ERelation>]): void => {
-    if (storyId !== null && relation !== null) {
+    if (storyId && relation) {
       setSquadRelationWithObject(storyId, object, relation);
     }
   }
 );
 
 /**
- * todo;
+ * Increment relation value by `count` for provided community.
  */
 extern(
   "xr_effects.inc_faction_goodwill_to_actor",
-  (actor: GameObject, object: GameObject, p: [Optional<TCommunity>, Optional<number>]): void => {
-    const community: Optional<TCommunity> = p[0];
-    const delta: Optional<TCount> = p[1];
-
-    if (delta && community) {
-      increaseCommunityGoodwillToId(community, actor.id(), tonumber(delta)!);
-    } else {
-      abort("Wrong parameters in function 'inc_faction_goodwill_to_actor'");
+  (actor: GameObject, object: GameObject, [community, delta]: [Optional<TCommunity>, Optional<number>]): void => {
+    if (!delta || !community) {
+      abort("Wrong parameters in effect 'inc_faction_goodwill_to_actor'.");
     }
+
+    increaseCommunityGoodwillToId(community, ACTOR_ID, tonumber(delta) as TCount);
   }
 );
 
 /**
- * todo;
+ * Decrement relation value by `count` for provided community.
  */
 extern(
   "xr_effects.dec_faction_goodwill_to_actor",
-  (actor: GameObject, object: GameObject, params: [Optional<TCommunity>, Optional<TCount>]): void => {
-    const community: Optional<TCommunity> = params[0];
-    const delta: Optional<TCount> = params[1];
-
-    if (delta && community) {
-      increaseCommunityGoodwillToId(community, actor.id(), -tonumber(delta)!);
-    } else {
-      abort("Wrong parameters in function 'dec_faction_goodwill_to_actor'");
+  (actor: GameObject, object: GameObject, [community, delta]: [Optional<TCommunity>, Optional<TCount>]): void => {
+    if (!delta || !community) {
+      abort("Wrong parameters in effect 'dec_faction_goodwill_to_actor'.");
     }
+
+    increaseCommunityGoodwillToId(community, ACTOR_ID, -(tonumber(delta) as TCount));
   }
 );
 
 /**
- * todo;
+ * Set two provided squads as enemies one to another.
  */
-extern("xr_effects.set_squads_enemies", (actor: GameObject, object: GameObject, p: [string, string]) => {
-  if (p[0] === null || p[1] === null) {
-    abort("Wrong parameters in function set_squad_enemies");
+extern(
+  "xr_effects.set_squads_enemies",
+  (actor: GameObject, object: GameObject, [firstStoryId, secondStoryId]: [TStringId, TStringId]) => {
+    if (!firstStoryId || !secondStoryId) {
+      return abort("Wrong parameters in effect set_squad_enemies.");
+    }
 
-    return;
-  }
+    const firstSquad: Optional<Squad> = getServerObjectByStoryId(firstStoryId);
+    const secondSquad: Optional<Squad> = getServerObjectByStoryId(secondStoryId);
 
-  const squad1: Optional<Squad> = getServerObjectByStoryId(p[0]);
-  const squad2: Optional<Squad> = getServerObjectByStoryId(p[1]);
+    if (!firstSquad) {
+      abort("There is no squad with story id '%s'.", firstStoryId);
+    } else if (!secondSquad) {
+      abort("There is no squad with story id '%s'.", secondStoryId);
+    }
 
-  if (squad1 === null) {
-    abort("There is no squad with id[%s]", tostring(p[0]));
-  } else if (squad2 === null) {
-    abort("There is no squad with id[%s]", tostring(p[1]));
-  }
+    for (const squadMemberDescriptor of firstSquad.squad_members()) {
+      const member: Optional<GameObject> = registry.objects.get(squadMemberDescriptor.id)
+        ?.object as Optional<GameObject>;
 
-  for (const k of squad1.squad_members()) {
-    const squadObject: Optional<GameObject> = registry.objects.get(k.id)?.object as Optional<GameObject>;
+      if (member) {
+        for (const anotherSquadMemberDescriptor of secondSquad.squad_members()) {
+          const anotherMember: Optional<GameObject> = registry.objects.get(anotherSquadMemberDescriptor.id)
+            .object as Optional<GameObject>;
 
-    if (squadObject !== null) {
-      for (const kk of squad2.squad_members()) {
-        const npcObj2: Optional<GameObject> = registry.objects.get(kk.id).object as Optional<GameObject>;
-
-        if (npcObj2 !== null) {
-          squadObject.set_relation(EGameObjectRelation.ENEMY, npcObj2);
-          npcObj2.set_relation(EGameObjectRelation.ENEMY, squadObject);
+          if (anotherMember) {
+            member.set_relation(EGameObjectRelation.ENEMY, anotherMember);
+            anotherMember.set_relation(EGameObjectRelation.ENEMY, member);
+          }
         }
       }
     }
   }
-});
+);
