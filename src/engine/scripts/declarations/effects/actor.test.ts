@@ -1,11 +1,17 @@
 import { beforeAll, beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { game, patrol } from "xray16";
 
-import { getManager, registerSimulator, registry } from "@/engine/core/database";
+import { getManager, registerSimulator, registerZone, registry } from "@/engine/core/database";
 import { ActorInputManager } from "@/engine/core/managers/actor";
 import { ENotificationDirection, NotificationManager } from "@/engine/core/managers/notifications";
+import { SleepManager } from "@/engine/core/managers/sleep";
+import { TreasureManager } from "@/engine/core/managers/treasures";
 import { giveItemsToActor } from "@/engine/core/utils/reward";
 import { detectors } from "@/engine/lib/constants/items/detectors";
+import { helmets } from "@/engine/lib/constants/items/helmets";
+import { outfits } from "@/engine/lib/constants/items/outfits";
+import { weapons } from "@/engine/lib/constants/items/weapons";
+import { storyNames } from "@/engine/lib/constants/story_names";
 import { TRUE } from "@/engine/lib/constants/words";
 import { GameObject, ServerObject } from "@/engine/lib/types";
 import { callXrEffect, checkXrEffect, mockRegisteredActor, resetRegistry } from "@/fixtures/engine";
@@ -44,11 +50,11 @@ describe("actor effects declaration", () => {
     checkXrEffect("kill_actor");
     checkXrEffect("make_actor_visible_to_squad");
     checkXrEffect("sleep");
-    checkXrEffect("damage_actor_items_on_start");
     checkXrEffect("activate_weapon");
     checkXrEffect("give_treasure");
     checkXrEffect("get_best_detector");
     checkXrEffect("hide_best_detector");
+    checkXrEffect("damage_actor_items_on_start");
   });
 });
 
@@ -209,13 +215,53 @@ describe("actor effects implementation", () => {
 
   it.todo("make_actor_visible_to_squad should make actor visible for squad");
 
-  it.todo("sleep should force actor to start sleeping");
+  it("sleep should show sleep dialog", () => {
+    mockRegisteredActor();
 
-  it.todo("damage_actor_items_on_start should correctly modify actor items on game start");
+    const manager: SleepManager = getManager(SleepManager);
 
-  it.todo("activate_weapon should change active actor item");
+    jest.spyOn(manager, "showSleepDialog").mockImplementation(jest.fn());
 
-  it.todo("give_treasure should give actor treasure coordinates");
+    callXrEffect("sleep", MockGameObject.mockActor(), MockGameObject.mock());
+
+    expect(manager.showSleepDialog).not.toHaveBeenCalled();
+
+    registerZone(MockGameObject.mock({ name: () => storyNames.zat_a2_sr_sleep, inside: () => false }));
+    registerZone(MockGameObject.mock({ name: () => storyNames.pri_a16_sr_sleep, inside: () => true }));
+
+    callXrEffect("sleep", MockGameObject.mockActor(), MockGameObject.mock());
+
+    expect(manager.showSleepDialog).toHaveBeenCalledTimes(1);
+  });
+
+  it("activate_weapon should change active actor item", () => {
+    const weapon: GameObject = MockGameObject.mock({ sectionOverride: weapons.wpn_svu });
+    const actor: GameObject = MockGameObject.mockActor({
+      inventory: [[weapon.section(), weapon]],
+    });
+
+    expect(() => callXrEffect("activate_weapon", actor, MockGameObject.mock(), weapons.wpn_fort)).toThrow(
+      "Actor has no such item to activate - 'wpn_fort'."
+    );
+
+    callXrEffect("activate_weapon", actor, MockGameObject.mock(), weapons.wpn_svu);
+
+    expect(actor.make_item_active).toHaveBeenCalledTimes(1);
+    expect(actor.make_item_active).toHaveBeenCalledWith(weapon);
+  });
+
+  it("give_treasure should give actor treasure coordinates", () => {
+    const treasureManager: TreasureManager = getManager(TreasureManager);
+
+    jest.spyOn(treasureManager, "giveActorTreasureCoordinates").mockImplementation(jest.fn());
+
+    callXrEffect("give_treasure", MockGameObject.mockActor(), MockGameObject.mock(), "first", "second", "third");
+
+    expect(treasureManager.giveActorTreasureCoordinates).toHaveBeenCalledTimes(3);
+    expect(treasureManager.giveActorTreasureCoordinates).toHaveBeenCalledWith("first");
+    expect(treasureManager.giveActorTreasureCoordinates).toHaveBeenCalledWith("second");
+    expect(treasureManager.giveActorTreasureCoordinates).toHaveBeenCalledWith("third");
+  });
 
   it("get_best_detector should force actor to select best detector", () => {
     const advancedDetector: GameObject = MockGameObject.mock({ sectionOverride: detectors.detector_advanced });
@@ -249,5 +295,30 @@ describe("actor effects implementation", () => {
     expect(advancedDetector.enable_attachable_item).toHaveBeenCalledTimes(1);
     expect(advancedDetector.enable_attachable_item).toHaveBeenCalledWith(false);
     expect(scientificDetector.enable_attachable_item).toHaveBeenCalledTimes(0);
+  });
+
+  it("damage_actor_items_on_start should correctly modify actor items on game start", () => {
+    const helm: GameObject = MockGameObject.mock({ sectionOverride: helmets.helm_respirator });
+    const outfit: GameObject = MockGameObject.mock({ sectionOverride: outfits.stalker_outfit });
+    const pistol: GameObject = MockGameObject.mock({ sectionOverride: weapons.wpn_pm_actor });
+    const rifle: GameObject = MockGameObject.mock({ sectionOverride: weapons.wpn_ak74u });
+
+    const actor: GameObject = MockGameObject.mockActor({
+      inventory: [
+        [helm.section(), helm],
+        [outfit.section(), outfit],
+        [rifle.section(), rifle],
+        [pistol.section(), pistol],
+      ],
+    });
+
+    expect(() => callXrEffect("hide_best_detector", MockGameObject.mockActor(), MockGameObject.mock())).not.toThrow();
+
+    callXrEffect("damage_actor_items_on_start", actor, MockGameObject.mock());
+
+    expect(helm.set_condition).toHaveBeenCalledWith(0.8);
+    expect(outfit.set_condition).toHaveBeenCalledWith(0.76);
+    expect(pistol.set_condition).toHaveBeenCalledWith(0.9);
+    expect(rifle.set_condition).toHaveBeenCalledWith(0.7);
   });
 });

@@ -3,6 +3,7 @@ import { game, level, patrol } from "xray16";
 import { getManager, getObjectByStoryId, getServerObjectByStoryId, registry } from "@/engine/core/database";
 import { ActorInputManager } from "@/engine/core/managers/actor";
 import { ENotificationDirection, NotificationManager, TNotificationIcon } from "@/engine/core/managers/notifications";
+import { sleepConfig } from "@/engine/core/managers/sleep";
 import { SleepManager } from "@/engine/core/managers/sleep/SleepManager";
 import { TaskManager } from "@/engine/core/managers/tasks";
 import { TreasureManager } from "@/engine/core/managers/treasures";
@@ -265,48 +266,33 @@ extern(
 /**
  * Trigger sleep dialog for actor.
  * Checks if actor is in one of sleep zones and shows UI.
+ *
+ * todo: Is zone check needed?
  */
 extern("xr_effects.sleep", (): void => {
   logger.info("Sleep effect");
 
-  // todo: Define sleep zones somewhere in config.
-  // todo: Define sleep zones somewhere in config.
-  // todo: Define sleep zones somewhere in config.
-  const sleepZones: LuaArray<TName> = $fromArray([
-    "zat_a2_sr_sleep",
-    "jup_a6_sr_sleep",
-    "pri_a16_sr_sleep",
-    "actor_surge_hide_2",
-  ]);
-
-  for (const [, zone] of sleepZones) {
+  for (const [, zone] of sleepConfig.SLEEP_ZONES) {
     if (isObjectInZone(registry.actor, registry.zones.get(zone))) {
       logger.format("Actor sleep in: '%s'", zone);
+
       getManager(SleepManager).showSleepDialog();
-      break;
+
+      return;
     }
   }
 });
 
-// todo: To be more generic, pick items from slots and add randomization.
-extern("xr_effects.damage_actor_items_on_start", (actor: GameObject): void => {
-  logger.info("Damage actor items on start");
-
-  actor.object(helmets.helm_respirator)?.set_condition(0.8);
-  actor.object(outfits.stalker_outfit)?.set_condition(0.76);
-  actor.object(weapons.wpn_pm_actor)?.set_condition(0.9);
-  actor.object(weapons.wpn_ak74u)?.set_condition(0.7);
-});
-
 /**
- * todo;
+ * Set item of provided section as active for actor.
+ * Throws if item is not present.
  */
 extern("xr_effects.activate_weapon", (actor: GameObject, object: GameObject, [section]: [TSection]) => {
-  const inventoryItem: Optional<GameObject> = actor.object(section);
+  const item: Optional<GameObject> = actor.object(section);
 
-  assertDefined(inventoryItem, "Actor has no such weapon - '%s'.", section);
+  assert(item, "Actor has no such item to activate - '%s'.", section);
 
-  actor.make_item_active(inventoryItem);
+  actor.make_item_active(item);
 });
 
 /**
@@ -318,7 +304,7 @@ extern("xr_effects.give_treasure", (actor: GameObject, object: GameObject, treas
 
   const treasureManager: TreasureManager = getManager(TreasureManager);
 
-  for (const [, id] of treasures) {
+  for (const [, id] of pairs(treasures)) {
     treasureManager.giveActorTreasureCoordinates(id);
   }
 });
@@ -351,4 +337,18 @@ extern("xr_effects.hide_best_detector", (actor: GameObject): void => {
       return;
     }
   }
+});
+
+/**
+ * Damage actor starting items.
+ */
+extern("xr_effects.damage_actor_items_on_start", (actor: GameObject): void => {
+  // todo: To be more generic, pick items from slots and add randomization?
+
+  logger.info("Damage actor items on game start");
+
+  actor.object(helmets.helm_respirator)?.set_condition(0.8);
+  actor.object(outfits.stalker_outfit)?.set_condition(0.76);
+  actor.object(weapons.wpn_pm_actor)?.set_condition(0.9);
+  actor.object(weapons.wpn_ak74u)?.set_condition(0.7);
 });

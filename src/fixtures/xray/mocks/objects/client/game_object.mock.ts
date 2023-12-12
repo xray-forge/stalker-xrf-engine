@@ -256,6 +256,7 @@ export function mockGameObject({
     jump: rest.jump ?? jest.fn(),
     kill: rest.kill ?? jest.fn(),
     level_vertex_id: rest.level_vertex_id ?? jest.fn(() => 255),
+    make_item_active: rest.make_item_active ?? jest.fn(),
     max_ignore_monster_distance: rest.max_ignore_monster_distance ?? jest.fn(),
     money: money ?? jest.fn(() => objectMoney),
     motivation_action_manager:
