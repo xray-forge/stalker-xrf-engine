@@ -5,6 +5,7 @@ import { getManager, registerSimulator, registry } from "@/engine/core/database"
 import { ActorInputManager } from "@/engine/core/managers/actor";
 import { ENotificationDirection, NotificationManager } from "@/engine/core/managers/notifications";
 import { giveItemsToActor } from "@/engine/core/utils/reward";
+import { detectors } from "@/engine/lib/constants/items/detectors";
 import { TRUE } from "@/engine/lib/constants/words";
 import { GameObject, ServerObject } from "@/engine/lib/types";
 import { callXrEffect, checkXrEffect, mockRegisteredActor, resetRegistry } from "@/fixtures/engine";
@@ -216,7 +217,37 @@ describe("actor effects implementation", () => {
 
   it.todo("give_treasure should give actor treasure coordinates");
 
-  it.todo("get_best_detector should force actor to select best detector");
+  it("get_best_detector should force actor to select best detector", () => {
+    const advancedDetector: GameObject = MockGameObject.mock({ sectionOverride: detectors.detector_advanced });
+    const scientificDetector: GameObject = MockGameObject.mock({ sectionOverride: detectors.detector_scientific });
+    const actor: GameObject = MockGameObject.mockActor({
+      inventory: [
+        [advancedDetector.section(), advancedDetector],
+        [scientificDetector.section(), scientificDetector],
+      ],
+    });
 
-  it.todo("hide_best_detector should force actor to hide best detector");
+    callXrEffect("get_best_detector", actor, MockGameObject.mock());
+
+    expect(advancedDetector.enable_attachable_item).toHaveBeenCalledTimes(1);
+    expect(advancedDetector.enable_attachable_item).toHaveBeenCalledWith(true);
+    expect(scientificDetector.enable_attachable_item).toHaveBeenCalledTimes(0);
+  });
+
+  it("hide_best_detector should force actor to hide best detector", () => {
+    const advancedDetector: GameObject = MockGameObject.mock({ sectionOverride: detectors.detector_advanced });
+    const scientificDetector: GameObject = MockGameObject.mock({ sectionOverride: detectors.detector_scientific });
+    const actor: GameObject = MockGameObject.mockActor({
+      inventory: [
+        [advancedDetector.section(), advancedDetector],
+        [scientificDetector.section(), scientificDetector],
+      ],
+    });
+
+    callXrEffect("hide_best_detector", actor, MockGameObject.mock());
+
+    expect(advancedDetector.enable_attachable_item).toHaveBeenCalledTimes(1);
+    expect(advancedDetector.enable_attachable_item).toHaveBeenCalledWith(false);
+    expect(scientificDetector.enable_attachable_item).toHaveBeenCalledTimes(0);
+  });
 });

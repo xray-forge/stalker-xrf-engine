@@ -14,7 +14,7 @@ import {
 } from "@/engine/core/utils/relation";
 import { TCommunity } from "@/engine/lib/constants/communities";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
-import { EGameObjectRelation, GameObject, Optional, TCount, TRate, TStringId } from "@/engine/lib/types";
+import { EGameObjectRelation, GameObject, Optional, TCount, TStringId } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

@@ -316,8 +316,6 @@ extern("xr_effects.activate_weapon", (actor: GameObject, object: GameObject, [se
 extern("xr_effects.give_treasure", (actor: GameObject, object: GameObject, treasures: LuaArray<TStringId>): void => {
   logger.info("Give treasures for actor");
 
-  assertDefined(treasures, "Required parameter is 'NIL'.");
-
   const treasureManager: TreasureManager = getManager(TreasureManager);
 
   for (const [, id] of treasures) {
@@ -347,7 +345,7 @@ extern("xr_effects.hide_best_detector", (actor: GameObject): void => {
   for (const [, detector] of ipairs(detectorsOrder)) {
     const item: Optional<GameObject> = actor.object(detector);
 
-    if (item !== null) {
+    if (item) {
       item.enable_attachable_item(false);
 
       return;
