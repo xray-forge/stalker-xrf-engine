@@ -1,6 +1,6 @@
 import { beforeAll, beforeEach, describe, expect, it, jest } from "@jest/globals";
 
-import { getManager, IRegistryObjectState, registerObject } from "@/engine/core/database";
+import { getManager, IRegistryObjectState, registerObject, registerStoryLink } from "@/engine/core/database";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds";
 import { EScheme, GameObject, SoundObject } from "@/engine/lib/types";
 import {
@@ -115,7 +115,30 @@ describe("world effects implementation", () => {
     expect(soundManager.stopLoopedSound).toHaveBeenCalledWith(object.id(), null);
   });
 
-  it.todo("play_sound_by_story should play sound by story id");
+  it("play_sound_by_story should play sound by story id", () => {
+    const { actorGameObject } = mockRegisteredActor();
+
+    const object: GameObject = MockGameObject.mock();
+    const soundManager: GlobalSoundManager = getManager(GlobalSoundManager);
+    const smartTerrain: MockSmartTerrain = MockSmartTerrain.mockRegistered();
+
+    jest.spyOn(soundManager, "playSound").mockImplementation(jest.fn(() => null as unknown as SoundObject));
+
+    registerStoryLink(object.id(), "test-sid");
+
+    callXrEffect(
+      "play_sound_by_story",
+      actorGameObject,
+      object,
+      "test-sid",
+      "test-theme",
+      "test-faction",
+      smartTerrain.name()
+    );
+
+    expect(soundManager.playSound).toHaveBeenCalledTimes(1);
+    expect(soundManager.playSound).toHaveBeenCalledWith(object.id(), "test-theme", "test-faction", smartTerrain.id);
+  });
 
   it.todo("reset_sound_npc should reset sound");
 

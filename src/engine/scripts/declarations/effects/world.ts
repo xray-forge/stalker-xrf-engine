@@ -84,24 +84,28 @@ extern("xr_effects.play_sound_looped", (actor: GameObject, object: GameObject, [
 /**
  * Stop looped sound playback for an object.
  */
-extern("xr_effects.stop_sound_looped", (actor: GameObject, object: GameObject) => {
+extern("xr_effects.stop_sound_looped", (actor: GameObject, object: GameObject): void => {
   getManager(GlobalSoundManager).stopLoopedSound(object.id(), null);
 });
 
 /**
- * todo;
+ * Play sound in smart terrain by object story ID.
+ *
+ * todo: Is it used with smart terrain ID at all?
  */
 extern(
   "xr_effects.play_sound_by_story",
-  (actor: GameObject, object: GameObject, p: [string, string, string, TName | number]) => {
-    const storyObjectId: Optional<TNumberId> = getObjectIdByStoryId(p[0]);
-    const theme: TName = p[1];
-    const faction: TName = p[2];
+  (
+    actor: GameObject,
+    object: GameObject,
+    [storyId, theme, faction, smartTerrainNameOrId]: [TStringId, TName, TName, TName | number]
+  ): void => {
+    const smartTerrain: Optional<SmartTerrain> = getManager(SimulationManager).getSmartTerrainByName(
+      smartTerrainNameOrId as TName
+    );
+    const smartTerrainId: TNumberId = smartTerrain ? smartTerrain.id : (smartTerrainNameOrId as number);
 
-    const smartTerrain: Optional<SmartTerrain> = getManager(SimulationManager).getSmartTerrainByName(p[3] as TName);
-    const smartTerrainId: TNumberId = smartTerrain !== null ? smartTerrain.id : (p[3] as number);
-
-    getManager(GlobalSoundManager).playSound(storyObjectId as number, theme, faction, smartTerrainId);
+    getManager(GlobalSoundManager).playSound(getObjectIdByStoryId(storyId) as number, theme, faction, smartTerrainId);
   }
 );
 
