@@ -258,8 +258,8 @@ extern(
     assert(squad, "There is no squad with story id - '%s'.", storyId);
 
     for (const squadMember of squad.squad_members()) {
-      const gameObject: Optional<GameObject> =
-        registry.objects.get(squadMember.id)?.object ?? level.object_by_id(squadMember.id);
+      const gameObject: Optional<GameObject> = (registry.objects.get(squadMember.id)?.object ??
+        level.object_by_id(squadMember.id)) as Optional<GameObject>;
 
       if (gameObject) {
         gameObject.make_object_visible_somewhen(actor);

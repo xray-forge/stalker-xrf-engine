@@ -9,45 +9,54 @@ import { createGameAutoSave } from "@/engine/core/utils/game_save";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { consoleCommands } from "@/engine/lib/constants/console_commands";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
-import { GameHud, GameObject, LuaArray, Optional, TCount, TLabel, TName } from "@/engine/lib/types";
+import { GameHud, GameObject, LuaArray, Optional, TCount, TLabel, TName, TRate } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * Increment counter in pstore.
+ * Increment counter in pstore for actor object.
+ * Key is provided, count is optional and fallbacks to 1.
  */
 extern(
   "xr_effects.inc_counter",
   (actor: GameObject, object: GameObject, [name, count]: [Optional<TName>, TCount]): void => {
-    if (name) {
-      setPortableStoreValue(ACTOR_ID, name, getPortableStoreValue(ACTOR_ID, name, 0) + (count ?? 1));
+    if (!name) {
+      return;
     }
+
+    setPortableStoreValue(ACTOR_ID, name, getPortableStoreValue(ACTOR_ID, name, 0) + (count ?? 1));
   }
 );
 
 /**
- * todo;
+ * Decrement counter in pstore for actor object.
+ * Key is provided, count is optional and fallbacks to 1.
  */
 extern(
   "xr_effects.dec_counter",
   (actor: GameObject, object: GameObject, [name, count]: [Optional<TName>, TCount]): void => {
-    if (name) {
-      const newValue: TCount = getPortableStoreValue(ACTOR_ID, name, 0) - (count ?? 1);
-
-      setPortableStoreValue(ACTOR_ID, name, newValue < 0 ? 0 : newValue);
+    if (!name) {
+      return;
     }
+
+    const newValue: TCount = getPortableStoreValue(ACTOR_ID, name, 0) - (count ?? 1);
+
+    setPortableStoreValue(ACTOR_ID, name, newValue < 0 ? 0 : newValue);
   }
 );
 
 /**
- * todo;
+ * Set counter value in pstore for actor object.
+ * Key is provided, count is optional and fallbacks to 1.
  */
 extern(
   "xr_effects.set_counter",
   (actor: GameObject, object: GameObject, [name, count]: [Optional<TName>, TCount]): void => {
-    if (name) {
-      setPortableStoreValue(ACTOR_ID, name, count ?? 0);
+    if (!name) {
+      return;
     }
+
+    setPortableStoreValue(ACTOR_ID, name, count ?? 0);
   }
 );
 
@@ -57,10 +66,37 @@ extern(
  */
 extern("xr_effects.game_disconnect", (): void => disconnectFromGame());
 
+/**
+ * Handle gave over credits
+ */
+extern("xr_effects.game_over", (): void => {
+  logger.info("Game over, credits sequence ended");
+
+  if (!isGameoverCreditsStarted) {
+    return;
+  }
+
+  executeConsoleCommand(consoleCommands.main_menu, "on");
+});
+
+/**
+ * Handle UI changes after credits tutorial.
+ */
+extern("xr_effects.after_credits", (): void => {
+  executeConsoleCommand(consoleCommands.main_menu, "on");
+});
+
+/**
+ * Handle UI changes before credits tutorial.
+ */
+extern("xr_effects.before_credits", (): void => {
+  executeConsoleCommand(consoleCommands.main_menu, "off");
+});
+
 let isGameoverCreditsStarted: boolean = false;
 
 /**
- * Show game credits scene.
+ * Show game credits tutorial scene.
  */
 extern("xr_effects.game_credits", (): void => {
   logger.info("Game credits");
@@ -70,48 +106,21 @@ extern("xr_effects.game_credits", (): void => {
 });
 
 /**
- * todo;
- */
-extern("xr_effects.game_over", (): void => {
-  logger.info("Game over");
-
-  if (isGameoverCreditsStarted !== true) {
-    return;
-  }
-
-  executeConsoleCommand(consoleCommands.main_menu, "on");
-});
-
-/**
- * todo;
- */
-extern("xr_effects.after_credits", (): void => {
-  executeConsoleCommand(consoleCommands.main_menu, "on");
-});
-
-/**
- * todo;
- */
-extern("xr_effects.before_credits", (): void => {
-  executeConsoleCommand(consoleCommands.main_menu, "off");
-});
-
-/**
- * todo;
+ * Handle UI changes when stop game over tutorial.
  */
 extern("xr_effects.on_tutor_gameover_stop", (): void => {
   executeConsoleCommand(consoleCommands.main_menu, "on");
 });
 
 /**
- * todo; extern
+ * Handle UI changes when force load last save on quick load.
  */
 extern("xr_effects.on_tutor_gameover_quickload", (): void => {
   executeConsoleCommand(consoleCommands.load_last_save);
 });
 
 /**
- * todo;
+ * Stop active game tutorial.
  */
 extern("xr_effects.stop_tutorial", (): void => {
   logger.info("Stop tutorial");
@@ -119,53 +128,57 @@ extern("xr_effects.stop_tutorial", (): void => {
 });
 
 /**
- * todo;
+ * Create game save based on provide name.
  */
 extern("xr_effects.scenario_autosave", (actor: GameObject, object: GameObject, [name]: [TName]): void => {
   createGameAutoSave(name);
 });
 
 /**
- * todo;
+ * Set current discount value for mechanic based on parameter.
  */
-extern("xr_effects.mech_discount", (actor: GameObject, object: GameObject, p: [string]): void => {
-  if (p[0]) {
-    getManager(UpgradesManager).setCurrentPriceDiscount(tonumber(p[0])!);
+extern("xr_effects.mech_discount", (actor: GameObject, object: GameObject, [discount]: [Optional<string>]): void => {
+  const discountPercent: Optional<number> = (discount && tonumber(discount)) as Optional<TRate>;
+
+  if (discountPercent) {
+    getManager(UpgradesManager).setCurrentPriceDiscount(discountPercent);
   }
 });
 
 /**
- * todo;
+ * Set current mechanic upgrade hints based on list of parameters.
  */
 extern(
   "xr_effects.upgrade_hint",
   (actor: GameObject, object: GameObject, parameters: Optional<LuaArray<TLabel>>): void => {
-    if (parameters) {
-      getManager(UpgradesManager).setCurrentHints(parameters);
-    }
+    getManager(UpgradesManager).setCurrentHints(parameters);
   }
 );
 
 /**
- * todo;
+ * Add custom test on in-game screen.
  */
 extern("xr_effects.add_cs_text", (actor: GameObject, object: GameObject, [label]: [Optional<TLabel>]): void => {
-  if (label) {
-    const hud: GameHud = get_hud();
-    let customText: Optional<StaticDrawableWrapper> = hud.GetCustomStatic("text_on_screen_center");
-
-    if (customText) {
-      hud.RemoveCustomStatic("text_on_screen_center");
-    }
-
-    hud.AddCustomStatic("text_on_screen_center", true);
-    customText = hud.GetCustomStatic("text_on_screen_center");
-    customText!.wnd().TextControl().SetText(game.translate_string(label));
+  if (!label) {
+    return;
   }
+
+  const hud: GameHud = get_hud();
+  let customText: Optional<StaticDrawableWrapper> = hud.GetCustomStatic("text_on_screen_center");
+
+  if (customText) {
+    hud.RemoveCustomStatic("text_on_screen_center");
+  }
+
+  // todo: Use return value?
+  hud.AddCustomStatic("text_on_screen_center", true);
+
+  customText = hud.GetCustomStatic("text_on_screen_center");
+  customText!.wnd().TextControl().SetText(game.translate_string(label));
 });
 
 /**
- * Delete custom text on screen center.
+ * Delete custom text on in-game screen.
  */
 extern("xr_effects.del_cs_text", (): void => {
   const gameHud: GameHud = get_hud();
