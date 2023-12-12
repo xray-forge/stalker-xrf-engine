@@ -1,11 +1,20 @@
 import { beforeAll, beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { game, patrol } from "xray16";
 
-import { getManager, registerSimulator, registerZone, registry } from "@/engine/core/database";
+import {
+  getManager,
+  registerObject,
+  registerSimulator,
+  registerStoryLink,
+  registerZone,
+  registry,
+} from "@/engine/core/database";
 import { ActorInputManager } from "@/engine/core/managers/actor";
 import { ENotificationDirection, NotificationManager } from "@/engine/core/managers/notifications";
 import { SleepManager } from "@/engine/core/managers/sleep";
+import { TaskManager } from "@/engine/core/managers/tasks";
 import { TreasureManager } from "@/engine/core/managers/treasures";
+import { objectPunchActor } from "@/engine/core/utils/action";
 import { giveItemsToActor } from "@/engine/core/utils/reward";
 import { detectors } from "@/engine/lib/constants/items/detectors";
 import { helmets } from "@/engine/lib/constants/items/helmets";
@@ -13,10 +22,12 @@ import { outfits } from "@/engine/lib/constants/items/outfits";
 import { weapons } from "@/engine/lib/constants/items/weapons";
 import { storyNames } from "@/engine/lib/constants/story_names";
 import { TRUE } from "@/engine/lib/constants/words";
-import { GameObject, ServerObject } from "@/engine/lib/types";
-import { callXrEffect, checkXrEffect, mockRegisteredActor, resetRegistry } from "@/fixtures/engine";
+import { EActiveItemSlot, GameObject, GameTask, ServerObject, Vector } from "@/engine/lib/types";
+import { callXrEffect, checkXrEffect, mockRegisteredActor, MockSquad, resetRegistry } from "@/fixtures/engine";
 import { resetFunctionMock } from "@/fixtures/jest";
-import { MockGameObject, mockServerAlifeObject } from "@/fixtures/xray";
+import { MockAlifeHumanStalker, MockCGameTask, MockGameObject, mockServerAlifeObject } from "@/fixtures/xray";
+
+jest.mock("@/engine/core/utils/action");
 
 jest.mock("@/engine/core/utils/reward", () => ({
   giveItemsToActor: jest.fn(),
@@ -41,8 +52,8 @@ describe("actor effects declaration", () => {
     checkXrEffect("drop_object_item_on_point");
     checkXrEffect("relocate_item");
     checkXrEffect("activate_weapon_slot");
-    checkXrEffect("save_actor_position");
     checkXrEffect("restore_actor_position");
+    checkXrEffect("save_actor_position");
     checkXrEffect("actor_punch");
     checkXrEffect("send_tip");
     checkXrEffect("give_task");
@@ -68,6 +79,7 @@ describe("actor effects implementation", () => {
 
     resetFunctionMock(game.start_tutorial);
     resetFunctionMock(giveItemsToActor);
+    resetFunctionMock(objectPunchActor);
   });
 
   it("disable_ui should correctly call manager methods", () => {
@@ -195,25 +207,177 @@ describe("actor effects implementation", () => {
     expect(actorGameObject.drop_item_and_teleport).toHaveBeenCalledWith(item, new patrol("test-wp").point(0));
   });
 
-  it.todo("relocate_item should correctly relocate items from one object to another");
+  it("relocate_item should correctly relocate items from one object to another", () => {
+    registerSimulator();
 
-  it.todo("activate_weapon_slot should activate slots for actor");
+    const item: GameObject = MockGameObject.mock({ sectionOverride: weapons.wpn_svu });
+    const from: GameObject = MockGameObject.mock({ inventory: [[item.section(), item]] });
+    const to: GameObject = MockGameObject.mock();
 
-  it.todo("save_actor_position should save actor position");
+    registerStoryLink(from.id(), "from-sid");
+    registerStoryLink(to.id(), "to-sid");
 
-  it.todo("restore_actor_position should restore actor position");
+    expect(() => callXrEffect("relocate_item", MockGameObject.mockActor(), MockGameObject.mock())).toThrow(
+      "Couldn't relocate item to not existing object 'nil' in 'relocate_item' effect."
+    );
 
-  it.todo("actor_punch should punch actor by object");
+    callXrEffect("relocate_item", MockGameObject.mockActor(), MockGameObject.mock(), "unknown", "from-sid", "to-sid");
 
-  it.todo("send_tip should send notifications for actor");
+    expect(from.transfer_item).toHaveBeenCalledTimes(0);
+    expect(registry.simulator.create).toHaveBeenCalledTimes(1);
+    expect(registry.simulator.create).toHaveBeenCalledWith(
+      "unknown",
+      to.position(),
+      to.level_vertex_id(),
+      to.game_vertex_id(),
+      to.id()
+    );
 
-  it.todo("give_task should give tasks for actor");
+    callXrEffect(
+      "relocate_item",
+      MockGameObject.mockActor(),
+      MockGameObject.mock(),
+      weapons.wpn_svu,
+      "from-sid",
+      "to-sid"
+    );
 
-  it.todo("set_active_task should set tasks for actor");
+    expect(registry.simulator.create).toHaveBeenCalledTimes(1);
+    expect(from.transfer_item).toHaveBeenCalledTimes(1);
+    expect(from.transfer_item).toHaveBeenCalledWith(item, to);
+  });
 
-  it.todo("kill_actor should kill actor");
+  it("activate_weapon_slot should activate slots for actor", () => {
+    const actor: GameObject = MockGameObject.mockActor();
 
-  it.todo("make_actor_visible_to_squad should make actor visible for squad");
+    expect(() => callXrEffect("activate_weapon_slot", actor, MockGameObject.mock())).toThrow(
+      "Expected weapon slot to be provided as parameter in effect 'activate_weapon_slot'."
+    );
+
+    callXrEffect("activate_weapon_slot", actor, MockGameObject.mock(), EActiveItemSlot.PRIMARY);
+
+    expect(actor.activate_slot).toHaveBeenCalledTimes(1);
+    expect(actor.activate_slot).toHaveBeenCalledWith(EActiveItemSlot.PRIMARY);
+  });
+
+  it("restore_actor_position should restore actor position", () => {
+    const { actorGameObject } = mockRegisteredActor();
+
+    const position: Vector = actorGameObject.position();
+
+    expect(() => callXrEffect("restore_actor_position", actorGameObject, MockGameObject.mock())).toThrow(
+      "Trying to restore actor position with effect while not saved previous one."
+    );
+
+    callXrEffect("save_actor_position", actorGameObject, MockGameObject.mock());
+    callXrEffect("restore_actor_position", actorGameObject, MockGameObject.mock());
+
+    expect(actorGameObject.set_actor_position).toHaveBeenCalledTimes(1);
+    expect(actorGameObject.set_actor_position).toHaveBeenCalledWith(position);
+  });
+
+  it("save_actor_position should save actor position", () => {
+    const { actorGameObject } = mockRegisteredActor();
+
+    expect(() => callXrEffect("save_actor_position", actorGameObject, MockGameObject.mock())).not.toThrow();
+  });
+
+  it("actor_punch should punch actor by object", () => {
+    const object: GameObject = MockGameObject.mock();
+
+    callXrEffect("actor_punch", MockGameObject.mockActor(), object);
+
+    expect(objectPunchActor).toHaveBeenCalledWith(object);
+  });
+
+  it("send_tip should send notifications for actor", () => {
+    const manager: NotificationManager = getManager(NotificationManager);
+
+    jest.spyOn(manager, "sendTipNotification").mockImplementation(jest.fn());
+
+    expect(() => callXrEffect("send_tip", MockGameObject.mockActor(), MockGameObject.mock())).toThrow(
+      "Expected caption to be provided for sent_tip effect."
+    );
+
+    callXrEffect(
+      "send_tip",
+      MockGameObject.mockActor(),
+      MockGameObject.mock(),
+      "test-caption",
+      "test-icon",
+      "test-sender"
+    );
+
+    expect(manager.sendTipNotification).toHaveBeenCalledTimes(1);
+    expect(manager.sendTipNotification).toHaveBeenCalledWith("test-caption", "test-icon", 0, null, "test-sender");
+  });
+
+  it("give_task should give tasks for actor", () => {
+    const manager: TaskManager = getManager(TaskManager);
+
+    jest.spyOn(manager, "giveTask").mockImplementation(jest.fn());
+
+    expect(() => callXrEffect("give_task", MockGameObject.mockActor(), MockGameObject.mock())).toThrow(
+      "No task id parameter in give_task effect."
+    );
+
+    callXrEffect("give_task", MockGameObject.mockActor(), MockGameObject.mock(), "test-task-id");
+
+    expect(manager.giveTask).toHaveBeenCalledTimes(1);
+    expect(manager.giveTask).toHaveBeenCalledWith("test-task-id");
+  });
+
+  it("set_active_task should set tasks for actor", () => {
+    const actor: GameObject = MockGameObject.mockActor();
+    const task: GameTask = MockCGameTask.mock();
+
+    jest.spyOn(actor, "get_task").mockImplementation((taskId) => (taskId === "test-task" ? task : null));
+
+    callXrEffect("set_active_task", actor, MockGameObject.mock(), "no-task");
+
+    expect(actor.get_task).toHaveBeenCalledWith("no-task", true);
+    expect(actor.set_active_task).not.toHaveBeenCalled();
+
+    callXrEffect("set_active_task", actor, MockGameObject.mock(), "test-task");
+
+    expect(actor.get_task).toHaveBeenCalledWith("test-task", true);
+    expect(actor.set_active_task).toHaveBeenCalledTimes(1);
+    expect(actor.set_active_task).toHaveBeenCalledWith(task);
+  });
+
+  it("kill_actor should kill actor", () => {
+    const actor: GameObject = MockGameObject.mockActor();
+
+    callXrEffect("kill_actor", actor, MockGameObject.mock());
+
+    expect(actor.kill).toHaveBeenCalledTimes(1);
+    expect(actor.kill).toHaveBeenCalledWith(actor);
+  });
+
+  it("make_actor_visible_to_squad should make actor visible for squad", () => {
+    const actor: GameObject = MockGameObject.mockActor();
+    const squad: MockSquad = MockSquad.mock();
+    const firstServer: MockAlifeHumanStalker = MockAlifeHumanStalker.create();
+    const firstGame: GameObject = MockGameObject.mock({ idOverride: firstServer.id });
+    const secondServer: MockAlifeHumanStalker = MockAlifeHumanStalker.create();
+    const secondGame: GameObject = MockGameObject.mock({ idOverride: secondServer.id });
+
+    registerSimulator();
+    registerObject(firstGame);
+    registerStoryLink(squad.id, "test-sid");
+
+    squad.mockAddMember(firstServer);
+    squad.mockAddMember(secondServer);
+
+    expect(() => callXrEffect("make_actor_visible_to_squad", actor, MockGameObject.mock(), "not-existing")).toThrow(
+      "There is no squad with story id - 'not-existing'."
+    );
+
+    callXrEffect("make_actor_visible_to_squad", actor, MockGameObject.mock(), "test-sid");
+
+    expect(firstGame.make_object_visible_somewhen).toHaveBeenCalledWith(actor);
+    expect(secondGame.make_object_visible_somewhen).toHaveBeenCalledWith(actor);
+  });
 
   it("sleep should show sleep dialog", () => {
     mockRegisteredActor();

@@ -9,14 +9,13 @@ import { TaskManager } from "@/engine/core/managers/tasks";
 import { TreasureManager } from "@/engine/core/managers/treasures";
 import type { Squad } from "@/engine/core/objects/squad";
 import { objectPunchActor } from "@/engine/core/utils/action";
-import { abort, assert, assertDefined } from "@/engine/core/utils/assertion";
+import { abort, assert } from "@/engine/core/utils/assertion";
 import { extern } from "@/engine/core/utils/binding";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { isObjectInZone } from "@/engine/core/utils/position";
 import { giveItemsToActor } from "@/engine/core/utils/reward";
 import { detectorsOrder } from "@/engine/lib/constants/items/detectors";
 import { helmets } from "@/engine/lib/constants/items/helmets";
-import { misc } from "@/engine/lib/constants/items/misc";
 import { outfits } from "@/engine/lib/constants/items/outfits";
 import { weapons } from "@/engine/lib/constants/items/weapons";
 import { TRUE } from "@/engine/lib/constants/words";
@@ -143,54 +142,61 @@ extern(
 );
 
 /**
- * todo;
+ * Relocate item by section from one story ID to another story ID object.
  */
-extern("xr_effects.relocate_item", (actor: GameObject, object: GameObject, params: [string, string, string]) => {
-  logger.info("Relocate item");
+extern(
+  "xr_effects.relocate_item",
+  (actor: GameObject, object: GameObject, [itemSection, fromStoryId, toStoryId]: [TSection, TStringId, TStringId]) => {
+    logger.info("Relocate item: '%s', '%s' -> '%s'", itemSection, fromStoryId, toStoryId);
 
-  const item: Optional<TSection> = params && params[0];
-  const fromObject: Optional<GameObject> = params && getObjectByStoryId(params[1]);
-  const toObject: Optional<GameObject> = params && getObjectByStoryId(params[2]);
+    const fromObject: Optional<GameObject> = getObjectByStoryId(fromStoryId);
+    const toObject: Optional<GameObject> = getObjectByStoryId(toStoryId);
 
-  if (toObject) {
-    if (fromObject && fromObject.object(item)) {
-      fromObject.transfer_item(fromObject.object(item)!, toObject);
+    assert(toObject, "Couldn't relocate item to not existing object '%s' in 'relocate_item' effect.", toStoryId);
+
+    const item: Optional<GameObject> = fromObject && fromObject.object(itemSection);
+
+    if (item) {
+      (fromObject as GameObject).transfer_item(item, toObject);
     } else {
       registry.simulator.create(
-        item,
+        itemSection,
         toObject.position(),
         toObject.level_vertex_id(),
         toObject.game_vertex_id(),
         toObject.id()
       );
     }
-  } else {
-    abort("Couldn't relocate item to NULL.");
   }
-});
+);
 
 /**
- * todo;
+ * Set weapon slot as currently active for actor.
  */
-extern("xr_effects.activate_weapon_slot", (actor: GameObject, object: GameObject, [slot]: [EActiveItemSlot]): void => {
-  actor.activate_slot(slot);
-});
+extern(
+  "xr_effects.activate_weapon_slot",
+  (actor: GameObject, object: GameObject, [slot]: [Optional<EActiveItemSlot>]): void => {
+    assert(slot, "Expected weapon slot to be provided as parameter in effect 'activate_weapon_slot'.");
+    actor.activate_slot(slot);
+  }
+);
 
-// todo: Move to input manager.
+// todo: Move to input manager or effects state.
 let actorPositionForRestore: Optional<Vector> = null;
 
 /**
- * todo;
+ * Set current actor position based on previously saved one (with save effect).
  */
-extern("xr_effects.save_actor_position", (): void => {
-  actorPositionForRestore = registry.actor.position();
+extern("xr_effects.restore_actor_position", (): void => {
+  assert(actorPositionForRestore, "Trying to restore actor position with effect while not saved previous one.");
+  registry.actor.set_actor_position(actorPositionForRestore);
 });
 
 /**
- * todo;
+ * Save actor position vector for further restoration.
  */
-extern("xr_effects.restore_actor_position", (): void => {
-  registry.actor.set_actor_position(actorPositionForRestore!);
+extern("xr_effects.save_actor_position", (): void => {
+  actorPositionForRestore = registry.actor.position();
 });
 
 /**
@@ -206,38 +212,36 @@ extern("xr_effects.actor_punch", (actor: GameObject, object: GameObject): void =
 extern(
   "xr_effects.send_tip",
   (actor: GameObject, object: GameObject, [caption, icon, senderId]: [TLabel, TNotificationIcon, TStringId]): void => {
-    logger.info("Send tip");
+    assert(caption, "Expected caption to be provided for sent_tip effect.");
     getManager(NotificationManager).sendTipNotification(caption, icon, 0, null, senderId);
   }
 );
 
 /**
- * todo;
+ * Give new task for actor.
  */
 extern("xr_effects.give_task", (actor: GameObject, object: GameObject, [taskId]: [Optional<TStringId>]): void => {
-  assertDefined(taskId, "No parameter in give_task effect.");
+  assert(taskId, "No task id parameter in give_task effect.");
   getManager(TaskManager).giveTask(taskId);
 });
 
 /**
- * todo;
+ * Set one of active actor tasks as current one.
  */
-extern("xr_effects.set_active_task", (actor: GameObject, object: GameObject, [taskId]: [TStringId]): void => {
+extern("xr_effects.set_active_task", (actor: GameObject, object: GameObject, [taskId]: [Optional<TStringId>]): void => {
   logger.info("Set active task:", taskId);
 
-  if (taskId !== null) {
-    const task: Optional<GameTask> = actor.get_task(tostring(taskId), true);
+  const task: Optional<GameTask> = taskId ? actor.get_task(tostring(taskId), true) : null;
 
-    if (task) {
-      actor.set_active_task(task);
-    }
+  if (task) {
+    actor.set_active_task(task);
   }
 });
 
 /**
  * Kill actor instantly.
  */
-extern("xr_effects.kill_actor", (actor: GameObject, object: GameObject): void => {
+extern("xr_effects.kill_actor", (actor: GameObject): void => {
   logger.info("Kill actor effect");
   actor.kill(actor);
 });
@@ -251,12 +255,13 @@ extern(
   (actor: GameObject, object: GameObject, [storyId]: [TStringId]): void => {
     const squad: Optional<Squad> = getServerObjectByStoryId(storyId);
 
-    assertDefined(squad, "There is no squad with id[%s]", storyId);
+    assert(squad, "There is no squad with story id - '%s'.", storyId);
 
     for (const squadMember of squad.squad_members()) {
-      const gameObject: Optional<GameObject> = level.object_by_id(squadMember.id);
+      const gameObject: Optional<GameObject> =
+        registry.objects.get(squadMember.id)?.object ?? level.object_by_id(squadMember.id);
 
-      if (gameObject !== null) {
+      if (gameObject) {
         gameObject.make_object_visible_somewhen(actor);
       }
     }

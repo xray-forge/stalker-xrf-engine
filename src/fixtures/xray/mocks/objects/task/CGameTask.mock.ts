@@ -6,6 +6,10 @@ import { AnyObject, GameTask, Optional, TTaskState } from "@/engine/lib/types";
  * Mock x-ray task object.
  */
 export class MockCGameTask implements GameTask {
+  public static mock(): GameTask {
+    return new MockCGameTask();
+  }
+
   public priority: number = -1;
   public title: string = "test_title";
   public description: string = "test_description";
@@ -92,6 +96,8 @@ export class MockCGameTask implements GameTask {
 
 /**
  * Mock task object.
+ *
+ * @deprecated
  */
 export function mockCGameTask(overrides: Partial<MockCGameTask> = {}): GameTask {
   const task: MockCGameTask = new MockCGameTask();
