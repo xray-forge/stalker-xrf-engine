@@ -1,19 +1,56 @@
-import { describe, expect, it } from "@jest/globals";
+import { beforeAll, describe, expect, it, jest } from "@jest/globals";
 
 import { AnyObject } from "@/engine/lib/types";
+import { registerGameClasses } from "@/engine/scripts/register/class_registrator";
+import { getGameClassId } from "@/engine/scripts/register/game_class_id_registrator";
+import { getUiClassId } from "@/engine/scripts/register/ui_class_id_registrator";
 
-describe("register entry point", () => {
+jest.mock("@/engine/scripts/register/class_registrator");
+jest.mock("@/engine/scripts/register/game_class_id_registrator");
+jest.mock("@/engine/scripts/register/ui_class_id_registrator");
+
+describe("register entry point declaration", () => {
   const checkBinding = (name: string, container: AnyObject = global) => {
     expect(container["register"]).toBeDefined();
     expect(typeof container["register"]).toBe("object");
     expect(typeof container["register"][name]).toBe("function");
   };
 
-  it("should correctly inject registering methods for game", () => {
+  beforeAll(() => {
     require("@/engine/scripts/register");
+  });
 
+  it("should correctly inject registering methods for game", () => {
     checkBinding("registerGameClasses");
     checkBinding("getGameClassId");
     checkBinding("getUiClassId");
+  });
+});
+
+describe("register entry point execution", () => {
+  const callBinding = (name: string, container: AnyObject = global) => {
+    return container["register"][name]();
+  };
+
+  beforeAll(() => {
+    require("@/engine/scripts/register");
+  });
+
+  it("registerGameClasses should correctly call class registration", () => {
+    callBinding("registerGameClasses");
+
+    expect(registerGameClasses).toHaveBeenCalledTimes(1);
+  });
+
+  it("registerGameClasses should correctly call game types registration", () => {
+    callBinding("getGameClassId");
+
+    expect(getGameClassId).toHaveBeenCalledTimes(1);
+  });
+
+  it("registerGameClasses should correctly call ui class registration", () => {
+    callBinding("getUiClassId");
+
+    expect(getUiClassId).toHaveBeenCalledTimes(1);
   });
 });
