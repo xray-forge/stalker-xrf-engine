@@ -183,6 +183,7 @@ export function mockGameObject({
     critically_wounded: rest.critically_wounded ?? jest.fn(() => false),
     debug_planner: rest.debug_planner ?? jest.fn(),
     direction: rest.direction ?? jest.fn(() => objectDirection),
+    disable_anomaly: rest.disable_anomaly ?? jest.fn(),
     disable_hit_marks: rest.disable_hit_marks ?? jest.fn(),
     disable_info_portion:
       disable_info_portion ||
@@ -207,6 +208,7 @@ export function mockGameObject({
         }
       }),
     drop_item_and_teleport: rest.drop_item_and_teleport ?? jest.fn(),
+    enable_anomaly: rest.enable_anomaly ?? jest.fn(),
     enable_attachable_item: rest.enable_attachable_item ?? jest.fn(),
     enable_night_vision: rest.enable_night_vision ?? jest.fn(),
     enable_talk: rest.enable_talk ?? jest.fn(),

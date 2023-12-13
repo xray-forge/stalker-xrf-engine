@@ -11,6 +11,10 @@ import { MockVector } from "@/fixtures/xray/mocks/vector.mock";
  * Mock base alife object implementation.
  */
 export class MockAlifeObject extends MockLuabindClass {
+  public static mock(section: TSection = "test_alife_object"): ServerObject {
+    return new MockAlifeObject(section) as unknown as ServerObject;
+  }
+
   public id: TNumberId = mockConfig.ID_COUNTER++;
   public section: TSection;
   public position: Vector = MockVector.mock(0, 0, 0);
