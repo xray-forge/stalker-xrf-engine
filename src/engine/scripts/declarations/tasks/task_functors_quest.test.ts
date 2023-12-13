@@ -5,8 +5,21 @@ import { AnyArgs, AnyObject, TName } from "@/engine/lib/types";
 import { callBinding, checkNestedBinding, mockRegisteredActor, resetRegistry } from "@/fixtures/engine";
 import { MockGameObject } from "@/fixtures/xray";
 
-describe("task_functors external callbacks", () => {
+describe("task_functors external callbacks declaration", () => {
   const checkTaskBinding = (name: TName) => checkNestedBinding("task_functors", name);
+
+  beforeAll(() => {
+    require("@/engine/scripts/declarations/tasks/task_functors_quest");
+  });
+
+  it("should correctly inject task functors", () => {
+    checkTaskBinding("zat_b29_adv_title");
+    checkTaskBinding("zat_b29_adv_descr");
+    checkTaskBinding("zat_b29_adv_target");
+  });
+});
+
+describe("task_functors external callbacks implementation", () => {
   const callTaskBinding = (name: TName, args: AnyArgs = []) => callBinding(name, args, (_G as AnyObject).task_functors);
 
   beforeAll(() => {
@@ -15,12 +28,6 @@ describe("task_functors external callbacks", () => {
 
   beforeEach(() => {
     resetRegistry();
-  });
-
-  it("should correctly inject task functors", () => {
-    checkTaskBinding("zat_b29_adv_title");
-    checkTaskBinding("zat_b29_adv_descr");
-    checkTaskBinding("zat_b29_adv_target");
   });
 
   it("zat_b29_adv_title should correctly return title", () => {

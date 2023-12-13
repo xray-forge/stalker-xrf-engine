@@ -13,16 +13,11 @@ jest.mock("@/engine/core/managers/surge/utils/surge_cover", () => ({
   getActorTargetSurgeCover: jest.fn(() => null),
 }));
 
-describe("task_functors external callbacks", () => {
+describe("task_functors external callbacks declaration", () => {
   const checkTaskBinding = (name: TName) => checkNestedBinding("task_functors", name);
-  const callTaskBinding = (name: TName, args: AnyArgs = []) => callBinding(name, args, (_G as AnyObject).task_functors);
 
   beforeAll(() => {
     require("@/engine/scripts/declarations/tasks/task_functors");
-  });
-
-  beforeEach(() => {
-    resetRegistry();
   });
 
   it("should correctly inject task functors", () => {
@@ -31,6 +26,18 @@ describe("task_functors external callbacks", () => {
     checkTaskBinding("surge_task_descr");
     checkTaskBinding("target_condlist");
     checkTaskBinding("surge_task_target");
+  });
+});
+
+describe("task_functors external callbacks implementation", () => {
+  const callTaskBinding = (name: TName, args: AnyArgs = []) => callBinding(name, args, (_G as AnyObject).task_functors);
+
+  beforeAll(() => {
+    require("@/engine/scripts/declarations/tasks/task_functors");
+  });
+
+  beforeEach(() => {
+    resetRegistry();
   });
 
   it("condlist should parse condition list from parameters", () => {
