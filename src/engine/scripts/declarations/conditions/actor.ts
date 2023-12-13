@@ -1,10 +1,11 @@
 import { level } from "xray16";
 
-import { registry } from "@/engine/core/database";
+import { getManager, registry } from "@/engine/core/database";
 import {
   hasAchievedInformationDealer,
   hasAchievedWealthy,
 } from "@/engine/core/managers/achievements/achievements_preconditions";
+import { ActorInventoryMenuManager } from "@/engine/core/managers/actor";
 import { isActorInSurgeCover } from "@/engine/core/managers/surge/utils/surge_cover";
 import { ISchemeDeathState } from "@/engine/core/schemes/stalker/death";
 import { ISchemeHitState } from "@/engine/core/schemes/stalker/hit";
@@ -15,7 +16,18 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 import { isObjectInActorFrustum, isObjectInZone } from "@/engine/core/utils/position";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import { nimbleWeapons, TWeapon } from "@/engine/lib/constants/items/weapons";
-import { EScheme, GameObject, LuaArray, Optional, TCount, TDistance, TName, TRate, TSection } from "@/engine/lib/types";
+import {
+  EActorMenuMode,
+  EScheme,
+  GameObject,
+  LuaArray,
+  Optional,
+  TCount,
+  TDistance,
+  TName,
+  TRate,
+  TSection,
+} from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -248,4 +260,11 @@ extern("xr_conditions.actor_has_active_nimble_weapon", (actor: GameObject, objec
   }
 
   return false;
+});
+
+/**
+ * @returns whether actor is currently searching dead body
+ */
+extern("xr_conditions.dead_body_searching", (actor: GameObject, object: GameObject): boolean => {
+  return getManager(ActorInventoryMenuManager).isActiveMode(EActorMenuMode.DEAD_BODY_SEARCH);
 });

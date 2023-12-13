@@ -133,8 +133,8 @@ extern(
       abort("Wrong status[%s] in 'check_smart_alarm_status'", status);
     }
 
-    const smart: SmartTerrain = getManager(SimulationManager).getSmartTerrainByName(smartName)!;
-    const smartControl: Optional<SmartTerrainControl> = smart.smartTerrainActorControl;
+    const smartTerrain: SmartTerrain = getManager(SimulationManager).getSmartTerrainByName(smartName)!;
+    const smartControl: Optional<SmartTerrainControl> = smartTerrain.smartTerrainActorControl;
 
     if (smartControl === null) {
       abort("Cannot calculate 'check_smart_alarm_status' for smart '%s'.", tostring(smartName));

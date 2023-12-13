@@ -31,6 +31,7 @@ describe("actor conditions declaration", () => {
     checkXrCondition("actor_nomove_nowpn");
     checkXrCondition("actor_has_nimble_weapon");
     checkXrCondition("actor_has_active_nimble_weapon");
+    checkXrCondition("dead_body_searching");
   });
 });
 
@@ -84,4 +85,6 @@ describe("actor conditions implementation", () => {
   it.todo("actor_has_nimble_weapon should check if actor has nimble weapon");
 
   it.todo("actor_has_active_nimble_weapon should check if actor has active nimble weapon");
+
+  it.todo("dead_body_searching should check if actor is searching dead body");
 });

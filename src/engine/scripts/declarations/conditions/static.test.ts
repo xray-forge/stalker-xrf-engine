@@ -13,6 +13,12 @@ describe("static conditions declaration", () => {
     checkXrCondition("always");
     checkXrCondition("never");
   });
+});
+
+describe("static conditions implementation", () => {
+  beforeAll(() => {
+    require("@/engine/scripts/declarations/conditions/static");
+  });
 
   it("should always return true", () => {
     expect(getExtern<AnyCallablesModule>("xr_conditions").always()).toBe(true);

@@ -9,7 +9,6 @@ import {
   isStoryObjectExisting,
   registry,
 } from "@/engine/core/database";
-import { ActorInventoryMenuManager } from "@/engine/core/managers/actor/ActorInventoryMenuManager";
 import { SimulationManager } from "@/engine/core/managers/simulation/SimulationManager";
 import { UpgradesManager } from "@/engine/core/managers/upgrades/UpgradesManager";
 import type { SmartTerrain } from "@/engine/core/objects/smart_terrain";
@@ -40,7 +39,6 @@ import {
   AlifeSimulator,
   AnyArgs,
   AnyGameObject,
-  EActorMenuMode,
   EScheme,
   GameObject,
   LuaArray,
@@ -350,7 +348,7 @@ extern("xr_conditions.enemy_group", (actor: GameObject, object: GameObject, para
   const enemy: GameObject = registry.objects.get(enemyId)?.object as GameObject;
   const enemyGroup: TNumberId = enemy?.group();
 
-  for (const [i, v] of params) {
+  for (const [, v] of params) {
     if (v === enemyGroup) {
       return true;
     }
@@ -419,7 +417,7 @@ extern("xr_conditions.killed_by", (actor: GameObject, object: GameObject, parame
   ] as ISchemeDeathState;
 
   if (schemeState !== null) {
-    for (const [i, v] of parameters) {
+    for (const [, v] of parameters) {
       const object: Optional<GameObject> = getObjectByStoryId(v);
 
       if (object && schemeState.killerId === object.id()) {
@@ -435,7 +433,7 @@ extern("xr_conditions.killed_by", (actor: GameObject, object: GameObject, parame
  * todo;
  */
 extern("xr_conditions.is_alive_all", (actor: GameObject, object: GameObject, params: LuaArray<string>): boolean => {
-  for (const [i, v] of params) {
+  for (const [, v] of params) {
     const npcId: Optional<TNumberId> = getObjectIdByStoryId(v);
 
     if (npcId === null) {
@@ -591,11 +589,7 @@ extern("xr_conditions.heavy_wounded", (actor: GameObject, object: GameObject): b
  * todo;
  */
 extern("xr_conditions.mob_has_enemy", (actor: GameObject, object: GameObject): boolean => {
-  if (object === null) {
-    return false;
-  }
-
-  return object.get_enemy() !== null;
+  return object !== null && object.get_enemy() !== null;
 });
 
 /**
@@ -720,6 +714,7 @@ extern("xr_conditions.squad_in_zone_all", (actor: GameObject, object: GameObject
 
 /**
  * todo;
+ * todo: use generic condition?
  */
 extern("xr_conditions.squads_in_zone_b41", (actor: GameObject, object: GameObject): boolean => {
   const smartTerrain: Optional<SmartTerrain> = getManager(SimulationManager).getSmartTerrainByName("jup_b41");
@@ -775,12 +770,12 @@ extern(
 /**
  * todo;
  */
-extern("xr_conditions.target_smart_name", (actor: GameObject, smart: GameObject, p: [string]): boolean => {
+extern("xr_conditions.target_smart_name", (actor: GameObject, object: GameObject, p: [string]): boolean => {
   if (p[0] === null) {
     abort("Wrong parameters");
   }
 
-  return smart.name() === p[0];
+  return object.name() === p[0];
 });
 
 /**
@@ -974,13 +969,6 @@ extern(
 );
 
 /**
- * @returns whether actor is currently searching dead body
- */
-extern("xr_conditions.dead_body_searching", (actor: GameObject, object: GameObject): boolean => {
-  return getManager(ActorInventoryMenuManager).isActiveMode(EActorMenuMode.DEAD_BODY_SEARCH);
-});
-
-/**
  * todo;
  */
 extern("xr_conditions.check_enemy_smart", (actor: GameObject, object: GameObject, params: [string]): boolean => {
@@ -1015,13 +1003,6 @@ extern("xr_conditions.burer_gravi_attack", (actor: GameObject, object: GameObjec
  */
 extern("xr_conditions.burer_anti_aim", (actor: GameObject, object: GameObject): boolean => {
   return object.burer_get_force_anti_aim();
-});
-
-/**
- * todo; probably remove.
- */
-extern("xr_conditions._used", (actor: GameObject, object: GameObject): boolean => {
-  return object.is_talking();
 });
 
 /**
