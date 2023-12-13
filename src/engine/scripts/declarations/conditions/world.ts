@@ -122,6 +122,7 @@ const ALARM_STATUSES = {
 
 /**
  * todo;
+ * todo: Move to smart terrain checker
  */
 extern(
   "xr_conditions.check_smart_alarm_status",
