@@ -21,6 +21,7 @@ import {
   pickSectionFromCondList,
   readIniNumber,
   readIniString,
+  readIniStringList,
   TConditionList,
 } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -55,7 +56,7 @@ const ANOMALY_ZONE_LAYER: TSection = "layer_";
 const ARTEFACT_SPAWN_CHANCE: TRate = 17;
 
 /**
- * todo: Needs simplification of logic.
+ * Binder of composite anomalies which include artefacts spawning, layers of anomaly fields and mines.
  */
 @LuabindClass()
 export class AnomalyZoneBinder extends object_binder {
@@ -79,24 +80,25 @@ export class AnomalyZoneBinder extends object_binder {
   public applyingForceXZ: TRate = -1;
   public applyingForceY: TRate = -1;
 
-  public hasForcedSpawnOverride: boolean = false;
+  public hasForcedSpawnOverride: boolean = false; // todo: Use only one optional flag.
   public isForcedToSpawn: boolean = false;
-  public forcedArtefact: Optional<string> = null;
+  public forcedArtefact: Optional<TSection> = null;
   public zoneLayersCount: TCount = -1;
   public currentZoneLayer: string = "";
 
   /**
    * Layers description.
    */
-  public layersRespawnTriesTable: LuaTable<string, number> = new LuaTable();
-  public layersMaxArtefactsTable: LuaTable<string, number> = new LuaTable();
-  public layersForcesTable: LuaTable<string, { xz: number; y: number }> = new LuaTable();
-  public artefactsStartList: LuaTable<string, LuaTable<number, string>> = new LuaTable();
-  public artefactsSpawnList: LuaTable<string, LuaTable<number, string>> = new LuaTable();
-  public artefactsSpawnCoefficients: LuaTable<string, LuaTable<number, number>> = new LuaTable();
-  public artefactsPathsList: LuaTable<string, LuaTable<number, string>> = new LuaTable();
-  public fieldsTable: LuaTable<string, LuaTable<number, string>> = new LuaTable();
-  public minesTable: LuaTable<string, LuaTable<number, string>> = new LuaTable();
+  public layersRespawnTriesTable: LuaTable<TSection, TCount> = new LuaTable();
+  public layersMaxArtefactsTable: LuaTable<TSection, TCount> = new LuaTable();
+  public layersForcesTable: LuaTable<TSection, { xz: TRate; y: TRate }> = new LuaTable();
+  public layerFieldsTable: LuaTable<TSection, LuaArray<TSection>> = new LuaTable();
+  public layerMinesTable: LuaTable<TSection, LuaArray<TSection>> = new LuaTable();
+
+  public artefactsStartList: LuaTable<TSection, LuaArray<TSection>> = new LuaTable();
+  public artefactsSpawnList: LuaTable<TSection, LuaArray<TSection>> = new LuaTable();
+  public artefactsSpawnCoefficients: LuaTable<TSection, LuaArray<TRate>> = new LuaTable();
+  public artefactsPathsList: LuaTable<TSection, LuaArray<TName>> = new LuaTable();
 
   public constructor(object: GameObject) {
     super(object);
@@ -106,7 +108,7 @@ export class AnomalyZoneBinder extends object_binder {
     if (!this.ini.section_exist(ANOMALY_ZONE_SECTION)) {
       this.isDisabled = true;
 
-      logger.warn("Zone without configuration detected:", object.name());
+      logger.warn("Anomaly zone without configuration detected:", object.name());
 
       return;
     }
@@ -146,93 +148,98 @@ export class AnomalyZoneBinder extends object_binder {
     // logger.info("Init zone layers (picked/count):", this.currentZoneLayer, this.zoneLayersCount);
 
     for (const index of $range(1, this.zoneLayersCount)) {
-      const section: TSection = ANOMALY_ZONE_LAYER + index;
+      const layerSection: TSection = ANOMALY_ZONE_LAYER + index;
 
       // logger.info("Init layer:", section);
 
       this.layersRespawnTriesTable.set(
-        section,
-        readIniNumber(ini, section, "artefact_count", false, defaultRespawnTries)
+        layerSection,
+        readIniNumber(ini, layerSection, "artefact_count", false, defaultRespawnTries)
       );
 
       this.layersRespawnTriesTable.set(
-        section,
-        readIniNumber(ini, section, "respawn_tries", false, this.layersRespawnTriesTable.get(section))
+        layerSection,
+        readIniNumber(ini, layerSection, "respawn_tries", false, this.layersRespawnTriesTable.get(layerSection))
       );
 
       this.layersMaxArtefactsTable.set(
-        section,
-        readIniNumber(ini, section, "max_artefacts", false, defaultMaxArtefacts)
+        layerSection,
+        readIniNumber(ini, layerSection, "max_artefacts", false, defaultMaxArtefacts)
       );
 
-      this.layersForcesTable.set(section, {
-        xz: readIniNumber(ini, section, "applying_force_xz", false, defaultForceXZ),
-        y: readIniNumber(ini, section, "applying_force_y", false, defaultForceY),
+      this.layersForcesTable.set(layerSection, {
+        xz: readIniNumber(ini, layerSection, "applying_force_xz", false, defaultForceXZ),
+        y: readIniNumber(ini, layerSection, "applying_force_y", false, defaultForceY),
       });
 
-      const listOfAvailableArtefacts: LuaTable<number, string> = this.getArtefactsListForSection(
-        section,
+      const listOfLayerArtefacts: LuaArray<TSection> = readIniStringList(
+        ini,
+        layerSection,
+        "artefacts",
+        false,
         defaultArtefacts
       );
 
-      this.artefactsSpawnList.set(section, listOfAvailableArtefacts);
+      this.artefactsSpawnList.set(layerSection, listOfLayerArtefacts);
 
       const initialArtefacts: Optional<string> = readIniString(
         ini,
-        section,
+        layerSection,
         "start_artefact",
         false,
         null,
         defaultSpawned
       );
 
-      if (initialArtefacts !== null) {
+      if (initialArtefacts) {
         this.isForcedToSpawn = true;
-        this.artefactsStartList.set(section, parseStringsList(initialArtefacts));
+        this.artefactsStartList.set(layerSection, parseStringsList(initialArtefacts));
       }
 
-      const coeffsSection: string = readIniString(ini, section, "coeffs_section", false, null, defaultCoeffSectionName);
+      const coeffsSection: TSection = readIniString(
+        ini,
+        layerSection,
+        "coeffs_section",
+        false,
+        null,
+        defaultCoeffSectionName
+      );
       const conditionsList: TConditionList = parseConditionsList(coeffsSection);
-      const coeffsSectionName: string = pickSectionFromCondList(registry.actor, null, conditionsList)!;
-      const coeffs: Optional<string> = readIniString(ini, section, coeffsSectionName, false, null, defaultCoeffs);
-      /**
-       * end todo;
-       */
+      const coeffsSectionName: TSection = pickSectionFromCondList(registry.actor, null, conditionsList)!;
+      const coeffs: Optional<string> = readIniString(ini, layerSection, coeffsSectionName, false, null, defaultCoeffs);
 
-      this.artefactsSpawnCoefficients.set(section, coeffs === null ? new LuaTable() : parseNumbersList(coeffs));
+      this.artefactsSpawnCoefficients.set(layerSection, coeffs === null ? new LuaTable() : parseNumbersList(coeffs));
 
-      const path: Optional<string> = readIniString(ini, section, "artefact_ways", false, null, defaultWays);
+      const path: Optional<TName> = readIniString(ini, layerSection, "artefact_ways", false, null, defaultWays);
 
-      if (path === null) {
-        abort("There is no field 'artefact_ways' in section [%s] in obj [%s]", section, object.name());
+      if (!path) {
+        abort("There is no field 'artefact_ways' in section '%s' in object '%s'.", layerSection, object.name());
       }
 
-      this.artefactsPathsList.set(section, parseStringsList(path));
+      this.artefactsPathsList.set(layerSection, parseStringsList(path));
 
       if (this.isCustomPlacement) {
-        const field: Optional<string> = readIniString(ini, section, "field_name", false, null, defaultFieldName);
+        const field: Optional<string> = readIniString(ini, layerSection, "field_name", false, null, defaultFieldName);
 
-        if (field === null) {
-          this.fieldsTable.set(section, new LuaTable());
-          // --abort("There is no field 'field_name' in section [%s] in obj [%s]", section, obj:name())
-        } else {
-          this.fieldsTable.set(section, parseStringsList(field));
-        }
+        this.layerFieldsTable.set(layerSection, field === null ? new LuaTable() : parseStringsList(field));
 
-        const minesSection: Optional<TSection> = readIniString(ini, section, "mines_section", true);
+        const minesSection: Optional<TSection> = readIniString(ini, layerSection, "mines_section", true);
 
-        if (minesSection === null) {
-          abort("There is no field 'mines_section' in section [%s] in obj [%s]", section, object.name());
-        }
+        assert(
+          minesSection,
+          "There is no field 'mines_section' in section '%s' in object '%s'.",
+          layerSection,
+          object.name()
+        );
 
-        this.minesTable.set(section, new LuaTable());
+        this.layerMinesTable.set(layerSection, new LuaTable());
 
         if (ini.line_count(minesSection) > 0) {
           // logger.info("Init mines for section:", section, minesSection);
-          for (const i of $range(0, ini.line_count(minesSection) - 1)) {
-            const [temp1, mineName, temp2] = ini.r_line(minesSection, i, "", "");
+          for (const index of $range(0, ini.line_count(minesSection) - 1)) {
+            const [, mineName] = ini.r_line(minesSection, index, "", "");
 
-            table.insert(this.minesTable.get(section), mineName);
+            table.insert(this.layerMinesTable.get(layerSection), mineName);
           }
         }
       }
@@ -276,8 +283,8 @@ export class AnomalyZoneBinder extends object_binder {
     }
 
     if (this.spawnedArtefactsCount < this.maxArtefactsInZone && this.shouldRespawnArtefactsIfPossible) {
-      let respawnTries: number = this.respawnTries;
       const availableArtefactSpots: number = this.maxArtefactsInZone - this.spawnedArtefactsCount;
+      let respawnTries: TCount = this.respawnTries;
 
       // Do not try more spawns than available slots.
       if (respawnTries > availableArtefactSpots) {
@@ -344,11 +351,7 @@ export class AnomalyZoneBinder extends object_binder {
       string.sub(this.currentZoneLayer, foundIndex + 1, string.len(this.currentZoneLayer))
     ) as Optional<TIndex>;
 
-    if (layerNumber !== null) {
-      packet.w_u8(layerNumber);
-    } else {
-      packet.w_u8(MAX_U8);
-    }
+    packet.w_u8(layerNumber === null ? MAX_U8 : layerNumber);
 
     packet.w_bool(this.isTurnedOff);
 
@@ -449,9 +452,9 @@ export class AnomalyZoneBinder extends object_binder {
 
     let counter: TCount = 0;
 
-    for (const [layer] of this.fieldsTable) {
+    for (const [layer] of this.layerFieldsTable) {
       if (layer !== currentLayer) {
-        for (const [, vv] of this.fieldsTable.get(layer)) {
+        for (const [, vv] of this.layerFieldsTable.get(layer)) {
           if (anomalyFields.has(vv)) {
             anomalyFields.get(vv).setEnabled(false);
           } else {
@@ -461,9 +464,9 @@ export class AnomalyZoneBinder extends object_binder {
       }
     }
 
-    for (const [layer] of this.minesTable) {
+    for (const [layer] of this.layerMinesTable) {
       if (layer !== currentLayer) {
-        for (const [, vv] of this.minesTable.get(layer)) {
+        for (const [, vv] of this.layerMinesTable.get(layer)) {
           if (anomalyFields.has(vv)) {
             anomalyFields.get(vv).setEnabled(false);
           } else {
@@ -478,13 +481,13 @@ export class AnomalyZoneBinder extends object_binder {
     }
 
     if (!this.isTurnedOff) {
-      for (const [, vv] of this.fieldsTable.get(currentLayer)) {
+      for (const [, vv] of this.layerFieldsTable.get(currentLayer)) {
         if (anomalyFields.has(vv)) {
           anomalyFields.get(vv).setEnabled(true);
         }
       }
 
-      for (const [, vv] of this.minesTable.get(currentLayer)) {
+      for (const [, vv] of this.layerMinesTable.get(currentLayer)) {
         if (anomalyFields.has(vv)) {
           anomalyFields.get(vv).setEnabled(true);
         }
@@ -495,8 +498,8 @@ export class AnomalyZoneBinder extends object_binder {
   /**
    * todo: Description.
    */
-  public respawnArtefactsAndReplaceAnomalyZones(): void {
-    logger.info("Surge spawn:", this.object.name());
+  public respawnArtefactsAndChangeLayers(): void {
+    logger.info("Surge spawn / layers change:", this.object.name());
 
     const anomalyFields: LuaTable<TName, AnomalyFieldBinder> = registry.anomalyFields;
 
@@ -505,13 +508,13 @@ export class AnomalyZoneBinder extends object_binder {
     if (this.isCustomPlacement) {
       let layer: string = this.currentZoneLayer;
 
-      for (const [, v] of this.fieldsTable.get(layer)) {
+      for (const [, v] of this.layerFieldsTable.get(layer)) {
         if (anomalyFields.has(v)) {
           anomalyFields.get(v).setEnabled(false);
         }
       }
 
-      for (const [, v] of this.minesTable.get(layer)) {
+      for (const [, v] of this.layerMinesTable.get(layer)) {
         if (anomalyFields.has(v)) {
           anomalyFields.get(v).setEnabled(false);
         }
@@ -519,13 +522,13 @@ export class AnomalyZoneBinder extends object_binder {
 
       layer = ANOMALY_ZONE_LAYER + math.random(1, this.zoneLayersCount);
 
-      for (const [, v] of this.fieldsTable.get(layer)) {
+      for (const [, v] of this.layerFieldsTable.get(layer)) {
         if (anomalyFields.has(v)) {
           anomalyFields.get(v).setEnabled(true);
         }
       }
 
-      for (const [, v] of this.minesTable.get(layer)) {
+      for (const [, v] of this.layerMinesTable.get(layer)) {
         if (anomalyFields.has(v)) {
           anomalyFields.get(v).setEnabled(true);
         }
@@ -545,8 +548,9 @@ export class AnomalyZoneBinder extends object_binder {
   public spawnRandomArtefact(): void {
     // logger.info("Spawn random artefact:", this.object.name(), this.currentZoneLayer);
 
-    const layer: TName = this.currentZoneLayer;
-    let randomArtefact: string = "";
+    const layer: TSection = this.currentZoneLayer;
+
+    let randomArtefact: TSection = "";
 
     if (this.hasForcedSpawnOverride && this.forcedArtefact) {
       randomArtefact = this.forcedArtefact;
@@ -575,7 +579,7 @@ export class AnomalyZoneBinder extends object_binder {
       let random: TRate = math.random(1, coeffTotal);
 
       for (const it of $range(1, this.artefactsSpawnList.get(layer).length())) {
-        const chance = this.artefactsSpawnCoefficients.get(layer).get(it);
+        const chance: TRate = this.artefactsSpawnCoefficients.get(layer).get(it);
 
         if (random <= chance) {
           randomArtefact = this.artefactsSpawnList.get(layer).get(it);
@@ -610,7 +614,7 @@ export class AnomalyZoneBinder extends object_binder {
   /**
    * todo: Description.
    */
-  public getRandomArtefactPath(): string {
+  public getRandomArtefactPath(): TName {
     // logger.info("Get artefact path:", this.object.name());
 
     const paths: LuaArray<TName> = new LuaTable();
@@ -630,9 +634,9 @@ export class AnomalyZoneBinder extends object_binder {
     }
 
     if (paths.length() === 0) {
-      return this.artefactsPathsList
-        .get(this.currentZoneLayer)
-        .get(math.random(1, this.artefactsPathsList.get(this.currentZoneLayer).length()));
+      const layerPathsList: LuaArray<TName> = this.artefactsPathsList.get(this.currentZoneLayer);
+
+      return layerPathsList.get(math.random(1, layerPathsList.length()));
     }
 
     return paths.get(math.random(1, paths.length()));
@@ -641,41 +645,18 @@ export class AnomalyZoneBinder extends object_binder {
   /**
    * todo: Description.
    */
-  public setForcedSpawnOverride(artefactName: TName): void {
+  public setForcedSpawnOverride(artefactSection: TSection): void {
     logger.info("Set force override:", this.object.name());
 
-    this.forcedArtefact = artefactName;
     this.hasForcedSpawnOverride = true;
+    this.forcedArtefact = artefactSection;
 
-    logger.info("Set forced override for zone/artefact:", this.object.name(), artefactName);
+    logger.info("Set forced override for zone/artefact:", this.object.name(), artefactSection);
   }
 
   /**
-   * todo: Description.
-   * todo: Move to anomaly zones utils.
-   */
-  public getArtefactsListForSection(section: TSection, defaultArtefacts: Optional<string>): LuaTable<number, string> {
-    // todo: Read list at once.
-    const baseArtefactsList: Optional<TSection> = readIniString(
-      this.ini,
-      section,
-      "artefacts",
-      false,
-      null,
-      defaultArtefacts
-    );
-
-    assert(
-      baseArtefactsList,
-      "There is no field 'artefacts' in section '%s' in object '%s'.",
-      section,
-      this.object.name()
-    );
-
-    return parseStringsList(baseArtefactsList);
-  }
-
-  /**
+   * Callback for artefact taking from current anomaly zone.
+   *
    * @param object - game object of artefact taken from the anomaly zone
    */
   public onArtefactTaken(object: AnyGameObject): void {

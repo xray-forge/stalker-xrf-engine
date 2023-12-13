@@ -312,7 +312,7 @@ export class SurgeManager extends AbstractManager {
     }
 
     for (const [, anomalyZone] of registry.anomalyZones) {
-      anomalyZone.respawnArtefactsAndReplaceAnomalyZones();
+      anomalyZone.respawnArtefactsAndChangeLayers();
     }
 
     getManager(MapDisplayManager).updateAnomalyZonesDisplay();
