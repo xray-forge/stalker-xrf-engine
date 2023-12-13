@@ -22,16 +22,12 @@ const logger: LuaLogger = new LuaLogger($filename);
 /**
  * Whether `wealthy` is achieved.
  */
-extern("xr_conditions.wealthy_functor", (): boolean => {
-  return hasAchievedWealthy();
-});
+extern("xr_conditions.wealthy_functor", (): boolean => hasAchievedWealthy());
 
 /**
  * Whether `information dealer` is achieved.
  */
-extern("xr_conditions.information_dealer_functor", (): boolean => {
-  return hasAchievedInformationDealer();
-});
+extern("xr_conditions.information_dealer_functor", (): boolean => hasAchievedInformationDealer());
 
 /**
  * todo;
@@ -51,16 +47,12 @@ extern("xr_conditions.is_enemy_actor", (object: GameObject): boolean => {
 /**
  * Check whether actor is alive at the moment.
  */
-extern("xr_conditions.actor_alive", (actor: GameObject): boolean => {
-  return actor.alive();
-});
+extern("xr_conditions.actor_alive", (actor: GameObject): boolean => actor.alive());
 
 /**
  * Check whether actor sees object at the moment.
  */
-extern("xr_conditions.actor_see_npc", (actor: GameObject, object: GameObject): boolean => {
-  return actor.see(object);
-});
+extern("xr_conditions.actor_see_npc", (actor: GameObject, object: GameObject): boolean => actor.see(object));
 
 /**
  * todo;
@@ -231,7 +223,7 @@ extern("xr_conditions.actor_nomove_nowpn", (): boolean => {
  */
 extern("xr_conditions.actor_has_nimble_weapon", (actor: GameObject): boolean => {
   for (const [weapon] of pairs(nimbleWeapons)) {
-    if (actor.object(weapon) !== null) {
+    if (actor.object(weapon)) {
       return true;
     }
   }

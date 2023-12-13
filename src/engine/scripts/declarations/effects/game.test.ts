@@ -56,6 +56,8 @@ describe("game effects implementation", () => {
   it("inc_counter should correctly increment portable store count", () => {
     const { actorGameObject } = mockRegisteredActor();
 
+    expect(() => callXrEffect("inc_counter", actorGameObject, MockGameObject.mock())).not.toThrow();
+
     expect(getPortableStoreValue(ACTOR_ID, "test-pstore")).toBeNull();
 
     callXrEffect("inc_counter", actorGameObject, MockGameObject.mock(), "test-pstore");
@@ -73,6 +75,8 @@ describe("game effects implementation", () => {
 
   it("dec_counter should correctly decrement portable store count", () => {
     const { actorGameObject } = mockRegisteredActor();
+
+    expect(() => callXrEffect("dec_counter", actorGameObject, MockGameObject.mock())).not.toThrow();
 
     callXrEffect("inc_counter", actorGameObject, MockGameObject.mock(), "test-pstore", 6);
     callXrEffect("dec_counter", actorGameObject, MockGameObject.mock(), "test-pstore");
@@ -94,6 +98,8 @@ describe("game effects implementation", () => {
 
   it("set_counter should correctly set portable store count", () => {
     const { actorGameObject } = mockRegisteredActor();
+
+    expect(() => callXrEffect("set_counter", actorGameObject, MockGameObject.mock())).not.toThrow();
 
     callXrEffect("inc_counter", actorGameObject, MockGameObject.mock(), "test-pstore", 6);
     callXrEffect("set_counter", actorGameObject, MockGameObject.mock(), "test-pstore");
