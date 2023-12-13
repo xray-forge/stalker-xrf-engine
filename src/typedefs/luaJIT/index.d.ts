@@ -26,3 +26,8 @@ declare namespace math {
   function mod(target: number, module: number): number;
   function atan2(first: number, second: number): number;
 }
+
+/**
+ * Extend ipairs to work both with records and lua tables.
+ */
+declare function ipairs<T>(table: LuaTable<number, T>): LuaIterable<LuaMultiReturn<[number, NonNullable<T>]>>;

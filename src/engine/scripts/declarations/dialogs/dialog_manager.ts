@@ -201,6 +201,7 @@ extern("dialog_manager.init_new_dialog", (dialog: PhraseDialog): void => {
 
 /**
  * todo;
+ * todo: correct case
  */
 extern("dialog_manager.initializeStartDialogs", (dialog: PhraseDialog, data: EGenericDialogCategory): void => {
   getManager(DialogManager).initializeStartDialogs(dialog, data);

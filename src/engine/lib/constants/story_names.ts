@@ -4,11 +4,13 @@
  * Lust of story names declared in configs for simpler usage.
  */
 export const storyNames = {
+  actor_surge_hide_2: "actor_surge_hide_2",
   jup_a10_smart_terrain: "jup_a10_smart_terrain",
   jup_a10_spot: "jup_a10_spot",
   jup_a12_spot: "jup_a12_spot",
   jup_a6: "jup_a6",
   jup_a6_spot: "jup_a6_spot",
+  jup_a6_sr_sleep: "jup_a6_sr_sleep",
   jup_a6_sr_sleep_id: "jup_a6_sr_sleep_id",
   jup_a9_spot: "jup_a9_spot",
   jup_b19_spot: "jup_b19_spot",
@@ -33,6 +35,7 @@ export const storyNames = {
   pri_a15_door: "pri_a15_door",
   pri_a16: "pri_a16",
   pri_a16_spot: "pri_a16_spot",
+  pri_a16_sr_sleep: "pri_a16_sr_sleep",
   pri_a16_sr_sleep_id: "pri_a16_sr_sleep_id",
   pri_a17_spot: "pri_a17_spot",
   pri_a18_spot: "pri_a18_spot",
@@ -47,6 +50,7 @@ export const storyNames = {
   pri_b36_spot: "pri_b36_spot",
   zat_a2_actor_treasure: "zat_a2_actor_treasure",
   zat_a2_spot: "zat_a2_spot",
+  zat_a2_sr_sleep: "zat_a2_sr_sleep",
   zat_a2_sr_sleep_id: "zat_a2_sr_sleep_id",
   zat_b100_spot: "zat_b100_spot",
   zat_b101_spot: "zat_b101_spot",

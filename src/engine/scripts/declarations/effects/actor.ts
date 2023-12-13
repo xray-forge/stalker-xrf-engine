@@ -3,19 +3,19 @@ import { game, level, patrol } from "xray16";
 import { getManager, getObjectByStoryId, getServerObjectByStoryId, registry } from "@/engine/core/database";
 import { ActorInputManager } from "@/engine/core/managers/actor";
 import { ENotificationDirection, NotificationManager, TNotificationIcon } from "@/engine/core/managers/notifications";
+import { sleepConfig } from "@/engine/core/managers/sleep";
 import { SleepManager } from "@/engine/core/managers/sleep/SleepManager";
 import { TaskManager } from "@/engine/core/managers/tasks";
 import { TreasureManager } from "@/engine/core/managers/treasures";
 import type { Squad } from "@/engine/core/objects/squad";
 import { objectPunchActor } from "@/engine/core/utils/action";
-import { abort, assert, assertDefined } from "@/engine/core/utils/assertion";
+import { abort, assert } from "@/engine/core/utils/assertion";
 import { extern } from "@/engine/core/utils/binding";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { isObjectInZone } from "@/engine/core/utils/position";
 import { giveItemsToActor } from "@/engine/core/utils/reward";
 import { detectorsOrder } from "@/engine/lib/constants/items/detectors";
 import { helmets } from "@/engine/lib/constants/items/helmets";
-import { misc } from "@/engine/lib/constants/items/misc";
 import { outfits } from "@/engine/lib/constants/items/outfits";
 import { weapons } from "@/engine/lib/constants/items/weapons";
 import { TRUE } from "@/engine/lib/constants/words";
@@ -142,54 +142,61 @@ extern(
 );
 
 /**
- * todo;
+ * Relocate item by section from one story ID to another story ID object.
  */
-extern("xr_effects.relocate_item", (actor: GameObject, object: GameObject, params: [string, string, string]) => {
-  logger.info("Relocate item");
+extern(
+  "xr_effects.relocate_item",
+  (actor: GameObject, object: GameObject, [itemSection, fromStoryId, toStoryId]: [TSection, TStringId, TStringId]) => {
+    logger.info("Relocate item: '%s', '%s' -> '%s'", itemSection, fromStoryId, toStoryId);
 
-  const item: Optional<TSection> = params && params[0];
-  const fromObject: Optional<GameObject> = params && getObjectByStoryId(params[1]);
-  const toObject: Optional<GameObject> = params && getObjectByStoryId(params[2]);
+    const fromObject: Optional<GameObject> = getObjectByStoryId(fromStoryId);
+    const toObject: Optional<GameObject> = getObjectByStoryId(toStoryId);
 
-  if (toObject) {
-    if (fromObject && fromObject.object(item)) {
-      fromObject.transfer_item(fromObject.object(item)!, toObject);
+    assert(toObject, "Couldn't relocate item to not existing object '%s' in 'relocate_item' effect.", toStoryId);
+
+    const item: Optional<GameObject> = fromObject && fromObject.object(itemSection);
+
+    if (item) {
+      (fromObject as GameObject).transfer_item(item, toObject);
     } else {
       registry.simulator.create(
-        item,
+        itemSection,
         toObject.position(),
         toObject.level_vertex_id(),
         toObject.game_vertex_id(),
         toObject.id()
       );
     }
-  } else {
-    abort("Couldn't relocate item to NULL.");
   }
-});
+);
 
 /**
- * todo;
+ * Set weapon slot as currently active for actor.
  */
-extern("xr_effects.activate_weapon_slot", (actor: GameObject, object: GameObject, [slot]: [EActiveItemSlot]): void => {
-  actor.activate_slot(slot);
-});
+extern(
+  "xr_effects.activate_weapon_slot",
+  (actor: GameObject, object: GameObject, [slot]: [Optional<EActiveItemSlot>]): void => {
+    assert(slot, "Expected weapon slot to be provided as parameter in effect 'activate_weapon_slot'.");
+    actor.activate_slot(slot);
+  }
+);
 
-// todo: Move to input manager.
+// todo: Move to input manager or effects state.
 let actorPositionForRestore: Optional<Vector> = null;
 
 /**
- * todo;
+ * Set current actor position based on previously saved one (with save effect).
  */
-extern("xr_effects.save_actor_position", (): void => {
-  actorPositionForRestore = registry.actor.position();
+extern("xr_effects.restore_actor_position", (): void => {
+  assert(actorPositionForRestore, "Trying to restore actor position with effect while not saved previous one.");
+  registry.actor.set_actor_position(actorPositionForRestore);
 });
 
 /**
- * todo;
+ * Save actor position vector for further restoration.
  */
-extern("xr_effects.restore_actor_position", (): void => {
-  registry.actor.set_actor_position(actorPositionForRestore!);
+extern("xr_effects.save_actor_position", (): void => {
+  actorPositionForRestore = registry.actor.position();
 });
 
 /**
@@ -205,38 +212,36 @@ extern("xr_effects.actor_punch", (actor: GameObject, object: GameObject): void =
 extern(
   "xr_effects.send_tip",
   (actor: GameObject, object: GameObject, [caption, icon, senderId]: [TLabel, TNotificationIcon, TStringId]): void => {
-    logger.info("Send tip");
+    assert(caption, "Expected caption to be provided for sent_tip effect.");
     getManager(NotificationManager).sendTipNotification(caption, icon, 0, null, senderId);
   }
 );
 
 /**
- * todo;
+ * Give new task for actor.
  */
 extern("xr_effects.give_task", (actor: GameObject, object: GameObject, [taskId]: [Optional<TStringId>]): void => {
-  assertDefined(taskId, "No parameter in give_task effect.");
+  assert(taskId, "No task id parameter in give_task effect.");
   getManager(TaskManager).giveTask(taskId);
 });
 
 /**
- * todo;
+ * Set one of active actor tasks as current one.
  */
-extern("xr_effects.set_active_task", (actor: GameObject, object: GameObject, [taskId]: [TStringId]): void => {
+extern("xr_effects.set_active_task", (actor: GameObject, object: GameObject, [taskId]: [Optional<TStringId>]): void => {
   logger.info("Set active task:", taskId);
 
-  if (taskId !== null) {
-    const task: Optional<GameTask> = actor.get_task(tostring(taskId), true);
+  const task: Optional<GameTask> = taskId ? actor.get_task(tostring(taskId), true) : null;
 
-    if (task) {
-      actor.set_active_task(task);
-    }
+  if (task) {
+    actor.set_active_task(task);
   }
 });
 
 /**
  * Kill actor instantly.
  */
-extern("xr_effects.kill_actor", (actor: GameObject, object: GameObject): void => {
+extern("xr_effects.kill_actor", (actor: GameObject): void => {
   logger.info("Kill actor effect");
   actor.kill(actor);
 });
@@ -250,12 +255,13 @@ extern(
   (actor: GameObject, object: GameObject, [storyId]: [TStringId]): void => {
     const squad: Optional<Squad> = getServerObjectByStoryId(storyId);
 
-    assertDefined(squad, "There is no squad with id[%s]", storyId);
+    assert(squad, "There is no squad with story id - '%s'.", storyId);
 
     for (const squadMember of squad.squad_members()) {
-      const gameObject: Optional<GameObject> = level.object_by_id(squadMember.id);
+      const gameObject: Optional<GameObject> = (registry.objects.get(squadMember.id)?.object ??
+        level.object_by_id(squadMember.id)) as Optional<GameObject>;
 
-      if (gameObject !== null) {
+      if (gameObject) {
         gameObject.make_object_visible_somewhen(actor);
       }
     }
@@ -265,48 +271,33 @@ extern(
 /**
  * Trigger sleep dialog for actor.
  * Checks if actor is in one of sleep zones and shows UI.
+ *
+ * todo: Is zone check needed?
  */
 extern("xr_effects.sleep", (): void => {
   logger.info("Sleep effect");
 
-  // todo: Define sleep zones somewhere in config.
-  // todo: Define sleep zones somewhere in config.
-  // todo: Define sleep zones somewhere in config.
-  const sleepZones: LuaArray<TName> = $fromArray([
-    "zat_a2_sr_sleep",
-    "jup_a6_sr_sleep",
-    "pri_a16_sr_sleep",
-    "actor_surge_hide_2",
-  ]);
-
-  for (const [, zone] of sleepZones) {
+  for (const [, zone] of sleepConfig.SLEEP_ZONES) {
     if (isObjectInZone(registry.actor, registry.zones.get(zone))) {
       logger.format("Actor sleep in: '%s'", zone);
+
       getManager(SleepManager).showSleepDialog();
-      break;
+
+      return;
     }
   }
 });
 
-// todo: To be more generic, pick items from slots and add randomization.
-extern("xr_effects.damage_actor_items_on_start", (actor: GameObject): void => {
-  logger.info("Damage actor items on start");
-
-  actor.object(helmets.helm_respirator)?.set_condition(0.8);
-  actor.object(outfits.stalker_outfit)?.set_condition(0.76);
-  actor.object(weapons.wpn_pm_actor)?.set_condition(0.9);
-  actor.object(weapons.wpn_ak74u)?.set_condition(0.7);
-});
-
 /**
- * todo;
+ * Set item of provided section as active for actor.
+ * Throws if item is not present.
  */
 extern("xr_effects.activate_weapon", (actor: GameObject, object: GameObject, [section]: [TSection]) => {
-  const inventoryItem: Optional<GameObject> = actor.object(section);
+  const item: Optional<GameObject> = actor.object(section);
 
-  assertDefined(inventoryItem, "Actor has no such weapon - '%s'.", section);
+  assert(item, "Actor has no such item to activate - '%s'.", section);
 
-  actor.make_item_active(inventoryItem);
+  actor.make_item_active(item);
 });
 
 /**
@@ -316,11 +307,9 @@ extern("xr_effects.activate_weapon", (actor: GameObject, object: GameObject, [se
 extern("xr_effects.give_treasure", (actor: GameObject, object: GameObject, treasures: LuaArray<TStringId>): void => {
   logger.info("Give treasures for actor");
 
-  assertDefined(treasures, "Required parameter is 'NIL'.");
-
   const treasureManager: TreasureManager = getManager(TreasureManager);
 
-  for (const [, id] of treasures) {
+  for (const [, id] of pairs(treasures)) {
     treasureManager.giveActorTreasureCoordinates(id);
   }
 });
@@ -332,7 +321,7 @@ extern("xr_effects.get_best_detector", (actor: GameObject): void => {
   for (const [, detector] of ipairs(detectorsOrder)) {
     const item: Optional<GameObject> = actor.object(detector);
 
-    if (item !== null) {
+    if (item) {
       item.enable_attachable_item(true);
 
       return;
@@ -347,7 +336,7 @@ extern("xr_effects.hide_best_detector", (actor: GameObject): void => {
   for (const [, detector] of ipairs(detectorsOrder)) {
     const item: Optional<GameObject> = actor.object(detector);
 
-    if (item !== null) {
+    if (item) {
       item.enable_attachable_item(false);
 
       return;
@@ -356,26 +345,15 @@ extern("xr_effects.hide_best_detector", (actor: GameObject): void => {
 });
 
 /**
- * todo;
+ * Damage actor starting items.
  */
-extern("xr_effects.set_torch_state", (actor: GameObject, object: GameObject, p: [string, Optional<string>]): void => {
-  if (p === null || p[1] === null) {
-    abort("Not enough parameters in 'set_torch_state' function!");
-  }
+extern("xr_effects.damage_actor_items_on_start", (actor: GameObject): void => {
+  // todo: To be more generic, pick items from slots and add randomization?
 
-  const storyObject: Optional<GameObject> = getObjectByStoryId(p[0]);
+  logger.info("Damage actor items on game start");
 
-  if (storyObject === null) {
-    return;
-  }
-
-  const torch: Optional<GameObject> = storyObject.object(misc.device_torch);
-
-  if (torch) {
-    if (p[1] === "on") {
-      torch.enable_attachable_item(true);
-    } else if (p[1] === "off") {
-      torch.enable_attachable_item(false);
-    }
-  }
+  actor.object(helmets.helm_respirator)?.set_condition(0.8);
+  actor.object(outfits.stalker_outfit)?.set_condition(0.76);
+  actor.object(weapons.wpn_pm_actor)?.set_condition(0.9);
+  actor.object(weapons.wpn_ak74u)?.set_condition(0.7);
 });

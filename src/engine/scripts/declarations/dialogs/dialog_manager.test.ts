@@ -3,7 +3,7 @@ import { beforeAll, describe, it } from "@jest/globals";
 import { TName } from "@/engine/lib/types";
 import { checkNestedBinding } from "@/fixtures/engine";
 
-describe("dialogs external callbacks", () => {
+describe("dialogs external callbacks declaration", () => {
   const checkManagerBinding = (name: TName) => checkNestedBinding("dialog_manager", name);
 
   beforeAll(() => {
@@ -36,4 +36,58 @@ describe("dialogs external callbacks", () => {
     checkManagerBinding("create_bye_phrase");
     checkManagerBinding("uni_dialog_precond");
   });
+});
+
+describe("dialogs external callbacks implementation", () => {
+  beforeAll(() => {
+    require("@/engine/scripts/declarations/dialogs/dialog_manager");
+  });
+
+  it.todo("init_new_dialog should initialize correctly");
+
+  it.todo("initializeStartDialogs should initialize correctly");
+
+  it.todo("init_hello_dialogs should initialize correctly");
+
+  it.todo("action_disable_quest_phrase should disable phrases");
+
+  it.todo("action_anomalies_dialogs should correctly switch");
+
+  it.todo("action_job_dialogs should correctly switch");
+
+  it.todo("action_hello_dialogs should correctly switch");
+
+  it.todo("fill_priority_hello_table should correctly handle priorities");
+
+  it.todo("fill_priority_job_table should correctly handle priorities");
+
+  it.todo("fill_priority_anomalies_table should correctly handle priorities");
+
+  it.todo("fill_priority_information_table should correctly handle priorities");
+
+  it.todo("precondition_hello_dialogs should correctly check preconditions");
+
+  it.todo("precondition_job_dialogs_no_more should correctly check preconditions");
+
+  it.todo("precondition_job_dialogs_do_not_know should correctly check preconditions");
+
+  it.todo("precondition_job_dialogs should correctly check preconditions");
+
+  it.todo("precondition_anomalies_dialogs_no_more should correctly check preconditions");
+
+  it.todo("precondition_information_dialogs_no_more should correctly check preconditions");
+
+  it.todo("precondition_information_dialogs_do_not_know should correctly check preconditions");
+
+  it.todo("action_information_dialogs should correctly switch");
+
+  it.todo("precondition_information_dialogs should correctly check preconditions");
+
+  it.todo("precondition_is_phrase_disabled should correctly check preconditions");
+
+  it.todo("action_disable_phrase should correctly disable phrases");
+
+  it.todo("create_bye_phrase should correctly create bye option");
+
+  it.todo("uni_dialog_precond should correctly check dialog preconditions");
 });

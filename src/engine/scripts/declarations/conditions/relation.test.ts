@@ -23,3 +23,35 @@ describe("relation conditions declaration", () => {
     checkXrCondition("npc_community");
   });
 });
+
+describe("relation conditions implementation", () => {
+  beforeAll(() => {
+    require("@/engine/scripts/declarations/conditions/relation");
+  });
+
+  it.todo("is_factions_enemies should check actor and faction state");
+
+  it.todo("is_factions_neutrals should check actor and faction state");
+
+  it.todo("is_factions_friends should check actor and faction state");
+
+  it.todo("is_faction_enemy_to_actor should check actor and faction state");
+
+  it.todo("is_faction_friend_to_actor should check actor and faction state");
+
+  it.todo("is_faction_neutral_to_actor should check actor and faction state");
+
+  it.todo("is_squad_friend_to_actor should check relations");
+
+  it.todo("is_squad_enemy_to_actor should check relations");
+
+  it.todo("fighting_actor should check combat state of object");
+
+  it.todo("actor_enemy should check if actor is enemy");
+
+  it.todo("actor_friend should check if actor is friendly");
+
+  it.todo("actor_neutral should check if actor is neutral");
+
+  it.todo("npc_community should check object community");
+});

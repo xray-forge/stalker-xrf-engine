@@ -132,7 +132,7 @@ export class GlobalSoundManager extends AbstractManager {
   public stopLoopedSound(objectId: TNumberId, sound: Optional<TStringId>): void {
     const loopedCollection: LuaTable<TStringId, AbstractPlayableSound> = soundsConfig.looped.get(objectId);
 
-    if (sound !== null) {
+    if (sound) {
       const loopedTheme: Optional<AbstractPlayableSound> = loopedCollection.get(sound);
 
       if (loopedTheme?.isPlaying(objectId)) {

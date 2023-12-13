@@ -53,13 +53,9 @@ extern(
 /**
  * Check if any game tutorial is active.
  */
-extern("xr_conditions.has_active_tutorial", (): boolean => {
-  return game.has_active_tutorial();
-});
+extern("xr_conditions.has_active_tutorial", (): boolean => game.has_active_tutorial());
 
 /**
  * Check if currently game rendering black screen.
  */
-extern("xr_conditions.black_screen", (): boolean => {
-  return isBlackScreen();
-});
+extern("xr_conditions.black_screen", (): boolean => isBlackScreen());

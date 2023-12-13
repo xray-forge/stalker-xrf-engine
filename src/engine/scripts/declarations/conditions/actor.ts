@@ -1,10 +1,11 @@
 import { level } from "xray16";
 
-import { registry } from "@/engine/core/database";
+import { getManager, registry } from "@/engine/core/database";
 import {
   hasAchievedInformationDealer,
   hasAchievedWealthy,
 } from "@/engine/core/managers/achievements/achievements_preconditions";
+import { ActorInventoryMenuManager } from "@/engine/core/managers/actor";
 import { isActorInSurgeCover } from "@/engine/core/managers/surge/utils/surge_cover";
 import { ISchemeDeathState } from "@/engine/core/schemes/stalker/death";
 import { ISchemeHitState } from "@/engine/core/schemes/stalker/hit";
@@ -15,23 +16,30 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 import { isObjectInActorFrustum, isObjectInZone } from "@/engine/core/utils/position";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import { nimbleWeapons, TWeapon } from "@/engine/lib/constants/items/weapons";
-import { EScheme, GameObject, LuaArray, Optional, TCount, TDistance, TName, TRate, TSection } from "@/engine/lib/types";
+import {
+  EActorMenuMode,
+  EScheme,
+  GameObject,
+  LuaArray,
+  Optional,
+  TCount,
+  TDistance,
+  TName,
+  TRate,
+  TSection,
+} from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * Whether `wealthy` is achieved.
  */
-extern("xr_conditions.wealthy_functor", (): boolean => {
-  return hasAchievedWealthy();
-});
+extern("xr_conditions.wealthy_functor", (): boolean => hasAchievedWealthy());
 
 /**
  * Whether `information dealer` is achieved.
  */
-extern("xr_conditions.information_dealer_functor", (): boolean => {
-  return hasAchievedInformationDealer();
-});
+extern("xr_conditions.information_dealer_functor", (): boolean => hasAchievedInformationDealer());
 
 /**
  * todo;
@@ -51,16 +59,12 @@ extern("xr_conditions.is_enemy_actor", (object: GameObject): boolean => {
 /**
  * Check whether actor is alive at the moment.
  */
-extern("xr_conditions.actor_alive", (actor: GameObject): boolean => {
-  return actor.alive();
-});
+extern("xr_conditions.actor_alive", (actor: GameObject): boolean => actor.alive());
 
 /**
  * Check whether actor sees object at the moment.
  */
-extern("xr_conditions.actor_see_npc", (actor: GameObject, object: GameObject): boolean => {
-  return actor.see(object);
-});
+extern("xr_conditions.actor_see_npc", (actor: GameObject, object: GameObject): boolean => actor.see(object));
 
 /**
  * todo;
@@ -231,7 +235,7 @@ extern("xr_conditions.actor_nomove_nowpn", (): boolean => {
  */
 extern("xr_conditions.actor_has_nimble_weapon", (actor: GameObject): boolean => {
   for (const [weapon] of pairs(nimbleWeapons)) {
-    if (actor.object(weapon) !== null) {
+    if (actor.object(weapon)) {
       return true;
     }
   }
@@ -256,4 +260,11 @@ extern("xr_conditions.actor_has_active_nimble_weapon", (actor: GameObject, objec
   }
 
   return false;
+});
+
+/**
+ * @returns whether actor is currently searching dead body
+ */
+extern("xr_conditions.dead_body_searching", (actor: GameObject, object: GameObject): boolean => {
+  return getManager(ActorInventoryMenuManager).isActiveMode(EActorMenuMode.DEAD_BODY_SEARCH);
 });

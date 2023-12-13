@@ -71,6 +71,8 @@ export function mockLuaGlobals(): void {
   // @ts-ignore
   global.pairs = jest.fn((target: object) => Object.entries(target));
   // @ts-ignore
+  global.ipairs = jest.fn((target: object) => Object.entries(target));
+  // @ts-ignore
   global.error = (message: string): string => {
     throw new Error(message);
   };

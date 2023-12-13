@@ -52,6 +52,35 @@ export function checkXrCondition(name: TName, container: AnyObject = _G): void {
 }
 
 /**
+ * Call condition similar to game scripts.
+ *
+ * @param name - name of condition binding
+ * @param actor - current game actor object
+ * @param object - target object to call condition for
+ * @param parameters - list of parameters for the condition
+ * @returns condition value
+ */
+export function callXrCondition(name: TName, actor: GameObject, object: GameObject, ...parameters: AnyArgs): boolean {
+  const effects: Optional<AnyObject> = (_G as AnyObject)["xr_conditions"];
+
+  if (effects && name in effects) {
+    const result = (_G as AnyObject)["xr_conditions"][name](actor, object, parameters);
+
+    if (typeof result === "boolean") {
+      return result;
+    } else {
+      throw new Error(
+        `Unexpected call - 'xr_conditions' method '${name}' returned non boolean type '${typeof result}'.`
+      );
+    }
+  } else if (!effects) {
+    throw new Error("Unexpected call - 'xr_conditions' global is not registered.");
+  } else {
+    throw new Error(`Unexpected condition provided - '${name}', no matching methods in xr_conditions globals.`);
+  }
+}
+
+/**
  * Expect effect binding to be defined in nested global container.
  *
  * @param name - name of effect binding

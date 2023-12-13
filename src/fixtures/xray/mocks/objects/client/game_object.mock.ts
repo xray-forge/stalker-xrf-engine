@@ -207,6 +207,7 @@ export function mockGameObject({
         }
       }),
     drop_item_and_teleport: rest.drop_item_and_teleport ?? jest.fn(),
+    enable_attachable_item: rest.enable_attachable_item ?? jest.fn(),
     enable_night_vision: rest.enable_night_vision ?? jest.fn(),
     enable_talk: rest.enable_talk ?? jest.fn(),
     enable_trade: rest.enable_trade ?? jest.fn(),
@@ -255,6 +256,8 @@ export function mockGameObject({
     jump: rest.jump ?? jest.fn(),
     kill: rest.kill ?? jest.fn(),
     level_vertex_id: rest.level_vertex_id ?? jest.fn(() => 255),
+    make_item_active: rest.make_item_active ?? jest.fn(),
+    make_object_visible_somewhen: rest.make_object_visible_somewhen ?? jest.fn(),
     max_ignore_monster_distance: rest.max_ignore_monster_distance ?? jest.fn(),
     money: money ?? jest.fn(() => objectMoney),
     motivation_action_manager:
@@ -305,6 +308,7 @@ export function mockGameObject({
       }
     }),
     parent: rest.parent ?? jest.fn(() => null),
+    poltergeist_set_actor_ignore: rest.poltergeist_set_actor_ignore ?? jest.fn(),
     position: rest.position ?? jest.fn(() => objectPosition),
     radiation,
     rank: rest.rank ?? jest.fn(() => null),
@@ -340,6 +344,7 @@ export function mockGameObject({
       }),
     restore_ignore_monster_threshold: rest.restore_max_ignore_monster_distance ?? jest.fn(),
     restore_max_ignore_monster_distance: rest.restore_max_ignore_monster_distance ?? jest.fn(),
+    set_active_task: rest.set_active_task ?? jest.fn(),
     set_const_force: rest.set_const_force ?? jest.fn(),
     set_desired_direction: rest.set_desired_direction ?? jest.fn(),
     set_desired_position: rest.set_desired_position ?? jest.fn(),
