@@ -8,6 +8,7 @@ const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * Binder of anomaly field game object.
+ * Represents smaller single anomaly objects.
  */
 @LuabindClass()
 export class AnomalyFieldBinder extends object_binder {

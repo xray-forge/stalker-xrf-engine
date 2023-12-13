@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it } from "@jest/globals";
 
-import { AnomalyFieldBinder } from "@/engine/core/binders";
+import { AnomalyFieldBinder } from "@/engine/core/binders/zones/AnomalyFieldBinder";
 import { registry } from "@/engine/core/database";
 import { GameObject, ServerObject } from "@/engine/lib/types";
 import { resetRegistry } from "@/fixtures/engine";
