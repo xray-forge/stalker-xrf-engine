@@ -8,7 +8,7 @@ import { GlobalSoundManager } from "@/engine/core/managers/sounds";
 import { hasInfoPortion } from "@/engine/core/utils/info_portion";
 import { parseConditionsList } from "@/engine/core/utils/ini";
 import { emitSchemeEvent } from "@/engine/core/utils/scheme";
-import { EScheme, ESchemeEvent } from "@/engine/lib/types";
+import { EScheme, ESchemeEvent, GameObject } from "@/engine/lib/types";
 import { mockRegisteredActor, mockSchemeState, resetRegistry } from "@/fixtures/engine";
 import {
   EPacketDataType,
@@ -17,6 +17,7 @@ import {
   mockNetPacket,
   MockNetProcessor,
   mockNetReader,
+  MockObjectBinder,
   mockServerAlifeObject,
 } from "@/fixtures/xray";
 
@@ -25,34 +26,50 @@ jest.mock("@/engine/core/utils/scheme/scheme_event");
 describe("PhysicObjectBinder class", () => {
   beforeEach(() => {
     resetRegistry();
-    mockRegisteredActor();
   });
 
   it("should correctly handle going online/offline with defaults", () => {
-    const binder: PhysicObjectBinder = new PhysicObjectBinder(MockGameObject.mock());
+    const object: GameObject = MockGameObject.mock();
+    const binder: PhysicObjectBinder = new PhysicObjectBinder(object);
     const soundManager: GlobalSoundManager = getManager(GlobalSoundManager);
 
     jest.spyOn(soundManager, "stopSoundByObjectId").mockImplementation(jest.fn());
 
-    binder.net_spawn(mockServerAlifeObject({ id: binder.object.id() }));
+    binder.net_spawn(mockServerAlifeObject({ id: object.id() }));
 
-    const state: IRegistryObjectState = registry.objects.get(binder.object.id());
+    const state: IRegistryObjectState = registry.objects.get(object.id());
 
     expect(state).not.toBeNull();
     expect(binder.itemBox).toBeNull();
 
     binder.reinit();
 
-    expect(registry.objects.get(binder.object.id())).not.toBe(state);
-    expect(registry.objects.get(binder.object.id())).toEqual(state);
+    expect(registry.objects.get(object.id())).not.toBe(state);
+    expect(registry.objects.get(object.id())).toEqual(state);
 
     binder.net_destroy();
 
-    expect(registry.objects.has(binder.object.id())).toBe(false);
-    expect(soundManager.stopSoundByObjectId).toHaveBeenCalledWith(binder.object.id());
+    expect(registry.objects.has(object.id())).toBe(false);
+    expect(soundManager.stopSoundByObjectId).toHaveBeenCalledWith(object.id());
+  });
+
+  it("should correctly handle going online/offline when spawn check is falsy", () => {
+    const object: GameObject = MockGameObject.mock();
+    const binder: PhysicObjectBinder = new PhysicObjectBinder(object);
+    const soundManager: GlobalSoundManager = getManager(GlobalSoundManager);
+
+    jest.spyOn(soundManager, "stopSoundByObjectId").mockImplementation(jest.fn());
+    (binder as unknown as MockObjectBinder).canSpawn = false;
+
+    binder.net_spawn(mockServerAlifeObject({ id: object.id() }));
+
+    expect(registry.objects.length()).toBe(0);
+    expect(soundManager.stopSoundByObjectId).not.toHaveBeenCalled();
   });
 
   it("should correctly handle with extended config", () => {
+    mockRegisteredActor();
+
     const binder: PhysicObjectBinder = new PhysicObjectBinder(MockGameObject.mock());
     const soundManager: GlobalSoundManager = getManager(GlobalSoundManager);
 

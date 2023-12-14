@@ -3,6 +3,7 @@ import { jest } from "@jest/globals";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import {
   ActionPlanner,
+  AnyArgs,
   AnyCallable,
   AnyContextualCallable,
   AnyObject,
@@ -34,37 +35,26 @@ import { MockVector } from "@/fixtures/xray/mocks/vector.mock";
  * Abstract game object mock.
  */
 export class MockGameObject {
-  public static mock(
-    base: Partial<
-      GameObject & {
-        idOverride?: TNumberId;
-        sectionOverride?: TSection;
-        infoPortions?: Array<TName>;
-        inventory: Array<[TSection | TNumberId, GameObject]>;
-        upgrades: Array<TSection>;
-      }
-    > = {}
-  ): GameObject {
+  public static mock(base: Partial<GameObject & IGameObjectExtended> = {}): GameObject {
     return mockGameObject(base);
   }
 
-  public static mockActor(
-    base: Partial<
-      GameObject & {
-        idOverride?: TNumberId;
-        sectionOverride?: TSection;
-        infoPortions?: Array<TName>;
-        inventory: Array<[TSection | TNumberId, GameObject]>;
-        upgrades: Array<TSection>;
-      }
-    > = {}
-  ): GameObject {
+  public static mockActor(base: Partial<GameObject & IGameObjectExtended> = {}): GameObject {
     return MockGameObject.mock({
       ...base,
       idOverride: ACTOR_ID,
       get_visual_name: base.get_visual_name ?? jest.fn(() => "some_actor_visual" as any),
     });
   }
+}
+
+export interface IGameObjectExtended {
+  idOverride?: TNumberId;
+  sectionOverride?: TSection;
+  infoPortions?: Array<TName>;
+  inventory: Array<[TSection | TNumberId, GameObject]>;
+  upgrades: Array<TSection>;
+  callCallback: (id: TCallback, ...args: AnyArgs) => void;
 }
 
 /**
@@ -102,15 +92,7 @@ export function mockGameObject({
   transfer_item,
   weapon_unstrapped = jest.fn(() => false),
   ...rest
-}: Partial<
-  GameObject & {
-    idOverride?: TNumberId;
-    sectionOverride?: TSection;
-    infoPortions?: Array<TName>;
-    inventory: Array<[TSection | TNumberId, GameObject]>;
-    upgrades: Array<TSection>;
-  }
-> = {}): GameObject {
+}: Partial<GameObject & IGameObjectExtended> = {}): GameObject {
   const internalInfos: Array<string> = [...infoPortions];
   const inventoryMap: Map<string | number, GameObject> = new Map(inventory);
   const upgradesSet: Set<string> = new Set(upgrades);
@@ -170,6 +152,7 @@ export function mockGameObject({
     buy_condition: rest.buy_condition ?? jest.fn(),
     buy_supplies: rest.buy_supplies ?? jest.fn(),
     buy_item_condition_factor: rest.buy_item_condition_factor ?? jest.fn(),
+    callCallback: jest.fn((id: TCallback, ...args: AnyArgs) => callbacks[id]!(...args)),
     can_select_weapon: rest.can_select_weapon ?? jest.fn(),
     center: rest.center ?? jest.fn(() => objectCenter),
     change_team: rest.change_team ?? jest.fn(),
