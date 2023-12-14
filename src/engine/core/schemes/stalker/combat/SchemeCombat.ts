@@ -90,7 +90,7 @@ export class SchemeCombat extends AbstractScheme {
     actor: GameObject,
     overrides: Optional<ILogicsOverrides | ISchemeCombatState>
   ): void {
-    if (overrides === null) {
+    if (!overrides) {
       return;
     }
 
@@ -100,7 +100,7 @@ export class SchemeCombat extends AbstractScheme {
 
     let scriptCombatType: Optional<EScriptCombatType> = null;
 
-    if (overrides.combatType !== null) {
+    if (overrides.combatType) {
       scriptCombatType = parseStringOptional(pickSectionFromCondList(actor, object, overrides.combatType.condlist));
     }
 

@@ -3,13 +3,10 @@ import { actor_stats, callback, game_graph, level, LuabindClass, object_binder, 
 import { StalkerPatrolManager } from "@/engine/core/ai/patrol/StalkerPatrolManager";
 import { setupStalkerMotivationPlanner, setupStalkerStatePlanner } from "@/engine/core/ai/planner/setup";
 import { StalkerStateManager } from "@/engine/core/ai/state";
-import { EActionId } from "@/engine/core/ai/types";
 import {
   closeLoadMarker,
   closeSaveMarker,
   getManager,
-  IBaseSchemeState,
-  ILogicsOverrides,
   IRegistryObjectState,
   loadObjectLogic,
   openLoadMarker,
@@ -33,8 +30,6 @@ import { initializeObjectThemes } from "@/engine/core/managers/sounds/utils";
 import { TradeManager } from "@/engine/core/managers/trade/TradeManager";
 import type { ISmartTerrainJobDescriptor, SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import { SchemeHear } from "@/engine/core/schemes/shared/hear/SchemeHear";
-import { ISchemeCombatState } from "@/engine/core/schemes/stalker/combat";
-import { SchemeCombat } from "@/engine/core/schemes/stalker/combat/SchemeCombat";
 import { SchemePostCombatIdle } from "@/engine/core/schemes/stalker/combat_idle/SchemePostCombatIdle";
 import { activateMeetWithObject, updateObjectMeetAvailability } from "@/engine/core/schemes/stalker/meet/utils";
 import { SchemeReachTask } from "@/engine/core/schemes/stalker/reach_task/SchemeReachTask";
@@ -44,13 +39,13 @@ import { getObjectCommunity } from "@/engine/core/utils/community";
 import { pickSectionFromCondList, readIniString, TConditionList } from "@/engine/core/utils/ini";
 import { isUndergroundLevel } from "@/engine/core/utils/level";
 import { LuaLogger } from "@/engine/core/utils/logging";
+import { updateStalkerLogic } from "@/engine/core/utils/logics";
 import { getObjectStalkerIni, setupObjectInfoPortions, setupObjectStalkerVisual } from "@/engine/core/utils/object";
 import { ERelation, setGameObjectRelation, setObjectSympathy } from "@/engine/core/utils/relation";
 import {
   emitSchemeEvent,
   initializeObjectInvulnerability,
   setupObjectSmartJobsAndLogicOnSpawn,
-  trySwitchToAnotherSection,
 } from "@/engine/core/utils/scheme";
 import { getObjectSquad } from "@/engine/core/utils/squad";
 import { createEmptyVector } from "@/engine/core/utils/vector";
@@ -59,7 +54,6 @@ import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import { misc } from "@/engine/lib/constants/items/misc";
 import { MAX_U16 } from "@/engine/lib/constants/memory";
 import {
-  ActionPlanner,
   EGameObjectRelation,
   EScheme,
   ESchemeEvent,
@@ -251,8 +245,8 @@ export class StalkerBinder extends object_binder {
 
     updateStalkerLogic(object);
 
-    if (this.isFirstUpdate === false) {
-      if (isObjectAlive === false) {
+    if (!this.isFirstUpdate) {
+      if (!isObjectAlive) {
         getManager(DropManager).createCorpseReleaseItems(this.object);
       }
 
@@ -616,48 +610,5 @@ export class StalkerBinder extends object_binder {
     }
 
     EventsManager.emitEvent(EGameEvent.STALKER_HIT, this.object, amount, direction, who, boneIndex);
-  }
-}
-
-/**
- * todo: Description.
- * todo: move out?
- * todo: move out?
- * todo: move out?
- */
-export function updateStalkerLogic(object: GameObject): void {
-  const state: Optional<IRegistryObjectState> = registry.objects.get(object.id());
-  const actor: GameObject = registry.actor;
-  const combatState: ISchemeCombatState = state.combat as ISchemeCombatState;
-
-  if (state !== null && state.activeScheme !== null && object.alive()) {
-    const manager: ActionPlanner = object.motivation_action_manager();
-    let switched: boolean = false;
-
-    if (manager.initialized() && manager.current_action_id() === EActionId.COMBAT) {
-      const overrides: Optional<ILogicsOverrides> = state.overrides;
-
-      if (overrides !== null) {
-        if (overrides.onCombat) {
-          pickSectionFromCondList(actor, object, overrides.onCombat.condlist);
-        }
-
-        if (combatState?.logic) {
-          if (!trySwitchToAnotherSection(object, combatState) && overrides.combatType) {
-            SchemeCombat.setCombatType(object, actor, overrides);
-          } else {
-            switched = true;
-          }
-        }
-      } else {
-        SchemeCombat.setCombatType(object, actor, combatState);
-      }
-    }
-
-    if (!switched) {
-      trySwitchToAnotherSection(object, state[state.activeScheme as EScheme] as IBaseSchemeState);
-    }
-  } else {
-    SchemeCombat.setCombatType(object, actor, combatState);
   }
 }

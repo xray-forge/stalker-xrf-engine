@@ -1,7 +1,7 @@
-import { updateStalkerLogic } from "@/engine/core/binders/creature";
 import { registry } from "@/engine/core/database";
 import { ISchemeMeetState } from "@/engine/core/schemes/stalker/meet";
 import { updateObjectMeetAvailability } from "@/engine/core/schemes/stalker/meet/utils";
+import { updateStalkerLogic } from "@/engine/core/utils/logics";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import { EScheme, GameObject, Optional, TName } from "@/engine/lib/types";
 
