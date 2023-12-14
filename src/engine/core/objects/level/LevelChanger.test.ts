@@ -9,7 +9,7 @@ import {
   registry,
 } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
-import { LevelChanger } from "@/engine/core/objects/LevelChanger";
+import { LevelChanger } from "@/engine/core/objects/level/LevelChanger";
 import { EPacketDataType, mockIniFile, mockNetPacket, MockNetProcessor } from "@/fixtures/xray";
 
 describe("LevelChanger server class", () => {

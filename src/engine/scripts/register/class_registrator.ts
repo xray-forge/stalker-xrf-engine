@@ -1,5 +1,5 @@
 import { Actor, Monster, Stalker } from "@/engine/core/objects/creature";
-import { Helicopter } from "@/engine/core/objects/Helicopter";
+import { Helicopter } from "@/engine/core/objects/helicopter";
 import {
   InventoryBox,
   Item,
@@ -19,7 +19,7 @@ import {
   ItemWeaponMagazinedWGl,
   ItemWeaponShotgun,
 } from "@/engine/core/objects/item";
-import { LevelChanger } from "@/engine/core/objects/LevelChanger";
+import { LevelChanger } from "@/engine/core/objects/level";
 import { ObjectHangingLamp, ObjectPhysic } from "@/engine/core/objects/physic";
 import { SmartCover } from "@/engine/core/objects/smart_cover";
 import { SmartTerrain } from "@/engine/core/objects/smart_terrain";

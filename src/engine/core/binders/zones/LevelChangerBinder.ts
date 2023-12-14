@@ -11,7 +11,7 @@ import {
   unregisterObject,
 } from "@/engine/core/database";
 import { loadObjectLogic, saveObjectLogic } from "@/engine/core/database/logic";
-import { LevelChanger } from "@/engine/core/objects/LevelChanger";
+import { LevelChanger } from "@/engine/core/objects/level";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { NetPacket, Reader, ServerObject } from "@/engine/lib/types";
 
