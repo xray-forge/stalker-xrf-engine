@@ -1,6 +1,7 @@
 import type { CampManager } from "@/engine/core/ai/camp";
 import type { TAbstractSchemeConstructor } from "@/engine/core/ai/scheme";
-import type { AnomalyFieldBinder, AnomalyZoneBinder, LabX8DoorBinder, SignalLightBinder } from "@/engine/core/binders";
+import type { LabX8DoorBinder, SignalLightBinder } from "@/engine/core/binders/physic";
+import type { AnomalyFieldBinder, AnomalyZoneBinder } from "@/engine/core/binders/zones";
 import type {
   IDynamicSaveData,
   IRankDescriptor,

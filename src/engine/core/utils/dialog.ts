@@ -1,4 +1,4 @@
-import { updateStalkerLogic } from "@/engine/core/binders";
+import { updateStalkerLogic } from "@/engine/core/binders/creature";
 import { registry } from "@/engine/core/database";
 import { ISchemeMeetState } from "@/engine/core/schemes/stalker/meet";
 import { updateObjectMeetAvailability } from "@/engine/core/schemes/stalker/meet/utils";

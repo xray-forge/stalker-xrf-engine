@@ -1,6 +1,6 @@
 import { level } from "xray16";
 
-import { AnomalyZoneBinder } from "@/engine/core/binders";
+import type { AnomalyZoneBinder } from "@/engine/core/binders/zones";
 import { getObjectByStoryId, getServerObjectByStoryId, registry } from "@/engine/core/database";
 import { Squad } from "@/engine/core/objects/squad";
 import { abort } from "@/engine/core/utils/assertion";
