@@ -1,6 +1,6 @@
 import { describe, expect, it } from "@jest/globals";
 
-import { HelicopterBinder } from "@/engine/core/binders/HelicopterBinder";
+import { HelicopterBinder } from "@/engine/core/binders/helicopter/HelicopterBinder";
 import {
   registerHelicopter,
   registerHelicopterEnemy,

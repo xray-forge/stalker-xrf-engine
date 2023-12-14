@@ -1,4 +1,4 @@
-export * from "@/engine/core/binders/HelicopterBinder";
+export * from "@/engine/core/binders/helicopter";
 export * from "@/engine/core/binders/creature";
 export * from "@/engine/core/binders/item";
 export * from "@/engine/core/binders/physic";

@@ -1,8 +1,8 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { level, particles_object } from "xray16";
 
-import { PhysicObjectItemBox } from "@/engine/core/binders";
 import { PhysicObjectBinder } from "@/engine/core/binders/physic/PhysicObjectBinder";
+import { PhysicObjectItemBox } from "@/engine/core/binders/physic/PhysicObjectItemBox";
 import { getManager, ILogicsOverrides, IRegistryObjectState, registerObject, registry } from "@/engine/core/database";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds";
 import { hasInfoPortion } from "@/engine/core/utils/info_portion";
@@ -20,9 +20,7 @@ import {
   mockServerAlifeObject,
 } from "@/fixtures/xray";
 
-jest.mock("@/engine/core/utils/scheme/scheme_event", () => ({
-  emitSchemeEvent: jest.fn(),
-}));
+jest.mock("@/engine/core/utils/scheme/scheme_event");
 
 describe("PhysicObjectBinder class", () => {
   beforeEach(() => {

@@ -1,6 +1,6 @@
 import { describe, expect, it } from "@jest/globals";
 
-import { SmartCoverBinder } from "@/engine/core/binders";
+import { SmartCoverBinder } from "@/engine/core/binders/smart_cover";
 import { MockGameObject } from "@/fixtures/xray";
 
 describe("SmartCoverBinder class", () => {

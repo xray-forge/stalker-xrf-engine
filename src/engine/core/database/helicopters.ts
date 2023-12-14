@@ -1,4 +1,4 @@
-import { HelicopterBinder } from "@/engine/core/binders/HelicopterBinder";
+import { HelicopterBinder } from "@/engine/core/binders/helicopter/HelicopterBinder";
 import { IRegistryObjectState } from "@/engine/core/database/database_types";
 import { registerObject, unregisterObject } from "@/engine/core/database/objects";
 import { registry } from "@/engine/core/database/registry";

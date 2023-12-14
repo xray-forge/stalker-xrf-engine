@@ -11,7 +11,16 @@ import {
 } from "@/engine/core/database";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
-import { AlifeSimulator, GameObject, NetPacket, Reader, ServerObject, TCount, TNumberId } from "@/engine/lib/types";
+import {
+  AlifeSimulator,
+  GameObject,
+  NetPacket,
+  Reader,
+  ServerObject,
+  TClassId,
+  TCount,
+  TNumberId,
+} from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -86,34 +95,31 @@ export class ArenaZoneBinder extends object_binder {
   }
 
   /**
-   * todo: Description.
+   * Handle entering arena zone.
+   *
+   * @param zone - game object representing arena zone
+   * @param object - game object entering zone
    */
   public onEnterArenaZone(zone: GameObject, object: GameObject): void {
-    if (
-      object.id() === ACTOR_ID ||
-      object.clsid() === clsid.obj_physic ||
-      object.clsid() === clsid.hanging_lamp ||
-      object.clsid() === clsid.obj_phys_destroyable
-    ) {
+    const objectId: TNumberId = object.id();
+    const classId: TClassId = object.clsid();
+
+    if (objectId === ACTOR_ID) {
       return;
     }
 
-    this.savedObjects.set(object.id(), true);
+    if (classId !== clsid.obj_physic && classId !== clsid.hanging_lamp && classId !== clsid.obj_phys_destroyable) {
+      this.savedObjects.set(objectId, true);
+    }
   }
 
   /**
-   * todo: Description.
+   * Handle leaving arena zone.
+   *
+   * @param zone - game object representing arena zone
+   * @param object - game object leaving zone
    */
   public onExitArenaZone(zone: GameObject, object: GameObject): void {
-    if (
-      object.id() === ACTOR_ID ||
-      object.clsid() === clsid.obj_physic ||
-      object.clsid() === clsid.hanging_lamp ||
-      object.clsid() === clsid.obj_phys_destroyable
-    ) {
-      return;
-    }
-
     this.savedObjects.delete(object.id());
   }
 }

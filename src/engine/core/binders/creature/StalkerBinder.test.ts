@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 
-import { StalkerBinder } from "@/engine/core/binders";
+import { StalkerBinder } from "@/engine/core/binders/creature/StalkerBinder";
 import { getManager, IRegistryObjectState, registerObject, registry } from "@/engine/core/database";
 import { DialogManager } from "@/engine/core/managers/dialogs";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds";

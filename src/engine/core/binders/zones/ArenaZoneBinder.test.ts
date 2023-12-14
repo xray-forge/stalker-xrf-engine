@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it } from "@jest/globals";
-import { callback } from "xray16";
+import { callback, clsid } from "xray16";
 
 import { ArenaZoneBinder } from "@/engine/core/binders/zones/ArenaZoneBinder";
 import { registerSimulator, registry } from "@/engine/core/database";
@@ -13,6 +13,7 @@ import {
   mockNetPacket,
   MockNetProcessor,
   mockNetReader,
+  MockObjectBinder,
 } from "@/fixtures/xray";
 
 describe("CampZoneBinder class", () => {
@@ -33,9 +34,6 @@ describe("CampZoneBinder class", () => {
     const object: GameObject = MockGameObject.mock({ idOverride: serverObject.id });
     const binder: ArenaZoneBinder = new ArenaZoneBinder(object);
 
-    expect(registry.zones.length()).toBe(0);
-    expect(registry.objects.length()).toBe(0);
-
     binder.net_spawn(serverObject);
 
     expect(object.set_callback).toHaveBeenCalledTimes(2);
@@ -53,6 +51,20 @@ describe("CampZoneBinder class", () => {
     expect(object.set_callback).toHaveBeenCalledWith(callback.zone_enter, null);
     expect(object.set_callback).toHaveBeenCalledWith(callback.zone_exit, null);
 
+    expect(registry.zones.length()).toBe(0);
+    expect(registry.objects.length()).toBe(0);
+  });
+
+  it("should correctly handle going online and offline when spawn flag is falsy", () => {
+    const serverObject: ServerObject = MockAlifeObject.mock();
+    const object: GameObject = MockGameObject.mock({ idOverride: serverObject.id });
+    const binder: ArenaZoneBinder = new ArenaZoneBinder(object);
+
+    (binder as unknown as MockObjectBinder).canSpawn = false;
+
+    binder.net_spawn(serverObject);
+
+    expect(object.set_callback).toHaveBeenCalledTimes(0);
     expect(registry.zones.length()).toBe(0);
     expect(registry.objects.length()).toBe(0);
   });
@@ -104,7 +116,31 @@ describe("CampZoneBinder class", () => {
     expect(binder.savedObjects).toEqualLuaTables({});
   });
 
-  it.todo("should correctly enter zone event");
+  it("should correctly enter and leave zone event", () => {
+    const object: GameObject = MockGameObject.mock();
+    const binder: ArenaZoneBinder = new ArenaZoneBinder(object);
 
-  it.todo("should correctly leave zone event");
+    const actor: GameObject = MockGameObject.mockActor();
+    const stalker: GameObject = MockGameObject.mock({ clsid: () => clsid.script_stalker });
+    const monster: GameObject = MockGameObject.mock({ clsid: () => clsid.snork_s });
+    const lamp: GameObject = MockGameObject.mock({ clsid: () => clsid.hanging_lamp });
+    const physicDestroyable: GameObject = MockGameObject.mock({ clsid: () => clsid.obj_phys_destroyable });
+    const physic: GameObject = MockGameObject.mock({ clsid: () => clsid.obj_physic });
+
+    binder.onEnterArenaZone(object, actor);
+    binder.onEnterArenaZone(object, stalker);
+    binder.onEnterArenaZone(object, monster);
+    binder.onEnterArenaZone(object, lamp);
+    binder.onEnterArenaZone(object, physicDestroyable);
+    binder.onEnterArenaZone(object, physic);
+
+    expect(binder.savedObjects.length()).toBe(2);
+    expect(binder.savedObjects).toEqualLuaTables({ [stalker.id()]: true, [monster.id()]: true });
+
+    binder.onExitArenaZone(object, actor);
+    binder.onExitArenaZone(object, stalker);
+    binder.onExitArenaZone(object, monster);
+
+    expect(binder.savedObjects.length()).toBe(0);
+  });
 });

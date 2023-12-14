@@ -44,6 +44,7 @@ describe("AnomalyFieldBinder class", () => {
     expect(registry.zones.length()).toBe(0);
     expect(registry.objects.length()).toBe(0);
   });
+
   it("should correctly handle going online and offline when check to spawn is falsy", () => {
     const serverObject: ServerObject = MockAlifeObject.mock();
     const object: GameObject = MockGameObject.mock({ idOverride: serverObject.id });
