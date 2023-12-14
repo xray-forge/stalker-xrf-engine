@@ -13,6 +13,7 @@ import {
   mockNetPacket,
   MockNetProcessor,
   mockNetReader,
+  MockObjectBinder,
   mockServerAlifeObject,
 } from "@/fixtures/xray";
 
@@ -57,6 +58,23 @@ describe("SmartTerrainBinder class", () => {
 
     expect(globalSoundManager.stopSoundByObjectId).toHaveBeenCalledTimes(1);
     expect(globalSoundManager.stopSoundByObjectId).toHaveBeenCalledWith(serverObject.id);
+  });
+
+  it("should correctly handle going online/offline when check to spawn is falsy", () => {
+    const binder: SmartTerrainBinder = new SmartTerrainBinder(MockGameObject.mock());
+    const serverObject: ServerObject = mockServerAlifeObject({ id: binder.object.id() });
+    const globalSoundManager: GlobalSoundManager = getManager(GlobalSoundManager);
+
+    (binder as unknown as MockObjectBinder).canSpawn = false;
+    jest.spyOn(globalSoundManager, "stopSoundByObjectId").mockImplementation(jest.fn());
+
+    binder.net_spawn(serverObject);
+
+    expect(registry.smartTerrains.length()).toBe(0);
+    expect(registry.zones.length()).toBe(0);
+    expect(registry.objects.length()).toBe(0);
+
+    expect(globalSoundManager.stopSoundByObjectId).toHaveBeenCalledTimes(0);
   });
 
   it("should correctly handle update event", () => {

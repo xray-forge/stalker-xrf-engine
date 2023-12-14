@@ -5,6 +5,7 @@ import {
   closeLoadMarker,
   closeSaveMarker,
   getManager,
+  IBaseSchemeState,
   IRegistryObjectState,
   openLoadMarker,
   openSaveMarker,
@@ -159,8 +160,14 @@ export class PhysicObjectBinder extends object_binder {
    * todo: Description.
    */
   public onUse(object: GameObject, who: GameObject): void {
-    if (this.state.activeSection) {
-      emitSchemeEvent(this.object, this.state[this.state.activeScheme!]!, ESchemeEvent.USE, object, this);
+    if (this.state.activeScheme) {
+      emitSchemeEvent(
+        this.object,
+        this.state[this.state.activeScheme] as IBaseSchemeState,
+        ESchemeEvent.USE,
+        object,
+        this
+      );
     }
   }
 
@@ -181,10 +188,10 @@ export class PhysicObjectBinder extends object_binder {
       );
     }
 
-    if (this.state.activeSection) {
+    if (this.state.activeScheme) {
       emitSchemeEvent(
         this.object,
-        this.state[this.state.activeScheme!]!,
+        this.state[this.state.activeScheme] as IBaseSchemeState,
         ESchemeEvent.HIT,
         object,
         amount,
@@ -199,15 +206,21 @@ export class PhysicObjectBinder extends object_binder {
    * todo: Description.
    */
   public onDeath(victim: GameObject, who: GameObject): void {
-    if (this.state.activeSection) {
-      emitSchemeEvent(this.object, this.state[this.state.activeScheme!]!, ESchemeEvent.DEATH, victim, who);
+    if (this.state.activeScheme) {
+      emitSchemeEvent(
+        this.object,
+        this.state[this.state.activeScheme] as IBaseSchemeState,
+        ESchemeEvent.DEATH,
+        victim,
+        who
+      );
     }
 
-    if (this.particle !== null) {
+    if (this.particle) {
       this.particle.stop();
     }
 
-    if (this.itemBox !== null) {
+    if (this.itemBox) {
       this.itemBox.spawnBoxItems();
     }
   }

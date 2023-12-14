@@ -8,7 +8,7 @@ import { AbstractPlayableSound } from "@/engine/core/managers/sounds/objects";
 import { soundsConfig } from "@/engine/core/managers/sounds/SoundsConfig";
 import { hasInfoPortion } from "@/engine/core/utils/info_portion";
 import { emitSchemeEvent, initializeObjectSchemeLogic } from "@/engine/core/utils/scheme";
-import { AnyObject, EScheme, ESchemeEvent, ESchemeType, ServerObject, TName } from "@/engine/lib/types";
+import { AnyObject, EScheme, ESchemeEvent, ESchemeType, GameObject, ServerObject, TName } from "@/engine/lib/types";
 import { mockRegisteredActor, mockSchemeState, resetRegistry } from "@/fixtures/engine";
 import { resetFunctionMock } from "@/fixtures/jest";
 import {
@@ -17,6 +17,7 @@ import {
   mockNetPacket,
   MockNetProcessor,
   mockNetReader,
+  MockObjectBinder,
   mockServerAlifeObject,
 } from "@/fixtures/xray";
 
@@ -46,6 +47,15 @@ describe("RestrictorBinder class", () => {
     const binder: RestrictorBinder = new RestrictorBinder(MockGameObject.mock());
 
     expect(binder.net_save_relevant()).toBe(true);
+  });
+
+  it("should correctly handle re-init", () => {
+    const object: GameObject = MockGameObject.mock();
+    const binder: RestrictorBinder = new RestrictorBinder(object);
+
+    binder.reinit();
+
+    expect(registry.objects.get(object.id())).toEqual({ object });
   });
 
   it("should correctly handle going online and offline", () => {
@@ -82,6 +92,26 @@ describe("RestrictorBinder class", () => {
       ESchemeEvent.SWITCH_OFFLINE,
       binder.object
     );
+
+    expect(registry.zones.length()).toBe(0);
+    expect(registry.objects.length()).toBe(0);
+  });
+
+  it("should correctly handle going online and offline when check to spawn is falsy", () => {
+    const binder: RestrictorBinder = new RestrictorBinder(MockGameObject.mock());
+    const serverObject: ServerObject = mockServerAlifeObject({ id: binder.object.id() });
+    const globalSoundManager: GlobalSoundManager = getManager(GlobalSoundManager);
+
+    jest.spyOn(globalSoundManager, "playLoopedSound").mockImplementation(jest.fn());
+    jest.spyOn(globalSoundManager, "stopSoundByObjectId").mockImplementation(jest.fn());
+
+    (binder as unknown as MockObjectBinder).canSpawn = false;
+
+    binder.net_spawn(serverObject);
+
+    expect(globalSoundManager.stopSoundByObjectId).toHaveBeenCalledTimes(0);
+    expect(globalSoundManager.playLoopedSound).toHaveBeenCalledTimes(0);
+    expect(emitSchemeEvent).toHaveBeenCalledTimes(0);
 
     expect(registry.zones.length()).toBe(0);
     expect(registry.objects.length()).toBe(0);

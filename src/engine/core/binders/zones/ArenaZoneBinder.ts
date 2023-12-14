@@ -11,16 +11,7 @@ import {
 } from "@/engine/core/database";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
-import {
-  AlifeSimulator,
-  GameObject,
-  NetPacket,
-  Optional,
-  Reader,
-  ServerObject,
-  TCount,
-  TNumberId,
-} from "@/engine/lib/types";
+import { AlifeSimulator, GameObject, NetPacket, Reader, ServerObject, TCount, TNumberId } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

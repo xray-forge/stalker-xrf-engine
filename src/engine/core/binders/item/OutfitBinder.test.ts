@@ -3,9 +3,10 @@ import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { OutfitBinder } from "@/engine/core/binders/item/OutfitBinder";
 import { getManager, IRegistryObjectState, registerSimulator, registry } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
-import { ServerItemHelmetObject, ServerItemOutfitObject } from "@/engine/lib/types";
+import { ItemOutfit } from "@/engine/core/objects/item";
+import { ServerItemHelmetObject } from "@/engine/lib/types";
 import { resetRegistry } from "@/fixtures/engine";
-import { MockGameObject, mockServerAlifeObject } from "@/fixtures/xray";
+import { MockGameObject, MockObjectBinder, mockServerAlifeObject } from "@/fixtures/xray";
 
 describe("HelmetBinder class", () => {
   beforeEach(() => {
@@ -22,7 +23,7 @@ describe("HelmetBinder class", () => {
     expect(registry.objects.length()).toBe(0);
     expect(registry.dynamicData.objects.length()).toBe(0);
 
-    binder.net_spawn(serverObject);
+    binder.net_spawn(serverObject as ItemOutfit);
 
     expect(registry.objects.length()).toBe(1);
     expect(registry.dynamicData.objects.length()).toBe(1);
@@ -44,6 +45,23 @@ describe("HelmetBinder class", () => {
     expect(registry.dynamicData.objects.length()).toBe(0);
   });
 
+  it("should correctly handle going online/offline when check to spawn is falsy", () => {
+    const binder: OutfitBinder = new OutfitBinder(MockGameObject.mock());
+    const serverObject: ItemOutfit = mockServerAlifeObject({
+      id: binder.object.id(),
+    }) as ItemOutfit;
+
+    expect(registry.objects.length()).toBe(0);
+    expect(registry.dynamicData.objects.length()).toBe(0);
+
+    (binder as unknown as MockObjectBinder).canSpawn = false;
+
+    binder.net_spawn(serverObject);
+
+    expect(registry.objects.length()).toBe(0);
+    expect(registry.dynamicData.objects.length()).toBe(0);
+  });
+
   it("should correctly emit lifecycle signals", () => {
     const eventsManager: EventsManager = getManager(EventsManager);
     const binder: OutfitBinder = new OutfitBinder(MockGameObject.mock());
@@ -59,7 +77,7 @@ describe("HelmetBinder class", () => {
     binder.net_spawn(
       mockServerAlifeObject({
         id: binder.object.id(),
-      }) as ServerItemOutfitObject
+      }) as ItemOutfit
     );
 
     expect(onGoOnlineFirstTime).toHaveBeenCalledWith(binder.object, binder);
@@ -76,7 +94,7 @@ describe("HelmetBinder class", () => {
     binder.net_spawn(
       mockServerAlifeObject({
         id: binder.object.id(),
-      }) as ServerItemOutfitObject
+      }) as ItemOutfit
     );
 
     expect(onGoOnlineFirstTime).toHaveBeenCalledTimes(1);

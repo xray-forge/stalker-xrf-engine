@@ -5,7 +5,7 @@ import { getManager, IRegistryObjectState, registerSimulator, registry } from "@
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { ItemHelmet } from "@/engine/core/objects/item/ItemHelmet";
 import { resetRegistry } from "@/fixtures/engine";
-import { MockGameObject, mockServerAlifeObject } from "@/fixtures/xray";
+import { MockGameObject, MockObjectBinder, mockServerAlifeObject } from "@/fixtures/xray";
 
 describe("HelmetBinder class", () => {
   beforeEach(() => {
@@ -39,6 +39,23 @@ describe("HelmetBinder class", () => {
     expect(registry.dynamicData.objects.length()).toBe(1);
 
     binder.net_Relcase(binder.object);
+
+    expect(registry.objects.length()).toBe(0);
+    expect(registry.dynamicData.objects.length()).toBe(0);
+  });
+
+  it("should correctly handle going online/offline when check to spawn is falsy", () => {
+    const binder: HelmetBinder = new HelmetBinder(MockGameObject.mock());
+    const serverObject: ItemHelmet = mockServerAlifeObject({
+      id: binder.object.id(),
+    }) as ItemHelmet;
+
+    expect(registry.objects.length()).toBe(0);
+    expect(registry.dynamicData.objects.length()).toBe(0);
+
+    (binder as unknown as MockObjectBinder).canSpawn = false;
+
+    binder.net_spawn(serverObject);
 
     expect(registry.objects.length()).toBe(0);
     expect(registry.dynamicData.objects.length()).toBe(0);

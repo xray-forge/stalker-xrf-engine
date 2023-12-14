@@ -4,7 +4,7 @@ import { AnomalyFieldBinder } from "@/engine/core/binders/zones/AnomalyFieldBind
 import { registry } from "@/engine/core/database";
 import { GameObject, ServerObject } from "@/engine/lib/types";
 import { resetRegistry } from "@/fixtures/engine";
-import { MockAlifeObject, MockGameObject } from "@/fixtures/xray";
+import { MockAlifeObject, MockGameObject, MockObjectBinder } from "@/fixtures/xray";
 
 describe("AnomalyFieldBinder class", () => {
   beforeEach(() => {
@@ -39,6 +39,19 @@ describe("AnomalyFieldBinder class", () => {
     expect(registry.objects.get(object.id()).object).toBe(object);
 
     binder.net_destroy();
+
+    expect(registry.anomalyFields.length()).toBe(0);
+    expect(registry.zones.length()).toBe(0);
+    expect(registry.objects.length()).toBe(0);
+  });
+  it("should correctly handle going online and offline when check to spawn is falsy", () => {
+    const serverObject: ServerObject = MockAlifeObject.mock();
+    const object: GameObject = MockGameObject.mock({ idOverride: serverObject.id });
+    const binder: AnomalyFieldBinder = new AnomalyFieldBinder(object);
+
+    (binder as unknown as MockObjectBinder).canSpawn = false;
+
+    binder.net_spawn(serverObject);
 
     expect(registry.anomalyFields.length()).toBe(0);
     expect(registry.zones.length()).toBe(0);
