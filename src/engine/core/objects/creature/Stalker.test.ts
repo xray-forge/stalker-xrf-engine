@@ -46,17 +46,6 @@ describe("Stalker server object", () => {
     expect(stalker.can_switch_offline()).toBe(false);
   });
 
-  it("should correctly handle creation", () => {
-    const stalker: Stalker = new Stalker("stalker");
-
-    expect(stalker.isCorpseLootDropped).toBe(false);
-    expect(registry.offlineObjects.length()).toBe(1);
-    expect(registry.offlineObjects.get(stalker.id)).toEqualLuaTables({
-      activeSection: null,
-      levelVertexId: null,
-    });
-  });
-
   it("should correctly handle register", () => {
     const eventsManager: EventsManager = getManager(EventsManager);
     const stalker: Stalker = new Stalker("stalker");
@@ -196,6 +185,9 @@ describe("Stalker server object", () => {
     const stalker: Stalker = new Stalker("stalker");
     const netProcessor: MockNetProcessor = new MockNetProcessor();
 
+    stalker.on_spawn();
+    stalker.on_register();
+
     stalker.STATE_Write(netProcessor.asMockNetPacket());
 
     expect(netProcessor.writeDataOrder).toEqual([
@@ -226,6 +218,9 @@ describe("Stalker server object", () => {
 
     (stalker as AnyObject)["online"] = false;
     stalker.isCorpseLootDropped = true;
+
+    stalker.on_spawn();
+    stalker.on_register();
 
     const offlineState: IRegistryOfflineState = registry.offlineObjects.get(stalker.id);
 
@@ -265,6 +260,9 @@ describe("Stalker server object", () => {
     (stalker as AnyObject)["online"] = true;
     stalker.isCorpseLootDropped = true;
 
+    stalker.on_spawn();
+    stalker.on_register();
+
     const offlineState: IRegistryOfflineState = registry.offlineObjects.get(stalker.id);
 
     offlineState.activeSection = "test_section";
@@ -300,6 +298,9 @@ describe("Stalker server object", () => {
     (stalker as AnyObject)["online"] = false;
     stalker.isCorpseLootDropped = true;
 
+    stalker.on_spawn();
+    stalker.on_register();
+
     const offlineState: IRegistryOfflineState = registry.offlineObjects.get(stalker.id);
 
     offlineState.activeSection = "test_section";
@@ -315,6 +316,9 @@ describe("Stalker server object", () => {
     expect(netProcessor.dataList).toEqual(["Stalker", NIL, "test_section", true]);
 
     const another: Stalker = new Stalker("stalker");
+
+    another.on_spawn();
+    another.on_register();
 
     registry.offlineObjects.get(another.id).levelVertexId = 730;
 

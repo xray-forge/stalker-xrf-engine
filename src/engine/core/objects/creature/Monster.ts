@@ -27,11 +27,6 @@ const logger: LuaLogger = new LuaLogger($filename);
  */
 @LuabindClass()
 export class Monster extends cse_alife_monster_base {
-  public constructor(section: TSection) {
-    super(section);
-    hardResetOfflineObject(this.id);
-  }
-
   public override can_switch_offline(): boolean {
     if (this.group_id !== MAX_U16) {
       return true;
@@ -51,11 +46,10 @@ export class Monster extends cse_alife_monster_base {
   public override on_register(): void {
     super.on_register();
 
+    registerOfflineObject(this.id);
     registerObjectStoryLinks(this);
 
     const simulationBoardManager: SimulationManager = getManager(SimulationManager);
-
-    registerOfflineObject(this.id);
 
     this.brain().can_choose_alife_tasks(false);
 

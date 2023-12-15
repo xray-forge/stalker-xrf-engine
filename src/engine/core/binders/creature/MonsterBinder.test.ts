@@ -15,6 +15,7 @@ import {
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds";
 import { Squad } from "@/engine/core/objects/squad";
+import { updateMonsterSquadAction } from "@/engine/core/objects/squad/update";
 import { SchemeHear } from "@/engine/core/schemes/shared/hear";
 import { hasInfoPortion } from "@/engine/core/utils/info_portion";
 import { parseConditionsList } from "@/engine/core/utils/ini";
@@ -48,6 +49,10 @@ jest.mock("@/engine/core/utils/scheme", () => ({
   scriptReleaseMonster: jest.fn(),
 }));
 
+jest.mock("@/engine/core/objects/squad/update", () => ({
+  updateMonsterSquadAction: jest.fn(),
+}));
+
 describe("MonsterBinder class", () => {
   beforeEach(() => {
     resetRegistry();
@@ -57,6 +62,7 @@ describe("MonsterBinder class", () => {
     resetFunctionMock(trySwitchToAnotherSection);
     resetFunctionMock(setupObjectSmartJobsAndLogicOnSpawn);
     resetFunctionMock(scriptReleaseMonster);
+    resetFunctionMock(updateMonsterSquadAction);
   });
 
   it("should correctly initialize", () => {
@@ -189,6 +195,8 @@ describe("MonsterBinder class", () => {
 
     state.overrides = { onOffline: parseConditionsList("%+on_offline_info%") } as ILogicsOverrides;
 
+    registerOfflineObject(object.id());
+
     expect(setupObjectSmartJobsAndLogicOnSpawn).toHaveBeenCalledWith(object, state, ESchemeType.MONSTER, false);
     expect(registry.objects.get(object.id())).toBe(state);
     expect(hasInfoPortion("on_offline_info")).toBe(false);
@@ -262,8 +270,6 @@ describe("MonsterBinder class", () => {
     expect(emitSchemeEvent).toHaveBeenCalledTimes(0);
   });
 
-  it.todo("should handle update when reaching target with squad");
-
   it("should handle update event when in combat", () => {
     const serverObject: ServerCreatureObject = MockAlifeMonsterBase.mock();
     const object: GameObject = MockGameObject.mock({ idOverride: serverObject.id });
@@ -303,12 +309,16 @@ describe("MonsterBinder class", () => {
     binder.update(100);
 
     expect(squad.update).toHaveBeenCalledTimes(0);
+    expect(updateMonsterSquadAction).toHaveBeenCalledTimes(1);
+    expect(updateMonsterSquadAction).toHaveBeenCalledWith(object, squad);
 
     jest.spyOn(squad, "commander_id").mockImplementation(() => serverObject.id);
 
     binder.update(100);
 
     expect(squad.update).toHaveBeenCalledTimes(1);
+    expect(updateMonsterSquadAction).toHaveBeenCalledTimes(2);
+    expect(updateMonsterSquadAction).toHaveBeenCalledWith(object, squad);
   });
 
   it("should handle generic update event with combat tracking", () => {

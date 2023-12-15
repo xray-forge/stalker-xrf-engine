@@ -1,4 +1,4 @@
-import { callback, clsid, cond, hit, level, LuabindClass, move, object_binder } from "xray16";
+import { callback, clsid, hit, level, LuabindClass, object_binder } from "xray16";
 
 import {
   closeLoadMarker,
@@ -17,25 +17,22 @@ import {
   unregisterObject,
 } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
-import { TSimulationObject } from "@/engine/core/managers/simulation";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import { ISmartTerrainJobDescriptor } from "@/engine/core/objects/smart_terrain/job";
 import { SmartTerrain } from "@/engine/core/objects/smart_terrain/SmartTerrain";
-import { ESquadActionType } from "@/engine/core/objects/squad";
 import { Squad } from "@/engine/core/objects/squad/Squad";
+import { updateMonsterSquadAction } from "@/engine/core/objects/squad/update";
 import { SchemeHear } from "@/engine/core/schemes/shared/hear/SchemeHear";
 import { assert } from "@/engine/core/utils/assertion";
 import { pickSectionFromCondList, TConditionList } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import {
   emitSchemeEvent,
-  scriptCaptureMonster,
-  scriptCommandMonster,
   scriptReleaseMonster,
   setupObjectSmartJobsAndLogicOnSpawn,
   trySwitchToAnotherSection,
 } from "@/engine/core/utils/scheme";
-import { getObjectSquad, isSquadAction } from "@/engine/core/utils/squad";
+import { getObjectSquad } from "@/engine/core/utils/squad";
 import { MAX_U16 } from "@/engine/lib/constants/memory";
 import { ZERO_VECTOR } from "@/engine/lib/constants/vectors";
 import {
@@ -204,38 +201,8 @@ export class MonsterBinder extends object_binder {
       return scriptReleaseMonster(object);
     }
 
-    if (squad && isSquadAction(squad, ESquadActionType.REACH_TARGET)) {
-      const currentTarget: Optional<TSimulationObject> = registry.simulationObjects.get(
-        squad.assignedTargetId as TNumberId
-      ) as Optional<TSimulationObject>;
-
-      if (currentTarget) {
-        scriptCaptureMonster(object, true);
-
-        if (isSquadCommander) {
-          scriptCommandMonster(
-            object,
-            new move(move.walk_with_leader, currentTarget.position),
-            new cond(cond.move_end)
-          );
-        } else {
-          const commanderPosition: Vector = registry.simulator.object(squad.commander_id())!.position;
-
-          if (commanderPosition.distance_to_sqr(object.position()) > 100) {
-            scriptCommandMonster(
-              object,
-              new move(move.run_with_leader, currentTarget.position),
-              new cond(cond.move_end)
-            );
-          } else {
-            scriptCommandMonster(
-              object,
-              new move(move.walk_with_leader, currentTarget.position),
-              new cond(cond.move_end)
-            );
-          }
-        }
-      }
+    if (squad) {
+      updateMonsterSquadAction(object, squad);
     }
 
     if (state.activeScheme) {
