@@ -108,14 +108,15 @@ export class StalkerBinder extends object_binder {
     }
   }
 
-  public override net_spawn(object: ServerCreatureObject): boolean {
+  public override net_spawn(serverObject: ServerCreatureObject): boolean {
     setupObjectStalkerVisual(this.object);
 
-    if (!super.net_spawn(object)) {
+    if (!super.net_spawn(serverObject)) {
       return false;
     }
 
-    const objectId: TNumberId = this.object.id();
+    const object: GameObject = this.object;
+    const objectId: TNumberId = object.id();
 
     logger.info("Go online:", object.name());
 
@@ -129,9 +130,9 @@ export class StalkerBinder extends object_binder {
       setupObjectInfoPortions(this.object, getObjectStalkerIni(this.object));
     }
 
-    if (!this.object.alive()) {
-      this.object.death_sound_enabled(false);
-      getManager(ReleaseBodyManager).addDeadBody(this.object);
+    if (!object.alive()) {
+      object.death_sound_enabled(false);
+      getManager(ReleaseBodyManager).addDeadBody(object);
 
       return true;
     }
@@ -139,55 +140,54 @@ export class StalkerBinder extends object_binder {
     const relation: Optional<ERelation> = registry.goodwill.relations.get(objectId) as Optional<ERelation>;
 
     if (relation) {
-      setGameObjectRelation(this.object, registry.actor, relation);
+      setGameObjectRelation(object, registry.actor, relation);
     }
 
     const sympathy: Optional<TCount> = registry.goodwill.sympathy.get(objectId) as Optional<TCount>;
 
     if (sympathy) {
-      setObjectSympathy(this.object, sympathy);
+      setObjectSympathy(object, sympathy);
     }
 
-    this.helicopterEnemyIndex = registerHelicopterEnemy(this.object);
+    this.helicopterEnemyIndex = registerHelicopterEnemy(object);
 
-    initializeObjectThemes(this.object);
-    SchemeReachTask.setup(this.object);
+    initializeObjectThemes(object);
+    SchemeReachTask.setup(object);
 
-    // todo: Why? Already same ref in parameter?
-    const serverObject: Optional<ServerHumanObject> = registry.simulator.object(objectId);
+    const stalker: Optional<ServerHumanObject> = registry.simulator.object(objectId);
 
-    if (serverObject) {
-      if (registry.spawnedVertexes.has(serverObject.id)) {
-        this.object.set_npc_position(level.vertex_position(registry.spawnedVertexes.get(serverObject.id)));
-        registry.spawnedVertexes.delete(serverObject.id);
-      } else if (registry.offlineObjects.get(serverObject.id)?.levelVertexId) {
-        this.object.set_npc_position(
-          level.vertex_position(registry.offlineObjects.get(serverObject.id).levelVertexId as TNumberId)
+    if (stalker) {
+      if (registry.spawnedVertexes.has(stalker.id)) {
+        object.set_npc_position(level.vertex_position(registry.spawnedVertexes.get(stalker.id)));
+        registry.spawnedVertexes.delete(stalker.id);
+      } else if (registry.offlineObjects.get(stalker.id)?.levelVertexId) {
+        object.set_npc_position(
+          level.vertex_position(registry.offlineObjects.get(stalker.id).levelVertexId as TNumberId)
         );
-      } else if (serverObject.m_smart_terrain_id !== MAX_U16) {
-        const smartTerrain: SmartTerrain = registry.simulator.object<SmartTerrain>(serverObject.m_smart_terrain_id)!;
+      } else if (stalker.m_smart_terrain_id !== MAX_U16) {
+        const smartTerrain: SmartTerrain = registry.simulator.object<SmartTerrain>(stalker.m_smart_terrain_id)!;
 
-        if (!smartTerrain.arrivingObjects.get(serverObject.id)) {
-          const job: Optional<ISmartTerrainJobDescriptor> = smartTerrain.objectJobDescriptors.get(serverObject.id)?.job;
+        if (!smartTerrain.arrivingObjects.get(stalker.id)) {
+          const job: Optional<ISmartTerrainJobDescriptor> = smartTerrain.objectJobDescriptors.get(stalker.id)?.job;
 
           assert(
             job?.alifeTask,
             "Expected terrain task to exist when spawning in smart terrain: '%s' in '%s', job: '%s'.",
-            this.object.name(),
+            object.name(),
             smartTerrain.name(),
             job?.section
           );
 
-          this.object.set_npc_position(job.alifeTask.position());
+          object.set_npc_position(job.alifeTask.position());
         }
       }
     }
 
-    setupObjectSmartJobsAndLogicOnSpawn(this.object, this.state, ESchemeType.STALKER, this.isLoaded);
+    setupObjectSmartJobsAndLogicOnSpawn(object, this.state, ESchemeType.STALKER, this.isLoaded);
 
-    SchemePostCombatIdle.setup(this.object);
+    SchemePostCombatIdle.setup(object);
 
-    this.object.group_throw_time_interval(2_000); // todo: Interval to check danger from group objects?
+    object.group_throw_time_interval(2_000); // todo: Interval to check danger from group objects?
 
     return true;
   }

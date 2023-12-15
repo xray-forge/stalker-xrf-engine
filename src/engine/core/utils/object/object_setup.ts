@@ -11,9 +11,9 @@ import { GameObject, IniFile, Optional, TCount, TName, TSection } from "@/engine
  */
 export function getObjectStalkerIni(object: GameObject): IniFile {
   const spawnIni: Optional<IniFile> = object.spawn_ini();
-  const stalkerIniFilename: Optional<TName> = spawnIni === null ? null : readIniString(spawnIni, "logic", "cfg", false);
+  const stalkerIniFilename: Optional<TName> = spawnIni ? readIniString(spawnIni, "logic", "cfg", false) : null;
 
-  return stalkerIniFilename ? new ini_file(stalkerIniFilename) : spawnIni ?? DUMMY_LTX;
+  return (stalkerIniFilename ? new ini_file(stalkerIniFilename) : spawnIni) ?? DUMMY_LTX;
 }
 
 /**

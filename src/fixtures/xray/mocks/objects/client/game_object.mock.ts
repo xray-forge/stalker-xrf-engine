@@ -143,6 +143,7 @@ export function mockGameObject({
           .filter(Boolean)
           .forEach((it) => inRestrictions.push(it));
       }),
+    apply_loophole_direction_distance: rest.apply_loophole_direction_distance ?? jest.fn(),
     best_enemy: rest.best_enemy ?? jest.fn(() => null),
     best_danger: rest.best_danger ?? jest.fn(() => null),
     best_item: rest.best_weapon ?? jest.fn(() => null),
@@ -226,6 +227,7 @@ export function mockGameObject({
     give_talk_message2,
     give_task,
     group: rest.group ?? jest.fn(),
+    group_throw_time_interval: rest.group_throw_time_interval ?? jest.fn(),
     has_info: has_info ?? jest.fn((it: string) => internalInfos.includes(it)),
     health,
     hit: rest.hit ?? jest.fn(),
@@ -391,6 +393,7 @@ export function mockGameObject({
     set_npc_position: rest.set_npc_position ?? jest.fn(),
     set_community_goodwill: rest.set_community_goodwill ?? jest.fn(),
     set_fastcall: rest.set_fastcall ?? jest.fn(),
+    set_patrol_extrapolate_callback: rest.set_patrol_extrapolate_callback ?? jest.fn(),
     spawn_ini: rest.spawn_ini ?? jest.fn(() => spawnIni),
     stop_talk: rest.stop_talk ?? jest.fn(),
     squad: rest.squad ?? jest.fn(() => 150),
