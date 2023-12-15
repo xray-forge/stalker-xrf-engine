@@ -55,6 +55,7 @@ import { communities, TCommunity } from "@/engine/lib/constants/communities";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import { misc } from "@/engine/lib/constants/items/misc";
 import { MAX_U16 } from "@/engine/lib/constants/memory";
+import { ZERO_VECTOR } from "@/engine/lib/constants/vectors";
 import {
   EGameObjectRelation,
   EScheme,
@@ -116,7 +117,6 @@ export class StalkerBinder extends object_binder {
     }
 
     const objectId: TNumberId = this.object.id();
-    const actor: GameObject = registry.actor;
 
     logger.info("Go online:", object.name());
 
@@ -140,12 +140,12 @@ export class StalkerBinder extends object_binder {
     const relation: Optional<ERelation> = registry.goodwill.relations.get(objectId) as Optional<ERelation>;
 
     if (relation) {
-      setGameObjectRelation(this.object, actor, relation);
+      setGameObjectRelation(this.object, registry.actor, relation);
     }
 
-    const sympathy: Optional<TCount> = registry.goodwill.sympathy.get(objectId);
+    const sympathy: Optional<TCount> = registry.goodwill.sympathy.get(objectId) as Optional<TCount>;
 
-    if (sympathy !== null) {
+    if (sympathy) {
       setObjectSympathy(this.object, sympathy);
     }
 
@@ -158,17 +158,17 @@ export class StalkerBinder extends object_binder {
     const serverObject: Optional<ServerHumanObject> = registry.simulator.object(objectId);
 
     if (serverObject) {
-      if (registry.spawnedVertexes.get(serverObject.id) !== null) {
+      if (registry.spawnedVertexes.has(serverObject.id)) {
         this.object.set_npc_position(level.vertex_position(registry.spawnedVertexes.get(serverObject.id)));
         registry.spawnedVertexes.delete(serverObject.id);
-      } else if (registry.offlineObjects.get(serverObject.id)?.levelVertexId !== null) {
+      } else if (registry.offlineObjects.get(serverObject.id)?.levelVertexId) {
         this.object.set_npc_position(
           level.vertex_position(registry.offlineObjects.get(serverObject.id).levelVertexId as TNumberId)
         );
       } else if (serverObject.m_smart_terrain_id !== MAX_U16) {
         const smartTerrain: SmartTerrain = registry.simulator.object<SmartTerrain>(serverObject.m_smart_terrain_id)!;
 
-        if (smartTerrain.arrivingObjects.get(serverObject.id) === null) {
+        if (!smartTerrain.arrivingObjects.get(serverObject.id)) {
           const job: Optional<ISmartTerrainJobDescriptor> = smartTerrain.objectJobDescriptors.get(serverObject.id)?.job;
 
           assert(
@@ -421,53 +421,55 @@ export class StalkerBinder extends object_binder {
    * todo: Description.
    */
   public onHearSound(
-    target: GameObject,
+    object: GameObject,
     whoId: TNumberId,
     soundType: TSoundType,
     soundPosition: Vector,
     soundPower: TRate
   ): void {
-    // Dont handle own sounds.
-    if (whoId === target.id()) {
+    // Don't handle own sounds.
+    if (whoId === object.id()) {
       return;
     }
 
-    SchemeHear.onObjectHearSound(target, whoId, soundType, soundPosition, soundPower);
+    SchemeHear.onObjectHearSound(object, whoId, soundType, soundPosition, soundPower);
   }
 
   /**
    * todo: Description.
    */
   public onDeath(victim: GameObject, who: Optional<GameObject>): void {
-    logger.info("Stalker death:", this.object.name());
+    const object: GameObject = this.object;
+    const objectId: TNumberId = object.id();
+    const state: IRegistryObjectState = this.state;
 
-    this.onHit(victim, 1, createEmptyVector(), who, "from_death_callback");
+    logger.info("Stalker death:", object.name());
 
-    registry.actorCombat.delete(this.object.id());
+    this.onHit(victim, 1, ZERO_VECTOR, who, "from_death_callback");
 
-    const state: IRegistryObjectState = registry.objects.get(this.object.id());
+    registry.actorCombat.delete(object.id());
 
-    getManager(MapDisplayManager).removeObjectMapSpot(this.object, state);
+    getManager(MapDisplayManager).removeObjectMapSpot(object, state);
 
-    setupObjectInfoPortions(this.object, state.ini, readIniString(state.ini, state.sectionLogic, "known_info", false));
+    setupObjectInfoPortions(object, state.ini, readIniString(state.ini, state.sectionLogic, "known_info", false));
 
-    if (this.state.stateManager !== null) {
-      this.state.stateManager!.animation.setState(null, true);
+    if (state.stateManager) {
+      state.stateManager.animation.setState(null, true);
     }
 
-    this.updateLightState(this.object);
-    getManager(DropManager).onObjectDeath(this.object);
+    this.updateLightState(object);
+    getManager(DropManager).onObjectDeath(object);
 
-    if (this.state[EScheme.REACH_TASK]) {
-      emitSchemeEvent(this.object, this.state[EScheme.REACH_TASK], ESchemeEvent.DEATH, victim, who);
+    if (state[EScheme.REACH_TASK]) {
+      emitSchemeEvent(object, state[EScheme.REACH_TASK], ESchemeEvent.DEATH, victim, who);
     }
 
-    if (this.state[EScheme.DEATH]) {
-      emitSchemeEvent(this.object, this.state[EScheme.DEATH], ESchemeEvent.DEATH, victim, who);
+    if (state[EScheme.DEATH]) {
+      emitSchemeEvent(this.object, state[EScheme.DEATH], ESchemeEvent.DEATH, victim, who);
     }
 
-    if (this.state.activeSection) {
-      emitSchemeEvent(this.object, this.state[this.state.activeScheme!]!, ESchemeEvent.DEATH, victim, who);
+    if (state.activeScheme) {
+      emitSchemeEvent(object, state[state.activeScheme]!, ESchemeEvent.DEATH, victim, who);
     }
 
     unregisterHelicopterEnemy(this.helicopterEnemyIndex!);
@@ -476,16 +478,17 @@ export class StalkerBinder extends object_binder {
     this.resetCallbacks();
 
     if (actor_stats.remove_from_ranking !== null) {
-      const community: TCommunity = getObjectCommunity(this.object);
+      const community: TCommunity = getObjectCommunity(object);
 
       if (community !== communities.zombied && community !== communities.monolith) {
-        actor_stats.remove_from_ranking(this.object.id());
+        actor_stats.remove_from_ranking(objectId);
       }
     }
 
-    EventsManager.emitEvent(EGameEvent.STALKER_KILLED, this.object, who);
+    // todo: Handle with event subscription?
+    getManager(ReleaseBodyManager).addDeadBody(object);
 
-    getManager(ReleaseBodyManager).addDeadBody(this.object);
+    EventsManager.emitEvent(EGameEvent.STALKER_KILLED, object, who);
   }
 
   /**
@@ -500,8 +503,8 @@ export class StalkerBinder extends object_binder {
 
       activateMeetWithObject(object);
 
-      if (this.state.activeSection) {
-        emitSchemeEvent(this.object, this.state[this.state.activeScheme!]!, ESchemeEvent.USE, object, who);
+      if (this.state.activeScheme) {
+        emitSchemeEvent(this.object, this.state[this.state.activeScheme]!, ESchemeEvent.USE, object, who);
       }
     }
   }
@@ -510,8 +513,8 @@ export class StalkerBinder extends object_binder {
    * todo: Description.
    */
   public onPatrolExtrapolate(pointIndex: TIndex): boolean {
-    if (this.state.activeSection) {
-      emitSchemeEvent(this.object, this.state[this.state.activeScheme!]!, ESchemeEvent.EXTRAPOLATE, pointIndex);
+    if (this.state.activeScheme) {
+      emitSchemeEvent(this.object, this.state[this.state.activeScheme]!, ESchemeEvent.EXTRAPOLATE, pointIndex);
       (this.state.patrolManager as StalkerPatrolManager).onExtrapolate(this.object, pointIndex);
     }
 
