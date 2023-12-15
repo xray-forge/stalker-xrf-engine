@@ -2,12 +2,13 @@ import { beforeEach, describe, expect, it } from "@jest/globals";
 
 import { registerSimulator } from "@/engine/core/database";
 import { SmartTerrain } from "@/engine/core/objects/smart_terrain";
-import { Squad, SquadStayOnTargetAction } from "@/engine/core/objects/squad";
+import { SquadStayOnTargetAction } from "@/engine/core/objects/squad/action";
+import { Squad } from "@/engine/core/objects/squad/Squad";
 import { getSquadMapDisplayHint } from "@/engine/core/objects/squad/utils/squad_generic_utils";
 import { parseConditionsList } from "@/engine/core/utils/ini";
 import { forgeConfig } from "@/engine/lib/configs/ForgeConfig";
 import { FALSE } from "@/engine/lib/constants/words";
-import { MockSmartTerrain, MockSquad, mockSquad, resetRegistry } from "@/fixtures/engine";
+import { MockSmartTerrain, MockSquad, resetRegistry } from "@/fixtures/engine";
 
 describe("getSquadMapDisplayHint util", () => {
   beforeEach(() => {
@@ -18,7 +19,7 @@ describe("getSquadMapDisplayHint util", () => {
   });
 
   it("should correctly get hint without debug", () => {
-    const squad: Squad = mockSquad();
+    const squad: Squad = MockSquad.mock();
 
     expect(getSquadMapDisplayHint(squad)).toBe("");
   });

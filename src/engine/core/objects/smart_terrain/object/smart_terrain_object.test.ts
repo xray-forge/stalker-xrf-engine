@@ -8,7 +8,8 @@ import {
   isObjectArrivedToSmartTerrain,
   isSquadArrivedToSmartTerrain,
 } from "@/engine/core/objects/smart_terrain/object/smart_terrain_object";
-import { Squad, SquadReachTargetAction, SquadStayOnTargetAction } from "@/engine/core/objects/squad";
+import { SquadReachTargetAction, SquadStayOnTargetAction } from "@/engine/core/objects/squad/action";
+import { Squad } from "@/engine/core/objects/squad/Squad";
 import { AnyObject, GameObject, ServerCreatureObject } from "@/engine/lib/types";
 import { MockSmartTerrain, MockSquad, resetRegistry } from "@/fixtures/engine";
 import { MockAlifeHumanStalker, MockGameObject } from "@/fixtures/xray";
