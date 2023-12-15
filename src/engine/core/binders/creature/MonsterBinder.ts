@@ -4,7 +4,6 @@ import {
   closeLoadMarker,
   closeSaveMarker,
   getManager,
-  hardResetOfflineObject,
   IBaseSchemeState,
   IRegistryObjectState,
   loadObjectLogic,
@@ -14,6 +13,7 @@ import {
   registry,
   resetObject,
   saveObjectLogic,
+  softResetOfflineObject,
   unregisterObject,
 } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
@@ -29,15 +29,13 @@ import { pickSectionFromCondList, TConditionList } from "@/engine/core/utils/ini
 import { LuaLogger } from "@/engine/core/utils/logging";
 import {
   emitSchemeEvent,
-  isMonsterScriptCaptured,
   scriptCaptureMonster,
   scriptCommandMonster,
   scriptReleaseMonster,
   setupObjectSmartJobsAndLogicOnSpawn,
   trySwitchToAnotherSection,
 } from "@/engine/core/utils/scheme";
-import { getObjectSquad } from "@/engine/core/utils/squad";
-import { createEmptyVector } from "@/engine/core/utils/vector";
+import { getObjectSquad, isSquadAction } from "@/engine/core/utils/squad";
 import { MAX_U16 } from "@/engine/lib/constants/memory";
 import { ZERO_VECTOR } from "@/engine/lib/constants/vectors";
 import {
@@ -137,6 +135,7 @@ export class MonsterBinder extends object_binder {
     const objectId: TNumberId = object.id();
     const state: IRegistryObjectState = this.state;
 
+    // todo: Reset callbacks method, reset also on death.
     object.set_callback(callback.patrol_path_in_point, null);
     object.set_callback(callback.death, null);
     object.set_callback(callback.sound, null);
@@ -156,7 +155,7 @@ export class MonsterBinder extends object_binder {
       pickSectionFromCondList(registry.actor, object, onOfflineConditionList);
     }
 
-    hardResetOfflineObject(objectId, {
+    softResetOfflineObject(objectId, {
       levelVertexId: object.level_vertex_id(),
       activeSection: state.activeSection,
     });
@@ -171,14 +170,16 @@ export class MonsterBinder extends object_binder {
 
     const object: GameObject = this.object;
     const objectId: TNumberId = object.id();
-    const squad: Optional<Squad> = getObjectSquad(object);
     const state: IRegistryObjectState = this.state;
+    const squad: Optional<Squad> = getObjectSquad(object);
     const isSquadCommander: boolean = squad?.commander_id() === objectId;
 
+    // todo: Probably not needed, handle with death event.
     if (registry.actorCombat.has(objectId) && !object.best_enemy()) {
       registry.actorCombat.delete(objectId);
     }
 
+    // Nothing to do after death.
     if (!object.alive()) {
       return;
     }
@@ -198,39 +199,43 @@ export class MonsterBinder extends object_binder {
       return;
     }
 
+    // In combat do not handle other logics elements.
     if (object.get_enemy()) {
-      if (isMonsterScriptCaptured(object)) {
-        scriptReleaseMonster(object);
-      }
-
-      return;
+      return scriptReleaseMonster(object);
     }
 
-    if (squad?.currentAction?.type === ESquadActionType.REACH_TARGET) {
-      const currentTarget: Optional<TSimulationObject> = registry.simulationObjects.get(squad.assignedTargetId!);
+    if (squad && isSquadAction(squad, ESquadActionType.REACH_TARGET)) {
+      const currentTarget: Optional<TSimulationObject> = registry.simulationObjects.get(
+        squad.assignedTargetId as TNumberId
+      ) as Optional<TSimulationObject>;
 
-      if (!currentTarget) {
-        return;
-      }
+      if (currentTarget) {
+        scriptCaptureMonster(object, true);
 
-      const targetPosition: Vector = currentTarget.position;
-
-      scriptCaptureMonster(object, true);
-
-      if (isSquadCommander) {
-        scriptCommandMonster(object, new move(move.walk_with_leader, targetPosition), new cond(cond.move_end));
-      } else {
-        const commanderPosition: Vector = registry.simulator.object(squad.commander_id())!.position;
-
-        if (commanderPosition.distance_to_sqr(object.position()) > 100) {
-          scriptCommandMonster(object, new move(move.run_with_leader, targetPosition), new cond(cond.move_end));
+        if (isSquadCommander) {
+          scriptCommandMonster(
+            object,
+            new move(move.walk_with_leader, currentTarget.position),
+            new cond(cond.move_end)
+          );
         } else {
-          scriptCommandMonster(object, new move(move.walk_with_leader, targetPosition), new cond(cond.move_end));
+          const commanderPosition: Vector = registry.simulator.object(squad.commander_id())!.position;
+
+          if (commanderPosition.distance_to_sqr(object.position()) > 100) {
+            scriptCommandMonster(
+              object,
+              new move(move.run_with_leader, currentTarget.position),
+              new cond(cond.move_end)
+            );
+          } else {
+            scriptCommandMonster(
+              object,
+              new move(move.walk_with_leader, currentTarget.position),
+              new cond(cond.move_end)
+            );
+          }
         }
       }
-
-      // todo: Is return needed?
-      return;
     }
 
     if (state.activeScheme) {

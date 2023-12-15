@@ -14,18 +14,20 @@ import {
 } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds";
+import { Squad } from "@/engine/core/objects/squad";
 import { SchemeHear } from "@/engine/core/schemes/shared/hear";
 import { hasInfoPortion } from "@/engine/core/utils/info_portion";
 import { parseConditionsList } from "@/engine/core/utils/ini";
 import {
   emitSchemeEvent,
+  scriptReleaseMonster,
   setupObjectSmartJobsAndLogicOnSpawn,
   trySwitchToAnotherSection,
 } from "@/engine/core/utils/scheme";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import { X_VECTOR, ZERO_VECTOR } from "@/engine/lib/constants/vectors";
 import { EScheme, ESchemeEvent, ESchemeType, GameObject, ServerCreatureObject, Vector } from "@/engine/lib/types";
-import { mockRegisteredActor, mockSchemeState, MockSmartTerrain, resetRegistry } from "@/fixtures/engine";
+import { mockRegisteredActor, mockSchemeState, MockSmartTerrain, MockSquad, resetRegistry } from "@/fixtures/engine";
 import { resetFunctionMock } from "@/fixtures/jest";
 import {
   EPacketDataType,
@@ -43,15 +45,18 @@ jest.mock("@/engine/core/utils/scheme", () => ({
   setupObjectSmartJobsAndLogicOnSpawn: jest.fn(),
   emitSchemeEvent: jest.fn(),
   trySwitchToAnotherSection: jest.fn(),
+  scriptReleaseMonster: jest.fn(),
 }));
 
 describe("MonsterBinder class", () => {
   beforeEach(() => {
     resetRegistry();
     registerSimulator();
+
     resetFunctionMock(emitSchemeEvent);
     resetFunctionMock(trySwitchToAnotherSection);
     resetFunctionMock(setupObjectSmartJobsAndLogicOnSpawn);
+    resetFunctionMock(scriptReleaseMonster);
   });
 
   it("should correctly initialize", () => {
@@ -233,6 +238,77 @@ describe("MonsterBinder class", () => {
 
     expect(object.set_tip_text).toHaveBeenCalledTimes(0);
     expect(trySwitchToAnotherSection).toHaveBeenCalledTimes(0);
+  });
+
+  it("should handle update event when released", () => {
+    const serverObject: ServerCreatureObject = MockAlifeMonsterBase.mock();
+    const object: GameObject = MockGameObject.mock({ idOverride: serverObject.id });
+    const binder: MonsterBinder = new MonsterBinder(object);
+
+    binder.reinit();
+    binder.net_spawn(serverObject);
+
+    registry.simulator.release(serverObject, true);
+
+    const state: IRegistryObjectState = registry.objects.get(object.id());
+
+    state.activeScheme = EScheme.ANIMPOINT;
+    state[EScheme.ANIMPOINT] = mockSchemeState(EScheme.ANIMPOINT);
+
+    binder.update(100);
+
+    expect(object.set_tip_text).toHaveBeenCalledTimes(1);
+    expect(trySwitchToAnotherSection).toHaveBeenCalledTimes(1);
+    expect(emitSchemeEvent).toHaveBeenCalledTimes(0);
+  });
+
+  it.todo("should handle update when reaching target with squad");
+
+  it("should handle update event when in combat", () => {
+    const serverObject: ServerCreatureObject = MockAlifeMonsterBase.mock();
+    const object: GameObject = MockGameObject.mock({ idOverride: serverObject.id });
+    const binder: MonsterBinder = new MonsterBinder(object);
+
+    jest.spyOn(object, "get_enemy").mockImplementation(() => MockGameObject.mock());
+
+    binder.reinit();
+    binder.net_spawn(serverObject);
+
+    const state: IRegistryObjectState = registry.objects.get(object.id());
+
+    state.activeScheme = EScheme.ANIMPOINT;
+    state[EScheme.ANIMPOINT] = mockSchemeState(EScheme.ANIMPOINT);
+
+    binder.update(100);
+
+    expect(trySwitchToAnotherSection).toHaveBeenCalledTimes(1);
+    expect(object.set_tip_text).toHaveBeenCalledTimes(1);
+
+    expect(scriptReleaseMonster).toHaveBeenCalledTimes(1);
+    expect(scriptReleaseMonster).toHaveBeenCalledWith(object);
+  });
+
+  it("should handle update event when command squad", () => {
+    const serverObject: ServerCreatureObject = MockAlifeMonsterBase.mock();
+    const object: GameObject = MockGameObject.mock({ idOverride: serverObject.id });
+    const binder: MonsterBinder = new MonsterBinder(object);
+    const squad: Squad = MockSquad.mock();
+
+    jest.spyOn(squad, "update").mockImplementation(jest.fn());
+
+    serverObject.group_id = squad.id;
+
+    binder.reinit();
+    binder.net_spawn(serverObject);
+    binder.update(100);
+
+    expect(squad.update).toHaveBeenCalledTimes(0);
+
+    jest.spyOn(squad, "commander_id").mockImplementation(() => serverObject.id);
+
+    binder.update(100);
+
+    expect(squad.update).toHaveBeenCalledTimes(1);
   });
 
   it("should handle generic update event with combat tracking", () => {

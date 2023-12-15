@@ -1,5 +1,6 @@
 import { registry } from "@/engine/core/database";
 import type { Squad } from "@/engine/core/objects/squad";
+import { ESquadActionType } from "@/engine/core/objects/squad";
 import { getSquadCommunity } from "@/engine/core/utils/community";
 import { hasInfoPortion } from "@/engine/core/utils/info_portion";
 import { areObjectsOnSameLevel } from "@/engine/core/utils/position";
@@ -103,4 +104,13 @@ export function isObjectSquadCommanderById(objectId: TNumberId): boolean {
   const squad: Optional<Squad> = getObjectSquadByObjectId(objectId);
 
   return squad ? squad.commander_id() === objectId : false;
+}
+
+/**
+ * @param squad - target squad to check
+ * @param action - action type to expect
+ * @returns whether current squad action matches provided type
+ */
+export function isSquadAction(squad: Squad, action: ESquadActionType): boolean {
+  return squad.currentAction?.type === action;
 }

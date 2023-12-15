@@ -2,12 +2,14 @@ import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 
 import { registerSimulator, registry } from "@/engine/core/database";
 import type { Squad } from "@/engine/core/objects/squad";
+import { ESquadActionType, SquadReachTargetAction, SquadStayOnTargetAction } from "@/engine/core/objects/squad";
 import { giveInfoPortion } from "@/engine/core/utils/info_portion";
 import {
   canSquadHelpActor,
   getSquadHelpActorTargetId,
   isObjectSquadCommander,
   isObjectSquadCommanderById,
+  isSquadAction,
 } from "@/engine/core/utils/squad/squad_actions";
 import { communities } from "@/engine/lib/constants/communities";
 import { GameObject, ServerHumanObject } from "@/engine/lib/types";
@@ -20,7 +22,7 @@ describe("isObjectSquadCommander utils", () => {
     registerSimulator();
   });
 
-  it("isObjectSquadCommander should correctly check if object commanding squad", () => {
+  it("should correctly check if object commanding squad", () => {
     expect(isObjectSquadCommander(MockGameObject.mock())).toBe(false);
     expect(isObjectSquadCommander(MockAlifeHumanStalker.mock())).toBe(false);
 
@@ -41,7 +43,7 @@ describe("isObjectSquadCommander utils", () => {
     expect(isObjectSquadCommander(serverObject)).toBe(true);
   });
 
-  it("isObjectSquadCommanderById should correctly check if object commanding squad", () => {
+  it("should correctly check if object commanding squad", () => {
     expect(isObjectSquadCommanderById(MockGameObject.mock().id())).toBe(false);
     expect(isObjectSquadCommanderById(MockAlifeHumanStalker.mock().id)).toBe(false);
 
@@ -69,7 +71,7 @@ describe("canSquadHelpActor util", () => {
     registerSimulator();
   });
 
-  it("canSquadHelpActor should correctly check if squad can help actor with no combat / not reachable", () => {
+  it("should correctly check if squad can help actor with no combat / not reachable", () => {
     const squad: MockSquad = MockSquad.mock();
 
     expect(canSquadHelpActor(squad)).toBe(false);
@@ -99,7 +101,7 @@ describe("canSquadHelpActor util", () => {
     expect(canSquadHelpActor(squad)).toBe(false);
   });
 
-  it("canSquadHelpActor should correctly check if squad can help actor with stalker achievement", () => {
+  it("should correctly check if squad can help actor with stalker achievement", () => {
     const squad: Squad = MockSquad.mock();
 
     expect(canSquadHelpActor(squad)).toBe(false);
@@ -114,7 +116,7 @@ describe("canSquadHelpActor util", () => {
     expect(canSquadHelpActor(squad)).toBe(true);
   });
 
-  it("canSquadHelpActor should correctly check if squad can help actor with freedom achievement", () => {
+  it("should correctly check if squad can help actor with freedom achievement", () => {
     const squad: Squad = MockSquad.mock();
 
     expect(canSquadHelpActor(squad)).toBe(false);
@@ -129,7 +131,7 @@ describe("canSquadHelpActor util", () => {
     expect(canSquadHelpActor(squad)).toBe(true);
   });
 
-  it("canSquadHelpActor should correctly check if squad can help actor with duty achievement", () => {
+  it("should correctly check if squad can help actor with duty achievement", () => {
     const squad: Squad = MockSquad.mock();
 
     expect(canSquadHelpActor(squad)).toBe(false);
@@ -152,7 +154,7 @@ describe("getSquadHelpActorTargetId util", () => {
     registerSimulator();
   });
 
-  it("getSquadHelpActorTargetId should correctly get based on combat/position", () => {
+  it("should correctly get based on combat/position", () => {
     const squad: MockSquad = MockSquad.mock();
     const enemySquad: MockSquad = MockSquad.mock();
     const enemy: ServerHumanObject = MockAlifeHumanStalker.mock();
@@ -183,7 +185,7 @@ describe("getSquadHelpActorTargetId util", () => {
     expect(getSquadHelpActorTargetId(squad)).toBeNull();
   });
 
-  it("getSquadHelpActorTargetId should correctly get based on community", () => {
+  it("should correctly get based on community", () => {
     const squad: MockSquad = MockSquad.mock();
     const enemySquad: MockSquad = MockSquad.mock();
     const enemy: MockAlifeHumanStalker = MockAlifeHumanStalker.create();
@@ -211,7 +213,7 @@ describe("getSquadHelpActorTargetId util", () => {
     expect(getSquadHelpActorTargetId(squad)).toBe(enemySquad.id);
   });
 
-  it("getSquadHelpActorTargetId should correctly get based on distance", () => {
+  it("should correctly get based on distance", () => {
     const squad: MockSquad = MockSquad.mock();
     const enemySquad: MockSquad = MockSquad.mock();
     const enemy: MockAlifeHumanStalker = MockAlifeHumanStalker.create();
@@ -232,5 +234,28 @@ describe("getSquadHelpActorTargetId util", () => {
 
     jest.spyOn(squad.position, "distance_to_sqr").mockImplementation(() => 150 * 150 - 1);
     expect(getSquadHelpActorTargetId(squad)).toBe(enemySquad.id);
+  });
+});
+
+describe("isSquadAction util", () => {
+  beforeEach(() => {
+    resetRegistry();
+  });
+
+  it("should correctly check matching action type", () => {
+    const squad: Squad = MockSquad.mock();
+
+    expect(isSquadAction(squad, ESquadActionType.REACH_TARGET)).toBe(false);
+    expect(isSquadAction(squad, ESquadActionType.STAY_ON_TARGET)).toBe(false);
+
+    squad.currentAction = new SquadReachTargetAction(squad);
+
+    expect(isSquadAction(squad, ESquadActionType.REACH_TARGET)).toBe(true);
+    expect(isSquadAction(squad, ESquadActionType.STAY_ON_TARGET)).toBe(false);
+
+    squad.currentAction = new SquadStayOnTargetAction(squad);
+
+    expect(isSquadAction(squad, ESquadActionType.REACH_TARGET)).toBe(false);
+    expect(isSquadAction(squad, ESquadActionType.STAY_ON_TARGET)).toBe(true);
   });
 });

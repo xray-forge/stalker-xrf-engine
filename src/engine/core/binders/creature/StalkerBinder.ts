@@ -16,6 +16,7 @@ import {
   registry,
   resetObject,
   saveObjectLogic,
+  softResetOfflineObject,
   unregisterHelicopterEnemy,
   unregisterStalker,
 } from "@/engine/core/database";
@@ -29,6 +30,7 @@ import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundMan
 import { initializeObjectThemes } from "@/engine/core/managers/sounds/utils";
 import { TradeManager } from "@/engine/core/managers/trade/TradeManager";
 import type { ISmartTerrainJobDescriptor, SmartTerrain } from "@/engine/core/objects/smart_terrain";
+import { Squad } from "@/engine/core/objects/squad";
 import { SchemeHear } from "@/engine/core/schemes/shared/hear/SchemeHear";
 import { SchemePostCombatIdle } from "@/engine/core/schemes/stalker/combat_idle/SchemePostCombatIdle";
 import { activateMeetWithObject, updateObjectMeetAvailability } from "@/engine/core/schemes/stalker/meet/utils";
@@ -69,7 +71,6 @@ import {
   TName,
   TNumberId,
   TRate,
-  TSection,
   TSoundType,
   TTimestamp,
   Vector,
@@ -136,9 +137,9 @@ export class StalkerBinder extends object_binder {
       return true;
     }
 
-    const relation: Optional<ERelation> = registry.goodwill.relations.get(objectId);
+    const relation: Optional<ERelation> = registry.goodwill.relations.get(objectId) as Optional<ERelation>;
 
-    if (relation !== null) {
+    if (relation) {
       setGameObjectRelation(this.object, actor, relation);
     }
 
@@ -156,7 +157,7 @@ export class StalkerBinder extends object_binder {
     // todo: Why? Already same ref in parameter?
     const serverObject: Optional<ServerHumanObject> = registry.simulator.object(objectId);
 
-    if (serverObject !== null) {
+    if (serverObject) {
       if (registry.spawnedVertexes.get(serverObject.id) !== null) {
         this.object.set_npc_position(level.vertex_position(registry.spawnedVertexes.get(serverObject.id)));
         registry.spawnedVertexes.delete(serverObject.id);
@@ -193,42 +194,43 @@ export class StalkerBinder extends object_binder {
   }
 
   public override net_destroy(): void {
-    logger.info("Go offline:", this.object.name());
+    const object: GameObject = this.object;
+    const objectId: TNumberId = object.id();
+    const state: IRegistryObjectState = this.state;
 
-    const objectId: TNumberId = this.object.id();
+    logger.info("Go offline:", object.name());
 
-    registry.actorCombat.delete(objectId);
+    this.resetCallbacks();
+
     getManager(GlobalSoundManager).stopSoundByObjectId(objectId);
 
-    const state: IRegistryObjectState = registry.objects.get(objectId);
+    registry.actorCombat.delete(objectId);
 
     if (state.activeScheme) {
-      emitSchemeEvent(this.object, state[state.activeScheme]!, ESchemeEvent.SWITCH_OFFLINE, this.object);
+      emitSchemeEvent(object, state[state.activeScheme]!, ESchemeEvent.SWITCH_OFFLINE, object);
     }
 
-    if (this.state[EScheme.REACH_TASK]) {
-      emitSchemeEvent(this.object, this.state[EScheme.REACH_TASK], ESchemeEvent.SWITCH_OFFLINE, this.object);
+    if (state[EScheme.REACH_TASK]) {
+      emitSchemeEvent(object, state[EScheme.REACH_TASK], ESchemeEvent.SWITCH_OFFLINE, object);
     }
 
     // Call logics on offline.
     const onOfflineConditionList: Optional<TConditionList> = state.overrides?.onOffline as Optional<TConditionList>;
 
     if (onOfflineConditionList) {
-      pickSectionFromCondList(registry.actor, this.object, onOfflineConditionList);
+      pickSectionFromCondList(registry.actor, object, onOfflineConditionList);
     }
 
-    if (registry.offlineObjects.get(objectId) !== null) {
-      registry.offlineObjects.get(objectId).levelVertexId = this.object.level_vertex_id();
-      registry.offlineObjects.get(objectId).activeSection = state.activeSection as TSection;
+    softResetOfflineObject(objectId, {
+      levelVertexId: object.level_vertex_id(),
+      activeSection: state.activeSection,
+    });
+
+    if (this.helicopterEnemyIndex) {
+      unregisterHelicopterEnemy(this.helicopterEnemyIndex);
     }
 
     unregisterStalker(this);
-
-    this.resetCallbacks();
-
-    if (this.helicopterEnemyIndex !== null) {
-      unregisterHelicopterEnemy(this.helicopterEnemyIndex);
-    }
 
     super.net_destroy();
   }
@@ -236,33 +238,37 @@ export class StalkerBinder extends object_binder {
   public override update(delta: TDuration): void {
     super.update(delta);
 
-    if (registry.actorCombat.get(this.object.id()) && this.object.best_enemy() === null) {
-      registry.actorCombat.delete(this.object.id());
-    }
-
+    const now: TTimestamp = time_global();
     const object: GameObject = this.object;
+    const objectId: TNumberId = object.id();
+    const squad: Optional<Squad> = getObjectSquad(this.object);
     const isObjectAlive: boolean = object.alive();
+    const isSquadCommander: boolean = squad?.commander_id() === objectId;
+
+    if (registry.actorCombat.get(objectId) && !object.best_enemy()) {
+      registry.actorCombat.delete(objectId);
+    }
 
     updateStalkerLogic(object);
 
     if (!this.isFirstUpdate) {
-      if (!isObjectAlive) {
-        getManager(DropManager).createCorpseReleaseItems(this.object);
-      }
-
       this.isFirstUpdate = true;
+
+      if (!isObjectAlive) {
+        getManager(DropManager).createCorpseReleaseItems(object);
+      }
     }
 
-    if (time_global() - this.lastUpdatedAt > 1000) {
+    if (now - this.lastUpdatedAt > 1000) {
+      this.lastUpdatedAt = now;
       this.updateLightState(object);
-      this.lastUpdatedAt = time_global();
     }
 
     if (this.state.stateManager) {
       if (isObjectAlive) {
         this.state.stateManager.update();
 
-        if (this.state.stateManager.isCombat === false && this.state.stateManager.isAlife === false) {
+        if (!this.state.stateManager.isCombat && !this.state.stateManager.isAlife) {
           // --and this.st.state_mgr.planner:current_action_id() == this.st.state_mgr.operators["}"]
           getManager(TradeManager).updateForObject(object);
         }
@@ -275,16 +281,12 @@ export class StalkerBinder extends object_binder {
       getManager(GlobalSoundManager).update(object.id());
       updateObjectMeetAvailability(object);
       initializeObjectInvulnerability(this.object);
-    }
-
-    const squad = getObjectSquad(this.object);
-
-    if (squad !== null && squad.commander_id() === this.object.id()) {
-      squad.update();
-    }
-
-    if (!isObjectAlive) {
+    } else {
       object.set_tip_text_default();
+    }
+
+    if (isSquadCommander) {
+      (squad as Squad).update();
     }
   }
 
